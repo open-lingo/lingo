@@ -8,6 +8,7 @@ function getEnv(name: string): string | undefined {
 
 export const auth0Domain = getEnv("VITE_AUTH0_DOMAIN");
 export const auth0ClientId = getEnv("VITE_AUTH0_CLIENT_ID");
+export const auth0Audience = getEnv("VITE_AUTH0_AUDIENCE");
 
 export const isAuth0Configured =
   Boolean(auth0Domain && auth0ClientId);

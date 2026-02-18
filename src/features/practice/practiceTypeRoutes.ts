@@ -17,7 +17,7 @@ export function getPracticeRoute(type: PracticeType, alphabetId?: string): strin
 }
 
 export const PRACTICE_TYPE_ROUTES: Record<PracticeType, string> = {
-  general: "/practice",
+  general: "/practice/flashcards",
   particles: "/practice/particles",
   kanji: "/practice/kanji",
   alphabet: "/practice/alphabet",

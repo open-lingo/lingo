@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const OPTIONS = [
-  { to: "/flashcards", query: "", labelKey: "home.cards.flashcardsOptionAll" },
-  { to: "/flashcards", query: "?mode=vocab", labelKey: "home.cards.flashcardsOptionVocab" },
-  { to: "/flashcards", query: "?mode=sentences", labelKey: "home.cards.flashcardsOptionSentences" },
+  { to: "/practice/flashcards", query: "", labelKey: "home.cards.flashcardsOptionAll" },
+  { to: "/practice/flashcards", query: "?mode=vocab", labelKey: "home.cards.flashcardsOptionVocab" },
+  { to: "/practice/flashcards", query: "?mode=sentences", labelKey: "home.cards.flashcardsOptionSentences" },
 ] as const;
 
 export function FlashcardsCard() {

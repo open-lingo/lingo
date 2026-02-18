@@ -7,9 +7,50 @@
   },
   "nav": {
     "siteName": "오픈 링고",
+    "home": "홈",
+    "learn": "학습",
+    "learnCourseMap": "코스 맵",
+    "learnCourses": "코스",
+    "practice": "연습",
+    "flashcards": "플래시카드",
+    "stories": "스토리",
     "leaderboard": "리더보드",
     "community": "커뮤니티",
     "settings": "설정"
+  },
+  "learn": {
+    "intro": "학습 경로, 코스, 커스텀 모듈.",
+    "tabsLabel": "학습 섹션",
+    "courseMapDesc": "경로입니다. 완료한 레슨은 채워지며, 탭하면 연습할 수 있습니다.",
+    "officialCourseDesc": "기초부터 유창함까지 구조화된 레슨.",
+    "customCourseModules": "커스텀 코스 모듈",
+    "customCourseModulesDesc": "커뮤니티가 만든 코스를 학습에 추가하세요.",
+    "noCustomModules": "해당 언어의 커스텀 모듈이 아직 없습니다.",
+    "browseAllCourses": "전체 코스 둘러보기"
+  },
+  "practice": {
+    "intro": "플래시카드, 스토리, 스킬 트레이너.",
+    "tabsLabel": "연습 유형",
+    "particlePractice": "조사 연습",
+    "alphabet": "알파벳",
+    "kanji": "한자",
+    "components": "부수",
+    "particles": {
+      "title": "조사 연습",
+      "subtitle": "{{language}} 조사 (주제, 주어, 목적어 표지 등). 형태, 의미, 용법을 익혀 보세요.",
+      "allParticles": "전체 조사",
+      "noLanguage": "조사 연습을 하려면 학습 언어를 선택하세요.",
+      "noData": "{{language}}용 조사 데이터가 없습니다. 준비 중입니다.",
+      "noSections": "섹션이 설정되지 않았습니다.",
+      "sections": {
+        "topic-subject": "주제와 주어",
+        "object": "목적어",
+        "location": "장소",
+        "location-means": "장소·수단",
+        "other": "기타",
+        "all": "조사"
+      }
+    }
   },
   "home": {
     "welcomeBack": "{{name}}님, 다시 오신 걸 환영해요",
@@ -86,6 +127,21 @@
   "community": {
     "title": "커뮤니티",
     "intro": "오픈 링고는 오픈 소스입니다. 콘텐츠, 코스, 앱 모두 커뮤니티가 함께 개선합니다.",
+    "tabsLabel": "커뮤니티 섹션",
+    "contentBrowser": "콘텐츠 탐색",
+    "contentBrowserSearchPlaceholder": "코스·덱 검색…",
+    "contentBrowserSearchResults": "검색 결과",
+    "contentBrowserAllLanguages": "전체 언어",
+    "contentBrowserFlashcardDecks": "플래시카드 덱",
+    "contentBrowserAdditionalCourses": "추가 코스",
+    "contentBrowserNoResults": "검색 조건에 맞는 코스나 덱이 없습니다.",
+    "contentBrowserTrendingCourses": "인기 {{language}} 코스",
+    "contentBrowserTrendingCardPacks": "인기 {{language}} 카드 팩",
+    "contentBrowserNewStories": "새로운 {{language}} 스토리",
+    "contentBrowserStoriesSection": "스토리",
+    "contentBrowserViewAll": "전체 보기",
+    "forum": "포럼",
+    "leaderboard": "리더보드",
     "shareable": "공유:",
     "tabOfficial": "공식",
     "tabCommunity": "커뮤니티",

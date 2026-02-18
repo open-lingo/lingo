@@ -146,7 +146,7 @@ function StoryCard({
   return (
     <li>
       <Link
-        to={`/stories/${story.id}`}
+        to={`/practice/stories/${story.id}`}
         className="block rounded-xl border border-gray-200 bg-white p-4 transition hover:border-green-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-green-600"
       >
         <span className="font-medium text-gray-900 dark:text-white">

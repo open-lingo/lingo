@@ -10,7 +10,7 @@ import { FlashcardsCard } from "@/features/flashcards/FlashcardsCard";
 import { PracticeCard } from "@/features/practice/PracticeCard";
 
 const cardKeys = [
-  { to: "/stories", titleKey: "home.cards.stories", descKey: "home.cards.storiesDesc", icon: "📖" },
+  { to: "/practice/stories", titleKey: "home.cards.stories", descKey: "home.cards.storiesDesc", icon: "📖" },
 ] as const;
 
 export function HomePage() {
@@ -40,7 +40,7 @@ export function HomePage() {
         <>
           {nextLesson && (
             <Link
-              to="/practice"
+              to="/learn"
               className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-4 transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
             >
               <div>
@@ -92,7 +92,7 @@ export function HomePage() {
               {t("home.yourCourse")}
             </h2>
             <Link
-              to="/course-map"
+              to="/learn"
               className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
             >
               View path →
@@ -111,7 +111,7 @@ export function HomePage() {
 
       <section className="flex flex-wrap gap-3">
         <Link
-          to="/stories"
+          to="/practice/stories"
           className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
         >
           {t("home.quickLinks.startStory")}
@@ -123,7 +123,7 @@ export function HomePage() {
           {t("home.quickLinks.grammarHeatmap")}
         </Link>
         <Link
-          to="/leaderboard"
+          to="/community/leaderboard"
           className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
         >
           {t("home.quickLinks.leaderboard")}

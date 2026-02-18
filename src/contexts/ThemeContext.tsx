@@ -6,6 +6,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { useApi } from "@/api/provider";
 
 type Theme = "dark" | "light";
 
@@ -29,6 +30,7 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
+  const { users } = useApi();
 
   useEffect(() => {
     setThemeState(getInitialTheme());
@@ -45,11 +47,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const setTheme = useCallback((next: Theme) => {
     setThemeState(next);
-  }, []);
+    users.updateSettings({ theme: next }).catch(() => {});
+  }, [users]);
 
   const toggleTheme = useCallback(() => {
-    setThemeState((prev) => (prev === "dark" ? "light" : "dark"));
-  }, []);
+    setThemeState((prev) => {
+      const next = prev === "dark" ? "light" : "dark";
+      users.updateSettings({ theme: next }).catch(() => {});
+      return next;
+    });
+  }, [users]);
 
   const value = useMemo(
     () => ({ theme, setTheme, toggleTheme }),

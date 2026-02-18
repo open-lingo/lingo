@@ -7,8 +7,9 @@ import {
   useState,
 } from "react";
 import type { Language } from "@/core/languages";
-import { LANGUAGES } from "@/core/languages";
+import { AVAILABLE_LEARNING_LANGUAGES } from "@/core/languageConfig";
 import { setCachedLanguageId, resolvePreferredLanguage } from "@/api/mock";
+import { useApi } from "@/api/provider";
 
 type LanguageContextValue = {
   language: Language | null;
@@ -22,6 +23,7 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { users } = useApi();
 
   useEffect(() => {
     let cancelled = false;
@@ -39,12 +41,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
     setCachedLanguageId(lang.id);
-  }, []);
+    users.updateSettings({ learningLanguage: lang.id }).catch(() => {});
+  }, [users]);
 
   const value = useMemo(
     () => ({
       language,
-      languages: LANGUAGES,
+      languages: AVAILABLE_LEARNING_LANGUAGES,
       setLanguage,
       isLoading,
     }),

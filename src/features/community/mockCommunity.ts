@@ -84,6 +84,28 @@ export const MOCK_ADDONS: CommunityAddon[] = [
     updatedAt: "2025-02-08T00:00:00Z",
     itemCount: 8,
   },
+  {
+    id: "addon-5",
+    kind: "story",
+    languageId: "ko",
+    name: "Coffee Shop Chat",
+    description: "A conversation at a Seoul coffee shop. Beginner-friendly.",
+    maintainerIds: ["user-1"],
+    upvoteCount: 67,
+    updatedAt: "2025-02-16T00:00:00Z",
+    itemCount: 1,
+  },
+  {
+    id: "addon-6",
+    kind: "story",
+    languageId: "ko",
+    name: "Lost in Seoul",
+    description: "Asking for directions in Korean.",
+    maintainerIds: ["user-3"],
+    upvoteCount: 34,
+    updatedAt: "2025-02-14T00:00:00Z",
+    itemCount: 1,
+  },
 ];
 
 export function getAddonsForLanguage(languageId: string): CommunityAddon[] {
@@ -92,6 +114,29 @@ export function getAddonsForLanguage(languageId: string): CommunityAddon[] {
 
 export function getAllAddons(): CommunityAddon[] {
   return [...MOCK_ADDONS].sort((a, b) => b.upvoteCount - a.upvoteCount);
+}
+
+/** Trending courses (by upvotes) for a language. */
+export function getTrendingCourses(languageId: string): CommunityAddon[] {
+  return MOCK_ADDONS.filter((a) => a.kind === "course" && a.languageId === languageId)
+    .sort((a, b) => b.upvoteCount - a.upvoteCount)
+    .slice(0, 4);
+}
+
+/** Trending flashcard packs (by upvotes) for a language. */
+export function getTrendingCardPacks(languageId: string): CommunityAddon[] {
+  return MOCK_ADDONS.filter(
+    (a) => a.kind === "flashcard-pack" && a.languageId === languageId
+  )
+    .sort((a, b) => b.upvoteCount - a.upvoteCount)
+    .slice(0, 4);
+}
+
+/** New stories for a language (by updatedAt). */
+export function getNewStories(languageId: string): CommunityAddon[] {
+  return MOCK_ADDONS.filter((a) => a.kind === "story" && a.languageId === languageId)
+    .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+    .slice(0, 4);
 }
 
 export function getOfficialCoursesByLanguage(languageId: string): OfficialCourseInfo[] {

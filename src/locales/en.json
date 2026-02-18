@@ -8,12 +8,49 @@
   "nav": {
     "siteName": "Open Lingo",
     "home": "Home",
+    "learn": "Learn",
+    "learnCourseMap": "Course map",
+    "learnCourses": "Courses",
     "practice": "Practice",
     "flashcards": "Flashcards",
     "stories": "Stories",
     "leaderboard": "Leaderboard",
     "community": "Community",
     "settings": "Settings"
+  },
+  "learn": {
+    "intro": "Your learning path, courses, and custom modules.",
+    "tabsLabel": "Learn sections",
+    "courseMapDesc": "Your path. Completed lessons are filled; tap a lesson to practice.",
+    "officialCourseDesc": "Structured lessons from basics to fluency.",
+    "customCourseModules": "Custom course modules",
+    "customCourseModulesDesc": "Community-created courses to add to your learning.",
+    "noCustomModules": "No custom modules for your language yet.",
+    "browseAllCourses": "Browse all courses"
+  },
+  "practice": {
+    "intro": "Flashcards, stories, and skill trainers.",
+    "tabsLabel": "Practice types",
+    "particlePractice": "Particle practice",
+    "alphabet": "Alphabet",
+    "kanji": "Kanji",
+    "components": "Components",
+    "particles": {
+      "title": "Particle practice",
+      "subtitle": "{{language}} particles (e.g. topic, subject, object markers). Learn form, meaning, and usage.",
+      "allParticles": "All particles",
+      "noLanguage": "Choose a learning language to practice particles.",
+      "noData": "No particle data for {{language}}. Coming soon.",
+      "noSections": "No sections configured.",
+      "sections": {
+        "topic-subject": "Topic & subject",
+        "object": "Object",
+        "location": "Location",
+        "location-means": "Location & means",
+        "other": "Other",
+        "all": "Particles"
+      }
+    }
   },
   "home": {
     "welcomeBack": "Welcome back, {{name}}",
@@ -90,6 +127,22 @@
   "community": {
     "title": "Community",
     "intro": "Open Lingo is open source. Content, courses, and this app itself are meant to be improved by the community.",
+    "tabsLabel": "Community sections",
+    "contentBrowser": "Content Browser",
+    "contentBrowserSearchPlaceholder": "Search courses and decks…",
+    "contentBrowserSearchResults": "Search results",
+    "contentBrowserAllLanguages": "All languages",
+    "contentBrowserFlashcardDecks": "Flashcard decks",
+    "contentBrowserAdditionalCourses": "Additional courses",
+    "contentBrowserNoResults": "No courses or decks match your search.",
+    "contentBrowserOpen": "Open",
+    "contentBrowserTrendingCourses": "Trending {{language}} courses",
+    "contentBrowserTrendingCardPacks": "Trending {{language}} card packs",
+    "contentBrowserNewStories": "New {{language}} stories",
+    "contentBrowserStoriesSection": "Stories",
+    "contentBrowserViewAll": "View all",
+    "forum": "Forum",
+    "leaderboard": "Leaderboard",
     "shareable": "Shareable:",
     "tabOfficial": "Official",
     "tabCommunity": "Community",

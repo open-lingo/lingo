@@ -43,7 +43,7 @@ function buildLeaderboardUrl(tab: TabId, period?: string): string {
   const params = new URLSearchParams();
   params.set(LEADERBOARD_TAB_QUERY, tab);
   if (period) params.set(LEADERBOARD_PERIOD_QUERY, period);
-  return `/leaderboard?${params.toString()}`;
+  return `/community/leaderboard?${params.toString()}`;
 }
 
 export function LeaderboardPage() {
@@ -63,7 +63,7 @@ export function LeaderboardPage() {
           {t("leaderboard.title")}
         </h1>
         <Link
-          to="/"
+          to="/community"
           className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
         >
           {t("leaderboard.back")}

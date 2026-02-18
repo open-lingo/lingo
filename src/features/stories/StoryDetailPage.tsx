@@ -11,7 +11,7 @@ export function StoryDetailPage() {
     return (
       <div className="mx-auto max-w-2xl space-y-4">
         <p className="text-gray-500 dark:text-gray-400">{t("stories.storyNotFound")}</p>
-        <Link to="/stories" className="text-sm text-green-600 dark:text-green-400">
+        <Link to="/practice/stories" className="text-sm text-green-600 dark:text-green-400">
           {t("stories.back")}
         </Link>
       </div>
@@ -22,7 +22,7 @@ export function StoryDetailPage() {
     <div className="mx-auto max-w-2xl space-y-6">
       <div className="flex items-center justify-between">
         <Link
-          to="/stories"
+          to="/practice/stories"
           className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
         >
           {t("stories.back")}

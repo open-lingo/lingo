@@ -9,5 +9,11 @@
     { "id": "no", "form": "の", "meaning": "possessive / of", "usage": "Connects nouns: A の B = B of A / A's B." },
     { "id": "to", "form": "と", "meaning": "and / with / quotation", "usage": "Lists items, indicates a companion, or marks quoted speech." },
     { "id": "ka", "form": "か", "meaning": "question marker", "usage": "Added at end of sentence to form a question." }
+  ],
+  "sections": [
+    { "id": "topic-subject", "name": "Topic & subject", "particleIds": ["wa", "ga"] },
+    { "id": "object", "name": "Object", "particleIds": ["wo"] },
+    { "id": "location", "name": "Location & means", "particleIds": ["ni", "de"] },
+    { "id": "other", "name": "Other", "particleIds": ["no", "to", "ka"] }
   ]
 }

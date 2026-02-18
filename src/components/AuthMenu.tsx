@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/auth/useAuth";
+import { useSettingsModal } from "@/contexts/SettingsModalContext";
 import { getStoredProfile } from "@/settings/profileStorage";
 
 export function AuthMenu() {
@@ -10,6 +11,7 @@ export function AuthMenu() {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const profile = user?.sub ? getStoredProfile(user.sub) : null;
+  const { openSettings, openProfile } = useSettingsModal();
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -61,21 +63,21 @@ export function AuthMenu() {
               )}
             </div>
           )}
-          <Link
-            to="/settings"
-            className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 dark:hover:bg-gray-700"
-            onClick={() => setOpen(false)}
+          <button
+            type="button"
+            className="block w-full px-4 py-2 text-left text-sm text-gray-200 hover:bg-gray-700 dark:hover:bg-gray-700"
+            onClick={() => { setOpen(false); openSettings(); }}
           >
             {t("nav.settings")}
-          </Link>
+          </button>
           {isAuthenticated && (
-            <Link
-              to="/settings/profile"
-              className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 dark:hover:bg-gray-700"
-              onClick={() => setOpen(false)}
+            <button
+              type="button"
+              className="block w-full px-4 py-2 text-left text-sm text-gray-200 hover:bg-gray-700 dark:hover:bg-gray-700"
+              onClick={() => { setOpen(false); openProfile(); }}
             >
               {t("profile.editProfile")}
-            </Link>
+            </button>
           )}
           {isAuthenticated ? (
             <Link

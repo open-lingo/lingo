@@ -1,40 +1,59 @@
 # Todos and what's left
 
-By area. Skip obvious / already-done work.
+By area. Check tasks in `doc/tasks/` for detailed specs per item.
 
-## Backend and data
+## Done (recently)
 
-- [ ] User API: GET/PATCH `/api/users/me/settings` keyed by Auth0 `sub`. Replace `settings/storage.ts` impl. See `src/settings/README.md`.
-- [ ] Preferred language from backend: replace `api/mock.ts` `fetchUserPreferredLanguage()` with real API; keep cache-first in `resolvePreferredLanguage`.
-- [ ] Course content API: replace `mockCourse.ts` with API; keep or adapt `course.ts` types.
-- [ ] Progress API: replace `mockProgress.ts` (summary, completed lessons) with backend.
-- [ ] Leaderboard API: replace mock data in LeaderboardPage with real rankings/XP.
-- [ ] Funding meter: plug real ad-funded % into FundingMeter; remove mock constant.
+- [x] i18n: react-i18next, en.json + ko.json, Settings page (language, theme, UI locale)
+- [x] Auth0: env-based config (VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID), normalized callback
+- [x] Layout: Home, Practice, Flashcards, Stories, Leaderboard, Community in nav
+- [x] Home: course cards, continue learning, progress summary, quick links
+- [x] Flashcards: deck viewer, FlashcardTester with highlight mode + reasoning, ko + ja decks
+- [x] Stories: hub page (sidebar, search, filter, course/community sections), detail page
+- [x] Community: official courses, addons, forum, suggestions, contribute
+- [x] Leaderboard: category cards, tabs (XP, language, flashcards, contributors)
+- [x] Course map: SVG path with lesson nodes
+- [x] Profile: edit page (avatar, username, name, status)
+- [x] Language config: reduced to ko + ja only in learning selector; full config kept for future
+- [x] Japanese stub: flashcards (5 cards), particles (8), stories (6)
+- [x] Korean: flashcards (5 cards), particles (8), stories (6)
 
-## Flashcards and SRS
+## UI pages — stub → real
 
-- [ ] Real decks: replace `mockCards.ts` with deck/card API or local format.
-- [ ] SRS/Anki logic: scheduling, due dates, intervals; hook into "cards due today" and review flow.
+Each has a task doc in `doc/tasks/`.
 
-## Content and courses
+- [ ] **Vocab page** → [vocab-page.md](tasks/vocab-page.md)
+- [ ] **Practice hub** → [practice-hub.md](tasks/practice-hub.md)
+- [ ] **Particle practice** → [particle-practice.md](tasks/particle-practice.md)
+- [ ] **Kanji practice** → [kanji-practice.md](tasks/kanji-practice.md)
+- [ ] **Alphabet learner** → [alphabet-learner.md](tasks/alphabet-learner.md)
+- [ ] **Components practice** → [components-practice.md](tasks/components-practice.md)
+- [ ] **Grammar page** → [grammar-page.md](tasks/grammar-page.md)
+- [ ] **Story content** (real text + exercises) → [story-content.md](tasks/story-content.md)
 
-- [ ] Real course structure: modules/lessons from API or CMS; intro from languageConfig or API.
-- [ ] Stories: replace stub with real content and flow.
-- [ ] Vocab: replace stub with real lists/API.
-- [ ] Grammar: grammar heatmap data and UX (stub exists).
-- [ ] Course i18n: custom translations for course content (separate from main-site i18n).
+## Engine / logic
 
-## Community and social
+- [ ] **SRS engine** (spaced repetition) → [srs-engine.md](tasks/srs-engine.md)
 
-- [ ] Discussions / Discord when community grows (see `community.linkDiscord` in locales).
-- [ ] Contribution flow: clear path from Community to submit course / suggest content (GitHub, forms, or backend).
+## Content expansion
+
+- [ ] **Korean content** (30+ cards, 14+ particles, sentences, vocab lists) → [korean-content.md](tasks/korean-content.md)
+- [ ] **Japanese content** (30+ cards, 12+ particles, sentences, vocab lists) → [japanese-content.md](tasks/japanese-content.md)
+
+## Backend (future)
+
+- [ ] **User settings API** → [backend-user-api.md](tasks/backend-user-api.md)
+- [ ] **Progress API** → [backend-progress-api.md](tasks/backend-progress-api.md)
+- [ ] **Content API** → [backend-content-api.md](tasks/backend-content-api.md)
+- [ ] Leaderboard API: replace mock data with real rankings/XP
+- [ ] Funding meter: plug real ad-funded % into FundingMeter
 
 ## Frontend polish
 
-- [ ] More UI locales: add e.g. es (and `src/locales/es.json`); add to i18n and Settings.
-- [ ] Sync / offline: IStorage/ISync (or similar) for progress and settings if planned; depends on backend.
+- [ ] More UI locales: add ja.json (Japanese UI); add to i18n supportedLngs and Settings
+- [ ] Sync / offline: IStorage/ISync for progress and settings when backend exists
 
 ## Docs and config
 
-- [ ] .env from .env.example (Auth0 vars) for local dev.
-- [ ] Amplify env: VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID for prod.
+- [x] .env.example with Auth0 vars
+- [ ] Amplify env: VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID for prod deployment

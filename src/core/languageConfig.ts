@@ -21,11 +21,24 @@ export type PracticeOption = {
   sampleCharacter?: string;
 };
 
+/** One section of an alphabet (e.g. consonants, vowels, a-row). */
+export type AlphabetSection = {
+  id: string;
+  name: string;
+  /** Characters in this section. When omitted, section is placeholder for future content. */
+  characters: string[];
+};
+
 export type AlphabetDef = {
   id: string;
   name: string;
   description?: string;
+  /** Flat list when no sections; also used as fallback when sections omit some chars. */
   characters?: string[];
+  /** When set, UI shows characters grouped by section. Otherwise a single "Characters" block uses characters[]. */
+  sections?: AlphabetSection[];
+  /** Optional map: character → romanization (e.g. Revised Romanization for Hangul, romaji for Japanese). */
+  characterRomanization?: Record<string, string>;
 };
 
 export type LanguageConfig = {
@@ -46,6 +59,95 @@ export type LanguageConfig = {
   introLessonTitle?: string;
 };
 
+// Japanese syllabaries (shared structure; used in ja config)
+const JA_HIRAGANA: AlphabetDef = {
+  id: "hiragana",
+  name: "Hiragana",
+  description: "Japanese syllabary (ひらがな)",
+  characters: [
+    "あ", "い", "う", "え", "お", "か", "き", "く", "け", "こ", "さ", "し", "す", "せ", "そ",
+    "た", "ち", "つ", "て", "と", "な", "に", "ぬ", "ね", "の", "は", "ひ", "ふ", "へ", "ほ",
+    "ま", "み", "む", "め", "も", "や", "ゆ", "よ", "ら", "り", "る", "れ", "ろ", "わ", "を", "ん",
+    "が", "ぎ", "ぐ", "げ", "ご", "ざ", "じ", "ず", "ぜ", "ぞ", "だ", "ぢ", "づ", "で", "ど",
+    "ば", "び", "ぶ", "べ", "ぼ", "ぱ", "ぴ", "ぷ", "ぺ", "ぽ",
+  ],
+  sections: [
+    { id: "a-row", name: "あ-row (vowels)", characters: ["あ", "い", "う", "え", "お"] },
+    { id: "ka-row", name: "か-row", characters: ["か", "き", "く", "け", "こ"] },
+    { id: "sa-row", name: "さ-row", characters: ["さ", "し", "す", "せ", "そ"] },
+    { id: "ta-row", name: "た-row", characters: ["た", "ち", "つ", "て", "と"] },
+    { id: "na-row", name: "な-row", characters: ["な", "に", "ぬ", "ね", "の"] },
+    { id: "ha-row", name: "は-row", characters: ["は", "ひ", "ふ", "へ", "ほ"] },
+    { id: "ma-row", name: "ま-row", characters: ["ま", "み", "む", "め", "も"] },
+    { id: "ya-row", name: "や-row", characters: ["や", "ゆ", "よ"] },
+    { id: "ra-row", name: "ら-row", characters: ["ら", "り", "る", "れ", "ろ"] },
+    { id: "wa-row", name: "わ-row", characters: ["わ", "を", "ん"] },
+    { id: "dakuten", name: "Dakuten (voiced 濁音)", characters: ["が", "ぎ", "ぐ", "げ", "ご", "ざ", "じ", "ず", "ぜ", "ぞ", "だ", "ぢ", "づ", "で", "ど", "ば", "び", "ぶ", "べ", "ぼ"] },
+    { id: "handakuten", name: "Handakuten (half-voiced 半濁音)", characters: ["ぱ", "ぴ", "ぷ", "ぺ", "ぽ"] },
+  ],
+  characterRomanization: {
+    あ: "a", い: "i", う: "u", え: "e", お: "o",
+    か: "ka", き: "ki", く: "ku", け: "ke", こ: "ko",
+    さ: "sa", し: "shi", す: "su", せ: "se", そ: "so",
+    た: "ta", ち: "chi", つ: "tsu", て: "te", と: "to",
+    な: "na", に: "ni", ぬ: "nu", ね: "ne", の: "no",
+    は: "ha", ひ: "hi", ふ: "fu", へ: "he", ほ: "ho",
+    ま: "ma", み: "mi", む: "mu", め: "me", も: "mo",
+    や: "ya", ゆ: "yu", よ: "yo",
+    ら: "ra", り: "ri", る: "ru", れ: "re", ろ: "ro",
+    わ: "wa", を: "wo", ん: "n",
+    が: "ga", ぎ: "gi", ぐ: "gu", げ: "ge", ご: "go",
+    ざ: "za", じ: "ji", ず: "zu", ぜ: "ze", ぞ: "zo",
+    だ: "da", ぢ: "ji", づ: "zu", で: "de", ど: "do",
+    ば: "ba", び: "bi", ぶ: "bu", べ: "be", ぼ: "bo",
+    ぱ: "pa", ぴ: "pi", ぷ: "pu", ぺ: "pe", ぽ: "po",
+  },
+};
+
+const JA_KATAKANA: AlphabetDef = {
+  id: "katakana",
+  name: "Katakana",
+  description: "Japanese syllabary (カタカナ)",
+  characters: [
+    "ア", "イ", "ウ", "エ", "オ", "カ", "キ", "ク", "ケ", "コ", "サ", "シ", "ス", "セ", "ソ",
+    "タ", "チ", "ツ", "テ", "ト", "ナ", "ニ", "ヌ", "ネ", "ノ", "ハ", "ヒ", "フ", "ヘ", "ホ",
+    "マ", "ミ", "ム", "メ", "モ", "ヤ", "ユ", "ヨ", "ラ", "リ", "ル", "レ", "ロ", "ワ", "ヲ", "ン",
+    "ガ", "ギ", "グ", "ゲ", "ゴ", "ザ", "ジ", "ズ", "ゼ", "ゾ", "ダ", "ヂ", "ヅ", "デ", "ド",
+    "バ", "ビ", "ブ", "ベ", "ボ", "パ", "ピ", "プ", "ペ", "ポ",
+  ],
+  sections: [
+    { id: "a-row", name: "ア-row (vowels)", characters: ["ア", "イ", "ウ", "エ", "オ"] },
+    { id: "ka-row", name: "カ-row", characters: ["カ", "キ", "ク", "ケ", "コ"] },
+    { id: "sa-row", name: "サ-row", characters: ["サ", "シ", "ス", "セ", "ソ"] },
+    { id: "ta-row", name: "タ-row", characters: ["タ", "チ", "ツ", "テ", "ト"] },
+    { id: "na-row", name: "ナ-row", characters: ["ナ", "ニ", "ヌ", "ネ", "ノ"] },
+    { id: "ha-row", name: "ハ-row", characters: ["ハ", "ヒ", "フ", "ヘ", "ホ"] },
+    { id: "ma-row", name: "マ-row", characters: ["マ", "ミ", "ム", "メ", "モ"] },
+    { id: "ya-row", name: "ヤ-row", characters: ["ヤ", "ユ", "ヨ"] },
+    { id: "ra-row", name: "ラ-row", characters: ["ラ", "リ", "ル", "レ", "ロ"] },
+    { id: "wa-row", name: "ワ-row", characters: ["ワ", "ヲ", "ン"] },
+    { id: "dakuten", name: "Dakuten (voiced 濁音)", characters: ["ガ", "ギ", "グ", "ゲ", "ゴ", "ザ", "ジ", "ズ", "ゼ", "ゾ", "ダ", "ヂ", "ヅ", "デ", "ド", "バ", "ビ", "ブ", "ベ", "ボ"] },
+    { id: "handakuten", name: "Handakuten (half-voiced 半濁音)", characters: ["パ", "ピ", "プ", "ペ", "ポ"] },
+  ],
+  characterRomanization: {
+    ア: "a", イ: "i", ウ: "u", エ: "e", オ: "o",
+    カ: "ka", キ: "ki", ク: "ku", ケ: "ke", コ: "ko",
+    サ: "sa", シ: "shi", ス: "su", セ: "se", ソ: "so",
+    タ: "ta", チ: "chi", ツ: "tsu", テ: "te", ト: "to",
+    ナ: "na", ニ: "ni", ヌ: "nu", ネ: "ne", ノ: "no",
+    ハ: "ha", ヒ: "hi", フ: "fu", ヘ: "he", ホ: "ho",
+    マ: "ma", ミ: "mi", ム: "mu", メ: "me", モ: "mo",
+    ヤ: "ya", ユ: "yu", ヨ: "yo",
+    ラ: "ra", リ: "ri", ル: "ru", レ: "re", ロ: "ro",
+    ワ: "wa", ヲ: "wo", ン: "n",
+    ガ: "ga", ギ: "gi", グ: "gu", ゲ: "ge", ゴ: "go",
+    ザ: "za", ジ: "ji", ズ: "zu", ゼ: "ze", ゾ: "zo",
+    ダ: "da", ヂ: "ji", ヅ: "zu", デ: "de", ド: "do",
+    バ: "ba", ビ: "bi", ブ: "bu", ベ: "be", ボ: "bo",
+    パ: "pa", ピ: "pi", プ: "pu", ペ: "pe", ポ: "po",
+  },
+};
+
 export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
   ko: {
     id: "ko",
@@ -61,7 +163,52 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
       id: "hangul",
       name: "Hangul",
       description: "Korean alphabet",
-      characters: ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㅏ", "ㅓ", "ㅗ", "ㅜ", "ㅡ", "ㅣ"],
+      characters: [
+        "ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ",
+        "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ",
+        "ㅏ", "ㅓ", "ㅗ", "ㅜ", "ㅡ", "ㅣ", "ㅑ", "ㅕ", "ㅛ", "ㅠ", "ㅐ", "ㅔ", "ㅒ", "ㅖ", "ㅘ", "ㅙ", "ㅚ", "ㅝ", "ㅞ", "ㅟ", "ㅢ",
+      ],
+      sections: [
+        {
+          id: "consonants-plain",
+          name: "Plain consonants (기본 자음)",
+          characters: ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅎ"],
+        },
+        {
+          id: "consonants-aspirated",
+          name: "Aspirated consonants (거센소리)",
+          characters: ["ㅊ", "ㅋ", "ㅌ", "ㅍ"],
+        },
+        {
+          id: "consonants-tense",
+          name: "Tense consonants (쌍자음)",
+          characters: ["ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"],
+        },
+        {
+          id: "vowels-basic",
+          name: "Basic vowels (기본 모음)",
+          characters: ["ㅏ", "ㅓ", "ㅗ", "ㅜ", "ㅡ", "ㅣ"],
+        },
+        {
+          id: "vowels-y",
+          name: "Y-vowels (y 모음)",
+          characters: ["ㅑ", "ㅕ", "ㅛ", "ㅠ"],
+        },
+        {
+          id: "vowels-compound",
+          name: "Compound vowels (복합 모음)",
+          characters: ["ㅐ", "ㅔ", "ㅒ", "ㅖ", "ㅘ", "ㅙ", "ㅚ", "ㅝ", "ㅞ", "ㅟ", "ㅢ"],
+        },
+      ],
+      characterRomanization: {
+        ㄱ: "g", ㄴ: "n", ㄷ: "d", ㄹ: "r", ㅁ: "m", ㅂ: "b", ㅅ: "s", ㅇ: "ng", ㅈ: "j", ㅎ: "h",
+        ㅊ: "ch", ㅋ: "k", ㅌ: "t", ㅍ: "p",
+        ㄲ: "kk", ㄸ: "tt", ㅃ: "pp", ㅆ: "ss", ㅉ: "jj",
+        ㅏ: "a", ㅓ: "eo", ㅗ: "o", ㅜ: "u", ㅡ: "eu", ㅣ: "i",
+        ㅑ: "ya", ㅕ: "yeo", ㅛ: "yo", ㅠ: "yu",
+        ㅐ: "ae", ㅔ: "e", ㅒ: "yae", ㅖ: "ye",
+        ㅘ: "wa", ㅙ: "wae", ㅚ: "oe", ㅝ: "wo", ㅞ: "we", ㅟ: "wi", ㅢ: "ui",
+      },
     },
     introLessonTitle: "Introduction to Korean",
   },
@@ -78,15 +225,8 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
       { type: "alphabet", id: "katakana", label: "Katakana (Alphabet)", sampleCharacter: "シ" },
       { type: "components", label: "Character components" },
     ],
-    alphabets: [
-      { id: "hiragana", name: "Hiragana", description: "Japanese syllabary" },
-      { id: "katakana", name: "Katakana", description: "Japanese syllabary" },
-    ],
-    alphabet: {
-      id: "hiragana",
-      name: "Hiragana",
-      description: "Japanese syllabary",
-    },
+    alphabets: [JA_HIRAGANA, JA_KATAKANA],
+    alphabet: JA_HIRAGANA,
     hasComponentBreakdown: true,
     introLessonTitle: "Introduction to Japanese",
   },
@@ -181,6 +321,15 @@ export function getAlphabetById(languageId: string, alphabetId: string): Alphabe
   if (fromArray) return fromArray;
   const single = config?.alphabet;
   return single?.id === alphabetId ? single : undefined;
+}
+
+/** Sections to display: alphabet.sections if present, else one section from alphabet.characters. */
+export function getAlphabetDisplaySections(alphabet: AlphabetDef): AlphabetSection[] {
+  if (alphabet.sections?.length) return alphabet.sections;
+  const chars = alphabet.characters;
+  if (chars?.length)
+    return [{ id: "all", name: "Characters", characters: chars }];
+  return [];
 }
 
 /** All alphabets for a language (for dropdown / multiple scripts). */

@@ -9,5 +9,11 @@
     { "id": "의", "form": "의", "meaning": "possessive" },
     { "id": "와_과", "form": "와/과", "meaning": "and (with)", "usage": "와 after vowel, 과 after consonant" },
     { "id": "세요", "form": "세요", "meaning": "polite ending (honorific)" }
+  ],
+  "sections": [
+    { "id": "topic-subject", "name": "Topic & subject", "particleIds": ["은_는", "이_가"] },
+    { "id": "object", "name": "Object", "particleIds": ["을_를"] },
+    { "id": "location", "name": "Location", "particleIds": ["에", "에서"] },
+    { "id": "other", "name": "Other", "particleIds": ["의", "와_과", "세요"] }
   ]
 }

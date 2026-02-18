@@ -36,7 +36,7 @@ export function ProgressSummary() {
             {p.cardsDueToday}
           </p>
           <Link
-            to="/flashcards"
+            to="/practice/flashcards"
             className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
           >
             {t("progress.cardsDueToday")}
