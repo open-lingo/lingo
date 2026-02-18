@@ -19,7 +19,7 @@ function getOptions(config: ReturnType<typeof getLanguageConfig>): PracticeOptio
 export function PracticeCard() {
   const { t } = useTranslation();
   const { language } = useLanguage();
-  const config = language ? getLanguageConfig(language.id) : null;
+  const config = language ? getLanguageConfig(language.id) : undefined;
   const options = getOptions(config);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);

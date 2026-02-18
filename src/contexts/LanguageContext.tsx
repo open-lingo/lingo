@@ -7,12 +7,8 @@ import {
   useState,
 } from "react";
 import type { Language } from "@/core/languages";
-import { LANGUAGES, getLanguageById } from "@/core/languages";
-import {
-  getCachedLanguageId,
-  setCachedLanguageId,
-  resolvePreferredLanguage,
-} from "@/api/mock";
+import { LANGUAGES } from "@/core/languages";
+import { setCachedLanguageId, resolvePreferredLanguage } from "@/api/mock";
 
 type LanguageContextValue = {
   language: Language | null;

@@ -1,9 +1,7 @@
 import type { FlashcardDeck } from "./types";
 import type { ParticlesData } from "../particles/types";
 
-// @ts-expect-error JSON import
 import koDeck from "./ko-beginner.json";
-// @ts-expect-error JSON import
 import koParticles from "../particles/ko.json";
 
 const decksByLang: Record<string, FlashcardDeck> = {
