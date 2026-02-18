@@ -1,0 +1,94 @@
+{
+  "common": {
+    "loading": "로딩 중...",
+    "back": "← 뒤로",
+    "backToHome": "← 홈으로",
+    "user": "사용자"
+  },
+  "nav": {
+    "siteName": "오픈 링고",
+    "leaderboard": "리더보드",
+    "community": "커뮤니티",
+    "settings": "설정"
+  },
+  "home": {
+    "welcomeBack": "{{name}}님, 다시 오신 걸 환영해요",
+    "welcomeGuest": "오픈 링고에 오신 것을 환영합니다",
+    "continueLearning": "이어서 학습",
+    "yourCourse": "내 코스",
+    "cards": {
+      "flashcards": "플래시카드",
+      "flashcardsDesc": "복습 및 연습",
+      "stories": "스토리",
+      "storiesDesc": "맥락 속에서 읽고 배우기",
+      "vocab": "어휘",
+      "vocabDesc": "어휘 쌓기",
+      "practice": "연습",
+      "practiceDesc": "연습과 드릴",
+      "chooseType": "유형 선택"
+    },
+    "quickLinks": {
+      "startStory": "스토리 시작",
+      "grammarHeatmap": "문법 히트맵",
+      "leaderboard": "리더보드",
+      "community": "커뮤니티"
+    }
+  },
+  "auth": {
+    "accountMenu": "계정 메뉴",
+    "logIn": "로그인",
+    "logOut": "로그아웃"
+  },
+  "funding": {
+    "adFunded": "광고 {{percent}}%",
+    "premium": "프리미엄 {{percent}}%",
+    "ariaLabel": "광고 {{adPercent}}%, 프리미엄 {{premiumPercent}}%"
+  },
+  "progress": {
+    "title": "내 진행",
+    "dayStreak": "일 연속",
+    "lessonsThisWeek": "이번 주 레슨",
+    "cardsDueToday": "오늘 복습 카드",
+    "todaysGoal": "오늘 목표",
+    "reviewCards": "카드 복습",
+    "practice": "연습"
+  },
+  "leaderboard": {
+    "title": "리더보드",
+    "back": "← 뒤로",
+    "topLearners": "이번 {{period}} 상위 학습자. (목 데이터)",
+    "shareable": "공유:",
+    "periodWeek": "?period=week",
+    "periodMonth": "?period=month",
+    "rank": "순위",
+    "name": "이름",
+    "xp": "XP"
+  },
+  "community": {
+    "title": "커뮤니티",
+    "intro": "오픈 링고는 오픈 소스입니다. 콘텐츠, 코스, 앱 모두 커뮤니티가 함께 개선합니다.",
+    "shareable": "공유:",
+    "tabContribute": "?tab=contribute",
+    "tabLinks": "?tab=links",
+    "contribute": "기여하기",
+    "contributeCourses": "새 코스·레슨 제안 — GitHub나 기여 가이드를 통해 제출해 주세요.",
+    "contributeFeedback": "제안·피드백 — 기능, 버그, 수정 사항은 이슈로 열어 주세요.",
+    "contributeCode": "코드·UX — 앱과 API는 오픈입니다. PR 환영합니다.",
+    "links": "링크",
+    "linkGitHub": "GitHub — open-lingo/lingo",
+    "linkIssues": "이슈 — 버그·기능 제안",
+    "linkDiscord": "(토론 / Discord — 추후)",
+    "footer": "이 페이지는 의도적으로 단순합니다. 수정·제안은 이슈나 PR로 부탁드립니다.",
+    "backToHome": "← 홈으로"
+  },
+  "settings": {
+    "title": "설정",
+    "learningLanguage": "학습 언어",
+    "learningLanguageHelp": "코스와 연습에서 배울 언어입니다.",
+    "theme": "테마",
+    "themeLight": "라이트",
+    "themeDark": "다크",
+    "uiLocale": "화면 언어",
+    "uiLocaleHelp": "메뉴와 버튼에 쓰이는 언어입니다."
+  }
+}

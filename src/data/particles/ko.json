@@ -1,0 +1,13 @@
+{
+  "languageId": "ko",
+  "particles": [
+    { "id": "은_는", "form": "은/는", "meaning": "topic marker", "usage": "After consonant use 은, after vowel use 는" },
+    { "id": "이_가", "form": "이/가", "meaning": "subject marker", "usage": "이 after consonant, 가 after vowel" },
+    { "id": "을_를", "form": "을/를", "meaning": "object marker", "usage": "을 after consonant, 를 after vowel" },
+    { "id": "에", "form": "에", "meaning": "at / to / in (time or place)" },
+    { "id": "에서", "form": "에서", "meaning": "at (location where action happens)" },
+    { "id": "의", "form": "의", "meaning": "possessive" },
+    { "id": "와_과", "form": "와/과", "meaning": "and (with)", "usage": "와 after vowel, 과 after consonant" },
+    { "id": "세요", "form": "세요", "meaning": "polite ending (honorific)" }
+  ]
+}

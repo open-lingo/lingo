@@ -1,0 +1,67 @@
+{
+  "id": "ko-beginner",
+  "languageId": "ko",
+  "name": "Korean beginner",
+  "cards": [
+    {
+      "id": "ko-1",
+      "front": "안녕하세요",
+      "back": "Hello / Good day",
+      "note": "Polite greeting.",
+      "type": "word",
+      "reasoning": "안녕 = peace/wellness, 하다 = do, 세요 = polite ending. Literally ‘do peace’ → hello.",
+      "parts": [
+        { "segment": "안녕", "meaning": "peace, wellness" },
+        { "segment": "하", "meaning": "do (stem)" },
+        { "segment": "세요", "particleId": "세요" }
+      ]
+    },
+    {
+      "id": "ko-2",
+      "front": "저는 학생입니다",
+      "back": "I am a student.",
+      "type": "sentence",
+      "reasoning": "저 = I (humble), 는 = topic, 학생 = student, 이다 = to be, ㅂ니다 = formal declarative.",
+      "words": [
+        { "segment": "저", "meaning": "I (humble)" },
+        { "segment": "는", "particleId": "은_는" },
+        { "segment": "학생", "meaning": "student" },
+        { "segment": "입니다", "meaning": "am (formal)" }
+      ]
+    },
+    {
+      "id": "ko-3",
+      "front": "사과를 먹어요",
+      "back": "I eat an apple. / (Someone) eats an apple.",
+      "type": "sentence",
+      "reasoning": "사과 = apple, 를 = object marker, 먹다 = eat, 어요 = polite present.",
+      "words": [
+        { "segment": "사과", "meaning": "apple" },
+        { "segment": "를", "particleId": "을_를" },
+        { "segment": "먹어요", "meaning": "eat (polite)" }
+      ]
+    },
+    {
+      "id": "ko-4",
+      "front": "학교에 가요",
+      "back": "I go to school.",
+      "type": "sentence",
+      "reasoning": "학교 = school, 에 = to (place), 가다 = go, 아요/어요 = polite.",
+      "words": [
+        { "segment": "학교", "meaning": "school" },
+        { "segment": "에", "particleId": "에" },
+        { "segment": "가요", "meaning": "go (polite)" }
+      ]
+    },
+    {
+      "id": "ko-5",
+      "front": "감사합니다",
+      "back": "Thank you.",
+      "note": "Formal thanks.",
+      "type": "other",
+      "definition": "Thank you (formal).",
+      "context": "Use after someone helps you or gives something.",
+      "reasoning": "감사 = gratitude, 하다 = do, ㅂ니다 = formal. ‘I do gratitude.’"
+    }
+  ]
+}

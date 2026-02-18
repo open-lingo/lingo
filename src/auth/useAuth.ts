@@ -19,8 +19,10 @@ export function useAuth() {
   const signup = () =>
     loginWithRedirect({ authorizationParams: { screen_hint: "signup" } });
 
+  const canonicalOrigin =
+    window.location.origin + (window.location.origin.endsWith("/") ? "" : "/");
   const logout = () =>
-    auth0Logout({ logoutParams: { returnTo: window.location.origin } });
+    auth0Logout({ logoutParams: { returnTo: canonicalOrigin } });
 
   return {
     isLoading,
