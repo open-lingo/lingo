@@ -1,0 +1,34 @@
+import { useAuth0 } from "@auth0/auth0-react";
+
+/**
+ * Auth hook wrapping Auth0's useAuth0.
+ * Single auth module: use this hook for login, logout, and user state.
+ */
+export function useAuth() {
+  const {
+    isLoading,
+    isAuthenticated,
+    error,
+    user,
+    loginWithRedirect,
+    logout: auth0Logout,
+  } = useAuth0();
+
+  const login = () => loginWithRedirect();
+
+  const signup = () =>
+    loginWithRedirect({ authorizationParams: { screen_hint: "signup" } });
+
+  const logout = () =>
+    auth0Logout({ logoutParams: { returnTo: window.location.origin } });
+
+  return {
+    isLoading,
+    isAuthenticated: !!isAuthenticated,
+    error,
+    user: user ?? null,
+    login,
+    signup,
+    logout,
+  };
+}
