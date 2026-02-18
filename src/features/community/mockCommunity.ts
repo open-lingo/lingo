@@ -99,3 +99,10 @@ export function getAddonsForLanguage(languageId: string): CommunityAddon[] {
 export function getAllAddons(): CommunityAddon[] {
   return [...MOCK_ADDONS].sort((a, b) => b.upvoteCount - a.upvoteCount);
 }
+
+export function getOfficialCoursesByLanguage(languageId: string): OfficialCourseInfo[] {
+  return MOCK_OFFICIAL_COURSES.filter((c) => c.languageId === languageId);
+}
+
+/** Language IDs that have official courses (for dropdown). */
+export const OFFICIAL_COURSE_LANGUAGES = MOCK_OFFICIAL_COURSES.map((c) => c.languageId);

@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/auth/useAuth";
+import { getStoredProfile } from "@/settings/profileStorage";
 
 export function AuthMenu() {
   const { t } = useTranslation();
   const { isAuthenticated, isLoading, user } = useAuth();
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const profile = user?.sub ? getStoredProfile(user.sub) : null;
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -25,19 +27,25 @@ export function AuthMenu() {
     );
   }
 
-  const displayName = user?.name ?? user?.email ?? t("common.user");
+  const displayName =
+    profile?.realName ?? profile?.username ?? user?.name ?? user?.email ?? t("common.user");
+  const avatarUrl = profile?.avatarUrl ?? user?.picture;
 
   return (
     <div className="relative" ref={menuRef}>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-600 text-gray-200 transition hover:bg-gray-500 dark:bg-gray-600 dark:hover:bg-gray-500"
+        className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-gray-600 text-gray-200 transition hover:bg-gray-500 dark:bg-gray-600 dark:hover:bg-gray-500"
         aria-expanded={open}
         aria-haspopup="true"
         aria-label={t("auth.accountMenu")}
       >
-        <UserIcon className="h-5 w-5" />
+        {avatarUrl ? (
+          <img src={avatarUrl} alt="" className="h-full w-full object-cover" />
+        ) : (
+          <UserIcon className="h-5 w-5" />
+        )}
       </button>
 
       {open && (
@@ -45,7 +53,10 @@ export function AuthMenu() {
           {isAuthenticated && user && (
             <div className="border-b border-gray-700 px-4 py-2 dark:border-gray-600">
               <p className="truncate text-sm font-medium text-gray-200">{displayName}</p>
-              {user.email && (
+              {profile?.status && (
+                <p className="mt-0.5 truncate text-xs text-gray-400">{profile.status}</p>
+              )}
+              {!profile?.status && user.email && (
                 <p className="truncate text-xs text-gray-400">{user.email}</p>
               )}
             </div>
@@ -57,6 +68,15 @@ export function AuthMenu() {
           >
             {t("nav.settings")}
           </Link>
+          {isAuthenticated && (
+            <Link
+              to="/settings/profile"
+              className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 dark:hover:bg-gray-700"
+              onClick={() => setOpen(false)}
+            >
+              {t("profile.editProfile")}
+            </Link>
+          )}
           {isAuthenticated ? (
             <Link
               to="/logout"

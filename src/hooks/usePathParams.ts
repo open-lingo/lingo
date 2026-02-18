@@ -7,8 +7,9 @@
 export const ALPHABET_PARAM = "alphabetId";
 export const ALPHABET_QUERY = "name";
 
-/** Community: ?tab= for section (contribute | links) */
+/** Community: ?tab= for section (official | community) */
 export const COMMUNITY_TAB_QUERY = "tab";
 
-/** Leaderboard: ?period= (week | month | all) */
+/** Leaderboard: ?period= (week | month | all), ?tab= (xp | language | flashcards | contributors) */
 export const LEADERBOARD_PERIOD_QUERY = "period";
+export const LEADERBOARD_TAB_QUERY = "tab";

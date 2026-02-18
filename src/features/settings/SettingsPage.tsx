@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "@/auth/useAuth";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import type { Language } from "@/core/languages";
@@ -13,6 +14,7 @@ const UI_LOCALE_LABELS: Record<string, string> = {
 
 export function SettingsPage() {
   const { t } = useTranslation();
+  const { isAuthenticated } = useAuth();
   const { language, setLanguage, isLoading: langLoading } = useLanguage();
   const { theme, setTheme } = useTheme();
 
@@ -29,6 +31,17 @@ export function SettingsPage() {
           {t("common.backToHome")}
         </Link>
       </div>
+
+      {isAuthenticated && (
+        <section className="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
+          <Link
+            to="/settings/profile"
+            className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+          >
+            {t("profile.editProfile")} →
+          </Link>
+        </section>
+      )}
 
       {/* Learning language */}
       <section className="space-y-3 rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">

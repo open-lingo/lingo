@@ -16,6 +16,7 @@ import { CommunityPage } from "@/features/community/CommunityPage";
 import { LeaderboardPage } from "@/features/leaderboard/LeaderboardPage";
 import { CourseMapPage } from "@/features/course/CourseMapPage";
 import { SettingsPage } from "@/features/settings/SettingsPage";
+import { ProfileEditPage } from "@/features/settings/ProfileEditPage";
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="leaderboard" element={<LeaderboardPage />} />
           <Route path="course-map" element={<CourseMapPage />} />
           <Route path="settings" element={<SettingsPage />} />
+          <Route path="settings/profile" element={<ProfileEditPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="logout" element={<LogoutPage />} />
         </Route>
