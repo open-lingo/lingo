@@ -20,6 +20,30 @@ export function Layout() {
           </Link>
           <nav className="flex items-center gap-4">
             <Link
+              to="/"
+              className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            >
+              {t("nav.home")}
+            </Link>
+            <Link
+              to="/practice"
+              className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            >
+              {t("nav.practice")}
+            </Link>
+            <Link
+              to="/flashcards"
+              className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            >
+              {t("nav.flashcards")}
+            </Link>
+            <Link
+              to="/stories"
+              className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            >
+              {t("nav.stories")}
+            </Link>
+            <Link
               to="/leaderboard"
               className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
             >

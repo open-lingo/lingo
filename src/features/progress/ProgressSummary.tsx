@@ -35,7 +35,12 @@ export function ProgressSummary() {
           <p className="text-2xl font-bold text-gray-900 dark:text-white">
             {p.cardsDueToday}
           </p>
-          <p className="text-sm text-gray-600 dark:text-gray-400">{t("progress.cardsDueToday")}</p>
+          <Link
+            to="/flashcards"
+            className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+          >
+            {t("progress.cardsDueToday")}
+          </Link>
         </div>
       </div>
       <div className="mt-4">
@@ -51,20 +56,6 @@ export function ProgressSummary() {
             style={{ width: `${dailyPercent}%` }}
           />
         </div>
-      </div>
-      <div className="mt-4 flex gap-2">
-        <Link
-          to="/flashcards"
-          className="rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200"
-        >
-          {t("progress.reviewCards")}
-        </Link>
-        <Link
-          to="/practice"
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
-        >
-          {t("progress.practice")}
-        </Link>
       </div>
     </section>
   );

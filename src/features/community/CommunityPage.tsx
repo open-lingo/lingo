@@ -1,15 +1,19 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { COMMUNITY_TAB_QUERY } from "@/hooks/usePathParams";
 import { getLanguageConfig } from "@/core/languageConfig";
 import {
-  getOfficialCoursesByLanguage,
-  getAllAddons,
-  OFFICIAL_COURSE_LANGUAGES,
-} from "./mockCommunity";
-import { SuggestionForm } from "./SuggestionForm";
+  FORUM_CATEGORIES,
+  FORUM_TAGS,
+  getThreadsHot,
+  getTagById,
+  TOP_CONTRIBUTORS,
+} from "./forum/mockForum";
+import { getAllAddons } from "./mockCommunity";
+import { Badge } from "./components/Badge";
+import { Avatar } from "./components/Avatar";
+import { Tag } from "./components/Tag";
 import type { CommunityAddon } from "./types";
 import type { AddonKind } from "./types";
 
@@ -20,102 +24,38 @@ const ADDON_KIND_KEYS: Record<AddonKind, string> = {
   grammar: "community.addonKindGrammar",
 };
 
-const REVISION_STATUS_KEYS: Record<string, string> = {
-  pending: "community.revisionStatusPending",
-  accepted: "community.revisionStatusAccepted",
-  rejected: "community.revisionStatusRejected",
-};
+type BrowseFilter = "all" | "flashcard-pack" | "course" | "story" | "addons";
 
-function AddonKindLabel({ kind }: { kind: AddonKind }) {
-  const { t } = useTranslation();
-  return <span className="text-xs font-medium text-gray-500 dark:text-gray-400">{t(ADDON_KIND_KEYS[kind])}</span>;
+function formatTimeAgo(iso: string) {
+  const d = new Date(iso);
+  const now = new Date();
+  const diff = (now.getTime() - d.getTime()) / 60000;
+  if (diff < 60) return "< 1h";
+  if (diff < 1440) return `${Math.floor(diff / 60)}h`;
+  if (diff < 43200) return `${Math.floor(diff / 1440)}d`;
+  return d.toLocaleDateString();
 }
-
-function AddonCard({ addon }: { addon: CommunityAddon }) {
-  const { t } = useTranslation();
-  const langConfig = getLanguageConfig(addon.languageId);
-  const langName = langConfig?.name ?? addon.languageId;
-
-  return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <AddonKindLabel kind={addon.kind} />
-            <span className="text-xs text-gray-400 dark:text-gray-500">{langName}</span>
-          </div>
-          <h3 className="mt-1 font-semibold text-gray-900 dark:text-white">{addon.name}</h3>
-          <p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-            {addon.description}
-          </p>
-          <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-            {addon.itemCount != null && (
-              <span>{addon.itemCount} {t("community.addonsItems")}</span>
-            )}
-            <span>↑ {addon.upvoteCount}</span>
-          </div>
-        </div>
-        <div className="flex shrink-0 flex-col items-end gap-1">
-          <button
-            type="button"
-            className={`rounded px-2 py-1 text-sm font-medium transition ${
-              addon.userUpvoted
-                ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-            }`}
-          >
-            {addon.userUpvoted ? t("community.addonsUpvoted") : t("community.addonsUpvote")}
-          </button>
-          {addon.sourceUrl && (
-            <a
-              href={addon.sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-blue-600 hover:underline dark:text-blue-400"
-            >
-              {t("community.addonsMaintain")}
-            </a>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const MAIN_TABS = [
-  { id: "official", labelKey: "community.tabOfficial" },
-  { id: "community", labelKey: "community.tabCommunity" },
-] as const;
 
 export function CommunityPage() {
   const { t } = useTranslation();
   const { language } = useLanguage();
-  const [searchParams] = useSearchParams();
-  const tab = searchParams.get(COMMUNITY_TAB_QUERY) ?? "official";
+  const [browseFilter, setBrowseFilter] = useState<BrowseFilter>("all");
+  const [sortThreads] = useState<"hot" | "new">("hot");
 
-  const [officialLang, setOfficialLang] = useState(() => {
-    return language && OFFICIAL_COURSE_LANGUAGES.includes(language.id)
-      ? language.id
-      : OFFICIAL_COURSE_LANGUAGES[0] ?? "ko";
-  });
-
-  const communityRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (tab === "community" && communityRef.current) {
-      communityRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }, [tab]);
-
-  const officialCourses = getOfficialCoursesByLanguage(officialLang);
+  const threads = getThreadsHot();
   const addons = getAllAddons();
   const filteredAddons = language ? addons.filter((a) => a.languageId === language.id) : addons;
 
-  const flashcardPacks = filteredAddons.filter((a) => a.kind === "flashcard-pack");
-  const otherAddons = filteredAddons.filter((a) => a.kind !== "flashcard-pack");
+  const browseAddons =
+    browseFilter === "all"
+      ? filteredAddons
+      : browseFilter === "addons"
+        ? filteredAddons.filter((a) => a.kind === "story" || a.kind === "grammar")
+        : filteredAddons.filter((a) => a.kind === browseFilter);
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8">
+    <div className="mx-auto max-w-6xl space-y-8">
+      {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
           {t("community.title")}
@@ -123,196 +63,390 @@ export function CommunityPage() {
         <p className="mt-1 text-gray-600 dark:text-gray-400">
           {t("community.intro")}
         </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {MAIN_TABS.map(({ id, labelKey }) => (
-            <Link
-              key={id}
-              to={`/community?${COMMUNITY_TAB_QUERY}=${id}`}
-              className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
-                tab === id
-                  ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-              }`}
-            >
-              {t(labelKey)}
-            </Link>
-          ))}
-        </div>
       </div>
 
-      {/* Official tab: language dropdown + selected language's courses */}
-      {tab === "official" && (
-      <section
-        id="official"
-        className="scroll-mt-4 space-y-4 rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800"
-      >
-        <h2 className="font-semibold text-gray-900 dark:text-white">
-          {t("community.official")}
+      {/* Browse cards */}
+      <section>
+        <h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
+          {t("community.browse")}
         </h2>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          {t("community.officialDesc")}
+        <p className="mb-3 text-xs text-gray-600 dark:text-gray-400">
+          {t("community.browseDesc")}
         </p>
-        <div>
-          <label htmlFor="official-lang" className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t("community.officialLanguageLabel")}
-          </label>
-          <select
-            id="official-lang"
-            value={officialLang}
-            onChange={(e) => setOfficialLang(e.target.value)}
-            className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <button
+            type="button"
+            onClick={() => setBrowseFilter("all")}
+            className={`rounded-lg border px-4 py-3 text-left text-sm font-medium transition ${
+              browseFilter === "all"
+                ? "border-green-500 bg-green-50 text-green-700 dark:border-green-500 dark:bg-green-900/20 dark:text-green-400"
+                : "border-gray-200 hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:border-gray-600 dark:hover:bg-gray-800/50"
+            }`}
           >
-            {OFFICIAL_COURSE_LANGUAGES.map((langId) => {
-              const cfg = getLanguageConfig(langId);
-              return (
-                <option key={langId} value={langId}>
-                  {cfg ? `${cfg.flag} ${cfg.name}` : langId}
-                </option>
-              );
-            })}
-          </select>
+            <span className="block text-lg" aria-hidden>📚</span>
+            {t("community.browse")}
+          </button>
+          <button
+            type="button"
+            onClick={() => setBrowseFilter("flashcard-pack")}
+            className={`rounded-lg border px-4 py-3 text-left text-sm font-medium transition ${
+              browseFilter === "flashcard-pack"
+                ? "border-green-500 bg-green-50 text-green-700 dark:border-green-500 dark:bg-green-900/20 dark:text-green-400"
+                : "border-gray-200 hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:border-gray-600 dark:hover:bg-gray-800/50"
+            }`}
+          >
+            <span className="block text-lg" aria-hidden>🃏</span>
+            {t("community.browseFlashcards")}
+          </button>
+          <button
+            type="button"
+            onClick={() => setBrowseFilter("course")}
+            className={`rounded-lg border px-4 py-3 text-left text-sm font-medium transition ${
+              browseFilter === "course"
+                ? "border-green-500 bg-green-50 text-green-700 dark:border-green-500 dark:bg-green-900/20 dark:text-green-400"
+                : "border-gray-200 hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:border-gray-600 dark:hover:bg-gray-800/50"
+            }`}
+          >
+            <span className="block text-lg" aria-hidden>📖</span>
+            {t("community.browseCourses")}
+          </button>
+          <a
+            href="https://github.com/open-lingo/lingo/discussions"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-gray-200 px-4 py-3 text-left text-sm font-medium transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:border-gray-600 dark:hover:bg-gray-800/50"
+          >
+            <span className="block text-lg" aria-hidden>➕</span>
+            {t("community.browseContribute")}
+          </a>
         </div>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          {t("community.officialRevisionHelp")}
-        </p>
-        <ul className="space-y-3">
-          {officialCourses.map((course) => (
-            <li
-              key={course.id}
-              className="flex flex-col gap-2 rounded border border-gray-100 p-3 dark:border-gray-600"
-            >
-              <div>
-                <h3 className="font-medium text-gray-900 dark:text-white">{course.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{course.description}</p>
-              </div>
-              <a
-                href={course.revisionGuideUrl ?? "https://github.com/open-lingo/lingo/issues"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+      </section>
+
+      {/* Forum (main) + Sidebar */}
+      <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
+        <main className="min-w-0 flex-1 space-y-6 lg:flex-[7]">
+          {/* Forum header */}
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+              {t("forum.title")}
+            </h2>
+            <div className="flex gap-2">
+              <Link
+                to="/community/forum/new"
+                className="rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
               >
-                {t("community.officialRevisionTitle")} →
-              </a>
-              {course.revisions && course.revisions.length > 0 && (
-                <div className="mt-2 border-t border-gray-100 pt-2 dark:border-gray-600">
-                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
-                    {t("community.officialRevisions")}
-                  </p>
-                  <ul className="mt-1 space-y-1">
-                    {course.revisions.map((rev) => {
-                      const statusKey = REVISION_STATUS_KEYS[rev.status] ?? "community.revisionStatusPending";
-                      return (
-                        <li key={rev.id}>
-                          <a
-                            href={rev.linkUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sm text-blue-600 hover:underline dark:text-blue-400"
+                {t("forum.newThread")}
+              </Link>
+              <Link
+                to="/community/forum"
+                className="rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+              >
+                {t("forum.browseCategories")}
+              </Link>
+            </div>
+          </div>
+
+          {/* Forum Categories Table */}
+          <section>
+            <h3 className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+              {t("forum.categories")}
+            </h3>
+            <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50">
+                    <th className="px-3 py-2 text-left font-medium text-gray-700 dark:text-gray-300">
+                      {t("forum.category")}
+                    </th>
+                    <th className="hidden px-3 py-2 text-left font-medium text-gray-700 dark:text-gray-300 sm:table-cell">
+                      {t("forum.description")}
+                    </th>
+                    <th className="px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300">
+                      {t("forum.topics")}
+                    </th>
+                    <th className="hidden px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300 md:table-cell">
+                      {t("forum.latestActivity")}
+                    </th>
+                    <th className="hidden px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300 lg:table-cell">
+                      {t("forum.moderator")}
+                    </th>
+                    <th className="w-16 px-3 py-2" aria-label={t("forum.view")} />
+                  </tr>
+                </thead>
+                <tbody>
+                  {FORUM_CATEGORIES.map((cat) => (
+                    <tr
+                      key={cat.id}
+                      className="border-b border-gray-100 transition-colors last:border-0 hover:bg-gray-50 dark:border-gray-700/50 dark:hover:bg-gray-800/50"
+                    >
+                      <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
+                        {t(cat.nameKey)}
+                      </td>
+                      <td className="hidden px-3 py-2 text-gray-600 dark:text-gray-400 sm:table-cell">
+                        {t(cat.descriptionKey)}
+                      </td>
+                      <td className="px-3 py-2 text-right tabular-nums text-gray-600 dark:text-gray-400">
+                        {cat.topicsCount}
+                      </td>
+                      <td className="hidden px-3 py-2 text-right text-gray-600 dark:text-gray-400 md:table-cell">
+                        {formatTimeAgo(cat.latestActivity)}
+                      </td>
+                      <td className="hidden px-3 py-2 text-right text-gray-600 dark:text-gray-400 lg:table-cell">
+                        {cat.moderatorName ?? "—"}
+                      </td>
+                      <td className="px-3 py-2 text-right">
+                        <Link
+                          to={`/community/forum?category=${cat.id}`}
+                          className="text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+                        >
+                          {t("forum.view")}
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* Recent / Hot Threads */}
+          <section>
+            <div className="mb-2 flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                {sortThreads === "hot" ? t("forum.hot") : t("forum.new")} {t("forum.threads")}
+              </h3>
+              <Link
+                to="/community/forum"
+                className="text-xs text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              >
+                {t("forum.viewAll")}
+              </Link>
+            </div>
+            <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50">
+                    <th className="px-3 py-2 text-left font-medium text-gray-700 dark:text-gray-300">
+                      {t("forum.threadTitle")}
+                    </th>
+                    <th className="hidden px-3 py-2 text-left font-medium text-gray-700 dark:text-gray-300 sm:table-cell">
+                      {t("forum.tags")}
+                    </th>
+                    <th className="w-14 px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300">
+                      {t("forum.replies")}
+                    </th>
+                    <th className="hidden w-14 px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300 md:table-cell">
+                      {t("forum.views")}
+                    </th>
+                    <th className="w-20 px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300">
+                      {t("forum.activity")}
+                    </th>
+                    <th className="w-16 px-3 py-2" aria-hidden />
+                  </tr>
+                </thead>
+                <tbody>
+                  {threads.slice(0, 8).map((thread) => {
+                    const tags = thread.tagIds.map((tid) => getTagById(tid)).filter(Boolean);
+                    return (
+                      <tr key={thread.id}>
+                        <td className="group px-3 py-2">
+                          <Link
+                            to={`/community/forum/thread/${thread.id}`}
+                            className="flex items-center gap-2 font-medium text-gray-900 hover:text-green-600 dark:text-white dark:hover:text-green-400"
                           >
-                            {rev.title} ({t(statusKey)})
-                          </a>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
-      </section>
-      )}
+                            {thread.isPinned && (
+                              <span className="text-amber-500" aria-label={t("forum.pinned")}>
+                                •
+                              </span>
+                            )}
+                            <span className="truncate">{thread.title}</span>
+                          </Link>
+                        </td>
+                        <td className="hidden px-3 py-2 sm:table-cell">
+                          <div className="flex flex-wrap gap-1">
+                            {tags.slice(0, 3).map((tag) => (
+                              <Tag key={tag!.id}>{tag!.name}</Tag>
+                            ))}
+                          </div>
+                        </td>
+                        <td className="px-3 py-2 text-right tabular-nums text-gray-600 dark:text-gray-400">
+                          {thread.replyCount}
+                        </td>
+                        <td className="hidden px-3 py-2 text-right tabular-nums text-gray-600 dark:text-gray-400 md:table-cell">
+                          {thread.viewCount ?? 0}
+                        </td>
+                        <td className="px-3 py-2 text-right text-gray-600 dark:text-gray-400">
+                          {formatTimeAgo(thread.updatedAt)}
+                        </td>
+                        <td className="px-3 py-2">
+                          <div className="flex items-center justify-end gap-1">
+                            <Avatar name={thread.authorName} size="xs" />
+                            {thread.status && (
+                              <Badge variant={thread.status}>
+                                {t(`forum.status${thread.status.charAt(0).toUpperCase() + thread.status.slice(1)}`)}
+                              </Badge>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </section>
 
-      {/* Community tab: addons, flashcard packs, discussion (suggestion forms) */}
-      {tab === "community" && (
-      <section
-        id="community"
-        ref={communityRef}
-        className="scroll-mt-4 space-y-6 rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800"
-      >
-        <h2 className="font-semibold text-gray-900 dark:text-white">
-          {t("community.tabCommunity")}
-        </h2>
+          {/* Browse content table */}
+          <section>
+            <h3 className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+              {t("community.browse")}
+            </h3>
+            <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50">
+                    <th className="px-3 py-2 text-left font-medium text-gray-700 dark:text-gray-300">
+                      {t("forum.name")}
+                    </th>
+                    <th className="hidden px-3 py-2 text-left font-medium text-gray-700 dark:text-gray-300 sm:table-cell">
+                      {t("forum.type")}
+                    </th>
+                    <th className="hidden px-3 py-2 text-left font-medium text-gray-700 dark:text-gray-300 md:table-cell">
+                      {t("forum.language")}
+                    </th>
+                    <th className="w-14 px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300">
+                      {t("community.addonsItems")}
+                    </th>
+                    <th className="w-14 px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300">
+                      ↑
+                    </th>
+                    <th className="w-20 px-3 py-2" aria-label={t("forum.actions")} />
+                  </tr>
+                </thead>
+                <tbody>
+                  {browseAddons.slice(0, 8).map((addon: CommunityAddon) => {
+                    const langConfig = getLanguageConfig(addon.languageId);
+                    const langName = langConfig?.name ?? addon.languageId;
+                    return (
+                      <tr
+                        key={addon.id}
+                        className="border-b border-gray-100 transition-colors last:border-0 hover:bg-gray-50 dark:border-gray-700/50 dark:hover:bg-gray-800/50"
+                      >
+                        <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">
+                          {addon.name}
+                        </td>
+                        <td className="hidden px-3 py-2 text-gray-600 dark:text-gray-400 sm:table-cell">
+                          {t(ADDON_KIND_KEYS[addon.kind])}
+                        </td>
+                        <td className="hidden px-3 py-2 text-gray-600 dark:text-gray-400 md:table-cell">
+                          {langName}
+                        </td>
+                        <td className="px-3 py-2 text-right tabular-nums text-gray-600 dark:text-gray-400">
+                          {addon.itemCount ?? "—"}
+                        </td>
+                        <td className="px-3 py-2 text-right tabular-nums text-gray-600 dark:text-gray-400">
+                          {addon.upvoteCount}
+                        </td>
+                        <td className="px-3 py-2">
+                          <div className="flex justify-end gap-1">
+                            <button
+                              type="button"
+                              className="rounded px-2 py-0.5 text-xs font-medium text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20"
+                            >
+                              ↑
+                            </button>
+                            <Link
+                              to="/flashcards"
+                              className="rounded px-2 py-0.5 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+                            >
+                              {t("forum.open")}
+                            </Link>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              {t("community.sectionContentDesc")}
+            </p>
+          </section>
+        </main>
 
-        {/* Addons (courses + other) */}
-        <div>
-          <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-            {t("community.addons")}
-          </h3>
-          <p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400">
-            {t("community.addonsDesc")}
-          </p>
-          <div className="mt-3 space-y-3">
-            {otherAddons.map((addon) => (
-              <AddonCard key={addon.id} addon={addon} />
-            ))}
+        {/* Sidebar - 30% */}
+        <aside className="space-y-4 lg:w-80 lg:shrink-0 lg:flex-[3]">
+          <div className="rounded-md border border-gray-200 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+            <Link
+              to="/community/forum/new"
+              className="block w-full rounded-md bg-green-600 py-2 text-center text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+            >
+              {t("forum.newThread")}
+            </Link>
           </div>
-        </div>
 
-        {/* Flashcard packs */}
-        <div>
-          <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-            {t("community.addonKindFlashcardPack")}
-          </h3>
-          <div className="mt-3 space-y-3">
-            {flashcardPacks.map((addon) => (
-              <AddonCard key={addon.id} addon={addon} />
-            ))}
+          <div className="rounded-md border border-gray-200 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+              {t("forum.trendingTags")}
+            </h3>
+            <div className="mt-2 flex flex-wrap gap-1">
+              {FORUM_TAGS.slice(0, 8).map((tag) => (
+                <Link
+                  key={tag.id}
+                  to={`/community/forum?tag=${tag.slug}`}
+                  className="inline-block"
+                >
+                  <Tag>{tag.name}</Tag>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <a
-          href="https://github.com/open-lingo/lingo/discussions"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
-          {t("community.addonsAddNew")} →
-        </a>
-
-        {/* Discussion: suggestion forms */}
-        <div className="border-t border-gray-200 pt-6 dark:border-gray-600">
-          <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-            {t("community.discussion")}
-          </h3>
-          <p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400">
-            {t("community.discussionDesc")}
-          </p>
-          <div className="mt-4">
-            <SuggestionForm />
+          <div className="rounded-md border border-gray-200 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+              {t("forum.topContributors")}
+            </h3>
+            <ul className="mt-2 space-y-2">
+              {TOP_CONTRIBUTORS.map((c) => (
+                <li key={c.id} className="flex items-center gap-2">
+                  <Avatar name={c.name} size="xs" />
+                  <span className="flex-1 text-sm text-gray-900 dark:text-white">{c.name}</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">{c.postCount}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
 
-        {/* Links */}
-        <div className="border-t border-gray-200 pt-4 dark:border-gray-600">
-          <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-            {t("community.links")}
-          </h3>
-          <ul className="mt-2 space-y-1 text-sm">
-            <li>
-              <a
-                href="https://github.com/open-lingo/lingo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 underline hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-              >
-                {t("community.linkGitHub")}
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/open-lingo/lingo/issues"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 underline hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-              >
-                {t("community.linkIssues")}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-      )}
+          <div className="rounded-md border border-gray-200 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+              {t("community.links")}
+            </h3>
+            <ul className="mt-2 space-y-1 text-sm">
+              <li>
+                <a
+                  href="https://github.com/open-lingo/lingo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-green-600 hover:underline dark:text-green-400"
+                >
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/open-lingo/lingo/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-green-600 hover:underline dark:text-green-400"
+                >
+                  Issues
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
 
       <p className="text-sm text-gray-500 dark:text-gray-400">
         {t("community.footer")}

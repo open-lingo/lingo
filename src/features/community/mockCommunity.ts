@@ -30,13 +30,7 @@ export const MOCK_OFFICIAL_COURSES: OfficialCourseInfo[] = [
     description: "Hiragana, Katakana, basic kanji, and particles.",
     revisionGuideUrl: "https://github.com/open-lingo/lingo/blob/main/CONTRIBUTING.md",
   },
-  {
-    id: "official-zh",
-    languageId: "zh",
-    title: "Chinese for Beginners",
-    description: "Pinyin, characters, and foundations.",
-    revisionGuideUrl: "https://github.com/open-lingo/lingo/blob/main/CONTRIBUTING.md",
-  },
+
 ];
 
 /** User-created addons: courses, flashcard packs, etc. Mock data. */

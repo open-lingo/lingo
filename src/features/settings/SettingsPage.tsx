@@ -4,7 +4,7 @@ import { useAuth } from "@/auth/useAuth";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import type { Language } from "@/core/languages";
-import { LANGUAGES } from "@/core/languages";
+import { AVAILABLE_LEARNING_LANGUAGES } from "@/core/languageConfig";
 import i18n, { supportedLngs } from "@/i18n";
 
 const UI_LOCALE_LABELS: Record<string, string> = {
@@ -55,7 +55,7 @@ export function SettingsPage() {
           <p className="text-sm text-gray-500 dark:text-gray-400">{t("common.loading")}</p>
         ) : (
           <ul className="flex flex-wrap gap-2">
-            {LANGUAGES.map((lang: Language) => (
+            {AVAILABLE_LEARNING_LANGUAGES.map((lang: Language) => (
               <li key={lang.id}>
                 <button
                   type="button"

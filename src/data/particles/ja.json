@@ -1,0 +1,13 @@
+{
+  "languageId": "ja",
+  "particles": [
+    { "id": "wa", "form": "は", "meaning": "topic marker", "usage": "Marks the topic of the sentence. Pronounced 'wa' when used as a particle." },
+    { "id": "ga", "form": "が", "meaning": "subject marker", "usage": "Marks the subject, often introduces new information or emphasis." },
+    { "id": "wo", "form": "を", "meaning": "object marker", "usage": "Marks the direct object of a verb. Pronounced 'o'." },
+    { "id": "ni", "form": "に", "meaning": "to / at / in (direction, time, location)", "usage": "Direction of movement, specific time, or existence location." },
+    { "id": "de", "form": "で", "meaning": "at / by means of (location of action, tool)", "usage": "Where an action takes place, or the means/tool used." },
+    { "id": "no", "form": "の", "meaning": "possessive / of", "usage": "Connects nouns: A の B = B of A / A's B." },
+    { "id": "to", "form": "と", "meaning": "and / with / quotation", "usage": "Lists items, indicates a companion, or marks quoted speech." },
+    { "id": "ka", "form": "か", "meaning": "question marker", "usage": "Added at end of sentence to form a question." }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "id": "ja-beginner",
+  "languageId": "ja",
+  "name": "Japanese beginner",
+  "cards": [
+    {
+      "id": "ja-1",
+      "front": "こんにちは",
+      "back": "Hello / Good afternoon",
+      "note": "Standard daytime greeting.",
+      "type": "word",
+      "reasoning": "こんにち = this day, は = topic particle. Literally 'as for today' → hello.",
+      "parts": [
+        { "segment": "こんにち", "meaning": "this day" },
+        { "segment": "は", "particleId": "wa" }
+      ]
+    },
+    {
+      "id": "ja-2",
+      "front": "私は学生です",
+      "back": "I am a student.",
+      "type": "sentence",
+      "reasoning": "私 = I, は = topic, 学生 = student, です = polite copula.",
+      "words": [
+        { "segment": "私", "meaning": "I" },
+        { "segment": "は", "particleId": "wa" },
+        { "segment": "学生", "meaning": "student" },
+        { "segment": "です", "meaning": "am/is (polite)" }
+      ]
+    },
+    {
+      "id": "ja-3",
+      "front": "りんごを食べます",
+      "back": "I eat an apple.",
+      "type": "sentence",
+      "reasoning": "りんご = apple, を = object marker, 食べます = eat (polite).",
+      "words": [
+        { "segment": "りんご", "meaning": "apple" },
+        { "segment": "を", "particleId": "wo" },
+        { "segment": "食べます", "meaning": "eat (polite)" }
+      ]
+    },
+    {
+      "id": "ja-4",
+      "front": "学校に行きます",
+      "back": "I go to school.",
+      "type": "sentence",
+      "reasoning": "学校 = school, に = to (direction), 行きます = go (polite).",
+      "words": [
+        { "segment": "学校", "meaning": "school" },
+        { "segment": "に", "particleId": "ni" },
+        { "segment": "行きます", "meaning": "go (polite)" }
+      ]
+    },
+    {
+      "id": "ja-5",
+      "front": "ありがとうございます",
+      "back": "Thank you (polite).",
+      "note": "Polite thanks, used in most situations.",
+      "type": "other",
+      "definition": "Thank you (polite).",
+      "context": "Use after someone helps you or gives something.",
+      "reasoning": "ありがたい = grateful, ございます = polite form of ある (to exist)."
+    }
+  ]
+}

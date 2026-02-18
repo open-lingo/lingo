@@ -6,12 +6,11 @@ import { getMockCourse } from "@/features/course/mockCourse";
 import { getNextLesson } from "@/features/course/nextLesson";
 import { ModuleCard } from "@/features/course/ModuleCard";
 import { ProgressSummary } from "@/features/progress/ProgressSummary";
+import { FlashcardsCard } from "@/features/flashcards/FlashcardsCard";
 import { PracticeCard } from "@/features/practice/PracticeCard";
 
 const cardKeys = [
-  { to: "/flashcards", titleKey: "home.cards.flashcards", descKey: "home.cards.flashcardsDesc", icon: "📚" },
   { to: "/stories", titleKey: "home.cards.stories", descKey: "home.cards.storiesDesc", icon: "📖" },
-  { to: "/vocab", titleKey: "home.cards.vocab", descKey: "home.cards.vocabDesc", icon: "📝" },
 ] as const;
 
 export function HomePage() {
@@ -52,7 +51,10 @@ export function HomePage() {
                   {nextLesson.module} · {nextLesson.lesson.title}
                 </p>
               </div>
-              <span className="text-gray-400 dark:text-gray-500" aria-hidden>
+              <span
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-600 text-white transition hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800"
+                aria-hidden
+              >
                 →
               </span>
             </Link>
@@ -61,7 +63,8 @@ export function HomePage() {
         </>
       )}
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <FlashcardsCard />
         {cardKeys.map(({ to, titleKey, descKey, icon }) => (
           <Link
             key={to}

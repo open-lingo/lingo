@@ -166,6 +166,10 @@ export function getLanguageConfig(languageId: string): LanguageConfig | undefine
 /** List for picker; derived from config. */
 export const LANGUAGES = Object.values(LANGUAGE_CONFIGS);
 
+/** Languages that currently have content (flashcards, stories, etc). Only these appear in the learning language selector. */
+export const AVAILABLE_LEARNING_LANGUAGE_IDS = ["ko", "ja"] as const;
+export const AVAILABLE_LEARNING_LANGUAGES = LANGUAGES.filter((l) => (AVAILABLE_LEARNING_LANGUAGE_IDS as readonly string[]).includes(l.id));
+
 export function getLanguageById(id: string): LanguageConfig | undefined {
   return LANGUAGE_CONFIGS[id];
 }

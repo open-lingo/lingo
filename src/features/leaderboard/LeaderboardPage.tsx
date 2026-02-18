@@ -54,6 +54,8 @@ export function LeaderboardPage() {
   const validTabs: TabId[] = ["xp", "language", "flashcards", "contributors"];
   const currentTab = validTabs.includes(tab) ? tab : "xp";
 
+  const topN = 3;
+
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="flex items-center justify-between">
@@ -67,6 +69,112 @@ export function LeaderboardPage() {
           {t("leaderboard.back")}
         </Link>
       </div>
+
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        {t("leaderboard.leadersByCategory")}
+      </p>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Link
+          to={buildLeaderboardUrl("xp", period)}
+          className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
+        >
+          <h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
+            {t("leaderboard.tabXp")}
+          </h2>
+          <ul className="space-y-1.5 text-sm">
+            {MOCK_XP.slice(0, topN).map((row) => (
+              <li key={row.rank} className="flex justify-between gap-2">
+                <span className="font-medium text-gray-800 dark:text-gray-200">
+                  #{row.rank} {row.name}
+                </span>
+                <span className="text-gray-600 dark:text-gray-400">
+                  {row.xp.toLocaleString()} XP
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            {t("leaderboard.viewAll")} →
+          </p>
+        </Link>
+
+        <Link
+          to={buildLeaderboardUrl("language")}
+          className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
+        >
+          <h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
+            {t("leaderboard.tabLanguage")}
+          </h2>
+          <ul className="space-y-1.5 text-sm">
+            {MOCK_BY_LANGUAGE.slice(0, topN).map((row) => (
+              <li key={row.rank} className="flex justify-between gap-2">
+                <span className="font-medium text-gray-800 dark:text-gray-200">
+                  #{row.rank} {row.name}
+                </span>
+                <span className="text-gray-600 dark:text-gray-400">
+                  {row.language} · {row.lessonsCompleted}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            {t("leaderboard.viewAll")} →
+          </p>
+        </Link>
+
+        <Link
+          to={buildLeaderboardUrl("flashcards")}
+          className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
+        >
+          <h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
+            {t("leaderboard.tabFlashcards")}
+          </h2>
+          <ul className="space-y-1.5 text-sm">
+            {MOCK_FLASHCARDS.slice(0, topN).map((row) => (
+              <li key={row.rank} className="flex justify-between gap-2">
+                <span className="font-medium text-gray-800 dark:text-gray-200">
+                  #{row.rank} {row.name}
+                </span>
+                <span className="text-gray-600 dark:text-gray-400">
+                  {row.cardsReviewed.toLocaleString()} cards
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            {t("leaderboard.viewAll")} →
+          </p>
+        </Link>
+
+        <Link
+          to={buildLeaderboardUrl("contributors")}
+          className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
+        >
+          <h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
+            {t("leaderboard.tabContributors")}
+          </h2>
+          <ul className="space-y-1.5 text-sm">
+            {MOCK_CONTRIBUTORS.slice(0, topN).map((row) => (
+              <li key={row.rank} className="flex justify-between gap-2">
+                <span className="font-medium text-gray-800 dark:text-gray-200">
+                  #{row.rank} {row.name}
+                </span>
+                <span className="text-gray-600 dark:text-gray-400">
+                  {row.prs} PRs · {row.reviews} {t("leaderboard.reviews")}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            {t("leaderboard.viewAll")} →
+          </p>
+        </Link>
+      </div>
+
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+        {t("leaderboard.fullTable")}
+      </h2>
 
       <div className="flex flex-wrap gap-2">
         <Link
