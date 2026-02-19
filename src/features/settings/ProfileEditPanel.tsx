@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "@/auth/useAuth";
-import { useApi } from "@/api/provider";
-import { ApiError } from "@/api/client";
+import { useAuth } from "@/shared/auth/useAuth";
+import { useApi } from "@/shared/api/provider";
+import { ApiError } from "@/shared/api/client";
 
 export function ProfileEditPanel() {
   const { t } = useTranslation();

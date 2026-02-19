@@ -1,14 +1,15 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { getLanguageConfig, LANGUAGE_CONFIGS } from "@/core/languageConfig";
+import { useLangPath } from "@/shared/hooks/useLangPath";
+import { getLanguageConfig, LANGUAGE_CONFIGS } from "@/shared/domain/languageConfig";
 import {
   getAllAddons,
   getTrendingCourses,
   getTrendingCardPacks,
   getNewStories,
 } from "./mockCommunity";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import type { CommunityAddon } from "./types";
 import type { AddonKind } from "./types";
 
@@ -37,9 +38,11 @@ function matchesSearch(addon: CommunityAddon, q: string): boolean {
 function ContentCard({
   addon,
   t,
+  langPath,
 }: {
   addon: CommunityAddon;
   t: (k: string) => string;
+  langPath: (p: string) => string;
 }) {
   const lang = getLanguageConfig(addon.languageId);
   const langName = lang?.name ?? addon.languageId;
@@ -81,7 +84,7 @@ function ContentCard({
           ↑
         </button>
         <Link
-          to={addon.kind === "story" ? "/practice/stories" : "/practice/flashcards"}
+          to={addon.kind === "story" ? langPath("practice/stories") : langPath("practice/flashcards")}
           className="ml-1 rounded px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
         >
           {t("community.contentBrowserOpen")}
@@ -93,6 +96,7 @@ function ContentCard({
 
 export function ContentBrowserPage() {
   const { t } = useTranslation();
+  const langPath = useLangPath();
   const { language } = useLanguage();
   const [search, setSearch] = useState("");
   const [languageFilter, setLanguageFilter] = useState<string | null>(null);
@@ -175,7 +179,7 @@ export function ContentBrowserPage() {
             {items.slice(0, 3).map((a) => (
               <li key={a.id}>
                 <Link
-                  to={a.kind === "story" ? "/practice/stories" : "/practice/flashcards"}
+                  to={a.kind === "story" ? langPath("practice/stories") : langPath("practice/flashcards")}
                   className="block truncate text-sm text-gray-700 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400"
                 >
                   {a.name}
@@ -201,17 +205,17 @@ export function ContentBrowserPage() {
         <FeaturedCard
           title={t("community.contentBrowserTrendingCourses", { language: langName })}
           items={trendingCourses}
-          filterLink={`/community/content`}
+          filterLink={langPath("community/content")}
         />
         <FeaturedCard
           title={t("community.contentBrowserTrendingCardPacks", { language: langName })}
           items={trendingPacks}
-          filterLink={`/community/content`}
+          filterLink={langPath("community/content")}
         />
         <FeaturedCard
           title={t("community.contentBrowserNewStories", { language: langName })}
           items={newStories}
-          filterLink={`/community/content`}
+          filterLink={langPath("community/content")}
         />
       </section>
 
@@ -345,7 +349,7 @@ export function ContentBrowserPage() {
               <ul className="space-y-3">
                 {filtered.map((addon) => (
                   <li key={addon.id}>
-                    <ContentCard addon={addon} t={t} />
+                    <ContentCard addon={addon} t={t} langPath={langPath} />
                   </li>
                 ))}
               </ul>
@@ -365,7 +369,7 @@ export function ContentBrowserPage() {
                 <ul className="grid gap-3 sm:grid-cols-2">
                   {flashcardDecks.map((addon) => (
                     <li key={addon.id}>
-                      <ContentCard addon={addon} t={t} />
+                      <ContentCard addon={addon} t={t} langPath={langPath} />
                     </li>
                   ))}
                 </ul>
@@ -384,7 +388,7 @@ export function ContentBrowserPage() {
                 <ul className="grid gap-3 sm:grid-cols-2">
                   {courses.map((addon) => (
                     <li key={addon.id}>
-                      <ContentCard addon={addon} t={t} />
+                      <ContentCard addon={addon} t={t} langPath={langPath} />
                     </li>
                   ))}
                 </ul>
@@ -403,7 +407,7 @@ export function ContentBrowserPage() {
                 <ul className="grid gap-3 sm:grid-cols-2">
                   {stories.map((addon) => (
                     <li key={addon.id}>
-                      <ContentCard addon={addon} t={t} />
+                      <ContentCard addon={addon} t={t} langPath={langPath} />
                     </li>
                   ))}
                 </ul>
@@ -413,7 +417,7 @@ export function ContentBrowserPage() {
         )}
 
         <Link
-          to="/"
+          to={langPath("")}
           className="inline-block text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
         >
           {t("community.backToHome")}

@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { getLanguageConfig } from "@/core/languageConfig";
-import { getParticlesForLanguage } from "@/data/flashcards/loadDeck";
-import type { ParticleDef, ParticleSection, ParticlesData } from "@/data/particles/types";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { getLanguageConfig } from "@/shared/domain/languageConfig";
+import { getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
+import type { ParticleDef, ParticleSection, ParticlesData } from "@/features/practice/data/types";
 
 /** Sections to display: data.sections if present, else one section containing all particles. */
 function getParticleDisplaySections(data: ParticlesData): ParticleSection[] {

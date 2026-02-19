@@ -1,0 +1,150 @@
+import type { LessonContent } from "../types";
+
+export const MOCK_LESSON_M1_L1: LessonContent = {
+  id: "m1-l1",
+  moduleId: "m1",
+  courseId: "mock-1",
+  languageId: "ko",
+  title: "Greetings",
+  description: "Learn basic Korean greetings and introductions",
+  estimatedMinutes: 5,
+  xpReward: 10,
+  introducesVocabIds: ["annyeong", "gamsahamnida"],
+  introducesCardIds: ["ko-2", "ko-5"],
+  steps: [
+    {
+      id: "step-0",
+      type: "info",
+      title: "Welcome to Greetings!",
+      body: "In this lesson you'll learn two essential Korean phrases: a greeting and a way to say thank you. Korean uses different speech levels depending on formality — we'll start with the polite form, which is safe in almost any situation.",
+      variant: "culture",
+    },
+    {
+      id: "step-1",
+      type: "teach",
+      content: {
+        text: "In Korean, the most common greeting is 안녕하세요. It literally means 'do peace' and is used as a polite hello at any time of day.",
+        vocab: {
+          term: "안녕하세요",
+          translation: "Hello / Good day",
+          audioKey: "audio/ko/annyeonghaseyo.mp3",
+          imageKey: "images/ko/greeting-wave.jpg",
+          breakdown: [
+            { segment: "안녕", meaning: "peace, wellness" },
+            { segment: "하", meaning: "do (stem)" },
+            { segment: "세요", meaning: "polite ending", particleId: "세요" },
+          ],
+        },
+        note: "You can use this greeting in both formal and casual-polite situations.",
+      },
+    },
+    {
+      id: "step-2",
+      type: "multiple_choice",
+      prompt: "What does 안녕하세요 mean?",
+      promptAudioKey: "audio/ko/annyeonghaseyo.mp3",
+      options: [
+        { id: "a", text: "Thank you" },
+        { id: "b", text: "Hello / Good day" },
+        { id: "c", text: "Goodbye" },
+        { id: "d", text: "I'm sorry" },
+      ],
+      correctOptionId: "b",
+      explanation:
+        "안녕하세요 is the standard polite greeting, used at any time of day.",
+    },
+    {
+      id: "step-3",
+      type: "build_sentence",
+      prompt: "Build the Korean greeting for 'Hello'",
+      targetSentence: "안녕하세요",
+      tiles: ["하", "세요", "안녕", "입니다"],
+      correctOrder: ["안녕", "하", "세요"],
+      audioKey: "audio/ko/annyeonghaseyo.mp3",
+      granularity: "character",
+      hint: "Remember: 안녕 (peace) + 하 (do) + 세요 (polite)",
+    },
+    {
+      id: "step-4",
+      type: "teach",
+      content: {
+        text: "When you want to say 'Thank you' formally, use 감사합니다.",
+        vocab: {
+          term: "감사합니다",
+          translation: "Thank you (formal)",
+          audioKey: "audio/ko/gamsahamnida.mp3",
+          breakdown: [
+            { segment: "감사", meaning: "gratitude" },
+            { segment: "합니다", meaning: "do (formal)" },
+          ],
+        },
+        note: "Use this in any situation — it is never too formal.",
+      },
+    },
+    {
+      id: "step-5",
+      type: "match_pairs",
+      prompt: "Match each Korean phrase to its English meaning",
+      pairs: [
+        { id: "p1", source: "안녕하세요", target: "Hello" },
+        { id: "p2", source: "감사합니다", target: "Thank you" },
+        { id: "p3", source: "미안합니다", target: "I'm sorry" },
+      ],
+    },
+    {
+      id: "step-6",
+      type: "fill_blank",
+      sentence: "{{blank}}합니다",
+      blanks: [
+        {
+          id: "b1",
+          correctAnswer: "감사",
+          acceptedAnswers: ["감사"],
+        },
+      ],
+      wordBank: ["감사", "안녕", "미안"],
+      hint: "Which word means 'gratitude'?",
+    },
+    {
+      id: "step-7",
+      type: "translate",
+      sourceText: "Hello",
+      sourceLanguage: "native",
+      acceptedAnswers: ["안녕하세요", "안녕"],
+      hint: "The polite form is preferred",
+    },
+    {
+      id: "step-8",
+      type: "listening_comprehension",
+      audioKey: "audio/ko/dialogue-greeting-01.mp3",
+      transcript: "A: 안녕하세요! B: 안녕하세요! 잘 지내세요?",
+      question: "What does person B ask after greeting?",
+      options: [
+        { id: "a", text: "Where are you going?" },
+        { id: "b", text: "How are you?" },
+        { id: "c", text: "What is your name?" },
+      ],
+      correctOptionId: "b",
+      explanation:
+        "잘 지내세요 means 'Are you doing well?' — a common follow-up to a greeting.",
+    },
+    {
+      id: "step-9",
+      type: "listening_build",
+      audioKey: "audio/ko/gamsahamnida.mp3",
+      prompt: "Build the sentence you hear",
+      targetSentence: "감사합니다",
+      tiles: ["합니다", "감사", "세요", "안녕"],
+      correctOrder: ["감사", "합니다"],
+      granularity: "word",
+    },
+    {
+      id: "step-10",
+      type: "speaking",
+      targetPhrase: "안녕하세요",
+      translation: "Hello / Good day",
+      audioKey: "audio/ko/annyeonghaseyo.mp3",
+      stubbed: true,
+    },
+  ],
+};

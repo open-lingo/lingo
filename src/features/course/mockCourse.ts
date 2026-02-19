@@ -1,5 +1,5 @@
-import type { Course } from "@/core/course";
-import { getLanguageConfig } from "@/core/languageConfig";
+import type { Course } from "@/shared/domain/course";
+import { getLanguageConfig } from "@/shared/domain/languageConfig";
 
 /** Mock course for the selected language. Replace with API when ready. */
 export function getMockCourse(languageId: string): Course {

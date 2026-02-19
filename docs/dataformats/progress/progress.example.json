@@ -1,0 +1,14 @@
+{
+  "userId": "auth0|6995498e5b74eb82bdc1c17b",
+  "courseProgress": {
+    "official-ko": {
+      "completedLessonIds": ["m1-l0", "m1-l1"],
+      "currentLessonId": "m1-l2",
+      "learnedVocabIds": ["annyeong", "gamsahamnida"],
+      "totalXp": 45
+    }
+  },
+  "streakDays": 7,
+  "lastActivityDate": "2026-02-18",
+  "totalXp": 45
+}

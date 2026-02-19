@@ -1,0 +1,30 @@
+{
+  "id": "addon-kdrama",
+  "languageId": "ko",
+  "name": "K-Drama Phrases",
+  "cards": [
+    {
+      "id": "kdrama-1",
+      "front": "뭐 해요?",
+      "back": "What are you doing?",
+      "type": "sentence",
+      "note": "Casual, common in dramas.",
+      "words": [
+        { "segment": "뭐", "meaning": "what" },
+        { "segment": "해요", "meaning": "do (polite)" }
+      ]
+    },
+    {
+      "id": "kdrama-2",
+      "front": "진짜요?",
+      "back": "Really?",
+      "type": "word",
+      "note": "Very common reaction.",
+      "image": "https://user-images.githubusercontent.com/example/surprised-face.png",
+      "parts": [
+        { "segment": "진짜", "meaning": "really" },
+        { "segment": "요", "meaning": "polite ending" }
+      ]
+    }
+  ]
+}

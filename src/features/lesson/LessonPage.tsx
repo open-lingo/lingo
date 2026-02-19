@@ -1,0 +1,106 @@
+import { useState, useCallback, useMemo } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useLangPath } from "@/shared/hooks/useLangPath";
+import { getMockLessonContent } from "./data/mockLessons";
+import type { LessonStep } from "./types";
+import { StepRenderer } from "./components/StepRenderer";
+import { LessonProgressBar } from "./components/LessonProgressBar";
+import { LessonComplete } from "./components/LessonComplete";
+
+export function LessonPage() {
+  const { lessonId } = useParams<{ lessonId: string }>();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const langPath = useLangPath();
+
+  const lesson = useMemo(
+    () => (lessonId ? getMockLessonContent(lessonId) : null),
+    [lessonId],
+  );
+
+  const [currentStepIdx, setCurrentStepIdx] = useState(0);
+  const [results, setResults] = useState<Record<string, boolean>>({});
+  const [finished, setFinished] = useState(false);
+
+  const totalSteps = lesson?.steps.length ?? 0;
+  const currentStep: LessonStep | undefined = lesson?.steps[currentStepIdx];
+
+  const handleStepComplete = useCallback(
+    (stepId: string, correct: boolean) => {
+      setResults((prev) => ({ ...prev, [stepId]: correct }));
+    },
+    [],
+  );
+
+  const handleContinue = useCallback(() => {
+    if (currentStepIdx < totalSteps - 1) {
+      setCurrentStepIdx((i) => i + 1);
+    } else {
+      setFinished(true);
+    }
+  }, [currentStepIdx, totalSteps]);
+
+  const handleExit = useCallback(() => {
+    navigate(langPath("learn"));
+  }, [navigate, langPath]);
+
+  if (!lesson) {
+    return (
+      <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
+        <p className="text-lg text-gray-600 dark:text-gray-400">
+          {t("lesson.notFound", "Lesson not found")}
+        </p>
+        <button
+          type="button"
+          onClick={handleExit}
+          className="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700"
+        >
+          {t("lesson.backToLearn", "Back to Learn")}
+        </button>
+      </div>
+    );
+  }
+
+  if (finished) {
+    const correctCount = Object.values(results).filter(Boolean).length;
+    const gradedSteps = Object.keys(results).length;
+    return (
+      <LessonComplete
+        lesson={lesson}
+        correctCount={correctCount}
+        totalGraded={gradedSteps}
+        onContinue={handleExit}
+      />
+    );
+  }
+
+  return (
+    <div className="mx-auto flex min-h-[70vh] max-w-2xl flex-col">
+      <div className="flex items-center gap-3 py-4">
+        <button
+          type="button"
+          onClick={handleExit}
+          className="rounded-lg p-2 text-gray-500 transition hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+          aria-label={t("lesson.exit", "Exit lesson")}
+        >
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <LessonProgressBar current={currentStepIdx} total={totalSteps} />
+      </div>
+
+      <div className="flex flex-1 flex-col py-4">
+        {currentStep && (
+          <StepRenderer
+            key={currentStep.id}
+            step={currentStep}
+            onComplete={handleStepComplete}
+            onContinue={handleContinue}
+          />
+        )}
+      </div>
+    </div>
+  );
+}

@@ -1,9 +1,10 @@
 import { Link, useSearchParams } from "react-router-dom";
+import { useLang } from "@/shared/hooks/useLangPath";
 import { useTranslation } from "react-i18next";
 import {
   LEADERBOARD_PERIOD_QUERY,
   LEADERBOARD_TAB_QUERY,
-} from "@/hooks/usePathParams";
+} from "@/shared/hooks/usePathParams";
 
 type TabId = "xp" | "language" | "flashcards" | "contributors";
 
@@ -39,15 +40,16 @@ const MOCK_CONTRIBUTORS = [
   { rank: 5, name: "Riley", prs: 2, reviews: 8 },
 ];
 
-function buildLeaderboardUrl(tab: TabId, period?: string): string {
+function buildLeaderboardUrl(lang: string, tab: TabId, period?: string): string {
   const params = new URLSearchParams();
   params.set(LEADERBOARD_TAB_QUERY, tab);
   if (period) params.set(LEADERBOARD_PERIOD_QUERY, period);
-  return `/community/leaderboard?${params.toString()}`;
+  return `/${lang}/community/leaderboard?${params.toString()}`;
 }
 
 export function LeaderboardPage() {
   const { t } = useTranslation();
+  const lang = useLang();
   const [searchParams] = useSearchParams();
   const period = searchParams.get(LEADERBOARD_PERIOD_QUERY) ?? "week";
   const tab = (searchParams.get(LEADERBOARD_TAB_QUERY) ?? "xp") as TabId;
@@ -63,7 +65,7 @@ export function LeaderboardPage() {
           {t("leaderboard.title")}
         </h1>
         <Link
-          to="/community"
+          to={`/${lang}/community`}
           className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
         >
           {t("leaderboard.back")}
@@ -76,7 +78,7 @@ export function LeaderboardPage() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Link
-          to={buildLeaderboardUrl("xp", period)}
+          to={buildLeaderboardUrl(lang, "xp", period)}
           className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
         >
           <h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
@@ -100,7 +102,7 @@ export function LeaderboardPage() {
         </Link>
 
         <Link
-          to={buildLeaderboardUrl("language")}
+          to={buildLeaderboardUrl(lang, "language")}
           className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
         >
           <h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
@@ -124,7 +126,7 @@ export function LeaderboardPage() {
         </Link>
 
         <Link
-          to={buildLeaderboardUrl("flashcards")}
+          to={buildLeaderboardUrl(lang, "flashcards")}
           className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
         >
           <h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
@@ -148,7 +150,7 @@ export function LeaderboardPage() {
         </Link>
 
         <Link
-          to={buildLeaderboardUrl("contributors")}
+          to={buildLeaderboardUrl(lang, "contributors")}
           className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
         >
           <h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
@@ -178,7 +180,7 @@ export function LeaderboardPage() {
 
       <div className="flex flex-wrap gap-2">
         <Link
-          to={buildLeaderboardUrl("xp", period)}
+          to={buildLeaderboardUrl(lang, "xp", period)}
           className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
             currentTab === "xp"
               ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
@@ -188,7 +190,7 @@ export function LeaderboardPage() {
           {t("leaderboard.tabXp")}
         </Link>
         <Link
-          to={buildLeaderboardUrl("language")}
+          to={buildLeaderboardUrl(lang, "language")}
           className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
             currentTab === "language"
               ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
@@ -198,7 +200,7 @@ export function LeaderboardPage() {
           {t("leaderboard.tabLanguage")}
         </Link>
         <Link
-          to={buildLeaderboardUrl("flashcards")}
+          to={buildLeaderboardUrl(lang, "flashcards")}
           className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
             currentTab === "flashcards"
               ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
@@ -208,7 +210,7 @@ export function LeaderboardPage() {
           {t("leaderboard.tabFlashcards")}
         </Link>
         <Link
-          to={buildLeaderboardUrl("contributors")}
+          to={buildLeaderboardUrl(lang, "contributors")}
           className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
             currentTab === "contributors"
               ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
@@ -226,11 +228,11 @@ export function LeaderboardPage() {
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-400">
             {t("leaderboard.shareable")}{" "}
-            <Link to={buildLeaderboardUrl("xp", "week")} className="underline">
+            <Link to={buildLeaderboardUrl(lang, "xp", "week")} className="underline">
               {t("leaderboard.periodWeek")}
             </Link>
             {" · "}
-            <Link to={buildLeaderboardUrl("xp", "month")} className="underline">
+            <Link to={buildLeaderboardUrl(lang, "xp", "month")} className="underline">
               {t("leaderboard.periodMonth")}
             </Link>
           </p>

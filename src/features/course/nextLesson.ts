@@ -1,4 +1,4 @@
-import type { Course } from "@/core/course";
+import type { Course } from "@/shared/domain/course";
 
 /**
  * First available (non-locked) lesson in the course, for "Continue learning" CTA.

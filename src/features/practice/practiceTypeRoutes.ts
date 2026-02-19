@@ -1,4 +1,4 @@
-import type { PracticeType } from "@/core/languageConfig";
+import type { PracticeType } from "@/shared/domain/languageConfig";
 
 export const PRACTICE_TYPE_LABELS: Record<PracticeType, string> = {
   general: "General practice",
@@ -8,12 +8,13 @@ export const PRACTICE_TYPE_LABELS: Record<PracticeType, string> = {
   components: "Character components",
 };
 
-/** Base route for each practice type. Alphabet uses path param: /practice/alphabet/:id */
-export function getPracticeRoute(type: PracticeType, alphabetId?: string): string {
-  if (type === "alphabet" && alphabetId) {
-    return `/practice/alphabet/${encodeURIComponent(alphabetId)}`;
-  }
-  return PRACTICE_TYPE_ROUTES[type];
+/** Base route for each practice type. Alphabet uses path param: /:lang/practice/alphabet/:id */
+export function getPracticeRoute(type: PracticeType, alphabetId?: string, lang?: string): string {
+  const base = type === "alphabet" && alphabetId
+    ? `/practice/alphabet/${encodeURIComponent(alphabetId)}`
+    : PRACTICE_TYPE_ROUTES[type];
+  const prefix = lang ? `/${lang}` : "";
+  return prefix ? `${prefix}${base}` : base;
 }
 
 export const PRACTICE_TYPE_ROUTES: Record<PracticeType, string> = {

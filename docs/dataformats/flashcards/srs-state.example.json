@@ -1,0 +1,16 @@
+{
+  "ko-1": {
+    "easeFactor": 2.5,
+    "interval": 1,
+    "dueDate": "2025-02-19",
+    "repetitions": 2,
+    "lastReviewDate": "2025-02-18"
+  },
+  "ko-2": {
+    "easeFactor": 2.36,
+    "interval": 3,
+    "dueDate": "2025-02-21",
+    "repetitions": 3,
+    "lastReviewDate": "2025-02-18"
+  }
+}

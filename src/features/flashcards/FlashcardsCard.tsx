@@ -1,15 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 
 const OPTIONS = [
-  { to: "/practice/flashcards", query: "", labelKey: "home.cards.flashcardsOptionAll" },
-  { to: "/practice/flashcards", query: "?mode=vocab", labelKey: "home.cards.flashcardsOptionVocab" },
-  { to: "/practice/flashcards", query: "?mode=sentences", labelKey: "home.cards.flashcardsOptionSentences" },
+  { to: "practice/flashcards", query: "", labelKey: "home.cards.flashcardsOptionAll" },
+  { to: "practice/flashcards", query: "?mode=vocab", labelKey: "home.cards.flashcardsOptionVocab" },
+  { to: "practice/flashcards", query: "?mode=sentences", labelKey: "home.cards.flashcardsOptionSentences" },
 ] as const;
 
 export function FlashcardsCard() {
   const { t } = useTranslation();
+  const langPath = useLangPath();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -48,7 +50,7 @@ export function FlashcardsCard() {
           {OPTIONS.map((opt) => (
             <li key={opt.labelKey}>
               <Link
-                to={opt.to + opt.query}
+                to={langPath(opt.to) + opt.query}
                 className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
                 onClick={() => setOpen(false)}
               >

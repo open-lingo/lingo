@@ -1,70 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FundingMeter } from "@/components/FundingMeter";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { LanguageSelector } from "@/components/LanguageSelector";
-import { AuthMenu } from "@/components/AuthMenu";
-import { SettingsModal } from "@/features/settings/SettingsModal";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { FundingMeter } from "@/shared/components/FundingMeter";
+import { ThemeToggle } from "@/shared/components/ThemeToggle";
+import { LanguageSelector } from "@/shared/components/LanguageSelector";
+import { AuthMenu } from "@/shared/components/AuthMenu";
+import { ModalRoot } from "@/shared/components/ModalRoot";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
   getPracticeItemsForLanguage,
   type PracticeNavItem,
 } from "@/features/practice/practiceNavItems";
-
-function NavDropdown({
-  label,
-  items,
-  isActive,
-}: {
-  label: string;
-  items: { to: string; key: string }[];
-  isActive: boolean;
-}) {
-  const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
-
-  return (
-    <div className="relative" ref={ref}>
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        className={`flex items-center gap-0.5 text-sm ${
-          isActive
-            ? "text-gray-900 dark:text-white"
-            : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-        }`}
-      >
-        {label}
-        <Chevron className={`h-4 w-4 ${open ? "rotate-180" : ""}`} />
-      </button>
-      {open && (
-        <ul className="absolute left-0 top-full z-20 mt-1 min-w-[160px] rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-800">
-          {items.map(({ to, key }) => (
-            <li key={to}>
-              <Link
-                to={to}
-                className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-                onClick={() => setOpen(false)}
-              >
-                {t(key)}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-}
 
 function PracticeNavDropdown({ isActive }: { isActive: boolean }) {
   const { t } = useTranslation();
@@ -147,22 +94,19 @@ function Chevron({ className }: { className?: string }) {
   );
 }
 
-const LEARN_ITEMS = [
-  { to: "/learn", key: "nav.learnCourseMap" },
-  { to: "/learn/courses", key: "nav.learnCourses" },
-];
+
 
 export function Layout() {
   const { t } = useTranslation();
   const location = useLocation();
   const pathname = location.pathname;
+  const langPath = useLangPath();
 
-  const learnActive = pathname.startsWith("/learn");
-  const practiceActive = pathname.startsWith("/practice");
+  const learnActive = /^\/[^/]+\/learn/.test(pathname);
+  const practiceActive = /^\/[^/]+\/practice/.test(pathname);
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
-      <FundingMeter />
+    <div className="min-h-screen bg-gray-100 pb-14 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
       <header className="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-800">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link
@@ -178,14 +122,19 @@ export function Layout() {
             >
               {t("nav.home")}
             </Link>
-            <NavDropdown
-              label={t("nav.learn")}
-              items={LEARN_ITEMS}
-              isActive={learnActive}
-            />
+            <Link
+              to={langPath("learn")}
+              className={`text-sm ${
+                learnActive
+                  ? "text-gray-900 dark:text-white"
+                  : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              }`}
+            >
+              {t("nav.learn")}
+            </Link>
             <PracticeNavDropdown isActive={practiceActive} />
             <Link
-              to="/community"
+              to={langPath("community")}
               className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
             >
               {t("nav.community")}
@@ -201,7 +150,8 @@ export function Layout() {
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Outlet />
       </main>
-      <SettingsModal />
+      <FundingMeter />
+      <ModalRoot />
     </div>
   );
 }

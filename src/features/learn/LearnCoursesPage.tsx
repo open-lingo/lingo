@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useModal } from "@/shared/contexts/ModalContext";
+import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getMockCourse } from "@/features/course/mockCourse";
 import { getMockCompletedLessonIds } from "@/features/course/mockProgress";
 import { getTrendingCourses } from "@/features/community/mockCommunity";
-import { getLanguageConfig } from "@/core/languageConfig";
-import { ModuleCard } from "@/features/course/ModuleCard";
+import { getLanguageConfig } from "@/shared/domain/languageConfig";
+import { ModuleCard } from "@/features/course/components";
 
 export function LearnCoursesPage() {
   const { t } = useTranslation();
+  const { openSettings } = useModal();
+  const langPath = useLangPath();
   const { language } = useLanguage();
   const course = language ? getMockCourse(language.id) : null;
   const completedIds = getMockCompletedLessonIds();
@@ -20,9 +24,9 @@ export function LearnCoursesPage() {
         <p className="text-gray-500 dark:text-gray-400">
           Select a learning language in Settings to see your courses.
         </p>
-        <Link to="/settings" className="text-sm text-blue-600 dark:text-blue-400">
+        <button type="button" onClick={openSettings} className="text-sm text-blue-600 dark:text-blue-400">
           → Settings
-        </Link>
+        </button>
       </div>
     );
   }
@@ -66,7 +70,7 @@ export function LearnCoursesPage() {
               return (
                 <Link
                   key={addon.id}
-                  to="/community/content"
+                  to={langPath("community/content")}
                   className="flex items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 transition hover:border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
                 >
                   <span className="text-2xl" role="img">
@@ -86,7 +90,7 @@ export function LearnCoursesPage() {
           </div>
         )}
         <Link
-          to="/community/content"
+          to={langPath("community/content")}
           className="mt-3 inline-block text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
         >
           {t("learn.browseAllCourses")} →
@@ -94,7 +98,7 @@ export function LearnCoursesPage() {
       </section>
 
       <Link
-        to="/"
+        to={langPath("")}
         className="inline-block text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
       >
         {t("common.backToHome")}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
   FORUM_CATEGORIES,
   getThreadsByCategory,
@@ -25,6 +26,7 @@ function formatTimeAgo(iso: string) {
 
 export function ForumPage() {
   const { t } = useTranslation();
+  const langPath = useLangPath();
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [sort, setSort] = useState<SortMode>("hot");
 
@@ -40,7 +42,7 @@ export function ForumPage() {
         <main className="min-w-0 flex-1 space-y-6 lg:flex-[7]">
           <div>
             <Link
-              to="/community"
+              to={langPath("community")}
               className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
             >
               ← {t("community.title")}
@@ -53,7 +55,7 @@ export function ForumPage() {
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <Link
-                to="/community/forum/new"
+                to={langPath("community/forum/new")}
                 className="rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
               >
                 {t("forum.newThread")}
@@ -122,7 +124,7 @@ export function ForumPage() {
                     >
                       <td className="group px-3 py-2">
                         <Link
-                          to={`/community/forum/thread/${thread.id}`}
+                          to={langPath(`community/forum/thread/${thread.id}`)}
                           className="flex items-center gap-2 font-medium text-gray-900 hover:text-green-600 dark:text-white dark:hover:text-green-400"
                         >
                           {thread.isPinned && (

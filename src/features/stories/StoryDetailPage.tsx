@@ -1,9 +1,11 @@
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getStoryById } from "./storiesData";
 
 export function StoryDetailPage() {
   const { t } = useTranslation();
+  const langPath = useLangPath();
   const { storyId } = useParams<{ storyId: string }>();
   const story = storyId ? getStoryById(storyId) : undefined;
 
@@ -11,7 +13,7 @@ export function StoryDetailPage() {
     return (
       <div className="mx-auto max-w-2xl space-y-4">
         <p className="text-gray-500 dark:text-gray-400">{t("stories.storyNotFound")}</p>
-        <Link to="/practice/stories" className="text-sm text-green-600 dark:text-green-400">
+        <Link to={langPath("practice/stories")} className="text-sm text-green-600 dark:text-green-400">
           {t("stories.back")}
         </Link>
       </div>
@@ -22,7 +24,7 @@ export function StoryDetailPage() {
     <div className="mx-auto max-w-2xl space-y-6">
       <div className="flex items-center justify-between">
         <Link
-          to="/practice/stories"
+          to={langPath("practice/stories")}
           className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
         >
           {t("stories.back")}

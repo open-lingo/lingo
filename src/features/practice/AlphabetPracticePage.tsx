@@ -1,82 +1,14 @@
 import { useEffect, useMemo } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import {
   getLanguageConfig,
   getAlphabetById,
   getAlphabetDisplaySections,
   type AlphabetDef,
-  type AlphabetSection,
-} from "@/core/languageConfig";
-import { ALPHABET_QUERY } from "@/hooks/usePathParams";
-
-function CharacterCard({
-  character,
-  romanization,
-  size = "default",
-}: {
-  character: string;
-  romanization?: string;
-  size?: "compact" | "default";
-}) {
-  const isCompact = size === "compact";
-  return (
-    <div
-      className={`flex flex-col items-center justify-center rounded-lg border border-gray-200 bg-white font-medium text-gray-900 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-500 ${
-        isCompact
-          ? "min-h-[2.25rem] min-w-[2.25rem] text-xl"
-          : "min-h-[4rem] min-w-[3rem] text-3xl py-2"
-      }`}
-      role="listitem"
-      aria-label={romanization ? `Character ${character}, ${romanization}` : `Character ${character}`}
-    >
-      <span>{character}</span>
-      {!isCompact && romanization && (
-        <span className="mt-0.5 text-sm font-normal text-gray-500 dark:text-gray-400">
-          {romanization}
-        </span>
-      )}
-    </div>
-  );
-}
-
-function AlphabetSectionBlock({
-  section,
-  romanizationMap,
-}: {
-  section: AlphabetSection;
-  romanizationMap?: Record<string, string>;
-}) {
-  if (!section.characters.length) return null;
-  const sectionId = `alphabet-section-${section.id}`;
-  return (
-    <section
-      aria-labelledby={sectionId}
-      className="space-y-3"
-    >
-      <h2
-        id={sectionId}
-        className="text-lg font-semibold text-gray-800 dark:text-gray-200"
-      >
-        {section.name}
-      </h2>
-      <ul
-        className="grid list-none grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10"
-        role="list"
-        aria-label={`${section.name} characters`}
-      >
-        {section.characters.map((ch, i) => (
-          <li key={`${ch}-${i}`}>
-            <CharacterCard
-              character={ch}
-              romanization={romanizationMap?.[ch]}
-            />
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-}
+} from "@/shared/domain/languageConfig";
+import { ALPHABET_QUERY } from "@/shared/hooks/usePathParams";
+import { CharacterCard, AlphabetSectionBlock } from "./components/characters";
 
 export function AlphabetPracticePage() {
   const { language } = useLanguage();

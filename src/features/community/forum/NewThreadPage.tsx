@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 import { FORUM_CATEGORIES, FORUM_TAGS } from "./mockForum";
 import { MarkdownEditor } from "./MarkdownEditor";
 
 export function NewThreadPage() {
   const { t } = useTranslation();
+  const langPath = useLangPath();
   const navigate = useNavigate();
   const [categoryId, setCategoryId] = useState(FORUM_CATEGORIES[0]?.id ?? "general");
   const [title, setTitle] = useState("");
@@ -22,12 +24,12 @@ export function NewThreadPage() {
     e.preventDefault();
     if (!title.trim() || !body.trim()) return;
     // Mock: would POST to API
-    navigate("/community/forum");
+    navigate(langPath("community/forum"));
   };
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <Link to="/community" className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+      <Link to={langPath("community")} className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
           ← {t("community.title")}
         </Link>
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -104,7 +106,7 @@ export function NewThreadPage() {
 
         <div className="flex gap-3">
           <Link
-            to="/community/forum"
+            to={langPath("community/forum")}
             className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
           >
             {t("forum.cancel")}

@@ -1,0 +1,39 @@
+{
+  "id": "official-ko",
+  "languageId": "ko",
+  "title": "Korean for Beginners",
+  "version": "1.0",
+  "modules": [
+    {
+      "id": "m1",
+      "title": "Basics",
+      "description": "Essential greetings, numbers, and colors",
+      "vocabManifest": [
+        { "id": "annyeong", "word": "안녕하세요", "meaning": "Hello", "reading": "annyeonghaseyo" },
+        { "id": "gamsahamnida", "word": "감사합니다", "meaning": "Thank you", "reading": "gamsahamnida" },
+        { "id": "haksaeng", "word": "학생", "meaning": "student", "reading": "haksaeng" },
+        { "id": "sagwa", "word": "사과", "meaning": "apple", "reading": "sagwa" },
+        { "id": "hakgyo", "word": "학교", "meaning": "school", "reading": "hakgyo" }
+      ],
+      "lessons": ["m1-l0", "m1-l1", "m1-l2", "m1-l3"]
+    },
+    {
+      "id": "m2",
+      "title": "Everyday phrases",
+      "description": "Polite expressions, directions, and shopping",
+      "vocabManifest": [
+        { "id": "juseyo", "word": "주세요", "meaning": "please give me", "reading": "juseyo" },
+        { "id": "eodiya", "word": "어디야", "meaning": "where is it", "reading": "eodiya" },
+        { "id": "eolma", "word": "얼마", "meaning": "how much", "reading": "eolma" }
+      ],
+      "lessons": ["m2-l1", "m2-l2", "m2-l3"]
+    },
+    {
+      "id": "m3",
+      "title": "Grammar foundations",
+      "description": "Simple present tense and question forms",
+      "vocabManifest": [],
+      "lessons": ["m3-l1", "m3-l2"]
+    }
+  ]
+}

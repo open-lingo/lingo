@@ -4,7 +4,7 @@
  * Alphabets use the same AlphabetPracticePage; manifest (AlphabetDef) controls display.
  */
 
-import { getLanguageConfig } from "@/core/languageConfig";
+import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getPracticeRoute } from "./practiceTypeRoutes";
 
 export type PracticeNavItem = {
@@ -21,9 +21,11 @@ export type PracticeNavItem = {
 export function getPracticeItemsForLanguage(
   languageId: string | undefined
 ): PracticeNavItem[] {
+  const lang = languageId ?? "ko";
+  const prefix = `/${lang}`;
   const base: PracticeNavItem[] = [
-    { to: "/practice/flashcards", labelKey: "nav.flashcards", sampleCharacter: "📚" },
-    { to: "/practice/stories", labelKey: "nav.stories", sampleCharacter: "📖" },
+    { to: `${prefix}/practice/flashcards`, labelKey: "nav.flashcards", sampleCharacter: "📚" },
+    { to: `${prefix}/practice/stories`, labelKey: "nav.stories", sampleCharacter: "📖" },
   ];
 
   if (!languageId) {
@@ -39,7 +41,7 @@ export function getPracticeItemsForLanguage(
     const id = "id" in opt ? opt.id : undefined;
     const label = "label" in opt ? opt.label : undefined;
     const sampleCharacter = "sampleCharacter" in opt ? opt.sampleCharacter : undefined;
-    const to = getPracticeRoute(opt.type, id);
+    const to = getPracticeRoute(opt.type, id, lang);
     const item: PracticeNavItem = {
       to,
       label: typeof label === "string" ? label : undefined,

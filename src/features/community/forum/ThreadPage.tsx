@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 import ReactMarkdown from "react-markdown";
 import { getThreadById, getPostsByThreadId, getTagById } from "./mockForum";
 import { MarkdownEditor } from "./MarkdownEditor";
@@ -45,6 +46,7 @@ function VoteButtons({ up, down, userVote, onVote }: {
 
 export function ThreadPage() {
   const { t } = useTranslation();
+  const langPath = useLangPath();
   const { threadId } = useParams<{ threadId: string }>();
   const [replyBody, setReplyBody] = useState("");
   const [showReplyForm, setShowReplyForm] = useState(false);
@@ -55,7 +57,7 @@ export function ThreadPage() {
   if (!thread) {
     return (
       <div className="mx-auto max-w-4xl space-y-4">
-        <Link to="/community/forum" className="text-sm text-gray-600 hover:underline dark:text-gray-400">
+        <Link to={langPath("community/forum")} className="text-sm text-gray-600 hover:underline dark:text-gray-400">
           ← {t("forum.backToForum")}
         </Link>
         <p className="text-gray-500 dark:text-gray-400">{t("forum.threadNotFound")}</p>
@@ -67,7 +69,7 @@ export function ThreadPage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
-      <Link to="/community/forum" className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+      <Link to={langPath("community/forum")} className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
         ← {t("forum.backToForum")}
       </Link>
 

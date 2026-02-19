@@ -2,12 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Auth0Provider } from "@auth0/auth0-react";
-import "@/i18n";
-import { requireAuth0Config, auth0Audience } from "@/auth/config";
-import { ThemeProvider } from "@/contexts/ThemeContext";
-import { LanguageProvider } from "@/contexts/LanguageContext";
-import { SettingsModalProvider } from "@/contexts/SettingsModalContext";
-import { ApiProvider } from "@/api/provider";
+import "@/shared/i18n/i18n";
+import { requireAuth0Config, auth0Audience } from "@/shared/auth/config";
+import { ThemeProvider } from "@/shared/contexts/ThemeContext";
+import { LanguageProvider } from "@/shared/contexts/LanguageContext";
+import { ModalProvider } from "@/shared/contexts/ModalContext";
+import { ApiProvider } from "@/shared/api/provider";
 import App from "./App";
 import "./index.css";
 
@@ -32,9 +32,9 @@ createRoot(document.getElementById("root")!).render(
         <ApiProvider>
           <ThemeProvider>
             <LanguageProvider>
-              <SettingsModalProvider>
+              <ModalProvider>
                 <App />
-              </SettingsModalProvider>
+              </ModalProvider>
             </LanguageProvider>
           </ThemeProvider>
         </ApiProvider>

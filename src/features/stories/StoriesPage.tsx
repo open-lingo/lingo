@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getCourseStories, getCommunityStories } from "./storiesData";
 import type { Story } from "./storiesData";
 
@@ -35,6 +36,7 @@ const FILTERS: { id: FilterId; labelKey: string }[] = [
 
 export function StoriesPage() {
   const { t } = useTranslation();
+  const langPath = useLangPath();
   const [filter, setFilter] = useState<FilterId>("all");
   const [search, setSearch] = useState("");
 
@@ -109,7 +111,7 @@ export function StoriesPage() {
             ) : (
               <ul className="space-y-2">
                 {filteredCourse.map((story) => (
-                  <StoryCard key={story.id} story={story} t={t} />
+                  <StoryCard key={story.id} story={story} t={t} langPath={langPath} />
                 ))}
               </ul>
             )}
@@ -125,7 +127,7 @@ export function StoriesPage() {
             ) : (
               <ul className="space-y-2">
                 {filteredCommunity.map((story) => (
-                  <StoryCard key={story.id} story={story} t={t} />
+                  <StoryCard key={story.id} story={story} t={t} langPath={langPath} />
                 ))}
               </ul>
             )}
@@ -139,14 +141,16 @@ export function StoriesPage() {
 function StoryCard({
   story,
   t,
+  langPath,
 }: {
   story: Story;
   t: (key: string) => string;
+  langPath: (p: string) => string;
 }) {
   return (
     <li>
       <Link
-        to={`/practice/stories/${story.id}`}
+        to={langPath(`practice/stories/${story.id}`)}
         className="block rounded-xl border border-gray-200 bg-white p-4 transition hover:border-green-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-green-600"
       >
         <span className="font-medium text-gray-900 dark:text-white">

@@ -70,7 +70,7 @@ A thread can be *about* or *related to* specific content. Use a generic link tab
 |--------|------|-------|
 | id | uuid | PK |
 | thread_id | uuid | FK → forum_threads |
-| content_type | enum | `official_course`, `official_lesson`, `official_module`, `addon`, `flashcard_pack` |
+| content_type | enum | `official_course`, `official_lesson`, `official_module`, `addon`, `flashcard_pack`, `video`, `video_pack` |
 | content_id | text | ID in the source system (e.g. `official-ko`, `addon-1`, `m1-l1`) |
 | optional: language_id | text | e.g. `ko`, `ja` – helps filtering |
 | created_at | timestamptz | |
@@ -98,7 +98,7 @@ A thread can be *about* or *related to* specific content. Use a generic link tab
 | Column | Type | Notes |
 |--------|------|-------|
 | id | uuid | PK |
-| kind | enum | `course`, `flashcard_pack`, `story`, `grammar` |
+| kind | enum | `course`, `flashcard_pack`, `story`, `grammar`, `video`, `video_pack` |
 | language_id | text | |
 | name | text | |
 | description | text | |

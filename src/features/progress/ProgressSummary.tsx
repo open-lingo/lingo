@@ -1,10 +1,27 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { ProgressBar } from "@/shared/components/progress";
 import { getMockProgressSummary } from "./mockProgress";
+import { getDeckForPractice } from "@/features/flashcards/data/loadDeck";
+import { getMockCompletedLessonIds } from "@/features/course/mockProgress";
+import { countCardsDue } from "@/features/flashcards/engine";
 
 export function ProgressSummary() {
   const { t } = useTranslation();
+  const langPath = useLangPath();
+  const { language } = useLanguage();
   const p = getMockProgressSummary();
+
+  const cardsDue = useMemo(() => {
+    const langId = language?.id ?? "ko";
+    const completed = getMockCompletedLessonIds();
+    const deck = getDeckForPractice(langId, completed);
+    return deck ? countCardsDue(deck.cards) : 0;
+  }, [language]);
+
   const dailyPercent = Math.min(
     100,
     Math.round((p.dailyGoalCompletedMinutes / p.dailyGoalMinutes) * 100)
@@ -33,10 +50,10 @@ export function ProgressSummary() {
         </div>
         <div>
           <p className="text-2xl font-bold text-gray-900 dark:text-white">
-            {p.cardsDueToday}
+            {cardsDue}
           </p>
           <Link
-            to="/practice/flashcards"
+            to={langPath("practice/flashcards")}
             className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
           >
             {t("progress.cardsDueToday")}
@@ -44,18 +61,13 @@ export function ProgressSummary() {
         </div>
       </div>
       <div className="mt-4">
-        <div className="flex justify-between text-sm">
-          <span className="text-gray-600 dark:text-gray-400">{t("progress.todaysGoal")}</span>
-          <span className="text-gray-700 dark:text-gray-300">
-            {p.dailyGoalCompletedMinutes} / {p.dailyGoalMinutes} min
-          </span>
-        </div>
-        <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
-          <div
-            className="h-full rounded-full bg-emerald-500 dark:bg-emerald-600"
-            style={{ width: `${dailyPercent}%` }}
-          />
-        </div>
+        <ProgressBar
+          percent={dailyPercent}
+          label={t("progress.todaysGoal")}
+          valueLabel={`${p.dailyGoalCompletedMinutes} / ${p.dailyGoalMinutes} min`}
+          ariaLabel={t("progress.todaysGoal")}
+          size="sm"
+        />
       </div>
     </section>
   );

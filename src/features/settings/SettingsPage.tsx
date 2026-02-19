@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "@/auth/useAuth";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { useTheme } from "@/contexts/ThemeContext";
-import type { Language } from "@/core/languages";
-import { AVAILABLE_LEARNING_LANGUAGES } from "@/core/languageConfig";
-import i18n, { supportedLngs } from "@/i18n";
+import { useAuth } from "@/shared/auth/useAuth";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useTheme } from "@/shared/contexts/ThemeContext";
+import type { Language } from "@/shared/domain/languages";
+import { AVAILABLE_LEARNING_LANGUAGES } from "@/shared/domain/languageConfig";
+import i18n, { supportedLngs } from "@/shared/i18n/i18n";
 
 const UI_LOCALE_LABELS: Record<string, string> = {
   en: "English",

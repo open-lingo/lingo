@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "@/auth/useAuth";
-import { getStoredProfile, setStoredProfile } from "@/settings/profileStorage";
-import type { UserProfile } from "@/settings/profileTypes";
+import { useAuth } from "@/shared/auth/useAuth";
+import { getStoredProfile, setStoredProfile } from "@/features/settings/profileStorage";
+import type { UserProfile } from "@/features/settings/profileTypes";
 
 export function ProfileEditPage() {
   const { t } = useTranslation();

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getPracticeItemsForLanguage } from "./practiceNavItems";
 
 export function PracticeCard() {
