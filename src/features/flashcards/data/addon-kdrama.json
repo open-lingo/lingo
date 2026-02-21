@@ -1,0 +1,64 @@
+{
+  "id": "addon-kdrama",
+  "languageId": "ko",
+  "name": "K-Drama Phrases",
+  "image": "https://picsum.photos/seed/kdrama/400/200",
+  "locale": "en",
+  "cards": [
+    {
+      "id": "kdrama-1",
+      "front": "뭐 해요?",
+      "back": "What are you doing?",
+      "type": "sentence",
+      "note": "Casual, common in dramas.",
+      "words": [
+        { "segment": "뭐", "meaning": "what" },
+        { "segment": "해요", "meaning": "do (polite)" }
+      ]
+    },
+    {
+      "id": "kdrama-2",
+      "front": "진짜요?",
+      "back": "Really?",
+      "type": "word",
+      "note": "Very common reaction.",
+      "image": "https://user-images.githubusercontent.com/example/surprised-face.png",
+      "parts": [
+        { "segment": "진짜", "meaning": "really" },
+        { "segment": "요", "meaning": "polite ending" }
+      ]
+    },
+    {
+      "id": "kdrama-3",
+      "front": "잘 지냈어요?",
+      "back": "How have you been?",
+      "type": "sentence",
+      "note": "Common greeting in dramas.",
+      "words": [
+        { "segment": "잘", "meaning": "well" },
+        { "segment": "지냈어요", "meaning": "spent time (past polite)" }
+      ]
+    },
+    {
+      "id": "kdrama-4",
+      "front": "다음에 봐요",
+      "back": "See you next time.",
+      "type": "sentence",
+      "words": [
+        { "segment": "다음에", "meaning": "next time" },
+        { "segment": "봐요", "meaning": "see (polite)" }
+      ]
+    },
+    {
+      "id": "kdrama-5",
+      "front": "알겠어요",
+      "back": "I understand. / Got it.",
+      "type": "word",
+      "note": "Polite acknowledgment.",
+      "parts": [
+        { "segment": "알", "meaning": "know" },
+        { "segment": "겠어요", "meaning": "will (polite)" }
+      ]
+    }
+  ]
+}

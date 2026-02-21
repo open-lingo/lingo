@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ko-beginner",
+    "languageId": "ko",
+    "name": "Korean beginner",
+    "courseId": "mock-1",
+    "version": "1.0",
+    "cardCount": 5,
+    "createdAt": "2025-02-18T00:00:00Z",
+    "updatedAt": "2025-02-18T00:00:00Z"
+  },
+  {
+    "id": "addon-kdrama",
+    "languageId": "ko",
+    "name": "K-Drama Phrases",
+    "courseId": null,
+    "version": "1.0",
+    "cardCount": 5,
+    "image": "https://picsum.photos/seed/kdrama/400/200",
+    "createdAt": "2025-02-18T00:00:00Z",
+    "updatedAt": "2025-02-18T00:00:00Z"
+  }
+]

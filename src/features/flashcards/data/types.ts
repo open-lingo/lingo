@@ -44,6 +44,12 @@ export type FlashcardDeck = {
   cards: Flashcard[];
   /** If set, this deck is course-linked. Cards are unlocked as lessons are completed. */
   courseId?: string;
+  /** Cover/thumbnail URL. Use getDeckImageUrl() for placeholder when omitted. */
+  image?: string;
+  /** Initial ease for new cards (SM-2). Omit = 2.5. */
+  defaultEase?: number;
+  /** UI locale for names/descriptions (e.g. en, ko). Filter by user's selected locale. */
+  locale?: string;
 };
 
 /** SRS (spaced repetition) state per card. Stored per user (localStorage or backend). */
@@ -55,6 +61,8 @@ export type SRSCardState = {
   lastReviewDate: string;
   /** ISO timestamp of last sync to backend. Undefined = never synced. */
   lastSyncedAt?: string;
+  /** If set and > today, card is buried (excluded from queue until this date). YYYY-MM-DD. */
+  buriedUntil?: string;
 };
 
 /** Rating after reviewing a card. Used by SRS algorithm. */

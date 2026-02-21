@@ -71,4 +71,68 @@ export class UsersApi extends ApiClient {
       tag: "users:settings:update",
     });
   }
+
+  // ── Subscriptions ────────────────────────────────────────────
+
+  /** List the current user's subscriptions. */
+  getSubscriptions(params?: { contentType?: string }, signal?: AbortSignal): Promise<Subscription[]> {
+    const q = params?.contentType ? { content_type: params.contentType } : undefined;
+    return this.get<Subscription[]>(`${PREFIX}/me/subscriptions`, {
+      params: q as Record<string, string>,
+      signal,
+      tag: "users:subscriptions:list",
+    });
+  }
+
+  /** Add a subscription. */
+  addSubscription(
+    body: { contentType: string; contentId: string },
+    signal?: AbortSignal
+  ): Promise<Subscription> {
+    return this.post<Subscription>(`${PREFIX}/me/subscriptions`, body, {
+      signal,
+      tag: "users:subscriptions:add",
+    });
+  }
+
+  /** Update subscription settings. */
+  updateSubscription(
+    contentType: string,
+    contentId: string,
+    patch: SubscriptionSettingsPatch,
+    signal?: AbortSignal
+  ): Promise<Subscription> {
+    return this.patch<Subscription>(
+      `${PREFIX}/me/subscriptions/${encodeURIComponent(contentType)}/${encodeURIComponent(contentId)}`,
+      patch,
+      { signal, tag: "users:subscriptions:update" }
+    );
+  }
+
+  /** Remove a subscription. */
+  removeSubscription(
+    contentType: string,
+    contentId: string,
+    signal?: AbortSignal
+  ): Promise<void> {
+    return this.delete(
+      `${PREFIX}/me/subscriptions/${encodeURIComponent(contentType)}/${encodeURIComponent(contentId)}`,
+      { signal, tag: "users:subscriptions:remove" }
+    );
+  }
+}
+
+export interface Subscription {
+  contentType: string;
+  contentId: string;
+  createdAt?: string;
+  enabled?: boolean;
+  newCardsPerDay?: number;
+  newCardOrder?: "ordered" | "shuffled";
+}
+
+export interface SubscriptionSettingsPatch {
+  enabled?: boolean;
+  newCardsPerDay?: number;
+  newCardOrder?: "ordered" | "shuffled";
 }

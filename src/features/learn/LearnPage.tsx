@@ -101,7 +101,7 @@ export function LearnPage() {
           </div>
         )}
         <Link
-          to={langPath("community/content")}
+          to={langPath("community/explore")}
           className="mt-3 inline-block text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
         >
           {t("learn.browseAllCourses")} →

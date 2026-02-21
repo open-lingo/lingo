@@ -8,6 +8,7 @@ import {
   getThreadsHot,
   getTagById,
 } from "./mockForum";
+import { getAllAddons } from "../mockCommunity";
 import { Badge } from "../components/Badge";
 import { Avatar } from "../components/Avatar";
 import { Tag } from "../components/Tag";
@@ -42,7 +43,7 @@ export function ForumPage() {
         <main className="min-w-0 flex-1 space-y-6 lg:flex-[7]">
           <div>
             <Link
-              to={langPath("community")}
+              to={langPath("community/explore")}
               className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
             >
               ← {t("community.title")}
@@ -55,7 +56,7 @@ export function ForumPage() {
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <Link
-                to={langPath("community/forum/new")}
+                to={langPath("community/discuss/new")}
                 className="rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
               >
                 {t("forum.newThread")}
@@ -124,7 +125,7 @@ export function ForumPage() {
                     >
                       <td className="group px-3 py-2">
                         <Link
-                          to={langPath(`community/forum/thread/${thread.id}`)}
+                          to={langPath(`community/discuss/thread/${thread.id}`)}
                           className="flex items-center gap-2 font-medium text-gray-900 hover:text-green-600 dark:text-white dark:hover:text-green-400"
                         >
                           {thread.isPinned && (
@@ -174,6 +175,23 @@ export function ForumPage() {
 
         {/* Sidebar - 30% */}
         <aside className="space-y-4 lg:w-80 lg:shrink-0 lg:flex-[3]">
+          <div className="rounded-md border border-gray-200 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+            <h2 className="text-sm font-semibold text-gray-900 dark:text-white">
+              {t("community.popularContent")}
+            </h2>
+            <ul className="mt-2 space-y-1">
+              {getAllAddons().slice(0, 5).map((addon) => (
+                <li key={addon.id}>
+                  <Link
+                    to={langPath("community/explore")}
+                    className="block truncate text-sm text-gray-700 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400"
+                  >
+                    {addon.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
           <div className="rounded-md border border-gray-200 p-4 dark:border-gray-700 dark:bg-gray-800/50">
             <h2 className="text-sm font-semibold text-gray-900 dark:text-white">
               {t("forum.categories")}

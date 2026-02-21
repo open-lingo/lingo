@@ -1,9 +1,13 @@
 import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { DecksApi } from "./decks";
 import { UsersApi } from "./users";
+import { SrsApi } from "./srs";
 
 interface ApiContext {
   users: UsersApi;
+  srs: SrsApi;
+  decks: DecksApi;
 }
 
 const Ctx = createContext<ApiContext | null>(null);
@@ -25,6 +29,8 @@ export function ApiProvider({ children }: { children: ReactNode }) {
 
     return {
       users: new UsersApi(opts),
+      srs: new SrsApi(opts),
+      decks: new DecksApi(opts),
     };
   }, [getAccessTokenSilently]);
 

@@ -2,6 +2,7 @@
 
 Quick reference for this folder. Use for human reading and minimal context.
 
+- **PROJECT_STATE.md** — Architecture assessment, current state vs docs, route structure. Use for planning and AI delegation.
 - **TODO.md** — Concrete todos and what's left to implement (by area).
 - **DESIGN.md** — Design ideas, architecture notes, tech choices, folder structure.
 - **CONTENT-DESIGN.md** — Content philosophy: core courses (language-agnostic, versioned, manifest-based) vs community content (language-specific, no cutover on language switch).

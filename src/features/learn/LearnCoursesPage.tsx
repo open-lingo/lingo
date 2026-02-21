@@ -70,7 +70,7 @@ export function LearnCoursesPage() {
               return (
                 <Link
                   key={addon.id}
-                  to={langPath("community/content")}
+                  to={langPath("community/explore")}
                   className="flex items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 transition hover:border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
                 >
                   <span className="text-2xl" role="img">
@@ -90,7 +90,7 @@ export function LearnCoursesPage() {
           </div>
         )}
         <Link
-          to={langPath("community/content")}
+          to={langPath("community/explore")}
           className="mt-3 inline-block text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
         >
           {t("learn.browseAllCourses")} →

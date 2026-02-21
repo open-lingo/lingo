@@ -5,7 +5,7 @@ import { getSRSStore } from "./srsStorage";
 const DEFAULT_NEW_CARDS_PER_DAY = 5;
 
 export type ReviewQueue = {
-  /** Due review cards (oldest due first) */
+  /** Due review cards (sorted by ease for mix) */
   review: Flashcard[];
   /** New cards introduced this session */
   newCards: Flashcard[];
@@ -14,6 +14,20 @@ export type ReviewQueue = {
   dueCount: number;
   newCount: number;
   totalCount: number;
+  /** Map cardId -> deck defaultEase for new cards */
+  cardIdToDefaultEase?: Record<string, number>;
+};
+
+export type DeckSubscription = {
+  contentId: string;
+  newCardsPerDay: number;
+  newCardOrder: "ordered" | "shuffled";
+};
+
+export type DeckWithCards = {
+  id: string;
+  cards: Flashcard[];
+  defaultEase?: number;
 };
 
 /**
@@ -41,11 +55,8 @@ export function buildReviewQueue(
     }
   }
 
-  review.sort((a, b) => {
-    const dateCmp = a.state.dueDate.localeCompare(b.state.dueDate);
-    if (dateCmp !== 0) return dateCmp;
-    return a.state.easeFactor - b.state.easeFactor;
-  });
+  // Sort by ease for a good mix (harder and easier cards distributed)
+  review.sort((a, b) => a.state.easeFactor - b.state.easeFactor);
 
   const reviewCards = review.map((r) => r.card);
   const newCards = unseenCards.slice(0, newCardsPerDay);
@@ -58,6 +69,70 @@ export function buildReviewQueue(
     dueCount: reviewCards.length,
     newCount: newCards.length,
     totalCount: queue.length,
+  };
+}
+
+/**
+ * Build a review queue from subscription-based decks.
+ * - Due cards: sorted by ease for mix (default, non-changeable).
+ * - New cards: per-deck limits, subscription order, ordered or shuffled per sub.
+ */
+export function buildQueueFromSubscriptions(
+  subscriptions: DeckSubscription[],
+  decks: DeckWithCards[],
+  srsStore: Record<string, SRSCardState> = getSRSStore(),
+): ReviewQueue {
+  const decksById = new Map(decks.map((d) => [d.id, d]));
+  const cardIdToDefaultEase: Record<string, number> = {};
+
+  const due: Array<{ card: Flashcard; state: SRSCardState }> = [];
+  const unseenByDeck = new Map<string, Flashcard[]>();
+
+  for (const sub of subscriptions) {
+    const deck = decksById.get(sub.contentId);
+    if (!deck?.cards?.length) continue;
+
+    const defaultEase = deck.defaultEase ?? 2.5;
+    for (const card of deck.cards) {
+      cardIdToDefaultEase[card.id] = defaultEase;
+      const state = srsStore[card.id];
+      if (!state) {
+        const list = unseenByDeck.get(sub.contentId) ?? [];
+        list.push(card);
+        unseenByDeck.set(sub.contentId, list);
+      } else if (isDue(state)) {
+        due.push({ card, state });
+      }
+    }
+  }
+
+  // Sort due by ease for mix
+  due.sort((a, b) => a.state.easeFactor - b.state.easeFactor);
+  const reviewCards = due.map((r) => r.card);
+
+  // New cards: per deck in subscription order, apply ordered/shuffled
+  const newCards: Flashcard[] = [];
+  for (const sub of subscriptions) {
+    const unseen = unseenByDeck.get(sub.contentId) ?? [];
+    if (unseen.length === 0) continue;
+    let taken = unseen;
+    if (sub.newCardOrder === "shuffled") {
+      taken = [...unseen].sort(() => Math.random() - 0.5);
+    }
+    const slice = taken.slice(0, sub.newCardsPerDay);
+    newCards.push(...slice);
+  }
+
+  const queue = [...reviewCards, ...newCards];
+
+  return {
+    review: reviewCards,
+    newCards,
+    queue,
+    dueCount: reviewCards.length,
+    newCount: newCards.length,
+    totalCount: queue.length,
+    cardIdToDefaultEase,
   };
 }
 
@@ -87,8 +162,9 @@ export function countCardsDue(
 
 /**
  * Get SRS state for a card, with a fallback initial state for new cards.
+ * Pass defaultEase (e.g. deck.defaultEase) so new cards use the deck's initial ease.
  */
-export function getEffectiveState(cardId: string): SRSCardState {
+export function getEffectiveState(cardId: string, defaultEase?: number): SRSCardState {
   const store = getSRSStore();
-  return store[cardId] ?? createInitialState();
+  return store[cardId] ?? createInitialState(defaultEase);
 }

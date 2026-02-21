@@ -84,11 +84,11 @@ export function buildSyncPayload(): SyncPayload {
  */
 export async function performSync(
   syncFn: (payload: SyncPayload) => Promise<SRSStore>,
-): Promise<void> {
+): Promise<number> {
   const payload = buildSyncPayload();
   const dirtyIds = Object.keys(payload.cards);
 
-  if (dirtyIds.length === 0) return;
+  if (dirtyIds.length === 0) return 0;
 
   const serverState = await syncFn(payload);
   markSynced(dirtyIds);
@@ -96,4 +96,6 @@ export async function performSync(
   if (serverState && Object.keys(serverState).length > 0) {
     mergeServerState(serverState);
   }
+
+  return dirtyIds.length;
 }

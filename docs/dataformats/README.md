@@ -12,6 +12,7 @@ Reference formats for all app data. Each domain has its own subfolder with a sch
 | **Courses** | Course structure, modules, and vocab manifests | [courses/](./courses/) |
 | **Flashcards** | Deck format, card types, lesson-card mapping, SRS state | [flashcards/](./flashcards/) |
 | **Progress** | Per-user lesson completion, XP, streaks, and learned vocabulary | [progress/](./progress/) |
+| **SRS** | Backend storage design for SRS card state (SQLite + DynamoDB) | [srs/](./srs/) |
 
 ---
 
@@ -22,6 +23,7 @@ Reference formats for all app data. Each domain has its own subfolder with a sch
 - Course with modules and vocab manifest: [courses/course.example.json](./courses/course.example.json)
 - Flashcard deck (course-linked): [flashcards/course-deck.example.json](./flashcards/course-deck.example.json)
 - Flashcard deck (community): [flashcards/community-deck.example.json](./flashcards/community-deck.example.json)
+- Deck manifest (metadata + content split): [flashcards/deck-manifest.md](./flashcards/deck-manifest.md)
 - User progress snapshot: [progress/progress.example.json](./progress/progress.example.json)
 
 ---

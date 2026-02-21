@@ -24,7 +24,7 @@ export function NewThreadPage() {
     e.preventDefault();
     if (!title.trim() || !body.trim()) return;
     // Mock: would POST to API
-    navigate(langPath("community/forum"));
+    navigate(langPath("community/discuss"));
   };
 
   return (
@@ -106,7 +106,7 @@ export function NewThreadPage() {
 
         <div className="flex gap-3">
           <Link
-            to={langPath("community/forum")}
+            to={langPath("community/discuss")}
             className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
           >
             {t("forum.cancel")}

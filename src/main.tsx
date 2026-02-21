@@ -7,6 +7,7 @@ import { requireAuth0Config, auth0Audience } from "@/shared/auth/config";
 import { ThemeProvider } from "@/shared/contexts/ThemeContext";
 import { LanguageProvider } from "@/shared/contexts/LanguageContext";
 import { ModalProvider } from "@/shared/contexts/ModalContext";
+import { ToastProvider } from "@/shared/contexts/ToastContext";
 import { ApiProvider } from "@/shared/api/provider";
 import App from "./App";
 import "./index.css";
@@ -32,9 +33,11 @@ createRoot(document.getElementById("root")!).render(
         <ApiProvider>
           <ThemeProvider>
             <LanguageProvider>
-              <ModalProvider>
-                <App />
-              </ModalProvider>
+              <ToastProvider>
+                <ModalProvider>
+                  <App />
+                </ModalProvider>
+              </ToastProvider>
             </LanguageProvider>
           </ThemeProvider>
         </ApiProvider>

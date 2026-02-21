@@ -1,0 +1,47 @@
+{
+  "id": "addon-jlpt-n5",
+  "languageId": "ja",
+  "name": "JLPT N5 Vocab",
+  "cards": [
+    {
+      "id": "n5-1",
+      "front": "人",
+      "back": "Person, people",
+      "type": "word",
+      "note": "Kun: ひと, On: ジン, ニン",
+      "parts": [{ "segment": "人", "meaning": "person" }]
+    },
+    {
+      "id": "n5-2",
+      "front": "日",
+      "back": "Day, sun",
+      "type": "word",
+      "note": "Kun: ひ, か, On: ニチ, ジツ",
+      "parts": [{ "segment": "日", "meaning": "day, sun" }]
+    },
+    {
+      "id": "n5-3",
+      "front": "水",
+      "back": "Water",
+      "type": "word",
+      "note": "Kun: みず, On: スイ",
+      "parts": [{ "segment": "水", "meaning": "water" }]
+    },
+    {
+      "id": "n5-4",
+      "front": "食べる",
+      "back": "To eat",
+      "type": "word",
+      "note": "Ichidan verb.",
+      "parts": [{ "segment": "食べる", "meaning": "to eat" }]
+    },
+    {
+      "id": "n5-5",
+      "front": "大きい",
+      "back": "Big, large",
+      "type": "word",
+      "note": "い-adjective.",
+      "parts": [{ "segment": "大きい", "meaning": "big" }]
+    }
+  ]
+}

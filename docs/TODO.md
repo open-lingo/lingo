@@ -18,6 +18,9 @@ By area. Check tasks in `docs/tasks/` for detailed specs per item.
 - [x] Japanese stub: flashcards (5 cards), particles (8), stories (6)
 - [x] Korean: flashcards (5 cards), particles (8), stories (6)
 - [x] Content design docs: CONTENT-DESIGN.md (course vs community, versioning), FLASHCARD-DATA.md (vocab manifest, lesson completion flow)
+- [x] SRS engine: SM-2, srsStorage, reviewQueue, FlashcardTester ratings, ProgressSummary cards due
+- [x] Community deck preview: DeckPreviewModal sidebar, metadata, comments stub, Subscribe button
+- [x] Community content wiring: ContentBrowserPage + FlashcardsPage use decks/subscriptions API
 - [x] Modal system: stack-based ModalContext, ModalBase, ModalRoot (replaced SettingsModalContext)
 - [x] Shared progress components: ProgressBar, ProgressBarWithCheckpoints, StatusNodeStrip, LessonStatusCircle in `shared/components/progress/`
 - [x] Shared icons: LockIcon, ChevronIcon in `shared/components/icons/`
@@ -27,21 +30,21 @@ By area. Check tasks in `docs/tasks/` for detailed specs per item.
 
 ## UI pages — stub → real
 
-Each has a task doc in `docs/tasks/`.
+Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status.
 
 - [ ] **Vocab page** → [vocab-page.md](tasks/vocab-page.md)
-- [ ] **Practice hub** → [practice-hub.md](tasks/practice-hub.md)
-- [ ] **Particle practice** → [particle-practice.md](tasks/particle-practice.md)
-- [ ] **Kanji practice** → [kanji-practice.md](tasks/kanji-practice.md)
-- [ ] **Alphabet learner** → [alphabet-learner.md](tasks/alphabet-learner.md)
-- [ ] **Components practice** → [components-practice.md](tasks/components-practice.md)
+- [ ] **Practice hub** → [practice-hub.md](tasks/practice-hub.md) — PracticePage exists but not routed; index goes to FlashcardsPage
+- [x] **Particle practice** → [particle-practice.md](tasks/particle-practice.md)
+- [ ] **Kanji practice** → [kanji-practice.md](tasks/kanji-practice.md) — page exists; verify depth
+- [x] **Alphabet learner** → [alphabet-learner.md](tasks/alphabet-learner.md)
+- [ ] **Components practice** → [components-practice.md](tasks/components-practice.md) — page exists; verify depth
 - [ ] **Grammar page** → [grammar-page.md](tasks/grammar-page.md)
-- [ ] **Videos** (practice type, unlock by course, community addons, video steps in lessons) → [practice-hub.md](tasks/practice-hub.md)
-- [ ] **Story content** (real text + exercises) → [story-content.md](tasks/story-content.md)
+- [ ] **Videos** (unlock by course, community addons, video steps in lessons) → [practice-hub.md](tasks/practice-hub.md) — VideosPracticePage exists with mock; expand
+- [ ] **Story content** (real text + exercises) → [story-content.md](tasks/story-content.md) — layout exists; content placeholder
 
 ## Engine / logic
 
-- [ ] **SRS engine** (spaced repetition) → [srs-engine.md](tasks/srs-engine.md)
+- [x] **SRS engine** (spaced repetition) → [srs-engine.md](tasks/srs-engine.md)
 
 ## Content expansion
 

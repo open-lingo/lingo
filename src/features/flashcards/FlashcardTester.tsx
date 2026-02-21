@@ -1,13 +1,23 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
-import { getDeckForPractice, getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
-import { getMockCompletedLessonIds } from "@/features/course/mockProgress";
-import { buildReviewQueue, reviewCard, setCardState, getEffectiveState, shouldRepeatInSession } from "./engine";
+import { getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
+import { reviewCard, setCardState, getEffectiveState, shouldRepeatInSession } from "./engine";
+import { useSRSyncSession } from "./useSRSyncSession";
+import { useSubscriptionQueue } from "./useSubscriptionQueue";
+import { CardImage } from "./CardPreview";
+import {
+  type ReviewMode,
+  REVIEW_MODES,
+  REVIEW_MODE_LABELS,
+  REVIEW_MODE_WORD_FIRST,
+} from "./reviewModes";
 import type { Flashcard, CardSegment, SRSRating } from "@/features/flashcards/data/types";
 import type { ParticleDef } from "@/features/practice/data/types";
+
+const REVIEW_MODE_STORAGE_KEY = "openlingo-review-mode";
 
 function getParticleById(particles: ParticleDef[] | null, id: string): ParticleDef | undefined {
   return particles?.find((p) => p.id === id);
@@ -104,8 +114,16 @@ const RATING_BUTTONS: Array<{ rating: SRSRating; label: string; color: string }>
   },
 ];
 
-function IntervalHint({ cardId, rating }: { cardId: string; rating: SRSRating }) {
-  const state = getEffectiveState(cardId);
+function IntervalHint({
+  cardId,
+  rating,
+  defaultEase,
+}: {
+  cardId: string;
+  rating: SRSRating;
+  defaultEase?: number;
+}) {
+  const state = getEffectiveState(cardId, defaultEase);
   const next = reviewCard(state, rating);
   if (next.interval === 0) return <span className="text-[10px]">&lt;1d</span>;
   if (next.interval === 1) return <span className="text-[10px]">1d</span>;
@@ -119,22 +137,43 @@ export function FlashcardTester() {
   const langPath = useLangPath();
   const { language } = useLanguage();
   const languageId = language?.id ?? "en";
-  const completedLessonIds = getMockCompletedLessonIds();
-  const deck = getDeckForPractice(languageId, completedLessonIds);
   const particlesData = getParticlesForLanguage(languageId);
   const particles = particlesData?.particles ?? null;
 
   const [queueVersion, setQueueVersion] = useState(0);
 
-  const queue = useMemo(
-    () => (deck ? buildReviewQueue(deck.cards) : null),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [deck, queueVersion],
+  useSRSyncSession();
+
+  const { queue, isLoading: subQueueLoading } = useSubscriptionQueue(
+    languageId,
+    queueVersion
   );
+
+  const cardIdToDefaultEase = queue?.cardIdToDefaultEase;
 
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [highlightMode, setHighlightMode] = useState(true);
+  const [reviewMode, setReviewMode] = useState<ReviewMode>(() => {
+    try {
+      const s = localStorage.getItem(REVIEW_MODE_STORAGE_KEY);
+      if (s && (s === "word-first" || s === "image-first")) return s;
+    } catch {
+      /* ignore */
+    }
+    return REVIEW_MODE_WORD_FIRST;
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(REVIEW_MODE_STORAGE_KEY, reviewMode);
+    } catch {
+      /* ignore */
+    }
+  }, [reviewMode]);
+
+  const showImage = (mode: ReviewMode, isFlipped: boolean) =>
+    mode === "word-first" ? isFlipped : true;
   const [sessionStats, setSessionStats] = useState({ reviewed: 0, correct: 0 });
   // SM-2 step 7: cards scoring < 4 are appended for re-review within the session
   const [repeatCards, setRepeatCards] = useState<Flashcard[]>([]);
@@ -150,7 +189,8 @@ export function FlashcardTester() {
   const handleRate = useCallback(
     (rating: SRSRating) => {
       if (!card) return;
-      const current = getEffectiveState(card.id);
+      const defaultEase = cardIdToDefaultEase?.[card.id];
+      const current = getEffectiveState(card.id, defaultEase);
       const next = reviewCard(current, rating);
       setCardState(card.id, next);
 
@@ -167,7 +207,7 @@ export function FlashcardTester() {
       setFlipped(false);
       setIndex((i) => i + 1);
     },
-    [card],
+    [card, cardIdToDefaultEase],
   );
 
   const handleRestart = useCallback(() => {
@@ -178,10 +218,18 @@ export function FlashcardTester() {
     setQueueVersion((v) => v + 1);
   }, []);
 
-  if (!deck) {
+  if (subQueueLoading) {
     return (
       <p className="text-gray-500 dark:text-gray-400">
-        No flashcard deck for this language yet. Select Korean in the language selector to try the sample deck.
+        {t("flashcards.loading", "Loading…")}
+      </p>
+    );
+  }
+
+  if (!queue) {
+    return (
+      <p className="text-gray-500 dark:text-gray-400">
+        No flashcard deck for this language yet. Subscribe to a deck from the community or select Korean in the language selector to try the sample deck.
       </p>
     );
   }
@@ -259,7 +307,21 @@ export function FlashcardTester() {
         />
       </div>
 
-      <div className="flex items-center justify-end gap-2">
+      <div className="flex flex-wrap items-center justify-end gap-4">
+        <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+          <span className="sr-only">{t("flashcards.reviewModeLabel", "Review mode")}</span>
+          <select
+            value={reviewMode}
+            onChange={(e) => setReviewMode(e.target.value as ReviewMode)}
+            className="rounded border border-gray-300 bg-white px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+          >
+            {REVIEW_MODES.map((m) => (
+              <option key={m} value={m}>
+                {t(REVIEW_MODE_LABELS[m])}
+              </option>
+            ))}
+          </select>
+        </label>
         <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
           <input
             type="checkbox"
@@ -277,6 +339,12 @@ export function FlashcardTester() {
         onClick={() => setFlipped((f) => !f)}
         className="flex min-h-[220px] w-full flex-col items-center justify-center rounded-xl border-2 border-gray-300 bg-white py-12 shadow-sm transition hover:border-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500"
       >
+        {showImage(reviewMode, flipped) && currentCard.image && (
+          <CardImage
+            src={currentCard.image}
+            className="mb-3 max-h-32 w-auto rounded object-contain"
+          />
+        )}
         <p className="text-center text-2xl font-medium text-gray-900 dark:text-white">
           <CardFace
             card={currentCard}
@@ -331,7 +399,11 @@ export function FlashcardTester() {
               className={`flex flex-col items-center gap-0.5 rounded-xl px-3 py-3 text-sm font-semibold transition ${color}`}
             >
               {label}
-              <IntervalHint cardId={currentCard.id} rating={rating} />
+              <IntervalHint
+                cardId={currentCard.id}
+                rating={rating}
+                defaultEase={cardIdToDefaultEase?.[currentCard.id]}
+              />
             </button>
           ))}
         </div>

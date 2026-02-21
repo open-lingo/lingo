@@ -1,7 +1,9 @@
 # Task: SRS Engine (Spaced Repetition)
 
-**Files:** `src/features/flashcards/`, new `src/features/flashcards/engine/srs.ts`
-**Current state:** Flashcards exist but no scheduling — all cards shown every time. Course decks filter to unlocked cards only (`getDeckForPractice`).
+**Status: DONE** (2025-02-19)
+
+**Files:** `src/features/flashcards/engine/` (srs.ts, srsStorage.ts, reviewQueue.ts, srsSync.ts)
+**Current state:** SM-2 implemented; FlashcardTester has rating buttons; ProgressSummary shows cards due; SRS sync with backend.
 
 **See also:** `doc/FLASHCARD-DATA.md` (course deck unlock by lesson completion).
 
@@ -43,9 +45,9 @@ Implement Anki-style spaced repetition scheduling so "cards due today" is real a
 
 ## Acceptance criteria
 
-- [ ] SM-2 or equivalent algorithm implemented with tests
-- [ ] Cards shown in due order
-- [ ] Rating buttons (Easy/Good/Hard/Again) after flip
-- [ ] "Cards due today" reflects real SRS state; course deck count excludes locked cards
-- [ ] New cards introduced at configurable rate (e.g. 5/day) from unlocked pool only
-- [ ] `npm run build` passes
+- [x] SM-2 or equivalent algorithm implemented with tests
+- [x] Cards shown in due order
+- [x] Rating buttons (Easy/Good/Hard/Again) after flip
+- [x] "Cards due today" reflects real SRS state; course deck count excludes locked cards
+- [x] New cards introduced at configurable rate (e.g. 5/day) from unlocked pool only
+- [x] `npm run build` passes

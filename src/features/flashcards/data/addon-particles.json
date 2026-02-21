@@ -1,0 +1,45 @@
+{
+  "id": "addon-particles",
+  "languageId": "ko",
+  "name": "Korean Particles Master",
+  "cards": [
+    {
+      "id": "part-1",
+      "front": "은/는",
+      "back": "Topic marker",
+      "type": "word",
+      "note": "은 after consonant, 는 after vowel.",
+      "parts": [{ "segment": "은/는", "meaning": "topic marker" }]
+    },
+    {
+      "id": "part-2",
+      "front": "이/가",
+      "back": "Subject marker",
+      "type": "word",
+      "note": "이 after consonant, 가 after vowel.",
+      "parts": [{ "segment": "이/가", "meaning": "subject marker" }]
+    },
+    {
+      "id": "part-3",
+      "front": "을/를",
+      "back": "Object marker",
+      "type": "word",
+      "note": "을 after consonant, 를 after vowel.",
+      "parts": [{ "segment": "을/를", "meaning": "object marker" }]
+    },
+    {
+      "id": "part-4",
+      "front": "에",
+      "back": "At / to / in (time or place)",
+      "type": "word",
+      "parts": [{ "segment": "에", "meaning": "at, to, in" }]
+    },
+    {
+      "id": "part-5",
+      "front": "의",
+      "back": "Possessive ('s, of)",
+      "type": "word",
+      "parts": [{ "segment": "의", "meaning": "possessive" }]
+    }
+  ]
+}

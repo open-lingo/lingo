@@ -4,21 +4,32 @@ import { getUnlockedCardIds } from "./lessonCardMap";
 
 import koDeck from "./ko-beginner.json";
 import jaDeck from "./ja-beginner.json";
+import addonKdrama from "./addon-kdrama.json";
+import addonParticles from "./addon-particles.json";
+import addonJlptN5 from "./addon-jlpt-n5.json";
 import koParticles from "@/features/practice/data/ko.json";
 import jaParticles from "@/features/practice/data/ja.json";
 
 const COURSE_ID = "mock-1";
 
-const decksByLang: Record<string, FlashcardDeck> = {
-  ko: {
-    ...(koDeck as FlashcardDeck),
-    courseId: COURSE_ID,
-  },
-  ja: {
-    ...(jaDeck as FlashcardDeck),
-    courseId: COURSE_ID,
-  },
-};
+const ALL_DECKS: FlashcardDeck[] = [
+  { ...(koDeck as FlashcardDeck), courseId: COURSE_ID },
+  { ...(jaDeck as FlashcardDeck), courseId: COURSE_ID },
+  addonKdrama as FlashcardDeck,
+  addonParticles as FlashcardDeck,
+  addonJlptN5 as FlashcardDeck,
+];
+
+const decksById = new Map<string, FlashcardDeck>(
+  ALL_DECKS.map((d) => [d.id, d])
+);
+
+const decksByLang = new Map<string, FlashcardDeck[]>();
+for (const d of ALL_DECKS) {
+  const list = decksByLang.get(d.languageId) ?? [];
+  list.push(d);
+  decksByLang.set(d.languageId, list);
+}
 
 const particlesByLang: Record<string, ParticlesData> = {
   ko: koParticles as ParticlesData,
@@ -26,7 +37,16 @@ const particlesByLang: Record<string, ParticlesData> = {
 };
 
 export function getDeckForLanguage(languageId: string): FlashcardDeck | null {
-  return decksByLang[languageId] ?? null;
+  const list = decksByLang.get(languageId);
+  return list?.find((d) => d.courseId) ?? list?.[0] ?? null;
+}
+
+export function getDeckById(deckId: string): FlashcardDeck | null {
+  return decksById.get(deckId) ?? null;
+}
+
+export function getAllDecksForLanguage(languageId: string): FlashcardDeck[] {
+  return decksByLang.get(languageId) ?? [];
 }
 
 /**
@@ -56,4 +76,22 @@ export function getDeckForPractice(
 
 export function getParticlesForLanguage(languageId: string): ParticlesData | null {
   return particlesByLang[languageId] ?? null;
+}
+
+/** Placeholder image base; deterministic per seed. Replace with /api/placeholder/deck/{id} when backend supports it. */
+const PLACEHOLDER_BASE = "https://picsum.photos/seed";
+
+/**
+ * Returns the deck/addon cover image URL. Uses `image` if set; otherwise a deterministic placeholder.
+ * @param id - Deck or addon ID (used as placeholder seed)
+ * @param image - Optional custom image URL from manifest/addon
+ * @param size - Placeholder dimensions (default 400x200)
+ */
+export function getDeckImageUrl(
+  id: string,
+  image?: string | null,
+  size = "400/200"
+): string {
+  if (image) return image;
+  return `${PLACEHOLDER_BASE}/${encodeURIComponent(id)}/${size}`;
 }

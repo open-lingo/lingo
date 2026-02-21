@@ -44,6 +44,7 @@ export function PracticeLayout() {
     if (pathname === item.to) return true;
     if (item.to.endsWith("/practice/flashcards") && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
     if (item.to.endsWith("/practice/stories") && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
+    if (item.to.endsWith("/practice/videos") && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
     if (item.to.includes("/practice/alphabet/") && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
     if (item.to.endsWith("/practice/alphabet") && pathname.startsWith(item.to)) return true;
     return false;

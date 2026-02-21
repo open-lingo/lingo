@@ -50,6 +50,7 @@ export function getPracticeItemsForLanguage(
     if (opt.type === "particles") item.labelKey = "practice.particlePractice";
     else if (opt.type === "kanji") item.labelKey = "practice.kanji";
     else if (opt.type === "components") item.labelKey = "practice.components";
+    else if (opt.type === "videos") item.labelKey = "practice.videos";
     trainers.push(item);
   }
 

@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/shared/components/ThemeToggle";
 import { LanguageSelector } from "@/shared/components/LanguageSelector";
 import { AuthMenu } from "@/shared/components/AuthMenu";
 import { ModalRoot } from "@/shared/components/ModalRoot";
+import { ToastContainer } from "@/shared/components/ToastContainer";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
@@ -152,6 +153,7 @@ export function Layout() {
       </main>
       <FundingMeter />
       <ModalRoot />
+      <ToastContainer />
     </div>
   );
 }

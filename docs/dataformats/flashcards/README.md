@@ -4,11 +4,17 @@ Canonical format for flashcard decks and related data. See example JSON files in
 
 ---
 
-## Deck format
+## Deck manifest vs content
+
+Deck metadata (id, languageId, name, courseId, version) lives in the **deck manifest**. Card data lives in **deck content**. Both keyed by deck id. See [deck-manifest.md](./deck-manifest.md) and `deck-manifest.example.json`.
+
+---
+
+## Deck format (full deck = manifest + content)
 
 See `course-deck.example.json` and `community-deck.example.json`.
 
-### FlashcardDeck
+### FlashcardDeck (combined view)
 
 | Field      | Type   | Required | Description                                          |
 |------------|--------|----------|------------------------------------------------------|

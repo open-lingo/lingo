@@ -1,26 +1,18 @@
-import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { ProgressBar } from "@/shared/components/progress";
 import { getMockProgressSummary } from "./mockProgress";
-import { getDeckForPractice } from "@/features/flashcards/data/loadDeck";
-import { getMockCompletedLessonIds } from "@/features/course/mockProgress";
-import { countCardsDue } from "@/features/flashcards/engine";
+import { useCardsDueCount } from "@/features/flashcards/useCardsDueCount";
 
 export function ProgressSummary() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { language } = useLanguage();
   const p = getMockProgressSummary();
-
-  const cardsDue = useMemo(() => {
-    const langId = language?.id ?? "ko";
-    const completed = getMockCompletedLessonIds();
-    const deck = getDeckForPractice(langId, completed);
-    return deck ? countCardsDue(deck.cards) : 0;
-  }, [language]);
+  const langId = language?.id ?? "ko";
+  const cardsDue = useCardsDueCount(langId);
 
   const dailyPercent = Math.min(
     100,

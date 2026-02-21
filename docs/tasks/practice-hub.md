@@ -1,12 +1,12 @@
 # Task: Practice Hub Page
 
 **File:** `src/features/practice/PracticePage.tsx`
-**Route:** `/practice`
-**Current state:** Stub — "coming soon"
+**Route:** `/:lang/practice` (index)
+**Current state:** Stub — "coming soon". `PracticePage.tsx` exists but is **not routed**; `/:lang/practice` index currently goes to `FlashcardsPage`.
 
 ## Goal
 
-Build a practice hub that shows all available practice types for the user's current language, with cards linking to each sub-practice.
+Build a practice hub that shows all available practice types for the user's current language, with cards linking to each sub-practice. **Route change required:** Make `/:lang/practice` index render `PracticePage`; move `FlashcardsPage` to `/:lang/practice/flashcards` (or keep both — see requirements).
 
 ## Requirements
 
@@ -49,11 +49,28 @@ Build a practice hub that shows all available practice types for the user's curr
 - Practice type labels can come from `practiceOptions[].label` for now
 - Add `practice.videos.*` for the Videos hub (title, unlockHint, lockedBadge, etc.)
 
+## Route structure (after task)
+
+Two options:
+
+**Option A:** Hub as index; flashcards at sub-route  
+- `/:lang/practice` → PracticePage (hub)  
+- `/:lang/practice/flashcards` → FlashcardsPage  
+- Update nav links in `practiceNavItems.ts` / `Layout` so "Flashcards" goes to `practice/flashcards`
+
+**Option B:** Hub as separate route; keep current structure  
+- `/:lang/practice` → FlashcardsPage (unchanged)  
+- `/:lang/practice/hub` → PracticePage  
+- Add hub link to nav
+
+**Recommend Option A** — hub is the logical landing for "Practice"; flashcards is one type.
+
 ## Acceptance criteria
 
 - [ ] Practice hub shows cards for all practice types of current language
 - [ ] Korean shows: General, Particles, Hangul, Videos
 - [ ] Japanese shows: General, Particles, Kanji, Hiragana, Katakana, Components, Videos
-- [ ] Cards link to correct sub-routes
+- [ ] Cards link to correct sub-routes (use `getPracticeRoute` from practiceTypeRoutes)
+- [ ] Route change: `/:lang/practice` index = PracticePage; flashcards at `practice/flashcards`
 - [ ] All strings use `t()` where appropriate
 - [ ] `npm run build` passes

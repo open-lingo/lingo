@@ -3,8 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 
 const TAB_KEYS = [
-  { path: "community/content", key: "community.contentBrowser" },
-  { path: "community/forum", key: "community.forum" },
+  { path: "community/explore", key: "community.explore" },
+  { path: "community/discuss", key: "community.discuss" },
+  { path: "community/contribute", key: "community.contribute" },
   { path: "community/leaderboard", key: "community.leaderboard" },
 ] as const;
 
@@ -21,8 +22,11 @@ export function CommunityLayout() {
           {t("community.title")}
         </h1>
         <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          {t("community.intro")}
+          {t("community.learnTogether")}
         </p>
+        <div className="mt-3 rounded-lg border border-green-200 bg-green-50/80 px-4 py-2 text-sm text-green-800 dark:border-green-800 dark:bg-green-900/20 dark:text-green-200">
+          {t("community.banner")}
+        </div>
       </div>
 
       <nav
@@ -32,8 +36,9 @@ export function CommunityLayout() {
         {TAB_KEYS.map(({ path, key }) => {
           const to = langPath(path);
           const isActive = pathname === to ||
-            (path === "community/content" && pathname.endsWith("/community")) ||
-            (path === "community/forum" && pathname.includes("/community/forum"));
+            (path === "community/explore" && (pathname.endsWith("/community") || pathname.includes("/community/explore"))) ||
+            (path === "community/discuss" && (pathname.includes("/community/discuss") || pathname.includes("/community/forum"))) ||
+            (path === "community/contribute" && pathname.includes("/community/contribute"));
           return (
             <Link
               key={path}

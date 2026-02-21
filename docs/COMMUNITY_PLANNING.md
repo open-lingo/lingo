@@ -104,7 +104,7 @@ A thread can be *about* or *related to* specific content. Use a generic link tab
 | description | text | |
 | source_url | text | GitHub or external repo |
 | author_id | uuid | FK → users |
-| upvote_count | int | denormalized |
+| upvote_count | int | denormalized (see Community ratings below) |
 | item_count | int | cards, lessons, etc. |
 | created_at | timestamptz | |
 | updated_at | timestamptz | |
@@ -144,6 +144,30 @@ A thread can be *about* or *related to* specific content. Use a generic link tab
 | value | int | `1` (up) or `-1` (down) |
 | created_at | timestamptz | |
 | UNIQUE (user_id, target_type, target_id) | | one vote per user per target |
+
+---
+
+### Community Content Ratings (Decks, Addons)
+
+**Design decision:** Keep votes in a separate table; denormalize counts into manifests for fast reads.
+
+#### `content_votes`
+| Column | Type | Notes |
+|--------|------|-------|
+| user_id | uuid | FK → users |
+| target_type | enum | `deck`, `addon`, `story` |
+| target_id | text | deck id, addon id, etc. |
+| vote | int | `1` (up) or `-1` (down) |
+| created_at | timestamptz | |
+| UNIQUE (user_id, target_type, target_id) | | one vote per user per item |
+
+**Denormalization:** `community_addons.upvote_count` and `deck_manifests.upvote_count` (if applicable) are updated in the same transaction when a vote is cast or changed.
+
+**API:**
+- `POST /api/content/:type/:id/vote` — body: `{ vote: 1 | -1 }`
+- `DELETE /api/content/:type/:id/vote` — remove vote
+
+**TODO:** Implement when backend is ready. See [community-deck-preview](tasks/community-deck-preview.md).
 
 ---
 

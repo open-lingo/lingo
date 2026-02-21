@@ -24,6 +24,16 @@ export type CommunityAddon = {
   updatedAt: string;
   /** Card count for packs, lesson count for courses */
   itemCount?: number;
+  /** Deck ID for flashcard packs when sample content is available */
+  deckId?: string;
+  /** Cover/thumbnail URL. Use getDeckImageUrl() for placeholder when omitted. */
+  image?: string;
+  /** UI locale for names/descriptions (e.g. en, ko). Filter by user's selected locale. */
+  locale?: string;
+  /** Discussion count for this content (links forum + content). */
+  discussionCount?: number;
+  /** Display name of primary maintainer. */
+  maintainerName?: string;
 };
 
 export type RevisionStatus = "pending" | "accepted" | "rejected";

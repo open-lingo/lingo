@@ -57,7 +57,7 @@ export function ThreadPage() {
   if (!thread) {
     return (
       <div className="mx-auto max-w-4xl space-y-4">
-        <Link to={langPath("community/forum")} className="text-sm text-gray-600 hover:underline dark:text-gray-400">
+        <Link to={langPath("community/discuss")} className="text-sm text-gray-600 hover:underline dark:text-gray-400">
           ← {t("forum.backToForum")}
         </Link>
         <p className="text-gray-500 dark:text-gray-400">{t("forum.threadNotFound")}</p>
@@ -69,7 +69,7 @@ export function ThreadPage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
-      <Link to={langPath("community/forum")} className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+      <Link to={langPath("community/discuss")} className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
         ← {t("forum.backToForum")}
       </Link>
 

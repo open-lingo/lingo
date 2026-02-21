@@ -30,22 +30,26 @@ const RATING_QUALITY: Record<SRSRating, number> = {
   easy: 5,
 };
 
-const DEFAULT_EASE = 2.5;
+export const DEFAULT_EASE = 2.5;
 const MIN_EASE = 1.3;
 
 function todayStr(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-function addDays(dateStr: string, days: number): string {
+export function addDays(dateStr: string, days: number): string {
   const d = new Date(dateStr + "T12:00:00Z");
   d.setUTCDate(d.getUTCDate() + days);
   return d.toISOString().slice(0, 10);
 }
 
-export function createInitialState(): SRSCardState {
+/** Initial state for a new card. Use deck.defaultEase when available (SM-2 initial ease). */
+export function createInitialState(initialEase?: number): SRSCardState {
+  const ease = initialEase != null
+    ? Math.max(MIN_EASE, Math.min(3, initialEase))
+    : DEFAULT_EASE;
   return {
-    easeFactor: DEFAULT_EASE,
+    easeFactor: ease,
     interval: 0,
     dueDate: todayStr(),
     repetitions: 0,
@@ -99,7 +103,26 @@ export function shouldRepeatInSession(rating: SRSRating): boolean {
 }
 
 export function isDue(state: SRSCardState): boolean {
+  if (state.buriedUntil && state.buriedUntil > todayStr()) return false;
   return state.dueDate <= todayStr();
+}
+
+/** Card is buried (excluded from queue until buriedUntil date). */
+export function isBuried(state: SRSCardState | undefined): boolean {
+  if (!state?.buriedUntil) return false;
+  return state.buriedUntil > todayStr();
+}
+
+/** Bury card until end of tomorrow. */
+export function buryCard(state: SRSCardState): SRSCardState {
+  const tomorrow = addDays(todayStr(), 1);
+  return { ...state, buriedUntil: tomorrow };
+}
+
+/** Unbury: clear buriedUntil. */
+export function unburyCard(state: SRSCardState): SRSCardState {
+  const { buriedUntil: _, ...rest } = state;
+  return { ...rest, buriedUntil: undefined };
 }
 
 export function isNew(state: SRSCardState | undefined): boolean {

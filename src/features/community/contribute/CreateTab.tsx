@@ -1,0 +1,140 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useLangPath } from "@/shared/hooks/useLangPath";
+import { CardPreview } from "@/features/flashcards/CardPreview";
+import type { Flashcard } from "@/features/flashcards/data/types";
+
+const SAMPLE_CARD: Flashcard = {
+  id: "sample",
+  front: "안녕하세요",
+  back: "Hello / Good day",
+  note: "Polite greeting.",
+  type: "word",
+  reasoning:
+    "안녕 = peace/wellness, 하다 = do, 세요 = polite ending. Literally 'do peace' → hello.",
+  parts: [
+    { segment: "안녕", meaning: "peace, wellness" },
+    { segment: "하", meaning: "do (stem)" },
+    { segment: "세요", particleId: "세요" },
+  ],
+};
+
+export function CreateTab() {
+  const { t } = useTranslation();
+  const langPath = useLangPath();
+  const navigate = useNavigate();
+  const [step, setStep] = useState<"type" | "preview">("type");
+
+  const handlePickDeck = () => {
+    setStep("preview");
+  };
+
+  const handleStartEditing = () => {
+    navigate(langPath("studio/decks/new"));
+  };
+
+  if (step === "preview") {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+          <Link to={langPath("community/contribute/create")} className="hover:text-gray-900 dark:hover:text-white">
+            {t("community.studioCreateNew")}
+          </Link>
+          <span>/</span>
+          <span className="text-gray-900 dark:text-white">
+            {t("community.addonKindFlashcardPack")}
+          </span>
+        </div>
+
+        <div>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            {t("community.studioPreviewBeforeEdit")}
+          </h2>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            {t("community.studioPreviewDeckDesc")}
+          </p>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+            <h3 className="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t("community.studioSampleCard")}
+            </h3>
+            <CardPreview card={SAMPLE_CARD} languageId="ko" compact />
+          </div>
+          <div className="flex flex-col justify-center gap-4">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {t("community.studioPreviewDeckBullets")}
+            </p>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setStep("type")}
+                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+              >
+                {t("forum.cancel")}
+              </button>
+              <button
+                type="button"
+                onClick={handleStartEditing}
+                className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+              >
+                {t("community.studioStartEditing")}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+          {t("community.studioWhatToCreate")}
+        </h2>
+        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          {t("community.studioWhatToCreateDesc")}
+        </p>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <button
+          type="button"
+          onClick={handlePickDeck}
+          className="flex flex-col rounded-xl border-2 border-gray-200 p-6 text-left transition hover:border-green-400 hover:bg-green-50/50 dark:border-gray-700 dark:hover:border-green-600 dark:hover:bg-green-900/10"
+        >
+          <span className="text-3xl">🃏</span>
+          <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
+            {t("community.addonKindFlashcardPack")}
+          </h3>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            {t("community.studioDeckCardDesc")}
+          </p>
+        </button>
+
+        <div className="flex flex-col rounded-xl border-2 border-dashed border-gray-200 p-6 opacity-60 dark:border-gray-700">
+          <span className="text-3xl">📚</span>
+          <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
+            {t("community.addonKindCourse")}
+          </h3>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            {t("community.studioCourseComingSoon")}
+          </p>
+        </div>
+
+        <div className="flex flex-col rounded-xl border-2 border-dashed border-gray-200 p-6 opacity-60 dark:border-gray-700">
+          <span className="text-3xl">📖</span>
+          <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
+            {t("community.addonKindStory")}
+          </h3>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            {t("community.studioStoryComingSoon")}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

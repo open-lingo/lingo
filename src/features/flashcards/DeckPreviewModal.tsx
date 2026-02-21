@@ -3,8 +3,22 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
+import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
+import { useApi } from "@/shared/api/provider";
 import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
 import type { CommunityAddon } from "@/features/community/types";
+
+function formatDate(iso: string): string {
+  try {
+    return new Intl.DateTimeFormat(undefined, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }).format(new Date(iso));
+  } catch {
+    return iso;
+  }
+}
 
 function cardMatchesSearch(card: Flashcard, q: string): boolean {
   const trimmed = q.trim();
@@ -28,12 +42,72 @@ type DeckPreviewModalProps = {
   deck: FlashcardDeck | null;
   addon: CommunityAddon | null;
   onClose: () => void;
+  onSubscriptionChange?: () => void;
 };
 
-export function DeckPreviewModal({ deck, addon, onClose }: DeckPreviewModalProps) {
+export function DeckPreviewModal({
+  deck,
+  addon,
+  onClose,
+  onSubscriptionChange,
+}: DeckPreviewModalProps) {
   const { t } = useTranslation();
   const langPath = useLangPath();
+  const { users: usersApi } = useApi();
   const [search, setSearch] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [subscriptionsLoading, setSubscriptionsLoading] = useState(true);
+  const [subscribeLoading, setSubscribeLoading] = useState(false);
+
+  const deckId = deck?.id ?? addon?.deckId ?? addon?.id ?? "";
+  const isCourseDeck = Boolean(deck?.courseId);
+
+  useEffect(() => {
+    if (!deckId || isCourseDeck) {
+      setSubscriptionsLoading(false);
+      return;
+    }
+    let ok = true;
+    setSubscriptionsLoading(true);
+    usersApi
+      .getSubscriptions({ contentType: "deck" })
+      .then((subs) => {
+        if (ok) setIsSubscribed(subs.some((s) => s.contentId === deckId));
+      })
+      .catch(() => {
+        if (ok) setIsSubscribed(false);
+      })
+      .finally(() => {
+        if (ok) setSubscriptionsLoading(false);
+      });
+    return () => {
+      ok = false;
+    };
+  }, [usersApi, deckId, isCourseDeck]);
+
+  const handleSubscribe = useCallback(() => {
+    if (!deckId || isCourseDeck) return;
+    setSubscribeLoading(true);
+    usersApi
+      .addSubscription({ contentType: "deck", contentId: deckId })
+      .then(() => {
+        setIsSubscribed(true);
+        onSubscriptionChange?.();
+      })
+      .finally(() => setSubscribeLoading(false));
+  }, [usersApi, deckId, isCourseDeck, onSubscriptionChange]);
+
+  const handleUnsubscribe = useCallback(() => {
+    if (!deckId || isCourseDeck) return;
+    setSubscribeLoading(true);
+    usersApi
+      .removeSubscription("deck", deckId)
+      .then(() => {
+        setIsSubscribed(false);
+        onSubscriptionChange?.();
+      })
+      .finally(() => setSubscribeLoading(false));
+  }, [usersApi, deckId, isCourseDeck, onSubscriptionChange]);
 
   const reviewHref = langPath("practice/flashcards/review");
   const hasCards = deck != null && deck.cards.length > 0;
@@ -57,10 +131,24 @@ export function DeckPreviewModal({ deck, addon, onClose }: DeckPreviewModalProps
   }, [handleKeyDown]);
 
   const title = deck?.name ?? addon?.name ?? "";
-  const description = addon?.description ?? deck?.languageId
-    ? getLanguageConfig(deck!.languageId)?.name ?? ""
-    : "";
   const cardCount = deck?.cards.length ?? addon?.itemCount ?? 0;
+  const coverUrl = getDeckImageUrl(
+    deck?.id ?? addon?.deckId ?? addon?.id ?? "",
+    deck?.image ?? addon?.image
+  );
+
+  const languageId = deck?.languageId ?? addon?.languageId ?? "";
+  const languageName =
+    getLanguageConfig(languageId)?.name ?? (languageId || "—");
+  const creatorName = addon?.maintainerIds?.length
+    ? t("flashcards.byCreator", { name: "User" })
+    : deck?.courseId
+      ? t("flashcards.creatorCourse")
+      : t("flashcards.creatorUnknown");
+  const updatedDate = addon?.updatedAt
+    ? t("flashcards.updated", { date: formatDate(addon.updatedAt) })
+    : null;
+  const upvoteCount = addon?.upvoteCount ?? 0;
 
   return (
     <div
@@ -71,89 +159,182 @@ export function DeckPreviewModal({ deck, addon, onClose }: DeckPreviewModalProps
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <div
-        className="flex max-h-[85vh] w-full max-w-xl flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-800"
+        className="relative flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-800"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-gray-200 px-6 py-4 dark:border-gray-700">
-          <div className="min-w-0 flex-1">
-            <h2
-              id="deck-preview-title"
-              className="text-lg font-semibold text-gray-900 dark:text-white"
-            >
-              {title}
-            </h2>
-            <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
-              {cardCount} {t("flashcards.cards")}
-              {addon && description && ` · ${description}`}
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="shrink-0 rounded-lg p-1.5 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-gray-300"
-            aria-label={t("flashcards.close")}
+        {/* Close button - top right */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute right-3 top-3 z-10 rounded-lg bg-black/30 p-2 text-white backdrop-blur-sm transition hover:bg-black/50"
+          aria-label={t("flashcards.close")}
+        >
+          <svg
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
           >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
 
-        {hasCards ? (
-          <>
-            <div className="border-b border-gray-200 px-6 py-3 dark:border-gray-700">
-              <label htmlFor="deck-preview-search" className="sr-only">
-                {t("flashcards.searchPlaceholder")}
-              </label>
-              <input
-                id="deck-preview-search"
-                type="search"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder={t("flashcards.searchPlaceholder")}
-                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
-                autoFocus
-              />
-            </div>
-
-            <div className="flex-1 overflow-y-auto px-6 py-4">
-              {filteredCards.length === 0 ? (
-                <p className="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
-                  {t("flashcards.searchNoResults")}
+        {/* Main: Content | Sidebar (sidebar beside image, name, AND cards) */}
+        <div className="flex min-h-0 flex-1">
+          {/* Left: image, name, card preview, comments */}
+          <div className="min-w-0 flex-1 overflow-y-auto">
+            <img
+              src={coverUrl}
+              alt=""
+              className="h-40 w-full object-cover sm:h-48"
+            />
+            <div className="px-6 py-4">
+              <h2
+                id="deck-preview-title"
+                className="text-xl font-semibold text-gray-900 dark:text-white"
+              >
+                {title}
+              </h2>
+              {addon?.description && (
+                <p className="mt-1 line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
+                  {addon.description}
                 </p>
-              ) : (
-                <ul className="space-y-2" role="list">
-                  {filteredCards.map((card) => (
-                    <li
-                      key={card.id}
-                      className="rounded-lg border border-gray-200 bg-gray-50 py-3 px-4 dark:border-gray-600 dark:bg-gray-700/50"
-                    >
-                      <p className="font-medium text-gray-900 dark:text-white">
-                        {card.front}
-                      </p>
-                      <p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400">
-                        {card.back}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
               )}
             </div>
-          </>
-        ) : (
-          <div className="flex-1 px-6 py-6">
-            {addon?.description && (
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {addon.description}
-              </p>
-            )}
-            <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-              {t("flashcards.previewNoCards")}
-            </p>
-          </div>
-        )}
 
-        <div className="flex justify-end gap-3 border-t border-gray-200 px-6 py-4 dark:border-gray-700">
+            <div className="border-t border-gray-200 px-6 py-3 dark:border-gray-700">
+              <h3 className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                {t("flashcards.cardPreview")}
+              </h3>
+              {hasCards ? (
+                <>
+                  <label htmlFor="deck-preview-search" className="sr-only">
+                    {t("flashcards.searchPlaceholder")}
+                  </label>
+                  <input
+                    id="deck-preview-search"
+                    type="search"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder={t("flashcards.searchPlaceholder")}
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
+                  />
+                </>
+              ) : (
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {t("flashcards.previewNoCards")}
+                </p>
+              )}
+            </div>
+
+            {hasCards && (
+              <div className="px-6 pb-4">
+                {filteredCards.length === 0 ? (
+                  <p className="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+                    {t("flashcards.searchNoResults")}
+                  </p>
+                ) : (
+                  <ul className="space-y-2" role="list">
+                    {filteredCards.map((card) => (
+                      <li
+                        key={card.id}
+                        className="rounded-lg border border-gray-200 bg-gray-50 py-3 px-4 dark:border-gray-600 dark:bg-gray-700/50"
+                      >
+                        <p className="font-medium text-gray-900 dark:text-white">
+                          {card.front}
+                        </p>
+                        <p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400">
+                          {card.back}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+
+            <div className="border-t border-gray-200 px-6 py-4 dark:border-gray-700">
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Comments
+              </h3>
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                {t("flashcards.commentsComingSoon")}
+              </p>
+            </div>
+          </div>
+
+          {/* Right: sidebar metadata - full height beside content */}
+          <aside className="flex w-48 shrink-0 flex-col gap-4 border-l border-gray-200 bg-gray-50/50 px-4 py-4 dark:border-gray-700 dark:bg-gray-800/50">
+            <div className="space-y-3">
+              <p className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                {creatorName}
+              </p>
+              {updatedDate && (
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  {updatedDate}
+                </p>
+              )}
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                  {t("flashcards.language")}
+                </p>
+                <p className="text-sm text-gray-900 dark:text-white">
+                  {languageName}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                  {t("flashcards.cards")}
+                </p>
+                <p className="text-sm text-gray-900 dark:text-white">
+                  {cardCount}
+                </p>
+              </div>
+              {addon && upvoteCount >= 0 && (
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    {t("flashcards.upvotesLabel")}
+                  </p>
+                  <p className="text-sm text-gray-900 dark:text-white">
+                    ↑ {upvoteCount}
+                  </p>
+                </div>
+              )}
+              {(deck?.locale ?? addon?.locale) && (
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    {t("flashcards.locale")}
+                  </p>
+                  <p className="text-sm text-gray-900 dark:text-white">
+                    {deck?.locale ?? addon?.locale}
+                  </p>
+                </div>
+              )}
+            </div>
+          </aside>
+        </div>
+
+        {/* Footer */}
+        <div className="flex flex-wrap justify-end gap-3 border-t border-gray-200 px-6 py-4 dark:border-gray-700">
+          {!isCourseDeck && deckId && !subscriptionsLoading && (
+            <button
+              type="button"
+              disabled={subscribeLoading}
+              onClick={isSubscribed ? handleUnsubscribe : handleSubscribe}
+              className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
+                isSubscribed
+                  ? "border border-green-600 bg-green-50 text-green-700 dark:border-green-500 dark:bg-green-900/30 dark:text-green-400"
+                  : "border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+              }`}
+            >
+              {subscribeLoading ? "…" : isSubscribed ? t("flashcards.subscribed") : t("flashcards.subscribe")}
+            </button>
+          )}
           <button
             type="button"
             onClick={onClose}
