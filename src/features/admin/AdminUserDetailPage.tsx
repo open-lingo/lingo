@@ -234,7 +234,6 @@ export function AdminUserDetailPage() {
             ) : (
               <ul className="space-y-4">
                 {content.map((deck) => {
-                  const langName = getLanguageConfig(deck.languageId)?.name ?? deck.languageId;
                   const coverUrl = getDeckImageUrl(deck.id, deck.image, "64/48");
                   return (
                     <li
