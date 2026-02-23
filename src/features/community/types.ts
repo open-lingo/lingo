@@ -65,3 +65,52 @@ export type OfficialCourseInfo = {
 };
 
 export type SuggestionType = "bug" | "feature" | "content" | "other";
+
+// --- External Content ---
+
+export type ExternalContentLink = {
+  url: string;
+  label?: string;
+  description?: string;
+};
+
+export type ExternalContentType =
+  | "song"
+  | "podcast"
+  | "text"
+  | "video"
+  | "movie"
+  | "tv_show"
+  | "article"
+  | "website"
+  | "app"
+  | "other";
+
+export type ExternalContentLevel =
+  | "new"
+  | "beginner"
+  | "intermediate"
+  | "hard"
+  | "advanced";
+
+export type ExternalContentSkill =
+  | "listening"
+  | "reading"
+  | "both"
+  | "other";
+
+export type ExternalContentItem = {
+  id: string;
+  title: string;
+  description?: string;
+  links: ExternalContentLink[];
+  contentType: ExternalContentType;
+  contentLanguageId: string;
+  translationLanguageId?: string;
+  level: ExternalContentLevel;
+  skill?: ExternalContentSkill;
+  upvoteCount: number;
+  createdAt: string;
+  updatedAt: string;
+  submittedBy?: string;
+};

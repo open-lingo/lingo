@@ -15,6 +15,8 @@ export type FlashcardBase = {
   image?: string;
   type: FlashcardType;
   reasoning?: string;
+  definition?: string;
+  context?: string;
   /** For course decks: set at load based on lesson progress. Omitted = unlocked (e.g. community decks). */
   unlocked?: boolean;
 };
@@ -31,8 +33,6 @@ export type FlashcardSentence = FlashcardBase & {
 
 export type FlashcardOther = FlashcardBase & {
   type: "other";
-  definition?: string;
-  context?: string;
 };
 
 export type Flashcard = FlashcardWord | FlashcardSentence | FlashcardOther;

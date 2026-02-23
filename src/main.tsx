@@ -12,7 +12,16 @@ import { ApiProvider } from "@/shared/api/provider";
 import App from "./App";
 import "./index.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60_000, // 1 min – avoid refetching on every mount/tab switch
+      gcTime: 5 * 60 * 1000, // 5 min
+      retry: 1, // fewer retries to reduce load-cancel-load cycles
+      refetchOnWindowFocus: false, // avoid refetch when switching tabs
+    },
+  },
+});
 const { domain, clientId } = requireAuth0Config();
 
 // Use a single canonical origin (with trailing slash) so Auth0 callback URL matches exactly

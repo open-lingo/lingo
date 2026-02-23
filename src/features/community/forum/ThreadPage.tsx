@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
-import ReactMarkdown from "react-markdown";
+import { MarkdownRenderer } from "@/shared/components/MarkdownRenderer";
 import { getThreadById, getPostsByThreadId, getTagById } from "./mockForum";
 import { MarkdownEditor } from "./MarkdownEditor";
 
@@ -104,8 +104,8 @@ export function ThreadPage() {
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             {thread.authorName} · {formatDate(thread.createdAt)}
           </p>
-          <div className="prose prose-sm mt-4 max-w-none dark:prose-invert prose-p:my-2 prose-ul:my-2 prose-ol:my-2">
-            <ReactMarkdown>{thread.bodyMarkdown}</ReactMarkdown>
+          <div className="mt-4">
+            <MarkdownRenderer>{thread.bodyMarkdown}</MarkdownRenderer>
           </div>
         </div>
       </article>
@@ -132,8 +132,8 @@ export function ThreadPage() {
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   {post.authorName} · {formatDate(post.createdAt)}
                 </p>
-                <div className="prose prose-sm mt-2 max-w-none dark:prose-invert prose-p:my-1 prose-ul:my-1 prose-ol:my-1">
-                  <ReactMarkdown>{post.bodyMarkdown}</ReactMarkdown>
+                <div className="mt-2">
+                  <MarkdownRenderer>{post.bodyMarkdown}</MarkdownRenderer>
                 </div>
               </div>
             </div>

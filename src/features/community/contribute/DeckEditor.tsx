@@ -1,4 +1,21 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { Link, useNavigate, useParams, useBlocker } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -13,11 +30,8 @@ import {
   REVIEW_MODES,
   REVIEW_MODE_LABELS,
 } from "@/features/flashcards/reviewModes";
-import type {
-  Flashcard,
-  FlashcardType,
-  CardSegment,
-} from "@/features/flashcards/data/types";
+import { getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
+import type { Flashcard, CardSegment } from "@/features/flashcards/data/types";
 
 function generateId(): string {
   return `card-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
@@ -30,17 +44,173 @@ function parseDefaultEase(s: string): number | undefined {
   return Math.max(1.3, Math.min(3, n));
 }
 
-const CARD_TYPES: { value: FlashcardType; labelKey: string }[] = [
+/** Card mode: Simple = front/back/note. Segmented = segments define front (word or sentence). */
+const CARD_MODE_SIMPLE = "simple" as const;
+const CARD_MODE_SEGMENTED = "segmented" as const;
+type CardMode = typeof CARD_MODE_SIMPLE | typeof CARD_MODE_SEGMENTED;
+
+const SEGMENTED_TYPES: { value: "word" | "sentence"; labelKey: string }[] = [
   { value: "word", labelKey: "community.editorCardTypeWord" },
   { value: "sentence", labelKey: "community.editorCardTypeSentence" },
-  { value: "other", labelKey: "community.editorCardTypeOther" },
 ];
+
+function segmentsToFront(segments: CardSegment[] | undefined, isSentence: boolean): string {
+  if (!segments?.length) return "";
+  const text = segments.map((s) => s.segment).join(isSentence ? " " : "");
+  return text;
+}
+
+/** Auto-parse particleId from segment text by matching known particles (e.g. 는 → 은_는). */
+function inferParticleId(segment: string, languageId: string): string | undefined {
+  if (!segment.trim()) return undefined;
+  const data = getParticlesForLanguage(languageId);
+  if (!data?.particles) return undefined;
+  for (const p of data.particles) {
+    const forms = p.form.split("/");
+    if (forms.some((f) => f.trim() === segment) || p.form === segment) return p.id;
+  }
+  return undefined;
+}
 
 const EMPTY_CARD: Omit<Flashcard, "id"> = {
   front: "",
   back: "",
-  type: "word",
+  type: "other",
 };
+
+function SortableCardItem({
+  card,
+  realIndex,
+  isSelected,
+  cardsLength,
+  onSelect,
+  onMoveUp,
+  onMoveDown,
+  onDuplicate,
+  onDelete,
+  placeholder,
+  dragTitle,
+  moveUpTitle,
+  moveDownTitle,
+  duplicateTitle,
+  deleteTitle,
+}: {
+  card: Flashcard;
+  realIndex: number;
+  isSelected: boolean;
+  cardsLength: number;
+  onSelect: () => void;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
+  onDuplicate: () => void;
+  onDelete: () => void;
+  placeholder: string;
+  dragTitle: string;
+  moveUpTitle: string;
+  moveDownTitle: string;
+  duplicateTitle: string;
+  deleteTitle: string;
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: card.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <li ref={setNodeRef} style={style}>
+      <div
+        className={`group flex items-center gap-1 rounded-lg border px-2 py-2 transition ${
+          isSelected
+            ? "border-green-500 bg-green-50 dark:border-green-600 dark:bg-green-900/20"
+            : "border-transparent hover:bg-gray-100 dark:hover:bg-gray-700/50"
+        } ${isDragging ? "opacity-50" : ""}`}
+      >
+        <span
+          {...attributes}
+          {...listeners}
+          className="cursor-grab touch-none shrink-0 rounded p-1 text-gray-400 hover:bg-gray-200 hover:text-gray-600 active:cursor-grabbing dark:hover:bg-gray-600 dark:hover:text-gray-300"
+          title={dragTitle}
+          aria-label={dragTitle}
+        >
+          <DragHandleIcon className="h-4 w-4" />
+        </span>
+        <button
+          type="button"
+          onClick={onSelect}
+          className="min-w-0 flex-1 truncate text-left text-sm"
+        >
+          <span className="text-gray-500">{realIndex + 1}.</span>{" "}
+          {card.front || placeholder}
+        </button>
+        <div className="flex shrink-0 gap-0.5 opacity-0 group-hover:opacity-100">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onMoveUp();
+            }}
+            disabled={realIndex === 0}
+            className="rounded p-0.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 dark:hover:bg-gray-600"
+            title={moveUpTitle}
+          >
+            ↑
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onMoveDown();
+            }}
+            disabled={realIndex === cardsLength - 1}
+            className="rounded p-0.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 dark:hover:bg-gray-600"
+            title={moveDownTitle}
+          >
+            ↓
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDuplicate();
+            }}
+            className="rounded p-0.5 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600"
+            title={duplicateTitle}
+          >
+            ⧉
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete();
+            }}
+            className="rounded p-0.5 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
+            title={deleteTitle}
+          >
+            ×
+          </button>
+        </div>
+      </div>
+    </li>
+  );
+}
+
+function DragHandleIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 16 16" fill="currentColor">
+      <path d="M4 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm4-8a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm4-8a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z" />
+    </svg>
+  );
+}
 
 export function DeckEditor() {
   const { t } = useTranslation();
@@ -64,6 +234,15 @@ export function DeckEditor() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [cardSearch, setCardSearch] = useState("");
   const [showDeckSettings, setShowDeckSettings] = useState(false);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 8 },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
 
   useEffect(() => {
     setDeckId(routeDeckId ?? null);
@@ -164,6 +343,20 @@ export function DeckEditor() {
     setHasUnsavedChanges(true);
   }, [cards.length]);
 
+  const handleDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      const { active, over } = event;
+      if (!over || active.id === over.id) return;
+      const oldIndex = cards.findIndex((c) => c.id === active.id);
+      const newIndex = cards.findIndex((c) => c.id === over.id);
+      if (oldIndex === -1 || newIndex === -1) return;
+      setCards((prev) => arrayMove(prev, oldIndex, newIndex));
+      setSelectedIndex(newIndex);
+      setHasUnsavedChanges(true);
+    },
+    [cards],
+  );
+
   const handleSaveDraft = async () => {
     if (!name.trim()) return;
     setSaving(true);
@@ -230,10 +423,10 @@ export function DeckEditor() {
         note: c.note,
         image: c.image,
         reasoning: c.reasoning,
+        definition: c.definition,
+        context: c.context,
         parts: c.type === "word" ? c.parts : undefined,
         words: c.type === "sentence" ? c.words : undefined,
-        definition: c.type === "other" ? c.definition : undefined,
-        context: c.type === "other" ? c.context : undefined,
       })),
     };
   }
@@ -357,77 +550,6 @@ export function DeckEditor() {
             </div>
           </div>
         )}
-      {showDeckSettings && (
-        <div className="border-b border-gray-200 px-4 py-3 dark:border-gray-700">
-          <div className="flex flex-wrap items-center gap-4 rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-600 dark:bg-gray-700/50">
-            <div>
-              <label className="mr-2 text-xs text-gray-500">{t("forum.language")}</label>
-              <select
-                value={languageId}
-                onChange={(e) => {
-                  setLanguageId(e.target.value);
-                  setHasUnsavedChanges(true);
-                }}
-                className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-              >
-                {AVAILABLE_LEARNING_LANGUAGES.map((lang) => (
-                  <option key={lang.id} value={lang.id}>
-                    {lang.flag} {lang.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="min-w-[200px]">
-              <label className="mr-2 text-xs text-gray-500">
-                {t("community.contributeDescription")}
-              </label>
-              <input
-                type="text"
-                value={description}
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                  setHasUnsavedChanges(true);
-                }}
-                placeholder={t("community.contributeDescriptionPlaceholder")}
-                className="w-full rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-              />
-            </div>
-            <div className="min-w-[200px]">
-              <label className="mr-2 text-xs text-gray-500">
-                {t("community.editorDeckImageUrl")}
-              </label>
-              <input
-                type="url"
-                value={image}
-                onChange={(e) => {
-                  setImage(e.target.value);
-                  setHasUnsavedChanges(true);
-                }}
-                placeholder={t("community.editorDeckImageUrlPlaceholder")}
-                className="w-full rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-              />
-            </div>
-            <div className="min-w-[120px]">
-              <label className="mr-2 text-xs text-gray-500">
-                {t("community.editorDefaultEase")}
-              </label>
-              <input
-                type="number"
-                min={1.3}
-                max={3}
-                step={0.1}
-                value={defaultEase}
-                onChange={(e) => {
-                  setDefaultEase(e.target.value);
-                  setHasUnsavedChanges(true);
-                }}
-                placeholder={t("community.editorDefaultEasePlaceholder")}
-                className="w-full rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-              />
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Three-pane layout */}
       <div className="flex min-h-0 flex-1">
@@ -455,115 +577,48 @@ export function DeckEditor() {
                 {t("community.editorNoCards")}
               </p>
             ) : (
-              <ul className="space-y-1">
-                {filteredCards.map((card) => {
-                  const realIndex = cards.indexOf(card);
-                  const isSelected = selectedIndex === realIndex;
-                  return (
-                    <li key={card.id}>
-                      <div
-                        className={`group flex items-center gap-1 rounded-lg border px-2 py-2 transition ${
-                          isSelected
-                            ? "border-green-500 bg-green-50 dark:border-green-600 dark:bg-green-900/20"
-                            : "border-transparent hover:bg-gray-100 dark:hover:bg-gray-700/50"
-                        }`}
-                      >
-                        <button
-                          type="button"
-                          onClick={() => setSelectedIndex(realIndex)}
-                          className="min-w-0 flex-1 truncate text-left text-sm"
-                        >
-                          <span className="text-gray-500">{realIndex + 1}.</span>{" "}
-                          {card.front || t("community.editorCardFrontPlaceholder")}
-                        </button>
-                        <div className="flex shrink-0 gap-0.5 opacity-0 group-hover:opacity-100">
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              moveCard(realIndex, -1);
-                            }}
-                            disabled={realIndex === 0}
-                            className="rounded p-0.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 dark:hover:bg-gray-600"
-                            title={t("community.editorMoveUp")}
-                          >
-                            ↑
-                          </button>
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              moveCard(realIndex, 1);
-                            }}
-                            disabled={realIndex === cards.length - 1}
-                            className="rounded p-0.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 dark:hover:bg-gray-600"
-                            title={t("community.editorMoveDown")}
-                          >
-                            ↓
-                          </button>
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              duplicateCard(realIndex);
-                            }}
-                            className="rounded p-0.5 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600"
-                            title={t("community.editorDuplicateCard")}
-                          >
-                            ⧉
-                          </button>
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              deleteCard(realIndex);
-                            }}
-                            className="rounded p-0.5 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
-                            title={t("community.editorDeleteCard")}
-                          >
-                            ×
-                          </button>
-                        </div>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+              >
+                <SortableContext
+                  items={filteredCards.map((c) => c.id)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <ul className="space-y-1">
+                    {filteredCards.map((card) => {
+                      const realIndex = cards.indexOf(card);
+                      return (
+                        <SortableCardItem
+                          key={card.id}
+                          card={card}
+                          realIndex={realIndex}
+                          isSelected={selectedIndex === realIndex}
+                          cardsLength={cards.length}
+                          onSelect={() => setSelectedIndex(realIndex)}
+                          onMoveUp={() => moveCard(realIndex, -1)}
+                          onMoveDown={() => moveCard(realIndex, 1)}
+                          onDuplicate={() => duplicateCard(realIndex)}
+                          onDelete={() => deleteCard(realIndex)}
+                          placeholder={t("community.editorCardFrontPlaceholder")}
+                          dragTitle={t("community.editorDragToReorder")}
+                          moveUpTitle={t("community.editorMoveUp")}
+                          moveDownTitle={t("community.editorMoveDown")}
+                          duplicateTitle={t("community.editorDuplicateCard")}
+                          deleteTitle={t("community.editorDeleteCard")}
+                        />
+                      );
+                    })}
+                  </ul>
+                </SortableContext>
+              </DndContext>
             )}
           </div>
         </aside>
 
-        {/* Center: Active Card Editor */}
-        <main className="min-w-0 flex-1 overflow-y-auto border-r border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
-          {selectedCard ? (
-            <ActiveCardEditor
-              card={selectedCard}
-              index={selectedIndex!}
-              onUpdate={(u) => updateCard(selectedIndex!, u)}
-              t={t}
-            />
-          ) : (
-            <div className="flex h-full flex-col items-center justify-center text-center">
-              <p className="text-gray-500 dark:text-gray-400">
-                {cards.length === 0
-                  ? t("community.editorAddFirstCard")
-                  : t("community.editorSelectCardToPreview")}
-              </p>
-              {cards.length === 0 && (
-                <button
-                  type="button"
-                  onClick={addCard}
-                  className="mt-4 rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
-                >
-                  {t("community.editorAddFirstCard")}
-                </button>
-              )}
-            </div>
-          )}
-        </main>
-
-        {/* Right: Preview */}
-        <aside className="flex w-80 shrink-0 flex-col bg-gray-50/50 p-4 dark:bg-gray-800/50">
+        {/* Center: Card Preview (half width) */}
+        <main className="flex min-w-0 flex-1 basis-0 flex-col border-r border-gray-200 bg-gray-50/50 p-6 dark:border-gray-700 dark:bg-gray-800/50">
           <div className="mb-3 flex items-center justify-between">
             <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {t("community.editorLivePreview")}
@@ -583,7 +638,7 @@ export function DeckEditor() {
           </div>
           <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
             {selectedCard ? (
-              <div className="w-full max-w-sm">
+              <div className="w-full max-w-[280px]">
                 <CardPreview
                   card={selectedCard}
                   languageId={languageId}
@@ -592,90 +647,217 @@ export function DeckEditor() {
                 />
               </div>
             ) : (
-              <p className="py-12 text-center text-sm text-gray-500 dark:text-gray-400">
-                {t("community.editorSelectCardToPreview")}
-              </p>
+              <div className="flex flex-col items-center justify-center text-center">
+                <p className="text-gray-500 dark:text-gray-400">
+                  {cards.length === 0
+                    ? t("community.editorAddFirstCard")
+                    : t("community.editorSelectCardToPreview")}
+                </p>
+                {cards.length === 0 && (
+                  <button
+                    type="button"
+                    onClick={addCard}
+                    className="mt-4 rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+                  >
+                    {t("community.editorAddFirstCard")}
+                  </button>
+                )}
+              </div>
             )}
           </div>
+        </main>
+
+        {/* Right: Card Editor (half width) */}
+        <aside className="flex min-w-0 flex-1 basis-0 flex-col overflow-y-auto border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+          {selectedCard ? (
+            <ActiveCardEditor
+              card={selectedCard}
+              index={selectedIndex!}
+              languageId={languageId}
+              onUpdate={(u) => updateCard(selectedIndex!, u)}
+              t={t}
+            />
+          ) : (
+            <p className="py-12 text-center text-sm text-gray-500 dark:text-gray-400">
+              {t("community.editorSelectCardToPreview")}
+            </p>
+          )}
         </aside>
       </div>
     </div>
   );
 }
 
+const inputClass =
+  "min-w-0 w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white";
+const textareaClass = inputClass + " min-h-[80px] resize-y";
+
 function ActiveCardEditor({
   card,
+  languageId,
   onUpdate,
   t,
 }: {
   card: Flashcard;
   index: number;
+  languageId: string;
   onUpdate: (u: Partial<Flashcard>) => void;
   t: (key: string) => string;
 }) {
+  const [advancedOpen, setAdvancedOpen] = useState(false);
+  const isSimple = card.type === "other";
+  const mode: CardMode = isSimple ? CARD_MODE_SIMPLE : CARD_MODE_SEGMENTED;
+
+  const setMode = (m: CardMode) => {
+    if (m === CARD_MODE_SIMPLE) {
+      onUpdate({ type: "other", front: card.front || "" } as Partial<Flashcard>);
+    } else {
+      onUpdate({
+        type: "word",
+        parts: card.front ? [{ segment: card.front }] : undefined,
+        front: card.front || "",
+      } as Partial<Flashcard>);
+    }
+  };
+
+  const setSegmentedType = (type: "word" | "sentence") => {
+    const parts = "parts" in card ? card.parts : undefined;
+    const words = "words" in card ? card.words : undefined;
+    const existing = type === "word" ? parts : words;
+    const reused = (type === "word" ? words : parts) ?? existing;
+    const segments = reused?.length ? reused : [{ segment: "" }];
+    const front = segmentsToFront(segments, type === "sentence");
+    onUpdate({
+      type,
+      front,
+      parts: type === "word" ? segments : undefined,
+      words: type === "sentence" ? segments : undefined,
+    });
+  };
+
+  const handleSegmentsChange = (segments: CardSegment[]) => {
+    const isSentence = card.type === "sentence";
+    const front = segmentsToFront(segments, isSentence);
+    const updates =
+      card.type === "word"
+        ? ({ parts: segments, front } as Partial<Flashcard>)
+        : ({ words: segments, front } as Partial<Flashcard>);
+    onUpdate(updates);
+  };
+
+  const hasAdvanced =
+    (card.reasoning ?? "") !== "" ||
+    (card.definition ?? "") !== "" ||
+    (card.context ?? "") !== "";
+
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
+    <div className="w-full min-w-0 max-w-full space-y-6">
+      {/* Card mode: Simple | Segmented */}
       <div>
         <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-          {t("community.editorFront")}
+          {t("community.editorCardMode")}
         </label>
-        <textarea
-          value={card.front}
-          onChange={(e) => onUpdate({ front: e.target.value })}
-          placeholder="안녕하세요"
-          rows={2}
-          className="w-full rounded-lg border border-gray-300 px-4 py-3 text-lg dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
-      </div>
-      <div>
-        <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-          {t("community.editorBack")}
-        </label>
-        <textarea
-          value={card.back}
-          onChange={(e) => onUpdate({ back: e.target.value })}
-          placeholder="Hello"
-          rows={2}
-          className="w-full rounded-lg border border-gray-300 px-4 py-3 text-lg dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
-            {t("community.editorCardType")}
+        <div className="flex gap-4">
+          <label className="flex items-center gap-2">
+            <input
+              type="radio"
+              name="cardMode"
+              checked={mode === CARD_MODE_SIMPLE}
+              onChange={() => setMode(CARD_MODE_SIMPLE)}
+              className="rounded border-gray-300 dark:border-gray-600"
+            />
+            {t("community.editorCardModeSimple")}
           </label>
-          <select
-            value={card.type}
-            onChange={(e) =>
-              onUpdate({
-                type: e.target.value as FlashcardType,
-                parts: undefined,
-                words: undefined,
-                definition: undefined,
-                context: undefined,
-              })
-            }
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-          >
-            {CARD_TYPES.map(({ value, labelKey }) => (
-              <option key={value} value={value}>
-                {t(labelKey)}
-              </option>
-            ))}
-          </select>
+          <label className="flex items-center gap-2">
+            <input
+              type="radio"
+              name="cardMode"
+              checked={mode === CARD_MODE_SEGMENTED}
+              onChange={() => setMode(CARD_MODE_SEGMENTED)}
+              className="rounded border-gray-300 dark:border-gray-600"
+            />
+            {t("community.editorCardModeSegmented")}
+          </label>
         </div>
-        <div>
-          <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
-            {t("community.editorNote")}
-          </label>
-          <input
-            type="text"
-            value={card.note ?? ""}
-            onChange={(e) => onUpdate({ note: e.target.value || undefined })}
-            placeholder={t("community.editorNotePlaceholder")}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+      </div>
+
+      {isSimple ? (
+        <>
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t("community.editorFront")}
+            </label>
+            <textarea
+              value={card.front}
+              onChange={(e) => onUpdate({ front: e.target.value })}
+              placeholder={t("community.editorCardFrontPlaceholder")}
+              className={textareaClass}
+              rows={2}
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t("community.editorBack")}
+            </label>
+            <textarea
+              value={card.back}
+              onChange={(e) => onUpdate({ back: e.target.value })}
+              placeholder={t("community.editorCardBackPlaceholder")}
+              className={textareaClass}
+              rows={2}
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <div>
+            <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+              {t("community.editorCardType")}
+            </label>
+            <select
+              value={card.type}
+              onChange={(e) => setSegmentedType(e.target.value as "word" | "sentence")}
+              className={inputClass}
+            >
+              {SEGMENTED_TYPES.map(({ value, labelKey }) => (
+                <option key={value} value={value}>
+                  {t(labelKey)}
+                </option>
+              ))}
+            </select>
+          </div>
+          <PartsEditor
+            segments={card.type === "word" ? card.parts : card.words}
+            languageId={languageId}
+            onChange={handleSegmentsChange}
+            t={t}
           />
-        </div>
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t("community.editorBack")}
+            </label>
+            <textarea
+              value={card.back}
+              onChange={(e) => onUpdate({ back: e.target.value })}
+              placeholder={t("community.editorCardBackPlaceholder")}
+              className={textareaClass}
+              rows={2}
+            />
+          </div>
+        </>
+      )}
+
+      <div>
+        <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+          {t("community.editorNote")}
+        </label>
+        <textarea
+          value={card.note ?? ""}
+          onChange={(e) => onUpdate({ note: e.target.value || undefined })}
+          placeholder={t("community.editorNotePlaceholder")}
+          className={textareaClass}
+          rows={2}
+        />
       </div>
       <div>
         <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
@@ -686,66 +868,79 @@ function ActiveCardEditor({
           value={card.image ?? ""}
           onChange={(e) => onUpdate({ image: e.target.value || undefined })}
           placeholder={t("community.editorImageUrlPlaceholder")}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          className={inputClass}
         />
       </div>
-      <div>
-        <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
-          {t("community.editorReasoning")}
-        </label>
-        <textarea
-          value={card.reasoning ?? ""}
-          onChange={(e) => onUpdate({ reasoning: e.target.value || undefined })}
-          placeholder={t("community.editorReasoningPlaceholder")}
-          rows={3}
-          className="w-full rounded-lg border border-gray-300 px-4 py-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
+
+      {/* Collapsible Advanced */}
+      <div className="rounded-lg border border-gray-200 dark:border-gray-600">
+        <button
+          type="button"
+          onClick={() => setAdvancedOpen((o) => !o)}
+          className="flex w-full items-center justify-between px-3 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
+          {t("community.editorAdvanced")}
+          {hasAdvanced && (
+            <span className="rounded bg-gray-200 px-1.5 text-xs dark:bg-gray-600">1</span>
+          )}
+          <span className="text-gray-500">{advancedOpen ? "▼" : "▶"}</span>
+        </button>
+        {advancedOpen && (
+          <div className="space-y-4 border-t border-gray-200 p-3 dark:border-gray-600">
+            <div>
+              <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+                {t("community.editorReasoning")}
+              </label>
+              <textarea
+                value={card.reasoning ?? ""}
+                onChange={(e) => onUpdate({ reasoning: e.target.value || undefined })}
+                placeholder={t("community.editorReasoningPlaceholder")}
+                className={textareaClass}
+                rows={3}
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+                {t("community.editorDefinition")}
+              </label>
+              <textarea
+                value={card.definition ?? ""}
+                onChange={(e) => onUpdate({ definition: e.target.value || undefined })}
+                placeholder={t("community.editorDefinition")}
+                className={textareaClass}
+                rows={2}
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+                {t("community.editorContext")}
+              </label>
+              <textarea
+                value={card.context ?? ""}
+                onChange={(e) => onUpdate({ context: e.target.value || undefined })}
+                placeholder={t("community.editorContext")}
+                className={textareaClass}
+                rows={2}
+              />
+            </div>
+          </div>
+        )}
       </div>
-      {(card.type === "word" || card.type === "sentence") && (
-        <PartsEditor
-          segments={card.type === "word" ? card.parts : card.words}
-          onChange={(segments) =>
-            onUpdate(card.type === "word" ? { parts: segments } : { words: segments })
-          }
-          t={t}
-        />
-      )}
-      {card.type === "other" && (
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
-              {t("community.editorDefinition")}
-            </label>
-            <input
-              type="text"
-              value={card.definition ?? ""}
-              onChange={(e) => onUpdate({ definition: e.target.value || undefined })}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-            />
-          </div>
-          <div>
-            <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
-              {t("community.editorContext")}
-            </label>
-            <input
-              type="text"
-              value={card.context ?? ""}
-              onChange={(e) => onUpdate({ context: e.target.value || undefined })}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
 
+const segmentInputClass =
+  "min-w-0 flex-1 rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white";
+
 function PartsEditor({
   segments,
+  languageId,
   onChange,
   t,
 }: {
   segments?: CardSegment[];
+  languageId: string;
   onChange: (segments: CardSegment[]) => void;
   t: (key: string) => string;
 }) {
@@ -756,10 +951,14 @@ function PartsEditor({
     next[i] = { ...next[i], ...u };
     onChange(next);
   };
+  const handleSegmentChange = (i: number, segment: string) => {
+    const particleId = inferParticleId(segment, languageId);
+    updatePart(i, { segment, particleId });
+  };
   const removePart = (i: number) => onChange(items.filter((_, idx) => idx !== i));
 
   return (
-    <div>
+    <div className="min-w-0">
       <div className="mb-2 flex items-center justify-between">
         <label className="text-sm text-gray-600 dark:text-gray-400">
           {t("community.editorParts")}
@@ -767,39 +966,32 @@ function PartsEditor({
         <button
           type="button"
           onClick={addPart}
-          className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400"
+          className="shrink-0 text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400"
         >
           + {t("community.editorAddPart")}
         </button>
       </div>
       <div className="space-y-2">
         {items.map((item, i) => (
-          <div key={i} className="flex gap-2">
+          <div key={i} className="flex min-w-0 gap-2">
             <input
               type="text"
               value={item.segment}
-              onChange={(e) => updatePart(i, { segment: e.target.value })}
+              onChange={(e) => handleSegmentChange(i, e.target.value)}
               placeholder={t("community.editorSegmentPlaceholder")}
-              className="flex-1 rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className={segmentInputClass}
             />
             <input
               type="text"
               value={item.meaning ?? ""}
               onChange={(e) => updatePart(i, { meaning: e.target.value || undefined })}
               placeholder={t("community.editorMeaningPlaceholder")}
-              className="flex-1 rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-            />
-            <input
-              type="text"
-              value={item.particleId ?? ""}
-              onChange={(e) => updatePart(i, { particleId: e.target.value || undefined })}
-              placeholder={t("community.editorParticlePlaceholder")}
-              className="w-24 rounded-lg border border-gray-300 px-2 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className={segmentInputClass}
             />
             <button
               type="button"
               onClick={() => removePart(i)}
-              className="rounded-lg p-2 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
+              className="shrink-0 rounded-lg p-2 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
             >
               ×
             </button>

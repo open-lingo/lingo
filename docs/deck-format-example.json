@@ -1,0 +1,19 @@
+{
+  "languageId": "ko",
+  "name": "Example Deck",
+  "description": "A minimal example deck for upload.",
+  "cards": [
+    {
+      "id": "card-1",
+      "front": "안녕하세요",
+      "back": "Hello",
+      "type": "word",
+      "note": "Polite greeting."
+    },
+    {
+      "front": "감사합니다",
+      "back": "Thank you",
+      "type": "word"
+    }
+  ]
+}

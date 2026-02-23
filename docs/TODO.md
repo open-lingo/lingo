@@ -59,6 +59,16 @@ Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status
 - [ ] Leaderboard API: replace mock data with real rankings/XP
 - [ ] Funding meter: plug real ad-funded % into FundingMeter
 
+## Core UX improvements
+
+- [ ] **Homepage for logged-out users** → [homepage-ux.md](tasks/homepage-ux.md) — Guest experience, community pointers, streaks, XP placeholder
+- [ ] **SRS viewer redesign** → [srs-viewer-redesign.md](tasks/srs-viewer-redesign.md) — New/review/Again/buried counts; no implied fixed card count
+- [ ] **Card markdown** → [card-markdown-editor.md](tasks/card-markdown-editor.md) — Markdown for card content; rich editor; inline images in markdown
+
+## Community
+
+- [ ] **External Content** → [community-resources.md](tasks/community-resources.md) — Community-curated links (multiple URLs/item); content + translation language
+
 ## Frontend polish
 
 - [ ] More UI locales: add ja.json (Japanese UI); add to i18n supportedLngs and Settings

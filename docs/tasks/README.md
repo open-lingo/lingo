@@ -6,11 +6,17 @@ Each `.md` file here is a self-contained work item. Pick one and implement it.
 
 For AI agents: read [PROJECT_STATE.md](../PROJECT_STATE.md) first for architecture and current state. **Ready-to-delegate tasks** (in suggested order):
 
-1. **[practice-hub](./practice-hub.md)** — Build PracticePage as hub; route `/:lang/practice` index to it; keep flashcards at `practice/flashcards`
-2. **[vocab-page](./vocab-page.md)** — Themed lists, search, drill view
-3. **[story-content](./story-content.md)** — Replace StoryDetailPage placeholder with real text + exercises
-4. **[grammar-page](./grammar-page.md)** — Grammar topic browser/drills
-5. **[korean-content](./korean-content.md)** / **[japanese-content](./japanese-content.md)** — Expand to 30+ cards, 14+ particles, sentences
+### Core UX (new)
+1. **[homepage-ux](./homepage-ux.md)** — Logged-out experience, community deck pointers, streaks, XP placeholder
+2. **[srs-viewer-redesign](./srs-viewer-redesign.md)** — New/review/Again/buried counts; fix "fixed card count" UX
+3. **[card-markdown-editor](./card-markdown-editor.md)** — Markdown for card content; rich editor option; inline images
+
+### Existing backlog
+4. **[practice-hub](./practice-hub.md)** — Build PracticePage as hub; route `/:lang/practice` index to it
+5. **[vocab-page](./vocab-page.md)** — Themed lists, search, drill view
+6. **[story-content](./story-content.md)** — Replace StoryDetailPage placeholder with real text + exercises
+7. **[grammar-page](./grammar-page.md)** — Grammar topic browser/drills
+8. **[korean-content](./korean-content.md)** / **[japanese-content](./japanese-content.md)** — Expand to 30+ cards, 14+ particles
 
 Each task doc has context, files to touch, and acceptance criteria. Follow conventions below.
 
@@ -77,3 +83,12 @@ Each task doc has context, files to touch, and acceptance criteria. Follow conve
 |------|------|--------|
 | [community-deck-preview](./community-deck-preview.md) | `DeckPreviewModal` | **done** |
 | [community-content-wiring](./community-content-wiring.md) | ContentBrowserPage, FlashcardsPage, DeckPreviewModal | **done** (API + subscribe) |
+| [community-resources](./community-resources.md) | ExternalContentPage, External Content tab | planned |
+
+### Core UX (new)
+
+| Task | File | Status |
+|------|------|--------|
+| [homepage-ux](./homepage-ux.md) | HomePage, ProgressSummary | not started |
+| [srs-viewer-redesign](./srs-viewer-redesign.md) | FlashcardTester | not started |
+| [card-markdown-editor](./card-markdown-editor.md) | DeckEditor, CardPreview, FlashcardTester | not started |

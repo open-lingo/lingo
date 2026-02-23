@@ -22,6 +22,7 @@ import { VideosPracticePage } from "@/features/practice/VideosPracticePage";
 import { GrammarPage } from "@/features/grammar/GrammarPage";
 import { CommunityLayout } from "@/features/community/CommunityLayout";
 import { ContentBrowserPage } from "@/features/community/ContentBrowserPage";
+import { ExternalContentPage } from "@/features/community/ExternalContentPage";
 import { ContributePage } from "@/features/community/ContributePage";
 import { MyContentTab } from "@/features/community/contribute/MyContentTab";
 import { CreateTab } from "@/features/community/contribute/CreateTab";
@@ -94,6 +95,7 @@ const router = createBrowserRouter([
             children: [
               { index: true, element: <Navigate to="explore" replace /> },
               { path: "explore", element: <ContentBrowserPage /> },
+              { path: "external-content", element: <ExternalContentPage /> },
               {
                 path: "contribute",
                 element: <ContributePage />,

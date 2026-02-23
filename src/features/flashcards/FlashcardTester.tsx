@@ -8,6 +8,7 @@ import { reviewCard, setCardState, getEffectiveState, shouldRepeatInSession } fr
 import { useSRSyncSession } from "./useSRSyncSession";
 import { useSubscriptionQueue } from "./useSubscriptionQueue";
 import { CardImage } from "./CardPreview";
+import { PlainText } from "@/shared/components/PlainText";
 import {
   type ReviewMode,
   REVIEW_MODES,
@@ -86,9 +87,9 @@ function CardFace({
     if (highlightMode && card.type === "sentence" && card.words?.length) {
       return <HighlightedText segments={card.words} particles={particles} highlightMode />;
     }
-    return <>{card.front}</>;
+    return <PlainText>{card.front}</PlainText>;
   }
-  return <>{card.back}</>;
+  return <PlainText>{card.back}</PlainText>;
 }
 
 const RATING_BUTTONS: Array<{ rating: SRSRating; label: string; color: string }> = [
@@ -142,7 +143,7 @@ export function FlashcardTester() {
 
   const [queueVersion, setQueueVersion] = useState(0);
 
-  useSRSyncSession();
+  const { dirtyCount } = useSRSyncSession();
 
   const { queue, isLoading: subQueueLoading } = useSubscriptionQueue(
     languageId,
@@ -241,6 +242,17 @@ export function FlashcardTester() {
         : 100;
     return (
       <div className="mx-auto flex max-w-md flex-col items-center gap-6 py-12 text-center">
+        {dirtyCount > 0 && (
+          <div
+            className="w-full rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-900/30 dark:text-amber-200"
+            role="status"
+          >
+            {t("flashcards.unsavedProgress", {
+              count: dirtyCount,
+              defaultValue: "{{count}} review(s) not yet synced. Please wait before leaving.",
+            })}
+          </div>
+        )}
         <div className="text-5xl">🎉</div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
           {t("flashcards.sessionDone", "Review Complete!")}
@@ -287,6 +299,17 @@ export function FlashcardTester() {
 
   return (
     <div className="mx-auto max-w-md space-y-4">
+      {dirtyCount > 0 && (
+        <div
+          className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-900/30 dark:text-amber-200"
+          role="status"
+        >
+          {t("flashcards.unsavedProgress", {
+            count: dirtyCount,
+            defaultValue: "{{count}} review(s) not yet synced. Please wait before leaving.",
+          })}
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <Link
           to={langPath("practice/flashcards")}
@@ -294,17 +317,30 @@ export function FlashcardTester() {
         >
           {t("flashcards.backToHub")}
         </Link>
-        <span className="text-sm text-gray-500 dark:text-gray-400">
-          {index + 1} / {allCards.length}
+        <span className="text-sm text-gray-500 dark:text-gray-400" role="status">
+          {t("flashcards.reviewed")}: {sessionStats.reviewed} · {t("flashcards.newCount")}: {queue.newCount} · {t("flashcards.dueCount")}: {queue.dueCount} · {t("flashcards.againCount")}: {repeatCards.length}
         </span>
       </div>
 
-      {/* Progress bar */}
-      <div className="h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
-        <div
-          className="h-full rounded-full bg-emerald-500 transition-all duration-300"
-          style={{ width: `${allCards.length > 0 ? Math.round((index / allCards.length) * 100) : 0}%` }}
-        />
+      {/* Progress: bar = reviewed / initial queue (capped), +Again when repeat queue grows */}
+      <div className="flex items-center gap-2">
+        <div className="h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+          <div
+            className="h-full rounded-full bg-emerald-500 transition-all duration-300"
+            style={{
+              width: `${
+                queue.totalCount > 0
+                  ? Math.min(100, Math.round((sessionStats.reviewed / queue.totalCount) * 100))
+                  : 0
+              }%`,
+            }}
+          />
+        </div>
+        {repeatCards.length > 0 && (
+          <span className="shrink-0 text-xs text-amber-600 dark:text-amber-400">
+            +{repeatCards.length} {t("flashcards.againCount")}
+          </span>
+        )}
       </div>
 
       <div className="flex flex-wrap items-center justify-end gap-4">
@@ -362,28 +398,31 @@ export function FlashcardTester() {
       {flipped &&
         (currentCard.note ||
           currentCard.reasoning ||
-          (currentCard.type === "other" && (currentCard.definition || currentCard.context))) && (
+          currentCard.definition ||
+          currentCard.context) && (
           <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm dark:border-gray-700 dark:bg-gray-800/50">
             {currentCard.note && (
-              <p className="text-gray-700 dark:text-gray-300">{currentCard.note}</p>
+              <div className="text-gray-700 dark:text-gray-300">
+                <PlainText>{currentCard.note}</PlainText>
+              </div>
             )}
-            {currentCard.type === "other" && currentCard.definition && (
-              <p className="mt-1 font-medium text-gray-800 dark:text-gray-200">
-                {currentCard.definition}
-              </p>
+            {currentCard.definition && (
+              <div className="mt-1 font-medium text-gray-800 dark:text-gray-200">
+                <PlainText>{currentCard.definition}</PlainText>
+              </div>
             )}
-            {currentCard.type === "other" && currentCard.context && (
-              <p className="mt-0.5 text-gray-600 dark:text-gray-400">
-                {currentCard.context}
-              </p>
+            {currentCard.context && (
+              <div className="mt-0.5 text-gray-600 dark:text-gray-400">
+                <PlainText>{currentCard.context}</PlainText>
+              </div>
             )}
             {currentCard.reasoning && (
-              <p className="mt-2 border-t border-gray-200 pt-2 text-gray-600 dark:border-gray-700 dark:text-gray-400">
+              <div className="mt-2 border-t border-gray-200 pt-2 text-gray-600 dark:border-gray-700 dark:text-gray-400">
                 <span className="font-medium text-gray-700 dark:text-gray-300">
                   Reasoning:
                 </span>{" "}
-                {currentCard.reasoning}
-              </p>
+                <PlainText>{currentCard.reasoning}</PlainText>
+              </div>
             )}
           </div>
         )}

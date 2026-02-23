@@ -172,13 +172,18 @@ Open Lingo is a language-learning SPA (Vite + React) with a **lingo-core** FastA
 
 ## Recommended next steps (for AI delegation)
 
-1. **Update docs** — TODO.md, tasks/README.md, mark completed tasks
-2. **Practice hub** — Implement PracticePage as hub; optionally reroute practice index
-3. **Vocab page** — Build themed lists, search, drill view
-4. **Story content** — Replace placeholder with real text + exercises
-5. **Grammar page** — Build grammar topic browser/drills
-6. **Content expansion** — Korean + Japanese: 30+ cards, particles, sentences
-7. **Polish** — ja.json, community warning on language switch
+### Core UX (prioritized)
+1. **Homepage UX** — Logged-out experience, community deck pointers, streaks, XP placeholder ([homepage-ux](tasks/homepage-ux.md))
+2. **SRS viewer redesign** — New/review/Again/buried counts; fix fixed-card-count UX ([srs-viewer-redesign](tasks/srs-viewer-redesign.md))
+3. **Card markdown** — Markdown for front/back/note; rich editor option; inline images ([card-markdown-editor](tasks/card-markdown-editor.md))
+
+### Existing backlog
+4. **Practice hub** — Implement PracticePage as hub; optionally reroute practice index
+5. **Vocab page** — Build themed lists, search, drill view
+6. **Story content** — Replace placeholder with real text + exercises
+7. **Grammar page** — Build grammar topic browser/drills
+8. **Content expansion** — Korean + Japanese: 30+ cards, particles, sentences
+9. **Polish** — ja.json, community warning on language switch
 
 ---
 

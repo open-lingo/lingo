@@ -27,14 +27,15 @@ Instructions for AI agents assigned to Open Lingo tasks.
 
 | Priority | Task | Scope | Dependencies |
 |----------|------|-------|--------------|
-| 1 | [practice-hub](./practice-hub.md) | Medium | None — route change + hub UI |
-| 2 | [vocab-page](./vocab-page.md) | Medium | None |
-| 3 | [story-content](./story-content.md) | Medium | None |
-| 4 | [grammar-page](./grammar-page.md) | Medium | None |
-| 5 | [korean-content](./korean-content.md) | Content | None |
-| 6 | [japanese-content](./japanese-content.md) | Content | None |
-| 7 | [kanji-practice](./kanji-practice.md) | Verify/expand | Kanji content |
-| 8 | [components-practice](./components-practice.md) | Verify/expand | Component data |
+| 1 | [homepage-ux](./homepage-ux.md) | Medium | None — guest UX, community pointers, streaks, XP |
+| 2 | [srs-viewer-redesign](./srs-viewer-redesign.md) | Medium | None — new/review/Again/buried counts |
+| 3 | [card-markdown-editor](./card-markdown-editor.md) | Medium | react-markdown |
+| 4 | [practice-hub](./practice-hub.md) | Medium | None — route change + hub UI |
+| 5 | [vocab-page](./vocab-page.md) | Medium | None |
+| 6 | [story-content](./story-content.md) | Medium | None |
+| 7 | [grammar-page](./grammar-page.md) | Medium | None |
+| 8 | [korean-content](./korean-content.md) | Content | None |
+| 9 | [japanese-content](./japanese-content.md) | Content | None |
 
 ---
 

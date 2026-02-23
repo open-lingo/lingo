@@ -5,6 +5,8 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { useApi } from "@/shared/api/provider";
+import { useSubscriptions } from "@/features/flashcards/useSubscriptions";
+import { PlainText } from "@/shared/components/PlainText";
 import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
 import type { CommunityAddon } from "@/features/community/types";
 
@@ -54,46 +56,25 @@ export function DeckPreviewModal({
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { users: usersApi } = useApi();
+  const { subscriptions, isLoading: subsQueryLoading } = useSubscriptions();
   const [search, setSearch] = useState("");
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [subscriptionsLoading, setSubscriptionsLoading] = useState(true);
   const [subscribeLoading, setSubscribeLoading] = useState(false);
 
   const deckId = deck?.id ?? addon?.deckId ?? addon?.id ?? "";
   const isCourseDeck = Boolean(deck?.courseId);
 
-  useEffect(() => {
-    if (!deckId || isCourseDeck) {
-      setSubscriptionsLoading(false);
-      return;
-    }
-    let ok = true;
-    setSubscriptionsLoading(true);
-    usersApi
-      .getSubscriptions({ contentType: "deck" })
-      .then((subs) => {
-        if (ok) setIsSubscribed(subs.some((s) => s.contentId === deckId));
-      })
-      .catch(() => {
-        if (ok) setIsSubscribed(false);
-      })
-      .finally(() => {
-        if (ok) setSubscriptionsLoading(false);
-      });
-    return () => {
-      ok = false;
-    };
-  }, [usersApi, deckId, isCourseDeck]);
+  const subscriptionsLoading =
+    deckId && !isCourseDeck ? subsQueryLoading : false;
+  const isSubscribed =
+    Boolean(deckId && !isCourseDeck) &&
+    subscriptions.some((s) => s.contentId === deckId);
 
   const handleSubscribe = useCallback(() => {
     if (!deckId || isCourseDeck) return;
     setSubscribeLoading(true);
     usersApi
       .addSubscription({ contentType: "deck", contentId: deckId })
-      .then(() => {
-        setIsSubscribed(true);
-        onSubscriptionChange?.();
-      })
+      .then(() => onSubscriptionChange?.())
       .finally(() => setSubscribeLoading(false));
   }, [usersApi, deckId, isCourseDeck, onSubscriptionChange]);
 
@@ -102,10 +83,7 @@ export function DeckPreviewModal({
     setSubscribeLoading(true);
     usersApi
       .removeSubscription("deck", deckId)
-      .then(() => {
-        setIsSubscribed(false);
-        onSubscriptionChange?.();
-      })
+      .then(() => onSubscriptionChange?.())
       .finally(() => setSubscribeLoading(false));
   }, [usersApi, deckId, isCourseDeck, onSubscriptionChange]);
 
@@ -245,12 +223,12 @@ export function DeckPreviewModal({
                         key={card.id}
                         className="rounded-lg border border-gray-200 bg-gray-50 py-3 px-4 dark:border-gray-600 dark:bg-gray-700/50"
                       >
-                        <p className="font-medium text-gray-900 dark:text-white">
-                          {card.front}
-                        </p>
-                        <p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400">
-                          {card.back}
-                        </p>
+                        <div className="font-medium text-gray-900 dark:text-white [&>*]:my-0">
+                          <PlainText>{card.front}</PlainText>
+                        </div>
+                        <div className="mt-0.5 text-sm text-gray-600 dark:text-gray-400 [&>*]:my-0">
+                          <PlainText>{card.back}</PlainText>
+                        </div>
                       </li>
                     ))}
                   </ul>

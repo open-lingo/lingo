@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useApi } from "@/shared/api/provider";
+import { useToast } from "@/shared/contexts/ToastContext";
 import { CardPreview } from "@/features/flashcards/CardPreview";
+import { parseDeckJson } from "./deckUpload";
 import type { Flashcard } from "@/features/flashcards/data/types";
 
 const SAMPLE_CARD: Flashcard = {
@@ -24,7 +27,11 @@ export function CreateTab() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const navigate = useNavigate();
+  const { decks: decksApi } = useApi();
+  const showToast = useToast().showToast;
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [step, setStep] = useState<"type" | "preview">("type");
+  const [uploading, setUploading] = useState(false);
 
   const handlePickDeck = () => {
     setStep("preview");
@@ -32,6 +39,36 @@ export function CreateTab() {
 
   const handleStartEditing = () => {
     navigate(langPath("studio/decks/new"));
+  };
+
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setUploading(true);
+    try {
+      const text = await file.text();
+      const payload = parseDeckJson(text);
+      const res = await decksApi.createDeck(payload);
+      showToast(
+        t("community.uploadDeckSuccess", {
+          name: res.name,
+          count: res.cards?.length ?? 0,
+          defaultValue: "Uploaded {{name}} ({{count}} cards)",
+        }),
+        "success",
+      );
+      navigate(langPath(`studio/decks/${res.id}`), { replace: true });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      showToast(msg, "error");
+    } finally {
+      setUploading(false);
+    }
   };
 
   if (step === "preview") {
@@ -100,6 +137,14 @@ export function CreateTab() {
         </p>
       </div>
 
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".json,application/json"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <button
           type="button"
@@ -112,6 +157,21 @@ export function CreateTab() {
           </h3>
           <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
             {t("community.studioDeckCardDesc")}
+          </p>
+        </button>
+
+        <button
+          type="button"
+          onClick={handleUploadClick}
+          disabled={uploading}
+          className="flex flex-col rounded-xl border-2 border-gray-200 p-6 text-left transition hover:border-green-400 hover:bg-green-50/50 disabled:opacity-60 dark:border-gray-700 dark:hover:border-green-600 dark:hover:bg-green-900/10"
+        >
+          <span className="text-3xl">📤</span>
+          <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
+            {t("community.uploadDeck", "Upload deck")}
+          </h3>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            {t("community.uploadDeckDesc", "Upload a deck JSON file (same format as our API)")}
           </p>
         </button>
 

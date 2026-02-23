@@ -3,12 +3,17 @@ import { useApi } from "@/shared/api";
 import { useAuth } from "@/shared/auth/useAuth";
 import { countCardsDue } from "./engine";
 
-/** Returns the number of cards due for review. Only counts from subscribed decks. Returns 0 when not authenticated or no subscriptions. */
-export function useCardsDueCount(languageId: string): number {
+export type CardsDueResult = { count: number; isLoading: boolean };
+
+/** Returns the number of cards due for review and loading state. Only counts from subscribed decks. */
+export function useCardsDueCount(languageId: string): CardsDueResult {
   const { isAuthenticated } = useAuth();
   const { users, decks: decksApi } = useApi();
 
-  const { data: subscriptions = [] } = useQuery({
+  const {
+    data: subscriptions = [],
+    isLoading: subsLoading,
+  } = useQuery({
     queryKey: ["users", "subscriptions", "deck"],
     queryFn: () => users.getSubscriptions({ contentType: "deck" }),
     enabled: isAuthenticated,
@@ -18,7 +23,10 @@ export function useCardsDueCount(languageId: string): number {
     .filter((s) => s.enabled !== false)
     .map((s) => s.contentId);
 
-  const { data: deckResponses = [] } = useQuery({
+  const {
+    data: deckResponses = [],
+    isLoading: decksLoading,
+  } = useQuery({
     queryKey: ["decks", "batch", deckIds],
     queryFn: () => decksApi.getDecksBatch(deckIds),
     enabled: isAuthenticated && deckIds.length > 0,
@@ -28,5 +36,8 @@ export function useCardsDueCount(languageId: string): number {
     .filter((d) => d.languageId === languageId)
     .flatMap((d) => d.cards ?? []);
 
-  return countCardsDue(cards);
+  const isLoading = subsLoading || (deckIds.length > 0 && decksLoading);
+  const count = countCardsDue(cards);
+
+  return { count, isLoading };
 }

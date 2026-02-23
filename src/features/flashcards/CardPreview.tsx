@@ -22,6 +22,7 @@ export function CardImage({ src, className }: { src: string; className?: string 
     />
   );
 }
+import { PlainText } from "@/shared/components/PlainText";
 import type { Flashcard, CardSegment } from "@/features/flashcards/data/types";
 import type { ReviewMode } from "./reviewModes";
 import type { ParticleDef } from "@/features/practice/data/types";
@@ -93,9 +94,9 @@ function CardFace({
     if (highlightMode && card.type === "sentence" && card.words?.length) {
       return <HighlightedText segments={card.words} particles={particles} highlightMode />;
     }
-    return <>{card.front}</>;
+    return <PlainText>{card.front}</PlainText>;
   }
-  return <>{card.back}</>;
+  return <PlainText>{card.back}</PlainText>;
 }
 
 type CardPreviewProps = {
@@ -134,9 +135,9 @@ export function CardPreview({
         {shouldShowImage(reviewMode, flipped) && card.image && (
             <CardImage src={card.image} className="mb-2 max-h-32 w-auto rounded object-contain" />
           )}
-        <p
-          className={`text-center font-medium text-gray-900 dark:text-white ${
-            compact ? "text-lg" : "text-2xl"
+        <div
+          className={`w-full text-center text-gray-900 dark:text-white ${
+            compact ? "[&_.prose]:text-base" : "[&_.prose]:text-lg"
           }`}
         >
           <CardFace
@@ -145,36 +146,38 @@ export function CardPreview({
             particles={particles}
             highlightMode={highlightMode}
           />
-        </p>
+        </div>
         <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
           {flipped ? "Answer" : "Tap to reveal"}
         </p>
       </button>
       {flipped &&
-        (card.note ||
-          card.reasoning ||
-          (card.type === "other" && (card.definition || card.context))) && (
+        (card.note || card.reasoning || card.definition || card.context) && (
           <div
             className={`rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm dark:border-gray-700 dark:bg-gray-800/50 ${
               compact ? "text-xs" : ""
             }`}
           >
             {card.note && (
-              <p className="text-gray-700 dark:text-gray-300">{card.note}</p>
+              <div className="text-gray-700 dark:text-gray-300">
+                <PlainText>{card.note}</PlainText>
+              </div>
             )}
-            {card.type === "other" && card.definition && (
-              <p className="mt-1 font-medium text-gray-800 dark:text-gray-200">
-                {card.definition}
-              </p>
+            {card.definition && (
+              <div className="mt-1 font-medium text-gray-800 dark:text-gray-200">
+                <PlainText>{card.definition}</PlainText>
+              </div>
             )}
-            {card.type === "other" && card.context && (
-              <p className="mt-0.5 text-gray-600 dark:text-gray-400">{card.context}</p>
+            {card.context && (
+              <div className="mt-0.5 text-gray-600 dark:text-gray-400">
+                <PlainText>{card.context}</PlainText>
+              </div>
             )}
             {card.reasoning && (
-              <p className="mt-2 border-t border-gray-200 pt-2 text-gray-600 dark:border-gray-700 dark:text-gray-400">
+              <div className="mt-2 border-t border-gray-200 pt-2 text-gray-600 dark:border-gray-700 dark:text-gray-400">
                 <span className="font-medium text-gray-700 dark:text-gray-300">Reasoning:</span>{" "}
-                {card.reasoning}
-              </p>
+                <PlainText>{card.reasoning}</PlainText>
+              </div>
             )}
           </div>
         )}

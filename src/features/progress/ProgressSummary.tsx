@@ -12,7 +12,7 @@ export function ProgressSummary() {
   const { language } = useLanguage();
   const p = getMockProgressSummary();
   const langId = language?.id ?? "ko";
-  const cardsDue = useCardsDueCount(langId);
+  const { count: cardsDue, isLoading: cardsDueLoading } = useCardsDueCount(langId);
 
   const dailyPercent = Math.min(
     100,
@@ -27,12 +27,17 @@ export function ProgressSummary() {
       <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
         {t("progress.title")}
       </h2>
-      <div className="mt-4 grid gap-4 sm:grid-cols-3">
-        <div>
-          <p className="text-2xl font-bold text-gray-900 dark:text-white">
-            {p.streakDays}
-          </p>
-          <p className="text-sm text-gray-600 dark:text-gray-400">{t("progress.dayStreak")}</p>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="flex items-start gap-2 rounded-lg border border-orange-200 bg-orange-50/50 px-3 py-2 dark:border-orange-900/50 dark:bg-orange-950/20">
+          <span className="text-xl" aria-hidden>
+            🔥
+          </span>
+          <div>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              {p.streakDays}
+            </p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{t("progress.dayStreak")}</p>
+          </div>
         </div>
         <div>
           <p className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -41,8 +46,11 @@ export function ProgressSummary() {
           <p className="text-sm text-gray-600 dark:text-gray-400">{t("progress.lessonsThisWeek")}</p>
         </div>
         <div>
-          <p className="text-2xl font-bold text-gray-900 dark:text-white">
-            {cardsDue}
+          <p
+            className="text-2xl font-bold text-gray-900 dark:text-white"
+            aria-busy={cardsDueLoading}
+          >
+            {cardsDueLoading ? "…" : cardsDue}
           </p>
           <Link
             to={langPath("practice/flashcards")}
@@ -51,6 +59,21 @@ export function ProgressSummary() {
             {t("progress.cardsDueToday")}
           </Link>
         </div>
+        {typeof p.xpTotal === "number" && (
+          <div>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              {p.xpTotal}
+            </p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {t("progress.xp")}
+              {typeof p.xpEarnedToday === "number" && p.xpEarnedToday > 0 && (
+                <span className="ml-1 text-green-600 dark:text-green-400">
+                  (+{p.xpEarnedToday} {t("progress.xpEarnedToday")})
+                </span>
+              )}
+            </p>
+          </div>
+        )}
       </div>
       <div className="mt-4">
         <ProgressBar

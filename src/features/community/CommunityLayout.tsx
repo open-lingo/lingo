@@ -4,6 +4,7 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 
 const TAB_KEYS = [
   { path: "community/explore", key: "community.explore" },
+  { path: "community/external-content", key: "community.externalContent" },
   { path: "community/discuss", key: "community.discuss" },
   { path: "community/contribute", key: "community.contribute" },
   { path: "community/leaderboard", key: "community.leaderboard" },
@@ -37,6 +38,7 @@ export function CommunityLayout() {
           const to = langPath(path);
           const isActive = pathname === to ||
             (path === "community/explore" && (pathname.endsWith("/community") || pathname.includes("/community/explore"))) ||
+            (path === "community/external-content" && pathname.includes("/community/external-content")) ||
             (path === "community/discuss" && (pathname.includes("/community/discuss") || pathname.includes("/community/forum"))) ||
             (path === "community/contribute" && pathname.includes("/community/contribute"));
           return (

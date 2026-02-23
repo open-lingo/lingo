@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -6,9 +6,9 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { GearIcon } from "@/shared/components/icons";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
-import { useApi } from "@/shared/api/provider";
 import { buildReviewQueue } from "./engine";
 import { DeckPreviewModal } from "./DeckPreviewModal";
+import { useSubscribedDecks } from "./useSubscribedDecks";
 import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
 import type { CommunityAddon } from "@/features/community/types";
 import type { DeckResponse } from "@/shared/api/decks";
@@ -21,22 +21,6 @@ function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
     cards: d.cards ?? [],
     image: d.image,
     locale: d.locale,
-  };
-}
-
-function deckResponseToAddon(d: DeckResponse): CommunityAddon {
-  return {
-    id: d.id,
-    kind: "flashcard-pack",
-    languageId: d.languageId,
-    name: d.name,
-    description: d.description ?? "",
-    maintainerIds: [],
-    upvoteCount: 0,
-    updatedAt: d.updatedAt ?? d.createdAt ?? "",
-    itemCount: d.cardCount,
-    deckId: d.id,
-    image: d.image,
   };
 }
 
@@ -189,44 +173,12 @@ export function FlashcardsPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { language } = useLanguage();
-  const { decks: decksApi, users: usersApi } = useApi();
   const langId = language?.id ?? "ko";
 
-  const [subscribedDecks, setSubscribedDecks] = useState<
-    { deck: DeckResponse; addon: CommunityAddon }[]
-  >([]);
-  const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const { subscribedDecks, isLoading: cardsDueLoading, invalidate } =
+    useSubscribedDecks();
 
-  useEffect(() => {
-    let ok = true;
-    usersApi
-      .getSubscriptions({ contentType: "deck" })
-      .then(async (subs) => {
-        if (!ok) return;
-        const deckIds = subs.map((s) => s.contentId);
-        const results: { deck: DeckResponse; addon: CommunityAddon }[] = [];
-        for (const id of deckIds) {
-          try {
-            const deck = await decksApi.getDeck(id);
-            if (ok) results.push({ deck, addon: deckResponseToAddon(deck) });
-          } catch {
-            // 404 or other: skip unavailable deck
-          }
-        }
-        if (ok) setSubscribedDecks(results);
-      })
-      .catch(() => {
-        if (ok) setSubscribedDecks([]);
-      });
-    return () => {
-      ok = false;
-    };
-  }, [decksApi, usersApi, refreshTrigger]);
-
-  const handleSubscriptionChange = useMemo(
-    () => () => setRefreshTrigger((c) => c + 1),
-    []
-  );
+  const handleSubscriptionChange = useMemo(() => invalidate, [invalidate]);
 
   const { dueQueue, dueCount, deck, courseDecks, communityPacksWithDecks } =
     useMemo(() => {
@@ -292,7 +244,22 @@ export function FlashcardsPage() {
         </div>
       </div>
 
-      {dueCount > 0 && dueQueue.length > 0 ? (
+      {cardsDueLoading ? (
+        <section
+          className="rounded-xl border border-gray-200 bg-gray-50 p-6 text-center dark:border-gray-700 dark:bg-gray-800/50"
+          aria-labelledby="flashcards-due-heading"
+        >
+          <h2
+            id="flashcards-due-heading"
+            className="text-lg font-semibold text-gray-900 dark:text-white"
+          >
+            {t("flashcards.dueToday")}
+          </h2>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400" role="status">
+            {t("common.loading", "Loading…")}
+          </p>
+        </section>
+      ) : dueCount > 0 && dueQueue.length > 0 ? (
         <DueCarousel
           cards={dueQueue}
           dueCount={dueCount}

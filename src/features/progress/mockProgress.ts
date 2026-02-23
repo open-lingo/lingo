@@ -8,6 +8,8 @@ export type ProgressSummary = {
   dailyGoalMinutes: number;
   dailyGoalCompletedMinutes: number;
   cardsDueToday: number;
+  xpTotal?: number;
+  xpEarnedToday?: number;
 };
 
 const MOCK: ProgressSummary = {
@@ -16,6 +18,8 @@ const MOCK: ProgressSummary = {
   dailyGoalMinutes: 10,
   dailyGoalCompletedMinutes: 4,
   cardsDueToday: 12,
+  xpTotal: 1250,
+  xpEarnedToday: 50,
 };
 
 export function getMockProgressSummary(): ProgressSummary {

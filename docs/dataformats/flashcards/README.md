@@ -30,6 +30,8 @@ See `course-deck.example.json` and `community-deck.example.json`.
 |--------|--------|-----------------|
 | image  | string | Full image URL. |
 
+**Markdown:** The fields `front`, `back`, `note`, and `reasoning` support Markdown (e.g. **bold**, *italic*, lists, `![alt](url)` for inline images). Plain text renders unchanged.
+
 ### Card types
 
 **word** -- Single vocabulary word with optional `parts` (segments for highlighting).
