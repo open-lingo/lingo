@@ -13,7 +13,7 @@ We need: (1) a **story data format** with a **companion card pack** (deck) and e
 
 ## 1. Companion Deck Model (Recommended)
 
-**Idea:** A story has a **companion card pack** (deck) alongside it. The story body references cards by ID using an embed syntax like `<card id="card-123">안녕하세요</card>` or `[card:card-123]안녕하세요[/card]`. Clicking a word shows the card's front/back and "Add to deck".
+**Idea:** A story has a **companion card pack** (deck) alongside it. The story body references cards by ID using `[card:cardId]display[/card]` (display text required; no fallback to card.front). Clicking a word shows the card's front/back and "Add to deck".
 
 ### Why This Works Well
 
@@ -38,27 +38,20 @@ type Story = {
   body: StoryBody;
 };
 
-// Embed syntax options:
-// - [card:card-id]display text[/card]
-// - [[card-id|display text]]
-// - {card:card-id}display text{/card}
+// Embed syntax: [card:cardId]display[/card] — display required
 ```
 
 ### Embed Syntax
 
-**Option A: BBCode-style** — `[card:card-123]안녕하세요[/card]`
-- Parser-friendly, explicit boundaries
-- Display text can differ from card front (e.g. abbreviated)
+**Decision: BBCode-style** — `[card:cardId]display[/card]`
 
-**Option B: Wiki-style** — `[[card-123|안녕하세요]]`
-- Compact
-- `[[card-123]]` could default to card.front as display
+- `cardId` — ID of the card in the companion deck
+- `display` — **required.** Explicit display text in the story. No fallback to `card.front` — keeps room for future markdown support in display.
+- Parser-friendly, explicit boundaries, no HTML conflicts
 
-**Option C: HTML-like** — `<card id="card-123">안녕하세요</card>`
-- Familiar, works with existing HTML parsers if we're careful
-- May conflict with markdown/HTML in body
-
-**Recommendation:** `[card:cardId]display[/card]` — clear, easy to parse, no HTML conflicts.
+Examples:
+- `[card:card-123]안녕하세요[/card]`
+- `[card:kdrama-2]진짜요?[/card]`
 
 ### Duplicate Cards: Content Management
 
@@ -176,11 +169,12 @@ Card content comes from the companion deck. Story body embeds card references: `
 
 ### Add to which deck?
 
-- **Option A:** "Reading vocab" deck — auto-created per user, per language. All story-added words go there.
-- **Option B:** User picks deck (dropdown). Requires deck list + append card API.
-- **Option C:** Add to first subscribed deck, or prompt to create one.
+**Decision: My vocab deck.** A single auto-created deck per user, per language (`user-{id}-saved-vocab` or similar). All story-added words, "add to deck" from videos, and any manually saved vocab go there. User is implicitly subscribed. SRS works like any other deck.
 
-Backend: Decks API has `GET /decks/{id}`, `PUT /decks/{id}`. We need `POST /decks/{id}/cards` or we fetch, append, put. Simpler: `PATCH /decks/{id}` with `{ addCards: [...] }`.
+- ~~**Option B:**~~ User picks deck — not chosen; adds complexity.
+- ~~**Option C:**~~ Add to first subscribed deck — not chosen.
+
+Backend: Create "My vocab" deck on first add if it doesn't exist. `PATCH /decks/{id}` with `{ addCards: [...] }` or `POST /decks/{id}/cards` to append. Dedupe by front+back before adding.
 
 ---
 
@@ -257,24 +251,71 @@ Already supported: `content_type: "story"` in users API. Stories appear in Conte
 
 - Contribute flow: `community/contribute` → Create → "New story" (like "New deck")
 - Route: `community/contribute/create/story` and `create/story/:storyId`
-- Reuse patterns from DeckEditor: StudioHeader, tabs, save/publish
+- Reuse: StudioHeader, save/publish logic, unsaved indicator, status badge
+- **Different from DeckEditor:** Text-first, lighter weight, writing canvas feel
 
-### Editor Features (Phase 1)
+### Layout: Three-Pane (Balanced)
 
-1. **Metadata:** Title, description, language
-2. **Companion deck:** Create new or link existing deck. Story vocab lives in this deck.
-3. **Body editor:**
-   - Write/paste story text
-   - Select word/phrase → "Link to card" → pick card from companion deck → inserts `[card:id]text[/card]`
-   - Or type embed syntax manually
-4. **Preview:** Render as reader would (parse embeds, show clickable words)
-5. **Save / Publish**
+```
+| Companion Deck | Story Body Editor (main) | Reader Preview |
+```
+
+- **Left:** Companion deck panel — card list (compact rows), search, "+ New Card", click card → quick preview
+- **Center:** Story body editor — primary, large text area, minimal toolbar
+- **Right:** Preview — parsed body, embedded words highlighted; **collapsible** for full-width editor
+
+Stories are written, not "managed like cards." Deck = structured builder; Story = writing canvas. More whitespace, softer separators.
+
+### "Link to Card" Affordance
+
+- **Primary:** Floating toolbar on text selection — small bubble with "Link to card" → opens card picker
+- **Secondary:** Slash command `/card` — opens picker (power users)
+- **Fallback:** Toolbar button "Link to card"
+- **No** right-click menu (too hidden)
+
+### Card Picker UI
+
+- **Not** a full modal — breaks flow
+- Use **popover** or **side drawer** anchored to selection
+- Compact rows: Front (bold), Back (subtle), Type tag
+- Search — instant filter
+- "+ Create new card" at bottom → opens **Compact Card Modal**
+- If 100+ cards: virtualized list, infinite scroll (no pagination)
+
+### Compact Card Modal
+
+- **Purpose:** Create/edit cards inline while writing. Do not redirect to full DeckEditor.
+- **Scope:** Cards in the linked companion deck only. No deck switching.
+- **Fields (Phase 1):** Front (required), Back (required), Type (Word/Sentence), Note (optional), Image URL (optional, collapsed)
+- **No:** Parts breakdown, reasoning editor, markdown — those stay in full DeckEditor
+- **Pre-fill:** When linking from selection, pre-fill Front with selected text
+- **After save:** Add to companion deck, insert `[card:newId]selected text[/card]`, close modal, stay in writing position
+- **Edit mode:** Click linked word in preview → open same modal in edit mode
+- **Power user link:** "Open in full deck editor →" inside modal
+- **Reusable:** `<CardQuickEditor deckId cardId? onSave onCancel />` — independent of DeckEditor
+
+### Empty State
+
+- **Before companion deck linked:** Show "Step 1: Link or create a companion deck" with [Create New Deck] [Link Existing Deck]
+- **Until `companionDeckId` exists:** Disable card linking, show info banner in editor
+
+### Validation: Broken Card Refs
+
+- If card deleted from deck: Preview renders `⚠ 학생 (card not found)`
+- Editor: highlight broken embed, show inline warning
+- Banner: "2 broken card references"
+
+### Body Editor
+
+- Plain `textarea` or `contentEditable` div
+- Minimal controls: Link to card, Preview toggle
+- No markdown toolbar yet. Text-first.
 
 ### Editor Features (Phase 2)
 
-- AI: "Generate word meanings" → suggest cards to create in companion deck + embed
+- AI: "Generate word meanings"
 - Comprehension questions editor
-- Import from file (e.g. JSON, or simple format)
+- Import from file
 
 ---
 

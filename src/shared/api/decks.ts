@@ -11,6 +11,8 @@ export interface DeckCreate {
   defaultEase?: number;
   status?: "draft" | "published";
   cards: DeckCard[];
+  /** If set, deck is a companion deck (tied to a story). Excluded from community browse. */
+  companionToStoryId?: string | null;
 }
 
 export interface DeckUpdate {
@@ -21,6 +23,7 @@ export interface DeckUpdate {
   defaultEase?: number;
   status?: "draft" | "published";
   cards?: DeckCard[];
+  companionToStoryId?: string | null;
 }
 
 export interface DeckCard {
@@ -53,6 +56,7 @@ export interface DeckResponse {
   locale?: string;
   createdAt?: string;
   updatedAt?: string;
+  companionToStoryId?: string | null;
   cards: DeckCard[];
 }
 
@@ -60,10 +64,17 @@ export class DecksApi extends ApiClient {
   async listMyDecks(params?: {
     language_id?: string;
     deck_status?: string;
+    /** Exclude companion decks (for My Content / community browse). */
+    exclude_companion_decks?: boolean;
   }): Promise<DeckResponse[]> {
     try {
+      const p = params ?? {};
+      const queryParams: Record<string, string> = {};
+      if (p.language_id != null) queryParams.language_id = p.language_id;
+      if (p.deck_status != null) queryParams.deck_status = p.deck_status;
+      if (p.exclude_companion_decks === true) queryParams.exclude_companion_decks = "true";
       return await this.get<DeckResponse[]>(`${PREFIX}`, {
-        params: params as Record<string, string>,
+        params: queryParams,
       });
     } catch (err) {
       const status =

@@ -13,6 +13,7 @@ Build a story reader with interactive learning features: highlighted vocab, inli
 ### Story Reader
 - Render story text with paragraphs
 - Tap/hover a word → popup with meaning, reading, part of speech
+- **Add to deck:** "Add to deck" button in word popup → adds card to user's **My vocab deck** (auto-created per user, per language). Dedupe by front+back. See [STORY_PLANNING.md](../STORY_PLANNING.md#add-to-which-deck).
 - Highlighted words: particles in one color, vocab in another (like flashcard highlight mode)
 - Toggle: show/hide furigana (Japanese) or romanization
 
@@ -39,6 +40,7 @@ Build a story reader with interactive learning features: highlighted vocab, inli
 
 - [ ] Story renders with interactive word highlights
 - [ ] Word tap shows meaning popup
+- [ ] "Add to deck" adds to My vocab deck (with dedupe)
 - [ ] At least 1 story with full content for ko and ja
 - [ ] Comprehension questions work
 - [ ] `npm run build` passes

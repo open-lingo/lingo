@@ -27,6 +27,7 @@ import { ContributePage } from "@/features/community/ContributePage";
 import { MyContentTab } from "@/features/community/contribute/MyContentTab";
 import { CreateTab } from "@/features/community/contribute/CreateTab";
 import { DeckEditor } from "@/features/community/contribute/DeckEditor";
+import { StoryEditor } from "@/features/community/contribute/StoryEditor";
 import { AdminTab } from "@/features/community/contribute/AdminTab";
 import { StudioLayout } from "@/features/studio/StudioLayout";
 import { ForumPage } from "@/features/community/forum/ForumPage";
@@ -103,6 +104,8 @@ const router = createBrowserRouter([
                   { index: true, element: <MyContentTab /> },
                   { path: "admin", element: <AdminTab /> },
                   { path: "create", element: <CreateTab /> },
+                  { path: "create/story", element: <StoryEditor /> },
+                  { path: "create/story/:storyId", element: <StoryEditor /> },
                 ],
               },
               { path: "discuss", element: <ForumPage /> },

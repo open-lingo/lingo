@@ -6,6 +6,7 @@ import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { useApi } from "@/shared/api/provider";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import type { CreatorContentItem, ContentStatus, CreatorContentKind } from "./types";
+import type { StoryResponse } from "@/shared/api/stories";
 
 const CONTENT_KINDS: CreatorContentKind[] = [
   "flashcard-pack",
@@ -13,6 +14,23 @@ const CONTENT_KINDS: CreatorContentKind[] = [
   "video",
   "course",
 ];
+
+function storyToItem(story: StoryResponse, cardCount?: number): CreatorContentItem {
+  const status = (["draft", "submitted", "review", "published", "changes_requested", "rejected"].includes(story.status)
+    ? story.status
+    : story.status === "published"
+      ? "published"
+      : "draft") as ContentStatus;
+  return {
+    id: story.id,
+    kind: "story",
+    name: story.title,
+    languageId: story.languageId,
+    status,
+    cardCount: cardCount ?? undefined,
+    updatedAt: story.updatedAt ?? story.createdAt ?? new Date().toISOString(),
+  };
+}
 
 function deckToItem(deck: {
   id: string;
@@ -52,8 +70,9 @@ const STATUS_STYLES: Record<ContentStatus, string> = {
 export function MyContentTab() {
   const { t } = useTranslation();
   const langPath = useLangPath();
-  const { decks: decksApi } = useApi();
-  const [items, setItems] = useState<CreatorContentItem[]>([]);
+  const { decks: decksApi, stories: storiesApi } = useApi();
+  const [deckItems, setDeckItems] = useState<CreatorContentItem[]>([]);
+  const [storyItems, setStoryItems] = useState<CreatorContentItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [kindFilter, setKindFilter] = useState<CreatorContentKind | "all">("all");
   const [statusFilter, setStatusFilter] = useState<"all" | "published" | "draft">("all");
@@ -62,20 +81,52 @@ export function MyContentTab() {
 
   const load = () => {
     setLoading(true);
-    const params =
+    const deckParams =
       statusFilter === "all"
-        ? {}
-        : { deck_status: statusFilter };
-    decksApi
-      .listMyDecks(params)
-      .then((decks) => setItems(decks.map(deckToItem)))
-      .catch(() => setItems([]))
+        ? { exclude_companion_decks: true }
+        : { deck_status: statusFilter, exclude_companion_decks: true };
+    const storyParams = statusFilter === "all" ? {} : { status: statusFilter };
+    Promise.all([
+      decksApi.listMyDecks(deckParams),
+      storiesApi.listMyStories(storyParams),
+    ])
+      .then(async ([decks, stories]) => {
+        setDeckItems(decks.map(deckToItem));
+        const companionIds = [...new Set(stories.map((s) => s.companionDeckId))];
+        const decksById: Record<string, { cardCount: number }> = {};
+        if (companionIds.length > 0) {
+          try {
+            const batch = await decksApi.getDecksBatch(companionIds);
+            batch.forEach((d) => {
+              decksById[d.id] = { cardCount: d.cards?.length ?? 0 };
+            });
+          } catch {
+            /* ignore */
+          }
+        }
+        setStoryItems(
+          stories.map((s) =>
+            storyToItem(s, decksById[s.companionDeckId]?.cardCount)
+          )
+        );
+      })
+      .catch(() => {
+        setDeckItems([]);
+        setStoryItems([]);
+      })
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
     load();
-  }, [statusFilter, decksApi]);
+  }, [statusFilter, decksApi, storiesApi]);
+
+  const items =
+    kindFilter === "story"
+      ? storyItems
+      : kindFilter === "flashcard-pack"
+        ? deckItems
+        : [...deckItems, ...storyItems];
 
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
@@ -105,6 +156,30 @@ export function MyContentTab() {
     setUpdating(id);
     try {
       await decksApi.updateDeckStatus(id, "draft");
+      load();
+    } catch {
+      /* keep list */
+    } finally {
+      setUpdating(null);
+    }
+  };
+
+  const handlePublishStory = async (id: string) => {
+    setUpdating(id);
+    try {
+      await storiesApi.updateStoryStatus(id, "published");
+      load();
+    } catch {
+      /* keep list */
+    } finally {
+      setUpdating(null);
+    }
+  };
+
+  const handleUnpublishStory = async (id: string) => {
+    setUpdating(id);
+    try {
+      await storiesApi.updateStoryStatus(id, "draft");
       load();
     } catch {
       /* keep list */
@@ -207,20 +282,31 @@ export function MyContentTab() {
                     : t("community.addonKindStory");
             const isPublished = item.status === "published";
             const canPublishUnpublish = item.kind === "flashcard-pack";
+            const canPublishUnpublishStory = item.kind === "story";
             const busy = updating === item.id;
-            const coverUrl = getDeckImageUrl(item.id, item.image, "64/48");
+            const isStory = item.kind === "story";
+            const coverUrl = isStory ? null : getDeckImageUrl(item.id, item.image, "64/48");
 
             return (
               <li
-                key={item.id}
+                key={`${item.kind}-${item.id}`}
                 className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className="flex min-w-0 flex-1 items-start gap-4">
-                  <img
-                    src={coverUrl}
-                    alt=""
-                    className="h-12 w-16 shrink-0 rounded-lg object-cover"
-                  />
+                  {coverUrl ? (
+                    <img
+                      src={coverUrl}
+                      alt=""
+                      className="h-12 w-16 shrink-0 rounded-lg object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="flex h-12 w-16 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-2xl dark:bg-gray-700"
+                      aria-hidden
+                    >
+                      📖
+                    </div>
+                  )}
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-white">{item.name}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -235,6 +321,30 @@ export function MyContentTab() {
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2">
+                  {canPublishUnpublishStory && (
+                    <>
+                      {!isPublished && (
+                        <button
+                          type="button"
+                          onClick={() => handlePublishStory(item.id)}
+                          disabled={busy}
+                          className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50 dark:bg-green-500 dark:hover:bg-green-600"
+                        >
+                          {t("community.studioPublish")}
+                        </button>
+                      )}
+                      {isPublished && (
+                        <button
+                          type="button"
+                          onClick={() => handleUnpublishStory(item.id)}
+                          disabled={busy}
+                          className="rounded-lg border border-amber-500 px-3 py-1.5 text-sm font-medium text-amber-600 hover:bg-amber-50 disabled:opacity-50 dark:border-amber-600 dark:text-amber-400 dark:hover:bg-amber-900/20"
+                        >
+                          {t("community.studioUnpublish")}
+                        </button>
+                      )}
+                    </>
+                  )}
                   {canPublishUnpublish && (
                     <>
                       {!isPublished && (
@@ -274,6 +384,14 @@ export function MyContentTab() {
                         {t("community.studioEdit")}
                       </Link>
                     </>
+                  )}
+                  {item.kind === "story" && (
+                    <Link
+                      to={langPath(`community/contribute/create/story/${item.id}`)}
+                      className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+                    >
+                      {t("community.studioEdit")}
+                    </Link>
                   )}
                 </div>
               </li>

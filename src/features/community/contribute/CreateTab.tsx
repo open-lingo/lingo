@@ -185,15 +185,19 @@ export function CreateTab() {
           </p>
         </div>
 
-        <div className="flex flex-col rounded-xl border-2 border-dashed border-gray-200 p-6 opacity-60 dark:border-gray-700">
+        <button
+          type="button"
+          onClick={() => navigate(langPath("community/contribute/create/story"))}
+          className="flex flex-col rounded-xl border-2 border-gray-200 p-6 text-left transition hover:border-green-400 hover:bg-green-50/50 dark:border-gray-700 dark:hover:border-green-600 dark:hover:bg-green-900/10"
+        >
           <span className="text-3xl">📖</span>
           <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
             {t("community.addonKindStory")}
           </h3>
           <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {t("community.studioStoryComingSoon")}
+            {t("community.studioStoryCardDesc", "Write stories with clickable vocab linked to cards.")}
           </p>
-        </div>
+        </button>
       </div>
     </div>
   );

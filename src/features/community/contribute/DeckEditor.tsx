@@ -16,7 +16,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Link, useNavigate, useParams, useBlocker } from "react-router-dom";
+import { Link, useNavigate, useParams, useLocation, useBlocker } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
@@ -216,7 +216,13 @@ export function DeckEditor() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const navigate = useNavigate();
+  const location = useLocation();
   const { deckId: routeDeckId } = useParams<{ deckId?: string }>();
+  const returnState = location.state as {
+    returnTo?: string;
+    returnPath?: string;
+    isCompanionDeck?: boolean;
+  } | undefined;
   const { language } = useLanguage();
   const { decks: decksApi } = useApi();
 
@@ -368,7 +374,19 @@ export function DeckEditor() {
       } else {
         const res = await decksApi.createDeck(payload);
         setDeckId(res.id);
-        navigate(langPath(`studio/decks/${res.id}`), { replace: true, state: { bypassBlocker: true } });
+        if (returnState?.returnPath && returnState?.returnTo === "story-editor") {
+          navigate(returnState.returnPath, {
+            replace: true,
+            state: {
+              createdDeckId: res.id,
+              createdDeckName: res.name,
+              createdDeckCardCount: res.cards?.length ?? 0,
+              bypassBlocker: true,
+            },
+          });
+        } else {
+          navigate(langPath(`studio/decks/${res.id}`), { replace: true, state: { bypassBlocker: true } });
+        }
       }
       setHasUnsavedChanges(false);
     } catch (err) {
@@ -383,12 +401,26 @@ export function DeckEditor() {
     setSaving(true);
     try {
       const payload = { ...buildPayload(), status: "published" as const };
-      if (deckId) await decksApi.updateDeck(deckId, payload);
-      else {
+      if (deckId) {
+        await decksApi.updateDeck(deckId, payload);
+        navigate(langPath("community/contribute"), { state: { bypassBlocker: true } });
+      } else {
         const res = await decksApi.createDeck(payload);
         setDeckId(res.id);
+        if (returnState?.returnPath && returnState?.returnTo === "story-editor") {
+          navigate(returnState.returnPath, {
+            replace: true,
+            state: {
+              createdDeckId: res.id,
+              createdDeckName: res.name,
+              createdDeckCardCount: res.cards?.length ?? 0,
+              bypassBlocker: true,
+            },
+          });
+        } else {
+          navigate(langPath("community/contribute"), { state: { bypassBlocker: true } });
+        }
       }
-      navigate(langPath("community/contribute"), { state: { bypassBlocker: true } });
     } catch (err) {
       console.error("Submit failed:", err);
     } finally {
@@ -408,7 +440,7 @@ export function DeckEditor() {
   );
 
   function buildPayload() {
-    return {
+    const base = {
       languageId,
       name: name.trim(),
       description: description.trim() || undefined,
@@ -429,6 +461,10 @@ export function DeckEditor() {
         words: c.type === "sentence" ? c.words : undefined,
       })),
     };
+    if (!deckId && returnState?.isCompanionDeck) {
+      return { ...base, companionToStoryId: "pending" as const };
+    }
+    return base;
   }
 
   if (loadError) {
