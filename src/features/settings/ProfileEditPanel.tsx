@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api/provider";
@@ -6,6 +7,7 @@ import { ApiError } from "@/shared/api/client";
 
 export function ProfileEditPanel() {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const { isAuthenticated, user } = useAuth();
   const { users } = useApi();
 
@@ -85,6 +87,7 @@ export function ProfileEditPanel() {
           display_name: realName.trim() || username.trim(),
         });
         setIsRegistered(true);
+        await queryClient.invalidateQueries({ queryKey: ["users", "me"] });
       }
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);

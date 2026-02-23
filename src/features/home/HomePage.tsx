@@ -1,10 +1,13 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api/provider";
+import { ApiError } from "@/shared/api/client";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useModal } from "@/shared/contexts/ModalContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getMockCourse } from "@/features/course/mockCourse";
 import { getNextLesson } from "@/features/course/nextLesson";
@@ -29,11 +32,33 @@ export function HomePage() {
   const langConfig = language ? getLanguageConfig(language.id) : null;
   const hasBgImage = Boolean(langConfig?.backgroundImage);
 
-  const { data: me } = useQuery({
+  const { data: me, error: meError, isError: meIsError } = useQuery({
     queryKey: ["users", "me"],
     queryFn: () => users.getMe(),
     enabled: isAuthenticated,
+    retry: (failureCount, err) => {
+      // 404 = user not registered; no point retrying
+      if (err instanceof ApiError && err.status === 404) return false;
+      return failureCount < 2;
+    },
   });
+
+  const { openProfile } = useModal();
+  const hasOpenedRegistration = useRef(false);
+
+  // When getMe returns 404, user is authenticated but not registered — open profile so they can complete signup
+  useEffect(() => {
+    if (
+      isAuthenticated &&
+      meIsError &&
+      meError instanceof ApiError &&
+      meError.status === 404 &&
+      !hasOpenedRegistration.current
+    ) {
+      hasOpenedRegistration.current = true;
+      openProfile();
+    }
+  }, [isAuthenticated, meIsError, meError, openProfile]);
 
   const welcomeName =
     me?.display_name?.trim() ??
