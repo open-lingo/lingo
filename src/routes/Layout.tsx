@@ -8,6 +8,7 @@ import { AuthMenu } from "@/shared/components/AuthMenu";
 import { ModalRoot } from "@/shared/components/ModalRoot";
 import { ToastContainer } from "@/shared/components/ToastContainer";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useIsAdmin } from "@/shared/auth/useIsAdmin";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
   getPracticeItemsForLanguage,
@@ -102,9 +103,11 @@ export function Layout() {
   const location = useLocation();
   const pathname = location.pathname;
   const langPath = useLangPath();
+  const isAdmin = useIsAdmin();
 
   const learnActive = /^\/[^/]+\/learn/.test(pathname);
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
+  const adminActive = pathname.startsWith("/admin");
 
   return (
     <div className="min-h-screen bg-gray-100 pb-14 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
@@ -140,6 +143,18 @@ export function Layout() {
             >
               {t("nav.community")}
             </Link>
+            {isAdmin && (
+              <Link
+                to="/admin/users"
+                className={`text-sm ${
+                  adminActive
+                    ? "text-gray-900 dark:text-white"
+                    : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                }`}
+              >
+                {t("nav.admin")}
+              </Link>
+            )}
           </nav>
           <div className="flex items-center gap-2">
             <LanguageSelector />

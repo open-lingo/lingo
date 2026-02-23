@@ -16,7 +16,8 @@
     "stories": "Stories",
     "leaderboard": "Leaderboard",
     "community": "Community",
-    "settings": "Settings"
+    "settings": "Settings",
+    "admin": "Admin"
   },
   "learn": {
     "intro": "Your learning path, courses, and community modules.",
@@ -550,6 +551,30 @@
     "save": "Save",
     "saved": "Saved!",
     "editProfile": "Edit profile"
+  },
+  "admin": {
+    "users": "User management",
+    "usersTitle": "Users",
+    "usersDesc": "Manage user accounts. RBAC coming later.",
+    "backToSite": "← Back to site",
+    "profile": "Profile",
+    "subscriptions": "Subscriptions",
+    "content": "Content",
+    "deleteUser": "Delete user",
+    "deleteConfirm": "Permanently delete this user? This cannot be undone.",
+    "deleteSuccess": "User deleted",
+    "deleteError": "Failed to delete user",
+    "noUsers": "No users found.",
+    "loadMore": "Load more",
+    "username": "Username",
+    "displayName": "Display name",
+    "auth0Id": "Auth0 ID",
+    "createdAt": "Created",
+    "status": "Status",
+    "noSubscriptions": "No subscriptions",
+    "noContent": "No content",
+    "contentType": "Type",
+    "contentId": "Content ID"
   },
   "settings": {
     "title": "Settings",

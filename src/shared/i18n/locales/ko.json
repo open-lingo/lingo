@@ -16,7 +16,8 @@
     "stories": "스토리",
     "leaderboard": "리더보드",
     "community": "커뮤니티",
-    "settings": "설정"
+    "settings": "설정",
+    "admin": "관리"
   },
   "learn": {
     "intro": "학습 경로, 코스, 커뮤니티 모듈.",
@@ -514,6 +515,30 @@
     "save": "저장",
     "saved": "저장됨!",
     "editProfile": "프로필 수정"
+  },
+  "admin": {
+    "users": "사용자 관리",
+    "usersTitle": "사용자",
+    "usersDesc": "사용자 계정 관리. RBAC는 추후 적용됩니다.",
+    "backToSite": "← 사이트로",
+    "profile": "프로필",
+    "subscriptions": "구독",
+    "content": "콘텐츠",
+    "deleteUser": "사용자 삭제",
+    "deleteConfirm": "이 사용자를 영구 삭제하시겠습니까? 되돌릴 수 없습니다.",
+    "deleteSuccess": "사용자 삭제됨",
+    "deleteError": "삭제 실패",
+    "noUsers": "사용자가 없습니다.",
+    "loadMore": "더 불러오기",
+    "username": "사용자명",
+    "displayName": "표시 이름",
+    "auth0Id": "Auth0 ID",
+    "createdAt": "가입일",
+    "status": "상태",
+    "noSubscriptions": "구독 없음",
+    "noContent": "콘텐츠 없음",
+    "contentType": "유형",
+    "contentId": "콘텐츠 ID"
   },
   "settings": {
     "title": "설정",

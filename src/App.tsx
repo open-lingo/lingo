@@ -33,6 +33,9 @@ import { ThreadPage } from "@/features/community/forum/ThreadPage";
 import { NewThreadPage } from "@/features/community/forum/NewThreadPage";
 import { LeaderboardPage } from "@/features/leaderboard/LeaderboardPage";
 import { LessonPage } from "@/features/lesson/LessonPage";
+import { AdminLayout } from "@/features/admin/AdminLayout";
+import { AdminUsersPage } from "@/features/admin/AdminUsersPage";
+import { AdminUserDetailPage } from "@/features/admin/AdminUserDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +45,15 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "login", element: <LoginPage /> },
       { path: "logout", element: <LogoutPage /> },
+      {
+        path: "admin",
+        element: <AdminLayout />,
+        children: [
+          { index: true, element: <Navigate to="/admin/users" replace /> },
+          { path: "users", element: <AdminUsersPage /> },
+          { path: "users/:userId", element: <AdminUserDetailPage /> },
+        ],
+      },
       {
         path: ":lang",
         element: <LangLayout />,
