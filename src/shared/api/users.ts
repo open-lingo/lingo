@@ -1,6 +1,6 @@
 import { ApiClient } from "./client";
 
-const PREFIX = "/api/core/users/v1";
+const PREFIX = "/api/core/v1/users";
 
 export interface User {
   id: string;

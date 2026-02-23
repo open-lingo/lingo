@@ -2,7 +2,7 @@ import type { SRSStore } from "@/features/flashcards/engine/srsStorage";
 import type { SyncPayload } from "@/features/flashcards/engine/srsSync";
 import { ApiClient } from "./client";
 
-const PREFIX = "/api/core/srs/v1";
+const PREFIX = "/api/core/v1/srs";
 
 interface SRSStateResponse {
   cards: SRSStore;

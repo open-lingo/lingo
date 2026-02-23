@@ -1,6 +1,6 @@
 import { ApiClient } from "./client";
 
-const PREFIX = "/api/core/decks/v1";
+const PREFIX = "/api/core/v1/decks";
 
 export interface DeckCreate {
   languageId: string;
@@ -62,7 +62,7 @@ export class DecksApi extends ApiClient {
     deck_status?: string;
   }): Promise<DeckResponse[]> {
     try {
-      return await this.get<DeckResponse[]>(`${PREFIX}/decks`, {
+      return await this.get<DeckResponse[]>(`${PREFIX}`, {
         params: params as Record<string, string>,
       });
     } catch (err) {
@@ -76,24 +76,24 @@ export class DecksApi extends ApiClient {
   }
 
   async createDeck(body: DeckCreate): Promise<DeckResponse> {
-    return this.post<DeckResponse>(`${PREFIX}/decks`, body);
+    return this.post<DeckResponse>(`${PREFIX}`, body);
   }
 
   async getDeck(deckId: string): Promise<DeckResponse> {
-    return this.get<DeckResponse>(`${PREFIX}/decks/${deckId}`);
+    return this.get<DeckResponse>(`${PREFIX}/${deckId}`);
   }
 
   /** Fetch multiple decks by ID in one request. Returns only accessible decks. */
   async getDecksBatch(deckIds: string[]): Promise<DeckResponse[]> {
     if (deckIds.length === 0) return [];
     const ids = deckIds.join(",");
-    return this.get<DeckResponse[]>(`${PREFIX}/decks/batch`, {
+    return this.get<DeckResponse[]>(`${PREFIX}/batch`, {
       params: { ids },
     });
   }
 
   async updateDeck(deckId: string, body: DeckUpdate): Promise<DeckResponse> {
-    return this.put<DeckResponse>(`${PREFIX}/decks/${deckId}`, body);
+    return this.put<DeckResponse>(`${PREFIX}/${deckId}`, body);
   }
 
   async updateDeckStatus(
@@ -101,7 +101,7 @@ export class DecksApi extends ApiClient {
     status: "draft" | "published"
   ): Promise<DeckResponse> {
     return this.patch<DeckResponse>(
-      `${PREFIX}/decks/${deckId}/status?status=${status}`
+      `${PREFIX}/${deckId}/status?status=${status}`
     );
   }
 
@@ -111,7 +111,7 @@ export class DecksApi extends ApiClient {
     language_id?: string;
   }): Promise<DeckResponse[]> {
     try {
-      return await this.get<DeckResponse[]>(`${PREFIX}/decks/admin`, {
+      return await this.get<DeckResponse[]>(`${PREFIX}/admin`, {
         params: params as Record<string, string>,
       });
     } catch (err) {
@@ -130,7 +130,7 @@ export class DecksApi extends ApiClient {
     status: "draft" | "published"
   ): Promise<DeckResponse> {
     return this.patch<DeckResponse>(
-      `${PREFIX}/decks/admin/${deckId}/status?status=${status}`
+      `${PREFIX}/admin/${deckId}/status?status=${status}`
     );
   }
 }
