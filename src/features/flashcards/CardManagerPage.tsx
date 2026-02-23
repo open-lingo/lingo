@@ -206,7 +206,7 @@ export function CardManagerPage() {
       />
 
       <p className="text-sm text-gray-500 dark:text-gray-400">
-        {t("flashcards.cardManager.showing", { count: filtered.length, total: cards.length }, "Showing {{count}} of {{total}} cards")}
+        {t("flashcards.cardManager.showing", "Showing {{count}} of {{total}} cards", { count: filtered.length, total: cards.length })}
       </p>
 
       <DataTable

@@ -20,7 +20,6 @@ export function DeckManagerPage() {
     isLoading,
     refresh,
     updateSubscription,
-    isAuthenticated,
   } = useDeckManagerData(languageId);
 
   const [search, setSearch] = useState("");
@@ -252,7 +251,7 @@ export function DeckManagerPage() {
       </div>
 
       <p className="text-sm text-gray-500 dark:text-gray-400">
-        {t("flashcards.deckManager.subtitle", { language: languageName }, "Manage subscription settings for {{language}} decks.")}
+        {t("flashcards.deckManager.subtitle", "Manage subscription settings for {{language}} decks.", { language: languageName })}
       </p>
 
       <FilterBar
@@ -266,7 +265,7 @@ export function DeckManagerPage() {
       />
 
       <p className="text-sm text-gray-500 dark:text-gray-400">
-        {t("flashcards.deckManager.showing", { count: filtered.length, total: decks.length }, "Showing {{count}} of {{total}} decks")}
+        {t("flashcards.deckManager.showing", "Showing {{count}} of {{total}} decks", { count: filtered.length, total: decks.length })}
       </p>
 
       <DataTable

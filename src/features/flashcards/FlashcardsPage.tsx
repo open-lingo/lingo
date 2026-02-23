@@ -137,7 +137,7 @@ function DeckCard({
       {settingsHref && (
         <Link
           to={settingsHref}
-          aria-label={t("flashcards.deckManager.settingsLabel", "Deck settings")}
+          aria-label={t("flashcards.deckManager.settingsLabel")}
           className="shrink-0 rounded p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
         >
           <GearIcon className="h-5 w-5" />
@@ -228,7 +228,7 @@ export function FlashcardsPage() {
     []
   );
 
-  const { cards, dueQueue, dueCount, deck, courseDecks, communityPacksWithDecks } =
+  const { dueQueue, dueCount, deck, courseDecks, communityPacksWithDecks } =
     useMemo(() => {
       const byLang = subscribedDecks.filter(
         ({ addon }) => addon.languageId === langId
