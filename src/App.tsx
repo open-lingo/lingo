@@ -36,8 +36,12 @@ import { NewThreadPage } from "@/features/community/forum/NewThreadPage";
 import { LeaderboardPage } from "@/features/leaderboard/LeaderboardPage";
 import { LessonPage } from "@/features/lesson/LessonPage";
 import { AdminLayout } from "@/features/admin/AdminLayout";
-import { AdminUsersPage } from "@/features/admin/AdminUsersPage";
+import { AdminUsersLayout } from "@/features/admin/AdminUsersLayout";
+import { AdminUserEmptyState } from "@/features/admin/AdminUserEmptyState";
 import { AdminUserDetailPage } from "@/features/admin/AdminUserDetailPage";
+import { AdminContentLayout } from "@/features/admin/AdminContentLayout";
+import { AdminDecksPage } from "@/features/admin/AdminDecksPage";
+import { AdminStoriesPage } from "@/features/admin/AdminStoriesPage";
 
 const router = createBrowserRouter([
   {
@@ -52,8 +56,23 @@ const router = createBrowserRouter([
         element: <AdminLayout />,
         children: [
           { index: true, element: <Navigate to="/admin/users" replace /> },
-          { path: "users", element: <AdminUsersPage /> },
-          { path: "users/:userId", element: <AdminUserDetailPage /> },
+          {
+            path: "users",
+            element: <AdminUsersLayout />,
+            children: [
+              { index: true, element: <AdminUserEmptyState /> },
+              { path: ":userId", element: <AdminUserDetailPage /> },
+            ],
+          },
+          {
+            path: "content",
+            element: <AdminContentLayout />,
+            children: [
+              { index: true, element: <Navigate to="decks" replace /> },
+              { path: "decks", element: <AdminDecksPage /> },
+              { path: "stories", element: <AdminStoriesPage /> },
+            ],
+          },
         ],
       },
       {

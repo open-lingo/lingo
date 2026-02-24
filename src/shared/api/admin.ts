@@ -52,4 +52,66 @@ export class AdminApi extends ApiClient {
   deleteUser(userId: string): Promise<void> {
     return this.delete(`${PREFIX}/users/${encodeURIComponent(userId)}`);
   }
+
+  /** Add a subscription for a user (admin). */
+  addUserSubscription(
+    userId: string,
+    body: { contentType: string; contentId: string }
+  ): Promise<Subscription> {
+    return this.post<Subscription>(
+      `${PREFIX}/users/${encodeURIComponent(userId)}/subscriptions`,
+      body
+    );
+  }
+
+  /** Remove a subscription for a user (admin). */
+  removeUserSubscription(
+    userId: string,
+    contentType: string,
+    contentId: string
+  ): Promise<void> {
+    return this.delete(
+      `${PREFIX}/users/${encodeURIComponent(userId)}/subscriptions/${encodeURIComponent(contentType)}/${encodeURIComponent(contentId)}`
+    );
+  }
+
+  /** Unpublish (draft) or publish a deck. Admin only. */
+  updateDeckStatus(
+    deckId: string,
+    status: "draft" | "published"
+  ): Promise<import("./decks").DeckResponse> {
+    return this.patch(
+      `${PREFIX}/decks/${encodeURIComponent(deckId)}/status?status=${status}`
+    );
+  }
+
+  /** Delete a deck permanently. Admin only. */
+  deleteDeck(deckId: string): Promise<void> {
+    return this.delete(`${PREFIX}/decks/${encodeURIComponent(deckId)}`);
+  }
+
+  /** List all stories (admin). */
+  listStories(params?: {
+    status?: string;
+    language_id?: string;
+  }): Promise<import("./stories").StoryResponse[]> {
+    return this.get<import("./stories").StoryResponse[]>(`${PREFIX}/stories`, {
+      params: params as Record<string, string | undefined>,
+    });
+  }
+
+  /** Update story status. Admin only. */
+  updateStoryStatus(
+    storyId: string,
+    status: "draft" | "published"
+  ): Promise<import("./stories").StoryResponse> {
+    return this.patch(
+      `${PREFIX}/stories/${encodeURIComponent(storyId)}/status?status=${status}`
+    );
+  }
+
+  /** Delete a story permanently. Admin only. */
+  deleteStory(storyId: string): Promise<void> {
+    return this.delete(`${PREFIX}/stories/${encodeURIComponent(storyId)}`);
+  }
 }

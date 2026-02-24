@@ -1,18 +1,30 @@
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useModal } from "@/shared/contexts/ModalContext";
+import { useApi } from "@/shared/api/provider";
 import { getStoredProfile } from "@/features/settings/profileStorage";
+import { ApiError } from "@/shared/api/client";
 
 export function AuthMenu() {
   const { t } = useTranslation();
   const { isAuthenticated, isLoading, user } = useAuth();
+  const { users } = useApi();
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const profile = user?.sub ? getStoredProfile(user.sub) : null;
   const { openSettings, openProfile } = useModal();
 
+  const { data: me } = useQuery({
+    queryKey: ["users", "me"],
+    queryFn: () => users.getMe(),
+    enabled: isAuthenticated,
+    retry: (_, err) => !(err instanceof ApiError && err.status === 404),
+  });
+
+  const [imgError, setImgError] = useState(false);
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -23,6 +35,16 @@ export function AuthMenu() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
+  const avatarUrl =
+    me?.profile_picture_key?.trim() ||
+    (user?.sub ? getStoredProfile(user.sub)?.avatarUrl : null) ||
+    user?.picture ||
+    undefined;
+  useEffect(() => {
+    setImgError(false);
+  }, [avatarUrl]);
+  const showAvatar = avatarUrl && !imgError;
+
   if (isLoading) {
     return (
       <div className="h-9 w-9 animate-pulse rounded-full bg-gray-600 dark:bg-gray-600" aria-hidden />
@@ -30,8 +52,7 @@ export function AuthMenu() {
   }
 
   const displayName =
-    profile?.realName ?? profile?.username ?? user?.name ?? user?.email ?? t("common.user");
-  const avatarUrl = profile?.avatarUrl ?? user?.picture;
+    me?.display_name ?? profile?.realName ?? profile?.username ?? user?.name ?? user?.email ?? t("common.user");
 
   return (
     <div className="relative" ref={menuRef}>
@@ -43,8 +64,13 @@ export function AuthMenu() {
         aria-haspopup="true"
         aria-label={t("auth.accountMenu")}
       >
-        {avatarUrl ? (
-          <img src={avatarUrl} alt="" className="h-full w-full object-cover" />
+        {showAvatar ? (
+          <img
+            src={avatarUrl}
+            alt=""
+            className="h-full w-full object-cover"
+            onError={() => setImgError(true)}
+          />
         ) : (
           <UserIcon className="h-5 w-5" />
         )}

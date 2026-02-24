@@ -81,6 +81,7 @@ export function ProfileEditPanel() {
           profile_picture_key: avatarUrl.trim() || undefined,
           status: status.trim() || undefined,
         });
+        await queryClient.invalidateQueries({ queryKey: ["users", "me"] });
       } else {
         await users.register({
           username: username.trim(),

@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useApi } from "@/shared/api/provider";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useToast } from "@/shared/contexts/ToastContext";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import type { UserListItem } from "@/shared/api/admin";
@@ -17,6 +18,7 @@ export function AdminUserDetailPage() {
   const navigate = useNavigate();
   const { admin } = useApi();
   const langPath = useLangPath();
+  const showToast = useToast().showToast;
   const [user, setUser] = useState<UserListItem | null>(null);
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [content, setContent] = useState<DeckResponse[]>([]);
@@ -24,44 +26,126 @@ export function AdminUserDetailPage() {
   const [activeTab, setActiveTab] = useState<TabId>("profile");
   const [deleting, setDeleting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [addDeckId, setAddDeckId] = useState("");
+  const [addingSub, setAddingSub] = useState(false);
+  const [removingSub, setRemovingSub] = useState<string | null>(null);
+  const [deckAction, setDeckAction] = useState<{ id: string; action: "unpublish" | "publish" | "delete" } | null>(null);
+  const [deckDeleteConfirm, setDeckDeleteConfirm] = useState<string | null>(null);
+
+  const loadUserData = useCallback(async () => {
+    if (!userId) return;
+    try {
+      const [u, subs, decks] = await Promise.all([
+        admin.getUser(userId),
+        admin.getUserSubscriptions(userId).catch(() => []),
+        admin.getUserContent(userId).catch(() => []),
+      ]);
+      setUser(u);
+      setSubscriptions(subs);
+      setContent(decks);
+    } catch {
+      setUser(null);
+    }
+  }, [userId, admin]);
 
   useEffect(() => {
     if (!userId) return;
-    let cancelled = false;
-    (async () => {
-      setLoading(true);
-      try {
-        const [u, subs, decks] = await Promise.all([
-          admin.getUser(userId),
-          admin.getUserSubscriptions(userId).catch(() => []),
-          admin.getUserContent(userId).catch(() => []),
-        ]);
-        if (!cancelled) {
-          setUser(u);
-          setSubscriptions(subs);
-          setContent(decks);
-        }
-      } catch {
-        if (!cancelled) setUser(null);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => { cancelled = true; };
-  }, [userId, admin]);
+    setLoading(true);
+    loadUserData().finally(() => setLoading(false));
+  }, [userId, loadUserData]);
 
-  const handleDelete = async () => {
+  const handleDeleteUser = async () => {
     if (!userId) return;
     setDeleting(true);
     try {
       await admin.deleteUser(userId);
+      showToast(t("admin.deleteSuccess"), "success");
       navigate("/admin/users");
     } catch {
-      // Error handled by toast or state
+      showToast(t("admin.deleteError"), "error");
     } finally {
       setDeleting(false);
       setShowDeleteConfirm(false);
     }
+  };
+
+  const handleAddSubscription = async () => {
+    if (!userId || !addDeckId.trim()) return;
+    setAddingSub(true);
+    try {
+      await admin.addUserSubscription(userId, {
+        contentType: "deck",
+        contentId: addDeckId.trim(),
+      });
+      showToast("Subscription added", "success");
+      setAddDeckId("");
+      await loadUserData();
+    } catch {
+      showToast("Failed to add subscription", "error");
+    } finally {
+      setAddingSub(false);
+    }
+  };
+
+  const handleRemoveSubscription = async (contentType: string, contentId: string) => {
+    if (!userId) return;
+    const key = `${contentType}-${contentId}`;
+    setRemovingSub(key);
+    try {
+      await admin.removeUserSubscription(userId, contentType, contentId);
+      showToast("Subscription removed", "success");
+      await loadUserData();
+    } catch {
+      showToast("Failed to remove subscription", "error");
+    } finally {
+      setRemovingSub(null);
+    }
+  };
+
+  const handleUnpublishDeck = async (deckId: string) => {
+    setDeckAction({ id: deckId, action: "unpublish" });
+    try {
+      await admin.updateDeckStatus(deckId, "draft");
+      showToast(t("admin.unpublish") + " — OK", "success");
+      await loadUserData();
+    } catch {
+      showToast("Failed to unpublish", "error");
+    } finally {
+      setDeckAction(null);
+    }
+  };
+
+  const handlePublishDeck = async (deckId: string) => {
+    setDeckAction({ id: deckId, action: "publish" });
+    try {
+      await admin.updateDeckStatus(deckId, "published");
+      showToast(t("admin.publish") + " — OK", "success");
+      await loadUserData();
+    } catch {
+      showToast("Failed to publish", "error");
+    } finally {
+      setDeckAction(null);
+    }
+  };
+
+  const handleDeleteDeck = async () => {
+    const deckId = deckDeleteConfirm;
+    if (!deckId) return;
+    setDeckAction({ id: deckId, action: "delete" });
+    setDeckDeleteConfirm(null);
+    try {
+      await admin.deleteDeck(deckId);
+      showToast(t("admin.deleteDeck") + " — OK", "success");
+      await loadUserData();
+    } catch {
+      showToast("Failed to delete deck", "error");
+    } finally {
+      setDeckAction(null);
+    }
+  };
+
+  const handleDeleteDeckClick = (deckId: string) => {
+    setDeckDeleteConfirm(deckId);
   };
 
   if (loading || !user) {
@@ -81,13 +165,7 @@ export function AdminUserDetailPage() {
   ];
 
   return (
-    <div className="space-y-6">
-      <Link
-        to="/admin/users"
-        className="inline-block text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-      >
-        {t("common.back")} {t("admin.users")}
-      </Link>
+    <div className="space-y-6 p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -116,7 +194,7 @@ export function AdminUserDetailPage() {
           <div className="mt-4 flex gap-2">
             <button
               type="button"
-              onClick={handleDelete}
+              onClick={handleDeleteUser}
               disabled={deleting}
               className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
             >
@@ -200,33 +278,70 @@ export function AdminUserDetailPage() {
         )}
 
         {activeTab === "subscriptions" && (
-          <div>
+          <div className="space-y-4">
+            <div className="flex flex-wrap items-end gap-2">
+              <div>
+                <label htmlFor="add-deck-id" className="sr-only">
+                  {t("admin.deckId")}
+                </label>
+                <input
+                  id="add-deck-id"
+                  type="text"
+                  value={addDeckId}
+                  onChange={(e) => setAddDeckId(e.target.value)}
+                  placeholder={t("admin.deckId")}
+                  className="rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={handleAddSubscription}
+                disabled={addingSub || !addDeckId.trim()}
+                className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50 dark:bg-green-600 dark:hover:bg-green-500"
+              >
+                {addingSub ? t("common.loading") : t("admin.addSubscription")}
+              </button>
+            </div>
             {subscriptions.length === 0 ? (
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 {t("admin.noSubscriptions")}
               </p>
             ) : (
               <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                {subscriptions.map((s) => (
-                  <li
-                    key={`${s.contentType}-${s.contentId}`}
-                    className="flex items-center justify-between py-3"
-                  >
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">
-                      {s.contentType} · {s.contentId}
-                    </span>
-                    {s.enabled === false && (
-                      <span className="text-xs text-gray-500">disabled</span>
-                    )}
-                  </li>
-                ))}
+                {subscriptions.map((s) => {
+                  const key = `${s.contentType}-${s.contentId}`;
+                  const isRemoving = removingSub === key;
+                  return (
+                    <li
+                      key={key}
+                      className="flex items-center justify-between py-3"
+                    >
+                      <span className="text-sm font-medium text-gray-900 dark:text-white">
+                        {s.contentType} · {s.contentId}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        {s.enabled === false && (
+                          <span className="text-xs text-gray-500">disabled</span>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveSubscription(s.contentType, s.contentId)}
+                          disabled={isRemoving}
+                          className="text-sm font-medium text-red-600 hover:text-red-700 disabled:opacity-50 dark:text-red-400 dark:hover:text-red-300"
+                        >
+                          {isRemoving ? t("common.loading") : t("admin.removeSubscription")}
+                        </button>
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </div>
         )}
 
         {activeTab === "content" && (
-          <div>
+          <div className="space-y-4">
             {content.length === 0 ? (
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 {t("admin.noContent")}
@@ -235,30 +350,94 @@ export function AdminUserDetailPage() {
               <ul className="space-y-4">
                 {content.map((deck) => {
                   const coverUrl = getDeckImageUrl(deck.id, deck.image, "64/48");
+                  const isPublished = deck.status === "published";
+                  const isBusy =
+                    deckAction?.id === deck.id ||
+                    (deckDeleteConfirm === deck.id);
+
                   return (
                     <li
                       key={deck.id}
-                      className="flex items-center gap-4 rounded-lg border border-gray-200 p-3 dark:border-gray-700"
+                      className="rounded-lg border border-gray-200 p-3 dark:border-gray-700"
                     >
-                      <img
-                        src={coverUrl}
-                        alt=""
-                        className="h-12 w-16 rounded object-cover"
-                      />
-                      <div className="min-w-0 flex-1">
-                        <p className="font-medium text-gray-900 dark:text-white">
-                          {deck.name}
-                        </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {getLanguageConfig(deck.languageId)?.name ?? deck.languageId} · {deck.cardCount} cards · {deck.status}
-                        </p>
+                      <div className="flex flex-wrap items-center gap-4">
+                        <img
+                          src={coverUrl}
+                          alt=""
+                          className="h-12 w-16 shrink-0 rounded object-cover"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium text-gray-900 dark:text-white">
+                            {deck.name}
+                          </p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {getLanguageConfig(deck.languageId)?.name ?? deck.languageId} · {deck.cardCount} cards · {deck.status}
+                          </p>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Link
+                            to={langPath(`studio/decks/${deck.id}`)}
+                            className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400"
+                          >
+                            View
+                          </Link>
+                          {isPublished ? (
+                            <button
+                              type="button"
+                              onClick={() => handleUnpublishDeck(deck.id)}
+                              disabled={isBusy}
+                              className="rounded border border-amber-300 px-2 py-1 text-sm font-medium text-amber-700 hover:bg-amber-50 disabled:opacity-50 dark:border-amber-700 dark:text-amber-400 dark:hover:bg-amber-900/20"
+                            >
+                              {deckAction?.id === deck.id && deckAction?.action === "unpublish"
+                                ? t("common.loading")
+                                : t("admin.unpublish")}
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => handlePublishDeck(deck.id)}
+                              disabled={isBusy}
+                              className="rounded border border-green-300 px-2 py-1 text-sm font-medium text-green-700 hover:bg-green-50 disabled:opacity-50 dark:border-green-700 dark:text-green-400 dark:hover:bg-green-900/20"
+                            >
+                              {deckAction?.id === deck.id && deckAction?.action === "publish"
+                                ? t("common.loading")
+                                : t("admin.publish")}
+                            </button>
+                          )}
+                          {deckDeleteConfirm === deck.id ? (
+                            <span className="flex items-center gap-1">
+                              <span className="text-xs text-amber-700 dark:text-amber-400">
+                                {t("admin.deleteDeckConfirm")}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={handleDeleteDeck}
+                                disabled={!!deckAction}
+                                className="rounded bg-red-600 px-2 py-1 text-xs font-medium text-white hover:bg-red-700 disabled:opacity-50"
+                              >
+                                {deckAction?.id === deck.id ? t("common.loading") : "Confirm"}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setDeckDeleteConfirm(null)}
+                                disabled={!!deckAction}
+                                className="rounded border border-gray-300 px-2 py-1 text-xs font-medium dark:border-gray-600"
+                              >
+                                {t("forum.cancel")}
+                              </button>
+                            </span>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteDeckClick(deck.id)}
+                              disabled={isBusy}
+                              className="rounded border border-red-300 px-2 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50 dark:border-red-700 dark:text-red-400 dark:hover:bg-red-900/20"
+                            >
+                              {t("admin.deleteDeck")}
+                            </button>
+                          )}
+                        </div>
                       </div>
-                      <Link
-                        to={langPath(`studio/decks/${deck.id}`)}
-                        className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400"
-                      >
-                        View
-                      </Link>
                     </li>
                   );
                 })}
