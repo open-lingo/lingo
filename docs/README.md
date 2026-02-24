@@ -4,6 +4,7 @@ Quick reference for this folder. Use for human reading and minimal context.
 
 - **PROJECT_STATE.md** — Architecture assessment, current state vs docs, route structure. Use for planning and AI delegation.
 - **STORY_PLANNING.md** — Story editor & reader: data format, add-word-to-deck, API, AI usage.
+- **TTS_PLANNING.md** — Text-to-speech: own API, CDN, ElevenLabs (swappable), cache-first, usage tracking, monetization hooks.
 - **COMMUNITY_RESOURCES_PLANNING.md** — External Content: community-curated links (YouTube, podcasts, websites); multiple URLs per item; content + translation language.
 - **TODO.md** — Concrete todos and what's left to implement (by area).
 - **DESIGN.md** — Design ideas, architecture notes, tech choices, folder structure.

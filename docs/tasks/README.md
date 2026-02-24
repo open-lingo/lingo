@@ -69,6 +69,7 @@ Each task doc has context, files to touch, and acceptance criteria. Follow conve
 | [backend-user-api](./backend-user-api.md) | `src/shared/api/`, `src/features/settings/` | not started |
 | [backend-progress-api](./backend-progress-api.md) | `src/shared/api/`, `src/features/progress/` | not started |
 | [backend-content-api](./backend-content-api.md) | `src/shared/api/`, `src/features/learn/` | not started |
+| **TTS (text-to-speech)** | See [TTS_PLANNING.md](../TTS_PLANNING.md) | planned — Own API, CDN, ElevenLabs (swappable), cache-first |
 
 ### Content
 
