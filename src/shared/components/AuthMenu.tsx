@@ -81,10 +81,10 @@ export function AuthMenu() {
           {isAuthenticated && user && (
             <div className="border-b border-gray-700 px-4 py-2 dark:border-gray-600">
               <p className="truncate text-sm font-medium text-gray-200">{displayName}</p>
-              {profile?.status && (
-                <p className="mt-0.5 truncate text-xs text-gray-400">{profile.status}</p>
+              {(me?.bio ?? profile?.status) && (
+                <p className="mt-0.5 truncate text-xs text-gray-400">{me?.bio ?? profile?.status}</p>
               )}
-              {!profile?.status && user.email && (
+              {!me?.bio && !profile?.status && user.email && (
                 <p className="truncate text-xs text-gray-400">{user.email}</p>
               )}
             </div>

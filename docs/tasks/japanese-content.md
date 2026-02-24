@@ -23,7 +23,7 @@ Expand Japanese content to be usable for actual learning, not just a demo.
 - Add: も (also), から (from), まで (until), へ (towards), よ (emphasis), ね (confirmation)
 - Add practice sentences: `src/features/practice/data/ja-sentences.json`
 
-### Stories (`src/features/stories/storiesData.ts`)
+### Stories (API — `GET /stories/browse`)
 - Currently 3 course + 2 community stories for ja
 - Expand to 5 course + 4 community
 - Add variety: daily life, travel, school, work, food

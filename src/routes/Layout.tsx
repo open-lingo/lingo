@@ -3,13 +3,13 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FundingMeter } from "@/shared/components/FundingMeter";
 import { SRSPendingSync } from "@/features/flashcards/SRSPendingSync";
+import { SyncManagerTrigger } from "@/features/sync/SyncManagerTrigger";
 import { ThemeToggle } from "@/shared/components/ThemeToggle";
 import { LanguageSelector } from "@/shared/components/LanguageSelector";
 import { AuthMenu } from "@/shared/components/AuthMenu";
 import { ModalRoot } from "@/shared/components/ModalRoot";
 import { ToastContainer } from "@/shared/components/ToastContainer";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { useIsAdmin } from "@/shared/auth/useIsAdmin";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
   getPracticeItemsForLanguage,
@@ -152,7 +152,6 @@ export function Layout() {
   const location = useLocation();
   const pathname = location.pathname;
   const langPath = useLangPath();
-  const isAdmin = useIsAdmin();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const learnActive = /^\/[^/]+\/learn/.test(pathname);
@@ -201,22 +200,21 @@ export function Layout() {
             >
               {t("nav.community")}
             </Link>
-            {isAdmin && (
-              <Link
-                to="/admin/users"
-                className={`rounded-md px-2 py-1.5 text-sm ${
-                  adminActive
-                    ? "font-medium text-gray-900 dark:text-white"
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                }`}
-              >
-                {t("nav.admin")}
-              </Link>
-            )}
+            <Link
+              to="/admin/users"
+              className={`rounded-md px-2 py-1.5 text-sm ${
+                adminActive
+                  ? "font-medium text-gray-900 dark:text-white"
+                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              }`}
+            >
+              {t("nav.admin")}
+            </Link>
           </nav>
 
           {/* Right side: utilities + mobile menu button */}
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+            <SyncManagerTrigger />
             <LanguageSelector />
             <ThemeToggle />
             <AuthMenu />
@@ -270,19 +268,17 @@ export function Layout() {
               >
                 {t("nav.community")}
               </Link>
-              {isAdmin && (
-                <Link
-                  to="/admin/users"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`rounded-lg px-4 py-3 text-base ${
-                    adminActive
-                      ? "font-semibold text-gray-900 dark:text-white"
-                      : "font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-                  }`}
-                >
-                  {t("nav.admin")}
-                </Link>
-              )}
+              <Link
+                to="/admin/users"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`rounded-lg px-4 py-3 text-base ${
+                  adminActive
+                    ? "font-semibold text-gray-900 dark:text-white"
+                    : "font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+                }`}
+              >
+                {t("nav.admin")}
+              </Link>
             </nav>
           </div>
         )}

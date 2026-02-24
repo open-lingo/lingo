@@ -37,9 +37,10 @@ export function AdminDecksPage() {
   }, [statusFilter]);
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return decks;
+    const excludeVocab = decks.filter((d) => !d.id.startsWith("vocab-"));
+    if (!search.trim()) return excludeVocab;
     const q = search.toLowerCase().trim();
-    return decks.filter(
+    return excludeVocab.filter(
       (d) =>
         d.name.toLowerCase().includes(q) ||
         (d.description && d.description.toLowerCase().includes(q)) ||

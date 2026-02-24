@@ -1,10 +1,24 @@
 {
+  "syncManager": {
+    "ariaLabel": "Sync status",
+    "title": "Sync Manager",
+    "subtitle": "Background sync for your progress",
+    "srsLabel": "Flashcards",
+    "synced": "Synced",
+    "unsynced": "{{count}} unsynced",
+    "lastSync": "Last sync: {{time}}",
+    "timeUntilSync": "Next sync in {{time}}",
+    "neverSynced": "Not yet synced",
+    "syncNow": "Sync now",
+    "syncing": "Syncing…",
+    "moreComing": "Lessons & story progress coming soon"
+  },
   "common": {
     "loading": "Loading...",
-    "back": "← Back",
+    "back": "Back",
     "hidePreview": "Hide preview",
     "showPreview": "Show preview",
-    "backToHome": "← Back to home",
+    "backToHome": "Back to home",
     "user": "User"
   },
   "nav": {
@@ -84,7 +98,7 @@
     "browseDecks": "Browse decks",
     "yourDecks": "Your decks",
     "noSubscribedDecks": "No decks yet. Browse community decks and subscribe to get started.",
-    "backToHub": "← Back to Flashcards",
+    "backToHub": "Back to Flashcards",
     "searchPlaceholder": "Search cards…",
     "searchNoResults": "No cards match your search.",
     "previewNoCards": "Card preview not available for this pack.",
@@ -103,7 +117,11 @@
     "locale": "Locale",
     "commentsComingSoon": "Comments coming soon.",
     "syncSynced": "Synced {{count}} cards",
+    "syncRestored": "Synced {{count}} cards from previous session",
     "syncUnsavedWarning": "You have unsaved review progress. Leave anyway?",
+    "syncStatusSynced": "Synced · {{time}}",
+    "syncStatusSyncedNever": "Synced",
+    "syncStatusUnsynced": "{{count}} card(s) not synced",
     "reviewed": "Reviewed",
     "newCount": "New",
     "dueCount": "Due",
@@ -116,6 +134,10 @@
     "reviewModeLabel": "Review mode",
     "reviewModeWordFirst": "Word → Image + translation (default)",
     "reviewModeImageFirst": "Image + word → Translation + image",
+    "reviewModeBackFirst": "Translation → Word",
+    "answerLabel": "Answer",
+    "wordLabel": "Word",
+    "segmentBreakdown": "Segment breakdown",
     "deckManager": {
       "title": "Deck Manager",
       "loading": "Loading…",
@@ -138,6 +160,10 @@
     },
     "cardManager": {
       "title": "Card Manager",
+      "tabAll": "All cards",
+      "tabMyVocab": "My Vocab",
+      "noVocabYet": "No vocab words yet. Add words from stories while reading.",
+      "readStories": "Read stories",
       "loading": "Loading…",
       "noCards": "No cards to manage. Subscribe to a deck to get started.",
       "browseDecks": "Browse community decks",
@@ -163,7 +189,11 @@
       "colActions": "Actions",
       "bury": "Bury",
       "unbury": "Unbury",
-      "reset": "Reset"
+      "reset": "Reset",
+      "editMyVocab": "Edit My Vocab",
+      "edit": "Edit",
+      "selectedCount": "{{count}} selected",
+      "clearSelection": "Clear"
     }
   },
   "home": {
@@ -230,7 +260,7 @@
   },
   "leaderboard": {
     "title": "Leaderboard",
-    "back": "← Back",
+    "back": "Back",
     "leadersByCategory": "Leaders by category",
     "viewAll": "View all",
     "fullTable": "Full tables",
@@ -253,7 +283,7 @@
     "reviews": "Reviews"
   },
   "studio": {
-    "headerBackToCreatorStudio": "← Creator Studio",
+    "headerBackToCreatorStudio": "Creator Studio",
     "unsavedChangesTitle": "Unsaved changes",
     "unsavedChangesMessage": "Save draft before leaving?",
     "unsavedSaveDraft": "Save Draft",
@@ -303,6 +333,8 @@
     "contentBrowserDiscoverTrending": "Trending",
     "contentBrowserDiscoverNew": "New",
     "communityPackBadge": "Community pack",
+    "companionDeckFor": "Companion deck for:",
+    "companionDeckForStory": "Story",
     "discussions": "discussions",
     "learners": "learners",
     "activeDiscussions": "Active discussions",
@@ -485,7 +517,7 @@
     "linkIssues": "Issues — report bugs, suggest features",
     "linkDiscord": "(Discussions / Discord — TBD when the community grows)",
     "footer": "This page is intentionally minimal. If something's missing or wrong, open an issue or send a PR — that's how we improve it.",
-    "backToHome": "← Back to home"
+    "backToHome": "Back to home"
   },
   "externalContent": {
     "title": "External Content",
@@ -535,6 +567,21 @@
       "reading": "Reading",
       "both": "Both",
       "other": "Other"
+    },
+    "practice": {
+      "tabLabel": "External Content",
+      "title": "My External Content",
+      "intro": "Track your subscribed links and mark them done as you work through them.",
+      "noSubscriptions": "No external content yet. Browse the community to add links.",
+      "browseToAdd": "Browse to add content",
+      "browseMore": "Browse more content →",
+      "forYourLanguage": "For your language",
+      "otherLanguages": "Other languages",
+      "markDone": "Mark as not done",
+      "markNotDone": "Mark as done",
+      "done": "Done",
+      "notDone": "Not done",
+      "unsubscribe": "Unsubscribe"
     }
   },
   "stories": {
@@ -551,27 +598,12 @@
     "noCommunityMatch": "No community stories match.",
     "read": "Read",
     "new": "New",
-    "back": "← Back to stories",
+    "back": "Back to stories",
     "storyNotFound": "Story not found",
-    "contentPlaceholder": "Story content will load here. This is a placeholder — connect to your course or community story API to render the real text and exercises."
-  },
-  "stories": {
-    "title": "Stories",
-    "subtitle": "Read and learn in context.",
-    "searchPlaceholder": "Search stories…",
-    "filterAll": "All",
-    "filterRecent": "Recent",
-    "filterNew": "New",
-    "filterRead": "Read",
-    "courseStories": "Course stories",
-    "communityStories": "Community stories",
-    "noCourseMatch": "No course stories match.",
-    "noCommunityMatch": "No community stories match.",
-    "read": "Read",
-    "new": "New",
-    "back": "← Back to stories",
-    "storyNotFound": "Story not found",
-    "contentPlaceholder": "Story content will load here. This is a placeholder — connect to your course or community story API to render the real text and exercises."
+    "contentPlaceholder": "Story content will load here. This is a placeholder — connect to your course or community story API to render the real text and exercises.",
+    "subscribedStories": "Subscribed stories",
+    "noSubscribedStories": "No subscribed stories yet. Browse and subscribe to stories you want to follow.",
+    "cardNotFound": "Card not found"
   },
   "forum": {
     "title": "Forum",
@@ -656,8 +688,8 @@
     "deleteStory": "Delete story",
     "deleteStoryConfirm": "Permanently delete this story? This cannot be undone.",
     "usersDesc": "Manage user accounts. RBAC coming later.",
-    "backToSite": "← Back to site",
-    "backToHome": "← Home",
+    "backToSite": "Back to site",
+    "backToHome": "Home",
     "profile": "Profile",
     "subscriptions": "Subscriptions",
     "content": "Content",
@@ -685,7 +717,29 @@
     "deleteDeckConfirm": "Permanently delete this deck? This cannot be undone.",
     "noContent": "No content",
     "contentType": "Type",
-    "contentId": "Content ID"
+    "contentId": "Content ID",
+    "accountStatus": "Account status",
+    "statusActive": "Active",
+    "statusBanned": "Banned",
+    "statusExpiration": "Ban expiration",
+    "statusExpirationHelp": "Leave empty for permanent ban.",
+    "communityStatus": "Community status",
+    "communityStatusExpiration": "Community ban expiration",
+    "role": "Role",
+    "roleUser": "User",
+    "roleTrustedCreator": "Trusted creator",
+    "roleModerator": "Moderator",
+    "roleAdmin": "Admin",
+    "roleSuperAdmin": "Super admin",
+    "srs": "SRS",
+    "srsDesc": "View and edit SRS (spaced repetition) state for this user.",
+    "srsEmpty": "No SRS data for this user.",
+    "srsCardId": "Card ID",
+    "srsDue": "Due",
+    "srsEase": "Ease",
+    "srsReps": "Reps",
+    "srsBuried": "Buried",
+    "srsResetConfirm": "Reset this card's SRS state?"
   },
   "settings": {
     "title": "Settings",

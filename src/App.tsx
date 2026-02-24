@@ -23,6 +23,7 @@ import { GrammarPage } from "@/features/grammar/GrammarPage";
 import { CommunityLayout } from "@/features/community/CommunityLayout";
 import { ContentBrowserPage } from "@/features/community/ContentBrowserPage";
 import { ExternalContentPage } from "@/features/community/ExternalContentPage";
+import { ExternalContentPracticePage } from "@/features/community/ExternalContentPracticePage";
 import { ContributePage } from "@/features/community/ContributePage";
 import { MyContentTab } from "@/features/community/contribute/MyContentTab";
 import { CreateTab } from "@/features/community/contribute/CreateTab";
@@ -105,6 +106,7 @@ const router = createBrowserRouter([
               { path: "kanji", element: <KanjiPracticePage /> },
               { path: "components", element: <ComponentsPracticePage /> },
               { path: "videos", element: <VideosPracticePage /> },
+              { path: "external-content", element: <ExternalContentPracticePage /> },
             ],
           },
           { path: "vocab", element: <VocabPage /> },

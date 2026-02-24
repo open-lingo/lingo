@@ -14,7 +14,7 @@ export function ProfileEditPanel() {
   const [avatarUrl, setAvatarUrl] = useState("");
   const [username, setUsername] = useState("");
   const [realName, setRealName] = useState("");
-  const [status, setStatus] = useState("");
+  const [bio, setBio] = useState("");
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -32,7 +32,7 @@ export function ProfileEditPanel() {
         setUsername(me.username);
         setRealName(me.display_name);
         setAvatarUrl(me.profile_picture_key ?? "");
-        setStatus(me.status);
+        setBio(me.bio ?? "");
         setIsRegistered(true);
       } catch (err) {
         if (cancelled) return;
@@ -79,7 +79,7 @@ export function ProfileEditPanel() {
           username: username.trim() || undefined,
           display_name: realName.trim() || undefined,
           profile_picture_key: avatarUrl.trim() || undefined,
-          status: status.trim() || undefined,
+          bio: bio.trim() || undefined,
         });
         await queryClient.invalidateQueries({ queryKey: ["users", "me"] });
       } else {
@@ -169,8 +169,8 @@ export function ProfileEditPanel() {
           {t("profile.status")}
         </label>
         <textarea
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
           placeholder={t("profile.statusPlaceholder")}
           rows={2}
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"

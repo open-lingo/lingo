@@ -32,6 +32,27 @@ export interface StoryResponse {
 }
 
 export class StoriesApi extends ApiClient {
+  /** List published stories for browsing. Any authenticated user. */
+  async listBrowseStories(params?: {
+    language_id?: string;
+  }): Promise<StoryResponse[]> {
+    try {
+      const p = params ?? {};
+      const queryParams: Record<string, string> = {};
+      if (p.language_id != null) queryParams.language_id = p.language_id;
+      return await this.get<StoryResponse[]>(`${PREFIX}/browse`, {
+        params: queryParams,
+      });
+    } catch (err) {
+      const status =
+        err && typeof err === "object" && "status" in err
+          ? (err as { status: number }).status
+          : 0;
+      if (status === 404 || status === 501) return [];
+      throw err;
+    }
+  }
+
   async listMyStories(params?: {
     language_id?: string;
     status?: string;

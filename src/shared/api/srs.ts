@@ -1,5 +1,8 @@
+import type { SRSCardState } from "@/features/flashcards/data/types";
 import type { SRSStore } from "@/features/flashcards/engine/srsStorage";
 import type { SyncPayload } from "@/features/flashcards/engine/srsSync";
+
+export type { SRSCardState };
 import { ApiClient } from "./client";
 
 const PREFIX = "/api/core/v1/srs";

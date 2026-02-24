@@ -8,7 +8,12 @@ export interface User {
   username: string;
   display_name: string;
   profile_picture_key: string | null;
+  bio: string | null;
   status: string;
+  status_expiration: string | null;
+  community_status: string | null;
+  community_status_expiration: string | null;
+  role: string;
   created_at: string;
   updated_at: string;
 }
@@ -22,7 +27,7 @@ export interface UpdateUserPayload {
   username?: string;
   display_name?: string;
   profile_picture_key?: string | null;
-  status?: string;
+  bio?: string | null;
 }
 
 export interface UserSettings {

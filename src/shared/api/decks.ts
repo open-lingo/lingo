@@ -116,6 +116,21 @@ export class DecksApi extends ApiClient {
     );
   }
 
+  /** Get or create the user's 'My Vocab' deck for a language. */
+  async getMyVocabDeck(languageId: string): Promise<DeckResponse> {
+    return this.get<DeckResponse>(`${PREFIX}/my-vocab`, {
+      params: { language_id: languageId },
+    });
+  }
+
+  /** Append cards to a deck. User must own the deck. Dedupes by front+back. */
+  async addCardsToDeck(deckId: string, cards: DeckCard[]): Promise<DeckResponse> {
+    return this.post<DeckResponse>(
+      `${PREFIX}/${encodeURIComponent(deckId)}/cards`,
+      { cards }
+    );
+  }
+
   /** Admin: list all decks (no RBAC for now). */
   async listAdminDecks(params?: {
     status?: string;

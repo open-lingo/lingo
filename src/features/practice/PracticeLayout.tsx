@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
   getPracticeItemsForLanguage,
   type PracticeNavItem,
@@ -37,14 +38,20 @@ export function PracticeLayout() {
   const { language } = useLanguage();
   const location = useLocation();
   const pathname = location.pathname;
+  const langPath = useLangPath();
+  const flashcardsPath = langPath("practice/flashcards");
+  const isFlashcardsSubRoute = pathname.startsWith(flashcardsPath + "/");
 
-  const items = getPracticeItemsForLanguage(language?.id);
+  const items = getPracticeItemsForLanguage(language?.id).filter(
+    (item) => !(isFlashcardsSubRoute && item.to === flashcardsPath)
+  );
 
   function isActive(item: PracticeNavItem): boolean {
     if (pathname === item.to) return true;
     if (item.to.endsWith("/practice/flashcards") && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
     if (item.to.endsWith("/practice/stories") && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
     if (item.to.endsWith("/practice/videos") && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
+    if (item.to.endsWith("/practice/external-content") && pathname.includes("/practice/external-content")) return true;
     if (item.to.includes("/practice/alphabet/") && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
     if (item.to.endsWith("/practice/alphabet") && pathname.startsWith(item.to)) return true;
     return false;

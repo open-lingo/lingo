@@ -106,9 +106,10 @@ type CardPreviewProps = {
   reviewMode?: ReviewMode;
 };
 
-/** word-first: image only on back. image-first: image on both sides. */
+/** word-first: image only on back. image-first: image on both sides. back-first: image on "front" (back content). */
 function shouldShowImage(mode: ReviewMode, flipped: boolean): boolean {
-  if (mode === "word-first") return flipped; // back only
+  if (mode === "back-first") return !flipped; // back first = translation + image
+  if (mode === "word-first") return flipped;
   return true; // image-first: both sides
 }
 
@@ -142,7 +143,9 @@ export function CardPreview({
         >
           <CardFace
             card={card}
-            side={flipped ? "back" : "front"}
+            side={
+              reviewMode === "back-first" ? (flipped ? "front" : "back") : flipped ? "back" : "front"
+            }
             particles={particles}
             highlightMode={highlightMode}
           />
