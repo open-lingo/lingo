@@ -25,7 +25,7 @@ export function LearnPage() {
   const alphabetLesson =
     firstLesson?.kind === "alphabet" && firstLesson.alphabetId ? firstLesson : null;
   const alphabetProgress =
-    language && alphabetLesson
+    language && alphabetLesson && alphabetLesson.alphabetId
       ? getAlphabetProgress(language.id, alphabetLesson.alphabetId)
       : null;
   const alphabetCompleted = alphabetProgress?.fullTestPassed ?? false;

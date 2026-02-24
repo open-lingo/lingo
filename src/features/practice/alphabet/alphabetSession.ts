@@ -87,7 +87,7 @@ export type AlphabetLearnOptions = {
  * 4. Production (hear sound → draw from memory → auto check)
  */
 export function buildAlphabetLearnSteps(
-  languageId: string,
+  _languageId: string,
   alphabet: AlphabetDef,
   progress: AlphabetProgress,
   options: AlphabetLearnOptions = {}
@@ -198,11 +198,11 @@ export type AlphabetTestOptions = {
  * Build a test-out session: recognition steps only. Used to test out of a section or full alphabet.
  */
 export function buildAlphabetTestSteps(
-  languageId: string,
+  _languageId: string,
   alphabet: AlphabetDef,
   options: AlphabetTestOptions = {}
 ): LessonStep[] {
-  const { sectionId, passThreshold = TEST_PASS_THRESHOLD } = options;
+  const { sectionId, passThreshold: _passThreshold = TEST_PASS_THRESHOLD } = options;
   const pool = getCharactersForSession(alphabet, sectionId);
   const romanization = alphabet.characterRomanization ?? {};
 

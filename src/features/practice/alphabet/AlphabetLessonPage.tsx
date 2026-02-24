@@ -26,7 +26,6 @@ const TEST_PASS_THRESHOLD = 0.8;
 function parseAlphabetStepId(stepId: string): { prefix: string; symbol: string } | null {
   const parts = stepId.split("-");
   if (parts.length < 3) return null;
-  const index = parts[parts.length - 1];
   const symbol = parts[parts.length - 2];
   const prefix = parts.slice(0, -2).join("-");
   return { prefix, symbol };
