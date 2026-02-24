@@ -11,8 +11,25 @@ export interface UserListItem {
   display_name: string;
   profile_picture_key: string | null;
   status: string;
+  status_expiration: string | null;
+  community_status: string | null;
+  community_status_expiration: string | null;
+  role: string;
   created_at: string;
   updated_at: string;
+}
+
+export type UserRole = "user" | "trusted_creator" | "moderator" | "admin" | "super_admin";
+
+export interface AdminUserUpdatePayload {
+  username?: string;
+  display_name?: string;
+  profile_picture_key?: string | null;
+  status?: "active" | "banned";
+  status_expiration?: string | null;
+  community_status?: "active" | "banned";
+  community_status_expiration?: string | null;
+  role?: UserRole;
 }
 
 export interface ListUsersResponse {
@@ -46,6 +63,11 @@ export class AdminApi extends ApiClient {
   /** Get user's content (decks they authored). */
   getUserContent(userId: string): Promise<DeckResponse[]> {
     return this.get<DeckResponse[]>(`${PREFIX}/users/${encodeURIComponent(userId)}/content`);
+  }
+
+  /** Update a user's profile (username, display_name, profile_picture_key, ban fields). */
+  updateUser(userId: string, payload: AdminUserUpdatePayload): Promise<UserListItem> {
+    return this.patch<UserListItem>(`${PREFIX}/users/${encodeURIComponent(userId)}`, payload);
   }
 
   /** Delete a user. Cannot delete self. */
@@ -113,5 +135,26 @@ export class AdminApi extends ApiClient {
   /** Delete a story permanently. Admin only. */
   deleteStory(storyId: string): Promise<void> {
     return this.delete(`${PREFIX}/stories/${encodeURIComponent(storyId)}`);
+  }
+
+  /** Get SRS state for a user (admin). */
+  getUserSrs(userId: string): Promise<{ cards: Record<string, import("./srs").SRSCardState> }> {
+    return this.get(`${PREFIX}/users/${encodeURIComponent(userId)}/srs`);
+  }
+
+  /** Update SRS state for a user (admin). */
+  updateUserSrs(
+    userId: string,
+    body: { cards: Record<string, import("./srs").SRSCardState> }
+  ): Promise<{ cards: Record<string, import("./srs").SRSCardState> }> {
+    return this.patch(`${PREFIX}/users/${encodeURIComponent(userId)}/srs`, body);
+  }
+
+  /** Delete SRS state for specific cards (admin). */
+  deleteUserSrsCards(userId: string, cardIds: string[]): Promise<{ deleted: number }> {
+    return this.delete(
+      `${PREFIX}/users/${encodeURIComponent(userId)}/srs/cards`,
+      { body: { cardIds } }
+    );
   }
 }

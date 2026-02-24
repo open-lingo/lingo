@@ -222,9 +222,12 @@ export function DeckEditor() {
     returnTo?: string;
     returnPath?: string;
     isCompanionDeck?: boolean;
+    cardId?: string;
+    storyId?: string;
+    storyTitle?: string;
   } | undefined;
   const { language } = useLanguage();
-  const { decks: decksApi } = useApi();
+  const { decks: decksApi, stories: storiesApi } = useApi();
 
   const [deckId, setDeckId] = useState<string | null>(routeDeckId ?? null);
   const [name, setName] = useState("");
@@ -240,6 +243,7 @@ export function DeckEditor() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [cardSearch, setCardSearch] = useState("");
   const [showDeckSettings, setShowDeckSettings] = useState(false);
+  const [companionStory, setCompanionStory] = useState<{ id: string; title: string } | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -262,11 +266,12 @@ export function DeckEditor() {
       setSelectedIndex(null);
       setHasUnsavedChanges(false);
       setLanguageId(language?.id ?? "ko");
+      setCompanionStory(null);
     }
   }, [routeDeckId, language?.id]);
 
   useEffect(() => {
-    if (!deckId || !decksApi) return;
+    if (!deckId || deckId === "new" || !decksApi) return;
     decksApi
       .getDeck(deckId)
       .then((deck) => {
@@ -277,13 +282,50 @@ export function DeckEditor() {
         setDefaultEase(
           deck.defaultEase != null ? String(deck.defaultEase) : ""
         );
-        setCards((deck.cards ?? []) as Flashcard[]);
+        const loadedCards = (deck.cards ?? []) as Flashcard[];
+        setCards(loadedCards);
         setLoadError(null);
+        const cardId = returnState?.cardId;
+        if (cardId && loadedCards.length > 0) {
+          const idx = loadedCards.findIndex((c) => c.id === cardId);
+          if (idx >= 0) setSelectedIndex(idx);
+          const cur = (window.history.state ?? {}) as Record<string, unknown>;
+          const { cardId: _, ...rest } = cur;
+          window.history.replaceState(rest, document.title, location.pathname);
+        }
+        const storyId =
+          deck.companionToStoryId && deck.companionToStoryId !== "pending"
+            ? deck.companionToStoryId
+            : (returnState as { storyId?: string })?.storyId ?? null;
+        setCompanionStory(null);
+        if (storyId && storiesApi) {
+          storiesApi
+            .getStory(storyId)
+            .then((s) => setCompanionStory({ id: s.id, title: s.title }))
+            .catch(() => {});
+        }
       })
       .catch((err) => {
         setLoadError(err instanceof Error ? err.message : "Failed to load deck");
       });
-  }, [deckId, decksApi]);
+  }, [deckId, decksApi, storiesApi, returnState?.cardId]);
+
+  // New deck from StoryEditor: use storyId/storyTitle from state or fetch
+  useEffect(() => {
+    if (deckId && deckId !== "new") return;
+    const storyId = returnState?.storyId ?? null;
+    const storyTitle = returnState?.storyTitle ?? null;
+    if (storyId && storyTitle) {
+      setCompanionStory({ id: storyId, title: storyTitle });
+    } else if (storyId && storiesApi) {
+      storiesApi
+        .getStory(storyId)
+        .then((s) => setCompanionStory({ id: s.id, title: s.title }))
+        .catch(() => {});
+    } else if (returnState?.isCompanionDeck) {
+      setCompanionStory({ id: "", title: t("community.companionDeckForStory", "Story") });
+    }
+  }, [deckId, returnState?.isCompanionDeck, returnState?.storyId, returnState?.storyTitle, storiesApi, t]);
 
   const selectedCard = selectedIndex != null ? cards[selectedIndex] : null;
 
@@ -517,6 +559,23 @@ export function DeckEditor() {
         showDeckSettings={showDeckSettings}
         nameInput={nameInput}
       />
+      {companionStory && (
+        <div className="flex items-center gap-2 border-b border-gray-200 bg-blue-50/50 px-4 py-2 dark:border-gray-700 dark:bg-blue-950/20">
+          <span className="text-sm font-medium text-blue-800 dark:text-blue-300">
+            {t("community.companionDeckFor", { defaultValue: "Companion deck for:" })}{" "}
+          </span>
+          {companionStory.id ? (
+            <Link
+              to={langPath(`community/contribute/create/story/${companionStory.id}`)}
+              className="font-medium text-blue-600 underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+            >
+              {companionStory.title}
+            </Link>
+          ) : (
+            <span className="font-medium text-blue-700 dark:text-blue-400">{companionStory.title}</span>
+          )}
+        </div>
+      )}
       {showDeckSettings && (
         <div className="flex items-center gap-4 rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-600 dark:bg-gray-700/50">
             <div>

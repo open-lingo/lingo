@@ -9,7 +9,9 @@ import { Avatar } from "./components/Avatar";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useApi } from "@/shared/api/provider";
 import { DeckPreviewModal } from "@/features/flashcards/DeckPreviewModal";
+import { StoryPreviewModal } from "@/features/stories/StoryPreviewModal";
 import type { DeckResponse } from "@/shared/api/decks";
+import type { StoryResponse } from "@/shared/api/stories";
 import type { FlashcardDeck } from "@/features/flashcards/data/types";
 import type { CommunityAddon } from "./types";
 import type { AddonKind } from "./types";
@@ -34,6 +36,9 @@ const NEW_DAYS_CUTOFF = 30;
 /** Deck from API mapped to card display shape. */
 type DeckCardItem = CommunityAddon & { deckId?: string };
 
+/** Story from API mapped to addon-like shape for ContentCard. */
+type StoryCardItem = CommunityAddon & { storyId?: string };
+
 function deckToCardItem(d: DeckResponse): DeckCardItem {
   return {
     id: d.id,
@@ -47,6 +52,20 @@ function deckToCardItem(d: DeckResponse): DeckCardItem {
     itemCount: d.cardCount,
     deckId: d.id,
     image: d.image,
+  };
+}
+
+function storyToCardItem(s: StoryResponse): StoryCardItem {
+  return {
+    id: s.id,
+    kind: "story",
+    languageId: s.languageId,
+    name: s.title,
+    description: s.description ?? "",
+    maintainerIds: [],
+    upvoteCount: 0,
+    updatedAt: s.updatedAt ?? s.createdAt ?? "",
+    storyId: s.id,
   };
 }
 
@@ -73,23 +92,27 @@ function ContentCard({
   onSubscribe,
   onUnsubscribe,
   onPreview,
+  onStoryPreview,
   subscribeLoading,
 }: {
-  addon: CommunityAddon | DeckCardItem;
+  addon: CommunityAddon | DeckCardItem | StoryCardItem;
   t: (k: string) => string;
   langPath: (p: string) => string;
   isSubscribed?: boolean;
   onSubscribe?: () => void;
   onUnsubscribe?: () => void;
   onPreview?: () => void;
+  onStoryPreview?: () => void;
   subscribeLoading?: boolean;
 }) {
   const lang = getLanguageConfig(addon.languageId);
   const langName = lang?.name ?? addon.languageId;
   const flag = lang?.flag ?? "🌐";
   const deckId = "deckId" in addon ? addon.deckId ?? addon.id : undefined;
+  const storyId = "storyId" in addon ? addon.storyId ?? addon.id : undefined;
   const isDeck = addon.kind === "flashcard-pack";
-  const showSubscribe = deckId && isSubscribed !== undefined;
+  const isStory = addon.kind === "story";
+  const showSubscribe = (deckId || storyId) && isSubscribed !== undefined;
 
   return (
     <div
@@ -157,6 +180,15 @@ function ContentCard({
               {subscribeLoading ? "…" : isSubscribed ? t("community.contentBrowserSubscribed") : t("community.contentBrowserSubscribe")}
             </button>
           )}
+          {isStory && storyId && onStoryPreview && (
+            <button
+              type="button"
+              onClick={onStoryPreview}
+              className="rounded px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+            >
+              {t("community.contentBrowserPreview")}
+            </button>
+          )}
           {isDeck && onPreview && (
             <button
               type="button"
@@ -170,6 +202,13 @@ function ContentCard({
             <Link
               to={langPath("practice/flashcards")}
               className="rounded px-2 py-1 text-xs font-medium text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20"
+            >
+              {t("community.contentBrowserOpen")}
+            </Link>
+          ) : isStory && storyId ? (
+            <Link
+              to={langPath(`practice/stories/${storyId}`)}
+              className="rounded px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
             >
               {t("community.contentBrowserOpen")}
             </Link>
@@ -198,7 +237,7 @@ export function ContentBrowserPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { language } = useLanguage();
-  const { decks: decksApi, users: usersApi } = useApi();
+  const { decks: decksApi, users: usersApi, stories: storiesApi } = useApi();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const typeParam = searchParams.get("type");
@@ -225,6 +264,12 @@ export function ContentBrowserPage() {
   const [subscribeLoading, setSubscribeLoading] = useState<string | null>(null);
   const [previewDeck, setPreviewDeck] = useState<FlashcardDeck | null>(null);
   const [previewAddon, setPreviewAddon] = useState<DeckCardItem | null>(null);
+  const [apiStories, setApiStories] = useState<StoryResponse[]>([]);
+  const [_apiStoriesLoading, setApiStoriesLoading] = useState(true);
+  const [subscribedStories, setSubscribedStories] = useState<
+    { story: StoryResponse; addon: StoryCardItem }[]
+  >([]);
+  const [previewStory, setPreviewStory] = useState<StoryResponse | null>(null);
 
   const langId = language?.id ?? "ko";
 
@@ -278,6 +323,50 @@ export function ContentBrowserPage() {
     };
   }, [usersApi, decksApi]);
 
+  useEffect(() => {
+    let ok = true;
+    setApiStoriesLoading(true);
+    storiesApi
+      .listBrowseStories({ language_id: effectiveLanguage })
+      .then((list) => {
+        if (ok) setApiStories(list);
+      })
+      .catch(() => {
+        if (ok) setApiStories([]);
+      })
+      .finally(() => {
+        if (ok) setApiStoriesLoading(false);
+      });
+    return () => {
+      ok = false;
+    };
+  }, [storiesApi, effectiveLanguage]);
+
+  useEffect(() => {
+    let ok = true;
+    usersApi
+      .getSubscriptions({ contentType: "story" })
+      .then(async (subs) => {
+        const results: { story: StoryResponse; addon: StoryCardItem }[] = [];
+        for (const s of subs) {
+          if (!ok) return;
+          try {
+            const story = await storiesApi.getStory(s.contentId);
+            if (ok) results.push({ story, addon: storyToCardItem(story) });
+          } catch {
+            /* skip unavailable */
+          }
+        }
+        if (ok) setSubscribedStories(results);
+      })
+      .catch(() => {
+        if (ok) setSubscribedStories([]);
+      });
+    return () => {
+      ok = false;
+    };
+  }, [usersApi, storiesApi]);
+
   const refreshSubscriptions = useCallback(() => {
     usersApi
       .getSubscriptions({ contentType: "deck" })
@@ -294,14 +383,36 @@ export function ContentBrowserPage() {
         setSubscribedDecks(results);
       })
       .catch(() => setSubscribedDecks([]));
-  }, [usersApi, decksApi]);
-
+    usersApi
+      .getSubscriptions({ contentType: "story" })
+      .then(async (subs) => {
+        const results: { story: StoryResponse; addon: StoryCardItem }[] = [];
+        for (const s of subs) {
+          try {
+            const story = await storiesApi.getStory(s.contentId);
+            results.push({ story, addon: storyToCardItem(story) });
+          } catch {
+            /* skip */
+          }
+        }
+        setSubscribedStories(results);
+      })
+      .catch(() => setSubscribedStories([]));
+  }, [usersApi, decksApi, storiesApi]);
 
   const apiDeckCards = useMemo(() => apiDecks.map(deckToCardItem), [apiDecks]);
+  const apiStoryCards = useMemo(
+    () => apiStories.map(storyToCardItem),
+    [apiStories]
+  );
 
   const subscribedIds = useMemo(
-    () => new Set(subscribedDecks.map(({ addon }) => addon.deckId ?? addon.id)),
-    [subscribedDecks]
+    () =>
+      new Set([
+        ...subscribedDecks.map(({ addon }) => addon.deckId ?? addon.id),
+        ...subscribedStories.map(({ addon }) => addon.storyId ?? addon.id),
+      ]),
+    [subscribedDecks, subscribedStories]
   );
 
   const mockAddons = useMemo(() => {
@@ -313,15 +424,19 @@ export function ContentBrowserPage() {
   }, []);
 
   const browseContent = useMemo(() => {
-    return [...apiDeckCards, ...mockAddons];
-  }, [apiDeckCards, mockAddons]);
+    return [...apiDeckCards, ...apiStoryCards, ...mockAddons];
+  }, [apiDeckCards, apiStoryCards, mockAddons]);
 
   const supportedLanguageIds = useMemo(() => {
-    const ids = activeTab === "browse"
-      ? browseContent.map((a) => a.languageId)
-      : subscribedDecks.map(({ addon }) => addon.languageId);
+    const ids =
+      activeTab === "browse"
+        ? browseContent.map((a) => a.languageId)
+        : [
+            ...subscribedDecks.map(({ addon }) => addon.languageId),
+            ...subscribedStories.map(({ addon }) => addon.languageId),
+          ];
     return Array.from(new Set(ids)).sort();
-  }, [activeTab, browseContent, subscribedDecks]);
+  }, [activeTab, browseContent, subscribedDecks, subscribedStories]);
 
   const filteredBrowse = useMemo(() => {
     const now = Date.now();
@@ -355,13 +470,21 @@ export function ContentBrowserPage() {
     return list;
   }, [browseContent, search, effectiveLanguage, typeFilter, popularOnly, sortBy, discoverFilter]);
 
-  const filteredSubscribed = useMemo(() => {
+  const filteredSubscribedDecks = useMemo(() => {
     return subscribedDecks.filter(({ addon }) => {
       if (effectiveLanguage && addon.languageId !== effectiveLanguage) return false;
       if (!matchesSearch(addon, search)) return false;
       return true;
     });
   }, [subscribedDecks, search, effectiveLanguage, langId]);
+
+  const filteredSubscribedStories = useMemo(() => {
+    return subscribedStories.filter(({ addon }) => {
+      if (effectiveLanguage && addon.languageId !== effectiveLanguage) return false;
+      if (!matchesSearch(addon, search)) return false;
+      return true;
+    });
+  }, [subscribedStories, search, effectiveLanguage]);
 
   const flashcardDecks = useMemo(
     () => filteredBrowse.filter((a) => a.kind === "flashcard-pack"),
@@ -380,6 +503,10 @@ export function ContentBrowserPage() {
     () => new Map(apiDecks.map((d) => [d.id, d])),
     [apiDecks]
   );
+  const apiStoriesById = useMemo(
+    () => new Map(apiStories.map((s) => [s.id, s])),
+    [apiStories]
+  );
 
   function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
     return {
@@ -392,18 +519,21 @@ export function ContentBrowserPage() {
     };
   }
 
-  const handleSubscribe = (deckId: string) => {
-    setSubscribeLoading(deckId);
+  const handleSubscribe = (contentType: "deck" | "story", contentId: string) => {
+    setSubscribeLoading(contentId);
     usersApi
-      .addSubscription({ contentType: "deck", contentId: deckId })
+      .addSubscription({ contentType, contentId })
       .then(() => refreshSubscriptions())
       .finally(() => setSubscribeLoading(null));
   };
 
-  const handleUnsubscribe = (deckId: string) => {
-    setSubscribeLoading(deckId);
+  const handleUnsubscribe = (
+    contentType: "deck" | "story",
+    contentId: string
+  ) => {
+    setSubscribeLoading(contentId);
     usersApi
-      .removeSubscription("deck", deckId)
+      .removeSubscription(contentType, contentId)
       .then(() => refreshSubscriptions())
       .finally(() => setSubscribeLoading(null));
   };
@@ -705,13 +835,37 @@ export function ContentBrowserPage() {
                             t={t}
                             langPath={langPath}
                             isSubscribed={subscribedIds.has(deckId)}
-                            onSubscribe={() => handleSubscribe(deckId)}
-                            onUnsubscribe={() => handleUnsubscribe(deckId)}
+                            onSubscribe={() => handleSubscribe("deck", deckId)}
+                            onUnsubscribe={() => handleUnsubscribe("deck", deckId)}
                             onPreview={deck ? () => {
                               setPreviewDeck(deckResponseToFlashcardDeck(deck));
                               setPreviewAddon(addon);
                             } : undefined}
                             subscribeLoading={subscribeLoading === deckId}
+                          />
+                        </li>
+                      );
+                    }
+                    if (addon.kind === "story" && "storyId" in addon) {
+                      const sid = String((addon as StoryCardItem).storyId ?? addon.id);
+                      const story = apiStoriesById.get(sid);
+                      return (
+                        <li key={addon.id}>
+                          <ContentCard
+                            addon={addon}
+                            t={t}
+                            langPath={langPath}
+                            isSubscribed={subscribedIds.has(sid)}
+                            onSubscribe={() => handleSubscribe("story", sid)}
+                            onUnsubscribe={() => handleUnsubscribe("story", sid)}
+                            onStoryPreview={
+                              story
+                                ? () => {
+                                    setPreviewStory(story);
+                                  }
+                                : undefined
+                            }
+                            subscribeLoading={subscribeLoading === sid}
                           />
                         </li>
                       );
@@ -747,13 +901,33 @@ export function ContentBrowserPage() {
                             t={t}
                             langPath={langPath}
                             isSubscribed={subscribedIds.has(deckId)}
-                            onSubscribe={() => handleSubscribe(deckId)}
-                            onUnsubscribe={() => handleUnsubscribe(deckId)}
+                            onSubscribe={() => handleSubscribe("deck", deckId)}
+                            onUnsubscribe={() => handleUnsubscribe("deck", deckId)}
                             onPreview={deck ? () => {
                               setPreviewDeck(deckResponseToFlashcardDeck(deck));
                               setPreviewAddon(addon);
                             } : undefined}
                             subscribeLoading={subscribeLoading === deckId}
+                          />
+                        </li>
+                      );
+                    }
+                    if (addon.kind === "story" && "storyId" in addon) {
+                      const sid = String((addon as StoryCardItem).storyId ?? addon.id);
+                      const story = apiStoriesById.get(sid);
+                      return (
+                        <li key={addon.id}>
+                          <ContentCard
+                            addon={addon}
+                            t={t}
+                            langPath={langPath}
+                            isSubscribed={subscribedIds.has(sid)}
+                            onSubscribe={() => handleSubscribe("story", sid)}
+                            onUnsubscribe={() => handleUnsubscribe("story", sid)}
+                            onStoryPreview={
+                              story ? () => setPreviewStory(story) : undefined
+                            }
+                            subscribeLoading={subscribeLoading === sid}
                           />
                         </li>
                       );
@@ -801,8 +975,8 @@ export function ContentBrowserPage() {
                             t={t}
                             langPath={langPath}
                             isSubscribed={subscribedIds.has(deckId)}
-                            onSubscribe={() => handleSubscribe(deckId)}
-                            onUnsubscribe={() => handleUnsubscribe(deckId)}
+                            onSubscribe={() => handleSubscribe("deck", deckId)}
+                            onUnsubscribe={() => handleUnsubscribe("deck", deckId)}
                             onPreview={deck ? () => {
                               setPreviewDeck(deckResponseToFlashcardDeck(deck));
                               setPreviewAddon(addon);
@@ -861,11 +1035,33 @@ export function ContentBrowserPage() {
                   </p>
                 ) : (
                   <ul className="grid gap-3 sm:grid-cols-2">
-                    {stories.slice(0, 6).map((addon) => (
-                      <li key={addon.id}>
-                        <ContentCard addon={addon} t={t} langPath={langPath} />
-                      </li>
-                    ))}
+                    {stories.slice(0, 6).map((addon) => {
+                      if (addon.kind === "story" && "storyId" in addon) {
+                        const sid = String((addon as StoryCardItem).storyId ?? addon.id);
+                        const story = apiStoriesById.get(sid);
+                        return (
+                          <li key={addon.id}>
+                            <ContentCard
+                              addon={addon}
+                              t={t}
+                              langPath={langPath}
+                              isSubscribed={subscribedIds.has(sid)}
+                              onSubscribe={() => handleSubscribe("story", sid)}
+                              onUnsubscribe={() => handleUnsubscribe("story", sid)}
+                              onStoryPreview={
+                                story ? () => setPreviewStory(story) : undefined
+                              }
+                              subscribeLoading={subscribeLoading === sid}
+                            />
+                          </li>
+                        );
+                      }
+                      return (
+                        <li key={addon.id}>
+                          <ContentCard addon={addon} t={t} langPath={langPath} />
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
               </section>
@@ -874,31 +1070,44 @@ export function ContentBrowserPage() {
         ) : (
           <section>
             <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
-              {t("community.contentBrowserFlashcardDecks")}
+              {t("community.contentBrowserSubscribed")}
             </h2>
             {subscribedDecksLoading ? (
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 {t("common.loading")}
               </p>
-            ) : filteredSubscribed.length === 0 ? (
+            ) : filteredSubscribedDecks.length === 0 && filteredSubscribedStories.length === 0 ? (
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 {t("community.contentBrowserNoResults")}
               </p>
             ) : (
               <ul className="grid gap-3 sm:grid-cols-2">
-                {filteredSubscribed.map(({ addon, deck }) => (
+                {filteredSubscribedDecks.map(({ addon, deck }) => (
                   <li key={addon.id}>
                     <ContentCard
                       addon={addon}
                       t={t}
                       langPath={langPath}
                       isSubscribed
-                      onUnsubscribe={() => handleUnsubscribe(addon.deckId ?? addon.id)}
+                      onUnsubscribe={() => handleUnsubscribe("deck", addon.deckId ?? addon.id)}
                       onPreview={() => {
                         setPreviewDeck(deckResponseToFlashcardDeck(deck));
                         setPreviewAddon(addon);
                       }}
                       subscribeLoading={subscribeLoading === (addon.deckId ?? addon.id)}
+                    />
+                  </li>
+                ))}
+                {filteredSubscribedStories.map(({ addon, story }) => (
+                  <li key={addon.id}>
+                    <ContentCard
+                      addon={addon}
+                      t={t}
+                      langPath={langPath}
+                      isSubscribed
+                      onUnsubscribe={() => handleUnsubscribe("story", String(addon.storyId ?? addon.id))}
+                      onStoryPreview={() => setPreviewStory(story)}
+                      subscribeLoading={subscribeLoading === String(addon.storyId ?? addon.id)}
                     />
                   </li>
                 ))}
@@ -925,6 +1134,17 @@ export function ContentBrowserPage() {
             setPreviewAddon(null);
           }}
           onSubscriptionChange={refreshSubscriptions}
+        />
+      )}
+      {previewStory && (
+        <StoryPreviewModal
+          story={previewStory}
+          onClose={() => setPreviewStory(null)}
+          onSubscriptionChange={refreshSubscriptions}
+          isSubscribed={subscribedIds.has(previewStory.id)}
+          onSubscribe={() => handleSubscribe("story", previewStory.id)}
+          onUnsubscribe={() => handleUnsubscribe("story", previewStory.id)}
+          subscribeLoading={subscribeLoading === previewStory.id}
         />
       )}
     </div>

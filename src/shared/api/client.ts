@@ -24,6 +24,32 @@ export class ApiError extends Error {
     super(message ?? `API ${status}`);
     this.name = "ApiError";
   }
+
+  /** Error code from standardized 403 responses (e.g. USER_BANNED, COMMUNITY_BANNED). */
+  get code(): string | undefined {
+    const d = this.body && typeof this.body === "object" && "detail" in this.body
+      ? (this.body as { detail?: unknown }).detail
+      : this.body;
+    return d && typeof d === "object" && "code" in d ? String((d as { code?: string }).code) : undefined;
+  }
+
+  /** Expiration datetime from ban responses (ISO string). */
+  get expiresAt(): string | undefined {
+    const d = this.body && typeof this.body === "object" && "detail" in this.body
+      ? (this.body as { detail?: unknown }).detail
+      : this.body;
+    return d && typeof d === "object" && "expires_at" in d
+      ? String((d as { expires_at?: string }).expires_at)
+      : undefined;
+  }
+
+  static isUserBanned(err: unknown): err is ApiError {
+    return err instanceof ApiError && err.status === 403 && err.code === "USER_BANNED";
+  }
+
+  static isCommunityBanned(err: unknown): err is ApiError {
+    return err instanceof ApiError && err.status === 403 && err.code === "COMMUNITY_BANNED";
+  }
 }
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -87,8 +113,8 @@ export class ApiClient {
     return this._request<T>("PATCH", path, body, opts);
   }
 
-  delete<T>(path: string, opts?: RequestOptions & { tag?: string }): Promise<T> {
-    return this._request<T>("DELETE", path, undefined, opts);
+  delete<T>(path: string, opts?: RequestOptions & { tag?: string; body?: unknown }): Promise<T> {
+    return this._request<T>("DELETE", path, opts?.body, opts);
   }
 
   // ── Core request logic ────────────────────────────────────

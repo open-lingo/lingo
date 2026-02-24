@@ -26,6 +26,7 @@ export function getPracticeItemsForLanguage(
   const base: PracticeNavItem[] = [
     { to: `${prefix}/practice/flashcards`, labelKey: "nav.flashcards", sampleCharacter: "📚" },
     { to: `${prefix}/practice/stories`, labelKey: "nav.stories", sampleCharacter: "📖" },
+    { to: `${prefix}/practice/external-content`, labelKey: "externalContent.practice.tabLabel", sampleCharacter: "🔗" },
   ];
 
   if (!languageId) {

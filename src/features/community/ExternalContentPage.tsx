@@ -4,6 +4,7 @@ import { getLanguageConfig, LANGUAGE_CONFIGS } from "@/shared/domain/languageCon
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getExternalContent } from "./mockExternalContent";
 import { parseUrlPlatform, PLATFORM_ICONS } from "./parseUrlPlatform";
+import { useExternalContentSubscriptions } from "./useExternalContentSubscriptions";
 import type {
   ExternalContentItem,
   ExternalContentType,
@@ -58,9 +59,15 @@ function matchesSearch(item: ExternalContentItem, q: string): boolean {
 function ExternalContentCard({
   item,
   t,
+  isSubscribed,
+  onSubscribe,
+  onUnsubscribe,
 }: {
   item: ExternalContentItem;
   t: (k: string) => string;
+  isSubscribed?: boolean;
+  onSubscribe?: () => void;
+  onUnsubscribe?: () => void;
 }) {
   const contentLang = getLanguageConfig(item.contentLanguageId);
   const transLang = item.translationLanguageId
@@ -132,9 +139,24 @@ function ExternalContentCard({
       </div>
 
       <div className="mt-auto flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-        <span>
-          ↑ {item.upvoteCount} {t("externalContent.upvotes")}
-        </span>
+        <div className="flex items-center gap-3">
+          <span>
+            ↑ {item.upvoteCount} {t("externalContent.upvotes")}
+          </span>
+          {onSubscribe != null && onUnsubscribe != null && (
+            <button
+              type="button"
+              onClick={isSubscribed ? onUnsubscribe : onSubscribe}
+              className={`rounded px-2 py-1 font-medium transition ${
+                isSubscribed
+                  ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400"
+                  : "text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20"
+              }`}
+            >
+              {isSubscribed ? t("flashcards.subscribed") : t("flashcards.subscribe")}
+            </button>
+          )}
+        </div>
         {item.submittedBy && (
           <span>{t("externalContent.by")} {item.submittedBy}</span>
         )}
@@ -150,6 +172,7 @@ export function ExternalContentPage() {
 
   const [search, setSearch] = useState("");
   const [contentLanguage, setContentLanguage] = useState<string>(langId);
+  const { isSubscribed, subscribe, unsubscribe } = useExternalContentSubscriptions();
   const [contentType, setContentType] = useState<ExternalContentType | "all">("all");
   const [level, setLevel] = useState<ExternalContentLevel | "all">("all");
   const [translationFilter, setTranslationFilter] = useState<string>("all");
@@ -351,7 +374,13 @@ export function ExternalContentPage() {
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filteredItems.map((item) => (
             <li key={item.id}>
-              <ExternalContentCard item={item} t={t} />
+              <ExternalContentCard
+                item={item}
+                t={t}
+                isSubscribed={isSubscribed(item.id)}
+                onSubscribe={() => subscribe(item.id)}
+                onUnsubscribe={() => unsubscribe(item.id)}
+              />
             </li>
           ))}
         </ul>

@@ -15,6 +15,10 @@ type DataTableProps<T> = {
   onSort?: (key: string) => void;
   emptyMessage?: string;
   className?: string;
+  /** Enable row selection with checkboxes */
+  selectable?: boolean;
+  selectedIds?: Set<string>;
+  onSelectionChange?: (ids: Set<string>) => void;
 };
 
 export function DataTable<T>({
@@ -26,7 +30,28 @@ export function DataTable<T>({
   onSort,
   emptyMessage,
   className = "",
+  selectable = false,
+  selectedIds = new Set(),
+  onSelectionChange,
 }: DataTableProps<T>) {
+  const allIds = rows.map((r) => getRowKey(r));
+  const allSelected =
+    allIds.length > 0 && allIds.every((id) => selectedIds.has(id));
+
+  const toggleRow = (id: string) => {
+    if (!onSelectionChange) return;
+    const next = new Set(selectedIds);
+    if (next.has(id)) next.delete(id);
+    else next.add(id);
+    onSelectionChange(next);
+  };
+
+  const toggleAll = () => {
+    if (!onSelectionChange) return;
+    if (allSelected) onSelectionChange(new Set());
+    else onSelectionChange(new Set(allIds));
+  };
+
   return (
     <div
       className={`overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 ${className}`}
@@ -39,6 +64,17 @@ export function DataTable<T>({
         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
           <thead className="bg-gray-50 dark:bg-gray-800/50">
             <tr>
+              {selectable && (
+                <th scope="col" className="w-10 px-3 py-3">
+                  <input
+                    type="checkbox"
+                    checked={allSelected}
+                    onChange={toggleAll}
+                    aria-label="Select all"
+                    className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700"
+                  />
+                </th>
+              )}
               {columns.map((col) => (
                 <th
                   key={col.key}
@@ -63,21 +99,35 @@ export function DataTable<T>({
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
-            {rows.map((row) => (
-              <tr
-                key={getRowKey(row)}
-                className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
-              >
-                {columns.map((col) => (
-                  <td
-                    key={col.key}
-                    className={`px-4 py-2 text-sm ${col.className ?? ""}`}
-                  >
-                    {col.render(row)}
-                  </td>
-                ))}
-              </tr>
-            ))}
+            {rows.map((row) => {
+              const id = getRowKey(row);
+              return (
+                <tr
+                  key={id}
+                  className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                >
+                  {selectable && (
+                    <td className="w-10 px-3 py-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.has(id)}
+                        onChange={() => toggleRow(id)}
+                        aria-label={`Select row ${id}`}
+                        className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700"
+                      />
+                    </td>
+                  )}
+                  {columns.map((col) => (
+                    <td
+                      key={col.key}
+                      className={`px-4 py-2 text-sm ${col.className ?? ""}`}
+                    >
+                      {col.render(row)}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       )}

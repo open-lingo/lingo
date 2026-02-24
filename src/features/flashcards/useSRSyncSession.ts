@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useApi } from "@/shared/api";
 import { useToast } from "@/shared/contexts/ToastContext";
-import { getDirtyCards, performSync } from "./engine";
+import { getDirtyCards, performSync, setNextSrsSyncAt } from "./engine";
 
-const SYNC_INTERVAL_MS = 30_000;
+export const SYNC_INTERVAL_MS = 30_000;
 const DIRTY_POLL_MS = 2_000;
 
 /**
@@ -45,6 +45,7 @@ export function useSRSyncSession(): { dirtyCount: number } {
       }
       if (isMountedRef.current) {
         setDirtyCount(Object.keys(getDirtyCards()).length);
+        setNextSrsSyncAt(new Date(Date.now() + SYNC_INTERVAL_MS).toISOString());
       }
     };
 
@@ -74,6 +75,7 @@ export function useSRSyncSession(): { dirtyCount: number } {
 
     return () => {
       isMountedRef.current = false;
+      setNextSrsSyncAt(null);
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;

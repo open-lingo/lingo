@@ -58,6 +58,7 @@ Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status
 - [ ] **Content API** → [backend-content-api.md](tasks/backend-content-api.md)
 - [ ] Leaderboard API: replace mock data with real rankings/XP
 - [ ] Funding meter: plug real ad-funded % into FundingMeter
+- [ ] **TTS (text-to-speech)** → [TTS_PLANNING.md](TTS_PLANNING.md) — Own API, CDN, cache-first, ElevenLabs (swappable), usage tracking, monetization-ready
 
 ## Core UX improvements
 
