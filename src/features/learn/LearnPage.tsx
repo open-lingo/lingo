@@ -4,8 +4,9 @@ import { useTranslation } from "react-i18next";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { getMockCourse } from "@/features/course/mockCourse";
+import { getMockCourse, ALPHABET_LESSON_ID } from "@/features/course/mockCourse";
 import { getMockCompletedLessonIds } from "@/features/course/mockProgress";
+import { getAlphabetProgress } from "@/features/practice/alphabet/alphabetProgress";
 import { getTrendingCourses } from "@/features/community/mockCommunity";
 import { getCommunityProgressMap } from "./communityProgress";
 import { MainCourseCard, CommunityModuleCard } from "./components";
@@ -19,6 +20,18 @@ export function LearnPage() {
   const [completedIds, setCompletedIds] = useState(() => getMockCompletedLessonIds());
   const customCourses = language ? getTrendingCourses(language.id) : [];
   const communityProgress = getCommunityProgressMap();
+
+  const firstLesson = course?.modules[0]?.lessons[0];
+  const alphabetLesson =
+    firstLesson?.kind === "alphabet" && firstLesson.alphabetId ? firstLesson : null;
+  const alphabetProgress =
+    language && alphabetLesson
+      ? getAlphabetProgress(language.id, alphabetLesson.alphabetId)
+      : null;
+  const alphabetCompleted = alphabetProgress?.fullTestPassed ?? false;
+  const completedLessonIds = Array.from(
+    new Set([...completedIds, ...(alphabetCompleted ? [ALPHABET_LESSON_ID] : [])])
+  );
 
   // Filter to community course addons only
   const communityCourseAddons = customCourses.filter((a) => a.kind === "course");
@@ -72,7 +85,7 @@ export function LearnPage() {
         </p>
         <MainCourseCard
           course={course}
-          completedLessonIds={completedIds}
+          completedLessonIds={completedLessonIds}
           onStartOver={handleStartOver}
         />
       </section>

@@ -17,6 +17,7 @@ import { PracticeLayout } from "@/features/practice/PracticeLayout";
 import { ParticlePracticePage } from "@/features/practice/ParticlePracticePage";
 import { KanjiPracticePage } from "@/features/practice/KanjiPracticePage";
 import { AlphabetPracticePage } from "@/features/practice/AlphabetPracticePage";
+import { AlphabetLessonPage } from "@/features/practice/alphabet/AlphabetLessonPage";
 import { ComponentsPracticePage } from "@/features/practice/ComponentsPracticePage";
 import { VideosPracticePage } from "@/features/practice/VideosPracticePage";
 import { GrammarPage } from "@/features/grammar/GrammarPage";
@@ -101,6 +102,7 @@ const router = createBrowserRouter([
               { path: "stories", element: <StoriesPage /> },
               { path: "stories/:storyId", element: <StoryDetailPage /> },
               { path: "particles", element: <ParticlePracticePage /> },
+              { path: "alphabet/:alphabetId/learn", element: <AlphabetLessonPage /> },
               { path: "alphabet/:alphabetId?", element: <AlphabetPracticePage /> },
               { path: "kanji", element: <KanjiPracticePage /> },
               { path: "components", element: <ComponentsPracticePage /> },

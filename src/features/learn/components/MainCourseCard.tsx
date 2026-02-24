@@ -87,7 +87,14 @@ export function MainCourseCard({
                 <button
                   type="button"
                   disabled={locked}
-                  onClick={() => !locked && navigate(langPath(`learn/lessons/${lesson.id}`))}
+                  onClick={() => {
+                    if (locked) return;
+                    if (lesson.kind === "alphabet" && lesson.alphabetId) {
+                      navigate(langPath(`practice/alphabet/${lesson.alphabetId}/learn`));
+                    } else {
+                      navigate(langPath(`learn/lessons/${lesson.id}`));
+                    }
+                  }}
                   className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 dark:hover:bg-gray-700/50"
                 >
                   <LessonStatusCircle

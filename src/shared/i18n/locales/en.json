@@ -39,6 +39,24 @@
     "showAllLessons": "Show all {{count}} lessons",
     "showLess": "Show less"
   },
+  "alphabet": {
+    "saySoundAloud": "Say the sound aloud while you write.",
+    "goodShape": "Good shape",
+    "tryAgain": "Try again",
+    "correctTraces": "correct",
+    "checkShape": "Check",
+    "check": "Check",
+    "checkAndCompare": "Check – compare to symbol",
+    "traceWithAudio": "Draw over the template. Play the sound and say it aloud while you write.",
+    "drawHere": "Draw here",
+    "yourDrawing": "Your drawing",
+    "correctSymbol": "Correct symbol",
+    "iGotIt": "I got it",
+    "listenAndWrite": "Listen, then write the symbol from memory.",
+    "notFound": "Alphabet not found",
+    "noLettersToLearn": "No new letters to learn in this section. Try another section or test out.",
+    "noLettersToTest": "No letters to test."
+  },
   "practice": {
     "intro": "Flashcards, stories, and skill trainers.",
     "tabsLabel": "Practice types",
@@ -52,6 +70,15 @@
     "videosMockNote": "Mock — select words in the transcript to try the flow.",
     "addToDeck": "Add to deck",
     "addedToDeck": "Added!",
+    "alphabetLearner": {
+      "startLearning": "Start learning",
+      "continueLearning": "Continue learning",
+      "testOutOfSection": "Test out of this section",
+      "testOutOfAlphabet": "Test out of full alphabet",
+      "sectionPassed": "Section passed",
+      "fullAlphabetPassed": "Full alphabet passed",
+      "fullAlphabet": "Full alphabet"
+    },
     "particles": {
       "title": "Particle practice",
       "subtitle": "{{language}} particles (e.g. topic, subject, object markers). Learn form, meaning, and usage.",

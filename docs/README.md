@@ -2,6 +2,7 @@
 
 Quick reference for this folder. Use for human reading and minimal context.
 
+- **MERGE_ADMIN_PAGE.md** — Merge guide for `admin-page` → `main`: steps, conflicts, API checklist, behavioral changes.
 - **PROJECT_STATE.md** — Architecture assessment, current state vs docs, route structure. Use for planning and AI delegation.
 - **STORY_PLANNING.md** — Story editor & reader: data format, add-word-to-deck, API, AI usage.
 - **COMMUNITY_RESOURCES_PLANNING.md** — External Content: community-curated links (YouTube, podcasts, websites); multiple URLs per item; content + translation language.

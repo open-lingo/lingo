@@ -10,7 +10,12 @@ export type StepType =
   | "translate"
   | "listening_comprehension"
   | "listening_build"
-  | "speaking";
+  | "speaking"
+  | "symbol_intro"
+  | "symbol_trace"
+  | "symbol_recognition"
+  | "symbol_production"
+  | "symbol_to_sound";
 
 export type StepBase = {
   id: string;
@@ -130,6 +135,51 @@ export type SpeakingStep = StepBase & {
   stubbed: true;
 };
 
+/** Payload for alphabet steps: symbol + IPA, hint, optional note/example/audio */
+export type SymbolStepPayload = {
+  symbol: string;
+  ipa: string;
+  hint: string;
+  note?: string;
+  example?: string;
+  audioKey?: string;
+};
+
+export type SymbolIntroStep = StepBase & {
+  type: "symbol_intro";
+  payload: SymbolStepPayload;
+};
+
+export type SymbolTraceStep = StepBase & {
+  type: "symbol_trace";
+  payload: SymbolStepPayload;
+  /** Show faded guide (true) or blank canvas (production) */
+  showGuide: boolean;
+  minCorrectAttempts: number;
+};
+
+export type SymbolRecognitionStep = StepBase & {
+  type: "symbol_recognition";
+  /** Audio plays; user picks correct symbol */
+  payload: SymbolStepPayload;
+  options: { id: string; symbol: string }[];
+  correctOptionId: string;
+};
+
+export type SymbolProductionStep = StepBase & {
+  type: "symbol_production";
+  /** Sound only; user writes symbol from memory. Same as symbol_trace with showGuide: false. */
+  payload: SymbolStepPayload;
+  minCorrectAttempts: number;
+};
+
+export type SymbolToSoundStep = StepBase & {
+  type: "symbol_to_sound";
+  payload: SymbolStepPayload;
+  options: { id: string; text: string }[];
+  correctOptionId: string;
+};
+
 export type LessonStep =
   | InfoStep
   | TeachStep
@@ -140,7 +190,12 @@ export type LessonStep =
   | TranslateStep
   | ListeningComprehensionStep
   | ListeningBuildStep
-  | SpeakingStep;
+  | SpeakingStep
+  | SymbolIntroStep
+  | SymbolTraceStep
+  | SymbolRecognitionStep
+  | SymbolProductionStep
+  | SymbolToSoundStep;
 
 export type LessonContent = {
   id: string;

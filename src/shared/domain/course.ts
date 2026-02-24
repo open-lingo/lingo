@@ -6,6 +6,10 @@ export type Lesson = {
   status?: string;
   /** Card IDs introduced by this lesson (for course-linked decks). Unlocked when lesson is completed. */
   introducesCardIds?: string[];
+  /** When "alphabet", this row links to the alphabet learner instead of learn/lessons/:id. */
+  kind?: "lesson" | "alphabet";
+  /** For kind "alphabet": alphabet id for route practice/alphabet/:alphabetId/learn */
+  alphabetId?: string;
 };
 
 /** Module groups lessons (mock shape). */

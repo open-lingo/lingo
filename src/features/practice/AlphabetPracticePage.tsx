@@ -1,6 +1,8 @@
 import { useEffect, useMemo } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
   getLanguageConfig,
   getAlphabetById,
@@ -9,9 +11,13 @@ import {
 } from "@/shared/domain/languageConfig";
 import { ALPHABET_QUERY } from "@/shared/hooks/usePathParams";
 import { CharacterCard, AlphabetSectionBlock } from "./components/characters";
+import { getOrCreateProgress } from "./alphabet/alphabetProgress";
 
 export function AlphabetPracticePage() {
   const { language } = useLanguage();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const langPath = useLangPath();
   const { alphabetId: pathAlphabetId } = useParams<{ alphabetId?: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const queryName = searchParams.get(ALPHABET_QUERY);
@@ -35,6 +41,13 @@ export function AlphabetPracticePage() {
     if (alphabet.characters?.length) return alphabet.characters;
     return displaySections.flatMap((s) => s.characters);
   }, [alphabet, displaySections]);
+
+  const progress = useMemo(() => {
+    if (!language || !resolvedId) return null;
+    return getOrCreateProgress(language.id, resolvedId);
+  }, [language, resolvedId]);
+
+  const hasAnyProgress = progress && Object.keys(progress.letters).length > 0;
 
   useEffect(() => {
     if (defaultAlphabet && resolvedId && !pathAlphabetId && queryName) {
@@ -68,6 +81,36 @@ export function AlphabetPracticePage() {
             {alphabet.description}
           </p>
         )}
+        {resolvedId && (
+          <div className="mt-4 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() =>
+                navigate(langPath(`practice/alphabet/${resolvedId}/learn`))
+              }
+              className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600"
+            >
+              {hasAnyProgress
+                ? t("practice.alphabetLearner.continueLearning")
+                : t("practice.alphabetLearner.startLearning")}
+            </button>
+            {allCharacters.length > 0 && (
+              <button
+                type="button"
+                onClick={() =>
+                  navigate(
+                    langPath(
+                      `practice/alphabet/${resolvedId}/learn?mode=test`
+                    )
+                  )
+                }
+                className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+              >
+                {t("practice.alphabetLearner.testOutOfAlphabet")}
+              </button>
+            )}
+          </div>
+        )}
       </header>
 
       {displaySections.length === 0 ? (
@@ -85,7 +128,7 @@ export function AlphabetPracticePage() {
                 id="alphabet-overview-heading"
                 className="mb-3 text-sm font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400"
               >
-                Full alphabet
+                {t("practice.alphabetLearner.fullAlphabet")}
               </h2>
               <ul
                 className="flex flex-wrap gap-1.5"
@@ -106,11 +149,35 @@ export function AlphabetPracticePage() {
           )}
           <div className="flex flex-col gap-10">
             {displaySections.map((section) => (
-              <AlphabetSectionBlock
-                key={section.id}
-                section={section}
-                romanizationMap={alphabet.characterRomanization}
-              />
+              <div key={section.id} className="space-y-2">
+                <AlphabetSectionBlock
+                  section={section}
+                  romanizationMap={alphabet.characterRomanization}
+                />
+                {resolvedId && section.characters.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {progress?.sectionTests[section.id] ? (
+                      <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">
+                        {t("practice.alphabetLearner.sectionPassed")}
+                      </span>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          navigate(
+                            langPath(
+                              `practice/alphabet/${resolvedId}/learn?mode=test&section=${encodeURIComponent(section.id)}`
+                            )
+                          )
+                        }
+                        className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+                      >
+                        {t("practice.alphabetLearner.testOutOfSection")}
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </>

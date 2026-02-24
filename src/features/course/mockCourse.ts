@@ -1,10 +1,26 @@
 import type { Course } from "@/shared/domain/course";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 
+/** Lesson id for the "Learn the X Alphabet" row in Basics. Used to sync completion from alphabet progress. */
+export const ALPHABET_LESSON_ID = "m1-l0-alphabet";
+
 /** Mock course for the selected language. Replace with API when ready. */
 export function getMockCourse(languageId: string): Course {
   const config = getLanguageConfig(languageId);
   const langName = config?.name ?? "Language";
+
+  const alphabetLesson =
+    config?.alphabet ?
+      [
+        {
+          id: ALPHABET_LESSON_ID,
+          title: `Learn the ${langName} Alphabet`,
+          status: "available" as const,
+          kind: "alphabet" as const,
+          alphabetId: config.alphabet.id,
+        },
+      ]
+    : [];
 
   const introLesson = config?.introLessonTitle
     ? [{ id: "m1-l0", title: config.introLessonTitle, status: "available" as const }]
@@ -19,6 +35,7 @@ export function getMockCourse(languageId: string): Course {
         id: "m1",
         title: "Basics",
         lessons: [
+          ...alphabetLesson,
           ...introLesson,
           { id: "m1-l1", title: "Greetings", status: "available" as const },
           { id: "m1-l2", title: "Numbers 1–10", status: "available" as const },

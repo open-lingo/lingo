@@ -9,6 +9,11 @@ import { TranslateStepView } from "./steps/TranslateStepView";
 import { ListeningComprehensionStepView } from "./steps/ListeningComprehensionStepView";
 import { ListeningBuildStepView } from "./steps/ListeningBuildStepView";
 import { SpeakingStepView } from "./steps/SpeakingStepView";
+import { SymbolIntroStepView } from "./steps/SymbolIntroStepView";
+import { SymbolTraceStepView } from "./steps/SymbolTraceStepView";
+import { SymbolRecognitionStepView } from "./steps/SymbolRecognitionStepView";
+import { SymbolProductionStepView } from "./steps/SymbolProductionStepView";
+import { SymbolToSoundStepView } from "./steps/SymbolToSoundStepView";
 
 type Props = {
   step: LessonStep;
@@ -80,6 +85,40 @@ export function StepRenderer({ step, onComplete, onContinue }: Props) {
       );
     case "speaking":
       return <SpeakingStepView step={step} onContinue={onContinue} />;
+    case "symbol_intro":
+      return <SymbolIntroStepView step={step} onContinue={onContinue} />;
+    case "symbol_trace":
+      return (
+        <SymbolTraceStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "symbol_recognition":
+      return (
+        <SymbolRecognitionStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "symbol_production":
+      return (
+        <SymbolProductionStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "symbol_to_sound":
+      return (
+        <SymbolToSoundStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
     default:
       return (
         <div className="text-gray-500 dark:text-gray-400">

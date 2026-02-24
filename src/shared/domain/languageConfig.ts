@@ -30,6 +30,20 @@ export type AlphabetSection = {
   characters: string[];
 };
 
+/** Per-letter data for the 3-step learning loop: IPA, native hint, optional note/example/audio. */
+export type LetterDetail = {
+  /** IPA pronunciation, e.g. "/a/" */
+  ipa: string;
+  /** Short native-language hint (e.g. "like 'a' in 'father'"). Keep under 6 words. */
+  hint: string;
+  /** Optional contrast note, e.g. "not exactly English 'a'" */
+  note?: string;
+  /** Optional example syllable or word */
+  example?: string;
+  /** Asset key or URL for pronunciation audio */
+  audioKey?: string;
+};
+
 export type AlphabetDef = {
   id: string;
   name: string;
@@ -40,6 +54,8 @@ export type AlphabetDef = {
   sections?: AlphabetSection[];
   /** Optional map: character → romanization (e.g. Revised Romanization for Hangul, romaji for Japanese). */
   characterRomanization?: Record<string, string>;
+  /** Per-symbol data for alphabet learner: IPA, hint, note, example, audio. Key = character. */
+  letterDetails?: Record<string, LetterDetail>;
 };
 
 export type LanguageConfig = {
@@ -106,6 +122,13 @@ const JA_HIRAGANA: AlphabetDef = {
     だ: "da", ぢ: "ji", づ: "zu", で: "de", ど: "do",
     ば: "ba", び: "bi", ぶ: "bu", べ: "be", ぼ: "bo",
     ぱ: "pa", ぴ: "pi", ぷ: "pu", ぺ: "pe", ぽ: "po",
+  },
+  letterDetails: {
+    あ: { ipa: "/a/", hint: "like 'a' in 'father'", example: "あめ (rain)" },
+    い: { ipa: "/i/", hint: "like 'ee' in 'see'", example: "いぬ (dog)" },
+    う: { ipa: "/ɯ/", hint: "like 'oo' in 'food'", note: "lips unrounded" },
+    え: { ipa: "/e/", hint: "like 'e' in 'bed'", example: "え (picture)" },
+    お: { ipa: "/o/", hint: "like 'o' in 'or'", example: "おかね (money)" },
   },
 };
 
