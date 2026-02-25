@@ -73,7 +73,8 @@ function PracticeCard({
       </div>
 
       <div className="flex flex-wrap gap-1.5">
-        <span className="rounded bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400">
+        <span className="inline-flex items-center gap-1 rounded bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400">
+          <Icon name={CONTENT_TYPE_ICONS[item.contentType]} size={14} aria-hidden />
           {t(`externalContent.contentType.${item.contentType}`)}
         </span>
         <span className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-300">
