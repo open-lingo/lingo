@@ -16,9 +16,11 @@ import { ProgressSummary } from "@/features/progress/ProgressSummary";
 import { FlashcardsCard } from "@/features/flashcards/FlashcardsCard";
 import { PracticeCard } from "@/features/practice/PracticeCard";
 import { LanguagePickerModal } from "./LanguagePickerModal";
+import { Card, Button } from "@/shared/components/ui";
+import { Icon } from "@/shared/components/Icon";
 
 const cardKeys = [
-  { to: "practice/stories", titleKey: "home.cards.stories", descKey: "home.cards.storiesDesc", icon: "📖" },
+  { to: "practice/stories", titleKey: "home.cards.stories", descKey: "home.cards.storiesDesc", iconName: "stories" as const },
 ] as const;
 
 export function HomePage() {
@@ -70,7 +72,7 @@ export function HomePage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <p className="text-gray-500 dark:text-gray-400">{t("common.loading")}</p>
+        <p className="text-text-muted">{t("common.loading")}</p>
       </div>
     );
   }
@@ -82,83 +84,73 @@ export function HomePage() {
         {!isAuthenticated ? (
           /* Logged-out: hero, CTAs, simplified layout */
           <>
-            <section className="rounded-xl border border-gray-200 bg-white p-8 dark:border-gray-700 dark:bg-gray-800">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+            <Card padding="lg">
+              <h1 className="text-2xl font-bold text-text-primary sm:text-3xl">
                 {t("home.welcomeGuest")}
               </h1>
-              <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
+              <p className="mt-2 text-lg text-text-secondary">
                 {t("home.heroTagline")}
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="/login"
-                  className="inline-flex items-center rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-500"
-                >
-                  {t("home.getStarted")}
+                <a href="/login">
+                  <Button variant="primary">{t("home.getStarted")}</Button>
                 </a>
-                <Link
-                  to={langPath("community/explore")}
-                  className="inline-flex items-center rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
-                >
-                  {t("home.browseDecks")}
+                <Link to={langPath("community/explore")}>
+                  <Button variant="secondary">{t("home.browseDecks")}</Button>
                 </Link>
                 {language && (
-                  <Link
-                    to={langPath("learn")}
-                    className="inline-flex items-center rounded-lg border border-green-600 px-5 py-2.5 text-sm font-medium text-green-600 transition hover:bg-green-50 dark:border-green-500 dark:text-green-400 dark:hover:bg-green-950/30"
-                  >
-                    {t("home.tryALesson")}
+                  <Link to={langPath("learn")}>
+                    <Button variant="outline" accent>
+                      {t("home.tryALesson")}
+                    </Button>
                   </Link>
                 )}
               </div>
-            </section>
+            </Card>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <FlashcardsCard />
-              {cardKeys.map(({ to, titleKey, descKey, icon }) => (
-                <Link
-                  key={to}
-                  to={langPath(to)}
-                  className="group flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600 dark:hover:shadow-md"
-                >
-                  <span className="mb-3 text-3xl" aria-hidden>
-                    {icon}
-                  </span>
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {t(titleKey)}
-                  </h2>
-                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    {t(descKey)}
-                  </p>
+              {cardKeys.map(({ to, titleKey, descKey, iconName }) => (
+                <Link key={to} to={langPath(to)} className="block">
+                  <Card className="group flex h-full flex-col transition hover:shadow-md">
+                    <span className="mb-3 flex h-9 w-9 items-center justify-center" aria-hidden>
+                      <Icon name={iconName} size={36} />
+                    </span>
+                    <h2 className="text-lg font-semibold text-text-primary">
+                      {t(titleKey)}
+                    </h2>
+                    <p className="mt-1 text-sm text-text-secondary">
+                      {t(descKey)}
+                    </p>
+                  </Card>
                 </Link>
               ))}
-              <Link
-                to={langPath("community/explore")}
-                className="group flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600 dark:hover:shadow-md"
-              >
-                <span className="mb-3 text-3xl" aria-hidden>
-                  📚
-                </span>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  {t("home.exploreDecks")}
-                </h2>
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                  {t("home.discoverNewDecks")}
-                </p>
+              <Link to={langPath("community/explore")} className="block">
+                <Card className="group flex h-full flex-col transition hover:shadow-md">
+                  <span className="mb-3 flex shrink-0 items-center justify-center" aria-hidden>
+                    <Icon name="globe" size={36} />
+                  </span>
+                  <h2 className="text-lg font-semibold text-text-primary">
+                    {t("home.exploreDecks")}
+                  </h2>
+                  <p className="mt-1 text-sm text-text-secondary">
+                    {t("home.discoverNewDecks")}
+                  </p>
+                </Card>
               </Link>
             </div>
           </>
         ) : (
           /* Logged-in: full layout */
           <>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+            <h1 className="text-2xl font-bold text-text-primary sm:text-3xl">
               {t("home.welcomeBack", { name: welcomeName })}
             </h1>
 
             {nextLesson && (
               <Link
                 to={langPath("learn")}
-                className="relative flex min-h-[160px] items-center justify-between overflow-hidden rounded-xl border border-gray-200 p-6 transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:hover:border-gray-600"
+                className="relative flex min-h-[160px] items-center justify-between overflow-hidden rounded-xl border border-border p-6 transition hover:shadow-md"
                 style={
                   langConfig?.backgroundImage
                     ? {
@@ -176,31 +168,29 @@ export function HomePage() {
                   />
                 )}
                 {!hasBgImage && (
-                  <span className="absolute inset-0 bg-white dark:bg-gray-800" aria-hidden />
+                  <span className="absolute inset-0 bg-surface" aria-hidden />
                 )}
                 <div className="relative flex-1">
                   <p
                     className={`text-sm font-medium ${
-                      hasBgImage
-                        ? "text-gray-200"
-                        : "text-gray-600 dark:text-gray-400"
+                      hasBgImage ? "text-gray-200" : "text-text-secondary"
                     }`}
                   >
                     {t("home.continueLearning")}
                   </p>
                   <p
                     className={`mt-0.5 font-semibold ${
-                      hasBgImage ? "text-white" : "text-gray-900 dark:text-white"
+                      hasBgImage ? "text-white" : "text-text-primary"
                     }`}
                   >
                     {nextLesson.module} · {nextLesson.lesson.title}
                   </p>
                 </div>
                 <span
-                  className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-600 text-white transition hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800"
+                  className="relative flex shrink-0 items-center justify-center text-accent transition hover:text-accent-hover"
                   aria-hidden
                 >
-                  →
+                  <Icon name="arrowBigRight" size={24} />
                 </span>
               </Link>
             )}
@@ -208,57 +198,54 @@ export function HomePage() {
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <FlashcardsCard />
-              {cardKeys.map(({ to, titleKey, descKey, icon }) => (
-                <Link
-                  key={to}
-                  to={langPath(to)}
-                  className="group flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600 dark:hover:shadow-md"
-                >
-                  <span className="mb-3 text-3xl" aria-hidden>
-                    {icon}
-                  </span>
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {t(titleKey)}
-                  </h2>
-                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    {t(descKey)}
-                  </p>
+              {cardKeys.map(({ to, titleKey, descKey, iconName }) => (
+                <Link key={to} to={langPath(to)} className="block">
+                  <Card className="group flex h-full flex-col transition hover:shadow-md">
+                    <span className="mb-3 flex h-9 w-9 items-center justify-center" aria-hidden>
+                      <Icon name={iconName} size={36} />
+                    </span>
+                    <h2 className="text-lg font-semibold text-text-primary">
+                      {t(titleKey)}
+                    </h2>
+                    <p className="mt-1 text-sm text-text-secondary">
+                      {t(descKey)}
+                    </p>
+                  </Card>
                 </Link>
               ))}
               <PracticeCard />
-              <Link
-                to={langPath("community/explore")}
-                className="group flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600 dark:hover:shadow-md"
-              >
-                <span className="mb-3 text-3xl" aria-hidden>
-                  📚
-                </span>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  {t("home.discoverNewDecks")}
-                </h2>
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                  {t("home.newDecksThisWeek", { count: 3 })}
-                </p>
-                <span className="mt-2 text-sm font-medium text-green-600 dark:text-green-400">
-                  {t("home.exploreDecks")} →
-                </span>
+              <Link to={langPath("community/explore")} className="block">
+                <Card className="group flex h-full flex-col transition hover:shadow-md">
+                  <span className="mb-3 flex shrink-0 items-center justify-center" aria-hidden>
+                    <Icon name="globe" size={36} />
+                  </span>
+                  <h2 className="text-lg font-semibold text-text-primary">
+                    {t("home.discoverNewDecks")}
+                  </h2>
+                  <p className="mt-1 text-sm text-text-secondary">
+                    {t("home.newDecksThisWeek", { count: 3 })}
+                  </p>
+                  <span className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-accent">
+                    {t("home.exploreDecks")} <Icon name="arrowBigRight" size={16} />
+                  </span>
+                </Card>
               </Link>
             </div>
 
             {course && (
               <section className="space-y-4">
                 <div className="flex flex-wrap items-center gap-3">
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-xl font-semibold text-text-primary">
                     {t("home.yourCourse")}
                   </h2>
                   <Link
                     to={langPath("learn")}
-                    className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+                    className="text-sm font-medium text-accent hover:text-accent-hover"
                   >
-                    {t("home.viewPath")} →
+                    {t("home.viewPath")} <Icon name="arrowBigRight" size={14} className="inline" />
                   </Link>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-text-secondary">
                   {course.title}
                 </p>
                 <div className="space-y-3">
@@ -270,29 +257,17 @@ export function HomePage() {
             )}
 
             <section className="flex flex-wrap gap-3">
-              <Link
-                to={langPath("practice/stories")}
-                className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
-              >
-                {t("home.quickLinks.startStory")}
+              <Link to={langPath("practice/stories")}>
+                <Button variant="secondary">{t("home.quickLinks.startStory")}</Button>
               </Link>
-              <Link
-                to={langPath("grammar")}
-                className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
-              >
-                {t("home.quickLinks.grammarHeatmap")}
+              <Link to={langPath("grammar")}>
+                <Button variant="secondary">{t("home.quickLinks.grammarHeatmap")}</Button>
               </Link>
-              <Link
-                to={langPath("community/leaderboard")}
-                className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
-              >
-                {t("home.quickLinks.leaderboard")}
+              <Link to={langPath("community/leaderboard")}>
+                <Button variant="secondary">{t("home.quickLinks.leaderboard")}</Button>
               </Link>
-              <Link
-                to={langPath("community")}
-                className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
-              >
-                {t("home.quickLinks.community")}
+              <Link to={langPath("community")}>
+                <Button variant="secondary">{t("home.quickLinks.community")}</Button>
               </Link>
             </section>
           </>

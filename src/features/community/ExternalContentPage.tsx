@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
+import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { getLanguageConfig, LANGUAGE_CONFIGS } from "@/shared/domain/languageConfig";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getExternalContent } from "./mockExternalContent";
-import { parseUrlPlatform, PLATFORM_ICONS } from "./parseUrlPlatform";
+import { parseUrlPlatform, PLATFORM_ICON_NAMES } from "./parseUrlPlatform";
+import { CONTENT_TYPE_ICONS } from "./contentTypeIcons";
 import { useExternalContentSubscriptions } from "./useExternalContentSubscriptions";
 import type {
   ExternalContentItem,
@@ -88,7 +90,8 @@ function ExternalContentCard({
       </div>
 
       <div className="flex flex-wrap gap-1.5">
-        <span className="rounded bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400">
+        <span className="inline-flex items-center gap-1 rounded bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400">
+          <Icon name={CONTENT_TYPE_ICONS[item.contentType]} size={12} className="shrink-0" />
           {t(`externalContent.contentType.${item.contentType}`)}
         </span>
         <span className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-300">
@@ -116,8 +119,8 @@ function ExternalContentCard({
 
       <div className="flex flex-wrap gap-2">
         {item.links.map((link, i) => {
-          const platform = parseUrlPlatform(link.url);
-          const icon = PLATFORM_ICONS[platform];
+const platform = parseUrlPlatform(link.url);
+              const iconName = PLATFORM_ICON_NAMES[platform];
           const label = link.label ?? t("externalContent.open");
           const title = link.description ?? label;
           return (
@@ -129,9 +132,7 @@ function ExternalContentCard({
               title={title}
               className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
             >
-              <span role="img" aria-hidden>
-                {icon}
-              </span>
+              <Icon name={iconName} size={16} className="shrink-0" aria-hidden />
               {label}
             </a>
           );
@@ -141,7 +142,7 @@ function ExternalContentCard({
       <div className="mt-auto flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
         <div className="flex items-center gap-3">
           <span>
-            ↑ {item.upvoteCount} {t("externalContent.upvotes")}
+            <Icon name="chevronUp" size={14} className="inline" /> {item.upvoteCount} {t("externalContent.upvotes")}
           </span>
           {onSubscribe != null && onUnsubscribe != null && (
             <button

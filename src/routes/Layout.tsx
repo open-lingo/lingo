@@ -5,32 +5,19 @@ import { FundingMeter } from "@/shared/components/FundingMeter";
 import { SRSPendingSync } from "@/features/flashcards/SRSPendingSync";
 import { SyncManagerTrigger } from "@/features/sync/SyncManagerTrigger";
 import { ThemeToggle } from "@/shared/components/ThemeToggle";
+import { ThemeEditorPanel } from "@/shared/components/ThemeEditorPanel";
 import { LanguageSelector } from "@/shared/components/LanguageSelector";
 import { AuthMenu } from "@/shared/components/AuthMenu";
 import { ModalRoot } from "@/shared/components/ModalRoot";
 import { ToastContainer } from "@/shared/components/ToastContainer";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useTheme } from "@/shared/contexts/ThemeContext";
 import {
   getPracticeItemsForLanguage,
   type PracticeNavItem,
 } from "@/features/practice/practiceNavItems";
-
-function HamburgerIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
-  );
-}
-
-function CloseIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  );
-}
+import { Icon } from "@/shared/components/Icon";
 
 function PracticeNavDropdown({ isActive }: { isActive: boolean }) {
   const { t } = useTranslation();
@@ -54,15 +41,15 @@ function PracticeNavDropdown({ isActive }: { isActive: boolean }) {
         onClick={() => setOpen((o) => !o)}
         className={`flex items-center gap-0.5 text-sm ${
           isActive
-            ? "text-gray-900 dark:text-white"
-            : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            ? "font-medium text-text-primary"
+            : "text-text-secondary hover:text-text-primary"
         }`}
       >
         {t("nav.practice")}
-        <Chevron className={`h-4 w-4 ${open ? "rotate-180" : ""}`} />
+        <Icon name="chevronDown" size={16} className={open ? "rotate-180" : ""} />
       </button>
       {open && (
-        <ul className="absolute left-0 top-full z-20 mt-1 min-w-[200px] rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-800">
+        <ul className="absolute left-0 top-full z-20 mt-1 min-w-[200px] rounded-lg border border-border bg-surface py-1 shadow-popover">
           {items.map((item) => (
             <PracticeNavLink key={item.to + (item.label ?? "")} item={item} onClose={() => setOpen(false)} t={t} />
           ))}
@@ -88,12 +75,12 @@ function PracticeNavLink({
     <li>
       <Link
         to={item.to}
-        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+        className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-primary hover:bg-surface-muted"
         onClick={onClose}
       >
         {char && (
           <span
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded border border-gray-200 text-sm dark:border-gray-600"
+            className="flex h-7 w-7 shrink-0 items-center justify-center text-sm"
             aria-hidden
           >
             {char}
@@ -112,7 +99,7 @@ function MobilePracticeLinks({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="space-y-0.5">
-      <span className="block px-4 py-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+      <span className="block px-4 py-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
         {t("nav.practice")}
       </span>
       {items.map((item) => (
@@ -120,11 +107,11 @@ function MobilePracticeLinks({ onClose }: { onClose: () => void }) {
           key={item.to + (item.label ?? "")}
           to={item.to}
           onClick={onClose}
-          className="flex items-center gap-3 rounded-lg px-4 py-3 pl-8 text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+          className="flex items-center gap-3 rounded-lg px-4 py-3 pl-8 text-base font-medium text-text-primary hover:bg-surface-muted"
         >
           {item.sampleCharacter && (
             <span
-              className="flex h-7 w-7 shrink-0 items-center justify-center rounded border border-gray-200 text-sm dark:border-gray-600"
+              className="flex h-7 w-7 shrink-0 items-center justify-center text-sm"
               aria-hidden
             >
               {item.sampleCharacter}
@@ -137,19 +124,12 @@ function MobilePracticeLinks({ onClose }: { onClose: () => void }) {
   );
 }
 
-function Chevron({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-    </svg>
-  );
-}
-
 
 
 export function Layout() {
   const { t } = useTranslation();
   const location = useLocation();
+  const { isThemeEditorOpen } = useTheme();
   const pathname = location.pathname;
   const langPath = useLangPath();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -164,13 +144,13 @@ export function Layout() {
   }, [pathname]);
 
   return (
-    <div className="min-h-screen bg-gray-100 pb-14 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-background pb-14 text-text-primary">
       <SRSPendingSync />
-      <header className="sticky top-0 z-40 border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-800">
+      <header className="sticky top-0 z-40 border-b border-border bg-surface">
         <div className="mx-auto flex h-12 min-h-12 max-w-7xl items-center justify-between gap-2 px-3 sm:h-14 sm:px-4 sm:gap-4 lg:px-8">
           <Link
             to="/"
-            className="shrink-0 text-base font-semibold text-gray-900 dark:text-white sm:text-lg"
+            className="shrink-0 text-base font-semibold text-text-primary sm:text-lg"
           >
             {t("nav.siteName")}
           </Link>
@@ -179,7 +159,7 @@ export function Layout() {
           <nav className="hidden items-center gap-1 md:flex md:gap-3">
             <Link
               to="/"
-              className="rounded-md px-2 py-1.5 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="rounded-md px-2 py-1.5 text-sm text-text-secondary hover:bg-surface-muted hover:text-text-primary"
             >
               {t("nav.home")}
             </Link>
@@ -187,8 +167,8 @@ export function Layout() {
               to={langPath("learn")}
               className={`rounded-md px-2 py-1.5 text-sm ${
                 learnActive
-                  ? "font-medium text-gray-900 dark:text-white"
-                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                  ? "font-medium text-text-primary"
+                  : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
               }`}
             >
               {t("nav.learn")}
@@ -196,7 +176,7 @@ export function Layout() {
             <PracticeNavDropdown isActive={practiceActive} />
             <Link
               to={langPath("community")}
-              className="rounded-md px-2 py-1.5 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="rounded-md px-2 py-1.5 text-sm text-text-secondary hover:bg-surface-muted hover:text-text-primary"
             >
               {t("nav.community")}
             </Link>
@@ -204,8 +184,8 @@ export function Layout() {
               to="/admin/users"
               className={`rounded-md px-2 py-1.5 text-sm ${
                 adminActive
-                  ? "font-medium text-gray-900 dark:text-white"
-                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                  ? "font-medium text-text-primary"
+                  : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
               }`}
             >
               {t("nav.admin")}
@@ -225,14 +205,14 @@ export function Layout() {
                 e.stopPropagation();
                 setMobileMenuOpen((o) => !o);
               }}
-              className="relative z-50 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:hidden [touch-action:manipulation]"
+              className="relative z-50 flex h-10 w-10 shrink-0 items-center justify-center text-text-secondary hover:text-text-primary md:hidden [touch-action:manipulation]"
               aria-expanded={mobileMenuOpen}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? (
-                <CloseIcon className="h-6 w-6" />
+                <Icon name="close" size={24} />
               ) : (
-                <HamburgerIcon className="h-6 w-6" />
+                <Icon name="menu" size={24} />
               )}
             </button>
           </div>
@@ -240,12 +220,12 @@ export function Layout() {
 
         {/* Mobile nav panel */}
         {mobileMenuOpen && (
-          <div className="border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800 md:hidden">
+          <div className="border-t border-border bg-surface md:hidden">
             <nav className="flex flex-col gap-0.5 px-3 py-3" aria-label="Mobile navigation">
               <Link
                 to="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="rounded-lg px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+                className="rounded-lg px-4 py-3 text-base font-medium text-text-primary hover:bg-surface-muted"
               >
                 {t("nav.home")}
               </Link>
@@ -254,8 +234,8 @@ export function Layout() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`rounded-lg px-4 py-3 text-base ${
                   learnActive
-                    ? "font-semibold text-gray-900 dark:text-white"
-                    : "font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+                    ? "font-semibold text-text-primary"
+                    : "font-medium text-text-primary hover:bg-surface-muted"
                 }`}
               >
                 {t("nav.learn")}
@@ -264,7 +244,7 @@ export function Layout() {
               <Link
                 to={langPath("community")}
                 onClick={() => setMobileMenuOpen(false)}
-                className="rounded-lg px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+                className="rounded-lg px-4 py-3 text-base font-medium text-text-primary hover:bg-surface-muted"
               >
                 {t("nav.community")}
               </Link>
@@ -273,8 +253,8 @@ export function Layout() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`rounded-lg px-4 py-3 text-base ${
                   adminActive
-                    ? "font-semibold text-gray-900 dark:text-white"
-                    : "font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+                    ? "font-semibold text-text-primary"
+                    : "font-medium text-text-primary hover:bg-surface-muted"
                 }`}
               >
                 {t("nav.admin")}
@@ -288,6 +268,7 @@ export function Layout() {
       </main>
       <FundingMeter />
       <ModalRoot />
+      {isThemeEditorOpen && <ThemeEditorPanel />}
       <ToastContainer />
     </div>
   );

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { CommunityAddon } from "@/features/community/types";
 import { getLessonWindow } from "../moduleProgress";
-import { ChevronIcon } from "@/shared/components/icons";
 import { ProgressBar, LessonStatusCircle } from "@/shared/components/progress";
+import { Icon } from "@/shared/components/Icon";
 
 type Props = {
   addon: CommunityAddon;
@@ -64,8 +64,10 @@ export function CommunityModuleCard({ addon, completedCount }: Props) {
             ariaLabel={`${progressPercent}% complete`}
             className="w-16"
           />
-          <ChevronIcon
-            className={`h-5 w-5 text-gray-500 transition dark:text-gray-400 ${
+          <Icon
+            name="chevronDown"
+            size={20}
+            className={`text-gray-500 transition dark:text-gray-400 ${
               isExpanded ? "rotate-180" : ""
             }`}
           />
@@ -76,7 +78,7 @@ export function CommunityModuleCard({ addon, completedCount }: Props) {
         <div className="border-t border-gray-200 dark:border-gray-700">
           {hasMoreBefore && !showAll && (
             <p className="px-4 pt-2 text-xs text-gray-500 dark:text-gray-400">
-              ↑ {startIndex} {t("learn.lessonsAbove")}
+              <Icon name="chevronUp" size={12} className="inline" /> {startIndex} {t("learn.lessonsAbove")}
             </p>
           )}
           <ul>
@@ -94,7 +96,7 @@ export function CommunityModuleCard({ addon, completedCount }: Props) {
           </ul>
           {hasMoreAfter && !showAll && (
             <p className="px-4 pb-2 text-xs text-gray-500 dark:text-gray-400">
-              {lessons.length - startIndex - lessonWindow.length} {t("learn.lessonsBelow")} ↓
+              {lessons.length - startIndex - lessonWindow.length} {t("learn.lessonsBelow")} <Icon name="chevronDown" size={12} className="inline" />
             </p>
           )}
           {!showAll && lessons.length > SEMI_SIZE && (

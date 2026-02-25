@@ -6,6 +6,7 @@ import { useApi } from "@/shared/api/provider";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { CardPreview } from "@/features/flashcards/CardPreview";
 import { parseDeckJson } from "./deckUpload";
+import { Icon } from "@/shared/components/Icon";
 import type { Flashcard } from "@/features/flashcards/data/types";
 
 const SAMPLE_CARD: Flashcard = {
@@ -151,7 +152,7 @@ export function CreateTab() {
           onClick={handlePickDeck}
           className="flex flex-col rounded-xl border-2 border-gray-200 p-6 text-left transition hover:border-green-400 hover:bg-green-50/50 dark:border-gray-700 dark:hover:border-green-600 dark:hover:bg-green-900/10"
         >
-          <span className="text-3xl">🃏</span>
+          <Icon name="layers" size={36} className="shrink-0" />
           <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
             {t("community.addonKindFlashcardPack")}
           </h3>
@@ -166,7 +167,7 @@ export function CreateTab() {
           disabled={uploading}
           className="flex flex-col rounded-xl border-2 border-gray-200 p-6 text-left transition hover:border-green-400 hover:bg-green-50/50 disabled:opacity-60 dark:border-gray-700 dark:hover:border-green-600 dark:hover:bg-green-900/10"
         >
-          <span className="text-3xl">📤</span>
+          <Icon name="upload" size={36} className="shrink-0" />
           <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
             {t("community.uploadDeck", "Upload deck")}
           </h3>
@@ -176,7 +177,7 @@ export function CreateTab() {
         </button>
 
         <div className="flex flex-col rounded-xl border-2 border-dashed border-gray-200 p-6 opacity-60 dark:border-gray-700">
-          <span className="text-3xl">📚</span>
+          <Icon name="decks" size={36} className="shrink-0 opacity-60" />
           <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
             {t("community.addonKindCourse")}
           </h3>
@@ -190,7 +191,7 @@ export function CreateTab() {
           onClick={() => navigate(langPath("community/contribute/create/story"))}
           className="flex flex-col rounded-xl border-2 border-gray-200 p-6 text-left transition hover:border-green-400 hover:bg-green-50/50 dark:border-gray-700 dark:hover:border-green-600 dark:hover:bg-green-900/10"
         >
-          <span className="text-3xl">📖</span>
+          <Icon name="stories" size={36} className="shrink-0" />
           <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
             {t("community.addonKindStory")}
           </h3>

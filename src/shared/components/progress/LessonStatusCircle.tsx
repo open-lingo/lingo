@@ -1,4 +1,4 @@
-import { LockIcon } from "@/shared/components/icons";
+import { Icon } from "@/shared/components/Icon";
 
 export type LessonStatus = "completed" | "locked" | "available" | "incomplete";
 
@@ -14,7 +14,6 @@ export function LessonStatusCircle({
   className = "",
 }: LessonStatusCircleProps) {
   const sizeClass = size === "sm" ? "h-5 w-5" : "h-6 w-6";
-  const iconSize = size === "sm" ? "h-3 w-3" : "h-3 w-3";
 
   return (
     <span
@@ -29,9 +28,9 @@ export function LessonStatusCircle({
       }`}
     >
       {status === "completed" ? (
-        "✓"
+        <Icon name="check" size={12} className="text-white" strokeWidth={3} />
       ) : status === "locked" ? (
-        <LockIcon className={iconSize} />
+        <Icon name="lock" size={12} />
       ) : status === "incomplete" ? (
         ""
       ) : (

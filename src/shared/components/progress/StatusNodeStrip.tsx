@@ -1,4 +1,4 @@
-import { LockIcon } from "@/shared/components/icons";
+import { Icon } from "@/shared/components/Icon";
 
 export type NodeStatus = "completed" | "current" | "locked";
 
@@ -28,7 +28,7 @@ export function StatusNodeStrip({ nodes, className = "" }: StatusNodeStripProps)
           }`}
         >
           {node.status === "locked" && (
-            <LockIcon className="h-3.5 w-3.5 shrink-0" />
+            <Icon name="lock" size={14} className="shrink-0" />
           )}
           {node.label}
         </span>

@@ -1,3 +1,5 @@
+import { Icon } from "@/shared/components/Icon";
+
 export type DataTableColumn<T> = {
   key: string;
   label: string;
@@ -54,15 +56,15 @@ export function DataTable<T>({
 
   return (
     <div
-      className={`overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 ${className}`}
+      className={`overflow-x-auto rounded-lg border border-border ${className}`}
     >
       {rows.length === 0 ? (
-        <div className="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+        <div className="px-4 py-8 text-center text-sm text-text-muted">
           {emptyMessage ?? "No items"}
         </div>
       ) : (
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-50 dark:bg-gray-800/50">
+        <table className="min-w-full divide-y divide-border">
+          <thead className="bg-surface-muted">
             <tr>
               {selectable && (
                 <th scope="col" className="w-10 px-3 py-3">
@@ -71,7 +73,7 @@ export function DataTable<T>({
                     checked={allSelected}
                     onChange={toggleAll}
                     aria-label="Select all"
-                    className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700"
+                    className="h-4 w-4 rounded border-border accent-accent"
                   />
                 </th>
               )}
@@ -81,8 +83,8 @@ export function DataTable<T>({
                   scope="col"
                   className={
                     col.sortable && onSort
-                      ? "cursor-pointer px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
-                      : "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+                      ? "cursor-pointer px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-text-muted hover:text-text-primary"
+                      : "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-text-muted"
                   }
                   onClick={
                     col.sortable && onSort
@@ -92,19 +94,19 @@ export function DataTable<T>({
                 >
                   {col.label}
                   {col.sortable && sortKey === col.key && sortDir && (
-                    <span className="ml-1">{sortDir === "asc" ? "↑" : "↓"}</span>
+                    <span className="ml-1 inline-flex"><Icon name={sortDir === "asc" ? "chevronUp" : "chevronDown"} size={14} /></span>
                   )}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+          <tbody className="divide-y divide-border bg-surface">
             {rows.map((row) => {
               const id = getRowKey(row);
               return (
                 <tr
                   key={id}
-                  className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                  className="hover:bg-surface-muted"
                 >
                   {selectable && (
                     <td className="w-10 px-3 py-2">
@@ -113,7 +115,7 @@ export function DataTable<T>({
                         checked={selectedIds.has(id)}
                         onChange={() => toggleRow(id)}
                         aria-label={`Select row ${id}`}
-                        className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700"
+                        className="h-4 w-4 rounded border-border accent-accent"
                       />
                     </td>
                   )}

@@ -1,4 +1,5 @@
 import { Link, useSearchParams } from "react-router-dom";
+import { Icon } from "@/shared/components/Icon";
 import { useLang } from "@/shared/hooks/useLangPath";
 import { useTranslation } from "react-i18next";
 import {
@@ -97,7 +98,7 @@ export function LeaderboardPage() {
             ))}
           </ul>
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            {t("leaderboard.viewAll")} →
+            {t("leaderboard.viewAll")} <Icon name="arrowBigRight" size={14} className="inline" />
           </p>
         </Link>
 
@@ -121,7 +122,7 @@ export function LeaderboardPage() {
             ))}
           </ul>
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            {t("leaderboard.viewAll")} →
+            {t("leaderboard.viewAll")} <Icon name="arrowBigRight" size={14} className="inline" />
           </p>
         </Link>
 
@@ -145,7 +146,7 @@ export function LeaderboardPage() {
             ))}
           </ul>
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            {t("leaderboard.viewAll")} →
+            {t("leaderboard.viewAll")} <Icon name="arrowBigRight" size={14} className="inline" />
           </p>
         </Link>
 
@@ -169,7 +170,7 @@ export function LeaderboardPage() {
             ))}
           </ul>
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            {t("leaderboard.viewAll")} →
+            {t("leaderboard.viewAll")} <Icon name="arrowBigRight" size={14} className="inline" />
           </p>
         </Link>
       </div>

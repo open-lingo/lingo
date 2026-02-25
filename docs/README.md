@@ -16,6 +16,7 @@ Quick reference for this folder. Use for human reading and minimal context.
 - **FEATURES.md** — Feature backlog and ideas from the plan (not yet built).
 - **dataformats/** — Data format specs and example JSON. `flashcards.md` + examples; courses & modules coming next.
 - **tasks/** — Self-contained work items with context, files to touch, and acceptance criteria.
+- **agents/** — AI agent context. `basecontext/` has foundational docs: `FRONTEND_CONTEXT.md` (theme strategy, design tokens), `AUTH_STRATEGY.md` (token refresh, sessions, logout).
 
 ## src/ structure
 

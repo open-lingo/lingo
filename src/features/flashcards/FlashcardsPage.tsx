@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
-import { GearIcon } from "@/shared/components/icons";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { buildReviewQueue } from "./engine";
 import { DeckPreviewModal } from "./DeckPreviewModal";
@@ -116,7 +116,7 @@ function DeckCard({
             {countLabel}
           </p>
         </div>
-        <span className="shrink-0 text-green-600 dark:text-green-400">→</span>
+        <Icon name="arrowRight" size={16} className="shrink-0 text-green-600 dark:text-green-400" />
       </button>
       {settingsHref && (
         <Link
@@ -124,7 +124,7 @@ function DeckCard({
           aria-label={t("flashcards.deckManager.settingsLabel")}
           className="shrink-0 rounded p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
         >
-          <GearIcon className="h-5 w-5" />
+          <Icon name="settings" size={20} />
         </Link>
       )}
     </div>
@@ -155,7 +155,7 @@ function CommunityPackCard({
           {addon.description}
         </p>
         <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-          {addon.itemCount ?? "—"} {t("flashcards.cards")} · ↑ {addon.upvoteCount}
+          {addon.itemCount ?? "—"} {t("flashcards.cards")} · <Icon name="chevronUp" size={12} className="inline" /> {addon.upvoteCount}
         </p>
       </div>
       <button

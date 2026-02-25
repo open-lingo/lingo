@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect, useCallback } from "react";
+import { Icon } from "@/shared/components/Icon";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -117,31 +118,31 @@ function ContentCard({
   return (
     <div
       key={addon.id}
-      className="flex items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+      className="flex items-start gap-4 rounded-lg border border-border bg-surface p-4"
     >
       <span className="text-2xl" role="img" aria-label={langName}>
         {flag}
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-medium text-gray-900 dark:text-white">
+          <span className="font-medium text-text-primary">
             {addon.name}
           </span>
-          <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
+          <span className="rounded bg-accent-muted px-1.5 py-0.5 text-xs font-medium text-accent">
             {t("community.communityPackBadge")}
           </span>
-          <span className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-gray-400">
+          <span className="rounded bg-surface-muted px-1.5 py-0.5 text-xs text-text-secondary">
             {t(ADDON_KIND_KEYS[addon.kind])}
           </span>
         </div>
-        <p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+        <p className="mt-0.5 text-sm text-text-secondary line-clamp-2">
           {addon.description}
         </p>
-        <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-text-muted">
           <span>
             {addon.itemCount ?? "—"} {t("community.addonsItems")}
           </span>
-          <span>↑ {addon.upvoteCount}</span>
+          <span className="inline-flex items-center gap-0.5"><Icon name="chevronUp" size={14} /> {addon.upvoteCount}</span>
           {addon.discussionCount != null && addon.discussionCount > 0 && (
             <span>
               💬 {addon.discussionCount} {t("community.discussions")}
@@ -151,7 +152,7 @@ function ContentCard({
         {addon.maintainerName && (
           <div className="mt-2 flex items-center gap-1.5">
             <Avatar name={addon.maintainerName} size="xs" />
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="text-xs text-text-muted">
               {addon.maintainerName}
             </span>
           </div>
@@ -161,10 +162,10 @@ function ContentCard({
         <div className="flex items-center gap-1">
           <button
             type="button"
-            className="rounded px-2 py-1 text-xs font-medium text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20"
+            className="rounded px-2 py-1 text-xs font-medium text-accent hover:bg-accent-muted"
             aria-label="Upvote"
           >
-            ↑
+            <Icon name="chevronUp" size={14} className="inline" />
           </button>
           {showSubscribe && (
             <button
@@ -173,8 +174,8 @@ function ContentCard({
               onClick={isSubscribed ? onUnsubscribe : onSubscribe}
               className={`rounded px-2 py-1 text-xs font-medium transition ${
                 isSubscribed
-                  ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400"
-                  : "text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20"
+                  ? "bg-accent-muted text-accent"
+                  : "text-accent hover:bg-accent-muted"
               }`}
             >
               {subscribeLoading ? "…" : isSubscribed ? t("community.contentBrowserSubscribed") : t("community.contentBrowserSubscribe")}
@@ -184,7 +185,7 @@ function ContentCard({
             <button
               type="button"
               onClick={onStoryPreview}
-              className="rounded px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+              className="rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
             >
               {t("community.contentBrowserPreview")}
             </button>
@@ -193,7 +194,7 @@ function ContentCard({
             <button
               type="button"
               onClick={onPreview}
-              className="rounded px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+              className="rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
             >
               {t("community.contentBrowserPreview")}
             </button>
@@ -201,21 +202,21 @@ function ContentCard({
           {isDeck && isSubscribed ? (
             <Link
               to={langPath("practice/flashcards")}
-              className="rounded px-2 py-1 text-xs font-medium text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20"
+              className="rounded px-2 py-1 text-xs font-medium text-accent hover:bg-accent-muted"
             >
               {t("community.contentBrowserOpen")}
             </Link>
           ) : isStory && storyId ? (
             <Link
               to={langPath(`practice/stories/${storyId}`)}
-              className="rounded px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+              className="rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
             >
               {t("community.contentBrowserOpen")}
             </Link>
           ) : !isDeck && (
             <Link
               to={addon.kind === "story" ? langPath("practice/stories") : langPath("practice/flashcards")}
-              className="rounded px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+              className="rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
             >
               {t("community.contentBrowserOpen")}
             </Link>
@@ -544,20 +545,20 @@ export function ContentBrowserPage() {
     <div className="space-y-8">
       {!showSearchResults && (
         <section>
-          <h2 className="mb-3 flex items-center gap-2 text-base font-semibold text-gray-900 dark:text-white">
-            <span aria-hidden>🔥</span>
+          <h2 className="mb-3 flex items-center gap-2 text-base font-semibold text-text-primary">
+            <Icon name="flame" size={20} className="shrink-0" aria-hidden />
             {t("community.activeDiscussions")}
           </h2>
-          <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+          <div className="rounded-lg border border-border bg-surface p-4">
             <ul className="space-y-2">
               {getThreadsHot().slice(0, 5).map((thread) => (
                 <li key={thread.id}>
                   <Link
                     to={langPath(`community/discuss/thread/${thread.id}`)}
-                    className="flex items-center justify-between gap-3 text-sm text-gray-700 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400"
+                    className="flex items-center justify-between gap-3 text-sm text-text-primary hover:text-accent"
                   >
                     <span className="truncate">{thread.title}</span>
-                    <span className="shrink-0 text-xs text-gray-500 dark:text-gray-400">
+                    <span className="shrink-0 text-xs text-text-muted">
                       {thread.replyCount} {t("forum.replies")}
                     </span>
                   </Link>
@@ -566,23 +567,23 @@ export function ContentBrowserPage() {
             </ul>
             <Link
               to={langPath("community/discuss")}
-              className="mt-2 inline-block text-xs font-medium text-green-600 hover:underline dark:text-green-400"
+              className="mt-2 inline-block text-xs font-medium text-accent hover:underline"
             >
-              {t("community.contentBrowserViewAll")} →
+              {t("community.contentBrowserViewAll")} <Icon name="arrowBigRight" size={14} className="inline" />
             </Link>
           </div>
         </section>
       )}
 
       {/* Tabs: Browse | Subscribed */}
-      <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex gap-2 border-b border-border">
         <button
           type="button"
           onClick={() => setActiveTab("browse")}
           className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
             activeTab === "browse"
-              ? "border-green-600 text-green-600 dark:border-green-500 dark:text-green-400"
-              : "-mb-px border-transparent text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              ? "border-accent text-accent"
+              : "-mb-px border-transparent text-text-secondary hover:text-text-primary"
           }`}
         >
           {t("community.contentBrowserTabBrowse")}
@@ -592,8 +593,8 @@ export function ContentBrowserPage() {
           onClick={() => setActiveTab("subscribed")}
           className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
             activeTab === "subscribed"
-              ? "border-green-600 text-green-600 dark:border-green-500 dark:text-green-400"
-              : "-mb-px border-transparent text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              ? "border-accent text-accent"
+              : "-mb-px border-transparent text-text-secondary hover:text-text-primary"
           }`}
         >
           {t("community.contentBrowserTabSubscribed")}
@@ -613,13 +614,13 @@ export function ContentBrowserPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("community.contentBrowserSearchPlaceholder")}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-muted"
           />
         </div>
 
         {activeTab === "browse" && (
         <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
             {t("forum.type")}
           </h3>
           <div className="flex flex-wrap gap-1">
@@ -639,8 +640,8 @@ export function ContentBrowserPage() {
                   }}
                   className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                     typeFilter === tipo
-                      ? "bg-green-600 text-white dark:bg-green-500"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                      ? "bg-accent text-white"
+                      : "bg-surface-muted text-text-primary hover:bg-surface-elevated"
                   }`}
                 >
                   {tipo === "all"
@@ -660,7 +661,7 @@ export function ContentBrowserPage() {
         {(activeTab === "browse" ? browseContent.length > 0 : subscribedDecks.length > 0) && (
         <>
         <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
             {t("forum.language")}
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -669,8 +670,8 @@ export function ContentBrowserPage() {
               onClick={() => setLanguageFilter("all")}
               className={`flex h-9 w-9 items-center justify-center rounded-lg border text-lg transition ${
                 languageFilter === "all"
-                  ? "border-green-600 bg-green-50 dark:border-green-500 dark:bg-green-900/20"
-                  : "border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500"
+                  ? "border-accent bg-accent-muted"
+                  : "border-border hover:border-border"
               }`}
               title={t("community.contentBrowserAllLanguages")}
               aria-label={t("community.contentBrowserAllLanguages")}
@@ -689,8 +690,8 @@ export function ContentBrowserPage() {
                   onClick={() => setLanguageFilter(lId)}
                   className={`flex h-9 w-9 items-center justify-center rounded-lg border text-lg transition ${
                     active
-                      ? "border-green-600 bg-green-50 dark:border-green-500 dark:bg-green-900/20"
-                      : "border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500"
+                      ? "border-accent bg-accent-muted"
+                      : "border-border hover:border-border"
                   }`}
                   title={name}
                   aria-label={name}
@@ -704,7 +705,7 @@ export function ContentBrowserPage() {
 
         {activeTab === "browse" && (
         <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
             {t("community.contentBrowserDiscover")}
           </h3>
           <div className="flex flex-wrap gap-1">
@@ -715,8 +716,8 @@ export function ContentBrowserPage() {
                 onClick={() => setDiscoverFilter(opt)}
                 className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                   discoverFilter === opt
-                    ? "bg-green-600 text-white dark:bg-green-500"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                    ? "bg-accent text-white"
+                    : "bg-surface-muted text-text-primary hover:bg-surface-elevated"
                 }`}
               >
                 {t(`community.contentBrowserDiscover${opt.charAt(0).toUpperCase() + opt.slice(1)}`)}
@@ -728,7 +729,7 @@ export function ContentBrowserPage() {
 
         {activeTab === "browse" && (
         <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
             {t("community.contentBrowserSortBy")}
           </h3>
           <div className="flex flex-wrap gap-1">
@@ -739,8 +740,8 @@ export function ContentBrowserPage() {
                 onClick={() => setSortBy(opt)}
                 className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                   sortBy === opt
-                    ? "bg-green-600 text-white dark:bg-green-500"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                    ? "bg-accent text-white"
+                    : "bg-surface-muted text-text-primary hover:bg-surface-elevated"
                 }`}
               >
                 {t(`community.contentBrowserSort${opt.charAt(0).toUpperCase() + opt.slice(1)}`)}
@@ -757,9 +758,9 @@ export function ContentBrowserPage() {
               type="checkbox"
               checked={popularOnly}
               onChange={(e) => setPopularOnly(e.target.checked)}
-              className="rounded border-gray-300 text-green-600 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700"
+              className="rounded border-border text-accent focus:ring-accent bg-surface"
             />
-            <span className="text-xs text-gray-600 dark:text-gray-400">
+            <span className="text-xs text-text-secondary">
               {t("community.contentBrowserFilterPopular")}
             </span>
           </label>
@@ -770,7 +771,7 @@ export function ContentBrowserPage() {
           <button
             type="button"
             onClick={() => setLanguageFilter("all")}
-            className="rounded-md px-2.5 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+            className="rounded-md px-2.5 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
           >
             {t("community.contentBrowserClearLanguage")}
           </button>
@@ -785,7 +786,7 @@ export function ContentBrowserPage() {
               setDiscoverFilter("all");
               if (typeParam) navigate(langPath("community/explore"), { replace: true });
             }}
-            className="rounded-md px-2.5 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+            className="rounded-md px-2.5 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
           >
             {t("community.contentBrowserClearFilters")}
           </button>
@@ -800,7 +801,7 @@ export function ContentBrowserPage() {
           typeFilter !== "all" ? (
             <section>
               <div className="mb-3 flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h2 className="text-lg font-semibold text-text-primary">
                   {typeFilter === "flashcard-pack"
                     ? t("community.contentBrowserFlashcardDecks")
                     : typeFilter === "course"
@@ -809,17 +810,17 @@ export function ContentBrowserPage() {
                 </h2>
                 <Link
                   to={langPath("community/explore")}
-                  className="text-sm font-medium text-gray-600 hover:underline dark:text-gray-400"
+                  className="text-sm font-medium text-text-secondary hover:underline"
                 >
-                  ← {t("community.contentBrowserViewAll")}
+                  <Icon name="arrowBigLeft" size={14} className="mr-1 inline" /> {t("community.contentBrowserViewAll")}
                 </Link>
               </div>
               {typeFilter === "flashcard-pack" && apiDecksLoading ? (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {t("common.loading")}
                 </p>
               ) : filteredBrowse.length === 0 ? (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {t("community.contentBrowserNoResults")}
                 </p>
               ) : (
@@ -881,11 +882,11 @@ export function ContentBrowserPage() {
             </section>
           ) : showSearchResults ? (
             <section>
-              <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+              <h2 className="mb-3 text-lg font-semibold text-text-primary">
                 {t("community.contentBrowserSearchResults")} ({filteredBrowse.length})
               </h2>
               {filteredBrowse.length === 0 ? (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {t("community.contentBrowserNoResults")}
                 </p>
               ) : (
@@ -945,22 +946,22 @@ export function ContentBrowserPage() {
             <>
               <section>
                 <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-lg font-semibold text-text-primary">
                     {t("community.contentBrowserFlashcardDecks")}
                   </h2>
                   <Link
                     to={`${langPath("community/explore")}?type=flashcards`}
-                    className="text-sm font-medium text-green-600 hover:underline dark:text-green-400"
+                    className="text-sm font-medium text-accent hover:underline"
                   >
-                    {t("community.contentBrowserSeeMoreFlashcards")} →
+                    {t("community.contentBrowserSeeMoreFlashcards")} <Icon name="arrowBigRight" size={14} className="inline" />
                   </Link>
                 </div>
                 {apiDecksLoading ? (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-text-muted">
                     {t("common.loading")}
                   </p>
                 ) : flashcardDecks.length === 0 ? (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-text-muted">
                     {t("community.contentBrowserNoResults")}
                   </p>
                 ) : (
@@ -992,18 +993,18 @@ export function ContentBrowserPage() {
 
               <section>
                 <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-lg font-semibold text-text-primary">
                     {t("community.contentBrowserAdditionalCourses")}
                   </h2>
                   <Link
                     to={`${langPath("community/explore")}?type=courses`}
-                    className="text-sm font-medium text-green-600 hover:underline dark:text-green-400"
+                    className="text-sm font-medium text-accent hover:underline"
                   >
-                    {t("community.contentBrowserSeeMoreCourses")} →
+                    {t("community.contentBrowserSeeMoreCourses")} <Icon name="arrowBigRight" size={14} className="inline" />
                   </Link>
                 </div>
                 {courses.length === 0 ? (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-text-muted">
                     {t("community.contentBrowserNoResults")}
                   </p>
                 ) : (
@@ -1019,18 +1020,18 @@ export function ContentBrowserPage() {
 
               <section>
                 <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-lg font-semibold text-text-primary">
                     {t("community.contentBrowserStoriesSection")}
                   </h2>
                   <Link
                     to={`${langPath("community/explore")}?type=stories`}
-                    className="text-sm font-medium text-green-600 hover:underline dark:text-green-400"
+                    className="text-sm font-medium text-accent hover:underline"
                   >
-                    {t("community.contentBrowserSeeMoreStories")} →
+                    {t("community.contentBrowserSeeMoreStories")} <Icon name="arrowBigRight" size={14} className="inline" />
                   </Link>
                 </div>
                 {stories.length === 0 ? (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-text-muted">
                     {t("community.contentBrowserNoResults")}
                   </p>
                 ) : (
@@ -1069,15 +1070,15 @@ export function ContentBrowserPage() {
           )
         ) : (
           <section>
-            <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+            <h2 className="mb-3 text-lg font-semibold text-text-primary">
               {t("community.contentBrowserSubscribed")}
             </h2>
             {subscribedDecksLoading ? (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-text-muted">
                 {t("common.loading")}
               </p>
             ) : filteredSubscribedDecks.length === 0 && filteredSubscribedStories.length === 0 ? (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-text-muted">
                 {t("community.contentBrowserNoResults")}
               </p>
             ) : (
@@ -1118,7 +1119,7 @@ export function ContentBrowserPage() {
 
         <Link
           to={langPath("")}
-          className="inline-block text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          className="inline-block text-sm text-text-secondary hover:text-text-primary"
         >
           {t("community.backToHome")}
         </Link>

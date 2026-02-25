@@ -32,6 +32,7 @@ import {
 } from "@/features/flashcards/reviewModes";
 import { getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
 import type { Flashcard, CardSegment } from "@/features/flashcards/data/types";
+import { Icon } from "@/shared/components/Icon";
 
 function generateId(): string {
   return `card-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
@@ -141,7 +142,7 @@ function SortableCardItem({
           title={dragTitle}
           aria-label={dragTitle}
         >
-          <DragHandleIcon className="h-4 w-4" />
+          <Icon name="gripVertical" size={16} />
         </span>
         <button
           type="button"
@@ -162,7 +163,7 @@ function SortableCardItem({
             className="rounded p-0.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 dark:hover:bg-gray-600"
             title={moveUpTitle}
           >
-            ↑
+            <Icon name="chevronUp" size={14} />
           </button>
           <button
             type="button"
@@ -174,7 +175,7 @@ function SortableCardItem({
             className="rounded p-0.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 dark:hover:bg-gray-600"
             title={moveDownTitle}
           >
-            ↓
+            <Icon name="chevronDown" size={14} />
           </button>
           <button
             type="button"
@@ -185,7 +186,7 @@ function SortableCardItem({
             className="rounded p-0.5 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600"
             title={duplicateTitle}
           >
-            ⧉
+            <Icon name="copy" size={14} />
           </button>
           <button
             type="button"
@@ -196,19 +197,11 @@ function SortableCardItem({
             className="rounded p-0.5 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
             title={deleteTitle}
           >
-            ×
+            <Icon name="close" size={14} />
           </button>
         </div>
       </div>
     </li>
-  );
-}
-
-function DragHandleIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 16 16" fill="currentColor">
-      <path d="M4 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm4-8a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm4-8a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z" />
-    </svg>
   );
 }
 
@@ -978,7 +971,7 @@ function ActiveCardEditor({
           {hasAdvanced && (
             <span className="rounded bg-gray-200 px-1.5 text-xs dark:bg-gray-600">1</span>
           )}
-          <span className="text-gray-500">{advancedOpen ? "▼" : "▶"}</span>
+          <Icon name="chevronDown" size={14} className={`text-gray-500 transition ${advancedOpen ? "" : "-rotate-90"}`} />
         </button>
         {advancedOpen && (
           <div className="space-y-4 border-t border-gray-200 p-3 dark:border-gray-600">
@@ -1088,7 +1081,7 @@ function PartsEditor({
               onClick={() => removePart(i)}
               className="shrink-0 rounded-lg p-2 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
             >
-              ×
+              <Icon name="close" size={14} />
             </button>
           </div>
         ))}

@@ -1,17 +1,12 @@
 import { useState } from "react";
+import { Icon } from "@/shared/components/Icon";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { MarkdownRenderer } from "@/shared/components/MarkdownRenderer";
 import { getThreadById, getPostsByThreadId, getTagById } from "./mockForum";
 import { MarkdownEditor } from "./MarkdownEditor";
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleString(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
-}
+import { useDateFormat } from "@/shared/utils/formatDate";
 
 function VoteButtons({ up, down, userVote, onVote }: {
   up: number;
@@ -47,6 +42,7 @@ function VoteButtons({ up, down, userVote, onVote }: {
 export function ThreadPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
+  const { formatDate } = useDateFormat();
   const { threadId } = useParams<{ threadId: string }>();
   const [replyBody, setReplyBody] = useState("");
   const [showReplyForm, setShowReplyForm] = useState(false);
@@ -58,7 +54,7 @@ export function ThreadPage() {
     return (
       <div className="mx-auto max-w-4xl space-y-4">
         <Link to={langPath("community/discuss")} className="text-sm text-gray-600 hover:underline dark:text-gray-400">
-          ← {t("forum.backToForum")}
+          <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("forum.backToForum")}
         </Link>
         <p className="text-gray-500 dark:text-gray-400">{t("forum.threadNotFound")}</p>
       </div>
@@ -70,7 +66,7 @@ export function ThreadPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       <Link to={langPath("community/discuss")} className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-        ← {t("forum.backToForum")}
+        <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("forum.backToForum")}
       </Link>
 
       {/* Thread */}

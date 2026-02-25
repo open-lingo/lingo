@@ -143,13 +143,13 @@ export function AlphabetLessonPage() {
   if (!alphabet || !language) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <p className="text-lg text-gray-600 dark:text-gray-400">
+        <p className="text-lg text-text-secondary">
           {t("alphabet.notFound", "Alphabet not found")}
         </p>
         <button
           type="button"
           onClick={() => navigate(langPath("practice"))}
-          className="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700"
+          className="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover"
         >
           {t("lesson.backToLearn", "Back")}
         </button>
@@ -160,7 +160,7 @@ export function AlphabetLessonPage() {
   if (steps.length === 0) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <p className="text-lg text-gray-600 dark:text-gray-400">
+        <p className="text-lg text-text-secondary">
           {mode === "learn"
             ? t("alphabet.noLettersToLearn", "No new letters to learn in this section. Try another section or test out.")
             : t("alphabet.noLettersToTest", "No letters to test.")}
@@ -168,7 +168,7 @@ export function AlphabetLessonPage() {
         <button
           type="button"
           onClick={handleExit}
-          className="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700"
+          className="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover"
         >
           {t("lesson.continue", "Continue")}
         </button>
@@ -195,7 +195,7 @@ export function AlphabetLessonPage() {
         <button
           type="button"
           onClick={handleExit}
-          className="rounded-lg p-2 text-gray-500 transition hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+          className="rounded-lg p-2 text-text-muted transition hover:bg-surface-muted"
           aria-label={t("lesson.exit", "Exit")}
         >
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">

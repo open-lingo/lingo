@@ -5,6 +5,7 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useApi } from "@/shared/api";
 import { FilterBar, DataTable } from "@/shared/components/data";
+import { Icon } from "@/shared/components/Icon";
 import { useCardManagerData, type ManagedCard } from "./useCardManagerData";
 
 const CARD_MANAGER_TAB = "tab";
@@ -158,7 +159,7 @@ export function CardManagerPage() {
 
   if (isLoading) {
     return (
-      <div className="py-12 text-center text-gray-500 dark:text-gray-400">
+      <div className="py-12 text-center text-text-muted">
         {t("flashcards.cardManager.loading", "Loading…")}
       </div>
     );
@@ -171,23 +172,23 @@ export function CardManagerPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-text-primary">
             {t("flashcards.cardManager.title", "Card Manager")}
           </h1>
           <Link
             to={langPath("practice/flashcards")}
-            className="mt-1 block text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            className="mt-1 block text-sm text-text-secondary hover:text-text-primary"
           >
-            ← {t("flashcards.backToHub")}
+            <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("flashcards.backToHub")}
           </Link>
         </div>
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-12 text-center dark:border-gray-700 dark:bg-gray-800/50">
-          <p className="text-gray-600 dark:text-gray-400">
+        <div className="rounded-xl border border-border bg-surface-muted p-12 text-center">
+          <p className="text-text-secondary">
             {t("flashcards.cardManager.noCards", "No cards to manage. Subscribe to a deck to get started.")}
           </p>
           <Link
             to={langPath("community/explore")}
-            className="mt-4 inline-block text-green-600 dark:text-green-400"
+            className="mt-4 inline-block text-accent"
           >
             {t("flashcards.cardManager.browseDecks", "Browse community decks")}
           </Link>
@@ -200,32 +201,32 @@ export function CardManagerPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-text-primary">
             {t("flashcards.cardManager.title", "Card Manager")}
           </h1>
           <Link
             to={langPath("practice/flashcards")}
-            className="mt-1 block text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            className="mt-1 block text-sm text-text-secondary hover:text-text-primary"
           >
-            ← {t("flashcards.backToHub")}
+            <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("flashcards.backToHub")}
           </Link>
         </div>
         <div className="flex gap-2">
           <Link
             to={langPath("practice/flashcards/cards")}
-            className="rounded-lg px-3 py-2 text-sm font-medium transition bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+            className="rounded-lg px-3 py-2 text-sm font-medium transition bg-surface-muted text-text-primary hover:bg-surface-muted/80"
           >
             {t("flashcards.cardManager.tabAll", "All cards")}
           </Link>
           <Link
             to={`${langPath("practice/flashcards/cards")}?${CARD_MANAGER_TAB}=${TAB_MY_VOCAB}`}
-            className="rounded-lg px-3 py-2 text-sm font-medium transition bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
+            className="rounded-lg px-3 py-2 text-sm font-medium transition bg-accent text-white"
           >
             {t("flashcards.cardManager.tabMyVocab", "My Vocab")}
           </Link>
         </div>
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-12 text-center dark:border-gray-700 dark:bg-gray-800/50">
-          <p className="text-gray-600 dark:text-gray-400">
+        <div className="rounded-xl border border-border bg-surface-muted p-12 text-center">
+          <p className="text-text-secondary">
             {t("flashcards.cardManager.noVocabYet", "No vocab words yet. Add words from stories while reading.")}
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-3">
@@ -233,7 +234,7 @@ export function CardManagerPage() {
               type="button"
               onClick={handleEditMyVocab}
               disabled={editVocabLoading}
-              className="inline-block rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+              className="inline-block rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-primary hover:bg-surface-muted"
             >
               {editVocabLoading
                 ? t("flashcards.cardManager.loading", "Loading…")
@@ -254,14 +255,14 @@ export function CardManagerPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-text-primary">
           {t("flashcards.cardManager.title", "Card Manager")}
         </h1>
         <Link
           to={langPath("practice/flashcards")}
           className="mt-1 block text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
         >
-          ← {t("flashcards.backToHub")}
+          <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("flashcards.backToHub")}
         </Link>
       </div>
 
@@ -270,7 +271,7 @@ export function CardManagerPage() {
           <Link
             to={langPath("practice/flashcards/cards")}
             className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
-              tab === TAB_ALL ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900" : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+              tab === TAB_ALL ? "bg-accent text-white" : "bg-surface-muted text-text-primary hover:bg-surface-muted/80"
             }`}
           >
             {t("flashcards.cardManager.tabAll", "All cards")}
@@ -278,7 +279,7 @@ export function CardManagerPage() {
           <Link
             to={`${langPath("practice/flashcards/cards")}?${CARD_MANAGER_TAB}=${TAB_MY_VOCAB}`}
             className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
-              tab === TAB_MY_VOCAB ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900" : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+              tab === TAB_MY_VOCAB ? "bg-accent text-white" : "bg-surface-muted text-text-primary hover:bg-surface-muted/80"
             }`}
           >
             {t("flashcards.cardManager.tabMyVocab", "My Vocab")}
@@ -289,7 +290,7 @@ export function CardManagerPage() {
             type="button"
             onClick={handleEditMyVocab}
             disabled={editVocabLoading}
-            className="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            className="rounded-lg border border-border px-3 py-2 text-sm font-medium text-text-primary hover:bg-surface-muted"
           >
             {editVocabLoading
               ? t("flashcards.cardManager.loading", "Loading…")
@@ -331,40 +332,40 @@ export function CardManagerPage() {
         }}
       />
 
-      <p className="text-sm text-gray-500 dark:text-gray-400">
+      <p className="text-sm text-text-muted">
         {t("flashcards.cardManager.showing", "Showing {{count}} of {{total}} cards", { count: filtered.length, total: displayCards.length })}
       </p>
 
       {selectedIds.size > 0 && (
-        <div className="flex flex-wrap items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-700 dark:bg-gray-800/50">
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <div className="flex flex-wrap items-center gap-2 rounded-lg border border-border bg-surface-muted px-4 py-2">
+          <span className="text-sm font-medium text-text-primary">
             {t("flashcards.cardManager.selectedCount", "{{count}} selected", { count: selectedIds.size })}
           </span>
           <button
             type="button"
             onClick={handleBatchBury}
-            className="rounded px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-600"
+            className="rounded px-2 py-1 text-xs font-medium text-text-muted hover:bg-surface-muted"
           >
             {t("flashcards.cardManager.bury", "Bury")}
           </button>
           <button
             type="button"
             onClick={handleBatchUnbury}
-            className="rounded px-2 py-1 text-xs font-medium text-green-600 hover:bg-green-100 dark:text-green-400 dark:hover:bg-green-900/20"
+            className="rounded px-2 py-1 text-xs font-medium text-success hover:bg-success/10"
           >
             {t("flashcards.cardManager.unbury", "Unbury")}
           </button>
           <button
             type="button"
             onClick={handleBatchReset}
-            className="rounded px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-100 dark:text-red-400 dark:hover:bg-red-900/20"
+            className="rounded px-2 py-1 text-xs font-medium text-error hover:bg-error/10"
           >
             {t("flashcards.cardManager.reset", "Reset")}
           </button>
           <button
             type="button"
             onClick={() => setSelectedIds(new Set())}
-            className="rounded px-2 py-1 text-xs font-medium text-gray-500 hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-600"
+            className="rounded px-2 py-1 text-xs font-medium text-text-muted hover:bg-surface-muted"
           >
             {t("flashcards.cardManager.clearSelection", "Clear")}
           </button>
@@ -378,7 +379,7 @@ export function CardManagerPage() {
             label: t("flashcards.cardManager.colFront", "Front"),
             sortable: true,
             render: (mc) => (
-              <span className="max-w-[200px] truncate text-gray-900 dark:text-white">
+              <span className="max-w-[200px] truncate text-text-primary">
                 {mc.card.front}
               </span>
             ),
@@ -388,7 +389,7 @@ export function CardManagerPage() {
             label: t("flashcards.cardManager.colBack", "Back"),
             sortable: false,
             render: (mc) => (
-              <span className="max-w-[200px] truncate text-gray-600 dark:text-gray-400">
+              <span className="max-w-[200px] truncate text-text-muted">
                 {mc.card.back}
               </span>
             ),
@@ -398,7 +399,7 @@ export function CardManagerPage() {
             label: t("flashcards.cardManager.colDeck", "Deck"),
             sortable: true,
             render: (mc) => (
-              <span className="text-gray-600 dark:text-gray-400">{mc.deckName}</span>
+              <span className="text-text-muted">{mc.deckName}</span>
             ),
           },
           {
@@ -412,21 +413,21 @@ export function CardManagerPage() {
                     type="date"
                     value={editingDueValue}
                     onChange={(e) => setEditingDueValue(e.target.value)}
-                    className="w-32 rounded border border-gray-300 px-1.5 py-0.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                    className="w-32 rounded border border-border bg-surface px-1.5 py-0.5 text-sm text-text-primary"
                   />
                   <button
                     type="button"
                     onClick={saveDueEdit}
-                    className="text-green-600 dark:text-green-400"
+                    className="text-success"
                   >
-                    ✓
+                    <Icon name="check" size={16} />
                   </button>
                   <button
                     type="button"
                     onClick={() => setEditingDue(null)}
-                    className="text-gray-500"
+                    className="text-text-muted"
                   >
-                    ×
+                    <Icon name="close" size={14} />
                   </button>
                 </div>
               ) : (

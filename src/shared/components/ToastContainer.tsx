@@ -1,4 +1,5 @@
 import { useToast } from "@/shared/contexts/ToastContext";
+import { Icon } from "@/shared/components/Icon";
 
 const variantStyles: Record<string, string> = {
   success:
@@ -33,7 +34,7 @@ export function ToastContainer() {
             className="ml-3 -mr-1 inline-flex shrink-0 rounded p-1 opacity-80 hover:opacity-100"
             aria-label="Dismiss"
           >
-            <span aria-hidden>×</span>
+            <Icon name="close" size={16} aria-hidden />
           </button>
         </div>
       ))}

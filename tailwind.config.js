@@ -3,7 +3,41 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        background: "var(--color-background)",
+        surface: {
+          DEFAULT: "var(--color-surface)",
+          muted: "var(--color-surface-muted)",
+          elevated: "var(--color-surface-elevated)",
+        },
+        border: {
+          DEFAULT: "var(--color-border)",
+          muted: "var(--color-border-muted)",
+        },
+        "text-primary": "var(--color-text-primary)",
+        "text-secondary": "var(--color-text-secondary)",
+        "text-muted": "var(--color-text-muted)",
+        accent: {
+          DEFAULT: "var(--color-accent)",
+          hover: "var(--color-accent-hover)",
+          muted: "var(--color-accent-muted)",
+        },
+        error: "var(--color-error)",
+        success: "var(--color-success)",
+        warning: "var(--color-warning)",
+        overlay: "var(--color-overlay)",
+      },
+      borderRadius: {
+        sm: "var(--radius-sm)",
+        md: "var(--radius-md)",
+        lg: "var(--radius-lg)",
+      },
+      boxShadow: {
+        card: "var(--shadow-card)",
+        popover: "var(--shadow-popover)",
+      },
+    },
   },
   plugins: [require("@tailwindcss/typography")],
 };

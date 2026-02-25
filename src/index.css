@@ -1,6 +1,17 @@
 @import "@uiw/react-md-editor/markdown-editor.css";
 @import "@uiw/react-markdown-preview/markdown.css";
 
+@import "./shared/styles/tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Reduced motion: respect user preference from settings (data-reduced-motion) */
+[data-reduced-motion="true"] *,
+[data-reduced-motion="true"] *::before,
+[data-reduced-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}

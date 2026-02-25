@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getMockCourse } from "@/features/course/mockCourse";
@@ -34,7 +35,7 @@ export function CourseMapPage() {
           Select a learning language in Settings to see your course path.
         </p>
         <Link to="/settings" className="text-sm text-blue-600 dark:text-blue-400">
-          → Settings
+          <Icon name="arrowBigRight" size={14} className="inline" /> Settings
         </Link>
       </div>
     );
@@ -151,7 +152,7 @@ export function CourseMapPage() {
                         : "border-green-500 bg-white text-green-600 dark:bg-gray-800 dark:text-green-400"
                   }`}
                 >
-                  {done ? "✓" : locked ? "🔒" : "·"}
+                  {done ? <Icon name="check" size={18} /> : locked ? <Icon name="lock" size={18} /> : <span className="text-base leading-none">·</span>}
                 </span>
                 <span className="text-gray-600 dark:text-gray-400">{moduleTitle}</span>
                 <span className="font-medium text-gray-900 dark:text-white">

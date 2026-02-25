@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { Icon } from "@/shared/components/Icon";
 import type { LessonContent } from "../types";
 
 type Props = {
@@ -16,7 +17,7 @@ export function LessonComplete({ lesson, correctCount, totalGraded, onContinue }
 
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center gap-6 py-12 text-center">
-      <div className="text-5xl">{perfect ? "🎉" : "✅"}</div>
+      {perfect ? <Icon name="partyPopper" size={48} className="text-accent" /> : <Icon name="check" size={48} className="text-success" strokeWidth={3} />}
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
         {t("lesson.complete", "Lesson Complete!")}
       </h1>

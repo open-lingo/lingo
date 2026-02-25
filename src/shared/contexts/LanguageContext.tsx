@@ -2,14 +2,11 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
-  useState,
 } from "react";
 import type { Language } from "@/shared/domain/languages";
-import { AVAILABLE_LEARNING_LANGUAGES } from "@/shared/domain/languageConfig";
-import { setCachedLanguageId, resolvePreferredLanguage } from "@/shared/api/mock";
-import { useApi } from "@/shared/api/provider";
+import { AVAILABLE_LEARNING_LANGUAGES, getLanguageConfig } from "@/shared/domain/languageConfig";
+import { useSettings } from "@/shared/contexts/SettingsContext";
 
 type LanguageContextValue = {
   language: Language | null;
@@ -21,28 +18,16 @@ type LanguageContextValue = {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const { users } = useApi();
+  const { settings, updateSetting, isLoading } = useSettings();
+  const learningId = settings.learning.learningLanguageId;
+  const language = getLanguageConfig(learningId) ?? AVAILABLE_LEARNING_LANGUAGES[0] ?? null;
 
-  useEffect(() => {
-    let cancelled = false;
-    resolvePreferredLanguage().then((lang) => {
-      if (!cancelled) {
-        setLanguageState(lang);
-        setIsLoading(false);
-      }
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const setLanguage = useCallback((lang: Language) => {
-    setLanguageState(lang);
-    setCachedLanguageId(lang.id);
-    users.updateSettings({ learningLanguage: lang.id }).catch(() => {});
-  }, [users]);
+  const setLanguage = useCallback(
+    (lang: Language) => {
+      updateSetting("learning.learningLanguageId", lang.id);
+    },
+    [updateSetting]
+  );
 
   const value = useMemo(
     () => ({

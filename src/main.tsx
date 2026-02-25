@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Auth0Provider } from "@auth0/auth0-react";
 import "@/shared/i18n/i18n";
 import { requireAuth0Config, auth0Audience } from "@/shared/auth/config";
+import { SettingsProvider } from "@/shared/contexts/SettingsContext";
 import { ThemeProvider } from "@/shared/contexts/ThemeContext";
 import { LanguageProvider } from "@/shared/contexts/LanguageContext";
 import { ModalProvider } from "@/shared/contexts/ModalContext";
@@ -40,15 +41,17 @@ createRoot(document.getElementById("root")!).render(
     >
       <QueryClientProvider client={queryClient}>
         <ApiProvider>
-          <ThemeProvider>
-            <LanguageProvider>
+          <SettingsProvider>
+            <ThemeProvider>
+              <LanguageProvider>
               <ToastProvider>
                 <ModalProvider>
                   <App />
                 </ModalProvider>
               </ToastProvider>
-            </LanguageProvider>
-          </ThemeProvider>
+              </LanguageProvider>
+            </ThemeProvider>
+          </SettingsProvider>
         </ApiProvider>
       </QueryClientProvider>
     </Auth0Provider>

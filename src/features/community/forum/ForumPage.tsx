@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
@@ -12,22 +13,24 @@ import { getAllAddons } from "../mockCommunity";
 import { Badge } from "../components/Badge";
 import { Avatar } from "../components/Avatar";
 import { Tag } from "../components/Tag";
+import { useDateFormat } from "@/shared/utils/formatDate";
 
 type SortMode = "hot" | "new";
-
-function formatTimeAgo(iso: string) {
-  const d = new Date(iso);
-  const now = new Date();
-  const diff = (now.getTime() - d.getTime()) / 60000;
-  if (diff < 60) return "< 1h";
-  if (diff < 1440) return `${Math.floor(diff / 60)}h`;
-  if (diff < 43200) return `${Math.floor(diff / 1440)}d`;
-  return d.toLocaleDateString();
-}
 
 export function ForumPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
+  const { formatDateOnly } = useDateFormat();
+
+  function formatTimeAgo(iso: string) {
+    const d = new Date(iso);
+    const now = new Date();
+    const diff = (now.getTime() - d.getTime()) / 60000;
+    if (diff < 60) return "< 1h";
+    if (diff < 1440) return `${Math.floor(diff / 60)}h`;
+    if (diff < 43200) return `${Math.floor(diff / 1440)}d`;
+    return formatDateOnly(iso);
+  }
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [sort, setSort] = useState<SortMode>("hot");
 
@@ -46,7 +49,7 @@ export function ForumPage() {
               to={langPath("community/explore")}
               className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
             >
-              ← {t("community.title")}
+              <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("community.title")}
             </Link>
             <h1 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">
               {t("forum.title")}
@@ -100,7 +103,7 @@ export function ForumPage() {
                     {t("forum.tags")}
                   </th>
                   <th className="w-12 px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300">
-                    ↑
+                    <Icon name="chevronUp" size={16} className="inline" />
                   </th>
                   <th className="w-14 px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300">
                     {t("forum.replies")}

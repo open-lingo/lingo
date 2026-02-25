@@ -15,6 +15,8 @@ Open Lingo is a language-learning SPA (Vite + React) with a **lingo-core** FastA
 
 ### Infrastructure
 - [x] i18n: react-i18next, en.json + ko.json, Settings (language, theme, UI locale)
+- [x] Theme system: token-based themes, presets (Light/Dark/Sepia/AMOLED), custom themes, theme editor panel, Your themes + Community themes (mock)
+- [x] Design system: Card, Button, token classes; Layout, Home, Community, nav components migrated
 - [x] Auth0: env-based config, normalized callback
 - [x] Layout: Home, Practice, Flashcards, Stories, Leaderboard, Community in nav
 - [x] Modal system: stack-based ModalContext, ModalBase, ModalRoot
@@ -91,6 +93,11 @@ Open Lingo is a language-learning SPA (Vite + React) with a **lingo-core** FastA
 - [ ] Content API consolidation
 - [ ] Leaderboard API (replace mock)
 - [ ] Funding meter: real ad-funded %
+
+### Auth (planned)
+- [ ] Token refresh on 401 (centralized in ApiClient)
+- [ ] Session revocation handling
+- [ ] Device-based sessions (optional)
 
 ### Frontend polish
 - [ ] ja.json (Japanese UI locale)

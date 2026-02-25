@@ -1,4 +1,5 @@
 import type { SymbolIntroStep } from "../../types";
+import { Icon } from "@/shared/components/Icon";
 import { ContinueButton } from "../ContinueButton";
 
 type Props = {
@@ -42,7 +43,7 @@ export function SymbolIntroStepView({ step, onContinue }: Props) {
           className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
           aria-label="Play pronunciation"
         >
-          ▶ Play
+          <Icon name="play" size={14} className="mr-1 inline" /> Play
         </button>
       </div>
       <ContinueButton onClick={onContinue} />

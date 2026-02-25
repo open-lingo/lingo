@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { FilterBar, DataTable } from "@/shared/components/data";
+import { Icon } from "@/shared/components/Icon";
 import { useDeckManagerData, type ManagedDeck } from "./useDeckManagerData";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 
@@ -102,7 +103,7 @@ export function DeckManagerPage() {
             to={langPath("practice/flashcards")}
             className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
           >
-            ← {t("flashcards.backToHub")}
+            <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("flashcards.backToHub")}
           </Link>
         </div>
         <div className="rounded-xl border border-gray-200 bg-gray-50 p-12 text-center dark:border-gray-700 dark:bg-gray-800/50">
@@ -162,14 +163,14 @@ export function DeckManagerPage() {
               onClick={saveNewPerDay}
               className="text-green-600 dark:text-green-400"
             >
-              ✓
+              <Icon name="check" size={16} />
             </button>
             <button
               type="button"
               onClick={() => setEditingNewPerDay(null)}
               className="text-gray-500"
             >
-              ×
+              <Icon name="close" size={14} />
             </button>
           </div>
         ) : (
@@ -238,7 +239,7 @@ export function DeckManagerPage() {
             to={langPath("practice/flashcards")}
             className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
           >
-            ← {t("flashcards.backToHub")}
+            <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("flashcards.backToHub")}
           </Link>
         </div>
         <button

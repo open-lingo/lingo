@@ -11,6 +11,7 @@ import {
 } from "../moduleProgress";
 import { ProgressBar, StatusNodeStrip, LessonStatusCircle } from "@/shared/components/progress";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { Icon } from "@/shared/components/Icon";
 
 type Props = {
   course: Course;
@@ -75,7 +76,7 @@ export function MainCourseCard({
         </h3>
         {hasMoreBefore && !showAll && (
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            ↑ {startIndex} {t("learn.lessonsAbove")}
+            <Icon name="chevronUp" size={12} className="inline" /> {startIndex} {t("learn.lessonsAbove")}
           </p>
         )}
         <ul className="mt-3 space-y-1">
@@ -119,7 +120,7 @@ export function MainCourseCard({
         {hasMoreAfter && !showAll && (
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
             {currentModule.lessons.length - startIndex - lessonWindow.length}{" "}
-            {t("learn.lessonsBelow")} ↓
+            {t("learn.lessonsBelow")} <Icon name="chevronDown" size={12} className="inline" />
           </p>
         )}
         {!showAll && currentModule.lessons.length > SEMI_SIZE && (

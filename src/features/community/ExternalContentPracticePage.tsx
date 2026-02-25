@@ -1,11 +1,13 @@
 import { useMemo } from "react";
+import { Icon } from "@/shared/components/Icon";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { MOCK_EXTERNAL_CONTENT } from "./mockExternalContent";
-import { parseUrlPlatform, PLATFORM_ICONS } from "./parseUrlPlatform";
+import { parseUrlPlatform, PLATFORM_ICON_NAMES } from "./parseUrlPlatform";
+import { CONTENT_TYPE_ICONS } from "./contentTypeIcons";
 import { useExternalContentSubscriptions } from "./useExternalContentSubscriptions";
 import type { ExternalContentItem } from "./types";
 
@@ -58,7 +60,7 @@ function PracticeCard({
             }`}
             aria-label={isDone ? t("externalContent.practice.done") : t("externalContent.practice.notDone")}
           >
-            {isDone ? "✓" : "○"}
+            <Icon name={isDone ? "check" : "circle"} size={20} strokeWidth={2} />
           </button>
           <button
             type="button"
@@ -94,7 +96,7 @@ function PracticeCard({
       <div className="flex flex-wrap gap-2">
         {item.links.map((link, i) => {
           const platform = parseUrlPlatform(link.url);
-          const icon = PLATFORM_ICONS[platform];
+          const iconName = PLATFORM_ICON_NAMES[platform];
           const label = link.label ?? t("externalContent.open");
           return (
             <a
@@ -105,9 +107,7 @@ function PracticeCard({
               title={link.description ?? label}
               className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
             >
-              <span role="img" aria-hidden>
-                {icon}
-              </span>
+              <Icon name={iconName} size={16} className="shrink-0" aria-hidden />
               {label}
             </a>
           );

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Icon } from "@/shared/components/Icon";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -30,7 +31,7 @@ export function NewThreadPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <Link to={langPath("community")} className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-          ← {t("community.title")}
+          <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("community.title")}
         </Link>
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
         {t("forum.newThread")}

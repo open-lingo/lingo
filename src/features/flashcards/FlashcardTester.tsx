@@ -8,6 +8,7 @@ import { reviewCard, setCardState, getEffectiveState, shouldRepeatInSession } fr
 import { useSRSyncSession } from "./useSRSyncSession";
 import { useSubscriptionQueue } from "./useSubscriptionQueue";
 import { CardImage } from "./CardPreview";
+import { Icon } from "@/shared/components/Icon";
 import { PlainText } from "@/shared/components/PlainText";
 import {
   type ReviewMode,
@@ -44,7 +45,7 @@ function HighlightedText({
           return (
             <mark
               key={i}
-              className="rounded bg-amber-200 px-0.5 dark:bg-amber-800"
+              className="rounded bg-warning/30 px-0.5"
               title={particle ? `${particle.form}: ${particle.meaning}` : undefined}
             >
               {seg.segment}
@@ -55,7 +56,7 @@ function HighlightedText({
           return (
             <mark
               key={i}
-              className="rounded bg-emerald-200 px-0.5 dark:bg-emerald-800"
+              className="rounded bg-success/30 px-0.5"
               title={seg.meaning}
             >
               {seg.segment}
@@ -93,26 +94,10 @@ function CardFace({
 }
 
 const RATING_BUTTONS: Array<{ rating: SRSRating; label: string; color: string }> = [
-  {
-    rating: "again",
-    label: "Again",
-    color: "bg-red-600 hover:bg-red-700 text-white dark:bg-red-500 dark:hover:bg-red-600",
-  },
-  {
-    rating: "hard",
-    label: "Hard",
-    color: "bg-orange-500 hover:bg-orange-600 text-white dark:bg-orange-400 dark:hover:bg-orange-500",
-  },
-  {
-    rating: "good",
-    label: "Good",
-    color: "bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-emerald-500 dark:hover:bg-emerald-600",
-  },
-  {
-    rating: "easy",
-    label: "Easy",
-    color: "bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600",
-  },
+  { rating: "again", label: "Again", color: "bg-error text-white hover:bg-error/90" },
+  { rating: "hard", label: "Hard", color: "bg-warning text-white hover:bg-warning/90" },
+  { rating: "good", label: "Good", color: "bg-success text-white hover:bg-success/90" },
+  { rating: "easy", label: "Easy", color: "bg-accent text-white hover:bg-accent-hover" },
 ];
 
 function IntervalHint({
@@ -142,8 +127,9 @@ export function FlashcardTester() {
   const particles = particlesData?.particles ?? null;
 
   const [queueVersion, setQueueVersion] = useState(0);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const { dirtyCount } = useSRSyncSession();
+  useSRSyncSession();
 
   const { queue, isLoading: subQueueLoading } = useSubscriptionQueue(
     languageId,
@@ -245,35 +231,24 @@ export function FlashcardTester() {
         : 100;
     return (
       <div className="mx-auto flex max-w-md flex-col items-center gap-6 py-12 text-center">
-        {dirtyCount > 0 && (
-          <div
-            className="w-full rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-900/30 dark:text-amber-200"
-            role="status"
-          >
-            {t("flashcards.unsavedProgress", {
-              count: dirtyCount,
-              defaultValue: "{{count}} review(s) not yet synced. Please wait before leaving.",
-            })}
-          </div>
-        )}
-        <div className="text-5xl">🎉</div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <Icon name="partyPopper" size={48} className="text-accent" />
+        <h2 className="text-2xl font-bold text-text-primary">
           {t("flashcards.sessionDone", "Review Complete!")}
         </h2>
         <div className="flex gap-8">
           <div className="flex flex-col items-center">
-            <span className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+            <span className="text-2xl font-bold text-success">
               {sessionStats.reviewed}
             </span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="text-xs text-text-muted">
               {t("flashcards.reviewed", "Reviewed")}
             </span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+            <span className="text-2xl font-bold text-success">
               {accuracy}%
             </span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="text-xs text-text-muted">
               {t("flashcards.accuracy", "Accuracy")}
             </span>
           </div>
@@ -282,13 +257,13 @@ export function FlashcardTester() {
           <button
             type="button"
             onClick={handleRestart}
-            className="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600"
+            className="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover"
           >
             {t("flashcards.reviewMore", "Review More")}
           </button>
           <Link
             to={langPath("practice/flashcards")}
-            className="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            className="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-text-primary hover:bg-surface-muted"
           >
             {t("flashcards.backToHub")}
           </Link>
@@ -304,31 +279,69 @@ export function FlashcardTester() {
     <div className="flex min-h-0 flex-1 gap-4">
       {/* Main content */}
       <div className="mx-auto flex min-w-0 max-w-md flex-1 flex-col space-y-4">
-        {dirtyCount > 0 && (
-          <div
-            className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-900/30 dark:text-amber-200"
-            role="status"
-          >
-            {t("flashcards.unsavedProgress", {
-              count: dirtyCount,
-              defaultValue: "{{count}} review(s) not yet synced. Please wait before leaving.",
-            })}
-          </div>
-        )}
-        <div className="flex items-center justify-between">
+        <div className="relative flex items-center justify-between">
           <Link
             to={langPath("practice/flashcards")}
-            className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            className="text-sm text-text-secondary hover:text-text-primary"
           >
             {t("flashcards.backToHub")}
           </Link>
+          <button
+            type="button"
+            onClick={() => setSettingsOpen((o) => !o)}
+            className="rounded-lg p-2 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+            aria-label={t("flashcards.reviewSettings", "Review settings")}
+            aria-expanded={settingsOpen}
+          >
+            <Icon name="settings" size={20} />
+          </button>
+          {settingsOpen && (
+            <>
+              <div
+                className="fixed inset-0 z-10"
+                aria-hidden
+                onClick={() => setSettingsOpen(false)}
+              />
+              <div
+                className="absolute right-0 top-full z-20 mt-1 w-64 shrink-0 space-y-3 rounded-lg border border-border bg-surface p-4 shadow-popover"
+                role="dialog"
+                aria-label={t("flashcards.reviewSettings", "Review settings")}
+              >
+                <div>
+                  <label className="mb-1 block text-xs font-medium text-text-muted">
+                    {t("flashcards.reviewModeLabel", "Review mode")}
+                  </label>
+                  <select
+                    value={reviewMode}
+                    onChange={(e) => setReviewMode(e.target.value as ReviewMode)}
+                    className="w-full rounded border border-border bg-surface-muted px-2 py-1.5 text-sm text-text-primary"
+                  >
+                    {REVIEW_MODES.map((m) => (
+                      <option key={m} value={m}>
+                        {t(REVIEW_MODE_LABELS[m])}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <label className="flex items-center gap-2 text-sm text-text-secondary">
+                  <input
+                    type="checkbox"
+                    checked={highlightMode}
+                    onChange={(e) => setHighlightMode(e.target.checked)}
+                    className="rounded border-border accent-accent"
+                  />
+                  Highlight particles
+                </label>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Progress: bar = reviewed / initial queue (capped), +Again when repeat queue grows */}
         <div className="flex items-center gap-2">
-          <div className="h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+          <div className="h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-surface-muted">
             <div
-              className="h-full rounded-full bg-emerald-500 transition-all duration-300"
+              className="h-full rounded-full bg-success transition-all duration-300"
               style={{
                 width: `${
                   queue.totalCount > 0
@@ -339,7 +352,7 @@ export function FlashcardTester() {
             />
           </div>
           {repeatCards.length > 0 && (
-            <span className="shrink-0 text-xs text-amber-600 dark:text-amber-400">
+            <span className="shrink-0 text-xs text-warning">
               +{repeatCards.length} {t("flashcards.againCount")}
             </span>
           )}
@@ -349,7 +362,7 @@ export function FlashcardTester() {
       <button
         type="button"
         onClick={() => setFlipped((f) => !f)}
-        className="flex min-h-[220px] w-full flex-col items-center justify-center rounded-xl border-2 border-gray-300 bg-white py-12 shadow-sm transition hover:border-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500"
+        className="flex min-h-[220px] w-full flex-col items-center justify-center rounded-xl border-2 border-border bg-surface py-12 shadow-sm transition hover:border-accent"
       >
         {showImage(reviewMode, flipped) && currentCard.image && (
           <CardImage
@@ -357,7 +370,7 @@ export function FlashcardTester() {
             className="mb-3 max-h-32 w-auto rounded object-contain"
           />
         )}
-        <p className="text-center text-2xl font-medium text-gray-900 dark:text-white">
+        <p className="text-center text-2xl font-medium text-text-primary">
           <CardFace
             card={currentCard}
             side={
@@ -367,7 +380,7 @@ export function FlashcardTester() {
             highlightMode={highlightMode}
           />
         </p>
-        <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-3 text-sm text-text-muted">
           {flipped
             ? reviewMode === "back-first"
               ? t("flashcards.wordLabel", "Word")
@@ -384,11 +397,11 @@ export function FlashcardTester() {
           currentCard.context ||
           (currentCard.type === "word" && currentCard.parts?.length) ||
           (currentCard.type === "sentence" && currentCard.words?.length)) && (
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm dark:border-gray-700 dark:bg-gray-800/50">
+          <div className="rounded-lg border border-border bg-surface-muted p-4 text-sm">
             {(currentCard.type === "word" && currentCard.parts?.length) ||
             (currentCard.type === "sentence" && currentCard.words?.length) ? (
-              <div className="mb-3 rounded-md bg-white p-3 dark:bg-gray-800/80">
-                <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+              <div className="mb-3 rounded-md bg-surface p-3">
+                <span className="text-xs font-medium text-text-muted">
                   {t("flashcards.segmentBreakdown", "Segment breakdown")}
                 </span>
                 <div className="mt-2 space-y-1.5 text-xs">
@@ -397,14 +410,14 @@ export function FlashcardTester() {
                     return (
                       <div
                         key={i}
-                        className="flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded px-2 py-1 odd:bg-gray-50 dark:odd:bg-gray-700/50"
+                        className="flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded px-2 py-1 odd:bg-surface-muted"
                       >
-                        <span className="font-medium text-gray-900 dark:text-white">{seg.segment}</span>
+                        <span className="font-medium text-text-primary">{seg.segment}</span>
                         {seg.meaning && (
-                          <span className="text-gray-600 dark:text-gray-400">| {seg.meaning}</span>
+                          <span className="text-text-muted">| {seg.meaning}</span>
                         )}
                         {particle && (
-                          <span className="text-amber-700 dark:text-amber-400">
+                          <span className="text-warning">
                             | {particle.form}: {particle.meaning}
                           </span>
                         )}
@@ -415,23 +428,23 @@ export function FlashcardTester() {
               </div>
             ) : null}
             {currentCard.note && (
-              <div className="text-gray-700 dark:text-gray-300">
+              <div className="text-text-secondary">
                 <PlainText>{currentCard.note}</PlainText>
               </div>
             )}
             {currentCard.definition && (
-              <div className="mt-1 font-medium text-gray-800 dark:text-gray-200">
+              <div className="mt-1 font-medium text-text-primary">
                 <PlainText>{currentCard.definition}</PlainText>
               </div>
             )}
             {currentCard.context && (
-              <div className="mt-0.5 text-gray-600 dark:text-gray-400">
+              <div className="mt-0.5 text-text-muted">
                 <PlainText>{currentCard.context}</PlainText>
               </div>
             )}
             {currentCard.reasoning && (
-              <div className="mt-2 border-t border-gray-200 pt-2 text-gray-600 dark:border-gray-700 dark:text-gray-400">
-                <span className="font-medium text-gray-700 dark:text-gray-300">
+              <div className="mt-2 border-t border-border pt-2 text-text-muted">
+                <span className="font-medium text-text-secondary">
                   Reasoning:
                 </span>{" "}
                 <PlainText>{currentCard.reasoning}</PlainText>
@@ -463,90 +476,34 @@ export function FlashcardTester() {
         <button
           type="button"
           onClick={() => setFlipped(true)}
-          className="w-full rounded-xl bg-emerald-600 px-6 py-3 text-base font-semibold text-white transition hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600"
+          className="w-full rounded-xl bg-accent px-6 py-3 text-base font-semibold text-white transition hover:bg-accent-hover"
         >
           {t("flashcards.showAnswer", "Show Answer")}
         </button>
       )}
 
-        {/* Mobile: mode + highlight (shown when sidebar hidden) */}
-        <div className="flex flex-wrap items-center justify-center gap-4 rounded-lg border border-gray-200 bg-gray-50/50 p-3 md:hidden">
-          <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-            <span className="sr-only">{t("flashcards.reviewModeLabel", "Review mode")}</span>
-            <select
-              value={reviewMode}
-              onChange={(e) => setReviewMode(e.target.value as ReviewMode)}
-              className="rounded border border-gray-300 bg-white px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-            >
-              {REVIEW_MODES.map((m) => (
-                <option key={m} value={m}>
-                  {t(REVIEW_MODE_LABELS[m])}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-            <input
-              type="checkbox"
-              checked={highlightMode}
-              onChange={(e) => setHighlightMode(e.target.checked)}
-              className="rounded border-gray-300 dark:border-gray-600"
-            />
-            Highlight particles
-          </label>
-        </div>
-
         {/* Floating counts widget */}
         <div
-          className="flex flex-wrap items-center justify-center gap-3 rounded-lg border border-gray-200 bg-white/95 px-4 py-2 shadow-sm dark:border-gray-700 dark:bg-gray-800/95"
+          className="flex flex-wrap items-center justify-center gap-3 rounded-lg border border-border bg-surface px-4 py-2 shadow-sm"
           role="status"
         >
-          <span className="text-sm text-gray-600 dark:text-gray-400">
-            {t("flashcards.reviewed")}: <strong className="text-gray-900 dark:text-white">{sessionStats.reviewed}</strong>
+          <span className="text-sm text-text-muted">
+            {t("flashcards.reviewed")}: <strong className="text-text-primary">{sessionStats.reviewed}</strong>
           </span>
-          <span className="text-gray-300 dark:text-gray-600">·</span>
-          <span className="text-sm text-gray-600 dark:text-gray-400">
-            {t("flashcards.newCount")}: <strong className="text-gray-900 dark:text-white">{queue.newCount}</strong>
+          <span className="text-border">·</span>
+          <span className="text-sm text-text-muted">
+            {t("flashcards.newCount")}: <strong className="text-text-primary">{queue.newCount}</strong>
           </span>
-          <span className="text-gray-300 dark:text-gray-600">·</span>
-          <span className="text-sm text-gray-600 dark:text-gray-400">
-            {t("flashcards.dueCount")}: <strong className="text-gray-900 dark:text-white">{queue.dueCount}</strong>
+          <span className="text-border">·</span>
+          <span className="text-sm text-text-muted">
+            {t("flashcards.dueCount")}: <strong className="text-text-primary">{queue.dueCount}</strong>
           </span>
-          <span className="text-gray-300 dark:text-gray-600">·</span>
-          <span className="text-sm text-gray-600 dark:text-gray-400">
-            {t("flashcards.againCount")}: <strong className="text-amber-600 dark:text-amber-400">{repeatCards.length}</strong>
+          <span className="text-border">·</span>
+          <span className="text-sm text-text-muted">
+            {t("flashcards.againCount")}: <strong className="text-warning">{repeatCards.length}</strong>
           </span>
         </div>
       </div>
-
-      {/* Sidebar: mode switch + highlight (desktop). On mobile, controls shown below counts */}
-      <aside className="hidden w-44 shrink-0 space-y-3 rounded-lg border border-gray-200 bg-gray-50/50 p-3 dark:border-gray-700 dark:bg-gray-800/50 md:block">
-        <div>
-          <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">
-            {t("flashcards.reviewModeLabel", "Review mode")}
-          </label>
-          <select
-            value={reviewMode}
-            onChange={(e) => setReviewMode(e.target.value as ReviewMode)}
-            className="w-full rounded border border-gray-300 bg-white px-2 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-          >
-            {REVIEW_MODES.map((m) => (
-              <option key={m} value={m}>
-                {t(REVIEW_MODE_LABELS[m])}
-              </option>
-            ))}
-          </select>
-        </div>
-        <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-          <input
-            type="checkbox"
-            checked={highlightMode}
-            onChange={(e) => setHighlightMode(e.target.checked)}
-            className="rounded border-gray-300 dark:border-gray-600"
-          />
-          Highlight particles
-        </label>
-      </aside>
     </div>
   );
 }

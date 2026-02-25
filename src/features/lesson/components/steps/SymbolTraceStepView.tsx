@@ -4,6 +4,7 @@ import type { SymbolTraceStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { DrawingCanvas, type DrawingCanvasHandle } from "../DrawingCanvas";
 import { compareDrawingToSymbol } from "@/features/practice/alphabet/drawingComparison";
+import { Icon } from "@/shared/components/Icon";
 
 type Props = {
   step: SymbolTraceStep;
@@ -55,7 +56,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
           className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
           aria-label="Play sound"
         >
-          ▶ Play
+          <Icon name="play" size={14} className="mr-1 inline" /> Play
         </button>
       </div>
       <div className="flex flex-col items-center gap-4">

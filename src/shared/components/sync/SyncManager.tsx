@@ -1,24 +1,7 @@
 import { useState, useRef, useEffect } from "react";
+import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import type { SyncSource } from "./types";
-
-function CloudIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={1.5}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z"
-      />
-    </svg>
-  );
-}
 
 function formatTimeAgo(iso: string): string {
   const sec = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
@@ -121,25 +104,25 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className={`flex h-9 w-9 items-center justify-center rounded-lg transition ${
-          hasDirty ? "text-amber-600 dark:text-amber-400" : "text-green-600 dark:text-green-400"
-        } hover:bg-gray-100 dark:hover:bg-gray-700`}
+        className={`flex h-9 w-9 items-center justify-center transition ${
+          hasDirty ? "text-warning" : "text-accent"
+        }`}
         aria-expanded={open}
         aria-haspopup="true"
       >
-        <CloudIcon className="h-5 w-5" />
+        <Icon name="cloud" size={20} strokeWidth={1.5} />
       </button>
 
       {open && (
         <div
-          className="absolute right-0 top-full z-50 -mt-1 min-w-[280px] rounded-lg border border-gray-200 bg-white py-3 pt-4 shadow-lg dark:border-gray-700 dark:bg-gray-800"
+          className="absolute right-0 top-full z-50 -mt-1 min-w-[280px] rounded-lg border border-border bg-surface py-3 pt-4 shadow-popover"
           role="menu"
         >
-          <div className="border-b border-gray-100 px-4 pb-2 dark:border-gray-700">
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+          <div className="border-b border-border px-4 pb-2">
+            <h3 className="text-sm font-semibold text-text-primary">
               {t("syncManager.title", { defaultValue: "Sync Manager" })}
             </h3>
-            <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+            <p className="mt-0.5 text-xs text-text-muted">
               {t("syncManager.subtitle", {
                 defaultValue: "Background sync for your progress",
               })}
@@ -154,17 +137,17 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
               return (
                 <div
                   key={source.id}
-                  className="rounded-lg px-3 py-2.5 transition hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                  className="rounded-lg px-3 py-2.5 transition hover:bg-surface-muted"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">
+                    <span className="text-sm font-medium text-text-primary">
                       {source.label}
                     </span>
                     <span
                       className={`inline-flex rounded px-2 py-0.5 text-xs font-medium ${
                         synced
-                          ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-                          : "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400"
+                          ? "bg-accent-muted text-accent"
+                          : "bg-accent-muted text-warning"
                       }`}
                     >
                       {synced
@@ -176,7 +159,7 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
                     </span>
                   </div>
 
-                  <div className="mt-1.5 space-y-1 text-xs text-gray-600 dark:text-gray-400">
+                  <div className="mt-1.5 space-y-1 text-xs text-text-secondary">
                     {source.lastSyncAt && (
                       <p>
                         {t("syncManager.lastSync", {
@@ -206,7 +189,7 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
                     type="button"
                     onClick={() => handleSyncNow(source)}
                     disabled={isSyncing}
-                    className="mt-2 w-full rounded-md bg-gray-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-gray-800 disabled:opacity-50 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200"
+                    className="mt-2 w-full rounded-md bg-accent px-3 py-1.5 text-xs font-medium text-white hover:bg-accent-hover disabled:opacity-50"
                   >
                     {isSyncing
                       ? t("syncManager.syncing", { defaultValue: "Syncing…" })
@@ -218,8 +201,8 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
           </div>
 
           {/* Placeholder for future sources */}
-          <div className="border-t border-gray-100 px-4 pt-2 dark:border-gray-700">
-            <p className="text-xs text-gray-400 dark:text-gray-500">
+          <div className="border-t border-border px-4 pt-2">
+            <p className="text-xs text-text-muted">
               {t("syncManager.moreComing", {
                 defaultValue: "Lessons & story progress coming soon",
               })}

@@ -9,11 +9,14 @@ import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import type { UserListItem } from "@/shared/api/admin";
 import type { Subscription } from "@/shared/api/users";
 import type { DeckResponse } from "@/shared/api/decks";
+import { useDateFormat } from "@/shared/utils/formatDate";
+import { Icon } from "@/shared/components/Icon";
 
 type TabId = "profile" | "subscriptions" | "content" | "srs";
 
 export function AdminUserDetailPage() {
   const { t } = useTranslation();
+  const { formatDate } = useDateFormat();
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
   const { admin } = useApi();
@@ -360,8 +363,8 @@ export function AdminUserDetailPage() {
                       onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                     />
                   ) : (
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gray-200 text-xl text-gray-500 dark:bg-gray-700 dark:text-gray-400">
-                      👤
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center text-gray-500 dark:text-gray-400">
+                      <Icon name="user" size={28} />
                     </div>
                   )}
                   <input
@@ -523,7 +526,7 @@ export function AdminUserDetailPage() {
                   {t("admin.createdAt")}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 dark:text-white">
-                  {new Date(user.created_at).toLocaleString()}
+                  {formatDate(user.created_at, { dateStyle: "medium", timeStyle: "short" })}
                 </dd>
               </div>
             </dl>
@@ -767,14 +770,14 @@ export function AdminUserDetailPage() {
                                 onClick={() => handleUpdateSrsCard(cardId, { dueDate: editDueDate })}
                                 className="text-green-600 dark:text-green-400"
                               >
-                                ✓
+                                <Icon name="check" size={16} />
                               </button>
                               <button
                                 type="button"
                                 onClick={() => setEditingCard(null)}
                                 className="text-gray-500"
                               >
-                                ×
+                                <Icon name="close" size={14} />
                               </button>
                             </div>
                           ) : (
@@ -807,7 +810,7 @@ export function AdminUserDetailPage() {
                                 onClick={() => handleUpdateSrsCard(cardId, { easeFactor: parseFloat(editEase) || 2.5 })}
                                 className="text-green-600 dark:text-green-400"
                               >
-                                ✓
+                                <Icon name="check" size={16} />
                               </button>
                             </div>
                           ) : (

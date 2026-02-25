@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { SymbolRecognitionStep } from "../../types";
+import { Icon } from "@/shared/components/Icon";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 
@@ -35,7 +36,7 @@ export function SymbolRecognitionStepView({
         className="mx-auto rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
         aria-label="Play sound"
       >
-        ▶ Play
+        <Icon name="play" size={14} className="mr-1 inline" /> Play
       </button>
       <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
         {step.options.map((opt) => {

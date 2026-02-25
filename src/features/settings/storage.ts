@@ -1,24 +1,108 @@
-import type { UserSettings } from "./types";
+import type { UserSettings } from "@/shared/settings/types";
 
-/**
- * User settings storage. Currently localStorage keyed by user id (or "anonymous").
- * Replace with API calls when you add a User API (e.g. GET/PATCH /api/users/me/settings).
- *
- * Options for persisting per-user across devices:
- * 1. Your own User API: store settings keyed by Auth0 sub; backend returns/persists JSON.
- * 2. Auth0 user_metadata: requires a backend that calls Auth0 Management API to patch
- *    user_metadata; the SPA cannot do this securely without a token with update:users.
- */
-const STORAGE_PREFIX = "open-lingo-settings";
+const SETTINGS_KEY = "open-lingo-settings";
+const LAST_USER_KEY = "open-lingo-last-user-id";
 
-function storageKey(userId: string | null): string {
-  return `${STORAGE_PREFIX}-${userId ?? "anonymous"}`;
+const USER_SPECIFIC_KEYS = [
+  "open-lingo-srs",
+  "open-lingo-srs-last-sync",
+  "open-lingo-srs-next-sync",
+  "openlingo-external-content",
+  "openlingo-external-content-done",
+];
+
+const ALPHABET_PREFIX = "lingo_alphabet_progress_";
+const PROFILE_PREFIX = "open-lingo-profile-";
+
+function deepMerge<T extends Record<string, unknown>>(
+  target: T,
+  source: Partial<T>
+): T {
+  const result = { ...target };
+  for (const key of Object.keys(source) as (keyof T)[]) {
+    const srcVal = source[key];
+    if (srcVal !== undefined) {
+      const tgtVal = result[key];
+      if (
+        srcVal !== null &&
+        typeof srcVal === "object" &&
+        !Array.isArray(srcVal) &&
+        tgtVal !== null &&
+        typeof tgtVal === "object" &&
+        !Array.isArray(tgtVal)
+      ) {
+        (result as Record<string, unknown>)[key as string] = deepMerge(
+          tgtVal as Record<string, unknown>,
+          srcVal as Record<string, unknown>
+        );
+      } else {
+        (result as Record<string, unknown>)[key as string] = srcVal;
+      }
+    }
+  }
+  return result;
 }
 
-export function getStoredSettings(userId: string | null): Partial<UserSettings> | null {
+/** Normalize userId for comparison (empty string for null/anonymous). */
+function norm(userId: string | null): string {
+  return userId ?? "";
+}
+
+/** One-time migration: copy from old user-keyed settings into single key if needed. */
+export function migrateToSingleKey(userId: string | null): void {
+  if (typeof window === "undefined") return;
+  try {
+    if (localStorage.getItem(SETTINGS_KEY)) return;
+    const keys = userId
+      ? [`open-lingo-settings-${userId}`, "open-lingo-settings-anonymous"]
+      : ["open-lingo-settings-anonymous"];
+    for (const k of keys) {
+      const raw = localStorage.getItem(k);
+      if (raw) {
+        localStorage.setItem(SETTINGS_KEY, raw);
+        localStorage.removeItem(k);
+        break;
+      }
+    }
+  } catch {
+    /* ignore */
+  }
+}
+
+/**
+ * Call when auth state is known. If the current user differs from the last stored user,
+ * clears user-specific localStorage keys and updates last-user-id.
+ */
+export function ensureUserConsistency(userId: string | null): void {
+  if (typeof window === "undefined") return;
+  try {
+    const current = norm(userId);
+    const last = localStorage.getItem(LAST_USER_KEY) ?? "";
+    if (current === last) return;
+
+    for (const key of USER_SPECIFIC_KEYS) {
+      localStorage.removeItem(key);
+    }
+    const keys: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k?.startsWith(ALPHABET_PREFIX)) keys.push(k);
+    }
+    keys.forEach((k) => localStorage.removeItem(k));
+    if (last) {
+      localStorage.removeItem(`${PROFILE_PREFIX}${last}`);
+    }
+
+    localStorage.setItem(LAST_USER_KEY, current);
+  } catch {
+    /* ignore */
+  }
+}
+
+export function getStoredSettings(): Partial<UserSettings> | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = localStorage.getItem(storageKey(userId));
+    const raw = localStorage.getItem(SETTINGS_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as Record<string, unknown>;
     return parsed as Partial<UserSettings>;
@@ -27,17 +111,13 @@ export function getStoredSettings(userId: string | null): Partial<UserSettings> 
   }
 }
 
-export function setStoredSettings(
-  userId: string | null,
-  patch: Partial<UserSettings>
-): void {
+export function setStoredSettings(patch: Partial<UserSettings>): void {
   if (typeof window === "undefined") return;
   try {
-    const key = storageKey(userId);
-    const current = getStoredSettings(userId) ?? {};
-    const next = { ...current, ...patch };
-    localStorage.setItem(key, JSON.stringify(next));
+    const current = getStoredSettings() ?? {};
+    const next = deepMerge(current as Record<string, unknown>, patch as Record<string, unknown>) as Partial<UserSettings>;
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(next));
   } catch {
-    // ignore
+    /* ignore */
   }
 }
