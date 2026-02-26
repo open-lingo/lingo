@@ -71,19 +71,40 @@ html::-webkit-scrollbar-corner {
   background: transparent;
 }
 
-/* Hero slogan: animated last word — slide up + fade (language-switching feel) */
-@keyframes slogan-word {
+/* Hero slogan: old cycles up + fades out, new comes from bottom + fades in */
+@keyframes slogan-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-0.9em);
+  }
+}
+@keyframes slogan-enter {
   from {
     opacity: 0;
-    transform: translateY(0.4em);
+    transform: translateY(1.2em);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-.animate-slogan-word {
-  animation: slogan-word 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.animate-slogan-exit,
+.animate-slogan-enter {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  animation-fill-mode: forwards;
+}
+.animate-slogan-exit {
+  animation-name: slogan-exit;
+}
+.animate-slogan-enter {
+  animation-name: slogan-enter;
+  animation-fill-mode: both;
+  z-index: 1;
 }
 
 /* Reduced motion: respect user preference from settings (data-reduced-motion) */
