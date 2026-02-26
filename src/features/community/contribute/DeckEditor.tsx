@@ -32,6 +32,7 @@ import {
 } from "@/features/flashcards/reviewModes";
 import { getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
 import type { Flashcard, CardSegment } from "@/features/flashcards/data/types";
+import { Icon } from "@/shared/components/Icon";
 
 function generateId(): string {
   return `card-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
@@ -141,7 +142,7 @@ function SortableCardItem({
           title={dragTitle}
           aria-label={dragTitle}
         >
-          <DragHandleIcon className="h-4 w-4" />
+          <Icon name="gripVertical" size={16} />
         </span>
         <button
           type="button"
@@ -162,7 +163,7 @@ function SortableCardItem({
             className="rounded p-0.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 dark:hover:bg-gray-600"
             title={moveUpTitle}
           >
-            ↑
+            <Icon name="chevronUp" size={14} />
           </button>
           <button
             type="button"
@@ -174,7 +175,7 @@ function SortableCardItem({
             className="rounded p-0.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 dark:hover:bg-gray-600"
             title={moveDownTitle}
           >
-            ↓
+            <Icon name="chevronDown" size={14} />
           </button>
           <button
             type="button"
@@ -185,7 +186,7 @@ function SortableCardItem({
             className="rounded p-0.5 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600"
             title={duplicateTitle}
           >
-            ⧉
+            <Icon name="copy" size={14} />
           </button>
           <button
             type="button"
@@ -196,19 +197,11 @@ function SortableCardItem({
             className="rounded p-0.5 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
             title={deleteTitle}
           >
-            ×
+            <Icon name="close" size={14} />
           </button>
         </div>
       </div>
     </li>
-  );
-}
-
-function DragHandleIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 16 16" fill="currentColor">
-      <path d="M4 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm4-8a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm4-8a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z" />
-    </svg>
   );
 }
 
@@ -222,9 +215,12 @@ export function DeckEditor() {
     returnTo?: string;
     returnPath?: string;
     isCompanionDeck?: boolean;
+    cardId?: string;
+    storyId?: string;
+    storyTitle?: string;
   } | undefined;
   const { language } = useLanguage();
-  const { decks: decksApi } = useApi();
+  const { decks: decksApi, stories: storiesApi } = useApi();
 
   const [deckId, setDeckId] = useState<string | null>(routeDeckId ?? null);
   const [name, setName] = useState("");
@@ -240,6 +236,7 @@ export function DeckEditor() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [cardSearch, setCardSearch] = useState("");
   const [showDeckSettings, setShowDeckSettings] = useState(false);
+  const [companionStory, setCompanionStory] = useState<{ id: string; title: string } | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -262,11 +259,12 @@ export function DeckEditor() {
       setSelectedIndex(null);
       setHasUnsavedChanges(false);
       setLanguageId(language?.id ?? "ko");
+      setCompanionStory(null);
     }
   }, [routeDeckId, language?.id]);
 
   useEffect(() => {
-    if (!deckId || !decksApi) return;
+    if (!deckId || deckId === "new" || !decksApi) return;
     decksApi
       .getDeck(deckId)
       .then((deck) => {
@@ -277,13 +275,50 @@ export function DeckEditor() {
         setDefaultEase(
           deck.defaultEase != null ? String(deck.defaultEase) : ""
         );
-        setCards((deck.cards ?? []) as Flashcard[]);
+        const loadedCards = (deck.cards ?? []) as Flashcard[];
+        setCards(loadedCards);
         setLoadError(null);
+        const cardId = returnState?.cardId;
+        if (cardId && loadedCards.length > 0) {
+          const idx = loadedCards.findIndex((c) => c.id === cardId);
+          if (idx >= 0) setSelectedIndex(idx);
+          const cur = (window.history.state ?? {}) as Record<string, unknown>;
+          const { cardId: _, ...rest } = cur;
+          window.history.replaceState(rest, document.title, location.pathname);
+        }
+        const storyId =
+          deck.companionToStoryId && deck.companionToStoryId !== "pending"
+            ? deck.companionToStoryId
+            : (returnState as { storyId?: string })?.storyId ?? null;
+        setCompanionStory(null);
+        if (storyId && storiesApi) {
+          storiesApi
+            .getStory(storyId)
+            .then((s) => setCompanionStory({ id: s.id, title: s.title }))
+            .catch(() => {});
+        }
       })
       .catch((err) => {
         setLoadError(err instanceof Error ? err.message : "Failed to load deck");
       });
-  }, [deckId, decksApi]);
+  }, [deckId, decksApi, storiesApi, returnState?.cardId]);
+
+  // New deck from StoryEditor: use storyId/storyTitle from state or fetch
+  useEffect(() => {
+    if (deckId && deckId !== "new") return;
+    const storyId = returnState?.storyId ?? null;
+    const storyTitle = returnState?.storyTitle ?? null;
+    if (storyId && storyTitle) {
+      setCompanionStory({ id: storyId, title: storyTitle });
+    } else if (storyId && storiesApi) {
+      storiesApi
+        .getStory(storyId)
+        .then((s) => setCompanionStory({ id: s.id, title: s.title }))
+        .catch(() => {});
+    } else if (returnState?.isCompanionDeck) {
+      setCompanionStory({ id: "", title: t("community.companionDeckForStory", "Story") });
+    }
+  }, [deckId, returnState?.isCompanionDeck, returnState?.storyId, returnState?.storyTitle, storiesApi, t]);
 
   const selectedCard = selectedIndex != null ? cards[selectedIndex] : null;
 
@@ -517,6 +552,23 @@ export function DeckEditor() {
         showDeckSettings={showDeckSettings}
         nameInput={nameInput}
       />
+      {companionStory && (
+        <div className="flex items-center gap-2 border-b border-gray-200 bg-blue-50/50 px-4 py-2 dark:border-gray-700 dark:bg-blue-950/20">
+          <span className="text-sm font-medium text-blue-800 dark:text-blue-300">
+            {t("community.companionDeckFor", { defaultValue: "Companion deck for:" })}{" "}
+          </span>
+          {companionStory.id ? (
+            <Link
+              to={langPath(`community/contribute/create/story/${companionStory.id}`)}
+              className="font-medium text-blue-600 underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+            >
+              {companionStory.title}
+            </Link>
+          ) : (
+            <span className="font-medium text-blue-700 dark:text-blue-400">{companionStory.title}</span>
+          )}
+        </div>
+      )}
       {showDeckSettings && (
         <div className="flex items-center gap-4 rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-600 dark:bg-gray-700/50">
             <div>
@@ -919,7 +971,7 @@ function ActiveCardEditor({
           {hasAdvanced && (
             <span className="rounded bg-gray-200 px-1.5 text-xs dark:bg-gray-600">1</span>
           )}
-          <span className="text-gray-500">{advancedOpen ? "▼" : "▶"}</span>
+          <Icon name="chevronDown" size={14} className={`text-gray-500 transition ${advancedOpen ? "" : "-rotate-90"}`} />
         </button>
         {advancedOpen && (
           <div className="space-y-4 border-t border-gray-200 p-3 dark:border-gray-600">
@@ -1029,7 +1081,7 @@ function PartsEditor({
               onClick={() => removePart(i)}
               className="shrink-0 rounded-lg p-2 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
             >
-              ×
+              <Icon name="close" size={14} />
             </button>
           </div>
         ))}

@@ -7,6 +7,7 @@ import { useModal } from "@/shared/contexts/ModalContext";
 import { useApi } from "@/shared/api/provider";
 import { getStoredProfile } from "@/features/settings/profileStorage";
 import { ApiError } from "@/shared/api/client";
+import { Icon } from "@/shared/components/Icon";
 
 export function AuthMenu() {
   const { t } = useTranslation();
@@ -47,7 +48,7 @@ export function AuthMenu() {
 
   if (isLoading) {
     return (
-      <div className="h-9 w-9 animate-pulse rounded-full bg-gray-600 dark:bg-gray-600" aria-hidden />
+      <div className="h-9 w-9 animate-pulse rounded-full bg-surface-elevated" aria-hidden />
     );
   }
 
@@ -59,7 +60,7 @@ export function AuthMenu() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-gray-600 text-gray-200 transition hover:bg-gray-500 dark:bg-gray-600 dark:hover:bg-gray-500"
+        className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full text-text-primary transition hover:text-text-secondary"
         aria-expanded={open}
         aria-haspopup="true"
         aria-label={t("auth.accountMenu")}
@@ -72,51 +73,54 @@ export function AuthMenu() {
             onError={() => setImgError(true)}
           />
         ) : (
-          <UserIcon className="h-5 w-5" />
+          <Icon name="user" size={20} />
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-lg border border-gray-700 bg-gray-800 py-1 shadow-lg dark:border-gray-600 dark:bg-gray-800">
+        <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-lg border border-border bg-surface py-1 shadow-popover">
           {isAuthenticated && user && (
-            <div className="border-b border-gray-700 px-4 py-2 dark:border-gray-600">
-              <p className="truncate text-sm font-medium text-gray-200">{displayName}</p>
-              {profile?.status && (
-                <p className="mt-0.5 truncate text-xs text-gray-400">{profile.status}</p>
+            <div className="border-b border-border px-4 py-2">
+              <p className="truncate text-sm font-medium text-text-primary">{displayName}</p>
+              {(me?.bio ?? profile?.status) && (
+                <p className="mt-0.5 truncate text-xs text-text-muted">{me?.bio ?? profile?.status}</p>
               )}
-              {!profile?.status && user.email && (
-                <p className="truncate text-xs text-gray-400">{user.email}</p>
+              {!me?.bio && !profile?.status && user.email && (
+                <p className="truncate text-xs text-text-muted">{user.email}</p>
               )}
             </div>
           )}
           <button
             type="button"
-            className="block w-full px-4 py-2 text-left text-sm text-gray-200 hover:bg-gray-700 dark:hover:bg-gray-700"
+            className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
             onClick={() => { setOpen(false); openSettings(); }}
           >
+            <Icon name="settings" size={18} className="shrink-0 text-text-muted" />
             {t("nav.settings")}
           </button>
           {isAuthenticated && (
             <button
               type="button"
-              className="block w-full px-4 py-2 text-left text-sm text-gray-200 hover:bg-gray-700 dark:hover:bg-gray-700"
+              className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
               onClick={() => { setOpen(false); openProfile(); }}
             >
+              <Icon name="user" size={18} className="shrink-0 text-text-muted" />
               {t("profile.editProfile")}
             </button>
           )}
           {isAuthenticated ? (
             <Link
               to="/logout"
-              className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 dark:hover:bg-gray-700"
+              className="flex items-center gap-3 px-4 py-2 text-sm text-text-primary hover:bg-surface-muted"
               onClick={() => setOpen(false)}
             >
+              <Icon name="logOut" size={18} className="shrink-0 text-text-muted" />
               {t("auth.logOut")}
             </Link>
           ) : (
             <Link
               to="/login"
-              className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 dark:hover:bg-gray-700"
+              className="block px-4 py-2 text-sm text-text-primary hover:bg-surface-muted"
               onClick={() => setOpen(false)}
             >
               {t("auth.logIn")}
@@ -128,10 +132,3 @@ export function AuthMenu() {
   );
 }
 
-function UserIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.79 17.79 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-    </svg>
-  );
-}

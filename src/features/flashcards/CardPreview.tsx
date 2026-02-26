@@ -6,7 +6,7 @@ export function CardImage({ src, className }: { src: string; className?: string 
   if (error) {
     return (
       <div
-        className={`flex items-center justify-center rounded bg-gray-200 text-xs text-gray-500 dark:bg-gray-700 dark:text-gray-400 ${className ?? ""}`}
+        className={`flex items-center justify-center rounded bg-surface-muted text-xs text-text-muted ${className ?? ""}`}
         style={{ minHeight: 64 }}
       >
         Image failed to load
@@ -51,7 +51,7 @@ function HighlightedText({
           return (
             <mark
               key={i}
-              className="rounded bg-amber-200 px-0.5 dark:bg-amber-800"
+              className="rounded bg-warning/30 px-0.5"
               title={particle ? `${particle.form}: ${particle.meaning}` : undefined}
             >
               {seg.segment}
@@ -62,7 +62,7 @@ function HighlightedText({
           return (
             <mark
               key={i}
-              className="rounded bg-emerald-200 px-0.5 dark:bg-emerald-800"
+              className="rounded bg-success/30 px-0.5"
               title={seg.meaning}
             >
               {seg.segment}
@@ -106,9 +106,10 @@ type CardPreviewProps = {
   reviewMode?: ReviewMode;
 };
 
-/** word-first: image only on back. image-first: image on both sides. */
+/** word-first: image only on back. image-first: image on both sides. back-first: image on "front" (back content). */
 function shouldShowImage(mode: ReviewMode, flipped: boolean): boolean {
-  if (mode === "word-first") return flipped; // back only
+  if (mode === "back-first") return !flipped; // back first = translation + image
+  if (mode === "word-first") return flipped;
   return true; // image-first: both sides
 }
 
@@ -128,7 +129,7 @@ export function CardPreview({
       <button
         type="button"
         onClick={() => setFlipped((f) => !f)}
-        className={`flex w-full flex-col items-center justify-center rounded-xl border-2 border-gray-300 bg-white py-8 shadow-sm transition hover:border-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500 ${
+        className={`flex w-full flex-col items-center justify-center rounded-xl border-2 border-border bg-surface py-8 shadow-sm transition hover:border-accent ${
           compact ? "min-h-[120px] py-4" : "min-h-[180px]"
         }`}
       >
@@ -136,57 +137,59 @@ export function CardPreview({
             <CardImage src={card.image} className="mb-2 max-h-32 w-auto rounded object-contain" />
           )}
         <div
-          className={`w-full text-center text-gray-900 dark:text-white ${
+          className={`w-full text-center text-text-primary ${
             compact ? "[&_.prose]:text-base" : "[&_.prose]:text-lg"
           }`}
         >
           <CardFace
             card={card}
-            side={flipped ? "back" : "front"}
+            side={
+              reviewMode === "back-first" ? (flipped ? "front" : "back") : flipped ? "back" : "front"
+            }
             particles={particles}
             highlightMode={highlightMode}
           />
         </div>
-        <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+        <p className="mt-2 text-xs text-text-muted">
           {flipped ? "Answer" : "Tap to reveal"}
         </p>
       </button>
       {flipped &&
         (card.note || card.reasoning || card.definition || card.context) && (
           <div
-            className={`rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm dark:border-gray-700 dark:bg-gray-800/50 ${
+            className={`rounded-lg border border-border bg-surface-muted p-3 text-sm ${
               compact ? "text-xs" : ""
             }`}
           >
             {card.note && (
-              <div className="text-gray-700 dark:text-gray-300">
+              <div className="text-text-secondary">
                 <PlainText>{card.note}</PlainText>
               </div>
             )}
             {card.definition && (
-              <div className="mt-1 font-medium text-gray-800 dark:text-gray-200">
+              <div className="mt-1 font-medium text-text-primary">
                 <PlainText>{card.definition}</PlainText>
               </div>
             )}
             {card.context && (
-              <div className="mt-0.5 text-gray-600 dark:text-gray-400">
+              <div className="mt-0.5 text-text-muted">
                 <PlainText>{card.context}</PlainText>
               </div>
             )}
             {card.reasoning && (
-              <div className="mt-2 border-t border-gray-200 pt-2 text-gray-600 dark:border-gray-700 dark:text-gray-400">
-                <span className="font-medium text-gray-700 dark:text-gray-300">Reasoning:</span>{" "}
+              <div className="mt-2 border-t border-border pt-2 text-text-muted">
+                <span className="font-medium text-text-secondary">Reasoning:</span>{" "}
                 <PlainText>{card.reasoning}</PlainText>
               </div>
             )}
           </div>
         )}
-      <label className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+      <label className="flex items-center gap-2 text-xs text-text-muted">
         <input
           type="checkbox"
           checked={highlightMode}
           onChange={(e) => setHighlightMode(e.target.checked)}
-          className="rounded border-gray-300 dark:border-gray-600"
+          className="rounded border-border accent-accent"
         />
         Highlight particles & roots
       </label>

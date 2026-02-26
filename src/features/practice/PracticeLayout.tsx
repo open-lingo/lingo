@@ -1,6 +1,9 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useLangPath } from "@/shared/hooks/useLangPath";
+import { TabList, TabLink } from "@/shared/components/ui/Tabs";
 import {
   getPracticeItemsForLanguage,
   type PracticeNavItem,
@@ -9,26 +12,22 @@ import {
 function PracticeTab({ item, isActive, t }: { item: PracticeNavItem; isActive: boolean; t: (k: string) => string }) {
   const label = item.labelKey ? t(item.labelKey) : (item.label ?? "");
   const char = item.sampleCharacter;
+  const iconName = item.iconName;
 
   return (
-    <Link
-      to={item.to}
-      className={`flex items-center gap-2 border-b-2 px-3 py-2 text-sm font-medium transition ${
-        isActive
-          ? "border-green-600 text-green-600 dark:border-green-500 dark:text-green-400"
-          : "border-transparent text-gray-600 hover:border-gray-300 hover:text-gray-900 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:text-white"
-      }`}
-    >
-      {char && (
-        <span
-          className="flex h-6 w-6 shrink-0 items-center justify-center rounded border border-current/30 text-xs"
-          aria-hidden
-        >
+    <TabLink to={item.to} isActive={isActive} className="flex items-center gap-2 px-3">
+      {iconName && (
+        <span className="flex h-6 w-6 shrink-0 items-center justify-center" aria-hidden>
+          <Icon name={iconName} size={16} />
+        </span>
+      )}
+      {!iconName && char && (
+        <span className="flex h-6 w-6 shrink-0 items-center justify-center text-xs" aria-hidden>
           {char}
         </span>
       )}
       {label}
-    </Link>
+    </TabLink>
   );
 }
 
@@ -37,14 +36,20 @@ export function PracticeLayout() {
   const { language } = useLanguage();
   const location = useLocation();
   const pathname = location.pathname;
+  const langPath = useLangPath();
+  const flashcardsPath = langPath("practice/flashcards");
+  const isFlashcardsSubRoute = pathname.startsWith(flashcardsPath + "/");
 
-  const items = getPracticeItemsForLanguage(language?.id);
+  const items = getPracticeItemsForLanguage(language?.id).filter(
+    (item) => !(isFlashcardsSubRoute && item.to === flashcardsPath)
+  );
 
   function isActive(item: PracticeNavItem): boolean {
     if (pathname === item.to) return true;
     if (item.to.endsWith("/practice/flashcards") && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
     if (item.to.endsWith("/practice/stories") && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
     if (item.to.endsWith("/practice/videos") && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
+    if (item.to.endsWith("/practice/external-content") && pathname.includes("/practice/external-content")) return true;
     if (item.to.includes("/practice/alphabet/") && (pathname === item.to || pathname.startsWith(item.to + "/"))) return true;
     if (item.to.endsWith("/practice/alphabet") && pathname.startsWith(item.to)) return true;
     return false;
@@ -53,17 +58,17 @@ export function PracticeLayout() {
   return (
     <div className="mx-auto max-w-6xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-text-primary">
           {t("nav.practice")}
         </h1>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-1 text-sm text-text-secondary">
           {t("practice.intro")}
         </p>
       </div>
 
-      <nav
-        className="flex flex-wrap gap-1 border-b border-gray-200 dark:border-gray-700"
+      <TabList
         aria-label={t("practice.tabsLabel")}
+        className="flex flex-wrap gap-1"
       >
         {items.map((item) => (
           <PracticeTab
@@ -73,7 +78,7 @@ export function PracticeLayout() {
             t={t}
           />
         ))}
-      </nav>
+      </TabList>
 
       <Outlet />
     </div>

@@ -1,7 +1,11 @@
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider, useParams } from "react-router-dom";
+
+function ForumThreadRedirect() {
+  const { threadId } = useParams<{ threadId: string }>();
+  return <Navigate to={`../discuss/thread/${threadId}`} replace />;
+}
 import { Layout } from "@/routes/Layout";
 import { LangLayout } from "@/routes/LangLayout";
-import { HomePage } from "@/features/home/HomePage";
 import { LoginPage } from "@/features/auth/LoginPage";
 import { LogoutPage } from "@/features/auth/LogoutPage";
 import { LearnLayout } from "@/features/learn/LearnLayout";
@@ -24,6 +28,7 @@ import { GrammarPage } from "@/features/grammar/GrammarPage";
 import { CommunityLayout } from "@/features/community/CommunityLayout";
 import { ContentBrowserPage } from "@/features/community/ContentBrowserPage";
 import { ExternalContentPage } from "@/features/community/ExternalContentPage";
+import { ExternalContentPracticePage } from "@/features/community/ExternalContentPracticePage";
 import { ContributePage } from "@/features/community/ContributePage";
 import { MyContentTab } from "@/features/community/contribute/MyContentTab";
 import { CreateTab } from "@/features/community/contribute/CreateTab";
@@ -43,13 +48,18 @@ import { AdminUserDetailPage } from "@/features/admin/AdminUserDetailPage";
 import { AdminContentLayout } from "@/features/admin/AdminContentLayout";
 import { AdminDecksPage } from "@/features/admin/AdminDecksPage";
 import { AdminStoriesPage } from "@/features/admin/AdminStoriesPage";
+import { DocsPage } from "@/features/docs/DocsPage";
+import { RootRoute } from "@/routes/RootRoute";
+import { ProtectedHome } from "@/routes/ProtectedHome";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
-      { index: true, element: <HomePage /> },
+      { index: true, element: <RootRoute /> },
+      { path: "home", element: <ProtectedHome /> },
+      { path: "docs", element: <DocsPage /> },
       { path: "login", element: <LoginPage /> },
       { path: "logout", element: <LogoutPage /> },
       {
@@ -107,6 +117,7 @@ const router = createBrowserRouter([
               { path: "kanji", element: <KanjiPracticePage /> },
               { path: "components", element: <ComponentsPracticePage /> },
               { path: "videos", element: <VideosPracticePage /> },
+              { path: "external-content", element: <ExternalContentPracticePage /> },
             ],
           },
           { path: "vocab", element: <VocabPage /> },
@@ -132,9 +143,9 @@ const router = createBrowserRouter([
               { path: "discuss", element: <ForumPage /> },
               { path: "discuss/thread/:threadId", element: <ThreadPage /> },
               { path: "discuss/new", element: <NewThreadPage /> },
-              { path: "forum", element: <ForumPage /> },
-              { path: "forum/thread/:threadId", element: <ThreadPage /> },
-              { path: "forum/new", element: <NewThreadPage /> },
+              { path: "forum", element: <Navigate to="discuss" replace /> },
+              { path: "forum/thread/:threadId", element: <ForumThreadRedirect /> },
+              { path: "forum/new", element: <Navigate to="../../discuss/new" replace /> },
               { path: "leaderboard", element: <LeaderboardPage /> },
             ],
           },

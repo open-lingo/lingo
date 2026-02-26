@@ -1,5 +1,5 @@
 import type { SRSCardState } from "../data/types";
-import { getSRSStore, setSRSStore } from "./srsStorage";
+import { getSRSStore, setSRSStore, setLastSrsSyncAt } from "./srsStorage";
 import type { SRSStore } from "./srsStorage";
 
 /**
@@ -92,6 +92,7 @@ export async function performSync(
 
   const serverState = await syncFn(payload);
   markSynced(dirtyIds);
+  setLastSrsSyncAt(new Date().toISOString());
 
   if (serverState && Object.keys(serverState).length > 0) {
     mergeServerState(serverState);

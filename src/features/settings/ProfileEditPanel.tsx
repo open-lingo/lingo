@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Icon } from "@/shared/components/Icon";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/shared/auth/useAuth";
@@ -14,7 +15,7 @@ export function ProfileEditPanel() {
   const [avatarUrl, setAvatarUrl] = useState("");
   const [username, setUsername] = useState("");
   const [realName, setRealName] = useState("");
-  const [status, setStatus] = useState("");
+  const [bio, setBio] = useState("");
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -32,7 +33,7 @@ export function ProfileEditPanel() {
         setUsername(me.username);
         setRealName(me.display_name);
         setAvatarUrl(me.profile_picture_key ?? "");
-        setStatus(me.status);
+        setBio(me.bio ?? "");
         setIsRegistered(true);
       } catch (err) {
         if (cancelled) return;
@@ -55,7 +56,7 @@ export function ProfileEditPanel() {
   if (!isAuthenticated || !user) {
     return (
       <div className="px-6 py-5">
-        <p className="text-sm text-gray-500 dark:text-gray-400">Sign in to edit your profile.</p>
+        <p className="text-sm text-text-muted">Sign in to edit your profile.</p>
       </div>
     );
   }
@@ -63,7 +64,7 @@ export function ProfileEditPanel() {
   if (loading) {
     return (
       <div className="px-6 py-5">
-        <p className="text-sm text-gray-500 dark:text-gray-400">{t("common.loading")}</p>
+        <p className="text-sm text-text-muted">{t("common.loading")}</p>
       </div>
     );
   }
@@ -79,7 +80,7 @@ export function ProfileEditPanel() {
           username: username.trim() || undefined,
           display_name: realName.trim() || undefined,
           profile_picture_key: avatarUrl.trim() || undefined,
-          status: status.trim() || undefined,
+          bio: bio.trim() || undefined,
         });
         await queryClient.invalidateQueries({ queryKey: ["users", "me"] });
       } else {
@@ -106,13 +107,13 @@ export function ProfileEditPanel() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5 px-6 py-5">
       {error && (
-        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600 dark:bg-red-900/20 dark:text-red-400">
+        <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error">
           {error}
         </p>
       )}
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="mb-1 block text-sm font-medium text-text-secondary">
           {t("profile.avatarUrl")}
         </label>
         <div className="flex items-center gap-4">
@@ -124,8 +125,8 @@ export function ProfileEditPanel() {
               onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
             />
           ) : (
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 text-xl text-gray-500 dark:bg-gray-700 dark:text-gray-400">
-              👤
+            <div className="flex h-14 w-14 items-center justify-center text-text-muted">
+              <Icon name="user" size={28} />
             </div>
           )}
           <input
@@ -133,13 +134,13 @@ export function ProfileEditPanel() {
             value={avatarUrl}
             onChange={(e) => setAvatarUrl(e.target.value)}
             placeholder="https://..."
-            className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="flex-1 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text-primary"
           />
         </div>
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="mb-1 block text-sm font-medium text-text-secondary">
           {t("profile.username")}
         </label>
         <input
@@ -147,12 +148,12 @@ export function ProfileEditPanel() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="@username"
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text-primary"
         />
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="mb-1 block text-sm font-medium text-text-secondary">
           {t("profile.realName")}
         </label>
         <input
@@ -160,27 +161,27 @@ export function ProfileEditPanel() {
           value={realName}
           onChange={(e) => setRealName(e.target.value)}
           placeholder={t("profile.realNamePlaceholder")}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text-primary"
         />
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="mb-1 block text-sm font-medium text-text-secondary">
           {t("profile.status")}
         </label>
         <textarea
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
           placeholder={t("profile.statusPlaceholder")}
           rows={2}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text-primary"
         />
       </div>
 
       <button
         type="submit"
         disabled={saving}
-        className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200"
+        className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover disabled:opacity-50"
       >
         {saving ? t("common.loading") : saved ? t("profile.saved") : t("profile.save")}
       </button>

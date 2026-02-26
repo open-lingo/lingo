@@ -1,4 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
+import { Icon } from "@/shared/components/Icon";
+import { DataTable } from "@/shared/components/data";
 import { useLang } from "@/shared/hooks/useLangPath";
 import { useTranslation } from "react-i18next";
 import {
@@ -97,7 +99,7 @@ export function LeaderboardPage() {
             ))}
           </ul>
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            {t("leaderboard.viewAll")} →
+            {t("leaderboard.viewAll")} <Icon name="arrowBigRight" size={14} className="inline" />
           </p>
         </Link>
 
@@ -121,7 +123,7 @@ export function LeaderboardPage() {
             ))}
           </ul>
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            {t("leaderboard.viewAll")} →
+            {t("leaderboard.viewAll")} <Icon name="arrowBigRight" size={14} className="inline" />
           </p>
         </Link>
 
@@ -145,7 +147,7 @@ export function LeaderboardPage() {
             ))}
           </ul>
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            {t("leaderboard.viewAll")} →
+            {t("leaderboard.viewAll")} <Icon name="arrowBigRight" size={14} className="inline" />
           </p>
         </Link>
 
@@ -169,7 +171,7 @@ export function LeaderboardPage() {
             ))}
           </ul>
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            {t("leaderboard.viewAll")} →
+            {t("leaderboard.viewAll")} <Icon name="arrowBigRight" size={14} className="inline" />
           </p>
         </Link>
       </div>
@@ -236,168 +238,54 @@ export function LeaderboardPage() {
               {t("leaderboard.periodMonth")}
             </Link>
           </p>
-          <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                    {t("leaderboard.rank")}
-                  </th>
-                  <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                    {t("leaderboard.name")}
-                  </th>
-                  <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                    {t("leaderboard.xp")}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {MOCK_XP.map((row) => (
-                  <tr
-                    key={row.rank}
-                    className="border-b border-gray-100 last:border-0 dark:border-gray-700"
-                  >
-                    <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
-                      #{row.rank}
-                    </td>
-                    <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                      {row.name}
-                    </td>
-                    <td className="px-4 py-3 text-gray-600 dark:text-gray-400">
-                      {row.xp.toLocaleString()} XP
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <DataTable
+            columns={[
+              { key: "rank", label: t("leaderboard.rank"), render: (r) => <>#{r.rank}</> },
+              { key: "name", label: t("leaderboard.name"), render: (r) => <span className="font-medium text-text-primary">{r.name}</span> },
+              { key: "xp", label: t("leaderboard.xp"), render: (r) => <span className="text-text-muted">{r.xp.toLocaleString()} XP</span> },
+            ]}
+            rows={MOCK_XP}
+            getRowKey={(r) => String(r.rank)}
+          />
         </>
       )}
 
       {currentTab === "language" && (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-          <table className="w-full text-left text-sm">
-            <thead>
-              <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                  {t("leaderboard.rank")}
-                </th>
-                <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                  {t("leaderboard.name")}
-                </th>
-                <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                  {t("leaderboard.language")}
-                </th>
-                <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                  {t("leaderboard.lessonsCompleted")}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {MOCK_BY_LANGUAGE.map((row) => (
-                <tr
-                  key={row.rank}
-                  className="border-b border-gray-100 last:border-0 dark:border-gray-700"
-                >
-                  <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
-                    #{row.rank}
-                  </td>
-                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                    {row.name}
-                  </td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">
-                    {row.language}
-                  </td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">
-                    {row.lessonsCompleted}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          columns={[
+            { key: "rank", label: t("leaderboard.rank"), render: (r) => <>#{r.rank}</> },
+            { key: "name", label: t("leaderboard.name"), render: (r) => <span className="font-medium text-text-primary">{r.name}</span> },
+            { key: "language", label: t("leaderboard.language"), render: (r) => <span className="text-text-muted">{r.language}</span> },
+            { key: "lessons", label: t("leaderboard.lessonsCompleted"), render: (r) => <span className="text-text-muted">{r.lessonsCompleted}</span> },
+          ]}
+          rows={MOCK_BY_LANGUAGE}
+          getRowKey={(r) => String(r.rank)}
+        />
       )}
 
       {currentTab === "flashcards" && (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-          <table className="w-full text-left text-sm">
-            <thead>
-              <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                  {t("leaderboard.rank")}
-                </th>
-                <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                  {t("leaderboard.name")}
-                </th>
-                <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                  {t("leaderboard.cardsReviewed")}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {MOCK_FLASHCARDS.map((row) => (
-                <tr
-                  key={row.rank}
-                  className="border-b border-gray-100 last:border-0 dark:border-gray-700"
-                >
-                  <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
-                    #{row.rank}
-                  </td>
-                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                    {row.name}
-                  </td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">
-                    {row.cardsReviewed.toLocaleString()}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          columns={[
+            { key: "rank", label: t("leaderboard.rank"), render: (r) => <>#{r.rank}</> },
+            { key: "name", label: t("leaderboard.name"), render: (r) => <span className="font-medium text-text-primary">{r.name}</span> },
+            { key: "cards", label: t("leaderboard.cardsReviewed"), render: (r) => <span className="text-text-muted">{r.cardsReviewed.toLocaleString()}</span> },
+          ]}
+          rows={MOCK_FLASHCARDS}
+          getRowKey={(r) => String(r.rank)}
+        />
       )}
 
       {currentTab === "contributors" && (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-          <table className="w-full text-left text-sm">
-            <thead>
-              <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                  {t("leaderboard.rank")}
-                </th>
-                <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                  {t("leaderboard.name")}
-                </th>
-                <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                  {t("leaderboard.prs")}
-                </th>
-                <th className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                  {t("leaderboard.reviews")}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {MOCK_CONTRIBUTORS.map((row) => (
-                <tr
-                  key={row.rank}
-                  className="border-b border-gray-100 last:border-0 dark:border-gray-700"
-                >
-                  <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
-                    #{row.rank}
-                  </td>
-                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                    {row.name}
-                  </td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">
-                    {row.prs}
-                  </td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">
-                    {row.reviews}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          columns={[
+            { key: "rank", label: t("leaderboard.rank"), render: (r) => <>#{r.rank}</> },
+            { key: "name", label: t("leaderboard.name"), render: (r) => <span className="font-medium text-text-primary">{r.name}</span> },
+            { key: "prs", label: t("leaderboard.prs"), render: (r) => <span className="text-text-muted">{r.prs}</span> },
+            { key: "reviews", label: t("leaderboard.reviews"), render: (r) => <span className="text-text-muted">{r.reviews}</span> },
+          ]}
+          rows={MOCK_CONTRIBUTORS}
+          getRowKey={(r) => String(r.rank)}
+        />
       )}
 
       <p className="text-xs text-gray-500 dark:text-gray-400">

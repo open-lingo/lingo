@@ -21,11 +21,14 @@ export function parseUrlPlatform(url: string): UrlPlatform {
   }
 }
 
-/** Platform icon for display. */
-export const PLATFORM_ICONS: Record<UrlPlatform, string> = {
-  youtube: "▶️",
-  spotify: "🎧",
-  apple_podcasts: "🎙️",
-  netflix: "🎬",
-  website: "🔗",
+import type { IconName } from "@/shared/iconRegistry";
+
+/** Platform icon name for display. */
+export const PLATFORM_ICON_NAMES: Record<UrlPlatform, IconName> = {
+  youtube: "play",
+  spotify: "headphones",
+  apple_podcasts: "mic",
+  netflix: "video",
+  website: "link",
 };
+

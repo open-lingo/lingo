@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { getMockCourse } from "@/features/course/mockCourse";
-import { getMockCompletedLessonIds } from "@/features/course/mockProgress";
+import { getMockCourse } from "@/shared/domain/mockCourse";
+import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { getTrendingCourses } from "@/features/community/mockCommunity";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { ModuleCard } from "@/features/course/components";
@@ -25,7 +26,7 @@ export function LearnCoursesPage() {
           Select a learning language in Settings to see your courses.
         </p>
         <button type="button" onClick={openSettings} className="text-sm text-blue-600 dark:text-blue-400">
-          → Settings
+          <Icon name="arrowBigRight" size={14} className="inline" /> Settings
         </button>
       </div>
     );
@@ -93,7 +94,7 @@ export function LearnCoursesPage() {
           to={langPath("community/explore")}
           className="mt-3 inline-block text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
         >
-          {t("learn.browseAllCourses")} →
+          {t("learn.browseAllCourses")} <Icon name="arrowBigRight" size={14} className="inline" />
         </Link>
       </section>
 

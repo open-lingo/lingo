@@ -12,7 +12,7 @@ export function CharacterCard({
   const isCompact = size === "compact";
   return (
     <div
-      className={`flex flex-col items-center justify-center rounded-lg border border-gray-200 bg-white font-medium text-gray-900 shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-500 ${
+      className={`flex flex-col items-center justify-center rounded-lg border border-border bg-surface font-medium text-text-primary shadow-card transition hover:border-border-muted hover:shadow-popover ${
         isCompact
           ? "min-h-[2.25rem] min-w-[2.25rem] text-xl"
           : "min-h-[4rem] min-w-[3rem] py-2 text-3xl"
@@ -24,7 +24,7 @@ export function CharacterCard({
     >
       <span>{character}</span>
       {!isCompact && romanization && (
-        <span className="mt-0.5 text-sm font-normal text-gray-500 dark:text-gray-400">
+        <span className="mt-0.5 text-sm font-normal text-text-muted">
           {romanization}
         </span>
       )}

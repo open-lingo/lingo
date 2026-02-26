@@ -1,6 +1,117 @@
 @import "@uiw/react-md-editor/markdown-editor.css";
 @import "@uiw/react-markdown-preview/markdown.css";
 
+@import "./shared/styles/tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Theme font — applied globally */
+body {
+  font-family: var(--font-family);
+}
+
+/* Custom scrollbar — rounded, floating style using theme colors */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+html::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+html::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: var(--radius-lg);
+  margin: 4px;
+}
+html::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+html::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.scrollbar-theme {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+.scrollbar-theme::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.scrollbar-theme::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: var(--radius-lg);
+  margin: 4px;
+}
+.scrollbar-theme::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.scrollbar-theme::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.scrollbar-theme::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Hero slogan: old cycles up + fades out, new comes from bottom + fades in */
+@keyframes slogan-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-0.9em);
+  }
+}
+@keyframes slogan-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1.2em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slogan-exit,
+.animate-slogan-enter {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  animation-fill-mode: forwards;
+}
+.animate-slogan-exit {
+  animation-name: slogan-exit;
+}
+.animate-slogan-enter {
+  animation-name: slogan-enter;
+  animation-fill-mode: both;
+  z-index: 1;
+}
+
+/* Reduced motion: respect user preference from settings (data-reduced-motion) */
+[data-reduced-motion="true"] *,
+[data-reduced-motion="true"] *::before,
+[data-reduced-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}

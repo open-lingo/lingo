@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Icon } from "@/shared/components/Icon";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/shared/auth/useAuth";
@@ -84,8 +85,8 @@ export function ProfileEditPage() {
                 onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
               />
             ) : (
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-200 text-2xl text-gray-500 dark:bg-gray-700 dark:text-gray-400">
-                👤
+              <div className="flex h-16 w-16 items-center justify-center text-gray-500 dark:text-gray-400">
+                <Icon name="user" size={32} />
               </div>
             )}
             <input

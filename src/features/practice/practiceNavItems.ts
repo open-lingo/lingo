@@ -15,6 +15,8 @@ export type PracticeNavItem = {
   label?: string;
   /** Sample character for tab/dropdown icon (e.g. し, シ, 日, 한) */
   sampleCharacter?: string;
+  /** Icon name when using Icon component instead of sampleCharacter */
+  iconName?: "stories" | "decks" | "graduationCap" | "link" | "video";
 };
 
 /** Flashcards and Stories are always first; then language-specific trainers. */
@@ -24,8 +26,9 @@ export function getPracticeItemsForLanguage(
   const lang = languageId ?? "ko";
   const prefix = `/${lang}`;
   const base: PracticeNavItem[] = [
-    { to: `${prefix}/practice/flashcards`, labelKey: "nav.flashcards", sampleCharacter: "📚" },
-    { to: `${prefix}/practice/stories`, labelKey: "nav.stories", sampleCharacter: "📖" },
+    { to: `${prefix}/practice/flashcards`, labelKey: "nav.flashcards", iconName: "graduationCap" },
+    { to: `${prefix}/practice/stories`, labelKey: "nav.stories", iconName: "stories" },
+    { to: `${prefix}/practice/external-content`, labelKey: "externalContent.practice.tabLabel", iconName: "link" },
   ];
 
   if (!languageId) {
@@ -50,7 +53,11 @@ export function getPracticeItemsForLanguage(
     if (opt.type === "particles") item.labelKey = "practice.particlePractice";
     else if (opt.type === "kanji") item.labelKey = "practice.kanji";
     else if (opt.type === "components") item.labelKey = "practice.components";
-    else if (opt.type === "videos") item.labelKey = "practice.videos";
+    else if (opt.type === "videos") {
+      item.labelKey = "practice.videos";
+      item.iconName = "video";
+      delete item.sampleCharacter;
+    }
     trainers.push(item);
   }
 

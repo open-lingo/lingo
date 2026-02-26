@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { getMockCourse, ALPHABET_LESSON_ID } from "@/features/course/mockCourse";
-import { getMockCompletedLessonIds } from "@/features/course/mockProgress";
+import { getMockCourse, ALPHABET_LESSON_ID } from "@/shared/domain/mockCourse";
+import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { getAlphabetProgress } from "@/features/practice/alphabet/alphabetProgress";
 import { getTrendingCourses } from "@/features/community/mockCommunity";
 import { getCommunityProgressMap } from "./communityProgress";
@@ -25,7 +26,7 @@ export function LearnPage() {
   const alphabetLesson =
     firstLesson?.kind === "alphabet" && firstLesson.alphabetId ? firstLesson : null;
   const alphabetProgress =
-    language && alphabetLesson
+    language && alphabetLesson && alphabetLesson.alphabetId
       ? getAlphabetProgress(language.id, alphabetLesson.alphabetId)
       : null;
   const alphabetCompleted = alphabetProgress?.fullTestPassed ?? false;
@@ -43,15 +44,15 @@ export function LearnPage() {
   if (!course) {
     return (
       <div className="mx-auto max-w-2xl space-y-4">
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-text-muted">
           Select a learning language in Settings to see your course path.
         </p>
         <button
           type="button"
           onClick={openSettings}
-          className="text-sm text-blue-600 dark:text-blue-400"
+          className="text-sm text-accent"
         >
-          → Settings
+          <Icon name="arrowBigRight" size={14} className="inline" /> Settings
         </button>
       </div>
     );
@@ -63,24 +64,24 @@ export function LearnPage() {
       <section className="flex flex-wrap gap-3">
         <Link
           to={langPath("learn/lessons/m1-l1")}
-          className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600"
+          className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent-hover"
         >
-          ▶ Sample Lesson: Greetings
+          <Icon name="play" size={14} className="mr-1 inline" /> Sample Lesson: Greetings
         </Link>
         <Link
           to={langPath("learn/lessons/m1-l2")}
-          className="rounded-lg border border-emerald-600 px-4 py-2 text-sm font-medium text-emerald-700 transition hover:bg-emerald-50 dark:border-emerald-500 dark:text-emerald-400 dark:hover:bg-emerald-900/20"
+          className="rounded-lg border border-accent px-4 py-2 text-sm font-medium text-accent transition hover:bg-accent-muted"
         >
-          ▶ Sample Lesson: Introductions
+          <Icon name="play" size={14} className="mr-1 inline" /> Sample Lesson: Introductions
         </Link>
       </section>
 
       {/* Main course - full card */}
       <section>
-        <h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+        <h2 className="mb-2 text-lg font-semibold text-text-primary">
           {course.title}
         </h2>
-        <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mb-4 text-sm text-text-secondary">
           {t("learn.officialCourseDesc")}
         </p>
         <MainCourseCard
@@ -92,14 +93,14 @@ export function LearnPage() {
 
       {/* Community modules - stacked expandable cards */}
       <section>
-        <h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+        <h2 className="mb-2 text-lg font-semibold text-text-primary">
           {t("learn.communityModules")}
         </h2>
-        <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mb-4 text-sm text-text-secondary">
           {t("learn.communityModulesDesc")}
         </p>
         {communityCourseAddons.length === 0 ? (
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-text-muted">
             {t("learn.noCommunityModules")}
           </p>
         ) : (
@@ -115,15 +116,15 @@ export function LearnPage() {
         )}
         <Link
           to={langPath("community/explore")}
-          className="mt-3 inline-block text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+          className="mt-3 inline-block text-sm font-medium text-accent hover:text-accent-hover"
         >
-          {t("learn.browseAllCourses")} →
+          {t("learn.browseAllCourses")} <Icon name="arrowBigRight" size={14} className="inline" />
         </Link>
       </section>
 
       <Link
         to={langPath("")}
-        className="inline-block text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+        className="inline-block text-sm text-text-secondary hover:text-text-primary"
       >
         {t("common.backToHome")}
       </Link>

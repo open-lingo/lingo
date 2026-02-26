@@ -58,12 +58,12 @@ export function AlphabetPracticePage() {
   if (!alphabet) {
     return (
       <div className="mx-auto max-w-4xl">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-text-primary">
           Alphabet
         </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-text-secondary">
           No alphabet for this language, or invalid{" "}
-          <code className="rounded bg-gray-200 px-1 dark:bg-gray-700">name</code>{" "}
+          <code className="rounded bg-surface-muted px-1">name</code>{" "}
           / path.
         </p>
       </div>
@@ -73,11 +73,11 @@ export function AlphabetPracticePage() {
   return (
     <div className="mx-auto max-w-4xl">
       <header className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-text-primary">
           {alphabet.name}
         </h1>
         {alphabet.description && (
-          <p className="mt-1 text-gray-600 dark:text-gray-400">
+          <p className="mt-1 text-text-secondary">
             {alphabet.description}
           </p>
         )}
@@ -104,7 +104,7 @@ export function AlphabetPracticePage() {
                     )
                   )
                 }
-                className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+                className="rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium text-text-primary hover:bg-surface-muted"
               >
                 {t("practice.alphabetLearner.testOutOfAlphabet")}
               </button>
@@ -114,7 +114,7 @@ export function AlphabetPracticePage() {
       </header>
 
       {displaySections.length === 0 ? (
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-text-secondary">
           Character list for this alphabet is not yet configured.
         </p>
       ) : (
@@ -126,7 +126,7 @@ export function AlphabetPracticePage() {
             >
               <h2
                 id="alphabet-overview-heading"
-                className="mb-3 text-sm font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400"
+                className="mb-3 text-sm font-medium uppercase tracking-wide text-text-muted"
               >
                 {t("practice.alphabetLearner.fullAlphabet")}
               </h2>
@@ -170,7 +170,7 @@ export function AlphabetPracticePage() {
                             )
                           )
                         }
-                        className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+                        className="rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text-primary hover:bg-surface-muted"
                       >
                         {t("practice.alphabetLearner.testOutOfSection")}
                       </button>
@@ -184,13 +184,13 @@ export function AlphabetPracticePage() {
       )}
 
       {defaultAlphabet && (
-        <p className="mt-8 text-xs text-gray-500 dark:text-gray-400">
+        <p className="mt-8 text-xs text-text-muted">
           Shareable:{" "}
-          <code className="rounded bg-gray-200 px-1 dark:bg-gray-700">
+          <code className="rounded bg-surface-muted px-1">
             /practice/alphabet/{defaultAlphabet.id}
           </code>{" "}
           or{" "}
-          <code className="rounded bg-gray-200 px-1 dark:bg-gray-700">
+          <code className="rounded bg-surface-muted px-1">
             ?name={defaultAlphabet.id}
           </code>
         </p>

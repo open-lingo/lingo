@@ -17,11 +17,10 @@ export function RichMarkdownEditor({
   height = 200,
   minHeight = 120,
 }: RichMarkdownEditorProps) {
-  const { theme } = useTheme();
-  const colorMode = theme === "dark" ? "dark" : "light";
+  const { themeMode } = useTheme();
 
   return (
-    <div data-color-mode={colorMode} className="[&_.w-md-editor]:rounded-lg [&_.w-md-editor-toolbar]:rounded-t-lg">
+    <div data-color-mode={themeMode} className="[&_.w-md-editor]:rounded-lg [&_.w-md-editor-toolbar]:rounded-t-lg">
       <MDEditor
         value={value ?? ""}
         onChange={(v) => onChange(v ?? "")}

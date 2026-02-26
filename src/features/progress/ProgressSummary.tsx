@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { ProgressBar } from "@/shared/components/progress";
-import { getMockProgressSummary } from "./mockProgress";
+import { Card } from "@/shared/components/ui";
+import { getMockProgressSummary } from "@/shared/domain/mockProgress";
 import { useCardsDueCount } from "@/features/flashcards/useCardsDueCount";
 
 export function ProgressSummary() {
@@ -20,54 +22,51 @@ export function ProgressSummary() {
   );
 
   return (
-    <section
-      className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800"
-      aria-label={t("progress.title")}
-    >
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+    <Card as="section" aria-label={t("progress.title")}>
+      <h2 className="text-lg font-semibold text-text-primary">
         {t("progress.title")}
       </h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="flex items-start gap-2 rounded-lg border border-orange-200 bg-orange-50/50 px-3 py-2 dark:border-orange-900/50 dark:bg-orange-950/20">
-          <span className="text-xl" aria-hidden>
-            🔥
+        <div className="flex items-start gap-2 px-3 py-2">
+          <span className="flex shrink-0 items-center justify-center" aria-hidden>
+            <Icon name="flame" size={24} className="text-warning" />
           </span>
           <div>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">
+            <p className="text-2xl font-bold text-text-primary">
               {p.streakDays}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{t("progress.dayStreak")}</p>
+            <p className="text-sm text-text-secondary">{t("progress.dayStreak")}</p>
           </div>
         </div>
         <div>
-          <p className="text-2xl font-bold text-gray-900 dark:text-white">
+          <p className="text-2xl font-bold text-text-primary">
             {p.lessonsCompletedThisWeek}
           </p>
-          <p className="text-sm text-gray-600 dark:text-gray-400">{t("progress.lessonsThisWeek")}</p>
+          <p className="text-sm text-text-secondary">{t("progress.lessonsThisWeek")}</p>
         </div>
         <div>
           <p
-            className="text-2xl font-bold text-gray-900 dark:text-white"
+            className="text-2xl font-bold text-text-primary"
             aria-busy={cardsDueLoading}
           >
             {cardsDueLoading ? "…" : cardsDue}
           </p>
           <Link
             to={langPath("practice/flashcards")}
-            className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+            className="text-sm font-medium text-accent hover:text-accent-hover"
           >
             {t("progress.cardsDueToday")}
           </Link>
         </div>
         {typeof p.xpTotal === "number" && (
           <div>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">
+            <p className="text-2xl font-bold text-text-primary">
               {p.xpTotal}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-text-secondary">
               {t("progress.xp")}
               {typeof p.xpEarnedToday === "number" && p.xpEarnedToday > 0 && (
-                <span className="ml-1 text-green-600 dark:text-green-400">
+                <span className="ml-1 text-accent">
                   (+{p.xpEarnedToday} {t("progress.xpEarnedToday")})
                 </span>
               )}
@@ -84,6 +83,6 @@ export function ProgressSummary() {
           size="sm"
         />
       </div>
-    </section>
+    </Card>
   );
 }

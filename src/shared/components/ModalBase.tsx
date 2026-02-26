@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Icon } from "@/shared/components/Icon";
 
 type ModalBaseProps = {
   /** Called when user closes via Escape, backdrop click, or close button. */
@@ -31,7 +32,7 @@ export function ModalBase({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-16 backdrop-blur-sm sm:items-center sm:pt-0"
+      className="fixed inset-0 z-50 flex items-start justify-center bg-overlay pt-16 backdrop-blur-sm sm:items-center sm:pt-0"
       onClick={(e) => {
         if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
           onClose();
@@ -40,44 +41,30 @@ export function ModalBase({
     >
       <div
         ref={panelRef}
-        className={`relative mx-4 w-full ${maxWidth} overflow-y-auto rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-800`}
+        className={`relative mx-4 w-full ${maxWidth} overflow-y-auto rounded-xl border border-border bg-surface shadow-2xl`}
         style={{ maxHeight: "85vh" }}
         role="dialog"
         aria-modal="true"
         aria-label={title}
       >
-        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4 dark:border-gray-700">
+        <div className="flex items-center justify-between border-b border-border px-6 py-4">
           <div className="flex min-w-0 flex-1 items-center gap-3">
             {headerLeft}
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white truncate">
+            <h2 className="text-lg font-bold text-text-primary truncate">
               {title}
             </h2>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="shrink-0 rounded-lg p-1.5 text-gray-500 transition hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+            className="shrink-0 rounded-lg p-1.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
             aria-label="Close"
           >
-            <CloseIcon className="h-5 w-5" />
+            <Icon name="close" size={20} />
           </button>
         </div>
         {children}
       </div>
     </div>
-  );
-}
-
-function CloseIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-    </svg>
   );
 }

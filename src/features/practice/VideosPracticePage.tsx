@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
@@ -92,7 +93,7 @@ export function VideosPracticePage() {
         {/* Video placeholder */}
         <div className="flex aspect-video items-center justify-center bg-gray-900">
           <div className="text-center text-gray-500">
-            <span className="text-4xl" aria-hidden>🎬</span>
+            <Icon name="video" size={48} className="text-text-muted" />
             <p className="mt-2 text-sm">Video placeholder</p>
             <p className="text-xs">{video.title}</p>
           </div>
@@ -106,7 +107,7 @@ export function VideosPracticePage() {
             className="rounded-full bg-white/20 p-2 text-white transition hover:bg-white/30"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
-            {isPlaying ? "⏸" : "▶"}
+            {isPlaying ? <Icon name="pause" size={20} /> : <Icon name="play" size={20} />}
           </button>
           <input
             type="range"
@@ -163,8 +164,8 @@ export function VideosPracticePage() {
                         {word}
                       </button>
                       {justAdded && (
-                        <span className="text-xs text-green-600 dark:text-green-400">
-                          ✓ {t("practice.addedToDeck")}
+                        <span className="inline-flex items-center gap-1 text-xs text-green-600 dark:text-green-400">
+                          <Icon name="check" size={12} /> {t("practice.addedToDeck")}
                         </span>
                       )}
                     </span>

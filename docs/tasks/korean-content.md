@@ -23,7 +23,7 @@ Expand Korean content to be usable for actual learning.
 - Add: 도 (also), 부터 (from), 까지 (until), 로/으로 (by means of), 한테/에게 (to person), 보다 (than)
 - Add practice sentences: `src/features/practice/data/ko-sentences.json`
 
-### Stories (`src/features/stories/storiesData.ts`)
+### Stories (API — `GET /stories/browse`)
 - Currently 3 course + 3 community stories
 - Expand to 6 course + 5 community
 - Add variety: transportation, restaurant, shopping, hospital, phone call

@@ -207,6 +207,8 @@ export function StoryEditor() {
           ? langPath(`community/contribute/create/story/${storyId}`)
           : langPath("community/contribute/create/story"),
         isCompanionDeck: true,
+        storyId: storyId ?? undefined,
+        storyTitle: title.trim() || undefined,
       },
     });
   };

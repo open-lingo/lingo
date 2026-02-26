@@ -4,6 +4,9 @@ By area. Check tasks in `docs/tasks/` for detailed specs per item.
 
 ## Done (recently)
 
+- [x] Theme system: token-based themes, presets (Light/Dark/Sepia/AMOLED), custom themes, theme editor panel, Your themes + Community themes (mock)
+- [x] Design system: Card, Button, token classes; migrated Layout, Home, Community, ProgressSummary, nav components (ThemeToggle, LanguageSelector, AuthMenu, SyncManager, FundingMeter)
+
 - [x] i18n: react-i18next, en.json + ko.json, Settings page (language, theme, UI locale)
 - [x] Auth0: env-based config (VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID), normalized callback
 - [x] Layout: Home, Practice, Flashcards, Stories, Leaderboard, Community in nav
@@ -58,11 +61,16 @@ Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status
 - [ ] **Content API** → [backend-content-api.md](tasks/backend-content-api.md)
 - [ ] Leaderboard API: replace mock data with real rankings/XP
 - [ ] Funding meter: plug real ad-funded % into FundingMeter
+- [ ] **TTS (text-to-speech)** → [TTS_PLANNING.md](TTS_PLANNING.md) — Own API, CDN, cache-first, ElevenLabs (swappable), usage tracking, monetization-ready
+
+## Auth & session
+
+- [ ] **Auth session strategy** → [auth-session-strategy.md](tasks/auth-session-strategy.md) — 401 refresh, session revocation, optional device sessions
 
 ## Core UX improvements
 
-- [ ] **Homepage for logged-out users** → [homepage-ux.md](tasks/homepage-ux.md) — Guest experience, community pointers, streaks, XP placeholder
-- [ ] **SRS viewer redesign** → [srs-viewer-redesign.md](tasks/srs-viewer-redesign.md) — New/review/Again/buried counts; no implied fixed card count
+- [x] **Homepage for logged-out users** → [homepage-ux.md](tasks/homepage-ux.md) — **done** — Guest hero, community pointers, streaks, XP in ProgressSummary
+- [ ] **SRS viewer redesign** → [srs-viewer-redesign.md](tasks/srs-viewer-redesign.md) — partial — New/review/Again/buried counts; back-first mode, counts widget done
 - [ ] **Card markdown** → [card-markdown-editor.md](tasks/card-markdown-editor.md) — Markdown for card content; rich editor; inline images in markdown
 
 ## Community

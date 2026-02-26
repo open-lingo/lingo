@@ -6,21 +6,11 @@ import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { useApi } from "@/shared/api/provider";
 import { useSubscriptions } from "@/features/flashcards/useSubscriptions";
+import { Icon } from "@/shared/components/Icon";
 import { PlainText } from "@/shared/components/PlainText";
 import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
 import type { CommunityAddon } from "@/features/community/types";
-
-function formatDate(iso: string): string {
-  try {
-    return new Intl.DateTimeFormat(undefined, {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }).format(new Date(iso));
-  } catch {
-    return iso;
-  }
-}
+import { useDateFormat } from "@/shared/utils/formatDate";
 
 function cardMatchesSearch(card: Flashcard, q: string): boolean {
   const trimmed = q.trim();
@@ -54,6 +44,7 @@ export function DeckPreviewModal({
   onSubscriptionChange,
 }: DeckPreviewModalProps) {
   const { t } = useTranslation();
+  const { formatDateOnly } = useDateFormat();
   const langPath = useLangPath();
   const { users: usersApi } = useApi();
   const { subscriptions, isLoading: subsQueryLoading } = useSubscriptions();
@@ -124,7 +115,7 @@ export function DeckPreviewModal({
       ? t("flashcards.creatorCourse")
       : t("flashcards.creatorUnknown");
   const updatedDate = addon?.updatedAt
-    ? t("flashcards.updated", { date: formatDate(addon.updatedAt) })
+    ? t("flashcards.updated", { date: formatDateOnly(addon.updatedAt) })
     : null;
   const upvoteCount = addon?.upvoteCount ?? 0;
 
@@ -279,7 +270,7 @@ export function DeckPreviewModal({
                     {t("flashcards.upvotesLabel")}
                   </p>
                   <p className="text-sm text-gray-900 dark:text-white">
-                    ↑ {upvoteCount}
+                    <Icon name="chevronUp" size={14} className="inline" /> {upvoteCount}
                   </p>
                 </div>
               )}

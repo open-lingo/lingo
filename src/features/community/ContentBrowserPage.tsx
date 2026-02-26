@@ -1,25 +1,21 @@
 import { useMemo, useState, useEffect, useCallback } from "react";
+import { Icon } from "@/shared/components/Icon";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getLanguageConfig, LANGUAGE_CONFIGS } from "@/shared/domain/languageConfig";
 import { getAllAddons } from "./mockCommunity";
 import { getThreadsHot } from "./forum/mockForum";
-import { Avatar } from "./components/Avatar";
+import { CommunityItemCard, type CommunityItemCardItem } from "./components/CommunityItemCard";
+import { useBrowseSubscribedContent } from "./useBrowseSubscribedContent";
+import { useCommunityContent } from "./CommunityContentContext";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { TabList, TabButton } from "@/shared/components/ui/Tabs";
 import { useApi } from "@/shared/api/provider";
-import { DeckPreviewModal } from "@/features/flashcards/DeckPreviewModal";
 import type { DeckResponse } from "@/shared/api/decks";
+import type { StoryResponse } from "@/shared/api/stories";
 import type { FlashcardDeck } from "@/features/flashcards/data/types";
 import type { CommunityAddon } from "./types";
-import type { AddonKind } from "./types";
-
-const ADDON_KIND_KEYS: Record<AddonKind, string> = {
-  course: "community.addonKindCourse",
-  "flashcard-pack": "community.addonKindFlashcardPack",
-  story: "community.addonKindStory",
-  grammar: "community.addonKindGrammar",
-};
 
 /** Content Browser: courses, flashcard packs, and stories. */
 type ContentType = "course" | "flashcard-pack" | "story";
@@ -34,6 +30,9 @@ const NEW_DAYS_CUTOFF = 30;
 /** Deck from API mapped to card display shape. */
 type DeckCardItem = CommunityAddon & { deckId?: string };
 
+/** Story from API mapped to addon-like shape for ContentCard. */
+type StoryCardItem = CommunityAddon & { storyId?: string };
+
 function deckToCardItem(d: DeckResponse): DeckCardItem {
   return {
     id: d.id,
@@ -47,6 +46,20 @@ function deckToCardItem(d: DeckResponse): DeckCardItem {
     itemCount: d.cardCount,
     deckId: d.id,
     image: d.image,
+  };
+}
+
+function storyToCardItem(s: StoryResponse): StoryCardItem {
+  return {
+    id: s.id,
+    kind: "story",
+    languageId: s.languageId,
+    name: s.title,
+    description: s.description ?? "",
+    maintainerIds: [],
+    upvoteCount: 0,
+    updatedAt: s.updatedAt ?? s.createdAt ?? "",
+    storyId: s.id,
   };
 }
 
@@ -65,128 +78,6 @@ function matchesSearch(
   );
 }
 
-function ContentCard({
-  addon,
-  t,
-  langPath,
-  isSubscribed,
-  onSubscribe,
-  onUnsubscribe,
-  onPreview,
-  subscribeLoading,
-}: {
-  addon: CommunityAddon | DeckCardItem;
-  t: (k: string) => string;
-  langPath: (p: string) => string;
-  isSubscribed?: boolean;
-  onSubscribe?: () => void;
-  onUnsubscribe?: () => void;
-  onPreview?: () => void;
-  subscribeLoading?: boolean;
-}) {
-  const lang = getLanguageConfig(addon.languageId);
-  const langName = lang?.name ?? addon.languageId;
-  const flag = lang?.flag ?? "🌐";
-  const deckId = "deckId" in addon ? addon.deckId ?? addon.id : undefined;
-  const isDeck = addon.kind === "flashcard-pack";
-  const showSubscribe = deckId && isSubscribed !== undefined;
-
-  return (
-    <div
-      key={addon.id}
-      className="flex items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
-    >
-      <span className="text-2xl" role="img" aria-label={langName}>
-        {flag}
-      </span>
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="font-medium text-gray-900 dark:text-white">
-            {addon.name}
-          </span>
-          <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-            {t("community.communityPackBadge")}
-          </span>
-          <span className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-gray-400">
-            {t(ADDON_KIND_KEYS[addon.kind])}
-          </span>
-        </div>
-        <p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-          {addon.description}
-        </p>
-        <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-          <span>
-            {addon.itemCount ?? "—"} {t("community.addonsItems")}
-          </span>
-          <span>↑ {addon.upvoteCount}</span>
-          {addon.discussionCount != null && addon.discussionCount > 0 && (
-            <span>
-              💬 {addon.discussionCount} {t("community.discussions")}
-            </span>
-          )}
-        </div>
-        {addon.maintainerName && (
-          <div className="mt-2 flex items-center gap-1.5">
-            <Avatar name={addon.maintainerName} size="xs" />
-            <span className="text-xs text-gray-500 dark:text-gray-400">
-              {addon.maintainerName}
-            </span>
-          </div>
-        )}
-      </div>
-      <div className="flex shrink-0 flex-col items-end gap-1">
-        <div className="flex items-center gap-1">
-          <button
-            type="button"
-            className="rounded px-2 py-1 text-xs font-medium text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20"
-            aria-label="Upvote"
-          >
-            ↑
-          </button>
-          {showSubscribe && (
-            <button
-              type="button"
-              disabled={subscribeLoading}
-              onClick={isSubscribed ? onUnsubscribe : onSubscribe}
-              className={`rounded px-2 py-1 text-xs font-medium transition ${
-                isSubscribed
-                  ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400"
-                  : "text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20"
-              }`}
-            >
-              {subscribeLoading ? "…" : isSubscribed ? t("community.contentBrowserSubscribed") : t("community.contentBrowserSubscribe")}
-            </button>
-          )}
-          {isDeck && onPreview && (
-            <button
-              type="button"
-              onClick={onPreview}
-              className="rounded px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
-            >
-              {t("community.contentBrowserPreview")}
-            </button>
-          )}
-          {isDeck && isSubscribed ? (
-            <Link
-              to={langPath("practice/flashcards")}
-              className="rounded px-2 py-1 text-xs font-medium text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20"
-            >
-              {t("community.contentBrowserOpen")}
-            </Link>
-          ) : !isDeck && (
-            <Link
-              to={addon.kind === "story" ? langPath("practice/stories") : langPath("practice/flashcards")}
-              className="rounded px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
-            >
-              {t("community.contentBrowserOpen")}
-            </Link>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 const TYPE_FROM_PARAM: Record<string, ContentType | "all"> = {
   flashcards: "flashcard-pack",
   courses: "course",
@@ -198,13 +89,11 @@ export function ContentBrowserPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { language } = useLanguage();
-  const { decks: decksApi, users: usersApi } = useApi();
+  const { decks: decksApi, users: usersApi, stories: storiesApi } = useApi();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const typeParam = searchParams.get("type");
 
-  const [activeTab, setActiveTab] = useState<"browse" | "subscribed">("browse");
-  const [search, setSearch] = useState("");
   const [languageFilter, setLanguageFilter] = useState<string | "all" | null>(null);
   const [typeFilter, setTypeFilter] = useState<ContentType | "all">("all");
   const [sortBy, setSortBy] = useState<SortOption>("newest");
@@ -222,9 +111,13 @@ export function ContentBrowserPage() {
     { deck: DeckResponse; addon: DeckCardItem }[]
   >([]);
   const [subscribedDecksLoading, setSubscribedDecksLoading] = useState(true);
-  const [subscribeLoading, setSubscribeLoading] = useState<string | null>(null);
-  const [previewDeck, setPreviewDeck] = useState<FlashcardDeck | null>(null);
-  const [previewAddon, setPreviewAddon] = useState<DeckCardItem | null>(null);
+  const [apiStories, setApiStories] = useState<StoryResponse[]>([]);
+  const [_apiStoriesLoading, setApiStoriesLoading] = useState(true);
+  const [subscribedStories, setSubscribedStories] = useState<
+    { story: StoryResponse; addon: StoryCardItem }[]
+  >([]);
+
+  const { openDeckPreview, openStoryPreview } = useCommunityContent();
 
   const langId = language?.id ?? "ko";
 
@@ -278,6 +171,50 @@ export function ContentBrowserPage() {
     };
   }, [usersApi, decksApi]);
 
+  useEffect(() => {
+    let ok = true;
+    setApiStoriesLoading(true);
+    storiesApi
+      .listBrowseStories({ language_id: effectiveLanguage })
+      .then((list) => {
+        if (ok) setApiStories(list);
+      })
+      .catch(() => {
+        if (ok) setApiStories([]);
+      })
+      .finally(() => {
+        if (ok) setApiStoriesLoading(false);
+      });
+    return () => {
+      ok = false;
+    };
+  }, [storiesApi, effectiveLanguage]);
+
+  useEffect(() => {
+    let ok = true;
+    usersApi
+      .getSubscriptions({ contentType: "story" })
+      .then(async (subs) => {
+        const results: { story: StoryResponse; addon: StoryCardItem }[] = [];
+        for (const s of subs) {
+          if (!ok) return;
+          try {
+            const story = await storiesApi.getStory(s.contentId);
+            if (ok) results.push({ story, addon: storyToCardItem(story) });
+          } catch {
+            /* skip unavailable */
+          }
+        }
+        if (ok) setSubscribedStories(results);
+      })
+      .catch(() => {
+        if (ok) setSubscribedStories([]);
+      });
+    return () => {
+      ok = false;
+    };
+  }, [usersApi, storiesApi]);
+
   const refreshSubscriptions = useCallback(() => {
     usersApi
       .getSubscriptions({ contentType: "deck" })
@@ -294,14 +231,46 @@ export function ContentBrowserPage() {
         setSubscribedDecks(results);
       })
       .catch(() => setSubscribedDecks([]));
-  }, [usersApi, decksApi]);
+    usersApi
+      .getSubscriptions({ contentType: "story" })
+      .then(async (subs) => {
+        const results: { story: StoryResponse; addon: StoryCardItem }[] = [];
+        for (const s of subs) {
+          try {
+            const story = await storiesApi.getStory(s.contentId);
+            results.push({ story, addon: storyToCardItem(story) });
+          } catch {
+            /* skip */
+          }
+        }
+        setSubscribedStories(results);
+      })
+      .catch(() => setSubscribedStories([]));
+  }, [usersApi, decksApi, storiesApi]);
 
+  const {
+    activeTab,
+    setActiveTab,
+    search,
+    setSearch,
+    subscribeLoading,
+    handleSubscribe,
+    handleUnsubscribe,
+  } = useBrowseSubscribedContent({ onRefresh: refreshSubscriptions });
 
   const apiDeckCards = useMemo(() => apiDecks.map(deckToCardItem), [apiDecks]);
+  const apiStoryCards = useMemo(
+    () => apiStories.map(storyToCardItem),
+    [apiStories]
+  );
 
   const subscribedIds = useMemo(
-    () => new Set(subscribedDecks.map(({ addon }) => addon.deckId ?? addon.id)),
-    [subscribedDecks]
+    () =>
+      new Set([
+        ...subscribedDecks.map(({ addon }) => addon.deckId ?? addon.id),
+        ...subscribedStories.map(({ addon }) => addon.storyId ?? addon.id),
+      ]),
+    [subscribedDecks, subscribedStories]
   );
 
   const mockAddons = useMemo(() => {
@@ -313,15 +282,19 @@ export function ContentBrowserPage() {
   }, []);
 
   const browseContent = useMemo(() => {
-    return [...apiDeckCards, ...mockAddons];
-  }, [apiDeckCards, mockAddons]);
+    return [...apiDeckCards, ...apiStoryCards, ...mockAddons];
+  }, [apiDeckCards, apiStoryCards, mockAddons]);
 
   const supportedLanguageIds = useMemo(() => {
-    const ids = activeTab === "browse"
-      ? browseContent.map((a) => a.languageId)
-      : subscribedDecks.map(({ addon }) => addon.languageId);
+    const ids =
+      activeTab === "browse"
+        ? browseContent.map((a) => a.languageId)
+        : [
+            ...subscribedDecks.map(({ addon }) => addon.languageId),
+            ...subscribedStories.map(({ addon }) => addon.languageId),
+          ];
     return Array.from(new Set(ids)).sort();
-  }, [activeTab, browseContent, subscribedDecks]);
+  }, [activeTab, browseContent, subscribedDecks, subscribedStories]);
 
   const filteredBrowse = useMemo(() => {
     const now = Date.now();
@@ -355,13 +328,21 @@ export function ContentBrowserPage() {
     return list;
   }, [browseContent, search, effectiveLanguage, typeFilter, popularOnly, sortBy, discoverFilter]);
 
-  const filteredSubscribed = useMemo(() => {
+  const filteredSubscribedDecks = useMemo(() => {
     return subscribedDecks.filter(({ addon }) => {
       if (effectiveLanguage && addon.languageId !== effectiveLanguage) return false;
       if (!matchesSearch(addon, search)) return false;
       return true;
     });
   }, [subscribedDecks, search, effectiveLanguage, langId]);
+
+  const filteredSubscribedStories = useMemo(() => {
+    return subscribedStories.filter(({ addon }) => {
+      if (effectiveLanguage && addon.languageId !== effectiveLanguage) return false;
+      if (!matchesSearch(addon, search)) return false;
+      return true;
+    });
+  }, [subscribedStories, search, effectiveLanguage]);
 
   const flashcardDecks = useMemo(
     () => filteredBrowse.filter((a) => a.kind === "flashcard-pack"),
@@ -380,6 +361,10 @@ export function ContentBrowserPage() {
     () => new Map(apiDecks.map((d) => [d.id, d])),
     [apiDecks]
   );
+  const apiStoriesById = useMemo(
+    () => new Map(apiStories.map((s) => [s.id, s])),
+    [apiStories]
+  );
 
   function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
     return {
@@ -392,42 +377,26 @@ export function ContentBrowserPage() {
     };
   }
 
-  const handleSubscribe = (deckId: string) => {
-    setSubscribeLoading(deckId);
-    usersApi
-      .addSubscription({ contentType: "deck", contentId: deckId })
-      .then(() => refreshSubscriptions())
-      .finally(() => setSubscribeLoading(null));
-  };
-
-  const handleUnsubscribe = (deckId: string) => {
-    setSubscribeLoading(deckId);
-    usersApi
-      .removeSubscription("deck", deckId)
-      .then(() => refreshSubscriptions())
-      .finally(() => setSubscribeLoading(null));
-  };
-
   const showSearchResults = search.trim().length > 0;
 
   return (
     <div className="space-y-8">
       {!showSearchResults && (
         <section>
-          <h2 className="mb-3 flex items-center gap-2 text-base font-semibold text-gray-900 dark:text-white">
-            <span aria-hidden>🔥</span>
+          <h2 className="mb-3 flex items-center gap-2 text-base font-semibold text-text-primary">
+            <Icon name="flame" size={20} className="shrink-0" aria-hidden />
             {t("community.activeDiscussions")}
           </h2>
-          <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+          <div className="rounded-lg border border-border bg-surface p-4">
             <ul className="space-y-2">
               {getThreadsHot().slice(0, 5).map((thread) => (
                 <li key={thread.id}>
                   <Link
                     to={langPath(`community/discuss/thread/${thread.id}`)}
-                    className="flex items-center justify-between gap-3 text-sm text-gray-700 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400"
+                    className="flex items-center justify-between gap-3 text-sm text-text-primary hover:text-accent"
                   >
                     <span className="truncate">{thread.title}</span>
-                    <span className="shrink-0 text-xs text-gray-500 dark:text-gray-400">
+                    <span className="shrink-0 text-xs text-text-muted">
                       {thread.replyCount} {t("forum.replies")}
                     </span>
                   </Link>
@@ -436,39 +405,28 @@ export function ContentBrowserPage() {
             </ul>
             <Link
               to={langPath("community/discuss")}
-              className="mt-2 inline-block text-xs font-medium text-green-600 hover:underline dark:text-green-400"
+              className="mt-2 inline-block text-xs font-medium text-accent hover:underline"
             >
-              {t("community.contentBrowserViewAll")} →
+              {t("community.contentBrowserViewAll")} <Icon name="arrowBigRight" size={14} className="inline" />
             </Link>
           </div>
         </section>
       )}
 
-      {/* Tabs: Browse | Subscribed */}
-      <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700">
-        <button
-          type="button"
+      <TabList>
+        <TabButton
+          isActive={activeTab === "browse"}
           onClick={() => setActiveTab("browse")}
-          className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
-            activeTab === "browse"
-              ? "border-green-600 text-green-600 dark:border-green-500 dark:text-green-400"
-              : "-mb-px border-transparent text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-          }`}
         >
           {t("community.contentBrowserTabBrowse")}
-        </button>
-        <button
-          type="button"
+        </TabButton>
+        <TabButton
+          isActive={activeTab === "subscribed"}
           onClick={() => setActiveTab("subscribed")}
-          className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
-            activeTab === "subscribed"
-              ? "border-green-600 text-green-600 dark:border-green-500 dark:text-green-400"
-              : "-mb-px border-transparent text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-          }`}
         >
           {t("community.contentBrowserTabSubscribed")}
-        </button>
-      </div>
+        </TabButton>
+      </TabList>
 
       <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
       {/* Left sidebar: search + filters */}
@@ -483,13 +441,13 @@ export function ContentBrowserPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("community.contentBrowserSearchPlaceholder")}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-muted"
           />
         </div>
 
         {activeTab === "browse" && (
         <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
             {t("forum.type")}
           </h3>
           <div className="flex flex-wrap gap-1">
@@ -509,8 +467,8 @@ export function ContentBrowserPage() {
                   }}
                   className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                     typeFilter === tipo
-                      ? "bg-green-600 text-white dark:bg-green-500"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                      ? "bg-accent text-white"
+                      : "bg-surface-muted text-text-primary hover:bg-surface-elevated"
                   }`}
                 >
                   {tipo === "all"
@@ -530,7 +488,7 @@ export function ContentBrowserPage() {
         {(activeTab === "browse" ? browseContent.length > 0 : subscribedDecks.length > 0) && (
         <>
         <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
             {t("forum.language")}
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -539,8 +497,8 @@ export function ContentBrowserPage() {
               onClick={() => setLanguageFilter("all")}
               className={`flex h-9 w-9 items-center justify-center rounded-lg border text-lg transition ${
                 languageFilter === "all"
-                  ? "border-green-600 bg-green-50 dark:border-green-500 dark:bg-green-900/20"
-                  : "border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500"
+                  ? "border-accent bg-accent-muted"
+                  : "border-border hover:border-border"
               }`}
               title={t("community.contentBrowserAllLanguages")}
               aria-label={t("community.contentBrowserAllLanguages")}
@@ -559,8 +517,8 @@ export function ContentBrowserPage() {
                   onClick={() => setLanguageFilter(lId)}
                   className={`flex h-9 w-9 items-center justify-center rounded-lg border text-lg transition ${
                     active
-                      ? "border-green-600 bg-green-50 dark:border-green-500 dark:bg-green-900/20"
-                      : "border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500"
+                      ? "border-accent bg-accent-muted"
+                      : "border-border hover:border-border"
                   }`}
                   title={name}
                   aria-label={name}
@@ -574,7 +532,7 @@ export function ContentBrowserPage() {
 
         {activeTab === "browse" && (
         <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
             {t("community.contentBrowserDiscover")}
           </h3>
           <div className="flex flex-wrap gap-1">
@@ -585,8 +543,8 @@ export function ContentBrowserPage() {
                 onClick={() => setDiscoverFilter(opt)}
                 className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                   discoverFilter === opt
-                    ? "bg-green-600 text-white dark:bg-green-500"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                    ? "bg-accent text-white"
+                    : "bg-surface-muted text-text-primary hover:bg-surface-elevated"
                 }`}
               >
                 {t(`community.contentBrowserDiscover${opt.charAt(0).toUpperCase() + opt.slice(1)}`)}
@@ -598,7 +556,7 @@ export function ContentBrowserPage() {
 
         {activeTab === "browse" && (
         <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
             {t("community.contentBrowserSortBy")}
           </h3>
           <div className="flex flex-wrap gap-1">
@@ -609,8 +567,8 @@ export function ContentBrowserPage() {
                 onClick={() => setSortBy(opt)}
                 className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                   sortBy === opt
-                    ? "bg-green-600 text-white dark:bg-green-500"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                    ? "bg-accent text-white"
+                    : "bg-surface-muted text-text-primary hover:bg-surface-elevated"
                 }`}
               >
                 {t(`community.contentBrowserSort${opt.charAt(0).toUpperCase() + opt.slice(1)}`)}
@@ -627,9 +585,9 @@ export function ContentBrowserPage() {
               type="checkbox"
               checked={popularOnly}
               onChange={(e) => setPopularOnly(e.target.checked)}
-              className="rounded border-gray-300 text-green-600 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700"
+              className="rounded border-border text-accent focus:ring-accent bg-surface"
             />
-            <span className="text-xs text-gray-600 dark:text-gray-400">
+            <span className="text-xs text-text-secondary">
               {t("community.contentBrowserFilterPopular")}
             </span>
           </label>
@@ -640,7 +598,7 @@ export function ContentBrowserPage() {
           <button
             type="button"
             onClick={() => setLanguageFilter("all")}
-            className="rounded-md px-2.5 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+            className="rounded-md px-2.5 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
           >
             {t("community.contentBrowserClearLanguage")}
           </button>
@@ -655,7 +613,7 @@ export function ContentBrowserPage() {
               setDiscoverFilter("all");
               if (typeParam) navigate(langPath("community/explore"), { replace: true });
             }}
-            className="rounded-md px-2.5 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+            className="rounded-md px-2.5 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
           >
             {t("community.contentBrowserClearFilters")}
           </button>
@@ -670,7 +628,7 @@ export function ContentBrowserPage() {
           typeFilter !== "all" ? (
             <section>
               <div className="mb-3 flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h2 className="text-lg font-semibold text-text-primary">
                   {typeFilter === "flashcard-pack"
                     ? t("community.contentBrowserFlashcardDecks")
                     : typeFilter === "course"
@@ -679,17 +637,17 @@ export function ContentBrowserPage() {
                 </h2>
                 <Link
                   to={langPath("community/explore")}
-                  className="text-sm font-medium text-gray-600 hover:underline dark:text-gray-400"
+                  className="text-sm font-medium text-text-secondary hover:underline"
                 >
-                  ← {t("community.contentBrowserViewAll")}
+                  <Icon name="arrowBigLeft" size={14} className="mr-1 inline" /> {t("community.contentBrowserViewAll")}
                 </Link>
               </div>
               {typeFilter === "flashcard-pack" && apiDecksLoading ? (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {t("common.loading")}
                 </p>
               ) : filteredBrowse.length === 0 ? (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {t("community.contentBrowserNoResults")}
                 </p>
               ) : (
@@ -700,25 +658,60 @@ export function ContentBrowserPage() {
                       const deck = apiDecksById.get(deckId);
                       return (
                         <li key={addon.id}>
-                          <ContentCard
-                            addon={addon}
+                          <CommunityItemCard
+                            item={addon as CommunityItemCardItem}
                             t={t}
                             langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
                             isSubscribed={subscribedIds.has(deckId)}
-                            onSubscribe={() => handleSubscribe(deckId)}
-                            onUnsubscribe={() => handleUnsubscribe(deckId)}
+                            onSubscribe={() => handleSubscribe("deck", deckId)}
+                            onUnsubscribe={() => handleUnsubscribe("deck", deckId)}
                             onPreview={deck ? () => {
-                              setPreviewDeck(deckResponseToFlashcardDeck(deck));
-                              setPreviewAddon(addon);
+                              openDeckPreview(deckResponseToFlashcardDeck(deck), addon, { onSubscriptionChange: refreshSubscriptions });
                             } : undefined}
                             subscribeLoading={subscribeLoading === deckId}
                           />
                         </li>
                       );
                     }
+                    if (addon.kind === "story" && "storyId" in addon) {
+                      const sid = String((addon as StoryCardItem).storyId ?? addon.id);
+                      const story = apiStoriesById.get(sid);
+                      return (
+                        <li key={addon.id}>
+                          <CommunityItemCard
+                            item={addon as CommunityItemCardItem}
+                            t={t}
+                            langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
+                            isSubscribed={subscribedIds.has(sid)}
+                            onSubscribe={() => handleSubscribe("story", sid)}
+                            onUnsubscribe={() => handleUnsubscribe("story", sid)}
+                            onStoryPreview={
+                              story
+                                ? () => {
+                                    openStoryPreview(story, {
+                                      onSubscriptionChange: refreshSubscriptions,
+                                      isSubscribed: subscribedIds.has(story.id),
+                                      onSubscribe: () => handleSubscribe("story", story.id),
+                                      onUnsubscribe: () => handleUnsubscribe("story", story.id),
+                                      subscribeLoading: subscribeLoading === story.id,
+                                    });
+                                  }
+                                : undefined
+                            }
+                            subscribeLoading={subscribeLoading === sid}
+                          />
+                        </li>
+                      );
+                    }
                     return (
                       <li key={addon.id}>
-                        <ContentCard addon={addon} t={t} langPath={langPath} />
+                        <CommunityItemCard item={addon as CommunityItemCardItem} t={t} langPath={langPath}
+                            variant="full"
+                            showCommunityBadge />
                       </li>
                     );
                   })}
@@ -727,11 +720,11 @@ export function ContentBrowserPage() {
             </section>
           ) : showSearchResults ? (
             <section>
-              <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+              <h2 className="mb-3 text-lg font-semibold text-text-primary">
                 {t("community.contentBrowserSearchResults")} ({filteredBrowse.length})
               </h2>
               {filteredBrowse.length === 0 ? (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {t("community.contentBrowserNoResults")}
                 </p>
               ) : (
@@ -742,25 +735,56 @@ export function ContentBrowserPage() {
                       const deck = apiDecksById.get(deckId);
                       return (
                         <li key={addon.id}>
-                          <ContentCard
-                            addon={addon}
+                          <CommunityItemCard
+                            item={addon as CommunityItemCardItem}
                             t={t}
                             langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
                             isSubscribed={subscribedIds.has(deckId)}
-                            onSubscribe={() => handleSubscribe(deckId)}
-                            onUnsubscribe={() => handleUnsubscribe(deckId)}
+                            onSubscribe={() => handleSubscribe("deck", deckId)}
+                            onUnsubscribe={() => handleUnsubscribe("deck", deckId)}
                             onPreview={deck ? () => {
-                              setPreviewDeck(deckResponseToFlashcardDeck(deck));
-                              setPreviewAddon(addon);
+                              openDeckPreview(deckResponseToFlashcardDeck(deck), addon, { onSubscriptionChange: refreshSubscriptions });
                             } : undefined}
                             subscribeLoading={subscribeLoading === deckId}
                           />
                         </li>
                       );
                     }
+                    if (addon.kind === "story" && "storyId" in addon) {
+                      const sid = String((addon as StoryCardItem).storyId ?? addon.id);
+                      const story = apiStoriesById.get(sid);
+                      return (
+                        <li key={addon.id}>
+                          <CommunityItemCard
+                            item={addon as CommunityItemCardItem}
+                            t={t}
+                            langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
+                            isSubscribed={subscribedIds.has(sid)}
+                            onSubscribe={() => handleSubscribe("story", sid)}
+                            onUnsubscribe={() => handleUnsubscribe("story", sid)}
+                            onStoryPreview={
+                              story ? () => openStoryPreview(story, {
+                            onSubscriptionChange: refreshSubscriptions,
+                            isSubscribed: subscribedIds.has(story.id),
+                            onSubscribe: () => handleSubscribe("story", story.id),
+                            onUnsubscribe: () => handleUnsubscribe("story", story.id),
+                            subscribeLoading: subscribeLoading === story.id,
+                          }) : undefined
+                            }
+                            subscribeLoading={subscribeLoading === sid}
+                          />
+                        </li>
+                      );
+                    }
                     return (
                       <li key={addon.id}>
-                        <ContentCard addon={addon} t={t} langPath={langPath} />
+                        <CommunityItemCard item={addon as CommunityItemCardItem} t={t} langPath={langPath}
+                            variant="full"
+                            showCommunityBadge />
                       </li>
                     );
                   })}
@@ -771,22 +795,22 @@ export function ContentBrowserPage() {
             <>
               <section>
                 <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-lg font-semibold text-text-primary">
                     {t("community.contentBrowserFlashcardDecks")}
                   </h2>
                   <Link
                     to={`${langPath("community/explore")}?type=flashcards`}
-                    className="text-sm font-medium text-green-600 hover:underline dark:text-green-400"
+                    className="text-sm font-medium text-accent hover:underline"
                   >
-                    {t("community.contentBrowserSeeMoreFlashcards")} →
+                    {t("community.contentBrowserSeeMoreFlashcards")} <Icon name="arrowBigRight" size={14} className="inline" />
                   </Link>
                 </div>
                 {apiDecksLoading ? (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-text-muted">
                     {t("common.loading")}
                   </p>
                 ) : flashcardDecks.length === 0 ? (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-text-muted">
                     {t("community.contentBrowserNoResults")}
                   </p>
                 ) : (
@@ -796,16 +820,17 @@ export function ContentBrowserPage() {
                       const deck = apiDecksById.get(deckId);
                       return (
                         <li key={addon.id}>
-                          <ContentCard
-                            addon={addon}
+                          <CommunityItemCard
+                            item={addon as CommunityItemCardItem}
                             t={t}
                             langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
                             isSubscribed={subscribedIds.has(deckId)}
-                            onSubscribe={() => handleSubscribe(deckId)}
-                            onUnsubscribe={() => handleUnsubscribe(deckId)}
+                            onSubscribe={() => handleSubscribe("deck", deckId)}
+                            onUnsubscribe={() => handleUnsubscribe("deck", deckId)}
                             onPreview={deck ? () => {
-                              setPreviewDeck(deckResponseToFlashcardDeck(deck));
-                              setPreviewAddon(addon);
+                              openDeckPreview(deckResponseToFlashcardDeck(deck), addon, { onSubscriptionChange: refreshSubscriptions });
                             } : undefined}
                             subscribeLoading={subscribeLoading === deckId}
                           />
@@ -818,25 +843,27 @@ export function ContentBrowserPage() {
 
               <section>
                 <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-lg font-semibold text-text-primary">
                     {t("community.contentBrowserAdditionalCourses")}
                   </h2>
                   <Link
                     to={`${langPath("community/explore")}?type=courses`}
-                    className="text-sm font-medium text-green-600 hover:underline dark:text-green-400"
+                    className="text-sm font-medium text-accent hover:underline"
                   >
-                    {t("community.contentBrowserSeeMoreCourses")} →
+                    {t("community.contentBrowserSeeMoreCourses")} <Icon name="arrowBigRight" size={14} className="inline" />
                   </Link>
                 </div>
                 {courses.length === 0 ? (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-text-muted">
                     {t("community.contentBrowserNoResults")}
                   </p>
                 ) : (
                   <ul className="grid gap-3 sm:grid-cols-2">
                     {courses.slice(0, 6).map((addon) => (
                       <li key={addon.id}>
-                        <ContentCard addon={addon} t={t} langPath={langPath} />
+                        <CommunityItemCard item={addon as CommunityItemCardItem} t={t} langPath={langPath}
+                            variant="full"
+                            showCommunityBadge />
                       </li>
                     ))}
                   </ul>
@@ -845,27 +872,59 @@ export function ContentBrowserPage() {
 
               <section>
                 <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-lg font-semibold text-text-primary">
                     {t("community.contentBrowserStoriesSection")}
                   </h2>
                   <Link
                     to={`${langPath("community/explore")}?type=stories`}
-                    className="text-sm font-medium text-green-600 hover:underline dark:text-green-400"
+                    className="text-sm font-medium text-accent hover:underline"
                   >
-                    {t("community.contentBrowserSeeMoreStories")} →
+                    {t("community.contentBrowserSeeMoreStories")} <Icon name="arrowBigRight" size={14} className="inline" />
                   </Link>
                 </div>
                 {stories.length === 0 ? (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-text-muted">
                     {t("community.contentBrowserNoResults")}
                   </p>
                 ) : (
                   <ul className="grid gap-3 sm:grid-cols-2">
-                    {stories.slice(0, 6).map((addon) => (
-                      <li key={addon.id}>
-                        <ContentCard addon={addon} t={t} langPath={langPath} />
-                      </li>
-                    ))}
+                    {stories.slice(0, 6).map((addon) => {
+                      if (addon.kind === "story" && "storyId" in addon) {
+                        const sid = String((addon as StoryCardItem).storyId ?? addon.id);
+                        const story = apiStoriesById.get(sid);
+                        return (
+                          <li key={addon.id}>
+                            <CommunityItemCard
+                              item={addon as CommunityItemCardItem}
+                              t={t}
+                              langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
+                              isSubscribed={subscribedIds.has(sid)}
+                              onSubscribe={() => handleSubscribe("story", sid)}
+                              onUnsubscribe={() => handleUnsubscribe("story", sid)}
+                              onStoryPreview={
+                                story ? () => openStoryPreview(story, {
+                            onSubscriptionChange: refreshSubscriptions,
+                            isSubscribed: subscribedIds.has(story.id),
+                            onSubscribe: () => handleSubscribe("story", story.id),
+                            onUnsubscribe: () => handleUnsubscribe("story", story.id),
+                            subscribeLoading: subscribeLoading === story.id,
+                          }) : undefined
+                              }
+                              subscribeLoading={subscribeLoading === sid}
+                            />
+                          </li>
+                        );
+                      }
+                      return (
+                        <li key={addon.id}>
+                          <CommunityItemCard item={addon as CommunityItemCardItem} t={t} langPath={langPath}
+                            variant="full"
+                            showCommunityBadge />
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
               </section>
@@ -873,32 +932,54 @@ export function ContentBrowserPage() {
           )
         ) : (
           <section>
-            <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
-              {t("community.contentBrowserFlashcardDecks")}
+            <h2 className="mb-3 text-lg font-semibold text-text-primary">
+              {t("community.contentBrowserSubscribed")}
             </h2>
             {subscribedDecksLoading ? (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-text-muted">
                 {t("common.loading")}
               </p>
-            ) : filteredSubscribed.length === 0 ? (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+            ) : filteredSubscribedDecks.length === 0 && filteredSubscribedStories.length === 0 ? (
+              <p className="text-sm text-text-muted">
                 {t("community.contentBrowserNoResults")}
               </p>
             ) : (
               <ul className="grid gap-3 sm:grid-cols-2">
-                {filteredSubscribed.map(({ addon, deck }) => (
+                {filteredSubscribedDecks.map(({ addon, deck }) => (
                   <li key={addon.id}>
-                    <ContentCard
-                      addon={addon}
+                    <CommunityItemCard
+                      item={addon as CommunityItemCardItem}
                       t={t}
                       langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
                       isSubscribed
-                      onUnsubscribe={() => handleUnsubscribe(addon.deckId ?? addon.id)}
+                      onUnsubscribe={() => handleUnsubscribe("deck", addon.deckId ?? addon.id)}
                       onPreview={() => {
-                        setPreviewDeck(deckResponseToFlashcardDeck(deck));
-                        setPreviewAddon(addon);
+                        openDeckPreview(deckResponseToFlashcardDeck(deck), addon, { onSubscriptionChange: refreshSubscriptions });
                       }}
                       subscribeLoading={subscribeLoading === (addon.deckId ?? addon.id)}
+                    />
+                  </li>
+                ))}
+                {filteredSubscribedStories.map(({ addon, story }) => (
+                  <li key={addon.id}>
+                    <CommunityItemCard
+                      item={addon as CommunityItemCardItem}
+                      t={t}
+                      langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
+                      isSubscribed
+                      onUnsubscribe={() => handleUnsubscribe("story", String(addon.storyId ?? addon.id))}
+                      onStoryPreview={() => openStoryPreview(story, {
+                      onSubscriptionChange: refreshSubscriptions,
+                      isSubscribed: subscribedIds.has(story.id),
+                      onSubscribe: () => handleSubscribe("story", story.id),
+                      onUnsubscribe: () => handleUnsubscribe("story", story.id),
+                      subscribeLoading: subscribeLoading === story.id,
+                    })}
+                      subscribeLoading={subscribeLoading === String(addon.storyId ?? addon.id)}
                     />
                   </li>
                 ))}
@@ -909,24 +990,13 @@ export function ContentBrowserPage() {
 
         <Link
           to={langPath("")}
-          className="inline-block text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          className="inline-block text-sm text-text-secondary hover:text-text-primary"
         >
           {t("community.backToHome")}
         </Link>
       </main>
       </div>
 
-      {(previewDeck ?? previewAddon) && (
-        <DeckPreviewModal
-          deck={previewDeck}
-          addon={previewAddon}
-          onClose={() => {
-            setPreviewDeck(null);
-            setPreviewAddon(null);
-          }}
-          onSubscriptionChange={refreshSubscriptions}
-        />
-      )}
     </div>
   );
 }

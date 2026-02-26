@@ -5,7 +5,7 @@
 - **Learning language** and **theme** are persisted in localStorage (separate keys). The Settings page lets users change them; they apply immediately and persist per browser.
 - **UI locale** (i18n) is persisted by i18next in `localStorage` under `i18nextLng`.
 
-The `settings/storage` module provides a keyed store (`open-lingo-settings-${userId}` or `-anonymous`) so you can later switch to a backend without changing the shape of settings.
+The `settings/storage` module uses a single key (`open-lingo-settings`). When the logged-in user changes, user-specific localStorage keys (SRS, alphabet progress, profile cache, etc.) are cleared.
 
 ## Storing settings per user (cross-device)
 

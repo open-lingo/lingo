@@ -6,6 +6,7 @@ import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { useApi } from "@/shared/api/provider";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import type { CreatorContentItem, ContentStatus, CreatorContentKind } from "./types";
+import { Icon } from "@/shared/components/Icon";
 import type { StoryResponse } from "@/shared/api/stories";
 
 const CONTENT_KINDS: CreatorContentKind[] = [
@@ -301,10 +302,10 @@ export function MyContentTab() {
                     />
                   ) : (
                     <div
-                      className="flex h-12 w-16 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-2xl dark:bg-gray-700"
+                      className="flex h-12 w-16 shrink-0 items-center justify-center"
                       aria-hidden
                     >
-                      📖
+                      <Icon name="stories" size={24} />
                     </div>
                   )}
                   <div>

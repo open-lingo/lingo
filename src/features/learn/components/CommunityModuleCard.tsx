@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { CommunityAddon } from "@/features/community/types";
 import { getLessonWindow } from "../moduleProgress";
-import { ChevronIcon } from "@/shared/components/icons";
 import { ProgressBar, LessonStatusCircle } from "@/shared/components/progress";
+import { Icon } from "@/shared/components/Icon";
 
 type Props = {
   addon: CommunityAddon;
@@ -41,18 +41,18 @@ export function CommunityModuleCard({ addon, completedCount }: Props) {
   const isExpanded = expansionLevel !== "collapsed";
 
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+    <div className="overflow-hidden rounded-lg border border-border bg-surface">
       <button
         type="button"
         onClick={toggleHeader}
-        className="flex w-full items-center justify-between px-4 py-3 text-left transition hover:bg-gray-50 dark:hover:bg-gray-700/50"
+        className="flex w-full items-center justify-between px-4 py-3 text-left transition hover:bg-surface-muted"
         aria-expanded={isExpanded}
       >
         <div className="min-w-0 flex-1">
-          <p className="truncate font-medium text-gray-900 dark:text-white">
+          <p className="truncate font-medium text-text-primary">
             {addon.name}
           </p>
-          <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-0.5 text-xs text-text-muted">
             {progressPercent}% · {completedCount}/{total}{" "}
             completed
           </p>
@@ -64,8 +64,10 @@ export function CommunityModuleCard({ addon, completedCount }: Props) {
             ariaLabel={`${progressPercent}% complete`}
             className="w-16"
           />
-          <ChevronIcon
-            className={`h-5 w-5 text-gray-500 transition dark:text-gray-400 ${
+          <Icon
+            name="chevronDown"
+            size={20}
+            className={`text-text-muted transition ${
               isExpanded ? "rotate-180" : ""
             }`}
           />
@@ -73,16 +75,16 @@ export function CommunityModuleCard({ addon, completedCount }: Props) {
       </button>
 
       {isExpanded && (
-        <div className="border-t border-gray-200 dark:border-gray-700">
+        <div className="border-t border-border">
           {hasMoreBefore && !showAll && (
-            <p className="px-4 pt-2 text-xs text-gray-500 dark:text-gray-400">
-              ↑ {startIndex} {t("learn.lessonsAbove")}
+            <p className="px-4 pt-2 text-xs text-text-muted">
+              <Icon name="chevronUp" size={12} className="inline" /> {startIndex} {t("learn.lessonsAbove")}
             </p>
           )}
           <ul>
             {lessonsToShow.map((lesson) => (
               <li key={lesson.id}>
-                <span className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300">
+                <span className="flex items-center gap-3 px-4 py-2 text-sm text-text-secondary">
                   <LessonStatusCircle
                     status={lesson.done ? "completed" : "incomplete"}
                     size="sm"
@@ -93,8 +95,8 @@ export function CommunityModuleCard({ addon, completedCount }: Props) {
             ))}
           </ul>
           {hasMoreAfter && !showAll && (
-            <p className="px-4 pb-2 text-xs text-gray-500 dark:text-gray-400">
-              {lessons.length - startIndex - lessonWindow.length} {t("learn.lessonsBelow")} ↓
+            <p className="px-4 pb-2 text-xs text-text-muted">
+              {lessons.length - startIndex - lessonWindow.length} {t("learn.lessonsBelow")} <Icon name="chevronDown" size={12} className="inline" />
             </p>
           )}
           {!showAll && lessons.length > SEMI_SIZE && (
@@ -104,7 +106,7 @@ export function CommunityModuleCard({ addon, completedCount }: Props) {
                 e.stopPropagation();
                 setExpansionLevel("full");
               }}
-              className="w-full px-4 pb-3 text-left text-sm font-medium text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
+              className="w-full px-4 pb-3 text-left text-sm font-medium text-accent hover:text-accent-hover"
             >
               {t("learn.showAllLessons", { count: lessons.length })}
             </button>
@@ -116,7 +118,7 @@ export function CommunityModuleCard({ addon, completedCount }: Props) {
                 e.stopPropagation();
                 setExpansionLevel("semi");
               }}
-              className="w-full px-4 pb-3 text-left text-sm font-medium text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+              className="w-full px-4 pb-3 text-left text-sm font-medium text-text-secondary hover:text-text-primary"
             >
               {t("learn.showLess")}
             </button>
