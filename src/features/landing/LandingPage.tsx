@@ -44,8 +44,20 @@ export function LandingPage() {
             "Open Lingo is a free, open-source language learning app. Courses, flashcards, stories, community decks, and more—all in one place."
           )}
         </p>
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
           <GitHubBadge />
+          <a
+            href="https://github.com/open-lingo/lingo"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub stars"
+          >
+            <img
+              src="https://img.shields.io/github/stars/open-lingo%2Flingo"
+              alt="GitHub stars"
+              className="h-5"
+            />
+          </a>
         </div>
         <ul className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-2 text-sm text-text-secondary">
           <li className="flex items-center gap-2">
