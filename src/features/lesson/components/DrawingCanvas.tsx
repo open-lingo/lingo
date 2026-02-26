@@ -1,9 +1,13 @@
 import { useRef, useCallback, useEffect, useImperativeHandle, forwardRef } from "react";
 
-const DEFAULT_WIDTH = 280;
-const DEFAULT_HEIGHT = 200;
-/** Line width to better match template stroke width (~85% of typical character stroke). */
-const STROKE_WIDTH = 6;
+/** Canvas scale: 1.25 = slightly larger box so template and drawing fill more space. */
+const CANVAS_SCALE = 1.25;
+const DEFAULT_WIDTH = Math.round(280 * CANVAS_SCALE);
+const DEFAULT_HEIGHT = Math.round(200 * CANVAS_SCALE);
+/** Line width to better match template stroke width; scaled with canvas. */
+const STROKE_WIDTH = Math.round(6 * CANVAS_SCALE);
+/** Guide (template) font size; scaled with canvas so character fills the box. */
+const GUIDE_FONT_SIZE = Math.round(80 * CANVAS_SCALE);
 /** Ink color for the user's drawing (black). */
 const STROKE_COLOR = "#000000";
 /** Canvas background: darker grey (layer 1 only; ignored in scoring). */
@@ -127,7 +131,7 @@ export const DrawingCanvas = forwardRef<DrawingCanvasHandle, Props>(function Dra
           <span
             className="select-none font-bold"
             style={{
-              fontSize: "80px",
+              fontSize: `${GUIDE_FONT_SIZE}px`,
               color: GUIDE_COLOR,
               opacity: guideOpacity,
             }}
