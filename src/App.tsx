@@ -1,7 +1,6 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { Layout } from "@/routes/Layout";
 import { LangLayout } from "@/routes/LangLayout";
-import { HomePage } from "@/features/home/HomePage";
 import { LoginPage } from "@/features/auth/LoginPage";
 import { LogoutPage } from "@/features/auth/LogoutPage";
 import { LearnLayout } from "@/features/learn/LearnLayout";
@@ -44,13 +43,18 @@ import { AdminUserDetailPage } from "@/features/admin/AdminUserDetailPage";
 import { AdminContentLayout } from "@/features/admin/AdminContentLayout";
 import { AdminDecksPage } from "@/features/admin/AdminDecksPage";
 import { AdminStoriesPage } from "@/features/admin/AdminStoriesPage";
+import { DocsPage } from "@/features/docs/DocsPage";
+import { RootRoute } from "@/routes/RootRoute";
+import { ProtectedHome } from "@/routes/ProtectedHome";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
-      { index: true, element: <HomePage /> },
+      { index: true, element: <RootRoute /> },
+      { path: "home", element: <ProtectedHome /> },
+      { path: "docs", element: <DocsPage /> },
       { path: "login", element: <LoginPage /> },
       { path: "logout", element: <LogoutPage /> },
       {

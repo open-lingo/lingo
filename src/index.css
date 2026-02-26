@@ -7,6 +7,70 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme font — applied globally */
+body {
+  font-family: var(--font-family);
+}
+
+/* Custom scrollbar — rounded, floating style using theme colors */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+html::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+html::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: var(--radius-lg);
+  margin: 4px;
+}
+html::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+html::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.scrollbar-theme {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+.scrollbar-theme::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.scrollbar-theme::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: var(--radius-lg);
+  margin: 4px;
+}
+.scrollbar-theme::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.scrollbar-theme::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.scrollbar-theme::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 /* Reduced motion: respect user preference from settings (data-reduced-motion) */
 [data-reduced-motion="true"] *,
 [data-reduced-motion="true"] *::before,

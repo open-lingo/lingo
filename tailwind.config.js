@@ -27,6 +27,9 @@ export default {
         success: "var(--color-success)",
         warning: "var(--color-warning)",
         overlay: "var(--color-overlay)",
+        info: "var(--color-info)",
+        destructive: "var(--color-destructive)",
+        link: "var(--color-link)",
       },
       borderRadius: {
         sm: "var(--radius-sm)",

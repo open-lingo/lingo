@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { GitHubBadge } from "@/shared/components/GitHubBadge";
 
 export function ContributePage() {
   const { t } = useTranslation();
@@ -13,13 +14,16 @@ export function ContributePage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-          {t("community.studioTitle")}
-        </h2>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          {t("community.studioDesc")}
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            {t("community.studioTitle")}
+          </h2>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            {t("community.studioDesc")}
+          </p>
+        </div>
+        <GitHubBadge />
       </div>
 
       <nav

@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { GitHubBadge } from "@/shared/components/GitHubBadge";
 
 const TAB_KEYS = [
   { path: "community/explore", key: "community.explore" },
@@ -25,8 +26,9 @@ export function CommunityLayout() {
         <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
           {t("community.learnTogether")}
         </p>
-        <div className="mt-3 rounded-lg border border-green-200 bg-green-50/80 px-4 py-2 text-sm text-green-800 dark:border-green-800 dark:bg-green-900/20 dark:text-green-200">
-          {t("community.banner")}
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-green-200 bg-green-50/80 px-4 py-2 text-sm text-green-800 dark:border-green-800 dark:bg-green-900/20 dark:text-green-200">
+          <span>{t("community.banner")}</span>
+          <GitHubBadge />
         </div>
       </div>
 

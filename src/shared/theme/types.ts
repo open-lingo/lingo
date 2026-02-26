@@ -20,6 +20,9 @@ export type ThemeTokens = {
     success: string;
     warning: string;
     overlay: string;
+    info: string;
+    destructive: string;
+    link: string;
   };
   radius: {
     sm: number;
@@ -29,6 +32,9 @@ export type ThemeTokens = {
   shadow: {
     card: string;
     popover: string;
+  };
+  font: {
+    family: string;
   };
 };
 

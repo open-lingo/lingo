@@ -10,6 +10,7 @@ import {
 import {
   BUILT_IN_THEMES,
   applyThemeToDOM,
+  mergeTokensWithDefaults,
   type ThemeTokens,
   type ThemeDefinition,
 } from "@/shared/theme";
@@ -30,7 +31,8 @@ function resolveTokens(
   const builtIn = BUILT_IN_THEMES[themeId];
   if (builtIn) return builtIn.tokens;
   const custom = customThemes.find((t) => t.id === themeId);
-  return custom?.tokens ?? BUILT_IN_THEMES.dark.tokens;
+  const raw = custom?.tokens ?? BUILT_IN_THEMES.dark.tokens;
+  return mergeTokensWithDefaults(raw, BUILT_IN_THEMES.dark.tokens);
 }
 
 export type ThemeMode = "light" | "dark";

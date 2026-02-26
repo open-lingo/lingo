@@ -16,4 +16,5 @@ export function applyThemeToDOM(tokens: ThemeTokens): void {
 
   root.style.setProperty("--shadow-card", tokens.shadow.card);
   root.style.setProperty("--shadow-popover", tokens.shadow.popover);
+  root.style.setProperty("--font-family", tokens.font.family);
 }

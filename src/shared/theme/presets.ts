@@ -1,4 +1,7 @@
 import type { ThemeDefinition, ThemeTokens } from "./types";
+import { getFontFamily, DEFAULT_FONT_ID } from "./fonts";
+
+const font = { family: getFontFamily(DEFAULT_FONT_ID) };
 
 const lightTokens: ThemeTokens = {
   colors: {
@@ -18,12 +21,16 @@ const lightTokens: ThemeTokens = {
     success: "#16a34a",
     warning: "#d97706",
     overlay: "rgba(0,0,0,0.4)",
+    info: "#2563eb",
+    destructive: "#dc2626",
+    link: "#2563eb",
   },
   radius: { sm: 6, md: 12, lg: 20 },
   shadow: {
     card: "0 1px 3px 0 rgb(0 0 0 / 0.1)",
     popover: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
   },
+  font,
 };
 
 const darkTokens: ThemeTokens = {
@@ -44,12 +51,16 @@ const darkTokens: ThemeTokens = {
     success: "#22c55e",
     warning: "#f59e0b",
     overlay: "rgba(0,0,0,0.5)",
+    info: "#60a5fa",
+    destructive: "#f87171",
+    link: "#60a5fa",
   },
   radius: { sm: 6, md: 12, lg: 20 },
   shadow: {
     card: "0 1px 3px 0 rgb(0 0 0 / 0.3)",
     popover: "0 10px 15px -3px rgb(0 0 0 / 0.4)",
   },
+  font,
 };
 
 const sepiaTokens: ThemeTokens = {
@@ -70,12 +81,16 @@ const sepiaTokens: ThemeTokens = {
     success: "#15803d",
     warning: "#a16207",
     overlay: "rgba(0,0,0,0.4)",
+    info: "#1d4ed8",
+    destructive: "#b91c1c",
+    link: "#1d4ed8",
   },
   radius: { sm: 6, md: 12, lg: 20 },
   shadow: {
     card: "0 1px 3px 0 rgb(0 0 0 / 0.08)",
     popover: "0 10px 15px -3px rgb(0 0 0 / 0.12)",
   },
+  font,
 };
 
 const amoledTokens: ThemeTokens = {
@@ -96,12 +111,16 @@ const amoledTokens: ThemeTokens = {
     success: "#4ade80",
     warning: "#fbbf24",
     overlay: "rgba(0,0,0,0.6)",
+    info: "#38bdf8",
+    destructive: "#f87171",
+    link: "#38bdf8",
   },
   radius: { sm: 6, md: 12, lg: 20 },
   shadow: {
     card: "0 1px 2px 0 rgb(0 0 0 / 0.5)",
     popover: "0 4px 6px -1px rgb(0 0 0 / 0.5)",
   },
+  font,
 };
 
 export type ThemeMode = "light" | "dark";

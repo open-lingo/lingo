@@ -50,8 +50,8 @@ export function MainCourseCard({
   const lessonsToShow = showAll ? currentModule.lessons : lessonWindow;
 
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-      <div className="border-b border-gray-200 px-5 py-3 dark:border-gray-700">
+    <div className="overflow-hidden rounded-xl border border-border bg-surface">
+      <div className="border-b border-border px-5 py-3">
         <StatusNodeStrip
           nodes={course.modules.map((mod, i) => ({
             id: mod.id,
@@ -61,7 +61,7 @@ export function MainCourseCard({
         />
       </div>
 
-      <div className="border-b border-gray-200 px-5 py-4 dark:border-gray-700">
+      <div className="border-b border-border px-5 py-4">
         <ProgressBar
           percent={progressPercent}
           label={t("learn.progressLabel")}
@@ -71,11 +71,11 @@ export function MainCourseCard({
       </div>
 
       <div className="px-5 py-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-lg font-semibold text-text-primary">
           {currentModule.title}
         </h3>
         {hasMoreBefore && !showAll && (
-          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-2 text-xs text-text-muted">
             <Icon name="chevronUp" size={12} className="inline" /> {startIndex} {t("learn.lessonsAbove")}
           </p>
         )}
@@ -96,7 +96,7 @@ export function MainCourseCard({
                       navigate(langPath(`learn/lessons/${lesson.id}`));
                     }
                   }}
-                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 dark:hover:bg-gray-700/50"
+                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition hover:bg-surface-muted disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <LessonStatusCircle
                     status={done ? "completed" : locked ? "locked" : "available"}
@@ -104,10 +104,10 @@ export function MainCourseCard({
                   <span
                     className={
                       done
-                        ? "text-gray-600 dark:text-gray-400"
+                        ? "text-text-muted"
                         : locked
-                          ? "text-gray-400 dark:text-gray-500"
-                          : "font-medium text-gray-900 dark:text-white"
+                          ? "text-text-muted"
+                          : "font-medium text-text-primary"
                     }
                   >
                     {lesson.title}
@@ -118,7 +118,7 @@ export function MainCourseCard({
           })}
         </ul>
         {hasMoreAfter && !showAll && (
-          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-2 text-xs text-text-muted">
             {currentModule.lessons.length - startIndex - lessonWindow.length}{" "}
             {t("learn.lessonsBelow")} <Icon name="chevronDown" size={12} className="inline" />
           </p>
@@ -127,7 +127,7 @@ export function MainCourseCard({
           <button
             type="button"
             onClick={() => setLessonsExpanded(true)}
-            className="mt-3 text-sm font-medium text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
+            className="mt-3 text-sm font-medium text-accent hover:text-accent-hover"
           >
             {t("learn.showAllLessons", { count: currentModule.lessons.length })}
           </button>
@@ -136,24 +136,24 @@ export function MainCourseCard({
           <button
             type="button"
             onClick={() => setLessonsExpanded(false)}
-            className="mt-3 text-sm font-medium text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+            className="mt-3 text-sm font-medium text-text-secondary hover:text-text-primary"
           >
             {t("learn.showLess")}
           </button>
         )}
       </div>
 
-      <div className="flex flex-wrap gap-3 border-t border-gray-200 px-5 py-4 dark:border-gray-700">
+      <div className="flex flex-wrap gap-3 border-t border-border px-5 py-4">
         <button
           type="button"
-          className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600"
+          className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent-hover"
         >
           {t("learn.testOut")}
         </button>
         <button
           type="button"
           onClick={() => setShowStartOverConfirm(true)}
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+          className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-secondary transition hover:bg-surface-muted"
         >
           {t("learn.startOver")}
         </button>
@@ -187,18 +187,18 @@ function StartOverModal({
       aria-modal="true"
       aria-labelledby="start-over-title"
     >
-      <div className="w-full max-w-sm rounded-xl border border-gray-200 bg-white p-6 shadow-xl dark:border-gray-700 dark:bg-gray-800">
-        <h2 id="start-over-title" className="text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="w-full max-w-sm rounded-xl border border-border bg-surface p-6 shadow-xl">
+        <h2 id="start-over-title" className="text-lg font-semibold text-text-primary">
           {t("learn.startOverTitle")}
         </h2>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-sm text-text-secondary">
           {t("learn.startOverConfirm")}
         </p>
         <div className="mt-6 flex justify-end gap-3">
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+            className="rounded-lg px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted"
           >
             {t("forum.cancel")}
           </button>

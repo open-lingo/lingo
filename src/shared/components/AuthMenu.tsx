@@ -92,26 +92,29 @@ export function AuthMenu() {
           )}
           <button
             type="button"
-            className="block w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
+            className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
             onClick={() => { setOpen(false); openSettings(); }}
           >
+            <Icon name="settings" size={18} className="shrink-0 text-text-muted" />
             {t("nav.settings")}
           </button>
           {isAuthenticated && (
             <button
               type="button"
-              className="block w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
+              className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
               onClick={() => { setOpen(false); openProfile(); }}
             >
+              <Icon name="user" size={18} className="shrink-0 text-text-muted" />
               {t("profile.editProfile")}
             </button>
           )}
           {isAuthenticated ? (
             <Link
               to="/logout"
-              className="block px-4 py-2 text-sm text-text-primary hover:bg-surface-muted"
+              className="flex items-center gap-3 px-4 py-2 text-sm text-text-primary hover:bg-surface-muted"
               onClick={() => setOpen(false)}
             >
+              <Icon name="logOut" size={18} className="shrink-0 text-text-muted" />
               {t("auth.logOut")}
             </Link>
           ) : (

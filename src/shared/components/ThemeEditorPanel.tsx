@@ -3,6 +3,9 @@ import { useTheme } from "@/shared/contexts/ThemeContext";
 import {
   BUILT_IN_THEMES,
   MOCK_COMMUNITY_THEMES,
+  FONT_PRESETS,
+  getFontFamily,
+  DEFAULT_FONT_ID,
   type ThemeTokens,
   type ThemeDefinition,
 } from "@/shared/theme";
@@ -21,6 +24,9 @@ const COLOR_KEYS: (keyof ThemeTokens["colors"])[] = [
   "error",
   "success",
   "warning",
+  "info",
+  "destructive",
+  "link",
 ];
 
 function ColorRow({
@@ -171,6 +177,18 @@ export function ThemeEditorPanel() {
       colors: { ...prev.colors, [key]: value },
     }));
   }, []);
+
+  const handleFontChange = useCallback((fontId: string) => {
+    setDraft((prev) => ({
+      ...prev,
+      font: { family: getFontFamily(fontId) },
+    }));
+  }, []);
+
+  const currentFontId = useMemo(() => {
+    const family = draft.font?.family ?? getFontFamily(DEFAULT_FONT_ID);
+    return FONT_PRESETS.find((f) => f.value === family)?.id ?? DEFAULT_FONT_ID;
+  }, [draft.font?.family]);
 
   const handleInstallCommunity = useCallback(
     (theme: ThemeDefinition) => {
@@ -474,6 +492,22 @@ export function ThemeEditorPanel() {
                     placeholder={t("settings.themeNamePlaceholder", "Theme name")}
                     className="flex-1 rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
                   />
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-sm text-text-secondary">
+                    {t("settings.themeFont", "Font")}
+                  </label>
+                  <select
+                    value={currentFontId}
+                    onChange={(e) => handleFontChange(e.target.value)}
+                    className="rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
+                  >
+                    {FONT_PRESETS.map((f) => (
+                      <option key={f.id} value={f.id}>
+                        {f.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 {COLOR_KEYS.map((key) => (
                   <ColorRow

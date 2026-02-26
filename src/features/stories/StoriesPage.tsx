@@ -199,22 +199,22 @@ export function StoriesPage() {
   return (
     <div className="mx-auto max-w-5xl">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-text-primary">
           {t("stories.title")}
         </h1>
-        <p className="mt-1 text-gray-600 dark:text-gray-400">
+        <p className="mt-1 text-text-secondary">
           {t("stories.subtitle")}
         </p>
       </div>
 
-      <div className="mb-4 flex gap-2 border-b border-gray-200 dark:border-gray-700">
+      <div className="mb-4 flex gap-2 border-b border-border">
         <button
           type="button"
           onClick={() => setActiveTab("browse")}
           className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
             activeTab === "browse"
-              ? "border-green-600 text-green-600 dark:border-green-500 dark:text-green-400"
-              : "-mb-px border-transparent text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              ? "border-accent text-accent"
+              : "-mb-px border-transparent text-text-secondary hover:text-text-primary"
           }`}
         >
           {t("community.contentBrowserTabBrowse")}
@@ -224,8 +224,8 @@ export function StoriesPage() {
           onClick={() => setActiveTab("subscribed")}
           className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
             activeTab === "subscribed"
-              ? "border-green-600 text-green-600 dark:border-green-500 dark:text-green-400"
-              : "-mb-px border-transparent text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              ? "border-accent text-accent"
+              : "-mb-px border-transparent text-text-secondary hover:text-text-primary"
           }`}
         >
           {t("community.contentBrowserTabSubscribed")}
@@ -239,7 +239,7 @@ export function StoriesPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("stories.searchPlaceholder")}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text-primary"
             aria-label={t("stories.searchPlaceholder")}
           />
           <div className="flex flex-wrap gap-2 lg:flex-col">
@@ -250,8 +250,8 @@ export function StoriesPage() {
                 onClick={() => setFilter(f.id)}
                 className={`rounded-lg border px-3 py-1.5 text-sm ${
                   filter === f.id
-                    ? "border-green-500 bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300"
-                    : "border-gray-300 bg-white text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300"
+                    ? "border-accent bg-accent-muted text-accent"
+                    : "border-border bg-surface text-text-secondary"
                 }`}
               >
                 {t(f.labelKey)}
@@ -263,15 +263,15 @@ export function StoriesPage() {
         <main className="min-w-0 flex-1 space-y-8">
           {activeTab === "subscribed" && (
             <section>
-              <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+              <h2 className="mb-3 text-lg font-semibold text-text-primary">
                 {t("stories.subscribedStories")}
               </h2>
               {subscribedLoading ? (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {t("common.loading")}
                 </p>
               ) : filteredSubscribed.length === 0 ? (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {t("stories.noSubscribedStories")}
                 </p>
               ) : (
@@ -296,15 +296,15 @@ export function StoriesPage() {
 
           {activeTab === "browse" && (
             <section>
-              <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+              <h2 className="mb-3 text-lg font-semibold text-text-primary">
                 {t("stories.communityStories")}
               </h2>
               {apiLoading ? (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {t("common.loading")}
                 </p>
               ) : filteredBrowse.length === 0 ? (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {t("stories.noCommunityMatch")}
                 </p>
               ) : (
@@ -352,20 +352,20 @@ function StoryCard({
   canSubscribe?: boolean;
 }) {
   return (
-    <li className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4 transition hover:border-green-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-green-600">
+    <li className="flex items-start gap-3 rounded-xl border border-border bg-surface p-4 transition hover:border-accent">
       <Link
         to={langPath(`practice/stories/${story.id}`)}
         className="min-w-0 flex-1"
       >
-        <span className="font-medium text-gray-900 dark:text-white">
+        <span className="font-medium text-text-primary">
           {story.title}
         </span>
         {story.description && (
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+          <p className="mt-1 text-sm text-text-secondary line-clamp-2">
             {story.description}
           </p>
         )}
-        <div className="mt-2 flex gap-2 text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-2 flex gap-2 text-xs text-text-muted">
           <span>{t("stories.communityStories")}</span>
         </div>
       </Link>
@@ -380,8 +380,8 @@ function StoryCard({
           }}
           className={`shrink-0 rounded px-2 py-1 text-xs font-medium transition ${
             isSubscribed
-              ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400"
-              : "text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20"
+              ? "bg-accent-muted text-accent"
+              : "text-accent hover:bg-accent-muted"
           }`}
         >
           {subscribeLoading ? "…" : isSubscribed ? t("community.contentBrowserSubscribed") : t("community.contentBrowserSubscribe")}

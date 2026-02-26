@@ -105,7 +105,7 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
         type="button"
         onClick={() => setOpen((o) => !o)}
         className={`flex h-9 w-9 items-center justify-center transition ${
-          hasDirty ? "text-warning" : "text-accent"
+          hasDirty ? "text-warning" : "text-success"
         }`}
         aria-expanded={open}
         aria-haspopup="true"

@@ -5,9 +5,11 @@
 
 import {
   ArrowBigLeft,
+  Github,
   ArrowBigRight,
   ArrowLeft,
   ArrowRight,
+  LogOut,
   BookOpen,
   BookOpenText,
   BookText,
@@ -64,6 +66,7 @@ export const iconRegistry = {
   chevronDown: ChevronDown,
   close: X,
   user: User,
+  logOut: LogOut,
   menu: Menu,
   palette: SwatchBook,
   refresh: RefreshCw,
@@ -84,6 +87,7 @@ export const iconRegistry = {
   stories: BookOpenText,
   dumbbell: Dumbbell,
   flame: Flame,
+  github: Github,
   globe: Globe,
   graduationCap: GraduationCap,
   arrowBigLeft: ArrowBigLeft,
