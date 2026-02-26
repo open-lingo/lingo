@@ -9,7 +9,7 @@ import { ApiError } from "@/shared/api/client";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
-import { getMockCourse } from "@/features/course/mockCourse";
+import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getNextLesson } from "@/features/course/nextLesson";
 import { ModuleCard } from "@/features/course/components";
 import { ProgressSummary } from "@/features/progress/ProgressSummary";

@@ -1,4 +1,9 @@
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider, useParams } from "react-router-dom";
+
+function ForumThreadRedirect() {
+  const { threadId } = useParams<{ threadId: string }>();
+  return <Navigate to={`../discuss/thread/${threadId}`} replace />;
+}
 import { Layout } from "@/routes/Layout";
 import { LangLayout } from "@/routes/LangLayout";
 import { LoginPage } from "@/features/auth/LoginPage";
@@ -138,9 +143,9 @@ const router = createBrowserRouter([
               { path: "discuss", element: <ForumPage /> },
               { path: "discuss/thread/:threadId", element: <ThreadPage /> },
               { path: "discuss/new", element: <NewThreadPage /> },
-              { path: "forum", element: <ForumPage /> },
-              { path: "forum/thread/:threadId", element: <ThreadPage /> },
-              { path: "forum/new", element: <NewThreadPage /> },
+              { path: "forum", element: <Navigate to="discuss" replace /> },
+              { path: "forum/thread/:threadId", element: <ForumThreadRedirect /> },
+              { path: "forum/new", element: <Navigate to="../../discuss/new" replace /> },
               { path: "leaderboard", element: <LeaderboardPage /> },
             ],
           },

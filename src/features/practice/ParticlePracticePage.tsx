@@ -27,7 +27,7 @@ function ParticleCard({
   const isCompact = size === "compact";
   return (
     <div
-      className={`flex flex-col rounded-lg border border-gray-200 bg-white shadow-sm transition hover:border-gray-300 hover:shadow dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500 ${
+      className={`flex flex-col rounded-lg border border-border bg-surface shadow-card transition hover:border-border-muted hover:shadow-popover ${
         isCompact
           ? "min-h-[2.25rem] min-w-[2.25rem] items-center justify-center px-2 py-1.5 text-lg"
           : "min-h-[5rem] items-start justify-center p-4 text-left"
@@ -35,16 +35,16 @@ function ParticleCard({
       role="listitem"
       aria-label={`${particle.form}: ${particle.meaning}`}
     >
-      <span className={`font-medium text-gray-900 dark:text-white ${!isCompact ? "text-2xl" : ""}`}>
+      <span className={`font-medium text-text-primary ${!isCompact ? "text-2xl" : ""}`}>
         {particle.form}
       </span>
       {!isCompact && (
         <>
-          <span className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+          <span className="mt-1 text-sm text-text-secondary">
             {particle.meaning}
           </span>
           {particle.usage && (
-            <span className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            <span className="mt-1 text-xs text-text-muted">
               {particle.usage}
             </span>
           )}
@@ -79,7 +79,7 @@ function ParticleSectionBlock({
     >
       <h2
         id={sectionId}
-        className="text-lg font-semibold text-gray-800 dark:text-gray-200"
+        className="text-lg font-semibold text-text-primary"
       >
         {sectionLabel}
       </h2>
@@ -117,10 +117,10 @@ export function ParticlePracticePage() {
   if (!language) {
     return (
       <div className="mx-auto max-w-4xl">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-text-primary">
           {t("practice.particles.title")}
         </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-text-secondary">
           {t("practice.particles.noLanguage")}
         </p>
       </div>
@@ -130,10 +130,10 @@ export function ParticlePracticePage() {
   if (!particlesData || particles.length === 0) {
     return (
       <div className="mx-auto max-w-4xl">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-text-primary">
           {t("practice.particles.title")}
         </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-text-secondary">
           {t("practice.particles.noData", { language: languageName })}
         </p>
       </div>
@@ -143,16 +143,16 @@ export function ParticlePracticePage() {
   return (
     <div className="mx-auto max-w-4xl">
       <header className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-text-primary">
           {t("practice.particles.title")}
         </h1>
-        <p className="mt-1 text-gray-600 dark:text-gray-400">
+        <p className="mt-1 text-text-secondary">
           {t("practice.particles.subtitle", { language: languageName })}
         </p>
       </header>
 
       {displaySections.length === 0 ? (
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-text-secondary">
           {t("practice.particles.noSections")}
         </p>
       ) : (
@@ -164,7 +164,7 @@ export function ParticlePracticePage() {
             >
               <h2
                 id="particles-overview-heading"
-                className="mb-3 text-sm font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400"
+                className="mb-3 text-sm font-medium uppercase tracking-wide text-text-muted"
               >
                 {t("practice.particles.allParticles")}
               </h2>

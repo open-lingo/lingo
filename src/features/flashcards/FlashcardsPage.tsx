@@ -1,16 +1,15 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
-import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { buildReviewQueue } from "./engine";
-import { DeckPreviewModal } from "./DeckPreviewModal";
 import { useSubscribedDecks } from "./useSubscribedDecks";
 import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
-import type { CommunityAddon } from "@/features/community/types";
+import { CommunityItemCard } from "@/features/community/components/CommunityItemCard";
+import { useCommunityContent } from "@/features/community/CommunityContentContext";
 import type { DeckResponse } from "@/shared/api/decks";
 
 function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
@@ -131,43 +130,6 @@ function DeckCard({
   );
 }
 
-function CommunityPackCard({
-  addon,
-  onClick,
-  t,
-}: {
-  addon: CommunityAddon;
-  onClick: () => void;
-  t: (k: string) => string;
-}) {
-  const coverUrl = getDeckImageUrl(addon.deckId ?? addon.id, addon.image);
-
-  return (
-    <div className="flex items-start gap-4 rounded-lg border border-border bg-surface p-4">
-      <img
-        src={coverUrl}
-        alt=""
-        className="h-16 w-24 shrink-0 rounded-lg object-cover"
-      />
-      <div className="min-w-0 flex-1">
-        <h3 className="font-medium text-text-primary">{addon.name}</h3>
-        <p className="mt-0.5 line-clamp-2 text-sm text-text-secondary">
-          {addon.description}
-        </p>
-        <p className="mt-2 text-xs text-text-muted">
-          {addon.itemCount ?? "—"} {t("flashcards.cards")} · <Icon name="chevronUp" size={12} className="inline" /> {addon.upvoteCount}
-        </p>
-      </div>
-      <button
-        type="button"
-        onClick={onClick}
-        className="shrink-0 rounded px-3 py-1.5 text-sm font-medium text-accent hover:bg-accent-muted"
-      >
-        {t("flashcards.preview")}
-      </button>
-    </div>
-  );
-}
 
 export function FlashcardsPage() {
   const { t } = useTranslation();
@@ -213,9 +175,7 @@ export function FlashcardsPage() {
 
   const languageName = getLanguageConfig(langId)?.name ?? langId;
 
-  const [previewDeck, setPreviewDeck] = useState<FlashcardDeck | null>(null);
-  const [previewAddon, setPreviewAddon] = useState<CommunityAddon | null>(null);
-  const showPreview = previewDeck != null || previewAddon != null;
+  const { openDeckPreview } = useCommunityContent();
 
   return (
     <div className="space-y-8">
@@ -265,8 +225,7 @@ export function FlashcardsPage() {
           dueCount={dueCount}
           reviewHref={langPath("practice/flashcards/review")}
           onPreviewDeck={() => {
-            setPreviewAddon(null);
-            setPreviewDeck(deck ?? null);
+            openDeckPreview(deck ?? null, null, { onSubscriptionChange: handleSubscriptionChange });
           }}
           t={t}
         />
@@ -308,8 +267,7 @@ export function FlashcardsPage() {
                 <DeckCard
                   deck={d}
                   onClick={() => {
-                    setPreviewAddon(null);
-                    setPreviewDeck(d.deck);
+                    openDeckPreview(d.deck, null, { onSubscriptionChange: handleSubscriptionChange });
                   }}
                   settingsHref={langPath("practice/flashcards/decks")}
                   t={t}
@@ -338,13 +296,17 @@ export function FlashcardsPage() {
           <ul className="grid gap-3 sm:grid-cols-2">
             {communityPacksWithDecks.map(({ addon, deck }) => (
               <li key={addon.id}>
-                <CommunityPackCard
-                  addon={addon}
-                  onClick={() => {
-                    setPreviewDeck(deck ?? null);
-                    setPreviewAddon(addon);
+                <CommunityItemCard
+                  item={{
+                    ...addon,
+                    deckId: addon.deckId ?? addon.id,
                   }}
+                  variant="compact"
                   t={t}
+                  langPath={langPath}
+                  onPrimaryAction={() => {
+                    openDeckPreview(deck ?? null, addon, { onSubscriptionChange: handleSubscriptionChange });
+                  }}
                 />
               </li>
             ))}
@@ -352,17 +314,6 @@ export function FlashcardsPage() {
         )}
       </section>
 
-      {showPreview && (
-        <DeckPreviewModal
-          deck={previewDeck}
-          addon={previewAddon}
-          onClose={() => {
-            setPreviewDeck(null);
-            setPreviewAddon(null);
-          }}
-          onSubscriptionChange={handleSubscriptionChange}
-        />
-      )}
     </div>
   );
 }

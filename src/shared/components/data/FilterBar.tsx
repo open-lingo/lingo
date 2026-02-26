@@ -52,7 +52,7 @@ export function FilterBar({ filters, search, className = "" }: FilterBarProps) {
               value={search.value}
               onChange={(e) => search.onChange(e.target.value)}
               placeholder={search.placeholder}
-              className="w-full rounded border border-border bg-surface px-2 py-1.5 pr-9 text-sm text-text-primary"
+              className="w-full rounded border border-border bg-surface px-2 py-1.5 pr-9 text-sm text-text-primary placeholder:text-text-muted"
             />
             {search.onRefresh && (
               <button

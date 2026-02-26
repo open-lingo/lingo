@@ -3,6 +3,7 @@ import { Navigate, Outlet, useParams } from "react-router-dom";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { AVAILABLE_LEARNING_LANGUAGE_IDS } from "@/shared/domain/languageConfig";
+import { CommunityContentProvider } from "@/features/community/CommunityContentContext";
 
 export function LangLayout() {
   const { lang } = useParams<{ lang: string }>();
@@ -29,5 +30,9 @@ export function LangLayout() {
     return <Navigate to={`/${fallback}`} replace />;
   }
 
-  return <Outlet />;
+  return (
+    <CommunityContentProvider>
+      <Outlet />
+    </CommunityContentProvider>
+  );
 }

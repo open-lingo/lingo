@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { getMockCourse } from "@/features/course/mockCourse";
-import { getMockCompletedLessonIds } from "@/features/course/mockProgress";
+import { getMockCourse } from "@/shared/domain/mockCourse";
+import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import type { Course, Lesson } from "@/shared/domain/course";
 
 /** Flatten course into ordered lessons with module info for path rendering. */

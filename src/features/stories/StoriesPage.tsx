@@ -1,8 +1,10 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { CommunityItemCard } from "@/features/community/components/CommunityItemCard";
+import { useBrowseSubscribedContent } from "@/features/community/useBrowseSubscribedContent";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { TabList, TabButton } from "@/shared/components/ui/Tabs";
 import { useApi } from "@/shared/api/provider";
 import type { StoryResponse } from "@/shared/api/stories";
 
@@ -72,8 +74,6 @@ export function StoriesPage() {
   const { language } = useLanguage();
   const { stories: storiesApi, users: usersApi } = useApi();
   const [filter, setFilter] = useState<FilterId>("all");
-  const [search, setSearch] = useState("");
-  const [activeTab, setActiveTab] = useState<"browse" | "subscribed">("browse");
 
   const learningLanguageId = language?.id ?? "ko";
 
@@ -83,7 +83,6 @@ export function StoriesPage() {
     { story: StoryResponse; subId: string }[]
   >([]);
   const [subscribedLoading, setSubscribedLoading] = useState(true);
-  const [subscribeLoading, setSubscribeLoading] = useState<string | null>(null);
 
   useEffect(() => {
     let ok = true;
@@ -122,6 +121,19 @@ export function StoriesPage() {
       .catch(() => setSubscribedStories([]))
       .finally(() => setSubscribedLoading(false));
   }, [usersApi, storiesApi]);
+
+  const {
+    activeTab,
+    setActiveTab,
+    search,
+    setSearch,
+    subscribeLoading,
+    handleSubscribe: handleSubscribeBase,
+    handleUnsubscribe: handleUnsubscribeBase,
+  } = useBrowseSubscribedContent({ onRefresh: refreshSubscriptions });
+
+  const handleSubscribe = (storyId: string) => handleSubscribeBase("story", storyId);
+  const handleUnsubscribe = (storyId: string) => handleUnsubscribeBase("story", storyId);
 
   useEffect(() => {
     let ok = true;
@@ -180,21 +192,6 @@ export function StoriesPage() {
     [subscribedDisplayStories, filter, search]
   );
 
-  const handleSubscribe = (storyId: string) => {
-    setSubscribeLoading(storyId);
-    usersApi
-      .addSubscription({ contentType: "story", contentId: storyId })
-      .then(() => refreshSubscriptions())
-      .finally(() => setSubscribeLoading(null));
-  };
-
-  const handleUnsubscribe = (storyId: string) => {
-    setSubscribeLoading(storyId);
-    usersApi
-      .removeSubscription("story", storyId)
-      .then(() => refreshSubscriptions())
-      .finally(() => setSubscribeLoading(null));
-  };
 
   return (
     <div className="mx-auto max-w-5xl">
@@ -207,29 +204,21 @@ export function StoriesPage() {
         </p>
       </div>
 
-      <div className="mb-4 flex gap-2 border-b border-border">
-        <button
-          type="button"
-          onClick={() => setActiveTab("browse")}
-          className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
-            activeTab === "browse"
-              ? "border-accent text-accent"
-              : "-mb-px border-transparent text-text-secondary hover:text-text-primary"
-          }`}
-        >
-          {t("community.contentBrowserTabBrowse")}
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab("subscribed")}
-          className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
-            activeTab === "subscribed"
-              ? "border-accent text-accent"
-              : "-mb-px border-transparent text-text-secondary hover:text-text-primary"
-          }`}
-        >
-          {t("community.contentBrowserTabSubscribed")}
-        </button>
+      <div className="mb-4">
+        <TabList>
+          <TabButton
+            isActive={activeTab === "browse"}
+            onClick={() => setActiveTab("browse")}
+          >
+            {t("community.contentBrowserTabBrowse")}
+          </TabButton>
+          <TabButton
+            isActive={activeTab === "subscribed"}
+            onClick={() => setActiveTab("subscribed")}
+          >
+            {t("community.contentBrowserTabSubscribed")}
+          </TabButton>
+        </TabList>
       </div>
 
       <div className="flex flex-col gap-6 lg:flex-row">
@@ -277,9 +266,17 @@ export function StoriesPage() {
               ) : (
                 <ul className="space-y-2">
                   {filteredSubscribed.map((story) => (
-                    <StoryCard
+                    <CommunityItemCard
                       key={story.id}
-                      story={story}
+                      item={{
+                        id: story.id,
+                        name: story.title,
+                        description: story.description ?? "",
+                        languageId: story.languageId,
+                        kind: "story",
+                        storyId: story.id,
+                      }}
+                      variant="minimal"
                       t={t}
                       langPath={langPath}
                       isSubscribed
@@ -310,9 +307,17 @@ export function StoriesPage() {
               ) : (
                 <ul className="space-y-2">
                   {filteredBrowse.map((story) => (
-                    <StoryCard
+                    <CommunityItemCard
                       key={story.id}
-                      story={story}
+                      item={{
+                        id: story.id,
+                        name: story.title,
+                        description: story.description ?? "",
+                        languageId: story.languageId,
+                        kind: "story",
+                        storyId: story.id,
+                      }}
+                      variant="minimal"
                       t={t}
                       langPath={langPath}
                       isSubscribed={story.isSubscribed}
@@ -332,61 +337,3 @@ export function StoriesPage() {
   );
 }
 
-function StoryCard({
-  story,
-  t,
-  langPath,
-  isSubscribed,
-  onSubscribe,
-  onUnsubscribe,
-  subscribeLoading,
-  canSubscribe,
-}: {
-  story: DisplayStory;
-  t: (key: string) => string;
-  langPath: (p: string) => string;
-  isSubscribed?: boolean;
-  onSubscribe?: () => void;
-  onUnsubscribe?: () => void;
-  subscribeLoading?: boolean;
-  canSubscribe?: boolean;
-}) {
-  return (
-    <li className="flex items-start gap-3 rounded-xl border border-border bg-surface p-4 transition hover:border-accent">
-      <Link
-        to={langPath(`practice/stories/${story.id}`)}
-        className="min-w-0 flex-1"
-      >
-        <span className="font-medium text-text-primary">
-          {story.title}
-        </span>
-        {story.description && (
-          <p className="mt-1 text-sm text-text-secondary line-clamp-2">
-            {story.description}
-          </p>
-        )}
-        <div className="mt-2 flex gap-2 text-xs text-text-muted">
-          <span>{t("stories.communityStories")}</span>
-        </div>
-      </Link>
-      {canSubscribe && (
-        <button
-          type="button"
-          disabled={subscribeLoading}
-          onClick={(e) => {
-            e.preventDefault();
-            if (isSubscribed) onUnsubscribe?.();
-            else onSubscribe?.();
-          }}
-          className={`shrink-0 rounded px-2 py-1 text-xs font-medium transition ${
-            isSubscribed
-              ? "bg-accent-muted text-accent"
-              : "text-accent hover:bg-accent-muted"
-          }`}
-        >
-          {subscribeLoading ? "…" : isSubscribed ? t("community.contentBrowserSubscribed") : t("community.contentBrowserSubscribe")}
-        </button>
-      )}
-    </li>
-  );
-}

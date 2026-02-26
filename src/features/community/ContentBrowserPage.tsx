@@ -6,23 +6,16 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getLanguageConfig, LANGUAGE_CONFIGS } from "@/shared/domain/languageConfig";
 import { getAllAddons } from "./mockCommunity";
 import { getThreadsHot } from "./forum/mockForum";
-import { Avatar } from "./components/Avatar";
+import { CommunityItemCard, type CommunityItemCardItem } from "./components/CommunityItemCard";
+import { useBrowseSubscribedContent } from "./useBrowseSubscribedContent";
+import { useCommunityContent } from "./CommunityContentContext";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { TabList, TabButton } from "@/shared/components/ui/Tabs";
 import { useApi } from "@/shared/api/provider";
-import { DeckPreviewModal } from "@/features/flashcards/DeckPreviewModal";
-import { StoryPreviewModal } from "@/features/stories/StoryPreviewModal";
 import type { DeckResponse } from "@/shared/api/decks";
 import type { StoryResponse } from "@/shared/api/stories";
 import type { FlashcardDeck } from "@/features/flashcards/data/types";
 import type { CommunityAddon } from "./types";
-import type { AddonKind } from "./types";
-
-const ADDON_KIND_KEYS: Record<AddonKind, string> = {
-  course: "community.addonKindCourse",
-  "flashcard-pack": "community.addonKindFlashcardPack",
-  story: "community.addonKindStory",
-  grammar: "community.addonKindGrammar",
-};
 
 /** Content Browser: courses, flashcard packs, and stories. */
 type ContentType = "course" | "flashcard-pack" | "story";
@@ -85,148 +78,6 @@ function matchesSearch(
   );
 }
 
-function ContentCard({
-  addon,
-  t,
-  langPath,
-  isSubscribed,
-  onSubscribe,
-  onUnsubscribe,
-  onPreview,
-  onStoryPreview,
-  subscribeLoading,
-}: {
-  addon: CommunityAddon | DeckCardItem | StoryCardItem;
-  t: (k: string) => string;
-  langPath: (p: string) => string;
-  isSubscribed?: boolean;
-  onSubscribe?: () => void;
-  onUnsubscribe?: () => void;
-  onPreview?: () => void;
-  onStoryPreview?: () => void;
-  subscribeLoading?: boolean;
-}) {
-  const lang = getLanguageConfig(addon.languageId);
-  const langName = lang?.name ?? addon.languageId;
-  const flag = lang?.flag ?? "🌐";
-  const deckId = "deckId" in addon ? addon.deckId ?? addon.id : undefined;
-  const storyId = "storyId" in addon ? addon.storyId ?? addon.id : undefined;
-  const isDeck = addon.kind === "flashcard-pack";
-  const isStory = addon.kind === "story";
-  const showSubscribe = (deckId || storyId) && isSubscribed !== undefined;
-
-  return (
-    <div
-      key={addon.id}
-      className="flex items-start gap-4 rounded-lg border border-border bg-surface p-4"
-    >
-      <span className="text-2xl" role="img" aria-label={langName}>
-        {flag}
-      </span>
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="font-medium text-text-primary">
-            {addon.name}
-          </span>
-          <span className="rounded bg-accent-muted px-1.5 py-0.5 text-xs font-medium text-accent">
-            {t("community.communityPackBadge")}
-          </span>
-          <span className="rounded bg-surface-muted px-1.5 py-0.5 text-xs text-text-secondary">
-            {t(ADDON_KIND_KEYS[addon.kind])}
-          </span>
-        </div>
-        <p className="mt-0.5 text-sm text-text-secondary line-clamp-2">
-          {addon.description}
-        </p>
-        <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-text-muted">
-          <span>
-            {addon.itemCount ?? "—"} {t("community.addonsItems")}
-          </span>
-          <span className="inline-flex items-center gap-0.5"><Icon name="chevronUp" size={14} /> {addon.upvoteCount}</span>
-          {addon.discussionCount != null && addon.discussionCount > 0 && (
-            <span>
-              💬 {addon.discussionCount} {t("community.discussions")}
-            </span>
-          )}
-        </div>
-        {addon.maintainerName && (
-          <div className="mt-2 flex items-center gap-1.5">
-            <Avatar name={addon.maintainerName} size="xs" />
-            <span className="text-xs text-text-muted">
-              {addon.maintainerName}
-            </span>
-          </div>
-        )}
-      </div>
-      <div className="flex shrink-0 flex-col items-end gap-1">
-        <div className="flex items-center gap-1">
-          <button
-            type="button"
-            className="rounded px-2 py-1 text-xs font-medium text-accent hover:bg-accent-muted"
-            aria-label="Upvote"
-          >
-            <Icon name="chevronUp" size={14} className="inline" />
-          </button>
-          {showSubscribe && (
-            <button
-              type="button"
-              disabled={subscribeLoading}
-              onClick={isSubscribed ? onUnsubscribe : onSubscribe}
-              className={`rounded px-2 py-1 text-xs font-medium transition ${
-                isSubscribed
-                  ? "bg-accent-muted text-accent"
-                  : "text-accent hover:bg-accent-muted"
-              }`}
-            >
-              {subscribeLoading ? "…" : isSubscribed ? t("community.contentBrowserSubscribed") : t("community.contentBrowserSubscribe")}
-            </button>
-          )}
-          {isStory && storyId && onStoryPreview && (
-            <button
-              type="button"
-              onClick={onStoryPreview}
-              className="rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
-            >
-              {t("community.contentBrowserPreview")}
-            </button>
-          )}
-          {isDeck && onPreview && (
-            <button
-              type="button"
-              onClick={onPreview}
-              className="rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
-            >
-              {t("community.contentBrowserPreview")}
-            </button>
-          )}
-          {isDeck && isSubscribed ? (
-            <Link
-              to={langPath("practice/flashcards")}
-              className="rounded px-2 py-1 text-xs font-medium text-accent hover:bg-accent-muted"
-            >
-              {t("community.contentBrowserOpen")}
-            </Link>
-          ) : isStory && storyId ? (
-            <Link
-              to={langPath(`practice/stories/${storyId}`)}
-              className="rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
-            >
-              {t("community.contentBrowserOpen")}
-            </Link>
-          ) : !isDeck && (
-            <Link
-              to={addon.kind === "story" ? langPath("practice/stories") : langPath("practice/flashcards")}
-              className="rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
-            >
-              {t("community.contentBrowserOpen")}
-            </Link>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 const TYPE_FROM_PARAM: Record<string, ContentType | "all"> = {
   flashcards: "flashcard-pack",
   courses: "course",
@@ -243,8 +94,6 @@ export function ContentBrowserPage() {
   const navigate = useNavigate();
   const typeParam = searchParams.get("type");
 
-  const [activeTab, setActiveTab] = useState<"browse" | "subscribed">("browse");
-  const [search, setSearch] = useState("");
   const [languageFilter, setLanguageFilter] = useState<string | "all" | null>(null);
   const [typeFilter, setTypeFilter] = useState<ContentType | "all">("all");
   const [sortBy, setSortBy] = useState<SortOption>("newest");
@@ -262,15 +111,13 @@ export function ContentBrowserPage() {
     { deck: DeckResponse; addon: DeckCardItem }[]
   >([]);
   const [subscribedDecksLoading, setSubscribedDecksLoading] = useState(true);
-  const [subscribeLoading, setSubscribeLoading] = useState<string | null>(null);
-  const [previewDeck, setPreviewDeck] = useState<FlashcardDeck | null>(null);
-  const [previewAddon, setPreviewAddon] = useState<DeckCardItem | null>(null);
   const [apiStories, setApiStories] = useState<StoryResponse[]>([]);
   const [_apiStoriesLoading, setApiStoriesLoading] = useState(true);
   const [subscribedStories, setSubscribedStories] = useState<
     { story: StoryResponse; addon: StoryCardItem }[]
   >([]);
-  const [previewStory, setPreviewStory] = useState<StoryResponse | null>(null);
+
+  const { openDeckPreview, openStoryPreview } = useCommunityContent();
 
   const langId = language?.id ?? "ko";
 
@@ -401,6 +248,16 @@ export function ContentBrowserPage() {
       .catch(() => setSubscribedStories([]));
   }, [usersApi, decksApi, storiesApi]);
 
+  const {
+    activeTab,
+    setActiveTab,
+    search,
+    setSearch,
+    subscribeLoading,
+    handleSubscribe,
+    handleUnsubscribe,
+  } = useBrowseSubscribedContent({ onRefresh: refreshSubscriptions });
+
   const apiDeckCards = useMemo(() => apiDecks.map(deckToCardItem), [apiDecks]);
   const apiStoryCards = useMemo(
     () => apiStories.map(storyToCardItem),
@@ -520,25 +377,6 @@ export function ContentBrowserPage() {
     };
   }
 
-  const handleSubscribe = (contentType: "deck" | "story", contentId: string) => {
-    setSubscribeLoading(contentId);
-    usersApi
-      .addSubscription({ contentType, contentId })
-      .then(() => refreshSubscriptions())
-      .finally(() => setSubscribeLoading(null));
-  };
-
-  const handleUnsubscribe = (
-    contentType: "deck" | "story",
-    contentId: string
-  ) => {
-    setSubscribeLoading(contentId);
-    usersApi
-      .removeSubscription(contentType, contentId)
-      .then(() => refreshSubscriptions())
-      .finally(() => setSubscribeLoading(null));
-  };
-
   const showSearchResults = search.trim().length > 0;
 
   return (
@@ -575,31 +413,20 @@ export function ContentBrowserPage() {
         </section>
       )}
 
-      {/* Tabs: Browse | Subscribed */}
-      <div className="flex gap-2 border-b border-border">
-        <button
-          type="button"
+      <TabList>
+        <TabButton
+          isActive={activeTab === "browse"}
           onClick={() => setActiveTab("browse")}
-          className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
-            activeTab === "browse"
-              ? "border-accent text-accent"
-              : "-mb-px border-transparent text-text-secondary hover:text-text-primary"
-          }`}
         >
           {t("community.contentBrowserTabBrowse")}
-        </button>
-        <button
-          type="button"
+        </TabButton>
+        <TabButton
+          isActive={activeTab === "subscribed"}
           onClick={() => setActiveTab("subscribed")}
-          className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
-            activeTab === "subscribed"
-              ? "border-accent text-accent"
-              : "-mb-px border-transparent text-text-secondary hover:text-text-primary"
-          }`}
         >
           {t("community.contentBrowserTabSubscribed")}
-        </button>
-      </div>
+        </TabButton>
+      </TabList>
 
       <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
       {/* Left sidebar: search + filters */}
@@ -831,16 +658,17 @@ export function ContentBrowserPage() {
                       const deck = apiDecksById.get(deckId);
                       return (
                         <li key={addon.id}>
-                          <ContentCard
-                            addon={addon}
+                          <CommunityItemCard
+                            item={addon as CommunityItemCardItem}
                             t={t}
                             langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
                             isSubscribed={subscribedIds.has(deckId)}
                             onSubscribe={() => handleSubscribe("deck", deckId)}
                             onUnsubscribe={() => handleUnsubscribe("deck", deckId)}
                             onPreview={deck ? () => {
-                              setPreviewDeck(deckResponseToFlashcardDeck(deck));
-                              setPreviewAddon(addon);
+                              openDeckPreview(deckResponseToFlashcardDeck(deck), addon, { onSubscriptionChange: refreshSubscriptions });
                             } : undefined}
                             subscribeLoading={subscribeLoading === deckId}
                           />
@@ -852,17 +680,25 @@ export function ContentBrowserPage() {
                       const story = apiStoriesById.get(sid);
                       return (
                         <li key={addon.id}>
-                          <ContentCard
-                            addon={addon}
+                          <CommunityItemCard
+                            item={addon as CommunityItemCardItem}
                             t={t}
                             langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
                             isSubscribed={subscribedIds.has(sid)}
                             onSubscribe={() => handleSubscribe("story", sid)}
                             onUnsubscribe={() => handleUnsubscribe("story", sid)}
                             onStoryPreview={
                               story
                                 ? () => {
-                                    setPreviewStory(story);
+                                    openStoryPreview(story, {
+                                      onSubscriptionChange: refreshSubscriptions,
+                                      isSubscribed: subscribedIds.has(story.id),
+                                      onSubscribe: () => handleSubscribe("story", story.id),
+                                      onUnsubscribe: () => handleUnsubscribe("story", story.id),
+                                      subscribeLoading: subscribeLoading === story.id,
+                                    });
                                   }
                                 : undefined
                             }
@@ -873,7 +709,9 @@ export function ContentBrowserPage() {
                     }
                     return (
                       <li key={addon.id}>
-                        <ContentCard addon={addon} t={t} langPath={langPath} />
+                        <CommunityItemCard item={addon as CommunityItemCardItem} t={t} langPath={langPath}
+                            variant="full"
+                            showCommunityBadge />
                       </li>
                     );
                   })}
@@ -897,16 +735,17 @@ export function ContentBrowserPage() {
                       const deck = apiDecksById.get(deckId);
                       return (
                         <li key={addon.id}>
-                          <ContentCard
-                            addon={addon}
+                          <CommunityItemCard
+                            item={addon as CommunityItemCardItem}
                             t={t}
                             langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
                             isSubscribed={subscribedIds.has(deckId)}
                             onSubscribe={() => handleSubscribe("deck", deckId)}
                             onUnsubscribe={() => handleUnsubscribe("deck", deckId)}
                             onPreview={deck ? () => {
-                              setPreviewDeck(deckResponseToFlashcardDeck(deck));
-                              setPreviewAddon(addon);
+                              openDeckPreview(deckResponseToFlashcardDeck(deck), addon, { onSubscriptionChange: refreshSubscriptions });
                             } : undefined}
                             subscribeLoading={subscribeLoading === deckId}
                           />
@@ -918,15 +757,23 @@ export function ContentBrowserPage() {
                       const story = apiStoriesById.get(sid);
                       return (
                         <li key={addon.id}>
-                          <ContentCard
-                            addon={addon}
+                          <CommunityItemCard
+                            item={addon as CommunityItemCardItem}
                             t={t}
                             langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
                             isSubscribed={subscribedIds.has(sid)}
                             onSubscribe={() => handleSubscribe("story", sid)}
                             onUnsubscribe={() => handleUnsubscribe("story", sid)}
                             onStoryPreview={
-                              story ? () => setPreviewStory(story) : undefined
+                              story ? () => openStoryPreview(story, {
+                            onSubscriptionChange: refreshSubscriptions,
+                            isSubscribed: subscribedIds.has(story.id),
+                            onSubscribe: () => handleSubscribe("story", story.id),
+                            onUnsubscribe: () => handleUnsubscribe("story", story.id),
+                            subscribeLoading: subscribeLoading === story.id,
+                          }) : undefined
                             }
                             subscribeLoading={subscribeLoading === sid}
                           />
@@ -935,7 +782,9 @@ export function ContentBrowserPage() {
                     }
                     return (
                       <li key={addon.id}>
-                        <ContentCard addon={addon} t={t} langPath={langPath} />
+                        <CommunityItemCard item={addon as CommunityItemCardItem} t={t} langPath={langPath}
+                            variant="full"
+                            showCommunityBadge />
                       </li>
                     );
                   })}
@@ -971,16 +820,17 @@ export function ContentBrowserPage() {
                       const deck = apiDecksById.get(deckId);
                       return (
                         <li key={addon.id}>
-                          <ContentCard
-                            addon={addon}
+                          <CommunityItemCard
+                            item={addon as CommunityItemCardItem}
                             t={t}
                             langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
                             isSubscribed={subscribedIds.has(deckId)}
                             onSubscribe={() => handleSubscribe("deck", deckId)}
                             onUnsubscribe={() => handleUnsubscribe("deck", deckId)}
                             onPreview={deck ? () => {
-                              setPreviewDeck(deckResponseToFlashcardDeck(deck));
-                              setPreviewAddon(addon);
+                              openDeckPreview(deckResponseToFlashcardDeck(deck), addon, { onSubscriptionChange: refreshSubscriptions });
                             } : undefined}
                             subscribeLoading={subscribeLoading === deckId}
                           />
@@ -1011,7 +861,9 @@ export function ContentBrowserPage() {
                   <ul className="grid gap-3 sm:grid-cols-2">
                     {courses.slice(0, 6).map((addon) => (
                       <li key={addon.id}>
-                        <ContentCard addon={addon} t={t} langPath={langPath} />
+                        <CommunityItemCard item={addon as CommunityItemCardItem} t={t} langPath={langPath}
+                            variant="full"
+                            showCommunityBadge />
                       </li>
                     ))}
                   </ul>
@@ -1042,15 +894,23 @@ export function ContentBrowserPage() {
                         const story = apiStoriesById.get(sid);
                         return (
                           <li key={addon.id}>
-                            <ContentCard
-                              addon={addon}
+                            <CommunityItemCard
+                              item={addon as CommunityItemCardItem}
                               t={t}
                               langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
                               isSubscribed={subscribedIds.has(sid)}
                               onSubscribe={() => handleSubscribe("story", sid)}
                               onUnsubscribe={() => handleUnsubscribe("story", sid)}
                               onStoryPreview={
-                                story ? () => setPreviewStory(story) : undefined
+                                story ? () => openStoryPreview(story, {
+                            onSubscriptionChange: refreshSubscriptions,
+                            isSubscribed: subscribedIds.has(story.id),
+                            onSubscribe: () => handleSubscribe("story", story.id),
+                            onUnsubscribe: () => handleUnsubscribe("story", story.id),
+                            subscribeLoading: subscribeLoading === story.id,
+                          }) : undefined
                               }
                               subscribeLoading={subscribeLoading === sid}
                             />
@@ -1059,7 +919,9 @@ export function ContentBrowserPage() {
                       }
                       return (
                         <li key={addon.id}>
-                          <ContentCard addon={addon} t={t} langPath={langPath} />
+                          <CommunityItemCard item={addon as CommunityItemCardItem} t={t} langPath={langPath}
+                            variant="full"
+                            showCommunityBadge />
                         </li>
                       );
                     })}
@@ -1085,15 +947,16 @@ export function ContentBrowserPage() {
               <ul className="grid gap-3 sm:grid-cols-2">
                 {filteredSubscribedDecks.map(({ addon, deck }) => (
                   <li key={addon.id}>
-                    <ContentCard
-                      addon={addon}
+                    <CommunityItemCard
+                      item={addon as CommunityItemCardItem}
                       t={t}
                       langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
                       isSubscribed
                       onUnsubscribe={() => handleUnsubscribe("deck", addon.deckId ?? addon.id)}
                       onPreview={() => {
-                        setPreviewDeck(deckResponseToFlashcardDeck(deck));
-                        setPreviewAddon(addon);
+                        openDeckPreview(deckResponseToFlashcardDeck(deck), addon, { onSubscriptionChange: refreshSubscriptions });
                       }}
                       subscribeLoading={subscribeLoading === (addon.deckId ?? addon.id)}
                     />
@@ -1101,13 +964,21 @@ export function ContentBrowserPage() {
                 ))}
                 {filteredSubscribedStories.map(({ addon, story }) => (
                   <li key={addon.id}>
-                    <ContentCard
-                      addon={addon}
+                    <CommunityItemCard
+                      item={addon as CommunityItemCardItem}
                       t={t}
                       langPath={langPath}
+                            variant="full"
+                            showCommunityBadge
                       isSubscribed
                       onUnsubscribe={() => handleUnsubscribe("story", String(addon.storyId ?? addon.id))}
-                      onStoryPreview={() => setPreviewStory(story)}
+                      onStoryPreview={() => openStoryPreview(story, {
+                      onSubscriptionChange: refreshSubscriptions,
+                      isSubscribed: subscribedIds.has(story.id),
+                      onSubscribe: () => handleSubscribe("story", story.id),
+                      onUnsubscribe: () => handleUnsubscribe("story", story.id),
+                      subscribeLoading: subscribeLoading === story.id,
+                    })}
                       subscribeLoading={subscribeLoading === String(addon.storyId ?? addon.id)}
                     />
                   </li>
@@ -1126,28 +997,6 @@ export function ContentBrowserPage() {
       </main>
       </div>
 
-      {(previewDeck ?? previewAddon) && (
-        <DeckPreviewModal
-          deck={previewDeck}
-          addon={previewAddon}
-          onClose={() => {
-            setPreviewDeck(null);
-            setPreviewAddon(null);
-          }}
-          onSubscriptionChange={refreshSubscriptions}
-        />
-      )}
-      {previewStory && (
-        <StoryPreviewModal
-          story={previewStory}
-          onClose={() => setPreviewStory(null)}
-          onSubscriptionChange={refreshSubscriptions}
-          isSubscribed={subscribedIds.has(previewStory.id)}
-          onSubscribe={() => handleSubscribe("story", previewStory.id)}
-          onUnsubscribe={() => handleUnsubscribe("story", previewStory.id)}
-          subscribeLoading={subscribeLoading === previewStory.id}
-        />
-      )}
     </div>
   );
 }

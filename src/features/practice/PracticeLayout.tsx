@@ -1,8 +1,9 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { TabList, TabLink } from "@/shared/components/ui/Tabs";
 import {
   getPracticeItemsForLanguage,
   type PracticeNavItem,
@@ -14,14 +15,7 @@ function PracticeTab({ item, isActive, t }: { item: PracticeNavItem; isActive: b
   const iconName = item.iconName;
 
   return (
-    <Link
-      to={item.to}
-      className={`flex items-center gap-2 border-b-2 px-3 py-2 text-sm font-medium transition ${
-        isActive
-          ? "border-accent text-accent"
-          : "border-transparent text-text-secondary hover:border-border hover:text-text-primary"
-      }`}
-    >
+    <TabLink to={item.to} isActive={isActive} className="flex items-center gap-2 px-3">
       {iconName && (
         <span className="flex h-6 w-6 shrink-0 items-center justify-center" aria-hidden>
           <Icon name={iconName} size={16} />
@@ -33,7 +27,7 @@ function PracticeTab({ item, isActive, t }: { item: PracticeNavItem; isActive: b
         </span>
       )}
       {label}
-    </Link>
+    </TabLink>
   );
 }
 
@@ -72,9 +66,9 @@ export function PracticeLayout() {
         </p>
       </div>
 
-      <nav
-        className="flex flex-wrap gap-1 border-b border-border"
+      <TabList
         aria-label={t("practice.tabsLabel")}
+        className="flex flex-wrap gap-1"
       >
         {items.map((item) => (
           <PracticeTab
@@ -84,7 +78,7 @@ export function PracticeLayout() {
             t={t}
           />
         ))}
-      </nav>
+      </TabList>
 
       <Outlet />
     </div>

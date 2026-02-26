@@ -13,7 +13,9 @@ import { getAllAddons } from "../mockCommunity";
 import { Badge } from "../components/Badge";
 import { Avatar } from "../components/Avatar";
 import { Tag } from "../components/Tag";
+import { DataTable } from "@/shared/components/data";
 import { useDateFormat } from "@/shared/utils/formatDate";
+import type { ForumThread } from "./types";
 
 type SortMode = "hot" | "new";
 
@@ -92,88 +94,92 @@ export function ForumPage() {
           </div>
 
           {/* Dense thread list - table */}
-          <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/50">
-                  <th className="px-3 py-2 text-left font-medium text-gray-700 dark:text-gray-300">
-                    {t("forum.threadTitle")}
-                  </th>
-                  <th className="hidden px-3 py-2 text-left font-medium text-gray-700 dark:text-gray-300 sm:table-cell">
-                    {t("forum.tags")}
-                  </th>
-                  <th className="w-12 px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300">
-                    <Icon name="chevronUp" size={16} className="inline" />
-                  </th>
-                  <th className="w-14 px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300">
-                    {t("forum.replies")}
-                  </th>
-                  <th className="hidden w-14 px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300 md:table-cell">
-                    {t("forum.views")}
-                  </th>
-                  <th className="w-16 px-3 py-2 text-right font-medium text-gray-700 dark:text-gray-300">
-                    {t("forum.activity")}
-                  </th>
-                  <th className="w-12 px-3 py-2" aria-hidden />
-                </tr>
-              </thead>
-              <tbody>
-                {filteredThreads.map((thread) => {
+          <DataTable<ForumThread>
+            columns={[
+              {
+                key: "title",
+                label: t("forum.threadTitle"),
+                render: (thread) => (
+                  <Link
+                    to={langPath(`community/discuss/thread/${thread.id}`)}
+                    className="flex items-center gap-2 font-medium text-text-primary hover:text-accent"
+                  >
+                    {thread.isPinned && (
+                      <span className="text-amber-500" aria-label={t("forum.pinned")}>
+                        •
+                      </span>
+                    )}
+                    <span className="truncate">{thread.title}</span>
+                  </Link>
+                ),
+              },
+              {
+                key: "tags",
+                label: t("forum.tags"),
+                render: (thread) => {
                   const tags = thread.tagIds.map((tid) => getTagById(tid)).filter(Boolean);
-                  const score = thread.upvoteCount - thread.downvoteCount;
                   return (
-                    <tr
-                      key={thread.id}
-                      className="border-b border-gray-100 transition-colors last:border-0 hover:bg-gray-50 dark:border-gray-700/50 dark:hover:bg-gray-800/50"
-                    >
-                      <td className="group px-3 py-2">
-                        <Link
-                          to={langPath(`community/discuss/thread/${thread.id}`)}
-                          className="flex items-center gap-2 font-medium text-gray-900 hover:text-green-600 dark:text-white dark:hover:text-green-400"
-                        >
-                          {thread.isPinned && (
-                            <span className="text-amber-500" aria-label={t("forum.pinned")}>
-                              •
-                            </span>
-                          )}
-                          <span className="truncate">{thread.title}</span>
-                        </Link>
-                      </td>
-                      <td className="hidden px-3 py-2 sm:table-cell">
-                        <div className="flex flex-wrap gap-1">
-                          {tags.slice(0, 3).map((tag) => (
-                            <Tag key={tag!.id}>{tag!.name}</Tag>
-                          ))}
-                        </div>
-                      </td>
-                      <td className="px-3 py-2 text-right tabular-nums text-gray-600 dark:text-gray-400">
-                        {score}
-                      </td>
-                      <td className="px-3 py-2 text-right tabular-nums text-gray-600 dark:text-gray-400">
-                        {thread.replyCount}
-                      </td>
-                      <td className="hidden px-3 py-2 text-right tabular-nums text-gray-600 dark:text-gray-400 md:table-cell">
-                        {thread.viewCount ?? 0}
-                      </td>
-                      <td className="px-3 py-2 text-right text-gray-600 dark:text-gray-400">
-                        {formatTimeAgo(thread.updatedAt)}
-                      </td>
-                      <td className="px-3 py-2">
-                        <div className="flex items-center justify-end gap-1">
-                          <Avatar name={thread.authorName} size="xs" />
-                          {thread.status && (
-                            <Badge variant={thread.status}>
-                              {t(`forum.status${thread.status.charAt(0).toUpperCase() + thread.status.slice(1)}`)}
-                            </Badge>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
+                    <div className="flex flex-wrap gap-1">
+                      {tags.slice(0, 3).map((tag) => (
+                        <Tag key={tag!.id}>{tag!.name}</Tag>
+                      ))}
+                    </div>
                   );
-                })}
-              </tbody>
-            </table>
-          </div>
+                },
+                className: "hidden sm:table-cell",
+              },
+              {
+                key: "score",
+                label: "",
+                render: (thread) => (
+                  <span className="tabular-nums text-text-muted">
+                    {thread.upvoteCount - thread.downvoteCount}
+                  </span>
+                ),
+              },
+              {
+                key: "replies",
+                label: t("forum.replies"),
+                render: (thread) => (
+                  <span className="tabular-nums text-text-muted">{thread.replyCount}</span>
+                ),
+              },
+              {
+                key: "views",
+                label: t("forum.views"),
+                render: (thread) => (
+                  <span className="hidden tabular-nums text-text-muted md:inline">
+                    {thread.viewCount ?? 0}
+                  </span>
+                ),
+                className: "hidden md:table-cell",
+              },
+              {
+                key: "activity",
+                label: t("forum.activity"),
+                render: (thread) => (
+                  <span className="text-text-muted">{formatTimeAgo(thread.updatedAt)}</span>
+                ),
+              },
+              {
+                key: "meta",
+                label: "",
+                render: (thread) => (
+                  <div className="flex items-center justify-end gap-1">
+                    <Avatar name={thread.authorName} size="xs" />
+                    {thread.status && (
+                      <Badge variant={thread.status}>
+                        {t(`forum.status${thread.status.charAt(0).toUpperCase() + thread.status.slice(1)}`)}
+                      </Badge>
+                    )}
+                  </div>
+                ),
+              },
+            ]}
+            rows={filteredThreads}
+            getRowKey={(th) => th.id}
+            emptyMessage={t("forum.noThreads") || "No threads yet"}
+          />
         </main>
 
         {/* Sidebar - 30% */}

@@ -16,7 +16,7 @@ export function AlphabetSectionBlock({
     <section aria-labelledby={sectionId} className="space-y-3">
       <h2
         id={sectionId}
-        className="text-lg font-semibold text-gray-800 dark:text-gray-200"
+        className="text-lg font-semibold text-text-primary"
       >
         {section.name}
       </h2>

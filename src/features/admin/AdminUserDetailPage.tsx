@@ -11,6 +11,7 @@ import type { Subscription } from "@/shared/api/users";
 import type { DeckResponse } from "@/shared/api/decks";
 import { useDateFormat } from "@/shared/utils/formatDate";
 import { Icon } from "@/shared/components/Icon";
+import { TabList, TabButton } from "@/shared/components/ui/Tabs";
 
 type TabId = "profile" | "subscriptions" | "content" | "srs";
 
@@ -319,29 +320,22 @@ export function AdminUserDetailPage() {
         </div>
       )}
 
-      <div className="border-b border-gray-200 dark:border-gray-700">
-        <nav className="-mb-px flex gap-6">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => {
-                setActiveTab(tab.id);
-                if (tab.id === "srs") loadSrsState();
-              }}
-              className={`border-b-2 px-1 py-3 text-sm font-medium ${
-                activeTab === tab.id
-                  ? "border-green-600 text-green-600 dark:border-green-500 dark:text-green-400"
-                  : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </nav>
-      </div>
+      <TabList className="gap-6">
+        {tabs.map((tab) => (
+          <TabButton
+            key={tab.id}
+            isActive={activeTab === tab.id}
+            onClick={() => {
+              setActiveTab(tab.id);
+              if (tab.id === "srs") loadSrsState();
+            }}
+          >
+            {tab.label}
+          </TabButton>
+        ))}
+      </TabList>
 
-      <div className="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+      <div className="rounded-lg border border-border bg-surface p-6">
         {activeTab === "profile" && (
           <div className="space-y-6">
             {profileError && (

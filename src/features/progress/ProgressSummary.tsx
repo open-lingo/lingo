@@ -5,7 +5,7 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { ProgressBar } from "@/shared/components/progress";
 import { Card } from "@/shared/components/ui";
-import { getMockProgressSummary } from "./mockProgress";
+import { getMockProgressSummary } from "@/shared/domain/mockProgress";
 import { useCardsDueCount } from "@/features/flashcards/useCardsDueCount";
 
 export function ProgressSummary() {

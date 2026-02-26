@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { CourseModule } from "@/shared/domain/course";
-import { getMockCompletedLessonIds } from "../mockProgress";
+import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { Icon } from "@/shared/components/Icon";
 import { ProgressBarWithCheckpoints } from "@/shared/components/progress";
 

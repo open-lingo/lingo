@@ -77,24 +77,24 @@ function ExternalContentCard({
     : null;
 
   return (
-    <div className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+    <div className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-4">
       <div>
-        <h3 className="font-semibold text-gray-900 dark:text-white">
+        <h3 className="font-semibold text-text-primary">
           {item.title}
         </h3>
         {item.description && (
-          <p className="mt-0.5 line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-0.5 line-clamp-2 text-sm text-text-secondary">
             {item.description}
           </p>
         )}
       </div>
 
       <div className="flex flex-wrap gap-1.5">
-        <span className="inline-flex items-center gap-1 rounded bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400">
+        <span className="inline-flex items-center gap-1 rounded bg-accent-muted px-2 py-0.5 text-xs font-medium text-accent">
           <Icon name={CONTENT_TYPE_ICONS[item.contentType]} size={12} className="shrink-0" />
           {t(`externalContent.contentType.${item.contentType}`)}
         </span>
-        <span className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+        <span className="rounded bg-surface-muted px-2 py-0.5 text-xs text-text-secondary">
           {t(`externalContent.level.${item.level}`)}
         </span>
         <span
@@ -124,14 +124,14 @@ const platform = parseUrlPlatform(link.url);
           const label = link.label ?? t("externalContent.open");
           const title = link.description ?? label;
           return (
-            <a
-              key={i}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              title={title}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-            >
+          <a
+            key={i}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={title}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface-muted px-3 py-1.5 text-sm font-medium text-text-primary transition hover:bg-surface-muted"
+          >
               <Icon name={iconName} size={16} className="shrink-0" aria-hidden />
               {label}
             </a>
@@ -139,7 +139,7 @@ const platform = parseUrlPlatform(link.url);
         })}
       </div>
 
-      <div className="mt-auto flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+      <div className="mt-auto flex items-center justify-between text-xs text-text-muted">
         <div className="flex items-center gap-3">
           <span>
             <Icon name="chevronUp" size={14} className="inline" /> {item.upvoteCount} {t("externalContent.upvotes")}
@@ -150,8 +150,8 @@ const platform = parseUrlPlatform(link.url);
               onClick={isSubscribed ? onUnsubscribe : onSubscribe}
               className={`rounded px-2 py-1 font-medium transition ${
                 isSubscribed
-                  ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400"
-                  : "text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20"
+                  ? "bg-accent-muted text-accent"
+                  : "text-accent hover:bg-accent-muted"
               }`}
             >
               {isSubscribed ? t("flashcards.subscribed") : t("flashcards.subscribe")}
