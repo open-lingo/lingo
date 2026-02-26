@@ -139,6 +139,7 @@ export function Layout() {
   const homeActive = pathname === "/home";
   const learnActive = /^\/[^/]+\/learn/.test(pathname);
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
+  const communityActive = /\/community/.test(pathname);
   const adminActive = pathname.startsWith("/admin");
   const docsActive = pathname === "/docs" || pathname.startsWith("/docs/");
 
@@ -152,12 +153,29 @@ export function Layout() {
       <SRSPendingSync />
       <header className="sticky top-0 z-40 border-b border-border bg-surface">
         <div className="mx-auto flex h-12 min-h-12 max-w-7xl items-center justify-between gap-2 px-3 sm:h-14 sm:px-4 sm:gap-4 lg:px-8">
-          <Link
-            to={isAuthenticated ? "/home" : "/"}
-            className="shrink-0 text-base font-semibold text-text-primary sm:text-lg"
-          >
-            {t("nav.siteName")}
-          </Link>
+          <div className="flex shrink-0 items-center gap-2">
+            <span
+              className="inline-block h-6 w-6 shrink-0 bg-current sm:h-7 sm:w-7"
+              style={{
+                maskImage: "url('/icon.ico')",
+                WebkitMaskImage: "url('/icon.ico')",
+                maskSize: "contain",
+                WebkitMaskSize: "contain",
+                maskRepeat: "no-repeat",
+                WebkitMaskRepeat: "no-repeat",
+                maskPosition: "center",
+                WebkitMaskPosition: "center",
+              }}
+              aria-hidden
+            />
+            <span className="text-text-muted" aria-hidden>|</span>
+            <Link
+              to={isAuthenticated ? "/home" : "/"}
+              className="text-base font-semibold text-text-primary sm:text-lg"
+            >
+              {t("nav.siteName")}
+            </Link>
+          </div>
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-1 md:flex md:gap-3">
@@ -186,7 +204,11 @@ export function Layout() {
                 <PracticeNavDropdown isActive={practiceActive} />
                 <Link
                   to={langPath("community")}
-                  className="rounded-md px-2 py-1.5 text-sm text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                  className={`rounded-md px-2 py-1.5 text-sm ${
+                    communityActive
+                      ? "font-medium text-text-primary"
+                      : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                  }`}
                 >
                   {t("nav.community")}
                 </Link>
@@ -201,7 +223,18 @@ export function Layout() {
                   {t("nav.admin")}
                 </Link>
               </>
-            ) : null}
+            ) : (
+              <Link
+                to={langPath("community")}
+                className={`rounded-md px-2 py-1.5 text-sm ${
+                  communityActive
+                    ? "font-medium text-text-primary"
+                    : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                }`}
+              >
+                {t("nav.community")}
+              </Link>
+            )}
             <Link
               to="/docs"
               className={`rounded-md px-2 py-1.5 text-sm ${
@@ -272,7 +305,11 @@ export function Layout() {
                   <Link
                     to={langPath("community")}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="rounded-lg px-4 py-3 text-base font-medium text-text-primary hover:bg-surface-muted"
+                    className={`rounded-lg px-4 py-3 text-base ${
+                      communityActive
+                        ? "font-semibold text-text-primary"
+                        : "font-medium text-text-primary hover:bg-surface-muted"
+                    }`}
                   >
                     {t("nav.community")}
                   </Link>
@@ -288,7 +325,19 @@ export function Layout() {
                     {t("nav.admin")}
                   </Link>
                 </>
-              ) : null}
+              ) : (
+                <Link
+                  to={langPath("community")}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`rounded-lg px-4 py-3 text-base ${
+                    communityActive
+                      ? "font-semibold text-text-primary"
+                      : "font-medium text-text-primary hover:bg-surface-muted"
+                  }`}
+                >
+                  {t("nav.community")}
+                </Link>
+              )}
               <Link
                 to="/docs"
                 onClick={() => setMobileMenuOpen(false)}

@@ -71,6 +71,21 @@ html::-webkit-scrollbar-corner {
   background: transparent;
 }
 
+/* Hero slogan: animated last word — slide up + fade (language-switching feel) */
+@keyframes slogan-word {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slogan-word {
+  animation: slogan-word 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
 /* Reduced motion: respect user preference from settings (data-reduced-motion) */
 [data-reduced-motion="true"] *,
 [data-reduced-motion="true"] *::before,

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { Icon } from "@/shared/components/Icon";
 import { GitHubBadge } from "@/shared/components/GitHubBadge";
+import { HeroSlogan } from "./HeroSlogan";
 import { LandingFundingBlock } from "./LandingFundingBlock";
 import { supportedLngs } from "@/shared/i18n/i18n";
 import { AVAILABLE_LEARNING_LANGUAGES } from "@/shared/domain/languageConfig";
@@ -13,6 +14,13 @@ const LOCALE_NAMES: Record<string, string> = { en: "English", ko: "한국어" };
 const THEME_COUNT = Object.keys(BUILT_IN_THEMES).length + MOCK_COMMUNITY_THEMES.length;
 /** Placeholder until API; reflects community deck growth. */
 const COMMUNITY_DECK_COUNT = 20;
+
+const WHY_DIFFERENT: { key: string; descKey: string }[] = [
+  { key: "whyDifferent1", descKey: "whyDifferent1Desc" },
+  { key: "whyDifferent2", descKey: "whyDifferent2Desc" },
+  { key: "whyDifferent3", descKey: "whyDifferent3Desc" },
+  { key: "whyDifferent4", descKey: "whyDifferent4Desc" },
+];
 
 const FEATURES: { icon: "graduationCap" | "bookOpen" | "bookText" | "globe" | "layers" | "video" | "copy" | "star" | "pencil" | "headphones"; key: string; descKey: string }[] = [
   { icon: "graduationCap", key: "featureCourses", descKey: "featureCoursesDesc" },
@@ -35,9 +43,7 @@ export function LandingPage() {
     <div className="mx-auto max-w-4xl">
       {/* Hero */}
       <section className="py-16 text-center sm:py-24">
-        <h1 className="text-4xl font-bold tracking-tight text-text-primary sm:text-5xl md:text-6xl">
-          {t("landing.heroTitle", "Learn languages with spaced repetition")}
-        </h1>
+        <HeroSlogan />
         <p className="mx-auto mt-6 max-w-2xl text-lg text-text-secondary">
           {t(
             "landing.heroSubtitle",
@@ -46,19 +52,10 @@ export function LandingPage() {
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
           <GitHubBadge />
-          <a
-            href="https://github.com/open-lingo/lingo"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub stars"
-          >
-            <img
-              src="https://img.shields.io/github/stars/open-lingo%2Flingo"
-              alt="GitHub stars"
-              className="h-5"
-            />
-          </a>
         </div>
+        <p className="mt-2 text-sm text-text-muted">
+          {t("landing.heroTagline", "Built by learners · Open source")}
+        </p>
         <ul className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-2 text-sm text-text-secondary">
           <li className="flex items-center gap-2">
             <Icon name="check" size={16} className="shrink-0 text-success" />
@@ -82,10 +79,10 @@ export function LandingPage() {
             <Icon name="arrowRight" size={18} />
           </Link>
           <Link
-            to={langPath("community")}
+            to="/docs"
             className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 text-base font-medium text-text-primary transition hover:bg-surface-muted"
           >
-            {t("landing.browseCommunity", "Browse community")}
+            {t("landing.seeHowItWorks", "See how it works")}
           </Link>
           <Link
             to="/login"
@@ -139,6 +136,65 @@ export function LandingPage() {
         </div>
       </section>
 
+      {/* Why we're different */}
+      <section className="border-t border-border py-16">
+        <h2 className="text-center text-2xl font-semibold text-text-primary">
+          {t("landing.whyDifferentTitle", "Why we're different")}
+        </h2>
+        <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
+          {WHY_DIFFERENT.map(({ key, descKey }) => (
+            <div key={key} className="rounded-xl border border-border bg-surface p-4">
+              <h3 className="font-semibold text-text-primary">
+                {t(`landing.${key}`)}
+              </h3>
+              <p className="mt-1 text-sm text-text-secondary">
+                {t(`landing.${descKey}`)}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Product preview */}
+      <section className="border-t border-border py-16">
+        <h2 className="text-center text-2xl font-semibold text-text-primary">
+          {t("landing.productPreviewTitle", "See Open Lingo in action")}
+        </h2>
+        <p className="mx-auto mt-2 max-w-xl text-center text-sm text-text-secondary">
+          {t("landing.productPreviewSubtitle", "Courses, SRS flashcards, letter practice, and stories. Try it free.")}
+        </p>
+        <div className="mx-auto mt-10 max-w-2xl">
+          <Link
+            to={langPath("learn")}
+            className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition hover:border-border-muted hover:bg-surface-muted"
+          >
+            <div className="flex flex-wrap gap-3 p-6 text-left">
+              <div className="flex items-center gap-2 rounded-lg bg-accent-muted px-3 py-1.5 text-sm font-medium text-accent">
+                <Icon name="graduationCap" size={16} />
+                {t("landing.featureCourses", "Structured courses")}
+              </div>
+              <div className="flex items-center gap-2 rounded-lg bg-accent-muted px-3 py-1.5 text-sm font-medium text-accent">
+                <Icon name="bookOpen" size={16} />
+                {t("landing.featureFlashcards", "SRS flashcards")}
+              </div>
+              <div className="flex items-center gap-2 rounded-lg bg-accent-muted px-3 py-1.5 text-sm font-medium text-accent">
+                <Icon name="pencil" size={16} />
+                {t("landing.featureLetterPractice", "Letter & alphabet practice")}
+              </div>
+              <div className="flex items-center gap-2 rounded-lg bg-accent-muted px-3 py-1.5 text-sm font-medium text-accent">
+                <Icon name="bookText" size={16} />
+                {t("landing.featureStories", "Stories")}
+              </div>
+            </div>
+            <div className="border-t border-border bg-surface-muted px-6 py-4 text-center">
+              <span className="text-sm font-medium text-accent">
+                {t("landing.getStarted", "Get started")} →
+              </span>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       {/* Features grid */}
       <section className="border-t border-border py-16">
         <h2 className="text-center text-2xl font-semibold text-text-primary">
@@ -175,7 +231,7 @@ export function LandingPage() {
           {t("landing.ctaTitle", "Ready to start learning?")}
         </h2>
         <p className="mt-2 text-text-secondary">
-          {t("landing.ctaSubtitle", "Sign in or create an account to sync your progress across devices.")}
+          {t("landing.ctaSubtitle", "Free to start · Premium removes ads")}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-4">
           <Link
