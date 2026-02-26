@@ -250,7 +250,7 @@ export function Layout() {
           {/* Right side: utilities + mobile menu button */}
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             {isAuthenticated && <SyncManagerTrigger />}
-            <LanguageSelector />
+            {isAuthenticated && <LanguageSelector />}
             <ThemeToggle />
             <AuthMenu />
             <button
