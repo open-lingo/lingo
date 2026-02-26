@@ -68,28 +68,16 @@ const MIN_STROKE_PIXELS = 80;
 const OVERLAP_PASS_THRESHOLD = 0.75;
 /** Pixels to dilate the reference mask so thick strokes and slight offsets still score high (~85% for a good trace). */
 const DILATE_RADIUS = 12;
-/** When measuring "ref covered", dilate the user stroke by this much only. Small = partial traces score low. */
+/** When measuring "ref covered", dilate the user stroke by this much only. (Kept for potential future use.) */
 const REF_COVERAGE_USER_DILATE = 3;
-/** Max "scale up" for overlap check: dilate user by this (≈2×) for slightly more forgiving overlap. */
-const REF_COVERAGE_SCALE_UP_RADIUS = 8;
-/** Combined score: weight scaled template overlap vs plain score. (0.8 = 80% scaled, 20% plain.) */
-const SCALED_OVERLAP_WEIGHT = 0.8;
-/** Penalty for template pixels still unfilled after 2× scaling. Applied when scaled coverage < UNFILLED_PENALTY_THRESHOLD. */
-const UNFILLED_PENALTY = 0.85;
-/** Only skip unfilled penalty when scaled coverage is at least this. */
-const UNFILLED_PENALTY_THRESHOLD = 0.7;
-/** Bonus when precision and scaled are high; raw 20–40% scales it (BONUS_RAW_*). */
-const HIGH_QUALITY_BONUS = 0.06;
-const HIGH_QUALITY_BONUS_PERFECT_PRECISION = 0.14;
-const HIGH_QUALITY_SCALED_MIN = 0.7;
-const HIGH_QUALITY_PRECISION_MIN = 0.95;
-const BONUS_RAW_COVERAGE_MIN = 0.2;
-const BONUS_RAW_COVERAGE_FULL = 0.4;
-/** When raw coverage is below this, cap score (MAX_SCORE_WHEN_LOW_RAW_COVERAGE). */
-const MIN_REFERENCE_COVERAGE_FOR_GOOD_SCORE = 0.35;
-const MAX_SCORE_WHEN_LOW_RAW_COVERAGE = 0.65;
-/** Coverage ceiling for plain score: score cannot exceed effectiveCoverage/this. */
-const MIN_COVERAGE_FOR_FULL_CREDIT = 0.5;
+/** Radius (in logical template space) to dilate template & user for coverage comparison. */
+const TEMPLATE_COVERAGE_DILATE_RADIUS = 5;
+/** Extra radius beyond coverage region that defines the allowed drawing box. */
+const OVERFLOW_EXTRA_RADIUS = 8;
+/** Require at least this fraction of template pixels (after dilation) to be covered to pass. */
+const TEMPLATE_COVERAGE_PASS_THRESHOLD = 0.75;
+/** Max fraction of user strokes allowed outside the allowed region. */
+const MAX_OVERFLOW_FRACTION = 0.25;
 
 function luminance(r: number, g: number, b: number): number {
   return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
@@ -264,82 +252,93 @@ export function compareDrawingToSymbol(
   }
   const referenceCoverageScaled = refCount > 0 ? refCoveredScaled / refCount : 0;
 
-  // Precision: what fraction of the user's stroke is on target.
-  const precision = userCount > 0 ? overlap / userCount : 0;
-  // Reference coverage: what fraction of the reference stroke did they draw over.
-  const referenceCoverage = refCount > 0 ? Math.min(1, refCovered / refCount) : 0;
-  // Weighted blend: precision (on-target) + coverage (how much of shape they drew). Then cap by coverage so single-stroke partials can't pass.
-  const sizeRatio =
-    refCount > 0 ? Math.min(userCount, refCount) / Math.max(userCount, refCount) : 0;
-  const PRECISION_WEIGHT = 0.825;
-  const COVERAGE_WEIGHT = 0.175;
-  let score = PRECISION_WEIGHT * precision + COVERAGE_WEIGHT * referenceCoverage;
-  score = Math.min(1, score + 0.02 * sizeRatio);
-  // Cap score by coverage. Use scaled coverage when higher (so a 62% scaled, 30% raw trace can score ~75–80%).
-  const effectiveCoverage = Math.max(referenceCoverage, referenceCoverageScaled);
-  score = Math.min(score, effectiveCoverage / MIN_COVERAGE_FOR_FULL_CREDIT, 1);
-  // Combined metric: plain score + scaled template overlap. Apply unfilled penalty only when scaled coverage is low (< threshold) so good traces (e.g. 70%+ scaled) score fairly.
-  const unfilledFractionAfterScaling = 1 - referenceCoverageScaled;
-  const applyUnfilledPenalty = referenceCoverageScaled < UNFILLED_PENALTY_THRESHOLD;
-  const penaltyFactor = applyUnfilledPenalty
-    ? 1 - UNFILLED_PENALTY * unfilledFractionAfterScaling
-    : 1;
-  const scaledOverlapTerm = SCALED_OVERLAP_WEIGHT * referenceCoverageScaled * penaltyFactor;
-  let finalScore = (1 - SCALED_OVERLAP_WEIGHT) * score + scaledOverlapTerm;
-  if (
-    referenceCoverage >= MIN_REFERENCE_COVERAGE_FOR_GOOD_SCORE &&
-    referenceCoverageScaled >= HIGH_QUALITY_SCALED_MIN &&
-    precision >= HIGH_QUALITY_PRECISION_MIN
-  ) {
-    const fullBonus =
-      precision >= 0.99 ? HIGH_QUALITY_BONUS_PERFECT_PRECISION : HIGH_QUALITY_BONUS;
-    const bonusMultiplier =
-      referenceCoverage < BONUS_RAW_COVERAGE_MIN
-        ? 0
-        : referenceCoverage >= BONUS_RAW_COVERAGE_FULL
-          ? 1
-          : (referenceCoverage - BONUS_RAW_COVERAGE_MIN) /
-            (BONUS_RAW_COVERAGE_FULL - BONUS_RAW_COVERAGE_MIN);
-    finalScore = Math.min(1, finalScore + fullBonus * bonusMultiplier);
-  }
-  if (referenceCoverage < MIN_REFERENCE_COVERAGE_FOR_GOOD_SCORE) {
-    finalScore = Math.min(finalScore, MAX_SCORE_WHEN_LOW_RAW_COVERAGE);
-  }
-  const pass = finalScore >= overlapThreshold;
+  // ----- New scoring: coverage vs overflow -----
 
-  const combinedScoreBeforePenalty =
-    (1 - SCALED_OVERLAP_WEIGHT) * score + SCALED_OVERLAP_WEIGHT * referenceCoverageScaled;
-  const failReason = !pass ? "score_below_threshold" : undefined;
+  // Template coverage region: dilate the template so a correctly drawn, slightly thicker or misaligned stroke
+  // still counts as "on template".
+  const coverageRadius = Math.max(
+    1,
+    Math.round(TEMPLATE_COVERAGE_DILATE_RADIUS * dpr)
+  );
+  const templateDilatedForCoverage = dilateMask(
+    refMask,
+    width,
+    height,
+    coverageRadius
+  );
+  const userDilatedForCoverage = dilateMask(
+    userMask,
+    width,
+    height,
+    coverageRadius
+  );
+
+  const templatePixelCount = refMask.reduce((a, b) => a + b, 0);
+
+  // How many template pixels (before dilation) are covered by the dilated user stroke?
+  let coveredTemplatePixels = 0;
+  for (let i = 0; i < width * height; i++) {
+    if (refMask[i] === 1 && userDilatedForCoverage[i] === 1) {
+      coveredTemplatePixels++;
+    }
+  }
+
+  const templateCoverage =
+    templatePixelCount > 0 ? coveredTemplatePixels / templatePixelCount : 0;
+
+  // Overflow region: template dilated by coverageRadius + OVERFLOW_EXTRA_RADIUS.
+  // Anything outside this region is considered "scribble".
+  const overflowRadius = Math.max(
+    1,
+    Math.round(
+      (TEMPLATE_COVERAGE_DILATE_RADIUS + OVERFLOW_EXTRA_RADIUS) * dpr
+    )
+  );
+  const allowedRegion = dilateMask(refMask, width, height, overflowRadius);
+
+  let overflowUserPixels = 0;
+  for (let i = 0; i < width * height; i++) {
+    if (userMask[i] === 1 && allowedRegion[i] === 0) {
+      overflowUserPixels++;
+    }
+  }
+
+  const overflowFraction =
+    userCount > 0 ? overflowUserPixels / userCount : 0;
+
+  // Final score: mostly "how much of the template did you fill", reduced by overflow.
+  // This stays in [0, 1] and you can display it as a percentage.
+  let score = templateCoverage * (1 - overflowFraction);
+  score = Math.max(0, Math.min(1, score));
+
+  const pass =
+    templateCoverage >= TEMPLATE_COVERAGE_PASS_THRESHOLD &&
+    overflowFraction <= MAX_OVERFLOW_FRACTION &&
+    userCount >= minStrokePixels;
+
   console.log("[drawingComparison]", {
     symbol,
     pass,
-    score: Math.round(finalScore * 1000) / 1000,
-    scorePercent: `${(finalScore * 100).toFixed(1)}%`,
-    combinedScoreBeforePenalty: Math.round(combinedScoreBeforePenalty * 1000) / 1000,
-    plainScore: Math.round(score * 1000) / 1000,
-    unfilledPenalty: applyUnfilledPenalty
-      ? Math.round((UNFILLED_PENALTY * unfilledFractionAfterScaling) * 1000) / 1000
-      : 0,
-    referenceCoverage: Math.round(referenceCoverage * 1000) / 1000,
-    referenceCoverageScaled: Math.round(referenceCoverageScaled * 1000) / 1000,
-    precision: Math.round(precision * 1000) / 1000,
-    refCovered,
-    refCoveredScaled,
-    sizeRatio: Math.round(sizeRatio * 1000) / 1000,
-    overlap,
+    score: Math.round(score * 1000) / 1000,
+    scorePercent: `${(score * 100).toFixed(1)}%`,
+    templateCoverage: Math.round(templateCoverage * 1000) / 1000,
+    overflowFraction: Math.round(overflowFraction * 1000) / 1000,
+    coveredTemplatePixels,
+    templatePixelCount,
+    overflowUserPixels,
     userStrokePixels: userCount,
     referenceStrokePixels: refCount,
     referenceDilatedPixels: refDilatedCount,
     threshold: overlapThreshold,
-    thresholdPercent: `${(overlapThreshold * 100).toFixed(0)}%`,
-    scaledOverlapWeight: SCALED_OVERLAP_WEIGHT,
+    templateCoveragePassThreshold: TEMPLATE_COVERAGE_PASS_THRESHOLD,
+    maxOverflowFraction: MAX_OVERFLOW_FRACTION,
     canvasSize: `${width}x${height}`,
-    ...(failReason ? { reason: failReason } : {}),
+    ...(pass ? {} : { reason: "coverage_or_overflow" }),
   });
 
   return {
     pass,
-    score: finalScore,
+    score,
     userStrokePixels: userCount,
   };
 }
