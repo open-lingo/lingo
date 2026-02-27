@@ -60,22 +60,6 @@ export function LearnPage() {
 
   return (
     <div className="space-y-10">
-      {/* Sample lesson demo */}
-      <section className="flex flex-wrap gap-3">
-        <Link
-          to={langPath("learn/lessons/m1-l1")}
-          className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent-hover"
-        >
-          <Icon name="play" size={14} className="mr-1 inline" /> Sample Lesson: Greetings
-        </Link>
-        <Link
-          to={langPath("learn/lessons/m1-l2")}
-          className="rounded-lg border border-accent px-4 py-2 text-sm font-medium text-accent transition hover:bg-accent-muted"
-        >
-          <Icon name="play" size={14} className="mr-1 inline" /> Sample Lesson: Introductions
-        </Link>
-      </section>
-
       {/* Main course - full card */}
       <section>
         <h2 className="mb-2 text-lg font-semibold text-text-primary">

@@ -45,6 +45,18 @@ export function clearAllAlphabetProgress(): void {
   keys.forEach((k) => localStorage.removeItem(k));
 }
 
+/** Clear progress for a single alphabet (languageId + alphabetId). */
+export function clearAlphabetProgress(
+  languageId: string,
+  alphabetId: string,
+): void {
+  try {
+    localStorage.removeItem(storageKey(languageId, alphabetId));
+  } catch {
+    /* ignore */
+  }
+}
+
 export function getAlphabetProgress(
   languageId: string,
   alphabetId: string

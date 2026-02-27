@@ -21,6 +21,8 @@ export type UserSettings = {
   learning: {
     learningLanguageId: string;
     uiLocale: string;
+    showAlphabetRomanization?: boolean;
+    showAlphabetFurigana?: boolean;
   };
   display?: {
     dateLocale?: string;
@@ -47,6 +49,8 @@ export const DEFAULT_SETTINGS: UserSettings = {
   learning: {
     learningLanguageId: "ko",
     uiLocale: "en",
+    showAlphabetRomanization: true,
+    showAlphabetFurigana: true,
   },
   display: {},
 };

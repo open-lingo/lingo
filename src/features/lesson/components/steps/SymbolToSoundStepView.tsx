@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { SymbolToSoundStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
+import {
+  autoPlayAlphabetAudio,
+  getAlphabetAudioUrl,
+} from "@/shared/audio/alphabetAudio";
 
 type Props = {
   step: SymbolToSoundStep;
@@ -17,6 +21,16 @@ export function SymbolToSoundStepView({
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
+  useEffect(() => {
+    autoPlayAlphabetAudio(step.payload.audioKey, `symbol-to-sound-${step.id}`);
+  }, [step.payload.audioKey, step.id]);
+
+  function handlePlay() {
+    if (!step.payload.audioKey) return;
+    const audio = new Audio(getAlphabetAudioUrl(step.payload.audioKey));
+    audio.play().catch(() => {});
+  }
+
   const isCorrect = selected === step.correctOptionId;
 
   function handleSubmit() {
@@ -30,13 +44,21 @@ export function SymbolToSoundStepView({
       <p className="text-center text-gray-700 dark:text-gray-200">
         What sound does this symbol make?
       </p>
-      <div className="flex justify-center">
+      <div className="flex flex-col items-center gap-3">
         <span
           className="text-5xl font-bold text-gray-900 dark:text-white"
           aria-hidden
         >
           {step.payload.symbol}
         </span>
+        <button
+          type="button"
+          onClick={handlePlay}
+          className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+          aria-label="Play sound"
+        >
+          🔊 Play
+        </button>
       </div>
       <div className="grid gap-3">
         {step.options.map((opt) => {

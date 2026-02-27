@@ -11,7 +11,14 @@ import {
 } from "@/shared/domain/languageConfig";
 import { ALPHABET_QUERY } from "@/shared/hooks/usePathParams";
 import { CharacterCard, AlphabetSectionBlock } from "./components/characters";
-import { getOrCreateProgress } from "./alphabet/alphabetProgress";
+import {
+  getAlphabetProgress,
+  clearAlphabetProgress,
+} from "./alphabet/alphabetProgress";
+import {
+  seedAlphabetFresh,
+  seedAlphabetMastered,
+} from "./alphabet/alphabetDevTools";
 
 export function AlphabetPracticePage() {
   const { language } = useLanguage();
@@ -21,9 +28,11 @@ export function AlphabetPracticePage() {
   const { alphabetId: pathAlphabetId } = useParams<{ alphabetId?: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const queryName = searchParams.get(ALPHABET_QUERY);
+  const devToolsEnabled = searchParams.get("alphabetDev") === "1";
 
   const config = language ? getLanguageConfig(language.id) : null;
   const defaultAlphabet = config?.alphabet;
+  const multipleAlphabets = config?.alphabets ?? (defaultAlphabet ? [defaultAlphabet] : []);
 
   const resolvedId = pathAlphabetId ?? queryName ?? defaultAlphabet?.id;
   const alphabet: AlphabetDef | undefined =
@@ -44,10 +53,14 @@ export function AlphabetPracticePage() {
 
   const progress = useMemo(() => {
     if (!language || !resolvedId) return null;
-    return getOrCreateProgress(language.id, resolvedId);
+    return getAlphabetProgress(language.id, resolvedId);
   }, [language, resolvedId]);
 
-  const hasAnyProgress = progress && Object.keys(progress.letters).length > 0;
+  const hasAnyProgress =
+    !!progress &&
+    (Object.keys(progress.letters).length > 0 ||
+      Object.keys(progress.sectionTests).length > 0 ||
+      !!progress.fullTestPassed);
 
   useEffect(() => {
     if (defaultAlphabet && resolvedId && !pathAlphabetId && queryName) {
@@ -81,8 +94,43 @@ export function AlphabetPracticePage() {
             {alphabet.description}
           </p>
         )}
+        {multipleAlphabets.length > 1 && resolvedId && (
+          <div className="mt-4 inline-flex gap-1 rounded-lg bg-surface-muted p-1 text-xs">
+            {multipleAlphabets.map((alpha) => {
+              const isActive = alpha.id === resolvedId;
+              return (
+                <button
+                  key={alpha.id}
+                  type="button"
+                  onClick={() =>
+                    navigate(langPath(`practice/alphabet/${alpha.id}`))
+                  }
+                  className={`rounded-md px-3 py-1.5 font-medium ${
+                    isActive
+                      ? "bg-surface text-text-primary shadow-sm"
+                      : "text-text-muted hover:bg-surface"
+                  }`}
+                >
+                  {alpha.name}
+                </button>
+              );
+            })}
+            {config?.practiceTypes?.includes("kanji") && (
+              <button
+                type="button"
+                onClick={() => navigate(langPath("practice/kanji"))}
+                className="rounded-md px-3 py-1.5 font-medium text-text-muted hover:bg-surface"
+              >
+                {t(
+                  "practice.alphabetLearner.simpleKanjiTab",
+                  "Simple kanji",
+                )}
+              </button>
+            )}
+          </div>
+        )}
         {resolvedId && (
-          <div className="mt-4 flex flex-wrap gap-3">
+          <div className="mt-4 flex flex-wrap items-center gap-3">
             <button
               type="button"
               onClick={() =>
@@ -108,6 +156,48 @@ export function AlphabetPracticePage() {
               >
                 {t("practice.alphabetLearner.testOutOfAlphabet")}
               </button>
+            )}
+            {devToolsEnabled && language && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => {
+                    clearAlphabetProgress(language.id, resolvedId);
+                    // eslint-disable-next-line no-console
+                    console.log("[alphabetDev] cleared progress for", language.id, resolvedId);
+                  }}
+                  className="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 hover:bg-red-100 dark:border-red-500/60 dark:bg-red-900/40 dark:text-red-200"
+                >
+                  Reset progress (this alphabet)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    seedAlphabetFresh(language.id, resolvedId);
+                    // eslint-disable-next-line no-console
+                    console.log("[alphabetDev] seeded FRESH for", language.id, resolvedId);
+                  }}
+                  className="rounded-lg border border-gray-300 bg-surface px-3 py-1.5 text-xs font-medium text-text-primary hover:bg-surface-muted"
+                >
+                  Seed: fresh learner
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    seedAlphabetMastered(language.id, resolvedId);
+                    // eslint-disable-next-line no-console
+                    console.log("[alphabetDev] seeded MASTERED for", language.id, resolvedId);
+                  }}
+                  className="rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-800 hover:bg-emerald-100 dark:border-emerald-500/60 dark:bg-emerald-900/40 dark:text-emerald-200"
+                >
+                  Seed: mastered alphabet
+                </button>
+              </>
+            )}
+            {progress?.fullTestPassed && (
+              <span className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">
+                {t("practice.alphabetLearner.fullAlphabetPassed")}
+              </span>
             )}
           </div>
         )}
@@ -156,6 +246,21 @@ export function AlphabetPracticePage() {
                 />
                 {resolvedId && section.characters.length > 0 && (
                   <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        navigate(
+                          langPath(
+                            `practice/alphabet/${resolvedId}/learn?section=${encodeURIComponent(
+                              section.id,
+                            )}`,
+                          ),
+                        )
+                      }
+                      className="rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-800 hover:bg-emerald-100 dark:bg-emerald-900/40 dark:text-emerald-200 dark:hover:bg-emerald-900/60"
+                    >
+                      {t("practice.alphabetLearner.learnThisSection")}
+                    </button>
                     {progress?.sectionTests[section.id] ? (
                       <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">
                         {t("practice.alphabetLearner.sectionPassed")}

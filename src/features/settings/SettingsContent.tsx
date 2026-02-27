@@ -181,6 +181,53 @@ export function SettingsContent() {
 
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-text-primary">
+          {t("settings.alphabetDisplay", "Alphabet display")}
+        </h3>
+        <p className="text-xs text-text-muted">
+          {t(
+            "settings.alphabetDisplayHelp",
+            "Control how romanization and reading aids are shown for alphabets.",
+          )}
+        </p>
+        <label className="flex cursor-pointer items-center gap-2">
+          <input
+            type="checkbox"
+            checked={settings.learning.showAlphabetRomanization ?? true}
+            onChange={(e) =>
+              updateSetting(
+                "learning.showAlphabetRomanization",
+                e.target.checked,
+              )
+            }
+            className="rounded border-gray-300 text-accent focus:ring-accent"
+          />
+          <span className="text-sm text-text-primary">
+            {t(
+              "settings.showAlphabetRomanization",
+              "Show romanization under alphabet characters",
+            )}
+          </span>
+        </label>
+        <label className="flex cursor-pointer items-center gap-2">
+          <input
+            type="checkbox"
+            checked={settings.learning.showAlphabetFurigana ?? true}
+            onChange={(e) =>
+              updateSetting("learning.showAlphabetFurigana", e.target.checked)
+            }
+            className="rounded border-gray-300 text-accent focus:ring-accent"
+          />
+          <span className="text-sm text-text-primary">
+            {t(
+              "settings.showAlphabetFurigana",
+              "Show furigana above Japanese text (where available)",
+            )}
+          </span>
+        </label>
+      </section>
+
+      <section className="space-y-2">
+        <h3 className="text-sm font-semibold text-text-primary">
           {t("settings.uiLocale")}
         </h3>
         <p className="text-xs text-text-muted">

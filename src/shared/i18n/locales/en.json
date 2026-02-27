@@ -137,7 +137,23 @@
     "listenAndWrite": "Listen, then write the symbol from memory.",
     "notFound": "Alphabet not found",
     "noLettersToLearn": "No new letters to learn in this section. Try another section or test out.",
-    "noLettersToTest": "No letters to test."
+    "noLettersToTest": "No letters to test.",
+    "overviewTitle": "How this alphabet lesson works",
+    "overviewBody": "You’ll learn small groups of consonants and vowels. For each symbol you will hear the sound, trace it, recognize it from audio, and finally write it from memory. If a symbol is tricky, you’ll see the template again and retry it at the end of the lesson.",
+    "plainConsonantsTitle": "Plain consonants (기본 자음)",
+    "plainConsonantsBody": "These are the basic building‑block consonants of Hangul (like g/k, n, d/t, m, b, s, ng, j, h). You’ll focus on how each shape is written and how it sounds at the beginning of a syllable.",
+    "aspiratedConsonantsTitle": "Aspirated consonants (거센소리)",
+    "aspiratedConsonantsBody": "These consonants, like ㅋ, ㅌ, ㅍ, and ㅊ, are pronounced with a stronger burst of air. You’ll practice hearing the difference between plain vs. aspirated pairs (ㄱ/ㅋ, ㄷ/ㅌ, ㅂ/ㅍ, ㅈ/ㅊ) and writing each shape cleanly.",
+    "tenseConsonantsTitle": "Tense consonants (쌍자음)",
+    "tenseConsonantsBody": "These ‘double’ consonants (ㄲ, ㄸ, ㅃ, ㅆ, ㅉ) are tighter and tenser than the plain ones. You’ll train your ear to hear the extra tension and your handwriting to keep their shapes distinct from their plain counterparts.",
+    "basicVowelsTitle": "Basic vowels (기본 모음)",
+    "basicVowelsBody": "These are the core vowel sounds of Korean (ㅏ, ㅓ, ㅗ, ㅜ, ㅡ, ㅣ). You’ll learn how each is written (vertical vs. horizontal strokes) and how they combine with consonants to form simple syllables like 가, 더, 미.",
+    "yVowelsTitle": "Y‑vowels (y 모음)",
+    "yVowelsBody": "These vowels add a ‘y’ sound in front of the basic vowels (ㅑ, ㅕ, ㅛ, ㅠ). You’ll see how they are built from the basic vowels you already know and practice hearing the subtle differences (ㅏ vs. ㅑ, ㅓ vs. ㅕ, etc.).",
+    "compoundVowelsTitle": "Compound vowels (복합 모음)",
+    "compoundVowelsBody": "These vowels combine two sounds, like ㅘ (wa), ㅙ (wae), or ㅚ (oe). You’ll practice distinguishing similar‑sounding pairs (ㅐ/ㅔ, ㅙ/ㅚ, etc.) and keeping each complex shape consistent when you write it.",
+    "yoonCombosTitle": "Small ゃ/ゅ/ょ combinations (拗音)",
+    "yoonCombosBody": "These combinations use a normal consonant kana followed by a smaller ゃ/ゅ/ょ (or ャ/ュ/ョ) to make new sounds like rya, ryu, ryo. You’ll practice writing them as a single unit and listening for the difference between り + や (riya) and りゃ (rya)."
   },
   "practice": {
     "intro": "Flashcards, stories, and skill trainers.",
@@ -159,7 +175,9 @@
       "testOutOfAlphabet": "Test out of full alphabet",
       "sectionPassed": "Section passed",
       "fullAlphabetPassed": "Full alphabet passed",
-      "fullAlphabet": "Full alphabet"
+      "fullAlphabet": "Full alphabet",
+      "learnThisSection": "Learn this section",
+      "simpleKanjiTab": "Simple kanji"
     },
     "particles": {
       "title": "Particle practice",
@@ -879,6 +897,10 @@
     "unstarTheme": "Unstar",
     "installTheme": "Add",
     "uiLocale": "Interface language",
-    "uiLocaleHelp": "Language for menus and buttons."
+    "uiLocaleHelp": "Language for menus and buttons.",
+    "alphabetDisplay": "Alphabet display",
+    "alphabetDisplayHelp": "Control how romanization and reading aids are shown for alphabets.",
+    "showAlphabetRomanization": "Show romanization under alphabet characters",
+    "showAlphabetFurigana": "Show furigana above Japanese text (where available)"
   }
 }

@@ -1,3 +1,5 @@
+import { useSettings } from "@/shared/contexts/SettingsContext";
+
 type CharacterCardProps = {
   character: string;
   romanization?: string;
@@ -9,6 +11,9 @@ export function CharacterCard({
   romanization,
   size = "default",
 }: CharacterCardProps) {
+  const { settings } = useSettings();
+  const showRomanization =
+    settings.learning.showAlphabetRomanization ?? true;
   const isCompact = size === "compact";
   return (
     <div
@@ -23,7 +28,7 @@ export function CharacterCard({
       }
     >
       <span>{character}</span>
-      {!isCompact && romanization && (
+      {!isCompact && showRomanization && romanization && (
         <span className="mt-0.5 text-sm font-normal text-text-muted">
           {romanization}
         </span>

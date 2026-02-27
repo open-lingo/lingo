@@ -7,7 +7,7 @@ const DEFAULT_HEIGHT = Math.round(200 * CANVAS_SCALE);
 /** Line width to better match template stroke width; scaled with canvas. */
 const STROKE_WIDTH = Math.round(6 * CANVAS_SCALE);
 /** Guide (template) font size; scaled with canvas so character fills the box. */
-const GUIDE_FONT_SIZE = Math.round(80 * CANVAS_SCALE);
+const GUIDE_FONT_SIZE = Math.round(90 * CANVAS_SCALE);
 /** Ink color for the user's drawing (black). */
 const STROKE_COLOR = "#000000";
 /** Canvas background: darker grey (layer 1 only; ignored in scoring). */
@@ -43,11 +43,8 @@ export const DrawingCanvas = forwardRef<DrawingCanvasHandle, Props>(function Dra
   "aria-label": ariaLabel = "Drawing area",
 }, ref) {
   const drawCanvasRef = useRef<HTMLCanvasElement>(null);
+  const guideCanvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
-  const guideSymbolRef = useRef(guideSymbol);
-  const guideOpacityRef = useRef(guideOpacity);
-  guideSymbolRef.current = guideSymbol;
-  guideOpacityRef.current = guideOpacity;
 
   const getDrawCtx = useCallback(() => drawCanvasRef.current?.getContext("2d") ?? null, []);
 
@@ -113,6 +110,35 @@ export const DrawingCanvas = forwardRef<DrawingCanvasHandle, Props>(function Dra
     ctx.clearRect(0, 0, width, height);
   }, [width, height]);
 
+  useEffect(() => {
+    const canvas = guideCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const dpr = window.devicePixelRatio ?? 1;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, width, height);
+
+    if (!guideSymbol) {
+      return;
+    }
+
+    ctx.fillStyle = GUIDE_COLOR;
+    ctx.globalAlpha = guideOpacity;
+    ctx.font = `${GUIDE_FONT_SIZE}px sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(guideSymbol, width / 2, height / 2);
+    ctx.globalAlpha = 1;
+  }, [guideSymbol, guideOpacity, width, height]);
+
   const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
   const bgColor = isDark ? CANVAS_BG_DARK : CANVAS_BG_LIGHT;
 
@@ -127,18 +153,12 @@ export const DrawingCanvas = forwardRef<DrawingCanvasHandle, Props>(function Dra
         style={{ backgroundColor: bgColor }}
         aria-hidden
       >
-        {guideSymbol && (
-          <span
-            className="select-none font-bold"
-            style={{
-              fontSize: `${GUIDE_FONT_SIZE}px`,
-              color: GUIDE_COLOR,
-              opacity: guideOpacity,
-            }}
-          >
-            {guideSymbol}
-          </span>
-        )}
+        <canvas
+          ref={guideCanvasRef}
+          width={width}
+          height={height}
+          className="w-full h-full"
+        />
       </div>
       {/* Layer 2: Drawing only (transparent; user strokes in black). This is what we score. */}
       <canvas
