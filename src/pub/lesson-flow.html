@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lesson flow brainstorm</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fafafa; --fg: #111; --muted: #666;
+      --border: #e5e5e5; --accent: #047857; --accent-bg: #d1fae5;
+      --row: #fff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1115; --fg: #f3f4f6; --muted: #9ca3af;
+        --border: #2a2f3a; --accent: #34d399; --accent-bg: #064e3b;
+        --row: #1a1d24;
+      }
+    }
+    body {
+      margin: 0;
+      font: 14px/1.45 system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+      background: var(--bg); color: var(--fg);
+    }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 32px 20px 80px; }
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    .sub { color: var(--muted); margin: 0 0 24px; }
+    .pill {
+      display: inline-block; padding: 2px 10px; border-radius: 999px;
+      background: var(--accent-bg); color: var(--accent); font-size: 11px;
+      letter-spacing: .08em; text-transform: uppercase; font-weight: 600;
+    }
+    a { color: var(--accent); }
+    section { margin: 36px 0 0; }
+    section h2 {
+      font-size: 13px; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--muted); margin: 0 0 6px; font-weight: 600;
+    }
+    section .q { font-size: 15px; font-weight: 600; margin: 0 0 14px; }
+    .locked {
+      padding: 12px 16px; border-left: 3px solid var(--accent);
+      background: var(--row); border-radius: 0 8px 8px 0;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .locked .a { font-weight: 600; color: var(--accent); font-size: 14px; }
+    .locked .note { color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+    .spec-link {
+      margin: 32px 0 8px; padding: 18px 20px;
+      background: var(--row); border: 1px solid var(--accent);
+      border-radius: 10px;
+    }
+    .spec-link h2 { color: var(--accent); margin: 0 0 4px; font-size: 14px; }
+    .spec-link p { margin: 4px 0; font-size: 13px; }
+    .spec-link code {
+      font-size: 12px; padding: 1px 6px; border-radius: 3px;
+      background: var(--accent-bg); color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="pill">Brainstorm complete — 2026-05-14</span>
+    <h1 style="margin-top:12px">Japanese lesson flow</h1>
+    <p class="sub">All design questions locked. Spec written and ready for review. <a href="/tts-tester.html">← TTS tester</a></p>
+
+    <div class="spec-link">
+      <h2>→ Spec ready for review</h2>
+      <p><code>lingo/docs/superpowers/specs/2026-05-14-japanese-lesson-flow-design.md</code></p>
+      <p style="color: var(--muted)">Phase 1 vertical slice — a-row only, end-to-end. Hand off to a fresh thread to invoke <code>superpowers:writing-plans</code> against.</p>
+    </div>
+
+    <section>
+      <h2>Q1 / Locked</h2>
+      <p class="q">Scope</p>
+      <div class="locked">
+        <span class="a">Japanese only, kanji delayed until after the kana phase.</span>
+        <span class="note">Other languages keep their current flow. Generalize later if it pays.</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Q2 / Locked</h2>
+      <p class="q">Kanji-delay strategy</p>
+      <div class="locked">
+        <span class="a">Pure kana phase first, then a kanji ramp.</span>
+        <span class="note">Words exist in their kana form throughout the early curriculum. Once kana is mastered, kanji is introduced gradually and the same annotation primitive switches from romaji-over-kana to kana-over-kanji.</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Q3 / Locked</h2>
+      <p class="q">Lesson granularity</p>
+      <div class="locked">
+        <span class="a">Row-spine curriculum + anchor words allowed regardless of kana coverage.</span>
+        <span class="note">Lessons step through canonical kana rows. Real-meaning anchor words appear from day 1 even when they contain kana not yet introduced — the renderer handles it via romaji helpers above unfamiliar kana.</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Q4 / Locked</h2>
+      <p class="q">Helper behavior</p>
+      <div class="locked">
+        <span class="a">Auto-fade per kana, conservative threshold.</span>
+        <span class="note">No learner-facing toggle. A helper hides only when the kana has crossed a generous bar: <b>20 exposures AND SRS interval ≥ 7 days</b> (AND-gate, not OR). Five drills yesterday isn't enough.</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Q5 / Locked</h2>
+      <p class="q">Reach of the annotation primitive</p>
+      <div class="locked">
+        <span class="a">Everywhere Japanese text appears.</span>
+        <span class="note">One <code>&lt;AnnotatedJa&gt;</code> component used in lesson steps + flashcard previews (Phase 1) and stories (Phase 2). Bare-string mode handles kana-only text with zero per-word metadata.</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Q6 / Locked</h2>
+      <p class="q">Relationship to the standalone alphabet learner</p>
+      <div class="locked">
+        <span class="a">Lessons contain everything; alphabet learner stays as free-practice.</span>
+        <span class="note">Each course lesson includes its own kana-teaching steps inline with word drills. The existing learner at <code>/practice/alphabet/hiragana/learn</code> is untouched (no conflict with the parallel agent in there).</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Q7 / Locked</h2>
+      <p class="q">Phasing</p>
+      <div class="locked">
+        <span class="a">Vertical slice — a-row only, end-to-end.</span>
+        <span class="note">Phase 1 builds every layer (renderer, mastery state, data model, content, integration, backend sync) for just the a-row + first words. Other rows + auto-generator come later. Most de-risking; clearest milestone.</span>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

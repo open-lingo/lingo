@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TTS tester</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fafafa;
+      --fg: #111;
+      --muted: #666;
+      --border: #e5e5e5;
+      --accent: #047857;
+      --accent-bg: #d1fae5;
+      --row: #fff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1115;
+        --fg: #f3f4f6;
+        --muted: #9ca3af;
+        --border: #2a2f3a;
+        --accent: #34d399;
+        --accent-bg: #064e3b;
+        --row: #1a1d24;
+      }
+    }
+    body {
+      margin: 0;
+      font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 80px; }
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    .sub { color: var(--muted); margin: 0 0 32px; }
+    section { margin-bottom: 48px; }
+    h2 { font-size: 16px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 16px; font-weight: 600; }
+    .phrase {
+      font-size: 18px;
+      padding: 12px 14px;
+      background: var(--row);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    tr { border-bottom: 1px solid var(--border); background: var(--row); }
+    tr:hover { background: var(--accent-bg); }
+    td { padding: 10px 12px; vertical-align: middle; }
+    td.lang { color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; width: 40px; }
+    td.text { font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif; font-size: 16px; }
+    td.voice { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; width: 180px; }
+    td.play { width: 44px; text-align: right; }
+    button.play {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--row); color: var(--fg);
+      cursor: pointer; font-size: 14px; padding: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    button.play:hover { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+    button.play.playing { background: var(--accent); border-color: var(--accent); color: var(--row); }
+    .hash { color: var(--muted); font-family: ui-monospace, monospace; font-size: 11px; }
+    .empty { padding: 24px; text-align: center; color: var(--muted); }
+    .err { padding: 14px; background: #fee; color: #900; border-radius: 6px; border: 1px solid #fbb; }
+    @media (prefers-color-scheme: dark) {
+      .err { background: #3a1010; color: #fca5a5; border-color: #7f1d1d; }
+    }
+    .meta { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>TTS tester</h1>
+    <p class="sub">Local listener for the generated audio in <code>src/pub/tts/</code>. Temporary — delete when no longer needed. <a href="/lesson-flow.html">→ Lesson flow brainstorm</a></p>
+
+    <section id="samples-section">
+      <h2>Voice comparison</h2>
+      <div id="samples-content"><div class="empty">Loading samples…</div></div>
+    </section>
+
+    <section id="content-section">
+      <h2>Generated content audio</h2>
+      <div id="content-content"><div class="empty">Loading manifest…</div></div>
+    </section>
+  </div>
+
+  <script>
+    let currentAudio = null;
+    let currentBtn = null;
+
+    function play(url, btn) {
+      if (currentAudio) {
+        currentAudio.pause();
+        if (currentBtn) currentBtn.classList.remove("playing");
+      }
+      if (currentBtn === btn && currentAudio && !currentAudio.ended) {
+        currentAudio = null; currentBtn = null;
+        return;
+      }
+      const a = new Audio(url);
+      currentAudio = a;
+      currentBtn = btn;
+      btn.classList.add("playing");
+      a.addEventListener("ended", () => btn.classList.remove("playing"));
+      a.addEventListener("error", () => {
+        btn.classList.remove("playing");
+        btn.textContent = "✕";
+      });
+      a.play().catch(err => {
+        btn.classList.remove("playing");
+        console.error("playback failed:", err);
+      });
+    }
+
+    function playSymbol() {
+      // simple play triangle, swapped to ⏸ via .playing styling
+      return "▶";
+    }
+
+    async function loadSamples() {
+      const target = document.getElementById("samples-content");
+      try {
+        const res = await fetch("/tts/samples/manifest.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const manifest = await res.json();
+        const providers = Object.keys(manifest);
+        if (!providers.length) {
+          target.innerHTML = '<div class="empty">No samples generated. Run <code>python -m scripts.tts.generate --samples --all-providers</code>.</div>';
+          return;
+        }
+        target.innerHTML = "";
+        for (const provider of providers) {
+          const langs = Object.keys(manifest[provider] || {});
+          for (const lang of langs) {
+            const { phrase, voices } = manifest[provider][lang];
+            const block = document.createElement("div");
+            block.innerHTML = `<h3 style="margin:24px 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)">${escapeHtml(provider)} <span class="meta">/ ${escapeHtml(lang)}</span></h3>
+              <div class="phrase">${escapeHtml(phrase)}</div>`;
+            const tbl = document.createElement("table");
+            for (const voice of voices) {
+              const tr = document.createElement("tr");
+              tr.innerHTML = `
+                <td class="lang">${escapeHtml(lang)}</td>
+                <td class="voice">${escapeHtml(voice)}</td>
+                <td class="hash">samples/${escapeHtml(provider)}/${escapeHtml(lang)}/${escapeHtml(voice)}.mp3</td>
+                <td class="play"><button class="play" type="button" aria-label="Play">▶</button></td>`;
+              const btn = tr.querySelector("button");
+              btn.addEventListener("click", () => play(`/tts/samples/${provider}/${lang}/${voice}.mp3`, btn));
+              tbl.appendChild(tr);
+            }
+            block.appendChild(tbl);
+            target.appendChild(block);
+          }
+        }
+      } catch (err) {
+        target.innerHTML = `<div class="err">Failed to load samples manifest: ${escapeHtml(err.message)}</div>`;
+      }
+    }
+
+    async function loadContent() {
+      const target = document.getElementById("content-content");
+      try {
+        const res = await fetch("/tts/manifest.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const manifest = await res.json();
+        const entries = Object.entries(manifest);
+        if (!entries.length) {
+          target.innerHTML = '<div class="empty">Manifest is empty.</div>';
+          return;
+        }
+        const tbl = document.createElement("table");
+        for (const [key, relPath] of entries) {
+          const sep = key.indexOf(":");
+          const lang = sep >= 0 ? key.slice(0, sep) : "?";
+          const text = sep >= 0 ? key.slice(sep + 1) : key;
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="lang">${escapeHtml(lang)}</td>
+            <td class="text">${escapeHtml(text)}</td>
+            <td class="hash">${escapeHtml(relPath)}</td>
+            <td class="play"><button class="play" type="button" aria-label="Play">▶</button></td>`;
+          const btn = tr.querySelector("button");
+          btn.addEventListener("click", () => play(`/${relPath}`, btn));
+          tbl.appendChild(tr);
+        }
+        target.innerHTML = "";
+        target.appendChild(tbl);
+        const meta = document.createElement("p");
+        meta.className = "meta";
+        meta.textContent = `${entries.length} entries from /tts/manifest.json`;
+        target.appendChild(meta);
+      } catch (err) {
+        target.innerHTML = `<div class="err">Failed to load manifest: ${escapeHtml(err.message)}</div>`;
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
+
+    loadSamples();
+    loadContent();
+  </script>
+</body>
+</html>
