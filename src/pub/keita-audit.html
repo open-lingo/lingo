@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Keita single-kana audit</title>
+    <style>
+      body { font-family: ui-sans-serif, system-ui, sans-serif; background:#0f172a; color:#e2e8f0; padding:2rem 2.2rem; max-width:980px; margin:0 auto; }
+      h1 { font-size:1.5rem; margin-bottom:.4rem; }
+      h2 { font-size:1rem; margin-top:1.8rem; padding-bottom:.3rem; border-bottom:1px solid #334155; color:#94a3b8; text-transform:uppercase; letter-spacing:.06em; }
+      table { width:100%; border-collapse:collapse; }
+      td { padding:.5rem .4rem; border-bottom:1px solid #1e293b; vertical-align:middle; }
+      .row-label { font-size:.75rem; color:#94a3b8; font-family:ui-monospace,monospace; width:60px; }
+      .kana { font-size:1.6rem; width:60px; }
+      audio { height:32px; width:280px; }
+      .note { background:#1e293b; padding:.7rem .9rem; border-radius:.5rem; border-left:3px solid #4ade80; color:#cbd5e1; font-size:.85rem; margin-bottom:1.6rem; }
+      .col-head { font-size:.7rem; color:#94a3b8; font-weight:600; text-transform:uppercase; letter-spacing:.05em; padding-bottom:.3rem; }
+    </style>
+  </head>
+  <body>
+    <h1>Keita single-kana audit (all rows)</h1>
+    <div class="note">
+      All audio below is Keita's current production file
+      (carrier-wrap <code>あ、{target}{target}、あ</code> + silencedetect trim → two-mora output).
+      Vowels were already filtered to Nanami-only. <br />
+      Listen through each row and report which rows Keita is acceptable on
+      vs. unacceptable. We can then narrow more entries to Nanami-only.
+    </div>
+
+    <table id="grid">
+      <thead><tr><td class="col-head">row</td><td class="col-head">kana</td><td class="col-head">Keita (carrier+trim, 2-mora)</td></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <script type="module">
+      const ROWS = [
+        ["k",          ["か","き","く","け","こ"]],
+        ["s",          ["さ","し","す","せ","そ"]],
+        ["t",          ["た","ち","つ","て","と"]],
+        ["n",          ["な","に","ぬ","ね","の"]],
+        ["h",          ["は","ひ","ふ","へ","ほ"]],
+        ["m",          ["ま","み","む","め","も"]],
+        ["y",          ["や","ゆ","よ"]],
+        ["r",          ["ら","り","る","れ","ろ"]],
+        ["w",          ["わ","を"]],
+        ["ん",         ["ん"]],
+        ["g dakuten",  ["が","ぎ","ぐ","げ","ご"]],
+        ["z dakuten",  ["ざ","じ","ず","ぜ","ぞ"]],
+        ["d dakuten",  ["だ","で","ど"]],
+        ["b dakuten",  ["ば","び","ぶ","べ","ぼ"]],
+        ["p handaku.", ["ぱ","ぴ","ぷ","ぺ","ぽ"]],
+      ];
+
+      async function sha256_16(text) {
+        const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+        return Array.from(new Uint8Array(buf)).slice(0,8).map(b=>b.toString(16).padStart(2,"0")).join("");
+      }
+
+      const tbody = document.querySelector("#grid tbody");
+      for (const [row, kanas] of ROWS) {
+        for (let i = 0; i < kanas.length; i++) {
+          const k = kanas[i];
+          const tr = document.createElement("tr");
+          const keitaHash = await sha256_16(`ja:${k}::ja-JP-KeitaNeural`);
+          const src = `/tts/ja/${keitaHash}.mp3`;
+          tr.innerHTML = `
+            <td class="row-label">${i === 0 ? row : ""}</td>
+            <td class="kana">${k}</td>
+            <td><audio controls preload="none" src="${src}"></audio></td>
+          `;
+          tbody.appendChild(tr);
+        }
+        // spacer row
+        const sp = document.createElement("tr");
+        sp.innerHTML = `<td colspan="3" style="padding:.3rem 0"></td>`;
+        tbody.appendChild(sp);
+      }
+    </script>
+  </body>
+</html>

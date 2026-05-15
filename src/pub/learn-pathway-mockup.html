@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Lingo — Learn page mockup v2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #eef0f4;
+      --surface: #ffffff;
+      --surface-muted: #f3f5f9;
+      --surface-elevated: #ffffff;
+      --border: #cdd3dc;
+      --border-strong: #b4bcc8;
+      --border-muted: #e2e6ec;
+      --text-primary: #111827;
+      --text-secondary: #4b5563;
+      --text-muted: #6b7280;
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-muted: #d1fae5;
+      --warning: #d97706;
+      --info: #2563eb;
+      --shadow-card: 0 1px 2px 0 rgb(15 23 42 / 0.06), 0 2px 6px -1px rgb(15 23 42 / 0.05);
+      --shadow-soft: 0 6px 18px -4px rgb(15 23 42 / 0.10);
+      --shadow-node: 0 4px 0 0 rgb(15 23 42 / 0.10), 0 8px 16px -4px rgb(15 23 42 / 0.10);
+    }
+    html.dark {
+      --bg: #0b0f17;
+      --surface: #1f2937;
+      --surface-muted: #1a2230;
+      --surface-elevated: #2c3a4e;
+      --border: #374151;
+      --border-strong: #475569;
+      --border-muted: #2a3242;
+      --text-primary: #f9fafb;
+      --text-secondary: #d1d5db;
+      --text-muted: #9ca3af;
+      --accent: #10b981;
+      --accent-hover: #34d399;
+      --accent-muted: #064e3b;
+      --warning: #f59e0b;
+      --info: #60a5fa;
+      --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.4);
+      --shadow-soft: 0 8px 24px -8px rgba(0,0,0,0.5);
+      --shadow-node: 0 5px 0 0 rgba(0,0,0,0.35), 0 12px 20px -4px rgba(0,0,0,0.5);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.45;
+    }
+    .jp { font-family: "Noto Sans JP", "Inter", sans-serif; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; }
+
+    /* ---------- Top bar ---------- */
+    .topbar {
+      position: sticky; top: 0; z-index: 30;
+      backdrop-filter: blur(10px);
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 12px 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .brand {
+      font-weight: 800; font-size: 19px;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+    .brand .dot { color: var(--accent); }
+    .nav-tabs {
+      display: flex; gap: 4px; margin-left: 24px;
+    }
+    .nav-tab {
+      padding: 7px 14px;
+      border-radius: 10px;
+      font-size: 13px; font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background .15s ease;
+    }
+    .nav-tab.active {
+      background: var(--accent-muted);
+      color: var(--accent);
+    }
+    .nav-tab:hover:not(.active) { background: var(--surface-muted); color: var(--text-primary); }
+    .topbar-right { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+    .user-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 4px 10px 4px 4px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 13px; font-weight: 600; color: var(--text-secondary);
+    }
+    .avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 700; font-size: 13px;
+    }
+    @media (max-width: 760px) {
+      .nav-tabs { display: none; }
+      .user-chip .user-name { display: none; }
+      .user-chip { padding: 4px; }
+    }
+
+    /* ---------- Mobile bottom nav ---------- */
+    .bottom-nav {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+      background: color-mix(in srgb, var(--bg) 96%, transparent);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      padding: 10px 12px env(safe-area-inset-bottom);
+      justify-content: space-around;
+    }
+    @media (max-width: 760px) {
+      .bottom-nav { display: flex; }
+      body { padding-bottom: 70px; }
+    }
+    .bottom-nav .tab {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      padding: 4px 14px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .bottom-nav .tab.active { color: var(--accent); }
+    .bottom-nav .tab .ico { font-size: 22px; line-height: 1; }
+
+    /* ---------- Page layout ---------- */
+    .page {
+      max-width: 1280px; margin: 0 auto;
+      padding: 22px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 1000px) {
+      .page {
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 36px;
+        padding-top: 28px;
+      }
+      /* Top-align side rail with the first module card (M0), skipping the page title block. */
+      .side-rail { margin-top: 78px; }
+    }
+
+    .page-title { margin: 0 0 4px; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+    .page-sub   { margin: 0 0 20px; color: var(--text-muted); font-size: 14px; }
+
+    /* ---------- Module accordion card ---------- */
+    .module-card {
+      position: relative;
+      margin-bottom: 18px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1.5px solid var(--border-strong, var(--border));
+      box-shadow: var(--shadow-card);
+    }
+    .module-card:hover { border-color: color-mix(in srgb, var(--border-strong, var(--border)) 60%, var(--text-muted) 40%); }
+    .module-head {
+      position: relative;
+      padding: 18px 20px;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 16px;
+      background: linear-gradient(135deg, var(--m-c1, var(--accent)) 0%, var(--m-c2, var(--accent-hover)) 100%);
+      color: white;
+      transition: filter .15s ease;
+    }
+    .module-head::before {
+      content: ""; position: absolute; right: -16px; top: -16px;
+      width: 110px; height: 110px; border-radius: 50%;
+      background: rgba(255,255,255,0.10); pointer-events: none;
+    }
+    .module-head::after {
+      content: ""; position: absolute; right: 28px; bottom: -28px;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(255,255,255,0.08); pointer-events: none;
+    }
+    .module-head:hover { filter: brightness(1.05); }
+    .module-head .m-num {
+      width: 38px; height: 38px; flex-shrink: 0;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.22);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .module-head .m-body { flex: 1; min-width: 0; }
+    .module-head .m-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; opacity: 0.88;
+    }
+    .module-head .m-title { margin: 2px 0 0; font-size: 18px; font-weight: 700; }
+    .module-head .m-meta { margin: 2px 0 0; font-size: 12px; opacity: 0.86; }
+    .module-head .m-chev {
+      width: 28px; height: 28px; flex-shrink: 0;
+      border-radius: 50%; background: rgba(255,255,255,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+      transition: transform .25s ease;
+      position: relative; z-index: 1;
+    }
+    .module-card[data-open="true"] .m-chev { transform: rotate(180deg); }
+    .module-status-pill {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.20);
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .module-body { display: none; padding: 18px 16px 20px; }
+    .module-card[data-open="true"] .module-body { display: block; }
+    .module-card[data-state="locked"] .module-head { filter: grayscale(0.6) brightness(0.85); cursor: pointer; }
+    .module-card[data-state="locked"] .module-head::before,
+    .module-card[data-state="locked"] .module-head::after { opacity: 0.5; }
+
+    /* ---------- Pathway (winding, curved connectors) ---------- */
+    .path { position: relative; padding: 14px 0 8px; }
+    .path-svg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    .path-svg path {
+      fill: none;
+      stroke: var(--border-strong, var(--border));
+      stroke-width: 3;
+      stroke-dasharray: 2 7;
+      stroke-linecap: round;
+      opacity: 0.85;
+    }
+    .path-row {
+      position: relative; z-index: 1;
+      display: flex; justify-content: center;
+      padding: 22px 0;
+    }
+    .path-row[data-pos="0"]  { transform: translateX(0); }
+    .path-row[data-pos="1"]  { transform: translateX(70px); }
+    .path-row[data-pos="2"]  { transform: translateX(120px); }
+    .path-row[data-pos="3"]  { transform: translateX(140px); }
+    .path-row[data-pos="-1"] { transform: translateX(-70px); }
+    .path-row[data-pos="-2"] { transform: translateX(-120px); }
+    .path-row[data-pos="-3"] { transform: translateX(-140px); }
+    @media (max-width: 520px) {
+      .path-row[data-pos="3"], .path-row[data-pos="-3"] { transform: translateX(0); }
+      .path-row[data-pos="2"]  { transform: translateX(80px); }
+      .path-row[data-pos="-2"] { transform: translateX(-80px); }
+      .path-row[data-pos="1"]  { transform: translateX(50px); }
+      .path-row[data-pos="-1"] { transform: translateX(-50px); }
+    }
+
+    .node {
+      position: relative;
+      width: 80px; height: 80px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .node-disc {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface-elevated);
+      border: 2px solid var(--border);
+      color: var(--text-muted);
+      font-size: 24px; font-weight: 700;
+      transition: transform .15s ease;
+      cursor: pointer;
+      position: relative;
+      box-shadow: var(--shadow-node);
+    }
+    .node-disc:hover { transform: translateY(-2px); }
+    .node[data-state="done"] .node-disc {
+      background: var(--accent);
+      border-color: var(--accent-hover);
+      color: white;
+      box-shadow: 0 5px 0 0 var(--accent-hover), 0 12px 20px -4px rgba(0,0,0,0.18);
+    }
+    .node[data-state="available"] .node-disc {
+      background: var(--surface-elevated);
+      border-color: var(--accent);
+      color: var(--text-primary);
+    }
+    .node[data-state="current"] .node-disc {
+      background: var(--accent);
+      border-color: var(--accent-hover);
+      color: white;
+      box-shadow: 0 5px 0 0 var(--accent-hover), 0 0 0 8px color-mix(in srgb, var(--accent) 25%, transparent), 0 12px 24px -4px rgba(0,0,0,0.25);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 5px 0 0 var(--accent-hover), 0 0 0 8px color-mix(in srgb, var(--accent) 25%, transparent), 0 12px 24px -4px rgba(0,0,0,0.25); }
+      50%      { box-shadow: 0 5px 0 0 var(--accent-hover), 0 0 0 14px color-mix(in srgb, var(--accent) 10%, transparent), 0 12px 24px -4px rgba(0,0,0,0.25); }
+    }
+    .node[data-state="locked"] .node-disc {
+      background: var(--surface-muted);
+      border-color: var(--border-muted);
+      color: var(--text-muted);
+      opacity: 0.62;
+      box-shadow: 0 3px 0 0 var(--border), 0 6px 10px -2px rgba(0,0,0,0.08);
+      cursor: not-allowed;
+    }
+    .node[data-state="locked"] .node-disc::after {
+      content: "";
+      position: absolute; bottom: -4px; right: -4px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--surface); border: 2px solid var(--border);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E");
+      background-position: center; background-repeat: no-repeat;
+    }
+    .node[data-state="done"] .node-disc::after {
+      content: "";
+      position: absolute; bottom: -2px; right: -2px;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--surface); border: 2px solid var(--accent);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-position: center; background-repeat: no-repeat;
+    }
+    .node-label {
+      margin-top: 6px;
+      font-size: 11.5px; font-weight: 600;
+      color: var(--text-secondary);
+      text-align: center;
+      white-space: nowrap;
+    }
+    .node[data-state="locked"] .node-label { color: var(--text-muted); opacity: 0.6; }
+    .review-badge {
+      position: absolute;
+      top: -2px; left: -8px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--warning);
+      color: white;
+      font-size: 10px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--surface);
+    }
+    .continue-flag {
+      position: absolute;
+      top: -52px;
+      left: 50%; transform: translateX(-50%);
+      padding: 5px 12px;
+      background: var(--surface-elevated);
+      border: 1.5px solid var(--accent);
+      border-radius: 999px;
+      font-size: 11px; font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      box-shadow: var(--shadow-card);
+      white-space: nowrap;
+    }
+    .continue-flag::after {
+      content: "";
+      position: absolute;
+      bottom: -7px; left: 50%; transform: translateX(-50%) rotate(45deg);
+      width: 10px; height: 10px;
+      background: var(--surface-elevated);
+      border-right: 1.5px solid var(--accent);
+      border-bottom: 1.5px solid var(--accent);
+    }
+
+    /* ---------- Module footer (per-module actions) ---------- */
+    .module-actions {
+      display: flex; gap: 10px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border);
+    }
+    .btn {
+      padding: 11px 16px;
+      border-radius: 11px;
+      font-size: 13px; font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .btn:hover { border-color: var(--accent); color: var(--text-primary); transform: translateY(-1px); }
+    .btn.primary {
+      background: var(--accent);
+      color: white; border-color: var(--accent-hover);
+      box-shadow: 0 3px 0 0 var(--accent-hover);
+    }
+    .btn.primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .btn.tall { padding: 14px 18px; font-size: 14px; }
+
+    /* ---------- Completed module collapsed state ---------- */
+    .module-card[data-state="completed"] .module-head {
+      background: linear-gradient(135deg, var(--surface-elevated) 0%, var(--surface) 100%);
+      color: var(--text-primary);
+    }
+    .module-card[data-state="completed"] .module-head .m-num {
+      background: var(--accent);
+      color: white;
+    }
+    .module-card[data-state="completed"] .module-head .m-chev {
+      background: var(--accent-muted);
+      color: var(--accent);
+    }
+    .module-card[data-state="completed"] .module-status-pill {
+      background: var(--accent-muted);
+      color: var(--accent);
+    }
+    .module-card[data-state="completed"] .module-head::before,
+    .module-card[data-state="completed"] .module-head::after { display: none; }
+
+    /* ---------- Preview-mode body (future module sneak peek) ---------- */
+    .preview-body {
+      padding: 18px 18px 20px;
+      display: grid; gap: 10px;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--m-c1, var(--accent)) 8%, var(--surface)) 0%, var(--surface) 60%);
+    }
+    .preview-eyebrow {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: color-mix(in srgb, var(--m-c1, var(--accent)) 80%, var(--text-secondary) 20%);
+      margin: 0;
+    }
+    .preview-list {
+      display: grid; gap: 6px;
+    }
+    .preview-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1px solid color-mix(in srgb, var(--m-c1, var(--accent)) 24%, var(--border-muted));
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .preview-item .pi-num {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--m-c1, var(--accent)) 18%, var(--surface-muted));
+      color: color-mix(in srgb, var(--m-c1, var(--accent)) 80%, var(--text-primary) 20%);
+      font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .test-out-note {
+      font-size: 11.5px; color: var(--text-muted); font-style: italic;
+      margin: 6px 0 0;
+    }
+
+    /* ---------- Side rail (desktop) ---------- */
+    .side-rail h3 {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 0 0 12px;
+    }
+    .rail-section { margin-bottom: 24px; }
+    .rail-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .rail-header .more {
+      font-size: 12px; color: var(--accent); font-weight: 600;
+    }
+    .quest-card {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1.5px solid var(--border-strong, var(--border));
+      border-radius: 14px;
+      margin-bottom: 8px;
+      box-shadow: var(--shadow-card);
+      transition: transform .15s ease, border-color .15s ease;
+      cursor: pointer;
+    }
+    .quest-card:hover { transform: translateY(-1px); border-color: var(--accent); }
+    .quest-card[data-locked="true"] { opacity: 0.55; cursor: not-allowed; }
+    .quest-card[data-locked="true"]:hover { transform: none; border-color: var(--border); }
+
+    .quest-emoji {
+      width: 44px; height: 44px; flex-shrink: 0;
+      border-radius: 12px;
+      background: var(--accent-muted);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+    }
+    .quest-body { flex: 1; min-width: 0; }
+    .quest-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin: 0; }
+    .quest-meta  { font-size: 12px; color: var(--text-muted); margin: 2px 0 0; }
+    .quest-progress {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: conic-gradient(var(--accent) var(--p, 0%), var(--border) 0%);
+      -webkit-mask: radial-gradient(circle, transparent 12px, #000 14px);
+      mask: radial-gradient(circle, transparent 12px, #000 14px);
+      flex-shrink: 0;
+    }
+    .quest-progress.locked {
+      background: var(--border-muted);
+      -webkit-mask: none; mask: none;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 13px;
+    }
+    .quest-progress.locked::after { content: "🔒"; font-size: 13px; }
+
+    .daily-card {
+      background: linear-gradient(135deg, color-mix(in srgb, var(--warning) 15%, var(--surface)) 0%, var(--surface) 70%);
+      border-color: color-mix(in srgb, var(--warning) 40%, var(--border));
+    }
+    .daily-card .quest-emoji {
+      background: var(--warning);
+      color: white;
+    }
+
+    /* ---------- Profile card ---------- */
+    .profile-card {
+      padding: 18px;
+      background: var(--surface);
+      border: 1.5px solid var(--border-strong, var(--border));
+      border-radius: 16px;
+      box-shadow: var(--shadow-card);
+    }
+    .profile-head {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 14px;
+    }
+    .profile-head .avatar {
+      width: 44px; height: 44px; font-size: 18px;
+    }
+    .profile-name { font-size: 15px; font-weight: 700; margin: 0; }
+    .profile-level { font-size: 12px; color: var(--text-muted); margin: 2px 0 0; }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .stat-tile {
+      padding: 10px 8px;
+      background: var(--surface-muted);
+      border-radius: 10px;
+      text-align: center;
+    }
+    .stat-tile .v {
+      font-size: 16px; font-weight: 800;
+      color: var(--text-primary);
+    }
+    .stat-tile .v .ico { font-size: 14px; margin-right: 2px; }
+    .stat-tile .v.streak { color: var(--warning); }
+    .stat-tile .v.coins  { color: var(--accent); }
+    .stat-tile .l {
+      font-size: 10px; font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .shop-btn {
+      width: 100%;
+      padding: 10px;
+      border-radius: 11px;
+      background: var(--surface-muted);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-size: 13px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      cursor: pointer;
+    }
+    .shop-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ---------- Mobile: stack rail into bands between modules ---------- */
+    @media (max-width: 999px) {
+      .side-rail { display: contents; }
+      .rail-section.profile { order: -1; }
+    }
+
+    /* ---------- Resume / sticky bar ---------- */
+    .resume-bar {
+      position: sticky; bottom: 12px;
+      z-index: 20;
+      margin: 18px auto 0;
+      max-width: 420px;
+      display: flex; gap: 10px; align-items: center;
+      padding: 10px 14px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      box-shadow: 0 8px 24px -8px rgba(0,0,0,0.25);
+    }
+    .resume-bar .label {
+      flex: 1; font-size: 13px; font-weight: 600; color: var(--text-secondary);
+    }
+    .resume-bar .label b { color: var(--text-primary); }
+    @media (max-width: 760px) {
+      .resume-bar { bottom: 80px; margin: 24px 8px 0; }
+    }
+
+    /* ---------- Theme toggle ---------- */
+    .theme-toggle {
+      position: fixed; bottom: 100px; right: 14px; z-index: 50;
+      padding: 7px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 11px; font-weight: 600; color: var(--text-secondary);
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+    }
+    @media (min-width: 761px) {
+      .theme-toggle { bottom: 20px; right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ TOP BAR ============ -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <span class="brand">lingo<span class="dot">.</span></span>
+      <nav class="nav-tabs">
+        <a class="nav-tab active">Learn</a>
+        <a class="nav-tab">Practice</a>
+        <a class="nav-tab">Social</a>
+      </nav>
+      <div class="topbar-right">
+        <div class="user-chip">
+          <div class="avatar">S</div>
+          <span class="user-name">spencer</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <!-- ============ MAIN SPINE (collapsible modules) ============ -->
+    <section>
+      <h1 class="page-title">Japanese</h1>
+      <p class="page-sub">Tap a module to expand. The pulsing node is what we suggest — but you choose.</p>
+
+      <!-- Module 0 — COMPLETED (collapsed by default) -->
+      <article class="module-card" data-state="completed" data-open="false" onclick="this.dataset.open = this.dataset.open === 'true' ? 'false' : 'true'">
+        <header class="module-head">
+          <div class="m-num">M0</div>
+          <div class="m-body">
+            <div class="m-eyebrow">Onboarding</div>
+            <h2 class="m-title">Welcome to Japanese</h2>
+            <span class="module-status-pill">✓ Complete · 100%</span>
+          </div>
+          <div class="m-chev">▾</div>
+        </header>
+      </article>
+
+      <!-- Module 1 — Hiragana (CURRENT, expanded) -->
+      <article class="module-card" data-state="current" data-open="true"
+               style="--m-c1: #059669; --m-c2: #047857;"
+               onclick="event.target.closest('.path,.module-actions')||((e=>e.dataset.open=e.dataset.open==='true'?'false':'true')(this))">
+        <header class="module-head">
+          <div class="m-num">M1</div>
+          <div class="m-body">
+            <div class="m-eyebrow">Module 1 · Hiragana</div>
+            <h2 class="m-title">The first 46 sounds</h2>
+            <span class="module-status-pill">In progress · 5 of 13 lessons</span>
+          </div>
+          <div class="m-chev">▾</div>
+        </header>
+        <div class="module-body">
+          <div class="path">
+            <svg class="path-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <!-- Decorative; real implementation would lay out SVG nodes too -->
+            </svg>
+            <div class="path-row" data-pos="0">
+              <div class="node" data-state="done">
+                <div class="node-disc jp">あ</div>
+                <span class="node-label">Vowels</span>
+              </div>
+            </div>
+            <div class="path-row" data-pos="2">
+              <div class="node" data-state="done">
+                <div class="node-disc jp">か<span class="review-badge">2</span></div>
+                <span class="node-label">Ka-row</span>
+              </div>
+            </div>
+            <div class="path-row" data-pos="3">
+              <div class="node" data-state="done">
+                <div class="node-disc jp">さ</div>
+                <span class="node-label">Sa-row</span>
+              </div>
+            </div>
+            <div class="path-row" data-pos="2">
+              <div class="node" data-state="done">
+                <div class="node-disc jp">た</div>
+                <span class="node-label">Ta-row</span>
+              </div>
+            </div>
+            <div class="path-row" data-pos="0">
+              <div class="node" data-state="current">
+                <span class="continue-flag">Continue</span>
+                <div class="node-disc jp">な</div>
+                <span class="node-label">Na-row</span>
+              </div>
+            </div>
+            <div class="path-row" data-pos="-2">
+              <div class="node" data-state="available">
+                <div class="node-disc jp">きゃ</div>
+                <span class="node-label">Yōon 1</span>
+              </div>
+            </div>
+            <div class="path-row" data-pos="-3">
+              <div class="node" data-state="locked">
+                <div class="node-disc jp">は</div>
+                <span class="node-label">Ha-row</span>
+              </div>
+            </div>
+            <div class="path-row" data-pos="-2">
+              <div class="node" data-state="locked">
+                <div class="node-disc jp">ま</div>
+                <span class="node-label">Ma-row</span>
+              </div>
+            </div>
+            <div class="path-row" data-pos="0">
+              <div class="node" data-state="locked">
+                <div class="node-disc jp">しゃ</div>
+                <span class="node-label">Yōon 2</span>
+              </div>
+            </div>
+            <div class="path-row" data-pos="2">
+              <div class="node" data-state="locked">
+                <div class="node-disc jp">や</div>
+                <span class="node-label">Ya-row</span>
+              </div>
+            </div>
+            <div class="path-row" data-pos="3">
+              <div class="node" data-state="locked">
+                <div class="node-disc jp">ら</div>
+                <span class="node-label">Ra-row</span>
+              </div>
+            </div>
+            <div class="path-row" data-pos="2">
+              <div class="node" data-state="locked">
+                <div class="node-disc jp">わ</div>
+                <span class="node-label">Wa-row</span>
+              </div>
+            </div>
+          </div>
+          <div class="module-actions">
+            <button class="btn primary tall">Resume Na-row</button>
+            <button class="btn tall">Test out of Module 1</button>
+          </div>
+          <p class="test-out-note">Testing out marks every lesson up to here as complete and jumps you to Module 2.</p>
+        </div>
+      </article>
+
+      <!-- Module 2 — Voicing (preview) -->
+      <article class="module-card" data-state="locked" data-open="false"
+               style="--m-c1: #6366f1; --m-c2: #8b5cf6;"
+               onclick="this.dataset.open = this.dataset.open === 'true' ? 'false' : 'true'">
+        <header class="module-head">
+          <div class="m-num">M2</div>
+          <div class="m-body">
+            <div class="m-eyebrow">Module 2 · Voicing</div>
+            <h2 class="m-title">Dakuten · Handakuten · Yōon dakuten</h2>
+            <span class="module-status-pill">🔒 Finish Module 1 to unlock</span>
+          </div>
+          <div class="m-chev">▾</div>
+        </header>
+        <div class="module-body preview-body">
+          <p class="preview-eyebrow">Peek at the lessons</p>
+          <p style="margin:0;font-size:13px;color:var(--text-secondary);">7 lessons covering voiced consonants and yōon dakuten.</p>
+          <div class="preview-list">
+            <div class="preview-item"><span class="pi-num">1</span>Ga-row · が ぎ ぐ げ ご</div>
+            <div class="preview-item"><span class="pi-num">2</span>Za-row · ざ じ ず ぜ ぞ</div>
+            <div class="preview-item"><span class="pi-num">3</span>Yōon 3 · ぎゃ じゃ families</div>
+            <div class="preview-item"><span class="pi-num">4</span>Da-Ba · だ で ど ば び…</div>
+            <div class="preview-item"><span class="pi-num">5</span>Pa-row · ぱ ぴ ぷ ぺ ぽ</div>
+          </div>
+          <div class="module-actions" style="margin-top:8px;">
+            <button class="btn tall">Test out of Module 2</button>
+          </div>
+          <p class="test-out-note">Passes everything up to and including Module 2 if you score 85%+.</p>
+        </div>
+      </article>
+
+      <!-- Module 3 — Katakana (preview) -->
+      <article class="module-card" data-state="locked" data-open="false"
+               style="--m-c1: #ec4899; --m-c2: #db2777;"
+               onclick="this.dataset.open = this.dataset.open === 'true' ? 'false' : 'true'">
+        <header class="module-head">
+          <div class="m-num">M3</div>
+          <div class="m-body">
+            <div class="m-eyebrow">Module 3 · Katakana</div>
+            <h2 class="m-title">Loanwords & the second alphabet</h2>
+            <span class="module-status-pill">🔒 After Module 2</span>
+          </div>
+          <div class="m-chev">▾</div>
+        </header>
+      </article>
+
+      <!-- Module 4 — Numbers & Counting (NEW essential) -->
+      <article class="module-card" data-state="locked" data-open="false"
+               style="--m-c1: #f59e0b; --m-c2: #d97706;"
+               onclick="this.dataset.open = this.dataset.open === 'true' ? 'false' : 'true'">
+        <header class="module-head">
+          <div class="m-num">M4</div>
+          <div class="m-body">
+            <div class="m-eyebrow">Module 4 · Numbers & Counting</div>
+            <h2 class="m-title">Counters, time, days, money</h2>
+            <span class="module-status-pill">🔒 After Module 3</span>
+          </div>
+          <div class="m-chev">▾</div>
+        </header>
+      </article>
+
+      <!-- Module 5 — Greetings & Intros (NEW essential) -->
+      <article class="module-card" data-state="locked" data-open="false"
+               style="--m-c1: #0ea5e9; --m-c2: #0284c7;"
+               onclick="this.dataset.open = this.dataset.open === 'true' ? 'false' : 'true'">
+        <header class="module-head">
+          <div class="m-num">M5</div>
+          <div class="m-body">
+            <div class="m-eyebrow">Module 5 · Greetings & Self</div>
+            <h2 class="m-title">Hello, my name is, where I'm from</h2>
+            <span class="module-status-pill">🔒 After Module 4</span>
+          </div>
+          <div class="m-chev">▾</div>
+        </header>
+      </article>
+
+      <!-- Module 6 — Simple Sentences (NEW essential) -->
+      <article class="module-card" data-state="locked" data-open="false"
+               style="--m-c1: #14b8a6; --m-c2: #0d9488;"
+               onclick="this.dataset.open = this.dataset.open === 'true' ? 'false' : 'true'">
+        <header class="module-head">
+          <div class="m-num">M6</div>
+          <div class="m-body">
+            <div class="m-eyebrow">Module 6 · Simple Sentences</div>
+            <h2 class="m-title">です, particles は・を・に</h2>
+            <span class="module-status-pill">🔒 After Module 5</span>
+          </div>
+          <div class="m-chev">▾</div>
+        </header>
+      </article>
+
+      <!-- Sticky Resume bar at bottom of main column -->
+      <div class="resume-bar">
+        <div class="label">Current: <b>Na-row · Hiragana</b></div>
+        <button class="btn primary" style="padding:7px 14px;font-size:12px;">Return ›</button>
+      </div>
+    </section>
+
+    <!-- ============ SIDE RAIL ============ -->
+    <aside class="side-rail">
+
+      <!-- Profile / streak / currency -->
+      <section class="rail-section profile">
+        <div class="profile-card">
+          <div class="profile-head">
+            <div class="avatar">S</div>
+            <div>
+              <p class="profile-name">spencer</p>
+              <p class="profile-level">A1 Beginner · 38% to A2</p>
+            </div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-tile">
+              <div class="v streak"><span class="ico">🔥</span>4</div>
+              <div class="l">Streak</div>
+            </div>
+            <div class="stat-tile">
+              <div class="v"><span class="ico">⚡</span>32</div>
+              <div class="l">XP today</div>
+            </div>
+            <div class="stat-tile">
+              <div class="v coins"><span class="ico">🪙</span>24</div>
+              <div class="l">Coins</div>
+            </div>
+          </div>
+          <button class="shop-btn">🛒 Shop · Streak Shield, Boosts</button>
+        </div>
+      </section>
+
+      <!-- Side Quests (interest-driven, non-essentials) -->
+      <section class="rail-section">
+        <div class="rail-header">
+          <h3>Side Quests</h3>
+          <a class="more">See all ›</a>
+        </div>
+        <div class="quest-card">
+          <div class="quest-emoji">🌸</div>
+          <div class="quest-body">
+            <p class="quest-title">Anime Vocab</p>
+            <p class="quest-meta">12 words · senpai, kawaii, …</p>
+          </div>
+          <div class="quest-progress" style="--p: 0%"></div>
+        </div>
+        <div class="quest-card" data-locked="true">
+          <div class="quest-emoji">✈️</div>
+          <div class="quest-body">
+            <p class="quest-title">Travel Specifics</p>
+            <p class="quest-meta">10 words · subway, hotel, taxi</p>
+          </div>
+          <div class="quest-progress locked"></div>
+        </div>
+        <div class="quest-card" data-locked="true">
+          <div class="quest-emoji">⛩️</div>
+          <div class="quest-body">
+            <p class="quest-title">Festivals & Culture</p>
+            <p class="quest-meta">8 words · 桜, 祭, 神社</p>
+          </div>
+          <div class="quest-progress locked"></div>
+        </div>
+        <div class="quest-card" data-locked="true">
+          <div class="quest-emoji">🎮</div>
+          <div class="quest-body">
+            <p class="quest-title">Gaming Vocab</p>
+            <p class="quest-meta">14 words · attack, level up, boss</p>
+          </div>
+          <div class="quest-progress locked"></div>
+        </div>
+        <div class="quest-card daily-card">
+          <div class="quest-emoji">⚡</div>
+          <div class="quest-body">
+            <p class="quest-title">Daily Challenge</p>
+            <p class="quest-meta">+20 XP · 60s timer</p>
+          </div>
+          <div class="quest-progress" style="--p: 0%"></div>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <!-- Mobile bottom nav -->
+  <nav class="bottom-nav">
+    <a class="tab active"><span class="ico">📚</span>Learn</a>
+    <a class="tab"><span class="ico">🎯</span>Practice</a>
+    <a class="tab"><span class="ico">👥</span>Social</a>
+  </nav>
+
+  <button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')">☀ / ☾</button>
+
+  <script>
+    // Curved SVG connectors between consecutive nodes within a module-card path
+    function paintPaths() {
+      document.querySelectorAll('.module-card[data-open="true"] .path').forEach(path => {
+        const svg = path.querySelector('.path-svg');
+        if (!svg) return;
+        const rows = [...path.querySelectorAll('.path-row')];
+        const pathRect = path.getBoundingClientRect();
+        svg.setAttribute('viewBox', `0 0 ${pathRect.width} ${pathRect.height}`);
+        svg.setAttribute('preserveAspectRatio', 'none');
+        const positions = rows.map(r => {
+          const node = r.querySelector('.node-disc');
+          const rect = node.getBoundingClientRect();
+          return {
+            x: rect.left + rect.width/2 - pathRect.left,
+            y: rect.top + rect.height/2 - pathRect.top,
+          };
+        });
+        let d = '';
+        for (let i = 0; i < positions.length - 1; i++) {
+          const p1 = positions[i], p2 = positions[i+1];
+          const midY = (p1.y + p2.y) / 2;
+          // curved cubic bezier hugging the snake
+          d += `M ${p1.x} ${p1.y + 38} C ${p1.x} ${midY}, ${p2.x} ${midY}, ${p2.x} ${p2.y - 38} `;
+        }
+        svg.innerHTML = `<path d="${d}" />`;
+      });
+    }
+    window.addEventListener('load', paintPaths);
+    window.addEventListener('resize', paintPaths);
+    // Repaint when a module is toggled
+    document.querySelectorAll('.module-card').forEach(card => {
+      card.addEventListener('click', () => setTimeout(paintPaths, 50));
+    });
+  </script>
+</body>
+</html>

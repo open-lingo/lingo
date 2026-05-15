@@ -73,93 +73,143 @@ export function MainCourseCard({
         />
       </div>
 
-      <div className="px-5 py-4">
-        <h3 className="text-lg font-semibold text-text-primary">
-          {currentModule.title}
-        </h3>
-        {hasMoreBefore && !showAll && (
-          <p className="mt-2 text-xs text-text-muted">
-            <Icon name="chevronUp" size={12} className="inline" /> {startIndex} {t("learn.lessonsAbove")}
-          </p>
-        )}
-        <ul className="mt-3 space-y-1">
-          {lessonsToShow.map((lesson) => {
-            const done = completedSet.has(lesson.id);
-            const locked = isLessonLocked(
-              lesson.id,
-              currentIdx,
-              course,
-              completedSet,
-              devUnlock,
-            );
-            const reviewable = done; // completed lessons can be replayed
-            return (
-              <li key={lesson.id}>
-                <button
-                  type="button"
-                  disabled={locked}
-                  onClick={() => {
-                    if (locked) return;
-                    if (lesson.kind === "alphabet" && lesson.alphabetId) {
-                      navigate(langPath(`practice/alphabet/${lesson.alphabetId}/learn`));
-                    } else {
-                      navigate(langPath(`learn/lessons/${lesson.id}`));
-                    }
-                  }}
-                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition hover:bg-surface-muted disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  <LessonStatusCircle
-                    status={done ? "completed" : locked ? "locked" : "available"}
-                  />
-                  <span
-                    className={
-                      done
-                        ? "text-text-muted"
-                        : locked
-                          ? "text-text-muted"
-                          : "font-medium text-text-primary"
-                    }
+      {devUnlock ? (
+        // Dev-mode: surface every module's lessons so testing can reach
+        // yōon / dakuten / etc. without completing module 1 first.
+        <div className="px-5 py-4 space-y-6">
+          {course.modules.map((mod) => (
+            <div key={mod.id}>
+              <h3 className="text-lg font-semibold text-text-primary">
+                {mod.title}
+                <span className="ml-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-xs font-medium text-amber-500">
+                  dev
+                </span>
+              </h3>
+              <ul className="mt-3 space-y-1">
+                {mod.lessons.map((lesson) => {
+                  const done = completedSet.has(lesson.id);
+                  return (
+                    <li key={lesson.id}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (lesson.kind === "alphabet" && lesson.alphabetId) {
+                            navigate(langPath(`practice/alphabet/${lesson.alphabetId}/learn`));
+                          } else {
+                            navigate(langPath(`learn/lessons/${lesson.id}`));
+                          }
+                        }}
+                        className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition hover:bg-surface-muted"
+                      >
+                        <LessonStatusCircle status={done ? "completed" : "available"} />
+                        <span className={done ? "text-text-muted" : "font-medium text-text-primary"}>
+                          {lesson.title}
+                        </span>
+                        {done && (
+                          <span
+                            className="ml-auto rounded-full border border-emerald-500/40 px-2 py-0.5 text-xs font-medium text-emerald-500"
+                            title="Replay for review XP"
+                          >
+                            Review
+                          </span>
+                        )}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="px-5 py-4">
+          <h3 className="text-lg font-semibold text-text-primary">
+            {currentModule.title}
+          </h3>
+          {hasMoreBefore && !showAll && (
+            <p className="mt-2 text-xs text-text-muted">
+              <Icon name="chevronUp" size={12} className="inline" /> {startIndex} {t("learn.lessonsAbove")}
+            </p>
+          )}
+          <ul className="mt-3 space-y-1">
+            {lessonsToShow.map((lesson) => {
+              const done = completedSet.has(lesson.id);
+              const locked = isLessonLocked(
+                lesson.id,
+                currentIdx,
+                course,
+                completedSet,
+                devUnlock,
+              );
+              const reviewable = done;
+              return (
+                <li key={lesson.id}>
+                  <button
+                    type="button"
+                    disabled={locked}
+                    onClick={() => {
+                      if (locked) return;
+                      if (lesson.kind === "alphabet" && lesson.alphabetId) {
+                        navigate(langPath(`practice/alphabet/${lesson.alphabetId}/learn`));
+                      } else {
+                        navigate(langPath(`learn/lessons/${lesson.id}`));
+                      }
+                    }}
+                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition hover:bg-surface-muted disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    {lesson.title}
-                  </span>
-                  {reviewable && (
+                    <LessonStatusCircle
+                      status={done ? "completed" : locked ? "locked" : "available"}
+                    />
                     <span
-                      className="ml-auto rounded-full border border-emerald-500/40 px-2 py-0.5 text-xs font-medium text-emerald-500"
-                      title="Replay for review XP"
+                      className={
+                        done
+                          ? "text-text-muted"
+                          : locked
+                            ? "text-text-muted"
+                            : "font-medium text-text-primary"
+                      }
                     >
-                      Review
+                      {lesson.title}
                     </span>
-                  )}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-        {hasMoreAfter && !showAll && (
-          <p className="mt-2 text-xs text-text-muted">
-            {currentModule.lessons.length - startIndex - lessonWindow.length}{" "}
-            {t("learn.lessonsBelow")} <Icon name="chevronDown" size={12} className="inline" />
-          </p>
-        )}
-        {!showAll && currentModule.lessons.length > SEMI_SIZE && (
-          <button
-            type="button"
-            onClick={() => setLessonsExpanded(true)}
-            className="mt-3 text-sm font-medium text-accent hover:text-accent-hover"
-          >
-            {t("learn.showAllLessons", { count: currentModule.lessons.length })}
-          </button>
-        )}
-        {showAll && currentModule.lessons.length > SEMI_SIZE && (
-          <button
-            type="button"
-            onClick={() => setLessonsExpanded(false)}
-            className="mt-3 text-sm font-medium text-text-secondary hover:text-text-primary"
-          >
-            {t("learn.showLess")}
-          </button>
-        )}
-      </div>
+                    {reviewable && (
+                      <span
+                        className="ml-auto rounded-full border border-emerald-500/40 px-2 py-0.5 text-xs font-medium text-emerald-500"
+                        title="Replay for review XP"
+                      >
+                        Review
+                      </span>
+                    )}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+          {hasMoreAfter && !showAll && (
+            <p className="mt-2 text-xs text-text-muted">
+              {currentModule.lessons.length - startIndex - lessonWindow.length}{" "}
+              {t("learn.lessonsBelow")} <Icon name="chevronDown" size={12} className="inline" />
+            </p>
+          )}
+          {!showAll && currentModule.lessons.length > SEMI_SIZE && (
+            <button
+              type="button"
+              onClick={() => setLessonsExpanded(true)}
+              className="mt-3 text-sm font-medium text-accent hover:text-accent-hover"
+            >
+              {t("learn.showAllLessons", { count: currentModule.lessons.length })}
+            </button>
+          )}
+          {showAll && currentModule.lessons.length > SEMI_SIZE && (
+            <button
+              type="button"
+              onClick={() => setLessonsExpanded(false)}
+              className="mt-3 text-sm font-medium text-text-secondary hover:text-text-primary"
+            >
+              {t("learn.showLess")}
+            </button>
+          )}
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-3 border-t border-border px-5 py-4">
         <button

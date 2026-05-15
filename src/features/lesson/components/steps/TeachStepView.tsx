@@ -1,7 +1,7 @@
 import type { TeachStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { AnnotatedJa } from "@/shared/japanese";
-import { getTtsUrl, useAutoPlayJaAudio } from "@/shared/japanese/tts";
+import { getTtsUrl, useAutoPlayJaAudio, playJaAudio } from "@/shared/japanese/tts";
 import { Icon } from "@/shared/components/Icon";
 
 type Props = {
@@ -16,8 +16,8 @@ export function TeachStepView({ step, onContinue }: Props) {
   useAutoPlayJaAudio(vocab?.term, `teach-${step.id}`);
 
   function playTerm() {
-    if (!ttsUrl) return;
-    new Audio(ttsUrl).play().catch(() => {});
+    if (!vocab) return;
+    void playJaAudio(vocab.term);
   }
 
   return (

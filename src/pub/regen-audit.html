@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Kana TTS audit — single + yōon</title>
+    <style>
+      body { font-family: ui-sans-serif, system-ui, sans-serif; background:#0f172a; color:#e2e8f0; padding:2rem 2.2rem; max-width:1080px; margin:0 auto; }
+      h1 { font-size:1.5rem; margin-bottom:.4rem; }
+      h2 { font-size:1rem; margin-top:1.8rem; padding-bottom:.3rem; border-bottom:1px solid #334155; color:#94a3b8; }
+      h3 { font-size:.85rem; color:#94a3b8; text-transform:uppercase; letter-spacing:.06em; margin-top:1.4rem; margin-bottom:.4rem; }
+      table { width:100%; border-collapse:collapse; }
+      td { padding:.4rem .4rem; border-bottom:1px solid #1e293b; vertical-align:middle; }
+      .kana { font-size:1.5rem; width:60px; }
+      .rowname { font-size:.72rem; color:#94a3b8; font-family:ui-monospace,monospace; width:80px; }
+      .heard { font-family:ui-monospace,monospace; font-size:.85rem; color:#fbbf24; }
+      .cat { font-size:.7rem; padding:.1rem .4rem; border-radius:.3rem; font-weight:600; }
+      .cat.exact { background:#15803d; color:#dcfce7; }
+      .cat.partial { background:#7c3aed; color:#ede9fe; }
+      .cat.wrong { background:#7f1d1d; color:#fecaca; }
+      audio { height:32px; width:260px; }
+      .note { background:#1e293b; padding:.7rem .9rem; border-radius:.5rem; border-left:3px solid #4ade80; color:#cbd5e1; font-size:.85rem; margin-bottom:1.6rem; }
+      .stat { display:inline-block; padding:.2rem .6rem; margin:.15rem .15rem; border-radius:.4rem; background:#1e293b; font-size:.8rem; }
+    </style>
+  </head>
+  <body>
+    <h1>Kana TTS audit — single mora + yōon</h1>
+    <div class="note">
+      <strong>Pipeline:</strong> baseline <code>{k}。</code> → if Whisper not exact, try sokuon/slow variants
+      and keep the winner. Nanami-only for all single-mora and yōon (Keita stays on multi-syllable phrases).
+      <br /><br />
+      <strong>Single mora (69):</strong>
+      <span class="stat" id="s-single-exact"></span>
+      <span class="stat" id="s-single-partial"></span>
+      <span class="stat" id="s-single-wrong"></span>
+      <br />
+      <strong>Yōon (33):</strong>
+      <span class="stat" id="s-yoon-exact"></span>
+      <span class="stat" id="s-yoon-wrong"></span>
+    </div>
+
+    <h2 style="color:#fecaca">Yōon — Whisper-wrong</h2>
+    <table id="y-wrong"><tbody></tbody></table>
+
+    <h2 style="color:#dcfce7">Yōon — Whisper-exact (30)</h2>
+    <table id="y-exact"><tbody></tbody></table>
+
+    <h2 style="color:#fecaca">Single mora — Whisper-wrong (8)</h2>
+    <table id="s-wrong"><tbody></tbody></table>
+
+    <h2 style="color:#ede9fe">Single mora — Whisper-partial</h2>
+    <table id="s-partial"><tbody></tbody></table>
+
+    <h2 style="color:#dcfce7">Single mora — Whisper-exact (60)</h2>
+    <table id="s-exact"><tbody></tbody></table>
+
+    <script type="module">
+      const DATA = await fetch("/regen-data.json").then((r) => r.json());
+
+      async function sha256_16(text) {
+        const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+        return Array.from(new Uint8Array(buf)).slice(0, 8)
+          .map((b) => b.toString(16).padStart(2, "0")).join("");
+      }
+
+      function bucket(kind, cat) {
+        return DATA.filter((r) => r.kind === kind && r.category === cat);
+      }
+
+      async function render(tableId, items) {
+        const tbody = document.querySelector(`#${tableId} tbody`);
+        for (const r of items) {
+          const h = await sha256_16(`ja:${r.kana}`);
+          const src = `/tts/ja/${h}.mp3`;
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="rowname">${r.row}</td>
+            <td class="kana">${r.kana}</td>
+            <td><span class="cat ${r.category}">${r.category}</span></td>
+            <td><audio controls preload="none" src="${src}"></audio></td>
+            <td class="heard">heard: ${r.transcript}</td>
+          `;
+          tbody.appendChild(tr);
+        }
+      }
+
+      // Stats
+      const counts = { single: {exact:0,partial:0,wrong:0}, yoon: {exact:0,partial:0,wrong:0} };
+      for (const r of DATA) counts[r.kind][r.category] = (counts[r.kind][r.category] || 0) + 1;
+      document.getElementById("s-single-exact").textContent = `exact: ${counts.single.exact}`;
+      document.getElementById("s-single-partial").textContent = `partial: ${counts.single.partial || 0}`;
+      document.getElementById("s-single-wrong").textContent = `wrong: ${counts.single.wrong || 0}`;
+      document.getElementById("s-yoon-exact").textContent = `exact: ${counts.yoon.exact}`;
+      document.getElementById("s-yoon-wrong").textContent = `wrong: ${counts.yoon.wrong || 0}`;
+
+      await render("y-wrong",   bucket("yoon",   "wrong"));
+      await render("y-exact",   bucket("yoon",   "exact"));
+      await render("s-wrong",   bucket("single", "wrong"));
+      await render("s-partial", bucket("single", "partial"));
+      await render("s-exact",   bucket("single", "exact"));
+    </script>
+  </body>
+</html>

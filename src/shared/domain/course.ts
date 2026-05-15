@@ -12,11 +12,40 @@ export type Lesson = {
   alphabetId?: string;
 };
 
+/** Gradient endpoints used to paint the module-card banner. */
+export type ModuleAccent = {
+  from: string; // CSS color (e.g. "#059669")
+  to: string; // CSS color (e.g. "#047857")
+};
+
 /** Module groups lessons (mock shape). */
 export type CourseModule = {
   id: string;
   title: string;
   lessons: Lesson[];
+  /** Short eyebrow line shown above the module title in the pathway UI. */
+  eyebrow?: string;
+  /** Optional subtitle / summary shown in the preview body. */
+  summary?: string;
+  /** Gradient endpoints for the banner header. */
+  accent?: ModuleAccent;
+  /** Future module: shows placeholder UI, no clickable lessons. */
+  comingSoon?: boolean;
+};
+
+/** Bonus / interest-driven side quests shown in the right rail. */
+export type SideQuest = {
+  id: string;
+  title: string;
+  emoji: string;
+  /** Subtitle line, e.g. "12 words · senpai, kawaii…". */
+  meta: string;
+  /** Module/lesson id this unlocks after. Undefined = available now. */
+  unlockAfter?: string;
+  /** Completion progress, 0–100. */
+  progress: number;
+  /** Styled as the warning-tone "daily" card when true. */
+  isDaily?: boolean;
 };
 
 export type Course = {
@@ -24,4 +53,5 @@ export type Course = {
   title: string;
   languageId: string;
   modules: CourseModule[];
+  sideQuests?: SideQuest[];
 };

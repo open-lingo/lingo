@@ -140,8 +140,7 @@ export function Layout() {
   const learnActive = /^\/[^/]+\/learn/.test(pathname);
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
   const communityActive = /\/community/.test(pathname);
-  const adminActive = pathname.startsWith("/admin");
-  const docsActive = pathname === "/docs" || pathname.startsWith("/docs/");
+  const leaderboardActive = /\/leaderboard/.test(pathname);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -213,14 +212,14 @@ export function Layout() {
                   {t("nav.community")}
                 </Link>
                 <Link
-                  to="/admin/users"
+                  to={langPath("leaderboard")}
                   className={`rounded-md px-2 py-1.5 text-sm ${
-                    adminActive
+                    leaderboardActive
                       ? "font-medium text-text-primary"
                       : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
                   }`}
                 >
-                  {t("nav.admin")}
+                  {t("nav.leaderboard")}
                 </Link>
               </>
             ) : (
@@ -235,16 +234,6 @@ export function Layout() {
                 {t("nav.community")}
               </Link>
             )}
-            <Link
-              to="/docs"
-              className={`rounded-md px-2 py-1.5 text-sm ${
-                docsActive
-                  ? "font-medium text-text-primary"
-                  : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
-              }`}
-            >
-              {t("nav.docs")}
-            </Link>
           </nav>
 
           {/* Right side: utilities + mobile menu button */}
@@ -314,15 +303,15 @@ export function Layout() {
                     {t("nav.community")}
                   </Link>
                   <Link
-                    to="/admin/users"
+                    to={langPath("leaderboard")}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`rounded-lg px-4 py-3 text-base ${
-                      adminActive
+                      leaderboardActive
                         ? "font-semibold text-text-primary"
                         : "font-medium text-text-primary hover:bg-surface-muted"
                     }`}
                   >
-                    {t("nav.admin")}
+                    {t("nav.leaderboard")}
                   </Link>
                 </>
               ) : (
@@ -338,17 +327,6 @@ export function Layout() {
                   {t("nav.community")}
                 </Link>
               )}
-              <Link
-                to="/docs"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`rounded-lg px-4 py-3 text-base ${
-                  docsActive
-                    ? "font-semibold text-text-primary"
-                    : "font-medium text-text-primary hover:bg-surface-muted"
-                }`}
-              >
-                {t("nav.docs")}
-              </Link>
             </nav>
           </div>
         )}

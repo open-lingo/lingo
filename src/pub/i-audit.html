@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>「い」 Keita pinhole</title>
+    <style>
+      body { font-family: ui-sans-serif, system-ui, sans-serif; background:#0f172a; color:#e2e8f0; padding:2rem 2.2rem; max-width:880px; margin:0 auto; }
+      h1 { font-size:1.5rem; margin-bottom:.4rem; }
+      h2 { font-size:1.1rem; margin-top:2.4rem; padding-bottom:.4rem; border-bottom:1px solid #334155; }
+      .kana { font-size:5rem; line-height:1; margin:.6rem 0 1rem; }
+      .trial { background:#1e293b; padding:.7rem .9rem; border-radius:.5rem; margin-bottom:.55rem; }
+      .trial .row { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
+      .trial .label { font-weight:600; font-size:.95rem; }
+      .trial .meta { font-size:.72rem; color:#94a3b8; font-family: ui-monospace, monospace; }
+      .trial .desc { font-size:.78rem; color:#94a3b8; margin-top:.2rem; }
+      audio { display:block; width:100%; margin-top:.4rem; height:32px; }
+      code { background:#0f172a; padding:.05rem .4rem; border-radius:.3rem; font-size:.72rem; }
+      .badge { display:inline-block; font-size:.65rem; padding:.1rem .4rem; border-radius:.3rem; background:#334155; margin-right:.4rem; vertical-align:middle; }
+      .badge.win { background:#15803d; color:#dcfce7; }
+      .badge.fast { background:#1e40af; color:#dbeafe; }
+      .badge.broken { background:#7f1d1d; color:#fecaca; }
+      .badge.exp { background:#7c3aed; color:#ede9fe; }
+      p.intro { color:#cbd5e1; font-size:.92rem; line-height:1.5; }
+      .note { background:#1e293b; padding:.7rem .9rem; border-radius:.5rem; border-left:3px solid #4ade80; color:#cbd5e1; font-size:.85rem; }
+    </style>
+  </head>
+  <body>
+    <h1>TTS audit for 「い」 — Keita pinhole</h1>
+    <div class="kana">い</div>
+
+    <div class="note">
+      <strong>New: <code>carrier_single</code></strong> — single-target carrier <code>あ、い、あ</code> at slowed
+      rate, then silencedetect-trim. Yields one mora instead of the doubled <code>いい</code> the current
+      production carrier emits. Filters out breath/click artifacts (&lt;60ms segments) before indexing,
+      which is what was breaking Keita with the single-target wrap before.<br />
+      Carrier-trial bug fixed: each voice now reads its own production hash.
+    </div>
+
+    <h2>Keita (male) — ja-JP-KeitaNeural — focus here</h2>
+    <div id="keita-trials"></div>
+
+    <h2>Nanami (for sanity, in case you want to A/B)</h2>
+    <div id="nanami-trials"></div>
+
+    <h2>Trade-offs</h2>
+    <p class="intro">
+      <span class="badge broken">bare</span> Raw <code>い</code> — broken baseline.<br />
+      <span class="badge fast">period</span> Append <code>。</code> only. Cheapest fix.<br />
+      <span class="badge fast">slow</span> + <code>rate="-25%"</code>.<br />
+      <span class="badge fast">slow_heavy</span> + <code>rate="-40%"</code>.<br />
+      <span class="badge fast">slowest</span> + <code>rate="-50%"</code> — most articulation room.<br />
+      <span class="badge fast">slow_period</span> Silence-bracketed + slowed.<br />
+      <span class="badge exp">loud_slow</span> <code>rate="-40%"</code> + <code>volume="+40%"</code>.<br />
+      <span class="badge exp">hai_carrier</span> <code>はい、い、はい</code> synth only — Keita sometimes drops trailing syllables, so silencedetect trim was unreliable. This plays the raw mid-sentence pronunciation; you'll hear "yes-i-yes" and judge whether the middle <code>い</code> is fully formed.<br />
+      <span class="badge win">carrier</span> Current production: <code>あ、いい、あ</code> + silencedetect trim.
+    </p>
+
+    <h2>If Keita is unfixable</h2>
+    <p class="intro">
+      Fallback options if every Keita variant still sounds bad:<br />
+      1. <strong>Drop Keita from single-mora rotation</strong> — keep him for multi-syllable phrases (where he sounds fine), use only Nanami for single kana.<br />
+      2. <strong>Find a different male voice</strong> — edge-tts only ships Keita and Nanami for ja; getting another male means a different provider entirely.
+    </p>
+
+    <script type="module">
+      const KEITA_TRIALS = [
+        { tag: "carrier_single", label: "carrier_single",  desc: "NEW: あ、い、あ @ rate=-40% + silencedetect trim (single mora)", badge: "win" },
+        { tag: "carrier",        label: "carrier (doubled)", desc: "Current production: あ、いい、あ + trim (two mora)",          badge: "win" },
+        { tag: "bare",           label: "bare",            desc: "Raw い — broken",                              badge: "broken" },
+        { tag: "period",         label: "い。",            desc: "Trailing kuten only",                          badge: "fast" },
+        { tag: "slow",           label: "rate -25%",       desc: "い。 at rate=-25%",                            badge: "fast" },
+        { tag: "slow_heavy",     label: "rate -40%",       desc: "い。 at rate=-40%",                            badge: "fast" },
+        { tag: "slowest",        label: "rate -50%",       desc: "い。 at rate=-50%",                            badge: "fast" },
+        { tag: "slow_period",    label: "。い。 -25%",     desc: "Silence-bracketed + slowed",                   badge: "fast" },
+        { tag: "loud_slow",      label: "loud -40%",       desc: "rate=-40% + volume=+40%",                      badge: "exp" },
+        { tag: "hai_carrier",    label: "はい-carrier",    desc: "はい、い、はい (synth only, no trim)",          badge: "exp" },
+      ];
+      const NANAMI_TRIALS = [
+        { tag: "carrier_single", label: "carrier_single",  desc: "NEW: あ、い、あ @ rate=-25% + trim (single mora)", badge: "win" },
+        { tag: "carrier",        label: "carrier (doubled)", desc: "Current production: あ、いい、あ + trim",         badge: "win" },
+        { tag: "bare",           label: "bare",            desc: "Raw い — broken baseline",                     badge: "broken" },
+        { tag: "period",         label: "い。",            desc: "Trailing kuten only — cheapest fix",           badge: "fast" },
+        { tag: "slow",           label: "rate -25%",       desc: "い。 at rate=-25%",                            badge: "fast" },
+        { tag: "slow_heavy",     label: "rate -40%",       desc: "い。 at rate=-40%",                            badge: "fast" },
+      ];
+
+      function render(containerId, voiceSlug, trials) {
+        const container = document.getElementById(containerId);
+        for (const t of trials) {
+          const src = `/trials/い_${voiceSlug}_${t.tag}.mp3`;
+          const div = document.createElement("div");
+          div.className = "trial";
+          div.innerHTML = `
+            <div class="row">
+              <div class="label"><span class="badge ${t.badge}">${t.tag}</span>${t.label}</div>
+              <div class="meta">${src.replace("/trials/", "")}</div>
+            </div>
+            <div class="desc">${t.desc}</div>
+            <audio controls preload="auto" src="${src}"></audio>
+          `;
+          container.appendChild(div);
+        }
+      }
+
+      render("keita-trials", "keita", KEITA_TRIALS);
+      render("nanami-trials", "nanami", NANAMI_TRIALS);
+    </script>
+  </body>
+</html>

@@ -52,6 +52,38 @@ export type BuildAnswer = {
   decoys: string[];
 };
 
+/**
+ * Sentence-example slide for orphan kana that lack a clean early-N5 anchor
+ * word. Emitted as an InfoStep near the end of the lesson (just before the
+ * wrap-up). One slide per entry.
+ */
+export type SentenceExample = {
+  /** The orphan kana this slide demonstrates. */
+  kana: string;
+  /** Example phrase containing the kana (kana text). */
+  sentence: string;
+  /** Romaji reading of the sentence. */
+  reading: string;
+  /** English gloss / explanation. */
+  meaning: string;
+};
+
+/**
+ * Multi-tile sentence-assembly drill sprinkled mid-lesson once the learner
+ * has enough kana to form a short utterance. Emitted as a
+ * `build_sentence` step with word-granularity tiles.
+ */
+export type SentencePractice = {
+  /** English prompt shown to the learner. */
+  prompt: string;
+  /** Target JA sentence with spaces between tile boundaries. */
+  target: string;
+  /** Correct tile order (matches target tokenization). */
+  correctOrder: string[];
+  /** Decoy tiles mixed into the bank (same word-class as target tiles). */
+  decoys: string[];
+};
+
 export type RowDef = {
   /** Stable id used for the lesson id (`ja-m1-lN-<id>`). */
   id: string;
@@ -65,6 +97,16 @@ export type RowDef = {
   anchorWords: AnchorWord[];
   audioPick: AudioPick;
   build: BuildAnswer;
+  /**
+   * Optional sentence-example slides for orphan kana that don't have a clean
+   * anchor word. Emitted as InfoSteps near the end of the lesson.
+   */
+  sentenceExamples?: SentenceExample[];
+  /**
+   * Optional multi-tile sentence-assembly drills inserted mid-lesson after
+   * the per-kana intro+teach cycle and before the match step.
+   */
+  sentencePractice?: SentencePractice[];
 };
 
 // Visually-similar kana for distractor selection. The pairs are
@@ -134,10 +176,8 @@ export const HIRAGANA_ROWS: RowDef[] = [
     ],
     anchorWords: [
       { kana: "かお", romaji: "kao", meaning: "face" },
-      { kana: "いか", romaji: "ika", meaning: "squid" },
-      { kana: "きく", romaji: "kiku", meaning: "to listen / chrysanthemum" },
+      { kana: "くち", romaji: "kuchi", meaning: "mouth" },
       { kana: "こえ", romaji: "koe", meaning: "voice" },
-      { kana: "かい", romaji: "kai", meaning: "shellfish" },
     ],
     audioPick: { word: "かお", pickIndex: 0, distractors: ["き", "く", "さ"] },
     build: { meaning: "face", answer: "かお", decoys: ["き", "い", "う"] },
@@ -161,10 +201,8 @@ export const HIRAGANA_ROWS: RowDef[] = [
     ],
     anchorWords: [
       { kana: "あさ", romaji: "asa", meaning: "morning" },
-      { kana: "いす", romaji: "isu", meaning: "chair" },
       { kana: "すし", romaji: "sushi", meaning: "sushi" },
-      { kana: "あし", romaji: "ashi", meaning: "foot" },
-      { kana: "しお", romaji: "shio", meaning: "salt" },
+      { kana: "いす", romaji: "isu", meaning: "chair" },
     ],
     audioPick: { word: "すし", pickIndex: 0, distractors: ["し", "つ", "む"] },
     build: { meaning: "sushi", answer: "すし", decoys: ["さ", "む", "つ"] },
@@ -187,14 +225,12 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { kana: "と", romaji: "to", hint: "like 'to' in 'toe'" },
     ],
     anchorWords: [
-      { kana: "たこ", romaji: "tako", meaning: "octopus" },
-      { kana: "いち", romaji: "ichi", meaning: "one" },
       { kana: "つき", romaji: "tsuki", meaning: "moon" },
       { kana: "て", romaji: "te", meaning: "hand" },
-      { kana: "あつい", romaji: "atsui", meaning: "hot" },
+      { kana: "とけい", romaji: "tokei", meaning: "clock / watch" },
     ],
     audioPick: { word: "つき", pickIndex: 0, distractors: ["し", "う", "ち"] },
-    build: { meaning: "octopus", answer: "たこ", decoys: ["な", "き", "ち"] },
+    build: { meaning: "moon", answer: "つき", decoys: ["し", "う", "ち"] },
   },
   {
     id: "na",
@@ -209,14 +245,22 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { kana: "の", romaji: "no", hint: "like 'no' in 'note'" },
     ],
     anchorWords: [
-      { kana: "なに", romaji: "nani", meaning: "what" },
-      { kana: "いぬ", romaji: "inu", meaning: "dog" },
       { kana: "ねこ", romaji: "neko", meaning: "cat" },
+      { kana: "いぬ", romaji: "inu", meaning: "dog" },
       { kana: "なつ", romaji: "natsu", meaning: "summer" },
-      { kana: "おかね", romaji: "okane", meaning: "money" },
     ],
     audioPick: { word: "ねこ", pickIndex: 0, distractors: ["れ", "の", "わ"] },
     build: { meaning: "cat", answer: "ねこ", decoys: ["ぬ", "の", "き"] },
+    // で in です uses the AnnotatedJa romaji-helper fallback until the
+    // learner drills da-ba in m2 — by design (see file-header curation rules).
+    sentencePractice: [
+      {
+        prompt: "It's a cat.",
+        target: "ねこ です",
+        correctOrder: ["ねこ", "です"],
+        decoys: ["いぬ", "なつ"],
+      },
+    ],
   },
   {
     id: "ha",
@@ -236,14 +280,28 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { kana: "ほ", romaji: "ho", hint: "like 'ho' in 'hope'" },
     ],
     anchorWords: [
-      { kana: "はな", romaji: "hana", meaning: "flower / nose" },
-      { kana: "はし", romaji: "hashi", meaning: "chopsticks" },
-      { kana: "ふね", romaji: "fune", meaning: "boat" },
+      { kana: "はな", romaji: "hana", meaning: "flower" },
       { kana: "ひと", romaji: "hito", meaning: "person" },
       { kana: "ほし", romaji: "hoshi", meaning: "star" },
     ],
     audioPick: { word: "はな", pickIndex: 0, distractors: ["ほ", "ま", "ぱ"] },
     build: { meaning: "flower", answer: "はな", decoys: ["ほ", "な", "に"] },
+    sentenceExamples: [
+      {
+        kana: "へ",
+        sentence: "わたし へ",
+        reading: "watashi e",
+        meaning: "\"to me\" — へ is a direction particle pronounced 'e'.",
+      },
+    ],
+    sentencePractice: [
+      {
+        prompt: "It's a flower.",
+        target: "はな です",
+        correctOrder: ["はな", "です"],
+        decoys: ["ほし", "ひと"],
+      },
+    ],
   },
   {
     id: "ma",
@@ -259,13 +317,19 @@ export const HIRAGANA_ROWS: RowDef[] = [
     ],
     anchorWords: [
       { kana: "みみ", romaji: "mimi", meaning: "ear" },
-      { kana: "まめ", romaji: "mame", meaning: "bean" },
       { kana: "もも", romaji: "momo", meaning: "peach" },
-      { kana: "むし", romaji: "mushi", meaning: "insect" },
       { kana: "あめ", romaji: "ame", meaning: "rain / candy" },
     ],
     audioPick: { word: "みみ", pickIndex: 0, distractors: ["ゆ", "む", "に"] },
     build: { meaning: "peach", answer: "もも", decoys: ["し", "ま", "の"] },
+    sentencePractice: [
+      {
+        prompt: "It's an ear.",
+        target: "みみ です",
+        correctOrder: ["みみ", "です"],
+        decoys: ["もも", "あめ"],
+      },
+    ],
   },
   {
     id: "ya",
@@ -279,12 +343,19 @@ export const HIRAGANA_ROWS: RowDef[] = [
     ],
     anchorWords: [
       { kana: "やま", romaji: "yama", meaning: "mountain" },
-      { kana: "ゆめ", romaji: "yume", meaning: "dream" },
       { kana: "ゆき", romaji: "yuki", meaning: "snow" },
-      { kana: "やね", romaji: "yane", meaning: "roof" },
+      { kana: "ゆめ", romaji: "yume", meaning: "dream" },
     ],
     audioPick: { word: "やま", pickIndex: 0, distractors: ["か", "わ", "ま"] },
     build: { meaning: "mountain", answer: "やま", decoys: ["か", "ね", "き"] },
+    sentencePractice: [
+      {
+        prompt: "It's a mountain.",
+        target: "やま です",
+        correctOrder: ["やま", "です"],
+        decoys: ["ゆき", "ゆめ"],
+      },
+    ],
   },
   {
     id: "ra",
@@ -305,13 +376,19 @@ export const HIRAGANA_ROWS: RowDef[] = [
     ],
     anchorWords: [
       { kana: "さくら", romaji: "sakura", meaning: "cherry blossom" },
-      { kana: "よる", romaji: "yoru", meaning: "night" },
-      { kana: "はる", romaji: "haru", meaning: "spring (season)" },
       { kana: "とり", romaji: "tori", meaning: "bird" },
-      { kana: "くろ", romaji: "kuro", meaning: "black" },
+      { kana: "はる", romaji: "haru", meaning: "spring (season)" },
     ],
     audioPick: { word: "とり", pickIndex: 1, distractors: ["い", "り", "う"] },
     build: { meaning: "spring (season)", answer: "はる", decoys: ["れ", "ら", "ろ"] },
+    sentencePractice: [
+      {
+        prompt: "It's a bird.",
+        target: "とり です",
+        correctOrder: ["とり", "です"],
+        decoys: ["さくら", "はる"],
+      },
+    ],
   },
   {
     id: "wa",
@@ -322,9 +399,9 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { kana: "わ", romaji: "wa", hint: "like 'wa' in 'water'" },
       {
         kana: "を",
-        romaji: "wo",
-        hint: "object-marker particle (sounds like 'o')",
-        note: "Only used as a particle in modern Japanese.",
+        romaji: "o",
+        hint: "object-marker particle (pronounced 'o')",
+        note: "Only used as a particle in modern Japanese. Spelled with the wa-row glyph but pronounced 'o'.",
       },
       {
         kana: "ん",
@@ -336,12 +413,26 @@ export const HIRAGANA_ROWS: RowDef[] = [
     anchorWords: [
       { kana: "わたし", romaji: "watashi", meaning: "I / me" },
       { kana: "にほん", romaji: "nihon", meaning: "Japan" },
-      { kana: "さん", romaji: "san", meaning: "three / Mr./Ms." },
       { kana: "ほん", romaji: "hon", meaning: "book" },
-      { kana: "きん", romaji: "kin", meaning: "gold" },
     ],
-    audioPick: { word: "にほん", pickIndex: 3, distractors: ["そ", "ろ", "や"] },
+    audioPick: { word: "にほん", pickIndex: 2, distractors: ["そ", "ろ", "や"] },
     build: { meaning: "Japan", answer: "にほん", decoys: ["は", "う", "ま"] },
+    sentenceExamples: [
+      {
+        kana: "を",
+        sentence: "パン を たべる",
+        reading: "pan o taberu",
+        meaning: "\"I eat bread\" — を marks the object, pronounced 'o'.",
+      },
+    ],
+    sentencePractice: [
+      {
+        prompt: "I'm Japanese.",
+        target: "わたし は にほんじん です",
+        correctOrder: ["わたし", "は", "にほんじん", "です"],
+        decoys: ["ほん", "を"],
+      },
+    ],
   },
 ];
 
@@ -365,14 +456,28 @@ export const DAKUTEN_ROWS: RowDef[] = [
       { kana: "ご", romaji: "go", hint: "voiced こ (ko → go)" },
     ],
     anchorWords: [
-      { kana: "ごはん", romaji: "gohan", meaning: "rice / meal" },
-      { kana: "かぎ", romaji: "kagi", meaning: "key" },
-      { kana: "がっこう", romaji: "gakkou", meaning: "school" },
-      { kana: "いちご", romaji: "ichigo", meaning: "strawberry" },
       { kana: "げんき", romaji: "genki", meaning: "energy / well" },
+      { kana: "ごはん", romaji: "gohan", meaning: "rice / meal" },
+      { kana: "いちご", romaji: "ichigo", meaning: "strawberry" },
     ],
     audioPick: { word: "ごはん", pickIndex: 0, distractors: ["こ", "が", "ぐ"] },
-    build: { meaning: "key", answer: "かぎ", decoys: ["き", "ご", "ぐ"] },
+    build: { meaning: "rice / meal", answer: "ごはん", decoys: ["こ", "が", "ぐ"] },
+    sentenceExamples: [
+      {
+        kana: "ぐ",
+        sentence: "か ぐ",
+        reading: "kagu",
+        meaning: "\"furniture\" — one of the few common words using ぐ.",
+      },
+    ],
+    sentencePractice: [
+      {
+        prompt: "I'm well. (How are you? answer)",
+        target: "げんき です",
+        correctOrder: ["げんき", "です"],
+        decoys: ["いちご", "ごはん"],
+      },
+    ],
   },
   {
     id: "za",
@@ -392,13 +497,27 @@ export const DAKUTEN_ROWS: RowDef[] = [
     ],
     anchorWords: [
       { kana: "みず", romaji: "mizu", meaning: "water" },
-      { kana: "ぞう", romaji: "zou", meaning: "elephant" },
-      { kana: "じこ", romaji: "jiko", meaning: "accident / oneself" },
       { kana: "かぜ", romaji: "kaze", meaning: "wind / cold (illness)" },
-      { kana: "ちず", romaji: "chizu", meaning: "map" },
+      { kana: "ぞう", romaji: "zou", meaning: "elephant" },
     ],
     audioPick: { word: "ぞう", pickIndex: 0, distractors: ["そ", "じ", "ぐ"] },
     build: { meaning: "water", answer: "みず", decoys: ["む", "ず", "し"] },
+    sentenceExamples: [
+      {
+        kana: "ざ",
+        sentence: "ざっし",
+        reading: "zasshi",
+        meaning: "\"magazine\" — the small つ doubles the next consonant; you'll meet that pattern soon.",
+      },
+    ],
+    sentencePractice: [
+      {
+        prompt: "It's water.",
+        target: "みず です",
+        correctOrder: ["みず", "です"],
+        decoys: ["かぜ", "ぞう"],
+      },
+    ],
   },
   {
     id: "da-ba",
@@ -416,14 +535,23 @@ export const DAKUTEN_ROWS: RowDef[] = [
       { kana: "ぼ", romaji: "bo", hint: "voiced ほ (ho → bo)" },
     ],
     anchorWords: [
+      { kana: "ともだち", romaji: "tomodachi", meaning: "friend" },
       { kana: "でんわ", romaji: "denwa", meaning: "telephone" },
-      { kana: "まど", romaji: "mado", meaning: "window" },
       { kana: "たべる", romaji: "taberu", meaning: "to eat" },
-      { kana: "ばら", romaji: "bara", meaning: "rose" },
       { kana: "ぶた", romaji: "buta", meaning: "pig" },
     ],
-    audioPick: { word: "まど", pickIndex: 1, distractors: ["と", "の", "ぼ"] },
-    build: { meaning: "rose", answer: "ばら", decoys: ["ぱ", "ば", "ろ"] },
+    audioPick: { word: "ともだち", pickIndex: 2, distractors: ["と", "の", "ぼ"] },
+    build: { meaning: "friend", answer: "ともだち", decoys: ["の", "ぼ", "ぱ"] },
+    // ぱん would need pa-row which lands AFTER da-ba in m2 ordering, so the
+    // bread sentence is deferred to pa-row. Use a da-ba-only sentence here.
+    sentencePractice: [
+      {
+        prompt: "It's a friend.",
+        target: "ともだち です",
+        correctOrder: ["ともだち", "です"],
+        decoys: ["でんわ", "ぶた"],
+      },
+    ],
   },
   {
     id: "pa",
@@ -438,18 +566,169 @@ export const DAKUTEN_ROWS: RowDef[] = [
       { kana: "ぽ", romaji: "po", hint: "ほ + ゜ → 'po'" },
     ],
     anchorWords: [
-      { kana: "えんぴつ", romaji: "enpitsu", meaning: "pencil" },
       { kana: "ぱん", romaji: "pan", meaning: "bread" },
+      { kana: "えんぴつ", romaji: "enpitsu", meaning: "pencil" },
       { kana: "さんぽ", romaji: "sanpo", meaning: "walk / stroll" },
-      { kana: "ぴあの", romaji: "piano", meaning: "piano" },
-      { kana: "てんぷら", romaji: "tenpura", meaning: "tempura" },
     ],
     audioPick: { word: "ぱん", pickIndex: 0, distractors: ["ば", "は", "ぽ"] },
     build: { meaning: "bread", answer: "ぱん", decoys: ["ば", "ん", "は"] },
+    sentenceExamples: [
+      {
+        kana: "ぷ",
+        sentence: "プリン / ペン",
+        reading: "purin / pen",
+        meaning: "ぷ and ぺ mostly appear in katakana loanwords like プリン (pudding) and ペン (pen). You'll meet them properly in katakana.",
+      },
+    ],
+    sentencePractice: [
+      {
+        prompt: "I eat bread.",
+        target: "ぱん を たべる",
+        correctOrder: ["ぱん", "を", "たべる"],
+        decoys: ["みず", "ともだち"],
+      },
+    ],
   },
 ];
 
-export const ALL_ROWS = [...HIRAGANA_ROWS, ...DAKUTEN_ROWS];
+/**
+ * Yōon (拗音) — combination kana. A consonant kana shrinks the following
+ * や/ゆ/よ into ゃ/ゅ/ょ so the pair pronounces as a single mora:
+ * き + ゃ → きゃ (kya). 33 total: 11 consonant onsets × 3 small-y endings.
+ *
+ * Pedagogically grouped 3 consonants per lesson (~9 yōon each) so each
+ * lesson is the same shape as the basic-row lessons.
+ */
+export const YOON_ROWS: RowDef[] = [
+  {
+    id: "yo-k",
+    title: "Yōon 1: きゃ・きゅ・きょ",
+    intro:
+      "Small ゃゅょ stuck to a consonant kana = one syllable. き + ゃ → きゃ (kya).",
+    introduces: [
+      { kana: "きゃ", romaji: "kya", hint: "ki + small ya — one syllable 'kya'" },
+      { kana: "きゅ", romaji: "kyu", hint: "ki + small yu — 'kyu'" },
+      { kana: "きょ", romaji: "kyo", hint: "ki + small yo — 'kyo'" },
+    ],
+    anchorWords: [
+      { kana: "きょう", romaji: "kyou", meaning: "today" },
+      { kana: "きゃく", romaji: "kyaku", meaning: "guest / customer" },
+      { kana: "きゅう", romaji: "kyuu", meaning: "nine" },
+    ],
+    audioPick: { word: "きょう", pickIndex: 0, distractors: ["きゃ", "きゅ", "しゃ"] },
+    build: { meaning: "today", answer: "きょう", decoys: ["きゃ", "きゅ", "う"] },
+  },
+  {
+    id: "yo-sh-ch",
+    title: "Yōon 2: しゃ・ちゃ families",
+    intro:
+      "Same rule for s and t consonants. し + ゃ → しゃ. ち + ゃ → ちゃ.",
+    introduces: [
+      { kana: "しゃ", romaji: "sha", hint: "shi + small ya — 'sha'" },
+      { kana: "しゅ", romaji: "shu", hint: "shi + small yu — 'shu'" },
+      { kana: "しょ", romaji: "sho", hint: "shi + small yo — 'sho'" },
+      { kana: "ちゃ", romaji: "cha", hint: "chi + small ya — 'cha'" },
+      { kana: "ちゅ", romaji: "chu", hint: "chi + small yu — 'chu'" },
+      { kana: "ちょ", romaji: "cho", hint: "chi + small yo — 'cho'" },
+    ],
+    anchorWords: [
+      { kana: "しゃしん", romaji: "shashin", meaning: "photograph" },
+      { kana: "しゅみ", romaji: "shumi", meaning: "hobby" },
+      { kana: "おちゃ", romaji: "ocha", meaning: "tea" },
+      { kana: "ちょっと", romaji: "chotto", meaning: "a little" },
+      { kana: "ちゅうい", romaji: "chuui", meaning: "caution" },
+    ],
+    audioPick: { word: "しゃしん", pickIndex: 0, distractors: ["ちゃ", "しゅ", "ちょ"] },
+    build: { meaning: "tea", answer: "おちゃ", decoys: ["ちょ", "しゃ", "ちゅ"] },
+    sentencePractice: [
+      {
+        prompt: "It's tea.",
+        target: "おちゃ です",
+        correctOrder: ["おちゃ", "です"],
+        decoys: ["しゃしん", "しゅみ"],
+      },
+    ],
+  },
+  {
+    id: "yo-g-j",
+    title: "Yōon 3: ぎゃ・じゃ families",
+    intro:
+      "Dakuten yōon — same rule, voiced consonant. ぎ + ゃ → ぎゃ. じ + ゃ → じゃ.",
+    introduces: [
+      { kana: "ぎゃ", romaji: "gya", hint: "gi + small ya — 'gya'" },
+      { kana: "ぎゅ", romaji: "gyu", hint: "gi + small yu — 'gyu'" },
+      { kana: "ぎょ", romaji: "gyo", hint: "gi + small yo — 'gyo'" },
+      { kana: "じゃ", romaji: "ja", hint: "ji + small ya — 'ja'" },
+      { kana: "じゅ", romaji: "ju", hint: "ji + small yu — 'ju'" },
+      { kana: "じょ", romaji: "jo", hint: "ji + small yo — 'jo'" },
+    ],
+    anchorWords: [
+      { kana: "ぎゅうにゅう", romaji: "gyuunyuu", meaning: "milk" },
+      { kana: "じゅう", romaji: "juu", meaning: "ten" },
+      { kana: "じょうず", romaji: "jouzu", meaning: "skillful" },
+    ],
+    audioPick: { word: "じゅう", pickIndex: 0, distractors: ["じゃ", "じょ", "ぎゅ"] },
+    build: { meaning: "ten", answer: "じゅう", decoys: ["じゃ", "じょ", "う"] },
+    sentencePractice: [
+      {
+        prompt: "It's ten.",
+        target: "じゅう です",
+        correctOrder: ["じゅう", "です"],
+        decoys: ["じょうず", "ぎゅうにゅう"],
+      },
+    ],
+  },
+  {
+    id: "yo-n-h-m-r",
+    title: "Yōon 4: にゃ・ひゃ・みゃ・りゃ (rare)",
+    intro:
+      "These yōon are genuinely rare — you'll meet them in the wild but they don't all get their own everyday word. Recognition is the bar here.",
+    introduces: [
+      { kana: "にゃ", romaji: "nya", hint: "ni + small ya — 'nya'" },
+      { kana: "にゅ", romaji: "nyu", hint: "ni + small yu — 'nyu'" },
+      { kana: "にょ", romaji: "nyo", hint: "ni + small yo — 'nyo'" },
+      { kana: "ひゃ", romaji: "hya", hint: "hi + small ya — 'hya'" },
+      { kana: "ひゅ", romaji: "hyu", hint: "hi + small yu — 'hyu'" },
+      { kana: "ひょ", romaji: "hyo", hint: "hi + small yo — 'hyo'" },
+      { kana: "みゃ", romaji: "mya", hint: "mi + small ya — 'mya'" },
+      { kana: "みゅ", romaji: "myu", hint: "mi + small yu — 'myu'" },
+      { kana: "みょ", romaji: "myo", hint: "mi + small yo — 'myo'" },
+      { kana: "りゃ", romaji: "rya", hint: "ri + small ya — 'rya'" },
+      { kana: "りゅ", romaji: "ryu", hint: "ri + small yu — 'ryu'" },
+      { kana: "りょ", romaji: "ryo", hint: "ri + small yo — 'ryo'" },
+    ],
+    anchorWords: [
+      { kana: "ひゃく", romaji: "hyaku", meaning: "hundred" },
+      { kana: "りゅう", romaji: "ryuu", meaning: "dragon" },
+      { kana: "りょこう", romaji: "ryokou", meaning: "trip / travel" },
+    ],
+    audioPick: { word: "ひゃく", pickIndex: 0, distractors: ["ひゅ", "ひょ", "きゃ"] },
+    build: { meaning: "hundred", answer: "ひゃく", decoys: ["ひゅ", "く", "ひょ"] },
+  },
+  {
+    id: "yo-b-p",
+    title: "Yōon 5: びゃ・ぴゃ (rare)",
+    intro:
+      "Same idea with b and p. Mostly びょういん (hospital) and びょうき (sick) here — the rest are recognition-only.",
+    introduces: [
+      { kana: "びゃ", romaji: "bya", hint: "bi + small ya — 'bya'" },
+      { kana: "びゅ", romaji: "byu", hint: "bi + small yu — 'byu'" },
+      { kana: "びょ", romaji: "byo", hint: "bi + small yo — 'byo'" },
+      { kana: "ぴゃ", romaji: "pya", hint: "pi + small ya — 'pya'" },
+      { kana: "ぴゅ", romaji: "pyu", hint: "pi + small yu — 'pyu'" },
+      { kana: "ぴょ", romaji: "pyo", hint: "pi + small yo — 'pyo'" },
+    ],
+    anchorWords: [
+      { kana: "びょういん", romaji: "byouin", meaning: "hospital" },
+      { kana: "びょうき", romaji: "byouki", meaning: "illness / sick" },
+    ],
+    audioPick: { word: "びょういん", pickIndex: 0, distractors: ["びゃ", "びゅ", "ぴょ"] },
+    // Decoys are mora-form to match the tokenized answer tiles (びょういん → [びょ, う, い, ん]).
+    build: { meaning: "hospital", answer: "びょういん", decoys: ["びゃ", "ぴょ", "ぴゅ"] },
+  },
+];
+
+export const ALL_ROWS = [...HIRAGANA_ROWS, ...DAKUTEN_ROWS, ...YOON_ROWS];
 
 /** Every kana referenced by any RowDef (introduces + anchor words + audio/build distractors). */
 export function collectAllKana(): Set<string> {
@@ -476,6 +755,15 @@ export function collectAllPhrases(): Set<string> {
     phrases.add(row.build.answer);
     // Also single-kana audio for distractors so the recognition step plays.
     for (const d of row.audioPick.distractors) phrases.add(d);
+    // Sentence-example sentences also need TTS so the info slide can play.
+    if (row.sentenceExamples) {
+      for (const ex of row.sentenceExamples) phrases.add(ex.sentence);
+    }
+    // Multi-tile sentence-practice targets need TTS so the build_sentence
+    // step can play the full utterance after a correct assembly.
+    if (row.sentencePractice) {
+      for (const sp of row.sentencePractice) phrases.add(sp.target);
+    }
   }
   return phrases;
 }

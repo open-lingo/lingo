@@ -294,7 +294,10 @@ const JA_HIRAGANA: AlphabetDef = {
     れ: "re",
     ろ: "ro",
     わ: "wa",
-    を: "wo",
+    // Modern Hepburn pronounces を as "o" (particle); historic "wo" survives
+    // only in some hiragana charts. TTS and the hint string both say "o", so
+    // the romaji helper above the kana must agree.
+    を: "o",
     ん: "n",
     が: "ga",
     ぎ: "gi",
@@ -321,9 +324,18 @@ const JA_HIRAGANA: AlphabetDef = {
     ぷ: "pu",
     ぺ: "pe",
     ぽ: "po",
-    りゃ: "rya",
-    りゅ: "ryu",
-    りょ: "ryo",
+    // Yōon (combination kana) — consonant + small ゃ/ゅ/ょ, one mora each.
+    きゃ: "kya", きゅ: "kyu", きょ: "kyo",
+    しゃ: "sha", しゅ: "shu", しょ: "sho",
+    ちゃ: "cha", ちゅ: "chu", ちょ: "cho",
+    にゃ: "nya", にゅ: "nyu", にょ: "nyo",
+    ひゃ: "hya", ひゅ: "hyu", ひょ: "hyo",
+    みゃ: "mya", みゅ: "myu", みょ: "myo",
+    りゃ: "rya", りゅ: "ryu", りょ: "ryo",
+    ぎゃ: "gya", ぎゅ: "gyu", ぎょ: "gyo",
+    じゃ: "ja", じゅ: "ju", じょ: "jo",
+    びゃ: "bya", びゅ: "byu", びょ: "byo",
+    ぴゃ: "pya", ぴゅ: "pyu", ぴょ: "pyo",
   },
   letterDetails: {
     あ: { ipa: "/a/", hint: "like 'a' in 'father'", example: "あめ (rain)" },
@@ -558,7 +570,7 @@ const JA_KATAKANA: AlphabetDef = {
     レ: "re",
     ロ: "ro",
     ワ: "wa",
-    ヲ: "wo",
+    ヲ: "o",
     ン: "n",
     ガ: "ga",
     ギ: "gi",

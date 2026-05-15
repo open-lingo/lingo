@@ -1,0 +1,652 @@
+/* Learn-page pathway styles. Copied verbatim from the approved mockup
+ * (`src/pub/learn-pathway-mockup.html`) and adapted to use the Lingo
+ * design tokens that are already wired through web-adapter.ts as CSS
+ * variables (--color-surface, --color-border, --color-accent, etc.).
+ *
+ * Anything cosmetic that's already covered by Tailwind utilities lives
+ * in the JSX; this file owns the visual lift (snake offsets, conic-gradient
+ * progress rings, pulse keyframes, curved SVG connectors, badge pseudo-
+ * elements). */
+
+/* ---------------------------------------------------------------- module */
+
+.lingo-module-card {
+  position: relative;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  box-shadow:
+    0 1px 2px 0 rgb(15 23 42 / 0.06),
+    0 2px 6px -1px rgb(15 23 42 / 0.05);
+  transition: border-color 0.15s ease;
+}
+.lingo-module-card:hover {
+  border-color: color-mix(
+    in srgb,
+    var(--color-border) 60%,
+    var(--color-text-muted) 40%
+  );
+}
+
+.lingo-module-head {
+  position: relative;
+  padding: 18px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(
+    135deg,
+    var(--m-c1, var(--color-accent)) 0%,
+    var(--m-c2, var(--color-accent-hover)) 100%
+  );
+  color: white;
+  transition: filter 0.15s ease;
+}
+.lingo-module-head::before {
+  content: "";
+  position: absolute;
+  right: -16px;
+  top: -16px;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+.lingo-module-head::after {
+  content: "";
+  position: absolute;
+  right: 28px;
+  bottom: -28px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+.lingo-module-head:hover {
+  filter: brightness(1.05);
+}
+
+.lingo-module-card[data-state="locked"] .lingo-module-head {
+  filter: grayscale(0.6) brightness(0.85);
+}
+.lingo-module-card[data-state="locked"] .lingo-module-head::before,
+.lingo-module-card[data-state="locked"] .lingo-module-head::after {
+  opacity: 0.5;
+}
+
+.lingo-module-card[data-state="completed"] .lingo-module-head {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-surface-muted) 100%
+  );
+  color: var(--color-text-primary);
+}
+.lingo-module-card[data-state="completed"] .lingo-module-head::before,
+.lingo-module-card[data-state="completed"] .lingo-module-head::after {
+  display: none;
+}
+
+.lingo-mnum {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.lingo-module-card[data-state="completed"] .lingo-mnum {
+  background: var(--color-accent);
+  color: white;
+}
+
+.lingo-mchev {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  transition: transform 0.25s ease;
+  position: relative;
+  z-index: 1;
+}
+.lingo-module-card[data-open="true"] .lingo-mchev {
+  transform: rotate(180deg);
+}
+.lingo-module-card[data-state="completed"] .lingo-mchev {
+  background: color-mix(in srgb, var(--color-accent) 18%, transparent);
+  color: var(--color-accent);
+}
+
+.lingo-status-pill {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.lingo-module-card[data-state="completed"] .lingo-status-pill {
+  background: color-mix(in srgb, var(--color-accent) 18%, transparent);
+  color: var(--color-accent);
+}
+
+.lingo-module-body {
+  display: none;
+  padding: 18px 16px 20px;
+}
+.lingo-module-card[data-open="true"] .lingo-module-body {
+  display: block;
+}
+
+/* ---------------------------------------------------------------- pathway */
+
+.lingo-path {
+  position: relative;
+  padding: 14px 0 8px;
+}
+.lingo-path-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.lingo-path-svg path {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 3;
+  stroke-dasharray: 2 7;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+
+.lingo-path-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding: 22px 0;
+}
+.lingo-path-row[data-pos="0"] {
+  transform: translateX(0);
+}
+.lingo-path-row[data-pos="1"] {
+  transform: translateX(70px);
+}
+.lingo-path-row[data-pos="2"] {
+  transform: translateX(120px);
+}
+.lingo-path-row[data-pos="3"] {
+  transform: translateX(140px);
+}
+.lingo-path-row[data-pos="-1"] {
+  transform: translateX(-70px);
+}
+.lingo-path-row[data-pos="-2"] {
+  transform: translateX(-120px);
+}
+.lingo-path-row[data-pos="-3"] {
+  transform: translateX(-140px);
+}
+@media (max-width: 520px) {
+  .lingo-path-row[data-pos="3"],
+  .lingo-path-row[data-pos="-3"] {
+    transform: translateX(0);
+  }
+  .lingo-path-row[data-pos="2"] {
+    transform: translateX(80px);
+  }
+  .lingo-path-row[data-pos="-2"] {
+    transform: translateX(-80px);
+  }
+  .lingo-path-row[data-pos="1"] {
+    transform: translateX(50px);
+  }
+  .lingo-path-row[data-pos="-1"] {
+    transform: translateX(-50px);
+  }
+}
+
+/* ---------------------------------------------------------------- node */
+
+.lingo-node {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.lingo-node-disc {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Noto Sans JP", "Inter", sans-serif;
+  transition: transform 0.15s ease;
+  cursor: pointer;
+  position: relative;
+  box-shadow:
+    0 4px 0 0 rgb(15 23 42 / 0.1),
+    0 8px 16px -4px rgb(15 23 42 / 0.1);
+}
+.lingo-node-disc:hover {
+  transform: translateY(-2px);
+}
+.lingo-node[data-state="done"] .lingo-node-disc {
+  background: var(--color-accent);
+  border-color: var(--color-accent-hover);
+  color: white;
+  box-shadow:
+    0 5px 0 0 var(--color-accent-hover),
+    0 12px 20px -4px rgba(0, 0, 0, 0.18);
+}
+.lingo-node[data-state="available"] .lingo-node-disc {
+  background: var(--color-surface);
+  border-color: var(--color-accent);
+  color: var(--color-text-primary);
+}
+.lingo-node[data-state="current"] .lingo-node-disc {
+  background: var(--color-accent);
+  border-color: var(--color-accent-hover);
+  color: white;
+  box-shadow:
+    0 5px 0 0 var(--color-accent-hover),
+    0 0 0 8px color-mix(in srgb, var(--color-accent) 25%, transparent),
+    0 12px 24px -4px rgba(0, 0, 0, 0.25);
+  animation: lingo-node-pulse 1.8s ease-in-out infinite;
+}
+@keyframes lingo-node-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 5px 0 0 var(--color-accent-hover),
+      0 0 0 8px color-mix(in srgb, var(--color-accent) 25%, transparent),
+      0 12px 24px -4px rgba(0, 0, 0, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 5px 0 0 var(--color-accent-hover),
+      0 0 0 14px color-mix(in srgb, var(--color-accent) 10%, transparent),
+      0 12px 24px -4px rgba(0, 0, 0, 0.25);
+  }
+}
+.lingo-node[data-state="locked"] .lingo-node-disc {
+  background: var(--color-surface-muted);
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  opacity: 0.62;
+  box-shadow:
+    0 3px 0 0 var(--color-border),
+    0 6px 10px -2px rgba(0, 0, 0, 0.08);
+  cursor: not-allowed;
+}
+.lingo-node[data-state="locked"] .lingo-node-disc:hover {
+  transform: none;
+}
+.lingo-node[data-state="locked"] .lingo-node-disc::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.lingo-node[data-state="done"] .lingo-node-disc::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 2px solid var(--color-accent);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.lingo-node-label {
+  margin-top: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-align: center;
+  white-space: nowrap;
+}
+.lingo-node[data-state="locked"] .lingo-node-label {
+  color: var(--color-text-muted);
+  opacity: 0.6;
+}
+
+.lingo-review-badge {
+  position: absolute;
+  top: -2px;
+  left: -8px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--color-warning, #f59e0b);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-surface);
+  z-index: 2;
+}
+
+.lingo-continue-flag {
+  position: absolute;
+  top: -52px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 12px;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-accent);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow:
+    0 1px 2px 0 rgb(15 23 42 / 0.06),
+    0 2px 6px -1px rgb(15 23 42 / 0.05);
+  white-space: nowrap;
+  z-index: 2;
+}
+.lingo-continue-flag::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: var(--color-surface);
+  border-right: 1.5px solid var(--color-accent);
+  border-bottom: 1.5px solid var(--color-accent);
+}
+
+/* First-ever lesson side-flag — appears to the right of the node with an
+ * arrow, no pulse-pill tail. */
+.lingo-start-flag {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 14px);
+  transform: translateY(-50%);
+  padding: 7px 14px;
+  background: var(--color-accent);
+  border: 1.5px solid var(--color-accent-hover);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow:
+    0 3px 0 0 var(--color-accent-hover),
+    0 6px 14px -2px rgb(15 23 42 / 0.18);
+  white-space: nowrap;
+  z-index: 2;
+}
+.lingo-start-flag::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  transform: translateY(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: var(--color-accent);
+  border-left: 1.5px solid var(--color-accent-hover);
+  border-bottom: 1.5px solid var(--color-accent-hover);
+}
+
+/* ---------------------------------------------------------------- preview */
+
+.lingo-preview-body {
+  padding: 18px 18px 20px;
+  display: grid;
+  gap: 10px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--m-c1, var(--color-accent)) 8%, var(--color-surface))
+      0%,
+    var(--color-surface) 60%
+  );
+}
+.lingo-preview-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(
+    in srgb,
+    var(--m-c1, var(--color-accent)) 80%,
+    var(--color-text-secondary) 20%
+  );
+  margin: 0;
+}
+.lingo-preview-list {
+  display: grid;
+  gap: 6px;
+}
+.lingo-preview-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--color-surface);
+  border: 1px solid
+    color-mix(in srgb, var(--m-c1, var(--color-accent)) 24%, var(--color-border));
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+.lingo-preview-item .lingo-pi-num {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: color-mix(
+    in srgb,
+    var(--m-c1, var(--color-accent)) 18%,
+    var(--color-surface-muted)
+  );
+  color: color-mix(
+    in srgb,
+    var(--m-c1, var(--color-accent)) 80%,
+    var(--color-text-primary) 20%
+  );
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lingo-test-out-note {
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin: 6px 0 0;
+}
+
+/* ---------------------------------------------------------------- module actions */
+
+.lingo-module-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--color-border);
+}
+
+/* ---------------------------------------------------------------- quest / profile */
+
+.lingo-quest-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 14px;
+  margin-bottom: 8px;
+  box-shadow:
+    0 1px 2px 0 rgb(15 23 42 / 0.06),
+    0 2px 6px -1px rgb(15 23 42 / 0.05);
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  color: inherit;
+  font-family: inherit;
+}
+.lingo-quest-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-accent);
+}
+.lingo-quest-card[data-locked="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.lingo-quest-card[data-locked="true"]:hover {
+  transform: none;
+  border-color: var(--color-border);
+}
+.lingo-quest-emoji {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.lingo-quest-body {
+  flex: 1;
+  min-width: 0;
+}
+.lingo-quest-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+.lingo-quest-meta {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin: 2px 0 0;
+}
+.lingo-quest-progress {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--color-accent) var(--p, 0%),
+    var(--color-border) 0%
+  );
+  -webkit-mask: radial-gradient(circle, transparent 12px, #000 14px);
+  mask: radial-gradient(circle, transparent 12px, #000 14px);
+  flex-shrink: 0;
+}
+.lingo-quest-progress.locked {
+  background: var(--color-border);
+  -webkit-mask: none;
+  mask: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+.lingo-quest-progress.locked::after {
+  content: "🔒";
+  font-size: 13px;
+}
+
+.lingo-quest-card.daily {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-warning, #f59e0b) 15%, var(--color-surface))
+      0%,
+    var(--color-surface) 70%
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--color-warning, #f59e0b) 40%,
+    var(--color-border)
+  );
+}
+.lingo-quest-card.daily .lingo-quest-emoji {
+  background: var(--color-warning, #f59e0b);
+  color: white;
+}
+
+/* ---------------------------------------------------------------- resume bar */
+
+.lingo-resume-bar {
+  position: sticky;
+  bottom: 12px;
+  z-index: 20;
+  margin: 18px auto 0;
+  max-width: 420px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.25);
+}
+@media (max-width: 760px) {
+  .lingo-resume-bar {
+    bottom: 16px;
+    margin: 24px 8px 0;
+  }
+}

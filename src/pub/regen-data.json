@@ -1,0 +1,716 @@
+[
+  {
+    "row": "vowel",
+    "kana": "あ",
+    "category": "exact",
+    "transcript": "あ",
+    "kind": "single"
+  },
+  {
+    "row": "vowel",
+    "kana": "い",
+    "category": "exact",
+    "transcript": "い",
+    "kind": "single"
+  },
+  {
+    "row": "vowel",
+    "kana": "う",
+    "category": "exact",
+    "transcript": "うっ",
+    "kind": "single"
+  },
+  {
+    "row": "vowel",
+    "kana": "え",
+    "category": "exact",
+    "transcript": "えっ",
+    "kind": "single"
+  },
+  {
+    "row": "vowel",
+    "kana": "お",
+    "category": "exact",
+    "transcript": "お",
+    "kind": "single"
+  },
+  {
+    "row": "k",
+    "kana": "か",
+    "category": "exact",
+    "transcript": "か",
+    "kind": "single"
+  },
+  {
+    "row": "k",
+    "kana": "き",
+    "category": "exact",
+    "transcript": "き",
+    "kind": "single"
+  },
+  {
+    "row": "k",
+    "kana": "く",
+    "category": "exact",
+    "transcript": "くっ",
+    "kind": "single"
+  },
+  {
+    "row": "k",
+    "kana": "け",
+    "category": "exact",
+    "transcript": "けっ",
+    "kind": "single"
+  },
+  {
+    "row": "k",
+    "kana": "こ",
+    "category": "exact",
+    "transcript": "こ",
+    "kind": "single"
+  },
+  {
+    "row": "s",
+    "kana": "さ",
+    "category": "exact",
+    "transcript": "さっ",
+    "kind": "single"
+  },
+  {
+    "row": "s",
+    "kana": "し",
+    "category": "exact",
+    "transcript": "し",
+    "kind": "single"
+  },
+  {
+    "row": "s",
+    "kana": "す",
+    "category": "exact",
+    "transcript": "す",
+    "kind": "single"
+  },
+  {
+    "row": "s",
+    "kana": "せ",
+    "category": "exact",
+    "transcript": "せっ",
+    "kind": "single"
+  },
+  {
+    "row": "s",
+    "kana": "そ",
+    "category": "partial",
+    "transcript": "そう",
+    "kind": "single"
+  },
+  {
+    "row": "t",
+    "kana": "た",
+    "category": "wrong",
+    "transcript": "だ",
+    "kind": "single"
+  },
+  {
+    "row": "t",
+    "kana": "ち",
+    "category": "exact",
+    "transcript": "ち",
+    "kind": "single"
+  },
+  {
+    "row": "t",
+    "kana": "つ",
+    "category": "exact",
+    "transcript": "つ",
+    "kind": "single"
+  },
+  {
+    "row": "t",
+    "kana": "て",
+    "category": "exact",
+    "transcript": "って",
+    "kind": "single"
+  },
+  {
+    "row": "t",
+    "kana": "と",
+    "category": "exact",
+    "transcript": "と",
+    "kind": "single"
+  },
+  {
+    "row": "n",
+    "kana": "な",
+    "category": "exact",
+    "transcript": "な",
+    "kind": "single"
+  },
+  {
+    "row": "n",
+    "kana": "に",
+    "category": "exact",
+    "transcript": "に",
+    "kind": "single"
+  },
+  {
+    "row": "n",
+    "kana": "ぬ",
+    "category": "exact",
+    "transcript": "ぬ",
+    "kind": "single"
+  },
+  {
+    "row": "n",
+    "kana": "ね",
+    "category": "exact",
+    "transcript": "ねっ",
+    "kind": "single"
+  },
+  {
+    "row": "n",
+    "kana": "の",
+    "category": "exact",
+    "transcript": "の",
+    "kind": "single"
+  },
+  {
+    "row": "h",
+    "kana": "は",
+    "category": "exact",
+    "transcript": "はっ",
+    "kind": "single"
+  },
+  {
+    "row": "h",
+    "kana": "ひ",
+    "category": "exact",
+    "transcript": "ひ",
+    "kind": "single"
+  },
+  {
+    "row": "h",
+    "kana": "ふ",
+    "category": "exact",
+    "transcript": "ふっ",
+    "kind": "single"
+  },
+  {
+    "row": "h",
+    "kana": "へ",
+    "category": "exact",
+    "transcript": "へっ",
+    "kind": "single"
+  },
+  {
+    "row": "h",
+    "kana": "ほ",
+    "category": "exact",
+    "transcript": "ほっ",
+    "kind": "single"
+  },
+  {
+    "row": "m",
+    "kana": "ま",
+    "category": "exact",
+    "transcript": "ま",
+    "kind": "single"
+  },
+  {
+    "row": "m",
+    "kana": "み",
+    "category": "exact",
+    "transcript": "み",
+    "kind": "single"
+  },
+  {
+    "row": "m",
+    "kana": "む",
+    "category": "exact",
+    "transcript": "む",
+    "kind": "single"
+  },
+  {
+    "row": "m",
+    "kana": "め",
+    "category": "wrong",
+    "transcript": "目",
+    "kind": "single"
+  },
+  {
+    "row": "m",
+    "kana": "も",
+    "category": "exact",
+    "transcript": "もっ",
+    "kind": "single"
+  },
+  {
+    "row": "y",
+    "kana": "や",
+    "category": "exact",
+    "transcript": "や",
+    "kind": "single"
+  },
+  {
+    "row": "y",
+    "kana": "ゆ",
+    "category": "exact",
+    "transcript": "ユッ",
+    "kind": "single"
+  },
+  {
+    "row": "y",
+    "kana": "よ",
+    "category": "exact",
+    "transcript": "よっ",
+    "kind": "single"
+  },
+  {
+    "row": "r",
+    "kana": "ら",
+    "category": "wrong",
+    "transcript": "だ",
+    "kind": "single"
+  },
+  {
+    "row": "r",
+    "kana": "り",
+    "category": "exact",
+    "transcript": "リッ",
+    "kind": "single"
+  },
+  {
+    "row": "r",
+    "kana": "る",
+    "category": "exact",
+    "transcript": "る",
+    "kind": "single"
+  },
+  {
+    "row": "r",
+    "kana": "れ",
+    "category": "wrong",
+    "transcript": "ねっ",
+    "kind": "single"
+  },
+  {
+    "row": "r",
+    "kana": "ろ",
+    "category": "exact",
+    "transcript": "ロッ",
+    "kind": "single"
+  },
+  {
+    "row": "w",
+    "kana": "わ",
+    "category": "exact",
+    "transcript": "わっ",
+    "kind": "single"
+  },
+  {
+    "row": "w",
+    "kana": "を",
+    "category": "exact",
+    "transcript": "お",
+    "kind": "single"
+  },
+  {
+    "row": "ん",
+    "kana": "ん",
+    "category": "exact",
+    "transcript": "ん",
+    "kind": "single"
+  },
+  {
+    "row": "g daku.",
+    "kana": "が",
+    "category": "exact",
+    "transcript": "が",
+    "kind": "single"
+  },
+  {
+    "row": "g daku.",
+    "kana": "ぎ",
+    "category": "exact",
+    "transcript": "ギ",
+    "kind": "single"
+  },
+  {
+    "row": "g daku.",
+    "kana": "ぐ",
+    "category": "exact",
+    "transcript": "グッ",
+    "kind": "single"
+  },
+  {
+    "row": "g daku.",
+    "kana": "げ",
+    "category": "exact",
+    "transcript": "げっ",
+    "kind": "single"
+  },
+  {
+    "row": "g daku.",
+    "kana": "ご",
+    "category": "exact",
+    "transcript": "ご",
+    "kind": "single"
+  },
+  {
+    "row": "z daku.",
+    "kana": "ざ",
+    "category": "exact",
+    "transcript": "ざ",
+    "kind": "single"
+  },
+  {
+    "row": "z daku.",
+    "kana": "じ",
+    "category": "exact",
+    "transcript": "じ",
+    "kind": "single"
+  },
+  {
+    "row": "z daku.",
+    "kana": "ず",
+    "category": "exact",
+    "transcript": "ズッ",
+    "kind": "single"
+  },
+  {
+    "row": "z daku.",
+    "kana": "ぜ",
+    "category": "exact",
+    "transcript": "ぜっ",
+    "kind": "single"
+  },
+  {
+    "row": "z daku.",
+    "kana": "ぞ",
+    "category": "exact",
+    "transcript": "ぞ",
+    "kind": "single"
+  },
+  {
+    "row": "d daku.",
+    "kana": "だ",
+    "category": "exact",
+    "transcript": "だ",
+    "kind": "single"
+  },
+  {
+    "row": "d daku.",
+    "kana": "で",
+    "category": "exact",
+    "transcript": "で",
+    "kind": "single"
+  },
+  {
+    "row": "d daku.",
+    "kana": "ど",
+    "category": "exact",
+    "transcript": "どっ",
+    "kind": "single"
+  },
+  {
+    "row": "b daku.",
+    "kana": "ば",
+    "category": "exact",
+    "transcript": "ば",
+    "kind": "single"
+  },
+  {
+    "row": "b daku.",
+    "kana": "び",
+    "category": "wrong",
+    "transcript": "B",
+    "kind": "single"
+  },
+  {
+    "row": "b daku.",
+    "kana": "ぶ",
+    "category": "exact",
+    "transcript": "ぶっ",
+    "kind": "single"
+  },
+  {
+    "row": "b daku.",
+    "kana": "べ",
+    "category": "wrong",
+    "transcript": "で",
+    "kind": "single"
+  },
+  {
+    "row": "b daku.",
+    "kana": "ぼ",
+    "category": "exact",
+    "transcript": "ぼ",
+    "kind": "single"
+  },
+  {
+    "row": "p handaku.",
+    "kana": "ぱ",
+    "category": "wrong",
+    "transcript": "ば",
+    "kind": "single"
+  },
+  {
+    "row": "p handaku.",
+    "kana": "ぴ",
+    "category": "exact",
+    "transcript": "ぴ",
+    "kind": "single"
+  },
+  {
+    "row": "p handaku.",
+    "kana": "ぷ",
+    "category": "exact",
+    "transcript": "ぷっ",
+    "kind": "single"
+  },
+  {
+    "row": "p handaku.",
+    "kana": "ぺ",
+    "category": "wrong",
+    "transcript": "で",
+    "kind": "single"
+  },
+  {
+    "row": "p handaku.",
+    "kana": "ぽ",
+    "category": "exact",
+    "transcript": "ぽ",
+    "kind": "single"
+  },
+  {
+    "row": "k",
+    "kana": "きゃ",
+    "category": "exact",
+    "transcript": "キャッ",
+    "kind": "yoon"
+  },
+  {
+    "row": "k",
+    "kana": "きゅ",
+    "category": "exact",
+    "transcript": "キュッ",
+    "kind": "yoon"
+  },
+  {
+    "row": "k",
+    "kana": "きょ",
+    "category": "exact",
+    "transcript": "きょ",
+    "kind": "yoon"
+  },
+  {
+    "row": "s",
+    "kana": "しゃ",
+    "category": "exact",
+    "transcript": "しゃ",
+    "kind": "yoon"
+  },
+  {
+    "row": "s",
+    "kana": "しゅ",
+    "category": "exact",
+    "transcript": "シュッ",
+    "kind": "yoon"
+  },
+  {
+    "row": "s",
+    "kana": "しょ",
+    "category": "exact",
+    "transcript": "しょ",
+    "kind": "yoon"
+  },
+  {
+    "row": "ch",
+    "kana": "ちゃ",
+    "category": "wrong",
+    "transcript": "じゃ",
+    "kind": "yoon"
+  },
+  {
+    "row": "ch",
+    "kana": "ちゅ",
+    "category": "exact",
+    "transcript": "ちゅ",
+    "kind": "yoon"
+  },
+  {
+    "row": "ch",
+    "kana": "ちょ",
+    "category": "exact",
+    "transcript": "ちょ",
+    "kind": "yoon"
+  },
+  {
+    "row": "n",
+    "kana": "にゃ",
+    "category": "exact",
+    "transcript": "にゃ",
+    "kind": "yoon"
+  },
+  {
+    "row": "n",
+    "kana": "にゅ",
+    "category": "exact",
+    "transcript": "にゅ",
+    "kind": "yoon"
+  },
+  {
+    "row": "n",
+    "kana": "にょ",
+    "category": "exact",
+    "transcript": "にょ",
+    "kind": "yoon"
+  },
+  {
+    "row": "h",
+    "kana": "ひゃ",
+    "category": "exact",
+    "transcript": "ひゃ",
+    "kind": "yoon"
+  },
+  {
+    "row": "h",
+    "kana": "ひゅ",
+    "category": "exact",
+    "transcript": "ひゅ",
+    "kind": "yoon"
+  },
+  {
+    "row": "h",
+    "kana": "ひょ",
+    "category": "exact",
+    "transcript": "ひょ",
+    "kind": "yoon"
+  },
+  {
+    "row": "m",
+    "kana": "みゃ",
+    "category": "exact",
+    "transcript": "みゃ",
+    "kind": "yoon"
+  },
+  {
+    "row": "m",
+    "kana": "みゅ",
+    "category": "exact",
+    "transcript": "ミュー",
+    "kind": "yoon"
+  },
+  {
+    "row": "m",
+    "kana": "みょ",
+    "category": "exact",
+    "transcript": "みょ",
+    "kind": "yoon"
+  },
+  {
+    "row": "r",
+    "kana": "りゃ",
+    "category": "wrong",
+    "transcript": "じゃ",
+    "kind": "yoon"
+  },
+  {
+    "row": "r",
+    "kana": "りゅ",
+    "category": "wrong",
+    "transcript": "デュ",
+    "kind": "yoon"
+  },
+  {
+    "row": "r",
+    "kana": "りょ",
+    "category": "exact",
+    "transcript": "りょ",
+    "kind": "yoon"
+  },
+  {
+    "row": "g daku.",
+    "kana": "ぎゃ",
+    "category": "exact",
+    "transcript": "ギャッ",
+    "kind": "yoon"
+  },
+  {
+    "row": "g daku.",
+    "kana": "ぎゅ",
+    "category": "exact",
+    "transcript": "ぎゅ",
+    "kind": "yoon"
+  },
+  {
+    "row": "g daku.",
+    "kana": "ぎょ",
+    "category": "exact",
+    "transcript": "ぎょ",
+    "kind": "yoon"
+  },
+  {
+    "row": "j daku.",
+    "kana": "じゃ",
+    "category": "exact",
+    "transcript": "じゃ",
+    "kind": "yoon"
+  },
+  {
+    "row": "j daku.",
+    "kana": "じゅ",
+    "category": "exact",
+    "transcript": "じゅ",
+    "kind": "yoon"
+  },
+  {
+    "row": "j daku.",
+    "kana": "じょ",
+    "category": "exact",
+    "transcript": "ジョ",
+    "kind": "yoon"
+  },
+  {
+    "row": "b daku.",
+    "kana": "びゃ",
+    "category": "exact",
+    "transcript": "びゃっ",
+    "kind": "yoon"
+  },
+  {
+    "row": "b daku.",
+    "kana": "びゅ",
+    "category": "exact",
+    "transcript": "ビュッ",
+    "kind": "yoon"
+  },
+  {
+    "row": "b daku.",
+    "kana": "びょ",
+    "category": "exact",
+    "transcript": "ビョッ",
+    "kind": "yoon"
+  },
+  {
+    "row": "p handaku.",
+    "kana": "ぴゃ",
+    "category": "exact",
+    "transcript": "ぴゃっ",
+    "kind": "yoon"
+  },
+  {
+    "row": "p handaku.",
+    "kana": "ぴゅ",
+    "category": "exact",
+    "transcript": "ぴゅ",
+    "kind": "yoon"
+  },
+  {
+    "row": "p handaku.",
+    "kana": "ぴょ",
+    "category": "exact",
+    "transcript": "ぴょ",
+    "kind": "yoon"
+  }
+]

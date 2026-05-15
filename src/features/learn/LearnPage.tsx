@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { Icon } from "@/shared/components/Icon";
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { Icon } from "@/shared/components/Icon";
 import { getMockCourse, ALPHABET_LESSON_ID } from "@/shared/domain/mockCourse";
 import {
   clearMockProgress,
@@ -13,26 +13,48 @@ import {
   setDevUnlock,
 } from "@/shared/domain/mockProgress";
 import { getAlphabetProgress } from "@/features/practice/alphabet/alphabetProgress";
-import { getTrendingCourses } from "@/features/community/mockCommunity";
-import { getCommunityProgressMap } from "./communityProgress";
-import { MainCourseCard, CommunityModuleCard } from "./components";
+import type { Lesson, SideQuest } from "@/shared/domain/course";
+import {
+  getCurrentModuleIndex,
+  getModuleStatus,
+  getNextLessonIndex,
+  isLessonLocked,
+} from "./moduleProgress";
+import { useModuleAccordion } from "./useModuleAccordion";
+import {
+  ModuleCard,
+  ModulePathway,
+  ModulePreview,
+  ProfileCard,
+  ResumeBar,
+  SideQuestCard,
+} from "./components";
+
+const MOCK_STATS = {
+  username: "spencer",
+  level: "A1 Beginner · 38% to A2",
+  streak: 4,
+  xpToday: 32,
+  coins: 24,
+};
 
 export function LearnPage() {
-  const { t } = useTranslation();
+  const { t: _t } = useTranslation();
   const { openSettings } = useModal();
   const langPath = useLangPath();
+  const navigate = useNavigate();
   const { language } = useLanguage();
   const course = language ? getMockCourse(language.id) : null;
+
   const [completedIds, setCompletedIds] = useState(() =>
     getMockCompletedLessonIds(),
   );
   const [devUnlock, setDevUnlockState] = useState(() => isDevUnlockOn());
   const [searchParams, setSearchParams] = useSearchParams();
-  const customCourses = language ? getTrendingCourses(language.id) : [];
-  const communityProgress = getCommunityProgressMap();
+  const [showStartOverConfirm, setShowStartOverConfirm] = useState(false);
 
-  // URL-based dev mode toggle. `?dev=1` flips the unlock flag on (and
-  // strips the param so the URL stays clean); `?dev=0` turns it off.
+  // URL-based dev mode toggle. `?dev=1` flips the unlock flag on (and strips
+  // the param so the URL stays clean); `?dev=0` turns it off.
   useEffect(() => {
     const dev = searchParams.get("dev");
     if (dev === "1") {
@@ -50,8 +72,7 @@ export function LearnPage() {
     }
   }, [searchParams, setSearchParams]);
 
-  // Re-read completion list whenever the page is shown (returning from a
-  // finished lesson should immediately reflect the new state).
+  // Re-read completion list whenever the page is shown.
   useEffect(() => {
     setCompletedIds(getMockCompletedLessonIds());
   }, []);
@@ -66,15 +87,19 @@ export function LearnPage() {
       ? getAlphabetProgress(language.id, alphabetLesson.alphabetId)
       : null;
   const alphabetCompleted = alphabetProgress?.fullTestPassed ?? false;
-  const completedLessonIds = Array.from(
-    new Set([
-      ...completedIds,
-      ...(alphabetCompleted ? [ALPHABET_LESSON_ID] : []),
-    ]),
+  const completedLessonIds = useMemo(
+    () =>
+      Array.from(
+        new Set([
+          ...completedIds,
+          ...(alphabetCompleted ? [ALPHABET_LESSON_ID] : []),
+        ]),
+      ),
+    [completedIds, alphabetCompleted],
   );
-
-  const communityCourseAddons = customCourses.filter(
-    (a) => a.kind === "course",
+  const completedSet = useMemo(
+    () => new Set(completedLessonIds),
+    [completedLessonIds],
   );
 
   const handleStartOver = () => {
@@ -87,6 +112,22 @@ export function LearnPage() {
     setDevUnlock(next);
     setDevUnlockState(next);
   };
+
+  // Always call hooks unconditionally (rules of hooks). When the course is
+  // missing we still need a valid course/currentModule reference; the
+  // post-hook early-return handles the user-visible empty state.
+  const safeCourse = course ?? {
+    id: "noop",
+    title: "",
+    languageId: "",
+    modules: [{ id: "noop", title: "", lessons: [] }],
+  };
+  const currentIdx = course
+    ? getCurrentModuleIndex(course, completedSet)
+    : 0;
+  const currentModule = safeCourse.modules[currentIdx] ?? safeCourse.modules[0];
+
+  const accordion = useModuleAccordion(safeCourse.id, currentModule.id);
 
   if (!course) {
     return (
@@ -105,60 +146,211 @@ export function LearnPage() {
     );
   }
 
+  // Navigation helper — preserves the routing logic from MainCourseCard.
+  const goToLesson = (lesson: Lesson) => {
+    if (lesson.kind === "alphabet" && lesson.alphabetId) {
+      navigate(langPath(`practice/alphabet/${lesson.alphabetId}/learn`));
+    } else {
+      navigate(langPath(`learn/lessons/${lesson.id}`));
+    }
+  };
+
+  const nextIdx = getNextLessonIndex(currentModule.lessons, completedSet);
+  const currentLesson: Lesson | undefined = currentModule.lessons[nextIdx];
+
+  const resumeCurrent = () => {
+    if (currentLesson) goToLesson(currentLesson);
+  };
+
+  const testOut = (moduleId: string) => {
+    const n = course.modules.findIndex((m) => m.id === moduleId);
+    alert(
+      `Test-out coming soon — will mark Module ${n} complete on 85%+ score`,
+    );
+  };
+
+  const sideQuests: SideQuest[] = course.sideQuests ?? [];
+  const isSideQuestUnlocked = (quest: SideQuest): boolean => {
+    if (!quest.unlockAfter) return true;
+    // Supported tokens: "<courseLang>-m<N>-complete" — true once every
+    // lesson in that module is completed. Unknown tokens stay locked.
+    const m = /^([a-z]+)-m(\d+)-complete$/.exec(quest.unlockAfter);
+    if (!m) return false;
+    const moduleNum = Number(m[2]);
+    const targetModule = course.modules[moduleNum];
+    if (!targetModule || targetModule.lessons.length === 0) return false;
+    return targetModule.lessons.every((l) => completedSet.has(l.id));
+  };
+
   return (
-    <div className="space-y-10">
-      <section>
-        <h2 className="mb-2 text-lg font-semibold text-text-primary">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-9">
+      <section className="min-w-0">
+        <h1 className="mb-1 text-[26px] font-extrabold tracking-tight text-text-primary">
           {course.title}
-        </h2>
-        <p className="mb-4 text-sm text-text-secondary">
-          {t("learn.officialCourseDesc")}
+        </h1>
+        <p className="mb-5 text-sm text-text-muted">
+          Tap a module to expand. The pulsing node is what we suggest — but
+          you choose.
         </p>
-        <MainCourseCard
-          course={course}
-          completedLessonIds={completedLessonIds}
-          onStartOver={handleStartOver}
-          devUnlock={devUnlock}
-        />
+
+        {course.modules.map((mod, i) => {
+          const status = getModuleStatus(i, completedSet, course.modules);
+          const open = accordion.isOpen(mod.id);
+
+          const lessonsDone = mod.lessons.filter((l) =>
+            completedSet.has(l.id),
+          ).length;
+          const totalLessons = mod.lessons.length;
+          let pillText: string | undefined;
+          if (mod.comingSoon) {
+            // Coming-soon stubs have 0 lessons, which would otherwise resolve
+            // as "completed" — short-circuit first.
+            pillText = "🔒 Coming soon";
+          } else if (status === "current") {
+            pillText =
+              totalLessons > 0
+                ? `In progress · ${lessonsDone} of ${totalLessons} lessons`
+                : undefined;
+          } else if (status === "completed") {
+            pillText = "✓ Complete · 100%";
+          } else if (i > 0) {
+            pillText = `🔒 After Module ${i - 1}`;
+          }
+
+          const isCurrent = i === currentIdx;
+          const pathway = isCurrent ? (
+            <ModulePathway
+              lessons={mod.lessons}
+              completedIds={completedSet}
+              currentLessonId={currentLesson?.id}
+              isLessonLocked={(id) =>
+                isLessonLocked(id, i, course, completedSet, devUnlock)
+              }
+              onLessonClick={goToLesson}
+            />
+          ) : undefined;
+
+          const preview = !isCurrent ? (
+            <ModulePreview
+              moduleNumber={i}
+              summary={mod.summary}
+              lessons={mod.lessons}
+              comingSoon={mod.comingSoon}
+            />
+          ) : undefined;
+
+          const actions =
+            isCurrent && currentLesson ? (
+              <>
+                <button
+                  type="button"
+                  onClick={resumeCurrent}
+                  className="rounded-[11px] border border-accent-hover bg-accent px-4 py-3 text-[14px] font-semibold text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:bg-accent-hover"
+                >
+                  Resume {currentLesson.title}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => testOut(mod.id)}
+                  className="rounded-[11px] border border-border bg-surface px-4 py-3 text-[14px] font-semibold text-text-secondary transition hover:border-accent hover:text-text-primary"
+                >
+                  Test out of Module {i}
+                </button>
+                <p className="lingo-test-out-note basis-full">
+                  Testing out marks every lesson up to here as complete and
+                  jumps you to the next module.
+                </p>
+              </>
+            ) : !isCurrent && !mod.comingSoon ? (
+              <button
+                type="button"
+                onClick={() => testOut(mod.id)}
+                className="rounded-[11px] border border-border bg-surface px-4 py-3 text-[14px] font-semibold text-text-secondary transition hover:border-accent hover:text-text-primary"
+              >
+                Test out of Module {i}
+              </button>
+            ) : null;
+
+          return (
+            <ModuleCard
+              key={mod.id}
+              module={mod}
+              moduleNumber={i}
+              status={status}
+              isOpen={open}
+              onToggleOpen={() => accordion.toggle(mod.id)}
+              statusPillText={pillText}
+              pathway={pathway}
+              preview={preview}
+              actions={actions}
+            />
+          );
+        })}
+
+        {currentLesson ? (
+          <ResumeBar
+            currentLessonTitle={currentLesson.title}
+            currentModuleTitle={currentModule.title}
+            onResume={resumeCurrent}
+          />
+        ) : null}
+
+        <div className="mt-6">
+          <button
+            type="button"
+            onClick={() => setShowStartOverConfirm(true)}
+            className="text-xs font-medium text-text-muted hover:text-text-primary"
+          >
+            Start over
+          </button>
+        </div>
       </section>
 
-      <section>
-        <h2 className="mb-2 text-lg font-semibold text-text-primary">
-          {t("learn.communityModules")}
-        </h2>
-        <p className="mb-4 text-sm text-text-secondary">
-          {t("learn.communityModulesDesc")}
-        </p>
-        {communityCourseAddons.length === 0 ? (
-          <p className="text-sm text-text-muted">
-            {t("learn.noCommunityModules")}
-          </p>
-        ) : (
-          <div className="space-y-3">
-            {communityCourseAddons.map((addon) => (
-              <CommunityModuleCard
-                key={addon.id}
-                addon={addon}
-                completedCount={communityProgress.get(addon.id) ?? 0}
+      <aside className="order-first lg:order-none lg:mt-[78px]">
+        <div className="mb-6">
+          <ProfileCard
+            stats={MOCK_STATS}
+            onOpenShop={() =>
+              alert(
+                "Shop coming soon — Streak Shield, XP boosts, lesson unlocks",
+              )
+            }
+          />
+        </div>
+        {sideQuests.length > 0 ? (
+          <div>
+            <div className="mb-2.5 flex items-center justify-between">
+              <h3 className="m-0 text-[11px] font-bold uppercase tracking-[0.14em] text-text-muted">
+                Side Quests
+              </h3>
+              <span className="text-[12px] font-semibold text-accent">
+                See all ›
+              </span>
+            </div>
+            {sideQuests.map((quest) => (
+              <SideQuestCard
+                key={quest.id}
+                quest={quest}
+                locked={!isSideQuestUnlocked(quest)}
+                onClick={() => {
+                  // TODO(side-quests): wire to a real route once side-quest
+                  // decks exist. For now this is a no-op stub.
+                }}
               />
             ))}
           </div>
-        )}
-        <Link
-          to={langPath("community/explore")}
-          className="mt-3 inline-block text-sm font-medium text-accent hover:text-accent-hover"
-        >
-          {t("learn.browseAllCourses")}{" "}
-          <Icon name="arrowBigRight" size={14} className="inline" />
-        </Link>
-      </section>
+        ) : null}
+      </aside>
 
-      <Link
-        to={langPath("")}
-        className="inline-block text-sm text-text-secondary hover:text-text-primary"
-      >
-        {t("common.backToHome")}
-      </Link>
+      {showStartOverConfirm ? (
+        <StartOverModal
+          onConfirm={() => {
+            handleStartOver();
+            setShowStartOverConfirm(false);
+          }}
+          onCancel={() => setShowStartOverConfirm(false)}
+        />
+      ) : null}
 
       <DevPanel
         unlocked={devUnlock}
@@ -169,11 +361,56 @@ export function LearnPage() {
   );
 }
 
+function StartOverModal({
+  onConfirm,
+  onCancel,
+}: {
+  onConfirm: () => void;
+  onCancel: () => void;
+}) {
+  const { t } = useTranslation();
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="start-over-title"
+    >
+      <div className="w-full max-w-sm rounded-xl border border-border bg-surface p-6 shadow-xl">
+        <h2
+          id="start-over-title"
+          className="text-lg font-semibold text-text-primary"
+        >
+          {t("learn.startOverTitle")}
+        </h2>
+        <p className="mt-2 text-sm text-text-secondary">
+          {t("learn.startOverConfirm")}
+        </p>
+        <div className="mt-6 flex justify-end gap-3">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="rounded-lg px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted"
+          >
+            {t("forum.cancel")}
+          </button>
+          <button
+            type="button"
+            onClick={onConfirm}
+            className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600"
+          >
+            {t("learn.startOver")}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /**
  * Floating dev panel — fixed to the bottom-right corner. Shown whenever
  * either the dev-unlock flag is on, or the user has visited the page
  * with `?dev=1` at any point (the flag is persistent until cleared).
- * Lets the user flip unlock and clear progress without entering Settings.
  */
 function DevPanel({
   unlocked,
@@ -184,10 +421,9 @@ function DevPanel({
   onToggle: () => void;
   onClearProgress: () => void;
 }) {
-  // Only render when the flag is set so production UI is unchanged.
   if (!unlocked && !isDevUnlockOn()) return null;
   return (
-    <div className="fixed bottom-4 right-4 z-40 flex flex-col gap-2 rounded-xl border border-amber-500/50 bg-amber-500/10 px-3 py-2 text-xs text-amber-200 backdrop-blur">
+    <div className="fixed bottom-20 right-4 z-40 flex flex-col gap-2 rounded-xl border border-amber-500/50 bg-amber-500/10 px-3 py-2 text-xs text-amber-200 backdrop-blur sm:bottom-24">
       <div className="font-semibold">DEV</div>
       <label className="flex items-center gap-2">
         <input type="checkbox" checked={unlocked} onChange={onToggle} />
