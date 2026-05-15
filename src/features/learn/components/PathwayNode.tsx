@@ -45,22 +45,31 @@ export function PathwayNode({
         {flag === "continue" && (
           <span className="lingo-continue-flag">Continue</span>
         )}
-        {flag === "start" && (
-          <span className="lingo-start-flag">Start ›</span>
-        )}
-        <button
-          type="button"
-          className="lingo-node-disc"
-          onClick={handleClick}
-          disabled={isLocked}
-          aria-label={`${label}${isLocked ? " (locked)" : ""}`}
-          title={label}
-        >
-          {glyph}
-          {reviewCount && reviewCount > 0 ? (
-            <span className="lingo-review-badge">×{reviewCount}</span>
-          ) : null}
-        </button>
+        <div className="lingo-node-disc-wrap">
+          <button
+            type="button"
+            className="lingo-node-disc"
+            onClick={handleClick}
+            disabled={isLocked}
+            aria-label={`${label}${isLocked ? " (locked)" : ""}`}
+            title={label}
+          >
+            {glyph}
+            {reviewCount && reviewCount > 0 ? (
+              <span className="lingo-review-badge">×{reviewCount}</span>
+            ) : null}
+          </button>
+          {flag === "start" && (
+            <button
+              type="button"
+              className="lingo-start-flag"
+              onClick={handleClick}
+              aria-label={`Start ${label}`}
+            >
+              Start
+            </button>
+          )}
+        </div>
         <span className="lingo-node-label">{label}</span>
       </div>
     </div>

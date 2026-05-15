@@ -406,13 +406,23 @@
   border-bottom: 1.5px solid var(--color-accent);
 }
 
-/* First-ever lesson side-flag — appears to the right of the node with an
- * arrow, no pulse-pill tail. */
+/* Wrap the disc-button so the START flag can position absolutely against
+ * the disc's geometric center (the .lingo-node container has overflowing
+ * label content that shifts its true center). */
+.lingo-node-disc-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* First-ever lesson side-flag — its own <button> (peer of the disc), so
+ * the pill's bounding box is itself a clickable hit target. Tapping
+ * either the disc or the pill triggers the same handler. */
 .lingo-start-flag {
   position: absolute;
   top: 50%;
-  left: calc(100% + 14px);
+  left: 100%;
   transform: translateY(-50%);
+  margin-left: 14px;
   padding: 7px 14px;
   background: var(--color-accent);
   border: 1.5px solid var(--color-accent-hover);
@@ -426,16 +436,28 @@
     0 3px 0 0 var(--color-accent-hover),
     0 6px 14px -2px rgb(15 23 42 / 0.18);
   white-space: nowrap;
+  cursor: pointer;
   z-index: 2;
+  font-family: inherit;
+  transition: transform 0.12s ease;
+}
+.lingo-start-flag:hover {
+  transform: translateY(calc(-50% - 1px));
+}
+.lingo-start-flag:active {
+  transform: translateY(calc(-50% + 1px));
+  box-shadow:
+    0 1px 0 0 var(--color-accent-hover),
+    0 3px 8px -2px rgb(15 23 42 / 0.18);
 }
 .lingo-start-flag::before {
   content: "";
   position: absolute;
   top: 50%;
-  left: -8px;
+  left: -7px;
   transform: translateY(-50%) rotate(45deg);
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   background: var(--color-accent);
   border-left: 1.5px solid var(--color-accent-hover);
   border-bottom: 1.5px solid var(--color-accent-hover);
