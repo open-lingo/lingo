@@ -12,27 +12,27 @@ const variantConfig: Record<
 > = {
   default: {
     icon: "ℹ️",
-    border: "border-gray-200 dark:border-gray-700",
-    bg: "bg-gray-50 dark:bg-gray-800/50",
-    text: "text-gray-800 dark:text-gray-200",
+    border: "border-border",
+    bg: "bg-surface",
+    text: "text-text-secondary",
   },
   tip: {
     icon: "💡",
-    border: "border-amber-200 dark:border-amber-800",
-    bg: "bg-amber-50 dark:bg-amber-900/20",
-    text: "text-amber-900 dark:text-amber-200",
+    border: "border-warning/40",
+    bg: "bg-warning/10",
+    text: "text-text-secondary",
   },
   culture: {
     icon: "🌏",
-    border: "border-purple-200 dark:border-purple-800",
-    bg: "bg-purple-50 dark:bg-purple-900/20",
-    text: "text-purple-900 dark:text-purple-200",
+    border: "border-info/40",
+    bg: "bg-info/10",
+    text: "text-text-secondary",
   },
   grammar: {
     icon: "📝",
-    border: "border-blue-200 dark:border-blue-800",
-    bg: "bg-blue-50 dark:bg-blue-900/20",
-    text: "text-blue-900 dark:text-blue-200",
+    border: "border-info/40",
+    bg: "bg-info/10",
+    text: "text-text-secondary",
   },
 };
 
@@ -42,14 +42,14 @@ export function InfoStepView({ step, onContinue }: Props) {
   return (
     <div className="flex flex-1 flex-col gap-6">
       {step.title && (
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-xl font-bold tracking-tight text-text-primary">
           {step.title}
         </h2>
       )}
 
-      <div className={`rounded-xl border ${v.border} ${v.bg} px-5 py-4`}>
+      <div className={`rounded-2xl border-[1.5px] ${v.border} ${v.bg} px-5 py-5 shadow-[var(--shadow-card)]`}>
         <div className="flex gap-3">
-          <span className="mt-0.5 text-xl leading-none">{v.icon}</span>
+          <span className="mt-0.5 text-2xl leading-none">{v.icon}</span>
           <p className={`text-base leading-relaxed ${v.text}`}>{step.body}</p>
         </div>
       </div>

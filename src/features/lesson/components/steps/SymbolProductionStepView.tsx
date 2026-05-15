@@ -150,14 +150,14 @@ export function SymbolProductionStepView({
          *  literally shows the answer the user is supposed to recall. */}
         <h2 className="mr-1 text-lg font-medium text-text-secondary">
           {t("alphabet.taskDrawSymbolFor", "Draw the symbol for")}{" "}
-          <span className="ml-1 text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+          <span className="ml-1 text-2xl font-bold text-accent">
             {step.payload.romanization}
           </span>
         </h2>
         <button
           type="button"
           onClick={handlePlay}
-          className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+          className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-border bg-surface px-4 py-2 text-sm font-semibold text-text-secondary transition-colors hover:border-accent hover:text-text-primary"
           aria-label="Play sound"
         >
           <Icon name="play" size={14} /> {t("alphabet.play", "Play")}
@@ -167,7 +167,7 @@ export function SymbolProductionStepView({
             type="button"
             onClick={animation.play}
             disabled={animation.isPlaying}
-            className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+            className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-border bg-surface px-4 py-2 text-sm font-semibold text-text-secondary transition-colors hover:border-accent hover:text-text-primary disabled:opacity-50"
             aria-label={t("alphabet.replayStrokeOrder", "Replay stroke order")}
           >
             <Icon name="play" size={14} />
@@ -213,12 +213,12 @@ export function SymbolProductionStepView({
         className="min-h-5 text-center text-sm font-medium leading-5"
       >
         {feedback === "good" && (
-          <span className="text-emerald-600 dark:text-emerald-400">
+          <span className="text-accent">
             {t("alphabet.goodShape", "Good shape")}
           </span>
         )}
         {feedback === "try" && (
-          <span className="text-amber-600 dark:text-amber-400">
+          <span className="text-warning">
             {t("alphabet.tryAgain", "Try again")}
           </span>
         )}

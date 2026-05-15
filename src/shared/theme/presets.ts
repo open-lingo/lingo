@@ -43,7 +43,10 @@ const darkTokens: ThemeTokens = {
     borderMuted: "#4b5563",
     textPrimary: "#f9fafb",
     textSecondary: "#d1d5db",
-    textMuted: "#9ca3af",
+    // Bumped from #9ca3af to clear WCAG AA 4.5:1 against surface (#1f2937).
+    // Surfaces affected: module-pill %, profile stat labels (10px uppercase),
+    // side-quest meta line, lesson-exit X icon. Retiree audit P0.
+    textMuted: "#b0b8c4",
     accent: "#10b981",
     accentHover: "#34d399",
     accentMuted: "#064e3b",

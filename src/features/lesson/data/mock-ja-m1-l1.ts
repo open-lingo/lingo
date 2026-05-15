@@ -143,6 +143,18 @@ export const MOCK_LESSON_JA_M1_L1: LessonContent = {
       },
     },
     {
+      // Speaking step — POC only. Renders the placeholder UI by default; the
+      // Web Speech API path activates with `?speech=1` (gated in
+      // `SpeakingStepView`). Placed right after the あい teach step so the
+      // learner is asked to say a word they just met.
+      id: "ja-l1-say-ai",
+      type: "speaking",
+      targetPhrase: "あい",
+      translation: "love",
+      stubbed: true,
+      targetAnnotation: [{ surface: "あい", reading: "あい" }],
+    },
+    {
       id: "ja-l1-mc-ai",
       type: "multiple_choice",
       prompt: "What does あい mean?",

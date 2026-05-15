@@ -238,6 +238,24 @@
   align-items: center;
   justify-content: center;
 }
+/* Cluster variant — sub-lessons inside a row group. Smaller disc + tighter
+ * vertical spacing so 4-5 sub-lessons read as a unit rather than five
+ * full-sized nodes. */
+.lingo-node[data-cluster="true"] {
+  width: 68px;
+  height: 68px;
+}
+.lingo-path-row[data-cluster="true"] {
+  padding: 12px 0;
+}
+.lingo-node[data-cluster="true"] .lingo-node-disc {
+  width: 60px;
+  height: 60px;
+  font-size: 20px;
+}
+.lingo-node[data-cluster="true"] .lingo-node-label {
+  font-size: 10.5px;
+}
 .lingo-node-disc {
   width: 72px;
   height: 72px;
@@ -343,11 +361,16 @@
 
 .lingo-node-label {
   margin-top: 6px;
+  padding: 2px 9px;
   font-size: 11.5px;
   font-weight: 600;
   color: var(--color-text-secondary);
   text-align: center;
   white-space: nowrap;
+  /* Subtle pill behind the label so it sits cleanly atop the snake's
+   * dashed connector. ~70% opacity surface keeps it whisper-quiet. */
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  border-radius: 999px;
 }
 .lingo-node[data-state="locked"] .lingo-node-label {
   color: var(--color-text-muted);
@@ -647,6 +670,143 @@
 .lingo-quest-card.daily .lingo-quest-emoji {
   background: var(--color-warning, #f59e0b);
   color: white;
+}
+
+/* ---------------------------------------------------------------- row clusters */
+
+/* Sub-lesson progress dots — sit to the LEFT of the disc, vertically
+ * centered. Stacked vertically so they don't collide with the snake
+ * dashed connector that runs between adjacent nodes' vertical axes.
+ * Filled = completed sub-lesson. */
+.lingo-node-subdots {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 12px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  pointer-events: none;
+  z-index: 2;
+}
+.lingo-node-subdot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-border-strong, var(--color-border));
+  display: inline-block;
+  /* Gentle inward curl — top/bottom dots nudge toward the disc so the
+   * stack visually echoes the circle's edge instead of reading as a
+   * straight tick row. */
+  transform: translateX(0);
+}
+/* First + last dots get the largest curl; second + second-to-last get a
+ * smaller one. Works gracefully for 2, 3, 4, 5+ dot counts. */
+.lingo-node-subdots .lingo-node-subdot:first-child,
+.lingo-node-subdots .lingo-node-subdot:last-child {
+  transform: translateX(5px);
+}
+.lingo-node-subdots .lingo-node-subdot:nth-child(2):not(:last-child),
+.lingo-node-subdots .lingo-node-subdot:nth-last-child(2):not(:first-child) {
+  transform: translateX(1.5px);
+}
+.lingo-node-subdot[data-filled="true"] {
+  background: var(--color-accent);
+}
+.lingo-node[data-state="locked"] .lingo-node-subdot {
+  opacity: 0.55;
+}
+
+/* Recap node — module-final, amber gradient + trophy badge.
+ * Slightly larger than cluster nodes (matches main-snake disc size).
+ * The amber gradient sits as background + soft outer halo so the recap
+ * reads as the "trophy" beat at the end of the module. */
+.lingo-node[data-recap="true"] .lingo-node-disc {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border-color: #b45309;
+  color: white;
+  box-shadow:
+    0 5px 0 0 #b45309,
+    0 0 0 6px rgba(245, 158, 11, 0.18),
+    0 12px 22px -4px rgba(180, 83, 9, 0.35);
+}
+.lingo-node[data-recap="true"][data-state="locked"] .lingo-node-disc {
+  filter: grayscale(0.5) brightness(0.85);
+  opacity: 0.7;
+}
+.lingo-node[data-recap="true"][data-state="done"] .lingo-node-disc {
+  /* On done, keep the amber base but add a green ring outline (passed). */
+  box-shadow:
+    0 5px 0 0 #b45309,
+    0 0 0 4px color-mix(in srgb, var(--color-accent) 35%, transparent),
+    0 12px 22px -4px rgba(180, 83, 9, 0.35);
+}
+.lingo-node[data-recap="true"][data-state="current"] .lingo-node-disc {
+  animation: lingo-node-pulse-recap 1.8s ease-in-out infinite;
+}
+@keyframes lingo-node-pulse-recap {
+  0%,
+  100% {
+    box-shadow:
+      0 5px 0 0 #b45309,
+      0 0 0 6px rgba(245, 158, 11, 0.2),
+      0 12px 22px -4px rgba(180, 83, 9, 0.35);
+  }
+  50% {
+    box-shadow:
+      0 5px 0 0 #b45309,
+      0 0 0 12px rgba(245, 158, 11, 0.1),
+      0 12px 22px -4px rgba(180, 83, 9, 0.35);
+  }
+}
+.lingo-recap-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 1.5px solid #b45309;
+  font-size: 13px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Row-test node: dashed border + corner T badge. Solid green ring on done. */
+.lingo-node[data-test="true"] .lingo-node-disc {
+  border-style: dashed;
+  border-width: 2px;
+}
+.lingo-node[data-test="true"][data-state="done"] .lingo-node-disc {
+  border-style: solid;
+  box-shadow:
+    0 5px 0 0 var(--color-accent-hover),
+    0 0 0 4px color-mix(in srgb, var(--color-accent) 30%, transparent),
+    0 12px 20px -4px rgba(0, 0, 0, 0.18);
+}
+.lingo-test-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-accent);
+  color: var(--color-accent);
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  letter-spacing: 0;
 }
 
 /* ---------------------------------------------------------------- resume bar */

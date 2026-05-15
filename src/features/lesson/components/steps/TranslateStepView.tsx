@@ -31,10 +31,10 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <p className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+      <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
         {directionLabel}
       </p>
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+      <h2 className="text-2xl font-bold text-text-primary">
         {step.sourceLanguage === "target" ? (
           step.sourceAnnotation ? (
             <AnnotatedJa segments={step.sourceAnnotation} />
@@ -47,7 +47,7 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
       </h2>
 
       {step.hint && !submitted && (
-        <p className="text-sm text-gray-500 dark:text-gray-400">{step.hint}</p>
+        <p className="text-sm text-text-muted">{step.hint}</p>
       )}
 
       <textarea
@@ -56,14 +56,14 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
         onChange={(e) => setAnswer(e.target.value)}
         placeholder="Type your translation..."
         rows={3}
-        className="w-full resize-none rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-base outline-none transition focus:border-emerald-500 disabled:opacity-60 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-emerald-500"
+        className="w-full resize-none rounded-xl border-[1.5px] border-border bg-surface px-4 py-3 text-base text-text-primary outline-none transition-colors focus:border-accent disabled:opacity-60"
       />
 
       {submitted && <Feedback correct={isCorrect} />}
 
       {submitted && !isCorrect && (
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Accepted answers: <span className="font-semibold">{step.acceptedAnswers.join(", ")}</span>
+        <p className="text-sm text-text-secondary">
+          Accepted answers: <span className="font-semibold text-text-primary">{step.acceptedAnswers.join(", ")}</span>
         </p>
       )}
 

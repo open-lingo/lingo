@@ -22,7 +22,7 @@ export function CelebrationToast({ text }: Props) {
       aria-live="polite"
       className="pointer-events-none absolute inset-0 flex items-center justify-center"
     >
-      <span className="rounded-full bg-emerald-500 px-4 py-1.5 text-base font-semibold text-white shadow-lg motion-safe:animate-rise-celebrate">
+      <span className="rounded-full border-[1.5px] border-accent-hover bg-accent px-5 py-1.5 text-base font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_var(--color-accent-hover)] motion-safe:animate-rise-celebrate">
         {text}
       </span>
     </div>

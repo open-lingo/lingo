@@ -292,7 +292,7 @@ export const DrawingCanvas = forwardRef<DrawingCanvasHandle, Props>(function Dra
 
   return (
     <div
-      className={`relative overflow-hidden rounded-xl border-2 border-gray-400 dark:border-gray-500 ${className}`}
+      className={`relative overflow-hidden rounded-2xl border-[1.5px] border-border ${className}`}
       style={{ width, height }}
     >
       {/* Layer 1: Background + template (ignored in scoring) */}

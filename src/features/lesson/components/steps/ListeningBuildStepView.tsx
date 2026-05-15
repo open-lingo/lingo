@@ -4,6 +4,7 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { AnnotatedJa } from "@/shared/japanese";
 import { getTtsUrl } from "@/shared/japanese/tts";
+import { Icon } from "@/shared/components/Icon";
 
 type Props = {
   step: ListeningBuildStep;
@@ -57,19 +58,17 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
         <button
           type="button"
           onClick={handlePlay}
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition hover:bg-emerald-200 dark:bg-emerald-800/40 dark:text-emerald-300 dark:hover:bg-emerald-700/40"
+          className="flex h-14 w-14 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
           aria-label="Play audio"
         >
-          <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z" />
-          </svg>
+          <Icon name="play" size={24} />
         </button>
-        <p className="text-sm text-gray-500 dark:text-gray-400">{step.prompt}</p>
+        <p className="text-sm text-text-secondary">{step.prompt}</p>
       </div>
 
-      <div className="min-h-[56px] rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 px-4 py-3 dark:border-gray-600 dark:bg-gray-800/50">
+      <div className="min-h-[64px] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-3.5">
         {placed.length === 0 ? (
-          <span className="text-sm text-gray-400 dark:text-gray-500">
+          <span className="text-sm text-text-muted">
             Tap tiles to build what you hear
           </span>
         ) : (
@@ -80,7 +79,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
                 type="button"
                 disabled={submitted}
                 onClick={() => removeTile(i)}
-                className="rounded-lg bg-emerald-100 px-3 py-1.5 text-base font-semibold text-emerald-800 transition hover:bg-emerald-200 dark:bg-emerald-800/40 dark:text-emerald-300 dark:hover:bg-emerald-700/40"
+                className="rounded-xl border-[1.5px] border-accent bg-accent-muted px-3.5 py-1.5 text-base font-semibold text-accent transition-colors duration-150 hover:bg-accent hover:text-white"
               >
                 <AnnotatedJa text={tile} />
               </button>
@@ -96,7 +95,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
             type="button"
             disabled={submitted}
             onClick={() => addTile(tile)}
-            className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-base font-medium text-gray-700 transition hover:border-emerald-400 hover:bg-emerald-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:border-emerald-500 dark:hover:bg-gray-600"
+            className="rounded-xl border-[1.5px] border-border bg-surface px-3.5 py-1.5 text-base font-medium text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50"
           >
             <AnnotatedJa text={tile} />
           </button>
@@ -106,8 +105,8 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
       {submitted && <Feedback correct={isCorrect} />}
 
       {submitted && !isCorrect && (
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Correct: <span className="font-semibold">{step.correctOrder.join(step.granularity === "character" ? "" : " ")}</span>
+        <p className="text-sm text-text-secondary">
+          Correct: <span className="font-semibold text-text-primary">{step.correctOrder.join(step.granularity === "character" ? "" : " ")}</span>
         </p>
       )}
 

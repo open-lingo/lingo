@@ -4,7 +4,9 @@ import {
   HIRAGANA_ROWS,
   DAKUTEN_ROWS,
   YOON_ROWS,
+  type RowDef,
 } from "@/features/lesson/data/hiraganaCurriculum";
+import { MODULE_RECAP_LESSON_IDS } from "@/features/lesson/data/generatedHiraganaLessons";
 
 export const ALPHABET_LESSON_ID = "m1-l0-alphabet";
 
@@ -37,26 +39,47 @@ export function getMockCourse(languageId: string): Course {
   const isJapanese = languageId === "ja";
 
   if (isJapanese) {
-    // Yōon are sprinkled into the basic + dakuten modules right after the
-    // last parent consonant row needed. This avoids dumping all yōon into
-    // a separate module at the end where most kana would lack reinforcement.
+    // Curriculum-restructure (2026-05-15):
+    //   M1 = pure hiragana only (vowels + 9 base rows + recap).
+    //   M2 = dakuten block (ga/za/da-ba/pa, 2 sub-lessons + test each)
+    //        then yōon block (yoon-intro / yoon-sh-ch / yoon-voiced /
+    //        yoon-rare / yoon-capstone) then recap.
     //
-    //   yo-k       (k)              → after na-row (k consonant unlocked)
-    //   yo-sh-ch   (s+ch)           → after ma-row (s + ch consonants unlocked)
-    //   yo-g-j     (g+j, dakuten)   → after za-row (z→j, g from m2)
-    //   yo-n-h-m-r (n,h,m,r capstone) → after pa-row (all consonants unlocked)
-    //   yo-b-p     (b+p, handakuten)  → after pa-row
-    const yoonById = Object.fromEntries(YOON_ROWS.map((y) => [y.id, y]));
-    const toLesson = (row: { id: string; title: string }) => ({
-      id: `ja-m1-${row.id}`,
-      title: row.title,
-      status: "available" as const,
-    });
+    // Yōon prereq: every yōon row carries `prerequisites: ["ya"]` which
+    // `isLessonLocked` honors — yōon stays locked until the full ya-row
+    // is complete, even when M2 itself is unlocked.
 
-    // Module 1 — basic rows interleaved with yo-k (after na) and yo-sh-ch
-    // (after ma). The legacy "Learn the Alphabet" + "Intro to Japanese"
-    // lessons are skipped for JA — learners go straight into vowels.
-    const m1Lessons = [
+    // Emit one lesson per sub-lesson. Each sub-lesson becomes its own
+    // pathway node; ModulePathway groups them into a row cluster by
+    // parsing the id prefix.
+    const rowToLessons = (row: RowDef | undefined) => {
+      if (!row) return []; // defensive — yōon ids may transition during HMR
+      const subs = row.subLessons ?? [];
+      if (subs.length === 0) {
+        return [
+          {
+            id: `ja-m1-${row.id}`,
+            title: row.title,
+            status: "available" as const,
+          },
+        ];
+      }
+      return subs.map((sub) => ({
+        id: `ja-m1-${row.id}-${sub.suffix}`,
+        title: `${row.title.split(":")[0]} — ${sub.label}`,
+        status: "available" as const,
+      }));
+    };
+
+    // Module 1 — pure hiragana. Vowels stub + 9 HIRAGANA_ROWS + recap.
+    // The legacy "Learn the Alphabet" + "Intro to Japanese" lessons are
+    // skipped for JA — learners go straight into vowels.
+    const m1Lessons: {
+      id: string;
+      title: string;
+      status: "available";
+      kind?: "recap";
+    }[] = [
       {
         id: "ja-m1-l1",
         title: "Vowels: あ い う え お",
@@ -64,21 +87,41 @@ export function getMockCourse(languageId: string): Course {
       },
     ];
     for (const row of HIRAGANA_ROWS) {
-      m1Lessons.push(toLesson(row));
-      if (row.id === "na") m1Lessons.push(toLesson(yoonById["yo-k"]));
-      if (row.id === "ma") m1Lessons.push(toLesson(yoonById["yo-sh-ch"]));
+      m1Lessons.push(...rowToLessons(row));
+    }
+    // Phase 2: module-recap node — final lesson, amber styling, ~15 items.
+    const m1RecapId = MODULE_RECAP_LESSON_IDS["m1"];
+    if (m1RecapId) {
+      m1Lessons.push({
+        id: m1RecapId,
+        title: "Module 1 — Recap",
+        status: "available" as const,
+        kind: "recap" as const,
+      });
     }
 
-    // Module 2 — voicing + the three yōon sets that need dakuten/handakuten
-    // prereqs. yo-g-j after za, yo-n-h-m-r + yo-b-p after pa as capstone.
-    const m2Lessons: { id: string; title: string; status: "available" }[] = [];
+    // Module 2 — dakuten (compressed to 2 sub-lessons + test per row) +
+    // yōon (4 compressed rows + a capstone) + recap.
+    const m2Lessons: {
+      id: string;
+      title: string;
+      status: "available";
+      kind?: "recap";
+    }[] = [];
     for (const row of DAKUTEN_ROWS) {
-      m2Lessons.push(toLesson(row));
-      if (row.id === "za") m2Lessons.push(toLesson(yoonById["yo-g-j"]));
-      if (row.id === "pa") {
-        m2Lessons.push(toLesson(yoonById["yo-n-h-m-r"]));
-        m2Lessons.push(toLesson(yoonById["yo-b-p"]));
-      }
+      m2Lessons.push(...rowToLessons(row));
+    }
+    for (const row of YOON_ROWS) {
+      m2Lessons.push(...rowToLessons(row));
+    }
+    const m2RecapId = MODULE_RECAP_LESSON_IDS["m2"];
+    if (m2RecapId) {
+      m2Lessons.push({
+        id: m2RecapId,
+        title: "Module 2 — Recap",
+        status: "available" as const,
+        kind: "recap" as const,
+      });
     }
 
     const sideQuests: SideQuest[] = [

@@ -41,7 +41,7 @@ export function ProgressDots({
               <span
                 key={i}
                 className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
-                  i < filled ? "bg-emerald-500" : "bg-gray-300 dark:bg-gray-600"
+                  i < filled ? "bg-accent" : "bg-border"
                 }`}
               />
             ))}
@@ -59,7 +59,7 @@ export function ProgressDots({
         <>
           {showCount && (
             <span
-              className="text-[11px] font-medium text-gray-500 dark:text-gray-400"
+              className="text-[11px] font-medium text-text-muted"
               aria-hidden
             >
               {filled}/{total}

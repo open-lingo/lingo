@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { setSpeechFlag } from "@/shared/speech";
 import { getMockLessonContent } from "./data/mockLessons";
 import type { LessonStep } from "./types";
 import { StepRenderer } from "./components/StepRenderer";
@@ -31,6 +32,25 @@ export function LessonPage() {
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
   const [results, setResults] = useState<Record<string, boolean>>({});
   const [finished, setFinished] = useState(false);
+
+  // `?speech=1` deep-links the speech-recognition feature flag on. Mirrors
+  // the same toggle on LearnPage so users can land directly on a lesson
+  // URL and still pick up the feature gate.
+  const [searchParams, setSearchParams] = useSearchParams();
+  useEffect(() => {
+    const v = searchParams.get("speech");
+    if (v === "1") {
+      setSpeechFlag(true);
+      const next = new URLSearchParams(searchParams);
+      next.delete("speech");
+      setSearchParams(next, { replace: true });
+    } else if (v === "0") {
+      setSpeechFlag(false);
+      const next = new URLSearchParams(searchParams);
+      next.delete("speech");
+      setSearchParams(next, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   // Capture review-mode once, on mount. If the lesson is already in the
   // user's completion store, this run is a replay — the LessonComplete
@@ -83,13 +103,13 @@ export function LessonPage() {
   if (!lesson) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <p className="text-lg text-gray-600 dark:text-gray-400">
+        <p className="text-lg text-text-secondary">
           {t("lesson.notFound", "Lesson not found")}
         </p>
         <button
           type="button"
           onClick={handleExit}
-          className="rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700"
+          className="rounded-xl border-[1.5px] border-accent-hover bg-accent px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:bg-accent-hover"
         >
           {t("lesson.backToLearn", "Back to Learn")}
         </button>
@@ -119,7 +139,7 @@ export function LessonPage() {
         <button
           type="button"
           onClick={handleExit}
-          className="-ml-1 rounded-lg p-2.5 text-gray-500 transition hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+          className="-ml-1 rounded-xl p-2.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
           aria-label={t("lesson.exit", "Exit lesson")}
         >
           <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={2.25} stroke="currentColor">

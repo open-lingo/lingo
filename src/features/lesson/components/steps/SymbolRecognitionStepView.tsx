@@ -80,7 +80,7 @@ export function SymbolRecognitionStepView({
       <div className="flex flex-wrap items-center justify-center gap-3">
         <h2 className="text-lg font-medium text-text-secondary">
           {t("alphabet.taskPickSymbol", "Pick the symbol for")}{" "}
-          <span className="ml-1 text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+          <span className="ml-1 text-2xl font-bold text-accent">
             {romanization}
           </span>
         </h2>
@@ -88,10 +88,10 @@ export function SymbolRecognitionStepView({
           <button
             type="button"
             onClick={handlePlay}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-            aria-label="Play sound"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_3px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
+            aria-label={t("alphabet.play", "Play")}
           >
-            <Icon name="play" size={14} /> {t("alphabet.play", "Play")}
+            <Icon name="play" size={14} />
           </button>
         )}
       </div>
@@ -100,16 +100,13 @@ export function SymbolRecognitionStepView({
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
           let style =
-            "rounded-xl border-2 border-gray-200 bg-white py-6 text-4xl font-bold text-gray-900 transition hover:border-emerald-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-emerald-600";
+            "font-japanese rounded-xl border-[1.5px] border-border bg-surface py-6 text-4xl font-bold text-text-primary transition-colors duration-150 hover:border-accent";
           if (submitted && isAnswer) {
-            style +=
-              " border-emerald-500 bg-emerald-50 dark:border-emerald-500 dark:bg-emerald-900/30";
+            style += " border-accent bg-accent-muted text-accent";
           } else if (submitted && isSelected && !isAnswer) {
-            style +=
-              " border-red-500 bg-red-50 dark:border-red-500 dark:bg-red-900/30";
+            style += " border-error bg-red-50 text-error dark:bg-red-950/30";
           } else if (isSelected) {
-            style +=
-              " border-emerald-500 ring-2 ring-emerald-500/30 dark:border-emerald-500";
+            style += " border-accent bg-accent-muted text-accent";
           }
           return (
             <button

@@ -17,6 +17,15 @@ export type PathwayNodeProps = {
   positionOffset: PathwayNodePos;
   reviewCount?: number;
   flag?: PathwayNodeFlag;
+  /** When true, render the smaller (60px) cluster variant for row sub-lessons.
+   *  @deprecated kept for back-compat; clusters now render as a single node. */
+  cluster?: boolean;
+  /** When true, render the row-test variant (dashed border + corner badge). */
+  isTest?: boolean;
+  /** When true, render the module-recap variant (amber gradient + trophy badge). */
+  isRecap?: boolean;
+  /** Sub-lesson progress dots shown below the label (e.g. 2/4 done). */
+  subProgress?: { done: number; total: number };
   onClick?: () => void;
 };
 
@@ -29,6 +38,10 @@ export function PathwayNode({
   positionOffset,
   reviewCount,
   flag,
+  cluster,
+  isTest,
+  isRecap,
+  subProgress,
   onClick,
 }: PathwayNodeProps) {
   const isLocked = state === "locked";
@@ -40,8 +53,18 @@ export function PathwayNode({
   };
 
   return (
-    <div className="lingo-path-row" data-pos={positionOffset}>
-      <div className="lingo-node" data-state={state}>
+    <div
+      className="lingo-path-row"
+      data-pos={positionOffset}
+      data-cluster={cluster ? "true" : undefined}
+    >
+      <div
+        className="lingo-node"
+        data-state={state}
+        data-cluster={cluster ? "true" : undefined}
+        data-test={isTest ? "true" : undefined}
+        data-recap={isRecap ? "true" : undefined}
+      >
         {flag === "continue" && (
           <span className="lingo-continue-flag">Continue</span>
         )}
@@ -51,12 +74,22 @@ export function PathwayNode({
             className="lingo-node-disc"
             onClick={handleClick}
             disabled={isLocked}
-            aria-label={`${label}${isLocked ? " (locked)" : ""}`}
+            aria-label={`${label}${isLocked ? " (locked)" : ""}${isTest ? " (test)" : ""}${isRecap ? " (recap)" : ""}`}
             title={label}
           >
             {glyph}
             {reviewCount && reviewCount > 0 ? (
               <span className="lingo-review-badge">×{reviewCount}</span>
+            ) : null}
+            {isTest && !isRecap ? (
+              <span className="lingo-test-badge" aria-hidden="true">
+                T
+              </span>
+            ) : null}
+            {isRecap ? (
+              <span className="lingo-recap-badge" aria-hidden="true">
+                🏆
+              </span>
             ) : null}
           </button>
           {flag === "start" && (
@@ -69,6 +102,21 @@ export function PathwayNode({
               Start
             </button>
           )}
+          {subProgress && subProgress.total > 1 ? (
+            <span
+              className="lingo-node-subdots"
+              role="img"
+              aria-label={`${subProgress.done} of ${subProgress.total} sub-lessons complete`}
+            >
+              {Array.from({ length: subProgress.total }).map((_, i) => (
+                <span
+                  key={i}
+                  className="lingo-node-subdot"
+                  data-filled={i < subProgress.done ? "true" : undefined}
+                />
+              ))}
+            </span>
+          ) : null}
         </div>
         <span className="lingo-node-label">{label}</span>
       </div>

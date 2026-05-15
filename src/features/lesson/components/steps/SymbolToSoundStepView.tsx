@@ -68,9 +68,9 @@ export function SymbolToSoundStepView({
       <p className="text-center text-base text-text-secondary">
         {t("alphabet.whatSoundIsThis", "What sound does this symbol make?")}
       </p>
-      <div className="flex flex-col items-center gap-3">
+      <div className="flex flex-col items-center gap-4">
         <span
-          className="text-[140px] font-bold leading-none text-text-primary"
+          className="font-japanese text-[140px] font-bold leading-none text-text-primary"
           aria-hidden
         >
           {step.payload.symbol}
@@ -78,7 +78,7 @@ export function SymbolToSoundStepView({
         <button
           type="button"
           onClick={handlePlay}
-          className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+          className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-border bg-surface px-4 py-2 text-sm font-semibold text-text-secondary transition-colors hover:border-accent hover:text-text-primary"
           aria-label="Play sound"
         >
           🔊 {t("alphabet.play", "Play")}
@@ -89,13 +89,13 @@ export function SymbolToSoundStepView({
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
           let style =
-            "rounded-xl border-2 border-gray-200 bg-white py-4 text-center text-lg font-semibold text-text-primary transition hover:border-emerald-300 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-emerald-600";
+            "rounded-xl border-[1.5px] border-border bg-surface py-4 text-center text-lg font-semibold text-text-primary transition-colors duration-150 hover:border-accent";
           if (submitted && isAnswer) {
-            style += " border-emerald-500 bg-emerald-50 dark:border-emerald-500 dark:bg-emerald-900/30";
+            style += " border-accent bg-accent-muted text-accent";
           } else if (submitted && isSelected && !isAnswer) {
-            style += " border-red-500 bg-red-50 dark:border-red-500 dark:bg-red-900/30";
+            style += " border-error bg-red-50 text-error dark:bg-red-950/30";
           } else if (isSelected) {
-            style += " border-emerald-500 ring-2 ring-emerald-500/30 dark:border-emerald-500";
+            style += " border-accent bg-accent-muted text-accent";
           }
           return (
             <button

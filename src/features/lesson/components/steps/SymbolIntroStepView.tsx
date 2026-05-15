@@ -89,7 +89,7 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
           <SymbolAnimation reference={reference} />
         ) : (
           <span
-            className="text-[220px] font-bold leading-none text-text-primary"
+            className="font-japanese text-[220px] font-bold leading-none text-text-primary"
             aria-hidden
           >
             {payload.symbol}
@@ -100,11 +100,11 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
         <button
           type="button"
           onClick={handlePlay}
-          className="inline-flex items-center gap-3 rounded-full border border-gray-300 bg-white pl-5 pr-4 py-2.5 text-2xl font-semibold tracking-wide text-text-primary shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700"
+          className="inline-flex items-center gap-3 rounded-full border-[1.5px] border-border bg-surface pl-5 pr-3 py-2.5 text-2xl font-semibold tracking-wide text-text-primary shadow-[var(--shadow-card)] transition-colors hover:border-accent"
           aria-label={`Play pronunciation: ${payload.romanization || payload.symbol}`}
         >
           <span>{payload.romanization || payload.symbol}</span>
-          <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500 text-white">
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_var(--color-accent-hover)]">
             <Icon name="play" size={14} />
           </span>
         </button>

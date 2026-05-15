@@ -1,4 +1,5 @@
 import type { Course, CourseModule } from "@/shared/domain/course";
+import { ALL_ROWS } from "@/features/lesson/data/hiraganaCurriculum";
 
 export type ModuleStatus = "completed" | "current" | "locked";
 
@@ -67,12 +68,54 @@ export function getLessonWindow<T>(
   };
 }
 
+/**
+ * Resolve the row id this lesson belongs to, if it's a curriculum row
+ * sub-lesson (`ja-m{N}-{rowId}-{suffix}`). Row ids may themselves contain
+ * hyphens (`da-ba`, `yoon-sh-ch`) so we strip the trailing
+ * `-(\d+|test|recap)` suffix and check against the catalog.
+ */
+function rowIdForLessonId(lessonId: string): string | null {
+  const m = /^ja-m\d+-(.+)$/.exec(lessonId);
+  if (!m) return null;
+  let tail = m[1];
+  const sub = /^(.+)-(\d+|test|recap)$/.exec(tail);
+  if (sub) tail = sub[1];
+  if (ALL_ROWS.some((r) => r.id === tail)) return tail;
+  return null;
+}
+
+/**
+ * Whether every sub-lesson of `prereqRowId` is in `completedLessonIds`.
+ * Lessons follow `ja-m{N}-{rowId}-{suffix}` shape with rowId potentially
+ * carrying hyphens.
+ */
+function isRowFullyComplete(
+  prereqRowId: string,
+  completedLessonIds: Set<string>,
+): boolean {
+  const row = ALL_ROWS.find((r) => r.id === prereqRowId);
+  if (!row) return true; // unknown prereq — fail open
+  const subs = row.subLessons ?? [];
+  if (subs.length === 0) {
+    // Legacy single-lesson row.
+    return completedLessonIds.has(`ja-m1-${row.id}`);
+  }
+  for (const sub of subs) {
+    if (!completedLessonIds.has(`ja-m1-${row.id}-${sub.suffix}`)) return false;
+  }
+  return true;
+}
+
 /** Whether a lesson is effectively locked (module or lesson-level lock).
  *
  * Dev-mode override: when `devUnlock` is true (set via the dev panel on
  * the learn page or `?dev=1` in the URL), every lesson is treated as
  * unlocked regardless of completion state. Used for screenshot runs and
  * authoring spot-checks.
+ *
+ * Row-prereq override: even if the module is unlocked AND the previous
+ * lesson is complete, a row's `prerequisites` (e.g. yōon → ya-row) must
+ * all be fully complete first. Per curriculum-restructure 2026-05-15.
  */
 export function isLessonLocked(
   lessonId: string,
@@ -90,6 +133,15 @@ export function isLessonLocked(
   // Within module: lock if previous lesson not completed
   for (let i = 0; i < lessonIndex; i++) {
     if (!completedLessonIds.has(mod.lessons[i].id)) return true;
+  }
+  // Row-level prerequisites (e.g. ya-row → yōon).
+  const rowId = rowIdForLessonId(lessonId);
+  if (rowId) {
+    const row = ALL_ROWS.find((r) => r.id === rowId);
+    const prereqs = row?.prerequisites ?? [];
+    for (const prereqRowId of prereqs) {
+      if (!isRowFullyComplete(prereqRowId, completedLessonIds)) return true;
+    }
   }
   return false;
 }

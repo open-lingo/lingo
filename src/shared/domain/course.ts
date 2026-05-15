@@ -1,3 +1,15 @@
+/**
+ * RowDef-level prerequisite hook (curriculum-restructure §2026-05-15).
+ *
+ * Row catalog modules attach `prerequisites: string[]` (an array of row ids
+ * that must be fully completed before lessons in the dependent row unlock).
+ * `isLessonLocked` in `features/learn/moduleProgress.ts` honors the field.
+ *
+ * Type kept here (and not on `RowDef`) so the course/lesson layer can read
+ * it without importing the curriculum module. The field is duplicated on
+ * the `RowDef` catalog type for the curriculum module.
+ */
+
 /** Lesson within a module (mock shape; real API may differ). */
 export type Lesson = {
   id: string;
@@ -6,8 +18,9 @@ export type Lesson = {
   status?: string;
   /** Card IDs introduced by this lesson (for course-linked decks). Unlocked when lesson is completed. */
   introducesCardIds?: string[];
-  /** When "alphabet", this row links to the alphabet learner instead of learn/lessons/:id. */
-  kind?: "lesson" | "alphabet";
+  /** When "alphabet", this row links to the alphabet learner instead of learn/lessons/:id.
+   *  When "recap", this is the final module-recap node (~15 review items, amber styling). */
+  kind?: "lesson" | "alphabet" | "recap";
   /** For kind "alphabet": alphabet id for route practice/alphabet/:alphabetId/learn */
   alphabetId?: string;
 };

@@ -84,6 +84,33 @@ export type SentencePractice = {
   decoys: string[];
 };
 
+/**
+ * A single sub-lesson within a row. When `RowDef.subLessons` is present,
+ * the lesson builder emits one `LessonContent` per entry (plus an
+ * auto-generated row-test if `isTest` is not already set somewhere).
+ *
+ * Stable lesson id = `ja-m1-${row.id}-${suffix}` so progress tracking
+ * survives reorders inside a row.
+ */
+export type SubLessonDef = {
+  /** Stable id suffix: "1" | "2" | "3" | "test". */
+  suffix: string;
+  /** Short label shown beneath the pathway node. */
+  label: string;
+  /** Kana introduced in THIS sub-lesson (empty for review/test). */
+  introduces: KanaIntro[];
+  /** Anchor words exposed in this sub-lesson (subset of row.anchorWords). */
+  anchorWords: AnchorWord[];
+  /** Build / production tile bank, if this sub-lesson includes a build step. */
+  build?: BuildAnswer;
+  /** Sentence-example slides scoped to this sub-lesson, if any. */
+  sentenceExamples?: SentenceExample[];
+  /** Multi-tile sentence-practice drills scoped to this sub-lesson, if any. */
+  sentencePractice?: SentencePractice[];
+  /** When true, this sub-lesson is the row-test; emits a RowTestStep flow. */
+  isTest?: boolean;
+};
+
 export type RowDef = {
   /** Stable id used for the lesson id (`ja-m1-lN-<id>`). */
   id: string;
@@ -107,6 +134,22 @@ export type RowDef = {
    * the per-kana intro+teach cycle and before the match step.
    */
   sentencePractice?: SentencePractice[];
+  /**
+   * When present, the row is emitted as a cluster of sub-lessons (each its
+   * own pathway node) rather than the single legacy row-lesson. Per the
+   * alphabet-streamline spec, all production rows should populate this.
+   * The lesson builder auto-appends a row-test sub-lesson when no entry
+   * sets `isTest: true`.
+   */
+  subLessons?: SubLessonDef[];
+  /**
+   * Row ids that must be fully completed (every sub-lesson) before any
+   * lesson in this row unlocks. Used by `isLessonLocked` to enforce the
+   * ya-row → yōon prerequisite (small ゃゅょ requires the full ya-row).
+   * Independent of the linear within-module gate — even if the module is
+   * unlocked, a row with unmet prereqs stays locked.
+   */
+  prerequisites?: string[];
 };
 
 // Visually-similar kana for distractor selection. The pairs are
@@ -206,6 +249,18 @@ export const HIRAGANA_ROWS: RowDef[] = [
     ],
     audioPick: { word: "すし", pickIndex: 0, distractors: ["し", "つ", "む"] },
     build: { meaning: "sushi", answer: "すし", decoys: ["さ", "む", "つ"] },
+    // Adult-traveller anchor: introduce a real survival phrase using the
+    // newly-met さ + previously-met vowels. ま/せ/ん arrive in later rows so
+    // AnnotatedJa renders romaji helpers above them — by design (see file
+    // header curation rules). Retiree audit P0.
+    sentenceExamples: [
+      {
+        kana: "さ",
+        sentence: "すみません",
+        reading: "sumimasen",
+        meaning: "\"Excuse me / sorry\" — the single most useful Japanese phrase for a traveller.",
+      },
+    ],
   },
   {
     id: "ta",
@@ -424,6 +479,14 @@ export const HIRAGANA_ROWS: RowDef[] = [
         reading: "pan o taberu",
         meaning: "\"I eat bread\" — を marks the object, pronounced 'o'.",
       },
+      // Survival phrase. り arrives in ra-row; がとう uses voicing from m2.
+      // AnnotatedJa romaji helpers float over un-introduced kana — by design.
+      {
+        kana: "わ",
+        sentence: "ありがとう",
+        reading: "arigatou",
+        meaning: "\"Thank you\" — the other essential traveller phrase.",
+      },
     ],
     sentencePractice: [
       {
@@ -478,6 +541,63 @@ export const DAKUTEN_ROWS: RowDef[] = [
         decoys: ["いちご", "ごはん"],
       },
     ],
+    // Dakuten compressed (curriculum-restructure 2026-05-15): 2 sub-lessons
+    // + test. Shapes are already known from the basic rows — what's new is
+    // the sound, so the 3rd review pass was unnecessary.
+    subLessons: [
+      {
+        suffix: "1",
+        label: "Intro 1",
+        introduces: [
+          { kana: "が", romaji: "ga", hint: "voiced か (ka → ga)" },
+          { kana: "ぎ", romaji: "gi", hint: "voiced き (ki → gi)" },
+          { kana: "ぐ", romaji: "gu", hint: "voiced く (ku → gu)" },
+        ],
+        anchorWords: [
+          { kana: "げんき", romaji: "genki", meaning: "energy / well" },
+          { kana: "いちご", romaji: "ichigo", meaning: "strawberry" },
+        ],
+        sentenceExamples: [
+          {
+            kana: "ぐ",
+            sentence: "か ぐ",
+            reading: "kagu",
+            meaning: "\"furniture\" — one of the few common words using ぐ.",
+          },
+        ],
+      },
+      {
+        suffix: "2",
+        label: "Intro 2",
+        introduces: [
+          { kana: "げ", romaji: "ge", hint: "voiced け (ke → ge)" },
+          { kana: "ご", romaji: "go", hint: "voiced こ (ko → go)" },
+        ],
+        anchorWords: [
+          { kana: "ごはん", romaji: "gohan", meaning: "rice / meal" },
+        ],
+        build: { meaning: "rice / meal", answer: "ごはん", decoys: ["こ", "が", "ぐ"] },
+        sentencePractice: [
+          {
+            prompt: "I'm well. (How are you? answer)",
+            target: "げんき です",
+            correctOrder: ["げんき", "です"],
+            decoys: ["いちご", "ごはん"],
+          },
+        ],
+      },
+      {
+        suffix: "test",
+        label: "Row test",
+        introduces: [],
+        anchorWords: [
+          { kana: "げんき", romaji: "genki", meaning: "energy / well" },
+          { kana: "ごはん", romaji: "gohan", meaning: "rice / meal" },
+          { kana: "いちご", romaji: "ichigo", meaning: "strawberry" },
+        ],
+        isTest: true,
+      },
+    ],
   },
   {
     id: "za",
@@ -495,12 +615,13 @@ export const DAKUTEN_ROWS: RowDef[] = [
       { kana: "ぜ", romaji: "ze", hint: "voiced せ (se → ze)" },
       { kana: "ぞ", romaji: "zo", hint: "voiced そ (so → zo)" },
     ],
+    // Anime audit: ぞう (elephant) felt random against みず・かぜ which were
+    // doing all the work. Dropped — keep the 2 high-utility anchors.
     anchorWords: [
       { kana: "みず", romaji: "mizu", meaning: "water" },
       { kana: "かぜ", romaji: "kaze", meaning: "wind / cold (illness)" },
-      { kana: "ぞう", romaji: "zou", meaning: "elephant" },
     ],
-    audioPick: { word: "ぞう", pickIndex: 0, distractors: ["そ", "じ", "ぐ"] },
+    audioPick: { word: "みず", pickIndex: 1, distractors: ["す", "じ", "ぐ"] },
     build: { meaning: "water", answer: "みず", decoys: ["む", "ず", "し"] },
     sentenceExamples: [
       {
@@ -509,13 +630,86 @@ export const DAKUTEN_ROWS: RowDef[] = [
         reading: "zasshi",
         meaning: "\"magazine\" — the small つ doubles the next consonant; you'll meet that pattern soon.",
       },
+      // ぞ lost its anchor (ぞう dropped per anime audit). One demo slide so
+      // the learner still meets it in context.
+      {
+        kana: "ぞ",
+        sentence: "ぞうきん",
+        reading: "zoukin",
+        meaning: "\"cleaning cloth\" — one of the few common words using ぞ.",
+      },
     ],
     sentencePractice: [
       {
         prompt: "It's water.",
         target: "みず です",
         correctOrder: ["みず", "です"],
-        decoys: ["かぜ", "ぞう"],
+        decoys: ["かぜ", "ざっし"],
+      },
+    ],
+    // Dakuten compressed: 3+2+test.
+    subLessons: [
+      {
+        suffix: "1",
+        label: "Intro 1",
+        introduces: [
+          { kana: "ざ", romaji: "za", hint: "voiced さ (sa → za)" },
+          {
+            kana: "じ",
+            romaji: "ji",
+            hint: "voiced し — pronounced 'ji' (not 'zi')",
+          },
+          { kana: "ず", romaji: "zu", hint: "voiced す (su → zu)" },
+        ],
+        anchorWords: [
+          { kana: "みず", romaji: "mizu", meaning: "water" },
+        ],
+        sentenceExamples: [
+          {
+            kana: "ざ",
+            sentence: "ざっし",
+            reading: "zasshi",
+            meaning: "\"magazine\" — the small つ doubles the next consonant; you'll meet that pattern soon.",
+          },
+        ],
+      },
+      {
+        suffix: "2",
+        label: "Intro 2",
+        introduces: [
+          { kana: "ぜ", romaji: "ze", hint: "voiced せ (se → ze)" },
+          { kana: "ぞ", romaji: "zo", hint: "voiced そ (so → zo)" },
+        ],
+        anchorWords: [
+          { kana: "かぜ", romaji: "kaze", meaning: "wind / cold (illness)" },
+        ],
+        build: { meaning: "water", answer: "みず", decoys: ["む", "ず", "し"] },
+        sentenceExamples: [
+          {
+            kana: "ぞ",
+            sentence: "ぞうきん",
+            reading: "zoukin",
+            meaning: "\"cleaning cloth\" — one of the few common words using ぞ.",
+          },
+        ],
+        sentencePractice: [
+          {
+            prompt: "It's water.",
+            target: "みず です",
+            correctOrder: ["みず", "です"],
+            decoys: ["かぜ", "ざっし"],
+          },
+        ],
+      },
+      {
+        suffix: "test",
+        label: "Row test",
+        introduces: [],
+        anchorWords: [
+          { kana: "みず", romaji: "mizu", meaning: "water" },
+          { kana: "かぜ", romaji: "kaze", meaning: "wind / cold (illness)" },
+        ],
+        isTest: true,
       },
     ],
   },
@@ -550,6 +744,58 @@ export const DAKUTEN_ROWS: RowDef[] = [
         target: "ともだち です",
         correctOrder: ["ともだち", "です"],
         decoys: ["でんわ", "ぶた"],
+      },
+    ],
+    // Dakuten compressed: 4+4+test for the 8-kana row.
+    subLessons: [
+      {
+        suffix: "1",
+        label: "Intro 1",
+        introduces: [
+          { kana: "だ", romaji: "da", hint: "voiced た (ta → da)" },
+          { kana: "で", romaji: "de", hint: "voiced て (te → de)" },
+          { kana: "ど", romaji: "do", hint: "voiced と (to → do)" },
+          { kana: "ば", romaji: "ba", hint: "voiced は (ha → ba)" },
+        ],
+        anchorWords: [
+          { kana: "ともだち", romaji: "tomodachi", meaning: "friend" },
+          { kana: "でんわ", romaji: "denwa", meaning: "telephone" },
+          { kana: "たべる", romaji: "taberu", meaning: "to eat" },
+        ],
+      },
+      {
+        suffix: "2",
+        label: "Intro 2",
+        introduces: [
+          { kana: "び", romaji: "bi", hint: "voiced ひ (hi → bi)" },
+          { kana: "ぶ", romaji: "bu", hint: "voiced ふ (fu → bu)" },
+          { kana: "べ", romaji: "be", hint: "voiced へ (he → be)" },
+          { kana: "ぼ", romaji: "bo", hint: "voiced ほ (ho → bo)" },
+        ],
+        anchorWords: [
+          { kana: "ぶた", romaji: "buta", meaning: "pig" },
+        ],
+        build: { meaning: "friend", answer: "ともだち", decoys: ["の", "ぼ", "ぱ"] },
+        sentencePractice: [
+          {
+            prompt: "It's a friend.",
+            target: "ともだち です",
+            correctOrder: ["ともだち", "です"],
+            decoys: ["でんわ", "ぶた"],
+          },
+        ],
+      },
+      {
+        suffix: "test",
+        label: "Row test",
+        introduces: [],
+        anchorWords: [
+          { kana: "ともだち", romaji: "tomodachi", meaning: "friend" },
+          { kana: "でんわ", romaji: "denwa", meaning: "telephone" },
+          { kana: "たべる", romaji: "taberu", meaning: "to eat" },
+          { kana: "ぶた", romaji: "buta", meaning: "pig" },
+        ],
+        isTest: true,
       },
     ],
   },
@@ -588,6 +834,61 @@ export const DAKUTEN_ROWS: RowDef[] = [
         decoys: ["みず", "ともだち"],
       },
     ],
+    // Dakuten compressed: 3+2+test.
+    subLessons: [
+      {
+        suffix: "1",
+        label: "Intro 1",
+        introduces: [
+          { kana: "ぱ", romaji: "pa", hint: "は + ゜ → 'pa'" },
+          { kana: "ぴ", romaji: "pi", hint: "ひ + ゜ → 'pi'" },
+          { kana: "ぷ", romaji: "pu", hint: "ふ + ゜ → 'pu'" },
+        ],
+        anchorWords: [
+          { kana: "ぱん", romaji: "pan", meaning: "bread" },
+          { kana: "えんぴつ", romaji: "enpitsu", meaning: "pencil" },
+        ],
+        sentenceExamples: [
+          {
+            kana: "ぷ",
+            sentence: "プリン / ペン",
+            reading: "purin / pen",
+            meaning: "ぷ and ぺ mostly appear in katakana loanwords like プリン (pudding) and ペン (pen). You'll meet them properly in katakana.",
+          },
+        ],
+      },
+      {
+        suffix: "2",
+        label: "Intro 2",
+        introduces: [
+          { kana: "ぺ", romaji: "pe", hint: "へ + ゜ → 'pe'" },
+          { kana: "ぽ", romaji: "po", hint: "ほ + ゜ → 'po'" },
+        ],
+        anchorWords: [
+          { kana: "さんぽ", romaji: "sanpo", meaning: "walk / stroll" },
+        ],
+        build: { meaning: "bread", answer: "ぱん", decoys: ["ば", "ん", "は"] },
+        sentencePractice: [
+          {
+            prompt: "I eat bread.",
+            target: "ぱん を たべる",
+            correctOrder: ["ぱん", "を", "たべる"],
+            decoys: ["みず", "ともだち"],
+          },
+        ],
+      },
+      {
+        suffix: "test",
+        label: "Row test",
+        introduces: [],
+        anchorWords: [
+          { kana: "ぱん", romaji: "pan", meaning: "bread" },
+          { kana: "えんぴつ", romaji: "enpitsu", meaning: "pencil" },
+          { kana: "さんぽ", romaji: "sanpo", meaning: "walk / stroll" },
+        ],
+        isTest: true,
+      },
+    ],
   },
 ];
 
@@ -596,15 +897,25 @@ export const DAKUTEN_ROWS: RowDef[] = [
  * や/ゆ/よ into ゃ/ゅ/ょ so the pair pronounces as a single mora:
  * き + ゃ → きゃ (kya). 33 total: 11 consonant onsets × 3 small-y endings.
  *
- * Pedagogically grouped 3 consonants per lesson (~9 yōon each) so each
- * lesson is the same shape as the basic-row lessons.
+ * Curriculum-restructure (2026-05-15): all yōon land in Module 2 after the
+ * full hiragana basics + dakuten are introduced. Compressed to 4 rows + 1
+ * capstone (was 6 rows per family). Per row: ONE intro sub-lesson, no
+ * per-row test — the `yoon-capstone` row carries the single end-of-yōon
+ * test. Every yōon row declares `prerequisites: ["ya"]` so the small-ゃゅょ
+ * rule cannot land before the ya-row is taught.
+ *
+ * Reasoning: yōon are uniform once the rule lands (small-ゃ/ゅ/ょ glued to
+ * a consonant kana). Components are familiar (kana already known). So each
+ * mini-lesson packs more kana per sub-lesson and skips per-row review +
+ * per-row test — the capstone covers all yōon at the end.
  */
 export const YOON_ROWS: RowDef[] = [
+  // 1) Intro — kya/kyu/kyo as the worked example for the small-ya/yu/yo rule.
   {
-    id: "yo-k",
-    title: "Yōon 1: きゃ・きゅ・きょ",
+    id: "yoon-intro",
+    title: "Yōon intro: きゃ・きゅ・きょ",
     intro:
-      "Small ゃゅょ stuck to a consonant kana = one syllable. き + ゃ → きゃ (kya).",
+      "Small ゃゅょ stuck to a consonant kana = one syllable. き + ゃ → きゃ (kya). Same rule applies to every other consonant family — you'll see them in the next lessons.",
     introduces: [
       { kana: "きゃ", romaji: "kya", hint: "ki + small ya — one syllable 'kya'" },
       { kana: "きゅ", romaji: "kyu", hint: "ki + small yu — 'kyu'" },
@@ -617,12 +928,34 @@ export const YOON_ROWS: RowDef[] = [
     ],
     audioPick: { word: "きょう", pickIndex: 0, distractors: ["きゃ", "きゅ", "しゃ"] },
     build: { meaning: "today", answer: "きょう", decoys: ["きゃ", "きゅ", "う"] },
+    prerequisites: ["ya"],
+    // Single intro sub-lesson — explicit override so the auto-splitter
+    // doesn't fragment yōon. No per-row test (capstone covers all yōon).
+    subLessons: [
+      {
+        suffix: "1",
+        label: "Intro",
+        introduces: [
+          { kana: "きゃ", romaji: "kya", hint: "ki + small ya — one syllable 'kya'" },
+          { kana: "きゅ", romaji: "kyu", hint: "ki + small yu — 'kyu'" },
+          { kana: "きょ", romaji: "kyo", hint: "ki + small yo — 'kyo'" },
+        ],
+        anchorWords: [
+          { kana: "きょう", romaji: "kyou", meaning: "today" },
+          { kana: "きゃく", romaji: "kyaku", meaning: "guest / customer" },
+          { kana: "きゅう", romaji: "kyuu", meaning: "nine" },
+        ],
+        build: { meaning: "today", answer: "きょう", decoys: ["きゃ", "きゅ", "う"] },
+      },
+    ],
   },
+  // 2) sh + ch yōon — same rule, two consonant families packed in one
+  //    sub-lesson now that the rule has landed.
   {
-    id: "yo-sh-ch",
-    title: "Yōon 2: しゃ・ちゃ families",
+    id: "yoon-sh-ch",
+    title: "Yōon: しゃ・ちゃ families",
     intro:
-      "Same rule for s and t consonants. し + ゃ → しゃ. ち + ゃ → ちゃ.",
+      "Same rule for s and t consonants. し + ゃ → しゃ. ち + ゃ → ちゃ. Six new kana, two families.",
     introduces: [
       { kana: "しゃ", romaji: "sha", hint: "shi + small ya — 'sha'" },
       { kana: "しゅ", romaji: "shu", hint: "shi + small yu — 'shu'" },
@@ -648,12 +981,45 @@ export const YOON_ROWS: RowDef[] = [
         decoys: ["しゃしん", "しゅみ"],
       },
     ],
+    prerequisites: ["ya"],
+    subLessons: [
+      {
+        suffix: "1",
+        label: "Intro",
+        introduces: [
+          { kana: "しゃ", romaji: "sha", hint: "shi + small ya — 'sha'" },
+          { kana: "しゅ", romaji: "shu", hint: "shi + small yu — 'shu'" },
+          { kana: "しょ", romaji: "sho", hint: "shi + small yo — 'sho'" },
+          { kana: "ちゃ", romaji: "cha", hint: "chi + small ya — 'cha'" },
+          { kana: "ちゅ", romaji: "chu", hint: "chi + small yu — 'chu'" },
+          { kana: "ちょ", romaji: "cho", hint: "chi + small yo — 'cho'" },
+        ],
+        anchorWords: [
+          { kana: "しゃしん", romaji: "shashin", meaning: "photograph" },
+          { kana: "しゅみ", romaji: "shumi", meaning: "hobby" },
+          { kana: "おちゃ", romaji: "ocha", meaning: "tea" },
+          { kana: "ちょっと", romaji: "chotto", meaning: "a little" },
+          { kana: "ちゅうい", romaji: "chuui", meaning: "caution" },
+        ],
+        build: { meaning: "tea", answer: "おちゃ", decoys: ["ちょ", "しゃ", "ちゅ"] },
+        sentencePractice: [
+          {
+            prompt: "It's tea.",
+            target: "おちゃ です",
+            correctOrder: ["おちゃ", "です"],
+            decoys: ["しゃしん", "しゅみ"],
+          },
+        ],
+      },
+    ],
   },
+  // 3) Voiced yōon — g/j/b/p families combined. 12 kana in one sub-lesson;
+  //    components familiar from dakuten + yōon-intro.
   {
-    id: "yo-g-j",
-    title: "Yōon 3: ぎゃ・じゃ families",
+    id: "yoon-voiced",
+    title: "Yōon: ぎゃ・じゃ・びゃ・ぴゃ (voiced)",
     intro:
-      "Dakuten yōon — same rule, voiced consonant. ぎ + ゃ → ぎゃ. じ + ゃ → じゃ.",
+      "Dakuten + handakuten yōon — same small-ゃゅょ rule, voiced consonants. ぎ・じ・び・ぴ + small ya/yu/yo. 12 new kana across four voiced families.",
     introduces: [
       { kana: "ぎゃ", romaji: "gya", hint: "gi + small ya — 'gya'" },
       { kana: "ぎゅ", romaji: "gyu", hint: "gi + small yu — 'gyu'" },
@@ -661,11 +1027,18 @@ export const YOON_ROWS: RowDef[] = [
       { kana: "じゃ", romaji: "ja", hint: "ji + small ya — 'ja'" },
       { kana: "じゅ", romaji: "ju", hint: "ji + small yu — 'ju'" },
       { kana: "じょ", romaji: "jo", hint: "ji + small yo — 'jo'" },
+      { kana: "びゃ", romaji: "bya", hint: "bi + small ya — 'bya'" },
+      { kana: "びゅ", romaji: "byu", hint: "bi + small yu — 'byu'" },
+      { kana: "びょ", romaji: "byo", hint: "bi + small yo — 'byo'" },
+      { kana: "ぴゃ", romaji: "pya", hint: "pi + small ya — 'pya'" },
+      { kana: "ぴゅ", romaji: "pyu", hint: "pi + small yu — 'pyu'" },
+      { kana: "ぴょ", romaji: "pyo", hint: "pi + small yo — 'pyo'" },
     ],
     anchorWords: [
       { kana: "ぎゅうにゅう", romaji: "gyuunyuu", meaning: "milk" },
       { kana: "じゅう", romaji: "juu", meaning: "ten" },
       { kana: "じょうず", romaji: "jouzu", meaning: "skillful" },
+      { kana: "びょういん", romaji: "byouin", meaning: "hospital" },
     ],
     audioPick: { word: "じゅう", pickIndex: 0, distractors: ["じゃ", "じょ", "ぎゅ"] },
     build: { meaning: "ten", answer: "じゅう", decoys: ["じゃ", "じょ", "う"] },
@@ -677,12 +1050,51 @@ export const YOON_ROWS: RowDef[] = [
         decoys: ["じょうず", "ぎゅうにゅう"],
       },
     ],
+    prerequisites: ["ya"],
+    subLessons: [
+      {
+        suffix: "1",
+        label: "Intro",
+        introduces: [
+          { kana: "ぎゃ", romaji: "gya", hint: "gi + small ya — 'gya'" },
+          { kana: "ぎゅ", romaji: "gyu", hint: "gi + small yu — 'gyu'" },
+          { kana: "ぎょ", romaji: "gyo", hint: "gi + small yo — 'gyo'" },
+          { kana: "じゃ", romaji: "ja", hint: "ji + small ya — 'ja'" },
+          { kana: "じゅ", romaji: "ju", hint: "ji + small yu — 'ju'" },
+          { kana: "じょ", romaji: "jo", hint: "ji + small yo — 'jo'" },
+          { kana: "びゃ", romaji: "bya", hint: "bi + small ya — 'bya'" },
+          { kana: "びゅ", romaji: "byu", hint: "bi + small yu — 'byu'" },
+          { kana: "びょ", romaji: "byo", hint: "bi + small yo — 'byo'" },
+          { kana: "ぴゃ", romaji: "pya", hint: "pi + small ya — 'pya'" },
+          { kana: "ぴゅ", romaji: "pyu", hint: "pi + small yu — 'pyu'" },
+          { kana: "ぴょ", romaji: "pyo", hint: "pi + small yo — 'pyo'" },
+        ],
+        anchorWords: [
+          { kana: "ぎゅうにゅう", romaji: "gyuunyuu", meaning: "milk" },
+          { kana: "じゅう", romaji: "juu", meaning: "ten" },
+          { kana: "じょうず", romaji: "jouzu", meaning: "skillful" },
+          { kana: "びょういん", romaji: "byouin", meaning: "hospital" },
+        ],
+        build: { meaning: "ten", answer: "じゅう", decoys: ["じゃ", "じょ", "う"] },
+        sentencePractice: [
+          {
+            prompt: "It's ten.",
+            target: "じゅう です",
+            correctOrder: ["じゅう", "です"],
+            decoys: ["じょうず", "ぎゅうにゅう"],
+          },
+        ],
+      },
+    ],
   },
+  // 4) Rare yōon — n/h/m/r families. Recognition-only for most; ひゃ・りゅ
+  //    ・りょ have real anchors. にゃ gets a sentence-example slide (no
+  //    everyday word uses it cleanly).
   {
-    id: "yo-n-h-m-r",
-    title: "Yōon 4: にゃ・ひゃ・みゃ・りゃ (rare)",
+    id: "yoon-rare",
+    title: "Yōon: にゃ・ひゃ・みゃ・りゃ (rare)",
     intro:
-      "These yōon are genuinely rare — you'll meet them in the wild but they don't all get their own everyday word. Recognition is the bar here.",
+      "The last yōon families — n/h/m/r kana with small ゃゅょ. Many are recognition-only; the high-utility ones are ひゃく (hundred), りゅう (dragon), りょこう (trip).",
     introduces: [
       { kana: "にゃ", romaji: "nya", hint: "ni + small ya — 'nya'" },
       { kana: "にゅ", romaji: "nyu", hint: "ni + small yu — 'nyu'" },
@@ -703,30 +1115,263 @@ export const YOON_ROWS: RowDef[] = [
       { kana: "りょこう", romaji: "ryokou", meaning: "trip / travel" },
     ],
     audioPick: { word: "ひゃく", pickIndex: 0, distractors: ["ひゅ", "ひょ", "きゃ"] },
-    build: { meaning: "hundred", answer: "ひゃく", decoys: ["ひゅ", "く", "ひょ"] },
+    build: { meaning: "dragon", answer: "りゅう", decoys: ["りゃ", "りょ", "う"] },
+    sentenceExamples: [
+      {
+        kana: "にゃ",
+        sentence: "にゃー",
+        reading: "nyaa",
+        meaning: "\"meow\" — onomatopoeia for a cat. にゃ-row is otherwise rare in everyday words.",
+      },
+    ],
+    prerequisites: ["ya"],
+    subLessons: [
+      {
+        suffix: "1",
+        label: "Intro",
+        introduces: [
+          { kana: "にゃ", romaji: "nya", hint: "ni + small ya — 'nya'" },
+          { kana: "にゅ", romaji: "nyu", hint: "ni + small yu — 'nyu'" },
+          { kana: "にょ", romaji: "nyo", hint: "ni + small yo — 'nyo'" },
+          { kana: "ひゃ", romaji: "hya", hint: "hi + small ya — 'hya'" },
+          { kana: "ひゅ", romaji: "hyu", hint: "hi + small yu — 'hyu'" },
+          { kana: "ひょ", romaji: "hyo", hint: "hi + small yo — 'hyo'" },
+          { kana: "みゃ", romaji: "mya", hint: "mi + small ya — 'mya'" },
+          { kana: "みゅ", romaji: "myu", hint: "mi + small yu — 'myu'" },
+          { kana: "みょ", romaji: "myo", hint: "mi + small yo — 'myo'" },
+          { kana: "りゃ", romaji: "rya", hint: "ri + small ya — 'rya'" },
+          { kana: "りゅ", romaji: "ryu", hint: "ri + small yu — 'ryu'" },
+          { kana: "りょ", romaji: "ryo", hint: "ri + small yo — 'ryo'" },
+        ],
+        anchorWords: [
+          { kana: "ひゃく", romaji: "hyaku", meaning: "hundred" },
+          { kana: "りゅう", romaji: "ryuu", meaning: "dragon" },
+          { kana: "りょこう", romaji: "ryokou", meaning: "trip / travel" },
+        ],
+        build: { meaning: "dragon", answer: "りゅう", decoys: ["りゃ", "りょ", "う"] },
+        sentenceExamples: [
+          {
+            kana: "にゃ",
+            sentence: "にゃー",
+            reading: "nyaa",
+            meaning: "\"meow\" — onomatopoeia for a cat. にゃ-row is otherwise rare in everyday words.",
+          },
+        ],
+      },
+    ],
   },
+  // 5) Yōon capstone — test-only row covering ALL yōon. Items are sourced
+  //    by the row-test builder from this row's `introduces` (union of all
+  //    yōon kana across the previous 4 rows). No intro/teach steps — the
+  //    auto-appended `isTest: true` sub-lesson is the only emission, which
+  //    in turn produces a single LessonContent with a RowTestStep.
+  //
+  //    NOTE: This row has NO `introduces` in the usual sense — instead it
+  //    relays the kana set so the row-test MC items can spawn. We populate
+  //    `introduces` with the union of yōon kana but mark every sub-lesson
+  //    as `isTest` so the lesson-builder's coverage assertion ("every
+  //    kana lives in a non-test sub-lesson") doesn't fire on this row.
   {
-    id: "yo-b-p",
-    title: "Yōon 5: びゃ・ぴゃ (rare)",
+    id: "yoon-capstone",
+    title: "Yōon capstone test",
     intro:
-      "Same idea with b and p. Mostly びょういん (hospital) and びょうき (sick) here — the rest are recognition-only.",
-    introduces: [
-      { kana: "びゃ", romaji: "bya", hint: "bi + small ya — 'bya'" },
-      { kana: "びゅ", romaji: "byu", hint: "bi + small yu — 'byu'" },
-      { kana: "びょ", romaji: "byo", hint: "bi + small yo — 'byo'" },
-      { kana: "ぴゃ", romaji: "pya", hint: "pi + small ya — 'pya'" },
-      { kana: "ぴゅ", romaji: "pyu", hint: "pi + small yu — 'pyu'" },
-      { kana: "ぴょ", romaji: "pyo", hint: "pi + small yo — 'pyo'" },
+      "Single test across every yōon you've met. Pass with 70%+ to clear. Skippable.",
+    // Empty introduces — the test-only row pulls its MC item pool from the
+    // four preceding yōon rows at row-test build time (override below).
+    introduces: [],
+    anchorWords: [],
+    audioPick: { word: "きょう", pickIndex: 0, distractors: ["きゃ", "きゅ", "しゃ"] },
+    build: { meaning: "today", answer: "きょう", decoys: ["きゃ", "きゅ", "う"] },
+    prerequisites: ["ya"],
+    subLessons: [
+      {
+        suffix: "test",
+        label: "Yōon test",
+        introduces: [],
+        anchorWords: [],
+        isTest: true,
+      },
     ],
-    anchorWords: [
-      { kana: "びょういん", romaji: "byouin", meaning: "hospital" },
-      { kana: "びょうき", romaji: "byouki", meaning: "illness / sick" },
-    ],
-    audioPick: { word: "びょういん", pickIndex: 0, distractors: ["びゃ", "びゅ", "ぴょ"] },
-    // Decoys are mora-form to match the tokenized answer tiles (びょういん → [びょ, う, い, ん]).
-    build: { meaning: "hospital", answer: "びょういん", decoys: ["びゃ", "ぴょ", "ぴゅ"] },
   },
 ];
+
+/**
+ * Canonical split rule (alphabet-streamline spec):
+ *   - 3 kana  → 2+1 + test     (3 nodes)
+ *   - 5 kana  → 2+2+1 + test   (4 nodes)
+ *   - 6 kana  → 2+2+2 + test   (4 nodes)  — yōon
+ *   - 8 kana  → 2+2+2+2 + test (5 nodes)  — da-ba
+ *   - 12 kana → 1 wide intro + test (2 nodes) — legacy yōon capstone path
+ *     (kept as a safety net; not exercised since the yo-n-h-m-r split into
+ *     yo-n-h + yo-m-r).
+ *
+ * Returns the per-sub-lesson kana group sizes (NOT including the trailing
+ * row-test, which is appended automatically by `deriveSubLessons`).
+ */
+function canonicalSplit(n: number): number[] {
+  if (n === 3) return [2, 1];
+  if (n === 5) return [2, 2, 1];
+  if (n === 6) return [2, 2, 2];
+  if (n === 8) return [2, 2, 2, 2];
+  if (n === 12) return [12]; // capstone: single wide intro
+  // Fallback: pairs with a 1-tail.
+  const out: number[] = [];
+  let rem = n;
+  while (rem > 0) {
+    if (rem >= 2) {
+      out.push(2);
+      rem -= 2;
+    } else {
+      out.push(1);
+      rem -= 1;
+    }
+  }
+  return out;
+}
+
+/**
+ * Picks which anchor words a sub-lesson surfaces. Greedy: each anchor word
+ * is assigned to the earliest sub-lesson whose accumulated kana set covers
+ * all of the word's characters. Words whose kana span multiple sub-lessons
+ * get pushed to the latest contributing sub-lesson so the build step doesn't
+ * reference yet-to-introduce kana. Any unassigned anchor words get appended
+ * to the row-final (non-test) sub-lesson so coverage stays complete.
+ */
+function distributeAnchorWords(
+  groups: KanaIntro[][],
+  anchors: AnchorWord[],
+): AnchorWord[][] {
+  const out: AnchorWord[][] = groups.map(() => []);
+  const cumulative: Set<string>[] = [];
+  let acc = new Set<string>();
+  for (const g of groups) {
+    for (const k of g) acc.add(k.kana);
+    cumulative.push(new Set(acc));
+  }
+  const assigned = new Set<AnchorWord>();
+  for (const word of anchors) {
+    const chars = Array.from(word.kana);
+    for (let i = 0; i < cumulative.length; i++) {
+      // All chars must be in the cumulative kana-set OR be a kana already
+      // introduced in an earlier row (we can't check earlier rows here, so
+      // accept any non-row kana as carryover — the renderer's romaji-helper
+      // fallback handles unknown kana).
+      const allInRow = chars.every((c) => {
+        // Kana introduced in this or earlier sub-lesson of this row
+        if (cumulative[i].has(c)) return true;
+        // Kana NOT in this row at all → assume earlier row
+        const inThisRow = groups.some((g) => g.some((k) => k.kana === c));
+        return !inThisRow;
+      });
+      if (allInRow) {
+        out[i].push(word);
+        assigned.add(word);
+        break;
+      }
+    }
+  }
+  // Anything left over → push to the final non-test sub-lesson.
+  const tail = out.length - 1;
+  for (const word of anchors) {
+    if (!assigned.has(word)) out[tail].push(word);
+  }
+  return out;
+}
+
+/**
+ * Derive a canonical `subLessons` array from a RowDef. Splits kana per
+ * `canonicalSplit`, distributes anchor words to the earliest sub-lesson
+ * that can spell them, places `build` + `sentencePractice` on the final
+ * non-test sub-lesson, places `sentenceExamples` on the latest sub-lesson
+ * whose kana set introduces the example's target kana, then appends a
+ * row-test sub-lesson.
+ */
+export function deriveSubLessons(row: RowDef): SubLessonDef[] {
+  if (row.subLessons && row.subLessons.length > 0) return row.subLessons;
+  const sizes = canonicalSplit(row.introduces.length);
+  const groups: KanaIntro[][] = [];
+  let cursor = 0;
+  for (const size of sizes) {
+    groups.push(row.introduces.slice(cursor, cursor + size));
+    cursor += size;
+  }
+  const anchorGroups = distributeAnchorWords(groups, row.anchorWords);
+  const out: SubLessonDef[] = [];
+  for (let i = 0; i < groups.length; i++) {
+    const isFinal = i === groups.length - 1;
+    const introsHere = groups[i];
+    const anchorsHere = anchorGroups[i];
+    const subLesson: SubLessonDef = {
+      suffix: String(i + 1),
+      label:
+        groups.length === 1
+          ? "Intro"
+          : isFinal
+            ? "Review"
+            : `Intro ${i + 1}`,
+      introduces: introsHere,
+      anchorWords: anchorsHere,
+    };
+    if (isFinal) {
+      subLesson.build = row.build;
+      if (row.sentencePractice) subLesson.sentencePractice = row.sentencePractice;
+    }
+    // Place sentence-examples on the latest sub-lesson whose introduces[]
+    // (or any earlier kana from this row) introduce the example kana.
+    if (row.sentenceExamples) {
+      for (const ex of row.sentenceExamples) {
+        // Find the sub-lesson that introduces ex.kana in this row.
+        let target = -1;
+        for (let j = 0; j < groups.length; j++) {
+          if (groups[j].some((k) => k.kana === ex.kana)) {
+            target = j;
+            break;
+          }
+        }
+        if (target === -1) target = groups.length - 1; // fallback: final
+        if (target === i) {
+          subLesson.sentenceExamples = [
+            ...(subLesson.sentenceExamples ?? []),
+            ex,
+          ];
+        }
+      }
+    }
+    out.push(subLesson);
+  }
+  // Row-test
+  out.push({
+    suffix: "test",
+    label: "Row test",
+    introduces: [],
+    anchorWords: row.anchorWords,
+    isTest: true,
+  });
+  return out;
+}
+
+/** Populate every row with derived sub-lessons (in place). Idempotent. */
+function populateSubLessons(rows: RowDef[]): RowDef[] {
+  return rows.map((r) => ({ ...r, subLessons: deriveSubLessons(r) }));
+}
+
+// Apply the streamline split to every row at module load.
+const HIRAGANA_ROWS_SPLIT = populateSubLessons(HIRAGANA_ROWS);
+const DAKUTEN_ROWS_SPLIT = populateSubLessons(DAKUTEN_ROWS);
+const YOON_ROWS_SPLIT = populateSubLessons(YOON_ROWS);
+
+// Re-export the split rows under the same names so all consumers see them.
+// (Direct mutation of `HIRAGANA_ROWS` is avoided so the source arrays
+// remain the canonical declarative catalog.)
+for (let i = 0; i < HIRAGANA_ROWS.length; i++) {
+  HIRAGANA_ROWS[i] = HIRAGANA_ROWS_SPLIT[i];
+}
+for (let i = 0; i < DAKUTEN_ROWS.length; i++) {
+  DAKUTEN_ROWS[i] = DAKUTEN_ROWS_SPLIT[i];
+}
+for (let i = 0; i < YOON_ROWS.length; i++) {
+  YOON_ROWS[i] = YOON_ROWS_SPLIT[i];
+}
 
 export const ALL_ROWS = [...HIRAGANA_ROWS, ...DAKUTEN_ROWS, ...YOON_ROWS];
 

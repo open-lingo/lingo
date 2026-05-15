@@ -67,17 +67,17 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
             type="button"
             onClick={replayPromptAudio}
             disabled={!ttsAvailable}
-            className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition hover:bg-emerald-200 disabled:opacity-50 dark:bg-emerald-800/40 dark:text-emerald-300 dark:hover:bg-emerald-700/40"
+            className="flex h-20 w-20 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_4px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_5px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_2px_0_0_var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-40"
             aria-label={t("lesson.play", "Play audio")}
           >
             <Icon name="play" size={32} />
           </button>
-          <p className="text-sm font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
             {t("lesson.whichKanaStarts", "Which kana starts the word?")}
           </p>
         </div>
       ) : (
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-xl font-semibold text-text-primary">
           {step.promptAnnotation ? (
             <AnnotatedJa segments={step.promptAnnotation} />
           ) : (
@@ -87,7 +87,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
       )}
 
       {step.hint && !submitted && (
-        <p className="text-sm text-gray-500 dark:text-gray-400">{step.hint}</p>
+        <p className="text-sm text-text-muted">{step.hint}</p>
       )}
 
       <div className={gridClasses} style={{ minHeight: optionsAre4 ? 220 : 180 }}>
@@ -97,17 +97,17 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
           const ann = step.optionAnnotations?.[idx];
 
           let style =
-            "border-gray-200 bg-white hover:border-emerald-300 hover:bg-emerald-50 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-emerald-600 dark:hover:bg-gray-700";
+            "border-border bg-surface text-text-primary hover:border-accent";
 
           if (submitted && isAnswer) {
             style =
-              "border-emerald-500 bg-emerald-50 dark:border-emerald-500 dark:bg-emerald-900/30";
+              "border-accent bg-accent-muted text-accent";
           } else if (submitted && isSelected && !isAnswer) {
             style =
-              "border-red-500 bg-red-50 dark:border-red-500 dark:bg-red-900/30";
+              "border-error bg-red-50 text-error dark:bg-red-950/30";
           } else if (isSelected) {
             style =
-              "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-500/30 dark:border-emerald-500 dark:bg-emerald-900/20";
+              "border-accent bg-accent-muted text-accent";
           }
 
           // Big-glyph layout for short kana options; left-aligned text for
@@ -123,7 +123,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
               type="button"
               disabled={submitted}
               onClick={() => setSelected(opt.id)}
-              className={`rounded-xl border-2 transition ${layout} ${style} ${submitted ? "cursor-default" : "cursor-pointer"}`}
+              className={`rounded-xl border-[1.5px] transition-colors duration-150 ${layout} ${style} ${submitted ? "cursor-default" : "cursor-pointer"}`}
             >
               {ann ? (
                 <AnnotatedJa segments={ann} />
