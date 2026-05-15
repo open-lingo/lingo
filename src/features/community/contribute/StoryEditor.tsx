@@ -489,7 +489,7 @@ export function StoryEditor() {
             <>
               <div
                 role="presentation"
-                className="fixed inset-0 z-10"
+                className="fixed inset-0 z-10 bg-transparent"
                 onClick={() => setShowCardPicker(false)}
               />
               <div className="absolute left-6 top-24 z-20">

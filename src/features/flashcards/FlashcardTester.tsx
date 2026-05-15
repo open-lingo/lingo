@@ -298,7 +298,7 @@ export function FlashcardTester() {
           {settingsOpen && (
             <>
               <div
-                className="fixed inset-0 z-10"
+                className="fixed inset-0 z-10 bg-transparent"
                 aria-hidden
                 onClick={() => setSettingsOpen(false)}
               />

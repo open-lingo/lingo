@@ -12,6 +12,7 @@ import {
 import { ProgressBar, StatusNodeStrip, LessonStatusCircle } from "@/shared/components/progress";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { Icon } from "@/shared/components/Icon";
+import { ConfirmModal } from "@/shared/components/ConfirmModal";
 
 type Props = {
   course: Course;
@@ -227,58 +228,20 @@ export function MainCourseCard({
         </button>
       </div>
 
-      {showStartOverConfirm && (
-        <StartOverModal
+      {showStartOverConfirm ? (
+        <ConfirmModal
+          title={t("learn.startOverTitle")}
+          message={t("learn.startOverConfirm")}
+          cancelLabel={t("forum.cancel")}
+          confirmLabel={t("learn.startOver")}
+          danger
           onConfirm={() => {
             onStartOver();
             setShowStartOverConfirm(false);
           }}
           onCancel={() => setShowStartOverConfirm(false)}
         />
-      )}
-    </div>
-  );
-}
-
-function StartOverModal({
-  onConfirm,
-  onCancel,
-}: {
-  onConfirm: () => void;
-  onCancel: () => void;
-}) {
-  const { t } = useTranslation();
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="start-over-title"
-    >
-      <div className="w-full max-w-sm rounded-xl border border-border bg-surface p-6 shadow-xl">
-        <h2 id="start-over-title" className="text-lg font-semibold text-text-primary">
-          {t("learn.startOverTitle")}
-        </h2>
-        <p className="mt-2 text-sm text-text-secondary">
-          {t("learn.startOverConfirm")}
-        </p>
-        <div className="mt-6 flex justify-end gap-3">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="rounded-lg px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted"
-          >
-            {t("forum.cancel")}
-          </button>
-          <button
-            type="button"
-            onClick={onConfirm}
-            className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600"
-          >
-            {t("learn.startOver")}
-          </button>
-        </div>
-      </div>
+      ) : null}
     </div>
   );
 }

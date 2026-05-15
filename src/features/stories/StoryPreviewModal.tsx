@@ -1,9 +1,12 @@
-import { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import type { StoryResponse } from "@/shared/api/stories";
+import { Icon } from "@/shared/components/Icon";
+import { ModalBackdrop } from "@/shared/components/ModalBackdrop";
+import { Button } from "@/shared/components/ui/Button";
+import { cn } from "@/shared/components/ui/cn";
 
 type StoryPreviewModalProps = {
   story: StoryResponse | null;
@@ -27,73 +30,37 @@ export function StoryPreviewModal({
   const { t } = useTranslation();
   const langPath = useLangPath();
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    },
-    [onClose]
-  );
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [handleKeyDown]);
-
   if (!story) return null;
 
-  const languageName = getLanguageConfig(story.languageId)?.name ?? story.languageId;
+  const languageName =
+    getLanguageConfig(story.languageId)?.name ?? story.languageId;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="story-preview-title"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
-    >
-      <div
-        className="relative flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-800"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <ModalBackdrop onClose={onClose} ariaLabelledBy="story-preview-title">
+      <div className="relative flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-2xl">
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-3 top-3 z-10 rounded-lg bg-black/30 p-2 text-white backdrop-blur-sm transition hover:bg-black/50"
+          className="absolute right-3 top-3 z-10 rounded-lg border border-border bg-surface/95 p-2 text-text-primary shadow-sm backdrop-blur-sm transition hover:bg-surface-muted"
           aria-label={t("flashcards.close")}
         >
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <Icon name="close" size={20} />
         </button>
 
         <div className="overflow-y-auto p-6">
           <h2
             id="story-preview-title"
-            className="pr-10 text-xl font-semibold text-gray-900 dark:text-white"
+            className="pr-10 text-xl font-semibold text-text-primary"
           >
             {story.title}
           </h2>
           {story.description && (
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-              {story.description}
-            </p>
+            <p className="mt-1 text-sm text-text-secondary">{story.description}</p>
           )}
-          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            {languageName}
-          </p>
+          <p className="mt-2 text-xs text-text-muted">{languageName}</p>
           {story.body && (
-            <div className="mt-4 max-h-48 overflow-y-auto rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700 dark:border-gray-600 dark:bg-gray-700/50 dark:text-gray-300">
-              <p className="whitespace-pre-wrap line-clamp-6">
+            <div className="mt-4 max-h-48 overflow-y-auto rounded-lg border border-border bg-surface-muted p-4 text-sm text-text-primary">
+              <p className="line-clamp-6 whitespace-pre-wrap">
                 {story.body.replace(/\[card:[^\]]+\][^[]*\[\/card\]/g, (m) => {
                   const display = m.match(/\]([^[]*)\[\/card\]/)?.[1] ?? m;
                   return display;
@@ -103,36 +70,36 @@ export function StoryPreviewModal({
           )}
         </div>
 
-        <div className="flex flex-wrap justify-end gap-3 border-t border-gray-200 px-6 py-4 dark:border-gray-700">
+        <div className="flex flex-wrap justify-end gap-3 border-t border-border px-6 py-4">
           {onSubscribe && onUnsubscribe && (
-            <button
+            <Button
               type="button"
+              variant="outline"
               disabled={subscribeLoading}
               onClick={isSubscribed ? onUnsubscribe : onSubscribe}
-              className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
-                isSubscribed
-                  ? "border border-green-600 bg-green-50 text-green-700 dark:border-green-500 dark:bg-green-900/30 dark:text-green-400"
-                  : "border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
-              }`}
+              className={cn(
+                isSubscribed &&
+                  "border-success/60 bg-success/10 text-success hover:bg-success/15",
+              )}
             >
-              {subscribeLoading ? "…" : isSubscribed ? t("flashcards.subscribed") : t("flashcards.subscribe")}
-            </button>
+              {subscribeLoading
+                ? "…"
+                : isSubscribed
+                  ? t("flashcards.subscribed")
+                  : t("flashcards.subscribe")}
+            </Button>
           )}
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
-          >
+          <Button type="button" variant="outline" onClick={onClose}>
             {t("flashcards.close")}
-          </button>
+          </Button>
           <Link
             to={langPath(`practice/stories/${story.id}`)}
-            className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+            className="inline-flex items-center justify-center rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-white transition hover:bg-accent-hover"
           >
             {t("community.contentBrowserOpen")}
           </Link>
         </div>
       </div>
-    </div>
+    </ModalBackdrop>
   );
 }

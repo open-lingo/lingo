@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -29,6 +29,9 @@ import {
   ResumeBar,
   SideQuestCard,
 } from "./components";
+import { ConfirmModal } from "@/shared/components/ConfirmModal";
+
+const StudyScopeShortcuts = lazy(() => import("@/features/flashcards/StudyScopeShortcuts"));
 
 const MOCK_STATS = {
   username: "spencer",
@@ -39,7 +42,7 @@ const MOCK_STATS = {
 };
 
 export function LearnPage() {
-  const { t: _t } = useTranslation();
+  const { t } = useTranslation();
   const { openSettings } = useModal();
   const langPath = useLangPath();
   const navigate = useNavigate();
@@ -193,6 +196,15 @@ export function LearnPage() {
           you choose.
         </p>
 
+        <div className="mb-6 rounded-xl border border-border bg-surface-muted p-3">
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-text-muted">
+            {t("learn.flashcardsReviewStripTitle", "Spaced repetition")}
+          </p>
+          <Suspense fallback={null}>
+            <StudyScopeShortcuts compact />
+          </Suspense>
+        </div>
+
         {course.modules.map((mod, i) => {
           const status = getModuleStatus(i, completedSet, course.modules);
           const open = accordion.isOpen(mod.id);
@@ -260,6 +272,15 @@ export function LearnPage() {
                   Testing out marks every lesson up to here as complete and
                   jumps you to the next module.
                 </p>
+                <Link
+                  to={langPath("practice/flashcards/review?scope=lessons")}
+                  className="basis-full rounded-[11px] border border-accent/40 bg-surface px-4 py-3 text-center text-[14px] font-semibold text-accent transition hover:border-accent hover:bg-surface-muted"
+                >
+                  {t(
+                    "learn.flashcardsLessonDecksButton",
+                    "Study lesson deck cards"
+                  )}
+                </Link>
               </>
             ) : !isCurrent && !mod.comingSoon ? (
               <button
@@ -343,7 +364,12 @@ export function LearnPage() {
       </aside>
 
       {showStartOverConfirm ? (
-        <StartOverModal
+        <ConfirmModal
+          title={t("learn.startOverTitle")}
+          message={t("learn.startOverConfirm")}
+          cancelLabel={t("forum.cancel")}
+          confirmLabel={t("learn.startOver")}
+          danger
           onConfirm={() => {
             handleStartOver();
             setShowStartOverConfirm(false);
@@ -361,51 +387,6 @@ export function LearnPage() {
   );
 }
 
-function StartOverModal({
-  onConfirm,
-  onCancel,
-}: {
-  onConfirm: () => void;
-  onCancel: () => void;
-}) {
-  const { t } = useTranslation();
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="start-over-title"
-    >
-      <div className="w-full max-w-sm rounded-xl border border-border bg-surface p-6 shadow-xl">
-        <h2
-          id="start-over-title"
-          className="text-lg font-semibold text-text-primary"
-        >
-          {t("learn.startOverTitle")}
-        </h2>
-        <p className="mt-2 text-sm text-text-secondary">
-          {t("learn.startOverConfirm")}
-        </p>
-        <div className="mt-6 flex justify-end gap-3">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="rounded-lg px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted"
-          >
-            {t("forum.cancel")}
-          </button>
-          <button
-            type="button"
-            onClick={onConfirm}
-            className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600"
-          >
-            {t("learn.startOver")}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /**
  * Floating dev panel — fixed to the bottom-right corner. Shown whenever

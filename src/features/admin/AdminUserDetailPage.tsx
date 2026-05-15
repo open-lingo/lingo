@@ -699,55 +699,55 @@ export function AdminUserDetailPage() {
         {activeTab === "srs" && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-text-secondary">
                 {t("admin.srsDesc", "View and edit SRS (spaced repetition) state for this user.")}
               </p>
               <button
                 type="button"
                 onClick={loadSrsState}
                 disabled={srsLoading}
-                className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 disabled:opacity-50"
+                className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-primary transition hover:bg-surface-muted disabled:opacity-50"
               >
                 {srsLoading ? t("common.loading") : t("flashcards.cardManager.refresh", "Refresh")}
               </button>
             </div>
             {srsLoading && Object.keys(srsState).length === 0 ? (
-              <p className="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+              <p className="py-8 text-center text-sm text-text-muted">
                 {t("common.loading")}
               </p>
             ) : Object.keys(srsState).length === 0 ? (
-              <p className="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+              <p className="py-8 text-center text-sm text-text-muted">
                 {t("admin.srsEmpty", "No SRS data for this user.")}
               </p>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                  <thead>
+              <div className="overflow-x-auto rounded-lg border border-border">
+                <table className="min-w-full divide-y divide-border">
+                  <thead className="bg-surface-muted">
                     <tr>
-                      <th className="px-3 py-2 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                      <th className="px-3 py-2 text-left text-xs font-medium uppercase text-text-muted">
                         {t("admin.srsCardId", "Card ID")}
                       </th>
-                      <th className="px-3 py-2 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                      <th className="px-3 py-2 text-left text-xs font-medium uppercase text-text-muted">
                         {t("admin.srsDue", "Due")}
                       </th>
-                      <th className="px-3 py-2 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                      <th className="px-3 py-2 text-left text-xs font-medium uppercase text-text-muted">
                         {t("admin.srsEase", "Ease")}
                       </th>
-                      <th className="px-3 py-2 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                      <th className="px-3 py-2 text-left text-xs font-medium uppercase text-text-muted">
                         {t("admin.srsReps", "Reps")}
                       </th>
-                      <th className="px-3 py-2 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                      <th className="px-3 py-2 text-left text-xs font-medium uppercase text-text-muted">
                         {t("admin.srsBuried", "Buried")}
                       </th>
-                      <th className="px-3 py-2 text-right text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                      <th className="px-3 py-2 text-right text-xs font-medium uppercase text-text-muted">
                         {t("flashcards.cardManager.colActions", "Actions")}
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <tbody className="divide-y divide-border bg-surface">
                     {Object.entries(srsState).map(([cardId, state]) => (
                       <tr key={cardId} className="text-sm">
-                        <td className="max-w-[120px] truncate px-3 py-2 font-mono text-gray-700 dark:text-gray-300" title={cardId}>
+                        <td className="max-w-[120px] truncate px-3 py-2 font-mono text-text-primary" title={cardId}>
                           {cardId}
                         </td>
                         <td className="px-3 py-2">
@@ -757,19 +757,19 @@ export function AdminUserDetailPage() {
                                 type="date"
                                 value={editDueDate}
                                 onChange={(e) => setEditDueDate(e.target.value)}
-                                className="w-32 rounded border border-gray-300 px-1.5 py-0.5 text-xs dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                className="w-32 rounded border border-border bg-surface-muted px-1.5 py-0.5 text-xs text-text-primary"
                               />
                               <button
                                 type="button"
                                 onClick={() => handleUpdateSrsCard(cardId, { dueDate: editDueDate })}
-                                className="text-green-600 dark:text-green-400"
+                                className="text-success"
                               >
                                 <Icon name="check" size={16} />
                               </button>
                               <button
                                 type="button"
                                 onClick={() => setEditingCard(null)}
-                                className="text-gray-500"
+                                className="text-text-muted"
                               >
                                 <Icon name="close" size={14} />
                               </button>
@@ -782,7 +782,7 @@ export function AdminUserDetailPage() {
                                 setEditDueDate(state.dueDate ?? "");
                                 setEditEase(String(state.easeFactor ?? 2.5));
                               }}
-                              className="text-left text-gray-700 hover:underline dark:text-gray-300"
+                              className="text-left text-text-primary hover:underline"
                             >
                               {state.dueDate ?? "—"}
                             </button>
@@ -797,28 +797,28 @@ export function AdminUserDetailPage() {
                                 min={1.3}
                                 value={editEase}
                                 onChange={(e) => setEditEase(e.target.value)}
-                                className="w-16 rounded border border-gray-300 px-1.5 py-0.5 text-xs dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                className="w-16 rounded border border-border bg-surface-muted px-1.5 py-0.5 text-xs text-text-primary"
                               />
                               <button
                                 type="button"
                                 onClick={() => handleUpdateSrsCard(cardId, { easeFactor: parseFloat(editEase) || 2.5 })}
-                                className="text-green-600 dark:text-green-400"
+                                className="text-success"
                               >
                                 <Icon name="check" size={16} />
                               </button>
                             </div>
                           ) : (
-                            <span className="text-gray-600 dark:text-gray-400">{state.easeFactor?.toFixed(2) ?? "—"}</span>
+                            <span className="text-text-secondary">{state.easeFactor?.toFixed(2) ?? "—"}</span>
                           )}
                         </td>
-                        <td className="px-3 py-2 text-gray-600 dark:text-gray-400">{state.repetitions ?? 0}</td>
-                        <td className="px-3 py-2 text-gray-600 dark:text-gray-400">{state.buriedUntil ?? "—"}</td>
+                        <td className="px-3 py-2 text-text-secondary">{state.repetitions ?? 0}</td>
+                        <td className="px-3 py-2 text-text-secondary">{state.buriedUntil ?? "—"}</td>
                         <td className="px-3 py-2 text-right">
                           {state.buriedUntil && (
                             <button
                               type="button"
                               onClick={() => handleUpdateSrsCard(cardId, { buriedUntil: undefined })}
-                              className="mr-1 text-xs text-green-600 hover:underline dark:text-green-400"
+                              className="mr-1 text-xs text-success hover:underline"
                             >
                               {t("flashcards.cardManager.unbury", "Unbury")}
                             </button>
@@ -826,7 +826,7 @@ export function AdminUserDetailPage() {
                           <button
                             type="button"
                             onClick={() => handleResetSrsCard(cardId)}
-                            className="text-xs text-red-600 hover:underline dark:text-red-400"
+                            className="text-xs text-error hover:underline"
                           >
                             {t("flashcards.cardManager.reset", "Reset")}
                           </button>

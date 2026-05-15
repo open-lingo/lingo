@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { Chevron } from "@/shared/components/Chevron";
+import { CARD_SURFACE_CLASSES } from "@/shared/components/ui/Card";
+import { cn } from "@/shared/components/ui/cn";
 import { Link } from "react-router-dom";
 
 export type FeatureCardOption = {
@@ -45,7 +47,10 @@ export function FeatureCardWithDropdown({
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="group flex flex-1 flex-col rounded-xl border border-border bg-surface p-6 text-left shadow-card transition hover:shadow-md"
+        className={cn(
+          CARD_SURFACE_CLASSES.default,
+          "group flex flex-1 flex-col p-6 text-left transition hover:shadow-md"
+        )}
       >
         <span className="mb-3 flex shrink-0 items-center justify-center" aria-hidden>
           <Icon name={icon} size={36} />

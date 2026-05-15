@@ -4,6 +4,8 @@ import { cn } from "./cn";
 type CardVariant = "default" | "muted" | "elevated";
 type CardPadding = "none" | "sm" | "md" | "lg";
 
+export type { CardVariant };
+
 type CardProps = React.HTMLAttributes<HTMLDivElement> & {
   variant?: CardVariant;
   padding?: CardPadding;
@@ -18,6 +20,9 @@ const variantClasses: Record<CardVariant, string> = {
   elevated:
     "rounded-xl border border-border bg-surface-elevated shadow-popover",
 };
+
+/** Reuse card shell styling on `<button>` and other primitives (InteractiveCard shells). */
+export const CARD_SURFACE_CLASSES = variantClasses;
 
 const paddingClasses: Record<CardPadding, string> = {
   none: "",
