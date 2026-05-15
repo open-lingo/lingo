@@ -387,6 +387,7 @@ export function LearnPage() {
   );
 }
 
+export default LearnPage;
 
 /**
  * Floating dev panel — fixed to the bottom-right corner. Shown whenever
