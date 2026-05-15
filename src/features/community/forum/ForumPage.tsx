@@ -14,7 +14,7 @@ import { Badge } from "../components/Badge";
 import { Avatar } from "../components/Avatar";
 import { Tag } from "../components/Tag";
 import { DataTable } from "@/shared/components/data";
-import { useDateFormat } from "@/shared/utils/formatDate";
+import { formatTimeAgo } from "@/shared/utils/formatDate";
 import type { ForumThread } from "./types";
 
 type SortMode = "hot" | "new";
@@ -22,17 +22,7 @@ type SortMode = "hot" | "new";
 export function ForumPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
-  const { formatDateOnly } = useDateFormat();
 
-  function formatTimeAgo(iso: string) {
-    const d = new Date(iso);
-    const now = new Date();
-    const diff = (now.getTime() - d.getTime()) / 60000;
-    if (diff < 60) return "< 1h";
-    if (diff < 1440) return `${Math.floor(diff / 60)}h`;
-    if (diff < 43200) return `${Math.floor(diff / 1440)}d`;
-    return formatDateOnly(iso);
-  }
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [sort, setSort] = useState<SortMode>("hot");
 

@@ -47,6 +47,19 @@ export function formatDateOnly(iso: string, options?: DateFormatOptions): string
   }
 }
 
+/**
+ * Relative time for display (e.g. "just now", "5m ago", "2h ago", "3d ago").
+ * For older dates, consider using formatDateOnly instead or in addition.
+ */
+export function formatTimeAgo(iso: string): string {
+  const sec = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
+  if (sec < 60) return "just now";
+  if (sec < 3600) return `${Math.floor(sec / 60)}m ago`;
+  if (sec < 86400) return `${Math.floor(sec / 3600)}h ago`;
+  if (sec < 43200 * 60) return `${Math.floor(sec / 86400)}d ago`;
+  return formatDateOnly(iso);
+}
+
 /** Hook that returns formatDate/formatDateOnly with locale from settings. */
 export function useDateFormat() {
   const { settings } = useSettings();

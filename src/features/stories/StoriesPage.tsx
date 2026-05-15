@@ -7,6 +7,7 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { TabList, TabButton } from "@/shared/components/ui/Tabs";
 import { useApi } from "@/shared/api/provider";
 import type { StoryResponse } from "@/shared/api/stories";
+import { sortByUpdatedAtDesc } from "@/shared/utils/dateUtils";
 
 type FilterId = "all" | "recent" | "new" | "read";
 
@@ -39,12 +40,7 @@ function filterStories(
   if (filter === "read" || filter === "new") {
     /* read/new filters need progress data — not yet from API */
   }
-  if (filter === "recent")
-    out = out.sort(
-      (a, b) =>
-        new Date(b.updatedAt ?? 0).getTime() -
-        new Date(a.updatedAt ?? 0).getTime()
-    );
+  if (filter === "recent") out = sortByUpdatedAtDesc(out);
   return out;
 }
 

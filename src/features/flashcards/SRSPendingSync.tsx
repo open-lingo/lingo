@@ -3,11 +3,11 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api";
 import { useToast } from "@/shared/contexts/ToastContext";
-import { getDirtyCards, performSync } from "./engine";
+import { getDirtyCards, performSync, hydrateFromServer } from "./engine";
 
 /**
- * Syncs any dirty SRS cards when the user returns to the app (e.g. after closing
- * the tab without waiting for sync). Runs once per mount when authenticated.
+ * On load when authenticated: hydrates local SRS store from the server (so Card Manager
+ * and due counts show correct state after refresh), then syncs any dirty local cards.
  */
 export function SRSPendingSync() {
   const { isAuthenticated } = useAuth();
@@ -19,25 +19,32 @@ export function SRSPendingSync() {
   useEffect(() => {
     if (!isAuthenticated || ranRef.current) return;
 
-    const dirty = getDirtyCards();
-    if (Object.keys(dirty).length === 0) return;
-
     ranRef.current = true;
-    performSync((p) => srs.sync(p))
-      .then((count) => {
-        if (count > 0) {
-          showToast(
-            t("flashcards.syncRestored", {
-              count,
-              defaultValue: "Synced {{count}} cards from previous session",
-            }),
-            "success",
-          );
+
+    (async () => {
+      try {
+        await hydrateFromServer(() => srs.getState());
+      } catch {
+        // Non-fatal: local state may still be usable
+      }
+      try {
+        const dirty = getDirtyCards();
+        if (Object.keys(dirty).length > 0) {
+          const count = await performSync((p) => srs.sync(p));
+          if (count > 0) {
+            showToast(
+              t("flashcards.syncRestored", {
+                count,
+                defaultValue: "Synced {{count}} cards from previous session",
+              }),
+              "success",
+            );
+          }
         }
-      })
-      .catch(() => {
+      } catch {
         ranRef.current = false;
-      });
+      }
+    })();
   }, [isAuthenticated, srs, showToast, t]);
 
   return null;

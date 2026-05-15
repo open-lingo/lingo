@@ -1,7 +1,4 @@
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useApi } from "@/shared/api";
-import { useAuth } from "@/shared/auth/useAuth";
 import {
   buildQueueFromSubscriptions,
   getSRSStore,
@@ -9,6 +6,8 @@ import {
   type DeckWithCards,
   type ReviewQueue,
 } from "./engine";
+import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
+import { useDeckSubscriptions } from "./useDeckSubscriptions";
 
 /** Load subscription-based queue for practice. Uses batch deck fetch. */
 export function useSubscriptionQueue(
@@ -20,35 +19,23 @@ export function useSubscriptionQueue(
   isLoading: boolean;
   error: Error | null;
 } {
-  const { isAuthenticated } = useAuth();
-  const { users, decks: decksApi } = useApi();
+  const {
+    subscriptions: rawSubs,
+    deckResponses,
+    isLoading,
+  } = useDeckSubscriptions();
 
-  const { data: subscriptions = [], isLoading: subsLoading } = useQuery({
-    queryKey: ["users", "subscriptions", "deck"],
-    queryFn: () => users.getSubscriptions({ contentType: "deck" }),
-    enabled: isAuthenticated,
-    select: (list) =>
-      list
-        .filter((s) => s.enabled !== false)
-        .map(
-          (s): DeckSubscription => ({
-            contentId: s.contentId,
-            newCardsPerDay: s.newCardsPerDay ?? 5,
-            newCardOrder: (s.newCardOrder as "ordered" | "shuffled") ?? "ordered",
-          })
-        ),
-  });
-
-  const deckIds = useMemo(
-    () => subscriptions.map((s) => s.contentId),
-    [subscriptions]
-  );
-
-  const { data: deckResponses = [], isLoading: decksLoading } = useQuery({
-    queryKey: ["decks", "batch", deckIds],
-    queryFn: () => decksApi.getDecksBatch(deckIds),
-    enabled: isAuthenticated && deckIds.length > 0,
-  });
+  const subscriptions = useMemo((): DeckSubscription[] => {
+    return rawSubs
+      .filter((s) => s.enabled !== false)
+      .map(
+        (s): DeckSubscription => ({
+          contentId: s.contentId,
+          newCardsPerDay: s.newCardsPerDay ?? 5,
+          newCardOrder: (s.newCardOrder as "ordered" | "shuffled") ?? "ordered",
+        })
+      );
+  }, [rawSubs]);
 
   const decks = useMemo((): DeckWithCards[] => {
     return deckResponses
@@ -65,16 +52,17 @@ export function useSubscriptionQueue(
     return subscriptions.filter((s) => deckIdSet.has(s.contentId));
   }, [subscriptions, decks]);
 
+  const srsRevision = useSRSStoreRevision();
   const queue = useMemo((): ReviewQueue | null => {
     if (activeSubs.length === 0 || decks.length === 0) return null;
     const srsStore = getSRSStore();
     return buildQueueFromSubscriptions(activeSubs, decks, srsStore);
-  }, [activeSubs, decks, queueVersion]);
+  }, [activeSubs, decks, queueVersion, srsRevision]);
 
   return {
     queue,
     decks,
-    isLoading: subsLoading || decksLoading,
+    isLoading,
     error: null,
   };
 }

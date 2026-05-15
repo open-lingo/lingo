@@ -6,6 +6,7 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { buildReviewQueue } from "./engine";
+import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { useSubscribedDecks } from "./useSubscribedDecks";
 import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
 import { CommunityItemCard } from "@/features/community/components/CommunityItemCard";
@@ -139,6 +140,7 @@ export function FlashcardsPage() {
 
   const { subscribedDecks, isLoading: cardsDueLoading, invalidate } =
     useSubscribedDecks();
+  const srsRevision = useSRSStoreRevision();
 
   const handleSubscriptionChange = useMemo(() => invalidate, [invalidate]);
 
@@ -171,7 +173,7 @@ export function FlashcardsPage() {
         courseDecks: decks,
         communityPacksWithDecks: packs,
       };
-    }, [subscribedDecks, langId]);
+    }, [subscribedDecks, langId, srsRevision]);
 
   const languageName = getLanguageConfig(langId)?.name ?? langId;
 

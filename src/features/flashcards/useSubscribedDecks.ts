@@ -1,9 +1,7 @@
 import { useMemo } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useApi } from "@/shared/api";
-import { useAuth } from "@/shared/auth/useAuth";
 import type { DeckResponse } from "@/shared/api/decks";
 import type { CommunityAddon } from "@/features/community/types";
+import { useDeckSubscriptions } from "./useDeckSubscriptions";
 
 function deckResponseToAddon(d: DeckResponse): CommunityAddon {
   return {
@@ -21,28 +19,9 @@ function deckResponseToAddon(d: DeckResponse): CommunityAddon {
   };
 }
 
-/** Cached subscribed decks (deck + addon pairs). Shares cache with useSubscriptionQueue, useDeckManagerData. */
+/** Cached subscribed decks (deck + addon pairs). Shares cache with useDeckSubscriptions. */
 export function useSubscribedDecks() {
-  const { isAuthenticated } = useAuth();
-  const { users, decks: decksApi } = useApi();
-  const queryClient = useQueryClient();
-
-  const { data: subscriptions = [], isLoading: subsLoading } = useQuery({
-    queryKey: ["users", "subscriptions", "deck"],
-    queryFn: () => users.getSubscriptions({ contentType: "deck" }),
-    enabled: isAuthenticated,
-  });
-
-  const deckIds = useMemo(
-    () => subscriptions.map((s) => s.contentId),
-    [subscriptions]
-  );
-
-  const { data: deckResponses = [], isLoading: decksLoading } = useQuery({
-    queryKey: ["decks", "batch", deckIds],
-    queryFn: () => decksApi.getDecksBatch(deckIds),
-    enabled: isAuthenticated && deckIds.length > 0,
-  });
+  const { deckResponses, isLoading, invalidate } = useDeckSubscriptions();
 
   const subscribedDecks = useMemo(
     (): { deck: DeckResponse; addon: CommunityAddon }[] =>
@@ -50,14 +29,9 @@ export function useSubscribedDecks() {
     [deckResponses]
   );
 
-  const invalidate = () => {
-    queryClient.invalidateQueries({ queryKey: ["users", "subscriptions", "deck"] });
-    queryClient.invalidateQueries({ queryKey: ["decks", "batch"] });
-  };
-
   return {
     subscribedDecks,
-    isLoading: subsLoading || decksLoading,
+    isLoading,
     invalidate,
   };
 }

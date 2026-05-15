@@ -389,7 +389,36 @@ export function FlashcardTester() {
         </p>
       </button>
 
-      {/* Extra info */}
+      {/* Rating buttons (only when flipped) – above detail so layout doesn't shift */}
+      {flipped ? (
+        <div className="grid grid-cols-4 gap-2">
+          {RATING_BUTTONS.map(({ rating, label, color }) => (
+            <button
+              key={rating}
+              type="button"
+              onClick={() => handleRate(rating)}
+              className={`flex flex-col items-center gap-0.5 rounded-xl px-3 py-3 text-sm font-semibold transition ${color}`}
+            >
+              {label}
+              <IntervalHint
+                cardId={currentCard.id}
+                rating={rating}
+                defaultEase={cardIdToDefaultEase?.[currentCard.id]}
+              />
+            </button>
+          ))}
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setFlipped(true)}
+          className="w-full rounded-xl bg-accent px-6 py-3 text-base font-semibold text-white transition hover:bg-accent-hover"
+        >
+          {t("flashcards.showAnswer", "Show Answer")}
+        </button>
+      )}
+
+      {/* Detail / explanation below buttons so they don't move when content appears */}
       {flipped &&
         (currentCard.note ||
           currentCard.reasoning ||
@@ -452,35 +481,6 @@ export function FlashcardTester() {
             )}
           </div>
         )}
-
-      {/* Rating buttons (only when flipped) */}
-      {flipped ? (
-        <div className="grid grid-cols-4 gap-2">
-          {RATING_BUTTONS.map(({ rating, label, color }) => (
-            <button
-              key={rating}
-              type="button"
-              onClick={() => handleRate(rating)}
-              className={`flex flex-col items-center gap-0.5 rounded-xl px-3 py-3 text-sm font-semibold transition ${color}`}
-            >
-              {label}
-              <IntervalHint
-                cardId={currentCard.id}
-                rating={rating}
-                defaultEase={cardIdToDefaultEase?.[currentCard.id]}
-              />
-            </button>
-          ))}
-        </div>
-      ) : (
-        <button
-          type="button"
-          onClick={() => setFlipped(true)}
-          className="w-full rounded-xl bg-accent px-6 py-3 text-base font-semibold text-white transition hover:bg-accent-hover"
-        >
-          {t("flashcards.showAnswer", "Show Answer")}
-        </button>
-      )}
 
         {/* Floating counts widget */}
         <div

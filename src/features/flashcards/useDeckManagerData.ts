@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useApi } from "@/shared/api";
-import { useAuth } from "@/shared/auth/useAuth";
 import type { Subscription } from "@/shared/api/users";
+import { useDeckSubscriptions } from "./useDeckSubscriptions";
 
 export type ManagedDeck = {
   id: string;
@@ -13,34 +12,20 @@ export type ManagedDeck = {
 };
 
 export function useDeckManagerData(languageId: string) {
-  const { isAuthenticated } = useAuth();
-  const { users, decks: decksApi } = useApi();
-  const queryClient = useQueryClient();
-
-  const { data: subscriptions = [], isLoading: subsLoading } = useQuery({
-    queryKey: ["users", "subscriptions", "deck"],
-    queryFn: () => users.getSubscriptions({ contentType: "deck" }),
-    enabled: isAuthenticated,
-  });
-
-  const deckIds = useMemo(
-    () => subscriptions.map((s) => s.contentId),
-    [subscriptions]
-  );
-
-  const { data: deckResponses = [], isLoading: decksLoading } = useQuery({
-    queryKey: ["decks", "batch", deckIds],
-    queryFn: () => decksApi.getDecksBatch(deckIds),
-    enabled: isAuthenticated && deckIds.length > 0,
-  });
+  const { users } = useApi();
+  const {
+    subscriptions,
+    deckResponses,
+    isLoading,
+    isAuthenticated,
+    invalidate,
+  } = useDeckSubscriptions();
 
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const decks = useMemo((): ManagedDeck[] => {
     const byLang = deckResponses.filter((d) => d.languageId === languageId);
-    const subByContent = new Map(
-      subscriptions.map((s) => [s.contentId, s])
-    );
+    const subByContent = new Map(subscriptions.map((s) => [s.contentId, s]));
     return byLang.map((d) => ({
       id: d.id,
       name: d.name,
@@ -52,7 +37,7 @@ export function useDeckManagerData(languageId: string) {
 
   const refresh = () => {
     setRefreshTrigger((c) => c + 1);
-    queryClient.invalidateQueries({ queryKey: ["users", "subscriptions", "deck"] });
+    invalidate();
   };
 
   const updateSubscription = async (
@@ -65,7 +50,7 @@ export function useDeckManagerData(languageId: string) {
 
   return {
     decks,
-    isLoading: subsLoading || decksLoading,
+    isLoading,
     refresh,
     updateSubscription,
     isAuthenticated: !!isAuthenticated,

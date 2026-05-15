@@ -7,6 +7,7 @@ import { getExternalContent } from "./mockExternalContent";
 import { parseUrlPlatform, PLATFORM_ICON_NAMES } from "./parseUrlPlatform";
 import { CONTENT_TYPE_ICONS } from "./contentTypeIcons";
 import { useExternalContentSubscriptions } from "./useExternalContentSubscriptions";
+import { sortByCreatedAtDesc } from "@/shared/utils/dateUtils";
 import type {
   ExternalContentItem,
   ExternalContentType,
@@ -200,10 +201,7 @@ export function ExternalContentPage() {
     });
 
     if (sortBy === "newest") {
-      list = [...list].sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
+      list = sortByCreatedAtDesc(list);
     } else if (sortBy === "upvotes") {
       list = [...list].sort((a, b) => b.upvoteCount - a.upvoteCount);
     } else if (sortBy === "az") {

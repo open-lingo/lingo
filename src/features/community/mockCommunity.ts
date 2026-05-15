@@ -1,3 +1,4 @@
+import { sortByUpdatedAtDesc } from "@/shared/utils/dateUtils";
 import type { CommunityAddon, OfficialCourseInfo, CourseRevision } from "./types";
 
 /** Official courses with revision info. Mock data until API exists. */
@@ -151,9 +152,9 @@ export function getTrendingCardPacks(languageId: string): CommunityAddon[] {
 
 /** New stories for a language (by updatedAt). */
 export function getNewStories(languageId: string): CommunityAddon[] {
-  return MOCK_ADDONS.filter((a) => a.kind === "story" && a.languageId === languageId)
-    .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
-    .slice(0, 4);
+  return sortByUpdatedAtDesc(
+    MOCK_ADDONS.filter((a) => a.kind === "story" && a.languageId === languageId)
+  ).slice(0, 4);
 }
 
 export function getOfficialCoursesByLanguage(languageId: string): OfficialCourseInfo[] {

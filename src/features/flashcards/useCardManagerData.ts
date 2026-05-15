@@ -1,7 +1,5 @@
 import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useApi } from "@/shared/api";
-import { useAuth } from "@/shared/auth/useAuth";
 import {
   getSRSStore,
   isDue,
@@ -14,7 +12,9 @@ import {
   createInitialState,
   performSync,
 } from "./engine";
-import { setSRSStore } from "./engine/srsStorage";
+import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
+import { notifySRSStoreChanged } from "./SRSStoreRevisionContext";
+import { useDeckSubscriptions } from "./useDeckSubscriptions";
 import type { Flashcard, SRSCardState } from "./data/types";
 
 export type ManagedCard = {
@@ -27,27 +27,11 @@ export type ManagedCard = {
 
 /** Load all cards for Card Manager (subscribed decks + mock fallback), with SRS state. */
 export function useCardManagerData(languageId: string) {
-  const { isAuthenticated } = useAuth();
-  const { users, decks: decksApi, srs } = useApi();
-
-  const { data: subscriptions = [], isLoading: subsLoading } = useQuery({
-    queryKey: ["users", "subscriptions", "deck"],
-    queryFn: () => users.getSubscriptions({ contentType: "deck" }),
-    enabled: isAuthenticated,
-  });
-
-  const deckIds = useMemo(
-    () => subscriptions.map((s) => s.contentId),
-    [subscriptions]
-  );
-
-  const { data: deckResponses = [], isLoading: decksLoading } = useQuery({
-    queryKey: ["decks", "batch", deckIds],
-    queryFn: () => decksApi.getDecksBatch(deckIds),
-    enabled: isAuthenticated && deckIds.length > 0,
-  });
+  const { srs } = useApi();
+  const { deckResponses, isLoading, isAuthenticated } = useDeckSubscriptions();
 
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const srsRevision = useSRSStoreRevision();
 
   const { cards, decks } = useMemo(() => {
     const srsStore = getSRSStore();
@@ -83,6 +67,7 @@ export function useCardManagerData(languageId: string) {
     deckResponses,
     languageId,
     refreshTrigger,
+    srsRevision,
   ]);
 
   const refresh = () => setRefreshTrigger((c) => c + 1);
@@ -94,6 +79,7 @@ export function useCardManagerData(languageId: string) {
       ? { ...state, dueDate: newDueDate, lastSyncedAt: undefined }
       : { ...createInitialState(), dueDate: newDueDate, lastSyncedAt: undefined };
     setCardState(cardId, next);
+    notifySRSStoreChanged();
     refresh();
   };
 
@@ -102,6 +88,7 @@ export function useCardManagerData(languageId: string) {
     const state = store[cardId];
     if (state) {
       setCardState(cardId, { ...buryCard(state), lastSyncedAt: undefined });
+      notifySRSStoreChanged();
       refresh();
     } else {
       const tomorrow = addDays(getToday(), 1);
@@ -113,6 +100,7 @@ export function useCardManagerData(languageId: string) {
         lastReviewDate: getToday(),
         buriedUntil: tomorrow,
       });
+      notifySRSStoreChanged();
       refresh();
     }
   };
@@ -122,14 +110,14 @@ export function useCardManagerData(languageId: string) {
     const state = store[cardId];
     if (state && state.buriedUntil) {
       setCardState(cardId, { ...unburyCard(state), lastSyncedAt: undefined });
+      notifySRSStoreChanged();
       refresh();
     }
   };
 
   const handleReset = (cardId: string) => {
-    const store = getSRSStore();
-    delete store[cardId];
-    setSRSStore(store);
+    setCardState(cardId, { ...createInitialState(), lastSyncedAt: undefined });
+    notifySRSStoreChanged();
     refresh();
   };
 
@@ -143,7 +131,7 @@ export function useCardManagerData(languageId: string) {
   return {
     cards,
     decks,
-    isLoading: subsLoading || decksLoading,
+    isLoading,
     refresh,
     updateDueDate,
     handleBury,

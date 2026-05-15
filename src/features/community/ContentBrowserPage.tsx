@@ -13,6 +13,7 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { TabList, TabButton } from "@/shared/components/ui/Tabs";
 import { useApi } from "@/shared/api/provider";
 import type { DeckResponse } from "@/shared/api/decks";
+import { sortByUpdatedAtDesc } from "@/shared/utils/dateUtils";
 import type { StoryResponse } from "@/shared/api/stories";
 import type { FlashcardDeck } from "@/features/flashcards/data/types";
 import type { CommunityAddon } from "./types";
@@ -317,9 +318,7 @@ export function ContentBrowserPage() {
     const effectiveSort =
       discoverFilter === "trending" ? "upvotes" : discoverFilter === "new" ? "newest" : sortBy;
     if (effectiveSort === "newest") {
-      list = [...list].sort(
-        (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-      );
+      list = sortByUpdatedAtDesc(list);
     } else if (effectiveSort === "upvotes") {
       list = [...list].sort((a, b) => (b.upvoteCount ?? 0) - (a.upvoteCount ?? 0));
     } else if (effectiveSort === "name") {

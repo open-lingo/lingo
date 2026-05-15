@@ -1,4 +1,5 @@
 import type { SRSCardState } from "../data/types";
+import { notifySRSStoreChanged } from "../SRSStoreRevisionContext";
 import { getSRSStore, setSRSStore, setLastSrsSyncAt } from "./srsStorage";
 import type { SRSStore } from "./srsStorage";
 
@@ -37,17 +38,34 @@ export function markSynced(cardIds: string[]): void {
 }
 
 /**
+ * True if state looks like an explicit reset (new/forgotten card).
+ */
+function isResetState(state: SRSCardState): boolean {
+  return state.interval === 0 && state.repetitions === 0;
+}
+
+/**
  * Merge server state into local store.
  * Server wins for cards where server lastReviewDate > local lastReviewDate.
  * Local wins otherwise (user reviewed while offline).
+ * Local reset (interval 0, repetitions 0) is never overwritten by server
+ * "learned" state so that resets persist even with clock skew or failed sync.
  */
 export function mergeServerState(serverState: SRSStore): void {
   const local = getSRSStore();
+  const now = new Date().toISOString();
 
   for (const [cardId, serverCard] of Object.entries(serverState)) {
     const localCard = local[cardId];
-    if (!localCard || serverCard.lastReviewDate > localCard.lastReviewDate) {
-      local[cardId] = { ...serverCard, lastSyncedAt: new Date().toISOString() };
+    const serverIsNewer =
+      !localCard || serverCard.lastReviewDate > localCard.lastReviewDate;
+    const localIsReset = localCard && isResetState(localCard);
+    const serverIsLearned =
+      serverCard.interval > 0 || serverCard.repetitions > 0;
+    const keepLocalReset = localIsReset && serverIsLearned;
+
+    if (serverIsNewer && !keepLocalReset) {
+      local[cardId] = { ...serverCard, lastSyncedAt: now };
     }
   }
 
@@ -71,6 +89,20 @@ export function buildSyncPayload(): SyncPayload {
 }
 
 /**
+ * Hydrate local SRS store from the server (e.g. on app load after refresh).
+ * Call when authenticated so Card Manager and due counts show server state.
+ */
+export async function hydrateFromServer(
+  getStateFn: () => Promise<SRSStore>,
+): Promise<void> {
+  const serverState = await getStateFn();
+  if (serverState && Object.keys(serverState).length > 0) {
+    mergeServerState(serverState);
+    notifySRSStoreChanged();
+  }
+}
+
+/**
  * Perform a full sync cycle (call with your API function).
  *
  * Usage:
@@ -91,12 +123,16 @@ export async function performSync(
   if (dirtyIds.length === 0) return 0;
 
   const serverState = await syncFn(payload);
-  markSynced(dirtyIds);
-  setLastSrsSyncAt(new Date().toISOString());
 
+  // Only mark as synced and merge when the server actually returned state.
+  // If sync fails (e.g. 404/501), we get {} and should not mark synced so
+  // the user can retry and the card stays dirty.
   if (serverState && Object.keys(serverState).length > 0) {
+    markSynced(dirtyIds);
+    setLastSrsSyncAt(new Date().toISOString());
     mergeServerState(serverState);
   }
 
+  notifySRSStoreChanged();
   return dirtyIds.length;
 }

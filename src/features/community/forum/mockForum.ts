@@ -1,3 +1,4 @@
+import { sortByCreatedAtAsc } from "@/shared/utils/dateUtils";
 import type { ForumCategory, ForumTag, ForumThread, ForumPost, TopContributor } from "./types";
 
 export const FORUM_CATEGORIES: ForumCategory[] = [
@@ -181,8 +182,9 @@ export function getThreadById(id: string): ForumThread | undefined {
 }
 
 export function getPostsByThreadId(threadId: string): ForumPost[] {
-  return MOCK_POSTS.filter((p) => p.threadId === threadId)
-    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  return sortByCreatedAtAsc(
+    MOCK_POSTS.filter((p) => p.threadId === threadId)
+  );
 }
 
 export function getTagById(id: string): ForumTag | undefined {
