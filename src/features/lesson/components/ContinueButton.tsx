@@ -23,7 +23,7 @@ export function ContinueButton({ onClick, label, disabled, variant = "primary" }
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={`mt-auto w-full rounded-xl px-6 py-3 text-base font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${variantStyles[variant]}`}
+      className={`w-full rounded-xl px-6 py-3 text-base font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${variantStyles[variant]}`}
     >
       {label ?? t("lesson.continue", "Continue")}
     </button>

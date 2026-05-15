@@ -1,7 +1,7 @@
-import { useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import type { MatchPairsStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
-import { Feedback } from "../Feedback";
+import { AnnotatedJa } from "@/shared/japanese";
 
 type Props = {
   step: MatchPairsStep;
@@ -9,118 +9,184 @@ type Props = {
   onContinue: () => void;
 };
 
-type MatchState = "idle" | "selected" | "matched" | "wrong";
+/**
+ * Sub-state per tile, so we can drive the visual feedback purely from a
+ * single source of truth.
+ */
+type TileState = "idle" | "selected" | "matched" | "wrong";
 
+/**
+ * Match Pairs — Duolingo-style. No Check button:
+ *
+ * - The learner taps a source OR a target first (bidirectional).
+ * - Tapping the opposite column commits the pair. Correct stays green and
+ *   locks; wrong shakes red ~500ms then clears selection.
+ * - Step auto-completes when all pairs are matched. Continue replaces the
+ *   grid in the same vertical slot (no layout jump).
+ *
+ * Mistake count is tracked for an optional `incorrect` Continue variant.
+ * Reach into `MatchPairsStep` for the pair IDs; pairs share an `id` across
+ * source/target so we don't need a second join field.
+ */
 export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
-  const [selectedSource, setSelectedSource] = useState<string | null>(null);
   const [matched, setMatched] = useState<Set<string>>(new Set());
-  const [wrongPair, setWrongPair] = useState<{ source: string; target: string } | null>(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [selected, setSelected] = useState<
+    | { side: "source" | "target"; pairId: string }
+    | null
+  >(null);
+  const [wrong, setWrong] = useState<{
+    source: string | null;
+    target: string | null;
+  }>({ source: null, target: null });
   const [mistakes, setMistakes] = useState(0);
 
   const allMatched = matched.size === step.pairs.length;
 
-  const handleSourceClick = useCallback(
-    (pairId: string) => {
-      if (submitted || matched.has(pairId)) return;
-      setWrongPair(null);
-      setSelectedSource((prev) => (prev === pairId ? null : pairId));
-    },
-    [submitted, matched],
-  );
+  // Auto-complete once everything is matched. Single onComplete + a beat
+  // before Continue surfaces, so the green flash is visible.
+  useEffect(() => {
+    if (allMatched) onComplete(step.id, mistakes === 0);
+  }, [allMatched, mistakes, onComplete, step.id]);
 
-  const handleTargetClick = useCallback(
-    (pairId: string) => {
-      if (submitted || !selectedSource || matched.has(pairId)) return;
-
-      if (selectedSource === pairId) {
-        setMatched((prev) => new Set([...prev, pairId]));
-        setSelectedSource(null);
-        setWrongPair(null);
-      } else {
-        setWrongPair({ source: selectedSource, target: pairId });
-        setMistakes((m) => m + 1);
-        setTimeout(() => {
-          setWrongPair(null);
-          setSelectedSource(null);
-        }, 600);
-      }
-    },
-    [submitted, selectedSource, matched],
-  );
-
-  function handleSubmit() {
-    setSubmitted(true);
-    onComplete(step.id, mistakes === 0);
+  function attemptPair(a: { side: string; pairId: string }, b: { side: string; pairId: string }) {
+    if (a.pairId === b.pairId) {
+      setMatched((prev) => new Set([...prev, a.pairId]));
+      setSelected(null);
+      setWrong({ source: null, target: null });
+      return;
+    }
+    // Visual shake on both sides for ~500ms, then clear selection.
+    setWrong({
+      source: a.side === "source" ? a.pairId : b.pairId,
+      target: a.side === "target" ? a.pairId : b.pairId,
+    });
+    setMistakes((m) => m + 1);
+    setTimeout(() => {
+      setWrong({ source: null, target: null });
+      setSelected(null);
+    }, 520);
   }
 
-  function getSourceState(pairId: string): MatchState {
+  function handleClick(side: "source" | "target", pairId: string) {
+    if (allMatched || matched.has(pairId)) return;
+    if (!selected) {
+      setSelected({ side, pairId });
+      return;
+    }
+    if (selected.side === side) {
+      // Same column re-tap — just move the selection.
+      setSelected({ side, pairId });
+      return;
+    }
+    attemptPair(selected, { side, pairId });
+  }
+
+  function tileState(side: "source" | "target", pairId: string): TileState {
     if (matched.has(pairId)) return "matched";
-    if (wrongPair?.source === pairId) return "wrong";
-    if (selectedSource === pairId) return "selected";
+    if (side === "source" && wrong.source === pairId) return "wrong";
+    if (side === "target" && wrong.target === pairId) return "wrong";
+    if (selected && selected.side === side && selected.pairId === pairId)
+      return "selected";
     return "idle";
   }
 
-  function getTargetState(pairId: string): MatchState {
-    if (matched.has(pairId)) return "matched";
-    if (wrongPair?.target === pairId) return "wrong";
-    return "idle";
-  }
-
-  const stateStyles: Record<MatchState, string> = {
-    idle: "border-gray-200 bg-white hover:border-emerald-300 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-emerald-600",
-    selected: "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-500/30 dark:border-emerald-500 dark:bg-emerald-900/20",
-    matched: "border-emerald-400 bg-emerald-50 opacity-60 dark:border-emerald-600 dark:bg-emerald-900/20",
-    wrong: "border-red-500 bg-red-50 dark:border-red-500 dark:bg-red-900/20",
+  const stateStyles: Record<TileState, string> = {
+    idle:
+      "border-gray-200 bg-white hover:border-emerald-300 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-emerald-600",
+    selected:
+      "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-500/30 dark:border-emerald-500 dark:bg-emerald-900/20",
+    matched:
+      "border-emerald-400 bg-emerald-50 opacity-60 dark:border-emerald-600 dark:bg-emerald-900/20",
+    wrong:
+      "motion-safe:animate-shake border-red-500 bg-red-50 dark:border-red-500 dark:bg-red-900/20",
   };
+
+  // Equal-height rows for both columns: declare a single grid that owns both
+  // sides. `grid-rows-[repeat(n,minmax(0,1fr))]` keeps row heights synced.
+  const rows = step.pairs.length;
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
         {step.prompt}
       </h2>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="flex flex-col gap-2">
-          {step.pairs.map((pair) => (
-            <button
-              key={pair.id}
-              type="button"
-              disabled={submitted || matched.has(pair.id)}
-              onClick={() => handleSourceClick(pair.id)}
-              className={`rounded-xl border-2 px-4 py-3 text-left text-sm font-medium transition ${stateStyles[getSourceState(pair.id)]}`}
-            >
-              {pair.source}
-            </button>
-          ))}
-        </div>
-        <div className="flex flex-col gap-2">
-          {step.pairs.map((pair) => (
-            <button
-              key={pair.id}
-              type="button"
-              disabled={submitted || matched.has(pair.id) || !selectedSource}
-              onClick={() => handleTargetClick(pair.id)}
-              className={`rounded-xl border-2 px-4 py-3 text-left text-sm font-medium transition ${stateStyles[getTargetState(pair.id)]}`}
-            >
-              {pair.target}
-            </button>
-          ))}
-        </div>
+      <div
+        className="grid grid-cols-2 gap-3 sm:gap-4"
+        style={{ gridTemplateRows: `repeat(${rows}, minmax(64px, auto))` }}
+      >
+        {/* Render row-by-row so the auto-rows lock both columns to the same
+         *  height per row even when the kana side has a ruby helper. */}
+        {step.pairs.map((pair, idx) => (
+          <SourceTile
+            key={`s-${pair.id}`}
+            pair={pair}
+            style={stateStyles[tileState("source", pair.id)]}
+            disabled={matched.has(pair.id) || allMatched}
+            onClick={() => handleClick("source", pair.id)}
+            row={idx + 1}
+          />
+        ))}
+        {step.pairs.map((pair, idx) => (
+          <TargetTile
+            key={`t-${pair.id}`}
+            pair={pair}
+            style={stateStyles[tileState("target", pair.id)]}
+            disabled={matched.has(pair.id) || allMatched}
+            onClick={() => handleClick("target", pair.id)}
+            row={idx + 1}
+          />
+        ))}
       </div>
 
-      {submitted && (
-        <Feedback correct={mistakes === 0} explanation={mistakes > 0 ? `${mistakes} mistake${mistakes > 1 ? "s" : ""}` : undefined} />
+      {allMatched && (
+        <div className="motion-safe:animate-fade-up">
+          <ContinueButton
+            onClick={onContinue}
+            variant={mistakes === 0 ? "correct" : "incorrect"}
+          />
+        </div>
       )}
-
-      {!submitted && allMatched ? (
-        <ContinueButton onClick={handleSubmit} label="Check" />
-      ) : submitted ? (
-        <ContinueButton
-          onClick={onContinue}
-          variant={mistakes === 0 ? "correct" : "incorrect"}
-        />
-      ) : null}
     </div>
+  );
+}
+
+type TileProps = {
+  pair: MatchPairsStep["pairs"][number];
+  style: string;
+  disabled: boolean;
+  onClick: () => void;
+  row: number;
+};
+
+function SourceTile({ pair, style, disabled, onClick, row }: TileProps) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={onClick}
+      style={{ gridColumn: 1, gridRow: row }}
+      className={`flex w-full items-center justify-start rounded-xl border-2 px-4 py-3 text-base font-medium transition ${style}`}
+    >
+      {pair.sourceAnnotation ? (
+        <AnnotatedJa segments={pair.sourceAnnotation} />
+      ) : (
+        <AnnotatedJa text={pair.source} />
+      )}
+    </button>
+  );
+}
+
+function TargetTile({ pair, style, disabled, onClick, row }: TileProps) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={onClick}
+      style={{ gridColumn: 2, gridRow: row }}
+      className={`flex w-full items-center justify-start rounded-xl border-2 px-4 py-3 text-base font-medium transition ${style}`}
+    >
+      {pair.target}
+    </button>
   );
 }

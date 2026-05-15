@@ -1,4 +1,5 @@
 import type { CardSegment } from "@/features/flashcards/data/types";
+import type { JapaneseAnnotation } from "@/shared/japanese/types";
 
 export type StepType =
   | "info"
@@ -37,6 +38,7 @@ export type TeachVocab = {
   audioKey?: string;
   imageKey?: string;
   breakdown?: CardSegment[];
+  annotation?: JapaneseAnnotation[];
 };
 
 export type TeachStep = StepBase & {
@@ -62,6 +64,20 @@ export type MultipleChoiceStep = StepBase & {
   options: Option[];
   correctOptionId: string;
   explanation?: string;
+  promptAnnotation?: JapaneseAnnotation[];
+  optionAnnotations?: (JapaneseAnnotation[] | undefined)[];
+  /**
+   * When set, looks up TTS for this phrase via the JA manifest and auto-plays
+   * 500ms after mount. Used for prompt-audio-driven drills (e.g. "you hear
+   * 'mizu' — which kana starts it?").
+   */
+  promptAudioText?: string;
+  /**
+   * When true, hides the prompt text and renders a large Play button instead.
+   * Forces an audio-first recognition mode where the learner must listen
+   * before choosing. Pairs with `promptAudioText`.
+   */
+  audioOnlyPrompt?: boolean;
 };
 
 export type BuildSentenceStep = StepBase & {
@@ -72,12 +88,14 @@ export type BuildSentenceStep = StepBase & {
   correctOrder: string[];
   audioKey?: string;
   granularity: "word" | "character";
+  targetAnnotation?: JapaneseAnnotation[];
 };
 
 export type MatchPair = {
   id: string;
   source: string;
   target: string;
+  sourceAnnotation?: JapaneseAnnotation[];
 };
 
 export type MatchPairsStep = StepBase & {
@@ -97,6 +115,7 @@ export type FillBlankStep = StepBase & {
   sentence: string;
   blanks: Blank[];
   wordBank?: string[];
+  sentenceAnnotation?: JapaneseAnnotation[];
 };
 
 export type TranslateStep = StepBase & {
@@ -105,6 +124,7 @@ export type TranslateStep = StepBase & {
   sourceLanguage: "target" | "native";
   acceptedAnswers: string[];
   audioKey?: string;
+  sourceAnnotation?: JapaneseAnnotation[];
 };
 
 export type ListeningComprehensionStep = StepBase & {
@@ -115,6 +135,7 @@ export type ListeningComprehensionStep = StepBase & {
   options: Option[];
   correctOptionId: string;
   explanation?: string;
+  transcriptAnnotation?: JapaneseAnnotation[];
 };
 
 export type ListeningBuildStep = StepBase & {
@@ -125,6 +146,7 @@ export type ListeningBuildStep = StepBase & {
   tiles: string[];
   correctOrder: string[];
   granularity: "word" | "character";
+  targetAnnotation?: JapaneseAnnotation[];
 };
 
 export type SpeakingStep = StepBase & {
@@ -133,16 +155,29 @@ export type SpeakingStep = StepBase & {
   translation: string;
   audioKey?: string;
   stubbed: true;
+  targetAnnotation?: JapaneseAnnotation[];
 };
 
-/** Payload for alphabet steps: symbol + IPA, hint, optional note/example/audio */
+/** Payload for alphabet steps.
+ *
+ *  - `romanization`: the user-facing pronunciation (romaji for kana, Revised
+ *    Romanization for Hangul, the letter itself for Latin). This is what's
+ *    shown to the learner.
+ *  - `ipa`: technical phonetic notation — retained for completeness but not
+ *    surfaced in the default UI; normal users shouldn't need to read IPA.
+ *  - `scriptId`/`hasStrokeOrder`: see {@link SymbolReference} and
+ *    `AlphabetDef.hasStrokeOrder`.
+ */
 export type SymbolStepPayload = {
   symbol: string;
+  romanization: string;
   ipa: string;
   hint: string;
   note?: string;
   example?: string;
   audioKey?: string;
+  scriptId?: string;
+  hasStrokeOrder?: boolean;
 };
 
 export type SymbolIntroStep = StepBase & {
@@ -156,6 +191,12 @@ export type SymbolTraceStep = StepBase & {
   /** Show faded guide (true) or blank canvas (production) */
   showGuide: boolean;
   minCorrectAttempts: number;
+  /**
+   * Passes already credited to this letter from previous sessions. Used to
+   * pre-fill the in-step progress so resumed lessons don't re-require the
+   * full minCorrectAttempts when partial trace progress was persisted.
+   */
+  initialCorrectCount?: number;
 };
 
 export type SymbolRecognitionStep = StepBase & {

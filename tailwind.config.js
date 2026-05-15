@@ -40,6 +40,22 @@ export default {
         card: "var(--shadow-card)",
         popover: "var(--shadow-popover)",
       },
+      keyframes: {
+        riseCelebrate: {
+          "0%":   { opacity: "0", transform: "translateY(12px) scale(0.95)" },
+          "15%":  { opacity: "1", transform: "translateY(0)    scale(1)"    },
+          "70%":  { opacity: "1", transform: "translateY(-2px) scale(1)"    },
+          "100%": { opacity: "0", transform: "translateY(-16px) scale(0.98)" },
+        },
+        fadeUp: {
+          "0%":   { opacity: "0", transform: "translateY(6px)" },
+          "100%": { opacity: "1", transform: "translateY(0)"   },
+        },
+      },
+      animation: {
+        "rise-celebrate": "riseCelebrate 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "fade-up":        "fadeUp 320ms cubic-bezier(0.16, 1, 0.3, 1) both",
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],

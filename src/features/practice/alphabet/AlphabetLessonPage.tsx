@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
@@ -10,6 +10,7 @@ import { LessonProgressBar } from "@/features/lesson/components/LessonProgressBa
 import { LessonComplete } from "@/features/lesson/components/LessonComplete";
 import {
   getOrCreateProgress,
+  getLetterProgress,
   updateLetterProgress,
   markSectionTestPassed,
   markFullTestPassed,
@@ -20,6 +21,11 @@ import {
   buildAlphabetTestSteps,
   getAlphabetSessionTitle,
 } from "./alphabetSession";
+import {
+  loadStoredSession,
+  saveStoredSession,
+  clearStoredSession,
+} from "./alphabetSessionStorage";
 
 import type { InfoStep } from "@/features/lesson/types";
 import { logAlphabetEvent } from "./alphabetAnalytics";
@@ -182,8 +188,36 @@ export function AlphabetLessonPage() {
 
   const [reviewSymbols, setReviewSymbols] = useState<string[] | null>(null);
   const [inReviewRound, setInReviewRound] = useState(false);
+  // First-load resume snapshot. When set, the lesson uses these exact steps
+  // instead of rebuilding. Cleared once the user transitions to a review
+  // round (we then rebuild from the review-mode path).
+  const [restoredSteps, setRestoredSteps] = useState<LessonStep[] | null>(null);
+  // One-shot guard: try to restore from localStorage exactly once after the
+  // language + alphabet are resolved. Avoids loops + double-restoration.
+  const restoreAttemptedRef = useRef(false);
+
+  useEffect(() => {
+    if (restoreAttemptedRef.current) return;
+    if (!language || !alphabetId) return;
+    restoreAttemptedRef.current = true;
+    const stored = loadStoredSession(
+      language.id,
+      alphabetId,
+      sectionId ?? null,
+      mode,
+    );
+    if (!stored) return;
+    setRestoredSteps(stored.steps);
+    setCurrentStepIdx(stored.currentStepIdx);
+    setResults(stored.results);
+    setReviewSymbols(
+      stored.reviewSymbols.length > 0 ? stored.reviewSymbols : null,
+    );
+    setInReviewRound(stored.inReviewRound);
+  }, [language, alphabetId, sectionId, mode]);
 
   const steps = useMemo(() => {
+    if (restoredSteps) return restoredSteps;
     if (!alphabet || !progress || !language) return [];
     if (mode === "test") {
       return buildAlphabetTestSteps(language.id, alphabet, { sectionId });
@@ -204,6 +238,7 @@ export function AlphabetLessonPage() {
     });
     return infoStep ? [infoStep, ...base] : base;
   }, [
+    restoredSteps,
     alphabet,
     progress,
     language,
@@ -255,8 +290,14 @@ export function AlphabetLessonPage() {
       if (prefix === "intro" && correct) {
         updateLetterProgress(progress, symbol, { introduced: true });
       } else if (prefix === "trace" && correct) {
+        // Increment one pass at a time so partial trace progress survives a
+        // mid-step exit. The trace view fires onComplete on every pass.
+        const currentLetter = getLetterProgress(progress, symbol);
         updateLetterProgress(progress, symbol, {
-          traceCount: MIN_CORRECT_TRACES,
+          traceCount: Math.min(
+            MIN_CORRECT_TRACES,
+            currentLetter.traceCount + 1,
+          ),
         });
       } else if (prefix === "recog" && correct) {
         updateLetterProgress(progress, symbol, { recognitionPassed: true });
@@ -289,12 +330,20 @@ export function AlphabetLessonPage() {
         }
         if (needReview.size > 0) {
           const symbols = Array.from(needReview);
-          // eslint-disable-next-line no-console
-          console.log("[alphabet] starting review round for symbols:", symbols);
+          logAlphabetEvent("review_round_start", {
+            languageId: language?.id ?? null,
+            alphabetId,
+            mode,
+            sectionId,
+            symbols,
+          });
           setInReviewRound(true);
           setReviewSymbols(symbols);
           setCurrentStepIdx(0);
           setResults({});
+          // Drop the resume snapshot so `steps` rebuilds via the review path
+          // (otherwise we'd keep showing the original lesson's steps).
+          setRestoredSteps(null);
           return;
         }
       }
@@ -333,6 +382,48 @@ export function AlphabetLessonPage() {
       else markFullTestPassed(progress);
     }
   }, [finished, mode, progress, sectionId, results]);
+
+  // Persist session state on every meaningful change. Gated on real progress
+  // so we don't overwrite a saved session with default state during the
+  // initial render before the restore effect has had a chance to hydrate.
+  useEffect(() => {
+    if (!language || !alphabetId || finished) return;
+    if (steps.length === 0) return;
+    const hasProgress =
+      currentStepIdx > 0 ||
+      Object.keys(results).length > 0 ||
+      inReviewRound;
+    if (!hasProgress) return;
+    saveStoredSession({
+      languageId: language.id,
+      alphabetId,
+      sectionId: sectionId ?? null,
+      mode,
+      steps,
+      currentStepIdx,
+      results,
+      inReviewRound,
+      reviewSymbols: reviewSymbols ?? [],
+    });
+  }, [
+    language,
+    alphabetId,
+    sectionId,
+    mode,
+    steps,
+    currentStepIdx,
+    results,
+    inReviewRound,
+    reviewSymbols,
+    finished,
+  ]);
+
+  // Clear the resume payload once the lesson is finished. Per-letter progress
+  // remains in its own localStorage key.
+  useEffect(() => {
+    if (!finished || !language || !alphabetId) return;
+    clearStoredSession(language.id, alphabetId, sectionId ?? null, mode);
+  }, [finished, language, alphabetId, sectionId, mode]);
 
   const handleExit = useCallback(() => {
     const base = langPath(`practice/alphabet/${alphabetId ?? ""}`);
@@ -414,7 +505,7 @@ export function AlphabetLessonPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-[70vh] max-w-2xl flex-col">
+    <div className="mx-auto flex min-h-[70vh] w-full max-w-4xl flex-col px-4 sm:px-6">
       <div className="flex items-center gap-3 py-4">
         <button
           type="button"
@@ -452,3 +543,4 @@ export function AlphabetLessonPage() {
     </div>
   );
 }
+

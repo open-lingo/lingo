@@ -1,9 +1,6 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate, RouterProvider, useParams } from "react-router-dom";
 
-function ForumThreadRedirect() {
-  const { threadId } = useParams<{ threadId: string }>();
-  return <Navigate to={`../discuss/thread/${threadId}`} replace />;
-}
 import { Layout } from "@/routes/Layout";
 import { LangLayout } from "@/routes/LangLayout";
 import { LoginPage } from "@/features/auth/LoginPage";
@@ -11,9 +8,6 @@ import { LogoutPage } from "@/features/auth/LogoutPage";
 import { LearnLayout } from "@/features/learn/LearnLayout";
 import { LearnPage } from "@/features/learn/LearnPage";
 import { FlashcardsPage } from "@/features/flashcards/FlashcardsPage";
-import { FlashcardTester } from "@/features/flashcards/FlashcardTester";
-import { CardManagerPage } from "@/features/flashcards/CardManagerPage";
-import { DeckManagerPage } from "@/features/flashcards/DeckManagerPage";
 import { StoriesPage } from "@/features/stories/StoriesPage";
 import { StoryDetailPage } from "@/features/stories/StoryDetailPage";
 import { VocabPage } from "@/features/vocab/VocabPage";
@@ -21,36 +15,103 @@ import { PracticeLayout } from "@/features/practice/PracticeLayout";
 import { ParticlePracticePage } from "@/features/practice/ParticlePracticePage";
 import { KanjiPracticePage } from "@/features/practice/KanjiPracticePage";
 import { AlphabetPracticePage } from "@/features/practice/AlphabetPracticePage";
-import { AlphabetLessonPage } from "@/features/practice/alphabet/AlphabetLessonPage";
 import { ComponentsPracticePage } from "@/features/practice/ComponentsPracticePage";
 import { VideosPracticePage } from "@/features/practice/VideosPracticePage";
 import { GrammarPage } from "@/features/grammar/GrammarPage";
 import { CommunityLayout } from "@/features/community/CommunityLayout";
-import { ContentBrowserPage } from "@/features/community/ContentBrowserPage";
-import { ExternalContentPage } from "@/features/community/ExternalContentPage";
-import { ExternalContentPracticePage } from "@/features/community/ExternalContentPracticePage";
-import { ContributePage } from "@/features/community/ContributePage";
-import { MyContentTab } from "@/features/community/contribute/MyContentTab";
-import { CreateTab } from "@/features/community/contribute/CreateTab";
-import { DeckEditor } from "@/features/community/contribute/DeckEditor";
-import { StoryEditor } from "@/features/community/contribute/StoryEditor";
-import { AdminTab } from "@/features/community/contribute/AdminTab";
-import { StudioLayout } from "@/features/studio/StudioLayout";
-import { ForumPage } from "@/features/community/forum/ForumPage";
-import { ThreadPage } from "@/features/community/forum/ThreadPage";
-import { NewThreadPage } from "@/features/community/forum/NewThreadPage";
 import { LeaderboardPage } from "@/features/leaderboard/LeaderboardPage";
-import { LessonPage } from "@/features/lesson/LessonPage";
-import { AdminLayout } from "@/features/admin/AdminLayout";
-import { AdminUsersLayout } from "@/features/admin/AdminUsersLayout";
-import { AdminUserEmptyState } from "@/features/admin/AdminUserEmptyState";
-import { AdminUserDetailPage } from "@/features/admin/AdminUserDetailPage";
-import { AdminContentLayout } from "@/features/admin/AdminContentLayout";
-import { AdminDecksPage } from "@/features/admin/AdminDecksPage";
-import { AdminStoriesPage } from "@/features/admin/AdminStoriesPage";
-import { DocsPage } from "@/features/docs/DocsPage";
 import { RootRoute } from "@/routes/RootRoute";
 import { ProtectedHome } from "@/routes/ProtectedHome";
+
+// Lazy-loaded routes: anything heavy, role-restricted (admin/studio), or rarely-hit
+// on first paint. Split here keeps the main bundle focused on the learner happy path.
+const DocsPage = lazy(() =>
+  import("@/features/docs/DocsPage").then((m) => ({ default: m.DocsPage })),
+);
+const LessonPage = lazy(() =>
+  import("@/features/lesson/LessonPage").then((m) => ({ default: m.LessonPage })),
+);
+const FlashcardTester = lazy(() =>
+  import("@/features/flashcards/FlashcardTester").then((m) => ({ default: m.FlashcardTester })),
+);
+const CardManagerPage = lazy(() =>
+  import("@/features/flashcards/CardManagerPage").then((m) => ({ default: m.CardManagerPage })),
+);
+const DeckManagerPage = lazy(() =>
+  import("@/features/flashcards/DeckManagerPage").then((m) => ({ default: m.DeckManagerPage })),
+);
+const AlphabetLessonPage = lazy(() =>
+  import("@/features/practice/alphabet/AlphabetLessonPage").then((m) => ({
+    default: m.AlphabetLessonPage,
+  })),
+);
+const ContentBrowserPage = lazy(() =>
+  import("@/features/community/ContentBrowserPage").then((m) => ({ default: m.ContentBrowserPage })),
+);
+const ExternalContentPage = lazy(() =>
+  import("@/features/community/ExternalContentPage").then((m) => ({ default: m.ExternalContentPage })),
+);
+const ExternalContentPracticePage = lazy(() =>
+  import("@/features/community/ExternalContentPracticePage").then((m) => ({
+    default: m.ExternalContentPracticePage,
+  })),
+);
+const ContributePage = lazy(() =>
+  import("@/features/community/ContributePage").then((m) => ({ default: m.ContributePage })),
+);
+const MyContentTab = lazy(() =>
+  import("@/features/community/contribute/MyContentTab").then((m) => ({ default: m.MyContentTab })),
+);
+const CreateTab = lazy(() =>
+  import("@/features/community/contribute/CreateTab").then((m) => ({ default: m.CreateTab })),
+);
+const AdminTab = lazy(() =>
+  import("@/features/community/contribute/AdminTab").then((m) => ({ default: m.AdminTab })),
+);
+const DeckEditor = lazy(() =>
+  import("@/features/community/contribute/DeckEditor").then((m) => ({ default: m.DeckEditor })),
+);
+const StoryEditor = lazy(() =>
+  import("@/features/community/contribute/StoryEditor").then((m) => ({ default: m.StoryEditor })),
+);
+const StudioLayout = lazy(() =>
+  import("@/features/studio/StudioLayout").then((m) => ({ default: m.StudioLayout })),
+);
+const ForumPage = lazy(() =>
+  import("@/features/community/forum/ForumPage").then((m) => ({ default: m.ForumPage })),
+);
+const ThreadPage = lazy(() =>
+  import("@/features/community/forum/ThreadPage").then((m) => ({ default: m.ThreadPage })),
+);
+const NewThreadPage = lazy(() =>
+  import("@/features/community/forum/NewThreadPage").then((m) => ({ default: m.NewThreadPage })),
+);
+const AdminLayout = lazy(() =>
+  import("@/features/admin/AdminLayout").then((m) => ({ default: m.AdminLayout })),
+);
+const AdminUsersLayout = lazy(() =>
+  import("@/features/admin/AdminUsersLayout").then((m) => ({ default: m.AdminUsersLayout })),
+);
+const AdminUserEmptyState = lazy(() =>
+  import("@/features/admin/AdminUserEmptyState").then((m) => ({ default: m.AdminUserEmptyState })),
+);
+const AdminUserDetailPage = lazy(() =>
+  import("@/features/admin/AdminUserDetailPage").then((m) => ({ default: m.AdminUserDetailPage })),
+);
+const AdminContentLayout = lazy(() =>
+  import("@/features/admin/AdminContentLayout").then((m) => ({ default: m.AdminContentLayout })),
+);
+const AdminDecksPage = lazy(() =>
+  import("@/features/admin/AdminDecksPage").then((m) => ({ default: m.AdminDecksPage })),
+);
+const AdminStoriesPage = lazy(() =>
+  import("@/features/admin/AdminStoriesPage").then((m) => ({ default: m.AdminStoriesPage })),
+);
+
+function ForumThreadRedirect() {
+  const { threadId } = useParams<{ threadId: string }>();
+  return <Navigate to={`../discuss/thread/${threadId}`} replace />;
+}
 
 const router = createBrowserRouter([
   {
@@ -165,5 +226,9 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={null}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 }

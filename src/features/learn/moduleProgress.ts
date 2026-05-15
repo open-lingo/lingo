@@ -67,13 +67,21 @@ export function getLessonWindow<T>(
   };
 }
 
-/** Whether a lesson is effectively locked (module or lesson-level lock). */
+/** Whether a lesson is effectively locked (module or lesson-level lock).
+ *
+ * Dev-mode override: when `devUnlock` is true (set via the dev panel on
+ * the learn page or `?dev=1` in the URL), every lesson is treated as
+ * unlocked regardless of completion state. Used for screenshot runs and
+ * authoring spot-checks.
+ */
 export function isLessonLocked(
   lessonId: string,
   moduleIndex: number,
   course: Course,
-  completedLessonIds: Set<string>
+  completedLessonIds: Set<string>,
+  devUnlock: boolean = false,
 ): boolean {
+  if (devUnlock) return false;
   const status = getModuleStatus(moduleIndex, completedLessonIds, course.modules);
   if (status === "locked") return true;
   const mod = course.modules[moduleIndex];

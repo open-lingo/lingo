@@ -249,6 +249,31 @@ export function LandingPage() {
           </Link>
         </div>
       </section>
+
+      {/* Third-party attribution footer (required by CC BY-SA 3.0 for KanjiVG stroke data). */}
+      <footer className="border-t border-border py-6 text-center text-xs text-text-muted">
+        {t(
+          "landing.attribution",
+          "Japanese stroke order data: ",
+        )}
+        <a
+          href="http://kanjivg.tagaini.net"
+          target="_blank"
+          rel="noreferrer"
+          className="underline hover:text-text-secondary"
+        >
+          KanjiVG
+        </a>{" "}
+        ·{" "}
+        <a
+          href="https://creativecommons.org/licenses/by-sa/3.0/"
+          target="_blank"
+          rel="noreferrer"
+          className="underline hover:text-text-secondary"
+        >
+          CC BY-SA 3.0
+        </a>
+      </footer>
     </div>
   );
 }

@@ -56,6 +56,13 @@ export type AlphabetDef = {
   characterRomanization?: Record<string, string>;
   /** Per-symbol data for alphabet learner: IPA, hint, note, example, audio. Key = character. */
   letterDetails?: Record<string, LetterDetail>;
+  /**
+   * When true, this script ships per-stroke SVG data (see src/shared/glyphs/data)
+   * and the trace UX renders numbered stroke-order guides + animation playback.
+   * Latin alphabets leave this false; kana set it true; Hangul gets it when its
+   * data lands. Default: false (system-font reference, no stroke-order UX).
+   */
+  hasStrokeOrder?: boolean;
 };
 
 export type LanguageConfig = {
@@ -85,6 +92,7 @@ const JA_HIRAGANA: AlphabetDef = {
   id: "hiragana",
   name: "Hiragana",
   description: "Japanese syllabary (ひらがな)",
+  hasStrokeOrder: true,
   characters: [
     "あ",
     "い",
@@ -348,6 +356,7 @@ const JA_KATAKANA: AlphabetDef = {
   id: "katakana",
   name: "Katakana",
   description: "Japanese syllabary (カタカナ)",
+  hasStrokeOrder: true,
   characters: [
     "ア",
     "イ",

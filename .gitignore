@@ -137,3 +137,19 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Local-only working notes (not for the repo)
+CLAUDE.md
+japanese_tutor_handoff.md
+
+# Playwright
+.auth/
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Windows file zone metadata (created by WSL on copied-in files)
+*:Zone.Identifier
+
+# Misplaced VSCode workspace file (the real one lives at repo root)
+src/shared/domain/lingo.code-workspace

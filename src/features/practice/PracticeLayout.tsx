@@ -1,13 +1,22 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useAuth } from "@/shared/auth/useAuth";
 import { TabList, TabLink } from "@/shared/components/ui/Tabs";
 import {
   getPracticeItemsForLanguage,
   type PracticeNavItem,
 } from "./practiceNavItems";
+
+/** Grace period before redirecting an apparently-anon user out of /practice.
+ *  Auth0 can briefly report `isLoading: false && isAuthenticated: false` while
+ *  silent auth completes via iframe; redirecting immediately races that and
+ *  bounces real users back to /learn. 1.5s is invisible to humans and
+ *  comfortably longer than the worst-case silent-auth round trip we've seen. */
+const ANON_REDIRECT_GRACE_MS = 1500;
 
 function PracticeTab({ item, isActive, t }: { item: PracticeNavItem; isActive: boolean; t: (k: string) => string }) {
   const label = item.labelKey ? t(item.labelKey) : (item.label ?? "");
@@ -39,6 +48,32 @@ export function PracticeLayout() {
   const langPath = useLangPath();
   const flashcardsPath = langPath("practice/flashcards");
   const isFlashcardsSubRoute = pathname.startsWith(flashcardsPath + "/");
+  const { isAuthenticated, isLoading: authLoading } = useAuth();
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+
+  // Anon users hitting a /practice/* deep link land on the guided Learn hub
+  // instead — Practice is per-account (progress/SRS) and the Learn page funnels
+  // first-time users into the right starting point. The redirect is debounced
+  // so Auth0's iframe-based silent-auth round trip can complete first.
+  useEffect(() => {
+    if (authLoading) {
+      setShouldRedirect(false);
+      return;
+    }
+    if (isAuthenticated) {
+      setShouldRedirect(false);
+      return;
+    }
+    const timer = window.setTimeout(
+      () => setShouldRedirect(true),
+      ANON_REDIRECT_GRACE_MS,
+    );
+    return () => window.clearTimeout(timer);
+  }, [authLoading, isAuthenticated]);
+
+  if (shouldRedirect) {
+    return <Navigate to={langPath("learn")} replace />;
+  }
 
   const items = getPracticeItemsForLanguage(language?.id).filter(
     (item) => !(isFlashcardsSubRoute && item.to === flashcardsPath)

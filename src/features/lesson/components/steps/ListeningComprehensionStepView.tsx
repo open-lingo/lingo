@@ -2,6 +2,8 @@ import { useState } from "react";
 import type { ListeningComprehensionStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
+import { AnnotatedJa } from "@/shared/japanese";
+import { getTtsUrl } from "@/shared/japanese/tts";
 
 type Props = {
   step: ListeningComprehensionStep;
@@ -16,6 +18,13 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
 
   const isCorrect = selected === step.correctOptionId;
 
+  const audioUrl = step.transcript ? getTtsUrl(step.transcript) : null;
+
+  function handlePlay() {
+    if (!audioUrl) return;
+    new Audio(audioUrl).play().catch(() => {});
+  }
+
   function handleSubmit() {
     if (!selected) return;
     setSubmitted(true);
@@ -27,6 +36,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
       <div className="flex items-center gap-3">
         <button
           type="button"
+          onClick={handlePlay}
           className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition hover:bg-emerald-200 dark:bg-emerald-800/40 dark:text-emerald-300 dark:hover:bg-emerald-700/40"
           aria-label="Play audio"
         >
@@ -52,8 +62,12 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
             {showTranscript ? "Hide transcript" : "Show transcript"}
           </button>
           {showTranscript && (
-            <p className="mt-2 rounded-lg bg-gray-50 px-4 py-2 text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-300">
-              {step.transcript}
+            <p className="mt-2 rounded-lg bg-gray-50 px-4 py-2 text-base text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+              {step.transcriptAnnotation ? (
+                <AnnotatedJa segments={step.transcriptAnnotation} />
+              ) : (
+                <AnnotatedJa text={step.transcript} />
+              )}
             </p>
           )}
         </div>

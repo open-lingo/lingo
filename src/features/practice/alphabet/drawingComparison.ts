@@ -15,9 +15,11 @@
  *       overflowFraction <= MAX_OVERFLOW_FRACTION
  *       userStrokePixels >= MIN_STROKE_PIXELS
  *
- * Tunable factors are defined below.
+ * Tunable factors are defined below. The reference itself is rendered via a
+ * pluggable {@link SymbolReference} — `fillText` for scripts without bundled
+ * data, KanjiVG-style stroked paths for scripts that ship per-stroke SVG data.
  */
-const REFERENCE_FONT = "90px sans-serif";
+import type { SymbolReference } from "@/shared/glyphs";
 const WIDTH = 280;
 const HEIGHT = 200;
 
@@ -37,6 +39,27 @@ const MAX_OVERFLOW_FRACTION = 0.25;
 const ENABLE_DRAWING_DEBUG_LOG =
   typeof window !== "undefined" &&
   new URLSearchParams(window.location.search).get("alphabetDebugLog") === "1";
+
+/**
+ * E2E test escape hatch: when the page is loaded with `?alphabetTestPass=1`,
+ * both comparators short-circuit to pass=true regardless of canvas contents.
+ * Used by Playwright specs that walk the full alphabet flow without having to
+ * synthesize pixel-perfect strokes. Active only when the query param is set at
+ * page-load time; no effect on normal users.
+ */
+const TEST_FORCE_PASS =
+  typeof window !== "undefined" &&
+  new URLSearchParams(window.location.search).get("alphabetTestPass") === "1";
+
+/**
+ * Mirror of TEST_FORCE_PASS for the failure path. With `?alphabetTestFail=1`
+ * both comparators short-circuit to pass=false and a fixed low score, so
+ * Playwright specs can deterministically exercise the fail-escape UX (Skip
+ * button, hint ladder) without synthesizing garbage strokes.
+ */
+const TEST_FORCE_FAIL =
+  typeof window !== "undefined" &&
+  new URLSearchParams(window.location.search).get("alphabetTestFail") === "1";
 
 function luminance(r: number, g: number, b: number): number {
   return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
@@ -105,19 +128,35 @@ function dilateMask(
   return out;
 }
 
-function renderReferenceToCanvas(
-  ctx: CanvasRenderingContext2D,
-  symbol: string,
+function buildReferenceMask(
+  reference: SymbolReference,
   width: number,
   height: number,
-): void {
-  ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, width, height);
-  ctx.fillStyle = "black";
-  ctx.font = REFERENCE_FONT;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(symbol, width / 2, height / 2);
+  dpr: number,
+): { mask: Uint8Array; count: number } {
+  const refCanvas = document.createElement("canvas");
+  refCanvas.width = width;
+  refCanvas.height = height;
+  const refCtx = refCanvas.getContext("2d", { willReadFrequently: true });
+  if (!refCtx) {
+    return { mask: new Uint8Array(width * height), count: 0 };
+  }
+
+  // White background so getStrokeMask (luminance threshold) picks up only the
+  // ink the reference renders on top.
+  refCtx.fillStyle = "white";
+  refCtx.fillRect(0, 0, width, height);
+  refCtx.fillStyle = "black";
+  refCtx.strokeStyle = "black";
+
+  refCtx.scale(dpr, dpr);
+  reference.renderTo(refCtx, WIDTH, HEIGHT);
+  refCtx.setTransform(1, 0, 0, 1, 0, 0);
+
+  const imageData = refCtx.getImageData(0, 0, width, height);
+  const mask = getStrokeMask(imageData, width, height);
+  const count = mask.reduce((a, b) => a + b, 0);
+  return { mask, count };
 }
 
 function renderDebugMasks(
@@ -276,12 +315,20 @@ function translateMask(
  */
 export function compareDrawingToSymbol(
   userCanvas: HTMLCanvasElement,
-  symbol: string,
+  reference: SymbolReference,
   options?: {
     minStrokePixels?: number;
+    debugLabel?: string;
   },
 ): CompareResult {
+  if (TEST_FORCE_PASS) {
+    return { pass: true, score: 1, userStrokePixels: MIN_STROKE_PIXELS };
+  }
+  if (TEST_FORCE_FAIL) {
+    return { pass: false, score: 0.42, userStrokePixels: MIN_STROKE_PIXELS };
+  }
   const minStrokePixels = options?.minStrokePixels ?? MIN_STROKE_PIXELS;
+  const debugLabel = options?.debugLabel;
 
   const width = userCanvas.width;
   const height = userCanvas.height;
@@ -293,30 +340,29 @@ export function compareDrawingToSymbol(
   const userCount = userMask.reduce((a, b) => a + b, 0);
 
   if (userCount < minStrokePixels) {
-    console.log("[drawingComparison]", {
-      symbol,
-      pass: false,
-      reason: "too_few_stroke_pixels",
-      userStrokePixels: userCount,
-      minRequired: minStrokePixels,
-      canvasSize: `${width}x${height}`,
-    });
+    if (ENABLE_DRAWING_DEBUG_LOG) {
+      // eslint-disable-next-line no-console
+      console.log("[drawingComparison]", {
+        symbol: debugLabel,
+        pass: false,
+        reason: "too_few_stroke_pixels",
+        userStrokePixels: userCount,
+        minRequired: minStrokePixels,
+        canvasSize: `${width}x${height}`,
+      });
+    }
     return { pass: false, score: 0, userStrokePixels: userCount };
   }
 
-  const refCanvas = document.createElement("canvas");
-  refCanvas.width = width;
-  refCanvas.height = height;
-  const refCtx = refCanvas.getContext("2d", { willReadFrequently: true });
-  if (!refCtx) return { pass: false, score: 0, userStrokePixels: userCount };
-
   const dpr = width / WIDTH;
-  refCtx.scale(dpr, dpr);
-  renderReferenceToCanvas(refCtx, symbol, WIDTH, HEIGHT);
-  refCtx.setTransform(1, 0, 0, 1, 0, 0);
-  const refImageData = refCtx.getImageData(0, 0, width, height);
-  const refMask = getStrokeMask(refImageData, width, height);
-  const refCount = refMask.reduce((a, b) => a + b, 0);
+  const { mask: refMask, count: templatePixelCount } = buildReferenceMask(
+    reference,
+    width,
+    height,
+    dpr,
+  );
+  // Kept as a separate alias for the debug log payload below.
+  const refCount = templatePixelCount;
 
   // ----- New scoring: coverage vs overflow -----
 
@@ -332,8 +378,6 @@ export function compareDrawingToSymbol(
     height,
     coverageRadius,
   );
-
-  const templatePixelCount = refMask.reduce((a, b) => a + b, 0);
 
   // How many template pixels (before dilation) are covered by the dilated user stroke?
   let coveredTemplatePixels = 0;
@@ -381,8 +425,9 @@ export function compareDrawingToSymbol(
       userDilatedForTemplateCoverage,
     );
 
+    // eslint-disable-next-line no-console
     console.log("[drawingComparison]", {
-      symbol,
+      symbol: debugLabel,
       pass,
       score: Math.round(score * 1000) / 1000,
       scorePercent: `${(score * 100).toFixed(1)}%`,
@@ -407,18 +452,32 @@ export function compareDrawingToSymbol(
   };
 }
 
-const PRODUCTION_TEMPLATE_COVERAGE_PASS_THRESHOLD = 0.6;
-const PRODUCTION_MAX_OVERFLOW_FRACTION = 0.4;
-const PRODUCTION_MIN_SCORE = 0.6;
+// Production "from memory" drill is intentionally lenient — handwriting is
+// not the gating skill (recognition + meaning are). 50% parity is enough to
+// count as remembered. Overflow tolerance bumps in tandem so off-center but
+// shaped-correctly drawings pass.
+const PRODUCTION_TEMPLATE_COVERAGE_PASS_THRESHOLD = 0.5;
+const PRODUCTION_MAX_OVERFLOW_FRACTION = 0.5;
+const PRODUCTION_MIN_SCORE = 0.5;
 
 export function compareProductionDrawingToSymbol(
   userCanvas: HTMLCanvasElement,
-  symbol: string,
+  reference: SymbolReference,
   options?: {
     minStrokePixels?: number;
+    debugLabel?: string;
   },
 ): CompareResult {
+  if (TEST_FORCE_PASS) {
+    return { pass: true, score: 1, userStrokePixels: MIN_STROKE_PIXELS };
+  }
+  if (TEST_FORCE_FAIL) {
+    return { pass: false, score: 0.42, userStrokePixels: MIN_STROKE_PIXELS };
+  }
   const minStrokePixels = options?.minStrokePixels ?? MIN_STROKE_PIXELS;
+  // debugLabel currently unused in production path — kept for parity with
+  // compareDrawingToSymbol so step views can use the same options shape.
+  void options?.debugLabel;
 
   const width = userCanvas.width;
   const height = userCanvas.height;
@@ -433,20 +492,14 @@ export function compareProductionDrawingToSymbol(
     return { pass: false, score: 0, userStrokePixels: userCount };
   }
 
-  const refCanvas = document.createElement("canvas");
-  refCanvas.width = width;
-  refCanvas.height = height;
-  const refCtx = refCanvas.getContext("2d", { willReadFrequently: true });
-  if (!refCtx) return { pass: false, score: 0, userStrokePixels: userCount };
-
   const dpr = width / WIDTH;
-  refCtx.scale(dpr, dpr);
-  renderReferenceToCanvas(refCtx, symbol, WIDTH, HEIGHT);
-  refCtx.setTransform(1, 0, 0, 1, 0, 0);
-  const refImageData = refCtx.getImageData(0, 0, width, height);
-  const refMask = getStrokeMask(refImageData, width, height);
+  const { mask: refMask, count: templatePixelCount } = buildReferenceMask(
+    reference,
+    width,
+    height,
+    dpr,
+  );
 
-  const templatePixelCount = refMask.reduce((a, b) => a + b, 0);
   if (templatePixelCount === 0) {
     return { pass: false, score: 0, userStrokePixels: userCount };
   }

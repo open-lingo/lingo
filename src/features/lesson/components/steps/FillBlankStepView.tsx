@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { FillBlankStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
+import { AnnotatedJa } from "@/shared/japanese";
 
 type Props = {
   step: FillBlankStep;
@@ -49,7 +50,7 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
       <div className="flex flex-wrap items-baseline gap-1 text-2xl font-bold text-gray-900 dark:text-white">
         {parts.map((part, i) => (
           <span key={i} className="flex items-baseline gap-1">
-            <span>{part}</span>
+            <span><AnnotatedJa text={part} /></span>
             {i < parts.length - 1 && (
               <span className="inline-block">
                 {step.blanks[i] ? (
@@ -90,13 +91,13 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
                 type="button"
                 disabled={submitted || isUsed}
                 onClick={() => handleBankSelect(word)}
-                className={`rounded-lg border px-3 py-1.5 text-sm font-medium transition ${
+                className={`rounded-lg border px-3 py-1.5 text-base font-medium transition ${
                   isUsed
                     ? "border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"
                     : "border-gray-300 bg-white text-gray-700 hover:border-emerald-400 hover:bg-emerald-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:border-emerald-500 dark:hover:bg-gray-600"
                 }`}
               >
-                {word}
+                <AnnotatedJa text={word} />
               </button>
             );
           })}

@@ -1,0 +1,90 @@
+import { describe, it, expect } from "vitest";
+import hiragana from "./data/hiragana.json";
+import katakana from "./data/katakana.json";
+import { getAlphabetById } from "@/shared/domain/languageConfig";
+
+type GlyphFile = {
+  viewBox: [number, number, number, number];
+  characters: Record<
+    string,
+    { strokes: Array<{ d: string; start: [number, number] }> }
+  >;
+};
+
+// Yoon (small-ya combos) and tiny-modifier characters that exist as standalone
+// glyphs but the lesson flow intentionally never asks the learner to trace.
+// `alphabetSession.shouldIncludeDrawingSteps` enforces this — we mirror its
+// list here so the data check matches the runtime contract.
+const COMPOSED_OR_SKIPPED = new Set([
+  "りゃ",
+  "りゅ",
+  "りょ",
+  "リャ",
+  "リュ",
+  "リョ",
+]);
+
+function drawableChars(alphabetId: "hiragana" | "katakana"): string[] {
+  const def = getAlphabetById("ja", alphabetId);
+  if (!def) throw new Error(`alphabet ${alphabetId} not found`);
+  const all = def.characters ?? [];
+  return all.filter((c) => !COMPOSED_OR_SKIPPED.has(c));
+}
+
+describe("kana glyph data", () => {
+  it.each([
+    ["hiragana", hiragana as unknown as GlyphFile] as const,
+    ["katakana", katakana as unknown as GlyphFile] as const,
+  ])("%s file has a non-empty viewBox", (_id, file) => {
+    expect(file.viewBox).toHaveLength(4);
+    expect(file.viewBox[2]).toBeGreaterThan(0);
+    expect(file.viewBox[3]).toBeGreaterThan(0);
+  });
+
+  it("every drawable hiragana character has stroke data", () => {
+    const file = hiragana as unknown as GlyphFile;
+    const missing: string[] = [];
+    for (const ch of drawableChars("hiragana")) {
+      const entry = file.characters[ch];
+      if (!entry || !entry.strokes?.length) missing.push(ch);
+    }
+    expect(missing).toEqual([]);
+  });
+
+  it("every drawable katakana character has stroke data", () => {
+    const file = katakana as unknown as GlyphFile;
+    const missing: string[] = [];
+    for (const ch of drawableChars("katakana")) {
+      const entry = file.characters[ch];
+      if (!entry || !entry.strokes?.length) missing.push(ch);
+    }
+    expect(missing).toEqual([]);
+  });
+
+  it("every stroke entry has a path and a start point", () => {
+    const all: Array<[string, GlyphFile]> = [
+      ["hiragana", hiragana as unknown as GlyphFile],
+      ["katakana", katakana as unknown as GlyphFile],
+    ];
+    const broken: string[] = [];
+    for (const [scriptId, file] of all) {
+      for (const [ch, entry] of Object.entries(file.characters)) {
+        for (let i = 0; i < entry.strokes.length; i++) {
+          const s = entry.strokes[i];
+          if (typeof s.d !== "string" || s.d.length === 0) {
+            broken.push(`${scriptId}:${ch}:${i}:missing-d`);
+          }
+          if (
+            !Array.isArray(s.start) ||
+            s.start.length !== 2 ||
+            typeof s.start[0] !== "number" ||
+            typeof s.start[1] !== "number"
+          ) {
+            broken.push(`${scriptId}:${ch}:${i}:bad-start`);
+          }
+        }
+      }
+    }
+    expect(broken).toEqual([]);
+  });
+});

@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { TranslateStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
+import { AnnotatedJa } from "@/shared/japanese";
 
 type Props = {
   step: TranslateStep;
@@ -34,7 +35,15 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
         {directionLabel}
       </p>
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-        {step.sourceText}
+        {step.sourceLanguage === "target" ? (
+          step.sourceAnnotation ? (
+            <AnnotatedJa segments={step.sourceAnnotation} />
+          ) : (
+            <AnnotatedJa text={step.sourceText} />
+          )
+        ) : (
+          step.sourceText
+        )}
       </h2>
 
       {step.hint && !submitted && (

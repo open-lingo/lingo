@@ -17,12 +17,15 @@ type Props = {
   course: Course;
   completedLessonIds: string[];
   onStartOver: () => void;
+  /** When true, every lesson is unlocked regardless of completion state. */
+  devUnlock?: boolean;
 };
 
 export function MainCourseCard({
   course,
   completedLessonIds,
   onStartOver,
+  devUnlock = false,
 }: Props) {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -82,7 +85,14 @@ export function MainCourseCard({
         <ul className="mt-3 space-y-1">
           {lessonsToShow.map((lesson) => {
             const done = completedSet.has(lesson.id);
-            const locked = isLessonLocked(lesson.id, currentIdx, course, completedSet);
+            const locked = isLessonLocked(
+              lesson.id,
+              currentIdx,
+              course,
+              completedSet,
+              devUnlock,
+            );
+            const reviewable = done; // completed lessons can be replayed
             return (
               <li key={lesson.id}>
                 <button
@@ -112,6 +122,14 @@ export function MainCourseCard({
                   >
                     {lesson.title}
                   </span>
+                  {reviewable && (
+                    <span
+                      className="ml-auto rounded-full border border-emerald-500/40 px-2 py-0.5 text-xs font-medium text-emerald-500"
+                      title="Replay for review XP"
+                    >
+                      Review
+                    </span>
+                  )}
                 </button>
               </li>
             );

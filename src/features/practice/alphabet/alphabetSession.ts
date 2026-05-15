@@ -1,5 +1,6 @@
 /**
- * Builds lesson steps for alphabet learning (3-step loop) and test-out sessions.
+ * Builds lesson steps for alphabet learning (intro → trace → recognition →
+ * production, plus optional symbol-to-sound) and test-out sessions.
  */
 
 import type {
@@ -29,8 +30,17 @@ const MIN_TRACE_LETTERS_AT_START = 4;
 function makePayload(
   symbol: string,
   detail: LetterDetail | undefined,
-  romanization?: string,
+  romanization: string | undefined,
+  alphabet: AlphabetDef,
 ): SymbolStepPayload {
+  const common = {
+    scriptId: alphabet.id,
+    hasStrokeOrder: alphabet.hasStrokeOrder ?? false,
+    // Default user-facing pronunciation: configured romanization → fall back
+    // to the symbol itself for Latin scripts where the glyph is already
+    // readable.
+    romanization: romanization ?? symbol,
+  };
   if (detail) {
     return {
       symbol,
@@ -39,12 +49,17 @@ function makePayload(
       note: detail.note,
       example: detail.example,
       audioKey: detail.audioKey,
+      ...common,
     };
   }
+  // No letterDetails — leave hint empty so the UI doesn't duplicate the
+  // romanization (which is rendered on its own line). Letters that want a
+  // descriptive hint should populate `letterDetails[symbol].hint`.
   return {
     symbol,
     ipa: "",
-    hint: romanization ? `Romanization: ${romanization}` : symbol,
+    hint: "",
+    ...common,
   };
 }
 
@@ -61,14 +76,23 @@ function getCharactersForSession(
   return getAlphabetDisplaySections(alphabet).flatMap((s) => s.characters);
 }
 
+/** Unbiased in-place Fisher-Yates shuffle on a copy of `arr`. */
+function shuffle<T>(arr: readonly T[]): T[] {
+  const out = [...arr];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
 function pickDistractors(
   pool: string[],
   correct: string,
   count: number,
 ): string[] {
   const others = pool.filter((c) => c !== correct);
-  const shuffled = [...others].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, count);
+  return shuffle(others).slice(0, count);
 }
 
 function makeStepId(prefix: string, symbol: string, index: number): string {
@@ -182,7 +206,7 @@ export function buildAlphabetLearnSteps(
 
   for (const symbol of sessionLetters) {
     const detail = alphabet.letterDetails?.[symbol];
-    const payload = makePayload(symbol, detail, romanization[symbol]);
+    const payload = makePayload(symbol, detail, romanization[symbol], alphabet);
     const letterProg = getLetterProgress(progress, symbol);
     const includeDrawing = shouldIncludeDrawingSteps(alphabet, symbol, sectionId);
 
@@ -222,6 +246,11 @@ export function buildAlphabetLearnSteps(
           payload,
           showGuide: true,
           minCorrectAttempts: MIN_CORRECT_ATTEMPTS,
+          // Resume support: if user got 1/2 passes last session, start at 1.
+          initialCorrectCount: Math.min(
+            MIN_CORRECT_ATTEMPTS,
+            letterProg.traceCount,
+          ),
         } as SymbolTraceStep);
         traceLettersScheduled++;
       }
@@ -237,7 +266,7 @@ export function buildAlphabetLearnSteps(
         { id: symbol, symbol },
         ...distractors.map((s) => ({ id: s, symbol: s })),
       ];
-      const shuffled = [...optionsList].sort(() => Math.random() - 0.5);
+      const shuffled = shuffle(optionsList);
       laterSteps.push({
         id: makeStepId("recog", symbol, 0),
         type: "symbol_recognition",
@@ -257,19 +286,22 @@ export function buildAlphabetLearnSteps(
     }
 
     if (includeSymbolToSound && !letterProg.symbolToSoundPassed) {
-      const correctText = detail?.ipa ?? romanization[symbol] ?? symbol;
+      // Prefer romanization (user-readable) over IPA (phonetic notation that
+      // most learners don't read). IPA stays as a deep fallback.
+      const correctText =
+        romanization[symbol] ?? detail?.ipa ?? symbol;
       const otherSymbols = pickDistractors(pool, symbol, 2);
       const otherTexts = otherSymbols.map(
         (s) =>
-          alphabet.letterDetails?.[s]?.ipa ??
           alphabet.characterRomanization?.[s] ??
+          alphabet.letterDetails?.[s]?.ipa ??
           s,
       );
       const optionsList = [
         { id: symbol, text: correctText },
         ...otherTexts.map((t, i) => ({ id: `opt-${i}`, text: t })),
       ];
-      const shuffled = [...optionsList].sort(() => Math.random() - 0.5);
+      const shuffled = shuffle(optionsList);
       laterSteps.push({
         id: makeStepId("sound", symbol, 0),
         type: "symbol_to_sound",
@@ -286,8 +318,6 @@ export function buildAlphabetLearnSteps(
 
 export type AlphabetTestOptions = {
   sectionId?: string;
-  /** Fraction correct required to pass (0–1). Default 0.8 */
-  passThreshold?: number;
 };
 
 /**
@@ -305,7 +335,7 @@ export function buildAlphabetTestSteps(
   const steps: LessonStep[] = [];
   for (const symbol of pool) {
     const detail = alphabet.letterDetails?.[symbol];
-    const payload = makePayload(symbol, detail, romanization[symbol]);
+    const payload = makePayload(symbol, detail, romanization[symbol], alphabet);
     const distractors = pickDistractors(
       pool,
       symbol,
@@ -315,7 +345,7 @@ export function buildAlphabetTestSteps(
       { id: symbol, symbol },
       ...distractors.map((s) => ({ id: s, symbol: s })),
     ];
-    const shuffled = [...optionsList].sort(() => Math.random() - 0.5);
+    const shuffled = shuffle(optionsList);
     steps.push({
       id: makeStepId("test-recog", symbol, steps.length),
       type: "symbol_recognition",

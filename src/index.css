@@ -107,6 +107,38 @@ html::-webkit-scrollbar-corner {
   z-index: 1;
 }
 
+/* Match pairs: shake on incorrect attempt. */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+.animate-shake {
+  animation: shake 480ms cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* AnnotatedJa: ruby helpers for Japanese kana/kanji. Helper text fades in/out
+   when a kana crosses the mastery threshold mid-session. */
+ruby {
+  ruby-position: over;
+}
+.kana-helper {
+  font-size: 0.55em;
+  font-weight: 500;
+  color: rgb(16 185 129); /* emerald-500 — same accent as romaji elsewhere */
+  letter-spacing: 0.02em;
+  transition: opacity 200ms ease-out;
+  opacity: 1;
+}
+.kana-helper[data-visible="false"] {
+  opacity: 0;
+}
+.dark .kana-helper {
+  color: rgb(52 211 153); /* emerald-400 */
+}
+
 /* Reduced motion: respect user preference from settings (data-reduced-motion) */
 [data-reduced-motion="true"] *,
 [data-reduced-motion="true"] *::before,

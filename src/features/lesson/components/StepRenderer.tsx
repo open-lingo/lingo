@@ -86,7 +86,13 @@ export function StepRenderer({ step, onComplete, onContinue }: Props) {
     case "speaking":
       return <SpeakingStepView step={step} onContinue={onContinue} />;
     case "symbol_intro":
-      return <SymbolIntroStepView step={step} onContinue={onContinue} />;
+      return (
+        <SymbolIntroStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
     case "symbol_trace":
       return (
         <SymbolTraceStepView

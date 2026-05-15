@@ -1,5 +1,7 @@
 import type { SpeakingStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
+import { AnnotatedJa } from "@/shared/japanese";
+import { getTtsUrl, useAutoPlayJaAudio } from "@/shared/japanese/tts";
 
 type Props = {
   step: SpeakingStep;
@@ -7,6 +9,12 @@ type Props = {
 };
 
 export function SpeakingStepView({ step, onContinue }: Props) {
+  const audioUrl = getTtsUrl(step.targetPhrase);
+  useAutoPlayJaAudio(step.targetPhrase, `speak-${step.id}`);
+  function handlePlay() {
+    if (!audioUrl) return;
+    new Audio(audioUrl).play().catch(() => {});
+  }
   return (
     <div className="flex flex-1 flex-col gap-6">
       <p className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
@@ -16,6 +24,7 @@ export function SpeakingStepView({ step, onContinue }: Props) {
       <div className="flex flex-col items-center gap-4 rounded-xl border border-gray-200 bg-gray-50 py-8 dark:border-gray-700 dark:bg-gray-800/50">
         <button
           type="button"
+          onClick={handlePlay}
           className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition hover:bg-emerald-200 dark:bg-emerald-800/40 dark:text-emerald-300 dark:hover:bg-emerald-700/40"
           aria-label="Play audio"
         >
@@ -25,7 +34,11 @@ export function SpeakingStepView({ step, onContinue }: Props) {
         </button>
 
         <p className="text-3xl font-bold text-gray-900 dark:text-white">
-          {step.targetPhrase}
+          {step.targetAnnotation ? (
+            <AnnotatedJa segments={step.targetAnnotation} />
+          ) : (
+            <AnnotatedJa text={step.targetPhrase} />
+          )}
         </p>
         <p className="text-sm text-gray-500 dark:text-gray-400">
           {step.translation}

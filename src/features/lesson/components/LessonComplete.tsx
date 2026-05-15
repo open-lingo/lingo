@@ -7,21 +7,40 @@ type Props = {
   correctCount: number;
   totalGraded: number;
   onContinue: () => void;
+  /** True when the learner is replaying an already-completed lesson. */
+  isReview?: boolean;
+  /** XP multiplier — 1 for a fresh completion, < 1 for a review replay. */
+  xpMultiplier?: number;
 };
 
-export function LessonComplete({ lesson, correctCount, totalGraded, onContinue }: Props) {
+export function LessonComplete({
+  lesson,
+  correctCount,
+  totalGraded,
+  onContinue,
+  isReview = false,
+  xpMultiplier = 1,
+}: Props) {
   const { t } = useTranslation();
   const percent = totalGraded > 0 ? Math.round((correctCount / totalGraded) * 100) : 100;
-  const xp = lesson.xpReward ?? 10;
+  const baseXp = lesson.xpReward ?? 10;
+  const xp = Math.max(1, Math.round(baseXp * xpMultiplier));
   const perfect = correctCount === totalGraded;
 
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center gap-6 py-12 text-center">
       {perfect ? <Icon name="partyPopper" size={48} className="text-accent" /> : <Icon name="check" size={48} className="text-success" strokeWidth={3} />}
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-        {t("lesson.complete", "Lesson Complete!")}
+        {isReview
+          ? t("lesson.reviewComplete", "Review Complete!")
+          : t("lesson.complete", "Lesson Complete!")}
       </h1>
       <p className="text-gray-600 dark:text-gray-400">{lesson.title}</p>
+      {isReview && (
+        <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-500">
+          Review run — reduced XP
+        </span>
+      )}
 
       <div className="flex items-center gap-8">
         <Stat

@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { BuildSentenceStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
+import { AnnotatedJa } from "@/shared/japanese";
 
 type Props = {
   step: BuildSentenceStep;
@@ -66,9 +67,9 @@ export function BuildSentenceStepView({ step, onComplete, onContinue }: Props) {
                 type="button"
                 disabled={submitted}
                 onClick={() => removeTile(i)}
-                className="rounded-lg bg-emerald-100 px-3 py-1.5 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-200 dark:bg-emerald-800/40 dark:text-emerald-300 dark:hover:bg-emerald-700/40"
+                className="rounded-lg bg-emerald-100 px-3 py-1.5 text-base font-semibold text-emerald-800 transition hover:bg-emerald-200 dark:bg-emerald-800/40 dark:text-emerald-300 dark:hover:bg-emerald-700/40"
               >
-                {tile}
+                <AnnotatedJa text={tile} />
               </button>
             ))}
           </div>
@@ -82,9 +83,9 @@ export function BuildSentenceStepView({ step, onComplete, onContinue }: Props) {
             type="button"
             disabled={submitted}
             onClick={() => addTile(tile)}
-            className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-emerald-400 hover:bg-emerald-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:border-emerald-500 dark:hover:bg-gray-600"
+            className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-base font-medium text-gray-700 transition hover:border-emerald-400 hover:bg-emerald-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:border-emerald-500 dark:hover:bg-gray-600"
           >
-            {tile}
+            <AnnotatedJa text={tile} />
           </button>
         ))}
       </div>
