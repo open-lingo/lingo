@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import i18n from "i18next";
-import { DEFAULT_SETTINGS, type UserSettings } from "@/shared/settings/types";
+import { DEFAULT_SETTINGS, type FlashcardsSettings, type UserSettings } from "@/shared/settings/types";
 import {
   ensureUserConsistency,
   getStoredSettings,
@@ -29,10 +29,28 @@ type SettingsContextValue = {
     : K extends keyof UserSettings
       ? K
       : never, value: unknown) => void;
+  updateFlashcards: (partial: Partial<FlashcardsSettings>) => void;
   isLoading: boolean;
 };
 
 const SettingsContext = createContext<SettingsContextValue | null>(null);
+
+function parseStudyOptions(raw: unknown): FlashcardsSettings["studyOptions"] {
+  if (!Array.isArray(raw)) return [];
+  const out: FlashcardsSettings["studyOptions"] = [];
+  for (const item of raw) {
+    if (!item || typeof item !== "object") continue;
+    const o = item as Record<string, unknown>;
+    const id = typeof o.id === "string" ? o.id : "";
+    const name = typeof o.name === "string" ? o.name : "";
+    const deckIds = Array.isArray(o.deckIds)
+      ? o.deckIds.filter((x): x is string => typeof x === "string")
+      : [];
+    if (!id || !name) continue;
+    out.push({ id, name, deckIds });
+  }
+  return out;
+}
 
 function setByPath(obj: Record<string, unknown>, path: string, value: unknown): void {
   const parts = path.split(".");
@@ -58,6 +76,7 @@ function toBackendPatch(settings: UserSettings): Record<string, unknown> {
     patch.learningLanguage = settings.learning.learningLanguageId;
   if (settings.learning?.uiLocale != null) patch.uiLocale = settings.learning.uiLocale;
   if (settings.notifications != null) patch.notifications = settings.notifications;
+  if (settings.flashcards != null) patch.flashcards = settings.flashcards;
   return patch;
 }
 
@@ -123,6 +142,12 @@ function fromBackendResponse(backend: Record<string, unknown>): Partial<UserSett
   if (backend.display && typeof backend.display === "object") {
     partial.display = backend.display as UserSettings["display"];
   }
+  if (backend.flashcards && typeof backend.flashcards === "object") {
+    const fc = backend.flashcards as Record<string, unknown>;
+    partial.flashcards = {
+      studyOptions: parseStudyOptions(fc.studyOptions),
+    };
+  }
   return partial;
 }
 
@@ -136,6 +161,12 @@ function mergeWithDefaults(partial: Partial<UserSettings>): UserSettings {
     merged.notifications = { ...merged.notifications, ...partial.notifications };
   if (partial.learning) merged.learning = { ...merged.learning, ...partial.learning };
   if (partial.display) merged.display = { ...merged.display, ...partial.display };
+  if (partial.flashcards) {
+    merged.flashcards = {
+      studyOptions:
+        partial.flashcards.studyOptions ?? merged.flashcards?.studyOptions ?? DEFAULT_SETTINGS.flashcards!.studyOptions,
+    };
+  }
   return merged;
 }
 
@@ -262,6 +293,33 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     [users]
   );
 
+  const updateFlashcards = useCallback(
+    (partial: Partial<FlashcardsSettings>) => {
+      setSettingsState((prev) => {
+        const next = JSON.parse(JSON.stringify(prev)) as UserSettings;
+        const fcPatch = Object.fromEntries(
+          Object.entries(partial).filter(([, v]) => v !== undefined)
+        ) as Partial<FlashcardsSettings>;
+        const prevFc = next.flashcards;
+        const merged: FlashcardsSettings = {
+          studyOptions:
+            fcPatch.studyOptions ??
+            prevFc?.studyOptions ??
+            DEFAULT_SETTINGS.flashcards!.studyOptions,
+        };
+        next.flashcards = merged;
+        const nextStored = { ...next, _version: DEFAULT_SETTINGS._version };
+        setStoredSettings(nextStored);
+        const patch = toBackendPatch(next);
+        if (Object.keys(patch).length > 0) {
+          users.updateSettings(patch).catch(() => {});
+        }
+        return next;
+      });
+    },
+    [users]
+  );
+
   useEffect(() => {
     const lng = settings.learning.uiLocale;
     if (lng && i18n.language !== lng) {
@@ -282,9 +340,10 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     () => ({
       settings,
       updateSetting: updateSetting as SettingsContextValue["updateSetting"],
+      updateFlashcards,
       isLoading,
     }),
-    [settings, updateSetting, isLoading]
+    [settings, updateSetting, updateFlashcards, isLoading]
   );
 
   return (

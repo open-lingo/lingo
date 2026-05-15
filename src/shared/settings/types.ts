@@ -1,5 +1,17 @@
 export const SETTINGS_VERSION = 1;
 
+/** Named SRS study buckets; decks may appear in several options. */
+export type StudyOption = {
+  id: string;
+  name: string;
+  /** Subscribed deck ids included when reviewing this option. */
+  deckIds: string[];
+};
+
+export type FlashcardsSettings = {
+  studyOptions: StudyOption[];
+};
+
 export type UserSettings = {
   _version?: number;
   appearance: {
@@ -28,6 +40,8 @@ export type UserSettings = {
     dateLocale?: string;
     timezoneOverride?: string;
   };
+  /** Flashcards / SRS preferences (synced when backend accepts nested patch). */
+  flashcards?: FlashcardsSettings;
 };
 
 export const DEFAULT_SETTINGS: UserSettings = {
@@ -53,4 +67,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
     showAlphabetFurigana: true,
   },
   display: {},
+  flashcards: {
+    studyOptions: [],
+  },
 };
