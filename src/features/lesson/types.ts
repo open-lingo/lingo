@@ -132,6 +132,9 @@ export type ListeningComprehensionStep = StepBase & {
   type: "listening_comprehension";
   audioKey: string;
   transcript?: string;
+  /** Romaji form of `transcript`, shown alongside the kana to reinforce
+   * sound↔script correlation. */
+  romaji?: string;
   question: string;
   options: Option[];
   correctOptionId: string;
@@ -218,7 +221,12 @@ export type SymbolProductionStep = StepBase & {
 export type SymbolToSoundStep = StepBase & {
   type: "symbol_to_sound";
   payload: SymbolStepPayload;
-  options: { id: string; text: string }[];
+  /**
+   * Each option pairs a romaji label with the kana whose audio plays when
+   * the user taps it for preview. `symbol` is optional for backward-compat
+   * with steps authored before the revamp; missing symbol = no preview.
+   */
+  options: { id: string; text: string; symbol?: string }[];
   correctOptionId: string;
 };
 

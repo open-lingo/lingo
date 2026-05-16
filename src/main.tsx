@@ -12,7 +12,10 @@ import { ToastProvider } from "@/shared/contexts/ToastContext";
 import { ApiProvider } from "@/shared/api/provider";
 import { SRSStoreRevisionProvider } from "@/features/flashcards/SRSStoreRevisionContext";
 import App from "./App";
+import { installDevLog } from "@/shared/devlog/devLog";
 import "./index.css";
+
+installDevLog();
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -1,7 +1,10 @@
 import type { LessonContent, LessonStep } from "../types";
 import { MOCK_LESSON_M1_L1 } from "./mock-m1-l1";
 import { MOCK_LESSON_M1_L2 } from "./mock-m1-l2";
-import { MOCK_LESSON_JA_M1_L1 } from "./mock-ja-m1-l1";
+import {
+  MOCK_LESSON_JA_M1_L1A,
+  MOCK_LESSON_JA_M1_L1B,
+} from "./mock-ja-m1-l1";
 import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { buildReviewTailSteps } from "./buildReviewTailSteps";
@@ -9,14 +12,15 @@ import { buildReviewTailSteps } from "./buildReviewTailSteps";
 const LESSONS: Record<string, LessonContent> = {
   "m1-l1": MOCK_LESSON_M1_L1,
   "m1-l2": MOCK_LESSON_M1_L2,
-  "ja-m1-l1": MOCK_LESSON_JA_M1_L1,
+  "ja-m1-l1a": MOCK_LESSON_JA_M1_L1A,
+  "ja-m1-l1b": MOCK_LESSON_JA_M1_L1B,
   ...GENERATED_HIRAGANA_LESSONS,
 };
 
 /**
  * Extract the row id from a JA sub-lesson id. Returns null for any id that
  * doesn't follow the `ja-mN-{rowId}-{suffix}` shape (e.g. legacy
- * `ja-m1-l1`, the alphabet-lesson stub, the recap node).
+ * `ja-m1-l1a` / `ja-m1-l1b`, the alphabet-lesson stub, the recap node).
  */
 function rowIdOf(lessonId: string): string | null {
   const m = /^ja-m\d+-(.+)-(\d+|test|recap)$/.exec(lessonId);

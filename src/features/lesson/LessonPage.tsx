@@ -2,7 +2,8 @@ import { useState, useCallback, useEffect, useMemo } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
-import { setSpeechFlag } from "@/shared/speech";
+import { applySpeechQueryParams, setSpeechFlag } from "@/shared/speech";
+import { applyDensityQueryParams } from "./data/lessonDensity";
 import { getMockLessonContent } from "./data/mockLessons";
 import type { LessonStep } from "./types";
 import { StepRenderer } from "./components/StepRenderer";
@@ -33,21 +34,30 @@ export function LessonPage() {
   const [results, setResults] = useState<Record<string, boolean>>({});
   const [finished, setFinished] = useState(false);
 
-  // `?speech=1` deep-links the speech-recognition feature flag on. Mirrors
-  // the same toggle on LearnPage so users can land directly on a lesson
-  // URL and still pick up the feature gate.
+  // `?speech=1` deep-links the speech-recognition feature flag on; the
+  // same effect also consumes the matcher-tuning dials
+  // (`?speech-perfect=`, `?speech-close=`, `?speech-strict=`,
+  // `?speech-alts=`, `?speech-debug=`). Mirrors the same toggle on
+  // LearnPage so users can land directly on a lesson URL and still pick
+  // up the feature gate.
   const [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
     const v = searchParams.get("speech");
+    let speechChanged = false;
     if (v === "1") {
       setSpeechFlag(true);
-      const next = new URLSearchParams(searchParams);
-      next.delete("speech");
-      setSearchParams(next, { replace: true });
+      speechChanged = true;
     } else if (v === "0") {
       setSpeechFlag(false);
-      const next = new URLSearchParams(searchParams);
-      next.delete("speech");
+      speechChanged = true;
+    }
+    const next = new URLSearchParams(searchParams);
+    if (speechChanged) next.delete("speech");
+    const dialsChanged = applySpeechQueryParams(next);
+    // Sub-lesson density preset + per-key overrides. See
+    // `lessonDensity.ts` for the full list of `?density-*` params.
+    const densityChanged = applyDensityQueryParams(next);
+    if (speechChanged || dialsChanged || densityChanged) {
       setSearchParams(next, { replace: true });
     }
   }, [searchParams, setSearchParams]);

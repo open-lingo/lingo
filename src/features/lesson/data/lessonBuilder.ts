@@ -26,6 +26,12 @@ import type {
   LessonContent,
   LessonStep,
   SymbolIntroStep,
+  SymbolRecognitionStep,
+  SymbolToSoundStep,
+  SymbolProductionStep,
+  ListeningComprehensionStep,
+  FillBlankStep,
+  SpeakingStep,
   TeachStep,
   MatchPairsStep,
   BuildSentenceStep,
@@ -40,11 +46,18 @@ import {
   type AnchorWord,
   type SentencePractice,
   type KanaIntro,
+  ALL_ROWS,
+  CONFUSABLES,
   YOON_ROWS,
 } from "./hiraganaCurriculum";
 import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
-import { getTtsUrl } from "@/shared/japanese/tts";
+import { getTtsUrl, hasTtsAudio } from "@/shared/japanese/tts";
 import { topStruggleKana } from "@/features/japanese/kanaMastery/struggleStore";
+import {
+  getDensityConfig,
+  warnDensityCapped,
+  type DensityConfig,
+} from "./lessonDensity";
 
 /**
  * Build a short, never-scolding explanation for a recognition MC. Always
@@ -130,6 +143,469 @@ function pickExampleWord(
     if (w.kana.includes(kana)) return w;
   }
   return null;
+}
+
+// ============================================================================
+// Drill builders (density-driven new step blocks)
+// ============================================================================
+
+/**
+ * Pool of "nearby" kana drawn from sibling rows in `ALL_ROWS`. Used to fill
+ * distractor banks when the current row doesn't have enough other kana to
+ * supply 3 fresh wrong answers. Cached at module load.
+ */
+let nearbyKanaCache: Map<string, string[]> | null = null;
+function getNearbyKanaPool(rowId: string): string[] {
+  if (!nearbyKanaCache) {
+    nearbyKanaCache = new Map();
+    for (let i = 0; i < ALL_ROWS.length; i++) {
+      const pool: string[] = [];
+      // Pull from previous + next rows first (the closest neighbours), then
+      // fall back to anything else in the catalog.
+      const order = [
+        ALL_ROWS[i - 1],
+        ALL_ROWS[i + 1],
+        ALL_ROWS[i - 2],
+        ALL_ROWS[i + 2],
+        ...ALL_ROWS.filter((_, j) => Math.abs(j - i) > 2),
+      ].filter((r): r is RowDef => Boolean(r));
+      for (const sibling of order) {
+        for (const k of sibling.introduces) pool.push(k.kana);
+      }
+      nearbyKanaCache.set(ALL_ROWS[i].id, pool);
+    }
+  }
+  return nearbyKanaCache.get(rowId) ?? [];
+}
+
+/**
+ * Pick up to `count` kana distractors for `target`. Pulls from:
+ *   1. Confusable-pair list (visually similar) — pedagogically the strongest
+ *   2. Other kana from this row
+ *   3. Kana from neighbouring rows
+ * Skips anything in `exclude` (typically the target and any distractors
+ * already chosen). Stable order: confusables first, then row, then nearby.
+ */
+function pickKanaDistractors(
+  target: string,
+  rowId: string,
+  row: RowDef,
+  count: number,
+  exclude: Set<string> = new Set(),
+): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>(exclude);
+  seen.add(target);
+  const push = (candidate: string) => {
+    if (!candidate || seen.has(candidate)) return;
+    seen.add(candidate);
+    out.push(candidate);
+  };
+  for (const c of CONFUSABLES[target] ?? []) {
+    if (out.length >= count) break;
+    push(c);
+  }
+  for (const k of row.introduces) {
+    if (out.length >= count) break;
+    push(k.kana);
+  }
+  for (const candidate of getNearbyKanaPool(rowId)) {
+    if (out.length >= count) break;
+    push(candidate);
+  }
+  return out;
+}
+
+/**
+ * Pick up to `count` meaning-string distractors for `target` from sibling
+ * rows. Avoids the row's own anchor meanings (those are the "right" answer
+ * pool for this row's items).
+ */
+function pickMeaningDistractors(
+  targetMeaning: string,
+  rowId: string,
+  count: number,
+  exclude: Set<string> = new Set(),
+): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>(exclude);
+  seen.add(targetMeaning);
+  for (const sibling of ALL_ROWS) {
+    if (sibling.id === rowId) continue;
+    for (const w of sibling.anchorWords) {
+      if (out.length >= count) break;
+      if (seen.has(w.meaning)) continue;
+      seen.add(w.meaning);
+      out.push(w.meaning);
+    }
+    if (out.length >= count) break;
+  }
+  return out;
+}
+
+/**
+ * Build a `symbol_recognition` step — learner sees a kana and picks the
+ * correct romaji from 4 options. Reuses SymbolRecognitionStepView, which
+ * auto-plays the kana's TTS on mount.
+ */
+function buildRecognitionStep(
+  row: RowDef,
+  sub: SubLessonDef,
+  k: KanaIntro,
+  idx: number,
+): SymbolRecognitionStep {
+  // Per `SymbolRecognitionStepView`: the prompt shows the romaji
+  // ("Pick the symbol for <romaji>"); options render `opt.symbol` and must
+  // be KANA glyphs the learner picks between.
+  const distractors = pickKanaDistractors(k.kana, row.id, row, 3);
+  const options = seededShuffle(
+    [
+      { id: "correct", symbol: k.kana },
+      ...distractors.map((d, i) => ({ id: `opt-${i}`, symbol: d })),
+    ],
+    `${row.id}-${sub.suffix}-recognition-${idx}-${k.kana}`,
+  );
+  return {
+    id: `ja-${row.id}-${sub.suffix}-recognition-${idx}`,
+    type: "symbol_recognition",
+    payload: {
+      symbol: k.kana,
+      romanization: k.romaji,
+      ipa: "",
+      hint: k.hint,
+      note: k.note,
+      scriptId: "hiragana",
+      hasStrokeOrder: Array.from(k.kana).length === 1,
+    },
+    options,
+    correctOptionId: "correct",
+  };
+}
+
+let romajiLookupCache: Map<string, string> | null = null;
+function lookupRomaji(kana: string): string | null {
+  if (!romajiLookupCache) {
+    romajiLookupCache = new Map();
+    for (const r of ALL_ROWS) {
+      for (const k of r.introduces) romajiLookupCache.set(k.kana, k.romaji);
+    }
+  }
+  return romajiLookupCache.get(kana) ?? null;
+}
+
+/**
+ * Build a `symbol_to_sound` step — learner sees a kana, hits Play, and picks
+ * the correct romaji from 4 options. Audio is the JA TTS for the kana's
+ * single-mora reading. If TTS isn't available, this step is skipped (the
+ * caller substitutes a recognition step instead).
+ */
+function buildSymbolToSoundStep(
+  row: RowDef,
+  sub: SubLessonDef,
+  k: KanaIntro,
+  idx: number,
+): SymbolToSoundStep | null {
+  const ttsUrl = getTtsUrl(k.kana);
+  if (!ttsUrl) return null;
+  const distractors = pickKanaDistractors(k.kana, row.id, row, 3);
+  const options = seededShuffle(
+    [
+      { id: "correct", text: k.romaji, symbol: k.kana },
+      ...distractors.map((d, i) => ({
+        id: `opt-${i}`,
+        text: lookupRomaji(d) ?? d,
+        symbol: d,
+      })),
+    ],
+    `${row.id}-${sub.suffix}-sound-${idx}-${k.kana}`,
+  );
+  return {
+    id: `ja-${row.id}-${sub.suffix}-sound-${idx}`,
+    type: "symbol_to_sound",
+    payload: {
+      symbol: k.kana,
+      romanization: k.romaji,
+      ipa: "",
+      hint: k.hint,
+      note: k.note,
+      // `audioKey` is treated as a full URL by `getAlphabetAudioUrl` when it
+      // starts with `http(s)://` or `/`. The JA TTS resolver returns a
+      // root-relative path, so the player loads it directly.
+      audioKey: ttsUrl,
+      scriptId: "hiragana",
+      hasStrokeOrder: Array.from(k.kana).length === 1,
+    },
+    options,
+    correctOptionId: "correct",
+  };
+}
+
+/**
+ * Build a `listening_comprehension` step — learner hears an anchor word and
+ * picks its meaning. Skips words with no TTS audio.
+ */
+function buildListeningComprehensionStep(
+  row: RowDef,
+  sub: SubLessonDef,
+  word: AnchorWord,
+  idx: number,
+): ListeningComprehensionStep | null {
+  if (!hasTtsAudio(word.kana)) return null;
+  const distractorMeanings = pickMeaningDistractors(word.meaning, row.id, 3);
+  if (distractorMeanings.length < 3) return null;
+  const options = seededShuffle(
+    [
+      { id: "correct", text: word.meaning },
+      ...distractorMeanings.map((m, i) => ({ id: `opt-${i}`, text: m })),
+    ],
+    `${row.id}-${sub.suffix}-listening-${idx}-${word.kana}`,
+  );
+  return {
+    id: `ja-${row.id}-${sub.suffix}-listening-${idx}`,
+    type: "listening_comprehension",
+    // `audioKey` is a stable id used by the view as a React key. The actual
+    // playback URL is resolved from `transcript` via `getTtsUrl` inside the
+    // view, so we set transcript = the JA word.
+    audioKey: `listen-${row.id}-${sub.suffix}-${idx}`,
+    transcript: word.kana,
+    romaji: word.romaji,
+    transcriptAnnotation: [{ surface: word.kana, reading: word.kana }],
+    question: "What does this mean?",
+    options,
+    correctOptionId: "correct",
+    explanation: `${word.kana} means '${word.meaning}'.`,
+  };
+}
+
+/**
+ * Build a `fill_blank` step. Picks an anchor word with ≥ 2 kana, blanks one
+ * of the row's newly-introduced kana inside the word, and offers a word-bank
+ * of 4 single-kana tiles (the answer + 3 distractors).
+ */
+function buildFillBlankStep(
+  row: RowDef,
+  sub: SubLessonDef,
+  word: AnchorWord,
+  idx: number,
+): FillBlankStep | null {
+  const introducedSet = new Set(sub.introduces.map((k) => k.kana));
+  const chars = Array.from(word.kana);
+  if (chars.length < 2) return null;
+  // Prefer blanking a kana introduced in this sub-lesson; otherwise blank
+  // any kana from the row.
+  const rowKanaSet = new Set(row.introduces.map((k) => k.kana));
+  let blankIndex = chars.findIndex((c) => introducedSet.has(c));
+  if (blankIndex === -1) blankIndex = chars.findIndex((c) => rowKanaSet.has(c));
+  if (blankIndex === -1) return null;
+  const correctKana = chars[blankIndex];
+  const sentence =
+    chars.slice(0, blankIndex).join("") +
+    "{{blank}}" +
+    chars.slice(blankIndex + 1).join("");
+  const distractors = pickKanaDistractors(correctKana, row.id, row, 3);
+  if (distractors.length < 3) return null;
+  const bank = seededShuffle(
+    [correctKana, ...distractors],
+    `${row.id}-${sub.suffix}-fill-${idx}-${word.kana}`,
+  );
+  return {
+    id: `ja-${row.id}-${sub.suffix}-fill-${idx}`,
+    type: "fill_blank",
+    sentence,
+    hint: `Pick the missing kana — '${word.meaning}'.`,
+    blanks: [{ id: "b1", correctAnswer: correctKana }],
+    wordBank: bank,
+  };
+}
+
+/**
+ * Build a `speaking` step. Voice tuning is still in flight, so this returns
+ * a step with the kana as both target and translation prompt. Counts
+ * default to 0 in the Standard preset; the voice agent will bump that to 2
+ * once thresholds stabilize.
+ */
+function buildSpeakingStep(
+  row: RowDef,
+  sub: SubLessonDef,
+  k: KanaIntro,
+  idx: number,
+): SpeakingStep {
+  return {
+    id: `ja-${row.id}-${sub.suffix}-speak-${idx}`,
+    type: "speaking",
+    targetPhrase: k.kana,
+    translation: k.romaji,
+    stubbed: true,
+    targetAnnotation: [{ surface: k.kana, reading: k.kana }],
+  };
+}
+
+/**
+ * Build a `symbol_production` step — learner writes the kana on a blank
+ * canvas. Multi-codepoint kana (yōon: e.g. きゃ) don't have stroke data so
+ * they are filtered out by the caller; this helper assumes single-codepoint.
+ */
+function buildProductionStep(
+  row: RowDef,
+  sub: SubLessonDef,
+  k: KanaIntro,
+  idx: number,
+): SymbolProductionStep {
+  return {
+    id: `ja-${row.id}-${sub.suffix}-prod-${idx}`,
+    type: "symbol_production",
+    payload: {
+      symbol: k.kana,
+      romanization: k.romaji,
+      ipa: "",
+      hint: k.hint,
+      note: k.note,
+      scriptId: "hiragana",
+      hasStrokeOrder: true,
+    },
+    minCorrectAttempts: 1,
+  };
+}
+
+/**
+ * Generate `count` items of one drill type, looping through the available
+ * targets when count exceeds the target pool. Returns the list of emitted
+ * steps (skipping `null` results from per-item builders). Calls
+ * `warnDensityCapped` if the requested count exceeds what we can produce.
+ */
+function generateDrillItems<T extends KanaIntro | AnchorWord, S extends LessonStep>(
+  rowId: string,
+  configKey: keyof DensityConfig,
+  requestedCount: number,
+  pool: T[],
+  maxFromPool: number,
+  build: (item: T, idx: number) => S | null,
+): S[] {
+  if (requestedCount === 0 || pool.length === 0) return [];
+  // Cap: at most each item used twice (e.g. yōon-intro: 1 kana × 2 = 2 items
+  // max for recognition). The caller passes `maxFromPool` to tune that.
+  const cap = Math.min(requestedCount, pool.length * maxFromPool);
+  if (cap < requestedCount) warnDensityCapped(rowId, configKey, requestedCount, cap);
+  const out: S[] = [];
+  let i = 0;
+  let attempts = 0;
+  const MAX_ATTEMPTS = cap * 3 + 4;
+  while (out.length < cap && attempts < MAX_ATTEMPTS) {
+    const item = pool[i % pool.length];
+    const step = build(item, out.length);
+    if (step) out.push(step);
+    i++;
+    attempts++;
+  }
+  return out;
+}
+
+/**
+ * Emit the chained drill blocks for a sub-lesson, in the spec'd order.
+ * Returns a single flat array of steps. Counts come from `cfg`; pool comes
+ * from the row + sub-lesson's introduced kana + anchor words.
+ */
+function buildDrillBlock(
+  row: RowDef,
+  sub: SubLessonDef,
+  cfg: DensityConfig,
+): LessonStep[] {
+  // Use the sub-lesson's own kana as the primary pool; fall back to the
+  // row's kana if the sub-lesson has none (review-only sub-lessons).
+  const kanaPool: KanaIntro[] =
+    sub.introduces.length > 0 ? sub.introduces : row.introduces;
+  // Anchor words for word-level drills.
+  const wordPool: AnchorWord[] = sub.anchorWords.length > 0
+    ? sub.anchorWords
+    : row.anchorWords;
+
+  // Build each drill type's items separately, then INTERLEAVE so the
+  // learner sees [rec, sound, listen, fill, rec, sound, ...] rather than
+  // [rec, rec, rec, rec, sound, sound, listen, listen, ...] — variation
+  // between types keeps it from feeling like the same question repeated.
+  const recognition: LessonStep[] = [];
+  recognition.push(
+    ...generateDrillItems<KanaIntro, SymbolRecognitionStep>(
+      row.id,
+      "recognition",
+      cfg.recognition,
+      kanaPool,
+      2,
+      (k, idx) => buildRecognitionStep(row, sub, k, idx),
+    ),
+  );
+
+  // 2. Symbol-to-sound — maxFromPool=1, same audio = duplicate.
+  const soundSteps = generateDrillItems<KanaIntro, SymbolToSoundStep>(
+    row.id,
+    "symbolToSound",
+    cfg.symbolToSound,
+    kanaPool,
+    1,
+    (k, idx) => buildSymbolToSoundStep(row, sub, k, idx),
+  );
+
+  // 3. Listening comprehension — maxFromPool=1, same word audio = dup.
+  const listeningSteps = generateDrillItems<AnchorWord, ListeningComprehensionStep>(
+    row.id,
+    "listening",
+    cfg.listening,
+    wordPool,
+    1,
+    (w, idx) => buildListeningComprehensionStep(row, sub, w, idx),
+  );
+
+  // 4. Fill blank — maxFromPool=1, same word = identical sentence.
+  const fillSteps = generateDrillItems<AnchorWord, FillBlankStep>(
+    row.id,
+    "fillBlank",
+    cfg.fillBlank,
+    wordPool,
+    1,
+    (w, idx) => buildFillBlankStep(row, sub, w, idx),
+  );
+
+  // 5. Speaking — maxFromPool=1. Defaults to 0 in Standard until voice ships.
+  const speakingSteps = generateDrillItems<KanaIntro, SpeakingStep>(
+    row.id,
+    "speaking",
+    cfg.speaking,
+    kanaPool,
+    1,
+    (k, idx) => buildSpeakingStep(row, sub, k, idx),
+  );
+
+  // 6. Production — yōon (multi-codepoint) filtered (no stroke data).
+  const productionPool = kanaPool.filter((k) => Array.from(k.kana).length === 1);
+  const productionSteps = generateDrillItems<KanaIntro, SymbolProductionStep>(
+    row.id,
+    "production",
+    cfg.production,
+    productionPool,
+    1,
+    (k, idx) => buildProductionStep(row, sub, k, idx),
+  );
+
+  // Round-robin interleave so the learner sees [rec, sound, listen, fill,
+  // prod, rec, sound, listen, ...] rather than 4 recognition in a row then
+  // 2 sound then 2 listen. Exhausted lanes are skipped.
+  const lanes: LessonStep[][] = [
+    recognition,
+    soundSteps,
+    listeningSteps,
+    fillSteps,
+    speakingSteps,
+    productionSteps,
+  ];
+  const maxLen = lanes.reduce((m, l) => Math.max(m, l.length), 0);
+  const steps: LessonStep[] = [];
+  for (let i = 0; i < maxLen; i++) {
+    for (const lane of lanes) {
+      if (lane[i]) steps.push(lane[i]);
+    }
+  }
+
+  return steps;
 }
 
 function buildIntroStep(
@@ -500,19 +976,28 @@ function buildSubLessonContent(
     }
   });
 
-  // Carry-over match — struggle-biased pick from earlier sub-lessons.
-  const carryOver = pickStruggleCarryOver(row, subLessonIdx, 2, lang);
-  const carryMatch = buildSubLessonMatchStep(row, sub, carryOver, "match-carry");
-  if (carryMatch) steps.push(carryMatch);
-
   // Anchor words not paired with an intro still get a teach so the match
-  // step has full coverage.
+  // step has full coverage. (Emitted before drills so the learner has seen
+  // every anchor word's meaning at least once before the listening/fill
+  // drills test it.)
   sub.anchorWords.forEach((w) => {
     if (usedWords.has(w.kana)) return;
     const idx = wordTeachCount.size;
     wordTeachCount.set(w.kana, idx);
     steps.push(buildTeachStep(row, w, idx));
   });
+
+  // Density-driven drill blocks (~1-3 minutes of additional practice).
+  // Order: recognition → symbol-to-sound → listening → fill-blank →
+  // speaking → production. Counts come from the URL-tunable density preset.
+  const densityCfg = getDensityConfig();
+  steps.push(...buildDrillBlock(row, sub, densityCfg));
+
+  // Carry-over match — struggle-biased pick from earlier sub-lessons. Lives
+  // alongside the row's own match_pairs as a quick spiraled review.
+  const carryOver = pickStruggleCarryOver(row, subLessonIdx, 2, lang);
+  const carryMatch = buildSubLessonMatchStep(row, sub, carryOver, "match-carry");
+  if (carryMatch) steps.push(carryMatch);
 
   // Sentence-example slides (orphan-kana notes).
   if (sub.sentenceExamples) {

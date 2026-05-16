@@ -8,8 +8,9 @@ export function getAlphabetAudioUrl(audioKey: string): string {
 
   if (!audioKey) return "";
 
-  // If the key already looks like a full URL, return it as-is.
-  if (/^https?:\/\//.test(audioKey)) {
+  // If the key already looks like a full or root-relative URL, return it
+  // as-is. JA TTS resolves to root-relative `/pub/tts/...` paths.
+  if (/^https?:\/\//.test(audioKey) || audioKey.startsWith("/")) {
     return audioKey;
   }
 

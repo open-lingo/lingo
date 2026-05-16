@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { ListeningComprehensionStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
-import { AnnotatedJa } from "@/shared/japanese";
 import { getTtsUrl } from "@/shared/japanese/tts";
 import { Icon } from "@/shared/components/Icon";
 
@@ -15,7 +14,6 @@ type Props = {
 export function ListeningComprehensionStepView({ step, onComplete, onContinue }: Props) {
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
-  const [showTranscript, setShowTranscript] = useState(false);
 
   const isCorrect = selected === step.correctOptionId;
 
@@ -34,43 +32,31 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         <button
           type="button"
           onClick={handlePlay}
-          className="flex h-14 w-14 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
+          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
           aria-label="Play audio"
         >
           <Icon name="play" size={24} />
         </button>
-        <div>
+        <div className="min-w-0">
           <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
             Listen and answer
           </p>
-          <p className="text-sm text-text-muted">{step.audioKey}</p>
-        </div>
-      </div>
-
-      {step.transcript && (
-        <div>
-          <button
-            type="button"
-            onClick={() => setShowTranscript((v) => !v)}
-            className="text-xs font-bold uppercase tracking-wider text-accent hover:text-accent-hover"
-          >
-            {showTranscript ? "Hide transcript" : "Show transcript"}
-          </button>
-          {showTranscript && (
-            <p className="mt-2 rounded-xl border-[1.5px] border-border bg-surface-muted px-4 py-3 text-base text-text-secondary">
-              {step.transcriptAnnotation ? (
-                <AnnotatedJa segments={step.transcriptAnnotation} />
-              ) : (
-                <AnnotatedJa text={step.transcript} />
+          {step.transcript ? (
+            <p className="font-japanese text-2xl font-semibold leading-tight text-text-primary">
+              {step.transcript}
+              {step.romaji && (
+                <span className="ml-2 font-sans text-sm font-normal text-text-secondary">
+                  {step.romaji}
+                </span>
               )}
             </p>
-          )}
+          ) : null}
         </div>
-      )}
+      </div>
 
       <h2 className="text-lg font-semibold text-text-primary">
         {step.question}

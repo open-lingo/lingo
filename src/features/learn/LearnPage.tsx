@@ -12,7 +12,8 @@ import {
   isDevUnlockOn,
   setDevUnlock,
 } from "@/shared/domain/mockProgress";
-import { setSpeechFlag } from "@/shared/speech";
+import { applySpeechQueryParams, setSpeechFlag } from "@/shared/speech";
+import { applyDensityQueryParams } from "@/features/lesson/data/lessonDensity";
 import { getAlphabetProgress } from "@/features/practice/alphabet/alphabetProgress";
 import {
   clearGraduatedVocab,
@@ -77,17 +78,27 @@ export function LearnPage() {
     }
     // Parallel toggle for the speech-recognition feature flag. `?speech=1`
     // opts the session into the pronunciation step renderer in
-    // `SpeakingStepView`; default users see no change.
+    // `SpeakingStepView`; default users see no change. The same pass
+    // also picks up the matcher dials (`?speech-perfect=`,
+    // `?speech-close=`, `?speech-strict=`, `?speech-alts=`,
+    // `?speech-debug=`).
     const speech = searchParams.get("speech");
+    let speechChanged = false;
     if (speech === "1") {
       setSpeechFlag(true);
-      const next = new URLSearchParams(searchParams);
-      next.delete("speech");
-      setSearchParams(next, { replace: true });
+      speechChanged = true;
     } else if (speech === "0") {
       setSpeechFlag(false);
-      const next = new URLSearchParams(searchParams);
-      next.delete("speech");
+      speechChanged = true;
+    }
+    const next = new URLSearchParams(searchParams);
+    if (speechChanged) next.delete("speech");
+    const dialsChanged = applySpeechQueryParams(next);
+    // Sub-lesson density preset + per-key overrides. See
+    // `lessonDensity.ts` — `?density=standard` to pick a preset,
+    // `?density-recognition=N` (etc.) to override a single dial.
+    const densityChanged = applyDensityQueryParams(next);
+    if (speechChanged || dialsChanged || densityChanged) {
       setSearchParams(next, { replace: true });
     }
   }, [searchParams, setSearchParams]);

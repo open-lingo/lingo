@@ -193,3 +193,101 @@ Build: clean.
 4. **Telemetry shape** — when struggle-score / mastery wiring lands, what do we record? "Attempted speaking" or "Passed speaking on Nth try"? Tied to the Phase 2 review-cadence design.
 5. **Privacy copy** — before Phase A goes near production, we need explicit copy about audio leaving the browser when Web Speech is used. UI placement TBD; happy to draft.
 6. **Safari iOS sanity-check** — I tested the API surface but not a real iPhone session. If you have a device handy, the smoke test is: `?speech=1` → speaking step → tap mic → say あい → confirm a transcript appears. If it hangs, log the `error` value and we'll harden the hook.
+
+---
+
+## Whisper-small spike — current state (2026-05-15)
+
+Path B from the matrix above is now wired behind a separate URL dial. The
+existing Web Speech API path is unchanged and remains the default.
+
+### What was implemented
+
+- `src/shared/speech/whisper-worker.ts` — Web Worker that lazy-imports
+  `@huggingface/transformers` and hosts an `automatic-speech-recognition`
+  pipeline. Tries WebGPU first, falls back to WASM on init failure. Emits
+  download progress, ready, result, and error messages to the host.
+- `src/shared/speech/audioCapture.ts` — `getUserMedia` + AudioContext
+  capture via `ScriptProcessorNode`. Returns 16 kHz mono `Float32Array`
+  via linear-interpolation resampling from the native sample rate.
+  No endpointing — user taps stop. RMS helper exposed for future VAD.
+- `src/shared/speech/useWhisperRecognition.ts` — React hook with the
+  same surface as `useSpeechRecognition` (start/stop/reset, transcript,
+  alternatives, finished, error, supported) plus Whisper-specific
+  fields (`status`, `downloadProgress`, `device`). The worker is lazy
+  on first `start()` so the heavy bundle never lands in the main
+  chunk.
+- `src/shared/speech/featureFlag.ts` — extended with a `SpeechEngine`
+  type and an `engine` field on `SpeechConfig`. The `?speech-engine=`
+  param accepts `web` (default) or `whisper`.
+- `src/features/lesson/components/steps/SpeakingStepView.tsx` — picks
+  between the two hooks based on `config.engine`. Adds a loading
+  banner with percent progress while the model downloads, and a
+  "Transcribing…" helper while the worker is running inference.
+- `vite.config.ts` — `worker.format: "es"` (required for code-split
+  ES-module workers) and `optimizeDeps.exclude` for the transformers
+  package to keep dev startup snappy.
+
+### How to toggle
+
+1. Visit any Lingo URL with `?speech=1&speech-engine=whisper`.
+2. The flags persist in sessionStorage; subsequent navigation
+   continues using Whisper.
+3. To revert: `?speech-engine=web`.
+
+The output transcript still flows through the existing
+`scoreAlternatives` pipeline in `loose-match.ts`, so the verdict
+tiers, debug panel, and N-best handling all behave identically.
+
+### First-load cost
+
+- Worker bootstrap: 1.77 kB (lazy).
+- transformers.js library chunk: 558 kB (lazy).
+- ONNX runtime WASM: 23.5 MB unpacked / 5.76 MB gzipped (lazy).
+- Whisper-small model (Q8): ~80 MB, fetched from the Hugging Face CDN
+  on first run, then cached by the browser's Cache Storage API.
+
+Main bundle delta: **0 kB** (verified via post-build grep — no
+`@huggingface/transformers` import lands in `index-*.js`).
+
+### Manual smoke test
+
+Not exercised in the agent environment — the worker requires a real
+browser, mic permission, and live network access for the model fetch.
+Spencer needs to validate this end-to-end. Expected first-load behavior:
+
+- Tap the mic. Helper text shows "Loading Whisper model… N%". This
+  takes 10–60 seconds depending on bandwidth; the model is cached
+  after the first run.
+- Once ready, the mic button enables. Tap, say "あい", tap again to
+  stop. Helper text shows "Transcribing…". Expected latency on
+  WebGPU: ~200–800 ms for a 2 s clip. WASM: 1–3 s.
+- Transcript flows through the same `scoreAlternatives` path as the
+  Web Speech engine; the perfect / close / try-again tiers light up
+  the same way.
+
+### Known limitations of the spike
+
+- **N-best is 1.** The transformers.js high-level pipeline doesn't
+  expose beam-search alternatives in a stable way; we return a single
+  top-1 transcript. The `scoreAlternatives` scorer still receives a
+  `SpeechAlternative[]` shape with one entry. Future work: switch to
+  the lower-level `generate()` API with `num_beams: 5` and
+  `num_return_sequences: 5`.
+- **No interim transcripts.** Whisper is one-shot; we can't show a
+  live word-by-word transcript while the user speaks. The spec called
+  this out and the UI handles it with a "Transcribing…" placeholder.
+- **No endpointing.** The user has to manually tap stop. RMS-based
+  VAD is queued.
+- **`ScriptProcessorNode` is deprecated.** Works everywhere today but
+  should migrate to AudioWorklet before this ships.
+- **No graceful fallback UI to switch engines.** If model fetch
+  fails, the hook surfaces `error: "unknown"` and `status: "error"`,
+  and the helper text reads "Speech recognition hit an error — try
+  again." but there is no in-UI "switch to web engine" button yet.
+  Spencer can flip back via `?speech-engine=web`.
+- **dtype heuristic is conservative.** WebGPU uses `fp32`, WASM uses
+  `q8`. Newer transformers.js versions may benefit from `q4`. Worth
+  benchmarking once real session data is available.
+- **No telemetry.** We don't capture transcribe latency, first-load
+  time, or error rate. Add before any wider rollout.

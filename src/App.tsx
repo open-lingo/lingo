@@ -31,6 +31,11 @@ const DocsPage = lazy(() =>
 const LessonPage = lazy(() =>
   import("@/features/lesson/LessonPage").then((m) => ({ default: m.LessonPage })),
 );
+const SpeechTunePage = lazy(() =>
+  import("@/features/speech-tune/SpeechTunePage").then((m) => ({
+    default: m.SpeechTunePage,
+  })),
+);
 const FlashcardTester = lazy(() =>
   import("@/features/flashcards/FlashcardTester").then((m) => ({ default: m.FlashcardTester })),
 );
@@ -183,6 +188,7 @@ const router = createBrowserRouter([
           },
           { path: "vocab", element: <VocabPage /> },
           { path: "grammar", element: <GrammarPage /> },
+          { path: "speech-tune", element: <SpeechTunePage /> },
           {
             path: "community",
             element: <CommunityLayout />,

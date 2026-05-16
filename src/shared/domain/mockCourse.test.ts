@@ -16,12 +16,12 @@ import { getMockCourse } from "./mockCourse";
 describe("curriculum-restructure lesson counts", () => {
   const course = getMockCourse("ja");
 
-  it("M1 has ~36 lessons (pure hiragana, no yōon)", () => {
+  it("M1 has ~37 lessons (pure hiragana, no yōon)", () => {
     const m1 = course.modules.find((m) => m.id === "m1")!;
     expect(m1).toBeDefined();
-    // 1 vowels stub + (7 × 4-node rows) + (2 × 3-node rows for ya/wa) + 1 recap
-    // = 1 + 28 + 6 + 1 = 36
-    expect(m1.lessons.length).toBe(36);
+    // 2 vowels (split 1/2 + 2/2) + (7 × 4-node rows) + (2 × 3-node rows for ya/wa) + 1 recap
+    // = 2 + 28 + 6 + 1 = 37
+    expect(m1.lessons.length).toBe(37);
     // No yōon ids leak into m1.
     for (const lesson of m1.lessons) {
       expect(lesson.id.includes("yoon-")).toBe(false);

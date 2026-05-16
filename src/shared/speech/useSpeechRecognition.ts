@@ -8,6 +8,7 @@
  * The hook is intentionally minimal:
  *   - one start / stop pair
  *   - interim transcript while speaking, final transcript on end
+ *   - N-best alternatives (up to 5) surfaced as `alternatives`
  *   - errors surfaced via an `error` field (string code)
  *
  * Anything richer (per-mora alignment, pitch overlay, MediaRecorder
@@ -55,11 +56,24 @@ export type SpeechErrorCode =
   | "service-not-allowed"
   | "unknown";
 
+/** A single ASR alternative from the N-best list. */
+export type SpeechAlternative = {
+  transcript: string;
+  confidence?: number;
+};
+
 export type UseSpeechRecognitionState = {
   /** True while the mic is open. */
   listening: boolean;
-  /** Best-so-far transcript (interim or final). */
+  /** Best-so-far transcript (interim or final). Concatenated top-1 across result items. */
   transcript: string;
+  /**
+   * Final-result N-best list. Empty while listening (interim results
+   * usually only carry the top alternative) and populated on the
+   * terminal result. Each entry has `transcript` and (where the API
+   * reported it) `confidence` in [0, 1].
+   */
+  alternatives: SpeechAlternative[];
   /** True once the recognizer has fired `end`. */
   finished: boolean;
   /** Error code, or null. */
@@ -74,15 +88,29 @@ export type UseSpeechRecognitionApi = UseSpeechRecognitionState & {
   reset: () => void;
 };
 
+export type UseSpeechRecognitionOptions = {
+  /**
+   * Number of alternatives to request from the API. Clamped to [1, 5].
+   * Defaults to 5 — Chrome and Safari both honor the request, and more
+   * alternatives is a near-free way to recover from common ASR errors
+   * (h-prepending, romaji-vs-kana ambiguity, etc.) in the matcher.
+   */
+  maxAlternatives?: number;
+};
+
 export function useSpeechRecognition(
   lang: string = "ja-JP",
+  options: UseSpeechRecognitionOptions = {},
 ): UseSpeechRecognitionApi {
   const recogRef = useRef<SpeechRecognitionLike | null>(null);
   const [listening, setListening] = useState(false);
   const [transcript, setTranscript] = useState("");
+  const [alternatives, setAlternatives] = useState<SpeechAlternative[]>([]);
   const [finished, setFinished] = useState(false);
   const [error, setError] = useState<SpeechErrorCode | null>(null);
   const supported = getCtor() !== null;
+
+  const requestedAlts = Math.max(1, Math.min(5, options.maxAlternatives ?? 5));
 
   const stop = useCallback(() => {
     const r = recogRef.current;
@@ -112,6 +140,7 @@ export function useSpeechRecognition(
 
   const reset = useCallback(() => {
     setTranscript("");
+    setAlternatives([]);
     setFinished(false);
     setError(null);
   }, []);
@@ -138,24 +167,55 @@ export function useSpeechRecognition(
     recog.lang = lang;
     recog.interimResults = true;
     recog.continuous = false;
-    recog.maxAlternatives = 3;
+    recog.maxAlternatives = requestedAlts;
 
     recog.onstart = () => {
       setListening(true);
     };
 
-    recog.onresult = (event: { results: ArrayLike<ArrayLike<{ transcript: string; confidence?: number }>> }) => {
-      // Collect best alternative from every result item, prefer the one
-      // with the highest confidence among interim alternatives.
+    recog.onresult = (event: {
+      results: ArrayLike<
+        ArrayLike<{ transcript: string; confidence?: number }> & {
+          isFinal?: boolean;
+        }
+      >;
+    }) => {
+      // Two distinct things to surface:
+      //  - `transcript`: best-so-far text, including interim. Used to
+      //    show the user what we heard live.
+      //  - `alternatives`: N-best list from the final result item.
+      //    Populated only when we see an `isFinal` result.
       let best = "";
       const results = event.results;
+      const finalAlts: SpeechAlternative[] = [];
       for (let i = 0; i < results.length; i++) {
         const alts = results[i];
-        if (alts && alts.length > 0) {
-          best += alts[0].transcript;
+        if (!alts || alts.length === 0) continue;
+        best += alts[0].transcript;
+        if (alts.isFinal) {
+          for (let j = 0; j < alts.length; j++) {
+            const a = alts[j];
+            if (!a) continue;
+            finalAlts.push({
+              transcript: a.transcript,
+              confidence: a.confidence,
+            });
+          }
         }
       }
       setTranscript(best);
+      if (finalAlts.length > 0) {
+        // Dedupe by transcript; preserve first occurrence (highest confidence).
+        const seen = new Set<string>();
+        const deduped: SpeechAlternative[] = [];
+        for (const a of finalAlts) {
+          const key = a.transcript.trim();
+          if (seen.has(key)) continue;
+          seen.add(key);
+          deduped.push(a);
+        }
+        setAlternatives(deduped);
+      }
     };
 
     recog.onerror = (event: { error?: string }) => {
@@ -192,11 +252,12 @@ export function useSpeechRecognition(
       setError("unknown");
       setListening(false);
     }
-  }, [lang, reset]);
+  }, [lang, requestedAlts, reset]);
 
   return {
     listening,
     transcript,
+    alternatives,
     finished,
     error,
     supported,
