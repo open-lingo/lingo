@@ -16,6 +16,8 @@ export type ThemeTokens = {
     accent: string;
     accentHover: string;
     accentMuted: string;
+    /** Text/icons on solid accent (primary buttons, etc.). */
+    onAccent: string;
     error: string;
     success: string;
     warning: string;

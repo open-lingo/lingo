@@ -1,3 +1,5 @@
+import { Icon } from "@/shared/components/Icon";
+import { Button } from "@/shared/components/ui";
 import "./pathway.css";
 
 export type ResumeBarProps = {
@@ -14,19 +16,16 @@ export function ResumeBar({
   if (!currentLessonTitle) return null;
   return (
     <div className="lingo-resume-bar">
-      <div className="flex-1 text-[13px] font-semibold text-text-secondary">
+      <div className="min-w-0 flex-1 text-sm font-medium text-text-secondary">
         Current:{" "}
-        <b className="text-text-primary">
+        <span className="text-text-primary">
           {currentLessonTitle} · {currentModuleTitle}
-        </b>
+        </span>
       </div>
-      <button
-        type="button"
-        onClick={onResume}
-        className="rounded-full bg-accent px-3.5 py-1.5 text-[12px] font-semibold text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:bg-accent-hover"
-      >
-        Return ›
-      </button>
+      <Button type="button" variant="primary" size="sm" onClick={onResume}>
+        Return
+        <Icon name="chevronRight" size={14} className="ml-0.5" aria-hidden />
+      </Button>
     </div>
   );
 }

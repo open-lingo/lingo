@@ -1,9 +1,11 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/shared/auth/useAuth";
-import { LandingPage } from "@/features/landing/LandingPage";
 import { useTranslation } from "react-i18next";
 
-/** Root route: redirect to /home if logged in, else show landing. */
+/**
+ * Root `/`: send signed-in users to the app hub; send anonymous users to the
+ * dedicated landing route (same SPA today; can move to a separate origin later).
+ */
 export function RootRoute() {
   const { isAuthenticated, isLoading } = useAuth();
   const { t } = useTranslation();
@@ -20,5 +22,5 @@ export function RootRoute() {
     return <Navigate to="/home" replace />;
   }
 
-  return <LandingPage />;
+  return <Navigate to="/landing" replace />;
 }

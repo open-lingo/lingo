@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { Icon } from "@/shared/components/Icon";
 import type { SideQuest } from "@/shared/domain/course";
 import "./pathway.css";
 
@@ -22,7 +23,7 @@ export function SideQuestCard({ quest, locked, onClick }: SideQuestCardProps) {
       data-locked={locked}
       className={`lingo-quest-card${quest.isDaily ? " daily" : ""}`}
     >
-      <div className="lingo-quest-emoji" aria-hidden="true">
+      <div className="lingo-quest-emoji" aria-hidden>
         {quest.emoji}
       </div>
       <div className="lingo-quest-body">
@@ -33,11 +34,11 @@ export function SideQuestCard({ quest, locked, onClick }: SideQuestCardProps) {
         className={`lingo-quest-progress${locked ? " locked" : ""}`}
         style={locked ? undefined : ringStyle}
         aria-label={
-          locked
-            ? "Locked"
-            : `Progress ${Math.round(quest.progress)} percent`
+          locked ? "Locked" : `Progress ${Math.round(quest.progress)} percent`
         }
-      />
+      >
+        {locked ? <Icon name="lock" size={14} aria-hidden /> : null}
+      </div>
     </button>
   );
 }

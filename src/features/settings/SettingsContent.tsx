@@ -9,6 +9,7 @@ import type { Language } from "@/shared/domain/languages";
 import { AVAILABLE_LEARNING_LANGUAGES } from "@/shared/domain/languageConfig";
 import { supportedLngs } from "@/shared/i18n/i18n";
 import { utcToLocalHHmm, localToUtcHHmm } from "@/shared/utils/reminderTime";
+import { AccountPrivacySection } from "./AccountPrivacySection";
 
 const UI_LOCALE_LABELS: Record<string, string> = {
   en: "English",
@@ -248,6 +249,8 @@ export function SettingsContent() {
           ))}
         </div>
       </section>
+
+      <AccountPrivacySection />
     </div>
   );
 }

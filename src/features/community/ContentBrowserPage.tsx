@@ -10,6 +10,7 @@ import { CommunityItemCard, type CommunityItemCardItem } from "./components/Comm
 import { useBrowseSubscribedContent } from "./useBrowseSubscribedContent";
 import { useCommunityContent } from "./CommunityContentContext";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { TabList, TabButton } from "@/shared/components/ui/Tabs";
 import { useApi } from "@/shared/api/provider";
 import type { DeckResponse } from "@/shared/api/decks";
@@ -90,6 +91,8 @@ export function ContentBrowserPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { language } = useLanguage();
+  const flags = useFeatureFlags();
+  const explore = flags.community.explore;
   const { decks: decksApi, users: usersApi, stories: storiesApi } = useApi();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -102,9 +105,20 @@ export function ContentBrowserPage() {
   const [discoverFilter, setDiscoverFilter] = useState<DiscoverFilter>("all");
 
   useEffect(() => {
-    const resolvedType = TYPE_FROM_PARAM[typeParam ?? ""] ?? "all";
+    let resolvedType = TYPE_FROM_PARAM[typeParam ?? ""] ?? "all";
+    if (resolvedType === "story" && !explore.stories) resolvedType = "all";
+    if (resolvedType === "course" && !explore.courses) resolvedType = "all";
+    if (resolvedType === "flashcard-pack" && !explore.flashcardDecks) resolvedType = "all";
+    if (
+      typeParam &&
+      resolvedType === "all" &&
+      typeParam !== "all" &&
+      TYPE_FROM_PARAM[typeParam] !== undefined
+    ) {
+      navigate(langPath("community/explore"), { replace: true });
+    }
     setTypeFilter(resolvedType);
-  }, [typeParam]);
+  }, [typeParam, explore.stories, explore.courses, explore.flashcardDecks, navigate, langPath]);
 
   const [apiDecks, setApiDecks] = useState<DeckResponse[]>([]);
   const [apiDecksLoading, setApiDecksLoading] = useState(true);
@@ -125,6 +139,11 @@ export function ContentBrowserPage() {
   const effectiveLanguage = languageFilter === "all" ? undefined : (languageFilter ?? langId);
 
   useEffect(() => {
+    if (!explore.flashcardDecks) {
+      setApiDecks([]);
+      setApiDecksLoading(false);
+      return;
+    }
     let ok = true;
     setApiDecksLoading(true);
     decksApi
@@ -141,7 +160,7 @@ export function ContentBrowserPage() {
     return () => {
       ok = false;
     };
-  }, [decksApi, effectiveLanguage]);
+  }, [decksApi, effectiveLanguage, explore.flashcardDecks]);
 
   useEffect(() => {
     let ok = true;
@@ -173,6 +192,11 @@ export function ContentBrowserPage() {
   }, [usersApi, decksApi]);
 
   useEffect(() => {
+    if (!explore.stories) {
+      setApiStories([]);
+      setApiStoriesLoading(false);
+      return;
+    }
     let ok = true;
     setApiStoriesLoading(true);
     storiesApi
@@ -189,9 +213,13 @@ export function ContentBrowserPage() {
     return () => {
       ok = false;
     };
-  }, [storiesApi, effectiveLanguage]);
+  }, [storiesApi, effectiveLanguage, explore.stories]);
 
   useEffect(() => {
+    if (!explore.stories) {
+      setSubscribedStories([]);
+      return;
+    }
     let ok = true;
     usersApi
       .getSubscriptions({ contentType: "story" })
@@ -214,7 +242,7 @@ export function ContentBrowserPage() {
     return () => {
       ok = false;
     };
-  }, [usersApi, storiesApi]);
+  }, [usersApi, storiesApi, explore.stories]);
 
   const refreshSubscriptions = useCallback(() => {
     usersApi
@@ -232,6 +260,10 @@ export function ContentBrowserPage() {
         setSubscribedDecks(results);
       })
       .catch(() => setSubscribedDecks([]));
+    if (!explore.stories) {
+      setSubscribedStories([]);
+      return;
+    }
     usersApi
       .getSubscriptions({ contentType: "story" })
       .then(async (subs) => {
@@ -247,7 +279,7 @@ export function ContentBrowserPage() {
         setSubscribedStories(results);
       })
       .catch(() => setSubscribedStories([]));
-  }, [usersApi, decksApi, storiesApi]);
+  }, [usersApi, decksApi, storiesApi, explore.stories]);
 
   const {
     activeTab,
@@ -279,12 +311,20 @@ export function ContentBrowserPage() {
       (a): a is CommunityAddon =>
         a.kind === "course" || a.kind === "story"
     );
-    return addons;
-  }, []);
+    return addons.filter((a) => {
+      if (a.kind === "course" && !explore.courses) return false;
+      if (a.kind === "story" && !explore.stories) return false;
+      return true;
+    });
+  }, [explore.courses, explore.stories]);
 
   const browseContent = useMemo(() => {
-    return [...apiDeckCards, ...apiStoryCards, ...mockAddons];
-  }, [apiDeckCards, apiStoryCards, mockAddons]);
+    const parts: (DeckCardItem | StoryCardItem | CommunityAddon)[] = [];
+    if (explore.flashcardDecks) parts.push(...apiDeckCards);
+    if (explore.stories) parts.push(...apiStoryCards);
+    parts.push(...mockAddons);
+    return parts;
+  }, [apiDeckCards, apiStoryCards, mockAddons, explore.flashcardDecks, explore.stories]);
 
   const supportedLanguageIds = useMemo(() => {
     const ids =
@@ -380,7 +420,7 @@ export function ContentBrowserPage() {
 
   return (
     <div className="space-y-8">
-      {!showSearchResults && (
+      {!showSearchResults && explore.activeDiscussions && (
         <section>
           <h2 className="mb-3 flex items-center gap-2 text-base font-semibold text-text-primary">
             <Icon name="flame" size={20} className="shrink-0" aria-hidden />
@@ -450,8 +490,14 @@ export function ContentBrowserPage() {
             {t("forum.type")}
           </h3>
           <div className="flex flex-wrap gap-1">
-            {(["all", "flashcard-pack", "course", "story"] as const).map((tipo) => {
-              const param = tipo === "all" ? null : tipo === "flashcard-pack" ? "flashcards" : tipo === "course" ? "courses" : "stories";
+            {( [
+              { tipo: "all" as const, param: null as string | null },
+              ...(explore.flashcardDecks
+                ? [{ tipo: "flashcard-pack" as const, param: "flashcards" as const }]
+                : []),
+              ...(explore.courses ? [{ tipo: "course" as const, param: "courses" as const }] : []),
+              ...(explore.stories ? [{ tipo: "story" as const, param: "stories" as const }] : []),
+            ]).map(({ tipo, param }) => {
               return (
                 <button
                   key={tipo}
@@ -792,6 +838,7 @@ export function ContentBrowserPage() {
             </section>
           ) : (
             <>
+              {explore.flashcardDecks && (
               <section>
                 <div className="mb-3 flex items-center justify-between">
                   <h2 className="text-lg font-semibold text-text-primary">
@@ -839,7 +886,9 @@ export function ContentBrowserPage() {
                   </ul>
                 )}
               </section>
+              )}
 
+              {explore.courses && (
               <section>
                 <div className="mb-3 flex items-center justify-between">
                   <h2 className="text-lg font-semibold text-text-primary">
@@ -868,7 +917,9 @@ export function ContentBrowserPage() {
                   </ul>
                 )}
               </section>
+              )}
 
+              {explore.stories && (
               <section>
                 <div className="mb-3 flex items-center justify-between">
                   <h2 className="text-lg font-semibold text-text-primary">
@@ -927,6 +978,7 @@ export function ContentBrowserPage() {
                   </ul>
                 )}
               </section>
+              )}
             </>
           )
         ) : (
@@ -961,7 +1013,8 @@ export function ContentBrowserPage() {
                     />
                   </li>
                 ))}
-                {filteredSubscribedStories.map(({ addon, story }) => (
+                {explore.stories &&
+                  filteredSubscribedStories.map(({ addon, story }) => (
                   <li key={addon.id}>
                     <CommunityItemCard
                       item={addon as CommunityItemCardItem}

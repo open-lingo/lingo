@@ -11,13 +11,13 @@ export function AdminLayout() {
   if (isLoading) {
     return (
       <div className="flex justify-center py-12">
-        <p className="text-gray-500 dark:text-gray-400">{t("common.loading")}</p>
+        <p className="text-text-muted">{t("common.loading")}</p>
       </div>
     );
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/landing" replace />;
   }
 
   return (

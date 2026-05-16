@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useLangPath } from "@/shared/hooks/useLangPath";
 import { Icon } from "@/shared/components/Icon";
 import { GitHubBadge } from "@/shared/components/GitHubBadge";
 import { HeroSlogan } from "./HeroSlogan";
@@ -37,7 +36,6 @@ const FEATURES: { icon: "graduationCap" | "bookOpen" | "bookText" | "globe" | "l
 
 export function LandingPage() {
   const { t } = useTranslation();
-  const langPath = useLangPath();
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -72,7 +70,7 @@ export function LandingPage() {
         </ul>
         <div className="mt-10 flex flex-wrap justify-center gap-4">
           <Link
-            to={langPath("learn")}
+            to="/login"
             className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-base font-medium text-white transition hover:bg-accent-hover"
           >
             {t("landing.getStarted", "Get started")}
@@ -83,12 +81,6 @@ export function LandingPage() {
             className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 text-base font-medium text-text-primary transition hover:bg-surface-muted"
           >
             {t("landing.seeHowItWorks", "See how it works")}
-          </Link>
-          <Link
-            to="/login"
-            className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 text-base font-medium text-text-primary transition hover:bg-surface-muted"
-          >
-            {t("auth.logIn")}
           </Link>
         </div>
 
@@ -165,7 +157,7 @@ export function LandingPage() {
         </p>
         <div className="mx-auto mt-10 max-w-2xl">
           <Link
-            to={langPath("learn")}
+            to="/login"
             className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition hover:border-border-muted hover:bg-surface-muted"
           >
             <div className="flex flex-wrap gap-3 p-6 text-left">
@@ -235,27 +227,17 @@ export function LandingPage() {
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-4">
           <Link
-            to={langPath("learn")}
+            to="/login"
             className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-base font-medium text-white transition hover:bg-accent-hover"
           >
             {t("landing.getStarted", "Get started")}
             <Icon name="arrowRight" size={18} />
           </Link>
-          <Link
-            to={langPath("community")}
-            className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 text-base font-medium text-text-primary transition hover:bg-surface-muted"
-          >
-            {t("landing.browseCommunity", "Browse community")}
-          </Link>
         </div>
       </section>
 
-      {/* Third-party attribution footer (required by CC BY-SA 3.0 for KanjiVG stroke data). */}
-      <footer className="border-t border-border py-6 text-center text-xs text-text-muted">
-        {t(
-          "landing.attribution",
-          "Japanese stroke order data: ",
-        )}
+      <p className="border-t border-border pt-6 text-center text-xs text-text-muted">
+        {t("landing.attribution", "Japanese stroke order data: ")}
         <a
           href="http://kanjivg.tagaini.net"
           target="_blank"
@@ -273,7 +255,7 @@ export function LandingPage() {
         >
           CC BY-SA 3.0
         </a>
-      </footer>
+      </p>
     </div>
   );
 }

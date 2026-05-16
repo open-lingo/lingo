@@ -6,7 +6,7 @@ export type ModuleStatus = "completed" | "current" | "locked";
 /** Derive module status from completion (linear: complete previous to unlock next). */
 export function getModuleStatus(
   moduleIndex: number,
-  completedLessonIds: Set<string>,
+  completedLessonIds: ReadonlySet<string>,
   modules: CourseModule[]
 ): ModuleStatus {
   if (moduleIndex === 0) {
@@ -25,7 +25,7 @@ export function getModuleStatus(
 /** Index of the current module (first with incomplete lessons, or last if all done). */
 export function getCurrentModuleIndex(
   course: Course,
-  completedLessonIds: Set<string>
+  completedLessonIds: ReadonlySet<string>
 ): number {
   for (let i = 0; i < course.modules.length; i++) {
     const mod = course.modules[i];
@@ -38,7 +38,7 @@ export function getCurrentModuleIndex(
 /** Index of the next incomplete lesson within a module, or last index if all done. */
 export function getNextLessonIndex(
   lessons: { id: string }[],
-  completedIds: Set<string>
+  completedIds: ReadonlySet<string>
 ): number {
   const i = lessons.findIndex((l) => !completedIds.has(l.id));
   return i >= 0 ? i : Math.max(0, lessons.length - 1);
@@ -91,7 +91,7 @@ function rowIdForLessonId(lessonId: string): string | null {
  */
 function isRowFullyComplete(
   prereqRowId: string,
-  completedLessonIds: Set<string>,
+  completedLessonIds: ReadonlySet<string>,
 ): boolean {
   const row = ALL_ROWS.find((r) => r.id === prereqRowId);
   if (!row) return true; // unknown prereq — fail open
@@ -121,7 +121,7 @@ export function isLessonLocked(
   lessonId: string,
   moduleIndex: number,
   course: Course,
-  completedLessonIds: Set<string>,
+  completedLessonIds: ReadonlySet<string>,
   devUnlock: boolean = false,
 ): boolean {
   if (devUnlock) return false;

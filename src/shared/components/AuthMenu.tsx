@@ -3,14 +3,19 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/shared/auth/useAuth";
+import { canModerateCommunityContent, canAccessSiteAdmin } from "@/shared/auth/roles";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useApi } from "@/shared/api/provider";
+import { resolveUserAvatarUrl } from "@/shared/auth/resolveUserAvatarUrl";
 import { getStoredProfile } from "@/features/settings/profileStorage";
 import { ApiError } from "@/shared/api/client";
 import { Icon } from "@/shared/components/Icon";
+import { Button, composeButtonClasses } from "@/shared/components/ui/Button";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 
 export function AuthMenu() {
   const { t } = useTranslation();
+  const langPath = useLangPath();
   const { isAuthenticated, isLoading, user } = useAuth();
   const { users } = useApi();
   const [open, setOpen] = useState(false);
@@ -25,6 +30,10 @@ export function AuthMenu() {
     retry: (_, err) => !(err instanceof ApiError && err.status === 404),
   });
 
+  const role = me?.role;
+  const siteAdmin = canAccessSiteAdmin(role);
+  const showModeration = canModerateCommunityContent(role);
+
   const [imgError, setImgError] = useState(false);
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -36,11 +45,7 @@ export function AuthMenu() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  const avatarUrl =
-    me?.profile_picture_key?.trim() ||
-    (user?.sub ? getStoredProfile(user.sub)?.avatarUrl : null) ||
-    user?.picture ||
-    undefined;
+  const avatarUrl = resolveUserAvatarUrl(me, user);
   useEffect(() => {
     setImgError(false);
   }, [avatarUrl]);
@@ -55,12 +60,16 @@ export function AuthMenu() {
   const displayName =
     me?.display_name ?? profile?.realName ?? profile?.username ?? user?.name ?? user?.email ?? t("common.user");
 
+  const menuLinkClass = composeButtonClasses({ variant: "menu" });
+
   return (
     <div className="relative" ref={menuRef}>
-      <button
+      <Button
         type="button"
+        variant="ghost"
+        size="icon"
+        className={showAvatar ? "overflow-hidden hover:text-text-primary" : undefined}
         onClick={() => setOpen((o) => !o)}
-        className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full text-text-primary transition hover:text-text-secondary"
         aria-expanded={open}
         aria-haspopup="true"
         aria-label={t("auth.accountMenu")}
@@ -75,7 +84,7 @@ export function AuthMenu() {
         ) : (
           <Icon name="user" size={20} />
         )}
-      </button>
+      </Button>
 
       {open && (
         <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-lg border border-border bg-surface py-1 shadow-popover">
@@ -90,39 +99,39 @@ export function AuthMenu() {
               )}
             </div>
           )}
-          <button
-            type="button"
-            className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
-            onClick={() => { setOpen(false); openSettings(); }}
-          >
+          <Button variant="menu" type="button" onClick={() => { setOpen(false); openSettings(); }}>
             <Icon name="settings" size={18} className="shrink-0 text-text-muted" />
             {t("nav.settings")}
-          </button>
+          </Button>
           {isAuthenticated && (
-            <button
-              type="button"
-              className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
-              onClick={() => { setOpen(false); openProfile(); }}
-            >
+            <Button variant="menu" type="button" onClick={() => { setOpen(false); openProfile(); }}>
               <Icon name="user" size={18} className="shrink-0 text-text-muted" />
               {t("profile.editProfile")}
-            </button>
+            </Button>
           )}
-          {isAuthenticated ? (
+          {showModeration && (
             <Link
-              to="/logout"
-              className="flex items-center gap-3 px-4 py-2 text-sm text-text-primary hover:bg-surface-muted"
+              to={langPath("community/contribute/admin")}
+              className={menuLinkClass}
               onClick={() => setOpen(false)}
             >
+              <Icon name="shield" size={18} className="shrink-0 text-text-muted" />
+              {t("nav.moderateContent")}
+            </Link>
+          )}
+          {siteAdmin && (
+            <Link to="/admin/users" className={menuLinkClass} onClick={() => setOpen(false)}>
+              <Icon name="layoutDashboard" size={18} className="shrink-0 text-text-muted" />
+              {t("nav.siteAdmin")}
+            </Link>
+          )}
+          {isAuthenticated ? (
+            <Link to="/logout" className={menuLinkClass} onClick={() => setOpen(false)}>
               <Icon name="logOut" size={18} className="shrink-0 text-text-muted" />
               {t("auth.logOut")}
             </Link>
           ) : (
-            <Link
-              to="/login"
-              className="block px-4 py-2 text-sm text-text-primary hover:bg-surface-muted"
-              onClick={() => setOpen(false)}
-            >
+            <Link to="/login" className={menuLinkClass} onClick={() => setOpen(false)}>
               {t("auth.logIn")}
             </Link>
           )}
@@ -131,4 +140,3 @@ export function AuthMenu() {
     </div>
   );
 }
-

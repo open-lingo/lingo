@@ -1,87 +1,68 @@
-export type UserStats = {
-  username: string;
-  level: string;
-  streak: number;
-  xpToday: number;
-  coins: number;
-};
+import { Icon } from "@/shared/components/Icon";
+import { UserAvatar } from "@/shared/components/UserAvatar";
+import { Card } from "@/shared/components/ui";
+import { useTranslation } from "react-i18next";
+import type { LearnProfile } from "../hooks/useLearnProfile";
 
 export type ProfileCardProps = {
-  stats: UserStats;
-  onOpenShop: () => void;
+  profile: LearnProfile;
 };
 
-/** Right-rail top — avatar / username / level + stats grid + shop button. */
-export function ProfileCard({ stats, onOpenShop: _onOpenShop }: ProfileCardProps) {
-  const initial = stats.username.slice(0, 1).toUpperCase();
+export function ProfileCard({ profile }: ProfileCardProps) {
+  const { t } = useTranslation();
   return (
-    <section className="rounded-2xl border-[1.5px] border-border bg-surface p-[18px] shadow-[0_1px_2px_0_rgb(15_23_42/0.06),0_2px_6px_-1px_rgb(15_23_42/0.05)]">
-      <div className="mb-[14px] flex items-center gap-3">
-        <div
-          className="flex h-11 w-11 items-center justify-center rounded-full text-[18px] font-bold text-white"
-          style={{
-            background: "linear-gradient(135deg, #f59e0b, #ef4444)",
-          }}
-          aria-hidden="true"
-        >
-          {initial}
-        </div>
-        <div className="min-w-0">
-          <p className="m-0 text-[15px] font-bold text-text-primary">
-            {stats.username}
-          </p>
-          <p className="m-0 mt-0.5 text-[12px] text-text-muted">
-            {stats.level}
-          </p>
-        </div>
-      </div>
-      {/*
-       * Coins + Shop hidden until the shop is real. Teen audit (Riley):
-       * "if the shop is 'coming soon' all session, why even show coins?"
-       * Restore the 3-column stats grid + Shop button below once the
-       * shop ships. The `onOpenShop` prop is currently an alert stub.
-       * TODO(shop): restore <StatTile icon="🪙" .../> and the Shop button
-       *             once Streak Shield / Boosts / lesson-unlocks exist.
-       */}
-      <div className="mb-[14px] grid grid-cols-2 gap-2">
-        <StatTile
-          icon="🔥"
-          value={String(stats.streak)}
-          label="Streak"
-          tone="streak"
+    <Card as="section" padding="md" className="shadow-card">
+      <div className="mb-4 flex items-center gap-3">
+        <UserAvatar
+          name={profile.displayName}
+          src={profile.avatarUrl}
+          size="md"
         />
-        <StatTile icon="⚡" value={String(stats.xpToday)} label="XP today" />
+        <div className="min-w-0">
+          <p className="truncate text-base font-semibold text-text-primary">
+            {profile.isLoading ? "…" : profile.displayName}
+          </p>
+          <p className="mt-0.5 text-xs text-text-secondary">{profile.levelLabel}</p>
+        </div>
       </div>
-    </section>
+      <div className="grid grid-cols-2 gap-2">
+        <StatTile
+          iconName="flame"
+          iconClassName="text-warning"
+          value={profile.streakDays}
+          label={t("progress.dayStreak")}
+        />
+        <StatTile
+          iconName="star"
+          iconClassName="text-accent"
+          value={profile.xpEarnedToday}
+          label={t("progress.xpEarnedToday")}
+        />
+      </div>
+    </Card>
   );
 }
 
 function StatTile({
-  icon,
+  iconName,
+  iconClassName,
   value,
   label,
-  tone,
 }: {
-  icon: string;
-  value: string;
+  iconName: "flame" | "star";
+  iconClassName: string;
+  value: number;
   label: string;
-  tone?: "streak" | "coins";
 }) {
-  const valueColor =
-    tone === "streak"
-      ? "text-warning"
-      : tone === "coins"
-        ? "text-accent"
-        : "text-text-primary";
   return (
-    <div className="rounded-[10px] bg-surface-muted p-2 text-center">
-      <div className={`text-[16px] font-extrabold ${valueColor}`}>
-        <span className="mr-0.5 text-[14px]">{icon}</span>
-        {value}
+    <div className="rounded-lg bg-surface-muted p-2.5 text-center">
+      <div className="flex items-center justify-center gap-1">
+        <Icon name={iconName} size={18} className={iconClassName} aria-hidden />
+        <span className="text-lg font-bold text-text-primary">{value}</span>
       </div>
-      <div className="mt-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-text-muted">
+      <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-text-muted">
         {label}
-      </div>
+      </p>
     </div>
   );
 }

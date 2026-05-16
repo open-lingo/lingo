@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "practice": {
+    "stories": false,
+    "videoTrainers": false,
+    "externalContent": false
+  },
+  "community": {
+    "tabs": {
+      "explore": true,
+      "externalContent": false,
+      "discuss": false,
+      "contribute": false,
+      "leaderboard": false
+    },
+    "explore": {
+      "flashcardDecks": true,
+      "courses": false,
+      "stories": false,
+      "activeDiscussions": false
+    }
+  }
+}

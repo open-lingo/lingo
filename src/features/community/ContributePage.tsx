@@ -11,6 +11,7 @@ export function ContributePage() {
 
   const isCreatePath = pathname.includes("/contribute/create");
   const isAdminPath = pathname.includes("/contribute/admin");
+  const isMyContentPath = !isCreatePath && !isAdminPath;
 
   return (
     <div className="space-y-6">
@@ -29,21 +30,15 @@ export function ContributePage() {
       <TabList aria-label={t("community.studioTabsLabel")}>
         <TabLink
           to={langPath("community/contribute")}
-          isActive={!isCreatePath && !isAdminPath}
+          isActive={isMyContentPath}
         >
           {t("community.studioMyContent")}
         </TabLink>
         <TabLink
           to={langPath("community/contribute/create")}
-          isActive={isCreatePath && !isAdminPath}
+          isActive={isCreatePath}
         >
           {t("community.studioCreateNew")}
-        </TabLink>
-        <TabLink
-          to={langPath("community/contribute/admin")}
-          isActive={isAdminPath}
-        >
-          {t("community.studioAdmin")}
         </TabLink>
       </TabList>
 

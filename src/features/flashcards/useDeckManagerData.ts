@@ -7,6 +7,8 @@ export type ManagedDeck = {
   id: string;
   name: string;
   languageId: string;
+  /** Official course-linked deck when set (lesson path SRS). */
+  courseId?: string;
   cardCount: number;
   subscription: Subscription | null;
 };
@@ -30,6 +32,7 @@ export function useDeckManagerData(languageId: string) {
       id: d.id,
       name: d.name,
       languageId: d.languageId,
+      courseId: d.courseId,
       cardCount: (d.cards ?? []).length,
       subscription: subByContent.get(d.id) ?? null,
     }));

@@ -72,7 +72,7 @@ const ROW_GLYPH: Record<string, string> = {
   "yoon-sh-ch": "しゃ",
   "yoon-voiced": "じゃ",
   "yoon-rare": "にゃ",
-  "yoon-capstone": "✓",
+  "yoon-capstone": "◎",
 };
 function pickClusterGlyph(
   lessons: Lesson[],
@@ -265,8 +265,7 @@ export function ModulePathway({
               : "continue"
             : null;
           const isRecap = lesson.kind === "recap";
-          // Recap nodes get a distinctive amber-gradient + trophy badge.
-          const glyph = isRecap ? "★" : pickGlyph(lesson.title);
+          const glyph = isRecap ? "" : pickGlyph(lesson.title);
           const label = isRecap ? "Recap" : shortLabel(lesson.title);
           return (
             <PathwayNode

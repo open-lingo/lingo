@@ -1,10 +1,11 @@
 /**
  * Shared practice nav items by language.
- * Used by: Layout nav dropdown, PracticeLayout tabs, PracticeCard dropdown.
+ * Used by: Practice hub (trainer grid), legacy helpers.
  * Alphabets use the same AlphabetPracticePage; manifest (AlphabetDef) controls display.
  */
 
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
+import type { FeatureFlags } from "@/shared/config/featureFlags";
 import { getPracticeRoute } from "./practiceTypeRoutes";
 
 export type PracticeNavItem = {
@@ -21,15 +22,28 @@ export type PracticeNavItem = {
 
 /** Flashcards and Stories are always first; then language-specific trainers. */
 export function getPracticeItemsForLanguage(
-  languageId: string | undefined
+  languageId: string | undefined,
+  flags: FeatureFlags
 ): PracticeNavItem[] {
   const lang = languageId ?? "ko";
   const prefix = `/${lang}`;
   const base: PracticeNavItem[] = [
     { to: `${prefix}/practice/flashcards`, labelKey: "nav.flashcards", iconName: "graduationCap" },
-    { to: `${prefix}/practice/stories`, labelKey: "nav.stories", iconName: "stories" },
-    { to: `${prefix}/practice/external-content`, labelKey: "externalContent.practice.tabLabel", iconName: "link" },
   ];
+  if (flags.practice.stories) {
+    base.push({
+      to: `${prefix}/practice/stories`,
+      labelKey: "nav.stories",
+      iconName: "stories",
+    });
+  }
+  if (flags.practice.externalContent) {
+    base.push({
+      to: `${prefix}/practice/external-content`,
+      labelKey: "externalContent.practice.tabLabel",
+      iconName: "link",
+    });
+  }
 
   if (!languageId) {
     return base;
@@ -41,6 +55,7 @@ export function getPracticeItemsForLanguage(
   const trainers: PracticeNavItem[] = [];
   for (const opt of options) {
     if (opt.type === "general") continue;
+    if (opt.type === "videos" && !flags.practice.videoTrainers) continue;
     const id = "id" in opt ? opt.id : undefined;
     const label = "label" in opt ? opt.label : undefined;
     const sampleCharacter = "sampleCharacter" in opt ? opt.sampleCharacter : undefined;

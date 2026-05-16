@@ -1,4 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { CookieConsent } from "@/shared/components/CookieConsent";
+import { SiteFooter } from "@/shared/components/SiteFooter";
+import { CollapsibleAdBanner } from "@/features/ads/CollapsibleAdBanner";
+import { loadAdSenseScript } from "@/features/ads/adsense";
+import { useAdsEnabled } from "@/features/ads/useAdsEnabled";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FundingMeter } from "@/shared/components/FundingMeter";
@@ -10,128 +15,20 @@ import { LanguageSelector } from "@/shared/components/LanguageSelector";
 import { AuthMenu } from "@/shared/components/AuthMenu";
 import { ModalRoot } from "@/shared/components/ModalRoot";
 import { ToastContainer } from "@/shared/components/ToastContainer";
-import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useTheme } from "@/shared/contexts/ThemeContext";
-import {
-  getPracticeItemsForLanguage,
-  type PracticeNavItem,
-} from "@/features/practice/practiceNavItems";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isLeaderboardEnabled } from "@/shared/config/featureFlags";
 import { Icon } from "@/shared/components/Icon";
-
-function PracticeNavDropdown({ isActive }: { isActive: boolean }) {
-  const { t } = useTranslation();
-  const { language } = useLanguage();
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  const items = getPracticeItemsForLanguage(language?.id);
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
-
-  return (
-    <div className="relative" ref={ref}>
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        className={`flex items-center gap-0.5 text-sm ${
-          isActive
-            ? "font-medium text-text-primary"
-            : "text-text-secondary hover:text-text-primary"
-        }`}
-      >
-        {t("nav.practice")}
-        <Icon name="chevronDown" size={16} className={open ? "rotate-180" : ""} />
-      </button>
-      {open && (
-        <ul className="absolute left-0 top-full z-20 mt-1 min-w-[200px] rounded-lg border border-border bg-surface py-1 shadow-popover">
-          {items.map((item) => (
-            <PracticeNavLink key={item.to + (item.label ?? "")} item={item} onClose={() => setOpen(false)} t={t} />
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-}
-
-function PracticeNavLink({
-  item,
-  onClose,
-  t,
-}: {
-  item: PracticeNavItem;
-  onClose: () => void;
-  t: (k: string) => string;
-}) {
-  const label = item.labelKey ? t(item.labelKey) : (item.label ?? "");
-  const char = item.sampleCharacter;
-
-  return (
-    <li>
-      <Link
-        to={item.to}
-        className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-primary hover:bg-surface-muted"
-        onClick={onClose}
-      >
-        {char && (
-          <span
-            className="flex h-7 w-7 shrink-0 items-center justify-center text-sm"
-            aria-hidden
-          >
-            {char}
-          </span>
-        )}
-        <span>{label}</span>
-      </Link>
-    </li>
-  );
-}
-
-function MobilePracticeLinks({ onClose }: { onClose: () => void }) {
-  const { t } = useTranslation();
-  const { language } = useLanguage();
-  const items = getPracticeItemsForLanguage(language?.id);
-
-  return (
-    <div className="space-y-0.5">
-      <span className="block px-4 py-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
-        {t("nav.practice")}
-      </span>
-      {items.map((item) => (
-        <Link
-          key={item.to + (item.label ?? "")}
-          to={item.to}
-          onClick={onClose}
-          className="flex items-center gap-3 rounded-lg px-4 py-3 pl-8 text-base font-medium text-text-primary hover:bg-surface-muted"
-        >
-          {item.sampleCharacter && (
-            <span
-              className="flex h-7 w-7 shrink-0 items-center justify-center text-sm"
-              aria-hidden
-            >
-              {item.sampleCharacter}
-            </span>
-          )}
-          <span>{item.labelKey ? t(item.labelKey) : (item.label ?? "")}</span>
-        </Link>
-      ))}
-    </div>
-  );
-}
-
-
 
 export function Layout() {
   const { t } = useTranslation();
   const location = useLocation();
   const { isThemeEditorOpen } = useTheme();
   const { isAuthenticated } = useAuth();
+  const flags = useFeatureFlags();
+  const leaderboardOn = isLeaderboardEnabled(flags);
   const pathname = location.pathname;
   const langPath = useLangPath();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -140,15 +37,31 @@ export function Layout() {
   const learnActive = /^\/[^/]+\/learn/.test(pathname);
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
   const communityActive = /\/community/.test(pathname);
-  const leaderboardActive = /\/leaderboard/.test(pathname);
+  const leaderboardActive =
+    leaderboardOn && /\/leaderboard/.test(pathname);
+
+  const isMarketingRoute =
+    pathname === "/landing" ||
+    pathname === "/privacy" ||
+    pathname === "/terms" ||
+    pathname === "/about" ||
+    pathname === "/login";
+  const showAppAds = useAdsEnabled(false) && isAuthenticated && !isMarketingRoute;
 
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    loadAdSenseScript();
+    const onConsent = () => loadAdSenseScript();
+    window.addEventListener("open-lingo-cookie-consent", onConsent);
+    return () => window.removeEventListener("open-lingo-cookie-consent", onConsent);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background pb-14 text-text-primary">
+    <div className="min-h-screen bg-background pb-[var(--funding-meter-height,3.5rem)] text-text-primary">
       <SRSPendingSync />
       <header className="sticky top-0 z-40 border-b border-border bg-surface">
         <div className="mx-auto flex h-12 min-h-12 max-w-7xl items-center justify-between gap-2 px-3 sm:h-14 sm:px-4 sm:gap-4 lg:px-8">
@@ -169,60 +82,46 @@ export function Layout() {
             />
             <span className="text-text-muted" aria-hidden>|</span>
             <Link
-              to={isAuthenticated ? "/home" : "/"}
+              to={isAuthenticated ? "/home" : "/landing"}
               className="text-base font-semibold text-text-primary sm:text-lg"
             >
               {t("nav.siteName")}
             </Link>
           </div>
 
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-1 md:flex md:gap-3">
-            {isAuthenticated ? (
-              <>
-                <Link
-                  to="/home"
-                  className={`rounded-md px-2 py-1.5 text-sm ${
-                    homeActive
-                      ? "font-medium text-text-primary"
-                      : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
-                  }`}
-                >
-                  {t("nav.home")}
-                </Link>
-                <Link
-                  to={langPath("learn")}
-                  className={`rounded-md px-2 py-1.5 text-sm ${
-                    learnActive
-                      ? "font-medium text-text-primary"
-                      : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
-                  }`}
-                >
-                  {t("nav.learn")}
-                </Link>
-                <PracticeNavDropdown isActive={practiceActive} />
-                <Link
-                  to={langPath("community")}
-                  className={`rounded-md px-2 py-1.5 text-sm ${
-                    communityActive
-                      ? "font-medium text-text-primary"
-                      : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
-                  }`}
-                >
-                  {t("nav.community")}
-                </Link>
-                <Link
-                  to={langPath("leaderboard")}
-                  className={`rounded-md px-2 py-1.5 text-sm ${
-                    leaderboardActive
-                      ? "font-medium text-text-primary"
-                      : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
-                  }`}
-                >
-                  {t("nav.leaderboard")}
-                </Link>
-              </>
-            ) : (
+          {/* Desktop nav — signed-in only */}
+          {isAuthenticated ? (
+            <nav className="hidden items-center gap-1 md:flex md:gap-3">
+              <Link
+                to="/home"
+                className={`rounded-md px-2 py-1.5 text-sm ${
+                  homeActive
+                    ? "font-medium text-text-primary"
+                    : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                }`}
+              >
+                {t("nav.home")}
+              </Link>
+              <Link
+                to={langPath("learn")}
+                className={`rounded-md px-2 py-1.5 text-sm ${
+                  learnActive
+                    ? "font-medium text-text-primary"
+                    : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                }`}
+              >
+                {t("nav.learn")}
+              </Link>
+              <Link
+                to={langPath("practice")}
+                className={`rounded-md px-2 py-1.5 text-sm ${
+                  practiceActive
+                    ? "font-medium text-text-primary"
+                    : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                }`}
+              >
+                {t("nav.practice")}
+              </Link>
               <Link
                 to={langPath("community")}
                 className={`rounded-md px-2 py-1.5 text-sm ${
@@ -233,100 +132,122 @@ export function Layout() {
               >
                 {t("nav.community")}
               </Link>
-            )}
-          </nav>
+              {leaderboardOn ? (
+                <Link
+                  to={langPath("community/leaderboard")}
+                  className={`rounded-md px-2 py-1.5 text-sm ${
+                    leaderboardActive
+                      ? "font-medium text-text-primary"
+                      : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                  }`}
+                >
+                  {t("nav.leaderboard")}
+                </Link>
+              ) : null}
+            </nav>
+          ) : null}
 
           {/* Right side: utilities + mobile menu button */}
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             {isAuthenticated && <SyncManagerTrigger />}
             {isAuthenticated && <LanguageSelector />}
             <ThemeToggle />
-            <AuthMenu />
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setMobileMenuOpen((o) => !o);
-              }}
-              className="relative z-50 flex h-10 w-10 shrink-0 items-center justify-center text-text-secondary hover:text-text-primary md:hidden [touch-action:manipulation]"
-              aria-expanded={mobileMenuOpen}
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            >
-              {mobileMenuOpen ? (
-                <Icon name="close" size={24} />
-              ) : (
-                <Icon name="menu" size={24} />
-              )}
-            </button>
+            {isAuthenticated ? (
+              <AuthMenu />
+            ) : (
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <Link
+                  to="/login"
+                  className="inline-flex items-center gap-1 rounded-lg bg-accent px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-accent-hover sm:gap-1.5 sm:px-3"
+                >
+                  <Icon name="play" size={16} className="shrink-0" aria-hidden />
+                  {t("nav.guestStart", "Start")}
+                </Link>
+              </div>
+            )}
+            {isAuthenticated ? (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setMobileMenuOpen((o) => !o);
+                }}
+                className="relative z-50 flex h-10 w-10 shrink-0 items-center justify-center text-text-secondary hover:text-text-primary md:hidden [touch-action:manipulation]"
+                aria-expanded={mobileMenuOpen}
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              >
+                {mobileMenuOpen ? (
+                  <Icon name="close" size={24} />
+                ) : (
+                  <Icon name="menu" size={24} />
+                )}
+              </button>
+            ) : null}
           </div>
         </div>
 
-        {/* Mobile nav panel */}
-        {mobileMenuOpen && (
+        {/* Mobile nav — signed-in only */}
+        {isAuthenticated && mobileMenuOpen && (
           <div className="border-t border-border bg-surface md:hidden">
             <nav className="flex flex-col gap-0.5 px-3 py-3" aria-label="Mobile navigation">
-              {isAuthenticated ? (
-                <>
-                  <Link
-                    to="/home"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`rounded-lg px-4 py-3 text-base ${
-                      homeActive
-                        ? "font-semibold text-text-primary"
-                        : "font-medium text-text-primary hover:bg-surface-muted"
-                    }`}
-                  >
-                    {t("nav.home")}
-                  </Link>
-                  <Link
-                    to={langPath("learn")}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`rounded-lg px-4 py-3 text-base ${
-                      learnActive
-                        ? "font-semibold text-text-primary"
-                        : "font-medium text-text-primary hover:bg-surface-muted"
-                    }`}
-                  >
-                    {t("nav.learn")}
-                  </Link>
-                  <MobilePracticeLinks onClose={() => setMobileMenuOpen(false)} />
-                  <Link
-                    to={langPath("community")}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`rounded-lg px-4 py-3 text-base ${
-                      communityActive
-                        ? "font-semibold text-text-primary"
-                        : "font-medium text-text-primary hover:bg-surface-muted"
-                    }`}
-                  >
-                    {t("nav.community")}
-                  </Link>
-                  <Link
-                    to={langPath("leaderboard")}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`rounded-lg px-4 py-3 text-base ${
-                      leaderboardActive
-                        ? "font-semibold text-text-primary"
-                        : "font-medium text-text-primary hover:bg-surface-muted"
-                    }`}
-                  >
-                    {t("nav.leaderboard")}
-                  </Link>
-                </>
-              ) : (
+              <Link
+                to="/home"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`rounded-lg px-4 py-3 text-base ${
+                  homeActive
+                    ? "font-semibold text-text-primary"
+                    : "font-medium text-text-primary hover:bg-surface-muted"
+                }`}
+              >
+                {t("nav.home")}
+              </Link>
+              <Link
+                to={langPath("learn")}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`rounded-lg px-4 py-3 text-base ${
+                  learnActive
+                    ? "font-semibold text-text-primary"
+                    : "font-medium text-text-primary hover:bg-surface-muted"
+                }`}
+              >
+                {t("nav.learn")}
+              </Link>
+              <Link
+                to={langPath("practice")}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`rounded-lg px-4 py-3 text-base ${
+                  practiceActive
+                    ? "font-semibold text-text-primary"
+                    : "font-medium text-text-primary hover:bg-surface-muted"
+                }`}
+              >
+                {t("nav.practice")}
+              </Link>
+              <Link
+                to={langPath("community")}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`rounded-lg px-4 py-3 text-base ${
+                  communityActive
+                    ? "font-semibold text-text-primary"
+                    : "font-medium text-text-primary hover:bg-surface-muted"
+                }`}
+              >
+                {t("nav.community")}
+              </Link>
+              {leaderboardOn ? (
                 <Link
-                  to={langPath("community")}
+                  to={langPath("community/leaderboard")}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`rounded-lg px-4 py-3 text-base ${
-                    communityActive
+                    leaderboardActive
                       ? "font-semibold text-text-primary"
                       : "font-medium text-text-primary hover:bg-surface-muted"
                   }`}
                 >
-                  {t("nav.community")}
+                  {t("nav.leaderboard")}
                 </Link>
-              )}
+              ) : null}
             </nav>
           </div>
         )}
@@ -334,6 +255,9 @@ export function Layout() {
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Outlet />
       </main>
+      <SiteFooter className="mb-2" />
+      {showAppAds ? <CollapsibleAdBanner /> : null}
+      <CookieConsent />
       <FundingMeter />
       <ModalRoot />
       {isThemeEditorOpen && <ThemeEditorPanel />}

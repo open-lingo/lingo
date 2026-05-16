@@ -1,6 +1,8 @@
 import type { CSSProperties, ReactNode, MouseEvent } from "react";
+import { Icon } from "@/shared/components/Icon";
 import type { CourseModule } from "@/shared/domain/course";
 import type { ModuleStatus } from "../moduleProgress";
+import type { ModuleStatusPill } from "../utils/moduleStatusPill";
 import "./pathway.css";
 
 export type ModuleCardProps = {
@@ -9,13 +11,9 @@ export type ModuleCardProps = {
   status: ModuleStatus;
   isOpen: boolean;
   onToggleOpen: () => void;
-  /** Inline accessory pill (e.g. "5 of 13 lessons", "Finish M1 to unlock"). */
-  statusPillText?: string;
-  /** Rendered inside .lingo-module-body when status === "current". */
+  statusPill?: ModuleStatusPill;
   pathway?: ReactNode;
-  /** Rendered inside .lingo-module-body when status === "locked". */
   preview?: ReactNode;
-  /** Footer actions (rendered below pathway/preview). */
   actions?: ReactNode;
 };
 
@@ -25,7 +23,7 @@ export function ModuleCard({
   status,
   isOpen,
   onToggleOpen,
-  statusPillText,
+  statusPill,
   pathway,
   preview,
   actions,
@@ -38,23 +36,25 @@ export function ModuleCard({
     : undefined;
 
   const handleBodyClick = (event: MouseEvent<HTMLDivElement>) => {
-    // Block bubble-up so inner clicks (pathway nodes, action buttons,
-    // preview rows) don't collapse the card.
     event.stopPropagation();
   };
 
-  const pillFallback =
+  const pillFallback: ModuleStatusPill =
     status === "completed"
-      ? "✓ Complete · 100%"
+      ? { text: "Complete · 100%", variant: "complete" }
       : status === "locked"
-        ? moduleNumber > 0
-          ? `🔒 After Module ${moduleNumber - 1}`
-          : "🔒 Locked"
-        : `In progress`;
+        ? {
+            text: moduleNumber > 0 ? `After Module ${moduleNumber - 1}` : "Locked",
+            variant: "locked",
+          }
+        : { text: "In progress", variant: "progress" };
+
+  const pill = statusPill ?? pillFallback;
 
   return (
     <article
-      className="lingo-module-card"
+      id={`learn-module-${module.id}`}
+      className="lingo-module-card scroll-mt-24"
       data-state={status}
       data-open={isOpen}
       style={accentStyle}
@@ -78,22 +78,29 @@ export function ModuleCard({
               {module.eyebrow}
             </div>
           ) : null}
-          <h2 className="m-0 mt-0.5 text-[18px] font-bold">{module.title}</h2>
-          <span className="lingo-status-pill">
-            {statusPillText ?? pillFallback}
+          <h2 className="m-0 mt-0.5 text-lg font-bold">{module.title}</h2>
+          <span className="lingo-status-pill inline-flex items-center gap-1">
+            {pill.variant === "locked" ? (
+              <Icon name="lock" size={12} className="opacity-90" aria-hidden />
+            ) : null}
+            {pill.variant === "complete" ? (
+              <Icon name="check" size={12} className="opacity-90" aria-hidden />
+            ) : null}
+            {pill.text}
           </span>
         </div>
-        <div className="lingo-mchev" aria-hidden="true">
-          ▾
+        <div
+          className={`lingo-mchev${isOpen ? " lingo-mchev-open" : ""}`}
+          aria-hidden
+        >
+          <Icon name="chevronDown" size={16} />
         </div>
       </header>
       {isOpen ? (
         <div className="lingo-module-body" onClick={handleBodyClick}>
           {pathway}
           {preview}
-          {actions ? (
-            <div className="lingo-module-actions">{actions}</div>
-          ) : null}
+          {actions ? <div className="lingo-module-actions">{actions}</div> : null}
         </div>
       ) : null}
     </article>

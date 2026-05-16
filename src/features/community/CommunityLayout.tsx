@@ -1,16 +1,11 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { GitHubBadge } from "@/shared/components/GitHubBadge";
 import { TabList, TabLink } from "@/shared/components/ui/Tabs";
-
-const TAB_KEYS = [
-  { path: "community/explore", key: "community.explore" },
-  { path: "community/external-content", key: "community.externalContent" },
-  { path: "community/discuss", key: "community.discuss" },
-  { path: "community/contribute", key: "community.contribute" },
-  { path: "community/leaderboard", key: "community.leaderboard" },
-] as const;
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { getVisibleCommunityTabs } from "./communityTabs";
 
 function isTabActive(path: string, pathname: string, to: string): boolean {
   if (pathname === to) return true;
@@ -18,13 +13,50 @@ function isTabActive(path: string, pathname: string, to: string): boolean {
   if (path === "community/external-content" && pathname.includes("/community/external-content")) return true;
   if (path === "community/discuss" && (pathname.includes("/community/discuss") || pathname.includes("/community/forum"))) return true;
   if (path === "community/contribute" && pathname.includes("/community/contribute")) return true;
+  if (path === "community/leaderboard" && pathname.includes("/community/leaderboard")) return true;
   return false;
 }
 
 export function CommunityLayout() {
   const { t } = useTranslation();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const langPath = useLangPath();
+  const flags = useFeatureFlags();
+  const visibleTabs = getVisibleCommunityTabs(flags);
+
+  useEffect(() => {
+    if (visibleTabs.length === 0) return;
+    const first = visibleTabs[0].path;
+    const goFirst = () => navigate(langPath(first), { replace: true });
+    const { tabs } = flags.community;
+
+    if (pathname.includes("/community/leaderboard") && !tabs.leaderboard) {
+      goFirst();
+      return;
+    }
+    if (
+      (pathname.includes("/community/discuss") || pathname.includes("/community/forum")) &&
+      !tabs.discuss
+    ) {
+      goFirst();
+      return;
+    }
+    if (pathname.includes("/community/contribute") && !tabs.contribute) {
+      goFirst();
+      return;
+    }
+    if (pathname.includes("/community/external-content") && !tabs.externalContent) {
+      goFirst();
+      return;
+    }
+    if (
+      (pathname.endsWith("/community") || pathname.includes("/community/explore")) &&
+      !tabs.explore
+    ) {
+      goFirst();
+    }
+  }, [pathname, flags.community.tabs, visibleTabs, navigate, langPath]);
 
   return (
     <div className="mx-auto max-w-6xl space-y-6">
@@ -41,8 +73,9 @@ export function CommunityLayout() {
         </div>
       </div>
 
+      {visibleTabs.length > 1 && (
       <TabList aria-label={t("community.tabsLabel")}>
-        {TAB_KEYS.map(({ path, key }) => {
+        {visibleTabs.map(({ path, key }) => {
           const to = langPath(path);
           return (
             <TabLink key={path} to={to} isActive={isTabActive(path, pathname, to)}>
@@ -51,6 +84,7 @@ export function CommunityLayout() {
           );
         })}
       </TabList>
+      )}
 
       <Outlet />
     </div>

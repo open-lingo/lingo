@@ -53,6 +53,11 @@ export class UsersApi extends ApiClient {
     return this.patch<User>(`${PREFIX}/me`, payload, { signal, tag: "users:update" });
   }
 
+  /** Permanently delete the current user's account and server-side settings. */
+  deleteMe(signal?: AbortSignal): Promise<void> {
+    return this.delete(`${PREFIX}/me`, { signal, tag: "users:delete-me" });
+  }
+
   /** Public profile lookup by username. */
   getByUsername(username: string, signal?: AbortSignal): Promise<User> {
     return this.get<User>(`${PREFIX}/u/${encodeURIComponent(username)}`, {

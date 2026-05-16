@@ -5,24 +5,12 @@ import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
-import { buildReviewQueue } from "./engine";
-import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
-import { useSubscribedDecks } from "./useSubscribedDecks";
-import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
-import { CommunityItemCard } from "@/features/community/components/CommunityItemCard";
+import type { Flashcard } from "@/features/flashcards/data/types";
 import { useCommunityContent } from "@/features/community/CommunityContentContext";
-import type { DeckResponse } from "@/shared/api/decks";
-
-function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
-  return {
-    id: d.id,
-    languageId: d.languageId,
-    name: d.name,
-    cards: d.cards ?? [],
-    image: d.image,
-    locale: d.locale,
-  };
-}
+import { CommunityItemCard } from "@/features/community/components/CommunityItemCard";
+import { StudyScopeShortcuts } from "@/features/flashcards/StudyScopeShortcuts";
+import { useSubscribedDecks } from "./useSubscribedDecks";
+import { useFlashcardDueSummary } from "./useFlashcardDueSummary";
 
 function DueCarousel({
   cards,
@@ -138,42 +126,18 @@ export function FlashcardsPage() {
   const { language } = useLanguage();
   const langId = language?.id ?? "ko";
 
-  const { subscribedDecks, isLoading: cardsDueLoading, invalidate } =
-    useSubscribedDecks();
-  const srsRevision = useSRSStoreRevision();
+  const { invalidate } = useSubscribedDecks();
 
   const handleSubscriptionChange = useMemo(() => invalidate, [invalidate]);
 
-  const { dueQueue, dueCount, deck, courseDecks, communityPacksWithDecks } =
-    useMemo(() => {
-      const byLang = subscribedDecks.filter(
-        ({ addon }) => addon.languageId === langId
-      );
-      const allCards: Flashcard[] = [];
-      for (const { deck: d } of byLang) {
-        allCards.push(...(d.cards ?? []));
-      }
-      const { queue: dueQueue, totalCount: dueCount } = buildReviewQueue(allCards);
-      const firstDeck = byLang[0]?.deck;
-      const packs = byLang.map(({ addon, deck: d }) => ({
-        addon,
-        deck: deckResponseToFlashcardDeck(d),
-      }));
-      const decks = byLang.map(({ deck: d }) => ({
-        id: d.id,
-        name: d.name,
-        cardCount: (d.cards ?? []).length,
-        deck: deckResponseToFlashcardDeck(d),
-      }));
-      return {
-        cards: allCards,
-        dueQueue,
-        dueCount,
-        deck: firstDeck ? deckResponseToFlashcardDeck(firstDeck) : null,
-        courseDecks: decks,
-        communityPacksWithDecks: packs,
-      };
-    }, [subscribedDecks, langId, srsRevision]);
+  const {
+    dueQueue,
+    dueCount,
+    deck,
+    courseDecks,
+    communityPacksWithDecks,
+    isLoading: cardsDueLoading,
+  } = useFlashcardDueSummary(langId);
 
   const languageName = getLanguageConfig(langId)?.name ?? langId;
 
@@ -204,6 +168,19 @@ export function FlashcardsPage() {
             {t("flashcards.cardManager.title", "Card Manager")}
           </Link>
         </div>
+      </div>
+
+      <div className="rounded-xl border border-border bg-surface-muted p-4">
+        <h2 className="mb-2 text-sm font-semibold text-text-primary">
+          {t("flashcards.studyShortcuts.title", "Quick study")}
+        </h2>
+        <p className="mb-3 text-xs text-text-muted">
+          {t(
+            "flashcards.studyShortcuts.hint",
+            "Review only certain decks or a saved study option."
+          )}
+        </p>
+        <StudyScopeShortcuts />
       </div>
 
       {cardsDueLoading ? (

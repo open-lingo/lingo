@@ -30,6 +30,15 @@ VITE_AUTH0_DOMAIN=your-tenant.auth0.com
 VITE_AUTH0_CLIENT_ID=...
 VITE_AUTH0_AUDIENCE=...            # optional
 VITE_API_BASE_URL=http://localhost:8000   # default
+VITE_LEGAL_CONTACT_EMAIL=privacy@example.com   # optional; else GitHub Issues for privacy contact
+VITE_ADSENSE_CLIENT=ca-pub-xxxxxxxx   # optional; ads load only after cookie consent
+VITE_ADSENSE_SLOT_BANNER=1234567890   # ad unit id from AdSense UI (banner)
+VITE_ADSENSE_SLOT_INLINE=0987654321   # optional inline unit
+VITE_ADSENSE_ENABLED=true             # set false to disable all ad UI
+
+# API funding meter (lingo-core)
+# FUNDING_AD_PERCENT=40
+# FUNDING_SOURCE=manual|estimated|live
 ```
 
 The app will not start without `VITE_AUTH0_DOMAIN` and `VITE_AUTH0_CLIENT_ID`.

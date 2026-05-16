@@ -1,28 +1,17 @@
 import { useTranslation } from "react-i18next";
-import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { getPracticeItemsForLanguage } from "./practiceNavItems";
-import { FeatureCardWithDropdown } from "@/shared/components/FeatureCardWithDropdown";
+import { useLangPath } from "@/shared/hooks/useLangPath";
+import { HomeNavCard } from "@/features/home/HomeNavCard";
 
 export function PracticeCard() {
   const { t } = useTranslation();
-  const { language } = useLanguage();
-  const items = getPracticeItemsForLanguage(language?.id);
-  const options = items.map((item) => ({
-    href: item.to,
-    labelKey: item.labelKey,
-    label: item.label,
-    iconName: item.iconName,
-    sampleCharacter: item.sampleCharacter,
-  }));
+  const langPath = useLangPath();
 
   return (
-    <FeatureCardWithDropdown
-      icon="dumbbell"
-      titleKey="home.cards.gym"
-      descriptionKey="home.cards.gymDesc"
-      promptTextKey="home.cards.chooseType"
-      options={options}
-      t={t}
+    <HomeNavCard
+      to={langPath("practice")}
+      iconName="dumbbell"
+      title={t("home.cards.gym")}
+      description={t("home.cards.gymDesc")}
     />
   );
 }

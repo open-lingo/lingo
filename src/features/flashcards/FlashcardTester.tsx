@@ -7,6 +7,7 @@ import { getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
 import { reviewCard, setCardState, getEffectiveState, shouldRepeatInSession } from "./engine";
 import { useSRSyncSession } from "./useSRSyncSession";
 import { useSubscriptionQueue } from "./useSubscriptionQueue";
+import { useReviewQueueFilter } from "./useReviewQueueFilter";
 import { CardImage } from "./CardPreview";
 import { Icon } from "@/shared/components/Icon";
 import { PlainText } from "@/shared/components/PlainText";
@@ -131,9 +132,11 @@ export function FlashcardTester() {
 
   useSRSyncSession();
 
+  const queueFilter = useReviewQueueFilter();
   const { queue, isLoading: subQueueLoading } = useSubscriptionQueue(
     languageId,
-    queueVersion
+    queueVersion,
+    queueFilter
   );
 
   const cardIdToDefaultEase = queue?.cardIdToDefaultEase;
@@ -218,9 +221,25 @@ export function FlashcardTester() {
 
   if (!queue) {
     return (
-      <p className="text-gray-500 dark:text-gray-400">
-        No flashcard deck for this language yet. Subscribe to a deck from the community or select Korean in the language selector to try the sample deck.
-      </p>
+      <div className="mx-auto max-w-md space-y-3 py-8 text-center">
+        <p className="text-gray-500 dark:text-gray-400">
+          {queueFilter.kind !== "all"
+            ? t(
+                "flashcards.reviewFilterEmpty",
+                "Nothing to review for this selection. Try another study option or subscribe to more decks."
+              )
+            : t(
+                "flashcards.reviewNoQueue",
+                "No flashcard deck for this language yet. Subscribe to a deck from the community or select Korean in the language selector to try the sample deck."
+              )}
+        </p>
+        <Link
+          to={langPath("practice/flashcards")}
+          className="inline-block text-sm font-medium text-accent hover:underline"
+        >
+          {t("flashcards.backToHub")}
+        </Link>
+      </div>
     );
   }
 

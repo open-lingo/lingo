@@ -8,11 +8,20 @@ import {
 } from "./engine";
 import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { useDeckSubscriptions } from "./useDeckSubscriptions";
+import type { DeckResponse } from "@/shared/api/decks";
+import type { DeckStudyPreset } from "./deckScope";
+import { deckMatchesPreset } from "./deckScope";
+
+export type SubscriptionQueueFilter =
+  | { kind: "all" }
+  | { kind: "preset"; preset: Exclude<DeckStudyPreset, "all"> }
+  | { kind: "deckIds"; deckIds: ReadonlySet<string> };
 
 /** Load subscription-based queue for practice. Uses batch deck fetch. */
 export function useSubscriptionQueue(
   languageId: string,
-  queueVersion: number
+  queueVersion: number,
+  filter: SubscriptionQueueFilter = { kind: "all" }
 ): {
   queue: ReviewQueue | null;
   decks: DeckWithCards[];
@@ -38,14 +47,18 @@ export function useSubscriptionQueue(
   }, [rawSubs]);
 
   const decks = useMemo((): DeckWithCards[] => {
-    return deckResponses
-      .filter((d) => d.languageId === languageId)
-      .map((d) => ({
-        id: d.id,
-        cards: d.cards ?? [],
-        defaultEase: d.defaultEase,
-      }));
-  }, [deckResponses, languageId]);
+    let responses: DeckResponse[] = deckResponses.filter((d) => d.languageId === languageId);
+    if (filter.kind === "preset") {
+      responses = responses.filter((d) => deckMatchesPreset(d, filter.preset));
+    } else if (filter.kind === "deckIds") {
+      responses = responses.filter((d) => filter.deckIds.has(d.id));
+    }
+    return responses.map((d) => ({
+      id: d.id,
+      cards: d.cards ?? [],
+      defaultEase: d.defaultEase,
+    }));
+  }, [deckResponses, languageId, filter]);
 
   const activeSubs = useMemo(() => {
     const deckIdSet = new Set(decks.map((d) => d.id));

@@ -6,22 +6,29 @@ import { LangLayout } from "@/routes/LangLayout";
 import { LoginPage } from "@/features/auth/LoginPage";
 import { LogoutPage } from "@/features/auth/LogoutPage";
 import { LearnLayout } from "@/features/learn/LearnLayout";
-import { LearnPage } from "@/features/learn/LearnPage";
 import { FlashcardsPage } from "@/features/flashcards/FlashcardsPage";
 import { StoriesPage } from "@/features/stories/StoriesPage";
 import { StoryDetailPage } from "@/features/stories/StoryDetailPage";
 import { VocabPage } from "@/features/vocab/VocabPage";
+import { PracticeGrammarPage } from "@/features/practice/PracticeGrammarPage";
+import { PracticeAlphabetHubPage } from "@/features/practice/PracticeAlphabetHubPage";
+import { PracticePage } from "@/features/practice/PracticePage";
 import { PracticeLayout } from "@/features/practice/PracticeLayout";
 import { ParticlePracticePage } from "@/features/practice/ParticlePracticePage";
 import { KanjiPracticePage } from "@/features/practice/KanjiPracticePage";
 import { AlphabetPracticePage } from "@/features/practice/AlphabetPracticePage";
 import { ComponentsPracticePage } from "@/features/practice/ComponentsPracticePage";
 import { VideosPracticePage } from "@/features/practice/VideosPracticePage";
-import { GrammarPage } from "@/features/grammar/GrammarPage";
+import { GrammarRedirect } from "@/features/grammar/GrammarRedirect";
 import { CommunityLayout } from "@/features/community/CommunityLayout";
-import { LeaderboardPage } from "@/features/leaderboard/LeaderboardPage";
+import { LeaderboardRoute } from "@/features/leaderboard/LeaderboardRoute";
 import { RootRoute } from "@/routes/RootRoute";
+import { LandingRoute } from "@/routes/LandingRoute";
 import { ProtectedHome } from "@/routes/ProtectedHome";
+import { RequireAuth } from "@/routes/RequireAuth";
+import { PrivacyPolicyPage } from "@/features/legal/PrivacyPolicyPage";
+import { TermsOfServicePage } from "@/features/legal/TermsOfServicePage";
+import { AboutPage } from "@/features/legal/AboutPage";
 
 // Lazy-loaded routes: anything heavy, role-restricted (admin/studio), or rarely-hit
 // on first paint. Split here keeps the main bundle focused on the learner happy path.
@@ -36,6 +43,7 @@ const SpeechTunePage = lazy(() =>
     default: m.SpeechTunePage,
   })),
 );
+const LearnPage = lazy(() => import("@/features/learn/LearnPage"));
 const FlashcardTester = lazy(() =>
   import("@/features/flashcards/FlashcardTester").then((m) => ({ default: m.FlashcardTester })),
 );
@@ -124,8 +132,12 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <RootRoute /> },
+      { path: "landing", element: <LandingRoute /> },
       { path: "home", element: <ProtectedHome /> },
       { path: "docs", element: <DocsPage /> },
+      { path: "privacy", element: <PrivacyPolicyPage /> },
+      { path: "terms", element: <TermsOfServicePage /> },
+      { path: "about", element: <AboutPage /> },
       { path: "login", element: <LoginPage /> },
       { path: "logout", element: <LogoutPage /> },
       {
@@ -154,74 +166,81 @@ const router = createBrowserRouter([
       },
       {
         path: ":lang",
-        element: <LangLayout />,
+        element: <RequireAuth />,
         children: [
-          { index: true, element: <Navigate to="/" replace /> },
           {
-            path: "learn",
-            element: <LearnLayout />,
+            element: <LangLayout />,
             children: [
-              { index: true, element: <LearnPage /> },
-              { path: "courses", element: <Navigate to=".." replace /> },
-              { path: "lessons/:lessonId", element: <LessonPage /> },
-            ],
-          },
-          {
-            path: "practice",
-            element: <PracticeLayout />,
-            children: [
-              { index: true, element: <FlashcardsPage /> },
-              { path: "flashcards/review", element: <FlashcardTester /> },
-              { path: "flashcards/cards", element: <CardManagerPage /> },
-              { path: "flashcards/decks", element: <DeckManagerPage /> },
-              { path: "flashcards", element: <FlashcardsPage /> },
-              { path: "stories", element: <StoriesPage /> },
-              { path: "stories/:storyId", element: <StoryDetailPage /> },
-              { path: "particles", element: <ParticlePracticePage /> },
-              { path: "alphabet/:alphabetId/learn", element: <AlphabetLessonPage /> },
-              { path: "alphabet/:alphabetId?", element: <AlphabetPracticePage /> },
-              { path: "kanji", element: <KanjiPracticePage /> },
-              { path: "components", element: <ComponentsPracticePage /> },
-              { path: "videos", element: <VideosPracticePage /> },
-              { path: "external-content", element: <ExternalContentPracticePage /> },
-            ],
-          },
-          { path: "vocab", element: <VocabPage /> },
-          { path: "grammar", element: <GrammarPage /> },
-          { path: "speech-tune", element: <SpeechTunePage /> },
-          {
-            path: "community",
-            element: <CommunityLayout />,
-            children: [
-              { index: true, element: <Navigate to="explore" replace /> },
-              { path: "explore", element: <ContentBrowserPage /> },
-              { path: "external-content", element: <ExternalContentPage /> },
+              { index: true, element: <Navigate to="/" replace /> },
               {
-                path: "contribute",
-                element: <ContributePage />,
+                path: "learn",
+                element: <LearnLayout />,
                 children: [
-                  { index: true, element: <MyContentTab /> },
-                  { path: "admin", element: <AdminTab /> },
-                  { path: "create", element: <CreateTab /> },
-                  { path: "create/story", element: <StoryEditor /> },
-                  { path: "create/story/:storyId", element: <StoryEditor /> },
+                  { index: true, element: <LearnPage /> },
+                  { path: "courses", element: <Navigate to=".." replace /> },
+                  { path: "lessons/:lessonId", element: <LessonPage /> },
                 ],
               },
-              { path: "discuss", element: <ForumPage /> },
-              { path: "discuss/thread/:threadId", element: <ThreadPage /> },
-              { path: "discuss/new", element: <NewThreadPage /> },
-              { path: "forum", element: <Navigate to="discuss" replace /> },
-              { path: "forum/thread/:threadId", element: <ForumThreadRedirect /> },
-              { path: "forum/new", element: <Navigate to="../../discuss/new" replace /> },
-              { path: "leaderboard", element: <LeaderboardPage /> },
-            ],
-          },
-          {
-            path: "studio",
-            element: <StudioLayout />,
-            children: [
-              { path: "decks/new", element: <DeckEditor /> },
-              { path: "decks/:deckId", element: <DeckEditor /> },
+              {
+                path: "practice",
+                element: <PracticeLayout />,
+                children: [
+                  { index: true, element: <PracticePage /> },
+                  { path: "grammar", element: <PracticeGrammarPage /> },
+                  { path: "flashcards/review", element: <FlashcardTester /> },
+                  { path: "flashcards/cards", element: <CardManagerPage /> },
+                  { path: "flashcards/decks", element: <DeckManagerPage /> },
+                  { path: "flashcards", element: <FlashcardsPage /> },
+                  { path: "stories", element: <StoriesPage /> },
+                  { path: "stories/:storyId", element: <StoryDetailPage /> },
+                  { path: "particles", element: <ParticlePracticePage /> },
+                  { path: "alphabet/:alphabetId/learn", element: <AlphabetLessonPage /> },
+                  { path: "alphabet/:alphabetId", element: <AlphabetPracticePage /> },
+                  { path: "alphabet", element: <PracticeAlphabetHubPage /> },
+                  { path: "kanji", element: <KanjiPracticePage /> },
+                  { path: "components", element: <ComponentsPracticePage /> },
+                  { path: "videos", element: <VideosPracticePage /> },
+                  { path: "external-content", element: <ExternalContentPracticePage /> },
+                ],
+              },
+              { path: "vocab", element: <VocabPage /> },
+              { path: "grammar", element: <GrammarRedirect /> },
+              { path: "speech-tune", element: <SpeechTunePage /> },
+              {
+                path: "community",
+                element: <CommunityLayout />,
+                children: [
+                  { index: true, element: <Navigate to="explore" replace /> },
+                  { path: "explore", element: <ContentBrowserPage /> },
+                  { path: "external-content", element: <ExternalContentPage /> },
+                  {
+                    path: "contribute",
+                    element: <ContributePage />,
+                    children: [
+                      { index: true, element: <MyContentTab /> },
+                      { path: "admin", element: <AdminTab /> },
+                      { path: "create", element: <CreateTab /> },
+                      { path: "create/story", element: <StoryEditor /> },
+                      { path: "create/story/:storyId", element: <StoryEditor /> },
+                    ],
+                  },
+                  { path: "discuss", element: <ForumPage /> },
+                  { path: "discuss/thread/:threadId", element: <ThreadPage /> },
+                  { path: "discuss/new", element: <NewThreadPage /> },
+                  { path: "forum", element: <Navigate to="discuss" replace /> },
+                  { path: "forum/thread/:threadId", element: <ForumThreadRedirect /> },
+                  { path: "forum/new", element: <Navigate to="../../discuss/new" replace /> },
+                  { path: "leaderboard", element: <LeaderboardRoute /> },
+                ],
+              },
+              {
+                path: "studio",
+                element: <StudioLayout />,
+                children: [
+                  { path: "decks/new", element: <DeckEditor /> },
+                  { path: "decks/:deckId", element: <DeckEditor /> },
+                ],
+              },
             ],
           },
         ],

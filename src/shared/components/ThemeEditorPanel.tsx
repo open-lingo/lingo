@@ -6,6 +6,7 @@ import {
   FONT_PRESETS,
   getFontFamily,
   DEFAULT_FONT_ID,
+  ensureThemeTokens,
   type ThemeTokens,
   type ThemeDefinition,
 } from "@/shared/theme";
@@ -16,14 +17,20 @@ const COLOR_KEYS: (keyof ThemeTokens["colors"])[] = [
   "background",
   "surface",
   "surfaceMuted",
+  "surfaceElevated",
   "border",
+  "borderMuted",
   "textPrimary",
   "textSecondary",
+  "textMuted",
   "accent",
   "accentHover",
+  "accentMuted",
+  "onAccent",
   "error",
   "success",
   "warning",
+  "overlay",
   "info",
   "destructive",
   "link",
@@ -82,7 +89,7 @@ export function ThemeEditorPanel() {
     closeThemeEditor,
   } = useTheme();
 
-  const [draft, setDraft] = useState<ThemeTokens>(() => activeTokens);
+  const [draft, setDraft] = useState<ThemeTokens>(() => ensureThemeTokens(activeTokens));
   const [draftName, setDraftName] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isCustomizing, setIsCustomizing] = useState(false);
@@ -93,11 +100,11 @@ export function ThemeEditorPanel() {
     if (editingId) {
       const def = BUILT_IN_THEMES[editingId] ?? customThemes.find((t) => t.id === editingId);
       if (def) {
-        setDraft(def.tokens);
+        setDraft(ensureThemeTokens(def.tokens));
         setDraftName(def.name);
       }
     } else {
-      setDraft(activeTokens);
+      setDraft(ensureThemeTokens(activeTokens));
       const def = BUILT_IN_THEMES[activeThemeId] ?? customThemes.find((t) => t.id === activeThemeId);
       setDraftName(def?.name ?? "");
     }
@@ -107,7 +114,7 @@ export function ThemeEditorPanel() {
     (id: string) => {
       setTheme(id);
       setEditingId(null);
-      setDraft(BUILT_IN_THEMES[id]?.tokens ?? activeTokens);
+      setDraft(ensureThemeTokens(BUILT_IN_THEMES[id]?.tokens ?? activeTokens));
       setDraftName(BUILT_IN_THEMES[id]?.name ?? "");
       setIsCustomizing(false);
     },
@@ -120,7 +127,7 @@ export function ThemeEditorPanel() {
       setEditingId(null);
       const def = customThemes.find((t) => t.id === id);
       if (def) {
-        setDraft(def.tokens);
+        setDraft(ensureThemeTokens(def.tokens));
         setDraftName(def.name);
       }
     },
@@ -136,7 +143,7 @@ export function ThemeEditorPanel() {
     const newTheme = addTheme({ name: t("settings.newTheme", "New theme"), tokens: { ...BUILT_IN_THEMES.dark.tokens } });
     setTheme(newTheme.id);
     setEditingId(newTheme.id);
-    setDraft(newTheme.tokens);
+    setDraft(ensureThemeTokens(newTheme.tokens));
     setDraftName(newTheme.name);
     setIsCustomizing(true);
   }, [addTheme, setTheme, t]);
@@ -194,7 +201,7 @@ export function ThemeEditorPanel() {
     (theme: ThemeDefinition) => {
       const installed = installCommunityTheme(theme);
       setEditingId(installed.id);
-      setDraft(installed.tokens);
+      setDraft(ensureThemeTokens(installed.tokens));
       setDraftName(installed.name);
       setIsCustomizing(true);
     },
@@ -305,7 +312,7 @@ export function ThemeEditorPanel() {
                 <div className="flex gap-2">
                   <button
                     type="button"
-                    className="preview-btn-primary rounded-lg px-3 py-1.5 text-sm font-medium text-white transition-colors"
+                    className="preview-btn-primary rounded-lg px-3 py-1.5 text-sm font-medium text-accent-foreground transition-colors"
                     style={{ backgroundColor: "var(--color-accent)" }}
                   >
                     Primary (hover)
@@ -458,7 +465,7 @@ export function ThemeEditorPanel() {
                     <button
                       type="button"
                       onClick={() => handleInstallCommunity(theme)}
-                      className="rounded bg-accent px-2 py-1 text-xs font-medium text-white hover:bg-accent-hover"
+                      className="rounded bg-accent px-2 py-1 text-xs font-medium text-accent-foreground hover:bg-accent-hover hover:text-accent-foreground"
                     >
                       {t("settings.installTheme", "Add")}
                     </button>
@@ -521,7 +528,7 @@ export function ThemeEditorPanel() {
                   <button
                     type="button"
                     onClick={handleSaveDraft}
-                    className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-white hover:bg-accent-hover"
+                    className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground hover:bg-accent-hover hover:text-accent-foreground"
                   >
                     {isEditingCustom ? t("settings.saveTheme", "Save") : t("settings.saveAsNew", "Save as new")}
                   </button>

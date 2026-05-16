@@ -1,36 +1,25 @@
 import type { MouseEventHandler } from "react";
+import { Icon } from "@/shared/components/Icon";
 
 export type PathwayNodeState = "locked" | "available" | "current" | "done";
 export type PathwayNodePos = -3 | -2 | -1 | 0 | 1 | 2 | 3;
 
-/** Callout flag variants for the current-lesson node:
- *  - "continue": pill above the node — mid-course resume
- *  - "start": pill to the right with arrow — first lesson, no progress yet
- *  - null/undefined: no flag */
 export type PathwayNodeFlag = "continue" | "start" | null;
 
 export type PathwayNodeProps = {
   glyph: string;
   label: string;
   state: PathwayNodeState;
-  /** Snake offset bucket. */
   positionOffset: PathwayNodePos;
   reviewCount?: number;
   flag?: PathwayNodeFlag;
-  /** When true, render the smaller (60px) cluster variant for row sub-lessons.
-   *  @deprecated kept for back-compat; clusters now render as a single node. */
   cluster?: boolean;
-  /** When true, render the row-test variant (dashed border + corner badge). */
   isTest?: boolean;
-  /** When true, render the module-recap variant (amber gradient + trophy badge). */
   isRecap?: boolean;
-  /** Sub-lesson progress dots shown below the label (e.g. 2/4 done). */
   subProgress?: { done: number; total: number };
   onClick?: () => void;
 };
 
-/** Single node in the winding lesson pathway. Visual styles live in
- * pathway.css under `.lingo-node` + `.lingo-node-disc`. */
 export function PathwayNode({
   glyph,
   label,
@@ -46,7 +35,6 @@ export function PathwayNode({
 }: PathwayNodeProps) {
   const isLocked = state === "locked";
   const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-    // Don't bubble to the module-card header (which toggles open/closed).
     event.stopPropagation();
     if (isLocked || !onClick) return;
     onClick();
@@ -77,21 +65,30 @@ export function PathwayNode({
             aria-label={`${label}${isLocked ? " (locked)" : ""}${isTest ? " (test)" : ""}${isRecap ? " (recap)" : ""}`}
             title={label}
           >
-            {glyph}
+            {isRecap ? (
+              <Icon name="partyPopper" size={28} className="text-white" aria-hidden />
+            ) : (
+              glyph
+            )}
             {reviewCount && reviewCount > 0 ? (
               <span className="lingo-review-badge">×{reviewCount}</span>
             ) : null}
             {isTest && !isRecap ? (
-              <span className="lingo-test-badge" aria-hidden="true">
+              <span className="lingo-test-badge" aria-hidden>
                 T
               </span>
             ) : null}
-            {isRecap ? (
-              <span className="lingo-recap-badge" aria-hidden="true">
-                🏆
-              </span>
-            ) : null}
           </button>
+          {state === "locked" ? (
+            <span className="lingo-node-state-badge lingo-node-state-badge--locked" aria-hidden>
+              <Icon name="lock" size={12} />
+            </span>
+          ) : null}
+          {state === "done" && !isRecap ? (
+            <span className="lingo-node-state-badge lingo-node-state-badge--done" aria-hidden>
+              <Icon name="check" size={12} />
+            </span>
+          ) : null}
           {flag === "start" && (
             <button
               type="button"

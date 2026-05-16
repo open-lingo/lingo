@@ -16,6 +16,7 @@
     --color-accent: #059669;
     --color-accent-hover: #047857;
     --color-accent-muted: #d1fae5;
+    --color-on-accent: #ffffff;
     --color-error: #dc2626;
     --color-success: #16a34a;
     --color-warning: #d97706;
@@ -29,6 +30,8 @@
     --radius-lg: 20px;
     --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1);
     --shadow-popover: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    /** Fixed funding bar height — used for main padding and sticky learn CTAs */
+    --funding-meter-height: 3.5rem;
     --scrollbar-track: var(--color-border);
     --scrollbar-thumb: var(--color-text-muted);
     --scrollbar-thumb-hover: var(--color-text-secondary);

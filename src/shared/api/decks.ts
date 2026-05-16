@@ -61,6 +61,7 @@ export interface DeckResponse {
 }
 
 export class DecksApi extends ApiClient {
+  /** Decks you author (My Content). Uses backend `list_owned_manifests` (efficient author GSI on DynamoDB). */
   async listMyDecks(params?: {
     language_id?: string;
     deck_status?: string;

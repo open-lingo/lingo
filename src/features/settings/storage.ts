@@ -121,3 +121,32 @@ export function setStoredSettings(patch: Partial<UserSettings>): void {
     /* ignore */
   }
 }
+
+/** Wipe local app data on this device (e.g. account deletion). Keeps cookie consent choice. */
+export function clearAllLocalAppData(userId: string | null): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.removeItem(SETTINGS_KEY);
+    for (const key of USER_SPECIFIC_KEYS) {
+      localStorage.removeItem(key);
+    }
+    const keys: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (!k) continue;
+      if (k.startsWith(ALPHABET_PREFIX) || k.startsWith(PROFILE_PREFIX)) {
+        keys.push(k);
+      }
+    }
+    keys.forEach((k) => localStorage.removeItem(k));
+    if (userId) {
+      localStorage.removeItem(`${PROFILE_PREFIX}${userId}`);
+    }
+    localStorage.removeItem(LAST_USER_KEY);
+    localStorage.removeItem("open-lingo-story-draft");
+    localStorage.removeItem("open-lingo-themes");
+    localStorage.removeItem("open-lingo-starred-themes");
+  } catch {
+    /* ignore */
+  }
+}

@@ -10,6 +10,7 @@ import { LanguageProvider } from "@/shared/contexts/LanguageContext";
 import { ModalProvider } from "@/shared/contexts/ModalContext";
 import { ToastProvider } from "@/shared/contexts/ToastContext";
 import { ApiProvider } from "@/shared/api/provider";
+import { FeatureFlagsProvider } from "@/shared/contexts/FeatureFlagsContext";
 import { SRSStoreRevisionProvider } from "@/features/flashcards/SRSStoreRevisionContext";
 import App from "./App";
 import { installDevLog } from "@/shared/devlog/devLog";
@@ -45,6 +46,7 @@ createRoot(document.getElementById("root")!).render(
     >
       <QueryClientProvider client={queryClient}>
         <ApiProvider>
+          <FeatureFlagsProvider>
           <SRSStoreRevisionProvider>
           <SettingsProvider>
             <ThemeProvider>
@@ -58,6 +60,7 @@ createRoot(document.getElementById("root")!).render(
             </ThemeProvider>
           </SettingsProvider>
           </SRSStoreRevisionProvider>
+          </FeatureFlagsProvider>
         </ApiProvider>
       </QueryClientProvider>
     </Auth0Provider>

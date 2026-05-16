@@ -1,20 +1,17 @@
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
-
-/**
- * Shows how much the service is funded by ads vs premium.
- * Lower ad % = more sustainable. Mock value for now; plug in real data later.
- */
-const MOCK_AD_FUNDED_PERCENT = 40;
+import { useFundingTransparency } from "@/features/funding/useFundingTransparency";
 
 export function FundingMeter() {
   const { t } = useTranslation();
-  const adPercent = MOCK_AD_FUNDED_PERCENT;
-  const premiumPercent = 100 - adPercent;
+  const { data } = useFundingTransparency();
+  const adPercent = data?.adFundedPercent ?? 40;
+  const premiumPercent = data?.premiumPercent ?? 100 - adPercent;
+  const source = data?.source ?? "estimated";
 
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-[100] border-t border-border bg-surface px-4 py-2 shadow-card"
+      className="funding-meter fixed inset-x-0 bottom-0 z-[100] border-t border-border bg-surface px-4 py-2 shadow-card"
       role="status"
       aria-label={t("funding.ariaLabel", {
         adPercent,
@@ -22,10 +19,10 @@ export function FundingMeter() {
       })}
     >
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-1 items-center gap-2">
+        <div className="flex min-w-0 flex-1 items-center gap-2">
           <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-muted">
             <div
-              className="h-full rounded-full bg-warning"
+              className="h-full rounded-full bg-warning transition-[width] duration-500"
               style={{ width: `${adPercent}%` }}
             />
           </div>
@@ -38,7 +35,12 @@ export function FundingMeter() {
         </span>
         <span
           className="flex h-5 w-5 shrink-0 cursor-help items-center justify-center text-text-muted transition hover:text-text-primary"
-          title={t("funding.hideWithPremium")}
+          title={t("funding.tooltip", {
+            period: data?.periodLabel ?? "Last 30 days",
+            source,
+            defaultValue:
+              "{{period}} · {{source}} data. Premium reduces ads. We do not sell your data.",
+          })}
           aria-label={t("funding.hideWithPremium")}
         >
           <Icon name="info" size={16} />

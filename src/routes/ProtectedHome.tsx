@@ -17,7 +17,7 @@ export function ProtectedHome() {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/landing" replace />;
   }
 
   return <HomePage />;
