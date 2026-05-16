@@ -34,15 +34,18 @@ export function SymbolRecognitionStepView({
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
 
-  // Legacy Korean-CDN path for non-JA scripts. JA kana auto-play through
-  // the manifest-driven TTS resolver below.
-  useEffect(() => {
-    autoPlayAlphabetAudio(step.payload.audioKey, `recognition-${step.id}`);
-  }, [step.payload.audioKey, step.id]);
-
   const isJaKana =
     step.payload.scriptId === "hiragana" ||
     step.payload.scriptId === "katakana";
+
+  // Legacy Korean-CDN path for non-JA scripts only. JA kana auto-play
+  // through the manifest-driven TTS resolver below — running both
+  // double-fires the audio on JA steps that ship an audioKey.
+  useEffect(() => {
+    if (isJaKana) return;
+    autoPlayAlphabetAudio(step.payload.audioKey, `recognition-${step.id}`);
+  }, [step.payload.audioKey, step.id, isJaKana]);
+
   useAutoPlayJaAudio(
     isJaKana ? step.payload.symbol : undefined,
     `recog-tts-${step.id}`,
