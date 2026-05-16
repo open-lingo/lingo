@@ -14,6 +14,7 @@ import { SymbolTraceStepView } from "./steps/SymbolTraceStepView";
 import { SymbolRecognitionStepView } from "./steps/SymbolRecognitionStepView";
 import { SymbolProductionStepView } from "./steps/SymbolProductionStepView";
 import { SymbolToSoundStepView } from "./steps/SymbolToSoundStepView";
+import { WordImageMcqStepView } from "./steps/WordImageMcqStepView";
 import { RowTestStepView } from "./steps/RowTestStepView";
 
 type Props = {
@@ -127,6 +128,14 @@ export function StepRenderer({ step, onComplete, onContinue }: Props) {
     case "symbol_to_sound":
       return (
         <SymbolToSoundStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "word_image_mcq":
+      return (
+        <WordImageMcqStepView
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}

@@ -116,7 +116,12 @@ describe("lessonBuilder — sub-lesson step count under presets", () => {
   // and 3+ anchor words across the row. Anchor distribution by sub-lesson
   // varies (sub-1 may have 1-2 anchors), so step-count thresholds account
   // for the per-row content caps.
-  const SAMPLE_ROWS = ["ka", "sa", "ta"];
+  // All hiragana consonant rows (ka..ra) are hand-authored as of
+  // 2026-05-16 — auto-builder output is discarded by mockLessons.ts
+  // overrides. Sample from dakuten rows instead so this still exercises
+  // the preset/density code path on rows that actually ship via the
+  // auto-builder.
+  const SAMPLE_ROWS = ["ga", "za"];
 
   it("Standard preset produces ≥13 steps per sub-lesson for typical rows", () => {
     // Floor lowered from 15 → 13 after the dedup fix (maxFromPool=1 for
@@ -133,14 +138,18 @@ describe("lessonBuilder — sub-lesson step count under presets", () => {
     }
   });
 
-  it("Minimal preset produces ≤8 steps per sub-lesson for typical rows", () => {
+  it("Minimal preset produces ≤12 steps per sub-lesson for typical rows", () => {
+    // Bumped from ≤8 to ≤12 (2026-05-16). The remaining auto-builder
+    // rows after the hiragana hand-authoring pass are dakuten ones with
+    // 3-kana intros (per curriculum-restructure 2026-05-15) — Minimal
+    // can't compress 3 kana × (intro/teach/recog/sound) below ~11 steps.
     setDensityMode("minimal");
     for (const rowId of SAMPLE_ROWS) {
       const steps = firstSubLessonSteps(rowId);
       expect(
         steps.length,
-        `${rowId} minimal: ${steps.length} steps (expected ≤8)`,
-      ).toBeLessThanOrEqual(8);
+        `${rowId} minimal: ${steps.length} steps (expected ≤12)`,
+      ).toBeLessThanOrEqual(12);
     }
   });
 
@@ -164,7 +173,9 @@ describe("lessonBuilder — sub-lesson step count under presets", () => {
     // Anchor-dense rows fan out listening + fill_blank to their full
     // configured counts. Floor lowered from 24 → 19 after dedup
     // (maxFromPool=1 caps the listening/fill multiplier; sa peaks at 19).
-    const ANCHOR_DENSE_ROWS = ["ha", "ra", "sa", "ta"];
+    // ka..ra all hand-authored 2026-05-16 — anchor-density only
+    // applies to dakuten/yōon rows still on the auto-builder.
+    const ANCHOR_DENSE_ROWS = ["ga", "za"];
     for (const rowId of ANCHOR_DENSE_ROWS) {
       const row = ALL_ROWS.find((r) => r.id === rowId);
       if (!row) continue;

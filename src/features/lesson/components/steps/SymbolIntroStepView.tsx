@@ -42,6 +42,12 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
   // We can't call `useStrokeAnimation` here because the canvas + render
   // logic live in the child; passing a replay key is the simplest bridge.
   const [replayKey, setReplayKey] = useState(0);
+  // Gate the Continue button until the stroke animation has played at
+  // least once — keeps learners from clicking past the lesson's whole
+  // point. Replays keep this true (they've seen it). For glyphs without
+  // stroke data (system-font fallback), nothing to wait on — see the
+  // showAnimated branch below.
+  const [animationSeen, setAnimationSeen] = useState(false);
 
   // Korean alphabet audio path stays for non-JA scripts. JA kana audio
   // routes through the new manifest-driven TTS, auto-playing 500ms after
@@ -68,6 +74,9 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
   }, [payload.scriptId, payload.symbol]);
 
   const showAnimated = Boolean(payload.hasStrokeOrder && reference.glyph);
+  // No animation = nothing to wait on. Continue is enabled immediately
+  // for system-font fallback rendering.
+  const continueReady = !showAnimated || animationSeen;
 
   function handlePlay() {
     // Replay both: audio + stroke animation, so the learner gets the
@@ -91,7 +100,11 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
     <div className="flex flex-1 flex-col">
       <div className="flex flex-col items-center gap-4">
         {showAnimated ? (
-          <SymbolAnimation reference={reference} replayKey={replayKey} />
+          <SymbolAnimation
+            reference={reference}
+            replayKey={replayKey}
+            onDone={() => setAnimationSeen(true)}
+          />
         ) : (
           <span
             className="font-japanese text-[220px] font-bold leading-none text-text-primary"
@@ -127,7 +140,7 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
       {/* Spacer absorbs leftover vertical space so Continue anchors at the
        *  card's bottom regardless of which optional fields are populated. */}
       <div className="flex-1" />
-      <ContinueButton onClick={handleContinue} />
+      <ContinueButton onClick={handleContinue} disabled={!continueReady} />
     </div>
   );
 }
@@ -139,9 +152,11 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
 function SymbolAnimation({
   reference,
   replayKey,
+  onDone,
 }: {
   reference: SymbolReference;
   replayKey: number;
+  onDone?: () => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const glyph = reference.glyph;
@@ -155,6 +170,12 @@ function SymbolAnimation({
     animation.play();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [replayKey]);
+
+  // Surface completion to the parent so it can unlock Continue. `isDone`
+  // is also true in reduced-motion mode (hook snaps to final frame).
+  useEffect(() => {
+    if (animation.isDone && onDone) onDone();
+  }, [animation.isDone, onDone]);
 
   useEffect(() => {
     const canvas = canvasRef.current;

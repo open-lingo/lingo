@@ -41,6 +41,34 @@ const ALL_VOWELS = [
   { symbol: "お", romaji: "o" },
 ];
 
+/**
+ * Closed-set vocab pool for word_image_mcq distractors in the vowel
+ * lessons. Per user direction (2026-05-16): every word_image_mcq option
+ * is drawn from this set, so by the end of the two sub-lessons the user
+ * has seen each of the 5 vowel-words ~4 times across MCQ + build steps.
+ *
+ * Noto Emoji choices:
+ *   あい  → ❤️   heart
+ *   いえ  → 🏠   house
+ *   うえ  → ⬆️   up arrow (the "above" sense — directional)
+ *   あおい → 🔵   blue circle (color swatch, unambiguous)
+ *   いいえ → 🙅   person gesturing "no" (chose over ❌ to avoid the
+ *                 "wrong answer" connotation in a learning UI)
+ */
+type VowelWord = {
+  kana: string;
+  meaningEn: string;
+  emoji: string;
+};
+
+const VOWEL_WORDS: VowelWord[] = [
+  { kana: "あい",   meaningEn: "love",  emoji: "❤️" },
+  { kana: "いえ",   meaningEn: "house", emoji: "🏠" },
+  { kana: "うえ",   meaningEn: "above", emoji: "⬆️" },
+  { kana: "あおい", meaningEn: "blue",  emoji: "🔵" },
+  { kana: "いいえ", meaningEn: "no",    emoji: "🙅" },
+];
+
 function pickThreeDistractors(symbol: string) {
   return ALL_VOWELS.filter((v) => v.symbol !== symbol).slice(0, 3);
 }
@@ -199,6 +227,44 @@ function traceOnce(
   };
 }
 
+/**
+ * word_image_mcq — 2×2 grid of word options. User reads "What is the
+ * word for 'X'?", taps to preview audio + see kana, commits with Check.
+ * Distractors are 3 other vowel-lesson words (closed set).
+ *
+ * Slot placement is deterministic by id hash so the same lesson always
+ * renders the answer in the same position — easier to debug, and avoids
+ * shuffling each remount during dev.
+ */
+function wordImageMcq(id: string, correctKana: string): LessonStep {
+  const correct = VOWEL_WORDS.find((w) => w.kana === correctKana);
+  if (!correct) {
+    throw new Error(`wordImageMcq: unknown vowel word ${correctKana}`);
+  }
+  const distractors = VOWEL_WORDS.filter((w) => w.kana !== correctKana).slice(
+    0,
+    3,
+  );
+  const slot = correctSlot(id);
+  const options: { id: string; word: string; emoji: string }[] = [];
+  let di = 0;
+  for (let i = 0; i < 4; i++) {
+    if (i === slot) {
+      options.push({ id: "correct", word: correct.kana, emoji: correct.emoji });
+    } else {
+      const d = distractors[di++];
+      options.push({ id: `opt-${i}`, word: d.kana, emoji: d.emoji });
+    }
+  }
+  return {
+    id,
+    type: "word_image_mcq",
+    meaningEn: correct.meaningEn,
+    options,
+    correctOptionId: "correct",
+  };
+}
+
 function listeningBuild(
   id: string,
   word: string,
@@ -253,6 +319,8 @@ export const MOCK_LESSON_JA_M1_L1A: LessonContent = {
     traceTwice("ja-l1a-trace-i", "い", "i", "like 'ee' in 'see'"),
     recognition("ja-l1a-recog-i", "い", "i", "like 'ee' in 'see'"),
 
+    // Word discovery — MCQ FIRST (emoji + audio + kana), then build it.
+    wordImageMcq("ja-l1a-mcq-ai", "あい"),
     listeningBuild("ja-l1a-build-ai", "あい", "love", VOWEL_TILES),
 
     // u + e pair, then build house
@@ -264,6 +332,7 @@ export const MOCK_LESSON_JA_M1_L1A: LessonContent = {
     traceTwice("ja-l1a-trace-e", "え", "e", "like 'e' in 'bed'"),
     recognition("ja-l1a-recog-e", "え", "e", "like 'e' in 'bed'"),
 
+    wordImageMcq("ja-l1a-mcq-ie", "いえ"),
     listeningBuild("ja-l1a-build-ie", "いえ", "house", VOWEL_TILES),
 
     // o, then build blue + above
@@ -271,7 +340,9 @@ export const MOCK_LESSON_JA_M1_L1A: LessonContent = {
     traceTwice("ja-l1a-trace-o", "お", "o", "like 'o' in 'or'"),
     recognition("ja-l1a-recog-o", "お", "o", "like 'o' in 'or'"),
 
+    wordImageMcq("ja-l1a-mcq-aoi", "あおい"),
     listeningBuild("ja-l1a-build-aoi", "あおい", "blue", VOWEL_TILES),
+    wordImageMcq("ja-l1a-mcq-ue", "うえ"),
     listeningBuild("ja-l1a-build-ue", "うえ", "above", VOWEL_TILES),
 
     // Final round — harder direction (kana → romaji). They've drilled
@@ -333,10 +404,16 @@ export const MOCK_LESSON_JA_M1_L1B: LessonContent = {
     recognition("ja-l1b-recog-e", "え", "e", "like 'e' in 'bed'"),
     recognition("ja-l1b-recog-o", "お", "o", "like 'o' in 'or'"),
 
-    // Four vowel-only word builds (adds いいえ = "no")
+    // Four vowel-only word builds (adds いいえ = "no"). Each preceded
+    // by its word_image_mcq so the meaning is recalled before the
+    // tile-assembly drill.
+    wordImageMcq("ja-l1b-mcq-aoi", "あおい"),
     listeningBuild("ja-l1b-build-aoi", "あおい", "blue", VOWEL_TILES),
+    wordImageMcq("ja-l1b-mcq-ie", "いえ"),
     listeningBuild("ja-l1b-build-ie", "いえ", "house", VOWEL_TILES),
+    wordImageMcq("ja-l1b-mcq-ue", "うえ"),
     listeningBuild("ja-l1b-build-ue", "うえ", "above", VOWEL_TILES),
+    wordImageMcq("ja-l1b-mcq-iie", "いいえ"),
     listeningBuild("ja-l1b-build-iie", "いいえ", "no", VOWEL_TILES_WITH_DOUBLE_I),
 
     // Listening comprehension — hear the word, pick its meaning

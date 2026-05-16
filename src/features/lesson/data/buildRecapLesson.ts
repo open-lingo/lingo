@@ -92,6 +92,8 @@ function buildRecapMcItems(
         options: shuffled,
         correctOptionId,
         explanation: buildKanaRecognitionExplanation(k.kana, k.romaji),
+        // Test mode: suppress the romaji ruby above kana options.
+        optionsHideRomaji: true,
       };
       items.push({ kind: "mc", payload: mc });
     }

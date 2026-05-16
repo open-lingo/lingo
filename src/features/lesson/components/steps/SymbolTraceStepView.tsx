@@ -10,6 +10,7 @@ import { ProgressDots } from "../ProgressDots";
 import { useCanvasSize } from "../useCanvasSize";
 import { Icon } from "@/shared/components/Icon";
 import { autoPlayAlphabetAudio, getAlphabetAudioUrl } from "@/shared/audio/alphabetAudio";
+import { getTtsUrl, playJaAudio } from "@/shared/japanese/tts";
 
 /** No horizontal reservation needed — dots now sit in the controls row. */
 const SIDE_DOTS_RESERVED_PX = 0;
@@ -101,6 +102,20 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
       if (result.pass) {
         const next = correctCount + 1;
         setCorrectCount(next);
+        // Reinforce the visual ↔ sound link on success. Play the kana's
+        // TTS right as the user sees their pass — pairs the motor memory
+        // of writing it with the sound. Only on success (failure already
+        // shows the "try again" feedback; piling audio on top of a miss
+        // muddies the feedback signal).
+        const isJaKana =
+          step.payload.scriptId === "hiragana" ||
+          step.payload.scriptId === "katakana";
+        if (isJaKana && getTtsUrl(step.payload.symbol)) {
+          playJaAudio(step.payload.symbol);
+        } else if (step.payload.audioKey) {
+          const audio = new Audio(getAlphabetAudioUrl(step.payload.audioKey));
+          audio.play().catch(() => {});
+        }
         // Persist partial trace progress on EVERY pass, not just final. The
         // parent's handler increments the saved traceCount so dropping mid
         // trace step doesn't lose the pass on resume.
@@ -163,6 +178,13 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
           <span className="font-japanese ml-1 text-2xl font-bold text-accent">
             {step.payload.symbol}
           </span>
+          {step.payload.romanization && (
+            // Romaji riding next to the kana — kana + sound + motor act
+            // get encoded together, not in three separate moments.
+            <span className="ml-2 text-base font-semibold tracking-wide text-text-secondary">
+              {step.payload.romanization}
+            </span>
+          )}
         </h2>
         <button
           type="button"

@@ -219,6 +219,9 @@ function buildReviewMcStep(
     options: shuffled,
     correctOptionId,
     explanation: `The audio said '${anchor.kana}' (${anchor.meaning}). ${buildKanaRecognitionExplanation(correct, correctRomaji)}`,
+    // Test mode: hide romaji helpers so the kana is identified by
+    // meaning + audio, not by reading the answer off the button.
+    optionsHideRomaji: true,
   };
 }
 

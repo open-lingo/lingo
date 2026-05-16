@@ -1117,6 +1117,10 @@ export function buildRowTestSteps(row: RowDef): RowTestItem[] {
       options: shuffled,
       correctOptionId: correctId,
       explanation: buildKanaRecognitionExplanation(k.kana, k.romaji),
+      // Test mode — strip the romaji ruby that AnnotatedJa would draw
+      // above each option's kana. Otherwise the helper IS the answer.
+      // Audio + romaji-in-prompt remain the only clues.
+      optionsHideRomaji: true,
     };
     items.push({ kind: "mc", payload: mc });
   });

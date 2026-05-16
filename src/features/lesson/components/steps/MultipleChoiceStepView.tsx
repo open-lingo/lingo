@@ -77,13 +77,29 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
           </p>
         </div>
       ) : (
-        <h2 className="text-xl font-semibold text-text-primary">
-          {step.promptAnnotation ? (
-            <AnnotatedJa segments={step.promptAnnotation} />
-          ) : (
-            <AnnotatedJa text={step.prompt} />
+        <div className="flex flex-wrap items-center gap-3">
+          <h2 className="text-xl font-semibold text-text-primary">
+            {step.promptAnnotation ? (
+              <AnnotatedJa segments={step.promptAnnotation} />
+            ) : (
+              <AnnotatedJa text={step.prompt} />
+            )}
+          </h2>
+          {ttsAvailable && (
+            // Replayable speaker on every MC with a TTS prompt. Auto-play
+            // fires once on mount; this lets the learner hear it again
+            // without leaving the card. Especially load-bearing on test
+            // cards where the romaji ruby is off — audio is the prompt.
+            <button
+              type="button"
+              onClick={replayPromptAudio}
+              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_3px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
+              aria-label={t("lesson.play", "Play audio")}
+            >
+              <Icon name="play" size={14} />
+            </button>
           )}
-        </h2>
+        </div>
       )}
 
       {step.hint && !submitted && (
@@ -126,7 +142,11 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
               onClick={() => setSelected(opt.id)}
               className={`rounded-xl border-2 transition-colors duration-150 ${layout} ${style} ${submitted ? "cursor-default" : "cursor-pointer"}`}
             >
-              {ann ? (
+              {step.optionsHideRomaji ? (
+                // Test/quiz mode — render the kana raw so the romaji
+                // helper doesn't broadcast the answer.
+                <span className="font-japanese" lang="ja">{opt.text}</span>
+              ) : ann ? (
                 <AnnotatedJa segments={ann} />
               ) : (
                 <AnnotatedJa text={opt.text} />

@@ -218,12 +218,60 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { kana: "こ", romaji: "ko", hint: "like 'ko' in 'koala'" },
     ],
     anchorWords: [
+      { kana: "かい", romaji: "kai", meaning: "shell" },
+      { kana: "いけ", romaji: "ike", meaning: "pond" },
       { kana: "かお", romaji: "kao", meaning: "face" },
-      { kana: "くち", romaji: "kuchi", meaning: "mouth" },
       { kana: "こえ", romaji: "koe", meaning: "voice" },
+      { kana: "えき", romaji: "eki", meaning: "station" },
     ],
     audioPick: { word: "かお", pickIndex: 0, distractors: ["き", "く", "さ"] },
     build: { meaning: "face", answer: "かお", decoys: ["き", "い", "う"] },
+    // 2-sub-lesson split (2026-05-16) to match the vowel pattern. Hand-
+    // authored mock-ja-m1-ka.ts overrides the auto-built lessons; this
+    // declaration is what drives clustering, pathway nodes, recap pool,
+    // ROW_SUB_LESSON_IDS, and progress migration.
+    subLessons: [
+      {
+        suffix: "1",
+        label: "Intro 1",
+        introduces: [
+          { kana: "か", romaji: "ka", hint: "like 'ka' in 'car'" },
+          { kana: "き", romaji: "ki", hint: "like 'kee' in 'key'" },
+          { kana: "く", romaji: "ku", hint: "like 'koo' in 'cuckoo'" },
+          { kana: "け", romaji: "ke", hint: "like 'ke' in 'kept'" },
+          { kana: "こ", romaji: "ko", hint: "like 'ko' in 'koala'" },
+        ],
+        anchorWords: [
+          { kana: "かい", romaji: "kai", meaning: "shell" },
+          { kana: "いけ", romaji: "ike", meaning: "pond" },
+          { kana: "かお", romaji: "kao", meaning: "face" },
+        ],
+      },
+      {
+        suffix: "2",
+        label: "Intro 2",
+        introduces: [],
+        anchorWords: [
+          { kana: "こえ", romaji: "koe", meaning: "voice" },
+          { kana: "えき", romaji: "eki", meaning: "station" },
+        ],
+      },
+      // Auto-built row-test wraps the 2 hand-authored intros. Pathway
+      // shows ka as a 3-node cluster (matches every other consonant row).
+      {
+        suffix: "test",
+        label: "Row test",
+        introduces: [],
+        anchorWords: [
+          { kana: "かい", romaji: "kai", meaning: "shell" },
+          { kana: "いけ", romaji: "ike", meaning: "pond" },
+          { kana: "かお", romaji: "kao", meaning: "face" },
+          { kana: "こえ", romaji: "koe", meaning: "voice" },
+          { kana: "えき", romaji: "eki", meaning: "station" },
+        ],
+        isTest: true,
+      },
+    ],
   },
   {
     id: "sa",
@@ -243,9 +291,9 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { kana: "そ", romaji: "so", hint: "like 'so' in 'so'" },
     ],
     anchorWords: [
-      { kana: "あさ", romaji: "asa", meaning: "morning" },
+      { kana: "あさ", romaji: "asa",   meaning: "morning" },
       { kana: "すし", romaji: "sushi", meaning: "sushi" },
-      { kana: "いす", romaji: "isu", meaning: "chair" },
+      { kana: "そら", romaji: "sora",  meaning: "sky" },
     ],
     audioPick: { word: "すし", pickIndex: 0, distractors: ["し", "つ", "む"] },
     build: { meaning: "sushi", answer: "すし", decoys: ["さ", "む", "つ"] },
@@ -259,6 +307,53 @@ export const HIRAGANA_ROWS: RowDef[] = [
         sentence: "すみません",
         reading: "sumimasen",
         meaning: "\"Excuse me / sorry\" — the single most useful Japanese phrase for a traveller.",
+      },
+    ],
+    // 2+2+1+test pattern (2026-05-16). Hand-authored mock-ja-m1-sa.ts
+    // overrides the auto-built sub-lessons; the row-test is auto-built.
+    subLessons: [
+      {
+        suffix: "1",
+        label: "Intro 1",
+        introduces: [
+          { kana: "さ", romaji: "sa", hint: "like 'sa' in 'salsa'" },
+          { kana: "し", romaji: "shi", hint: "like 'she' in 'sheet'", note: "'shi', not 'si'." },
+        ],
+        anchorWords: [
+          { kana: "あさ", romaji: "asa", meaning: "morning" },
+        ],
+      },
+      {
+        suffix: "2",
+        label: "Intro 2",
+        introduces: [
+          { kana: "す", romaji: "su", hint: "like 'sue' (slightly clipped)" },
+          { kana: "せ", romaji: "se", hint: "like 'se' in 'sell'" },
+        ],
+        anchorWords: [
+          { kana: "すし", romaji: "sushi", meaning: "sushi" },
+        ],
+      },
+      {
+        suffix: "3",
+        label: "Review",
+        introduces: [
+          { kana: "そ", romaji: "so", hint: "like 'so' in 'sole'" },
+        ],
+        anchorWords: [
+          { kana: "そら", romaji: "sora", meaning: "sky" },
+        ],
+      },
+      {
+        suffix: "test",
+        label: "Row test",
+        introduces: [],
+        anchorWords: [
+          { kana: "あさ", romaji: "asa",   meaning: "morning" },
+          { kana: "すし", romaji: "sushi", meaning: "sushi" },
+          { kana: "そら", romaji: "sora",  meaning: "sky" },
+        ],
+        isTest: true,
       },
     ],
   },
@@ -280,12 +375,36 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { kana: "と", romaji: "to", hint: "like 'to' in 'toe'" },
     ],
     anchorWords: [
-      { kana: "つき", romaji: "tsuki", meaning: "moon" },
-      { kana: "て", romaji: "te", meaning: "hand" },
-      { kana: "とけい", romaji: "tokei", meaning: "clock / watch" },
+      { kana: "うた",   romaji: "uta",   meaning: "song" },
+      { kana: "つき",   romaji: "tsuki", meaning: "moon" },
+      { kana: "とけい", romaji: "tokei", meaning: "clock" },
     ],
     audioPick: { word: "つき", pickIndex: 0, distractors: ["し", "う", "ち"] },
     build: { meaning: "moon", answer: "つき", decoys: ["し", "う", "ち"] },
+    subLessons: [
+      { suffix: "1", label: "Intro 1",
+        introduces: [
+          { kana: "た", romaji: "ta",  hint: "like 'ta' in 'taco'" },
+          { kana: "ち", romaji: "chi", hint: "like 'chee' in 'cheese'", note: "'chi', not 'ki'." },
+        ],
+        anchorWords: [{ kana: "うた", romaji: "uta", meaning: "song" }] },
+      { suffix: "2", label: "Intro 2",
+        introduces: [
+          { kana: "つ", romaji: "tsu", hint: "like 'ts' in 'cats' + 'oo'", note: "Closest English: 'tsoo'." },
+          { kana: "て", romaji: "te",  hint: "like 'te' in 'ten'" },
+        ],
+        anchorWords: [{ kana: "つき", romaji: "tsuki", meaning: "moon" }] },
+      { suffix: "3", label: "Review",
+        introduces: [{ kana: "と", romaji: "to", hint: "like 'to' in 'toe'" }],
+        anchorWords: [{ kana: "とけい", romaji: "tokei", meaning: "clock" }] },
+      { suffix: "test", label: "Row test", introduces: [],
+        anchorWords: [
+          { kana: "うた",   romaji: "uta",   meaning: "song" },
+          { kana: "つき",   romaji: "tsuki", meaning: "moon" },
+          { kana: "とけい", romaji: "tokei", meaning: "clock" },
+        ],
+        isTest: true },
+    ],
   },
   {
     id: "na",
@@ -300,14 +419,12 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { kana: "の", romaji: "no", hint: "like 'no' in 'note'" },
     ],
     anchorWords: [
-      { kana: "ねこ", romaji: "neko", meaning: "cat" },
-      { kana: "いぬ", romaji: "inu", meaning: "dog" },
-      { kana: "なつ", romaji: "natsu", meaning: "summer" },
+      { kana: "なに",   romaji: "nani",   meaning: "what" },
+      { kana: "ねこ",   romaji: "neko",   meaning: "cat" },
+      { kana: "きのこ", romaji: "kinoko", meaning: "mushroom" },
     ],
     audioPick: { word: "ねこ", pickIndex: 0, distractors: ["れ", "の", "わ"] },
     build: { meaning: "cat", answer: "ねこ", decoys: ["ぬ", "の", "き"] },
-    // で in です uses the AnnotatedJa romaji-helper fallback until the
-    // learner drills da-ba in m2 — by design (see file-header curation rules).
     sentencePractice: [
       {
         prompt: "It's a cat.",
@@ -315,6 +432,30 @@ export const HIRAGANA_ROWS: RowDef[] = [
         correctOrder: ["ねこ", "です"],
         decoys: ["いぬ", "なつ"],
       },
+    ],
+    subLessons: [
+      { suffix: "1", label: "Intro 1",
+        introduces: [
+          { kana: "な", romaji: "na", hint: "like 'na' in 'nacho'" },
+          { kana: "に", romaji: "ni", hint: "like 'nee' in 'neat'" },
+        ],
+        anchorWords: [{ kana: "なに", romaji: "nani", meaning: "what" }] },
+      { suffix: "2", label: "Intro 2",
+        introduces: [
+          { kana: "ぬ", romaji: "nu", hint: "like 'noo' (clipped)" },
+          { kana: "ね", romaji: "ne", hint: "like 'ne' in 'net'" },
+        ],
+        anchorWords: [{ kana: "ねこ", romaji: "neko", meaning: "cat" }] },
+      { suffix: "3", label: "Review",
+        introduces: [{ kana: "の", romaji: "no", hint: "like 'no' in 'note'" }],
+        anchorWords: [{ kana: "きのこ", romaji: "kinoko", meaning: "mushroom" }] },
+      { suffix: "test", label: "Row test", introduces: [],
+        anchorWords: [
+          { kana: "なに",   romaji: "nani",   meaning: "what" },
+          { kana: "ねこ",   romaji: "neko",   meaning: "cat" },
+          { kana: "きのこ", romaji: "kinoko", meaning: "mushroom" },
+        ],
+        isTest: true },
     ],
   },
   {
@@ -335,12 +476,12 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { kana: "ほ", romaji: "ho", hint: "like 'ho' in 'hope'" },
     ],
     anchorWords: [
-      { kana: "はな", romaji: "hana", meaning: "flower" },
-      { kana: "ひと", romaji: "hito", meaning: "person" },
+      { kana: "ひと", romaji: "hito",  meaning: "person" },
+      { kana: "ふね", romaji: "fune",  meaning: "boat" },
       { kana: "ほし", romaji: "hoshi", meaning: "star" },
     ],
-    audioPick: { word: "はな", pickIndex: 0, distractors: ["ほ", "ま", "ぱ"] },
-    build: { meaning: "flower", answer: "はな", decoys: ["ほ", "な", "に"] },
+    audioPick: { word: "ひと", pickIndex: 0, distractors: ["ほ", "ま", "ぱ"] },
+    build: { meaning: "person", answer: "ひと", decoys: ["ほ", "な", "に"] },
     sentenceExamples: [
       {
         kana: "へ",
@@ -351,11 +492,36 @@ export const HIRAGANA_ROWS: RowDef[] = [
     ],
     sentencePractice: [
       {
-        prompt: "It's a flower.",
-        target: "はな です",
-        correctOrder: ["はな", "です"],
-        decoys: ["ほし", "ひと"],
+        prompt: "It's a person.",
+        target: "ひと です",
+        correctOrder: ["ひと", "です"],
+        decoys: ["ふね", "ほし"],
       },
+    ],
+    subLessons: [
+      { suffix: "1", label: "Intro 1",
+        introduces: [
+          { kana: "は", romaji: "ha", hint: "like 'ha' in 'hot'" },
+          { kana: "ひ", romaji: "hi", hint: "like 'hee' in 'heat'" },
+        ],
+        anchorWords: [{ kana: "ひと", romaji: "hito", meaning: "person" }] },
+      { suffix: "2", label: "Intro 2",
+        introduces: [
+          { kana: "ふ", romaji: "fu", hint: "soft 'foo' — almost a whisper",
+            note: "Top teeth don't touch your bottom lip — it's a puff, not an English 'f'." },
+          { kana: "へ", romaji: "he", hint: "like 'he' in 'help'" },
+        ],
+        anchorWords: [{ kana: "ふね", romaji: "fune", meaning: "boat" }] },
+      { suffix: "3", label: "Review",
+        introduces: [{ kana: "ほ", romaji: "ho", hint: "like 'ho' in 'hope'" }],
+        anchorWords: [{ kana: "ほし", romaji: "hoshi", meaning: "star" }] },
+      { suffix: "test", label: "Row test", introduces: [],
+        anchorWords: [
+          { kana: "ひと", romaji: "hito",  meaning: "person" },
+          { kana: "ふね", romaji: "fune",  meaning: "boat" },
+          { kana: "ほし", romaji: "hoshi", meaning: "star" },
+        ],
+        isTest: true },
     ],
   },
   {
@@ -371,19 +537,43 @@ export const HIRAGANA_ROWS: RowDef[] = [
       { kana: "も", romaji: "mo", hint: "like 'mo' in 'most'" },
     ],
     anchorWords: [
-      { kana: "みみ", romaji: "mimi", meaning: "ear" },
+      { kana: "うま", romaji: "uma",  meaning: "horse" },
+      { kana: "かめ", romaji: "kame", meaning: "turtle" },
       { kana: "もも", romaji: "momo", meaning: "peach" },
-      { kana: "あめ", romaji: "ame", meaning: "rain / candy" },
     ],
-    audioPick: { word: "みみ", pickIndex: 0, distractors: ["ゆ", "む", "に"] },
+    audioPick: { word: "もも", pickIndex: 0, distractors: ["ゆ", "む", "に"] },
     build: { meaning: "peach", answer: "もも", decoys: ["し", "ま", "の"] },
     sentencePractice: [
       {
-        prompt: "It's an ear.",
-        target: "みみ です",
-        correctOrder: ["みみ", "です"],
-        decoys: ["もも", "あめ"],
+        prompt: "It's a peach.",
+        target: "もも です",
+        correctOrder: ["もも", "です"],
+        decoys: ["うま", "かめ"],
       },
+    ],
+    subLessons: [
+      { suffix: "1", label: "Intro 1",
+        introduces: [
+          { kana: "ま", romaji: "ma", hint: "like 'ma' in 'mama'" },
+          { kana: "み", romaji: "mi", hint: "like 'mee' in 'meet'" },
+        ],
+        anchorWords: [{ kana: "うま", romaji: "uma", meaning: "horse" }] },
+      { suffix: "2", label: "Intro 2",
+        introduces: [
+          { kana: "む", romaji: "mu", hint: "like 'moo' (clipped)" },
+          { kana: "め", romaji: "me", hint: "like 'me' in 'met'" },
+        ],
+        anchorWords: [{ kana: "かめ", romaji: "kame", meaning: "turtle" }] },
+      { suffix: "3", label: "Review",
+        introduces: [{ kana: "も", romaji: "mo", hint: "like 'mo' in 'more'" }],
+        anchorWords: [{ kana: "もも", romaji: "momo", meaning: "peach" }] },
+      { suffix: "test", label: "Row test", introduces: [],
+        anchorWords: [
+          { kana: "うま", romaji: "uma",  meaning: "horse" },
+          { kana: "かめ", romaji: "kame", meaning: "turtle" },
+          { kana: "もも", romaji: "momo", meaning: "peach" },
+        ],
+        isTest: true },
     ],
   },
   {
@@ -431,18 +621,43 @@ export const HIRAGANA_ROWS: RowDef[] = [
     ],
     anchorWords: [
       { kana: "さくら", romaji: "sakura", meaning: "cherry blossom" },
-      { kana: "とり", romaji: "tori", meaning: "bird" },
-      { kana: "はる", romaji: "haru", meaning: "spring (season)" },
+      { kana: "これ",   romaji: "kore",   meaning: "this" },
+      { kana: "いろ",   romaji: "iro",    meaning: "color" },
     ],
-    audioPick: { word: "とり", pickIndex: 1, distractors: ["い", "り", "う"] },
-    build: { meaning: "spring (season)", answer: "はる", decoys: ["れ", "ら", "ろ"] },
+    audioPick: { word: "さくら", pickIndex: 0, distractors: ["い", "り", "う"] },
+    build: { meaning: "this", answer: "これ", decoys: ["れ", "ら", "ろ"] },
     sentencePractice: [
       {
-        prompt: "It's a bird.",
-        target: "とり です",
-        correctOrder: ["とり", "です"],
-        decoys: ["さくら", "はる"],
+        prompt: "This is a cherry blossom.",
+        target: "これ さくら です",
+        correctOrder: ["これ", "さくら", "です"],
+        decoys: ["いろ"],
       },
+    ],
+    subLessons: [
+      { suffix: "1", label: "Intro 1",
+        introduces: [
+          { kana: "ら", romaji: "ra", hint: "soft tongue tap — between 'la' and 'ra'",
+            note: "Tongue taps the roof of the mouth lightly." },
+          { kana: "り", romaji: "ri", hint: "tap between 'lee' and 'ree'" },
+        ],
+        anchorWords: [{ kana: "さくら", romaji: "sakura", meaning: "cherry blossom" }] },
+      { suffix: "2", label: "Intro 2",
+        introduces: [
+          { kana: "る", romaji: "ru", hint: "tap between 'lue' and 'rue'" },
+          { kana: "れ", romaji: "re", hint: "tap between 'leh' and 'reh'" },
+        ],
+        anchorWords: [{ kana: "これ", romaji: "kore", meaning: "this" }] },
+      { suffix: "3", label: "Review",
+        introduces: [{ kana: "ろ", romaji: "ro", hint: "tap between 'lo' and 'ro'" }],
+        anchorWords: [{ kana: "いろ", romaji: "iro", meaning: "color" }] },
+      { suffix: "test", label: "Row test", introduces: [],
+        anchorWords: [
+          { kana: "さくら", romaji: "sakura", meaning: "cherry blossom" },
+          { kana: "これ",   romaji: "kore",   meaning: "this" },
+          { kana: "いろ",   romaji: "iro",    meaning: "color" },
+        ],
+        isTest: true },
     ],
   },
   {

@@ -44,6 +44,7 @@ const SpeechTunePage = lazy(() =>
   })),
 );
 const LearnPage = lazy(() => import("@/features/learn/LearnPage"));
+const AssetTestPage = lazy(() => import("@/features/asset-test/AssetTestPage"));
 const FlashcardTester = lazy(() =>
   import("@/features/flashcards/FlashcardTester").then((m) => ({ default: m.FlashcardTester })),
 );
@@ -206,6 +207,7 @@ const router = createBrowserRouter([
               { path: "vocab", element: <VocabPage /> },
               { path: "grammar", element: <GrammarRedirect /> },
               { path: "speech-tune", element: <SpeechTunePage /> },
+              { path: "asset-test", element: <AssetTestPage /> },
               {
                 path: "community",
                 element: <CommunityLayout />,

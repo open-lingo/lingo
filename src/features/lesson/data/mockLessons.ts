@@ -5,6 +5,40 @@ import {
   MOCK_LESSON_JA_M1_L1A,
   MOCK_LESSON_JA_M1_L1B,
 } from "./mock-ja-m1-l1";
+import {
+  MOCK_LESSON_JA_M1_KA_1,
+  MOCK_LESSON_JA_M1_KA_2,
+} from "./mock-ja-m1-ka";
+import {
+  MOCK_LESSON_JA_M1_SA_1,
+  MOCK_LESSON_JA_M1_SA_2,
+  MOCK_LESSON_JA_M1_SA_3,
+} from "./mock-ja-m1-sa";
+import {
+  MOCK_LESSON_JA_M1_TA_1,
+  MOCK_LESSON_JA_M1_TA_2,
+  MOCK_LESSON_JA_M1_TA_3,
+} from "./mock-ja-m1-ta";
+import {
+  MOCK_LESSON_JA_M1_NA_1,
+  MOCK_LESSON_JA_M1_NA_2,
+  MOCK_LESSON_JA_M1_NA_3,
+} from "./mock-ja-m1-na";
+import {
+  MOCK_LESSON_JA_M1_HA_1,
+  MOCK_LESSON_JA_M1_HA_2,
+  MOCK_LESSON_JA_M1_HA_3,
+} from "./mock-ja-m1-ha";
+import {
+  MOCK_LESSON_JA_M1_MA_1,
+  MOCK_LESSON_JA_M1_MA_2,
+  MOCK_LESSON_JA_M1_MA_3,
+} from "./mock-ja-m1-ma";
+import {
+  MOCK_LESSON_JA_M1_RA_1,
+  MOCK_LESSON_JA_M1_RA_2,
+  MOCK_LESSON_JA_M1_RA_3,
+} from "./mock-ja-m1-ra";
 import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
 import { ALL_ROWS } from "./hiraganaCurriculum";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
@@ -16,6 +50,28 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,
   "ja-m1-l1-2": MOCK_LESSON_JA_M1_L1B,
   ...GENERATED_HIRAGANA_LESSONS,
+  // Hand-authored consonant rows spread AFTER generators so they override
+  // the auto-built sub-lessons. Mirrors the vowel approach.
+  "ja-m1-ka-1": MOCK_LESSON_JA_M1_KA_1,
+  "ja-m1-ka-2": MOCK_LESSON_JA_M1_KA_2,
+  "ja-m1-sa-1": MOCK_LESSON_JA_M1_SA_1,
+  "ja-m1-sa-2": MOCK_LESSON_JA_M1_SA_2,
+  "ja-m1-sa-3": MOCK_LESSON_JA_M1_SA_3,
+  "ja-m1-ta-1": MOCK_LESSON_JA_M1_TA_1,
+  "ja-m1-ta-2": MOCK_LESSON_JA_M1_TA_2,
+  "ja-m1-ta-3": MOCK_LESSON_JA_M1_TA_3,
+  "ja-m1-na-1": MOCK_LESSON_JA_M1_NA_1,
+  "ja-m1-na-2": MOCK_LESSON_JA_M1_NA_2,
+  "ja-m1-na-3": MOCK_LESSON_JA_M1_NA_3,
+  "ja-m1-ha-1": MOCK_LESSON_JA_M1_HA_1,
+  "ja-m1-ha-2": MOCK_LESSON_JA_M1_HA_2,
+  "ja-m1-ha-3": MOCK_LESSON_JA_M1_HA_3,
+  "ja-m1-ma-1": MOCK_LESSON_JA_M1_MA_1,
+  "ja-m1-ma-2": MOCK_LESSON_JA_M1_MA_2,
+  "ja-m1-ma-3": MOCK_LESSON_JA_M1_MA_3,
+  "ja-m1-ra-1": MOCK_LESSON_JA_M1_RA_1,
+  "ja-m1-ra-2": MOCK_LESSON_JA_M1_RA_2,
+  "ja-m1-ra-3": MOCK_LESSON_JA_M1_RA_3,
 };
 
 /**

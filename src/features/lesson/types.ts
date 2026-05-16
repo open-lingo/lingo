@@ -17,6 +17,7 @@ export type StepType =
   | "symbol_recognition"
   | "symbol_production"
   | "symbol_to_sound"
+  | "word_image_mcq"
   | "row_test";
 
 export type StepBase = {
@@ -79,6 +80,13 @@ export type MultipleChoiceStep = StepBase & {
    * before choosing. Pairs with `promptAudioText`.
    */
   audioOnlyPrompt?: boolean;
+  /**
+   * When true, option text is rendered raw (no AnnotatedJa ruby helpers).
+   * Use on test/quiz cards where the romaji over kana would literally
+   * be the answer. Default false keeps the standard mastery-gated helper
+   * scaffold for teaching cards.
+   */
+  optionsHideRomaji?: boolean;
 };
 
 export type BuildSentenceStep = StepBase & {
@@ -231,6 +239,30 @@ export type SymbolToSoundStep = StepBase & {
 };
 
 /**
+ * Word-discovery MCQ. User reads "What is the word for 'love'?" and picks
+ * from a 2×2 grid of square buttons: kana inset top, emoji centered. Tapping
+ * a button plays that word's TTS (preview). Then Check commits.
+ *
+ * Designed for FIRST-encounter vocab teaching — the four words don't have
+ * to be introduced yet. The emoji is the primary semantic clue; audio +
+ * kana wire the form to that meaning.
+ */
+export type WordImageMcqStep = StepBase & {
+  type: "word_image_mcq";
+  /** The english meaning the prompt asks about — e.g. "love". Rendered
+   *  bold inside the prompt "What is the word for 'love'?". */
+  meaningEn: string;
+  options: {
+    id: string;
+    /** Kana form (the answer text). */
+    word: string;
+    /** Emoji rendered via Noto Emoji SVG. */
+    emoji: string;
+  }[];
+  correctOptionId: string;
+};
+
+/**
  * Row-test step (alphabet-streamline). Encapsulates a queue of mc / match /
  * build items drawn from the full row. Missed items get appended to the
  * back of the queue at runtime (max 3 retries per item). Passes at >=
@@ -279,6 +311,7 @@ export type LessonStep =
   | SymbolRecognitionStep
   | SymbolProductionStep
   | SymbolToSoundStep
+  | WordImageMcqStep
   | RowTestStep;
 
 export type LessonContent = {
