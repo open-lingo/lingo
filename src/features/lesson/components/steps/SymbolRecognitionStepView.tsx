@@ -95,26 +95,38 @@ export function SymbolRecognitionStepView({
           </button>
         )}
       </div>
-      <div className="relative grid grid-cols-2 gap-3 sm:gap-4">
+      <div className="relative grid grid-cols-2 gap-4">
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
+          // Solid accent fill on selected = unmistakable in any theme.
           let style =
-            "font-japanese rounded-xl border-[1.5px] border-border bg-surface py-6 text-4xl font-bold text-text-primary transition-colors duration-150 hover:border-accent";
+            "font-japanese rounded-xl border-2 border-border bg-surface py-9 text-5xl font-bold text-text-primary transition-colors duration-150 hover:border-accent";
           if (submitted && isAnswer) {
-            style += " border-accent bg-accent-muted text-accent";
+            style =
+              "font-japanese rounded-xl border-2 border-accent bg-accent py-9 text-5xl font-bold text-white transition-colors duration-150";
           } else if (submitted && isSelected && !isAnswer) {
-            style += " border-error bg-red-50 text-error dark:bg-red-950/30";
+            style =
+              "font-japanese rounded-xl border-2 border-error bg-error/15 py-9 text-5xl font-bold text-error transition-colors duration-150";
           } else if (isSelected) {
-            style += " border-accent bg-accent-muted text-accent";
+            style =
+              "font-japanese rounded-xl border-2 border-accent bg-accent py-9 text-5xl font-bold text-white transition-colors duration-150";
           }
           return (
             <button
               key={opt.id}
               type="button"
               disabled={submitted}
-              onClick={() => setSelected(opt.id)}
+              onClick={() => {
+                // Preview-on-tap: play the kana's own audio when picked.
+                // Same interaction as symbol_to_sound but with kana buttons.
+                if (isJaKana && getTtsUrl(opt.symbol)) {
+                  playJaAudio(opt.symbol);
+                }
+                setSelected(opt.id);
+              }}
               className={style}
+              aria-label={`Hear ${opt.symbol}`}
             >
               {opt.symbol}
             </button>

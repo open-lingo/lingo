@@ -98,18 +98,24 @@ export function SymbolToSoundStepView({
           {step.payload.symbol}
         </span>
       </div>
-      <div className={`relative grid gap-3 ${optionGridCols}`}>
+      <div className={`relative grid gap-4 ${optionGridCols}`}>
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
+          // Default + selected-pre-submit + post-submit-correct/wrong.
+          // Selected state uses solid accent fill so the picked button is
+          // unmistakable in both dark and light themes.
           let style =
-            "flex items-center justify-center gap-2 rounded-xl border-[1.5px] border-border bg-surface py-5 text-center text-lg font-semibold text-text-primary transition-colors duration-150 hover:border-accent";
+            "flex items-center justify-center gap-3 rounded-xl border-2 border-border bg-surface py-8 text-center text-2xl font-bold text-text-primary transition-colors duration-150 hover:border-accent";
           if (submitted && isAnswer) {
-            style += " border-accent bg-accent-muted text-accent";
+            style =
+              "flex items-center justify-center gap-3 rounded-xl border-2 border-accent bg-accent py-8 text-center text-2xl font-bold text-white transition-colors duration-150";
           } else if (submitted && isSelected && !isAnswer) {
-            style += " border-error bg-red-50 text-error dark:bg-red-950/30";
+            style =
+              "flex items-center justify-center gap-3 rounded-xl border-2 border-error bg-error/15 py-8 text-center text-2xl font-bold text-error transition-colors duration-150";
           } else if (isSelected) {
-            style += " border-accent bg-accent-muted text-accent";
+            style =
+              "flex items-center justify-center gap-3 rounded-xl border-2 border-accent bg-accent py-8 text-center text-2xl font-bold text-white transition-colors duration-150";
           }
           return (
             <button
@@ -120,7 +126,9 @@ export function SymbolToSoundStepView({
               className={style}
               aria-label={`Hear ${opt.text}`}
             >
-              <span aria-hidden>🔊</span>
+              <span aria-hidden className="text-xl">
+                🔊
+              </span>
               <span>{opt.text}</span>
             </button>
           );

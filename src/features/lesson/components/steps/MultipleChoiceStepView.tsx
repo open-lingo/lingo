@@ -90,32 +90,33 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
         <p className="text-sm text-text-muted">{step.hint}</p>
       )}
 
-      <div className={gridClasses} style={{ minHeight: optionsAre4 ? 220 : 180 }}>
+      <div className={gridClasses} style={{ minHeight: optionsAre4 ? 320 : 260 }}>
         {step.options.map((opt, idx) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
           const ann = step.optionAnnotations?.[idx];
 
+          // Default + selected-pre-submit + post-submit-correct/wrong.
+          // Solid accent fill on selected so the user's pick is always
+          // visible — `bg-accent-muted` washed out in dark mode.
           let style =
             "border-border bg-surface text-text-primary hover:border-accent";
 
           if (submitted && isAnswer) {
-            style =
-              "border-accent bg-accent-muted text-accent";
+            style = "border-accent bg-accent text-white";
           } else if (submitted && isSelected && !isAnswer) {
-            style =
-              "border-error bg-red-50 text-error dark:bg-red-950/30";
+            style = "border-error bg-error/15 text-error";
           } else if (isSelected) {
-            style =
-              "border-accent bg-accent-muted text-accent";
+            style = "border-accent bg-accent text-white";
           }
 
+          // ~50% bigger fonts + vertical padding per 2026-05-16 review.
           // Big-glyph layout for short kana options; left-aligned text for
           // long English / sentence choices.
           const isShortGlyph = opt.text.length <= 2;
           const layout = isShortGlyph
-            ? "flex items-center justify-center py-6 text-3xl font-bold"
-            : "px-4 py-4 text-left text-base font-medium";
+            ? "flex items-center justify-center py-9 text-5xl font-bold"
+            : "px-4 py-6 text-left text-xl font-medium leading-snug";
 
           return (
             <button
@@ -123,7 +124,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
               type="button"
               disabled={submitted}
               onClick={() => setSelected(opt.id)}
-              className={`rounded-xl border-[1.5px] transition-colors duration-150 ${layout} ${style} ${submitted ? "cursor-default" : "cursor-pointer"}`}
+              className={`rounded-xl border-2 transition-colors duration-150 ${layout} ${style} ${submitted ? "cursor-default" : "cursor-pointer"}`}
             >
               {ann ? (
                 <AnnotatedJa segments={ann} />

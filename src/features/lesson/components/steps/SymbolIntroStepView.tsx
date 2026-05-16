@@ -38,6 +38,10 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
   const [reference, setReference] = useState<SymbolReference>(() =>
     getSystemFontReferenceFor(payload.symbol),
   );
+  // Bumping this tells the SymbolAnimation child to reset + replay.
+  // We can't call `useStrokeAnimation` here because the canvas + render
+  // logic live in the child; passing a replay key is the simplest bridge.
+  const [replayKey, setReplayKey] = useState(0);
 
   // Korean alphabet audio path stays for non-JA scripts. JA kana audio
   // routes through the new manifest-driven TTS, auto-playing 500ms after
@@ -66,8 +70,9 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
   const showAnimated = Boolean(payload.hasStrokeOrder && reference.glyph);
 
   function handlePlay() {
-    // Prefer the JA TTS resolver for kana; fall back to the legacy alphabet
-    // CDN for non-JA scripts that ship with an audioKey.
+    // Replay both: audio + stroke animation, so the learner gets the
+    // same paired experience as the initial mount.
+    setReplayKey((k) => k + 1);
     if (isJaKana && getTtsUrl(payload.symbol)) {
       playJaAudio(payload.symbol);
       return;
@@ -86,7 +91,7 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
     <div className="flex flex-1 flex-col">
       <div className="flex flex-col items-center gap-4">
         {showAnimated ? (
-          <SymbolAnimation reference={reference} />
+          <SymbolAnimation reference={reference} replayKey={replayKey} />
         ) : (
           <span
             className="font-japanese text-[220px] font-bold leading-none text-text-primary"
@@ -131,10 +136,25 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
  * Auto-plays the stroke-order animation once on mount, then leaves the final
  * glyph drawn. Respects `prefers-reduced-motion` via the hook.
  */
-function SymbolAnimation({ reference }: { reference: SymbolReference }) {
+function SymbolAnimation({
+  reference,
+  replayKey,
+}: {
+  reference: SymbolReference;
+  replayKey: number;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const glyph = reference.glyph;
   const animation = useStrokeAnimation(glyph, { autoPlay: true });
+
+  // When parent bumps replayKey, reset + play the animation again.
+  // Skip the initial 0 — autoPlay already handles first mount.
+  useEffect(() => {
+    if (replayKey === 0) return;
+    animation.reset();
+    animation.play();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [replayKey]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
