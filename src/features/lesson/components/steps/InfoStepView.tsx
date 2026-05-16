@@ -22,10 +22,12 @@ const variantConfig: Record<
     bg: "bg-warning/10",
     text: "text-text-secondary",
   },
+  // Culture cards are typically lesson openers / closers — give them
+  // more presence: gradient pane, oversized emoji, larger headline.
   culture: {
     icon: "🌏",
     border: "border-info/40",
-    bg: "bg-info/10",
+    bg: "bg-gradient-to-br from-info/15 via-info/10 to-accent/10",
     text: "text-text-secondary",
   },
   grammar: {
@@ -38,19 +40,50 @@ const variantConfig: Record<
 
 export function InfoStepView({ step, onContinue }: Props) {
   const v = variantConfig[step.variant ?? "default"];
+  const isCulture = (step.variant ?? "default") === "culture";
+
+  // Culture variant gets a hero-card treatment: emoji floats above a
+  // big title, body sits in larger relaxed type. Every other variant
+  // keeps its compact two-column layout.
+  if (isCulture) {
+    return (
+      <div className="flex flex-1 flex-col gap-6">
+        <div
+          className={`relative overflow-hidden rounded-3xl border-2 ${v.border} ${v.bg} px-7 py-9 shadow-[var(--shadow-card)]`}
+        >
+          <span className="block text-6xl leading-none" aria-hidden>
+            {v.icon}
+          </span>
+          {step.title && (
+            <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
+              {step.title}
+            </h2>
+          )}
+          <p
+            className={`mt-4 text-lg leading-relaxed ${v.text} sm:text-xl`}
+          >
+            {step.body}
+          </p>
+        </div>
+        <ContinueButton onClick={onContinue} />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-1 flex-col gap-6">
       {step.title && (
-        <h2 className="text-xl font-bold tracking-tight text-text-primary">
+        <h2 className="text-2xl font-bold tracking-tight text-text-primary">
           {step.title}
         </h2>
       )}
 
-      <div className={`rounded-2xl border-[1.5px] ${v.border} ${v.bg} px-5 py-5 shadow-[var(--shadow-card)]`}>
-        <div className="flex gap-3">
-          <span className="mt-0.5 text-2xl leading-none">{v.icon}</span>
-          <p className={`text-base leading-relaxed ${v.text}`}>{step.body}</p>
+      <div
+        className={`rounded-2xl border-2 ${v.border} ${v.bg} px-6 py-6 shadow-[var(--shadow-card)]`}
+      >
+        <div className="flex gap-4">
+          <span className="mt-0.5 text-3xl leading-none">{v.icon}</span>
+          <p className={`text-lg leading-relaxed ${v.text}`}>{step.body}</p>
         </div>
       </div>
 

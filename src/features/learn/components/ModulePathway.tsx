@@ -59,6 +59,9 @@ function pickGlyph(title: string): string {
  *  cases where neither the cluster title nor any sub-lesson title carries
  *  kana (the current derive-sub-lessons output drops the kana suffix). */
 const ROW_GLYPH: Record<string, string> = {
+  // Vowels — first row of the curriculum. Pseudo-row "l1" (no entry in
+  // HIRAGANA_ROWS) but it clusters via the standard sub-lesson id shape.
+  l1: "あ",
   ka: "か", sa: "さ", ta: "た", na: "な", ha: "は", ma: "ま",
   ya: "や", ra: "ら", wa: "わ",
   ga: "が", za: "ざ", "da-ba": "だ", pa: "ぱ",

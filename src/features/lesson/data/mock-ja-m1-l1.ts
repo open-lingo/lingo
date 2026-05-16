@@ -23,9 +23,11 @@ import { getTtsUrl } from "@/shared/japanese/tts";
  *   - All symbol_to_sound + symbol_recognition use the 2026-05-16 revamp:
  *     buttons preview their OWN audio on tap, separate Check button.
  *   - Tile bank for listening_build is vowel-only.
- *   - IDs `ja-m1-l1a` / `ja-m1-l1b` deliberately don't match the row
- *     pattern (`ja-m1-{row}-{suffix}`) so they don't pick up the review
- *     tail.
+ *   - IDs `ja-m1-l1-1` / `ja-m1-l1-2` match the row-cluster pattern so
+ *     they group visually as one row with two progress dots. Review-tail
+ *     augmentation is gated by checking the rowId is a real curriculum
+ *     row (see `mockLessons.ts`), so these don't accidentally pick up a
+ *     tail for the non-existent "l1" row.
  */
 
 const VOWEL_TILES = ["あ", "い", "う", "え", "お"];
@@ -222,11 +224,11 @@ function listeningBuild(
  * ──────────────────────────────────────────────────────────────────────── */
 
 export const MOCK_LESSON_JA_M1_L1A: LessonContent = {
-  id: "ja-m1-l1a",
+  id: "ja-m1-l1-1",
   moduleId: "m1",
   courseId: "mock-1",
   languageId: "ja",
-  title: "Vowels 1 of 2: あ い う え お",
+  title: "Vowels — Intro 1",
   description:
     "Meet the five Japanese vowels and your first words: love, house, blue, above.",
   estimatedMinutes: 5,
@@ -297,11 +299,11 @@ export const MOCK_LESSON_JA_M1_L1A: LessonContent = {
  * ──────────────────────────────────────────────────────────────────────── */
 
 export const MOCK_LESSON_JA_M1_L1B: LessonContent = {
-  id: "ja-m1-l1b",
+  id: "ja-m1-l1-2",
   moduleId: "m1",
   courseId: "mock-1",
   languageId: "ja",
-  title: "Vowels 2 of 2: reinforce",
+  title: "Vowels — Intro 2",
   description:
     "Trace each vowel one more time, build four vowel-only words, and lock in the meanings.",
   estimatedMinutes: 5,

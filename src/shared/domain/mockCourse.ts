@@ -81,13 +81,13 @@ export function getMockCourse(languageId: string): Course {
       kind?: "recap";
     }[] = [
       {
-        id: "ja-m1-l1a",
-        title: "Vowels 1 of 2",
+        id: "ja-m1-l1-1",
+        title: "Vowels — Intro 1",
         status: "available" as const,
       },
       {
-        id: "ja-m1-l1b",
-        title: "Vowels 2 of 2",
+        id: "ja-m1-l1-2",
+        title: "Vowels — Intro 2",
         status: "available" as const,
       },
     ];

@@ -29,7 +29,7 @@ function buildModuleLessonIdMap(): Record<string, string[]> {
       ? [`ja-m1-${row.id}`]
       : subs.map((s) => `ja-m1-${row.id}-${s.suffix}`);
   };
-  const m1: string[] = ["ja-m1-l1a", "ja-m1-l1b"]; // vowels (2 sub-lessons)
+  const m1: string[] = ["ja-m1-l1-1", "ja-m1-l1-2"]; // vowels (2 sub-lessons)
   for (const row of HIRAGANA_ROWS) {
     m1.push(...rowToIds(row.id));
   }

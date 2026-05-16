@@ -6,14 +6,15 @@ import {
   MOCK_LESSON_JA_M1_L1B,
 } from "./mock-ja-m1-l1";
 import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
+import { ALL_ROWS } from "./hiraganaCurriculum";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { buildReviewTailSteps } from "./buildReviewTailSteps";
 
 const LESSONS: Record<string, LessonContent> = {
   "m1-l1": MOCK_LESSON_M1_L1,
   "m1-l2": MOCK_LESSON_M1_L2,
-  "ja-m1-l1a": MOCK_LESSON_JA_M1_L1A,
-  "ja-m1-l1b": MOCK_LESSON_JA_M1_L1B,
+  "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,
+  "ja-m1-l1-2": MOCK_LESSON_JA_M1_L1B,
   ...GENERATED_HIRAGANA_LESSONS,
 };
 
@@ -44,6 +45,10 @@ function augmentWithReviewTail(lesson: LessonContent): LessonContent {
   if (id.endsWith("-test") || id.endsWith("-recap")) return lesson;
   const rowId = rowIdOf(id);
   if (!rowId) return lesson;
+  // Skip review tail for ids that look like sub-lessons but whose rowId
+  // isn't an actual curriculum row (e.g. vowels `ja-m1-l1-1` — the "l1"
+  // pseudo-row exists in the pathway but not in HIRAGANA_ROWS).
+  if (!ALL_ROWS.some((r) => r.id === rowId)) return lesson;
 
   const priorLessonIds = new Set(getMockCompletedLessonIds());
   // The current lesson MUST be excluded from the prior set even when
