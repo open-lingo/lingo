@@ -16,7 +16,8 @@ export type StepType =
   | "symbol_trace"
   | "symbol_recognition"
   | "symbol_production"
-  | "symbol_to_sound";
+  | "symbol_to_sound"
+  | "row_test";
 
 export type StepBase = {
   id: string;
@@ -131,6 +132,9 @@ export type ListeningComprehensionStep = StepBase & {
   type: "listening_comprehension";
   audioKey: string;
   transcript?: string;
+  /** Romaji form of `transcript`, shown alongside the kana to reinforce
+   * sound↔script correlation. */
+  romaji?: string;
   question: string;
   options: Option[];
   correctOptionId: string;
@@ -217,8 +221,46 @@ export type SymbolProductionStep = StepBase & {
 export type SymbolToSoundStep = StepBase & {
   type: "symbol_to_sound";
   payload: SymbolStepPayload;
-  options: { id: string; text: string }[];
+  /**
+   * Each option pairs a romaji label with the kana whose audio plays when
+   * the user taps it for preview. `symbol` is optional for backward-compat
+   * with steps authored before the revamp; missing symbol = no preview.
+   */
+  options: { id: string; text: string; symbol?: string }[];
   correctOptionId: string;
+};
+
+/**
+ * Row-test step (alphabet-streamline). Encapsulates a queue of mc / match /
+ * build items drawn from the full row. Missed items get appended to the
+ * back of the queue at runtime (max 3 retries per item). Passes at >=
+ * `passThreshold` correct out of total seen.
+ *
+ * The renderer (`RowTestStepView`) wraps the existing step renderers via
+ * thin adapters so we don't duplicate UI.
+ */
+export type RowTestItemMC = {
+  kind: "mc";
+  payload: MultipleChoiceStep;
+};
+export type RowTestItemMatch = {
+  kind: "match";
+  payload: MatchPairsStep;
+};
+export type RowTestItemBuild = {
+  kind: "build";
+  payload: BuildSentenceStep;
+};
+export type RowTestItem = RowTestItemMC | RowTestItemMatch | RowTestItemBuild;
+
+export type RowTestStep = StepBase & {
+  type: "row_test";
+  rowId: string;
+  items: RowTestItem[];
+  /** Pass threshold as a fraction in [0, 1]. Spec default: 0.70. */
+  passThreshold: number;
+  /** Max times one item can re-enter the back of the queue. Spec default: 3. */
+  maxRetries: number;
 };
 
 export type LessonStep =
@@ -236,7 +278,8 @@ export type LessonStep =
   | SymbolTraceStep
   | SymbolRecognitionStep
   | SymbolProductionStep
-  | SymbolToSoundStep;
+  | SymbolToSoundStep
+  | RowTestStep;
 
 export type LessonContent = {
   id: string;

@@ -160,14 +160,14 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
       <div className="flex flex-wrap items-center justify-center gap-3">
         <h2 className="mr-1 text-lg font-medium text-text-secondary">
           {t("alphabet.taskTrace", "Trace")}{" "}
-          <span className="ml-1 text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+          <span className="font-japanese ml-1 text-2xl font-bold text-accent">
             {step.payload.symbol}
           </span>
         </h2>
         <button
           type="button"
           onClick={handlePlay}
-          className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+          className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-border bg-surface px-4 py-2 text-sm font-semibold text-text-secondary transition-colors hover:border-accent hover:text-text-primary"
           aria-label="Play sound"
         >
           <Icon name="play" size={14} /> {t("alphabet.play", "Play")}
@@ -177,7 +177,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
             type="button"
             onClick={animation.play}
             disabled={animation.isPlaying}
-            className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+            className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-border bg-surface px-4 py-2 text-sm font-semibold text-text-secondary transition-colors hover:border-accent hover:text-text-primary disabled:opacity-50"
             aria-label={t("alphabet.replayStrokeOrder", "Replay stroke order")}
           >
             <Icon name="play" size={14} />
@@ -221,14 +221,14 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
         className="min-h-5 text-center text-sm font-medium leading-5"
       >
         {feedback === "good" && (
-          <span className="text-emerald-600 dark:text-emerald-400">
+          <span className="text-accent">
             {t("alphabet.goodShape", "Good shape")}
             {lastScore !== null &&
               ` — ${Math.round(lastScore * 100)}%`}
           </span>
         )}
         {feedback === "try" && (
-          <span className="text-amber-600 dark:text-amber-400">
+          <span className="text-warning">
             {t("alphabet.tryAgain", "Try again")}
             {lastScore !== null &&
               ` — ${Math.round(lastScore * 100)}%`}
@@ -255,7 +255,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
             <button
               type="button"
               onClick={handleSkip}
-              className="motion-safe:animate-fade-up self-center text-sm font-medium text-gray-500 underline decoration-dotted underline-offset-4 transition hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              className="motion-safe:animate-fade-up self-center text-sm font-medium text-text-muted underline decoration-dotted underline-offset-4 transition hover:text-text-primary"
             >
               {t("alphabet.skipLetter", "Skip this letter")}
             </button>

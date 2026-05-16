@@ -36,6 +36,9 @@ export default {
         md: "var(--radius-md)",
         lg: "var(--radius-lg)",
       },
+      fontFamily: {
+        japanese: ['"Noto Sans JP"', "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+      },
       boxShadow: {
         card: "var(--shadow-card)",
         popover: "var(--shadow-popover)",

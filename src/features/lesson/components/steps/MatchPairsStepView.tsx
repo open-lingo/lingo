@@ -92,13 +92,13 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
 
   const stateStyles: Record<TileState, string> = {
     idle:
-      "border-gray-200 bg-white hover:border-emerald-300 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-emerald-600",
+      "border-border bg-surface text-text-primary hover:border-accent",
     selected:
-      "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-500/30 dark:border-emerald-500 dark:bg-emerald-900/20",
+      "border-accent bg-accent-muted text-accent",
     matched:
-      "border-emerald-400 bg-emerald-50 opacity-60 dark:border-emerald-600 dark:bg-emerald-900/20",
+      "border-accent bg-accent-muted text-accent opacity-60",
     wrong:
-      "motion-safe:animate-shake border-red-500 bg-red-50 dark:border-red-500 dark:bg-red-900/20",
+      "motion-safe:animate-shake border-error bg-red-50 text-error dark:bg-red-950/30",
   };
 
   // Equal-height rows for both columns: declare a single grid that owns both
@@ -107,7 +107,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+      <h2 className="text-xl font-semibold text-text-primary">
         {step.prompt}
       </h2>
 
@@ -166,7 +166,7 @@ function SourceTile({ pair, style, disabled, onClick, row }: TileProps) {
       disabled={disabled}
       onClick={onClick}
       style={{ gridColumn: 1, gridRow: row }}
-      className={`flex w-full items-center justify-start rounded-xl border-2 px-4 py-3 text-base font-medium transition ${style}`}
+      className={`flex w-full items-center justify-start rounded-xl border-[1.5px] px-4 py-3 text-base font-medium transition-colors duration-150 ${style}`}
     >
       {pair.sourceAnnotation ? (
         <AnnotatedJa segments={pair.sourceAnnotation} />
@@ -184,7 +184,7 @@ function TargetTile({ pair, style, disabled, onClick, row }: TileProps) {
       disabled={disabled}
       onClick={onClick}
       style={{ gridColumn: 2, gridRow: row }}
-      className={`flex w-full items-center justify-start rounded-xl border-2 px-4 py-3 text-base font-medium transition ${style}`}
+      className={`flex w-full items-center justify-start rounded-xl border-[1.5px] px-4 py-3 text-base font-medium transition-colors duration-150 ${style}`}
     >
       {pair.target}
     </button>

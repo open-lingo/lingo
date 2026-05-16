@@ -2,8 +2,8 @@ import { useState } from "react";
 import type { ListeningComprehensionStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
-import { AnnotatedJa } from "@/shared/japanese";
 import { getTtsUrl } from "@/shared/japanese/tts";
+import { Icon } from "@/shared/components/Icon";
 
 type Props = {
   step: ListeningComprehensionStep;
@@ -14,7 +14,6 @@ type Props = {
 export function ListeningComprehensionStepView({ step, onComplete, onContinue }: Props) {
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
-  const [showTranscript, setShowTranscript] = useState(false);
 
   const isCorrect = selected === step.correctOptionId;
 
@@ -33,47 +32,33 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         <button
           type="button"
           onClick={handlePlay}
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 transition hover:bg-emerald-200 dark:bg-emerald-800/40 dark:text-emerald-300 dark:hover:bg-emerald-700/40"
+          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
           aria-label="Play audio"
         >
-          <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z" />
-          </svg>
+          <Icon name="play" size={24} />
         </button>
-        <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+        <div className="min-w-0">
+          <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
             Listen and answer
           </p>
-          <p className="text-sm text-gray-400 dark:text-gray-500">{step.audioKey}</p>
+          {step.transcript ? (
+            <p className="font-japanese text-2xl font-semibold leading-tight text-text-primary">
+              {step.transcript}
+              {step.romaji && (
+                <span className="ml-2 font-sans text-sm font-normal text-text-secondary">
+                  {step.romaji}
+                </span>
+              )}
+            </p>
+          ) : null}
         </div>
       </div>
 
-      {step.transcript && (
-        <div>
-          <button
-            type="button"
-            onClick={() => setShowTranscript((v) => !v)}
-            className="text-xs font-medium text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
-          >
-            {showTranscript ? "Hide transcript" : "Show transcript"}
-          </button>
-          {showTranscript && (
-            <p className="mt-2 rounded-lg bg-gray-50 px-4 py-2 text-base text-gray-700 dark:bg-gray-800 dark:text-gray-300">
-              {step.transcriptAnnotation ? (
-                <AnnotatedJa segments={step.transcriptAnnotation} />
-              ) : (
-                <AnnotatedJa text={step.transcript} />
-              )}
-            </p>
-          )}
-        </div>
-      )}
-
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <h2 className="text-lg font-semibold text-text-primary">
         {step.question}
       </h2>
 
@@ -82,13 +67,13 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
 
-          let style = "border-gray-200 bg-white hover:border-emerald-300 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-emerald-600";
+          let style = "border-border bg-surface text-text-primary hover:border-accent";
           if (submitted && isAnswer) {
-            style = "border-emerald-500 bg-emerald-50 dark:border-emerald-500 dark:bg-emerald-900/30";
+            style = "border-accent bg-accent-muted text-accent";
           } else if (submitted && isSelected && !isAnswer) {
-            style = "border-red-500 bg-red-50 dark:border-red-500 dark:bg-red-900/30";
+            style = "border-error bg-red-50 text-error dark:bg-red-950/30";
           } else if (isSelected) {
-            style = "border-emerald-500 bg-emerald-50 ring-2 ring-emerald-500/30 dark:border-emerald-500 dark:bg-emerald-900/20";
+            style = "border-accent bg-accent-muted text-accent";
           }
 
           return (
@@ -97,7 +82,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
               type="button"
               disabled={submitted}
               onClick={() => setSelected(opt.id)}
-              className={`rounded-xl border-2 px-4 py-3 text-left text-sm font-medium transition ${style}`}
+              className={`rounded-xl border-[1.5px] px-4 py-3.5 text-left text-sm font-medium transition-colors duration-150 ${style}`}
             >
               {opt.text}
             </button>

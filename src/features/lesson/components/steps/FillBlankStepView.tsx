@@ -39,15 +39,15 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <h2 className="text-lg font-semibold text-text-primary">
         Fill in the blank
       </h2>
 
       {step.hint && !submitted && (
-        <p className="text-sm text-gray-500 dark:text-gray-400">{step.hint}</p>
+        <p className="text-sm text-text-muted">{step.hint}</p>
       )}
 
-      <div className="flex flex-wrap items-baseline gap-1 text-2xl font-bold text-gray-900 dark:text-white">
+      <div className="flex flex-wrap items-baseline gap-1 text-2xl font-bold text-text-primary">
         {parts.map((part, i) => (
           <span key={i} className="flex items-baseline gap-1">
             <span><AnnotatedJa text={part} /></span>
@@ -64,16 +64,16 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
                         [step.blanks[i].id]: e.target.value,
                       }))
                     }
-                    className={`w-24 border-b-2 bg-transparent text-center text-2xl font-bold outline-none transition ${
+                    className={`w-24 border-b-[2.5px] bg-transparent text-center text-2xl font-bold outline-none transition-colors ${
                       submitted
                         ? isCorrect
-                          ? "border-emerald-500 text-emerald-700 dark:text-emerald-400"
-                          : "border-red-500 text-red-700 dark:text-red-400"
-                        : "border-gray-400 focus:border-emerald-500 dark:border-gray-500"
+                          ? "border-accent text-accent"
+                          : "border-error text-error"
+                        : "border-border focus:border-accent"
                     }`}
                   />
                 ) : (
-                  <span className="inline-block w-16 border-b-2 border-gray-300" />
+                  <span className="inline-block w-16 border-b-[2.5px] border-border" />
                 )}
               </span>
             )}
@@ -91,10 +91,10 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
                 type="button"
                 disabled={submitted || isUsed}
                 onClick={() => handleBankSelect(word)}
-                className={`rounded-lg border px-3 py-1.5 text-base font-medium transition ${
+                className={`rounded-xl border-[1.5px] px-3.5 py-1.5 text-base font-medium transition-colors duration-150 ${
                   isUsed
-                    ? "border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"
-                    : "border-gray-300 bg-white text-gray-700 hover:border-emerald-400 hover:bg-emerald-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:border-emerald-500 dark:hover:bg-gray-600"
+                    ? "border-border bg-surface-muted text-text-muted opacity-60"
+                    : "border-border bg-surface text-text-primary hover:border-accent"
                 }`}
               >
                 <AnnotatedJa text={word} />
@@ -109,8 +109,8 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
       )}
 
       {submitted && !isCorrect && (
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Correct: <span className="font-semibold">{step.blanks.map((b) => b.correctAnswer).join(", ")}</span>
+        <p className="text-sm text-text-secondary">
+          Correct: <span className="font-semibold text-text-primary">{step.blanks.map((b) => b.correctAnswer).join(", ")}</span>
         </p>
       )}
 

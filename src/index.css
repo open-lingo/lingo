@@ -124,6 +124,14 @@ html::-webkit-scrollbar-corner {
 ruby {
   ruby-position: over;
 }
+
+/* Apply Noto Sans JP to every Japanese-language span so kana/kanji render in
+   a consistent glyph rather than the OS default. AnnotatedJa always tags its
+   wrapper with `lang="ja"`, so this catches every kana surface in the app. */
+:lang(ja),
+.font-japanese {
+  font-family: "Noto Sans JP", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
 .kana-helper {
   font-size: 0.55em;
   font-weight: 500;

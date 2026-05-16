@@ -12,7 +12,7 @@ export type ProfileCardProps = {
 };
 
 /** Right-rail top — avatar / username / level + stats grid + shop button. */
-export function ProfileCard({ stats, onOpenShop }: ProfileCardProps) {
+export function ProfileCard({ stats, onOpenShop: _onOpenShop }: ProfileCardProps) {
   const initial = stats.username.slice(0, 1).toUpperCase();
   return (
     <section className="rounded-2xl border-[1.5px] border-border bg-surface p-[18px] shadow-[0_1px_2px_0_rgb(15_23_42/0.06),0_2px_6px_-1px_rgb(15_23_42/0.05)]">
@@ -35,7 +35,15 @@ export function ProfileCard({ stats, onOpenShop }: ProfileCardProps) {
           </p>
         </div>
       </div>
-      <div className="mb-[14px] grid grid-cols-3 gap-2">
+      {/*
+       * Coins + Shop hidden until the shop is real. Teen audit (Riley):
+       * "if the shop is 'coming soon' all session, why even show coins?"
+       * Restore the 3-column stats grid + Shop button below once the
+       * shop ships. The `onOpenShop` prop is currently an alert stub.
+       * TODO(shop): restore <StatTile icon="🪙" .../> and the Shop button
+       *             once Streak Shield / Boosts / lesson-unlocks exist.
+       */}
+      <div className="mb-[14px] grid grid-cols-2 gap-2">
         <StatTile
           icon="🔥"
           value={String(stats.streak)}
@@ -43,20 +51,7 @@ export function ProfileCard({ stats, onOpenShop }: ProfileCardProps) {
           tone="streak"
         />
         <StatTile icon="⚡" value={String(stats.xpToday)} label="XP today" />
-        <StatTile
-          icon="🪙"
-          value={String(stats.coins)}
-          label="Coins"
-          tone="coins"
-        />
       </div>
-      <button
-        type="button"
-        onClick={onOpenShop}
-        className="flex w-full items-center justify-center gap-2 rounded-[11px] border border-border bg-surface-muted px-3 py-2.5 text-[13px] font-semibold text-text-primary transition hover:border-accent hover:text-accent"
-      >
-        🛒 Shop · Streak Shield, Boosts
-      </button>
     </section>
   );
 }

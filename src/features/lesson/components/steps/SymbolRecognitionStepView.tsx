@@ -34,15 +34,18 @@ export function SymbolRecognitionStepView({
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
 
-  // Legacy Korean-CDN path for non-JA scripts. JA kana auto-play through
-  // the manifest-driven TTS resolver below.
-  useEffect(() => {
-    autoPlayAlphabetAudio(step.payload.audioKey, `recognition-${step.id}`);
-  }, [step.payload.audioKey, step.id]);
-
   const isJaKana =
     step.payload.scriptId === "hiragana" ||
     step.payload.scriptId === "katakana";
+
+  // Legacy Korean-CDN path for non-JA scripts only. JA kana auto-play
+  // through the manifest-driven TTS resolver below — running both
+  // double-fires the audio on JA steps that ship an audioKey.
+  useEffect(() => {
+    if (isJaKana) return;
+    autoPlayAlphabetAudio(step.payload.audioKey, `recognition-${step.id}`);
+  }, [step.payload.audioKey, step.id, isJaKana]);
+
   useAutoPlayJaAudio(
     isJaKana ? step.payload.symbol : undefined,
     `recog-tts-${step.id}`,
@@ -80,7 +83,7 @@ export function SymbolRecognitionStepView({
       <div className="flex flex-wrap items-center justify-center gap-3">
         <h2 className="text-lg font-medium text-text-secondary">
           {t("alphabet.taskPickSymbol", "Pick the symbol for")}{" "}
-          <span className="ml-1 text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+          <span className="ml-1 text-2xl font-bold text-accent">
             {romanization}
           </span>
         </h2>
@@ -88,36 +91,45 @@ export function SymbolRecognitionStepView({
           <button
             type="button"
             onClick={handlePlay}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-            aria-label="Play sound"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_3px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
+            aria-label={t("alphabet.play", "Play")}
           >
-            <Icon name="play" size={14} /> {t("alphabet.play", "Play")}
+            <Icon name="play" size={14} />
           </button>
         )}
       </div>
-      <div className="relative grid grid-cols-2 gap-3 sm:gap-4">
+      <div className="relative grid grid-cols-2 gap-4">
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
+          // Solid accent fill on selected = unmistakable in any theme.
           let style =
-            "rounded-xl border-2 border-gray-200 bg-white py-6 text-4xl font-bold text-gray-900 transition hover:border-emerald-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-emerald-600";
+            "font-japanese rounded-xl border-2 border-border bg-surface py-9 text-5xl font-bold text-text-primary transition-colors duration-150 hover:border-accent";
           if (submitted && isAnswer) {
-            style +=
-              " border-emerald-500 bg-emerald-50 dark:border-emerald-500 dark:bg-emerald-900/30";
+            style =
+              "font-japanese rounded-xl border-2 border-accent bg-accent py-9 text-5xl font-bold text-white transition-colors duration-150";
           } else if (submitted && isSelected && !isAnswer) {
-            style +=
-              " border-red-500 bg-red-50 dark:border-red-500 dark:bg-red-900/30";
+            style =
+              "font-japanese rounded-xl border-2 border-error bg-error/15 py-9 text-5xl font-bold text-error transition-colors duration-150";
           } else if (isSelected) {
-            style +=
-              " border-emerald-500 ring-2 ring-emerald-500/30 dark:border-emerald-500";
+            style =
+              "font-japanese rounded-xl border-2 border-accent bg-accent py-9 text-5xl font-bold text-white transition-colors duration-150";
           }
           return (
             <button
               key={opt.id}
               type="button"
               disabled={submitted}
-              onClick={() => setSelected(opt.id)}
+              onClick={() => {
+                // Preview-on-tap: play the kana's own audio when picked.
+                // Same interaction as symbol_to_sound but with kana buttons.
+                if (isJaKana && getTtsUrl(opt.symbol)) {
+                  playJaAudio(opt.symbol);
+                }
+                setSelected(opt.id);
+              }}
               className={style}
+              aria-label={`Hear ${opt.symbol}`}
             >
               {opt.symbol}
             </button>

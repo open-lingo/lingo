@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { SymbolToSoundStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import {
-  autoPlayAlphabetAudio,
-  getAlphabetAudioUrl,
-} from "@/shared/audio/alphabetAudio";
+import { getTtsUrl } from "@/shared/japanese/tts";
+import { getAlphabetAudioUrl } from "@/shared/audio/alphabetAudio";
 
 const CELEBRATE_MS = 1100;
 
@@ -17,6 +15,16 @@ type Props = {
   onContinue: () => void;
 };
 
+/**
+ * Revamped symbol_to_sound (2026-05-16): no central Play button, no
+ * auto-play. The kana is shown alone at the top; the 2x2 grid below has
+ * romaji-labeled buttons that play THEIR OWN kana's audio on tap.
+ *
+ * The user taps to sample each sound, compares against their memory of
+ * the displayed kana (heard moments earlier in symbol_intro), and
+ * commits with a separate Check button. Tap on a button does double
+ * duty: preview the sound + select the option. Re-tap replays.
+ */
 export function SymbolToSoundStepView({
   step,
   onComplete,
@@ -28,17 +36,32 @@ export function SymbolToSoundStepView({
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
 
-  useEffect(() => {
-    autoPlayAlphabetAudio(step.payload.audioKey, `symbol-to-sound-${step.id}`);
-  }, [step.payload.audioKey, step.id]);
+  const isCorrect = selected === step.correctOptionId;
 
-  function handlePlay() {
-    if (!step.payload.audioKey) return;
-    const audio = new Audio(getAlphabetAudioUrl(step.payload.audioKey));
-    audio.play().catch(() => {});
+  function playForOption(opt: { symbol?: string }) {
+    // Prefer the option's own kana via JA TTS. If no symbol is set
+    // (legacy step authoring), fall back silently — the renderer still
+    // works as a vanilla MC.
+    if (opt.symbol) {
+      const url = getTtsUrl(opt.symbol);
+      if (url) {
+        new Audio(url).play().catch(() => {});
+        return;
+      }
+    }
+    // Last-ditch: payload.audioKey (only the correct option matches).
+    if (opt.symbol === step.payload.symbol && step.payload.audioKey) {
+      new Audio(getAlphabetAudioUrl(step.payload.audioKey))
+        .play()
+        .catch(() => {});
+    }
   }
 
-  const isCorrect = selected === step.correctOptionId;
+  function handleOptionTap(opt: { id: string; symbol?: string }) {
+    if (submitted) return;
+    setSelected(opt.id);
+    playForOption(opt);
+  }
 
   function handleSubmit() {
     if (!selected) return;
@@ -51,61 +74,62 @@ export function SymbolToSoundStepView({
     }
   }
 
-  // Lay out options in a responsive grid sized to option count. 1 option = full
-  // width (rare), 2/3 = single row, 4 = 2x2 (or 1x4 on wide). Keeps buttons
-  // shaped to their content instead of stretching across the full width on
-  // short romaji like "i" or "po".
   const optionCount = step.options.length;
   const optionGridCols =
     optionCount <= 2
       ? "grid-cols-2"
       : optionCount === 3
-      ? "grid-cols-3"
-      : "grid-cols-2 sm:grid-cols-4";
+        ? "grid-cols-3"
+        : "grid-cols-2";
 
   return (
-    <div className="flex flex-1 flex-col gap-5">
+    <div className="flex flex-1 flex-col gap-6">
       <p className="text-center text-base text-text-secondary">
-        {t("alphabet.whatSoundIsThis", "What sound does this symbol make?")}
+        {t(
+          "alphabet.tapToHear",
+          "Tap a sound to hear it. Pick the one that matches.",
+        )}
       </p>
-      <div className="flex flex-col items-center gap-3">
+      <div className="flex justify-center">
         <span
-          className="text-[140px] font-bold leading-none text-text-primary"
+          className="font-japanese text-[140px] font-bold leading-none text-text-primary"
           aria-hidden
         >
           {step.payload.symbol}
         </span>
-        <button
-          type="button"
-          onClick={handlePlay}
-          className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-          aria-label="Play sound"
-        >
-          🔊 {t("alphabet.play", "Play")}
-        </button>
       </div>
-      <div className={`relative grid gap-3 ${optionGridCols}`}>
+      <div className={`relative grid gap-4 ${optionGridCols}`}>
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
+          // Default + selected-pre-submit + post-submit-correct/wrong.
+          // Selected state uses solid accent fill so the picked button is
+          // unmistakable in both dark and light themes.
           let style =
-            "rounded-xl border-2 border-gray-200 bg-white py-4 text-center text-lg font-semibold text-text-primary transition hover:border-emerald-300 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-emerald-600";
+            "flex items-center justify-center gap-3 rounded-xl border-2 border-border bg-surface py-8 text-center text-2xl font-bold text-text-primary transition-colors duration-150 hover:border-accent";
           if (submitted && isAnswer) {
-            style += " border-emerald-500 bg-emerald-50 dark:border-emerald-500 dark:bg-emerald-900/30";
+            style =
+              "flex items-center justify-center gap-3 rounded-xl border-2 border-accent bg-accent py-8 text-center text-2xl font-bold text-white transition-colors duration-150";
           } else if (submitted && isSelected && !isAnswer) {
-            style += " border-red-500 bg-red-50 dark:border-red-500 dark:bg-red-900/30";
+            style =
+              "flex items-center justify-center gap-3 rounded-xl border-2 border-error bg-error/15 py-8 text-center text-2xl font-bold text-error transition-colors duration-150";
           } else if (isSelected) {
-            style += " border-emerald-500 ring-2 ring-emerald-500/30 dark:border-emerald-500";
+            style =
+              "flex items-center justify-center gap-3 rounded-xl border-2 border-accent bg-accent py-8 text-center text-2xl font-bold text-white transition-colors duration-150";
           }
           return (
             <button
               key={opt.id}
               type="button"
               disabled={submitted}
-              onClick={() => setSelected(opt.id)}
+              onClick={() => handleOptionTap(opt)}
               className={style}
+              aria-label={`Hear ${opt.text}`}
             >
-              {opt.text}
+              <span aria-hidden className="text-xl">
+                🔊
+              </span>
+              <span>{opt.text}</span>
             </button>
           );
         })}

@@ -12,7 +12,13 @@ import {
   isDevUnlockOn,
   setDevUnlock,
 } from "@/shared/domain/mockProgress";
+import { applySpeechQueryParams, setSpeechFlag } from "@/shared/speech";
+import { applyDensityQueryParams } from "@/features/lesson/data/lessonDensity";
 import { getAlphabetProgress } from "@/features/practice/alphabet/alphabetProgress";
+import {
+  clearGraduatedVocab,
+  graduateModule,
+} from "@/features/japanese/vocabGraduation";
 import type { Lesson, SideQuest } from "@/shared/domain/course";
 import {
   getCurrentModuleIndex,
@@ -73,6 +79,31 @@ export function LearnPage() {
       next.delete("dev");
       setSearchParams(next, { replace: true });
     }
+    // Parallel toggle for the speech-recognition feature flag. `?speech=1`
+    // opts the session into the pronunciation step renderer in
+    // `SpeakingStepView`; default users see no change. The same pass
+    // also picks up the matcher dials (`?speech-perfect=`,
+    // `?speech-close=`, `?speech-strict=`, `?speech-alts=`,
+    // `?speech-debug=`).
+    const speech = searchParams.get("speech");
+    let speechChanged = false;
+    if (speech === "1") {
+      setSpeechFlag(true);
+      speechChanged = true;
+    } else if (speech === "0") {
+      setSpeechFlag(false);
+      speechChanged = true;
+    }
+    const next = new URLSearchParams(searchParams);
+    if (speechChanged) next.delete("speech");
+    const dialsChanged = applySpeechQueryParams(next);
+    // Sub-lesson density preset + per-key overrides. See
+    // `lessonDensity.ts` — `?density=standard` to pick a preset,
+    // `?density-recognition=N` (etc.) to override a single dial.
+    const densityChanged = applyDensityQueryParams(next);
+    if (speechChanged || dialsChanged || densityChanged) {
+      setSearchParams(next, { replace: true });
+    }
   }, [searchParams, setSearchParams]);
 
   // Re-read completion list whenever the page is shown.
@@ -104,6 +135,22 @@ export function LearnPage() {
     () => new Set(completedLessonIds),
     [completedLessonIds],
   );
+
+  // Vocab graduation: any module whose lessons are all completed gets its
+  // anchor words snapshotted into the graduation store. Idempotent — the
+  // graduateModule call short-circuits on a per-course/module flag. Also
+  // serves as the one-time migration for modules that completed before
+  // this code shipped (the flag store starts empty).
+  useEffect(() => {
+    if (!course) return;
+    for (const mod of course.modules) {
+      if (mod.comingSoon) continue;
+      if (mod.lessons.length === 0) continue;
+      const allDone = mod.lessons.every((l) => completedSet.has(l.id));
+      if (!allDone) continue;
+      graduateModule(course.id, mod);
+    }
+  }, [course, completedSet]);
 
   const handleStartOver = () => {
     clearMockProgress();
@@ -213,20 +260,24 @@ export function LearnPage() {
             completedSet.has(l.id),
           ).length;
           const totalLessons = mod.lessons.length;
+          // Alphabet-streamline: module pill collapses to `XX%` once a row
+          // splits into many sub-lessons (50+ in m1). "N of M" gets noisy.
           let pillText: string | undefined;
           if (mod.comingSoon) {
             // Coming-soon stubs have 0 lessons, which would otherwise resolve
             // as "completed" — short-circuit first.
             pillText = "🔒 Coming soon";
-          } else if (status === "current") {
-            pillText =
-              totalLessons > 0
-                ? `In progress · ${lessonsDone} of ${totalLessons} lessons`
-                : undefined;
-          } else if (status === "completed") {
-            pillText = "✓ Complete · 100%";
-          } else if (i > 0) {
-            pillText = `🔒 After Module ${i - 1}`;
+          } else if (totalLessons === 0) {
+            pillText = undefined;
+          } else {
+            const pct = Math.round((lessonsDone / totalLessons) * 100);
+            if (pct >= 100) {
+              pillText = "✓ Complete · 100%";
+            } else if (pct === 0 && status === "locked") {
+              pillText = `🔒 After Module ${i - 1}`;
+            } else {
+              pillText = `${pct}%`;
+            }
           }
 
           const isCurrent = i === currentIdx;
@@ -251,16 +302,25 @@ export function LearnPage() {
             />
           ) : undefined;
 
+          // Zero-progress collision: on a brand-new account, the "Resume X"
+          // button in the module actions duplicates the green "Start" pill
+          // on the first pathway node — and reads as misleading ("resume
+          // what? I haven't done anything yet"). When completedSet is empty,
+          // hide the Resume button entirely and let the START pill on the
+          // node be the sole CTA. Retiree audit P0.
+          const hasProgress = completedSet.size > 0;
           const actions =
             isCurrent && currentLesson ? (
               <>
-                <button
-                  type="button"
-                  onClick={resumeCurrent}
-                  className="rounded-[11px] border border-accent-hover bg-accent px-4 py-3 text-[14px] font-semibold text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:bg-accent-hover"
-                >
-                  Resume {currentLesson.title}
-                </button>
+                {hasProgress ? (
+                  <button
+                    type="button"
+                    onClick={resumeCurrent}
+                    className="rounded-[11px] border border-accent-hover bg-accent px-4 py-3 text-[14px] font-semibold text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:bg-accent-hover"
+                  >
+                    Resume {currentLesson.title}
+                  </button>
+                ) : null}
                 <button
                   type="button"
                   onClick={() => testOut(mod.id)}
@@ -382,6 +442,7 @@ export function LearnPage() {
         unlocked={devUnlock}
         onToggle={handleToggleDevUnlock}
         onClearProgress={handleStartOver}
+        onClearGraduatedVocab={() => clearGraduatedVocab(course.id)}
       />
     </div>
   );
@@ -398,10 +459,12 @@ function DevPanel({
   unlocked,
   onToggle,
   onClearProgress,
+  onClearGraduatedVocab,
 }: {
   unlocked: boolean;
   onToggle: () => void;
   onClearProgress: () => void;
+  onClearGraduatedVocab: () => void;
 }) {
   if (!unlocked && !isDevUnlockOn()) return null;
   return (
@@ -417,6 +480,13 @@ function DevPanel({
         className="rounded border border-amber-500/40 px-2 py-1 text-left hover:bg-amber-500/20"
       >
         Clear progress
+      </button>
+      <button
+        type="button"
+        onClick={onClearGraduatedVocab}
+        className="rounded border border-amber-500/40 px-2 py-1 text-left hover:bg-amber-500/20"
+      >
+        Clear graduated vocab
       </button>
     </div>
   );

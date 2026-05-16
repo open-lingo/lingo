@@ -14,6 +14,7 @@ import { SymbolTraceStepView } from "./steps/SymbolTraceStepView";
 import { SymbolRecognitionStepView } from "./steps/SymbolRecognitionStepView";
 import { SymbolProductionStepView } from "./steps/SymbolProductionStepView";
 import { SymbolToSoundStepView } from "./steps/SymbolToSoundStepView";
+import { RowTestStepView } from "./steps/RowTestStepView";
 
 type Props = {
   step: LessonStep;
@@ -84,7 +85,13 @@ export function StepRenderer({ step, onComplete, onContinue }: Props) {
         />
       );
     case "speaking":
-      return <SpeakingStepView step={step} onContinue={onContinue} />;
+      return (
+        <SpeakingStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
     case "symbol_intro":
       return (
         <SymbolIntroStepView
@@ -125,9 +132,17 @@ export function StepRenderer({ step, onComplete, onContinue }: Props) {
           onContinue={onContinue}
         />
       );
+    case "row_test":
+      return (
+        <RowTestStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
     default:
       return (
-        <div className="text-gray-500 dark:text-gray-400">
+        <div className="text-text-muted">
           Unknown step type
         </div>
       );
