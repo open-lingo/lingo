@@ -2,8 +2,10 @@ import type { ModuleStatus } from "../moduleProgress";
 
 export type ModuleStatusPill = {
   text: string;
-  /** locked | complete — drives icon in ModuleCard */
-  variant?: "locked" | "complete" | "progress";
+  /** locked | complete | progress | mastery — drives icon + color in
+   *  ModuleCard. `mastery` renders alongside `complete` for fully-
+   *  mastered modules (sub-lessons done + every row-test passed). */
+  variant?: "locked" | "complete" | "progress" | "mastery";
 };
 
 export function buildModuleStatusPill(
@@ -29,4 +31,13 @@ export function buildModuleStatusPill(
     };
   }
   return { text: `${pct}%`, variant: "progress" };
+}
+
+/**
+ * Mastery pill — rendered to the RIGHT of the complete pill when a
+ * module is fully mastered (sub-lessons done AND every row-test passed
+ * un-skipped). Spencer's call: warning-color (gold-feel) star pill.
+ */
+export function buildMasteryPill(): ModuleStatusPill {
+  return { text: "Mastered ★", variant: "mastery" };
 }

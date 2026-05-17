@@ -2,260 +2,291 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { GitHubBadge } from "@/shared/components/GitHubBadge";
-import { HeroSlogan } from "./HeroSlogan";
-import { LandingFundingBlock } from "./LandingFundingBlock";
-import { supportedLngs } from "@/shared/i18n/i18n";
-import { AVAILABLE_LEARNING_LANGUAGES } from "@/shared/domain/languageConfig";
+import { Card } from "@/shared/components/ui/Card";
+import { composeButtonClasses } from "@/shared/components/ui/Button";
+import { AVAILABLE_LEARNING_LANGUAGE_IDS } from "@/shared/domain/languageConfig";
 import { BUILT_IN_THEMES } from "@/shared/theme/presets";
 import { MOCK_COMMUNITY_THEMES } from "@/shared/theme/community-mock";
+import type { IconName } from "@/shared/iconRegistry";
+import { LanguageFlagsRow } from "./components/LanguageFlagsRow";
+import { LandingFooter } from "./components/LandingFooter";
 
-const LOCALE_NAMES: Record<string, string> = { en: "English", ko: "한국어" };
 const THEME_COUNT = Object.keys(BUILT_IN_THEMES).length + MOCK_COMMUNITY_THEMES.length;
-/** Placeholder until API; reflects community deck growth. */
 const COMMUNITY_DECK_COUNT = 20;
+const LANGUAGE_COUNT = 7;
 
-const WHY_DIFFERENT: { key: string; descKey: string }[] = [
-  { key: "whyDifferent1", descKey: "whyDifferent1Desc" },
-  { key: "whyDifferent2", descKey: "whyDifferent2Desc" },
-  { key: "whyDifferent3", descKey: "whyDifferent3Desc" },
-  { key: "whyDifferent4", descKey: "whyDifferent4Desc" },
+type WhyItem = { icon: IconName; key: string; titleDefault: string; descDefault: string };
+const WHY_ITEMS: WhyItem[] = [
+  {
+    icon: "flame",
+    key: "whyHonestPace",
+    titleDefault: "Honest pace",
+    descDefault: "Five-minute lessons, real coverage. No streak guilt, no fake gamification.",
+  },
+  {
+    icon: "bookText",
+    key: "whyRealCurriculum",
+    titleDefault: "Real curriculum",
+    descDefault: "Structured paths designed by language teachers — not auto-generated word lists.",
+  },
+  {
+    icon: "layers",
+    key: "whySrsRespect",
+    titleDefault: "SRS that respects you",
+    descDefault: "FSRS-6 scheduling, no infinite drills. Cards return the moment you'd start forgetting them.",
+  },
+  {
+    icon: "github",
+    key: "whyYoursToFork",
+    titleDefault: "Yours to fork",
+    descDefault: "MIT-licensed. Import Anki decks. Build your own. The app is the source.",
+  },
 ];
 
-const FEATURES: { icon: "graduationCap" | "bookOpen" | "bookText" | "globe" | "layers" | "video" | "copy" | "star" | "pencil" | "headphones"; key: string; descKey: string }[] = [
-  { icon: "graduationCap", key: "featureCourses", descKey: "featureCoursesDesc" },
-  { icon: "bookOpen", key: "featureFlashcards", descKey: "featureFlashcardsDesc" },
-  { icon: "bookText", key: "featureStories", descKey: "featureStoriesDesc" },
-  { icon: "pencil", key: "featureLetterPractice", descKey: "featureLetterPracticeDesc" },
-  { icon: "layers", key: "featureParticles", descKey: "featureParticlesDesc" },
-  { icon: "video", key: "featureVideos", descKey: "featureVideosDesc" },
-  { icon: "copy", key: "featureAnkiImport", descKey: "featureAnkiImportDesc" },
-  { icon: "star", key: "featureCommunityDecks", descKey: "featureCommunityDecksDesc" },
-  { icon: "headphones", key: "featureForum", descKey: "featureForumDesc" },
-  { icon: "globe", key: "featureOpenSource", descKey: "featureOpenSourceDesc" },
+type FeatureItem = { icon: IconName; key: string; titleDefault: string; descDefault: string };
+const FEATURES: FeatureItem[] = [
+  {
+    icon: "graduationCap",
+    key: "featureCourses",
+    titleDefault: "Structured courses",
+    descDefault: "Hand-authored modules, with kana drilling and live speech recognition for Japanese.",
+  },
+  {
+    icon: "bookOpen",
+    key: "featureFlashcards",
+    titleDefault: "SRS flashcards",
+    descDefault: "FSRS-6 scheduling with audio, ruby text, and image support. Import Anki decks too.",
+  },
+  {
+    icon: "bookText",
+    key: "featureStories",
+    titleDefault: "Stories with audio",
+    descDefault: "Graded readers with synced TTS — tap any word for translation and example sentences.",
+  },
+  {
+    icon: "pencil",
+    key: "featureLetterPractice",
+    titleDefault: "Letter practice",
+    descDefault: "Animated stroke order, drawing with shape verification, multi-script (Hiragana, Katakana, Hangul, more).",
+  },
+  {
+    icon: "layers",
+    key: "featureParticles",
+    titleDefault: "Grammar drills",
+    descDefault: "Japanese particles surfaced as quick MCQ drills — not buried in a PDF.",
+  },
+  {
+    icon: "star",
+    key: "featureCommunityDecks",
+    titleDefault: "Community decks",
+    descDefault: "20+ user-built decks today. Share yours, browse theirs, fork the ones you like.",
+  },
 ];
 
 export function LandingPage() {
   const { t } = useTranslation();
+  const availableCount = AVAILABLE_LEARNING_LANGUAGE_IDS.length;
+  // If the visitor already picked a language elsewhere (LanguagePickerModal,
+  // a previous `/get-started` attempt, etc.) the same sessionStorage key
+  // pre-fills the preview path so they skip the picker on `/try`.
+  let pendingLang: string | null = null;
+  try {
+    pendingLang =
+      typeof window !== "undefined"
+        ? sessionStorage.getItem("lingo_pending_language_id")
+        : null;
+  } catch {
+    pendingLang = null;
+  }
+  const tryHref = pendingLang ? `/try?lang=${encodeURIComponent(pendingLang)}` : "/try";
 
   return (
-    <div className="mx-auto max-w-4xl">
-      {/* Hero */}
-      <section className="py-16 text-center sm:py-24">
-        <HeroSlogan />
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-text-secondary">
+    <div className="-mx-4 sm:-mx-6 lg:-mx-8">
+      <section className="mx-auto max-w-5xl px-6 pb-9 pt-12 text-center sm:pt-16">
+        <span className="inline-flex items-center gap-2 rounded-full bg-accent-muted px-3 py-1 text-[11px] font-bold uppercase tracking-[0.05em] text-accent">
+          <Icon name="flame" size={12} className="shrink-0" />
+          {t("landing.heroEyebrow", "Built by learners · 100% open source")}
+        </span>
+
+        <h1 className="mx-auto mt-5 max-w-3xl text-balance text-[clamp(2.25rem,6vw,4rem)] font-black leading-[1.05] tracking-[-0.02em] text-text-primary">
+          {t("landing.heroHeadlineLead", "Pick a language.")}{" "}
+          <span className="text-accent">
+            {t("landing.heroHeadlineAccent", "Start in 60 seconds.")}
+          </span>
+        </h1>
+
+        <p className="mx-auto mt-4 max-w-xl text-[17px] leading-[1.55] text-text-secondary">
           {t(
             "landing.heroSubtitle",
-            "Open Lingo is a free, open-source language learning app. Courses, flashcards, stories, community decks, and more—all in one place."
+            "Structured courses, spaced-repetition flashcards, and story-based reading — all wrapped in a free, open-source app you actually own."
           )}
         </p>
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-          <GitHubBadge />
-        </div>
-        <p className="mt-2 text-sm text-text-muted">
-          {t("landing.heroTagline", "Built by learners · Open source")}
-        </p>
-        <ul className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-2 text-sm text-text-secondary">
-          <li className="flex items-center gap-2">
-            <Icon name="check" size={16} className="shrink-0 text-success" />
-            {t("landing.heroBullet1", "Import Anki decks · Share with the community")}
-          </li>
-          <li className="flex items-center gap-2">
-            <Icon name="check" size={16} className="shrink-0 text-success" />
-            {t("landing.heroBullet2", "Letter practice, particle drills, videos with transcript")}
-          </li>
-          <li className="flex items-center gap-2">
-            <Icon name="check" size={16} className="shrink-0 text-success" />
-            {t("landing.heroBullet3", "Customize themes, fonts, and flashcards")}
-          </li>
-        </ul>
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <Link
-            to="/login"
-            className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-base font-medium text-white transition hover:bg-accent-hover"
-          >
+
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-3.5">
+          <Link to="/get-started" className={composeButtonClasses({ variant: "primary-3d" })}>
             {t("landing.getStarted", "Get started")}
-            <Icon name="arrowRight" size={18} />
+            <Icon name="arrowRight" size={18} className="ml-2" />
+          </Link>
+          <Link
+            to={tryHref}
+            className="inline-flex items-center gap-2 rounded-xl border-[1.5px] border-accent bg-transparent px-5 py-3 text-[15px] font-semibold text-accent transition hover:bg-accent-muted"
+          >
+            <Icon name="play" size={16} className="shrink-0" aria-hidden />
+            {t("landing.tryItFree", "Try it free")}
           </Link>
           <Link
             to="/docs"
-            className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 text-base font-medium text-text-primary transition hover:bg-surface-muted"
+            className="inline-flex items-center gap-2 rounded-xl border border-border bg-transparent px-5 py-3 text-[15px] font-semibold text-text-primary transition hover:bg-surface-muted"
           >
             {t("landing.seeHowItWorks", "See how it works")}
           </Link>
         </div>
 
-        {/* Platform stats & languages */}
-        <div className="mx-auto mt-12 max-w-2xl">
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div className="rounded-xl border border-border bg-surface p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
-                {t("landing.localesLabel", "UI languages")}
-              </p>
-              <p className="mt-1 text-sm text-text-primary">
-                {supportedLngs.map((lng) => LOCALE_NAMES[lng] ?? lng).join(" · ")}
-              </p>
-            </div>
-            <div className="rounded-xl border border-border bg-surface p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
-                {t("landing.learningLanguagesLabel", "Learning languages")}
-              </p>
-              <p className="mt-1 text-sm text-text-primary">
-                {AVAILABLE_LEARNING_LANGUAGES.map((l) => l.name).join(" · ")}
-              </p>
-            </div>
-            <div className="rounded-xl border border-border bg-surface p-4">
-              <p className="text-2xl font-bold text-accent">
-                {COMMUNITY_DECK_COUNT}+
-              </p>
-              <p className="mt-1 text-sm text-text-secondary">
-                {t("landing.statsDecksLabel", "community decks")}
-              </p>
-            </div>
-            <div className="rounded-xl border border-border bg-surface p-4">
-              <p className="text-2xl font-bold text-accent">
-                {THEME_COUNT}
-              </p>
-              <p className="mt-1 text-sm text-text-secondary">
-                {t("landing.statsThemesLabel", "themes")}
-              </p>
-            </div>
-          </div>
+        <p className="mt-3.5 text-[13px] text-text-muted">
+          {t(
+            "landing.heroMeta",
+            "No credit card · No ads on the learning path · Premium optional"
+          )}
+        </p>
 
-          {/* Funding / revenue model */}
-          <div className="mt-6">
-            <LandingFundingBlock />
-          </div>
-        </div>
+        <LanguageFlagsRow
+          label={t("landing.pickFromLanguages", "Pick from {{count}} languages", {
+            count: LANGUAGE_COUNT,
+          })}
+          soonLabel={t("landing.soonBadge", "Soon")}
+        />
       </section>
 
-      {/* Why we're different */}
-      <section className="border-t border-border py-16">
-        <h2 className="text-center text-2xl font-semibold text-text-primary">
-          {t("landing.whyDifferentTitle", "Why we're different")}
-        </h2>
-        <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
-          {WHY_DIFFERENT.map(({ key, descKey }) => (
-            <div key={key} className="rounded-xl border border-border bg-surface p-4">
-              <h3 className="font-semibold text-text-primary">
-                {t(`landing.${key}`)}
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <div className="mb-10 text-center">
+          <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-accent">
+            {t("landing.whyEyebrow", "Why Lingo")}
+          </p>
+          <h2 className="mt-2 text-[32px] font-extrabold tracking-tight text-text-primary">
+            {t("landing.whyTitle", "Built for learners, not metrics")}
+          </h2>
+          <p className="mx-auto mt-2 max-w-xl text-[15px] leading-[1.55] text-text-secondary">
+            {t("landing.whySubtitle", "Four reasons people stick with Lingo over the alternatives.")}
+          </p>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {WHY_ITEMS.map(({ icon, key, titleDefault, descDefault }) => (
+            <Card key={key} padding="md">
+              <div className="mb-3.5 inline-flex h-10 w-10 items-center justify-center rounded-[10px] bg-accent-muted text-accent">
+                <Icon name={icon} size={20} />
+              </div>
+              <h3 className="text-[16px] font-bold text-text-primary">
+                {t(`landing.${key}Title`, titleDefault)}
               </h3>
-              <p className="mt-1 text-sm text-text-secondary">
-                {t(`landing.${descKey}`)}
+              <p className="mt-1.5 text-sm leading-[1.5] text-text-secondary">
+                {t(`landing.${key}Desc`, descDefault)}
               </p>
-            </div>
+            </Card>
           ))}
         </div>
       </section>
 
-      {/* Product preview */}
-      <section className="border-t border-border py-16">
-        <h2 className="text-center text-2xl font-semibold text-text-primary">
-          {t("landing.productPreviewTitle", "See Open Lingo in action")}
-        </h2>
-        <p className="mx-auto mt-2 max-w-xl text-center text-sm text-text-secondary">
-          {t("landing.productPreviewSubtitle", "Courses, SRS flashcards, letter practice, and stories. Try it free.")}
-        </p>
-        <div className="mx-auto mt-10 max-w-2xl">
-          <Link
-            to="/login"
-            className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition hover:border-border-muted hover:bg-surface-muted"
-          >
-            <div className="flex flex-wrap gap-3 p-6 text-left">
-              <div className="flex items-center gap-2 rounded-lg bg-accent-muted px-3 py-1.5 text-sm font-medium text-accent">
-                <Icon name="graduationCap" size={16} />
-                {t("landing.featureCourses", "Structured courses")}
-              </div>
-              <div className="flex items-center gap-2 rounded-lg bg-accent-muted px-3 py-1.5 text-sm font-medium text-accent">
-                <Icon name="bookOpen" size={16} />
-                {t("landing.featureFlashcards", "SRS flashcards")}
-              </div>
-              <div className="flex items-center gap-2 rounded-lg bg-accent-muted px-3 py-1.5 text-sm font-medium text-accent">
-                <Icon name="pencil" size={16} />
-                {t("landing.featureLetterPractice", "Letter & alphabet practice")}
-              </div>
-              <div className="flex items-center gap-2 rounded-lg bg-accent-muted px-3 py-1.5 text-sm font-medium text-accent">
-                <Icon name="bookText" size={16} />
-                {t("landing.featureStories", "Stories")}
-              </div>
-            </div>
-            <div className="border-t border-border bg-surface-muted px-6 py-4 text-center">
-              <span className="text-sm font-medium text-accent">
-                {t("landing.getStarted", "Get started")} →
-              </span>
-            </div>
-          </Link>
-        </div>
-      </section>
+      <section id="features" className="scroll-mt-24 border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <div className="mb-10 text-center">
+            <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-accent">
+              {t("landing.featuresEyebrow", "What you get")}
+            </p>
+            <h2 className="mt-2 text-[32px] font-extrabold tracking-tight text-text-primary">
+              {t("landing.featuresTitle", "Everything in one app")}
+            </h2>
+            <p className="mx-auto mt-2 max-w-xl text-[15px] leading-[1.55] text-text-secondary">
+              {t("landing.featuresSubtitle", "The whole stack — no upsells, no plugins.")}
+            </p>
+          </div>
 
-      {/* Features grid */}
-      <section className="border-t border-border py-16">
-        <h2 className="text-center text-2xl font-semibold text-text-primary">
-          {t("landing.featuresTitle", "Everything you need")}
-        </h2>
-        <p className="mx-auto mt-2 max-w-xl text-center text-sm text-text-secondary">
-          {t("landing.featuresSubtitle", "Structured courses, SRS flashcards, stories, and practice tools—plus community decks, forums, and Anki import.")}
-        </p>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map(({ icon, key, descKey }) => (
-            <div key={key} className="rounded-xl border border-border bg-surface p-5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent-muted text-accent">
-                <Icon name={icon} size={22} />
-              </div>
-              <h3 className="mt-4 font-semibold text-text-primary">
-                {t(`landing.${key}`)}
-              </h3>
-              <p className="mt-2 text-sm text-text-secondary">
-                {t(`landing.${descKey}`)}
-              </p>
-              {key === "featureOpenSource" && (
-                <div className="mt-4">
-                  <GitHubBadge />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {FEATURES.map(({ icon, key, titleDefault, descDefault }) => (
+              <Card key={key} padding="md" className="flex items-start gap-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-muted text-accent">
+                  <Icon name={icon} size={22} />
                 </div>
-              )}
-            </div>
-          ))}
+                <div>
+                  <h3 className="text-[15px] font-bold text-text-primary">
+                    {t(`landing.${key}`, titleDefault)}
+                  </h3>
+                  <p className="mt-1 text-[13px] leading-[1.5] text-text-secondary">
+                    {t(`landing.${key}Desc`, descDefault)}
+                  </p>
+                </div>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="border-t border-border py-16 text-center">
-        <h2 className="text-xl font-semibold text-text-primary">
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <Card padding="lg" className="flex flex-wrap items-center justify-between gap-6">
+            <div className="min-w-[16rem] flex-1">
+              <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-text-muted">
+                {t("landing.openEyebrow", "Open by default")}
+              </p>
+              <h3 className="mt-1.5 text-[22px] font-extrabold text-text-primary">
+                {t("landing.openTitle", "Built in the open. Free forever.")}
+              </h3>
+              <p className="mt-1 max-w-md text-sm leading-[1.55] text-text-secondary">
+                {t(
+                  "landing.openDesc",
+                  "Every feature ships under MIT. Self-host if you want. Premium funds servers; ads stay off the learning path."
+                )}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-6">
+              <Stat value={`${COMMUNITY_DECK_COUNT}+`} label={t("landing.statDecks", "community decks")} />
+              <Stat value={String(THEME_COUNT)} label={t("landing.statThemes", "themes")} />
+              <Stat value={String(LANGUAGE_COUNT)} label={t("landing.statLanguages", "languages")} />
+            </div>
+
+            <div>
+              <GitHubBadge />
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-6 pb-20 pt-16 text-center">
+        <h2 className="text-[28px] font-extrabold text-text-primary">
           {t("landing.ctaTitle", "Ready to start learning?")}
         </h2>
-        <p className="mt-2 text-text-secondary">
-          {t("landing.ctaSubtitle", "Free to start · Premium removes ads")}
+        <p className="mx-auto mt-2 max-w-md text-[15px] text-text-secondary">
+          {t("landing.ctaSubtitle", "Five minutes a day. Real progress in three weeks.")}
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-4">
-          <Link
-            to="/login"
-            className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-base font-medium text-white transition hover:bg-accent-hover"
-          >
+        <div className="mt-6 flex justify-center">
+          <Link to="/get-started" className={composeButtonClasses({ variant: "primary-3d" })}>
             {t("landing.getStarted", "Get started")}
-            <Icon name="arrowRight" size={18} />
+            <Icon name="arrowRight" size={18} className="ml-2" />
           </Link>
         </div>
+        {availableCount < LANGUAGE_COUNT && (
+          <p className="mt-3 text-[12px] text-text-muted">
+            {t("landing.ctaAvailability", "{{available}} of {{total}} languages live today; the rest are coming.", {
+              available: availableCount,
+              total: LANGUAGE_COUNT,
+            })}
+          </p>
+        )}
       </section>
 
-      <p className="border-t border-border pt-6 text-center text-xs text-text-muted">
-        {t("landing.attribution", "Japanese stroke order data: ")}
-        <a
-          href="http://kanjivg.tagaini.net"
-          target="_blank"
-          rel="noreferrer"
-          className="underline hover:text-text-secondary"
-        >
-          KanjiVG
-        </a>{" "}
-        ·{" "}
-        <a
-          href="https://creativecommons.org/licenses/by-sa/3.0/"
-          target="_blank"
-          rel="noreferrer"
-          className="underline hover:text-text-secondary"
-        >
-          CC BY-SA 3.0
-        </a>
-      </p>
+      <LandingFooter />
+    </div>
+  );
+}
+
+function Stat({ value, label }: { value: string; label: React.ReactNode }) {
+  return (
+    <div>
+      <div className="text-2xl font-extrabold text-accent">{value}</div>
+      <div className="text-[12px] font-semibold uppercase tracking-[0.05em] text-text-muted">
+        {label}
+      </div>
     </div>
   );
 }

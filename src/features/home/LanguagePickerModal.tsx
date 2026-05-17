@@ -1,41 +1,38 @@
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { AVAILABLE_LEARNING_LANGUAGES } from "@/shared/domain/languageConfig";
 import { ModalBase } from "@/shared/components/ModalBase";
+import { LanguagePickerGrid } from "./LanguagePickerGrid";
 
-/** Blocks dismiss until the user picks a learning language. */
+/** First-launch modal — blocks dismiss until the user picks a learning
+ *  language. Renders the production 2×2 flag-grid picker. */
 export function LanguagePickerModal() {
   const { t } = useTranslation();
   const { language, setLanguage } = useLanguage();
 
+  // Picker fires only when no language has been chosen yet. The default
+  // setting was flipped from "ko" → null (Task #88) so this branch
+  // actually triggers on new signups.
   if (language) return null;
 
   return (
     <ModalBase
-      title={t("home.pickLanguageTitle")}
+      title={t("home.pickLanguageTitle", "Pick your language")}
       onClose={() => {}}
-      maxWidth="max-w-md"
+      maxWidth="max-w-2xl"
       closeOnBackdrop={false}
       closeOnEscape={false}
       showCloseButton={false}
     >
-      <div className="px-6 py-4">
-        <p className="text-sm text-text-secondary">
-          {t("home.pickLanguageSubtitle")}
-        </p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {AVAILABLE_LEARNING_LANGUAGES.map((lang) => (
-            <button
-              key={lang.id}
-              type="button"
-              onClick={() => setLanguage(lang)}
-              className="flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-3 text-left transition hover:border-accent hover:bg-surface-muted"
-            >
-              <span className="text-2xl">{lang.flag}</span>
-              <span className="font-medium text-text-primary">{lang.name}</span>
-            </button>
-          ))}
-        </div>
+      <div className="px-6 pb-6 pt-2">
+        <LanguagePickerGrid
+          onSelect={setLanguage}
+          headline=""
+          subhead={t(
+            "home.pickLanguageSubtitle",
+            "Pick a language to get started. You can switch later from settings.",
+          )}
+          className=""
+        />
       </div>
     </ModalBase>
   );

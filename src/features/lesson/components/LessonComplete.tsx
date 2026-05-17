@@ -1,6 +1,24 @@
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
+import { Button } from "@/shared/components/ui";
 import type { LessonContent } from "../types";
+
+/**
+ * Mastery context — populated by LessonPage only when the just-finished
+ * lesson contained a row_test step AND was completed without skipping.
+ * Drives the post-completion mastery callout.
+ */
+export type LessonCompleteMastery = {
+  /** Display name of the module this lesson belongs to. */
+  moduleTitle: string;
+  /** Row tests passed (un-skipped) in the module. */
+  passed: number;
+  /** Total row tests in the module. */
+  total: number;
+  /** True iff THIS completion crossed the mastered threshold (so the
+   *  callout swaps to celebratory copy). */
+  justMastered: boolean;
+};
 
 type Props = {
   lesson: LessonContent;
@@ -11,6 +29,7 @@ type Props = {
   isReview?: boolean;
   /** XP multiplier — 1 for a fresh completion, < 1 for a review replay. */
   xpMultiplier?: number;
+  mastery?: LessonCompleteMastery;
 };
 
 export function LessonComplete({
@@ -20,6 +39,7 @@ export function LessonComplete({
   onContinue,
   isReview = false,
   xpMultiplier = 1,
+  mastery,
 }: Props) {
   const { t } = useTranslation();
   const percent = totalGraded > 0 ? Math.round((correctCount / totalGraded) * 100) : 100;
@@ -64,13 +84,48 @@ export function LessonComplete({
         />
       </div>
 
-      <button
-        type="button"
+      {mastery ? (
+        <div
+          className={`w-full rounded-2xl border-[1.5px] px-5 py-4 text-sm shadow-[var(--shadow-card)] ${
+            mastery.justMastered
+              ? "border-warning bg-warning/10 text-warning"
+              : "border-border bg-surface-muted text-text-secondary"
+          }`}
+        >
+          {mastery.justMastered ? (
+            <p className="m-0 text-base font-extrabold">
+              {t("lesson.moduleMastered", {
+                defaultValue: "★ Module mastered — {{module}}",
+                module: mastery.moduleTitle,
+              })}
+            </p>
+          ) : (
+            <p className="m-0">
+              <span className="font-semibold text-text-primary">
+                {t("lesson.masteryProgressLabel", {
+                  defaultValue: "Mastery progress",
+                })}
+                :{" "}
+              </span>
+              {t("lesson.masteryProgress", {
+                defaultValue:
+                  "{{passed}}/{{total}} row tests done in {{module}}",
+                passed: mastery.passed,
+                total: mastery.total,
+                module: mastery.moduleTitle,
+              })}
+            </p>
+          )}
+        </div>
+      ) : null}
+
+      <Button
+        variant="primary-3d"
         onClick={onContinue}
-        className="mt-4 w-full rounded-xl border-[1.5px] border-accent-hover bg-accent px-8 py-3.5 text-base font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
+        className="mt-4 w-full"
       >
         {t("lesson.continue", "Continue")}
-      </button>
+      </Button>
     </div>
   );
 }

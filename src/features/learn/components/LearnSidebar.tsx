@@ -16,6 +16,9 @@ export type LearnSidebarProps = {
   onSideQuestClick?: (quest: SideQuest) => void;
 };
 
+/**
+ * Desktop-only right rail. Mobile uses `LearnTopBar` above the pathway.
+ */
 export function LearnSidebar({
   profile,
   course,

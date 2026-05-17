@@ -8,7 +8,13 @@ export type ButtonVariant =
   | "outline"
   | "danger"
   /** Full-width row for menus (account dropdown, etc.). */
-  | "menu";
+  | "menu"
+  /**
+   * Hero CTA with a hard offset shadow + press-snap. The visual language
+   * for every primary "advance" action across landing, lesson flow, test
+   * gates, and the post-lesson summary. Mirrors the pathway Start pill.
+   */
+  | "primary-3d";
 
 export type ButtonSize = "md" | "sm" | "icon";
 
@@ -29,6 +35,11 @@ const sizeClasses: Record<ButtonSize, string> = {
 const menuRowLayout =
   "w-full justify-start gap-3 rounded-none px-4 py-2 text-left text-sm font-normal";
 
+// Layout is variant-owned (not size-driven) — primary-3d is a single
+// hero spec across landing + lesson, not a size scale.
+const primary3dLayout =
+  "rounded-xl border-[1.5px] px-6 py-3.5 text-base font-bold uppercase tracking-wide";
+
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
     "bg-accent text-accent-foreground hover:bg-accent-hover hover:text-accent-foreground",
@@ -39,6 +50,8 @@ const variantClasses: Record<ButtonVariant, string> = {
     "border border-border bg-transparent text-text-primary hover:bg-surface-muted",
   danger: "border border-error bg-error/10 text-error hover:bg-error/20",
   menu: "text-text-primary hover:bg-surface-muted",
+  "primary-3d":
+    "border-accent-hover bg-accent text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:bg-accent-hover hover:-translate-y-px hover:shadow-[0_4px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)] disabled:hover:translate-y-0 disabled:hover:shadow-[0_3px_0_0_var(--color-accent-hover)]",
 };
 
 const accentOutlineClasses =
@@ -54,7 +67,12 @@ export function composeButtonClasses({
   size = "md",
   className,
 }: ButtonStyleOptions): string {
-  const layout = variant === "menu" ? menuRowLayout : sizeClasses[size];
+  const layout =
+    variant === "menu"
+      ? menuRowLayout
+      : variant === "primary-3d"
+        ? primary3dLayout
+        : sizeClasses[size];
   const variantClass =
     variant === "outline" && accent ? accentOutlineClasses : variantClasses[variant];
   return cn(baseBehavior, layout, variantClass, className);

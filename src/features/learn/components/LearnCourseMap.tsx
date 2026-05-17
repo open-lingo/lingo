@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { composeButtonClasses } from "@/shared/components/ui/Button";
+import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import type { Course, Lesson } from "@/shared/domain/course";
 import {
   getCurrentModuleIndex,
@@ -8,7 +10,8 @@ import {
   getNextLessonIndex,
   isLessonLocked,
 } from "../moduleProgress";
-import { buildModuleStatusPill } from "../utils/moduleStatusPill";
+import { buildModuleStatusPill, buildMasteryPill } from "../utils/moduleStatusPill";
+import { getModuleMastery } from "../moduleMastery";
 import { ModuleCard } from "./ModuleCard";
 import { ModulePathway } from "./ModulePathway";
 import { ModulePreview } from "./ModulePreview";
@@ -43,28 +46,19 @@ export function LearnCourseMap({
   const currentLesson: Lesson | undefined = currentModule.lessons[nextIdx];
   const hasProgress = completedSet.size > 0;
 
+  const [testOutModuleIdx, setTestOutModuleIdx] = useState<number | null>(null);
+
   const resumeCurrent = () => {
     if (currentLesson) onLessonClick(currentLesson);
   };
 
   const testOut = (moduleId: string) => {
     const n = course.modules.findIndex((m) => m.id === moduleId);
-    alert(
-      `Test-out coming soon — will mark Module ${n} complete on 85%+ score`,
-    );
+    setTestOutModuleIdx(n);
   };
 
   return (
     <section className="min-w-0 pb-4">
-      <header className="mb-5">
-        <h1 className="text-2xl font-bold tracking-tight text-text-primary sm:text-3xl">
-          {course.title}
-        </h1>
-        <p className="mt-1 text-sm text-text-secondary">
-          {t("learn.pathHint", "Tap a module to expand. The pulsing node is what we suggest — you choose.")}
-        </p>
-      </header>
-
       <div className="space-y-0">
         {course.modules.map((mod, i) => {
           const status = getModuleStatus(i, completedSet, course.modules);
@@ -77,6 +71,10 @@ export function LearnCourseMap({
             mod.lessons.length,
             mod.comingSoon,
           );
+          const mastery = mod.comingSoon
+            ? null
+            : getModuleMastery(mod, completedSet);
+          const masteryPill = mastery?.mastered ? buildMasteryPill() : undefined;
 
           const isCurrent = i === currentIdx;
           const pathway =
@@ -145,6 +143,7 @@ export function LearnCourseMap({
               isOpen={open}
               onToggleOpen={() => onToggleModule(mod.id)}
               statusPill={pill}
+              masteryPill={masteryPill}
               pathway={pathway}
               preview={preview}
               actions={actions}
@@ -170,6 +169,20 @@ export function LearnCourseMap({
           {t("learn.startOver")}
         </button>
       </div>
+
+      {testOutModuleIdx !== null ? (
+        <ConfirmModal
+          title={t("learn.testOutComingSoonTitle", "Test-out is coming soon")}
+          message={t(
+            "learn.testOutComingSoonBody",
+            "We're building a diagnostic that'll let you skip ahead by passing a quick check. For now, work through the lessons — your progress saves automatically.",
+          )}
+          cancelLabel={t("learn.testOutComingSoonDismiss", "Got it")}
+          confirmLabel={t("learn.testOutComingSoonCta", "Keep learning")}
+          onConfirm={() => setTestOutModuleIdx(null)}
+          onCancel={() => setTestOutModuleIdx(null)}
+        />
+      ) : null}
     </section>
   );
 }

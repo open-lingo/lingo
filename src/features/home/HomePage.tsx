@@ -10,6 +10,7 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getMockCourse } from "@/shared/domain/mockCourse";
+import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { getNextLesson } from "@/features/course/nextLesson";
 import { ProgressSummary } from "@/features/progress/ProgressSummary";
 import { FlashcardsCard } from "@/features/flashcards/FlashcardsCard";
@@ -17,6 +18,8 @@ import { PracticeCard } from "@/features/practice/PracticeCard";
 import { LanguagePickerModal } from "./LanguagePickerModal";
 import { HomeNavCard } from "./HomeNavCard";
 import { HomeActivityPanel } from "./HomeActivityPanel";
+import { WelcomeBanner } from "./components/WelcomeBanner";
+import { EmptyActivityNotice } from "./components/EmptyActivityNotice";
 import { Card, Button } from "@/shared/components/ui";
 import { cn } from "@/shared/components/ui/cn";
 import { Icon } from "@/shared/components/Icon";
@@ -73,6 +76,16 @@ export function HomePage() {
     user?.given_name ??
     user?.email ??
     "there";
+
+  // First-name only, and never leak an email address into greetings.
+  const friendlyName = (() => {
+    const raw = welcomeName ?? "there";
+    if (raw.includes("@")) return "there";
+    return raw.split(/\s+/)[0] || "there";
+  })();
+
+  const isFirstTimeUser =
+    isAuthenticated && getMockCompletedLessonIds().length === 0;
 
   if (isLoading) {
     return (
@@ -145,10 +158,21 @@ export function HomePage() {
             </Card>
             {navCards}
           </>
+        ) : isFirstTimeUser ? (
+          <>
+            <WelcomeBanner
+              name={friendlyName}
+              language={langConfig ?? null}
+              startLessonHref={langPath("learn")}
+              firstLessonTitle={nextLesson?.lesson.title}
+            />
+            {navCards}
+            <EmptyActivityNotice />
+          </>
         ) : (
           <>
             <h1 className="text-2xl font-bold text-text-primary sm:text-3xl">
-              {t("home.welcomeBack", { name: welcomeName })}
+              {t("home.welcomeBack", { name: friendlyName })}
             </h1>
 
             {nextLesson ? (

@@ -18,6 +18,9 @@ export type StepType =
   | "symbol_production"
   | "symbol_to_sound"
   | "word_image_mcq"
+  | "phrase_card"
+  | "grammar_rule"
+  | "particle_cloze"
   | "row_test";
 
 export type StepBase = {
@@ -31,7 +34,7 @@ export type InfoStep = StepBase & {
   title?: string;
   body: string;
   imageKey?: string;
-  variant?: "tip" | "culture" | "grammar" | "default";
+  variant?: "tip" | "culture" | "grammar" | "default" | "win";
 };
 
 export type TeachVocab = {
@@ -285,6 +288,67 @@ export type RowTestItemBuild = {
 };
 export type RowTestItem = RowTestItemMC | RowTestItemMatch | RowTestItemBuild;
 
+/**
+ * Phrasebook exposure card. Teaches a single phrase via meaning-first
+ * presentation: large English meaning, medium romaji, kana as decoration.
+ * Audio auto-plays on mount. No correct/incorrect — the user reads,
+ * hears, and continues. Used in sidequest lessons where the goal is
+ * exposure + recognition, not recall.
+ */
+export type PhraseCardStep = StepBase & {
+  type: "phrase_card";
+  kana: string;
+  romaji: string;
+  meaningEn: string;
+  cultureNote?: string;
+};
+
+/**
+ * Grammar Rule Card (M3+). Tae Kim-style explicit teaching: state the rule,
+ * show 2 examples, optionally show 1 anti-pattern with a "why wrong" note,
+ * optional culture note. No correct/incorrect — exposure card, like
+ * `phrase_card`, but structured for grammar rather than vocabulary.
+ *
+ * Per curriculum-design-v2 (2026-05-16): replaces Duolingo's silent
+ * pattern-match. Each Grammar Rule Card is followed by drills in context
+ * (typically `particle_cloze` or `multiple_choice`).
+ */
+export type GrammarExample = {
+  ja: string;
+  romaji: string;
+  en: string;
+};
+
+export type GrammarRuleStep = StepBase & {
+  type: "grammar_rule";
+  title: string;
+  rule: string;
+  examples: GrammarExample[];
+  antiPattern?: GrammarExample & { why: string };
+  cultureNote?: string;
+};
+
+/**
+ * Particle Cloze (M3+). Sentence with a blank in the middle; learner
+ * picks the correct particle from 4 options. The single highest-leverage
+ * grammar drill for Japanese — particles distinguish meaning in ways
+ * English speakers consistently get wrong.
+ *
+ * Layout: prompt = `${before} [ ___ ] ${after}` rendered with AnnotatedJa
+ * ruby; 4 particle buttons below. On tap → submit + reveal meaning. The
+ * full `audioText` (when provided) plays once the answer commits so the
+ * learner hears the assembled sentence with the correct particle.
+ */
+export type ParticleClozeStep = StepBase & {
+  type: "particle_cloze";
+  prompt: { before: string; after: string };
+  correctParticle: string;
+  options: string[];
+  meaningEn: string;
+  audioText?: string;
+  explanation?: string;
+};
+
 export type RowTestStep = StepBase & {
   type: "row_test";
   rowId: string;
@@ -312,6 +376,9 @@ export type LessonStep =
   | SymbolProductionStep
   | SymbolToSoundStep
   | WordImageMcqStep
+  | PhraseCardStep
+  | GrammarRuleStep
+  | ParticleClozeStep
   | RowTestStep;
 
 export type LessonContent = {
@@ -325,5 +392,12 @@ export type LessonContent = {
   xpReward?: number;
   introducesVocabIds?: string[];
   introducesCardIds?: string[];
+  /**
+   * Optional content classification. "module_review" lessons are part of
+   * the SRS-style review cycle scheduled between module completions —
+   * they reuse existing step primitives (cloze + build + dialogue snippets)
+   * but are gated/surfaced separately from regular module lessons.
+   */
+  kind?: "module_review";
   steps: LessonStep[];
 };

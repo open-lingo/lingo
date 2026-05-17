@@ -116,12 +116,12 @@ describe("lessonBuilder — sub-lesson step count under presets", () => {
   // and 3+ anchor words across the row. Anchor distribution by sub-lesson
   // varies (sub-1 may have 1-2 anchors), so step-count thresholds account
   // for the per-row content caps.
-  // All hiragana consonant rows (ka..ra) are hand-authored as of
-  // 2026-05-16 — auto-builder output is discarded by mockLessons.ts
-  // overrides. Sample from dakuten rows instead so this still exercises
-  // the preset/density code path on rows that actually ship via the
-  // auto-builder.
-  const SAMPLE_ROWS = ["ga", "za"];
+  // All hiragana consonant rows (ka..ra) AND all M2 rows are hand-authored
+  // as of 2026-05-16 — auto-builder output is discarded by mockLessons.ts
+  // overrides. These tests still exercise the auto-builder code path on
+  // the M2 rows (the auto-built body is what `buildRowSubLessons` returns,
+  // even though mockLessons.ts replaces it for runtime).
+  const SAMPLE_ROWS = ["g", "z"];
 
   it("Standard preset produces ≥13 steps per sub-lesson for typical rows", () => {
     // Floor lowered from 15 → 13 after the dedup fix (maxFromPool=1 for
@@ -175,7 +175,7 @@ describe("lessonBuilder — sub-lesson step count under presets", () => {
     // (maxFromPool=1 caps the listening/fill multiplier; sa peaks at 19).
     // ka..ra all hand-authored 2026-05-16 — anchor-density only
     // applies to dakuten/yōon rows still on the auto-builder.
-    const ANCHOR_DENSE_ROWS = ["ga", "za"];
+    const ANCHOR_DENSE_ROWS = ["g", "z"];
     for (const rowId of ANCHOR_DENSE_ROWS) {
       const row = ALL_ROWS.find((r) => r.id === rowId);
       if (!row) continue;

@@ -95,8 +95,6 @@ export const MOCK_LESSON_JA_M1_RA_2: LessonContent = {
     wordImageMcq(ctx, "ja-ra2-mcq-kore", "これ"),
     listeningBuild(ctx, "ja-ra2-build-kore", "これ", "this"),
 
-    listeningComp("ja-ra2-lc-sakura", "さくら", "sakura", "cherry blossom",
-      ["this", "color", "horse"]),
     listeningComp("ja-ra2-lc-kore",   "これ",   "kore",   "this",
       ["color", "boat", "cat"]),
 
@@ -131,15 +129,11 @@ export const MOCK_LESSON_JA_M1_RA_3: LessonContent = {
     wordImageMcq(ctx, "ja-ra3-mcq-iro", "いろ"),
     listeningBuild(ctx, "ja-ra3-build-iro", "いろ", "color"),
 
-    { id: "ja-ra3-info-review", type: "info", title: "Quick row sweep",
-      body: "Five kana, audio → pick what you hear.", variant: "tip" },
-    recognition(ctx, "ja-ra3-rev-ra", "ら", "ra", "tap 'ra'"),
+    // Single representative row-sweep recog — the row-test that follows
+    // covers the full 5-kana sweep.
     recognition(ctx, "ja-ra3-rev-ri", "り", "ri", "tap 'ri'"),
-    recognition(ctx, "ja-ra3-rev-ru", "る", "ru", "tap 'ru'"),
-    recognition(ctx, "ja-ra3-rev-re", "れ", "re", "tap 're'"),
-    recognition(ctx, "ja-ra3-rev-ro", "ろ", "ro", "tap 'ro'"),
 
-    wordImageMcq(ctx, "ja-ra3-mcq-cum", "これ"),
+    wordImageMcq(ctx, "ja-ra3-mcq-rev-kore", "これ"),
 
     { id: "ja-ra3-info-speak", type: "info", title: "Your turn to speak",
       body: "Tap the mic and say each word. The tap-r is hard to nail — aim for soft, not rolled.", variant: "tip" },
@@ -147,8 +141,8 @@ export const MOCK_LESSON_JA_M1_RA_3: LessonContent = {
     speaking("ja-ra3-speak-kore",   "これ",   "this"),
     speaking("ja-ra3-speak-iro",    "いろ",   "color"),
 
-    { id: "ja-ra3-info-end", type: "info", title: "Ra-row complete",
-      body: "Five kana mastered. Three words: さくら, これ, いろ. Up next — wa row (just 3 kana left).",
-      variant: "default" },
+    { id: "ja-ra3-info-end", type: "info", title: "Real-world win",
+      body: "You can now read さくら 🌸 (cherry blossom) — the word on half the anime title cards in spring season — and いろ (color) on art-supply labels. Up next — wa row (just 3 kana left).",
+      variant: "win" },
   ],
 };

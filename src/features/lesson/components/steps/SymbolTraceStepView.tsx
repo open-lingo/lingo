@@ -41,14 +41,19 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
   const [failCount, setFailCount] = useState(0);
   const [done, setDone] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
+  // Locked during fadeAndClear so a fast double-click can't re-pass on
+  // the still-visible stroke data from the previous attempt.
+  const [checkLocked, setCheckLocked] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
   const [reference, setReference] = useState<SymbolReference>(() =>
     getSystemFontReferenceFor(step.payload.symbol),
   );
   /** Skip surfaces after this many failed attempts on the current letter. */
   const SKIP_AFTER_FAILS = 2;
-  /** Fade-out duration for user strokes on Check. */
-  const FADE_MS = 750;
+  /** Fade-out duration for user strokes on Check. Short enough that fast
+   *  users don't sit waiting, long enough to read as a clear "your stroke
+   *  is gone" affordance. Check is locked for this window. */
+  const FADE_MS = 450;
 
   const hasStrokeOrder = Boolean(step.payload.hasStrokeOrder && reference.glyph);
   const animation = useStrokeAnimation(
@@ -80,6 +85,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
   }, [step.payload.audioKey]);
 
   const handleCheck = useCallback(() => {
+    if (checkLocked) return;
     setFeedback(null);
     const canvas = canvasRef.current?.getCanvas();
     const strokes = canvasRef.current?.getStrokes() ?? [];
@@ -134,6 +140,8 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
         } else {
           setFeedback("good");
           canvasRef.current?.fadeAndClear(FADE_MS);
+          setCheckLocked(true);
+          window.setTimeout(() => setCheckLocked(false), FADE_MS);
         }
         return;
       }
@@ -141,6 +149,8 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
     setFeedback("try");
     setFailCount((n) => n + 1);
     canvasRef.current?.fadeAndClear(FADE_MS);
+    setCheckLocked(true);
+    window.setTimeout(() => setCheckLocked(false), FADE_MS);
   }, [
     t,
     reference,
@@ -150,6 +160,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
     step.id,
     onComplete,
     correctCount,
+    checkLocked,
   ]);
 
   const handleSkip = useCallback(() => {
@@ -271,6 +282,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
         <div className="flex flex-col items-stretch gap-2">
           <ContinueButton
             onClick={handleCheck}
+            disabled={checkLocked}
             label={t("alphabet.check", "Check")}
           />
           {failCount >= SKIP_AFTER_FAILS && (

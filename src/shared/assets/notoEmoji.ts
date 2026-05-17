@@ -2,9 +2,17 @@
  * Noto Emoji SVG URL resolver. Source-of-truth pack for vocab card art —
  * Apache 2.0 license, no per-card attribution required.
  *
- * Current implementation hotlinks via jsDelivr. Production bundle path
- * (download SVGs into `src/assets/noto/` + import-glob) is tracked in
- * Task #57. The public surface here stays the same when we swap.
+ * SVGs are vendored locally under `src/pub/noto-emoji/svg/` (Vite's
+ * publicDir is `src/pub`, so they're served at `/noto-emoji/svg/...`).
+ * Privacy + offline + cache-busting hygiene — no runtime third-party
+ * CDN hop. Only the actually-used glyphs ship in the bundle; the ~3000
+ * unused Noto SVGs stay out. To add a new emoji to the curriculum,
+ * download its SVG from
+ *   https://github.com/googlefonts/noto-emoji/tree/main/svg
+ * and drop it under `src/pub/noto-emoji/svg/`.
+ *
+ * Region flags vendor under `src/pub/region-flags/svg/` (wave-style SVGs
+ * from googlefonts/noto-emoji's third_party/region-flags, public-domain).
  *
  * Codepoint rules verified by audit (2026-05-16):
  *   - FE0F variation selectors are NEVER part of the filename, single or
@@ -16,11 +24,9 @@
  *     Use `notoFlagUrl` for those.
  */
 
-const NOTO_SVG_BASE =
-  "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/svg";
+const NOTO_SVG_BASE = "/noto-emoji/svg";
 
-const NOTO_FLAG_BASE =
-  "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/third_party/region-flags/svg";
+const NOTO_FLAG_BASE = "/region-flags/svg";
 
 /** Get the codepoint list of an emoji, stripping FE0F variation selectors. */
 export function emojiCodepoints(emoji: string): string[] {
@@ -39,9 +45,9 @@ export function emojiCodepoints(emoji: string): string[] {
  * Returns `null` for empty / malformed input.
  *
  * @example
- *   notoEmojiUrl("🐟")  // → ".../svg/emoji_u1f41f.svg"
- *   notoEmojiUrl("❤️") // → ".../svg/emoji_u2764.svg" (FE0F stripped)
- *   notoEmojiUrl("👨‍🍳") // → ".../svg/emoji_u1f468_200d_1f373.svg"
+ *   notoEmojiUrl("🐟")  // → "/noto-emoji/svg/emoji_u1f41f.svg"
+ *   notoEmojiUrl("❤️") // → "/noto-emoji/svg/emoji_u2764.svg" (FE0F stripped)
+ *   notoEmojiUrl("👨‍🍳") // → "/noto-emoji/svg/emoji_u1f468_200d_1f373.svg"
  */
 export function notoEmojiUrl(emoji: string): string | null {
   const cps = emojiCodepoints(emoji);
@@ -55,7 +61,7 @@ export function notoEmojiUrl(emoji: string): string | null {
  * still Apache 2.0.
  *
  * @example
- *   notoFlagUrl("JP")  // → ".../region-flags/svg/JP.svg"
+ *   notoFlagUrl("JP")  // → "/region-flags/svg/JP.svg"
  */
 export function notoFlagUrl(isoCode: string): string | null {
   const code = isoCode.trim().toUpperCase();

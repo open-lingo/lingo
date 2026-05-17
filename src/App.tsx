@@ -1,6 +1,9 @@
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { createBrowserRouter, Navigate, RouterProvider, useParams } from "react-router-dom";
 
+import { lazyRetry } from "@/shared/utils/lazyRetry";
+import { NotFoundPage } from "@/shared/components/NotFoundPage";
+import { RouteErrorBoundary } from "@/shared/components/RouteErrorBoundary";
 import { Layout } from "@/routes/Layout";
 import { LangLayout } from "@/routes/LangLayout";
 import { LoginPage } from "@/features/auth/LoginPage";
@@ -32,93 +35,96 @@ import { AboutPage } from "@/features/legal/AboutPage";
 
 // Lazy-loaded routes: anything heavy, role-restricted (admin/studio), or rarely-hit
 // on first paint. Split here keeps the main bundle focused on the learner happy path.
-const DocsPage = lazy(() =>
+const DocsPage = lazyRetry(() =>
   import("@/features/docs/DocsPage").then((m) => ({ default: m.DocsPage })),
 );
-const LessonPage = lazy(() =>
+const LessonPage = lazyRetry(() =>
   import("@/features/lesson/LessonPage").then((m) => ({ default: m.LessonPage })),
 );
-const SpeechTunePage = lazy(() =>
+const SpeechTunePage = lazyRetry(() =>
   import("@/features/speech-tune/SpeechTunePage").then((m) => ({
     default: m.SpeechTunePage,
   })),
 );
-const LearnPage = lazy(() => import("@/features/learn/LearnPage"));
-const AssetTestPage = lazy(() => import("@/features/asset-test/AssetTestPage"));
-const FlashcardTester = lazy(() =>
+const LearnPage = lazyRetry(() => import("@/features/learn/LearnPage"));
+const AssetTestPage = lazyRetry(() => import("@/features/asset-test/AssetTestPage"));
+const PickerTestPage = lazyRetry(() => import("@/features/picker-test/PickerTestPage"));
+const GetStartedPage = lazyRetry(() => import("@/features/landing/GetStartedPage"));
+const PreviewLessonPage = lazyRetry(() => import("@/features/preview/PreviewLessonPage"));
+const FlashcardTester = lazyRetry(() =>
   import("@/features/flashcards/FlashcardTester").then((m) => ({ default: m.FlashcardTester })),
 );
-const CardManagerPage = lazy(() =>
+const CardManagerPage = lazyRetry(() =>
   import("@/features/flashcards/CardManagerPage").then((m) => ({ default: m.CardManagerPage })),
 );
-const DeckManagerPage = lazy(() =>
+const DeckManagerPage = lazyRetry(() =>
   import("@/features/flashcards/DeckManagerPage").then((m) => ({ default: m.DeckManagerPage })),
 );
-const AlphabetLessonPage = lazy(() =>
+const AlphabetLessonPage = lazyRetry(() =>
   import("@/features/practice/alphabet/AlphabetLessonPage").then((m) => ({
     default: m.AlphabetLessonPage,
   })),
 );
-const ContentBrowserPage = lazy(() =>
+const ContentBrowserPage = lazyRetry(() =>
   import("@/features/community/ContentBrowserPage").then((m) => ({ default: m.ContentBrowserPage })),
 );
-const ExternalContentPage = lazy(() =>
+const ExternalContentPage = lazyRetry(() =>
   import("@/features/community/ExternalContentPage").then((m) => ({ default: m.ExternalContentPage })),
 );
-const ExternalContentPracticePage = lazy(() =>
+const ExternalContentPracticePage = lazyRetry(() =>
   import("@/features/community/ExternalContentPracticePage").then((m) => ({
     default: m.ExternalContentPracticePage,
   })),
 );
-const ContributePage = lazy(() =>
+const ContributePage = lazyRetry(() =>
   import("@/features/community/ContributePage").then((m) => ({ default: m.ContributePage })),
 );
-const MyContentTab = lazy(() =>
+const MyContentTab = lazyRetry(() =>
   import("@/features/community/contribute/MyContentTab").then((m) => ({ default: m.MyContentTab })),
 );
-const CreateTab = lazy(() =>
+const CreateTab = lazyRetry(() =>
   import("@/features/community/contribute/CreateTab").then((m) => ({ default: m.CreateTab })),
 );
-const AdminTab = lazy(() =>
+const AdminTab = lazyRetry(() =>
   import("@/features/community/contribute/AdminTab").then((m) => ({ default: m.AdminTab })),
 );
-const DeckEditor = lazy(() =>
+const DeckEditor = lazyRetry(() =>
   import("@/features/community/contribute/DeckEditor").then((m) => ({ default: m.DeckEditor })),
 );
-const StoryEditor = lazy(() =>
+const StoryEditor = lazyRetry(() =>
   import("@/features/community/contribute/StoryEditor").then((m) => ({ default: m.StoryEditor })),
 );
-const StudioLayout = lazy(() =>
+const StudioLayout = lazyRetry(() =>
   import("@/features/studio/StudioLayout").then((m) => ({ default: m.StudioLayout })),
 );
-const ForumPage = lazy(() =>
+const ForumPage = lazyRetry(() =>
   import("@/features/community/forum/ForumPage").then((m) => ({ default: m.ForumPage })),
 );
-const ThreadPage = lazy(() =>
+const ThreadPage = lazyRetry(() =>
   import("@/features/community/forum/ThreadPage").then((m) => ({ default: m.ThreadPage })),
 );
-const NewThreadPage = lazy(() =>
+const NewThreadPage = lazyRetry(() =>
   import("@/features/community/forum/NewThreadPage").then((m) => ({ default: m.NewThreadPage })),
 );
-const AdminLayout = lazy(() =>
+const AdminLayout = lazyRetry(() =>
   import("@/features/admin/AdminLayout").then((m) => ({ default: m.AdminLayout })),
 );
-const AdminUsersLayout = lazy(() =>
+const AdminUsersLayout = lazyRetry(() =>
   import("@/features/admin/AdminUsersLayout").then((m) => ({ default: m.AdminUsersLayout })),
 );
-const AdminUserEmptyState = lazy(() =>
+const AdminUserEmptyState = lazyRetry(() =>
   import("@/features/admin/AdminUserEmptyState").then((m) => ({ default: m.AdminUserEmptyState })),
 );
-const AdminUserDetailPage = lazy(() =>
+const AdminUserDetailPage = lazyRetry(() =>
   import("@/features/admin/AdminUserDetailPage").then((m) => ({ default: m.AdminUserDetailPage })),
 );
-const AdminContentLayout = lazy(() =>
+const AdminContentLayout = lazyRetry(() =>
   import("@/features/admin/AdminContentLayout").then((m) => ({ default: m.AdminContentLayout })),
 );
-const AdminDecksPage = lazy(() =>
+const AdminDecksPage = lazyRetry(() =>
   import("@/features/admin/AdminDecksPage").then((m) => ({ default: m.AdminDecksPage })),
 );
-const AdminStoriesPage = lazy(() =>
+const AdminStoriesPage = lazyRetry(() =>
   import("@/features/admin/AdminStoriesPage").then((m) => ({ default: m.AdminStoriesPage })),
 );
 
@@ -131,6 +137,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <RouteErrorBoundary />,
     children: [
       { index: true, element: <RootRoute /> },
       { path: "landing", element: <LandingRoute /> },
@@ -140,6 +147,8 @@ const router = createBrowserRouter([
       { path: "terms", element: <TermsOfServicePage /> },
       { path: "about", element: <AboutPage /> },
       { path: "login", element: <LoginPage /> },
+      { path: "get-started", element: <GetStartedPage /> },
+      { path: "try", element: <PreviewLessonPage /> },
       { path: "logout", element: <LogoutPage /> },
       {
         path: "admin",
@@ -208,6 +217,7 @@ const router = createBrowserRouter([
               { path: "grammar", element: <GrammarRedirect /> },
               { path: "speech-tune", element: <SpeechTunePage /> },
               { path: "asset-test", element: <AssetTestPage /> },
+              { path: "picker-test", element: <PickerTestPage /> },
               {
                 path: "community",
                 element: <CommunityLayout />,
@@ -247,7 +257,7 @@ const router = createBrowserRouter([
           },
         ],
       },
-      { path: "*", element: <Navigate to="/" replace /> },
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
 ]);

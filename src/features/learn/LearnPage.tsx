@@ -1,6 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useToast } from "@/shared/contexts/ToastContext";
+import { getModuleMastery } from "./moduleMastery";
+
+/** localStorage key shape for the one-shot mastery-transition toast.
+ *  Versioned so a future copy/UX change can re-fire it for everyone. */
+const MASTERY_TOAST_KEY_PREFIX = "lingo_mastery_toasted_v1_";
 import { Icon } from "@/shared/components/Icon";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -25,6 +31,7 @@ import { useModuleAccordion } from "./useModuleAccordion";
 import { useLearnProfile } from "./hooks/useLearnProfile";
 import { LearnCourseMap } from "./components/LearnCourseMap";
 import { LearnSidebar } from "./components/LearnSidebar";
+import { LearnTopBar } from "./components/LearnTopBar";
 import { LearnDevPanel } from "./components/LearnDevPanel";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
 
@@ -118,6 +125,45 @@ export function LearnPage() {
     }
   }, [course, completedSet]);
 
+  // One-shot mastery toast — fires once per module the first time it
+  // transitions to mastered (sub-lessons done + every row-test passed).
+  // Keyed by module id in localStorage so the toast doesn't replay on
+  // subsequent visits to /learn.
+  const { showToast } = useToast();
+  const masteryToastRefs = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (!course) return;
+    for (const mod of course.modules) {
+      if (mod.comingSoon) continue;
+      if (mod.lessons.length === 0) continue;
+      const key = `${MASTERY_TOAST_KEY_PREFIX}${course.id}-${mod.id}`;
+      if (masteryToastRefs.current.has(key)) continue;
+      try {
+        if (localStorage.getItem(key) === "1") {
+          masteryToastRefs.current.add(key);
+          continue;
+        }
+      } catch {
+        // ignore — toast will fire next render, no-op if localStorage broken
+      }
+      const mastery = getModuleMastery(mod, completedSet);
+      if (!mastery.mastered) continue;
+      try {
+        localStorage.setItem(key, "1");
+      } catch {
+        // ignore quota errors
+      }
+      masteryToastRefs.current.add(key);
+      showToast(
+        t("learn.moduleMasteredToast", {
+          defaultValue: "★ Module mastered — {{module}}",
+          module: mod.eyebrow ?? mod.title,
+        }),
+        "success",
+      );
+    }
+  }, [course, completedSet, showToast, t]);
+
   const handleStartOver = () => {
     clearMockProgress();
     setCompletedIds([]);
@@ -168,7 +214,23 @@ export function LearnPage() {
     }
   };
 
-  const sideQuests: SideQuest[] = course.sideQuests ?? [];
+  // Sidequest id → lesson id. Map only the wired quests; unmapped ones
+  // stay click-no-op (existing behavior) until their lessons land.
+  const SIDEQUEST_TO_LESSON: Record<string, string> = {
+    "ja-survival-phrasebook": "ja-sidequest-survival-phrases",
+  };
+  const sideQuests: SideQuest[] = (course.sideQuests ?? []).map((q) => {
+    const lessonId = SIDEQUEST_TO_LESSON[q.id];
+    if (lessonId && completedSet.has(lessonId)) {
+      return { ...q, progress: 100 };
+    }
+    return q;
+  });
+  const onSideQuestClick = (quest: SideQuest) => {
+    const lessonId = SIDEQUEST_TO_LESSON[quest.id];
+    if (!lessonId) return;
+    navigate(langPath(`learn/lessons/${lessonId}`));
+  };
   const isSideQuestUnlocked = (quest: SideQuest): boolean => {
     if (!quest.unlockAfter) return true;
     const m = /^([a-z]+)-m(\d+)-complete$/.exec(quest.unlockAfter);
@@ -191,8 +253,25 @@ export function LearnPage() {
 
   return (
     <>
+      <header className="mb-5">
+        <h1 className="text-2xl font-bold tracking-tight text-text-primary sm:text-3xl">
+          {course.title}
+        </h1>
+        <p className="mt-1 text-sm text-text-secondary">
+          {t("learn.pathHint", "Tap a module to expand. The pulsing node is what we suggest — you choose.")}
+        </p>
+      </header>
+      <LearnTopBar
+        profile={profile}
+        course={course}
+        completedSet={completedSet}
+        onJumpToModule={handleJumpToModule}
+        sideQuests={sideQuests}
+        isSideQuestUnlocked={isSideQuestUnlocked}
+        onSideQuestClick={onSideQuestClick}
+      />
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start">
-        <div className="order-2 min-w-0 lg:order-1">
+        <div className="min-w-0">
           <LearnCourseMap
             course={course}
             completedSet={completedSet}
@@ -204,7 +283,7 @@ export function LearnPage() {
             onStartOver={() => setShowStartOverConfirm(true)}
           />
         </div>
-        <div className="order-1 lg:order-2">
+        <div className="hidden lg:block">
           <LearnSidebar
             profile={profile}
             course={course}
@@ -212,6 +291,7 @@ export function LearnPage() {
             onJumpToModule={handleJumpToModule}
             sideQuests={sideQuests}
             isSideQuestUnlocked={isSideQuestUnlocked}
+            onSideQuestClick={onSideQuestClick}
           />
         </div>
       </div>

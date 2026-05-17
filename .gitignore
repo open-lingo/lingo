@@ -157,3 +157,6 @@ src/shared/domain/lingo.code-workspace
 # Auto-copied kuromoji dictionary files (see vite.config.ts copyKuromojiDict).
 # Mirrored from node_modules/kuromoji/dict on each build; never hand-edit.
 src/pub/dict/
+
+# Claude Code worktrees + workspace
+.claude/

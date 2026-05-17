@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useRef } from "react";
 import "./pathway.css";
 import type { Lesson } from "@/shared/domain/course";
-import { PathwayNode, type PathwayNodePos } from "./PathwayNode";
+import {
+  PathwayNode,
+  type PathwayNodePos,
+  type MasterySlotState,
+} from "./PathwayNode";
+import { isRowTestPassed } from "../moduleMastery";
 
 /** Snake offset cycle. Matches the approved mockup's S-curves. */
 const SNAKE_PATTERN: PathwayNodePos[] = [0, 2, 3, 2, 0, -2, -3, -2];
@@ -64,7 +69,7 @@ const ROW_GLYPH: Record<string, string> = {
   l1: "あ",
   ka: "か", sa: "さ", ta: "た", na: "な", ha: "は", ma: "ま",
   ya: "や", ra: "ら", wa: "わ",
-  ga: "が", za: "ざ", "da-ba": "だ", pa: "ぱ",
+  g: "が", z: "ざ", d: "だ", b: "ば", p: "ぱ",
   // Curriculum-restructure 2026-05-15: collapsed 6 yōon rows into 4 +
   // capstone. The capstone is a test-only row — keep an obvious glyph
   // so the pathway label reads as a "review" beat.
@@ -284,6 +289,18 @@ export function ModulePathway({
         // Cluster — collapse to ONE node per row with sub-lesson progress dots.
         const clusterIdx = outerIdx++;
         const clusterLessons = group.lessons;
+        // Split into non-test (regular sub-lesson dots) and test (mastery
+        // slot). The test lives in `clusterLessons` so it still counts
+        // toward `allDone`/`containsCurrent` etc, but the dot strip only
+        // counts non-test sub-lessons so the row reads "3 dots + ★".
+        const testLesson = clusterLessons.find((l) => l.id.endsWith("-test"));
+        const subLessons = clusterLessons.filter(
+          (l) => !l.id.endsWith("-test"),
+        );
+        const subDoneCount = subLessons.filter((l) =>
+          completedIds.has(l.id),
+        ).length;
+        const subTotal = subLessons.length;
         const doneCount = clusterLessons.filter((l) =>
           completedIds.has(l.id),
         ).length;
@@ -294,6 +311,26 @@ export function ModulePathway({
             (l) => !completedIds.has(l.id) && !isLessonLocked(l.id),
           ) ?? clusterLessons[clusterLessons.length - 1];
         const allDone = doneCount === total;
+        // Mastery slot:
+        //   - hidden ("locked") until all NON-test sub-lessons complete.
+        //   - filled ("passed") once the test lesson is in completedIds
+        //     AND not skipped (per LessonCompletion.wasSkipped).
+        //   - hollow ("available") in the gap state — sub-lessons done,
+        //     test not yet passed (or skipped).
+        let masterySlot: MasterySlotState | undefined;
+        if (testLesson) {
+          const allSubsDone = subDoneCount === subTotal && subTotal > 0;
+          if (!allSubsDone) {
+            masterySlot = "locked";
+          } else if (
+            completedIds.has(testLesson.id) &&
+            isRowTestPassed(testLesson.id)
+          ) {
+            masterySlot = "passed";
+          } else {
+            masterySlot = "available";
+          }
+        }
         const containsCurrent = clusterLessons.some(
           (l) => l.id === currentLessonId && !completedIds.has(l.id),
         );
@@ -330,7 +367,12 @@ export function ModulePathway({
             state={state}
             positionOffset={offsetForIndex(clusterIdx, false)}
             flag={flag}
-            subProgress={{ done: doneCount, total }}
+            subProgress={
+              subTotal > 0
+                ? { done: subDoneCount, total: subTotal }
+                : { done: doneCount, total }
+            }
+            masterySlot={masterySlot}
             onClick={() => onLessonClick(targetLesson)}
           />
         );

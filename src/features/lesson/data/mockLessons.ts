@@ -8,6 +8,7 @@ import {
 import {
   MOCK_LESSON_JA_M1_KA_1,
   MOCK_LESSON_JA_M1_KA_2,
+  MOCK_LESSON_JA_M1_KA_3,
 } from "./mock-ja-m1-ka";
 import {
   MOCK_LESSON_JA_M1_SA_1,
@@ -39,6 +40,36 @@ import {
   MOCK_LESSON_JA_M1_RA_2,
   MOCK_LESSON_JA_M1_RA_3,
 } from "./mock-ja-m1-ra";
+import {
+  MOCK_LESSON_JA_M1_YA_1,
+  MOCK_LESSON_JA_M1_YA_2,
+  MOCK_LESSON_JA_M1_YA_3,
+} from "./mock-ja-m1-ya";
+import {
+  MOCK_LESSON_JA_M1_WA_1,
+  MOCK_LESSON_JA_M1_WA_2,
+  MOCK_LESSON_JA_M1_WA_3,
+} from "./mock-ja-m1-wa";
+import { MOCK_LESSON_JA_M2_G_1 } from "./mock-ja-m2-g";
+import { MOCK_LESSON_JA_M2_Z_1 } from "./mock-ja-m2-z";
+import { MOCK_LESSON_JA_M2_D_1 } from "./mock-ja-m2-d";
+import { MOCK_LESSON_JA_M2_B_1 } from "./mock-ja-m2-b";
+import { MOCK_LESSON_JA_M2_P_1 } from "./mock-ja-m2-p";
+import { MOCK_LESSON_JA_M2_YOON_INTRO_1 } from "./mock-ja-m2-yoon-intro";
+import { MOCK_LESSON_JA_M2_YOON_SH_CH_1 } from "./mock-ja-m2-yoon-sh-ch";
+import { MOCK_LESSON_JA_M2_YOON_VOICED_1 } from "./mock-ja-m2-yoon-voiced";
+import { MOCK_LESSON_JA_M2_YOON_RARE_1 } from "./mock-ja-m2-yoon-rare";
+import { MOCK_LESSON_JA_SIDEQUEST_SURVIVAL } from "./mock-ja-sidequest-survival";
+import { MOCK_LESSON_JA_M3_1 } from "./mock-ja-m3-1";
+import { MOCK_LESSON_JA_M3_2 } from "./mock-ja-m3-2";
+import { MOCK_LESSON_JA_M3_3 } from "./mock-ja-m3-3";
+import { MOCK_LESSON_JA_M3_4 } from "./mock-ja-m3-4";
+import { MOCK_LESSON_JA_M3_5 } from "./mock-ja-m3-5";
+import { MOCK_LESSON_JA_M3_6 } from "./mock-ja-m3-6";
+import { MOCK_LESSON_JA_M3_7 } from "./mock-ja-m3-7";
+import { MOCK_LESSON_JA_M3_8 } from "./mock-ja-m3-8";
+import { MOCK_LESSON_JA_M3_9 } from "./mock-ja-m3-9";
+import { MOCK_LESSON_JA_M3_10 } from "./mock-ja-m3-10";
 import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
 import { ALL_ROWS } from "./hiraganaCurriculum";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
@@ -54,6 +85,7 @@ const LESSONS: Record<string, LessonContent> = {
   // the auto-built sub-lessons. Mirrors the vowel approach.
   "ja-m1-ka-1": MOCK_LESSON_JA_M1_KA_1,
   "ja-m1-ka-2": MOCK_LESSON_JA_M1_KA_2,
+  "ja-m1-ka-3": MOCK_LESSON_JA_M1_KA_3,
   "ja-m1-sa-1": MOCK_LESSON_JA_M1_SA_1,
   "ja-m1-sa-2": MOCK_LESSON_JA_M1_SA_2,
   "ja-m1-sa-3": MOCK_LESSON_JA_M1_SA_3,
@@ -72,6 +104,40 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m1-ra-1": MOCK_LESSON_JA_M1_RA_1,
   "ja-m1-ra-2": MOCK_LESSON_JA_M1_RA_2,
   "ja-m1-ra-3": MOCK_LESSON_JA_M1_RA_3,
+  "ja-m1-ya-1": MOCK_LESSON_JA_M1_YA_1,
+  "ja-m1-ya-2": MOCK_LESSON_JA_M1_YA_2,
+  "ja-m1-ya-3": MOCK_LESSON_JA_M1_YA_3,
+  "ja-m1-wa-1": MOCK_LESSON_JA_M1_WA_1,
+  "ja-m1-wa-2": MOCK_LESSON_JA_M1_WA_2,
+  "ja-m1-wa-3": MOCK_LESSON_JA_M1_WA_3,
+  // M2 voiced + handakuten (compact, NO tracing). Each row has ONE
+  // content sub-lesson + an auto-built row-test (the auto-builder still
+  // generates -test from the curriculum's `isTest` sub-lesson entry).
+  "ja-m1-g-1": MOCK_LESSON_JA_M2_G_1,
+  "ja-m1-z-1": MOCK_LESSON_JA_M2_Z_1,
+  "ja-m1-d-1": MOCK_LESSON_JA_M2_D_1,
+  "ja-m1-b-1": MOCK_LESSON_JA_M2_B_1,
+  "ja-m1-p-1": MOCK_LESSON_JA_M2_P_1,
+  // M2 yōon (compact, NO tracing).
+  "ja-m1-yoon-intro-1": MOCK_LESSON_JA_M2_YOON_INTRO_1,
+  "ja-m1-yoon-sh-ch-1": MOCK_LESSON_JA_M2_YOON_SH_CH_1,
+  "ja-m1-yoon-voiced-1": MOCK_LESSON_JA_M2_YOON_VOICED_1,
+  "ja-m1-yoon-rare-1": MOCK_LESSON_JA_M2_YOON_RARE_1,
+  // Sidequest lessons — day-1 unlocks, no row/module attachment.
+  "ja-sidequest-survival-phrases": MOCK_LESSON_JA_SIDEQUEST_SURVIVAL,
+  // M3 — katakana system + first vocab + first grammar. Hand-authored
+  // grammar-spine lessons (not row-shaped); the augmentWithReviewTail
+  // helper skips them because the ids don't match `ja-mN-{rowId}-{suffix}`.
+  "ja-m3-1": MOCK_LESSON_JA_M3_1,
+  "ja-m3-2": MOCK_LESSON_JA_M3_2,
+  "ja-m3-3": MOCK_LESSON_JA_M3_3,
+  "ja-m3-4": MOCK_LESSON_JA_M3_4,
+  "ja-m3-5": MOCK_LESSON_JA_M3_5,
+  "ja-m3-6": MOCK_LESSON_JA_M3_6,
+  "ja-m3-7": MOCK_LESSON_JA_M3_7,
+  "ja-m3-8": MOCK_LESSON_JA_M3_8,
+  "ja-m3-9": MOCK_LESSON_JA_M3_9,
+  "ja-m3-10": MOCK_LESSON_JA_M3_10,
 };
 
 /**

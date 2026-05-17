@@ -36,16 +36,26 @@ const variantConfig: Record<
     bg: "bg-info/10",
     text: "text-text-secondary",
   },
+  // Win cards mark the end of a row — "real-world payoff" copy. Gold
+  // gradient tone matches the mastery-star + Mastered pill so the
+  // visual rhymes across the pathway.
+  win: {
+    icon: "🏆",
+    border: "border-warning/50",
+    bg: "bg-gradient-to-br from-warning/20 via-warning/10 to-accent/10",
+    text: "text-text-secondary",
+  },
 };
 
 export function InfoStepView({ step, onContinue }: Props) {
   const v = variantConfig[step.variant ?? "default"];
-  const isCulture = (step.variant ?? "default") === "culture";
+  const variant = step.variant ?? "default";
+  const isHero = variant === "culture" || variant === "win";
 
-  // Culture variant gets a hero-card treatment: emoji floats above a
-  // big title, body sits in larger relaxed type. Every other variant
-  // keeps its compact two-column layout.
-  if (isCulture) {
+  // Hero variants (culture + win) get a tall card treatment: emoji
+  // floats above a big title, body sits in larger relaxed type. Every
+  // other variant keeps its compact two-column layout.
+  if (isHero) {
     return (
       <div className="flex flex-1 flex-col gap-6">
         <div

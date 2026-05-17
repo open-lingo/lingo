@@ -9,42 +9,79 @@
  *   (then) cd ../lingo-core && .venv-tts/bin/python -m scripts.tts.generate \
  *           --lang ja --provider edge
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { dirname, resolve } from "node:path";
+import { dirname, resolve, join } from "node:path";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const CURRICULUM = resolve(
-  __dirname,
-  "../src/features/lesson/data/hiraganaCurriculum.ts",
-);
+const DATA_DIR = resolve(__dirname, "../src/features/lesson/data");
+const CURRICULUM = resolve(DATA_DIR, "hiraganaCurriculum.ts");
 const OUT = resolve(
   __dirname,
   "../../lingo-core/test_decks/ja-hiragana-curriculum.json",
 );
 
-const src = readFileSync(CURRICULUM, "utf-8");
+// Sources to scan. Curriculum is the source of truth for kana intros and
+// row anchor words; the mock-ja-m{1,2}-*.ts files carry hand-authored
+// vocab + words referenced in helpers like wordImageMcq / listeningBuild
+// / speaking / listeningComp.
+const sources = [CURRICULUM];
+for (const f of readdirSync(DATA_DIR)) {
+  if (/^mock-ja-(m[1-9]|sidequest)-.+\.ts$/.test(f)) sources.push(join(DATA_DIR, f));
+}
 
-// Tiny regex-based extractor. We only care about:
-//   { kana: "X", ... } from introduces
-//   { kana: "X", romaji: "...", meaning: "..." } from anchorWords
-//   word: "X" from audioPick
-//   answer: "X" from build
-// All single-line patterns inside the catalog.
 const kanaSet = new Set();
 
-for (const m of src.matchAll(/kana:\s*"([^"]+)"/g)) kanaSet.add(m[1]);
-for (const m of src.matchAll(/word:\s*"([^"]+)"/g)) kanaSet.add(m[1]);
-for (const m of src.matchAll(/answer:\s*"([^"]+)"/g)) kanaSet.add(m[1]);
-// Distractors are inside `distractors: ["X", "Y", "Z"]` — capture per-string.
-for (const m of src.matchAll(/distractors:\s*\[([^\]]+)\]/g)) {
-  for (const s of m[1].matchAll(/"([^"]+)"/g)) kanaSet.add(s[1]);
+for (const path of sources) {
+  const src = readFileSync(path, "utf-8");
+  // Single-line capture patterns. Covers:
+  //   { kana: "X" }, word: "X", answer: "X", correctKana = "X",
+  //   targetSentence/audioKey/targetPhrase: "X", listeningComp(... "X" ...).
+  for (const re of [
+    /kana:\s*"([^"]+)"/g,
+    /word:\s*"([^"]+)"/g,
+    /answer:\s*"([^"]+)"/g,
+    /correctKana:\s*"([^"]+)"/g,
+    /targetSentence:\s*"([^"]+)"/g,
+    /targetPhrase:\s*"([^"]+)"/g,
+    /audioKey:\s*"([^"]+)"/g,
+    /transcript:\s*"([^"]+)"/g,
+    /promptAudioText:\s*"([^"]+)"/g,
+    /audioText:\s*"([^"]+)"/g,
+    /ja:\s*"([^"]+)"/g,
+    // Positional args: wordImageMcq("id", "あい"), listeningBuild("id", "あい", "love"),
+    // speaking("id", "あい", "love"), listeningComp("id", "あい", "romaji", ...).
+    /\b(?:wordImageMcq|listeningBuild|speaking|listeningComp|phraseStep)\s*\(\s*(?:ctx,\s*)?"[^"]*",\s*"([^"]+)"/g,
+    // phrase|vocab("id", meaningEn, romaji, "kana", ...) — slot-4 capture.
+    // Used by sidequest survival + M3 vocab lessons (the latter uses a
+    // `vocab` alias). Kana is positional, not keyed, so the kana: regex
+    // above misses it.
+    /\b(?:phrase|vocab)\s*\(\s*"[^"]*"\s*,\s*"[^"]*"\s*,\s*"[^"]*"\s*,\s*"([^"]+)"/g,
+    // line("id", speaker, meaningEn, romaji, "kana", ...) — slot-5 for
+    // M3-9 mini-dialogue factory.
+    /\bline\s*\(\s*"[^"]*"\s*,\s*"[^"]*"\s*,\s*"[^"]*"\s*,\s*"[^"]*"\s*,\s*"([^"]+)"/g,
+    // cloze("id", before, after, correctParticle, [options], meaningEn,
+    //   "audioText", ...) — positional 7th arg captures the full
+    //   assembled sentence audio key. The array arg is matched
+    //   lazily across newlines.
+    /\bcloze\s*\([^)]*?\]\s*,\s*"[^"]*"\s*,\s*"([^"]+)"/gs,
+  ]) {
+    for (const m of src.matchAll(re)) kanaSet.add(m[1]);
+  }
+  for (const m of src.matchAll(/distractors:\s*\[([^\]]+)\]/g)) {
+    for (const s of m[1].matchAll(/"([^"]+)"/g)) kanaSet.add(s[1]);
+  }
 }
 
 // Build the deck JSON shape the Python collector expects.
+// Accept any string that is purely Japanese script (hiragana, katakana,
+// long-vowel mark, punctuation, full-width spaces) — extended from
+// hiragana-only when M3 introduced katakana loanwords + multi-word
+// sentence audio (2026-05-16).
+const JA_ONLY = /^[\p{Script=Hiragana}\p{Script=Katakana}゙゚ー　-〿 ]+$/u;
 const cards = Array.from(kanaSet)
-  .filter((t) => /^[\p{Script=Hiragana}゙゚　-〿]+$/u.test(t))
+  .filter((t) => JA_ONLY.test(t))
   .sort()
   .map((t, i) => ({
     id: `hira-${i.toString().padStart(3, "0")}-${t}`,

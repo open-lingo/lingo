@@ -1,19 +1,33 @@
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { applySpeechQueryParams, setSpeechFlag } from "@/shared/speech";
 import { applyDensityQueryParams } from "./data/lessonDensity";
 import { getMockLessonContent } from "./data/mockLessons";
-import type { LessonStep } from "./types";
+import {
+  clearLessonInProgress,
+  loadLessonInProgress,
+  saveLessonInProgress,
+} from "./data/lessonProgress";
+import type { LessonContent, LessonStep } from "./types";
 import { StepRenderer } from "./components/StepRenderer";
 import { LessonProgressBar } from "./components/LessonProgressBar";
 import { LessonComplete } from "./components/LessonComplete";
 import { KanaMasteryProvider } from "@/features/japanese/kanaMastery";
 import {
+  getMockCompletedLessonIds,
   isLessonCompleted,
   markLessonCompleted,
 } from "@/shared/domain/mockProgress";
+import { useToast } from "@/shared/contexts/ToastContext";
+import { getMockCourse } from "@/shared/domain/mockCourse";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
+import {
+  getModuleMastery,
+  isRowTestPassed,
+} from "@/features/learn/moduleMastery";
+import type { LessonCompleteMastery } from "./components/LessonComplete";
 
 /** Replays of an already-completed lesson award a fraction of the original
  *  XP — the activity is review, not a new milestone. Tweak in one place. */
@@ -24,15 +38,39 @@ export function LessonPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const langPath = useLangPath();
+  const { language } = useLanguage();
 
   const lesson = useMemo(
     () => (lessonId ? getMockLessonContent(lessonId) : null),
     [lessonId],
   );
 
-  const [currentStepIdx, setCurrentStepIdx] = useState(0);
-  const [results, setResults] = useState<Record<string, boolean>>({});
+  // Hydrate partial-progress from localStorage on mount. We only resume
+  // when a saved record exists AND the lesson hasn't already been
+  // completed — replays start fresh from step 0. Curriculum drift /
+  // stale-record / parse-failure handling lives in `loadLessonInProgress`.
+  const hydrated = useMemo(() => {
+    if (!lesson || !lessonId) return null;
+    if (isLessonCompleted(lessonId)) return null;
+    const stepIds = new Set(lesson.steps.map((s) => s.id));
+    return loadLessonInProgress(lessonId, stepIds, lesson.steps.length);
+    // We deliberately depend on lessonId only — the lesson object is
+    // re-derived from the same id, and re-running this on every render
+    // would cause auto-resume flapping.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lessonId]);
+
+  const [currentStepIdx, setCurrentStepIdx] = useState(
+    () => hydrated?.stepIdx ?? 0,
+  );
+  const [results, setResults] = useState<Record<string, boolean>>(
+    () => hydrated?.results ?? {},
+  );
+  const startedAtRef = useRef<string>(
+    hydrated?.startedAt ?? new Date().toISOString(),
+  );
   const [finished, setFinished] = useState(false);
+  const wasResumed = hydrated !== null;
 
   // `?speech=1` deep-links the speech-recognition feature flag on; the
   // same effect also consumes the matcher-tuning dials
@@ -69,9 +107,52 @@ export function LessonPage() {
     lessonId ? isLessonCompleted(lessonId) : false,
   );
 
+  // Persist partial progress on every step/result change so the user can
+  // navigate away and resume. The completion-clear branch below drops the
+  // record once `finished` flips true; completion itself is recorded via
+  // `markLessonCompleted` in the next effect.
+  useEffect(() => {
+    if (!lesson || !lessonId) return;
+    if (finished) return;
+    saveLessonInProgress(lessonId, {
+      stepIdx: currentStepIdx,
+      results,
+      startedAt: startedAtRef.current,
+    });
+  }, [lesson, lessonId, currentStepIdx, results, finished]);
+
+  // Surface a one-shot toast when we auto-resumed from a saved record.
+  // Guarded by a ref so React 19's strict-mode double-invoke + result
+  // mutations don't re-fire it.
+  const { showToast } = useToast();
+  const resumeToastFiredRef = useRef(false);
+  useEffect(() => {
+    if (!wasResumed || resumeToastFiredRef.current || !lesson) return;
+    resumeToastFiredRef.current = true;
+    const total = lesson.steps.length;
+    showToast(
+      t("lesson.resumed", {
+        defaultValue: "Resumed from step {{n}} of {{total}}",
+        n: Math.min(currentStepIdx + 1, total),
+        total,
+      }),
+      "info",
+    );
+    // Mount-only: depend on `wasResumed` so it fires once after hydration
+    // settles. currentStepIdx/lesson are read at fire-time but not in deps
+    // to avoid re-firing as the user progresses.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wasResumed]);
+
   // Persist completion when the user finishes the lesson. Calculation
   // mirrors the values LessonComplete shows so the XP we record matches
   // what the learner sees.
+  //
+  // Row-test wasSkipped detection: a lesson that contains a `row_test`
+  // step records `wasSkipped: true` iff the test step's result is
+  // `false`. TestRunner only emits `false` via the Skip flow — a passed
+  // test always emits `true` once the queue clears. Lessons with no
+  // row_test step record `wasSkipped: false`.
   useEffect(() => {
     if (!finished || !lesson) return;
     const correctCount = Object.values(results).filter(Boolean).length;
@@ -81,11 +162,17 @@ export function LessonPage() {
     const xpEarned = isReview
       ? Math.max(1, Math.round(baseXp * REVIEW_XP_MULTIPLIER))
       : baseXp;
+    const rowTestStep = lesson.steps.find((s) => s.type === "row_test");
+    const wasSkipped = rowTestStep
+      ? results[rowTestStep.id] === false
+      : false;
     markLessonCompleted(lesson.id, {
       accuracy,
       xpEarned,
       isReview,
+      wasSkipped,
     });
+    clearLessonInProgress(lesson.id);
   }, [finished, lesson, results, isReview]);
 
   const totalSteps = lesson?.steps.length ?? 0;
@@ -130,6 +217,7 @@ export function LessonPage() {
   if (finished) {
     const correctCount = Object.values(results).filter(Boolean).length;
     const gradedSteps = Object.keys(results).length;
+    const mastery = computeMasteryForCompletion(lesson, results, language?.id);
     return (
       <LessonComplete
         lesson={lesson}
@@ -138,6 +226,7 @@ export function LessonPage() {
         onContinue={handleExit}
         isReview={isReview}
         xpMultiplier={isReview ? REVIEW_XP_MULTIPLIER : 1}
+        mastery={mastery}
       />
     );
   }
@@ -157,6 +246,10 @@ export function LessonPage() {
           </svg>
         </button>
         <LessonProgressBar current={currentStepIdx} total={totalSteps} />
+        <LessonMetaChips
+          estimatedMinutes={lesson.estimatedMinutes}
+          xpReward={lesson.xpReward}
+        />
       </div>
 
       <div className="flex flex-1 flex-col py-4">
@@ -171,5 +264,106 @@ export function LessonPage() {
       </div>
     </div>
     </KanaMasteryProvider>
+  );
+}
+
+/**
+ * Build the post-completion mastery callout payload for `LessonComplete`.
+ *
+ * Returns `undefined` when the lesson isn't a row-test lesson OR the
+ * learner skipped — i.e. only show the callout on a clean row-test
+ * completion. By the time the finished branch renders, the completion
+ * record has already been written (the persistence effect runs before
+ * the render that flips `finished` reads back), so we can read the
+ * stored `wasSkipped` flag through `getModuleMastery`.
+ */
+function computeMasteryForCompletion(
+  lesson: LessonContent,
+  results: Record<string, boolean>,
+  languageId: string | undefined,
+): LessonCompleteMastery | undefined {
+  if (!languageId) return undefined;
+  const rowTestStep = lesson.steps.find((s) => s.type === "row_test");
+  if (!rowTestStep) return undefined;
+  const wasSkipped = results[rowTestStep.id] === false;
+  if (wasSkipped) return undefined;
+  const course = getMockCourse(languageId);
+  const mod = course.modules.find((m) =>
+    m.lessons.some((l) => l.id === lesson.id),
+  );
+  if (!mod) return undefined;
+  // The persistence effect may not have written the new record yet by
+  // the time this renders. Inject the just-finished lesson explicitly
+  // and override `isRowTestPassed` for the current lesson id so the
+  // mastery calc reflects the in-flight pass.
+  const completed = new Set(getMockCompletedLessonIds());
+  const completedAfter = new Set(completed);
+  completedAfter.add(lesson.id);
+  const isPassedAfter = (id: string): boolean =>
+    id === lesson.id ? !wasSkipped : isRowTestPassed(id);
+  const before = getModuleMastery(mod, completed);
+  const after = getModuleMastery(mod, completedAfter, isPassedAfter);
+  return {
+    moduleTitle: mod.eyebrow ?? mod.title,
+    passed: after.passed,
+    total: after.total,
+    justMastered: after.mastered && !before.mastered,
+  };
+}
+
+function LessonMetaChips({
+  estimatedMinutes,
+  xpReward,
+}: {
+  estimatedMinutes?: number;
+  xpReward?: number;
+}) {
+  const { t } = useTranslation();
+  const hasMinutes =
+    typeof estimatedMinutes === "number" && estimatedMinutes > 0;
+  const hasXp = typeof xpReward === "number" && xpReward > 0;
+  if (!hasMinutes && !hasXp) return null;
+  return (
+    <div className="hidden items-center gap-1.5 sm:flex">
+      {hasMinutes && (
+        <span
+          className="inline-flex items-center gap-1 rounded-full border-[1.5px] border-border bg-surface-muted px-2.5 py-0.5 text-xs font-bold tabular-nums text-text-secondary"
+          aria-label={t("lesson.estimatedMinutesLabel", {
+            defaultValue: "Estimated {{n}} minute lesson",
+            n: estimatedMinutes,
+          })}
+        >
+          <svg
+            aria-hidden="true"
+            className="h-3.5 w-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2.25}
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path strokeLinecap="round" d="M12 7v5l3 2" />
+          </svg>
+          {t("lesson.minutesShort", {
+            defaultValue: "{{n}} min",
+            n: estimatedMinutes,
+          })}
+        </span>
+      )}
+      {hasXp && (
+        <span
+          className="inline-flex items-center gap-1 rounded-full border-[1.5px] border-accent-hover bg-accent/15 px-2.5 py-0.5 text-xs font-bold tabular-nums text-accent"
+          aria-label={t("lesson.xpRewardLabel", {
+            defaultValue: "{{n}} XP reward on completion",
+            n: xpReward,
+          })}
+        >
+          {t("lesson.xpShort", {
+            defaultValue: "+{{n}} XP",
+            n: xpReward,
+          })}
+        </span>
+      )}
+    </div>
   );
 }

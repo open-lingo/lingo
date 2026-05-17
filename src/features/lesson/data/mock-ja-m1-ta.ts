@@ -120,15 +120,11 @@ export const MOCK_LESSON_JA_M1_TA_3: LessonContent = {
     wordImageMcq(ctx, "ja-ta3-mcq-tokei", "とけい"),
     listeningBuild(ctx, "ja-ta3-build-tokei", "とけい", "clock"),
 
-    { id: "ja-ta3-info-review", type: "info", title: "Quick row sweep",
-      body: "Five kana, audio → pick the one you hear.", variant: "tip" },
-    recognition(ctx, "ja-ta3-rev-ta",  "た", "ta",  "like 'ta'"),
+    // Single representative row-sweep recog — the row-test that follows
+    // covers the full 5-kana sweep.
     recognition(ctx, "ja-ta3-rev-chi", "ち", "chi", "like 'chee'"),
-    recognition(ctx, "ja-ta3-rev-tsu", "つ", "tsu", "like 'tsoo'"),
-    recognition(ctx, "ja-ta3-rev-te",  "て", "te",  "like 'ten'"),
-    recognition(ctx, "ja-ta3-rev-to",  "と", "to",  "like 'toe'"),
 
-    wordImageMcq(ctx, "ja-ta3-mcq-cum", "つき"),
+    wordImageMcq(ctx, "ja-ta3-mcq-rev-tsuki", "つき"),
 
     { id: "ja-ta3-info-speak", type: "info", title: "Your turn to speak",
       body: "Tap the mic and say each word. Short words = lenient scoring.", variant: "tip" },
@@ -136,8 +132,8 @@ export const MOCK_LESSON_JA_M1_TA_3: LessonContent = {
     speaking("ja-ta3-speak-tsuki", "つき",   "moon"),
     speaking("ja-ta3-speak-tokei", "とけい", "clock"),
 
-    { id: "ja-ta3-info-end", type: "info", title: "Ta-row complete",
-      body: "Five kana mastered. Three words: うた, つき, とけい. Up next — na row.",
-      variant: "default" },
+    { id: "ja-ta3-info-end", type: "info", title: "Real-world win",
+      body: "You can now read うた (song), つき (moon) — and spot タカ (hawk) on falconry signs at any Japanese shrine. Up next — na row.",
+      variant: "win" },
   ],
 };

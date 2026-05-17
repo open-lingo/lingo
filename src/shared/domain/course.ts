@@ -19,8 +19,10 @@ export type Lesson = {
   /** Card IDs introduced by this lesson (for course-linked decks). Unlocked when lesson is completed. */
   introducesCardIds?: string[];
   /** When "alphabet", this row links to the alphabet learner instead of learn/lessons/:id.
-   *  When "recap", this is the final module-recap node (~15 review items, amber styling). */
-  kind?: "lesson" | "alphabet" | "recap";
+   *  When "recap", this is the final module-recap node (~15 review items, amber styling).
+   *  When "module_review", this lesson belongs to an inter-module review module
+   *  (SRS-style retention cycle between two content modules). */
+  kind?: "lesson" | "alphabet" | "recap" | "module_review";
   /** For kind "alphabet": alphabet id for route practice/alphabet/:alphabetId/learn */
   alphabetId?: string;
 };

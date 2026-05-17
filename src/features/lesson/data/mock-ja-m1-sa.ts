@@ -358,22 +358,6 @@ export const MOCK_LESSON_JA_M1_SA_2: LessonContent = {
     // Listening comprehension — adds a different drill type to break the
     // intro→trace→recog rhythm Mio + Jordan flagged as monotone.
     {
-      id: "ja-sa2-lc-asa",
-      type: "listening_comprehension",
-      audioKey: "あさ",
-      transcript: "あさ",
-      romaji: "asa",
-      question: "What does this word mean?",
-      options: [
-        { id: "a", text: "morning" },
-        { id: "b", text: "sushi" },
-        { id: "c", text: "house" },
-        { id: "d", text: "love" },
-      ],
-      correctOptionId: "a",
-      transcriptAnnotation: [{ surface: "あさ", reading: "あさ" }],
-    },
-    {
       id: "ja-sa2-lc-sushi",
       type: "listening_comprehension",
       audioKey: "すし",
@@ -456,22 +440,12 @@ export const MOCK_LESSON_JA_M1_SA_3: LessonContent = {
     wordImageMcq("ja-sa3-mcq-sora", "そら"),
     listeningBuild("ja-sa3-build-sora", "そら", "sky"),
 
-    // Full-row recognition rotation — audio→kana for all 5.
-    {
-      id: "ja-sa3-info-review",
-      type: "info",
-      title: "Quick row sweep",
-      body: "Five kana, audio → pick the one you hear.",
-      variant: "tip",
-    },
-    recognition("ja-sa3-rev-sa",  "さ", "sa",  "like 'sa'"),
+    // Single representative row-sweep recog — the row-test that follows
+    // covers the full 5-kana sweep.
     recognition("ja-sa3-rev-shi", "し", "shi", "like 'she'"),
-    recognition("ja-sa3-rev-su",  "す", "su",  "like 'sue'"),
-    recognition("ja-sa3-rev-se",  "せ", "se",  "like 'sell'"),
-    recognition("ja-sa3-rev-so",  "そ", "so",  "like 'so'"),
 
     // Cumulative vocab — one MCQ pulling across all 3 sa words.
-    wordImageMcq("ja-sa3-mcq-cum", "すし"),
+    wordImageMcq("ja-sa3-mcq-rev-sushi", "すし"),
 
     // Speaking — 3 anchor words, all 2-mora (Whisper short-tier).
     {
@@ -494,10 +468,10 @@ export const MOCK_LESSON_JA_M1_SA_3: LessonContent = {
     {
       id: "ja-sa3-info-end",
       type: "info",
-      title: "Sa-row complete",
+      title: "Real-world win",
       body:
-        "Five kana mastered. Three words: あさ, すし, そら. Up next — ta row.",
-      variant: "default",
+        "You can now read あさ (morning), すし (sushi), そら (sky) — and spot し on every sushi-bar menu in the world. Up next — ta row.",
+      variant: "win",
     },
   ],
 };

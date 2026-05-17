@@ -1,5 +1,6 @@
 import type { Course, CourseModule } from "@/shared/domain/course";
 import { ALL_ROWS } from "@/features/lesson/data/hiraganaCurriculum";
+import { getAlphabetProgress } from "@/features/practice/alphabet/alphabetProgress";
 
 export type ModuleStatus = "completed" | "current" | "locked";
 
@@ -143,5 +144,40 @@ export function isLessonLocked(
       if (!isRowFullyComplete(prereqRowId, completedLessonIds)) return true;
     }
   }
+  // M5 soft-gate (curriculum-design-v2, 2026-05-16):
+  //   When M5 lessons exist, the FIRST lesson of M5 should also require
+  //   katakana practice completion. M3 introduces katakana as a SYSTEM
+  //   only; learners are expected to do the standalone katakana drill at
+  //   /:lang/practice/alphabet/katakana before M5 unlocks.
+  //
+  // The gate check belongs here, just before `return false`:
+  //
+  //   const isM5FirstLesson =
+  //     course.modules[moduleIndex]?.id === "m5" && lessonIndex === 0;
+  //   if (isM5FirstLesson && !isKatakanaPracticeComplete()) return true;
+  //
+  // M5 doesn't exist yet (placeholder `comingSoon: true`), so the check
+  // is intentionally absent. Add it when M5 lessons are authored.
   return false;
+}
+
+/**
+ * Soft mastery check used by the M5 unlock gate (curriculum-design-v2
+ * 2026-05-16, Spencer's call: katakana introduced as a SYSTEM in M3, then
+ * deliberate practice is M5's prerequisite).
+ *
+ * Returns true when the learner has passed the full-katakana test in the
+ * standalone `/:lang/practice/alphabet/katakana` flow — same persistence
+ * the alphabet learner already uses (`getAlphabetProgress("ja",
+ * "katakana")?.fullTestPassed`).
+ *
+ * SSR-safe: returns false if localStorage is unavailable.
+ */
+export function isKatakanaPracticeComplete(): boolean {
+  if (typeof localStorage === "undefined") return false;
+  try {
+    return getAlphabetProgress("ja", "katakana")?.fullTestPassed === true;
+  } catch {
+    return false;
+  }
 }

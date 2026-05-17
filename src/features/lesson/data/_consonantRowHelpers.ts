@@ -39,7 +39,12 @@ export function correctSlot(id: string, slots = 4): number {
 }
 
 function pickThreeKanaDistractors(ctx: RowContext, symbol: string) {
-  return ctx.allKana.filter((v) => v.symbol !== symbol).slice(0, 3);
+  const fromRow = ctx.allKana.filter((v) => v.symbol !== symbol);
+  if (fromRow.length >= 3) return fromRow.slice(0, 3);
+  const filler = ctx.tileBankPool
+    .filter((s) => s !== symbol && !fromRow.some((v) => v.symbol === s))
+    .map((symbol) => ({ symbol, romaji: "" }));
+  return [...fromRow, ...filler].slice(0, 3);
 }
 
 /**

@@ -44,7 +44,7 @@ export const MOCK_LESSON_JA_M1_HA_1: LessonContent = {
   introducesVocabIds: ["hito"],
   steps: [
     { id: "ja-ha1-info-0", type: "info", title: "H-sounds, part 1",
-      body: "Two new kana: は and ひ. Note: は has a second life as a grammar particle pronounced 'wa' — but that's a future you problem.",
+      body: "Two new kana: は and ひ. Heads-up: は has a second life as a grammar particle, where it's pronounced 'wa'. Outside of that special role, it's just 'ha'.",
       variant: "culture" },
 
     symbolIntro("ja-ha1-intro-ha", "は", "ha", "/ha/", "like 'ha' in 'hot'", ""),
@@ -121,15 +121,11 @@ export const MOCK_LESSON_JA_M1_HA_3: LessonContent = {
     wordImageMcq(ctx, "ja-ha3-mcq-hoshi", "ほし"),
     listeningBuild(ctx, "ja-ha3-build-hoshi", "ほし", "star"),
 
-    { id: "ja-ha3-info-review", type: "info", title: "Quick row sweep",
-      body: "Five kana, audio → pick what you hear.", variant: "tip" },
-    recognition(ctx, "ja-ha3-rev-ha", "は", "ha", "like 'ha'"),
-    recognition(ctx, "ja-ha3-rev-hi", "ひ", "hi", "like 'hee'"),
+    // Single representative row-sweep recog — the row-test that follows
+    // covers the full 5-kana sweep.
     recognition(ctx, "ja-ha3-rev-fu", "ふ", "fu", "soft 'foo'"),
-    recognition(ctx, "ja-ha3-rev-he", "へ", "he", "like 'help'"),
-    recognition(ctx, "ja-ha3-rev-ho", "ほ", "ho", "like 'ho'"),
 
-    wordImageMcq(ctx, "ja-ha3-mcq-cum", "ふね"),
+    wordImageMcq(ctx, "ja-ha3-mcq-rev-fune", "ふね"),
 
     { id: "ja-ha3-info-speak", type: "info", title: "Your turn to speak",
       body: "Tap the mic and say each word. Short words = lenient scoring.", variant: "tip" },
@@ -137,8 +133,8 @@ export const MOCK_LESSON_JA_M1_HA_3: LessonContent = {
     speaking("ja-ha3-speak-fune",  "ふね", "boat"),
     speaking("ja-ha3-speak-hoshi", "ほし", "star"),
 
-    { id: "ja-ha3-info-end", type: "info", title: "Ha-row complete",
-      body: "Five kana mastered. Three words: ひと, ふね, ほし. Up next — ma row.",
-      variant: "default" },
+    { id: "ja-ha3-info-end", type: "info", title: "Real-world win",
+      body: "You can now read ふね (boat), ほし (star) — and decode ハート ❤️ (heart) on every Valentine's chocolate wrapper in Japan. Up next — ma row.",
+      variant: "win" },
   ],
 };

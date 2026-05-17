@@ -12,6 +12,10 @@ export type ModuleCardProps = {
   isOpen: boolean;
   onToggleOpen: () => void;
   statusPill?: ModuleStatusPill;
+  /** Second pill rendered to the right of `statusPill` when the module
+   *  is fully mastered (sub-lessons done + every row-test passed
+   *  un-skipped). Falsey = no second pill. */
+  masteryPill?: ModuleStatusPill;
   pathway?: ReactNode;
   preview?: ReactNode;
   actions?: ReactNode;
@@ -24,6 +28,7 @@ export function ModuleCard({
   isOpen,
   onToggleOpen,
   statusPill,
+  masteryPill,
   pathway,
   preview,
   actions,
@@ -79,15 +84,25 @@ export function ModuleCard({
             </div>
           ) : null}
           <h2 className="m-0 mt-0.5 text-lg font-bold">{module.title}</h2>
-          <span className="lingo-status-pill inline-flex items-center gap-1">
-            {pill.variant === "locked" ? (
-              <Icon name="lock" size={12} className="opacity-90" aria-hidden />
+          <div className="lingo-module-pills">
+            <span className="lingo-status-pill inline-flex items-center gap-1">
+              {pill.variant === "locked" ? (
+                <Icon name="lock" size={12} className="opacity-90" aria-hidden />
+              ) : null}
+              {pill.variant === "complete" ? (
+                <Icon name="check" size={12} className="opacity-90" aria-hidden />
+              ) : null}
+              {pill.text}
+            </span>
+            {masteryPill ? (
+              <span
+                className="lingo-mastery-pill"
+                title={masteryPill.text}
+              >
+                {masteryPill.text}
+              </span>
             ) : null}
-            {pill.variant === "complete" ? (
-              <Icon name="check" size={12} className="opacity-90" aria-hidden />
-            ) : null}
-            {pill.text}
-          </span>
+          </div>
         </div>
         <div
           className={`lingo-mchev${isOpen ? " lingo-mchev-open" : ""}`}

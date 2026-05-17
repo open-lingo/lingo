@@ -15,6 +15,9 @@ import { SymbolRecognitionStepView } from "./steps/SymbolRecognitionStepView";
 import { SymbolProductionStepView } from "./steps/SymbolProductionStepView";
 import { SymbolToSoundStepView } from "./steps/SymbolToSoundStepView";
 import { WordImageMcqStepView } from "./steps/WordImageMcqStepView";
+import { PhraseCardStepView } from "./steps/PhraseCardStepView";
+import { GrammarRuleStepView } from "./steps/GrammarRuleStepView";
+import { ParticleClozeStepView } from "./steps/ParticleClozeStepView";
 import { RowTestStepView } from "./steps/RowTestStepView";
 
 type Props = {
@@ -136,6 +139,18 @@ export function StepRenderer({ step, onComplete, onContinue }: Props) {
     case "word_image_mcq":
       return (
         <WordImageMcqStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "phrase_card":
+      return <PhraseCardStepView step={step} onContinue={onContinue} />;
+    case "grammar_rule":
+      return <GrammarRuleStepView step={step} onContinue={onContinue} />;
+    case "particle_cloze":
+      return (
+        <ParticleClozeStepView
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}

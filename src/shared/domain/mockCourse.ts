@@ -41,9 +41,10 @@ export function getMockCourse(languageId: string): Course {
   if (isJapanese) {
     // Curriculum-restructure (2026-05-15):
     //   M1 = pure hiragana only (vowels + 9 base rows + recap).
-    //   M2 = dakuten block (ga/za/da-ba/pa, 2 sub-lessons + test each)
+    //   M2 = dakuten block (g/z/d/b/p, compact 1 content + 1 test each)
     //        then yōon block (yoon-intro / yoon-sh-ch / yoon-voiced /
-    //        yoon-rare / yoon-capstone) then recap.
+    //        yoon-rare each compact 1 content + 1 test, plus a final
+    //        yoon-capstone test-only sweep) then recap.
     //
     // Yōon prereq: every yōon row carries `prerequisites: ["ya"]` which
     // `isLessonLocked` honors — yōon stays locked until the full ya-row
@@ -131,6 +132,17 @@ export function getMockCourse(languageId: string): Course {
 
     const sideQuests: SideQuest[] = [
       {
+        // Survival Phrasebook — pinned first (day-1 unlock per
+        // curriculum-design-v2 §6). Audio-driven, romaji-first; solves
+        // the Priya persona: travelers who want functional Japanese
+        // before grinding the kana chart.
+        id: "ja-survival-phrasebook",
+        emoji: "🗺️",
+        title: "Survival Phrasebook",
+        meta: "15 essentials · ~5 min · travel-ready",
+        progress: 0,
+      },
+      {
         id: "anime-vocab",
         emoji: "🌸",
         title: "Anime Vocab",
@@ -194,12 +206,27 @@ export function getMockCourse(languageId: string): Course {
         },
         {
           id: "m3",
-          title: "Loanwords & the second alphabet",
-          eyebrow: "Module 3 · Katakana",
-          summary: "Foreign words, brand names, the angular second script.",
-          lessons: [],
+          title: "First Words, First Grammar",
+          eyebrow: "Module 3 · Sentences",
+          summary: "Speak in real sentences. Katakana via context, not grind.",
+          // M3 — 10 hand-authored grammar-spine lessons (2026-05-16).
+          // Katakana introduced as a system (not per-row drill) in M3-1
+          // and sprinkled across vocab lessons via AnnotatedJa ruby; the
+          // M5 unlock will soft-gate on katakana practice completion
+          // (see isKatakanaPracticeComplete in moduleProgress.ts).
+          lessons: [
+            { id: "ja-m3-1", title: "Katakana — the second alphabet", status: "available" as const },
+            { id: "ja-m3-2", title: "です + か — your first sentences", status: "available" as const },
+            { id: "ja-m3-3", title: "は vs が — the BIG one", status: "available" as const },
+            { id: "ja-m3-4", title: "Food, things, and katakana in the wild", status: "available" as const },
+            { id: "ja-m3-5", title: "の + これ/それ/あれ/どれ", status: "available" as const },
+            { id: "ja-m3-6", title: "Numbers 1–10 + counting", status: "available" as const },
+            { id: "ja-m3-7", title: "に + で — destinations and settings", status: "available" as const },
+            { id: "ja-m3-8", title: "Sentence Build — putting it together", status: "available" as const },
+            { id: "ja-m3-9", title: "Mini-dialogue — ordering coffee", status: "available" as const },
+            { id: "ja-m3-10", title: "M3 Mastery Test", status: "available" as const },
+          ],
           accent: { from: "#ec4899", to: "#db2777" },
-          comingSoon: true,
         },
         {
           id: "m4",

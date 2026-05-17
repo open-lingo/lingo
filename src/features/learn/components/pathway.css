@@ -146,6 +146,40 @@
   color: var(--color-accent);
 }
 
+/* Mastery pill — sits next to the complete pill when the module's row
+ * tests are all passed un-skipped. Gold-leaning warning color so it
+ * reads as a "tier above complete" award. Stacks below on narrow
+ * viewports to avoid overflowing the module header. */
+.lingo-module-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0;
+}
+.lingo-mastery-pill {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 4px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--color-warning, #f59e0b);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow:
+    0 1px 0 0 color-mix(in srgb, var(--color-warning, #f59e0b) 60%, #000),
+    0 4px 10px -2px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent);
+}
+.lingo-module-card[data-state="completed"] .lingo-mastery-pill {
+  /* On completed (light bg), keep the gold + white treatment — high
+   * contrast against the muted surface. */
+  background: var(--color-warning, #f59e0b);
+  color: white;
+}
+
 .lingo-module-body {
   display: none;
   padding: 18px 16px 20px;
@@ -708,6 +742,91 @@
 }
 .lingo-node[data-state="locked"] .lingo-node-subdot {
   opacity: 0.55;
+}
+
+/* Mastery slot — star rendered alongside sub-dots when the row has a
+ * row-test sub-lesson. `passed` = filled gold (the test was completed
+ * un-skipped). `available` = hollow outline. The "locked" state is
+ * filtered out by the parent so this rule never fires for it. */
+.lingo-mastery-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 1;
+  /* Slight inward curl to match the subdot stack rhythm. */
+  transform: translateX(5px);
+  pointer-events: none;
+  /* Default = available (hollow). */
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-warning, #f59e0b);
+  transition: transform 200ms ease, filter 200ms ease;
+}
+/* Available (unearned but reachable) — gentle parent-hover pulse so the
+ * cluster nudges the eye toward the next test target without competing
+ * with the disc itself. Reduced motion users get the static outline. */
+.lingo-node[data-state="available"] .lingo-mastery-slot[data-state="available"],
+.lingo-node[data-state="current"] .lingo-mastery-slot[data-state="available"] {
+  animation: lingo-mastery-hint 2.4s ease-in-out infinite;
+}
+.lingo-mastery-slot[data-state="passed"] {
+  color: var(--color-warning, #f59e0b);
+  -webkit-text-stroke: 0;
+  /* Size bump (~13%) + soft gold glow ring so the earned star reads
+   * louder than the outline at a glance — Mika doesn't read pill text. */
+  font-size: 15px;
+  filter:
+    drop-shadow(0 0 4px color-mix(in srgb, var(--color-warning, #f59e0b) 65%, transparent))
+    drop-shadow(0 0 8px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent));
+  /* One-second celebratory pulse on first render. CSS-only — no JS hook
+   * needed because masterySlot="passed" only appears AFTER the test
+   * completion. Animation runs once then settles. */
+  animation: lingo-mastery-earn 1s ease-out 1;
+}
+.lingo-node[data-state="locked"] .lingo-mastery-slot {
+  opacity: 0.45;
+}
+
+@keyframes lingo-mastery-earn {
+  0% {
+    transform: translateX(5px) scale(0.6);
+    filter: none;
+  }
+  40% {
+    transform: translateX(5px) scale(1.35);
+    filter:
+      drop-shadow(0 0 10px var(--color-warning, #f59e0b))
+      drop-shadow(0 0 16px color-mix(in srgb, var(--color-warning, #f59e0b) 55%, transparent));
+  }
+  100% {
+    transform: translateX(5px) scale(1);
+    filter:
+      drop-shadow(0 0 4px color-mix(in srgb, var(--color-warning, #f59e0b) 65%, transparent))
+      drop-shadow(0 0 8px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent));
+  }
+}
+
+@keyframes lingo-mastery-hint {
+  0%, 100% {
+    opacity: 0.55;
+    transform: translateX(5px) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(5px) scale(1.08);
+  }
+}
+
+/* Respect prefers-reduced-motion: kill both pulse animations but keep
+ * the size + glow so the visual hierarchy still reads. */
+@media (prefers-reduced-motion: reduce) {
+  .lingo-mastery-slot,
+  .lingo-mastery-slot[data-state="passed"] {
+    animation: none !important;
+  }
 }
 
 /* Recap node — module-final, amber gradient + trophy badge.

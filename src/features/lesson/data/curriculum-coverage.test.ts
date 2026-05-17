@@ -54,21 +54,15 @@ describe("alphabet-streamline coverage", () => {
         }
       });
 
-      it("appends at most one row-test sub-lesson (yōon non-capstone rows skip)", () => {
-        // Curriculum-restructure 2026-05-15: yōon rows (yoon-intro,
-        // yoon-sh-ch, yoon-voiced, yoon-rare) share a single capstone test
-        // instead of per-row tests. Capstone row IS the test.
+      it("every row has exactly one row-test sub-lesson (M2 compact: per-row tests required for mastery)", () => {
+        // M2 compact (curriculum-design-v2, 2026-05-16): every voiced and
+        // yōon row carries its own row-test for ★ mastery. The yōon-capstone
+        // is an additional cross-row sweep that does NOT replace per-row
+        // tests — it has its own -test lesson too.
         const subs = row.subLessons ?? [];
         const tests = subs.filter((s) => s.isTest);
-        const isYoonNonCapstone =
-          row.id.startsWith("yoon-") && row.id !== "yoon-capstone";
-        if (isYoonNonCapstone) {
-          expect(tests.length, `${row.id}: expected 0 tests (covered by capstone)`).toBe(0);
-        } else {
-          expect(tests.length, `${row.id}: expected exactly 1 test`).toBe(1);
-          // Test must be the last entry.
-          expect(subs[subs.length - 1].isTest).toBe(true);
-        }
+        expect(tests.length, `${row.id}: expected exactly 1 test`).toBe(1);
+        expect(subs[subs.length - 1].isTest).toBe(true);
       });
 
       it("emits a LessonContent per sub-lesson (including any test)", () => {
@@ -80,16 +74,11 @@ describe("alphabet-streamline coverage", () => {
         }
       });
 
-      it("row-test step (when present) covers every kana in the row", () => {
+      it("row-test step covers every kana in the row", () => {
         const lessons = buildRowSubLessons(row);
         const testLesson = lessons.find((l) => l.id.endsWith("-test"));
-        // yōon non-capstone rows have no test — capstone covers them.
-        if (!testLesson) {
-          const isYoonNonCapstone =
-            row.id.startsWith("yoon-") && row.id !== "yoon-capstone";
-          expect(isYoonNonCapstone).toBe(true);
-          return;
-        }
+        expect(testLesson, `${row.id}: missing -test lesson`).toBeDefined();
+        if (!testLesson) return;
         const rowTest = testLesson.steps.find((s) => s.type === "row_test");
         expect(rowTest).toBeDefined();
         if (!rowTest || rowTest.type !== "row_test") return;
@@ -101,6 +90,12 @@ describe("alphabet-streamline coverage", () => {
               mcKana.add(item.payload.promptAudioText);
             }
           }
+        }
+        // yoon-capstone sources its kana from every prior yōon row;
+        // row.introduces is empty for the capstone row itself.
+        if (row.id === "yoon-capstone") {
+          expect(mcKana.size).toBeGreaterThan(0);
+          return;
         }
         for (const k of row.introduces) {
           expect(

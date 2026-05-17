@@ -38,6 +38,7 @@ const MIGRATION_FLAG_KEY = "lingo_progress_migration_v1";
  * Idempotent: re-running on already-migrated data is a no-op.
  */
 const MIGRATION_FLAG_KEY_V3 = "lingo_progress_migration_v3";
+const MIGRATION_FLAG_KEY_V4 = "lingo_progress_migration_v4";
 
 /**
  * Yōon row migration map (curriculum-restructure 2026-05-15).
@@ -53,6 +54,22 @@ const YOON_ROW_MIGRATION_V3: Record<string, string> = {
   "yo-m-r": "yoon-rare",
 };
 
+/**
+ * Dakuten row migration map (M2 compact restructure 2026-05-16).
+ * Old multi-letter row id → new single-letter row id. da-ba splits into d+b;
+ * since legacy `da-ba` completions covered both families, we credit both
+ * new rows. Other voiced rows are 1:1 renames.
+ *
+ * Sub-lesson suffix collapses to `-1` (compact M2 = single content lesson)
+ * for non-test ids; `-test` keeps its suffix.
+ */
+const DAKUTEN_ROW_MIGRATION_V4: Record<string, string[]> = {
+  ga: ["g"],
+  za: ["z"],
+  "da-ba": ["d", "b"],
+  pa: ["p"],
+};
+
 export type LessonCompletion = {
   lessonId: string;
   /** ISO 8601 of the first time this lesson was completed. */
@@ -65,6 +82,14 @@ export type LessonCompletion = {
   lastXp: number;
   /** How many times the lesson was replayed for review credit. */
   reviewCount: number;
+  /**
+   * True iff this completion was recorded via the Skip path on a `row_test`
+   * step. Drives module-mastery (★) accounting — only un-skipped row tests
+   * count toward mastery. Missing on legacy records is treated as `false`
+   * (i.e. pre-feature completions count as passed) so users mid-flight
+   * aren't retroactively unmastered.
+   */
+  wasSkipped?: boolean;
 };
 
 type ProgressStore = {
@@ -80,6 +105,7 @@ function loadStore(): ProgressStore {
       // skip the check on subsequent loads.
       markStreamlineMigrationDone();
       markV3MigrationDone();
+      markV4MigrationDone();
       return { completed: {} };
     }
     const parsed = JSON.parse(raw) as ProgressStore;
@@ -87,6 +113,7 @@ function loadStore(): ProgressStore {
       parsed && parsed.completed ? parsed : { completed: {} };
     runStreamlineMigration(store);
     runCurriculumRestructureMigration(store);
+    runDakutenSplitMigration(store);
     return store;
   } catch {
     return { completed: {} };
@@ -225,6 +252,65 @@ function markV3MigrationDone(): void {
   }
 }
 
+/**
+ * Dakuten split migration (M2 compact restructure 2026-05-16).
+ *
+ * Legacy row ids: ga, za, da-ba, pa.
+ * New row ids:    g,  z,  d + b, p.
+ *
+ * Each legacy sub-lesson completion (`ja-m1-ga-1`, `ja-m1-ga-2`, etc.)
+ * maps to the new single content sub-lesson `ja-m1-g-1`. Legacy `-test`
+ * completions map to the new `-test`. For the `da-ba` split, we credit
+ * BOTH `d` and `b` because the legacy row taught both families together.
+ *
+ * Idempotent: flag-guarded and structurally idempotent (only writes new
+ * keys if absent).
+ */
+function runDakutenSplitMigration(store: ProgressStore): void {
+  if (typeof window === "undefined") return;
+  try {
+    if (localStorage.getItem(MIGRATION_FLAG_KEY_V4) === "1") return;
+  } catch {
+    return;
+  }
+  let mutated = false;
+  for (const [oldRow, newRows] of Object.entries(DAKUTEN_ROW_MIGRATION_V4)) {
+    const legacyKeys = Object.keys(store.completed).filter(
+      (k) => k.startsWith(`ja-m1-${oldRow}-`) || k.startsWith(`ja-m2-${oldRow}-`),
+    );
+    for (const legacyKey of legacyKeys) {
+      const legacy = store.completed[legacyKey];
+      const isTest = legacyKey.endsWith("-test");
+      for (const newRow of newRows) {
+        const newKey = isTest
+          ? `ja-m1-${newRow}-test`
+          : `ja-m1-${newRow}-1`;
+        if (store.completed[newKey]) continue;
+        store.completed[newKey] = {
+          lessonId: newKey,
+          firstCompletedAt: legacy.firstCompletedAt,
+          lastCompletedAt: legacy.lastCompletedAt,
+          bestAccuracy: legacy.bestAccuracy,
+          lastXp: 0, // credit but don't double-count XP
+          reviewCount: 0,
+          wasSkipped: legacy.wasSkipped,
+        };
+        mutated = true;
+      }
+    }
+  }
+  if (mutated) saveStore(store);
+  markV4MigrationDone();
+}
+
+function markV4MigrationDone(): void {
+  try {
+    localStorage.setItem(MIGRATION_FLAG_KEY_V4, "1");
+  } catch {
+    // ignore
+  }
+}
+
 function saveStore(store: ProgressStore): void {
   if (typeof window === "undefined") return;
   try {
@@ -255,11 +341,24 @@ export function getLessonCompletion(
  */
 export function markLessonCompleted(
   lessonId: string,
-  opts: { accuracy: number; xpEarned: number; isReview: boolean },
+  opts: {
+    accuracy: number;
+    xpEarned: number;
+    isReview: boolean;
+    /**
+     * True when the learner opted out of a row test via the Skip flow.
+     * Stored as a sticky bit on the completion record so module-mastery
+     * can distinguish "completed by passing" from "completed by skipping".
+     * Defaults to `false`. Re-completing a previously-skipped lesson
+     * without skipping clears the flag (a successful pass overrides).
+     */
+    wasSkipped?: boolean;
+  },
 ): void {
   const store = loadStore();
   const now = new Date().toISOString();
   const prev = store.completed[lessonId];
+  const wasSkipped = opts.wasSkipped ?? false;
   store.completed[lessonId] = {
     lessonId,
     firstCompletedAt: prev?.firstCompletedAt ?? now,
@@ -267,6 +366,10 @@ export function markLessonCompleted(
     bestAccuracy: Math.max(prev?.bestAccuracy ?? 0, opts.accuracy),
     lastXp: opts.xpEarned,
     reviewCount: (prev?.reviewCount ?? 0) + (opts.isReview ? 1 : 0),
+    // A successful (non-skipped) completion clears any prior skip flag;
+    // a skipped run only "writes" `true` if the lesson has never been
+    // passed. This way one good pass permanently unlocks mastery credit.
+    wasSkipped: wasSkipped && (prev?.wasSkipped ?? true),
   };
   saveStore(store);
 }

@@ -1,14 +1,11 @@
 /**
  * Speech-recognition feature flag.
  *
- * The pronunciation step is gated behind `?speech=1` so default users see
- * no behavior change. Once the URL param is present in a session, we
- * persist the flag in `sessionStorage` so internal navigation
- * (Continue → next step in a separate route mount) doesn't lose it.
- *
- * Off by default. To enable: visit any page with `?speech=1`. To turn off
- * mid-session, visit `?speech=0`. We mirror the same UX as the
- * `?dev=1` / `?dev=0` toggle in `LearnPage`.
+ * Whisper-backed pronunciation is the default for everyone (2026-05-16).
+ * `?speech=0` is the explicit opt-out for slow devices / mic-less testers
+ * — that override persists in `sessionStorage` so it survives internal
+ * navigation. Visit `?speech=1` to clear the override and return to the
+ * default. Mirrors the `?dev=` toggle in `LearnPage`.
  *
  * In addition to the main `?speech=` toggle, we expose a small set of
  * dials (also sessionStorage-backed) so Spencer can tune thresholds and
@@ -33,19 +30,20 @@ const DEBUG_KEY = "lingo_speech_debug_v1";
 const ENGINE_KEY = "lingo_speech_engine_v1";
 
 export function isSpeechFlagEnabled(): boolean {
-  if (typeof window === "undefined") return false;
+  if (typeof window === "undefined") return true;
   try {
-    return window.sessionStorage.getItem(KEY) === "1";
+    // Default: on. Explicit "0" is the opt-out.
+    return window.sessionStorage.getItem(KEY) !== "0";
   } catch {
-    return false;
+    return true;
   }
 }
 
 export function setSpeechFlag(on: boolean): void {
   if (typeof window === "undefined") return;
   try {
-    if (on) window.sessionStorage.setItem(KEY, "1");
-    else window.sessionStorage.removeItem(KEY);
+    if (on) window.sessionStorage.removeItem(KEY); // clear → default (on)
+    else window.sessionStorage.setItem(KEY, "0"); // explicit off
   } catch {
     /* storage may be unavailable (private mode); silently ignore */
   }

@@ -118,15 +118,11 @@ export const MOCK_LESSON_JA_M1_MA_3: LessonContent = {
     wordImageMcq(ctx, "ja-ma3-mcq-momo", "もも"),
     listeningBuild(ctx, "ja-ma3-build-momo", "もも", "peach"),
 
-    { id: "ja-ma3-info-review", type: "info", title: "Quick row sweep",
-      body: "Five kana, audio → pick what you hear.", variant: "tip" },
-    recognition(ctx, "ja-ma3-rev-ma", "ま", "ma", "like 'ma'"),
+    // Single representative row-sweep recog — the row-test that follows
+    // covers the full 5-kana sweep.
     recognition(ctx, "ja-ma3-rev-mi", "み", "mi", "like 'mee'"),
-    recognition(ctx, "ja-ma3-rev-mu", "む", "mu", "like 'moo'"),
-    recognition(ctx, "ja-ma3-rev-me", "め", "me", "like 'met'"),
-    recognition(ctx, "ja-ma3-rev-mo", "も", "mo", "like 'mo'"),
 
-    wordImageMcq(ctx, "ja-ma3-mcq-cum", "かめ"),
+    wordImageMcq(ctx, "ja-ma3-mcq-rev-kame", "かめ"),
 
     { id: "ja-ma3-info-speak", type: "info", title: "Your turn to speak",
       body: "Tap the mic and say each word. Short words = lenient scoring.", variant: "tip" },
@@ -134,8 +130,8 @@ export const MOCK_LESSON_JA_M1_MA_3: LessonContent = {
     speaking("ja-ma3-speak-kame", "かめ", "turtle"),
     speaking("ja-ma3-speak-momo", "もも", "peach"),
 
-    { id: "ja-ma3-info-end", type: "info", title: "Ma-row complete",
-      body: "Five kana mastered. Three words: うま, かめ, もも. Halfway through the hiragana alphabet — well done.",
-      variant: "default" },
+    { id: "ja-ma3-info-end", type: "info", title: "Real-world win",
+      body: "You can now read もも (peach), うま (horse) — and spot ヤマ ('mountain') in mountain names like Fujiyama, Yamanote, Yokoyama. Halfway through hiragana — nice.",
+      variant: "win" },
   ],
 };

@@ -31,7 +31,11 @@ export type UserSettings = {
     reminderEnabled: boolean;
   };
   learning: {
-    learningLanguageId: string;
+    /** `null` until the user has explicitly picked a learning language.
+     *  When null, LanguagePickerModal renders on first launch. Pre-Task-#88
+     *  this defaulted to "ko" which made the picker dead code on first
+     *  signup. */
+    learningLanguageId: string | null;
     uiLocale: string;
     showAlphabetRomanization?: boolean;
     showAlphabetFurigana?: boolean;
@@ -61,7 +65,10 @@ export const DEFAULT_SETTINGS: UserSettings = {
     reminderEnabled: false,
   },
   learning: {
-    learningLanguageId: "ko",
+    // null = "user hasn't picked yet" → LanguagePickerModal renders on
+    // first launch (Task #88). Was hardcoded "ko" which silently forced
+    // every new account into the Korean stub course.
+    learningLanguageId: null,
     uiLocale: "en",
     showAlphabetRomanization: true,
     showAlphabetFurigana: true,

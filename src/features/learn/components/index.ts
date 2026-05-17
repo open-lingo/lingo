@@ -7,6 +7,7 @@ export { ResumeBar } from "./ResumeBar";
 export { SideQuestCard } from "./SideQuestCard";
 export { LearnCourseMap } from "./LearnCourseMap";
 export { LearnCourseOverviewCard } from "./LearnCourseOverviewCard";
+export { LearnTopBar } from "./LearnTopBar";
 export { LearnSidebar } from "./LearnSidebar";
 export { LearnDevPanel } from "./LearnDevPanel";
 export { FlashcardsReviewStrip } from "./FlashcardsReviewStrip";

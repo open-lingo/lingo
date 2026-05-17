@@ -118,15 +118,11 @@ export const MOCK_LESSON_JA_M1_NA_3: LessonContent = {
     wordImageMcq(ctx, "ja-na3-mcq-kinoko", "きのこ"),
     listeningBuild(ctx, "ja-na3-build-kinoko", "きのこ", "mushroom"),
 
-    { id: "ja-na3-info-review", type: "info", title: "Quick row sweep",
-      body: "Five kana, audio → pick what you hear.", variant: "tip" },
-    recognition(ctx, "ja-na3-rev-na", "な", "na", "like 'na'"),
-    recognition(ctx, "ja-na3-rev-ni", "に", "ni", "like 'nee'"),
-    recognition(ctx, "ja-na3-rev-nu", "ぬ", "nu", "like 'noo'"),
+    // Single representative row-sweep recog — the row-test that follows
+    // covers the full 5-kana sweep.
     recognition(ctx, "ja-na3-rev-ne", "ね", "ne", "like 'net'"),
-    recognition(ctx, "ja-na3-rev-no", "の", "no", "like 'no'"),
 
-    wordImageMcq(ctx, "ja-na3-mcq-cum", "ねこ"),
+    wordImageMcq(ctx, "ja-na3-mcq-rev-neko", "ねこ"),
 
     { id: "ja-na3-info-speak", type: "info", title: "Your turn to speak",
       body: "Tap the mic and say each word. Short words = lenient scoring.", variant: "tip" },
@@ -134,8 +130,8 @@ export const MOCK_LESSON_JA_M1_NA_3: LessonContent = {
     speaking("ja-na3-speak-neko",   "ねこ",   "cat"),
     speaking("ja-na3-speak-kinoko", "きのこ", "mushroom"),
 
-    { id: "ja-na3-info-end", type: "info", title: "Na-row complete",
-      body: "Five kana mastered. Three words: なに, ねこ, きのこ. Up next — ha row.",
-      variant: "default" },
+    { id: "ja-na3-info-end", type: "info", title: "Real-world win",
+      body: "You can now read ねこ (cat), なに (what) — and spot ナマエ ('name') in the name-field on every Japanese form. Up next — ha row.",
+      variant: "win" },
   ],
 };

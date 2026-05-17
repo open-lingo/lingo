@@ -1,27 +1,37 @@
 /**
  * TestRunner — runtime queue manager for a `RowTestStep`. Renders one item
  * at a time via the existing step renderers; on a miss, the item is
- * appended to the back of the queue (up to `maxRetries` times) so the
- * learner re-encounters it until they get it right.
+ * appended to the back of the queue and the learner re-encounters it
+ * until they get it right.
  *
- * Termination conditions:
- *   1. queue empty AND correctSeen / totalSeen >= passThreshold → pass
- *   2. queue empty AND below threshold → retry whole test or skip
- *   3. user clicks "Skip test" → confirm modal → end
+ * Mechanics (review-tail model, per Task #84):
+ *   - Wrong answer: do NOT advance the progress label / score; append the
+ *     missed item to the back of the queue; keep cycling.
+ *   - Completion: queue empty (every unique item answered correctly at
+ *     least once).
+ *   - Skip: via the in-header Skip button + confirm modal. Fires
+ *     `onComplete(stepId, false)` and exposes `wasSkipped=true` via the
+ *     skipped phase so the LessonPage can mark the completion record.
  *
- * Score model: each unique item contributes 1 to `totalSeen` the first
- * time we score it. Re-tries do NOT increment `totalSeen` again — that
- * would game the threshold downward. They DO update `correctSeen` once
- * the item is eventually answered correctly.
+ * No `maxRetries` cap (incoming items just re-queue), no `passThreshold`
+ * (there's no failing — only finishing or skipping). The fields stay on
+ * `RowTestStep` for backward compat with the catalog but are unused at
+ * runtime.
  */
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useRef } from "react";
 import type { RowTestStep, RowTestItem } from "../types";
+import { Button } from "@/shared/components/ui";
 import { MultipleChoiceStepView } from "./steps/MultipleChoiceStepView";
 import { MatchPairsStepView } from "./steps/MatchPairsStepView";
 import { BuildSentenceStepView } from "./steps/BuildSentenceStepView";
 
 type Props = {
   step: RowTestStep;
+  /**
+   * Called once when the test ends (queue empty OR skipped). `correct` is
+   * `true` for a clean completion and `false` for skipped — mirroring the
+   * pass/fail signature StepRenderer already expects.
+   */
   onComplete: (stepId: string, correct: boolean) => void;
   onContinue: () => void;
 };
@@ -30,13 +40,12 @@ type ItemState = {
   /** Original index into step.items — stable identity through requeues. */
   origIdx: number;
   item: RowTestItem;
-  /** Number of times this item has been re-queued. */
+  /** Number of times this item has been re-queued. Used only for ids /
+   *  diagnostics; the queue is uncapped under the review-tail model. */
   retries: number;
-  /** True once the learner has gotten it right at least once. */
-  passed: boolean;
 };
 
-type TestPhase = "running" | "passed" | "failed" | "skipped";
+type TestPhase = "running" | "passed" | "skipped";
 
 export function TestRunner({ step, onComplete, onContinue }: Props) {
   // Initial queue: each unique item once.
@@ -46,15 +55,13 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
         origIdx,
         item,
         retries: 0,
-        passed: false,
       })),
     [step.items],
   );
 
   const [queue, setQueue] = useState<ItemState[]>(initialQueue);
-  /** Items the learner has seen at least once. Used for threshold math. */
-  const [seenSet, setSeenSet] = useState<Set<number>>(() => new Set());
-  /** Items the learner has eventually gotten right. */
+  /** Items the learner has eventually answered correctly. Stable progress
+   *  count under the review-tail model — only first-correct advances it. */
   const [correctSet, setCorrectSet] = useState<Set<number>>(() => new Set());
   const [phase, setPhase] = useState<TestPhase>("running");
   const [confirmSkip, setConfirmSkip] = useState(false);
@@ -63,67 +70,59 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
 
   const total = step.items.length;
   const correct = correctSet.size;
-  const seen = seenSet.size;
-  const remaining = queue.length;
 
   const handleItemComplete = useCallback(
     (stepId: string, isCorrect: boolean) => {
-      // Defensive — re-entries during transitions shouldn't crash.
-      if (queue.length === 0) return;
-      // No-op — we wait for explicit Continue before requeueing or advancing.
-      // The view shows feedback in place until the learner presses Continue.
+      // No-op — we wait for explicit Continue before requeueing or
+      // advancing. The view shows feedback in place until the learner
+      // presses Continue.
       void stepId;
       void isCorrect;
     },
-    [queue.length],
+    [],
   );
 
   /**
    * Called by the inner step view's Continue handler. Advances the queue,
-   * scoring the item and re-queueing on a miss (up to maxRetries).
+   * scoring the item and re-queueing on a miss (uncapped — review-tail).
+   * On the final correct answer, finishes the test.
+   *
+   * Side effects (onComplete, phase transition) are intentionally NOT
+   * inside the setState updater so React 19 strict-mode double-invoke
+   * doesn't fire onComplete twice. We read the latest queue via state
+   * and recompute outside.
    */
   const handleItemContinue = useCallback(
     (isCorrect: boolean) => {
       if (queue.length === 0) return;
       const [current, ...rest] = queue;
-      const newSeen = new Set(seenSet);
-      const newCorrect = new Set(correctSet);
-      newSeen.add(current.origIdx);
-      let nextQueue = rest;
       if (isCorrect) {
-        newCorrect.add(current.origIdx);
-      } else if (current.retries < step.maxRetries) {
-        // Re-queue to the back.
-        nextQueue = [
-          ...rest,
-          { ...current, retries: current.retries + 1, passed: false },
-        ];
+        setCorrectSet((prev) => {
+          if (prev.has(current.origIdx)) return prev;
+          const next = new Set(prev);
+          next.add(current.origIdx);
+          return next;
+        });
+        setQueue(rest);
+        setAttemptKey((k) => k + 1);
+        if (rest.length === 0) {
+          setPhase("passed");
+          // Mark the encompassing step complete so LessonPage can award
+          // XP / mark progress. Lesson engine treats `row_test` as one
+          // step; the inner queue is internal.
+          onComplete(step.id, true);
+        }
+        return;
       }
-      setSeenSet(newSeen);
-      setCorrectSet(newCorrect);
-      setQueue(nextQueue);
+      // Wrong: re-queue to the back. Progress bar / score unchanged.
+      setQueue([
+        ...rest,
+        { ...current, retries: current.retries + 1 },
+      ]);
       setAttemptKey((k) => k + 1);
-
-      // End-of-queue check.
-      if (nextQueue.length === 0) {
-        const passed = newCorrect.size / Math.max(1, newSeen.size) >= step.passThreshold;
-        setPhase(passed ? "passed" : "failed");
-        // Mark the encompassing step complete so the LessonPage flow can
-        // award XP / mark progress. The lesson-engine treats `row_test` as
-        // a single step; the inner queue is internal.
-        onComplete(step.id, passed);
-      }
     },
-    [queue, seenSet, correctSet, step.maxRetries, step.passThreshold, step.id, onComplete],
+    [queue, onComplete, step.id],
   );
-
-  const restart = useCallback(() => {
-    setQueue(initialQueue);
-    setSeenSet(new Set());
-    setCorrectSet(new Set());
-    setPhase("running");
-    setAttemptKey((k) => k + 1);
-  }, [initialQueue]);
 
   const skip = useCallback(() => {
     setPhase("skipped");
@@ -134,50 +133,13 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-5 py-12">
         <div className="text-6xl">✅</div>
-        <h2 className="text-2xl font-bold text-text-primary">Row passed!</h2>
+        <h2 className="text-2xl font-bold text-text-primary">Row complete!</h2>
         <p className="text-sm text-text-muted">
-          {correct}/{seen} correct ·{" "}
-          {Math.round((correct / Math.max(1, seen)) * 100)}%
+          {correct}/{total} answered correctly · no items left
         </p>
-        <button
-          type="button"
-          onClick={onContinue}
-          className="rounded-xl border border-accent-hover bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wider text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:-translate-y-px"
-        >
+        <Button variant="primary-3d" onClick={onContinue}>
           Continue
-        </button>
-      </div>
-    );
-  }
-
-  if (phase === "failed") {
-    return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-5 py-12">
-        <div className="text-5xl">📝</div>
-        <h2 className="text-2xl font-bold text-text-primary">
-          Almost — let's run it again
-        </h2>
-        <p className="text-sm text-text-muted">
-          {correct}/{seen} correct ·{" "}
-          {Math.round((correct / Math.max(1, seen)) * 100)}% · need{" "}
-          {Math.round(step.passThreshold * 100)}%
-        </p>
-        <div className="flex gap-3">
-          <button
-            type="button"
-            onClick={restart}
-            className="rounded-xl border border-accent bg-accent-muted px-6 py-3 text-sm font-bold uppercase tracking-wider text-accent transition hover:-translate-y-px"
-          >
-            Try again
-          </button>
-          <button
-            type="button"
-            onClick={onContinue}
-            className="rounded-xl border border-border bg-surface px-6 py-3 text-sm font-medium text-text-secondary transition hover:border-accent"
-          >
-            Skip for now
-          </button>
-        </div>
+        </Button>
       </div>
     );
   }
@@ -188,22 +150,19 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
         <div className="text-5xl">⏭️</div>
         <h2 className="text-xl font-bold text-text-primary">Test skipped</h2>
         <p className="text-sm text-text-muted">
-          You can come back to it any time — tap the test node again.
+          You can come back any time — tap the row's test slot to earn the
+          mastery ★.
         </p>
-        <button
-          type="button"
-          onClick={onContinue}
-          className="rounded-xl border border-accent-hover bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wider text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:-translate-y-px"
-        >
+        <Button variant="primary-3d" onClick={onContinue}>
           Continue
-        </button>
+        </Button>
       </div>
     );
   }
 
   // Running: render the front-of-queue item.
   const current = queue[0];
-  const progressLabel = `${correct}/${total} correct · ${remaining} left`;
+  const progressLabel = `${correct}/${total} done`;
 
   return (
     <div className="flex flex-1 flex-col gap-3">
@@ -251,13 +210,16 @@ function TestItemView({
   onComplete: (stepId: string, correct: boolean) => void;
   onContinue: (wasCorrect: boolean) => void;
 }) {
-  const [lastCorrect, setLastCorrect] = useState<boolean | null>(null);
+  // Ref (not state) so the value read by `handleContinue` always reflects
+  // the most recent answer — the inner step views may call Submit and
+  // Continue in the same tick, before a state update re-renders.
+  const lastCorrectRef = useRef<boolean | null>(null);
   const handleComplete = (stepId: string, isCorrect: boolean) => {
-    setLastCorrect(isCorrect);
+    lastCorrectRef.current = isCorrect;
     onComplete(stepId, isCorrect);
   };
   const handleContinue = () => {
-    onContinue(lastCorrect ?? false);
+    onContinue(lastCorrectRef.current ?? false);
   };
   if (item.kind === "mc") {
     return (
@@ -304,8 +266,8 @@ function SkipConfirm({
           Skip the row test?
         </h2>
         <p className="mt-2 text-sm text-text-secondary">
-          You won't lose progress on the sub-lessons. You can return any time
-          by tapping the test node.
+          You won't lose progress on the sub-lessons, but you won't earn
+          the row's mastery ★ until you complete the test.
         </p>
         <div className="mt-6 flex justify-end gap-3">
           <button

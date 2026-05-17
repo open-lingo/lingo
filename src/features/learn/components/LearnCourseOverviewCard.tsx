@@ -5,6 +5,7 @@ import { Button, Card } from "@/shared/components/ui";
 import { cn } from "@/shared/components/ui/cn";
 import type { Course } from "@/shared/domain/course";
 import { getCurrentModuleIndex, getModuleStatus } from "../moduleProgress";
+import { getModuleMastery } from "../moduleMastery";
 
 export type LearnCourseOverviewCardProps = {
   course: Course;
@@ -29,41 +30,64 @@ export function LearnCourseOverviewCard({
     [course.modules],
   );
 
-  const { lessonsDone, lessonsTotal } = useMemo(() => {
+  const { lessonsDone, lessonsTotal, masteryPassed } = useMemo(() => {
     let done = 0;
     let total = 0;
+    let passed = 0;
     for (const mod of course.modules) {
       if (mod.comingSoon) continue;
       total += mod.lessons.length;
       done += mod.lessons.filter((l) => completedSet.has(l.id)).length;
+      passed += getModuleMastery(mod, completedSet).passed;
     }
-    return { lessonsDone: done, lessonsTotal: total };
+    return { lessonsDone: done, lessonsTotal: total, masteryPassed: passed };
   }, [course.modules, completedSet]);
 
   const progressPct =
     lessonsTotal > 0 ? Math.round((lessonsDone / lessonsTotal) * 100) : 0;
 
   return (
-    <Card as="section" padding="md" className="shadow-card">
-      <div className="mb-3 flex items-start justify-between gap-2">
-        <div>
-          <h2 className="m-0 text-sm font-semibold text-text-primary">
+    <Card as="section" padding="md" className="h-full shadow-card">
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h2 className="m-0 truncate text-base font-bold text-text-primary">
             {t("learn.courseOverviewTitle")}
           </h2>
-          <p className="mt-0.5 text-xs text-text-secondary">
+          <p className="mt-0.5 text-xs text-text-muted">
             {t("learn.courseOverviewLessons", {
               done: lessonsDone,
               total: lessonsTotal,
             })}
+            {masteryPassed > 0 ? (
+              <span
+                className="ml-1 inline-flex items-center font-semibold text-warning"
+                title={t("learn.courseOverviewMasteryTitle", {
+                  defaultValue: "{{n}} row tests aced",
+                  n: masteryPassed,
+                })}
+              >
+                · {masteryPassed} ★
+              </span>
+            ) : null}
           </p>
         </div>
-        <span className="shrink-0 text-sm font-bold tabular-nums text-accent">
+        <span className="shrink-0 rounded-full bg-accent/15 px-2.5 py-1 text-base font-extrabold tabular-nums text-accent">
           {progressPct}%
         </span>
       </div>
 
       <div
-        className="mb-4 flex items-center"
+        className="mb-3 h-1.5 overflow-hidden rounded-full bg-surface-muted"
+        aria-hidden
+      >
+        <div
+          className="h-full rounded-full bg-accent transition-[width] duration-500"
+          style={{ width: `${progressPct}%` }}
+        />
+      </div>
+
+      <div
+        className="mb-3 flex items-center"
         role="list"
         aria-label={t("learn.courseOverviewModulesAria")}
       >
@@ -93,12 +117,12 @@ export function LearnCourseOverviewCard({
                 role="listitem"
                 onClick={() => onJumpToModule(mod.id)}
                 className={cn(
-                  "relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-[10px] font-bold transition",
+                  "relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 text-xs font-extrabold transition",
                   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
                   status === "completed" &&
                     "border-success bg-success/15 text-success",
                   status === "current" &&
-                    "border-accent bg-accent/15 text-accent ring-2 ring-accent/25",
+                    "border-accent bg-accent/20 text-accent ring-2 ring-accent/30",
                   status === "locked" &&
                     "border-border bg-surface-muted text-text-muted",
                 )}
@@ -110,9 +134,9 @@ export function LearnCourseOverviewCard({
                 })}
               >
                 {status === "completed" ? (
-                  <Icon name="check" size={14} aria-hidden />
+                  <Icon name="check" size={16} aria-hidden />
                 ) : status === "locked" ? (
-                  <Icon name="lock" size={12} aria-hidden />
+                  <Icon name="lock" size={14} aria-hidden />
                 ) : (
                   `M${index}`
                 )}
@@ -131,7 +155,7 @@ export function LearnCourseOverviewCard({
           onClick={() => onJumpToModule(currentModule.id)}
         >
           <span className="inline-flex items-center gap-1.5">
-            <Icon name="layers" size={18} aria-hidden />
+            <Icon name="layers" size={16} aria-hidden />
             {t("learn.courseOverviewJump")}
           </span>
         </Button>
