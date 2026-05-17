@@ -10,6 +10,33 @@ import { MODULE_RECAP_LESSON_IDS } from "@/features/lesson/data/generatedHiragan
 
 export const ALPHABET_LESSON_ID = "m1-l0-alphabet";
 
+/**
+ * Helper for building inter-module review-module entries (M3 restructure
+ * 2026-05-16). Each review module = 3 review lessons + 1 mastery test
+ * (id-suffix `-test`) authored by `buildModuleReviewLessons`. Lessons
+ * carry kind="module_review" so UI surfaces them as separate from regular
+ * content modules.
+ */
+function reviewModuleEntry(
+  reviewModuleId: string,
+  title: string,
+  accent: { from: string; to: string },
+) {
+  return {
+    id: reviewModuleId,
+    title,
+    eyebrow: "Review",
+    summary: "Inter-module review cycle. SRS-style spaced retention.",
+    lessons: [
+      { id: `ja-${reviewModuleId}-1`, title: `${title} · 1 of 3`, status: "available" as const, kind: "module_review" as const },
+      { id: `ja-${reviewModuleId}-2`, title: `${title} · 2 of 3`, status: "available" as const, kind: "module_review" as const },
+      { id: `ja-${reviewModuleId}-3`, title: `${title} · 3 of 3`, status: "available" as const, kind: "module_review" as const },
+      { id: `ja-${reviewModuleId}-test`, title: `${title} · Mastery`, status: "available" as const, kind: "module_review" as const },
+    ],
+    accent,
+  };
+}
+
 export function getMockCourse(languageId: string): Course {
   const config = getLanguageConfig(languageId);
   const langName = config?.name ?? "Language";
@@ -204,56 +231,105 @@ export function getMockCourse(languageId: string): Course {
           lessons: m2Lessons,
           accent: { from: "#6366f1", to: "#8b5cf6" },
         },
+        // M3 — First sentences (です + か, は as topic).
         {
           id: "m3",
-          title: "First Words, First Grammar",
-          eyebrow: "Module 3 · Sentences",
-          summary: "Speak in real sentences. Katakana via context, not grind.",
-          // M3 — 10 hand-authored grammar-spine lessons (2026-05-16).
-          // Katakana introduced as a system (not per-row drill) in M3-1
-          // and sprinkled across vocab lessons via AnnotatedJa ruby; the
-          // M5 unlock will soft-gate on katakana practice completion
-          // (see isKatakanaPracticeComplete in moduleProgress.ts).
+          title: "First sentences",
+          eyebrow: "Module 3 · Speak",
+          summary: "です + か + は as topic. Adjective EXPOSURE in examples; no formal conjugation yet.",
           lessons: [
             { id: "ja-m3-1", title: "Katakana — the second alphabet", status: "available" as const },
             { id: "ja-m3-2", title: "です + か — your first sentences", status: "available" as const },
-            { id: "ja-m3-3", title: "は vs が — the BIG one", status: "available" as const },
-            { id: "ja-m3-4", title: "Food, things, and katakana in the wild", status: "available" as const },
-            { id: "ja-m3-5", title: "の + これ/それ/あれ/どれ", status: "available" as const },
-            { id: "ja-m3-6", title: "Numbers 1–10 + counting", status: "available" as const },
-            { id: "ja-m3-7", title: "に + で — destinations and settings", status: "available" as const },
-            { id: "ja-m3-8", title: "Sentence Build — putting it together", status: "available" as const },
-            { id: "ja-m3-9", title: "Mini-dialogue — ordering coffee", status: "available" as const },
-            { id: "ja-m3-10", title: "M3 Mastery Test", status: "available" as const },
+            { id: "ja-m3-3", title: "Things + colors in context", status: "available" as const },
+            { id: "ja-m3-4", title: "は — the topic marker", status: "available" as const },
+            { id: "ja-m3-5", title: "Interleaved drill — は + です + か", status: "available" as const },
+            { id: "ja-m3-6", title: "Sentence Build — putting it together", status: "available" as const },
+            { id: "ja-m3-7", title: "Mini-dialogue — meeting someone", status: "available" as const },
+            { id: "ja-m3-8", title: "M3 Mastery Test", status: "available" as const },
           ],
           accent: { from: "#ec4899", to: "#db2777" },
         },
+        // R1 — Review · M3
+        reviewModuleEntry("m3-review", "Review · M3", { from: "#fbbf24", to: "#f59e0b" }),
+        // M4 — Things and people (の + これ/それ/あれ/どれ).
         {
           id: "m4",
-          title: "Counters, time, days, money",
-          eyebrow: "Module 4 · Numbers & Counting",
-          summary: "Japanese counters and the time / date / money systems.",
-          lessons: [],
+          title: "Things and people",
+          eyebrow: "Module 4 · Possessives + pointers",
+          summary: "の (possession) + the four-way pointer system これ/それ/あれ/どれ.",
+          lessons: [
+            { id: "ja-m4-1", title: "Everyday objects", status: "available" as const },
+            { id: "ja-m4-2", title: "の — possession", status: "available" as const },
+            { id: "ja-m4-3", title: "More objects + の in context", status: "available" as const },
+            { id: "ja-m4-4", title: "これ / それ / あれ / どれ", status: "available" as const },
+            { id: "ja-m4-5", title: "Interleaved drill — の + pointers + は", status: "available" as const },
+            { id: "ja-m4-6", title: "Sentence Build — pointers + possessives", status: "available" as const },
+            { id: "ja-m4-7", title: "Mini-dialogue — at a friend's place", status: "available" as const },
+            { id: "ja-m4-8", title: "M4 Mastery Test", status: "available" as const },
+          ],
           accent: { from: "#f59e0b", to: "#d97706" },
-          comingSoon: true,
         },
+        // R2 — Review · M3+M4
+        reviewModuleEntry("m4-review", "Review · M3 + M4", { from: "#fbbf24", to: "#f59e0b" }),
+        // M5 — Numbers (1-10 + 人 counter).
         {
           id: "m5",
-          title: "Hello, my name is, where I'm from",
-          eyebrow: "Module 5 · Greetings & Self",
-          summary: "Introduce yourself and exchange basic pleasantries.",
-          lessons: [],
+          title: "Numbers",
+          eyebrow: "Module 5 · Counting",
+          summary: "Numbers 1-10 + the 人 (people) counter. Café + transaction scenes.",
+          lessons: [
+            { id: "ja-m5-1", title: "Numbers 1–5", status: "available" as const },
+            { id: "ja-m5-2", title: "Numbers 6–10 + ください", status: "available" as const },
+            { id: "ja-m5-3", title: "Counting people — 人", status: "available" as const },
+            { id: "ja-m5-4", title: "Café + transactions", status: "available" as const },
+            { id: "ja-m5-5", title: "Interleaved — numbers + pointers + は", status: "available" as const },
+            { id: "ja-m5-6", title: "Sentence Build — at the café", status: "available" as const },
+            { id: "ja-m5-7", title: "Mini-dialogue — ordering coffee", status: "available" as const },
+            { id: "ja-m5-8", title: "M5 Mastery Test", status: "available" as const },
+          ],
           accent: { from: "#0ea5e9", to: "#0284c7" },
-          comingSoon: true,
         },
+        // R3 — Review · M3+M4+M5
+        reviewModuleEntry("m5-review", "Review · M3 + M4 + M5", { from: "#fbbf24", to: "#f59e0b" }),
+        // M6 — Where things are (に + で + が via existence).
         {
           id: "m6",
-          title: "です, particles は・を・に",
-          eyebrow: "Module 6 · Simple Sentences",
-          summary: "Build your first real sentences with core particles.",
-          lessons: [],
+          title: "Where things are",
+          eyebrow: "Module 6 · Locations",
+          summary: "に + で + が introduced via existence (___ が あります / います).",
+          lessons: [
+            { id: "ja-m6-1", title: "Places", status: "available" as const },
+            { id: "ja-m6-2", title: "に — destination + existence", status: "available" as const },
+            { id: "ja-m6-3", title: "で — action setting + means", status: "available" as const },
+            { id: "ja-m6-4", title: "が — there is / there are", status: "available" as const },
+            { id: "ja-m6-5", title: "Interleaved — に + で", status: "available" as const },
+            { id: "ja-m6-6", title: "Interleaved — が + あります / います", status: "available" as const },
+            { id: "ja-m6-7", title: "Sentence Build — places + actions", status: "available" as const },
+            { id: "ja-m6-8", title: "Mini-dialogue — asking directions", status: "available" as const },
+            { id: "ja-m6-9", title: "M6 Mastery Test", status: "available" as const },
+          ],
           accent: { from: "#14b8a6", to: "#0d9488" },
-          comingSoon: true,
+        },
+        // R4 — Review · M4+M5+M6 (M3 has graduated to its own SRS by now).
+        reviewModuleEntry("m6-review", "Review · M4 + M5 + M6", { from: "#fbbf24", to: "#f59e0b" }),
+        // M7 — Verbs in motion (dictionary + ます + を).
+        {
+          id: "m7",
+          title: "Verbs in motion",
+          eyebrow: "Module 7 · Actions",
+          summary: "Dictionary form + ます polite stem + を (direct object). Real sentences with action.",
+          lessons: [
+            { id: "ja-m7-1", title: "Verbs — dictionary + polite stem", status: "available" as const },
+            { id: "ja-m7-2", title: "Dictionary form ↔ ます stem", status: "available" as const },
+            { id: "ja-m7-3", title: "を — the direct-object particle", status: "available" as const },
+            { id: "ja-m7-4", title: "Food + drink vocab", status: "available" as const },
+            { id: "ja-m7-5", title: "Drill — verbs + を", status: "available" as const },
+            { id: "ja-m7-6", title: "Interleaved — に + で + を", status: "available" as const },
+            { id: "ja-m7-7", title: "Sentence Build — actions in the world", status: "available" as const },
+            { id: "ja-m7-8", title: "Mini-dialogue — at a restaurant", status: "available" as const },
+            { id: "ja-m7-9", title: "M7 Mastery Test", status: "available" as const },
+          ],
+          accent: { from: "#a855f7", to: "#9333ea" },
         },
       ],
       sideQuests,

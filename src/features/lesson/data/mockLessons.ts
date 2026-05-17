@@ -60,16 +60,65 @@ import { MOCK_LESSON_JA_M2_YOON_SH_CH_1 } from "./mock-ja-m2-yoon-sh-ch";
 import { MOCK_LESSON_JA_M2_YOON_VOICED_1 } from "./mock-ja-m2-yoon-voiced";
 import { MOCK_LESSON_JA_M2_YOON_RARE_1 } from "./mock-ja-m2-yoon-rare";
 import { MOCK_LESSON_JA_SIDEQUEST_SURVIVAL } from "./mock-ja-sidequest-survival";
-import { MOCK_LESSON_JA_M3_1 } from "./mock-ja-m3-1";
-import { MOCK_LESSON_JA_M3_2 } from "./mock-ja-m3-2";
-import { MOCK_LESSON_JA_M3_3 } from "./mock-ja-m3-3";
-import { MOCK_LESSON_JA_M3_4 } from "./mock-ja-m3-4";
-import { MOCK_LESSON_JA_M3_5 } from "./mock-ja-m3-5";
-import { MOCK_LESSON_JA_M3_6 } from "./mock-ja-m3-6";
-import { MOCK_LESSON_JA_M3_7 } from "./mock-ja-m3-7";
-import { MOCK_LESSON_JA_M3_8 } from "./mock-ja-m3-8";
-import { MOCK_LESSON_JA_M3_9 } from "./mock-ja-m3-9";
-import { MOCK_LESSON_JA_M3_10 } from "./mock-ja-m3-10";
+import {
+  M3_1,
+  M3_2,
+  M3_3,
+  M3_4,
+  M3_5,
+  M3_6,
+  M3_7,
+  M3_8,
+} from "./mock-ja-m3-v2";
+import {
+  M4_1,
+  M4_2,
+  M4_3,
+  M4_4,
+  M4_5,
+  M4_6,
+  M4_7,
+  M4_8,
+} from "./mock-ja-m4";
+import {
+  M5_1,
+  M5_2,
+  M5_3,
+  M5_4,
+  M5_5,
+  M5_6,
+  M5_7,
+  M5_8,
+} from "./mock-ja-m5";
+import {
+  M6_1,
+  M6_2,
+  M6_3,
+  M6_4,
+  M6_5,
+  M6_6,
+  M6_7,
+  M6_8,
+  M6_9,
+} from "./mock-ja-m6";
+import {
+  M7_1,
+  M7_2,
+  M7_3,
+  M7_4,
+  M7_5,
+  M7_6,
+  M7_7,
+  M7_8,
+  M7_9,
+} from "./mock-ja-m7";
+import { buildModuleReviewLessons } from "./buildModuleReview";
+import {
+  POOL_M3,
+  POOL_M4,
+  POOL_M5,
+  POOL_M6,
+} from "./jaReviewPools";
 import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
 import { ALL_ROWS } from "./hiraganaCurriculum";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
@@ -125,20 +174,95 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m1-yoon-rare-1": MOCK_LESSON_JA_M2_YOON_RARE_1,
   // Sidequest lessons — day-1 unlocks, no row/module attachment.
   "ja-sidequest-survival-phrases": MOCK_LESSON_JA_SIDEQUEST_SURVIVAL,
-  // M3 — katakana system + first vocab + first grammar. Hand-authored
-  // grammar-spine lessons (not row-shaped); the augmentWithReviewTail
-  // helper skips them because the ids don't match `ja-mN-{rowId}-{suffix}`.
-  "ja-m3-1": MOCK_LESSON_JA_M3_1,
-  "ja-m3-2": MOCK_LESSON_JA_M3_2,
-  "ja-m3-3": MOCK_LESSON_JA_M3_3,
-  "ja-m3-4": MOCK_LESSON_JA_M3_4,
-  "ja-m3-5": MOCK_LESSON_JA_M3_5,
-  "ja-m3-6": MOCK_LESSON_JA_M3_6,
-  "ja-m3-7": MOCK_LESSON_JA_M3_7,
-  "ja-m3-8": MOCK_LESSON_JA_M3_8,
-  "ja-m3-9": MOCK_LESSON_JA_M3_9,
-  "ja-m3-10": MOCK_LESSON_JA_M3_10,
+  // M3-M7 — grammar-spine modules (restructure 2026-05-16). Hand-authored
+  // and registered explicitly. The augmentWithReviewTail helper skips them
+  // because their ids don't match `ja-mN-{rowId}-{suffix}`.
+  "ja-m3-1": M3_1,
+  "ja-m3-2": M3_2,
+  "ja-m3-3": M3_3,
+  "ja-m3-4": M3_4,
+  "ja-m3-5": M3_5,
+  "ja-m3-6": M3_6,
+  "ja-m3-7": M3_7,
+  "ja-m3-8": M3_8,
+  "ja-m4-1": M4_1,
+  "ja-m4-2": M4_2,
+  "ja-m4-3": M4_3,
+  "ja-m4-4": M4_4,
+  "ja-m4-5": M4_5,
+  "ja-m4-6": M4_6,
+  "ja-m4-7": M4_7,
+  "ja-m4-8": M4_8,
+  "ja-m5-1": M5_1,
+  "ja-m5-2": M5_2,
+  "ja-m5-3": M5_3,
+  "ja-m5-4": M5_4,
+  "ja-m5-5": M5_5,
+  "ja-m5-6": M5_6,
+  "ja-m5-7": M5_7,
+  "ja-m5-8": M5_8,
+  "ja-m6-1": M6_1,
+  "ja-m6-2": M6_2,
+  "ja-m6-3": M6_3,
+  "ja-m6-4": M6_4,
+  "ja-m6-5": M6_5,
+  "ja-m6-6": M6_6,
+  "ja-m6-7": M6_7,
+  "ja-m6-8": M6_8,
+  "ja-m6-9": M6_9,
+  "ja-m7-1": M7_1,
+  "ja-m7-2": M7_2,
+  "ja-m7-3": M7_3,
+  "ja-m7-4": M7_4,
+  "ja-m7-5": M7_5,
+  "ja-m7-6": M7_6,
+  "ja-m7-7": M7_7,
+  "ja-m7-8": M7_8,
+  "ja-m7-9": M7_9,
 };
+
+// ----- Inter-module review modules ----------------------------------------
+// Per Spencer's spec (2026-05-16): 4 review modules, one between each pair
+// of content modules. Each cycle = 3 review lessons + 1 mastery test.
+// Coverage scales: R1 = M3 only; R2 = M3+M4; R3 = M3+M4+M5; R4 = M4+M5+M6
+// (M3 has graduated to its own SRS schedule by the time R4 lands).
+function registerReviewLessons() {
+  const COURSE = "mock-1";
+  const LANG = "ja";
+  const reviewBundles = [
+    {
+      reviewModuleId: "m3-review",
+      reviewTitle: "Review · M3",
+      pools: [POOL_M3],
+    },
+    {
+      reviewModuleId: "m4-review",
+      reviewTitle: "Review · M3 + M4",
+      pools: [POOL_M3, POOL_M4],
+    },
+    {
+      reviewModuleId: "m5-review",
+      reviewTitle: "Review · M3 + M4 + M5",
+      pools: [POOL_M3, POOL_M4, POOL_M5],
+    },
+    {
+      reviewModuleId: "m6-review",
+      reviewTitle: "Review · M4 + M5 + M6",
+      pools: [POOL_M4, POOL_M5, POOL_M6],
+    },
+  ];
+  for (const bundle of reviewBundles) {
+    const lessons = buildModuleReviewLessons({
+      ...bundle,
+      courseId: COURSE,
+      languageId: LANG,
+    });
+    for (const lesson of lessons) {
+      LESSONS[lesson.id] = lesson;
+    }
+  }
+}
+registerReviewLessons();
 
 /**
  * Extract the row id from a JA sub-lesson id. Returns null for any id that

@@ -3,6 +3,11 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { getModuleMastery } from "./moduleMastery";
+import {
+  getDueReviews,
+  scheduleFirstReview,
+  reviewModuleIdFor,
+} from "@/features/lesson/data/moduleReviewSchedule";
 
 /** localStorage key shape for the one-shot mastery-transition toast.
  *  Versioned so a future copy/UX change can re-fire it for everyone. */
@@ -122,8 +127,21 @@ export function LearnPage() {
       const allDone = mod.lessons.every((l) => completedSet.has(l.id));
       if (!allDone) continue;
       graduateModule(course.id, mod);
+      // Schedule first review for content modules (not review modules
+      // themselves). Idempotent — re-running after re-mastery is a no-op.
+      // Skip module ids that look like review modules (ending in -review).
+      if (!mod.id.endsWith("-review")) {
+        scheduleFirstReview(mod.id);
+      }
     }
   }, [course, completedSet]);
+
+  // Surface the count of due reviews on the Learn header. Re-evaluated
+  // when completedSet changes (which fires after each lesson finishes).
+  const dueReviews = useMemo(
+    () => (course ? getDueReviews(course) : []),
+    [course, completedSet],
+  );
 
   // One-shot mastery toast — fires once per module the first time it
   // transitions to mastered (sub-lessons done + every row-test passed).
@@ -251,6 +269,15 @@ export function LearnPage() {
     });
   };
 
+  const handleReviewChipClick = () => {
+    if (dueReviews.length === 0) return;
+    const top = dueReviews[0];
+    const reviewModuleId = reviewModuleIdFor(top.moduleId);
+    // Open the first non-mastery lesson of the review module — users
+    // walk lessons 1 → 2 → 3 → test in order.
+    navigate(langPath(`learn/lessons/ja-${reviewModuleId}-1`));
+  };
+
   return (
     <>
       <header className="mb-5">
@@ -260,6 +287,26 @@ export function LearnPage() {
         <p className="mt-1 text-sm text-text-secondary">
           {t("learn.pathHint", "Tap a module to expand. The pulsing node is what we suggest — you choose.")}
         </p>
+        {dueReviews.length > 0 ? (
+          <button
+            type="button"
+            onClick={handleReviewChipClick}
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-amber-300 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-900 transition hover:bg-amber-100 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-200 dark:hover:bg-amber-900"
+            aria-label={t("learn.reviewsDueAria", {
+              defaultValue: "{{count}} module reviews due",
+              count: dueReviews.length,
+            })}
+          >
+            <span aria-hidden>🔄</span>
+            {t("learn.reviewsDue", {
+              defaultValue:
+                dueReviews.length === 1
+                  ? "{{count}} review due"
+                  : "{{count}} reviews due",
+              count: dueReviews.length,
+            })}
+          </button>
+        ) : null}
       </header>
       <LearnTopBar
         profile={profile}

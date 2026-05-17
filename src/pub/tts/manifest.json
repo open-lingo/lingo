@@ -23,6 +23,10 @@
     "tts/ja/64a98a80455fb613.mp3",
     "tts/ja/e7b9d0107397d65c.mp3"
   ],
+  "ja:あなたは せんせいですか。": [
+    "tts/ja/449ecd88319922a4.mp3",
+    "tts/ja/971ace66236675e3.mp3"
+  ],
   "ja:あめ": [
     "tts/ja/17c614408eb82378.mp3",
     "tts/ja/ba05313af358ef4f.mp3"
@@ -30,6 +34,14 @@
   "ja:ありがとうございます": [
     "tts/ja/06ebc199a8863bb0.mp3",
     "tts/ja/0e1a206d07423f3b.mp3"
+  ],
+  "ja:あれは いぬですか。": [
+    "tts/ja/990045441ac20953.mp3",
+    "tts/ja/1c9480b864325a88.mp3"
+  ],
+  "ja:あれは おおきいです": [
+    "tts/ja/f7afccc7a3a04ef9.mp3",
+    "tts/ja/28b5cb02c8dffe66.mp3"
   ],
   "ja:い": [
     "tts/ja/fe2abbb065219374.mp3",
@@ -363,6 +375,10 @@
     "tts/ja/082df15177ad32ec.mp3",
     "tts/ja/8ea3b26e55c87256.mp3"
   ],
+  "ja:これは あおいです": [
+    "tts/ja/2b52ed95a4dfb5ac.mp3",
+    "tts/ja/a9f8e35d2446f9b0.mp3"
+  ],
   "ja:これは せんせいの ほんです。": [
     "tts/ja/f3fd3c2d163320fb.mp3",
     "tts/ja/3e5611ded7a773ea.mp3"
@@ -370,6 +386,10 @@
   "ja:これは ほんです。": [
     "tts/ja/4bf6e4fdf18ccb6e.mp3",
     "tts/ja/3dcd30ee56c38336.mp3"
+  ],
+  "ja:これは みずです。": [
+    "tts/ja/fcd15db52ad4dfad.mp3",
+    "tts/ja/628c41045ef82797.mp3"
   ],
   "ja:これは わたしの かばんです。": [
     "tts/ja/f1847e622f3eb104.mp3",
@@ -523,6 +543,10 @@
     "tts/ja/1704868e91120990.mp3",
     "tts/ja/af7ebc24bf32062d.mp3"
   ],
+  "ja:すみません、なまえは なんですか": [
+    "tts/ja/ecccb3499c08a1de.mp3",
+    "tts/ja/176ed24630344f4d.mp3"
+  ],
   "ja:ず": [
     "tts/ja/7367e76f65dec510.mp3",
     "tts/ja/ad898d46e98e1344.mp3"
@@ -539,6 +563,10 @@
     "tts/ja/56be8dd6d7947624.mp3",
     "tts/ja/24783a816bcdd662.mp3"
   ],
+  "ja:せんせいですか。": [
+    "tts/ja/d01135f0267891d7.mp3",
+    "tts/ja/6bd5dbb3a9acdead.mp3"
+  ],
   "ja:ぜ": [
     "tts/ja/74e5be0e35548ccf.mp3",
     "tts/ja/99518b42c26d308b.mp3"
@@ -550,6 +578,10 @@
   "ja:そら": [
     "tts/ja/833fc13f3a180a04.mp3",
     "tts/ja/8243ea6a2e9443b1.mp3"
+  ],
+  "ja:それは あかいです": [
+    "tts/ja/ee6e5b3b38888dab.mp3",
+    "tts/ja/915ed5f04e6dddf5.mp3"
   ],
   "ja:それは なんですか。": [
     "tts/ja/3e0cd5fb0f4cd57b.mp3",
@@ -691,6 +723,14 @@
     "tts/ja/f641af68f7d5a8ea.mp3",
     "tts/ja/c88829e5eaa8d25d.mp3"
   ],
+  "ja:ともだちは せんせいです。": [
+    "tts/ja/df2c5c762e7f2f9d.mp3",
+    "tts/ja/220aae1250073f69.mp3"
+  ],
+  "ja:ともだちは アメリカじんです。": [
+    "tts/ja/7c1e84a23e34ac3b.mp3",
+    "tts/ja/5f4d2723d8a49ad7.mp3"
+  ],
   "ja:とり": [
     "tts/ja/9ec045893de23fcf.mp3",
     "tts/ja/b8c750df28100d2e.mp3"
@@ -759,6 +799,10 @@
     "tts/ja/4036a2915803ade4.mp3",
     "tts/ja/1ec338479412a4e3.mp3"
   ],
+  "ja:にほんじん": [
+    "tts/ja/d14aaecf8c5392bf.mp3",
+    "tts/ja/a7174d5b11e53dd2.mp3"
+  ],
   "ja:にほんじんですか。": [
     "tts/ja/29ecf8300f0c5b6b.mp3",
     "tts/ja/749b6fd1344def38.mp3"
@@ -815,6 +859,14 @@
     "tts/ja/a0f05d9605959f67.mp3",
     "tts/ja/892d0e328ed65f56.mp3"
   ],
+  "ja:ねこは あおいです。": [
+    "tts/ja/40c22b406131a804.mp3",
+    "tts/ja/513ee0a3d6273671.mp3"
+  ],
+  "ja:ねこは ほんです。": [
+    "tts/ja/d8da7ac2650ad850.mp3",
+    "tts/ja/58c31860807a40f2.mp3"
+  ],
   "ja:の": [
     "tts/ja/b02dcfe6d1f97601.mp3",
     "tts/ja/1a2da2f623d9afbc.mp3"
@@ -834,6 +886,10 @@
   "ja:はい。ありがとうございます": [
     "tts/ja/061310ba5d72b842.mp3",
     "tts/ja/36872e0070bdf3fc.mp3"
+  ],
+  "ja:はい。わたしは アメリカじんです": [
+    "tts/ja/a73225450371bc4a.mp3",
+    "tts/ja/9fa7614291f135cb.mp3"
   ],
   "ja:はし": [
     "tts/ja/7d9d47d68906587d.mp3",
@@ -1223,6 +1279,10 @@
     "tts/ja/77b61f2c89ae02f7.mp3",
     "tts/ja/e3bbb816c4dc1d23.mp3"
   ],
+  "ja:わたし アメリカじんです。": [
+    "tts/ja/753fd2c819260002.mp3",
+    "tts/ja/7b906a7109ab1110.mp3"
+  ],
   "ja:わたしの かばんです。": [
     "tts/ja/65b7538980afb6cf.mp3",
     "tts/ja/51b79430bc2c666c.mp3"
@@ -1239,6 +1299,10 @@
     "tts/ja/dba5ba69377f092f.mp3",
     "tts/ja/be3dd1f8186abb0b.mp3"
   ],
+  "ja:わたしは アメリカじんです。": [
+    "tts/ja/a924bffda639c9f7.mp3",
+    "tts/ja/c8d6f2d388a83f26.mp3"
+  ],
   "ja:を": [
     "tts/ja/51eeb7e487054b1b.mp3",
     "tts/ja/6d83c065a917fe74.mp3"
@@ -1254,6 +1318,10 @@
   "ja:アメリカじん": [
     "tts/ja/7f1bdb49c9a3656b.mp3",
     "tts/ja/6c2a047fb7839c13.mp3"
+  ],
+  "ja:アメリカじんですか": [
+    "tts/ja/6c2ddedc0174e066.mp3",
+    "tts/ja/9408384793e0b632.mp3"
   ],
   "ja:カメラ": [
     "tts/ja/2399f1ad85025429.mp3",

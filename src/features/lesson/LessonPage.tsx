@@ -27,6 +27,10 @@ import {
   getModuleMastery,
   isRowTestPassed,
 } from "@/features/learn/moduleMastery";
+import {
+  markReviewCompleted,
+  sourceModuleIdOf,
+} from "./data/moduleReviewSchedule";
 import type { LessonCompleteMastery } from "./components/LessonComplete";
 
 /** Replays of an already-completed lesson award a fraction of the original
@@ -172,6 +176,22 @@ export function LessonPage() {
       isReview,
       wasSkipped,
     });
+    // M3 restructure 2026-05-16: when a review module's mastery test passes
+    // (id pattern `ja-{moduleId}-review-test`), bump the SRS stage on the
+    // source module so the next review surfaces later. Only fire on a
+    // clean (non-skipped) pass + first-completion (not on review replays).
+    if (
+      !wasSkipped &&
+      !isReview &&
+      rowTestStep &&
+      lesson.id.endsWith("-review-test")
+    ) {
+      const reviewModuleId = lesson.moduleId; // e.g. "m3-review"
+      const sourceModuleId = sourceModuleIdOf(reviewModuleId);
+      if (sourceModuleId) {
+        markReviewCompleted(sourceModuleId);
+      }
+    }
     clearLessonInProgress(lesson.id);
   }, [finished, lesson, results, isReview]);
 

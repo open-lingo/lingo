@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -13,6 +14,11 @@ import {
   PracticeHubSection,
   type HubQuickLink,
 } from "@/features/practice/PracticeHubSection";
+import { getMockCourse } from "@/shared/domain/mockCourse";
+import {
+  getDueReviews,
+  reviewModuleIdFor,
+} from "@/features/lesson/data/moduleReviewSchedule";
 
 function bucketTrainers(items: PracticeNavItem[]) {
   const alphabets: PracticeNavItem[] = [];
@@ -50,6 +56,25 @@ export function PracticePage() {
   const languageName = getLanguageConfig(langId)?.name ?? langId;
 
   const { dueCount, isLoading: dueLoading } = useFlashcardDueSummary(langId);
+
+  // Module reviews — surface a Practice-page jump card when any are due.
+  const reviewCourse = useMemo(() => getMockCourse(langId), [langId]);
+  const dueReviews = useMemo(() => getDueReviews(reviewCourse), [reviewCourse]);
+  const reviewSubtitle =
+    dueReviews.length > 0
+      ? t("practice.hub.reviewsDueSummary", {
+          defaultValue: "{{count}} module reviews due",
+          count: dueReviews.length,
+        })
+      : t("practice.hub.reviewsCaughtUp", {
+          defaultValue: "All caught up",
+        });
+  const topReviewModuleId = dueReviews[0]
+    ? reviewModuleIdFor(dueReviews[0].moduleId)
+    : null;
+  const topReviewLink = topReviewModuleId
+    ? langPath(`learn/lessons/ja-${topReviewModuleId}-1`)
+    : langPath("learn");
 
   const navItems = getPracticeItemsForLanguage(language?.id, flags);
   const trainerItems = navItems.filter((item) => !item.to.endsWith("/practice/flashcards"));
@@ -130,6 +155,13 @@ export function PracticePage() {
       </header>
 
       <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+        <PracticeHubJumpCard
+          to={topReviewLink}
+          iconName="refresh"
+          title={t("practice.hub.reviewsTitle", { defaultValue: "Module reviews" })}
+          subtitle={reviewSubtitle}
+          footerLabel={t("practice.hub.jumpOpen")}
+        />
         <PracticeHubJumpCard
           to={langPath("practice/flashcards")}
           iconName="graduationCap"

@@ -10,6 +10,9 @@ import type {
   LessonContent,
 } from "../types";
 
+// M3 restructure (2026-05-16): 8 lessons instead of 10. Also exercise the
+// new M4/M5/M6/M7 grammar-rule and cloze coverage so the shape audit covers
+// the full grammar spine.
 const M3_IDS = [
   "ja-m3-1",
   "ja-m3-2",
@@ -19,8 +22,14 @@ const M3_IDS = [
   "ja-m3-6",
   "ja-m3-7",
   "ja-m3-8",
-  "ja-m3-9",
-  "ja-m3-10",
+];
+
+const ALL_GRAMMAR_LESSON_IDS = [
+  ...M3_IDS,
+  "ja-m4-1", "ja-m4-2", "ja-m4-3", "ja-m4-4", "ja-m4-5", "ja-m4-6", "ja-m4-7", "ja-m4-8",
+  "ja-m5-1", "ja-m5-2", "ja-m5-3", "ja-m5-4", "ja-m5-5", "ja-m5-6", "ja-m5-7", "ja-m5-8",
+  "ja-m6-1", "ja-m6-2", "ja-m6-3", "ja-m6-4", "ja-m6-5", "ja-m6-6", "ja-m6-7", "ja-m6-8", "ja-m6-9",
+  "ja-m7-1", "ja-m7-2", "ja-m7-3", "ja-m7-4", "ja-m7-5", "ja-m7-6", "ja-m7-7", "ja-m7-8", "ja-m7-9",
 ];
 
 describe("M3 lesson registration", () => {
@@ -49,19 +58,19 @@ describe("M3 lesson registration", () => {
     }
   });
 
-  it("M3-10 is a row-test mastery lesson", () => {
-    const lesson = getMockLessonContent("ja-m3-10")!;
+  it("M3-8 is a row-test mastery lesson", () => {
+    const lesson = getMockLessonContent("ja-m3-8")!;
     const rowTest = lesson.steps.find((s) => s.type === "row_test");
-    expect(rowTest, "M3-10 missing row_test step").toBeDefined();
+    expect(rowTest, "M3-8 missing row_test step").toBeDefined();
     if (rowTest?.type !== "row_test") return;
-    expect(rowTest.items.length).toBeGreaterThan(5);
+    expect(rowTest.items.length).toBeGreaterThan(3);
   });
 });
 
-describe("grammar_rule step shape", () => {
+describe("grammar_rule step shape (M3-M7 grammar spine)", () => {
   function getAllGrammarRules(): GrammarRuleStep[] {
     const out: GrammarRuleStep[] = [];
-    for (const id of M3_IDS) {
+    for (const id of ALL_GRAMMAR_LESSON_IDS) {
       const lesson = getMockLessonContent(id);
       if (!lesson) continue;
       for (const step of lesson.steps) {
@@ -71,24 +80,31 @@ describe("grammar_rule step shape", () => {
     return out;
   }
 
-  it("M3 contains grammar_rule steps for the core particles", () => {
+  it("M3-M7 contains grammar_rule steps for the core particles", () => {
     const rules = getAllGrammarRules();
-    expect(rules.length).toBeGreaterThanOrEqual(4);
+    expect(rules.length).toBeGreaterThanOrEqual(5);
     const titles = rules.map((r) => r.title);
-    // Must cover the four highest-leverage M3 rules.
+    // Must cover the highest-leverage M3-M7 rules per Spencer's restructure.
     expect(titles.some((t) => t.includes("です"))).toBe(true);
-    expect(titles.some((t) => t.includes("か"))).toBe(true);
-    expect(titles.some((t) => t.includes("は") && t.includes("が"))).toBe(true);
+    expect(titles.some((t) => t.includes("は"))).toBe(true);
     expect(titles.some((t) => t.includes("の"))).toBe(true);
+    expect(titles.some((t) => t.includes("が"))).toBe(true);
+    expect(titles.some((t) => t.includes("を"))).toBe(true);
   });
 
-  it("every grammar_rule has rule + at least 2 examples", () => {
+  it("every grammar_rule has rule + at least 2 examples + an antiPattern", () => {
+    // Audit rule (Spencer's restructure 2026-05-16): antiPattern is required
+    // on every Grammar Rule Card across M3-M7.
     for (const rule of getAllGrammarRules()) {
       expect(rule.rule.length, `${rule.id}: empty rule`).toBeGreaterThan(20);
       expect(
         rule.examples.length,
         `${rule.id}: needs ≥ 2 examples`,
       ).toBeGreaterThanOrEqual(2);
+      expect(
+        rule.antiPattern,
+        `${rule.id}: missing antiPattern (required across the M3-M7 spine)`,
+      ).toBeDefined();
       for (const ex of rule.examples) {
         expect(ex.ja.length).toBeGreaterThan(0);
         expect(ex.romaji.length).toBeGreaterThan(0);
@@ -98,10 +114,10 @@ describe("grammar_rule step shape", () => {
   });
 });
 
-describe("particle_cloze step shape", () => {
+describe("particle_cloze step shape (M3-M7 grammar spine)", () => {
   function getAllParticleClozes(): ParticleClozeStep[] {
     const out: ParticleClozeStep[] = [];
-    for (const id of M3_IDS) {
+    for (const id of ALL_GRAMMAR_LESSON_IDS) {
       const lesson = getMockLessonContent(id);
       if (!lesson) continue;
       for (const step of lesson.steps) {
@@ -111,9 +127,9 @@ describe("particle_cloze step shape", () => {
     return out;
   }
 
-  it("M3 contains particle_cloze steps", () => {
+  it("M3-M7 contains many particle_cloze steps (drilled across modules)", () => {
     const clozes = getAllParticleClozes();
-    expect(clozes.length).toBeGreaterThanOrEqual(6);
+    expect(clozes.length).toBeGreaterThanOrEqual(40);
   });
 
   it("every cloze has 4 options including the correct particle", () => {
@@ -127,9 +143,9 @@ describe("particle_cloze step shape", () => {
     }
   });
 
-  it("M3-3 (は vs が) has at least 6 cloze drills", () => {
-    const lesson = getMockLessonContent("ja-m3-3")!;
+  it("M3-4 (は as topic marker) has at least 5 cloze drills", () => {
+    const lesson = getMockLessonContent("ja-m3-4")!;
     const clozes = lesson.steps.filter((s) => s.type === "particle_cloze");
-    expect(clozes.length).toBeGreaterThanOrEqual(6);
+    expect(clozes.length).toBeGreaterThanOrEqual(5);
   });
 });

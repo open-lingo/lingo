@@ -76,12 +76,12 @@ describe("curriculum lesson counts", () => {
     }
   });
 
-  it("M3 has 10 lessons (grammar spine, no longer comingSoon)", () => {
+  it("M3 has 8 lessons (restructure 2026-05-16)", () => {
     const m3 = course.modules.find((m) => m.id === "m3")!;
     expect(m3).toBeDefined();
     expect(m3.comingSoon).toBeFalsy();
-    expect(m3.lessons.length).toBe(10);
-    for (let i = 1; i <= 10; i++) {
+    expect(m3.lessons.length).toBe(8);
+    for (let i = 1; i <= 8; i++) {
       expect(m3.lessons.some((l) => l.id === `ja-m3-${i}`)).toBe(true);
     }
   });
@@ -89,8 +89,54 @@ describe("curriculum lesson counts", () => {
   it("M3 final lesson is the mastery test", () => {
     const m3 = course.modules.find((m) => m.id === "m3")!;
     const last = m3.lessons[m3.lessons.length - 1];
-    expect(last.id).toBe("ja-m3-10");
+    expect(last.id).toBe("ja-m3-8");
     expect(last.title).toMatch(/Test|Mastery/i);
+  });
+
+  it("M4 has 8 lessons (possessives + pointers)", () => {
+    const m4 = course.modules.find((m) => m.id === "m4")!;
+    expect(m4.comingSoon).toBeFalsy();
+    expect(m4.lessons.length).toBe(8);
+  });
+
+  it("M5 has 8 lessons (numbers + counters)", () => {
+    const m5 = course.modules.find((m) => m.id === "m5")!;
+    expect(m5.comingSoon).toBeFalsy();
+    expect(m5.lessons.length).toBe(8);
+  });
+
+  it("M6 has 9 lessons (locations + に/で/が)", () => {
+    const m6 = course.modules.find((m) => m.id === "m6")!;
+    expect(m6.comingSoon).toBeFalsy();
+    expect(m6.lessons.length).toBe(9);
+  });
+
+  it("M7 has 9 lessons (verbs + を)", () => {
+    const m7 = course.modules.find((m) => m.id === "m7")!;
+    expect(m7.comingSoon).toBeFalsy();
+    expect(m7.lessons.length).toBe(9);
+  });
+
+  it("4 inter-module review modules exist (m3-review..m6-review)", () => {
+    for (const id of ["m3-review", "m4-review", "m5-review", "m6-review"]) {
+      const m = course.modules.find((x) => x.id === id);
+      expect(m, `${id} review module missing`).toBeDefined();
+      expect(m!.lessons.length).toBe(4); // 3 review lessons + 1 mastery test
+      for (const l of m!.lessons) {
+        expect(l.kind).toBe("module_review");
+      }
+    }
+  });
+
+  it("review modules are interleaved between content modules in order", () => {
+    const order = course.modules.map((m) => m.id);
+    expect(order.slice(2)).toEqual([
+      "m3", "m3-review",
+      "m4", "m4-review",
+      "m5", "m5-review",
+      "m6", "m6-review",
+      "m7",
+    ]);
   });
 
   it("yōon-capstone is the final yōon node before recap", () => {
