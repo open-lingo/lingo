@@ -40,7 +40,10 @@ const ctx: RowContext = {
   ],
   words: [
     { kana: "かい", meaningEn: "shell",   emoji: "🐚" },
-    { kana: "いけ", meaningEn: "pond",    emoji: "🪷" },
+    // BUG-C 2026-05-18: no emoji for "pond". Word stays for build /
+    // listening / lc steps; visual MCQ helpers skip it via the optional
+    // `emoji?` path.
+    { kana: "いけ", meaningEn: "pond" },
     { kana: "かお", meaningEn: "face",    emoji: "😀" },
     { kana: "こえ", meaningEn: "voice",   emoji: "🗣️" },
     { kana: "えき", meaningEn: "station", emoji: "🚉" },
@@ -112,7 +115,6 @@ export const MOCK_LESSON_JA_M1_KA_2: LessonContent = {
     traceTwice("ja-ka2-trace-ke", "け", "ke", "like 'ke' in 'kept'"),
     recognition(ctx, "ja-ka2-recog-ke", "け", "ke", "like 'ke' in 'kept'"),
 
-    wordImageMcq(ctx, "ja-ka2-mcq-ike", "いけ"),
     listeningBuild(ctx, "ja-ka2-build-ike", "いけ", "pond"),
 
     listeningComp("ja-ka2-lc-kai", "かい", "kai", "shell",

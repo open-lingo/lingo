@@ -49,7 +49,7 @@ const ctx: RowContext = {
   ],
   words: [
     { kana: "かわ",   meaningEn: "river", emoji: "🏞️" },
-    { kana: "わたし", meaningEn: "I / me",    emoji: "👤" },
+    { kana: "わたし", meaningEn: "I / me",    emoji: "🙋" },
     { kana: "ほん",   meaningEn: "book",      emoji: "📖" },
   ],
   tileBankPool: [

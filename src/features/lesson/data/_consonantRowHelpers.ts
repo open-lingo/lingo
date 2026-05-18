@@ -59,7 +59,17 @@ function moraTilesFor(word: string): string[] {
 }
 
 export type KanaEntry = { symbol: string; romaji: string };
-export type RowWord = { kana: string; meaningEn: string; emoji: string };
+export type RowWord = {
+  kana: string;
+  meaningEn: string;
+  /**
+   * Optional. Omit when no Unicode emoji unambiguously represents the
+   * word (e.g. いけ "pond"). Words without an emoji are still taught
+   * via audio/build/text steps, but are excluded from any visual MCQ
+   * (`wordImageMcq` / `priorWordMcq`) where the emoji is the cue.
+   */
+  emoji?: string;
+};
 
 export type RowContext = {
   /** The 5 kana of THIS row. Used for distractor pools in recognition
@@ -255,7 +265,18 @@ export function wordImageMcq(
   if (!correct) {
     throw new Error(`wordImageMcq: ${correctKana} not in row word pool`);
   }
-  const others = ctx.words.filter((w) => w.kana !== correctKana);
+  // BUG-C 2026-05-18: words without a usable emoji are excluded from
+  // visual MCQ — the entire step is emoji-based, so a missing image is
+  // unsolvable. Caller must pick a different word OR a different step
+  // type (build / listening_comp work without emoji).
+  if (!correct.emoji) {
+    throw new Error(
+      `wordImageMcq: ${correctKana} has no emoji — use listeningBuild or listeningComp instead`,
+    );
+  }
+  const others = ctx.words.filter(
+    (w) => w.kana !== correctKana && Boolean(w.emoji),
+  );
   const padding = FALLBACK_PADDING_WORDS.filter(
     (w) => w.kana !== correctKana && !ctx.words.some((cw) => cw.kana === w.kana),
   );
@@ -268,7 +289,7 @@ export function wordImageMcq(
       options.push({ id: "correct", word: correct.kana, emoji: correct.emoji });
     } else {
       const d = distractors[di++];
-      options.push({ id: `opt-${i}`, word: d.kana, emoji: d.emoji });
+      options.push({ id: `opt-${i}`, word: d.kana, emoji: d.emoji! });
     }
   }
   return {
@@ -291,7 +312,11 @@ export function listeningBuild(
   // kana, which violates the "small kana never separated" rule and
   // marks correct answers wrong.
   const mora = moraTilesFor(word);
-  const required = Array.from(new Set(mora));
+  // BUG-B fix 2026-05-18: don't dedupe required mora. Tester screenshot
+  // showed "peach" (もも) rendering one も + 3 distractors — unsolvable.
+  // Words with repeated mora (もも, ちち, はは, etc.) need each occurrence
+  // as its own tile so the build queue can accept both clicks.
+  const required = mora;
   return {
     id,
     type: "listening_build",
@@ -530,7 +555,10 @@ const VOWEL_WORDS: RowWord[] = [
 ];
 const KA_WORDS: RowWord[] = [
   { kana: "かい", meaningEn: "shell",   emoji: "🐚" },
-  { kana: "いけ", meaningEn: "pond",    emoji: "🪷" },
+  // BUG-C 2026-05-18: no emoji for "pond" (lotus 🪷 misleads, water
+  // collides with other words). Word stays — taught via build/listening;
+  // visual MCQ helpers skip it via the `emoji?` optional path.
+  { kana: "いけ", meaningEn: "pond" },
   { kana: "かお", meaningEn: "face",    emoji: "😀" },
   { kana: "こえ", meaningEn: "voice",   emoji: "🗣️" },
   { kana: "えき", meaningEn: "station", emoji: "🚉" },
@@ -706,7 +734,9 @@ export function priorKanaSymbolToSound(rowId: string, suffix: string): LessonSte
  * only pull vowel words — exactly 5, fits 4 slots without padding).
  */
 export function priorWordMcq(rowId: string, suffix: string): LessonStep {
-  const pool = priorWordsFor(rowId);
+  // BUG-C 2026-05-18: emoji-less words can't surface in visual MCQ —
+  // both target and distractor pools restricted to emoji-having entries.
+  const pool = priorWordsFor(rowId).filter((w) => Boolean(w.emoji));
   const seed = `${rowId}-rev-word-${suffix}`;
   const [target, ...rest] = pickFromPool(pool, seed, 4);
   const distractors = rest.slice(0, 3);
@@ -715,10 +745,10 @@ export function priorWordMcq(rowId: string, suffix: string): LessonStep {
   let di = 0;
   for (let i = 0; i < 4; i++) {
     if (i === slot) {
-      options.push({ id: "correct", word: target.kana, emoji: target.emoji });
+      options.push({ id: "correct", word: target.kana, emoji: target.emoji! });
     } else {
       const d = distractors[di++];
-      options.push({ id: `opt-${i}`, word: d.kana, emoji: d.emoji });
+      options.push({ id: `opt-${i}`, word: d.kana, emoji: d.emoji! });
     }
   }
   return {
@@ -785,15 +815,23 @@ function priorWordMcqExcluding(
   suffix: string,
   excludeKana: ReadonlySet<string>,
 ): LessonStep {
-  const pool = priorWordsFor(rowId).filter((w) => !excludeKana.has(w.kana));
+  // BUG-C 2026-05-18: emoji-less words (e.g. いけ) can't be a visual-MCQ
+  // target or distractor — the entire step uses the emoji as the cue.
+  // Excluded from both correct-candidate and distractor pools.
+  const pool = priorWordsFor(rowId).filter(
+    (w) => !excludeKana.has(w.kana) && Boolean(w.emoji),
+  );
   if (pool.length === 0) {
     throw new Error(`priorWordMcqExcluding: pool empty after exclusion for ${rowId}`);
   }
   const seed = `${rowId}-rev-word-${suffix}`;
   const [target, ...rest] = pickFromPool(pool, seed, 4);
   // Distractors: prefer same-pool foils; fall back to the full prior
-  // pool (minus target) if the post-exclusion pool is shorter than 4.
-  const fullPool = priorWordsFor(rowId).filter((w) => w.kana !== target.kana);
+  // pool (minus target, emoji-having only) if the post-exclusion pool
+  // is shorter than 4.
+  const fullPool = priorWordsFor(rowId).filter(
+    (w) => w.kana !== target.kana && Boolean(w.emoji),
+  );
   const distractorSource = rest.length >= 3 ? rest : fullPool.slice(0, 3);
   const distractors = distractorSource.slice(0, 3);
   const slot = correctSlot(`${rowId}-rev-word-${suffix}`);
@@ -801,10 +839,10 @@ function priorWordMcqExcluding(
   let di = 0;
   for (let i = 0; i < 4; i++) {
     if (i === slot) {
-      options.push({ id: "correct", word: target.kana, emoji: target.emoji });
+      options.push({ id: "correct", word: target.kana, emoji: target.emoji! });
     } else {
       const d = distractors[di++];
-      options.push({ id: `opt-${i}`, word: d.kana, emoji: d.emoji });
+      options.push({ id: `opt-${i}`, word: d.kana, emoji: d.emoji! });
     }
   }
   return {
