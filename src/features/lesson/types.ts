@@ -21,6 +21,7 @@ export type StepType =
   | "phrase_card"
   | "grammar_rule"
   | "particle_cloze"
+  | "self_explanation_mcq"
   | "row_test";
 
 export type StepBase = {
@@ -371,6 +372,48 @@ export type ParticleClozeStep = StepBase & {
   explanation?: string;
 };
 
+/**
+ * Self-explanation MCQ (M3+ metacognitive follow-up). After a learner
+ * commits an answer in an upstream step (typically `particle_cloze` or
+ * `multiple_choice`), this step asks "Why is that answer correct?" with
+ * three reason options:
+ *   - `rule`       — correct rule-citing answer.
+ *   - `surface`    — wrong-but-plausible heuristic (close miss).
+ *   - `distractor` — wrong and unrelated.
+ *
+ * Backed by Dunlosky 2013 (moderate-utility self-explanation effect).
+ * Mechanically a tagged variant of `multiple_choice` whose correct option
+ * encodes the rule rather than the surface answer; the `reasonType` tag
+ * drives differentiated wrong-answer feedback copy + analytics.
+ */
+export type SelfExplanationOption = {
+  id: string;
+  text: string;
+  /** "rule" = correct rule-citing answer; "surface" = wrong heuristic
+   *  (close miss — fires the "that's the pattern, but the rule is…" copy);
+   *  "distractor" = wrong & unrelated. */
+  reasonType: "rule" | "surface" | "distractor";
+};
+
+export type SelfExplanationMcqStep = StepBase & {
+  type: "self_explanation_mcq";
+  /** The just-answered fact this is asking the learner to reflect on.
+   *  Example: { label: "You picked は in: わたし＿ がくせいです",
+   *             audioText: "わたしは がくせいです" } */
+  anchor: {
+    label: string;
+    /** Optional Japanese to TTS as context when the learner taps the
+     *  anchor's play button. */
+    audioText?: string;
+  };
+  /** e.g. "Why is は correct here?" */
+  question: string;
+  options: SelfExplanationOption[];
+  correctOptionId: string;
+  /** Optional 1-sentence reveal shown after commit (the actual rule). */
+  ruleExplanation?: string;
+};
+
 export type RowTestStep = StepBase & {
   type: "row_test";
   rowId: string;
@@ -401,6 +444,7 @@ export type LessonStep =
   | PhraseCardStep
   | GrammarRuleStep
   | ParticleClozeStep
+  | SelfExplanationMcqStep
   | RowTestStep;
 
 export type LessonContent = {

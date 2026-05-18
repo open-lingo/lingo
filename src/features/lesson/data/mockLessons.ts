@@ -148,13 +148,10 @@ import {
   M7_8,
   M7_9,
 } from "./mock-ja-m7";
-import { buildModuleReviewLessons } from "./buildModuleReview";
-import {
-  POOL_M3,
-  POOL_M4,
-  POOL_M5,
-  POOL_M6,
-} from "./jaReviewPools";
+// `buildModuleReviewLessons` + jaReviewPools intentionally not imported.
+// 2026-05-18: standalone inter-module Review pseudo-modules removed from
+// the pathway; the helpers stay alive in their own files for future FSRS
+// surfacing (Learn page / flashcards), but no longer wired here.
 import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
 import { ALL_ROWS } from "./hiraganaCurriculum";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
@@ -274,48 +271,15 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m7-9": M7_9,
 };
 
-// ----- Inter-module review modules ----------------------------------------
-// Per Spencer's spec (2026-05-16): 4 review modules, one between each pair
-// of content modules. Each cycle = 3 review lessons + 1 mastery test.
-// Coverage scales: R1 = M3 only; R2 = M3+M4; R3 = M3+M4+M5; R4 = M4+M5+M6
-// (M3 has graduated to its own SRS schedule by the time R4 lands).
-function registerReviewLessons() {
-  const COURSE = "mock-1";
-  const LANG = "ja";
-  const reviewBundles = [
-    {
-      reviewModuleId: "m3-review",
-      reviewTitle: "Review · M3",
-      pools: [POOL_M3],
-    },
-    {
-      reviewModuleId: "m4-review",
-      reviewTitle: "Review · M3 + M4",
-      pools: [POOL_M3, POOL_M4],
-    },
-    {
-      reviewModuleId: "m5-review",
-      reviewTitle: "Review · M3 + M4 + M5",
-      pools: [POOL_M3, POOL_M4, POOL_M5],
-    },
-    {
-      reviewModuleId: "m6-review",
-      reviewTitle: "Review · M4 + M5 + M6",
-      pools: [POOL_M4, POOL_M5, POOL_M6],
-    },
-  ];
-  for (const bundle of reviewBundles) {
-    const lessons = buildModuleReviewLessons({
-      ...bundle,
-      courseId: COURSE,
-      languageId: LANG,
-    });
-    for (const lesson of lessons) {
-      LESSONS[lesson.id] = lesson;
-    }
-  }
-}
-registerReviewLessons();
+// ----- Inter-module review modules — REMOVED 2026-05-18 -------------------
+// The four standalone Review pseudo-modules (m3-review..m6-review) that
+// sat between content modules in the pathway were retired. The M3-M7
+// density rebuild now bakes compounding review into every sub-lesson tail
+// (per docs/m3-m7-rebuild-spec-2026-05-18.md §3 — review-to-new ratio
+// ≥0.25), so the dedicated review-module entries became pathway weight
+// without pedagogical value. `buildModuleReviewLessons` +
+// `moduleReviewSchedule` infrastructure stays alive in their own files
+// for future FSRS-tier surfacing on the Learn / flashcards surfaces.
 
 /**
  * Extract the row id from a JA sub-lesson id. Returns null for any id that
@@ -385,7 +349,12 @@ function augmentWithReviewTail(lesson: LessonContent): LessonContent {
  * Review pseudo-modules inherit their source module's status — a
  * `m5-review` lesson reviews M5 content, so it sunsets too.
  */
-const BUILD_SENTENCE_SUNSET_MODULES = new Set(["m5", "m6", "m7"]);
+// 2026-05-18 rebuild: M5-M7 sunset removed. Rebuilt M5-M7 substitute
+// build_sentence with translateStep + listeningBuildSentence + speaking
+// per docs/m3-m7-rebuild-spec-2026-05-18.md §4, so the runtime strip is
+// no longer needed. Empty set kept as a future safety net — re-populate
+// if a downstream module legitimately needs the strip path.
+const BUILD_SENTENCE_SUNSET_MODULES = new Set<string>();
 
 export function isSunsetModuleForBuildSentence(moduleId: string): boolean {
   if (BUILD_SENTENCE_SUNSET_MODULES.has(moduleId)) return true;

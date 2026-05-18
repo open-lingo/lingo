@@ -18,6 +18,7 @@ import { WordImageMcqStepView } from "./steps/WordImageMcqStepView";
 import { PhraseCardStepView } from "./steps/PhraseCardStepView";
 import { GrammarRuleStepView } from "./steps/GrammarRuleStepView";
 import { ParticleClozeStepView } from "./steps/ParticleClozeStepView";
+import { SelfExplanationMcqStepView } from "./steps/SelfExplanationMcqStepView";
 import { RowTestStepView } from "./steps/RowTestStepView";
 
 type Props = {
@@ -151,6 +152,14 @@ export function StepRenderer({ step, onComplete, onContinue }: Props) {
     case "particle_cloze":
       return (
         <ParticleClozeStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "self_explanation_mcq":
+      return (
+        <SelfExplanationMcqStepView
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}

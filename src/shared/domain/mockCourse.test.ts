@@ -123,26 +123,18 @@ describe("curriculum lesson counts", () => {
     expect(m7.lessons.length).toBe(9);
   });
 
-  it("4 inter-module review modules exist (m3-review..m6-review)", () => {
+  it("no standalone inter-module Review pseudo-modules exist (removed 2026-05-18)", () => {
+    // Compounding review now lives inside every M3-M7 sub-lesson tail per
+    // docs/m3-m7-rebuild-spec-2026-05-18.md §3 — the standalone Review
+    // pathway entries were retired as dead weight.
     for (const id of ["m3-review", "m4-review", "m5-review", "m6-review"]) {
-      const m = course.modules.find((x) => x.id === id);
-      expect(m, `${id} review module missing`).toBeDefined();
-      expect(m!.lessons.length).toBe(4); // 3 review lessons + 1 mastery test
-      for (const l of m!.lessons) {
-        expect(l.kind).toBe("module_review");
-      }
+      expect(course.modules.find((x) => x.id === id)).toBeUndefined();
     }
   });
 
-  it("review modules are interleaved between content modules in order", () => {
+  it("content modules sit in order with no review interleave", () => {
     const order = course.modules.map((m) => m.id);
-    expect(order.slice(2)).toEqual([
-      "m3", "m3-review",
-      "m4", "m4-review",
-      "m5", "m5-review",
-      "m6", "m6-review",
-      "m7",
-    ]);
+    expect(order.slice(2)).toEqual(["m3", "m4", "m5", "m6", "m7"]);
   });
 
   it("yoon-rare-test is the final yōon node before recap", () => {

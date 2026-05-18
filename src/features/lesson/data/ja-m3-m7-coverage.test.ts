@@ -1,10 +1,14 @@
 /**
- * Coverage audit for the M3-M7 grammar-spine (restructure 2026-05-16).
+ * Coverage audit for the M3-M7 grammar-spine (rebuild 2026-05-18).
  *
  * Asserts that:
  *   - every authored module lesson resolves via getMockLessonContent
  *   - every module has at least one grammar_rule + one dialogue + one row_test
- *   - every review module has the expected 4 lessons (3 review + 1 test)
+ *
+ * The standalone inter-module Review pseudo-modules were retired
+ * 2026-05-18 (compounding review now baked into every sub-lesson tail
+ * per docs/m3-m7-rebuild-spec-2026-05-18.md §3); the corresponding
+ * registration assertions were removed.
  *
  * Without this test the curriculum can silently regress when modules are
  * re-edited.
@@ -19,8 +23,6 @@ const MODULE_LESSON_IDS: Record<string, string[]> = {
   m6: ["ja-m6-1", "ja-m6-2", "ja-m6-3", "ja-m6-4", "ja-m6-5", "ja-m6-6", "ja-m6-7", "ja-m6-8", "ja-m6-9"],
   m7: ["ja-m7-1", "ja-m7-2", "ja-m7-3", "ja-m7-4", "ja-m7-5", "ja-m7-6", "ja-m7-7", "ja-m7-8", "ja-m7-9"],
 };
-
-const REVIEW_MODULE_IDS = ["m3-review", "m4-review", "m5-review", "m6-review"];
 
 describe("M3-M7 lesson registration", () => {
   for (const [moduleId, lessonIds] of Object.entries(MODULE_LESSON_IDS)) {
@@ -79,29 +81,12 @@ describe("M3-M7 lesson registration", () => {
   }
 });
 
-describe("review module registration", () => {
-  for (const moduleId of REVIEW_MODULE_IDS) {
-    describe(`review module ${moduleId}`, () => {
-      const expectedIds = [
-        `ja-${moduleId}-1`,
-        `ja-${moduleId}-2`,
-        `ja-${moduleId}-3`,
-        `ja-${moduleId}-test`,
-      ];
-      for (const id of expectedIds) {
-        it(`${id} resolves and is kind=module_review`, () => {
-          const lesson = getMockLessonContent(id);
-          expect(lesson, `${id} missing`).not.toBeNull();
-          expect(lesson!.kind).toBe("module_review");
-          expect(lesson!.moduleId).toBe(moduleId);
-        });
-      }
-
-      it("test lesson has a row_test step", () => {
-        const test = getMockLessonContent(`ja-${moduleId}-test`)!;
-        const rowTest = test.steps.find((s) => s.type === "row_test");
-        expect(rowTest).toBeDefined();
-      });
+describe("standalone review pseudo-modules removed (2026-05-18)", () => {
+  // Compounding review now lives in every M3-M7 sub-lesson tail; the
+  // dedicated review-module registration was retired.
+  for (const id of ["m3-review", "m4-review", "m5-review", "m6-review"]) {
+    it(`ja-${id}-1 no longer resolves`, () => {
+      expect(getMockLessonContent(`ja-${id}-1`)).toBeNull();
     });
   }
 });

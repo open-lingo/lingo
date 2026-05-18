@@ -10,32 +10,12 @@ import { MODULE_RECAP_LESSON_IDS } from "@/features/lesson/data/generatedHiragan
 
 export const ALPHABET_LESSON_ID = "m1-l0-alphabet";
 
-/**
- * Helper for building inter-module review-module entries (M3 restructure
- * 2026-05-16). Each review module = 3 review lessons + 1 mastery test
- * (id-suffix `-test`) authored by `buildModuleReviewLessons`. Lessons
- * carry kind="module_review" so UI surfaces them as separate from regular
- * content modules.
- */
-function reviewModuleEntry(
-  reviewModuleId: string,
-  title: string,
-  accent: { from: string; to: string },
-) {
-  return {
-    id: reviewModuleId,
-    title,
-    eyebrow: "Review",
-    summary: "Inter-module review cycle. SRS-style spaced retention.",
-    lessons: [
-      { id: `ja-${reviewModuleId}-1`, title: `${title} · 1 of 3`, status: "available" as const, kind: "module_review" as const },
-      { id: `ja-${reviewModuleId}-2`, title: `${title} · 2 of 3`, status: "available" as const, kind: "module_review" as const },
-      { id: `ja-${reviewModuleId}-3`, title: `${title} · 3 of 3`, status: "available" as const, kind: "module_review" as const },
-      { id: `ja-${reviewModuleId}-test`, title: `${title} · Mastery`, status: "available" as const, kind: "module_review" as const },
-    ],
-    accent,
-  };
-}
+// `reviewModuleEntry` helper removed 2026-05-18 alongside the standalone
+// inter-module Review pseudo-modules. The M3-M7 density rebuild now bakes
+// compounding review into every sub-lesson tail (per
+// docs/m3-m7-rebuild-spec-2026-05-18.md §3) so the separate pathway
+// entries were dead weight. The lesson-data registration in
+// `mockLessons.ts` was retired in the same edit.
 
 export function getMockCourse(languageId: string): Course {
   const config = getLanguageConfig(languageId);
@@ -251,8 +231,6 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#ec4899", to: "#db2777" },
         },
-        // R1 — Review · M3
-        reviewModuleEntry("m3-review", "Review · M3", { from: "#fbbf24", to: "#f59e0b" }),
         // M4 — Things and people (の + これ/それ/あれ/どれ).
         {
           id: "m4",
@@ -271,8 +249,6 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#f59e0b", to: "#d97706" },
         },
-        // R2 — Review · M3+M4
-        reviewModuleEntry("m4-review", "Review · M3 + M4", { from: "#fbbf24", to: "#f59e0b" }),
         // M5 — Numbers (1-10 + 人 counter).
         {
           id: "m5",
@@ -291,8 +267,6 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#0ea5e9", to: "#0284c7" },
         },
-        // R3 — Review · M3+M4+M5
-        reviewModuleEntry("m5-review", "Review · M3 + M4 + M5", { from: "#fbbf24", to: "#f59e0b" }),
         // M6 — Where things are (に + で + が via existence).
         {
           id: "m6",
@@ -312,9 +286,14 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#14b8a6", to: "#0d9488" },
         },
-        // R4 — Review · M4+M5+M6 (M3 has graduated to its own SRS by now).
-        reviewModuleEntry("m6-review", "Review · M4 + M5 + M6", { from: "#fbbf24", to: "#f59e0b" }),
         // M7 — Verbs in motion (dictionary + ます + を).
+        // 2026-05-18: standalone inter-module Review pseudo-modules removed.
+        // Compounding review is now baked into every M3-M7 sub-lesson per
+        // m3-m7-rebuild-spec-2026-05-18.md §3 (review-to-new ratio ≥0.25),
+        // so the separate R1-R4 pathway entries became dead pathway weight.
+        // `buildModuleReviewLessons` + `moduleReviewSchedule` infra kept
+        // alive for future FSRS-tier surfacing on the Learn / flashcards
+        // surfaces (per curriculum-roadmap §6 module-review subsection).
         {
           id: "m7",
           title: "Verbs in motion",
