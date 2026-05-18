@@ -12,17 +12,14 @@ import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { getNextLesson } from "@/features/course/nextLesson";
-import { ProgressSummary } from "@/features/progress/ProgressSummary";
 import { FlashcardsCard } from "@/features/flashcards/FlashcardsCard";
 import { PracticeCard } from "@/features/practice/PracticeCard";
 import { LanguagePickerModal } from "./LanguagePickerModal";
 import { HomeNavCard } from "./HomeNavCard";
-import { HomeActivityPanel } from "./HomeActivityPanel";
 import { WelcomeBanner } from "./components/WelcomeBanner";
 import { EmptyActivityNotice } from "./components/EmptyActivityNotice";
+import { RestructuredHome } from "./restructured/RestructuredHome";
 import { Card, Button } from "@/shared/components/ui";
-import { cn } from "@/shared/components/ui/cn";
-import { Icon } from "@/shared/components/Icon";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 
 const storyCard = {
@@ -42,7 +39,6 @@ export function HomePage() {
   const course = language ? getMockCourse(language.id) : null;
   const nextLesson = course ? getNextLesson(course) : null;
   const langConfig = language ? getLanguageConfig(language.id) : null;
-  const hasBgImage = Boolean(langConfig?.backgroundImage);
 
   const { data: me, error: meError, isError: meIsError } = useQuery({
     queryKey: ["users", "me"],
@@ -170,78 +166,7 @@ export function HomePage() {
             <EmptyActivityNotice />
           </>
         ) : (
-          <>
-            <h1 className="text-2xl font-bold text-text-primary sm:text-3xl">
-              {t("home.welcomeBack", { name: friendlyName })}
-            </h1>
-
-            {nextLesson ? (
-              <Link
-                to={langPath("learn")}
-                className="group relative flex min-h-[140px] items-center gap-4 overflow-hidden rounded-xl border border-border p-5 transition hover:border-accent/50 hover:shadow-md sm:p-6"
-                style={
-                  langConfig?.backgroundImage
-                    ? {
-                        backgroundImage: `url(${langConfig.backgroundImage})`,
-                        backgroundSize: langConfig.backgroundImageFit ?? "cover",
-                        backgroundPosition: "center",
-                      }
-                    : undefined
-                }
-              >
-                {hasBgImage ? (
-                  <span
-                    className="absolute inset-0 bg-black/50 dark:bg-black/60"
-                    aria-hidden
-                  />
-                ) : (
-                  <span className="absolute inset-0 bg-surface" aria-hidden />
-                )}
-                <span
-                  className={cn(
-                    "relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl",
-                    hasBgImage
-                      ? "bg-white/20 text-white"
-                      : "bg-accent-muted text-accent",
-                  )}
-                  aria-hidden
-                >
-                  <Icon name="bookOpen" size={26} />
-                </span>
-                <div className="relative min-w-0 flex-1">
-                  <p
-                    className={`text-sm font-medium ${
-                      hasBgImage ? "text-gray-200" : "text-text-secondary"
-                    }`}
-                  >
-                    {t("home.continueLearning")}
-                  </p>
-                  <p
-                    className={`mt-0.5 font-semibold ${
-                      hasBgImage ? "text-white" : "text-text-primary"
-                    }`}
-                  >
-                    {nextLesson.module} · {nextLesson.lesson.title}
-                  </p>
-                </div>
-                <span
-                  className={cn(
-                    "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition",
-                    hasBgImage
-                      ? "bg-white/15 text-white group-hover:bg-white/25"
-                      : "bg-surface-muted text-text-muted group-hover:bg-accent-muted group-hover:text-accent",
-                  )}
-                  aria-hidden
-                >
-                  <Icon name="chevronRight" size={22} />
-                </span>
-              </Link>
-            ) : null}
-
-            <ProgressSummary />
-            {navCards}
-            <HomeActivityPanel />
-          </>
+          <RestructuredHome greetingName={friendlyName} />
         )}
       </div>
     </>
