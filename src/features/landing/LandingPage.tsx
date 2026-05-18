@@ -33,7 +33,7 @@ const WHY_ITEMS: WhyItem[] = [
     icon: "layers",
     key: "whySrsRespect",
     titleDefault: "SRS that respects you",
-    descDefault: "FSRS-6 scheduling, no infinite drills. Cards return the moment you'd start forgetting them.",
+    descDefault: "Spaced repetition, no infinite drills. Cards return when you're about to forget — not on a fixed schedule.",
   },
   {
     icon: "github",
@@ -55,7 +55,7 @@ const FEATURES: FeatureItem[] = [
     icon: "bookOpen",
     key: "featureFlashcards",
     titleDefault: "SRS flashcards",
-    descDefault: "FSRS-6 scheduling with audio, ruby text, and image support. Import Anki decks too.",
+    descDefault: "Spaced repetition with audio, ruby text, and image support. Import Anki decks too.",
   },
   {
     icon: "bookText",
