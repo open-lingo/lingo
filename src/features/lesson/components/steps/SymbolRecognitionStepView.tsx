@@ -9,6 +9,7 @@ import {
   autoPlayAlphabetAudio,
   getAlphabetAudioUrl,
 } from "@/shared/audio/alphabetAudio";
+import { playLocalAudio } from "@/shared/audio/volume";
 import {
   getTtsUrl,
   playJaAudio,
@@ -57,8 +58,7 @@ export function SymbolRecognitionStepView({
       return;
     }
     if (!step.payload.audioKey) return;
-    const audio = new Audio(getAlphabetAudioUrl(step.payload.audioKey));
-    audio.play().catch(() => {});
+    playLocalAudio(getAlphabetAudioUrl(step.payload.audioKey));
   }
 
   const isCorrect = selected === step.correctOptionId;

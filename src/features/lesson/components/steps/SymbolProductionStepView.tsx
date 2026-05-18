@@ -17,6 +17,7 @@ import {
   autoPlayAlphabetAudio,
   getAlphabetAudioUrl,
 } from "@/shared/audio/alphabetAudio";
+import { playLocalAudio } from "@/shared/audio/volume";
 import { Icon } from "@/shared/components/Icon";
 import {
   getReferenceFor,
@@ -73,8 +74,7 @@ export function SymbolProductionStepView({
 
   function handlePlay() {
     if (!step.payload.audioKey) return;
-    const audio = new Audio(getAlphabetAudioUrl(step.payload.audioKey));
-    audio.play().catch(() => {});
+    playLocalAudio(getAlphabetAudioUrl(step.payload.audioKey));
   }
 
   const handleCheck = useCallback(() => {

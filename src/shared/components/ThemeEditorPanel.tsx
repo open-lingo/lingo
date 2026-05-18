@@ -92,6 +92,7 @@ export function ThemeEditorPanel() {
   } = useTheme();
   const { settings, updateSetting } = useSettings();
   const silentMode = settings.audio.silentMode;
+  const volume = settings.audio.volume ?? 1;
 
   const [draft, setDraft] = useState<ThemeTokens>(() => ensureThemeTokens(activeTokens));
   const [draftName, setDraftName] = useState("");
@@ -354,6 +355,41 @@ export function ThemeEditorPanel() {
             <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
               {t("settings.audio", "Audio")}
             </h3>
+            <div className="mb-3 rounded-lg border border-border bg-surface p-3">
+              <div className="mb-2 flex items-center justify-between">
+                <label
+                  htmlFor="audio-volume-slider"
+                  className="text-sm font-medium text-text-primary"
+                >
+                  {t("settings.audioVolume", "App volume")}
+                </label>
+                <span className="text-xs tabular-nums text-text-muted">
+                  {Math.round(volume * 100)}%
+                </span>
+              </div>
+              <input
+                id="audio-volume-slider"
+                type="range"
+                min={0}
+                max={1}
+                step={0.05}
+                value={volume}
+                onChange={(e) =>
+                  updateSetting("audio.volume", Number(e.target.value))
+                }
+                className="w-full cursor-pointer accent-accent"
+                aria-describedby="audio-volume-help"
+              />
+              <p
+                id="audio-volume-help"
+                className="mt-1 text-xs text-text-muted"
+              >
+                {t(
+                  "settings.audioVolumeHelp",
+                  "Adjust Lingo's audio without touching your device volume.",
+                )}
+              </p>
+            </div>
             <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-surface p-3 transition hover:bg-surface-muted">
               <input
                 type="checkbox"

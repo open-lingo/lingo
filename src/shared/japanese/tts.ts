@@ -21,6 +21,7 @@
 import { useEffect } from "react";
 import manifest from "../../pub/tts/manifest.json";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { getAudioVolume, subscribeAudioVolume } from "@/shared/audio/volume";
 
 const MANIFEST = manifest as Record<string, string | string[]>;
 
@@ -52,7 +53,9 @@ type WebAudioWindow = Window & {
 };
 
 let ctx: AudioContext | null = null;
+let gain: GainNode | null = null;
 let unlocked = false;
+let volumeSubscribed = false;
 
 function getContext(): AudioContext | null {
   if (ctx) return ctx;
@@ -62,6 +65,29 @@ function getContext(): AudioContext | null {
   if (!Ctor) return null;
   ctx = new Ctor();
   return ctx;
+}
+
+/**
+ * Shared GainNode that sits between every source and the destination so
+ * the app-wide volume slider can attenuate TTS output. Created lazily on
+ * first use and subscribed once to the volume module so changes propagate
+ * immediately (no re-render needed in views).
+ */
+function getGain(): GainNode | null {
+  const c = getContext();
+  if (!c) return null;
+  if (!gain) {
+    gain = c.createGain();
+    gain.gain.value = getAudioVolume();
+    gain.connect(c.destination);
+  }
+  if (!volumeSubscribed) {
+    volumeSubscribed = true;
+    subscribeAudioVolume((v) => {
+      if (gain) gain.gain.value = v;
+    });
+  }
+  return gain;
 }
 
 /**
@@ -145,7 +171,8 @@ function playBuffer(buffer: AudioBuffer): void {
   }
   const src = c.createBufferSource();
   src.buffer = buffer;
-  src.connect(c.destination);
+  const out = getGain() ?? c.destination;
+  src.connect(out);
   src.start();
 }
 

@@ -1,3 +1,5 @@
+import { playLocalAudio } from "./volume";
+
 export function getAlphabetAudioUrl(audioKey: string): string {
   // For Hangul we currently store the Romanization (e.g. "a", "eo", "g") as the audioKey.
   // The CDN pattern provided is:
@@ -33,7 +35,6 @@ export function autoPlayAlphabetAudio(
   if (playedAutoAudioKeys.has(key)) return;
   playedAutoAudioKeys.add(key);
 
-  const audio = new Audio(url);
-  audio.play().catch(() => {});
+  playLocalAudio(url);
 }
 

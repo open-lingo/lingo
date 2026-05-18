@@ -17,6 +17,7 @@ import {
 } from "@/features/settings/storage";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api/provider";
+import { setAudioVolume } from "@/shared/audio/volume";
 
 type SettingsContextValue = {
   settings: UserSettings;
@@ -335,6 +336,10 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       delete root.dataset.reducedMotion;
     }
   }, [settings.accessibility.reducedMotion]);
+
+  useEffect(() => {
+    setAudioVolume(settings.audio.volume ?? 1);
+  }, [settings.audio.volume]);
 
   const value = useMemo(
     () => ({

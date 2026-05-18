@@ -6,6 +6,7 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { getTtsUrl } from "@/shared/japanese/tts";
 import { getAlphabetAudioUrl } from "@/shared/audio/alphabetAudio";
+import { playLocalAudio } from "@/shared/audio/volume";
 
 const CELEBRATE_MS = 1100;
 
@@ -45,15 +46,13 @@ export function SymbolToSoundStepView({
     if (opt.symbol) {
       const url = getTtsUrl(opt.symbol);
       if (url) {
-        new Audio(url).play().catch(() => {});
+        playLocalAudio(url);
         return;
       }
     }
     // Last-ditch: payload.audioKey (only the correct option matches).
     if (opt.symbol === step.payload.symbol && step.payload.audioKey) {
-      new Audio(getAlphabetAudioUrl(step.payload.audioKey))
-        .play()
-        .catch(() => {});
+      playLocalAudio(getAlphabetAudioUrl(step.payload.audioKey));
     }
   }
 

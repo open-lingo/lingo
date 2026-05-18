@@ -10,6 +10,7 @@ import { ProgressDots } from "../ProgressDots";
 import { useCanvasSize } from "../useCanvasSize";
 import { Icon } from "@/shared/components/Icon";
 import { autoPlayAlphabetAudio, getAlphabetAudioUrl } from "@/shared/audio/alphabetAudio";
+import { playLocalAudio } from "@/shared/audio/volume";
 import { getTtsUrl, playJaAudio } from "@/shared/japanese/tts";
 
 /** No horizontal reservation needed — dots now sit in the controls row. */
@@ -101,8 +102,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
 
   const handlePlay = useCallback(() => {
     if (!step.payload.audioKey) return;
-    const audio = new Audio(getAlphabetAudioUrl(step.payload.audioKey));
-    audio.play().catch(() => {});
+    playLocalAudio(getAlphabetAudioUrl(step.payload.audioKey));
   }, [step.payload.audioKey]);
 
   const handleCheck = useCallback(() => {
@@ -140,8 +140,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
         if (isJaKana && getTtsUrl(step.payload.symbol)) {
           playJaAudio(step.payload.symbol);
         } else if (step.payload.audioKey) {
-          const audio = new Audio(getAlphabetAudioUrl(step.payload.audioKey));
-          audio.play().catch(() => {});
+          playLocalAudio(getAlphabetAudioUrl(step.payload.audioKey));
         }
         // Persist partial trace progress on EVERY pass, not just final. The
         // parent's handler increments the saved traceCount so dropping mid

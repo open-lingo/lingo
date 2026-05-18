@@ -22,6 +22,7 @@ import {
   isSpeechRecognitionSupported,
 } from "@/shared/speech";
 import { getTtsUrl } from "@/shared/japanese/tts";
+import { playLocalAudio } from "@/shared/audio/volume";
 import { convertToHiragana } from "@/shared/japanese/kanjiReading";
 
 type WordEntry = {
@@ -193,8 +194,7 @@ export function SpeechTunePage() {
   function playTts(word: WordEntry) {
     const url = getTtsUrl(word.jp);
     if (!url) return;
-    const audio = new Audio(url);
-    audio.play().catch(() => {});
+    playLocalAudio(url);
   }
 
   const browserSupportsWeb = isSpeechRecognitionSupported();

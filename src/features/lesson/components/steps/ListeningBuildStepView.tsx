@@ -4,6 +4,7 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { AnnotatedJa } from "@/shared/japanese";
 import { getTtsUrl } from "@/shared/japanese/tts";
+import { playLocalAudio } from "@/shared/audio/volume";
 import { Icon } from "@/shared/components/Icon";
 
 type Props = {
@@ -74,7 +75,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   const audioUrl = getTtsUrl(step.targetSentence);
   function handlePlay() {
     if (!audioUrl) return;
-    new Audio(audioUrl).play().catch(() => {});
+    playLocalAudio(audioUrl);
   }
 
   return (

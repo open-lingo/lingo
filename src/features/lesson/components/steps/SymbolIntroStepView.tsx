@@ -6,6 +6,7 @@ import {
   autoPlayAlphabetAudio,
   getAlphabetAudioUrl,
 } from "@/shared/audio/alphabetAudio";
+import { playLocalAudio } from "@/shared/audio/volume";
 import {
   getTtsUrl,
   playJaAudio,
@@ -87,8 +88,7 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
       return;
     }
     if (!payload.audioKey) return;
-    const audio = new Audio(getAlphabetAudioUrl(payload.audioKey));
-    audio.play().catch(() => {});
+    playLocalAudio(getAlphabetAudioUrl(payload.audioKey));
   }
 
   // Layout intent (image-1 critique):

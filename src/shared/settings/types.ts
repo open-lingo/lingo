@@ -35,6 +35,14 @@ export type UserSettings = {
      * the rest of UserSettings.
      */
     silentMode: boolean;
+    /**
+     * App-wide volume (0..1). Applied at the audio output stage so the
+     * learner can lower or boost Lingo without touching the OS / browser
+     * volume mixer. SettingsContext syncs this into
+     * `src/shared/audio/volume.ts`, which feeds both the Web Audio TTS
+     * GainNode and the `playLocalAudio` HTMLAudio wrapper.
+     */
+    volume: number;
   };
   notifications: {
     dailyReminderTime?: string;
@@ -71,6 +79,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
   audio: {
     soundEnabled: true,
     silentMode: false,
+    volume: 1,
   },
   notifications: {
     reminderEnabled: false,
