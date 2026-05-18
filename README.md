@@ -36,12 +36,25 @@ VITE_ADSENSE_SLOT_BANNER=1234567890   # ad unit id from AdSense UI (banner)
 VITE_ADSENSE_SLOT_INLINE=0987654321   # optional inline unit
 VITE_ADSENSE_ENABLED=true             # set false to disable all ad UI
 
-# API funding meter (lingo-core)
+# API funding meter (lingo-core — see lingo-core README or docs)
 # FUNDING_AD_PERCENT=40
+# FUNDING_PERIOD_LABEL="Last 30 days"
 # FUNDING_SOURCE=manual|estimated|live
 ```
 
 The app will not start without `VITE_AUTH0_DOMAIN` and `VITE_AUTH0_CLIENT_ID`.
+
+## Documentation
+
+| Topic | Doc |
+|-------|-----|
+| **Production roadmap (~2 weeks)** | [docs/PRODUCTION_ROADMAP.md](docs/PRODUCTION_ROADMAP.md) |
+| Doc index | [docs/README.md](docs/README.md) |
+| Project state (what’s built) | [docs/PROJECT_STATE.md](docs/PROJECT_STATE.md) |
+| Launch checklist | [docs/MVP_PRODUCTION_READINESS.md](docs/MVP_PRODUCTION_READINESS.md) |
+| Backlog & ideas | [docs/PRODUCT_BACKLOG.md](docs/PRODUCT_BACKLOG.md), [docs/TODO.md](docs/TODO.md) |
+| Ad placements | [docs/ADS_PLACEMENT.md](docs/ADS_PLACEMENT.md) |
+| Ads & funding APIs | [docs/ADS_AND_FINANCE_ARCHITECTURE.md](docs/ADS_AND_FINANCE_ARCHITECTURE.md) |
 
 ## Scripts
 

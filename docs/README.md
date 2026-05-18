@@ -1,6 +1,19 @@
 # Open Lingo — doc index
 
-Quick reference for this folder. Use for human reading and minimal context.
+Quick reference for this folder.
+
+## Launch & monetization
+
+- **PRODUCTION_ROADMAP.md** — **~2 week launch plan** (scope, week 1/2 tasks, post-launch backlog).
+- **PRODUCT_BACKLOG.md** — Epics & ideas (admin, moderation, progress API, CI/CD, no billing at MVP).
+- **MVP_PRODUCTION_READINESS.md** — Detailed P0/P1/P2 checklists.
+- **PROJECT_STATE.md** — What’s implemented vs stub (keep in sync with code).
+- **TODO.md** — Backlog by area.
+- **ADS_PLACEMENT.md** — Where and how to add AdSense units.
+- **ADS_AND_FINANCE_ARCHITECTURE.md** — Funding meter API, AdSense/Stripe (server-side).
+- **FEATURES.md** — Ideas and post-launch features (not launch scope).
+
+## Product & engineering
 
 - **MERGE_ADMIN_PAGE.md** — Merge guide for `admin-page` → `main`: steps, conflicts, API checklist, behavioral changes.
 - **PROJECT_STATE.md** — Architecture assessment, current state vs docs, route structure. Use for planning and AI delegation.

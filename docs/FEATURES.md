@@ -1,46 +1,76 @@
 # Feature ideas & backlog
 
-From the plan; not all implemented. Omit obvious done items.
+Ideas and future work. **Epic list:** [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md). **Launch scope:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md). **Implemented today:** [PROJECT_STATE.md](./PROJECT_STATE.md).
 
 ---
 
-## Learning & content
+## Shipped or wired (don’t re-build)
 
-- **SRS / Anki-style review (course deck unlock by lesson completion; see FLASHCARD-DATA.md)** — Spaced repetition for flashcards; “cards due today” and review sessions.
-- **Stories** — Read and learn in context; story-based lessons with comprehension.
-- **Grammar heatmap** — Visualize coverage/strength by topic; link from home.
-- **Vocab lists** — Themed lists; course vocab from module manifests (see FLASHCARD-DATA.md).
-- **Course content** — Language-agnostic, versioned, manifest-driven (see CONTENT-DESIGN.md).
-- **Community content** — Language-specific; warn when unsupported on language switch (see CONTENT-DESIGN.md).
-- **Language-specific practice** — Particles, kanji, alphabets, character components; routes and config exist; content and drills to fill in.
-- **Videos** — K-drama, J-drama, music video clips as a practice type. Unlock by course progress; community video addons; video steps embedded in lessons (see practice-hub.md, lessons format).
+- SRS / flashcard review, deck manager, study options, API sync
+- Learn + lessons (multi-step)
+- Community deck explore + subscribe (contribute/forum/leaderboard **flagged off**)
+- Landing, Auth0, legal pages, cookie consent, account delete
+- Ad UI framework + funding meter (manual/estimated % via API)
+- Practice hub index, particles, alphabet flows
+
+---
+
+## Learning & content (post-launch priority)
+
+- **Content expansion** — 30+ cards, particles, sentences per language ([korean-content](tasks/korean-content.md), [japanese-content](tasks/japanese-content.md))
+- **Stories** — real text + exercises ([story-content](tasks/story-content.md))
+- **Vocab lists** — themed browser ([vocab-page](tasks/vocab-page.md))
+- **Grammar** — topic browser / drills ([grammar-page](tasks/grammar-page.md))
+- **Videos** — unlock by course; community addons ([practice-hub](tasks/practice-hub.md))
+- **Grammar heatmap** — coverage visualization (idea only)
 
 ---
 
 ## Progress & sync
 
-- **Real progress API** — Streak, lessons this week, cards due, daily goal; persist and sync.
-- **Cross-device settings** — User API (or Auth0 user_metadata via backend) so language/theme/prefs follow the user.
-- **Offline / sync layer** — Optional IStorage/ISync for offline progress and sync when backend exists.
+- **Progress API (content)** — lessons, courses, stories (plan in [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md); SRS separate and working)
+- **Rewards / XP / streaks** — after content progress; then leaderboard
+- **Settings on server** — cross-device theme/language ([backend-user-api](tasks/backend-user-api.md))
+- **401 refresh / sessions** ([auth-session-strategy](tasks/auth-session-strategy.md))
+- **Offline / sync layer** ([local-cache-server-state-research](tasks/local-cache-server-state-research.md))
 
 ---
 
 ## Social & community
 
-- **Leaderboard** — Real XP and rankings; period (week/month); shareable link.
-- **Community** — Discussions or Discord when community grows; contribute flow (courses, feedback, code).
-- **Contributor flow** — Clear path to submit courses, suggest content, report issues (GitHub, forms, or backend).
+- **Leaderboard** — real API; enable flag when ready
+- **Forum / contribute** — moderation + flags on ([COMMUNITY_PLANNING.md](./COMMUNITY_PLANNING.md))
+- **External content** — curated links ([community-resources](tasks/community-resources.md))
 
 ---
 
+## Admin, moderation & safety
+
+- **Admin console v2** — feature flags UI, users, finance knobs, deck/content stats
+- **Staging decks / approvals** — draft → pending review → published
+- **User management** — roles, search, suspend/ban
+- **Blocking & reports** — user/content blocks, moderator queue
+
 ## Product & sustainability
 
-- **Funding meter** — Real ad-funded vs premium split; transparency and sustainability messaging.
-- **Premium / subscriptions** — If planned; tie to auth and feature gating.
+- **MVP: ads only, no billing** — expect costs > ad revenue early
+- **Funding meter (live)** — AdSense Management API; Stripe **post-MVP** ([ADS_AND_FINANCE_ARCHITECTURE.md](./ADS_AND_FINANCE_ARCHITECTURE.md))
+- **Ad placements** — [ADS_PLACEMENT.md](./ADS_PLACEMENT.md)
+- **TTS** — [TTS_PLANNING.md](./TTS_PLANNING.md)
+
+## Brand & launch polish
+
+- **Home / landing polish**
+- **Product name** — final branding decision
+- **CI/CD** — full pipelines (staging + prod)
 
 ---
 
 ## UX & polish
 
-- **More UI languages** — e.g. Spanish; add locale and use in Settings.
-- **React Native** — Web-first; RN later if in scope; shared logic where possible.
+- **SRS viewer redesign** — partial ([srs-viewer-redesign](tasks/srs-viewer-redesign.md))
+- **Card markdown editor** ([card-markdown-editor](tasks/card-markdown-editor.md))
+- **ja.json** UI locale
+- **Community language warning** on switch ([CONTENT-DESIGN.md](./CONTENT-DESIGN.md))
+- **Performance budgets** ([performance-budgeting](tasks/performance-budgeting.md))
+- **Schema versioning** ([schema-versioning-migration](tasks/schema-versioning-migration.md))

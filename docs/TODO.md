@@ -1,6 +1,6 @@
 # Todos and what's left
 
-By area. Check tasks in `docs/tasks/` for detailed specs per item.
+By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **Ideas / epics:** [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md) · **Checklists:** [MVP_PRODUCTION_READINESS.md](./MVP_PRODUCTION_READINESS.md) · **Code snapshot:** [PROJECT_STATE.md](./PROJECT_STATE.md).
 
 ## Done (recently)
 
@@ -30,13 +30,20 @@ By area. Check tasks in `docs/tasks/` for detailed specs per item.
 - [x] Feature domain restructure: each feature has `components/` folder; character components extracted to `features/practice/components/characters/`
 - [x] src/ restructure: two-layer `shared/` + `features/` — absorbed core/, api/, auth/, data/, settings/, storage/, components/, contexts/, hooks/, locales/ into proper homes
 - [x] Localization policy: finalized community (language-specific, no cutover) vs core (language-agnostic, manifest-based instruction variants); practice content committed to localization
+- [x] Landing vs app: `/landing`, `RequireAuth`, minimal signed-out header
+- [x] Legal: privacy, terms, about, cookie consent, account delete + API
+- [x] Leaderboard nav gated by `feature-flags.json` (default off)
+- [x] Study options: settings + deck manager + review scope / URL filters
+- [x] `list_owned_manifests` (backend) for My Content / owned decks
+- [x] AdSense framework + collapsible banner shell; funding meter → transparency API
+- [x] API security headers; finance `GET /finance/transparency`
 
 ## UI pages — stub → real
 
 Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status.
 
 - [ ] **Vocab page** → [vocab-page.md](tasks/vocab-page.md)
-- [ ] **Practice hub** → [practice-hub.md](tasks/practice-hub.md) — PracticePage exists but not routed; index goes to FlashcardsPage
+- [x] **Practice hub** → [practice-hub.md](tasks/practice-hub.md) — `/:lang/practice` index → `PracticePage`
 - [x] **Particle practice** → [particle-practice.md](tasks/particle-practice.md)
 - [ ] **Kanji practice** → [kanji-practice.md](tasks/kanji-practice.md) — page exists; verify depth
 - [x] **Alphabet learner** → [alphabet-learner.md](tasks/alphabet-learner.md)
@@ -59,8 +66,8 @@ Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status
 - [ ] **User settings API** → [backend-user-api.md](tasks/backend-user-api.md)
 - [ ] **Progress API** → [backend-progress-api.md](tasks/backend-progress-api.md)
 - [ ] **Content API** → [backend-content-api.md](tasks/backend-content-api.md)
-- [ ] Leaderboard API: replace mock data with real rankings/XP
-- [ ] Funding meter: plug real ad-funded % into FundingMeter
+- [ ] Leaderboard API: replace mock data with real rankings/XP (keep flag off until then)
+- [ ] Funding meter: live % from AdSense + Stripe sync (API + UI wired; manual env today)
 - [ ] **TTS (text-to-speech)** → [TTS_PLANNING.md](TTS_PLANNING.md) — Own API, CDN, cache-first, ElevenLabs (swappable), usage tracking, monetization-ready
 
 ## Auth & session
@@ -84,9 +91,43 @@ Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status
 - [ ] Sync / offline: IStorage/ISync for progress and settings when backend exists
 - [ ] Practice content localization: add per-locale particle meanings/usage (inline translations or per-locale data files); see LOCALIZATION.md
 
+## Product & platform (ideas — see PRODUCT_BACKLOG.md)
+
+### MVP scope reminders
+
+- [ ] **No billing at launch** — ad-supported only; accept negative margin until AdSense scales
+- [ ] **Polish home + landing** — logged-in `/home`, guest `/landing`, CTAs, continue learning
+- [ ] **Product name** — decide branding (Open Lingo vs rename); meta, legal, Auth0 app name
+- [ ] **CI/CD pipelines** — PR checks, staging deploy, prod promote, env secrets for `VITE_*` + API
+
+### Admin & moderation (post-MVP epics)
+
+- [ ] **Admin console v2** — feature toggles UI, user management, finance % knobs (pre-Stripe), record-count stats (decks, cards, users, SRS, …)
+- [ ] **Content moderation** — approval queue; stage drafts / `pending_review` (“temp” decks) before publish
+- [ ] **Blocking & safety** — user ban/suspend, report content, moderator actions
+- [ ] **User management system** — roles, search, lifecycle beyond delete
+
+### Progress & rewards (planning)
+
+- [ ] **Progress API design** — lesson/course/story completion (SRS stays separate; working today)
+- [ ] **Rewards / XP / streaks** — after progress API; feeds leaderboard later
+
+### Infrastructure (later)
+
+- [ ] **Caching evaluation** — soon-ish; not MVP (deck lists, flags, hot reads)
+- [ ] **Live funding %** — AdSense sync; Stripe deferred past MVP
+
+## Production launch (see PRODUCTION_ROADMAP.md)
+
+- [ ] Staging + prod deploy (Auth0, CORS, DEBUG=false, HTTPS)
+- [ ] Monitoring (Sentry), health check, backups + restore test
+- [ ] Rate limiting; dependency audit
+- [ ] Feature flags final audit; smoke test learn + SRS + settings
+- [ ] Lawyer skim + `VITE_LEGAL_CONTACT_EMAIL` in prod
+
 ## Docs and config
 
-- [x] .env.example with Auth0 vars
-- [x] CONTENT-DESIGN.md, FLASHCARD-DATA.md (design philosophies, vocab manifest)
-- [x] LOCALIZATION.md (finalized localization strategy)
-- [ ] Amplify env: VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID for prod deployment
+- [x] CONTENT-DESIGN.md, FLASHCARD-DATA.md, LOCALIZATION.md
+- [x] MVP_PRODUCTION_READINESS, ADS_*, PRODUCTION_ROADMAP, PROJECT_STATE (2026-05)
+- [ ] `lingo/.env.example` (vars documented in README; file optional)
+- [ ] Amplify / deploy env: all `VITE_*` + API URL for prod

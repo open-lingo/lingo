@@ -1,21 +1,25 @@
 # Tasks
 
-Each `.md` file here is a self-contained work item. **Closed** = done. Pick an open task and implement it.
+Each `.md` file here is a self-contained work item. **Closed** = done.
+
+**Before launch:** [PRODUCTION_ROADMAP.md](../PRODUCTION_ROADMAP.md) (2-week plan) · [MVP_PRODUCTION_READINESS.md](../MVP_PRODUCTION_READINESS.md) · [PROJECT_STATE.md](../PROJECT_STATE.md).
 
 ## AI delegation
 
-For AI agents: read [PROJECT_STATE.md](../PROJECT_STATE.md) first for architecture and current state. **Ready-to-delegate tasks** (in suggested order):
+For AI agents: read [PROJECT_STATE.md](../PROJECT_STATE.md) first. **Do not start net-new features** that conflict with launch scope unless the roadmap explicitly allows it.
 
-### Core UX
-1. **[homepage-ux](./homepage-ux.md)** — closed — Logged-out hero, community deck pointers, streaks, XP
-2. **[srs-viewer-redesign](./srs-viewer-redesign.md)** — **partial** — New/review/Again/buried counts; back-first mode, counts widget
-3. **[card-markdown-editor](./card-markdown-editor.md)** — Markdown for card content; rich editor option; inline images
+**Post-launch / parallel (when infra is ready):**
 
-### Auth
-4. **[auth-session-strategy](./auth-session-strategy.md)** — 401 refresh, session revocation, optional device sessions
+### Core UX (post-launch polish)
+1. **[homepage-ux](./homepage-ux.md)** — **done** — landing + guest patterns
+2. **[srs-viewer-redesign](./srs-viewer-redesign.md)** — **partial**
+3. **[card-markdown-editor](./card-markdown-editor.md)** — open
+
+### Auth (stability)
+4. **[auth-session-strategy](./auth-session-strategy.md)** — 401 refresh, session revocation
 
 ### Backlog
-5. **[practice-hub](./practice-hub.md)** — Build PracticePage as hub; route `/:lang/practice` index to it
+5. **[practice-hub](./practice-hub.md)** — **done** — `PracticePage` is practice index
 6. **[vocab-page](./vocab-page.md)** — Themed lists, search, drill view
 7. **[story-content](./story-content.md)** — Replace StoryDetailPage placeholder with real text + exercises
 8. **[grammar-page](./grammar-page.md)** — Grammar topic browser/drills
@@ -57,7 +61,7 @@ Each task doc has context, files to touch, and acceptance criteria. Follow conve
 | Task | File | Status |
 |------|------|--------|
 | [vocab-page](./vocab-page.md) | `src/features/vocab/VocabPage.tsx` | stub |
-| [practice-hub](./practice-hub.md) | `src/features/practice/PracticePage.tsx` | stub (not routed; index → FlashcardsPage) |
+| [practice-hub](./practice-hub.md) | `src/features/practice/PracticePage.tsx` | **closed** — practice index routed |
 | [particle-practice](./particle-practice.md) | `src/features/practice/ParticlePracticePage.tsx` | closed |
 | [kanji-practice](./kanji-practice.md) | `src/features/practice/KanjiPracticePage.tsx` | partial (verify depth) |
 | [alphabet-learner](./alphabet-learner.md) | `src/features/practice/AlphabetPracticePage.tsx` | closed |

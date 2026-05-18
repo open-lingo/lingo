@@ -1,3 +1,4 @@
+/** @see docs/ADS_PLACEMENT.md */
 export { AdSlot } from "./AdSlot";
 export { CollapsibleAdBanner } from "./CollapsibleAdBanner";
 export { useAdsEnabled } from "./useAdsEnabled";

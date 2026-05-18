@@ -1,204 +1,132 @@
-# Open Lingo — Project State & Architecture
+# Open Lingo — project state
 
-**Last updated:** 2025-02-19  
-**Purpose:** Senior architect reference. Use for planning, delegating tasks to AI agents, and keeping docs accurate.
-
----
-
-## Executive Summary
-
-Open Lingo is a language-learning SPA (Vite + React) with a **lingo-core** FastAPI backend. The frontend has a solid foundation: Auth0, i18n (en, ko), layout/nav, learn flow, flashcards with SRS, stories, community, contribute (deck editor), forum, leaderboard. Several documented tasks are **already done** but not reflected in docs. The backend exists with decks, users/subscriptions, SRS, and community APIs.
+**Last updated:** 2026-05-16  
+**Purpose:** Accurate snapshot for humans and agents. For launch tasks see [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md).
 
 ---
 
-## What's Done (verified in codebase)
+## Executive summary
 
-### Infrastructure
-- [x] i18n: react-i18next, en.json + ko.json, Settings (language, theme, UI locale)
-- [x] Theme system: token-based themes, presets (Light/Dark/Sepia/AMOLED), custom themes, theme editor panel, Your themes + Community themes (mock)
-- [x] Design system: Card, Button, token classes; Layout, Home, Community, nav components migrated
-- [x] Auth0: env-based config, normalized callback
-- [x] Layout: Home, Practice, Flashcards, Stories, Leaderboard, Community in nav
-- [x] Modal system: stack-based ModalContext, ModalBase, ModalRoot
-- [x] Toast system: ToastContext, ToastContainer
-- [x] Shared progress components: ProgressBar, ProgressBarWithCheckpoints, StatusNodeStrip, LessonStatusCircle
-- [x] Shared icons: LockIcon, ChevronIcon
-- [x] Two-layer src: `shared/` + `features/`, `routes/`
-- [x] Language config: ko + ja in learning selector; full config for future
-- [x] .env.example with Auth0 vars
+Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-core** (FastAPI). Core loop: **learn → lessons → flashcards (SRS) → settings**. Community deck browse/subscribe works; forum, contribute, and leaderboard are **feature-flagged off** for launch. Legal, landing/auth split, ads framework, and funding meter API exist; **live revenue** is post-launch.
 
-### Features (implemented)
-- [x] **Home:** course cards, continue learning, progress summary, quick links
-- [x] **Learn:** combined course + community; linear modules; Test out, Start over; lesson unlock; semi/full expansion
-- [x] **Flashcards:** deck viewer, FlashcardTester with highlight mode + reasoning; ko + ja decks; course deck unlock by lesson completion
-- [x] **Stories:** hub (sidebar, search, filter, course/community); detail page (placeholder content)
-- [x] **Community:** ContentBrowserPage (explore), ContributePage (My Content, Create, Admin, DeckEditor), Forum (threads, new thread)
-- [x] **Leaderboard:** category cards, tabs (XP, language, flashcards, contributors)
-- [x] **Profile:** edit page (avatar, username, name, status)
-- [x] **Lesson page:** step renderer, multiple step types (Teach, MultipleChoice, Translate, BuildSentence, FillBlank, Listening, MatchPairs, etc.)
+---
 
-### SRS (spaced repetition)
-- [x] SM-2 algorithm in `engine/srs.ts`
-- [x] SRS storage: `srsStorage.ts` (localStorage)
-- [x] Review queue: `reviewQueue.ts`, `buildReviewQueue`, `countCardsDue`
-- [x] SRS sync: `srsSync.ts`, `useSRSyncSession` for backend sync
-- [x] FlashcardTester: rating buttons (Again, Hard, Good, Easy), `reviewCard`, `setCardState`
-- [x] ProgressSummary: "cards due today" from `countCardsDue`
+## Launch-ready (verified in code)
 
-### Community & Content
-- [x] **DeckPreviewModal:** sidebar (creator, updated date, language, card count, upvotes); comments stub; Subscribe/Unsubscribe (API)
-- [x] **ContentBrowserPage:** API integration for decks (`listAdminDecks`), subscriptions; Subscribe/Preview on cards
-- [x] **FlashcardsPage:** subscribed decks from API; merge with course decks; `deckResponseToFlashcardDeck`
-- [x] **Contribute:** MyContentTab, CreateTab, DeckEditor, AdminTab; deck create/edit flow
+### Auth & routing
 
-### Practice pages (implemented)
-- [x] **ParticlePracticePage:** particle cards, sections, browse UI
-- [x] **AlphabetPracticePage:** alphabet sections, CharacterCard, AlphabetSectionBlock; path/query routing
-- [x] **KanjiPracticePage:** exists (needs verification of depth)
-- [x] **ComponentsPracticePage:** exists (needs verification)
-- [x] **VideosPracticePage:** mock video, transcript, segment highlighting, word-add flow
+- [x] Auth0 (`VITE_AUTH0_*`), `RequireAuth` on `/:lang/*`
+- [x] `/` → logged-in `/home`, else `/landing`
+- [x] Public: `/privacy`, `/terms`, `/about`, `/login`
+- [x] Leaderboard route gated by `isLeaderboardEnabled(flags)` (default off)
+
+### Legal & privacy
+
+- [x] Privacy, Terms, About pages; `CookieConsent`; advertising consent before AdSense
+- [x] Account deletion in Settings; `DELETE /api/core/v1/users/me`
+- [x] `AccountPrivacySection` — cookie controls
+
+### Learn & practice
+
+- [x] Learn page, lesson flow (multiple step types)
+- [x] **Practice hub** — `/:lang/practice` index → `PracticePage` (not only flashcards)
+- [x] Flashcards: hub, review (`FlashcardTester`), card/deck managers
+- [x] Study options (settings + deck manager); review URL filters / scope shortcuts
+- [x] SRS: SM-2, localStorage, sync to API (`srsSync`, `SrsApi`)
+- [x] Particles, alphabet (+ hub + lesson), kanji/components/videos pages (depth varies)
+
+### Community & API
+
+- [x] `ContentBrowserPage` — decks API, subscribe
+- [x] `FlashcardsPage` — subscribed + course decks
+- [x] `list_owned_manifests` on backend (efficient author listing)
+- [x] Contribute / forum / admin / studio routes exist — **disable via flags** for launch
+
+### Ads & funding (code only)
+
+- [x] `features/ads/` — `AdSlot`, `CollapsibleAdBanner`, consent gating
+- [x] Global banner: logged-in app routes, not marketing URLs
+- [x] `GET /api/core/v1/finance/transparency` + `FundingMeter` (manual/estimated %)
+- [ ] Live AdSense fills — needs Google approval + env
+- [ ] Live % from AdSense/Stripe — needs sync jobs
 
 ### Backend (lingo-core)
-- [x] Decks API: list, get, create, update, status
-- [x] Users API: subscriptions (get, add, remove)
-- [x] SRS API: card state, sync
-- [x] Community API: browse, etc.
 
-### Content (stub level)
-- [x] Japanese: flashcards (5 cards), particles (8), stories (6)
-- [x] Korean: flashcards (5 cards), particles (8), stories (6)
+- [x] Decks, users/subscriptions, SRS, community routers
+- [x] Finance transparency router; security headers middleware
+- [ ] Rate limiting — not in app yet
+- [ ] Stripe / AdSense Management API — not wired
 
 ---
 
-## What's Not Done / Stubs
+## Not launch-critical (stubs / backlog)
 
-### UI pages (stub → real)
-- [ ] **VocabPage** — stub ("coming soon")
-- [ ] **Practice hub** — PracticePage is stub; route index goes to FlashcardsPage (no hub)
-- [ ] **GrammarPage** — stub
-- [ ] **StoryDetailPage** — layout exists; content shows `t("stories.contentPlaceholder")` (no real story text/exercises)
-
-### Practice pages (partial)
-- **KanjiPracticePage, ComponentsPracticePage** — exist but may be minimal; verify
-- **VideosPracticePage** — functional with mock; needs unlock-by-course, community addons
-
-### Content expansion
-- [ ] **Korean content:** 30+ cards, 14+ particles, sentences, vocab lists
-- [ ] **Japanese content:** 30+ cards, 12+ particles, sentences, vocab lists
-- [ ] **Story content:** real text, exercises, comprehension
-
-### Backend integration
-- [ ] User settings API (persist language, theme to backend)
-- [ ] Progress API (lessons, XP, streaks)
-- [ ] Content API consolidation
-- [ ] Leaderboard API (replace mock)
-- [ ] Funding meter: real ad-funded %
-
-### Auth (planned)
-- [ ] Token refresh on 401 (centralized in ApiClient)
-- [ ] Session revocation handling
-- [ ] Device-based sessions (optional)
-
-### Frontend polish
-- [ ] ja.json (Japanese UI locale)
-- [ ] Community content warning on language switch
-- [ ] Sync/offline when backend ready
-- [ ] Practice content localization (particle meanings per locale)
-
-### Docs / config
-- [ ] Amplify env for prod deployment
-- [ ] Update docs to match codebase (this doc + TODO.md + tasks/README)
+| Area | State | Notes |
+|------|--------|--------|
+| **VocabPage** | Stub | `tasks/vocab-page.md` |
+| **Grammar** | Redirect / practice grammar partial | `tasks/grammar-page.md` |
+| **StoryDetailPage** | Layout; placeholder content | `tasks/story-content.md` |
+| **Leaderboard** | UI + mock data | Flag off |
+| **Forum / contribute** | Implemented but immature | Flags off |
+| **Content volume** | ~5 cards / language stubs | `korean-content`, `japanese-content` tasks |
+| **Funding %** | API + env override | Not live Google/Stripe data |
+| **User settings API** | Partial / local-first | `tasks/backend-user-api.md` |
+| **Progress API** | Partial | `tasks/backend-progress-api.md` |
+| **Auth 401 refresh** | Planned | `tasks/auth-session-strategy.md` |
+| **ja.json UI** | Not started | `LOCALIZATION.md` |
+| **`.env.example` in lingo/** | Missing | README documents vars; add file optional |
 
 ---
 
-## Route Structure (current)
+## Routes (abbreviated)
 
 ```
-/                     → HomePage
-/login, /logout       → Auth
-/:lang/learn          → LearnPage, LessonPage
-/:lang/practice       → PracticeLayout
-  index               → FlashcardsPage (not PracticePage!)
-  flashcards          → FlashcardsPage
-  flashcards/review   → FlashcardTester
-  stories             → StoriesPage
-  stories/:storyId    → StoryDetailPage
-  particles           → ParticlePracticePage
-  alphabet/:alphabetId? → AlphabetPracticePage
-  kanji               → KanjiPracticePage
-  components          → ComponentsPracticePage
-  videos              → VideosPracticePage
-/:lang/vocab          → VocabPage
-/:lang/grammar        → GrammarPage
-/:lang/community      → CommunityLayout
-  explore             → ContentBrowserPage
-  contribute          → ContributePage (My Content, Create, DeckEditor, Admin)
-  discuss, forum      → Forum, ThreadPage, NewThreadPage
-  leaderboard         → LeaderboardPage
+/                         → RootRoute (home or landing)
+/landing, /home, /login, /logout
+/privacy, /terms, /about
+/:lang/*                  → RequireAuth
+  learn, learn/lessons/:id
+  practice                → PracticePage (index)
+  practice/flashcards, …/review, …/cards, …/decks
+  practice/stories, particles, alphabet, kanji, …
+  vocab, grammar, speech-tune
+  community/explore, external-content, contribute/*, discuss/*, leaderboard
+  studio/decks/*
+/admin/*                  → admin (operators)
 ```
 
-**Note:** Practice index = FlashcardsPage. There is no Practice hub page. `PracticePage.tsx` exists but is not routed.
+Full tree: `src/App.tsx`.
 
 ---
 
-## Backend (lingo-core)
+## Feature flags (launch defaults)
 
-- **Stack:** FastAPI, SQLite (dev) / DynamoDB (prod)
-- **Routers:** users, decks, srs, community
-- **Key endpoints:** Decks CRUD, subscriptions, SRS sync
-- **Location:** `lingo-core/` (sibling to `lingo/`)
+See `public/feature-flags.json` — explore + deck browse **on**; leaderboard, discuss, contribute, stories, videos **off**.
 
 ---
 
-## Task Docs vs Reality
+## Task docs vs reality
 
-| Task doc | Docs say | Reality |
-|----------|----------|---------|
-| community-deck-preview | in progress | **DONE** — sidebar, metadata, comments stub, subscribe |
-| srs-engine | not started | **DONE** — SM-2, storage, queue, FlashcardTester ratings |
-| community-content-wiring | — | **Mostly DONE** — ContentBrowserPage + FlashcardsPage use API, subscribe |
-| practice-hub | stub | **Stub** — PracticePage exists but not routed; index = FlashcardsPage |
-| vocab-page | stub | **Stub** |
-| particle-practice | stub | **DONE** — ParticlePracticePage has real UI |
-| alphabet-learner | partial | **DONE** — AlphabetPracticePage full |
-| story-content | placeholder | **Partial** — layout; content placeholder |
-
----
-
-## Design docs (accurate)
-
-- **DESIGN.md** — Architecture, folder structure, tech choices ✓
-- **CONTENT-DESIGN.md** — Course vs community, versioning ✓
-- **FLASHCARD-DATA.md** — Vocab manifest, lesson completion flow ✓
-- **LOCALIZATION.md** — UI strings, practice content localization ✓
-- **COMMUNITY_PLANNING.md** — Forum schema, rich markdown, content links ✓
-- **FEATURES.md** — Backlog ✓
-- **dataformats/** — Flashcards, lessons, courses, progress, SRS ✓
+| Task | Doc status | Reality (2026-05) |
+|------|------------|---------------------|
+| practice-hub | stub | **Routed** — `PracticePage` is practice index |
+| homepage-ux | open in old index | **Done** — landing + guest patterns |
+| srs-engine | — | **Done** |
+| community-deck-preview | — | **Done** |
+| community-content-wiring | — | **Done** for explore + flashcards |
+| funding meter | “plug real %” | **Wired to API**; live revenue is phase 2 |
+| legal / ads framework | — | **Done in code**; approval/env later |
 
 ---
 
-## Recommended next steps (for AI delegation)
+## Planned epics (not built)
 
-### Core UX (prioritized)
-1. **Homepage UX** — Logged-out experience, community deck pointers, streaks, XP placeholder ([homepage-ux](tasks/homepage-ux.md))
-2. **SRS viewer redesign** — New/review/Again/buried counts; fix fixed-card-count UX ([srs-viewer-redesign](tasks/srs-viewer-redesign.md))
-3. **Card markdown** — Markdown for front/back/note; rich editor option; inline images ([card-markdown-editor](tasks/card-markdown-editor.md))
+See [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md): admin v2, moderation/staging decks, blocking, progress API (content + rewards), CI/CD, home polish, product name, caching evaluation. **MVP: no billing.**
 
-### Existing backlog
-4. **Practice hub** — Implement PracticePage as hub; optionally reroute practice index
-5. **Vocab page** — Build themed lists, search, drill view
-6. **Story content** — Replace placeholder with real text + exercises
-7. **Grammar page** — Build grammar topic browser/drills
-8. **Content expansion** — Korean + Japanese: 30+ cards, particles, sentences
-9. **Polish** — ja.json, community warning on language switch
+## Recommended reading order
 
----
-
-## Files to reference
-
-- `docs/TODO.md` — high-level todo list
-- `docs/tasks/README.md` — task index
-- `docs/tasks/*.md` — individual task specs
-- `src/shared/domain/languageConfig.ts` — language + practice config
-- `src/features/practice/practiceNavItems.ts` — practice nav by language
-- `src/features/flashcards/engine/` — SRS implementation
+1. [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) — 2-week plan  
+2. [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md) — ideas & epics  
+3. [MVP_PRODUCTION_READINESS.md](./MVP_PRODUCTION_READINESS.md) — checklists  
+4. [TODO.md](./TODO.md) — checklist items  
+5. [tasks/README.md](./tasks/README.md) — individual specs  

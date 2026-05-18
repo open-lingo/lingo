@@ -1,5 +1,7 @@
 # Task: Backend — Progress API
 
+> **Planning note (2026-05):** SRS card state is **separate** and working — do not fold SM-2 into this API. This epic covers **content progress** (lessons, courses, stories) and later **rewards** (XP, streaks). See [PRODUCT_BACKLOG.md](../PRODUCT_BACKLOG.md).
+
 **Service:** `lingo-core` (FastAPI, Python 3.13+)
 **Router prefix:** `/api/core/progress/v1`
 **Current state:** No progress router exists. Frontend uses mock data in `mockProgress.ts`.

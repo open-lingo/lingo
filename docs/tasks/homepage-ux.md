@@ -1,7 +1,9 @@
-# Task: Homepage UX Improvements
+# Task: Homepage UX
 
-**Files:** `src/features/home/HomePage.tsx`, `src/features/progress/ProgressSummary.tsx`
-**Current state:** Home shows "Welcome back" for logged-in users; guests get "Welcome, guest" but the rest of the page is identical except no ProgressSummary or Continue Learning. No community deck pointers.
+> **Status: closed (2026-05)** — Landing + auth split; guest/home patterns shipped. Further polish is post-launch. See [PROJECT_STATE.md](../PROJECT_STATE.md).
+
+**Files:** `src/features/home/HomePage.tsx`, `src/features/landing/LandingPage.tsx`, `src/features/progress/ProgressSummary.tsx`
+**Historical note:** Task written when home was guest-identical; landing route and logged-in `/home` now separate concerns.
 
 ## Goals
 

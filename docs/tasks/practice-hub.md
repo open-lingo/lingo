@@ -1,8 +1,10 @@
 # Task: Practice Hub Page
 
+> **Status: closed (2026-05)** — `/:lang/practice` index routes to `PracticePage`. See [PROJECT_STATE.md](../PROJECT_STATE.md).
+
 **File:** `src/features/practice/PracticePage.tsx`
 **Route:** `/:lang/practice` (index)
-**Current state:** Stub — "coming soon". `PracticePage.tsx` exists but is **not routed**; `/:lang/practice` index currently goes to `FlashcardsPage`.
+**Current state:** Implemented as practice index (hub). Further hub polish is optional post-launch.
 
 ## Goal
 
