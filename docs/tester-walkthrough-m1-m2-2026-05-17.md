@@ -53,16 +53,23 @@ Open-ended — anything that would have made it better. "I wanted a flashcards b
 
 ## How to send us your results
 
-### Easiest: the dev panel speech + session log
-After each session, open the **DEV panel** (right side of the Learn page — only visible if `?dev=1` was added to the URL once; we may have done this for you):
+### Easiest path — auto-download on every lesson
+Open the app via:
 
-1. Click **📊 Tester session log** (the new export button)
-2. A `lingo-session-*.json` file downloads
-3. Email it to Spencer along with any notes
+> **`https://openlingoapp.com/?tester=1`**
 
-The log captures: lesson starts/ends, time per lesson, speaking attempts, trace attempts, where you exited mid-lesson, what step types you hit. **No personal info — no names, no audio, no typing.** Just structured event data so we can see what your session shape looked like.
+That one URL flips on tester mode (it sticks through signup + every later visit on the same browser). From then on, **every time you finish a lesson, a fresh `lingo-tester-*.json` file auto-downloads.**
 
-If you can't access the dev panel, that's fine — your written notes are more important.
+- First time, your browser will ask "Allow openlingoapp.com to download multiple files?" → click **Allow**. (Otherwise it'll only let one through.)
+- The filename ends with `L01`, `L02`, `L03`... matching how many lessons you've completed. **Each new file supersedes the prior one** — at the end of your session, just email the highest-numbered file to Spencer.
+- All files have the same `s-xxxx` session ID in the name, so it's easy to spot the latest.
+
+The log captures: lesson starts + ends + time per lesson, speaking attempts, trace attempts, where you exited mid-lesson, what step types you hit. **No personal info — no names, no audio, no typed text.** Pure event data.
+
+### Manual fallback — dev panel
+If auto-download isn't working (browser blocked it, or you opted out), the DEV panel on the right side of the Learn page has a **📊 Tester log** button. Click → **⬇ Download now** → email the file.
+
+If you can't access either, your written notes are still the most important thing.
 
 ### Notes template (free-form, fill what's relevant)
 

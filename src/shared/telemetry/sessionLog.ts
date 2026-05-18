@@ -19,6 +19,7 @@
 
 const STORAGE_KEY = "lingo_session_log_v1";
 const SESSION_KEY = "lingo_session_id_v1";
+const TESTER_KEY = "lingo_tester_mode_v1";
 const MAX_EVENTS = 500;
 
 export type SessionEventType =
@@ -118,23 +119,62 @@ export function clearSessionLog(): void {
 }
 
 /**
- * Trigger a JSON file download with the full session log. Used by the
- * dev panel "Export tester log" button so testers can email Spencer
- * their walkthrough trace.
+ * Trigger a JSON file download with the full session log. Filename is
+ * `lingo-tester-{sid}-L{NN}.json` where NN is lessons-completed-so-far,
+ * so the latest auto-download supersedes prior ones — the tester only
+ * needs to email the highest-numbered file at the end of their session.
  */
 export function downloadSessionLog(): void {
   if (typeof window === "undefined") return;
+  const completed = buffer.filter((e) => e.type === "lesson_end").length;
+  const ls = String(completed).padStart(2, "0");
   const blob = new Blob([JSON.stringify(buffer, null, 2)], {
     type: "application/json",
   });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `lingo-session-${getSessionId()}-${Date.now()}.json`;
+  a.download = `lingo-tester-${getSessionId()}-L${ls}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+}
+
+/**
+ * Tester mode — when on, `downloadSessionLogIfTester()` auto-fires a
+ * fresh download every time LessonPage logs a `lesson_end` or
+ * `lesson_exit_mid`. Activated by `?tester=1` URL param (sticks via
+ * localStorage) or the dev-panel toggle. Default off so production
+ * users never get unsolicited downloads.
+ *
+ * Chromium prompts once for "allow multiple downloads from this site"
+ * — tester clicks Allow and every subsequent lesson auto-saves a fresh
+ * cumulative JSON.
+ */
+export function isTesterMode(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const flag = params.get("tester");
+    if (flag === "1") window.localStorage.setItem(TESTER_KEY, "1");
+    else if (flag === "0") window.localStorage.removeItem(TESTER_KEY);
+  } catch {
+    /* ignore */
+  }
+  return window.localStorage.getItem(TESTER_KEY) === "1";
+}
+
+export function setTesterMode(on: boolean): void {
+  if (typeof window === "undefined") return;
+  if (on) window.localStorage.setItem(TESTER_KEY, "1");
+  else window.localStorage.removeItem(TESTER_KEY);
+  for (const cb of subscribers) cb();
+}
+
+export function downloadSessionLogIfTester(): void {
+  if (!isTesterMode()) return;
+  downloadSessionLog();
 }
 
 /**
@@ -153,7 +193,13 @@ export type SessionSummary = {
   traceAttempts: number;
   exitsMid: number;
   totalActiveMs: number;
-  perLessonMs: Array<{ lessonId: string; ms: number; completed: boolean }>;
+  perLessonMs: Array<{
+    lessonId: string;
+    startedAt: number;
+    endedAt: number;
+    ms: number;
+    completed: boolean;
+  }>;
 };
 
 export function summarizeSessionLog(): SessionSummary {
@@ -184,7 +230,13 @@ export function summarizeSessionLog(): SessionSummary {
       const id = String(e.payload.lessonId ?? "?");
       const start = lessonStarts.get(id);
       if (start) {
-        summary.perLessonMs.push({ lessonId: id, ms: e.ts - start, completed: true });
+        summary.perLessonMs.push({
+          lessonId: id,
+          startedAt: start,
+          endedAt: e.ts,
+          ms: e.ts - start,
+          completed: true,
+        });
         lessonStarts.delete(id);
       }
     } else if (e.type === "lesson_exit_mid") {
@@ -192,7 +244,13 @@ export function summarizeSessionLog(): SessionSummary {
       const id = String(e.payload.lessonId ?? "?");
       const start = lessonStarts.get(id);
       if (start) {
-        summary.perLessonMs.push({ lessonId: id, ms: e.ts - start, completed: false });
+        summary.perLessonMs.push({
+          lessonId: id,
+          startedAt: start,
+          endedAt: e.ts,
+          ms: e.ts - start,
+          completed: false,
+        });
         lessonStarts.delete(id);
       }
     } else if (e.type === "speech_attempt") {

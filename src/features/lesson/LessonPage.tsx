@@ -32,7 +32,10 @@ import {
   markReviewCompleted,
   sourceModuleIdOf,
 } from "./data/moduleReviewSchedule";
-import { logSessionEvent } from "@/shared/telemetry/sessionLog";
+import {
+  downloadSessionLogIfTester,
+  logSessionEvent,
+} from "@/shared/telemetry/sessionLog";
 import type { LessonCompleteMastery } from "./components/LessonComplete";
 
 /** Replays of an already-completed lesson award a fraction of the original
@@ -232,6 +235,7 @@ export function LessonPage() {
       wasSkipped,
       stepsGraded: gradedSteps,
     });
+    downloadSessionLogIfTester();
     // M3 restructure 2026-05-16: when a review module's mastery test passes
     // (id pattern `ja-{moduleId}-review-test`), bump the SRS stage on the
     // source module so the next review surfaces later. Only fire on a
@@ -327,6 +331,7 @@ export function LessonPage() {
         stepIdx: currentStepIdx,
         totalSteps,
       });
+      downloadSessionLogIfTester();
     }
     navigate(langPath("learn"));
   }, [navigate, langPath, finished, lesson, currentStepIdx, totalSteps]);

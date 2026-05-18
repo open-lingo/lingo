@@ -14,9 +14,13 @@ import { FeatureFlagsProvider } from "@/shared/contexts/FeatureFlagsContext";
 import { SRSStoreRevisionProvider } from "@/features/flashcards/SRSStoreRevisionContext";
 import App from "./App";
 import { installDevLog } from "@/shared/devlog/devLog";
+import { isTesterMode } from "@/shared/telemetry/sessionLog";
 import "./index.css";
 
 installDevLog();
+// Boot-time read so `?tester=1` is captured on landing and persists
+// through signup / route changes before the URL param is dropped.
+isTesterMode();
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -9,6 +9,8 @@ import {
 import {
   clearSessionLog,
   downloadSessionLog,
+  isTesterMode,
+  setTesterMode,
   subscribeSessionLog,
   summarizeSessionLog,
   type SessionSummary,
@@ -111,9 +113,13 @@ function SessionLogOverlay({ onClose }: { onClose: () => void }) {
   const [summary, setSummary] = useState<SessionSummary>(() =>
     summarizeSessionLog(),
   );
+  const [tester, setTester] = useState(() => isTesterMode());
 
   useEffect(() => {
-    return subscribeSessionLog(() => setSummary(summarizeSessionLog()));
+    return subscribeSessionLog(() => {
+      setSummary(summarizeSessionLog());
+      setTester(isTesterMode());
+    });
   }, []);
 
   const fmtMs = (ms: number) => {
@@ -122,6 +128,8 @@ function SessionLogOverlay({ onClose }: { onClose: () => void }) {
     const s = Math.round((ms % 60_000) / 1000);
     return `${m}m ${s}s`;
   };
+  const fmtClock = (ts: number) =>
+    new Date(ts).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
   return (
     <div
@@ -131,13 +139,11 @@ function SessionLogOverlay({ onClose }: { onClose: () => void }) {
       aria-modal="true"
     >
       <div
-        className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-xl"
+        className="max-h-[80vh] w-full max-w-xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-text-primary">
-            📊 Tester session log
-          </h2>
+          <h2 className="text-lg font-bold text-text-primary">📊 Tester log</h2>
           <button
             type="button"
             onClick={onClose}
@@ -146,9 +152,21 @@ function SessionLogOverlay({ onClose }: { onClose: () => void }) {
             Close
           </button>
         </div>
-        <p className="mb-3 text-xs text-text-muted">
-          Session <span className="font-mono">{summary.sessionId}</span> · {summary.eventCount} events captured
-        </p>
+
+        <label className="mb-3 flex items-center gap-2 rounded-lg border border-warning/40 bg-warning/5 px-3 py-2 text-xs">
+          <input
+            type="checkbox"
+            checked={tester}
+            onChange={(e) => {
+              setTesterMode(e.target.checked);
+              setTester(e.target.checked);
+            }}
+          />
+          <span>
+            <span className="font-bold">Tester mode</span> — auto-download log
+            after every lesson (browser may prompt once to allow).
+          </span>
+        </label>
 
         {summary.eventCount === 0 ? (
           <p className="text-sm text-text-muted">
@@ -156,41 +174,41 @@ function SessionLogOverlay({ onClose }: { onClose: () => void }) {
           </p>
         ) : (
           <>
-            <div className="mb-4 grid grid-cols-2 gap-2 text-xs sm:grid-cols-3">
-              <Stat label="Lessons started" value={summary.lessonsStarted} />
-              <Stat label="Lessons completed" value={summary.lessonsCompleted} />
-              <Stat label="Exits mid-lesson" value={summary.exitsMid} />
-              <Stat label="Speech attempts" value={summary.speechAttempts} />
-              <Stat label="Trace attempts" value={summary.traceAttempts} />
-              <Stat label="Total active" value={fmtMs(summary.totalActiveMs)} />
+            <div className="mb-3 grid grid-cols-3 gap-2 text-xs">
+              <Stat label="Lessons done" value={summary.lessonsCompleted} />
+              <Stat label="Total time" value={fmtMs(summary.totalActiveMs)} />
+              <Stat
+                label="Session start"
+                value={summary.firstEventAt ? fmtClock(summary.firstEventAt) : "—"}
+              />
             </div>
 
             {summary.perLessonMs.length > 0 && (
-              <div className="mb-3">
-                <h3 className="mb-1 text-xs font-bold uppercase tracking-wider text-text-muted">
-                  Per-lesson time
-                </h3>
-                <ul className="space-y-0.5 text-xs">
-                  {summary.perLessonMs.map((l, i) => (
-                    <li
-                      key={`${l.lessonId}-${i}`}
-                      className="flex items-center justify-between rounded border border-border bg-surface-muted px-2 py-1"
-                    >
-                      <span className="font-mono text-text-secondary">{l.lessonId}</span>
-                      <span className="flex items-center gap-2">
-                        <span className="tabular-nums">{fmtMs(l.ms)}</span>
-                        <span
-                          className={`text-[10px] font-bold uppercase ${
-                            l.completed ? "text-success" : "text-text-muted"
-                          }`}
-                        >
-                          {l.completed ? "done" : "exited"}
-                        </span>
+              <ul className="space-y-0.5 text-xs">
+                {summary.perLessonMs.map((l, i) => (
+                  <li
+                    key={`${l.lessonId}-${i}`}
+                    className="flex items-center justify-between gap-2 rounded border border-border bg-surface-muted px-2 py-1"
+                  >
+                    <span className="truncate font-mono text-text-secondary">
+                      {l.lessonId}
+                    </span>
+                    <span className="flex shrink-0 items-center gap-2 tabular-nums">
+                      <span className="text-text-muted">
+                        {fmtClock(l.startedAt)} → {fmtClock(l.endedAt)}
                       </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                      <span>{fmtMs(l.ms)}</span>
+                      <span
+                        className={`text-[10px] font-bold uppercase ${
+                          l.completed ? "text-success" : "text-text-muted"
+                        }`}
+                      >
+                        {l.completed ? "done" : "exited"}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
             )}
           </>
         )}
@@ -202,7 +220,7 @@ function SessionLogOverlay({ onClose }: { onClose: () => void }) {
             disabled={summary.eventCount === 0}
             className="rounded-lg border border-accent bg-accent px-3 py-1.5 text-xs font-bold text-white hover:bg-accent-hover disabled:opacity-40"
           >
-            ⬇ Download JSON
+            ⬇ Download now
           </button>
           <button
             type="button"
