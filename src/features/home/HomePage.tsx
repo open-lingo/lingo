@@ -8,16 +8,10 @@ import { useApi } from "@/shared/api/provider";
 import { ApiError } from "@/shared/api/client";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useModal } from "@/shared/contexts/ModalContext";
-import { getLanguageConfig } from "@/shared/domain/languageConfig";
-import { getMockCourse } from "@/shared/domain/mockCourse";
-import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
-import { getNextLesson } from "@/features/course/nextLesson";
 import { FlashcardsCard } from "@/features/flashcards/FlashcardsCard";
 import { PracticeCard } from "@/features/practice/PracticeCard";
 import { LanguagePickerModal } from "./LanguagePickerModal";
 import { HomeNavCard } from "./HomeNavCard";
-import { WelcomeBanner } from "./components/WelcomeBanner";
-import { EmptyActivityNotice } from "./components/EmptyActivityNotice";
 import { RestructuredHome } from "./restructured/RestructuredHome";
 import { Card, Button } from "@/shared/components/ui";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
@@ -36,9 +30,6 @@ export function HomePage() {
   const { isAuthenticated, isLoading, user } = useAuth();
   const { users } = useApi();
   const { language } = useLanguage();
-  const course = language ? getMockCourse(language.id) : null;
-  const nextLesson = course ? getNextLesson(course) : null;
-  const langConfig = language ? getLanguageConfig(language.id) : null;
 
   const { data: me, error: meError, isError: meIsError } = useQuery({
     queryKey: ["users", "me"],
@@ -79,9 +70,6 @@ export function HomePage() {
     if (raw.includes("@")) return "there";
     return raw.split(/\s+/)[0] || "there";
   })();
-
-  const isFirstTimeUser =
-    isAuthenticated && getMockCompletedLessonIds().length === 0;
 
   if (isLoading) {
     return (
@@ -154,18 +142,10 @@ export function HomePage() {
             </Card>
             {navCards}
           </>
-        ) : isFirstTimeUser ? (
-          <>
-            <WelcomeBanner
-              name={friendlyName}
-              language={langConfig ?? null}
-              startLessonHref={langPath("learn")}
-              firstLessonTitle={nextLesson?.lesson.title}
-            />
-            {navCards}
-            <EmptyActivityNotice />
-          </>
         ) : (
+          // FTUE branch (WelcomeBanner + EmptyActivityNotice) intentionally
+          // disabled — restructured home renders for ALL signed-in users.
+          // FTUE-specific empty states will land in a follow-up.
           <RestructuredHome greetingName={friendlyName} />
         )}
       </div>
