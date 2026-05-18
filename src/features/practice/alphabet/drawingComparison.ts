@@ -31,10 +31,14 @@ const MIN_STROKE_PIXELS = 80;
 const TEMPLATE_COVERAGE_DILATE_RADIUS = 5;
 /** Extra radius beyond coverage region that defines the allowed drawing box. */
 const OVERFLOW_EXTRA_RADIUS = 8;
-/** Require at least this fraction of template pixels (after dilation) to be covered to pass. */
-const TEMPLATE_COVERAGE_PASS_THRESHOLD = 0.8;
-/** Max fraction of user strokes allowed outside the allowed region. */
-const MAX_OVERFLOW_FRACTION = 0.25;
+/** Require at least this fraction of template pixels (after dilation) to be covered to pass.
+ *  2026-05-17: relaxed 0.8 → 0.72 (~10% more lenient) per 10-persona audit.
+ *  Older/tremor learners (Edith persona) hit the wall here; per-user accessibility
+ *  profile + tunable threshold deferred to a later round. */
+const TEMPLATE_COVERAGE_PASS_THRESHOLD = 0.72;
+/** Max fraction of user strokes allowed outside the allowed region.
+ *  2026-05-17: relaxed 0.25 → 0.28 (~10% more permissive) alongside coverage threshold. */
+const MAX_OVERFLOW_FRACTION = 0.28;
 /** Toggle detailed logging of drawing comparison (via ?alphabetDebugLog=1). */
 const ENABLE_DRAWING_DEBUG_LOG =
   typeof window !== "undefined" &&

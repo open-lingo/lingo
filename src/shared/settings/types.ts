@@ -25,6 +25,16 @@ export type UserSettings = {
   };
   audio: {
     soundEnabled: boolean;
+    /**
+     * When true, the auto-play hook (`useAutoPlayJaAudio`) becomes a no-op
+     * so the device never produces unbidden TTS audio on step mount —
+     * critical for public-space learners (libraries, transit, shared
+     * desks). User-triggered playback (`playJaAudio` from a tap on the
+     * speaker / mic button) intentionally still plays, because the user
+     * has explicitly asked to hear it. Persisted in localStorage like
+     * the rest of UserSettings.
+     */
+    silentMode: boolean;
   };
   notifications: {
     dailyReminderTime?: string;
@@ -60,6 +70,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
   },
   audio: {
     soundEnabled: true,
+    silentMode: false,
   },
   notifications: {
     reminderEnabled: false,

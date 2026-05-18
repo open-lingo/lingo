@@ -11,6 +11,8 @@ import {
   BUILT_IN_THEMES,
   applyThemeToDOM,
   ensureThemeTokens,
+  getFontIdFromFamily,
+  loadFontFamily,
   type ThemeTokens,
   type ThemeDefinition,
 } from "@/shared/theme";
@@ -169,6 +171,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!mounted) return;
+    // Kick off the Google Font fetch for whichever font this theme uses.
+    // No-op for system / georgia / already-loaded fonts. We don't await —
+    // CSS font-display:swap shows the fallback until the file lands, then
+    // swaps in the chosen face. This keeps theme application synchronous
+    // for color/radius changes (which are the common case).
+    void loadFontFamily(getFontIdFromFamily(activeTokens.font?.family));
     applyThemeToDOM(activeTokens);
     const root = document.documentElement;
     // Ensure light/dark class is set correctly — remove both and add current mode

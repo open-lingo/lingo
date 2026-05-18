@@ -18,6 +18,7 @@ import { KanaMasteryProvider } from "@/features/japanese/kanaMastery";
 import {
   getMockCompletedLessonIds,
   isLessonCompleted,
+  markLastStoppedCleanly,
   markLessonCompleted,
 } from "@/shared/domain/mockProgress";
 import { useToast } from "@/shared/contexts/ToastContext";
@@ -31,6 +32,7 @@ import {
   markReviewCompleted,
   sourceModuleIdOf,
 } from "./data/moduleReviewSchedule";
+import { logSessionEvent } from "@/shared/telemetry/sessionLog";
 import type { LessonCompleteMastery } from "./components/LessonComplete";
 
 /** Replays of an already-completed lesson award a fraction of the original
@@ -153,6 +155,23 @@ export function LessonPage() {
     });
   }, [lesson, lessonId, currentStepIdx, results, finished]);
 
+  // Telemetry: one-shot lesson_start on mount. Guarded by ref so
+  // React 19 StrictMode doesn't double-fire. Resumed sessions are
+  // tagged so we can distinguish a fresh start from a continuation
+  // in the session log.
+  const lessonStartFiredRef = useRef(false);
+  useEffect(() => {
+    if (lessonStartFiredRef.current || !lesson) return;
+    lessonStartFiredRef.current = true;
+    logSessionEvent("lesson_start", {
+      lessonId: lesson.id,
+      moduleId: lesson.moduleId,
+      totalSteps: lesson.steps.length,
+      resumed: wasResumed,
+      isReview,
+    });
+  }, [lesson, wasResumed, isReview]);
+
   // Surface a one-shot toast when we auto-resumed from a saved record.
   // Guarded by a ref so React 19's strict-mode double-invoke + result
   // mutations don't re-fire it.
@@ -203,6 +222,15 @@ export function LessonPage() {
       xpEarned,
       isReview,
       wasSkipped,
+    });
+    logSessionEvent("lesson_end", {
+      lessonId: lesson.id,
+      moduleId: lesson.moduleId,
+      accuracy,
+      xpEarned,
+      isReview,
+      wasSkipped,
+      stepsGraded: gradedSteps,
     });
     // M3 restructure 2026-05-16: when a review module's mastery test passes
     // (id pattern `ja-{moduleId}-review-test`), bump the SRS stage on the
@@ -290,8 +318,79 @@ export function LessonPage() {
   ]);
 
   const handleExit = useCallback(() => {
+    // Telemetry: tester left mid-lesson (without finishing). lesson_end
+    // fires from the completion effect for the finished case.
+    if (!finished && lesson) {
+      logSessionEvent("lesson_exit_mid", {
+        lessonId: lesson.id,
+        moduleId: lesson.moduleId,
+        stepIdx: currentStepIdx,
+        totalSteps,
+      });
+    }
     navigate(langPath("learn"));
+  }, [navigate, langPath, finished, lesson, currentStepIdx, totalSteps]);
+
+  /**
+   * Resolve the next lesson id within the current module's pathway.
+   * Mirrors the linear-advance logic Learn uses: same module, next index.
+   * Returns null when this is the module's final lesson (caller falls
+   * through to the exit-to-Learn behavior).
+   *
+   * Note: this intentionally does NOT cross module boundaries. After a
+   * module's last lesson, users should land on Learn to see the
+   * mastery callout / next-module unlock — not get yanked straight
+   * into the following module.
+   */
+  const nextLessonId = useMemo(() => {
+    if (!lesson || !language) return null;
+    const course = getMockCourse(language.id);
+    const mod = course.modules.find((m) =>
+      m.lessons.some((l) => l.id === lesson.id),
+    );
+    if (!mod) return null;
+    const idx = mod.lessons.findIndex((l) => l.id === lesson.id);
+    if (idx < 0 || idx >= mod.lessons.length - 1) return null;
+    return mod.lessons[idx + 1].id;
+  }, [lesson, language]);
+
+  const handleNextLesson = useCallback(() => {
+    if (nextLessonId) {
+      navigate(langPath(`learn/lessons/${nextLessonId}`));
+      return;
+    }
+    // Module just finished — fall through to exit-to-Learn.
+    handleExit();
+  }, [nextLessonId, navigate, langPath, handleExit]);
+
+  /**
+   * Per-lesson miss-set drill (Trevor's pitch, 2026-05-17). Long-term:
+   * route to a scoped flashcards review filtered to JUST the cards from
+   * the lesson's `introducesVocabIds` that the learner got wrong. That
+   * requires plumbing a new `SubscriptionQueueFilter` kind through
+   * `useReviewQueueFilter` + `useSubscriptionQueue` + `deckScope` —
+   * not in scope for this change.
+   *
+   * For now we fall back to the existing `scope=lessons` preset (all
+   * lesson-linked decks) so the button isn't a dead end. The miss-count
+   * label still signals "you missed N" to the learner; the destination
+   * is the broader lesson-decks review pool until the per-lesson scope
+   * lands as a follow-up.
+   */
+  const handleDrillMissed = useCallback(() => {
+    navigate(langPath("practice/flashcards/review?scope=lessons"));
   }, [navigate, langPath]);
+
+  /**
+   * "I'm done — save my XP" tertiary handler. Side effect: stamp the
+   * intentional-stop timestamp on the progress store (binge-brake
+   * telemetry), then exit to Learn. Distinct from the X-in-the-header
+   * exit and from leaving the tab — only this button stamps the bit.
+   */
+  const handleSaveAndExit = useCallback(() => {
+    markLastStoppedCleanly();
+    handleExit();
+  }, [handleExit]);
 
   if (!lesson) {
     return (
@@ -314,15 +413,27 @@ export function LessonPage() {
     const correctCount = Object.values(results).filter(Boolean).length;
     const gradedSteps = Object.keys(results).length;
     const mastery = computeMasteryForCompletion(lesson, results, language?.id);
+    // Wrong-on-final graded steps (post-replay-tail). Replay upgrades
+    // false→true on retry pass; whatever's still false is the genuine
+    // miss set the learner can drill.
+    const missedCount = Object.values(results).filter((v) => v === false).length;
     return (
       <LessonComplete
         lesson={lesson}
         correctCount={correctCount}
         totalGraded={gradedSteps}
-        onContinue={handleExit}
+        onContinue={handleNextLesson}
         isReview={isReview}
         xpMultiplier={isReview ? REVIEW_XP_MULTIPLIER : 1}
         mastery={mastery}
+        primaryLabel={
+          nextLessonId
+            ? t("lesson.nextLesson", "Next lesson →")
+            : t("lesson.backToLearn", "Back to Learn")
+        }
+        missedCount={missedCount}
+        onDrillMissed={missedCount > 0 ? handleDrillMissed : undefined}
+        onSaveAndExit={handleSaveAndExit}
       />
     );
   }
@@ -418,6 +529,16 @@ function computeMasteryForCompletion(
   };
 }
 
+/**
+ * Lesson-header gamification chips.
+ *
+ * Mobile (`< sm`): a single compact XP pill so the +XP carrot still
+ * shows next to the progress bar + exit X without crowding a 390px
+ * viewport. Minutes is informational, not motivational — dropped on
+ * mobile per Kai's audit (2026-05-17).
+ *
+ * Desktop (`>= sm`): the original two-chip strip (minutes + XP).
+ */
 function LessonMetaChips({
   estimatedMinutes,
   xpReward,
@@ -431,35 +552,11 @@ function LessonMetaChips({
   const hasXp = typeof xpReward === "number" && xpReward > 0;
   if (!hasMinutes && !hasXp) return null;
   return (
-    <div className="hidden items-center gap-1.5 sm:flex">
-      {hasMinutes && (
-        <span
-          className="inline-flex items-center gap-1 rounded-full border-[1.5px] border-border bg-surface-muted px-2.5 py-0.5 text-xs font-bold tabular-nums text-text-secondary"
-          aria-label={t("lesson.estimatedMinutesLabel", {
-            defaultValue: "Estimated {{n}} minute lesson",
-            n: estimatedMinutes,
-          })}
-        >
-          <svg
-            aria-hidden="true"
-            className="h-3.5 w-3.5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2.25}
-          >
-            <circle cx="12" cy="12" r="9" />
-            <path strokeLinecap="round" d="M12 7v5l3 2" />
-          </svg>
-          {t("lesson.minutesShort", {
-            defaultValue: "{{n}} min",
-            n: estimatedMinutes,
-          })}
-        </span>
-      )}
+    <>
+      {/* Mobile: XP only, tight padding so the header row fits 390px. */}
       {hasXp && (
         <span
-          className="inline-flex items-center gap-1 rounded-full border-[1.5px] border-accent-hover bg-accent/15 px-2.5 py-0.5 text-xs font-bold tabular-nums text-accent"
+          className="inline-flex items-center gap-1 rounded-full border-[1.5px] border-accent-hover bg-accent/15 px-2 py-0.5 text-[11px] font-bold tabular-nums text-accent sm:hidden"
           aria-label={t("lesson.xpRewardLabel", {
             defaultValue: "{{n}} XP reward on completion",
             n: xpReward,
@@ -471,6 +568,49 @@ function LessonMetaChips({
           })}
         </span>
       )}
-    </div>
+
+      {/* Desktop: minutes + XP. */}
+      <div className="hidden items-center gap-1.5 sm:flex">
+        {hasMinutes && (
+          <span
+            className="inline-flex items-center gap-1 rounded-full border-[1.5px] border-border bg-surface-muted px-2.5 py-0.5 text-xs font-bold tabular-nums text-text-secondary"
+            aria-label={t("lesson.estimatedMinutesLabel", {
+              defaultValue: "Estimated {{n}} minute lesson",
+              n: estimatedMinutes,
+            })}
+          >
+            <svg
+              aria-hidden="true"
+              className="h-3.5 w-3.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2.25}
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path strokeLinecap="round" d="M12 7v5l3 2" />
+            </svg>
+            {t("lesson.minutesShort", {
+              defaultValue: "{{n}} min",
+              n: estimatedMinutes,
+            })}
+          </span>
+        )}
+        {hasXp && (
+          <span
+            className="inline-flex items-center gap-1 rounded-full border-[1.5px] border-accent-hover bg-accent/15 px-2.5 py-0.5 text-xs font-bold tabular-nums text-accent"
+            aria-label={t("lesson.xpRewardLabel", {
+              defaultValue: "{{n}} XP reward on completion",
+              n: xpReward,
+            })}
+          >
+            {t("lesson.xpShort", {
+              defaultValue: "+{{n}} XP",
+              n: xpReward,
+            })}
+          </span>
+        )}
+      </div>
+    </>
   );
 }

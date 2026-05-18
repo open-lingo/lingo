@@ -49,7 +49,6 @@ import {
   ALL_ROWS,
   CONFUSABLES,
   HIRAGANA_ROWS,
-  YOON_ROWS,
 } from "./hiraganaCurriculum";
 
 /**
@@ -1069,39 +1068,14 @@ function buildSubLessonContent(
  *   - Match: 1-2 match steps over the row's anchor words (5-6 pairs each).
  *   - Build: 1-2 build_sentence steps over the row's anchor words.
  */
-/**
- * For the yōon capstone row, pull the test pool from every preceding yōon
- * row's `introduces` + anchor words. The capstone itself has empty
- * `introduces` (otherwise the curriculum-coverage test would assert the
- * kana live in a non-test sub-lesson on the capstone row).
- */
-function yoonCapstoneKana(): KanaIntro[] {
-  const out: KanaIntro[] = [];
-  for (const r of YOON_ROWS) {
-    if (r.id === "yoon-capstone") continue;
-    for (const k of r.introduces) out.push(k);
-  }
-  return out;
-}
-function yoonCapstoneAnchors(): AnchorWord[] {
-  const seen = new Set<string>();
-  const out: AnchorWord[] = [];
-  for (const r of YOON_ROWS) {
-    if (r.id === "yoon-capstone") continue;
-    for (const w of r.anchorWords) {
-      if (seen.has(w.kana)) continue;
-      seen.add(w.kana);
-      out.push(w);
-    }
-  }
-  return out;
-}
+// 2026-05-17 Hannah audit: removed yoon-capstone-specific kana/anchor
+// override helpers — that row is gone. m2-recap pulls union coverage
+// across all yōon rows via buildRecapLesson.ts.
 
 export function buildRowTestSteps(row: RowDef): RowTestItem[] {
   const items: RowTestItem[] = [];
-  const isYoonCapstone = row.id === "yoon-capstone";
-  const introduces = isYoonCapstone ? yoonCapstoneKana() : row.introduces;
-  const anchorWords = isYoonCapstone ? yoonCapstoneAnchors() : row.anchorWords;
+  const introduces = row.introduces;
+  const anchorWords = row.anchorWords;
 
   // Recognition MC per kana (one item per kana, prompt = audio).
   introduces.forEach((k, idx) => {

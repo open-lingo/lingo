@@ -135,13 +135,16 @@ export function Layout() {
               {leaderboardOn ? (
                 <Link
                   to={langPath("community/leaderboard")}
-                  className={`rounded-md px-2 py-1.5 text-sm ${
+                  className={`inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 text-sm ${
                     leaderboardActive
                       ? "font-medium text-text-primary"
                       : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
                   }`}
                 >
                   {t("nav.leaderboard")}
+                  <span className="rounded-full bg-surface-muted px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-text-muted">
+                    {t("nav.leaderboardSoonBadge", "Soon")}
+                  </span>
                 </Link>
               ) : null}
             </nav>
@@ -239,13 +242,16 @@ export function Layout() {
                 <Link
                   to={langPath("community/leaderboard")}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`rounded-lg px-4 py-3 text-base ${
+                  className={`flex items-center justify-between gap-2 rounded-lg px-4 py-3 text-base ${
                     leaderboardActive
                       ? "font-semibold text-text-primary"
                       : "font-medium text-text-primary hover:bg-surface-muted"
                   }`}
                 >
-                  {t("nav.leaderboard")}
+                  <span>{t("nav.leaderboard")}</span>
+                  <span className="rounded-full bg-surface-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-text-muted">
+                    {t("nav.leaderboardSoonBadge", "Soon")}
+                  </span>
                 </Link>
               ) : null}
             </nav>

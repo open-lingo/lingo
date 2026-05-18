@@ -22,6 +22,12 @@ export function getFontFamily(fontId: string): string {
   return FONT_PRESETS.find((f) => f.id === fontId)?.value ?? SYSTEM;
 }
 
+/** Reverse lookup: derive the font preset id from a CSS font-family string. */
+export function getFontIdFromFamily(family: string | undefined): string {
+  if (!family) return DEFAULT_FONT_ID;
+  return FONT_PRESETS.find((f) => f.value === family)?.id ?? DEFAULT_FONT_ID;
+}
+
 export function getDefaultFontTokens(): ThemeTokens["font"] {
   return { family: getFontFamily(DEFAULT_FONT_ID) };
 }

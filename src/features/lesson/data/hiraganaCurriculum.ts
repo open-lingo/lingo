@@ -1170,10 +1170,14 @@ export const DAKUTEN_ROWS: RowDef[] = [
  *
  * M2 compact pattern (curriculum-design-v2, 2026-05-16): yōon are
  * *modifications* of known kana — drop tracing, ~5–7 step content
- * sub-lessons. Per row: ONE compact content sub-lesson + ONE row-test
- * (required for ★ mastery). The yoon-capstone is a separate test-only
- * lesson that drills across all yōon — it does NOT grant retroactive
- * mastery for the 4 yōon rows; each row still needs its own test pass.
+ * sub-lessons. Per row: 3 hand-template content sub-lessons + ONE row-test
+ * (required for ★ mastery).
+ *
+ * 2026-05-17 Hannah audit: removed the standalone `yoon-capstone` test-only
+ * row. M2's back-half was 6 test nodes out of 13 — read as "exam week," not
+ * climax. The m2-recap pulls its item pool from every row that contributes
+ * lessons to M2 (dakuten + yōon), so cross-yōon coverage is preserved
+ * inside the recap. See `buildRecapLesson.ts`.
  *
  * Every yōon row declares `prerequisites: ["ya"]` so the small-ゃゅょ
  * rule cannot land before the ya-row is taught.
@@ -1485,39 +1489,8 @@ export const YOON_ROWS: RowDef[] = [
       },
     ],
   },
-  // 5) Yōon capstone — test-only row covering ALL yōon. Items are sourced
-  //    by the row-test builder from this row's `introduces` (union of all
-  //    yōon kana across the previous 4 rows). No intro/teach steps — the
-  //    auto-appended `isTest: true` sub-lesson is the only emission, which
-  //    in turn produces a single LessonContent with a RowTestStep.
-  //
-  //    NOTE: This row has NO `introduces` in the usual sense — instead it
-  //    relays the kana set so the row-test MC items can spawn. We populate
-  //    `introduces` with the union of yōon kana but mark every sub-lesson
-  //    as `isTest` so the lesson-builder's coverage assertion ("every
-  //    kana lives in a non-test sub-lesson") doesn't fire on this row.
-  {
-    id: "yoon-capstone",
-    title: "Yōon capstone test",
-    intro:
-      "Single test across every yōon you've met. Wrong answers come back at the end of the queue — finish them all to clear. Skippable.",
-    // Empty introduces — the test-only row pulls its MC item pool from the
-    // four preceding yōon rows at row-test build time (override below).
-    introduces: [],
-    anchorWords: [],
-    audioPick: { word: "きょう", pickIndex: 0, distractors: ["きゃ", "きゅ", "しゃ"] },
-    build: { meaning: "today", answer: "きょう", decoys: ["きゃ", "きゅ", "う"] },
-    prerequisites: ["ya"],
-    subLessons: [
-      {
-        suffix: "test",
-        label: "Yōon test",
-        introduces: [],
-        anchorWords: [],
-        isTest: true,
-      },
-    ],
-  },
+  // 2026-05-17 Hannah audit: standalone yoon-capstone removed — its coverage
+  // is absorbed by m2-recap, which sources items from every yōon row already.
 ];
 
 /**

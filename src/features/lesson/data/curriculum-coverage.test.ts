@@ -56,9 +56,9 @@ describe("alphabet-streamline coverage", () => {
 
       it("every row has exactly one row-test sub-lesson (M2 compact: per-row tests required for mastery)", () => {
         // M2 compact (curriculum-design-v2, 2026-05-16): every voiced and
-        // yōon row carries its own row-test for ★ mastery. The yōon-capstone
-        // is an additional cross-row sweep that does NOT replace per-row
-        // tests — it has its own -test lesson too.
+        // yōon row carries its own row-test for ★ mastery. The standalone
+        // yōon-capstone was removed 2026-05-17 (Hannah audit) — m2-recap
+        // absorbs the cross-yōon sweep.
         const subs = row.subLessons ?? [];
         const tests = subs.filter((s) => s.isTest);
         expect(tests.length, `${row.id}: expected exactly 1 test`).toBe(1);
@@ -90,12 +90,6 @@ describe("alphabet-streamline coverage", () => {
               mcKana.add(item.payload.promptAudioText);
             }
           }
-        }
-        // yoon-capstone sources its kana from every prior yōon row;
-        // row.introduces is empty for the capstone row itself.
-        if (row.id === "yoon-capstone") {
-          expect(mcKana.size).toBeGreaterThan(0);
-          return;
         }
         for (const k of row.introduces) {
           expect(

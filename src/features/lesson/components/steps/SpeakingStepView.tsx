@@ -5,6 +5,7 @@ import { AnnotatedJa, convertToHiragana } from "@/shared/japanese";
 import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
 import { getTtsUrl, playJaAudio, useAutoPlayJaAudio } from "@/shared/japanese/tts";
 import { Icon } from "@/shared/components/Icon";
+import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
   getSpeechConfig,
   isSpeechFlagEnabled,
@@ -85,6 +86,7 @@ function SpeakingStepPlaceholder({
   onContinue: () => void;
 }) {
   const audioUrl = getTtsUrl(step.targetPhrase);
+  const silentMode = useSettings().settings.audio.silentMode;
   useAutoPlayJaAudio(step.targetPhrase, `speak-${step.id}`);
   function handlePlay() {
     if (!audioUrl) return;
@@ -97,6 +99,8 @@ function SpeakingStepPlaceholder({
       </p>
 
       <ReferenceCard step={step} onPlay={handlePlay} showRomaji={false} />
+
+      {silentMode && <SilentModeNotice />}
 
       <div className="rounded-2xl border-[1.5px] border-warning/40 bg-warning/10 px-5 py-4 text-sm text-text-secondary">
         <span className="mr-1.5">🎤</span>
@@ -189,6 +193,7 @@ function SpeakingStepRecognized({
   onComplete?: (stepId: string, correct: boolean) => void;
   onContinue: () => void;
 }) {
+  const silentMode = useSettings().settings.audio.silentMode;
   // Read dials once per render. Cheap; dial changes apply on the next
   // recognition session (via the `start` dependency chain).
   const config = useMemo(() => getSpeechConfig(), []);
@@ -492,6 +497,8 @@ function SpeakingStepRecognized({
 
       <ReferenceCard step={step} onPlay={handleListen} showRomaji={showRomaji} />
 
+      {silentMode && <SilentModeNotice />}
+
       <div className="flex flex-col items-center gap-3 rounded-2xl border-[1.5px] border-border bg-surface px-5 py-6 shadow-[var(--shadow-card)]">
         <button
           type="button"
@@ -581,6 +588,23 @@ function SpeakingStepRecognized({
           Continue
         </button>
       ) : null}
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Silent-mode disclosure — keeps the learner from wondering why nothing      */
+/*  played on mount when audio.silentMode is on. Non-blocking, just a hint.   */
+/* -------------------------------------------------------------------------- */
+
+function SilentModeNotice() {
+  return (
+    <div
+      className="rounded-xl border border-border bg-surface-muted px-4 py-2.5 text-xs text-text-secondary"
+      role="status"
+    >
+      <span className="mr-1.5" aria-hidden>🔇</span>
+      Audio silenced — tap the speaker to hear it.
     </div>
   );
 }

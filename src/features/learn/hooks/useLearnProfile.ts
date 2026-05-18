@@ -2,7 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/shared/auth/useAuth";
 import { resolveUserAvatarUrl } from "@/shared/auth/resolveUserAvatarUrl";
 import { useApi } from "@/shared/api/provider";
-import { getMockProgressSummary } from "@/shared/domain/mockProgress";
+import {
+  getMockCompletedLessonIds,
+  getMockProgressSummary,
+} from "@/shared/domain/mockProgress";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 
@@ -12,6 +15,13 @@ export type LearnProfile = {
   levelLabel: string;
   streakDays: number;
   xpEarnedToday: number;
+  /**
+   * True when the user has zero recorded completions. Drives ProfileCard's
+   * empty-state variant so fresh accounts aren't shown three "0" tiles —
+   * the landing page promises "no fake gamification" and this is the
+   * place that has to deliver on it.
+   */
+  hasNoProgress: boolean;
   isLoading: boolean;
 };
 
@@ -21,6 +31,7 @@ export function useLearnProfile(): LearnProfile {
   const { users } = useApi();
   const { language } = useLanguage();
   const progress = getMockProgressSummary();
+  const hasNoProgress = getMockCompletedLessonIds().length === 0;
 
   const { data: me, isLoading: meLoading } = useQuery({
     queryKey: ["users", "me"],
@@ -38,9 +49,12 @@ export function useLearnProfile(): LearnProfile {
     "Learner";
 
   const langName = language ? getLanguageConfig(language.id)?.name ?? language.id : "";
-  const levelLabel = langName
-    ? `${langName} · ${progress.lessonsCompletedThisWeek} lessons this week`
+  const weekSegment = hasNoProgress
+    ? "Just getting started"
     : `${progress.lessonsCompletedThisWeek} lessons this week`;
+  const levelLabel = langName
+    ? `${langName} · ${weekSegment}`
+    : weekSegment;
 
   return {
     displayName,
@@ -48,6 +62,7 @@ export function useLearnProfile(): LearnProfile {
     levelLabel,
     streakDays: progress.streakDays,
     xpEarnedToday: progress.xpEarnedToday ?? 0,
+    hasNoProgress,
     isLoading: isAuthenticated && meLoading,
   };
 }

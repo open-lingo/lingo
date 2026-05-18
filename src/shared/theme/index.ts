@@ -33,4 +33,5 @@ export function ensureThemeTokens(tokens: Partial<ThemeTokens>): ThemeTokens {
   );
 }
 export { MOCK_COMMUNITY_THEMES } from "./community-mock";
-export { FONT_PRESETS, getFontFamily, getDefaultFontTokens, DEFAULT_FONT_ID } from "./fonts";
+export { FONT_PRESETS, getFontFamily, getFontIdFromFamily, getDefaultFontTokens, DEFAULT_FONT_ID } from "./fonts";
+export { loadFontFamily } from "./fontLoader";

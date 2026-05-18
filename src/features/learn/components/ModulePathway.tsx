@@ -70,14 +70,13 @@ const ROW_GLYPH: Record<string, string> = {
   ka: "か", sa: "さ", ta: "た", na: "な", ha: "は", ma: "ま",
   ya: "や", ra: "ら", wa: "わ",
   g: "が", z: "ざ", d: "だ", b: "ば", p: "ぱ",
-  // Curriculum-restructure 2026-05-15: collapsed 6 yōon rows into 4 +
-  // capstone. The capstone is a test-only row — keep an obvious glyph
-  // so the pathway label reads as a "review" beat.
+  // Curriculum-restructure 2026-05-15: collapsed 6 yōon rows into 4
+  // (yoon-capstone removed 2026-05-17 per Hannah audit — m2-recap absorbs
+  // the cross-yōon sweep).
   "yoon-intro": "きゃ",
   "yoon-sh-ch": "しゃ",
   "yoon-voiced": "じゃ",
   "yoon-rare": "にゃ",
-  "yoon-capstone": "◎",
 };
 function pickClusterGlyph(
   lessons: Lesson[],

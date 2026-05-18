@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@/shared/contexts/ThemeContext";
+import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
   BUILT_IN_THEMES,
   MOCK_COMMUNITY_THEMES,
@@ -7,6 +8,7 @@ import {
   getFontFamily,
   DEFAULT_FONT_ID,
   ensureThemeTokens,
+  loadFontFamily,
   type ThemeTokens,
   type ThemeDefinition,
 } from "@/shared/theme";
@@ -88,6 +90,8 @@ export function ThemeEditorPanel() {
     isStarred,
     closeThemeEditor,
   } = useTheme();
+  const { settings, updateSetting } = useSettings();
+  const silentMode = settings.audio.silentMode;
 
   const [draft, setDraft] = useState<ThemeTokens>(() => ensureThemeTokens(activeTokens));
   const [draftName, setDraftName] = useState("");
@@ -186,6 +190,11 @@ export function ThemeEditorPanel() {
   }, []);
 
   const handleFontChange = useCallback((fontId: string) => {
+    // Kick the lazy fetch first so the file is in flight (or cached) by the
+    // time React re-renders with the new family. font-display:swap handles
+    // the visual handoff. Fire-and-forget — failure leaves the system stack
+    // fallback in place.
+    void loadFontFamily(fontId);
     setDraft((prev) => ({
       ...prev,
       font: { family: getFontFamily(fontId) },
@@ -334,6 +343,45 @@ export function ThemeEditorPanel() {
                 Colors update as you edit
               </p>
             </div>
+          </section>
+
+          {/* Audio — silent-mode toggle. Lives in the theme panel for now
+              (no dedicated learner-settings surface yet); can be promoted
+              later if a wider audio prefs group is needed. Gates ONLY the
+              auto-play hook — tap-to-play stays live so the learner can
+              still hear sounds on demand. */}
+          <section className="mb-6">
+            <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
+              {t("settings.audio", "Audio")}
+            </h3>
+            <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-surface p-3 transition hover:bg-surface-muted">
+              <input
+                type="checkbox"
+                checked={silentMode}
+                onChange={(e) =>
+                  updateSetting("audio.silentMode", e.target.checked)
+                }
+                className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-accent"
+                aria-describedby="silent-mode-help"
+              />
+              <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                <span className="text-sm font-medium text-text-primary">
+                  {t(
+                    "settings.silentMode",
+                    "Silent mode — never auto-play audio",
+                  )}
+                </span>
+                <span
+                  id="silent-mode-help"
+                  className="text-xs text-text-muted"
+                >
+                  {t(
+                    "settings.silentModeHelp",
+                    "You can still tap audio buttons to hear sounds.",
+                  )}
+                </span>
+              </span>
+            </label>
           </section>
 
           {/* Presets */}

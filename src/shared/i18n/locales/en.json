@@ -31,6 +31,7 @@
     "flashcards": "Flashcards",
     "stories": "Stories",
     "leaderboard": "Leaderboard",
+    "leaderboardSoonBadge": "Soon",
     "community": "Community",
     "settings": "Settings",
     "admin": "Admin",
@@ -531,6 +532,10 @@
   "leaderboard": {
     "title": "Leaderboard",
     "back": "Back",
+    "comingSoonTitle": "Leaderboards — coming soon",
+    "comingSoonBody": "We're building real rankings backed by the API. For now, focus on your own ★ — that's what compounds.",
+    "backToLearn": "Back to learn",
+    "soonBadge": "Soon",
     "leadersByCategory": "Leaders by category",
     "viewAll": "View all",
     "fullTable": "Full tables",

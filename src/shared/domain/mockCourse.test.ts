@@ -1,13 +1,16 @@
 /**
- * Curriculum lesson-count guard (M2 compact restructure 2026-05-16).
+ * Curriculum lesson-count guard (M2 compact restructure 2026-05-16,
+ * yoon-capstone removed 2026-05-17 per Hannah audit).
  *
  * Per spec:
  *   M1 = pure hiragana → 39 lessons (vowels + 9 rows × 4 nodes + recap).
  *        Hand-authored end-to-end.
- *   M2 = compact dakuten/handakuten + compact yōon + recap → 20 lessons.
- *        Each voiced row (g/z/d/b/p) = 1 content + 1 test = 10.
- *        Each yōon row (intro/sh-ch/voiced/rare) = 1 content + 1 test = 8.
- *        + yoon-capstone test-only = 1, + recap = 1 → 20.
+ *   M2 = dakuten/handakuten + yōon + recap → 37 lessons.
+ *        Each voiced row (g/z/d/b/p): 3 content + 1 test = 4 × 5 = 20.
+ *        Each yōon row (intro/sh-ch/voiced/rare): 3 + 1 = 4 × 4 = 16.
+ *        + recap = 1 → 37.
+ *        (Hannah audit 2026-05-17: standalone yoon-capstone removed; the
+ *        m2-recap pool already pulls items from every yōon row.)
  *
  * Hard-coded counts catch silent drift if the catalog gets re-edited.
  * Update the expected counts (and bump the spec) if intentionally changing
@@ -33,17 +36,18 @@ describe("curriculum lesson counts", () => {
     }
   });
 
-  it("M2 has 38 lessons (every row uses the g-row 3-sub + test template)", () => {
+  it("M2 has 37 lessons (every row uses the g-row 3-sub + test template)", () => {
     const m2 = course.modules.find((m) => m.id === "m2")!;
     expect(m2).toBeDefined();
-    // 2026-05-17 (Spencer extrapolation): every dakuten/yōon row mirrors
-    // the g-row template (3 hand-authored sub-lessons + auto row-test).
+    // 2026-05-17: every dakuten/yōon row mirrors the g-row template
+    // (3 hand-authored sub-lessons + auto row-test). Hannah audit removed
+    // the standalone yoon-capstone — its cross-row coverage is absorbed by
+    // m2-recap, which pulls items from every yōon row already.
     //   Voiced rows (g, z, d, b, p): 5 × (3 content + 1 test) = 20
     //   Yōon rows (intro, sh-ch, voiced, rare): 4 × (3 + 1) = 16
-    //   Yōon capstone (test-only): 1
     //   Recap: 1
-    //   Total = 20 + 16 + 1 + 1 = 38
-    expect(m2.lessons.length).toBe(38);
+    //   Total = 20 + 16 + 1 = 37
+    expect(m2.lessons.length).toBe(37);
     // Dakuten cluster comes before yōon cluster.
     const yoonIdx = m2.lessons.findIndex((l) => l.id.includes("yoon-"));
     const lastDakutenIdx = Math.max(
@@ -141,13 +145,19 @@ describe("curriculum lesson counts", () => {
     ]);
   });
 
-  it("yōon-capstone is the final yōon node before recap", () => {
+  it("yoon-rare-test is the final yōon node before recap", () => {
     const m2 = course.modules.find((m) => m.id === "m2")!;
     const yoonIds = m2.lessons.filter((l) => l.id.includes("yoon-"));
-    // 2026-05-17: yōon rows now use g-row template too —
+    // 2026-05-17 (Hannah audit): standalone yoon-capstone removed —
     //   intro (3 content + test) + sh-ch (3 + test) + voiced (3 + test)
-    //   + rare (3 + test) + capstone (test only) = 17
-    expect(yoonIds.length).toBe(17);
-    expect(yoonIds[yoonIds.length - 1].id).toBe("ja-m1-yoon-capstone-test");
+    //   + rare (3 + test) = 16. The final yōon node is now yoon-rare-test
+    //   (the last per-row test). m2-recap follows it as the climax beat.
+    expect(yoonIds.length).toBe(16);
+    expect(yoonIds[yoonIds.length - 1].id).toBe("ja-m1-yoon-rare-test");
+    // No yoon-capstone lesson should exist anywhere in M2.
+    expect(
+      m2.lessons.some((l) => l.id.includes("yoon-capstone")),
+      "yoon-capstone lesson should have been removed",
+    ).toBe(false);
   });
 });

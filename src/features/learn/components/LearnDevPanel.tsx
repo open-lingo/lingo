@@ -6,6 +6,13 @@ import {
   subscribeSpeechLog,
   type SpeechLogEntry,
 } from "@/shared/speech";
+import {
+  clearSessionLog,
+  downloadSessionLog,
+  subscribeSessionLog,
+  summarizeSessionLog,
+  type SessionSummary,
+} from "@/shared/telemetry/sessionLog";
 import { LearnLessonLengthsOverlay } from "./LearnLessonLengthsOverlay";
 
 export type LearnDevPanelProps = {
@@ -23,6 +30,7 @@ export function LearnDevPanel({
 }: LearnDevPanelProps) {
   const [showLengths, setShowLengths] = useState(false);
   const [showSpeechLog, setShowSpeechLog] = useState(false);
+  const [showSessionLog, setShowSessionLog] = useState(false);
   const { lang } = useParams<{ lang: string }>();
   if (!unlocked && !isDevUnlockOn()) return null;
   return (
@@ -64,6 +72,13 @@ export function LearnDevPanel({
         >
           📣 Speech log
         </button>
+        <button
+          type="button"
+          onClick={() => setShowSessionLog(true)}
+          className="rounded border border-border px-2 py-1 text-left hover:bg-surface-muted"
+        >
+          📊 Tester session log
+        </button>
         {lang ? (
           <Link
             to={`/${lang}/lesson-preview`}
@@ -79,7 +94,140 @@ export function LearnDevPanel({
       {showSpeechLog && (
         <SpeechLogOverlay onClose={() => setShowSpeechLog(false)} />
       )}
+      {showSessionLog && (
+        <SessionLogOverlay onClose={() => setShowSessionLog(false)} />
+      )}
     </>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Session log overlay — tester walkthrough summary + JSON export.           */
+/*  Surfaces the lightweight telemetry buffer captured by sessionLog.ts so    */
+/*  real testers can download their walkthrough trace and email it back.      */
+/* -------------------------------------------------------------------------- */
+
+function SessionLogOverlay({ onClose }: { onClose: () => void }) {
+  const [summary, setSummary] = useState<SessionSummary>(() =>
+    summarizeSessionLog(),
+  );
+
+  useEffect(() => {
+    return subscribeSessionLog(() => setSummary(summarizeSessionLog()));
+  }, []);
+
+  const fmtMs = (ms: number) => {
+    if (ms < 60_000) return `${Math.round(ms / 1000)}s`;
+    const m = Math.floor(ms / 60_000);
+    const s = Math.round((ms % 60_000) / 1000);
+    return `${m}m ${s}s`;
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-lg font-bold text-text-primary">
+            📊 Tester session log
+          </h2>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded border border-border px-2 py-1 text-xs text-text-secondary hover:bg-surface-muted"
+          >
+            Close
+          </button>
+        </div>
+        <p className="mb-3 text-xs text-text-muted">
+          Session <span className="font-mono">{summary.sessionId}</span> · {summary.eventCount} events captured
+        </p>
+
+        {summary.eventCount === 0 ? (
+          <p className="text-sm text-text-muted">
+            No events yet. Start a lesson; events land here in real time.
+          </p>
+        ) : (
+          <>
+            <div className="mb-4 grid grid-cols-2 gap-2 text-xs sm:grid-cols-3">
+              <Stat label="Lessons started" value={summary.lessonsStarted} />
+              <Stat label="Lessons completed" value={summary.lessonsCompleted} />
+              <Stat label="Exits mid-lesson" value={summary.exitsMid} />
+              <Stat label="Speech attempts" value={summary.speechAttempts} />
+              <Stat label="Trace attempts" value={summary.traceAttempts} />
+              <Stat label="Total active" value={fmtMs(summary.totalActiveMs)} />
+            </div>
+
+            {summary.perLessonMs.length > 0 && (
+              <div className="mb-3">
+                <h3 className="mb-1 text-xs font-bold uppercase tracking-wider text-text-muted">
+                  Per-lesson time
+                </h3>
+                <ul className="space-y-0.5 text-xs">
+                  {summary.perLessonMs.map((l, i) => (
+                    <li
+                      key={`${l.lessonId}-${i}`}
+                      className="flex items-center justify-between rounded border border-border bg-surface-muted px-2 py-1"
+                    >
+                      <span className="font-mono text-text-secondary">{l.lessonId}</span>
+                      <span className="flex items-center gap-2">
+                        <span className="tabular-nums">{fmtMs(l.ms)}</span>
+                        <span
+                          className={`text-[10px] font-bold uppercase ${
+                            l.completed ? "text-success" : "text-text-muted"
+                          }`}
+                        >
+                          {l.completed ? "done" : "exited"}
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </>
+        )}
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={downloadSessionLog}
+            disabled={summary.eventCount === 0}
+            className="rounded-lg border border-accent bg-accent px-3 py-1.5 text-xs font-bold text-white hover:bg-accent-hover disabled:opacity-40"
+          >
+            ⬇ Download JSON
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (window.confirm("Clear the session log? This cannot be undone.")) {
+                clearSessionLog();
+              }
+            }}
+            disabled={summary.eventCount === 0}
+            className="rounded-lg border border-border px-3 py-1.5 text-xs text-text-secondary hover:bg-surface-muted disabled:opacity-40"
+          >
+            Clear log
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: number | string }) {
+  return (
+    <div className="rounded border border-border bg-surface-muted px-2 py-1.5">
+      <div className="text-[10px] uppercase tracking-wider text-text-muted">{label}</div>
+      <div className="text-sm font-bold text-text-primary tabular-nums">{value}</div>
+    </div>
   );
 }
 

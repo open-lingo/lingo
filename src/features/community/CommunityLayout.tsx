@@ -75,11 +75,22 @@ export function CommunityLayout() {
 
       {visibleTabs.length > 1 && (
       <TabList aria-label={t("community.tabsLabel")}>
-        {visibleTabs.map(({ path, key }) => {
+        {visibleTabs.map(({ path, key, flag }) => {
           const to = langPath(path);
+          // Leaderboard is wired but the backend isn't built; the
+          // page is a "Coming soon" splash. Surface that on the tab
+          // so users don't click in expecting a real ranking.
+          const showSoonBadge = flag === "leaderboard";
           return (
             <TabLink key={path} to={to} isActive={isTabActive(path, pathname, to)}>
-              {t(key)}
+              <span className="inline-flex items-center gap-1.5">
+                {t(key)}
+                {showSoonBadge ? (
+                  <span className="rounded-full bg-surface-muted px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-text-muted">
+                    {t("nav.leaderboardSoonBadge", "Soon")}
+                  </span>
+                ) : null}
+              </span>
             </TabLink>
           );
         })}

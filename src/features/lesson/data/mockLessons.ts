@@ -381,6 +381,16 @@ export function getMockLessonContent(
   return augmentWithReviewTail(base);
 }
 
+// Register a globally-discoverable lookup so cross-feature consumers
+// (e.g. mockProgress derivation in shared/domain) can avoid a hard
+// import cycle: mockProgress → mockLessons → generatedHiragana → SRS.
+// The shape mirrors `__lingo_row_sub_lesson_ids__` used by the
+// streamline migration.
+if (typeof globalThis !== "undefined") {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (globalThis as any).__lingo_get_lesson_content__ = getMockLessonContent;
+}
+
 export function getAvailableMockLessonIds(): string[] {
   return Object.keys(LESSONS);
 }

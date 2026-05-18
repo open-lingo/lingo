@@ -19,6 +19,17 @@ import { ModulePreview } from "./ModulePreview";
 import { ResumeBar } from "./ResumeBar";
 import { Button } from "@/shared/components/ui";
 
+/**
+ * Feature flag — test-out (diagnostic skip-ahead) is not built yet.
+ * See CLAUDE.md #58 (Phase 3b multi-step lesson container +
+ * diagnostic skip-test). When false: don't render the "Test out of
+ * Module N" buttons or the "coming soon" ConfirmModal at all (the
+ * tombstone confused first-time users — Marc + Sora persona audit).
+ * Flip to true when the feature ships and the buttons + modal wake
+ * back up.
+ */
+const TEST_OUT_ENABLED = false;
+
 export type LearnCourseMapProps = {
   course: Course;
   completedSet: ReadonlySet<string>;
@@ -115,15 +126,25 @@ export function LearnCourseMap({
                     {t("learn.resumeLesson", { title: currentLesson.title })}
                   </Button>
                 ) : null}
-                <Button type="button" variant="secondary" onClick={() => testOut(mod.id)}>
-                  {t("learn.testOutModule", { n: display.contentNumber ?? display.badgeLabel })}
-                </Button>
-                <p className="lingo-test-out-note basis-full">
-                  {t(
-                    "learn.testOutNote",
-                    "Testing out marks every lesson up to here as complete and jumps you to the next module.",
-                  )}
-                </p>
+                {TEST_OUT_ENABLED ? (
+                  <>
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={() => testOut(mod.id)}
+                    >
+                      {t("learn.testOutModule", {
+                        n: display.contentNumber ?? display.badgeLabel,
+                      })}
+                    </Button>
+                    <p className="lingo-test-out-note basis-full">
+                      {t(
+                        "learn.testOutNote",
+                        "Testing out marks every lesson up to here as complete and jumps you to the next module.",
+                      )}
+                    </p>
+                  </>
+                ) : null}
                 <Link
                   to={langPath("practice/flashcards/review?scope=lessons")}
                   className={composeButtonClasses({
@@ -135,7 +156,7 @@ export function LearnCourseMap({
                   {t("learn.flashcardsLessonDecksButton")}
                 </Link>
               </>
-            ) : !isCurrent && !mod.comingSoon ? (
+            ) : TEST_OUT_ENABLED && !isCurrent && !mod.comingSoon ? (
               <Button type="button" variant="secondary" onClick={() => testOut(mod.id)}>
                 {t("learn.testOutModule", { n: i })}
               </Button>
@@ -178,7 +199,7 @@ export function LearnCourseMap({
         </button>
       </div>
 
-      {testOutModuleIdx !== null ? (
+      {TEST_OUT_ENABLED && testOutModuleIdx !== null ? (
         <ConfirmModal
           title={t("learn.testOutComingSoonTitle", "Test-out is coming soon")}
           message={t(

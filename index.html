@@ -4,7 +4,15 @@
     <meta charset="UTF-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!--
+      Only the always-needed fonts ship up-front:
+        - Default UI font is the system stack (no network, see fontLoader.ts).
+        - Noto Sans JP is required wherever kana renders (every JA lesson).
+      All other display fonts (Inter / Open Sans / Source Sans 3 / Nunito /
+      Lora / Atkinson Hyperlegible) lazy-load via shared/theme/fontLoader.ts
+      the first time the user picks them.
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/icon.ico" />
     <title>Open Lingo</title>

@@ -68,10 +68,12 @@ export function getMockCourse(languageId: string): Course {
   if (isJapanese) {
     // Curriculum-restructure (2026-05-15):
     //   M1 = pure hiragana only (vowels + 9 base rows + recap).
-    //   M2 = dakuten block (g/z/d/b/p, compact 1 content + 1 test each)
+    //   M2 = dakuten block (g/z/d/b/p, 3 content + 1 test each)
     //        then yōon block (yoon-intro / yoon-sh-ch / yoon-voiced /
-    //        yoon-rare each compact 1 content + 1 test, plus a final
-    //        yoon-capstone test-only sweep) then recap.
+    //        yoon-rare each 3 content + 1 test) then recap. The recap
+    //        absorbs cross-yōon coverage (Hannah audit, 2026-05-17:
+    //        standalone yoon-capstone removed — too many test nodes in a
+    //        row read as exam week, not climax).
     //
     // Yōon prereq: every yōon row carries `prerequisites: ["ya"]` which
     // `isLessonLocked` honors — yōon stays locked until the full ya-row
@@ -133,8 +135,8 @@ export function getMockCourse(languageId: string): Course {
       });
     }
 
-    // Module 2 — dakuten (compressed to 2 sub-lessons + test per row) +
-    // yōon (4 compressed rows + a capstone) + recap.
+    // Module 2 — dakuten (g/z/d/b/p, 3 sub-lessons + test per row) +
+    // yōon (4 rows × 3 sub-lessons + test) + recap.
     const m2Lessons: {
       id: string;
       title: string;

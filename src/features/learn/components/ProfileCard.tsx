@@ -38,28 +38,61 @@ export function ProfileCard({ profile }: ProfileCardProps) {
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-1.5">
-        <StatTile
-          iconName="flame"
-          valueClassName="text-warning"
-          value={profile.streakDays}
-          label={t("progress.dayStreak")}
-        />
-        <StatTile
-          iconName="star"
-          valueClassName="text-accent"
-          value={profile.xpEarnedToday}
-          label={t("progress.xpEarnedToday")}
-        />
-        <StatTile
-          iconName="layers"
-          valueClassName="text-accent"
-          value={cardsDueLoading ? "…" : cardsDue}
-          label={t("progress.cardsDueToday")}
-          to={langPath("practice/flashcards/review")}
-        />
-      </div>
+      {profile.hasNoProgress ? (
+        <ProfileCardEmpty />
+      ) : (
+        <div className="grid grid-cols-3 gap-1.5">
+          <StatTile
+            iconName="flame"
+            valueClassName="text-warning"
+            value={profile.streakDays}
+            label={t("progress.dayStreak")}
+          />
+          <StatTile
+            iconName="star"
+            valueClassName="text-accent"
+            value={profile.xpEarnedToday}
+            label={t("progress.xpEarnedToday")}
+          />
+          <StatTile
+            iconName="layers"
+            valueClassName="text-accent"
+            value={cardsDueLoading ? "…" : cardsDue}
+            label={t("progress.cardsDueToday")}
+            to={langPath("practice/flashcards/review")}
+          />
+        </div>
+      )}
     </Card>
+  );
+}
+
+/**
+ * Empty-state body for fresh accounts (zero completions). Mirrors the
+ * spirit of `EmptyActivityNotice` on Home — instead of three "0" tiles
+ * that read as dead/broken, give the learner two short forward-looking
+ * promises tied to the action that fills them in.
+ *
+ * Co-located here (vs its own file) because it has zero re-use surface
+ * and is purely a visual variant of ProfileCard.
+ */
+function ProfileCardEmpty() {
+  const { t } = useTranslation();
+  return (
+    <div className="rounded-lg border border-dashed border-border bg-surface-muted/40 px-3 py-2.5">
+      <p className="flex items-center gap-1.5 text-xs font-semibold text-text-primary">
+        <Icon name="flame" size={14} className="text-warning" aria-hidden />
+        {t("learn.profileEmpty.streakSeed", {
+          defaultValue: "Streak starts after lesson 1",
+        })}
+      </p>
+      <p className="mt-1 flex items-center gap-1.5 text-xs text-text-secondary">
+        <Icon name="star" size={14} className="text-accent" aria-hidden />
+        {t("learn.profileEmpty.xpSeed", {
+          defaultValue: "Earn XP by finishing any lesson below",
+        })}
+      </p>
+    </div>
   );
 }
 

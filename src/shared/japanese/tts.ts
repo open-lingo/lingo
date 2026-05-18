@@ -20,6 +20,7 @@
  */
 import { useEffect } from "react";
 import manifest from "../../pub/tts/manifest.json";
+import { useSettings } from "@/shared/contexts/SettingsContext";
 
 const MANIFEST = manifest as Record<string, string | string[]>;
 
@@ -189,14 +190,21 @@ export async function autoPlayJaAudio(
  *
  * The decoded AudioBuffer is module-cached, so repeat plays of the same
  * URL across the session are zero-cost after the first decode.
+ *
+ * Honors `audio.silentMode` (theme/settings panel). When silent mode is on
+ * the hook is a no-op. This is the **only** gate point for silent mode —
+ * direct `playJaAudio` calls (tap-to-play on speaker / mic buttons) stay
+ * un-gated so the learner can still hear sounds when they explicitly ask.
  */
 export function useAutoPlayJaAudio(
   text: string | undefined,
   playbackKey: string,
   delayMs: number = 350,
 ): void {
+  const silent = useSettings().settings.audio.silentMode;
   useEffect(() => {
     if (!text) return;
+    if (silent) return;
     let cancelled = false;
     const t = setTimeout(() => {
       if (cancelled) return;
@@ -206,5 +214,5 @@ export function useAutoPlayJaAudio(
       cancelled = true;
       clearTimeout(t);
     };
-  }, [text, playbackKey, delayMs]);
+  }, [text, playbackKey, delayMs, silent]);
 }

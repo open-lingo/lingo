@@ -16,6 +16,7 @@ import { Icon } from "@/shared/components/Icon";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { logSessionEvent } from "@/shared/telemetry/sessionLog";
 import { getMockCourse, ALPHABET_LESSON_ID } from "@/shared/domain/mockCourse";
 import {
   clearMockProgress,
@@ -53,6 +54,20 @@ export function LearnPage() {
     getMockCompletedLessonIds(),
   );
   const [devUnlock, setDevUnlockState] = useState(() => isDevUnlockOn());
+
+  // Telemetry: one page_view per language visit. Stable ref so React 19
+  // StrictMode + language changes during dev don't double-fire.
+  const learnViewFiredRef = useRef<string | null>(null);
+  useEffect(() => {
+    const langId = language?.id ?? "unknown";
+    if (learnViewFiredRef.current === langId) return;
+    learnViewFiredRef.current = langId;
+    logSessionEvent("page_view", {
+      page: "learn",
+      langId,
+      completedCount: completedIds.length,
+    });
+  }, [language?.id, completedIds.length]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [showStartOverConfirm, setShowStartOverConfirm] = useState(false);
 

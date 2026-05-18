@@ -94,6 +94,13 @@ export type LessonCompletion = {
 
 type ProgressStore = {
   completed: Record<string, LessonCompletion>;
+  /**
+   * ISO 8601 timestamp of the most recent "I'm done — save my XP" tap on
+   * the LessonComplete screen. Tracks intentional binge-stops (the
+   * binge-brake CTA) distinct from leaving the tab or hitting back.
+   * Optional: undefined until the user has ever cleanly stopped once.
+   */
+  lastStoppedCleanly?: string;
 };
 
 function loadStore(): ProgressStore {
@@ -379,6 +386,25 @@ export function clearMockProgress(): void {
   localStorage.removeItem(PROGRESS_KEY);
 }
 
+/**
+ * Stamp the moment the learner deliberately ended a session via the
+ * "I'm done — save my XP" tertiary on the lesson-complete screen.
+ * Idempotent — overwrites any prior value with the new timestamp.
+ * Stored on the same progress store so it migrates / clears with the
+ * rest of the per-device state.
+ */
+export function markLastStoppedCleanly(now: string = new Date().toISOString()): void {
+  const store = loadStore();
+  store.lastStoppedCleanly = now;
+  saveStore(store);
+}
+
+/** Read-only accessor — returns the ISO timestamp of the most recent
+ *  clean-stop, or `null` if the learner has never used the binge-brake. */
+export function getLastStoppedCleanly(): string | null {
+  return loadStore().lastStoppedCleanly ?? null;
+}
+
 // ----- Dev unlock --------------------------------------------------------
 
 export function isDevUnlockOn(): boolean {
@@ -414,8 +440,124 @@ const MOCK_PROGRESS: ProgressSummary = {
   xpEarnedToday: 50,
 };
 
+/**
+ * Format a Date as a local-timezone YYYY-MM-DD calendar day. Streak math
+ * runs on the user's clock day (not UTC) — a learner finishing a lesson at
+ * 11pm local should "consume" today's slot, not tomorrow's UTC slot.
+ */
+function localDayKey(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+/**
+ * Walk distinct local-day completion days backward from today. Counts
+ * consecutive days ending today, or — if no completion today yet —
+ * starting at yesterday so the streak doesn't reset mid-day before the
+ * learner has had a chance to practice.
+ *
+ *   - did today + yesterday + day-before → 3
+ *   - did yesterday + day-before (none today yet) → 2 (anchored at yesterday)
+ *   - did day-before only (skipped yesterday) → 0 (streak broken)
+ *   - did today only → 1
+ *   - empty store → 0
+ */
+function computeStreakDays(completedDays: Set<string>): number {
+  if (completedDays.size === 0) return 0;
+  const today = new Date();
+  const todayKey = localDayKey(today);
+  // Anchor: if nothing today yet, start from yesterday so the user's
+  // existing streak isn't shown as broken until midnight rolls.
+  const cursor = new Date(today);
+  if (!completedDays.has(todayKey)) {
+    cursor.setDate(cursor.getDate() - 1);
+    if (!completedDays.has(localDayKey(cursor))) return 0;
+  }
+  let count = 0;
+  while (completedDays.has(localDayKey(cursor))) {
+    count += 1;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return count;
+}
+
 export function getMockProgressSummary(): ProgressSummary {
-  // Sum lastXp across completions for a live xpTotal once that surface
-  // becomes real. For now keep the mock summary stable.
-  return { ...MOCK_PROGRESS };
+  // SSR / initial render: no localStorage, no derivation possible.
+  // Falling back to the constant keeps the function contract stable;
+  // the next client-side render hits the live path.
+  if (typeof window === "undefined") return { ...MOCK_PROGRESS };
+
+  const store = loadStore();
+  const completions = Object.values(store.completed);
+
+  if (completions.length === 0) {
+    return {
+      streakDays: 0,
+      lessonsCompletedThisWeek: 0,
+      dailyGoalMinutes: MOCK_PROGRESS.dailyGoalMinutes,
+      dailyGoalCompletedMinutes: 0,
+      cardsDueToday: 0,
+      xpTotal: 0,
+      xpEarnedToday: 0,
+    };
+  }
+
+  const now = new Date();
+  const todayKey = localDayKey(now);
+  // 7-day cutoff: include completions whose timestamp is within the last
+  // 7 * 24h. Using a rolling window (vs ISO week) so "this week" never
+  // resets to 0 on a Monday.
+  const sevenDaysAgoMs = now.getTime() - 7 * 24 * 60 * 60 * 1000;
+
+  const completedDayKeys = new Set<string>();
+  let xpTotal = 0;
+  let xpEarnedToday = 0;
+  let lessonsThisWeek = 0;
+  let dailyGoalCompletedMinutes = 0;
+
+  // Lazy import to avoid a hard dep cycle (mockProgress → mockLessons →
+  // generatedHiragana → struggleStore → SRS). The require shape mirrors
+  // how runStreamlineMigration discovers the row map.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const lessonContentLookup: ((id: string) => { estimatedMinutes?: number } | null) | null = (() => {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const fn = (globalThis as any).__lingo_get_lesson_content__;
+      return typeof fn === "function" ? fn : null;
+    } catch {
+      return null;
+    }
+  })();
+
+  for (const c of completions) {
+    const last = new Date(c.lastCompletedAt);
+    const dayKey = localDayKey(last);
+    completedDayKeys.add(dayKey);
+    xpTotal += c.lastXp ?? 0;
+    if (dayKey === todayKey) {
+      xpEarnedToday += c.lastXp ?? 0;
+      if (lessonContentLookup) {
+        const content = lessonContentLookup(c.lessonId);
+        dailyGoalCompletedMinutes += content?.estimatedMinutes ?? 0;
+      }
+    }
+    if (last.getTime() >= sevenDaysAgoMs) {
+      lessonsThisWeek += 1;
+    }
+  }
+
+  return {
+    streakDays: computeStreakDays(completedDayKeys),
+    lessonsCompletedThisWeek: lessonsThisWeek,
+    dailyGoalMinutes: MOCK_PROGRESS.dailyGoalMinutes,
+    dailyGoalCompletedMinutes,
+    // cardsDueToday is computed by a real hook (useCardsDueCount); the
+    // value here is unused by ProfileCard/ProgressSummary in practice.
+    // Leaving 0 as a safe default rather than the legacy mock of 12.
+    cardsDueToday: 0,
+    xpTotal,
+    xpEarnedToday,
+  };
 }

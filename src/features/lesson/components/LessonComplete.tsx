@@ -24,12 +24,27 @@ type Props = {
   lesson: LessonContent;
   correctCount: number;
   totalGraded: number;
+  /** Primary "Next lesson →" action. Falls through to the exit behavior
+   *  when no next lesson exists (LessonPage resolves which). */
   onContinue: () => void;
   /** True when the learner is replaying an already-completed lesson. */
   isReview?: boolean;
   /** XP multiplier — 1 for a fresh completion, < 1 for a review replay. */
   xpMultiplier?: number;
   mastery?: LessonCompleteMastery;
+  /** Copy for the primary CTA. LessonPage decides between "Next lesson →"
+   *  and "Back to Learn" based on whether a next lesson exists. */
+  primaryLabel?: string;
+  /** Count of graded steps the learner got wrong on first attempt — when
+   *  > 0 the "Drill what you missed" secondary renders. */
+  missedCount?: number;
+  /** Handler for the "Drill what you missed" secondary. Required when
+   *  `missedCount > 0`; ignored otherwise. */
+  onDrillMissed?: () => void;
+  /** Handler for the tertiary binge-brake "I'm done — save my XP" button.
+   *  When omitted, the tertiary is hidden (used by tests / previews that
+   *  don't wire the side effect). */
+  onSaveAndExit?: () => void;
 };
 
 export function LessonComplete({
@@ -40,6 +55,10 @@ export function LessonComplete({
   isReview = false,
   xpMultiplier = 1,
   mastery,
+  primaryLabel,
+  missedCount = 0,
+  onDrillMissed,
+  onSaveAndExit,
 }: Props) {
   const { t } = useTranslation();
   const percent = totalGraded > 0 ? Math.round((correctCount / totalGraded) * 100) : 100;
@@ -119,13 +138,47 @@ export function LessonComplete({
         </div>
       ) : null}
 
-      <Button
-        variant="primary-3d"
-        onClick={onContinue}
-        className="mt-4 w-full"
-      >
-        {t("lesson.continue", "Continue")}
-      </Button>
+      <div className="mt-4 flex w-full flex-col gap-3">
+        <Button
+          variant="primary-3d"
+          onClick={onContinue}
+          className="w-full"
+        >
+          {primaryLabel ?? t("lesson.nextLesson", "Next lesson →")}
+        </Button>
+
+        {missedCount > 0 && onDrillMissed && (
+          <Button
+            variant="outline"
+            accent
+            onClick={onDrillMissed}
+            className="w-full"
+          >
+            {t("lesson.drillMissed", {
+              defaultValue: "Drill what you missed ({{n}})",
+              n: missedCount,
+            })}
+          </Button>
+        )}
+
+        {onSaveAndExit && (
+          <div className="flex flex-col items-center gap-1">
+            <Button
+              variant="ghost"
+              onClick={onSaveAndExit}
+              className="w-full text-text-secondary"
+            >
+              {t("lesson.saveAndExit", "I'm done — save my XP")}
+            </Button>
+            <span className="text-xs text-text-muted">
+              {t(
+                "lesson.saveAndExitHint",
+                "Locked in — see you tomorrow.",
+              )}
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
