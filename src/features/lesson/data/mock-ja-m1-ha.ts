@@ -3,6 +3,7 @@ import {
   type RowContext,
   symbolIntro, traceTwice, recognition, symbolToSound,
   wordImageMcq, listeningBuild, speaking, listeningComp,
+  priorRowReviewTail,
 } from "./_consonantRowHelpers";
 
 /**
@@ -146,6 +147,9 @@ export const MOCK_LESSON_JA_M1_HA_3: LessonContent = {
       targetAnnotation: [{ surface: "ほし です", reading: "ほし です" }],
     },
     speaking("ja-ha3-speak-hoshi-desu", "ほし です", "It's a star."),
+
+    // R2-defer-F prior-row review tail — vowels + ka + sa + ta + na pool.
+    ...priorRowReviewTail("ha"),
 
     { id: "ja-ha3-info-end", type: "info", title: "Real-world win",
       body: "You can now read ふね (boat), ほし (star) — and decode ハート ❤️ (heart) on every Valentine's chocolate wrapper in Japan. Up next — ma row.",

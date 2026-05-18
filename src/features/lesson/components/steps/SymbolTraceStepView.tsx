@@ -45,6 +45,9 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
   // the still-visible stroke data from the previous attempt.
   const [checkLocked, setCheckLocked] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
+  // Tracks whether the user has drawn anything on the current attempt so the
+  // Clear button can hide until it's useful. Reset when we wipe the canvas.
+  const [hasStrokes, setHasStrokes] = useState(false);
   const [reference, setReference] = useState<SymbolReference>(() =>
     getSystemFontReferenceFor(step.payload.symbol),
   );
@@ -54,6 +57,11 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
    *  users don't sit waiting, long enough to read as a clear "your stroke
    *  is gone" affordance. Check is locked for this window. */
   const FADE_MS = 450;
+  /** Brief mid-attempt celebration window. Shorter than the final-pass
+   *  CELEBRATE_MS — this one shouldn't gate the user, just warm up the
+   *  transition to the next attempt. */
+  const INTER_ATTEMPT_CELEBRATE_MS = 900;
+  const multiAttempt = step.minCorrectAttempts > 1;
 
   const hasStrokeOrder = Boolean(step.payload.hasStrokeOrder && reference.glyph);
   const animation = useStrokeAnimation(
@@ -77,6 +85,19 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
       alive = false;
     };
   }, [step.payload.scriptId, step.payload.symbol]);
+
+  const handleClear = useCallback(() => {
+    // Wipe without scoring — testers asked for a fast reset for misstrokes.
+    // Not a fail: failCount is untouched, attempt progress is preserved.
+    canvasRef.current?.clear();
+    setHasStrokes(false);
+    setFeedback(null);
+    logAlphabetEvent("trace_clear", {
+      symbol: step.payload.symbol,
+      scriptId: step.payload.scriptId ?? null,
+      correctCount,
+    });
+  }, [step.payload.symbol, step.payload.scriptId, correctCount]);
 
   const handlePlay = useCallback(() => {
     if (!step.payload.audioKey) return;
@@ -138,10 +159,20 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
             setDone(true);
           }, CELEBRATE_MS);
         } else {
-          setFeedback("good");
+          // Inter-attempt celebration — testers reported a mechanical feel
+          // between pass 1 and pass 2 with zero acknowledgement of the win.
+          setFeedback(null);
+          setCelebrationText(
+            t("alphabet.celebrate.oneMoreTime", "Nice! One more time."),
+          );
+          setCelebrating(true);
           canvasRef.current?.fadeAndClear(FADE_MS);
           setCheckLocked(true);
-          window.setTimeout(() => setCheckLocked(false), FADE_MS);
+          window.setTimeout(() => {
+            setCheckLocked(false);
+            setCelebrating(false);
+          }, INTER_ATTEMPT_CELEBRATE_MS);
+          setHasStrokes(false);
         }
         return;
       }
@@ -149,6 +180,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
     setFeedback("try");
     setFailCount((n) => n + 1);
     canvasRef.current?.fadeAndClear(FADE_MS);
+    setHasStrokes(false);
     setCheckLocked(true);
     window.setTimeout(() => setCheckLocked(false), FADE_MS);
   }, [
@@ -217,17 +249,31 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
             {t("alphabet.replayStrokeOrder", "Replay stroke order")}
           </button>
         )}
-        <ProgressDots
-          filled={correctCount}
-          total={step.minCorrectAttempts}
-          showCount
-          orientation="horizontal"
-          ariaLabel={t("alphabet.progressAria", {
-            count: correctCount,
-            total: step.minCorrectAttempts,
-            defaultValue: "{{count}} of {{total}} correct",
-          })}
-        />
+        <div className="flex items-center gap-2">
+          {multiAttempt && (
+            <span
+              className="text-sm font-semibold text-text-secondary"
+              aria-live="polite"
+            >
+              {t("alphabet.attemptOf", {
+                current: Math.min(correctCount + 1, step.minCorrectAttempts),
+                total: step.minCorrectAttempts,
+                defaultValue: "Attempt {{current}} of {{total}}",
+              })}
+            </span>
+          )}
+          <ProgressDots
+            filled={correctCount}
+            total={step.minCorrectAttempts}
+            showCount={!multiAttempt}
+            orientation="horizontal"
+            ariaLabel={t("alphabet.progressAria", {
+              count: correctCount,
+              total: step.minCorrectAttempts,
+              defaultValue: "{{count}} of {{total}} correct",
+            })}
+          />
+        </div>
       </div>
       <div
         ref={canvasWrapperRef}
@@ -243,6 +289,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
             strokeOrderGlyph={hasStrokeOrder ? reference.glyph : null}
             showStrokeNumbers={hasStrokeOrder && step.showGuide && !animation.isPlaying}
             animationFrame={animation.isPlaying ? animation.frame : null}
+            onStrokeStart={() => setHasStrokes(true)}
             aria-label={t("alphabet.drawHere", "Draw here")}
           />
           {celebrating && <CelebrationToast text={celebrationText} />}
@@ -285,6 +332,17 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
             disabled={checkLocked}
             label={t("alphabet.check", "Check")}
           />
+          {hasStrokes && !checkLocked && (
+            <button
+              type="button"
+              onClick={handleClear}
+              className="motion-safe:animate-fade-up inline-flex items-center justify-center gap-1.5 self-center text-sm font-medium text-text-muted underline decoration-dotted underline-offset-4 transition hover:text-text-primary"
+              aria-label={t("alphabet.clearCanvas", "Clear canvas")}
+            >
+              <Icon name="refresh" size={14} />
+              {t("alphabet.clear", "Clear")}
+            </button>
+          )}
           {failCount >= SKIP_AFTER_FAILS && (
             <button
               type="button"

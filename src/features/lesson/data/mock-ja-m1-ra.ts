@@ -3,6 +3,7 @@ import {
   type RowContext,
   symbolIntro, traceTwice, recognition, symbolToSound,
   wordImageMcq, listeningBuild, speaking, listeningComp,
+  priorRowReviewTail,
 } from "./_consonantRowHelpers";
 
 /**
@@ -140,6 +141,9 @@ export const MOCK_LESSON_JA_M1_RA_3: LessonContent = {
     speaking("ja-ra3-speak-sakura", "さくら", "cherry blossom"),
     speaking("ja-ra3-speak-kore",   "これ",   "this"),
     speaking("ja-ra3-speak-iro",    "いろ",   "color"),
+
+    // R2-defer-F prior-row review tail — vowels through ya pool.
+    ...priorRowReviewTail("ra"),
 
     { id: "ja-ra3-info-end", type: "info", title: "Real-world win",
       body: "You can now read さくら 🌸 (cherry blossom) — the word on half the anime title cards in spring season — and いろ (color) on art-supply labels. Up next — wa row (just 3 kana left).",

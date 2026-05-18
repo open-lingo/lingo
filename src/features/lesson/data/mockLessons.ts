@@ -373,12 +373,76 @@ function augmentWithReviewTail(lesson: LessonContent): LessonContent {
   return { ...lesson, steps };
 }
 
+/**
+ * Modules where the tile-pick `build_sentence` step has outlived its
+ * pedagogical purpose. Per Spencer's note (#R1-defer-G, 2026-05-17):
+ * "[build_sentence] needs to disappear around module 5 — once we get more
+ * than 5 mora words in the mix, it feels redundant." Once learners are
+ * confidently assembling 5+ mora words the tile-assembly step adds no
+ * value over translate/MCQ. M1-M4 keep it; their words are short enough
+ * that production-via-tiles is still scaffolding, not busywork.
+ *
+ * Review pseudo-modules inherit their source module's status — a
+ * `m5-review` lesson reviews M5 content, so it sunsets too.
+ */
+const BUILD_SENTENCE_SUNSET_MODULES = new Set(["m5", "m6", "m7"]);
+
+export function isSunsetModuleForBuildSentence(moduleId: string): boolean {
+  if (BUILD_SENTENCE_SUNSET_MODULES.has(moduleId)) return true;
+  const source = /^(.+)-review$/.exec(moduleId)?.[1];
+  return source !== undefined && BUILD_SENTENCE_SUNSET_MODULES.has(source);
+}
+
+/**
+ * Strip `build_sentence` from `lesson.steps` AND from any nested `row_test`
+ * item queue. Returns the original lesson if nothing was filtered (cheap
+ * identity-equality for callers that compare references).
+ *
+ * In dev, warns when a lesson ends up with zero non-info steps post-filter
+ * (a smell — Spencer would rather know than ship a degenerate lesson).
+ */
+function stripBuildSentenceSteps(lesson: LessonContent): LessonContent {
+  let changed = false;
+  const steps: LessonStep[] = [];
+  for (const step of lesson.steps) {
+    if (step.type === "build_sentence") {
+      changed = true;
+      continue;
+    }
+    if (step.type === "row_test") {
+      const filtered = step.items.filter((item) => item.kind !== "build");
+      if (filtered.length !== step.items.length) {
+        changed = true;
+        steps.push({ ...step, items: filtered });
+        continue;
+      }
+    }
+    steps.push(step);
+  }
+  if (!changed) return lesson;
+  if (import.meta.env.DEV) {
+    const realWork = steps.filter(
+      (s) => s.type !== "info" && s.type !== "phrase_card",
+    );
+    if (realWork.length === 0) {
+      console.warn(
+        `[mockLessons] ${lesson.id}: zero real-work steps after build_sentence sunset filter`,
+      );
+    }
+  }
+  return { ...lesson, steps };
+}
+
 export function getMockLessonContent(
   lessonId: string,
 ): LessonContent | null {
   const base = LESSONS[lessonId] ?? null;
   if (!base) return null;
-  return augmentWithReviewTail(base);
+  const augmented = augmentWithReviewTail(base);
+  if (isSunsetModuleForBuildSentence(augmented.moduleId)) {
+    return stripBuildSentenceSteps(augmented);
+  }
+  return augmented;
 }
 
 // Register a globally-discoverable lookup so cross-feature consumers

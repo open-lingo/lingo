@@ -3,6 +3,7 @@ import {
   type RowContext,
   symbolIntro, traceTwice, recognition, symbolToSound,
   wordImageMcq, listeningBuild, speaking, listeningComp,
+  priorRowReviewTail,
 } from "./_consonantRowHelpers";
 
 /**
@@ -144,6 +145,9 @@ export const MOCK_LESSON_JA_M1_NA_3: LessonContent = {
       targetAnnotation: [{ surface: "ねこ ですか", reading: "ねこ ですか" }],
     },
     speaking("ja-na3-speak-neko-desu-ka", "ねこ ですか", "Is it a cat?"),
+
+    // R2-defer-F prior-row review tail — vowels + ka + sa + ta pool.
+    ...priorRowReviewTail("na"),
 
     { id: "ja-na3-info-end", type: "info", title: "Real-world win",
       body: "You can now read ねこ (cat), なに (what) — and spot ナマエ ('name') in the name-field on every Japanese form. Up next — ha row.",

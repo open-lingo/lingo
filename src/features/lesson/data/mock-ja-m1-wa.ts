@@ -3,6 +3,7 @@ import {
   type RowContext,
   symbolIntro, traceTwice, recognition, symbolToSound,
   wordImageMcq, listeningBuild, speaking, listeningComp,
+  priorRowReviewTail,
 } from "./_consonantRowHelpers";
 
 /**
@@ -165,6 +166,10 @@ export const MOCK_LESSON_JA_M1_WA_3: LessonContent = {
     speaking("ja-wa3-speak-kawa",    "かわ",   "river"),
     speaking("ja-wa3-speak-hon",     "ほん",   "book"),
     speaking("ja-wa3-speak-watashi", "わたし", "I / me"),
+
+    // R2-defer-F prior-row review tail — vowels through ra pool (the
+    // richest one, since wa is the last basic row).
+    ...priorRowReviewTail("wa"),
 
     { id: "ja-wa3-info-end", type: "info", title: "Real-world win — hiragana complete",
       body: "Every basic hiragana, done. That's わたし (I/me), ほん (book), かわ (river) — and the entire 46-character chart you'll see on furigana above kanji in children's books, in karaoke lyrics, in nearly every manga panel. Next module: voicing (dakuten + handakuten).",

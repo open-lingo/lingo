@@ -80,6 +80,12 @@ type Props = {
    */
   animationFrame?: StrokeAnimationFrame | null;
   onClear?: () => void;
+  /**
+   * Fires the first time a stroke begins after the canvas has been cleared.
+   * Parents use this to gate UI that only makes sense once the user has
+   * drawn something (e.g. a "Clear" button).
+   */
+  onStrokeStart?: () => void;
   className?: string;
   "aria-label"?: string;
 };
@@ -93,6 +99,7 @@ export const DrawingCanvas = forwardRef<DrawingCanvasHandle, Props>(function Dra
   showStrokeNumbers = false,
   animationFrame = null,
   onClear,
+  onStrokeStart,
   className = "",
   "aria-label": ariaLabel = "Drawing area",
 }, ref) {
@@ -194,8 +201,12 @@ export const DrawingCanvas = forwardRef<DrawingCanvasHandle, Props>(function Dra
     ctx.beginPath();
     const stroke: UserStroke = { points: [] };
     currentStrokeRef.current = stroke;
+    // Fire onStrokeStart on the transition from 0 → 1 strokes so parents can
+    // flip a "has drawn anything" flag without re-firing for every stroke.
+    const isFirstStroke = strokesRef.current.length === 0;
     strokesRef.current.push(stroke);
-  }, [getDrawCtx]);
+    if (isFirstStroke) onStrokeStart?.();
+  }, [getDrawCtx, onStrokeStart]);
 
   const endStroke = useCallback(() => {
     isDrawingRef.current = false;

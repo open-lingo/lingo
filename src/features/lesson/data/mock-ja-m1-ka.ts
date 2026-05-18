@@ -3,6 +3,7 @@ import {
   type RowContext,
   symbolIntro, traceTwice, recognition, symbolToSound,
   wordImageMcq, listeningBuild, speaking, listeningComp,
+  priorRowReviewTail,
 } from "./_consonantRowHelpers";
 
 /**
@@ -185,6 +186,11 @@ export const MOCK_LESSON_JA_M1_KA_3: LessonContent = {
     },
     // Speak it out loud.
     speaking("ja-ka3-speak-kao-desu", "かお です", "It's a face."),
+
+    // R2-defer-F prior-row review tail — vowels only at this point.
+    // Interleaved kana + word retrieval before the closing win card so
+    // the learner's last working interaction is recall, not exposition.
+    ...priorRowReviewTail("ka"),
 
     { id: "ja-ka3-info-end", type: "info", title: "Real-world win",
       body: "You can now read アカ (red), カイ (shell), カオ (face) — and any kana-only word built from あ/い/う/え/お + か/き/く/け/こ. Up next: sa row.",

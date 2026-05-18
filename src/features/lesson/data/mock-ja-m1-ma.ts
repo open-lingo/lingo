@@ -3,6 +3,7 @@ import {
   type RowContext,
   symbolIntro, traceTwice, recognition, symbolToSound,
   wordImageMcq, listeningBuild, speaking, listeningComp,
+  priorRowReviewTail,
 } from "./_consonantRowHelpers";
 
 /**
@@ -144,6 +145,9 @@ export const MOCK_LESSON_JA_M1_MA_3: LessonContent = {
       targetAnnotation: [{ surface: "うま ですか", reading: "うま ですか" }],
     },
     speaking("ja-ma3-speak-uma-desu-ka", "うま ですか", "Is it a horse?"),
+
+    // R2-defer-F prior-row review tail — vowels through ha pool.
+    ...priorRowReviewTail("ma"),
 
     { id: "ja-ma3-info-end", type: "info", title: "Real-world win",
       body: "You can now read もも (peach), うま (horse) — and spot ヤマ ('mountain') in mountain names like Fujiyama, Yamanote, Yokoyama. Halfway through hiragana — nice.",

@@ -435,6 +435,418 @@ export function pickReviewWords(seed: string, count: number): RowWord[] {
   return out.slice(0, count);
 }
 
+/* ────────────────────────────────────────────────────────────────────────
+ * M1 prior-row review (R2-defer-F, 2026-05-18)
+ *
+ * Each M1 non-vowel row's LAST sub-lesson appends a 4-item review tail
+ * drawn STRICTLY from previously-introduced rows — kana the learner has
+ * already met + words assembled from those kana. Pulls retrieval forward
+ * (Bjork desirable difficulty) and gives every row final lesson a
+ * spacing beat across the M1 chain.
+ *
+ * Pools below are the source of truth for "what's prior to row X":
+ *   - PRIOR_KANA: chained per-row. ka can review only vowels; sa can
+ *     review vowels + ka; ta can review vowels + ka + sa; … wa can
+ *     review every prior row. NEVER seed a glyph from the current row.
+ *   - PRIOR_WORDS: the anchor + secondary words taught in earlier rows.
+ *     Reused (no new vocab introduced for the tail per spec).
+ *
+ * Vowels (`l1`) are intentionally excluded — they have no prior row to
+ * review. The helpers throw if called for an unknown row.
+ *
+ * Each prior-pool entry needs an emoji (RowWord shape) so word_image_mcq
+ * can render the visual prompt. Emojis match the source row file's
+ * anchor definitions.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+const VOWEL_KANA: KanaEntry[] = [
+  { symbol: "あ", romaji: "a" },
+  { symbol: "い", romaji: "i" },
+  { symbol: "う", romaji: "u" },
+  { symbol: "え", romaji: "e" },
+  { symbol: "お", romaji: "o" },
+];
+const KA_KANA: KanaEntry[] = [
+  { symbol: "か", romaji: "ka" },
+  { symbol: "き", romaji: "ki" },
+  { symbol: "く", romaji: "ku" },
+  { symbol: "け", romaji: "ke" },
+  { symbol: "こ", romaji: "ko" },
+];
+const SA_KANA: KanaEntry[] = [
+  { symbol: "さ", romaji: "sa" },
+  { symbol: "し", romaji: "shi" },
+  { symbol: "す", romaji: "su" },
+  { symbol: "せ", romaji: "se" },
+  { symbol: "そ", romaji: "so" },
+];
+const TA_KANA: KanaEntry[] = [
+  { symbol: "た", romaji: "ta" },
+  { symbol: "ち", romaji: "chi" },
+  { symbol: "つ", romaji: "tsu" },
+  { symbol: "て", romaji: "te" },
+  { symbol: "と", romaji: "to" },
+];
+const NA_KANA: KanaEntry[] = [
+  { symbol: "な", romaji: "na" },
+  { symbol: "に", romaji: "ni" },
+  { symbol: "ぬ", romaji: "nu" },
+  { symbol: "ね", romaji: "ne" },
+  { symbol: "の", romaji: "no" },
+];
+const HA_KANA: KanaEntry[] = [
+  { symbol: "は", romaji: "ha" },
+  { symbol: "ひ", romaji: "hi" },
+  { symbol: "ふ", romaji: "fu" },
+  { symbol: "へ", romaji: "he" },
+  { symbol: "ほ", romaji: "ho" },
+];
+const MA_KANA: KanaEntry[] = [
+  { symbol: "ま", romaji: "ma" },
+  { symbol: "み", romaji: "mi" },
+  { symbol: "む", romaji: "mu" },
+  { symbol: "め", romaji: "me" },
+  { symbol: "も", romaji: "mo" },
+];
+const YA_KANA: KanaEntry[] = [
+  { symbol: "や", romaji: "ya" },
+  { symbol: "ゆ", romaji: "yu" },
+  { symbol: "よ", romaji: "yo" },
+];
+const RA_KANA: KanaEntry[] = [
+  { symbol: "ら", romaji: "ra" },
+  { symbol: "り", romaji: "ri" },
+  { symbol: "る", romaji: "ru" },
+  { symbol: "れ", romaji: "re" },
+  { symbol: "ろ", romaji: "ro" },
+];
+
+const VOWEL_WORDS: RowWord[] = [
+  { kana: "あい",   meaningEn: "love",  emoji: "❤️" },
+  { kana: "いえ",   meaningEn: "house", emoji: "🏠" },
+  { kana: "うえ",   meaningEn: "above", emoji: "⬆️" },
+  { kana: "あおい", meaningEn: "blue",  emoji: "🔵" },
+  { kana: "いいえ", meaningEn: "no",    emoji: "🙅" },
+];
+const KA_WORDS: RowWord[] = [
+  { kana: "かい", meaningEn: "shell",   emoji: "🐚" },
+  { kana: "いけ", meaningEn: "pond",    emoji: "🪷" },
+  { kana: "かお", meaningEn: "face",    emoji: "😀" },
+  { kana: "こえ", meaningEn: "voice",   emoji: "🗣️" },
+  { kana: "えき", meaningEn: "station", emoji: "🚉" },
+];
+const SA_WORDS: RowWord[] = [
+  { kana: "あさ", meaningEn: "morning", emoji: "🌅" },
+  { kana: "すし", meaningEn: "sushi",   emoji: "🍣" },
+  { kana: "そら", meaningEn: "sky",     emoji: "☁️" },
+];
+const TA_WORDS: RowWord[] = [
+  { kana: "うた",   meaningEn: "song",  emoji: "🎵" },
+  { kana: "つき",   meaningEn: "moon",  emoji: "🌙" },
+  { kana: "とけい", meaningEn: "clock", emoji: "⏰" },
+];
+const NA_WORDS: RowWord[] = [
+  { kana: "なに",   meaningEn: "what",     emoji: "🤷" },
+  { kana: "ねこ",   meaningEn: "cat",      emoji: "🐱" },
+  { kana: "きのこ", meaningEn: "mushroom", emoji: "🍄" },
+];
+const HA_WORDS: RowWord[] = [
+  { kana: "ひと", meaningEn: "person", emoji: "👤" },
+  { kana: "ふね", meaningEn: "boat",   emoji: "🚢" },
+  { kana: "ほし", meaningEn: "star",   emoji: "⭐" },
+];
+const MA_WORDS: RowWord[] = [
+  { kana: "うま", meaningEn: "horse",  emoji: "🐴" },
+  { kana: "かめ", meaningEn: "turtle", emoji: "🐢" },
+  { kana: "もも", meaningEn: "peach",  emoji: "🍑" },
+];
+const YA_WORDS: RowWord[] = [
+  { kana: "やま", meaningEn: "mountain", emoji: "⛰️" },
+  { kana: "ゆき", meaningEn: "snow",     emoji: "❄️" },
+  { kana: "よむ", meaningEn: "to read",  emoji: "📖" },
+];
+const RA_WORDS: RowWord[] = [
+  { kana: "さくら", meaningEn: "cherry blossom", emoji: "🌸" },
+  { kana: "これ",   meaningEn: "this",           emoji: "👉" },
+  { kana: "いろ",   meaningEn: "color",          emoji: "🎨" },
+];
+
+/** Prior-row kana pool — what each row's review tail can draw from. */
+export const M1_PRIOR_KANA_POOL: Record<string, KanaEntry[]> = {
+  ka: [...VOWEL_KANA],
+  sa: [...VOWEL_KANA, ...KA_KANA],
+  ta: [...VOWEL_KANA, ...KA_KANA, ...SA_KANA],
+  na: [...VOWEL_KANA, ...KA_KANA, ...SA_KANA, ...TA_KANA],
+  ha: [...VOWEL_KANA, ...KA_KANA, ...SA_KANA, ...TA_KANA, ...NA_KANA],
+  ma: [...VOWEL_KANA, ...KA_KANA, ...SA_KANA, ...TA_KANA, ...NA_KANA, ...HA_KANA],
+  ya: [...VOWEL_KANA, ...KA_KANA, ...SA_KANA, ...TA_KANA, ...NA_KANA, ...HA_KANA, ...MA_KANA],
+  ra: [...VOWEL_KANA, ...KA_KANA, ...SA_KANA, ...TA_KANA, ...NA_KANA, ...HA_KANA, ...MA_KANA, ...YA_KANA],
+  wa: [...VOWEL_KANA, ...KA_KANA, ...SA_KANA, ...TA_KANA, ...NA_KANA, ...HA_KANA, ...MA_KANA, ...YA_KANA, ...RA_KANA],
+};
+
+/** Prior-row word pool — anchor + secondary vocab from earlier rows. */
+export const M1_PRIOR_WORDS_POOL: Record<string, RowWord[]> = {
+  ka: [...VOWEL_WORDS],
+  sa: [...VOWEL_WORDS, ...KA_WORDS],
+  ta: [...VOWEL_WORDS, ...KA_WORDS, ...SA_WORDS],
+  na: [...VOWEL_WORDS, ...KA_WORDS, ...SA_WORDS, ...TA_WORDS],
+  ha: [...VOWEL_WORDS, ...KA_WORDS, ...SA_WORDS, ...TA_WORDS, ...NA_WORDS],
+  ma: [...VOWEL_WORDS, ...KA_WORDS, ...SA_WORDS, ...TA_WORDS, ...NA_WORDS, ...HA_WORDS],
+  ya: [...VOWEL_WORDS, ...KA_WORDS, ...SA_WORDS, ...TA_WORDS, ...NA_WORDS, ...HA_WORDS, ...MA_WORDS],
+  ra: [...VOWEL_WORDS, ...KA_WORDS, ...SA_WORDS, ...TA_WORDS, ...NA_WORDS, ...HA_WORDS, ...MA_WORDS, ...YA_WORDS],
+  wa: [...VOWEL_WORDS, ...KA_WORDS, ...SA_WORDS, ...TA_WORDS, ...NA_WORDS, ...HA_WORDS, ...MA_WORDS, ...YA_WORDS, ...RA_WORDS],
+};
+
+/**
+ * Pick `count` items from `pool` deterministically by `seed`. Same
+ * shuffle algorithm as `pickReviewWords` so tail item selection rotates
+ * across re-runs of the same lesson without thrashing on re-renders.
+ */
+function pickFromPool<T>(pool: readonly T[], seed: string, count: number): T[] {
+  const out = pool.slice();
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) | 0;
+  for (let i = out.length - 1; i > 0; i--) {
+    h = (h * 16807) % 2147483647;
+    const j = Math.abs(h) % (i + 1);
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out.slice(0, count);
+}
+
+function priorKanaFor(rowId: string): KanaEntry[] {
+  const pool = M1_PRIOR_KANA_POOL[rowId];
+  if (!pool) throw new Error(`priorKanaFor: no prior-kana pool for row ${rowId}`);
+  return pool;
+}
+
+function priorWordsFor(rowId: string): RowWord[] {
+  const pool = M1_PRIOR_WORDS_POOL[rowId];
+  if (!pool) throw new Error(`priorWordsFor: no prior-words pool for row ${rowId}`);
+  return pool;
+}
+
+/**
+ * Prior-row `symbol_recognition` — picks a deterministic prior kana
+ * (seeded by `${rowId}-rev-${suffix}`) and builds a 4-option recognition
+ * step. Distractors are drawn from the SAME prior pool so the learner
+ * isn't given "tap the one you haven't seen" as a tell.
+ */
+export function priorKanaRecognition(rowId: string, suffix: string): LessonStep {
+  const pool = priorKanaFor(rowId);
+  const seed = `${rowId}-rev-${suffix}`;
+  const [target, ...rest] = pickFromPool(pool, seed, 4);
+  const distractors = rest.slice(0, 3);
+  const slot = correctSlot(`${rowId}-rev-kana-${suffix}`);
+  const options: { id: string; symbol: string }[] = [];
+  let di = 0;
+  for (let i = 0; i < 4; i++) {
+    if (i === slot) options.push({ id: "correct", symbol: target.symbol });
+    else options.push({ id: `opt-${i}`, symbol: distractors[di++].symbol });
+  }
+  return {
+    id: `m1-${rowId}-3-rev-recog-${suffix}`,
+    type: "symbol_recognition",
+    payload: {
+      symbol: target.symbol,
+      romanization: target.romaji,
+      ipa: "",
+      hint: "Review — earlier row.",
+      scriptId: "hiragana",
+      hasStrokeOrder: true,
+      audioKey: getTtsUrl(target.symbol) ?? undefined,
+    },
+    options,
+    correctOptionId: "correct",
+  };
+}
+
+/**
+ * Prior-row `symbol_to_sound` — kana → romaji on a previously-introduced
+ * glyph. Pulls from the same pool as `priorKanaRecognition` with a
+ * different seed suffix so a tail using both never duplicates the kana
+ * across the two steps.
+ */
+export function priorKanaSymbolToSound(rowId: string, suffix: string): LessonStep {
+  const pool = priorKanaFor(rowId);
+  const seed = `${rowId}-rev-s2s-${suffix}`;
+  const [target, ...rest] = pickFromPool(pool, seed, 4);
+  const distractors = rest.slice(0, 3);
+  const slot = correctSlot(`${rowId}-rev-s2s-${suffix}`);
+  const options: { id: string; text: string; symbol: string }[] = [];
+  let di = 0;
+  for (let i = 0; i < 4; i++) {
+    if (i === slot) {
+      options.push({ id: "correct", text: target.romaji, symbol: target.symbol });
+    } else {
+      const d = distractors[di++];
+      options.push({ id: `opt-${i}`, text: d.romaji, symbol: d.symbol });
+    }
+  }
+  return {
+    id: `m1-${rowId}-3-rev-s2s-${suffix}`,
+    type: "symbol_to_sound",
+    payload: {
+      symbol: target.symbol,
+      romanization: target.romaji,
+      ipa: "",
+      hint: "Review — earlier row.",
+      scriptId: "hiragana",
+      hasStrokeOrder: true,
+    },
+    options,
+    correctOptionId: "correct",
+  };
+}
+
+/**
+ * Prior-row `word_image_mcq` — picks a word from an earlier row and
+ * builds a 2×2 emoji grid. Distractors come from the same prior pool;
+ * pads with the row's earliest siblings if the pool is short (ka can
+ * only pull vowel words — exactly 5, fits 4 slots without padding).
+ */
+export function priorWordMcq(rowId: string, suffix: string): LessonStep {
+  const pool = priorWordsFor(rowId);
+  const seed = `${rowId}-rev-word-${suffix}`;
+  const [target, ...rest] = pickFromPool(pool, seed, 4);
+  const distractors = rest.slice(0, 3);
+  const slot = correctSlot(`${rowId}-rev-word-${suffix}`);
+  const options: { id: string; word: string; emoji: string }[] = [];
+  let di = 0;
+  for (let i = 0; i < 4; i++) {
+    if (i === slot) {
+      options.push({ id: "correct", word: target.kana, emoji: target.emoji });
+    } else {
+      const d = distractors[di++];
+      options.push({ id: `opt-${i}`, word: d.kana, emoji: d.emoji });
+    }
+  }
+  return {
+    id: `m1-${rowId}-3-rev-word-${suffix}`,
+    type: "word_image_mcq",
+    meaningEn: target.meaningEn,
+    options,
+    correctOptionId: "correct",
+  };
+}
+
+/**
+ * Prior-row `build_sentence` — picks a multi-mora word from an earlier
+ * row and asks the learner to assemble it. Only 2+ mora words qualify
+ * (a 1-mora word like "き" makes a degenerate single-tile build). Tile
+ * bank = mora tokens + 1 prior-row decoy so the bank isn't a giveaway.
+ */
+export function priorWordBuildSentence(rowId: string, suffix: string): LessonStep {
+  const pool = priorWordsFor(rowId);
+  // Filter to 2+ mora so the build step is meaningful — a 1-tile
+  // build_sentence is just a tap-to-confirm.
+  const multiMora = pool.filter((w) => moraTilesFor(w.kana).length >= 2);
+  if (multiMora.length === 0) {
+    throw new Error(`priorWordBuildSentence: no multi-mora prior words for ${rowId}`);
+  }
+  const seed = `${rowId}-rev-build-${suffix}`;
+  const [target] = pickFromPool(multiMora, seed, 1);
+  const mora = moraTilesFor(target.kana);
+  // Decoy = a single mora drawn from a different prior word. Avoids
+  // padding with row-current kana (forbidden by the "prior-row only"
+  // rule) and avoids same-word repetition.
+  const decoyCandidates = pool.filter((w) => w.kana !== target.kana);
+  let decoyTile: string | null = null;
+  if (decoyCandidates.length > 0) {
+    const [decoyWord] = pickFromPool(decoyCandidates, `${seed}-decoy`, 1);
+    const decoyMora = moraTilesFor(decoyWord.kana).filter(
+      (t) => !mora.includes(t),
+    );
+    decoyTile = decoyMora[0] ?? null;
+  }
+  const tiles = decoyTile ? [...mora, decoyTile] : [...mora];
+  return {
+    id: `m1-${rowId}-3-rev-build-${suffix}`,
+    type: "build_sentence",
+    prompt: `Build the word for '${target.meaningEn}'`,
+    targetSentence: target.kana,
+    tiles,
+    correctOrder: mora,
+    granularity: "character",
+    audioKey: target.kana,
+    targetAnnotation: [{ surface: target.kana, reading: target.kana }],
+  };
+}
+
+/**
+ * `priorWordMcq` variant that lets the caller exclude a word already
+ * used by the tail (typically the build target) so the same lexical
+ * item doesn't recur across two adjacent tail steps. Needed because
+ * tiny prior pools (e.g. ka can only draw from 5 vowel words) can land
+ * the deterministic build + mcq seeds on the same word.
+ */
+function priorWordMcqExcluding(
+  rowId: string,
+  suffix: string,
+  excludeKana: ReadonlySet<string>,
+): LessonStep {
+  const pool = priorWordsFor(rowId).filter((w) => !excludeKana.has(w.kana));
+  if (pool.length === 0) {
+    throw new Error(`priorWordMcqExcluding: pool empty after exclusion for ${rowId}`);
+  }
+  const seed = `${rowId}-rev-word-${suffix}`;
+  const [target, ...rest] = pickFromPool(pool, seed, 4);
+  // Distractors: prefer same-pool foils; fall back to the full prior
+  // pool (minus target) if the post-exclusion pool is shorter than 4.
+  const fullPool = priorWordsFor(rowId).filter((w) => w.kana !== target.kana);
+  const distractorSource = rest.length >= 3 ? rest : fullPool.slice(0, 3);
+  const distractors = distractorSource.slice(0, 3);
+  const slot = correctSlot(`${rowId}-rev-word-${suffix}`);
+  const options: { id: string; word: string; emoji: string }[] = [];
+  let di = 0;
+  for (let i = 0; i < 4; i++) {
+    if (i === slot) {
+      options.push({ id: "correct", word: target.kana, emoji: target.emoji });
+    } else {
+      const d = distractors[di++];
+      options.push({ id: `opt-${i}`, word: d.kana, emoji: d.emoji });
+    }
+  }
+  return {
+    id: `m1-${rowId}-3-rev-word-${suffix}`,
+    type: "word_image_mcq",
+    meaningEn: target.meaningEn,
+    options,
+    correctOptionId: "correct",
+  };
+}
+
+/**
+ * Build the standard 4-item M1 prior-row review tail: 2 kana
+ * (recognition + symbol_to_sound, different cognitive directions) +
+ * 1 word build + 1 word mcq. Interleave guarantees no two same-type
+ * steps adjacent. Caller drops this array directly into the row's
+ * final sub-lesson `steps` before the closing info card.
+ *
+ * Order rationale (Bjork retrieval + interleave):
+ *   1. kana recognition  — easier "audio → kana", warm-up
+ *   2. word build_sentence  — production direction, harder
+ *   3. kana symbol_to_sound — kana → romaji, harder recall
+ *   4. word image_mcq      — meaning recall, closes on success
+ *
+ * The wordMcq excludes whatever word the build step picked so the
+ * same lexical item never recurs across two tail steps (ka's pool of
+ * 5 vowel words would otherwise collide on あい).
+ */
+export function priorRowReviewTail(rowId: string): LessonStep[] {
+  const buildStep = priorWordBuildSentence(rowId, "1");
+  // build_sentence carries the answer in targetSentence (always defined
+  // for our prior-word builds).
+  const buildWord =
+    buildStep.type === "build_sentence" ? buildStep.targetSentence : "";
+  return [
+    priorKanaRecognition(rowId, "1"),
+    buildStep,
+    priorKanaSymbolToSound(rowId, "2"),
+    priorWordMcqExcluding(rowId, "1", new Set([buildWord])),
+  ];
+}
+
 /**
  * match_pairs — kana ↔ romaji recall grid. Kana on the source (left)
  * side, romaji on the target (right) side. Tap the kana to hear its

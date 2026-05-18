@@ -3,6 +3,7 @@ import type { BuildSentenceStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { AnnotatedJa } from "@/shared/japanese";
+import { useAutoPlayJaAudio } from "@/shared/japanese/tts";
 
 type Props = {
   step: BuildSentenceStep;
@@ -13,6 +14,13 @@ type Props = {
 export function BuildSentenceStepView({ step, onComplete, onContinue }: Props) {
   const [placed, setPlaced] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
+
+  // Tester observation 2026-05-17 (#R1-defer-G): the prompt was silent
+  // until tap. Speak the target on mount so the learner gets an audio
+  // cue alongside the tile bank. `targetSentence` is the canonical
+  // full-form text (kana for char-granularity rows, full sentence for
+  // word-granularity); the TTS manifest is keyed on it directly.
+  useAutoPlayJaAudio(step.targetSentence, `build-${step.id}`);
 
   const uniqueRemaining: string[] = [];
   const seen = new Map<string, number>();

@@ -3,6 +3,7 @@ import {
   type RowContext,
   symbolIntro, traceTwice, recognition, symbolToSound,
   wordImageMcq, listeningBuild, speaking, listeningComp,
+  priorRowReviewTail,
 } from "./_consonantRowHelpers";
 
 /**
@@ -145,6 +146,9 @@ export const MOCK_LESSON_JA_M1_TA_3: LessonContent = {
       targetAnnotation: [{ surface: "つき です", reading: "つき です" }],
     },
     speaking("ja-ta3-speak-tsuki-desu", "つき です", "It's the moon."),
+
+    // R2-defer-F prior-row review tail — vowels + ka + sa pool.
+    ...priorRowReviewTail("ta"),
 
     { id: "ja-ta3-info-end", type: "info", title: "Real-world win",
       body: "You can now read うた (song), つき (moon) — and spot タカ (hawk) on falconry signs at any Japanese shrine. Up next — na row.",

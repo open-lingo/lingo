@@ -41,6 +41,22 @@ const DocsPage = lazyRetry(() =>
 const LessonPage = lazyRetry(() =>
   import("@/features/lesson/LessonPage").then((m) => ({ default: m.LessonPage })),
 );
+
+/**
+ * Force-remount wrapper: React Router reuses the route element across
+ * `:lessonId` changes (param updates only re-render — no unmount), so
+ * `useState` values in LessonPage (`finished`, `currentStepIdx`,
+ * `results`) leaked across navigations. That carried the previous
+ * lesson's `finished=true` into the next lesson on Next-lesson clicks
+ * and auto-fired `markLessonCompleted` with stale results — a tester
+ * could spam Next and "complete" every lesson in a module without
+ * grading anything. Keying on `lessonId` makes React drop and rebuild
+ * the subtree on each navigation, resetting all state cleanly.
+ */
+function KeyedLessonPage() {
+  const { lessonId } = useParams<{ lessonId: string }>();
+  return <LessonPage key={lessonId ?? "_"} />;
+}
 const SpeechTunePage = lazyRetry(() =>
   import("@/features/speech-tune/SpeechTunePage").then((m) => ({
     default: m.SpeechTunePage,
@@ -191,7 +207,7 @@ const router = createBrowserRouter([
                 children: [
                   { index: true, element: <LearnPage /> },
                   { path: "courses", element: <Navigate to=".." replace /> },
-                  { path: "lessons/:lessonId", element: <LessonPage /> },
+                  { path: "lessons/:lessonId", element: <KeyedLessonPage /> },
                 ],
               },
               {

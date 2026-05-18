@@ -3,6 +3,7 @@ import {
   type RowContext,
   symbolIntro, traceTwice, recognition, symbolToSound,
   wordImageMcq, listeningBuild, speaking, listeningComp,
+  priorRowReviewTail,
 } from "./_consonantRowHelpers";
 
 /**
@@ -132,6 +133,9 @@ export const MOCK_LESSON_JA_M1_YA_3: LessonContent = {
     speaking("ja-ya3-speak-yama", "やま", "mountain"),
     speaking("ja-ya3-speak-yuki", "ゆき", "snow"),
     speaking("ja-ya3-speak-yomu", "よむ", "to read"),
+
+    // R2-defer-F prior-row review tail — vowels through ma pool.
+    ...priorRowReviewTail("ya"),
 
     { id: "ja-ya3-info-end", type: "info", title: "Real-world win",
       body: "You can now read やま (mountain), ゆき (snow), よむ (to read) — and the title kanji-furigana of most onomatopoeia-heavy manga panels: バキッ, ドキドキ. Up next — ra row.",

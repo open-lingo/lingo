@@ -1,5 +1,6 @@
 import type { LessonContent, LessonStep } from "../types";
 import { getTtsUrl } from "@/shared/japanese/tts";
+import { priorRowReviewTail } from "./_consonantRowHelpers";
 
 /**
  * Sa-row: さ し す せ そ — three sub-lessons + row-test (~12 min total).
@@ -479,6 +480,10 @@ export const MOCK_LESSON_JA_M1_SA_3: LessonContent = {
     // (sub-lesson 4/4) drills kana→romaji recall already; doubling
     // it here padded the lesson to 17–21 steps for no gain (flagged
     // by Mio, Jordan, Robert).
+
+    // R2-defer-F prior-row review tail — vowels + ka pool. Pulls
+    // retrieval before the closing win card.
+    ...priorRowReviewTail("sa"),
 
     {
       id: "ja-sa3-info-end",
