@@ -7,7 +7,10 @@ import "./pathway.css";
 
 export type ModuleCardProps = {
   module: CourseModule;
-  moduleNumber: number;
+  badgeLabel: string;
+  /** "Module N" prerequisite label, or null when this module has no
+   *  predecessor. Drives the locked-status fallback pill. */
+  gateAfterLabel: string | null;
   status: ModuleStatus;
   isOpen: boolean;
   onToggleOpen: () => void;
@@ -23,7 +26,8 @@ export type ModuleCardProps = {
 
 export function ModuleCard({
   module,
-  moduleNumber,
+  badgeLabel,
+  gateAfterLabel,
   status,
   isOpen,
   onToggleOpen,
@@ -49,7 +53,7 @@ export function ModuleCard({
       ? { text: "Complete · 100%", variant: "complete" }
       : status === "locked"
         ? {
-            text: moduleNumber > 0 ? `After Module ${moduleNumber - 1}` : "Locked",
+            text: gateAfterLabel ? `After ${gateAfterLabel}` : "Locked",
             variant: "locked",
           }
         : { text: "In progress", variant: "progress" };
@@ -76,7 +80,7 @@ export function ModuleCard({
           }
         }}
       >
-        <div className="lingo-mnum">M{moduleNumber}</div>
+        <div className="lingo-mnum">{badgeLabel}</div>
         <div className="min-w-0 flex-1">
           {module.eyebrow ? (
             <div className="text-[11px] font-bold uppercase tracking-[0.12em] opacity-90">

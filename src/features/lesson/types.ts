@@ -90,6 +90,15 @@ export type MultipleChoiceStep = StepBase & {
    * scaffold for teaching cards.
    */
   optionsHideRomaji?: boolean;
+  /**
+   * When true, render romaji ruby above kana options ONLY when the
+   * option is currently selected (clicked, pre-submit). Deselecting
+   * hides it again. Used by the M2 "How do you say X?" translation MCQ
+   * so the learner can verify their guess by tapping, but cannot
+   * romaji-skim all 4 options at once and bypass the kana entirely
+   * (Marcus/Sarah audit, 2026-05-17).
+   */
+  optionsRevealRomajiOnSelect?: boolean;
 };
 
 export type BuildSentenceStep = StepBase & {
@@ -114,6 +123,11 @@ export type MatchPairsStep = StepBase & {
   type: "match_pairs";
   prompt: string;
   pairs: MatchPair[];
+  /** When true, tapping a source-side tile plays its TTS (kana → audio).
+   *  Used by M2 dakuten/yōon match steps where the kana is the recall
+   *  cue and audio is the secondary reinforcement channel. Default false
+   *  keeps prior behavior on existing M1 match steps. */
+  playAudioOnSelect?: boolean;
 };
 
 export type Blank = {
@@ -169,7 +183,15 @@ export type SpeakingStep = StepBase & {
   targetPhrase: string;
   translation: string;
   audioKey?: string;
-  stubbed: true;
+  /**
+   * When true, the step is treated as ungraded "I said it!" placeholder
+   * (legacy default). When false, the Whisper-backed scorer runs and
+   * the learner gets the 2-attempt + reward-the-try flow. Hand-authored
+   * consonant rows (M2 g/z/d/b) emit `stubbed: false` as of 2026-05-17
+   * R1.3 — Whisper-small + mora tiers + kuroshiro normalization are
+   * production-grade.
+   */
+  stubbed: boolean;
   targetAnnotation?: JapaneseAnnotation[];
 };
 

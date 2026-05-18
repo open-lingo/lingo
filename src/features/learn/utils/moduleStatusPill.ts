@@ -9,7 +9,7 @@ export type ModuleStatusPill = {
 };
 
 export function buildModuleStatusPill(
-  moduleIndex: number,
+  gateAfterLabel: string | null,
   status: ModuleStatus,
   lessonsDone: number,
   totalLessons: number,
@@ -26,7 +26,7 @@ export function buildModuleStatusPill(
   }
   if (pct === 0 && status === "locked") {
     return {
-      text: moduleIndex > 0 ? `After Module ${moduleIndex - 1}` : "Locked",
+      text: gateAfterLabel ? `After ${gateAfterLabel}` : "Locked",
       variant: "locked",
     };
   }

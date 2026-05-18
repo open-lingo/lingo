@@ -130,6 +130,21 @@ export const MOCK_LESSON_JA_M1_MA_3: LessonContent = {
     speaking("ja-ma3-speak-kame", "かめ", "turtle"),
     speaking("ja-ma3-speak-momo", "もも", "peach"),
 
+    // ─── Sentence sprinkle (M1 desu/ka — Spencer 2026-05-17) ───
+    // Question form again to vary it.
+    {
+      id: "ja-ma3-build-uma-desu-ka",
+      type: "build_sentence",
+      prompt: "Build the question: 'Is it a horse?'",
+      targetSentence: "うま ですか",
+      tiles: ["うま", "ですか", "もも", "です"],
+      correctOrder: ["うま", "ですか"],
+      granularity: "word",
+      audioKey: "うま ですか",
+      targetAnnotation: [{ surface: "うま ですか", reading: "うま ですか" }],
+    },
+    speaking("ja-ma3-speak-uma-desu-ka", "うま ですか", "Is it a horse?"),
+
     { id: "ja-ma3-info-end", type: "info", title: "Real-world win",
       body: "You can now read もも (peach), うま (horse) — and spot ヤマ ('mountain') in mountain names like Fujiyama, Yamanote, Yokoyama. Halfway through hiragana — nice.",
       variant: "win" },

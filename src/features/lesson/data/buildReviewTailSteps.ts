@@ -24,7 +24,6 @@
  */
 import type {
   LessonStep,
-  MultipleChoiceStep,
   MatchPairsStep,
   BuildSentenceStep,
 } from "../types";
@@ -32,8 +31,7 @@ import type { AnchorWord, RowDef } from "./hiraganaCurriculum";
 import { ALL_ROWS } from "./hiraganaCurriculum";
 import { topStruggleKana } from "@/features/japanese/kanaMastery/struggleStore";
 import { getTtsUrl } from "@/shared/japanese/tts";
-import { tokenizeJapanese, KANA_ROMAJI } from "@/shared/japanese/kanaTable";
-import { buildKanaRecognitionExplanation } from "./lessonBuilder";
+import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
 
 export type ReviewTailOptions = {
   /** Id of the lesson the tail is being built for. Used to seed item ids. */
@@ -175,56 +173,6 @@ function rankByStruggle(
   return shuffled.map((s) => s.w);
 }
 
-/** Pick 3 distractor kana from a candidate pool, avoiding the correct one. */
-function pickDistractorKana(
-  correctKana: string,
-  pool: ReadonlySet<string>,
-  seed: string,
-  desired = 3,
-): string[] {
-  const candidates = Array.from(pool).filter((k) => k !== correctKana);
-  if (candidates.length === 0) return [];
-  return seededShuffle(candidates, seed).slice(0, desired);
-}
-
-function buildReviewMcStep(
-  anchor: AnchorWord,
-  introducedKana: ReadonlySet<string>,
-  currentLessonId: string,
-  idx: number,
-): MultipleChoiceStep {
-  // Use the anchor's first kana as the recognition target.
-  const correct = Array.from(anchor.kana)[0] ?? anchor.kana;
-  const distractors = pickDistractorKana(
-    correct,
-    introducedKana,
-    `${currentLessonId}-tail-mc-${idx}-${correct}`,
-    3,
-  );
-  const optionTexts = [correct, ...distractors];
-  const seed = `${currentLessonId}-tail-mc-${idx}-shuf`;
-  const optionsRaw = optionTexts.map((symbol, i) => ({
-    id: `opt-${i}`,
-    text: symbol,
-  }));
-  const shuffled = seededShuffle(optionsRaw, seed);
-  const correctOptionId =
-    shuffled.find((o) => o.text === correct)?.id ?? "opt-0";
-  const correctRomaji = KANA_ROMAJI[correct] ?? correct;
-  return {
-    id: `${currentLessonId}-tail-mc-${idx}`,
-    type: "multiple_choice",
-    prompt: `Which kana means "${anchor.meaning}"?`,
-    promptAudioText: anchor.kana,
-    options: shuffled,
-    correctOptionId,
-    explanation: `The audio said '${anchor.kana}' (${anchor.meaning}). ${buildKanaRecognitionExplanation(correct, correctRomaji)}`,
-    // Test mode: hide romaji helpers so the kana is identified by
-    // meaning + audio, not by reading the answer off the button.
-    optionsHideRomaji: true,
-  };
-}
-
 function buildReviewMatchStep(
   anchors: AnchorWord[],
   currentLessonId: string,
@@ -289,7 +237,7 @@ export function buildReviewTailSteps(opts: ReviewTailOptions): LessonStep[] {
   } = opts;
   if (priorLessonIds.size === 0) return [];
 
-  const { anchorWords, introducedKana } = collectReviewPool(
+  const { anchorWords } = collectReviewPool(
     currentRowId,
     priorLessonIds,
   );
@@ -306,11 +254,13 @@ export function buildReviewTailSteps(opts: ReviewTailOptions): LessonStep[] {
   );
 
   const steps: LessonStep[] = [];
-  // Step mix: prefer 1 match if anchors >= 2, then MCs, then optionally
-  // a build at the end. Cap to `count`.
-  // ~30% match → 1 match step when count is 3 or 4.
-  // ~50% MC → 2 MC steps.
-  // ~20% build → optional 1 build step.
+  // Step mix: 1 match if anchors >= 2, then optionally a build at the
+  // end. Cap to `count`.
+  //
+  // The previous mix also emitted "Which kana means '<word>'?" MC items
+  // via buildReviewMcStep, but that prompt is incoherent for multi-kana
+  // anchors (e.g. pond = いけ → no single kana "means" pond). Pruned
+  // 2026-05-17; helper deleted. Match + build still serve retrieval.
 
   // Track anchors used so we don't reuse the same word in multiple steps.
   const used = new Set<string>();
@@ -323,22 +273,7 @@ export function buildReviewTailSteps(opts: ReviewTailOptions): LessonStep[] {
     steps.push(match);
   }
 
-  // 2) MC steps — pull from ranked anchors not yet used.
-  let mcIdx = 0;
-  for (const anchor of ranked) {
-    if (steps.length >= count) break;
-    if (used.has(anchor.kana)) continue;
-    const mc = buildReviewMcStep(
-      anchor,
-      introducedKana,
-      currentLessonId,
-      mcIdx++,
-    );
-    steps.push(mc);
-    used.add(anchor.kana);
-  }
-
-  // 3) Optional build at the end if we still have room and a qualifying
+  // 2) Optional build at the end if we still have room and a qualifying
   //    multi-mora anchor remains.
   if (steps.length < count) {
     for (const anchor of ranked) {

@@ -154,7 +154,9 @@ describe("TestRunner — review-tail mechanics", () => {
     expect(screen.getByText(/Row complete/)).toBeInTheDocument();
   });
 
-  it("uncapped re-queue — same item can be missed many times before passing", () => {
+  it("3-strike fail: 3 wrong answers ends the test with onComplete(false)", () => {
+    // 2026-05-17 (Spencer): replaced the uncapped re-queue model. Tests
+    // now end after 3 total mistakes regardless of which items missed.
     const onComplete = vi.fn();
     const onContinue = vi.fn();
     const step = makeStep(1);
@@ -165,12 +167,27 @@ describe("TestRunner — review-tail mechanics", () => {
         onContinue={onContinue}
       />,
     );
-    // Wrong N times, no failure phase.
-    for (let i = 0; i < 7; i++) {
-      fireEvent.click(screen.getByText("answer-wrong"));
-      expect(screen.getByText("0/1 done")).toBeInTheDocument();
-      expect(onComplete).not.toHaveBeenCalled();
-    }
+    fireEvent.click(screen.getByText("answer-wrong"));
+    fireEvent.click(screen.getByText("answer-wrong"));
+    expect(onComplete).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByText("answer-wrong"));
+    expect(onComplete).toHaveBeenCalledWith("step-root", false);
+    expect(screen.getByText("Out of attempts")).toBeInTheDocument();
+  });
+
+  it("passes with up to 2 mistakes if the item is eventually answered right", () => {
+    const onComplete = vi.fn();
+    const onContinue = vi.fn();
+    const step = makeStep(1);
+    render(
+      <TestRunner
+        step={step}
+        onComplete={onComplete}
+        onContinue={onContinue}
+      />,
+    );
+    fireEvent.click(screen.getByText("answer-wrong"));
+    fireEvent.click(screen.getByText("answer-wrong"));
     fireEvent.click(screen.getByText("answer-correct"));
     expect(onComplete).toHaveBeenCalledWith("step-root", true);
   });

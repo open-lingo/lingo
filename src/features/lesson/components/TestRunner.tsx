@@ -1,23 +1,22 @@
 /**
  * TestRunner — runtime queue manager for a `RowTestStep`. Renders one item
- * at a time via the existing step renderers; on a miss, the item is
- * appended to the back of the queue and the learner re-encounters it
- * until they get it right.
+ * at a time via the existing step renderers.
  *
- * Mechanics (review-tail model, per Task #84):
- *   - Wrong answer: do NOT advance the progress label / score; append the
- *     missed item to the back of the queue; keep cycling.
- *   - Completion: queue empty (every unique item answered correctly at
- *     least once).
+ * Mechanics (3-strike model, 2026-05-17 Spencer revision):
+ *   - Wrong answer: append the missed item to the back of the queue AND
+ *     tick the mistake counter. Progress label unchanged.
+ *   - Fail: 3 total mistakes → test ends, emits `onComplete(stepId, false)`.
+ *     "Out of attempts" screen + Continue.
+ *   - Pass: queue empty (every unique item answered correctly at least
+ *     once) AND mistakes < MAX.
  *   - Skip: via the in-header Skip button + confirm modal. Fires
- *     `onComplete(stepId, false)` and exposes `wasSkipped=true` via the
- *     skipped phase so the LessonPage can mark the completion record.
+ *     `onComplete(stepId, false)`.
  *
- * No `maxRetries` cap (incoming items just re-queue), no `passThreshold`
- * (there's no failing — only finishing or skipping). The fields stay on
- * `RowTestStep` for backward compat with the catalog but are unused at
- * runtime.
+ * Mistake indicator: 3 dots in the header alongside the progress label.
+ * Same visual idiom as MatchPairsStepView — solid accent when available,
+ * outlined when spent.
  */
+const MAX_TEST_MISTAKES = 3;
 import { useMemo, useState, useCallback, useRef } from "react";
 import type { RowTestStep, RowTestItem } from "../types";
 import { Button } from "@/shared/components/ui";
@@ -45,7 +44,7 @@ type ItemState = {
   retries: number;
 };
 
-type TestPhase = "running" | "passed" | "skipped";
+type TestPhase = "running" | "passed" | "failed" | "skipped";
 
 export function TestRunner({ step, onComplete, onContinue }: Props) {
   // Initial queue: each unique item once.
@@ -61,8 +60,9 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
 
   const [queue, setQueue] = useState<ItemState[]>(initialQueue);
   /** Items the learner has eventually answered correctly. Stable progress
-   *  count under the review-tail model — only first-correct advances it. */
+   *  count — only first-correct advances it. */
   const [correctSet, setCorrectSet] = useState<Set<number>>(() => new Set());
+  const [mistakes, setMistakes] = useState(0);
   const [phase, setPhase] = useState<TestPhase>("running");
   const [confirmSkip, setConfirmSkip] = useState(false);
   /** Force-remount step views per attempt so re-queued items reset state. */
@@ -107,21 +107,26 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
         setAttemptKey((k) => k + 1);
         if (rest.length === 0) {
           setPhase("passed");
-          // Mark the encompassing step complete so LessonPage can award
-          // XP / mark progress. Lesson engine treats `row_test` as one
-          // step; the inner queue is internal.
           onComplete(step.id, true);
         }
         return;
       }
-      // Wrong: re-queue to the back. Progress bar / score unchanged.
+      // Wrong: tick the mistake counter, re-queue to the back. Fail out
+      // when total mistakes hit MAX_TEST_MISTAKES.
+      const nextMistakes = mistakes + 1;
+      setMistakes(nextMistakes);
+      if (nextMistakes >= MAX_TEST_MISTAKES) {
+        setPhase("failed");
+        onComplete(step.id, false);
+        return;
+      }
       setQueue([
         ...rest,
         { ...current, retries: current.retries + 1 },
       ]);
       setAttemptKey((k) => k + 1);
     },
-    [queue, onComplete, step.id],
+    [queue, mistakes, onComplete, step.id],
   );
 
   const skip = useCallback(() => {
@@ -160,15 +165,52 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
     );
   }
 
+  if (phase === "failed") {
+    return (
+      <div className="flex flex-1 flex-col items-center justify-center gap-5 py-12">
+        <div className="text-5xl">💥</div>
+        <h2 className="text-2xl font-bold text-text-primary">Out of attempts</h2>
+        <p className="max-w-sm text-center text-sm text-text-muted">
+          {correct}/{total} answered correctly before missing 3. Come back
+          when the row feels solid — the ★ is still up for grabs.
+        </p>
+        <Button variant="primary-3d" onClick={onContinue}>
+          Continue
+        </Button>
+      </div>
+    );
+  }
+
   // Running: render the front-of-queue item.
   const current = queue[0];
   const progressLabel = `${correct}/${total} done`;
 
   return (
     <div className="flex flex-1 flex-col gap-3">
-      <div className="flex items-center justify-between text-xs uppercase tracking-wider text-text-muted">
+      <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-wider text-text-muted">
         <span className="font-semibold">Row test</span>
-        <span>{progressLabel}</span>
+        <div className="flex items-center gap-3">
+          <span>{progressLabel}</span>
+          <span
+            className="flex items-center gap-1.5"
+            aria-label={`${MAX_TEST_MISTAKES - mistakes} attempts left`}
+          >
+            {Array.from({ length: MAX_TEST_MISTAKES }, (_, i) => {
+              const spent = i < mistakes;
+              return (
+                <span
+                  key={i}
+                  className={`block h-2.5 w-2.5 rounded-full border transition-colors duration-200 ${
+                    spent
+                      ? "border-border bg-transparent"
+                      : "border-accent bg-accent"
+                  }`}
+                  aria-hidden
+                />
+              );
+            })}
+          </span>
+        </div>
         <button
           type="button"
           onClick={() => setConfirmSkip(true)}

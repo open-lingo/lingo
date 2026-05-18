@@ -1,20 +1,8 @@
 {
-  "ja:あ": [
-    "tts/ja/cc0414683fcad294.mp3",
-    "tts/ja/4a829022f335d512.mp3"
-  ],
-  "ja:あい": [
-    "tts/ja/bbb61e22a67034f6.mp3",
-    "tts/ja/b5486af51fec002d.mp3"
-  ],
-  "ja:あおい": [
-    "tts/ja/7c1c8cd24445fb04.mp3",
-    "tts/ja/941e547d0b6ba5f9.mp3"
-  ],
-  "ja:あさ": [
-    "tts/ja/42932e1253ae273a.mp3",
-    "tts/ja/b3e1abb539e68b87.mp3"
-  ],
+  "ja:あ": "tts/ja/cc0414683fcad294.mp3",
+  "ja:あい": "tts/ja/bbb61e22a67034f6.mp3",
+  "ja:あおい": "tts/ja/7c1c8cd24445fb04.mp3",
+  "ja:あさ": "tts/ja/42932e1253ae273a.mp3",
   "ja:あし": [
     "tts/ja/3a4fd7bf3bdbbedb.mp3",
     "tts/ja/c0076cad12a89fad.mp3"
@@ -23,50 +11,23 @@
     "tts/ja/64a98a80455fb613.mp3",
     "tts/ja/e7b9d0107397d65c.mp3"
   ],
-  "ja:あなたは せんせいですか。": [
-    "tts/ja/449ecd88319922a4.mp3",
-    "tts/ja/971ace66236675e3.mp3"
-  ],
+  "ja:あなたは せんせいですか。": "tts/ja/449ecd88319922a4.mp3",
   "ja:あめ": [
     "tts/ja/17c614408eb82378.mp3",
     "tts/ja/ba05313af358ef4f.mp3"
   ],
-  "ja:ありがとうございます": [
-    "tts/ja/06ebc199a8863bb0.mp3",
-    "tts/ja/0e1a206d07423f3b.mp3"
-  ],
-  "ja:あれは いぬですか。": [
-    "tts/ja/990045441ac20953.mp3",
-    "tts/ja/1c9480b864325a88.mp3"
-  ],
-  "ja:あれは おおきいです": [
-    "tts/ja/f7afccc7a3a04ef9.mp3",
-    "tts/ja/28b5cb02c8dffe66.mp3"
-  ],
-  "ja:い": [
-    "tts/ja/fe2abbb065219374.mp3",
-    "tts/ja/ab886b25c2026cfc.mp3"
-  ],
-  "ja:いいえ": [
-    "tts/ja/b58c0890c12a47c9.mp3",
-    "tts/ja/f9de6065a7f70001.mp3"
-  ],
-  "ja:いえ": [
-    "tts/ja/0b8b966e6699b494.mp3",
-    "tts/ja/b5d2830864cfda13.mp3"
-  ],
+  "ja:ありがとうございます": "tts/ja/06ebc199a8863bb0.mp3",
+  "ja:あれは いぬですか。": "tts/ja/990045441ac20953.mp3",
+  "ja:あれは おおきいです": "tts/ja/f7afccc7a3a04ef9.mp3",
+  "ja:い": "tts/ja/fe2abbb065219374.mp3",
+  "ja:いいえ": "tts/ja/b58c0890c12a47c9.mp3",
+  "ja:いえ": "tts/ja/0b8b966e6699b494.mp3",
   "ja:いか": [
     "tts/ja/1e2f5b331a8e7436.mp3",
     "tts/ja/7b15d3853065d429.mp3"
   ],
-  "ja:いくらですか": [
-    "tts/ja/2bdd429f9ce5a803.mp3",
-    "tts/ja/379002b702b5cd04.mp3"
-  ],
-  "ja:いけ": [
-    "tts/ja/a9683239b7bf4200.mp3",
-    "tts/ja/14d50607683bd4b3.mp3"
-  ],
+  "ja:いくらですか": "tts/ja/2bdd429f9ce5a803.mp3",
+  "ja:いけ": "tts/ja/a9683239b7bf4200.mp3",
   "ja:いじょうで よろしいですか": [
     "tts/ja/a99f161133bda3b3.mp3",
     "tts/ja/184318a581c1f615.mp3"
@@ -87,38 +48,20 @@
     "tts/ja/7437aed5223b1ce6.mp3",
     "tts/ja/7a03ddc534174f7c.mp3"
   ],
-  "ja:いつ": [
-    "tts/ja/d1ceaa74d6054622.mp3",
-    "tts/ja/6922e00d6378dc8b.mp3"
-  ],
-  "ja:いぬ": [
-    "tts/ja/342c16d79d5edf3d.mp3",
-    "tts/ja/b5f83bf1a43f2d9e.mp3"
-  ],
+  "ja:いつ": "tts/ja/d1ceaa74d6054622.mp3",
+  "ja:いぬ": "tts/ja/342c16d79d5edf3d.mp3",
   "ja:いらっしゃいませ": [
     "tts/ja/f9546a6289d4bc58.mp3",
     "tts/ja/3299c8ca60bf54b1.mp3"
   ],
-  "ja:いろ": [
-    "tts/ja/76553685275d0fc5.mp3",
-    "tts/ja/e01b92ea1ba6f8cc.mp3"
-  ],
-  "ja:う": [
-    "tts/ja/a2c917ed47976070.mp3",
-    "tts/ja/e2febe48832a0f40.mp3"
-  ],
-  "ja:うえ": [
-    "tts/ja/4e46e33e0a5acbae.mp3",
-    "tts/ja/198eb1176e1c2b75.mp3"
-  ],
+  "ja:いろ": "tts/ja/76553685275d0fc5.mp3",
+  "ja:う": "tts/ja/a2c917ed47976070.mp3",
+  "ja:うえ": "tts/ja/4e46e33e0a5acbae.mp3",
   "ja:うそ": [
     "tts/ja/3b42c36b6e5493f5.mp3",
     "tts/ja/fa67e75021694ec2.mp3"
   ],
-  "ja:うた": [
-    "tts/ja/55f5ba582033a16f.mp3",
-    "tts/ja/111ad4d0fd0a56d0.mp3"
-  ],
+  "ja:うた": "tts/ja/55f5ba582033a16f.mp3",
   "ja:うち": [
     "tts/ja/e9e50d04dc67ccca.mp3",
     "tts/ja/083b1bf8a364dbe7.mp3"
@@ -131,106 +74,56 @@
     "tts/ja/abbb0da9f1da45ed.mp3",
     "tts/ja/862e12d5888ce8bb.mp3"
   ],
-  "ja:うま": [
-    "tts/ja/7af55561580071ef.mp3",
-    "tts/ja/4db557dfa3c33743.mp3"
-  ],
-  "ja:え": [
-    "tts/ja/eecec31a107a7ebe.mp3",
-    "tts/ja/f42a63b33bbd0f53.mp3"
-  ],
-  "ja:えき": [
-    "tts/ja/95f4cef464655c1b.mp3",
-    "tts/ja/ff7c113abb2b23c0.mp3"
-  ],
+  "ja:うま": "tts/ja/7af55561580071ef.mp3",
+  "ja:うま ですか": "tts/ja/a67a9b67f2db0efb.mp3",
+  "ja:え": "tts/ja/eecec31a107a7ebe.mp3",
+  "ja:えき": "tts/ja/95f4cef464655c1b.mp3",
   "ja:えきに います。": [
     "tts/ja/a30657c75fba887b.mp3",
     "tts/ja/2d7adb467deb16a3.mp3"
   ],
-  "ja:えび": [
-    "tts/ja/46e2a7afb629669c.mp3",
-    "tts/ja/7b5c0b0940edcf35.mp3"
-  ],
+  "ja:えび": "tts/ja/46e2a7afb629669c.mp3",
   "ja:えんぴつ": [
     "tts/ja/567f3cb53acaa76b.mp3",
     "tts/ja/977969c8cc48e895.mp3"
   ],
-  "ja:お": [
-    "tts/ja/742a9775f938ecb8.mp3",
-    "tts/ja/186c8df4e4c71941.mp3"
-  ],
+  "ja:お": "tts/ja/742a9775f938ecb8.mp3",
   "ja:おかね": [
     "tts/ja/f356bb51847d1f66.mp3",
     "tts/ja/4a8f98874102547e.mp3"
   ],
-  "ja:おちゃ": [
-    "tts/ja/683f377fdcacf955.mp3",
-    "tts/ja/99c3bcf02d79be89.mp3"
-  ],
+  "ja:おちゃ": "tts/ja/683f377fdcacf955.mp3",
   "ja:おちゃ です": [
     "tts/ja/c2a52c5b77da8da4.mp3",
     "tts/ja/0c86d72b67cbd7f9.mp3"
   ],
-  "ja:おねがいします": [
-    "tts/ja/d92c2fd58f089c36.mp3",
-    "tts/ja/68275e00682161c0.mp3"
-  ],
-  "ja:か": [
-    "tts/ja/58b33ac0b714eb0c.mp3",
-    "tts/ja/8f665525652012da.mp3"
-  ],
+  "ja:おねがいします": "tts/ja/d92c2fd58f089c36.mp3",
+  "ja:か": "tts/ja/58b33ac0b714eb0c.mp3",
   "ja:か ぐ": [
     "tts/ja/087a6e32e17b6788.mp3",
     "tts/ja/47da3cf9a718339e.mp3"
   ],
-  "ja:かい": [
-    "tts/ja/657b1ee4c4abebf5.mp3",
-    "tts/ja/d2e1512b4a010663.mp3"
-  ],
+  "ja:かい": "tts/ja/657b1ee4c4abebf5.mp3",
   "ja:かいしゃ": [
     "tts/ja/dd87e7dc376af447.mp3",
     "tts/ja/29832e70f2716a7c.mp3"
   ],
-  "ja:かお": [
-    "tts/ja/1b6b31fc80f9adc5.mp3",
-    "tts/ja/63be4a1d010d20b0.mp3"
-  ],
-  "ja:かぎ": [
-    "tts/ja/98dd1c0cee0a8c43.mp3",
-    "tts/ja/75a50b81f1212597.mp3"
-  ],
+  "ja:かお": "tts/ja/1b6b31fc80f9adc5.mp3",
+  "ja:かお です": "tts/ja/33c030ab0993ad96.mp3",
+  "ja:かぎ": "tts/ja/98dd1c0cee0a8c43.mp3",
+  "ja:かぐ": "tts/ja/76cbb31ebfbb133e.mp3",
   "ja:かさ": [
     "tts/ja/5019a816fe94f712.mp3",
     "tts/ja/824d0288ba810ffd.mp3"
   ],
-  "ja:かぜ": [
-    "tts/ja/449220ba8f9fb21a.mp3",
-    "tts/ja/076780bf10c1c105.mp3"
-  ],
-  "ja:かばん": [
-    "tts/ja/a1b31685cfd365ad.mp3",
-    "tts/ja/5e6d59329bdf184a.mp3"
-  ],
-  "ja:かめ": [
-    "tts/ja/d570985ccf40acae.mp3",
-    "tts/ja/b95c683a99cf4e45.mp3"
-  ],
-  "ja:かわ": [
-    "tts/ja/51a231b9739ec461.mp3",
-    "tts/ja/d656e29e1cd59f38.mp3"
-  ],
-  "ja:が": [
-    "tts/ja/a6fdf6561ea5660d.mp3",
-    "tts/ja/da49b00a2b27f6da.mp3"
-  ],
-  "ja:がくせい": [
-    "tts/ja/298a6e2052931dbe.mp3",
-    "tts/ja/588c4c89d53fb54d.mp3"
-  ],
-  "ja:がくせいですか。": [
-    "tts/ja/b5901fbff3ed77c2.mp3",
-    "tts/ja/20eaeaa406858121.mp3"
-  ],
+  "ja:かぜ": "tts/ja/449220ba8f9fb21a.mp3",
+  "ja:かばん": "tts/ja/a1b31685cfd365ad.mp3",
+  "ja:かめ": "tts/ja/d570985ccf40acae.mp3",
+  "ja:からだ": "tts/ja/2d77177b168c0ee5.mp3",
+  "ja:かわ": "tts/ja/51a231b9739ec461.mp3",
+  "ja:が": "tts/ja/a6fdf6561ea5660d.mp3",
+  "ja:がくせい": "tts/ja/298a6e2052931dbe.mp3",
+  "ja:がくせいですか。": "tts/ja/b5901fbff3ed77c2.mp3",
   "ja:がっこう": [
     "tts/ja/a6468a711f97621e.mp3",
     "tts/ja/dadcaf9553ab74b5.mp3"
@@ -247,82 +140,47 @@
     "tts/ja/653adfbdb19d371c.mp3",
     "tts/ja/a5072194a63b9f58.mp3"
   ],
-  "ja:き": [
-    "tts/ja/ccfd059637c51571.mp3",
-    "tts/ja/06e2fc91931dbee8.mp3"
-  ],
+  "ja:き": "tts/ja/ccfd059637c51571.mp3",
   "ja:きく": [
     "tts/ja/d905040dbb2610e9.mp3",
     "tts/ja/66a928a93a38b1a9.mp3"
   ],
-  "ja:きのこ": [
-    "tts/ja/aad325ea80484b7e.mp3",
-    "tts/ja/bca8f96596506b38.mp3"
-  ],
-  "ja:きゃ": [
-    "tts/ja/e1999a706ca58ac9.mp3",
-    "tts/ja/d324d7eea7cf041f.mp3"
-  ],
+  "ja:きのこ": "tts/ja/aad325ea80484b7e.mp3",
+  "ja:きゃ": "tts/ja/e1999a706ca58ac9.mp3",
   "ja:きゃく": [
     "tts/ja/fa2e2877cb08eeca.mp3",
     "tts/ja/e73b26cb83fcd6f5.mp3"
   ],
-  "ja:きゅ": [
-    "tts/ja/abdda5c8ae9cd4e8.mp3",
-    "tts/ja/646e53c469afee26.mp3"
-  ],
+  "ja:きゅ": "tts/ja/abdda5c8ae9cd4e8.mp3",
   "ja:きゅう": [
     "tts/ja/309d99239db889a6.mp3",
     "tts/ja/ee98227b71846eaa.mp3"
   ],
-  "ja:きょ": [
-    "tts/ja/3c71124c12c8c2b3.mp3",
-    "tts/ja/3969160a07563e93.mp3"
-  ],
-  "ja:きょう": [
-    "tts/ja/2003e37c9d80586f.mp3",
-    "tts/ja/c6b92d1a7f64e14e.mp3"
-  ],
+  "ja:きゅうり": "tts/ja/831c93dbd0e8400c.mp3",
+  "ja:きょ": "tts/ja/3c71124c12c8c2b3.mp3",
+  "ja:きょう": "tts/ja/2003e37c9d80586f.mp3",
   "ja:きん": [
     "tts/ja/8039e92fa72e355e.mp3",
     "tts/ja/7355aae585e867d8.mp3"
   ],
-  "ja:ぎ": [
-    "tts/ja/707ac6a9274e1c27.mp3",
-    "tts/ja/62d87fee24a367dd.mp3"
-  ],
-  "ja:ぎゃ": [
-    "tts/ja/44114f0c4627f990.mp3",
-    "tts/ja/7727684c009520ba.mp3"
-  ],
+  "ja:ぎ": "tts/ja/707ac6a9274e1c27.mp3",
+  "ja:ぎゃ": "tts/ja/44114f0c4627f990.mp3",
   "ja:ぎゃく": [
     "tts/ja/b662800c82d44e67.mp3",
     "tts/ja/e51d6077998275fd.mp3"
   ],
-  "ja:ぎゅ": [
-    "tts/ja/f4c8496c1fbfd4e6.mp3",
-    "tts/ja/4937df893e162264.mp3"
-  ],
+  "ja:ぎゅ": "tts/ja/f4c8496c1fbfd4e6.mp3",
   "ja:ぎゅうにゅう": [
     "tts/ja/16e7a8e27a646312.mp3",
     "tts/ja/4b7bf8f6eb8d48c5.mp3"
   ],
-  "ja:ぎょ": [
-    "tts/ja/59ae509ed5dce283.mp3",
-    "tts/ja/2e7ce3c2d4c7a367.mp3"
-  ],
+  "ja:ぎょ": "tts/ja/59ae509ed5dce283.mp3",
   "ja:ぎょう": [
     "tts/ja/f994861a123e7e4d.mp3",
     "tts/ja/b8bc7cd99c20cc0a.mp3"
   ],
-  "ja:く": [
-    "tts/ja/04e90214eb604b8b.mp3",
-    "tts/ja/10f4a5427a28fb5b.mp3"
-  ],
-  "ja:ください": [
-    "tts/ja/c8605f35c51ef6b4.mp3",
-    "tts/ja/e428184c3c836d7d.mp3"
-  ],
+  "ja:く": "tts/ja/04e90214eb604b8b.mp3",
+  "ja:ください": "tts/ja/c8605f35c51ef6b4.mp3",
   "ja:くち": [
     "tts/ja/50970103f4ec435c.mp3",
     "tts/ja/da58b518762fac68.mp3"
@@ -335,94 +193,46 @@
     "tts/ja/ebd7370febfc352c.mp3",
     "tts/ja/117daab99e8acc03.mp3"
   ],
-  "ja:ぐ": [
-    "tts/ja/45fafeaedb4a60ed.mp3",
-    "tts/ja/45c4a1857db79e69.mp3"
-  ],
+  "ja:ぐ": "tts/ja/45fafeaedb4a60ed.mp3",
   "ja:ぐあい": [
     "tts/ja/765d4d78c29a472c.mp3",
     "tts/ja/48e2e7e54c452c0e.mp3"
   ],
-  "ja:け": [
-    "tts/ja/c0aa13d364e195c3.mp3",
-    "tts/ja/3cc47b080d9b25b7.mp3"
-  ],
+  "ja:け": "tts/ja/c0aa13d364e195c3.mp3",
   "ja:けいたい": [
     "tts/ja/92b7ebf0aec1b8b3.mp3",
     "tts/ja/96881529419e416e.mp3"
   ],
-  "ja:げ": [
-    "tts/ja/9ef5982a774b7357.mp3",
-    "tts/ja/77eeb2b19ed36097.mp3"
-  ],
-  "ja:げんき": [
-    "tts/ja/4a9fef1f41bf899a.mp3",
-    "tts/ja/4651024a9cff47a2.mp3"
-  ],
+  "ja:げ": "tts/ja/9ef5982a774b7357.mp3",
+  "ja:げんき": "tts/ja/4a9fef1f41bf899a.mp3",
   "ja:げんき です": [
     "tts/ja/432bee261809bb85.mp3",
     "tts/ja/e8c5ec3c263929ba.mp3"
   ],
-  "ja:こ": [
-    "tts/ja/264e8e6dc06294ec.mp3",
-    "tts/ja/d455f15e713f0216.mp3"
-  ],
-  "ja:こえ": [
-    "tts/ja/a4f3b3dd3eaf9c26.mp3",
-    "tts/ja/11f0f3b02ecfa96e.mp3"
-  ],
-  "ja:これ": [
-    "tts/ja/082df15177ad32ec.mp3",
-    "tts/ja/8ea3b26e55c87256.mp3"
-  ],
-  "ja:これは あおいです": [
-    "tts/ja/2b52ed95a4dfb5ac.mp3",
-    "tts/ja/a9f8e35d2446f9b0.mp3"
-  ],
+  "ja:こ": "tts/ja/264e8e6dc06294ec.mp3",
+  "ja:こえ": "tts/ja/a4f3b3dd3eaf9c26.mp3",
+  "ja:これ": "tts/ja/082df15177ad32ec.mp3",
+  "ja:これは あおいです": "tts/ja/2b52ed95a4dfb5ac.mp3",
   "ja:これは せんせいの ほんです。": [
     "tts/ja/f3fd3c2d163320fb.mp3",
     "tts/ja/3e5611ded7a773ea.mp3"
   ],
-  "ja:これは ほんです。": [
-    "tts/ja/4bf6e4fdf18ccb6e.mp3",
-    "tts/ja/3dcd30ee56c38336.mp3"
-  ],
-  "ja:これは みずです。": [
-    "tts/ja/fcd15db52ad4dfad.mp3",
-    "tts/ja/628c41045ef82797.mp3"
-  ],
+  "ja:これは ほんです。": "tts/ja/4bf6e4fdf18ccb6e.mp3",
+  "ja:これは みずです。": "tts/ja/fcd15db52ad4dfad.mp3",
   "ja:これは わたしの かばんです。": [
     "tts/ja/f1847e622f3eb104.mp3",
     "tts/ja/2886aa6345d7c7d3.mp3"
   ],
-  "ja:こんにちは": [
-    "tts/ja/c34e1a1b60652761.mp3",
-    "tts/ja/83671403ce6299e2.mp3"
-  ],
-  "ja:ご": [
-    "tts/ja/0de6ac05494981a1.mp3",
-    "tts/ja/f1af1a9370559475.mp3"
-  ],
-  "ja:ごはん": [
-    "tts/ja/f18e7c96bec6283e.mp3",
-    "tts/ja/08a20670e61a25a7.mp3"
-  ],
-  "ja:ごめんなさい": [
-    "tts/ja/dd44af478ab7a142.mp3",
-    "tts/ja/b88645a45ddbd395.mp3"
-  ],
-  "ja:さ": [
-    "tts/ja/d16bb75a1541ff4d.mp3",
-    "tts/ja/f3c46426c5482341.mp3"
-  ],
+  "ja:こんにちは": "tts/ja/c34e1a1b60652761.mp3",
+  "ja:ご": "tts/ja/0de6ac05494981a1.mp3",
+  "ja:ごはん": "tts/ja/f18e7c96bec6283e.mp3",
+  "ja:ごめんなさい": "tts/ja/dd44af478ab7a142.mp3",
+  "ja:さ": "tts/ja/d16bb75a1541ff4d.mp3",
   "ja:さかな": [
     "tts/ja/aebdc0c4f2b04d82.mp3",
     "tts/ja/bbd9a40c6d690da5.mp3"
   ],
-  "ja:さくら": [
-    "tts/ja/4014ba3d0abc2574.mp3",
-    "tts/ja/0bb954e0cd345fe6.mp3"
-  ],
+  "ja:さくら": "tts/ja/4014ba3d0abc2574.mp3",
   "ja:さん": [
     "tts/ja/b11251a30fa4f225.mp3",
     "tts/ja/ef3c51381ccc9134.mp3"
@@ -439,10 +249,7 @@
     "tts/ja/08afcffbd3a97c61.mp3",
     "tts/ja/6bc86e45609e29b8.mp3"
   ],
-  "ja:ざ": [
-    "tts/ja/6e791c9917e91e21.mp3",
-    "tts/ja/195d06d5b0811679.mp3"
-  ],
+  "ja:ざ": "tts/ja/6e791c9917e91e21.mp3",
   "ja:ざっし": [
     "tts/ja/876c45620059ae51.mp3",
     "tts/ja/dc527efe26f243a0.mp3"
@@ -451,42 +258,25 @@
     "tts/ja/dce684745c20ba0f.mp3",
     "tts/ja/448b5030eba023db.mp3"
   ],
-  "ja:し": [
-    "tts/ja/b88b295dd12faf96.mp3",
-    "tts/ja/20a92b691425a32e.mp3"
-  ],
+  "ja:し": "tts/ja/b88b295dd12faf96.mp3",
   "ja:しお": [
     "tts/ja/a42a81ecae6c1d9f.mp3",
     "tts/ja/d02aca5d3f4f8e8d.mp3"
   ],
-  "ja:しゃ": [
-    "tts/ja/cb604e4ebf74d304.mp3",
-    "tts/ja/8bc3e262715806c0.mp3"
-  ],
-  "ja:しゃしん": [
-    "tts/ja/a73d1faa43eb7531.mp3",
-    "tts/ja/d52fe1cf0a6d7bd9.mp3"
-  ],
-  "ja:しゅ": [
-    "tts/ja/dab4a4fdb2f7b232.mp3",
-    "tts/ja/28a63da8e886aef3.mp3"
-  ],
+  "ja:しゃ": "tts/ja/cb604e4ebf74d304.mp3",
+  "ja:しゃしん": "tts/ja/a73d1faa43eb7531.mp3",
+  "ja:しゅ": "tts/ja/dab4a4fdb2f7b232.mp3",
   "ja:しゅみ": [
     "tts/ja/e42d83dc7a743629.mp3",
     "tts/ja/c83987ad3c6546f1.mp3"
   ],
-  "ja:しょ": [
-    "tts/ja/585135b6bc262857.mp3",
-    "tts/ja/dd711e9cf2a71214.mp3"
-  ],
+  "ja:しょ": "tts/ja/585135b6bc262857.mp3",
   "ja:しょうゆ": [
     "tts/ja/adf2d1542f7e4b95.mp3",
     "tts/ja/95cd5e153c129382.mp3"
   ],
-  "ja:じ": [
-    "tts/ja/c3d0636c03373333.mp3",
-    "tts/ja/124a02eb7d9d9338.mp3"
-  ],
+  "ja:じ": "tts/ja/c3d0636c03373333.mp3",
+  "ja:じかん": "tts/ja/dab975cb358e6f6f.mp3",
   "ja:じこ": [
     "tts/ja/d695aa217d7aaf21.mp3",
     "tts/ja/4ed6740e14505a96.mp3"
@@ -499,122 +289,54 @@
     "tts/ja/b62f4c622551b612.mp3",
     "tts/ja/385115221666de1a.mp3"
   ],
-  "ja:じゃ": [
-    "tts/ja/e65ec13054bdc7fd.mp3",
-    "tts/ja/f0b3cb00d88eb2f3.mp3"
-  ],
-  "ja:じゃないです": [
-    "tts/ja/425503cf9dd77954.mp3",
-    "tts/ja/2d144a3b0ec57446.mp3"
-  ],
+  "ja:じゃ": "tts/ja/e65ec13054bdc7fd.mp3",
+  "ja:じゃないです": "tts/ja/425503cf9dd77954.mp3",
   "ja:じゃま": [
     "tts/ja/9708f2fa04db1e16.mp3",
     "tts/ja/a2433047f50ebff1.mp3"
   ],
-  "ja:じゅ": [
-    "tts/ja/0243d0980cf1b252.mp3",
-    "tts/ja/c3832b2931ee5bce.mp3"
-  ],
-  "ja:じゅう": [
-    "tts/ja/5b950b6562145944.mp3",
-    "tts/ja/7ad9db865bd706f1.mp3"
-  ],
+  "ja:じゅ": "tts/ja/0243d0980cf1b252.mp3",
+  "ja:じゅう": "tts/ja/5b950b6562145944.mp3",
   "ja:じゅう です": [
     "tts/ja/448807a2650ef8c6.mp3",
     "tts/ja/575446f830524c13.mp3"
   ],
-  "ja:じょ": [
-    "tts/ja/b998712c882bbfa1.mp3",
-    "tts/ja/14c0cb91dfecd4b8.mp3"
-  ],
+  "ja:じょ": "tts/ja/b998712c882bbfa1.mp3",
   "ja:じょうず": [
     "tts/ja/c3ec6c7dbf82d301.mp3",
     "tts/ja/f7b54805909a5668.mp3"
   ],
-  "ja:す": [
-    "tts/ja/203cbd3fa42b372e.mp3",
-    "tts/ja/5c467263da1761ff.mp3"
-  ],
-  "ja:すし": [
-    "tts/ja/a3a8ae220a563ce9.mp3",
-    "tts/ja/4618a506652a66de.mp3"
-  ],
-  "ja:すみません": [
-    "tts/ja/1704868e91120990.mp3",
-    "tts/ja/af7ebc24bf32062d.mp3"
-  ],
-  "ja:すみません、なまえは なんですか": [
-    "tts/ja/ecccb3499c08a1de.mp3",
-    "tts/ja/176ed24630344f4d.mp3"
-  ],
-  "ja:ず": [
-    "tts/ja/7367e76f65dec510.mp3",
-    "tts/ja/ad898d46e98e1344.mp3"
-  ],
-  "ja:せ": [
-    "tts/ja/02e4f6c68222bcbe.mp3",
-    "tts/ja/2e339dc3d76c8481.mp3"
-  ],
+  "ja:す": "tts/ja/203cbd3fa42b372e.mp3",
+  "ja:すし": "tts/ja/a3a8ae220a563ce9.mp3",
+  "ja:すし です": "tts/ja/e7ee659c40cb3a43.mp3",
+  "ja:すみません": "tts/ja/1704868e91120990.mp3",
+  "ja:すみません、なまえは なんですか": "tts/ja/ecccb3499c08a1de.mp3",
+  "ja:ず": "tts/ja/7367e76f65dec510.mp3",
+  "ja:せ": "tts/ja/02e4f6c68222bcbe.mp3",
   "ja:せかい": [
     "tts/ja/51c7b6e9e2372cc5.mp3",
     "tts/ja/991d77397194f928.mp3"
   ],
-  "ja:せんせい": [
-    "tts/ja/56be8dd6d7947624.mp3",
-    "tts/ja/24783a816bcdd662.mp3"
-  ],
-  "ja:せんせいですか。": [
-    "tts/ja/d01135f0267891d7.mp3",
-    "tts/ja/6bd5dbb3a9acdead.mp3"
-  ],
-  "ja:ぜ": [
-    "tts/ja/74e5be0e35548ccf.mp3",
-    "tts/ja/99518b42c26d308b.mp3"
-  ],
-  "ja:そ": [
-    "tts/ja/2d545f275700384d.mp3",
-    "tts/ja/8944f1f2a4a1f0c7.mp3"
-  ],
-  "ja:そら": [
-    "tts/ja/833fc13f3a180a04.mp3",
-    "tts/ja/8243ea6a2e9443b1.mp3"
-  ],
-  "ja:それは あかいです": [
-    "tts/ja/ee6e5b3b38888dab.mp3",
-    "tts/ja/915ed5f04e6dddf5.mp3"
-  ],
+  "ja:せんせい": "tts/ja/56be8dd6d7947624.mp3",
+  "ja:せんせいですか。": "tts/ja/d01135f0267891d7.mp3",
+  "ja:ぜ": "tts/ja/74e5be0e35548ccf.mp3",
+  "ja:そ": "tts/ja/2d545f275700384d.mp3",
+  "ja:そら": "tts/ja/833fc13f3a180a04.mp3",
+  "ja:それは あかいです": "tts/ja/ee6e5b3b38888dab.mp3",
   "ja:それは なんですか。": [
     "tts/ja/3e0cd5fb0f4cd57b.mp3",
     "tts/ja/d382b0e5d8856ea3.mp3"
   ],
-  "ja:ぞ": [
-    "tts/ja/620555a166b4e450.mp3",
-    "tts/ja/16f49cb79cb327a5.mp3"
-  ],
-  "ja:ぞう": [
-    "tts/ja/aea173a209b3c8bb.mp3",
-    "tts/ja/0f9b1bd9457a1a97.mp3"
-  ],
-  "ja:た": [
-    "tts/ja/e63b99ab88ba55f7.mp3",
-    "tts/ja/fb538627c7b47002.mp3"
-  ],
+  "ja:ぞ": "tts/ja/620555a166b4e450.mp3",
+  "ja:ぞう": "tts/ja/aea173a209b3c8bb.mp3",
+  "ja:た": "tts/ja/e63b99ab88ba55f7.mp3",
   "ja:たこ": [
     "tts/ja/9be36a22de9de774.mp3",
     "tts/ja/fef4949ab152009e.mp3"
   ],
-  "ja:たべる": [
-    "tts/ja/95f864dbe9a59ba2.mp3",
-    "tts/ja/a56ab421819e403f.mp3"
-  ],
-  "ja:だ": [
-    "tts/ja/833f47c6c67de443.mp3",
-    "tts/ja/1549734d4d593daa.mp3"
-  ],
-  "ja:だれ": [
-    "tts/ja/410fc2b0821b7fbb.mp3",
-    "tts/ja/662a0e5cc0c6b807.mp3"
-  ],
+  "ja:たべる": "tts/ja/95f864dbe9a59ba2.mp3",
+  "ja:だ": "tts/ja/833f47c6c67de443.mp3",
+  "ja:だれ": "tts/ja/410fc2b0821b7fbb.mp3",
   "ja:だれが がくせいですか。": [
     "tts/ja/145b3714546dc1fe.mp3",
     "tts/ja/2d317e455f497ff0.mp3"
@@ -627,30 +349,18 @@
     "tts/ja/e1091eb5e9cd22e8.mp3",
     "tts/ja/4dd33375edc3cb0d.mp3"
   ],
-  "ja:ち": [
-    "tts/ja/9f5bc4ec96d00707.mp3",
-    "tts/ja/da2d78cfa8efb48e.mp3"
-  ],
+  "ja:ち": "tts/ja/9f5bc4ec96d00707.mp3",
   "ja:ちず": [
     "tts/ja/9a140d604a22f561.mp3",
     "tts/ja/762d4519a280db5a.mp3"
   ],
-  "ja:ちゃ": [
-    "tts/ja/ffcfce1b16f542fb.mp3",
-    "tts/ja/8124f7d80329ea05.mp3"
-  ],
-  "ja:ちゅ": [
-    "tts/ja/12c51c4f5abcf579.mp3",
-    "tts/ja/58311e1fb3f788b0.mp3"
-  ],
+  "ja:ちゃ": "tts/ja/ffcfce1b16f542fb.mp3",
+  "ja:ちゅ": "tts/ja/12c51c4f5abcf579.mp3",
   "ja:ちゅうい": [
     "tts/ja/0ae177dcd11b875b.mp3",
     "tts/ja/a907d0ce4eb3991c.mp3"
   ],
-  "ja:ちょ": [
-    "tts/ja/7cb03c7868dc6c80.mp3",
-    "tts/ja/a9a66e33f297ce38.mp3"
-  ],
+  "ja:ちょ": "tts/ja/7cb03c7868dc6c80.mp3",
   "ja:ちょう": [
     "tts/ja/4967f16109eb4e2d.mp3",
     "tts/ja/0f0d1d37774f7086.mp3"
@@ -659,26 +369,12 @@
     "tts/ja/d8426d497576494a.mp3",
     "tts/ja/a7f7c5fd1778d5c0.mp3"
   ],
-  "ja:ぢ": [
-    "tts/ja/8fb9199ec2f5ed95.mp3",
-    "tts/ja/4a83488dfdec6387.mp3"
-  ],
-  "ja:つ": [
-    "tts/ja/330cc7cd72b22e56.mp3",
-    "tts/ja/08e077a197a84808.mp3"
-  ],
-  "ja:つき": [
-    "tts/ja/864e368ca502a824.mp3",
-    "tts/ja/2cc53e17ae8ccf3a.mp3"
-  ],
-  "ja:づ": [
-    "tts/ja/70097980c0403488.mp3",
-    "tts/ja/ea25cb137933a0a5.mp3"
-  ],
-  "ja:て": [
-    "tts/ja/855fe7c3feb08830.mp3",
-    "tts/ja/4bdd5b2c43539fb2.mp3"
-  ],
+  "ja:ぢ": "tts/ja/8fb9199ec2f5ed95.mp3",
+  "ja:つ": "tts/ja/330cc7cd72b22e56.mp3",
+  "ja:つき": "tts/ja/864e368ca502a824.mp3",
+  "ja:つき です": "tts/ja/85b323e28ab34e12.mp3",
+  "ja:づ": "tts/ja/70097980c0403488.mp3",
+  "ja:て": "tts/ja/855fe7c3feb08830.mp3",
   "ja:てがみ": [
     "tts/ja/7b4a218ac8109ceb.mp3",
     "tts/ja/ef1b129b3ca5c92c.mp3"
@@ -687,14 +383,8 @@
     "tts/ja/e0901985ae91406d.mp3",
     "tts/ja/03ae725e9811536d.mp3"
   ],
-  "ja:で": [
-    "tts/ja/e8a1f34a906b1840.mp3",
-    "tts/ja/1126caa1e49de065.mp3"
-  ],
-  "ja:です": [
-    "tts/ja/1d33b31ff97150d6.mp3",
-    "tts/ja/3915d72c17262858.mp3"
-  ],
+  "ja:で": "tts/ja/e8a1f34a906b1840.mp3",
+  "ja:です": "tts/ja/1d33b31ff97150d6.mp3",
   "ja:でんしゃ": [
     "tts/ja/daea6197f7b32bca.mp3",
     "tts/ja/de775e640000c3c8.mp3"
@@ -703,34 +393,16 @@
     "tts/ja/e119c969b447e31c.mp3",
     "tts/ja/e1fa775e8fe48b33.mp3"
   ],
-  "ja:でんわ": [
-    "tts/ja/0f47614d7ac2c88c.mp3",
-    "tts/ja/f95c41f3597f8a5d.mp3"
-  ],
-  "ja:と": [
-    "tts/ja/c83b26ed8eeb982e.mp3",
-    "tts/ja/ff5402acf078fe5d.mp3"
-  ],
-  "ja:とけい": [
-    "tts/ja/a736c861c5ebc016.mp3",
-    "tts/ja/fb0b62f8b3d23721.mp3"
-  ],
-  "ja:ともだち": [
-    "tts/ja/b95edd8a7846c641.mp3",
-    "tts/ja/2ad5085cface3e07.mp3"
-  ],
+  "ja:でんわ": "tts/ja/0f47614d7ac2c88c.mp3",
+  "ja:と": "tts/ja/c83b26ed8eeb982e.mp3",
+  "ja:とけい": "tts/ja/a736c861c5ebc016.mp3",
+  "ja:ともだち": "tts/ja/b95edd8a7846c641.mp3",
   "ja:ともだち です": [
     "tts/ja/f641af68f7d5a8ea.mp3",
     "tts/ja/c88829e5eaa8d25d.mp3"
   ],
-  "ja:ともだちは せんせいです。": [
-    "tts/ja/df2c5c762e7f2f9d.mp3",
-    "tts/ja/220aae1250073f69.mp3"
-  ],
-  "ja:ともだちは アメリカじんです。": [
-    "tts/ja/7c1e84a23e34ac3b.mp3",
-    "tts/ja/5f4d2723d8a49ad7.mp3"
-  ],
+  "ja:ともだちは せんせいです。": "tts/ja/df2c5c762e7f2f9d.mp3",
+  "ja:ともだちは アメリカじんです。": "tts/ja/7c1e84a23e34ac3b.mp3",
   "ja:とり": [
     "tts/ja/9ec045893de23fcf.mp3",
     "tts/ja/b8c750df28100d2e.mp3"
@@ -739,14 +411,9 @@
     "tts/ja/b272167b81e28ca4.mp3",
     "tts/ja/be76b217da7db6ea.mp3"
   ],
-  "ja:ど": [
-    "tts/ja/16869425ede4cba3.mp3",
-    "tts/ja/d36b08b69a8e1fb4.mp3"
-  ],
-  "ja:どこですか": [
-    "tts/ja/f314786f2fad3b48.mp3",
-    "tts/ja/86616a3950626730.mp3"
-  ],
+  "ja:ど": "tts/ja/16869425ede4cba3.mp3",
+  "ja:どあ": "tts/ja/e02897e8b1ff8947.mp3",
+  "ja:どこですか": "tts/ja/f314786f2fad3b48.mp3",
   "ja:どれが あなたの かばんですか。": [
     "tts/ja/ce170caee55f657f.mp3",
     "tts/ja/17cdae93714fb16b.mp3"
@@ -755,10 +422,7 @@
     "tts/ja/6717e8cad8df06ad.mp3",
     "tts/ja/2d3a8f5417b3e2ae.mp3"
   ],
-  "ja:な": [
-    "tts/ja/ca9e39de80bd89cb.mp3",
-    "tts/ja/42e7d6c4e87915e1.mp3"
-  ],
+  "ja:な": "tts/ja/ca9e39de80bd89cb.mp3",
   "ja:なつ": [
     "tts/ja/a8956eaffec66b27.mp3",
     "tts/ja/3132f2795fbce4fd.mp3"
@@ -767,26 +431,11 @@
     "tts/ja/72bfb1b3bb67f9b5.mp3",
     "tts/ja/ccf8dcca9fbd3822.mp3"
   ],
-  "ja:なに": [
-    "tts/ja/1a3bbcdb26d4de70.mp3",
-    "tts/ja/c96f9e982cc2e831.mp3"
-  ],
-  "ja:なまえ": [
-    "tts/ja/beb0a83cad77295a.mp3",
-    "tts/ja/aa9502eda3688acb.mp3"
-  ],
-  "ja:なまえは なんですか": [
-    "tts/ja/e9492d5c98c91ece.mp3",
-    "tts/ja/0e9af4e8a538e07c.mp3"
-  ],
-  "ja:なまえは なんですか。": [
-    "tts/ja/260d72136ccdc56c.mp3",
-    "tts/ja/c331294b466b6453.mp3"
-  ],
-  "ja:に": [
-    "tts/ja/1048957f687ee3dc.mp3",
-    "tts/ja/98509672b986d457.mp3"
-  ],
+  "ja:なに": "tts/ja/1a3bbcdb26d4de70.mp3",
+  "ja:なまえ": "tts/ja/beb0a83cad77295a.mp3",
+  "ja:なまえは なんですか": "tts/ja/e9492d5c98c91ece.mp3",
+  "ja:なまえは なんですか。": "tts/ja/260d72136ccdc56c.mp3",
+  "ja:に": "tts/ja/1048957f687ee3dc.mp3",
   "ja:にく": [
     "tts/ja/b78dee6686f6f3e2.mp3",
     "tts/ja/59e2612d56b34bc9.mp3"
@@ -799,58 +448,35 @@
     "tts/ja/4036a2915803ade4.mp3",
     "tts/ja/1ec338479412a4e3.mp3"
   ],
-  "ja:にほんじん": [
-    "tts/ja/d14aaecf8c5392bf.mp3",
-    "tts/ja/a7174d5b11e53dd2.mp3"
-  ],
-  "ja:にほんじんですか。": [
-    "tts/ja/29ecf8300f0c5b6b.mp3",
-    "tts/ja/749b6fd1344def38.mp3"
-  ],
+  "ja:にほんじん": "tts/ja/d14aaecf8c5392bf.mp3",
+  "ja:にほんじんですか。": "tts/ja/29ecf8300f0c5b6b.mp3",
   "ja:にほんの くるまです。": [
     "tts/ja/36f1b329d5ab1a1d.mp3",
     "tts/ja/4716dba5e34ba1ad.mp3"
   ],
-  "ja:にゃ": [
-    "tts/ja/b3c4cc75a7df002d.mp3",
-    "tts/ja/0ff206b25e0e94f1.mp3"
-  ],
+  "ja:にゃ": "tts/ja/b3c4cc75a7df002d.mp3",
   "ja:にゃんこ": [
     "tts/ja/cda3e7bb2d443818.mp3",
     "tts/ja/92c5f79f55dfb76c.mp3"
   ],
-  "ja:にゅ": [
-    "tts/ja/d1739781861ef81a.mp3",
-    "tts/ja/3bd7895e38a9abd4.mp3"
-  ],
+  "ja:にゅ": "tts/ja/d1739781861ef81a.mp3",
   "ja:にゅうし": [
     "tts/ja/5de0db4a87b61bb3.mp3",
     "tts/ja/439c67371a72be64.mp3"
   ],
-  "ja:にょ": [
-    "tts/ja/c35999a2f876f938.mp3",
-    "tts/ja/9b3b44647fffa21b.mp3"
-  ],
+  "ja:にょ": "tts/ja/c35999a2f876f938.mp3",
   "ja:にょろ": [
     "tts/ja/86beaf2d3eefb7e3.mp3",
     "tts/ja/65b42f307b1eb1a5.mp3"
   ],
-  "ja:ぬ": [
-    "tts/ja/fb9c85ae9dc7510d.mp3",
-    "tts/ja/afc92eabb49d20b1.mp3"
-  ],
-  "ja:ね": [
-    "tts/ja/160380aa745abfd6.mp3",
-    "tts/ja/c184256aa2a52654.mp3"
-  ],
-  "ja:ねこ": [
-    "tts/ja/c0195a97542ecdc1.mp3",
-    "tts/ja/7d43b0d9cf732a0c.mp3"
-  ],
+  "ja:ぬ": "tts/ja/fb9c85ae9dc7510d.mp3",
+  "ja:ね": "tts/ja/160380aa745abfd6.mp3",
+  "ja:ねこ": "tts/ja/c0195a97542ecdc1.mp3",
   "ja:ねこ です": [
     "tts/ja/06d3c2750a319c31.mp3",
     "tts/ja/7132d813f7280378.mp3"
   ],
+  "ja:ねこ ですか": "tts/ja/4fca6cb1de5294b6.mp3",
   "ja:ねこが います。": [
     "tts/ja/ed27064f39aeafe8.mp3",
     "tts/ja/f8b6a1e9daf5a2ca.mp3"
@@ -859,38 +485,20 @@
     "tts/ja/a0f05d9605959f67.mp3",
     "tts/ja/892d0e328ed65f56.mp3"
   ],
-  "ja:ねこは あおいです。": [
-    "tts/ja/40c22b406131a804.mp3",
-    "tts/ja/513ee0a3d6273671.mp3"
-  ],
-  "ja:ねこは ほんです。": [
-    "tts/ja/d8da7ac2650ad850.mp3",
-    "tts/ja/58c31860807a40f2.mp3"
-  ],
-  "ja:の": [
-    "tts/ja/b02dcfe6d1f97601.mp3",
-    "tts/ja/1a2da2f623d9afbc.mp3"
-  ],
+  "ja:ねこは あおいです。": "tts/ja/40c22b406131a804.mp3",
+  "ja:ねこは ほんです。": "tts/ja/d8da7ac2650ad850.mp3",
+  "ja:の": "tts/ja/b02dcfe6d1f97601.mp3",
   "ja:のこす": [
     "tts/ja/14227aea4df2056a.mp3",
     "tts/ja/5e958ba2485b3c45.mp3"
   ],
-  "ja:は": [
-    "tts/ja/9ebc6318fcfe7c3b.mp3",
-    "tts/ja/262d107502349382.mp3"
-  ],
-  "ja:はい": [
-    "tts/ja/de5d82c0db62be11.mp3",
-    "tts/ja/a5c4613241ae0f85.mp3"
-  ],
+  "ja:は": "tts/ja/9ebc6318fcfe7c3b.mp3",
+  "ja:はい": "tts/ja/de5d82c0db62be11.mp3",
   "ja:はい。ありがとうございます": [
     "tts/ja/061310ba5d72b842.mp3",
     "tts/ja/36872e0070bdf3fc.mp3"
   ],
-  "ja:はい。わたしは アメリカじんです": [
-    "tts/ja/a73225450371bc4a.mp3",
-    "tts/ja/9fa7614291f135cb.mp3"
-  ],
+  "ja:はい。わたしは アメリカじんです": "tts/ja/a73225450371bc4a.mp3",
   "ja:はし": [
     "tts/ja/7d9d47d68906587d.mp3",
     "tts/ja/b963a7e095921385.mp3"
@@ -915,74 +523,35 @@
     "tts/ja/310911911e14eb8f.mp3",
     "tts/ja/4ada9b4d8b7f8a3e.mp3"
   ],
-  "ja:ば": [
-    "tts/ja/5ff591e99e088372.mp3",
-    "tts/ja/38a11df7c6caba0e.mp3"
-  ],
+  "ja:ば": "tts/ja/5ff591e99e088372.mp3",
   "ja:ばら": [
     "tts/ja/4cf3c0ae61f26c12.mp3",
     "tts/ja/55f4bd85d8109ef3.mp3"
   ],
-  "ja:ぱ": [
-    "tts/ja/b12aa4959f9e6eac.mp3",
-    "tts/ja/b672d95cc7c38a2b.mp3"
-  ],
-  "ja:ぱん": [
-    "tts/ja/68985e1ae91b1151.mp3",
-    "tts/ja/c226923607f0940a.mp3"
-  ],
+  "ja:ぱ": "tts/ja/b12aa4959f9e6eac.mp3",
+  "ja:ぱん": "tts/ja/68985e1ae91b1151.mp3",
   "ja:ぱん を たべる": [
     "tts/ja/207e151f0b240368.mp3",
     "tts/ja/4bc77bb6f78a8328.mp3"
   ],
-  "ja:ひ": [
-    "tts/ja/db8a1fde78f7c14f.mp3",
-    "tts/ja/3554eb2a409cf15a.mp3"
-  ],
-  "ja:ひと": [
-    "tts/ja/fe0310aa5d1acebd.mp3",
-    "tts/ja/e703c64c0226776c.mp3"
-  ],
+  "ja:ひ": "tts/ja/db8a1fde78f7c14f.mp3",
+  "ja:ひと": "tts/ja/fe0310aa5d1acebd.mp3",
   "ja:ひとり": [
     "tts/ja/87d3cb6681baa076.mp3",
     "tts/ja/4ae5b8bc9ec22c96.mp3"
   ],
-  "ja:ひゃ": [
-    "tts/ja/66e6d81671246f80.mp3",
-    "tts/ja/5c35852e59703c0f.mp3"
-  ],
-  "ja:ひゃく": [
-    "tts/ja/4ee8752571ca1128.mp3",
-    "tts/ja/1e38de47931e7be2.mp3"
-  ],
-  "ja:ひゅ": [
-    "tts/ja/f8efa3e7899a376d.mp3",
-    "tts/ja/45c4ce453d598ee3.mp3"
-  ],
-  "ja:ひょ": [
-    "tts/ja/d98f090f3e1bd915.mp3",
-    "tts/ja/2e1813c0c28df67c.mp3"
-  ],
+  "ja:ひゃ": "tts/ja/66e6d81671246f80.mp3",
+  "ja:ひゃく": "tts/ja/4ee8752571ca1128.mp3",
+  "ja:ひゅ": "tts/ja/f8efa3e7899a376d.mp3",
+  "ja:ひょ": "tts/ja/d98f090f3e1bd915.mp3",
   "ja:ひょう": [
     "tts/ja/0b75650dd9f62cee.mp3",
     "tts/ja/ef392e01c4dfa21d.mp3"
   ],
-  "ja:び": [
-    "tts/ja/c0e85206ef82033a.mp3",
-    "tts/ja/110b31c6e9c4a529.mp3"
-  ],
-  "ja:びゃ": [
-    "tts/ja/e6f7f6f6cb54bef5.mp3",
-    "tts/ja/662fbadffe2c1f8f.mp3"
-  ],
-  "ja:びゅ": [
-    "tts/ja/5351f40e9a40142d.mp3",
-    "tts/ja/1083c653bfe2b8ca.mp3"
-  ],
-  "ja:びょ": [
-    "tts/ja/6ce5985006f9eaa0.mp3",
-    "tts/ja/4212add77b9d1181.mp3"
-  ],
+  "ja:び": "tts/ja/c0e85206ef82033a.mp3",
+  "ja:びゃ": "tts/ja/e6f7f6f6cb54bef5.mp3",
+  "ja:びゅ": "tts/ja/5351f40e9a40142d.mp3",
+  "ja:びょ": "tts/ja/6ce5985006f9eaa0.mp3",
   "ja:びょういん": [
     "tts/ja/5e997d89d1b38254.mp3",
     "tts/ja/42fefda0afe9d5a7.mp3"
@@ -991,102 +560,49 @@
     "tts/ja/470dbed2408fc997.mp3",
     "tts/ja/e1ad0fc1b7fa7bad.mp3"
   ],
-  "ja:ぴ": [
-    "tts/ja/eee305188d00414d.mp3",
-    "tts/ja/8d3a6635e32304ee.mp3"
-  ],
-  "ja:ぴあの": [
-    "tts/ja/20643c0fb8a1ae25.mp3",
-    "tts/ja/7057dbce8ff1c4e9.mp3"
-  ],
-  "ja:ぴゃ": [
-    "tts/ja/ad445dccc2ac916e.mp3",
-    "tts/ja/af0e0a5c3589084a.mp3"
-  ],
-  "ja:ぴゅ": [
-    "tts/ja/d45d52d0fe7ec3aa.mp3",
-    "tts/ja/8cf2e25e7c479d6d.mp3"
-  ],
-  "ja:ぴょ": [
-    "tts/ja/3a60708510015768.mp3",
-    "tts/ja/762e8f2053b8745c.mp3"
-  ],
+  "ja:ぴ": "tts/ja/eee305188d00414d.mp3",
+  "ja:ぴあの": "tts/ja/20643c0fb8a1ae25.mp3",
+  "ja:ぴゃ": "tts/ja/ad445dccc2ac916e.mp3",
+  "ja:ぴゅ": "tts/ja/d45d52d0fe7ec3aa.mp3",
+  "ja:ぴょ": "tts/ja/3a60708510015768.mp3",
   "ja:ぴょん": [
     "tts/ja/a4813d5e6fbddc46.mp3",
     "tts/ja/e4c7870451598256.mp3"
   ],
-  "ja:ふ": [
-    "tts/ja/40e921412c910714.mp3",
-    "tts/ja/e721d809f92a4db4.mp3"
-  ],
+  "ja:ふ": "tts/ja/40e921412c910714.mp3",
   "ja:ふたり": [
     "tts/ja/e5b89f802ba0cb2c.mp3",
     "tts/ja/1d0bfe0394f0349b.mp3"
   ],
-  "ja:ふね": [
-    "tts/ja/a5042b08d486cef9.mp3",
-    "tts/ja/9679fba81f85c38a.mp3"
-  ],
-  "ja:ぶ": [
-    "tts/ja/555ab3475f8471a9.mp3",
-    "tts/ja/ec55d2ea7a68503a.mp3"
-  ],
-  "ja:ぶた": [
-    "tts/ja/517c0ef6efb4be74.mp3",
-    "tts/ja/e953ce2459c8cd90.mp3"
-  ],
-  "ja:ぷ": [
-    "tts/ja/d84cbcd6e41c8bee.mp3",
-    "tts/ja/ba20ae0b286987ff.mp3"
-  ],
-  "ja:へ": [
-    "tts/ja/242d5f4e5a66e999.mp3",
-    "tts/ja/f6233190ce18b1a0.mp3"
-  ],
+  "ja:ふね": "tts/ja/a5042b08d486cef9.mp3",
+  "ja:ぶ": "tts/ja/555ab3475f8471a9.mp3",
+  "ja:ぶた": "tts/ja/517c0ef6efb4be74.mp3",
+  "ja:ぷ": "tts/ja/d84cbcd6e41c8bee.mp3",
+  "ja:ぷりん": "tts/ja/38cf451fa01658f7.mp3",
+  "ja:へ": "tts/ja/242d5f4e5a66e999.mp3",
   "ja:へい": [
     "tts/ja/edc027eb1bd462af.mp3",
     "tts/ja/456cc6d6c5958845.mp3"
   ],
-  "ja:べ": [
-    "tts/ja/e3b2810cd234821e.mp3",
-    "tts/ja/89f759161c0a77e0.mp3"
-  ],
-  "ja:ぺ": [
-    "tts/ja/be0d32a18ad19303.mp3",
-    "tts/ja/423991a57173cb79.mp3"
-  ],
+  "ja:べ": "tts/ja/e3b2810cd234821e.mp3",
+  "ja:ぺ": "tts/ja/be0d32a18ad19303.mp3",
   "ja:ぺこぺこ": [
     "tts/ja/9e80c26b283c9606.mp3",
     "tts/ja/21591bb6ca0a22f5.mp3"
   ],
-  "ja:ほ": [
-    "tts/ja/91642cf333e192b9.mp3",
-    "tts/ja/bb55c62f6176bfa3.mp3"
-  ],
-  "ja:ほし": [
-    "tts/ja/32c323ce5a1fc8f4.mp3",
-    "tts/ja/8efe6dbca0925f34.mp3"
-  ],
-  "ja:ほん": [
-    "tts/ja/59a613f3e068707c.mp3",
-    "tts/ja/47cb7e7ff46d3346.mp3"
-  ],
-  "ja:ぼ": [
-    "tts/ja/b07ae79d6a2885a5.mp3",
-    "tts/ja/5ea5d99b6f603d18.mp3"
-  ],
+  "ja:ぺん": "tts/ja/a7a3987fd2b787aa.mp3",
+  "ja:ほ": "tts/ja/91642cf333e192b9.mp3",
+  "ja:ほし": "tts/ja/32c323ce5a1fc8f4.mp3",
+  "ja:ほし です": "tts/ja/8767ad7fd3cdff00.mp3",
+  "ja:ほん": "tts/ja/59a613f3e068707c.mp3",
+  "ja:ぼ": "tts/ja/b07ae79d6a2885a5.mp3",
+  "ja:ぼうし": "tts/ja/5a29851870667ddd.mp3",
   "ja:ぼく": [
     "tts/ja/96253de41df417fa.mp3",
     "tts/ja/6bf6e9b6ad35aca1.mp3"
   ],
-  "ja:ぽ": [
-    "tts/ja/751aa5da4516ecb8.mp3",
-    "tts/ja/3b1dd8073ac80bf0.mp3"
-  ],
-  "ja:ま": [
-    "tts/ja/ef2ab4710f0d685f.mp3",
-    "tts/ja/20a8ea9355861580.mp3"
-  ],
+  "ja:ぽ": "tts/ja/751aa5da4516ecb8.mp3",
+  "ja:ま": "tts/ja/ef2ab4710f0d685f.mp3",
   "ja:まど": [
     "tts/ja/c2ca3228dd1ad280.mp3",
     "tts/ja/bd7fbf013fec8f00.mp3"
@@ -1095,14 +611,8 @@
     "tts/ja/e7e3c31dab10ff8d.mp3",
     "tts/ja/efa9ac41f9dc4a34.mp3"
   ],
-  "ja:み": [
-    "tts/ja/d38e8b96388c54de.mp3",
-    "tts/ja/a2f0144f51d8283a.mp3"
-  ],
-  "ja:みず": [
-    "tts/ja/f939fb04cd9b234b.mp3",
-    "tts/ja/9a2932e8b6f73d93.mp3"
-  ],
+  "ja:み": "tts/ja/d38e8b96388c54de.mp3",
+  "ja:みず": "tts/ja/f939fb04cd9b234b.mp3",
   "ja:みず です": [
     "tts/ja/b16fac60904680fe.mp3",
     "tts/ja/b67a94e2189b45f3.mp3"
@@ -1119,50 +629,27 @@
     "tts/ja/c3707aff9cedbf85.mp3",
     "tts/ja/485eeee4db86b41e.mp3"
   ],
-  "ja:みゃ": [
-    "tts/ja/4f3325fdf3584006.mp3",
-    "tts/ja/9648078b0ee3d59a.mp3"
-  ],
+  "ja:みゃ": "tts/ja/4f3325fdf3584006.mp3",
   "ja:みゃく": [
     "tts/ja/31507bf2ca534e58.mp3",
     "tts/ja/872c7c65c517c029.mp3"
   ],
-  "ja:みゅ": [
-    "tts/ja/c24867d158b2dcce.mp3",
-    "tts/ja/ea95206bbf8b657d.mp3"
-  ],
-  "ja:みょ": [
-    "tts/ja/1bd65ff1a3820215.mp3",
-    "tts/ja/aa929445f65dc318.mp3"
-  ],
+  "ja:みゅ": "tts/ja/c24867d158b2dcce.mp3",
+  "ja:みょ": "tts/ja/1bd65ff1a3820215.mp3",
   "ja:みょう": [
     "tts/ja/948f9e66f3bc799d.mp3",
     "tts/ja/c6eb7e9b358e656a.mp3"
   ],
-  "ja:む": [
-    "tts/ja/f732f18140444887.mp3",
-    "tts/ja/375ef89debdece9a.mp3"
-  ],
+  "ja:む": "tts/ja/f732f18140444887.mp3",
   "ja:むし": [
     "tts/ja/18a3099e7a8bb32d.mp3",
     "tts/ja/7ee5e5e327a177d7.mp3"
   ],
-  "ja:め": [
-    "tts/ja/7439f6ea0e0993fc.mp3",
-    "tts/ja/5d1b8b3553b3e141.mp3"
-  ],
-  "ja:も": [
-    "tts/ja/cab3902f2e6aa9a2.mp3",
-    "tts/ja/384823588f51385d.mp3"
-  ],
-  "ja:もも": [
-    "tts/ja/86358c52476ed18e.mp3",
-    "tts/ja/d85d0b8f4980cbc2.mp3"
-  ],
-  "ja:や": [
-    "tts/ja/6427c9ec21edc6c1.mp3",
-    "tts/ja/cb5bdc9a1242fd43.mp3"
-  ],
+  "ja:め": "tts/ja/7439f6ea0e0993fc.mp3",
+  "ja:めがね": "tts/ja/720d0b9c4d843e4c.mp3",
+  "ja:も": "tts/ja/cab3902f2e6aa9a2.mp3",
+  "ja:もも": "tts/ja/86358c52476ed18e.mp3",
+  "ja:や": "tts/ja/6427c9ec21edc6c1.mp3",
   "ja:やさい": [
     "tts/ja/ed10e86b82af7594.mp3",
     "tts/ja/febfc0b15abb6346.mp3"
@@ -1171,38 +658,23 @@
     "tts/ja/049c33f0ee694a91.mp3",
     "tts/ja/e6a5ceaf18fe5c9e.mp3"
   ],
-  "ja:やま": [
-    "tts/ja/b703ed921c5973e1.mp3",
-    "tts/ja/261d2b2ff77e7991.mp3"
-  ],
+  "ja:やま": "tts/ja/b703ed921c5973e1.mp3",
   "ja:やま です": [
     "tts/ja/ae1e146c46b1d378.mp3",
     "tts/ja/1c5cd579db1f67f7.mp3"
   ],
-  "ja:ゆ": [
-    "tts/ja/4b16a80a29790ee1.mp3",
-    "tts/ja/53ff3d6e4e3decb6.mp3"
-  ],
-  "ja:ゆき": [
-    "tts/ja/878ba6b095817831.mp3",
-    "tts/ja/3142ca7ab0b535b7.mp3"
-  ],
+  "ja:ゆ": "tts/ja/4b16a80a29790ee1.mp3",
+  "ja:ゆき": "tts/ja/878ba6b095817831.mp3",
   "ja:ゆめ": [
     "tts/ja/14ff15f8b132d039.mp3",
     "tts/ja/04323cf2214cdb42.mp3"
   ],
-  "ja:よ": [
-    "tts/ja/f65ffc43be2c8917.mp3",
-    "tts/ja/a80f3a1fbf7acef4.mp3"
-  ],
+  "ja:よ": "tts/ja/f65ffc43be2c8917.mp3",
   "ja:よこ": [
     "tts/ja/3bbd98a421d21027.mp3",
     "tts/ja/8838f5c8bc22fc0e.mp3"
   ],
-  "ja:よむ": [
-    "tts/ja/2e87b6992c00aee8.mp3",
-    "tts/ja/c01b033f619725bc.mp3"
-  ],
+  "ja:よむ": "tts/ja/2e87b6992c00aee8.mp3",
   "ja:よる": [
     "tts/ja/145f2faf8c22dc50.mp3",
     "tts/ja/3b7da89d53c7a895.mp3"
@@ -1211,66 +683,31 @@
     "tts/ja/807bb5a06a65ac2a.mp3",
     "tts/ja/bff86f5e55cf7cef.mp3"
   ],
-  "ja:ら": [
-    "tts/ja/0b9f5346bb00d6dd.mp3",
-    "tts/ja/6a2f2741e81206a7.mp3"
-  ],
-  "ja:り": [
-    "tts/ja/b9b855591d39a29d.mp3",
-    "tts/ja/053e4e617163fc5e.mp3"
-  ],
-  "ja:りゃ": [
-    "tts/ja/607281d9dd74348d.mp3",
-    "tts/ja/458e2d4f069db5d7.mp3"
-  ],
-  "ja:りゅ": [
-    "tts/ja/00107f373d26e58d.mp3",
-    "tts/ja/fe2ed8292cae06a2.mp3"
-  ],
+  "ja:ら": "tts/ja/0b9f5346bb00d6dd.mp3",
+  "ja:り": "tts/ja/b9b855591d39a29d.mp3",
+  "ja:りゃ": "tts/ja/607281d9dd74348d.mp3",
+  "ja:りゅ": "tts/ja/00107f373d26e58d.mp3",
   "ja:りゅう": [
     "tts/ja/bdd52eb148a349c3.mp3",
     "tts/ja/180be375b5e96ebb.mp3"
   ],
-  "ja:りょ": [
-    "tts/ja/f244212833b90e9d.mp3",
-    "tts/ja/f694871694a8e611.mp3"
-  ],
+  "ja:りょ": "tts/ja/f244212833b90e9d.mp3",
+  "ja:りょうり": "tts/ja/037727bfcfb751f5.mp3",
   "ja:りょこう": [
     "tts/ja/41b1ee2f39f324ae.mp3",
     "tts/ja/29bf9b986712a226.mp3"
   ],
-  "ja:りんごを食べます": [
-    "tts/ja/3fdab9f990655942.mp3",
-    "tts/ja/b44289fb59e4d16e.mp3"
-  ],
-  "ja:る": [
-    "tts/ja/10230c78567d386d.mp3",
-    "tts/ja/59d4025c78a7014e.mp3"
-  ],
-  "ja:れ": [
-    "tts/ja/b7137290082d9ab3.mp3",
-    "tts/ja/99104805d333ed38.mp3"
-  ],
-  "ja:ろ": [
-    "tts/ja/4cfbe7407babedff.mp3",
-    "tts/ja/e626c651db6b1bf1.mp3"
-  ],
+  "ja:りんごを食べます": "tts/ja/3fdab9f990655942.mp3",
+  "ja:る": "tts/ja/10230c78567d386d.mp3",
+  "ja:れ": "tts/ja/b7137290082d9ab3.mp3",
+  "ja:ろ": "tts/ja/4cfbe7407babedff.mp3",
   "ja:ろく": [
     "tts/ja/a585e39926f77b88.mp3",
     "tts/ja/69642416fc318472.mp3"
   ],
-  "ja:わ": [
-    "tts/ja/7c4c3ad8faa1cf12.mp3",
-    "tts/ja/d88ea5a1e7466b03.mp3"
-  ],
-  "ja:わかりました": [
-    "tts/ja/f42a0a859ed0f016.mp3",
-    "tts/ja/16d43911884752ca.mp3"
-  ],
-  "ja:わたし": [
-    "tts/ja/3e5676b36e2edcaa.mp3",
-    "tts/ja/a29ef0776a68fbae.mp3"
-  ],
+  "ja:わ": "tts/ja/7c4c3ad8faa1cf12.mp3",
+  "ja:わかりました": "tts/ja/f42a0a859ed0f016.mp3",
+  "ja:わたし": "tts/ja/3e5676b36e2edcaa.mp3",
   "ja:わたし は にほんじん です": [
     "tts/ja/f5f91c9ccf8f8a51.mp3",
     "tts/ja/13de226d928d95ca.mp3"
@@ -1279,10 +716,7 @@
     "tts/ja/77b61f2c89ae02f7.mp3",
     "tts/ja/e3bbb816c4dc1d23.mp3"
   ],
-  "ja:わたし アメリカじんです。": [
-    "tts/ja/753fd2c819260002.mp3",
-    "tts/ja/7b906a7109ab1110.mp3"
-  ],
+  "ja:わたし アメリカじんです。": "tts/ja/753fd2c819260002.mp3",
   "ja:わたしの かばんです。": [
     "tts/ja/65b7538980afb6cf.mp3",
     "tts/ja/51b79430bc2c666c.mp3"
@@ -1291,38 +725,17 @@
     "tts/ja/168b468ec044e3e0.mp3",
     "tts/ja/e8c28891b369c092.mp3"
   ],
-  "ja:わたしは がくせい。": [
-    "tts/ja/f030122b11fc3ceb.mp3",
-    "tts/ja/e8529ae24c351f60.mp3"
-  ],
-  "ja:わたしは がくせいです。": [
-    "tts/ja/dba5ba69377f092f.mp3",
-    "tts/ja/be3dd1f8186abb0b.mp3"
-  ],
-  "ja:わたしは アメリカじんです。": [
-    "tts/ja/a924bffda639c9f7.mp3",
-    "tts/ja/c8d6f2d388a83f26.mp3"
-  ],
-  "ja:を": [
-    "tts/ja/51eeb7e487054b1b.mp3",
-    "tts/ja/6d83c065a917fe74.mp3"
-  ],
-  "ja:ん": [
-    "tts/ja/d424e99224403d16.mp3",
-    "tts/ja/093c4f7f2aedaa00.mp3"
-  ],
+  "ja:わたしは がくせい。": "tts/ja/f030122b11fc3ceb.mp3",
+  "ja:わたしは がくせいです。": "tts/ja/dba5ba69377f092f.mp3",
+  "ja:わたしは アメリカじんです。": "tts/ja/a924bffda639c9f7.mp3",
+  "ja:を": "tts/ja/51eeb7e487054b1b.mp3",
+  "ja:ん": "tts/ja/d424e99224403d16.mp3",
   "ja:アメリカ": [
     "tts/ja/ca33a905db79c0e8.mp3",
     "tts/ja/7349782c23ba9927.mp3"
   ],
-  "ja:アメリカじん": [
-    "tts/ja/7f1bdb49c9a3656b.mp3",
-    "tts/ja/6c2a047fb7839c13.mp3"
-  ],
-  "ja:アメリカじんですか": [
-    "tts/ja/6c2ddedc0174e066.mp3",
-    "tts/ja/9408384793e0b632.mp3"
-  ],
+  "ja:アメリカじん": "tts/ja/7f1bdb49c9a3656b.mp3",
+  "ja:アメリカじんですか": "tts/ja/6c2ddedc0174e066.mp3",
   "ja:カメラ": [
     "tts/ja/2399f1ad85025429.mp3",
     "tts/ja/99834c9a9ad4700d.mp3"
@@ -1335,64 +748,28 @@
     "tts/ja/469126b6fdf9e7db.mp3",
     "tts/ja/c5537e3f26614f5b.mp3"
   ],
-  "ja:コーヒー": [
-    "tts/ja/9ed1427c6866455f.mp3",
-    "tts/ja/81d3ad8d0816f3d6.mp3"
-  ],
+  "ja:コーヒー": "tts/ja/9ed1427c6866455f.mp3",
   "ja:コーヒー にこ ください": [
     "tts/ja/93d70359e4754e83.mp3",
     "tts/ja/d32e8c7af309e0cb.mp3"
   ],
-  "ja:タクシー": [
-    "tts/ja/9a5271d850ac41e1.mp3",
-    "tts/ja/eab9ffedb8d94548.mp3"
-  ],
+  "ja:タクシー": "tts/ja/9a5271d850ac41e1.mp3",
   "ja:パン を たべる": [
     "tts/ja/aeed13eabe0d8ae1.mp3",
     "tts/ja/ac59c30567acdadd.mp3"
   ],
-  "ja:ビール": [
-    "tts/ja/ba5f75e68afb1e1b.mp3",
-    "tts/ja/2915f69db96fa833.mp3"
-  ],
+  "ja:ビール": "tts/ja/ba5f75e68afb1e1b.mp3",
   "ja:ペン": [
     "tts/ja/a1498bccec1b9a10.mp3",
     "tts/ja/9317aca1686227ed.mp3"
   ],
-  "ja:ホテル": [
-    "tts/ja/9272497f8f39dcf1.mp3",
-    "tts/ja/3e446bfa53b9a644.mp3"
-  ],
-  "ja:レストラン": [
-    "tts/ja/a0c134003eedccb2.mp3",
-    "tts/ja/442143c4ef043b5f.mp3"
-  ],
-  "ja:人": [
-    "tts/ja/52e4ddd73419f769.mp3",
-    "tts/ja/63fefc0279ef2656.mp3"
-  ],
-  "ja:大きい": [
-    "tts/ja/c2a41c23a952ac0d.mp3",
-    "tts/ja/d2bf0f3159a71484.mp3"
-  ],
-  "ja:学校に行きます": [
-    "tts/ja/73dc8e9b31389f22.mp3",
-    "tts/ja/1a9e4043523369a5.mp3"
-  ],
-  "ja:日": [
-    "tts/ja/dd1e78cbe81cf961.mp3",
-    "tts/ja/943d320172a7703c.mp3"
-  ],
-  "ja:水": [
-    "tts/ja/a72a39d2a0e014e0.mp3",
-    "tts/ja/6da70847e2468770.mp3"
-  ],
-  "ja:私は学生です": [
-    "tts/ja/883baa966b40913d.mp3",
-    "tts/ja/28649ea8da36c189.mp3"
-  ],
-  "ja:食べる": [
-    "tts/ja/833167efb13623de.mp3",
-    "tts/ja/239b73c5d9e85b8e.mp3"
-  ]
+  "ja:ホテル": "tts/ja/9272497f8f39dcf1.mp3",
+  "ja:レストラン": "tts/ja/a0c134003eedccb2.mp3",
+  "ja:人": "tts/ja/52e4ddd73419f769.mp3",
+  "ja:大きい": "tts/ja/c2a41c23a952ac0d.mp3",
+  "ja:学校に行きます": "tts/ja/73dc8e9b31389f22.mp3",
+  "ja:日": "tts/ja/dd1e78cbe81cf961.mp3",
+  "ja:水": "tts/ja/a72a39d2a0e014e0.mp3",
+  "ja:私は学生です": "tts/ja/883baa966b40913d.mp3",
+  "ja:食べる": "tts/ja/833167efb13623de.mp3"
 }

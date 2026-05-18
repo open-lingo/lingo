@@ -460,6 +460,21 @@ export const MOCK_LESSON_JA_M1_SA_3: LessonContent = {
     speaking("ja-sa3-speak-sushi", "すし", "sushi"),
     speaking("ja-sa3-speak-sora",  "そら", "sky"),
 
+    // ─── Sentence sprinkle (M1 desu/ka — Spencer 2026-05-17) ───
+    // Build it, then speak it. です + か introduced on ka-3; no re-explain.
+    {
+      id: "ja-sa3-build-sushi-desu",
+      type: "build_sentence",
+      prompt: "Build: 'It's sushi.'",
+      targetSentence: "すし です",
+      tiles: ["すし", "です", "そら", "ですか"],
+      correctOrder: ["すし", "です"],
+      granularity: "word",
+      audioKey: "すし です",
+      targetAnnotation: [{ surface: "すし です", reading: "すし です" }],
+    },
+    speaking("ja-sa3-speak-sushi-desu", "すし です", "It's sushi."),
+
     // Removed: redundant 5× symbol_to_sound block. The row-test
     // (sub-lesson 4/4) drills kana→romaji recall already; doubling
     // it here padded the lesson to 17–21 steps for no gain (flagged

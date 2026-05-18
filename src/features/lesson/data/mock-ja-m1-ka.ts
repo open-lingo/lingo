@@ -164,6 +164,28 @@ export const MOCK_LESSON_JA_M1_KA_3: LessonContent = {
     speaking("ja-ka3-speak-kao", "かお", "face"),
     speaking("ja-ka3-speak-koe", "こえ", "voice"),
 
+    // ─── First-of-type です + か info card (M1 sentence sprinkle, 2026-05-17).
+    // Spencer: "introduce desu and ka in the plain hiragana module 1 …
+    // dont explain desu and ka much but let them know its there".
+    { id: "ja-ka3-info-desu-ka", type: "info", title: "です + か — your first sentence",
+      body: "です means 'is' / 'am'. か at the end makes it a question. You'll see these in upcoming sentences — no need to memorize them yet, just notice. ('Y is X') = 'Y wa X です'.",
+      variant: "grammar" },
+
+    // Build a sentence: かお です = "it's a face".
+    {
+      id: "ja-ka3-build-kao-desu",
+      type: "build_sentence",
+      prompt: "Build: 'It's a face.'",
+      targetSentence: "かお です",
+      tiles: ["かお", "です", "こえ", "ですか"],
+      correctOrder: ["かお", "です"],
+      granularity: "word",
+      audioKey: "かお です",
+      targetAnnotation: [{ surface: "かお です", reading: "かお です" }],
+    },
+    // Speak it out loud.
+    speaking("ja-ka3-speak-kao-desu", "かお です", "It's a face."),
+
     { id: "ja-ka3-info-end", type: "info", title: "Real-world win",
       body: "You can now read アカ (red), カイ (shell), カオ (face) — and any kana-only word built from あ/い/う/え/お + か/き/く/け/こ. Up next: sa row.",
       variant: "win" },

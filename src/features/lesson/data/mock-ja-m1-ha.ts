@@ -133,6 +133,20 @@ export const MOCK_LESSON_JA_M1_HA_3: LessonContent = {
     speaking("ja-ha3-speak-fune",  "ふね", "boat"),
     speaking("ja-ha3-speak-hoshi", "ほし", "star"),
 
+    // ─── Sentence sprinkle (M1 desu/ka — Spencer 2026-05-17) ───
+    {
+      id: "ja-ha3-build-hoshi-desu",
+      type: "build_sentence",
+      prompt: "Build: 'It's a star.'",
+      targetSentence: "ほし です",
+      tiles: ["ほし", "です", "ひと", "ですか"],
+      correctOrder: ["ほし", "です"],
+      granularity: "word",
+      audioKey: "ほし です",
+      targetAnnotation: [{ surface: "ほし です", reading: "ほし です" }],
+    },
+    speaking("ja-ha3-speak-hoshi-desu", "ほし です", "It's a star."),
+
     { id: "ja-ha3-info-end", type: "info", title: "Real-world win",
       body: "You can now read ふね (boat), ほし (star) — and decode ハート ❤️ (heart) on every Valentine's chocolate wrapper in Japan. Up next — ma row.",
       variant: "win" },

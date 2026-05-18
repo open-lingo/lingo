@@ -33,15 +33,17 @@ describe("curriculum lesson counts", () => {
     }
   });
 
-  it("M2 has 20 lessons (5 voiced × 2 + 4 yōon × 2 + capstone + recap)", () => {
+  it("M2 has 38 lessons (every row uses the g-row 3-sub + test template)", () => {
     const m2 = course.modules.find((m) => m.id === "m2")!;
     expect(m2).toBeDefined();
-    // Voiced rows: 5 × (1 content + 1 test) = 10
-    // Yōon rows: 4 × (1 content + 1 test) = 8
-    // Yōon capstone (test-only): 1
-    // Recap: 1
-    // Total = 10 + 8 + 1 + 1 = 20
-    expect(m2.lessons.length).toBe(20);
+    // 2026-05-17 (Spencer extrapolation): every dakuten/yōon row mirrors
+    // the g-row template (3 hand-authored sub-lessons + auto row-test).
+    //   Voiced rows (g, z, d, b, p): 5 × (3 content + 1 test) = 20
+    //   Yōon rows (intro, sh-ch, voiced, rare): 4 × (3 + 1) = 16
+    //   Yōon capstone (test-only): 1
+    //   Recap: 1
+    //   Total = 20 + 16 + 1 + 1 = 38
+    expect(m2.lessons.length).toBe(38);
     // Dakuten cluster comes before yōon cluster.
     const yoonIdx = m2.lessons.findIndex((l) => l.id.includes("yoon-"));
     const lastDakutenIdx = Math.max(
@@ -142,9 +144,10 @@ describe("curriculum lesson counts", () => {
   it("yōon-capstone is the final yōon node before recap", () => {
     const m2 = course.modules.find((m) => m.id === "m2")!;
     const yoonIds = m2.lessons.filter((l) => l.id.includes("yoon-"));
-    // intro (content + test) + sh-ch (content + test) + voiced (content + test)
-    //   + rare (content + test) + capstone (test only) = 9
-    expect(yoonIds.length).toBe(9);
+    // 2026-05-17: yōon rows now use g-row template too —
+    //   intro (3 content + test) + sh-ch (3 + test) + voiced (3 + test)
+    //   + rare (3 + test) + capstone (test only) = 17
+    expect(yoonIds.length).toBe(17);
     expect(yoonIds[yoonIds.length - 1].id).toBe("ja-m1-yoon-capstone-test");
   });
 });

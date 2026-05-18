@@ -130,6 +130,21 @@ export const MOCK_LESSON_JA_M1_NA_3: LessonContent = {
     speaking("ja-na3-speak-neko",   "ねこ",   "cat"),
     speaking("ja-na3-speak-kinoko", "きのこ", "mushroom"),
 
+    // ─── Sentence sprinkle (M1 desu/ka — Spencer 2026-05-17) ───
+    // Question form this time: ねこ ですか = "Is it a cat?"
+    {
+      id: "ja-na3-build-neko-desu-ka",
+      type: "build_sentence",
+      prompt: "Build the question: 'Is it a cat?'",
+      targetSentence: "ねこ ですか",
+      tiles: ["ねこ", "ですか", "です", "なに"],
+      correctOrder: ["ねこ", "ですか"],
+      granularity: "word",
+      audioKey: "ねこ ですか",
+      targetAnnotation: [{ surface: "ねこ ですか", reading: "ねこ ですか" }],
+    },
+    speaking("ja-na3-speak-neko-desu-ka", "ねこ ですか", "Is it a cat?"),
+
     { id: "ja-na3-info-end", type: "info", title: "Real-world win",
       body: "You can now read ねこ (cat), なに (what) — and spot ナマエ ('name') in the name-field on every Japanese form. Up next — ha row.",
       variant: "win" },

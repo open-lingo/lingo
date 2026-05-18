@@ -50,15 +50,51 @@ import {
   MOCK_LESSON_JA_M1_WA_2,
   MOCK_LESSON_JA_M1_WA_3,
 } from "./mock-ja-m1-wa";
-import { MOCK_LESSON_JA_M2_G_1 } from "./mock-ja-m2-g";
-import { MOCK_LESSON_JA_M2_Z_1 } from "./mock-ja-m2-z";
-import { MOCK_LESSON_JA_M2_D_1 } from "./mock-ja-m2-d";
-import { MOCK_LESSON_JA_M2_B_1 } from "./mock-ja-m2-b";
-import { MOCK_LESSON_JA_M2_P_1 } from "./mock-ja-m2-p";
-import { MOCK_LESSON_JA_M2_YOON_INTRO_1 } from "./mock-ja-m2-yoon-intro";
-import { MOCK_LESSON_JA_M2_YOON_SH_CH_1 } from "./mock-ja-m2-yoon-sh-ch";
-import { MOCK_LESSON_JA_M2_YOON_VOICED_1 } from "./mock-ja-m2-yoon-voiced";
-import { MOCK_LESSON_JA_M2_YOON_RARE_1 } from "./mock-ja-m2-yoon-rare";
+import {
+  MOCK_LESSON_JA_M2_G_1,
+  MOCK_LESSON_JA_M2_G_2,
+  MOCK_LESSON_JA_M2_G_3,
+} from "./mock-ja-m2-g";
+import {
+  MOCK_LESSON_JA_M2_Z_1,
+  MOCK_LESSON_JA_M2_Z_2,
+  MOCK_LESSON_JA_M2_Z_3,
+} from "./mock-ja-m2-z";
+import {
+  MOCK_LESSON_JA_M2_D_1,
+  MOCK_LESSON_JA_M2_D_2,
+  MOCK_LESSON_JA_M2_D_3,
+} from "./mock-ja-m2-d";
+import {
+  MOCK_LESSON_JA_M2_B_1,
+  MOCK_LESSON_JA_M2_B_2,
+  MOCK_LESSON_JA_M2_B_3,
+} from "./mock-ja-m2-b";
+import {
+  MOCK_LESSON_JA_M2_P_1,
+  MOCK_LESSON_JA_M2_P_2,
+  MOCK_LESSON_JA_M2_P_3,
+} from "./mock-ja-m2-p";
+import {
+  MOCK_LESSON_JA_M2_YOON_INTRO_1,
+  MOCK_LESSON_JA_M2_YOON_INTRO_2,
+  MOCK_LESSON_JA_M2_YOON_INTRO_3,
+} from "./mock-ja-m2-yoon-intro";
+import {
+  MOCK_LESSON_JA_M2_YOON_SH_CH_1,
+  MOCK_LESSON_JA_M2_YOON_SH_CH_2,
+  MOCK_LESSON_JA_M2_YOON_SH_CH_3,
+} from "./mock-ja-m2-yoon-sh-ch";
+import {
+  MOCK_LESSON_JA_M2_YOON_VOICED_1,
+  MOCK_LESSON_JA_M2_YOON_VOICED_2,
+  MOCK_LESSON_JA_M2_YOON_VOICED_3,
+} from "./mock-ja-m2-yoon-voiced";
+import {
+  MOCK_LESSON_JA_M2_YOON_RARE_1,
+  MOCK_LESSON_JA_M2_YOON_RARE_2,
+  MOCK_LESSON_JA_M2_YOON_RARE_3,
+} from "./mock-ja-m2-yoon-rare";
 import { MOCK_LESSON_JA_SIDEQUEST_SURVIVAL } from "./mock-ja-sidequest-survival";
 import {
   M3_1,
@@ -159,19 +195,36 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m1-wa-1": MOCK_LESSON_JA_M1_WA_1,
   "ja-m1-wa-2": MOCK_LESSON_JA_M1_WA_2,
   "ja-m1-wa-3": MOCK_LESSON_JA_M1_WA_3,
-  // M2 voiced + handakuten (compact, NO tracing). Each row has ONE
-  // content sub-lesson + an auto-built row-test (the auto-builder still
-  // generates -test from the curriculum's `isTest` sub-lesson entry).
+  // M2 voiced + handakuten — 3 hand-authored sub-lessons per row + auto
+  // row-test (g-row template, extrapolated 2026-05-17 per Spencer).
   "ja-m1-g-1": MOCK_LESSON_JA_M2_G_1,
+  "ja-m1-g-2": MOCK_LESSON_JA_M2_G_2,
+  "ja-m1-g-3": MOCK_LESSON_JA_M2_G_3,
   "ja-m1-z-1": MOCK_LESSON_JA_M2_Z_1,
+  "ja-m1-z-2": MOCK_LESSON_JA_M2_Z_2,
+  "ja-m1-z-3": MOCK_LESSON_JA_M2_Z_3,
   "ja-m1-d-1": MOCK_LESSON_JA_M2_D_1,
+  "ja-m1-d-2": MOCK_LESSON_JA_M2_D_2,
+  "ja-m1-d-3": MOCK_LESSON_JA_M2_D_3,
   "ja-m1-b-1": MOCK_LESSON_JA_M2_B_1,
+  "ja-m1-b-2": MOCK_LESSON_JA_M2_B_2,
+  "ja-m1-b-3": MOCK_LESSON_JA_M2_B_3,
   "ja-m1-p-1": MOCK_LESSON_JA_M2_P_1,
-  // M2 yōon (compact, NO tracing).
+  "ja-m1-p-2": MOCK_LESSON_JA_M2_P_2,
+  "ja-m1-p-3": MOCK_LESSON_JA_M2_P_3,
+  // M2 yōon — 3 hand-authored sub-lessons per row + auto row-test.
   "ja-m1-yoon-intro-1": MOCK_LESSON_JA_M2_YOON_INTRO_1,
+  "ja-m1-yoon-intro-2": MOCK_LESSON_JA_M2_YOON_INTRO_2,
+  "ja-m1-yoon-intro-3": MOCK_LESSON_JA_M2_YOON_INTRO_3,
   "ja-m1-yoon-sh-ch-1": MOCK_LESSON_JA_M2_YOON_SH_CH_1,
+  "ja-m1-yoon-sh-ch-2": MOCK_LESSON_JA_M2_YOON_SH_CH_2,
+  "ja-m1-yoon-sh-ch-3": MOCK_LESSON_JA_M2_YOON_SH_CH_3,
   "ja-m1-yoon-voiced-1": MOCK_LESSON_JA_M2_YOON_VOICED_1,
+  "ja-m1-yoon-voiced-2": MOCK_LESSON_JA_M2_YOON_VOICED_2,
+  "ja-m1-yoon-voiced-3": MOCK_LESSON_JA_M2_YOON_VOICED_3,
   "ja-m1-yoon-rare-1": MOCK_LESSON_JA_M2_YOON_RARE_1,
+  "ja-m1-yoon-rare-2": MOCK_LESSON_JA_M2_YOON_RARE_2,
+  "ja-m1-yoon-rare-3": MOCK_LESSON_JA_M2_YOON_RARE_3,
   // Sidequest lessons — day-1 unlocks, no row/module attachment.
   "ja-sidequest-survival-phrases": MOCK_LESSON_JA_SIDEQUEST_SURVIVAL,
   // M3-M7 — grammar-spine modules (restructure 2026-05-16). Hand-authored
@@ -330,4 +383,55 @@ export function getMockLessonContent(
 
 export function getAvailableMockLessonIds(): string[] {
   return Object.keys(LESSONS);
+}
+
+export type LessonLengthRow = {
+  id: string;
+  title: string;
+  stepCount: number;
+  estimatedMinutes: number;
+  kind?: LessonContent["kind"];
+};
+
+export type ModuleLengthRow = {
+  moduleId: string;
+  lessons: LessonLengthRow[];
+  totalLessons: number;
+  totalSteps: number;
+  totalMinutes: number;
+};
+
+/**
+ * Dev-tool helper. Walks every registered lesson, groups by moduleId, and
+ * returns per-module stats. Used by the `?dev=1` panel button so we can
+ * eyeball module length before restructuring. Lesson ids are sorted
+ * lexicographically — ja-mN-{slug} sort sensibly for the JA modules.
+ */
+export function getMockLessonStats(): ModuleLengthRow[] {
+  const byModule = new Map<string, LessonLengthRow[]>();
+  for (const lesson of Object.values(LESSONS)) {
+    const row: LessonLengthRow = {
+      id: lesson.id,
+      title: lesson.title,
+      stepCount: lesson.steps.length,
+      estimatedMinutes: lesson.estimatedMinutes ?? 0,
+      kind: lesson.kind,
+    };
+    const list = byModule.get(lesson.moduleId) ?? [];
+    list.push(row);
+    byModule.set(lesson.moduleId, list);
+  }
+  const out: ModuleLengthRow[] = [];
+  for (const [moduleId, lessons] of byModule) {
+    lessons.sort((a, b) => a.id.localeCompare(b.id));
+    out.push({
+      moduleId,
+      lessons,
+      totalLessons: lessons.length,
+      totalSteps: lessons.reduce((sum, l) => sum + l.stepCount, 0),
+      totalMinutes: lessons.reduce((sum, l) => sum + l.estimatedMinutes, 0),
+    });
+  }
+  out.sort((a, b) => a.moduleId.localeCompare(b.moduleId));
+  return out;
 }

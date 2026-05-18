@@ -39,8 +39,11 @@ export function useStrokeAnimation(
   play(): void;
   reset(): void;
 } {
-  const strokeDurationMs = opts.strokeDurationMs ?? 600;
-  const pauseBetweenMs = opts.pauseBetweenMs ?? 180;
+  // 2026-05-17: sped 30% (was 600ms / 180ms) per Spencer's M2 walkthrough.
+  // Intro animation felt slow when learners are past initial trace
+  // mechanics and just want to recognize the shape.
+  const strokeDurationMs = opts.strokeDurationMs ?? 420;
+  const pauseBetweenMs = opts.pauseBetweenMs ?? 125;
   const autoPlay = opts.autoPlay ?? false;
 
   const [state, setState] = useState<State>({ kind: "idle" });

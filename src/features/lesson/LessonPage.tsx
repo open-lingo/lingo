@@ -37,6 +37,27 @@ import type { LessonCompleteMastery } from "./components/LessonComplete";
  *  XP — the activity is review, not a new milestone. Tweak in one place. */
 const REVIEW_XP_MULTIPLIER = 0.25;
 
+/** Step types eligible for the end-of-lesson replay tail. Info / teach /
+ *  symbol_intro / phrase_card / grammar_rule are exposure chrome, not
+ *  graded. Speaking is stubbed (never fails). Trace / production have
+ *  their own minCorrectAttempts gate. row_test owns its own pass/fail
+ *  logic and never lands in a regular lesson. Everything else is a
+ *  pick-an-answer step that benefits from retry.
+ */
+const RETRY_ELIGIBLE_TYPES = new Set<LessonStep["type"]>([
+  "multiple_choice",
+  "build_sentence",
+  "match_pairs",
+  "fill_blank",
+  "translate",
+  "listening_comprehension",
+  "listening_build",
+  "particle_cloze",
+  "word_image_mcq",
+  "symbol_recognition",
+  "symbol_to_sound",
+]);
+
 export function LessonPage() {
   const { lessonId } = useParams<{ lessonId: string }>();
   const { t } = useTranslation();
@@ -74,6 +95,13 @@ export function LessonPage() {
     hydrated?.startedAt ?? new Date().toISOString(),
   );
   const [finished, setFinished] = useState(false);
+  // Replay tail (2026-05-17 Spencer): after the linear pass ends, any
+  // graded step that ended `correct === false` re-queues once. The
+  // learner can't quit a lesson with mistakes still standing.
+  const [replayQueue, setReplayQueue] = useState<string[]>([]);
+  const [retryAttempted, setRetryAttempted] = useState<Set<string>>(
+    () => new Set(),
+  );
   const wasResumed = hydrated !== null;
 
   // `?speech=1` deep-links the speech-recognition feature flag on; the
@@ -196,22 +224,70 @@ export function LessonPage() {
   }, [finished, lesson, results, isReview]);
 
   const totalSteps = lesson?.steps.length ?? 0;
-  const currentStep: LessonStep | undefined = lesson?.steps[currentStepIdx];
+  const inReplay = replayQueue.length > 0;
+  const currentStep: LessonStep | undefined = inReplay
+    ? lesson?.steps.find((s) => s.id === replayQueue[0])
+    : lesson?.steps[currentStepIdx];
 
   const handleStepComplete = useCallback(
     (stepId: string, correct: boolean) => {
+      // Last-write-wins. A retry that passes upgrades the verdict to
+      // correct; a retry that fails too stays incorrect. Accuracy at
+      // lesson end reflects final state.
       setResults((prev) => ({ ...prev, [stepId]: correct }));
     },
     [],
   );
 
   const handleContinue = useCallback(() => {
+    // Replay-mode advance: shift the queue; finish when empty.
+    if (inReplay) {
+      const remaining = replayQueue.slice(1);
+      setReplayQueue(remaining);
+      if (remaining.length === 0) setFinished(true);
+      return;
+    }
+    // Normal linear advance.
     if (currentStepIdx < totalSteps - 1) {
       setCurrentStepIdx((i) => i + 1);
-    } else {
-      setFinished(true);
+      return;
     }
-  }, [currentStepIdx, totalSteps]);
+    // End of linear pass — build the replay queue from graded steps the
+    // learner answered wrong on first attempt. Each step retries at most
+    // once; the retry verdict (pass or fail) is final.
+    if (!lesson) {
+      setFinished(true);
+      return;
+    }
+    const wrongIds: string[] = [];
+    for (const s of lesson.steps) {
+      if (
+        RETRY_ELIGIBLE_TYPES.has(s.type) &&
+        results[s.id] === false &&
+        !retryAttempted.has(s.id)
+      ) {
+        wrongIds.push(s.id);
+      }
+    }
+    if (wrongIds.length === 0) {
+      setFinished(true);
+    } else {
+      setReplayQueue(wrongIds);
+      setRetryAttempted((prev) => {
+        const next = new Set(prev);
+        for (const id of wrongIds) next.add(id);
+        return next;
+      });
+    }
+  }, [
+    inReplay,
+    replayQueue,
+    currentStepIdx,
+    totalSteps,
+    lesson,
+    results,
+    retryAttempted,
+  ]);
 
   const handleExit = useCallback(() => {
     navigate(langPath("learn"));
@@ -265,17 +341,28 @@ export function LessonPage() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-        <LessonProgressBar current={currentStepIdx} total={totalSteps} />
+        <LessonProgressBar
+          current={inReplay ? totalSteps : currentStepIdx}
+          total={totalSteps}
+        />
         <LessonMetaChips
           estimatedMinutes={lesson.estimatedMinutes}
           xpReward={lesson.xpReward}
         />
       </div>
 
+      {inReplay && (
+        <div className="mb-2 rounded-lg border border-warning/40 bg-warning/10 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-warning">
+          Review · {replayQueue.length} left
+        </div>
+      )}
+
       <div className="flex flex-1 flex-col py-4">
         {currentStep && (
           <StepRenderer
-            key={currentStep.id}
+            // Force remount on retry so the step view starts from a clean
+            // state (no carry-over selection / submit flag from first attempt).
+            key={inReplay ? `${currentStep.id}-retry-${replayQueue.length}` : currentStep.id}
             step={currentStep}
             onComplete={handleStepComplete}
             onContinue={handleContinue}

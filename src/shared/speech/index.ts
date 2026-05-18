@@ -39,3 +39,11 @@ export {
   classifyMoraBand,
   type MoraBand,
 } from "./moraTiers";
+export {
+  pushSpeechLog,
+  getSpeechLog,
+  subscribeSpeechLog,
+  __clearSpeechLog,
+  type SpeechLogEntry,
+  type SpeechLogVerdict,
+} from "./speechLog";

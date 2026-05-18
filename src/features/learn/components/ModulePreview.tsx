@@ -2,7 +2,6 @@ import type { Lesson } from "@/shared/domain/course";
 import "./pathway.css";
 
 export type ModulePreviewProps = {
-  moduleNumber: number;
   /** Title used in eyebrow + summary line ("7 lessons covering ..."). */
   summary?: string;
   lessons: Lesson[];

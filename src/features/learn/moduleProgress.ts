@@ -4,6 +4,52 @@ import { getAlphabetProgress } from "@/features/practice/alphabet/alphabetProgre
 
 export type ModuleStatus = "completed" | "current" | "locked";
 
+/** Module-level display metadata. Content modules get a 1-indexed
+ *  position ("M1", "M2", ...); review modules render as "R" and are
+ *  skipped in the content-module count so M3 stays M3 even after an
+ *  m3-review entry is inserted between m3 and m4. The 2026-05-17
+ *  Spencer report "labeled wrong and I can't access them" traced to
+ *  the old code passing array index as the badge number.
+ */
+export type ModuleDisplay = {
+  badgeLabel: string;
+  isReview: boolean;
+  /** 1-indexed content-module number (m1 = 1, m2 = 2, ...). null for
+   *  review modules — they don't get a numbered slot. */
+  contentNumber: number | null;
+  /** Text for the "After Module N" gate pill — the previous content
+   *  module's 1-indexed number rendered as "Module N", or null when
+   *  this is the first module (no prerequisite). */
+  gateAfterLabel: string | null;
+};
+
+function isReviewModule(mod: CourseModule): boolean {
+  return mod.eyebrow === "Review";
+}
+
+export function getModuleDisplay(
+  modules: CourseModule[],
+  index: number,
+): ModuleDisplay {
+  let contentCountUpTo = 0;
+  let contentCountBefore = 0;
+  for (let i = 0; i <= index; i++) {
+    if (!isReviewModule(modules[i])) contentCountUpTo++;
+  }
+  for (let i = 0; i < index; i++) {
+    if (!isReviewModule(modules[i])) contentCountBefore++;
+  }
+  const review = isReviewModule(modules[index]);
+  const contentNumber = review ? null : contentCountUpTo;
+  return {
+    badgeLabel: review ? "R" : `M${contentNumber}`,
+    isReview: review,
+    contentNumber,
+    gateAfterLabel:
+      contentCountBefore > 0 ? `Module ${contentCountBefore}` : null,
+  };
+}
+
 /** Derive module status from completion (linear: complete previous to unlock next). */
 export function getModuleStatus(
   moduleIndex: number,

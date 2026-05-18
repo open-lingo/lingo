@@ -132,6 +132,20 @@ export const MOCK_LESSON_JA_M1_TA_3: LessonContent = {
     speaking("ja-ta3-speak-tsuki", "つき",   "moon"),
     speaking("ja-ta3-speak-tokei", "とけい", "clock"),
 
+    // ─── Sentence sprinkle (M1 desu/ka — Spencer 2026-05-17) ───
+    {
+      id: "ja-ta3-build-tsuki-desu",
+      type: "build_sentence",
+      prompt: "Build: 'It's the moon.'",
+      targetSentence: "つき です",
+      tiles: ["つき", "です", "うた", "ですか"],
+      correctOrder: ["つき", "です"],
+      granularity: "word",
+      audioKey: "つき です",
+      targetAnnotation: [{ surface: "つき です", reading: "つき です" }],
+    },
+    speaking("ja-ta3-speak-tsuki-desu", "つき です", "It's the moon."),
+
     { id: "ja-ta3-info-end", type: "info", title: "Real-world win",
       body: "You can now read うた (song), つき (moon) — and spot タカ (hawk) on falconry signs at any Japanese shrine. Up next — na row.",
       variant: "win" },

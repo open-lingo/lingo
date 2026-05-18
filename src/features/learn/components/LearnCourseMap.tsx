@@ -6,6 +6,7 @@ import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import type { Course, Lesson } from "@/shared/domain/course";
 import {
   getCurrentModuleIndex,
+  getModuleDisplay,
   getModuleStatus,
   getNextLessonIndex,
   isLessonLocked,
@@ -64,8 +65,9 @@ export function LearnCourseMap({
           const status = getModuleStatus(i, completedSet, course.modules);
           const open = isModuleOpen(mod.id);
           const lessonsDone = mod.lessons.filter((l) => completedSet.has(l.id)).length;
+          const display = getModuleDisplay(course.modules, i);
           const pill = buildModuleStatusPill(
-            i,
+            display.gateAfterLabel,
             status,
             lessonsDone,
             mod.lessons.length,
@@ -77,8 +79,14 @@ export function LearnCourseMap({
           const masteryPill = mastery?.mastered ? buildMasteryPill() : undefined;
 
           const isCurrent = i === currentIdx;
+          // Dev unlock expands every module to its clickable pathway
+          // (not just the current one) so Spencer can jump into any
+          // lesson without grinding to it. Without this, non-current
+          // modules render as a preview list and look "unreachable" even
+          // when the per-lesson lock is bypassed.
+          const showPathway = isCurrent || devUnlock;
           const pathway =
-            isCurrent ? (
+            showPathway ? (
               <ModulePathway
                 lessons={mod.lessons}
                 completedIds={completedSet}
@@ -91,9 +99,8 @@ export function LearnCourseMap({
             ) : undefined;
 
           const preview =
-            !isCurrent ? (
+            !showPathway ? (
               <ModulePreview
-                moduleNumber={i}
                 summary={mod.summary}
                 lessons={mod.lessons}
                 comingSoon={mod.comingSoon}
@@ -109,7 +116,7 @@ export function LearnCourseMap({
                   </Button>
                 ) : null}
                 <Button type="button" variant="secondary" onClick={() => testOut(mod.id)}>
-                  {t("learn.testOutModule", { n: i })}
+                  {t("learn.testOutModule", { n: display.contentNumber ?? display.badgeLabel })}
                 </Button>
                 <p className="lingo-test-out-note basis-full">
                   {t(
@@ -138,7 +145,8 @@ export function LearnCourseMap({
             <ModuleCard
               key={mod.id}
               module={mod}
-              moduleNumber={i}
+              badgeLabel={display.badgeLabel}
+              gateAfterLabel={display.gateAfterLabel}
               status={status}
               isOpen={open}
               onToggleOpen={() => onToggleModule(mod.id)}

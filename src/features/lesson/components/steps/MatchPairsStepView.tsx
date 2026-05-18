@@ -1,7 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { MatchPairsStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { AnnotatedJa } from "@/shared/japanese";
+import { playJaAudio, getTtsUrl } from "@/shared/japanese/tts";
+
+/** Tiny seeded shuffle so the order is deterministic per step.id but
+ *  the two columns scramble independently. Without this the source +
+ *  target lined up adjacent because both columns iterated `step.pairs`
+ *  in author order, which gave away the answer on every row. */
+function shuffleSeeded<T>(items: T[], seed: string): T[] {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) | 0;
+  const out = [...items];
+  for (let i = out.length - 1; i > 0; i--) {
+    h = (h * 16807) % 2147483647;
+    const j = Math.abs(h) % (i + 1);
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
 
 type Props = {
   step: MatchPairsStep;
@@ -15,18 +32,24 @@ type Props = {
  */
 type TileState = "idle" | "selected" | "matched" | "wrong";
 
+/** Max wrong taps before the step fails out. Three-strike model per
+ *  Spencer 2026-05-17: per-match grading, 3 dots at top, fail on 3rd
+ *  mistake — no retry, step is marked incorrect and Continue appears. */
+const MAX_MISTAKES = 3;
+
 /**
- * Match Pairs — Duolingo-style. No Check button:
+ * Match Pairs — Duolingo-style with 3-strike grading.
  *
- * - The learner taps a source OR a target first (bidirectional).
+ * - Learner taps a source OR a target first (bidirectional).
  * - Tapping the opposite column commits the pair. Correct stays green and
- *   locks; wrong shakes red ~500ms then clears selection.
- * - Step auto-completes when all pairs are matched. Continue replaces the
- *   grid in the same vertical slot (no layout jump).
+ *   locks; wrong shakes red ~500ms, dot turns off at the top.
+ * - 3 mistakes → step fails out: tiles disable, "Out of attempts" surfaces,
+ *   Continue with `incorrect` variant. Otherwise step auto-completes when
+ *   all pairs matched.
  *
- * Mistake count is tracked for an optional `incorrect` Continue variant.
- * Reach into `MatchPairsStep` for the pair IDs; pairs share an `id` across
- * source/target so we don't need a second join field.
+ * Dots at top render as 3 small circles — filled accent when available,
+ * outlined muted once spent. No words; learners infer from the red flash
+ * on miss + the dot dimming in sync.
  */
 export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
   const [matched, setMatched] = useState<Set<string>>(new Set());
@@ -41,12 +64,17 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
   const [mistakes, setMistakes] = useState(0);
 
   const allMatched = matched.size === step.pairs.length;
+  const failed = mistakes >= MAX_MISTAKES;
+  const finished = allMatched || failed;
 
-  // Auto-complete once everything is matched. Single onComplete + a beat
-  // before Continue surfaces, so the green flash is visible.
+  // Auto-complete on either pass (all matched, <MAX mistakes) or fail
+  // (>=MAX mistakes mid-grid). Pass criterion is now "no fail" so the
+  // learner is allowed up to 2 mistakes without the step being marked
+  // incorrect — Spencer's call.
   useEffect(() => {
-    if (allMatched) onComplete(step.id, mistakes === 0);
-  }, [allMatched, mistakes, onComplete, step.id]);
+    if (failed) onComplete(step.id, false);
+    else if (allMatched) onComplete(step.id, mistakes < MAX_MISTAKES);
+  }, [allMatched, failed, mistakes, onComplete, step.id]);
 
   function attemptPair(a: { side: string; pairId: string }, b: { side: string; pairId: string }) {
     if (a.pairId === b.pairId) {
@@ -68,7 +96,16 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
   }
 
   function handleClick(side: "source" | "target", pairId: string) {
-    if (allMatched || matched.has(pairId)) return;
+    if (finished || matched.has(pairId)) return;
+    // Audio-on-select: kana side plays its TTS when tapped so the learner
+    // hears the sound while pairing. Gated by step.playAudioOnSelect so
+    // M1 review match steps (English↔English) stay silent.
+    if (step.playAudioOnSelect && side === "source") {
+      const pair = step.pairs.find((p) => p.id === pairId);
+      if (pair && getTtsUrl(pair.source)) {
+        void playJaAudio(pair.source);
+      }
+    }
     if (!selected) {
       setSelected({ side, pairId });
       return;
@@ -101,15 +138,30 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
       "motion-safe:animate-shake border-error bg-red-50 text-error dark:bg-red-950/30",
   };
 
+  // Independently shuffle each column so source[i] never lines up with
+  // target[i]. Deterministic per step.id (different seed suffix per
+  // column so the two scrambles diverge).
+  const sourceOrder = useMemo(
+    () => shuffleSeeded(step.pairs, `${step.id}::src`),
+    [step.id, step.pairs],
+  );
+  const targetOrder = useMemo(
+    () => shuffleSeeded(step.pairs, `${step.id}::tgt`),
+    [step.id, step.pairs],
+  );
+
   // Equal-height rows for both columns: declare a single grid that owns both
   // sides. `grid-rows-[repeat(n,minmax(0,1fr))]` keeps row heights synced.
   const rows = step.pairs.length;
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <h2 className="text-xl font-semibold text-text-primary">
-        {step.prompt}
-      </h2>
+      <div className="flex items-start justify-between gap-4">
+        <h2 className="text-xl font-semibold text-text-primary">
+          {step.prompt}
+        </h2>
+        <MistakeDots used={mistakes} max={MAX_MISTAKES} />
+      </div>
 
       <div
         className="grid grid-cols-2 gap-3 sm:gap-4"
@@ -117,36 +169,68 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
       >
         {/* Render row-by-row so the auto-rows lock both columns to the same
          *  height per row even when the kana side has a ruby helper. */}
-        {step.pairs.map((pair, idx) => (
+        {sourceOrder.map((pair, idx) => (
           <SourceTile
             key={`s-${pair.id}`}
             pair={pair}
             style={stateStyles[tileState("source", pair.id)]}
-            disabled={matched.has(pair.id) || allMatched}
+            disabled={matched.has(pair.id) || finished}
             onClick={() => handleClick("source", pair.id)}
             row={idx + 1}
+            audioOnSelect={!!step.playAudioOnSelect}
           />
         ))}
-        {step.pairs.map((pair, idx) => (
+        {targetOrder.map((pair, idx) => (
           <TargetTile
             key={`t-${pair.id}`}
             pair={pair}
             style={stateStyles[tileState("target", pair.id)]}
-            disabled={matched.has(pair.id) || allMatched}
+            disabled={matched.has(pair.id) || finished}
             onClick={() => handleClick("target", pair.id)}
             row={idx + 1}
+            audioOnSelect={!!step.playAudioOnSelect}
           />
         ))}
       </div>
 
-      {allMatched && (
+      {failed && (
+        <div className="motion-safe:animate-fade-up rounded-lg border border-error/40 bg-error/10 px-4 py-3 text-sm text-error">
+          Out of attempts. Continuing — you can come back to this lesson later.
+        </div>
+      )}
+
+      {finished && (
         <div className="motion-safe:animate-fade-up">
           <ContinueButton
             onClick={onContinue}
-            variant={mistakes === 0 ? "correct" : "incorrect"}
+            variant={failed || mistakes > 0 ? "incorrect" : "correct"}
           />
         </div>
       )}
+    </div>
+  );
+}
+
+/** Three small dots showing mistakes remaining. Solid accent = available,
+ *  outlined muted = spent. No labels — Spencer's call: learners infer
+ *  from the red flash on miss + the dot dimming. */
+function MistakeDots({ used, max }: { used: number; max: number }) {
+  return (
+    <div className="flex items-center gap-1.5 pt-1" aria-label={`${max - used} attempts left`}>
+      {Array.from({ length: max }, (_, i) => {
+        const spent = i < used;
+        return (
+          <span
+            key={i}
+            className={`block h-2.5 w-2.5 rounded-full border transition-colors duration-200 ${
+              spent
+                ? "border-border bg-transparent"
+                : "border-accent bg-accent"
+            }`}
+            aria-hidden
+          />
+        );
+      })}
     </div>
   );
 }
@@ -159,16 +243,30 @@ type TileProps = {
   row: number;
 };
 
-function SourceTile({ pair, style, disabled, onClick, row }: TileProps) {
+type SourceTileProps = TileProps & {
+  /** When the step has playAudioOnSelect, the source side is a kana
+   *  recall cue — render plain text in a larger font, no ruby (the
+   *  audio is the romaji channel; on-tile ruby gives away the answer). */
+  audioOnSelect: boolean;
+};
+
+function SourceTile({ pair, style, disabled, onClick, row, audioOnSelect }: SourceTileProps) {
+  const sizeClass = audioOnSelect
+    ? "text-3xl sm:text-4xl font-semibold py-5"
+    : "text-base font-medium py-3";
   return (
     <button
       type="button"
       disabled={disabled}
       onClick={onClick}
       style={{ gridColumn: 1, gridRow: row }}
-      className={`flex w-full items-center justify-start rounded-xl border-[1.5px] px-4 py-3 text-base font-medium transition-colors duration-150 ${style}`}
+      className={`flex w-full items-center justify-center rounded-xl border-[1.5px] px-4 transition-colors duration-150 ${sizeClass} ${style}`}
     >
-      {pair.sourceAnnotation ? (
+      {audioOnSelect ? (
+        // Plain text — no ruby, no AnnotatedJa. Romaji on this side
+        // would defeat the recall (it IS the answer).
+        <span>{pair.source}</span>
+      ) : pair.sourceAnnotation ? (
         <AnnotatedJa segments={pair.sourceAnnotation} />
       ) : (
         <AnnotatedJa text={pair.source} />
@@ -177,14 +275,17 @@ function SourceTile({ pair, style, disabled, onClick, row }: TileProps) {
   );
 }
 
-function TargetTile({ pair, style, disabled, onClick, row }: TileProps) {
+function TargetTile({ pair, style, disabled, onClick, row, audioOnSelect }: SourceTileProps) {
+  const sizeClass = audioOnSelect
+    ? "text-2xl sm:text-3xl font-semibold py-5"
+    : "text-base font-medium py-3";
   return (
     <button
       type="button"
       disabled={disabled}
       onClick={onClick}
       style={{ gridColumn: 2, gridRow: row }}
-      className={`flex w-full items-center justify-start rounded-xl border-[1.5px] px-4 py-3 text-base font-medium transition-colors duration-150 ${style}`}
+      className={`flex w-full items-center justify-center rounded-xl border-[1.5px] px-4 transition-colors duration-150 ${sizeClass} ${style}`}
     >
       {pair.target}
     </button>

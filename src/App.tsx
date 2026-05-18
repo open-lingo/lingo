@@ -46,6 +46,9 @@ const SpeechTunePage = lazyRetry(() =>
     default: m.SpeechTunePage,
   })),
 );
+const LessonStepPreviewPage = lazyRetry(
+  () => import("@/features/lesson/dev/LessonStepPreviewPage"),
+);
 const LearnPage = lazyRetry(() => import("@/features/learn/LearnPage"));
 const AssetTestPage = lazyRetry(() => import("@/features/asset-test/AssetTestPage"));
 const PickerTestPage = lazyRetry(() => import("@/features/picker-test/PickerTestPage"));
@@ -216,6 +219,7 @@ const router = createBrowserRouter([
               { path: "vocab", element: <VocabPage /> },
               { path: "grammar", element: <GrammarRedirect /> },
               { path: "speech-tune", element: <SpeechTunePage /> },
+              { path: "lesson-preview", element: <LessonStepPreviewPage /> },
               { path: "asset-test", element: <AssetTestPage /> },
               { path: "picker-test", element: <PickerTestPage /> },
               {

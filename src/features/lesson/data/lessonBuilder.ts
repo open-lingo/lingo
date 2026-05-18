@@ -48,8 +48,21 @@ import {
   type KanaIntro,
   ALL_ROWS,
   CONFUSABLES,
+  HIRAGANA_ROWS,
   YOON_ROWS,
 } from "./hiraganaCurriculum";
+
+/**
+ * Resolve the owning module for a row. M1 owns pure hiragana rows;
+ * M2 owns dakuten + yōon (any row not in HIRAGANA_ROWS). Used by the
+ * row sub-lesson + row-test builders so every generated lesson reports
+ * the right moduleId — the prior hardcoded `"m1"` mis-tagged every
+ * dakuten/yōon row-test as m1 even though their intro lessons sat in
+ * m2 (the "m1=51 lessons, m2=10" bug Spencer flagged 2026-05-17).
+ */
+function moduleIdForRow(row: RowDef): string {
+  return HIRAGANA_ROWS.some((r) => r.id === row.id) ? "m1" : "m2";
+}
 import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
 import { getTtsUrl, hasTtsAudio } from "@/shared/japanese/tts";
 import { topStruggleKana } from "@/features/japanese/kanaMastery/struggleStore";
@@ -765,7 +778,7 @@ export function buildRowLesson(row: RowDef, _lessonNum: number = 0): LessonConte
 
   return {
     id: `ja-m1-${row.id}`,
-    moduleId: "m1",
+    moduleId: moduleIdForRow(row),
     courseId: "mock-1",
     languageId: "ja",
     title: row.title,
@@ -1030,7 +1043,7 @@ function buildSubLessonContent(
 
   return {
     id: `ja-m1-${row.id}-${sub.suffix}`,
-    moduleId: "m1",
+    moduleId: moduleIdForRow(row),
     courseId: "mock-1",
     languageId: "ja",
     title: `${row.title.split(":")[0]} — ${sub.label}`,
@@ -1178,7 +1191,7 @@ function buildRowTestLesson(row: RowDef, sub: SubLessonDef): LessonContent {
   };
   return {
     id: `ja-m1-${row.id}-${sub.suffix}`,
-    moduleId: "m1",
+    moduleId: moduleIdForRow(row),
     courseId: "mock-1",
     languageId: "ja",
     title: `${row.title.split(":")[0]} — Row test`,

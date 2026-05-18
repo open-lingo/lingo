@@ -9,6 +9,10 @@ import {
 type CommonProps = {
   /** Inline className applied to the outer <span>. */
   className?: string;
+  /** When true, render the romaji helper regardless of per-kana mastery
+   *  state. Used by teaching scaffolds (e.g. M2 "How do you say X?" MCQ)
+   *  where the romaji IS the lookup key, not the answer. */
+  forceShowHelper?: boolean;
 };
 
 type BareProps = CommonProps & {
@@ -36,12 +40,13 @@ export function AnnotatedJa(props: Props): ReactElement {
   const segments = "segments" in props && props.segments ? props.segments : null;
   const text = "text" in props && props.text != null ? props.text : "";
   const className = props.className;
+  const forceShowHelper = props.forceShowHelper ?? false;
 
   if (segments) {
     return (
       <span className={className} lang="ja">
         {segments.map((seg, i) => (
-          <SegmentRender key={i} segment={seg} />
+          <SegmentRender key={i} segment={seg} forceShowHelper={forceShowHelper} />
         ))}
       </span>
     );
@@ -49,18 +54,18 @@ export function AnnotatedJa(props: Props): ReactElement {
 
   return (
     <span className={className} lang="ja">
-      <BareRender text={text} />
+      <BareRender text={text} forceShowHelper={forceShowHelper} />
     </span>
   );
 }
 
-function BareRender({ text }: { text: string }) {
+function BareRender({ text, forceShowHelper }: { text: string; forceShowHelper: boolean }) {
   const tokens = useMemo(() => tokenizeJapanese(text), [text]);
   return (
     <>
       {tokens.map((tok, i) =>
         tok.kana ? (
-          <KanaToken key={i} kana={tok.text} romaji={tok.romaji ?? ""} />
+          <KanaToken key={i} kana={tok.text} romaji={tok.romaji ?? ""} forceShowHelper={forceShowHelper} />
         ) : (
           <span key={i}>{tok.text}</span>
         ),
@@ -69,7 +74,7 @@ function BareRender({ text }: { text: string }) {
   );
 }
 
-function SegmentRender({ segment }: { segment: JapaneseAnnotation }) {
+function SegmentRender({ segment, forceShowHelper }: { segment: JapaneseAnnotation; forceShowHelper: boolean }) {
   const { surface, reading, romaji, role } = segment;
   // Pure non-kana segments (English prose, punctuation, numbers) render as
   // plain text — no <ruby>, no helper. This keeps "What does あい mean?"
@@ -97,6 +102,7 @@ function SegmentRender({ segment }: { segment: JapaneseAnnotation }) {
               kana={tok.text}
               romaji={tok.romaji ?? ""}
               role={role}
+              forceShowHelper={forceShowHelper}
             />
           ) : (
             <span key={i}>{tok.text}</span>
@@ -137,13 +143,16 @@ function KanaToken({
   kana,
   romaji,
   role,
+  forceShowHelper,
 }: {
   kana: string;
   romaji: string;
   role?: JapaneseAnnotation["role"];
+  forceShowHelper?: boolean;
 }) {
   useTrackExposure(kana);
-  const helperVisible = useKanaHelperVisible(kana);
+  const masteryVisible = useKanaHelperVisible(kana);
+  const helperVisible = forceShowHelper || masteryVisible;
   const fallback = romaji || KANA_ROMAJI[kana] || "";
   return (
     <ruby data-role={role}>

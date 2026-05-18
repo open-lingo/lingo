@@ -1,13 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { SpeakingStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { AnnotatedJa, convertToHiragana } from "@/shared/japanese";
+import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
 import { getTtsUrl, playJaAudio, useAutoPlayJaAudio } from "@/shared/japanese/tts";
 import { Icon } from "@/shared/components/Icon";
 import {
   getSpeechConfig,
   isSpeechFlagEnabled,
   isSpeechRecognitionSupported,
+  pushSpeechLog,
   scoreAlternatives,
   tiersForTarget,
   useSpeechRecognition,
@@ -28,27 +30,40 @@ type Props = {
 /**
  * Speaking step.
  *
- * Default (no `?speech=1`): unchanged placeholder card with a "listen,
- * then say it" prompt and an "I said it!" continue button. Matches
- * pre-POC behavior so existing users see no regression.
+ * Routing:
+ *  - `step.stubbed === true` OR Whisper feature flag off → placeholder
+ *    ("I said it!" ungraded continue). Matches pre-POC behavior so
+ *    legacy lessons (M1 vowel sa, M1 l1/l2, particles tutor stub, etc.)
+ *    don't regress.
+ *  - `step.stubbed === false` AND `?speech=1` flag on (default) →
+ *    Whisper-graded 2-attempt + reward-the-try flow (R1.3, 2026-05-17).
  *
- * Feature-flagged path (`?speech=1` once per session): wires the Web
- * Speech API for `ja-JP` and grades the utterance with the tiered
- * scorer. Listen-back uses the existing TTS pipeline.
+ * 2-attempt + reward-the-try (R1.3b, Spencer 2026-05-17):
+ *  - Attempt 1 passes → onComplete(stepId, true), continue.
+ *  - Attempt 1 fails → show transcript next to target, "Try again".
+ *  - Attempt 2 passes → onComplete(stepId, true).
+ *  - Attempt 2 fails → auto-pass with "Good effort — moving on" framing,
+ *    onComplete(stepId, true). Spencer's rule: "can't get it wrong but
+ *    must try something." Logged for triage (see speechLog.ts).
+ *  - Skip without trying is NOT available when grading is on (must try
+ *    something). Falls back to "Continue" only when the browser doesn't
+ *    support recognition at all.
  *
- * Tuning dials (all sessionStorage, set via URL):
+ * Tuning dials (sessionStorage, set via URL):
  *   ?speech-perfect=0.85   perfect threshold
  *   ?speech-close=0.55     close threshold
  *   ?speech-strict=1       disable normalization (raw char-overlap)
  *   ?speech-alts=5         N-best alternatives requested
  *   ?speech-debug=1        show debug panel under verdict
- *
- * The flag is read at render time (not via React Context) on purpose —
- * the gate is a dev / preview surface, not a stable user setting.
+ *   ?speech-engine=whisper backend selector (default whisper)
  */
 export function SpeakingStepView({ step, onComplete, onContinue }: Props) {
   const speechFlag = isSpeechFlagEnabled();
-  if (speechFlag) {
+  // `stubbed: true` always renders the placeholder regardless of flag —
+  // legacy stub steps were never wired through the grader. `stubbed:
+  // false` only graduates when the speech flag is also on (so the
+  // explicit `?speech=0` opt-out still works end-to-end).
+  if (speechFlag && !step.stubbed) {
     return (
       <SpeakingStepRecognized
         step={step}
@@ -57,7 +72,9 @@ export function SpeakingStepView({ step, onComplete, onContinue }: Props) {
       />
     );
   }
-  return <SpeakingStepPlaceholder step={step} onContinue={onContinue} />;
+  return (
+    <SpeakingStepPlaceholder step={step} onContinue={onContinue} />
+  );
 }
 
 function SpeakingStepPlaceholder({
@@ -79,7 +96,7 @@ function SpeakingStepPlaceholder({
         Speaking practice
       </p>
 
-      <ReferenceCard step={step} onPlay={handlePlay} />
+      <ReferenceCard step={step} onPlay={handlePlay} showRomaji={false} />
 
       <div className="rounded-2xl border-[1.5px] border-warning/40 bg-warning/10 px-5 py-4 text-sm text-text-secondary">
         <span className="mr-1.5">🎤</span>
@@ -94,9 +111,11 @@ function SpeakingStepPlaceholder({
 function ReferenceCard({
   step,
   onPlay,
+  showRomaji,
 }: {
   step: SpeakingStep;
   onPlay: () => void;
+  showRomaji: boolean;
 }) {
   return (
     <div className="flex flex-col items-center gap-5 rounded-2xl border-[1.5px] border-border bg-surface py-10 shadow-[var(--shadow-card)]">
@@ -111,9 +130,9 @@ function ReferenceCard({
 
       <p className="text-4xl font-extrabold tracking-tight text-text-primary">
         {step.targetAnnotation ? (
-          <AnnotatedJa segments={step.targetAnnotation} />
+          <AnnotatedJa segments={step.targetAnnotation} forceShowHelper={showRomaji} />
         ) : (
-          <AnnotatedJa text={step.targetPhrase} />
+          <AnnotatedJa text={step.targetPhrase} forceShowHelper={showRomaji} />
         )}
       </p>
       <p className="text-sm text-text-muted">{step.translation}</p>
@@ -122,10 +141,44 @@ function ReferenceCard({
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Speech-recognition path (feature-flagged)                                 */
+/*  Speech-recognition path (Whisper-graded, 2-attempt + reward-the-try)      */
 /* -------------------------------------------------------------------------- */
 
-type LocalVerdict = Verdict | "idle";
+type LocalVerdict = Verdict | "idle" | "auto-pass";
+
+/** sessionStorage key for the "Show romaji" toggle on speaking steps.
+ *  Default OFF so confident learners aren't crutched; once a learner
+ *  toggles it on, it sticks for the rest of the session. */
+const ROMAJI_TOGGLE_KEY = "lingo_speak_show_romaji_v1";
+
+function readRomajiToggle(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.sessionStorage.getItem(ROMAJI_TOGGLE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function writeRomajiToggle(on: boolean): void {
+  if (typeof window === "undefined") return;
+  try {
+    if (on) window.sessionStorage.setItem(ROMAJI_TOGGLE_KEY, "1");
+    else window.sessionStorage.removeItem(ROMAJI_TOGGLE_KEY);
+  } catch {
+    /* private mode — ignore */
+  }
+}
+
+/** Format kana → "ka·gi" romaji string for the transcript inline hint.
+ *  Uses tokenizeJapanese so yōon merge into one token; non-kana glyphs
+ *  (kanji, punctuation) pass through unchanged. */
+function kanaToRomajiHint(kana: string): string {
+  const tokens = tokenizeJapanese(kana);
+  return tokens
+    .map((t) => (t.kana && t.romaji ? t.romaji : t.text))
+    .join("");
+}
 
 function SpeakingStepRecognized({
   step,
@@ -170,12 +223,23 @@ function SpeakingStepRecognized({
   const whisperProgress = usingWhisper ? whisperRecog.downloadProgress : null;
   const [verdict, setVerdict] = useState<LocalVerdict>("idle");
   const [match, setMatch] = useState<MatchResult | null>(null);
-  const [attempts, setAttempts] = useState(0);
+  const [attempts, setAttempts] = useState<0 | 1 | 2>(0);
   // Map from raw transcript → kanji→kana converted form for the debug
   // panel. Only populated when conversion actually changed the string.
   const [conversions, setConversions] = useState<Map<string, string>>(
     () => new Map(),
   );
+  const [showRomaji, setShowRomajiState] = useState<boolean>(() =>
+    readRomajiToggle(),
+  );
+
+  const toggleRomaji = useCallback(() => {
+    setShowRomajiState((prev) => {
+      const next = !prev;
+      writeRomajiToggle(next);
+      return next;
+    });
+  }, []);
 
   // When recognition finishes, score all alternatives against the
   // target and surface a tiered verdict. The hook resets on the next
@@ -183,8 +247,38 @@ function SpeakingStepRecognized({
   useEffect(() => {
     if (!recog.finished) return;
     if (recog.error) {
-      setVerdict("try-again");
+      // Recognition itself errored (no-speech / no-mic / aborted).
+      // Treat as a fail attempt for the 2-attempt cap so we don't trap
+      // the learner in an infinite mic loop. The error helper text
+      // surfaces what went wrong.
       setMatch(null);
+      setAttempts((prev) => {
+        const next = (Math.min(prev + 1, 2)) as 1 | 2;
+        if (next === 2) {
+          // Auto-pass on the second failed attempt — reward-the-try.
+          setVerdict("auto-pass");
+          pushSpeechLog({
+            stepId: step.id,
+            targetKana: step.targetPhrase,
+            transcriptKana: "",
+            attemptNumber: 2,
+            verdict: "auto-pass",
+            timestamp: Date.now(),
+          });
+          if (onComplete) onComplete(step.id, true);
+        } else {
+          setVerdict("try-again");
+          pushSpeechLog({
+            stepId: step.id,
+            targetKana: step.targetPhrase,
+            transcriptKana: "",
+            attemptNumber: 1,
+            verdict: "fail",
+            timestamp: Date.now(),
+          });
+        }
+        return next;
+      });
       return;
     }
 
@@ -198,8 +292,33 @@ function SpeakingStepRecognized({
           : [];
 
     if (rawAlts.length === 0) {
-      setVerdict("try-again");
       setMatch(null);
+      setAttempts((prev) => {
+        const next = (Math.min(prev + 1, 2)) as 1 | 2;
+        if (next === 2) {
+          setVerdict("auto-pass");
+          pushSpeechLog({
+            stepId: step.id,
+            targetKana: step.targetPhrase,
+            transcriptKana: "",
+            attemptNumber: 2,
+            verdict: "auto-pass",
+            timestamp: Date.now(),
+          });
+          if (onComplete) onComplete(step.id, true);
+        } else {
+          setVerdict("try-again");
+          pushSpeechLog({
+            stepId: step.id,
+            targetKana: step.targetPhrase,
+            transcriptKana: "",
+            attemptNumber: 1,
+            verdict: "fail",
+            timestamp: Date.now(),
+          });
+        }
+        return next;
+      });
       return;
     }
 
@@ -234,15 +353,49 @@ function SpeakingStepRecognized({
       const tiers = tiersForTarget(step.targetPhrase, config);
       const result = scoreAlternatives(step.targetPhrase, converted, tiers);
       setMatch(result);
-      setVerdict(result.verdict);
 
-      // Both perfect and close count as completion. try-again does not.
-      if (
-        (result.verdict === "perfect" || result.verdict === "close") &&
-        onComplete
-      ) {
-        onComplete(step.id, result.verdict === "perfect");
-      }
+      const bestTranscript = result.bestAlternative?.raw ?? "";
+      const passed =
+        result.verdict === "perfect" || result.verdict === "close";
+
+      setAttempts((prev) => {
+        const next = (Math.min(prev + 1, 2)) as 1 | 2;
+        if (passed) {
+          setVerdict(result.verdict);
+          pushSpeechLog({
+            stepId: step.id,
+            targetKana: step.targetPhrase,
+            transcriptKana: bestTranscript,
+            attemptNumber: next,
+            verdict: "pass",
+            timestamp: Date.now(),
+          });
+          if (onComplete) onComplete(step.id, result.verdict === "perfect");
+        } else if (next === 2) {
+          // Second swing missed — auto-pass with reward-the-try framing.
+          setVerdict("auto-pass");
+          pushSpeechLog({
+            stepId: step.id,
+            targetKana: step.targetPhrase,
+            transcriptKana: bestTranscript,
+            attemptNumber: 2,
+            verdict: "auto-pass",
+            timestamp: Date.now(),
+          });
+          if (onComplete) onComplete(step.id, true);
+        } else {
+          setVerdict("try-again");
+          pushSpeechLog({
+            stepId: step.id,
+            targetKana: step.targetPhrase,
+            transcriptKana: bestTranscript,
+            attemptNumber: 1,
+            verdict: "fail",
+            timestamp: Date.now(),
+          });
+        }
+        return next;
+      });
     })();
 
     return () => {
@@ -256,13 +409,10 @@ function SpeakingStepRecognized({
     step.id,
     step.targetPhrase,
     onComplete,
-    config.perfectThreshold,
-    config.closeThreshold,
-    config.strict,
+    config,
   ]);
 
   function handleRecord() {
-    setAttempts((n) => n + 1);
     setVerdict("idle");
     setMatch(null);
     recog.start();
@@ -274,13 +424,6 @@ function SpeakingStepRecognized({
 
   function handleListen() {
     playJaAudio(step.targetPhrase);
-  }
-
-  function handleSkip() {
-    // User opts out (no mic / unsupported browser). Treat as ungraded
-    // pass — same shape as the placeholder's "I said it!" CTA so we
-    // don't punish learners on Firefox.
-    onContinue();
   }
 
   const bestAltText = match?.bestAlternative?.raw ?? "";
@@ -306,33 +449,59 @@ function SpeakingStepRecognized({
       return bestAltText
         ? `Close — sounded like “${bestAltText}”.`
         : "Close — you can continue.";
+    if (verdict === "auto-pass") return "Good effort — moving on.";
     if (verdict === "try-again" && attempts > 0)
-      return "Try again — give it another go.";
+      return "Not quite — give it one more go.";
     return "Tap the mic and say the phrase aloud.";
   })();
 
   const helperToneClass = (() => {
     if (verdict === "perfect") return "text-success";
     if (verdict === "close") return "text-warning";
+    if (verdict === "auto-pass") return "text-text-secondary";
     if (verdict === "try-again" && attempts > 0) return "text-danger";
     return "text-text-secondary";
   })();
 
-  const advanceOk = verdict === "perfect" || verdict === "close";
+  // After any attempt completes (pass / try-again / auto-pass), Continue
+  // is available. Skip-without-trying is gated — must try something.
+  const canContinue =
+    verdict === "perfect" ||
+    verdict === "close" ||
+    verdict === "auto-pass";
+
+  // No mic / unsupported browser → graceful Continue (don't punish
+  // Firefox / no-permission flows).
+  const fallbackContinue = !supported;
 
   return (
     <div className="flex flex-1 flex-col gap-6">
-      <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
-        Speaking practice
-      </p>
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+          Speaking practice
+        </p>
+        <button
+          type="button"
+          onClick={toggleRomaji}
+          className="rounded-full border border-border bg-surface px-3 py-1 text-xs font-bold uppercase tracking-wider text-text-secondary transition hover:bg-surface-muted"
+          aria-pressed={showRomaji}
+        >
+          {showRomaji ? "Hide romaji" : "Show romaji"}
+        </button>
+      </div>
 
-      <ReferenceCard step={step} onPlay={handleListen} />
+      <ReferenceCard step={step} onPlay={handleListen} showRomaji={showRomaji} />
 
       <div className="flex flex-col items-center gap-3 rounded-2xl border-[1.5px] border-border bg-surface px-5 py-6 shadow-[var(--shadow-card)]">
         <button
           type="button"
           onClick={recog.listening ? handleStop : handleRecord}
-          disabled={!supported || whisperLoading || whisperTranscribing}
+          disabled={
+            !supported ||
+            whisperLoading ||
+            whisperTranscribing ||
+            canContinue
+          }
           className={`flex h-20 w-20 items-center justify-center rounded-full border-[1.5px] text-white shadow-[0_4px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:shadow-[0_5px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_2px_0_0_var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-40 ${
             recog.listening
               ? "border-red-700 bg-red-500 animate-pulse"
@@ -347,25 +516,28 @@ function SpeakingStepRecognized({
           {helperText}
         </p>
 
+        {/* Live "Heard" line while transcribing — replaced by the
+            scored block once the verdict lands. */}
         {recog.transcript && verdict === "idle" && (
           <p className="rounded-xl bg-surface-muted px-4 py-2 text-base text-text-primary">
             <span className="mr-2 text-xs font-bold uppercase tracking-wider text-text-muted">
               Heard
             </span>
-            {recog.transcript}
+            <span className="font-japanese" lang="ja">{recog.transcript}</span>
           </p>
         )}
 
-        {match && bestAltText && verdict !== "idle" && (
-          <p className="rounded-xl bg-surface-muted px-4 py-2 text-base text-text-primary">
-            <span className="mr-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-              Heard
-            </span>
-            {bestAltText}
-          </p>
+        {bestAltText && verdict !== "idle" && (
+          <TranscriptCard
+            transcriptKana={bestAltText}
+            targetKana={step.targetPhrase}
+            verdict={verdict}
+            showRomaji={showRomaji}
+          />
         )}
 
-        {verdict === "try-again" && !recog.listening && (
+        {/* Try-again button — second attempt is the last one. */}
+        {verdict === "try-again" && !recog.listening && attempts < 2 && (
           <button
             type="button"
             onClick={handleRecord}
@@ -385,20 +557,102 @@ function SpeakingStepRecognized({
         )}
       </div>
 
-      {advanceOk ? (
+      {canContinue ? (
         <ContinueButton
           onClick={onContinue}
           variant={verdict === "perfect" ? "correct" : undefined}
-          label={verdict === "close" ? "Continue anyway" : undefined}
+          label={
+            verdict === "close"
+              ? "Continue anyway"
+              : verdict === "auto-pass"
+                ? "Continue"
+                : undefined
+          }
         />
-      ) : (
+      ) : fallbackContinue ? (
+        // Unsupported browser → ungraded continue. Never reached when
+        // mic + Whisper are both available — the canContinue branch
+        // hits first after an attempt.
         <button
           type="button"
-          onClick={handleSkip}
+          onClick={onContinue}
           className="w-full rounded-xl border-[1.5px] border-border bg-surface px-6 py-3.5 text-base font-bold uppercase tracking-wide text-text-secondary transition hover:bg-surface-muted"
         >
-          {supported ? "Skip for now" : "Continue"}
+          Continue
         </button>
+      ) : null}
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Transcript card — shown after each attempt                                */
+/* -------------------------------------------------------------------------- */
+
+function TranscriptCard({
+  transcriptKana,
+  targetKana,
+  verdict,
+  showRomaji,
+}: {
+  transcriptKana: string;
+  targetKana: string;
+  verdict: LocalVerdict;
+  showRomaji: boolean;
+}) {
+  const passed = verdict === "perfect" || verdict === "close";
+  const autoPass = verdict === "auto-pass";
+  // After a fail (try-again or auto-pass), show the target side-by-side
+  // so the learner can compare what they said to what was wanted.
+  const showSideBySide = !passed && (verdict === "try-again" || autoPass);
+  const transcriptRomaji = showRomaji ? kanaToRomajiHint(transcriptKana) : "";
+  const targetRomaji = showRomaji ? kanaToRomajiHint(targetKana) : "";
+
+  return (
+    <div className="w-full rounded-xl bg-surface-muted px-4 py-3 text-base text-text-primary">
+      <div className="flex items-start gap-3">
+        <span
+          className={`text-lg leading-none ${
+            passed
+              ? "text-success"
+              : autoPass
+                ? "text-text-muted"
+                : "text-danger"
+          }`}
+          aria-hidden
+        >
+          {passed ? "✓" : autoPass ? "○" : "✗"}
+        </span>
+        <div className="flex-1">
+          <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+            You said
+          </p>
+          <p className="font-japanese text-xl text-text-primary" lang="ja">
+            {transcriptKana || "—"}
+          </p>
+          {showRomaji && transcriptRomaji && (
+            <p className="mt-0.5 text-xs text-text-muted">{transcriptRomaji}</p>
+          )}
+        </div>
+      </div>
+
+      {showSideBySide && (
+        <div className="mt-3 flex items-start gap-3 border-t border-border pt-2">
+          <span className="text-lg leading-none text-text-muted" aria-hidden>
+            🎯
+          </span>
+          <div className="flex-1">
+            <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
+              Target
+            </p>
+            <p className="font-japanese text-xl text-text-primary" lang="ja">
+              {targetKana}
+            </p>
+            {showRomaji && targetRomaji && (
+              <p className="mt-0.5 text-xs text-text-muted">{targetRomaji}</p>
+            )}
+          </div>
+        </div>
       )}
     </div>
   );
