@@ -37,6 +37,7 @@ export function Layout() {
   const learnActive = /^\/[^/]+\/learn/.test(pathname);
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
   const communityActive = /\/community/.test(pathname);
+  const socialActive = /^\/[^/]+\/social/.test(pathname);
   const leaderboardActive =
     leaderboardOn && /\/leaderboard/.test(pathname);
 
@@ -121,6 +122,16 @@ export function Layout() {
                 }`}
               >
                 {t("nav.practice")}
+              </Link>
+              <Link
+                to={langPath("social")}
+                className={`rounded-md px-2 py-1.5 text-sm ${
+                  socialActive
+                    ? "font-medium text-text-primary"
+                    : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                }`}
+              >
+                {t("nav.social", "Social")}
               </Link>
               <Link
                 to={langPath("community")}
@@ -223,6 +234,17 @@ export function Layout() {
                 }`}
               >
                 {t("nav.practice")}
+              </Link>
+              <Link
+                to={langPath("social")}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`rounded-lg px-4 py-3 text-base ${
+                  socialActive
+                    ? "font-semibold text-text-primary"
+                    : "font-medium text-text-primary hover:bg-surface-muted"
+                }`}
+              >
+                {t("nav.social", "Social")}
               </Link>
               <Link
                 to={langPath("community")}
