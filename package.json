@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5173 --strictPort",
+    "dev:live": "vite --mode live --port 5173 --strictPort",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest",

@@ -36,7 +36,7 @@ export function CollapsibleAdBanner({ premiumActive = false }: { premiumActive?:
 
   return (
     <div
-      className="fixed inset-x-0 bottom-[var(--funding-meter-height,3.5rem)] z-[95] border-t border-border bg-surface shadow-card"
+      className="fixed inset-x-0 bottom-[var(--funding-meter-height,4.5rem)] z-40 border-t border-border bg-surface shadow-card"
       role="region"
       aria-label={t("ads.bannerRegion", "Sponsored")}
     >

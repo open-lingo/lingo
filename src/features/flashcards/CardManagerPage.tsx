@@ -59,21 +59,21 @@ export function CardManagerPage() {
 
   const handleEditMyVocab = async () => {
     if (vocabDeckId) {
-      navigate(langPath(`studio/decks/${vocabDeckId}`));
+      navigate(langPath(`community/decks/${vocabDeckId}`));
       return;
     }
     if (!decksApi) return;
     setEditVocabLoading(true);
     try {
       const deck = await decksApi.getMyVocabDeck(languageId);
-      navigate(langPath(`studio/decks/${deck.id}`));
+      navigate(langPath(`community/decks/${deck.id}`));
     } finally {
       setEditVocabLoading(false);
     }
   };
 
   const handleEditCard = (mc: ManagedCard) => {
-    navigate(langPath(`studio/decks/${mc.deckId}`), {
+    navigate(langPath(`community/decks/${mc.deckId}`), {
       state: { cardId: mc.card.id },
     });
   };

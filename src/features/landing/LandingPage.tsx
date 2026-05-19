@@ -9,7 +9,6 @@ import { BUILT_IN_THEMES } from "@/shared/theme/presets";
 import { MOCK_COMMUNITY_THEMES } from "@/shared/theme/community-mock";
 import type { IconName } from "@/shared/iconRegistry";
 import { LanguageFlagsRow } from "./components/LanguageFlagsRow";
-import { LandingFooter } from "./components/LandingFooter";
 
 const THEME_COUNT = Object.keys(BUILT_IN_THEMES).length + MOCK_COMMUNITY_THEMES.length;
 const COMMUNITY_DECK_COUNT = 20;
@@ -274,8 +273,6 @@ export function LandingPage() {
           </p>
         )}
       </section>
-
-      <LandingFooter />
     </div>
   );
 }

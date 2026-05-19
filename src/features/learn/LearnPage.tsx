@@ -13,6 +13,7 @@ import {
  *  Versioned so a future copy/UX change can re-fire it for everyone. */
 const MASTERY_TOAST_KEY_PREFIX = "lingo_mastery_toasted_v1_";
 import { Icon } from "@/shared/components/Icon";
+import { Card, ProgressRing } from "@/shared/components/ui";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
@@ -334,6 +335,63 @@ export function LearnPage() {
       />
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start">
         <div className="min-w-0">
+          {(() => {
+            const allLessons = course.modules.flatMap((m) => m.lessons);
+            const totalLessons = allLessons.length;
+            const lessonsDone = allLessons.filter((l) =>
+              completedSet.has(l.id),
+            ).length;
+            const moduleCount = course.modules.length;
+            const pct =
+              totalLessons > 0
+                ? Math.round((lessonsDone / totalLessons) * 100)
+                : 0;
+            // MOCK: streak — replace with persisted streak telemetry.
+            const streakDays = 7;
+            return (
+              <Card padding="lg" className="mb-6">
+                <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+                      {t("learn.progressCard.kicker", {
+                        defaultValue: "Your path",
+                      })}
+                    </p>
+                    <h2 className="mt-1 text-lg font-semibold text-text-primary sm:text-xl">
+                      {course.title}
+                    </h2>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <ProgressRing
+                      percent={pct}
+                      label={`${lessonsDone}/${totalLessons}`}
+                      sublabel={t("learn.progressCard.lessonsSub", {
+                        defaultValue: "lessons",
+                      })}
+                    />
+                    <div className="rounded-lg bg-surface-muted px-4 py-3 text-center">
+                      <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+                        {t("learn.progressCard.modulesKicker", {
+                          defaultValue: "Modules",
+                        })}
+                      </p>
+                      <p className="mt-0.5 text-xl font-bold text-text-primary leading-none">
+                        {moduleCount}
+                      </p>
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-warning/10 px-3 py-1.5 text-sm font-bold text-warning">
+                      <Icon name="flame" size={16} aria-hidden />
+                      {/* MOCK: streakDays — replace with real streak. */}
+                      {t("learn.progressCard.streakChip", {
+                        defaultValue: "{{count}}-day streak",
+                        count: streakDays,
+                      })}
+                    </span>
+                  </div>
+                </div>
+              </Card>
+            );
+          })()}
           <LearnCourseMap
             course={course}
             completedSet={completedSet}

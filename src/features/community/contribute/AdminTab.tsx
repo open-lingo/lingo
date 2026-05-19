@@ -191,7 +191,9 @@ export function AdminTab() {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <Link
-                    to={langPath(`studio/decks/${deck.id}`)}
+                    to={langPath(`community/decks/${deck.id}`)}
+                    target="_blank"
+                    rel="noreferrer"
                     className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
                   >
                     {t("community.studioPreview")}

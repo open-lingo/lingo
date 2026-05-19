@@ -193,7 +193,9 @@ export function AdminDecksPage() {
                 return (
                   <div className="flex flex-wrap gap-2">
                     <Link
-                      to={langPath(`studio/decks/${deck.id}`)}
+                      to={langPath(`community/decks/${deck.id}`)}
+                      target="_blank"
+                      rel="noreferrer"
                       className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-secondary hover:bg-surface-muted"
                     >
                       {t("community.studioEdit")}

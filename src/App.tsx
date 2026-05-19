@@ -6,13 +6,10 @@ import { NotFoundPage } from "@/shared/components/NotFoundPage";
 import { RouteErrorBoundary } from "@/shared/components/RouteErrorBoundary";
 import { Layout } from "@/routes/Layout";
 import { LangLayout } from "@/routes/LangLayout";
-import { LoginPage } from "@/features/auth/LoginPage";
-import { LogoutPage } from "@/features/auth/LogoutPage";
 import { LearnLayout } from "@/features/learn/LearnLayout";
 import { FlashcardsPage } from "@/features/flashcards/FlashcardsPage";
 import { StoriesPage } from "@/features/stories/StoriesPage";
 import { StoryDetailPage } from "@/features/stories/StoryDetailPage";
-import { VocabPage } from "@/features/vocab/VocabPage";
 import { PracticeGrammarPage } from "@/features/practice/PracticeGrammarPage";
 import { PracticeAlphabetHubPage } from "@/features/practice/PracticeAlphabetHubPage";
 import { PracticePage } from "@/features/practice/PracticePage";
@@ -23,20 +20,39 @@ import { AlphabetPracticePage } from "@/features/practice/AlphabetPracticePage";
 import { ComponentsPracticePage } from "@/features/practice/ComponentsPracticePage";
 import { VideosPracticePage } from "@/features/practice/VideosPracticePage";
 import { GrammarRedirect } from "@/features/grammar/GrammarRedirect";
-import { CommunityLayout } from "@/features/community/CommunityLayout";
-import { LeaderboardRoute } from "@/features/leaderboard/LeaderboardRoute";
 import { RootRoute } from "@/routes/RootRoute";
 import { LandingRoute } from "@/routes/LandingRoute";
 import { ProtectedHome } from "@/routes/ProtectedHome";
 import { RequireAuth } from "@/routes/RequireAuth";
-import { PrivacyPolicyPage } from "@/features/legal/PrivacyPolicyPage";
-import { TermsOfServicePage } from "@/features/legal/TermsOfServicePage";
-import { AboutPage } from "@/features/legal/AboutPage";
 
 // Lazy-loaded routes: anything heavy, role-restricted (admin/studio), or rarely-hit
 // on first paint. Split here keeps the main bundle focused on the learner happy path.
 const DocsPage = lazyRetry(() =>
   import("@/features/docs/DocsPage").then((m) => ({ default: m.DocsPage })),
+);
+const LoginPage = lazyRetry(() =>
+  import("@/features/auth/LoginPage").then((m) => ({ default: m.LoginPage })),
+);
+const LogoutPage = lazyRetry(() =>
+  import("@/features/auth/LogoutPage").then((m) => ({ default: m.LogoutPage })),
+);
+const PrivacyPolicyPage = lazyRetry(() =>
+  import("@/features/legal/PrivacyPolicyPage").then((m) => ({ default: m.PrivacyPolicyPage })),
+);
+const TermsOfServicePage = lazyRetry(() =>
+  import("@/features/legal/TermsOfServicePage").then((m) => ({ default: m.TermsOfServicePage })),
+);
+const AboutPage = lazyRetry(() =>
+  import("@/features/legal/AboutPage").then((m) => ({ default: m.AboutPage })),
+);
+const VocabPage = lazyRetry(() =>
+  import("@/features/vocab/VocabPage").then((m) => ({ default: m.VocabPage })),
+);
+const CommunityLayout = lazyRetry(() =>
+  import("@/features/community/CommunityLayout").then((m) => ({ default: m.CommunityLayout })),
+);
+const LeaderboardRoute = lazyRetry(() =>
+  import("@/features/leaderboard/LeaderboardRoute").then((m) => ({ default: m.LeaderboardRoute })),
 );
 const LessonPage = lazyRetry(() =>
   import("@/features/lesson/LessonPage").then((m) => ({ default: m.LessonPage })),
@@ -90,6 +106,9 @@ const AlphabetLessonPage = lazyRetry(() =>
 const ContentBrowserPage = lazyRetry(() =>
   import("@/features/community/ContentBrowserPage").then((m) => ({ default: m.ContentBrowserPage })),
 );
+const ContributorsPage = lazyRetry(() =>
+  import("@/features/community/ContributorsPage").then((m) => ({ default: m.ContributorsPage })),
+);
 const ExternalContentPage = lazyRetry(() =>
   import("@/features/community/ExternalContentPage").then((m) => ({ default: m.ExternalContentPage })),
 );
@@ -116,8 +135,14 @@ const DeckEditor = lazyRetry(() =>
 const StoryEditor = lazyRetry(() =>
   import("@/features/community/contribute/StoryEditor").then((m) => ({ default: m.StoryEditor })),
 );
-const StudioLayout = lazyRetry(() =>
-  import("@/features/studio/StudioLayout").then((m) => ({ default: m.StudioLayout })),
+const DeckCreatePage = lazyRetry(() =>
+  import("@/features/community/DeckCreatePage").then((m) => ({ default: m.DeckCreatePage })),
+);
+const MyDecksPage = lazyRetry(() =>
+  import("@/features/community/MyDecksPage").then((m) => ({ default: m.MyDecksPage })),
+);
+const SubscribedPage = lazyRetry(() =>
+  import("@/features/community/SubscribedPage").then((m) => ({ default: m.SubscribedPage })),
 );
 const ForumPage = lazyRetry(() =>
   import("@/features/community/forum/ForumPage").then((m) => ({ default: m.ForumPage })),
@@ -248,6 +273,11 @@ const router = createBrowserRouter([
                 children: [
                   { index: true, element: <Navigate to="explore" replace /> },
                   { path: "explore", element: <ContentBrowserPage /> },
+                  { path: "contributors", element: <ContributorsPage /> },
+                  { path: "subscribed", element: <SubscribedPage /> },
+                  { path: "decks/new", element: <DeckCreatePage /> },
+                  { path: "decks/mine", element: <MyDecksPage /> },
+                  { path: "decks/:deckId", element: <DeckEditor /> },
                   { path: "external-content", element: <ExternalContentPage /> },
                   {
                     path: "contribute",
@@ -267,14 +297,6 @@ const router = createBrowserRouter([
                   { path: "forum/thread/:threadId", element: <ForumThreadRedirect /> },
                   { path: "forum/new", element: <Navigate to="../../discuss/new" replace /> },
                   { path: "leaderboard", element: <LeaderboardRoute /> },
-                ],
-              },
-              {
-                path: "studio",
-                element: <StudioLayout />,
-                children: [
-                  { path: "decks/new", element: <DeckEditor /> },
-                  { path: "decks/:deckId", element: <DeckEditor /> },
                 ],
               },
             ],

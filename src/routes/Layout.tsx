@@ -61,7 +61,7 @@ export function Layout() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background pb-[var(--funding-meter-height,3.5rem)] text-text-primary">
+    <div className="flex min-h-screen flex-col bg-background text-text-primary">
       <SRSPendingSync />
       <header className="sticky top-0 z-40 border-b border-border bg-surface">
         <div className="mx-auto flex h-12 min-h-12 max-w-7xl items-center justify-between gap-2 px-3 sm:h-14 sm:px-4 sm:gap-4 lg:px-8">
@@ -154,19 +154,16 @@ export function Layout() {
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             {isAuthenticated && <SyncManagerTrigger />}
             {isAuthenticated && <LanguageSelector />}
-            <ThemeToggle />
+            {!isMarketingRoute && <ThemeToggle />}
             {isAuthenticated ? (
               <AuthMenu />
             ) : (
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <Link
-                  to="/login"
-                  className="inline-flex items-center gap-1 rounded-lg bg-accent px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-accent-hover sm:gap-1.5 sm:px-3"
-                >
-                  <Icon name="play" size={16} className="shrink-0" aria-hidden />
-                  {t("nav.guestStart", "Start")}
-                </Link>
-              </div>
+              <Link
+                to="/login"
+                className="rounded-md px-2.5 py-1.5 text-sm font-medium text-text-secondary hover:bg-surface-muted hover:text-text-primary sm:px-3"
+              >
+                {t("nav.guestLogin", "Log in")}
+              </Link>
             )}
             {isAuthenticated ? (
               <button
@@ -258,10 +255,10 @@ export function Layout() {
           </div>
         )}
       </header>
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main className="mx-auto w-full max-w-screen-2xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
         <Outlet />
       </main>
-      <SiteFooter className="mb-2" />
+      <SiteFooter />
       {showAppAds ? <CollapsibleAdBanner /> : null}
       <CookieConsent />
       <FundingMeter />

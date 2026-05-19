@@ -39,7 +39,7 @@ export function CreateTab() {
   };
 
   const handleStartEditing = () => {
-    navigate(langPath("studio/decks/new"));
+    navigate(langPath("community/decks/new"));
   };
 
   const handleUploadClick = () => {
@@ -63,7 +63,7 @@ export function CreateTab() {
         }),
         "success",
       );
-      navigate(langPath(`studio/decks/${res.id}`), { replace: true });
+      navigate(langPath(`community/decks/${res.id}`), { replace: true });
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       showToast(msg, "error");

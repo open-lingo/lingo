@@ -626,7 +626,7 @@ export function AdminUserDetailPage() {
                         </div>
                         <div className="flex flex-wrap items-center gap-2">
                           <Link
-                            to={langPath(`studio/decks/${deck.id}`)}
+                            to={langPath(`community/decks/${deck.id}`)}
                             className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400"
                           >
                             View

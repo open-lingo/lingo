@@ -200,7 +200,7 @@ export function StoryEditor() {
   const handleCreateDeck = () => {
     persistDraft();
     showToast(t("community.storyEditorDraftSaved", "Draft saved"), "success");
-    navigate(langPath("studio/decks/new"), {
+    navigate(langPath("community/decks/new"), {
       state: {
         returnTo: "story-editor",
         returnPath: storyId

@@ -8,9 +8,9 @@ export function AdminUsersLayout() {
   return (
     <div className="flex min-h-0 flex-1 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <AdminUserSidebar />
-      <main className="min-w-0 flex-1 overflow-auto">
+      <section className="min-w-0 flex-1 overflow-auto">
         <Outlet />
-      </main>
+      </section>
     </div>
   );
 }

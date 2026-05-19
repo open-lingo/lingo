@@ -44,6 +44,10 @@ export type CommunityItemCardProps = {
   canSubscribe?: boolean;
   /** Full: show community pack badge */
   showCommunityBadge?: boolean;
+  /** When set, renders the card in owner mode: Edit + Open actions, no Subscribe. */
+  ownedDeckId?: string;
+  /** Author's deck status (draft / published) — shown as a status pill in owner mode. */
+  ownedStatus?: string;
 };
 
 export function CommunityItemCard({
@@ -60,6 +64,8 @@ export function CommunityItemCard({
   onPrimaryAction,
   canSubscribe = false,
   showCommunityBadge = false,
+  ownedDeckId,
+  ownedStatus,
 }: CommunityItemCardProps) {
   const lang = getLanguageConfig(item.languageId);
   const langName = lang?.name ?? item.languageId;
@@ -164,32 +170,60 @@ export function CommunityItemCard({
           </div>
         )}
       </div>
-      <div className="flex shrink-0 flex-col items-end gap-1">
-        <div className="flex items-center gap-1">
+      <div className="flex shrink-0 flex-col items-end gap-2">
+        {ownedDeckId && ownedStatus && (
+          <span
+            className={`rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+              ownedStatus === "published"
+                ? "bg-accent-muted text-accent"
+                : "bg-surface-muted text-text-secondary"
+            }`}
+          >
+            {ownedStatus}
+          </span>
+        )}
+        <div className="flex items-center gap-1.5">
           <button
             type="button"
-            className="rounded px-2 py-1 text-xs font-medium text-accent hover:bg-accent-muted"
+            className="rounded px-2 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
             aria-label="Upvote"
           >
             <Icon name="chevronUp" size={14} className="inline" />
           </button>
-          {showSubscribe && (
-            <button
-              type="button"
-              disabled={subscribeLoading}
-              onClick={isSubscribed ? onUnsubscribe : onSubscribe}
-              className={`rounded px-2 py-1 text-xs font-medium transition ${
-                isSubscribed ? "bg-accent-muted text-accent" : "text-accent hover:bg-accent-muted"
-              }`}
+          {ownedDeckId ? (
+            <Link
+              to={langPath(`community/decks/${ownedDeckId}`)}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text-primary hover:bg-surface-muted"
             >
-              {subscribeLoading ? "…" : isSubscribed ? t("community.contentBrowserSubscribed") : t("community.contentBrowserSubscribe")}
-            </button>
+              {t("community.contentBrowserEdit")}
+            </Link>
+          ) : (
+            showSubscribe && (
+              <button
+                type="button"
+                disabled={subscribeLoading}
+                onClick={isSubscribed ? onUnsubscribe : onSubscribe}
+                className={`rounded-md px-3 py-1.5 text-xs font-medium transition ${
+                  isSubscribed
+                    ? "border border-accent-muted bg-accent-muted text-accent"
+                    : "border border-accent text-accent hover:bg-accent-muted"
+                }`}
+              >
+                {subscribeLoading
+                  ? "…"
+                  : isSubscribed
+                    ? t("community.contentBrowserSubscribed")
+                    : t("community.contentBrowserSubscribe")}
+              </button>
+            )
           )}
           {isStory && storyId && onStoryPreview && (
             <button
               type="button"
               onClick={onStoryPreview}
-              className="rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
+              className="rounded-md px-3 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
             >
               {t("community.contentBrowserPreview")}
             </button>
@@ -198,29 +232,29 @@ export function CommunityItemCard({
             <button
               type="button"
               onClick={onPreview}
-              className="rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
+              className="rounded-md px-3 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
             >
               {t("community.contentBrowserPreview")}
             </button>
           )}
-          {isDeck && isSubscribed ? (
+          {isDeck ? (
             <Link
               to={langPath("practice/flashcards")}
-              className="rounded px-2 py-1 text-xs font-medium text-accent hover:bg-accent-muted"
+              className="rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-accent/90"
             >
               {t("community.contentBrowserOpen")}
             </Link>
           ) : isStory && storyId ? (
             <Link
               to={langPath(`practice/stories/${storyId}`)}
-              className="rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
+              className="rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-accent/90"
             >
               {t("community.contentBrowserOpen")}
             </Link>
           ) : (
             <Link
               to={item.kind === "story" ? langPath("practice/stories") : langPath("practice/flashcards")}
-              className="rounded px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
+              className="rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text-primary hover:bg-surface-muted"
             >
               {t("community.contentBrowserOpen")}
             </Link>

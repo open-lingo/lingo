@@ -2,8 +2,8 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
+import { UserAvatar } from "@/shared/components/UserAvatar";
 import { useLangPath } from "@/shared/hooks/useLangPath";
-import { FriendAvatar } from "./components/FriendAvatar";
 import {
   MOCK_FRIENDS,
   MOCK_FRIEND_SUGGESTION,
@@ -42,7 +42,7 @@ export function SocialCard() {
         {/* MOCK: MOCK_FRIENDS — replace with friends API. */}
         {MOCK_FRIENDS.map((f) => (
           <li key={f.id} className="flex items-center gap-3">
-            <FriendAvatar name={f.name} status={f.status} />
+            <UserAvatar name={f.name} size="sm" status={f.status} />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium text-text-primary">{f.name}</p>
               <p className="text-xs text-text-muted">
@@ -97,7 +97,7 @@ export function SocialCard() {
         </p>
         {/* MOCK: MOCK_FRIEND_SUGGESTION — replace with friend-suggestion service. */}
         <div className="mt-2 flex items-center gap-3 rounded-xl border border-dashed border-border p-3">
-          <FriendAvatar name={sug.name} status="idle" />
+          <UserAvatar name={sug.name} size="sm" status="idle" />
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-medium text-text-primary">{sug.name}</p>
             <p className="truncate text-xs text-text-muted">

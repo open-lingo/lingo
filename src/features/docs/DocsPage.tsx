@@ -27,7 +27,7 @@ export function DocsPage() {
       </aside>
 
       {/* Main content */}
-      <main className="min-w-0 flex-1 py-4">
+      <section className="min-w-0 flex-1 py-4">
         <h1 className="text-3xl font-bold text-text-primary">
           {t("docs.title", "Documentation")}
         </h1>
@@ -94,7 +94,7 @@ export function DocsPage() {
             )}
           </p>
         </section>
-      </main>
+      </section>
     </div>
   );
 }

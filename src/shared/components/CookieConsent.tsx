@@ -35,7 +35,7 @@ export function CookieConsent() {
       role="dialog"
       aria-labelledby="cookie-consent-title"
       aria-describedby="cookie-consent-desc"
-      className="fixed inset-x-0 bottom-[var(--funding-meter-height,3.5rem)] z-[110] border-t border-border bg-surface px-4 py-4 shadow-lg sm:px-6"
+      className="fixed inset-x-0 bottom-[var(--funding-meter-height,4.5rem)] z-50 border-t border-border bg-surface px-4 py-4 shadow-lg sm:px-6"
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0 flex-1">

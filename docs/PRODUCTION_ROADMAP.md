@@ -8,8 +8,10 @@
 
 | Doc | Use |
 |-----|-----|
+| [MVP_PAGES_PLAN.md](./MVP_PAGES_PLAN.md) | Page-by-page UI scope for launch |
 | [MVP_PRODUCTION_READINESS.md](./MVP_PRODUCTION_READINESS.md) | Detailed P0/P1/P2 checklists |
 | [PROJECT_STATE.md](./PROJECT_STATE.md) | What exists in code today |
+| [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md) | Post-MVP ideas (lingots, voting, search, infra) |
 | [TODO.md](./TODO.md) | Backlog by area |
 | [ADS_PLACEMENT.md](./ADS_PLACEMENT.md) / [ADS_AND_FINANCE_ARCHITECTURE.md](./ADS_AND_FINANCE_ARCHITECTURE.md) | Ads & funding (after launch) |
 

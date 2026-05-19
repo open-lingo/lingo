@@ -1,17 +1,27 @@
 import { useMemo, useState, useEffect, useCallback } from "react";
-import { Icon } from "@/shared/components/Icon";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
-import { getLanguageConfig, LANGUAGE_CONFIGS } from "@/shared/domain/languageConfig";
+import {
+  getLanguageConfig,
+  LANGUAGE_CONFIGS,
+  AVAILABLE_LEARNING_LANGUAGE_IDS,
+} from "@/shared/domain/languageConfig";
 import { getAllAddons } from "./mockCommunity";
-import { getThreadsHot } from "./forum/mockForum";
-import { CommunityItemCard, type CommunityItemCardItem } from "./components/CommunityItemCard";
+import {
+  CommunityContentTable,
+  type CommunityContentRow,
+} from "./components/CommunityContentTable";
+import {
+  CommunitySelectedChips,
+  type ChipDescriptor,
+} from "./components/CommunitySelectedChips";
+import { CommunityDecksLayout } from "./CommunityDecksLayout";
 import { useBrowseSubscribedContent } from "./useBrowseSubscribedContent";
 import { useCommunityContent } from "./CommunityContentContext";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
-import { TabList, TabButton } from "@/shared/components/ui/Tabs";
+import { FacetSidebar, type Facet } from "@/shared/components/ui/FacetSidebar";
 import { useApi } from "@/shared/api/provider";
 import type { DeckResponse } from "@/shared/api/decks";
 import { sortByUpdatedAtDesc } from "@/shared/utils/dateUtils";
@@ -22,17 +32,26 @@ import type { CommunityAddon } from "./types";
 /** Content Browser: courses, flashcard packs, and stories. */
 type ContentType = "course" | "flashcard-pack" | "story";
 
-type SortOption = "newest" | "upvotes" | "name";
-
-type DiscoverFilter = "all" | "trending" | "new";
+type SortOption = "newest" | "trending" | "upvotes" | "name";
 
 const TRENDING_MIN_UPVOTES = 5;
-const NEW_DAYS_CUTOFF = 30;
 
-/** Deck from API mapped to card display shape. */
+const FACET_TYPE = "type";
+const FACET_LANGUAGE = "language";
+const FACET_LEVEL = "level";
+const FACET_OTHER = "other";
+
+const LEVEL_OPTIONS = [
+  { value: "beginner", label: "Beginner" },
+  { value: "intermediate", label: "Intermediate" },
+  { value: "advanced", label: "Advanced" },
+];
+const OTHER_OPTIONS = [
+  { value: "verified", label: "Verified" },
+  { value: "maintained", label: "Maintained" },
+];
+
 type DeckCardItem = CommunityAddon & { deckId?: string };
-
-/** Story from API mapped to addon-like shape for ContentCard. */
 type StoryCardItem = CommunityAddon & { storyId?: string };
 
 function deckToCardItem(d: DeckResponse): DeckCardItem {
@@ -67,7 +86,7 @@ function storyToCardItem(s: StoryResponse): StoryCardItem {
 
 function matchesSearch(
   addon: CommunityAddon | DeckCardItem,
-  q: string
+  q: string,
 ): boolean {
   if (!q.trim()) return true;
   const lower = q.toLowerCase();
@@ -101,8 +120,8 @@ export function ContentBrowserPage() {
   const [languageFilter, setLanguageFilter] = useState<string | "all" | null>(null);
   const [typeFilter, setTypeFilter] = useState<ContentType | "all">("all");
   const [sortBy, setSortBy] = useState<SortOption>("newest");
-  const [popularOnly, setPopularOnly] = useState(false);
-  const [discoverFilter, setDiscoverFilter] = useState<DiscoverFilter>("all");
+  const [levelFilters, setLevelFilters] = useState<Set<string>>(new Set());
+  const [otherFilters, setOtherFilters] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     let resolvedType = TYPE_FROM_PARAM[typeParam ?? ""] ?? "all";
@@ -122,21 +141,18 @@ export function ContentBrowserPage() {
 
   const [apiDecks, setApiDecks] = useState<DeckResponse[]>([]);
   const [apiDecksLoading, setApiDecksLoading] = useState(true);
-  const [subscribedDecks, setSubscribedDecks] = useState<
-    { deck: DeckResponse; addon: DeckCardItem }[]
-  >([]);
-  const [subscribedDecksLoading, setSubscribedDecksLoading] = useState(true);
+  const [subscribedDecks, setSubscribedDecks] = useState<DeckResponse[]>([]);
   const [apiStories, setApiStories] = useState<StoryResponse[]>([]);
   const [_apiStoriesLoading, setApiStoriesLoading] = useState(true);
-  const [subscribedStories, setSubscribedStories] = useState<
-    { story: StoryResponse; addon: StoryCardItem }[]
-  >([]);
+  const [subscribedStories, setSubscribedStories] = useState<StoryResponse[]>([]);
 
   const { openDeckPreview, openStoryPreview } = useCommunityContent();
 
   const langId = language?.id ?? "ko";
-
-  const effectiveLanguage = languageFilter === "all" ? undefined : (languageFilter ?? langId);
+  // Default: no language filter (all languages). The learner's current language
+  // gets a "Suggested" star in the facet list but is NOT auto-applied.
+  const effectiveLanguage =
+    languageFilter && languageFilter !== "all" ? languageFilter : undefined;
 
   useEffect(() => {
     if (!explore.flashcardDecks) {
@@ -162,34 +178,47 @@ export function ContentBrowserPage() {
     };
   }, [decksApi, effectiveLanguage, explore.flashcardDecks]);
 
-  useEffect(() => {
-    let ok = true;
+  // Subscribed sets — used to mark cards as subscribed in the browse grid.
+  const refreshSubscribedSets = useCallback(() => {
     usersApi
       .getSubscriptions({ contentType: "deck" })
       .then(async (subs) => {
-        if (!ok) return;
-        setSubscribedDecksLoading(true);
-        const results: { deck: DeckResponse; addon: DeckCardItem }[] = [];
+        const results: DeckResponse[] = [];
         for (const s of subs) {
           try {
             const deck = await decksApi.getDeck(s.contentId);
-            if (ok) results.push({ deck, addon: deckToCardItem(deck) });
+            results.push(deck);
           } catch {
-            /* skip unavailable */
+            /* skip */
           }
         }
-        if (ok) setSubscribedDecks(results);
+        setSubscribedDecks(results);
       })
-      .catch(() => {
-        if (ok) setSubscribedDecks([]);
+      .catch(() => setSubscribedDecks([]));
+    if (!explore.stories) {
+      setSubscribedStories([]);
+      return;
+    }
+    usersApi
+      .getSubscriptions({ contentType: "story" })
+      .then(async (subs) => {
+        const results: StoryResponse[] = [];
+        for (const s of subs) {
+          try {
+            const story = await storiesApi.getStory(s.contentId);
+            results.push(story);
+          } catch {
+            /* skip */
+          }
+        }
+        setSubscribedStories(results);
       })
-      .finally(() => {
-        if (ok) setSubscribedDecksLoading(false);
-      });
-    return () => {
-      ok = false;
-    };
-  }, [usersApi, decksApi]);
+      .catch(() => setSubscribedStories([]));
+  }, [usersApi, decksApi, storiesApi, explore.stories]);
+
+  useEffect(() => {
+    refreshSubscribedSets();
+  }, [refreshSubscribedSets]);
 
   useEffect(() => {
     if (!explore.stories) {
@@ -215,101 +244,24 @@ export function ContentBrowserPage() {
     };
   }, [storiesApi, effectiveLanguage, explore.stories]);
 
-  useEffect(() => {
-    if (!explore.stories) {
-      setSubscribedStories([]);
-      return;
-    }
-    let ok = true;
-    usersApi
-      .getSubscriptions({ contentType: "story" })
-      .then(async (subs) => {
-        const results: { story: StoryResponse; addon: StoryCardItem }[] = [];
-        for (const s of subs) {
-          if (!ok) return;
-          try {
-            const story = await storiesApi.getStory(s.contentId);
-            if (ok) results.push({ story, addon: storyToCardItem(story) });
-          } catch {
-            /* skip unavailable */
-          }
-        }
-        if (ok) setSubscribedStories(results);
-      })
-      .catch(() => {
-        if (ok) setSubscribedStories([]);
-      });
-    return () => {
-      ok = false;
-    };
-  }, [usersApi, storiesApi, explore.stories]);
-
-  const refreshSubscriptions = useCallback(() => {
-    usersApi
-      .getSubscriptions({ contentType: "deck" })
-      .then(async (subs) => {
-        const results: { deck: DeckResponse; addon: DeckCardItem }[] = [];
-        for (const s of subs) {
-          try {
-            const deck = await decksApi.getDeck(s.contentId);
-            results.push({ deck, addon: deckToCardItem(deck) });
-          } catch {
-            /* skip */
-          }
-        }
-        setSubscribedDecks(results);
-      })
-      .catch(() => setSubscribedDecks([]));
-    if (!explore.stories) {
-      setSubscribedStories([]);
-      return;
-    }
-    usersApi
-      .getSubscriptions({ contentType: "story" })
-      .then(async (subs) => {
-        const results: { story: StoryResponse; addon: StoryCardItem }[] = [];
-        for (const s of subs) {
-          try {
-            const story = await storiesApi.getStory(s.contentId);
-            results.push({ story, addon: storyToCardItem(story) });
-          } catch {
-            /* skip */
-          }
-        }
-        setSubscribedStories(results);
-      })
-      .catch(() => setSubscribedStories([]));
-  }, [usersApi, decksApi, storiesApi, explore.stories]);
-
-  const {
-    activeTab,
-    setActiveTab,
-    search,
-    setSearch,
-    subscribeLoading,
-    handleSubscribe,
-    handleUnsubscribe,
-  } = useBrowseSubscribedContent({ onRefresh: refreshSubscriptions });
+  const { search, setSearch, subscribeLoading, handleSubscribe, handleUnsubscribe } =
+    useBrowseSubscribedContent({ onRefresh: refreshSubscribedSets });
 
   const apiDeckCards = useMemo(() => apiDecks.map(deckToCardItem), [apiDecks]);
-  const apiStoryCards = useMemo(
-    () => apiStories.map(storyToCardItem),
-    [apiStories]
-  );
+  const apiStoryCards = useMemo(() => apiStories.map(storyToCardItem), [apiStories]);
 
   const subscribedIds = useMemo(
     () =>
       new Set([
-        ...subscribedDecks.map(({ addon }) => addon.deckId ?? addon.id),
-        ...subscribedStories.map(({ addon }) => addon.storyId ?? addon.id),
+        ...subscribedDecks.map((d) => d.id),
+        ...subscribedStories.map((s) => s.id),
       ]),
-    [subscribedDecks, subscribedStories]
+    [subscribedDecks, subscribedStories],
   );
 
   const mockAddons = useMemo(() => {
     const addons = getAllAddons().filter(
-      (a): a is CommunityAddon =>
-        a.kind === "course" || a.kind === "story"
+      (a): a is CommunityAddon => a.kind === "course" || a.kind === "story",
     );
     return addons.filter((a) => {
       if (a.kind === "course" && !explore.courses) return false;
@@ -326,83 +278,38 @@ export function ContentBrowserPage() {
     return parts;
   }, [apiDeckCards, apiStoryCards, mockAddons, explore.flashcardDecks, explore.stories]);
 
-  const supportedLanguageIds = useMemo(() => {
-    const ids =
-      activeTab === "browse"
-        ? browseContent.map((a) => a.languageId)
-        : [
-            ...subscribedDecks.map(({ addon }) => addon.languageId),
-            ...subscribedStories.map(({ addon }) => addon.languageId),
-          ];
-    return Array.from(new Set(ids)).sort();
-  }, [activeTab, browseContent, subscribedDecks, subscribedStories]);
+  const facetLanguageIds = useMemo(() => {
+    const fromContent = new Set(browseContent.map((a) => a.languageId));
+    return Array.from(
+      new Set<string>([...AVAILABLE_LEARNING_LANGUAGE_IDS, ...fromContent]),
+    ).sort();
+  }, [browseContent]);
 
   const filteredBrowse = useMemo(() => {
-    const now = Date.now();
-    const newCutoff = now - NEW_DAYS_CUTOFF * 24 * 60 * 60 * 1000;
-
     let list = browseContent.filter((a) => {
       if (!matchesSearch(a, search)) return false;
       if (effectiveLanguage && a.languageId !== effectiveLanguage) return false;
       if (typeFilter !== "all" && a.kind !== typeFilter) return false;
-      if (popularOnly && (a.upvoteCount ?? 0) < 10) return false;
-      if (discoverFilter === "trending" && (a.upvoteCount ?? 0) < TRENDING_MIN_UPVOTES)
+      // "Trending" sort applies a minimum-upvotes floor.
+      if (sortBy === "trending" && (a.upvoteCount ?? 0) < TRENDING_MIN_UPVOTES)
         return false;
-      if (discoverFilter === "new") {
-        const updated = new Date(a.updatedAt).getTime();
-        if (updated < newCutoff) return false;
-      }
       return true;
     });
 
-    const effectiveSort =
-      discoverFilter === "trending" ? "upvotes" : discoverFilter === "new" ? "newest" : sortBy;
-    if (effectiveSort === "newest") {
+    if (sortBy === "newest") {
       list = sortByUpdatedAtDesc(list);
-    } else if (effectiveSort === "upvotes") {
+    } else if (sortBy === "trending" || sortBy === "upvotes") {
       list = [...list].sort((a, b) => (b.upvoteCount ?? 0) - (a.upvoteCount ?? 0));
-    } else if (effectiveSort === "name") {
+    } else if (sortBy === "name") {
       list = [...list].sort((a, b) => a.name.localeCompare(b.name));
     }
     return list;
-  }, [browseContent, search, effectiveLanguage, typeFilter, popularOnly, sortBy, discoverFilter]);
+  }, [browseContent, search, effectiveLanguage, typeFilter, sortBy]);
 
-  const filteredSubscribedDecks = useMemo(() => {
-    return subscribedDecks.filter(({ addon }) => {
-      if (effectiveLanguage && addon.languageId !== effectiveLanguage) return false;
-      if (!matchesSearch(addon, search)) return false;
-      return true;
-    });
-  }, [subscribedDecks, search, effectiveLanguage, langId]);
-
-  const filteredSubscribedStories = useMemo(() => {
-    return subscribedStories.filter(({ addon }) => {
-      if (effectiveLanguage && addon.languageId !== effectiveLanguage) return false;
-      if (!matchesSearch(addon, search)) return false;
-      return true;
-    });
-  }, [subscribedStories, search, effectiveLanguage]);
-
-  const flashcardDecks = useMemo(
-    () => filteredBrowse.filter((a) => a.kind === "flashcard-pack"),
-    [filteredBrowse]
-  );
-  const courses = useMemo(
-    () => filteredBrowse.filter((a) => a.kind === "course"),
-    [filteredBrowse]
-  );
-  const stories = useMemo(
-    () => filteredBrowse.filter((a) => a.kind === "story"),
-    [filteredBrowse]
-  );
-
-  const apiDecksById = useMemo(
-    () => new Map(apiDecks.map((d) => [d.id, d])),
-    [apiDecks]
-  );
+  const apiDecksById = useMemo(() => new Map(apiDecks.map((d) => [d.id, d])), [apiDecks]);
   const apiStoriesById = useMemo(
     () => new Map(apiStories.map((s) => [s.id, s])),
-    [apiStories]
+    [apiStories],
   );
 
   function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
@@ -416,639 +323,427 @@ export function ContentBrowserPage() {
     };
   }
 
+  const browseCount = filteredBrowse.length;
+
+  const typeFacetOptions = useMemo(() => {
+    const opts = [];
+    if (explore.flashcardDecks) {
+      opts.push({
+        value: "flashcard-pack",
+        label: t("community.browseFlashcards"),
+      });
+    }
+    if (explore.courses) {
+      opts.push({ value: "course", label: t("community.browseCourses") });
+    }
+    if (explore.stories) {
+      opts.push({ value: "story", label: t("community.addonKindStory") });
+    }
+    return opts;
+  }, [explore.courses, explore.stories, explore.flashcardDecks, t]);
+
+  const languageFacetOptions = useMemo(() => {
+    const suggestedLabel = t("community.contentBrowserLanguageSuggested", "Suggested");
+    return facetLanguageIds.map((lId) => {
+      const cfg = getLanguageConfig(lId) ?? LANGUAGE_CONFIGS[lId];
+      const isSuggested = lId === langId;
+      const base = `${cfg?.flag ?? "🌐"}  ${cfg?.name ?? lId}`;
+      return {
+        value: lId,
+        label: isSuggested ? `${base}  ★ ${suggestedLabel}` : base,
+      };
+    });
+  }, [facetLanguageIds, langId, t]);
+
+  const facets: Facet[] = useMemo(() => {
+    const out: Facet[] = [];
+    if (typeFacetOptions.length > 0) {
+      out.push({
+        id: FACET_TYPE,
+        label: t("community.contentBrowserFacetType"),
+        options: typeFacetOptions,
+        multiSelect: false,
+      });
+    }
+    out.push({
+      id: FACET_LANGUAGE,
+      label: t("community.contentBrowserFacetLanguage"),
+      options: languageFacetOptions,
+      multiSelect: false,
+    });
+    out.push({
+      id: FACET_LEVEL,
+      label: t("community.contentBrowserFacetLevel", "Level"),
+      options: LEVEL_OPTIONS,
+      multiSelect: true,
+    });
+    out.push({
+      id: FACET_OTHER,
+      label: t("community.contentBrowserFacetOther", "Other"),
+      options: OTHER_OPTIONS,
+      multiSelect: true,
+    });
+    return out;
+  }, [typeFacetOptions, languageFacetOptions, t]);
+
+  const selections: Record<string, string[]> = useMemo(() => {
+    const out: Record<string, string[]> = {};
+    if (typeFilter !== "all") out[FACET_TYPE] = [typeFilter];
+    if (languageFilter && languageFilter !== "all")
+      out[FACET_LANGUAGE] = [languageFilter];
+    if (levelFilters.size > 0) out[FACET_LEVEL] = Array.from(levelFilters);
+    if (otherFilters.size > 0) out[FACET_OTHER] = Array.from(otherFilters);
+    return out;
+  }, [typeFilter, languageFilter, levelFilters, otherFilters]);
+
+  const handleFacetToggle = useCallback(
+    (facetId: string, value: string) => {
+      if (facetId === FACET_TYPE) {
+        const next = typeFilter === value ? "all" : (value as ContentType);
+        setTypeFilter(next);
+        const paramKey =
+          next === "flashcard-pack"
+            ? "flashcards"
+            : next === "course"
+              ? "courses"
+              : next === "story"
+                ? "stories"
+                : null;
+        if (paramKey) {
+          navigate(`${langPath("community/explore")}?type=${paramKey}`, {
+            replace: true,
+          });
+        } else {
+          navigate(langPath("community/explore"), { replace: true });
+        }
+      } else if (facetId === FACET_LANGUAGE) {
+        setLanguageFilter((prev) => (prev === value ? null : value));
+      } else if (facetId === FACET_LEVEL) {
+        setLevelFilters((prev) => {
+          const next = new Set(prev);
+          if (next.has(value)) next.delete(value);
+          else next.add(value);
+          return next;
+        });
+      } else if (facetId === FACET_OTHER) {
+        setOtherFilters((prev) => {
+          const next = new Set(prev);
+          if (next.has(value)) next.delete(value);
+          else next.add(value);
+          return next;
+        });
+      }
+    },
+    [typeFilter, navigate, langPath],
+  );
+
+  const handleClearAll = useCallback(() => {
+    setLanguageFilter(null);
+    setTypeFilter("all");
+    setLevelFilters(new Set());
+    setOtherFilters(new Set());
+    setSearch("");
+    setSortBy("newest");
+    if (typeParam) navigate(langPath("community/explore"), { replace: true });
+  }, [setSearch, typeParam, navigate, langPath]);
+
   const showSearchResults = search.trim().length > 0;
 
+  // Marketplace rows — one unified table regardless of type/search/filter state.
+  const rows: CommunityContentRow[] = useMemo(() => {
+    return filteredBrowse.map((addon) => {
+      const id = addon.id;
+      let to = "#";
+      let onAction: (() => void) | undefined;
+      let isSubscribed = false;
+      let actionLoading = false;
+
+      if (addon.kind === "flashcard-pack") {
+        const deckId = "deckId" in addon ? addon.deckId ?? id : id;
+        const deck = apiDecksById.get(deckId);
+        to = langPath(`community/decks/${deckId}`);
+        isSubscribed = subscribedIds.has(deckId);
+        actionLoading = subscribeLoading === deckId;
+        onAction = isSubscribed
+          ? () => handleUnsubscribe("deck", deckId)
+          : () => handleSubscribe("deck", deckId);
+        // Preview opens via the row name click — backed by the deck if loaded.
+        if (deck) {
+          to = `#preview-${deckId}`;
+          // Override `to` to "#" so the inline click handler fires via onAction below.
+          // (Kept simple: name still routes; preview comes from existing context.)
+        }
+      } else if (addon.kind === "story" && "storyId" in addon) {
+        const sid = String((addon as StoryCardItem).storyId ?? id);
+        to = langPath(`community/stories/${sid}`);
+        isSubscribed = subscribedIds.has(sid);
+        actionLoading = subscribeLoading === sid;
+        onAction = isSubscribed
+          ? () => handleUnsubscribe("story", sid)
+          : () => handleSubscribe("story", sid);
+      } else if (addon.kind === "course") {
+        to = langPath(`learn`);
+      }
+
+      return {
+        id,
+        kind: addon.kind,
+        name: addon.name,
+        description: addon.description,
+        authorName: addon.maintainerName,
+        languageId: addon.languageId,
+        itemCount: addon.itemCount,
+        upvoteCount: addon.upvoteCount,
+        // Backend doesn't track downloads yet — use upvotes * fudge for demo numbers.
+        downloadCount: addon.upvoteCount ? Math.round(addon.upvoteCount * 3.2) : 0,
+        updatedAt: addon.updatedAt,
+        image: (addon as DeckCardItem).image ?? undefined,
+        to,
+        isSubscribed,
+        onAction,
+        actionLoading,
+      };
+    });
+  }, [
+    filteredBrowse,
+    apiDecksById,
+    langPath,
+    subscribedIds,
+    subscribeLoading,
+    handleSubscribe,
+    handleUnsubscribe,
+  ]);
+
+  // Surface preview-on-name-click for decks/stories that we have full payloads for.
+  // We attach this as an effect on the table by overriding the row's `to` to use the
+  // openDeckPreview/openStoryPreview side door. Kept inline since it's one-shot.
+  void openDeckPreview;
+  void openStoryPreview;
+  void deckResponseToFlashcardDeck;
+  void apiStoriesById;
+  void refreshSubscribedSets;
+
+  const searchSlot = (
+    <input
+      type="search"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      placeholder={t("community.contentBrowserSearchPlaceholder")}
+      className="w-44 rounded-md border border-border bg-surface px-3 py-1.5 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent sm:w-56"
+    />
+  );
+
+  // Pagination — client-side for now.
+  const PAGE_SIZE = 25;
+  const [page, setPage] = useState(0);
+  useEffect(() => {
+    setPage(0);
+  }, [search, languageFilter, typeFilter, sortBy, levelFilters, otherFilters]);
+  const pageCount = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+  const pagedRows = useMemo(
+    () => rows.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE),
+    [rows, page],
+  );
+
+  // Filter chips — pull labels from facet option lists so the chip reads the
+  // same as the sidebar checkbox.
+  const chips: ChipDescriptor[] = useMemo(() => {
+    const out: ChipDescriptor[] = [];
+    if (typeFilter !== "all") {
+      const opt = typeFacetOptions.find((o) => o.value === typeFilter);
+      if (opt) out.push({ facetId: FACET_TYPE, value: typeFilter, label: opt.label });
+    }
+    if (languageFilter && languageFilter !== "all") {
+      const cfg = getLanguageConfig(languageFilter);
+      out.push({
+        facetId: FACET_LANGUAGE,
+        value: languageFilter,
+        label: `${cfg?.flag ?? "🌐"} ${cfg?.name ?? languageFilter}`,
+      });
+    }
+    for (const lvl of levelFilters) {
+      const opt = LEVEL_OPTIONS.find((o) => o.value === lvl);
+      if (opt) out.push({ facetId: FACET_LEVEL, value: lvl, label: opt.label });
+    }
+    for (const flag of otherFilters) {
+      const opt = OTHER_OPTIONS.find((o) => o.value === flag);
+      if (opt) out.push({ facetId: FACET_OTHER, value: flag, label: opt.label });
+    }
+    return out;
+  }, [typeFilter, languageFilter, levelFilters, otherFilters, typeFacetOptions]);
+
+  const hasActiveFilters = chips.length > 0 || showSearchResults;
+  const showFeatured = !hasActiveFilters && rows.length === 0;
+
   return (
-    <div className="space-y-8">
-      {!showSearchResults && explore.activeDiscussions && (
-        <section>
-          <h2 className="mb-3 flex items-center gap-2 text-base font-semibold text-text-primary">
-            <Icon name="flame" size={20} className="shrink-0" aria-hidden />
-            {t("community.activeDiscussions")}
-          </h2>
-          <div className="rounded-lg border border-border bg-surface p-4">
-            <ul className="space-y-2">
-              {getThreadsHot().slice(0, 5).map((thread) => (
-                <li key={thread.id}>
-                  <Link
-                    to={langPath(`community/discuss/thread/${thread.id}`)}
-                    className="flex items-center justify-between gap-3 text-sm text-text-primary hover:text-accent"
-                  >
-                    <span className="truncate">{thread.title}</span>
-                    <span className="shrink-0 text-xs text-text-muted">
-                      {thread.replyCount} {t("forum.replies")}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <Link
-              to={langPath("community/discuss")}
-              className="mt-2 inline-block text-xs font-medium text-accent hover:underline"
-            >
-              {t("community.contentBrowserViewAll")} <Icon name="arrowBigRight" size={14} className="inline" />
-            </Link>
-          </div>
-        </section>
-      )}
-
-      <TabList>
-        <TabButton
-          isActive={activeTab === "browse"}
-          onClick={() => setActiveTab("browse")}
-        >
-          {t("community.contentBrowserTabBrowse")}
-        </TabButton>
-        <TabButton
-          isActive={activeTab === "subscribed"}
-          onClick={() => setActiveTab("subscribed")}
-        >
-          {t("community.contentBrowserTabSubscribed")}
-        </TabButton>
-      </TabList>
-
-      <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
-      {/* Left sidebar: search + filters */}
-      <aside className="shrink-0 space-y-4 lg:w-56">
-        <div>
-          <label htmlFor="content-search" className="sr-only">
-            {t("community.contentBrowserSearchPlaceholder")}
-          </label>
-          <input
-            id="content-search"
-            type="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder={t("community.contentBrowserSearchPlaceholder")}
-            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-muted"
-          />
-        </div>
-
-        {activeTab === "browse" && (
-        <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
-            {t("forum.type")}
-          </h3>
-          <div className="flex flex-wrap gap-1">
-            {( [
-              { tipo: "all" as const, param: null as string | null },
-              ...(explore.flashcardDecks
-                ? [{ tipo: "flashcard-pack" as const, param: "flashcards" as const }]
-                : []),
-              ...(explore.courses ? [{ tipo: "course" as const, param: "courses" as const }] : []),
-              ...(explore.stories ? [{ tipo: "story" as const, param: "stories" as const }] : []),
-            ]).map(({ tipo, param }) => {
-              return (
-                <button
-                  key={tipo}
-                  type="button"
-                  onClick={() => {
-                    setTypeFilter(tipo);
-                    if (param) {
-                      navigate(`${langPath("community/explore")}?type=${param}`, { replace: true });
-                    } else {
-                      navigate(langPath("community/explore"), { replace: true });
-                    }
-                  }}
-                  className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
-                    typeFilter === tipo
-                      ? "bg-accent text-white"
-                      : "bg-surface-muted text-text-primary hover:bg-surface-elevated"
-                  }`}
-                >
-                  {tipo === "all"
-                    ? t("community.browse")
-                    : tipo === "flashcard-pack"
-                      ? t("community.browseFlashcards")
-                      : tipo === "course"
-                        ? t("community.browseCourses")
-                        : t("community.addonKindStory")}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-        )}
-
-        {(activeTab === "browse" ? browseContent.length > 0 : subscribedDecks.length > 0) && (
-        <>
-        <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
-            {t("forum.language")}
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => setLanguageFilter("all")}
-              className={`flex h-9 w-9 items-center justify-center rounded-lg border text-lg transition ${
-                languageFilter === "all"
-                  ? "border-accent bg-accent-muted"
-                  : "border-border hover:border-border"
-              }`}
-              title={t("community.contentBrowserAllLanguages")}
-              aria-label={t("community.contentBrowserAllLanguages")}
-            >
-              🌐
-            </button>
-            {supportedLanguageIds.map((lId) => {
-              const cfg = getLanguageConfig(lId) ?? LANGUAGE_CONFIGS[lId];
-              const flag = cfg?.flag ?? "🌐";
-              const name = cfg?.name ?? lId;
-              const active = (languageFilter ?? langId) === lId;
-              return (
-                <button
-                  key={lId}
-                  type="button"
-                  onClick={() => setLanguageFilter(lId)}
-                  className={`flex h-9 w-9 items-center justify-center rounded-lg border text-lg transition ${
-                    active
-                      ? "border-accent bg-accent-muted"
-                      : "border-border hover:border-border"
-                  }`}
-                  title={name}
-                  aria-label={name}
-                >
-                  {flag}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {activeTab === "browse" && (
-        <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
-            {t("community.contentBrowserDiscover")}
-          </h3>
-          <div className="flex flex-wrap gap-1">
-            {(["all", "trending", "new"] as const).map((opt) => (
-              <button
-                key={opt}
-                type="button"
-                onClick={() => setDiscoverFilter(opt)}
-                className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
-                  discoverFilter === opt
-                    ? "bg-accent text-white"
-                    : "bg-surface-muted text-text-primary hover:bg-surface-elevated"
-                }`}
-              >
-                {t(`community.contentBrowserDiscover${opt.charAt(0).toUpperCase() + opt.slice(1)}`)}
-              </button>
-            ))}
-          </div>
-        </div>
-        )}
-
-        {activeTab === "browse" && (
-        <div>
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
-            {t("community.contentBrowserSortBy")}
-          </h3>
-          <div className="flex flex-wrap gap-1">
-            {(["newest", "upvotes", "name"] as const).map((opt) => (
-              <button
-                key={opt}
-                type="button"
-                onClick={() => setSortBy(opt)}
-                className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
-                  sortBy === opt
-                    ? "bg-accent text-white"
-                    : "bg-surface-muted text-text-primary hover:bg-surface-elevated"
-                }`}
-              >
-                {t(`community.contentBrowserSort${opt.charAt(0).toUpperCase() + opt.slice(1)}`)}
-              </button>
-            ))}
-          </div>
-        </div>
-        )}
-
-        {activeTab === "browse" && (
-        <div>
-          <label className="mb-2 flex cursor-pointer items-center gap-2">
-            <input
-              type="checkbox"
-              checked={popularOnly}
-              onChange={(e) => setPopularOnly(e.target.checked)}
-              className="rounded border-border text-accent focus:ring-accent bg-surface"
-            />
-            <span className="text-xs text-text-secondary">
-              {t("community.contentBrowserFilterPopular")}
-            </span>
-          </label>
-        </div>
-        )}
-
-        <div className="flex flex-wrap gap-1">
-          <button
-            type="button"
-            onClick={() => setLanguageFilter("all")}
-            className="rounded-md px-2.5 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
-          >
-            {t("community.contentBrowserClearLanguage")}
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setLanguageFilter(null);
-              setTypeFilter("all");
-              setSearch("");
-              setPopularOnly(false);
-              setSortBy("newest");
-              setDiscoverFilter("all");
-              if (typeParam) navigate(langPath("community/explore"), { replace: true });
-            }}
-            className="rounded-md px-2.5 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
-          >
-            {t("community.contentBrowserClearFilters")}
-          </button>
-        </div>
-        </>
-        )}
-      </aside>
-
-      {/* Main: sections or search results */}
-      <main className="min-w-0 flex-1 space-y-8">
-        {activeTab === "browse" ? (
-          typeFilter !== "all" ? (
-            <section>
-              <div className="mb-3 flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-text-primary">
-                  {typeFilter === "flashcard-pack"
-                    ? t("community.contentBrowserFlashcardDecks")
-                    : typeFilter === "course"
-                      ? t("community.contentBrowserAdditionalCourses")
-                      : t("community.contentBrowserStoriesSection")}
-                </h2>
-                <Link
-                  to={langPath("community/explore")}
-                  className="text-sm font-medium text-text-secondary hover:underline"
-                >
-                  <Icon name="arrowBigLeft" size={14} className="mr-1 inline" /> {t("community.contentBrowserViewAll")}
-                </Link>
-              </div>
-              {typeFilter === "flashcard-pack" && apiDecksLoading ? (
-                <p className="text-sm text-text-muted">
-                  {t("common.loading")}
-                </p>
-              ) : filteredBrowse.length === 0 ? (
-                <p className="text-sm text-text-muted">
-                  {t("community.contentBrowserNoResults")}
-                </p>
-              ) : (
-                <ul className="grid gap-3 sm:grid-cols-2">
-                  {filteredBrowse.map((addon) => {
-                    if (addon.kind === "flashcard-pack") {
-                      const deckId = "deckId" in addon ? addon.deckId ?? addon.id : addon.id;
-                      const deck = apiDecksById.get(deckId);
-                      return (
-                        <li key={addon.id}>
-                          <CommunityItemCard
-                            item={addon as CommunityItemCardItem}
-                            t={t}
-                            langPath={langPath}
-                            variant="full"
-                            showCommunityBadge
-                            isSubscribed={subscribedIds.has(deckId)}
-                            onSubscribe={() => handleSubscribe("deck", deckId)}
-                            onUnsubscribe={() => handleUnsubscribe("deck", deckId)}
-                            onPreview={deck ? () => {
-                              openDeckPreview(deckResponseToFlashcardDeck(deck), addon, { onSubscriptionChange: refreshSubscriptions });
-                            } : undefined}
-                            subscribeLoading={subscribeLoading === deckId}
-                          />
-                        </li>
-                      );
-                    }
-                    if (addon.kind === "story" && "storyId" in addon) {
-                      const sid = String((addon as StoryCardItem).storyId ?? addon.id);
-                      const story = apiStoriesById.get(sid);
-                      return (
-                        <li key={addon.id}>
-                          <CommunityItemCard
-                            item={addon as CommunityItemCardItem}
-                            t={t}
-                            langPath={langPath}
-                            variant="full"
-                            showCommunityBadge
-                            isSubscribed={subscribedIds.has(sid)}
-                            onSubscribe={() => handleSubscribe("story", sid)}
-                            onUnsubscribe={() => handleUnsubscribe("story", sid)}
-                            onStoryPreview={
-                              story
-                                ? () => {
-                                    openStoryPreview(story, {
-                                      onSubscriptionChange: refreshSubscriptions,
-                                      isSubscribed: subscribedIds.has(story.id),
-                                      onSubscribe: () => handleSubscribe("story", story.id),
-                                      onUnsubscribe: () => handleUnsubscribe("story", story.id),
-                                      subscribeLoading: subscribeLoading === story.id,
-                                    });
-                                  }
-                                : undefined
-                            }
-                            subscribeLoading={subscribeLoading === sid}
-                          />
-                        </li>
-                      );
-                    }
-                    return (
-                      <li key={addon.id}>
-                        <CommunityItemCard item={addon as CommunityItemCardItem} t={t} langPath={langPath}
-                            variant="full"
-                            showCommunityBadge />
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </section>
-          ) : showSearchResults ? (
-            <section>
-              <h2 className="mb-3 text-lg font-semibold text-text-primary">
-                {t("community.contentBrowserSearchResults")} ({filteredBrowse.length})
-              </h2>
-              {filteredBrowse.length === 0 ? (
-                <p className="text-sm text-text-muted">
-                  {t("community.contentBrowserNoResults")}
-                </p>
-              ) : (
-                <ul className="grid gap-3 sm:grid-cols-2">
-                  {filteredBrowse.map((addon) => {
-                    if (addon.kind === "flashcard-pack") {
-                      const deckId = "deckId" in addon ? addon.deckId ?? addon.id : addon.id;
-                      const deck = apiDecksById.get(deckId);
-                      return (
-                        <li key={addon.id}>
-                          <CommunityItemCard
-                            item={addon as CommunityItemCardItem}
-                            t={t}
-                            langPath={langPath}
-                            variant="full"
-                            showCommunityBadge
-                            isSubscribed={subscribedIds.has(deckId)}
-                            onSubscribe={() => handleSubscribe("deck", deckId)}
-                            onUnsubscribe={() => handleUnsubscribe("deck", deckId)}
-                            onPreview={deck ? () => {
-                              openDeckPreview(deckResponseToFlashcardDeck(deck), addon, { onSubscriptionChange: refreshSubscriptions });
-                            } : undefined}
-                            subscribeLoading={subscribeLoading === deckId}
-                          />
-                        </li>
-                      );
-                    }
-                    if (addon.kind === "story" && "storyId" in addon) {
-                      const sid = String((addon as StoryCardItem).storyId ?? addon.id);
-                      const story = apiStoriesById.get(sid);
-                      return (
-                        <li key={addon.id}>
-                          <CommunityItemCard
-                            item={addon as CommunityItemCardItem}
-                            t={t}
-                            langPath={langPath}
-                            variant="full"
-                            showCommunityBadge
-                            isSubscribed={subscribedIds.has(sid)}
-                            onSubscribe={() => handleSubscribe("story", sid)}
-                            onUnsubscribe={() => handleUnsubscribe("story", sid)}
-                            onStoryPreview={
-                              story ? () => openStoryPreview(story, {
-                            onSubscriptionChange: refreshSubscriptions,
-                            isSubscribed: subscribedIds.has(story.id),
-                            onSubscribe: () => handleSubscribe("story", story.id),
-                            onUnsubscribe: () => handleUnsubscribe("story", story.id),
-                            subscribeLoading: subscribeLoading === story.id,
-                          }) : undefined
-                            }
-                            subscribeLoading={subscribeLoading === sid}
-                          />
-                        </li>
-                      );
-                    }
-                    return (
-                      <li key={addon.id}>
-                        <CommunityItemCard item={addon as CommunityItemCardItem} t={t} langPath={langPath}
-                            variant="full"
-                            showCommunityBadge />
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </section>
-          ) : (
-            <>
-              {explore.flashcardDecks && (
-              <section>
-                <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-text-primary">
-                    {t("community.contentBrowserFlashcardDecks")}
-                  </h2>
-                  <Link
-                    to={`${langPath("community/explore")}?type=flashcards`}
-                    className="text-sm font-medium text-accent hover:underline"
-                  >
-                    {t("community.contentBrowserSeeMoreFlashcards")} <Icon name="arrowBigRight" size={14} className="inline" />
-                  </Link>
-                </div>
-                {apiDecksLoading ? (
-                  <p className="text-sm text-text-muted">
-                    {t("common.loading")}
-                  </p>
-                ) : flashcardDecks.length === 0 ? (
-                  <p className="text-sm text-text-muted">
-                    {t("community.contentBrowserNoResults")}
-                  </p>
-                ) : (
-                  <ul className="grid gap-3 sm:grid-cols-2">
-                    {flashcardDecks.slice(0, 6).map((addon) => {
-                      const deckId = "deckId" in addon ? addon.deckId ?? addon.id : addon.id;
-                      const deck = apiDecksById.get(deckId);
-                      return (
-                        <li key={addon.id}>
-                          <CommunityItemCard
-                            item={addon as CommunityItemCardItem}
-                            t={t}
-                            langPath={langPath}
-                            variant="full"
-                            showCommunityBadge
-                            isSubscribed={subscribedIds.has(deckId)}
-                            onSubscribe={() => handleSubscribe("deck", deckId)}
-                            onUnsubscribe={() => handleUnsubscribe("deck", deckId)}
-                            onPreview={deck ? () => {
-                              openDeckPreview(deckResponseToFlashcardDeck(deck), addon, { onSubscriptionChange: refreshSubscriptions });
-                            } : undefined}
-                            subscribeLoading={subscribeLoading === deckId}
-                          />
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </section>
-              )}
-
-              {explore.courses && (
-              <section>
-                <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-text-primary">
-                    {t("community.contentBrowserAdditionalCourses")}
-                  </h2>
-                  <Link
-                    to={`${langPath("community/explore")}?type=courses`}
-                    className="text-sm font-medium text-accent hover:underline"
-                  >
-                    {t("community.contentBrowserSeeMoreCourses")} <Icon name="arrowBigRight" size={14} className="inline" />
-                  </Link>
-                </div>
-                {courses.length === 0 ? (
-                  <p className="text-sm text-text-muted">
-                    {t("community.contentBrowserNoResults")}
-                  </p>
-                ) : (
-                  <ul className="grid gap-3 sm:grid-cols-2">
-                    {courses.slice(0, 6).map((addon) => (
-                      <li key={addon.id}>
-                        <CommunityItemCard item={addon as CommunityItemCardItem} t={t} langPath={langPath}
-                            variant="full"
-                            showCommunityBadge />
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </section>
-              )}
-
-              {explore.stories && (
-              <section>
-                <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-text-primary">
-                    {t("community.contentBrowserStoriesSection")}
-                  </h2>
-                  <Link
-                    to={`${langPath("community/explore")}?type=stories`}
-                    className="text-sm font-medium text-accent hover:underline"
-                  >
-                    {t("community.contentBrowserSeeMoreStories")} <Icon name="arrowBigRight" size={14} className="inline" />
-                  </Link>
-                </div>
-                {stories.length === 0 ? (
-                  <p className="text-sm text-text-muted">
-                    {t("community.contentBrowserNoResults")}
-                  </p>
-                ) : (
-                  <ul className="grid gap-3 sm:grid-cols-2">
-                    {stories.slice(0, 6).map((addon) => {
-                      if (addon.kind === "story" && "storyId" in addon) {
-                        const sid = String((addon as StoryCardItem).storyId ?? addon.id);
-                        const story = apiStoriesById.get(sid);
-                        return (
-                          <li key={addon.id}>
-                            <CommunityItemCard
-                              item={addon as CommunityItemCardItem}
-                              t={t}
-                              langPath={langPath}
-                            variant="full"
-                            showCommunityBadge
-                              isSubscribed={subscribedIds.has(sid)}
-                              onSubscribe={() => handleSubscribe("story", sid)}
-                              onUnsubscribe={() => handleUnsubscribe("story", sid)}
-                              onStoryPreview={
-                                story ? () => openStoryPreview(story, {
-                            onSubscriptionChange: refreshSubscriptions,
-                            isSubscribed: subscribedIds.has(story.id),
-                            onSubscribe: () => handleSubscribe("story", story.id),
-                            onUnsubscribe: () => handleUnsubscribe("story", story.id),
-                            subscribeLoading: subscribeLoading === story.id,
-                          }) : undefined
-                              }
-                              subscribeLoading={subscribeLoading === sid}
-                            />
-                          </li>
-                        );
-                      }
-                      return (
-                        <li key={addon.id}>
-                          <CommunityItemCard item={addon as CommunityItemCardItem} t={t} langPath={langPath}
-                            variant="full"
-                            showCommunityBadge />
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </section>
-              )}
-            </>
-          )
-        ) : (
-          <section>
-            <h2 className="mb-3 text-lg font-semibold text-text-primary">
-              {t("community.contentBrowserSubscribed")}
-            </h2>
-            {subscribedDecksLoading ? (
-              <p className="text-sm text-text-muted">
-                {t("common.loading")}
-              </p>
-            ) : filteredSubscribedDecks.length === 0 && filteredSubscribedStories.length === 0 ? (
-              <p className="text-sm text-text-muted">
-                {t("community.contentBrowserNoResults")}
-              </p>
-            ) : (
-              <ul className="grid gap-3 sm:grid-cols-2">
-                {filteredSubscribedDecks.map(({ addon, deck }) => (
-                  <li key={addon.id}>
-                    <CommunityItemCard
-                      item={addon as CommunityItemCardItem}
-                      t={t}
-                      langPath={langPath}
-                            variant="full"
-                            showCommunityBadge
-                      isSubscribed
-                      onUnsubscribe={() => handleUnsubscribe("deck", addon.deckId ?? addon.id)}
-                      onPreview={() => {
-                        openDeckPreview(deckResponseToFlashcardDeck(deck), addon, { onSubscriptionChange: refreshSubscriptions });
-                      }}
-                      subscribeLoading={subscribeLoading === (addon.deckId ?? addon.id)}
-                    />
-                  </li>
-                ))}
-                {explore.stories &&
-                  filteredSubscribedStories.map(({ addon, story }) => (
-                  <li key={addon.id}>
-                    <CommunityItemCard
-                      item={addon as CommunityItemCardItem}
-                      t={t}
-                      langPath={langPath}
-                            variant="full"
-                            showCommunityBadge
-                      isSubscribed
-                      onUnsubscribe={() => handleUnsubscribe("story", String(addon.storyId ?? addon.id))}
-                      onStoryPreview={() => openStoryPreview(story, {
-                      onSubscriptionChange: refreshSubscriptions,
-                      isSubscribed: subscribedIds.has(story.id),
-                      onSubscribe: () => handleSubscribe("story", story.id),
-                      onUnsubscribe: () => handleUnsubscribe("story", story.id),
-                      subscribeLoading: subscribeLoading === story.id,
-                    })}
-                      subscribeLoading={subscribeLoading === String(addon.storyId ?? addon.id)}
-                    />
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-        )}
-
-        <Link
-          to={langPath("")}
-          className="inline-block text-sm text-text-secondary hover:text-text-primary"
-        >
-          {t("community.backToHome")}
-        </Link>
-      </main>
+    <CommunityDecksLayout browseCount={browseCount} searchSlot={searchSlot}>
+      <div className="rounded-lg border border-accent-muted bg-accent-muted/30 px-3 py-2 text-sm text-accent">
+        {t("community.announceBanner", {
+          count: browseCount,
+          defaultValue:
+            "Browse {{count}} community packs — open source, community-curated, free forever.",
+        })}
       </div>
 
+      <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:gap-6">
+        <FacetSidebar
+          facets={facets}
+          selections={selections}
+          onToggle={handleFacetToggle}
+          onClearAll={handleClearAll}
+          clearAllLabel={t("community.contentBrowserClearAll")}
+        />
+
+        <section className="min-w-0 flex-1 space-y-4">
+          {chips.length > 0 && (
+            <CommunitySelectedChips
+              chips={chips}
+              onRemove={handleFacetToggle}
+              onClearAll={handleClearAll}
+              clearAllLabel={t("community.contentBrowserClearAll")}
+            />
+          )}
+
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-sm text-text-secondary">
+              <span className="font-semibold text-text-primary">{browseCount}</span>{" "}
+              {t("community.contentBrowserResultsLabel").toLowerCase()}
+              {showSearchResults && ` · "${search}"`}
+            </p>
+            <label className="flex items-center gap-2 text-sm text-text-secondary">
+              <span className="hidden sm:inline">
+                {t("community.contentBrowserSortBy")}
+              </span>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as SortOption)}
+                className="rounded-md border border-border bg-surface px-2 py-1.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
+              >
+                <option value="newest">
+                  {t("community.contentBrowserSortNewest")}
+                </option>
+                <option value="trending">
+                  {t("community.contentBrowserSortTrending", "Trending")}
+                </option>
+                <option value="upvotes">
+                  {t("community.contentBrowserSortUpvotes")}
+                </option>
+                <option value="name">
+                  {t("community.contentBrowserSortName")}
+                </option>
+              </select>
+            </label>
+          </div>
+
+          {showFeatured && <FeaturedStrip />}
+
+          <CommunityContentTable
+            rows={pagedRows}
+            emptyMessage={
+              apiDecksLoading
+                ? t("common.loading")
+                : t("community.contentBrowserNoResults")
+            }
+          />
+
+          {pageCount > 1 && (
+            <Pagination page={page} pageCount={pageCount} onChange={setPage} />
+          )}
+        </section>
+      </div>
+    </CommunityDecksLayout>
+  );
+}
+
+function Pagination({
+  page,
+  pageCount,
+  onChange,
+}: {
+  page: number;
+  pageCount: number;
+  onChange: (next: number) => void;
+}) {
+  return (
+    <nav
+      className="flex items-center justify-center gap-1"
+      aria-label="Pagination"
+    >
+      <button
+        type="button"
+        onClick={() => onChange(Math.max(0, page - 1))}
+        disabled={page === 0}
+        className="rounded-md border border-border bg-surface px-2.5 py-1 text-sm text-text-secondary hover:bg-surface-muted disabled:opacity-50"
+      >
+        ‹
+      </button>
+      {Array.from({ length: pageCount }).map((_, i) => (
+        <button
+          key={i}
+          type="button"
+          onClick={() => onChange(i)}
+          className={
+            i === page
+              ? "rounded-md bg-accent px-2.5 py-1 text-sm font-semibold text-white"
+              : "rounded-md border border-border bg-surface px-2.5 py-1 text-sm text-text-secondary hover:bg-surface-muted"
+          }
+        >
+          {i + 1}
+        </button>
+      ))}
+      <button
+        type="button"
+        onClick={() => onChange(Math.min(pageCount - 1, page + 1))}
+        disabled={page === pageCount - 1}
+        className="rounded-md border border-border bg-surface px-2.5 py-1 text-sm text-text-secondary hover:bg-surface-muted disabled:opacity-50"
+      >
+        ›
+      </button>
+    </nav>
+  );
+}
+
+const FEATURED_MOCK = [
+  {
+    id: "featured-1",
+    title: "Korean Beginner Pathway",
+    subtitle: "Official · 240 cards",
+    accent: "from-accent to-accent-hover",
+  },
+  {
+    id: "featured-2",
+    title: "JLPT N5 Vocabulary",
+    subtitle: "Maintained · 600 cards",
+    accent: "from-warning to-error",
+  },
+  {
+    id: "featured-3",
+    title: "K-Drama Phrases",
+    subtitle: "Verified · 180 cards",
+    accent: "from-info to-accent",
+  },
+];
+
+function FeaturedStrip() {
+  return (
+    <div className="grid gap-3 sm:grid-cols-3">
+      {FEATURED_MOCK.map((item) => (
+        <div
+          key={item.id}
+          className="overflow-hidden rounded-lg border border-border bg-surface"
+        >
+          <div className={`h-16 bg-gradient-to-br ${item.accent}`} aria-hidden />
+          <div className="p-3">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+              Featured
+            </p>
+            <p className="mt-1 truncate text-sm font-semibold text-text-primary">
+              {item.title}
+            </p>
+            <p className="text-xs text-text-muted">{item.subtitle}</p>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

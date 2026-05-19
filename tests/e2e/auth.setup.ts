@@ -17,25 +17,23 @@ const STATE_PATH = ".auth/user.json";
 setup("authenticate via Auth0", async ({ page }) => {
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
 
-  await page.goto("/");
-  // Click "Log in" if we're on the public landing, otherwise the SDK will
-  // already redirect to Auth0.
-  const loginLink = page.getByRole("link", { name: /log\s*in/i }).first();
-  if (await loginLink.isVisible().catch(() => false)) {
-    await loginLink.click();
-  }
+  // Go straight to /login — the LoginPage triggers the Auth0 redirect on mount.
+  // (Going to "/" matches waitForURL immediately and short-circuits the wait.)
+  await page.goto("/login");
 
-  // Wait for the Auth0 redirect to complete and the app to land back on /home.
-  // 5 minutes is generous — enough time to handle MFA, password manager, etc.
-  await page.waitForURL((url) => url.pathname === "/home" || url.pathname === "/", {
+  // Wait until the app lands on /home (post-Auth0 callback). 5 minutes covers
+  // MFA / password-manager flows.
+  await page.waitForURL((url) => url.pathname === "/home", {
     timeout: 5 * 60_000,
   });
 
-  // Sanity check: app is logged in (the layout shows an auth menu or avatar
-  // once authenticated). Loosen this selector if your Layout uses different
-  // copy.
-  await expect(page.locator("body")).not.toContainText(/log\s*in/i, { timeout: 10_000 }).catch(() => {
-    // Not fatal — some layouts keep a "Log out" link visible.
+  // Sanity check: the authed Layout exposes an auth menu trigger — wait for it
+  // before snapshotting state, otherwise we might serialize before tokens are
+  // persisted.
+  await expect(
+    page.getByRole("button", { name: /account|logout|sign\s*out/i }).first(),
+  ).toBeVisible({ timeout: 10_000 }).catch(() => {
+    // Layout copy may vary — non-fatal.
   });
 
   await page.context().storageState({ path: STATE_PATH });

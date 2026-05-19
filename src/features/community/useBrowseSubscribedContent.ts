@@ -1,15 +1,17 @@
 import { useState, useCallback } from "react";
 import { useApi } from "@/shared/api/provider";
 
+export type BrowseSubscribedTab = "browse" | "subscribed" | "mine";
+
 /**
- * Shared hook for Browse | Subscribed tab UIs (ContentBrowserPage, StoriesPage).
+ * Shared hook for Browse | Subscribed | Mine tab UIs (ContentBrowserPage, StoriesPage).
  * Manages active tab, search, and subscribe/unsubscribe with loading state.
  */
 export function useBrowseSubscribedContent(options: {
   onRefresh: () => void;
 }) {
   const { users } = useApi();
-  const [activeTab, setActiveTab] = useState<"browse" | "subscribed">("browse");
+  const [activeTab, setActiveTab] = useState<BrowseSubscribedTab>("browse");
   const [search, setSearch] = useState("");
   const [subscribeLoading, setSubscribeLoading] = useState<string | null>(null);
 

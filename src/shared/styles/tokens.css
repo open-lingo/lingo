@@ -30,8 +30,8 @@
     --radius-lg: 20px;
     --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1);
     --shadow-popover: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    /** Fixed funding bar height — used for main padding and sticky learn CTAs */
-    --funding-meter-height: 3.5rem;
+    /** Floating funding bar reserved space — bar height + bottom margin + breathing room. Used as bottom offset for content padding and as the stacking baseline for other floating UI (ads, cookie consent, toasts). */
+    --funding-meter-height: 4.5rem;
     --scrollbar-track: var(--color-border);
     --scrollbar-thumb: var(--color-text-muted);
     --scrollbar-thumb-hover: var(--color-text-secondary);

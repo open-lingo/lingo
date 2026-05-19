@@ -373,13 +373,15 @@ export function MyContentTab() {
                   {item.kind === "flashcard-pack" && (
                     <>
                       <Link
-                        to={langPath(`studio/decks/${item.id}`)}
+                        to={langPath(`community/decks/${item.id}`)}
                         className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
                       >
                         {t("community.studioPreview")}
                       </Link>
                       <Link
-                        to={langPath(`studio/decks/${item.id}`)}
+                        to={langPath(`community/decks/${item.id}`)}
+                        target="_blank"
+                        rel="noreferrer"
                         className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
                       >
                         {t("community.studioEdit")}

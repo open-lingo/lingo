@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
+import { Breadcrumbs, type BreadcrumbItem } from "@/shared/components/ui/Breadcrumbs";
 import {
   DndContext,
   closestCenter,
@@ -84,6 +85,7 @@ function SortableCardItem({
   realIndex,
   isSelected,
   cardsLength,
+  hasUnsavedChanges,
   onSelect,
   onMoveUp,
   onMoveDown,
@@ -100,6 +102,7 @@ function SortableCardItem({
   realIndex: number;
   isSelected: boolean;
   cardsLength: number;
+  hasUnsavedChanges?: boolean;
   onSelect: () => void;
   onMoveUp: () => void;
   onMoveDown: () => void;
@@ -147,10 +150,19 @@ function SortableCardItem({
         <button
           type="button"
           onClick={onSelect}
-          className="min-w-0 flex-1 truncate text-left text-sm"
+          className="flex min-w-0 flex-1 items-center gap-1.5 truncate text-left text-sm"
         >
-          <span className="text-gray-500">{realIndex + 1}.</span>{" "}
-          {card.front || placeholder}
+          {isSelected && hasUnsavedChanges && (
+            <span
+              className="inline-block h-2 w-2 shrink-0 rounded-full bg-red-500"
+              title="Unsaved changes"
+              aria-label="Unsaved changes"
+            />
+          )}
+          <span className="truncate">
+            <span className="text-gray-500">{realIndex + 1}.</span>{" "}
+            {card.front || placeholder}
+          </span>
         </button>
         <div className="flex shrink-0 gap-0.5 opacity-0 group-hover:opacity-100">
           <button
@@ -398,8 +410,15 @@ export function DeckEditor() {
     [cards],
   );
 
+  /** Any card with a blank front blocks the deck-level save. */
+  const hasInvalidCards = useMemo(
+    () => cards.some((c) => !c.front.trim()),
+    [cards],
+  );
+
   const handleSaveDraft = async () => {
     if (!name.trim()) return;
+    if (hasInvalidCards) return;
     setSaving(true);
     try {
       const payload = buildPayload();
@@ -420,7 +439,7 @@ export function DeckEditor() {
             },
           });
         } else {
-          navigate(langPath(`studio/decks/${res.id}`), { replace: true, state: { bypassBlocker: true } });
+          navigate(langPath(`community/decks/${res.id}`), { replace: true, state: { bypassBlocker: true } });
         }
       }
       setHasUnsavedChanges(false);
@@ -462,6 +481,20 @@ export function DeckEditor() {
       setSaving(false);
     }
   };
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      const isMod = e.metaKey || e.ctrlKey;
+      if (!isMod || e.key.toLowerCase() !== "s") return;
+      e.preventDefault();
+      if (!name.trim() || hasInvalidCards || saving) return;
+      handleSaveDraft();
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+    // handleSaveDraft is stable per render; we re-bind on every render to capture latest closure state.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
 
   const blocker = useBlocker(
     useCallback(
@@ -529,8 +562,19 @@ export function DeckEditor() {
     />
   );
 
+  const breadcrumbs: BreadcrumbItem[] = [
+    { label: t("community.breadcrumbCommunity"), to: langPath("community") },
+    {
+      label: t("community.breadcrumbMyDecks"),
+      to: langPath("community/decks/mine"),
+    },
+    { label: name.trim() || t("community.deckCreateTitle") },
+  ];
+
   return (
-    <div className="flex h-[calc(100vh-12rem)] min-h-[500px] flex-col">
+    <div className="space-y-4">
+      <Breadcrumbs items={breadcrumbs} />
+      <div className="flex h-[calc(100vh-12rem)] min-h-[500px] flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
       {blocker.state === "blocked" && (
         <UnsavedChangesModal
           onSave={handleSaveDraft}
@@ -544,8 +588,8 @@ export function DeckEditor() {
         status="draft"
         hasUnsavedChanges={hasUnsavedChanges}
         saving={saving}
-        canSave={!!name.trim()}
-        canSubmit={!!name.trim() && cards.length > 0}
+        canSave={!!name.trim() && !hasInvalidCards}
+        canSubmit={!!name.trim() && cards.length > 0 && !hasInvalidCards}
         onSaveDraft={handleSaveDraft}
         onSubmit={handleSubmit}
         onToggleDeckSettings={() => setShowDeckSettings((s) => !s)}
@@ -553,24 +597,24 @@ export function DeckEditor() {
         nameInput={nameInput}
       />
       {companionStory && (
-        <div className="flex items-center gap-2 border-b border-gray-200 bg-blue-50/50 px-4 py-2 dark:border-gray-700 dark:bg-blue-950/20">
-          <span className="text-sm font-medium text-blue-800 dark:text-blue-300">
+        <div className="flex items-center gap-2 border-b border-border bg-accent-muted/40 px-4 py-2">
+          <span className="text-sm font-medium text-text-secondary">
             {t("community.companionDeckFor", { defaultValue: "Companion deck for:" })}{" "}
           </span>
           {companionStory.id ? (
             <Link
               to={langPath(`community/contribute/create/story/${companionStory.id}`)}
-              className="font-medium text-blue-600 underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+              className="font-medium text-accent underline hover:text-accent-hover"
             >
               {companionStory.title}
             </Link>
           ) : (
-            <span className="font-medium text-blue-700 dark:text-blue-400">{companionStory.title}</span>
+            <span className="font-medium text-text-primary">{companionStory.title}</span>
           )}
         </div>
       )}
       {showDeckSettings && (
-        <div className="flex items-center gap-4 rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-600 dark:bg-gray-700/50">
+        <div className="flex items-center gap-4 border-b border-border bg-surface-muted px-4 py-2">
             <div>
               <label className="mr-2 text-xs text-gray-500">{t("forum.language")}</label>
               <select
@@ -642,8 +686,8 @@ export function DeckEditor() {
       {/* Three-pane layout */}
       <div className="flex min-h-0 flex-1">
         {/* Left: Card Navigator */}
-        <aside className="flex w-56 shrink-0 flex-col border-r border-gray-200 bg-gray-50/50 dark:border-gray-700 dark:bg-gray-800/50">
-          <div className="border-b border-gray-200 p-2 dark:border-gray-700">
+        <aside className="flex w-56 shrink-0 flex-col border-r border-border bg-surface-muted">
+          <div className="border-b border-border p-2">
             <input
               type="search"
               value={cardSearch}
@@ -684,6 +728,7 @@ export function DeckEditor() {
                           realIndex={realIndex}
                           isSelected={selectedIndex === realIndex}
                           cardsLength={cards.length}
+                          hasUnsavedChanges={hasUnsavedChanges}
                           onSelect={() => setSelectedIndex(realIndex)}
                           onMoveUp={() => moveCard(realIndex, -1)}
                           onMoveDown={() => moveCard(realIndex, 1)}
@@ -706,9 +751,9 @@ export function DeckEditor() {
         </aside>
 
         {/* Center: Card Preview (half width) */}
-        <main className="flex min-w-0 flex-1 basis-0 flex-col border-r border-gray-200 bg-gray-50/50 p-6 dark:border-gray-700 dark:bg-gray-800/50">
+        <section className="flex min-w-0 flex-1 basis-0 flex-col border-r border-border bg-background p-6">
           <div className="mb-3 flex items-center justify-between">
-            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <h3 className="text-sm font-medium text-text-secondary">
               {t("community.editorLivePreview")}
             </h3>
             <select
@@ -753,10 +798,10 @@ export function DeckEditor() {
               </div>
             )}
           </div>
-        </main>
+        </section>
 
         {/* Right: Card Editor (half width) */}
-        <aside className="flex min-w-0 flex-1 basis-0 flex-col overflow-y-auto border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <aside className="flex min-w-0 flex-1 basis-0 flex-col overflow-y-auto bg-surface p-6">
           {selectedCard ? (
             <ActiveCardEditor
               card={selectedCard}
@@ -766,11 +811,12 @@ export function DeckEditor() {
               t={t}
             />
           ) : (
-            <p className="py-12 text-center text-sm text-gray-500 dark:text-gray-400">
+            <p className="py-12 text-center text-sm text-text-muted">
               {t("community.editorSelectCardToPreview")}
             </p>
           )}
         </aside>
+      </div>
       </div>
     </div>
   );
@@ -782,6 +828,7 @@ const textareaClass = inputClass + " min-h-[80px] resize-y";
 
 function ActiveCardEditor({
   card,
+  index,
   languageId,
   onUpdate,
   t,
@@ -793,10 +840,26 @@ function ActiveCardEditor({
   t: (key: string) => string;
 }) {
   const [advancedOpen, setAdvancedOpen] = useState(false);
+  const [frontTouched, setFrontTouched] = useState(false);
+  const [backTouched, setBackTouched] = useState(false);
+
+  useEffect(() => {
+    setFrontTouched(false);
+    setBackTouched(false);
+  }, [index]);
+
   const isSimple = card.type === "other";
   const mode: CardMode = isSimple ? CARD_MODE_SIMPLE : CARD_MODE_SEGMENTED;
 
   const setMode = (m: CardMode) => {
+    // Switching simple<->segmented currently drops parts/words; confirm if there's content.
+    const partsLen = "parts" in card ? card.parts?.length ?? 0 : 0;
+    const wordsLen = "words" in card ? card.words?.length ?? 0 : 0;
+    const hasContent =
+      partsLen > 0 || wordsLen > 0 || !!card.front.trim();
+    if (hasContent && !window.confirm(t("community.editorModeSwitchWarning"))) {
+      return;
+    }
     if (m === CARD_MODE_SIMPLE) {
       onUpdate({ type: "other", front: card.front || "" } as Partial<Flashcard>);
     } else {
@@ -822,6 +885,9 @@ function ActiveCardEditor({
       words: type === "sentence" ? segments : undefined,
     });
   };
+
+  const frontInvalid = frontTouched && !card.front.trim();
+  const backInvalid = backTouched && !card.back.trim();
 
   const handleSegmentsChange = (segments: CardSegment[]) => {
     const isSentence = card.type === "sentence";
@@ -878,10 +944,21 @@ function ActiveCardEditor({
             <textarea
               value={card.front}
               onChange={(e) => onUpdate({ front: e.target.value })}
+              onBlur={() => setFrontTouched(true)}
               placeholder={t("community.editorCardFrontPlaceholder")}
-              className={textareaClass}
+              className={
+                frontInvalid
+                  ? textareaClass.replace("border-gray-300", "border-red-500")
+                  : textareaClass
+              }
               rows={2}
+              aria-invalid={frontInvalid || undefined}
             />
+            {frontInvalid && (
+              <p className="mt-1 text-xs text-red-500">
+                {t("community.editorRequiredField")}
+              </p>
+            )}
           </div>
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -890,10 +967,21 @@ function ActiveCardEditor({
             <textarea
               value={card.back}
               onChange={(e) => onUpdate({ back: e.target.value })}
+              onBlur={() => setBackTouched(true)}
               placeholder={t("community.editorCardBackPlaceholder")}
-              className={textareaClass}
+              className={
+                backInvalid
+                  ? textareaClass.replace("border-gray-300", "border-red-500")
+                  : textareaClass
+              }
               rows={2}
+              aria-invalid={backInvalid || undefined}
             />
+            {backInvalid && (
+              <p className="mt-1 text-xs text-red-500">
+                {t("community.editorRequiredField")}
+              </p>
+            )}
           </div>
         </>
       ) : (
@@ -927,10 +1015,21 @@ function ActiveCardEditor({
             <textarea
               value={card.back}
               onChange={(e) => onUpdate({ back: e.target.value })}
+              onBlur={() => setBackTouched(true)}
               placeholder={t("community.editorCardBackPlaceholder")}
-              className={textareaClass}
+              className={
+                backInvalid
+                  ? textareaClass.replace("border-gray-300", "border-red-500")
+                  : textareaClass
+              }
               rows={2}
+              aria-invalid={backInvalid || undefined}
             />
+            {backInvalid && (
+              <p className="mt-1 text-xs text-red-500">
+                {t("community.editorRequiredField")}
+              </p>
+            )}
           </div>
         </>
       )}

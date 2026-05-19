@@ -1,10 +1,8 @@
 import { useTranslation } from "react-i18next";
-import { Card } from "@/shared/components/ui";
+import { Card, ProgressRing, WeekSparkline } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { getMockProgressSummary } from "@/shared/domain/mockProgress";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { ProgressRing } from "./components/ProgressRing";
-import { WeekSparkline } from "./components/WeekSparkline";
 import { MOCK_WEEK_MINUTES, MOCK_BEST_STREAK, MOCK_KANA_MASTERY } from "./mockHomeData";
 
 // XP-per-level curve. Tunable; matches the v1 spec's mock level math.

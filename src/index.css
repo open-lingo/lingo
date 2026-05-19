@@ -107,6 +107,18 @@ html::-webkit-scrollbar-corner {
   z-index: 1;
 }
 
+/* Funding panel: slide in from the right edge on first render. */
+@keyframes funding-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Match pairs: shake on incorrect attempt. */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }

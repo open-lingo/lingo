@@ -35,7 +35,7 @@ export function ForumPage() {
     <div className="mx-auto max-w-6xl">
       <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
         {/* Main - 70% */}
-        <main className="min-w-0 flex-1 space-y-6 lg:flex-[7]">
+        <section className="min-w-0 flex-1 space-y-6 lg:flex-[7]">
           <div>
             <Link
               to={langPath("community/explore")}
@@ -170,7 +170,7 @@ export function ForumPage() {
             getRowKey={(th) => th.id}
             emptyMessage={t("forum.noThreads") || "No threads yet"}
           />
-        </main>
+        </section>
 
         {/* Sidebar - 30% */}
         <aside className="space-y-4 lg:w-80 lg:shrink-0 lg:flex-[3]">

@@ -38,7 +38,7 @@ export function LearnDevPanel({
   return (
     <>
       <div
-        className="fixed bottom-[calc(var(--funding-meter-height,3.5rem)+4.5rem)] right-4 z-40 flex flex-col gap-2 rounded-xl border border-warning/50 bg-warning/10 px-3 py-2 text-xs text-text-secondary backdrop-blur sm:bottom-[calc(var(--funding-meter-height,3.5rem)+5rem)]"
+        className="fixed bottom-[calc(var(--funding-meter-height,4.5rem)+4.5rem)] right-4 z-40 flex flex-col gap-2 rounded-xl border border-warning/50 bg-warning/10 px-3 py-2 text-xs text-text-secondary backdrop-blur sm:bottom-[calc(var(--funding-meter-height,4.5rem)+5rem)]"
         aria-label="Developer tools"
       >
         <div className="font-semibold text-warning">DEV</div>
