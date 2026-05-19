@@ -165,6 +165,8 @@
     "intro": "플래시카드 복습, 스킬 트레이너, 문법 드릴까지 한곳에서 시작하세요.",
     "tabsLabel": "연습 유형",
     "overview": {
+      "coursesKicker": "준비된 코스",
+      "coursesHeadline": "{{language}}을(를) 단계별로 학습하세요",
       "kicker": "연습",
       "dueChip": "복습할 모듈 {{count}}개",
       "flashChip": "복습 예정 카드 {{count}}장",
@@ -687,10 +689,6 @@
     "contentBrowserSortUpvotes": "인기순",
     "contentBrowserSortName": "이름순",
     "contentBrowserFilterPopular": "인기 (추천 10개 이상)",
-    "contentBrowserDiscover": "발견",
-    "contentBrowserDiscoverAll": "전체",
-    "contentBrowserDiscoverTrending": "인기",
-    "contentBrowserDiscoverNew": "새로운",
     "contentBrowserNavBrowseDesc": "공개 덱, 코스, 스토리",
     "contentBrowserNavSubscribedDesc": "저장한 커뮤니티 콘텐츠",
     "contentBrowserNavMineDesc": "내가 만든 덱",
@@ -885,8 +883,7 @@
     "linkGitHub": "GitHub — open-lingo/lingo",
     "linkIssues": "이슈 — 버그·기능 제안",
     "linkDiscord": "(토론 / Discord — 추후)",
-    "footer": "이 페이지는 의도적으로 단순합니다. 수정·제안은 이슈나 PR로 부탁드립니다.",
-    "backToHome": "홈으로"
+    "footer": "이 페이지는 의도적으로 단순합니다. 수정·제안은 이슈나 PR로 부탁드립니다."
   },
   "externalContent": {
     "title": "외부 콘텐츠",

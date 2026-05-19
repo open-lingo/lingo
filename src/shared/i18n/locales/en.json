@@ -231,6 +231,8 @@
     "intro": "Review flashcards, run skill trainers, and open grammar drills—all from one place.",
     "tabsLabel": "Practice types",
     "overview": {
+      "coursesKicker": "Pre-made courses",
+      "coursesHeadline": "Learn {{language}} step by step",
       "kicker": "Practice",
       "dueChip": "{{count}} modules need review",
       "flashChip": "{{count}} flashcards due",
@@ -776,10 +778,6 @@
     "contentBrowserSortUpvotes": "Most upvoted",
     "contentBrowserSortName": "Name A–Z",
     "contentBrowserFilterPopular": "Popular (10+ upvotes)",
-    "contentBrowserDiscover": "Discover",
-    "contentBrowserDiscoverAll": "All",
-    "contentBrowserDiscoverTrending": "Trending",
-    "contentBrowserDiscoverNew": "New",
     "contentBrowserNavBrowseDesc": "Public decks, courses and stories",
     "contentBrowserNavSubscribedDesc": "Saved community content",
     "contentBrowserNavMineDesc": "Decks you've authored",
@@ -974,8 +972,7 @@
     "linkGitHub": "GitHub — open-lingo/lingo",
     "linkIssues": "Issues — report bugs, suggest features",
     "linkDiscord": "(Discussions / Discord — TBD when the community grows)",
-    "footer": "This page is intentionally minimal. If something's missing or wrong, open an issue or send a PR — that's how we improve it.",
-    "backToHome": "Back to home"
+    "footer": "This page is intentionally minimal. If something's missing or wrong, open an issue or send a PR — that's how we improve it."
   },
   "externalContent": {
     "title": "External Content",

@@ -25,6 +25,27 @@ const MOCK_PRACTICE_TODAY_MIN = 12;
 const MOCK_PRACTICE_STREAK = 7;
 // MOCK: total practice modules tracked for the due ring (3 of 4 have due items).
 const MOCK_PRACTICE_DUE_RING = { due: 3, total: 4 };
+// Pre-made course strip per learning language. Surface curated entry points
+// to existing trainers/routes — no new stub pages. When real per-language
+// course catalogs are wired, this constant moves into the domain layer.
+const PRE_MADE_COURSES: Record<
+  string,
+  Array<{ id: string; emoji: string; title: string; subtitle: string; to: string }>
+> = {
+  ko: [
+    { id: "hangul", emoji: "한", title: "Hangul basics", subtitle: "Master the Korean alphabet", to: "practice/alphabet" },
+    { id: "ko-particles", emoji: "은/는", title: "Korean particles", subtitle: "은·는·이·가 and friends", to: "practice/particles" },
+    { id: "ko-top100", emoji: "100", title: "Top 100 Korean words", subtitle: "Most common vocabulary", to: "vocab" },
+  ],
+  ja: [
+    { id: "hiragana", emoji: "あ", title: "Hiragana", subtitle: "46 syllabary signs", to: "practice/alphabet/hiragana" },
+    { id: "katakana", emoji: "ア", title: "Katakana", subtitle: "Loanword syllabary", to: "practice/alphabet/katakana" },
+    { id: "n5-kanji", emoji: "漢", title: "JLPT N5 Kanji", subtitle: "First 100 characters", to: "practice/kanji" },
+    { id: "ja-particles", emoji: "は/が", title: "Particles", subtitle: "は·が·を·に·で foundations", to: "practice/particles" },
+    { id: "ja-top100", emoji: "100", title: "Top 100 Japanese words", subtitle: "Most common vocabulary", to: "vocab" },
+  ],
+};
+
 // MOCK: last-reviewed-ago hours per section. Replace with per-domain last-touched timestamps.
 const MOCK_LAST_TOUCHED_HOURS = {
   flashcards: 2,
@@ -314,6 +335,43 @@ export function PracticePage() {
           />
         ))}
       </div>
+
+      {/* Zone 2.5 — Pre-made courses for this language */}
+      {language?.id && PRE_MADE_COURSES[language.id]?.length ? (
+        <section aria-labelledby="practice-courses-heading">
+          <div className="mb-2 flex items-end justify-between gap-2">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+                {t("practice.overview.coursesKicker", { defaultValue: "Pre-made courses" })}
+              </p>
+              <h2 id="practice-courses-heading" className="text-base font-semibold text-text-primary">
+                {t("practice.overview.coursesHeadline", {
+                  defaultValue: "Learn {{language}} step by step",
+                  language: languageName,
+                })}
+              </h2>
+            </div>
+          </div>
+          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {PRE_MADE_COURSES[language.id].map((c) => (
+              <li key={c.id}>
+                <Link
+                  to={langPath(c.to)}
+                  className="group flex h-full items-start gap-3 rounded-xl border border-border bg-surface p-3 transition hover:border-accent hover:bg-surface-muted"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-muted text-base font-bold text-accent">
+                    {c.emoji}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-text-primary">{c.title}</p>
+                    <p className="text-xs text-text-muted">{c.subtitle}</p>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       {/* Zone 3 — Domain sections */}
       <div className="space-y-3">
