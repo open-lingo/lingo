@@ -679,7 +679,14 @@ Proposed features that don't move at least one lever earn skepticism.
 
 ---
 
-## 11. Sources
+## 11. Companion docs
+
+When authoring an M8-M30 lesson, pair this roadmap with the vocab-art reference:
+
+- **[emoji-blocked-words-2026-05-18.md](./emoji-blocked-words-2026-05-18.md)** — rubric for assigning emoji vs marking a word image-MCQ-unsafe. End-to-end authoring workflow.
+- **[n5-vocab-emoji-reference-2026-05-18.md](./n5-vocab-emoji-reference-2026-05-18.md)** — all 662 N5 words with assigned Noto emoji or `blocked: true` classification. Pull the canonical emoji from this table before authoring `RowWord` / `ReviewAtom` entries.
+
+## 12. Sources
 
 **JLPT N5 vocabulary**
 - [JLPT Sensei — N5 Vocabulary List](https://jlptsensei.com/jlpt-n5-vocabulary-list/) — 644 words, 7 categories

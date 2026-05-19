@@ -1,6 +1,22 @@
 # JLPT N5 Vocab → Emoji Reference (2026-05-18)
 
-Reference for future M8-M30 curriculum authoring. **662 N5 words** sourced from [wkei/jlpt-vocab-api](https://github.com/wkei/jlpt-vocab-api). Emoji assignments produced by 4 Opus subagents in parallel, applying the same rubric as `docs/emoji-blocked-words-2026-05-18.md`.
+Reference for future M8-M30 curriculum authoring. **662 N5 words** sourced from [wkei/jlpt-vocab-api](https://github.com/wkei/jlpt-vocab-api). Emoji assignments produced by 4 Opus subagents in parallel, applying the same rubric as [`emoji-blocked-words-2026-05-18.md`](./emoji-blocked-words-2026-05-18.md).
+
+## Pair with
+
+- **[emoji-blocked-words-2026-05-18.md](./emoji-blocked-words-2026-05-18.md)** — the rubric + end-to-end authoring workflow. Read this first if you're authoring a new vocab word.
+- **[n5-vocab-emoji-map-2026-05-18.json](./n5-vocab-emoji-map-2026-05-18.json)** — same 662 entries, machine-readable.
+
+## Source files (single source of truth for runtime behavior)
+
+| File | Role |
+|---|---|
+| `src/shared/assets/notoEmoji.ts` | `notoEmojiUrl(emoji)` URL resolver (zero-pads keycaps, routes regional-indicators to flag dir) + `lingoArtUrl(kana)` custom-art override |
+| `src/features/lesson/data/_jaGrammarHelpers.ts` | `WORD_IMAGE_MCQ_BLOCKLIST` (set of kana that throw if targeted by visual MCQ) + `withoutMcqBlocked(pool)` (filters review pools before seeded pick) |
+| `src/features/lesson/components/steps/WordImageMcqStepView.tsx` | View: tries `lingoArtUrl(opt.word) ?? notoEmojiUrl(opt.emoji)` |
+| `src/pub/noto-emoji/svg/` | 155 vendored Noto SVGs (Apache 2.0, no attribution) |
+| `src/pub/lingo-art/svg/` | 9 custom Lingo SVGs (MIT, no attribution) — desk, today, room, shop, photo, sky, hundred, magazine, which |
+| `src/pub/region-flags/svg/` | Country flags (wave-style, public-domain via Noto third_party) |
 
 ## Stats
 

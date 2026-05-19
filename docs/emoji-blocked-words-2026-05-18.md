@@ -4,6 +4,15 @@ A short list of N5 vocab words where **no image (Noto, custom SVG, or any open-s
 
 For these words, **don't ship a `wordImageMcq` card**. Use the alternative step types listed.
 
+## Related docs + source files
+
+- **[n5-vocab-emoji-reference-2026-05-18.md](./n5-vocab-emoji-reference-2026-05-18.md)** — 662-word N5 vocab → emoji map. Single source of truth for assignments when authoring new M8-M30 lessons. Includes 149 additional blocked words categorized + a per-word `note` column.
+- **[n5-vocab-emoji-map-2026-05-18.json](./n5-vocab-emoji-map-2026-05-18.json)** — same data, machine-readable.
+- `src/shared/assets/notoEmoji.ts` — `notoEmojiUrl()` (handles zero-padding + flag routing) and `lingoArtUrl(kana)` (custom-SVG override map).
+- `src/features/lesson/data/_jaGrammarHelpers.ts` — `WORD_IMAGE_MCQ_BLOCKLIST` (runtime guard) + `withoutMcqBlocked()` helper.
+- `src/pub/lingo-art/svg/` — 9 custom MIT-licensed SVGs (desk, today, room, shop, photo, sky, hundred, magazine, which).
+- `src/pub/noto-emoji/svg/` — 155 vendored Noto SVGs (Apache 2.0).
+
 ## Currently authored (have placeholder emoji + custom SVG that the audit graded "weak correlation OK")
 
 These are NOT removed from the curriculum. They have custom art under `src/pub/lingo-art/svg/` that gives a weak correlation cue, but the *primary* teaching surface for these words should NOT be `wordImageMcq` — use the alternatives below.
@@ -44,4 +53,18 @@ When adding a new vocab word, run this check:
 2. Does the meaning depend on grammatical context? → No image. Use `particle_cloze` / `phrase_card` / `dialogue_listen`.
 3. Are two words distinguished only by politeness or tense? → One image, both forms share it, or no image for the variant.
 
-Update this doc when a new word fails the visual test.
+## End-to-end workflow (when authoring a new M8+ vocab word)
+
+1. **Look up the word in [n5-vocab-emoji-reference-2026-05-18.md](./n5-vocab-emoji-reference-2026-05-18.md).**
+   - **Mapped** → copy the listed emoji into your `RowWord` / `ReviewAtom`'s `emoji` field. Done.
+   - **Blocked** → add the kana to `WORD_IMAGE_MCQ_BLOCKLIST` in `_jaGrammarHelpers.ts`, and teach the word via `phrase_card` / `particle_cloze` / `listening_build` / `dialogue_listen` only. Never call `wordImageMcq` / `priorWordMcq` / `vocabMcq` with this kana — the guard throws at import.
+   - **No-fit** (currently only `テーブル`) → author a custom SVG under `src/pub/lingo-art/svg/`, then add an entry to `LINGO_CUSTOM_ART` in `notoEmoji.ts` keyed by kana. The view code resolves custom-art first, Noto-emoji fallback.
+2. **Verify the emoji renders.** `notoEmojiUrl(emoji)` should return a URL that maps to a vendored file under `src/pub/noto-emoji/svg/`. If the file isn't vendored yet, download from `https://raw.githubusercontent.com/googlefonts/noto-emoji/main/svg/<filename>` and drop it under that path (Apache 2.0, no attribution required per pack license).
+3. **Author the lesson.** Pull review atoms via `pickReviewAtoms(seed, withoutMcqBlocked(pool), n)` — the helper drops blocked atoms before the seeded pick so the random draw can never land on a blocklisted target.
+4. **Run tests.** `npx vitest run src/features/lesson/data/` — the curriculum-coverage and grammar-rule tests import all modules and will fail-fast if a blocked word slips into a visual-MCQ slot.
+
+## Maintenance
+
+- Update this doc when an audit flags a new word as image-MCQ-unsafe. Strip an entry when custom art for it ships and the audit grades it ≥4.
+- When the N5 reference doc grows (M-whatever introduces new vocab not in the snapshot), append entries in the same format and re-run the HEAD-check script (`node /tmp/merge_n5.mjs` pattern).
+- The 4-persona audit rubric lives in conversation history (2026-05-18 session); rerun it via 4 parallel Opus subagent dispatches when the custom-art pack ships a meaningful update.

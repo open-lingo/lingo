@@ -67,6 +67,16 @@ When you need any of these, build the shared primitive first.
 
 `features/flashcards/engine/` — SM-2 with Again/Hard/Good/Easy. Local-first (localStorage) with manual or end-of-session sync to `lingo-core` via `SrsApi`. Dirty-card detection + delta merge — don't bypass.
 
+## Vocab card art (read before authoring new vocab)
+
+Every authored vocab word has an image (Noto Emoji Apache-2.0 + a small MIT-licensed custom-SVG top-up). The system has three doc surfaces:
+
+- **[docs/emoji-art-process-2026-05-18.md](./docs/emoji-art-process-2026-05-18.md)** — the 11-step methodology (resolver audit → style baseline → 4-persona Opus audit → custom-SVG fill → block-list → curriculum integration → reference compile). Re-run whenever a new language ships or a new module adds ≥10 vocab words.
+- **[docs/emoji-blocked-words-2026-05-18.md](./docs/emoji-blocked-words-2026-05-18.md)** — rubric + end-to-end authoring workflow. Read this when adding a single new vocab word.
+- **[docs/n5-vocab-emoji-reference-2026-05-18.md](./docs/n5-vocab-emoji-reference-2026-05-18.md)** — pre-assigned emoji for all 662 JLPT N5 words. Pull canonical emoji from this table; don't re-decide per-lesson.
+
+Runtime: `notoEmojiUrl(emoji)` + `lingoArtUrl(kana)` in `src/shared/assets/notoEmoji.ts`. Block-list: `WORD_IMAGE_MCQ_BLOCKLIST` + `withoutMcqBlocked()` in `src/features/lesson/data/_jaGrammarHelpers.ts` — throws at import if a blocked kana hits visual MCQ.
+
 ## Testing
 
 ```bash

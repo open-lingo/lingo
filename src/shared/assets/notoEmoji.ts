@@ -39,10 +39,21 @@ const LINGO_ART_BASE = "/lingo-art/svg";
  * Words removed from this map (anata, ani, ane, arimasu, imasu, koe,
  * chichi, haha) deferred for later resolution per
  * `docs/emoji-blocked-words-2026-05-18.md` — taught via particle_cloze /
- * phrase_card / dialogue_listen, NOT wordImageMcq.
+ * phrase_card / dialogue_listen, NOT wordImageMcq. Those eight kana are
+ * registered in `WORD_IMAGE_MCQ_BLOCKLIST` (see _jaGrammarHelpers.ts)
+ * which throws at import-time if a lesson tries to image-MCQ them.
  *
  * The custom-art path is preferred over `notoEmojiUrl` when present. Keys
  * are the kana surface form (matches `RowWord.kana`).
+ *
+ * To add a new word: (1) drop the SVG under `src/pub/lingo-art/svg/`
+ * (~128×128 viewBox, transparent bg, 2-2.5px #1e293b outline, flat fill,
+ * rounded geometry — match the existing 9 SVGs' style), (2) add the
+ * kana→filename entry below, (3) verify at production size (64px) via
+ * Playwright or the dev preview page. See
+ * `docs/n5-vocab-emoji-reference-2026-05-18.md` for the full vocab→art
+ * map (662 N5 words) and `docs/emoji-blocked-words-2026-05-18.md` for the
+ * rubric + end-to-end authoring workflow.
  */
 const LINGO_CUSTOM_ART: Record<string, string> = {
   つくえ: "desk.svg",
