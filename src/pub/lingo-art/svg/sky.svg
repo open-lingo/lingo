@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="sky-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="0.5" stop-color="#60a5fa"/>
+      <stop offset="1" stop-color="#bfdbfe"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="14" fill="url(#sky-bg)" stroke="#1e293b" stroke-width="3"/>
+  <circle cx="46" cy="42" r="16" fill="#fde047" stroke="#b45309" stroke-width="2.5"/>
+  <g stroke="#fde047" stroke-width="4" stroke-linecap="round">
+    <line x1="46" y1="14" x2="46" y2="20"/>
+    <line x1="46" y1="64" x2="46" y2="70"/>
+    <line x1="14" y1="42" x2="22" y2="42"/>
+    <line x1="70" y1="42" x2="78" y2="42"/>
+    <line x1="24" y1="22" x2="28" y2="26"/>
+    <line x1="64" y1="58" x2="68" y2="62"/>
+    <line x1="24" y1="62" x2="28" y2="58"/>
+    <line x1="64" y1="26" x2="68" y2="22"/>
+  </g>
+  <ellipse cx="92" cy="80" rx="16" ry="6" fill="#fff" opacity="0.95"/>
+  <ellipse cx="84" cy="76" rx="10" ry="4" fill="#fff" opacity="0.95"/>
+</svg>

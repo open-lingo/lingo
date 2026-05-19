@@ -39,7 +39,7 @@ const ctxSub1: RowContext = {
     { symbol: "ち", romaji: "chi" },
   ],
   words: [
-    { kana: "しゃしん", meaningEn: "photo", emoji: "📷" },
+    { kana: "しゃしん", meaningEn: "photo", emoji: "📸" },
   ],
   tileBankPool: ["しゃ", "しゅ", "しょ", "ちゃ", "ちゅ", "ちょ", "あ", "い", "う", "え", "お", "ん"],
 };
@@ -55,7 +55,7 @@ const ctxSub2: RowContext = {
     { symbol: "ちょ", romaji: "cho" },
   ],
   words: [
-    { kana: "しゃしん", meaningEn: "photo", emoji: "📷" },
+    { kana: "しゃしん", meaningEn: "photo", emoji: "📸" },
     { kana: "おちゃ", meaningEn: "tea", emoji: "🍵" },
   ],
   tileBankPool: ["しゃ", "しゅ", "しょ", "ちゃ", "ちゅ", "ちょ", "あ", "い", "う", "え", "お", "ん"],

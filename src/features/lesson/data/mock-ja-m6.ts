@@ -60,6 +60,7 @@ import {
   vocab,
   vocabMcq,
   assertNoSameAnswerCluster,
+  WORD_IMAGE_MCQ_BLOCKLIST,
 } from "./_jaGrammarHelpers";
 
 const COURSE = "mock-1";
@@ -72,11 +73,12 @@ const LANG = "ja";
 // ───────────────────────────────────────────────────────────────────────
 const PRIOR_POOL = M3_M7_REVIEW_POOL.filter(
   (a) =>
-    a.fromModule === "m1" ||
-    a.fromModule === "m2" ||
-    a.fromModule === "m3" ||
-    a.fromModule === "m4" ||
-    a.fromModule === "m5",
+    (a.fromModule === "m1" ||
+      a.fromModule === "m2" ||
+      a.fromModule === "m3" ||
+      a.fromModule === "m4" ||
+      a.fromModule === "m5") &&
+    !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana),
 );
 // Subset draws for visual MCQ distractor pools (use M1 / M4 — both have
 // many emoji-bearing concrete-noun atoms). M2 / M3 / M5 contribute through
@@ -115,7 +117,7 @@ export const M6_1: LessonContent = {
     // visual MCQ on the new atom — encode + apply immediately
     vocabMcq(
       "ja-m6-1-mcq-koen",
-      { kana: "こうえん", meaningEn: "park", emoji: "🏞️", fromModule: "m6" },
+      { kana: "こうえん", meaningEn: "park", emoji: "🌲", fromModule: "m6" },
       POOL_M1,
     ),
     vocab(
@@ -165,23 +167,31 @@ export const M6_1: LessonContent = {
     // speaking break — production direction on a just-introduced atom
     speaking("ja-m6-1-speak-konbini", "コンビニ", "Convenience store"),
     vocab(
-      "ja-m6-1-mise",
-      "Shop",
-      "mise",
-      "みせ",
-      "Generic 'store.' Often suffixed: ほんや → ほんやさん (bookstore + politeness).",
-    ),
-    vocab(
       "ja-m6-1-heya",
       "Room",
       "heya",
       "へや",
       "Any room in a house or hotel. 'へやに います' = I'm in my room.",
     ),
+    // visual MCQ on へや — custom SVG (room.svg) is the audit-confident
+    // primary cue. Distractors drawn from M4 (concrete objects), which
+    // contrast visually with a room interior.
+    vocabMcq(
+      "ja-m6-1-mcq-heya",
+      { kana: "へや", meaningEn: "room", emoji: "🛋️", fromModule: "m6" },
+      POOL_M4,
+    ),
+    vocab(
+      "ja-m6-1-mise",
+      "Shop",
+      "mise",
+      "みせ",
+      "Generic 'store.' Often suffixed: ほんや → ほんやさん (bookstore + politeness).",
+    ),
     // visual MCQ on the second-to-last atom (encode + apply)
     vocabMcq(
       "ja-m6-1-mcq-mise",
-      { kana: "みせ", meaningEn: "shop", emoji: "🛍️", fromModule: "m6" },
+      { kana: "みせ", meaningEn: "shop", emoji: "🏬", fromModule: "m6" },
       POOL_M4,
     ),
     // ── Review tail (prior-module atoms) ──

@@ -20,7 +20,7 @@ const ctx: RowContext = {
     { symbol: "の", romaji: "no" },
   ],
   words: [
-    { kana: "なに",   meaningEn: "what",     emoji: "🤷" },
+    { kana: "なに",   meaningEn: "what",     emoji: "❓" },
     { kana: "ねこ",   meaningEn: "cat",      emoji: "🐱" },
     { kana: "きのこ", meaningEn: "mushroom", emoji: "🍄" },
   ],

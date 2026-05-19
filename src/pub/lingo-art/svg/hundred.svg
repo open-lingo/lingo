@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <circle cx="64" cy="64" r="56" fill="#fde68a" stroke="#b45309" stroke-width="3"/>
+  <circle cx="64" cy="64" r="48" fill="#fbbf24" stroke="#b45309" stroke-width="2"/>
+  <text x="64" y="78" text-anchor="middle" font-family="'Noto Sans JP','Noto Serif JP',serif" font-size="64" font-weight="900" fill="#7f1d1d">百</text>
+  <text x="64" y="106" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="900" fill="#7f1d1d" letter-spacing="2">100</text>
+  <g fill="#b45309">
+    <circle cx="22" cy="40" r="2"/>
+    <circle cx="106" cy="40" r="2"/>
+    <circle cx="22" cy="88" r="2"/>
+    <circle cx="106" cy="88" r="2"/>
+  </g>
+</svg>

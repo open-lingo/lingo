@@ -4,7 +4,7 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { useTranslation } from "react-i18next";
-import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
+import { notoEmojiUrl, lingoArtUrl } from "@/shared/assets/notoEmoji";
 import { playJaAudio, getTtsUrl } from "@/shared/japanese/tts";
 
 const CELEBRATE_MS = 1100;
@@ -87,7 +87,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           } else if (isSelected) {
             stateClasses = "border-accent bg-accent/5";
           }
-          const emojiSrc = notoEmojiUrl(opt.emoji);
+          const emojiSrc = lingoArtUrl(opt.word) ?? notoEmojiUrl(opt.emoji);
           return (
             <button
               key={opt.id}

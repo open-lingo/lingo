@@ -49,6 +49,7 @@ import {
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
+  withoutMcqBlocked,
   pickReviewAtoms,
   reviewMatchPairs,
   selfExplain,
@@ -75,12 +76,23 @@ const LANG = "ja";
 // gets a stable but distinct subset across re-runs. Pool is M1 + M2 + M3
 // (M4 is the module being authored — can't review itself).
 // ───────────────────────────────────────────────────────────────────────
-const M4_REVIEW_POOL = M3_M7_REVIEW_POOL.filter(
-  (a) => a.fromModule === "m1" || a.fromModule === "m2" || a.fromModule === "m3",
+// withoutMcqBlocked: drops audit-deferred kana (あなた/あに/あね/ちち/はは/
+// あります/います/こえ — image-MCQ-unsafe per docs/emoji-blocked-words-2026-05-18.md)
+// from MCQ pools so vocabMcq never lands on a misleading visual cue.
+const M4_REVIEW_POOL = withoutMcqBlocked(
+  M3_M7_REVIEW_POOL.filter(
+    (a) => a.fromModule === "m1" || a.fromModule === "m2" || a.fromModule === "m3",
+  ),
 );
-const M4_REVIEW_M1_POOL = M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m1");
-const M4_REVIEW_M2_POOL = M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m2");
-const M4_REVIEW_M3_POOL = M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m3");
+const M4_REVIEW_M1_POOL = withoutMcqBlocked(
+  M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m1"),
+);
+const M4_REVIEW_M2_POOL = withoutMcqBlocked(
+  M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m2"),
+);
+const M4_REVIEW_M3_POOL = withoutMcqBlocked(
+  M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m3"),
+);
 
 // ----- M4-1 — Everyday objects (densified vocab drop + review tail) -------
 
@@ -626,6 +638,16 @@ export const M4_4: LessonContent = {
         "Is that over there my friend's car?",
       ],
     }),
+    // Visual MCQ on どれ — custom SVG (which.svg, A/B/C/D grid) is the
+    // audit-confident primary cue. Encodes the meaning ("which one") via
+    // the grid icon BEFORE the が-cloze drill below applies it. Distractors
+    // pulled from M3 atoms — concrete nouns/people contrast cleanly with
+    // an abstract grid glyph so the icon's distinctiveness carries.
+    vocabMcq(
+      "ja-m4-4-mcq-dore",
+      { kana: "どれ", meaningEn: "which one", emoji: "🤔", fromModule: "m4" },
+      M4_REVIEW_M3_POOL,
+    ),
     // どれ (which) drill — needs が, not は (per the antiPattern rule above).
     cloze(
       "ja-m4-4-cloze-4",

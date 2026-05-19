@@ -53,6 +53,7 @@ import {
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
+  withoutMcqBlocked,
   phrase,
   pickReviewAtoms,
   reviewMatchPairs,
@@ -73,14 +74,26 @@ const LANG = "ja";
 // — can't review the module being authored). Each sub-lesson gets a
 // distinct seed so re-mounts get stable but different subsets.
 // ───────────────────────────────────────────────────────────────────────
-const M7_REVIEW_POOL = M3_M7_REVIEW_POOL.filter(
-  (a) => a.fromModule !== "m7",
+// withoutMcqBlocked: drops audit-deferred kana (image-MCQ-unsafe per
+// docs/emoji-blocked-words-2026-05-18.md) from MCQ pools.
+const M7_REVIEW_POOL = withoutMcqBlocked(
+  M3_M7_REVIEW_POOL.filter((a) => a.fromModule !== "m7"),
 );
-const M7_REVIEW_M1 = M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m1");
-const M7_REVIEW_M3 = M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m3");
-const M7_REVIEW_M4 = M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m4");
-const M7_REVIEW_M5 = M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m5");
-const M7_REVIEW_M6 = M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m6");
+const M7_REVIEW_M1 = withoutMcqBlocked(
+  M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m1"),
+);
+const M7_REVIEW_M3 = withoutMcqBlocked(
+  M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m3"),
+);
+const M7_REVIEW_M4 = withoutMcqBlocked(
+  M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m4"),
+);
+const M7_REVIEW_M5 = withoutMcqBlocked(
+  M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m5"),
+);
+const M7_REVIEW_M6 = withoutMcqBlocked(
+  M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m6"),
+);
 
 // ----- M7-1 — Verbs vocab (dictionary form first) ------------------------
 

@@ -44,6 +44,7 @@ import {
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
+  withoutMcqBlocked,
   phrase,
   pickReviewAtoms,
   reviewMatchPairs,
@@ -70,8 +71,15 @@ const LANG = "ja";
 // gets a stable but distinct subset across re-runs. Pool is M1 + M2 only
 // (M3 is the module being authored — can't review itself).
 // ───────────────────────────────────────────────────────────────────────
-const M3_REVIEW_M1_POOL = M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m1");
-const M3_REVIEW_M2_POOL = M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m2");
+// withoutMcqBlocked: drops audit-deferred kana (image-MCQ-unsafe per
+// docs/emoji-blocked-words-2026-05-18.md) so vocabMcq targets / distractors
+// never land on a misleading visual cue.
+const M3_REVIEW_M1_POOL = withoutMcqBlocked(
+  M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m1"),
+);
+const M3_REVIEW_M2_POOL = withoutMcqBlocked(
+  M3_M7_REVIEW_POOL.filter((a) => a.fromModule === "m2"),
+);
 
 // ----- M3-1 — Katakana SYSTEM intro + 5 loanwords + review tail ----------
 

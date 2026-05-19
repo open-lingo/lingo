@@ -28,30 +28,101 @@ const NOTO_SVG_BASE = "/noto-emoji/svg";
 
 const NOTO_FLAG_BASE = "/region-flags/svg";
 
-/** Get the codepoint list of an emoji, stripping FE0F variation selectors. */
+const LINGO_ART_BASE = "/lingo-art/svg";
+
+/**
+ * Vocabulary words whose Noto rendering failed the 4-persona audit
+ * (2026-05-18: 9yo/16yo/38yo/67yo Opus subagents). Each entry is paired
+ * with a custom MIT-licensed SVG under `src/pub/lingo-art/svg/` designed
+ * in Noto-adjacent style: flat fill, soft dark outline, saturated colors.
+ *
+ * Words removed from this map (anata, ani, ane, arimasu, imasu, koe,
+ * chichi, haha) deferred for later resolution per
+ * `docs/emoji-blocked-words-2026-05-18.md` — taught via particle_cloze /
+ * phrase_card / dialogue_listen, NOT wordImageMcq.
+ *
+ * The custom-art path is preferred over `notoEmojiUrl` when present. Keys
+ * are the kana surface form (matches `RowWord.kana`).
+ */
+const LINGO_CUSTOM_ART: Record<string, string> = {
+  つくえ: "desk.svg",
+  きょう: "today.svg",
+  へや: "room.svg",
+  みせ: "shop.svg",
+  しゃしん: "photo.svg",
+  そら: "sky.svg",
+  ひゃく: "hundred.svg",
+  ざっし: "magazine.svg",
+  どれ: "which.svg",
+};
+
+/**
+ * Per-word override returning the custom-art URL when a word has one,
+ * else `null`. Lookups are kana-keyed so the lesson data's `emoji` field
+ * stays untouched (the emoji is the fallback if the custom asset is
+ * unavailable).
+ */
+export function lingoArtUrl(kana: string | undefined): string | null {
+  if (!kana) return null;
+  const file = LINGO_CUSTOM_ART[kana];
+  return file ? `${LINGO_ART_BASE}/${file}` : null;
+}
+
+/**
+ * Get the codepoint list of an emoji, stripping FE0F variation selectors.
+ * Codepoints &lt; 0x100 (digits, `#`, `*`) get zero-padded to 4 hex chars because
+ * Noto's keycap filenames are `emoji_u0031_20e3.svg` not `emoji_u31_20e3.svg`.
+ */
 export function emojiCodepoints(emoji: string): string[] {
   const out: string[] = [];
   for (const ch of emoji) {
     const cp = ch.codePointAt(0);
     if (cp === undefined) continue;
     if (cp === 0xfe0f) continue;
-    out.push(cp.toString(16));
+    out.push(cp < 0x100 ? cp.toString(16).padStart(4, "0") : cp.toString(16));
   }
   return out;
 }
+
+const REGIONAL_LO = 0x1f1e6;
+const REGIONAL_HI = 0x1f1ff;
 
 /**
  * Resolve an emoji character (or ZWJ sequence) to its Noto Emoji SVG URL.
  * Returns `null` for empty / malformed input.
  *
+ * Auto-routes regional-indicator pairs (country flags) to `notoFlagUrl`
+ * because flags live under `third_party/region-flags/` not the main `svg/`
+ * dir.
+ *
  * @example
  *   notoEmojiUrl("🐟")  // → "/noto-emoji/svg/emoji_u1f41f.svg"
  *   notoEmojiUrl("❤️") // → "/noto-emoji/svg/emoji_u2764.svg" (FE0F stripped)
  *   notoEmojiUrl("👨‍🍳") // → "/noto-emoji/svg/emoji_u1f468_200d_1f373.svg"
+ *   notoEmojiUrl("1️⃣") // → "/noto-emoji/svg/emoji_u0031_20e3.svg" (keycap, zero-padded)
+ *   notoEmojiUrl("🇯🇵") // → "/region-flags/svg/JP.svg" (auto flag-route)
  */
 export function notoEmojiUrl(emoji: string): string | null {
-  const cps = emojiCodepoints(emoji);
-  if (cps.length === 0) return null;
+  const rawCps: number[] = [];
+  for (const ch of emoji) {
+    const cp = ch.codePointAt(0);
+    if (cp === undefined) continue;
+    if (cp === 0xfe0f) continue;
+    rawCps.push(cp);
+  }
+  if (rawCps.length === 0) return null;
+  if (
+    rawCps.length === 2 &&
+    rawCps.every((cp) => cp >= REGIONAL_LO && cp <= REGIONAL_HI)
+  ) {
+    const iso = String.fromCharCode(
+      ...rawCps.map((cp) => 0x41 + (cp - REGIONAL_LO)),
+    );
+    return notoFlagUrl(iso);
+  }
+  const cps = rawCps.map((cp) =>
+    cp < 0x100 ? cp.toString(16).padStart(4, "0") : cp.toString(16),
+  );
   return `${NOTO_SVG_BASE}/emoji_u${cps.join("_")}.svg`;
 }
 

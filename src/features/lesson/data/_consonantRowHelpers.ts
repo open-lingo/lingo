@@ -13,6 +13,7 @@
  */
 import type { LessonStep } from "../types";
 import { getTtsUrl } from "@/shared/japanese/tts";
+import { WORD_IMAGE_MCQ_BLOCKLIST } from "./_jaGrammarHelpers";
 
 /**
  * Small kana / sokuon / long-vowel mark — must NEVER appear as a
@@ -274,11 +275,25 @@ export function wordImageMcq(
       `wordImageMcq: ${correctKana} has no emoji — use listeningBuild or listeningComp instead`,
     );
   }
+  // 2026-05-18 audit: words on the blocklist have either a misleading
+  // emoji or only weak-correlation custom art. Authors pick a different
+  // step type (see docs/emoji-blocked-words-2026-05-18.md).
+  if (WORD_IMAGE_MCQ_BLOCKLIST.has(correctKana)) {
+    throw new Error(
+      `wordImageMcq: ${correctKana} is image-blocked — use listeningBuild / listeningComp / build_sentence instead`,
+    );
+  }
   const others = ctx.words.filter(
-    (w) => w.kana !== correctKana && Boolean(w.emoji),
+    (w) =>
+      w.kana !== correctKana &&
+      Boolean(w.emoji) &&
+      !WORD_IMAGE_MCQ_BLOCKLIST.has(w.kana),
   );
   const padding = FALLBACK_PADDING_WORDS.filter(
-    (w) => w.kana !== correctKana && !ctx.words.some((cw) => cw.kana === w.kana),
+    (w) =>
+      w.kana !== correctKana &&
+      !ctx.words.some((cw) => cw.kana === w.kana) &&
+      !WORD_IMAGE_MCQ_BLOCKLIST.has(w.kana),
   );
   const distractors = [...others, ...padding].slice(0, 3);
   const slot = correctSlot(id);
@@ -436,7 +451,7 @@ export const M1_REVIEW_POOL: RowWord[] = [
   { kana: "そら", meaningEn: "sky", emoji: "☁️" },
   { kana: "ほし", meaningEn: "star", emoji: "⭐" },
   { kana: "つき", meaningEn: "moon", emoji: "🌙" },
-  { kana: "はな", meaningEn: "flower", emoji: "🌸" },
+  { kana: "はな", meaningEn: "flower", emoji: "🌷" },
   { kana: "き", meaningEn: "tree", emoji: "🌳" },
   { kana: "て", meaningEn: "hand", emoji: "✋" },
   { kana: "め", meaningEn: "eye", emoji: "👁️" },
@@ -574,7 +589,7 @@ const TA_WORDS: RowWord[] = [
   { kana: "とけい", meaningEn: "clock", emoji: "⏰" },
 ];
 const NA_WORDS: RowWord[] = [
-  { kana: "なに",   meaningEn: "what",     emoji: "🤷" },
+  { kana: "なに",   meaningEn: "what",     emoji: "❓" },
   { kana: "ねこ",   meaningEn: "cat",      emoji: "🐱" },
   { kana: "きのこ", meaningEn: "mushroom", emoji: "🍄" },
 ];
@@ -591,12 +606,12 @@ const MA_WORDS: RowWord[] = [
 const YA_WORDS: RowWord[] = [
   { kana: "やま", meaningEn: "mountain", emoji: "⛰️" },
   { kana: "ゆき", meaningEn: "snow",     emoji: "❄️" },
-  { kana: "よむ", meaningEn: "to read",  emoji: "📖" },
+  { kana: "よむ", meaningEn: "to read",  emoji: "📚" },
 ];
 const RA_WORDS: RowWord[] = [
   { kana: "さくら", meaningEn: "cherry blossom", emoji: "🌸" },
   { kana: "これ",   meaningEn: "this",           emoji: "👉" },
-  { kana: "いろ",   meaningEn: "color",          emoji: "🎨" },
+  { kana: "いろ",   meaningEn: "color",          emoji: "🌈" },
 ];
 
 /** Prior-row kana pool — what each row's review tail can draw from. */
@@ -736,7 +751,12 @@ export function priorKanaSymbolToSound(rowId: string, suffix: string): LessonSte
 export function priorWordMcq(rowId: string, suffix: string): LessonStep {
   // BUG-C 2026-05-18: emoji-less words can't surface in visual MCQ —
   // both target and distractor pools restricted to emoji-having entries.
-  const pool = priorWordsFor(rowId).filter((w) => Boolean(w.emoji));
+  // 2026-05-18 audit: also drop image-blocklisted words (e.g. こえ) —
+  // they stay on the row pool for listening/build helpers but never
+  // surface as a visual-MCQ target or distractor.
+  const pool = priorWordsFor(rowId).filter(
+    (w) => Boolean(w.emoji) && !WORD_IMAGE_MCQ_BLOCKLIST.has(w.kana),
+  );
   const seed = `${rowId}-rev-word-${suffix}`;
   const [target, ...rest] = pickFromPool(pool, seed, 4);
   const distractors = rest.slice(0, 3);
@@ -818,8 +838,12 @@ function priorWordMcqExcluding(
   // BUG-C 2026-05-18: emoji-less words (e.g. いけ) can't be a visual-MCQ
   // target or distractor — the entire step uses the emoji as the cue.
   // Excluded from both correct-candidate and distractor pools.
+  // 2026-05-18 audit: also exclude image-blocklisted words (e.g. こえ).
   const pool = priorWordsFor(rowId).filter(
-    (w) => !excludeKana.has(w.kana) && Boolean(w.emoji),
+    (w) =>
+      !excludeKana.has(w.kana) &&
+      Boolean(w.emoji) &&
+      !WORD_IMAGE_MCQ_BLOCKLIST.has(w.kana),
   );
   if (pool.length === 0) {
     throw new Error(`priorWordMcqExcluding: pool empty after exclusion for ${rowId}`);
@@ -830,7 +854,10 @@ function priorWordMcqExcluding(
   // pool (minus target, emoji-having only) if the post-exclusion pool
   // is shorter than 4.
   const fullPool = priorWordsFor(rowId).filter(
-    (w) => w.kana !== target.kana && Boolean(w.emoji),
+    (w) =>
+      w.kana !== target.kana &&
+      Boolean(w.emoji) &&
+      !WORD_IMAGE_MCQ_BLOCKLIST.has(w.kana),
   );
   const distractorSource = rest.length >= 3 ? rest : fullPool.slice(0, 3);
   const distractors = distractorSource.slice(0, 3);

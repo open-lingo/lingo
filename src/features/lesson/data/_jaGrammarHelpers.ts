@@ -274,7 +274,7 @@ export const M3_M7_REVIEW_POOL: ReviewAtom[] = [
   { kana: "そら", meaningEn: "sky",      emoji: "☁️", fromModule: "m1" },
   { kana: "つき", meaningEn: "moon",     emoji: "🌙", fromModule: "m1" },
   { kana: "ほし", meaningEn: "star",     emoji: "⭐", fromModule: "m1" },
-  { kana: "はな", meaningEn: "flower",   emoji: "🌸", fromModule: "m1" },
+  { kana: "はな", meaningEn: "flower",   emoji: "🌷", fromModule: "m1" },
   { kana: "うみ", meaningEn: "sea",      emoji: "🌊", fromModule: "m1" },
   { kana: "かい", meaningEn: "shell",    emoji: "🐚", fromModule: "m1" },
   { kana: "かお", meaningEn: "face",     emoji: "😀", fromModule: "m1" },
@@ -318,11 +318,11 @@ export const M3_M7_REVIEW_POOL: ReviewAtom[] = [
   { kana: "とけい",     meaningEn: "watch/clock",       emoji: "⌚", fromModule: "m4" },
   { kana: "つくえ",     meaningEn: "desk",              emoji: "🗄️", fromModule: "m4" },
   { kana: "しんぶん",   meaningEn: "newspaper",         emoji: "📰", fromModule: "m4" },
-  { kana: "ざっし",     meaningEn: "magazine",          emoji: "📓", fromModule: "m4" },
+  { kana: "ざっし",     meaningEn: "magazine",          emoji: "📔", fromModule: "m4" },
   { kana: "あね",       meaningEn: "older sister",      emoji: "👩", fromModule: "m4" },
   { kana: "あに",       meaningEn: "older brother",     emoji: "👨", fromModule: "m4" },
-  { kana: "はは",       meaningEn: "(my) mother",       emoji: "👩‍🦰", fromModule: "m4" },
-  { kana: "ちち",       meaningEn: "(my) father",       emoji: "👨‍🦱", fromModule: "m4" },
+  { kana: "はは",       meaningEn: "(my) mother",       emoji: "👩‍👦", fromModule: "m4" },
+  { kana: "ちち",       meaningEn: "(my) father",       emoji: "👨‍👦", fromModule: "m4" },
   { kana: "あなた",     meaningEn: "you",               emoji: "🫵", fromModule: "m4" },
   { kana: "わたし",     meaningEn: "I/me",              emoji: "🙋", fromModule: "m4" },
   { kana: "にほん",     meaningEn: "Japan",             emoji: "🇯🇵", fromModule: "m4" },
@@ -347,36 +347,36 @@ export const M3_M7_REVIEW_POOL: ReviewAtom[] = [
   { kana: "ひとり",     meaningEn: "1 person",          emoji: "🧍", fromModule: "m5" },
   { kana: "ふたり",     meaningEn: "2 people",          emoji: "👥", fromModule: "m5" },
   { kana: "さんにん",   meaningEn: "3 people",          emoji: "👨‍👩‍👦", fromModule: "m5" },
-  { kana: "おかね",     meaningEn: "money",             emoji: "💴", fromModule: "m5" },
-  { kana: "いくら",     meaningEn: "how much (price)",  emoji: "💰", fromModule: "m5" },
+  { kana: "おかね",     meaningEn: "money",             emoji: "💰", fromModule: "m5" },
+  { kana: "いくら",     meaningEn: "how much (price)",  emoji: "💲", fromModule: "m5" },
   { kana: "えん",       meaningEn: "yen",               emoji: "💴", fromModule: "m5" },
   { kana: "おちゃ",     meaningEn: "green tea",         emoji: "🍵", fromModule: "m5" },
-  { kana: "ください",   meaningEn: "please give me",    emoji: "🙏", fromModule: "m5" },
+  { kana: "ください",   meaningEn: "please give me",    emoji: "🤲", fromModule: "m5" },
   // ── M6 anchors (places + transport + existence verbs) ──
-  { kana: "こうえん",     meaningEn: "park",              emoji: "🏞️", fromModule: "m6" },
+  { kana: "こうえん",     meaningEn: "park",              emoji: "🌲", fromModule: "m6" },
   { kana: "がっこう",     meaningEn: "school",            emoji: "🏫", fromModule: "m6" },
-  { kana: "うち",         meaningEn: "home",              emoji: "🏠", fromModule: "m6" },
+  { kana: "うち",         meaningEn: "home",              emoji: "🏡", fromModule: "m6" },
   { kana: "えき",         meaningEn: "train station",     emoji: "🚉", fromModule: "m6" },
-  { kana: "トイレ",       meaningEn: "toilet",            emoji: "🚻", fromModule: "m6" },
+  { kana: "トイレ",       meaningEn: "toilet",            emoji: "🚽", fromModule: "m6" },
   { kana: "コンビニ",     meaningEn: "convenience store", emoji: "🏪", fromModule: "m6" },
   { kana: "ぎんこう",     meaningEn: "bank",              emoji: "🏦", fromModule: "m6" },
   { kana: "びょういん",   meaningEn: "hospital",          emoji: "🏥", fromModule: "m6" },
   { kana: "ゆうびんきょく", meaningEn: "post office",     emoji: "🏤", fromModule: "m6" },
-  { kana: "としょかん",   meaningEn: "library",           emoji: "📚", fromModule: "m6" },
+  { kana: "としょかん",   meaningEn: "library",           emoji: "🏛️", fromModule: "m6" },
   { kana: "くうこう",     meaningEn: "airport",           emoji: "✈️", fromModule: "m6" },
-  { kana: "みせ",         meaningEn: "shop",              emoji: "🛍️", fromModule: "m6" },
-  { kana: "へや",         meaningEn: "room",              emoji: "🚪", fromModule: "m6" },
+  { kana: "みせ",         meaningEn: "shop",              emoji: "🏬", fromModule: "m6" },
+  { kana: "へや",         meaningEn: "room",              emoji: "🛋️", fromModule: "m6" },
   { kana: "でんしゃ",     meaningEn: "train",             emoji: "🚆", fromModule: "m6" },
   { kana: "バス",         meaningEn: "bus",               emoji: "🚌", fromModule: "m6" },
   { kana: "ちかてつ",     meaningEn: "subway",            emoji: "🚇", fromModule: "m6" },
   { kana: "あります",     meaningEn: "exists (thing)",    emoji: "📦", fromModule: "m6" },
-  { kana: "います",       meaningEn: "exists (alive)",    emoji: "🧍", fromModule: "m6" },
+  { kana: "います",       meaningEn: "exists (alive)",    emoji: "🧑", fromModule: "m6" },
   // ── M7 anchors (verbs in ます-form + food/drink objects) ──
   { kana: "たべます",   meaningEn: "eat (polite)",      emoji: "🍴", fromModule: "m7" },
   { kana: "のみます",   meaningEn: "drink (polite)",    emoji: "🥤", fromModule: "m7" },
   { kana: "いきます",   meaningEn: "go (polite)",       emoji: "🚶", fromModule: "m7" },
   { kana: "みます",     meaningEn: "watch (polite)",    emoji: "👀", fromModule: "m7" },
-  { kana: "よみます",   meaningEn: "read (polite)",     emoji: "📖", fromModule: "m7" },
+  { kana: "よみます",   meaningEn: "read (polite)",     emoji: "📚", fromModule: "m7" },
   { kana: "かきます",   meaningEn: "write (polite)",    emoji: "✍️", fromModule: "m7" },
   { kana: "すし",       meaningEn: "sushi",             emoji: "🍣", fromModule: "m7" },
   { kana: "ラーメン",   meaningEn: "ramen",             emoji: "🍜", fromModule: "m7" },
@@ -451,11 +451,46 @@ export function reviewMatchPairs(
 }
 
 /**
+ * Words whose audit-graded visual cue (Noto emoji OR custom SVG) is
+ * either misleading or weak per docs/emoji-blocked-words-2026-05-18.md.
+ * The kana stay in the curriculum and ride along on pools as `emoji`-bearing
+ * atoms (so listeningBuild / listeningComp / build_sentence can use them),
+ * but `vocabMcq` and `priorWordMcq` skip them from BOTH target and
+ * distractor slots. Authors pick a different step type for these words.
+ *
+ * Add to this set when the audit flags a new word. Strip an entry when
+ * we ship custom art the audit grades "confident."
+ */
+export const WORD_IMAGE_MCQ_BLOCKLIST: ReadonlySet<string> = new Set([
+  "あなた",   // pronoun — context-dropped in practice
+  "あに",     // older brother — age cue carried by kanji, not face
+  "あね",     // older sister — same
+  "ちち",     // (my) father — parent composition reads as "parent," not father
+  "はは",     // (my) mother — same
+  "あります", // exists (thing) — grammatical existence, no visual referent
+  "います",   // exists (alive) — same
+  "こえ",     // voice — 🗣️ reads as "speech/shout," not the abstract "voice"
+]);
+
+/**
+ * Helper: returns a copy of `pool` with image-blocklisted atoms removed.
+ * Use when declaring per-module review pools that feed `vocabMcq` —
+ * blocklisted atoms can't be MCQ targets and shouldn't be MCQ distractors
+ * either. The unfiltered pool stays available for matchPairs / listening
+ * helpers (text + audio surfaces, no image).
+ */
+export function withoutMcqBlocked(pool: ReviewAtom[]): ReviewAtom[] {
+  return pool.filter((a) => !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana));
+}
+
+/**
  * `word_image_mcq` factory with auto-drawn distractors from a prior atom
  * pool. Skips the target itself + any atom without an emoji (visual MCQ
  * requires the emoji as the semantic cue). Throws if the target has no
  * emoji (the call site should use `listeningComp` / `listeningBuild`
- * instead — visual MCQ on an emoji-less word is unsolvable).
+ * instead — visual MCQ on an emoji-less word is unsolvable). Also throws
+ * if the target is in `WORD_IMAGE_MCQ_BLOCKLIST` — those words are
+ * teachable via other step types, just not via visual MCQ.
  *
  * Used to introduce / re-encounter a vocab atom via visual recognition.
  * Distractors deterministic by id so a re-mount picks the same foils.
@@ -470,8 +505,13 @@ export function vocabMcq(
       `vocabMcq: target '${target.kana}' has no emoji — use listeningBuild or listeningComp instead`,
     );
   }
+  if (WORD_IMAGE_MCQ_BLOCKLIST.has(target.kana)) {
+    throw new Error(
+      `vocabMcq: target '${target.kana}' is image-blocked (see docs/emoji-blocked-words-2026-05-18.md) — use listeningBuild / listeningComp / particle_cloze / phrase_card instead`,
+    );
+  }
   const filtered = distractorPool.filter(
-    (a) => a.kana !== target.kana && Boolean(a.emoji),
+    (a) => a.kana !== target.kana && Boolean(a.emoji) && !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana),
   );
   const picked = pickReviewAtoms(`${idPrefix}-distractors`, filtered, 3);
   if (picked.length < 3) {

@@ -35,7 +35,7 @@ const ctx: RowContext = {
   words: [
     { kana: "やま", meaningEn: "mountain", emoji: "⛰️" },
     { kana: "ゆき", meaningEn: "snow",     emoji: "❄️" },
-    { kana: "よむ", meaningEn: "to read",  emoji: "📖" },
+    { kana: "よむ", meaningEn: "to read",  emoji: "📚" },
   ],
   tileBankPool: [
     "あ", "い", "う", "え", "お",

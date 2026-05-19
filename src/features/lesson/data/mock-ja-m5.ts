@@ -65,6 +65,7 @@ import {
   translateStep,
   vocab,
   vocabMcq,
+  WORD_IMAGE_MCQ_BLOCKLIST,
   type ReviewAtom,
 } from "./_jaGrammarHelpers";
 
@@ -95,8 +96,10 @@ const M5_NUMBER_ATOMS: ReviewAtom[] = [
 // Per-sub-lesson seeds keep draws stable but distinct.
 // ───────────────────────────────────────────────────────────────────────
 const PRIOR_POOL = M3_M7_REVIEW_POOL.filter(
-  (a) => a.fromModule === "m1" || a.fromModule === "m2" ||
-         a.fromModule === "m3" || a.fromModule === "m4",
+  (a) =>
+    (a.fromModule === "m1" || a.fromModule === "m2" ||
+     a.fromModule === "m3" || a.fromModule === "m4") &&
+    !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana),
 );
 
 // ----- M5-1 — Numbers 1-5 (retrieval-first, no phrase_card run) -----------

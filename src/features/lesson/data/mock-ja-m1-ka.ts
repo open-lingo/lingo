@@ -150,7 +150,12 @@ export const MOCK_LESSON_JA_M1_KA_3: LessonContent = {
     traceTwice("ja-ka3-trace-ko", "こ", "ko", "like 'ko' in 'koala'"),
     recognition(ctx, "ja-ka3-recog-ko", "こ", "ko", "like 'ko' in 'koala'"),
 
-    wordImageMcq(ctx, "ja-ka3-mcq-koe", "こえ"),
+    // 2026-05-18 audit: こえ ("voice") is image-blocked — 🗣️ reads as
+    // "shout/speech," not the abstract "voice." Replaced with a listening
+    // comp primer (audio → meaning), then immediate listeningBuild keeps
+    // the encode → apply rhythm without leaning on a misleading icon.
+    listeningComp("ja-ka3-mcq-koe", "こえ", "koe", "voice",
+      ["face", "shell", "pond"]),
     listeningBuild(ctx, "ja-ka3-build-koe", "こえ", "voice"),
 
     // Single representative row-sweep recog (け). The remaining four

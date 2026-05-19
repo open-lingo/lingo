@@ -62,7 +62,7 @@ const ctxSub2: RowContext = {
   ],
   words: [
     { kana: "ひゃく", meaningEn: "hundred", emoji: "💯" },
-    { kana: "りょうり", meaningEn: "cooking", emoji: "🍳" },
+    { kana: "りょうり", meaningEn: "cooking", emoji: "👨‍🍳" },
   ],
   tileBankPool: ["ひゃ", "ひゅ", "ひょ", "りゃ", "りゅ", "りょ", "にゃ", "にゅ", "にょ", "みゃ", "みゅ", "みょ", "あ", "い", "う", "え", "お", "く"],
 };
