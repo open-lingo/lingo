@@ -1,0 +1,5298 @@
+[
+  {
+    "word": "毎朝",
+    "kana": "まいあさ",
+    "meaning": "every morning",
+    "emoji": "🌅",
+    "blocked": false,
+    "note": "sunrise reads as morning"
+  },
+  {
+    "word": "問題",
+    "kana": "もんだい",
+    "meaning": "problem",
+    "emoji": "❓",
+    "blocked": false,
+    "note": "question mark as problem proxy"
+  },
+  {
+    "word": "お茶",
+    "kana": "おちゃ",
+    "meaning": "green tea",
+    "emoji": "🍵",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "黒",
+    "kana": "くろ",
+    "meaning": "black",
+    "emoji": "⬛",
+    "blocked": false,
+    "note": "black square"
+  },
+  {
+    "word": "台所",
+    "kana": "だいどころ",
+    "meaning": "kitchen",
+    "emoji": "🍳",
+    "blocked": false,
+    "note": "cooking pan stands in for kitchen"
+  },
+  {
+    "word": "葉書",
+    "kana": "はがき",
+    "meaning": "postcard",
+    "emoji": "📮",
+    "blocked": false,
+    "note": "postbox as proxy for postcard"
+  },
+  {
+    "word": "ペン",
+    "kana": "",
+    "meaning": "pen",
+    "emoji": "🖊️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ニュース",
+    "kana": "",
+    "meaning": "news",
+    "emoji": "📰",
+    "blocked": false,
+    "note": "newspaper as news proxy"
+  },
+  {
+    "word": "花瓶",
+    "kana": "かびん",
+    "meaning": "a vase",
+    "emoji": "🏺",
+    "blocked": false,
+    "note": "amphora — closest Noto vase"
+  },
+  {
+    "word": "フォーク",
+    "kana": "",
+    "meaning": "fork",
+    "emoji": "🍴",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "引く",
+    "kana": "ひく",
+    "meaning": "to pull",
+    "emoji": "🪝",
+    "blocked": false,
+    "note": "hook implies pulling"
+  },
+  {
+    "word": "フィルム",
+    "kana": "",
+    "meaning": "roll of film",
+    "emoji": "🎞️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "磨く",
+    "kana": "みがく",
+    "meaning": "to brush teeth, to polish",
+    "emoji": "🪥",
+    "blocked": false,
+    "note": "toothbrush"
+  },
+  {
+    "word": "押す",
+    "kana": "おす",
+    "meaning": "to push, to stamp something",
+    "emoji": "👆",
+    "blocked": false,
+    "note": "pointing/pushing finger"
+  },
+  {
+    "word": "売る",
+    "kana": "うる",
+    "meaning": "to sell",
+    "emoji": "🏷️",
+    "blocked": false,
+    "note": "price tag as sell proxy"
+  },
+  {
+    "word": "電気",
+    "kana": "でんき",
+    "meaning": "electricity, electric light",
+    "emoji": "💡",
+    "blocked": false,
+    "note": "light bulb covers electric light"
+  },
+  {
+    "word": "並ぶ",
+    "kana": "ならぶ",
+    "meaning": "to line up, to stand in a line",
+    "emoji": "",
+    "blocked": true,
+    "note": "no single-glyph for line-up; abstract action"
+  },
+  {
+    "word": "病気",
+    "kana": "びょうき",
+    "meaning": "illness",
+    "emoji": "🤒",
+    "blocked": false,
+    "note": "face with thermometer"
+  },
+  {
+    "word": "ポケット",
+    "kana": "",
+    "meaning": "pocket",
+    "emoji": "👖",
+    "blocked": false,
+    "note": "jeans as pocket proxy"
+  },
+  {
+    "word": "頭",
+    "kana": "あたま",
+    "meaning": "head",
+    "emoji": "🧠",
+    "blocked": true,
+    "note": "brain reads as 'remember' (used for 覚える); no clean head-anatomy glyph"
+  },
+  {
+    "word": "はし",
+    "kana": "",
+    "meaning": "chopsticks",
+    "emoji": "🥢",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "英語",
+    "kana": "えいご",
+    "meaning": "English language",
+    "emoji": "🇺🇸",
+    "blocked": false,
+    "note": "US flag — wired via separate flag dir"
+  },
+  {
+    "word": "家",
+    "kana": "いえ",
+    "meaning": "house",
+    "emoji": "🏠",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "一月",
+    "kana": "ひとつき",
+    "meaning": "one month",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract duration; calendar reads as date not span"
+  },
+  {
+    "word": "暑い",
+    "kana": "あつい",
+    "meaning": "hot",
+    "emoji": "🥵",
+    "blocked": false,
+    "note": "hot face"
+  },
+  {
+    "word": "遊ぶ",
+    "kana": "あそぶ",
+    "meaning": "to play, to make a visit",
+    "emoji": "🎲",
+    "blocked": false,
+    "note": "die as play proxy"
+  },
+  {
+    "word": "取る",
+    "kana": "とる",
+    "meaning": "to take something",
+    "emoji": "🤲",
+    "blocked": false,
+    "note": "open hands receiving"
+  },
+  {
+    "word": "九",
+    "kana": "きゅう / く",
+    "meaning": "nine",
+    "emoji": "9️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "閉める",
+    "kana": "しめる",
+    "meaning": "to close something",
+    "emoji": "🚪",
+    "blocked": true,
+    "note": "door already used for 玄関; verb action not visualizable"
+  },
+  {
+    "word": "たいへん",
+    "kana": "",
+    "meaning": "very",
+    "emoji": "",
+    "blocked": true,
+    "note": "intensifier adverb"
+  },
+  {
+    "word": "奥さん",
+    "kana": "おくさん",
+    "meaning": "(honorable) wife",
+    "emoji": "👰",
+    "blocked": false,
+    "note": "bride stands in for wife"
+  },
+  {
+    "word": "作文",
+    "kana": "さくぶん",
+    "meaning": "composition, writing",
+    "emoji": "📝",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "便利",
+    "kana": "べんり",
+    "meaning": "useful, convenient",
+    "emoji": "🛠️",
+    "blocked": false,
+    "note": "tools as useful proxy"
+  },
+  {
+    "word": "右",
+    "kana": "みぎ",
+    "meaning": "right side",
+    "emoji": "➡️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "寒い",
+    "kana": "さむい",
+    "meaning": "cold",
+    "emoji": "🥶",
+    "blocked": false,
+    "note": "cold face"
+  },
+  {
+    "word": "あびる",
+    "kana": "",
+    "meaning": "to bathe, to shower",
+    "emoji": "🚿",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "十",
+    "kana": "じゅう  とお",
+    "meaning": "ten",
+    "emoji": "🔟",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "中",
+    "kana": "なか",
+    "meaning": "middle",
+    "emoji": "🎯",
+    "blocked": true,
+    "note": "bullseye reads as 'target' not 'middle'"
+  },
+  {
+    "word": "消す",
+    "kana": "けす",
+    "meaning": "to erase, to turn off power",
+    "emoji": "🧽",
+    "blocked": false,
+    "note": "sponge as erase proxy"
+  },
+  {
+    "word": "近く",
+    "kana": "ちかく",
+    "meaning": "near",
+    "emoji": "📍",
+    "blocked": false,
+    "note": "pin as near-here proxy"
+  },
+  {
+    "word": "七つ",
+    "kana": "ななつ",
+    "meaning": "seven",
+    "emoji": "7️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "テープレコーダー",
+    "kana": "",
+    "meaning": "tape recorder",
+    "emoji": "📼",
+    "blocked": false,
+    "note": "videocassette — closest cassette glyph"
+  },
+  {
+    "word": "目",
+    "kana": "め",
+    "meaning": "eye",
+    "emoji": "👁️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "空",
+    "kana": "そら",
+    "meaning": "sky",
+    "emoji": "☁️",
+    "blocked": false,
+    "note": "cloud as sky proxy"
+  },
+  {
+    "word": "六日",
+    "kana": "むいか",
+    "meaning": "six days, sixth day of the month",
+    "emoji": "",
+    "blocked": true,
+    "note": "date concept — no clean visual"
+  },
+  {
+    "word": "座る",
+    "kana": "すわる",
+    "meaning": "to sit",
+    "emoji": "🪑",
+    "blocked": false,
+    "note": "chair as sitting proxy"
+  },
+  {
+    "word": "年",
+    "kana": "とし",
+    "meaning": "year",
+    "emoji": "📅",
+    "blocked": false,
+    "note": "calendar as year proxy"
+  },
+  {
+    "word": "男の子",
+    "kana": "おとこのこ",
+    "meaning": "boy",
+    "emoji": "👦",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "狭い",
+    "kana": "せまい",
+    "meaning": "narrow",
+    "emoji": "↔️",
+    "blocked": true,
+    "note": "no clean narrow glyph; left-right arrow reads as wide"
+  },
+  {
+    "word": "冷蔵庫",
+    "kana": "れいぞうこ",
+    "meaning": "refrigerator",
+    "emoji": "🧊",
+    "blocked": false,
+    "note": "ice cube as cold-storage proxy"
+  },
+  {
+    "word": "カメラ",
+    "kana": "",
+    "meaning": "camera",
+    "emoji": "📷",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "玄関",
+    "kana": "げんかん",
+    "meaning": "entry hall",
+    "emoji": "🚪",
+    "blocked": false,
+    "note": "door as entry proxy"
+  },
+  {
+    "word": "違う",
+    "kana": "ちがう",
+    "meaning": "to differ",
+    "emoji": "❌",
+    "blocked": false,
+    "note": "X as 'wrong/different' proxy"
+  },
+  {
+    "word": "危ない",
+    "kana": "あぶない",
+    "meaning": "dangerous",
+    "emoji": "⚠️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "分かる",
+    "kana": "わかる",
+    "meaning": "to be understood",
+    "emoji": "💡",
+    "blocked": true,
+    "note": "lightbulb already used for 電気; understanding too abstract"
+  },
+  {
+    "word": "言う",
+    "kana": "いう",
+    "meaning": "to say",
+    "emoji": "💬",
+    "blocked": false,
+    "note": "speech bubble"
+  },
+  {
+    "word": "飲む",
+    "kana": "のむ",
+    "meaning": "to drink",
+    "emoji": "🥤",
+    "blocked": false,
+    "note": "cup with straw"
+  },
+  {
+    "word": "練習",
+    "kana": "れんしゅうする",
+    "meaning": "to practice",
+    "emoji": "📓",
+    "blocked": false,
+    "note": "notebook as practice proxy"
+  },
+  {
+    "word": "何",
+    "kana": "なん / なに",
+    "meaning": "what",
+    "emoji": "",
+    "blocked": true,
+    "note": "interrogative — abstract grammar"
+  },
+  {
+    "word": "厚い",
+    "kana": "あつい",
+    "meaning": "kind, deep, thick",
+    "emoji": "",
+    "blocked": true,
+    "note": "polysemous abstract adjective"
+  },
+  {
+    "word": "毎月",
+    "kana": "まいげつ / まいつき",
+    "meaning": "every month",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract recurrence"
+  },
+  {
+    "word": "閉まる",
+    "kana": "しまる",
+    "meaning": "to close, to be closed",
+    "emoji": "",
+    "blocked": true,
+    "note": "intransitive variant of 閉める — same physical event"
+  },
+  {
+    "word": "脱ぐ",
+    "kana": "ぬぐ",
+    "meaning": "to take off clothes",
+    "emoji": "👔",
+    "blocked": true,
+    "note": "necktie reads as clothing not removing; verb action not visualizable"
+  },
+  {
+    "word": "黒い",
+    "kana": "くろい",
+    "meaning": "black",
+    "emoji": "⬛",
+    "blocked": false,
+    "note": "adjective form of 黒 — shares glyph"
+  },
+  {
+    "word": "登る",
+    "kana": "のぼる",
+    "meaning": "to climb",
+    "emoji": "🧗",
+    "blocked": false,
+    "note": "person climbing"
+  },
+  {
+    "word": "汚い",
+    "kana": "きたない",
+    "meaning": "dirty",
+    "emoji": "🗑️",
+    "blocked": true,
+    "note": "trash reads as 'garbage' not 'dirty'"
+  },
+  {
+    "word": "雨",
+    "kana": "あめ",
+    "meaning": "rain",
+    "emoji": "🌧️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "お皿",
+    "kana": "おさら",
+    "meaning": "plate, dish",
+    "emoji": "🍽️",
+    "blocked": false,
+    "note": "plate-with-utensils"
+  },
+  {
+    "word": "速い",
+    "kana": "はやい",
+    "meaning": "quick",
+    "emoji": "💨",
+    "blocked": false,
+    "note": "dashing-away motion lines"
+  },
+  {
+    "word": "お風呂",
+    "kana": "おふろ",
+    "meaning": "bath",
+    "emoji": "🛁",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "新しい",
+    "kana": "あたらしい",
+    "meaning": "new",
+    "emoji": "🆕",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "廊下",
+    "kana": "ろうか",
+    "meaning": "corridor",
+    "emoji": "",
+    "blocked": true,
+    "note": "no corridor emoji in Noto"
+  },
+  {
+    "word": "茶色",
+    "kana": "ちゃいろ",
+    "meaning": "brown",
+    "emoji": "🟫",
+    "blocked": false,
+    "note": "brown square"
+  },
+  {
+    "word": "コート",
+    "kana": "",
+    "meaning": "coat, tennis court",
+    "emoji": "🧥",
+    "blocked": false,
+    "note": "coat (primary sense)"
+  },
+  {
+    "word": "手紙",
+    "kana": "てがみ",
+    "meaning": "letter",
+    "emoji": "✉️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "要る",
+    "kana": "いる",
+    "meaning": "to need",
+    "emoji": "❗",
+    "blocked": true,
+    "note": "exclamation reads as 'attention' not 'need'"
+  },
+  {
+    "word": "こっち",
+    "kana": "",
+    "meaning": "this person or way",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — spatial pronoun"
+  },
+  {
+    "word": "スプーン",
+    "kana": "",
+    "meaning": "spoon",
+    "emoji": "🥄",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "時々",
+    "kana": "ときどき",
+    "meaning": "sometimes",
+    "emoji": "",
+    "blocked": true,
+    "note": "frequency adverb"
+  },
+  {
+    "word": "傘",
+    "kana": "かさ",
+    "meaning": "umbrella",
+    "emoji": "☂️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "いい / よい",
+    "kana": "",
+    "meaning": "good",
+    "emoji": "👍",
+    "blocked": false,
+    "note": "thumbs up as good proxy"
+  },
+  {
+    "word": "電話",
+    "kana": "でんわ",
+    "meaning": "telephone",
+    "emoji": "📞",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "勤める",
+    "kana": "つとめる",
+    "meaning": "to work for someone",
+    "emoji": "💼",
+    "blocked": false,
+    "note": "briefcase as employment proxy"
+  },
+  {
+    "word": "安い",
+    "kana": "やすい",
+    "meaning": "cheap",
+    "emoji": "🪙",
+    "blocked": false,
+    "note": "coin as cheap/small-money proxy"
+  },
+  {
+    "word": "どう",
+    "kana": "",
+    "meaning": "how, in what way",
+    "emoji": "",
+    "blocked": true,
+    "note": "interrogative"
+  },
+  {
+    "word": "道",
+    "kana": "みち",
+    "meaning": "street",
+    "emoji": "🛣️",
+    "blocked": false,
+    "note": "motorway as street proxy"
+  },
+  {
+    "word": "バス",
+    "kana": "",
+    "meaning": "bus",
+    "emoji": "🚌",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "クラス",
+    "kana": "",
+    "meaning": "class",
+    "emoji": "🏫",
+    "blocked": false,
+    "note": "school as class proxy"
+  },
+  {
+    "word": "差す",
+    "kana": "さす",
+    "meaning": "to stretch out hands, to raise an umbrella",
+    "emoji": "",
+    "blocked": true,
+    "note": "polysemous action verb"
+  },
+  {
+    "word": "スポーツ",
+    "kana": "",
+    "meaning": "sport",
+    "emoji": "⚽",
+    "blocked": false,
+    "note": "soccer ball as sport proxy"
+  },
+  {
+    "word": "どっち",
+    "kana": "",
+    "meaning": "which",
+    "emoji": "",
+    "blocked": true,
+    "note": "interrogative pronoun"
+  },
+  {
+    "word": "そば",
+    "kana": "",
+    "meaning": "near, beside",
+    "emoji": "",
+    "blocked": true,
+    "note": "positional — abstract"
+  },
+  {
+    "word": "新聞",
+    "kana": "しんぶん",
+    "meaning": "newspaper",
+    "emoji": "📰",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "どうして",
+    "kana": "",
+    "meaning": "for what reason",
+    "emoji": "",
+    "blocked": true,
+    "note": "interrogative"
+  },
+  {
+    "word": "庭",
+    "kana": "にわ",
+    "meaning": "garden",
+    "emoji": "🌳",
+    "blocked": false,
+    "note": "tree as garden proxy"
+  },
+  {
+    "word": "大きな",
+    "kana": "おおきな",
+    "meaning": "big",
+    "emoji": "🐘",
+    "blocked": false,
+    "note": "elephant as big proxy"
+  },
+  {
+    "word": "辺",
+    "kana": "へん",
+    "meaning": "area",
+    "emoji": "🗺️",
+    "blocked": false,
+    "note": "map as area proxy"
+  },
+  {
+    "word": "番号",
+    "kana": "ばんごう",
+    "meaning": "number",
+    "emoji": "🔢",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "家族",
+    "kana": "かぞく",
+    "meaning": "family",
+    "emoji": "👨‍👩‍👧",
+    "blocked": false,
+    "note": "ZWJ family — renders in Noto"
+  },
+  {
+    "word": "下手",
+    "kana": "へた",
+    "meaning": "unskillful",
+    "emoji": "👎",
+    "blocked": false,
+    "note": "thumbs down as unskillful proxy"
+  },
+  {
+    "word": "料理",
+    "kana": "りょうり",
+    "meaning": "cuisine",
+    "emoji": "🍱",
+    "blocked": false,
+    "note": "bento as cuisine proxy"
+  },
+  {
+    "word": "カレー",
+    "kana": "",
+    "meaning": "curry",
+    "emoji": "🍛",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "六",
+    "kana": "ろく",
+    "meaning": "six",
+    "emoji": "6️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "今年",
+    "kana": "ことし",
+    "meaning": "this year",
+    "emoji": "",
+    "blocked": true,
+    "note": "deictic time expression"
+  },
+  {
+    "word": "初めて",
+    "kana": "はじめて",
+    "meaning": "for the first time",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract adverb"
+  },
+  {
+    "word": "風邪",
+    "kana": "かぜ",
+    "meaning": "a cold",
+    "emoji": "🤧",
+    "blocked": false,
+    "note": "sneezing face"
+  },
+  {
+    "word": "赤い",
+    "kana": "あかい",
+    "meaning": "red",
+    "emoji": "🟥",
+    "blocked": false,
+    "note": "red square"
+  },
+  {
+    "word": "甘い",
+    "kana": "あまい",
+    "meaning": "sweet",
+    "emoji": "🍬",
+    "blocked": false,
+    "note": "candy as sweet proxy"
+  },
+  {
+    "word": "西",
+    "kana": "にし",
+    "meaning": "west",
+    "emoji": "🧭",
+    "blocked": false,
+    "note": "compass — west direction"
+  },
+  {
+    "word": "毎週",
+    "kana": "まいしゅう",
+    "meaning": "every week",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract recurrence"
+  },
+  {
+    "word": "いつも",
+    "kana": "",
+    "meaning": "always",
+    "emoji": "",
+    "blocked": true,
+    "note": "frequency adverb"
+  },
+  {
+    "word": "五つ",
+    "kana": "いつつ",
+    "meaning": "five",
+    "emoji": "5️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "建物",
+    "kana": "たてもの",
+    "meaning": "building",
+    "emoji": "🏢",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "なる",
+    "kana": "",
+    "meaning": "to become",
+    "emoji": "🔄",
+    "blocked": true,
+    "note": "cycle reads as 'refresh' not 'become'"
+  },
+  {
+    "word": "まっすぐ",
+    "kana": "",
+    "meaning": "straight ahead, direct",
+    "emoji": "⬆️",
+    "blocked": false,
+    "note": "up arrow as straight-ahead direction"
+  },
+  {
+    "word": "作る",
+    "kana": "つくる",
+    "meaning": "to make",
+    "emoji": "🔨",
+    "blocked": false,
+    "note": "hammer as making/building proxy"
+  },
+  {
+    "word": "風",
+    "kana": "かぜ",
+    "meaning": "wind",
+    "emoji": "🌬️",
+    "blocked": false,
+    "note": "wind face"
+  },
+  {
+    "word": "少し",
+    "kana": "すこし",
+    "meaning": "few",
+    "emoji": "🤏",
+    "blocked": false,
+    "note": "pinching hand as small-amount proxy"
+  },
+  {
+    "word": "大学",
+    "kana": "だいがく",
+    "meaning": "university",
+    "emoji": "🎓",
+    "blocked": false,
+    "note": "graduation cap"
+  },
+  {
+    "word": "シャツ",
+    "kana": "",
+    "meaning": "shirt",
+    "emoji": "👕",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "病院",
+    "kana": "びょういん",
+    "meaning": "hospital",
+    "emoji": "🏥",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "会社",
+    "kana": "かいしゃ",
+    "meaning": "company",
+    "emoji": "🏢",
+    "blocked": false,
+    "note": "office building"
+  },
+  {
+    "word": "無くす",
+    "kana": "なくす",
+    "meaning": "to lose something",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract action"
+  },
+  {
+    "word": "スリッパ",
+    "kana": "",
+    "meaning": "slippers",
+    "emoji": "🥿",
+    "blocked": false,
+    "note": "flat shoe — closest slipper glyph"
+  },
+  {
+    "word": "地下鉄",
+    "kana": "ちかてつ",
+    "meaning": "underground train",
+    "emoji": "🚇",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ページ",
+    "kana": "",
+    "meaning": "page",
+    "emoji": "📄",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "曇る",
+    "kana": "くもる",
+    "meaning": "to become cloudy, to become dim",
+    "emoji": "☁️",
+    "blocked": false,
+    "note": "cloud — also used for 空 sky, mild collision"
+  },
+  {
+    "word": "辞書",
+    "kana": "じしょ",
+    "meaning": "dictionary",
+    "emoji": "📖",
+    "blocked": false,
+    "note": "open book"
+  },
+  {
+    "word": "万年筆",
+    "kana": "まんねんひつ",
+    "meaning": "fountain pen",
+    "emoji": "🖋️",
+    "blocked": false,
+    "note": "fountain pen — exact match"
+  },
+  {
+    "word": "海",
+    "kana": "うみ",
+    "meaning": "sea",
+    "emoji": "🌊",
+    "blocked": false,
+    "note": "wave"
+  },
+  {
+    "word": "エレベーター",
+    "kana": "",
+    "meaning": "elevator",
+    "emoji": "🛗",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "たぶん",
+    "kana": "",
+    "meaning": "probably",
+    "emoji": "",
+    "blocked": true,
+    "note": "modal adverb"
+  },
+  {
+    "word": "夕方",
+    "kana": "ゆうがた",
+    "meaning": "evening",
+    "emoji": "🌇",
+    "blocked": false,
+    "note": "sunset over buildings"
+  },
+  {
+    "word": "東",
+    "kana": "ひがし",
+    "meaning": "east",
+    "emoji": "🧭",
+    "blocked": true,
+    "note": "compass already used for 西; can't distinguish east vs west via emoji"
+  },
+  {
+    "word": "声",
+    "kana": "こえ",
+    "meaning": "voice",
+    "emoji": "🗣️",
+    "blocked": false,
+    "note": "speaking head"
+  },
+  {
+    "word": "撮る",
+    "kana": "とる",
+    "meaning": "to take a photo or record a film",
+    "emoji": "📸",
+    "blocked": false,
+    "note": "camera with flash"
+  },
+  {
+    "word": "私",
+    "kana": "わたくし",
+    "meaning": "(humble) I, myself",
+    "emoji": "",
+    "blocked": true,
+    "note": "pronoun — rubric blocks pronouns"
+  },
+  {
+    "word": "両親",
+    "kana": "りょうしん",
+    "meaning": "both parents",
+    "emoji": "👪",
+    "blocked": false,
+    "note": "family glyph implies parents"
+  },
+  {
+    "word": "きれい",
+    "kana": "",
+    "meaning": "pretty, clean",
+    "emoji": "✨",
+    "blocked": false,
+    "note": "sparkles as clean/pretty proxy"
+  },
+  {
+    "word": "どうぞ",
+    "kana": "",
+    "meaning": "please",
+    "emoji": "🙏",
+    "blocked": false,
+    "note": "folded hands"
+  },
+  {
+    "word": "好き",
+    "kana": "すき",
+    "meaning": "likeable",
+    "emoji": "❤️",
+    "blocked": false,
+    "note": "heart"
+  },
+  {
+    "word": "静か",
+    "kana": "しずか",
+    "meaning": "quiet",
+    "emoji": "🤫",
+    "blocked": false,
+    "note": "shushing face"
+  },
+  {
+    "word": "お父さん",
+    "kana": "おとうさん",
+    "meaning": "(honorable) father",
+    "emoji": "👨",
+    "blocked": true,
+    "note": "man glyph reads as 'man' not 'father'; rubric flags parent words"
+  },
+  {
+    "word": "人",
+    "kana": "ひと",
+    "meaning": "person",
+    "emoji": "🧑",
+    "blocked": false,
+    "note": "gender-neutral person"
+  },
+  {
+    "word": "覚える",
+    "kana": "おぼえる",
+    "meaning": "to remember",
+    "emoji": "🧠",
+    "blocked": false,
+    "note": "brain"
+  },
+  {
+    "word": "休み",
+    "kana": "やすみ",
+    "meaning": "rest, holiday",
+    "emoji": "😴",
+    "blocked": false,
+    "note": "sleeping face as rest proxy"
+  },
+  {
+    "word": "池",
+    "kana": "いけ",
+    "meaning": "pond",
+    "emoji": "🦆",
+    "blocked": false,
+    "note": "duck implies pond"
+  },
+  {
+    "word": "始まる",
+    "kana": "はじまる",
+    "meaning": "to begin",
+    "emoji": "▶️",
+    "blocked": false,
+    "note": "play button as start proxy"
+  },
+  {
+    "word": "困る",
+    "kana": "こまる",
+    "meaning": "to be worried",
+    "emoji": "😟",
+    "blocked": false,
+    "note": "worried face"
+  },
+  {
+    "word": "ほか",
+    "kana": "",
+    "meaning": "other, the rest",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract relational word"
+  },
+  {
+    "word": "ちゃわん",
+    "kana": "",
+    "meaning": "rice bowl",
+    "emoji": "🍚",
+    "blocked": false,
+    "note": "cooked rice in bowl"
+  },
+  {
+    "word": "疲れる",
+    "kana": "つかれる",
+    "meaning": "to get tired",
+    "emoji": "😩",
+    "blocked": false,
+    "note": "weary face"
+  },
+  {
+    "word": "掃除",
+    "kana": "そうじする",
+    "meaning": "to clean, to sweep",
+    "emoji": "🧹",
+    "blocked": false,
+    "note": "broom"
+  },
+  {
+    "word": "賑やか",
+    "kana": "にぎやか",
+    "meaning": "bustling, busy",
+    "emoji": "🎉",
+    "blocked": false,
+    "note": "party popper as lively proxy"
+  },
+  {
+    "word": "一つ",
+    "kana": "ひとつ",
+    "meaning": "one",
+    "emoji": "1️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "来週",
+    "kana": "らいしゅう",
+    "meaning": "next week",
+    "emoji": "",
+    "blocked": true,
+    "note": "deictic time expression"
+  },
+  {
+    "word": "財布",
+    "kana": "さいふ",
+    "meaning": "wallet",
+    "emoji": "👛",
+    "blocked": false,
+    "note": "purse — closest wallet glyph"
+  },
+  {
+    "word": "知る",
+    "kana": "しる",
+    "meaning": "to know",
+    "emoji": "💡",
+    "blocked": true,
+    "note": "lightbulb used elsewhere; cognition too abstract"
+  },
+  {
+    "word": "教える",
+    "kana": "おしえる",
+    "meaning": "to teach, to tell",
+    "emoji": "👨‍🏫",
+    "blocked": false,
+    "note": "teacher ZWJ glyph"
+  },
+  {
+    "word": "朝御飯",
+    "kana": "あさごはん",
+    "meaning": "breakfast",
+    "emoji": "🍳",
+    "blocked": false,
+    "note": "fried egg — also used for 台所; mild collision"
+  },
+  {
+    "word": "飛ぶ",
+    "kana": "とぶ",
+    "meaning": "to fly, to hop",
+    "emoji": "🕊️",
+    "blocked": false,
+    "note": "dove as flying proxy"
+  },
+  {
+    "word": "言葉",
+    "kana": "ことば",
+    "meaning": "word, language",
+    "emoji": "🔤",
+    "blocked": false,
+    "note": "ABC input symbol as language proxy"
+  },
+  {
+    "word": "キロ / キログラム",
+    "kana": "",
+    "meaning": "kilogram",
+    "emoji": "⚖️",
+    "blocked": false,
+    "note": "balance scale as weight proxy"
+  },
+  {
+    "word": "赤",
+    "kana": "あか",
+    "meaning": "red",
+    "emoji": "🟥",
+    "blocked": false,
+    "note": "red square — shares with 赤い"
+  },
+  {
+    "word": "自分",
+    "kana": "じぶん",
+    "meaning": "oneself",
+    "emoji": "",
+    "blocked": true,
+    "note": "reflexive pronoun"
+  },
+  {
+    "word": "デパート",
+    "kana": "",
+    "meaning": "department store",
+    "emoji": "🏬",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "薄い",
+    "kana": "うすい",
+    "meaning": "thin, weak",
+    "emoji": "",
+    "blocked": true,
+    "note": "polysemy: thin (paper) vs weak (tea/color); no single concrete referent"
+  },
+  {
+    "word": "高い",
+    "kana": "たかい",
+    "meaning": "tall, expensive",
+    "emoji": "",
+    "blocked": true,
+    "note": "polysemy flagged in rubric — tall vs expensive needs separate cards"
+  },
+  {
+    "word": "帰る",
+    "kana": "かえる",
+    "meaning": "to go back",
+    "emoji": "🏠",
+    "blocked": false,
+    "note": "home as return-destination cue"
+  },
+  {
+    "word": "はい",
+    "kana": "",
+    "meaning": "yes",
+    "emoji": "",
+    "blocked": true,
+    "note": "interjection/function word"
+  },
+  {
+    "word": "卵",
+    "kana": "たまご",
+    "meaning": "egg",
+    "emoji": "🥚",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "低い",
+    "kana": "ひくい",
+    "meaning": "short, low",
+    "emoji": "⬇️",
+    "blocked": false,
+    "note": "down arrow as low cue (weak; ⬆️ used for 上)"
+  },
+  {
+    "word": "なぜ",
+    "kana": "",
+    "meaning": "why",
+    "emoji": "",
+    "blocked": true,
+    "note": "question word / abstract grammar"
+  },
+  {
+    "word": "一日",
+    "kana": "いちにち",
+    "meaning": "(1) one day, (2) first of month",
+    "emoji": "",
+    "blocked": true,
+    "note": "counter/date abstraction"
+  },
+  {
+    "word": "いいえ",
+    "kana": "",
+    "meaning": "no",
+    "emoji": "",
+    "blocked": true,
+    "note": "interjection/function word"
+  },
+  {
+    "word": "小さな",
+    "kana": "ちいさな",
+    "meaning": "little",
+    "emoji": "",
+    "blocked": true,
+    "note": "prenominal adjective; abstract size, no referent"
+  },
+  {
+    "word": "時間",
+    "kana": "じかん",
+    "meaning": "time",
+    "emoji": "⏰",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "上げる",
+    "kana": "あげる",
+    "meaning": "to give",
+    "emoji": "🎁",
+    "blocked": false,
+    "note": "gift as giving cue"
+  },
+  {
+    "word": "ふろ",
+    "kana": "",
+    "meaning": "bath",
+    "emoji": "🛁",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "生徒",
+    "kana": "せいと",
+    "meaning": "pupil",
+    "emoji": "🎒",
+    "blocked": false,
+    "note": "backpack as pupil cue"
+  },
+  {
+    "word": "レストラン",
+    "kana": "",
+    "meaning": "restaurant",
+    "emoji": "🍽️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "出す",
+    "kana": "だす",
+    "meaning": "to put out",
+    "emoji": "📤",
+    "blocked": false,
+    "note": "outbox tray as put-out cue"
+  },
+  {
+    "word": "かわいい",
+    "kana": "",
+    "meaning": "cute",
+    "emoji": "🥰",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "音楽",
+    "kana": "おんがく",
+    "meaning": "music",
+    "emoji": "🎵",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "歌",
+    "kana": "うた",
+    "meaning": "song",
+    "emoji": "🎤",
+    "blocked": false,
+    "note": "microphone as song cue (music note taken)"
+  },
+  {
+    "word": "いちばん",
+    "kana": "",
+    "meaning": "best, first",
+    "emoji": "🥇",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "咲く",
+    "kana": "さく",
+    "meaning": "to bloom",
+    "emoji": "🌷",
+    "blocked": false,
+    "note": "tulip; avoid 🌸 per rubric (cherry blossom specific)"
+  },
+  {
+    "word": "山",
+    "kana": "やま",
+    "meaning": "mountain",
+    "emoji": "⛰️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "テレビ",
+    "kana": "",
+    "meaning": "television",
+    "emoji": "📺",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "授業",
+    "kana": "じゅぎょう",
+    "meaning": "lesson, class work",
+    "emoji": "👨‍🏫",
+    "blocked": false,
+    "note": "teacher as class cue"
+  },
+  {
+    "word": "暖かい",
+    "kana": "あたたかい",
+    "meaning": "warm",
+    "emoji": "☀️",
+    "blocked": false,
+    "note": "sun as warmth cue"
+  },
+  {
+    "word": "セーター",
+    "kana": "",
+    "meaning": "sweater, jumper",
+    "emoji": "🧥",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "自転車",
+    "kana": "じてんしゃ",
+    "meaning": "bicycle",
+    "emoji": "🚲",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ラジカセ / ラジオカセット",
+    "kana": "",
+    "meaning": "radio cassette player",
+    "emoji": "📻",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "つける",
+    "kana": "",
+    "meaning": "to turn on",
+    "emoji": "💡",
+    "blocked": false,
+    "note": "lightbulb as turn-on cue"
+  },
+  {
+    "word": "さ来年",
+    "kana": "さらいねん",
+    "meaning": "year after next",
+    "emoji": "",
+    "blocked": true,
+    "note": "temporal abstraction"
+  },
+  {
+    "word": "学校",
+    "kana": "がっこう",
+    "meaning": "school",
+    "emoji": "🏫",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "いくら",
+    "kana": "",
+    "meaning": "how much?",
+    "emoji": "",
+    "blocked": true,
+    "note": "question word"
+  },
+  {
+    "word": "四",
+    "kana": "し / よん",
+    "meaning": "four",
+    "emoji": "4️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "入る",
+    "kana": "はいる",
+    "meaning": "to enter, to contain",
+    "emoji": "🚪",
+    "blocked": false,
+    "note": "door as entering cue"
+  },
+  {
+    "word": "曇り",
+    "kana": "くもり",
+    "meaning": "cloudy weather",
+    "emoji": "☁️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "外国",
+    "kana": "がいこく",
+    "meaning": "foreign country",
+    "emoji": "🌏",
+    "blocked": false,
+    "note": "globe as foreign-country cue"
+  },
+  {
+    "word": "温い",
+    "kana": "ぬるい",
+    "meaning": "luke warm",
+    "emoji": "",
+    "blocked": true,
+    "note": "subtle temperature distinction; no referent that reads as 'lukewarm' vs warm/hot"
+  },
+  {
+    "word": "そうして / そして",
+    "kana": "",
+    "meaning": "and",
+    "emoji": "",
+    "blocked": true,
+    "note": "conjunction / function word"
+  },
+  {
+    "word": "どうも",
+    "kana": "",
+    "meaning": "thanks",
+    "emoji": "🙏",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "仕事",
+    "kana": "しごと",
+    "meaning": "job",
+    "emoji": "💼",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "窓",
+    "kana": "まど",
+    "meaning": "window",
+    "emoji": "🪟",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "晩",
+    "kana": "ばん",
+    "meaning": "evening",
+    "emoji": "🌆",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "難しい",
+    "kana": "むずかしい",
+    "meaning": "difficult",
+    "emoji": "😖",
+    "blocked": false,
+    "note": "confounded face as difficulty cue"
+  },
+  {
+    "word": "村",
+    "kana": "むら",
+    "meaning": "village",
+    "emoji": "🏘️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "鉛筆",
+    "kana": "えんぴつ",
+    "meaning": "pencil",
+    "emoji": "✏️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "長い",
+    "kana": "ながい",
+    "meaning": "long",
+    "emoji": "📏",
+    "blocked": false,
+    "note": "ruler as length cue"
+  },
+  {
+    "word": "生まれる",
+    "kana": "うまれる",
+    "meaning": "to be born",
+    "emoji": "👶",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "雑誌",
+    "kana": "ざっし",
+    "meaning": "magazine",
+    "emoji": "📖",
+    "blocked": false,
+    "note": "open book as magazine proxy"
+  },
+  {
+    "word": "国",
+    "kana": "くに",
+    "meaning": "country",
+    "emoji": "🗾",
+    "blocked": false,
+    "note": "Japan map as country cue (concrete shape)"
+  },
+  {
+    "word": "おまわりさん",
+    "kana": "",
+    "meaning": "friendly term for policeman",
+    "emoji": "👮",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "今朝",
+    "kana": "けさ",
+    "meaning": "this morning",
+    "emoji": "🌅",
+    "blocked": false,
+    "note": "sunrise as morning cue (loses 'this' nuance — phrase context needed)"
+  },
+  {
+    "word": "晴れる",
+    "kana": "はれる",
+    "meaning": "to be sunny",
+    "emoji": "🌞",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "夕飯",
+    "kana": "ゆうはん",
+    "meaning": "dinner",
+    "emoji": "🍽️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "一緒",
+    "kana": "いっしょ",
+    "meaning": "together",
+    "emoji": "👫",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "どれ",
+    "kana": "",
+    "meaning": "which (of three or more)",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — rubric blocks"
+  },
+  {
+    "word": "立つ",
+    "kana": "たつ",
+    "meaning": "to stand",
+    "emoji": "🧍",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "元気",
+    "kana": "げんき",
+    "meaning": "health, vitality",
+    "emoji": "💪",
+    "blocked": false,
+    "note": "flexed bicep as vitality cue"
+  },
+  {
+    "word": "天気",
+    "kana": "てんき",
+    "meaning": "weather",
+    "emoji": "⛅",
+    "blocked": false,
+    "note": "sun-behind-cloud as generic weather cue"
+  },
+  {
+    "word": "医者",
+    "kana": "いしゃ",
+    "meaning": "medical doctor",
+    "emoji": "👨‍⚕️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "七",
+    "kana": "しち / なな",
+    "meaning": "seven",
+    "emoji": "7️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "はく",
+    "kana": "",
+    "meaning": "to wear, to put on trousers",
+    "emoji": "👖",
+    "blocked": false,
+    "note": "jeans as put-on-trousers cue"
+  },
+  {
+    "word": "だんだん",
+    "kana": "",
+    "meaning": "gradually",
+    "emoji": "",
+    "blocked": true,
+    "note": "adverb of degree; no referent"
+  },
+  {
+    "word": "戸",
+    "kana": "と",
+    "meaning": "Japanese style door",
+    "emoji": "🚪",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ノート",
+    "kana": "",
+    "meaning": "notebook, exercise book",
+    "emoji": "📓",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "また",
+    "kana": "",
+    "meaning": "again, and",
+    "emoji": "",
+    "blocked": true,
+    "note": "adverb/conjunction"
+  },
+  {
+    "word": "今日",
+    "kana": "きょう",
+    "meaning": "today",
+    "emoji": "📅",
+    "blocked": false,
+    "note": "calendar as today cue"
+  },
+  {
+    "word": "とても",
+    "kana": "",
+    "meaning": "very",
+    "emoji": "",
+    "blocked": true,
+    "note": "intensifier adverb; no referent"
+  },
+  {
+    "word": "一昨年",
+    "kana": "おととし",
+    "meaning": "year before last",
+    "emoji": "",
+    "blocked": true,
+    "note": "temporal abstraction"
+  },
+  {
+    "word": "文章",
+    "kana": "ぶんしょう",
+    "meaning": "sentence, text",
+    "emoji": "📝",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "公園",
+    "kana": "こうえん",
+    "meaning": "park",
+    "emoji": "🏞️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "借りる",
+    "kana": "かりる",
+    "meaning": "to borrow",
+    "emoji": "🤝",
+    "blocked": false,
+    "note": "handshake as borrow/lend cue (weak but acceptable)"
+  },
+  {
+    "word": "口",
+    "kana": "くち",
+    "meaning": "mouth, opening",
+    "emoji": "👄",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "持つ",
+    "kana": "もつ",
+    "meaning": "to hold",
+    "emoji": "✊",
+    "blocked": false,
+    "note": "fist as holding cue"
+  },
+  {
+    "word": "上着",
+    "kana": "うわぎ",
+    "meaning": "jacket",
+    "emoji": "🧥",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "秋",
+    "kana": "あき",
+    "meaning": "autumn",
+    "emoji": "🍂",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "悪い",
+    "kana": "わるい",
+    "meaning": "bad",
+    "emoji": "👎",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "青い",
+    "kana": "あおい",
+    "meaning": "blue",
+    "emoji": "🟦",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "住む",
+    "kana": "すむ",
+    "meaning": "to live in",
+    "emoji": "🏠",
+    "blocked": false,
+    "note": "house as live-in cue"
+  },
+  {
+    "word": "かける",
+    "kana": "",
+    "meaning": "to call by phone",
+    "emoji": "📞",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "木曜日",
+    "kana": "もくようび",
+    "meaning": "Thursday",
+    "emoji": "",
+    "blocked": true,
+    "note": "day-of-week label; needs text not image"
+  },
+  {
+    "word": "忘れる",
+    "kana": "わすれる",
+    "meaning": "to forget",
+    "emoji": "🤔",
+    "blocked": false,
+    "note": "thinking face as memory-lapse cue (weak)"
+  },
+  {
+    "word": "お手洗い",
+    "kana": "おてあらい",
+    "meaning": "bathroom",
+    "emoji": "🚻",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "写真",
+    "kana": "しゃしん",
+    "meaning": "photograph",
+    "emoji": "📷",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ゼロ",
+    "kana": "",
+    "meaning": "zero",
+    "emoji": "0️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "いろいろ",
+    "kana": "",
+    "meaning": "various",
+    "emoji": "🌈",
+    "blocked": false,
+    "note": "rainbow as variety cue"
+  },
+  {
+    "word": "もう",
+    "kana": "",
+    "meaning": "already",
+    "emoji": "",
+    "blocked": true,
+    "note": "tense/aspect adverb"
+  },
+  {
+    "word": "会う",
+    "kana": "あう",
+    "meaning": "to meet",
+    "emoji": "🤝",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "南",
+    "kana": "みなみ",
+    "meaning": "south",
+    "emoji": "⬇️",
+    "blocked": false,
+    "note": "down-arrow as south cue (map convention)"
+  },
+  {
+    "word": "五日",
+    "kana": "いつか",
+    "meaning": "five days, fifth day",
+    "emoji": "",
+    "blocked": true,
+    "note": "day counter; abstract"
+  },
+  {
+    "word": "着る",
+    "kana": "きる",
+    "meaning": "to put on from the shoulders down",
+    "emoji": "👕",
+    "blocked": false,
+    "note": "shirt as put-on cue"
+  },
+  {
+    "word": "そこ",
+    "kana": "",
+    "meaning": "that place",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — rubric blocks"
+  },
+  {
+    "word": "終る",
+    "kana": "おわる",
+    "meaning": "to finish",
+    "emoji": "🏁",
+    "blocked": false,
+    "note": "checkered flag as finish cue"
+  },
+  {
+    "word": "どの",
+    "kana": "",
+    "meaning": "which",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — rubric blocks"
+  },
+  {
+    "word": "読む",
+    "kana": "よむ",
+    "meaning": "to read",
+    "emoji": "📖",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "それでは",
+    "kana": "",
+    "meaning": "in that situation",
+    "emoji": "",
+    "blocked": true,
+    "note": "discourse connector"
+  },
+  {
+    "word": "来月",
+    "kana": "らいげつ",
+    "meaning": "next month",
+    "emoji": "",
+    "blocked": true,
+    "note": "temporal abstraction"
+  },
+  {
+    "word": "果物",
+    "kana": "くだもの",
+    "meaning": "fruit",
+    "emoji": "🍎",
+    "blocked": false,
+    "note": "apple as fruit cue"
+  },
+  {
+    "word": "止まる",
+    "kana": "とまる",
+    "meaning": "to come to a halt",
+    "emoji": "🛑",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "着く",
+    "kana": "つく",
+    "meaning": "to arrive at",
+    "emoji": "🛬",
+    "blocked": false,
+    "note": "landing plane as arrival cue"
+  },
+  {
+    "word": "大好き",
+    "kana": "だいすき",
+    "meaning": "to be very likeable",
+    "emoji": "❤️",
+    "blocked": false,
+    "note": "heart as love cue"
+  },
+  {
+    "word": "妹",
+    "kana": "いもうと",
+    "meaning": "(humble) younger sister",
+    "emoji": "👧",
+    "blocked": false,
+    "note": "younger-girl approximation; sister relation context-dependent"
+  },
+  {
+    "word": "夏",
+    "kana": "なつ",
+    "meaning": "summer",
+    "emoji": "🌻",
+    "blocked": false,
+    "note": "sunflower as summer cue (☀️ taken for warm)"
+  },
+  {
+    "word": "今晩",
+    "kana": "こんばん",
+    "meaning": "this evening",
+    "emoji": "🌃",
+    "blocked": false,
+    "note": "night scene as evening cue (loses 'this' nuance)"
+  },
+  {
+    "word": "塩",
+    "kana": "しお",
+    "meaning": "salt",
+    "emoji": "🧂",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "先週",
+    "kana": "せんしゅう",
+    "meaning": "last week",
+    "emoji": "",
+    "blocked": true,
+    "note": "temporal abstraction"
+  },
+  {
+    "word": "欲しい",
+    "kana": "ほしい",
+    "meaning": "want",
+    "emoji": "🤲",
+    "blocked": false,
+    "note": "cupped hands as wanting cue (weak)"
+  },
+  {
+    "word": "木",
+    "kana": "き",
+    "meaning": "tree, wood",
+    "emoji": "🌳",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ほんとう",
+    "kana": "",
+    "meaning": "truth",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract noun; no concrete referent"
+  },
+  {
+    "word": "薬",
+    "kana": "くすり",
+    "meaning": "medicine",
+    "emoji": "💊",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "お菓子",
+    "kana": "おかし",
+    "meaning": "sweets, candy",
+    "emoji": "🍬",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "金曜日",
+    "kana": "きんようび",
+    "meaning": "Friday",
+    "emoji": "",
+    "blocked": true,
+    "note": "day-of-week label; needs text"
+  },
+  {
+    "word": "まずい",
+    "kana": "",
+    "meaning": "unpleasant",
+    "emoji": "🤢",
+    "blocked": false,
+    "note": "nauseated face for bad-taste cue"
+  },
+  {
+    "word": "お酒",
+    "kana": "おさけ",
+    "meaning": "alcohol, rice wine",
+    "emoji": "🍶",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "多い",
+    "kana": "おおい",
+    "meaning": "many",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract quantifier; no canonical referent"
+  },
+  {
+    "word": "動物",
+    "kana": "どうぶつ",
+    "meaning": "animal",
+    "emoji": "🐾",
+    "blocked": false,
+    "note": "paw prints as animal cue"
+  },
+  {
+    "word": "切符",
+    "kana": "きっぷ",
+    "meaning": "ticket",
+    "emoji": "🎫",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "キロ / キロメートル",
+    "kana": "",
+    "meaning": "kilometre",
+    "emoji": "",
+    "blocked": true,
+    "note": "unit of measure; no referent"
+  },
+  {
+    "word": "呼ぶ",
+    "kana": "よぶ",
+    "meaning": "to call out, to invite",
+    "emoji": "📣",
+    "blocked": false,
+    "note": "megaphone as call-out cue"
+  },
+  {
+    "word": "体",
+    "kana": "からだ",
+    "meaning": "body",
+    "emoji": "🧍",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ゆっくりと",
+    "kana": "",
+    "meaning": "slowly",
+    "emoji": "🐢",
+    "blocked": false,
+    "note": "turtle as slowness cue"
+  },
+  {
+    "word": "二日",
+    "kana": "ふつか",
+    "meaning": "two days, second day of the month",
+    "emoji": "",
+    "blocked": true,
+    "note": "day counter; abstract"
+  },
+  {
+    "word": "大人",
+    "kana": "おとな",
+    "meaning": "adult",
+    "emoji": "🧑",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "歯",
+    "kana": "は",
+    "meaning": "tooth",
+    "emoji": "🦷",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "冬",
+    "kana": "ふゆ",
+    "meaning": "winter",
+    "emoji": "❄️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "所",
+    "kana": "ところ",
+    "meaning": "place",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract noun (per rubric: ところ explicitly flagged)"
+  },
+  {
+    "word": "吹く",
+    "kana": "ふく",
+    "meaning": "to blow",
+    "emoji": "💨",
+    "blocked": false,
+    "note": "wind-puff as blowing cue"
+  },
+  {
+    "word": "足",
+    "kana": "あし",
+    "meaning": "foot, leg",
+    "emoji": "🦶",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "箱",
+    "kana": "はこ",
+    "meaning": "box",
+    "emoji": "📦",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "八",
+    "kana": "はち",
+    "meaning": "eight",
+    "emoji": "8️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "朝",
+    "kana": "あさ",
+    "meaning": "morning",
+    "emoji": "🌅",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "一昨日",
+    "kana": "おととい",
+    "meaning": "day before yesterday",
+    "emoji": "",
+    "blocked": true,
+    "note": "temporal abstraction"
+  },
+  {
+    "word": "有名",
+    "kana": "ゆうめい",
+    "meaning": "famous",
+    "emoji": "⭐",
+    "blocked": false,
+    "note": "star as fame cue"
+  },
+  {
+    "word": "二十日",
+    "kana": "はつか",
+    "meaning": "twenty days, twentieth",
+    "emoji": "",
+    "blocked": true,
+    "note": "day counter; abstract"
+  },
+  {
+    "word": "近い",
+    "kana": "ちかい",
+    "meaning": "near",
+    "emoji": "📍",
+    "blocked": false,
+    "note": "map pin as proximity cue (weak)"
+  },
+  {
+    "word": "ください",
+    "kana": "",
+    "meaning": "please",
+    "emoji": "",
+    "blocked": true,
+    "note": "polite-request auxiliary; function word"
+  },
+  {
+    "word": "時計",
+    "kana": "とけい",
+    "meaning": "watch, clock",
+    "emoji": "⌚",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "午後",
+    "kana": "ごご",
+    "meaning": "afternoon",
+    "emoji": "🌇",
+    "blocked": false,
+    "note": "late-day cityscape as afternoon cue"
+  },
+  {
+    "word": "食べ物",
+    "kana": "たべもの",
+    "meaning": "food",
+    "emoji": "🍱",
+    "blocked": false,
+    "note": "bento as food cue"
+  },
+  {
+    "word": "降る",
+    "kana": "ふる",
+    "meaning": "to fall, e.g. rain or snow",
+    "emoji": "🌧️",
+    "blocked": false,
+    "note": "rain cloud as falling-rain cue"
+  },
+  {
+    "word": "易しい",
+    "kana": "やさしい",
+    "meaning": "easy, simple",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract adjective; homophone with 'kind' increases ambiguity"
+  },
+  {
+    "word": "大使館",
+    "kana": "たいしかん",
+    "meaning": "embassy",
+    "emoji": "🏛️",
+    "blocked": false,
+    "note": "classical building as embassy cue"
+  },
+  {
+    "word": "誰",
+    "kana": "だれ",
+    "meaning": "who",
+    "emoji": "",
+    "blocked": true,
+    "note": "question pronoun"
+  },
+  {
+    "word": "上",
+    "kana": "うえ",
+    "meaning": "on top of",
+    "emoji": "⬆️",
+    "blocked": false,
+    "note": "up arrow as 'on top of' cue"
+  },
+  {
+    "word": "五",
+    "kana": "ご",
+    "meaning": "five",
+    "emoji": "5️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "十日",
+    "kana": "とおか",
+    "meaning": "ten days, the tenth day",
+    "emoji": "",
+    "blocked": true,
+    "note": "day counter; abstract"
+  },
+  {
+    "word": "どちら",
+    "kana": "",
+    "meaning": "which of two",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — rubric blocks"
+  },
+  {
+    "word": "プール",
+    "kana": "",
+    "meaning": "swimming pool",
+    "emoji": "🏊",
+    "blocked": false,
+    "note": "swimmer as pool cue"
+  },
+  {
+    "word": "小さい",
+    "kana": "ちいさい",
+    "meaning": "little",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract adjective; no canonical referent"
+  },
+  {
+    "word": "今週",
+    "kana": "こんしゅう",
+    "meaning": "this week",
+    "emoji": "",
+    "blocked": true,
+    "note": "temporal abstraction"
+  },
+  {
+    "word": "肉",
+    "kana": "にく",
+    "meaning": "meat",
+    "emoji": "🥩",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "零",
+    "kana": "れい",
+    "meaning": "zero",
+    "emoji": "0️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "豚肉",
+    "kana": "ぶたにく",
+    "meaning": "pork",
+    "emoji": "🥓",
+    "blocked": false,
+    "note": "bacon as pork cue"
+  },
+  {
+    "word": "広い",
+    "kana": "ひろい",
+    "meaning": "spacious, wide",
+    "emoji": "🏜️",
+    "blocked": false,
+    "note": "open desert as spacious cue (weak)"
+  },
+  {
+    "word": "靴下",
+    "kana": "くつした",
+    "meaning": "socks",
+    "emoji": "🧦",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "一人",
+    "kana": "ひとり",
+    "meaning": "one person",
+    "emoji": "🧍",
+    "blocked": false,
+    "note": "single standing figure as one-person cue"
+  },
+  {
+    "word": "かぎ",
+    "kana": "",
+    "meaning": "key",
+    "emoji": "🔑",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "向こう",
+    "kana": "むこう",
+    "meaning": "over there",
+    "emoji": "",
+    "blocked": true,
+    "note": "spatial demonstrative"
+  },
+  {
+    "word": "上手",
+    "kana": "じょうず",
+    "meaning": "skillful",
+    "emoji": "👌",
+    "blocked": false,
+    "note": "OK-hand as skillful cue"
+  },
+  {
+    "word": "牛肉",
+    "kana": "ぎゅうにく",
+    "meaning": "beef",
+    "emoji": "🐄",
+    "blocked": false,
+    "note": "cow as beef cue (🥩 taken for generic meat)"
+  },
+  {
+    "word": "話",
+    "kana": "はなし",
+    "meaning": "talk, story",
+    "emoji": "💬",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "毎晩",
+    "kana": "まいばん",
+    "meaning": "every night",
+    "emoji": "🌙",
+    "blocked": false,
+    "note": "moon as night cue (frequency lost — phrase context needed)"
+  },
+  {
+    "word": "三つ",
+    "kana": "みっつ",
+    "meaning": "three",
+    "emoji": "3️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "吸う",
+    "kana": "すう",
+    "meaning": "to smoke, to suck",
+    "emoji": "🚬",
+    "blocked": false,
+    "note": "cigarette as smoke cue"
+  },
+  {
+    "word": "銀行",
+    "kana": "ぎんこう",
+    "meaning": "bank",
+    "emoji": "🏦",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "大切",
+    "kana": "たいせつ",
+    "meaning": "important",
+    "emoji": "❗",
+    "blocked": false,
+    "note": "exclamation as importance cue"
+  },
+  {
+    "word": "学生",
+    "kana": "がくせい",
+    "meaning": "student",
+    "emoji": "🎓",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "部屋",
+    "kana": "へや",
+    "meaning": "room",
+    "emoji": "🚪",
+    "blocked": false,
+    "note": "door as room proxy; concrete spatial referent"
+  },
+  {
+    "word": "昼御飯",
+    "kana": "ひるごはん",
+    "meaning": "midday meal",
+    "emoji": "🍱",
+    "blocked": false,
+    "note": "bento reads as midday meal"
+  },
+  {
+    "word": "下",
+    "kana": "した",
+    "meaning": "below",
+    "emoji": "⬇️",
+    "blocked": false,
+    "note": "directional concrete"
+  },
+  {
+    "word": "二つ",
+    "kana": "ふたつ",
+    "meaning": "two",
+    "emoji": "2️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "百",
+    "kana": "ひゃく",
+    "meaning": "hundred",
+    "emoji": "💯",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "地図",
+    "kana": "ちず",
+    "meaning": "map",
+    "emoji": "🗺️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "八百屋",
+    "kana": "やおや",
+    "meaning": "greengrocer",
+    "emoji": "🥬",
+    "blocked": false,
+    "note": "leafy greens stand-in for greengrocer"
+  },
+  {
+    "word": "ネクタイ",
+    "kana": "",
+    "meaning": "tie, necktie",
+    "emoji": "👔",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "去年",
+    "kana": "きょねん",
+    "meaning": "last year",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract time reference; no visual referent"
+  },
+  {
+    "word": "火曜日",
+    "kana": "かようび",
+    "meaning": "Tuesday",
+    "emoji": "",
+    "blocked": true,
+    "note": "weekday name — no glyph distinguishes"
+  },
+  {
+    "word": "乗る",
+    "kana": "のる",
+    "meaning": "to get on, to ride",
+    "emoji": "🚗",
+    "blocked": false,
+    "note": "car as ride proxy"
+  },
+  {
+    "word": "弟",
+    "kana": "おとうと",
+    "meaning": "younger brother",
+    "emoji": "👦",
+    "blocked": false,
+    "note": "boy reads younger-male; pair w/ kanji"
+  },
+  {
+    "word": "あなた",
+    "kana": "",
+    "meaning": "you",
+    "emoji": "",
+    "blocked": true,
+    "note": "pronoun — rubric explicit block"
+  },
+  {
+    "word": "千",
+    "kana": "せん",
+    "meaning": "thousand",
+    "emoji": "",
+    "blocked": true,
+    "note": "no canonical emoji for 1000; ambiguous with 100"
+  },
+  {
+    "word": "緑",
+    "kana": "みどり",
+    "meaning": "green",
+    "emoji": "🟢",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "とり肉",
+    "kana": "とりにく",
+    "meaning": "chicken meat",
+    "emoji": "🍗",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "軽い",
+    "kana": "かるい",
+    "meaning": "light",
+    "emoji": "🪶",
+    "blocked": false,
+    "note": "feather = light weight"
+  },
+  {
+    "word": "あまり",
+    "kana": "",
+    "meaning": "not very",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract grammar adverb"
+  },
+  {
+    "word": "帽子",
+    "kana": "ぼうし",
+    "meaning": "hat",
+    "emoji": "🎩",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "丈夫",
+    "kana": "じょうぶ",
+    "meaning": "strong, durable",
+    "emoji": "💪",
+    "blocked": false,
+    "note": "flexed arm for strong/durable"
+  },
+  {
+    "word": "入れる",
+    "kana": "いれる",
+    "meaning": "to put in",
+    "emoji": "📥",
+    "blocked": false,
+    "note": "inbox tray = put in"
+  },
+  {
+    "word": "二十歳",
+    "kana": "はたち",
+    "meaning": "20 years old, 20th year",
+    "emoji": "🔞",
+    "blocked": false,
+    "note": "age-20 milestone; Japanese coming-of-age"
+  },
+  {
+    "word": "三日",
+    "kana": "みっか",
+    "meaning": "three days, third day of the month",
+    "emoji": "",
+    "blocked": true,
+    "note": "no glyph for ordinal day-3"
+  },
+  {
+    "word": "遠い",
+    "kana": "とおい",
+    "meaning": "far",
+    "emoji": "🔭",
+    "blocked": false,
+    "note": "telescope = far / distant"
+  },
+  {
+    "word": "夏休み",
+    "kana": "なつやすみ",
+    "meaning": "summer holiday",
+    "emoji": "🏖️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "友達",
+    "kana": "ともだち",
+    "meaning": "friend",
+    "emoji": "👫",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "横",
+    "kana": "よこ",
+    "meaning": "beside, side, width",
+    "emoji": "↔️",
+    "blocked": false,
+    "note": "horizontal arrow for side/width"
+  },
+  {
+    "word": "冷たい",
+    "kana": "つめたい",
+    "meaning": "cold to the touch",
+    "emoji": "🧊",
+    "blocked": false,
+    "note": "ice cube"
+  },
+  {
+    "word": "夜",
+    "kana": "よる",
+    "meaning": "evening, night",
+    "emoji": "🌙",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "トイレ",
+    "kana": "",
+    "meaning": "toilet",
+    "emoji": "🚽",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "おなか",
+    "kana": "",
+    "meaning": "stomach",
+    "emoji": "🫃",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "どこ",
+    "kana": "",
+    "meaning": "where",
+    "emoji": "",
+    "blocked": true,
+    "note": "interrogative demonstrative; abstract"
+  },
+  {
+    "word": "暇",
+    "kana": "ひま",
+    "meaning": "free time",
+    "emoji": "🛋️",
+    "blocked": false,
+    "note": "couch = leisure/free time"
+  },
+  {
+    "word": "鳴く",
+    "kana": "なく",
+    "meaning": "animal noise. to chirp, roar or croak etc.",
+    "emoji": "🐦",
+    "blocked": false,
+    "note": "bird as canonical chirper"
+  },
+  {
+    "word": "隣",
+    "kana": "となり",
+    "meaning": "next door to",
+    "emoji": "",
+    "blocked": true,
+    "note": "spatial relation; no visual referent"
+  },
+  {
+    "word": "先生",
+    "kana": "せんせい",
+    "meaning": "teacher, doctor",
+    "emoji": "🧑‍🏫",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "出口",
+    "kana": "でぐち",
+    "meaning": "exit",
+    "emoji": "🚪",
+    "blocked": false,
+    "note": "door — paired w/ kanji 出"
+  },
+  {
+    "word": "後ろ",
+    "kana": "うしろ",
+    "meaning": "behind",
+    "emoji": "⬅️",
+    "blocked": true,
+    "note": "spatial relation; arrow ambiguous with left"
+  },
+  {
+    "word": "先月",
+    "kana": "せんげつ",
+    "meaning": "last month",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract time reference"
+  },
+  {
+    "word": "テープ",
+    "kana": "",
+    "meaning": "tape",
+    "emoji": "📼",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "お姉さん",
+    "kana": "おねえさん",
+    "meaning": "(honorable) older sister",
+    "emoji": "👩",
+    "blocked": false,
+    "note": "woman; kanji 姉 carries 'older'"
+  },
+  {
+    "word": "じゃ / じゃあ",
+    "kana": "",
+    "meaning": "well then…",
+    "emoji": "",
+    "blocked": true,
+    "note": "discourse particle"
+  },
+  {
+    "word": "本",
+    "kana": "ほん",
+    "meaning": "book",
+    "emoji": "📖",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "泳ぐ",
+    "kana": "およぐ",
+    "meaning": "to swim",
+    "emoji": "🏊",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "灰皿",
+    "kana": "はいざら",
+    "meaning": "ashtray",
+    "emoji": "🚬",
+    "blocked": false,
+    "note": "cigarette as proxy; closest concrete"
+  },
+  {
+    "word": "門",
+    "kana": "もん",
+    "meaning": "gate",
+    "emoji": "⛩️",
+    "blocked": false,
+    "note": "torii reads as Japanese gate"
+  },
+  {
+    "word": "荷物",
+    "kana": "にもつ",
+    "meaning": "luggage",
+    "emoji": "🧳",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "この",
+    "kana": "",
+    "meaning": "this",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — rubric block"
+  },
+  {
+    "word": "書く",
+    "kana": "かく",
+    "meaning": "to write",
+    "emoji": "✍️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "毎年",
+    "kana": "まいねん / まいとし",
+    "meaning": "every year",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract time interval"
+  },
+  {
+    "word": "明日",
+    "kana": "あした",
+    "meaning": "tomorrow",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract time reference"
+  },
+  {
+    "word": "ホテル",
+    "kana": "",
+    "meaning": "hotel",
+    "emoji": "🏨",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "降りる",
+    "kana": "おりる",
+    "meaning": "to get off, to descend",
+    "emoji": "⬇️",
+    "blocked": false,
+    "note": "down-arrow = descend"
+  },
+  {
+    "word": "重い",
+    "kana": "おもい",
+    "meaning": "heavy",
+    "emoji": "🏋️",
+    "blocked": false,
+    "note": "weightlifter = heavy"
+  },
+  {
+    "word": "電車",
+    "kana": "でんしゃ",
+    "meaning": "electric train",
+    "emoji": "🚆",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "痛い",
+    "kana": "いたい",
+    "meaning": "painful",
+    "emoji": "🤕",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "話す",
+    "kana": "はなす",
+    "meaning": "to speak",
+    "emoji": "🗣️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "りっぱ",
+    "kana": "",
+    "meaning": "splendid",
+    "emoji": "✨",
+    "blocked": false,
+    "note": "sparkles = splendid/admirable"
+  },
+  {
+    "word": "つまらない",
+    "kana": "",
+    "meaning": "boring",
+    "emoji": "🥱",
+    "blocked": false,
+    "note": "yawn = boredom"
+  },
+  {
+    "word": "よく",
+    "kana": "",
+    "meaning": "often, well",
+    "emoji": "",
+    "blocked": true,
+    "note": "adverb of frequency/manner; abstract"
+  },
+  {
+    "word": "嫌",
+    "kana": "いや",
+    "meaning": "unpleasant",
+    "emoji": "🤢",
+    "blocked": false,
+    "note": "disgust face = unpleasant"
+  },
+  {
+    "word": "宿題",
+    "kana": "しゅくだい",
+    "meaning": "homework",
+    "emoji": "📝",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "死ぬ",
+    "kana": "しぬ",
+    "meaning": "to die",
+    "emoji": "💀",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "みんな",
+    "kana": "",
+    "meaning": "everyone",
+    "emoji": "👥",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "万",
+    "kana": "まん",
+    "meaning": "ten thousand",
+    "emoji": "",
+    "blocked": true,
+    "note": "no glyph for 10000; ambiguous"
+  },
+  {
+    "word": "映画",
+    "kana": "えいが",
+    "meaning": "movie",
+    "emoji": "🎬",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "遅い",
+    "kana": "おそい",
+    "meaning": "late, slow",
+    "emoji": "🐢",
+    "blocked": false,
+    "note": "turtle = slow"
+  },
+  {
+    "word": "耳",
+    "kana": "みみ",
+    "meaning": "ear",
+    "emoji": "👂",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "かかる",
+    "kana": "",
+    "meaning": "to take time or money",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract verb of cost/duration"
+  },
+  {
+    "word": "でも",
+    "kana": "",
+    "meaning": "but",
+    "emoji": "",
+    "blocked": true,
+    "note": "conjunction"
+  },
+  {
+    "word": "四つ",
+    "kana": "よっつ",
+    "meaning": "four",
+    "emoji": "4️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "机",
+    "kana": "つくえ",
+    "meaning": "desk",
+    "emoji": "🪑",
+    "blocked": false,
+    "note": "chair-adjacent; closest furniture glyph (no desk emoji)"
+  },
+  {
+    "word": "あっち",
+    "kana": "",
+    "meaning": "over there",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative spatial — rubric block"
+  },
+  {
+    "word": "買う",
+    "kana": "かう",
+    "meaning": "to buy",
+    "emoji": "🛒",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "開く",
+    "kana": "あく",
+    "meaning": "to open, to become open",
+    "emoji": "🔓",
+    "blocked": false,
+    "note": "unlocked = becoming open"
+  },
+  {
+    "word": "教室",
+    "kana": "きょうしつ",
+    "meaning": "classroom",
+    "emoji": "🏫",
+    "blocked": false,
+    "note": "school; closest concrete"
+  },
+  {
+    "word": "かばん",
+    "kana": "",
+    "meaning": "bag, basket",
+    "emoji": "👜",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "マッチ",
+    "kana": "",
+    "meaning": "match",
+    "emoji": "🔥",
+    "blocked": false,
+    "note": "fire as match-strike proxy (no match-stick emoji)"
+  },
+  {
+    "word": "短い",
+    "kana": "みじかい",
+    "meaning": "short",
+    "emoji": "📏",
+    "blocked": false,
+    "note": "ruler for length adjectives"
+  },
+  {
+    "word": "姉",
+    "kana": "あね",
+    "meaning": "(humble) older sister",
+    "emoji": "👩",
+    "blocked": false,
+    "note": "woman; kanji 姉 carries older cue"
+  },
+  {
+    "word": "大勢",
+    "kana": "おおぜい",
+    "meaning": "great number of people",
+    "emoji": "👨‍👩‍👧‍👦",
+    "blocked": false,
+    "note": "family cluster = many people"
+  },
+  {
+    "word": "開ける",
+    "kana": "あける",
+    "meaning": "to open",
+    "emoji": "🔓",
+    "blocked": false,
+    "note": "transitive open"
+  },
+  {
+    "word": "忙しい",
+    "kana": "いそがしい",
+    "meaning": "busy, irritated",
+    "emoji": "😰",
+    "blocked": false,
+    "note": "anxious sweat = busy/overwhelmed"
+  },
+  {
+    "word": "おばあさん",
+    "kana": "",
+    "meaning": "grandmother, female senior-citizen",
+    "emoji": "👵",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "店",
+    "kana": "みせ",
+    "meaning": "shop",
+    "emoji": "🏪",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ワイシャツ",
+    "kana": "",
+    "meaning": "business shirt",
+    "emoji": "👔",
+    "blocked": true,
+    "note": "necktie already used; collision risk"
+  },
+  {
+    "word": "北",
+    "kana": "きた",
+    "meaning": "north",
+    "emoji": "🧭",
+    "blocked": false,
+    "note": "compass for cardinal direction"
+  },
+  {
+    "word": "ラジオ",
+    "kana": "",
+    "meaning": "radio",
+    "emoji": "📻",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "すぐに",
+    "kana": "",
+    "meaning": "instantly",
+    "emoji": "⚡",
+    "blocked": false,
+    "note": "lightning = instant"
+  },
+  {
+    "word": "ハンカチ",
+    "kana": "",
+    "meaning": "handkerchief",
+    "emoji": "🧻",
+    "blocked": true,
+    "note": "no handkerchief glyph; toilet paper misreads"
+  },
+  {
+    "word": "いつ",
+    "kana": "",
+    "meaning": "when",
+    "emoji": "",
+    "blocked": true,
+    "note": "interrogative"
+  },
+  {
+    "word": "全部",
+    "kana": "ぜんぶ",
+    "meaning": "all",
+    "emoji": "",
+    "blocked": true,
+    "note": "quantifier abstract"
+  },
+  {
+    "word": "橋",
+    "kana": "はし",
+    "meaning": "bridge",
+    "emoji": "🌉",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "川 / 河",
+    "kana": "かわ",
+    "meaning": "river",
+    "emoji": "🏞️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "バター",
+    "kana": "",
+    "meaning": "butter",
+    "emoji": "🧈",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "もっと",
+    "kana": "",
+    "meaning": "more",
+    "emoji": "➕",
+    "blocked": false,
+    "note": "plus = more"
+  },
+  {
+    "word": "入口",
+    "kana": "いりぐち",
+    "meaning": "entrance",
+    "emoji": "🚪",
+    "blocked": false,
+    "note": "door + kanji 入"
+  },
+  {
+    "word": "など",
+    "kana": "",
+    "meaning": "et cetera",
+    "emoji": "",
+    "blocked": true,
+    "note": "particle"
+  },
+  {
+    "word": "太い",
+    "kana": "ふとい",
+    "meaning": "fat",
+    "emoji": "",
+    "blocked": true,
+    "note": "polysemy fat/thick; person-emoji reads as body-shape; risky"
+  },
+  {
+    "word": "やる",
+    "kana": "",
+    "meaning": "to do",
+    "emoji": "",
+    "blocked": true,
+    "note": "generic verb; same meaning as する — polite-form duplicate per rubric"
+  },
+  {
+    "word": "自動車",
+    "kana": "じどうしゃ",
+    "meaning": "automobile",
+    "emoji": "🚙",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "昼",
+    "kana": "ひる",
+    "meaning": "noon, daytime",
+    "emoji": "☀️",
+    "blocked": false,
+    "note": "sun = daytime"
+  },
+  {
+    "word": "色",
+    "kana": "いろ",
+    "meaning": "colour",
+    "emoji": "🎨",
+    "blocked": false,
+    "note": "palette = colour"
+  },
+  {
+    "word": "黄色",
+    "kana": "きいろ",
+    "meaning": "yellow",
+    "emoji": "🟡",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "左",
+    "kana": "ひだり",
+    "meaning": "left hand side",
+    "emoji": "👈",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "野菜",
+    "kana": "やさい",
+    "meaning": "vegetable",
+    "emoji": "🥕",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "シャワー",
+    "kana": "",
+    "meaning": "shower",
+    "emoji": "🚿",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "散歩",
+    "kana": "さんぽする",
+    "meaning": "to stroll",
+    "emoji": "🚶",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "三",
+    "kana": "さん",
+    "meaning": "three",
+    "emoji": "3️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "消える",
+    "kana": "きえる",
+    "meaning": "to disappear",
+    "emoji": "💨",
+    "blocked": false,
+    "note": "puff = vanish"
+  },
+  {
+    "word": "映画館",
+    "kana": "えいがかん",
+    "meaning": "cinema",
+    "emoji": "🎦",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "いす",
+    "kana": "",
+    "meaning": "chair",
+    "emoji": "🪑",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "誕生日",
+    "kana": "たんじょうび",
+    "meaning": "birthday",
+    "emoji": "🎂",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "切る",
+    "kana": "きる",
+    "meaning": "to cut",
+    "emoji": "✂️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "七日",
+    "kana": "なのか",
+    "meaning": "seven days, the seventh day",
+    "emoji": "",
+    "blocked": true,
+    "note": "no ordinal-day glyph"
+  },
+  {
+    "word": "洗う",
+    "kana": "あらう",
+    "meaning": "to wash",
+    "emoji": "🧼",
+    "blocked": false,
+    "note": "soap = wash"
+  },
+  {
+    "word": "あれ",
+    "kana": "",
+    "meaning": "that",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — rubric block"
+  },
+  {
+    "word": "グラム",
+    "kana": "",
+    "meaning": "gram",
+    "emoji": "⚖️",
+    "blocked": false,
+    "note": "scale = mass unit"
+  },
+  {
+    "word": "習う",
+    "kana": "ならう",
+    "meaning": "to learn",
+    "emoji": "🎓",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "後",
+    "kana": "あと",
+    "meaning": "afterwards",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract temporal adverb"
+  },
+  {
+    "word": "猫",
+    "kana": "ねこ",
+    "meaning": "cat",
+    "emoji": "🐱",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "図書館",
+    "kana": "としょかん",
+    "meaning": "library",
+    "emoji": "📚",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "並べる",
+    "kana": "ならべる",
+    "meaning": "to line up, to set up",
+    "emoji": "📊",
+    "blocked": true,
+    "note": "no clean glyph for 'arrange in a row'; risk of confusion"
+  },
+  {
+    "word": "しかし",
+    "kana": "",
+    "meaning": "however",
+    "emoji": "",
+    "blocked": true,
+    "note": "conjunction"
+  },
+  {
+    "word": "大きい",
+    "kana": "おおきい",
+    "meaning": "big",
+    "emoji": "🐘",
+    "blocked": false,
+    "note": "elephant = big (size adjective)"
+  },
+  {
+    "word": "八日",
+    "kana": "ようか",
+    "meaning": "eight days, eighth day of the month",
+    "emoji": "",
+    "blocked": true,
+    "note": "no ordinal-day glyph"
+  },
+  {
+    "word": "歩く",
+    "kana": "あるく",
+    "meaning": "to walk",
+    "emoji": "🚶",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ズボン",
+    "kana": "",
+    "meaning": "trousers",
+    "emoji": "👖",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "九日",
+    "kana": "ここのか",
+    "meaning": "nine days, ninth day",
+    "emoji": "",
+    "blocked": true,
+    "note": "no ordinal-day glyph"
+  },
+  {
+    "word": "そっち",
+    "kana": "",
+    "meaning": "over there",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — rubric block"
+  },
+  {
+    "word": "たて",
+    "kana": "",
+    "meaning": "length, height",
+    "emoji": "📏",
+    "blocked": false,
+    "note": "ruler = measurement"
+  },
+  {
+    "word": "カップ",
+    "kana": "",
+    "meaning": "cup",
+    "emoji": "🥤",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "あの",
+    "kana": "",
+    "meaning": "that over there",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — rubric block"
+  },
+  {
+    "word": "頼む",
+    "kana": "たのむ",
+    "meaning": "to ask",
+    "emoji": "🙏",
+    "blocked": false,
+    "note": "request gesture"
+  },
+  {
+    "word": "お兄さん",
+    "kana": "おにいさん",
+    "meaning": "(honorable) older brother",
+    "emoji": "👨",
+    "blocked": false,
+    "note": "man + kanji 兄"
+  },
+  {
+    "word": "手",
+    "kana": "て",
+    "meaning": "hand",
+    "emoji": "✋",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ええ",
+    "kana": "",
+    "meaning": "yes",
+    "emoji": "✅",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "毎日",
+    "kana": "まいにち",
+    "meaning": "every day",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract time interval"
+  },
+  {
+    "word": "花",
+    "kana": "はな",
+    "meaning": "flower",
+    "emoji": "🌸",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "一",
+    "kana": "いち",
+    "meaning": "one",
+    "emoji": "1️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "居る",
+    "kana": "いる",
+    "meaning": "to be, to have (used for people and animals)",
+    "emoji": "",
+    "blocked": true,
+    "note": "existence-of — rubric explicit block"
+  },
+  {
+    "word": "砂糖",
+    "kana": "さとう",
+    "meaning": "sugar",
+    "emoji": "🍬",
+    "blocked": false,
+    "note": "candy as sugar proxy"
+  },
+  {
+    "word": "カレンダー",
+    "kana": "",
+    "meaning": "calendar",
+    "emoji": "📅",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "今",
+    "kana": "いま",
+    "meaning": "now",
+    "emoji": "⏰",
+    "blocked": false,
+    "note": "clock = now/time"
+  },
+  {
+    "word": "旅行",
+    "kana": "りょこう",
+    "meaning": "travel",
+    "emoji": "✈️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "できる",
+    "kana": "",
+    "meaning": "to be able to",
+    "emoji": "",
+    "blocked": true,
+    "note": "modal/auxiliary verb; abstract"
+  },
+  {
+    "word": "春",
+    "kana": "はる",
+    "meaning": "spring",
+    "emoji": "🌸",
+    "blocked": false,
+    "note": "cherry blossom = spring"
+  },
+  {
+    "word": "する",
+    "kana": "",
+    "meaning": "to do",
+    "emoji": "",
+    "blocked": true,
+    "note": "generic abstract verb"
+  },
+  {
+    "word": "八つ",
+    "kana": "やっつ",
+    "meaning": "eight",
+    "emoji": "8️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "町",
+    "kana": "まち",
+    "meaning": "town, city",
+    "emoji": "🏘️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "渡す",
+    "kana": "わたす",
+    "meaning": "to hand over",
+    "emoji": "🤝",
+    "blocked": false,
+    "note": "handshake/handoff"
+  },
+  {
+    "word": "青",
+    "kana": "あお",
+    "meaning": "blue",
+    "emoji": "🔵",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "白",
+    "kana": "しろ",
+    "meaning": "white",
+    "emoji": "⚪",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ある",
+    "kana": "",
+    "meaning": "to be, to have (used for inanimate objects)",
+    "emoji": "",
+    "blocked": true,
+    "note": "existence-of — rubric explicit block"
+  },
+  {
+    "word": "ベッド",
+    "kana": "",
+    "meaning": "bed",
+    "emoji": "🛏️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "水",
+    "kana": "みず",
+    "meaning": "water",
+    "emoji": "💧",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "いくつ",
+    "kana": "",
+    "meaning": "how many?, how old?",
+    "emoji": "",
+    "blocked": true,
+    "note": "interrogative"
+  },
+  {
+    "word": "楽しい",
+    "kana": "たのしい",
+    "meaning": "enjoyable",
+    "emoji": "😄",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "御飯",
+    "kana": "ごはん",
+    "meaning": "cooked rice, meal",
+    "emoji": "🍚",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "皆さん",
+    "kana": "みなさん",
+    "meaning": "everyone",
+    "emoji": "👥",
+    "blocked": false,
+    "note": "synonym of みんな"
+  },
+  {
+    "word": "おいしい",
+    "kana": "",
+    "meaning": "delicious",
+    "emoji": "😋",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ペット",
+    "kana": "",
+    "meaning": "pet",
+    "emoji": "🐕",
+    "blocked": false,
+    "note": "dog as canonical pet"
+  },
+  {
+    "word": "外",
+    "kana": "そと",
+    "meaning": "outside",
+    "emoji": "🌳",
+    "blocked": false,
+    "note": "tree = outdoors"
+  },
+  {
+    "word": "前",
+    "kana": "まえ",
+    "meaning": "before",
+    "emoji": "",
+    "blocked": true,
+    "note": "polysemy: spatial 'in front' vs temporal 'before'; ambiguous"
+  },
+  {
+    "word": "来る",
+    "kana": "くる",
+    "meaning": "to come",
+    "emoji": "",
+    "blocked": true,
+    "note": "directional verb; arrow ambiguous with go/return"
+  },
+  {
+    "word": "おもしろい",
+    "kana": "",
+    "meaning": "interesting",
+    "emoji": "🤩",
+    "blocked": false,
+    "note": "starstruck = fascinated/interesting"
+  },
+  {
+    "word": "貸す",
+    "kana": "かす",
+    "meaning": "to lend",
+    "emoji": "🤝",
+    "blocked": false,
+    "note": "handshake reads as exchange/lend"
+  },
+  {
+    "word": "早い",
+    "kana": "はやい",
+    "meaning": "early",
+    "emoji": "⏰",
+    "blocked": false,
+    "note": "alarm clock for early"
+  },
+  {
+    "word": "弱い",
+    "kana": "よわい",
+    "meaning": "weak",
+    "emoji": "🪶",
+    "blocked": false,
+    "note": "feather connotes weak/light"
+  },
+  {
+    "word": "洗濯",
+    "kana": "せんたく",
+    "meaning": "washing",
+    "emoji": "🧺",
+    "blocked": false,
+    "note": "laundry basket"
+  },
+  {
+    "word": "九つ",
+    "kana": "ここのつ",
+    "meaning": "nine",
+    "emoji": "9️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "来年",
+    "kana": "らいねん",
+    "meaning": "next year",
+    "emoji": "📅",
+    "blocked": false,
+    "note": "calendar; pair with phrase context"
+  },
+  {
+    "word": "眼鏡",
+    "kana": "めがね",
+    "meaning": "glasses",
+    "emoji": "👓",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "背",
+    "kana": "せ",
+    "meaning": "height, stature",
+    "emoji": "📏",
+    "blocked": false,
+    "note": "ruler for stature"
+  },
+  {
+    "word": "水曜日",
+    "kana": "すいようび",
+    "meaning": "Wednesday",
+    "emoji": "📅",
+    "blocked": false,
+    "note": "generic calendar"
+  },
+  {
+    "word": "お金",
+    "kana": "おかね",
+    "meaning": "money",
+    "emoji": "💰",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "同じ",
+    "kana": "おなじ",
+    "meaning": "same",
+    "emoji": "🟰",
+    "blocked": false,
+    "note": "equals sign"
+  },
+  {
+    "word": "弾く",
+    "kana": "ひく",
+    "meaning": "to play an instrument with strings, including piano",
+    "emoji": "🎹",
+    "blocked": false,
+    "note": "piano keys"
+  },
+  {
+    "word": "土曜日",
+    "kana": "どようび",
+    "meaning": "Saturday",
+    "emoji": "📅",
+    "blocked": false,
+    "note": "generic calendar"
+  },
+  {
+    "word": "階段",
+    "kana": "かいだん",
+    "meaning": "stairs",
+    "emoji": "🪜",
+    "blocked": false,
+    "note": "ladder; closest Noto for stairs"
+  },
+  {
+    "word": "煩い",
+    "kana": "うるさい",
+    "meaning": "noisy, annoying",
+    "emoji": "📢",
+    "blocked": false,
+    "note": "loudspeaker = noisy"
+  },
+  {
+    "word": "半分",
+    "kana": "はんぶん",
+    "meaning": "half minute",
+    "emoji": "🌗",
+    "blocked": false,
+    "note": "half symbol | swapped ½→🌗 (Noto has no fraction glyph; half-moon reads as 'half')"
+  },
+  {
+    "word": "背広",
+    "kana": "せびろ",
+    "meaning": "business suit",
+    "emoji": "🤵",
+    "blocked": false,
+    "note": "person in suit"
+  },
+  {
+    "word": "晴れ",
+    "kana": "はれ",
+    "meaning": "clear weather",
+    "emoji": "☀️",
+    "blocked": false,
+    "note": "sun"
+  },
+  {
+    "word": "見せる",
+    "kana": "みせる",
+    "meaning": "to show",
+    "emoji": "👀",
+    "blocked": false,
+    "note": "eyes — showing/look at this"
+  },
+  {
+    "word": "飲み物",
+    "kana": "のみもの",
+    "meaning": "a drink",
+    "emoji": "🥤",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "雪",
+    "kana": "ゆき",
+    "meaning": "snow",
+    "emoji": "❄️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "買い物",
+    "kana": "かいもの",
+    "meaning": "shopping",
+    "emoji": "🛍️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "交差点",
+    "kana": "こうさてん",
+    "meaning": "intersection",
+    "emoji": "🚦",
+    "blocked": false,
+    "note": "traffic light for intersection"
+  },
+  {
+    "word": "駅",
+    "kana": "えき",
+    "meaning": "station",
+    "emoji": "🚉",
+    "blocked": false,
+    "note": "station emoji"
+  },
+  {
+    "word": "大丈夫",
+    "kana": "だいじょうぶ",
+    "meaning": "all right",
+    "emoji": "👌",
+    "blocked": false,
+    "note": "OK sign"
+  },
+  {
+    "word": "ボールペン",
+    "kana": "",
+    "meaning": "ball-point pen",
+    "emoji": "🖊️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "勉強",
+    "kana": "べんきょうする",
+    "meaning": "to study",
+    "emoji": "📚",
+    "blocked": false,
+    "note": "books"
+  },
+  {
+    "word": "兄弟",
+    "kana": "きょうだい",
+    "meaning": "(humble) siblings",
+    "emoji": "👫",
+    "blocked": false,
+    "note": "two people; siblings"
+  },
+  {
+    "word": "封筒",
+    "kana": "ふうとう",
+    "meaning": "envelope",
+    "emoji": "✉️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "レコード",
+    "kana": "",
+    "meaning": "record",
+    "emoji": "💿",
+    "blocked": false,
+    "note": "optical disc; record-like"
+  },
+  {
+    "word": "コーヒー",
+    "kana": "",
+    "meaning": "coffee",
+    "emoji": "☕",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "漢字",
+    "kana": "かんじ",
+    "meaning": "Chinese character",
+    "emoji": "🈶",
+    "blocked": false,
+    "note": "Japanese ideograph block"
+  },
+  {
+    "word": "喫茶店",
+    "kana": "きっさてん",
+    "meaning": "coffee lounge",
+    "emoji": "☕",
+    "blocked": false,
+    "note": "coffee cup; café"
+  },
+  {
+    "word": "その",
+    "kana": "",
+    "meaning": "that",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — abstract grammar per rubric"
+  },
+  {
+    "word": "子供",
+    "kana": "こども",
+    "meaning": "child",
+    "emoji": "🧒",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ちょっと",
+    "kana": "",
+    "meaning": "somewhat",
+    "emoji": "",
+    "blocked": true,
+    "note": "adverb/abstract degree marker"
+  },
+  {
+    "word": "女の子",
+    "kana": "おんなのこ",
+    "meaning": "girl",
+    "emoji": "👧",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "紙",
+    "kana": "かみ",
+    "meaning": "paper",
+    "emoji": "📄",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "字引",
+    "kana": "じびき",
+    "meaning": "dictionary",
+    "emoji": "📖",
+    "blocked": false,
+    "note": "open book"
+  },
+  {
+    "word": "あさって",
+    "kana": "",
+    "meaning": "day after tomorrow",
+    "emoji": "📅",
+    "blocked": false,
+    "note": "calendar; pair with phrase context"
+  },
+  {
+    "word": "嫌い",
+    "kana": "きらい",
+    "meaning": "hate",
+    "emoji": "🙅",
+    "blocked": false,
+    "note": "person gesturing no"
+  },
+  {
+    "word": "先",
+    "kana": "さき",
+    "meaning": "the future, previous",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract temporal/positional — no concrete referent"
+  },
+  {
+    "word": "答える",
+    "kana": "こたえる",
+    "meaning": "to answer",
+    "emoji": "🙋",
+    "blocked": false,
+    "note": "raising hand"
+  },
+  {
+    "word": "食堂",
+    "kana": "しょくどう",
+    "meaning": "dining hall",
+    "emoji": "🍽️",
+    "blocked": false,
+    "note": "plate with utensils"
+  },
+  {
+    "word": "テーブル",
+    "kana": "",
+    "meaning": "table",
+    "emoji": "",
+    "blocked": false,
+    "note": "no clean Noto table emoji; rely on custom art or phrase"
+  },
+  {
+    "word": "コピーする",
+    "kana": "",
+    "meaning": "to copy",
+    "emoji": "📑",
+    "blocked": false,
+    "note": "stacked copies"
+  },
+  {
+    "word": "働く",
+    "kana": "はたらく",
+    "meaning": "to work",
+    "emoji": "💼",
+    "blocked": false,
+    "note": "briefcase"
+  },
+  {
+    "word": "こんな",
+    "kana": "",
+    "meaning": "such",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative determiner — abstract grammar"
+  },
+  {
+    "word": "たくさん",
+    "kana": "",
+    "meaning": "many",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract quantifier; no specific referent"
+  },
+  {
+    "word": "ドア",
+    "kana": "",
+    "meaning": "Western style door",
+    "emoji": "🚪",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "見る  観る",
+    "kana": "みる",
+    "meaning": "to see, to watch",
+    "emoji": "👁️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "交番",
+    "kana": "こうばん",
+    "meaning": "police box",
+    "emoji": "🚓",
+    "blocked": false,
+    "note": "police car; closest Noto for police context"
+  },
+  {
+    "word": "ナイフ",
+    "kana": "",
+    "meaning": "knife",
+    "emoji": "🔪",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "辛い",
+    "kana": "からい",
+    "meaning": "spicy",
+    "emoji": "🌶️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "洋服",
+    "kana": "ようふく",
+    "meaning": "western-style clothes",
+    "emoji": "👔",
+    "blocked": false,
+    "note": "necktie/shirt"
+  },
+  {
+    "word": "晩御飯",
+    "kana": "ばんごはん",
+    "meaning": "evening meal",
+    "emoji": "🍱",
+    "blocked": false,
+    "note": "bento meal"
+  },
+  {
+    "word": "車",
+    "kana": "くるま",
+    "meaning": "car, vehicle",
+    "emoji": "🚗",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ちょうど",
+    "kana": "",
+    "meaning": "exactly",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract adverb; no concrete referent"
+  },
+  {
+    "word": "もう一度",
+    "kana": "もういちど",
+    "meaning": "again",
+    "emoji": "🔁",
+    "blocked": false,
+    "note": "repeat arrow"
+  },
+  {
+    "word": "ポスト",
+    "kana": "",
+    "meaning": "post",
+    "emoji": "📮",
+    "blocked": false,
+    "note": "postbox"
+  },
+  {
+    "word": "服",
+    "kana": "ふく",
+    "meaning": "clothes",
+    "emoji": "👕",
+    "blocked": false,
+    "note": "t-shirt"
+  },
+  {
+    "word": "メートル",
+    "kana": "",
+    "meaning": "metre",
+    "emoji": "📏",
+    "blocked": false,
+    "note": "ruler"
+  },
+  {
+    "word": "パン",
+    "kana": "",
+    "meaning": "bread",
+    "emoji": "🍞",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "半",
+    "kana": "はん",
+    "meaning": "half",
+    "emoji": "🌗",
+    "blocked": false,
+    "note": " | swapped ½→🌗 (Noto has no fraction glyph; half-moon reads as 'half')"
+  },
+  {
+    "word": "若い",
+    "kana": "わかい",
+    "meaning": "young",
+    "emoji": "👶",
+    "blocked": false,
+    "note": "baby connotes young"
+  },
+  {
+    "word": "食べる",
+    "kana": "たべる",
+    "meaning": "to eat",
+    "emoji": "🍽️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "四日",
+    "kana": "よっか",
+    "meaning": "four days, fouth day of the month",
+    "emoji": "4️⃣",
+    "blocked": false,
+    "note": "number 4"
+  },
+  {
+    "word": "警官",
+    "kana": "けいかん",
+    "meaning": "policeman",
+    "emoji": "👮",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "伯父 / 叔父",
+    "kana": "おじいさん",
+    "meaning": "grandfather, male senior citizen",
+    "emoji": "👴",
+    "blocked": false,
+    "note": "older man"
+  },
+  {
+    "word": "これ",
+    "kana": "",
+    "meaning": "this",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — per rubric"
+  },
+  {
+    "word": "アパート",
+    "kana": "",
+    "meaning": "apartment",
+    "emoji": "🏢",
+    "blocked": false,
+    "note": "apartment building"
+  },
+  {
+    "word": "鳥",
+    "kana": "とり",
+    "meaning": "bird",
+    "emoji": "🐦",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ここ",
+    "kana": "",
+    "meaning": "here",
+    "emoji": "",
+    "blocked": true,
+    "note": "spatial demonstrative — per rubric"
+  },
+  {
+    "word": "方",
+    "kana": "かた",
+    "meaning": "person, way of doing",
+    "emoji": "",
+    "blocked": true,
+    "note": "polysemous abstract noun (per rubric)"
+  },
+  {
+    "word": "タクシー",
+    "kana": "",
+    "meaning": "taxi",
+    "emoji": "🚕",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "では",
+    "kana": "",
+    "meaning": "with that...",
+    "emoji": "",
+    "blocked": true,
+    "note": "particle/conjunction"
+  },
+  {
+    "word": "しょうゆ",
+    "kana": "",
+    "meaning": "soy sauce",
+    "emoji": "🍶",
+    "blocked": false,
+    "note": "sake bottle as closest condiment vessel; weak"
+  },
+  {
+    "word": "少ない",
+    "kana": "すくない",
+    "meaning": "a few",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract quantifier"
+  },
+  {
+    "word": "白い",
+    "kana": "しろい",
+    "meaning": "white",
+    "emoji": "⬜",
+    "blocked": false,
+    "note": "white square"
+  },
+  {
+    "word": "待つ",
+    "kana": "まつ",
+    "meaning": "to wait",
+    "emoji": "⏳",
+    "blocked": false,
+    "note": "hourglass"
+  },
+  {
+    "word": "次",
+    "kana": "つぎ",
+    "meaning": "next",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract ordinal/temporal — no concrete referent"
+  },
+  {
+    "word": "行く",
+    "kana": "いく",
+    "meaning": "to go",
+    "emoji": "🚶",
+    "blocked": false,
+    "note": "person walking"
+  },
+  {
+    "word": "角",
+    "kana": "かど",
+    "meaning": "a corner",
+    "emoji": "📐",
+    "blocked": false,
+    "note": "triangle ruler — corner/angle"
+  },
+  {
+    "word": "男",
+    "kana": "おとこ",
+    "meaning": "man",
+    "emoji": "👨",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ギター",
+    "kana": "",
+    "meaning": "guitar",
+    "emoji": "🎸",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "聞く",
+    "kana": "きく",
+    "meaning": "to hear, to listen to, to ask",
+    "emoji": "👂",
+    "blocked": false,
+    "note": "ear"
+  },
+  {
+    "word": "走る",
+    "kana": "はしる",
+    "meaning": "to run",
+    "emoji": "🏃",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "お母さん",
+    "kana": "おかあさん",
+    "meaning": "(honorable) mother",
+    "emoji": "👩",
+    "blocked": false,
+    "note": "woman; pair with phrase context"
+  },
+  {
+    "word": "意味",
+    "kana": "いみ",
+    "meaning": "meaning",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract noun — per rubric"
+  },
+  {
+    "word": "物",
+    "kana": "もの",
+    "meaning": "thing",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract noun — per rubric"
+  },
+  {
+    "word": "強い",
+    "kana": "つよい",
+    "meaning": "powerful",
+    "emoji": "💪",
+    "blocked": false,
+    "note": "flexed bicep"
+  },
+  {
+    "word": "魚",
+    "kana": "さかな",
+    "meaning": "fish",
+    "emoji": "🐟",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "切手",
+    "kana": "きって",
+    "meaning": "postage stamp",
+    "emoji": "📮",
+    "blocked": false,
+    "note": "postbox; no stamp emoji in Noto"
+  },
+  {
+    "word": "暗い",
+    "kana": "くらい",
+    "meaning": "gloomy",
+    "emoji": "🌑",
+    "blocked": false,
+    "note": "new moon = dark"
+  },
+  {
+    "word": "出る",
+    "kana": "でる",
+    "meaning": "to appear, to leave",
+    "emoji": "🚪",
+    "blocked": false,
+    "note": "door — leave/exit"
+  },
+  {
+    "word": "犬",
+    "kana": "いぬ",
+    "meaning": "dog",
+    "emoji": "🐕",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "女",
+    "kana": "おんな",
+    "meaning": "woman",
+    "emoji": "👩",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "飛行機",
+    "kana": "ひこうき",
+    "meaning": "aeroplane",
+    "emoji": "✈️",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "日曜日",
+    "kana": "にちようび",
+    "meaning": "Sunday",
+    "emoji": "📅",
+    "blocked": false,
+    "note": "generic calendar"
+  },
+  {
+    "word": "より、ほう",
+    "kana": "",
+    "meaning": "Used for comparison.",
+    "emoji": "",
+    "blocked": true,
+    "note": "comparison particle — abstract grammar"
+  },
+  {
+    "word": "午前",
+    "kana": "ごぜん",
+    "meaning": "morning",
+    "emoji": "🌅",
+    "blocked": false,
+    "note": "sunrise"
+  },
+  {
+    "word": "名前",
+    "kana": "なまえ",
+    "meaning": "name",
+    "emoji": "🪪",
+    "blocked": false,
+    "note": "ID card"
+  },
+  {
+    "word": "丸い / 円い",
+    "kana": "まるい",
+    "meaning": "round, circular",
+    "emoji": "⭕",
+    "blocked": false,
+    "note": "circle"
+  },
+  {
+    "word": "曲る",
+    "kana": "まがる",
+    "meaning": "to turn, to bend",
+    "emoji": "↩️",
+    "blocked": false,
+    "note": "curved arrow"
+  },
+  {
+    "word": "鼻",
+    "kana": "はな",
+    "meaning": "nose",
+    "emoji": "👃",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "お弁当",
+    "kana": "おべんとう",
+    "meaning": "boxed lunch",
+    "emoji": "🍱",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "コップ",
+    "kana": "",
+    "meaning": "a glass",
+    "emoji": "🥛",
+    "blocked": false,
+    "note": "glass of milk; closest"
+  },
+  {
+    "word": "結婚",
+    "kana": "けっこん",
+    "meaning": "marriage",
+    "emoji": "💍",
+    "blocked": false,
+    "note": "ring"
+  },
+  {
+    "word": "置く",
+    "kana": "おく",
+    "meaning": "to put",
+    "emoji": "📥",
+    "blocked": false,
+    "note": "inbox tray — place/put"
+  },
+  {
+    "word": "渡る",
+    "kana": "わたる",
+    "meaning": "to go across",
+    "emoji": "🚸",
+    "blocked": false,
+    "note": "pedestrian crossing"
+  },
+  {
+    "word": "伯母さん / 叔母さん",
+    "kana": "おばさん",
+    "meaning": "aunt",
+    "emoji": "👩",
+    "blocked": false,
+    "note": "woman; pair with phrase for aunt context"
+  },
+  {
+    "word": "それから",
+    "kana": "",
+    "meaning": "after that",
+    "emoji": "",
+    "blocked": true,
+    "note": "conjunction — abstract grammar"
+  },
+  {
+    "word": "明い",
+    "kana": "あかるい",
+    "meaning": "bright",
+    "emoji": "💡",
+    "blocked": false,
+    "note": "lightbulb"
+  },
+  {
+    "word": "家庭",
+    "kana": "かてい",
+    "meaning": "household",
+    "emoji": "🏠",
+    "blocked": false,
+    "note": "house"
+  },
+  {
+    "word": "パーティー",
+    "kana": "",
+    "meaning": "party",
+    "emoji": "🎉",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "あちら",
+    "kana": "",
+    "meaning": "there",
+    "emoji": "",
+    "blocked": true,
+    "note": "spatial demonstrative — per rubric"
+  },
+  {
+    "word": "スカート",
+    "kana": "",
+    "meaning": "skirt",
+    "emoji": "👗",
+    "blocked": false,
+    "note": "dress is closest Noto"
+  },
+  {
+    "word": "靴",
+    "kana": "くつ",
+    "meaning": "shoes",
+    "emoji": "👞",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "ボタン",
+    "kana": "",
+    "meaning": "button",
+    "emoji": "🔘",
+    "blocked": false,
+    "note": "radio button"
+  },
+  {
+    "word": "今月",
+    "kana": "こんげつ",
+    "meaning": "this month",
+    "emoji": "📅",
+    "blocked": false,
+    "note": "calendar"
+  },
+  {
+    "word": "返す",
+    "kana": "かえす",
+    "meaning": "to return something",
+    "emoji": "↩️",
+    "blocked": false,
+    "note": "return arrow"
+  },
+  {
+    "word": "いかが",
+    "kana": "",
+    "meaning": "how",
+    "emoji": "",
+    "blocked": true,
+    "note": "interrogative adverb — abstract grammar"
+  },
+  {
+    "word": "ストーブ",
+    "kana": "",
+    "meaning": "heater",
+    "emoji": "🔥",
+    "blocked": false,
+    "note": "fire — heater context; weak but concrete"
+  },
+  {
+    "word": "二人",
+    "kana": "ふたり",
+    "meaning": "two people",
+    "emoji": "👥",
+    "blocked": false,
+    "note": "two silhouettes"
+  },
+  {
+    "word": "起きる",
+    "kana": "おきる",
+    "meaning": "to get up",
+    "emoji": "⏰",
+    "blocked": false,
+    "note": "alarm clock — wake up"
+  },
+  {
+    "word": "さあ",
+    "kana": "",
+    "meaning": "well…",
+    "emoji": "",
+    "blocked": true,
+    "note": "interjection — no concrete referent"
+  },
+  {
+    "word": "あそこ",
+    "kana": "",
+    "meaning": "over there",
+    "emoji": "",
+    "blocked": true,
+    "note": "spatial demonstrative — per rubric"
+  },
+  {
+    "word": "古い",
+    "kana": "ふるい",
+    "meaning": "old (not used for people)",
+    "emoji": "🏚️",
+    "blocked": false,
+    "note": "derelict house — old"
+  },
+  {
+    "word": "黄色い",
+    "kana": "きいろい",
+    "meaning": "yellow",
+    "emoji": "🟨",
+    "blocked": false,
+    "note": "yellow square"
+  },
+  {
+    "word": "まだ",
+    "kana": "",
+    "meaning": "yet, still",
+    "emoji": "",
+    "blocked": true,
+    "note": "tense/aspect adverb — abstract grammar"
+  },
+  {
+    "word": "歌う",
+    "kana": "うたう",
+    "meaning": "to sing",
+    "emoji": "🎤",
+    "blocked": false,
+    "note": "microphone"
+  },
+  {
+    "word": "飴",
+    "kana": "あめ",
+    "meaning": "candy",
+    "emoji": "🍬",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "寝る",
+    "kana": "ねる",
+    "meaning": "to go to bed, to sleep",
+    "emoji": "🛏️",
+    "blocked": false,
+    "note": "bed"
+  },
+  {
+    "word": "それ",
+    "kana": "",
+    "meaning": "that",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — per rubric"
+  },
+  {
+    "word": "質問",
+    "kana": "しつもん",
+    "meaning": "question",
+    "emoji": "❓",
+    "blocked": false,
+    "note": "question mark"
+  },
+  {
+    "word": "どなた",
+    "kana": "",
+    "meaning": "who",
+    "emoji": "",
+    "blocked": true,
+    "note": "interrogative pronoun — per rubric"
+  },
+  {
+    "word": "牛乳",
+    "kana": "ぎゅうにゅう",
+    "meaning": "milk",
+    "emoji": "🥛",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "二",
+    "kana": "に",
+    "meaning": "two",
+    "emoji": "2️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "紅茶",
+    "kana": "こうちゃ",
+    "meaning": "black tea",
+    "emoji": "🍵",
+    "blocked": false,
+    "note": "teacup; pair with phrase"
+  },
+  {
+    "word": "そちら",
+    "kana": "",
+    "meaning": "over there",
+    "emoji": "",
+    "blocked": true,
+    "note": "spatial demonstrative — per rubric"
+  },
+  {
+    "word": "出かける",
+    "kana": "でかける",
+    "meaning": "to go out",
+    "emoji": "🚶",
+    "blocked": false,
+    "note": "person walking"
+  },
+  {
+    "word": "兄",
+    "kana": "あに",
+    "meaning": "(humble) older brother",
+    "emoji": "👦",
+    "blocked": false,
+    "note": "boy; pair with phrase context per rubric"
+  },
+  {
+    "word": "留学生",
+    "kana": "りゅうがくせい",
+    "meaning": "overseas student",
+    "emoji": "🎓",
+    "blocked": false,
+    "note": "graduation cap"
+  },
+  {
+    "word": "月曜日",
+    "kana": "げつようび",
+    "meaning": "Monday",
+    "emoji": "📅",
+    "blocked": false,
+    "note": "calendar"
+  },
+  {
+    "word": "締める",
+    "kana": "しめる",
+    "meaning": "to tie",
+    "emoji": "🎀",
+    "blocked": false,
+    "note": "ribbon"
+  },
+  {
+    "word": "熱い",
+    "kana": "あつい",
+    "meaning": "hot to the touch",
+    "emoji": "🔥",
+    "blocked": false,
+    "note": "fire — hot"
+  },
+  {
+    "word": "郵便局",
+    "kana": "ゆうびんきょく",
+    "meaning": "post office",
+    "emoji": "🏤",
+    "blocked": false,
+    "note": "post office building"
+  },
+  {
+    "word": "細い",
+    "kana": "ほそい",
+    "meaning": "thin",
+    "emoji": "",
+    "blocked": true,
+    "note": "abstract adjective; no clean Noto referent"
+  },
+  {
+    "word": "六つ",
+    "kana": "むっつ",
+    "meaning": "six",
+    "emoji": "6️⃣",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "本棚",
+    "kana": "ほんだな",
+    "meaning": "bookshelves",
+    "emoji": "📚",
+    "blocked": false,
+    "note": "stacked books"
+  },
+  {
+    "word": "結構",
+    "kana": "けっこう",
+    "meaning": "splendid, enough",
+    "emoji": "",
+    "blocked": true,
+    "note": "polysemous abstract adjective/adverb"
+  },
+  {
+    "word": "こちら",
+    "kana": "",
+    "meaning": "this person or way",
+    "emoji": "",
+    "blocked": true,
+    "note": "demonstrative — per rubric"
+  },
+  {
+    "word": "昨夜",
+    "kana": "ゆうべ",
+    "meaning": "last night",
+    "emoji": "🌙",
+    "blocked": false,
+    "note": "crescent moon"
+  },
+  {
+    "word": "外国人",
+    "kana": "がいこくじん",
+    "meaning": "foreigner",
+    "emoji": "🌍",
+    "blocked": false,
+    "note": "globe — foreign/abroad"
+  },
+  {
+    "word": "絵",
+    "kana": "え",
+    "meaning": "picture",
+    "emoji": "🖼️",
+    "blocked": false,
+    "note": "framed picture"
+  },
+  {
+    "word": "使う",
+    "kana": "つかう",
+    "meaning": "to use",
+    "emoji": "🛠️",
+    "blocked": false,
+    "note": "tools — using"
+  },
+  {
+    "word": "休む",
+    "kana": "やすむ",
+    "meaning": "to rest",
+    "emoji": "😴",
+    "blocked": false,
+    "note": "sleeping face — rest"
+  },
+  {
+    "word": "テスト",
+    "kana": "",
+    "meaning": "test",
+    "emoji": "📝",
+    "blocked": false,
+    "note": "memo"
+  },
+  {
+    "word": "貼る",
+    "kana": "はる",
+    "meaning": "to stick",
+    "emoji": "",
+    "blocked": true,
+    "note": "no concrete Noto referent; pair with phrase"
+  },
+  {
+    "word": "たばこ",
+    "kana": "",
+    "meaning": "tobacco, cigarettes",
+    "emoji": "🚬",
+    "blocked": false,
+    "note": ""
+  },
+  {
+    "word": "涼しい",
+    "kana": "すずしい",
+    "meaning": "refreshing",
+    "emoji": "🍃",
+    "blocked": false,
+    "note": "leaf in wind — cool/refreshing"
+  },
+  {
+    "word": "昨日",
+    "kana": "きのう",
+    "meaning": "yesterday",
+    "emoji": "📅",
+    "blocked": false,
+    "note": "calendar; pair with phrase"
+  },
+  {
+    "word": "せっけん",
+    "kana": "",
+    "meaning": "economy",
+    "emoji": "🧼",
+    "blocked": false,
+    "note": "soap — note: meaning field appears mislabeled (せっけん=soap)"
+  },
+  {
+    "word": "初め / 始め",
+    "kana": "はじめ",
+    "meaning": "beginning",
+    "emoji": "🏁",
+    "blocked": false,
+    "note": "checkered flag — start"
+  }
+]
