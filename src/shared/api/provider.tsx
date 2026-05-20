@@ -2,6 +2,7 @@ import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AdminApi } from "./admin";
 import { DecksApi } from "./decks";
+import { ProgressApi } from "./progress";
 import { StoriesApi } from "./stories";
 import { UsersApi } from "./users";
 import { SrsApi } from "./srs";
@@ -12,6 +13,7 @@ interface ApiContext {
   decks: DecksApi;
   stories: StoriesApi;
   admin: AdminApi;
+  progress: ProgressApi;
 }
 
 const Ctx = createContext<ApiContext | null>(null);
@@ -37,6 +39,7 @@ export function ApiProvider({ children }: { children: ReactNode }) {
       decks: new DecksApi(opts),
       stories: new StoriesApi(opts),
       admin: new AdminApi(opts),
+      progress: new ProgressApi(opts),
     };
   }, [getAccessTokenSilently]);
 

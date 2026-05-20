@@ -4,6 +4,7 @@
     "title": "Sync Manager",
     "subtitle": "Background sync for your progress",
     "srsLabel": "Flashcards",
+    "lessonsLabel": "Lessons",
     "synced": "Synced",
     "unsynced": "{{count}} unsynced",
     "lastSync": "Last sync: {{time}}",

@@ -36,7 +36,10 @@ import {
   downloadSessionLogIfTester,
   logSessionEvent,
 } from "@/shared/telemetry/sessionLog";
+import { recordAttempt } from "@/features/lesson/engine";
 import type { LessonCompleteMastery } from "./components/LessonComplete";
+
+const LESSON_PASS_THRESHOLD = 0.7;
 
 /** Replays of an already-completed lesson award a fraction of the original
  *  XP — the activity is review, not a new milestone. Tweak in one place. */
@@ -225,6 +228,33 @@ export function LessonPage() {
       xpEarned,
       isReview,
       wasSkipped,
+    });
+    // Buffer the attempt for server sync. SyncManager flushes the buffer
+    // (manual / periodic / on exit) — no per-completion API call.
+    // Replays of completed lessons are still recorded so the server has
+    // the full activity history for streak / day-rollup.
+    const durationSec = Math.max(
+      1,
+      Math.floor((Date.now() - new Date(startedAtRef.current).getTime()) / 1000),
+    );
+    const stepResults = lesson.steps.flatMap((step, stepIdx) => {
+      const result = results[step.id];
+      if (result === undefined) return [];
+      return [
+        {
+          stepIdx,
+          conceptIds: [] as string[], // populated once concept taxonomy lands
+          correct: result,
+          durationMs: undefined,
+        },
+      ];
+    });
+    recordAttempt({
+      lessonId: lesson.id,
+      durationSec,
+      passed: !wasSkipped && accuracy >= LESSON_PASS_THRESHOLD,
+      score: accuracy,
+      stepResults,
     });
     logSessionEvent("lesson_end", {
       lessonId: lesson.id,
