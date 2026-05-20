@@ -127,7 +127,8 @@ See [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md): admin v2, moderation/staging dec
 
 1. [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) — 2-week plan
 2. [MVP_PAGES_PLAN.md](./MVP_PAGES_PLAN.md) — page-by-page UI scope for launch
-3. [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md) — ideas & epics (incl. lingots, cosmetics, voting, search, infra)
-4. [MVP_PRODUCTION_READINESS.md](./MVP_PRODUCTION_READINESS.md) — checklists
-5. [TODO.md](./TODO.md) — checklist items
-6. [tasks/README.md](./tasks/README.md) — individual specs  
+3. [ECONOMICS.md](./ECONOMICS.md) — pricing tiers, cost math, sustainability targets
+4. [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md) — ideas & epics (incl. lingots, cosmetics, voting, search, infra)
+5. [MVP_PRODUCTION_READINESS.md](./MVP_PRODUCTION_READINESS.md) — checklists
+6. [TODO.md](./TODO.md) — checklist items
+7. [tasks/README.md](./tasks/README.md) — individual specs  
