@@ -10,8 +10,12 @@
 export const LESSON_TO_CARDS: Record<string, Record<string, string[]>> = {
   ko: {
     "m1-l0": ["ko-1"],
-    "m1-l1": ["ko-2", "ko-5"],
-    "m1-l2": ["ko-3", "ko-4"],
+    // Hangul foundation (2026-05-19 rebuild): no per-card unlock until
+    // greetings/intro vocab returns in M3. Vowel + consonant lessons
+    // teach script, not lexical cards.
+    "ko-m1-intro": [],
+    "ko-m1-v-1": [],
+    "ko-m1-v-2": [],
   },
   ja: {
     "m1-l0": ["ja-1"],

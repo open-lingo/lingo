@@ -1,6 +1,10 @@
 import type { LessonContent, LessonStep } from "../types";
-import { MOCK_LESSON_M1_L1 } from "./mock-m1-l1";
-import { MOCK_LESSON_M1_L2 } from "./mock-m1-l2";
+import { MOCK_LESSON_KO_M1_INTRO } from "./mock-ko-m1-intro";
+import {
+  MOCK_LESSON_KO_M1_V1,
+  MOCK_LESSON_KO_M1_V2,
+} from "./mock-ko-m1-vowels";
+import { buildAllKoreanRowLessons } from "./koreanCurriculum";
 import {
   MOCK_LESSON_JA_M1_L1A,
   MOCK_LESSON_JA_M1_L1B,
@@ -157,9 +161,20 @@ import { ALL_ROWS } from "./hiraganaCurriculum";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { buildReviewTailSteps } from "./buildReviewTailSteps";
 
+const KOREAN_ROW_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  buildAllKoreanRowLessons().map((l) => [l.id, l]),
+);
+
 const LESSONS: Record<string, LessonContent> = {
-  "m1-l1": MOCK_LESSON_M1_L1,
-  "m1-l2": MOCK_LESSON_M1_L2,
+  // ─── Korean — Module 1 (Hangul foundation, 2026-05-19) ───────────────
+  // The legacy m1-l1 (Greetings) / m1-l2 (Introductions) lessons were
+  // deleted in favor of teaching the script first. Greetings come back
+  // in M3 once the learner can actually read 안녕하세요.
+  "ko-m1-intro": MOCK_LESSON_KO_M1_INTRO,
+  "ko-m1-v-1": MOCK_LESSON_KO_M1_V1,
+  "ko-m1-v-2": MOCK_LESSON_KO_M1_V2,
+  ...KOREAN_ROW_LESSONS,
+  // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,
   "ja-m1-l1-2": MOCK_LESSON_JA_M1_L1B,
   ...GENERATED_HIRAGANA_LESSONS,

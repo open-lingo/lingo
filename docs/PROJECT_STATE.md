@@ -131,4 +131,5 @@ See [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md): admin v2, moderation/staging dec
 4. [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md) — ideas & epics (incl. lingots, cosmetics, voting, search, infra)
 5. [MVP_PRODUCTION_READINESS.md](./MVP_PRODUCTION_READINESS.md) — checklists
 6. [TODO.md](./TODO.md) — checklist items
-7. [tasks/README.md](./tasks/README.md) — individual specs  
+7. [ALPHABET_COURSE_INTEGRATION_PLAN.md](./ALPHABET_COURSE_INTEGRATION_PLAN.md) — wiring alphabet practice into the course track + concept rollups
+8. [tasks/README.md](./tasks/README.md) — individual specs  

@@ -168,10 +168,10 @@ export function Layout() {
           {/* Right side: utilities + mobile menu button */}
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             {isAuthenticated && <SyncManagerTrigger />}
-            {isAuthenticated && (stats.lingots > 0 || stats.xp > 0) && (
+            {isAuthenticated && (
               <Link
                 to={langPath("settings")}
-                className="hidden items-center gap-1 rounded-full bg-accent-muted px-2 py-1 text-xs font-semibold text-accent transition hover:bg-accent-muted/80 sm:inline-flex"
+                className="inline-flex items-center gap-1 rounded-full bg-accent-muted px-2 py-1 text-xs font-semibold text-accent transition hover:bg-accent-muted/80"
                 title={t("nav.lingotsTooltip", { defaultValue: "{{count}} lingots", count: stats.lingots })}
               >
                 <Icon name="gem" size={14} aria-hidden />
