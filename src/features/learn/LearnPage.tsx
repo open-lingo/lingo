@@ -16,6 +16,7 @@ import { Icon } from "@/shared/components/Icon";
 import { Card, ProgressRing } from "@/shared/components/ui";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useUserStats } from "@/shared/hooks/useUserStats";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { logSessionEvent } from "@/shared/telemetry/sessionLog";
 import { getMockCourse, ALPHABET_LESSON_ID } from "@/shared/domain/mockCourse";
@@ -50,6 +51,7 @@ export function LearnPage() {
   const { language } = useLanguage();
   const course = language ? getMockCourse(language.id) : null;
   const profile = useLearnProfile();
+  const { stats: userStats } = useUserStats();
 
   const [completedIds, setCompletedIds] = useState(() =>
     getMockCompletedLessonIds(),
@@ -346,8 +348,7 @@ export function LearnPage() {
               totalLessons > 0
                 ? Math.round((lessonsDone / totalLessons) * 100)
                 : 0;
-            // MOCK: streak — replace with persisted streak telemetry.
-            const streakDays = 7;
+            const streakDays = userStats.streak;
             return (
               <Card padding="lg" className="mb-6">
                 <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
@@ -379,14 +380,15 @@ export function LearnPage() {
                         {moduleCount}
                       </p>
                     </div>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-warning/10 px-3 py-1.5 text-sm font-bold text-warning">
-                      <Icon name="flame" size={16} aria-hidden />
-                      {/* MOCK: streakDays — replace with real streak. */}
-                      {t("learn.progressCard.streakChip", {
-                        defaultValue: "{{count}}-day streak",
-                        count: streakDays,
-                      })}
-                    </span>
+                    {streakDays > 0 && (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-warning/10 px-3 py-1.5 text-sm font-bold text-warning">
+                        <Icon name="flame" size={16} aria-hidden />
+                        {t("learn.progressCard.streakChip", {
+                          defaultValue: "{{count}}-day streak",
+                          count: streakDays,
+                        })}
+                      </span>
+                    )}
                   </div>
                 </div>
               </Card>

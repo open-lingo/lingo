@@ -29,6 +29,7 @@ import {
 
 import type { InfoStep } from "@/features/lesson/types";
 import { logAlphabetEvent } from "./alphabetAnalytics";
+import { recordAttempt, recordStepEvent } from "@/features/lesson/engine";
 
 const TEST_PASS_THRESHOLD = 0.8;
 
@@ -270,9 +271,27 @@ export function AlphabetLessonPage() {
     });
   }, [currentStep, currentStepIdx, totalSteps, alphabet, language, mode, sectionId]);
 
+  // Per-step event buffering — ticks SyncManager dirty count as each
+  // alphabet lesson step is graded.
+  const recordAlphabetStep = useCallback(
+    (stepId: string, correct: boolean) => {
+      if (!alphabetId) return;
+      const syntheticLessonId = `alphabet:${alphabetId}:${mode}${sectionId ? `:${sectionId}` : ""}`;
+      recordStepEvent({
+        lessonId: syntheticLessonId,
+        stepId,
+        stepIdx: 0,
+        correct,
+        conceptIds: [`alphabet:${alphabetId}`],
+      });
+    },
+    [alphabetId, mode, sectionId],
+  );
+
   const handleStepComplete = useCallback(
     (stepId: string, correct: boolean) => {
       setResults((prev) => ({ ...prev, [stepId]: correct }));
+      recordAlphabetStep(stepId, correct);
       if (!progress || mode === "test") return;
       const parsed = parseAlphabetStepId(stepId);
       if (!parsed) return;
@@ -382,6 +401,34 @@ export function AlphabetLessonPage() {
       else markFullTestPassed(progress);
     }
   }, [finished, mode, progress, sectionId, results]);
+
+  // Buffer the alphabet lesson as a progress-tracked attempt. Mirrors the
+  // recordAttempt wiring in LessonPage. The "lessonId" we send is a
+  // synthetic id reflecting the alphabet + mode + section so the server
+  // can distinguish reviews from tests when stats roll up later.
+  const alphabetAttemptRecordedRef = useRef(false);
+  useEffect(() => {
+    if (!finished || alphabetAttemptRecordedRef.current) return;
+    if (!alphabetId) return;
+    alphabetAttemptRecordedRef.current = true;
+    const correctCount = Object.values(results).filter(Boolean).length;
+    const gradedSteps = Object.keys(results).length;
+    const accuracy = gradedSteps > 0 ? correctCount / gradedSteps : 1;
+    const stepResults = Object.values(results).map((correct, idx) => ({
+      stepIdx: idx,
+      conceptIds: [`alphabet:${alphabetId}`],
+      correct,
+      durationMs: undefined,
+    }));
+    const syntheticLessonId = `alphabet:${alphabetId}:${mode}${sectionId ? `:${sectionId}` : ""}`;
+    recordAttempt({
+      lessonId: syntheticLessonId,
+      durationSec: Math.max(5, gradedSteps * 3),
+      passed: accuracy >= TEST_PASS_THRESHOLD,
+      score: accuracy,
+      stepResults,
+    });
+  }, [finished, alphabetId, mode, sectionId, results]);
 
   // Persist session state on every meaningful change. Gated on real progress
   // so we don't overwrite a saved session with default state during the
