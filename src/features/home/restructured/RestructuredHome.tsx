@@ -26,16 +26,29 @@ export function RestructuredHome({ greetingName }: Props) {
   const { language } = useLanguage();
   const langPath = useLangPath();
   const course = language ? getMockCourse(language.id) : null;
-  const nextLesson = course ? getNextLesson(course) : null;
+  const completedIds = getMockCompletedLessonIds();
+  const nextLesson = course ? getNextLesson(course, completedIds) : null;
   const langConfig = language ? getLanguageConfig(language.id) : null;
   const progress = getMockProgressSummary();
+
+  // "Continue lesson" should drop the user directly into the lesson player
+  // rather than the Learn pathway. Branch on lesson.kind to handle alphabet
+  // lessons, which live under a different route. Fallback: Learn page.
+  const startLessonHref = (() => {
+    if (!nextLesson) return langPath("learn");
+    const { kind, alphabetId, id } = nextLesson.lesson;
+    if (kind === "alphabet" && alphabetId) {
+      return langPath(`practice/alphabet/${alphabetId}/learn`);
+    }
+    return langPath(`learn/lessons/${id}`);
+  })();
 
   // Module progress derived from how many lessons of the active module are done.
   // Falls back to 0 when no course/module is available (defensive — first-time
   // users don't render this component, so this is a safety net).
   const moduleProgressPercent = (() => {
     if (!course || !nextLesson) return 0;
-    const completed = new Set(getMockCompletedLessonIds());
+    const completed = new Set(completedIds);
     const activeModule = course.modules.find((m) =>
       m.lessons.some((l) => l.id === nextLesson.lesson.id),
     );
@@ -60,7 +73,7 @@ export function RestructuredHome({ greetingName }: Props) {
       <HeroSection
         name={greetingName}
         language={langConfig ?? null}
-        startLessonHref={langPath("learn")}
+        startLessonHref={startLessonHref}
         nextLesson={nextLesson}
         streakDays={progress.streakDays}
         moduleProgressPercent={moduleProgressPercent}
