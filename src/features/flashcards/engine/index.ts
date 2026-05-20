@@ -3,6 +3,8 @@ export {
   createInitialState,
   isDue,
   isNew,
+  isLearning,
+  isMastered,
   isBuried,
   buryCard,
   unburyCard,
@@ -10,6 +12,7 @@ export {
   getToday,
   getQuality,
   shouldRepeatInSession,
+  MASTERED_INTERVAL_DAYS,
 } from "./srs";
 export {
   getSRSStore,

@@ -7,8 +7,10 @@ import type {
 import {
   appendPendingAttempt,
   appendStepEvent,
+  clearAllStepEvents,
   clearStepEventsForLesson,
   getPendingAttempts,
+  getStepEvents,
   removePendingAttempts,
   setLastLessonSyncAt,
   type PendingAttempt,
@@ -136,7 +138,18 @@ export async function performLessonSync(
   syncFn: (payload: BatchAttemptSubmission) => Promise<BatchAttemptResponse>,
 ): Promise<number> {
   const { payload, ids } = buildBatchPayload();
-  if (ids.length === 0) return 0;
+  if (ids.length === 0) {
+    // No completed attempts to send. If there are orphan step events
+    // (lesson in progress / abandoned mid-flow), drop them so the dirty
+    // count clears — step events are local telemetry, not their own
+    // server resource. The next completed attempt re-records its own.
+    if (getStepEvents().length > 0) {
+      clearAllStepEvents();
+      setLastLessonSyncAt(new Date().toISOString());
+      notify();
+    }
+    return 0;
+  }
 
   const response = await syncFn(payload);
   const accepted = response.results.filter((r) => r.accepted);
@@ -144,6 +157,9 @@ export async function performLessonSync(
 
   if (acceptedIds.length > 0) {
     removePendingAttempts(acceptedIds);
+    // Drop any orphan step events too — for any lesson where the attempt
+    // has now synced, the embedded stepResults are the source of truth.
+    clearAllStepEvents();
     setLastLessonSyncAt(new Date().toISOString());
     // Server processed (or no-op'd) the streak update on this sync — mark it
     // done so the next batch this same local day skips the streak path on the

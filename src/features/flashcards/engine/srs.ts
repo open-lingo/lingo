@@ -33,6 +33,28 @@ const RATING_QUALITY: Record<SRSRating, number> = {
 export const DEFAULT_EASE = 2.5;
 const MIN_EASE = 1.3;
 
+/**
+ * Interval (in days) at which a card is considered "mastered" / mature.
+ * Cards with interval >= this value have been retained across a meaningful
+ * gap and are no longer in the active learning pool. This is the same
+ * threshold Anki uses for "mature" cards in its scheduler — SM-2 itself
+ * does not define a label, but 21 days is the de-facto convention.
+ */
+export const MASTERED_INTERVAL_DAYS = 21;
+
+/** Card has been seen but interval is still below mastery threshold. */
+export function isLearning(state: SRSCardState | undefined): boolean {
+  if (!state) return false;
+  if (state.repetitions === 0) return false;
+  return state.interval < MASTERED_INTERVAL_DAYS;
+}
+
+/** Card has reached mature/mastered interval. */
+export function isMastered(state: SRSCardState | undefined): boolean {
+  if (!state) return false;
+  return state.interval >= MASTERED_INTERVAL_DAYS;
+}
+
 function todayStr(): string {
   return new Date().toISOString().slice(0, 10);
 }

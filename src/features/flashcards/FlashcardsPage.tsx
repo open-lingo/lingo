@@ -5,13 +5,20 @@ import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { getLanguageConfig } from "@/shared/domain/languageConfig";
-import { Card, WeekSparkline } from "@/shared/components/ui";
+import { Card, WeekSparkline, CollapsibleSection } from "@/shared/components/ui";
 import { EmptyState } from "@/shared/components/EmptyState";
 import type { Flashcard } from "@/features/flashcards/data/types";
 import { useCommunityContent } from "@/features/community/CommunityContentContext";
 import { CommunityItemCard } from "@/features/community/components/CommunityItemCard";
 import { StudyScopeShortcuts } from "@/features/flashcards/StudyScopeShortcuts";
+import { StudyOptionsEditor } from "@/features/flashcards/StudyOptionsEditor";
+import { useDeckManagerData } from "@/features/flashcards/useDeckManagerData";
+import { useSettings } from "@/shared/contexts/SettingsContext";
+import {
+  isMyVocabDeck,
+  isLessonDeck,
+  isCommunityStyleDeck,
+} from "@/features/flashcards/deckScope";
 import { useSubscribedDecks } from "./useSubscribedDecks";
 import { useFlashcardDueSummary } from "./useFlashcardDueSummary";
 
@@ -19,10 +26,6 @@ import { useFlashcardDueSummary } from "./useFlashcardDueSummary";
 const MOCK_WEEK_REVIEWS = [8, 0, 12, 4, 18, 0, 6];
 // MOCK: rollups derived from MOCK_WEEK_REVIEWS until SRS exposes a stats endpoint.
 const MOCK_WEEK_TOTAL = MOCK_WEEK_REVIEWS.reduce((a, b) => a + b, 0);
-// MOCK: card-state buckets — replace with SRS retention query.
-const MOCK_LEARNING = 12;
-const MOCK_MASTERED = 47;
-const MOCK_TOTAL = 59;
 // MOCK: per-deck retention until the deck object carries a retention field.
 const MOCK_DECK_RETENTION = [82, 76, 91, 70, 88, 73, 85];
 
@@ -142,6 +145,64 @@ function DeckCard({
   );
 }
 
+function ReviewScopeCard({
+  icon,
+  title,
+  description,
+  count,
+  href,
+  ctaLabel,
+  disabled,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  count: number;
+  href: string;
+  ctaLabel: string;
+  disabled?: boolean;
+}) {
+  const body = (
+    <>
+      <div className="flex items-start gap-3">
+        <span className="rounded-lg bg-accent-muted p-2 text-accent">
+          {icon}
+        </span>
+        <div className="min-w-0 flex-1">
+          <h3 className="text-sm font-semibold text-text-primary">{title}</h3>
+          <p className="mt-1 text-xs text-text-muted">{description}</p>
+        </div>
+        <span className="shrink-0 rounded-full bg-surface-muted px-2 py-0.5 text-xs font-semibold text-text-secondary">
+          {count}
+        </span>
+      </div>
+      <div className="mt-3 flex items-center justify-end gap-1.5 text-xs font-semibold text-accent">
+        {ctaLabel}
+        <Icon name="arrowRight" size={14} aria-hidden />
+      </div>
+    </>
+  );
+
+  if (disabled) {
+    return (
+      <div
+        className="flex h-full flex-col rounded-lg border border-border bg-surface-muted/50 p-3 opacity-60"
+        aria-disabled
+      >
+        {body}
+      </div>
+    );
+  }
+  return (
+    <Link
+      to={href}
+      className="flex h-full flex-col rounded-lg border border-border bg-surface p-3 transition hover:border-accent hover:bg-surface-muted"
+    >
+      {body}
+    </Link>
+  );
+}
+
 export function FlashcardsPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
@@ -155,45 +216,56 @@ export function FlashcardsPage() {
   const {
     dueQueue,
     dueCount,
+    totalCount,
+    learningCount,
+    masteredCount,
     deck,
     courseDecks,
     communityPacksWithDecks,
     isLoading: cardsDueLoading,
   } = useFlashcardDueSummary(langId);
 
-  const languageName = getLanguageConfig(langId)?.name ?? langId;
-
   const { openDeckPreview } = useCommunityContent();
+
+  // Managed decks: used both for the StudyOptionsEditor checklist below and
+  // for bucketing the "Review" scope cards (vocab / lessons / subscribed).
+  const { decks: managedDecks } = useDeckManagerData(langId);
+  const { settings } = useSettings();
+  const savedStudyOptionsCount = settings.flashcards?.studyOptions?.length ?? 0;
+
+  const scopeCounts = useMemo(() => {
+    let vocab = 0;
+    let lessons = 0;
+    let subscribed = 0;
+    for (const d of managedDecks) {
+      if (isMyVocabDeck(d.id)) vocab++;
+      else if (isLessonDeck(d)) lessons++;
+      else if (isCommunityStyleDeck(d)) subscribed++;
+    }
+    return { vocab, lessons, subscribed };
+  }, [managedDecks]);
+
+  const reviewBase = langPath("practice/flashcards/review");
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-text-primary">
-            {t("flashcards.title")}
-          </h1>
-          <p className="mt-1 text-text-secondary">
-            {t("flashcards.subtitle", { language: languageName })}
-          </p>
-        </div>
-        <div className="flex gap-2">
+      {/* Zone 1 — Retention summary (acts as the page hero; PracticeLayout
+          already renders breadcrumbs above us, so we don't repeat an h1). */}
+      <Card padding="lg">
+        <div className="mb-4 flex flex-wrap items-center justify-end gap-2">
           <Link
             to={langPath("practice/flashcards/decks")}
-            className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted"
+            className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
           >
             {t("flashcards.deckManager.title", "Deck Manager")}
           </Link>
           <Link
             to={langPath("practice/flashcards/cards")}
-            className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted"
+            className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
           >
             {t("flashcards.cardManager.title", "Card Manager")}
           </Link>
         </div>
-      </div>
-
-      {/* Zone 1 — Retention summary */}
-      <Card padding="lg">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
           {/* Left col */}
           <div className="flex flex-col justify-between gap-4">
@@ -254,9 +326,11 @@ export function FlashcardsPage() {
               <p className="text-[10px] font-semibold uppercase tracking-wider text-accent">
                 {t("flashcards.statLearning", "Learning")}
               </p>
-              {/* MOCK: MOCK_LEARNING — replace with SRS state="learning" count. */}
-              <p className="mt-1 text-2xl font-extrabold leading-none text-accent">
-                {MOCK_LEARNING}
+              <p
+                className="mt-1 text-2xl font-extrabold leading-none text-accent"
+                aria-busy={cardsDueLoading}
+              >
+                {cardsDueLoading ? "…" : learningCount}
               </p>
               <p className="mt-1 text-[11px] text-text-muted">
                 {t("flashcards.statLearningCaption", "Still warming up")}
@@ -266,9 +340,11 @@ export function FlashcardsPage() {
               <p className="text-[10px] font-semibold uppercase tracking-wider text-success">
                 {t("flashcards.statMastered", "Mastered")}
               </p>
-              {/* MOCK: MOCK_MASTERED — replace with SRS state="mastered" count. */}
-              <p className="mt-1 text-2xl font-extrabold leading-none text-success">
-                {MOCK_MASTERED}
+              <p
+                className="mt-1 text-2xl font-extrabold leading-none text-success"
+                aria-busy={cardsDueLoading}
+              >
+                {cardsDueLoading ? "…" : masteredCount}
               </p>
               <p className="mt-1 text-[11px] text-text-muted">
                 {t("flashcards.statMasteredCaption", "Long-interval cards")}
@@ -278,9 +354,11 @@ export function FlashcardsPage() {
               <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
                 {t("flashcards.statTotal", "Total")}
               </p>
-              {/* MOCK: MOCK_TOTAL — replace with subscribed-card count. */}
-              <p className="mt-1 text-2xl font-extrabold leading-none text-text-primary">
-                {MOCK_TOTAL}
+              <p
+                className="mt-1 text-2xl font-extrabold leading-none text-text-primary"
+                aria-busy={cardsDueLoading}
+              >
+                {cardsDueLoading ? "…" : totalCount}
               </p>
               <p className="mt-1 text-[11px] text-text-muted">
                 {t("flashcards.statTotalCaption", "Across all decks")}
@@ -290,24 +368,109 @@ export function FlashcardsPage() {
         </div>
       </Card>
 
-      {/* Zone 2 — Quick study */}
-      <Card padding="md">
-        <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
-          {t("flashcards.quickStudyKicker", "Quick study")}
-        </p>
-        <h2 className="mt-1 text-base font-semibold text-text-primary">
-          {t("flashcards.studyShortcuts.title", "Quick study")}
-        </h2>
-        <p className="mb-3 mt-1 text-xs text-text-muted">
-          {t(
-            "flashcards.studyShortcuts.hint",
-            "Review only certain decks or a saved study option.",
-          )}
-        </p>
-        <StudyScopeShortcuts />
+      {/* Zone 2 — Quick study (compact: tightened padding + no separate kicker) */}
+      <Card padding="sm">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 className="text-sm font-semibold text-text-primary">
+            {t("flashcards.studyShortcuts.title", "Quick study")}
+          </h2>
+          <p className="text-xs text-text-muted">
+            {t(
+              "flashcards.studyShortcuts.hint",
+              "Review only certain decks or a saved study option.",
+            )}
+          </p>
+        </div>
+        <div className="mt-2">
+          <StudyScopeShortcuts compact />
+        </div>
       </Card>
 
-      {/* Zone 3 — Cards due today */}
+      {/* Zone 3 — Targeted review (pick a scope) */}
+      <section className="space-y-3">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+            {t("flashcards.reviewKicker", "Review")}
+          </p>
+          <h2 className="mt-1 text-lg font-semibold text-text-primary">
+            {t("flashcards.targetedReviewTitle", "Targeted review")}
+          </h2>
+          <p className="mt-0.5 text-sm text-text-secondary">
+            {t(
+              "flashcards.targetedReviewSubtitle",
+              "Pick a scope to start a focused review session.",
+            )}
+          </p>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <ReviewScopeCard
+            icon={<Icon name="sparkles" size={18} aria-hidden />}
+            title={t("flashcards.scope.vocab.title", "My vocab")}
+            description={t(
+              "flashcards.scope.vocab.description",
+              "Cards saved from your personal vocabulary.",
+            )}
+            count={scopeCounts.vocab}
+            href={`${reviewBase}?scope=vocab`}
+            ctaLabel={t("flashcards.scope.cta", "Start review")}
+            disabled={scopeCounts.vocab === 0}
+          />
+          <ReviewScopeCard
+            icon={<Icon name="graduationCap" size={18} aria-hidden />}
+            title={t("flashcards.scope.lessons.title", "Lesson decks")}
+            description={t(
+              "flashcards.scope.lessons.description",
+              "Decks generated from completed lessons.",
+            )}
+            count={scopeCounts.lessons}
+            href={`${reviewBase}?scope=lessons`}
+            ctaLabel={t("flashcards.scope.cta", "Start review")}
+            disabled={scopeCounts.lessons === 0}
+          />
+          <ReviewScopeCard
+            icon={<Icon name="globe" size={18} aria-hidden />}
+            title={t("flashcards.scope.subscribed.title", "Subscribed decks")}
+            description={t(
+              "flashcards.scope.subscribed.description",
+              "Community decks you've subscribed to.",
+            )}
+            count={scopeCounts.subscribed}
+            // No URL preset for "community-only" — pass the deck IDs directly.
+            href={
+              scopeCounts.subscribed > 0
+                ? `${reviewBase}?decks=${encodeURIComponent(
+                    managedDecks
+                      .filter((d) => isCommunityStyleDeck(d))
+                      .map((d) => d.id)
+                      .join(","),
+                  )}`
+                : reviewBase
+            }
+            ctaLabel={t("flashcards.scope.cta", "Start review")}
+            disabled={scopeCounts.subscribed === 0}
+          />
+        </div>
+      </section>
+
+      {/* Zone 4 — Custom study (collapsible) */}
+      <CollapsibleSection
+        alwaysCollapsible
+        persistKey="flashcards-custom-study"
+        title={t("flashcards.customStudy.title", "Custom study")}
+        trailing={
+          <span className="rounded-full bg-surface-muted px-2 py-0.5 text-[11px] font-semibold text-text-secondary">
+            {t("flashcards.customStudy.count", "{{count}} saved", {
+              count: savedStudyOptionsCount,
+            })}
+          </span>
+        }
+      >
+        <div className="rounded-lg border border-border bg-surface p-3">
+          <StudyOptionsEditor decks={managedDecks} />
+        </div>
+      </CollapsibleSection>
+
+      {/* Zone 5 — Cards due today */}
       {cardsDueLoading ? (
         <Card padding="md" aria-labelledby="flashcards-due-heading">
           <h2
@@ -345,7 +508,7 @@ export function FlashcardsPage() {
         />
       )}
 
-      {/* Zone 4 — Your decks */}
+      {/* Zone 6 — Your decks */}
       <section className="space-y-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
@@ -389,7 +552,7 @@ export function FlashcardsPage() {
         )}
       </section>
 
-      {/* Zone 5 — Community card packs */}
+      {/* Zone 7 — Community card packs */}
       <section className="space-y-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">

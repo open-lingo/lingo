@@ -7,6 +7,7 @@ import {
   type RowDef,
 } from "@/features/lesson/data/hiraganaCurriculum";
 import { MODULE_RECAP_LESSON_IDS } from "@/features/lesson/data/generatedHiraganaLessons";
+import { KO_M1_ROWS } from "@/features/lesson/data/koreanCurriculum";
 
 export const ALPHABET_LESSON_ID = "m1-l0-alphabet";
 
@@ -317,6 +318,131 @@ export function getMockCourse(languageId: string): Course {
     };
   }
 
+  const isKorean = languageId === "ko";
+
+  if (isKorean) {
+    // Curriculum rebuild (2026-05-19): Korean mirrors the JA depth pattern.
+    //   M1 = Hangul foundation — concept intro → 2 vowel sub-lessons → 9
+    //        plain-consonant rows × 3 sub-lessons each. Pure script,
+    //        minimal vocab (concept-first; the legacy m1-l1/m1-l2
+    //        "Greetings / Introductions" lessons were deleted because
+    //        they threw words at learners who couldn't read them).
+    //   M2 = aspirated + tense consonants + y/compound vowels + final
+    //        consonants (받침). Pathway scaffolded; content lands in a
+    //        follow-up pass — the lesson ids resolve to null in
+    //        mockLessons for now, mirroring how JA modules existed in
+    //        the pathway before their content was authored.
+    //   M3 = first phrases — greetings, intros, 이에요/예요. Brings the
+    //        m1-l1/m1-l2 vocab back, now that learners can actually read it.
+    const m1Lessons: { id: string; title: string; status: "available"; kind?: "recap" }[] = [
+      { id: "ko-m1-intro", title: "How Hangul works",    status: "available" as const },
+      { id: "ko-m1-v-1",   title: "Vowels — Intro 1",    status: "available" as const },
+      { id: "ko-m1-v-2",   title: "Vowels — Intro 2",    status: "available" as const },
+    ];
+    for (const row of KO_M1_ROWS) {
+      for (const suffix of ["1", "2", "3"] as const) {
+        const label = suffix === "3" ? "Review" : `Intro ${suffix}`;
+        m1Lessons.push({
+          id: `ko-m1-${row.id}-${suffix}`,
+          title: `${row.title} — ${label}`,
+          status: "available" as const,
+        });
+      }
+    }
+
+    const m2Lessons = [
+      { id: "ko-m2-asp-c-1",   title: "Aspirated ㅊ — Intro 1",   status: "available" as const },
+      { id: "ko-m2-asp-c-2",   title: "Aspirated ㅊ — Intro 2",   status: "available" as const },
+      { id: "ko-m2-asp-k-1",   title: "Aspirated ㅋ — Intro 1",   status: "available" as const },
+      { id: "ko-m2-asp-k-2",   title: "Aspirated ㅋ — Intro 2",   status: "available" as const },
+      { id: "ko-m2-asp-t-1",   title: "Aspirated ㅌ",             status: "available" as const },
+      { id: "ko-m2-asp-p-1",   title: "Aspirated ㅍ",             status: "available" as const },
+      { id: "ko-m2-tense-1",   title: "Tense ㄲ ㄸ",              status: "available" as const },
+      { id: "ko-m2-tense-2",   title: "Tense ㅃ ㅆ ㅉ",          status: "available" as const },
+      { id: "ko-m2-yv-1",      title: "Y-vowels ㅑ ㅕ ㅛ ㅠ",     status: "available" as const },
+      { id: "ko-m2-comp-1",    title: "Compound vowels ㅐ ㅔ",   status: "available" as const },
+      { id: "ko-m2-comp-2",    title: "W-vowels ㅘ ㅙ ㅝ ㅞ",     status: "available" as const },
+      { id: "ko-m2-batchim-1", title: "Final consonants (받침)", status: "available" as const },
+    ];
+
+    const m3Lessons = [
+      { id: "ko-m3-1", title: "Greetings — 안녕하세요",          status: "available" as const },
+      { id: "ko-m3-2", title: "Formality — formal vs. polite",     status: "available" as const },
+      { id: "ko-m3-3", title: "이에요 / 예요 — the copula",        status: "available" as const },
+      { id: "ko-m3-4", title: "저는 X 이에요 — introducing yourself", status: "available" as const },
+      { id: "ko-m3-5", title: "Asking names — 이름이 뭐예요?",     status: "available" as const },
+      { id: "ko-m3-6", title: "Numbers 1–10 (Sino-Korean)",       status: "available" as const },
+      { id: "ko-m3-7", title: "Mini-dialogue — meeting someone",   status: "available" as const },
+      { id: "ko-m3-8", title: "M3 Mastery Test",                  status: "available" as const },
+    ];
+
+    const sideQuests: SideQuest[] = [
+      {
+        id: "ko-survival-phrasebook",
+        emoji: "🗺️",
+        title: "Survival Phrasebook",
+        meta: "15 essentials · ~5 min · travel-ready",
+        progress: 0,
+      },
+      {
+        id: "kdrama-vocab",
+        emoji: "📺",
+        title: "K-drama Vocab",
+        meta: "12 words · oppa, daebak…",
+        progress: 0,
+      },
+      {
+        id: "kfood-vocab",
+        emoji: "🍜",
+        title: "Korean Food",
+        meta: "10 words · 비빔밥, 김치, 라면",
+        unlockAfter: "ko-m1-complete",
+        progress: 0,
+      },
+      {
+        id: "daily-challenge",
+        emoji: "⚡",
+        title: "Daily Challenge",
+        meta: "+20 XP · 60s timer",
+        progress: 0,
+        isDaily: true,
+      },
+    ];
+
+    return {
+      id: "mock-1",
+      title: `${langName} for Beginners`,
+      languageId,
+      modules: [
+        {
+          id: "m1",
+          title: "The Hangul foundation",
+          eyebrow: "Module 1 · Reading",
+          summary: "Concept + 6 vowels + 9 plain consonants. By the end you can read any pure-plain-consonant Korean syllable.",
+          lessons: m1Lessons,
+          accent: { from: "#0ea5e9", to: "#0284c7" },
+        },
+        {
+          id: "m2",
+          title: "Aspirated · Tense · Extended vowels",
+          eyebrow: "Module 2 · Finishing the script",
+          summary: "Aspirated and tense consonants, y/compound vowels, and final consonants (받침). Everything you need to read every Korean syllable.",
+          lessons: m2Lessons,
+          accent: { from: "#6366f1", to: "#8b5cf6" },
+        },
+        {
+          id: "m3",
+          title: "First phrases",
+          eyebrow: "Module 3 · Speak",
+          summary: "Greetings, introductions, 이에요/예요. Real vocabulary on top of a real reading foundation.",
+          lessons: m3Lessons,
+          accent: { from: "#ec4899", to: "#db2777" },
+        },
+      ],
+      sideQuests,
+    };
+  }
+
   return {
     id: "mock-1",
     title: `${langName} for Beginners`,
@@ -328,8 +454,6 @@ export function getMockCourse(languageId: string): Course {
         lessons: [
           ...alphabetLesson,
           ...introLesson,
-          { id: "m1-l1", title: "Greetings", status: "available" as const },
-          { id: "m1-l2", title: "Numbers 1–10", status: "available" as const },
           { id: "m1-l3", title: "Colors", status: "locked" as const },
         ],
       },

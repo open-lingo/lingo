@@ -37,6 +37,7 @@ import {
   logSessionEvent,
 } from "@/shared/telemetry/sessionLog";
 import { recordAttempt, recordStepEvent } from "@/features/lesson/engine";
+import { useLessonSyncSession } from "./useLessonSyncSession";
 import type { LessonCompleteMastery } from "./components/LessonComplete";
 
 const LESSON_PASS_THRESHOLD = 0.7;
@@ -72,6 +73,8 @@ export function LessonPage() {
   const navigate = useNavigate();
   const langPath = useLangPath();
   const { language } = useLanguage();
+  // Background sync + force-flush on exit (mirrors useSRSyncSession).
+  useLessonSyncSession();
 
   const lesson = useMemo(
     () => (lessonId ? getMockLessonContent(lessonId) : null),

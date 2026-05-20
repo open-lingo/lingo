@@ -62,6 +62,10 @@ export function clearStepEventsForLesson(lessonId: string): void {
   setStepEvents(next);
 }
 
+export function clearAllStepEvents(): void {
+  setStepEvents([]);
+}
+
 /** A pending lesson attempt in the local buffer.
  *
  * Mirrors `BatchAttempt` from the API client. Stored verbatim so the buffer

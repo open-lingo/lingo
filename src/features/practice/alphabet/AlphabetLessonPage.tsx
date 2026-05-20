@@ -30,6 +30,7 @@ import {
 import type { InfoStep } from "@/features/lesson/types";
 import { logAlphabetEvent } from "./alphabetAnalytics";
 import { recordAttempt, recordStepEvent } from "@/features/lesson/engine";
+import { useLessonSyncSession } from "@/features/lesson/useLessonSyncSession";
 
 const TEST_PASS_THRESHOLD = 0.8;
 
@@ -176,6 +177,8 @@ export function AlphabetLessonPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const langPath = useLangPath();
+  // Background sync + force-flush on exit (mirrors useSRSyncSession).
+  useLessonSyncSession();
 
   const alphabet = useMemo(() => {
     if (!language || !alphabetId) return null;
