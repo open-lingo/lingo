@@ -27,6 +27,7 @@ import {
   Dumbbell,
   Eye,
   Flame,
+  Gem,
   Globe,
   GraduationCap,
   Hand,
@@ -107,6 +108,8 @@ export const iconRegistry = {
   dumbbell: Dumbbell,
   eye: Eye,
   flame: Flame,
+  /** In-app currency (lingots). Brand-level concept. */
+  gem: Gem,
   moreVertical: MoreVertical,
   github: Github,
   globe: Globe,

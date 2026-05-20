@@ -584,6 +584,10 @@
     "logIn": "Log in",
     "logOut": "Log out"
   },
+  "account": {
+    "lingots": "Lingots",
+    "lingotsAria": "{{count}} lingots"
+  },
   "funding": {
     "adFunded": "{{percent}}% ad-funded",
     "premium": "{{percent}}% premium",

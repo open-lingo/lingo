@@ -3,20 +3,25 @@ import { Card, ProgressRing, WeekSparkline } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { getMockProgressSummary } from "@/shared/domain/mockProgress";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { MOCK_WEEK_MINUTES, MOCK_BEST_STREAK, MOCK_KANA_MASTERY } from "./mockHomeData";
+import { useUserStats } from "@/shared/hooks/useUserStats";
+import { MOCK_WEEK_MINUTES, MOCK_KANA_MASTERY } from "./mockHomeData";
 
-// XP-per-level curve. Tunable; matches the v1 spec's mock level math.
+// XP-per-level curve. Used only when the backend doesn't supply a level
+// (DEFAULT_STATS.level is 1) so the UI can still show a sensible XP bar.
 const XP_PER_LEVEL = 500;
 
-function deriveLevel(xpTotal: number) {
-  const level = Math.max(1, Math.floor(xpTotal / XP_PER_LEVEL) + 1);
-  const nextLevelXp = level * XP_PER_LEVEL;
-  return { level, nextLevelXp };
+function nextLevelXpFor(level: number) {
+  // Simple linear curve. Replace if backend starts returning a target.
+  return Math.max(1, level) * XP_PER_LEVEL;
 }
 
 export function AccountOverviewCard() {
   const { t } = useTranslation();
   const { language } = useLanguage();
+  // Real server-cached stats — falls back to zeros when backend not wired.
+  const { stats } = useUserStats();
+  // Mock data still feeds anything the backend doesn't yet provide
+  // (daily-goal minutes, today's XP delta, kana mastery, week sparkline).
   const p = getMockProgressSummary();
 
   const dailyPct = Math.min(
@@ -24,9 +29,11 @@ export function AccountOverviewCard() {
     Math.round((p.dailyGoalCompletedMinutes / p.dailyGoalMinutes) * 100),
   );
 
-  const xpTotal = p.xpTotal ?? 0;
+  const xpTotal = stats.xp;
+  // MOCK: backend doesn't yet surface "xp earned today" — keep the mock delta.
   const xpToday = p.xpEarnedToday ?? 0;
-  const { level, nextLevelXp } = deriveLevel(xpTotal);
+  const level = stats.level;
+  const nextLevelXp = nextLevelXpFor(level);
   const levelPct = Math.min(100, Math.round((xpTotal / nextLevelXp) * 100));
   const xpToNext = Math.max(0, nextLevelXp - xpTotal);
 
@@ -89,16 +96,15 @@ export function AccountOverviewCard() {
           </div>
           <div>
             <p className="text-2xl font-extrabold text-text-primary leading-none">
-              {p.streakDays}
+              {stats.streak}
               <span className="ml-1 text-base font-medium text-text-secondary">
                 {t("home.restructured.account.daysSuffix", { defaultValue: "days" })}
               </span>
             </p>
             <p className="mt-1 text-xs text-text-muted">
-              {/* MOCK: MOCK_BEST_STREAK — replace with persisted best-streak record. */}
               {t("home.restructured.account.streakCaption", {
                 defaultValue: "Current streak · best {{best}}",
-                best: Math.max(MOCK_BEST_STREAK, p.streakDays),
+                best: stats.bestStreak,
               })}
             </p>
           </div>
@@ -158,6 +164,21 @@ export function AccountOverviewCard() {
             className="h-full rounded-full bg-gradient-to-r from-accent to-accent-hover"
             style={{ width: `${levelPct}%` }}
           />
+        </div>
+        <div className="mt-2 flex items-center justify-end gap-1.5 text-xs text-text-secondary">
+          <Icon name="gem" size={14} className="text-accent" aria-hidden />
+          <span
+            className="font-semibold text-text-primary"
+            aria-label={t("account.lingotsAria", {
+              defaultValue: "{{count}} lingots",
+              count: stats.lingots,
+            })}
+          >
+            {stats.lingots.toLocaleString()}
+          </span>
+          <span className="text-text-muted">
+            {t("account.lingots", { defaultValue: "Lingots" })}
+          </span>
         </div>
       </div>
 

@@ -502,6 +502,10 @@
       "community": "커뮤니티"
     }
   },
+  "account": {
+    "lingots": "링곳",
+    "lingotsAria": "링곳 {{count}}개"
+  },
   "auth": {
     "accountMenu": "계정 메뉴",
     "logIn": "로그인",

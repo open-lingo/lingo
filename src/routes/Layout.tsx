@@ -16,6 +16,7 @@ import { AuthMenu } from "@/shared/components/AuthMenu";
 import { ModalRoot } from "@/shared/components/ModalRoot";
 import { ToastContainer } from "@/shared/components/ToastContainer";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useTouchOnSession } from "@/shared/hooks/useTouchOnSession";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
@@ -27,6 +28,8 @@ export function Layout() {
   const location = useLocation();
   const { isThemeEditorOpen } = useTheme();
   const { isAuthenticated } = useAuth();
+  // Fires POST /progress/me/touch once per session after auth.
+  useTouchOnSession();
   const flags = useFeatureFlags();
   const leaderboardOn = isLeaderboardEnabled(flags);
   const pathname = location.pathname;
