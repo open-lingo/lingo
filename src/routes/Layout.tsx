@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 import { FundingMeter } from "@/shared/components/FundingMeter";
 import { SRSPendingSync } from "@/features/flashcards/SRSPendingSync";
 import { SyncManagerTrigger } from "@/features/sync/SyncManagerTrigger";
-import { ThemeToggle } from "@/shared/components/ThemeToggle";
 import { ThemeEditorPanel } from "@/shared/components/ThemeEditorPanel";
 import { LanguageSelector } from "@/shared/components/LanguageSelector";
 import { AuthMenu } from "@/shared/components/AuthMenu";
@@ -17,6 +16,7 @@ import { ModalRoot } from "@/shared/components/ModalRoot";
 import { ToastContainer } from "@/shared/components/ToastContainer";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTouchOnSession } from "@/shared/hooks/useTouchOnSession";
+import { useUserStats } from "@/shared/hooks/useUserStats";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
@@ -30,6 +30,7 @@ export function Layout() {
   const { isAuthenticated } = useAuth();
   // Fires POST /progress/me/touch once per session after auth.
   useTouchOnSession();
+  const { stats } = useUserStats();
   const flags = useFeatureFlags();
   const leaderboardOn = isLeaderboardEnabled(flags);
   const pathname = location.pathname;
@@ -167,8 +168,17 @@ export function Layout() {
           {/* Right side: utilities + mobile menu button */}
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             {isAuthenticated && <SyncManagerTrigger />}
+            {isAuthenticated && (stats.lingots > 0 || stats.xp > 0) && (
+              <Link
+                to={langPath("settings")}
+                className="hidden items-center gap-1 rounded-full bg-accent-muted px-2 py-1 text-xs font-semibold text-accent transition hover:bg-accent-muted/80 sm:inline-flex"
+                title={t("nav.lingotsTooltip", { defaultValue: "{{count}} lingots", count: stats.lingots })}
+              >
+                <Icon name="gem" size={14} aria-hidden />
+                <span className="tabular-nums">{stats.lingots.toLocaleString()}</span>
+              </Link>
+            )}
             {isAuthenticated && <LanguageSelector />}
-            {!isMarketingRoute && <ThemeToggle />}
             {isAuthenticated ? (
               <AuthMenu />
             ) : (

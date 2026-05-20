@@ -65,20 +65,28 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
     }
   };
 
-  const handleSyncNow = async (source: SyncSource) => {
-    if (source.syncing || syncingIds.has(source.id)) return;
-    setSyncingIds((prev) => new Set(prev).add(source.id));
+  const handleSyncAll = async () => {
+    const dirty = visibleSources.filter(
+      (s) => s.dirtyCount > 0 && !s.syncing && !syncingIds.has(s.id),
+    );
+    if (dirty.length === 0) return;
+    setSyncingIds(
+      (prev) => new Set([...prev, ...dirty.map((s) => s.id)]),
+    );
     try {
-      await source.onSyncNow();
+      await Promise.allSettled(dirty.map((s) => s.onSyncNow()));
       onOpen?.();
     } finally {
       setSyncingIds((prev) => {
         const next = new Set(prev);
-        next.delete(source.id);
+        for (const s of dirty) next.delete(s.id);
         return next;
       });
     }
   };
+
+  const anySyncing =
+    visibleSources.some((s) => s.syncing) || syncingIds.size > 0;
 
   if (visibleSources.length === 0) return null;
 
@@ -124,13 +132,12 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
 
           <div className="max-h-[320px] overflow-y-auto px-2 py-2">
             {visibleSources.map((source) => {
-              const isSyncing = source.syncing ?? syncingIds.has(source.id);
               const synced = source.dirtyCount === 0;
 
               return (
                 <div
                   key={source.id}
-                  className="rounded-lg px-3 py-2.5 transition hover:bg-surface-muted"
+                  className="rounded-lg px-3 py-2 transition hover:bg-surface-muted"
                 >
                   <div className="flex items-center justify-between gap-2">
                     <span className="text-sm font-medium text-text-primary">
@@ -140,7 +147,7 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
                       className={`inline-flex rounded px-2 py-0.5 text-xs font-medium ${
                         synced
                           ? "bg-accent-muted text-accent"
-                          : "bg-accent-muted text-warning"
+                          : "bg-warning/10 text-warning"
                       }`}
                     >
                       {synced
@@ -152,7 +159,7 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
                     </span>
                   </div>
 
-                  <div className="mt-1.5 space-y-1 text-xs text-text-secondary">
+                  <div className="mt-1 space-y-0.5 text-xs text-text-secondary">
                     {source.lastSyncAt && (
                       <p>
                         {t("syncManager.lastSync", {
@@ -177,29 +184,27 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
                       </p>
                     )}
                   </div>
-
-                  <button
-                    type="button"
-                    onClick={() => handleSyncNow(source)}
-                    disabled={isSyncing}
-                    className="mt-2 w-full rounded-md bg-accent px-3 py-1.5 text-xs font-medium text-white hover:bg-accent-hover disabled:opacity-50"
-                  >
-                    {isSyncing
-                      ? t("syncManager.syncing", { defaultValue: "Syncing…" })
-                      : t("syncManager.syncNow", { defaultValue: "Sync now" })}
-                  </button>
                 </div>
               );
             })}
           </div>
 
-          {/* Placeholder for future sources */}
-          <div className="border-t border-border px-4 pt-2">
-            <p className="text-xs text-text-muted">
-              {t("syncManager.moreComing", {
-                defaultValue: "Lessons & story progress coming soon",
-              })}
-            </p>
+          {/* Single Sync All button — disabled when nothing to sync */}
+          <div className="border-t border-border px-3 pt-3">
+            <button
+              type="button"
+              onClick={handleSyncAll}
+              disabled={!hasDirty || anySyncing}
+              className="w-full rounded-md bg-accent px-3 py-2 text-sm font-semibold text-white transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-text-muted"
+            >
+              {anySyncing
+                ? t("syncManager.syncing", { defaultValue: "Syncing…" })
+                : hasDirty
+                  ? t("syncManager.syncAll", { defaultValue: "Sync now" })
+                  : t("syncManager.allCaughtUp", {
+                      defaultValue: "All caught up",
+                    })}
+            </button>
           </div>
         </div>
       )}

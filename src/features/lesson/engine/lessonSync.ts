@@ -6,6 +6,8 @@ import type {
 } from "@/shared/api/progress";
 import {
   appendPendingAttempt,
+  appendStepEvent,
+  clearStepEventsForLesson,
   getPendingAttempts,
   removePendingAttempts,
   setLastLessonSyncAt,
@@ -52,11 +54,42 @@ export interface RecordAttemptInput {
   stepResults: GradedStepResult[];
 }
 
+/** Buffer a per-step event. Fires as each step is graded inside a lesson.
+ *
+ *  These events are client-side telemetry that powers the SyncManager's
+ *  dirty-count signal — the user sees activity tick up as they answer
+ *  individual questions, not only on lesson end.
+ *
+ *  When the lesson finishes, `recordAttempt` is called and `clearStepEventsForLesson`
+ *  drops the events for that lesson (they're now embedded in the immutable
+ *  PendingAttempt's stepResults). Step events are not synced to the server
+ *  on their own — the aggregated attempt is the source of truth. */
+export function recordStepEvent(input: {
+  lessonId: string;
+  stepId: string;
+  stepIdx: number;
+  correct: boolean;
+  conceptIds?: string[];
+}): void {
+  appendStepEvent({
+    lessonId: input.lessonId,
+    stepId: input.stepId,
+    stepIdx: input.stepIdx,
+    correct: input.correct,
+    conceptIds: input.conceptIds ?? [],
+    recordedAt: new Date().toISOString(),
+  });
+  notify();
+}
+
 /** Buffer a completed lesson attempt locally. The SyncManager flushes the
  *  buffer to the server in batch — there is no per-completion API call.
  *
  *  Idempotent: if the same `clientAttemptId` is recorded twice (e.g. user
- *  double-taps Continue) only the latest payload is kept. */
+ *  double-taps Continue) only the latest payload is kept.
+ *
+ *  Side effect: clears the step-event buffer for this lesson — the events
+ *  are now subsumed into the immutable attempt's stepResults. */
 export function recordAttempt(input: RecordAttemptInput): PendingAttempt {
   const attempt: PendingAttempt = {
     clientAttemptId: newAttemptId(),
@@ -69,6 +102,7 @@ export function recordAttempt(input: RecordAttemptInput): PendingAttempt {
     stepResults: input.stepResults,
   };
   appendPendingAttempt(attempt);
+  clearStepEventsForLesson(input.lessonId);
   notify();
   return attempt;
 }

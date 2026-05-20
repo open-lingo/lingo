@@ -12,6 +12,7 @@ import type { PracticeNavItem } from "@/features/practice/practiceNavItems";
 import { useFlashcardDueSummary } from "@/features/flashcards/useFlashcardDueSummary";
 import { PracticeHubSection, type HubQuickLink } from "@/features/practice/PracticeHubSection";
 import { getMockCourse } from "@/shared/domain/mockCourse";
+import { useUserStats } from "@/shared/hooks/useUserStats";
 import {
   getDueReviews,
   reviewModuleIdFor,
@@ -21,10 +22,15 @@ import {
 const MOCK_PRACTICE_WEEK_MINUTES = [12, 0, 8, 5, 14, 6, 9];
 // MOCK: today's practice minutes — replace with same telemetry source.
 const MOCK_PRACTICE_TODAY_MIN = 12;
-// MOCK: day streak — replace with persisted streak record.
-const MOCK_PRACTICE_STREAK = 7;
 // MOCK: total practice modules tracked for the due ring (3 of 4 have due items).
 const MOCK_PRACTICE_DUE_RING = { due: 3, total: 4 };
+
+// Mirror AccountOverviewCard so the level pill on Practice uses the same curve
+// until the backend returns a target.
+const XP_PER_LEVEL = 500;
+function nextLevelXpFor(level: number) {
+  return Math.max(1, level) * XP_PER_LEVEL;
+}
 // Pre-made course strip per learning language. Surface curated entry points
 // to existing trainers/routes — no new stub pages. When real per-language
 // course catalogs are wired, this constant moves into the domain layer.
@@ -89,6 +95,7 @@ export function PracticePage() {
   const languageName = getLanguageConfig(langId)?.name ?? langId;
 
   const { dueCount, isLoading: dueLoading } = useFlashcardDueSummary(langId);
+  const { stats } = useUserStats();
 
   // Module reviews — surface a Practice-page jump card when any are due.
   const reviewCourse = useMemo(() => getMockCourse(langId), [langId]);
@@ -179,6 +186,9 @@ export function PracticePage() {
   const weekTotalMin = MOCK_PRACTICE_WEEK_MINUTES.reduce((a, b) => a + b, 0);
   const daysActiveThisWeek = MOCK_PRACTICE_WEEK_MINUTES.filter((n) => n > 0).length;
 
+  const nextLevelXp = nextLevelXpFor(stats.level);
+  const xpToNext = Math.max(0, nextLevelXp - stats.xp);
+
   return (
     <div className="space-y-5 sm:space-y-6">
       {/* Zone 1 — Practice Overview hero */}
@@ -212,6 +222,20 @@ export function PracticePage() {
                   })}
                 </span>
               ) : null}
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-muted px-3 py-1 text-xs font-bold text-accent">
+                <Icon name="star" size={14} aria-hidden />
+                {t("home.restructured.account.levelPill", {
+                  defaultValue: "Level {{level}}",
+                  level: stats.level,
+                })}
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-surface-muted px-3 py-1 text-xs font-medium text-text-secondary">
+                <Icon name="gem" size={14} aria-hidden />
+                {t("practice.overview.lingotsChip", {
+                  defaultValue: "{{count}} lingots",
+                  count: stats.lingots,
+                })}
+              </span>
             </div>
           </div>
 
@@ -261,14 +285,37 @@ export function PracticePage() {
               </p>
             </div>
 
-            {/* MOCK: MOCK_PRACTICE_STREAK — replace with persisted streak. */}
             <div className="flex flex-col items-center">
               <span className="inline-flex items-center gap-1 rounded-full bg-warning/10 px-2.5 py-1 text-xs font-bold text-warning">
                 <Icon name="flame" size={14} aria-hidden />
-                {MOCK_PRACTICE_STREAK}
+                {stats.streak}
               </span>
               <span className="mt-1 text-[10px] uppercase tracking-wider text-text-muted">
                 {t("practice.overview.streakSublabel", { defaultValue: "day streak" })}
+              </span>
+              {stats.bestStreak > 0 ? (
+                <span className="text-[10px] text-text-muted">
+                  {t("practice.overview.streakBest", {
+                    defaultValue: "best {{best}}",
+                    best: stats.bestStreak,
+                  })}
+                </span>
+              ) : null}
+            </div>
+
+            <div className="flex flex-col items-end">
+              <span className="text-sm font-bold text-text-primary">
+                {t("practice.overview.xpTotal", {
+                  defaultValue: "{{xp}} XP",
+                  xp: stats.xp.toLocaleString(),
+                })}
+              </span>
+              <span className="text-[10px] uppercase tracking-wider text-text-muted">
+                {t("practice.overview.xpToNext", {
+                  defaultValue: "{{xp}} to L{{level}}",
+                  xp: xpToNext.toLocaleString(),
+                  level: stats.level + 1,
+                })}
               </span>
             </div>
           </div>

@@ -3,6 +3,7 @@ import {
   getLastLessonSyncAt,
   getNextLessonSyncAt,
   getPendingAttempts,
+  getStepEvents,
   subscribeLessonBuffer,
 } from "./engine";
 
@@ -13,15 +14,19 @@ const POLL_MS = 2000;
  *  Reactive to buffer changes (via subscribeLessonBuffer), plus polled
  *  and re-checked on window focus to catch cross-tab changes. */
 export function useLessonSyncStatus() {
+  // dirtyCount = lesson attempts buffered + per-step events accrued since
+  // the last attempt landed. Step events aren't synced on their own (they
+  // collapse into the attempt on lesson end), but counting them lets the
+  // SyncManager badge tick per step instead of only on lesson completion.
   const [status, setStatus] = useState(() => ({
-    dirtyCount: getPendingAttempts().length,
+    dirtyCount: getPendingAttempts().length + getStepEvents().length,
     lastSyncAt: getLastLessonSyncAt(),
     nextSyncAt: getNextLessonSyncAt(),
   }));
 
   const refresh = useCallback(() => {
     setStatus({
-      dirtyCount: getPendingAttempts().length,
+      dirtyCount: getPendingAttempts().length + getStepEvents().length,
       lastSyncAt: getLastLessonSyncAt(),
       nextSyncAt: getNextLessonSyncAt(),
     });

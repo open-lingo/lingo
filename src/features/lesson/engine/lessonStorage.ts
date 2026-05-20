@@ -1,8 +1,66 @@
 import type { BatchAttempt } from "@/shared/api/progress";
 
 const BUFFER_KEY = "open-lingo-lesson-attempts:v1";
+const STEP_EVENTS_KEY = "open-lingo-lesson-step-events:v1";
 const LAST_SYNC_KEY = "open-lingo-lesson-last-sync";
 const NEXT_SYNC_KEY = "open-lingo-lesson-next-sync";
+
+/** A per-step event captured as the user completes individual lesson steps.
+ *
+ *  Step events are client-side telemetry for the dirty-count signal — they
+ *  let the SyncManager show in-progress lesson activity rather than only
+ *  ticking up on full-lesson completion. When the lesson finishes, the
+ *  events for that lesson are subsumed into the immutable PendingAttempt
+ *  and dropped from this buffer. */
+export type StepEvent = {
+  lessonId: string;
+  stepId: string;
+  stepIdx: number;
+  correct: boolean;
+  conceptIds: string[];
+  recordedAt: string;
+};
+
+export function getStepEvents(): StepEvent[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(STEP_EVENTS_KEY);
+    if (!raw) return [];
+    const arr = JSON.parse(raw) as StepEvent[];
+    return Array.isArray(arr) ? arr : [];
+  } catch {
+    return [];
+  }
+}
+
+export function setStepEvents(events: StepEvent[]): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(STEP_EVENTS_KEY, JSON.stringify(events));
+  } catch {
+    /* ignore quota */
+  }
+}
+
+export function appendStepEvent(event: StepEvent): void {
+  const list = getStepEvents();
+  // Dedupe on (lessonId, stepId) — a retry on the same step overwrites the
+  // prior outcome. Matches the "last write wins" semantics of `results`.
+  const idx = list.findIndex(
+    (e) => e.lessonId === event.lessonId && e.stepId === event.stepId,
+  );
+  if (idx >= 0) {
+    list[idx] = event;
+  } else {
+    list.push(event);
+  }
+  setStepEvents(list);
+}
+
+export function clearStepEventsForLesson(lessonId: string): void {
+  const next = getStepEvents().filter((e) => e.lessonId !== lessonId);
+  setStepEvents(next);
+}
 
 /** A pending lesson attempt in the local buffer.
  *

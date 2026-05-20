@@ -5,7 +5,9 @@ import { Icon } from "@/shared/components/Icon";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useCardsDueCount } from "@/features/flashcards/useCardsDueCount";
-import { MOCK_CARDS_HOT_PREVIEW } from "./mockHomeData";
+import { useFlashcardDueSummary } from "@/features/flashcards/useFlashcardDueSummary";
+
+const PREVIEW_LIMIT = 3;
 
 export function FlashcardsTile() {
   const { t } = useTranslation();
@@ -13,8 +15,10 @@ export function FlashcardsTile() {
   const { language } = useLanguage();
   const langId = language?.id ?? "ko";
   const { count: cardsDue, isLoading } = useCardsDueCount(langId);
+  const { dueQueue } = useFlashcardDueSummary(langId);
 
-  const previewOverflow = Math.max(0, cardsDue - MOCK_CARDS_HOT_PREVIEW.length);
+  const previewCards = dueQueue.slice(0, PREVIEW_LIMIT);
+  const previewOverflow = Math.max(0, cardsDue - previewCards.length);
 
   return (
     <Card padding="md" className="h-full">
@@ -40,20 +44,22 @@ export function FlashcardsTile() {
           {t("home.restructured.flashcards.cardsSuffix", { defaultValue: "cards" })}
         </span>
       </p>
-      <div className="mt-3 flex items-center gap-1.5">
-        {/* MOCK: MOCK_CARDS_HOT_PREVIEW — replace with "next N due card fronts" query on SRS store. */}
-        {MOCK_CARDS_HOT_PREVIEW.map((c) => (
-          <span
-            key={c}
-            className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-surface-muted text-sm font-bold text-text-primary"
-          >
-            {c}
-          </span>
-        ))}
-        {previewOverflow > 0 ? (
-          <span className="text-xs text-text-muted">+{previewOverflow}</span>
-        ) : null}
-      </div>
+      {previewCards.length > 0 ? (
+        <div className="mt-3 flex items-center gap-1.5">
+          {previewCards.map((card) => (
+            <span
+              key={card.id}
+              title={card.front}
+              className="flex h-7 min-w-7 max-w-[6rem] items-center justify-center truncate rounded-md border border-border bg-surface-muted px-1.5 text-sm font-bold text-text-primary"
+            >
+              {card.front}
+            </span>
+          ))}
+          {previewOverflow > 0 ? (
+            <span className="text-xs text-text-muted">+{previewOverflow}</span>
+          ) : null}
+        </div>
+      ) : null}
       <Link
         to={langPath(cardsDue > 0 ? "practice/flashcards/review" : "practice/flashcards")}
         className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-on-accent transition hover:bg-accent-hover"

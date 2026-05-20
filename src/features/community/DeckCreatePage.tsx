@@ -226,7 +226,7 @@ export function DeckCreatePage() {
     <CommunityDecksLayout
       rightRail={rightRail}
     >
-      <div className="mx-auto w-full max-w-2xl">
+      <div className="mx-auto w-full max-w-3xl">
         <header className="mb-6">
           <h1 className="text-2xl font-bold text-text-primary">
             {t("community.deckCreateTitle")}
@@ -321,9 +321,24 @@ export function DeckCreatePage() {
           <div>
             <label
               htmlFor="deck-ease"
-              className="mb-1 block text-sm font-medium text-text-primary"
+              className="mb-1 flex items-center gap-1.5 text-sm font-medium text-text-primary"
             >
               {t("community.deckCreateDefaultEaseLabel")}
+              <span
+                tabIndex={0}
+                role="button"
+                aria-label={t(
+                  "community.deckCreateDefaultEaseTooltip",
+                  "Initial SM-2 ease factor for new cards in this deck (1.3–3.0). Higher = easier; cards graduate to longer intervals faster. Default 2.5 is fine for most decks.",
+                )}
+                title={t(
+                  "community.deckCreateDefaultEaseTooltip",
+                  "Initial SM-2 ease factor for new cards in this deck (1.3–3.0). Higher = easier; cards graduate to longer intervals faster. Default 2.5 is fine for most decks.",
+                )}
+                className="inline-flex h-4 w-4 cursor-help items-center justify-center rounded-full border border-border bg-surface text-[10px] font-semibold text-text-muted hover:border-accent hover:text-accent"
+              >
+                ?
+              </span>
             </label>
             <input
               id="deck-ease"

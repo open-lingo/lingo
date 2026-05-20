@@ -40,7 +40,11 @@
     "docs": "문서",
     "githubRepo": "GitHub에서 보기",
     "guestLogin": "로그인",
-    "guestStart": "시작"
+    "guestStart": "시작",
+    "lingotsTooltip": "링곳 {{count}}개"
+  },
+  "authMenu": {
+    "themeLabel": "테마"
   },
   "landing": {
     "heroTitle": "배운 것을 기억하세요.",
@@ -559,6 +563,7 @@
   },
   "studio": {
     "headerBackToCreatorStudio": "크리에이터 스튜디오",
+    "headerBackToMyDecks": "내 덱으로 돌아가기",
     "unsavedChangesTitle": "저장되지 않은 변경 사항",
     "unsavedChangesMessage": "나가기 전에 초안을 저장하시겠습니까?",
     "unsavedSaveDraft": "초안 저장",
@@ -599,6 +604,12 @@
     "deckCreateNextStep1": "생성",
     "deckCreateNextStep2": "카드 추가",
     "deckCreateNextStep3": "검토 요청",
+    "deckCreateDefaultEaseTooltip": "이 덱의 새 카드에 적용되는 초기 SM-2 ease 값 (1.3–3.0). 값이 클수록 카드 간격이 더 빨리 늘어납니다. 대부분의 덱은 기본값 2.5가 적절합니다.",
+    "contentBrowserReset": "초기화",
+    "contentBrowserFacetSearchPlaceholder": "필터…",
+    "exploreViewToggleLabel": "보기",
+    "exploreViewCards": "카드",
+    "exploreViewList": "목록",
     "railQuickNav": "빠른 이동",
     "railOpenSource": "오픈소스",
     "railOpenSourceBlurb": "커뮤니티가 만든 콘텐츠. 영원히 무료입니다.",

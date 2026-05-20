@@ -12,6 +12,8 @@ import {
   CommunityContentTable,
   type CommunityContentRow,
 } from "./components/CommunityContentTable";
+import { CommunityItemCard } from "./components/CommunityItemCard";
+import { Icon } from "@/shared/components/Icon";
 import {
   CommunitySelectedChips,
   type ChipDescriptor,
@@ -437,6 +439,22 @@ export function ContentBrowserPage() {
     [typeFilter, navigate, langPath],
   );
 
+  const handleClearFacet = useCallback(
+    (facetId: string) => {
+      if (facetId === FACET_TYPE) {
+        setTypeFilter("all");
+        if (typeParam) navigate(langPath("community/explore"), { replace: true });
+      } else if (facetId === FACET_LANGUAGE) {
+        setLanguageFilter(null);
+      } else if (facetId === FACET_LEVEL) {
+        setLevelFilters(new Set());
+      } else if (facetId === FACET_OTHER) {
+        setOtherFilters(new Set());
+      }
+    },
+    [typeParam, navigate, langPath],
+  );
+
   const handleClearAll = useCallback(() => {
     setLanguageFilter(null);
     setTypeFilter("all");
@@ -533,6 +551,24 @@ export function ContentBrowserPage() {
     />
   );
 
+  // Cards vs. detailed list view — persisted to localStorage.
+  const VIEW_KEY = "lingo:community-explore-view";
+  const [view, setView] = useState<"cards" | "list">(() => {
+    try {
+      const stored = localStorage.getItem(VIEW_KEY);
+      return stored === "list" ? "list" : "cards";
+    } catch {
+      return "cards";
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem(VIEW_KEY, view);
+    } catch {
+      /* ignore */
+    }
+  }, [view]);
+
   // Pagination — client-side for now.
   const PAGE_SIZE = 25;
   const [page, setPage] = useState(0);
@@ -577,21 +613,19 @@ export function ContentBrowserPage() {
 
   return (
     <CommunityDecksLayout browseCount={browseCount} searchSlot={searchSlot}>
-      <div className="rounded-lg border border-accent-muted bg-accent-muted/30 px-3 py-2 text-sm text-accent">
-        {t("community.announceBanner", {
-          count: browseCount,
-          defaultValue:
-            "Browse {{count}} community packs — open source, community-curated, free forever.",
-        })}
-      </div>
-
-      <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:gap-6">
+      <div className="flex flex-col gap-6 lg:flex-row lg:gap-6">
         <FacetSidebar
           facets={facets}
           selections={selections}
           onToggle={handleFacetToggle}
+          onClear={handleClearFacet}
           onClearAll={handleClearAll}
           clearAllLabel={t("community.contentBrowserClearAll")}
+          resetLabel={t("community.contentBrowserReset", "Reset")}
+          searchWithinPlaceholder={t(
+            "community.contentBrowserFacetSearchPlaceholder",
+            "Filter…",
+          )}
         />
 
         <section className="min-w-0 flex-1 space-y-4">
@@ -610,12 +644,53 @@ export function ContentBrowserPage() {
               {t("community.contentBrowserResultsLabel").toLowerCase()}
               {showSearchResults && ` · "${search}"`}
             </p>
-            <label className="flex items-center gap-2 text-sm text-text-secondary">
-              <span className="hidden sm:inline">
-                {t("community.contentBrowserSortBy")}
-              </span>
-              <select
-                value={sortBy}
+            <div className="flex items-center gap-2">
+              <div
+                role="tablist"
+                aria-label={t("community.exploreViewToggleLabel", "View")}
+                className="inline-flex overflow-hidden rounded-md border border-border bg-surface"
+              >
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={view === "cards"}
+                  onClick={() => setView("cards")}
+                  className={
+                    view === "cards"
+                      ? "inline-flex items-center gap-1 bg-accent-muted px-2 py-1 text-xs font-medium text-accent"
+                      : "inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
+                  }
+                  title={t("community.exploreViewCards", "Cards")}
+                >
+                  <Icon name="layoutGrid" size={14} aria-hidden />
+                  <span className="hidden sm:inline">
+                    {t("community.exploreViewCards", "Cards")}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={view === "list"}
+                  onClick={() => setView("list")}
+                  className={
+                    view === "list"
+                      ? "inline-flex items-center gap-1 bg-accent-muted px-2 py-1 text-xs font-medium text-accent"
+                      : "inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
+                  }
+                  title={t("community.exploreViewList", "List")}
+                >
+                  <Icon name="list" size={14} aria-hidden />
+                  <span className="hidden sm:inline">
+                    {t("community.exploreViewList", "List")}
+                  </span>
+                </button>
+              </div>
+              <label className="flex items-center gap-2 text-sm text-text-secondary">
+                <span className="hidden sm:inline">
+                  {t("community.contentBrowserSortBy")}
+                </span>
+                <select
+                  value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
                 className="rounded-md border border-border bg-surface px-2 py-1.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
               >
@@ -628,23 +703,59 @@ export function ContentBrowserPage() {
                 <option value="upvotes">
                   {t("community.contentBrowserSortUpvotes")}
                 </option>
-                <option value="name">
-                  {t("community.contentBrowserSortName")}
-                </option>
-              </select>
-            </label>
+                  <option value="name">
+                    {t("community.contentBrowserSortName")}
+                  </option>
+                </select>
+              </label>
+            </div>
           </div>
 
           {showFeatured && <FeaturedStrip />}
 
-          <CommunityContentTable
-            rows={pagedRows}
-            emptyMessage={
-              apiDecksLoading
+          {view === "list" ? (
+            <CommunityContentTable
+              rows={pagedRows}
+              emptyMessage={
+                apiDecksLoading
+                  ? t("common.loading")
+                  : t("community.contentBrowserNoResults")
+              }
+            />
+          ) : pagedRows.length === 0 ? (
+            <div className="rounded-lg border border-dashed border-border bg-surface p-8 text-center text-sm text-text-muted">
+              {apiDecksLoading
                 ? t("common.loading")
-                : t("community.contentBrowserNoResults")
-            }
-          />
+                : t("community.contentBrowserNoResults")}
+            </div>
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-1 xl:grid-cols-2">
+              {pagedRows.map((row) => (
+                <CommunityItemCard
+                  key={row.id}
+                  item={{
+                    id: row.id,
+                    name: row.name,
+                    description: row.description ?? "",
+                    languageId: row.languageId,
+                    kind: row.kind,
+                    itemCount: row.itemCount,
+                    upvoteCount: row.upvoteCount,
+                    maintainerName: row.authorName,
+                    image: row.image ?? null,
+                  }}
+                  variant="full"
+                  t={t}
+                  langPath={langPath}
+                  isSubscribed={row.isSubscribed}
+                  subscribeLoading={row.actionLoading}
+                  onSubscribe={row.onAction}
+                  onUnsubscribe={row.onAction}
+                  showCommunityBadge
+                />
+              ))}
+            </div>
+          )}
 
           {pageCount > 1 && (
             <Pagination page={page} pageCount={pageCount} onChange={setPage} />

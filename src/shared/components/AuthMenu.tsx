@@ -12,6 +12,7 @@ import { ApiError } from "@/shared/api/client";
 import { Icon } from "@/shared/components/Icon";
 import { Button, composeButtonClasses } from "@/shared/components/ui/Button";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useTheme } from "@/shared/contexts/ThemeContext";
 
 export function AuthMenu() {
   const { t } = useTranslation();
@@ -22,6 +23,7 @@ export function AuthMenu() {
   const menuRef = useRef<HTMLDivElement>(null);
   const profile = user?.sub ? getStoredProfile(user.sub) : null;
   const { openSettings, openProfile } = useModal();
+  const { openThemeEditor } = useTheme();
 
   const { data: me } = useQuery({
     queryKey: ["users", "me"],
@@ -125,6 +127,10 @@ export function AuthMenu() {
               {t("nav.siteAdmin")}
             </Link>
           )}
+          <Button variant="menu" type="button" onClick={() => { setOpen(false); openThemeEditor(); }}>
+            <Icon name="palette" size={18} className="shrink-0 text-text-muted" />
+            {t("authMenu.themeLabel", "Theme")}
+          </Button>
           {isAuthenticated ? (
             <Link to="/logout" className={menuLinkClass} onClick={() => setOpen(false)}>
               <Icon name="logOut" size={18} className="shrink-0 text-text-muted" />

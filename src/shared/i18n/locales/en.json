@@ -41,7 +41,11 @@
     "docs": "Docs",
     "githubRepo": "View on GitHub",
     "guestLogin": "Log in",
-    "guestStart": "Start"
+    "guestStart": "Start",
+    "lingotsTooltip": "{{count}} lingots"
+  },
+  "authMenu": {
+    "themeLabel": "Theme"
   },
   "legal": {
     "lastUpdated": "Last updated",
@@ -648,6 +652,7 @@
   },
   "studio": {
     "headerBackToCreatorStudio": "Creator Studio",
+    "headerBackToMyDecks": "Back to My Decks",
     "unsavedChangesTitle": "Unsaved changes",
     "unsavedChangesMessage": "Save draft before leaving?",
     "unsavedSaveDraft": "Save Draft",
@@ -688,6 +693,12 @@
     "deckCreateNextStep1": "Create",
     "deckCreateNextStep2": "Add cards",
     "deckCreateNextStep3": "Submit for review",
+    "deckCreateDefaultEaseTooltip": "Initial SM-2 ease factor for new cards in this deck (1.3–3.0). Higher = easier; cards graduate to longer intervals faster. Default 2.5 is fine for most decks.",
+    "contentBrowserReset": "Reset",
+    "contentBrowserFacetSearchPlaceholder": "Filter…",
+    "exploreViewToggleLabel": "View",
+    "exploreViewCards": "Cards",
+    "exploreViewList": "List",
     "railQuickNav": "Quick nav",
     "railOpenSource": "Open source",
     "railOpenSourceBlurb": "Community-built content. Free forever.",

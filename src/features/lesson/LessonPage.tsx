@@ -36,7 +36,7 @@ import {
   downloadSessionLogIfTester,
   logSessionEvent,
 } from "@/shared/telemetry/sessionLog";
-import { recordAttempt } from "@/features/lesson/engine";
+import { recordAttempt, recordStepEvent } from "@/features/lesson/engine";
 import type { LessonCompleteMastery } from "./components/LessonComplete";
 
 const LESSON_PASS_THRESHOLD = 0.7;
@@ -297,8 +297,20 @@ export function LessonPage() {
       // correct; a retry that fails too stays incorrect. Accuracy at
       // lesson end reflects final state.
       setResults((prev) => ({ ...prev, [stepId]: correct }));
+      // Buffer a step event so the SyncManager dirty count ticks per step.
+      // Cleared on lesson completion (recordAttempt subsumes them).
+      if (lesson) {
+        const stepIdx = lesson.steps.findIndex((s) => s.id === stepId);
+        recordStepEvent({
+          lessonId: lesson.id,
+          stepId,
+          stepIdx: stepIdx >= 0 ? stepIdx : 0,
+          correct,
+          conceptIds: [],
+        });
+      }
     },
-    [],
+    [lesson],
   );
 
   const handleContinue = useCallback(() => {

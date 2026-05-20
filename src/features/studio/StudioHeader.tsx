@@ -49,16 +49,19 @@ export function StudioHeader({
   const langPath = useLangPath();
 
   return (
-    <div className="flex flex-wrap items-center gap-3 border-b border-gray-300 bg-white px-4 py-3 dark:border-gray-600 dark:bg-gray-800">
+    <div className="flex flex-wrap items-center gap-3 border-b border-border bg-surface px-4 py-3">
       <div className="flex items-center gap-3">
         <Link
-          to={langPath("community/contribute")}
-          className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          to={langPath("community/decks/mine")}
+          className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-text-primary"
+          title={t("studio.headerBackToMyDecks", "Back to My Decks")}
         >
           <ChevronLeftIcon className="h-4 w-4" />
-          {t("studio.headerBackToCreatorStudio")}
+          <span className="hidden sm:inline">
+            {t("studio.headerBackToMyDecks", "Back to My Decks")}
+          </span>
         </Link>
-        <span className="text-gray-300 dark:text-gray-600">|</span>
+        <span className="text-border">|</span>
         <div className="flex items-center gap-2">
           {nameInput ?? (
             <span className="text-base font-medium text-gray-900 dark:text-white">
