@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { ListeningComprehensionStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
+import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { getTtsUrl } from "@/shared/japanese/tts";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { Icon } from "@/shared/components/Icon";
+
+const CELEBRATE_MS = 1100;
 
 type Props = {
   step: ListeningComprehensionStep;
@@ -13,8 +17,11 @@ type Props = {
 };
 
 export function ListeningComprehensionStepView({ step, onComplete, onContinue }: Props) {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [celebrating, setCelebrating] = useState(false);
+  const [celebrationText, setCelebrationText] = useState("");
 
   const isCorrect = selected === step.correctOptionId;
 
@@ -27,8 +34,14 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
 
   function handleSubmit() {
     if (!selected) return;
+    const correct = selected === step.correctOptionId;
     setSubmitted(true);
-    onComplete(step.id, selected === step.correctOptionId);
+    onComplete(step.id, correct);
+    if (correct) {
+      setCelebrationText(pickCelebrationText(t));
+      setCelebrating(true);
+      window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
+    }
   }
 
   return (
@@ -63,7 +76,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
         {step.question}
       </h2>
 
-      <div className="grid gap-3">
+      <div className="relative grid gap-3">
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
@@ -89,12 +102,17 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
             </button>
           );
         })}
+        {celebrating && <CelebrationToast text={celebrationText} />}
       </div>
 
       {submitted && <Feedback correct={isCorrect} explanation={step.explanation} />}
 
       {!submitted ? (
         <ContinueButton onClick={handleSubmit} label="Check" disabled={!selected} />
+      ) : celebrating ? (
+        <div className="invisible" aria-hidden>
+          <ContinueButton onClick={() => {}} />
+        </div>
       ) : (
         <ContinueButton onClick={onContinue} variant={isCorrect ? "correct" : "incorrect"} />
       )}

@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { TranslateStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
+import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedJa } from "@/shared/japanese";
+
+const CELEBRATE_MS = 1100;
 
 type Props = {
   step: TranslateStep;
@@ -11,8 +15,11 @@ type Props = {
 };
 
 export function TranslateStepView({ step, onComplete, onContinue }: Props) {
+  const { t } = useTranslation();
   const [answer, setAnswer] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [celebrating, setCelebrating] = useState(false);
+  const [celebrationText, setCelebrationText] = useState("");
 
   const normalized = answer.trim();
   const isCorrect = step.acceptedAnswers.some(
@@ -22,6 +29,11 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
   function handleSubmit() {
     setSubmitted(true);
     onComplete(step.id, isCorrect);
+    if (isCorrect) {
+      setCelebrationText(pickCelebrationText(t));
+      setCelebrating(true);
+      window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
+    }
   }
 
   const directionLabel =
@@ -50,14 +62,17 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
         <p className="text-sm text-text-muted">{step.hint}</p>
       )}
 
-      <textarea
-        disabled={submitted}
-        value={answer}
-        onChange={(e) => setAnswer(e.target.value)}
-        placeholder="Type your translation..."
-        rows={3}
-        className="w-full resize-none rounded-xl border-[1.5px] border-border bg-surface px-4 py-3 text-base text-text-primary outline-none transition-colors focus:border-accent disabled:opacity-60"
-      />
+      <div className="relative">
+        <textarea
+          disabled={submitted}
+          value={answer}
+          onChange={(e) => setAnswer(e.target.value)}
+          placeholder="Type your translation..."
+          rows={3}
+          className="w-full resize-none rounded-xl border-[1.5px] border-border bg-surface px-4 py-3 text-base text-text-primary outline-none transition-colors focus:border-accent disabled:opacity-60"
+        />
+        {celebrating && <CelebrationToast text={celebrationText} />}
+      </div>
 
       {submitted && <Feedback correct={isCorrect} />}
 
@@ -73,6 +88,10 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
           label="Check"
           disabled={normalized.length === 0}
         />
+      ) : celebrating ? (
+        <div className="invisible" aria-hidden>
+          <ContinueButton onClick={() => {}} />
+        </div>
       ) : (
         <ContinueButton
           onClick={onContinue}

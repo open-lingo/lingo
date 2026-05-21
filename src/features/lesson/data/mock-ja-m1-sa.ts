@@ -1,6 +1,11 @@
 import type { LessonContent, LessonStep } from "../types";
 import { getTtsUrl } from "@/shared/japanese/tts";
-import { priorRowReviewTail } from "./_consonantRowHelpers";
+import {
+  correctSlot,
+  listeningComp,
+  priorRowReviewTail,
+  speaking,
+} from "./_consonantRowHelpers";
 
 /**
  * Sa-row: さ し す せ そ — three sub-lessons + row-test (~12 min total).
@@ -54,9 +59,8 @@ function buildTileBank(required: string[]): string[] {
   return [...required, ...extras.slice(0, 3)];
 }
 
-function correctSlot(id: string, slots = 4): number {
-  return id.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0) % slots;
-}
+// `correctSlot` imported from _consonantRowHelpers — see mock-ja-m1-l1
+// for context (2026-05-18 audit upgraded the hash for low-bit fairness).
 
 function pickThreeKanaDistractors(symbol: string) {
   return ALL_SA.filter((v) => v.symbol !== symbol).slice(0, 3);
@@ -231,16 +235,12 @@ function listeningBuild(
   };
 }
 
-function speaking(id: string, word: string, meaning: string): LessonStep {
-  return {
-    id,
-    type: "speaking",
-    targetPhrase: word,
-    translation: meaning,
-    stubbed: true,
-    targetAnnotation: [{ surface: word, reading: word }],
-  };
-}
+// `speaking` imported from _consonantRowHelpers — the local copy was
+// shadowing the import with `stubbed: true`, which silently routed every
+// sa-row speaking step (asa, sushi, sora, sushi-desu) into the legacy
+// "I said it!" placeholder. Fixed 2026-05-18 after tester report
+// ("asa wasn't letting my friend use it"). Now graduates to the
+// Whisper-graded mic flow alongside ka/ta/na/ha/ma/ya/ra/wa rows.
 
 /* ────────────────────────────────────────────────────────────────────────
  * Sub-lesson 1/4 — meet さ + し, build あさ (morning)
@@ -357,23 +357,10 @@ export const MOCK_LESSON_JA_M1_SA_2: LessonContent = {
     listeningBuild("ja-sa2-build-sushi", "すし", "sushi"),
 
     // Listening comprehension — adds a different drill type to break the
-    // intro→trace→recog rhythm Mio + Jordan flagged as monotone.
-    {
-      id: "ja-sa2-lc-sushi",
-      type: "listening_comprehension",
-      audioKey: "すし",
-      transcript: "すし",
-      romaji: "sushi",
-      question: "What does this word mean?",
-      options: [
-        { id: "a", text: "sushi" },
-        { id: "b", text: "morning" },
-        { id: "c", text: "shell" },
-        { id: "d", text: "face" },
-      ],
-      correctOptionId: "a",
-      transcriptAnnotation: [{ surface: "すし", reading: "すし" }],
-    },
+    // intro→trace→recog rhythm Mio + Jordan flagged as monotone. Routed
+    // through `listeningComp` factory (2026-05-18) so the correct slot
+    // is rotated by id hash, not always position 0.
+    listeningComp("ja-sa2-lc-sushi", "すし", "sushi", "sushi", ["morning", "shell", "face"]),
 
     symbolToSound("ja-sa2-sts-su", "す", "su", "like 'sue'"),
     symbolToSound("ja-sa2-sts-se", "せ", "se", "like 'se' in 'sell'"),

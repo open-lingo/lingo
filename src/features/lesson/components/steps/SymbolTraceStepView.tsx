@@ -234,7 +234,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
           className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-border bg-surface px-4 py-2 text-sm font-semibold text-text-secondary transition-colors hover:border-accent hover:text-text-primary"
           aria-label="Play sound"
         >
-          <Icon name="play" size={14} /> {t("alphabet.play", "Play")}
+          <Icon name="volume" size={14} /> {t("alphabet.play", "Play")}
         </button>
         {hasStrokeOrder && step.showGuide && (
           <button

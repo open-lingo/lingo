@@ -1,8 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { MatchPairsStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
+import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedJa } from "@/shared/japanese";
 import { playJaAudio, getTtsUrl } from "@/shared/japanese/tts";
+
+const CELEBRATE_MS = 1100;
 
 /** Tiny seeded shuffle so the order is deterministic per step.id but
  *  the two columns scramble independently. Without this the source +
@@ -52,6 +56,7 @@ const MAX_MISTAKES = 3;
  * on miss + the dot dimming in sync.
  */
 export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
+  const { t } = useTranslation();
   const [matched, setMatched] = useState<Set<string>>(new Set());
   const [selected, setSelected] = useState<
     | { side: "source" | "target"; pairId: string }
@@ -62,6 +67,8 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
     target: string | null;
   }>({ source: null, target: null });
   const [mistakes, setMistakes] = useState(0);
+  const [celebrating, setCelebrating] = useState(false);
+  const [celebrationText, setCelebrationText] = useState("");
 
   const allMatched = matched.size === step.pairs.length;
   const failed = mistakes >= MAX_MISTAKES;
@@ -73,8 +80,17 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
   // incorrect — Spencer's call.
   useEffect(() => {
     if (failed) onComplete(step.id, false);
-    else if (allMatched) onComplete(step.id, mistakes < MAX_MISTAKES);
-  }, [allMatched, failed, mistakes, onComplete, step.id]);
+    else if (allMatched) {
+      onComplete(step.id, mistakes < MAX_MISTAKES);
+      // Celebrate only on a clean pass — finished without any wrong taps.
+      // Matches the MCQ "first-attempt correct" semantics: a flawless run.
+      if (mistakes === 0) {
+        setCelebrationText(pickCelebrationText(t));
+        setCelebrating(true);
+        window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
+      }
+    }
+  }, [allMatched, failed, mistakes, onComplete, step.id, t]);
 
   function attemptPair(a: { side: string; pairId: string }, b: { side: string; pairId: string }) {
     if (a.pairId === b.pairId) {
@@ -164,7 +180,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
       </div>
 
       <div
-        className="grid grid-cols-2 gap-3 sm:gap-4"
+        className="relative grid grid-cols-2 gap-3 sm:gap-4"
         style={{ gridTemplateRows: `repeat(${rows}, minmax(64px, auto))` }}
       >
         {/* Render row-by-row so the auto-rows lock both columns to the same
@@ -191,6 +207,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
             audioOnSelect={!!step.playAudioOnSelect}
           />
         ))}
+        {celebrating && <CelebrationToast text={celebrationText} />}
       </div>
 
       {failed && (
@@ -200,12 +217,18 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
       )}
 
       {finished && (
-        <div className="motion-safe:animate-fade-up">
-          <ContinueButton
-            onClick={onContinue}
-            variant={failed || mistakes > 0 ? "incorrect" : "correct"}
-          />
-        </div>
+        celebrating ? (
+          <div className="invisible" aria-hidden>
+            <ContinueButton onClick={() => {}} />
+          </div>
+        ) : (
+          <div className="motion-safe:animate-fade-up">
+            <ContinueButton
+              onClick={onContinue}
+              variant={failed || mistakes > 0 ? "incorrect" : "correct"}
+            />
+          </div>
+        )
       )}
     </div>
   );

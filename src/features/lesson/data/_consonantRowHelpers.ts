@@ -100,9 +100,18 @@ export function correctSlot(id: string, slots = 4): number {
   let h = 2166136261; // FNV-1a 32-bit offset basis
   for (let i = 0; i < id.length; i++) {
     h ^= id.charCodeAt(i);
-    h = (h * 16777619) >>> 0;
+    h = Math.imul(h, 16777619);
   }
-  return h % slots;
+  // Murmur3 finalizer — 2026-05-18 audit found that the prior naked FNV
+  // collapse-via-`% slots` skewed ~55% of word_image_mcq to slot 0
+  // because low bits weren't well-mixed for the long-shared-prefix lesson
+  // ids. Finalizer fixes the low-bit bias.
+  h ^= h >>> 16;
+  h = Math.imul(h, 0x85ebca6b);
+  h ^= h >>> 13;
+  h = Math.imul(h, 0xc2b2ae35);
+  h ^= h >>> 16;
+  return (h >>> 0) % slots;
 }
 
 function pickThreeKanaDistractors(ctx: RowContext, symbol: string) {
@@ -473,6 +482,40 @@ export function pickReviewWords(seed: string, count: number): RowWord[] {
     [out[i], out[j]] = [out[j], out[i]];
   }
   return out.slice(0, count);
+}
+
+/**
+ * Backfill a match_pairs entry list to `targetCount` by drawing additional
+ * pairs from `M1_REVIEW_POOL`, skipping any kana already present. Per
+ * Spencer's M2 sub-lesson-1 walkthrough (2026-05-18): match-pairs grids
+ * with empty slots are wasted review surface — backfill cross-module so
+ * the grid is always full AND the empty slots double as review.
+ *
+ * Deterministic by `seed` so the same lesson always draws the same pad
+ * (avoids surprises across reloads).
+ */
+export function padMatchPairsToTarget<T extends { kana: string; meaning: string }>(
+  seed: string,
+  base: T[],
+  targetCount = 4,
+): Array<{ kana: string; meaning: string }> {
+  if (base.length >= targetCount) return base;
+  const have = new Set(base.map((b) => b.kana));
+  const candidates = M1_REVIEW_POOL.filter((w) => !have.has(w.kana));
+  const need = targetCount - base.length;
+  // Seeded shuffle — same logic as pickReviewWords.
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) | 0;
+  const shuffled = [...candidates];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    h = (h * 16807) % 2147483647;
+    const j = Math.abs(h) % (i + 1);
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  const pad = shuffled
+    .slice(0, need)
+    .map((w) => ({ kana: w.kana, meaning: w.meaningEn }));
+  return [...base, ...pad];
 }
 
 /* ────────────────────────────────────────────────────────────────────────

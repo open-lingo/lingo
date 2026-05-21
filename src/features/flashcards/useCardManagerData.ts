@@ -93,11 +93,7 @@ export function useCardManagerData(languageId: string) {
     } else {
       const tomorrow = addDays(getToday(), 1);
       setCardState(cardId, {
-        easeFactor: 2.5,
-        interval: 0,
-        dueDate: getToday(),
-        repetitions: 0,
-        lastReviewDate: getToday(),
+        ...createInitialState(),
         buriedUntil: tomorrow,
       });
       notifySRSStoreChanged();

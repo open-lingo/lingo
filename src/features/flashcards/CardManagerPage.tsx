@@ -118,7 +118,9 @@ export function CardManagerPage() {
           );
           break;
         case "ease":
-          cmp = (a.state?.easeFactor ?? 0) - (b.state?.easeFactor ?? 0);
+          // FSRS-6: sort by per-card difficulty (1-10, higher = harder).
+          // The "ease" sort key is kept for UI back-compat.
+          cmp = (a.state?.difficulty ?? 0) - (b.state?.difficulty ?? 0);
           break;
         case "deck":
           cmp = a.deckName.localeCompare(b.deckName);
@@ -442,11 +444,11 @@ export function CardManagerPage() {
           },
           {
             key: "ease",
-            label: t("flashcards.cardManager.colEase", "Ease"),
+            label: t("flashcards.cardManager.colDifficulty", "Difficulty"),
             sortable: true,
             render: (mc) => (
               <span className="text-gray-600 dark:text-gray-400">
-                {mc.state?.easeFactor?.toFixed(2) ?? "—"}
+                {mc.state?.difficulty?.toFixed(1) ?? "—"}
               </span>
             ),
           },

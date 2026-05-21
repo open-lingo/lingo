@@ -1,5 +1,6 @@
 import type { LessonContent, LessonStep } from "../types";
 import { getTtsUrl } from "@/shared/japanese/tts";
+import { correctSlot, listeningComp } from "./_consonantRowHelpers";
 
 /**
  * Vowels: あ い う え お — two sub-lessons (~10 minutes total).
@@ -73,10 +74,9 @@ function pickThreeDistractors(symbol: string) {
   return ALL_VOWELS.filter((v) => v.symbol !== symbol).slice(0, 3);
 }
 
-/** Deterministic slot for the correct answer based on id hash. */
-function correctSlot(id: string, slots = 4): number {
-  return id.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0) % slots;
-}
+// `correctSlot` imported from _consonantRowHelpers — shared FNV-1a +
+// Murmur3 finalizer keeps the slot-rotation hash well-distributed for
+// the long-shared-prefix lesson-id patterns (per 2026-05-18 audit).
 
 /**
  * symbol_to_sound (kana → romaji). User sees kana, taps romaji buttons
@@ -416,71 +416,14 @@ export const MOCK_LESSON_JA_M1_L1B: LessonContent = {
     wordImageMcq("ja-l1b-mcq-iie", "いいえ"),
     listeningBuild("ja-l1b-build-iie", "いいえ", "no", VOWEL_TILES_WITH_DOUBLE_I),
 
-    // Listening comprehension — hear the word, pick its meaning
-    {
-      id: "ja-l1b-lc-aoi",
-      type: "listening_comprehension",
-      audioKey: "あおい",
-      transcript: "あおい",
-      romaji: "aoi",
-      question: "What does this word mean?",
-      options: [
-        { id: "a", text: "blue" },
-        { id: "b", text: "love" },
-        { id: "c", text: "house" },
-        { id: "d", text: "above" },
-      ],
-      correctOptionId: "a",
-      transcriptAnnotation: [{ surface: "あおい", reading: "あおい" }],
-    },
-    {
-      id: "ja-l1b-lc-ie",
-      type: "listening_comprehension",
-      audioKey: "いえ",
-      transcript: "いえ",
-      romaji: "ie",
-      question: "What does this word mean?",
-      options: [
-        { id: "a", text: "house" },
-        { id: "b", text: "above" },
-        { id: "c", text: "blue" },
-        { id: "d", text: "no" },
-      ],
-      correctOptionId: "a",
-      transcriptAnnotation: [{ surface: "いえ", reading: "いえ" }],
-    },
-    {
-      id: "ja-l1b-lc-ue",
-      type: "listening_comprehension",
-      audioKey: "うえ",
-      transcript: "うえ",
-      romaji: "ue",
-      question: "What does this word mean?",
-      options: [
-        { id: "a", text: "above" },
-        { id: "b", text: "house" },
-        { id: "c", text: "love" },
-        { id: "d", text: "blue" },
-      ],
-      correctOptionId: "a",
-      transcriptAnnotation: [{ surface: "うえ", reading: "うえ" }],
-    },
-    {
-      id: "ja-l1b-lc-iie",
-      type: "listening_comprehension",
-      audioKey: "いいえ",
-      transcript: "いいえ",
-      romaji: "iie",
-      question: "What does this word mean?",
-      options: [
-        { id: "a", text: "no" },
-        { id: "b", text: "house" },
-        { id: "c", text: "blue" },
-        { id: "d", text: "love" },
-      ],
-      correctOptionId: "a",
-      transcriptAnnotation: [{ surface: "いいえ", reading: "いいえ" }],
-    },
+    // Listening comprehension — hear the word, pick its meaning.
+    // Routed through `listeningComp` factory so the correct slot is
+    // rotated by id hash (not always position 0). Pre-2026-05-18 these
+    // were inline literals with correctOptionId hardcoded to "a".
+    listeningComp("ja-l1b-lc-aoi", "あおい", "aoi", "blue",   ["love", "house", "above"]),
+    listeningComp("ja-l1b-lc-ie",  "いえ",   "ie",  "house",  ["above", "blue", "no"]),
+    listeningComp("ja-l1b-lc-ue",  "うえ",   "ue",  "above",  ["house", "love", "blue"]),
+    listeningComp("ja-l1b-lc-iie", "いいえ", "iie", "no",     ["house", "blue", "love"]),
 
     // Final symbol_to_sound round — harder direction, kana → romaji
     symbolToSound("ja-l1b-sts-a", "あ", "a", "like 'a' in 'father'"),

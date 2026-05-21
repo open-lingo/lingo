@@ -70,6 +70,7 @@ import {
   warnDensityCapped,
   type DensityConfig,
 } from "./lessonDensity";
+import { padMatchPairsToTarget } from "./_consonantRowHelpers";
 
 /**
  * Build a short, never-scolding explanation for a recognition MC. Always
@@ -663,7 +664,15 @@ function buildTeachStep(
 function buildMatchStep(row: RowDef): MatchPairsStep {
   // Cap to 6 pairs so every row's anchor set fits (most rows have 5-6 once
   // orphan-kana anchors are added). 6 stays within a reasonable grid.
-  const pairs = row.anchorWords.slice(0, 6).map((w, i) => ({
+  // 2026-05-18: if the row has fewer than 4 anchors, backfill from
+  // M1_REVIEW_POOL so the grid is never half-empty (per Spencer's tester
+  // walkthrough — empty slots are wasted review surface).
+  const base = row.anchorWords.slice(0, 6).map((w) => ({
+    kana: w.kana,
+    meaning: w.meaning,
+  }));
+  const filled = padMatchPairsToTarget(`${row.id}-match`, base, 4);
+  const pairs = filled.map((w, i) => ({
     id: `p${i + 1}`,
     source: w.kana,
     target: w.meaning,

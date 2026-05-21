@@ -9,6 +9,7 @@ export function AdminBreadcrumbs() {
   const isContent = pathname.includes("/admin/content");
   const isContentDecks = pathname.includes("/admin/content/decks");
   const isContentStories = pathname.includes("/admin/content/stories");
+  const isContentLessons = pathname.includes("/admin/content/lessons");
 
   return (
     <nav
@@ -57,6 +58,16 @@ export function AdminBreadcrumbs() {
             }`}
           >
             {t("admin.stories")}
+          </Link>
+          <Link
+            to="/admin/content/lessons"
+            className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+              isContentLessons
+                ? "bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-white"
+                : "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+            }`}
+          >
+            {t("admin.lessons", "Lessons")}
           </Link>
         </>
       )}

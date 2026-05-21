@@ -1,11 +1,15 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { ListeningBuildStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
+import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedJa } from "@/shared/japanese";
 import { getTtsUrl } from "@/shared/japanese/tts";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { Icon } from "@/shared/components/Icon";
+
+const CELEBRATE_MS = 1100;
 
 type Props = {
   step: ListeningBuildStep;
@@ -39,8 +43,11 @@ function PromptWithEmphasis({ text }: { text: string }) {
 }
 
 export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) {
+  const { t } = useTranslation();
   const [placed, setPlaced] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
+  const [celebrating, setCelebrating] = useState(false);
+  const [celebrationText, setCelebrationText] = useState("");
 
   const uniqueRemaining: string[] = [];
   const seen = new Map<string, number>();
@@ -70,6 +77,11 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   function handleSubmit() {
     setSubmitted(true);
     onComplete(step.id, isCorrect);
+    if (isCorrect) {
+      setCelebrationText(pickCelebrationText(t));
+      setCelebrating(true);
+      window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
+    }
   }
 
   const audioUrl = getTtsUrl(step.targetSentence);
@@ -123,7 +135,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
       </div>
 
       {/* Tile bank — buttons ~50% bigger font + matching padding. */}
-      <div className="flex flex-wrap gap-3">
+      <div className="relative flex flex-wrap gap-3">
         {uniqueRemaining.map((tile, i) => (
           <button
             key={`${tile}-${i}`}
@@ -135,6 +147,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
             <AnnotatedJa text={tile} />
           </button>
         ))}
+        {celebrating && <CelebrationToast text={celebrationText} />}
       </div>
 
       {submitted && <Feedback correct={isCorrect} />}
@@ -150,6 +163,10 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
 
       {!submitted ? (
         <ContinueButton onClick={handleSubmit} label="Check" disabled={placed.length === 0} />
+      ) : celebrating ? (
+        <div className="invisible" aria-hidden>
+          <ContinueButton onClick={() => {}} />
+        </div>
       ) : (
         <ContinueButton onClick={onContinue} variant={isCorrect ? "correct" : "incorrect"} />
       )}

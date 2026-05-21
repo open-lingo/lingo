@@ -25,7 +25,7 @@ If any of these reads is skipped, the rebuild will drift. They are referenced re
 
 Every sub-lesson must meet **all** of these:
 
-- **Step count: 12-20.** Sit close to 20, do not exceed. Current M3-M7 averages 5-6; that is the failure mode being fixed.
+- **Step count: 20-22.** *(Updated 2026-05-18 from "12-20, aim 18" — tester walkthrough showed M1/M2 pacing works at higher density, plus the tester explicitly asked for more end-of-sub-lesson recap. Sub-lessons below 18 should be padded with prior-content review or sentence-pattern sprinkle; above 25 is a hard ceiling — split into two sub-lessons if you'd exceed it.)* Current M3-M7 averages 5-6 in the original; the rebuild lifted to 14-19; this directive lifts the floor to 20.
 - **≥4 distinct step types** per drill block (no 3-cloze runs, no 5-phrase-card runs).
 - **No two adjacent steps of the same type** (R3 interleave rule from M2 g-row).
 - **Every new atom in ≥2 modalities** before the sub-lesson ends. (Atom = vocab word, grammar particle, sentence pattern.)
@@ -109,7 +109,7 @@ Sub-lesson N — <name>
   [info:close]                                         (1 step)
 ```
 
-Total: 14-20 steps. **Aim for 18.** Below 14 = thin; above 20 = drop a review step.
+Total: 20-22 steps. **Aim for 21.** *(Updated 2026-05-18 — was "14-20, aim 18".)* Below 18 = pad with prior-content review (`reviewMatchPairs`, `vocabMcq` from prior pool) or sentence-pattern sprinkle (per §13.2). Above 25 = hard split into two sub-lessons; don't exceed.
 
 ---
 
@@ -290,3 +290,82 @@ M3 agent added 4 spec-required helpers AND 4 bonus helpers it discovered it need
 2. Have a single-line JSDoc.
 3. Be exported.
 4. Not collide with existing helper names.
+
+---
+
+## 13. Lessons from 2026-05-18 tester walkthrough
+
+Real-user session (tester finished M1 day-1, M2 day-2). Full transcript: `docs/user-feedback/2026-05-18-tester-m1-m2-walkthrough.md`. The findings that reframe / extend the M3-M7 rebuild contract are captured below. **Apply these going forward.**
+
+### 13.1 Density target: 20-22 steps per sub-lesson (new floor)
+
+Tester confirmed M1/M2 pacing (~17-20 steps per sub-lesson) is the right shape — and asked for **more** prior-content recap at sub-lesson ends. The new target raises the floor from the rebuild's "14-20, aim 18" to **20-22, aim 21**. Reasons:
+
+- Tester directly asked: "add 3 or 4 more kana + word recap at end of M2 sub-lessons 1+2" (T8).
+- Tester completed a full module per day, so the higher density isn't pacing-prohibitive.
+- Spec §3 compounding-review rule already supports adding review-tail items; this directive operationalizes "use that budget."
+
+**Current M3-M7 status** vs the new target (per the wave-2 reports):
+
+| Module | Sub-lesson step counts | At target (20-22) | Below |
+|---|---|---|---|
+| M3 | 15, 20, 20, 16, 16, 15, 16 | M3-2, M3-3 only | 5 of 7 |
+| M4 | 15, 15, 19, 16, 17, 14, 16 | 0 | 7 of 7 |
+| M5 | 19, 19, 19, 17, 18, 15, 16 | 0 | 7 of 7 |
+| M6 | 18, 14, 14, 14, 17, 18, 14, 15 | 0 | 8 of 8 |
+| M7 | 16, 15, 16, 18, 16, 16, 15, 19 | 0 | 8 of 8 |
+
+**Recommended re-density pass** (Wave-4b): for each sub-lesson below 20, append 2-5 steps drawing from:
+- Compounding review pool (`reviewMatchPairs`, `vocabMcq` from `M3_M7_REVIEW_POOL`).
+- Sentence-pattern sprinkle (per §13.2 below).
+- An extra listening_build / translateStep generation step.
+
+A density-distribution test lives at `src/features/lesson/data/sub-lesson-density.test.ts` (added 2026-05-18, informational + hard-fails if any sub-lesson is < 12 or > 25).
+
+### 13.2 Sentence-pattern sprinkle BEFORE the formal rule
+
+T11 (high-confidence tester finding): introduce `X です` / `わたしは X です` patterns **in sub-lesson tails before** the formal `RULE_DESU_KA` lands at M3-2. Don't explain `です` — let the pattern stick via exposure first. Mirrors the existing M1 ka-row `desu` sprinkle (per CLAUDE.md "M1 sentence sprinkle" pattern).
+
+Implication for M3-M7 rebuild: the `RULE_DESU_KA` in M3-2 is positioned correctly (M3 is the formal rule slot), but **M1 sub-lessons sa-row onward should append a 1-step sentence sprinkle** (e.g., a `phrase_card` showing "わたしは アメリカじん" without explanation, just the pattern). Out of M3-M7 scope, but the M3-2 rule card should acknowledge "you've seen this shape — here's the rule" rather than introducing from cold.
+
+Also relevant: **S8** (Spencer direct) flags that `desu` and `か` need to be introduced separately, and the current copy framing "`desu` means 'it is'" is wrong. When the M3-2 `RULE_DESU_KA` card is rewritten:
+- Split into two cards (desu first as polite copula/sentence ender, ka later as question marker).
+- Rewrite copy: "polite ending — attaches to a noun or adjective to mark the sentence as formal." NOT "means 'it is'."
+
+### 13.3 More sound cues + reward asymmetry (cross-link to audit synthesis §2.1)
+
+T2 (tester) + audit synthesis §2.1 (`CelebrationToast` silent on 6 hardest step views) point at the same gap. Going-forward authoring rule: every retrieval step that lands a verdict should also fire an audio cue (chirp / chime). M3-M7 content authoring doesn't change for this — it's a view-component fix landing in Wave-4b.
+
+### 13.4 Romaji-on-tap is loved; extend, don't fade
+
+T3 (tester) directly contradicts the audit synthesis §2.2 "adaptive romaji fading" theme. The tester *actively likes* the on-tap romaji reveal pattern in M1 hiragana steps and asked for **more** of it.
+
+**Resolution**: don't auto-fade romaji. Instead extend the on-tap reveal pattern to more surfaces (cloze options, MCQ tiles, phrase cards). For M3-M7 authoring: when a step shows romaji always-on, that's fine; the future enhancement is to make romaji *click-to-reveal* on some surfaces so the learner gets the choice. No content change required now.
+
+### 13.5 Katakana strategy = sidequest from ~M10, not in M3-M7 spine
+
+T10 (tester) + Q2 resolution (roadmap §10.7) converge: katakana stays sidequest from ~M5, with a dedicated module around ~M10 for learners who want to push. M3-1's current "5 katakana loanwords + culture in one card" dump should be RE-SCOPED — split the katakana exposure across sidequests rather than front-loading in M3.
+
+Wave-4 work: extract M3-1's katakana intro into a sidequest seed; M3-1 becomes a different opener.
+
+### 13.6 Match-pairs underfill backfill landed; spec invariant updated
+
+S7 (shipped 2026-05-18): every match-pairs grid is now padded to ≥4 pairs via `padMatchPairsToTarget(seed, base, 4)` in `_consonantRowHelpers.ts`. Wired into `lessonBuilder.buildMatchStep` + `buildRecapLesson.buildRecapMatchItem`. **Spec invariant: no match-pairs grid ships with < 4 visible pairs.** Authors don't need to think about this — the helper guarantees it.
+
+### 13.7 MCQ slot rotation invariant landed
+
+S6 (shipped 2026-05-18): every MCQ-shape step (multiple_choice, word_image_mcq, listening_comprehension, self_explanation_mcq, particle_cloze) rotates the correct option's slot deterministically by id-hash. Regression-guard test at `src/features/lesson/data/mcq-position-distribution.test.ts` fails the build if any slot > 55% of correct answers across the corpus. **Spec invariant: no MCQ-shape step ships with a fixed correct slot.** Authors using the factories (`vocabMcq`, `sentenceMcq`, `selfExplain`, `cloze`, `particleMc`) get rotation for free; inline literals must rotate manually.
+
+### 13.8 Tester confirmed: M1/M2 pacing works, the rebuild is on the right track
+
+T4: "M1 done in one day, M2 the next; would retain well." Confirms the density bar + cumulative-review approach is structurally sound. No reframing of §1-§12 required — the directive in §13.1 (raise floor to 20-22) is a *refinement*, not a rebuild reset.
+
+### 13.9 Out of scope (deferred to other workstreams)
+
+- T6 `じゅう` pronunciation registration (TTS / Whisper fix, not curriculum content)
+- T7 trace aim-assist mode (view component, not curriculum)
+- T9 5-card escape hatches (review-flow UI, not curriculum)
+- T12 mora-stepped audio (accessibility toggle, not curriculum)
+- S5, S10, S11, S12 (all shipped separately)
+
+These don't change the M3-M7 rebuild contract.

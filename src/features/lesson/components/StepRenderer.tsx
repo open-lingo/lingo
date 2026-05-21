@@ -19,6 +19,7 @@ import { PhraseCardStepView } from "./steps/PhraseCardStepView";
 import { GrammarRuleStepView } from "./steps/GrammarRuleStepView";
 import { ParticleClozeStepView } from "./steps/ParticleClozeStepView";
 import { SelfExplanationMcqStepView } from "./steps/SelfExplanationMcqStepView";
+import { DialogueListenStepView } from "./steps/DialogueListenStepView";
 import { RowTestStepView } from "./steps/RowTestStepView";
 
 type Props = {
@@ -160,6 +161,14 @@ export function StepRenderer({ step, onComplete, onContinue }: Props) {
     case "self_explanation_mcq":
       return (
         <SelfExplanationMcqStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "dialogue_listen":
+      return (
+        <DialogueListenStepView
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}

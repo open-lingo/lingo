@@ -6,6 +6,9 @@ Vite + React 19 + TypeScript + Tailwind language-learning SPA. Talks to `lingo-c
 
 - **Source of truth for project state:** `docs/PROJECT_STATE.md`. Read this first when starting a feature — the rest of `docs/` is a mix of current planning, stale task specs, and design docs.
 - **Architecture audit + conformance gaps:** `docs/ARCHITECTURE_REVIEW.md` — read before any structural change.
+- **Real-user feedback log:** `docs/user-feedback/` — verbatim tester observations + Spencer's product notes per session. Higher product-signal than the synthesized agent audits; read before any UX-touching change.
+- **Lesson authoring patterns + per-step rubric:** `docs/lesson-authoring-guide.md` — the condensed standards for any JA sub-lesson edit. §13 is the 2026-05-21 retrospective (card-type → lexical category rubric, image-MCQ-as-intro, just-in-time grammar teach, forced-build-replacing-copula-cloze, close-on-confidence, grading=review-only, atom-registry discipline, particle-tile separation gotcha). Read before any M3-M7 lesson content change.
+- **Curriculum vs research:** `docs/curriculum-audit-vs-research-2026-05-21.md` — the rubric the audits grade against (research-backed sequencing + N5 spine + open gaps).
 - **Backend repo:** `../lingo-core/` — same monorepo-style layout, separate git.
 
 ## Stack
@@ -66,6 +69,34 @@ When you need any of these, build the shared primitive first.
 ## SRS engine
 
 `features/flashcards/engine/` — SM-2 with Again/Hard/Good/Easy. Local-first (localStorage) with manual or end-of-session sync to `lingo-core` via `SrsApi`. Dirty-card detection + delta merge — don't bypass.
+
+## Vocab SRS unification — in-progress (2026-05-19)
+
+Plan to unify lesson reviews + flashcard practice onto one SRS state per atom, so a card "knows" you got it wrong in a lesson and vice versa.
+
+**Hard architectural commitment:** adaptive per-atom step selection happens on the **flashcards surface**, NOT inside lessons. Lessons stay statically authored. Moving review-tail construction into lesson render time would require unwinding ~8,600 LOC across `mock-ja-m{3-v2,4,5,6,7}.ts` — avoid this trap. Per the 2026-05-19 feasibility audit; see `docs/m3-m7-audit-synthesis-2026-05-18.md` + audit transcript.
+
+**Foundation in place:**
+- ✅ Course deck — `src/features/flashcards/data/ja-course-atoms.ts` (749 atoms: 196 taught + 553 "future" N5 + 10 particles; 506 kanji-bearing). Stable IDs, kanji from N5 emoji map, module attribution, adapter `courseAtomToFlashcard()`, builder `buildJaCourseDeck({unlockedIds})`. Test at `ja-course-atoms.test.ts`.
+- ✅ `vocabGraduation/index.ts` already dispatches `lingo:vocab-graduated` events on lesson completion — receiver not wired yet. This is the integration seam, not a new channel to build.
+- ✅ `Flashcard.unlocked` field already exists. `lessonCardMap.ts` is the current naive unlock mapper (only 3 ja lessons covered — will be replaced).
+
+**Implementation phases (do in order):**
+
+1. **Add modality dimension to SM-2 state** — extend `SRSCardState` in `flashcards/data/types.ts` from single-direction to `{ recognition: SubState, production: SubState }`. Additive schema bump; touches `srsSync.ts`, merge, dirty detection, and `api/srs.ts` backend payload. Step views emit `modality: "recognition" | "production" | "both"` alongside the existing correct/incorrect signal.
+2. **Tag every step factory with `exercisedAtoms`** — extend `vocab()`, `phrase()`, `cloze()`, `build()`, `vocabMcq()`, `sentenceMcq()`, `listeningCompSentence()`, `listeningBuildSentence()`, `speaking()`, `reviewMatchPairs()`, `selfExplain()`, `dialogueListen()` in `_jaGrammarHelpers.ts` to record which atom IDs each step exercises. Use `JA_COURSE_ATOMS_BY_KANA` for the kana→id resolution.
+3. **External `engine.gradeFromLesson(cardId, modality, correct)` API** — additive helper in `flashcards/engine/`. Maps binary correct/wrong to SM-2 grades: wrong → Again, first-try correct → Good, correct-after-wrong → Hard. Touches the modality-specific SubState. Easy stays manual-only on the flashcard surface.
+4. **Lesson page step-complete pipeline** — extend `LessonPage.handleStepComplete(stepId, correct)` to resolve `stepId → step.exercisedAtoms → engine.gradeFromLesson()` per atom. ~30 lines in the GOD file; tread carefully (per "GOD FILE" warning above).
+5. **Wire the `vocabGraduation` receiver** — listen for `lingo:vocab-graduated`, update unlock map on per-user state. Replaces the hand-maintained `LESSON_TO_CARDS` in `lessonCardMap.ts`. Compute `Flashcard.unlocked` from the unlock map; old map gets deprecated.
+6. **Render-time review-pool picker on the flashcards surface** — flashcards practice surface reads card SRS state + unlock map and picks the next due atom (struggle-weighted + interval-based). The static review-tail in lessons stays as-is; flashcard surface is where adaptivity earns its keep.
+7. **Kanji unlock map + reveal step** — add `kanjiUnlocked: Record<atomId, true>` to user state (sparse, ~300 bytes per learner at full N5). Build a `kanjiIntroStep` step type (dedicated view, celebration-grade) that lesson authors place at the kanji-re-teach moment (e.g. M10 re-teaches `たべる` → `食べる`). The step's completion writes the unlock. `showKanji(card, srsState, user)` is computed: `policy === "always" || (policy === "auto" && user.kanjiUnlocked[card.id]) || (policy === "never" ? false : false)`. Default policy `"auto"`. The "auto-graduate at interval > 7d" heuristic I floated earlier is **dropped** — unlocks are curriculum-driven, not memory-driven.
+
+**Follow-up cleanups (lower priority):**
+
+- Migrate `M3_M7_REVIEW_POOL` in `_jaGrammarHelpers.ts` to be derived from `JA_COURSE_ATOMS` (filter by `fromModule`). Single source of truth.
+- Canonicalize atom-name inconsistencies between lessons and N5 map: `すし` vs N5's `寿司`; `さけ` (lessons) vs `おさけ` (N5, with 酒). ~1 hour content pass.
+- Build-time assertions at bottom of each mock-ja-m*.ts (`assertNoSameAnswerCluster` etc.) should be moved to a test-only helper before any render-time factory invocation lands; currently they only fire at import time, which is safe today but breaks if review-tail moves to mount time.
+- The render-time pool selection in `pickReviewAtoms` (struggle-aware version that already reads `topStruggleKana("ja", 12)`) won't actually fire until call sites move from module-eval to render-time — the limit flagged in the previous audit. Either accept "evaluated once per JS bundle load" or do the (large) call-site refactor. The flashcards surface adaptive picker (phase 6) sidesteps this entirely for the SRS-driven path.
 
 ## Vocab card art (read before authoring new vocab)
 

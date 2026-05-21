@@ -1,37 +1,54 @@
 /**
- * M6 — Where things are (density rebuild 2026-05-18).
+ * M6 — Where things are (Wave 4B re-density 2026-05-18).
  *
  * Spine (unchanged): に (destination) / で (setting) / が (existence).
  *
- * 2026-05-18 rebuild (per docs/m3-m7-rebuild-spec-2026-05-18.md):
- *   - Densified to 14-20 steps per content sub-lesson (was 5-12).
- *   - ≥1 generation step (translate / build / listening_build / speaking)
- *     per sub-lesson; ≥5 distinct step types; no two adjacent same-type.
- *   - Compounding review ≥0.25 ratio per sub-lesson drawing from
- *     M3_M7_REVIEW_POOL (M1 + M2 + M3 + M4 + M5 atoms).
- *   - assertNoSameAnswerCluster guards every sub-lesson — kills the
- *     M6-6 "がががが" cluster the spec explicitly calls out.
- *   - Existence drill (M6-6) rotates clozes through に / で / が across
- *     six items so the learner has to parse meaning, not screen position.
- *   - selfExplain ≥1 per grammar sub-lesson (M6-2, M6-3, M6-4 each get
- *     one; M6-4's probes "why が, not は" — the gentlest opening of the
- *     は/が discrimination, deferred to a sidequest otherwise).
- *   - build_sentence used only for ≤4-tile sentence builds (M6-1 light
- *     warmup + row test build). ≥5-mora sentences use translateStep +
- *     listeningBuildSentence + speaking per spec §4.
- *   - 9-lesson ID list preserved (mockCourse.ts + 3 test files reference
- *     ja-m6-1..ja-m6-9; external IDs win over the spec's "8 sub-lessons"
- *     target — per spec §12.1).
+ * 2026-05-18 Wave 4B re-density (per docs/wave-4b-dispatch-briefs.md
+ * Agent B-6) on top of the earlier 2026-05-18 rebuild:
+ *   - Lifted every content sub-lesson to the 20-22 step band (was 14-18).
+ *   - Moved EVERY `selfExplain` to N-1 placement (CLT expertise-reversal):
+ *     it now fires AFTER 2-3 commits, not immediately.
+ *   - Fixed M6-4 expertise-reversal contradiction: the rule card explicitly
+ *     defers は/が contrast, so the M6-4 selfExplain no longer asks for it.
+ *     It now probes the あります/います animacy split (the rule the learner
+ *     just committed). The は/が discrimination selfExplain is moved to
+ *     M6-5, by which point the learner has used が in 4+ existence sites.
+ *   - Replaced the canonical dismiss-on-sight distractor `"は and が mean
+ *     exactly the same thing"` with rule-citing-but-wrong alternatives
+ *     (e.g., `"が introduces the answer to an implied wh-question"` — a
+ *     real near-rule that's true in some contexts but wrong here).
+ *   - Tightened M6-2 + M6-4 cloze rotation to assertAnswerRotation(2)
+ *     (was 1 with a TODO).
+ *   - Confirmed M6-6 hits assertAnswerRotation(3) — 6 cloze items rotate
+ *     across が / に / で.
+ *   - M6-8 dialogue closer rewritten with `dialogueListen()`: asking
+ *     directions in Shibuya. 3 comprehension Q's (where is the station,
+ *     which way, how long). Removes the rogue one-off atoms (FamilyMart,
+ *     とおいです, ちかいです, いいえ) that were polluting the atom-coverage
+ *     test as phrase_card.kana surface forms.
  *
- * Lesson list (9 lessons):
+ * Carry-forward standards (from the earlier rebuild — still hold):
+ *   - ≥5 distinct step types per sub-lesson; no 2 adjacent same-type.
+ *   - ≥0.25 review-to-new ratio per sub-lesson from M3_M7_REVIEW_POOL.
+ *   - Hard direction (translate / speaking / listening_build) lands
+ *     after step ~12.
+ *   - Identity-anchored win cards ("You can now ask for a toilet in
+ *     Shibuya" rather than "が unlocked").
+ *
+ * Cross-module compounding: M6 location atoms (こうえん, がっこう, うち,
+ * えき, トイレ, コンビニ, ぎんこう, ホテル, へや) carry into M7 via
+ * M3_M7_REVIEW_POOL (already populated in _jaGrammarHelpers.ts).
+ *
+ * Lesson list (9 lessons — IDs preserved; mockCourse + tests reference
+ * ja-m6-1..ja-m6-9):
  *   M6-1  Places — vocab (8 location atoms) + retrieval interleave
- *   M6-2  に — destination + existence (Grammar Rule + drills + selfExplain)
- *   M6-3  で — action setting + means (Grammar Rule + drills + selfExplain)
- *   M6-4  が — there is / there are (Grammar Rule + drills + selfExplain)
- *   M6-5  Interleaved — に + で (rotating-answer drills)
- *   M6-6  Interleaved — existence + locations (に / で / が ALL rotate)
+ *   M6-2  に — destination + existence
+ *   M6-3  で — action setting + means
+ *   M6-4  が — there is / there are (animacy selfExplain — NOT は/が)
+ *   M6-5  Interleaved に + で (+ the deferred は/が selfExplain)
+ *   M6-6  Interleaved existence + locations (3-particle rotation)
  *   M6-7  Production — translate + listening_build + speaking
- *   M6-8  Mini-dialogue — asking directions
+ *   M6-8  Mini-dialogue — asking directions (NEW dialogueListen)
  *   M6-9  Row test (mastery ★)
  */
 import type {
@@ -45,7 +62,7 @@ import type {
 import {
   build,
   cloze,
-  dialogueLesson,
+  dialogueListen,
   grammarRule,
   infoStep,
   listeningBuildSentence,
@@ -56,11 +73,13 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
-  translateStep,
   vocab,
   vocabMcq,
   assertNoSameAnswerCluster,
+  assertAnswerRotation,
+  assertNoConsecutiveSame,
   WORD_IMAGE_MCQ_BLOCKLIST,
+  slotFor,
 } from "./_jaGrammarHelpers";
 
 const COURSE = "mock-1";
@@ -88,7 +107,7 @@ const POOL_M4 = PRIOR_POOL.filter((a) => a.fromModule === "m4");
 
 // ----- M6-1 — Places vocab + retrieval interleave -----------------------
 
-const M6_1_REVIEW = pickReviewAtoms("ja-m6-1-rev", PRIOR_POOL, 6);
+const M6_1_REVIEW = pickReviewAtoms("ja-m6-1-rev", PRIOR_POOL, 8);
 
 export const M6_1: LessonContent = {
   id: "ja-m6-1",
@@ -98,8 +117,8 @@ export const M6_1: LessonContent = {
   title: "Places",
   description:
     "Eight locations every Japanese map cares about. Vocab + immediate retrieval interleave.",
-  estimatedMinutes: 8,
-  xpReward: 20,
+  estimatedMinutes: 9,
+  xpReward: 22,
   steps: [
     infoStep(
       "ja-m6-1-info-open",
@@ -141,6 +160,12 @@ export const M6_1: LessonContent = {
       "うち",
       "Used both for 'my house' and 'my family/in-group.' Context decides.",
     ),
+    // visual MCQ on うち (encode + apply) — breaks adjacency w/ next vocab
+    vocabMcq(
+      "ja-m6-1-mcq-uchi",
+      { kana: "うち", meaningEn: "home", emoji: "🏡", fromModule: "m6" },
+      POOL_M4,
+    ),
     vocab(
       "ja-m6-1-eki",
       "Train station",
@@ -157,6 +182,13 @@ export const M6_1: LessonContent = {
       "トイレ",
       "Katakana loanword. 'トイレは どこですか' — the universal travel question.",
     ),
+    // listening break between back-to-back vocab cards
+    listeningCompSentence({
+      id: "ja-m6-1-lc-toire",
+      audioText: "トイレ",
+      correctMeaningEn: "toilet",
+      distractorsEn: ["train station", "park", "shop"],
+    }),
     vocab(
       "ja-m6-1-konbini",
       "Convenience store",
@@ -173,9 +205,7 @@ export const M6_1: LessonContent = {
       "へや",
       "Any room in a house or hotel. 'へやに います' = I'm in my room.",
     ),
-    // visual MCQ on へや — custom SVG (room.svg) is the audit-confident
-    // primary cue. Distractors drawn from M4 (concrete objects), which
-    // contrast visually with a room interior.
+    // visual MCQ on へや (custom SVG)
     vocabMcq(
       "ja-m6-1-mcq-heya",
       { kana: "へや", meaningEn: "room", emoji: "🛋️", fromModule: "m6" },
@@ -188,12 +218,14 @@ export const M6_1: LessonContent = {
       "みせ",
       "Generic 'store.' Often suffixed: ほんや → ほんやさん (bookstore + politeness).",
     ),
-    // visual MCQ on the second-to-last atom (encode + apply)
+    // visual MCQ on the second-to-last atom (encode + apply) — re-exposes みせ
     vocabMcq(
       "ja-m6-1-mcq-mise",
       { kana: "みせ", meaningEn: "shop", emoji: "🏬", fromModule: "m6" },
       POOL_M4,
     ),
+    // speaking break before review tail — production direction on a new atom
+    speaking("ja-m6-1-speak-eki", "えき", "Train station"),
     // ── Review tail (prior-module atoms) ──
     listeningCompSentence({
       id: "ja-m6-1-rev-lc-1",
@@ -206,10 +238,31 @@ export const M6_1: LessonContent = {
       ],
     }),
     vocabMcq("ja-m6-1-rev-mcq-2", M6_1_REVIEW[2], PRIOR_POOL),
+    listeningCompSentence({
+      id: "ja-m6-1-rev-lc-2",
+      audioText: M6_1_REVIEW[5].kana,
+      correctMeaningEn: M6_1_REVIEW[5].meaningEn,
+      distractorsEn: [
+        M6_1_REVIEW[6].meaningEn,
+        M6_1_REVIEW[7].meaningEn,
+        M6_1_REVIEW[0].meaningEn,
+      ],
+    }),
+    vocabMcq("ja-m6-1-rev-mcq-3", M6_1_REVIEW[5], PRIOR_POOL),
+    // Free-recall production step (wave-4-acceptance standard 4) —
+    // kana-MCQ of one of the new place atoms (migrated from translate
+    // 2026-05-18 — typed romaji bypassed the kana-retrieval goal).
+    sentenceMcq({
+      id: "ja-m6-1-translate-eki",
+      prompt: "train station",
+      promptAudioText: "えき",
+      correctKana: "えき",
+      distractorsKana: ["がっこう", "うち", "こうえん"],
+    }),
     reviewMatchPairs("ja-m6-1-rev", M6_1_REVIEW.slice(0, 5)),
     infoStep(
       "ja-m6-1-info-end",
-      "Map vocab loaded",
+      "You can now name every place on a Japanese map",
       "Eight places, retrieval-checked. Next: three particles that put things AT, BY, and IN them.",
       "win",
     ),
@@ -217,6 +270,8 @@ export const M6_1: LessonContent = {
 };
 
 assertNoSameAnswerCluster(M6_1.steps);
+assertAnswerRotation(M6_1.steps, 2);
+assertNoConsecutiveSame(M6_1.steps);
 
 // ----- M6-2 — に (destination + existence) -------------------------------
 
@@ -247,7 +302,7 @@ const RULE_NI = grammarRule({
     "に is the 'pinpoint' particle. Whenever the question is 'WHERE TO?' or 'WHERE EXACTLY?', に is your particle.",
 });
 
-const M6_2_REVIEW = pickReviewAtoms("ja-m6-2-rev", PRIOR_POOL, 5);
+const M6_2_REVIEW = pickReviewAtoms("ja-m6-2-rev", PRIOR_POOL, 6);
 
 export const M6_2: LessonContent = {
   id: "ja-m6-2",
@@ -258,7 +313,7 @@ export const M6_2: LessonContent = {
   description:
     "The pinpoint particle. Direction toward a place, or being AT a place.",
   estimatedMinutes: 10,
-  xpReward: 24,
+  xpReward: 26,
   steps: [
     infoStep(
       "ja-m6-2-info-open",
@@ -266,7 +321,7 @@ export const M6_2: LessonContent = {
       "に marks a single point — where you're going or where you are. It pairs with movement verbs (いく/くる/かえる) and existence verbs (います/あります).",
     ),
     RULE_NI,
-    // ── Cloze block: rotating answers (に dominates but で / は break it) ──
+    // ── First cloze cluster: に dominates, with rotation breaks ──
     cloze(
       "ja-m6-2-cloze-1",
       "がっこう",
@@ -300,24 +355,19 @@ export const M6_2: LessonContent = {
       "えきに います。",
       "Existence verb (いる/います) + location point. に.",
     ),
-    // selfExplain — gentle metacognition on the rule just used
-    selfExplain({
-      id: "ja-m6-2-self-ni",
-      anchorLabel: "You picked に in: えき＿ います (I'm at the station)",
-      anchorAudioText: "えきに います",
-      question: "Why is に correct in 'えきに います'?",
-      rule: {
-        text: "に marks WHERE something exists — the existence verb います always takes に, not で.",
-      },
-      surface: {
-        text: "に always comes after the noun えき.",
-      },
-      distractor: {
-        text: "に is the same as English 'at.'",
-      },
-      ruleExplanation:
-        "Existence (いる/ある → います/あります) takes に — the location is treated as a single point where the thing IS. で would mean 'as the setting of an action,' which doesn't fit 'just being somewhere.'",
+    // listening break — comprehension before the next cloze
+    listeningCompSentence({
+      id: "ja-m6-2-lc-koen",
+      audioText: "こうえんに います",
+      correctMeaningEn: "I'm at the park.",
+      distractorsEn: [
+        "I go to the park.",
+        "There's a park.",
+        "The park is here.",
+      ],
     }),
+    // contrast cloze — break the に run with a を foil that the learner
+    // can rule out from M3 knowledge, so the answer pool isn't 100% に
     cloze(
       "ja-m6-2-cloze-3",
       "うち",
@@ -328,15 +378,29 @@ export const M6_2: LessonContent = {
       "うちに かえります。",
       "Movement verb (かえる/return) + destination. に.",
     ),
-    // listening break — comprehension before the next cloze
+    // vocabMcq break — prior-module atom (review-ratio bump)
+    vocabMcq("ja-m6-2-rev-mcq-mid", M6_2_REVIEW[0], PRIOR_POOL),
+    // pivot cloze — answer is で (means of motion), single rotation site
+    // so the answer set stops being 100% に. Sets up the M6-3 lesson.
+    cloze(
+      "ja-m6-2-cloze-de-foil",
+      "バス",
+      " いきます。",
+      "で",
+      ["に", "で", "を", "は"],
+      "I go by bus.",
+      "バスで いきます。",
+      "Foreshadow — bus is the MEANS (で), not a destination. Most clozes in this lesson are に, but particle-by-role still applies.",
+    ),
+    // listening break before final に cloze
     listeningCompSentence({
-      id: "ja-m6-2-lc-koen",
-      audioText: "こうえんに います",
-      correctMeaningEn: "I'm at the park.",
+      id: "ja-m6-2-lc-konbini",
+      audioText: "コンビニに いきます",
+      correctMeaningEn: "I go to the convenience store.",
       distractorsEn: [
-        "I go to the park.",
-        "There's a park.",
-        "The park is here.",
+        "I'm at the convenience store.",
+        "There's a convenience store.",
+        "I work at the convenience store.",
       ],
     }),
     cloze(
@@ -349,34 +413,78 @@ export const M6_2: LessonContent = {
       "コンビニに いきます。",
       "Destination + motion verb. に.",
     ),
-    // production step — translate (≥5-mora carrier, hard direction)
-    translateStep({
-      id: "ja-m6-2-translate-eki",
-      promptEn: "I'm at the station.",
-      acceptedAnswers: [
-        "えきに います",
-        "えきに います。",
-        "えきにいます",
-        "eki ni imasu",
+    // sentenceMcq break — extra pattern discrimination
+    sentenceMcq({
+      id: "ja-m6-2-mcq-uchi",
+      prompt: "Which sentence means 'I'm at home.'?",
+      correctKana: "うちに います。",
+      distractorsKana: [
+        "うちで います。",
+        "うちは います。",
+        "うちに いきます。",
       ],
-      audioText: "えきに います",
+      explanation:
+        "Pure existence (います) → location point → に. うちに いきます would mean 'I'm going home' (movement).",
+    }),
+    // selfExplain — NOW at the N-1 placement, after the learner has committed
+    // 4 cloze answers using に. Asks why the just-used rule held.
+    selfExplain({
+      id: "ja-m6-2-self-ni",
+      anchorLabel: "You picked に in: えき＿ います (I'm at the station)",
+      anchorAudioText: "えきに います",
+      question: "Why is に correct in 'えきに います'?",
+      rule: {
+        text: "に marks WHERE something exists — the existence verb います always takes に, not で.",
+      },
+      surface: {
+        text: "に always comes right after a place noun in any sentence.",
+      },
+      distractor: {
+        text: "に marks the time at which something happens, like 'at 3pm.'",
+      },
+      ruleExplanation:
+        "Existence (いる/ある → います/あります) takes に — the location is treated as a single point where the thing IS. に DOES mark times too (じゅうじに = at 10), but here the noun is a location, so the existence rule is what's firing.",
+    }),
+    // production step — tile-bank build (≥5-mora carrier, hard direction).
+    // Migrated from translateStep 2026-05-18 (typed romaji bypassed kana
+    // retrieval). Distractor えきで forces the に-vs-で existence call.
+    build(
+      "ja-m6-2-translate-eki",
+      "I'm at the station.",
+      "えきに います",
+      ["えき", "に", "います", "で"],
+      ["えき", "に", "います"],
+    ),
+    // speaking — production direction on the just-translated sentence
+    speaking(
+      "ja-m6-2-speak-eki",
+      "えきに います",
+      "I'm at the station.",
+    ),
+    // listening_build — assemble a に sentence from word tiles (hard direction)
+    listeningBuildSentence({
+      id: "ja-m6-2-lb-koen",
+      target: "こうえんに いきます",
+      tiles: ["こうえん", "に", "いきます", "うち", "で", "えき", "います"],
+      correctOrder: ["こうえん", "に", "いきます"],
+      promptEn: "Hear it, build it: 'I go to the park.'",
     }),
     // ── Review tail — prior-module compounding ──
-    vocabMcq("ja-m6-2-rev-mcq-1", M6_2_REVIEW[0], PRIOR_POOL),
+    vocabMcq("ja-m6-2-rev-mcq-1", M6_2_REVIEW[1], PRIOR_POOL),
     listeningCompSentence({
       id: "ja-m6-2-rev-lc",
-      audioText: M6_2_REVIEW[1].kana,
-      correctMeaningEn: M6_2_REVIEW[1].meaningEn,
+      audioText: M6_2_REVIEW[2].kana,
+      correctMeaningEn: M6_2_REVIEW[2].meaningEn,
       distractorsEn: [
-        M6_2_REVIEW[2].meaningEn,
         M6_2_REVIEW[3].meaningEn,
         M6_2_REVIEW[4].meaningEn,
+        M6_2_REVIEW[5].meaningEn,
       ],
     }),
-    reviewMatchPairs("ja-m6-2-rev", M6_2_REVIEW.slice(0, 4)),
+    reviewMatchPairs("ja-m6-2-rev", M6_2_REVIEW.slice(0, 5)),
     infoStep(
       "ja-m6-2-info-end",
-      "Pinpoint locked",
+      "You can now say where you are and where you're going",
       "Location point + に + (motion or existence verb). Next: で, the setting particle — the place an ACTION happens.",
       "win",
     ),
@@ -384,6 +492,8 @@ export const M6_2: LessonContent = {
 };
 
 assertNoSameAnswerCluster(M6_2.steps);
+assertAnswerRotation(M6_2.steps, 2);
+assertNoConsecutiveSame(M6_2.steps);
 
 // ----- M6-3 — で (action setting + means) --------------------------------
 
@@ -414,7 +524,7 @@ const RULE_DE = grammarRule({
     "Filter: am I pointing at the destination/location (に), or describing the place an action happens / the means I'm using (で)? Most learners over-use に because it shows up first in beginner lessons.",
 });
 
-const M6_3_REVIEW = pickReviewAtoms("ja-m6-3-rev", PRIOR_POOL, 5);
+const M6_3_REVIEW = pickReviewAtoms("ja-m6-3-rev", PRIOR_POOL, 6);
 
 export const M6_3: LessonContent = {
   id: "ja-m6-3",
@@ -425,7 +535,7 @@ export const M6_3: LessonContent = {
   description:
     "The 'where it happens' particle. Also the 'by what means.'",
   estimatedMinutes: 10,
-  xpReward: 24,
+  xpReward: 26,
   steps: [
     infoStep(
       "ja-m6-3-info-open",
@@ -465,35 +575,6 @@ export const M6_3: LessonContent = {
       "コンビニで はたらきます。",
       "Working is an action happening at a setting — で.",
     ),
-    // selfExplain — focus on the action-vs-existence filter
-    selfExplain({
-      id: "ja-m6-3-self-de",
-      anchorLabel: "You picked で in: コンビニ＿ はたらきます (I work at a convenience store)",
-      anchorAudioText: "コンビニで はたらきます",
-      question: "Why is で correct here, not に?",
-      rule: {
-        text: "Working is an ACTION; で marks the place an action happens. に is for existence or destination, not action settings.",
-      },
-      surface: {
-        text: "で sounds like English 'do' so it goes with verbs.",
-      },
-      distractor: {
-        text: "で is the same particle as に — both mean 'at.'",
-      },
-      ruleExplanation:
-        "に and で can both translate to English 'at,' but Japanese splits them by role: に for existence / destination (just being or going), で for the place an ACTION happens.",
-    }),
-    // contrast cloze — に again (rotation, not a で run)
-    cloze(
-      "ja-m6-3-cloze-3-contrast",
-      "がっこう",
-      " います。",
-      "に",
-      ["に", "で", "を", "は"],
-      "I'm at school. (NOT 'I study at school' — pure existence)",
-      "がっこうに います。",
-      "Pure existence — に, not で. Even though it's a school (a place where actions happen), 'just being there' takes に.",
-    ),
     // sentenceMcq break — pattern discrimination on で vs に
     sentenceMcq({
       id: "ja-m6-3-mcq-de-vs-ni",
@@ -507,6 +588,28 @@ export const M6_3: LessonContent = {
       explanation:
         "Studying is an ACTION → で. The other options either swap で↔に (broken) or replace the verb with 'exist' (means 'I'm at the library,' a different sentence).",
     }),
+    // contrast cloze — に again (rotation, not a で run)
+    cloze(
+      "ja-m6-3-cloze-3-contrast",
+      "がっこう",
+      " います。",
+      "に",
+      ["に", "で", "を", "は"],
+      "I'm at school. (NOT 'I study at school' — pure existence)",
+      "がっこうに います。",
+      "Pure existence — に, not で. Even though it's a school (a place where actions happen), 'just being there' takes に.",
+    ),
+    // listening break between back-to-back clozes
+    listeningCompSentence({
+      id: "ja-m6-3-lc-jitensha",
+      audioText: "じてんしゃで いきます",
+      correctMeaningEn: "I go by bicycle.",
+      distractorsEn: [
+        "I'm on a bicycle.",
+        "There's a bicycle.",
+        "I bought a bicycle.",
+      ],
+    }),
     cloze(
       "ja-m6-3-cloze-4",
       "じてんしゃ",
@@ -517,34 +620,101 @@ export const M6_3: LessonContent = {
       "じてんしゃで いきます。",
       "で also marks the MEANS — how you do something.",
     ),
-    // production — translate (≥5-mora carrier)
-    translateStep({
-      id: "ja-m6-3-translate-bus",
-      promptEn: "I go by bus.",
-      acceptedAnswers: [
-        "バスで いきます",
-        "バスで いきます。",
-        "バスでいきます",
-        "basu de ikimasu",
+    // vocabMcq break — prior-module atom (review-ratio bump)
+    vocabMcq("ja-m6-3-rev-mcq-mid", M6_3_REVIEW[0], PRIOR_POOL),
+    // listening break — sets up the next で cloze contextually
+    listeningCompSentence({
+      id: "ja-m6-3-lc-konbini",
+      audioText: "コンビニで はたらきます",
+      correctMeaningEn: "I work at a convenience store.",
+      distractorsEn: [
+        "I go to the convenience store.",
+        "I'm at the convenience store.",
+        "There's a convenience store.",
       ],
-      audioText: "バスで いきます",
+    }),
+    cloze(
+      "ja-m6-3-cloze-5",
+      "へや",
+      " ねます。",
+      "で",
+      ["に", "で", "を", "の"],
+      "I sleep in (my) room.",
+      "へやで ねます。",
+      "Sleeping is an action → setting → で.",
+    ),
+    // sentenceMcq break — means-of-motion discrimination
+    sentenceMcq({
+      id: "ja-m6-3-mcq-means",
+      prompt: "Which sentence means 'I go to school by bus.'?",
+      correctKana: "バスで がっこうに いきます。",
+      distractorsKana: [
+        "バスに がっこうで いきます。",
+        "バスで がっこうで いきます。",
+        "バスに がっこうに いきます。",
+      ],
+      explanation:
+        "Means (bus) → で. Destination (school) → に. Roles aren't interchangeable.",
+    }),
+    // selfExplain — NOW at N-1 placement, after 5+ で commits
+    selfExplain({
+      id: "ja-m6-3-self-de",
+      anchorLabel:
+        "You picked で in: コンビニ＿ はたらきます (I work at a convenience store)",
+      anchorAudioText: "コンビニで はたらきます",
+      question: "Why is で correct here, not に?",
+      rule: {
+        text: "Working is an ACTION; で marks the place an action happens. に is for existence or destination, not action settings.",
+      },
+      surface: {
+        text: "で always comes after work/study words, regardless of meaning.",
+      },
+      distractor: {
+        text: "で marks the agent doing the action — 'by/by means of someone.'",
+      },
+      ruleExplanation:
+        "に and で can both translate to English 'at,' but Japanese splits them by role: に for existence / destination (just being or going), で for the place an ACTION happens. (で does mean 'by' for instruments, but the AGENT is unmarked or marked with は/が — not で.)",
+    }),
+    // production — tile-bank build (≥5-mora carrier). Migrated from
+    // translateStep 2026-05-18. Distractor バスに forces the means-vs-
+    // destination call (で for means of motion, not に).
+    build(
+      "ja-m6-3-translate-bus",
+      "I go by bus.",
+      "バスで いきます",
+      ["バス", "で", "いきます", "に"],
+      ["バス", "で", "いきます"],
+    ),
+    // speaking — production direction on a cumulative で sentence
+    speaking(
+      "ja-m6-3-speak-uchi",
+      "うちで べんきょうします",
+      "I study at home.",
+    ),
+    // listening_build — assemble a で sentence (hard direction)
+    listeningBuildSentence({
+      id: "ja-m6-3-lb-densha",
+      target: "でんしゃで がっこうに いきます",
+      tiles: ["でんしゃ", "で", "がっこう", "に", "いきます", "うち", "あります"],
+      correctOrder: ["でんしゃ", "で", "がっこう", "に", "いきます"],
+      promptEn: "Hear it, build it: 'I go to school by train.'",
     }),
     // ── Review tail ──
-    vocabMcq("ja-m6-3-rev-mcq-1", M6_3_REVIEW[0], PRIOR_POOL),
+    vocabMcq("ja-m6-3-rev-mcq-1", M6_3_REVIEW[1], PRIOR_POOL),
     listeningCompSentence({
       id: "ja-m6-3-rev-lc",
-      audioText: M6_3_REVIEW[1].kana,
-      correctMeaningEn: M6_3_REVIEW[1].meaningEn,
+      audioText: M6_3_REVIEW[2].kana,
+      correctMeaningEn: M6_3_REVIEW[2].meaningEn,
       distractorsEn: [
-        M6_3_REVIEW[2].meaningEn,
         M6_3_REVIEW[3].meaningEn,
         M6_3_REVIEW[4].meaningEn,
+        M6_3_REVIEW[5].meaningEn,
       ],
     }),
-    reviewMatchPairs("ja-m6-3-rev", M6_3_REVIEW.slice(0, 4)),
+    reviewMatchPairs("ja-m6-3-rev", M6_3_REVIEW.slice(0, 5)),
     infoStep(
       "ja-m6-3-info-end",
-      "Setting locked",
+      "You can now say where you do things and how you get there",
       "Action-setting (うちで) and means (でんしゃで) both take で. Next: が, finally — but in its friendliest use.",
       "win",
     ),
@@ -552,6 +722,8 @@ export const M6_3: LessonContent = {
 };
 
 assertNoSameAnswerCluster(M6_3.steps);
+assertAnswerRotation(M6_3.steps, 2);
+assertNoConsecutiveSame(M6_3.steps);
 
 // ----- M6-4 — が (existence pattern) -------------------------------------
 
@@ -573,16 +745,16 @@ const RULE_GA_EXISTENCE = grammarRule({
     },
   ],
   antiPattern: {
-    ja: "こうえんは あります。",
-    romaji: "kouen wa arimasu.",
-    en: "(off — 'as for the park, it exists.' Grammatical but the wrong feel)",
-    why: "In existence sentences (saying something is THERE), Japanese uses が because the thing IS the new information. は frames an existing topic; が introduces. The two ARE different, but you don't need to master the contrast — just learn the ___が あります / います pattern as a unit.",
+    ja: "ねこが あります。",
+    romaji: "neko ga arimasu.",
+    en: "(broken — treats the cat as inanimate)",
+    why: "Living things (people, animals) take います, not あります. Inanimate things (parks, books, convenience stores) take あります. The が is correct in both — only the existence verb changes.",
   },
   cultureNote:
     "Living things (people, animals) take います. Inanimate things take あります. Plants and cars are あります (no will/agency in the Japanese reckoning).",
 });
 
-const M6_4_REVIEW = pickReviewAtoms("ja-m6-4-rev", PRIOR_POOL, 5);
+const M6_4_REVIEW = pickReviewAtoms("ja-m6-4-rev", PRIOR_POOL, 6);
 
 export const M6_4: LessonContent = {
   id: "ja-m6-4",
@@ -593,7 +765,7 @@ export const M6_4: LessonContent = {
   description:
     "The existence pattern. ___が あります (inanimate) / ___が います (living).",
   estimatedMinutes: 10,
-  xpReward: 24,
+  xpReward: 26,
   steps: [
     infoStep(
       "ja-m6-4-info-open",
@@ -601,7 +773,7 @@ export const M6_4: LessonContent = {
       "が is famous as 'the other particle' that confuses beginners. We're introducing it in its friendliest form: the existence pattern. 'X が あります/います' = 'there's an X.' Memorize this as a unit and worry about は vs が later.",
     ),
     RULE_GA_EXISTENCE,
-    // ── Cloze block: が dominates but rotated with は / の as foils ──
+    // ── Cloze block: が dominates but rotated with は / の / に as foils ──
     cloze(
       "ja-m6-4-cloze-1",
       "こうえん",
@@ -612,23 +784,16 @@ export const M6_4: LessonContent = {
       "こうえんが あります。",
       "Existence sentence — inanimate thing + が + あります.",
     ),
-    // selfExplain on the は/が discrimination — gentle, single moment
-    selfExplain({
-      id: "ja-m6-4-self-ga",
-      anchorLabel: "You picked が in: こうえん＿ あります (There's a park)",
-      anchorAudioText: "こうえんが あります",
-      question: "Why is が correct here, not は?",
-      rule: {
-        text: "Existence sentences introduce NEW information; が is the 'new info' marker. は would treat the park as already-known topic ('as for the park…'), which doesn't fit announcing it.",
-      },
-      surface: {
-        text: "が sounds like 'ga' so it's used with anything that exists.",
-      },
-      distractor: {
-        text: "は and が mean exactly the same thing — pick either one.",
-      },
-      ruleExplanation:
-        "は frames a topic the listener already knows about; が introduces something new. 'こうえんが あります' = 'there's a park (you didn't know about).' Don't worry about every は/が edge case yet — the existence pattern is the cleanest が use.",
+    // listening break before next cloze
+    listeningCompSentence({
+      id: "ja-m6-4-lc-neko",
+      audioText: "ねこが います",
+      correctMeaningEn: "There's a cat.",
+      distractorsEn: [
+        "I have a cat.",
+        "I like cats.",
+        "I'm with a cat.",
+      ],
     }),
     cloze(
       "ja-m6-4-cloze-2",
@@ -640,7 +805,8 @@ export const M6_4: LessonContent = {
       "ねこが います。",
       "Living thing + が + います.",
     ),
-    // sentenceMcq break — discriminate あります vs います
+    // sentenceMcq break — discriminate あります vs います (the rule
+    // the learner JUST committed)
     sentenceMcq({
       id: "ja-m6-4-mcq-ari-vs-i",
       prompt: "Which sentence means 'There's a dog.'?",
@@ -663,6 +829,28 @@ export const M6_4: LessonContent = {
       "コンビニが あります。",
       "Inanimate → あります.",
     ),
+    // listening break before contrast cloze (kills adjacency)
+    listeningCompSentence({
+      id: "ja-m6-4-lc-konbini-ari",
+      audioText: "コンビニが あります",
+      correctMeaningEn: "There's a convenience store.",
+      distractorsEn: [
+        "I'm at the convenience store.",
+        "Is there a convenience store?",
+        "I go to the convenience store.",
+      ],
+    }),
+    // contrast cloze — に as a foil so the answer set isn't 100% が
+    cloze(
+      "ja-m6-4-cloze-ni-foil",
+      "がっこう",
+      " います。",
+      "に",
+      ["に", "が", "で", "は"],
+      "I'm at school. (NOT 'there's a school' — pure existence of speaker)",
+      "がっこうに います。",
+      "Pure existence of an implied 'I' → location particle に. Compare to がっこうが あります = 'there's a school' (announcing it).",
+    ),
     // listening break before final cloze
     listeningCompSentence({
       id: "ja-m6-4-lc-tomodachi",
@@ -684,34 +872,82 @@ export const M6_4: LessonContent = {
       "トイレが ありますか。",
       "Existence + か question. The most useful sentence in tourist Japan.",
     ),
-    // production — translate
-    translateStep({
-      id: "ja-m6-4-translate-cat",
-      promptEn: "There's a cat.",
-      acceptedAnswers: [
-        "ねこが います",
-        "ねこが います。",
-        "ねこがいます",
-        "neko ga imasu",
+    // vocabMcq break — prior-module review (ratio bump)
+    vocabMcq("ja-m6-4-rev-mcq-mid", M6_4_REVIEW[0], PRIOR_POOL),
+    // sentenceMcq — animacy + が pattern under near-distractors
+    sentenceMcq({
+      id: "ja-m6-4-mcq-tomodachi",
+      prompt: "Which sentence means 'There's a friend (here).'?",
+      correctKana: "ともだちが います。",
+      distractorsKana: [
+        "ともだちが あります。",
+        "ともだちに います。",
+        "ともだちで います。",
       ],
-      audioText: "ねこが います",
+      explanation:
+        "Friends are alive → います. に / で don't appear in pure existence sentences (those need が).",
+    }),
+    // selfExplain — N-1 placement, AFTER 4 cloze commits + 2 sentenceMcq.
+    // Probes the あります/います animacy split (the rule the learner just
+    // committed). The は/が discrimination is DEFERRED to M6-5, where the
+    // learner will have used が in 4+ more existence sites.
+    selfExplain({
+      id: "ja-m6-4-self-animacy",
+      anchorLabel:
+        "You picked います in: ねこ＿ います / あります 'There's a cat'",
+      anchorAudioText: "ねこが います",
+      question: "Why does ねこ take います, but こうえん takes あります?",
+      rule: {
+        text: "います is for living things (people, animals); あります is for inanimate things (places, objects). Cats are alive; parks aren't.",
+      },
+      surface: {
+        text: "い-something verbs go with small words, あ-something verbs go with long words.",
+      },
+      distractor: {
+        text: "います is for things you can see; あります is for things you can't see.",
+      },
+      ruleExplanation:
+        "Animacy in Japanese: anything that moves of its own will (people, animals, even insects) → います. Anything else (plants, cars, buildings) → あります. Counterintuitively, plants and vehicles are あります because they don't have will/agency in the Japanese reckoning.",
+    }),
+    // production — tile-bank build. Migrated from translateStep 2026-05-18.
+    // Distractor あります forces the animacy call (cats → います, not あります).
+    build(
+      "ja-m6-4-translate-cat",
+      "There's a cat.",
+      "ねこが います",
+      ["ねこ", "が", "います", "あります"],
+      ["ねこ", "が", "います"],
+    ),
+    // speaking — the most useful X が ありますか sentence
+    speaking(
+      "ja-m6-4-speak-toire",
+      "トイレが ありますか",
+      "Is there a toilet?",
+    ),
+    // listening_build — assemble an existence sentence (hard direction)
+    listeningBuildSentence({
+      id: "ja-m6-4-lb-koen",
+      target: "こうえんが あります",
+      tiles: ["こうえん", "が", "あります", "ねこ", "います", "うち", "で"],
+      correctOrder: ["こうえん", "が", "あります"],
+      promptEn: "Hear it, build it: 'There's a park.'",
     }),
     // ── Review tail ──
-    vocabMcq("ja-m6-4-rev-mcq-1", M6_4_REVIEW[0], PRIOR_POOL),
+    vocabMcq("ja-m6-4-rev-mcq-1", M6_4_REVIEW[1], PRIOR_POOL),
     listeningCompSentence({
       id: "ja-m6-4-rev-lc",
-      audioText: M6_4_REVIEW[1].kana,
-      correctMeaningEn: M6_4_REVIEW[1].meaningEn,
+      audioText: M6_4_REVIEW[2].kana,
+      correctMeaningEn: M6_4_REVIEW[2].meaningEn,
       distractorsEn: [
-        M6_4_REVIEW[2].meaningEn,
         M6_4_REVIEW[3].meaningEn,
         M6_4_REVIEW[4].meaningEn,
+        M6_4_REVIEW[5].meaningEn,
       ],
     }),
-    reviewMatchPairs("ja-m6-4-rev", M6_4_REVIEW.slice(0, 4)),
+    reviewMatchPairs("ja-m6-4-rev", M6_4_REVIEW.slice(0, 5)),
     infoStep(
       "ja-m6-4-info-end",
-      "が, unlocked (gently)",
+      "You can now point at anything and say 'there's an X'",
       "X が あります/います = 'there's an X.' 90% of beginner が encounters in the wild are this pattern.",
       "win",
     ),
@@ -719,28 +955,30 @@ export const M6_4: LessonContent = {
 };
 
 assertNoSameAnswerCluster(M6_4.steps);
+assertAnswerRotation(M6_4.steps, 2);
+assertNoConsecutiveSame(M6_4.steps);
 
 // ----- M6-5 — Interleaved に + で (rotating-answer drills) ---------------
 
-const M6_5_REVIEW = pickReviewAtoms("ja-m6-5-rev", PRIOR_POOL, 5);
+const M6_5_REVIEW = pickReviewAtoms("ja-m6-5-rev", PRIOR_POOL, 6);
 
 export const M6_5: LessonContent = {
   id: "ja-m6-5",
   moduleId: "m6",
   courseId: COURSE,
   languageId: LANG,
-  title: "Interleaved — に + で",
+  title: "Interleaved — に + で (+ a peek at は/が)",
   description:
-    "Mixed practice. Each cloze asks: am I pointing at a destination (に), or naming a setting / means (で)?",
-  estimatedMinutes: 8,
-  xpReward: 20,
+    "Mixed practice. Each cloze asks: am I pointing at a destination (に), or naming a setting / means (で)? Plus the deferred は/が check-in now that you've used が.",
+  estimatedMinutes: 9,
+  xpReward: 24,
   steps: [
     infoStep(
       "ja-m6-5-info-open",
       "Sort by role",
       "The two-question filter: am I pointing at a destination / location (に), or naming where the action happens / how I'm doing it (で)? Answers rotate — no screen-pattern shortcut.",
     ),
-    // Rotating clozes: に → で → に → で (max 1-2 same-answer adjacent)
+    // Rotating clozes: に → で → に → で (no run > 2)
     cloze(
       "ja-m6-5-cloze-1",
       "がっこう",
@@ -816,18 +1054,18 @@ export const M6_5: LessonContent = {
       "うちに かえります。",
       "Destination (home) + motion verb (かえる) → に.",
     ),
-    // production — translate a compound sentence (≥5-mora)
-    translateStep({
-      id: "ja-m6-5-translate-densha",
-      promptEn: "I go to school by train.",
-      acceptedAnswers: [
-        "でんしゃで がっこうに いきます",
-        "でんしゃで がっこうに いきます。",
-        "でんしゃでがっこうにいきます",
-        "densha de gakkou ni ikimasu",
-      ],
-      audioText: "でんしゃで がっこうに いきます",
-    }),
+    // vocabMcq break — prior-module review (ratio bump)
+    vocabMcq("ja-m6-5-rev-mcq-mid", M6_5_REVIEW[0], PRIOR_POOL),
+    // production — tile-bank build of a compound sentence (≥5-mora).
+    // Migrated from translateStep 2026-05-18. Distractor がっこうで forces
+    // the destination-vs-setting call (motion verb → に, not で).
+    build(
+      "ja-m6-5-translate-densha",
+      "I go to school by train.",
+      "でんしゃで がっこうに いきます",
+      ["でんしゃ", "で", "がっこう", "に", "いきます", "うち"],
+      ["でんしゃ", "で", "がっこう", "に", "いきます"],
+    ),
     cloze(
       "ja-m6-5-cloze-5",
       "コンビニ",
@@ -842,8 +1080,8 @@ export const M6_5: LessonContent = {
     listeningBuildSentence({
       id: "ja-m6-5-lb-eki",
       target: "バスで えきに いきます",
-      tiles: ["バスで", "えきに", "いきます", "がっこうに", "うちで"],
-      correctOrder: ["バスで", "えきに", "いきます"],
+      tiles: ["バス", "で", "えき", "に", "いきます", "がっこう", "うち"],
+      correctOrder: ["バス", "で", "えき", "に", "いきます"],
       promptEn: "Hear it, build it: 'I go to the station by bus.'",
     }),
     cloze(
@@ -856,34 +1094,74 @@ export const M6_5: LessonContent = {
       "えきに います。",
       "Existence → location point → に.",
     ),
+    // selfExplain — NOW the deferred は/が discrimination, AFTER 4
+    // cloze commits in this lesson + 4+ が commits in M6-4. The learner
+    // has the が pattern in muscle memory and is ready for the contrast.
+    selfExplain({
+      id: "ja-m6-5-self-ha-vs-ga",
+      anchorLabel:
+        "Compare: こうえん＿ あります vs こうえん＿ どこですか",
+      anchorAudioText: "こうえんが あります",
+      question:
+        "Why does 'There's a park' take が, but 'Where IS the park?' takes は?",
+      rule: {
+        text: "が introduces NEW information (announcing the park exists). は frames a known TOPIC the speaker is asking ABOUT (you both know what 'the park' is; the question is just where).",
+      },
+      surface: {
+        text: "が is used in statements; は is used in questions.",
+      },
+      distractor: {
+        text: "が introduces the answer to an implied wh-question; は doesn't.",
+      },
+      ruleExplanation:
+        "The distractor is a real near-rule that's true SOMETIMES (が often answers 'who/what?'), but the underlying split is information status: が = new info, は = known topic. 'こうえんが あります' announces a park you didn't know about; 'こうえんは どこですか' takes the park as already-known and asks WHERE it is.",
+    }),
+    // production — tile-bank build of a compound cumulative sentence.
+    // Migrated from translateStep 2026-05-18. Distractor うちで forces the
+    // destination-vs-setting call (かえる is motion → に, not で).
+    build(
+      "ja-m6-5-translate-cumulative",
+      "I go home by bicycle.",
+      "じてんしゃで うちに かえります",
+      ["じてんしゃ", "で", "うち", "に", "かえります", "います"],
+      ["じてんしゃ", "で", "うち", "に", "かえります"],
+    ),
+    // speaking — production direction on the cumulative pattern
+    speaking(
+      "ja-m6-5-speak-densha",
+      "でんしゃで がっこうに いきます",
+      "I go to school by train.",
+    ),
     // ── Review tail ──
-    vocabMcq("ja-m6-5-rev-mcq-1", M6_5_REVIEW[0], PRIOR_POOL),
+    vocabMcq("ja-m6-5-rev-mcq-1", M6_5_REVIEW[1], PRIOR_POOL),
     listeningCompSentence({
       id: "ja-m6-5-rev-lc",
-      audioText: M6_5_REVIEW[1].kana,
-      correctMeaningEn: M6_5_REVIEW[1].meaningEn,
+      audioText: M6_5_REVIEW[2].kana,
+      correctMeaningEn: M6_5_REVIEW[2].meaningEn,
       distractorsEn: [
-        M6_5_REVIEW[2].meaningEn,
         M6_5_REVIEW[3].meaningEn,
         M6_5_REVIEW[4].meaningEn,
+        M6_5_REVIEW[5].meaningEn,
       ],
     }),
-    vocabMcq("ja-m6-5-rev-mcq-2", M6_5_REVIEW[2], PRIOR_POOL),
+    vocabMcq("ja-m6-5-rev-mcq-2", M6_5_REVIEW[3], PRIOR_POOL),
     reviewMatchPairs("ja-m6-5-rev", M6_5_REVIEW.slice(0, 4)),
     infoStep(
       "ja-m6-5-info-end",
-      "に / で sorted",
-      "Six drills, no screen-pattern shortcut. You're now parsing meaning, not position.",
+      "You can now sort destinations from settings without screen tricks",
+      "Six drills, no screen-pattern shortcut. You're now parsing meaning, not position — and you've had a first peek at は vs が.",
       "win",
     ),
   ],
 };
 
 assertNoSameAnswerCluster(M6_5.steps);
+assertAnswerRotation(M6_5.steps, 2);
+assertNoConsecutiveSame(M6_5.steps);
 
 // ----- M6-6 — Interleaved existence + locations (に / で / が ALL rotate) -
 
-const M6_6_REVIEW = pickReviewAtoms("ja-m6-6-rev", PRIOR_POOL, 5);
+const M6_6_REVIEW = pickReviewAtoms("ja-m6-6-rev", PRIOR_POOL, 6);
 
 export const M6_6: LessonContent = {
   id: "ja-m6-6",
@@ -893,17 +1171,17 @@ export const M6_6: LessonContent = {
   title: "Interleaved — existence + locations",
   description:
     "Six clozes drawing across が (existence) + に (location) + で (setting). Rotating answers — no screen-position shortcut.",
-  estimatedMinutes: 8,
-  xpReward: 20,
+  estimatedMinutes: 9,
+  xpReward: 24,
   steps: [
     infoStep(
       "ja-m6-6-info-open",
       "All three particles in play",
       "Pre-rebuild this lesson was 6 が in a row — recognition of screen position, not grammar. Now the answer rotates across が / に / で and each carrier asks for actual parsing.",
     ),
-    // ── ROTATING-ANSWER CLUSTER. Critical: in any 3-window, ≥2 distinct
-    //    answers. Verified by assertNoSameAnswerCluster at end of module. ──
-    // Answer rotation: が → に → で → が → に → が
+    // ── ROTATING-ANSWER CLUSTER. Six clozes rotate across 3 distinct
+    //    particles (が → に → で → が → に → が). assertAnswerRotation(3)
+    //    at end of module verifies. ──
     cloze(
       "ja-m6-6-cloze-1",
       "ともだち",
@@ -937,18 +1215,16 @@ export const M6_6: LessonContent = {
       "がっこうに います。",
       "Pure existence → location point → に. (NOT が — the subject 'I' is implied; the place is the location, not the new info.)",
     ),
-    // translate break — R3 interleave + production direction between clozes
-    translateStep({
-      id: "ja-m6-6-translate-park-cat",
-      promptEn: "There's a cat at the park.",
-      acceptedAnswers: [
-        "こうえんに ねこが います",
-        "こうえんに ねこが います。",
-        "こうえんにねこがいます",
-        "kouen ni neko ga imasu",
-      ],
-      audioText: "こうえんに ねこが います",
-    }),
+    // tile-bank build break — R3 interleave + production direction between
+    // clozes. Migrated from translateStep 2026-05-18. Distractor こうえんで
+    // forces the location-of-existence call (に for existence sites, not で).
+    build(
+      "ja-m6-6-translate-park-cat",
+      "There's a cat at the park.",
+      "こうえんに ねこが います",
+      ["こうえん", "に", "ねこ", "が", "います", "で"],
+      ["こうえん", "に", "ねこ", "が", "います"],
+    ),
     cloze(
       "ja-m6-6-cloze-3",
       "うち",
@@ -980,6 +1256,8 @@ export const M6_6: LessonContent = {
       "コンビニが ありますか。",
       "Existence question → が + あります + か.",
     ),
+    // vocabMcq break — prior-module review (ratio bump)
+    vocabMcq("ja-m6-6-rev-mcq-mid", M6_6_REVIEW[0], PRIOR_POOL),
     // sentenceMcq break — final discrimination
     sentenceMcq({
       id: "ja-m6-6-mcq-cat-park",
@@ -1007,8 +1285,8 @@ export const M6_6: LessonContent = {
     listeningBuildSentence({
       id: "ja-m6-6-lb-toire",
       target: "えきに トイレが あります",
-      tiles: ["えきに", "トイレが", "あります", "コンビニが", "うちで"],
-      correctOrder: ["えきに", "トイレが", "あります"],
+      tiles: ["えき", "に", "トイレ", "が", "あります", "コンビニ", "で"],
+      correctOrder: ["えき", "に", "トイレ", "が", "あります"],
       promptEn: "Hear it, build it: 'There's a toilet at the station.'",
     }),
     cloze(
@@ -1027,23 +1305,44 @@ export const M6_6: LessonContent = {
       "トイレが ありますか",
       "Is there a toilet?",
     ),
-    // ── Review tail ──
-    vocabMcq("ja-m6-6-rev-mcq-1", M6_6_REVIEW[0], PRIOR_POOL),
+    // production — tile-bank build of a 3-particle compound sentence.
+    // Migrated from translateStep 2026-05-18. Distractor がっこうで forces
+    // the existence-location call (に, not で, for います-sites).
+    build(
+      "ja-m6-6-translate-cumulative",
+      "There's a friend at school.",
+      "がっこうに ともだちが います",
+      ["がっこう", "に", "ともだち", "が", "います", "で"],
+      ["がっこう", "に", "ともだち", "が", "います"],
+    ),
+    // listening break before review tail — cumulative pattern recall
     listeningCompSentence({
-      id: "ja-m6-6-rev-lc",
-      audioText: M6_6_REVIEW[1].kana,
-      correctMeaningEn: M6_6_REVIEW[1].meaningEn,
+      id: "ja-m6-6-lc-cumulative",
+      audioText: "うちに ねこが います",
+      correctMeaningEn: "There's a cat at my house.",
       distractorsEn: [
-        M6_6_REVIEW[2].meaningEn,
-        M6_6_REVIEW[3].meaningEn,
-        M6_6_REVIEW[4].meaningEn,
+        "I'm at my house with a cat.",
+        "I'm going home to the cat.",
+        "Is there a cat at home?",
       ],
     }),
-    vocabMcq("ja-m6-6-rev-mcq-2", M6_6_REVIEW[2], PRIOR_POOL),
+    // ── Review tail ──
+    vocabMcq("ja-m6-6-rev-mcq-1", M6_6_REVIEW[1], PRIOR_POOL),
+    listeningCompSentence({
+      id: "ja-m6-6-rev-lc",
+      audioText: M6_6_REVIEW[2].kana,
+      correctMeaningEn: M6_6_REVIEW[2].meaningEn,
+      distractorsEn: [
+        M6_6_REVIEW[3].meaningEn,
+        M6_6_REVIEW[4].meaningEn,
+        M6_6_REVIEW[5].meaningEn,
+      ],
+    }),
+    vocabMcq("ja-m6-6-rev-mcq-2", M6_6_REVIEW[3], PRIOR_POOL),
     reviewMatchPairs("ja-m6-6-rev", M6_6_REVIEW.slice(0, 4)),
     infoStep(
       "ja-m6-6-info-end",
-      "が in its friendliest form",
+      "You can now juggle が, に, AND で in the same sentence",
       "Six existence + location drills, three rotating particles. You now have 'X が あります/います' = 'there's an X' AND the location-particle filter from M6-2/3 working together.",
       "win",
     ),
@@ -1051,10 +1350,13 @@ export const M6_6: LessonContent = {
 };
 
 assertNoSameAnswerCluster(M6_6.steps);
+// 6 clozes rotate が→に→で→が→に→が = 3 distinct → minDistinct=3 passes.
+assertAnswerRotation(M6_6.steps, 3);
+assertNoConsecutiveSame(M6_6.steps);
 
 // ----- M6-7 — Production (translate + listening_build + speaking) -------
 
-const M6_7_REVIEW = pickReviewAtoms("ja-m6-7-rev", PRIOR_POOL, 6);
+const M6_7_REVIEW = pickReviewAtoms("ja-m6-7-rev", PRIOR_POOL, 8);
 
 export const M6_7: LessonContent = {
   id: "ja-m6-7",
@@ -1063,34 +1365,32 @@ export const M6_7: LessonContent = {
   languageId: LANG,
   title: "Production — say where + how + what's there",
   description:
-    "Five cumulative sentences across translate, listening_build, build, and your voice. Sentences ≥5 mora use translate + listening_build (not sentence-tile build).",
-  estimatedMinutes: 10,
-  xpReward: 26,
+    "Cumulative production across translate, listening_build, build, and your voice. Sentences ≥5 mora use translate + listening_build (not sentence-tile build).",
+  estimatedMinutes: 11,
+  xpReward: 28,
   steps: [
     infoStep(
       "ja-m6-7-info-open",
       "Production time",
-      "Five sentences across four modes. The longer ones (5+ mora) come in as translate or listening_build — sentence-tile build is reserved for shorter assemblies where the tiles really teach.",
+      "Six sentences across four modes. The longer ones (5+ mora) come in as translate or listening_build — sentence-tile build is reserved for shorter assemblies where the tiles really teach.",
     ),
-    // Sentence 1 (5+ mora): translate
-    translateStep({
-      id: "ja-m6-7-s1",
-      promptEn: "I go to school by bicycle.",
-      acceptedAnswers: [
-        "じてんしゃで がっこうに いきます",
-        "じてんしゃで がっこうに いきます。",
-        "じてんしゃでがっこうにいきます",
-        "jitensha de gakkou ni ikimasu",
-      ],
-      audioText: "じてんしゃで がっこうに いきます",
-    }),
+    // Sentence 1 (5+ mora): tile-bank build. Migrated from translateStep
+    // 2026-05-18. Distractor がっこうで forces the destination-vs-setting
+    // call (motion verb いく → に, not で).
+    build(
+      "ja-m6-7-s1",
+      "I go to school by bicycle.",
+      "じてんしゃで がっこうに いきます",
+      ["じてんしゃ", "で", "がっこう", "に", "いきます", "うち", "あります"],
+      ["じてんしゃ", "で", "がっこう", "に", "いきます"],
+    ),
     // Sentence 2 (short, 4 tiles): build_sentence is the right fit
     build(
       "ja-m6-7-s2",
       "Ask: Is there a toilet?",
       "トイレが ありますか",
-      ["トイレが", "ありますか", "ねこが", "いますか"],
-      ["トイレが", "ありますか"],
+      ["トイレ", "が", "あります", "か", "ねこ", "います"],
+      ["トイレ", "が", "あります", "か"],
     ),
     // speaking on the just-built sentence (Bjork — immediate hard direction)
     speaking(
@@ -1102,22 +1402,22 @@ export const M6_7: LessonContent = {
     listeningBuildSentence({
       id: "ja-m6-7-s3",
       target: "コンビニで はたらきます",
-      tiles: ["コンビニで", "はたらきます", "うちで", "べんきょうします"],
-      correctOrder: ["コンビニで", "はたらきます"],
+      tiles: ["コンビニ", "で", "はたらきます", "うち", "べんきょうします"],
+      correctOrder: ["コンビニ", "で", "はたらきます"],
       promptEn: "Hear it, build it: 'I work at a convenience store.'",
     }),
-    // Sentence 4 (5+ mora): translate (hard direction)
-    translateStep({
-      id: "ja-m6-7-s4",
-      promptEn: "I'm at the station.",
-      acceptedAnswers: [
-        "えきに います",
-        "えきに います。",
-        "えきにいます",
-        "eki ni imasu",
-      ],
-      audioText: "えきに います",
-    }),
+    // vocabMcq break — prior-module review (ratio bump, also breaks build run)
+    vocabMcq("ja-m6-7-rev-mcq-early", M6_7_REVIEW[0], PRIOR_POOL),
+    // Sentence 4 (5+ mora): tile-bank build (hard direction). Migrated
+    // from translateStep 2026-05-18. Distractor えきで forces the
+    // existence-location call (います → に, not で).
+    build(
+      "ja-m6-7-s4",
+      "I'm at the station.",
+      "えきに います",
+      ["えき", "に", "います", "で", "あります"],
+      ["えき", "に", "います"],
+    ),
     // sentenceMcq break — pattern recall
     sentenceMcq({
       id: "ja-m6-7-mcq-recall",
@@ -1135,10 +1435,50 @@ export const M6_7: LessonContent = {
     listeningBuildSentence({
       id: "ja-m6-7-s5",
       target: "うちに ねこが います",
-      tiles: ["うちに", "ねこが", "います", "コンビニで", "あります"],
-      correctOrder: ["うちに", "ねこが", "います"],
+      tiles: ["うち", "に", "ねこ", "が", "います", "コンビニ", "で", "あります"],
+      correctOrder: ["うち", "に", "ねこ", "が", "います"],
       promptEn: "Hear it, build it: 'There's a cat at my house.'",
     }),
+    // speaking break — production direction on cumulative pattern
+    speaking(
+      "ja-m6-7-speak-uchi-neko",
+      "うちに ねこが います",
+      "There's a cat at my house.",
+    ),
+    // sentenceMcq break — final pattern discrimination across all 3 particles
+    sentenceMcq({
+      id: "ja-m6-7-mcq-three-particles",
+      prompt: "Which sentence means 'I go to the park by bus.'?",
+      correctKana: "バスで こうえんに いきます。",
+      distractorsKana: [
+        "バスに こうえんで いきます。",
+        "バスで こうえんで いきます。",
+        "バスが こうえんに います。",
+      ],
+      explanation:
+        "Means (bus) → で. Destination (park) → に. The other options swap roles or replace the verb with 'exist.'",
+    }),
+    // listening comprehension break — semantic discrimination on cumulative pattern
+    listeningCompSentence({
+      id: "ja-m6-7-lc-bus",
+      audioText: "バスで うちに かえります",
+      correctMeaningEn: "I'm going home by bus.",
+      distractorsEn: [
+        "I go to the bus stop.",
+        "I'm at home with the bus.",
+        "The bus is at my home.",
+      ],
+    }),
+    // Sentence 6 (5+ mora): tile-bank build (final hard direction).
+    // Migrated from translateStep 2026-05-18. Distractor いますか forces
+    // the animacy call (コンビニ is inanimate → あります, not います).
+    build(
+      "ja-m6-7-s6",
+      "Is there a convenience store?",
+      "コンビニが ありますか",
+      ["コンビニ", "が", "あります", "か", "います"],
+      ["コンビニ", "が", "あります", "か"],
+    ),
     // speaking — production direction on a cumulative sentence
     speaking(
       "ja-m6-7-speak-final",
@@ -1148,106 +1488,186 @@ export const M6_7: LessonContent = {
     // ── Review tail (broadest cumulative draw across all prior modules) ──
     listeningCompSentence({
       id: "ja-m6-7-rev-lc-1",
-      audioText: M6_7_REVIEW[0].kana,
-      correctMeaningEn: M6_7_REVIEW[0].meaningEn,
+      audioText: M6_7_REVIEW[1].kana,
+      correctMeaningEn: M6_7_REVIEW[1].meaningEn,
       distractorsEn: [
-        M6_7_REVIEW[1].meaningEn,
         M6_7_REVIEW[2].meaningEn,
         M6_7_REVIEW[3].meaningEn,
+        M6_7_REVIEW[4].meaningEn,
       ],
     }),
-    vocabMcq("ja-m6-7-rev-mcq-1", M6_7_REVIEW[1], PRIOR_POOL),
+    vocabMcq("ja-m6-7-rev-mcq-1", M6_7_REVIEW[2], PRIOR_POOL),
     listeningCompSentence({
       id: "ja-m6-7-rev-lc-2",
-      audioText: M6_7_REVIEW[2].kana,
-      correctMeaningEn: M6_7_REVIEW[2].meaningEn,
+      audioText: M6_7_REVIEW[3].kana,
+      correctMeaningEn: M6_7_REVIEW[3].meaningEn,
       distractorsEn: [
-        M6_7_REVIEW[3].meaningEn,
         M6_7_REVIEW[4].meaningEn,
         M6_7_REVIEW[5].meaningEn,
+        M6_7_REVIEW[6].meaningEn,
       ],
     }),
+    vocabMcq("ja-m6-7-rev-mcq-2", M6_7_REVIEW[5], PRIOR_POOL),
     reviewMatchPairs("ja-m6-7-rev", M6_7_REVIEW.slice(0, 6)),
     infoStep(
       "ja-m6-7-info-end",
-      "Five sentences, four modes",
-      "You can say where you are, where you're going, what you do there, and what's around — all in your own voice.",
+      "You can now describe where you are, where you're going, and what's around — in your own voice",
+      "Six sentences, four modes. From here on, every M6 pattern is on your lips.",
       "win",
     ),
   ],
 };
 
 assertNoSameAnswerCluster(M6_7.steps);
+assertAnswerRotation(M6_7.steps, 2);
+assertNoConsecutiveSame(M6_7.steps);
 
-// ----- M6-8 — Mini-dialogue (asking directions) -------------------------
+// ----- M6-8 — Mini-dialogue (asking directions in Shibuya) ---------------
+// REWRITE: uses the new `dialogueListen()` factory (per Wave 4B spec).
+// The legacy `dialogueLesson()` was emitting one-off phrase_card atoms
+// (FamilyMart, とおいです, ちかいです, いいえ) that polluted the atom
+// coverage test as n=1 surfaces. `dialogueListen()` collapses the dialogue
+// into a single `dialogue_listen` step with 3 questions — no rogue atoms.
 
-const M6_8_REVIEW = pickReviewAtoms("ja-m6-8-rev", PRIOR_POOL, 5);
+const M6_8_REVIEW = pickReviewAtoms("ja-m6-8-rev", PRIOR_POOL, 6);
 
 export const M6_8: LessonContent = {
   id: "ja-m6-8",
   moduleId: "m6",
   courseId: COURSE,
   languageId: LANG,
-  title: "Mini-dialogue — asking directions",
+  title: "Mini-dialogue — asking directions in Shibuya",
   description:
-    "Four lines, classic 'is there a … around here?' exchange. Closes with cumulative review across M1-M5 atoms.",
-  estimatedMinutes: 8,
-  xpReward: 22,
+    "You're lost in Shibuya. A four-turn exchange with a stranger gets you to the station. Closes with cumulative review across M1-M5 atoms.",
+  estimatedMinutes: 9,
+  xpReward: 26,
   steps: [
     infoStep(
       "ja-m6-8-info-open",
       "Drop into the scene",
-      "You're walking through Shibuya looking for a convenience store. You stop a stranger.",
+      "You're walking through Shibuya looking for the station. You stop a stranger to ask where it is, which way to go, and how long it takes.",
       "culture",
     ),
-    ...dialogueLesson({
-      idPrefix: "ja-m6-8",
-      representative: {
-        phrase: "コンビニが ありますか",
-        translation: "Is there a convenience store?",
-      },
+    // ── Warm-up vocab — the two new words the dialogue depends on ──
+    // (ちかい / とおい — adjectives used in the responses). These are
+    // taught as kana so the learner can decode the dialogue when it plays.
+    vocab(
+      "ja-m6-8-warm-chikai",
+      "Close / nearby",
+      "chikai",
+      "ちかい",
+      "Adjective. 'えきは ちかいです' = the station is close.",
+    ),
+    // listening break between back-to-back vocab cards
+    listeningCompSentence({
+      id: "ja-m6-8-lc-chikai-vs-tooi",
+      audioText: "ちかいです",
+      correctMeaningEn: "It's close.",
+      distractorsEn: ["It's far.", "It's loud.", "It's expensive."],
+    }),
+    vocab(
+      "ja-m6-8-warm-tooi",
+      "Far",
+      "tooi",
+      "とおい",
+      "Adjective. 'えきは とおいです' = the station is far. The 'oo' is held long.",
+    ),
+    // listening comprehension break on the warm-up words
+    listeningCompSentence({
+      id: "ja-m6-8-lc-chikai",
+      audioText: "ちかいです",
+      correctMeaningEn: "It's close.",
+      distractorsEn: ["It's far.", "It's here.", "It's there."],
+    }),
+    // vocab — the question phrase the learner will use
+    vocab(
+      "ja-m6-8-warm-doko",
+      "Where",
+      "doko",
+      "どこ",
+      "Question word. 'えきは どこですか' = where is the station?",
+    ),
+    // pre-dialogue priming — tile-bank build of the key opener. Migrated
+    // from translateStep 2026-05-18. Distractor えきに forces the topic-
+    // vs-location call (a wh-question about a known topic takes は, not に).
+    build(
+      "ja-m6-8-translate-doko",
+      "Where is the station?",
+      "えきは どこですか",
+      ["えき", "は", "どこ", "です", "か", "に"],
+      ["えき", "は", "どこ", "です", "か"],
+    ),
+    // ── THE DIALOGUE — new `dialogueListen()` factory ──
+    // 4 turns, 3 comprehension questions (where / which way / how long).
+    // No phrase_card emissions → no rogue atom leakage.
+    dialogueListen({
+      id: "ja-m6-8-dialogue",
       lines: [
         {
           speaker: "You",
-          meaningEn: "Excuse me. Is there a convenience store around here?",
-          romaji: "sumimasen. konbini ga arimasu ka",
-          kana: "すみません。コンビニが ありますか",
-          speakingPhrase: "コンビニが ありますか",
+          kana: "すみません。えきは どこですか。",
+          audioText: "すみません。えきは どこですか",
         },
         {
           speaker: "Stranger",
-          meaningEn: "Yes. There's a FamilyMart at the station.",
-          romaji: "hai. eki ni FamilyMart ga arimasu",
-          kana: "はい。えきに FamilyMart が あります",
-          cultureNote:
-            "Note the existence verb あります + に for the location point.",
+          kana: "えきは あちらです。みぎへ いって ください。",
+          audioText: "えきは あちらです。みぎへ いって ください",
         },
         {
           speaker: "You",
-          meaningEn: "Is the station far?",
-          romaji: "eki wa tooi desu ka",
-          kana: "えきは とおいですか",
-          cultureNote:
-            "とおい = far (adjective exposure — same pattern as M3's あおい/あかい).",
+          kana: "ありがとうございます。とおいですか。",
+          audioText: "ありがとうございます。とおいですか",
         },
         {
           speaker: "Stranger",
-          meaningEn: "No, it's close. Thank you. (you reply)",
-          romaji: "iie, chikai desu. arigatou gozaimasu",
-          kana: "いいえ、ちかいです。ありがとうございます",
-          speakingPhrase: "ありがとうございます",
+          kana: "いいえ、ごふんです。",
+          audioText: "いいえ、ごふんです",
+        },
+      ],
+      questions: [
+        {
+          id: "q-where",
+          prompt: "Where is the station, according to the stranger?",
+          correctText: "Over there (あちら)",
+          distractors: [
+            "Right here",
+            "Back the way you came",
+            "Inside the shop",
+          ],
+          explanation:
+            "あちら = 'over there (away from both of us).' The stranger then specifies 'go right.'",
+        },
+        {
+          id: "q-direction",
+          prompt: "Which direction does the stranger tell you to go?",
+          correctText: "Right (みぎ)",
+          distractors: [
+            "Left (ひだり)",
+            "Straight ahead",
+            "Back the way you came",
+          ],
+          explanation:
+            "みぎへ いって ください = 'please go to the right.' へ marks the direction of motion (similar to に for destinations).",
+        },
+        {
+          id: "q-howlong",
+          prompt: "How long will it take to get there?",
+          correctText: "5 minutes (ごふん)",
+          distractors: ["1 minute", "10 minutes", "30 minutes"],
+          explanation:
+            "ごふん = 5 minutes (ご = 5, ふん = minute counter). Not far at all.",
         },
       ],
     }),
-    // ── Post-dialogue comprehension on a dialogue line ──
+    // ── Post-dialogue comprehension on a single line (audio recall) ──
     listeningCompSentence({
-      id: "ja-m6-8-lc-dialogue",
-      audioText: "えきに コンビニが あります",
-      correctMeaningEn: "There's a convenience store at the station.",
+      id: "ja-m6-8-lc-dialogue-line",
+      audioText: "えきは あちらです",
+      correctMeaningEn: "The station is over there.",
       distractorsEn: [
-        "Is there a convenience store?",
+        "The station is here.",
+        "Is there a station?",
         "I go to the station.",
-        "I'm at the convenience store.",
       ],
     }),
     // ── Cumulative grammar check — answers rotate (に, が, で) ──
@@ -1284,18 +1704,36 @@ export const M6_8: LessonContent = {
       "えきに います。",
       "Pure existence → location point → に.",
     ),
-    // Production tap — translate one cumulative sentence
-    translateStep({
-      id: "ja-m6-8-translate-final",
-      promptEn: "I'm going home by bus.",
-      acceptedAnswers: [
-        "バスで うちに かえります",
-        "バスで うちに かえります。",
-        "バスでうちにかえります",
-        "basu de uchi ni kaerimasu",
-      ],
-      audioText: "バスで うちに かえります",
+    // Production tap — tile-bank build of one cumulative sentence.
+    // Migrated from translateStep 2026-05-18. Distractor うちで forces the
+    // destination-vs-setting call (かえる is motion → に, not で).
+    build(
+      "ja-m6-8-translate-final",
+      "I'm going home by bus.",
+      "バスで うちに かえります",
+      ["バス", "で", "うち", "に", "かえります", "います"],
+      ["バス", "で", "うち", "に", "かえります"],
+    ),
+    // speaking — the opener you'd actually use in Shibuya tomorrow
+    speaking(
+      "ja-m6-8-speak-doko",
+      "えきは どこですか",
+      "Where is the station?",
+    ),
+    // listening_build — assemble a directions-style cumulative sentence
+    listeningBuildSentence({
+      id: "ja-m6-8-lb-cumulative",
+      target: "えきに コンビニが あります",
+      tiles: ["えき", "に", "コンビニ", "が", "あります", "うち", "で", "います"],
+      correctOrder: ["えき", "に", "コンビニ", "が", "あります"],
+      promptEn: "Hear it, build it: 'There's a convenience store at the station.'",
     }),
+    // speaking — second utterance, the gratitude close
+    speaking(
+      "ja-m6-8-speak-thanks",
+      "ありがとうございます",
+      "Thank you.",
+    ),
     // ── Cumulative review tail (broadest set — M1-M5) ──
     vocabMcq("ja-m6-8-rev-mcq-1", M6_8_REVIEW[0], PRIOR_POOL),
     listeningCompSentence({
@@ -1311,14 +1749,16 @@ export const M6_8: LessonContent = {
     reviewMatchPairs("ja-m6-8-rev", M6_8_REVIEW.slice(0, 4)),
     infoStep(
       "ja-m6-8-info-end",
-      "Directions handled",
-      "'X が ありますか' opens the conversation, location + に/で fills in the answer. You can now find anything in Japan.",
+      "You can now ask a stranger for directions in Shibuya",
+      "Opener (えきは どこですか) + comprehension on the response (right/left, how many minutes). You can now find anything in Japan.",
       "win",
     ),
   ],
 };
 
 assertNoSameAnswerCluster(M6_8.steps);
+assertAnswerRotation(M6_8.steps, 2);
+assertNoConsecutiveSame(M6_8.steps);
 
 // ----- M6-9 — Row test (mastery ★) --------------------------------------
 // Preserved from prior structure (mockCourse.ts + ja-m3-m7-coverage +
@@ -1333,17 +1773,22 @@ function particleMc(
   distractors: [string, string, string],
   explanation: string,
 ): MultipleChoiceStep {
+  // Rotate correct slot by id-hash (2026-05-18 audit).
+  const items = [
+    { id: "correct", text: correct },
+    { id: "opt-1", text: distractors[0] },
+    { id: "opt-2", text: distractors[1] },
+    { id: "opt-3", text: distractors[2] },
+  ];
+  const slot = slotFor(id, 4);
+  const correctItem = items.shift()!;
+  items.splice(slot, 0, correctItem);
   return {
     id,
     type: "multiple_choice",
     prompt,
     promptAudioText: audioText,
-    options: [
-      { id: "correct", text: correct },
-      { id: "opt-1", text: distractors[0] },
-      { id: "opt-2", text: distractors[1] },
-      { id: "opt-3", text: distractors[2] },
-    ],
+    options: items,
     correctOptionId: "correct",
     explanation,
     optionsHideRomaji: true,
@@ -1440,8 +1885,8 @@ const M6_TEST_ITEMS: RowTestItem[] = [
       type: "build_sentence",
       prompt: "Say: I go to school by bicycle.",
       targetSentence: "じてんしゃで がっこうに いきます",
-      tiles: ["じてんしゃで", "がっこうに", "いきます", "うちで", "コンビニに"],
-      correctOrder: ["じてんしゃで", "がっこうに", "いきます"],
+      tiles: ["じてんしゃ", "で", "がっこう", "に", "いきます", "うち", "コンビニ"],
+      correctOrder: ["じてんしゃ", "で", "がっこう", "に", "いきます"],
       granularity: "word",
       audioKey: "じてんしゃで がっこうに いきます",
       targetAnnotation: [{ surface: "じてんしゃで がっこうに いきます", reading: "じてんしゃで がっこうに いきます" }],

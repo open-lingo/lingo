@@ -43,7 +43,7 @@ import type { LessonContent } from "../types";
 import {
   build,
   cloze,
-  dialogueLesson,
+  dialogueListen,
   grammarRule,
   infoStep,
   listeningBuildSentence,
@@ -55,10 +55,12 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
-  translateStep,
   vocab,
   vocabMcq,
   assertNoSameAnswerCluster,
+  assertAnswerRotation,
+  assertNoConsecutiveSame,
+  slotFor,
 } from "./_jaGrammarHelpers";
 import type {
   BuildSentenceStep,
@@ -106,8 +108,8 @@ export const M4_1: LessonContent = {
   title: "Everyday objects",
   description:
     "Five concrete nouns you'll point at every day. Two katakana sprinkles + immediate retrieval + M3 review tail.",
-  estimatedMinutes: 8,
-  xpReward: 18,
+  estimatedMinutes: 9,
+  xpReward: 22,
   steps: [
     infoStep(
       "ja-m4-1-info-open",
@@ -129,6 +131,13 @@ export const M4_1: LessonContent = {
       correctMeaningEn: "pen",
       distractorsEn: ["camera", "book", "bag"],
     }),
+    // Visual MCQ on ペン — gives the bare noun its second non-cloze surface
+    // so the atom-coverage floor (n≥3) holds before the cloze tap below.
+    vocabMcq(
+      "ja-m4-1-mcq-pen",
+      { kana: "ペン", meaningEn: "pen", emoji: "🖊️", fromModule: "m4" },
+      M4_REVIEW_M3_POOL,
+    ),
     vocab(
       "ja-m4-1-v-kaban",
       "Bag",
@@ -169,7 +178,7 @@ export const M4_1: LessonContent = {
     // Pattern preview cloze: M3 grammar (は + です) on a fresh M4 noun.
     // Single の-free cloze keeps the answer rotation honest — の lands next.
     cloze(
-      "ja-m4-1-cloze-preview",
+      "ja-m4-1-cloze-preview-1",
       "これ",
       " ペンです。",
       "は",
@@ -177,6 +186,38 @@ export const M4_1: LessonContent = {
       "This is a pen.",
       "これは ペンです。",
       "Pure M3 reinforcement on a new M4 noun — は marks the topic (this), です asserts.",
+    ),
+    // sentenceMcq break — discriminate two new vocab on an M3 sentence-pattern.
+    sentenceMcq({
+      id: "ja-m4-1-mcq-discriminate",
+      prompt: "Which sentence means 'This is a bag.'?",
+      correctKana: "これは かばんです。",
+      distractorsKana: [
+        "これは カメラです。",
+        "これは くるまです。",
+        "これは ペンです。",
+      ],
+      explanation:
+        "かばん = bag. The three distractors are the other new objects in this lesson.",
+    }),
+    // Second cloze — keeps the answer-rotation gate honest (か vs は).
+    cloze(
+      "ja-m4-1-cloze-preview-2",
+      "これは カメラです",
+      "。",
+      "か",
+      ["か", "は", "の", "を"],
+      "Is this a camera?",
+      "これは カメラですか。",
+      "M3 review — か at the end turns a statement into a question.",
+    ),
+    // Production: build_sentence on the new vocab.
+    build(
+      "ja-m4-1-build-keitai",
+      "Say: This is a mobile phone.",
+      "これは けいたいです",
+      ["これ", "は", "けいたい", "です", "それ", "ペン"],
+      ["これ", "は", "けいたい", "です"],
     ),
     // ── Review tail (M3 atoms — the freshest layer). ──
     // Visual MCQ on an M3 person-word + listening on an M3 object.
@@ -191,17 +232,28 @@ export const M4_1: LessonContent = {
         M4_1_REVIEW[4].meaningEn,
       ],
     }),
+    // Tile-bank build — hard direction on a new M4 noun + M3 grammar.
+    // Lands after step 12 per the "hard direction last" rule.
+    build(
+      "ja-m4-1-translate-car",
+      "Is this a car?",
+      "これは くるまですか",
+      ["これ", "は", "くるま", "です", "か", "それ", "かばん"],
+      ["これ", "は", "くるま", "です", "か"],
+    ),
     reviewMatchPairs("ja-m4-1-rev", M4_1_REVIEW.slice(0, 5)),
     infoStep(
       "ja-m4-1-info-end",
-      "Five objects loaded",
-      "Five objects + retrieval on each + an M3 review tap. Next: の, the particle that glues two nouns together — owner ↔ thing owned.",
+      "Five objects in hand",
+      "You can now name and ask about five everyday objects. Next: の, the particle that lets you say whose object it is.",
       "win",
     ),
   ],
 };
 
 assertNoSameAnswerCluster(M4_1.steps);
+assertAnswerRotation(M4_1.steps, 2);
+assertNoConsecutiveSame(M4_1.steps);
 
 // ----- M4-2 — の — possession + "kind of" (Grammar Rule + drills) ---------
 
@@ -242,8 +294,8 @@ export const M4_2: LessonContent = {
   title: "の — possession and 'kind of'",
   description:
     "The particle that glues two nouns. Possession is the most common use; the deeper pattern is 'kind of.' Drilled with rotating distractors + self-explanation.",
-  estimatedMinutes: 10,
-  xpReward: 24,
+  estimatedMinutes: 11,
+  xpReward: 28,
   steps: [
     infoStep(
       "ja-m4-2-info-open",
@@ -251,7 +303,10 @@ export const M4_2: LessonContent = {
       "の glues nouns. Most of the time it means possessive 's. But it also means 'the X kind of Y' — same particle, broader pattern. You'll drill the possessive reading first; the 'kind-of' reading lands at the end.",
     ),
     RULE_NO,
-    // ── Drill cluster: clozes rotated with breaks (R3 interleave). ──
+    // ── Drill cluster: clozes rotated with breaks (R3 interleave).
+    // selfExplain intentionally NOT after the first cloze — it lands at the
+    // N-1 position of the drill cluster (after 3+ commits) per CLT
+    // expertise-reversal (M3-M7 spec §3.2).
     cloze(
       "ja-m4-2-cloze-1",
       "わたし",
@@ -262,17 +317,17 @@ export const M4_2: LessonContent = {
       "わたしの かばんです。",
       "わたし + の + かばん = my bag. The full sentence has です to politely assert.",
     ),
-    // self-explanation right after the first commit — Dunlosky 2013.
-    selfExplain({
-      id: "ja-m4-2-self-no-1",
-      anchorLabel: "You picked の in: わたし＿ かばん",
-      anchorAudioText: "わたしの かばん",
-      question: "Why is の correct here?",
-      rule: { text: "の attaches the owner to what they own." },
-      surface: { text: "の always comes between two katakana words." },
-      distractor: { text: "の is the question marker." },
-      ruleExplanation:
-        "の is the possession particle — it links owner (わたし) to thing owned (かばん). か (question marker) goes at the end of a sentence; surface-shape rules (like 'between katakana') are false patterns.",
+    // listening break — meaning recall on a possession sentence (R3 break
+    // between two clozes whose correct answer is の).
+    listeningCompSentence({
+      id: "ja-m4-2-lc-watashi",
+      audioText: "わたしの ほんです",
+      correctMeaningEn: "It's my book.",
+      distractorsEn: [
+        "It's the teacher's book.",
+        "Is it your book?",
+        "This is a book.",
+      ],
     }),
     cloze(
       "ja-m4-2-cloze-2",
@@ -307,17 +362,37 @@ export const M4_2: LessonContent = {
       "ともだちの ペンです。",
       "ともだち + の + ペン = my friend's pen.",
     ),
-    // listening break — meaning recall on a possession sentence.
+    // Listening break — meaning recall between the cloze block and the
+    // rotating answer cloze (avoids 3 adjacent particle_cloze steps).
     listeningCompSentence({
-      id: "ja-m4-2-lc-watashi",
-      audioText: "わたしの ほんです",
-      correctMeaningEn: "It's my book.",
+      id: "ja-m4-2-lc-bridge",
+      audioText: "ともだちの くるまです",
+      correctMeaningEn: "It's my friend's car.",
       distractorsEn: [
-        "It's the teacher's book.",
-        "Is it your book?",
-        "This is a book.",
+        "It's my car.",
+        "It's the teacher's car.",
+        "Is it my friend's car?",
       ],
     }),
+    // M3 review tap — alternate answer (は), keeps the cloze cluster
+    // rotating instead of streaking on の.
+    cloze(
+      "ja-m4-2-cloze-ha-review",
+      "せんせい",
+      " くるまです。",
+      "は",
+      ["は", "の", "が", "を"],
+      "As for the teacher, [the topic is] a car.",
+      "せんせいは くるまです。",
+      "M3 review: は as topic marker. Two same-particle-correct clozes in a row would let you fish; rotating to は forces you to read the sentence.",
+    ),
+    // Speaking break before the kind-of cloze — breaks the same-type
+    // adjacency that would otherwise stack 3 particle_cloze steps.
+    speaking(
+      "ja-m4-2-speak-tomodachi",
+      "ともだちの ペンです",
+      "It's my friend's pen.",
+    ),
     // "kind of" reading drill — different semantic, same particle.
     cloze(
       "ja-m4-2-cloze-4",
@@ -329,26 +404,51 @@ export const M4_2: LessonContent = {
       "にほんの くるまです。",
       "Origin/kind reading: 'Japan-kind-of car' = a Japanese car. Same particle, broader use.",
     ),
+    // ── N-1 selfExplain — fires AFTER 5 cloze commits so the schema is
+    //    consolidated enough for productive reflection (CLT expertise
+    //    reversal: too-early metacognition splits attention). Surface
+    //    distractor is "true-but-wrong rule" per wave-4B brief — collapses
+    //    の's meaning to compound-noun formation, which a learner could
+    //    plausibly believe after only seeing possessive surface forms. ──
+    selfExplain({
+      id: "ja-m4-2-self-no",
+      anchorLabel: "You picked の in: にほん＿ くるま",
+      anchorAudioText: "にほんの くるま",
+      question: "What's the rule that makes の correct in BOTH 'わたしの かばん' and 'にほんの くるま'?",
+      rule: {
+        text: "の puts the LEFT noun in a 'kind/source' relationship to the RIGHT noun.",
+      },
+      surface: {
+        text: "の links two nouns into a single compound noun.",
+      },
+      distractor: {
+        text: "の marks the topic of the sentence, like は does.",
+      },
+      ruleExplanation:
+        "の sets up an L-kind-of-R relationship — possession (my-kind-of bag) is just the most common case. It does NOT fuse the nouns into a compound (にほんくるま would be wrong); the two nouns stay separate, with の signaling the relation. And の is never the topic marker — that's always は.",
+    }),
     // Production: build_sentence with possession structure.
     build(
       "ja-m4-2-build-watashi-pen",
       "Say: It's my pen.",
       "わたしの ペンです",
-      ["わたしの", "ペンです", "せんせいの", "ともだちの"],
-      ["わたしの", "ペンです"],
+      ["わたし", "の", "ペン", "です", "せんせい", "ともだち"],
+      ["わたし", "の", "ペン", "です"],
     ),
-    // Translate (typed-bank) production check — harder direction.
-    translateStep({
-      id: "ja-m4-2-translate-teacher-book",
-      promptEn: "It's the teacher's book.",
-      acceptedAnswers: [
-        "せんせいの ほんです",
-        "せんせいの ほんです。",
-        "せんせいのほんです",
-        "sensei no hon desu",
-      ],
-      audioText: "せんせいの ほんです",
-    }),
+    // Tile-bank production check — harder direction.
+    build(
+      "ja-m4-2-translate-teacher-book",
+      "It's the teacher's book.",
+      "せんせいの ほんです",
+      ["せんせい", "の", "ほん", "です", "わたし", "ともだち"],
+      ["せんせい", "の", "ほん", "です"],
+    ),
+    // Speaking — final hard-direction lock on the most-common possessive form.
+    speaking(
+      "ja-m4-2-speak-final",
+      "わたしの ペンです",
+      "It's my pen.",
+    ),
     // ── Review tail (M2 atoms — the previous layer; fresh visual + listening). ──
     vocabMcq("ja-m4-2-rev-mcq-m2", M4_2_REVIEW[0], M4_REVIEW_M2_POOL),
     listeningCompSentence({
@@ -361,17 +461,41 @@ export const M4_2: LessonContent = {
         M4_REVIEW_M1_POOL[0].meaningEn,
       ],
     }),
+    vocabMcq("ja-m4-2-rev-mcq-m1", M4_REVIEW_M1_POOL[2], M4_REVIEW_M1_POOL),
+    // M3 cumulative cloze — reuses M3's question particle on a fresh M4 noun.
+    cloze(
+      "ja-m4-2-rev-cloze-ka",
+      "わたしの ペンです",
+      "。",
+      "か",
+      ["か", "は", "の", "を"],
+      "Is it my pen?",
+      "わたしの ペンですか。",
+      "M3 review: か ends a question. M4's possessive structure inside the question is now natural.",
+    ),
+    listeningCompSentence({
+      id: "ja-m4-2-rev-lc-m1",
+      audioText: M4_REVIEW_M1_POOL[3].kana,
+      correctMeaningEn: M4_REVIEW_M1_POOL[3].meaningEn,
+      distractorsEn: [
+        M4_REVIEW_M1_POOL[4].meaningEn,
+        M4_REVIEW_M1_POOL[5].meaningEn,
+        M4_REVIEW_M1_POOL[6].meaningEn,
+      ],
+    }),
     reviewMatchPairs("ja-m4-2-rev", M4_2_REVIEW),
     infoStep(
       "ja-m4-2-info-end",
-      "の internalized",
-      "Four drills + self-explanation + production: noun + の + noun = the L-kind of R. Next: more vocab + interleaving with M3's は.",
+      "You can say whose it is",
+      "Seven drills + self-explanation + production: noun + の + noun. You can now tell people which things are yours, your friend's, the teacher's — half of small-talk.",
       "win",
     ),
   ],
 };
 
 assertNoSameAnswerCluster(M4_2.steps);
+assertAnswerRotation(M4_2.steps, 2);
+assertNoConsecutiveSame(M4_2.steps);
 
 // ----- M4-3 — More objects + の in context --------------------------------
 
@@ -416,6 +540,14 @@ export const M4_3: LessonContent = {
       distractorsEn: ["letter", "book", "magazine"],
     }),
     vocab("ja-m4-3-v-isu", "Chair", "isu", "いす"),
+    // Listening break — meaning recall on the just-introduced atom (avoids
+    // 2 adjacent phrase_card steps).
+    listeningCompSentence({
+      id: "ja-m4-3-lc-isu",
+      audioText: "いす",
+      correctMeaningEn: "chair",
+      distractorsEn: ["bicycle", "letter", "umbrella"],
+    }),
     vocab(
       "ja-m4-3-v-tegami",
       "Letter (postal)",
@@ -468,8 +600,8 @@ export const M4_3: LessonContent = {
       "ja-m4-3-build-friend-bike",
       "Ask: Is it your friend's bicycle?",
       "ともだちの じてんしゃですか",
-      ["ともだちの", "じてんしゃですか", "わたしの", "じしょですか"],
-      ["ともだちの", "じてんしゃですか"],
+      ["ともだち", "の", "じてんしゃ", "です", "か", "わたし", "じしょ"],
+      ["ともだち", "の", "じてんしゃ", "です", "か"],
     ),
     cloze(
       "ja-m4-3-cloze-3",
@@ -480,6 +612,18 @@ export const M4_3: LessonContent = {
       "Is it your friend's bicycle?",
       "ともだちの じてんしゃですか。",
     ),
+    // Listening on a third じてんしゃです usage — pushes the compound atom
+    // above the n=3 review-floor (was n=2 in M4-3 alone).
+    listeningCompSentence({
+      id: "ja-m4-3-lc-jitensha-final",
+      audioText: "わたしの じてんしゃです",
+      correctMeaningEn: "It's my bicycle.",
+      distractorsEn: [
+        "It's your bicycle.",
+        "Is it your friend's bicycle?",
+        "It's the teacher's bicycle.",
+      ],
+    }),
     // ── Review tail (M1 atoms — the deepest layer + an M3 cloze tap). ──
     vocabMcq("ja-m4-3-rev-mcq-m1", M4_3_REVIEW[0], M4_REVIEW_M1_POOL),
     // M3 grammar cloze — reuse a prior-module sentence pattern (です + か).
@@ -503,17 +647,29 @@ export const M4_3: LessonContent = {
         M4_3_REVIEW[4].meaningEn,
       ],
     }),
+    // Build the cumulative possessive sentence — tile-bank, hardest
+    // direction, lands after the warm-up review (post-step-12 per the
+    // hard-direction-last rule).
+    build(
+      "ja-m4-3-translate-friend-umbrella",
+      "It's my friend's umbrella.",
+      "ともだちの かさです",
+      ["ともだち", "の", "かさ", "です", "せんせい", "ペン"],
+      ["ともだち", "の", "かさ", "です"],
+    ),
     reviewMatchPairs("ja-m4-3-rev", M4_3_REVIEW.slice(0, 5)),
     infoStep(
       "ja-m4-3-info-end",
-      "Possession unlocked",
-      "Five more nouns, three more の sentences, production + retrieval on each. Next: the four pointer words これ/それ/あれ/どれ.",
+      "You can possess any object",
+      "Five more nouns, three more の sentences, production + retrieval on each. You can now say whose umbrella, dictionary, or bike. Next: pointing — これ/それ/あれ/どれ.",
       "win",
     ),
   ],
 };
 
 assertNoSameAnswerCluster(M4_3.steps);
+assertAnswerRotation(M4_3.steps, 2);
+assertNoConsecutiveSame(M4_3.steps);
 
 // ----- M4-4 — これ / それ / あれ / どれ (Grammar Rule + drills) ----------
 
@@ -579,21 +735,6 @@ export const M4_4: LessonContent = {
       "それは なんですか。",
       "それ = near the listener. Topic = that. Question = what?",
     ),
-    // self-explanation on pointer selection — why は (not the pointer itself)
-    // is the answer here.
-    selfExplain({
-      id: "ja-m4-4-self-ha-pointer",
-      anchorLabel: "You picked は in: それ＿ なんですか。",
-      anchorAudioText: "それは なんですか",
-      question: "Why does は (not の) follow それ here?",
-      rule: {
-        text: "それ is the topic of the sentence — は marks the topic.",
-      },
-      surface: { text: "は always follows a pointer word like それ." },
-      distractor: { text: "の would also work in this sentence." },
-      ruleExplanation:
-        "は marks what the sentence is ABOUT — 'as for that (thing near you), what is it?' の only links two nouns (owner ↔ owned). There's no second noun here for の to attach to.",
-    }),
     cloze(
       "ja-m4-4-cloze-2",
       "あれは せんせい",
@@ -659,25 +800,64 @@ export const M4_4: LessonContent = {
       "どれが あなたの ペンですか。",
       "Question words like どれ take が, not は. (You'll get the formal rule for が in M6 — for now, memorize this pairing.)",
     ),
+    // selfExplain at N-1 placement (moved 2026-05-18 coordinator): now
+    // fires after 6+ prior commits (cloze-1/2/3, mcq-pointer, lc, mcq-dore,
+    // cloze-4) — well past CLT expertise-reversal floor (≥3 commits).
+    selfExplain({
+      id: "ja-m4-4-self-ha-pointer",
+      anchorLabel: "You picked は in: それ＿ なんですか。",
+      anchorAudioText: "それは なんですか",
+      question: "Why does は (not の) follow それ here?",
+      rule: {
+        text: "それ is the topic of the sentence — は marks the topic.",
+      },
+      surface: { text: "は always follows a pointer word like それ." },
+      distractor: { text: "の would also work in this sentence." },
+      ruleExplanation:
+        "は marks what the sentence is ABOUT — 'as for that (thing near you), what is it?' の only links two nouns (owner ↔ owned). There's no second noun here for の to attach to.",
+    }),
     // Production: build_sentence with pointer + possessive.
     build(
       "ja-m4-4-build-this-mybag",
       "Say: This is my bag.",
       "これは わたしの かばんです",
-      ["これは", "わたしの", "かばんです", "それは", "ともだちの"],
-      ["これは", "わたしの", "かばんです"],
+      ["これ", "は", "わたし", "の", "かばん", "です", "それ", "ともだち"],
+      ["これ", "は", "わたし", "の", "かばん", "です"],
     ),
-    // Translate (typed) production check.
-    translateStep({
-      id: "ja-m4-4-translate-sore-pen",
-      promptEn: "Is that (near you) my friend's pen?",
-      acceptedAnswers: [
-        "それは ともだちの ペンですか",
-        "それは ともだちの ペンですか。",
-        "それはともだちのペンですか",
-        "sore wa tomodachi no pen desu ka",
+    // Tile-bank production check.
+    build(
+      "ja-m4-4-translate-sore-pen",
+      "Is that (near you) my friend's pen?",
+      "それは ともだちの ペンですか",
+      ["それ", "は", "ともだち", "の", "ペン", "です", "か", "これ", "わたし"],
+      ["それ", "は", "ともだち", "の", "ペン", "です", "か"],
+    ),
+    // Second cumulative cloze — reuses カメラです so the compound atom
+    // accumulates a third lesson-surface (M4-1 cloze + this + M4-6
+    // listening). Adds an あれ pointer commit to keep distance-cue practice
+    // varied alongside the これ/それ above.
+    cloze(
+      "ja-m4-4-cloze-5",
+      "あれは わたし",
+      " カメラです。",
+      "の",
+      ["の", "は", "が", "を"],
+      "That over there is my camera.",
+      "あれは わたしの カメラです。",
+      "Pointer (あれ) + topic は + possessive の + カメラです. Three particles in one short sentence — you can parse them all now.",
+    ),
+    // Listening break on a くるまです usage — lifts the compound atom from
+    // single-surface to ≥3 across M4 (M4-2 cloze + M4-4 cloze + this +
+    // M4-5 cloze).
+    listeningCompSentence({
+      id: "ja-m4-4-lc-kuruma",
+      audioText: "せんせいの くるまです",
+      correctMeaningEn: "It's the teacher's car.",
+      distractorsEn: [
+        "It's my car.",
+        "It's the teacher's bicycle.",
+        "Is it the teacher's car?",
       ],
-      audioText: "それは ともだちの ペンですか",
     }),
     // ── Review tail (M3 atoms + M3 grammar cloze — keep the M3 layer warm). ──
     vocabMcq("ja-m4-4-rev-mcq-m3", M4_4_REVIEW[0], M4_REVIEW_M3_POOL),
@@ -702,17 +882,25 @@ export const M4_4: LessonContent = {
         M4_REVIEW_M1_POOL[0].meaningEn,
       ],
     }),
+    // Speaking on the lesson's anchor sentence — hard direction last.
+    speaking(
+      "ja-m4-4-speak-final",
+      "これは わたしの かばんです",
+      "This is my bag.",
+    ),
     reviewMatchPairs("ja-m4-4-rev", M4_4_REVIEW),
     infoStep(
       "ja-m4-4-info-end",
-      "Four pointers, one system",
-      "これ near me, それ near you, あれ far from both, どれ which. Plus the question-word-takes-が pairing. Next: mixed drill across の + pointers + は.",
+      "You can point at anything",
+      "これ near me, それ near you, あれ far from both, どれ which. Plus the question-word-takes-が pairing. You can now identify any object in the room — your stuff, their stuff, the thing way over there.",
       "win",
     ),
   ],
 };
 
 assertNoSameAnswerCluster(M4_4.steps);
+assertAnswerRotation(M4_4.steps, 2);
+assertNoConsecutiveSame(M4_4.steps);
 
 // ----- M4-5 — Interleaved drill — の + pointers + は (rotating answers) --
 
@@ -723,16 +911,26 @@ export const M4_5: LessonContent = {
   moduleId: "m4",
   courseId: COURSE,
   languageId: LANG,
-  title: "Interleaved drill — の + pointers + は",
+  title: "Interleaved drill — の + pointers + は + だれ",
   description:
-    "Mixed practice across の (possession), the four pointers, and M3's は. Rotating answers + self-explanation + production.",
-  estimatedMinutes: 9,
-  xpReward: 22,
+    "Mixed practice across の (possession), the four pointers, M3's は, and the question word だれ. Rotating answers + self-explanation + production.",
+  estimatedMinutes: 11,
+  xpReward: 26,
   steps: [
     infoStep(
       "ja-m4-5-info-open",
       "Mix and match",
-      "Each drill picks between particles you've now seen. No new rules — just sorting which pattern fits. Watch the answer rotate so you can't fish for a streak.",
+      "Each drill picks between particles you've now seen. No new rules — just sorting which pattern fits. Watch the answer rotate so you can't fish for a streak. New atom: だれ ('who'), the person-pointing question word.",
+    ),
+    // Quick だれ intro — the question word for people. Paired with の it
+    // becomes 'whose' (だれの). Adds the third+ exposure of だれ across M4
+    // (M4-6 mcq + M4-7 dialogue + here).
+    vocab(
+      "ja-m4-5-v-dare",
+      "Who",
+      "dare",
+      "だれ",
+      "Person-pointing question word. Pair with の and it becomes 'whose' (だれの ペン = whose pen).",
     ),
     // ── Rotating clozes: の → は → の → は → の → は (max 2 same-answer
     //    adjacent OK per the gate, but rotating every step). ──
@@ -746,19 +944,19 @@ export const M4_5: LessonContent = {
       "わたしの かばんです。",
       "Owner + の + owned. No topic — just a flat assertion.",
     ),
-    // self-explanation right after the first commit — productive failure pattern.
-    selfExplain({
-      id: "ja-m4-5-self-no-vs-ha",
-      anchorLabel: "You picked の in: わたし＿ かばんです。",
-      anchorAudioText: "わたしの かばんです",
-      question: "Why is の correct and not は?",
-      rule: {
-        text: "の links owner (わたし) to thing owned (かばん) — possession.",
-      },
-      surface: { text: "の always comes after a pronoun like わたし." },
-      distractor: { text: "は could also work and mean the same thing." },
-      ruleExplanation:
-        "の glues two nouns into a possessive (my bag). は would mark わたし as the TOPIC ('as for me, [it's a] bag') — grammatical but means a different thing. Surface rules like 'after a pronoun' miss the point: pick の when there's an owner→owned relationship.",
+    // sentenceMcq break — discriminate possessive (の) vs flat-topic (は)
+    // before the next cloze (avoids 2 adjacent particle_cloze steps).
+    sentenceMcq({
+      id: "ja-m4-5-mcq-bridge",
+      prompt: "Which sentence means 'It's the teacher's car.'?",
+      correctKana: "せんせいの くるまです。",
+      distractorsKana: [
+        "せんせいは くるまです。",
+        "せんせいの くるまですか。",
+        "せんせいは くるまですか。",
+      ],
+      explanation:
+        "の glues せんせい + くるま (possession). は would mark the teacher as the topic — a different meaning.",
     }),
     cloze(
       "ja-m4-5-cloze-2",
@@ -791,6 +989,30 @@ export const M4_5: LessonContent = {
       "それは ねこの ほんです。",
       "ねこ + の + ほん = the cat's book. ねこ pulled from M1 — compounding review.",
     ),
+    // Listening break between the two clozes that flank the だれ pivot
+    // (avoids 2 adjacent particle_cloze).
+    listeningCompSentence({
+      id: "ja-m4-5-lc-dare-bridge",
+      audioText: "だれの ペンですか",
+      correctMeaningEn: "Whose pen is it?",
+      distractorsEn: [
+        "Which pen is it?",
+        "Is it your pen?",
+        "Whose car is it?",
+      ],
+    }),
+    // ── だれ-as-question drill — uses が (matches the M4-4 question-word
+    //    pattern). Adds an answer-set distinct from の/は in this cluster. ──
+    cloze(
+      "ja-m4-5-cloze-dare",
+      "だれ",
+      " せんせいですか。",
+      "が",
+      ["が", "は", "の", "を"],
+      "Who is the teacher?",
+      "だれが せんせいですか。",
+      "だれ ('who') is a question word — it takes が, like どれ in M4-4. The full sentence: 'who-が teacher-です-か.'",
+    ),
     // sentenceMcq break — discrimination between pointers + particles.
     sentenceMcq({
       id: "ja-m4-5-mcq-discriminate",
@@ -814,7 +1036,8 @@ export const M4_5: LessonContent = {
       "あれは せんせいですか。",
       "Pointer (あれ) + topic は + question か.",
     ),
-    // listening break.
+    // listening break — keeps the cluster on かさです so the compound atom
+    // reaches n=3 across M4 (M4-3 + here + M4-7).
     listeningCompSentence({
       id: "ja-m4-5-lc-your-umbrella",
       audioText: "あなたの かさですか",
@@ -835,18 +1058,44 @@ export const M4_5: LessonContent = {
       "あなたの かさですか。",
       "Direct possession + question.",
     ),
-    // Production: translate one of the harder mixed-particle sentences.
-    translateStep({
-      id: "ja-m4-5-translate-japanese-car",
-      promptEn: "This is a Japanese car.",
-      acceptedAnswers: [
-        "これは にほんの くるまです",
-        "これは にほんの くるまです。",
-        "これはにほんのくるまです",
-        "kore wa nihon no kuruma desu",
+    // Listening on じしょです — second compound-atom surface in M4 (M4-3
+    // cloze + here + row test surface lifts it to n=3).
+    listeningCompSentence({
+      id: "ja-m4-5-lc-friend-dict",
+      audioText: "ともだちの じしょです",
+      correctMeaningEn: "It's my friend's dictionary.",
+      distractorsEn: [
+        "It's the teacher's dictionary.",
+        "It's my dictionary.",
+        "Is it my friend's dictionary?",
       ],
-      audioText: "これは にほんの くるまです",
     }),
+    // ── N-1 selfExplain — moved to AFTER 6 cloze commits. Earlier sites
+    //    have the learner reflecting before they have a sturdy schema; this
+    //    placement is the CLT-correct one (per M3-M7 spec §3.2). The
+    //    distractor "は could also work" is the most plausible wrong-rule
+    //    a learner could believe after only seeing simple sentences. ──
+    selfExplain({
+      id: "ja-m4-5-self-no-vs-ha",
+      anchorLabel: "You picked の in: わたし＿ かばんです。",
+      anchorAudioText: "わたしの かばんです",
+      question: "Why is の correct here and not は?",
+      rule: {
+        text: "の links owner (わたし) to thing owned (かばん) — possession.",
+      },
+      surface: { text: "の always comes after a pronoun like わたし." },
+      distractor: { text: "は could also work and mean the same thing." },
+      ruleExplanation:
+        "の glues two nouns into a possessive (my bag). は would mark わたし as the TOPIC ('as for me, [it's a] bag') — grammatical but means a different thing. Surface rules like 'after a pronoun' miss the point: pick の when there's an owner→owned relationship.",
+    }),
+    // Production: build one of the harder mixed-particle sentences.
+    build(
+      "ja-m4-5-translate-japanese-car",
+      "This is a Japanese car.",
+      "これは にほんの くるまです",
+      ["これ", "は", "にほん", "の", "くるま", "です", "わたし", "それ"],
+      ["これ", "は", "にほん", "の", "くるま", "です"],
+    ),
     cloze(
       "ja-m4-5-cloze-6",
       "これは にほん",
@@ -869,18 +1118,22 @@ export const M4_5: LessonContent = {
         M4_REVIEW_M1_POOL[0].meaningEn,
       ],
     }),
-    vocabMcq("ja-m4-5-rev-mcq-m1", M4_REVIEW_M1_POOL[1], M4_REVIEW_M1_POOL),
+    // Extra M1 vocab MCQ — keeps the cumulative review tail dense enough
+    // to clear the 20-step floor.
+    vocabMcq("ja-m4-5-rev-mcq-m1", M4_REVIEW_M1_POOL[3], M4_REVIEW_M1_POOL),
     reviewMatchPairs("ja-m4-5-rev", M4_5_REVIEW),
     infoStep(
       "ja-m4-5-info-end",
-      "Mixed and sorted",
-      "Six drills + self-explanation + production sorted across two particles. Your brain now has explicit slots for は (topic) and の (glue) — they don't get confused.",
+      "You can sort the particles",
+      "Six drills + self-explanation + production sorted across は (topic), の (glue), and が (question-word). Plus a new question word: だれ. Next: cumulative production.",
       "win",
     ),
   ],
 };
 
 assertNoSameAnswerCluster(M4_5.steps);
+assertAnswerRotation(M4_5.steps, 3);
+assertNoConsecutiveSame(M4_5.steps);
 
 // ----- M4-6 — Sentence Build — production across modes --------------------
 
@@ -893,22 +1146,36 @@ export const M4_6: LessonContent = {
   languageId: LANG,
   title: "Sentence Build — pointers + possessives",
   description:
-    "Production-heavy. Five sentences across build, translate, listening_build, and your voice. Cumulative across M3 + M4.",
-  estimatedMinutes: 10,
-  xpReward: 26,
+    "Production-heavy. Six+ sentences across build, translate, listening_build, and your voice. Cumulative across M3 + M4.",
+  estimatedMinutes: 12,
+  xpReward: 30,
   steps: [
     infoStep(
       "ja-m4-6-info-open",
       "Production time",
-      "Five sentences, four modes (build, translate, listening_build, speak). Each one combines M4 pieces with M3 baseline.",
+      "Six sentences, four modes (build, translate, listening_build, speak). Each one combines M4 pieces with M3 baseline.",
     ),
-    // ── 5-sentence production cluster — interleaved across modes. ──
+    // Warm-up cloze before the production cluster — uses は (topic) on a
+    // pointer + possessive + noun stem so the cluster rotates against the
+    // のno-cloze below (assertAnswerRotation gate needs ≥2 distinct
+    // correct particles).
+    cloze(
+      "ja-m4-6-warmup-cloze",
+      "これ",
+      " ともだちの カメラです。",
+      "は",
+      ["は", "の", "が", "を"],
+      "This is my friend's camera.",
+      "これは ともだちの カメラです。",
+      "Three particles, one sentence: pointer (これ) → topic (は) → possessive (の) → assertion (です). Topic は marks 'this' — の glues friend + camera.",
+    ),
+    // ── 6-sentence production cluster — interleaved across modes. ──
     build(
       "ja-m4-6-s1",
       "Say: This is my umbrella.",
       "これは わたしの かさです",
-      ["これは", "わたしの", "かさです", "それは", "ともだちの"],
-      ["これは", "わたしの", "かさです"],
+      ["これ", "は", "わたし", "の", "かさ", "です", "それ", "ともだち"],
+      ["これ", "は", "わたし", "の", "かさ", "です"],
     ),
     // Speaking on the just-built sentence — hard direction immediately.
     speaking(
@@ -916,29 +1183,25 @@ export const M4_6: LessonContent = {
       "これは わたしの かさです",
       "This is my umbrella.",
     ),
-    translateStep({
-      id: "ja-m4-6-translate-s2",
-      promptEn: "Is that your bag?",
-      acceptedAnswers: [
-        "それは あなたの かばんですか",
-        "それは あなたの かばんですか。",
-        "それはあなたのかばんですか",
-        "sore wa anata no kaban desu ka",
-      ],
-      audioText: "それは あなたの かばんですか",
-    }),
+    build(
+      "ja-m4-6-translate-s2",
+      "Is that your bag?",
+      "それは あなたの かばんですか",
+      ["それ", "は", "あなた", "の", "かばん", "です", "か", "これ", "わたし"],
+      ["それ", "は", "あなた", "の", "かばん", "です", "か"],
+    ),
     build(
       "ja-m4-6-s3",
       "Say: That over there is the teacher's car.",
       "あれは せんせいの くるまです",
-      ["あれは", "せんせいの", "くるまです", "ともだちの", "これは"],
-      ["あれは", "せんせいの", "くるまです"],
+      ["あれ", "は", "せんせい", "の", "くるま", "です", "ともだち", "これ"],
+      ["あれ", "は", "せんせい", "の", "くるま", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m4-6-lb-s4",
       target: "にほんの カメラです",
-      tiles: ["にほんの", "カメラです", "わたしの", "ペンです"],
-      correctOrder: ["にほんの", "カメラです"],
+      tiles: ["にほん", "の", "カメラ", "です", "わたし", "ペン"],
+      correctOrder: ["にほん", "の", "カメラ", "です"],
       promptEn: "Hear it, build it: 'It's a Japanese camera.'",
     }),
     speaking(
@@ -946,27 +1209,47 @@ export const M4_6: LessonContent = {
       "にほんの カメラです",
       "It's a Japanese camera.",
     ),
+    // Listening on じてんしゃです — third surface (M4-3 build + M4-3 cloze
+    // + here) so the compound atom clears n=3.
+    listeningCompSentence({
+      id: "ja-m4-6-lc-friend-bike",
+      audioText: "ともだちの じてんしゃです",
+      correctMeaningEn: "It's my friend's bicycle.",
+      distractorsEn: [
+        "It's my bicycle.",
+        "It's the teacher's bicycle.",
+        "Is it my friend's bicycle?",
+      ],
+    }),
     build(
       "ja-m4-6-s5",
       "Ask: Which is your dictionary?",
       "どれが あなたの じしょですか",
-      ["どれが", "あなたの", "じしょですか", "どれは", "わたしの"],
-      ["どれが", "あなたの", "じしょですか"],
+      ["どれ", "が", "あなた", "の", "じしょ", "です", "か", "は", "わたし"],
+      ["どれ", "が", "あなた", "の", "じしょ", "です", "か"],
     ),
-    // Translate (typed) production — additional generation step on a
-    // pointer + possessive composite. Bumps the production density above
-    // the 5-sentence floor.
-    translateStep({
-      id: "ja-m4-6-translate-s6",
-      promptEn: "That over there is the teacher's bag.",
-      acceptedAnswers: [
-        "あれは せんせいの かばんです",
-        "あれは せんせいの かばんです。",
-        "あれはせんせいのかばんです",
-        "are wa sensei no kaban desu",
-      ],
-      audioText: "あれは せんせいの かばんです",
-    }),
+    // だれ cloze — third+ surface across M4 (M4-5 vocab + M4-5 cloze + here
+    // + M4-7 dialogue). Uses の (whose) — most common だれ pairing.
+    cloze(
+      "ja-m4-6-cloze-dare",
+      "これは だれ",
+      " ペンですか。",
+      "の",
+      ["の", "は", "が", "を"],
+      "Whose pen is this?",
+      "これは だれの ペンですか。",
+      "だれの = 'whose.' Combines the question word だれ ('who') with the possession particle の.",
+    ),
+    // Tile-bank production — additional generation step on a pointer +
+    // possessive composite. Bumps the production density above the
+    // 5-sentence floor.
+    build(
+      "ja-m4-6-translate-s6",
+      "That over there is the teacher's bag.",
+      "あれは せんせいの かばんです",
+      ["あれ", "は", "せんせい", "の", "かばん", "です", "それ", "ともだち"],
+      ["あれ", "は", "せんせい", "の", "かばん", "です"],
+    ),
     // sentenceMcq retrieval check after the production block.
     sentenceMcq({
       id: "ja-m4-6-mcq-recall",
@@ -980,6 +1263,13 @@ export const M4_6: LessonContent = {
       explanation:
         "だれ = who; だれの = whose. どれ = which one; なん = what — they don't ask about a person. The fourth option breaks the possessive (は instead of の).",
     }),
+    // Extra speaking — hard-direction lock on the だれの question form just
+    // before the review tail (post-step-12 per the hard-direction-last rule).
+    speaking(
+      "ja-m4-6-speak-dare",
+      "これは だれの ペンですか",
+      "Whose pen is this?",
+    ),
     // ── Review tail (M3 atoms — fresh subset). ──
     listeningCompSentence({
       id: "ja-m4-6-rev-lc-m3",
@@ -992,17 +1282,38 @@ export const M4_6: LessonContent = {
       ],
     }),
     vocabMcq("ja-m4-6-rev-mcq-m3", M4_6_REVIEW[1], M4_REVIEW_M3_POOL),
+    // Cumulative M2 listening tap between the two visual MCQs (avoids 2
+    // adjacent word_image_mcq steps).
+    listeningCompSentence({
+      id: "ja-m4-6-rev-lc-m2",
+      audioText: M4_REVIEW_M2_POOL[1].kana,
+      correctMeaningEn: M4_REVIEW_M2_POOL[1].meaningEn,
+      distractorsEn: [
+        M4_REVIEW_M2_POOL[2].meaningEn,
+        M4_REVIEW_M2_POOL[0].meaningEn,
+        M4_REVIEW_M1_POOL[5].meaningEn,
+      ],
+    }),
+    vocabMcq(
+      "ja-m4-6-rev-mcq-m1",
+      M4_REVIEW_M1_POOL[4],
+      M4_REVIEW_M1_POOL,
+    ),
     reviewMatchPairs("ja-m4-6-rev", M4_6_REVIEW),
     infoStep(
       "ja-m4-6-info-end",
-      "Production locked",
-      "Five sentences combining M3 + M4 grammar across four modes. Two new pieces, full flexibility.",
+      "You can build any object sentence",
+      "Six sentences across four production modes + question-word drills + cumulative review. You can now describe, ask about, or identify any object across four spatial distances.",
       "win",
     ),
   ],
 };
 
 assertNoSameAnswerCluster(M4_6.steps);
+// Two clozes (warmup→は, dare→の) — 2 distinct correct particles in the
+// M4-6 production sub-lesson.
+assertAnswerRotation(M4_6.steps, 2);
+assertNoConsecutiveSame(M4_6.steps);
 
 // ----- M4-7 — Mini-dialogue — at a friend's place + cumulative review -----
 
@@ -1013,66 +1324,129 @@ export const M4_7: LessonContent = {
   moduleId: "m4",
   courseId: COURSE,
   languageId: LANG,
-  title: "Mini-dialogue — at a friend's place",
+  title: "Mini-dialogue — at a friend's apartment",
   description:
-    "Identifying objects. 'Whose is this?' / 'Which one?' — natural use of の and the pointer system. Cumulative review across M1 + M2 + M3.",
-  estimatedMinutes: 9,
-  xpReward: 22,
+    "A short visit to a friend's place — sorting whose things are whose, with a photo on the wall as the conversation hook. Uses the new dialogue_listen step (listen → answer comprehension Qs). Cumulative review across M1 + M2 + M3.",
+  estimatedMinutes: 10,
+  xpReward: 26,
   steps: [
     infoStep(
       "ja-m4-7-info-open",
       "Drop into the scene",
-      "You're at a friend's apartment. There are a few objects on the table — who do they belong to? Every word and grammar piece is something you've met across M3 + M4.",
+      "You're at a friend's apartment. There's a photo on the wall and a few objects on the table — who do they belong to, and who's in the picture? Every word and grammar piece is something you've met across M3 + M4.",
       "culture",
     ),
-    ...dialogueLesson({
-      idPrefix: "ja-m4-7",
-      representative: {
-        phrase: "それは ともだちの ペンです",
-        translation: "That's my friend's pen.",
-      },
+    // ── Warm-up: re-tap だれ ('who'), the key question word for the
+    //    dialogue's "whose X" comprehension question. ──
+    listeningCompSentence({
+      id: "ja-m4-7-lc-warmup-dare",
+      audioText: "だれの ペンですか",
+      correctMeaningEn: "Whose pen is it?",
+      distractorsEn: [
+        "Which pen is it?",
+        "What kind of pen is it?",
+        "Is it your pen?",
+      ],
+    }),
+    // Warm-up vocab refresh — review tap on かばん (the dialogue's first
+    // object) and カメラ (the photo prop) before the live audio lands.
+    vocabMcq(
+      "ja-m4-7-warmup-mcq-kaban",
+      { kana: "かばん", meaningEn: "bag", emoji: "👜", fromModule: "m4" },
+      M4_REVIEW_M3_POOL,
+    ),
+    // Warm-up cloze before the dialogue — locks the だれ + の = whose
+    // pattern the dialogue uses.
+    cloze(
+      "ja-m4-7-warmup-cloze",
+      "これは だれ",
+      " カメラですか。",
+      "の",
+      ["の", "は", "が", "を"],
+      "Whose camera is this?",
+      "これは だれの カメラですか。",
+      "だれの = whose. の after a question word turns it into 'whose ___'.",
+    ),
+    // Build warm-up — production direction on a pointer + possessive
+    // before the listening-heavy dialogue. Anchors what the learner will
+    // hear in the dialogue's own Friend turn.
+    build(
+      "ja-m4-7-translate-warmup",
+      "Is that (near you) your bag?",
+      "それは あなたの かばんですか",
+      ["それ", "は", "あなた", "の", "かばん", "です", "か", "あれ", "せんせい"],
+      ["それ", "は", "あなた", "の", "かばん", "です", "か"],
+    ),
+    // ── NEW dialogue_listen step — replaces the legacy dialogueLesson
+    //    phrase-card chain. 4 dialogue lines, 3 comprehension Qs probing
+    //    'whose X' + 'what's in the photo' (the photo on the wall holds
+    //    a camera + an older brother — both referenced by atoms that
+    //    already have n≥3 elsewhere in M4) per wave-4B brief.
+    //
+    //    `audioText` overrides the natural kana for tokenization so the
+    //    atom-coverage walker sees compound forms (e.g. かばんですか) that
+    //    appear ≥3× elsewhere in M4. The user-facing kana stays natural. ──
+    dialogueListen({
+      id: "ja-m4-7-dialogue",
       lines: [
         {
           speaker: "Friend",
-          meaningEn: "Is that your bag?",
-          romaji: "sore wa anata no kaban desu ka",
-          kana: "それは あなたの かばんですか",
-          speakingPhrase: "それは あなたの かばんですか",
+          kana: "それは あなたの かばんですか。",
+          audioText: "それは あなたの かばんですか",
         },
         {
           speaker: "You",
-          meaningEn: "Yes, it's mine.",
-          romaji: "hai, watashi no desu",
-          kana: "はい、わたしのです",
-          cultureNote:
-            "When the noun is obvious from context (the bag we're looking at), you can drop it and just say 'わたしの' = 'mine.'",
+          kana: "それは ともだちの かばんです。",
+          audioText: "それは ともだちの かばんです",
         },
         {
           speaker: "Friend",
-          meaningEn: "And this pen?",
-          romaji: "kono pen wa",
-          kana: "このペンは？",
-          cultureNote:
-            "この + noun is a shorter way to say 'this [noun]' — preview of next module.",
+          kana: "あれは あにの カメラです。",
+          audioText: "あれは あにの カメラです",
         },
         {
           speaker: "You",
-          meaningEn: "That's my friend's pen.",
-          romaji: "sore wa tomodachi no pen desu",
-          kana: "それは ともだちの ペンです",
-          speakingPhrase: "それは ともだちの ペンです",
+          kana: "あれは にほんの カメラですか。",
+          audioText: "あれは にほんの カメラですか",
         },
       ],
-    }),
-    // ── Post-dialogue comprehension check on a dialogue line. ──
-    listeningCompSentence({
-      id: "ja-m4-7-lc-dialogue",
-      audioText: "それは あなたの かばんですか",
-      correctMeaningEn: "Is that your bag?",
-      distractorsEn: [
-        "Is that my bag?",
-        "This is my bag.",
-        "Is that the teacher's bag?",
+      questions: [
+        {
+          id: "ja-m4-7-q1",
+          prompt: "Whose bag is near the listener?",
+          correctText: "Their friend's bag",
+          distractors: [
+            "The speaker's own bag",
+            "Their host friend's bag",
+            "The teacher's bag",
+          ],
+          explanation:
+            "First two lines: friend asks 'is that (near you) your bag?' and the speaker answers 'that is my friend's bag' (ともだちの かばんです). それ = near the listener.",
+        },
+        {
+          id: "ja-m4-7-q2",
+          prompt: "Whose camera is on display far across the room?",
+          correctText: "The friend's older brother's camera",
+          distractors: [
+            "The friend's own camera",
+            "The speaker's camera",
+            "The teacher's camera",
+          ],
+          explanation:
+            "あにの カメラ = 'older brother's camera' — あに = older brother. The friend is pointing out a camera that belongs to their あに. あれ = far from both speakers.",
+        },
+        {
+          id: "ja-m4-7-q3",
+          prompt: "What does the speaker ask at the very end?",
+          correctText: "Whether the far-away camera is Japanese",
+          distractors: [
+            "Whether the bag is Japanese",
+            "Whose bag it is",
+            "Whether the friend has a camera",
+          ],
+          explanation:
+            "あれは にほんの カメラですか = 'is that over there a Japanese camera?' にほんの カメラ uses the 'kind-of' reading of の (a Japanese-kind-of camera), not possession.",
+        },
       ],
     }),
     // ── Cumulative grammar check — answers rotate (の / は). ──
@@ -1108,18 +1482,46 @@ export const M4_7: LessonContent = {
       "Is that over there the teacher's car?",
       "あれは せんせいの くるまですか。",
     ),
-    // Production tap — translate one cumulative sentence.
-    translateStep({
-      id: "ja-m4-7-translate-final",
-      promptEn: "This is my friend's pen.",
-      acceptedAnswers: [
-        "これは ともだちの ペンです",
-        "これは ともだちの ペンです。",
-        "これはともだちのペンです",
-        "kore wa tomodachi no pen desu",
+    // Listening break between the two cumulative clozes (avoids 2 adjacent
+    // particle_cloze; also keeps カメラです warm at module close).
+    listeningCompSentence({
+      id: "ja-m4-7-lc-cumulative",
+      audioText: "にほんの カメラです",
+      correctMeaningEn: "It's a Japanese camera.",
+      distractorsEn: [
+        "It's my camera.",
+        "It's a Japanese car.",
+        "Is it a Japanese camera?",
       ],
-      audioText: "これは ともだちの ペンです",
     }),
+    // Rotating-answer cloze — か (M3 review) breaks the の streak so the
+    // assertAnswerRotation(2+) gate stays green and the learner doesn't
+    // pattern-match the cluster to "always の".
+    cloze(
+      "ja-m4-7-cloze-3-ka",
+      "これは あなたの かさです",
+      "。",
+      "か",
+      ["か", "は", "の", "を"],
+      "Is this your umbrella?",
+      "これは あなたの かさですか。",
+      "M3 review: か at the end turns a statement into a question. Same M4 surface (pointer + possessive + noun) — just the closer changes.",
+    ),
+    // Production tap — build one cumulative sentence.
+    build(
+      "ja-m4-7-translate-final",
+      "This is my friend's pen.",
+      "これは ともだちの ペンです",
+      ["これ", "は", "ともだち", "の", "ペン", "です", "それ", "わたし"],
+      ["これ", "は", "ともだち", "の", "ペン", "です"],
+    ),
+    // Speaking — hard direction on the dialogue's anchor sentence so the
+    // learner leaves the lesson with a fluent production hook.
+    speaking(
+      "ja-m4-7-speak-final",
+      "それは ともだちの ペンです",
+      "That's my friend's pen.",
+    ),
     // ── Cumulative review tail — broadest set (M1 + M2 + M3). ──
     vocabMcq(
       "ja-m4-7-rev-mcq-1",
@@ -1142,17 +1544,54 @@ export const M4_7: LessonContent = {
       M4_7_REVIEW.filter((a) => Boolean(a.emoji))[1]!,
       M4_REVIEW_POOL,
     ),
+    // Cumulative cloze tap — M3 sentence pattern (は + です + か) on a
+    // cumulative noun. Adds a second answer (か) so the M4-7 cloze cluster
+    // already rotates の/の/か → 2 distinct correct particles.
+    cloze(
+      "ja-m4-7-rev-cloze-final",
+      "あれは ともだちの ペンです",
+      "。",
+      "か",
+      ["か", "は", "の", "を"],
+      "Is that over there your friend's pen?",
+      "あれは ともだちの ペンですか。",
+      "Final M3+M4 composite: pointer (あれ) + topic (は) + possessive (の) + question closer (か). The full toolkit.",
+    ),
+    // Extra deep-pool listening tap — keeps M1 atoms alive at module close.
+    listeningCompSentence({
+      id: "ja-m4-7-rev-lc-deep",
+      audioText: M4_REVIEW_M1_POOL[6].kana,
+      correctMeaningEn: M4_REVIEW_M1_POOL[6].meaningEn,
+      distractorsEn: [
+        M4_REVIEW_M1_POOL[7].meaningEn,
+        M4_REVIEW_M1_POOL[8].meaningEn,
+        M4_REVIEW_M1_POOL[9].meaningEn,
+      ],
+    }),
+    // Final cumulative build_sentence — production direction across the
+    // dialogue's anchor pattern (pointer + possessive + noun). Lifts the
+    // distinct-step-types count and lands the module on a high-leverage
+    // hard-direction step.
+    build(
+      "ja-m4-7-build-final",
+      "Say: That's my friend's bag.",
+      "それは ともだちの かばんです",
+      ["それ", "は", "ともだち", "の", "かばん", "です", "これ", "わたし"],
+      ["それ", "は", "ともだち", "の", "かばん", "です"],
+    ),
     reviewMatchPairs("ja-m4-7-rev", M4_7_REVIEW.slice(0, 6)),
     infoStep(
       "ja-m4-7-info-end",
-      "Object talk",
-      "Four dialogue lines + cumulative review across M1 + M2 + M3 atoms. You can now identify and possess objects across four spatial distances — half of small-talk Japanese.",
+      "You can navigate a friend's apartment",
+      "Live dialogue + comprehension Qs + cumulative review across M1 + M2 + M3. You can now ask whose anything is, point at objects across four spatial distances, and parse a friend's casual chatter about who's in the photo.",
       "win",
     ),
   ],
 };
 
 assertNoSameAnswerCluster(M4_7.steps);
+assertAnswerRotation(M4_7.steps, 2);
+assertNoConsecutiveSame(M4_7.steps);
 
 // ----- M4-8 — Row test (mastery ★) ----------------------------------------
 // PRESERVED from the prior structure. The row test is the mastery surface
@@ -1167,17 +1606,22 @@ function particleMc(
   distractors: [string, string, string],
   explanation: string,
 ): MultipleChoiceStep {
+  // Rotate correct slot by id-hash (2026-05-18 audit).
+  const items = [
+    { id: "correct", text: correct },
+    { id: "opt-1", text: distractors[0] },
+    { id: "opt-2", text: distractors[1] },
+    { id: "opt-3", text: distractors[2] },
+  ];
+  const slot = slotFor(id, 4);
+  const correctItem = items.shift()!;
+  items.splice(slot, 0, correctItem);
   return {
     id,
     type: "multiple_choice",
     prompt,
     promptAudioText: audioText,
-    options: [
-      { id: "correct", text: correct },
-      { id: "opt-1", text: distractors[0] },
-      { id: "opt-2", text: distractors[1] },
-      { id: "opt-3", text: distractors[2] },
-    ],
+    options: items,
     correctOptionId: "correct",
     explanation,
     optionsHideRomaji: true,
@@ -1252,8 +1696,8 @@ const M4_TEST_ITEMS: RowTestItem[] = [
       type: "build_sentence",
       prompt: "Say: This is my friend's pen.",
       targetSentence: "これは ともだちの ペンです",
-      tiles: ["これは", "ともだちの", "ペンです", "それは", "わたしの"],
-      correctOrder: ["これは", "ともだちの", "ペンです"],
+      tiles: ["これ", "は", "ともだち", "の", "ペン", "です", "それ", "わたし"],
+      correctOrder: ["これ", "は", "ともだち", "の", "ペン", "です"],
       granularity: "word",
       audioKey: "これは ともだちの ペンです",
       targetAnnotation: [{ surface: "これは ともだちの ペンです", reading: "これは ともだちの ペンです" }],

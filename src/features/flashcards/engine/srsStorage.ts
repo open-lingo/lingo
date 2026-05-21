@@ -1,17 +1,50 @@
 import type { SRSCardState } from "../data/types";
 
-const STORAGE_KEY = "open-lingo-srs";
+// Bumped storage namespace for the FSRS-6 migration (2026-05-20). The
+// schema changed (stability + difficulty replaced easeFactor) and we
+// intentionally discard prior entries rather than mapping them — see
+// docs/lesson-editor-research-2026-05-20.md and CLAUDE.md.
+const STORAGE_KEY = "open-lingo-srs:v2";
+const LEGACY_STORAGE_KEY = "open-lingo-srs";
 const LAST_SYNC_KEY = "open-lingo-srs-last-sync";
 const NEXT_SYNC_KEY = "open-lingo-srs-next-sync";
 
 export type SRSStore = Record<string, SRSCardState>;
 
+/** Type guard: matches the post-FSRS-6 schema. Drops any other shape. */
+function isFsrsState(v: unknown): v is SRSCardState {
+  if (!v || typeof v !== "object") return false;
+  const obj = v as Record<string, unknown>;
+  return (
+    typeof obj.stability === "number" &&
+    typeof obj.difficulty === "number" &&
+    typeof obj.state === "string" &&
+    typeof obj.interval === "number" &&
+    typeof obj.dueDate === "string" &&
+    typeof obj.lastReviewDate === "string" &&
+    typeof obj.reps === "number" &&
+    typeof obj.lapses === "number" &&
+    (obj.learningSteps === undefined || typeof obj.learningSteps === "number")
+  );
+}
+
 export function getSRSStore(): SRSStore {
   if (typeof window === "undefined") return {};
   try {
+    // One-time clear of any pre-FSRS-6 store still hanging around in
+    // older browsers. Cheap, idempotent, and only runs while the legacy
+    // key exists.
+    if (localStorage.getItem(LEGACY_STORAGE_KEY) !== null) {
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
+    }
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return {};
-    return JSON.parse(raw) as SRSStore;
+    const parsed = JSON.parse(raw) as Record<string, unknown>;
+    const valid: SRSStore = {};
+    for (const [id, state] of Object.entries(parsed)) {
+      if (isFsrsState(state)) valid[id] = state;
+    }
+    return valid;
   } catch {
     return {};
   }

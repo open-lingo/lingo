@@ -46,24 +46,61 @@ export type FlashcardDeck = {
   courseId?: string;
   /** Cover/thumbnail URL. Use getDeckImageUrl() for placeholder when omitted. */
   image?: string;
-  /** Initial ease for new cards (SM-2). Omit = 2.5. */
+  /**
+   * Legacy SM-2 initial ease. Retained on the deck schema so authored
+   * deck JSON keeps validating, but no longer consumed by the FSRS-6
+   * engine. Safe to ignore in new code; will be removed once deck JSON
+   * is regenerated without it.
+   */
   defaultEase?: number;
   /** UI locale for names/descriptions (e.g. en, ko). Filter by user's selected locale. */
   locale?: string;
 };
 
-/** SRS (spaced repetition) state per card. Stored per user (localStorage or backend). */
+/** FSRS card phase. */
+export type SRSPhase = "new" | "learning" | "review" | "relearning";
+
+/**
+ * SRS state per card. Stored per user (localStorage / backend).
+ *
+ * Engine: FSRS-6 (Free Spaced Repetition Scheduler v6). The 4 rating
+ * buttons (Again/Hard/Good/Easy) are unchanged from the prior SM-2
+ * implementation; Hard is a *success* with reduced stability gain, not a
+ * failure. Card state schema is FSRS-native (stability + difficulty)
+ * with `interval` kept as a stored display field.
+ *
+ * `lapses` counts total Agains across the card's lifetime. `reps` counts
+ * total reviews. `state` is the FSRS phase ("new"/"learning"/"review"/
+ * "relearning").
+ */
 export type SRSCardState = {
-  easeFactor: number;
+  /** FSRS stability (S): predicted retention interval in days. */
+  stability: number;
+  /** FSRS difficulty (D): per-card difficulty in [1, 10]. */
+  difficulty: number;
+  /** FSRS phase. New cards always start here; resets push to "learning". */
+  state: SRSPhase;
+  /** Scheduled days until next review. Derived from stability + target retention; stored for sort/display. */
   interval: number;
+  /** Next due date, YYYY-MM-DD (local). */
   dueDate: string;
-  repetitions: number;
+  /** Date of most recent review, YYYY-MM-DD (local). */
   lastReviewDate: string;
+  /** Total successful + failed reviews across the card's lifetime. */
+  reps: number;
+  /** Total Again ratings (lapses) across the card's lifetime. */
+  lapses: number;
+  /**
+   * FSRS-6 internal: how many learning steps the card has progressed
+   * through. Required to correctly resume cards mid-graduation. Omit
+   * for review-state cards.
+   */
+  learningSteps?: number;
   /** ISO timestamp of last sync to backend. Undefined = never synced. */
   lastSyncedAt?: string;
-  /** If set and > today, card is buried (excluded from queue until this date). YYYY-MM-DD. */
+  /** If set and > today, card is buried (excluded from queue). YYYY-MM-DD. */
   buriedUntil?: string;
 };
 
-/** Rating after reviewing a card. Used by SRS algorithm. */
+/** Rating after reviewing a card. Used by FSRS-6 scheduler. */
 export type SRSRating = "again" | "hard" | "good" | "easy";

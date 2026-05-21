@@ -180,6 +180,16 @@ const AdminDecksPage = lazyRetry(() =>
 const AdminStoriesPage = lazyRetry(() =>
   import("@/features/admin/AdminStoriesPage").then((m) => ({ default: m.AdminStoriesPage })),
 );
+const AdminLessonsListPage = lazyRetry(() =>
+  import("@/features/admin/lessons/AdminLessonsListPage").then((m) => ({
+    default: m.AdminLessonsListPage,
+  })),
+);
+const AdminLessonEditorPage = lazyRetry(() =>
+  import("@/features/admin/lessons/AdminLessonEditorPage").then((m) => ({
+    default: m.AdminLessonEditorPage,
+  })),
+);
 
 function ForumThreadRedirect() {
   const { threadId } = useParams<{ threadId: string }>();
@@ -223,6 +233,8 @@ const router = createBrowserRouter([
               { index: true, element: <Navigate to="decks" replace /> },
               { path: "decks", element: <AdminDecksPage /> },
               { path: "stories", element: <AdminStoriesPage /> },
+              { path: "lessons", element: <AdminLessonsListPage /> },
+              { path: "lessons/:lessonId", element: <AdminLessonEditorPage /> },
             ],
           },
         ],

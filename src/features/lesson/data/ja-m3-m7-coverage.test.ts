@@ -48,12 +48,17 @@ describe("M3-M7 lesson registration", () => {
         expect(grammarRules.length).toBeGreaterThan(0);
       });
 
-      it("contains at least one dialogue (phrase_card with speaker prefix)", () => {
+      it("contains at least one dialogue (phrase_card with speaker prefix OR dialogue_listen step)", () => {
+        // Wave 4B migrated dialogue closers from the dialogueLesson factory
+        // (which emitted speaker-prefixed phrase_cards) to the new
+        // dialogueListen step type. Accept either shape.
         const dialogueLines = lessonIds.flatMap((id) => {
           const lesson = getMockLessonContent(id);
           return (
             lesson?.steps.filter(
-              (s) => s.type === "phrase_card" && s.meaningEn.includes(":"),
+              (s) =>
+                (s.type === "phrase_card" && s.meaningEn.includes(":")) ||
+                s.type === "dialogue_listen",
             ) ?? []
           );
         });

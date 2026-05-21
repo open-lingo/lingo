@@ -622,9 +622,13 @@ Practice / drill surfaces unlock as module progress crosses thresholds:
 
 Needs a feature-unlock registry (`featureUnlocks: Record<FeatureId, { minModule: string }>`). Practice / grammar / conjugation routes currently reachable from nav at any progress — soft leak to close during rebuild.
 
-### 10.3 Sub-lesson density target: ~20 steps, sit close to it
+### 10.3 Sub-lesson density target: **20-22 steps**, aim 21
 
-Authoring re-target from M1's current 11-17 step max to a **~20-step ceiling** per sub-lesson. Every sub-lesson appends 2-4 review steps from prior content (compounding rule §10.4). Absorbs CLAUDE.md R2-defer-F (prior-row review tail).
+Authoring target (Spencer directive 2026-05-18, post-tester walkthrough): every sub-lesson **20-22 steps, aim 21**. Was "~20 ceiling" — raised to a **floor of 20** after the tester (T8 in `docs/user-feedback/2026-05-18-tester-m1-m2-walkthrough.md`) asked for *more* end-of-sub-lesson recap. Above 25 = hard ceiling; split into two sub-lessons if you'd exceed.
+
+Every sub-lesson appends 2-4 review steps from prior content (compounding rule §10.4) AND/OR a sentence-pattern sprinkle (T11 tester finding). Absorbs CLAUDE.md R2-defer-F (prior-row review tail).
+
+Current M3-M7 sub-lessons mostly sit at 14-19 (per the wave-2 rebuild). Wave-4 should re-density them to 20-22.
 
 ### 10.4 Compounding-effect authoring rule (first-class)
 

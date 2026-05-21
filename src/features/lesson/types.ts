@@ -22,6 +22,7 @@ export type StepType =
   | "grammar_rule"
   | "particle_cloze"
   | "self_explanation_mcq"
+  | "dialogue_listen"
   | "row_test";
 
 export type StepBase = {
@@ -414,6 +415,50 @@ export type SelfExplanationMcqStep = StepBase & {
   ruleExplanation?: string;
 };
 
+/**
+ * Dialogue-listen step (M3+). Plays a short 2-4 turn dialogue sequentially
+ * (gap between turns), then asks 2-3 comprehension MCQs over the dialogue.
+ * No transcript is shown by default — `transcriptRevealAfter` controls when
+ * (if ever) the spoken kana lines are revealed as a chat-bubble transcript.
+ *
+ * Pedagogy: forces audio-only retrieval on a multi-turn exchange. Replaces
+ * the prior "phrase cards in sequence" dialogue closer with a real
+ * retrieval moment. See docs/curriculum-roadmap-n5-2026-05-18.md §5.2 +
+ * docs/wave-4-m3-m7-reauthor-2026-05-18.md §3.
+ */
+export type DialogueListenLine = {
+  /** Display label for the speaker — "Stranger" / "You" / "Server" / etc. */
+  speaker: string;
+  /** Kana form of the line. Used for TTS lookup AND for the transcript
+   *  reveal (rendered as a chat bubble alongside the speaker label). */
+  kana: string;
+  /** Override the kana for TTS lookup when the manifest key differs from
+   *  the display kana. Default: `kana`. */
+  audioText?: string;
+};
+
+export type DialogueListenQuestion = {
+  id: string;
+  /** English prompt — what is being asked about the dialogue. */
+  prompt: string;
+  options: Option[];
+  correctOptionId: string;
+  explanation?: string;
+};
+
+export type DialogueListenStep = StepBase & {
+  type: "dialogue_listen";
+  lines: DialogueListenLine[];
+  questions: DialogueListenQuestion[];
+  /**
+   * When to reveal the dialogue transcript as a chat-bubble list:
+   *   - "first-answer" (default): after the first question commits.
+   *   - "all-answers": after every question commits.
+   *   - "never": transcript never shown.
+   */
+  transcriptRevealAfter?: "first-answer" | "all-answers" | "never";
+};
+
 export type RowTestStep = StepBase & {
   type: "row_test";
   rowId: string;
@@ -445,6 +490,7 @@ export type LessonStep =
   | GrammarRuleStep
   | ParticleClozeStep
   | SelfExplanationMcqStep
+  | DialogueListenStep
   | RowTestStep;
 
 export type LessonContent = {

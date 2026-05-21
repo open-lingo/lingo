@@ -17,6 +17,15 @@ const STATE_PATH = ".auth/user.json";
 setup("authenticate via Auth0", async ({ page }) => {
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
 
+  // 2026-05-18 coordinator: skip interactive login when a saved state
+  // already exists and is non-empty (>1KB threshold from the README
+  // footgun note). Required for headless CI / non-interactive runs.
+  if (fs.existsSync(STATE_PATH) && fs.statSync(STATE_PATH).size > 1024) {
+    // eslint-disable-next-line no-console
+    console.log(`[auth.setup] reusing existing ${STATE_PATH} (${fs.statSync(STATE_PATH).size} bytes)`);
+    return;
+  }
+
   // Go straight to /login — the LoginPage triggers the Auth0 redirect on mount.
   // (Going to "/" matches waitForURL immediately and short-circuits the wait.)
   await page.goto("/login");

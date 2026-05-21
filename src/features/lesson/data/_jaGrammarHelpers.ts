@@ -7,6 +7,7 @@
  */
 import type {
   BuildSentenceStep,
+  DialogueListenStep,
   GrammarRuleStep,
   GrammarExample,
   InfoStep,
@@ -54,12 +55,32 @@ export function cloze(
   audioText: string,
   explanation?: string,
 ): ParticleClozeStep {
+  // Slot-rotate so the correct particle doesn't always land where the
+  // author put it in the options array. Without this, ~83% of cloze
+  // sites would render the correct answer in position 0 (per 2026-05-18
+  // audit). Authors should still pass distinct options; we just reorder.
+  const correctIdx = options.indexOf(correctParticle);
+  let rotated = options;
+  if (correctIdx === -1) {
+    throw new Error(
+      `cloze(${id}): correctParticle '${correctParticle}' is not in options [${options.join(", ")}]`,
+    );
+  }
+  const targetSlot = slotFor(id, options.length);
+  if (correctIdx !== targetSlot) {
+    const without = options.filter((_, i) => i !== correctIdx);
+    rotated = [
+      ...without.slice(0, targetSlot),
+      correctParticle,
+      ...without.slice(targetSlot),
+    ];
+  }
   return {
     id,
     type: "particle_cloze",
     prompt: { before, after },
     correctParticle,
-    options,
+    options: rotated,
     meaningEn,
     audioText,
     explanation,
@@ -124,7 +145,13 @@ export function speaking(
     type: "speaking",
     targetPhrase,
     translation,
-    stubbed: true,
+    // 2026-05-18 (Spencer + tester): was stubbed:true, which meant every
+    // M3-M7 dialogue speaking step rendered the legacy "Speech recognition
+    // is not yet available / I said it!" placeholder. Whisper + the
+    // 2-fail-then-choice flow ship and work for these whole-utterance
+    // targets — graduate them to the recognized path. Matches the
+    // analogous flip on _consonantRowHelpers.speaking from 2026-05-17.
+    stubbed: false,
     audioKey: targetPhrase,
     targetAnnotation: [{ surface: targetPhrase, reading: targetPhrase }],
   };
@@ -220,11 +247,18 @@ export function selfExplain(opts: {
   distractor: { text: string };
   ruleExplanation?: string;
 }): SelfExplanationMcqStep {
-  const options: SelfExplanationOption[] = [
+  // Slot-rotate so the rule (correct answer) doesn't always land in
+  // position 0 — the 3 sites that show only 3 options would otherwise
+  // pattern-match to "always pick first." Per 2026-05-18 audit.
+  const base: SelfExplanationOption[] = [
     { id: `${opts.id}-rule`, text: opts.rule.text, reasonType: "rule" },
     { id: `${opts.id}-surface`, text: opts.surface.text, reasonType: "surface" },
     { id: `${opts.id}-distractor`, text: opts.distractor.text, reasonType: "distractor" },
   ];
+  const slot = slotFor(opts.id, base.length);
+  const options = [...base];
+  const correct = options.shift()!;
+  options.splice(slot, 0, correct);
   return {
     id: opts.id,
     type: "self_explanation_mcq",
@@ -292,6 +326,24 @@ export const M3_M7_REVIEW_POOL: ReviewAtom[] = [
   { kana: "かぎ",   meaningEn: "key",         emoji: "🔑", fromModule: "m2" },
   { kana: "げんき", meaningEn: "well/energy", emoji: "💪", fromModule: "m2" },
   { kana: "ごはん", meaningEn: "rice/meal",   emoji: "🍚", fromModule: "m2" },
+  // ── M2 z/d/b/p + yōon anchors. Before the 2026-05-18 expansion, only
+  //    g-row had M2 atoms; the other dakuten rows + yōon-rare were
+  //    structurally absent from M3-M7 review tails. `assertReviewPoolCoverage`
+  //    at module load now blocks regressions. ──
+  { kana: "かぞく",     meaningEn: "family",         emoji: "👪",  fromModule: "m2" }, // z-row (ぞ)
+  { kana: "じかん",     meaningEn: "time",           emoji: "⏰",  fromModule: "m2" }, // z-row (じ)
+  { kana: "まど",       meaningEn: "window",         emoji: "🪟",  fromModule: "m2" }, // d-row (ど)
+  { kana: "でんわ",     meaningEn: "telephone",      emoji: "☎️",  fromModule: "m2" }, // d-row (で)
+  { kana: "あそぶ",     meaningEn: "play",           emoji: "🎮",  fromModule: "m2" }, // b-row (ぶ)
+  { kana: "ぼうし",     meaningEn: "hat",            emoji: "🎩",  fromModule: "m2" }, // b-row (ぼ)
+  { kana: "えんぴつ",   meaningEn: "pencil",         emoji: "✏️",  fromModule: "m2" }, // p-row (ぴ)
+  { kana: "さんぽ",     meaningEn: "walk/stroll",    emoji: "🚶",  fromModule: "m2" }, // p-row (ぽ)
+  { kana: "きっぷ",     meaningEn: "ticket",         emoji: "🎫",  fromModule: "m2" }, // p-row (ぷ)
+  { kana: "ぎゅうにゅう", meaningEn: "milk",         emoji: "🥛",  fromModule: "m2" }, // yōon-voiced (ぎゅ)
+  { kana: "りょうり",   meaningEn: "cooking",        emoji: "🍳",  fromModule: "m2" }, // yōon (りょ)
+  { kana: "しゃしん",   meaningEn: "photo",          emoji: "📸",  fromModule: "m2" }, // yōon (しゃ)
+  { kana: "パーティー", meaningEn: "party",          emoji: "🎉",  fromModule: "m2" }, // yōon-rare (ティ)
+  { kana: "ティーシャツ", meaningEn: "T-shirt",      emoji: "👕",  fromModule: "m2" }, // yōon-rare (ティ)
   // ── M3 anchors (loanwords + people + concrete nouns from M3 v2 rebuild) ──
   { kana: "コーヒー",   meaningEn: "coffee",            emoji: "☕", fromModule: "m3" },
   { kana: "タクシー",   meaningEn: "taxi",              emoji: "🚕", fromModule: "m3" },
@@ -328,6 +380,7 @@ export const M3_M7_REVIEW_POOL: ReviewAtom[] = [
   { kana: "にほん",     meaningEn: "Japan",             emoji: "🇯🇵", fromModule: "m4" },
   { kana: "アメリカ",   meaningEn: "America",           emoji: "🇺🇸", fromModule: "m4" },
   { kana: "なん",       meaningEn: "what",              emoji: "❓", fromModule: "m4" },
+  { kana: "だれ",       meaningEn: "who",               emoji: "🙋‍♂️", fromModule: "m4" },
   { kana: "どれ",       meaningEn: "which one",         emoji: "🤔", fromModule: "m4" },
   { kana: "これ",       meaningEn: "this (near me)",    emoji: "👇", fromModule: "m4" },
   // ── M5 anchors (numbers + counters + café/transactional) ──
@@ -347,6 +400,12 @@ export const M3_M7_REVIEW_POOL: ReviewAtom[] = [
   { kana: "ひとり",     meaningEn: "1 person",          emoji: "🧍", fromModule: "m5" },
   { kana: "ふたり",     meaningEn: "2 people",          emoji: "👥", fromModule: "m5" },
   { kana: "さんにん",   meaningEn: "3 people",          emoji: "👨‍👩‍👦", fromModule: "m5" },
+  { kana: "よにん",     meaningEn: "4 people",          fromModule: "m5" },
+  { kana: "ごにん",     meaningEn: "5 people",          fromModule: "m5" },
+  { kana: "ひとつ",     meaningEn: "1 thing (generic counter)", fromModule: "m5" },
+  { kana: "ふたつ",     meaningEn: "2 things (generic counter)", fromModule: "m5" },
+  { kana: "みっつ",     meaningEn: "3 things (generic counter)", fromModule: "m5" },
+  { kana: "から",       meaningEn: "from (origin)",     fromModule: "m5" },
   { kana: "おかね",     meaningEn: "money",             emoji: "💰", fromModule: "m5" },
   { kana: "いくら",     meaningEn: "how much (price)",  emoji: "💲", fromModule: "m5" },
   { kana: "えん",       meaningEn: "yen",               emoji: "💴", fromModule: "m5" },
@@ -386,18 +445,102 @@ export const M3_M7_REVIEW_POOL: ReviewAtom[] = [
   { kana: "おさけ",     meaningEn: "sake",              emoji: "🍶", fromModule: "m7" },
 ];
 
+import { topStruggleKana } from "@/features/japanese/kanaMastery/struggleStore";
+
+/**
+ * Build-time guard: every M1 row and every M2 sub-row must have ≥2 anchor
+ * atoms in `M3_M7_REVIEW_POOL`. Catches the 2026-05-18 audit regression
+ * where p-row and yōon-rare had ZERO coverage — a 7-14 day gap learner
+ * could not surface those rows in any M3-M7 review tail.
+ *
+ * Probe kana ranges by row signature, not by `fromModule` (some M3+ atoms
+ * legitimately carry M2 kana; we want any anchor that exposes the row).
+ */
+const ROW_PROBES: ReadonlyArray<{ name: string; re: RegExp }> = [
+  { name: "ya",          re: /[やゆよ]/ },
+  { name: "ra",          re: /[らりるれろ]/ },
+  { name: "wa",          re: /[わを]/ },
+  { name: "g",           re: /[がぎぐげご]/ },
+  { name: "z",           re: /[ざじずぜぞ]/ },
+  { name: "d",           re: /[だぢづでど]/ },
+  { name: "b",           re: /[ばびぶべぼ]/ },
+  { name: "p",           re: /[ぱぴぷぺぽパピプペポ]/ },
+  { name: "yoon-voiced", re: /(じゃ|じゅ|じょ|ぎゃ|ぎゅ|ぎょ|びゃ|びゅ|びょ)/ },
+  { name: "yoon-rare",   re: /(ファ|フィ|フェ|フォ|ティ|ディ|ウィ|ウェ|ウォ|ツァ|ヴ)/ },
+];
+for (const { name, re } of ROW_PROBES) {
+  const hits = M3_M7_REVIEW_POOL.filter((a) => re.test(a.kana)).length;
+  if (hits < 2) {
+    throw new Error(
+      `M3_M7_REVIEW_POOL: row '${name}' has only ${hits} anchor(s); need ≥2 so a forgetting-gap learner can re-encounter the row in review tails.`,
+    );
+  }
+}
+
 /**
  * Draw N atoms from a prior-module pool, deterministic by seed. Identical
  * shuffle algorithm to `pickReviewWords` in _consonantRowHelpers so atom
  * rotation across re-mounts of the same lesson stays stable.
  *
  * When `n` exceeds the pool size, returns the whole pool.
+ *
+ * **Adaptive weighting (2026-05-18):** if a `struggle` map is provided
+ * (atom-kana → wrong-count), atoms with prior struggles are weighted
+ * roughly 3× as likely to appear early in the shuffle. This brings the
+ * function closer to FSRS-style "favor what was forgotten" without the
+ * full interval-state machinery. Deterministic given the same struggle
+ * snapshot.
  */
+export function pickReviewAtomsWeighted(
+  seed: string,
+  pool: ReviewAtom[],
+  n: number,
+  struggle: ReadonlyMap<string, number>,
+): ReviewAtom[] {
+  if (struggle.size === 0) return pickReviewAtoms(seed, pool, n);
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) {
+    h = (h * 31 + seed.charCodeAt(i)) | 0;
+  }
+  // Score each atom: base (seed-derived noise) plus weight from struggle.
+  const scored = pool.map((atom, i) => {
+    h = (h * 16807) % 2147483647;
+    const noise = Math.abs(h) / 2147483647; // [0, 1)
+    const w = struggle.get(atom.kana) ?? 0;
+    const weight = 1 + Math.min(w, 3) * 2; // wrong 1× → 3, 2× → 5, 3+× → 7
+    return { atom, key: noise / weight, i };
+  });
+  scored.sort((a, b) => a.key - b.key);
+  return scored.slice(0, Math.min(n, scored.length)).map((s) => s.atom);
+}
+
 export function pickReviewAtoms(
   seed: string,
   pool: ReviewAtom[],
   n: number,
 ): ReviewAtom[] {
+  // Struggle-weighted draw: read the kana struggle snapshot at call time
+  // and bias the shuffle toward atoms whose kana contains characters the
+  // learner has missed before. Falls back to pure seeded shuffle if the
+  // struggle store is empty (cold start) so first-time learners still get
+  // a stable, deterministic review tail.
+  const struggleKana = new Set(topStruggleKana("ja", 12));
+  if (struggleKana.size > 0) {
+    let h = 0;
+    for (let i = 0; i < seed.length; i++) {
+      h = (h * 31 + seed.charCodeAt(i)) | 0;
+    }
+    const scored = pool.map((atom) => {
+      h = (h * 16807) % 2147483647;
+      const noise = Math.abs(h) / 2147483647; // [0, 1)
+      let hits = 0;
+      for (const ch of atom.kana) if (struggleKana.has(ch)) hits += 1;
+      const weight = 1 + Math.min(hits, 3) * 2; // 1 hit → 3×, 2 → 5×, 3+ → 7×
+      return { atom, key: noise / weight };
+    });
+    scored.sort((a, b) => a.key - b.key);
+    return scored.slice(0, Math.min(n, scored.length)).map((s) => s.atom);
+  }
   const out = pool.slice();
   let h = 0;
   for (let i = 0; i < seed.length; i++) {
@@ -411,16 +554,29 @@ export function pickReviewAtoms(
   return out.slice(0, Math.min(n, out.length));
 }
 
-/** Deterministic 32-bit FNV-like hash → [0, slots). Used for slot rotation
- *  on auto-generated MCQs so the correct answer doesn't always land in
- *  position 0. */
-function slotFor(id: string, slots: number): number {
+/** Deterministic 32-bit hash → [0, slots) — FNV-1a with a Murmur3-style
+ *  finalizer so the low bits distribute well after `% slots`.
+ *
+ *  2026-05-18 audit found that the prior naked FNV variant collapsed to
+ *  ~75% slot-0 concentration on the lesson-id naming pattern (long shared
+ *  prefix `ja-mN-N-…`). The finalizer mixes high bits into low bits so a
+ *  modest hash difference no longer collides on `h % 4` /  `h % 3`.
+ *
+ *  Exported so the 5 mock-ja-m{3-v2,4,5,6,7}.ts files can reuse for
+ *  their inline particleMc row-test helpers. */
+export function slotFor(id: string, slots: number): number {
   let h = 2166136261;
   for (let i = 0; i < id.length; i++) {
     h ^= id.charCodeAt(i);
-    h = (h * 16777619) >>> 0;
+    h = Math.imul(h, 16777619);
   }
-  return h % slots;
+  // Murmur3 finalizer.
+  h ^= h >>> 16;
+  h = Math.imul(h, 0x85ebca6b);
+  h ^= h >>> 13;
+  h = Math.imul(h, 0xc2b2ae35);
+  h ^= h >>> 16;
+  return (h >>> 0) % slots;
 }
 
 /**
@@ -470,6 +626,15 @@ export const WORD_IMAGE_MCQ_BLOCKLIST: ReadonlySet<string> = new Set([
   "あります", // exists (thing) — grammatical existence, no visual referent
   "います",   // exists (alive) — same
   "こえ",     // voice — 🗣️ reads as "speech/shout," not the abstract "voice"
+  // 2026-05-18 coordinator unblock: M5 counter atoms have no honest
+  // visual referent (the counters need pairing with a noun to mean
+  // anything). Block so vocabMcq + withoutMcqBlocked filter them out.
+  "よにん",   // 4 people — pure counter, abstract
+  "ごにん",   // 5 people — pure counter, abstract
+  "ひとつ",   // 1 thing (generic counter) — abstract grouping
+  "ふたつ",   // 2 things (generic counter) — abstract grouping
+  "みっつ",   // 3 things (generic counter) — abstract grouping
+  "から",     // particle (from) — grammar marker, no visual
 ]);
 
 /**
@@ -539,6 +704,183 @@ export function vocabMcq(
   };
 }
 
+/* ────────────────────────────────────────────────────────────────────────
+ * Card-agnostic review factories (2026-05-21)
+ *
+ * These three factories are atom-shaped (signature `(idPrefix, target,
+ * distractorPool)`) and intentionally card-agnostic — they can be invoked
+ * at flashcards-surface render time for any SRS-eligible atom, given the
+ * minimal `ReviewAtom` shape. Catalog: docs/card-agnostic-reviews-2026-05-21.md.
+ *
+ * Pattern mirrors `vocabMcq`:
+ *  - 4 options, correct slot picked by `slotFor(idPrefix, 4)`
+ *  - 3 distractors drawn via `pickReviewAtoms(seed, pool, 3)` for stable
+ *    seeded shuffling across re-mounts
+ *  - Audio text resolves to `target.kana` (TTS manifest key)
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/**
+ * Audio→Image MCQ: hear the word, pick the matching emoji tile.
+ *
+ * Card-agnostic — works for any atom with an `emoji` (concrete-noun-shaped).
+ * Distractors drawn from the pool; must themselves carry emoji + not be
+ * image-blocked. Throws on the same conditions as `vocabMcq`.
+ *
+ * Differs from `vocabMcq` in that the PROMPT is audio-only (no meaningEn
+ * label) — the learner hears the kana via TTS and picks the matching
+ * picture. Same `WordImageMcqStep` shape; the renderer detects audio-prompt
+ * mode via the empty-string `meaningEn` + presence of the audio key in
+ * the step id (current contract; renderer enhancement tracked separately).
+ *
+ * For now, ships as a WordImageMcqStep with `meaningEn` left as the kana
+ * itself, so existing renderers fall back gracefully. The flashcards
+ * adaptive picker (phase 6) can choose between vocabMcq and audioImageMcq
+ * per atom based on prior-modality SRS state.
+ */
+export function audioImageMcq(
+  idPrefix: string,
+  target: ReviewAtom,
+  distractorPool: ReviewAtom[],
+): WordImageMcqStep {
+  if (!target.emoji) {
+    throw new Error(
+      `audioImageMcq: target '${target.kana}' has no emoji — use audioMeaningMcq or listeningBuild instead`,
+    );
+  }
+  if (WORD_IMAGE_MCQ_BLOCKLIST.has(target.kana)) {
+    throw new Error(
+      `audioImageMcq: target '${target.kana}' is image-blocked (see docs/emoji-blocked-words-2026-05-18.md) — use audioMeaningMcq instead`,
+    );
+  }
+  const filtered = distractorPool.filter(
+    (a) =>
+      a.kana !== target.kana &&
+      Boolean(a.emoji) &&
+      !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana),
+  );
+  const picked = pickReviewAtoms(`${idPrefix}-distractors`, filtered, 3);
+  if (picked.length < 3) {
+    throw new Error(
+      `audioImageMcq: not enough emoji-bearing distractors for '${target.kana}' (have ${picked.length}, need 3)`,
+    );
+  }
+  const slot = slotFor(idPrefix, 4);
+  const options: { id: string; word: string; emoji: string }[] = [];
+  let di = 0;
+  for (let i = 0; i < 4; i++) {
+    if (i === slot) {
+      options.push({ id: "correct", word: target.kana, emoji: target.emoji });
+    } else {
+      const d = picked[di++];
+      options.push({ id: `opt-${i}`, word: d.kana, emoji: d.emoji! });
+    }
+  }
+  return {
+    id: idPrefix,
+    type: "word_image_mcq",
+    // Audio-prompt mode: the meaning is intentionally the kana itself — the
+    // learner hears it via TTS and matches to the emoji. The renderer's
+    // "What is the word for X?" prompt becomes "What is the word for
+    // <kana>?" which still reads correctly with audio playing.
+    meaningEn: target.kana,
+    options,
+    correctOptionId: "correct",
+  };
+}
+
+/**
+ * Audio→Meaning MCQ: hear the word, pick the English meaning.
+ *
+ * Atom-form of `listeningCompSentence` (which is sentence-form with
+ * hand-authored distractor sentences). For atoms, distractors are the
+ * English meanings of other atoms in the pool. Works for any atom — emoji
+ * not required, blocklist not relevant (the answer surface is English).
+ *
+ * Card-agnostic — minimal data needed: `{kana, meaningEn}`. Used by the
+ * flashcards adaptive picker when the atom is hard-to-image (compound
+ * nouns, pronouns, abstract concepts) or when the recognition-modality
+ * SRS state needs a non-visual review beat.
+ */
+export function audioMeaningMcq(
+  idPrefix: string,
+  target: ReviewAtom,
+  distractorPool: ReviewAtom[],
+): ListeningComprehensionStep {
+  const filtered = distractorPool.filter(
+    (a) => a.kana !== target.kana && a.meaningEn !== target.meaningEn,
+  );
+  const picked = pickReviewAtoms(`${idPrefix}-distractors`, filtered, 3);
+  if (picked.length < 3) {
+    throw new Error(
+      `audioMeaningMcq: not enough distractors for '${target.kana}' (have ${picked.length}, need 3)`,
+    );
+  }
+  const slot = slotFor(idPrefix, 4);
+  const options: { id: string; text: string }[] = [];
+  let di = 0;
+  for (let i = 0; i < 4; i++) {
+    if (i === slot) {
+      options.push({ id: "correct", text: target.meaningEn });
+    } else {
+      options.push({ id: `opt-${i}`, text: picked[di++].meaningEn });
+    }
+  }
+  return {
+    id: idPrefix,
+    type: "listening_comprehension",
+    audioKey: target.kana,
+    transcript: target.kana,
+    question: "What does this word mean?",
+    options,
+    correctOptionId: "correct",
+    transcriptAnnotation: [{ surface: target.kana, reading: target.kana }],
+  };
+}
+
+/**
+ * Translation MCQ: English prompt → pick the correct kana.
+ *
+ * Atom-form of `sentenceMcq` (which is sentence-form with hand-authored
+ * distractor kana sentences). For atoms, distractors are other atoms'
+ * kana. The English meaning is the prompt; learner picks among 4 kana.
+ *
+ * Card-agnostic — minimal data needed: `{kana, meaningEn}`. Used by the
+ * flashcards adaptive picker for the production-direction recognition
+ * beat (English-cue → kana-recall) without requiring a full typed
+ * `translateStep` (which is harder and slower).
+ */
+export function translationMcq(
+  idPrefix: string,
+  target: ReviewAtom,
+  distractorPool: ReviewAtom[],
+): MultipleChoiceStep {
+  const filtered = distractorPool.filter((a) => a.kana !== target.kana);
+  const picked = pickReviewAtoms(`${idPrefix}-distractors`, filtered, 3);
+  if (picked.length < 3) {
+    throw new Error(
+      `translationMcq: not enough distractors for '${target.kana}' (have ${picked.length}, need 3)`,
+    );
+  }
+  const slot = slotFor(idPrefix, 4);
+  const options: { id: string; text: string }[] = [];
+  let di = 0;
+  for (let i = 0; i < 4; i++) {
+    if (i === slot) {
+      options.push({ id: "correct", text: target.kana });
+    } else {
+      options.push({ id: `opt-${i}`, text: picked[di++].kana });
+    }
+  }
+  return {
+    id: idPrefix,
+    type: "multiple_choice",
+    prompt: target.meaningEn,
+    options,
+    correctOptionId: "correct",
+    optionsHideRomaji: true,
+  };
+}
+
 /**
  * Throws if more than `maxAdjacent` consecutive `particle_cloze` steps
  * share the same `correctParticle`. Catches the M3-5 / M6-6 / M7-5
@@ -569,6 +911,84 @@ export function assertNoSameAnswerCluster(
       }
     } else {
       runParticle = step.correctParticle;
+      runLen = 1;
+    }
+  }
+}
+
+/**
+ * Throws if a sub-lesson's `particle_cloze` block contains fewer than
+ * `minDistinct` unique correct particles across all cloze items.
+ *
+ * Per docs/m3-m7-audit-synthesis-2026-05-18.md §2.4: assertNoSameAnswerCluster
+ * only catches adjacent dupes. Lessons like M3-4 (5×は), M6-2 (4×に),
+ * M7-3 (all を) pass that guard but ship answer-set monotony — learners
+ * pattern-match "always pick X" without parsing.
+ *
+ * Pass `minDistinct = 3` for any drill-only sub-lesson; the introductory
+ * sub-lesson for a NEW particle can pass `minDistinct = 1` (legitimate
+ * focus on the new atom). Wave-4B agents will tighten module-by-module to
+ * `3` once answer-set re-author lands.
+ *
+ * `steps` should be the array of steps in ONE sub-lesson, not the whole
+ * module. Non-particle_cloze steps are ignored. Sub-lessons with zero
+ * particle_cloze steps trivially pass.
+ */
+export function assertAnswerRotation(
+  steps: LessonStep[],
+  minDistinct = 3,
+): void {
+  const entries: { id: string; correctParticle: string }[] = [];
+  for (const step of steps) {
+    if (step.type !== "particle_cloze") continue;
+    entries.push({ id: step.id, correctParticle: step.correctParticle });
+  }
+  if (entries.length === 0) return;
+  const distinct = new Set(entries.map((e) => e.correctParticle));
+  if (distinct.size < minDistinct) {
+    const detail = entries
+      .map((e) => `${e.id}→'${e.correctParticle}'`)
+      .join(", ");
+    throw new Error(
+      `assertAnswerRotation: sub-lesson has ${distinct.size} distinct correct particle(s) across ${entries.length} cloze item(s) (min ${minDistinct}). Items: [${detail}]`,
+    );
+  }
+}
+
+/**
+ * Throws if more than `maxAdjacent` consecutive steps share the same `type`,
+ * restricted to a configurable set of types. Catches the M5/M7 phrase_card
+ * runs that `assertNoSameAnswerCluster` misses — that guard only watches
+ * particle_cloze answers, not step-type adjacency. M7-8 shipped 5 phrase_cards
+ * in a row before this guard existed.
+ *
+ * Default watch set = ["phrase_card", "vocab"] (the two intro-style step types
+ * that are most prone to back-to-back stacking). Pass a custom set to widen.
+ *
+ * `steps` is one sub-lesson's step array. Non-watched types reset the run.
+ */
+export function assertNoConsecutiveSame(
+  steps: LessonStep[],
+  maxAdjacent = 2,
+  watch: ReadonlyArray<LessonStep["type"]> = ["phrase_card"],
+): void {
+  let runType: LessonStep["type"] | null = null;
+  let runLen = 0;
+  for (const step of steps) {
+    if (!watch.includes(step.type)) {
+      runType = null;
+      runLen = 0;
+      continue;
+    }
+    if (step.type === runType) {
+      runLen += 1;
+      if (runLen > maxAdjacent) {
+        throw new Error(
+          `assertNoConsecutiveSame: ${runLen} consecutive '${runType}' steps (max ${maxAdjacent}). Offending step id: ${step.id}`,
+        );
+      }
+    } else {
+      runType = step.type;
       runLen = 1;
     }
   }
@@ -709,3 +1129,107 @@ export const EXAMPLE_SELF_EXPLAIN_NO_POSSESSION: SelfExplanationMcqStep =
     ruleExplanation:
       "の is the possession particle — it links owner (わたし) to thing owned (ほん).",
   });
+
+/**
+ * `dialogue_listen` factory — composes a multi-turn audio-only dialogue
+ * with 1-3 comprehension MCQs. Each question's options are slot-rotated by
+ * id (`slotFor`) so the correct answer doesn't always land in position 0
+ * across MCQ steps, matching the rotation contract of `vocabMcq` /
+ * `sentenceMcq` / `selfExplain` / `cloze`.
+ *
+ * Authoring shape mirrors `sentenceMcq`: pass `correctText` + a 3-tuple of
+ * `distractors` per question. Factory generates option ids and wires
+ * `correctOptionId`.
+ *
+ * Defaults `transcriptRevealAfter` to `"first-answer"` — the spec's
+ * recommendation: hide the kana during the first retrieval attempt
+ * (audio-only is the whole point), reveal after the learner has committed
+ * once so they can match what they heard to the script.
+ *
+ * Used as a dialogue closer in M3-M7 sub-lessons (replaces the prior
+ * `dialogueLesson` phrase-card-only closer when a real comprehension
+ * retrieval is wanted). Counts as 1 step toward sub-lesson density.
+ */
+export function dialogueListen(opts: {
+  id: string;
+  lines: Array<{ speaker: string; kana: string; audioText?: string }>;
+  questions: Array<{
+    id: string;
+    prompt: string;
+    correctText: string;
+    distractors: [string, string, string];
+    explanation?: string;
+  }>;
+  transcriptRevealAfter?: "first-answer" | "all-answers" | "never";
+}): DialogueListenStep {
+  if (opts.lines.length < 2 || opts.lines.length > 4) {
+    throw new Error(
+      `dialogueListen(${opts.id}): lines.length must be 2-4 (got ${opts.lines.length})`,
+    );
+  }
+  if (opts.questions.length < 1 || opts.questions.length > 3) {
+    throw new Error(
+      `dialogueListen(${opts.id}): questions.length must be 1-3 (got ${opts.questions.length})`,
+    );
+  }
+  const questions = opts.questions.map((q) => {
+    const items = [
+      { id: "correct", text: q.correctText },
+      { id: "opt-1", text: q.distractors[0] },
+      { id: "opt-2", text: q.distractors[1] },
+      { id: "opt-3", text: q.distractors[2] },
+    ];
+    const slot = slotFor(`${opts.id}-${q.id}`, 4);
+    const correct = items.shift()!;
+    items.splice(slot, 0, correct);
+    return {
+      id: q.id,
+      prompt: q.prompt,
+      options: items,
+      correctOptionId: "correct",
+      explanation: q.explanation,
+    };
+  });
+  return {
+    id: opts.id,
+    type: "dialogue_listen",
+    lines: opts.lines.map((l) => ({
+      speaker: l.speaker,
+      kana: l.kana,
+      audioText: l.audioText,
+    })),
+    questions,
+    transcriptRevealAfter: opts.transcriptRevealAfter ?? "first-answer",
+  };
+}
+
+/**
+ * Example `dialogue_listen` — a 3-turn café exchange ordering coffee.
+ * Not wired into a shipping lesson yet; the M3-M7 re-author wave (per
+ * docs/wave-4-m3-m7-reauthor-2026-05-18.md) will call `dialogueListen`
+ * directly for each module's dialogue closer.
+ */
+export const EXAMPLE_DIALOGUE_LISTEN_CAFE: DialogueListenStep = dialogueListen({
+  id: "ja-ex-dialogue-listen-cafe",
+  lines: [
+    { speaker: "Server", kana: "いらっしゃいませ。" },
+    { speaker: "You",    kana: "コーヒーを ください。" },
+    { speaker: "Server", kana: "はい、ごひゃくえんです。" },
+  ],
+  questions: [
+    {
+      id: "q1",
+      prompt: "What did the customer order?",
+      correctText: "Coffee",
+      distractors: ["Green tea", "Water", "Beer"],
+      explanation: "コーヒー = coffee. を marks it as the thing being ordered.",
+    },
+    {
+      id: "q2",
+      prompt: "How much does it cost?",
+      correctText: "500 yen",
+      distractors: ["100 yen", "1,000 yen", "5,000 yen"],
+      explanation: "ごひゃくえん = 五百円 = 500 yen.",
+    },
+  ],
+});

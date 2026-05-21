@@ -22,6 +22,7 @@ import type {
 } from "../types";
 import { ALL_ROWS, type RowDef } from "./hiraganaCurriculum";
 import { buildKanaRecognitionExplanation } from "./lessonBuilder";
+import { padMatchPairsToTarget } from "./_consonantRowHelpers";
 
 const RECAP_ITEM_COUNT = 15;
 const RECAP_PASS_THRESHOLD = 0.7;
@@ -119,11 +120,15 @@ function buildRecapMatchItem(
     }
   }
   if (anchors.length < 2) return null;
+  // Cap at 6 for grid sanity, then backfill from M1_REVIEW_POOL if the
+  // pool came in under 4 (2026-05-18 — empty match-pair slots are wasted
+  // review surface per Spencer's tester walkthrough).
   const picked = seededShuffle(anchors, `${moduleId}-recap-match-pick`).slice(
     0,
     6,
   );
-  const pairs = picked.map((w, i) => ({
+  const filled = padMatchPairsToTarget(`${moduleId}-recap-match`, picked, 4);
+  const pairs = filled.map((w, i) => ({
     id: `p${i + 1}`,
     source: w.kana,
     target: w.meaning,

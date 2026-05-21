@@ -780,7 +780,7 @@ export function AdminUserDetailPage() {
                               onClick={() => {
                                 setEditingCard(cardId);
                                 setEditDueDate(state.dueDate ?? "");
-                                setEditEase(String(state.easeFactor ?? 2.5));
+                                setEditEase(String(state.difficulty ?? 5));
                               }}
                               className="text-left text-text-primary hover:underline"
                             >
@@ -794,24 +794,26 @@ export function AdminUserDetailPage() {
                               <input
                                 type="number"
                                 step="0.1"
-                                min={1.3}
+                                min={1}
+                                max={10}
                                 value={editEase}
                                 onChange={(e) => setEditEase(e.target.value)}
                                 className="w-16 rounded border border-border bg-surface-muted px-1.5 py-0.5 text-xs text-text-primary"
+                                title="FSRS difficulty (1 = easiest, 10 = hardest)"
                               />
                               <button
                                 type="button"
-                                onClick={() => handleUpdateSrsCard(cardId, { easeFactor: parseFloat(editEase) || 2.5 })}
+                                onClick={() => handleUpdateSrsCard(cardId, { difficulty: parseFloat(editEase) || 5 })}
                                 className="text-success"
                               >
                                 <Icon name="check" size={16} />
                               </button>
                             </div>
                           ) : (
-                            <span className="text-text-secondary">{state.easeFactor?.toFixed(2) ?? "—"}</span>
+                            <span className="text-text-secondary">{state.difficulty?.toFixed(1) ?? "—"}</span>
                           )}
                         </td>
-                        <td className="px-3 py-2 text-text-secondary">{state.repetitions ?? 0}</td>
+                        <td className="px-3 py-2 text-text-secondary">{state.reps ?? 0}</td>
                         <td className="px-3 py-2 text-text-secondary">{state.buriedUntil ?? "—"}</td>
                         <td className="px-3 py-2 text-right">
                           {state.buriedUntil && (

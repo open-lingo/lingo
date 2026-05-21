@@ -12,17 +12,38 @@
  * patterns (kana the model consistently misreads, etc.).
  */
 import { isDevUnlockOn } from "@/shared/domain/mockProgress";
+import type { SpeechErrorCode } from "./useSpeechRecognition";
 
-export type SpeechLogVerdict = "pass" | "fail" | "auto-pass";
+/**
+ * Verdict per attempt:
+ *  - "pass"      — perfect or close
+ *  - "fail"      — graded miss, learner can keep trying
+ *  - "auto-pass" — legacy reward-the-try on attempt 2 (retired 2026-05-18,
+ *                   kept in the union for log-backread compatibility)
+ *  - "continued" — learner skipped after one or more failed attempts (no
+ *                   pass credit; explicit opt-out)
+ */
+export type SpeechLogVerdict = "pass" | "fail" | "auto-pass" | "continued";
 
 export type SpeechLogEntry = {
   stepId: string;
   targetKana: string;
   transcriptKana: string;
-  attemptNumber: 1 | 2;
+  /** 1-indexed attempt; unbounded since the 2-cap was removed
+   *  2026-05-18 (Spencer: "let them keep trying or continue"). */
+  attemptNumber: number;
   verdict: SpeechLogVerdict;
   /** Epoch ms. */
   timestamp: number;
+  /** Recognition error code if the attempt failed at the mic / engine
+   *  layer (no-mic, audio-capture, no-speech, not-supported, unknown).
+   *  Helps post-hoc triage when a tester reports "the mic didn't work" —
+   *  the log will say exactly what failed. */
+  errorCode?: SpeechErrorCode | null;
+  /** UA string captured on error attempts only. Helps spot Safari-only
+   *  vs Chromium-only failures. Omitted for normal pass/fail entries to
+   *  keep the buffer compact. */
+  userAgent?: string;
 };
 
 const MAX_ENTRIES = 20;
@@ -35,9 +56,10 @@ export function pushSpeechLog(entry: SpeechLogEntry): void {
   while (buffer.length > MAX_ENTRIES) buffer.shift();
   // Only mirror to console when the dev flag is on — keeps prod silent.
   if (isDevUnlockOn()) {
+    const errSuffix = entry.errorCode ? ` [${entry.errorCode}]` : "";
     // eslint-disable-next-line no-console
     console.info(
-      `[speech] ${entry.stepId} #${entry.attemptNumber} "${entry.transcriptKana}" vs "${entry.targetKana}" → ${entry.verdict}`,
+      `[speech] ${entry.stepId} #${entry.attemptNumber} "${entry.transcriptKana}" vs "${entry.targetKana}" → ${entry.verdict}${errSuffix}`,
     );
   }
   for (const fn of subscribers) fn();

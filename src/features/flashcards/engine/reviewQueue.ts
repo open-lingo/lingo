@@ -55,8 +55,10 @@ export function buildReviewQueue(
     }
   }
 
-  // Sort by ease for a good mix (harder and easier cards distributed)
-  review.sort((a, b) => a.state.easeFactor - b.state.easeFactor);
+  // Sort by FSRS difficulty descending (harder cards first while user is
+  // fresh; easier cards trail). Matches the prior SM-2 "ease ascending"
+  // intent — under FSRS, higher difficulty = harder card.
+  review.sort((a, b) => b.state.difficulty - a.state.difficulty);
 
   const reviewCards = review.map((r) => r.card);
   const newCards = unseenCards.slice(0, newCardsPerDay);
@@ -106,8 +108,9 @@ export function buildQueueFromSubscriptions(
     }
   }
 
-  // Sort due by ease for mix
-  due.sort((a, b) => a.state.easeFactor - b.state.easeFactor);
+  // Sort due by FSRS difficulty descending (harder cards first; see
+  // identical comment in buildReviewQueue).
+  due.sort((a, b) => b.state.difficulty - a.state.difficulty);
   const reviewCards = due.map((r) => r.card);
 
   // New cards: per deck in subscription order, apply ordered/shuffled

@@ -39,9 +39,13 @@ export function markSynced(cardIds: string[]): void {
 
 /**
  * True if state looks like an explicit reset (new/forgotten card).
+ * Under FSRS-6 a fresh card has `state: "new"` and zero reps; an
+ * intentionally-reset card likewise has both. Anything beyond that
+ * (stability/difficulty > 0 with reps > 0) means the card has been
+ * reviewed and should NOT be treated as a reset.
  */
 function isResetState(state: SRSCardState): boolean {
-  return state.interval === 0 && state.repetitions === 0;
+  return state.state === "new" && state.reps === 0;
 }
 
 /**
@@ -61,7 +65,7 @@ export function mergeServerState(serverState: SRSStore): void {
       !localCard || serverCard.lastReviewDate > localCard.lastReviewDate;
     const localIsReset = localCard && isResetState(localCard);
     const serverIsLearned =
-      serverCard.interval > 0 || serverCard.repetitions > 0;
+      serverCard.state !== "new" || serverCard.reps > 0;
     const keepLocalReset = localIsReset && serverIsLearned;
 
     if (serverIsNewer && !keepLocalReset) {

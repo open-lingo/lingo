@@ -1,51 +1,70 @@
-import type { SRSCardState, SRSRating } from "../data/types";
+import {
+  fsrs,
+  createEmptyCard,
+  Rating,
+  State,
+  type Card as FsrsCard,
+  type FSRS,
+  type Grade,
+} from "ts-fsrs";
+import type { SRSCardState, SRSPhase, SRSRating } from "../data/types";
 
 /**
- * SM-2 algorithm (SuperMemo 2.0) — faithful implementation.
- * Reference: https://super-memory.com/english/ol/sm2.htm
+ * FSRS-6 scheduler — wraps ts-fsrs (FSRS-6.0 algorithm, v5.4.0 package).
  *
- * Quality scale (0-5):
- *   again = 0  (complete blackout)
- *   hard  = 2  (incorrect; correct one seemed easy to recall)
- *   good  = 4  (correct after hesitation)
- *   easy  = 5  (perfect response)
+ * The 4 rating buttons (Again/Hard/Good/Easy) are unchanged from the
+ * prior SM-2 implementation. **Hard is a success**, not a failure: it
+ * lets stability grow more slowly than Good rather than resetting the
+ * card's progress. This is a behavior change from the SM-2 era.
  *
- * Intervals:
- *   I(1) = 1 day
- *   I(2) = 6 days
- *   I(n) = I(n-1) * EF   for n > 2
+ * Target retention: 0.95 (95%). Tighter than the FSRS default of 0.9.
+ * The justification is that Lingo exposes vocab through two surfaces
+ * (lessons + flashcards) so per-card review pressure is higher.
  *
- * EF update (only when quality >= 3):
- *   EF' = EF + (0.1 - (5-q) * (0.08 + (5-q) * 0.02))
- *   EF' = max(1.3, EF')
- *
- * On failure (quality < 3):
- *   Reset repetitions to 0, keep EF unchanged.
+ * No legacy SM-2 fields are written. Cards loaded from localStorage in
+ * the old shape are rejected at the storage boundary; see srsStorage.
  */
 
-const RATING_QUALITY: Record<SRSRating, number> = {
-  again: 0,
-  hard: 2,
-  good: 4,
-  easy: 5,
+const TARGET_RETENTION = 0.95;
+
+const SCHEDULER: FSRS = fsrs({
+  enable_fuzz: false,
+  request_retention: TARGET_RETENTION,
+});
+
+const RATING_MAP: Record<SRSRating, Grade> = {
+  again: Rating.Again,
+  hard: Rating.Hard,
+  good: Rating.Good,
+  easy: Rating.Easy,
 };
 
-export const DEFAULT_EASE = 2.5;
-const MIN_EASE = 1.3;
+const STATE_TO_PHASE: Record<number, SRSPhase> = {
+  [State.New]: "new",
+  [State.Learning]: "learning",
+  [State.Review]: "review",
+  [State.Relearning]: "relearning",
+};
+
+const PHASE_TO_STATE: Record<SRSPhase, State> = {
+  new: State.New,
+  learning: State.Learning,
+  review: State.Review,
+  relearning: State.Relearning,
+};
 
 /**
- * Interval (in days) at which a card is considered "mastered" / mature.
- * Cards with interval >= this value have been retained across a meaningful
- * gap and are no longer in the active learning pool. This is the same
- * threshold Anki uses for "mature" cards in its scheduler — SM-2 itself
- * does not define a label, but 21 days is the de-facto convention.
+ * Mastery threshold (days). A card whose `interval` is at or above this
+ * is considered mature and no longer in the active learning pool. 21
+ * days matches the Anki / SM-2 convention and is a reasonable cutoff
+ * under FSRS-6 with `request_retention = 0.95`.
  */
 export const MASTERED_INTERVAL_DAYS = 21;
 
 /** Card has been seen but interval is still below mastery threshold. */
 export function isLearning(state: SRSCardState | undefined): boolean {
   if (!state) return false;
-  if (state.repetitions === 0) return false;
+  if (state.reps === 0) return false;
   return state.interval < MASTERED_INTERVAL_DAYS;
 }
 
@@ -53,6 +72,10 @@ export function isLearning(state: SRSCardState | undefined): boolean {
 export function isMastered(state: SRSCardState | undefined): boolean {
   if (!state) return false;
   return state.interval >= MASTERED_INTERVAL_DAYS;
+}
+
+export function isNew(state: SRSCardState | undefined): boolean {
+  return state === undefined || state.reps === 0;
 }
 
 function todayStr(): string {
@@ -65,63 +88,120 @@ export function addDays(dateStr: string, days: number): string {
   return d.toISOString().slice(0, 10);
 }
 
-/** Initial state for a new card. Use deck.defaultEase when available (SM-2 initial ease). */
-export function createInitialState(initialEase?: number): SRSCardState {
-  const ease = initialEase != null
-    ? Math.max(MIN_EASE, Math.min(3, initialEase))
-    : DEFAULT_EASE;
+export function getToday(): string {
+  return todayStr();
+}
+
+/** Build an empty FSRS-6 state for a card that's never been reviewed. */
+export function createInitialState(_initialEase?: number): SRSCardState {
+  // `_initialEase` is the legacy SM-2 deck setting; FSRS-6 has no ease
+  // analogue. Accepted for API compatibility and ignored.
+  const today = todayStr();
   return {
-    easeFactor: ease,
+    stability: 0,
+    difficulty: 0,
+    state: "new",
     interval: 0,
-    dueDate: todayStr(),
-    repetitions: 0,
-    lastReviewDate: todayStr(),
+    dueDate: today,
+    lastReviewDate: today,
+    reps: 0,
+    lapses: 0,
   };
 }
 
-export function reviewCard(state: SRSCardState, rating: SRSRating): SRSCardState {
-  const quality = RATING_QUALITY[rating];
-  const today = todayStr();
-
-  let { easeFactor, interval, repetitions } = state;
-
-  if (quality < 3) {
-    // SM-2 step 6: start repetitions from beginning WITHOUT changing EF
-    repetitions = 0;
-    interval = 0;
-  } else {
-    // SM-2 step 5: update EF only on successful recall (quality >= 3)
-    const newEase = easeFactor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
-    easeFactor = Math.max(MIN_EASE, newEase);
-
-    // SM-2 step 3: calculate interval
-    repetitions += 1;
-    if (repetitions === 1) {
-      interval = 1;
-    } else if (repetitions === 2) {
-      interval = 6;
-    } else {
-      interval = Math.ceil(interval * easeFactor);
-    }
-  }
-
-  const dueDate = interval === 0 ? today : addDays(today, interval);
-
+function toFsrsCard(state: SRSCardState, now: Date): FsrsCard {
+  // ts-fsrs computes `elapsed_days` from `last_review` to `now`. We pass
+  // the date at midday so timezone drift doesn't push the elapsed count
+  // forward/backward by one in edge cases.
+  const lastReview = new Date(state.lastReviewDate + "T12:00:00Z");
+  const due = new Date(state.dueDate + "T12:00:00Z");
+  const empty = createEmptyCard(now);
   return {
-    easeFactor,
+    ...empty,
+    due,
+    stability: state.stability,
+    difficulty: state.difficulty,
+    state: PHASE_TO_STATE[state.state],
+    reps: state.reps,
+    lapses: state.lapses,
+    learning_steps: state.learningSteps ?? 0,
+    last_review: lastReview,
+  };
+}
+
+function fromFsrsCard(card: FsrsCard, now: Date): SRSCardState {
+  const today = now.toISOString().slice(0, 10);
+  const dueDate = card.due.toISOString().slice(0, 10);
+  const interval = Math.max(
+    0,
+    Math.round((card.due.getTime() - now.getTime()) / 86_400_000),
+  );
+  const phase = STATE_TO_PHASE[card.state] ?? "review";
+  const next: SRSCardState = {
+    stability: card.stability,
+    difficulty: card.difficulty,
+    state: phase,
     interval,
     dueDate,
-    repetitions,
     lastReviewDate: today,
+    reps: card.reps,
+    lapses: card.lapses,
   };
+  if (phase === "learning" || phase === "relearning") {
+    next.learningSteps = card.learning_steps ?? 0;
+  }
+  return next;
 }
 
 /**
- * SM-2 step 7: did the card score below 4? If so it should be
- * re-shown at the end of the current session before finishing.
+ * Apply a rating to a card and return the next FSRS-6 state.
+ * Pure function; does not touch storage.
+ *
+ * `at` defaults to "now"; tests can pass a fixed clock.
+ */
+export function reviewCard(
+  state: SRSCardState,
+  rating: SRSRating,
+  at: Date = new Date(),
+): SRSCardState {
+  const card = toFsrsCard(state, at);
+  const result = SCHEDULER.next(card, at, RATING_MAP[rating]);
+  const next = fromFsrsCard(result.card, at);
+  // Preserve buriedUntil if set; reviewing doesn't unbury.
+  if (state.buriedUntil) next.buriedUntil = state.buriedUntil;
+  return next;
+}
+
+/**
+ * 3-of-4 mapping for grading from a lesson step's binary outcome.
+ *
+ * - `correct === false`                           → Again
+ * - `correct === true` and `retried === true`     → Hard
+ * - `correct === true` and `retried === false`    → Good
+ *
+ * Easy is reserved for explicit reviewer-page grading where the user
+ * tells us the card was trivial. Lesson steps can't infer that signal.
+ */
+export function gradeFromLesson(
+  state: SRSCardState,
+  outcome: { correct: boolean; retried?: boolean },
+  at: Date = new Date(),
+): SRSCardState {
+  const rating: SRSRating = !outcome.correct
+    ? "again"
+    : outcome.retried
+      ? "hard"
+      : "good";
+  return reviewCard(state, rating, at);
+}
+
+/**
+ * After grading, should the card be re-shown later in the same session?
+ * Under FSRS-6 we treat Again and Hard as "needs reinforcement now,"
+ * matching the prior SM-2 contract (`quality < 4`).
  */
 export function shouldRepeatInSession(rating: SRSRating): boolean {
-  return RATING_QUALITY[rating] < 4;
+  return rating === "again" || rating === "hard";
 }
 
 export function isDue(state: SRSCardState): boolean {
@@ -129,32 +209,37 @@ export function isDue(state: SRSCardState): boolean {
   return state.dueDate <= todayStr();
 }
 
-/** Card is buried (excluded from queue until buriedUntil date). */
 export function isBuried(state: SRSCardState | undefined): boolean {
   if (!state?.buriedUntil) return false;
   return state.buriedUntil > todayStr();
 }
 
-/** Bury card until end of tomorrow. */
 export function buryCard(state: SRSCardState): SRSCardState {
-  const tomorrow = addDays(todayStr(), 1);
-  return { ...state, buriedUntil: tomorrow };
+  return { ...state, buriedUntil: addDays(todayStr(), 1) };
 }
 
-/** Unbury: clear buriedUntil. */
 export function unburyCard(state: SRSCardState): SRSCardState {
-  const { buriedUntil: _, ...rest } = state;
-  return { ...rest, buriedUntil: undefined };
+  const { buriedUntil: _omit, ...rest } = state;
+  return rest;
 }
 
-export function isNew(state: SRSCardState | undefined): boolean {
-  return state === undefined || state.repetitions === 0;
-}
-
-export function getToday(): string {
-  return todayStr();
-}
+/**
+ * Numeric quality (0-5) — retained for back-compat with consumers that
+ * still expect it (e.g. UI tooltips). Mirrors the SM-2 mapping; FSRS
+ * itself doesn't use this scale.
+ */
+const RATING_QUALITY: Record<SRSRating, number> = {
+  again: 0,
+  hard: 3,
+  good: 4,
+  easy: 5,
+};
 
 export function getQuality(rating: SRSRating): number {
   return RATING_QUALITY[rating];
+}
+
+/** Exported for transparency / settings UI; not currently surfaced. */
+export function getTargetRetention(): number {
+  return TARGET_RETENTION;
 }

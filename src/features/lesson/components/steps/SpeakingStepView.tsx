@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { SpeakingStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
+import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedJa, convertToHiragana } from "@/shared/japanese";
 import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
 import { getTtsUrl, playJaAudio, useAutoPlayJaAudio } from "@/shared/japanese/tts";
@@ -33,22 +35,31 @@ type Props = {
  *
  * Routing:
  *  - `step.stubbed === true` OR Whisper feature flag off → placeholder
- *    ("I said it!" ungraded continue). Matches pre-POC behavior so
- *    legacy lessons (M1 vowel sa, M1 l1/l2, particles tutor stub, etc.)
- *    don't regress.
+ *    ("I said it!" ungraded continue). Now only used by:
+ *      - legacy mock-m1-l1.ts / mock-m1-l2.ts intro lessons
+ *      - lessonBuilder's per-kana single-mora "say さ" drills (Whisper
+ *        grades sub-second utterances poorly; left ungraded by design)
+ *    Whole-word + sentence speaking (all consonant rows, all M3-M7
+ *    dialogue closers) route through the recognized path below.
  *  - `step.stubbed === false` AND `?speech=1` flag on (default) →
- *    Whisper-graded 2-attempt + reward-the-try flow (R1.3, 2026-05-17).
+ *    Whisper-graded flow (see attempt-flow block below).
  *
- * 2-attempt + reward-the-try (R1.3b, Spencer 2026-05-17):
- *  - Attempt 1 passes → onComplete(stepId, true), continue.
- *  - Attempt 1 fails → show transcript next to target, "Try again".
- *  - Attempt 2 passes → onComplete(stepId, true).
- *  - Attempt 2 fails → auto-pass with "Good effort — moving on" framing,
- *    onComplete(stepId, true). Spencer's rule: "can't get it wrong but
- *    must try something." Logged for triage (see speechLog.ts).
- *  - Skip without trying is NOT available when grading is on (must try
- *    something). Falls back to "Continue" only when the browser doesn't
- *    support recognition at all.
+ * Attempt flow (Spencer 2026-05-18 — retired the attempt-2 auto-pass):
+ *  - Any attempt that scores `perfect` or `close` → onComplete(true),
+ *    continue immediately.
+ *  - Attempt 1 fails → show transcript next to target, "Try again" only.
+ *  - Attempt 2+ fails → surface BOTH "Try again" AND "Continue (skip)".
+ *    The learner picks: keep at it, or move on without a pass.
+ *    "Continue (skip)" calls onComplete(stepId, false) and logs verdict
+ *    "continued" so analytics see the explicit opt-out (not silent
+ *    auto-grant).
+ *  - Persistent-error escape: when recognition can't run at all
+ *    (no-mic permission, no audio capture, unsupported browser, or
+ *    Whisper hasn't finished loading after WHISPER_LOAD_TIMEOUT_MS), a
+ *    "Skip this step" button surfaces immediately — no need to burn 2
+ *    fake attempts to reach it.
+ *  - Skip without trying is still gated when recognition IS working;
+ *    must try at least once before "Continue (skip)" appears.
  *
  * Tuning dials (sessionStorage, set via URL):
  *   ?speech-perfect=0.85   perfect threshold
@@ -148,7 +159,14 @@ function ReferenceCard({
 /*  Speech-recognition path (Whisper-graded, 2-attempt + reward-the-try)      */
 /* -------------------------------------------------------------------------- */
 
-type LocalVerdict = Verdict | "idle" | "auto-pass";
+type LocalVerdict = Verdict | "idle";
+
+/** Whisper load deadline before we surface a "slow load — skip?"
+ *  affordance. 30s is generous on cold-cache + slow-connection paths
+ *  (the model is ~74MB quantized) but short enough to spot stuck loads. */
+const WHISPER_LOAD_TIMEOUT_MS = 30_000;
+
+const CELEBRATE_MS = 1100;
 
 /** sessionStorage key for the "Show romaji" toggle on speaking steps.
  *  Default OFF so confident learners aren't crutched; once a learner
@@ -193,7 +211,10 @@ function SpeakingStepRecognized({
   onComplete?: (stepId: string, correct: boolean) => void;
   onContinue: () => void;
 }) {
+  const { t } = useTranslation();
   const silentMode = useSettings().settings.audio.silentMode;
+  const [celebrating, setCelebrating] = useState(false);
+  const [celebrationText, setCelebrationText] = useState("");
   // Read dials once per render. Cheap; dial changes apply on the next
   // recognition session (via the `start` dependency chain).
   const config = useMemo(() => getSpeechConfig(), []);
@@ -228,7 +249,30 @@ function SpeakingStepRecognized({
   const whisperProgress = usingWhisper ? whisperRecog.downloadProgress : null;
   const [verdict, setVerdict] = useState<LocalVerdict>("idle");
   const [match, setMatch] = useState<MatchResult | null>(null);
-  const [attempts, setAttempts] = useState<0 | 1 | 2>(0);
+  /** Cumulative attempts this mount. Unbounded — Spencer 2026-05-18
+   *  retired the attempt-2 auto-pass; the learner picks when to bail. */
+  const [attempts, setAttempts] = useState<number>(0);
+  /** Set to true once `WHISPER_LOAD_TIMEOUT_MS` elapses with Whisper
+   *  still loading — surfaces the "slow load — skip?" UI. Resets when
+   *  the load completes or the component unmounts. */
+  const [slowLoad, setSlowLoad] = useState<boolean>(false);
+
+  // Watchdog: if Whisper hasn't loaded in WHISPER_LOAD_TIMEOUT_MS, flip
+  // slowLoad so the helper text + skip button surface. Without this the
+  // learner stares at "Loading Whisper model…" forever on stuck CDN /
+  // blocked-network paths and never knows they can move on.
+  useEffect(() => {
+    if (!usingWhisper) return;
+    if (whisperRecog.status === "ready" || whisperRecog.status === "error") {
+      setSlowLoad(false);
+      return;
+    }
+    if (whisperRecog.status !== "loading" && whisperRecog.status !== "idle") {
+      return;
+    }
+    const t = setTimeout(() => setSlowLoad(true), WHISPER_LOAD_TIMEOUT_MS);
+    return () => clearTimeout(t);
+  }, [usingWhisper, whisperRecog.status]);
   // Map from raw transcript → kanji→kana converted form for the debug
   // panel. Only populated when conversion actually changed the string.
   const [conversions, setConversions] = useState<Map<string, string>>(
@@ -252,36 +296,25 @@ function SpeakingStepRecognized({
   useEffect(() => {
     if (!recog.finished) return;
     if (recog.error) {
-      // Recognition itself errored (no-speech / no-mic / aborted).
-      // Treat as a fail attempt for the 2-attempt cap so we don't trap
-      // the learner in an infinite mic loop. The error helper text
-      // surfaces what went wrong.
+      // Recognition errored (no-speech / no-mic / aborted / audio-capture
+      // / not-supported / unknown). Count it as an attempt + log the
+      // errorCode so a tester report of "mic didn't work" lands a real
+      // diagnostic in the session log. Spencer 2026-05-18: no auto-pass.
       setMatch(null);
       setAttempts((prev) => {
-        const next = (Math.min(prev + 1, 2)) as 1 | 2;
-        if (next === 2) {
-          // Auto-pass on the second failed attempt — reward-the-try.
-          setVerdict("auto-pass");
-          pushSpeechLog({
-            stepId: step.id,
-            targetKana: step.targetPhrase,
-            transcriptKana: "",
-            attemptNumber: 2,
-            verdict: "auto-pass",
-            timestamp: Date.now(),
-          });
-          if (onComplete) onComplete(step.id, true);
-        } else {
-          setVerdict("try-again");
-          pushSpeechLog({
-            stepId: step.id,
-            targetKana: step.targetPhrase,
-            transcriptKana: "",
-            attemptNumber: 1,
-            verdict: "fail",
-            timestamp: Date.now(),
-          });
-        }
+        const next = prev + 1;
+        setVerdict("try-again");
+        pushSpeechLog({
+          stepId: step.id,
+          targetKana: step.targetPhrase,
+          transcriptKana: "",
+          attemptNumber: next,
+          verdict: "fail",
+          timestamp: Date.now(),
+          errorCode: recog.error,
+          userAgent:
+            typeof navigator !== "undefined" ? navigator.userAgent : undefined,
+        });
         return next;
       });
       return;
@@ -297,31 +330,22 @@ function SpeakingStepRecognized({
           : [];
 
     if (rawAlts.length === 0) {
+      // Mic opened, audio captured, but no transcript returned. Common
+      // failure mode: silent recording (muted hardware) or sub-200ms
+      // utterance. Surface as no-speech in the log.
       setMatch(null);
       setAttempts((prev) => {
-        const next = (Math.min(prev + 1, 2)) as 1 | 2;
-        if (next === 2) {
-          setVerdict("auto-pass");
-          pushSpeechLog({
-            stepId: step.id,
-            targetKana: step.targetPhrase,
-            transcriptKana: "",
-            attemptNumber: 2,
-            verdict: "auto-pass",
-            timestamp: Date.now(),
-          });
-          if (onComplete) onComplete(step.id, true);
-        } else {
-          setVerdict("try-again");
-          pushSpeechLog({
-            stepId: step.id,
-            targetKana: step.targetPhrase,
-            transcriptKana: "",
-            attemptNumber: 1,
-            verdict: "fail",
-            timestamp: Date.now(),
-          });
-        }
+        const next = prev + 1;
+        setVerdict("try-again");
+        pushSpeechLog({
+          stepId: step.id,
+          targetKana: step.targetPhrase,
+          transcriptKana: "",
+          attemptNumber: next,
+          verdict: "fail",
+          timestamp: Date.now(),
+          errorCode: "no-speech",
+        });
         return next;
       });
       return;
@@ -364,7 +388,7 @@ function SpeakingStepRecognized({
         result.verdict === "perfect" || result.verdict === "close";
 
       setAttempts((prev) => {
-        const next = (Math.min(prev + 1, 2)) as 1 | 2;
+        const next = prev + 1;
         if (passed) {
           setVerdict(result.verdict);
           pushSpeechLog({
@@ -376,25 +400,24 @@ function SpeakingStepRecognized({
             timestamp: Date.now(),
           });
           if (onComplete) onComplete(step.id, result.verdict === "perfect");
-        } else if (next === 2) {
-          // Second swing missed — auto-pass with reward-the-try framing.
-          setVerdict("auto-pass");
-          pushSpeechLog({
-            stepId: step.id,
-            targetKana: step.targetPhrase,
-            transcriptKana: bestTranscript,
-            attemptNumber: 2,
-            verdict: "auto-pass",
-            timestamp: Date.now(),
-          });
-          if (onComplete) onComplete(step.id, true);
+          // Celebrate any pass (perfect OR close) — the speech grader is
+          // strict enough that "close" still means the learner produced a
+          // recognizable utterance against the target. First-attempt-only
+          // (next === 1) to match the MCQ semantics: reward the clean win.
+          if (next === 1) {
+            setCelebrationText(pickCelebrationText(t));
+            setCelebrating(true);
+            window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
+          }
         } else {
+          // Graded miss — no auto-pass at any attempt count. UI surfaces
+          // Continue (skip) once attempts >= 2 so the learner picks.
           setVerdict("try-again");
           pushSpeechLog({
             stepId: step.id,
             targetKana: step.targetPhrase,
             transcriptKana: bestTranscript,
-            attemptNumber: 1,
+            attemptNumber: next,
             verdict: "fail",
             timestamp: Date.now(),
           });
@@ -415,6 +438,7 @@ function SpeakingStepRecognized({
     step.targetPhrase,
     onComplete,
     config,
+    t,
   ]);
 
   function handleRecord() {
@@ -434,50 +458,106 @@ function SpeakingStepRecognized({
   const bestAltText = match?.bestAlternative?.raw ?? "";
 
   const helperText = (() => {
-    if (!supported) return "Pronunciation isn't supported in this browser.";
+    if (!supported) {
+      return "Pronunciation isn't supported in this browser — Chrome, Edge, or Safari recommended.";
+    }
     if (whisperLoading) {
       const pct =
         whisperProgress !== null ? Math.round(whisperProgress * 100) : null;
+      if (slowLoad) {
+        return pct !== null
+          ? `Speech model still loading (${pct}%) — slow connection? You can skip this step.`
+          : "Speech model still loading — slow connection? You can skip this step.";
+      }
       return pct !== null
-        ? `Loading Whisper model (one-time download)… ${pct}%`
-        : "Loading Whisper model (one-time download)…";
+        ? `Loading speech model (one-time download)… ${pct}%`
+        : "Loading speech model (one-time download)…";
     }
     if (whisperTranscribing) return "Transcribing…";
-    if (recog.error === "no-mic") return "Microphone permission was blocked.";
-    if (recog.error === "no-speech") return "Didn't catch that — try again.";
-    if (recog.error === "audio-capture") return "Couldn't access your mic.";
-    if (recog.error && recog.error !== "aborted")
-      return "Speech recognition hit an error — try again.";
+    if (recog.error === "no-mic") {
+      return "Microphone access blocked. Tap the mic icon in your browser's address bar, allow it, then try again.";
+    }
+    if (recog.error === "no-speech") {
+      return "We didn't hear anything — speak louder, move closer, or check your mic isn't muted.";
+    }
+    if (recog.error === "audio-capture") {
+      return "Couldn't access your mic — check it isn't being used by another app and try again.";
+    }
+    if (recog.error === "not-supported") {
+      return "Your browser blocked speech recognition. Skip this step or try Chrome / Edge / Safari.";
+    }
+    if (recog.error && recog.error !== "aborted") {
+      return "Speech recognition hit an error. Try again, or skip to keep moving.";
+    }
     if (recog.listening) return "Listening…";
     if (verdict === "perfect") return "Perfect!";
-    if (verdict === "close")
+    if (verdict === "close") {
       return bestAltText
         ? `Close — sounded like “${bestAltText}”.`
         : "Close — you can continue.";
-    if (verdict === "auto-pass") return "Good effort — moving on.";
-    if (verdict === "try-again" && attempts > 0)
+    }
+    if (verdict === "try-again" && attempts >= 2) {
+      return "Still not quite — keep trying, or continue if you'd like to move on.";
+    }
+    if (verdict === "try-again" && attempts > 0) {
       return "Not quite — give it one more go.";
+    }
     return "Tap the mic and say the phrase aloud.";
   })();
 
   const helperToneClass = (() => {
     if (verdict === "perfect") return "text-success";
     if (verdict === "close") return "text-warning";
-    if (verdict === "auto-pass") return "text-text-secondary";
+    if (recog.error && recog.error !== "aborted") return "text-danger";
+    if (slowLoad && whisperLoading) return "text-warning";
     if (verdict === "try-again" && attempts > 0) return "text-danger";
     return "text-text-secondary";
   })();
 
-  // After any attempt completes (pass / try-again / auto-pass), Continue
-  // is available. Skip-without-trying is gated — must try something.
-  const canContinue =
-    verdict === "perfect" ||
-    verdict === "close" ||
-    verdict === "auto-pass";
+  // Persistent-error escape — surface the skip immediately on these,
+  // don't force the learner to burn 2 fake attempts. Per Spencer
+  // 2026-05-18 ("anything we can do to gate that?"): the learner
+  // shouldn't have to guess whether the issue is fixable.
+  const recognitionUnusable =
+    !supported ||
+    recog.error === "no-mic" ||
+    recog.error === "audio-capture" ||
+    recog.error === "not-supported" ||
+    (whisperLoading && slowLoad);
+
+  // After any pass, Continue is available immediately.
+  const passed = verdict === "perfect" || verdict === "close";
+  // After 2+ failed attempts OR a persistent error, Continue (skip) is
+  // available — the learner chooses to bail or keep trying.
+  const canSkipAfterTry =
+    !passed && (attempts >= 2 || recognitionUnusable);
+  const canContinue = passed || canSkipAfterTry;
 
   // No mic / unsupported browser → graceful Continue (don't punish
   // Firefox / no-permission flows).
   const fallbackContinue = !supported;
+
+  // Skip-after-fail handler: log the explicit opt-out and complete the
+  // step as NOT-passed (false). Distinct from `onContinue` which is the
+  // post-pass advance.
+  function handleSkip() {
+    pushSpeechLog({
+      stepId: step.id,
+      targetKana: step.targetPhrase,
+      transcriptKana: bestAltText,
+      attemptNumber: Math.max(attempts, 1),
+      verdict: "continued",
+      timestamp: Date.now(),
+      errorCode: recog.error ?? undefined,
+      userAgent: recog.error
+        ? typeof navigator !== "undefined"
+          ? navigator.userAgent
+          : undefined
+        : undefined,
+    });
+    if (onComplete) onComplete(step.id, false);
+    onContinue();
+  }
 
   return (
     <div className="flex flex-1 flex-col gap-6">
@@ -499,7 +579,7 @@ function SpeakingStepRecognized({
 
       {silentMode && <SilentModeNotice />}
 
-      <div className="flex flex-col items-center gap-3 rounded-2xl border-[1.5px] border-border bg-surface px-5 py-6 shadow-[var(--shadow-card)]">
+      <div className="relative flex flex-col items-center gap-3 rounded-2xl border-[1.5px] border-border bg-surface px-5 py-6 shadow-[var(--shadow-card)]">
         <button
           type="button"
           onClick={recog.listening ? handleStop : handleRecord}
@@ -543,14 +623,36 @@ function SpeakingStepRecognized({
           />
         )}
 
-        {/* Try-again button — second attempt is the last one. */}
-        {verdict === "try-again" && !recog.listening && attempts < 2 && (
+        {/* Try-again button — unbounded; the learner picks when to bail
+            (Spencer 2026-05-18). Hidden when recognition is genuinely
+            unusable (no-mic / unsupported / slow Whisper) — the Continue
+            (skip) button handles those paths. */}
+        {verdict === "try-again" &&
+          !recog.listening &&
+          !whisperLoading &&
+          !whisperTranscribing &&
+          !recognitionUnusable && (
+            <button
+              type="button"
+              onClick={handleRecord}
+              className="rounded-xl border-[1.5px] border-border bg-surface px-4 py-2 text-sm font-bold uppercase tracking-wide text-text-secondary transition hover:bg-surface-muted"
+            >
+              {attempts >= 2 ? "Keep trying" : "Try again"}
+            </button>
+          )}
+
+        {/* When the error is fixable (mic permission denied) offer an
+            explicit retry that re-invokes the mic request — Spencer's
+            "anything we can do to gate that?" — surface the action so
+            the learner knows they can recover without leaving the
+            lesson. */}
+        {recog.error === "no-mic" && !recog.listening && (
           <button
             type="button"
             onClick={handleRecord}
-            className="rounded-xl border-[1.5px] border-border bg-surface px-4 py-2 text-sm font-bold uppercase tracking-wide text-text-secondary transition hover:bg-surface-muted"
+            className="rounded-xl border-[1.5px] border-danger/40 bg-surface px-4 py-2 text-sm font-bold uppercase tracking-wide text-danger transition hover:bg-danger/10"
           >
-            Try again
+            Retry mic permission
           </button>
         )}
 
@@ -562,24 +664,37 @@ function SpeakingStepRecognized({
             conversions={conversions}
           />
         )}
+        {celebrating && <CelebrationToast text={celebrationText} />}
       </div>
 
-      {canContinue ? (
-        <ContinueButton
-          onClick={onContinue}
-          variant={verdict === "perfect" ? "correct" : undefined}
-          label={
-            verdict === "close"
-              ? "Continue anyway"
-              : verdict === "auto-pass"
-                ? "Continue"
-                : undefined
-          }
-        />
+      {passed ? (
+        celebrating ? (
+          <div className="invisible" aria-hidden>
+            <ContinueButton onClick={() => {}} />
+          </div>
+        ) : (
+          <ContinueButton
+            onClick={onContinue}
+            variant={verdict === "perfect" ? "correct" : undefined}
+            label={verdict === "close" ? "Continue anyway" : undefined}
+          />
+        )
+      ) : canSkipAfterTry ? (
+        // After 2 fails OR a persistent error: explicit opt-out. Not
+        // styled as success — uses the secondary surface so the
+        // pass/no-pass distinction stays legible. Logs verdict
+        // "continued" + the active errorCode for tester triage.
+        <button
+          type="button"
+          onClick={handleSkip}
+          className="w-full rounded-xl border-[1.5px] border-border bg-surface px-6 py-3.5 text-base font-bold uppercase tracking-wide text-text-secondary transition hover:bg-surface-muted"
+        >
+          {recognitionUnusable ? "Skip this step" : "Continue without passing"}
+        </button>
       ) : fallbackContinue ? (
-        // Unsupported browser → ungraded continue. Never reached when
-        // mic + Whisper are both available — the canContinue branch
-        // hits first after an attempt.
+        // Unsupported browser → ungraded continue. Distinct from the
+        // skip-after-try path (this never logs a "continued" entry —
+        // the engine never had a chance).
         <button
           type="button"
           onClick={onContinue}
@@ -625,10 +740,10 @@ function TranscriptCard({
   showRomaji: boolean;
 }) {
   const passed = verdict === "perfect" || verdict === "close";
-  const autoPass = verdict === "auto-pass";
-  // After a fail (try-again or auto-pass), show the target side-by-side
-  // so the learner can compare what they said to what was wanted.
-  const showSideBySide = !passed && (verdict === "try-again" || autoPass);
+  // After a fail, show the target side-by-side so the learner can compare
+  // what they said to what was wanted. ("auto-pass" was retired
+  // 2026-05-18 — the only non-passed branch is now "try-again".)
+  const showSideBySide = !passed && verdict === "try-again";
   const transcriptRomaji = showRomaji ? kanaToRomajiHint(transcriptKana) : "";
   const targetRomaji = showRomaji ? kanaToRomajiHint(targetKana) : "";
 
@@ -636,16 +751,10 @@ function TranscriptCard({
     <div className="w-full rounded-xl bg-surface-muted px-4 py-3 text-base text-text-primary">
       <div className="flex items-start gap-3">
         <span
-          className={`text-lg leading-none ${
-            passed
-              ? "text-success"
-              : autoPass
-                ? "text-text-muted"
-                : "text-danger"
-          }`}
+          className={`text-lg leading-none ${passed ? "text-success" : "text-danger"}`}
           aria-hidden
         >
-          {passed ? "✓" : autoPass ? "○" : "✗"}
+          {passed ? "✓" : "✗"}
         </span>
         <div className="flex-1">
           <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
