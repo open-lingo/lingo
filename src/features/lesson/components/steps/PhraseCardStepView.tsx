@@ -4,6 +4,7 @@ import { Icon } from "@/shared/components/Icon";
 import { playJaAudio, useAutoPlayJaAudio, getTtsUrl } from "@/shared/japanese/tts";
 import { ContinueButton } from "../ContinueButton";
 import { lookupKanaEmoji, notoEmojiUrl } from "@/shared/assets/notoEmoji";
+import { playSfx } from "@/shared/audio/sfx";
 
 type Props = {
   step: PhraseCardStep;
@@ -95,7 +96,15 @@ export function PhraseCardStepView({ step, onContinue }: Props) {
         ) : null}
       </div>
 
-      <ContinueButton onClick={onContinue} label="Got it" />
+      <ContinueButton
+        onClick={() => {
+          // Passive cards don't tick the progress bar — emit a non-progress
+          // chirp + light haptic so the tap feels acknowledged.
+          playSfx("passive-advance");
+          onContinue();
+        }}
+        label="Got it"
+      />
     </div>
   );
 }

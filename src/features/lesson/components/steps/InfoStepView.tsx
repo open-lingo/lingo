@@ -1,5 +1,6 @@
 import type { InfoStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
+import { playSfx } from "@/shared/audio/sfx";
 
 type Props = {
   step: InfoStep;
@@ -52,6 +53,12 @@ export function InfoStepView({ step, onContinue }: Props) {
   const variant = step.variant ?? "default";
   const isHero = variant === "culture" || variant === "win";
 
+  const handleContinue = () => {
+    // Passive — non-progress chirp + light haptic. See sfx.ts.
+    playSfx("passive-advance");
+    onContinue();
+  };
+
   // Hero variants (culture + win) get a tall card treatment: emoji
   // floats above a big title, body sits in larger relaxed type. Every
   // other variant keeps its compact two-column layout.
@@ -75,7 +82,7 @@ export function InfoStepView({ step, onContinue }: Props) {
             {step.body}
           </p>
         </div>
-        <ContinueButton onClick={onContinue} />
+        <ContinueButton onClick={handleContinue} />
       </div>
     );
   }
@@ -97,7 +104,7 @@ export function InfoStepView({ step, onContinue }: Props) {
         </div>
       </div>
 
-      <ContinueButton onClick={onContinue} />
+      <ContinueButton onClick={handleContinue} />
     </div>
   );
 }

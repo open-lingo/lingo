@@ -3,6 +3,7 @@ import { ContinueButton } from "../ContinueButton";
 import { AnnotatedJa } from "@/shared/japanese";
 import { getTtsUrl, playJaAudio } from "@/shared/japanese/tts";
 import { Icon } from "@/shared/components/Icon";
+import { playSfx } from "@/shared/audio/sfx";
 
 type Props = {
   step: GrammarRuleStep;
@@ -71,7 +72,14 @@ export function GrammarRuleStepView({ step, onContinue }: Props) {
         </p>
       ) : null}
 
-      <ContinueButton onClick={onContinue} label="Got it" />
+      <ContinueButton
+        onClick={() => {
+          // Passive — non-progress chirp + light haptic. See sfx.ts.
+          playSfx("passive-advance");
+          onContinue();
+        }}
+        label="Got it"
+      />
     </div>
   );
 }
