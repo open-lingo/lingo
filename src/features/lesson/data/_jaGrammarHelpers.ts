@@ -24,6 +24,19 @@ import type {
   TranslateStep,
   WordImageMcqStep,
 } from "../types";
+import { JA_COURSE_ATOMS_BY_KANA } from "@/features/flashcards/data/ja-course-atoms";
+
+/**
+ * Resolve a course atom ID from a phrase_card's kana. Used by the `phrase()`
+ * and `vocab()` factories so the passive-card followup lint
+ * (assertPassiveCardsHaveFollowup) can verify that every vocab teach card has
+ * a same-atom retrieval in the [i+2, i+3] window. Returns undefined when the
+ * kana isn't a known atom (e.g. multi-word phrases like "irasshaimase") — in
+ * which case the lint falls back to the weaker "any graded follow-up" check.
+ */
+function resolvePhraseAtomId(kana: string): string | undefined {
+  return JA_COURSE_ATOMS_BY_KANA.get(kana)?.id;
+}
 
 export function vocab(
   id: string,
@@ -31,8 +44,19 @@ export function vocab(
   romaji: string,
   kana: string,
   cultureNote?: string,
+  opts?: { atomId?: string; emoji?: string },
 ): PhraseCardStep {
-  return { id, type: "phrase_card", meaningEn, romaji, kana, cultureNote };
+  const atomId = opts?.atomId ?? resolvePhraseAtomId(kana);
+  return {
+    id,
+    type: "phrase_card",
+    meaningEn,
+    romaji,
+    kana,
+    cultureNote,
+    ...(atomId ? { atomId } : {}),
+    ...(opts?.emoji ? { emoji: opts.emoji } : {}),
+  };
 }
 
 export function phrase(
@@ -41,8 +65,19 @@ export function phrase(
   romaji: string,
   kana: string,
   cultureNote?: string,
+  opts?: { atomId?: string; emoji?: string },
 ): PhraseCardStep {
-  return { id, type: "phrase_card", meaningEn, romaji, kana, cultureNote };
+  const atomId = opts?.atomId ?? resolvePhraseAtomId(kana);
+  return {
+    id,
+    type: "phrase_card",
+    meaningEn,
+    romaji,
+    kana,
+    cultureNote,
+    ...(atomId ? { atomId } : {}),
+    ...(opts?.emoji ? { emoji: opts.emoji } : {}),
+  };
 }
 
 export function cloze(
