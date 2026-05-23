@@ -4,6 +4,7 @@ import {
   isGradedStep,
   stepHasSentenceContent,
   getStepAtomIds,
+  computeGradedProgress,
 } from "./_stepPredicates";
 import type { LessonStep } from "../types";
 
@@ -106,5 +107,38 @@ describe("getStepAtomIds", () => {
         meaningEn: "x",
       } as LessonStep),
     ).toEqual([]);
+  });
+});
+
+describe("computeGradedProgress", () => {
+  const steps = [
+    { id: "p1", type: "phrase_card" },
+    { id: "g1", type: "translate" },
+    { id: "p2", type: "info" },
+    { id: "g2", type: "multiple_choice" },
+    { id: "g3", type: "particle_cloze" },
+  ] as LessonStep[];
+
+  it("excludes passive steps from total", () => {
+    expect(computeGradedProgress(steps, 0, {}).total).toBe(3);
+  });
+  it("does not advance current on tapping a passive card", () => {
+    // currentStepIdx=1 → we've passed the phrase_card; no graded result yet.
+    expect(computeGradedProgress(steps, 1, {}).current).toBe(0);
+  });
+  it("advances current only when a graded step has a result", () => {
+    expect(computeGradedProgress(steps, 2, { g1: true }).current).toBe(1);
+  });
+  it("ignores results on passive steps", () => {
+    expect(
+      computeGradedProgress(steps, 3, { p1: true, p2: true, g1: true }).current,
+    ).toBe(1);
+  });
+  it("returns total=0 for an all-passive lesson (degenerate)", () => {
+    const passive = [
+      { id: "p1", type: "phrase_card" },
+      { id: "p2", type: "info" },
+    ] as LessonStep[];
+    expect(computeGradedProgress(passive, 0, {}).total).toBe(0);
   });
 });

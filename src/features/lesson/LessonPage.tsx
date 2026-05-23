@@ -39,6 +39,7 @@ import {
 import { recordAttempt, recordStepEvent } from "@/features/lesson/engine";
 import { useLessonSyncSession } from "./useLessonSyncSession";
 import type { LessonCompleteMastery } from "./components/LessonComplete";
+import { computeGradedProgress } from "./data/_stepPredicates";
 
 const LESSON_PASS_THRESHOLD = 0.7;
 
@@ -289,6 +290,19 @@ export function LessonPage() {
   }, [finished, lesson, results, isReview]);
 
   const totalSteps = lesson?.steps.length ?? 0;
+  // Progress chip / fill count graded steps only. Tapping a phrase_card /
+  // info / grammar_rule should NOT advance the bar — passive cards emit a
+  // chirp + advance, but no progress credit. See _stepPredicates for the
+  // pure helper + its test cases.
+  const gradedProgress = useMemo(
+    () =>
+      computeGradedProgress(
+        lesson?.steps ?? [],
+        currentStepIdx,
+        results,
+      ),
+    [lesson, currentStepIdx, results],
+  );
   const inReplay = replayQueue.length > 0;
   const currentStep: LessonStep | undefined = inReplay
     ? lesson?.steps.find((s) => s.id === replayQueue[0])
@@ -503,8 +517,8 @@ export function LessonPage() {
           </svg>
         </button>
         <LessonProgressBar
-          current={inReplay ? totalSteps : currentStepIdx}
-          total={totalSteps}
+          current={inReplay ? gradedProgress.total : gradedProgress.current}
+          total={gradedProgress.total}
         />
         <LessonMetaChips
           estimatedMinutes={lesson.estimatedMinutes}

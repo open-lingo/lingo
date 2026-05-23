@@ -54,6 +54,28 @@ export function stepHasSentenceContent(step: LessonStep): boolean {
  *   - graded steps → `exercisedAtoms` (lands with SRS unification phase 2;
  *     currently returns [] for graded steps until that lands)
  */
+/**
+ * Pure computation behind the lesson progress bar. Excludes passive cards
+ * (phrase_card / info / grammar_rule) from both `total` and the running
+ * `current` counter so tapping "Got it" on a teach card never advances the
+ * chip. `current` ticks only when a graded step at index < currentStepIdx
+ * has a recorded result (correct or incorrect — either constitutes
+ * commitment).
+ *
+ * Extracted so it can be unit-tested without rendering LessonPage.
+ */
+export function computeGradedProgress(
+  steps: ReadonlyArray<LessonStep>,
+  currentStepIdx: number,
+  results: Readonly<Record<string, unknown>>,
+): { current: number; total: number } {
+  const total = steps.filter(isGradedStep).length;
+  const current = steps
+    .slice(0, currentStepIdx)
+    .filter((s) => isGradedStep(s) && results[s.id] !== undefined).length;
+  return { current, total };
+}
+
 export function getStepAtomIds(step: LessonStep): readonly string[] {
   if (step.type === "phrase_card") {
     return step.atomId ? [step.atomId] : [];
