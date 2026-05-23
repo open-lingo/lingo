@@ -6,6 +6,7 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedJa } from "@/shared/japanese";
 import { useAutoPlayJaAudio } from "@/shared/japanese/tts";
+import { ExplainButton } from "../ExplainButton";
 
 const CELEBRATE_MS = 1100;
 
@@ -70,8 +71,14 @@ export function BuildSentenceStepView({ step, onComplete, onContinue }: Props) {
     }
   }
 
+  const hasSubmittedWrong = submitted && !isCorrect;
+
   return (
-    <div className="flex flex-1 flex-col gap-6">
+    <div className="relative flex flex-1 flex-col gap-6">
+      <ExplainButton
+        explanation={step.explanation}
+        hasSubmittedWrong={hasSubmittedWrong}
+      />
       <h2 className="text-lg font-semibold text-text-primary">
         {step.prompt}
       </h2>

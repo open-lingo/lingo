@@ -7,6 +7,7 @@ import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { getTtsUrl } from "@/shared/japanese/tts";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { Icon } from "@/shared/components/Icon";
+import { ExplainButton } from "../ExplainButton";
 
 const CELEBRATE_MS = 1100;
 
@@ -44,8 +45,14 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
     }
   }
 
+  const hasSubmittedWrong = submitted && !isCorrect;
+
   return (
-    <div className="flex flex-1 flex-col gap-6">
+    <div className="relative flex flex-1 flex-col gap-6">
+      <ExplainButton
+        explanation={step.explanation}
+        hasSubmittedWrong={hasSubmittedWrong}
+      />
       <div className="flex items-center gap-4">
         <button
           type="button"

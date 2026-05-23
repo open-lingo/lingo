@@ -11,6 +11,8 @@ import {
   useAutoPlayJaAudio,
 } from "@/shared/japanese/tts";
 import { Icon } from "@/shared/components/Icon";
+import { ExplainButton } from "../ExplainButton";
+import { stepHasSentenceContent } from "../../data/_stepPredicates";
 
 const CELEBRATE_MS = 1100;
 
@@ -63,8 +65,17 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
     ? "relative grid grid-cols-2 grid-rows-2 auto-rows-fr gap-3 sm:gap-4"
     : "relative grid gap-3";
 
+  const hasSubmittedWrong = submitted && !isCorrect;
+  const showExplain = stepHasSentenceContent(step);
+
   return (
-    <div className="flex flex-1 flex-col gap-6">
+    <div className="relative flex flex-1 flex-col gap-6">
+      {showExplain && (
+        <ExplainButton
+          explanation={step.explanation}
+          hasSubmittedWrong={hasSubmittedWrong}
+        />
+      )}
       {step.audioOnlyPrompt ? (
         <div className="flex flex-col items-center gap-3 py-4">
           <button

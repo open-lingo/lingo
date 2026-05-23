@@ -8,6 +8,7 @@ import { AnnotatedJa } from "@/shared/japanese";
 import { getTtsUrl } from "@/shared/japanese/tts";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { Icon } from "@/shared/components/Icon";
+import { ExplainButton } from "../ExplainButton";
 
 const CELEBRATE_MS = 1100;
 
@@ -90,8 +91,14 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
     playLocalAudio(audioUrl);
   }
 
+  const hasSubmittedWrong = submitted && !isCorrect;
+
   return (
-    <div className="flex flex-1 flex-col gap-7">
+    <div className="relative flex flex-1 flex-col gap-7">
+      <ExplainButton
+        explanation={step.explanation}
+        hasSubmittedWrong={hasSubmittedWrong}
+      />
       {/* Prompt row — bigger play button + larger text. Quoted meanings
        *  get auto-bolded via PromptWithEmphasis. */}
       <div className="flex items-center gap-4">

@@ -8,6 +8,7 @@ import { AnnotatedJa } from "@/shared/japanese";
 import { getTtsUrl, playJaAudio } from "@/shared/japanese/tts";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { Icon } from "@/shared/components/Icon";
+import { ExplainButton } from "../ExplainButton";
 
 const TURN_GAP_MS = 400;
 const CELEBRATE_MS = 1100;
@@ -193,8 +194,19 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
   const currentCorrect =
     currentQ && currentSelection === currentQ.correctOptionId;
 
+  // Sentence-level explain affordance — surfaces after any wrong commit on
+  // the current question; tracks across questions via committed state.
+  const anyWrongCommit = step.questions.some(
+    (q) =>
+      committedByQ[q.id] && selectionByQ[q.id] !== q.correctOptionId,
+  );
+
   return (
-    <div className="flex flex-1 flex-col gap-6">
+    <div className="relative flex flex-1 flex-col gap-6">
+      <ExplainButton
+        explanation={step.explanation}
+        hasSubmittedWrong={anyWrongCommit}
+      />
       {/* ── Header: replay control + speakers manifest ─────────────────── */}
       <div className="flex items-center gap-4">
         <button

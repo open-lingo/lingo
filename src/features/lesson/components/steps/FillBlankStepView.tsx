@@ -3,6 +3,8 @@ import type { FillBlankStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { AnnotatedJa } from "@/shared/japanese";
+import { ExplainButton } from "../ExplainButton";
+import { stepHasSentenceContent } from "../../data/_stepPredicates";
 
 type Props = {
   step: FillBlankStep;
@@ -36,9 +38,17 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
   }
 
   const parts = step.sentence.split("{{blank}}");
+  const hasSubmittedWrong = submitted && !isCorrect;
+  const showExplain = stepHasSentenceContent(step);
 
   return (
-    <div className="flex flex-1 flex-col gap-6">
+    <div className="relative flex flex-1 flex-col gap-6">
+      {showExplain && (
+        <ExplainButton
+          explanation={step.explanation}
+          hasSubmittedWrong={hasSubmittedWrong}
+        />
+      )}
       <h2 className="text-lg font-semibold text-text-primary">
         Fill in the blank
       </h2>

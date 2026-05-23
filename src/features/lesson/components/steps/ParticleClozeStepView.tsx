@@ -7,6 +7,7 @@ import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedJa } from "@/shared/japanese";
 import { playJaAudio, getTtsUrl } from "@/shared/japanese/tts";
 import { Icon } from "@/shared/components/Icon";
+import { ExplainButton } from "../ExplainButton";
 
 const CELEBRATE_MS = 1100;
 
@@ -59,8 +60,14 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
   // user pick beside.
   const pillParticle = submitted ? step.correctParticle : selected;
 
+  const hasSubmittedWrong = submitted && !isCorrect;
+
   return (
-    <div className="flex flex-1 flex-col gap-6">
+    <div className="relative flex flex-1 flex-col gap-6">
+      <ExplainButton
+        explanation={step.explanation}
+        hasSubmittedWrong={hasSubmittedWrong}
+      />
       <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
         {t("lesson.pickParticle", "Pick the particle that fits")}
       </p>

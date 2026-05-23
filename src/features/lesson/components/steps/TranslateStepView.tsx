@@ -5,6 +5,7 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedJa } from "@/shared/japanese";
+import { ExplainButton } from "../ExplainButton";
 
 const CELEBRATE_MS = 1100;
 
@@ -41,8 +42,14 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
       ? "Translate to the target language"
       : "Translate to your language";
 
+  const hasSubmittedWrong = submitted && !isCorrect;
+
   return (
-    <div className="flex flex-1 flex-col gap-6">
+    <div className="relative flex flex-1 flex-col gap-6">
+      <ExplainButton
+        explanation={step.explanation}
+        hasSubmittedWrong={hasSubmittedWrong}
+      />
       <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
         {directionLabel}
       </p>

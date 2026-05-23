@@ -7,6 +7,7 @@ import { AnnotatedJa, convertToHiragana } from "@/shared/japanese";
 import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
 import { getTtsUrl, playJaAudio, useAutoPlayJaAudio } from "@/shared/japanese/tts";
 import { Icon } from "@/shared/components/Icon";
+import { ExplainButton } from "../ExplainButton";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
   getSpeechConfig,
@@ -104,7 +105,11 @@ function SpeakingStepPlaceholder({
     playJaAudio(step.targetPhrase);
   }
   return (
-    <div className="flex flex-1 flex-col gap-6">
+    <div className="relative flex flex-1 flex-col gap-6">
+      <ExplainButton
+        explanation={step.explanation}
+        hasSubmittedWrong={false}
+      />
       <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
         Speaking practice
       </p>
@@ -559,8 +564,14 @@ function SpeakingStepRecognized({
     onContinue();
   }
 
+  const hasSubmittedWrong = attempts > 0 && !passed;
+
   return (
-    <div className="flex flex-1 flex-col gap-6">
+    <div className="relative flex flex-1 flex-col gap-6">
+      <ExplainButton
+        explanation={step.explanation}
+        hasSubmittedWrong={hasSubmittedWrong}
+      />
       <div className="flex items-center justify-between">
         <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
           Speaking practice
