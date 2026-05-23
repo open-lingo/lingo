@@ -3,6 +3,7 @@ import type { PhraseCardStep } from "../../types";
 import { Icon } from "@/shared/components/Icon";
 import { playJaAudio, useAutoPlayJaAudio, getTtsUrl } from "@/shared/japanese/tts";
 import { ContinueButton } from "../ContinueButton";
+import { lookupKanaEmoji, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 
 type Props = {
   step: PhraseCardStep;
@@ -38,6 +39,11 @@ export function PhraseCardStepView({ step, onContinue }: Props) {
     };
   }, [step.id]);
 
+  // Author override → kana lookup → no glyph. notoEmojiUrl returns null for
+  // unmapped chars; the <img> only renders when we resolved a URL.
+  const resolvedEmoji = step.emoji ?? lookupKanaEmoji(step.kana) ?? null;
+  const emojiUrl = resolvedEmoji ? notoEmojiUrl(resolvedEmoji) : null;
+
   return (
     <div className="flex flex-1 flex-col gap-6">
       <p className="text-xs font-bold uppercase tracking-[0.1em] text-text-muted">
@@ -45,6 +51,14 @@ export function PhraseCardStepView({ step, onContinue }: Props) {
       </p>
 
       <div className="relative overflow-hidden rounded-3xl border-2 border-accent/40 bg-gradient-to-br from-accent/10 via-surface to-info/10 px-7 py-9 text-center shadow-[var(--shadow-card)]">
+        {emojiUrl && (
+          <img
+            src={emojiUrl}
+            alt=""
+            aria-hidden
+            className="mx-auto mb-4 h-16 w-16"
+          />
+        )}
         <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-text-primary sm:text-4xl">
           {step.meaningEn}
         </h2>
