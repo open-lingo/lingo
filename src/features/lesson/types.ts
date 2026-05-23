@@ -29,6 +29,13 @@ export type StepBase = {
   id: string;
   type: StepType;
   hint?: string;
+  /**
+   * Sentence-level "why this is the correct answer" rationale. Surfaced via
+   * the `<ExplainButton>` after a wrong submit or 15s dwell. FORBIDDEN on
+   * passive steps (phrase_card / info / grammar_rule) — those use their own
+   * domain fields (cultureNote / body / rule).
+   */
+  explanation?: string;
 };
 
 export type InfoStep = StepBase & {
@@ -37,6 +44,9 @@ export type InfoStep = StepBase & {
   body: string;
   imageKey?: string;
   variant?: "tip" | "culture" | "grammar" | "default" | "win";
+  /** Course-atom ids this info step "teaches" — used by passive-follow-up lint
+   *  to verify a same-atom retrieval lands within [i+2, i+3]. */
+  exercisedAtomIds?: string[];
 };
 
 export type TeachVocab = {
@@ -70,7 +80,6 @@ export type MultipleChoiceStep = StepBase & {
   promptImageKey?: string;
   options: Option[];
   correctOptionId: string;
-  explanation?: string;
   promptAnnotation?: JapaneseAnnotation[];
   optionAnnotations?: (JapaneseAnnotation[] | undefined)[];
   /**
@@ -165,7 +174,6 @@ export type ListeningComprehensionStep = StepBase & {
   question: string;
   options: Option[];
   correctOptionId: string;
-  explanation?: string;
   transcriptAnnotation?: JapaneseAnnotation[];
 };
 
@@ -325,6 +333,12 @@ export type PhraseCardStep = StepBase & {
   romaji: string;
   meaningEn: string;
   cultureNote?: string;
+  /** Optional explicit emoji override. When unset, the renderer falls back to
+   *  `lookupKanaEmoji(kana)` from `JA_KANA_EMOJI_MAP`. */
+  emoji?: string;
+  /** Course-atom id this card teaches. Used by passive-follow-up lint to
+   *  verify a same-atom retrieval lands within [i+2, i+3]. */
+  atomId?: string;
 };
 
 /**
@@ -350,6 +364,9 @@ export type GrammarRuleStep = StepBase & {
   examples: GrammarExample[];
   antiPattern?: GrammarExample & { why: string };
   cultureNote?: string;
+  /** Course-atom ids this rule "teaches" — used by passive-follow-up lint
+   *  to verify a same-atom retrieval lands within [i+2, i+3]. */
+  exercisedAtomIds?: string[];
 };
 
 /**
@@ -370,7 +387,6 @@ export type ParticleClozeStep = StepBase & {
   options: string[];
   meaningEn: string;
   audioText?: string;
-  explanation?: string;
 };
 
 /**
@@ -457,6 +473,9 @@ export type DialogueListenStep = StepBase & {
    *   - "never": transcript never shown.
    */
   transcriptRevealAfter?: "first-answer" | "all-answers" | "never";
+  /** Course-atom ids exercised by the dialogue's questions. Used by lint /
+   *  SRS coupling phase 2. */
+  exercisedAtomIds?: string[];
 };
 
 export type RowTestStep = StepBase & {
