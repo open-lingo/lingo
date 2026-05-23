@@ -43,3 +43,24 @@ export function stepHasSentenceContent(step: LessonStep): boolean {
   }
   return false;
 }
+
+/**
+ * Adapter: extract the course-atom ids a step exercises, regardless of which
+ * per-type field holds them. Returns [] when the step is not atom-tagged so
+ * callers can fall back to weaker checks.
+ *
+ *   - phrase_card → `atomId` (single)
+ *   - info / grammar_rule → `exercisedAtomIds`
+ *   - graded steps → `exercisedAtoms` (lands with SRS unification phase 2;
+ *     currently returns [] for graded steps until that lands)
+ */
+export function getStepAtomIds(step: LessonStep): readonly string[] {
+  if (step.type === "phrase_card") {
+    return step.atomId ? [step.atomId] : [];
+  }
+  if (step.type === "info" || step.type === "grammar_rule") {
+    return step.exercisedAtomIds ?? [];
+  }
+  const exercisedAtoms = (step as { exercisedAtoms?: string[] }).exercisedAtoms;
+  return exercisedAtoms ?? [];
+}

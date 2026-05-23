@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { isPassiveStep, isGradedStep, stepHasSentenceContent } from "./_stepPredicates";
+import {
+  isPassiveStep,
+  isGradedStep,
+  stepHasSentenceContent,
+  getStepAtomIds,
+} from "./_stepPredicates";
 import type { LessonStep } from "../types";
 
 describe("isPassiveStep", () => {
@@ -67,5 +72,39 @@ describe("stepHasSentenceContent", () => {
     expect(stepHasSentenceContent({ id: "x", type: "symbol_trace" } as LessonStep)).toBe(false);
     expect(stepHasSentenceContent({ id: "x", type: "word_image_mcq" } as LessonStep)).toBe(false);
     expect(stepHasSentenceContent({ id: "x", type: "match_pairs" } as LessonStep)).toBe(false);
+  });
+});
+
+describe("getStepAtomIds", () => {
+  it("reads atomId from phrase_card", () => {
+    const step = {
+      id: "x",
+      type: "phrase_card",
+      kana: "コーヒー",
+      romaji: "koohii",
+      meaningEn: "coffee",
+      atomId: "ja-koohii",
+    } as LessonStep;
+    expect(getStepAtomIds(step)).toEqual(["ja-koohii"]);
+  });
+  it("reads exercisedAtomIds from info / grammar_rule", () => {
+    const info = {
+      id: "x",
+      type: "info",
+      body: "...",
+      exercisedAtomIds: ["ja-wa", "ja-desu"],
+    } as LessonStep;
+    expect(getStepAtomIds(info)).toEqual(["ja-wa", "ja-desu"]);
+  });
+  it("returns [] for steps without atom tagging", () => {
+    expect(
+      getStepAtomIds({
+        id: "x",
+        type: "phrase_card",
+        kana: "x",
+        romaji: "x",
+        meaningEn: "x",
+      } as LessonStep),
+    ).toEqual([]);
   });
 });
