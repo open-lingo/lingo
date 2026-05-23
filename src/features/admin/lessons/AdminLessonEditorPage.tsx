@@ -166,7 +166,11 @@ export function AdminLessonEditorPage() {
         </div>
         <div className="col-span-12 flex min-h-0 flex-col lg:col-span-5 lg:h-full">
           {selectedStep ? (
-            <StepInspector step={selectedStep} onChange={onStepChange} />
+            <StepInspector
+              step={selectedStep}
+              allSteps={draft.steps}
+              onChange={onStepChange}
+            />
           ) : (
             <div className="flex h-full items-center justify-center rounded-lg border border-dashed border-border bg-surface text-sm text-text-muted">
               No steps. Add one from the left panel.

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type {
   LessonStep,
   MultipleChoiceStep,
@@ -13,13 +13,24 @@ import type {
   WordImageMcqStep,
 } from "@/features/lesson/types";
 import { Icon } from "@/shared/components/Icon";
+import { checkPassiveCardFollowup } from "@/features/lesson/data/_stepAssertions";
 
 type Props = {
   step: LessonStep;
+  /** Full lesson draft step list — needed so the inspector can run the
+   * passive-card followup lint against the surrounding window and surface
+   * a warning banner on the current step when it fails. */
+  allSteps?: ReadonlyArray<LessonStep>;
   onChange: (next: LessonStep) => void;
 };
 
-export function StepInspector({ step, onChange }: Props) {
+export function StepInspector({ step, allSteps, onChange }: Props) {
+  const lintFailure = useMemo(() => {
+    if (!allSteps) return null;
+    const { failures } = checkPassiveCardFollowup(allSteps);
+    return failures.find((f) => f.stepId === step.id) ?? null;
+  }, [allSteps, step.id]);
+
   const [mode, setMode] = useState<"form" | "json">("form");
 
   const patch = <K extends keyof LessonStep>(
@@ -65,6 +76,11 @@ export function StepInspector({ step, onChange }: Props) {
       </header>
 
       <div className="flex-1 overflow-y-auto p-4">
+        {lintFailure && (
+          <div className="mb-3 rounded-md border border-warning/40 bg-warning/10 px-3 py-2 text-xs text-warning">
+            <strong>Lint:</strong> {lintFailure.reason}
+          </div>
+        )}
         <div className="space-y-3">
           <Field label="Step ID" hint="Stable; renames may break saved progress.">
             <input
