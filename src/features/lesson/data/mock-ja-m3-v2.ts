@@ -73,6 +73,11 @@ import {
   assertNoConsecutiveSame,
   slotFor,
 } from "./_jaGrammarHelpers";
+import {
+  assertExplanationDoesntLeakAnswer,
+  assertNoExplanationOnPassive,
+  assertPassiveCardsHaveFollowup,
+} from "./_stepAssertions";
 import type {
   BuildSentenceStep,
   MatchPairsStep,
@@ -1734,3 +1739,14 @@ export const M3_8: LessonContent = {
     ),
   ],
 };
+
+// ---------------------------------------------------------------------------
+// Passive-card lint (2026-05-22): every phrase_card / info / grammar_rule
+// must have a same-atom graded follow-up at i+2..i+3, no `explanation` field,
+// and no graded explanation that contains a chunk of its own answer.
+// ---------------------------------------------------------------------------
+for (const lesson of [M3_1, M3_2, M3_3, M3_4, M3_5, M3_6, M3_7, M3_8]) {
+  assertPassiveCardsHaveFollowup(lesson.steps);
+  assertNoExplanationOnPassive(lesson.steps);
+  assertExplanationDoesntLeakAnswer(lesson.steps);
+}

@@ -76,6 +76,11 @@ import {
   assertNoConsecutiveSame,
   slotFor,
 } from "./_jaGrammarHelpers";
+import {
+  assertExplanationDoesntLeakAnswer,
+  assertNoExplanationOnPassive,
+  assertPassiveCardsHaveFollowup,
+} from "./_stepAssertions";
 
 const COURSE = "mock-1";
 const LANG = "ja";
@@ -1763,3 +1768,12 @@ export const M7_9: LessonContent = {
     ),
   ],
 };
+
+// ---------------------------------------------------------------------------
+// Passive-card lint (2026-05-22) — see _stepAssertions.ts for rules.
+// ---------------------------------------------------------------------------
+for (const lesson of [M7_1, M7_2, M7_3, M7_4, M7_5, M7_6, M7_7, M7_8, M7_9]) {
+  assertPassiveCardsHaveFollowup(lesson.steps);
+  assertNoExplanationOnPassive(lesson.steps);
+  assertExplanationDoesntLeakAnswer(lesson.steps);
+}

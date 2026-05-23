@@ -62,6 +62,11 @@ import {
   assertNoConsecutiveSame,
   slotFor,
 } from "./_jaGrammarHelpers";
+import {
+  assertExplanationDoesntLeakAnswer,
+  assertNoExplanationOnPassive,
+  assertPassiveCardsHaveFollowup,
+} from "./_stepAssertions";
 import type {
   BuildSentenceStep,
   MatchPairsStep,
@@ -1752,3 +1757,12 @@ assertNoSameAnswerCluster([
   ...M4_6.steps,
   ...M4_7.steps,
 ]);
+
+// ---------------------------------------------------------------------------
+// Passive-card lint (2026-05-22) — see _stepAssertions.ts for rules.
+// ---------------------------------------------------------------------------
+for (const lesson of [M4_1, M4_2, M4_3, M4_4, M4_5, M4_6, M4_7, M4_8]) {
+  assertPassiveCardsHaveFollowup(lesson.steps);
+  assertNoExplanationOnPassive(lesson.steps);
+  assertExplanationDoesntLeakAnswer(lesson.steps);
+}

@@ -1,4 +1,9 @@
 import type { LessonContent, PhraseCardStep } from "../types";
+import {
+  assertExplanationDoesntLeakAnswer,
+  assertNoExplanationOnPassive,
+  assertPassiveCardsHaveFollowup,
+} from "./_stepAssertions";
 
 /**
  * Survival Phrasebook — sidequest lesson (curriculum-design-v2 §6).
@@ -163,3 +168,28 @@ export const MOCK_LESSON_JA_SIDEQUEST_SURVIVAL: LessonContent = {
     },
   ],
 };
+
+// ---------------------------------------------------------------------------
+// Lint: passive-card followup
+// ---------------------------------------------------------------------------
+// TODO(2026-05-22): sidequest-survival is exposure-first phrasebook content —
+// 17 back-to-back phrase_cards with no graded follow-up. By design (per the
+// header comment), it doesn't test recall; players hear/read/continue. The
+// new passive-card lint would fail on every card.
+//
+// Tracked separately for sub-lesson decomposition (a real "test what you
+// learned" tail would let us turn the lint back on). Until that re-author
+// lands, this lesson is exempt.
+//
+// Remove SIDEQUEST_LINT_EXEMPT once the re-author lands.
+const SIDEQUEST_LINT_EXEMPT = true;
+
+// The no-explanation-on-passive + no-answer-leak checks are safe to run on
+// sidequest content (the cards have no explanation field; there are no
+// graded steps). Only the followup-window check is exempt.
+assertNoExplanationOnPassive(MOCK_LESSON_JA_SIDEQUEST_SURVIVAL.steps);
+assertExplanationDoesntLeakAnswer(MOCK_LESSON_JA_SIDEQUEST_SURVIVAL.steps);
+
+if (!SIDEQUEST_LINT_EXEMPT) {
+  assertPassiveCardsHaveFollowup(MOCK_LESSON_JA_SIDEQUEST_SURVIVAL.steps);
+}

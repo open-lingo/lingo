@@ -81,6 +81,11 @@ import {
   WORD_IMAGE_MCQ_BLOCKLIST,
   slotFor,
 } from "./_jaGrammarHelpers";
+import {
+  assertExplanationDoesntLeakAnswer,
+  assertNoExplanationOnPassive,
+  assertPassiveCardsHaveFollowup,
+} from "./_stepAssertions";
 
 const COURSE = "mock-1";
 const LANG = "ja";
@@ -1928,3 +1933,12 @@ export const M6_9: LessonContent = {
     ),
   ],
 };
+
+// ---------------------------------------------------------------------------
+// Passive-card lint (2026-05-22) — see _stepAssertions.ts for rules.
+// ---------------------------------------------------------------------------
+for (const lesson of [M6_1, M6_2, M6_3, M6_4, M6_5, M6_6, M6_7, M6_8, M6_9]) {
+  assertPassiveCardsHaveFollowup(lesson.steps);
+  assertNoExplanationOnPassive(lesson.steps);
+  assertExplanationDoesntLeakAnswer(lesson.steps);
+}

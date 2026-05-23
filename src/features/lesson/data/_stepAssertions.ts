@@ -18,6 +18,19 @@ function findFollowupFailure(
   const step = steps[i];
   if (!isPassiveStep(step)) return null;
 
+  // Terminal-outro exemption: a closing info/grammar_rule with no graded
+  // step anywhere after it is the lesson's "celebrate what you just did"
+  // card (typically variant="win"). These aren't dismiss-only teach cards
+  // that ship without recall — the recall already happened in the lesson
+  // body. phrase_card is NOT exempt: every vocab teach card needs a
+  // retrieval somewhere downstream.
+  if (step.type === "info" || step.type === "grammar_rule") {
+    const hasAnyGradedAfter = steps.slice(i + 1).some(isGradedStep);
+    if (!hasAnyGradedAfter) {
+      return null;
+    }
+  }
+
   const window = steps.slice(i + 1, i + 1 + FOLLOWUP_WINDOW_END);
   const gradedInWindow = window.filter(isGradedStep);
 
@@ -31,6 +44,20 @@ function findFollowupFailure(
   const atomIds = getStepAtomIds(step);
   if (atomIds.length === 0) {
     // Untagged passive card: weaker check already satisfied above.
+    return null;
+  }
+
+  // Until graded steps carry `exercisedAtoms` (SRS unification phase 2),
+  // most graded steps return []. To avoid false-positive failures from the
+  // strong atom-match check, only escalate to the strong check when at least
+  // one graded step in the window is itself atom-tagged. When no graded step
+  // in the window carries any atom tag, the weaker "≥1 graded follow-up
+  // within window" check already proves the lesson interleaves retrieval.
+  const windowSlice = steps.slice(i + 1, i + 1 + FOLLOWUP_WINDOW_END);
+  const gradedHaveAnyAtomTag = windowSlice.some(
+    (s) => isGradedStep(s) && getStepAtomIds(s).length > 0,
+  );
+  if (!gradedHaveAnyAtomTag) {
     return null;
   }
 

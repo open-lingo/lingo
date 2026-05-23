@@ -70,6 +70,11 @@ import {
   slotFor,
   type ReviewAtom,
 } from "./_jaGrammarHelpers";
+import {
+  assertExplanationDoesntLeakAnswer,
+  assertNoExplanationOnPassive,
+  assertPassiveCardsHaveFollowup,
+} from "./_stepAssertions";
 
 const COURSE = "mock-1";
 const LANG = "ja";
@@ -1509,3 +1514,12 @@ export const M5_8: LessonContent = {
     ),
   ],
 };
+
+// ---------------------------------------------------------------------------
+// Passive-card lint (2026-05-22) — see _stepAssertions.ts for rules.
+// ---------------------------------------------------------------------------
+for (const lesson of [M5_1, M5_2, M5_3, M5_4, M5_5, M5_6, M5_7, M5_8]) {
+  assertPassiveCardsHaveFollowup(lesson.steps);
+  assertNoExplanationOnPassive(lesson.steps);
+  assertExplanationDoesntLeakAnswer(lesson.steps);
+}
