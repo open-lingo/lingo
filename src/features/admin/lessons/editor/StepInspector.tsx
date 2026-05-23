@@ -14,6 +14,7 @@ import type {
 } from "@/features/lesson/types";
 import { Icon } from "@/shared/components/Icon";
 import { checkPassiveCardFollowup } from "@/features/lesson/data/_stepAssertions";
+import { stepHasSentenceContent } from "@/features/lesson/data/_stepPredicates";
 
 type Props = {
   step: LessonStep;
@@ -100,6 +101,29 @@ export function StepInspector({ step, allSteps, onChange }: Props) {
               className="w-full rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
             />
           </Field>
+          {stepHasSentenceContent(step) && (
+            <Field
+              label="Explanation (sentence-level)"
+              hint="Why this answer is correct. Don't include the literal answer — the learner sees this on a ? button after a wrong submit or 15s of inactivity."
+            >
+              <textarea
+                value={step.explanation ?? ""}
+                onChange={(e) =>
+                  patch(
+                    "explanation",
+                    (e.target.value || undefined) as LessonStep["explanation"],
+                  )
+                }
+                className="h-20 w-full rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
+              />
+              {!step.explanation && (
+                <span className="mt-1 block text-[11px] text-text-muted">
+                  Consider adding an explanation. Players can tap a “?” button
+                  to see it after a wrong answer or 15s of inactivity.
+                </span>
+              )}
+            </Field>
+          )}
         </div>
 
         <div className="my-4 border-t border-border" />
@@ -338,15 +362,6 @@ function McqForm({ step, onChange }: { step: MultipleChoiceStep; onChange: (s: L
           value={step.prompt}
           onChange={(e) => onChange({ ...step, prompt: e.target.value })}
           className="h-20 w-full rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
-        />
-      </Field>
-      <Field label="Explanation (shown after answer)">
-        <textarea
-          value={step.explanation ?? ""}
-          onChange={(e) =>
-            onChange({ ...step, explanation: e.target.value || undefined })
-          }
-          className="h-16 w-full rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
         />
       </Field>
       <div>
@@ -658,6 +673,33 @@ function PhraseCardForm({ step, onChange }: { step: PhraseCardStep; onChange: (s
             })
           }
           className="h-20 w-full rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
+        />
+      </Field>
+      <Field
+        label="Emoji (optional)"
+        hint="Overrides the kana→emoji lookup. Single glyph."
+      >
+        <input
+          type="text"
+          value={step.emoji ?? ""}
+          maxLength={4}
+          onChange={(e) =>
+            onChange({ ...step, emoji: e.target.value || undefined })
+          }
+          className="w-24 rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
+        />
+      </Field>
+      <Field
+        label="Atom ID (for followup lint)"
+        hint="The course atom this card maps to. Required for the same-atom follow-up lint."
+      >
+        <input
+          type="text"
+          value={step.atomId ?? ""}
+          onChange={(e) =>
+            onChange({ ...step, atomId: e.target.value || undefined })
+          }
+          className="w-full rounded border border-border bg-surface px-2 py-1 font-mono text-xs text-text-primary"
         />
       </Field>
     </div>
