@@ -24,6 +24,7 @@ import type {
   TranslateStep,
   WordImageMcqStep,
 } from "../types";
+import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import { JA_COURSE_ATOMS_BY_KANA } from "@/features/flashcards/data/ja-course-atoms";
 
 /**
@@ -36,6 +37,32 @@ import { JA_COURSE_ATOMS_BY_KANA } from "@/features/flashcards/data/ja-course-at
  */
 function resolvePhraseAtomId(kana: string): string | undefined {
   return JA_COURSE_ATOMS_BY_KANA.get(kana)?.id;
+}
+
+/**
+ * Resolve a course atom's `{atomId, gloss}` payload from a token's reading.
+ * Looked up against `JA_COURSE_ATOMS_BY_KANA`. Returns `{}` when the reading
+ * isn't a known atom (so spread into an annotation literal is a no-op for
+ * unmatched tokens). Used by every annotation builder below so each
+ * `JapaneseAnnotation` automatically carries `atomId + gloss` when its
+ * reading matches an atom — the gloss-popover surface reads these directly.
+ */
+export function resolveAtom(reading: string): { atomId?: string; gloss?: string } {
+  const atom = JA_COURSE_ATOMS_BY_KANA.get(reading);
+  if (!atom) return {};
+  return { atomId: atom.id, gloss: atom.meaningEn };
+}
+
+/**
+ * Build a single-token annotation from a (surface, reading?) pair, applying
+ * `resolveAtom` so the token carries `atomId + gloss` when the reading is a
+ * known atom. Shared by the factories that emit single-token annotations.
+ */
+function buildSingletonAnnotation(
+  surface: string,
+  reading: string = surface,
+): JapaneseAnnotation {
+  return { surface, reading, ...resolveAtom(reading) };
 }
 
 export function vocab(
@@ -138,7 +165,7 @@ export function build(
     correctOrder,
     granularity: "word",
     audioKey: target,
-    targetAnnotation: [{ surface: target, reading: target }],
+    targetAnnotation: [buildSingletonAnnotation(target)],
   };
 }
 
@@ -188,7 +215,7 @@ export function speaking(
     // analogous flip on _consonantRowHelpers.speaking from 2026-05-17.
     stubbed: false,
     audioKey: targetPhrase,
-    targetAnnotation: [{ surface: targetPhrase, reading: targetPhrase }],
+    targetAnnotation: [buildSingletonAnnotation(targetPhrase)],
   };
 }
 
@@ -636,7 +663,7 @@ export function reviewMatchPairs(
       id: `p-${i}`,
       source: a.kana,
       target: a.meaningEn,
-      sourceAnnotation: [{ surface: a.kana, reading: a.kana }],
+      sourceAnnotation: [buildSingletonAnnotation(a.kana)],
     })),
   };
 }
@@ -868,7 +895,7 @@ export function audioMeaningMcq(
     question: "What does this word mean?",
     options,
     correctOptionId: "correct",
-    transcriptAnnotation: [{ surface: target.kana, reading: target.kana }],
+    transcriptAnnotation: [buildSingletonAnnotation(target.kana)],
   };
 }
 
@@ -1076,7 +1103,7 @@ export function listeningBuildSentence(opts: {
     tiles: opts.tiles,
     correctOrder: opts.correctOrder,
     granularity: "word",
-    targetAnnotation: [{ surface: opts.target, reading: opts.target }],
+    targetAnnotation: [buildSingletonAnnotation(opts.target)],
   };
 }
 
@@ -1108,7 +1135,7 @@ export function listeningCompSentence(opts: {
     question: opts.question ?? "What does this sentence mean?",
     options: items,
     correctOptionId: "correct",
-    transcriptAnnotation: [{ surface: opts.audioText, reading: opts.audioText }],
+    transcriptAnnotation: [buildSingletonAnnotation(opts.audioText)],
   };
 }
 
