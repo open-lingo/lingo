@@ -38,7 +38,6 @@ export type LearnCourseMapProps = {
   isModuleOpen: (moduleId: string) => boolean;
   onToggleModule: (moduleId: string) => void;
   onLessonClick: (lesson: Lesson) => void;
-  onStartOver: () => void;
 };
 
 export function LearnCourseMap({
@@ -49,7 +48,6 @@ export function LearnCourseMap({
   isModuleOpen,
   onToggleModule,
   onLessonClick,
-  onStartOver,
 }: LearnCourseMapProps) {
   const { t } = useTranslation();
   const currentIdx = getCurrentModuleIndex(course, completedSet);
@@ -188,16 +186,6 @@ export function LearnCourseMap({
           onResume={resumeCurrent}
         />
       ) : null}
-
-      <div className="mt-6">
-        <button
-          type="button"
-          onClick={onStartOver}
-          className="text-xs font-medium text-text-muted hover:text-text-primary"
-        >
-          {t("learn.startOver")}
-        </button>
-      </div>
 
       {TEST_OUT_ENABLED && testOutModuleIdx !== null ? (
         <ConfirmModal

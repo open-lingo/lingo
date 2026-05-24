@@ -121,3 +121,18 @@ export function clearLessonInProgress(lessonId: string): void {
     // ignore
   }
 }
+
+/** Drop every saved mid-lesson resume snapshot on this device. */
+export function clearAllLessonInProgress(): void {
+  if (typeof window === "undefined") return;
+  try {
+    const keys: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k?.startsWith(KEY_PREFIX)) keys.push(k);
+    }
+    keys.forEach((k) => localStorage.removeItem(k));
+  } catch {
+    /* ignore */
+  }
+}

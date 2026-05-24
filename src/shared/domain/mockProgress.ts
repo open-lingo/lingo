@@ -179,6 +179,35 @@ export function clearMockProgress(): void {
   notifyProgressChanged();
 }
 
+const RESET_FLAG_PREFIX = "open-lingo-lesson-progress-reset:";
+
+/** User chose Start over — skip server hydrate until they progress again. */
+export function markLessonProgressReset(): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(`${RESET_FLAG_PREFIX}${getActiveUserStorageId()}`, "1");
+  } catch {
+    /* ignore */
+  }
+}
+
+export function hasLessonProgressReset(): boolean {
+  if (typeof window === "undefined") return false;
+  return (
+    localStorage.getItem(`${RESET_FLAG_PREFIX}${getActiveUserStorageId()}`) ===
+    "1"
+  );
+}
+
+export function clearLessonProgressReset(): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.removeItem(`${RESET_FLAG_PREFIX}${getActiveUserStorageId()}`);
+  } catch {
+    /* ignore */
+  }
+}
+
 export function markLastStoppedCleanly(now: string = new Date().toISOString()): void {
   const store = loadStore();
   store.lastStoppedCleanly = now;

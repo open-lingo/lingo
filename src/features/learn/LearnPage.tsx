@@ -13,7 +13,7 @@ import {
  *  Versioned so a future copy/UX change can re-fire it for everyone. */
 const MASTERY_TOAST_KEY_PREFIX = "lingo_mastery_toasted_v1_";
 import { Icon } from "@/shared/components/Icon";
-import { Card, ProgressRing } from "@/shared/components/ui";
+import { Card, ProgressRing, Button } from "@/shared/components/ui";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useUserStats } from "@/shared/hooks/useUserStats";
@@ -21,11 +21,11 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { logSessionEvent } from "@/shared/telemetry/sessionLog";
 import { getMockCourse, ALPHABET_LESSON_ID } from "@/shared/domain/mockCourse";
 import {
-  clearMockProgress,
   isDevUnlockOn,
   setDevUnlock,
 } from "@/shared/domain/mockProgress";
 import { useCompletedLessonIds } from "./hooks/useCompletedLessonIds";
+import { resetLearnProgress } from "./resetLearnProgress";
 import { applySpeechQueryParams, setSpeechFlag } from "@/shared/speech";
 import { applyDensityQueryParams } from "@/features/lesson/data/lessonDensity";
 import { getAlphabetProgress } from "@/features/practice/alphabet/alphabetProgress";
@@ -195,7 +195,14 @@ export function LearnPage() {
   }, [course, completedSet, showToast, t]);
 
   const handleStartOver = () => {
-    clearMockProgress();
+    if (!course) return;
+    resetLearnProgress(course.id);
+    showToast(
+      t("learn.startOverDone", {
+        defaultValue: "Progress reset — you're back at the start of the course.",
+      }),
+      "success",
+    );
   };
 
   const handleToggleDevUnlock = () => {
@@ -342,10 +349,12 @@ export function LearnPage() {
                 ? Math.round((lessonsDone / totalLessons) * 100)
                 : 0;
             const streakDays = userStats.streak;
+            const hasProgress = lessonsDone > 0;
             return (
               <Card padding="lg" className="mb-6">
-                <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="min-w-0">
+                <div className="flex flex-col gap-5">
+                  <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="min-w-0">
                     <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
                       {t("learn.progressCard.kicker", {
                         defaultValue: "Your path",
@@ -383,6 +392,24 @@ export function LearnPage() {
                       </span>
                     )}
                   </div>
+                  </div>
+                  {hasProgress ? (
+                    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
+                      <p className="text-sm text-text-secondary">
+                        {t("learn.startOverHint", {
+                          defaultValue:
+                            "Want a clean slate? Reset the course path on this device.",
+                        })}
+                      </p>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setShowStartOverConfirm(true)}
+                      >
+                        {t("learn.startOver")}
+                      </Button>
+                    </div>
+                  ) : null}
                 </div>
               </Card>
             );
@@ -395,7 +422,6 @@ export function LearnPage() {
             isModuleOpen={accordion.isOpen}
             onToggleModule={accordion.toggle}
             onLessonClick={goToLesson}
-            onStartOver={() => setShowStartOverConfirm(true)}
           />
         </div>
         <div className="hidden lg:block">
@@ -429,7 +455,9 @@ export function LearnPage() {
       <LearnDevPanel
         unlocked={devUnlock}
         onToggle={handleToggleDevUnlock}
-        onClearProgress={handleStartOver}
+        onClearProgress={() => {
+          if (course) resetLearnProgress(course.id);
+        }}
         onClearGraduatedVocab={() => clearGraduatedVocab(course.id)}
       />
     </>
