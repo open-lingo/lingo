@@ -95,7 +95,7 @@ export function PracticePage() {
   const languageName = getLanguageConfig(langId)?.name ?? langId;
 
   const { dueCount, isLoading: dueLoading } = useFlashcardDueSummary(langId);
-  const { stats } = useUserStats();
+  const { stats, isReady } = useUserStats();
 
   // Module reviews — surface a Practice-page jump card when any are due.
   const reviewCourse = useMemo(() => getMockCourse(langId), [langId]);
@@ -231,10 +231,12 @@ export function PracticePage() {
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-surface-muted px-3 py-1 text-xs font-medium text-text-secondary">
                 <Icon name="gem" size={14} aria-hidden />
-                {t("practice.overview.lingotsChip", {
-                  defaultValue: "{{count}} lingots",
-                  count: stats.lingots,
-                })}
+                {isReady
+                  ? t("practice.overview.lingotsChip", {
+                      defaultValue: "{{count}} lingots",
+                      count: stats.lingots,
+                    })
+                  : t("practice.overview.lingotsLoading", { defaultValue: "— lingots" })}
               </span>
             </div>
           </div>

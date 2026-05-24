@@ -33,6 +33,8 @@ const DEFAULT_STATS: UserStats = {
  */
 export function useUserStats(): {
   stats: UserStats;
+  /** False while the first /progress/me fetch is in flight for signed-in users. */
+  isReady: boolean;
   isLoading: boolean;
   isError: boolean;
   refetch: () => void;
@@ -51,8 +53,11 @@ export function useUserStats(): {
     gcTime: 5 * 60_000,
   });
 
+  const isReady = !isAuthenticated || query.isFetched;
+
   return {
     stats: query.data ?? DEFAULT_STATS,
+    isReady,
     isLoading: query.isLoading,
     isError: query.isError,
     refetch: () => {

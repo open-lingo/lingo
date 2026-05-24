@@ -17,7 +17,7 @@ import { ModalRoot } from "@/shared/components/ModalRoot";
 import { ToastContainer } from "@/shared/components/ToastContainer";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTouchOnSession } from "@/shared/hooks/useTouchOnSession";
-import { useUserStats } from "@/shared/hooks/useUserStats";
+import { LingotBalance } from "@/shared/components/LingotBalance";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
@@ -31,7 +31,6 @@ export function Layout() {
   const { isAuthenticated } = useAuth();
   // Fires POST /progress/me/touch once per session after auth.
   useTouchOnSession();
-  const { stats } = useUserStats();
   const flags = useFeatureFlags();
   const leaderboardOn = isLeaderboardEnabled(flags);
   const pathname = location.pathname;
@@ -170,16 +169,7 @@ export function Layout() {
           {/* Right side: utilities + mobile menu button */}
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             {isAuthenticated && <SyncManagerTrigger />}
-            {isAuthenticated && (
-              <Link
-                to={langPath("settings")}
-                className="inline-flex items-center gap-1 rounded-full bg-accent-muted px-2 py-1 text-xs font-semibold text-accent transition hover:bg-accent-muted/80"
-                title={t("nav.lingotsTooltip", { defaultValue: "{{count}} lingots", count: stats.lingots })}
-              >
-                <Icon name="gem" size={14} aria-hidden />
-                <span className="tabular-nums">{stats.lingots.toLocaleString()}</span>
-              </Link>
-            )}
+            {isAuthenticated && <LingotBalance />}
             {isAuthenticated && <LanguageSelector />}
             {isAuthenticated ? (
               <AuthMenu />

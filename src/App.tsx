@@ -90,6 +90,7 @@ const SocialPreviewPage = lazyRetry(
 const MessengerPage = lazyRetry(
   () => import("@/features/messenger/MessengerPage"),
 );
+const ShopPage = lazyRetry(() => import("@/features/shop/ShopPage"));
 const LearnPage = lazyRetry(() => import("@/features/learn/LearnPage"));
 const AssetTestPage = lazyRetry(() => import("@/features/asset-test/AssetTestPage"));
 const PickerTestPage = lazyRetry(() => import("@/features/picker-test/PickerTestPage"));
@@ -279,6 +280,7 @@ const router = createBrowserRouter([
                 ],
               },
               { path: "vocab", element: <VocabPage /> },
+              { path: "shop", element: <ShopPage /> },
               { path: "grammar", element: <GrammarRedirect /> },
               { path: "speech-tune", element: <SpeechTunePage /> },
               { path: "lesson-preview", element: <LessonStepPreviewPage /> },

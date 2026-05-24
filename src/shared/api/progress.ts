@@ -108,7 +108,14 @@ export interface AttemptList {
   nextCursor: string | null;
 }
 
-// ─── Client ─────────────────────────────────────────────────────────────────
+export interface ShopPurchaseResponse {
+  itemId: string;
+  price: number;
+  lingotsRemaining: number;
+  owned: boolean;
+  quantity: number;
+}
+
 
 export class ProgressApi extends ApiClient {
   /** Flush buffered lesson attempts in one batch. Returns per-attempt results. */
@@ -189,6 +196,24 @@ export class ProgressApi extends ApiClient {
           ? (err as { status: number }).status
           : 0;
       if (status === 404 || status === 501) return { items: [], nextCursor: null };
+      throw err;
+    }
+  }
+
+  /** Spend lingots on a shop catalog item. */
+  async purchaseShopItem(itemId: string): Promise<ShopPurchaseResponse | null> {
+    try {
+      return await this.post<ShopPurchaseResponse>(
+        `${PREFIX}/shop/purchase`,
+        { itemId },
+        { tag: "progress:shop-purchase" },
+      );
+    } catch (err: unknown) {
+      const status =
+        err && typeof err === "object" && "status" in err
+          ? (err as { status: number }).status
+          : 0;
+      if (status === 404 || status === 501) return null;
       throw err;
     }
   }

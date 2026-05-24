@@ -3,6 +3,7 @@ import { Card, ProgressRing, WeekSparkline } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { getMockProgressSummary } from "@/shared/domain/mockProgress";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { LingotBalance } from "@/shared/components/LingotBalance";
 import { useUserStats } from "@/shared/hooks/useUserStats";
 import { MOCK_WEEK_MINUTES, MOCK_KANA_MASTERY } from "./mockHomeData";
 
@@ -166,16 +167,7 @@ export function AccountOverviewCard() {
           />
         </div>
         <div className="mt-2 flex items-center justify-end gap-1.5 text-xs text-text-secondary">
-          <Icon name="gem" size={14} className="text-accent" aria-hidden />
-          <span
-            className="font-semibold text-text-primary"
-            aria-label={t("account.lingotsAria", {
-              defaultValue: "{{count}} lingots",
-              count: stats.lingots,
-            })}
-          >
-            {stats.lingots.toLocaleString()}
-          </span>
+          <LingotBalance linkToShop className="bg-transparent px-0 py-0 hover:bg-transparent" />
           <span className="text-text-muted">
             {t("account.lingots", { defaultValue: "Lingots" })}
           </span>

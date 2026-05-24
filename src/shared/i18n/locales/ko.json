@@ -41,7 +41,8 @@
     "githubRepo": "GitHub에서 보기",
     "guestLogin": "로그인",
     "guestStart": "시작",
-    "lingotsTooltip": "링곳 {{count}}개"
+    "lingotsTooltip": "링곳 {{count}}개",
+    "lingotsLoading": "링곳 불러오는 중…"
   },
   "authMenu": {
     "themeLabel": "테마"
@@ -175,6 +176,8 @@
       "kicker": "연습",
       "dueChip": "복습할 모듈 {{count}}개",
       "flashChip": "복습 예정 카드 {{count}}장",
+      "lingotsChip": "링곳 {{count}}개",
+      "lingotsLoading": "링곳 —",
       "ringSublabel": "복습",
       "ringCaption": "총 {{total}}개 모듈 중",
       "weekLabel": "이번 주",
@@ -509,6 +512,42 @@
   "account": {
     "lingots": "링곳",
     "lingotsAria": "링곳 {{count}}개"
+  },
+  "shop": {
+    "kicker": "보상",
+    "title": "링곳 상점",
+    "subtitle": "레슨에서 얻은 링곳을 사용하세요. 샘플 아이템이며, 곧 게임플레이와 연동됩니다.",
+    "balanceLabel": "보유 링곳",
+    "sectionPowerups": "파워업",
+    "sectionCosmetics": "꾸미기",
+    "buy": "구매",
+    "buyAgain": "다시 구매",
+    "owned": "보유 중",
+    "ownedCount": "×{{count}} 보유",
+    "needMore": "링곳 부족",
+    "insufficientLingots": "링곳이 부족합니다.",
+    "alreadyOwned": "이미 보유 중입니다.",
+    "purchaseSuccess": "{{name}} 구매 완료!",
+    "purchaseFailed": "구매 실패 — 다시 시도하세요.",
+    "earnHint": "레슨을 완료하면 링곳을 얻습니다. 연속 학습 보너스와 만점 보상은 곧 추가됩니다.",
+    "items": {
+      "streakFreeze": {
+        "title": "연속 학습 동결",
+        "description": "하루를 놓쳐도 연속 학습을 유지합니다."
+      },
+      "hintPack": {
+        "title": "힌트 판",
+        "description": "어려운 단계용 힌트 3개."
+      },
+      "profileFrameGold": {
+        "title": "골드 프로필 프레임",
+        "description": "황금색 아바타 테두리."
+      },
+      "titleNightOwl": {
+        "title": "올빼미 칭호",
+        "description": "밤늦게 공부하는 학습자용 칭호."
+      }
+    }
   },
   "auth": {
     "accountMenu": "계정 메뉴",

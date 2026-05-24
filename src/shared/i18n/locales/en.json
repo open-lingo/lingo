@@ -42,7 +42,8 @@
     "githubRepo": "View on GitHub",
     "guestLogin": "Log in",
     "guestStart": "Start",
-    "lingotsTooltip": "{{count}} lingots"
+    "lingotsTooltip": "{{count}} lingots",
+    "lingotsLoading": "Loading lingots…"
   },
   "authMenu": {
     "themeLabel": "Theme"
@@ -243,6 +244,8 @@
       "kicker": "Practice",
       "dueChip": "{{count}} modules need review",
       "flashChip": "{{count}} flashcards due",
+      "lingotsChip": "{{count}} lingots",
+      "lingotsLoading": "— lingots",
       "ringSublabel": "due",
       "ringCaption": "of {{total}} modules",
       "weekLabel": "This week",
@@ -593,6 +596,42 @@
   "account": {
     "lingots": "Lingots",
     "lingotsAria": "{{count}} lingots"
+  },
+  "shop": {
+    "kicker": "Rewards",
+    "title": "Lingot shop",
+    "subtitle": "Spend lingots you earn from lessons. Sample items for now — cosmetics and power-ups will hook into gameplay soon.",
+    "balanceLabel": "Your balance",
+    "sectionPowerups": "Power-ups",
+    "sectionCosmetics": "Cosmetics",
+    "buy": "Buy",
+    "buyAgain": "Buy again",
+    "owned": "Owned",
+    "ownedCount": "×{{count}} owned",
+    "needMore": "Need more lingots",
+    "insufficientLingots": "Not enough lingots.",
+    "alreadyOwned": "You already own this.",
+    "purchaseSuccess": "Purchased {{name}}!",
+    "purchaseFailed": "Purchase failed — try again.",
+    "earnHint": "Earn lingots by completing lessons. Streak bonuses and perfect scores coming soon.",
+    "items": {
+      "streakFreeze": {
+        "title": "Streak freeze",
+        "description": "Protect your streak for one missed day."
+      },
+      "hintPack": {
+        "title": "Hint pack",
+        "description": "Three lesson hints for tough steps."
+      },
+      "profileFrameGold": {
+        "title": "Gold profile frame",
+        "description": "Show off with a golden avatar border."
+      },
+      "titleNightOwl": {
+        "title": "Night owl title",
+        "description": "A profile title for late-night learners."
+      }
+    }
   },
   "funding": {
     "adFunded": "{{percent}}% ad-funded",
