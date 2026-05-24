@@ -113,6 +113,35 @@ export function computeGradedProgress(
   return { current, total };
 }
 
+/**
+ * Progress bar counts for {@link LessonProgressBar}.
+ *
+ * Graded lessons (quizzes, trace, MCQ, …) use {@link computeGradedProgress}.
+ * Exposure-only lessons (e.g. `ko-m1-intro` — all `info` cards) have zero
+ * graded steps; fall back to 1-based position in the lesson so the bar never
+ * shows `0/0`.
+ */
+export function getLessonProgressBarCounts(
+  steps: ReadonlyArray<LessonStep>,
+  currentStepIdx: number,
+  results: Readonly<Record<string, unknown>>,
+  inReplay: boolean,
+): { current: number; total: number } {
+  const graded = computeGradedProgress(steps, currentStepIdx, results);
+  if (graded.total > 0) {
+    return {
+      current: inReplay ? graded.total : graded.current,
+      total: graded.total,
+    };
+  }
+  const total = steps.length;
+  if (total === 0) return { current: 0, total: 0 };
+  return {
+    current: inReplay ? total : Math.min(currentStepIdx + 1, total),
+    total,
+  };
+}
+
 export function getStepAtomIds(step: LessonStep): readonly string[] {
   if (step.type === "phrase_card") {
     return step.atomId ? [step.atomId] : [];

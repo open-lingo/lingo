@@ -1,330 +1,139 @@
 /**
- * Lesson progress and dev-mode flags, backed by localStorage.
+ * Per-user lesson completion cache (localStorage) + dev unlock flag.
  *
- * Two pieces of state live here:
- *   1. Per-lesson completion records (when finished, accuracy, XP earned,
- *      review count).
- *   2. A `dev_unlock` boolean that, when on, bypasses the
- *      "previous-lesson-must-be-complete" gate in moduleProgress. Useful
- *      for screenshot runs, QA, and dev-mode authoring.
- *
- * Storage shape is versioned so we can migrate later without losing data.
- * Keys are gitignored from the user's perspective — this is per-device
- * state, not a server-synced record (yet — see the followups doc).
+ * Source of truth for pathway unlocks is the progress API; this store is
+ * hydrated on sign-in via `features/lesson/engine/progressSync.ts` and
+ * updated optimistically when a lesson finishes. Pending attempts flush
+ * through the lesson sync buffer.
  */
 
-const PROGRESS_KEY = "lingo_progress_v1";
+import type { LessonRollup } from "@/shared/api/progress";
+import { getActiveUserStorageId } from "@/features/settings/storage";
+
+const STORAGE_PREFIX = "open-lingo-lesson-progress:";
 const DEV_UNLOCK_KEY = "lingo_dev_unlock";
-/**
- * One-time migration flag for the alphabet-streamline change. When set,
- * the legacy row ids (`ja-m1-ka`, etc.) have already been expanded into
- * sub-lesson ids (`ja-m1-ka-1`, `ja-m1-ka-2`, ..., `ja-m1-ka-test`).
- *
- * Idempotent: re-running the migration on already-migrated data is a no-op.
- * Versioned key allows future migrations to chain.
- */
-const MIGRATION_FLAG_KEY = "lingo_progress_migration_v1";
-/**
- * Curriculum-restructure migration flag (2026-05-15). When set, legacy
- * yōon sub-lesson ids (`ja-m1-yo-k-*`, `ja-m1-yo-sh-ch-*`, `ja-m1-yo-g-j-*`,
- * `ja-m1-yo-n-h-*`, `ja-m1-yo-m-r-*`, `ja-m1-yo-b-p-*`) have already been
- * remapped to the consolidated row ids (`ja-m1-yoon-intro-*`,
- * `ja-m1-yoon-sh-ch-*`, `ja-m1-yoon-voiced-*`, `ja-m1-yoon-rare-*`).
- *
- * Dakuten -3 sub-lessons (e.g. `ja-m1-ga-3`) orphan harmlessly — the new
- * compressed dakuten only has -1/-2/-test sub-lessons, but leftover -3
- * entries in `store.completed` aren't referenced and don't cost anything.
- *
- * Idempotent: re-running on already-migrated data is a no-op.
- */
-const MIGRATION_FLAG_KEY_V3 = "lingo_progress_migration_v3";
-const MIGRATION_FLAG_KEY_V4 = "lingo_progress_migration_v4";
-
-/**
- * Yōon row migration map (curriculum-restructure 2026-05-15).
- * Old yo-* row id → new yoon-* row id.
- * yo-b-p folds into yoon-voiced (b+p families joined the dakuten yōon block).
- */
-const YOON_ROW_MIGRATION_V3: Record<string, string> = {
-  "yo-k": "yoon-intro",
-  "yo-sh-ch": "yoon-sh-ch",
-  "yo-g-j": "yoon-voiced",
-  "yo-b-p": "yoon-voiced",
-  "yo-n-h": "yoon-rare",
-  "yo-m-r": "yoon-rare",
-};
-
-/**
- * Dakuten row migration map (M2 compact restructure 2026-05-16).
- * Old multi-letter row id → new single-letter row id. da-ba splits into d+b;
- * since legacy `da-ba` completions covered both families, we credit both
- * new rows. Other voiced rows are 1:1 renames.
- *
- * Sub-lesson suffix collapses to `-1` (compact M2 = single content lesson)
- * for non-test ids; `-test` keeps its suffix.
- */
-const DAKUTEN_ROW_MIGRATION_V4: Record<string, string[]> = {
-  ga: ["g"],
-  za: ["z"],
-  "da-ba": ["d", "b"],
-  pa: ["p"],
-};
 
 export type LessonCompletion = {
   lessonId: string;
-  /** ISO 8601 of the first time this lesson was completed. */
   firstCompletedAt: string;
-  /** ISO of the most recent completion (first or review). */
   lastCompletedAt: string;
-  /** Best accuracy ever achieved on this lesson, 0..1. */
   bestAccuracy: number;
-  /** XP earned on the latest run. First run = full reward; reviews are reduced. */
   lastXp: number;
-  /** How many times the lesson was replayed for review credit. */
   reviewCount: number;
-  /**
-   * True iff this completion was recorded via the Skip path on a `row_test`
-   * step. Drives module-mastery (★) accounting — only un-skipped row tests
-   * count toward mastery. Missing on legacy records is treated as `false`
-   * (i.e. pre-feature completions count as passed) so users mid-flight
-   * aren't retroactively unmastered.
-   */
+  /** Row-test skip path — local-only until the server stores it. */
   wasSkipped?: boolean;
 };
 
 type ProgressStore = {
   completed: Record<string, LessonCompletion>;
-  /**
-   * ISO 8601 timestamp of the most recent "I'm done — save my XP" tap on
-   * the LessonComplete screen. Tracks intentional binge-stops (the
-   * binge-brake CTA) distinct from leaving the tab or hitting back.
-   * Optional: undefined until the user has ever cleanly stopped once.
-   */
   lastStoppedCleanly?: string;
 };
+
+const listeners = new Set<() => void>();
+
+function progressStorageKey(): string {
+  return `${STORAGE_PREFIX}${getActiveUserStorageId()}`;
+}
+
+function notifyProgressChanged(): void {
+  listeners.forEach((fn) => {
+    try {
+      fn();
+    } catch {
+      /* keep going */
+    }
+  });
+}
+
+export function subscribeLessonProgress(fn: () => void): () => void {
+  listeners.add(fn);
+  return () => listeners.delete(fn);
+}
 
 function loadStore(): ProgressStore {
   if (typeof window === "undefined") return { completed: {} };
   try {
-    const raw = localStorage.getItem(PROGRESS_KEY);
-    if (!raw) {
-      // Even with no progress yet, mark migration done so first-run users
-      // skip the check on subsequent loads.
-      markStreamlineMigrationDone();
-      markV3MigrationDone();
-      markV4MigrationDone();
-      return { completed: {} };
-    }
+    const raw = localStorage.getItem(progressStorageKey());
+    if (!raw) return { completed: {} };
     const parsed = JSON.parse(raw) as ProgressStore;
-    const store: ProgressStore =
-      parsed && parsed.completed ? parsed : { completed: {} };
-    runStreamlineMigration(store);
-    runCurriculumRestructureMigration(store);
-    runDakutenSplitMigration(store);
-    return store;
+    return parsed?.completed ? parsed : { completed: {} };
   } catch {
     return { completed: {} };
-  }
-}
-
-/**
- * Alphabet-streamline migration: any legacy row-lesson id (`ja-m1-ka`)
- * that's already completed gets credit duplicated across every sub-lesson
- * id (`ja-m1-ka-1`, `ja-m1-ka-2`, `ja-m1-ka-3`, `ja-m1-ka-test`).
- *
- * The migration flag guards against re-running, but the function is also
- * structurally idempotent — re-applying it to already-migrated data is
- * a no-op because the sub-lesson ids already exist in `store.completed`.
- */
-function runStreamlineMigration(store: ProgressStore): void {
-  if (typeof window === "undefined") return;
-  try {
-    if (localStorage.getItem(MIGRATION_FLAG_KEY) === "1") return;
-  } catch {
-    return;
-  }
-  // Lazy-load to avoid an import cycle: mockProgress → generatedHiragana →
-  // lessonBuilder → struggleStore → SRSStoreRevisionContext.
-  // The map is computed at curriculum import time so this is cheap.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  let rowMap: Record<string, string[]> = {};
-  try {
-    // Synchronous CommonJS-style require isn't available under Vite ESM,
-    // so guard in a try/catch and accept that the migration is a no-op
-    // if the curriculum module hasn't loaded yet. The flag is left UNSET
-    // so the migration retries on the next loadStore() call.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mod = (globalThis as any).__lingo_row_sub_lesson_ids__;
-    if (mod) rowMap = mod;
-  } catch {
-    rowMap = {};
-  }
-  if (Object.keys(rowMap).length === 0) {
-    // First-pass: no map yet. The curriculum module registers itself
-    // via the global below; we just bail and retry on next load.
-    return;
-  }
-  let mutated = false;
-  for (const [rowId, subIds] of Object.entries(rowMap)) {
-    const legacyId = `ja-m1-${rowId}`;
-    const legacy = store.completed[legacyId];
-    if (!legacy) continue;
-    for (const subId of subIds) {
-      if (store.completed[subId]) continue; // idempotent
-      store.completed[subId] = {
-        lessonId: subId,
-        firstCompletedAt: legacy.firstCompletedAt,
-        lastCompletedAt: legacy.lastCompletedAt,
-        bestAccuracy: legacy.bestAccuracy,
-        lastXp: 0, // credit but don't double-count XP
-        reviewCount: 0,
-      };
-      mutated = true;
-    }
-  }
-  if (mutated) saveStore(store);
-  markStreamlineMigrationDone();
-}
-
-function markStreamlineMigrationDone(): void {
-  try {
-    localStorage.setItem(MIGRATION_FLAG_KEY, "1");
-  } catch {
-    // ignore
-  }
-}
-
-/**
- * Curriculum-restructure migration (2026-05-15):
- *   Rewrite legacy yōon lesson ids to the new consolidated row ids so a
- *   user mid-flight doesn't re-learn anything.
- *
- *   - `ja-m1-yo-k-{suffix}`     → `ja-m1-yoon-intro-1`     (any suffix → -1)
- *   - `ja-m1-yo-sh-ch-{suffix}` → `ja-m1-yoon-sh-ch-1`
- *   - `ja-m1-yo-g-j-{suffix}`   → `ja-m1-yoon-voiced-1`
- *   - `ja-m1-yo-b-p-{suffix}`   → `ja-m1-yoon-voiced-1`    (fold into voiced)
- *   - `ja-m1-yo-n-h-{suffix}`   → `ja-m1-yoon-rare-1`
- *   - `ja-m1-yo-m-r-{suffix}`   → `ja-m1-yoon-rare-1`      (fold into rare)
- *
- *   New rows have a single intro sub-lesson (`-1`), so any legacy completion
- *   maps to that one node. Test/recap suffixes also collapse onto `-1`
- *   because the new structure has no per-row test (capstone covers all yōon).
- *
- *   Dakuten `-3` sub-lessons orphan harmlessly — leftover keys in
- *   `store.completed` aren't referenced by any new lesson id but don't cost
- *   anything to keep around.
- *
- *   Idempotent: the flag guard prevents re-run, and the function is also
- *   structurally idempotent (new ids are written only if absent).
- */
-function runCurriculumRestructureMigration(store: ProgressStore): void {
-  if (typeof window === "undefined") return;
-  try {
-    if (localStorage.getItem(MIGRATION_FLAG_KEY_V3) === "1") return;
-  } catch {
-    return;
-  }
-  let mutated = false;
-  // Match `ja-m{N}-{oldRow}-{suffix}` for each legacy yōon row id.
-  for (const [oldRow, newRow] of Object.entries(YOON_ROW_MIGRATION_V3)) {
-    // Scan a snapshot of keys so adding new ones in-loop doesn't trip the
-    // iterator. The new ids are not legacy-prefixed so we don't re-match.
-    const legacyKeys = Object.keys(store.completed).filter((k) =>
-      k.startsWith(`ja-m1-${oldRow}-`) || k.startsWith(`ja-m2-${oldRow}-`),
-    );
-    for (const legacyKey of legacyKeys) {
-      const legacy = store.completed[legacyKey];
-      const newKey = `ja-m1-${newRow}-1`;
-      if (store.completed[newKey]) continue; // already credited
-      store.completed[newKey] = {
-        lessonId: newKey,
-        firstCompletedAt: legacy.firstCompletedAt,
-        lastCompletedAt: legacy.lastCompletedAt,
-        bestAccuracy: legacy.bestAccuracy,
-        lastXp: 0, // credit but don't double-count XP
-        reviewCount: 0,
-      };
-      mutated = true;
-    }
-  }
-  if (mutated) saveStore(store);
-  markV3MigrationDone();
-}
-
-function markV3MigrationDone(): void {
-  try {
-    localStorage.setItem(MIGRATION_FLAG_KEY_V3, "1");
-  } catch {
-    // ignore
-  }
-}
-
-/**
- * Dakuten split migration (M2 compact restructure 2026-05-16).
- *
- * Legacy row ids: ga, za, da-ba, pa.
- * New row ids:    g,  z,  d + b, p.
- *
- * Each legacy sub-lesson completion (`ja-m1-ga-1`, `ja-m1-ga-2`, etc.)
- * maps to the new single content sub-lesson `ja-m1-g-1`. Legacy `-test`
- * completions map to the new `-test`. For the `da-ba` split, we credit
- * BOTH `d` and `b` because the legacy row taught both families together.
- *
- * Idempotent: flag-guarded and structurally idempotent (only writes new
- * keys if absent).
- */
-function runDakutenSplitMigration(store: ProgressStore): void {
-  if (typeof window === "undefined") return;
-  try {
-    if (localStorage.getItem(MIGRATION_FLAG_KEY_V4) === "1") return;
-  } catch {
-    return;
-  }
-  let mutated = false;
-  for (const [oldRow, newRows] of Object.entries(DAKUTEN_ROW_MIGRATION_V4)) {
-    const legacyKeys = Object.keys(store.completed).filter(
-      (k) => k.startsWith(`ja-m1-${oldRow}-`) || k.startsWith(`ja-m2-${oldRow}-`),
-    );
-    for (const legacyKey of legacyKeys) {
-      const legacy = store.completed[legacyKey];
-      const isTest = legacyKey.endsWith("-test");
-      for (const newRow of newRows) {
-        const newKey = isTest
-          ? `ja-m1-${newRow}-test`
-          : `ja-m1-${newRow}-1`;
-        if (store.completed[newKey]) continue;
-        store.completed[newKey] = {
-          lessonId: newKey,
-          firstCompletedAt: legacy.firstCompletedAt,
-          lastCompletedAt: legacy.lastCompletedAt,
-          bestAccuracy: legacy.bestAccuracy,
-          lastXp: 0, // credit but don't double-count XP
-          reviewCount: 0,
-          wasSkipped: legacy.wasSkipped,
-        };
-        mutated = true;
-      }
-    }
-  }
-  if (mutated) saveStore(store);
-  markV4MigrationDone();
-}
-
-function markV4MigrationDone(): void {
-  try {
-    localStorage.setItem(MIGRATION_FLAG_KEY_V4, "1");
-  } catch {
-    // ignore
   }
 }
 
 function saveStore(store: ProgressStore): void {
   if (typeof window === "undefined") return;
   try {
-    localStorage.setItem(PROGRESS_KEY, JSON.stringify(store));
+    localStorage.setItem(progressStorageKey(), JSON.stringify(store));
+    notifyProgressChanged();
   } catch {
-    // ignore quota errors
+    /* quota */
   }
+}
+
+function rollupToCompletion(rollup: LessonRollup): LessonCompletion {
+  const firstAt = rollup.firstPassedAt ?? rollup.latestAttemptAt;
+  return {
+    lessonId: rollup.lessonId,
+    firstCompletedAt: firstAt,
+    lastCompletedAt: rollup.latestAttemptAt,
+    bestAccuracy: rollup.bestScore,
+    lastXp: 0,
+    reviewCount: Math.max(0, rollup.attemptCount - 1),
+  };
+}
+
+function mergeCompletion(
+  local: LessonCompletion | undefined,
+  incoming: LessonCompletion,
+): LessonCompletion {
+  if (!local) return incoming;
+
+  const localTs = Date.parse(local.lastCompletedAt);
+  const incomingTs = Date.parse(incoming.lastCompletedAt);
+
+  if (incomingTs > localTs) {
+    return {
+      ...incoming,
+      firstCompletedAt: local.firstCompletedAt,
+      lastXp: local.lastXp,
+      wasSkipped: local.wasSkipped,
+    };
+  }
+
+  return {
+    ...local,
+    reviewCount: Math.max(local.reviewCount, incoming.reviewCount),
+    bestAccuracy: Math.max(local.bestAccuracy, incoming.bestAccuracy),
+    firstCompletedAt: local.firstCompletedAt ?? incoming.firstCompletedAt,
+  };
+}
+
+/** Merge server lesson rollups into the local cache. Returns count updated. */
+export function mergeServerLessonRollups(rollups: LessonRollup[]): number {
+  if (rollups.length === 0) return 0;
+
+  const store = loadStore();
+  let changed = 0;
+
+  for (const rollup of rollups) {
+    const incoming = rollupToCompletion(rollup);
+    const merged = mergeCompletion(store.completed[rollup.lessonId], incoming);
+    const prev = store.completed[rollup.lessonId];
+    if (
+      !prev ||
+      prev.lastCompletedAt !== merged.lastCompletedAt ||
+      prev.reviewCount !== merged.reviewCount ||
+      prev.bestAccuracy !== merged.bestAccuracy
+    ) {
+      store.completed[rollup.lessonId] = merged;
+      changed += 1;
+    }
+  }
+
+  if (changed > 0) saveStore(store);
+  return changed;
 }
 
 export function getMockCompletedLessonIds(): string[] {
@@ -335,30 +144,16 @@ export function isLessonCompleted(lessonId: string): boolean {
   return Boolean(loadStore().completed[lessonId]);
 }
 
-export function getLessonCompletion(
-  lessonId: string,
-): LessonCompletion | null {
+export function getLessonCompletion(lessonId: string): LessonCompletion | null {
   return loadStore().completed[lessonId] ?? null;
 }
 
-/**
- * Record a lesson completion. `isReview` is true when the learner is
- * re-running an already-completed lesson — those bump the `reviewCount`
- * but don't shift `firstCompletedAt`.
- */
 export function markLessonCompleted(
   lessonId: string,
   opts: {
     accuracy: number;
     xpEarned: number;
     isReview: boolean;
-    /**
-     * True when the learner opted out of a row test via the Skip flow.
-     * Stored as a sticky bit on the completion record so module-mastery
-     * can distinguish "completed by passing" from "completed by skipping".
-     * Defaults to `false`. Re-completing a previously-skipped lesson
-     * without skipping clears the flag (a successful pass overrides).
-     */
     wasSkipped?: boolean;
   },
 ): void {
@@ -373,9 +168,6 @@ export function markLessonCompleted(
     bestAccuracy: Math.max(prev?.bestAccuracy ?? 0, opts.accuracy),
     lastXp: opts.xpEarned,
     reviewCount: (prev?.reviewCount ?? 0) + (opts.isReview ? 1 : 0),
-    // A successful (non-skipped) completion clears any prior skip flag;
-    // a skipped run only "writes" `true` if the lesson has never been
-    // passed. This way one good pass permanently unlocks mastery credit.
     wasSkipped: wasSkipped && (prev?.wasSkipped ?? true),
   };
   saveStore(store);
@@ -383,29 +175,19 @@ export function markLessonCompleted(
 
 export function clearMockProgress(): void {
   if (typeof window === "undefined") return;
-  localStorage.removeItem(PROGRESS_KEY);
+  localStorage.removeItem(progressStorageKey());
+  notifyProgressChanged();
 }
 
-/**
- * Stamp the moment the learner deliberately ended a session via the
- * "I'm done — save my XP" tertiary on the lesson-complete screen.
- * Idempotent — overwrites any prior value with the new timestamp.
- * Stored on the same progress store so it migrates / clears with the
- * rest of the per-device state.
- */
 export function markLastStoppedCleanly(now: string = new Date().toISOString()): void {
   const store = loadStore();
   store.lastStoppedCleanly = now;
   saveStore(store);
 }
 
-/** Read-only accessor — returns the ISO timestamp of the most recent
- *  clean-stop, or `null` if the learner has never used the binge-brake. */
 export function getLastStoppedCleanly(): string | null {
   return loadStore().lastStoppedCleanly ?? null;
 }
-
-// ----- Dev unlock --------------------------------------------------------
 
 export function isDevUnlockOn(): boolean {
   if (typeof window === "undefined") return false;
@@ -417,8 +199,6 @@ export function setDevUnlock(on: boolean): void {
   if (on) localStorage.setItem(DEV_UNLOCK_KEY, "1");
   else localStorage.removeItem(DEV_UNLOCK_KEY);
 }
-
-// ----- Progress summary --------------------------------------------------
 
 export type ProgressSummary = {
   streakDays: number;
@@ -440,11 +220,6 @@ const MOCK_PROGRESS: ProgressSummary = {
   xpEarnedToday: 50,
 };
 
-/**
- * Format a Date as a local-timezone YYYY-MM-DD calendar day. Streak math
- * runs on the user's clock day (not UTC) — a learner finishing a lesson at
- * 11pm local should "consume" today's slot, not tomorrow's UTC slot.
- */
 function localDayKey(d: Date): string {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, "0");
@@ -452,24 +227,10 @@ function localDayKey(d: Date): string {
   return `${y}-${m}-${day}`;
 }
 
-/**
- * Walk distinct local-day completion days backward from today. Counts
- * consecutive days ending today, or — if no completion today yet —
- * starting at yesterday so the streak doesn't reset mid-day before the
- * learner has had a chance to practice.
- *
- *   - did today + yesterday + day-before → 3
- *   - did yesterday + day-before (none today yet) → 2 (anchored at yesterday)
- *   - did day-before only (skipped yesterday) → 0 (streak broken)
- *   - did today only → 1
- *   - empty store → 0
- */
 function computeStreakDays(completedDays: Set<string>): number {
   if (completedDays.size === 0) return 0;
   const today = new Date();
   const todayKey = localDayKey(today);
-  // Anchor: if nothing today yet, start from yesterday so the user's
-  // existing streak isn't shown as broken until midnight rolls.
   const cursor = new Date(today);
   if (!completedDays.has(todayKey)) {
     cursor.setDate(cursor.getDate() - 1);
@@ -484,9 +245,6 @@ function computeStreakDays(completedDays: Set<string>): number {
 }
 
 export function getMockProgressSummary(): ProgressSummary {
-  // SSR / initial render: no localStorage, no derivation possible.
-  // Falling back to the constant keeps the function contract stable;
-  // the next client-side render hits the live path.
   if (typeof window === "undefined") return { ...MOCK_PROGRESS };
 
   const store = loadStore();
@@ -506,56 +264,27 @@ export function getMockProgressSummary(): ProgressSummary {
 
   const now = new Date();
   const todayKey = localDayKey(now);
-  // 7-day cutoff: include completions whose timestamp is within the last
-  // 7 * 24h. Using a rolling window (vs ISO week) so "this week" never
-  // resets to 0 on a Monday.
   const sevenDaysAgoMs = now.getTime() - 7 * 24 * 60 * 60 * 1000;
 
   const completedDayKeys = new Set<string>();
   let xpTotal = 0;
   let xpEarnedToday = 0;
   let lessonsThisWeek = 0;
-  let dailyGoalCompletedMinutes = 0;
-
-  // Lazy import to avoid a hard dep cycle (mockProgress → mockLessons →
-  // generatedHiragana → struggleStore → SRS). The require shape mirrors
-  // how runStreamlineMigration discovers the row map.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const lessonContentLookup: ((id: string) => { estimatedMinutes?: number } | null) | null = (() => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const fn = (globalThis as any).__lingo_get_lesson_content__;
-      return typeof fn === "function" ? fn : null;
-    } catch {
-      return null;
-    }
-  })();
 
   for (const c of completions) {
     const last = new Date(c.lastCompletedAt);
     const dayKey = localDayKey(last);
     completedDayKeys.add(dayKey);
     xpTotal += c.lastXp ?? 0;
-    if (dayKey === todayKey) {
-      xpEarnedToday += c.lastXp ?? 0;
-      if (lessonContentLookup) {
-        const content = lessonContentLookup(c.lessonId);
-        dailyGoalCompletedMinutes += content?.estimatedMinutes ?? 0;
-      }
-    }
-    if (last.getTime() >= sevenDaysAgoMs) {
-      lessonsThisWeek += 1;
-    }
+    if (dayKey === todayKey) xpEarnedToday += c.lastXp ?? 0;
+    if (last.getTime() >= sevenDaysAgoMs) lessonsThisWeek += 1;
   }
 
   return {
     streakDays: computeStreakDays(completedDayKeys),
     lessonsCompletedThisWeek: lessonsThisWeek,
     dailyGoalMinutes: MOCK_PROGRESS.dailyGoalMinutes,
-    dailyGoalCompletedMinutes,
-    // cardsDueToday is computed by a real hook (useCardsDueCount); the
-    // value here is unused by ProfileCard/ProgressSummary in practice.
-    // Leaving 0 as a safe default rather than the legacy mock of 12.
+    dailyGoalCompletedMinutes: 0,
     cardsDueToday: 0,
     xpTotal,
     xpEarnedToday,

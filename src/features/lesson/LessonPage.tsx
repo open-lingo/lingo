@@ -39,7 +39,10 @@ import {
 import { recordAttempt, recordStepEvent } from "@/features/lesson/engine";
 import { useLessonSyncSession } from "./useLessonSyncSession";
 import type { LessonCompleteMastery } from "./components/LessonComplete";
-import { computeGradedProgress, shouldWriteSrs } from "./data/_stepPredicates";
+import {
+  getLessonProgressBarCounts,
+  shouldWriteSrs,
+} from "./data/_stepPredicates";
 import {
   createInitialState,
   gradeFromLesson,
@@ -322,18 +325,17 @@ export function LessonPage() {
   }, [finished, lesson, results, isReview, settings, updateSetting, showToast]);
 
   const totalSteps = lesson?.steps.length ?? 0;
-  // Progress chip / fill count graded steps only. Tapping a phrase_card /
-  // info / grammar_rule should NOT advance the bar — passive cards emit a
-  // chirp + advance, but no progress credit. See _stepPredicates for the
-  // pure helper + its test cases.
-  const gradedProgress = useMemo(
+  // Graded steps drive the bar when present; all-info lessons (e.g. ko-m1-intro)
+  // fall back to linear card position — see getLessonProgressBarCounts.
+  const progressBar = useMemo(
     () =>
-      computeGradedProgress(
+      getLessonProgressBarCounts(
         lesson?.steps ?? [],
         currentStepIdx,
         results,
+        replayQueue.length > 0,
       ),
-    [lesson, currentStepIdx, results],
+    [lesson, currentStepIdx, results, replayQueue.length],
   );
   const inReplay = replayQueue.length > 0;
   const currentStep: LessonStep | undefined = inReplay
@@ -568,8 +570,8 @@ export function LessonPage() {
           </svg>
         </button>
         <LessonProgressBar
-          current={inReplay ? gradedProgress.total : gradedProgress.current}
-          total={gradedProgress.total}
+          current={progressBar.current}
+          total={progressBar.total}
         />
         <LessonMetaChips
           estimatedMinutes={lesson.estimatedMinutes}

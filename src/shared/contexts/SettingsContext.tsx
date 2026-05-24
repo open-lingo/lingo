@@ -73,9 +73,21 @@ function toBackendPatch(settings: UserSettings): Record<string, unknown> {
     patch.theme = settings.appearance.themeId;
     patch.appearance = { themeId: settings.appearance.themeId };
   }
-  if (settings.learning?.learningLanguageId != null)
+  const learning: Record<string, unknown> = {};
+  if (settings.learning?.learningLanguageId != null) {
     patch.learningLanguage = settings.learning.learningLanguageId;
-  if (settings.learning?.uiLocale != null) patch.uiLocale = settings.learning.uiLocale;
+    learning.learningLanguageId = settings.learning.learningLanguageId;
+  }
+  if (settings.learning?.uiLocale != null) {
+    patch.uiLocale = settings.learning.uiLocale;
+    learning.uiLocale = settings.learning.uiLocale;
+  }
+  if (settings.learning?.onboardingCompleted === true) {
+    learning.onboardingCompleted = true;
+  }
+  if (Object.keys(learning).length > 0) {
+    patch.learning = learning;
+  }
   if (settings.notifications != null) patch.notifications = settings.notifications;
   if (settings.flashcards != null) patch.flashcards = settings.flashcards;
   return patch;
@@ -113,11 +125,25 @@ function fromBackendResponse(backend: Record<string, unknown>): Partial<UserSett
     }
   }
   if (backend.learning && typeof backend.learning === "object") {
+    const learning = backend.learning as Record<string, unknown>;
     partial.learning = {
       ...DEFAULT_SETTINGS.learning,
       ...(partial.learning ?? {}),
-      ...(backend.learning as Record<string, unknown>),
+      ...learning,
     } as UserSettings["learning"];
+    if (learning.onboardingCompleted === true) {
+      partial.learning!.onboardingCompleted = true;
+    }
+  }
+  // Legacy flat key only — treat as onboarded when a language was saved.
+  if (
+    typeof backend.learningLanguage === "string" &&
+    partial.learning?.onboardingCompleted !== true
+  ) {
+    partial.learning = {
+      ...(partial.learning ?? DEFAULT_SETTINGS.learning),
+      onboardingCompleted: true,
+    };
   }
   if (backend.accessibility && typeof backend.accessibility === "object") {
     partial.accessibility = {
@@ -257,10 +283,26 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         try {
           const backend = await users.getSettings();
           const fromApi = fromBackendResponse(backend as Record<string, unknown>);
-          const combined = mergeWithDefaults({ ...fromApi, ...stored });
+          // Server wins over local for signed-in users so clearing site data
+          // does not replay onboarding or drop the saved learning language.
+          const combined = mergeWithDefaults({ ...stored, ...fromApi });
           if (!cancelled) {
             setSettingsState(combined);
             setStoredSettings(combined);
+          }
+          if (
+            combined.learning.learningLanguageId &&
+            !combined.learning.onboardingCompleted
+          ) {
+            users
+              .updateSettings({
+                learning: {
+                  learningLanguageId: combined.learning.learningLanguageId,
+                  onboardingCompleted: true,
+                },
+                learningLanguage: combined.learning.learningLanguageId,
+              })
+              .catch(() => {});
           }
         } catch {
           if (!cancelled) {

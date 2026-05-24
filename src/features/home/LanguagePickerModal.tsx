@@ -7,11 +7,14 @@ import { LanguagePickerGrid } from "./LanguagePickerGrid";
  *  language. Renders the production 2×2 flag-grid picker. */
 export function LanguagePickerModal() {
   const { t } = useTranslation();
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, isLoading } = useLanguage();
 
   // Picker fires only when no language has been chosen yet. The default
   // setting was flipped from "ko" → null (Task #88) so this branch
   // actually triggers on new signups.
+  // Wait for settings hydration so we do not flash the picker while the
+  // server restores learningLanguageId after cleared local storage.
+  if (isLoading) return null;
   if (language) return null;
 
   return (

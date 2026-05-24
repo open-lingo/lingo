@@ -8,6 +8,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FundingMeter } from "@/shared/components/FundingMeter";
 import { SRSPendingSync } from "@/features/flashcards/SRSPendingSync";
+import { LessonProgressHydrate } from "@/features/lesson/LessonProgressHydrate";
 import { SyncManagerTrigger } from "@/features/sync/SyncManagerTrigger";
 import { ThemeEditorPanel } from "@/shared/components/ThemeEditorPanel";
 import { LanguageSelector } from "@/shared/components/LanguageSelector";
@@ -68,6 +69,7 @@ export function Layout() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-text-primary">
       <SRSPendingSync />
+      <LessonProgressHydrate />
       <header className="sticky top-0 z-40 border-b border-border bg-surface">
         <div className="mx-auto flex h-12 min-h-12 max-w-7xl items-center justify-between gap-2 px-3 sm:h-14 sm:px-4 sm:gap-4 lg:px-8">
           <div className="flex shrink-0 items-center gap-2">

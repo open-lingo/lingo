@@ -6,6 +6,7 @@ import {
   stepHasSentenceContent,
   getStepAtomIds,
   computeGradedProgress,
+  getLessonProgressBarCounts,
 } from "./_stepPredicates";
 import type { LessonStep } from "../types";
 
@@ -141,6 +142,39 @@ describe("computeGradedProgress", () => {
       { id: "p2", type: "info" },
     ] as LessonStep[];
     expect(computeGradedProgress(passive, 0, {}).total).toBe(0);
+  });
+});
+
+describe("getLessonProgressBarCounts", () => {
+  const koIntro = [
+    { id: "i1", type: "info" },
+    { id: "i2", type: "info" },
+    { id: "i3", type: "info" },
+  ] as LessonStep[];
+
+  it("uses linear position when lesson has no graded steps (ko-m1-intro)", () => {
+    expect(getLessonProgressBarCounts(koIntro, 0, {}, false)).toEqual({
+      current: 1,
+      total: 3,
+    });
+    expect(getLessonProgressBarCounts(koIntro, 2, {}, false)).toEqual({
+      current: 3,
+      total: 3,
+    });
+  });
+
+  it("uses graded counts when graded steps exist", () => {
+    const mixed = [
+      { id: "i1", type: "info" },
+      { id: "g1", type: "multiple_choice" },
+    ] as LessonStep[];
+    expect(getLessonProgressBarCounts(mixed, 1, {}, false)).toEqual({
+      current: 0,
+      total: 1,
+    });
+    expect(
+      getLessonProgressBarCounts(mixed, 2, { g1: true }, false),
+    ).toEqual({ current: 1, total: 1 });
   });
 });
 

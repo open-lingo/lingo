@@ -22,10 +22,10 @@ import { logSessionEvent } from "@/shared/telemetry/sessionLog";
 import { getMockCourse, ALPHABET_LESSON_ID } from "@/shared/domain/mockCourse";
 import {
   clearMockProgress,
-  getMockCompletedLessonIds,
   isDevUnlockOn,
   setDevUnlock,
 } from "@/shared/domain/mockProgress";
+import { useCompletedLessonIds } from "./hooks/useCompletedLessonIds";
 import { applySpeechQueryParams, setSpeechFlag } from "@/shared/speech";
 import { applyDensityQueryParams } from "@/features/lesson/data/lessonDensity";
 import { getAlphabetProgress } from "@/features/practice/alphabet/alphabetProgress";
@@ -53,9 +53,7 @@ export function LearnPage() {
   const profile = useLearnProfile();
   const { stats: userStats } = useUserStats();
 
-  const [completedIds, setCompletedIds] = useState(() =>
-    getMockCompletedLessonIds(),
-  );
+  const completedIds = useCompletedLessonIds();
   const [devUnlock, setDevUnlockState] = useState(() => isDevUnlockOn());
 
   // Telemetry: one page_view per language visit. Stable ref so React 19
@@ -107,10 +105,6 @@ export function LearnPage() {
       setSearchParams(next, { replace: true });
     }
   }, [searchParams, setSearchParams]);
-
-  useEffect(() => {
-    setCompletedIds(getMockCompletedLessonIds());
-  }, []);
 
   const firstLesson = course?.modules[0]?.lessons[0];
   const alphabetLesson =
@@ -202,7 +196,6 @@ export function LearnPage() {
 
   const handleStartOver = () => {
     clearMockProgress();
-    setCompletedIds([]);
   };
 
   const handleToggleDevUnlock = () => {

@@ -9,23 +9,8 @@ import {
   isRowTestPassed,
 } from "./moduleMastery";
 
-const PROGRESS_KEY = "lingo_progress_v1";
-const MIGRATION_FLAG_V1 = "lingo_progress_migration_v1";
-const MIGRATION_FLAG_V3 = "lingo_progress_migration_v3";
-const MIGRATION_FLAG_V4 = "lingo_progress_migration_v4";
-
-function freshLocalStorage(): void {
-  localStorage.removeItem(PROGRESS_KEY);
-  // Pretend migrations already ran so they don't churn the store under us.
-  localStorage.setItem(MIGRATION_FLAG_V1, "1");
-  localStorage.setItem(MIGRATION_FLAG_V3, "1");
-  localStorage.setItem(MIGRATION_FLAG_V4, "1");
-}
-
 function findM1(): CourseModule {
   const course = getMockCourse("ja");
-  // Pick the first module that has at least one row-test sub-lesson —
-  // the JA M1 module has them.
   const mod = course.modules.find((m) => m.lessons.length > 0);
   if (!mod) throw new Error("No module in JA course");
   return mod;
@@ -33,8 +18,8 @@ function findM1(): CourseModule {
 
 describe("moduleMastery", () => {
   beforeEach(() => {
+    localStorage.clear();
     clearMockProgress();
-    freshLocalStorage();
   });
 
   describe("getRowTestLessonIds", () => {
@@ -140,7 +125,10 @@ describe("moduleMastery", () => {
           // wasSkipped intentionally omitted
         };
       }
-      localStorage.setItem(PROGRESS_KEY, JSON.stringify({ completed }));
+      localStorage.setItem(
+        "open-lingo-lesson-progress:anonymous",
+        JSON.stringify({ completed }),
+      );
       const result = getModuleMastery(m1, allIds);
       expect(result.mastered).toBe(true);
       expect(result.passed).toBe(result.total);

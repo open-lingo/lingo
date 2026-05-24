@@ -33,6 +33,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const setLanguage = useCallback(
     (lang: Language) => {
       updateSetting("learning.learningLanguageId", lang.id);
+      updateSetting("learning.onboardingCompleted", true);
     },
     [updateSetting]
   );

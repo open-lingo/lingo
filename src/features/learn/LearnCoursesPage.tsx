@@ -5,7 +5,7 @@ import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getMockCourse } from "@/shared/domain/mockCourse";
-import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
+import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
 import { getTrendingCourses } from "@/features/community/mockCommunity";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { ModuleCard } from "@/features/course/components";
@@ -16,7 +16,7 @@ export function LearnCoursesPage() {
   const langPath = useLangPath();
   const { language } = useLanguage();
   const course = language ? getMockCourse(language.id) : null;
-  const completedIds = getMockCompletedLessonIds();
+  const completedIds = useCompletedLessonIds();
   const customCourses = language ? getTrendingCourses(language.id) : [];
 
   if (!course) {

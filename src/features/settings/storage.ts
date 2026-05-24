@@ -1,7 +1,14 @@
 import type { UserSettings } from "@/shared/settings/types";
 
 const SETTINGS_KEY = "open-lingo-settings";
-const LAST_USER_KEY = "open-lingo-last-user-id";
+export const LAST_USER_KEY = "open-lingo-last-user-id";
+
+/** Auth0 sub when signed in, otherwise `"anonymous"`. Drives per-user local caches. */
+export function getActiveUserStorageId(): string {
+  if (typeof window === "undefined") return "anonymous";
+  const id = localStorage.getItem(LAST_USER_KEY);
+  return id && id.length > 0 ? id : "anonymous";
+}
 
 const USER_SPECIFIC_KEYS = [
   "open-lingo-srs",
@@ -143,6 +150,12 @@ export function clearAllLocalAppData(userId: string | null): void {
       localStorage.removeItem(`${PROFILE_PREFIX}${userId}`);
     }
     localStorage.removeItem(LAST_USER_KEY);
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k?.startsWith("open-lingo-lesson-progress:")) {
+        localStorage.removeItem(k);
+      }
+    }
     localStorage.removeItem("open-lingo-story-draft");
     localStorage.removeItem("open-lingo-themes");
     localStorage.removeItem("open-lingo-starred-themes");

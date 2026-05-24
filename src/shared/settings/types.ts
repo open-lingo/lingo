@@ -54,6 +54,12 @@ export type UserSettings = {
      *  this defaulted to "ko" which made the picker dead code on first
      *  signup. */
     learningLanguageId: string | null;
+    /**
+     * True after the user has completed initial setup (picked a learning
+     * language). Stored in the user settings blob on the server so clearing
+     * browser storage does not replay the first-launch language modal.
+     */
+    onboardingCompleted?: boolean;
     uiLocale: string;
     showAlphabetRomanization?: boolean;
     showAlphabetFurigana?: boolean;
@@ -108,6 +114,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
     // first launch (Task #88). Was hardcoded "ko" which silently forced
     // every new account into the Korean stub course.
     learningLanguageId: null,
+    onboardingCompleted: false,
     uiLocale: "en",
     showAlphabetRomanization: true,
     showAlphabetFurigana: true,

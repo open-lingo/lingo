@@ -7,7 +7,8 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getMockCourse } from "@/shared/domain/mockCourse";
-import { getMockCompletedLessonIds, getMockProgressSummary } from "@/shared/domain/mockProgress";
+import { getMockProgressSummary } from "@/shared/domain/mockProgress";
+import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
 import { getNextLesson } from "@/features/course/nextLesson";
 import { HeroSection } from "./HeroSection";
 import { AccountOverviewCard } from "./AccountOverviewCard";
@@ -26,7 +27,7 @@ export function RestructuredHome({ greetingName }: Props) {
   const { language } = useLanguage();
   const langPath = useLangPath();
   const course = language ? getMockCourse(language.id) : null;
-  const completedIds = getMockCompletedLessonIds();
+  const completedIds = useCompletedLessonIds();
   const nextLesson = course ? getNextLesson(course, completedIds) : null;
   const langConfig = language ? getLanguageConfig(language.id) : null;
   const progress = getMockProgressSummary();

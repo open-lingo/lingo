@@ -1,169 +1,131 @@
-/**
- * Curriculum-restructure v3 migration test.
- *
- * Verifies that a user with a legacy yōon completion id stored in
- * localStorage gets the new consolidated row id credited on load.
- */
 import { describe, it, expect, beforeEach } from "vitest";
+import type { LessonRollup } from "@/shared/api/progress";
+import { getActiveUserStorageId } from "@/features/settings/storage";
 import {
+  clearMockProgress,
+  getMockCompletedLessonIds,
   getLessonCompletion,
   isLessonCompleted,
-  clearMockProgress,
+  markLessonCompleted,
+  mergeServerLessonRollups,
 } from "./mockProgress";
 
-const PROGRESS_KEY = "lingo_progress_v1";
-const MIGRATION_FLAG_V1 = "lingo_progress_migration_v1";
-const MIGRATION_FLAG_V3 = "lingo_progress_migration_v3";
-const MIGRATION_FLAG_V4 = "lingo_progress_migration_v4";
+const STORAGE_PREFIX = "open-lingo-lesson-progress:";
 
-function seedLegacy(completed: Record<string, unknown>): void {
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify({ completed }));
-  // Pretend v1 streamline already ran; we want to exercise v3 in isolation.
-  localStorage.setItem(MIGRATION_FLAG_V1, "1");
-  localStorage.removeItem(MIGRATION_FLAG_V3);
-  localStorage.removeItem(MIGRATION_FLAG_V4);
+function progressKey(): string {
+  return `${STORAGE_PREFIX}${getActiveUserStorageId()}`;
 }
 
-describe("v3 yōon migration", () => {
+describe("lesson progress store", () => {
   beforeEach(() => {
+    localStorage.clear();
     clearMockProgress();
-    localStorage.removeItem(MIGRATION_FLAG_V1);
-    localStorage.removeItem(MIGRATION_FLAG_V3);
-    localStorage.removeItem(MIGRATION_FLAG_V4);
   });
 
-  it("rewrites ja-m1-yo-k-1 → ja-m1-yoon-intro-1 on first load", () => {
-    seedLegacy({
-      "ja-m1-yo-k-1": {
-        lessonId: "ja-m1-yo-k-1",
-        firstCompletedAt: "2026-05-01T00:00:00.000Z",
-        lastCompletedAt: "2026-05-01T00:00:00.000Z",
-        bestAccuracy: 0.92,
-        lastXp: 12,
-        reviewCount: 0,
-      },
+  it("records and reads a completion", () => {
+    markLessonCompleted("ko-m1-intro", {
+      accuracy: 1,
+      xpEarned: 8,
+      isReview: false,
     });
-    // First read triggers loadStore() → migration.
-    expect(isLessonCompleted("ja-m1-yoon-intro-1")).toBe(true);
-    const credited = getLessonCompletion("ja-m1-yoon-intro-1");
-    expect(credited).not.toBeNull();
-    expect(credited!.firstCompletedAt).toBe("2026-05-01T00:00:00.000Z");
-    expect(credited!.bestAccuracy).toBe(0.92);
+    expect(isLessonCompleted("ko-m1-intro")).toBe(true);
+    expect(getMockCompletedLessonIds()).toContain("ko-m1-intro");
   });
 
-  it("folds yo-b-p → yoon-voiced", () => {
-    seedLegacy({
-      "ja-m1-yo-b-p-1": {
-        lessonId: "ja-m1-yo-b-p-1",
-        firstCompletedAt: "2026-05-01T00:00:00.000Z",
-        lastCompletedAt: "2026-05-01T00:00:00.000Z",
-        bestAccuracy: 0.8,
-        lastXp: 12,
-        reviewCount: 0,
-      },
+  it("scopes progress to the active user id", () => {
+    localStorage.setItem("open-lingo-last-user-id", "user-a");
+    markLessonCompleted("ko-m1-v-1", {
+      accuracy: 0.9,
+      xpEarned: 10,
+      isReview: false,
     });
-    expect(isLessonCompleted("ja-m1-yoon-voiced-1")).toBe(true);
-  });
+    expect(localStorage.getItem(`${STORAGE_PREFIX}user-a`)).toBeTruthy();
 
-  it("is idempotent across reloads", () => {
-    seedLegacy({
-      "ja-m1-yo-sh-ch-2": {
-        lessonId: "ja-m1-yo-sh-ch-2",
-        firstCompletedAt: "2026-05-01T00:00:00.000Z",
-        lastCompletedAt: "2026-05-01T00:00:00.000Z",
-        bestAccuracy: 0.9,
-        lastXp: 12,
-        reviewCount: 0,
-      },
-    });
-    // First read migrates.
-    isLessonCompleted("ja-m1-yoon-sh-ch-1");
-    // Second read no-ops; the credited entry still exists.
-    expect(isLessonCompleted("ja-m1-yoon-sh-ch-1")).toBe(true);
-  });
+    localStorage.setItem("open-lingo-last-user-id", "user-b");
+    expect(isLessonCompleted("ko-m1-v-1")).toBe(false);
 
-  it("doesn't touch unrelated keys", () => {
-    seedLegacy({
-      "ja-m1-ka-1": {
-        lessonId: "ja-m1-ka-1",
-        firstCompletedAt: "2026-05-01T00:00:00.000Z",
-        lastCompletedAt: "2026-05-01T00:00:00.000Z",
-        bestAccuracy: 1.0,
-        lastXp: 12,
-        reviewCount: 0,
-      },
-    });
-    isLessonCompleted("anything"); // trigger load
-    expect(isLessonCompleted("ja-m1-ka-1")).toBe(true);
-    expect(isLessonCompleted("ja-m1-yoon-intro-1")).toBe(false);
+    localStorage.setItem("open-lingo-last-user-id", "user-a");
+    expect(isLessonCompleted("ko-m1-v-1")).toBe(true);
   });
 });
 
-describe("v4 dakuten-split migration", () => {
+describe("mergeServerLessonRollups", () => {
   beforeEach(() => {
+    localStorage.clear();
     clearMockProgress();
-    localStorage.removeItem(MIGRATION_FLAG_V1);
-    localStorage.removeItem(MIGRATION_FLAG_V3);
-    localStorage.removeItem(MIGRATION_FLAG_V4);
   });
 
-  it("rewrites ja-m1-ga-1 → ja-m1-g-1", () => {
-    seedLegacy({
-      "ja-m1-ga-1": {
-        lessonId: "ja-m1-ga-1",
-        firstCompletedAt: "2026-05-01T00:00:00.000Z",
-        lastCompletedAt: "2026-05-01T00:00:00.000Z",
-        bestAccuracy: 0.9,
-        lastXp: 10,
-        reviewCount: 0,
+  it("hydrates lessons missing locally", () => {
+    const rollups: LessonRollup[] = [
+      {
+        lessonId: "ko-m1-intro",
+        bestScore: 1,
+        firstPassedAt: "2026-05-01T12:00:00.000Z",
+        latestAttemptAt: "2026-05-01T12:00:00.000Z",
+        attemptCount: 1,
       },
-    });
-    expect(isLessonCompleted("ja-m1-g-1")).toBe(true);
+    ];
+    expect(mergeServerLessonRollups(rollups)).toBe(1);
+    expect(isLessonCompleted("ko-m1-intro")).toBe(true);
+    const c = getLessonCompletion("ko-m1-intro");
+    expect(c?.bestAccuracy).toBe(1);
+    expect(c?.reviewCount).toBe(0);
   });
 
-  it("splits ja-m1-da-ba-1 → credits BOTH ja-m1-d-1 AND ja-m1-b-1", () => {
-    seedLegacy({
-      "ja-m1-da-ba-1": {
-        lessonId: "ja-m1-da-ba-1",
-        firstCompletedAt: "2026-05-01T00:00:00.000Z",
-        lastCompletedAt: "2026-05-01T00:00:00.000Z",
-        bestAccuracy: 0.85,
-        lastXp: 10,
-        reviewCount: 0,
-      },
+  it("keeps newer local completion when offline ahead of server", () => {
+    markLessonCompleted("ko-m1-v-1", {
+      accuracy: 0.95,
+      xpEarned: 12,
+      isReview: false,
     });
-    expect(isLessonCompleted("ja-m1-d-1")).toBe(true);
-    expect(isLessonCompleted("ja-m1-b-1")).toBe(true);
+    const local = getLessonCompletion("ko-m1-v-1")!;
+
+    mergeServerLessonRollups([
+      {
+        lessonId: "ko-m1-v-1",
+        bestScore: 0.8,
+        firstPassedAt: "2026-05-01T10:00:00.000Z",
+        latestAttemptAt: "2026-05-01T10:00:00.000Z",
+        attemptCount: 1,
+      },
+    ]);
+
+    const after = getLessonCompletion("ko-m1-v-1")!;
+    expect(after.lastCompletedAt).toBe(local.lastCompletedAt);
+    expect(after.lastXp).toBe(12);
+    expect(after.bestAccuracy).toBe(0.95);
   });
 
-  it("preserves -test suffix when migrating", () => {
-    seedLegacy({
-      "ja-m1-za-test": {
-        lessonId: "ja-m1-za-test",
-        firstCompletedAt: "2026-05-01T00:00:00.000Z",
-        lastCompletedAt: "2026-05-01T00:00:00.000Z",
-        bestAccuracy: 1.0,
-        lastXp: 10,
-        reviewCount: 0,
-      },
-    });
-    expect(isLessonCompleted("ja-m1-z-test")).toBe(true);
-  });
+  it("applies newer server rollup over stale local cache", () => {
+    localStorage.setItem(
+      progressKey(),
+      JSON.stringify({
+        completed: {
+          "ko-m1-v-2": {
+            lessonId: "ko-m1-v-2",
+            firstCompletedAt: "2026-05-01T10:00:00.000Z",
+            lastCompletedAt: "2026-05-01T10:00:00.000Z",
+            bestAccuracy: 0.7,
+            lastXp: 8,
+            reviewCount: 0,
+          },
+        },
+      }),
+    );
 
-  it("preserves wasSkipped flag", () => {
-    seedLegacy({
-      "ja-m1-pa-test": {
-        lessonId: "ja-m1-pa-test",
-        firstCompletedAt: "2026-05-01T00:00:00.000Z",
-        lastCompletedAt: "2026-05-01T00:00:00.000Z",
-        bestAccuracy: 0,
-        lastXp: 0,
-        reviewCount: 0,
-        wasSkipped: true,
+    mergeServerLessonRollups([
+      {
+        lessonId: "ko-m1-v-2",
+        bestScore: 0.95,
+        firstPassedAt: "2026-05-02T10:00:00.000Z",
+        latestAttemptAt: "2026-05-02T10:00:00.000Z",
+        attemptCount: 2,
       },
-    });
-    const credited = getLessonCompletion("ja-m1-p-test");
-    expect(credited).not.toBeNull();
-    expect(credited!.wasSkipped).toBe(true);
+    ]);
+
+    const after = getLessonCompletion("ko-m1-v-2")!;
+    expect(after.lastCompletedAt).toBe("2026-05-02T10:00:00.000Z");
+    expect(after.bestAccuracy).toBe(0.95);
+    expect(after.reviewCount).toBe(1);
   });
 });
