@@ -16,6 +16,7 @@ import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import { Button } from "@/shared/components/ui/Button";
 import { AlertBanner } from "@/shared/components/ui/AlertBanner";
 import { inputClassName } from "@/shared/components/ui/formStyles";
+import { cn } from "@/shared/components/ui/cn";
 
 type TabId = "profile" | "subscriptions" | "content" | "srs";
 
@@ -374,7 +375,7 @@ export function AdminUserDetailPage() {
                     value={editAvatarUrl}
                     onChange={(e) => setEditAvatarUrl(e.target.value)}
                     placeholder="https://..."
-                    className="flex-1 ${inputClassName}"
+                    className={cn("flex-1", inputClassName)}
                   />
                 </div>
               </div>
@@ -389,7 +390,7 @@ export function AdminUserDetailPage() {
                     value={editUsername}
                     onChange={(e) => setEditUsername(e.target.value)}
                     placeholder="username"
-                    className="flex-1 ${inputClassName}"
+                    className={cn("flex-1", inputClassName)}
                   />
                 </div>
               </div>
@@ -402,7 +403,7 @@ export function AdminUserDetailPage() {
                   value={editDisplayName}
                   onChange={(e) => setEditDisplayName(e.target.value)}
                   placeholder={t("admin.displayName")}
-                  className="mt-1 w-full ${inputClassName}"
+                  className={cn("mt-1 w-full", inputClassName)}
                 />
               </div>
               <div>
@@ -412,7 +413,7 @@ export function AdminUserDetailPage() {
                 <select
                   value={editStatus}
                   onChange={(e) => setEditStatus(e.target.value as "active" | "banned")}
-                  className="mt-1 w-full ${inputClassName}"
+                  className={cn("mt-1 w-full", inputClassName)}
                 >
                   <option value="active">{t("admin.statusActive")}</option>
                   <option value="banned">{t("admin.statusBanned")}</option>
@@ -438,7 +439,7 @@ export function AdminUserDetailPage() {
                       e.target.value ? new Date(e.target.value).toISOString() : ""
                     )
                   }
-                  className="mt-1 w-full ${inputClassName}"
+                  className={cn("mt-1 w-full", inputClassName)}
                 />
                 <p className="mt-0.5 text-xs text-text-muted">
                   {t("admin.statusExpirationHelp")}
@@ -451,7 +452,7 @@ export function AdminUserDetailPage() {
                 <select
                   value={editCommunityStatus}
                   onChange={(e) => setEditCommunityStatus(e.target.value as "active" | "banned" | "")}
-                  className="mt-1 w-full ${inputClassName}"
+                  className={cn("mt-1 w-full", inputClassName)}
                 >
                   <option value="">—</option>
                   <option value="active">{t("admin.statusActive")}</option>
@@ -465,7 +466,7 @@ export function AdminUserDetailPage() {
                 <select
                   value={editRole}
                   onChange={(e) => setEditRole(e.target.value)}
-                  className="mt-1 w-full ${inputClassName}"
+                  className={cn("mt-1 w-full", inputClassName)}
                 >
                   <option value="user">{t("admin.roleUser")}</option>
                   <option value="trusted_creator">{t("admin.roleTrustedCreator")}</option>
@@ -494,7 +495,7 @@ export function AdminUserDetailPage() {
                       e.target.value ? new Date(e.target.value).toISOString() : ""
                     )
                   }
-                  className="mt-1 w-full ${inputClassName}"
+                  className={cn("mt-1 w-full", inputClassName)}
                 />
               </div>
             </div>
@@ -548,7 +549,7 @@ export function AdminUserDetailPage() {
                   value={addDeckId}
                   onChange={(e) => setAddDeckId(e.target.value)}
                   placeholder={t("admin.deckId")}
-                  className="${inputClassName}"
+                  className={inputClassName}
                 />
               </div>
               <button

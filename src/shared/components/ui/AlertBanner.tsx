@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { cn } from "./cn";
 
 export type AlertVariant = "error" | "success" | "warning" | "info";
@@ -11,7 +12,7 @@ const variantClasses: Record<AlertVariant, string> = {
 
 type AlertBannerProps = {
   variant?: AlertVariant;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 };
 

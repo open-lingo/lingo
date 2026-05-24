@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { cn } from "./cn";
 
 /** Shared text input styling — uses theme tokens only. */
@@ -7,7 +8,7 @@ export const inputClassName =
 type ChoiceChipProps = {
   selected: boolean;
   onClick: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 };
 
