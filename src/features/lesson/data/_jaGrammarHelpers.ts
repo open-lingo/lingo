@@ -40,6 +40,23 @@ function resolvePhraseAtomId(kana: string): string | undefined {
 }
 
 /**
+ * Resolve a list of kana strings to course-atom IDs for the
+ * `StepBase.exercisedAtoms` SRS-grading field. Unknown kana drop out
+ * silently — same defensive posture as `resolvePhraseAtomId` for sentence-
+ * level factories where authors may pass in particles ("は") or vocab kana
+ * mixed together.
+ */
+function resolveAtomIds(kanas: ReadonlyArray<string> | undefined): string[] {
+  if (!kanas?.length) return [];
+  const out: string[] = [];
+  for (const k of kanas) {
+    const id = JA_COURSE_ATOMS_BY_KANA.get(k)?.id;
+    if (id) out.push(id);
+  }
+  return out;
+}
+
+/**
  * Resolve a course atom's `{atomId, gloss}` payload from a token's reading.
  * Looked up against `JA_COURSE_ATOMS_BY_KANA`. Returns `{}` when the reading
  * isn't a known atom (so spread into an annotation literal is a no-op for
@@ -137,6 +154,7 @@ export function cloze(
       ...without.slice(targetSlot),
     ];
   }
+  const particleAtomIds = resolveAtomIds([correctParticle]);
   return {
     id,
     type: "particle_cloze",
@@ -146,6 +164,8 @@ export function cloze(
     meaningEn,
     audioText,
     explanation,
+    exercisedAtoms: particleAtomIds,
+    modality: "production",
   };
 }
 
@@ -155,6 +175,7 @@ export function build(
   target: string,
   tiles: string[],
   correctOrder: string[],
+  exercisedAtomKanas?: string[],
 ): BuildSentenceStep {
   return {
     id,
@@ -166,6 +187,8 @@ export function build(
     granularity: "word",
     audioKey: target,
     targetAnnotation: [buildSingletonAnnotation(target)],
+    exercisedAtoms: resolveAtomIds(exercisedAtomKanas),
+    modality: "production",
   };
 }
 
@@ -201,6 +224,7 @@ export function speaking(
   id: string,
   targetPhrase: string,
   translation: string,
+  exercisedAtomKanas?: string[],
 ): SpeakingStep {
   return {
     id,
@@ -216,6 +240,8 @@ export function speaking(
     stubbed: false,
     audioKey: targetPhrase,
     targetAnnotation: [buildSingletonAnnotation(targetPhrase)],
+    exercisedAtoms: resolveAtomIds(exercisedAtomKanas),
+    modality: "production",
   };
 }
 
@@ -665,6 +691,8 @@ export function reviewMatchPairs(
       target: a.meaningEn,
       sourceAnnotation: [buildSingletonAnnotation(a.kana)],
     })),
+    exercisedAtoms: resolveAtomIds(atoms.map((a) => a.kana)),
+    modality: "recognition",
   };
 }
 
@@ -763,6 +791,8 @@ export function vocabMcq(
     meaningEn: target.meaningEn,
     options,
     correctOptionId: "correct",
+    exercisedAtoms: resolveAtomIds([target.kana]),
+    modality: "recognition",
   };
 }
 
@@ -847,6 +877,8 @@ export function audioImageMcq(
     meaningEn: target.kana,
     options,
     correctOptionId: "correct",
+    exercisedAtoms: resolveAtomIds([target.kana]),
+    modality: "recognition",
   };
 }
 
@@ -896,6 +928,8 @@ export function audioMeaningMcq(
     options,
     correctOptionId: "correct",
     transcriptAnnotation: [buildSingletonAnnotation(target.kana)],
+    exercisedAtoms: resolveAtomIds([target.kana]),
+    modality: "recognition",
   };
 }
 
@@ -940,6 +974,8 @@ export function translationMcq(
     options,
     correctOptionId: "correct",
     optionsHideRomaji: true,
+    exercisedAtoms: resolveAtomIds([target.kana]),
+    modality: "production",
   };
 }
 
@@ -1070,6 +1106,8 @@ export function translateStep(opts: {
   promptEn: string;
   acceptedAnswers: string[];
   audioText?: string;
+  /** Course-atom kana exercised by this step (resolves to FSRS atom IDs). */
+  exercisedAtomKanas?: string[];
 }): TranslateStep {
   return {
     id: opts.id,
@@ -1078,6 +1116,8 @@ export function translateStep(opts: {
     sourceLanguage: "native",
     acceptedAnswers: opts.acceptedAnswers,
     audioKey: opts.audioText,
+    exercisedAtoms: resolveAtomIds(opts.exercisedAtomKanas),
+    modality: "production",
   };
 }
 
@@ -1093,6 +1133,8 @@ export function listeningBuildSentence(opts: {
   tiles: string[];
   correctOrder: string[];
   promptEn: string;
+  /** Course-atom kana exercised by this step (resolves to FSRS atom IDs). */
+  exercisedAtomKanas?: string[];
 }): ListeningBuildStep {
   return {
     id: opts.id,
@@ -1104,6 +1146,8 @@ export function listeningBuildSentence(opts: {
     correctOrder: opts.correctOrder,
     granularity: "word",
     targetAnnotation: [buildSingletonAnnotation(opts.target)],
+    exercisedAtoms: resolveAtomIds(opts.exercisedAtomKanas),
+    modality: "production",
   };
 }
 
@@ -1117,6 +1161,8 @@ export function listeningCompSentence(opts: {
   correctMeaningEn: string;
   distractorsEn: [string, string, string];
   question?: string;
+  /** Course-atom kana exercised by this step (resolves to FSRS atom IDs). */
+  exercisedAtomKanas?: string[];
 }): ListeningComprehensionStep {
   const items = [
     { id: "correct", text: opts.correctMeaningEn },
@@ -1136,6 +1182,8 @@ export function listeningCompSentence(opts: {
     options: items,
     correctOptionId: "correct",
     transcriptAnnotation: [buildSingletonAnnotation(opts.audioText)],
+    exercisedAtoms: resolveAtomIds(opts.exercisedAtomKanas),
+    modality: "recognition",
   };
 }
 
@@ -1152,6 +1200,8 @@ export function sentenceMcq(opts: {
   correctKana: string;
   distractorsKana: [string, string, string];
   explanation?: string;
+  /** Course-atom kana exercised by this step (resolves to FSRS atom IDs). */
+  exercisedAtomKanas?: string[];
 }): MultipleChoiceStep {
   const items = [
     { id: "correct", text: opts.correctKana },
@@ -1171,6 +1221,8 @@ export function sentenceMcq(opts: {
     correctOptionId: "correct",
     explanation: opts.explanation,
     optionsHideRomaji: true,
+    exercisedAtoms: resolveAtomIds(opts.exercisedAtomKanas),
+    modality: "production",
   };
 }
 
@@ -1214,7 +1266,12 @@ export const EXAMPLE_SELF_EXPLAIN_NO_POSSESSION: SelfExplanationMcqStep =
  */
 export function dialogueListen(opts: {
   id: string;
-  lines: Array<{ speaker: string; kana: string; audioText?: string }>;
+  /**
+   * Dialogue or narrative lines. Speaker is required in `format: "dialogue"`
+   * (default) and optional in `format: "narrative"`. Line cap is 1-8 to
+   * accommodate single-voice story closers as well as multi-turn exchanges.
+   */
+  lines: Array<{ speaker?: string; kana: string; audioText?: string }>;
   questions: Array<{
     id: string;
     prompt: string;
@@ -1223,10 +1280,23 @@ export function dialogueListen(opts: {
     explanation?: string;
   }>;
   transcriptRevealAfter?: "first-answer" | "all-answers" | "never";
+  /**
+   * `"dialogue"` (default) — speaker chips per line.
+   * `"narrative"` — speaker labels suppressed (story prose).
+   */
+  format?: "dialogue" | "narrative";
+  /** Course-atom kana exercised by this step (resolves to FSRS atom IDs). */
+  exercisedAtomKanas?: string[];
 }): DialogueListenStep {
-  if (opts.lines.length < 2 || opts.lines.length > 4) {
+  const format = opts.format ?? "dialogue";
+  if (opts.lines.length < 1 || opts.lines.length > 8) {
     throw new Error(
-      `dialogueListen(${opts.id}): lines.length must be 2-4 (got ${opts.lines.length})`,
+      `dialogueListen(${opts.id}): lines.length must be 1-8 (got ${opts.lines.length})`,
+    );
+  }
+  if (format === "dialogue" && opts.lines.some((l) => !l.speaker)) {
+    throw new Error(
+      `dialogueListen(${opts.id}): every line must have a speaker in format "dialogue"`,
     );
   }
   if (opts.questions.length < 1 || opts.questions.length > 3) {
@@ -1262,6 +1332,9 @@ export function dialogueListen(opts: {
     })),
     questions,
     transcriptRevealAfter: opts.transcriptRevealAfter ?? "first-answer",
+    format,
+    exercisedAtoms: resolveAtomIds(opts.exercisedAtomKanas),
+    modality: "recognition",
   };
 }
 
@@ -1271,6 +1344,64 @@ export function dialogueListen(opts: {
  * docs/wave-4-m3-m7-reauthor-2026-05-18.md) will call `dialogueListen`
  * directly for each module's dialogue closer.
  */
+/**
+ * Story-comprehension factory — composes a single-voice narrative
+ * `dialogue_listen` (recognition) followed by a `build_sentence` response
+ * (production). This is the formulaic "hear a short story → answer
+ * comprehension MCQs → build the response sentence" pattern Spencer
+ * specced as the M8+ canonical L7 closer alternative to dialogueListen.
+ *
+ * The returned tuple `[dialogue_listen, build_sentence]` is two
+ * individually-addressable steps so SRS grading credits the atom set on
+ * both halves — recognition on the comprehension, production on the
+ * response.
+ *
+ * Both halves receive the same `exercisedAtomKanas`. If you want
+ * different atom sets per half, call dialogueListen + build directly.
+ */
+export function storyComprehension(opts: {
+  idPrefix: string;
+  /** 1-8 narrative lines. Speaker labels suppressed (narrative format). */
+  narrative: Array<{ speaker?: string; kana: string; audioText?: string }>;
+  /** 1-3 comprehension MCQs about the narrative. */
+  comprehensionQuestions: Array<{
+    id: string;
+    prompt: string;
+    correctText: string;
+    distractors: [string, string, string];
+    explanation?: string;
+  }>;
+  /** The response sentence the learner assembles after answering. */
+  responseBuild: {
+    target: string;
+    tiles: string[];
+    correctOrder: string[];
+    promptEn: string;
+  };
+  /** Course-atom kana exercised by the story+response (resolves to FSRS atom IDs). */
+  exercisedAtomKanas?: string[];
+  /** When to reveal the narrative transcript. Default "first-answer". */
+  transcriptRevealAfter?: "first-answer" | "all-answers" | "never";
+}): [DialogueListenStep, BuildSentenceStep] {
+  const story = dialogueListen({
+    id: `${opts.idPrefix}-narrative`,
+    lines: opts.narrative,
+    questions: opts.comprehensionQuestions.map((q) => ({ ...q })),
+    transcriptRevealAfter: opts.transcriptRevealAfter ?? "first-answer",
+    format: "narrative",
+    exercisedAtomKanas: opts.exercisedAtomKanas,
+  });
+  const response = build(
+    `${opts.idPrefix}-response`,
+    opts.responseBuild.promptEn,
+    opts.responseBuild.target,
+    opts.responseBuild.tiles,
+    opts.responseBuild.correctOrder,
+    opts.exercisedAtomKanas,
+  );
+  return [story, response];
+}
+
 export const EXAMPLE_DIALOGUE_LISTEN_CAFE: DialogueListenStep = dialogueListen({
   id: "ja-ex-dialogue-listen-cafe",
   lines: [

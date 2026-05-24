@@ -1,5 +1,5 @@
 import type { Flashcard, SRSCardState } from "../data/types";
-import { isDue, createInitialState } from "./srs";
+import { isDue, createInitialState, cardMaxDifficulty } from "./srs";
 import { getSRSStore } from "./srsStorage";
 
 const DEFAULT_NEW_CARDS_PER_DAY = 5;
@@ -57,8 +57,10 @@ export function buildReviewQueue(
 
   // Sort by FSRS difficulty descending (harder cards first while user is
   // fresh; easier cards trail). Matches the prior SM-2 "ease ascending"
-  // intent — under FSRS, higher difficulty = harder card.
-  review.sort((a, b) => b.state.difficulty - a.state.difficulty);
+  // intent — under FSRS, higher difficulty = harder card. With the
+  // modality split we use the max of the two directions so a card
+  // surfaces as long as either direction is hard.
+  review.sort((a, b) => cardMaxDifficulty(b.state) - cardMaxDifficulty(a.state));
 
   const reviewCards = review.map((r) => r.card);
   const newCards = unseenCards.slice(0, newCardsPerDay);
@@ -110,7 +112,7 @@ export function buildQueueFromSubscriptions(
 
   // Sort due by FSRS difficulty descending (harder cards first; see
   // identical comment in buildReviewQueue).
-  due.sort((a, b) => b.state.difficulty - a.state.difficulty);
+  due.sort((a, b) => cardMaxDifficulty(b.state) - cardMaxDifficulty(a.state));
   const reviewCards = due.map((r) => r.card);
 
   // New cards: per deck in subscription order, apply ordered/shuffled

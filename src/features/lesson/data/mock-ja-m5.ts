@@ -136,7 +136,11 @@ export const M5_1: LessonContent = {
     //    encode-then-encode-then-encode).
     vocab("ja-m5-1-v-1", "1 (one)", "ichi", "いち"),
     vocabMcq("ja-m5-1-mcq-1", M5_NUMBER_ATOMS[0], M5_NUMBER_ATOMS),
-    vocab("ja-m5-1-v-2", "2 (two)", "ni", "に"),
+    // Disambiguate from p-ni (location particle に, which shares this kana).
+    // Without the explicit atomId, JA_COURSE_ATOMS_BY_KANA resolves "に" to
+    // whichever atom registered last (the particle), wrong-tagging this
+    // vocab card and breaking the passive-card follow-up lint.
+    vocab("ja-m5-1-v-2", "2 (two)", "ni", "に", undefined, { atomId: "ja-m5-1-v-2" }),
     listeningCompSentence({
       id: "ja-m5-1-lc-2",
       audioText: "に",

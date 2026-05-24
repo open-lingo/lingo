@@ -4,6 +4,7 @@ Vite + React 19 + TypeScript + Tailwind language-learning SPA. Talks to `lingo-c
 
 ## Critical orientation
 
+- **Most recent session handoff:** `docs/handoff-2026-05-23.md` — what shipped 2026-05-23 (SRS modality split, romaji default-ON with auto-off, story comprehension factory) + prioritized fix list from the 8-agent audit (4 personas + 4 lenses). **Read this first when picking up a thread.**
 - **Source of truth for project state:** `docs/PROJECT_STATE.md`. Read this first when starting a feature — the rest of `docs/` is a mix of current planning, stale task specs, and design docs.
 - **Architecture audit + conformance gaps:** `docs/ARCHITECTURE_REVIEW.md` — read before any structural change.
 - **Real-user feedback log:** `docs/user-feedback/` — verbatim tester observations + Spencer's product notes per session. Higher product-signal than the synthesized agent audits; read before any UX-touching change.
@@ -68,28 +69,40 @@ When you need any of these, build the shared primitive first.
 
 ## SRS engine
 
-`features/flashcards/engine/` — SM-2 with Again/Hard/Good/Easy. Local-first (localStorage) with manual or end-of-session sync to `lingo-core` via `SrsApi`. Dirty-card detection + delta merge — don't bypass.
+`features/flashcards/engine/` — FSRS-6 (Free Spaced Repetition Scheduler v6) via `ts-fsrs` v5.4.0. Ratings: Again / Hard / Good / Easy. **Hard is a success**, not a failure (slower stability growth than Good). Target retention 0.95 (tighter than FSRS default 0.9). Local-first (localStorage) with manual or end-of-session sync to `lingo-core` via `SrsApi`. Dirty-card detection + delta merge — don't bypass.
 
-## Vocab SRS unification — in-progress (2026-05-19)
+**Modality split (2026-05-23):** each card carries two FSRS sub-states (`recognition` + `production`). `reviewCard(state, modality, rating)` and `gradeFromLesson(state, modality, outcome)` update one sub-state at a time; `isDue(state)` is true if either is due. Migration: legacy flat FSRS-6 entries from localStorage are upgraded to modal on read (both sub-states get the same starting state); pre-FSRS-6 SM-2 entries are dropped.
 
-Plan to unify lesson reviews + flashcard practice onto one SRS state per atom, so a card "knows" you got it wrong in a lesson and vice versa.
+**Backend mismatch (known gap, separate fix):** `lingo-core/app/srs/schemas.py` still has the legacy SM-2 shape (easeFactor + repetitions). Sync requests would 422 against current backend — fix is a coordinated migration with `lingo-core`.
 
-**Hard architectural commitment:** adaptive per-atom step selection happens on the **flashcards surface**, NOT inside lessons. Lessons stay statically authored. Moving review-tail construction into lesson render time would require unwinding ~8,600 LOC across `mock-ja-m{3-v2,4,5,6,7}.ts` — avoid this trap. Per the 2026-05-19 feasibility audit; see `docs/m3-m7-audit-synthesis-2026-05-18.md` + audit transcript.
+## Vocab SRS unification — phases 1-4 shipped 2026-05-23
 
-**Foundation in place:**
-- ✅ Course deck — `src/features/flashcards/data/ja-course-atoms.ts` (749 atoms: 196 taught + 553 "future" N5 + 10 particles; 506 kanji-bearing). Stable IDs, kanji from N5 emoji map, module attribution, adapter `courseAtomToFlashcard()`, builder `buildJaCourseDeck({unlockedIds})`. Test at `ja-course-atoms.test.ts`.
-- ✅ `vocabGraduation/index.ts` already dispatches `lingo:vocab-graduated` events on lesson completion — receiver not wired yet. This is the integration seam, not a new channel to build.
-- ✅ `Flashcard.unlocked` field already exists. `lessonCardMap.ts` is the current naive unlock mapper (only 3 ja lessons covered — will be replaced).
+Goal: unify lesson reviews + flashcard practice onto one SRS state per atom, so a card "knows" you got it wrong in a lesson and vice versa.
 
-**Implementation phases (do in order):**
+**Hard architectural commitment:** adaptive per-atom step selection happens on the **flashcards surface**, NOT inside lessons. Lessons stay statically authored. Moving review-tail construction into lesson render time would require unwinding ~8,600 LOC across `mock-ja-m{3-v2,4,5,6,7}.ts` — avoid this trap. Per the 2026-05-19 feasibility audit.
 
-1. **Add modality dimension to SM-2 state** — extend `SRSCardState` in `flashcards/data/types.ts` from single-direction to `{ recognition: SubState, production: SubState }`. Additive schema bump; touches `srsSync.ts`, merge, dirty detection, and `api/srs.ts` backend payload. Step views emit `modality: "recognition" | "production" | "both"` alongside the existing correct/incorrect signal.
-2. **Tag every step factory with `exercisedAtoms`** — extend `vocab()`, `phrase()`, `cloze()`, `build()`, `vocabMcq()`, `sentenceMcq()`, `listeningCompSentence()`, `listeningBuildSentence()`, `speaking()`, `reviewMatchPairs()`, `selfExplain()`, `dialogueListen()` in `_jaGrammarHelpers.ts` to record which atom IDs each step exercises. Use `JA_COURSE_ATOMS_BY_KANA` for the kana→id resolution.
-3. **External `engine.gradeFromLesson(cardId, modality, correct)` API** — additive helper in `flashcards/engine/`. Maps binary correct/wrong to SM-2 grades: wrong → Again, first-try correct → Good, correct-after-wrong → Hard. Touches the modality-specific SubState. Easy stays manual-only on the flashcard surface.
-4. **Lesson page step-complete pipeline** — extend `LessonPage.handleStepComplete(stepId, correct)` to resolve `stepId → step.exercisedAtoms → engine.gradeFromLesson()` per atom. ~30 lines in the GOD file; tread carefully (per "GOD FILE" warning above).
+**Spencer's invariant: only review cards count toward FSRS-6.** Teach steps (`phrase_card`, `info`, `grammar_rule`, `symbol_intro`, `teach`) NEVER advance card state. The `shouldWriteSrs(step)` gate in `_stepPredicates.ts` enforces this — even if a teach step accidentally carries `exercisedAtoms`, the gate blocks the FSRS write.
+
+**Shipped phases:**
+
+1. ✅ **Modality dimension** (2026-05-23) — `SRSCardState` is `{recognition: SubState, production: SubState, lastSyncedAt?, buriedUntil?}`. Migration helper `migrateFlatToModal` upgrades legacy flat entries on read; pre-FSRS-6 SM-2 entries still drop.
+2. ✅ **Step factory atom tagging** (2026-05-23) — all graded factories in `_jaGrammarHelpers.ts` populate `exercisedAtoms` + `modality`. Atom-keyed factories (`vocabMcq`, `audioImageMcq`, `audioMeaningMcq`, `translationMcq`, `reviewMatchPairs`, `cloze`) auto-resolve from target kana / `correctParticle`. Sentence-level factories (`build`, `speaking`, `listeningCompSentence`, `listeningBuildSentence`, `sentenceMcq`, `translateStep`, `dialogueListen`) accept optional `exercisedAtomKanas?: string[]` arg. Existing call sites that don't pass it just stay un-tagged (safe default) — content pass to backfill is follow-up.
+3. ✅ **`gradeFromLesson(state, modality, outcome)`** (2026-05-23) — additive engine helper. Maps `{correct: false} → Again`, `{correct: true, retried: false} → Good`, `{correct: true, retried: true} → Hard`. Easy stays manual-only on flashcards surface.
+4. ✅ **`LessonPage.handleStepComplete` SRS wiring** (2026-05-23) — gated on `shouldWriteSrs(step)`. For each `step.exercisedAtoms`, looks up current state via `getCardState`, applies `gradeFromLesson` per resolved modality, writes back via `setCardState`. Production receives both modalities when step declares `modality: "both"`.
+
+**Flashcards surface** — `FlashcardTester.handleRate` advances BOTH modalities on each grade (current behavior preserved; per-modality flashcard sessions are a follow-up). The `IntervalHint` preview shows `min(recognition.interval, production.interval)` — honest "you'll see this when either is due" estimate.
+
+**Foundation still in place:**
+- Course deck — `src/features/flashcards/data/ja-course-atoms.ts` (749 atoms: 196 taught + 553 "future" N5 + 10 particles; 506 kanji-bearing). `isSrsEligibleAtom` filter, `buildJaCourseDeck({unlockedIds})` builder. Note: kana collisions (e.g. `に` = number two AND particle に) require explicit `opts.atomId` on the vocab card to disambiguate.
+- `vocabGraduation/index.ts` dispatches `lingo:vocab-graduated` events on lesson completion — receiver not wired yet.
+
+**Remaining phases (not yet shipped):**
+
 5. **Wire the `vocabGraduation` receiver** — listen for `lingo:vocab-graduated`, update unlock map on per-user state. Replaces the hand-maintained `LESSON_TO_CARDS` in `lessonCardMap.ts`. Compute `Flashcard.unlocked` from the unlock map; old map gets deprecated.
-6. **Render-time review-pool picker on the flashcards surface** — flashcards practice surface reads card SRS state + unlock map and picks the next due atom (struggle-weighted + interval-based). The static review-tail in lessons stays as-is; flashcard surface is where adaptivity earns its keep.
-7. **Kanji unlock map + reveal step** — add `kanjiUnlocked: Record<atomId, true>` to user state (sparse, ~300 bytes per learner at full N5). Build a `kanjiIntroStep` step type (dedicated view, celebration-grade) that lesson authors place at the kanji-re-teach moment (e.g. M10 re-teaches `たべる` → `食べる`). The step's completion writes the unlock. `showKanji(card, srsState, user)` is computed: `policy === "always" || (policy === "auto" && user.kanjiUnlocked[card.id]) || (policy === "never" ? false : false)`. Default policy `"auto"`. The "auto-graduate at interval > 7d" heuristic I floated earlier is **dropped** — unlocks are curriculum-driven, not memory-driven.
+6. **Render-time review-pool picker on the flashcards surface** — flashcards practice surface reads card SRS state + unlock map and picks the next due atom (struggle-weighted + interval-based). Card-agnostic factories (`audioImageMcq`, `audioMeaningMcq`, `translationMcq`) exist but `reviewQueue.ts` doesn't yet use the picker; this phase wires it.
+7. **Kanji unlock map + reveal step** — add `kanjiUnlocked: Record<atomId, true>` to user state (sparse, ~300 bytes per learner at full N5). Build a `kanjiIntroStep` step type that lesson authors place at the kanji-re-teach moment. The step's completion writes the unlock. `showKanji(card, srsState, user)` is computed: `policy === "always" || (policy === "auto" && user.kanjiUnlocked[card.id])`. Default policy `"auto"`. The "auto-graduate at interval > 7d" heuristic is **dropped** — unlocks are curriculum-driven, not memory-driven.
+
+**Story comprehension factory (2026-05-23):** `storyComprehension({...})` in `_jaGrammarHelpers.ts` composes `[dialogueListen(narrative), build_sentence]` — the L7 closer alternative to `dialogueListen` for narrative-style M8+ content. `DialogueListenStep.format: "narrative"` suppresses speaker chips; line cap relaxed from 4 to 8. See `docs/lesson-authoring-guide.md` §13.13 for the locked canonical M8+ template.
 
 **Follow-up cleanups (lower priority):**
 

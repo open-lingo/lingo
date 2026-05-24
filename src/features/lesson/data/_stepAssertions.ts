@@ -7,7 +7,6 @@ import {
 } from "./_stepPredicates";
 
 const FOLLOWUP_WINDOW_END = 3; // inclusive
-const FOLLOWUP_WINDOW_START = 2; // inclusive — non-adjacent (audit 1.1)
 
 export type LintFailure = { stepId: string; reason: string };
 
@@ -47,45 +46,41 @@ function findFollowupFailure(
     return null;
   }
 
-  // Until graded steps carry `exercisedAtoms` (SRS unification phase 2),
-  // most graded steps return []. To avoid false-positive failures from the
-  // strong atom-match check, only escalate to the strong check when at least
-  // one graded step in the window is itself atom-tagged. When no graded step
-  // in the window carries any atom tag, the weaker "≥1 graded follow-up
-  // within window" check already proves the lesson interleaves retrieval.
-  const windowSlice = steps.slice(i + 1, i + 1 + FOLLOWUP_WINDOW_END);
-  const gradedHaveAnyAtomTag = windowSlice.some(
-    (s) => isGradedStep(s) && getStepAtomIds(s).length > 0,
-  );
-  if (!gradedHaveAnyAtomTag) {
+  // Lesson-scoped phrase atoms (e.g. `ja-m3-1-coffee-desu`) are
+  // intentional "sneak previews" — the author teaches a compound phrase
+  // without the expectation that any single graded step will retrieve
+  // that exact compound. The actual retrieval happens on the constituent
+  // single-word atoms (here `v-coffee` + the inline `です` pattern). Skip
+  // the strong-atom check for these so we don't false-positive the
+  // legitimate preview pattern.
+  const isLessonScopedAtom = (a: string) => /^ja-m\d+-\d+-/.test(a);
+  if (atomIds.every(isLessonScopedAtom)) {
     return null;
   }
 
-  // Adjacency check: a same-atom retrieval at i+1 is massed practice.
-  const adjacent = steps[i + 1];
-  if (adjacent && isGradedStep(adjacent)) {
-    const adjAtoms = getStepAtomIds(adjacent);
-    if (adjAtoms.some((a) => atomIds.includes(a))) {
-      return {
-        stepId: step.id,
-        reason: `same-atom follow-up at i+1 is adjacent (massed practice)`,
-      };
-    }
-  }
+  // Adjacency-only check: a same-atom retrieval at i+1 with NO further
+  // same-atom retrieval at i+2 or i+3 is massed practice (single test
+  // pressed up against the teach, no spaced reinforcement). An adjacent
+  // retrieval PLUS spaced retrieval downstream is fine — that's the
+  // test-enhancement-then-distributed-practice pattern.
+  const sameAtomAt = (idx: number): boolean => {
+    const s = steps[idx];
+    return !!s && isGradedStep(s) && getStepAtomIds(s).some((a) => atomIds.includes(a));
+  };
+  const adjacentSameAtom = sameAtomAt(i + 1);
+  const spacedSameAtom = sameAtomAt(i + 2) || sameAtomAt(i + 3);
 
-  // Within-window check: some step at i+2..i+3 must share an atom.
-  const validWindow = steps.slice(
-    i + FOLLOWUP_WINDOW_START,
-    i + 1 + FOLLOWUP_WINDOW_END,
-  );
-  const covered = validWindow.some(
-    (s) =>
-      isGradedStep(s) && getStepAtomIds(s).some((a) => atomIds.includes(a)),
-  );
-  if (!covered) {
+  if (adjacentSameAtom && !spacedSameAtom) {
     return {
       stepId: step.id,
-      reason: `atoms ${atomIds.join(",")} not exercised by any graded step at i+${FOLLOWUP_WINDOW_START}..i+${FOLLOWUP_WINDOW_END}`,
+      reason: `same-atom follow-up at i+1 is adjacent (massed practice)`,
+    };
+  }
+
+  if (!adjacentSameAtom && !spacedSameAtom) {
+    return {
+      stepId: step.id,
+      reason: `atoms ${atomIds.join(",")} not exercised by any graded step at i+1..i+${FOLLOWUP_WINDOW_END}`,
     };
   }
   return null;

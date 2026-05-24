@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   isPassiveStep,
   isGradedStep,
+  shouldWriteSrs,
   stepHasSentenceContent,
   getStepAtomIds,
   computeGradedProgress,
@@ -140,5 +141,37 @@ describe("computeGradedProgress", () => {
       { id: "p2", type: "info" },
     ] as LessonStep[];
     expect(computeGradedProgress(passive, 0, {}).total).toBe(0);
+  });
+});
+
+describe("shouldWriteSrs", () => {
+  it("returns false for info even when carrying exercisedAtoms", () => {
+    expect(shouldWriteSrs({ type: "info", exercisedAtoms: ["v-neko"] })).toBe(false);
+  });
+  it("returns false for phrase_card", () => {
+    expect(shouldWriteSrs({ type: "phrase_card", exercisedAtoms: ["v-neko"] })).toBe(false);
+  });
+  it("returns false for grammar_rule", () => {
+    expect(shouldWriteSrs({ type: "grammar_rule", exercisedAtoms: ["g-desu"] })).toBe(false);
+  });
+  it("returns false for symbol_intro (writing-system teach)", () => {
+    expect(shouldWriteSrs({ type: "symbol_intro", exercisedAtoms: ["k-a"] })).toBe(false);
+  });
+  it("returns false for teach", () => {
+    expect(shouldWriteSrs({ type: "teach", exercisedAtoms: ["v-cat"] })).toBe(false);
+  });
+  it("returns false for graded step missing exercisedAtoms", () => {
+    expect(shouldWriteSrs({ type: "multiple_choice" })).toBe(false);
+    expect(shouldWriteSrs({ type: "build_sentence", exercisedAtoms: [] })).toBe(false);
+  });
+  it("returns true for graded step with exercisedAtoms", () => {
+    expect(shouldWriteSrs({ type: "multiple_choice", exercisedAtoms: ["v-neko"] })).toBe(true);
+    expect(shouldWriteSrs({ type: "build_sentence", exercisedAtoms: ["v-park"] })).toBe(true);
+    expect(shouldWriteSrs({ type: "word_image_mcq", exercisedAtoms: ["v-cat"] })).toBe(true);
+  });
+  it("returns true for dialogue_listen with atoms (hybrid, graded MCQs inside)", () => {
+    expect(
+      shouldWriteSrs({ type: "dialogue_listen", exercisedAtoms: ["v-coffee", "p-wo"] }),
+    ).toBe(true);
   });
 });

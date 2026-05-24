@@ -411,6 +411,38 @@ Perfect rotation of particle answers across a cloze block. Pattern from M3-5 (`m
 
 This is the shape any future drill-only sub-lesson should target. `assertAnswerRotation(steps, 3)` is the gate when the block introduces 3 distinct particles; `(steps, 2)` is the gate for 2-particle blocks. **Keep the gate matched to the actual block content** — drift between docstring promise and shipped gate (M3-4 ships 2 but docstring promises 3 as of this writing) is a known anti-pattern.
 
+### 13.13 Canonical M8+ sub-lesson template (locked 2026-05-23)
+
+Per the 2026-05-23 re-audit (`docs/curriculum-audit-vs-research-2026-05-21.md` + the M3-M7 template-consistency audit), M3-M7 converged on a recognizable 8-sub-lesson shape with documented divergences. Spencer's call: **lock this as the canonical template for M8+**. Variants distinguished by grammar-concept count.
+
+#### 8-sub-lesson template (2 grammar concepts — matches M3 / M4 / M7)
+
+| Pos | Role | Step factories |
+|---|---|---|
+| L1 | Vocab intro (≥5 new atoms) | `vocab` × 5–8, `vocabMcq`, `listeningComp`, `speaking`, `matchPairs` (review tail) |
+| L2 | Grammar rule A + drill | `grammarRule` + `cloze` × 4–5 (rotating answers ≥2 distinct) + `sentenceMcq` × 1–2 + `listeningComp` + `selfExplain` at N-1 + 1 `build`/`speaking` + review tail |
+| L3 | More vocab in context | `vocab` × 5 inside L2 carriers + `vocabMcq`/`listeningComp` interleave + 2–3 `cloze` on new vocab + 1 `build` + review tail |
+| L4 | Grammar rule B + drill | Same shape as L2 |
+| L5 | Interleaved drill (L2+L4) | 6 `cloze` rotating ≥2 distinct particles + `sentenceMcq` + `listeningComp` + `selfExplain` at N-1 + 1 `build` + review tail |
+| L6 | Production | 4–6 `build` + 2–3 `speaking` + 1 `listeningBuild` + 1–2 `sentenceMcq` + 1 `selfExplain` (optional) + review tail |
+| L7 | Comprehension closer | **EITHER** `dialogueListen` (2-speaker exchange, 2–4 lines + 1–3 questions) **OR** `storyComprehension` (single-voice narrative 1–8 lines + 1–3 questions + chained `build_sentence` response). Warmup vocab recap before; cumulative review tail after. |
+| L8 | Row test ★ | Auto-built via `buildRowTest` |
+
+#### 9-sub-lesson variant (3 grammar concepts — matches M6)
+
+Insert an extra `RuleC + drill` at position 4 and an extra interleave at position 6. Closer slides to L8, row test to L9.
+
+#### When to choose dialogueListen vs storyComprehension for L7
+
+- **dialogueListen** — fits modules where the natural setting is a transactional exchange (café, directions, introductions). 2 speakers, 3-4 turns, comprehension MCQs only.
+- **storyComprehension** — fits modules where the natural setting is a narrative (recounting a day, reading a short story, hearing a monologue). Single voice OR multi-voice without alternation, 1-8 lines, comprehension MCQs PLUS a chained `build_sentence` response (the learner answers what they'd say in reply).
+
+Mix freely across the course. Both write SRS the same way (recognition modality on comprehension, production on the response build).
+
+#### Tagging atoms for FSRS grading (Spencer's invariant)
+
+Every graded step factory in `_jaGrammarHelpers.ts` accepts an `exercisedAtomKanas?: string[]` argument (or auto-resolves from `target.kana` for atom-keyed factories). When set, the step's `exercisedAtoms` populates and `LessonPage.handleStepComplete` advances FSRS state for those atoms. **Teach steps** (`phrase_card`, `info`, `grammar_rule`, `symbol_intro`, `teach`) NEVER write SRS — the `shouldWriteSrs(step)` gate in `_stepPredicates.ts` blocks them even if they accidentally carry `exercisedAtoms`. Sentence-level factories (`build`, `speaking`, `listeningBuildSentence`, `listeningCompSentence`, `sentenceMcq`, `translateStep`) require the author to pass the kana list. Atom-keyed factories (`vocabMcq`, `audioImageMcq`, `audioMeaningMcq`, `translationMcq`, `reviewMatchPairs`, `dialogueListen` via the `exercisedAtomKanas` option, `cloze` from `correctParticle`) auto-tag.
+
 ---
 
-*This guide is the condensed output of the M3-M7 rebuild waves (per `curriculum-roadmap-n5-2026-05-18.md` Q8 resolution) plus the 2026-05-21 M3 rewrite retrospective. Refine as new findings land.*
+*This guide is the condensed output of the M3-M7 rebuild waves (per `curriculum-roadmap-n5-2026-05-18.md` Q8 resolution) plus the 2026-05-21 M3 rewrite retrospective and the 2026-05-23 SRS modality / canonical template lock. Refine as new findings land.*

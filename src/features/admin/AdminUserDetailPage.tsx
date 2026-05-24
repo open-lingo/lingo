@@ -224,13 +224,39 @@ export function AdminUserDetailPage() {
     }
   }, [userId, admin]);
 
-  const handleUpdateSrsCard = async (cardId: string, updates: Partial<import("@/features/flashcards/data/types").SRSCardState>) => {
+  /**
+   * Admin SRS edit surface — patches apply to both modalities when they
+   * touch per-modality fields (dueDate, difficulty), or to the card-shared
+   * fields (buriedUntil, lastSyncedAt). For per-modality editing the admin
+   * would need a richer UI; this matches Card Manager's "single column,
+   * both modalities" behavior.
+   */
+  type AdminCardPatch = {
+    dueDate?: string;
+    difficulty?: number;
+    buriedUntil?: string | undefined;
+    lastSyncedAt?: string | undefined;
+  };
+
+  const handleUpdateSrsCard = async (cardId: string, updates: AdminCardPatch) => {
     if (!userId) return;
     const existing = srsState[cardId];
     if (!existing) return;
+    const next = { ...existing };
+    if (updates.dueDate !== undefined) {
+      next.recognition = { ...existing.recognition, dueDate: updates.dueDate };
+      next.production = { ...existing.production, dueDate: updates.dueDate };
+    }
+    if (updates.difficulty !== undefined) {
+      const d = updates.difficulty;
+      next.recognition = { ...next.recognition, difficulty: d };
+      next.production = { ...next.production, difficulty: d };
+    }
+    if ("buriedUntil" in updates) next.buriedUntil = updates.buriedUntil;
+    if ("lastSyncedAt" in updates) next.lastSyncedAt = updates.lastSyncedAt;
     try {
       const res = await admin.updateUserSrs(userId, {
-        cards: { [cardId]: { ...existing, ...updates } },
+        cards: { [cardId]: next },
       });
       setSrsState((prev) => ({ ...prev, ...res.cards }));
       setEditingCard(null);
@@ -779,12 +805,19 @@ export function AdminUserDetailPage() {
                               type="button"
                               onClick={() => {
                                 setEditingCard(cardId);
-                                setEditDueDate(state.dueDate ?? "");
-                                setEditEase(String(state.difficulty ?? 5));
+                                setEditDueDate(state.recognition.dueDate ?? "");
+                                setEditEase(
+                                  String(
+                                    Math.max(
+                                      state.recognition.difficulty,
+                                      state.production.difficulty,
+                                    ) || 5,
+                                  ),
+                                );
                               }}
                               className="text-left text-text-primary hover:underline"
                             >
-                              {state.dueDate ?? "—"}
+                              {state.recognition.dueDate ?? "—"}
                             </button>
                           )}
                         </td>
@@ -810,10 +843,23 @@ export function AdminUserDetailPage() {
                               </button>
                             </div>
                           ) : (
-                            <span className="text-text-secondary">{state.difficulty?.toFixed(1) ?? "—"}</span>
+                            <span
+                              className="text-text-secondary"
+                              title={`Recognition ${state.recognition.difficulty.toFixed(1)} / Production ${state.production.difficulty.toFixed(1)}`}
+                            >
+                              {Math.max(
+                                state.recognition.difficulty,
+                                state.production.difficulty,
+                              ).toFixed(1)}
+                            </span>
                           )}
                         </td>
-                        <td className="px-3 py-2 text-text-secondary">{state.reps ?? 0}</td>
+                        <td
+                          className="px-3 py-2 text-text-secondary"
+                          title={`Recognition ${state.recognition.reps} / Production ${state.production.reps}`}
+                        >
+                          {state.recognition.reps + state.production.reps}
+                        </td>
                         <td className="px-3 py-2 text-text-secondary">{state.buriedUntil ?? "—"}</td>
                         <td className="px-3 py-2 text-right">
                           {state.buriedUntil && (

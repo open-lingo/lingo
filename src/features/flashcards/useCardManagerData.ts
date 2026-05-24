@@ -73,11 +73,17 @@ export function useCardManagerData(languageId: string) {
   const refresh = () => setRefreshTrigger((c) => c + 1);
 
   const updateDueDate = (cardId: string, newDueDate: string) => {
+    // Card Manager UI exposes a single due-date column; writing it
+    // updates both modality sub-states. Per-modality due-date editing
+    // can land if/when the UI surfaces both columns separately.
     const store = getSRSStore();
-    const state = store[cardId];
-    const next = state
-      ? { ...state, dueDate: newDueDate, lastSyncedAt: undefined }
-      : { ...createInitialState(), dueDate: newDueDate, lastSyncedAt: undefined };
+    const base = store[cardId] ?? createInitialState();
+    const next = {
+      ...base,
+      recognition: { ...base.recognition, dueDate: newDueDate },
+      production: { ...base.production, dueDate: newDueDate },
+      lastSyncedAt: undefined,
+    };
     setCardState(cardId, next);
     notifySRSStoreChanged();
     refresh();

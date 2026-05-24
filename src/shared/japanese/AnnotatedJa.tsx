@@ -5,6 +5,7 @@ import {
   useTrackExposure,
   useKanaHelperVisible,
 } from "@/features/japanese/kanaMastery";
+import { useSettings } from "@/shared/contexts/SettingsContext";
 
 type CommonProps = {
   /** Inline className applied to the outer <span>. */
@@ -152,7 +153,13 @@ function KanaToken({
 }) {
   useTrackExposure(kana);
   const masteryVisible = useKanaHelperVisible(kana);
-  const helperVisible = forceShowHelper || masteryVisible;
+  // Global "show romaji" setting (default ON until either: user turns
+  // it off, learner reaches M15, or alphabet trainer marks the script
+  // mastered). When ON, every kana on every surface shows its romaji
+  // helper. When OFF, falls back to per-kana mastery visibility +
+  // any caller's `forceShowHelper` override.
+  const globalShowRomaji = useSettings().settings.learning.showRomaji ?? true;
+  const helperVisible = globalShowRomaji || forceShowHelper || masteryVisible;
   const fallback = romaji || KANA_ROMAJI[kana] || "";
   return (
     <ruby data-role={role}>

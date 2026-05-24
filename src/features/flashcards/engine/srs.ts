@@ -7,10 +7,21 @@ import {
   type FSRS,
   type Grade,
 } from "ts-fsrs";
-import type { SRSCardState, SRSPhase, SRSRating } from "../data/types";
+import type {
+  SRSCardState,
+  SRSModality,
+  SRSModalityState,
+  SRSPhase,
+  SRSRating,
+} from "../data/types";
 
 /**
  * FSRS-6 scheduler — wraps ts-fsrs (FSRS-6.0 algorithm, v5.4.0 package).
+ *
+ * Each card carries TWO FSRS sub-states (`recognition` and `production`)
+ * so direction-specific mastery advances independently. The wrapper
+ * functions all take a `modality` argument identifying which sub-state to
+ * update; rollup helpers (`isDue`, `isMastered`, etc.) consider both.
  *
  * The 4 rating buttons (Again/Hard/Good/Easy) are unchanged from the
  * prior SM-2 implementation. **Hard is a success**, not a failure: it
@@ -18,11 +29,12 @@ import type { SRSCardState, SRSPhase, SRSRating } from "../data/types";
  * card's progress. This is a behavior change from the SM-2 era.
  *
  * Target retention: 0.95 (95%). Tighter than the FSRS default of 0.9.
- * The justification is that Lingo exposes vocab through two surfaces
- * (lessons + flashcards) so per-card review pressure is higher.
+ * Justification: Lingo exposes vocab through two surfaces (lessons +
+ * flashcards) so per-card review pressure is higher.
  *
  * No legacy SM-2 fields are written. Cards loaded from localStorage in
- * the old shape are rejected at the storage boundary; see srsStorage.
+ * the pre-modality flat FSRS-6 shape are upgraded on read; pre-FSRS-6
+ * SM-2 entries are dropped at the storage boundary.
  */
 
 const TARGET_RETENTION = 0.95;
@@ -54,29 +66,11 @@ const PHASE_TO_STATE: Record<SRSPhase, State> = {
 };
 
 /**
- * Mastery threshold (days). A card whose `interval` is at or above this
- * is considered mature and no longer in the active learning pool. 21
- * days matches the Anki / SM-2 convention and is a reasonable cutoff
- * under FSRS-6 with `request_retention = 0.95`.
+ * Mastery threshold (days). A sub-state whose `interval` is at or above
+ * this is considered mature. 21 days matches the Anki / SM-2 convention
+ * and is a reasonable cutoff under FSRS-6 with `request_retention = 0.95`.
  */
 export const MASTERED_INTERVAL_DAYS = 21;
-
-/** Card has been seen but interval is still below mastery threshold. */
-export function isLearning(state: SRSCardState | undefined): boolean {
-  if (!state) return false;
-  if (state.reps === 0) return false;
-  return state.interval < MASTERED_INTERVAL_DAYS;
-}
-
-/** Card has reached mature/mastered interval. */
-export function isMastered(state: SRSCardState | undefined): boolean {
-  if (!state) return false;
-  return state.interval >= MASTERED_INTERVAL_DAYS;
-}
-
-export function isNew(state: SRSCardState | undefined): boolean {
-  return state === undefined || state.reps === 0;
-}
 
 function todayStr(): string {
   return new Date().toISOString().slice(0, 10);
@@ -92,10 +86,8 @@ export function getToday(): string {
   return todayStr();
 }
 
-/** Build an empty FSRS-6 state for a card that's never been reviewed. */
-export function createInitialState(_initialEase?: number): SRSCardState {
-  // `_initialEase` is the legacy SM-2 deck setting; FSRS-6 has no ease
-  // analogue. Accepted for API compatibility and ignored.
+/** Build a fresh modality sub-state for a card that's never been reviewed. */
+function createInitialSubState(): SRSModalityState {
   const today = todayStr();
   return {
     stability: 0,
@@ -109,27 +101,34 @@ export function createInitialState(_initialEase?: number): SRSCardState {
   };
 }
 
-function toFsrsCard(state: SRSCardState, now: Date): FsrsCard {
-  // ts-fsrs computes `elapsed_days` from `last_review` to `now`. We pass
-  // the date at midday so timezone drift doesn't push the elapsed count
-  // forward/backward by one in edge cases.
-  const lastReview = new Date(state.lastReviewDate + "T12:00:00Z");
-  const due = new Date(state.dueDate + "T12:00:00Z");
+/** Build an empty FSRS-6 card state with both modalities zeroed. */
+export function createInitialState(_initialEase?: number): SRSCardState {
+  // `_initialEase` is the legacy SM-2 deck setting; FSRS-6 has no ease
+  // analogue. Accepted for API compatibility and ignored.
+  return {
+    recognition: createInitialSubState(),
+    production: createInitialSubState(),
+  };
+}
+
+function toFsrsCard(sub: SRSModalityState, now: Date): FsrsCard {
+  const lastReview = new Date(sub.lastReviewDate + "T12:00:00Z");
+  const due = new Date(sub.dueDate + "T12:00:00Z");
   const empty = createEmptyCard(now);
   return {
     ...empty,
     due,
-    stability: state.stability,
-    difficulty: state.difficulty,
-    state: PHASE_TO_STATE[state.state],
-    reps: state.reps,
-    lapses: state.lapses,
-    learning_steps: state.learningSteps ?? 0,
+    stability: sub.stability,
+    difficulty: sub.difficulty,
+    state: PHASE_TO_STATE[sub.state],
+    reps: sub.reps,
+    lapses: sub.lapses,
+    learning_steps: sub.learningSteps ?? 0,
     last_review: lastReview,
   };
 }
 
-function fromFsrsCard(card: FsrsCard, now: Date): SRSCardState {
+function fromFsrsCard(card: FsrsCard, now: Date): SRSModalityState {
   const today = now.toISOString().slice(0, 10);
   const dueDate = card.due.toISOString().slice(0, 10);
   const interval = Math.max(
@@ -137,7 +136,7 @@ function fromFsrsCard(card: FsrsCard, now: Date): SRSCardState {
     Math.round((card.due.getTime() - now.getTime()) / 86_400_000),
   );
   const phase = STATE_TO_PHASE[card.state] ?? "review";
-  const next: SRSCardState = {
+  const next: SRSModalityState = {
     stability: card.stability,
     difficulty: card.difficulty,
     state: phase,
@@ -153,27 +152,35 @@ function fromFsrsCard(card: FsrsCard, now: Date): SRSCardState {
   return next;
 }
 
+function reviewSubState(
+  sub: SRSModalityState,
+  rating: SRSRating,
+  at: Date,
+): SRSModalityState {
+  const card = toFsrsCard(sub, at);
+  const result = SCHEDULER.next(card, at, RATING_MAP[rating]);
+  return fromFsrsCard(result.card, at);
+}
+
 /**
- * Apply a rating to a card and return the next FSRS-6 state.
- * Pure function; does not touch storage.
+ * Apply a rating to ONE modality's sub-state and return the merged whole-card
+ * state. Pure function; does not touch storage.
  *
  * `at` defaults to "now"; tests can pass a fixed clock.
  */
 export function reviewCard(
   state: SRSCardState,
+  modality: SRSModality,
   rating: SRSRating,
   at: Date = new Date(),
 ): SRSCardState {
-  const card = toFsrsCard(state, at);
-  const result = SCHEDULER.next(card, at, RATING_MAP[rating]);
-  const next = fromFsrsCard(result.card, at);
-  // Preserve buriedUntil if set; reviewing doesn't unbury.
-  if (state.buriedUntil) next.buriedUntil = state.buriedUntil;
-  return next;
+  const next = reviewSubState(state[modality], rating, at);
+  return { ...state, [modality]: next };
 }
 
 /**
- * 3-of-4 mapping for grading from a lesson step's binary outcome.
+ * 3-of-4 mapping for grading from a lesson step's binary outcome on a
+ * specific modality.
  *
  * - `correct === false`                           → Again
  * - `correct === true` and `retried === true`     → Hard
@@ -184,6 +191,7 @@ export function reviewCard(
  */
 export function gradeFromLesson(
   state: SRSCardState,
+  modality: SRSModality,
   outcome: { correct: boolean; retried?: boolean },
   at: Date = new Date(),
 ): SRSCardState {
@@ -192,7 +200,7 @@ export function gradeFromLesson(
     : outcome.retried
       ? "hard"
       : "good";
-  return reviewCard(state, rating, at);
+  return reviewCard(state, modality, rating, at);
 }
 
 /**
@@ -204,9 +212,23 @@ export function shouldRepeatInSession(rating: SRSRating): boolean {
   return rating === "again" || rating === "hard";
 }
 
+function isSubStateDue(sub: SRSModalityState): boolean {
+  return sub.dueDate <= todayStr();
+}
+
+/** True if either modality is due today and the card isn't buried. */
 export function isDue(state: SRSCardState): boolean {
   if (state.buriedUntil && state.buriedUntil > todayStr()) return false;
-  return state.dueDate <= todayStr();
+  return isSubStateDue(state.recognition) || isSubStateDue(state.production);
+}
+
+/** Which modalities are due now (excluding buried). */
+export function getDueModalities(state: SRSCardState): SRSModality[] {
+  if (state.buriedUntil && state.buriedUntil > todayStr()) return [];
+  const out: SRSModality[] = [];
+  if (isSubStateDue(state.recognition)) out.push("recognition");
+  if (isSubStateDue(state.production)) out.push("production");
+  return out;
 }
 
 export function isBuried(state: SRSCardState | undefined): boolean {
@@ -214,6 +236,37 @@ export function isBuried(state: SRSCardState | undefined): boolean {
   return state.buriedUntil > todayStr();
 }
 
+/** True when both modalities have zero reps (never graded). */
+export function isNew(state: SRSCardState | undefined): boolean {
+  if (!state) return true;
+  return state.recognition.reps === 0 && state.production.reps === 0;
+}
+
+/** True when any modality has been graded but isn't yet mature. */
+export function isLearning(state: SRSCardState | undefined): boolean {
+  if (!state) return false;
+  const anyGraded =
+    state.recognition.reps > 0 || state.production.reps > 0;
+  if (!anyGraded) return false;
+  return (
+    state.recognition.interval < MASTERED_INTERVAL_DAYS ||
+    state.production.interval < MASTERED_INTERVAL_DAYS
+  );
+}
+
+/** True when BOTH modalities have reached the mastery interval threshold. */
+export function isMastered(state: SRSCardState | undefined): boolean {
+  if (!state) return false;
+  return (
+    state.recognition.interval >= MASTERED_INTERVAL_DAYS &&
+    state.production.interval >= MASTERED_INTERVAL_DAYS
+  );
+}
+
+/**
+ * Card-shared field — applies to both modalities. Sets buriedUntil
+ * one day out so the card is hidden through tomorrow.
+ */
 export function buryCard(state: SRSCardState): SRSCardState {
   return { ...state, buriedUntil: addDays(todayStr(), 1) };
 }
@@ -242,4 +295,27 @@ export function getQuality(rating: SRSRating): number {
 /** Exported for transparency / settings UI; not currently surfaced. */
 export function getTargetRetention(): number {
   return TARGET_RETENTION;
+}
+
+/**
+ * Rollup helper for sort/display surfaces that want a single difficulty
+ * number per card. Returns the harder of the two modalities so cards
+ * surface for review while at least one direction is still struggling.
+ */
+export function cardMaxDifficulty(state: SRSCardState): number {
+  return Math.max(state.recognition.difficulty, state.production.difficulty);
+}
+
+/** Earliest due date across modalities (for sort/display). */
+export function cardEarliestDueDate(state: SRSCardState): string {
+  return state.recognition.dueDate <= state.production.dueDate
+    ? state.recognition.dueDate
+    : state.production.dueDate;
+}
+
+/** Most recent review across modalities (for sort/display). */
+export function cardLastReviewDate(state: SRSCardState): string {
+  return state.recognition.lastReviewDate >= state.production.lastReviewDate
+    ? state.recognition.lastReviewDate
+    : state.production.lastReviewDate;
 }

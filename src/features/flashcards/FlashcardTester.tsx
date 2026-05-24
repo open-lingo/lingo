@@ -110,12 +110,20 @@ function IntervalHint({
   rating: SRSRating;
   defaultEase?: number;
 }) {
+  // Flashcards grade BOTH modalities at once; the card next appears
+  // when EITHER modality is due. Preview the shorter of the two
+  // intervals to be honest about when the learner will see it again.
   const state = getEffectiveState(cardId, defaultEase);
-  const next = reviewCard(state, rating);
-  if (next.interval === 0) return <span className="text-[10px]">&lt;1d</span>;
-  if (next.interval === 1) return <span className="text-[10px]">1d</span>;
-  if (next.interval < 30) return <span className="text-[10px]">{next.interval}d</span>;
-  const months = Math.round(next.interval / 30);
+  const afterRec = reviewCard(state, "recognition", rating);
+  const afterBoth = reviewCard(afterRec, "production", rating);
+  const interval = Math.min(
+    afterBoth.recognition.interval,
+    afterBoth.production.interval,
+  );
+  if (interval === 0) return <span className="text-[10px]">&lt;1d</span>;
+  if (interval === 1) return <span className="text-[10px]">1d</span>;
+  if (interval < 30) return <span className="text-[10px]">{interval}d</span>;
+  const months = Math.round(interval / 30);
   return <span className="text-[10px]">{months}mo</span>;
 }
 
@@ -184,7 +192,12 @@ export function FlashcardTester() {
       if (!card) return;
       const defaultEase = cardIdToDefaultEase?.[card.id];
       const current = getEffectiveState(card.id, defaultEase);
-      const next = reviewCard(current, rating);
+      // Flashcards review surface exercises both directions of the card
+      // (front→back recall is production; back→front recognition). Until
+      // a per-modality flashcard mode exists, advance both modalities so
+      // recognition and production stay in lockstep on this surface.
+      const afterRec = reviewCard(current, "recognition", rating);
+      const next = reviewCard(afterRec, "production", rating);
       setCardState(card.id, next);
 
       // SM-2 step 7: if quality < 4, re-show at end of session

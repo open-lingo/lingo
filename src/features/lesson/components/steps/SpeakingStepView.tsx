@@ -173,30 +173,6 @@ const WHISPER_LOAD_TIMEOUT_MS = 30_000;
 
 const CELEBRATE_MS = 1100;
 
-/** sessionStorage key for the "Show romaji" toggle on speaking steps.
- *  Default OFF so confident learners aren't crutched; once a learner
- *  toggles it on, it sticks for the rest of the session. */
-const ROMAJI_TOGGLE_KEY = "lingo_speak_show_romaji_v1";
-
-function readRomajiToggle(): boolean {
-  if (typeof window === "undefined") return false;
-  try {
-    return window.sessionStorage.getItem(ROMAJI_TOGGLE_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
-
-function writeRomajiToggle(on: boolean): void {
-  if (typeof window === "undefined") return;
-  try {
-    if (on) window.sessionStorage.setItem(ROMAJI_TOGGLE_KEY, "1");
-    else window.sessionStorage.removeItem(ROMAJI_TOGGLE_KEY);
-  } catch {
-    /* private mode — ignore */
-  }
-}
-
 /** Format kana → "ka·gi" romaji string for the transcript inline hint.
  *  Uses tokenizeJapanese so yōon merge into one token; non-kana glyphs
  *  (kanji, punctuation) pass through unchanged. */
@@ -283,17 +259,16 @@ function SpeakingStepRecognized({
   const [conversions, setConversions] = useState<Map<string, string>>(
     () => new Map(),
   );
-  const [showRomaji, setShowRomajiState] = useState<boolean>(() =>
-    readRomajiToggle(),
-  );
-
+  // Promoted from per-component sessionStorage to global setting
+  // (2026-05-23). Default off matches the prior per-component default.
+  // CALL-research lean: passive romaji can slow kana fluency, so it's an
+  // explicit opt-in via Settings → Alphabet display.
+  const { settings: romajiSettings, updateSetting: updateRomajiSetting } =
+    useSettings();
+  const showRomaji = romajiSettings.learning.showRomaji ?? false;
   const toggleRomaji = useCallback(() => {
-    setShowRomajiState((prev) => {
-      const next = !prev;
-      writeRomajiToggle(next);
-      return next;
-    });
-  }, []);
+    updateRomajiSetting("learning.showRomaji", !showRomaji);
+  }, [showRomaji, updateRomajiSetting]);
 
   // When recognition finishes, score all alternatives against the
   // target and surface a tiered verdict. The hook resets on the next

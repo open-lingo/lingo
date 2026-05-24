@@ -25,6 +25,14 @@ export type StepType =
   | "dialogue_listen"
   | "row_test";
 
+/**
+ * Direction the learner is exercising on this step.
+ * - `recognition` — shown stimulus → identify (audio→image MCQ, etc).
+ * - `production` — cued meaning → produce target form (English→kana build).
+ * - `both` — step exercises both directions equally (used sparingly).
+ */
+export type StepModality = "recognition" | "production" | "both";
+
 export type StepBase = {
   id: string;
   type: StepType;
@@ -36,6 +44,23 @@ export type StepBase = {
    * domain fields (cultureNote / body / rule).
    */
   explanation?: string;
+  /**
+   * SRS atom IDs this step grades when completed. Populated by graded step
+   * factories (vocabMcq, cloze, build, etc.); absent on teach steps so the
+   * `shouldWriteSrs(step)` gate skips them. The lesson grading pipeline
+   * resolves these to FSRS card states via `setCardState(atomId, …)`.
+   *
+   * Different from `exercisedAtomIds` on passive steps (Info, GrammarRule,
+   * DialogueListen) which tracks passive exposure for review-tail planning,
+   * not grading.
+   */
+  exercisedAtoms?: string[];
+  /**
+   * Direction this step exercises. Determines which FSRS sub-state advances
+   * when the step is graded. Omit to default to `"both"` at the grading
+   * pipeline.
+   */
+  modality?: StepModality;
 };
 
 export type InfoStep = StepBase & {
@@ -443,8 +468,10 @@ export type SelfExplanationMcqStep = StepBase & {
  * docs/wave-4-m3-m7-reauthor-2026-05-18.md §3.
  */
 export type DialogueListenLine = {
-  /** Display label for the speaker — "Stranger" / "You" / "Server" / etc. */
-  speaker: string;
+  /** Display label for the speaker — "Stranger" / "You" / "Server" / etc.
+   *  Optional in `format: "narrative"` (single-voice story prose where
+   *  speaker labels would clutter the read). */
+  speaker?: string;
   /** Kana form of the line. Used for TTS lookup AND for the transcript
    *  reveal (rendered as a chat bubble alongside the speaker label). */
   kana: string;
@@ -473,8 +500,19 @@ export type DialogueListenStep = StepBase & {
    *   - "never": transcript never shown.
    */
   transcriptRevealAfter?: "first-answer" | "all-answers" | "never";
+  /**
+   * Rendering mode:
+   *   - "dialogue" (default): multi-turn exchange with speaker chips per line.
+   *   - "narrative": single-voice story prose; speaker labels suppressed.
+   *
+   * Used by the `storyComprehension` factory to render a 1-8 line narrative
+   * followed by comprehension questions, distinct from the existing 2-4 line
+   * dialogue closer pattern.
+   */
+  format?: "dialogue" | "narrative";
   /** Course-atom ids exercised by the dialogue's questions. Used by lint /
-   *  SRS coupling phase 2. */
+   *  passive-card followup checks. SEPARATE from `exercisedAtoms` on
+   *  StepBase, which drives FSRS grading. */
   exercisedAtomIds?: string[];
 };
 

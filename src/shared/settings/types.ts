@@ -57,6 +57,25 @@ export type UserSettings = {
     uiLocale: string;
     showAlphabetRomanization?: boolean;
     showAlphabetFurigana?: boolean;
+    /**
+     * Global "show romaji reading aid" toggle. When true (the default),
+     * every kana surface in the app renders romaji above un-mastered
+     * kana — speaking, MCQ options, build-sentence tiles, dialogue
+     * transcripts, etc.
+     *
+     * The default flips OFF automatically (one-time) when the learner
+     * reaches Module 15 OR passes the alphabet trainer's full test for
+     * hiragana/katakana — whichever fires first. After the auto-flip,
+     * `romajiAutoFlipped` is set so the auto-off won't fire again, and
+     * the learner can re-enable manually from Settings.
+     */
+    showRomaji?: boolean;
+    /**
+     * One-shot flag set when the auto-off rule (M15 reached OR alphabet
+     * mastered) has fired. Prevents re-flipping if the learner later
+     * turns romaji back on manually.
+     */
+    romajiAutoFlipped?: boolean;
   };
   display?: {
     dateLocale?: string;
@@ -92,6 +111,8 @@ export const DEFAULT_SETTINGS: UserSettings = {
     uiLocale: "en",
     showAlphabetRomanization: true,
     showAlphabetFurigana: true,
+    showRomaji: true,
+    romajiAutoFlipped: false,
   },
   display: {},
   flashcards: {

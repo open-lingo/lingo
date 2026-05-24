@@ -39,7 +39,20 @@ import {
 import { recordAttempt, recordStepEvent } from "@/features/lesson/engine";
 import { useLessonSyncSession } from "./useLessonSyncSession";
 import type { LessonCompleteMastery } from "./components/LessonComplete";
-import { computeGradedProgress } from "./data/_stepPredicates";
+import { computeGradedProgress, shouldWriteSrs } from "./data/_stepPredicates";
+import {
+  createInitialState,
+  gradeFromLesson,
+  getCardState,
+  setCardState,
+} from "@/features/flashcards/engine";
+import { notifySRSStoreChanged } from "@/features/flashcards/SRSStoreRevisionContext";
+import type { SRSModality } from "@/features/flashcards/data/types";
+import { useSettings } from "@/shared/contexts/SettingsContext";
+import {
+  parseModuleIndex,
+  shouldAutoFlipRomaji,
+} from "@/shared/settings/romajiAutoFlip";
 
 const LESSON_PASS_THRESHOLD = 0.7;
 
@@ -186,6 +199,7 @@ export function LessonPage() {
   // Guarded by a ref so React 19's strict-mode double-invoke + result
   // mutations don't re-fire it.
   const { showToast } = useToast();
+  const { settings, updateSetting } = useSettings();
   const resumeToastFiredRef = useRef(false);
   useEffect(() => {
     if (!wasResumed || resumeToastFiredRef.current || !lesson) return;
@@ -287,7 +301,25 @@ export function LessonPage() {
       }
     }
     clearLessonInProgress(lesson.id);
-  }, [finished, lesson, results, isReview]);
+
+    // Auto-disable the romaji reading aid when the learner crosses the
+    // module threshold (default ON until M15 OR alphabet mastery — see
+    // src/shared/settings/romajiAutoFlip.ts). One-shot, idempotent.
+    const reachedModuleIndex = parseModuleIndex(lesson.moduleId);
+    const flip = shouldAutoFlipRomaji({
+      settings,
+      trigger: "module-reached",
+      reachedModuleIndex,
+    });
+    if (flip.flipped) {
+      updateSetting("learning.showRomaji", false);
+      updateSetting("learning.romajiAutoFlipped", true);
+      showToast(
+        "Romaji reading aid turned off — you've outgrown the crutch. Re-enable any time in Settings.",
+        "info",
+      );
+    }
+  }, [finished, lesson, results, isReview, settings, updateSetting, showToast]);
 
   const totalSteps = lesson?.steps.length ?? 0;
   // Progress chip / fill count graded steps only. Tapping a phrase_card /
@@ -316,18 +348,37 @@ export function LessonPage() {
       setResults((prev) => ({ ...prev, [stepId]: correct }));
       // Buffer a step event so the SyncManager dirty count ticks per step.
       // Cleared on lesson completion (recordAttempt subsumes them).
-      if (lesson) {
-        const stepIdx = lesson.steps.findIndex((s) => s.id === stepId);
-        recordStepEvent({
-          lessonId: lesson.id,
-          stepId,
-          stepIdx: stepIdx >= 0 ? stepIdx : 0,
-          correct,
-          conceptIds: [],
-        });
+      if (!lesson) return;
+      const stepIdx = lesson.steps.findIndex((s) => s.id === stepId);
+      recordStepEvent({
+        lessonId: lesson.id,
+        stepId,
+        stepIdx: stepIdx >= 0 ? stepIdx : 0,
+        correct,
+        conceptIds: [],
+      });
+      // FSRS grading — gated by shouldWriteSrs so teach/intro/grammar_rule
+      // steps NEVER advance card state. Only review (graded retrieval)
+      // touches FSRS. Spencer's invariant: "only review cards count
+      // toward FSRS-6."
+      const step = lesson.steps[stepIdx >= 0 ? stepIdx : 0];
+      if (!step || !shouldWriteSrs(step)) return;
+      const exercised = step.exercisedAtoms ?? [];
+      if (exercised.length === 0) return;
+      const retried = retryAttempted.has(stepId);
+      const modality = step.modality ?? "both";
+      const modalities: SRSModality[] =
+        modality === "both" ? ["recognition", "production"] : [modality];
+      for (const atomId of exercised) {
+        let state = getCardState(atomId) ?? createInitialState();
+        for (const m of modalities) {
+          state = gradeFromLesson(state, m, { correct, retried });
+        }
+        setCardState(atomId, state);
       }
+      notifySRSStoreChanged();
     },
-    [lesson],
+    [lesson, retryAttempted],
   );
 
   const handleContinue = useCallback(() => {

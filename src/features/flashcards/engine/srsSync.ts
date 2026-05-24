@@ -1,18 +1,21 @@
 import type { SRSCardState } from "../data/types";
 import { notifySRSStoreChanged } from "../SRSStoreRevisionContext";
+import { cardLastReviewDate } from "./srs";
 import { getSRSStore, setSRSStore, setLastSrsSyncAt } from "./srsStorage";
 import type { SRSStore } from "./srsStorage";
 
 /**
  * Collect all cards that have been reviewed since their last sync.
- * A card is "dirty" if lastReviewDate > lastSyncedAt (or never synced).
+ * A card is "dirty" if the most-recent review across modalities is
+ * newer than the last sync (or it's never been synced).
  */
 export function getDirtyCards(): SRSStore {
   const store = getSRSStore();
   const dirty: SRSStore = {};
 
   for (const [cardId, state] of Object.entries(store)) {
-    if (!state.lastSyncedAt || state.lastReviewDate > state.lastSyncedAt) {
+    const lastReview = cardLastReviewDate(state);
+    if (!state.lastSyncedAt || lastReview > state.lastSyncedAt) {
       dirty[cardId] = state;
     }
   }
@@ -38,22 +41,35 @@ export function markSynced(cardIds: string[]): void {
 }
 
 /**
- * True if state looks like an explicit reset (new/forgotten card).
- * Under FSRS-6 a fresh card has `state: "new"` and zero reps; an
- * intentionally-reset card likewise has both. Anything beyond that
- * (stability/difficulty > 0 with reps > 0) means the card has been
- * reviewed and should NOT be treated as a reset.
+ * True if state looks like an explicit reset (new/forgotten card) — BOTH
+ * modalities at phase "new" with zero reps. An intentionally-reset card
+ * matches; any partial progress on either modality means the card is
+ * mid-learning and should NOT be treated as a reset.
  */
 function isResetState(state: SRSCardState): boolean {
-  return state.state === "new" && state.reps === 0;
+  return (
+    state.recognition.state === "new" &&
+    state.recognition.reps === 0 &&
+    state.production.state === "new" &&
+    state.production.reps === 0
+  );
+}
+
+function isLearnedState(state: SRSCardState): boolean {
+  return (
+    state.recognition.state !== "new" ||
+    state.recognition.reps > 0 ||
+    state.production.state !== "new" ||
+    state.production.reps > 0
+  );
 }
 
 /**
  * Merge server state into local store.
- * Server wins for cards where server lastReviewDate > local lastReviewDate.
- * Local wins otherwise (user reviewed while offline).
- * Local reset (interval 0, repetitions 0) is never overwritten by server
- * "learned" state so that resets persist even with clock skew or failed sync.
+ * Server wins for cards where server's most-recent review across modalities
+ * beats local's. Local wins otherwise (user reviewed while offline).
+ * Local reset is never overwritten by server "learned" state so that resets
+ * persist even with clock skew or failed sync.
  */
 export function mergeServerState(serverState: SRSStore): void {
   const local = getSRSStore();
@@ -62,10 +78,10 @@ export function mergeServerState(serverState: SRSStore): void {
   for (const [cardId, serverCard] of Object.entries(serverState)) {
     const localCard = local[cardId];
     const serverIsNewer =
-      !localCard || serverCard.lastReviewDate > localCard.lastReviewDate;
+      !localCard ||
+      cardLastReviewDate(serverCard) > cardLastReviewDate(localCard);
     const localIsReset = localCard && isResetState(localCard);
-    const serverIsLearned =
-      serverCard.state !== "new" || serverCard.reps > 0;
+    const serverIsLearned = isLearnedState(serverCard);
     const keepLocalReset = localIsReset && serverIsLearned;
 
     if (serverIsNewer && !keepLocalReset) {

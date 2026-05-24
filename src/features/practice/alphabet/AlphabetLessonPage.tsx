@@ -26,6 +26,9 @@ import {
   saveStoredSession,
   clearStoredSession,
 } from "./alphabetSessionStorage";
+import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useToast } from "@/shared/contexts/ToastContext";
+import { shouldAutoFlipRomaji } from "@/shared/settings/romajiAutoFlip";
 
 import type { InfoStep } from "@/features/lesson/types";
 import { logAlphabetEvent } from "./alphabetAnalytics";
@@ -394,6 +397,8 @@ export function AlphabetLessonPage() {
     sectionId,
   ]);
 
+  const { settings, updateSetting } = useSettings();
+  const { showToast } = useToast();
   useEffect(() => {
     if (!finished || mode !== "test" || !progress) return;
     const correctCount = Object.values(results).filter(Boolean).length;
@@ -401,9 +406,28 @@ export function AlphabetLessonPage() {
     const pct = totalGraded > 0 ? correctCount / totalGraded : 0;
     if (pct >= TEST_PASS_THRESHOLD) {
       if (sectionId) markSectionTestPassed(progress, sectionId);
-      else markFullTestPassed(progress);
+      else {
+        markFullTestPassed(progress);
+        // Alphabet full-test pass: auto-disable the romaji reading aid
+        // (one-shot, idempotent) — the learner has demonstrated kana
+        // fluency and no longer needs the crutch. See
+        // src/shared/settings/romajiAutoFlip.ts.
+        const flip = shouldAutoFlipRomaji({
+          settings,
+          trigger: "alphabet-mastered",
+          alphabetFullTestPassed: true,
+        });
+        if (flip.flipped) {
+          updateSetting("learning.showRomaji", false);
+          updateSetting("learning.romajiAutoFlipped", true);
+          showToast(
+            "Nice — you've passed the alphabet test. Romaji reading aid turned off. Re-enable any time in Settings.",
+            "success",
+          );
+        }
+      }
     }
-  }, [finished, mode, progress, sectionId, results]);
+  }, [finished, mode, progress, sectionId, results, settings, updateSetting, showToast]);
 
   // Buffer the alphabet lesson as a progress-tracked attempt. Mirrors the
   // recordAttempt wiring in LessonPage. The "lessonId" we send is a

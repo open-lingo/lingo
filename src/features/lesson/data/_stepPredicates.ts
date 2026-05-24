@@ -7,12 +7,49 @@ export const PASSIVE_STEP_KINDS: ReadonlySet<LessonStep["type"]> = new Set([
   "grammar_rule",
 ]);
 
+/**
+ * Step kinds that NEVER advance FSRS state regardless of correctness.
+ * Wider than PASSIVE_STEP_KINDS — includes teach/intro/dialogue surfaces
+ * that may emit a completion signal but represent exposure rather than
+ * retrieval. The lesson grading pipeline's `shouldWriteSrs(step)` gate
+ * uses this set.
+ *
+ * Anything outside this set that carries `exercisedAtoms` does write SRS.
+ */
+const TEACH_STEP_KINDS: ReadonlySet<LessonStep["type"]> = new Set([
+  "phrase_card",
+  "info",
+  "grammar_rule",
+  "teach",
+  "symbol_intro",
+]);
+
 export function isPassiveStep(step: LessonStep): boolean {
   return PASSIVE_STEP_KINDS.has(step.type);
 }
 
 export function isGradedStep(step: LessonStep): boolean {
   return !isPassiveStep(step);
+}
+
+/**
+ * Gate for the lesson grading pipeline: should completing this step
+ * advance an FSRS card's state?
+ *
+ * Rules (BOTH must hold):
+ *   1. Step type is not in TEACH_STEP_KINDS (teach steps never write,
+ *      even if they accidentally carry `exercisedAtoms`).
+ *   2. Step has a non-empty `exercisedAtoms` list — without atom IDs
+ *      there's nothing to credit.
+ *
+ * This implements Spencer's "only review cards count toward FSRS-6"
+ * constraint: graded retrieval is the only signal that touches state.
+ */
+export function shouldWriteSrs(
+  step: { type: string; exercisedAtoms?: readonly string[] },
+): boolean {
+  if (TEACH_STEP_KINDS.has(step.type as LessonStep["type"])) return false;
+  return (step.exercisedAtoms?.length ?? 0) > 0;
 }
 
 const ALWAYS_SENTENCE: ReadonlySet<LessonStep["type"]> = new Set([

@@ -1,9 +1,15 @@
-import type { SRSCardState } from "../data/types";
+import type { SRSCardState, SRSModalityState, SRSPhase } from "../data/types";
+import { isLegacyFlatFsrsState, migrateFlatToModal } from "./srsMigration";
 
 // Bumped storage namespace for the FSRS-6 migration (2026-05-20). The
 // schema changed (stability + difficulty replaced easeFactor) and we
 // intentionally discard prior entries rather than mapping them — see
 // docs/lesson-editor-research-2026-05-20.md and CLAUDE.md.
+//
+// On 2026-05-23 we added the recognition/production modality split. The
+// storage key is unchanged but the in-memory shape is now nested. Legacy
+// flat FSRS-6 entries are upgraded on read; legacy SM-2 entries are still
+// dropped.
 const STORAGE_KEY = "open-lingo-srs:v2";
 const LEGACY_STORAGE_KEY = "open-lingo-srs";
 const LAST_SYNC_KEY = "open-lingo-srs-last-sync";
@@ -11,14 +17,21 @@ const NEXT_SYNC_KEY = "open-lingo-srs-next-sync";
 
 export type SRSStore = Record<string, SRSCardState>;
 
-/** Type guard: matches the post-FSRS-6 schema. Drops any other shape. */
-function isFsrsState(v: unknown): v is SRSCardState {
+const VALID_PHASES: ReadonlySet<SRSPhase> = new Set([
+  "new",
+  "learning",
+  "review",
+  "relearning",
+]);
+
+function isValidSubState(v: unknown): v is SRSModalityState {
   if (!v || typeof v !== "object") return false;
   const obj = v as Record<string, unknown>;
   return (
     typeof obj.stability === "number" &&
     typeof obj.difficulty === "number" &&
     typeof obj.state === "string" &&
+    VALID_PHASES.has(obj.state as SRSPhase) &&
     typeof obj.interval === "number" &&
     typeof obj.dueDate === "string" &&
     typeof obj.lastReviewDate === "string" &&
@@ -26,6 +39,25 @@ function isFsrsState(v: unknown): v is SRSCardState {
     typeof obj.lapses === "number" &&
     (obj.learningSteps === undefined || typeof obj.learningSteps === "number")
   );
+}
+
+/** Type guard: matches the modal FSRS-6 schema. */
+function isModalFsrsState(v: unknown): v is SRSCardState {
+  if (!v || typeof v !== "object") return false;
+  const obj = v as Record<string, unknown>;
+  return isValidSubState(obj.recognition) && isValidSubState(obj.production);
+}
+
+/**
+ * Read one stored entry. Accepts already-modal states, upgrades legacy
+ * flat FSRS-6 states, and drops everything else (including pre-FSRS-6
+ * SM-2 entries — those have no `stability` and fail
+ * `isLegacyFlatFsrsState`).
+ */
+function loadOne(v: unknown): SRSCardState | null {
+  if (isModalFsrsState(v)) return v;
+  if (isLegacyFlatFsrsState(v)) return migrateFlatToModal(v);
+  return null;
 }
 
 export function getSRSStore(): SRSStore {
@@ -42,7 +74,8 @@ export function getSRSStore(): SRSStore {
     const parsed = JSON.parse(raw) as Record<string, unknown>;
     const valid: SRSStore = {};
     for (const [id, state] of Object.entries(parsed)) {
-      if (isFsrsState(state)) valid[id] = state;
+      const loaded = loadOne(state);
+      if (loaded) valid[id] = loaded;
     }
     return valid;
   } catch {

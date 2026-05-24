@@ -1,7 +1,9 @@
 export {
   reviewCard,
   createInitialState,
+  gradeFromLesson,
   isDue,
+  getDueModalities,
   isNew,
   isLearning,
   isMastered,
@@ -12,8 +14,12 @@ export {
   getToday,
   getQuality,
   shouldRepeatInSession,
+  cardMaxDifficulty,
+  cardEarliestDueDate,
+  cardLastReviewDate,
   MASTERED_INTERVAL_DAYS,
 } from "./srs";
+export { isLegacyFlatFsrsState, migrateFlatToModal } from "./srsMigration";
 export {
   getSRSStore,
   setSRSStore,

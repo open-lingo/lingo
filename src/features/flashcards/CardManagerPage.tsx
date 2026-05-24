@@ -7,6 +7,11 @@ import { useApi } from "@/shared/api";
 import { FilterBar, DataTable } from "@/shared/components/data";
 import { Icon } from "@/shared/components/Icon";
 import { useCardManagerData, type ManagedCard } from "./useCardManagerData";
+import {
+  cardEarliestDueDate,
+  cardLastReviewDate,
+  cardMaxDifficulty,
+} from "./engine";
 
 const CARD_MANAGER_TAB = "tab";
 const TAB_ALL = "all";
@@ -113,21 +118,24 @@ export function CardManagerPage() {
       let cmp = 0;
       switch (sortKey) {
         case "dueDate":
-          cmp = (a.state?.dueDate ?? "9999-99-99").localeCompare(
-            b.state?.dueDate ?? "9999-99-99"
+          cmp = (a.state ? cardEarliestDueDate(a.state) : "9999-99-99").localeCompare(
+            b.state ? cardEarliestDueDate(b.state) : "9999-99-99"
           );
           break;
         case "ease":
           // FSRS-6: sort by per-card difficulty (1-10, higher = harder).
+          // With modality split we sort by the harder of the two directions
+          // so a card surfaces while either side is still struggling.
           // The "ease" sort key is kept for UI back-compat.
-          cmp = (a.state?.difficulty ?? 0) - (b.state?.difficulty ?? 0);
+          cmp = (a.state ? cardMaxDifficulty(a.state) : 0) -
+                (b.state ? cardMaxDifficulty(b.state) : 0);
           break;
         case "deck":
           cmp = a.deckName.localeCompare(b.deckName);
           break;
         case "lastReview":
-          cmp = (a.state?.lastReviewDate ?? "").localeCompare(
-            b.state?.lastReviewDate ?? ""
+          cmp = (a.state ? cardLastReviewDate(a.state) : "").localeCompare(
+            b.state ? cardLastReviewDate(b.state) : ""
           );
           break;
         case "front":
@@ -149,7 +157,9 @@ export function CardManagerPage() {
 
   const startEditDue = (mc: ManagedCard) => {
     setEditingDue(mc.card.id);
-    setEditingDueValue(mc.state?.dueDate ?? new Date().toISOString().slice(0, 10));
+    setEditingDueValue(
+      mc.state ? cardEarliestDueDate(mc.state) : new Date().toISOString().slice(0, 10),
+    );
   };
 
   const saveDueEdit = () => {
@@ -438,7 +448,7 @@ export function CardManagerPage() {
                   onClick={() => startEditDue(mc)}
                   className="text-left text-gray-700 hover:underline dark:text-gray-300"
                 >
-                  {mc.state?.dueDate ?? "—"}
+                  {mc.state ? cardEarliestDueDate(mc.state) : "—"}
                 </button>
               ),
           },
@@ -446,11 +456,21 @@ export function CardManagerPage() {
             key: "ease",
             label: t("flashcards.cardManager.colDifficulty", "Difficulty"),
             sortable: true,
-            render: (mc) => (
-              <span className="text-gray-600 dark:text-gray-400">
-                {mc.state?.difficulty?.toFixed(1) ?? "—"}
-              </span>
-            ),
+            render: (mc) => {
+              if (!mc.state) {
+                return <span className="text-gray-600 dark:text-gray-400">—</span>;
+              }
+              const rec = mc.state.recognition.difficulty;
+              const prod = mc.state.production.difficulty;
+              return (
+                <span
+                  className="text-gray-600 dark:text-gray-400"
+                  title={`Recognition ${rec.toFixed(1)} / Production ${prod.toFixed(1)}`}
+                >
+                  {Math.max(rec, prod).toFixed(1)}
+                </span>
+              );
+            },
           },
           {
             key: "status",

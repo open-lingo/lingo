@@ -225,6 +225,30 @@ export function SettingsContent() {
             )}
           </span>
         </label>
+        <label className="flex cursor-pointer items-start gap-2">
+          <input
+            type="checkbox"
+            checked={settings.learning.showRomaji ?? true}
+            onChange={(e) =>
+              updateSetting("learning.showRomaji", e.target.checked)
+            }
+            className="mt-0.5 rounded border-gray-300 text-accent focus:ring-accent"
+          />
+          <span>
+            <span className="block text-sm text-text-primary">
+              {t(
+                "settings.showRomaji",
+                "Show romaji as a reading aid",
+              )}
+            </span>
+            <span className="block text-xs text-text-muted">
+              {t(
+                "settings.showRomajiHelp",
+                "Shows romaji above kana across the app. Turns off automatically once you pass the alphabet test or reach Module 15 — turn it back on any time.",
+              )}
+            </span>
+          </span>
+        </label>
       </section>
 
       <section className="space-y-2">

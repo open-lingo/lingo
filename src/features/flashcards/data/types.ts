@@ -61,19 +61,20 @@ export type FlashcardDeck = {
 export type SRSPhase = "new" | "learning" | "review" | "relearning";
 
 /**
- * SRS state per card. Stored per user (localStorage / backend).
+ * Direction the learner is exercising the card. Each modality carries
+ * its own FSRS-6 state so recognition mastery doesn't credit production
+ * mastery (or vice versa).
  *
- * Engine: FSRS-6 (Free Spaced Repetition Scheduler v6). The 4 rating
- * buttons (Again/Hard/Good/Easy) are unchanged from the prior SM-2
- * implementation; Hard is a *success* with reduced stability gain, not a
- * failure. Card state schema is FSRS-native (stability + difficulty)
- * with `interval` kept as a stored display field.
- *
- * `lapses` counts total Agains across the card's lifetime. `reps` counts
- * total reviews. `state` is the FSRS phase ("new"/"learning"/"review"/
- * "relearning").
+ * - `recognition`: shown stimulus → identify meaning/answer (e.g. audio→image MCQ).
+ * - `production`: cued meaning → produce target form (e.g. English→kana build).
  */
-export type SRSCardState = {
+export type SRSModality = "recognition" | "production";
+
+/**
+ * Per-direction FSRS-6 state. Stored once per modality inside an
+ * {@link SRSCardState}.
+ */
+export type SRSModalityState = {
   /** FSRS stability (S): predicted retention interval in days. */
   stability: number;
   /** FSRS difficulty (D): per-card difficulty in [1, 10]. */
@@ -96,6 +97,22 @@ export type SRSCardState = {
    * for review-state cards.
    */
   learningSteps?: number;
+};
+
+/**
+ * SRS state per card. Stored per user (localStorage / backend).
+ *
+ * Engine: FSRS-6 (Free Spaced Repetition Scheduler v6). Each card carries
+ * **two** FSRS sub-states — one per modality — so recognition progress and
+ * production progress advance independently. A card is "due" when either
+ * sub-state is due.
+ *
+ * Card-shared fields (`lastSyncedAt`, `buriedUntil`) live at the top level
+ * because they apply to the whole card regardless of modality.
+ */
+export type SRSCardState = {
+  recognition: SRSModalityState;
+  production: SRSModalityState;
   /** ISO timestamp of last sync to backend. Undefined = never synced. */
   lastSyncedAt?: string;
   /** If set and > today, card is buried (excluded from queue). YYYY-MM-DD. */
