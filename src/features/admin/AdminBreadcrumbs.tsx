@@ -1,5 +1,6 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { NavPillLink } from "@/shared/components/ui/NavPillLink";
 
 export function AdminBreadcrumbs() {
   const { t } = useTranslation();
@@ -13,62 +14,27 @@ export function AdminBreadcrumbs() {
 
   return (
     <nav
-      className="flex flex-wrap items-center gap-2 border-b border-gray-200 pb-4 dark:border-gray-700"
+      className="flex flex-wrap items-center gap-2 border-b border-border pb-4"
       aria-label="Admin sections"
     >
-      <Link
-        to="/admin/users"
-        className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
-          isUsers
-            ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300"
-            : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        }`}
-      >
+      <NavPillLink to="/admin/users" isActive={isUsers}>
         {t("admin.users")}
-      </Link>
-      <Link
-        to="/admin/content/decks"
-        className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
-          isContent
-            ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300"
-            : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        }`}
-      >
+      </NavPillLink>
+      <NavPillLink to="/admin/content/decks" isActive={isContent}>
         {t("admin.content")}
-      </Link>
+      </NavPillLink>
       {isContent && (
         <>
-          <span className="text-gray-400 dark:text-gray-500">/</span>
-          <Link
-            to="/admin/content/decks"
-            className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
-              isContentDecks
-                ? "bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-white"
-                : "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
-            }`}
-          >
+          <span className="text-text-muted">/</span>
+          <NavPillLink to="/admin/content/decks" isActive={isContentDecks}>
             {t("admin.decks")}
-          </Link>
-          <Link
-            to="/admin/content/stories"
-            className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
-              isContentStories
-                ? "bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-white"
-                : "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
-            }`}
-          >
+          </NavPillLink>
+          <NavPillLink to="/admin/content/stories" isActive={isContentStories}>
             {t("admin.stories")}
-          </Link>
-          <Link
-            to="/admin/content/lessons"
-            className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
-              isContentLessons
-                ? "bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-white"
-                : "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
-            }`}
-          >
+          </NavPillLink>
+          <NavPillLink to="/admin/content/lessons" isActive={isContentLessons}>
             {t("admin.lessons", "Lessons")}
-          </Link>
+          </NavPillLink>
         </>
       )}
     </nav>

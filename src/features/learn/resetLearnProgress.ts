@@ -1,6 +1,7 @@
 import { clearAllAlphabetProgress } from "@/features/practice/alphabet/alphabetProgress";
 import { clearAllReviewSchedules } from "@/features/lesson/data/moduleReviewSchedule";
 import { clearAllLessonInProgress } from "@/features/lesson/data/lessonProgress";
+import { clearPendingAttempts } from "@/features/lesson/engine/lessonStorage";
 import { clearGraduatedVocab } from "@/features/japanese/vocabGraduation";
 import {
   clearMockProgress,
@@ -29,6 +30,7 @@ export function resetLearnProgress(courseId: string): void {
   clearAllAlphabetProgress();
   clearAllReviewSchedules();
   clearAllLessonInProgress();
+  clearPendingAttempts();
   clearGraduatedVocab(courseId);
   clearMasteryToastFlags();
   markLessonProgressReset();

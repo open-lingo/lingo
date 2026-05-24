@@ -10,6 +10,7 @@ import { AVAILABLE_LEARNING_LANGUAGES } from "@/shared/domain/languageConfig";
 import { supportedLngs } from "@/shared/i18n/i18n";
 import { utcToLocalHHmm, localToUtcHHmm } from "@/shared/utils/reminderTime";
 import { AccountPrivacySection } from "./AccountPrivacySection";
+import { ChoiceChip, inputClassName } from "@/shared/components/ui/formStyles";
 
 const UI_LOCALE_LABELS: Record<string, string> = {
   en: "English",
@@ -23,9 +24,6 @@ export function SettingsContent() {
   const { language, setLanguage, isLoading: langLoading } = useLanguage();
   const { activeThemeId, setTheme, openThemeEditor } = useTheme();
   const { openProfile, close } = useModal();
-
-  const selectedCls = "border-accent bg-accent text-white";
-  const unselectedCls = "border-border bg-surface text-text-primary hover:bg-surface-muted";
 
   const themePresets = [
     { id: "auto", labelKey: "settings.themeAuto" },
@@ -61,17 +59,14 @@ export function SettingsContent() {
         ) : (
           <div className="flex flex-wrap gap-2">
             {AVAILABLE_LEARNING_LANGUAGES.map((lang: Language) => (
-              <button
+              <ChoiceChip
                 key={lang.id}
-                type="button"
+                selected={language?.id === lang.id}
                 onClick={() => setLanguage(lang)}
-                className={`rounded-lg border px-3 py-1.5 text-sm font-medium transition ${
-                  language?.id === lang.id ? selectedCls : unselectedCls
-                }`}
               >
                 <span className="mr-1.5">{lang.flag}</span>
                 {lang.name}
-              </button>
+              </ChoiceChip>
             ))}
           </div>
         )}
@@ -83,17 +78,14 @@ export function SettingsContent() {
         </h3>
         <div className="flex flex-wrap gap-2">
           {themePresets.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => setTheme(p.id)}
-                className={`rounded-lg border px-3 py-1.5 text-sm font-medium transition ${
-                  activeThemeId === p.id ? selectedCls : unselectedCls
-                }`}
-              >
-                {t(p.labelKey)}
-              </button>
-            ))}
+            <ChoiceChip
+              key={p.id}
+              selected={activeThemeId === p.id}
+              onClick={() => setTheme(p.id)}
+            >
+              {t(p.labelKey)}
+            </ChoiceChip>
+          ))}
           {activeThemeId.startsWith("custom-") && (
             <span className="rounded-lg border border-accent bg-accent-muted px-3 py-1.5 text-sm font-medium text-accent">
               {t("settings.themeCustom", "Custom")}
@@ -126,7 +118,7 @@ export function SettingsContent() {
             onChange={(e) =>
               updateSetting("notifications.reminderEnabled", e.target.checked)
             }
-            className="rounded border-gray-300 text-accent focus:ring-accent"
+            className="rounded border-border text-accent focus:ring-accent"
           />
           <span className="text-sm text-text-primary">
             {t("settings.dailyReminder")}
@@ -152,7 +144,7 @@ export function SettingsContent() {
                   localToUtcHHmm(local)
                 );
               }}
-              className="rounded border border-gray-300 px-2 py-1 text-sm"
+              className={inputClassName}
             />
           </div>
         )}
@@ -172,7 +164,7 @@ export function SettingsContent() {
             onChange={(e) =>
               updateSetting("accessibility.reducedMotion", e.target.checked)
             }
-            className="rounded border-gray-300 text-accent focus:ring-accent"
+            className="rounded border-border text-accent focus:ring-accent"
           />
           <span className="text-sm text-text-primary">
             {t("settings.reducedMotion")}
@@ -200,7 +192,7 @@ export function SettingsContent() {
                 e.target.checked,
               )
             }
-            className="rounded border-gray-300 text-accent focus:ring-accent"
+            className="rounded border-border text-accent focus:ring-accent"
           />
           <span className="text-sm text-text-primary">
             {t(
@@ -216,7 +208,7 @@ export function SettingsContent() {
             onChange={(e) =>
               updateSetting("learning.showAlphabetFurigana", e.target.checked)
             }
-            className="rounded border-gray-300 text-accent focus:ring-accent"
+            className="rounded border-border text-accent focus:ring-accent"
           />
           <span className="text-sm text-text-primary">
             {t(
@@ -260,16 +252,13 @@ export function SettingsContent() {
         </p>
         <div className="flex flex-wrap gap-2">
           {supportedLngs.map((lng) => (
-            <button
+            <ChoiceChip
               key={lng}
-              type="button"
+              selected={settings.learning.uiLocale.startsWith(lng)}
               onClick={() => updateSetting("learning.uiLocale", lng)}
-              className={`rounded-lg border px-3 py-1.5 text-sm font-medium transition ${
-                settings.learning.uiLocale.startsWith(lng) ? selectedCls : unselectedCls
-              }`}
             >
               {UI_LOCALE_LABELS[lng] ?? lng}
-            </button>
+            </ChoiceChip>
           ))}
         </div>
       </section>

@@ -1,9 +1,63 @@
 import type { BatchAttempt } from "@/shared/api/progress";
+import { getActiveUserStorageId } from "@/features/settings/storage";
 
-const BUFFER_KEY = "open-lingo-lesson-attempts:v1";
-const STEP_EVENTS_KEY = "open-lingo-lesson-step-events:v1";
-const LAST_SYNC_KEY = "open-lingo-lesson-last-sync";
-const NEXT_SYNC_KEY = "open-lingo-lesson-next-sync";
+const BUFFER_PREFIX = "open-lingo-lesson-attempts:v1:";
+const STEP_EVENTS_PREFIX = "open-lingo-lesson-step-events:v1:";
+const LAST_SYNC_PREFIX = "open-lingo-lesson-last-sync:";
+const NEXT_SYNC_PREFIX = "open-lingo-lesson-next-sync:";
+
+/** Legacy keys (pre per-user scoping) — cleared on read when migrating. */
+const LEGACY_BUFFER_KEY = "open-lingo-lesson-attempts:v1";
+const LEGACY_STEP_EVENTS_KEY = "open-lingo-lesson-step-events:v1";
+const LEGACY_LAST_SYNC_KEY = "open-lingo-lesson-last-sync";
+const LEGACY_NEXT_SYNC_KEY = "open-lingo-lesson-next-sync";
+
+function bufferKey(): string {
+  return `${BUFFER_PREFIX}${getActiveUserStorageId()}`;
+}
+
+function stepEventsKey(): string {
+  return `${STEP_EVENTS_PREFIX}${getActiveUserStorageId()}`;
+}
+
+function lastSyncKey(): string {
+  return `${LAST_SYNC_PREFIX}${getActiveUserStorageId()}`;
+}
+
+function nextSyncKey(): string {
+  return `${NEXT_SYNC_PREFIX}${getActiveUserStorageId()}`;
+}
+
+function migrateLegacyLessonKeys(): void {
+  if (typeof window === "undefined") return;
+  try {
+    const legacyBuffer = localStorage.getItem(LEGACY_BUFFER_KEY);
+    if (legacyBuffer && !localStorage.getItem(bufferKey())) {
+      localStorage.setItem(bufferKey(), legacyBuffer);
+    }
+    localStorage.removeItem(LEGACY_BUFFER_KEY);
+
+    const legacySteps = localStorage.getItem(LEGACY_STEP_EVENTS_KEY);
+    if (legacySteps && !localStorage.getItem(stepEventsKey())) {
+      localStorage.setItem(stepEventsKey(), legacySteps);
+    }
+    localStorage.removeItem(LEGACY_STEP_EVENTS_KEY);
+
+    const legacyLast = localStorage.getItem(LEGACY_LAST_SYNC_KEY);
+    if (legacyLast && !localStorage.getItem(lastSyncKey())) {
+      localStorage.setItem(lastSyncKey(), legacyLast);
+    }
+    localStorage.removeItem(LEGACY_LAST_SYNC_KEY);
+
+    const legacyNext = localStorage.getItem(LEGACY_NEXT_SYNC_KEY);
+    if (legacyNext && !localStorage.getItem(nextSyncKey())) {
+      localStorage.setItem(nextSyncKey(), legacyNext);
+    }
+    localStorage.removeItem(LEGACY_NEXT_SYNC_KEY);
+  } catch {
+    /* ignore */
+  }
+}
 
 /** A per-step event captured as the user completes individual lesson steps.
  *
@@ -23,8 +77,9 @@ export type StepEvent = {
 
 export function getStepEvents(): StepEvent[] {
   if (typeof window === "undefined") return [];
+  migrateLegacyLessonKeys();
   try {
-    const raw = localStorage.getItem(STEP_EVENTS_KEY);
+    const raw = localStorage.getItem(stepEventsKey());
     if (!raw) return [];
     const arr = JSON.parse(raw) as StepEvent[];
     return Array.isArray(arr) ? arr : [];
@@ -35,8 +90,9 @@ export function getStepEvents(): StepEvent[] {
 
 export function setStepEvents(events: StepEvent[]): void {
   if (typeof window === "undefined") return;
+  migrateLegacyLessonKeys();
   try {
-    localStorage.setItem(STEP_EVENTS_KEY, JSON.stringify(events));
+    localStorage.setItem(stepEventsKey(), JSON.stringify(events));
   } catch {
     /* ignore quota */
   }
@@ -78,8 +134,9 @@ export type PendingAttempt = BatchAttempt & {
 
 export function getPendingAttempts(): PendingAttempt[] {
   if (typeof window === "undefined") return [];
+  migrateLegacyLessonKeys();
   try {
-    const raw = localStorage.getItem(BUFFER_KEY);
+    const raw = localStorage.getItem(bufferKey());
     if (!raw) return [];
     const arr = JSON.parse(raw) as PendingAttempt[];
     return Array.isArray(arr) ? arr : [];
@@ -90,8 +147,9 @@ export function getPendingAttempts(): PendingAttempt[] {
 
 export function setPendingAttempts(attempts: PendingAttempt[]): void {
   if (typeof window === "undefined") return;
+  migrateLegacyLessonKeys();
   try {
-    localStorage.setItem(BUFFER_KEY, JSON.stringify(attempts));
+    localStorage.setItem(bufferKey(), JSON.stringify(attempts));
   } catch {
     // ignore quota errors
   }
@@ -123,31 +181,36 @@ export function removePendingAttempts(ids: string[]): void {
 
 export function clearPendingAttempts(): void {
   if (typeof window === "undefined") return;
-  localStorage.removeItem(BUFFER_KEY);
+  migrateLegacyLessonKeys();
+  localStorage.removeItem(bufferKey());
 }
 
 /** ISO timestamp of last successful lesson sync to backend. */
 export function getLastLessonSyncAt(): string | null {
   if (typeof window === "undefined") return null;
-  return localStorage.getItem(LAST_SYNC_KEY);
+  migrateLegacyLessonKeys();
+  return localStorage.getItem(lastSyncKey());
 }
 
 export function setLastLessonSyncAt(iso: string): void {
   if (typeof window === "undefined") return;
-  localStorage.setItem(LAST_SYNC_KEY, iso);
+  migrateLegacyLessonKeys();
+  localStorage.setItem(lastSyncKey(), iso);
 }
 
 /** ISO timestamp when next auto-sync will run. */
 export function getNextLessonSyncAt(): string | null {
   if (typeof window === "undefined") return null;
-  return localStorage.getItem(NEXT_SYNC_KEY);
+  migrateLegacyLessonKeys();
+  return localStorage.getItem(nextSyncKey());
 }
 
 export function setNextLessonSyncAt(iso: string | null): void {
   if (typeof window === "undefined") return;
+  migrateLegacyLessonKeys();
   if (iso == null) {
-    localStorage.removeItem(NEXT_SYNC_KEY);
+    localStorage.removeItem(nextSyncKey());
   } else {
-    localStorage.setItem(NEXT_SYNC_KEY, iso);
+    localStorage.setItem(nextSyncKey(), iso);
   }
 }

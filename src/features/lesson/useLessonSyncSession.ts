@@ -3,8 +3,9 @@ import { useApi } from "@/shared/api";
 import {
   getPendingAttempts,
   getStepEvents,
-  performLessonSync,
+  syncLessonProgressWithServer,
 } from "./engine";
+import { setNextLessonSyncAt } from "./engine/lessonStorage";
 
 export const LESSON_SYNC_INTERVAL_MS = 30_000;
 
@@ -31,9 +32,19 @@ export function useLessonSyncSession(): void {
     isMountedRef.current = true;
 
     const runSync = () =>
-      performLessonSync((p) => progress.batchAttempts(p)).catch(() => 0);
+      syncLessonProgressWithServer({
+        batch: (p) => progress.batchAttempts(p),
+        getMe: () => progress.getMe(),
+      })
+        .then(({ pushed }) => pushed)
+        .catch(() => 0);
 
-    const interval = setInterval(runSync, LESSON_SYNC_INTERVAL_MS);
+    const interval = setInterval(() => {
+      void runSync();
+      setNextLessonSyncAt(
+        new Date(Date.now() + LESSON_SYNC_INTERVAL_MS).toISOString(),
+      );
+    }, LESSON_SYNC_INTERVAL_MS);
 
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (getPendingAttempts().length > 0) {

@@ -18,4 +18,7 @@ export {
   markStreakCheckedToday,
   shouldCheckStreakOnNextSync,
 } from "./sessionStreak";
-export { hydrateLessonProgressFromServer } from "./progressSync";
+export {
+  hydrateLessonProgressFromServer,
+  syncLessonProgressWithServer,
+} from "./progressSync";

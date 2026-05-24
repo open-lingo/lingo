@@ -93,7 +93,15 @@ export function ensureUserConsistency(userId: string | null): void {
     const keys: string[] = [];
     for (let i = 0; i < localStorage.length; i++) {
       const k = localStorage.key(i);
-      if (k?.startsWith(ALPHABET_PREFIX)) keys.push(k);
+      if (
+        k?.startsWith(ALPHABET_PREFIX) ||
+        k?.startsWith("open-lingo-lesson-attempts:") ||
+        k?.startsWith("open-lingo-lesson-step-events:") ||
+        k?.startsWith("open-lingo-lesson-last-sync:") ||
+        k?.startsWith("open-lingo-lesson-next-sync:")
+      ) {
+        keys.push(k);
+      }
     }
     keys.forEach((k) => localStorage.removeItem(k));
     if (last) {

@@ -10,7 +10,6 @@ import {
   clearAllStepEvents,
   clearStepEventsForLesson,
   getPendingAttempts,
-  getStepEvents,
   removePendingAttempts,
   setLastLessonSyncAt,
   type PendingAttempt,
@@ -139,15 +138,8 @@ export async function performLessonSync(
 ): Promise<number> {
   const { payload, ids } = buildBatchPayload();
   if (ids.length === 0) {
-    // No completed attempts to send. If there are orphan step events
-    // (lesson in progress / abandoned mid-flow), drop them so the dirty
-    // count clears — step events are local telemetry, not their own
-    // server resource. The next completed attempt re-records its own.
-    if (getStepEvents().length > 0) {
-      clearAllStepEvents();
-      setLastLessonSyncAt(new Date().toISOString());
-      notify();
-    }
+    // Nothing to POST — in-progress step events stay local until the
+    // lesson finishes and `recordAttempt` buffers a real attempt.
     return 0;
   }
 

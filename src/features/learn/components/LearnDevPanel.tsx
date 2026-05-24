@@ -15,6 +15,8 @@ import {
   summarizeSessionLog,
   type SessionSummary,
 } from "@/shared/telemetry/sessionLog";
+import { ModalBackdrop } from "@/shared/components/ModalBackdrop";
+import { Button } from "@/shared/components/ui/Button";
 import { LearnLessonLengthsOverlay } from "./LearnLessonLengthsOverlay";
 
 export type LearnDevPanelProps = {
@@ -132,25 +134,15 @@ function SessionLogOverlay({ onClose }: { onClose: () => void }) {
     new Date(ts).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-    >
-      <div
-        className="max-h-[80vh] w-full max-w-xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-xl"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <ModalBackdrop onClose={onClose} ariaLabelledBy="session-log-title">
+      <div className="max-h-[80vh] w-full max-w-xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-popover">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-text-primary">📊 Tester log</h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded border border-border px-2 py-1 text-xs text-text-secondary hover:bg-surface-muted"
-          >
+          <h2 id="session-log-title" className="text-lg font-bold text-text-primary">
+            📊 Tester log
+          </h2>
+          <Button type="button" variant="secondary" size="sm" onClick={onClose}>
             Close
-          </button>
+          </Button>
         </div>
 
         <label className="mb-3 flex items-center gap-2 rounded-lg border border-warning/40 bg-warning/5 px-3 py-2 text-xs">
@@ -214,29 +206,31 @@ function SessionLogOverlay({ onClose }: { onClose: () => void }) {
         )}
 
         <div className="mt-4 flex flex-wrap gap-2">
-          <button
+          <Button
             type="button"
+            variant="primary"
+            size="sm"
             onClick={downloadSessionLog}
             disabled={summary.eventCount === 0}
-            className="rounded-lg border border-accent bg-accent px-3 py-1.5 text-xs font-bold text-white hover:bg-accent-hover disabled:opacity-40"
           >
             ⬇ Download now
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="secondary"
+            size="sm"
             onClick={() => {
               if (window.confirm("Clear the session log? This cannot be undone.")) {
                 clearSessionLog();
               }
             }}
             disabled={summary.eventCount === 0}
-            className="rounded-lg border border-border px-3 py-1.5 text-xs text-text-secondary hover:bg-surface-muted disabled:opacity-40"
           >
             Clear log
-          </button>
+          </Button>
         </div>
       </div>
-    </div>
+    </ModalBackdrop>
   );
 }
 
@@ -272,27 +266,15 @@ function SpeechLogOverlay({ onClose }: { onClose: () => void }) {
   }, []);
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-    >
-      <div
-        className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-xl"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <ModalBackdrop onClose={onClose} ariaLabelledBy="speech-log-title">
+      <div className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-popover">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-text-primary">
+          <h2 id="speech-log-title" className="text-lg font-bold text-text-primary">
             📣 Speech log (last {entries.length}/20)
           </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded border border-border px-2 py-1 text-xs text-text-secondary hover:bg-surface-muted"
-          >
+          <Button type="button" variant="secondary" size="sm" onClick={onClose}>
             Close
-          </button>
+          </Button>
         </div>
         {entries.length === 0 ? (
           <p className="text-sm text-text-muted">
@@ -307,7 +289,7 @@ function SpeechLogOverlay({ onClose }: { onClose: () => void }) {
                   ? "text-success"
                   : e.verdict === "auto-pass"
                     ? "text-text-muted"
-                    : "text-danger";
+                    : "text-error";
               const time = new Date(e.timestamp).toLocaleTimeString();
               return (
                 <li
@@ -343,6 +325,6 @@ function SpeechLogOverlay({ onClose }: { onClose: () => void }) {
           </ul>
         )}
       </div>
-    </div>
+    </ModalBackdrop>
   );
 }

@@ -1,13 +1,12 @@
 import { useToast } from "@/shared/contexts/ToastContext";
 import { Icon } from "@/shared/components/Icon";
+import type { AlertVariant } from "@/shared/components/ui/AlertBanner";
 
-const variantStyles: Record<string, string> = {
-  success:
-    "bg-emerald-600 text-white dark:bg-emerald-500",
-  error:
-    "bg-red-600 text-white dark:bg-red-500",
-  info:
-    "bg-gray-700 text-white dark:bg-gray-600",
+const variantStyles: Record<AlertVariant, string> = {
+  success: "border-success/40 bg-success/15 text-success",
+  error: "border-error/40 bg-error/15 text-error",
+  info: "border-info/40 bg-info/15 text-info",
+  warning: "border-warning/40 bg-warning/15 text-warning",
 };
 
 export function ToastContainer() {
@@ -25,7 +24,7 @@ export function ToastContainer() {
         <div
           key={t.id}
           role="status"
-          className={`pointer-events-auto flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium shadow-lg ${variantStyles[t.variant] ?? variantStyles.info}`}
+          className={`pointer-events-auto flex items-center justify-between rounded-lg border px-4 py-3 text-sm font-medium shadow-popover backdrop-blur-sm ${variantStyles[t.variant as AlertVariant] ?? variantStyles.info}`}
         >
           <span>{t.message}</span>
           <button

@@ -7,6 +7,7 @@ import { useToast } from "@/shared/contexts/ToastContext";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { FilterBar, DataTable } from "@/shared/components/data";
+import { Button } from "@/shared/components/ui/Button";
 import type { DeckResponse } from "@/shared/api/decks";
 
 type StatusFilter = "all" | "draft" | "published";
@@ -201,53 +202,47 @@ export function AdminDecksPage() {
                       {t("community.studioEdit")}
                     </Link>
                     {!isPublished && (
-                      <button
+                      <Button
                         type="button"
+                        variant="primary"
+                        size="sm"
                         onClick={() => handlePublish(deck.id)}
                         disabled={busy}
-                        className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-white hover:bg-accent-hover disabled:opacity-50"
                       >
                         {busy ? t("common.loading") : t("admin.publish")}
-                      </button>
+                      </Button>
                     )}
                     {isPublished && (
-                      <button
+                      <Button
                         type="button"
+                        variant="outline"
+                        size="sm"
+                        className="border-warning text-warning hover:bg-warning/10"
                         onClick={() => handleUnpublish(deck.id)}
                         disabled={busy}
-                        className="rounded-lg border border-amber-500 px-3 py-1.5 text-sm font-medium text-amber-600 hover:bg-amber-50 disabled:opacity-50 dark:border-amber-600 dark:text-amber-400 dark:hover:bg-amber-900/20"
                       >
                         {busy ? t("common.loading") : t("admin.unpublish")}
-                      </button>
+                      </Button>
                     )}
                     {deleteConfirm === deck.id ? (
                       <span className="flex items-center gap-1">
-                        <button
-                          type="button"
-                          onClick={handleDelete}
-                          disabled={!!updating}
-                          className="rounded bg-red-600 px-2 py-1 text-xs font-medium text-white hover:bg-red-700 disabled:opacity-50"
-                        >
+                        <Button type="button" variant="danger" size="sm" onClick={handleDelete} disabled={!!updating}>
                           Confirm
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setDeleteConfirm(null)}
-                          disabled={!!updating}
-                          className="rounded border border-border px-2 py-1 text-xs font-medium"
-                        >
+                        </Button>
+                        <Button type="button" variant="secondary" size="sm" onClick={() => setDeleteConfirm(null)} disabled={!!updating}>
                           {t("forum.cancel")}
-                        </button>
+                        </Button>
                       </span>
                     ) : (
-                      <button
+                      <Button
                         type="button"
+                        variant="danger"
+                        size="sm"
                         onClick={() => setDeleteConfirm(deck.id)}
                         disabled={busy}
-                        className="rounded-lg border border-red-300 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50 dark:border-red-700 dark:text-red-400 dark:hover:bg-red-900/20"
                       >
                         {t("admin.deleteDeck")}
-                      </button>
+                      </Button>
                     )}
                   </div>
                 );

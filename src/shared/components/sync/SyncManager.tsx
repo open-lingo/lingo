@@ -49,6 +49,7 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
 
   const visibleSources = sources.filter((s) => s.visible);
   const hasDirty = visibleSources.some((s) => s.dirtyCount > 0);
+  const canSync = visibleSources.length > 0;
 
   const scheduleClose = () => {
     if (leaveTimerRef.current) clearTimeout(leaveTimerRef.current);
@@ -67,7 +68,7 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
 
   const handleSyncAll = async () => {
     const dirty = visibleSources.filter(
-      (s) => s.dirtyCount > 0 && !s.syncing && !syncingIds.has(s.id),
+      (s) => !s.syncing && !syncingIds.has(s.id),
     );
     if (dirty.length === 0) return;
     setSyncingIds(
@@ -194,15 +195,15 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
             <button
               type="button"
               onClick={handleSyncAll}
-              disabled={!hasDirty || anySyncing}
+              disabled={!canSync || anySyncing}
               className="w-full rounded-md bg-accent px-3 py-2 text-sm font-semibold text-white transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-text-muted"
             >
               {anySyncing
                 ? t("syncManager.syncing", { defaultValue: "Syncing…" })
                 : hasDirty
                   ? t("syncManager.syncAll", { defaultValue: "Sync now" })
-                  : t("syncManager.allCaughtUp", {
-                      defaultValue: "All caught up",
+                  : t("syncManager.syncPull", {
+                      defaultValue: "Refresh from server",
                     })}
             </button>
           </div>

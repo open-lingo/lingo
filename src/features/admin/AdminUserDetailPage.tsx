@@ -12,6 +12,10 @@ import type { DeckResponse } from "@/shared/api/decks";
 import { useDateFormat } from "@/shared/utils/formatDate";
 import { Icon } from "@/shared/components/Icon";
 import { TabList, TabButton } from "@/shared/components/ui/Tabs";
+import { ConfirmModal } from "@/shared/components/ConfirmModal";
+import { Button } from "@/shared/components/ui/Button";
+import { AlertBanner } from "@/shared/components/ui/AlertBanner";
+import { inputClassName } from "@/shared/components/ui/formStyles";
 
 type TabId = "profile" | "subscriptions" | "content" | "srs";
 
@@ -284,7 +288,7 @@ export function AdminUserDetailPage() {
   if (loading || !user) {
     return (
       <div className="flex justify-center py-12">
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-text-muted">
           {loading ? t("common.loading") : "User not found"}
         </p>
       </div>
@@ -302,49 +306,31 @@ export function AdminUserDetailPage() {
     <div className="space-y-6 p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-text-primary">
             @{user.username}
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-text-muted">
             {user.display_name} · {user.id}
           </p>
         </div>
         <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={() => setShowDeleteConfirm(true)}
-            className="rounded-lg border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 dark:border-red-700 dark:text-red-400 dark:hover:bg-red-900/20"
-          >
+          <Button type="button" variant="danger" onClick={() => setShowDeleteConfirm(true)}>
             {t("admin.deleteUser")}
-          </button>
+          </Button>
         </div>
       </div>
 
-      {showDeleteConfirm && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/20">
-          <p className="text-sm text-red-800 dark:text-red-200">
-            {t("admin.deleteConfirm")}
-          </p>
-          <div className="mt-4 flex gap-2">
-            <button
-              type="button"
-              onClick={handleDeleteUser}
-              disabled={deleting}
-              className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
-            >
-              {deleting ? t("common.loading") : "Delete"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowDeleteConfirm(false)}
-              disabled={deleting}
-              className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
+      {showDeleteConfirm ? (
+        <ConfirmModal
+          title={t("admin.deleteUser")}
+          message={t("admin.deleteConfirm")}
+          cancelLabel={t("forum.cancel")}
+          confirmLabel={deleting ? t("common.loading") : "Delete"}
+          danger
+          onConfirm={handleDeleteUser}
+          onCancel={() => setShowDeleteConfirm(false)}
+        />
+      ) : null}
 
       <TabList className="gap-6">
         {tabs.map((tab) => (
@@ -364,14 +350,10 @@ export function AdminUserDetailPage() {
       <div className="rounded-lg border border-border bg-surface p-6">
         {activeTab === "profile" && (
           <div className="space-y-6">
-            {profileError && (
-              <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600 dark:bg-red-900/20 dark:text-red-400">
-                {profileError}
-              </p>
-            )}
+            {profileError ? <AlertBanner>{profileError}</AlertBanner> : null}
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="sm:col-span-2">
-                <label className="mb-1 block text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
                   {t("profile.avatarUrl")}
                 </label>
                 <div className="flex items-center gap-4">
@@ -383,7 +365,7 @@ export function AdminUserDetailPage() {
                       onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                     />
                   ) : (
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center text-gray-500 dark:text-gray-400">
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center text-text-muted">
                       <Icon name="user" size={28} />
                     </div>
                   )}
@@ -392,27 +374,27 @@ export function AdminUserDetailPage() {
                     value={editAvatarUrl}
                     onChange={(e) => setEditAvatarUrl(e.target.value)}
                     placeholder="https://..."
-                    className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                    className="flex-1 ${inputClassName}"
                   />
                 </div>
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
                   {t("admin.username")}
                 </label>
                 <div className="mt-1 flex items-center gap-1">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">@</span>
+                  <span className="text-sm text-text-muted">@</span>
                   <input
                     type="text"
                     value={editUsername}
                     onChange={(e) => setEditUsername(e.target.value)}
                     placeholder="username"
-                    className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                    className="flex-1 ${inputClassName}"
                   />
                 </div>
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
                   {t("admin.displayName")}
                 </label>
                 <input
@@ -420,24 +402,24 @@ export function AdminUserDetailPage() {
                   value={editDisplayName}
                   onChange={(e) => setEditDisplayName(e.target.value)}
                   placeholder={t("admin.displayName")}
-                  className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                  className="mt-1 w-full ${inputClassName}"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
                   {t("admin.accountStatus")}
                 </label>
                 <select
                   value={editStatus}
                   onChange={(e) => setEditStatus(e.target.value as "active" | "banned")}
-                  className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                  className="mt-1 w-full ${inputClassName}"
                 >
                   <option value="active">{t("admin.statusActive")}</option>
                   <option value="banned">{t("admin.statusBanned")}</option>
                 </select>
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
                   {t("admin.statusExpiration")}
                 </label>
                 <input
@@ -456,20 +438,20 @@ export function AdminUserDetailPage() {
                       e.target.value ? new Date(e.target.value).toISOString() : ""
                     )
                   }
-                  className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                  className="mt-1 w-full ${inputClassName}"
                 />
-                <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                <p className="mt-0.5 text-xs text-text-muted">
                   {t("admin.statusExpirationHelp")}
                 </p>
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
                   {t("admin.communityStatus")}
                 </label>
                 <select
                   value={editCommunityStatus}
                   onChange={(e) => setEditCommunityStatus(e.target.value as "active" | "banned" | "")}
-                  className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                  className="mt-1 w-full ${inputClassName}"
                 >
                   <option value="">—</option>
                   <option value="active">{t("admin.statusActive")}</option>
@@ -477,13 +459,13 @@ export function AdminUserDetailPage() {
                 </select>
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
                   {t("admin.role")}
                 </label>
                 <select
                   value={editRole}
                   onChange={(e) => setEditRole(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                  className="mt-1 w-full ${inputClassName}"
                 >
                   <option value="user">{t("admin.roleUser")}</option>
                   <option value="trusted_creator">{t("admin.roleTrustedCreator")}</option>
@@ -493,7 +475,7 @@ export function AdminUserDetailPage() {
                 </select>
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
                   {t("admin.communityStatusExpiration")}
                 </label>
                 <input
@@ -512,7 +494,7 @@ export function AdminUserDetailPage() {
                       e.target.value ? new Date(e.target.value).toISOString() : ""
                     )
                   }
-                  className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                  className="mt-1 w-full ${inputClassName}"
                 />
               </div>
             </div>
@@ -520,32 +502,32 @@ export function AdminUserDetailPage() {
               type="button"
               onClick={handleProfileSave}
               disabled={profileSaving}
-              className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50 dark:bg-green-600 dark:hover:bg-green-500"
+              className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover disabled:opacity-50"
             >
               {profileSaving ? t("common.loading") : t("profile.save")}
             </button>
-            <dl className="grid gap-4 border-t border-gray-200 pt-6 dark:border-gray-700 sm:grid-cols-2">
+            <dl className="grid gap-4 border-t border-border pt-6 sm:grid-cols-2">
               <div>
-                <dt className="text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                <dt className="text-xs font-medium uppercase text-text-muted">
                   {t("admin.auth0Id")}
                 </dt>
-                <dd className="mt-1 font-mono text-sm text-gray-700 dark:text-gray-300">
+                <dd className="mt-1 font-mono text-sm text-text-secondary">
                   {user.auth0_id}
                 </dd>
               </div>
               <div>
-                <dt className="text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                <dt className="text-xs font-medium uppercase text-text-muted">
                   {t("admin.status")}
                 </dt>
-                <dd className="mt-1 text-sm text-gray-900 dark:text-white">
+                <dd className="mt-1 text-sm text-text-primary">
                   {user.status}
                 </dd>
               </div>
               <div>
-                <dt className="text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
+                <dt className="text-xs font-medium uppercase text-text-muted">
                   {t("admin.createdAt")}
                 </dt>
-                <dd className="mt-1 text-sm text-gray-900 dark:text-white">
+                <dd className="mt-1 text-sm text-text-primary">
                   {formatDate(user.created_at, { dateStyle: "medium", timeStyle: "short" })}
                 </dd>
               </div>
@@ -566,24 +548,24 @@ export function AdminUserDetailPage() {
                   value={addDeckId}
                   onChange={(e) => setAddDeckId(e.target.value)}
                   placeholder={t("admin.deckId")}
-                  className="rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                  className="${inputClassName}"
                 />
               </div>
               <button
                 type="button"
                 onClick={handleAddSubscription}
                 disabled={addingSub || !addDeckId.trim()}
-                className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50 dark:bg-green-600 dark:hover:bg-green-500"
+                className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover disabled:opacity-50"
               >
                 {addingSub ? t("common.loading") : t("admin.addSubscription")}
               </button>
             </div>
             {subscriptions.length === 0 ? (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-text-muted">
                 {t("admin.noSubscriptions")}
               </p>
             ) : (
-              <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+              <ul className="divide-y divide-border">
                 {subscriptions.map((s) => {
                   const key = `${s.contentType}-${s.contentId}`;
                   const isRemoving = removingSub === key;
@@ -592,18 +574,18 @@ export function AdminUserDetailPage() {
                       key={key}
                       className="flex items-center justify-between py-3"
                     >
-                      <span className="text-sm font-medium text-gray-900 dark:text-white">
+                      <span className="text-sm font-medium text-text-primary">
                         {s.contentType} · {s.contentId}
                       </span>
                       <div className="flex items-center gap-2">
                         {s.enabled === false && (
-                          <span className="text-xs text-gray-500">disabled</span>
+                          <span className="text-text-muted">disabled</span>
                         )}
                         <button
                           type="button"
                           onClick={() => handleRemoveSubscription(s.contentType, s.contentId)}
                           disabled={isRemoving}
-                          className="text-sm font-medium text-red-600 hover:text-red-700 disabled:opacity-50 dark:text-red-400 dark:hover:text-red-300"
+                          className="text-sm font-medium text-error hover:text-destructive disabled:opacity-50"
                         >
                           {isRemoving ? t("common.loading") : t("admin.removeSubscription")}
                         </button>
@@ -619,7 +601,7 @@ export function AdminUserDetailPage() {
         {activeTab === "content" && (
           <div className="space-y-4">
             {content.filter((d) => !d.id.startsWith("vocab-")).length === 0 ? (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-text-muted">
                 {t("admin.noContent")}
               </p>
             ) : (
@@ -634,7 +616,7 @@ export function AdminUserDetailPage() {
                   return (
                     <li
                       key={deck.id}
-                      className="rounded-lg border border-gray-200 p-3 dark:border-gray-700"
+                      className="rounded-lg border border-border p-3 dark:border-gray-700"
                     >
                       <div className="flex flex-wrap items-center gap-4">
                         <img
@@ -643,17 +625,17 @@ export function AdminUserDetailPage() {
                           className="h-12 w-16 shrink-0 rounded object-cover"
                         />
                         <div className="min-w-0 flex-1">
-                          <p className="font-medium text-gray-900 dark:text-white">
+                          <p className="font-medium text-text-primary">
                             {deck.name}
                           </p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                          <p className="text-sm text-text-muted">
                             {getLanguageConfig(deck.languageId)?.name ?? deck.languageId} · {deck.cardCount} cards · {deck.status}
                           </p>
                         </div>
                         <div className="flex flex-wrap items-center gap-2">
                           <Link
                             to={langPath(`community/decks/${deck.id}`)}
-                            className="text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400"
+                            className="text-sm font-medium text-accent hover:text-accent-hover"
                           >
                             View
                           </Link>
