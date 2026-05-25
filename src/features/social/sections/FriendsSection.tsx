@@ -4,7 +4,11 @@
  * column on the one-page layout). The `FriendsSection` wrapper keeps the
  * legacy stacked composition available for tab-style routes.
  *
- * Every surface is MOCK; replace per the comments when backend lands.
+ * Buttons in this section are wired to mutations in `useSocialMutations.ts`
+ * which talk to the real SocialApi when `VITE_SOCIAL_API` is on. The mock
+ * fallback still works for storybook / preview rendering — the mutations
+ * just no-op silently because no provider supplies a `social` client to
+ * fire against.
  */
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
@@ -12,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { EmptyState } from "@/shared/components/EmptyState";
+import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { UsernameDisplay } from "../components/UsernameDisplay";
 import { ProfilePreviewPopover } from "../components/ProfilePreviewPopover";
@@ -22,6 +27,13 @@ import {
   useFriends,
   useFriendSuggestions,
 } from "../hooks/useSocial";
+import {
+  useAcceptFriendRequest,
+  useBlockUser,
+  useDeclineFriendRequest,
+  useSendFriendRequest,
+  useUnfriend,
+} from "../hooks/useSocialMutations";
 import type { SocialUser } from "../mock/mockSocial";
 
 export function FriendsSection() {
@@ -247,29 +259,49 @@ export function FriendSuggestionsPanel() {
       </div>
       <ul className="divide-y divide-border">
         {suggestions.map(({ user, reason }) => (
-          <li
-            key={user.id}
-            className="flex items-center gap-2.5 bg-surface px-3 py-2"
-          >
-            <ProfilePreviewPopover user={user} />
-            <div className="min-w-0 flex-1">
-              <UsernameDisplay
-                name={user.name}
-                cosmetic={user.cosmetic}
-                className="truncate text-xs"
-              />
-              <p className="truncate text-[10px] text-text-muted">{reason}</p>
-            </div>
-            <button
-              type="button"
-              className="rounded-md bg-accent px-2 py-0.5 text-[11px] font-semibold text-on-accent transition hover:bg-accent-hover"
-            >
-              {t("social.suggested.follow", "Follow")}
-            </button>
-          </li>
+          <SuggestionRow key={user.id} user={user} reason={reason} />
         ))}
       </ul>
     </Card>
+  );
+}
+
+function SuggestionRow({ user, reason }: { user: SocialUser; reason: string }) {
+  const { t } = useTranslation();
+  const send = useSendFriendRequest();
+  const [pendingLocally, setPendingLocally] = useState(false);
+  return (
+    <li className="flex items-center gap-2.5 bg-surface px-3 py-2">
+      <ProfilePreviewPopover user={user} />
+      <Link
+        to={`/u/${encodeURIComponent(user.name)}`}
+        className="min-w-0 flex-1 hover:underline focus:underline focus:outline-none"
+      >
+        <UsernameDisplay
+          name={user.name}
+          cosmetic={user.cosmetic}
+          className="truncate text-xs"
+        />
+        <p className="truncate text-[10px] text-text-muted">{reason}</p>
+      </Link>
+      <button
+        type="button"
+        disabled={send.isPending || pendingLocally}
+        onClick={() => {
+          send.mutate(
+            { toUserId: user.id },
+            { onSuccess: () => setPendingLocally(true) },
+          );
+        }}
+        className="rounded-md bg-accent px-2 py-0.5 text-[11px] font-semibold text-on-accent transition hover:bg-accent-hover disabled:opacity-50"
+      >
+        {pendingLocally
+          ? t("social.suggested.pending", "Pending")
+          : send.isPending
+            ? "…"
+            : t("social.suggested.add", "Add")}
+      </button>
+    </li>
   );
 }
 
@@ -287,17 +319,29 @@ function lastActiveScore(label: string): number {
 }
 
 function FriendRow({ user }: { user: SocialUser }) {
+  const { t } = useTranslation();
   const langPath = useLangPath();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [confirm, setConfirm] = useState<null | "unfriend" | "block">(null);
+  const unfriend = useUnfriend();
+  const block = useBlockUser();
+
   return (
     <li className="group flex items-center gap-3 bg-surface px-3 py-2.5 transition hover:bg-surface-muted">
       <ProfilePreviewPopover user={user} />
       <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-1.5">
+        <Link
+          to={`/u/${encodeURIComponent(user.name)}`}
+          className="flex items-center gap-1.5 hover:underline focus:underline focus:outline-none"
+          aria-label={t("social.friends.openProfileAria", "Open {{name}}'s profile", {
+            name: user.name,
+          })}
+        >
           <UsernameDisplay name={user.name} cosmetic={user.cosmetic} className="truncate text-[13px]" />
           <span className="text-[11px]" aria-hidden>
             {user.language.flag}
           </span>
-        </div>
+        </Link>
         <p className="truncate text-[11px] text-text-muted">{user.lastActiveLabel}</p>
       </div>
       <span className="inline-flex items-center gap-0.5 rounded-full bg-warning/10 px-1.5 py-0.5 text-[11px] font-bold text-warning">
@@ -307,35 +351,134 @@ function FriendRow({ user }: { user: SocialUser }) {
       <Link
         to={langPath(`messenger/${user.id}`)}
         className="flex h-8 w-8 items-center justify-center rounded-md text-text-muted transition hover:bg-accent-muted hover:text-accent"
-        aria-label={`Message ${user.name}`}
+        aria-label={t("social.friends.messageAria", "Message {{name}}", { name: user.name })}
       >
         <Icon name="messageCircle" size={14} aria-hidden />
       </Link>
+      <div className="relative">
+        <button
+          type="button"
+          onClick={() => setMenuOpen((o) => !o)}
+          aria-haspopup="menu"
+          aria-expanded={menuOpen}
+          aria-label={t("social.friends.moreAria", "More actions for {{name}}", {
+            name: user.name,
+          })}
+          className="flex h-8 w-8 items-center justify-center rounded-md text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+        >
+          <Icon name="moreHorizontal" size={14} aria-hidden />
+        </button>
+        {menuOpen ? (
+          <div
+            role="menu"
+            className="absolute right-0 top-full z-20 mt-1 w-44 rounded-md border border-border bg-surface py-1 shadow-popover"
+            onMouseLeave={() => setMenuOpen(false)}
+          >
+            <button
+              role="menuitem"
+              type="button"
+              className="block w-full px-3 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
+              onClick={() => {
+                setMenuOpen(false);
+                setConfirm("unfriend");
+              }}
+            >
+              {t("social.friends.unfriend", "Unfriend")}
+            </button>
+            <button
+              role="menuitem"
+              type="button"
+              className="block w-full px-3 py-2 text-left text-sm text-error hover:bg-error/10"
+              onClick={() => {
+                setMenuOpen(false);
+                setConfirm("block");
+              }}
+            >
+              {t("social.friends.block", "Block")}
+            </button>
+          </div>
+        ) : null}
+      </div>
+      {confirm === "unfriend" ? (
+        <ConfirmModal
+          title={t("social.friends.unfriendConfirmTitle", "Unfriend {{name}}?", {
+            name: user.name,
+          })}
+          message={t(
+            "social.friends.unfriendConfirmBody",
+            "You'll stop seeing each other on leaderboards and the activity feed.",
+          )}
+          cancelLabel={t("social.friends.cancel", "Cancel")}
+          confirmLabel={t("social.friends.unfriend", "Unfriend")}
+          danger
+          onCancel={() => setConfirm(null)}
+          onConfirm={() => {
+            setConfirm(null);
+            unfriend.mutate(user.id);
+          }}
+        />
+      ) : null}
+      {confirm === "block" ? (
+        <ConfirmModal
+          title={t("social.friends.blockConfirmTitle", "Block {{name}}?", { name: user.name })}
+          message={t(
+            "social.friends.blockConfirmBody",
+            "Blocked users can't message you, see your profile, or appear in your leaderboards.",
+          )}
+          cancelLabel={t("social.friends.cancel", "Cancel")}
+          confirmLabel={t("social.friends.block", "Block")}
+          danger
+          onCancel={() => setConfirm(null)}
+          onConfirm={() => {
+            setConfirm(null);
+            block.mutate(user.id);
+          }}
+        />
+      ) : null}
     </li>
   );
 }
 
 function FriendRequestRow({ user }: { user: SocialUser }) {
+  const { t } = useTranslation();
+  const accept = useAcceptFriendRequest();
+  const decline = useDeclineFriendRequest();
+  const isBusy = accept.isPending || decline.isPending;
+
   return (
     <li className="flex items-center gap-2.5 bg-accent-muted/30 px-3 py-2">
       <ProfilePreviewPopover user={user} />
-      <div className="min-w-0 flex-1">
+      <Link
+        to={`/u/${encodeURIComponent(user.name)}`}
+        className="min-w-0 flex-1 hover:underline focus:underline focus:outline-none"
+        aria-label={t("social.requests.openProfileAria", "View {{name}}'s profile before accepting", {
+          name: user.name,
+        })}
+      >
         <UsernameDisplay name={user.name} cosmetic={user.cosmetic} className="truncate text-xs" />
         <p className="truncate text-[10px] text-text-muted">
           {user.language.flag} {user.language.label}
         </p>
-      </div>
+      </Link>
       <button
         type="button"
-        className="rounded-md bg-accent px-2 py-0.5 text-[11px] font-semibold text-on-accent transition hover:bg-accent-hover"
-        aria-label={`Accept request from ${user.name}`}
+        disabled={isBusy}
+        onClick={() => accept.mutate(user.id)}
+        className="rounded-md bg-accent px-2 py-0.5 text-[11px] font-semibold text-on-accent transition hover:bg-accent-hover disabled:opacity-50"
+        aria-label={t("social.requests.acceptAria", "Accept request from {{name}}", {
+          name: user.name,
+        })}
       >
-        Accept
+        {accept.isPending ? "…" : t("social.requests.accept", "Accept")}
       </button>
       <button
         type="button"
-        className="flex h-6 w-6 items-center justify-center rounded-md border border-border bg-surface text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
-        aria-label={`Decline request from ${user.name}`}
+        disabled={isBusy}
+        onClick={() => decline.mutate(user.id)}
+        className="flex h-6 w-6 items-center justify-center rounded-md border border-border bg-surface text-text-secondary transition hover:bg-surface-muted hover:text-text-primary disabled:opacity-50"
+        aria-label={t("social.requests.declineAria", "Decline request from {{name}}", {
+          name: user.name,
+        })}
       >
         <Icon name="close" size={11} aria-hidden />
       </button>

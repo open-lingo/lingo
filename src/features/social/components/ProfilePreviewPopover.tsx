@@ -4,6 +4,7 @@
  * controlled Popover with backend-fetched profile data.
  */
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 import { UserAvatar } from "./UserAvatar";
@@ -85,13 +86,14 @@ export function ProfilePreviewPopover({ user, children }: Props) {
                 <Icon name="messageCircle" size={14} aria-hidden />
                 Message
               </button>
-              <button
-                type="button"
+              <Link
+                to={`/u/${encodeURIComponent(user.name)}`}
+                onClick={() => setOpen(false)}
                 className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm font-semibold text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
               >
                 <Icon name="user" size={14} aria-hidden />
                 Full profile
-              </button>
+              </Link>
             </div>
           </div>
         </>

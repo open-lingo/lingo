@@ -8,7 +8,9 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Card, Modal } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
+import { useToast } from "@/shared/contexts/ToastContext";
 import { useInviteOffer } from "../hooks/useSocial";
+import { useRedeemInvite } from "../hooks/useSocialMutations";
 
 export function InviteFriendsCard() {
   const { t } = useTranslation();
@@ -73,7 +75,11 @@ export function InviteFriendsCard() {
 function InviteModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useTranslation();
   const { data: offer } = useInviteOffer({ instant: true });
+  const { showToast } = useToast();
+  const redeem = useRedeemInvite();
   const [copied, setCopied] = useState(false);
+  const [shared, setShared] = useState(false);
+  const [redeemCode, setRedeemCode] = useState("");
 
   const handleCopy = async () => {
     if (!offer) return;
@@ -81,9 +87,34 @@ function InviteModal({ open, onClose }: { open: boolean; onClose: () => void }) 
       await navigator.clipboard.writeText(offer.url);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
+      showToast(t("social.invite.linkCopied", "Link copied to clipboard."), "success");
     } catch {
       // Fallback: select text on focus — no-op in tests.
       setCopied(true);
+    }
+  };
+
+  const handleShare = async () => {
+    if (!offer) return;
+    const data = {
+      title: t("social.invite.shareTitle", "Join me on Lingo"),
+      text: t("social.invite.shareText", "Learn languages with me on Lingo"),
+      url: offer.url,
+    };
+    // navigator.share is gated by isSecureContext + user gesture; fallback to copy.
+    const navWithShare = navigator as Navigator & {
+      share?: (d: { title?: string; text?: string; url?: string }) => Promise<void>;
+    };
+    if (typeof navWithShare.share === "function") {
+      try {
+        await navWithShare.share(data);
+        setShared(true);
+        setTimeout(() => setShared(false), 1500);
+      } catch {
+        // user cancelled — silent.
+      }
+    } else {
+      void handleCopy();
     }
   };
 
@@ -119,7 +150,40 @@ function InviteModal({ open, onClose }: { open: boolean; onClose: () => void }) 
               ? t("social.invite.copied", "Copied!")
               : t("social.invite.copy", "Copy")}
           </button>
+          <button
+            type="button"
+            onClick={handleShare}
+            className="shrink-0 rounded-md border border-border bg-surface px-2.5 py-1 text-xs font-semibold text-text-primary transition hover:bg-surface-muted"
+          >
+            {shared
+              ? t("social.invite.shared", "Shared!")
+              : t("social.invite.share", "Share")}
+          </button>
         </div>
+
+        {/* Redemption tester — paste a code from another invite link. */}
+        <details className="rounded-lg border border-border bg-surface-muted px-3 py-2 text-xs">
+          <summary className="cursor-pointer font-semibold text-text-secondary">
+            {t("social.invite.haveCode", "Have an invite code?")}
+          </summary>
+          <div className="mt-2 flex items-center gap-2">
+            <input
+              type="text"
+              value={redeemCode}
+              onChange={(e) => setRedeemCode(e.target.value)}
+              placeholder={t("social.invite.codePlaceholder", "xxxx-yyyy-zzzz")}
+              className="flex-1 rounded-md border border-border bg-surface px-2 py-1 font-mono text-xs"
+            />
+            <button
+              type="button"
+              disabled={!redeemCode.trim() || redeem.isPending}
+              onClick={() => redeem.mutate(redeemCode.trim())}
+              className="rounded-md bg-accent px-2.5 py-1 font-semibold text-on-accent shadow-sm transition hover:bg-accent-hover disabled:opacity-50"
+            >
+              {redeem.isPending ? "…" : t("social.invite.redeem", "Redeem")}
+            </button>
+          </div>
+        </details>
 
         <ul className="space-y-2 rounded-lg border border-border bg-surface-muted px-4 py-3 text-xs">
           <li className="flex items-center gap-2 text-text-secondary">

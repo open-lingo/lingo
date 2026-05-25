@@ -8,6 +8,7 @@
  */
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { EmptyState } from "@/shared/components/EmptyState";
@@ -203,14 +204,19 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
             >
               <Icon name="chevronLeft" size={16} aria-hidden />
             </button>
-            <UserAvatar
-              name={active.user.name}
-              imageUrl={active.user.imageUrl}
-              status={active.user.status}
-              frame={active.user.frame}
-              size="sm"
-            />
-            <div className="min-w-0 flex-1">
+            <Link to={`/u/${encodeURIComponent(active.user.name)}`}>
+              <UserAvatar
+                name={active.user.name}
+                imageUrl={active.user.imageUrl}
+                status={active.user.status}
+                frame={active.user.frame}
+                size="sm"
+              />
+            </Link>
+            <Link
+              to={`/u/${encodeURIComponent(active.user.name)}`}
+              className="min-w-0 flex-1 hover:underline focus:underline focus:outline-none"
+            >
               <UsernameDisplay
                 name={active.user.name}
                 cosmetic={active.user.cosmetic}
@@ -221,7 +227,7 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
                   ? t("social.messages.activeNow", "Active now")
                   : active.user.lastActiveLabel}
               </p>
-            </div>
+            </Link>
             <button
               type="button"
               className="flex h-8 w-8 items-center justify-center rounded-lg text-text-muted transition hover:bg-surface-muted hover:text-text-primary"

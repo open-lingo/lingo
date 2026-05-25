@@ -7,12 +7,14 @@
  * without component change. Skeleton + empty states are handled here.
  */
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { UserAvatar } from "../components/UserAvatar";
 import { UsernameDisplay } from "../components/UsernameDisplay";
 import { ReactionRow } from "../components/ReactionRow";
 import { useActivityFeed } from "../hooks/useSocial";
+import { useReactToActivity } from "../hooks/useSocialMutations";
 import type { ActivityItem } from "../mock/mockSocial";
 
 const KIND_ICON: Record<
@@ -69,6 +71,7 @@ export function ActivityFeedStrip() {
 function ActivityCard({ item }: { item: ActivityItem }) {
   const { t } = useTranslation();
   const kind = KIND_ICON[item.kind];
+  const react = useReactToActivity();
   // Backwards-compat: synthesize a wave reaction from kudosCount when no
   // explicit reactions list lives on the item.
   const reactions = item.reactions ?? [{ kind: "wave" as const, count: item.kudosCount }];
@@ -76,19 +79,26 @@ function ActivityCard({ item }: { item: ActivityItem }) {
   return (
     <li className="flex w-[280px] shrink-0 flex-col gap-1.5 rounded-lg border border-border bg-surface-muted px-2.5 py-2">
       <div className="flex items-center gap-2.5">
-        <UserAvatar
-          name={item.user.name}
-          imageUrl={item.user.imageUrl}
-          frame={item.user.frame}
-          size="sm"
-        />
+        <Link to={`/u/${encodeURIComponent(item.user.name)}`} aria-label={item.user.name}>
+          <UserAvatar
+            name={item.user.name}
+            imageUrl={item.user.imageUrl}
+            frame={item.user.frame}
+            size="sm"
+          />
+        </Link>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
-            <UsernameDisplay
-              name={item.user.name}
-              cosmetic={item.user.cosmetic}
-              className="truncate text-xs"
-            />
+            <Link
+              to={`/u/${encodeURIComponent(item.user.name)}`}
+              className="min-w-0 hover:underline focus:underline focus:outline-none"
+            >
+              <UsernameDisplay
+                name={item.user.name}
+                cosmetic={item.user.cosmetic}
+                className="truncate text-xs"
+              />
+            </Link>
             <span className={`flex h-4 w-4 items-center justify-center rounded ${kind.tone}`}>
               <Icon name={kind.icon} size={9} aria-hidden />
             </span>
@@ -100,6 +110,8 @@ function ActivityCard({ item }: { item: ActivityItem }) {
       <div className="flex items-center justify-between gap-1">
         <ReactionRow
           reactions={reactions}
+          disabled={react.isPending}
+          onToggle={(k) => react.mutate({ activityId: item.id, kind: k })}
           ariaLabelPrefix={t("social.activity.cheerOn", "Cheer on {{name}}", {
             name: item.user.name,
           })}

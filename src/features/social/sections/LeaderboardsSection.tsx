@@ -6,6 +6,7 @@
  * MOCK: every row is fake. Replace with backend queries scoped to period.
  */
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
@@ -318,7 +319,10 @@ function FlatBoard({
           >
             <RankBadge rank={row.rank} />
             <ProfilePreviewPopover user={row.user} />
-            <div className="min-w-0 flex-1">
+            <Link
+              to={`/u/${encodeURIComponent(row.user.name)}`}
+              className="min-w-0 flex-1 hover:underline focus:underline focus:outline-none"
+            >
               <div className="flex items-center gap-2">
                 <UsernameDisplay
                   name={row.user.name}
@@ -335,7 +339,7 @@ function FlatBoard({
                 </span>
               </div>
               <p className="text-xs text-text-muted">{row.user.lastActiveLabel}</p>
-            </div>
+            </Link>
             <div className="text-right">
               <p className="text-sm font-bold text-text-primary">
                 {metric === "xp" ? row.xp.toLocaleString() : row.lessons}
@@ -494,7 +498,10 @@ function LeagueRow({
     >
       <RankBadge rank={row.rank} />
       <ProfilePreviewPopover user={row.user} />
-      <div className="min-w-0 flex-1">
+      <Link
+        to={`/u/${encodeURIComponent(row.user.name)}`}
+        className="min-w-0 flex-1 hover:underline focus:underline focus:outline-none"
+      >
         <div className="flex items-center gap-2">
           <UsernameDisplay
             name={row.user.name}
@@ -520,7 +527,7 @@ function LeagueRow({
             {row.user.streakDays}d
           </span>
         </div>
-      </div>
+      </Link>
       <DeltaIndicator delta={row.delta} />
       <div className="text-right">
         <p className="text-sm font-bold text-text-primary">{row.xp.toLocaleString()}</p>
@@ -774,7 +781,10 @@ function BoardCard({
           >
             <RankBadge rank={row.rank} />
             <ProfilePreviewPopover user={row.user} />
-            <div className="min-w-0 flex-1">
+            <Link
+              to={`/u/${encodeURIComponent(row.user.name)}`}
+              className="min-w-0 flex-1 hover:underline focus:underline focus:outline-none"
+            >
               <div className="flex items-center gap-2">
                 <UsernameDisplay
                   name={row.user.name}
@@ -793,7 +803,7 @@ function BoardCard({
               <p className="text-xs text-text-muted">
                 {row.user.lastActiveLabel}
               </p>
-            </div>
+            </Link>
             <div className="text-right">
               <p className="text-sm font-bold text-text-primary">
                 {metric === "xp" ? row.xp.toLocaleString() : row.lessons}

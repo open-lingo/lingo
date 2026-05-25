@@ -22,6 +22,12 @@ export type ReactionRowProps = {
   size?: "sm" | "md";
   /** Optional aria-label prefix — e.g. "Cheer on Anna's streak". */
   ariaLabelPrefix?: string;
+  /** Called when the user toggles a reaction. Receives the kind. When
+   *  provided, the component delegates state to the parent (controlled).
+   *  When absent, the component manages local toggle state (uncontrolled). */
+  onToggle?: (kind: ReactionKind) => void;
+  /** When true, all buttons are disabled (pending mutation). */
+  disabled?: boolean;
 };
 
 const DEFAULT_AVAILABLE: ReactionKind[] = ["wave", "fire", "clap", "target"];
@@ -31,19 +37,28 @@ export function ReactionRow({
   available = DEFAULT_AVAILABLE,
   size = "sm",
   ariaLabelPrefix,
+  onToggle,
+  disabled,
 }: ReactionRowProps) {
   // Local overrides on top of the incoming reactions. Two sets:
   //   - `added`   : kinds the user just turned on (initial.mine !== true)
   //   - `removed` : kinds the user just turned off (initial.mine === true)
   // Rendered count = initial.count + (on now && !was-mine ? +1 : 0)
   //                                  + (was-mine && !on now ? -1 : 0)
+  // When `onToggle` is provided, the parent owns state — these stay empty.
   const [added, setAdded] = useState<Set<ReactionKind>>(new Set());
   const [removed, setRemoved] = useState<Set<ReactionKind>>(new Set());
+
+  const isControlled = typeof onToggle === "function";
 
   const byKind = new Map<ReactionKind, ActivityReaction>();
   for (const r of reactions) byKind.set(r.kind, r);
 
   const toggle = (kind: ReactionKind) => {
+    if (isControlled) {
+      onToggle!(kind);
+      return;
+    }
     const initial = byKind.get(kind);
     const wasMine = initial?.mine === true;
     const isOnNow = wasMine ? !removed.has(kind) : added.has(kind);
@@ -78,15 +93,27 @@ export function ReactionRow({
       {available.map((kind) => {
         const initial = byKind.get(kind);
         const wasMine = initial?.mine === true;
-        const isOnNow = wasMine ? !removed.has(kind) : added.has(kind);
+        // Controlled mode: trust `mine` + `count` directly from props.
+        const isOnNow = isControlled
+          ? wasMine
+          : wasMine
+            ? !removed.has(kind)
+            : added.has(kind);
         const baseCount = initial?.count ?? 0;
-        const delta = isOnNow && !wasMine ? 1 : !isOnNow && wasMine ? -1 : 0;
+        const delta = isControlled
+          ? 0
+          : isOnNow && !wasMine
+            ? 1
+            : !isOnNow && wasMine
+              ? -1
+              : 0;
         const count = baseCount + delta;
 
         return (
           <button
             key={kind}
             type="button"
+            disabled={disabled}
             onClick={() => toggle(kind)}
             className={cn(
               "inline-flex items-center gap-1 rounded-full border font-semibold transition",
@@ -94,6 +121,7 @@ export function ReactionRow({
               isOnNow
                 ? "border-accent bg-accent-muted text-accent"
                 : "border-border bg-surface text-text-secondary hover:border-accent hover:bg-accent-muted hover:text-accent",
+              disabled ? "opacity-60" : "",
             )}
             aria-pressed={isOnNow}
             aria-label={
