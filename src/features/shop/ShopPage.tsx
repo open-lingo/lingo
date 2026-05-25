@@ -9,6 +9,7 @@ import { useApi } from "@/shared/api";
 import { ApiError } from "@/shared/api/client";
 import { SHOP_ITEMS, type ShopItem } from "./shopCatalog";
 import { useInvalidateShopQueries, useShopState } from "./useShopState";
+import { AdFreeShopSection } from "@/features/adFree/AdFreeShopSection";
 
 export default function ShopPage() {
   const { t } = useTranslation();
@@ -88,6 +89,8 @@ export default function ShopPage() {
           <LingotBalance linkToShop={false} size="md" />
         </div>
       </header>
+
+      <AdFreeShopSection lingots={lingots} statsReady={statsReady} />
 
       <ShopSection
         title={t("shop.sectionPowerups", { defaultValue: "Power-ups" })}

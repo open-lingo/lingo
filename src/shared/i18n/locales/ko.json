@@ -1224,5 +1224,49 @@
       "subtitle": "오늘의 레슨을 시작하기 전, 후원사의 짧은 메시지입니다.",
       "dismiss": "오늘은 닫기"
     }
+  },
+  "adFree": {
+    "pill": {
+      "prefix": "광고 없음",
+      "tooltip": "광고 없는 시간이 활성화되어 있습니다 — 클릭하여 관리",
+      "ariaLabel": "광고 없는 시간: {{remaining}}",
+      "minutesOnly": "{{minutes}}분 남음",
+      "hoursOnly": "{{hours}}시간 남음",
+      "hoursAndMinutes": "{{hours}}시간 {{minutes}}분 남음"
+    },
+    "shop": {
+      "sectionTitle": "광고 없는 시간",
+      "sectionBlurb": "잠시 동안 모든 광고를 숨깁니다. 광고 없는 시간은 진짜 학습에 대한 보상이에요 — 페이스를 유지하세요.",
+      "statusActive": "광고 없는 시간이 {{remaining}} 남았습니다.",
+      "statusInactive": "현재 활성화된 광고 없는 시간이 없습니다.",
+      "buy": "구매",
+      "needMore": "링곳 부족",
+      "tooltipInsufficient": "{{needed}}개의 링곳이 더 필요합니다."
+    },
+    "skus": {
+      "30m": {
+        "title": "30분",
+        "description": "잠깐의 광고 휴식."
+      },
+      "2h": {
+        "title": "2시간",
+        "description": "집중 세션 한 번, 광고 없이."
+      },
+      "24h": {
+        "title": "24시간",
+        "description": "광고 없는 학습으로 하루 종일."
+      }
+    },
+    "confirm": {
+      "title": "광고 없는 시간 구매 확인",
+      "message": "{{price}} 링곳을 사용해 {{duration}}의 광고 없는 시간을 받으시겠어요?",
+      "confirm": "링곳 사용"
+    },
+    "toast": {
+      "success": "{{time}}까지 광고 없이 학습하세요!",
+      "insufficient": "해당 팩을 구매하기에 링곳이 부족합니다.",
+      "grindLock": "광고 없는 시간은 진짜 학습에 대한 보상이지, 링곳 파밍에 대한 보상이 아닙니다. 잠시 쉬었다가 내일 다시 와 주세요.",
+      "capReached": "24시간 광고 없는 한도(6시간)에 도달했습니다. 나중에 다시 시도해 주세요."
+    }
   }
 }

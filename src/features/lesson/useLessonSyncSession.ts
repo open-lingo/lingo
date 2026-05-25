@@ -4,23 +4,19 @@ import {
   getLessonDirtyCount,
   syncLessonProgressWithServer,
 } from "./engine";
-import { setNextLessonSyncAt } from "./engine/lessonStorage";
 
 export const LESSON_SYNC_INTERVAL_MS = 30_000;
 
 /**
- * Background sync + force-flush-on-exit for the lesson player. Mirrors
- * `useSRSyncSession` (the flashcard equivalent) — same beforeunload
- * guard, same fire-and-forget unmount sync, same interval cadence.
+ * Force-flush-on-exit for the lesson player.
  *
- * Mount this once at the top of LessonPage / AlphabetLessonPage. It will:
- *  - Periodically POST pending attempts every 30s
- *  - Sync on unmount (navigate-away mid-lesson catches abandoned step events)
- *  - Warn on tab-close if there are unsynced attempts
- *
- * Note: orphan step events (mid-lesson) do not block tab-close — those are
- * local telemetry and get cleared by `performLessonSync` on the next call.
- * Only pending completed attempts surface the beforeunload warning.
+ * Fix 13 — the periodic interval used to live here AND in
+ * ``LessonProgressHydrate``. Mounting both on a lesson page doubled
+ * ``/progress/me`` refetches and Lambda invocations. ``LessonProgressHydrate``
+ * (mounted globally) owns the periodic flush; this hook now only handles:
+ *  - beforeunload guard so a mid-lesson tab-close warns the user
+ *  - fire-and-forget flush on unmount so navigate-away catches abandoned
+ *    step events
  */
 export function useLessonSyncSession(): void {
   const { progress } = useApi();
@@ -38,13 +34,6 @@ export function useLessonSyncSession(): void {
         .then(({ pushed }) => pushed)
         .catch(() => 0);
 
-    const interval = setInterval(() => {
-      void runSync();
-      setNextLessonSyncAt(
-        new Date(Date.now() + LESSON_SYNC_INTERVAL_MS).toISOString(),
-      );
-    }, LESSON_SYNC_INTERVAL_MS);
-
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (getLessonDirtyCount() > 0) {
         e.preventDefault();
@@ -56,7 +45,6 @@ export function useLessonSyncSession(): void {
 
     return () => {
       isMountedRef.current = false;
-      clearInterval(interval);
       window.removeEventListener("beforeunload", handleBeforeUnload);
       // Fire-and-forget on unmount — catches navigate-away. We flush even
       // when only step events remain (no completed attempts) so the dirty

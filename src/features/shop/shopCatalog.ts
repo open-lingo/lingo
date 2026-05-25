@@ -1,4 +1,4 @@
-export type ShopItemCategory = "powerups" | "cosmetics";
+export type ShopItemCategory = "powerups" | "cosmetics" | "adFree";
 
 export type ShopItem = {
   id: string;

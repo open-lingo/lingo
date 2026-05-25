@@ -1314,5 +1314,49 @@
     "alphabetDisplayHelp": "Control how romanization and reading aids are shown for alphabets.",
     "showAlphabetRomanization": "Show romanization under alphabet characters",
     "showAlphabetFurigana": "Show furigana above Japanese text (where available)"
+  },
+  "adFree": {
+    "pill": {
+      "prefix": "ad-free",
+      "tooltip": "Ad-free time active — click to manage",
+      "ariaLabel": "Ad-free time: {{remaining}}",
+      "minutesOnly": "{{minutes}}m left",
+      "hoursOnly": "{{hours}}h left",
+      "hoursAndMinutes": "{{hours}}h {{minutes}}m left"
+    },
+    "shop": {
+      "sectionTitle": "Ad-free time",
+      "sectionBlurb": "Hide every ad surface for a while. Ad-free is a reward for genuine learning — pace yourself.",
+      "statusActive": "You have {{remaining}} of ad-free time remaining.",
+      "statusInactive": "No ad-free time active right now.",
+      "buy": "Buy",
+      "needMore": "Need more lingots",
+      "tooltipInsufficient": "You need {{needed}} more lingots."
+    },
+    "skus": {
+      "30m": {
+        "title": "30 minutes",
+        "description": "Quick break from ads."
+      },
+      "2h": {
+        "title": "2 hours",
+        "description": "One focused session, ad-free."
+      },
+      "24h": {
+        "title": "24 hours",
+        "description": "A full day of ad-free learning."
+      }
+    },
+    "confirm": {
+      "title": "Confirm ad-free purchase",
+      "message": "Spend {{price}} lingots for {{duration}} of ad-free time?",
+      "confirm": "Spend lingots"
+    },
+    "toast": {
+      "success": "You're ad-free until {{time}}!",
+      "insufficient": "Not enough lingots for that pack.",
+      "grindLock": "Ad-free time is a reward for genuine learning, not lingot farming. Take a break and come back tomorrow.",
+      "capReached": "You've hit the 6h daily ad-free cap. Try again later."
+    }
   }
 }

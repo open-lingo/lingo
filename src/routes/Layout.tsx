@@ -19,6 +19,7 @@ import { ToastContainer } from "@/shared/components/ToastContainer";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTouchOnSession } from "@/shared/hooks/useTouchOnSession";
 import { LingotBalance } from "@/shared/components/LingotBalance";
+import { AdFreePill } from "@/features/adFree";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
@@ -170,6 +171,7 @@ export function Layout() {
           {/* Right side: utilities + mobile menu button */}
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             {isAuthenticated && <SyncManagerTrigger />}
+            {isAuthenticated && <AdFreePill />}
             {isAuthenticated && <LingotBalance />}
             {isAuthenticated && <LanguageSelector />}
             {isAuthenticated ? (

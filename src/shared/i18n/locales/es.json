@@ -915,5 +915,49 @@
       "subtitle": "Un mensaje rápido de un patrocinador antes de tu lección de hoy.",
       "dismiss": "Cerrar por hoy"
     }
+  },
+  "adFree": {
+    "pill": {
+      "prefix": "sin anuncios",
+      "tooltip": "Tiempo sin anuncios activo — haz clic para administrar",
+      "ariaLabel": "Tiempo sin anuncios: {{remaining}}",
+      "minutesOnly": "{{minutes}}m restantes",
+      "hoursOnly": "{{hours}}h restantes",
+      "hoursAndMinutes": "{{hours}}h {{minutes}}m restantes"
+    },
+    "shop": {
+      "sectionTitle": "Tiempo sin anuncios",
+      "sectionBlurb": "Oculta todos los anuncios por un tiempo. El tiempo sin anuncios es una recompensa por aprender de verdad — tómatelo con calma.",
+      "statusActive": "Tienes {{remaining}} de tiempo sin anuncios.",
+      "statusInactive": "No tienes tiempo sin anuncios activo ahora.",
+      "buy": "Comprar",
+      "needMore": "Necesitas más lingotes",
+      "tooltipInsufficient": "Necesitas {{needed}} lingotes más."
+    },
+    "skus": {
+      "30m": {
+        "title": "30 minutos",
+        "description": "Una pausa rápida de los anuncios."
+      },
+      "2h": {
+        "title": "2 horas",
+        "description": "Una sesión enfocada, sin anuncios."
+      },
+      "24h": {
+        "title": "24 horas",
+        "description": "Un día completo de aprendizaje sin anuncios."
+      }
+    },
+    "confirm": {
+      "title": "Confirmar compra sin anuncios",
+      "message": "¿Gastar {{price}} lingotes por {{duration}} de tiempo sin anuncios?",
+      "confirm": "Gastar lingotes"
+    },
+    "toast": {
+      "success": "¡Sin anuncios hasta las {{time}}!",
+      "insufficient": "No tienes suficientes lingotes para ese paquete.",
+      "grindLock": "El tiempo sin anuncios es una recompensa por aprender de verdad, no por farmear lingotes. Tómate un descanso y vuelve mañana.",
+      "capReached": "Has alcanzado el límite diario de 6h sin anuncios. Inténtalo más tarde."
+    }
   }
 }
