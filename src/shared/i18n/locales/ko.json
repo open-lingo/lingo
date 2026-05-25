@@ -1330,5 +1330,93 @@
         "desc": "친한 라이벌 — 일요일까지 친구의 XP를 넘어보세요."
       }
     }
+  },
+  "social": {
+    "mobileNav": {
+      "aria": "소셜 섹션",
+      "spotlight": "스포트라이트",
+      "friends": "친구",
+      "messages": "메시지"
+    },
+    "activity": {
+      "title": "친구 최근 활동",
+      "seeAll": "모두 보기",
+      "empty": "아직 친구 활동이 없어요 — 친구를 추가하면 여기에 표시돼요.",
+      "cheerOn": "{{name}} 응원하기"
+    },
+    "friends": {
+      "title": "내 친구",
+      "searchPlaceholder": "친구 검색…",
+      "onlineNow": "지금 접속 중",
+      "recentlyActive": "최근 활동",
+      "noMatch": "“{{query}}”와 일치하는 친구가 없어요.",
+      "emptyTitle": "아직 친구가 없어요",
+      "emptyDesc": "친구를 추가하거나 초대 링크를 보내서 스트릭과 반응을 주고받아 보세요.",
+      "emptyAction": "친구 찾기"
+    },
+    "requests": {
+      "title": "요청",
+      "seeAll": "모두 보기"
+    },
+    "suggested": {
+      "title": "추천",
+      "follow": "팔로우"
+    },
+    "messages": {
+      "title": "메시지",
+      "newAria": "새 메시지",
+      "searchPlaceholder": "메시지 검색…",
+      "backAria": "스레드 목록으로 돌아가기",
+      "activeNow": "지금 활동 중",
+      "moreAria": "더보기",
+      "today": "오늘",
+      "addEmojiAria": "이모지 추가",
+      "composerPlaceholder": "{{name}}님에게 메시지…",
+      "sendAria": "메시지 보내기",
+      "sayHi": "{{name}}님에게 인사하기",
+      "iceBreaker": "👋 손 흔들기로 대화를 시작해 보세요 — 활동 피드에도 표시돼요.",
+      "emptyTitle": "아직 메시지가 없어요",
+      "emptyDesc": "친구를 추가하면 대화가 여기에 표시돼요."
+    },
+    "spotlight": {
+      "currentLeague": "현재 리그",
+      "tierOf": "{{total}} 중 {{n}}티어",
+      "yourRank": "내 순위",
+      "deltaSame": "—",
+      "deltaUp": "어제보다 {{n}} 상승",
+      "deltaDown": "어제보다 {{n}} 하락",
+      "inPromoteZone": "승급권 안에 있어요 — 계속 가요!",
+      "inDemoteZone": "강등권에 있어요 — 레슨 몇 개로 벗어날 수 있어요.",
+      "podium": "이번 주 시상대",
+      "thisWeek": "이번 주 vs. 친구 평균",
+      "aheadBy": "+{{n}} XP 앞서고 있어요",
+      "behindBy": "{{n}} XP 뒤처져 있어요",
+      "seeFull": "전체 리더보드 보기"
+    },
+    "friendsLb": {
+      "title": "친구 리더보드",
+      "thisWeek": "이번 주",
+      "leader": "친구 리더",
+      "you": "나",
+      "toOvertake": "{{name}}님을 추월하려면 {{n}} XP",
+      "youLead": "친구들 사이에서 1위예요 — 정상을 지켜요!",
+      "empty": "친구를 추가하면 비교 결과를 볼 수 있어요."
+    },
+    "streak": {
+      "vsMedian": "친구 평균 {{n}}일 대비"
+    },
+    "invite": {
+      "title": "친구 초대, 둘 다 받기",
+      "subtitle": "각자 {{lingots}} 링곳 + {{hours}}시간 광고 없음",
+      "cta": "링크 받기",
+      "accepted": "{{cap}}개 중 {{n}}개 초대 수락됨",
+      "modalTitle": "친구 초대",
+      "modalBody": "친구에게 이 링크를 보내세요. 친구가 Lingo에 가입하면 둘 다 {{lingots}} 링곳과 {{hours}}시간 광고 없음 시간을 받아요.",
+      "copy": "복사",
+      "copied": "복사됨!",
+      "rewardLingots": "친구가 가입하면 +{{n}} 링곳",
+      "rewardAdFree": "둘 다 +{{n}}시간 광고 없음",
+      "cap": "처음 {{cap}}건의 수락된 초대에 대해 보상이 지급돼요."
+    }
   }
 }

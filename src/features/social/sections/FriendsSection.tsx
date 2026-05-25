@@ -8,19 +8,27 @@
  */
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
+import { EmptyState } from "@/shared/components/EmptyState";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { UsernameDisplay } from "../components/UsernameDisplay";
 import { ProfilePreviewPopover } from "../components/ProfilePreviewPopover";
 import { ActivityFeedStrip } from "./ActivityFeedStrip";
-import { useSocial } from "../hooks/useSocial";
+import { InviteFriendsCard } from "./InviteFriendsCard";
+import {
+  useFriendRequests,
+  useFriends,
+  useFriendSuggestions,
+} from "../hooks/useSocial";
 import type { SocialUser } from "../mock/mockSocial";
 
 export function FriendsSection() {
   return (
     <div className="space-y-5">
       <FriendsSearchAndList />
+      <InviteFriendsCard />
       <ActivityFeedStrip />
       <FriendRequestsPanel />
       <FriendSuggestionsPanel />
@@ -34,8 +42,11 @@ export function FriendsSection() {
  * row on lg+).
  */
 export function FriendsSearchAndList() {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
-  const { friends } = useSocial();
+  const { data, isLoading } = useFriends();
+
+  const friends = data ?? [];
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -54,6 +65,38 @@ export function FriendsSearchAndList() {
     return { active, idle };
   }, [filtered]);
 
+  // Empty-state: user has no friends at all (vs. just no search matches).
+  if (!isLoading && friends.length === 0) {
+    return (
+      <Card padding="none" className="overflow-hidden">
+        <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
+          <span className="flex h-5 w-5 items-center justify-center rounded-md bg-accent-muted text-accent">
+            <Icon name="users" size={11} aria-hidden />
+          </span>
+          <h3 className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
+            {t("social.friends.title", "Your friends")}
+          </h3>
+        </div>
+        <div className="p-4">
+          <EmptyState
+            icon={<Icon name="userPlus" size={20} aria-hidden />}
+            title={t("social.friends.emptyTitle", "Nobody here yet")}
+            description={t(
+              "social.friends.emptyDesc",
+              "Add a friend or send an invite link to start trading streaks and reactions.",
+            )}
+            action={{
+              label: t("social.friends.emptyAction", "Find friends"),
+              onClick: () => {
+                /* MOCK: real impl opens the find-friends modal. */
+              },
+            }}
+          />
+        </div>
+      </Card>
+    );
+  }
+
   return (
     <Card padding="none" className="flex h-full flex-col overflow-hidden">
       <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
@@ -61,7 +104,7 @@ export function FriendsSearchAndList() {
           <Icon name="users" size={11} aria-hidden />
         </span>
         <h3 className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
-          Your friends
+          {t("social.friends.title", "Your friends")}
           <span className="ml-1.5 text-text-secondary">{filtered.length}</span>
         </h3>
         <div className="relative ml-auto w-full max-w-[260px]">
@@ -72,21 +115,23 @@ export function FriendsSearchAndList() {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search friends…"
+            placeholder={t("social.friends.searchPlaceholder", "Search friends…")}
             className="h-7 w-full rounded-md border border-border bg-surface-muted pl-7 pr-2 text-xs text-text-primary placeholder:text-text-muted focus:border-accent focus:bg-surface focus:outline-none"
           />
         </div>
       </div>
 
-      {filtered.length === 0 ? (
+      {isLoading ? (
+        <FriendsListSkeleton />
+      ) : filtered.length === 0 ? (
         <p className="py-8 text-center text-sm text-text-muted">
-          No friends match “{query}”.
+          {t("social.friends.noMatch", "No friends match “{{query}}”.", { query })}
         </p>
       ) : (
         <ul className="grid max-h-[520px] auto-rows-min grid-cols-1 content-start gap-px overflow-y-auto bg-border md:grid-cols-2">
           {grouped.active.length > 0 ? (
             <SectionDivider
-              label="Online now"
+              label={t("social.friends.onlineNow", "Online now")}
               count={grouped.active.length}
               dotClassName="bg-success"
             />
@@ -96,7 +141,7 @@ export function FriendsSearchAndList() {
           ))}
           {grouped.idle.length > 0 ? (
             <SectionDivider
-              label="Recently active"
+              label={t("social.friends.recentlyActive", "Recently active")}
               count={grouped.idle.length}
               dotClassName="bg-text-muted"
             />
@@ -107,6 +152,22 @@ export function FriendsSearchAndList() {
         </ul>
       )}
     </Card>
+  );
+}
+
+function FriendsListSkeleton() {
+  return (
+    <ul className="grid grid-cols-1 gap-px bg-border md:grid-cols-2" aria-hidden>
+      {[0, 1, 2, 3, 4, 5].map((i) => (
+        <li key={i} className="flex animate-pulse items-center gap-3 bg-surface px-3 py-2.5">
+          <div className="h-8 w-8 rounded-full bg-border" />
+          <div className="flex-1 space-y-1.5">
+            <div className="h-3 w-24 rounded bg-border" />
+            <div className="h-2.5 w-16 rounded bg-border" />
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -135,8 +196,11 @@ function SectionDivider({
  * mobile, single-column when used in a sidebar column on lg+.
  */
 export function FriendRequestsPanel() {
-  const { friendRequests } = useSocial();
-  if (friendRequests.length === 0) return null;
+  const { t } = useTranslation();
+  const { data, isLoading } = useFriendRequests();
+  if (isLoading) return null;
+  const requests = data ?? [];
+  if (requests.length === 0) return null;
   return (
     <Card padding="none" className="overflow-hidden">
       <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
@@ -144,20 +208,20 @@ export function FriendRequestsPanel() {
           <Icon name="userPlus" size={11} aria-hidden />
         </span>
         <h3 className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
-          Requests
+          {t("social.requests.title", "Requests")}
           <span className="ml-1.5 inline-flex items-center justify-center rounded-full bg-accent px-1.5 py-px text-[10px] font-bold text-on-accent">
-            {friendRequests.length}
+            {requests.length}
           </span>
         </h3>
         <button
           type="button"
           className="ml-auto text-[11px] font-medium text-accent hover:text-accent-hover"
         >
-          See all
+          {t("social.requests.seeAll", "See all")}
         </button>
       </div>
       <ul className="divide-y divide-border">
-        {friendRequests.map((u) => (
+        {requests.map((u) => (
           <FriendRequestRow key={u.id} user={u} />
         ))}
       </ul>
@@ -166,7 +230,11 @@ export function FriendRequestsPanel() {
 }
 
 export function FriendSuggestionsPanel() {
-  const { friendSuggestions } = useSocial();
+  const { t } = useTranslation();
+  const { data, isLoading } = useFriendSuggestions();
+  if (isLoading) return null;
+  const suggestions = data ?? [];
+  if (suggestions.length === 0) return null;
   return (
     <Card padding="none" className="overflow-hidden">
       <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
@@ -174,11 +242,11 @@ export function FriendSuggestionsPanel() {
           <Icon name="sparkles" size={11} aria-hidden />
         </span>
         <h3 className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
-          Suggested
+          {t("social.suggested.title", "Suggested")}
         </h3>
       </div>
       <ul className="divide-y divide-border">
-        {friendSuggestions.map(({ user, reason }) => (
+        {suggestions.map(({ user, reason }) => (
           <li
             key={user.id}
             className="flex items-center gap-2.5 bg-surface px-3 py-2"
@@ -196,7 +264,7 @@ export function FriendSuggestionsPanel() {
               type="button"
               className="rounded-md bg-accent px-2 py-0.5 text-[11px] font-semibold text-on-accent transition hover:bg-accent-hover"
             >
-              Follow
+              {t("social.suggested.follow", "Follow")}
             </button>
           </li>
         ))}

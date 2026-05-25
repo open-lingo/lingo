@@ -316,6 +316,25 @@ export function getHomeFriendsPreview(limit = 3): HomeFriendPreview[] {
 // Activity feed
 // ────────────────────────────────────────────────────────────────────────────
 
+/** Reaction kinds attachable to an activity card. Wave (kudos baseline) +
+ *  three lightweight encouragements. Keep this list short — extending
+ *  here ripples into i18n + analytics, not just UI. */
+export type ReactionKind = "wave" | "fire" | "clap" | "target";
+
+export const REACTION_EMOJI: Record<ReactionKind, string> = {
+  wave: "👋",
+  fire: "🔥",
+  clap: "👏",
+  target: "🎯",
+};
+
+export type ActivityReaction = {
+  kind: ReactionKind;
+  count: number;
+  /** Whether the current user has reacted with this kind. */
+  mine?: boolean;
+};
+
 export type ActivityItem = {
   id: string;
   user: SocialUser;
@@ -323,8 +342,11 @@ export type ActivityItem = {
   /** Human text rendered as-is. Real version pulls from i18n. */
   text: string;
   timeLabel: string;
-  /** Pre-existing kudos count from other friends. */
+  /** Pre-existing kudos count from other friends. Kept for backwards
+   *  compatibility — `reactions` is the richer shape. */
   kudosCount: number;
+  /** Optional reaction breakdown by kind. */
+  reactions?: ActivityReaction[];
 };
 
 export const MOCK_ACTIVITY: ActivityItem[] = [
@@ -335,6 +357,10 @@ export const MOCK_ACTIVITY: ActivityItem[] = [
     text: "Finished Module 2 — Dakuten & Yōon",
     timeLabel: "12m ago",
     kudosCount: 4,
+    reactions: [
+      { kind: "wave", count: 4 },
+      { kind: "clap", count: 2, mine: true },
+    ],
   },
   {
     id: "a-2",
@@ -343,6 +369,10 @@ export const MOCK_ACTIVITY: ActivityItem[] = [
     text: "Hit a 64-day streak 🔥",
     timeLabel: "1h ago",
     kudosCount: 11,
+    reactions: [
+      { kind: "fire", count: 9 },
+      { kind: "wave", count: 2 },
+    ],
   },
   {
     id: "a-3",
@@ -351,6 +381,10 @@ export const MOCK_ACTIVITY: ActivityItem[] = [
     text: "Promoted to Sapphire League",
     timeLabel: "Yesterday",
     kudosCount: 7,
+    reactions: [
+      { kind: "clap", count: 5 },
+      { kind: "target", count: 2 },
+    ],
   },
   {
     id: "a-4",
@@ -359,6 +393,7 @@ export const MOCK_ACTIVITY: ActivityItem[] = [
     text: "Reached 3,000 XP",
     timeLabel: "2d ago",
     kudosCount: 2,
+    reactions: [{ kind: "target", count: 2 }],
   },
 ];
 
@@ -454,8 +489,10 @@ export type LeaderboardRow = {
   xp: number;
   /** Secondary metric (lessons completed this period). */
   lessons: number;
-  /** Movement vs. last reset. */
+  /** Movement vs. last reset (period-over-period). */
   delta: "up" | "down" | "same";
+  /** Day-over-day change in rank — positive = moved up. Used by spotlight cards. */
+  rankDelta?: number;
   /** Whether this is the current user. */
   isMe?: boolean;
 };
@@ -503,6 +540,7 @@ const lbUsers: SocialUser[] = [
 const weeklyXp = [1840, 1620, 1290, 1080, 940, 820, 690, 540, 410, 280];
 const weeklyLessons = [28, 24, 19, 17, 15, 13, 11, 9, 7, 5];
 const deltas: ("up" | "down" | "same")[] = ["same", "up", "up", "down", "up", "same", "down", "up", "down", "same"];
+const rankDeltas = [0, 1, 2, -1, 3, 0, -2, 4, -3, 0];
 
 export const MOCK_WEEKLY_LB: LeaderboardRow[] = lbUsers.map((u, i) => ({
   rank: i + 1,
@@ -510,6 +548,7 @@ export const MOCK_WEEKLY_LB: LeaderboardRow[] = lbUsers.map((u, i) => ({
   xp: weeklyXp[i],
   lessons: weeklyLessons[i],
   delta: deltas[i],
+  rankDelta: rankDeltas[i],
   isMe: u.id === "me",
 }));
 
@@ -552,3 +591,54 @@ export const MOCK_FRIENDS_LB: LeaderboardRow[] = friendsPool
   }))
   .sort((a, b) => b.xp - a.xp)
   .map((row, idx) => ({ ...row, rank: idx + 1 }));
+
+// ────────────────────────────────────────────────────────────────────────────
+// League progress + spotlight stats
+// ────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Day-over-day XP series for the current sprint week (Mon..today).
+ * Used by the spotlight card to render a small bar chart + delta vs. friend
+ * median. Length matches `friendMedianDaily`.
+ */
+export const MOCK_DAILY_XP = [180, 220, 140, 200, 200];
+export const MOCK_FRIEND_MEDIAN_DAILY = [140, 160, 130, 150, 150];
+
+/** Yesterday's rank for the current user — used to compute the spotlight delta. */
+export const MOCK_RANK_YESTERDAY = 7;
+
+/** Mock streak snapshot for the streak-comparison strip. */
+export const MOCK_STREAK_SNAPSHOT = {
+  mine: MOCK_ME.streakDays,
+  friendMedian: 17,
+  friendTop: 64,
+};
+
+// ────────────────────────────────────────────────────────────────────────────
+// Invitations — UI stub only. Lingot/ad-free reward logic is owned by other
+// agents (finance + ads). We expose the data shape so the modal renders.
+// ────────────────────────────────────────────────────────────────────────────
+
+export type InviteOffer = {
+  /** Opaque invite code — replaced server-side with a real token. */
+  code: string;
+  /** Shareable URL. */
+  url: string;
+  /** Reward both sides receive on signup. */
+  rewardLingots: number;
+  /** Hours of ad-free time both sides receive. */
+  rewardAdFreeHours: number;
+  /** Number of invites accepted so far. */
+  acceptedCount: number;
+  /** Max invites that still pay out (after this it's social-only). */
+  acceptedCap: number;
+};
+
+export const MOCK_INVITE_OFFER: InviteOffer = {
+  code: "xxxx-yyyy-zzzz",
+  url: "https://lingo.app/invite/xxxx-yyyy-zzzz",
+  rewardLingots: 100,
+  rewardAdFreeHours: 1,
+  acceptedCount: 2,
+  acceptedCap: 10,
+};

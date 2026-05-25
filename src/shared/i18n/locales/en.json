@@ -1420,5 +1420,93 @@
         "desc": "Friendly rivalry — top your friend's XP by Sunday."
       }
     }
+  },
+  "social": {
+    "mobileNav": {
+      "aria": "Social sections",
+      "spotlight": "Spotlight",
+      "friends": "Friends",
+      "messages": "Messages"
+    },
+    "activity": {
+      "title": "Friends recently",
+      "seeAll": "See all",
+      "empty": "No friend activity yet — add friends to start seeing wins here.",
+      "cheerOn": "Cheer on {{name}}"
+    },
+    "friends": {
+      "title": "Your friends",
+      "searchPlaceholder": "Search friends…",
+      "onlineNow": "Online now",
+      "recentlyActive": "Recently active",
+      "noMatch": "No friends match “{{query}}”.",
+      "emptyTitle": "Nobody here yet",
+      "emptyDesc": "Add a friend or send an invite link to start trading streaks and reactions.",
+      "emptyAction": "Find friends"
+    },
+    "requests": {
+      "title": "Requests",
+      "seeAll": "See all"
+    },
+    "suggested": {
+      "title": "Suggested",
+      "follow": "Follow"
+    },
+    "messages": {
+      "title": "Messages",
+      "newAria": "New message",
+      "searchPlaceholder": "Search messages…",
+      "backAria": "Back to thread list",
+      "activeNow": "Active now",
+      "moreAria": "More options",
+      "today": "Today",
+      "addEmojiAria": "Add emoji",
+      "composerPlaceholder": "Message {{name}}…",
+      "sendAria": "Send message",
+      "sayHi": "Say hi to {{name}}",
+      "iceBreaker": "Send a wave to break the ice — they'll see it pop in your activity feed too.",
+      "emptyTitle": "No messages yet",
+      "emptyDesc": "Once you add friends, your conversations will show up here."
+    },
+    "spotlight": {
+      "currentLeague": "Current league",
+      "tierOf": "Tier {{n}} of {{total}}",
+      "yourRank": "Your rank",
+      "deltaSame": "—",
+      "deltaUp": "up {{n}} since yesterday",
+      "deltaDown": "down {{n}} since yesterday",
+      "inPromoteZone": "You're in the promotion zone — keep it up!",
+      "inDemoteZone": "You're in the demotion zone — a couple lessons could pull you out.",
+      "podium": "This week's podium",
+      "thisWeek": "This week vs. friend median",
+      "aheadBy": "+{{n}} XP ahead",
+      "behindBy": "{{n}} XP behind",
+      "seeFull": "See full leaderboard"
+    },
+    "friendsLb": {
+      "title": "Friend leaderboard",
+      "thisWeek": "This week",
+      "leader": "Friend leader",
+      "you": "You",
+      "toOvertake": "{{n}} XP to pass {{name}}",
+      "youLead": "You're leading your friends — defend the top!",
+      "empty": "Add friends to see how you stack up against people you know."
+    },
+    "streak": {
+      "vsMedian": "vs. friend median {{n}}d"
+    },
+    "invite": {
+      "title": "Invite a friend, both win",
+      "subtitle": "{{lingots}} lingots + {{hours}}h ad-free for each of you",
+      "cta": "Get link",
+      "accepted": "{{n}} of {{cap}} invites redeemed",
+      "modalTitle": "Invite a friend",
+      "modalBody": "Send this link to a friend. When they join Lingo, you both get {{lingots}} lingots and {{hours}} hour of ad-free time.",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "rewardLingots": "+{{n}} lingots when your friend joins",
+      "rewardAdFree": "+{{n}} hour ad-free for both of you",
+      "cap": "Pays out for the first {{cap}} accepted invites."
+    }
   }
 }
