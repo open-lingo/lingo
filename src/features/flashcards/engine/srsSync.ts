@@ -1,6 +1,6 @@
 import type { SRSCardState } from "../data/types";
 import { notifySRSStoreChanged } from "../SRSStoreRevisionContext";
-import { cardLastReviewDate, cardLastReviewedAt } from "./srs";
+import { cardLastReviewedAt } from "./srs";
 import { getSRSStore, setSRSStore, setLastSrsSyncAt } from "./srsStorage";
 import type { SRSStore } from "./srsStorage";
 

@@ -1,16 +1,19 @@
 /**
  * Single source of truth for practice-page data.
  *
- * Today this returns mock values mixed with lightly-real signals (week
- * minutes are derived from local lesson completions via
- * `useLocalProgressSummary` — same source the Home page uses, so the
- * `WeekSparkline` widget no longer diverges between Home and Practice).
+ * Today this returns typed mock values. When swapping to a real
+ * backend, replace the body with a real TanStack Query
+ * (e.g. `useQuery({ queryKey: ["practice", "summary"], ... })` against
+ * `/api/core/v1/practice/summary`). Component contracts (the
+ * `PracticeData` shape) stay stable. Until then it serves typed mocks.
  *
- * Swap path: when the backend ships `/api/core/v1/practice/summary`,
- * replace the body with a real TanStack Query
- * (`useQuery({ queryKey: ["practice", "summary"], ... })`). Component
- * contracts (the `PracticeData` shape) stay stable. Until then it
- * serves typed mocks.
+ * Cross-page note: the Home page pulls weekly activity from
+ * `useLocalProgressSummary()` in `src/shared/hooks/useLocalProgressSummary.ts`
+ * (lives on `main`, not yet on this branch's working tree). Once that
+ * hook is here, the recommended next step is to delegate the
+ * `weekMinutes`/`todayMinutes` fields to it so the `WeekSparkline`
+ * widget on Home and Practice match. The wrapping shape stays the
+ * same — only the inside of this hook changes.
  *
  * Every `MOCK_*` constant that used to be sprinkled across
  * `PracticePage.tsx`, `PracticeGrammarPage.tsx`, etc. now lives here
@@ -19,7 +22,6 @@
  */
 
 import { useMemo } from "react";
-import { useLocalProgressSummary } from "@/shared/hooks/useLocalProgressSummary";
 
 export interface PracticeLastTouchedHours {
   flashcards: number;
@@ -46,9 +48,11 @@ export interface UsePracticeDataResult {
 }
 
 /**
- * Mock values that don't yet have a real backing signal.
- * Update here (and only here) when swapping in real data.
+ * Mock values. Update here (and only here) when swapping in real data.
+ * `weekMinutes` is oldest -> newest, so the last entry is "today".
  */
+const MOCK_WEEK_MINUTES: number[] = [12, 0, 8, 5, 14, 6, 9];
+const MOCK_TODAY_MIN = 12;
 const MOCK_DUE_MODULES = 3;
 const MOCK_TOTAL_MODULES = 4;
 const MOCK_LAST_TOUCHED_HOURS: PracticeLastTouchedHours = {
@@ -58,22 +62,19 @@ const MOCK_LAST_TOUCHED_HOURS: PracticeLastTouchedHours = {
 };
 
 export function usePracticeData(): UsePracticeDataResult {
-  const { weekMinutes } = useLocalProgressSummary();
-
-  return useMemo<UsePracticeDataResult>(() => {
-    // `weekMinutes` is oldest -> newest, so "today" is the last entry.
-    const todayMinutes = weekMinutes[weekMinutes.length - 1] ?? 0;
-    return {
+  return useMemo<UsePracticeDataResult>(
+    () => ({
       data: {
-        todayMinutes,
-        weekMinutes,
+        todayMinutes: MOCK_TODAY_MIN,
+        weekMinutes: MOCK_WEEK_MINUTES,
         dueModules: MOCK_DUE_MODULES,
         totalModules: MOCK_TOTAL_MODULES,
         lastTouchedHours: MOCK_LAST_TOUCHED_HOURS,
       },
       isLoading: false,
-    };
-  }, [weekMinutes]);
+    }),
+    [],
+  );
 }
 
 // ---------- Grammar subpage ----------
