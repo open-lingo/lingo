@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Card, ProgressRing, WeekSparkline } from "@/shared/components/ui";
+import { Card, WeekSparkline } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useUserStats } from "@/shared/hooks/useUserStats";

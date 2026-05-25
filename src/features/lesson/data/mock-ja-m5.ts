@@ -1608,7 +1608,7 @@ const RULE_KARA = grammarRule({
     why: "から sticks to the place/time it marks. You can't separate them. The topic (は phrase) comes first, then the origin + から, then です.",
   },
   cultureNote:
-    "から also means 'because' when it ends a clause (you'll meet that in N4). For now, just 'from.'",
+    "から also means 'because' when it ends a clause (you'll meet that later in this course). For now, just 'from.'",
 });
 
 export const M5_6_1: LessonContent = {

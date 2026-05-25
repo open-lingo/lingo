@@ -28,7 +28,7 @@ const OUT = resolve(
 // / speaking / listeningComp.
 const sources = [CURRICULUM];
 for (const f of readdirSync(DATA_DIR)) {
-  if (/^mock-ja-(m[1-9]|sidequest)-.+\.ts$/.test(f)) sources.push(join(DATA_DIR, f));
+  if (/^mock-ja-(m\d+|sidequest)(-.*)?\.ts$/.test(f)) sources.push(join(DATA_DIR, f));
 }
 
 const kanaSet = new Set();
@@ -80,8 +80,14 @@ for (const path of sources) {
 // hiragana-only when M3 introduced katakana loanwords + multi-word
 // sentence audio (2026-05-16).
 const JA_ONLY = /^[\p{Script=Hiragana}\p{Script=Katakana}゙゚ー　-〿 ]+$/u;
-const cards = Array.from(kanaSet)
-  .filter((t) => JA_ONLY.test(t))
+// Strip trailing 。 so we don't generate separate audio for "X" and "X。"
+// — the runtime lookup (tts.ts) falls back to the other variant.
+const deduped = new Set();
+for (const t of kanaSet) {
+  if (!JA_ONLY.test(t)) continue;
+  deduped.add(t.endsWith("。") ? t.slice(0, -1) : t);
+}
+const cards = Array.from(deduped)
   .sort()
   .map((t, i) => ({
     id: `hira-${i.toString().padStart(3, "0")}-${t}`,

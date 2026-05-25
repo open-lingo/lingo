@@ -35,13 +35,17 @@ function pickPath(entry: string | string[] | undefined): string | null {
 export function getTtsUrl(text: string, lang: string = "ja"): string | null {
   if (!text) return null;
   const key = `${lang}:${text}`;
-  const relative = pickPath(MANIFEST[key]);
+  let relative = pickPath(MANIFEST[key]);
+  if (!relative) {
+    const alt = text.endsWith("。") ? text.slice(0, -1) : `${text}。`;
+    relative = pickPath(MANIFEST[`${lang}:${alt}`]);
+  }
   if (!relative) return null;
   return `/${relative}`;
 }
 
 export function hasTtsAudio(text: string, lang: string = "ja"): boolean {
-  return Boolean(MANIFEST[`${lang}:${text}`]);
+  return getTtsUrl(text, lang) !== null;
 }
 
 // ---------------------------------------------------------------------------
