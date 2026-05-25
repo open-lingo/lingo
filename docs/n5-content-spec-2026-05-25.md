@@ -5,8 +5,17 @@ Living document. Covers grammar, vocab, kanji, practice features, and module-by-
 **Companion files:**
 - `src/features/lesson/data/n5-grammar-points.json` — all N5 grammar points with module assignments + status
 - `src/features/lesson/data/n5-module-vocab-map.json` — 553 future atoms mapped to target modules
-- `docs/curriculum-roadmap-n5-2026-05-18.md` — original roadmap (still valid, this spec refines it)
+- `docs/practice-features-spec-2026-05-25.md` — implementation specs for 6 practice features
+- `docs/curriculum-roadmap-n5-2026-05-18.md` — original roadmap (this spec supersedes it)
 - `docs/n5-vocab-emoji-reference-2026-05-18.md` — emoji assignments for all 662 N5 words
+
+**Audit findings (2026-05-25) — sequencing fixes applied:**
+1. **CRITICAL: た-form moved after て-form.** Original spec had た at M10, て at M16 — reversed from ALL major textbooks (Genki, Minna). Fixed: M10 is polite past only (ました/でした), て-form formation moves to M13-M14 range, た-form taught as て→た derivative immediately after.
+2. **HIGH: から (because) moved earlier.** Was at M28 (21 modules after learning verbs). Genki teaches it at Lesson 6. Fixed: move to M13-M14 alongside frequency/time grammar.
+3. **HIGH: Kanji starts at M8, not M14.** Research consensus: Genki starts kanji at chapter 3 (~50 words). WaniKani is kanji-first. Waiting until M14 (~315 words) is 4-5x later than standard. Fixed: recognition-only kanji parallel track from M8, ~5-8 kanji per module.
+4. **MODERATE: ので duplicate removed from M28.** Was listed in both M21 and M28. Keep at M21 only.
+5. **MODERATE: あまり/ぜんぜん moved from M9 to M11.** These adverbs require negative predicates, which aren't taught until M11.
+6. **MINOR: よ/ね noted for possible M6-M7 backfill.** Currently at M9, slightly late for sentence-final particles.
 
 ---
 
