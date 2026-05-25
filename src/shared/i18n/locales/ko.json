@@ -1059,7 +1059,31 @@
     "statusPlaceholder": "짧은 상태나 소개…",
     "save": "저장",
     "saved": "저장됨!",
-    "editProfile": "프로필 수정"
+    "editProfile": "프로필 수정",
+    "publicNotFound": "프로필을 찾을 수 없음",
+    "publicLoading": "프로필 로드 중…",
+    "publicNotFoundDesc": "해당 사용자명의 학습자를 찾을 수 없습니다.",
+    "publicPrivate": "비공개 프로필입니다",
+    "publicPrivateDesc": "친구만 이 학습자의 프로필을 볼 수 있습니다.",
+    "publicError": "문제가 발생했습니다",
+    "publicErrorDesc": "다시 시도해주세요.",
+    "publicStreakLabel": "연속",
+    "publicXpLabel": "경험치",
+    "publicLearningLabel": "학습 중",
+    "publicJoinedLabel": "가입일",
+    "publicEditProfile": "프로필 편집",
+    "publicRequestSent": "요청 전송됨",
+    "publicAcceptRequest": "요청 수락",
+    "publicAddFriend": "친구 추가",
+    "publicUnblock": "차단 해제",
+    "publicFriends": "친구 ▾",
+    "publicUnfriend": "친구 끊기",
+    "publicBlock": "차단",
+    "publicActionFailed": "작업을 완료할 수 없습니다.",
+    "badgeFriend": "친구",
+    "badgeRequestIn": "친구가 되고 싶어합니다",
+    "badgeRequestOut": "요청 대기 중",
+    "badgeBlocked": "차단됨"
   },
   "admin": {
     "users": "사용자",
@@ -1352,15 +1376,31 @@
       "noMatch": "“{{query}}”와 일치하는 친구가 없어요.",
       "emptyTitle": "아직 친구가 없어요",
       "emptyDesc": "친구를 추가하거나 초대 링크를 보내서 스트릭과 반응을 주고받아 보세요.",
-      "emptyAction": "친구 찾기"
+      "emptyAction": "친구 찾기",
+      "unfriend": "친구 끊기",
+      "block": "차단",
+      "cancel": "취소",
+      "openProfileAria": "{{name}}님의 프로필 열기",
+      "messageAria": "{{name}}님에게 메시지 보내기",
+      "moreAria": "{{name}}님의 추가 작업",
+      "unfriendConfirmTitle": "{{name}}님과 친구를 끊겠습니까?",
+      "unfriendConfirmBody": "서로의 리더보드와 활동 피드에서 더 이상 표시되지 않습니다.",
+      "blockConfirmTitle": "{{name}}님을 차단하시겠습니까?",
+      "blockConfirmBody": "차단된 사용자는 메시지를 보내거나 프로필을 보거나 리더보드에 표시될 수 없습니다."
     },
     "requests": {
       "title": "요청",
-      "seeAll": "모두 보기"
+      "seeAll": "모두 보기",
+      "accept": "수락",
+      "acceptAria": "{{name}}님의 요청 수락",
+      "declineAria": "{{name}}님의 요청 거절",
+      "openProfileAria": "수락 전에 {{name}}님의 프로필 보기"
     },
     "suggested": {
       "title": "추천",
-      "follow": "팔로우"
+      "follow": "팔로우",
+      "add": "추가",
+      "pending": "대기 중"
     },
     "messages": {
       "title": "메시지",
@@ -1416,7 +1456,15 @@
       "copied": "복사됨!",
       "rewardLingots": "친구가 가입하면 +{{n}} 링곳",
       "rewardAdFree": "둘 다 +{{n}}시간 광고 없음",
-      "cap": "처음 {{cap}}건의 수락된 초대에 대해 보상이 지급돼요."
+      "cap": "처음 {{cap}}건의 수락된 초대에 대해 보상이 지급돼요.",
+      "share": "공유",
+      "shared": "공유됨!",
+      "shareTitle": "Lingo에서 함께 학습해요",
+      "shareText": "Lingo에서 같이 언어를 배워요",
+      "linkCopied": "링크가 클립보드에 복사되었습니다.",
+      "haveCode": "초대 코드가 있나요?",
+      "codePlaceholder": "xxxx-yyyy-zzzz",
+      "redeem": "사용"
     }
   }
 }

@@ -1180,7 +1180,31 @@
     "statusPlaceholder": "A short status or bio…",
     "save": "Save",
     "saved": "Saved!",
-    "editProfile": "Edit profile"
+    "editProfile": "Edit profile",
+    "publicNotFound": "Profile not found",
+    "publicLoading": "Loading profile…",
+    "publicNotFoundDesc": "We couldn't find a learner with that username.",
+    "publicPrivate": "This profile is private",
+    "publicPrivateDesc": "Only friends can view this learner's profile.",
+    "publicError": "Something went wrong",
+    "publicErrorDesc": "Please try again.",
+    "publicStreakLabel": "Streak",
+    "publicXpLabel": "XP",
+    "publicLearningLabel": "Learning",
+    "publicJoinedLabel": "Joined",
+    "publicEditProfile": "Edit profile",
+    "publicRequestSent": "Request sent",
+    "publicAcceptRequest": "Accept request",
+    "publicAddFriend": "Add friend",
+    "publicUnblock": "Unblock",
+    "publicFriends": "Friends ▾",
+    "publicUnfriend": "Unfriend",
+    "publicBlock": "Block",
+    "publicActionFailed": "Could not complete that action.",
+    "badgeFriend": "Friends",
+    "badgeRequestIn": "Wants to be friends",
+    "badgeRequestOut": "Request pending",
+    "badgeBlocked": "Blocked"
   },
   "admin": {
     "users": "Users",
@@ -1442,15 +1466,31 @@
       "noMatch": "No friends match “{{query}}”.",
       "emptyTitle": "Nobody here yet",
       "emptyDesc": "Add a friend or send an invite link to start trading streaks and reactions.",
-      "emptyAction": "Find friends"
+      "emptyAction": "Find friends",
+      "unfriend": "Unfriend",
+      "block": "Block",
+      "cancel": "Cancel",
+      "openProfileAria": "Open {{name}}'s profile",
+      "messageAria": "Message {{name}}",
+      "moreAria": "More actions for {{name}}",
+      "unfriendConfirmTitle": "Unfriend {{name}}?",
+      "unfriendConfirmBody": "You'll stop seeing each other on leaderboards and the activity feed.",
+      "blockConfirmTitle": "Block {{name}}?",
+      "blockConfirmBody": "Blocked users can't message you, see your profile, or appear in your leaderboards."
     },
     "requests": {
       "title": "Requests",
-      "seeAll": "See all"
+      "seeAll": "See all",
+      "accept": "Accept",
+      "acceptAria": "Accept request from {{name}}",
+      "declineAria": "Decline request from {{name}}",
+      "openProfileAria": "View {{name}}'s profile before accepting"
     },
     "suggested": {
       "title": "Suggested",
-      "follow": "Follow"
+      "follow": "Follow",
+      "add": "Add",
+      "pending": "Pending"
     },
     "messages": {
       "title": "Messages",
@@ -1506,7 +1546,15 @@
       "copied": "Copied!",
       "rewardLingots": "+{{n}} lingots when your friend joins",
       "rewardAdFree": "+{{n}} hour ad-free for both of you",
-      "cap": "Pays out for the first {{cap}} accepted invites."
+      "cap": "Pays out for the first {{cap}} accepted invites.",
+      "share": "Share",
+      "shared": "Shared!",
+      "shareTitle": "Join me on Lingo",
+      "shareText": "Learn languages with me on Lingo",
+      "linkCopied": "Link copied to clipboard.",
+      "haveCode": "Have an invite code?",
+      "codePlaceholder": "xxxx-yyyy-zzzz",
+      "redeem": "Redeem"
     }
   }
 }
