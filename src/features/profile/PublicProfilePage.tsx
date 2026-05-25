@@ -18,6 +18,7 @@
 import { useState, type CSSProperties } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import { useApi } from "@/shared/api/provider";
 import { useAuth } from "@/shared/auth/useAuth";
 import { UserAvatar } from "@/shared/components/UserAvatar";
@@ -241,7 +242,7 @@ function FriendshipBadge({
   t,
 }: {
   status: FriendshipStatus | null;
-  t: (k: string, d?: string) => string;
+  t: TFunction;
 }) {
   if (!status || status === "self") return null;
   const label =
@@ -287,7 +288,7 @@ function PrimaryAction({
   onUnblock: () => void;
   onUnfriend: () => void;
   onBlock: () => void;
-  t: (k: string, d?: string) => string;
+  t: TFunction;
 }) {
   const busy = actionState === "pending";
 
@@ -349,7 +350,7 @@ function FriendDropdown({
   onUnfriend: () => void;
   onBlock: () => void;
   busy: boolean;
-  t: (k: string, d?: string) => string;
+  t: TFunction;
 }) {
   const [open, setOpen] = useState(false);
   return (

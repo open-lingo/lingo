@@ -2,22 +2,29 @@
  * Social page header. Compact single-row layout: avatar + name + you-stats
  * chips on the left, Messages / Add friend / Invite CTAs on the right.
  *
- * Stats are derived from MOCK_ME + MOCK_LEAGUE + MOCK_WEEKLY_LB so the
- * header stays coherent with the leaderboards rendered below it.
+ * Display name and avatar come from the authenticated user (useAuth);
+ * streak comes from useUserStats; league + weekly rank come from useSocial.
  */
 import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useAuth } from "@/shared/auth/useAuth";
+import { useUserStats } from "@/shared/hooks/useUserStats";
 import { UserAvatar } from "./UserAvatar";
 import { UsernameDisplay } from "./UsernameDisplay";
 import { useSocial } from "../hooks/useSocial";
 
 export function SocialHeader() {
   const langPath = useLangPath();
+  const { user } = useAuth();
+  const { stats } = useUserStats();
   const { me, league, weeklyLeaderboard, threads } = useSocial();
   const myRow = weeklyLeaderboard.find((r) => r.isMe);
   const unreadCount = threads.reduce((sum, t) => sum + t.unreadCount, 0);
+
+  const displayName =
+    user?.nickname ?? user?.given_name ?? user?.name ?? me.name;
 
   return (
     <Card
@@ -26,7 +33,7 @@ export function SocialHeader() {
       className="flex flex-wrap items-center gap-3 bg-gradient-to-br from-accent/10 via-surface to-surface px-4 py-2.5 sm:flex-nowrap"
     >
       <UserAvatar
-        name={me.name}
+        name={displayName}
         frame={me.frame}
         status="active"
         size="md"
@@ -38,7 +45,7 @@ export function SocialHeader() {
           </p>
         </div>
         <h1 className="text-lg font-bold leading-tight text-text-primary">
-          <UsernameDisplay name={me.name} cosmetic={me.cosmetic} />
+          <UsernameDisplay name={displayName} cosmetic={me.cosmetic} />
         </h1>
       </div>
 
@@ -49,7 +56,7 @@ export function SocialHeader() {
           label={`${league.emoji} ${league.name}`}
           detail={myRow ? `#${myRow.rank}` : null}
         />
-        <StatChip icon="flame" tone="warning" label={`${me.streakDays}d`} />
+        <StatChip icon="flame" tone="warning" label={`${stats.streak}d`} />
         <StatChip
           icon="star"
           tone="success"

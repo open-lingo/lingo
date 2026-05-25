@@ -2,6 +2,7 @@ import { Icon } from "@/shared/components/Icon";
 import { Link } from "react-router-dom";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
+import { useDeckVote } from "../hooks/useDeckVote";
 import { Avatar } from "./Avatar";
 import type { AddonKind } from "../types";
 
@@ -183,13 +184,17 @@ export function CommunityItemCard({
           </span>
         )}
         <div className="flex items-center gap-1.5">
-          <button
-            type="button"
-            className="rounded px-2 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
-            aria-label="Upvote"
-          >
-            <Icon name="chevronUp" size={14} className="inline" />
-          </button>
+          {isDeck && deckId ? (
+            <DeckUpvoteButton deckId={deckId} fallbackCount={item.upvoteCount ?? 0} />
+          ) : (
+            <button
+              type="button"
+              className="rounded px-2 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
+              aria-label="Upvote"
+            >
+              <Icon name="chevronUp" size={14} className="inline" />
+            </button>
+          )}
           {ownedDeckId ? (
             <Link
               to={langPath(`community/decks/${ownedDeckId}`)}
@@ -262,5 +267,46 @@ export function CommunityItemCard({
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * Wired upvote button — pulls live count + voted flag from the API and
+ * flips state optimistically. The card always renders some count
+ * (server value falls back to the addon's reported ``upvoteCount`` so
+ * the UI doesn't flash a zero on first paint).
+ */
+function DeckUpvoteButton({
+  deckId,
+  fallbackCount,
+}: {
+  deckId: string;
+  fallbackCount: number;
+}) {
+  const { count, voted, isLoading, isPending, toggle } = useDeckVote(deckId);
+  // Show server count once loaded, else the mock/preview number.
+  const displayCount = isLoading ? fallbackCount : count;
+  const label = voted ? "Remove upvote" : "Upvote";
+  return (
+    <button
+      type="button"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggle();
+      }}
+      disabled={isPending}
+      aria-pressed={voted}
+      aria-label={label}
+      title={label}
+      className={`inline-flex items-center gap-1 rounded px-2 py-1.5 text-xs font-medium transition ${
+        voted
+          ? "bg-accent-muted text-accent"
+          : "text-text-secondary hover:bg-surface-muted"
+      }`}
+    >
+      <Icon name="chevronUp" size={14} className="inline" />
+      <span className="tabular-nums">{displayCount}</span>
+    </button>
   );
 }

@@ -63,6 +63,12 @@ export type SideQuest = {
   isDaily?: boolean;
   /** Highlighted with accent gradient in the sidequest rail. */
   featured?: boolean;
+  /**
+   * Visible in the rail but not clickable yet — renders disabled with a
+   * "Coming soon" pill. Use for quests that have no implementation
+   * route mapped (no SIDEQUEST_TO_LESSON or SIDEQUEST_TO_ROUTE entry).
+   */
+  comingSoon?: boolean;
 };
 
 export type Course = {

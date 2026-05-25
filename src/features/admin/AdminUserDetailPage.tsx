@@ -9,6 +9,8 @@ import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import type { UserListItem } from "@/shared/api/admin";
 import type { Subscription } from "@/shared/api/users";
 import type { DeckResponse } from "@/shared/api/decks";
+import type { SRSCardState, SRSModalityState } from "@/features/flashcards/data/types";
+import { isLegacyFlatFsrsState, migrateFlatToModal } from "@/features/flashcards/engine";
 import { useDateFormat } from "@/shared/utils/formatDate";
 import { Icon } from "@/shared/components/Icon";
 import { TabList, TabButton } from "@/shared/components/ui/Tabs";
@@ -19,6 +21,46 @@ import { inputClassName } from "@/shared/components/ui/formStyles";
 import { cn } from "@/shared/components/ui/cn";
 
 type TabId = "profile" | "subscriptions" | "content" | "srs";
+
+/**
+ * Why: server returns SRS payloads as opaque blobs, so legacy flat FSRS
+ * rows or partially-migrated rows reach the admin view missing the modal
+ * `recognition` / `production` shape. Without this, `state.recognition.dueDate`
+ * throws at render time.
+ */
+const EMPTY_MODALITY: SRSModalityState = {
+  stability: 0,
+  difficulty: 0,
+  state: "new",
+  interval: 0,
+  dueDate: "",
+  lastReviewDate: "",
+  reps: 0,
+  lapses: 0,
+};
+
+function normalizeAdminSrsCard(raw: unknown): SRSCardState {
+  if (raw && typeof raw === "object") {
+    const obj = raw as Record<string, unknown>;
+    if (
+      obj.recognition &&
+      typeof obj.recognition === "object" &&
+      obj.production &&
+      typeof obj.production === "object"
+    ) {
+      return obj as unknown as SRSCardState;
+    }
+    if (isLegacyFlatFsrsState(raw)) return migrateFlatToModal(raw);
+    return {
+      recognition: { ...EMPTY_MODALITY, ...((obj.recognition as object) ?? {}) },
+      production: { ...EMPTY_MODALITY, ...((obj.production as object) ?? {}) },
+      lastSyncedAt: typeof obj.lastSyncedAt === "string" ? obj.lastSyncedAt : undefined,
+      lastReviewedAt: typeof obj.lastReviewedAt === "string" ? obj.lastReviewedAt : undefined,
+      buriedUntil: typeof obj.buriedUntil === "string" ? obj.buriedUntil : undefined,
+    };
+  }
+  return { recognition: { ...EMPTY_MODALITY }, production: { ...EMPTY_MODALITY } };
+}
 
 export function AdminUserDetailPage() {
   const { t } = useTranslation();
@@ -221,7 +263,11 @@ export function AdminUserDetailPage() {
     setSrsLoading(true);
     try {
       const res = await admin.getUserSrs(userId);
-      setSrsState(res.cards ?? {});
+      const normalized: Record<string, SRSCardState> = {};
+      for (const [cardId, raw] of Object.entries(res.cards ?? {})) {
+        normalized[cardId] = normalizeAdminSrsCard(raw);
+      }
+      setSrsState(normalized);
     } catch {
       setSrsState({});
     } finally {

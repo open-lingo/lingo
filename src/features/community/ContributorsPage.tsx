@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
-import { useLangPath } from "@/shared/hooks/useLangPath";
 import { CommunityDecksLayout } from "./CommunityDecksLayout";
 import { Avatar } from "./components/Avatar";
 import { DataTable, type DataTableColumn } from "@/shared/components/data";
@@ -92,7 +91,6 @@ type SortKey = "upvotes" | "decks" | "followers" | "name";
 
 export function ContributorsPage() {
   const { t } = useTranslation();
-  const langPath = useLangPath();
   const [sortKey, setSortKey] = useState<SortKey>("upvotes");
 
   const rows = useMemo(() => {
@@ -112,7 +110,7 @@ export function ContributorsPage() {
       label: t("community.contributorName", "Contributor"),
       render: (c) => (
         <Link
-          to={langPath(`community/contributors/${c.handle}`)}
+          to={`/u/${c.handle}`}
           className="group flex min-w-0 items-center gap-3"
         >
           <Avatar name={c.displayName} size="sm" />
@@ -167,7 +165,7 @@ export function ContributorsPage() {
       className: "text-right",
       render: (c) => (
         <Link
-          to={langPath(`community/contributors/${c.handle}`)}
+          to={`/u/${c.handle}`}
           className="inline-flex items-center rounded-md border border-border bg-surface px-2.5 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted hover:text-text-primary"
         >
           {t("community.contributorView", "View")}

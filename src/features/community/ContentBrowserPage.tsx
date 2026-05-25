@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect, useCallback } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
@@ -115,15 +115,31 @@ export function ContentBrowserPage() {
   const flags = useFeatureFlags();
   const explore = flags.community.explore;
   const { decks: decksApi, users: usersApi, stories: storiesApi } = useApi();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const typeParam = searchParams.get("type");
+  // Trending-tag pivot — populated by chips in the right rail or by
+  // featured-strip clicks. Drives the same matchesSearch substring path
+  // (tags aren't a structured field yet — see types.ts).
+  const tagParam = searchParams.get("tag");
+  // Optional language preselect for the featured-strip cards when no
+  // matching tag exists.
+  const langParam = searchParams.get("lang");
 
-  const [languageFilter, setLanguageFilter] = useState<string | "all" | null>(null);
+  const [languageFilter, setLanguageFilter] = useState<string | "all" | null>(
+    () => (langParam ? langParam : null),
+  );
   const [typeFilter, setTypeFilter] = useState<ContentType | "all">("all");
   const [sortBy, setSortBy] = useState<SortOption>("newest");
   const [levelFilters, setLevelFilters] = useState<Set<string>>(new Set());
   const [otherFilters, setOtherFilters] = useState<Set<string>>(new Set());
+
+  // Sync language filter when ?lang= changes from outside (back/forward nav).
+  useEffect(() => {
+    if (langParam) {
+      setLanguageFilter(langParam);
+    }
+  }, [langParam]);
 
   useEffect(() => {
     let resolvedType = TYPE_FROM_PARAM[typeParam ?? ""] ?? "all";
@@ -288,10 +304,18 @@ export function ContentBrowserPage() {
   }, [browseContent]);
 
   const filteredBrowse = useMemo(() => {
+    const tagToken = tagParam?.trim().toLowerCase() ?? "";
     let list = browseContent.filter((a) => {
       if (!matchesSearch(a, search)) return false;
       if (effectiveLanguage && a.languageId !== effectiveLanguage) return false;
       if (typeFilter !== "all" && a.kind !== typeFilter) return false;
+      // Tags are not yet a first-class field on decks/addons — match the
+      // canonicalised tag against name + description as a substring.
+      if (tagToken) {
+        const hay = `${a.name} ${a.description}`.toLowerCase();
+        const probe = tagToken.replace(/-/g, " ");
+        if (!hay.includes(tagToken) && !hay.includes(probe)) return false;
+      }
       // "Trending" sort applies a minimum-upvotes floor.
       if (sortBy === "trending" && (a.upvoteCount ?? 0) < TRENDING_MIN_UPVOTES)
         return false;
@@ -306,7 +330,7 @@ export function ContentBrowserPage() {
       list = [...list].sort((a, b) => a.name.localeCompare(b.name));
     }
     return list;
-  }, [browseContent, search, effectiveLanguage, typeFilter, sortBy]);
+  }, [browseContent, search, effectiveLanguage, typeFilter, sortBy, tagParam]);
 
   const apiDecksById = useMemo(() => new Map(apiDecks.map((d) => [d.id, d])), [apiDecks]);
   const apiStoriesById = useMemo(
@@ -400,6 +424,11 @@ export function ContentBrowserPage() {
 
   const handleFacetToggle = useCallback(
     (facetId: string, value: string) => {
+      if (facetId === "tag") {
+        // Chips reuse the toggle callback as their remove handler.
+        clearTag();
+        return;
+      }
       if (facetId === FACET_TYPE) {
         const next = typeFilter === value ? "all" : (value as ContentType);
         setTypeFilter(next);
@@ -462,8 +491,10 @@ export function ContentBrowserPage() {
     setOtherFilters(new Set());
     setSearch("");
     setSortBy("newest");
-    if (typeParam) navigate(langPath("community/explore"), { replace: true });
-  }, [setSearch, typeParam, navigate, langPath]);
+    if (typeParam || tagParam || langParam) {
+      navigate(langPath("community/explore"), { replace: true });
+    }
+  }, [setSearch, typeParam, tagParam, langParam, navigate, langPath]);
 
   const showSearchResults = search.trim().length > 0;
 
@@ -473,6 +504,7 @@ export function ContentBrowserPage() {
       const id = addon.id;
       let to = "#";
       let onAction: (() => void) | undefined;
+      let onRowClick: (() => void) | undefined;
       let isSubscribed = false;
       let actionLoading = false;
 
@@ -485,20 +517,27 @@ export function ContentBrowserPage() {
         onAction = isSubscribed
           ? () => handleUnsubscribe("deck", deckId)
           : () => handleSubscribe("deck", deckId);
-        // Preview opens via the row name click — backed by the deck if loaded.
+        // Row click opens the preview modal when we have the full deck
+        // payload (it's already in apiDecksById). Falls back to the edit
+        // route when we don't. ``addon`` arg is unused for community
+        // browse — null per the existing call sites in MyDecksPage.
         if (deck) {
-          to = `#preview-${deckId}`;
-          // Override `to` to "#" so the inline click handler fires via onAction below.
-          // (Kept simple: name still routes; preview comes from existing context.)
+          onRowClick = () =>
+            openDeckPreview(deckResponseToFlashcardDeck(deck), null);
         }
       } else if (addon.kind === "story" && "storyId" in addon) {
         const sid = String((addon as StoryCardItem).storyId ?? id);
+        // TODO: route does not exist; ensure flag stays off until route lands.
         to = langPath(`community/stories/${sid}`);
         isSubscribed = subscribedIds.has(sid);
         actionLoading = subscribeLoading === sid;
         onAction = isSubscribed
           ? () => handleUnsubscribe("story", sid)
           : () => handleSubscribe("story", sid);
+        const story = apiStoriesById.get(sid);
+        if (story) {
+          onRowClick = () => openStoryPreview(story);
+        }
       } else if (addon.kind === "course") {
         to = langPath(`learn`);
       }
@@ -517,6 +556,7 @@ export function ContentBrowserPage() {
         updatedAt: addon.updatedAt,
         image: (addon as DeckCardItem).image ?? undefined,
         to,
+        onRowClick,
         isSubscribed,
         onAction,
         actionLoading,
@@ -525,20 +565,18 @@ export function ContentBrowserPage() {
   }, [
     filteredBrowse,
     apiDecksById,
+    apiStoriesById,
     langPath,
     subscribedIds,
     subscribeLoading,
     handleSubscribe,
     handleUnsubscribe,
+    openDeckPreview,
+    openStoryPreview,
   ]);
 
-  // Surface preview-on-name-click for decks/stories that we have full payloads for.
-  // We attach this as an effect on the table by overriding the row's `to` to use the
-  // openDeckPreview/openStoryPreview side door. Kept inline since it's one-shot.
-  void openDeckPreview;
-  void openStoryPreview;
-  void deckResponseToFlashcardDeck;
-  void apiStoriesById;
+  // Preview-on-name-click now lives in ``onRowClick`` above — these are
+  // referenced inside the rows useMemo so no void-shims required.
   void refreshSubscribedSets;
 
   const searchSlot = (
@@ -574,7 +612,7 @@ export function ContentBrowserPage() {
   const [page, setPage] = useState(0);
   useEffect(() => {
     setPage(0);
-  }, [search, languageFilter, typeFilter, sortBy, levelFilters, otherFilters]);
+  }, [search, languageFilter, typeFilter, sortBy, levelFilters, otherFilters, tagParam]);
   const pageCount = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
   const pagedRows = useMemo(
     () => rows.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE),
@@ -597,6 +635,13 @@ export function ContentBrowserPage() {
         label: `${cfg?.flag ?? "🌐"} ${cfg?.name ?? languageFilter}`,
       });
     }
+    if (tagParam) {
+      out.push({
+        facetId: "tag",
+        value: tagParam,
+        label: `#${tagParam}`,
+      });
+    }
     for (const lvl of levelFilters) {
       const opt = LEVEL_OPTIONS.find((o) => o.value === lvl);
       if (opt) out.push({ facetId: FACET_LEVEL, value: lvl, label: opt.label });
@@ -606,7 +651,18 @@ export function ContentBrowserPage() {
       if (opt) out.push({ facetId: FACET_OTHER, value: flag, label: opt.label });
     }
     return out;
-  }, [typeFilter, languageFilter, levelFilters, otherFilters, typeFacetOptions]);
+  }, [typeFilter, languageFilter, levelFilters, otherFilters, typeFacetOptions, tagParam]);
+
+  const clearTag = useCallback(() => {
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        next.delete("tag");
+        return next;
+      },
+      { replace: true },
+    );
+  }, [setSearchParams]);
 
   const hasActiveFilters = chips.length > 0 || showSearchResults;
   const showFeatured = !hasActiveFilters && rows.length === 0;
@@ -814,24 +870,31 @@ function Pagination({
   );
 }
 
+// Each card links to a pre-filtered Explore URL. Tag-based filtering
+// matches against deck name/description (substring) since tags aren't
+// yet a structured field — see ContentBrowserPage filter pipeline.
+// Korean Pathway has no canonical tag yet so it falls back to ?lang=ko.
 const FEATURED_MOCK = [
   {
     id: "featured-1",
     title: "Korean Beginner Pathway",
     subtitle: "Official · 240 cards",
     accent: "from-accent to-accent-hover",
+    to: "?lang=ko",
   },
   {
     id: "featured-2",
     title: "JLPT N5 Vocabulary",
     subtitle: "Maintained · 600 cards",
     accent: "from-warning to-error",
+    to: "?tag=jlpt-n5",
   },
   {
     id: "featured-3",
     title: "K-Drama Phrases",
     subtitle: "Verified · 180 cards",
     accent: "from-info to-accent",
+    to: "?tag=kdrama",
   },
 ];
 
@@ -839,9 +902,10 @@ function FeaturedStrip() {
   return (
     <div className="grid gap-3 sm:grid-cols-3">
       {FEATURED_MOCK.map((item) => (
-        <div
+        <Link
           key={item.id}
-          className="overflow-hidden rounded-lg border border-border bg-surface"
+          to={item.to}
+          className="block overflow-hidden rounded-lg border border-border bg-surface transition hover:border-accent hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
           <div className={`h-16 bg-gradient-to-br ${item.accent}`} aria-hidden />
           <div className="p-3">
@@ -853,7 +917,7 @@ function FeaturedStrip() {
             </p>
             <p className="text-xs text-text-muted">{item.subtitle}</p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

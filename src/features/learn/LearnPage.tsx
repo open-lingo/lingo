@@ -279,6 +279,10 @@ export function LearnPage() {
     return q;
   });
   const onSideQuestClick = (quest: SideQuest) => {
+    // ``comingSoon`` quests render in the rail but have no real target —
+    // the card itself is disabled, but this guard is a safety net in
+    // case any path-through-state triggers a click on a Soon quest.
+    if (quest.comingSoon) return;
     const route = SIDEQUEST_TO_ROUTE[quest.id];
     if (route) {
       navigate(langPath(route));

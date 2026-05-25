@@ -162,6 +162,7 @@ export function getMockCourse(languageId: string): Course {
         title: "Anime Vocab",
         meta: "12 words · senpai, kawaii…",
         progress: 0,
+        comingSoon: true,
       },
       {
         id: "ja-travel-sprint",
@@ -178,6 +179,7 @@ export function getMockCourse(languageId: string): Course {
         meta: "8 words · 桜, 祭, 神社",
         unlockAfter: "ja-m2-complete",
         progress: 0,
+        comingSoon: true,
       },
       {
         id: "gaming-vocab",
@@ -186,6 +188,7 @@ export function getMockCourse(languageId: string): Course {
         meta: "14 words · attack, level up, boss",
         unlockAfter: "ja-m2-complete",
         progress: 0,
+        comingSoon: true,
       },
       {
         id: "daily-challenge",
@@ -194,6 +197,7 @@ export function getMockCourse(languageId: string): Course {
         meta: "+20 XP · 60s timer",
         progress: 0,
         isDaily: true,
+        comingSoon: true,
       },
     ];
 
@@ -435,6 +439,7 @@ export function getMockCourse(languageId: string): Course {
         title: "Survival Phrasebook",
         meta: "15 essentials · ~5 min · travel-ready",
         progress: 0,
+        comingSoon: true,
       },
       {
         id: "kdrama-vocab",
@@ -442,6 +447,7 @@ export function getMockCourse(languageId: string): Course {
         title: "K-drama Vocab",
         meta: "12 words · oppa, daebak…",
         progress: 0,
+        comingSoon: true,
       },
       {
         id: "kfood-vocab",
@@ -450,6 +456,7 @@ export function getMockCourse(languageId: string): Course {
         meta: "10 words · 비빔밥, 김치, 라면",
         unlockAfter: "ko-m1-complete",
         progress: 0,
+        comingSoon: true,
       },
       {
         id: "daily-challenge",
@@ -458,6 +465,7 @@ export function getMockCourse(languageId: string): Course {
         meta: "+20 XP · 60s timer",
         progress: 0,
         isDaily: true,
+        comingSoon: true,
       },
     ];
 

@@ -5,6 +5,7 @@ import type { IconName } from "@/shared/iconRegistry";
 import { GitHubBadge } from "@/shared/components/GitHubBadge";
 import { Avatar } from "./components/Avatar";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 
 // Mock data — wire to real APIs once contributor + tag aggregation exists.
 // Brief explicitly OK'd fake data for the marketplace feel.
@@ -27,18 +28,26 @@ const MOCK_TRENDING_TAGS = [
 export function CommunityRightRail() {
   const { t } = useTranslation();
   const langPath = useLangPath();
+  const flags = useFeatureFlags();
 
+  // Submit-story is gated behind community.tabs.contribute — keep the
+  // entry-point flag-aligned so the right rail doesn't dead-end users
+  // into a route they can't access.
   const quickActions: Array<{ to: string; icon: IconName; label: string }> = [
     {
       to: langPath("community/decks/new"),
       icon: "plus",
       label: t("community.quickActionCreateDeck", "Create deck"),
     },
-    {
-      to: langPath("community/contribute/create/story"),
-      icon: "bookOpen",
-      label: t("community.quickActionSubmitStory", "Submit story"),
-    },
+    ...(flags.community.tabs.contribute
+      ? ([
+          {
+            to: langPath("community/contribute/create/story"),
+            icon: "bookOpen" as IconName,
+            label: t("community.quickActionSubmitStory", "Submit story"),
+          },
+        ] as const)
+      : []),
     {
       to: langPath("community/decks/new?import=anki"),
       icon: "upload",
@@ -71,7 +80,7 @@ export function CommunityRightRail() {
               <span className="inline-flex min-w-0 items-center gap-2">
                 <Avatar name={handle} size="xs" />
                 <Link
-                  to={langPath(`community/contributors/${handle}`)}
+                  to={`/u/${handle}`}
                   className="truncate text-text-primary hover:text-accent"
                 >
                   @{handle}

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useApi } from "@/shared/api/provider";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -10,7 +10,11 @@ import {
 } from "@/shared/domain/languageConfig";
 import { CommunityDecksLayout } from "./CommunityDecksLayout";
 import { CommunityItemCard, type CommunityItemCardItem } from "./components/CommunityItemCard";
-import type { DeckCreate, DeckResponse } from "@/shared/api/decks";
+import type { DeckCard, DeckCreate, DeckResponse } from "@/shared/api/decks";
+import {
+  parseDelimitedCards,
+  type DelimiterMode,
+} from "./parseDelimitedCards";
 
 type CreationMode = "blank" | "duplicate";
 
@@ -43,6 +47,9 @@ export function DeckCreatePage() {
   const langPath = useLangPath();
   const { language } = useLanguage();
   const { decks: decksApi } = useApi();
+  const [searchParams] = useSearchParams();
+  const importMode = searchParams.get("import");
+  const isImporting = importMode === "anki";
 
   const [name, setName] = useState("");
   const [languageId, setLanguageId] = useState<string>(defaultLanguageId(language?.id));
@@ -55,6 +62,16 @@ export function DeckCreatePage() {
   const [myDecksLoading, setMyDecksLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Import-mode state (only used when ?import=anki). Kept here so the
+  // submit handler can reach the parsed cards without prop-drilling.
+  const [pasteText, setPasteText] = useState("");
+  const [pasteMode, setPasteMode] = useState<DelimiterMode>("tsv");
+  const [showPreview, setShowPreview] = useState(false);
+  const parsed = useMemo(
+    () => (isImporting && showPreview ? parseDelimitedCards(pasteText, pasteMode) : null),
+    [isImporting, showPreview, pasteText, pasteMode],
+  );
 
   useEffect(() => {
     let ok = true;
@@ -85,6 +102,12 @@ export function DeckCreatePage() {
     duplicateValid &&
     !submitting;
 
+  function newCardId(): string {
+    return typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : `card-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!canSubmit) return;
@@ -106,11 +129,20 @@ export function DeckCreatePage() {
         const sourceCards = source.cards ?? [];
         payload.cards = sourceCards.map((c) => ({
           ...c,
-          id:
-            typeof crypto !== "undefined" && "randomUUID" in crypto
-              ? crypto.randomUUID()
-              : `card-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+          id: newCardId(),
         }));
+      }
+
+      // Import-mode: turn the parsed front/back rows into DeckCard records.
+      if (isImporting && parsed && parsed.rows.length > 0) {
+        const importCards: DeckCard[] = parsed.rows.map((r) => ({
+          id: newCardId(),
+          front: r.front,
+          back: r.back,
+          type: "word",
+          note: r.note,
+        }));
+        payload.cards = [...payload.cards, ...importCards];
       }
 
       const created = await decksApi.createDeck(payload);
@@ -229,12 +261,133 @@ export function DeckCreatePage() {
       <div className="mx-auto w-full max-w-3xl">
         <header className="mb-6">
           <h1 className="text-2xl font-bold text-text-primary">
-            {t("community.deckCreateTitle")}
+            {isImporting
+              ? t("community.deckCreateImportTitle", "Import cards")
+              : t("community.deckCreateTitle")}
           </h1>
           <p className="mt-1 text-sm text-text-secondary">
-            {t("community.deckCreateSubtitle")}
+            {isImporting
+              ? t(
+                  "community.deckCreateImportSubtitle",
+                  "Paste tab-, comma-, or pipe-separated cards. Each row needs at least a front and a back.",
+                )
+              : t("community.deckCreateSubtitle")}
           </p>
         </header>
+
+        {isImporting && (
+          <div
+            data-testid="deck-create-import-panel"
+            className="mb-6 rounded-xl border border-border bg-surface p-6 shadow-sm"
+          >
+            <p className="rounded-lg border border-info/30 bg-info/10 px-3 py-2 text-xs text-info">
+              {t(
+                "community.deckCreateImportApkgNote",
+                "Importing from an .apkg file? That's coming later — for now, export your Anki deck to a text file first.",
+              )}
+            </p>
+
+            <label
+              htmlFor="deck-paste"
+              className="mt-4 mb-1 block text-sm font-medium text-text-primary"
+            >
+              {t("community.deckCreatePasteLabel", "Paste cards")}
+            </label>
+            <textarea
+              id="deck-paste"
+              rows={8}
+              value={pasteText}
+              onChange={(e) => {
+                setPasteText(e.target.value);
+                setShowPreview(false);
+              }}
+              placeholder={"front\tback\nfront\tback"}
+              className="w-full rounded-lg border border-border bg-surface px-3 py-2 font-mono text-sm text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+
+            <fieldset className="mt-3 flex flex-wrap items-center gap-3">
+              <legend className="sr-only">
+                {t("community.deckCreateFormat", "Format")}
+              </legend>
+              <span className="text-xs font-medium uppercase tracking-wider text-text-muted">
+                {t("community.deckCreateFormat", "Format")}:
+              </span>
+              {(["tsv", "csv", "pipe"] as DelimiterMode[]).map((m) => (
+                <label
+                  key={m}
+                  className="inline-flex items-center gap-1.5 text-sm text-text-secondary"
+                >
+                  <input
+                    type="radio"
+                    name="paste-format"
+                    value={m}
+                    checked={pasteMode === m}
+                    onChange={() => {
+                      setPasteMode(m);
+                      setShowPreview(false);
+                    }}
+                  />
+                  {m.toUpperCase()}
+                </label>
+              ))}
+              <button
+                type="button"
+                onClick={() => setShowPreview(true)}
+                disabled={!pasteText.trim()}
+                className="ml-auto rounded-md border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text-primary hover:bg-surface-muted disabled:opacity-60"
+              >
+                {t("community.deckCreatePreviewButton", "Preview")}
+              </button>
+            </fieldset>
+
+            {parsed && (
+              <div className="mt-4 rounded-lg border border-border bg-surface-muted p-3">
+                <p className="text-xs text-text-secondary">
+                  {t("community.deckCreateImportCardCount", {
+                    count: parsed.rows.length,
+                    defaultValue: "{{count}} cards parsed",
+                  })}
+                  {parsed.errors.length > 0 &&
+                    ` · ${t("community.deckCreateImportErrorCount", {
+                      count: parsed.errors.length,
+                      defaultValue: "{{count}} skipped",
+                    })}`}
+                </p>
+                {parsed.rows.length > 0 && (
+                  <table className="mt-2 w-full table-fixed border-collapse text-xs">
+                    <thead className="text-left text-text-muted">
+                      <tr>
+                        <th className="py-1 pr-2 font-medium">Front</th>
+                        <th className="py-1 pr-2 font-medium">Back</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {parsed.rows.slice(0, 5).map((r, i) => (
+                        <tr key={i} className="border-t border-border">
+                          <td className="py-1 pr-2 align-top text-text-primary">
+                            {r.front}
+                          </td>
+                          <td className="py-1 pr-2 align-top text-text-primary">
+                            {r.back}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+                {parsed.errors.length > 0 && (
+                  <ul className="mt-2 max-h-32 overflow-y-auto rounded border border-border bg-surface px-2 py-1 text-[11px] text-error">
+                    {parsed.errors.slice(0, 8).map((e, i) => (
+                      <li key={i}>
+                        Line {e.line}: {e.message}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         <form
           onSubmit={handleSubmit}

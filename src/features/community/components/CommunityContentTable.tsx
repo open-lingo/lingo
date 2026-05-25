@@ -21,6 +21,12 @@ export type CommunityContentRow = {
   image?: string | null;
   /** Destination of row click + primary action. */
   to: string;
+  /**
+   * When set, the row name renders as a button that fires this callback
+   * instead of navigating to ``to``. Used to open an in-page preview
+   * modal for decks/stories where ``to`` is a fallback only.
+   */
+  onRowClick?: () => void;
   /** True when current user is subscribed (drives action button label). */
   isSubscribed?: boolean;
   /** True when current user owns this deck (drives action button to "Edit"). */
@@ -147,8 +153,8 @@ function NameCell({ row }: { row: CommunityContentRow }) {
       ? getDeckImageUrl(row.image)
       : row.image
     : null;
-  return (
-    <Link to={row.to} className="flex min-w-0 items-center gap-3 group">
+  const inner = (
+    <>
       <div
         className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-surface-muted text-text-muted"
         aria-hidden
@@ -169,6 +175,22 @@ function NameCell({ row }: { row: CommunityContentRow }) {
           {row.description}
         </div>
       </div>
+    </>
+  );
+  if (row.onRowClick) {
+    return (
+      <button
+        type="button"
+        onClick={row.onRowClick}
+        className="flex min-w-0 w-full items-center gap-3 group text-left"
+      >
+        {inner}
+      </button>
+    );
+  }
+  return (
+    <Link to={row.to} className="flex min-w-0 items-center gap-3 group">
+      {inner}
     </Link>
   );
 }

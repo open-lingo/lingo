@@ -58,6 +58,13 @@ export interface DeckResponse {
   updatedAt?: string;
   companionToStoryId?: string | null;
   cards: DeckCard[];
+  /** Total upvotes on this deck. Always present (0 when no votes). */
+  voteCount?: number;
+}
+
+export interface DeckVoteState {
+  count: number;
+  voted: boolean;
 }
 
 export class DecksApi extends ApiClient {
@@ -158,6 +165,29 @@ export class DecksApi extends ApiClient {
   ): Promise<DeckResponse> {
     return this.patch<DeckResponse>(
       `${PREFIX}/admin/${deckId}/status?status=${status}`
+    );
+  }
+
+  // ── Voting ────────────────────────────────────────────────
+
+  /** Get current vote count + whether the viewer has voted. */
+  async getDeckVoteState(deckId: string): Promise<DeckVoteState> {
+    return this.get<DeckVoteState>(
+      `${PREFIX}/${encodeURIComponent(deckId)}/vote`,
+    );
+  }
+
+  /** Upvote a deck. Idempotent — voting again is a no-op. */
+  async voteOnDeck(deckId: string): Promise<DeckVoteState> {
+    return this.post<DeckVoteState>(
+      `${PREFIX}/${encodeURIComponent(deckId)}/vote`,
+    );
+  }
+
+  /** Remove the current user's vote on a deck. */
+  async removeDeckVote(deckId: string): Promise<DeckVoteState> {
+    return this.delete<DeckVoteState>(
+      `${PREFIX}/${encodeURIComponent(deckId)}/vote`,
     );
   }
 }

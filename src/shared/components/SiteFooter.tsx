@@ -74,7 +74,7 @@ export function SiteFooter({ className = "" }: { className?: string }) {
           <a
             href="http://kanjivg.tagaini.net"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="text-text-secondary hover:text-text-primary"
           >
             KanjiVG
@@ -83,7 +83,7 @@ export function SiteFooter({ className = "" }: { className?: string }) {
           <a
             href="https://creativecommons.org/licenses/by-sa/3.0/"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="text-text-secondary hover:text-text-primary"
           >
             CC BY-SA 3.0
@@ -118,7 +118,7 @@ function FooterExternal({ href, children }: { href: string; children: React.Reac
     <a
       href={href}
       target="_blank"
-      rel="noreferrer"
+      rel="noopener noreferrer"
       className="text-sm text-text-secondary hover:text-text-primary"
     >
       {children}

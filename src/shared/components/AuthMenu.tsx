@@ -6,6 +6,7 @@ import { useAuth } from "@/shared/auth/useAuth";
 import { canModerateCommunityContent, canAccessSiteAdmin } from "@/shared/auth/roles";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useApi } from "@/shared/api/provider";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { resolveUserAvatarUrl } from "@/shared/auth/resolveUserAvatarUrl";
 import { getStoredProfile } from "@/features/settings/profileStorage";
 import { ApiError } from "@/shared/api/client";
@@ -24,6 +25,7 @@ export function AuthMenu() {
   const profile = user?.sub ? getStoredProfile(user.sub) : null;
   const { openSettings, openProfile } = useModal();
   const { openThemeEditor } = useTheme();
+  const flags = useFeatureFlags();
 
   const { data: me } = useQuery({
     queryKey: ["users", "me"],
@@ -111,7 +113,7 @@ export function AuthMenu() {
               {t("profile.editProfile")}
             </Button>
           )}
-          {showModeration && (
+          {showModeration && flags.community.tabs.contribute && (
             <Link
               to={langPath("community/contribute/admin")}
               className={menuLinkClass}
