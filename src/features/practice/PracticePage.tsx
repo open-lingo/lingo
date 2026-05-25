@@ -17,6 +17,8 @@ import {
   getDueReviews,
   reviewModuleIdFor,
 } from "@/features/lesson/data/moduleReviewSchedule";
+import { useCourseLevel } from "@/features/practice/useCourseLevel";
+import { PRACTICE_FEATURES } from "@/features/practice/practiceUnlockConfig";
 
 // MOCK: weekly practice minutes — replace with telemetry/store-derived aggregate.
 const MOCK_PRACTICE_WEEK_MINUTES = [12, 0, 8, 5, 14, 6, 9];
@@ -96,6 +98,7 @@ export function PracticePage() {
 
   const { dueCount, isLoading: dueLoading } = useFlashcardDueSummary(langId);
   const { stats, isReady } = useUserStats();
+  const courseLevel = useCourseLevel();
 
   // Module reviews — surface a Practice-page jump card when any are due.
   const reviewCourse = useMemo(() => getMockCourse(langId), [langId]);
@@ -421,6 +424,58 @@ export function PracticePage() {
           </ul>
         </section>
       ) : null}
+
+      {/* Zone 2.75 — Skill drills (unlock-gated by course progress) */}
+      {langId === "ja" && (
+        <section aria-labelledby="practice-skills-heading">
+          <div className="mb-2">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+              {t("practice.skills.kicker", { defaultValue: "Skill drills" })}
+            </p>
+            <h2 id="practice-skills-heading" className="text-base font-semibold text-text-primary">
+              {t("practice.skills.headline", { defaultValue: "Targeted practice" })}
+            </h2>
+          </div>
+          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {PRACTICE_FEATURES.map((feat) => {
+              const unlocked = courseLevel >= feat.unlockAtModule;
+              return (
+                <li key={feat.id}>
+                  {unlocked ? (
+                    <Link
+                      to={langPath(feat.route)}
+                      className="group flex h-full items-start gap-3 rounded-xl border border-border bg-surface p-3 transition hover:border-accent hover:bg-surface-muted"
+                    >
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-muted text-base font-bold text-accent">
+                        {feat.icon}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold text-text-primary">{feat.title}</p>
+                        <p className="text-xs text-text-muted">{feat.description}</p>
+                      </div>
+                    </Link>
+                  ) : (
+                    <div className="flex h-full items-start gap-3 rounded-xl border border-border bg-surface-muted/50 p-3 opacity-60">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-muted text-base font-bold text-text-muted">
+                        <Icon name="lock" size={18} />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold text-text-secondary">{feat.title}</p>
+                        <p className="text-xs text-text-muted">
+                          {t("practice.skills.unlocksAt", {
+                            defaultValue: "Unlocks at Module {{module}}",
+                            module: feat.unlockAtModule,
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       {/* Zone 3 — Domain sections */}
       <div className="space-y-3">

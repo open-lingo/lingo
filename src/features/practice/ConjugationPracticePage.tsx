@@ -88,7 +88,7 @@ export function ConjugationPracticePage() {
 
   const [category, setCategory] = useState<Category>("verbs");
   const [_mode] = useState<Mode>("mcq");
-  const [maxModule, setMaxModule] = useState<number>(courseLevel);
+  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, 7));
   const [selectedForms, setSelectedForms] = useState<Set<string>>(
     () => new Set(["masu", "nai", "te", "ta"]),
   );

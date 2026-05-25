@@ -19,6 +19,10 @@ import { KanjiPracticePage } from "@/features/practice/KanjiPracticePage";
 import { AlphabetPracticePage } from "@/features/practice/AlphabetPracticePage";
 import { ComponentsPracticePage } from "@/features/practice/ComponentsPracticePage";
 import { VideosPracticePage } from "@/features/practice/VideosPracticePage";
+import { ConjugationPracticePage } from "@/features/practice/ConjugationPracticePage";
+import { ReadingPracticePage } from "@/features/practice/ReadingPracticePage";
+import { SpeakingPracticePage } from "@/features/practice/SpeakingPracticePage";
+import { CounterPracticePage } from "@/features/practice/CounterPracticePage";
 import { GrammarRedirect } from "@/features/grammar/GrammarRedirect";
 import { RootRoute } from "@/routes/RootRoute";
 import { LandingRoute } from "@/routes/LandingRoute";
@@ -276,6 +280,10 @@ const router = createBrowserRouter([
                   { path: "alphabet/:alphabetId", element: <AlphabetPracticePage /> },
                   { path: "alphabet", element: <PracticeAlphabetHubPage /> },
                   { path: "kanji", element: <KanjiPracticePage /> },
+                  { path: "conjugation", element: <ConjugationPracticePage /> },
+                  { path: "reading", element: <ReadingPracticePage /> },
+                  { path: "speaking", element: <SpeakingPracticePage /> },
+                  { path: "counters", element: <CounterPracticePage /> },
                   { path: "components", element: <ComponentsPracticePage /> },
                   { path: "videos", element: <VideosPracticePage /> },
                   { path: "external-content", element: <ExternalContentPracticePage /> },

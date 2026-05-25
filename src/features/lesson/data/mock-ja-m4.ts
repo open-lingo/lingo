@@ -798,15 +798,37 @@ export const M4_3_1: LessonContent = {
         "Is it the teacher's dictionary?",
       ],
     }),
+    // ── も (also/too) — grammar rule + cloze drills ──
+    grammarRule({
+      id: "ja-m4-3-1-rule-mo",
+      title: "も — also / too",
+      rule: "も replaces は when you want to say 'also' or 'too.' It marks the topic as being the same as something mentioned before.",
+      examples: [
+        { ja: "わたしは がくせいです", romaji: "watashi wa gakusei desu", en: "I am a student" },
+        { ja: "ともだちも がくせいです", romaji: "tomodachi mo gakusei desu", en: "My friend is also a student" },
+        { ja: "コーヒーも おいしいです", romaji: "koohii mo oishii desu", en: "Coffee is also delicious" },
+      ],
+      antiPattern: { ja: "ともだちはも がくせいです", romaji: "tomodachi wa mo gakusei desu", en: "(Using は and も together)", why: "も replaces は — don't use both. Say ともだちも, not ともだちはも." },
+    }),
     cloze(
-      "ja-m4-3-1-cloze-ha",
-      "これ",
-      " わたしの かさです。",
+      "ja-m4-3-1-cloze-mo",
+      "ともだち",
+      " がくせいです。",
+      "も",
+      ["は", "も", "が", "の"],
+      "My friend is also a student.",
+      "ともだちも がくせいです。",
+      "も replaces は to mean 'also'.",
+    ),
+    cloze(
+      "ja-m4-3-1-cloze-wa-vs-mo",
+      "わたし",
+      " せんせいです。",
       "は",
-      ["は", "の", "が", "を"],
-      "This is my umbrella.",
-      "これは わたしの かさです。",
-      "Two particles: は (topic) + の (possession).",
+      ["は", "も", "が", "の"],
+      "I am a teacher.",
+      "わたしは せんせいです。",
+      "は introduces a new topic; も would mean 'also'.",
     ),
     speaking("ja-m4-3-1-speak-kasa", "わたしの かさです", "It's my umbrella."),
     sentenceMcq({
@@ -829,18 +851,7 @@ export const M4_3_1: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m4-3-1-rev-speak-1", M4_3_1_REVIEW[0].kana, M4_3_1_REVIEW[0].meaningEn),
-    listeningCompSentence({
-      id: "ja-m4-3-1-rev-lc-1",
-      audioText: M4_3_1_REVIEW[1].kana,
-      correctMeaningEn: M4_3_1_REVIEW[1].meaningEn,
-      distractorsEn: [
-        M4_3_1_REVIEW[2].meaningEn,
-        M4_3_1_REVIEW[3].meaningEn,
-        M4_REVIEW_M2_POOL[0].meaningEn,
-      ],
-    }),
     vocabMcq("ja-m4-3-1-rev-mcq-1", M4_3_1_REVIEW[2], M4_REVIEW_M1_POOL),
-    speaking("ja-m4-3-1-rev-speak-2", M4_3_1_REVIEW[3].kana, M4_3_1_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m4-3-1-rev", M4_3_1_REVIEW),
     infoStep(
       "ja-m4-3-1-info-end",

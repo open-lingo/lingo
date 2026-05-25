@@ -303,26 +303,45 @@ export const M6_1_2: LessonContent = {
       correctKana: "コンビニ",
       distractorsKana: ["トイレ", "みせ", "えき"],
     }),
-    // free-recall production — kana MCQ
-    sentenceMcq({
-      id: "ja-m6-1-2-translate-toire",
-      prompt: "toilet",
-      promptAudioText: "トイレ",
-      correctKana: "トイレ",
-      distractorsKana: ["コンビニ", "みせ", "へや"],
+    // ── ここ / そこ / あそこ — location pointers ──
+    grammarRule({
+      id: "ja-m6-1-2-rule-koko",
+      title: "ここ / そこ / あそこ — here / there / over there",
+      rule: "Just like これ/それ/あれ for things, ここ/そこ/あそこ mark places. ここ = near you, そこ = near the listener, あそこ = far from both. You already know どこ (where) from Module 5.",
+      examples: [
+        { ja: "ここは こうえんです", romaji: "koko wa kouen desu", en: "Here is a park" },
+        { ja: "そこに トイレが あります", romaji: "soko ni toire ga arimasu", en: "There is a toilet there" },
+        { ja: "あそこに えきが あります", romaji: "asoko ni eki ga arimasu", en: "There is a station over there" },
+      ],
+      antiPattern: {
+        ja: "これは こうえんです",
+        romaji: "kore wa kouen desu",
+        en: "(Using これ for a place instead of ここ)",
+        why: "これ points at a THING; ここ points at a PLACE. 'Here is a park' needs ここ, not これ.",
+      },
     }),
+    cloze(
+      "ja-m6-1-2-cloze-koko",
+      "",
+      "は こうえんです。",
+      "ここ",
+      ["ここ", "そこ", "あそこ", "どこ"],
+      "Here is a park.",
+      "ここは こうえんです。",
+      "ここ = here (near the speaker), like これ but for places.",
+    ),
+    cloze(
+      "ja-m6-1-2-cloze-asoko",
+      "",
+      "に えきが あります。",
+      "あそこ",
+      ["ここ", "そこ", "あそこ", "どこ"],
+      "There is a station over there.",
+      "あそこに えきが あります。",
+      "あそこ = over there (far from both), like あれ but for places.",
+    ),
     // ── Review tail ──
     speaking("ja-m6-1-2-rev-speak-1", M6_1_2_REVIEW[1].kana, M6_1_2_REVIEW[1].meaningEn),
-    listeningCompSentence({
-      id: "ja-m6-1-2-rev-lc",
-      audioText: M6_1_2_REVIEW[2].kana,
-      correctMeaningEn: M6_1_2_REVIEW[2].meaningEn,
-      distractorsEn: [
-        M6_1_2_REVIEW[3].meaningEn,
-        M6_1_2_REVIEW[4].meaningEn,
-        M6_1_2_REVIEW[5].meaningEn,
-      ],
-    }),
     reviewMatchPairs("ja-m6-1-2-rev", M6_1_2_REVIEW.slice(0, 5)),
     infoStep(
       "ja-m6-1-2-info-end",

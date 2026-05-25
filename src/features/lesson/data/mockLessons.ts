@@ -802,7 +802,7 @@ export function getMockLessonContent(
     return augmented;
   }
 
-  const reviewMatch = /^ja-(m[3-7])-review-([12])$/.exec(lessonId);
+  const reviewMatch = /^ja-(m\d+)-review-([12])$/.exec(lessonId);
   if (reviewMatch) {
     return buildSrsReviewLesson({
       moduleId: reviewMatch[1],

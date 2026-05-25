@@ -12,7 +12,7 @@ export function ReadingPracticePage() {
   const courseLevel = useCourseLevel();
 
   const [furiganaMode, setFuriganaMode] = useState<FuriganaMode>("hover");
-  const [maxModule, setMaxModule] = useState<number>(courseLevel);
+  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, 7));
   const [currentPassageIdx, setCurrentPassageIdx] = useState(0);
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);

@@ -13,7 +13,7 @@ export function SpeakingPracticePage() {
   const courseLevel = useCourseLevel();
 
   const [mode, setMode] = useState<SpeakingMode>("echo");
-  const [maxModule, setMaxModule] = useState<number>(courseLevel);
+  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, 5));
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState<string | null>(null);

@@ -905,6 +905,18 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#f43f5e", to: "#e11d48" },
         },
+        // M28 — N5 Mastery Capstone (review-only, no new grammar)
+        {
+          id: "m28",
+          title: "N5 Mastery",
+          eyebrow: "Module 28 · Capstone",
+          summary: "Cumulative review of all N5 grammar and vocabulary. You made it!",
+          lessons: [
+            { id: "ja-m28-review-1", title: "N5 Review — Grammar", status: "available" as const },
+            { id: "ja-m28-review-2", title: "N5 Review — Vocabulary", status: "available" as const },
+          ],
+          accent: { from: "#eab308", to: "#ca8a04" },
+        },
       ],
       sideQuests,
     };
