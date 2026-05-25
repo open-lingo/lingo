@@ -45,7 +45,8 @@
     "lingotsLoading": "Loading lingots…"
   },
   "authMenu": {
-    "themeLabel": "Theme"
+    "themeLabel": "Theme",
+    "viewProfile": "View profile"
   },
   "legal": {
     "lastUpdated": "Last updated",
@@ -1446,6 +1447,17 @@
     }
   },
   "social": {
+    "addFriend": {
+      "add": "Add friend",
+      "sending": "Sending…",
+      "pending": "Pending",
+      "friends": "Friends",
+      "self": "You"
+    },
+    "preview": {
+      "viewProfile": "View profile",
+      "dialogLabel": "Profile preview"
+    },
     "mobileNav": {
       "aria": "Social sections",
       "spotlight": "Spotlight",

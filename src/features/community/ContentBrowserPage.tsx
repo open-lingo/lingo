@@ -786,30 +786,42 @@ export function ContentBrowserPage() {
             </div>
           ) : (
             <div className="grid gap-3 sm:grid-cols-1 xl:grid-cols-2">
-              {pagedRows.map((row) => (
-                <CommunityItemCard
-                  key={row.id}
-                  item={{
-                    id: row.id,
-                    name: row.name,
-                    description: row.description ?? "",
-                    languageId: row.languageId,
-                    kind: row.kind,
-                    itemCount: row.itemCount,
-                    upvoteCount: row.upvoteCount,
-                    maintainerName: row.authorName,
-                    image: row.image ?? null,
-                  }}
-                  variant="full"
-                  t={t}
-                  langPath={langPath}
-                  isSubscribed={row.isSubscribed}
-                  subscribeLoading={row.actionLoading}
-                  onSubscribe={row.onAction}
-                  onUnsubscribe={row.onAction}
-                  showCommunityBadge
-                />
-              ))}
+              {pagedRows.map((row) => {
+                // Wire the preview button on the card to the same callback the
+                // row-name click uses. ``row.onRowClick`` is built upstream to
+                // call ``openDeckPreview`` or ``openStoryPreview`` based on the
+                // row's kind, so we forward it to the appropriate prop here.
+                const onPreview =
+                  row.kind === "flashcard-pack" ? row.onRowClick : undefined;
+                const onStoryPreviewProp =
+                  row.kind === "story" ? row.onRowClick : undefined;
+                return (
+                  <CommunityItemCard
+                    key={row.id}
+                    item={{
+                      id: row.id,
+                      name: row.name,
+                      description: row.description ?? "",
+                      languageId: row.languageId,
+                      kind: row.kind,
+                      itemCount: row.itemCount,
+                      upvoteCount: row.upvoteCount,
+                      maintainerName: row.authorName,
+                      image: row.image ?? null,
+                    }}
+                    variant="full"
+                    t={t}
+                    langPath={langPath}
+                    isSubscribed={row.isSubscribed}
+                    subscribeLoading={row.actionLoading}
+                    onSubscribe={row.onAction}
+                    onUnsubscribe={row.onAction}
+                    onPreview={onPreview}
+                    onStoryPreview={onStoryPreviewProp}
+                    showCommunityBadge
+                  />
+                );
+              })}
             </div>
           )}
 

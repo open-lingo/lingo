@@ -4,6 +4,7 @@ import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { useDeckVote } from "../hooks/useDeckVote";
 import { Avatar } from "./Avatar";
+import { UserPreviewPopover } from "@/features/social/components/UserPreviewPopover";
 import type { AddonKind } from "../types";
 
 const ADDON_KIND_KEYS: Record<AddonKind, string> = {
@@ -23,6 +24,9 @@ export type CommunityItemCardItem = {
   upvoteCount?: number;
   discussionCount?: number;
   maintainerName?: string;
+  /** Public handle of the maintainer — when present, the maintainer chip
+   *  opens a profile preview popover with an "Add friend" action. */
+  maintainerUsername?: string;
   image?: string | null;
   deckId?: string;
   storyId?: string;
@@ -165,10 +169,26 @@ export function CommunityItemCard({
           )}
         </div>
         {item.maintainerName && (
-          <div className="mt-2 flex items-center gap-1.5">
-            <Avatar name={item.maintainerName} size="xs" />
-            <span className="text-xs text-text-muted">{item.maintainerName}</span>
-          </div>
+          item.maintainerUsername ? (
+            <div className="mt-2">
+              <UserPreviewPopover
+                username={item.maintainerUsername}
+                displayName={item.maintainerName}
+              >
+                <span className="inline-flex items-center gap-1.5">
+                  <Avatar name={item.maintainerName} size="xs" />
+                  <span className="text-xs text-text-muted hover:text-text-primary">
+                    {item.maintainerName}
+                  </span>
+                </span>
+              </UserPreviewPopover>
+            </div>
+          ) : (
+            <div className="mt-2 flex items-center gap-1.5">
+              <Avatar name={item.maintainerName} size="xs" />
+              <span className="text-xs text-text-muted">{item.maintainerName}</span>
+            </div>
+          )
         )}
       </div>
       <div className="flex shrink-0 flex-col items-end gap-2">

@@ -40,7 +40,7 @@ export function LearnSidebar({
   const { t } = useTranslation();
 
   return (
-    <aside className="space-y-6 lg:sticky lg:top-4 lg:self-start">
+    <aside className="space-y-6 lg:sticky lg:top-4 lg:self-start lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">
       <ProfileCard profile={profile} />
       <div className="flex justify-center">
         <QuestsPill size="md" />

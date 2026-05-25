@@ -6,6 +6,7 @@ import { GitHubBadge } from "@/shared/components/GitHubBadge";
 import { Avatar } from "./components/Avatar";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { UserPreviewPopover } from "@/features/social/components/UserPreviewPopover";
 
 // Mock data — wire to real APIs once contributor + tag aggregation exists.
 // Brief explicitly OK'd fake data for the marketplace feel.
@@ -77,15 +78,22 @@ export function CommunityRightRail() {
         <ul className="space-y-2">
           {MOCK_TOP_CONTRIBUTORS.map(({ handle, upvotes }) => (
             <li key={handle} className="flex items-center justify-between gap-2 text-sm">
-              <span className="inline-flex min-w-0 items-center gap-2">
-                <Avatar name={handle} size="xs" />
-                <Link
-                  to={`/u/${handle}`}
-                  className="truncate text-text-primary hover:text-accent"
-                >
-                  @{handle}
-                </Link>
-              </span>
+              <UserPreviewPopover
+                username={handle}
+                displayName={`@${handle}`}
+                statsLine={t("community.contributorStatsUpvotes", {
+                  upvotes: upvotes.toLocaleString(),
+                  defaultValue: "{{upvotes}} upvotes",
+                })}
+                className="min-w-0"
+              >
+                <span className="inline-flex min-w-0 items-center gap-2">
+                  <Avatar name={handle} size="xs" />
+                  <span className="truncate text-text-primary hover:text-accent">
+                    @{handle}
+                  </span>
+                </span>
+              </UserPreviewPopover>
               <span className="inline-flex items-center gap-1 shrink-0 text-xs tabular-nums text-text-muted">
                 <Icon name="star" size={12} aria-hidden />
                 {upvotes.toLocaleString()}

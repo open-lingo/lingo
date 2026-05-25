@@ -5,6 +5,8 @@ import { Icon } from "@/shared/components/Icon";
 import { CommunityDecksLayout } from "./CommunityDecksLayout";
 import { Avatar } from "./components/Avatar";
 import { DataTable, type DataTableColumn } from "@/shared/components/data";
+import { UserPreviewPopover } from "@/features/social/components/UserPreviewPopover";
+import { AddFriendButton } from "@/features/social/components/AddFriendButton";
 
 type Contributor = {
   handle: string;
@@ -109,21 +111,28 @@ export function ContributorsPage() {
       key: "name",
       label: t("community.contributorName", "Contributor"),
       render: (c) => (
-        <Link
-          to={`/u/${c.handle}`}
-          className="group flex min-w-0 items-center gap-3"
+        <UserPreviewPopover
+          username={c.handle}
+          displayName={c.displayName}
+          statsLine={t("community.contributorStatsLine", {
+            decks: c.decksCount,
+            upvotes: c.upvotes.toLocaleString(),
+            defaultValue: "{{decks}} decks · {{upvotes}} upvotes",
+          })}
         >
-          <Avatar name={c.displayName} size="sm" />
-          <div className="min-w-0">
-            <div className="flex items-center gap-1.5">
-              <span className="truncate font-medium text-text-primary group-hover:text-accent">
-                {c.displayName}
+          <span className="group inline-flex min-w-0 items-center gap-3">
+            <Avatar name={c.displayName} size="sm" />
+            <span className="min-w-0">
+              <span className="flex items-center gap-1.5">
+                <span className="truncate font-medium text-text-primary group-hover:text-accent">
+                  {c.displayName}
+                </span>
+                {c.badge && <BadgePill kind={c.badge} />}
               </span>
-              {c.badge && <BadgePill kind={c.badge} />}
-            </div>
-            <div className="truncate text-xs text-text-muted">@{c.handle}</div>
-          </div>
-        </Link>
+              <span className="block truncate text-xs text-text-muted">@{c.handle}</span>
+            </span>
+          </span>
+        </UserPreviewPopover>
       ),
     },
     {
@@ -158,6 +167,12 @@ export function ContributorsPage() {
       label: t("community.contributorJoined", "Joined"),
       className: "hidden lg:table-cell text-right",
       render: (c) => <span className="text-text-muted">{c.joinedYear}</span>,
+    },
+    {
+      key: "addFriend",
+      label: "",
+      className: "text-right",
+      render: (c) => <AddFriendButton targetUsername={c.handle} size="sm" />,
     },
     {
       key: "action",
