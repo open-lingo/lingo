@@ -116,8 +116,13 @@ export function ReactionRow({
             disabled={disabled}
             onClick={() => toggle(kind)}
             className={cn(
+              // Tap target: even the "sm" pill is at least 32px tall on mobile
+              // (min-h-8) so reactions don't become unhittable on a phone.
+              // The "md" variant stretches to a comfortable 36px.
               "inline-flex items-center gap-1 rounded-full border font-semibold transition",
-              size === "sm" ? "px-2 py-0.5 text-xs" : "px-2.5 py-1 text-sm",
+              size === "sm"
+                ? "min-h-8 px-2.5 py-1 text-xs"
+                : "min-h-9 px-3 py-1.5 text-sm",
               isOnNow
                 ? "border-accent bg-accent-muted text-accent"
                 : "border-border bg-surface text-text-secondary hover:border-accent hover:bg-accent-muted hover:text-accent",

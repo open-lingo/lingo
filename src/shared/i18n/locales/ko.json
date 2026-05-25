@@ -41,7 +41,10 @@
     "guestLogin": "로그인",
     "guestStart": "시작",
     "lingotsTooltip": "링곳 {{count}}개",
-    "lingotsLoading": "링곳 불러오는 중…"
+    "lingotsLoading": "링곳 불러오는 중…",
+    "openMenu": "메뉴 열기",
+    "closeMenu": "메뉴 닫기",
+    "mobileLabel": "모바일 내비게이션"
   },
   "authMenu": {
     "themeLabel": "테마",

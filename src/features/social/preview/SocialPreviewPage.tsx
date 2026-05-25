@@ -140,14 +140,14 @@ function MobileTabButton({
       aria-selected={isActive}
       onClick={() => onClick(tab)}
       className={cn(
-        "flex flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-1.5 text-xs font-semibold transition",
+        "flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-sm font-semibold transition",
         isActive
           ? "bg-accent text-on-accent shadow-sm"
           : "text-text-secondary hover:bg-surface-muted hover:text-text-primary",
       )}
     >
-      <Icon name={icon} size={13} aria-hidden />
-      {label}
+      <Icon name={icon} size={15} aria-hidden />
+      <span className="truncate">{label}</span>
     </button>
   );
 }

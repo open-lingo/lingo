@@ -32,7 +32,7 @@ export function LanguageSelector() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-1.5 rounded-lg border border-border px-2 py-1.5 text-sm font-medium text-text-primary transition hover:bg-surface-muted sm:gap-2 sm:px-3 sm:py-2"
+        className="flex min-h-9 items-center gap-1.5 rounded-lg border border-border px-2 py-1 text-sm font-medium text-text-primary transition hover:bg-surface-muted sm:gap-2 sm:px-3 sm:py-2"
         aria-expanded={open}
         aria-haspopup="listbox"
         aria-label="Select language"
@@ -62,7 +62,7 @@ export function LanguageSelector() {
                     navigate(`/${lang.id}${rest}`);
                   }
                 }}
-                className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
+                className="flex min-h-[44px] w-full items-center gap-3 px-4 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
               >
                 <span className="text-xl leading-none">{lang.flag}</span>
                 <span>{lang.name}</span>
