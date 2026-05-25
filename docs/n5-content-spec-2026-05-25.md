@@ -73,7 +73,7 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ---
 
-### M8 — i-Adjectives (い-adjective conjugation)
+### M8 — i-Adjectives + Kanji parallel track begins
 
 **Grammar:**
 - この/その/あの/どの (adnominal demonstratives)
@@ -85,9 +85,19 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 - i-adjectives: おおきい, ちいさい, たかい, やすい, あたらしい, ふるい, いい/よい, わるい, おいしい, まずい, あつい, さむい, つめたい, あたたかい/すずしい, ながい, みじかい, おもしろい, つまらない, むずかしい, やさしい, はやい, おそい, ちかい, とおい
 - Concrete nouns for context: まち (town), しんぶん (newspaper), テスト (test)
 
-**New step types:** `dialogue_listen` (already built) used heavily here
+**Kanji (parallel track, ~5-8 per module from here):**
+First set: 一 二 三 四 五 六 七 八 九 十 (numbers — learner already knows いち through じゅう from M5). Recognition-only. Furigana shown by default, fades as recognition improves per SRS state. Kanji ONLY appear on words the learner already knows — never on new vocab.
 
-**Practice feature note:** Adjective conjugation drill in Practice tab — show base form, learner picks/types the requested conjugation (present → negative → past → past negative). Reusable for na-adj in M9, verbs in M10+.
+**Kanji-in-lesson policy:**
+- Kanji are introduced in dedicated kanji sub-lessons (1-2 per module) using `kanji_intro` + `kanji_recognition` step types
+- In regular vocab/grammar lessons, kanji appears ONLY with furigana on words already taught: 水(みず), 本(ほん), 食(た)べる etc.
+- Furigana scaffolding: always-on initially → hover-to-reveal after the kanji's SRS recognition state reaches "Good" interval ≥ 3d → hidden after interval ≥ 14d
+- The `AnnotatedJa` component already supports furigana; the kanji display policy reads from SRS kanji recognition state
+- Learner can override furigana display in Settings (already has `showAlphabetFurigana` toggle)
+
+**New step types:** `dialogue_listen` (already built) used heavily here. `kanji_intro` + `kanji_recognition` (extend symbol_intro/recognition family — see practice-features-spec §2).
+
+**Practice feature note:** Conjugation drill (Practice tab) ships here. Kanji recognition drill (Practice tab) ships here.
 
 ---
 
@@ -102,28 +112,29 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 **Vocab targets (~25 atoms):**
 - na-adjectives: きれい, しずか, にぎやか, ゆうめい, すき, きらい, じょうず, へた, げんき, ひま, たいへん, べんり, ふべん, だいじょうぶ, かんたん
 - Supporting nouns: びょういん (hospital), としょかん (library), プール (pool)
-- Adverbs: とても, すこし, ちょっと, あまり
+- Adverbs: とても, すこし, ちょっと (NOTE: あまり/ぜんぜん deferred to M11 — they require negative predicates)
 
-**Practice feature note:** Same conjugation drill surface — extend to support na-adj pattern.
+**Kanji (~6):** 大 小 高 安 新 古 (all anchor to i-adj already learned in M8: おおきい→大きい, ちいさい→小さい, etc.)
 
 ---
 
-### M10 — Past tense
+### M10 — Past tense (polite forms only — NO た-form)
 
 **Grammar:**
 - ます past: たべました
 - です past: でした / じゃなかったです
 - い-adj past: たかかった / たかくなかった
 - な-adj past: きれいでした / きれいじゃなかったです
-- た-form (dictionary form past — conceptual intro, not て-form derivation yet)
+
+**NOTE:** た-form (plain past) is NOT taught here. It shares formation rules with て-form, so both are taught together at M14 (て first, た as derivative). M10 focuses solely on polite past forms which are regular and don't require the godan sound-change table.
 
 **Vocab targets (~30 atoms):**
 - Time words (past-oriented): きのう, おととい, せんしゅう, せんげつ, きょねん, おととし
 - Daily activity verbs: おきる, ねる, あるく, はしる, およぐ, あそぶ, はたらく, べんきょうする, でかける
 
-**New step types:** `reading_passage` — 3-5 sentence passage in past tense, comprehension MCQs. First use here.
+**Kanji (~6):** 日 月 年 今 先 来 (time kanji — anchor to きのう→昨日 is deferred, but 日→にち/び, 月→がつ/げつ, 年→ねん are wired to M12's time vocab which learners preview here)
 
-**Practice feature note:** Reading practice in Practice tab — curated passages by module level, comprehension MCQs, furigana toggle. Reusable for all M10+ content.
+**New step types:** `reading_passage` — first use. 3-5 sentence passage in past tense, comprehension MCQs. See practice-features-spec §3.
 
 ---
 
@@ -137,116 +148,117 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 - fill_blank step type woken up for verb-form drills
 
 **Vocab targets (~25 atoms):**
-- Frequency adverbs: いつも, よく, ときどき, たいてい, ぜんぜん
+- Frequency adverbs: いつも, よく, ときどき, たいてい, ぜんぜん, あまり (moved here from M9 — these require negative predicates: あまりたべません, ぜんぜんわかりません)
 - Negation-context verbs: わかる, しる, もつ, かかる, いる (need)
 - Time: いま, まいにち, まいしゅう, まいつき, まいとし
+
+**Kanji (~5):** 人 子 女 男 学 (people — anchor to already-known がくせい→学生, おとこ→男, おんな→女 etc.)
 
 **Practice feature note:** `self_explanation_mcq` deployed here — after particle_cloze with は vs が or ます vs ない, ask "why is this form correct?"
 
 ---
 
-### M12 — Time & Calendar
+### M12 — Time & Calendar (clock + days only — months deferred to M13)
 
 **Grammar:**
 - Clock time: 〜じ (hours), 〜ふん/ぷん (minutes)
 - Days of the week: げつようび through にちようび
-- Months: いちがつ through じゅうにがつ
 - に (time): "さんじに あいます" (meet at 3:00)
 - Numbers 11-99
 
-**Vocab targets (~40 atoms — high-volume module):**
+**Vocab targets (~30 atoms — reduced from 42 by deferring months):**
 - Clock: いちじ-じゅうにじ, はん (half), ごぜん, ごご
 - Days: げつようび, かようび, すいようび, もくようび, きんようび, どようび, にちようび
-- Months: いちがつ through じゅうにがつ (compound number+month)
-- Time expressions: あさ, ひる, よる/ばん, ゆうがた, あした, あさって, こんしゅう, らいしゅう, こんげつ, らいげつ, ことし, らいねん
+- Time expressions: あさ, ひる, よる/ばん, ゆうがた, あした, あさって, こんしゅう, らいしゅう, ことし, らいねん
 
-**Practice feature note:** Clock reading drill in Practice — show analog/digital clock, pick/type the Japanese time reading. Counter drill — practice irregular time readings (よじ not よんじ, etc.).
+**Kanji (~6):** 時 分 半 百 千 万 (time + large numbers — anchor to じ→時, ふん→分, はん→半, ひゃく→百, せん→千, まん→万)
+
+**Practice feature note:** Counter drill (Practice tab) ships here — practice irregular time readings (よじ not よんじ, くじ not きゅうじ).
 
 ---
 
-### M13 — Frequency & Daily routines
+### M13 — Months + Frequency + から (because)
 
 **Grammar:**
+- Months: いちがつ through じゅうにがつ (absorbed from old M12 — keeps M12 at ~30 vocab)
 - Frequency spectrum: いつも → よく → ときどき → あまり〜ない → ぜんぜん〜ない
 - から (time-based): "くじから ごじまで" (from 9 to 5)
+- から (because — moved here from M28): "あめだから、いきません" (it's raining so I won't go)
 - まで (until): pairs with から for time ranges
-- に (frequency): "いっしゅうかんに さんかい" (3 times a week)
+
+**NOTE:** から (because) moved from M28. Genki teaches it at Lesson 6. Students need causal reasoning much earlier than M28 — it's one of the highest-leverage grammar points. The time-based から ("from 9 to 5") and the reason から ("because it's raining") are taught in the same module since they share the particle. Lessons clearly differentiate the two uses.
 
 **Vocab targets (~30 atoms):**
+- Months: いちがつ through じゅうにがつ
 - Routine verbs: おふろにはいる, シャワーをあびる, はをみがく, かおをあらう, ふくをきる, でんきをつける/けす
-- Places (daily): かいしゃ, こうじょう, きっさてん, こうえん
-- Transport: でんしゃ, バス, じてんしゃ, くるま, ひこうき, ちかてつ
+- Places (daily): かいしゃ, こうじょう, きっさてん
+
+**Kanji (~5):** 火 水 木 金 土 (days-of-week kanji — anchor to かようび→火曜日 etc. Learner already knows the days from M12.)
 
 ---
 
-### M14 — Kanji Set 1 (Numbers + Time) + Numbers 100-10,000
+### M14 — Te-form + Ta-form (Formation + Requests)
 
 **Grammar:**
+- て-form formation rules (Group 1 / Group 2 / Irregular) — THE core lesson
+- た-form as て-form derivative: replace て→た, で→だ (taught immediately after て-form, not as a separate concept)
+- 〜てください (request): まってください, みせてください
 - Numbers 100-10,000: ひゃく, せん, まん
-- Counters: 個 (general), 枚 (flat things), 本 (cylindrical things)
-- Kanji recognition: 一二三四五六七八九十百千万日月年時分半
+
+**NOTE:** て-form and た-form are co-taught here (matching Genki/Minna order). The godan sound-change table is taught ONCE for て-form, then た-form is presented as "same changes, swap て→た" — 5 minutes of instruction. This replaces the old M10 た-form + M16 て-form split that would have taught the table twice.
 
 **Vocab targets (~25 atoms):**
+- Request verbs: まつ, みせる, おしえる, てつだう, かす, とる
+- Objects: でんわ, カメラ, しゃしん, かぎ, さいふ
 - Large numbers: ひゃく, にひゃく, さんびゃく, せん, にせん, いちまん
-- Counter words with irregular readings
-- Kanji anchor vocab (words that use the new kanji in context)
 
-**New step types:** `kanji_intro` + `kanji_recognition` — extend symbol_intro/recognition family
+**Kanji (~6):** 食 飲 見 聞 読 書 (verb kanji — anchor to すでに知っている verbs: たべる→食べる, のむ→飲む, みる→見る, きく→聞く, よむ→読む, かく→書く)
 
-**Practice feature note:** Kanji recognition drill in Practice — show kanji, pick reading or meaning. Flashcard-style with SRS. Counter practice — show "3 bottles" image, pick さんぼん vs さんほん vs さんぽん.
+**New step types:** `verb_conjugation` — conjugation table drill. Show dictionary form, learner picks て-form. Critical for te-form mastery. See practice-features-spec §1.
+
+**Counters:** 個 (general), 枚 (flat things), 本 (cylindrical things)
 
 ---
 
-### M15 — Wants & Desires
+### M15 — Te-form applications + Wants & Desires
 
 **Grammar:**
+- 〜ている (progressive): たべている, べんきょうしている
+- 〜てもいいです (permission): ここにすわってもいいですか
 - V-stem + たい (want to do): たべたい, のみたい, いきたい
 - がほしい (want a thing): みずがほしい
-- すき/きらい + のが (like/dislike doing): りょうりをするのがすきです
 - けど/けれども (but — basic contrastive): たべたいけど、じかんがない
 
+**NOTE:** ている and てもいい land here (one module after て-form formation in M14), giving learners immediate productive use of their new て-form knowledge. たい and ほしい round out the "express desires" theme.
+
 **Vocab targets (~25 atoms):**
+- Progressive context: すむ, もつ, しる
 - Desire-context: りょうり (cooking), りょこう (travel), かいもの (shopping), さんぽ (walk/stroll)
 - Hobbies preview: おんがく (music), えいが (movie), スポーツ (sports), ゲーム (game)
 - Feelings: うれしい, かなしい, さびしい, たのしい
 
----
-
-### M16 — Te-form Part 1 (Formation + Requests + Progressive)
-
-**Grammar:**
-- て-form formation rules (Group 1 / Group 2 / Irregular)
-- 〜てください (request): まってください, みせてください
-- 〜ている (progressive): たべている, べんきょうしている
-- を/で/に rotation with て-form verbs
-
-**Vocab targets (~30 atoms):**
-- Request verbs: まつ, みせる, おしえる, てつだう, かす, とる
-- Progressive context: すむ, はたらく, もつ, しる
-- Objects: でんわ, カメラ, しゃしん, かぎ, さいふ
-
-**New step types:** `verb_conjugation` — conjugation table drill. Show dictionary form, learner picks て-form. Critical for te-form mastery.
-
-**Practice feature note:** Conjugation practice in Practice tab — verb conjugation drill across all learned forms. Show dictionary form → pick ます/ない/た/て form. Track accuracy per verb group. This is the highest-leverage practice feature for N5.
+**Kanji (~5):** 行 来 入 出 休 (movement/state kanji — いく→行く, くる→来る, はいる→入る, でる→出る, やすむ→休む)
 
 ---
 
-### M17 — Te-form Part 2 (Permission + Prohibition + Sequence)
+### M16 — Te-form Part 2 (Prohibition + Sequence + ないで)
 
 **Grammar:**
-- 〜てもいいです (permission): ここにすわってもいいですか
 - 〜てはいけません (prohibition): ここでたばこをすってはいけません
 - 〜ないでください (negative request): さわらないでください
 - 〜てから (after doing): しゅくだいをしてから、テレビをみる
+- すき/きらい + のが (like/dislike doing): りょうりをするのがすきです
 
 **Vocab targets (~25 atoms):**
-- Permission/prohibition context: すわる, さわる, すう, とめる, はいる, でる
+- Permission/prohibition context: すわる, さわる, すう, とめる
 - Sequence verbs: かえる, あらう, きがえる, しゅくだい
 - Places: きょうしつ, じむしょ, エレベーター, かいだん
 
+**Kanji (~5):** 上 下 中 前 後 (direction/position kanji — うえ→上, した→下, なか→中, まえ→前, うしろ→後ろ)
+
 ---
 
-### M18 — Transportation & Directions
+### M17 — Transportation & Directions
 
 **Grammar:**
 - で (means of transport): でんしゃでいく
@@ -264,7 +276,7 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ---
 
-### M19 — Weather & Nature + でしょう
+### M18 — Weather & Nature + でしょう
 
 **Grammar:**
 - でしょう (probability): あしたはあめでしょう
@@ -278,7 +290,7 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ---
 
-### M20 — Family & People
+### M19 — Family & People
 
 **Grammar:**
 - Family register system: うち vs よそ (my mother = はは, your mother = おかあさん)
@@ -291,7 +303,7 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ---
 
-### M21 — Body & Health
+### M20 — Body & Health
 
 **Grammar:**
 - 〜がいたい (hurts): あたまがいたい, おなかがいたい
@@ -305,7 +317,7 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ---
 
-### M22 — Food & Restaurants (expanded)
+### M21 — Food & Restaurants (expanded)
 
 **Grammar:**
 - と (quotation): 「いただきます」というでしょう
@@ -319,17 +331,7 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ---
 
-### M23 — Kanji Set 2 (Body + Family + Food + common verbs)
-
-**Grammar:**
-- Kanji recognition drill (no new grammar — consolidation)
-- 人男女子父母兄姉口目耳手足食飲
-
-**Vocab targets:** No new vocab — kanji anchor words drawn from M20-M22 vocab
-
----
-
-### M24 — Comparison
+### M22 — Comparison
 
 **Grammar:**
 - 〜のほうが〜より (A is more than B): にほんのほうがアメリカよりちいさいです
@@ -343,7 +345,7 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ---
 
-### M25 — Capability & Suggestions
+### M23 — Capability & Suggestions
 
 **Grammar:**
 - 〜のがじょうずです (good at doing)
@@ -359,7 +361,7 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ---
 
-### M26 — Hobbies & Activities
+### M24 — Hobbies & Activities
 
 **Grammar:**
 - 〜のがすきです (like doing): えいがをみるのがすきです
@@ -373,7 +375,7 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ---
 
-### M27 — Plans & Intentions
+### M25 — Plans & Intentions
 
 **Grammar:**
 - つもりです (intend to): にほんにいくつもりです
@@ -388,13 +390,13 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ---
 
-### M28 — Causality & Reasoning
+### M26 — Explanatory & Excess
 
 **Grammar:**
-- 〜から (because): あめだから、いきません
-- 〜ので (because, softer): つかれたので、はやくねました
 - 〜んです (explanatory): どうしたんですか / あたまがいたいんです
 - 〜すぎる (too much): たべすぎた、のみすぎた
+
+**NOTE:** から(because) moved to M13. ので stays at M20 (Body & Health context).
 
 **Vocab targets (~20 atoms):**
 - Reason context: つかれる, こまる, おくれる, まちがえる, わすれる
@@ -403,26 +405,38 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ---
 
-### M29 — Kanji Set 3 (Verbs + Nature) + ない-form deepening
+### M27 — Modal Grammar + Remaining
 
 **Grammar:**
 - 〜なければならない / 〜なくちゃ (must do)
 - 〜ほうがいい (should / better to)
 - 〜く/〜になる (become — adj transformation)
-- Kanji: 見聞言行来食飲読書山川海雨花水火木金土
 
 **Vocab targets (~20 atoms):**
 - Remaining verbs and nature words not yet placed
-- Kanji anchor words
+- Modal context: しなければならない, いかなければならない
 
 ---
 
-### M30 — N5 Mastery Capstone
+### M28 — Consolidation + remaining kanji
+
+**Grammar:**
+- No new grammar — consolidation of M8-M27
+- Remaining N5 kanji introduced on already-known words
+- Cross-module review scenarios
+
+**Vocab targets (~20 atoms):**
+- Core 2K gap fill: highest-frequency words not in N5 list but needed for practical Japanese
+- Common katakana loanwords: テーブル, ベッド, シャワー, エアコン
+
+---
+
+### M29 — N5 Mastery Capstone
 
 **Grammar:**
 - No new grammar — cumulative review
 - Full N5 mock test simulation (vocab + grammar + reading + listening sections)
-- Timed drill mode matching actual JLPT format
+- Timed drill mode matching actual JLPT format (see practice-features-spec §6)
 
 **Vocab targets:** None new — review only
 
@@ -432,82 +446,105 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ## 4. Vocab roll-up
 
-| Module | Theme | New vocab | Cumulative |
-|--------|-------|-----------|------------|
-| M3-M7 | (existing) | 196 | 196 |
-| M8 | i-Adjectives | ~30 | ~226 |
-| M9 | na-Adjectives | ~25 | ~251 |
-| M10 | Past tense | ~30 | ~281 |
-| M11 | Negation | ~25 | ~306 |
-| M12 | Time & Calendar | ~40 | ~346 |
-| M13 | Frequency | ~30 | ~376 |
-| M14 | Kanji Set 1 | ~25 | ~401 |
-| M15 | Wants & Desires | ~25 | ~426 |
-| M16 | Te-form Part 1 | ~30 | ~456 |
-| M17 | Te-form Part 2 | ~25 | ~481 |
-| M18 | Transportation | ~30 | ~511 |
-| M19 | Weather & Nature | ~25 | ~536 |
-| M20 | Family | ~30 | ~566 |
-| M21 | Body & Health | ~25 | ~591 |
-| M22 | Food expanded | ~30 | ~621 |
-| M23 | Kanji Set 2 | 0 | ~621 |
-| M24 | Comparison | ~25 | ~646 |
-| M25 | Capability | ~25 | ~671 |
-| M26 | Hobbies | ~25 | ~696 |
-| M27 | Plans | ~25 | ~721 |
-| M28 | Causality | ~20 | ~741 |
-| M29 | Kanji Set 3 | ~20 | ~761 |
-| M30 | Capstone | 0 | ~761 |
+| Module | Theme | New vocab | Kanji | Cumulative vocab |
+|--------|-------|-----------|-------|-----------------|
+| M3-M7 | (existing) | 196 | 0 | 196 |
+| M8 | i-Adjectives + kanji start | ~30 | 10 (一-十) | ~226 |
+| M9 | na-Adjectives | ~25 | 6 (大小高安新古) | ~251 |
+| M10 | Polite past (no た-form) | ~30 | 6 (日月年今先来) | ~281 |
+| M11 | Negation | ~25 | 5 (人子女男学) | ~306 |
+| M12 | Time + days (no months) | ~30 | 6 (時分半百千万) | ~336 |
+| M13 | Months + frequency + から(because) | ~30 | 5 (火水木金土) | ~366 |
+| M14 | Te-form + ta-form + counters | ~25 | 6 (食飲見聞読書) | ~391 |
+| M15 | ている + てもいい + wants | ~25 | 5 (行来入出休) | ~416 |
+| M16 | Te-form Part 2 + すき/きらい | ~25 | 5 (上下中前後) | ~441 |
+| M17 | Transportation | ~30 | 5 (北南東西左右) | ~471 |
+| M18 | Weather & Nature + でしょう | ~25 | 5 (山川海雨花) | ~496 |
+| M19 | Family | ~30 | 5 (父母兄姉友) | ~526 |
+| M20 | Body & Health + ので | ~25 | 5 (口目耳手足) | ~551 |
+| M21 | Food expanded | ~30 | 4 (魚肉茶店) | ~581 |
+| M22 | Comparison | ~25 | 3 (長白黒) | ~606 |
+| M23 | Capability + suggestions | ~25 | 3 (生先名) | ~631 |
+| M24 | Hobbies | ~25 | 3 (電車駅) | ~656 |
+| M25 | Plans + intentions | ~25 | 3 (校園国) | ~681 |
+| M26 | Causality + んです | ~20 | 2 (外天) | ~701 |
+| M27 | Modal + remaining grammar | ~20 | 2 (気語) | ~721 |
+| M28 | Consolidation + remaining kanji | ~20 | remaining | ~741 |
+| M29 | N5 capstone | 0 | 0 | ~741 |
 
-**Gap to 800:** ~39 words. Fill from Core 2K by frequency. Candidates: common katakana loanwords, remaining everyday nouns, useful expressions not in the N5 list but high-frequency in real Japanese.
+**Gap to 800:** ~59 words. Fill from Core 2K by frequency. Candidates: common katakana loanwords, remaining everyday nouns, useful expressions not in the N5 list but high-frequency in real Japanese. Distribute across M22-M28 as "fluency layer" additions.
+
+**Kanji total in spine:** ~93 across M8-M28 (recognition-only). Remaining ~7 N5 kanji go in a sidequest module or ★ review additions.
 
 ---
 
-## 5. Grammar roll-up
+## 5. Grammar roll-up (revised 2026-05-25 post-audit)
 
 | Module | New grammar points | Cumulative |
 |--------|-------------------|------------|
 | M3-M7 | 17 | 17 |
 | Backfill | も, ここ/そこ/あそこ | 19 |
-| M8 | この/その/あの/どの, i-adj negative, と | 22 |
-| M9 | na-adj present/negative, よ, ね | 26 |
-| M10 | Past tense (ます/です/i-adj/na-adj/た-form) | 31 |
+| M8 | この/その/あの/どの, i-adj present (formal), i-adj negative, と | 23 |
+| M9 | na-adj present/negative, よ, ね | 27 |
+| M10 | Polite past (ました/でした/i-adj past/na-adj past) — NO た-form | 31 |
 | M11 | ない-form, ません, ませんでした, まだ/もう | 35 |
 | M12 | Time に, numbers 11-99, counters 時/分 | 38 |
-| M13 | Frequency, まで, から(time) | 41 |
-| M14 | Numbers 100-10000, counters 個/枚/本 | 44 |
-| M15 | たい, ほしい, すき/きらい+の, けど | 48 |
-| M16 | て-form, てください, ている | 51 |
-| M17 | てもいい, てはいけない, ないで, てから | 55 |
-| M18 | へ, までに, まえに | 58 |
-| M19 | でしょう, とおもいます | 60 |
-| M20 | Family register, 〜さい | 62 |
-| M21 | がいたい, ので | 64 |
-| M22 | と(quote), や, counter 杯 | 67 |
-| M24 | より, いちばん, どちら | 70 |
-| M25 | じょうず/へた, ましょう, ませんか | 73 |
-| M26 | のがすき, たり〜たりする | 75 |
-| M27 | つもり, にいく, ことがある, とき | 79 |
-| M28 | から(because), ので, んです, すぎる | 83 |
-| M29 | なければならない, ほうがいい, になる | 86 |
+| M13 | Months, frequency, まで, から(time), **から(because)** | 43 |
+| M14 | **て-form, た-form (derivative), てください**, numbers 100-10000, counters 個/枚/本 | 49 |
+| M15 | **ている, てもいい**, たい, ほしい, けど | 54 |
+| M16 | てはいけない, ないでください, てから, すき/きらい+の | 58 |
+| M17 | へ, で(transport), までに, まえに | 62 |
+| M18 | でしょう, とおもいます | 64 |
+| M19 | Family register, 〜さい | 66 |
+| M20 | がいたい, ので | 68 |
+| M21 | と(quote), や, counter 杯 | 71 |
+| M22 | より, いちばん, どちら | 74 |
+| M23 | じょうず/へた, ましょう, ませんか | 77 |
+| M24 | のがすき, たり〜たりする | 79 |
+| M25 | つもり, にいく, ことがある, とき | 83 |
+| M26 | んです, すぎる | 85 |
+| M27 | なければならない, ほうがいい, になる | 88 |
 
-**Final count: ~86 grammar points** — covers the full JLPT Sensei 84-point list + a few extras.
+**Final count: ~88 grammar points.** から(because) moved to M13, て/た consolidated at M14, ので stays at M20. Covers the full JLPT Sensei 84-point list + practical extras.
 
 ---
 
 ## 6. Kanji plan
 
-**3 kanji modules (M14, M23, M29) + optional sidequest:**
+**Distributed across M8-M28 (parallel track, ~5-8 per module):**
 
-| Module | Kanji count | Characters | Category |
-|--------|-------------|------------|----------|
-| M14 | 18 | 一二三四五六七八九十百千万日月年時分半 | Numbers + time |
-| M23 | 16 | 人男女子父母兄姉口目耳手足食飲水 | Body + family + food |
-| M29 | 18 | 見聞言行来読書山川海雨花火木金土上下 | Verbs + nature + directions |
-| **Total in spine** | **52** | | |
-| Sidequest | ~48 | 大小高安新古長白赤青北南東西中外前後左右入出休学校先生車電話 etc. | Common N5 remainder |
+Kanji are introduced ONLY on words the learner already knows. Each module's kanji sub-lesson connects new characters to familiar vocabulary. Recognition-only — no productive writing required at N5.
 
-Recognition-only. No productive writing required at N5. The sidequest kanji module unlocks after M23 for learners who want to go deeper before M29.
+| Module | Count | Characters | Anchor words (already known) |
+|--------|-------|------------|------------------------------|
+| M8 | 10 | 一二三四五六七八九十 | いち→一, に→二, ... じゅう→十 (from M5) |
+| M9 | 6 | 大小高安新古 | おおきい→大きい, ちいさい→小さい (from M8) |
+| M10 | 6 | 日月年今先来 | にちようび→日曜日, げつようび→月曜日 (from M12 preview) |
+| M11 | 5 | 人子女男学 | がくせい→学生, おとこ→男 (from M3-M4) |
+| M12 | 6 | 時分半百千万 | じ→時, ふん→分, はん→半 (from M12 grammar) |
+| M13 | 5 | 火水木金土 | かようび→火曜日 (from M12), みず→水 (from M3) |
+| M14 | 6 | 食飲見聞読書 | たべる→食べる, のむ→飲む (from M7) |
+| M15 | 5 | 行来入出休 | いく→行く, くる→来る (from M7+) |
+| M16 | 5 | 上下中前後 | うえ→上, した→下 (from M6 location vocab) |
+| M17 | 6 | 北南東西左右 | directions (from M18 transport context) |
+| M18 | 5 | 山川海雨花 | やま→山, かわ→川, うみ→海 (from M18-M19) |
+| M19 | 5 | 父母兄姉友 | ちち→父, はは→母 (from M19-M20 family) |
+| M20 | 5 | 口目耳手足 | くち→口, め→目, て→手 (from M20-M21 body) |
+| M21 | 4 | 魚肉茶店 | さかな→魚, にく→肉 (from M21-M22 food) |
+| M22-M28 | ~14 | 長白黒生先名電車駅校園国外天気語 | distributed with vocab themes |
+| **Total** | **~93** | | |
+| Sidequest | ~7 | remaining N5 kanji | optional enrichment |
+
+**Furigana scaffolding (critical — how kanji appears in regular lessons):**
+
+Kanji never appears "naked" on a word the learner hasn't seen before. The progression:
+
+1. **Before kanji intro:** word appears in kana only (みず, たべる)
+2. **After kanji intro (SRS interval < 3d):** word appears as 水(みず), 食(た)べる — furigana always visible
+3. **After SRS interval ≥ 3d:** furigana shows on hover/tap only — learner expected to recognize
+4. **After SRS interval ≥ 14d:** furigana hidden entirely (but always available in Settings toggle)
+
+Implementation: `AnnotatedJa` already supports ruby rendering. Add a `kanjiMastery` lookup (from `lingo:kanji-practice` localStorage state) that controls furigana visibility per character. The Settings toggle `showAlphabetFurigana` overrides to always-show.
 
 ---
 
@@ -590,7 +627,7 @@ Backfill into M4 or M5. Currently the most glaring omission.
 M3 exposes adjectives (あかい, あおい, おおきい) without conjugation rules. This is intentional — M8 formally teaches i-adj conjugation. No move needed, but M8's intro should acknowledge "you've seen these before."
 
 ### 9.3 から dual meaning
-M5 ships から as "from" (origin). M28 teaches から as "because" (reason). These are genuinely different grammar points. No conflict — just needs clear lesson copy distinguishing them.
+M5 ships から as "from" (origin). M13 teaches から as "because" (reason). These are genuinely different grammar points taught in the same module to leverage the shared particle. Lessons clearly differentiate the two uses with distinct examples and self_explanation_mcq follow-ups.
 
 ### 9.4 が existence-only → full subject marker
 M6 teaches が through あります/います only. The full は vs が distinction is deferred. This is correct per the roadmap — forcing は/が contrast at M6 would be premature. The contrast emerges naturally as more grammar accumulates. Consider a dedicated は/が contrast lesson as a sidequest around M15.
@@ -610,38 +647,34 @@ M5-M7 have `BUILD_SENTENCE_SUNSET_MODULES` which strips build steps. The 2026-05
 5. Build `verb_conjugation` step type
 6. Build `kanji_intro` / `kanji_recognition` step types
 
-**Phase 2 — M8-M11 (Adjectives + Past + Negation)**
-7. Author M8 content (i-adj)
-8. Author M9 content (na-adj)
-9. Author M10 content (past tense) + reading practice
+**Phase 2 — M8-M11 (Adjectives + Past + Negation + Kanji start)**
+7. Author M8 content (i-adj + kanji numbers 一-十)
+8. Author M9 content (na-adj + kanji 大小高安新古)
+9. Author M10 content (polite past — NO た-form) + reading practice
 10. Author M11 content (negation) + self_explanation_mcq deployment
 11. TTS generation for M8-M11 vocab
 12. Unit tests for M8-M11
 
-**Phase 3 — M12-M15 (Time + Kanji + Desires)**
-13. Author M12-M15 content
-14. Build kanji step types
-15. Build counter practice
-16. TTS generation
-17. Unit tests
+**Phase 3 — M12-M16 (Time + Te-form + Desires)**
+13. Author M12 (clock + days + kanji 時分半百千万)
+14. Author M13 (months + frequency + から-because + kanji 火水木金土)
+15. Author M14 (て-form + た-form — densest content + kanji 食飲見聞読書)
+16. Author M15 (ている + てもいい + wants + kanji 行来入出休)
+17. Author M16 (te-form pt2 + kanji 上下中前後)
+18. Build counter practice
+19. TTS + tests
 
-**Phase 4 — M16-M19 (Te-form + Transport + Weather)**
-18. Author M16-M17 (te-form — the densest content)
-19. Build verb_conjugation step type (if not done in Phase 1)
-20. Author M18-M19
+**Phase 4 — M17-M21 (Transport + Weather + Family + Body + Food)**
+20. Author M17-M21
 21. Expand speaking practice
 22. TTS + tests
 
-**Phase 5 — M20-M23 (Family + Body + Food + Kanji 2)**
-23. Author M20-M23
-24. TTS + tests
-
-**Phase 6 — M24-M30 (Comparison + Capability + Plans + Capstone)**
-25. Author M24-M30
-26. Build mock test mode
-27. Core 2K gap fill
-28. Final TTS + tests
-29. Full N5 coverage audit
+**Phase 5 — M22-M29 (Comparison + Capability + Plans + Capstone)**
+23. Author M22-M29
+24. Build mock test mode
+25. Core 2K gap fill
+26. Final TTS + tests
+27. Full N5 coverage audit
 
 ---
 
