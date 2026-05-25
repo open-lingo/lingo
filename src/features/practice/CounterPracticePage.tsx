@@ -2,9 +2,12 @@ import { useState, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useCourseLevel } from "./useCourseLevel";
-import { getCountersUpToModule, type CounterDef } from "./data/ja-counters";
+import type { CounterDef } from "./data/ja-counters";
+import { getCounterDefs, getTtsLang } from "./data/practiceDataLoader";
 import { playJaAudio } from "@/shared/japanese/tts";
+import { recordPracticeResult, pickWeighted } from "./practiceStats";
 
 function shuffle<T>(arr: T[]): T[] {
   const result = [...arr];
@@ -24,7 +27,7 @@ type Question = {
 
 function generateQuestion(counters: CounterDef[]): Question | null {
   if (counters.length === 0) return null;
-  const counter = counters[Math.floor(Math.random() * counters.length)];
+  const counter = pickWeighted(counters, (c) => c.id, "counters");
   const reading = counter.readings[Math.floor(Math.random() * counter.readings.length)];
 
   const distractors = new Set<string>();
@@ -54,14 +57,23 @@ function generateQuestion(counters: CounterDef[]): Question | null {
 export function CounterPracticePage() {
   const { t } = useTranslation();
   const courseLevel = useCourseLevel();
+  const { language } = useLanguage();
+  const langId = language?.id ?? "ja";
+  const ttsLang = getTtsLang(langId);
 
-  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, 5));
+  const allCounters = useMemo(() => getCounterDefs(langId), [langId]);
+  const minLevel = allCounters.length > 0 ? Math.min(...allCounters.map((c) => c.introducedAtModule)) : 1;
+
+  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, minLevel));
   const [selectedCounter, setSelectedCounter] = useState<string>("all");
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [stats, setStats] = useState({ correct: 0, total: 0, streak: 0 });
 
-  const counters = useMemo(() => getCountersUpToModule(maxModule), [maxModule]);
+  const counters = useMemo(
+    () => allCounters.filter((c) => c.introducedAtModule <= maxModule),
+    [allCounters, maxModule],
+  );
 
   const pool = useMemo(
     () => (selectedCounter === "all" ? counters : counters.filter((c) => c.id === selectedCounter)),
@@ -86,8 +98,9 @@ export function CounterPracticePage() {
       total: prev.total + 1,
       streak: isCorrect ? prev.streak + 1 : 0,
     }));
+    recordPracticeResult("counters", `${question.counter.id}:${question.number}`, isCorrect);
     if (isCorrect) {
-      playJaAudio(question.correct);
+      playJaAudio(question.correct, ttsLang);
     }
   };
 
@@ -150,7 +163,7 @@ export function CounterPracticePage() {
               }}
               className="rounded-md border border-border bg-surface px-2 py-1 text-sm text-text-primary"
             >
-              {Array.from({ length: Math.max(1, courseLevel - 4) }, (_, i) => i + 5).map((m) => (
+              {Array.from({ length: Math.max(1, courseLevel - (minLevel - 1)) }, (_, i) => i + minLevel).map((m) => (
                 <option key={m} value={m}>
                   Up to M{m}
                 </option>

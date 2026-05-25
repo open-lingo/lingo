@@ -2,18 +2,28 @@ import { useState, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useCourseLevel } from "./useCourseLevel";
-import { SPEAKING_PROMPTS, type SpeakingPrompt } from "./data/ja-speaking-prompts";
+import type { SpeakingPrompt } from "./data/ja-speaking-prompts";
+import { getSpeakingPrompts, getTtsLang, getSpeechRecognitionLang } from "./data/practiceDataLoader";
 import { playJaAudio } from "@/shared/japanese/tts";
+import { recordPracticeResult } from "./practiceStats";
 
 type SpeakingMode = "echo" | "response";
 
 export function SpeakingPracticePage() {
   const { t } = useTranslation();
   const courseLevel = useCourseLevel();
+  const { language } = useLanguage();
+  const langId = language?.id ?? "ja";
+
+  const allPrompts = useMemo(() => getSpeakingPrompts(langId), [langId]);
+  const minLevel = allPrompts.length > 0 ? Math.min(...allPrompts.map((p) => p.minModule)) : 1;
+  const ttsLang = getTtsLang(langId);
+  const speechLang = getSpeechRecognitionLang(langId);
 
   const [mode, setMode] = useState<SpeakingMode>("echo");
-  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, 5));
+  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, minLevel));
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState<string | null>(null);
@@ -22,19 +32,19 @@ export function SpeakingPracticePage() {
 
   const prompts = useMemo(
     () =>
-      SPEAKING_PROMPTS.filter(
+      allPrompts.filter(
         (p) => p.minModule <= maxModule && p.mode === mode,
       ),
-    [maxModule, mode],
+    [allPrompts, maxModule, mode],
   );
 
   const prompt = prompts[currentIdx] as SpeakingPrompt | undefined;
 
   const handlePlay = useCallback(() => {
     if (prompt) {
-      playJaAudio(prompt.targetPhrase);
+      playJaAudio(prompt.targetPhrase, ttsLang);
     }
-  }, [prompt]);
+  }, [prompt, ttsLang]);
 
   const handleRecord = () => {
     if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) {
@@ -49,7 +59,7 @@ export function SpeakingPracticePage() {
     const SpeechRecognition =
       (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
-    recognition.lang = "ja-JP";
+    recognition.lang = speechLang;
     recognition.interimResults = false;
 
     recognition.onresult = (event: any) => {
@@ -58,6 +68,12 @@ export function SpeakingPracticePage() {
       setIsRecording(false);
       setShowAnswer(true);
       setStats((prev) => ({ ...prev, attempted: prev.attempted + 1 }));
+      if (prompt) {
+        const normalized = result.replace(/\s/g, "");
+        const target = prompt.targetPhrase.replace(/\s/g, "");
+        const match = normalized === target;
+        recordPracticeResult("speaking", prompt.id, match);
+      }
     };
 
     recognition.onerror = () => {
@@ -126,7 +142,7 @@ export function SpeakingPracticePage() {
               }}
               className="rounded-md border border-border bg-surface px-2 py-1 text-sm text-text-primary"
             >
-              {Array.from({ length: Math.max(1, courseLevel - 4) }, (_, i) => i + 5).map((m) => (
+              {Array.from({ length: Math.max(1, courseLevel - (minLevel - 1)) }, (_, i) => i + minLevel).map((m) => (
                 <option key={m} value={m}>
                   Up to M{m}
                 </option>

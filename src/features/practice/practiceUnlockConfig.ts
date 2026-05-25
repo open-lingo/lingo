@@ -14,7 +14,7 @@ export type PracticeFeatureConfig = {
   route: string;
 };
 
-export const PRACTICE_FEATURES: PracticeFeatureConfig[] = [
+const JA_FEATURES: PracticeFeatureConfig[] = [
   {
     id: "conjugation",
     unlockAtModule: 7,
@@ -25,7 +25,7 @@ export const PRACTICE_FEATURES: PracticeFeatureConfig[] = [
   },
   {
     id: "kanji",
-    unlockAtModule: 3,
+    unlockAtModule: 8,
     title: "N5 Kanji",
     description: "Kanji recognition and reading",
     icon: "漢",
@@ -57,11 +57,45 @@ export const PRACTICE_FEATURES: PracticeFeatureConfig[] = [
   },
 ];
 
+const KO_FEATURES: PracticeFeatureConfig[] = [
+  {
+    id: "reading",
+    unlockAtModule: 3,
+    title: "Reading",
+    description: "Short passage comprehension",
+    icon: "읽",
+    route: "practice/reading",
+  },
+  {
+    id: "speaking",
+    unlockAtModule: 1,
+    title: "Speaking",
+    description: "Pronunciation and response drills",
+    icon: "말",
+    route: "practice/speaking",
+  },
+  {
+    id: "counters",
+    unlockAtModule: 3,
+    title: "Counters",
+    description: "Counter word practice",
+    icon: "개",
+    route: "practice/counters",
+  },
+];
+
+export function getPracticeFeatures(langId: string): PracticeFeatureConfig[] {
+  if (langId === "ko") return KO_FEATURES;
+  return JA_FEATURES;
+}
+
 export function isFeatureUnlocked(
   featureId: PracticeFeatureId,
   currentModule: number,
+  langId: string = "ja",
 ): boolean {
-  const config = PRACTICE_FEATURES.find((f) => f.id === featureId);
+  const features = getPracticeFeatures(langId);
+  const config = features.find((f) => f.id === featureId);
   if (!config) return false;
   return currentModule >= config.unlockAtModule;
 }

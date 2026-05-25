@@ -10,6 +10,7 @@ import {
   type KanjiCategory,
 } from "./data/ja-n5-kanji";
 import { playJaAudio } from "@/shared/japanese/tts";
+import { recordPracticeResult, pickWeighted } from "./practiceStats";
 
 type KanjiMode = "kanji-meaning" | "meaning-kanji" | "kanji-reading";
 
@@ -36,7 +37,7 @@ function generateQuestion(
   allKanji: KanjiEntry[],
 ): Question | null {
   if (pool.length < 2) return null;
-  const kanji = pool[Math.floor(Math.random() * pool.length)];
+  const kanji = pickWeighted(pool, (k) => k.character, "kanji");
   const distractorPool = allKanji.filter(
     (k) => k.character !== kanji.character && k.category === kanji.category,
   );
@@ -123,6 +124,7 @@ export function KanjiPracticePage() {
       total: prev.total + 1,
       streak: isCorrect ? prev.streak + 1 : 0,
     }));
+    recordPracticeResult("kanji", `${question.kanji.character}:${question.mode}`, isCorrect);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

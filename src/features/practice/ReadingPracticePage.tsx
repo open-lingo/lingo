@@ -2,17 +2,26 @@ import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useCourseLevel } from "./useCourseLevel";
-import { READING_PASSAGES, type ReadingPassage } from "./data/ja-reading-passages";
+import type { ReadingPassage } from "./data/ja-reading-passages";
+import { getReadingPassages } from "./data/practiceDataLoader";
+import { recordPracticeResult } from "./practiceStats";
 
 type FuriganaMode = "hover" | "always" | "never";
 
 export function ReadingPracticePage() {
   const { t } = useTranslation();
   const courseLevel = useCourseLevel();
+  const { language } = useLanguage();
+  const langId = language?.id ?? "ja";
+  const isJapanese = langId === "ja";
+
+  const allPassages = useMemo(() => getReadingPassages(langId), [langId]);
+  const minLevel = allPassages.length > 0 ? Math.min(...allPassages.map((p) => p.level)) : 1;
 
   const [furiganaMode, setFuriganaMode] = useState<FuriganaMode>("hover");
-  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, 7));
+  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, minLevel));
   const [currentPassageIdx, setCurrentPassageIdx] = useState(0);
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -20,21 +29,23 @@ export function ReadingPracticePage() {
   const [score, setScore] = useState({ correct: 0, total: 0 });
 
   const availablePassages = useMemo(
-    () => READING_PASSAGES.filter((p) => p.level <= maxModule),
-    [maxModule],
+    () => allPassages.filter((p) => p.level <= maxModule),
+    [allPassages, maxModule],
   );
 
   const passage = availablePassages[currentPassageIdx] as ReadingPassage | undefined;
   const question = passage?.questions[currentQuestionIdx];
 
   const handleAnswer = (optionId: string) => {
-    if (showResult || !question) return;
+    if (showResult || !question || !passage) return;
     setSelectedAnswer(optionId);
     setShowResult(true);
+    const isCorrect = optionId === question.correctOptionId;
     setScore((prev) => ({
-      correct: prev.correct + (optionId === question.correctOptionId ? 1 : 0),
+      correct: prev.correct + (isCorrect ? 1 : 0),
       total: prev.total + 1,
     }));
+    recordPracticeResult("reading", `${passage.id}:${question.id}`, isCorrect);
   };
 
   const handleNext = () => {
@@ -92,7 +103,7 @@ export function ReadingPracticePage() {
               }}
               className="rounded-md border border-border bg-surface px-2 py-1 text-sm text-text-primary"
             >
-              {Array.from({ length: Math.max(1, courseLevel - 6) }, (_, i) => i + 7).map((m) => (
+              {Array.from({ length: Math.max(1, courseLevel - (minLevel - 1)) }, (_, i) => i + minLevel).map((m) => (
                 <option key={m} value={m}>
                   Up to M{m}
                 </option>
@@ -100,18 +111,20 @@ export function ReadingPracticePage() {
             </select>
           </label>
 
-          <label className="flex items-center gap-1.5 text-xs font-medium text-text-secondary">
-            Furigana
-            <select
-              value={furiganaMode}
-              onChange={(e) => setFuriganaMode(e.target.value as FuriganaMode)}
-              className="rounded-md border border-border bg-surface px-2 py-1 text-sm text-text-primary"
-            >
-              <option value="always">Always show</option>
-              <option value="hover">Show on hover</option>
-              <option value="never">Hidden</option>
-            </select>
-          </label>
+          {isJapanese && (
+            <label className="flex items-center gap-1.5 text-xs font-medium text-text-secondary">
+              Furigana
+              <select
+                value={furiganaMode}
+                onChange={(e) => setFuriganaMode(e.target.value as FuriganaMode)}
+                className="rounded-md border border-border bg-surface px-2 py-1 text-sm text-text-primary"
+              >
+                <option value="always">Always show</option>
+                <option value="hover">Show on hover</option>
+                <option value="never">Hidden</option>
+              </select>
+            </label>
+          )}
         </div>
       </Card>
 

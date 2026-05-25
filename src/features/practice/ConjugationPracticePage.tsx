@@ -13,6 +13,7 @@ import {
   type ConjugationForm,
   type AdjForm,
 } from "./data/ja-conjugation-tables";
+import { recordPracticeResult, pickWeighted } from "./practiceStats";
 
 type Category = "verbs" | "i-adj" | "na-adj";
 type Mode = "mcq" | "type";
@@ -105,6 +106,7 @@ export function ConjugationPracticePage() {
   );
 
   const [question, setQuestion] = useState<{
+    itemId: string;
     prompt: string;
     meaning: string;
     formLabel: string;
@@ -118,7 +120,7 @@ export function ConjugationPracticePage() {
 
     if (category === "verbs") {
       if (verbs.length === 0) return;
-      const verb = verbs[Math.floor(Math.random() * verbs.length)];
+      const verb = pickWeighted(verbs, (v) => v.id, "conjugation");
       const forms = [...selectedForms].filter(
         (f) => f in verb.forms && f !== "dictionary",
       ) as ConjugationForm[];
@@ -128,6 +130,7 @@ export function ConjugationPracticePage() {
       const distractors = generateVerbDistractors(correct, verb, targetForm, verbs);
       const options = shuffle([correct, ...distractors]);
       setQuestion({
+        itemId: `${verb.id}:${targetForm}`,
         prompt: verb.dictionary,
         meaning: verb.meaning,
         formLabel: CONJUGATION_FORM_LABELS[targetForm],
@@ -137,7 +140,7 @@ export function ConjugationPracticePage() {
     } else {
       const pool = filteredAdjs;
       if (pool.length === 0) return;
-      const adj = pool[Math.floor(Math.random() * pool.length)];
+      const adj = pickWeighted(pool, (a) => a.id, "conjugation");
       const adjForms = (["present", "negative", "past", "past-negative"] as AdjForm[]).filter(
         (f) => selectedForms.has(f),
       );
@@ -147,6 +150,7 @@ export function ConjugationPracticePage() {
       const distractors = generateAdjDistractors(correct, adj, targetForm, pool);
       const options = shuffle([correct, ...distractors]);
       setQuestion({
+        itemId: `${adj.id}:${targetForm}`,
         prompt: adj.dictionary,
         meaning: adj.meaning,
         formLabel: ADJ_FORM_LABELS[targetForm],
@@ -162,15 +166,16 @@ export function ConjugationPracticePage() {
   }, []);
 
   const handleAnswer = (answer: string) => {
-    if (showResult) return;
+    if (showResult || !question) return;
     setSelectedAnswer(answer);
     setShowResult(true);
-    const isCorrect = answer === question?.correct;
+    const isCorrect = answer === question.correct;
     setStats((prev) => ({
       correct: prev.correct + (isCorrect ? 1 : 0),
       total: prev.total + 1,
       streak: isCorrect ? prev.streak + 1 : 0,
     }));
+    recordPracticeResult("conjugation", question.itemId, isCorrect);
   };
 
   const handleNext = () => {

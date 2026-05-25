@@ -18,7 +18,7 @@ import {
   reviewModuleIdFor,
 } from "@/features/lesson/data/moduleReviewSchedule";
 import { useCourseLevel } from "@/features/practice/useCourseLevel";
-import { PRACTICE_FEATURES } from "@/features/practice/practiceUnlockConfig";
+import { getPracticeFeatures } from "@/features/practice/practiceUnlockConfig";
 
 // MOCK: weekly practice minutes — replace with telemetry/store-derived aggregate.
 const MOCK_PRACTICE_WEEK_MINUTES = [12, 0, 8, 5, 14, 6, 9];
@@ -426,7 +426,7 @@ export function PracticePage() {
       ) : null}
 
       {/* Zone 2.75 — Skill drills (unlock-gated by course progress) */}
-      {langId === "ja" && (
+      {getPracticeFeatures(langId).length > 0 && (
         <section aria-labelledby="practice-skills-heading">
           <div className="mb-2">
             <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
@@ -437,7 +437,7 @@ export function PracticePage() {
             </h2>
           </div>
           <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {PRACTICE_FEATURES.map((feat) => {
+            {getPracticeFeatures(langId).map((feat) => {
               const unlocked = courseLevel >= feat.unlockAtModule;
               return (
                 <li key={feat.id}>
