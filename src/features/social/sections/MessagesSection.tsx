@@ -13,7 +13,8 @@ import { cn } from "@/shared/components/ui/cn";
 import { UserAvatar } from "../components/UserAvatar";
 import { UsernameDisplay } from "../components/UsernameDisplay";
 import { KudosButton } from "../components/KudosButton";
-import { MOCK_THREADS, type ChatMessage, type ChatThread } from "../mock/mockSocial";
+import { useSocial } from "../hooks/useSocial";
+import type { ChatMessage, ChatThread } from "../mock/mockSocial";
 
 type Props = {
   /** Pre-select a thread by user id (deep-link path param `friendId`). */
@@ -23,10 +24,11 @@ type Props = {
 };
 
 export function MessagesSection({ initialFriendId, heightClassName }: Props = {}) {
+  const { threads: mockThreads } = useSocial();
   const initialThread =
-    (initialFriendId && MOCK_THREADS.find((t) => t.user.id === initialFriendId)) ||
-    MOCK_THREADS[0];
-  const [threads, setThreads] = useState<ChatThread[]>(MOCK_THREADS);
+    (initialFriendId && mockThreads.find((t) => t.user.id === initialFriendId)) ||
+    mockThreads[0];
+  const [threads, setThreads] = useState<ChatThread[]>(mockThreads);
   const [activeId, setActiveId] = useState<string>(initialThread.id);
   const [draft, setDraft] = useState("");
   const [mobilePane, setMobilePane] = useState<"list" | "thread">(

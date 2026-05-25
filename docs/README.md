@@ -8,6 +8,8 @@ Quick reference for this folder.
 - **PRODUCT_BACKLOG.md** — Epics & ideas (admin, moderation, progress API, CI/CD, no billing at MVP).
 - **MVP_PRODUCTION_READINESS.md** — Detailed P0/P1/P2 checklists.
 - **PROJECT_STATE.md** — What’s implemented vs stub (keep in sync with code).
+- **handoff-2026-05-24-home-sync-ux.md** — Sync cloud UX, home wiring, `useSocial`, quests plan.
+- **superpowers/specs/2026-05-24-quests-tracking-design.md** — Quest/daily XP event model (planning).
 - **TODO.md** — Backlog by area.
 - **ADS_PLACEMENT.md** — Where and how to add AdSense units.
 - **ADS_AND_FINANCE_ARCHITECTURE.md** — Funding meter API, AdSense/Stripe (server-side).
@@ -27,7 +29,8 @@ Quick reference for this folder.
 - **LOCALIZATION.md** — Localization strategy: UI strings in locale files, practice content localized via inline translations or per-locale data, community content stays in its original language.
 - **COMMUNITY_PLANNING.md** — Community & forum database schema, rich markdown editor, content linking.
 - **FEATURES.md** — Feature backlog and ideas from the plan (not yet built).
-- **dataformats/** — Data format specs and example JSON. `flashcards.md` + examples; courses & modules coming next.
+- **dataformats/** — Data format specs and example JSON; [progress/](dataformats/progress/README.md) (hybrid rollup + client buffer — see also `../lingo-core/docs/adr/0001-progress-api-hybrid-rollup.md`).
+- **handoff-2026-05-25.md** — Session handoff; **§7** documents lesson sync, Start over, and progress JSON dev overlay (2026-05-24).
 - **tasks/** — Self-contained work items with context, files to touch, and acceptance criteria.
 - **agents/** — AI agent context. `basecontext/` has foundational docs: `FRONTEND_CONTEXT.md` (theme strategy, design tokens), `AUTH_STRATEGY.md` (token refresh, sessions, logout).
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { CookieConsent } from "@/shared/components/CookieConsent";
 import { SiteFooter } from "@/shared/components/SiteFooter";
 import { CollapsibleAdBanner } from "@/features/ads/CollapsibleAdBanner";
+import { DailyWelcomeAd } from "@/features/ads/DailyWelcomeAd";
 import { loadAdSenseScript } from "@/features/ads/adsense";
 import { useAdsEnabled } from "@/features/ads/useAdsEnabled";
 import { Link, Outlet, useLocation } from "react-router-dom";
@@ -282,6 +283,7 @@ export function Layout() {
           </div>
         )}
       </header>
+      {showAppAds ? <DailyWelcomeAd /> : null}
       <main className="mx-auto w-full max-w-screen-2xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
         <Outlet />
       </main>

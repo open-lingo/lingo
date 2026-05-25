@@ -64,7 +64,7 @@ export function ProfileEditPage() {
           {t("profile.editTitle")}
         </h1>
         <Link
-          to="/settings"
+          to="/settings/profile"
           className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
         >
           {t("common.back")}

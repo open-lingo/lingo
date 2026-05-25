@@ -61,7 +61,25 @@ export class SrsApi extends ApiClient {
    * Sync dirty cards to the backend. Returns merged state for synced cards.
    * Client should call mergeServerState with the result.
    */
+  /** Delete all SRS cards for the current user (Start over). */
+  async clearAll(): Promise<void> {
+    try {
+      await this.delete(`${PREFIX}/all`, { tag: "srs:clear" });
+    } catch (err: unknown) {
+      const status =
+        err && typeof err === "object" && "status" in err
+          ? (err as { status: number }).status
+          : 0;
+      if (status === 404 || status === 501) return;
+      throw err;
+    }
+  }
+
   async sync(payload: SyncPayload): Promise<SRSStore> {
+    // Why (Fix 1 / Fix 15): no longer swallow 422 — a malformed payload is a
+    // real bug we want to surface rather than silently drop the user's
+    // review history. 404/501 stay tolerated for backends that haven't
+    // mounted the route yet.
     try {
       const res = await this.post<SRSSyncResponse>(`${PREFIX}/sync`, payload, {
         tag: "srs:sync",

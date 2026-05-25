@@ -1,6 +1,6 @@
 import type { SRSCardState } from "../data/types";
 import { notifySRSStoreChanged } from "../SRSStoreRevisionContext";
-import { cardLastReviewDate } from "./srs";
+import { cardLastReviewDate, cardLastReviewedAt } from "./srs";
 import { getSRSStore, setSRSStore, setLastSrsSyncAt } from "./srsStorage";
 import type { SRSStore } from "./srsStorage";
 
@@ -14,9 +14,15 @@ export function getDirtyCards(): SRSStore {
   const dirty: SRSStore = {};
 
   for (const [cardId, state] of Object.entries(store)) {
-    const lastReview = cardLastReviewDate(state);
+    const lastReview = cardLastReviewedAt(state);
+    // Why: use ISO-timestamp comparison; lastSyncedAt is an ISO timestamp,
+    // so day-level lastReviewDate comparisons gave false positives all day.
     if (!state.lastSyncedAt || lastReview > state.lastSyncedAt) {
-      dirty[cardId] = state;
+      // Ensure a top-level lastReviewedAt ships with the payload — the
+      // server requires it as a string for the LWW key.
+      dirty[cardId] = state.lastReviewedAt
+        ? state
+        : { ...state, lastReviewedAt: lastReview };
     }
   }
 
@@ -79,7 +85,7 @@ export function mergeServerState(serverState: SRSStore): void {
     const localCard = local[cardId];
     const serverIsNewer =
       !localCard ||
-      cardLastReviewDate(serverCard) > cardLastReviewDate(localCard);
+      cardLastReviewedAt(serverCard) > cardLastReviewedAt(localCard);
     const localIsReset = localCard && isResetState(localCard);
     const serverIsLearned = isLearnedState(serverCard);
     const keepLocalReset = localIsReset && serverIsLearned;
@@ -87,6 +93,9 @@ export function mergeServerState(serverState: SRSStore): void {
     if (serverIsNewer && !keepLocalReset) {
       local[cardId] = { ...serverCard, lastSyncedAt: now };
     }
+    // Why (M9): don't churn lastSyncedAt for unchanged cards. The previous
+    // implementation only wrote when serverIsNewer, so that's already
+    // correct — keep the no-op branch explicit for the next reader.
   }
 
   setSRSStore(local);
@@ -143,16 +152,15 @@ export async function performSync(
   if (dirtyIds.length === 0) return 0;
 
   const serverState = await syncFn(payload);
+  const mergedCount = Object.keys(serverState ?? {}).length;
 
-  // Only mark as synced and merge when the server actually returned state.
-  // If sync fails (e.g. 404/501), we get {} and should not mark synced so
-  // the user can retry and the card stays dirty.
-  if (serverState && Object.keys(serverState).length > 0) {
+  // Only mark as synced when the server returned card state (404/501 → {}).
+  if (mergedCount > 0) {
     markSynced(dirtyIds);
     setLastSrsSyncAt(new Date().toISOString());
     mergeServerState(serverState);
   }
 
   notifySRSStoreChanged();
-  return dirtyIds.length;
+  return mergedCount > 0 ? dirtyIds.length : 0;
 }

@@ -17,6 +17,7 @@ Ideas and future work. **Epic list:** [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md)
 
 ## Learning & content (post-launch priority)
 
+- **Anki import** — `.apkg` → community deck; optional SRS migration when export includes scheduling; server-side default for large decks. Later: export to Anki for mobile review. See [dataformats/flashcards/anki-import.md](dataformats/flashcards/anki-import.md), task [anki-import.md](tasks/anki-import.md).
 - **Content expansion** — 30+ cards, particles, sentences per language ([korean-content](tasks/korean-content.md), [japanese-content](tasks/japanese-content.md))
 - **Stories** — real text + exercises ([story-content](tasks/story-content.md))
 - **Vocab lists** — themed browser ([vocab-page](tasks/vocab-page.md))

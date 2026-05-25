@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api/provider";
@@ -12,7 +12,12 @@ import {
 } from "@/shared/legal/cookieConsent";
 import { privacyContactHref, privacyContactLabel } from "@/features/legal/legalConfig";
 
-export function AccountPrivacySection() {
+type AccountPrivacySectionProps = {
+  /** When true, omit the section heading (parent panel already has a title). */
+  embedded?: boolean;
+};
+
+export function AccountPrivacySection({ embedded = false }: AccountPrivacySectionProps) {
   const { t } = useTranslation();
   const { isAuthenticated, logout, user } = useAuth();
   const { users } = useApi();
@@ -24,16 +29,12 @@ export function AccountPrivacySection() {
 
   if (!isAuthenticated) {
     return (
-      <section className="space-y-2 border-t border-border pt-6">
-        <h3 className="text-sm font-semibold text-text-primary">
-          {t("legal.settings.privacyTitle", "Privacy")}
-        </h3>
-        <p className="text-xs text-text-muted">
-          <Link to="/privacy" className="text-accent hover:underline">
-            {t("legal.privacyLink", "Privacy Policy")}
-          </Link>
-        </p>
-      </section>
+      <p className="text-sm text-text-muted">
+        {t(
+          "legal.settings.signInForPrivacy",
+          "Sign in to manage cookies and your account data.",
+        )}
+      </p>
     );
   }
 
@@ -60,19 +61,20 @@ export function AccountPrivacySection() {
   };
 
   return (
-    <section className="space-y-4 border-t border-border pt-6">
-      <h3 className="text-sm font-semibold text-text-primary">
-        {t("legal.settings.privacyTitle", "Privacy & data")}
-      </h3>
-      <p className="text-xs text-text-secondary">
-        {t(
-          "legal.settings.privacyBlurb",
-          "We store your learning progress and profile to run the app. We do not sell your personal information."
-        )}{" "}
-        <Link to="/privacy" className="text-accent hover:underline">
-          {t("legal.privacyLink", "Privacy Policy")}
-        </Link>
-      </p>
+    <section className="space-y-4">
+      {!embedded && (
+        <>
+          <h3 className="text-sm font-semibold text-text-primary">
+            {t("legal.settings.privacyTitle", "Privacy & data")}
+          </h3>
+          <p className="text-xs text-text-secondary">
+            {t(
+              "legal.settings.privacyBlurb",
+              "We store your learning progress and profile to run the app. We do not sell your personal information.",
+            )}
+          </p>
+        </>
+      )}
 
       <div className="space-y-2">
         <p className="text-xs font-medium text-text-primary">

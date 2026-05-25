@@ -34,8 +34,15 @@ export function ModalRoot() {
       </button>
     ) : undefined;
 
+  const maxWidth = top.id === "settings" ? "max-w-4xl" : "max-w-lg";
+
   return (
-    <ModalBase onClose={close} title={title} headerLeft={headerLeft}>
+    <ModalBase
+      onClose={close}
+      title={title}
+      headerLeft={headerLeft}
+      maxWidth={maxWidth}
+    >
       {top.id === "settings" && <SettingsContent />}
       {top.id === "profile" && <ProfileEditPanel />}
     </ModalBase>

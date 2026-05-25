@@ -1,4 +1,8 @@
 export {
+  DRAFT_ATTEMPT_PREFIX,
+  getLessonDirtyCount,
+  isDraftAttemptId,
+  isPendingAttemptDirty,
   performLessonSync,
   recordAttempt,
   recordStepEvent,

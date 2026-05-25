@@ -24,12 +24,11 @@ import { RootRoute } from "@/routes/RootRoute";
 import { LandingRoute } from "@/routes/LandingRoute";
 import { ProtectedHome } from "@/routes/ProtectedHome";
 import { RequireAuth } from "@/routes/RequireAuth";
+import { SettingsOpenRoute } from "@/features/settings/SettingsOpenRoute";
+import { SettingsProfileOpenRoute } from "@/features/settings/SettingsProfileOpenRoute";
 
 // Lazy-loaded routes: anything heavy, role-restricted (admin/studio), or rarely-hit
 // on first paint. Split here keeps the main bundle focused on the learner happy path.
-const DocsPage = lazyRetry(() =>
-  import("@/features/docs/DocsPage").then((m) => ({ default: m.DocsPage })),
-);
 const LoginPage = lazyRetry(() =>
   import("@/features/auth/LoginPage").then((m) => ({ default: m.LoginPage })),
 );
@@ -207,7 +206,6 @@ const router = createBrowserRouter([
       { index: true, element: <RootRoute /> },
       { path: "landing", element: <LandingRoute /> },
       { path: "home", element: <ProtectedHome /> },
-      { path: "docs", element: <DocsPage /> },
       { path: "privacy", element: <PrivacyPolicyPage /> },
       { path: "terms", element: <TermsOfServicePage /> },
       { path: "about", element: <AboutPage /> },
@@ -215,6 +213,8 @@ const router = createBrowserRouter([
       { path: "get-started", element: <GetStartedPage /> },
       { path: "try", element: <PreviewLessonPage /> },
       { path: "logout", element: <LogoutPage /> },
+      { path: "settings", element: <SettingsOpenRoute /> },
+      { path: "settings/profile", element: <SettingsProfileOpenRoute /> },
       {
         path: "admin",
         element: <AdminLayout />,

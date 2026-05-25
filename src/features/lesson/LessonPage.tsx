@@ -132,6 +132,11 @@ export function LessonPage() {
     () => new Set(),
   );
   const wasResumed = hydrated !== null;
+  const completionRecordedRef = useRef(false);
+
+  useEffect(() => {
+    completionRecordedRef.current = false;
+  }, [lessonId]);
 
   // `?speech=1` deep-links the speech-recognition feature flag on; the
   // same effect also consumes the matcher-tuning dials
@@ -234,6 +239,8 @@ export function LessonPage() {
   // row_test step record `wasSkipped: false`.
   useEffect(() => {
     if (!finished || !lesson) return;
+    if (completionRecordedRef.current) return;
+    completionRecordedRef.current = true;
     const correctCount = Object.values(results).filter(Boolean).length;
     const gradedSteps = Object.keys(results).length;
     const accuracy = gradedSteps > 0 ? correctCount / gradedSteps : 1;
@@ -351,8 +358,7 @@ export function LessonPage() {
       // correct; a retry that fails too stays incorrect. Accuracy at
       // lesson end reflects final state.
       setResults((prev) => ({ ...prev, [stepId]: correct }));
-      // Buffer a step event so the SyncManager dirty count ticks per step.
-      // Cleared on lesson completion (recordAttempt subsumes them).
+      // Buffer step + draft attempt for SyncManager (see recordStepEvent).
       if (!lesson) return;
       const stepIdx = lesson.steps.findIndex((s) => s.id === stepId);
       recordStepEvent({

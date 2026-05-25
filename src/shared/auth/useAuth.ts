@@ -6,6 +6,8 @@ const DEV_USER = {
   sub: "dev|user-1",
   email: "dev@openlingo.local",
   name: "Trevor",
+  given_name: "Trevor",
+  nickname: "Trevor",
   picture: "",
 };
 

@@ -1,11 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { getAdSenseClient, getAdSlotId, type AdSlotId } from "./config";
-import { loadAdSenseScript, pushAdSenseSlot } from "./adsense";
+import type { AdSlotId } from "./config";
 import { useAdsEnabled } from "./useAdsEnabled";
+import { useAdProvider } from "./providers/AdProviderContext";
 
 type AdSlotProps = {
   slot: AdSlotId;
+  /** Layout hint passed to the provider. Provider may ignore. */
   format?: "auto" | "horizontal" | "rectangle";
   className?: string;
   /** When true, skip render (e.g. premium users). */
@@ -13,7 +14,9 @@ type AdSlotProps = {
 };
 
 /**
- * Single AdSense display unit. Requires slot id from AdSense → Ads → By ad unit.
+ * One ad unit. Resolves the actual creative through the configured
+ * `AdProvider` (fake placeholder in dev/tests, AdSense in prod once
+ * units are wired).
  */
 export function AdSlot({
   slot,
@@ -23,37 +26,26 @@ export function AdSlot({
 }: AdSlotProps) {
   const { t } = useTranslation();
   const enabled = useAdsEnabled(premiumActive);
-  const slotId = getAdSlotId(slot);
-  const client = getAdSenseClient();
-  const pushed = useRef(false);
+  const provider = useAdProvider();
 
-  useEffect(() => {
-    if (!enabled || !slotId) return;
-    loadAdSenseScript();
-  }, [enabled, slotId]);
+  // Map AdSlot's display-format hint to the provider's coarser format.
+  const providerFormat: "banner" | "interstitial" =
+    format === "auto" ? "banner" : "banner";
 
-  useEffect(() => {
-    if (!enabled || !slotId || pushed.current) return;
-    pushed.current = true;
-    const id = window.setTimeout(() => pushAdSenseSlot(), 100);
-    return () => window.clearTimeout(id);
-  }, [enabled, slotId]);
+  const rendered = useMemo(() => {
+    if (!enabled) return null;
+    return provider.request({ slot, format: providerFormat });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enabled, slot, providerFormat, provider.id]);
 
-  if (!enabled || !slotId) return null;
+  if (!enabled || !rendered) return null;
 
   return (
     <div
       className={`overflow-hidden rounded-lg border border-border bg-surface-muted ${className}`}
       aria-label={t("ads.label", "Advertisement")}
     >
-      <ins
-        className="adsbygoogle block min-h-[50px] w-full"
-        style={{ display: "block" }}
-        data-ad-client={client}
-        data-ad-slot={slotId}
-        data-ad-format={format}
-        data-full-width-responsive={format === "auto" ? "true" : undefined}
-      />
+      {rendered.node}
     </div>
   );
 }

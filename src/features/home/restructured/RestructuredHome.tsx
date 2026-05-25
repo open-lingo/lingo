@@ -7,8 +7,8 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getMockCourse } from "@/shared/domain/mockCourse";
-import { getMockProgressSummary } from "@/shared/domain/mockProgress";
 import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
+import { useUserStats } from "@/shared/hooks/useUserStats";
 import { getNextLesson } from "@/features/course/nextLesson";
 import { HeroSection } from "./HeroSection";
 import { AccountOverviewCard } from "./AccountOverviewCard";
@@ -30,7 +30,7 @@ export function RestructuredHome({ greetingName }: Props) {
   const completedIds = useCompletedLessonIds();
   const nextLesson = course ? getNextLesson(course, completedIds) : null;
   const langConfig = language ? getLanguageConfig(language.id) : null;
-  const progress = getMockProgressSummary();
+  const { stats } = useUserStats();
 
   // "Continue lesson" should drop the user directly into the lesson player
   // rather than the Learn pathway. Branch on lesson.kind to handle alphabet
@@ -76,7 +76,7 @@ export function RestructuredHome({ greetingName }: Props) {
         language={langConfig ?? null}
         startLessonHref={startLessonHref}
         nextLesson={nextLesson}
-        streakDays={progress.streakDays}
+        streakDays={stats.streak}
         moduleProgressPercent={moduleProgressPercent}
         lessonIndexLabel={lessonIndexLabel}
       />

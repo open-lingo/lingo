@@ -43,14 +43,23 @@ Import from `@/features/ads`.
 |--------|-----|
 | `AdSlot` | One unit on any page |
 | `CollapsibleAdBanner` | Fixed bar above funding meter (already in `Layout`) |
+| `DailyWelcomeAd` | Once-per-day welcome banner (already in `Layout`) |
 | `useAdsEnabled(premiumActive?)` | Gate custom sponsored UI |
-| `loadAdSenseScript` | App shell only (already in `Layout`) |
+| `AdProviderRoot` | Wraps the React tree; selects the active provider |
+| `useAdProvider()` | Read the current provider in a custom slot |
+| `FakeAdProvider` / `AdSenseAdProvider` | Concrete providers (DI) |
 
 **`AdSlot` props:** `slot` (`banner` \| `inline`), `format` (`auto` \| `horizontal` \| `rectangle`), `className`, `premiumActive`.
 
-Each `AdSlot` calls `pushAdSenseSlot()` once after mount — avoid stacking many units in one viewport.
+The actual creative is rendered by the configured `AdProvider`. In dev (and any env where `VITE_ADSENSE_CLIENT` is unset) that's `FakeAdProvider` — a styled "Sponsored - Demo Ad" placeholder. Set `VITE_AD_PROVIDER=adsense` (or just configure a client id) to use AdSense. Pass a `providerOverride` to `<AdProviderRoot>` in tests.
 
 **`CollapsibleAdBanner`:** sits at `bottom: var(--funding-meter-height)`; collapse stored in `sessionStorage` (`open-lingo-ad-banner-collapsed`); i18n `ads.*`.
+
+**`DailyWelcomeAd`:** top-of-page banner shown on the user's first authenticated render of each local calendar day. Dismissible via close button; dismissal persists for the rest of the day under `localStorage["lingo.ads.daily.lastShown"]`. Respects `useAdsEnabled()` (consent + ad-free window).
+
+## Ad-free time
+
+`useAdsEnabled()` consults `useAdFreeStatus()` and returns `false` whenever an ad-free window is active. The window is owned by the lingot-spend feature (separate agent), which writes the epoch-ms expiry to `localStorage["lingo.ads.adFreeUntil"]` and dispatches the `lingo-ad-free-changed` window event. The ads subsystem only reads.
 
 ---
 
@@ -90,6 +99,7 @@ function Sidebar() {
 | Location | Component | Notes |
 |----------|-----------|--------|
 | Logged-in app shell (non-marketing) | `CollapsibleAdBanner` | Needs env + Google approval for real fills |
+| Logged-in app shell, top of page, once per local day | `DailyWelcomeAd` | Fake placeholder until AdSense `daily-welcome` unit ships |
 
 ### Backlog (suggested)
 

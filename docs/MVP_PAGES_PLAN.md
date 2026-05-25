@@ -37,9 +37,10 @@ If a page isn't in this doc, it is either already launch-ready (per PROJECT_STAT
 
 ## 2. Home page
 
-**State today:** `src/features/home/HomePage.tsx` (249 LOC) — three flows (guest, first-time, returning):
+**State today (2026-05-24):** `HomePage.tsx` — guest landing card + nav; **signed-in → `RestructuredHome`** (hero, account overview, flashcards tile, quests, social rail, community strip). See [handoff-2026-05-24-home-sync-ux.md](./handoff-2026-05-24-home-sync-ux.md).
 
-- Returning: h1 welcome + `ResumeBar` link card + `ProgressSummary` (streak / lessons / cards due / daily goal) + nav cards grid + `HomeActivityPanel` (mock forum threads, hardcoded new-deck count, leaderboard if flagged)
+- Legacy `ProgressSummary` / `HomeActivityPanel` remain for imports; not used on returning path
+- FTUE (`WelcomeBanner` + empty state) branch disabled until follow-up
 - First-time: `WelcomeBanner` + nav cards + `EmptyActivityNotice`
 - Guest: static welcome card + nav cards
 
@@ -55,7 +56,7 @@ If a page isn't in this doc, it is either already launch-ready (per PROJECT_STAT
 
 **B. Community / activity right rail (taller bar)**
 
-- [ ] Restructure `HomePage` from stacked sections to **2-column layout on `lg+`** (main content left, community rail right). Stacks on smaller breakpoints.
+- [x] Restructure returning home → `RestructuredHome` grid (account + quests + social rail). Polish / quest API wiring ongoing.
 - [ ] Right rail content (top to bottom):
   1. Flashcards quick-link card (review queue count badge)
   2. Most-used practice feature link — see section C below

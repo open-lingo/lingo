@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 import {
   getLastLessonSyncAt,
+  getLessonDirtyCount,
   getNextLessonSyncAt,
-  getPendingAttempts,
   subscribeLessonBuffer,
 } from "./engine";
 
@@ -13,17 +13,15 @@ const POLL_MS = 2000;
  *  Reactive to buffer changes (via subscribeLessonBuffer), plus polled
  *  and re-checked on window focus to catch cross-tab changes. */
 export function useLessonSyncStatus() {
-  // Only buffered lesson completions count as unsynced — step events are
-  // local telemetry until the lesson ends and `recordAttempt` runs.
   const [status, setStatus] = useState(() => ({
-    dirtyCount: getPendingAttempts().length,
+    dirtyCount: getLessonDirtyCount(),
     lastSyncAt: getLastLessonSyncAt(),
     nextSyncAt: getNextLessonSyncAt(),
   }));
 
   const refresh = useCallback(() => {
     setStatus({
-      dirtyCount: getPendingAttempts().length,
+      dirtyCount: getLessonDirtyCount(),
       lastSyncAt: getLastLessonSyncAt(),
       nextSyncAt: getNextLessonSyncAt(),
     });

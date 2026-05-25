@@ -61,11 +61,8 @@ function migrateLegacyLessonKeys(): void {
 
 /** A per-step event captured as the user completes individual lesson steps.
  *
- *  Step events are client-side telemetry for the dirty-count signal — they
- *  let the SyncManager show in-progress lesson activity rather than only
- *  ticking up on full-lesson completion. When the lesson finishes, the
- *  events for that lesson are subsumed into the immutable PendingAttempt
- *  and dropped from this buffer. */
+ *  Fed into draft batch attempts (`draft:{lessonId}`) for SyncManager dirty
+ *  counts and periodic upload. Cleared when the final attempt syncs. */
 export type StepEvent = {
   lessonId: string;
   stepId: string;
@@ -130,6 +127,8 @@ export function clearAllStepEvents(): void {
 export type PendingAttempt = BatchAttempt & {
   /** Local-only field — set when this attempt was added to the buffer. */
   bufferedAt: string;
+  /** Local-only — last time this draft was accepted by the server (mid-lesson). */
+  syncedAt?: string;
 };
 
 export function getPendingAttempts(): PendingAttempt[] {

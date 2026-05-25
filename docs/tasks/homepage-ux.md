@@ -1,6 +1,6 @@
 # Task: Homepage UX
 
-> **Status: closed (2026-05)** — Landing + auth split; guest/home patterns shipped. Further polish is post-launch. See [PROJECT_STATE.md](../PROJECT_STATE.md).
+> **Status: closed (2026-05)** — Landing + auth split; guest/home patterns shipped. **2026-05-24:** returning home → `RestructuredHome`; landing hero buttons unified (`Button` size `hero`). See [handoff-2026-05-24-home-sync-ux.md](../handoff-2026-05-24-home-sync-ux.md).
 
 **Files:** `src/features/home/HomePage.tsx`, `src/features/landing/LandingPage.tsx`, `src/features/progress/ProgressSummary.tsx`
 **Historical note:** Task written when home was guest-identical; landing route and logged-in `/home` now separate concerns.

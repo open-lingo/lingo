@@ -121,23 +121,22 @@ export function LandingPage() {
           )}
         </p>
 
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-3.5">
+        <div className="mt-7 flex flex-wrap items-stretch justify-center gap-3.5">
           <Link to="/get-started" className={composeButtonClasses({ variant: "primary-3d" })}>
             {t("landing.getStarted", "Get started")}
-            <Icon name="arrowRight" size={18} className="ml-2" />
+            <Icon name="arrowRight" size={18} className="shrink-0" aria-hidden />
           </Link>
           <Link
             to={tryHref}
-            className="inline-flex items-center gap-2 rounded-xl border-[1.5px] border-accent bg-transparent px-5 py-3 text-[15px] font-semibold text-accent transition hover:bg-accent-muted"
+            className={composeButtonClasses({
+              variant: "outline",
+              accent: true,
+              size: "hero",
+              className: "border-[1.5px]",
+            })}
           >
             <Icon name="play" size={16} className="shrink-0" aria-hidden />
             {t("landing.tryItFree", "Try it free")}
-          </Link>
-          <Link
-            to="/docs"
-            className="inline-flex items-center gap-2 rounded-xl border border-border bg-transparent px-5 py-3 text-[15px] font-semibold text-text-primary transition hover:bg-surface-muted"
-          >
-            {t("landing.seeHowItWorks", "See how it works")}
           </Link>
         </div>
 

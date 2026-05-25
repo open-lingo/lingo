@@ -6,12 +6,6 @@
  */
 import type { IconName } from "@/shared/iconRegistry";
 
-// MOCK: replace with real weekly minutes aggregated from store.completed.
-export const MOCK_WEEK_MINUTES: number[] = [12, 18, 6, 0, 22, 14, 8];
-
-// MOCK: replace with best-streak persistence (store + backend).
-export const MOCK_BEST_STREAK = 14;
-
 // MOCK: replace with JA-specific kana SRS retention query.
 export const MOCK_KANA_MASTERY = {
   percent: 38,
@@ -82,30 +76,6 @@ export const MOCK_WEEKLY_QUEST = {
   done: 3,
   goal: 5,
   xp: 75,
-};
-
-// MOCK: replace with backend friends/suggestions/friend-quest service.
-export type MockFriend = { id: string; name: string; streak: number; status: "active" | "idle" };
-
-export const MOCK_FRIENDS: MockFriend[] = [
-  { id: "f1", name: "Mia", streak: 12, status: "active" },
-  { id: "f2", name: "Kenji", streak: 4, status: "idle" },
-  { id: "f3", name: "Aisha", streak: 9, status: "active" },
-];
-
-export const MOCK_FRIEND_SUGGESTION = {
-  id: "s1",
-  name: "Hiroshi",
-  reasonKey: "home.restructured.social.suggestionReason",
-  reasonDefault: "Also learning Japanese · 3 mutuals",
-};
-
-export const MOCK_FRIEND_QUEST = {
-  labelKey: "home.restructured.social.friendQuestLabel",
-  labelDefault: "Both finish a lesson today",
-  you: 1,
-  friend: 0,
-  friendName: "Mia",
 };
 
 // MOCK: replace with telemetry-driven "paused N ago" timestamp.

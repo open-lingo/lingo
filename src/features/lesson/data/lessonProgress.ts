@@ -33,6 +33,19 @@ function storageKey(lessonId: string): string {
   return `${KEY_PREFIX}${lessonId}`;
 }
 
+/** ISO start time for an in-flight lesson run, if persisted locally. */
+export function readLessonStartedAt(lessonId: string): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(storageKey(lessonId));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as { startedAt?: unknown };
+    return typeof parsed.startedAt === "string" ? parsed.startedAt : null;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Read the saved in-progress record for this lesson, validating against the
  * current set of step ids. Returns `null` if:

@@ -114,18 +114,19 @@ Each component below is a new file under `src/features/home/restructured/`. Mock
 | Surface | v1 source | v2 / follow-up |
 |---|---|---|
 | Hero — name, lesson, module | `useAuth() + me.display_name`, `getNextLesson(course)` | Real "paused N ago" timestamp from last-lesson-start telemetry |
-| Hero — streak (subline) | `getMockProgressSummary().streakDays` (same as today) | Real streak engine |
-| Account — daily-goal ring | `getMockProgressSummary()` daily-goal fields | Same |
-| Account — streak / best | `getMockProgressSummary().streakDays`; best is mock | Best-streak persistence |
-| Account — weekly sparkline | mock array (`[12,18,6,0,22,14,8]`) | `store.completed` aggregated per day |
-| Account — XP bar | `xpTotal`, `xpEarnedToday` from `getMockProgressSummary()` | Same source already live |
+| Hero — streak (subline) | `useUserStats().streak` | Server streak authoritative |
+| Account — daily-goal ring | `useLocalProgressSummary()` → completions today × 10 min cap | Server daily goal + practice minutes |
+| Account — streak / best | `useUserStats()` | Best-streak on server row |
+| Account — weekly sparkline | `getWeekPracticeMinutes()` from `store.completed` | Server daily rollup table |
+| Account — XP bar | `useUserStats` + local `xpEarnedToday` fallback | Daily XP on progress event path |
+| Account — lingots | *(removed from card)* | Header `LingotBalance` only |
 | Account — kana mastery | mock 38% gated by `language.id === "ja"` | JA kana SRS retention query |
 | Flashcards — due count | mock `23` | `useCardsDueCount(langId)` (already exists) |
 | Flashcards — glyph preview | mock 5 chars | Query "next N due card fronts" on SRS store |
 | Recent practice | mock | `useLastPractice()` localStorage hook (separate PR) |
-| Daily quests | mock array of 3 | Quest engine (separate PR) |
-| Weekly quest | mock | Same |
-| Social — friends, suggestions, friend-quest | mock | Backend service (multi-PR) |
+| Daily quests | mock array; “complete a lesson” wired locally | `GET /quests/active` — see [2026-05-24-quests-tracking-design](./2026-05-24-quests-tracking-design.md) |
+| Weekly quest | **wired** — `lessonsCompletedThisWeek` from local completions | Server weekly counter on progress events |
+| Social — friends, suggestions, friend-quest | **`useSocial()` → mockSocial.ts** | `shared/api/social.ts` + social service |
 | Community strip | reuse `HomeActivityPanel` data (`MOCK_THREADS`, new-decks count) | Articles kind via `flags.community.tabs.articles` |
 
 `// MOCK:` comments must mark every replacement point in the implementation so they're greppable later.
@@ -141,7 +142,8 @@ Each component below is a new file under `src/features/home/restructured/`. Mock
   - `QuestsCard.tsx`
   - `SocialCard.tsx`
   - `CommunityStrip.tsx`
-  - `mockHomeData.ts` — single export of all mock objects, makes wiring later mechanical.
+  - `mockHomeData.ts` — quests, kana, recent practice mocks (social mocks moved to `features/social/mock/mockSocial.ts`).
+  - `useLocalProgressSummary`, `useSocial` — hooks for live/mock data (2026-05-24).
   - shared sub-components: `ProgressRing.tsx`, `WeekSparkline.tsx`, `QuestRow.tsx`, `FriendAvatar.tsx`.
 - `src/features/home/dev/HomeRestructureMockup.tsx` — kept as the pre-implementation reference; can be removed after merge (or left as a dev playground — author's choice).
 - `src/App.tsx` — leave the `/:lang/home-preview` dev route for one more round of iteration; can delete in a follow-up cleanup PR.

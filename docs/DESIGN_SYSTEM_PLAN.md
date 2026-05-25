@@ -184,12 +184,13 @@ Status message: info, warning, success, error.
 5. **FilterBar.tsx** – inputs, selects
 6. **ModalBase.tsx** – modal panel
 7. **DataTable.tsx** – table container, checkboxes
-8. **SyncManager.tsx** – popover panel
+8. **SyncManager.tsx** – cloud trigger + compact popover (see handoff-2026-05-24-home-sync-ux.md)
+9. **Button.tsx** – `primary-3d` + `hero` size for landing CTA row alignment (2026-05-24)
 9. **FlashcardTester.tsx** – card surface, rating buttons, counts widget
 10. **CardManagerPage.tsx** – batch bar, table
 11. **DeckEditor.tsx** – settings bar, card list
 12. **ContentBrowserPage.tsx** – filters, cards
-13. **SettingsPage.tsx** – form inputs
+13. **Settings modal** (`SettingsContent.tsx`, `SettingsSectionPanel.tsx`) – form inputs; `/settings` opens modal. Legacy `SettingsPage` re-exports `SettingsOpenRoute`.
 
 ---
 
@@ -248,7 +249,8 @@ src/shared/
 
 - **Apply preset**: `setTheme("dark")` or `setTheme("sepia")`
 - **Save custom**: `setCustomTheme(tokens)` from theme editor
-- **Open editor**: `openThemeEditor()` from ThemeToggle or Settings
+- **Open editor**: `openThemeEditor()` from Settings → Appearance (or theme flow). Audio prefs are in Settings → Audio, not the editor.
+- **Community themes**: Preview (temporary) + Add in `ThemeEditorPanel`; mock data in `community-mock.ts`
 
 ### Tailwind Integration
 

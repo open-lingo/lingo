@@ -4,6 +4,8 @@ Storage schema for SRS (spaced repetition) card state. Per-card rows enable effi
 
 See [flashcards/](../flashcards/) for the client-side SRS state format and deck integration.
 
+**Anki migration (planned):** When users import `.apkg` with scheduling included, map Anki `cards` fields to `SRSCardState` (ease permille → `easeFactor`, `ivl` → `interval`, `due` + collection `crt` → `dueDate`). FSRS-exported state may not match SM-2 intervals after import. Details: [flashcards/anki-import.md](../flashcards/anki-import.md).
+
 ---
 
 ## Data model

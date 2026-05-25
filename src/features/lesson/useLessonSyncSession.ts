@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useApi } from "@/shared/api";
 import {
-  getPendingAttempts,
-  getStepEvents,
+  getLessonDirtyCount,
   syncLessonProgressWithServer,
 } from "./engine";
 import { setNextLessonSyncAt } from "./engine/lessonStorage";
@@ -47,7 +46,7 @@ export function useLessonSyncSession(): void {
     }, LESSON_SYNC_INTERVAL_MS);
 
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (getPendingAttempts().length > 0) {
+      if (getLessonDirtyCount() > 0) {
         e.preventDefault();
         e.returnValue = "";
       }
@@ -62,7 +61,7 @@ export function useLessonSyncSession(): void {
       // Fire-and-forget on unmount — catches navigate-away. We flush even
       // when only step events remain (no completed attempts) so the dirty
       // count visible in the SyncManager clears between lessons.
-      if (getPendingAttempts().length > 0 || getStepEvents().length > 0) {
+      if (getLessonDirtyCount() > 0) {
         runSync();
       }
     };

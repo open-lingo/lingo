@@ -1,37 +1,88 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
+import { AlertCircle, AlertTriangle, CheckCircle2, Info, X } from "lucide-react";
 import { cn } from "./cn";
 
-export type AlertVariant = "error" | "success" | "warning" | "info";
+export type AlertVariant = "info" | "success" | "warning" | "error";
 
 const variantClasses: Record<AlertVariant, string> = {
-  error: "border-error/40 bg-error/10 text-error",
-  success: "border-success/40 bg-success/10 text-success",
-  warning: "border-warning/40 bg-warning/10 text-warning",
-  info: "border-info/40 bg-info/10 text-info",
+  info: "border-info/30 bg-info/10 text-info",
+  success: "border-success/30 bg-success/10 text-success",
+  warning: "border-warning/30 bg-warning/10 text-warning",
+  error: "border-error/30 bg-error/10 text-error",
 };
 
-type AlertBannerProps = {
+const variantIcons: Record<AlertVariant, typeof Info> = {
+  info: Info,
+  success: CheckCircle2,
+  warning: AlertTriangle,
+  error: AlertCircle,
+};
+
+export type AlertBannerProps = {
   variant?: AlertVariant;
-  children: ReactNode;
+  /** Optional heading text. */
+  title?: string;
+  /** Body / description content. */
+  children?: ReactNode;
+  /** Right-aligned actions slot (e.g. retry button). */
+  actions?: ReactNode;
+  /** Hide the leading variant icon. */
+  hideIcon?: boolean;
+  /** When provided, renders a dismiss button. */
+  onDismiss?: () => void;
+  /** ARIA label for the dismiss button. */
+  dismissLabel?: string;
   className?: string;
 };
 
-/** Inline alert using semantic theme tokens (customizable per theme). */
+/**
+ * Inline alert / banner with variant styling.
+ *
+ * Mobile behavior: actions wrap below the message when there isn't horizontal
+ * room.
+ */
 export function AlertBanner({
-  variant = "error",
+  variant = "info",
+  title,
   children,
+  actions,
+  hideIcon,
+  onDismiss,
+  dismissLabel = "Dismiss",
   className,
 }: AlertBannerProps) {
+  const Icon = variantIcons[variant];
   return (
     <div
+      role="status"
       className={cn(
-        "rounded-lg border px-3 py-2 text-sm",
+        "flex flex-wrap items-start gap-3 rounded-lg border px-4 py-3 text-sm",
         variantClasses[variant],
-        className
+        className,
       )}
-      role="alert"
     >
-      {children}
+      {!hideIcon && (
+        <span className="mt-0.5 shrink-0">
+          <Icon size={18} />
+        </span>
+      )}
+      <div className="min-w-0 flex-1">
+        {title && <p className="font-semibold leading-tight">{title}</p>}
+        {children && (
+          <div className={cn("text-text-secondary", title && "mt-1")}>{children}</div>
+        )}
+      </div>
+      {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}
+      {onDismiss && (
+        <button
+          type="button"
+          onClick={onDismiss}
+          aria-label={dismissLabel}
+          className="-mr-1 shrink-0 rounded p-1 text-current opacity-70 transition hover:opacity-100"
+        >
+          <X size={16} />
+        </button>
+      )}
     </div>
   );
 }

@@ -4,9 +4,10 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import en from "./locales/en.json";
 import ko from "./locales/ko.json";
+import es from "./locales/es.json";
 
 export const defaultNS = "translation" as const;
-export const supportedLngs = ["en", "ko"] as const;
+export const supportedLngs = ["en", "ko", "es"] as const;
 
 i18n
   .use(LanguageDetector)
@@ -15,6 +16,7 @@ i18n
     resources: {
       en: { [defaultNS]: en },
       ko: { [defaultNS]: ko },
+      es: { [defaultNS]: es },
     },
     fallbackLng: "en",
     supportedLngs: [...supportedLngs],

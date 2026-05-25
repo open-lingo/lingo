@@ -115,6 +115,12 @@ export type SRSCardState = {
   production: SRSModalityState;
   /** ISO timestamp of last sync to backend. Undefined = never synced. */
   lastSyncedAt?: string;
+  /**
+   * ISO timestamp of the most recent review across modalities. Required by
+   * the backend SRS sync as the last-write-wins merge key (lex-sortable
+   * ISO-8601 string). Set whenever any modality is graded.
+   */
+  lastReviewedAt?: string;
   /** If set and > today, card is buried (excluded from queue). YYYY-MM-DD. */
   buriedUntil?: string;
 };

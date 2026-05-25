@@ -4,14 +4,16 @@ import type {
   BatchAttemptSubmission,
   GradedStepResult,
 } from "@/shared/api/progress";
+import { readLessonStartedAt } from "@/features/lesson/data/lessonProgress";
 import {
   appendPendingAttempt,
   appendStepEvent,
-  clearAllStepEvents,
   clearStepEventsForLesson,
   getPendingAttempts,
+  getStepEvents,
   removePendingAttempts,
   setLastLessonSyncAt,
+  setPendingAttempts,
   type PendingAttempt,
 } from "./lessonStorage";
 import {
@@ -47,6 +49,107 @@ function newAttemptId(): string {
   return `att-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 }
 
+/** Stable id for in-flight lesson batches (updated after each graded step). */
+export const DRAFT_ATTEMPT_PREFIX = "draft:";
+
+export function isDraftAttemptId(clientAttemptId: string): boolean {
+  return clientAttemptId.startsWith(DRAFT_ATTEMPT_PREFIX);
+}
+
+function draftAttemptId(lessonId: string): string {
+  return `${DRAFT_ATTEMPT_PREFIX}${lessonId}`;
+}
+
+function removeDraftAttemptsForLesson(lessonId: string): void {
+  const list = getPendingAttempts().filter(
+    (a) => !(a.lessonId === lessonId && isDraftAttemptId(a.clientAttemptId)),
+  );
+  setPendingAttempts(list);
+}
+
+/** Drafts stay in the buffer after a successful mid-lesson sync; only re-dirty when updated. */
+export function isPendingAttemptDirty(attempt: PendingAttempt): boolean {
+  if (!isDraftAttemptId(attempt.clientAttemptId)) return true;
+  if (!attempt.syncedAt) return true;
+  return attempt.bufferedAt > attempt.syncedAt;
+}
+
+/** Items waiting to upload: completed attempts + in-progress lesson drafts. */
+export function getLessonDirtyCount(): number {
+  const pending = getPendingAttempts();
+  // Any pending row (including a synced draft) covers local step events for that
+  // lesson — otherwise mid-lesson sync looks dirty while still in the lesson.
+  const lessonsWithPending = new Set(pending.map((p) => p.lessonId));
+  let count = 0;
+  for (const p of pending) {
+    if (isPendingAttemptDirty(p)) count++;
+  }
+  const orphanLessons = new Set(
+    getStepEvents()
+      .filter((e) => !lessonsWithPending.has(e.lessonId))
+      .map((e) => e.lessonId),
+  );
+  return count + orphanLessons.size;
+}
+
+function markDraftAttemptsSynced(clientAttemptIds: string[], syncedAt: string): void {
+  const idSet = new Set(clientAttemptIds);
+  const list = getPendingAttempts().map((a) =>
+    idSet.has(a.clientAttemptId) && isDraftAttemptId(a.clientAttemptId)
+      ? { ...a, syncedAt }
+      : a,
+  );
+  setPendingAttempts(list);
+}
+
+/**
+ * Upsert a draft batch attempt from buffered step events so SyncManager
+ * shows dirty state and periodic sync can POST mid-lesson progress.
+ */
+function upsertInProgressAttempt(lessonId: string): void {
+  const events = getStepEvents().filter((e) => e.lessonId === lessonId);
+  if (events.length === 0) return;
+
+  const stepResults: GradedStepResult[] = events.map((e) => ({
+    stepIdx: e.stepIdx,
+    conceptIds: e.conceptIds,
+    correct: e.correct,
+  }));
+  const correctCount = events.filter((e) => e.correct).length;
+  const score =
+    stepResults.length > 0 ? correctCount / stepResults.length : 0;
+  const startedAt =
+    readLessonStartedAt(lessonId) ??
+    events[0]?.recordedAt ??
+    new Date().toISOString();
+  const durationSec = Math.max(
+    minDurationSecForAttempt(stepResults),
+    Math.floor((Date.now() - Date.parse(startedAt)) / 1000),
+  );
+
+  const attempt: PendingAttempt = {
+    clientAttemptId: draftAttemptId(lessonId),
+    lessonId,
+    attemptedAt: startedAt,
+    bufferedAt: new Date().toISOString(),
+    durationSec,
+    passed: false,
+    score: Math.max(0, Math.min(1, score)),
+    stepResults,
+  };
+  appendPendingAttempt(attempt);
+}
+
+/** Step events without a matching pending draft — materialize before POST. */
+function materializeOrphanDrafts(): void {
+  const coveredLessons = new Set(getPendingAttempts().map((p) => p.lessonId));
+  for (const event of getStepEvents()) {
+    if (coveredLessons.has(event.lessonId)) continue;
+    upsertInProgressAttempt(event.lessonId);
+    coveredLessons.add(event.lessonId);
+  }
+}
+
 export interface RecordAttemptInput {
   lessonId: string;
   durationSec: number;
@@ -55,16 +158,7 @@ export interface RecordAttemptInput {
   stepResults: GradedStepResult[];
 }
 
-/** Buffer a per-step event. Fires as each step is graded inside a lesson.
- *
- *  These events are client-side telemetry that powers the SyncManager's
- *  dirty-count signal — the user sees activity tick up as they answer
- *  individual questions, not only on lesson end.
- *
- *  When the lesson finishes, `recordAttempt` is called and `clearStepEventsForLesson`
- *  drops the events for that lesson (they're now embedded in the immutable
- *  PendingAttempt's stepResults). Step events are not synced to the server
- *  on their own — the aggregated attempt is the source of truth. */
+/** Buffer a graded step and refresh the in-progress draft attempt for sync. */
 export function recordStepEvent(input: {
   lessonId: string;
   stepId: string;
@@ -80,24 +174,28 @@ export function recordStepEvent(input: {
     conceptIds: input.conceptIds ?? [],
     recordedAt: new Date().toISOString(),
   });
+  upsertInProgressAttempt(input.lessonId);
   notify();
 }
 
-/** Buffer a completed lesson attempt locally. The SyncManager flushes the
- *  buffer to the server in batch — there is no per-completion API call.
- *
- *  Idempotent: if the same `clientAttemptId` is recorded twice (e.g. user
- *  double-taps Continue) only the latest payload is kept.
- *
- *  Side effect: clears the step-event buffer for this lesson — the events
- *  are now subsumed into the immutable attempt's stepResults. */
+/** Server rejects attempts below max(5, gradedStepCount) seconds — match that here. */
+export function minDurationSecForAttempt(stepResults: GradedStepResult[]): number {
+  return Math.max(5, stepResults.length);
+}
+
+/** Buffer a completed lesson attempt locally. Replaces any in-progress draft. */
 export function recordAttempt(input: RecordAttemptInput): PendingAttempt {
+  removeDraftAttemptsForLesson(input.lessonId);
+  const durationSec = Math.max(
+    minDurationSecForAttempt(input.stepResults),
+    Math.floor(input.durationSec),
+  );
   const attempt: PendingAttempt = {
     clientAttemptId: newAttemptId(),
     lessonId: input.lessonId,
     attemptedAt: new Date().toISOString(),
     bufferedAt: new Date().toISOString(),
-    durationSec: Math.max(1, Math.floor(input.durationSec)),
+    durationSec,
     passed: input.passed,
     score: Math.max(0, Math.min(1, input.score)),
     stepResults: input.stepResults,
@@ -113,17 +211,46 @@ export function buildBatchPayload(): {
   payload: BatchAttemptSubmission;
   ids: string[];
 } {
-  const pending = getPendingAttempts();
+  materializeOrphanDrafts();
+  const pending = getPendingAttempts().filter(isPendingAttemptDirty);
+  // One completion effect can buffer twice (settings toast, etc.) — keep the
+  // latest attempt per lesson so sync doesn't leave a stale duplicate dirty.
+  const latestByLesson = new Map<string, PendingAttempt>();
+  for (const p of pending) {
+    const prev = latestByLesson.get(p.lessonId);
+    if (!prev || p.bufferedAt >= prev.bufferedAt) {
+      latestByLesson.set(p.lessonId, p);
+    }
+  }
+  const deduped = Array.from(latestByLesson.values());
+
   // Strip the local-only `bufferedAt` before sending — server doesn't need it.
-  const attempts: BatchAttempt[] = pending.map((p) => {
+  const attempts: BatchAttempt[] = deduped.map((p) => {
     const { bufferedAt: _bufferedAt, ...rest } = p;
     return rest;
   });
   const checkStreak = shouldCheckStreakOnNextSync();
   return {
     payload: { attempts, checkStreak },
-    ids: pending.map((p) => p.clientAttemptId),
+    ids: deduped.map((p) => p.clientAttemptId),
   };
+}
+
+function clientIdsToClearFromBatchResponse(
+  pendingIds: string[],
+  results: BatchAttemptResponse["results"],
+): string[] {
+  const pendingSet = new Set(pendingIds);
+  const toRemove = new Set<string>();
+
+  for (const r of results) {
+    if (!pendingSet.has(r.clientAttemptId)) continue;
+    if (r.accepted || r.attemptId) {
+      toRemove.add(r.clientAttemptId);
+    }
+  }
+
+  return [...toRemove];
 }
 
 /** Perform a full sync cycle. Pass a function that POSTs the batch payload
@@ -138,30 +265,47 @@ export async function performLessonSync(
 ): Promise<number> {
   const { payload, ids } = buildBatchPayload();
   if (ids.length === 0) {
-    // Nothing to POST — in-progress step events stay local until the
-    // lesson finishes and `recordAttempt` buffers a real attempt.
     return 0;
   }
 
+  const pendingBefore = getPendingAttempts();
   const response = await syncFn(payload);
-  const accepted = response.results.filter((r) => r.accepted);
-  const acceptedIds = accepted.map((r) => r.clientAttemptId);
+  const results = response?.results ?? [];
+  const clearedIds = clientIdsToClearFromBatchResponse(ids, results);
 
-  if (acceptedIds.length > 0) {
-    removePendingAttempts(acceptedIds);
-    // Drop any orphan step events too — for any lesson where the attempt
-    // has now synced, the embedded stepResults are the source of truth.
-    clearAllStepEvents();
-    setLastLessonSyncAt(new Date().toISOString());
-    // Server processed (or no-op'd) the streak update on this sync — mark it
-    // done so the next batch this same local day skips the streak path on the
-    // server side. If the user crosses local midnight, `shouldCheckStreakOnNextSync`
-    // will flip back to true and the next sync re-asks.
+  if (clearedIds.length > 0) {
+    const syncedAt = new Date().toISOString();
+    const draftCleared = clearedIds.filter(isDraftAttemptId);
+    const finalCleared = clearedIds.filter((id) => !isDraftAttemptId(id));
+
+    if (draftCleared.length > 0) {
+      markDraftAttemptsSynced(draftCleared, syncedAt);
+    }
+
+    if (finalCleared.length > 0) {
+      const clearedLessonIds = new Set(
+        pendingBefore
+          .filter((p) => finalCleared.includes(p.clientAttemptId))
+          .map((p) => p.lessonId),
+      );
+      removePendingAttempts(finalCleared);
+      const staleDupes = getPendingAttempts()
+        .filter((p) => clearedLessonIds.has(p.lessonId))
+        .map((p) => p.clientAttemptId);
+      if (staleDupes.length > 0) {
+        removePendingAttempts(staleDupes);
+      }
+      for (const lessonId of clearedLessonIds) {
+        clearStepEventsForLesson(lessonId);
+      }
+    }
+
+    setLastLessonSyncAt(syncedAt);
     if (payload.checkStreak) {
       markStreakCheckedToday();
     }
   }
 
   notify();
-  return acceptedIds.length;
+  return clearedIds.length;
 }

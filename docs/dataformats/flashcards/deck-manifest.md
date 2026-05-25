@@ -2,6 +2,10 @@
 
 The deck manifest is metadata about a flashcard deck. It is stored separately from deck content (cards) so we can list decks and check versions without loading card data.
 
+**Canonical planning:** [docs/dev/planning/DECK_CONTENT_STORAGE.md](../../../../docs/dev/planning/DECK_CONTENT_STORAGE.md) (implementation status, large-deck tiers).
+
+**Implementation status (2026-05-25):** Card bodies are a **single JSON array** per deck. **Sharding and S3 tiers are planned, not built.**
+
 **Relationship:**
 - **Manifest** — id, languageId, name, courseId, version, cardCount (metadata only)
 - **Content** — deck id + cards array (the actual card payload)
@@ -19,7 +23,7 @@ The deck manifest is metadata about a flashcard deck. It is stored separately fr
 | languageId| string | yes      | Learning language (ko, ja, etc.)                 |
 | name      | string | yes      | Display name                                     |
 | courseId  | string | no       | If set, deck is course-linked; null for community|
-| version   | string | yes      | Content version for cache sync (e.g. "1.0", hash)|
+| version   | string | yes      | Cache-sync label (e.g. `"1.0"`). **Not** a multi-snapshot version index; not auto-bumped on every edit today. |
 | cardCount | number | yes      | Number of cards (denormalized for listing)       |
 | image     | string | no       | Cover/thumbnail URL; use placeholder if omitted  |
 | defaultEase| number | no       | Initial ease for new cards (SM-2, 1.3–3.0). Omit = 2.5. Affects interval growth when the user first reviews a card. |
@@ -79,17 +83,9 @@ CREATE TABLE deck_content (
 
 ---
 
-## DynamoDB schema (future)
+## DynamoDB schema (implemented)
 
-**Base table (single-table):**
-- PK: `DECK#ko-beginner`, SK: `META` — manifest attributes
-- PK: `DECK#ko-beginner`, SK: `CONTENT` — cards (or separate attribute)
-
-**GSI for listing by language:**
-- GSI1PK: `DECK#LANG#ko`, GSI1SK: `ko-beginner` — list decks for a language
-
-**GSI for course decks:**
-- GSI2PK: `DECK#COURSE#mock-1`, GSI2SK: `ko-beginner` — list decks for a course
+Table: `lingo_decks`. Per deck: `PK = DECK#<id>`, `SK = META` with manifest + `cards` JSON on one item. GSIs: `StatusLanguage-Index`, `AuthorUpdated-Index`. Planned S3 tiers: see [DECK_CONTENT_STORAGE.md](../../../../docs/dev/planning/DECK_CONTENT_STORAGE.md).
 
 ---
 

@@ -16,7 +16,7 @@ export type ButtonVariant =
    */
   | "primary-3d";
 
-export type ButtonSize = "md" | "sm" | "icon";
+export type ButtonSize = "md" | "sm" | "icon" | "hero";
 
 type ButtonStyleOptions = {
   variant?: ButtonVariant;
@@ -30,6 +30,8 @@ const sizeClasses: Record<ButtonSize, string> = {
   md: "rounded-lg px-4 py-2.5 text-sm font-medium",
   sm: "rounded-md px-3 py-1.5 text-xs font-medium",
   icon: "size-9 shrink-0 rounded-full p-0",
+  /** Landing hero row — matches primary-3d footprint (padding + min height). */
+  hero: "min-h-12 gap-2 rounded-xl px-6 py-3 text-[15px] font-semibold",
 };
 
 // `!justify-start` overrides the `justify-center` in baseBehavior — menu
@@ -41,7 +43,7 @@ const menuRowLayout =
 // Layout is variant-owned (not size-driven) — primary-3d is a single
 // hero spec across landing + lesson, not a size scale.
 const primary3dLayout =
-  "rounded-xl border-[1.5px] px-6 py-3.5 text-base font-bold uppercase tracking-wide";
+  "min-h-12 gap-2 rounded-xl border-[1.5px] px-6 py-3 text-base font-bold uppercase tracking-wide";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:

@@ -184,6 +184,11 @@ export function clearMockProgress(): void {
   notifyProgressChanged();
 }
 
+/** Local lesson completion cache (dev / debug overlays). */
+export function getLocalLessonProgressSnapshot(): ProgressStore {
+  return loadStore();
+}
+
 const RESET_FLAG_PREFIX = "open-lingo-lesson-progress-reset:";
 
 /** User chose Start over — skip server hydrate until they progress again. */
@@ -254,6 +259,9 @@ const MOCK_PROGRESS: ProgressSummary = {
   xpEarnedToday: 50,
 };
 
+/** Rough practice minutes credited per completed lesson (until session telemetry exists). */
+export const ESTIMATED_MINUTES_PER_LESSON = 10;
+
 function localDayKey(d: Date): string {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, "0");
@@ -276,6 +284,42 @@ function computeStreakDays(completedDays: Set<string>): number {
     cursor.setDate(cursor.getDate() - 1);
   }
   return count;
+}
+
+/** Last 7 calendar days (oldest → today), minutes estimated from lesson completions. */
+export function getWeekPracticeMinutes(
+  estimateMinutesPerLesson = ESTIMATED_MINUTES_PER_LESSON,
+): number[] {
+  if (typeof window === "undefined") return [0, 0, 0, 0, 0, 0, 0];
+
+  const completions = Object.values(loadStore().completed);
+  const buckets = [0, 0, 0, 0, 0, 0, 0];
+  const now = new Date();
+
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(now);
+    d.setDate(d.getDate() - (6 - i));
+    const key = localDayKey(d);
+    let lessonsOnDay = 0;
+    for (const c of completions) {
+      if (localDayKey(new Date(c.lastCompletedAt)) === key) lessonsOnDay += 1;
+    }
+    buckets[i] = lessonsOnDay * estimateMinutesPerLesson;
+  }
+  return buckets;
+}
+
+function dailyGoalMinutesFromCompletions(
+  completions: LessonCompletion[],
+  goalMinutes: number,
+  estimateMinutesPerLesson: number,
+): number {
+  const todayKey = localDayKey(new Date());
+  let lessonsToday = 0;
+  for (const c of completions) {
+    if (localDayKey(new Date(c.lastCompletedAt)) === todayKey) lessonsToday += 1;
+  }
+  return Math.min(goalMinutes, lessonsToday * estimateMinutesPerLesson);
 }
 
 export function getMockProgressSummary(): ProgressSummary {
@@ -314,11 +358,17 @@ export function getMockProgressSummary(): ProgressSummary {
     if (last.getTime() >= sevenDaysAgoMs) lessonsThisWeek += 1;
   }
 
+  const dailyGoalMinutes = MOCK_PROGRESS.dailyGoalMinutes;
+
   return {
     streakDays: computeStreakDays(completedDayKeys),
     lessonsCompletedThisWeek: lessonsThisWeek,
-    dailyGoalMinutes: MOCK_PROGRESS.dailyGoalMinutes,
-    dailyGoalCompletedMinutes: 0,
+    dailyGoalMinutes,
+    dailyGoalCompletedMinutes: dailyGoalMinutesFromCompletions(
+      completions,
+      dailyGoalMinutes,
+      ESTIMATED_MINUTES_PER_LESSON,
+    ),
     cardsDueToday: 0,
     xpTotal,
     xpEarnedToday,

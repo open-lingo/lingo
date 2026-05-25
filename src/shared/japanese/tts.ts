@@ -218,7 +218,7 @@ export async function autoPlayJaAudio(
  * The decoded AudioBuffer is module-cached, so repeat plays of the same
  * URL across the session are zero-cost after the first decode.
  *
- * Honors `audio.silentMode` (theme/settings panel). When silent mode is on
+ * Honors `audio.silentMode` (Settings → Audio). When silent mode is on
  * the hook is a no-op. This is the **only** gate point for silent mode —
  * direct `playJaAudio` calls (tap-to-play on speaker / mic buttons) stay
  * un-gated so the learner can still hear sounds when they explicitly ask.

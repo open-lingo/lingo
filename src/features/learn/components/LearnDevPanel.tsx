@@ -22,6 +22,7 @@ import { LearnLessonLengthsOverlay } from "./LearnLessonLengthsOverlay";
 export type LearnDevPanelProps = {
   unlocked: boolean;
   onToggle: () => void;
+  onShowProgressJson: () => void;
   onClearProgress: () => void;
   onClearGraduatedVocab: () => void;
 };
@@ -29,6 +30,7 @@ export type LearnDevPanelProps = {
 export function LearnDevPanel({
   unlocked,
   onToggle,
+  onShowProgressJson,
   onClearProgress,
   onClearGraduatedVocab,
 }: LearnDevPanelProps) {
@@ -48,6 +50,13 @@ export function LearnDevPanel({
           <input type="checkbox" checked={unlocked} onChange={onToggle} />
           Unlock all lessons
         </label>
+        <button
+          type="button"
+          onClick={onShowProgressJson}
+          className="rounded border border-border px-2 py-1 text-left font-mono hover:bg-surface-muted"
+        >
+          &lt;/&gt; Progress JSON
+        </button>
         <button
           type="button"
           onClick={onClearProgress}

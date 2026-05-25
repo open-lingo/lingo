@@ -265,6 +265,53 @@ export const MOCK_FRIEND_SUGGESTIONS: { user: SocialUser; reason: string }[] = [
   },
 ];
 
+export type FriendQuest = {
+  labelKey: string;
+  labelDefault: string;
+  you: number;
+  friend: number;
+  friendName: string;
+  partnerId: string;
+};
+
+/** MOCK: replace with `social.getFriendQuest()` when API lands. */
+export const MOCK_FRIEND_QUEST: FriendQuest = {
+  labelKey: "home.restructured.social.friendQuestLabel",
+  labelDefault: "Both finish a lesson today",
+  you: 1,
+  friend: 0,
+  friendName: MOCK_FRIENDS[0]?.name ?? "Anna",
+  partnerId: MOCK_FRIENDS[0]?.id ?? "u-anna",
+};
+
+/** Compact friend row for the home Social card. */
+export type HomeFriendPreview = {
+  id: string;
+  name: string;
+  streak: number;
+  status: "active" | "idle";
+};
+
+export function toHomeFriendPreview(user: SocialUser): HomeFriendPreview {
+  return {
+    id: user.id,
+    name: user.name,
+    streak: user.streakDays,
+    status: user.status,
+  };
+}
+
+/** Top N friends for home — active first, then by streak. */
+export function getHomeFriendsPreview(limit = 3): HomeFriendPreview[] {
+  return [...MOCK_FRIENDS]
+    .sort((a, b) => {
+      if (a.status !== b.status) return a.status === "active" ? -1 : 1;
+      return b.streakDays - a.streakDays;
+    })
+    .slice(0, limit)
+    .map(toHomeFriendPreview);
+}
+
 // ────────────────────────────────────────────────────────────────────────────
 // Activity feed
 // ────────────────────────────────────────────────────────────────────────────

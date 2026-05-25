@@ -9,7 +9,8 @@ import { Icon } from "@/shared/components/Icon";
 import { UserAvatar } from "../components/UserAvatar";
 import { UsernameDisplay } from "../components/UsernameDisplay";
 import { KudosButton } from "../components/KudosButton";
-import { MOCK_ACTIVITY, type ActivityItem } from "../mock/mockSocial";
+import { useSocial } from "../hooks/useSocial";
+import type { ActivityItem } from "../mock/mockSocial";
 
 const KIND_ICON: Record<
   ActivityItem["kind"],
@@ -23,6 +24,7 @@ const KIND_ICON: Record<
 };
 
 export function ActivityFeedStrip() {
+  const { activity } = useSocial();
   return (
     <Card padding="none" className="overflow-hidden">
       <div className="flex items-center gap-2 border-b border-border px-4 py-2">
@@ -40,7 +42,7 @@ export function ActivityFeedStrip() {
         </button>
       </div>
       <ul className="flex gap-2 overflow-x-auto px-3 py-2.5">
-        {MOCK_ACTIVITY.map((a) => {
+        {activity.map((a) => {
           const kind = KIND_ICON[a.kind];
           return (
             <li

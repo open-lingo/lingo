@@ -8,7 +8,7 @@ Where UI strings, course content, and practice data live, how they're localized,
 
 **Location:** `src/shared/i18n/locales/{locale}.json` (e.g. `en.json`, `ko.json`). Keys are namespaced: `nav.*`, `practice.*`, `learn.*`, `stories.*`, etc.
 
-**Rule:** All user-facing **app chrome** and **practice UI** strings use `t('key')` via react-i18next. The active locale is the **UI language** (from settings / i18n), independent of the learning language.
+**Rule:** All user-facing **app chrome** and **practice UI** strings use `t('key')` via react-i18next. The active locale is the **UI language** (`settings.learning.uiLocale`, **Settings → General** dropdown), independent of the **learning language** (header `LanguageSelector` → `learning.learningLanguageId`).
 
 **Examples:**
 - `practice.particlePractice` — nav label

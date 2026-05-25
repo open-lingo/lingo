@@ -3,8 +3,25 @@
 > **Planning note (2026-05):** SRS card state is **separate** and working — do not fold SM-2 into this API. This epic covers **content progress** (lessons, courses, stories) and later **rewards** (XP, streaks). See [PRODUCT_BACKLOG.md](../PRODUCT_BACKLOG.md).
 
 **Service:** `lingo-core` (FastAPI, Python 3.13+)
-**Router prefix:** `/api/core/progress/v1`
-**Current state:** No progress router exists. Frontend uses mock data in `mockProgress.ts`.
+**Router prefix:** `/api/core/v1/progress` (mounted under v1 router — **not** `/api/core/progress/v1`)
+**Current state (2026-05-24):** Core router **implemented** (SQLite + Dynamo). Client: `ProgressApi` in `lingo/src/shared/api/progress.ts`, lesson buffer in `features/lesson/engine/`, hydrate via `useProgressMe`, **SyncManager** UI. Home: `useUserStats` + `useLocalProgressSummary` (daily goal, week sparkline from local completions). **Quests / daily XP rollup:** not implemented — [2026-05-24-quests-tracking-design.md](../superpowers/specs/2026-05-24-quests-tracking-design.md). Remaining gaps below.
+
+### Implemented
+
+| Endpoint | Notes |
+|----------|--------|
+| `POST /lessons/batch` | Main sync path; idempotency on `clientAttemptId`; streak via `checkStreak` |
+| `GET /me` | `ProgressSummary` — lessons, concepts, last30days, user stats |
+| `DELETE /me` | Start over — deletes progress tables + resets user streak/XP/lingots |
+| `GET /me/attempts` | Paginated history |
+| `POST /me/touch` | Session touch |
+| `POST /lessons/:lessonId/attempt` | **501** — validation pipeline not wired |
+
+**Client sync:** `lessonSync.ts` — per-step `recordStepEvent`, draft `draft:{lessonId}`, SyncManager lessons source, 30s + unmount flush. See ADR `lingo-core/docs/adr/0001-progress-api-hybrid-rollup.md`.
+
+**Start over:** `resetLearnProgress()` — local wipe + `DELETE /progress/me` + `DELETE /srs/all`. Learn UI: button at **bottom** of course map; copy is account-wide (not “this device”).
+
+**Dev:** `</>` Progress JSON overlay on Learn (dev unlock) — server `GET /me` + local completion cache.
 
 **References:**
 - Progress format: `docs/dataformats/progress/README.md` (schema, XP sources, streak logic)

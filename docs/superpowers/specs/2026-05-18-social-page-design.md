@@ -147,7 +147,7 @@ Icon registry gained: `search`, `send`, `smile`, `sparkles`, `trophy`, `crown`, 
 
 | Surface | Mock symbol | Real source |
 |---|---|---|
-| Friends list | `MOCK_FRIENDS` | `users.getFriends()` |
+| Friends list | `MOCK_FRIENDS` via **`useSocial()`** | `users.getFriends()` |
 | Friend requests | `MOCK_FRIEND_REQUESTS` | `users.getIncomingRequests()` |
 | Friend suggestions | `MOCK_FRIEND_SUGGESTIONS` | `users.getSuggestions()` (mutual-friends + same-module heuristic) |
 | Activity feed | `MOCK_ACTIVITY` | Activity stream subscription (consider Liveblocks / SSE) |

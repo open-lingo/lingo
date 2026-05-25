@@ -4,6 +4,11 @@ By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **
 
 ## Done (recently)
 
+- [x] Lesson progress sync: per-step `recordStepEvent`, draft `draft:{lessonId}`, `materializeOrphanDrafts`, `syncedAt` on mid-lesson sync, SyncManager lessons row (no false failure icon after successful batch)
+- [x] Start over: moved to bottom of Learn page; account-wide copy; `DELETE /progress/me` + local wipe + `DELETE /srs/all`
+- [x] Dev: `</>` Progress JSON overlay on Learn (`LearnProgressJsonOverlay`) — server + local snapshot
+- [x] Backend: `DELETE /api/core/v1/progress/me`, `delete_all_for_user` on progress repo; SQLite `update_user` persists streak/XP columns
+
 - [x] Theme system: token-based themes, presets (Light/Dark/Sepia/AMOLED), custom themes, theme editor panel, Your themes + Community themes (mock)
 - [x] Design system: Card, Button, token classes; migrated Layout, Home, Community, ProgressSummary, nav components (ThemeToggle, LanguageSelector, AuthMenu, SyncManager, FundingMeter)
 
@@ -63,8 +68,9 @@ Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status
 
 ## Backend (future)
 
+- [ ] **Anki deck import** (.apkg, server-side; scheduling optional) → [anki-import.md](tasks/anki-import.md), [anki-import architecture](dataformats/flashcards/anki-import.md)
 - [ ] **User settings API** → [backend-user-api.md](tasks/backend-user-api.md)
-- [ ] **Progress API** → [backend-progress-api.md](tasks/backend-progress-api.md)
+- [x] **Progress API (core)** → [backend-progress-api.md](tasks/backend-progress-api.md) — batch + GET/DELETE me wired; single-attempt server validate still 501
 - [ ] **Content API** → [backend-content-api.md](tasks/backend-content-api.md)
 - [ ] Leaderboard API: replace mock data with real rankings/XP (keep flag off until then)
 - [ ] Funding meter: live % from AdSense + Stripe sync (API + UI wired; manual env today)

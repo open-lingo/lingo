@@ -141,6 +141,11 @@ export class ProgressApi extends ApiClient {
     }
   }
 
+  /** Wipe server-side progress and reset stats (Start over). */
+  async resetMe(): Promise<void> {
+    await this.delete(`${PREFIX}/me`, { tag: "progress:reset" });
+  }
+
   /** Aggregate for page render (lessons + concepts + daily + user stats). */
   async getMe(signal?: AbortSignal): Promise<ProgressSummary | null> {
     try {

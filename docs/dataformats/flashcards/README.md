@@ -101,8 +101,17 @@ See `srs-state.example.json`. Stored in localStorage or backend; not in deck JSO
 
 ---
 
+## Anki import (planned)
+
+Import from Anki `.apkg` is **not implemented** yet. Architecture, scheduling migration, and client vs server decisions: **[anki-import.md](./anki-import.md)**.
+
+Today, use **Upload deck** with Open Lingo JSON (see `community-deck.example.json`). After Anki import ships, the pipeline will be: `.apkg` → normalized `AnkiPackageJsonV1` → Open Lingo deck + optional SRS state.
+
+---
+
 ## Relationship to other formats
 
 - **Courses** ([courses/](../courses/)): Course-linked decks reference `courseId`. The lesson-card map ties card unlock to lesson completion within the course.
 - **Lessons** ([lessons/](../lessons/)): Lessons specify `introducesCardIds` listing which flashcard IDs they unlock.
 - **Progress** ([progress/](../progress/)): SRS state is per-user, per-card -- separate from deck definitions.
+- **SRS backend** ([srs/](../srs/)): Storage for imported Anki scheduling mapped to `SRSCardState`.

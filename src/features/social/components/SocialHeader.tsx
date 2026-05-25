@@ -11,12 +11,13 @@ import { Icon } from "@/shared/components/Icon";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { UserAvatar } from "./UserAvatar";
 import { UsernameDisplay } from "./UsernameDisplay";
-import { MOCK_LEAGUE, MOCK_ME, MOCK_THREADS, MOCK_WEEKLY_LB } from "../mock/mockSocial";
+import { useSocial } from "../hooks/useSocial";
 
 export function SocialHeader() {
   const langPath = useLangPath();
-  const myRow = MOCK_WEEKLY_LB.find((r) => r.isMe);
-  const unreadCount = MOCK_THREADS.reduce((sum, t) => sum + t.unreadCount, 0);
+  const { me, league, weeklyLeaderboard, threads } = useSocial();
+  const myRow = weeklyLeaderboard.find((r) => r.isMe);
+  const unreadCount = threads.reduce((sum, t) => sum + t.unreadCount, 0);
 
   return (
     <Card
@@ -25,8 +26,8 @@ export function SocialHeader() {
       className="flex flex-wrap items-center gap-3 bg-gradient-to-br from-accent/10 via-surface to-surface px-4 py-2.5 sm:flex-nowrap"
     >
       <UserAvatar
-        name={MOCK_ME.name}
-        frame={MOCK_ME.frame}
+        name={me.name}
+        frame={me.frame}
         status="active"
         size="md"
       />
@@ -37,7 +38,7 @@ export function SocialHeader() {
           </p>
         </div>
         <h1 className="text-lg font-bold leading-tight text-text-primary">
-          <UsernameDisplay name={MOCK_ME.name} cosmetic={MOCK_ME.cosmetic} />
+          <UsernameDisplay name={me.name} cosmetic={me.cosmetic} />
         </h1>
       </div>
 
@@ -45,10 +46,10 @@ export function SocialHeader() {
         <StatChip
           icon="trophy"
           tone="accent"
-          label={`${MOCK_LEAGUE.emoji} ${MOCK_LEAGUE.name}`}
+          label={`${league.emoji} ${league.name}`}
           detail={myRow ? `#${myRow.rank}` : null}
         />
-        <StatChip icon="flame" tone="warning" label={`${MOCK_ME.streakDays}d`} />
+        <StatChip icon="flame" tone="warning" label={`${me.streakDays}d`} />
         <StatChip
           icon="star"
           tone="success"

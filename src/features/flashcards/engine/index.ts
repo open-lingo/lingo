@@ -17,6 +17,7 @@ export {
   cardMaxDifficulty,
   cardEarliestDueDate,
   cardLastReviewDate,
+  cardLastReviewedAt,
   MASTERED_INTERVAL_DAYS,
 } from "./srs";
 export { isLegacyFlatFsrsState, migrateFlatToModal } from "./srsMigration";

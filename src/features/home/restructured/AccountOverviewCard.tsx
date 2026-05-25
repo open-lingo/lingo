@@ -1,45 +1,37 @@
 import { useTranslation } from "react-i18next";
 import { Card, ProgressRing, WeekSparkline } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { getMockProgressSummary } from "@/shared/domain/mockProgress";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { LingotBalance } from "@/shared/components/LingotBalance";
 import { useUserStats } from "@/shared/hooks/useUserStats";
-import { MOCK_WEEK_MINUTES, MOCK_KANA_MASTERY } from "./mockHomeData";
+import { useLocalProgressSummary } from "@/shared/hooks/useLocalProgressSummary";
+import { MOCK_KANA_MASTERY } from "./mockHomeData";
 
-// XP-per-level curve. Used only when the backend doesn't supply a level
-// (DEFAULT_STATS.level is 1) so the UI can still show a sensible XP bar.
 const XP_PER_LEVEL = 500;
 
 function nextLevelXpFor(level: number) {
-  // Simple linear curve. Replace if backend starts returning a target.
   return Math.max(1, level) * XP_PER_LEVEL;
 }
 
 export function AccountOverviewCard() {
   const { t } = useTranslation();
   const { language } = useLanguage();
-  // Real server-cached stats — falls back to zeros when backend not wired.
   const { stats } = useUserStats();
-  // Mock data still feeds anything the backend doesn't yet provide
-  // (daily-goal minutes, today's XP delta, kana mastery, week sparkline).
-  const p = getMockProgressSummary();
+  const { summary: p, weekMinutes } = useLocalProgressSummary();
 
   const dailyPct = Math.min(
     100,
-    Math.round((p.dailyGoalCompletedMinutes / p.dailyGoalMinutes) * 100),
+    Math.round((p.dailyGoalCompletedMinutes / p.dailyGoalMinutes) * 100) || 0,
   );
 
   const xpTotal = stats.xp;
-  // MOCK: backend doesn't yet surface "xp earned today" — keep the mock delta.
   const xpToday = p.xpEarnedToday ?? 0;
   const level = stats.level;
   const nextLevelXp = nextLevelXpFor(level);
   const levelPct = Math.min(100, Math.round((xpTotal / nextLevelXp) * 100));
   const xpToNext = Math.max(0, nextLevelXp - xpTotal);
 
-  const weekTotalMin = MOCK_WEEK_MINUTES.reduce((a, b) => a + b, 0);
-  const daysActiveThisWeek = MOCK_WEEK_MINUTES.filter((n) => n > 0).length;
+  const weekTotalMin = weekMinutes.reduce((a, b) => a + b, 0);
+  const daysActiveThisWeek = weekMinutes.filter((n) => n > 0).length;
 
   const isJa = language?.id === "ja";
 
@@ -65,9 +57,7 @@ export function AccountOverviewCard() {
         </span>
       </div>
 
-      {/* Top metric row */}
-      <div className="mt-5 grid gap-4 sm:grid-cols-3">
-        {/* Daily goal ring */}
+      <div className="mt-5 grid gap-4 sm:grid-cols-3 sm:items-start">
         <div className="flex items-center gap-3">
           <ProgressRing
             percent={dailyPct}
@@ -89,14 +79,13 @@ export function AccountOverviewCard() {
           </div>
         </div>
 
-        {/* Streak */}
         <div className="flex items-center gap-3">
-          <div className="relative flex h-[84px] w-[84px] items-center justify-center">
+          <div className="relative flex h-[72px] w-[72px] shrink-0 items-center justify-center">
             <span className="absolute inset-0 rounded-full bg-warning/10" aria-hidden />
-            <Icon name="flame" size={42} className="text-warning" />
+            <Icon name="flame" size={36} className="text-warning" />
           </div>
           <div>
-            <p className="text-2xl font-extrabold text-text-primary leading-none">
+            <p className="text-2xl font-extrabold leading-none text-text-primary">
               {stats.streak}
               <span className="ml-1 text-base font-medium text-text-secondary">
                 {t("home.restructured.account.daysSuffix", { defaultValue: "days" })}
@@ -111,31 +100,32 @@ export function AccountOverviewCard() {
           </div>
         </div>
 
-        {/* Weekly sparkline */}
-        <div>
+        <div className="flex min-w-0 flex-col">
           <p className="text-sm font-medium text-text-secondary">
             {t("home.restructured.account.weekLabel", { defaultValue: "This week" })}
           </p>
           <div className="mt-2">
-            {/* MOCK: MOCK_WEEK_MINUTES — replace with store.completed aggregated per day. */}
             <WeekSparkline
-              data={MOCK_WEEK_MINUTES}
+              data={weekMinutes}
               ariaLabel={t("home.restructured.account.weekAria", {
                 defaultValue: "Minutes practiced per day this week",
               })}
             />
           </div>
           <p className="mt-2 text-xs text-text-muted">
-            {t("home.restructured.account.weekCaption", {
-              defaultValue: "{{min}} min · {{days}} of 7 days",
-              min: weekTotalMin,
-              days: daysActiveThisWeek,
-            })}
+            {weekTotalMin > 0
+              ? t("home.restructured.account.weekCaption", {
+                  defaultValue: "{{min}} min · {{days}} of 7 days",
+                  min: weekTotalMin,
+                  days: daysActiveThisWeek,
+                })
+              : t("home.restructured.account.weekEmpty", {
+                  defaultValue: "Complete a lesson to start your week",
+                })}
           </p>
         </div>
       </div>
 
-      {/* XP bar */}
       <div className="mt-6">
         <div className="flex items-baseline justify-between text-sm">
           <span className="font-medium text-text-secondary">
@@ -166,15 +156,8 @@ export function AccountOverviewCard() {
             style={{ width: `${levelPct}%` }}
           />
         </div>
-        <div className="mt-2 flex items-center justify-end gap-1.5 text-xs text-text-secondary">
-          <LingotBalance linkToShop className="bg-transparent px-0 py-0 hover:bg-transparent" />
-          <span className="text-text-muted">
-            {t("account.lingots", { defaultValue: "Lingots" })}
-          </span>
-        </div>
       </div>
 
-      {/* Kana mastery — JA only */}
       {isJa ? (
         <div className="mt-5 flex items-center justify-between gap-4 rounded-xl bg-surface-muted px-4 py-3">
           <div className="min-w-0">
@@ -184,7 +167,6 @@ export function AccountOverviewCard() {
               })}
             </p>
             <p className="text-xs text-text-secondary">
-              {/* MOCK: MOCK_KANA_MASTERY — replace with JA kana SRS retention query. */}
               {t("home.restructured.account.kanaCaption", {
                 defaultValue: "{{retained}} of {{total}} kana confidently retained",
                 retained: MOCK_KANA_MASTERY.retained,

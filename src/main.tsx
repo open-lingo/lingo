@@ -12,6 +12,7 @@ import { ToastProvider } from "@/shared/contexts/ToastContext";
 import { ApiProvider } from "@/shared/api/provider";
 import { FeatureFlagsProvider } from "@/shared/contexts/FeatureFlagsContext";
 import { SRSStoreRevisionProvider } from "@/features/flashcards/SRSStoreRevisionContext";
+import { AdProviderRoot } from "@/features/ads";
 import App from "./App";
 import { installDevLog } from "@/shared/devlog/devLog";
 import { isTesterMode } from "@/shared/telemetry/sessionLog";
@@ -57,7 +58,9 @@ createRoot(document.getElementById("root")!).render(
               <LanguageProvider>
               <ToastProvider>
                 <ModalProvider>
-                  <App />
+                  <AdProviderRoot>
+                    <App />
+                  </AdProviderRoot>
                 </ModalProvider>
               </ToastProvider>
               </LanguageProvider>

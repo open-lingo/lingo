@@ -1,8 +1,12 @@
 # Progress format
 
-Per-user state for lesson completion, vocabulary learned, XP, and streaks. Stored in the backend (DynamoDB) or localStorage for local development.
+Per-user state for lesson completion, vocabulary learned, XP, and streaks.
 
-See `progress.example.json` for a complete example.
+**Runtime (2026-05):** Production shape is the hybrid rollup model in `lingo-core/docs/adr/0001-progress-api-hybrid-rollup.md`. The API exposes `GET /api/core/v1/progress/me` as `ProgressSummary` (`user`, `lessons[]`, `concepts[]`, `last30days[]`). The client keeps a **local completion cache** in `mockProgress.ts` (hydrated from server on fetch) and a **sync buffer** for in-flight lesson attempts (`features/lesson/engine/lessonStorage.ts`). Mid-lesson steps sync as draft attempts `draft:{lessonId}` via `POST /lessons/batch`.
+
+**Start over** clears local caches and calls `DELETE /progress/me` (+ SRS `DELETE /all`).
+
+See `progress.example.json` for a legacy-style example; field names may differ from `ProgressSummary`.
 
 ---
 

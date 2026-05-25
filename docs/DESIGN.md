@@ -62,7 +62,7 @@ src/
 ## Design ideas
 
 - **Language config as single source of truth** — `shared/domain/languageConfig.ts` drives practice types, alphabets, intro lesson title, etc. Can later load from `languages.json` or API.
-- **Settings persistence** — Local first (localStorage); User API later. Same shape in `features/settings/types.ts` so backend is a drop-in replacement in `features/settings/storage.ts`.
+- **Settings persistence** — Local first (localStorage); User API when authenticated. Learner UI is a **modal** (`features/settings/`); study language via header `LanguageSelector`, UI locale via settings. See `features/settings/README.md` and `docs/SETTINGS_AND_DATES.md`.
 - **Shareable URLs** — Path/query params for leaderboard period, community tab, alphabet practice. Keep using `usePathParams` and same param names.
 - **Funding meter** — "X% ad-funded" transparency; lower % = more sustainable. Design for real metrics when backend exists.
 - **Practice routes** — Config-driven; one route per type + alphabet id in path/query. Keeps URLs shareable and predictable.

@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@/shared/contexts/ThemeContext";
-import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
   BUILT_IN_THEMES,
   MOCK_COMMUNITY_THEMES,
@@ -89,10 +88,11 @@ export function ThemeEditorPanel() {
     unstarCommunityTheme,
     isStarred,
     closeThemeEditor,
+    setPreviewTokens,
   } = useTheme();
-  const { settings, updateSetting } = useSettings();
-  const silentMode = settings.audio.silentMode;
-  const volume = settings.audio.volume ?? 1;
+  const [previewCommunityId, setPreviewCommunityId] = useState<string | null>(
+    null,
+  );
 
   const [draft, setDraft] = useState<ThemeTokens>(() => ensureThemeTokens(activeTokens));
   const [draftName, setDraftName] = useState("");
@@ -209,13 +209,31 @@ export function ThemeEditorPanel() {
 
   const handleInstallCommunity = useCallback(
     (theme: ThemeDefinition) => {
+      setPreviewTokens(null);
+      setPreviewCommunityId(null);
       const installed = installCommunityTheme(theme);
       setEditingId(installed.id);
       setDraft(ensureThemeTokens(installed.tokens));
       setDraftName(installed.name);
       setIsCustomizing(true);
     },
-    [installCommunityTheme]
+    [installCommunityTheme, setPreviewTokens],
+  );
+
+  const handlePreviewCommunity = useCallback(
+    (theme: ThemeDefinition) => {
+      if (previewCommunityId === theme.id) {
+        setPreviewTokens(null);
+        setPreviewCommunityId(null);
+        return;
+      }
+      const tokens = ensureThemeTokens(theme.tokens);
+      setPreviewTokens(tokens);
+      setPreviewCommunityId(theme.id);
+      setDraft(tokens);
+      setDraftName(theme.name);
+    },
+    [previewCommunityId, setPreviewTokens],
   );
 
   const presetIds = useMemo(() => Object.keys(BUILT_IN_THEMES), []);
@@ -346,80 +364,6 @@ export function ThemeEditorPanel() {
             </div>
           </section>
 
-          {/* Audio — silent-mode toggle. Lives in the theme panel for now
-              (no dedicated learner-settings surface yet); can be promoted
-              later if a wider audio prefs group is needed. Gates ONLY the
-              auto-play hook — tap-to-play stays live so the learner can
-              still hear sounds on demand. */}
-          <section className="mb-6">
-            <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
-              {t("settings.audio", "Audio")}
-            </h3>
-            <div className="mb-3 rounded-lg border border-border bg-surface p-3">
-              <div className="mb-2 flex items-center justify-between">
-                <label
-                  htmlFor="audio-volume-slider"
-                  className="text-sm font-medium text-text-primary"
-                >
-                  {t("settings.audioVolume", "App volume")}
-                </label>
-                <span className="text-xs tabular-nums text-text-muted">
-                  {Math.round(volume * 100)}%
-                </span>
-              </div>
-              <input
-                id="audio-volume-slider"
-                type="range"
-                min={0}
-                max={1}
-                step={0.05}
-                value={volume}
-                onChange={(e) =>
-                  updateSetting("audio.volume", Number(e.target.value))
-                }
-                className="w-full cursor-pointer accent-accent"
-                aria-describedby="audio-volume-help"
-              />
-              <p
-                id="audio-volume-help"
-                className="mt-1 text-xs text-text-muted"
-              >
-                {t(
-                  "settings.audioVolumeHelp",
-                  "Adjust Lingo's audio without touching your device volume.",
-                )}
-              </p>
-            </div>
-            <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-surface p-3 transition hover:bg-surface-muted">
-              <input
-                type="checkbox"
-                checked={silentMode}
-                onChange={(e) =>
-                  updateSetting("audio.silentMode", e.target.checked)
-                }
-                className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-accent"
-                aria-describedby="silent-mode-help"
-              />
-              <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                <span className="text-sm font-medium text-text-primary">
-                  {t(
-                    "settings.silentMode",
-                    "Silent mode — never auto-play audio",
-                  )}
-                </span>
-                <span
-                  id="silent-mode-help"
-                  className="text-xs text-text-muted"
-                >
-                  {t(
-                    "settings.silentModeHelp",
-                    "You can still tap audio buttons to hear sounds.",
-                  )}
-                </span>
-              </span>
-            </label>
-          </section>
-
           {/* Presets */}
           <section className="mb-6">
             <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
@@ -545,6 +489,20 @@ export function ThemeEditorPanel() {
                       aria-label={isStarred(theme.id) ? t("settings.unstarTheme", "Unstar") : t("settings.starTheme", "Star")}
                     >
                       <Icon name="star" size={16} fill={isStarred(theme.id) ? "currentColor" : "none"} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handlePreviewCommunity(theme)}
+                      className={`rounded border px-2 py-1 text-xs font-medium transition ${
+                        previewCommunityId === theme.id
+                          ? "border-accent bg-accent-muted text-accent"
+                          : "border-border text-text-primary hover:bg-surface-muted"
+                      }`}
+                      aria-pressed={previewCommunityId === theme.id}
+                    >
+                      {previewCommunityId === theme.id
+                        ? t("settings.stopPreview", "Stop")
+                        : t("settings.previewTheme", "Preview")}
                     </button>
                     <button
                       type="button"

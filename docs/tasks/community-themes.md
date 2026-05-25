@@ -2,7 +2,7 @@
 
 **Context:** Theme system in `docs/agents/basecontext/FRONTEND_CONTEXT.md`. Local theme editor, Your themes, and mock Community themes already exist.
 
-**Current state:** Mock community themes in `src/shared/theme/community-mock.ts`. Install and star work locally. No backend or CDN yet.
+**Current state:** Mock community themes in `src/shared/theme/community-mock.ts`. **Preview** (temporary apply via `ThemeContext.setPreviewTokens`), **Add** (install to Your themes), and star work locally. Custom/installed themes are not overridden by auto light/dark fallback. No backend or CDN yet.
 
 ## Goals
 

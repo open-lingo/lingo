@@ -175,7 +175,12 @@ export function reviewCard(
   at: Date = new Date(),
 ): SRSCardState {
   const next = reviewSubState(state[modality], rating, at);
-  return { ...state, [modality]: next };
+  return {
+    ...state,
+    [modality]: next,
+    // Why: backend LWW key — must be an ISO timestamp, set on every review.
+    lastReviewedAt: at.toISOString(),
+  };
 }
 
 /**
@@ -313,9 +318,22 @@ export function cardEarliestDueDate(state: SRSCardState): string {
     : state.production.dueDate;
 }
 
-/** Most recent review across modalities (for sort/display). */
+/** Most recent review across modalities (for sort/display, YYYY-MM-DD). */
 export function cardLastReviewDate(state: SRSCardState): string {
   return state.recognition.lastReviewDate >= state.production.lastReviewDate
     ? state.recognition.lastReviewDate
     : state.production.lastReviewDate;
+}
+
+/**
+ * ISO timestamp of the most recent review across modalities. Prefers the
+ * top-level ``lastReviewedAt`` (set by ``reviewCard``), falling back to the
+ * later of the per-modality YYYY-MM-DD ``lastReviewDate`` strings expanded
+ * to UTC midday so older states still produce a sortable ISO string for
+ * the backend LWW merge.
+ */
+export function cardLastReviewedAt(state: SRSCardState): string {
+  if (state.lastReviewedAt) return state.lastReviewedAt;
+  const day = cardLastReviewDate(state);
+  return `${day}T12:00:00.000Z`;
 }

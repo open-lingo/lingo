@@ -14,12 +14,8 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { UsernameDisplay } from "../components/UsernameDisplay";
 import { ProfilePreviewPopover } from "../components/ProfilePreviewPopover";
 import { ActivityFeedStrip } from "./ActivityFeedStrip";
-import {
-  MOCK_FRIENDS,
-  MOCK_FRIEND_REQUESTS,
-  MOCK_FRIEND_SUGGESTIONS,
-  type SocialUser,
-} from "../mock/mockSocial";
+import { useSocial } from "../hooks/useSocial";
+import type { SocialUser } from "../mock/mockSocial";
 
 export function FriendsSection() {
   return (
@@ -39,12 +35,13 @@ export function FriendsSection() {
  */
 export function FriendsSearchAndList() {
   const [query, setQuery] = useState("");
+  const { friends } = useSocial();
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return MOCK_FRIENDS;
-    return MOCK_FRIENDS.filter((f) => f.name.toLowerCase().includes(q));
-  }, [query]);
+    if (!q) return friends;
+    return friends.filter((f) => f.name.toLowerCase().includes(q));
+  }, [friends, query]);
 
   // Grouping: active first, then idle. Each group sorted by recency
   // (most-recently-online first). Real impl will use a numeric
@@ -138,7 +135,8 @@ function SectionDivider({
  * mobile, single-column when used in a sidebar column on lg+.
  */
 export function FriendRequestsPanel() {
-  if (MOCK_FRIEND_REQUESTS.length === 0) return null;
+  const { friendRequests } = useSocial();
+  if (friendRequests.length === 0) return null;
   return (
     <Card padding="none" className="overflow-hidden">
       <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
@@ -148,7 +146,7 @@ export function FriendRequestsPanel() {
         <h3 className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
           Requests
           <span className="ml-1.5 inline-flex items-center justify-center rounded-full bg-accent px-1.5 py-px text-[10px] font-bold text-on-accent">
-            {MOCK_FRIEND_REQUESTS.length}
+            {friendRequests.length}
           </span>
         </h3>
         <button
@@ -159,8 +157,7 @@ export function FriendRequestsPanel() {
         </button>
       </div>
       <ul className="divide-y divide-border">
-        {/* MOCK: MOCK_FRIEND_REQUESTS — replace with friend-request API. */}
-        {MOCK_FRIEND_REQUESTS.map((u) => (
+        {friendRequests.map((u) => (
           <FriendRequestRow key={u.id} user={u} />
         ))}
       </ul>
@@ -169,6 +166,7 @@ export function FriendRequestsPanel() {
 }
 
 export function FriendSuggestionsPanel() {
+  const { friendSuggestions } = useSocial();
   return (
     <Card padding="none" className="overflow-hidden">
       <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
@@ -180,8 +178,7 @@ export function FriendSuggestionsPanel() {
         </h3>
       </div>
       <ul className="divide-y divide-border">
-        {/* MOCK: MOCK_FRIEND_SUGGESTIONS — replace with suggestion service. */}
-        {MOCK_FRIEND_SUGGESTIONS.map(({ user, reason }) => (
+        {friendSuggestions.map(({ user, reason }) => (
           <li
             key={user.id}
             className="flex items-center gap-2.5 bg-surface px-3 py-2"

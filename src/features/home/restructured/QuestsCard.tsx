@@ -1,16 +1,30 @@
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { QuestRow } from "./components/QuestRow";
 import { MOCK_DAILY_QUESTS, MOCK_WEEKLY_QUEST } from "./mockHomeData";
+import { useLocalProgressSummary } from "@/shared/hooks/useLocalProgressSummary";
 
-// MOCK: hours-until-reset is hardcoded; replace with real "ms until local midnight".
 const MOCK_RESET_HOURS = 11;
 
 export function QuestsCard() {
   const { t } = useTranslation();
+  const { summary } = useLocalProgressSummary();
   const wq = MOCK_WEEKLY_QUEST;
-  const wqPct = Math.min(100, Math.round((wq.done / wq.goal) * 100));
+
+  const weeklyDone = summary.lessonsCompletedThisWeek;
+  const wqPct = Math.min(100, Math.round((weeklyDone / wq.goal) * 100));
+
+  const dailyQuests = useMemo(() => {
+    const lessonDoneToday = summary.dailyGoalCompletedMinutes > 0 ? 1 : 0;
+    return MOCK_DAILY_QUESTS.map((q) => {
+      if (q.id === "d1") {
+        return { ...q, done: Math.min(q.goal, lessonDoneToday) };
+      }
+      return q;
+    });
+  }, [summary.dailyGoalCompletedMinutes]);
 
   return (
     <Card padding="lg" className="flex h-full flex-col">
@@ -33,8 +47,7 @@ export function QuestsCard() {
       </div>
 
       <div className="mt-5 space-y-4">
-        {/* MOCK: MOCK_DAILY_QUESTS — replace with quest engine (definition list + per-day progress). */}
-        {MOCK_DAILY_QUESTS.map((q) => (
+        {dailyQuests.map((q) => (
           <QuestRow
             key={q.id}
             iconName={q.iconName}
@@ -46,7 +59,6 @@ export function QuestsCard() {
         ))}
       </div>
 
-      {/* Weekly */}
       <div className="mt-auto rounded-xl border border-border bg-surface-muted p-4">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
@@ -54,7 +66,6 @@ export function QuestsCard() {
               {t("home.restructured.quests.weeklyKicker", { defaultValue: "Weekly goal" })}
             </p>
             <p className="mt-0.5 text-sm font-semibold text-text-primary">
-              {/* MOCK: MOCK_WEEKLY_QUEST — replace with weekly quest definition. */}
               {t(wq.labelKey, { defaultValue: wq.labelDefault })}
             </p>
           </div>
@@ -70,7 +81,7 @@ export function QuestsCard() {
             />
           </div>
           <span className="text-xs font-semibold text-text-muted">
-            {wq.done}/{wq.goal}
+            {weeklyDone}/{wq.goal}
           </span>
         </div>
       </div>

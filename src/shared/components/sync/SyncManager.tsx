@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { formatTimeAgo } from "@/shared/utils/formatDate";
+import { cn } from "@/shared/components/ui/cn";
 import type { SyncSource } from "./types";
 
 function formatTimeUntil(iso: string): string {
@@ -13,24 +14,26 @@ function formatTimeUntil(iso: string): string {
   return `${Math.floor(min / 60)}h`;
 }
 
+function latestLastSyncAt(sources: SyncSource[]): string | null {
+  return sources.reduce<string | null>((latest, s) => {
+    if (!s.lastSyncAt) return latest;
+    if (!latest) return s.lastSyncAt;
+    return s.lastSyncAt > latest ? s.lastSyncAt : latest;
+  }, null);
+}
+
 export type SyncManagerProps = {
-  /** Sync sources to display. Filtered to visible ones. */
   sources: SyncSource[];
-  /** Called when the popover opens (e.g. to refresh sources). */
   onOpen?: () => void;
 };
 
-/**
- * Extensible sync manager. Shows a cloud icon that opens a pop-down panel on hover (desktop)
- * or click (mobile). Displays time until sync, last sync time, manual sync button, and
- * supports multiple sync sources (SRS, lessons, story progress, etc.).
- */
 const HOVER_LEAVE_DELAY_MS = 150;
 
 export function SyncManager({ sources, onOpen }: SyncManagerProps) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [syncingIds, setSyncingIds] = useState<Set<string>>(new Set());
+  const [syncFailed, setSyncFailed] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -49,7 +52,15 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
 
   const visibleSources = sources.filter((s) => s.visible);
   const hasDirty = visibleSources.some((s) => s.dirtyCount > 0);
-  const canSync = visibleSources.length > 0;
+  const anySyncing =
+    visibleSources.some((s) => s.syncing) || syncingIds.size > 0;
+  const lastSyncAt = latestLastSyncAt(visibleSources);
+
+  useEffect(() => {
+    if (!hasDirty && !anySyncing) {
+      setSyncFailed(false);
+    }
+  }, [hasDirty, anySyncing]);
 
   const scheduleClose = () => {
     if (leaveTimerRef.current) clearTimeout(leaveTimerRef.current);
@@ -66,16 +77,16 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
     }
   };
 
-  const handleSyncAll = async () => {
+  const handleSyncNow = async () => {
     const dirty = visibleSources.filter(
-      (s) => !s.syncing && !syncingIds.has(s.id),
+      (s) => s.dirtyCount > 0 && !s.syncing && !syncingIds.has(s.id),
     );
     if (dirty.length === 0) return;
-    setSyncingIds(
-      (prev) => new Set([...prev, ...dirty.map((s) => s.id)]),
-    );
+    setSyncingIds((prev) => new Set([...prev, ...dirty.map((s) => s.id)]));
+    let rejected = false;
     try {
-      await Promise.allSettled(dirty.map((s) => s.onSyncNow()));
+      const results = await Promise.allSettled(dirty.map((s) => s.onSyncNow()));
+      rejected = results.some((r) => r.status === "rejected");
       onOpen?.();
     } finally {
       setSyncingIds((prev) => {
@@ -83,18 +94,21 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
         for (const s of dirty) next.delete(s.id);
         return next;
       });
+      // Only mark failed on thrown errors — dirtyCount in props can lag one
+      // frame after a successful draft sync (step events still local).
+      setSyncFailed(rejected);
     }
   };
 
-  const anySyncing =
-    visibleSources.some((s) => s.syncing) || syncingIds.size > 0;
+  const showError = syncFailed && !anySyncing;
+  const showDirty = hasDirty && !showError;
 
   if (visibleSources.length === 0) return null;
 
   return (
     <div
       ref={ref}
-      className="group relative flex items-center"
+      className="group/sync relative flex items-center"
       role="status"
       aria-label={t("syncManager.ariaLabel", { defaultValue: "Sync status" })}
       onMouseEnter={() => {
@@ -105,108 +119,155 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
     >
       <button
         type="button"
-        onClick={() => setOpen((o) => !o)}
-        className={`flex h-9 w-9 items-center justify-center transition ${
-          hasDirty ? "text-warning" : "text-success"
-        }`}
+        onClick={() => {
+          if (showDirty || showError) {
+            void handleSyncNow();
+            return;
+          }
+          setOpen((o) => !o);
+        }}
+        className={cn(
+          "group/trigger relative flex h-9 w-9 items-center justify-center transition-colors",
+          showError && "text-error",
+          showDirty && "text-warning hover:text-accent",
+          !showDirty && !showError && "text-success",
+        )}
         aria-expanded={open}
         aria-haspopup="true"
+        title={
+          showError
+            ? t("syncManager.syncFailed", { defaultValue: "Sync failed — try again" })
+            : showDirty
+              ? t("syncManager.hasPending", {
+                  defaultValue: "Progress waiting to sync — hover or click to upload",
+                })
+              : t("syncManager.upToDate", { defaultValue: "Progress synced to cloud" })
+        }
       >
-        <Icon name="cloud" size={20} strokeWidth={1.5} />
+        {anySyncing ? (
+          <Icon name="refresh" size={18} strokeWidth={2} className="animate-spin" />
+        ) : showError ? (
+          <Icon name="cloudAlert" size={20} strokeWidth={1.75} />
+        ) : (
+          <>
+            <Icon
+              name="cloud"
+              size={20}
+              strokeWidth={1.5}
+              className={cn(
+                "transition-opacity duration-150",
+                showDirty && "group-hover/trigger:opacity-0",
+              )}
+            />
+            {showDirty ? (
+              <Icon
+                name="cloudSync"
+                size={20}
+                strokeWidth={1.75}
+                className="absolute opacity-0 transition-opacity duration-150 group-hover/trigger:opacity-100"
+                aria-hidden
+              />
+            ) : null}
+          </>
+        )}
       </button>
 
       {open && (
         <div
-          className="absolute right-0 top-full z-50 -mt-1 min-w-[280px] rounded-lg border border-border bg-surface py-3 pt-4 shadow-popover"
+          className="absolute right-0 top-full z-50 -mt-1 w-[210px] rounded-lg border border-border bg-surface py-2 shadow-popover"
           role="menu"
         >
-          <div className="border-b border-border px-4 pb-2">
-            <h3 className="text-sm font-semibold text-text-primary">
-              {t("syncManager.title", { defaultValue: "Sync Manager" })}
-            </h3>
-            <p className="mt-0.5 text-xs text-text-muted">
-              {t("syncManager.subtitle", {
-                defaultValue: "Background sync for your progress",
-              })}
-            </p>
+          <div className="flex items-center justify-between gap-2 border-b border-border px-2.5 pb-1.5">
+            <span className="text-xs font-semibold text-text-primary">
+              {t("syncManager.titleShort", { defaultValue: "Sync" })}
+            </span>
+            {showError ? (
+              <Icon name="cloudAlert" size={14} className="text-error" aria-hidden />
+            ) : showDirty ? (
+              <button
+                type="button"
+                onClick={() => void handleSyncNow()}
+                disabled={anySyncing}
+                className="flex h-7 w-7 items-center justify-center rounded-md text-accent transition hover:bg-accent-muted disabled:opacity-50"
+                title={t("syncManager.syncNow", { defaultValue: "Sync now" })}
+                aria-label={t("syncManager.syncNow", { defaultValue: "Sync now" })}
+              >
+                <Icon
+                  name="cloudSync"
+                  size={15}
+                  strokeWidth={2}
+                  className={cn(anySyncing && "animate-pulse")}
+                />
+              </button>
+            ) : (
+              <Icon name="cloud" size={14} className="text-success" aria-hidden />
+            )}
           </div>
 
-          <div className="max-h-[320px] overflow-y-auto px-2 py-2">
+          <ul className="px-1.5 py-1">
             {visibleSources.map((source) => {
               const synced = source.dirtyCount === 0;
+              const busy = source.syncing || syncingIds.has(source.id);
 
               return (
-                <div
+                <li
                   key={source.id}
-                  className="rounded-lg px-3 py-2 transition hover:bg-surface-muted"
+                  className="flex items-center justify-between gap-2 rounded px-1.5 py-1 text-xs"
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-sm font-medium text-text-primary">
-                      {source.label}
-                    </span>
-                    <span
-                      className={`inline-flex rounded px-2 py-0.5 text-xs font-medium ${
-                        synced
-                          ? "bg-accent-muted text-accent"
-                          : "bg-warning/10 text-warning"
-                      }`}
-                    >
-                      {synced
-                        ? t("syncManager.synced", { defaultValue: "Synced" })
-                        : t("syncManager.unsynced", {
-                            count: source.dirtyCount,
-                            defaultValue: "{{count}} unsynced",
-                          })}
-                    </span>
-                  </div>
-
-                  <div className="mt-1 space-y-0.5 text-xs text-text-secondary">
-                    {source.lastSyncAt && (
-                      <p>
-                        {t("syncManager.lastSync", {
-                          time: formatTimeAgo(source.lastSyncAt),
-                          defaultValue: "Last sync: {{time}}",
-                        })}
-                      </p>
+                  <span className="truncate text-text-secondary">{source.label}</span>
+                  <span
+                    className={cn(
+                      "shrink-0 tabular-nums",
+                      showError && !synced && "text-error",
+                      !showError && synced && "text-success",
+                      !showError && !synced && "text-warning",
+                      busy && "text-text-muted",
                     )}
-                    {source.nextSyncAt && (
-                      <p>
-                        {t("syncManager.timeUntilSync", {
-                          time: formatTimeUntil(source.nextSyncAt),
-                          defaultValue: "Next sync in {{time}}",
-                        })}
-                      </p>
-                    )}
-                    {!source.lastSyncAt && (
-                      <p>
-                        {t("syncManager.neverSynced", {
-                          defaultValue: "Not yet synced",
-                        })}
-                      </p>
-                    )}
-                  </div>
-                </div>
+                  >
+                    {busy
+                      ? t("syncManager.syncingShort", { defaultValue: "…" })
+                      : synced
+                        ? "✓"
+                        : source.dirtyCount}
+                  </span>
+                </li>
               );
             })}
-          </div>
+          </ul>
 
-          {/* Single Sync All button — disabled when nothing to sync */}
-          <div className="border-t border-border px-3 pt-3">
-            <button
-              type="button"
-              onClick={handleSyncAll}
-              disabled={!canSync || anySyncing}
-              className="w-full rounded-md bg-accent px-3 py-2 text-sm font-semibold text-white transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-text-muted"
-            >
-              {anySyncing
-                ? t("syncManager.syncing", { defaultValue: "Syncing…" })
-                : hasDirty
-                  ? t("syncManager.syncAll", { defaultValue: "Sync now" })
-                  : t("syncManager.syncPull", {
-                      defaultValue: "Refresh from server",
-                    })}
-            </button>
-          </div>
+          {showError ? (
+            <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-error">
+              {t("syncManager.syncFailedHint", {
+                defaultValue: "Couldn’t upload — tap the cloud to retry",
+              })}
+            </p>
+          ) : null}
+
+          {showDirty && visibleSources.some((s) => s.nextSyncAt) ? (
+            <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-text-muted">
+              {t("syncManager.autoSoon", {
+                time: formatTimeUntil(
+                  visibleSources.find((s) => s.nextSyncAt)?.nextSyncAt ?? "",
+                ),
+                defaultValue: "Auto-sync in {{time}}",
+              })}
+            </p>
+          ) : null}
+
+          {!showDirty && !showError && lastSyncAt ? (
+            <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-text-muted">
+              {t("syncManager.lastSync", {
+                time: formatTimeAgo(lastSyncAt),
+                defaultValue: "Last sync: {{time}}",
+              })}
+            </p>
+          ) : null}
+
+          {!showDirty && !showError && !lastSyncAt ? (
+            <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-text-muted">
+              {t("syncManager.neverSynced", { defaultValue: "Not synced yet" })}
+            </p>
+          ) : null}
         </div>
       )}
     </div>

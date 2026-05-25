@@ -1,6 +1,6 @@
 # Open Lingo — project state
 
-**Last updated:** 2026-05-16  
+**Last updated:** 2026-05-24  
 **Purpose:** Accurate snapshot for humans and agents. For launch tasks see [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md).
 
 ---
@@ -33,6 +33,9 @@ Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-cor
 - [x] Flashcards: hub, review (`FlashcardTester`), card/deck managers
 - [x] Study options (settings + deck manager); review URL filters / scope shortcuts
 - [x] SRS: SM-2, localStorage, sync to API (`srsSync`, `SrsApi`)
+- [x] **Lesson progress sync:** per-step buffer, draft attempts (`draft:{lessonId}`), batch `POST /progress/lessons/batch`, SyncManager “Lessons” row (`useLessonSyncSource`, `LessonProgressHydrate`)
+- [x] **Start over:** bottom of Learn course map; wipes local + `DELETE /progress/me` + `DELETE /srs/all` when signed in
+- [x] **Dev progress inspector:** `</>` JSON overlay (server `GET /progress/me` + local cache) when dev unlock is on
 - [x] Particles, alphabet (+ hub + lesson), kanji/components/videos pages (depth varies)
 
 ### Community & API
@@ -52,7 +55,8 @@ Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-cor
 
 ### Backend (lingo-core)
 
-- [x] Decks, users/subscriptions, SRS, community routers
+- [x] Decks, users/subscriptions, SRS, **progress** (`/api/core/v1/progress/*`), community routers
+- [x] Dev logging: root INFO; `lingo.*` DEBUG when `DEBUG=true`; `aiosqlite` at WARNING
 - [x] Finance transparency router; security headers middleware
 - [ ] Rate limiting — not in app yet
 - [ ] Stripe / AdSense Management API — not wired
@@ -71,7 +75,11 @@ Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-cor
 | **Content volume** | ~5 cards / language stubs | `korean-content`, `japanese-content` tasks |
 | **Funding %** | API + env override | Not live Google/Stripe data |
 | **User settings API** | Partial / local-first | `tasks/backend-user-api.md` |
-| **Progress API** | Partial | `tasks/backend-progress-api.md` |
+| **Progress API** | Partial | Lesson batch + `/progress/me`; home uses `useProgressMe` / `useUserStats` |
+| **Home (returning)** | Restructured | `RestructuredHome` grid; see [handoff-2026-05-24-home-sync-ux.md](./handoff-2026-05-24-home-sync-ux.md) |
+| **Sync UI** | Shipped | Cloud trigger + popover; lessons + SRS sources in `SyncManager` |
+| **Social (UI)** | Mock unified | `useSocial()` + `mockSocial.ts`; `/:lang/social` preview page |
+| **Quests API** | Planned | [quests-tracking-design](./superpowers/specs/2026-05-24-quests-tracking-design.md) |
 | **Auth 401 refresh** | Planned | `tasks/auth-session-strategy.md` |
 | **ja.json UI** | Not started | `LOCALIZATION.md` |
 | **`.env.example` in lingo/** | Missing | README documents vars; add file optional |
@@ -110,7 +118,7 @@ See `public/feature-flags.json` — explore + deck browse **on**; leaderboard, d
 | Task | Doc status | Reality (2026-05) |
 |------|------------|---------------------|
 | practice-hub | stub | **Routed** — `PracticePage` is practice index |
-| homepage-ux | open in old index | **Done** — landing + guest patterns |
+| homepage-ux | open in old index | **Done** — landing hero CTAs aligned; returning home restructured |
 | srs-engine | — | **Done** |
 | community-deck-preview | — | **Done** |
 | community-content-wiring | — | **Done** for explore + flashcards |

@@ -1,18 +1,18 @@
 {
   "syncManager": {
     "ariaLabel": "동기화 상태",
-    "title": "동기화 관리",
-    "subtitle": "진행 상황 자동 동기화",
+    "titleShort": "동기화",
+    "hasPending": "동기화 대기 — 가리키거나 눌러 업로드",
+    "upToDate": "클라우드에 동기화됨",
+    "syncFailed": "동기화 실패 — 다시 시도",
+    "syncFailedHint": "업로드 실패 — 구름 아이콘을 눌러 재시도",
     "srsLabel": "플래시카드",
     "lessonsLabel": "레슨",
-    "synced": "동기화됨",
-    "unsynced": "{{count}}개 미동기화",
-    "lastSync": "마지막 동기화: {{time}}",
-    "timeUntilSync": "다음 동기화 {{time}} 후",
-    "neverSynced": "아직 동기화 안 됨",
     "syncNow": "지금 동기화",
-    "syncing": "동기화 중…",
-    "moreComing": "레슨 및 스토리 진행 예정"
+    "syncingShort": "…",
+    "autoSoon": "{{time}} 후 자동 동기화",
+    "lastSync": "마지막 동기화: {{time}} 전",
+    "neverSynced": "아직 동기화 안 됨"
   },
   "common": {
     "loading": "로딩 중...",
@@ -37,7 +37,6 @@
     "admin": "관리",
     "moderateContent": "업로드 검수",
     "siteAdmin": "사이트 관리",
-    "docs": "문서",
     "githubRepo": "GitHub에서 보기",
     "guestLogin": "로그인",
     "guestStart": "시작",
@@ -55,7 +54,6 @@
     "heroBullet2": "스트릭 강요 없음 · 자기 속도로 학습",
     "heroBullet3": "코스, 플래시카드, 스토리 · 한곳에서",
     "getStarted": "시작하기",
-    "seeHowItWorks": "사용법 보기",
     "browseCommunity": "커뮤니티 둘러보기",
     "featuresTitle": "필요한 모든 것",
     "featuresSubtitle": "구조화된 코스, SRS 플래시카드, 스토리, 연습 도구—커뮤니티 덱, 포럼, Anki 가져오기까지.",
@@ -112,20 +110,6 @@
     "footerAttribution": "출처",
     "footerCopyright": "© {{year}} 오픈 링고 · MIT 라이선스",
     "footerStrokeOrder": "획순: "
-  },
-  "docs": {
-    "title": "문서",
-    "subtitle": "Open Lingo 사용법과 프로젝트 기여 방법을 알아보세요.",
-    "gettingStarted": "시작하기",
-    "courses": "코스",
-    "flashcards": "플래시카드",
-    "community": "커뮤니티",
-    "contributing": "기여하기",
-    "gettingStartedContent": "Open Lingo는 코스, 플래시카드, 스토리로 언어를 배웁니다. 계정을 만들어 기기 간 진행 상황을 동기화하세요.",
-    "coursesContent": "코스는 알파벳, 어휘, 문법을 안내합니다. 레슨을 완료하고 새 콘텐츠를 잠금 해제하고 진행 상황을 추적하세요.",
-    "flashcardsContent": "간격 반복으로 어휘와 문구를 복습하세요. 커뮤니티 덱을 구독하거나 직접 만드세요.",
-    "communityContent": "커뮤니티 덱과 스토리를 둘러보고 구독하세요. 직접 콘텐츠를 만들어 다른 사람들을 도와주세요.",
-    "contributingContent": "Open Lingo는 오픈소스입니다. 저장소에서 이슈를 보고하고 기능을 제안하거나 코드와 콘텐츠를 기여하세요."
   },
   "learn": {
     "intro": "학습 경로, 코스, 커뮤니티 모듈.",
@@ -1142,6 +1126,27 @@
   },
   "settings": {
     "title": "설정",
+    "nav": {
+      "label": "설정 섹션",
+      "general": "일반",
+      "appearance": "모양",
+      "audio": "오디오",
+      "languages": "언어"
+    },
+    "generalHelp": "앱 전체 설정입니다. 학습 언어는 상단 헤더의 국기 메뉴에서 바꿀 수 있습니다.",
+    "appearanceHelp": "앱 전체 색상과 대비입니다.",
+    "audioHelp": "기기 볼륨을 바꾸지 않고 레슨 소리와 자동 재생을 조절합니다.",
+    "audioVolume": "앱 볼륨",
+    "audioVolumeHelp": "기기 볼륨 없이 Lingo 소리 크기를 조절합니다.",
+    "silentMode": "무음 모드 — 자동 재생 안 함",
+    "silentModeHelp": "오디오 버튼을 누르면 여전히 들을 수 있습니다.",
+    "languageJaHelp": "일본어 읽기 보조 및 알파벳 연습 옵션입니다.",
+    "languageKoHelp": "한국어 코스 및 연습 옵션입니다.",
+    "languageKoEmpty": "한국어 전용 표시 옵션은 아직 없습니다.",
+    "languageInactiveHint": "현재 활성 학습 언어가 아닙니다. 아래에서 {{name}}(으)로 전환하세요.",
+    "activeStudyLanguage": "활성 학습 언어",
+    "setActiveLanguage": "활성 학습 언어로 설정",
+    "languageNotFound": "언어를 사용할 수 없습니다.",
     "learningLanguage": "학습 언어",
     "learningLanguageHelp": "코스와 연습에서 배울 언어입니다.",
     "theme": "테마",
@@ -1164,6 +1169,7 @@
     "customizeTheme": "테마 맞춤 설정",
     "customizeColors": "색상 맞춤",
     "previewTheme": "미리보기",
+    "stopPreview": "중지",
     "saveAsCustom": "사용자 지정으로 저장",
     "saveAsNew": "새로 저장",
     "saveTheme": "저장",
@@ -1204,5 +1210,19 @@
     "subscribedStories": "구독한 스토리",
     "noSubscribedStories": "아직 구독한 스토리가 없습니다. 따라가고 싶은 스토리를 찾아 구독하세요.",
     "cardNotFound": "카드를 찾을 수 없습니다"
+  },
+  "ads": {
+    "label": "광고",
+    "sponsored": "후원",
+    "bannerRegion": "후원 콘텐츠",
+    "expand": "광고 보기",
+    "collapse": "광고 숨기기",
+    "dailyWelcome": {
+      "region": "후원 환영 배너",
+      "label": "다시 만나서 반가워요",
+      "title": "오픈 링고에 다시 오신 것을 환영합니다",
+      "subtitle": "오늘의 레슨을 시작하기 전, 후원사의 짧은 메시지입니다.",
+      "dismiss": "오늘은 닫기"
+    }
   }
 }

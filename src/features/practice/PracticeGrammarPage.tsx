@@ -6,11 +6,7 @@ import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getPracticeItemsForLanguage } from "@/features/practice/practiceNavItems";
-
-// MOCK: trainer/lesson/hours stats are fabricated; replace with real progress aggregation.
-const MOCK_TRAINER_COUNT = 4;
-const MOCK_LESSON_COUNT = 0;
-const MOCK_HOURS_PRACTICED = 0;
+import { useGrammarPracticeData } from "@/features/practice/hooks/usePracticeData";
 
 export function PracticeGrammarPage() {
   const { t } = useTranslation();
@@ -19,6 +15,7 @@ export function PracticeGrammarPage() {
   const langPath = useLangPath();
   const langId = language?.id ?? "ko";
   const languageName = getLanguageConfig(langId)?.name ?? langId;
+  const { data: grammarData } = useGrammarPracticeData();
 
   const navItems = getPracticeItemsForLanguage(language?.id, flags);
   const particleItem = navItems.find((item) => item.to.includes("/practice/particles"));
@@ -54,23 +51,20 @@ export function PracticeGrammarPage() {
           </div>
 
           <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:shrink-0">
-            {/* MOCK: trainer count is hard-coded. */}
             <div className="rounded-lg bg-surface-muted p-3 text-center">
-              <p className="text-lg font-bold text-text-primary">{MOCK_TRAINER_COUNT}</p>
+              <p className="text-lg font-bold text-text-primary">{grammarData.trainerCount}</p>
               <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
                 {t("practice.grammarPage.statTrainers", { defaultValue: "Trainers" })}
               </p>
             </div>
-            {/* MOCK: lesson count is hard-coded. */}
             <div className="rounded-lg bg-surface-muted p-3 text-center">
-              <p className="text-lg font-bold text-text-primary">{MOCK_LESSON_COUNT}</p>
+              <p className="text-lg font-bold text-text-primary">{grammarData.lessonCount}</p>
               <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
                 {t("practice.grammarPage.statLessons", { defaultValue: "Lessons" })}
               </p>
             </div>
-            {/* MOCK: hours practiced is hard-coded. */}
             <div className="rounded-lg bg-surface-muted p-3 text-center">
-              <p className="text-lg font-bold text-text-primary">{MOCK_HOURS_PRACTICED}</p>
+              <p className="text-lg font-bold text-text-primary">{grammarData.hoursPracticed}</p>
               <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
                 {t("practice.grammarPage.statHours", { defaultValue: "Hours" })}
               </p>

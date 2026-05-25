@@ -38,9 +38,23 @@ RN: useTheme().activeTokens → vars() or inline styles
 
 ### Theme Flow
 
-1. **Built-in presets**: Light, Dark, Sepia, AMOLED
+1. **Built-in presets**: Light, Dark, Sepia, AMOLED (+ `auto` follows system)
 2. **Your themes**: Local custom themes (add, edit, delete) in `localStorage`
-3. **Community themes**: Mock list for now; install adds to Your themes, star stored locally
+3. **Community themes**: Mock list in `community-mock.ts`; **Preview** (temporary app-wide via `previewTokens`), **Add** (install as custom id), star stored locally
+4. **Custom / installed themes**: `resolveEffectiveTheme` always applies their tokens — no fallback to plain `light`/`dark` when system mode disagrees (built-in presets still swap)
+
+### Settings modal (learner prefs)
+
+| Path | Role |
+|------|------|
+| `features/settings/SettingsContent.tsx` | Wide modal body |
+| `features/settings/SettingsNav.tsx` | Sidebar: General, Appearance, Audio, …, expandable Languages |
+| `shared/components/ModalRoot.tsx` | `max-w-4xl` when `id === "settings"` |
+| `shared/components/LanguageSelector.tsx` | **Study language** (not in settings) |
+
+- **Audio** (`volume`, `silentMode`): Settings → Audio only — removed from `ThemeEditorPanel`.
+- **UI locale**: Settings → General `<select>` → `learning.uiLocale`.
+- **Japanese display toggles**: Settings → Languages → 日本語.
 
 ### Design Tokens
 
@@ -63,12 +77,23 @@ Token classes in Tailwind (via `tailwind.config.js`):
 ### Shared UI Components
 
 - **Card** (`src/shared/components/ui/Card.tsx`) – Variants: default, muted, elevated
-- **Button** (`src/shared/components/ui/Button.tsx`) – Variants: primary, secondary, ghost, outline, danger
+- **Button** (`src/shared/components/ui/Button.tsx`) – Variants: primary, secondary, ghost, outline, danger, **primary-3d** (hero CTA); sizes: md, sm, icon, **hero** (landing row alignment)
 - **cn()** (`src/shared/components/ui/cn.ts`) – Class-name merge helper
 
 ### Migrated Areas
 
-Layout, Home, Community (ContentBrowser), ProgressSummary, FlashcardsCard, PracticeCard, ModuleCard, ThemeToggle, LanguageSelector, AuthMenu, SyncManager, FundingMeter.
+Layout, Home (`RestructuredHome` for signed-in users), Community (ContentBrowser), ProgressSummary, FlashcardsCard, PracticeCard, ModuleCard, ThemeToggle, LanguageSelector, AuthMenu, **SyncManager** (cloud / cloudSync / cloudAlert), FundingMeter.
+
+### Home & progress hooks (2026-05-24)
+
+| Hook | Path | Notes |
+|------|------|--------|
+| `useProgressMe` | `src/shared/hooks/useProgressMe.ts` | Hydrates lesson cache from `GET /progress/me` |
+| `useUserStats` | `src/shared/hooks/useUserStats.ts` | Streak, XP, level, lingots |
+| `useLocalProgressSummary` | `src/shared/hooks/useLocalProgressSummary.ts` | Daily goal + week sparkline from completions |
+| `useSocial` | `src/features/social/hooks/useSocial.ts` | Friends, quests, activity — mock today |
+
+Handoff: `docs/handoff-2026-05-24-home-sync-ux.md`
 
 ### Future
 

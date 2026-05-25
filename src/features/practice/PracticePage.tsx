@@ -13,17 +13,11 @@ import { useFlashcardDueSummary } from "@/features/flashcards/useFlashcardDueSum
 import { PracticeHubSection, type HubQuickLink } from "@/features/practice/PracticeHubSection";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { useUserStats } from "@/shared/hooks/useUserStats";
+import { usePracticeData } from "@/features/practice/hooks/usePracticeData";
 import {
   getDueReviews,
   reviewModuleIdFor,
 } from "@/features/lesson/data/moduleReviewSchedule";
-
-// MOCK: weekly practice minutes — replace with telemetry/store-derived aggregate.
-const MOCK_PRACTICE_WEEK_MINUTES = [12, 0, 8, 5, 14, 6, 9];
-// MOCK: today's practice minutes — replace with same telemetry source.
-const MOCK_PRACTICE_TODAY_MIN = 12;
-// MOCK: total practice modules tracked for the due ring (3 of 4 have due items).
-const MOCK_PRACTICE_DUE_RING = { due: 3, total: 4 };
 
 // Mirror AccountOverviewCard so the level pill on Practice uses the same curve
 // until the backend returns a target.
@@ -50,13 +44,6 @@ const PRE_MADE_COURSES: Record<
     { id: "ja-particles", emoji: "は/が", title: "Particles", subtitle: "は·が·を·に·で foundations", to: "practice/particles" },
     { id: "ja-top100", emoji: "100", title: "Top 100 Japanese words", subtitle: "Most common vocabulary", to: "vocab" },
   ],
-};
-
-// MOCK: last-reviewed-ago hours per section. Replace with per-domain last-touched timestamps.
-const MOCK_LAST_TOUCHED_HOURS = {
-  flashcards: 2,
-  grammar: 9,
-  alphabet: 22,
 };
 
 function bucketTrainers(items: PracticeNavItem[]) {
@@ -96,6 +83,14 @@ export function PracticePage() {
 
   const { dueCount, isLoading: dueLoading } = useFlashcardDueSummary(langId);
   const { stats, isReady } = useUserStats();
+  const { data: practiceData } = usePracticeData();
+  const {
+    todayMinutes: practiceTodayMin,
+    weekMinutes: practiceWeekMinutes,
+    dueModules,
+    totalModules,
+    lastTouchedHours,
+  } = practiceData;
 
   // Module reviews — surface a Practice-page jump card when any are due.
   const reviewCourse = useMemo(() => getMockCourse(langId), [langId]);
@@ -180,11 +175,9 @@ export function PracticePage() {
   const moreStrip = [...buckets.kanji, ...buckets.components];
 
   // Derived metrics for the hero overview card.
-  const dueRingPercent = Math.round(
-    (MOCK_PRACTICE_DUE_RING.due / MOCK_PRACTICE_DUE_RING.total) * 100,
-  );
-  const weekTotalMin = MOCK_PRACTICE_WEEK_MINUTES.reduce((a, b) => a + b, 0);
-  const daysActiveThisWeek = MOCK_PRACTICE_WEEK_MINUTES.filter((n) => n > 0).length;
+  const dueRingPercent = Math.round((dueModules / totalModules) * 100);
+  const weekTotalMin = practiceWeekMinutes.reduce((a, b) => a + b, 0);
+  const daysActiveThisWeek = practiceWeekMinutes.filter((n) => n > 0).length;
 
   const nextLevelXp = nextLevelXpFor(stats.level);
   const xpToNext = Math.max(0, nextLevelXp - stats.xp);
@@ -210,7 +203,7 @@ export function PracticePage() {
                 <Icon name="refresh" size={14} aria-hidden />
                 {t("practice.overview.dueChip", {
                   defaultValue: "{{count}} modules need review",
-                  count: MOCK_PRACTICE_DUE_RING.due,
+                  count: dueModules,
                 })}
               </span>
               {dueLoading ? null : dueCount > 0 ? (
@@ -243,30 +236,30 @@ export function PracticePage() {
 
           {/* Right: three visualizations */}
           <div className="flex flex-wrap items-center gap-5 sm:gap-6 lg:justify-end">
-            {/* MOCK: MOCK_PRACTICE_DUE_RING — replace with real per-domain due aggregation. */}
+            {/* Due-ring sourced from usePracticeData. */}
             <div className="flex flex-col items-center">
               <ProgressRing
                 percent={dueRingPercent}
                 size={72}
-                label={String(MOCK_PRACTICE_DUE_RING.due)}
+                label={String(dueModules)}
                 sublabel={t("practice.overview.ringSublabel", { defaultValue: "due" })}
               />
               <p className="mt-1 text-[10px] uppercase tracking-wider text-text-muted">
                 {t("practice.overview.ringCaption", {
                   defaultValue: "of {{total}} modules",
-                  total: MOCK_PRACTICE_DUE_RING.total,
+                  total: totalModules,
                 })}
               </p>
             </div>
 
-            {/* MOCK: MOCK_PRACTICE_WEEK_MINUTES + MOCK_PRACTICE_TODAY_MIN. */}
+            {/* Week sparkline sourced from usePracticeData (same signal as Home). */}
             <div className="min-w-[10rem]">
               <p className="text-[10px] uppercase tracking-wider text-text-muted">
                 {t("practice.overview.weekLabel", { defaultValue: "This week" })}
               </p>
               <div className="mt-1.5">
                 <WeekSparkline
-                  data={MOCK_PRACTICE_WEEK_MINUTES}
+                  data={practiceWeekMinutes}
                   ariaLabel={t("practice.overview.weekAria", {
                     defaultValue: "Practice minutes this week",
                   })}
@@ -275,7 +268,7 @@ export function PracticePage() {
               <p className="mt-1.5 text-xs text-text-secondary">
                 {t("practice.overview.weekCaption", {
                   defaultValue: "{{today}} min today · {{days}}/7 days active",
-                  today: MOCK_PRACTICE_TODAY_MIN,
+                  today: practiceTodayMin,
                   days: daysActiveThisWeek,
                 })}
               </p>
@@ -456,7 +449,7 @@ export function PracticePage() {
           />
         ) : null}
 
-        {/* Per-section "last touched" inset strip — MOCK: MOCK_LAST_TOUCHED_HOURS. */}
+        {/* Per-section "last touched" inset strip — sourced from usePracticeData. */}
         <Card padding="sm" className="bg-surface-muted">
           <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
             {t("practice.overview.recentActivity", { defaultValue: "Recent activity" })}
@@ -471,7 +464,7 @@ export function PracticePage() {
                 <p className="truncate text-[11px] text-text-muted">
                   {t("practice.overview.lastReviewed", {
                     defaultValue: "Last reviewed {{hours}}h ago",
-                    hours: MOCK_LAST_TOUCHED_HOURS.flashcards,
+                    hours: lastTouchedHours.flashcards,
                   })}
                 </p>
               </div>
@@ -485,7 +478,7 @@ export function PracticePage() {
                 <p className="truncate text-[11px] text-text-muted">
                   {t("practice.overview.lastReviewed", {
                     defaultValue: "Last reviewed {{hours}}h ago",
-                    hours: MOCK_LAST_TOUCHED_HOURS.grammar,
+                    hours: lastTouchedHours.grammar,
                   })}
                 </p>
               </div>
@@ -500,7 +493,7 @@ export function PracticePage() {
                   <p className="truncate text-[11px] text-text-muted">
                     {t("practice.overview.lastReviewed", {
                       defaultValue: "Last reviewed {{hours}}h ago",
-                      hours: MOCK_LAST_TOUCHED_HOURS.alphabet,
+                      hours: lastTouchedHours.alphabet,
                     })}
                   </p>
                 </div>

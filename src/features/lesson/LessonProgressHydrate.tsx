@@ -5,7 +5,7 @@ import { useApi } from "@/shared/api";
 import { useProgressMe } from "@/shared/hooks/useProgressMe";
 import { ensureUserConsistency } from "@/features/settings/storage";
 import {
-  getPendingAttempts,
+  getLessonDirtyCount,
   syncLessonProgressWithServer,
 } from "./engine";
 import { LESSON_SYNC_INTERVAL_MS } from "./useLessonSyncSession";
@@ -49,7 +49,7 @@ export function LessonProgressHydrate() {
     if (authLoading || !isAuthenticated) return;
 
     const runIfDirty = () => {
-      if (getPendingAttempts().length === 0) return;
+      if (getLessonDirtyCount() === 0) return;
       void syncLessonProgressWithServer({
         batch: (payload) => progress.batchAttempts(payload),
         getMe: () => progress.getMe(),

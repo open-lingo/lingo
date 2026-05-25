@@ -4,7 +4,9 @@
 
 **Anchor number:** at $50–100/hr value × 8 hours/month maintenance = **$400–800/month** is the breakeven for the maintainer's time. Hit that and the project is sustainable. Don't optimize past it.
 
-**Also see:** [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md) · [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · [PROJECT_STATE.md](./PROJECT_STATE.md) · [ADS_AND_FINANCE_ARCHITECTURE.md](./ADS_AND_FINANCE_ARCHITECTURE.md)
+**Also see:** [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md) · [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · [PROJECT_STATE.md](./PROJECT_STATE.md) · [ADS_AND_FINANCE_ARCHITECTURE.md](./ADS_AND_FINANCE_ARCHITECTURE.md) · [finance-transparency-endpoint-spec-2026-05-25.md](./finance-transparency-endpoint-spec-2026-05-25.md)
+
+The numbers below are the *modelled* economics. The *measured* version — what the live month is actually doing — lives behind `GET /api/core/v1/finance/transparency`, sourced from AWS Cost Explorer + AdSense Management API + Stripe. See [ADS_AND_FINANCE_ARCHITECTURE.md](./ADS_AND_FINANCE_ARCHITECTURE.md#cost-data-aws-cost-explorer) for how that pipeline works; the same endpoint drives the ad-density modulation that quiets the UI when the month is already in the green.
 
 ---
 

@@ -1,38 +1,88 @@
 # User settings and profile metadata
 
-## Current behavior
+## Settings UI (modal)
 
-- **Learning language** and **theme** are persisted in localStorage (separate keys). The Settings page lets users change them; they apply immediately and persist per browser.
-- **UI locale** (i18n) is persisted by i18next in `localStorage` under `i18nextLng`.
+Settings are a **wide modal** (`max-w-4xl`), not a standalone page. Learners can open it mid-lesson without losing place.
 
-The `settings/storage` module uses a single key (`open-lingo-settings`). When the logged-in user changes, user-specific localStorage keys (SRS, alphabet progress, profile cache, etc.) are cleared.
+| Entry point | Behavior |
+|-------------|----------|
+| Auth menu → Settings | `openSettings()` via `ModalContext` |
+| Learn page settings control | Same |
+| `/settings` | `SettingsOpenRoute` opens modal, then `Navigate` to `/home` (keeps underlying route) |
+| `/settings/profile` | Opens settings + profile stack, then `/home` |
+
+**Layout:** `SettingsContent` = left `SettingsNav` + scrollable `SettingsSectionPanel`.
+
+| Nav section | Content |
+|-------------|---------|
+| **General** | Edit profile link (auth), **interface language** (`<select>` → `learning.uiLocale`) |
+| **Appearance** | Theme presets, link to theme editor |
+| **Audio** | App volume, silent mode (auto-play off; tap-to-play still works) |
+| **Accessibility** | Reduced motion, dyslexia font, font size slider |
+| **Notifications** | Daily reminder + local time → UTC storage |
+| **Languages** (expandable) | Per-language display options (see below) |
+| **Privacy & data** | Cookie prefs, delete account (no inline Privacy Policy link — use `/privacy`) |
+
+**Not in settings (by design):**
+
+- **Study language** — Header `LanguageSelector` only (`LanguageContext` / `learning.learningLanguageId`). Do not duplicate in General or language panels.
+
+### Language sidebar panels
+
+- **Japanese (`lang-ja`):** `showAlphabetRomanization`, `showAlphabetFurigana`, `showRomaji` (stored under global `learning.*` today; UI is per-language).
+- **Korean (`lang-ko`):** Placeholder until KO-specific options exist.
+
+### Related modals
+
+- **Profile** — `ProfileEditPanel` stacked on settings; back returns to settings.
+- **Theme editor** — Separate panel (`ThemeEditorPanel`); colors/presets/custom + community themes. Audio controls live in **Settings → Audio**, not here.
+
+### Key files
+
+```
+features/settings/
+  SettingsContent.tsx       # Modal body + nav state
+  SettingsNav.tsx           # Sidebar sections + expandable Languages
+  SettingsSectionPanel.tsx  # Panel content per section
+  settingsSections.ts       # Section id types
+  SettingsOpenRoute.tsx     # Deep link /settings
+  SettingsProfileOpenRoute.tsx
+  AccountPrivacySection.tsx
+  storage.ts                # localStorage key open-lingo-settings
+shared/components/ModalRoot.tsx  # max-w-4xl for settings id
+```
+
+## Data model
+
+Defined in `src/shared/settings/types.ts` (`SETTINGS_VERSION` = 1). Applied via `SettingsContext` (`updateSetting`, `updateFlashcards`).
+
+| Namespace | Fields | In modal? | Backend PATCH (today) |
+|-----------|--------|-----------|------------------------|
+| `appearance` | `themeId` | Appearance | Yes (`theme`, `appearance`) |
+| `accessibility` | `reducedMotion`, `dyslexiaFont`, `fontSize` | Accessibility | Local-first |
+| `audio` | `soundEnabled`, `silentMode`, `volume` | Audio | Local-first |
+| `notifications` | `reminderEnabled`, `dailyReminderTime` (UTC) | Notifications | Yes |
+| `learning` | `learningLanguageId`, `uiLocale`, alphabet/romaji flags, `onboardingCompleted` | Partial | Partial (`learningLanguage`, `uiLocale`, nested `learning`) |
+| `display` | `dateLocale`, `timezoneOverride` | Not yet | — |
+| `flashcards` | `studyOptions[]` | Flashcards page editor | Yes |
+
+See `lingo/docs/SETTINGS_AND_DATES.md` for date/locale and theme interaction notes.
+
+## Persistence
+
+- **Local first:** `getStoredSettings` / `setStoredSettings` in `settings/storage.ts` (key `open-lingo-settings`, per Auth0 `sub` or `"anonymous"`).
+- **Backend:** When authenticated, `GET/PATCH …/me/settings` merges with local (`SettingsContext`).
+- On user switch, user-specific local keys (SRS, alphabet progress, profile cache, etc.) are cleared via `ensureUserConsistency`.
 
 ## Storing settings per user (cross-device)
 
-To persist preferences per user and sync across devices, you need a backend. Two common options:
-
 ### 1. Your own User API (recommended)
 
-Add an API that stores a JSON blob keyed by Auth0 user id (`sub`):
+- **GET** `/api/users/me/settings` — returns `UserSettings` (or 404 → defaults).
+- **PATCH** `/api/users/me/settings` — `Partial<UserSettings>`; merge server-side.
 
-- **GET** `/api/users/me/settings` — returns `UserSettings` (or 404 → use defaults).
-- **PATCH** `/api/users/me/settings` — body: `Partial<UserSettings>`; backend merges and saves.
-
-Backend authenticates the request with the Auth0 JWT, reads `sub` from the token, and reads/writes to your DB. No Auth0 Management API needed.
-
-Then in the app:
-
-- Replace `getStoredSettings` / `setStoredSettings` in `settings/storage.ts` with API calls.
-- On login (or app load when authenticated), fetch settings and apply to LanguageContext, ThemeContext, and i18n.
-- When the user changes something on the Settings page, call PATCH and update local state.
+Extend PATCH to include `accessibility`, `audio`, and full `learning` (romaji, etc.) when product needs cross-device parity.
 
 ### 2. Auth0 `user_metadata`
 
-Auth0 can store custom data in the user profile (`user_metadata`). To update it from your app you need a **backend** that:
-
-- Accepts the user’s JWT and the new metadata.
-- Calls the [Auth0 Management API](https://auth0.com/docs/api/management/v2/users/patch) `PATCH /api/v2/users/{id}` with the metadata.
-
-The SPA cannot safely call the Management API (it requires a token with `update:users`). So you’d add a small BFF or API route that does the PATCH and optionally returns the updated user.
-
-Summary: **for app preferences (language, theme, etc.), a small User API keyed by `sub` is usually simpler than Auth0 user_metadata.**
+Requires a backend calling Management API; usually worse fit than a User API blob. See historical note in repo docs.

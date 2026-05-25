@@ -68,6 +68,9 @@ type ThemeContextValue = {
   openThemeEditor: () => void;
   closeThemeEditor: () => void;
   isThemeEditorOpen: boolean;
+  /** Temporary app-wide preview (theme editor community themes). */
+  previewTokens: ThemeTokens | null;
+  setPreviewTokens: (tokens: ThemeTokens | null) => void;
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -110,13 +113,20 @@ function resolveEffectiveTheme(
     const fallback = paletteMode === "light" ? "light" : "dark";
     return { effectiveThemeId: fallback, themeMode: paletteMode };
   }
-  const builtIn = BUILT_IN_THEMES[themeId];
+
   const custom = customThemes.find((t) => t.id === themeId);
+  // Installed / custom themes keep their own palette — do not swap to light/dark
+  // presets when the user runs auto or a mismatched built-in (e.g. sepia-based
+  // community themes were incorrectly replaced with plain dark).
+  if (custom) {
+    const tokens = ensureThemeTokens(custom.tokens);
+    return { effectiveThemeId: themeId, themeMode: getThemeMode(tokens) };
+  }
+
+  const builtIn = BUILT_IN_THEMES[themeId];
   const currentMode = builtIn
     ? (builtIn as { mode?: ThemeMode }).mode ?? "dark"
-    : custom
-      ? getThemeMode(custom.tokens)
-      : "dark";
+    : "dark";
   const prefersLight = paletteMode === "light";
   const matches = prefersLight
     ? LIGHT_THEMES.includes(themeId) || currentMode === "light"
@@ -138,6 +148,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [starredCommunityIds, setStarredCommunityIds] = useState<string[]>([]);
   const [mounted, setMounted] = useState(false);
   const [isThemeEditorOpen, setIsThemeEditorOpen] = useState(false);
+  const [previewTokens, setPreviewTokens] = useState<ThemeTokens | null>(null);
 
   useEffect(() => {
     const stored = loadStoredThemes();
@@ -179,6 +190,25 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     [effectiveThemeId, data.customThemes, settings.accessibility?.dyslexiaFont]
   );
 
+  const domTokens = useMemo(() => {
+    if (!previewTokens) return activeTokens;
+    if (settings.accessibility?.dyslexiaFont) {
+      return {
+        ...previewTokens,
+        font: {
+          ...previewTokens.font,
+          family:
+            '"Atkinson Hyperlegible", ' + previewTokens.font.family,
+        },
+      };
+    }
+    return previewTokens;
+  }, [activeTokens, previewTokens, settings.accessibility?.dyslexiaFont]);
+
+  const domThemeMode = previewTokens
+    ? getThemeMode(previewTokens)
+    : themeMode;
+
   useEffect(() => {
     if (!mounted) return;
     // Kick off the Google Font fetch for whichever font this theme uses.
@@ -186,22 +216,25 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     // CSS font-display:swap shows the fallback until the file lands, then
     // swaps in the chosen face. This keeps theme application synchronous
     // for color/radius changes (which are the common case).
-    void loadFontFamily(getFontIdFromFamily(activeTokens.font?.family));
+    void loadFontFamily(getFontIdFromFamily(domTokens.font?.family));
     // Ensure Atkinson Hyperlegible is loaded when the dyslexia-friendly
     // font toggle is active (the getFontIdFromFamily lookup won't resolve
     // it when the family string has been prepended to a base theme font).
     if (settings.accessibility?.dyslexiaFont) {
       void loadFontFamily("atkinson");
     }
-    applyThemeToDOM(activeTokens);
+    applyThemeToDOM(domTokens);
     const root = document.documentElement;
     const scale = settings.accessibility?.fontSize ?? 1;
     root.style.fontSize = scale === 1 ? "" : `${scale * 100}%`;
     // Ensure light/dark class is set correctly — remove both and add current mode
     const existing = root.getAttribute("class") ?? "";
     const without = existing.replace(/\b(light|dark)\b/g, "").trim();
-    root.setAttribute("class", without ? `${without} ${themeMode}` : themeMode);
-  }, [activeTokens, themeMode, mounted, settings.accessibility?.fontSize]);
+    root.setAttribute(
+      "class",
+      without ? `${without} ${domThemeMode}` : domThemeMode,
+    );
+  }, [domTokens, domThemeMode, mounted, settings.accessibility?.fontSize]);
 
   const setTheme = useCallback(
     (id: ThemeId) => {
@@ -287,7 +320,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   );
 
   const openThemeEditor = useCallback(() => setIsThemeEditorOpen(true), []);
-  const closeThemeEditor = useCallback(() => setIsThemeEditorOpen(false), []);
+  const closeThemeEditor = useCallback(() => {
+    setPreviewTokens(null);
+    setIsThemeEditorOpen(false);
+  }, []);
 
   const value = useMemo(
     () => ({
@@ -308,6 +344,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       openThemeEditor,
       closeThemeEditor,
       isThemeEditorOpen,
+      previewTokens,
+      setPreviewTokens,
     }),
     [
       activeThemeId,
@@ -327,6 +365,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       openThemeEditor,
       closeThemeEditor,
       isThemeEditorOpen,
+      previewTokens,
     ]
   );
 
