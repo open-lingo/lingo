@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/shared/auth/useAuth";
 import { getActiveUserStorageId } from "@/features/settings/storage";
+import { useProgressMe } from "@/shared/hooks/useProgressMe";
 import {
   getMockCompletedLessonIds,
   subscribeLessonProgress,
@@ -10,19 +11,18 @@ import {
 export function useCompletedLessonIds(): string[] {
   const { user, isLoading: authLoading } = useAuth();
   const storageUserId = getActiveUserStorageId();
+  const { isProgressReady } = useProgressMe();
   const [ids, setIds] = useState(() => getMockCompletedLessonIds());
 
-  // Auth0 resolves after first paint — re-read once we know the real user key.
-  useEffect(() => {
-    if (authLoading) return;
-    setIds(getMockCompletedLessonIds());
-  }, [authLoading, user?.sub, storageUserId]);
+  const reload = () => setIds(getMockCompletedLessonIds());
 
+  // Re-read when auth + /progress/me hydrate have settled.
   useEffect(() => {
-    return subscribeLessonProgress(() => {
-      setIds(getMockCompletedLessonIds());
-    });
-  }, []);
+    if (authLoading || !isProgressReady) return;
+    reload();
+  }, [authLoading, isProgressReady, user?.sub, storageUserId]);
+
+  useEffect(() => subscribeLessonProgress(reload), []);
 
   return ids;
 }

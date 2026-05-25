@@ -15,6 +15,7 @@ import { HomeNavCard } from "./HomeNavCard";
 import { RestructuredHome } from "./restructured/RestructuredHome";
 import { Card, Button } from "@/shared/components/ui";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { useProgressMe } from "@/shared/hooks/useProgressMe";
 
 const storyCard = {
   to: "practice/stories",
@@ -27,9 +28,10 @@ export function HomePage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const flags = useFeatureFlags();
-  const { isAuthenticated, isLoading, user } = useAuth();
+  const { isAuthenticated, isLoading: authLoading, user } = useAuth();
   const { users } = useApi();
   const { language } = useLanguage();
+  const { isProgressReady, isLoading: progressLoading } = useProgressMe();
 
   const { data: me, error: meError, isError: meIsError } = useQuery({
     queryKey: ["users", "me"],
@@ -71,7 +73,9 @@ export function HomePage() {
     return raw.split(/\s+/)[0] || "there";
   })();
 
-  if (isLoading) {
+  const waitingForProgress = isAuthenticated && !isProgressReady && progressLoading;
+
+  if (authLoading || waitingForProgress) {
     return (
       <div className="flex items-center justify-center py-12">
         <p className="text-text-muted">{t("common.loading")}</p>
