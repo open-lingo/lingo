@@ -106,6 +106,26 @@ import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_ORDERING } from "./mock-ja-sidequest-tr
 import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_HELP } from "./mock-ja-sidequest-travel-help";
 import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_SHOPPING } from "./mock-ja-sidequest-travel-shopping";
 import {
+  M8_1_1, M8_1_2, M8_2_1, M8_2_2, M8_3_1, M8_3_2,
+  M8_4_1, M8_4_2, M8_5_1, M8_5_2, M8_6_1, M8_6_2,
+  M8_STORY, M8_7_1, M8_7_2,
+} from "./mock-ja-m8";
+import {
+  M9_1_1, M9_1_2, M9_2_1, M9_2_2, M9_3_1, M9_3_2,
+  M9_4_1, M9_4_2, M9_5_1, M9_5_2, M9_6_1, M9_6_2,
+  M9_STORY, M9_7_1, M9_7_2,
+} from "./mock-ja-m9";
+import {
+  M10_1_1, M10_1_2, M10_2_1, M10_2_2, M10_3_1, M10_3_2,
+  M10_4_1, M10_4_2, M10_5_1, M10_5_2, M10_6_1, M10_6_2,
+  M10_STORY, M10_7_1, M10_7_2,
+} from "./mock-ja-m10";
+import {
+  M11_1_1, M11_1_2, M11_2_1, M11_2_2, M11_3_1, M11_3_2,
+  M11_4_1, M11_4_2, M11_5_1, M11_5_2, M11_6_1, M11_6_2,
+  M11_STORY, M11_7_1, M11_7_2,
+} from "./mock-ja-m11";
+import {
   M3_1_1,
   M3_1_2,
   M3_2_1,
@@ -370,6 +390,49 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m7-8-1": M7_8_1,
   "ja-m7-8-2": M7_8_2,
   "ja-m7-story": M7_STORY,
+  // M8 — i-Adjectives + kanji parallel track begins
+  "ja-m8-1-1": M8_1_1,
+  "ja-m8-1-2": M8_1_2,
+  "ja-m8-2-1": M8_2_1,
+  "ja-m8-2-2": M8_2_2,
+  "ja-m8-3-1": M8_3_1,
+  "ja-m8-3-2": M8_3_2,
+  "ja-m8-4-1": M8_4_1,
+  "ja-m8-4-2": M8_4_2,
+  "ja-m8-5-1": M8_5_1,
+  "ja-m8-5-2": M8_5_2,
+  "ja-m8-6-1": M8_6_1,
+  "ja-m8-6-2": M8_6_2,
+  "ja-m8-story": M8_STORY,
+  "ja-m8-7-1": M8_7_1,
+  "ja-m8-7-2": M8_7_2,
+  // M9 — na-Adjectives + よ/ね
+  "ja-m9-1-1": M9_1_1, "ja-m9-1-2": M9_1_2,
+  "ja-m9-2-1": M9_2_1, "ja-m9-2-2": M9_2_2,
+  "ja-m9-3-1": M9_3_1, "ja-m9-3-2": M9_3_2,
+  "ja-m9-4-1": M9_4_1, "ja-m9-4-2": M9_4_2,
+  "ja-m9-5-1": M9_5_1, "ja-m9-5-2": M9_5_2,
+  "ja-m9-6-1": M9_6_1, "ja-m9-6-2": M9_6_2,
+  "ja-m9-story": M9_STORY,
+  "ja-m9-7-1": M9_7_1, "ja-m9-7-2": M9_7_2,
+  // M10 — Past tense (polite only)
+  "ja-m10-1-1": M10_1_1, "ja-m10-1-2": M10_1_2,
+  "ja-m10-2-1": M10_2_1, "ja-m10-2-2": M10_2_2,
+  "ja-m10-3-1": M10_3_1, "ja-m10-3-2": M10_3_2,
+  "ja-m10-4-1": M10_4_1, "ja-m10-4-2": M10_4_2,
+  "ja-m10-5-1": M10_5_1, "ja-m10-5-2": M10_5_2,
+  "ja-m10-6-1": M10_6_1, "ja-m10-6-2": M10_6_2,
+  "ja-m10-story": M10_STORY,
+  "ja-m10-7-1": M10_7_1, "ja-m10-7-2": M10_7_2,
+  // M11 — Negation (ません, ない-form, まだ/もう)
+  "ja-m11-1-1": M11_1_1, "ja-m11-1-2": M11_1_2,
+  "ja-m11-2-1": M11_2_1, "ja-m11-2-2": M11_2_2,
+  "ja-m11-3-1": M11_3_1, "ja-m11-3-2": M11_3_2,
+  "ja-m11-4-1": M11_4_1, "ja-m11-4-2": M11_4_2,
+  "ja-m11-5-1": M11_5_1, "ja-m11-5-2": M11_5_2,
+  "ja-m11-6-1": M11_6_1, "ja-m11-6-2": M11_6_2,
+  "ja-m11-story": M11_STORY,
+  "ja-m11-7-1": M11_7_1, "ja-m11-7-2": M11_7_2,
 };
 
 // ----- Inter-module review modules — REMOVED 2026-05-18 -------------------
