@@ -22,14 +22,14 @@ import { getMockCourse } from "./mockCourse";
 describe("curriculum lesson counts", () => {
   const course = getMockCourse("ja");
 
-  it("M1 has 39 lessons (pure hiragana, no yōon)", () => {
+  it("M1 has 40 lessons (pure hiragana, no yōon)", () => {
     const m1 = course.modules.find((m) => m.id === "m1")!;
     expect(m1).toBeDefined();
-    // 2 vowels (split 1/2 + 2/2)
+    // 3 vowels (a-i-u / e-o / full review)
     //   + (9 × 4-node rows: ka/sa/ta/na/ha/ma/ya/ra/wa)
     //   + 1 recap
-    // = 2 + 36 + 1 = 39
-    expect(m1.lessons.length).toBe(39);
+    // = 3 + 36 + 1 = 40
+    expect(m1.lessons.length).toBe(40);
     // No yōon ids leak into m1.
     for (const lesson of m1.lessons) {
       expect(lesson.id.includes("yoon-")).toBe(false);
@@ -82,45 +82,41 @@ describe("curriculum lesson counts", () => {
     }
   });
 
-  it("M3 has 8 lessons (restructure 2026-05-16)", () => {
+  it("M3 has 16 sub-lessons (sub-lesson restructure 2026-05-24)", () => {
     const m3 = course.modules.find((m) => m.id === "m3")!;
     expect(m3).toBeDefined();
     expect(m3.comingSoon).toBeFalsy();
-    expect(m3.lessons.length).toBe(8);
-    for (let i = 1; i <= 8; i++) {
-      expect(m3.lessons.some((l) => l.id === `ja-m3-${i}`)).toBe(true);
-    }
+    expect(m3.lessons.length).toBe(16);
   });
 
-  it("M3 final lesson is the mastery test", () => {
+  it("M3 ends with review lessons", () => {
     const m3 = course.modules.find((m) => m.id === "m3")!;
     const last = m3.lessons[m3.lessons.length - 1];
-    expect(last.id).toBe("ja-m3-8");
-    expect(last.title).toMatch(/Test|Mastery/i);
+    expect(last.title).toMatch(/Review/i);
   });
 
-  it("M4 has 8 lessons (possessives + pointers)", () => {
+  it("M4 has 16 sub-lessons (possessives + pointers)", () => {
     const m4 = course.modules.find((m) => m.id === "m4")!;
     expect(m4.comingSoon).toBeFalsy();
-    expect(m4.lessons.length).toBe(8);
+    expect(m4.lessons.length).toBe(16);
   });
 
-  it("M5 has 8 lessons (numbers + counters)", () => {
+  it("M5 has 16 sub-lessons (numbers + counters)", () => {
     const m5 = course.modules.find((m) => m.id === "m5")!;
     expect(m5.comingSoon).toBeFalsy();
-    expect(m5.lessons.length).toBe(8);
+    expect(m5.lessons.length).toBe(16);
   });
 
-  it("M6 has 9 lessons (locations + に/で/が)", () => {
+  it("M6 has 18 sub-lessons (locations + に/で/が)", () => {
     const m6 = course.modules.find((m) => m.id === "m6")!;
     expect(m6.comingSoon).toBeFalsy();
-    expect(m6.lessons.length).toBe(9);
+    expect(m6.lessons.length).toBe(18);
   });
 
-  it("M7 has 9 lessons (verbs + を)", () => {
+  it("M7 has 18 sub-lessons (verbs + を)", () => {
     const m7 = course.modules.find((m) => m.id === "m7")!;
     expect(m7.comingSoon).toBeFalsy();
-    expect(m7.lessons.length).toBe(9);
+    expect(m7.lessons.length).toBe(18);
   });
 
   it("no standalone inter-module Review pseudo-modules exist (removed 2026-05-18)", () => {
