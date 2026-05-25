@@ -126,7 +126,7 @@ export class ApiClient {
     opts?: RequestOptions & { tag?: string },
   ): Promise<T> {
     const url = this._buildUrl(path, opts?.params);
-    const token = await this._getToken();
+    let token = await this._getToken();
 
     const controller = new AbortController();
     const tag = opts?.tag;
@@ -139,31 +139,42 @@ export class ApiClient {
       ? this._mergeSignals(opts.signal, controller.signal)
       : controller.signal;
 
-    const headers: Record<string, string> = {
-      Authorization: `Bearer ${token}`,
-      ...opts?.headers,
-    };
-    if (body !== undefined) {
-      headers["Content-Type"] = "application/json";
-    }
-
-    const init: RequestInit = {
-      method,
-      headers,
-      body: body !== undefined ? JSON.stringify(body) : undefined,
-      signal: mergedSignal,
+    const buildInit = (currentToken: string): RequestInit => {
+      const headers: Record<string, string> = {
+        Authorization: `Bearer ${currentToken}`,
+        ...opts?.headers,
+      };
+      if (body !== undefined) {
+        headers["Content-Type"] = "application/json";
+      }
+      return {
+        method,
+        headers,
+        body: body !== undefined ? JSON.stringify(body) : undefined,
+        signal: mergedSignal,
+      };
     };
 
     let lastError: unknown;
+    // Fix 14 — at most one 401 retry per request. We re-fetch the token on
+    // the retry so a stale/expired token can be replaced silently.
+    let unauthorizedRetryUsed = false;
 
     for (let attempt = 0; attempt <= this._maxRetries; attempt++) {
       try {
-        const resp = await fetch(url, init);
+        const resp = await fetch(url, buildInit(token));
 
         if (resp.ok) {
           if (tag) this._inflight.delete(tag);
           if (resp.status === 204) return undefined as T;
           return (await resp.json()) as T;
+        }
+
+        if (resp.status === 401 && !unauthorizedRetryUsed) {
+          unauthorizedRetryUsed = true;
+          // Re-fetch token and immediately retry without consuming a 5xx slot.
+          token = await this._getToken();
+          continue;
         }
 
         if (!RETRYABLE_STATUS.has(resp.status) || attempt === this._maxRetries) {

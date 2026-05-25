@@ -185,7 +185,9 @@
       "lessonsSub": "lessons",
       "modulesKicker": "Modules",
       "streakChip": "{{count}}-day streak"
-    }
+    },
+    "backToCurrent": "Back to your current lesson",
+    "backToCurrentShort": "Back to current"
   },
   "alphabet": {
     "saySoundAloud": "Say the sound aloud while you write.",
@@ -1357,6 +1359,66 @@
       "insufficient": "Not enough lingots for that pack.",
       "grindLock": "Ad-free time is a reward for genuine learning, not lingot farming. Take a break and come back tomorrow.",
       "capReached": "You've hit the 6h daily ad-free cap. Try again later."
+    }
+  },
+  "quests": {
+    "panelTitle": "Your quests",
+    "statsKicker": "Level",
+    "streakDays": "days",
+    "lingots": "lingots",
+    "levelProgressAria": "XP toward next level",
+    "levelProgressCaption": "{{into}} / {{next}} XP to level {{n}}",
+    "tabsAria": "Quest categories",
+    "tab": {
+      "all": "All",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "random": "Random",
+      "friend": "Friends"
+    },
+    "empty": "No quests in this bucket right now.",
+    "claim": "Claim reward",
+    "completed": "Completed",
+    "expired": "Expired",
+    "progressAria": "{{title}} progress",
+    "shieldHint": "Streak shield — saves your streak once",
+    "adFreeHint": "{{m}} ad-free minutes",
+    "pillLabel": "Quests",
+    "pillAria": "{{count}} active quests, {{claimable}} ready to claim",
+    "pillClaimableHint": "Ready to claim!",
+    "spotlightTitle": "Quests",
+    "seeAll": "See all",
+    "daily": {
+      "fiftyXp": {
+        "title": "Earn 50 XP today",
+        "desc": "Stack a quick lesson before the day flips."
+      },
+      "flashcards": {
+        "title": "Review 15 flashcards",
+        "desc": "Spaced repetition keeps the words sticky."
+      }
+    },
+    "weekly": {
+      "threeLessons": {
+        "title": "Finish 5 lessons this week",
+        "desc": "Pace yourself — any module counts."
+      },
+      "masterRow": {
+        "title": "Master a new module",
+        "desc": "Pass every row-test for one module."
+      }
+    },
+    "random": {
+      "tryStory": {
+        "title": "Try a story",
+        "desc": "Bite-sized comprehension before the offer expires."
+      }
+    },
+    "friend": {
+      "overtake": {
+        "title": "Out-XP a friend this week",
+        "desc": "Friendly rivalry — top your friend's XP by Sunday."
+      }
     }
   }
 }

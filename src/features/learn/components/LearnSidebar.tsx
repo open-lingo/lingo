@@ -2,9 +2,9 @@ import { useTranslation } from "react-i18next";
 import type { Course, SideQuest } from "@/shared/domain/course";
 import type { LearnProfile } from "../hooks/useLearnProfile";
 import { ProfileCard } from "./ProfileCard";
-import { LearnCourseOverviewCard } from "./LearnCourseOverviewCard";
 import { FlashcardsReviewStrip } from "./FlashcardsReviewStrip";
 import { SideQuestCard } from "./SideQuestCard";
+import { QuestsPill, QuestSpotlightCard } from "@/features/quests";
 
 export type LearnSidebarProps = {
   profile: LearnProfile;
@@ -18,12 +18,21 @@ export type LearnSidebarProps = {
 
 /**
  * Desktop-only right rail. Mobile uses `LearnTopBar` above the pathway.
+ *
+ * Layout:
+ *   1. ProfileCard         — identity + level + XP
+ *   2. QuestsPill          — entry into the QuestsPanel modal
+ *   3. FlashcardsReviewStrip — due-cards module strip
+ *   4. SideQuests          — interest-driven optional content
+ *
+ * The standalone course-progress card was removed — it's now part of the
+ * `YourPathCard` hero on the main column.
  */
 export function LearnSidebar({
   profile,
-  course,
-  completedSet,
-  onJumpToModule,
+  course: _course,
+  completedSet: _completedSet,
+  onJumpToModule: _onJumpToModule,
   sideQuests,
   isSideQuestUnlocked,
   onSideQuestClick,
@@ -33,11 +42,10 @@ export function LearnSidebar({
   return (
     <aside className="space-y-6 lg:sticky lg:top-4 lg:self-start">
       <ProfileCard profile={profile} />
-      <LearnCourseOverviewCard
-        course={course}
-        completedSet={completedSet}
-        onJumpToModule={onJumpToModule}
-      />
+      <div className="flex justify-center">
+        <QuestsPill size="md" />
+      </div>
+      <QuestSpotlightCard />
       <FlashcardsReviewStrip />
       {sideQuests.length > 0 ? (
         <section aria-labelledby="learn-side-quests-heading">

@@ -7,6 +7,8 @@ import { Card } from "@/shared/components/ui";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useCardsDueCount } from "@/features/flashcards/useCardsDueCount";
+import { useUserStats } from "@/shared/hooks/useUserStats";
+import { xpProgressToNextLevel } from "@/features/progress/leveling";
 import type { LearnProfile } from "../hooks/useLearnProfile";
 
 export type ProfileCardProps = {
@@ -20,6 +22,8 @@ export function ProfileCard({ profile }: ProfileCardProps) {
   const { count: cardsDue, isLoading: cardsDueLoading } = useCardsDueCount(
     language?.id ?? "ko",
   );
+  const { stats } = useUserStats();
+  const levelProgress = xpProgressToNextLevel(stats.xp);
 
   return (
     <Card as="section" padding="md" className="h-full shadow-card">
@@ -29,15 +33,33 @@ export function ProfileCard({ profile }: ProfileCardProps) {
           src={profile.avatarUrl}
           size="md"
         />
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <p className="truncate text-base font-bold text-text-primary">
             {profile.isLoading ? "…" : profile.displayName}
           </p>
-          <p className="mt-0.5 truncate text-xs text-text-muted">
-            {profile.levelLabel}
+          <p className="mt-0.5 inline-flex items-center gap-1 text-xs font-semibold text-accent">
+            <Icon name="trophy" size={12} aria-hidden />
+            {t("profile.levelLabel", {
+              defaultValue: "Level {{n}}",
+              n: levelProgress.level,
+            })}
+            <span className="font-medium text-text-muted">
+              {" · "}
+              {levelProgress.intoLevel}/{levelProgress.toNext} XP
+            </span>
           </p>
         </div>
       </div>
+      {!profile.hasNoProgress ? (
+        <div className="mb-3" aria-hidden>
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
+            <div
+              className="h-full rounded-full bg-accent transition-[width] duration-500"
+              style={{ width: `${levelProgress.percent}%` }}
+            />
+          </div>
+        </div>
+      ) : null}
       {profile.hasNoProgress ? (
         <ProfileCardEmpty />
       ) : (

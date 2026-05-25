@@ -4,8 +4,8 @@ import { Icon } from "@/shared/components/Icon";
 import type { Course, SideQuest } from "@/shared/domain/course";
 import type { LearnProfile } from "../hooks/useLearnProfile";
 import { ProfileCard } from "./ProfileCard";
-import { LearnCourseOverviewCard } from "./LearnCourseOverviewCard";
 import { SideQuestCard } from "./SideQuestCard";
+import { QuestsPill } from "@/features/quests";
 
 export type LearnTopBarProps = {
   profile: LearnProfile;
@@ -18,16 +18,19 @@ export type LearnTopBarProps = {
 };
 
 /**
- * Mobile-only top bar above the pathway: two cards side-by-side
- * (Profile + Course progress), with a collapsible Side quests bar below.
- * Desktop hides this and renders the same content as a right rail
- * (`LearnSidebar`).
+ * Mobile-only top bar above the pathway: profile + quests entry, with a
+ * collapsible Side quests bar below. Desktop hides this and renders the
+ * same content as a right rail (`LearnSidebar`).
+ *
+ * Note: the standalone "Course progress" card was folded into the
+ * `YourPathCard` hero on the main column — that's why this row is now
+ * profile + QuestsPill instead of profile + course-progress.
  */
 export function LearnTopBar({
   profile,
-  course,
-  completedSet,
-  onJumpToModule,
+  course: _course,
+  completedSet: _completedSet,
+  onJumpToModule: _onJumpToModule,
   sideQuests,
   isSideQuestUnlocked,
   onSideQuestClick,
@@ -36,13 +39,11 @@ export function LearnTopBar({
 
   return (
     <div className="mb-4 lg:hidden">
-      <div className="grid grid-cols-2 items-stretch gap-3">
+      <div className="grid grid-cols-1 items-stretch gap-3">
         <ProfileCard profile={profile} />
-        <LearnCourseOverviewCard
-          course={course}
-          completedSet={completedSet}
-          onJumpToModule={onJumpToModule}
-        />
+        <div className="flex items-center justify-end">
+          <QuestsPill size="md" />
+        </div>
       </div>
 
       {sideQuests.length > 0 ? (

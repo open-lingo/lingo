@@ -149,7 +149,9 @@
       "lessonsSub": "레슨",
       "modulesKicker": "모듈",
       "streakChip": "{{count}}일 연속"
-    }
+    },
+    "backToCurrent": "현재 레슨으로 돌아가기",
+    "backToCurrentShort": "현재 위치로"
   },
   "practice": {
     "intro": "플래시카드 복습, 스킬 트레이너, 문법 드릴까지 한곳에서 시작하세요.",
@@ -1267,6 +1269,66 @@
       "insufficient": "해당 팩을 구매하기에 링곳이 부족합니다.",
       "grindLock": "광고 없는 시간은 진짜 학습에 대한 보상이지, 링곳 파밍에 대한 보상이 아닙니다. 잠시 쉬었다가 내일 다시 와 주세요.",
       "capReached": "24시간 광고 없는 한도(6시간)에 도달했습니다. 나중에 다시 시도해 주세요."
+    }
+  },
+  "quests": {
+    "panelTitle": "내 퀘스트",
+    "statsKicker": "레벨",
+    "streakDays": "일",
+    "lingots": "링곳",
+    "levelProgressAria": "다음 레벨까지의 XP",
+    "levelProgressCaption": "레벨 {{n}}까지 {{into}} / {{next}} XP",
+    "tabsAria": "퀘스트 카테고리",
+    "tab": {
+      "all": "전체",
+      "daily": "일일",
+      "weekly": "주간",
+      "random": "랜덤",
+      "friend": "친구"
+    },
+    "empty": "지금은 이 카테고리에 퀘스트가 없습니다.",
+    "claim": "보상 받기",
+    "completed": "완료",
+    "expired": "만료됨",
+    "progressAria": "{{title}} 진행도",
+    "shieldHint": "스트릭 보호막 — 연속 기록을 한 번 지켜줍니다",
+    "adFreeHint": "광고 없는 시간 {{m}}분",
+    "pillLabel": "퀘스트",
+    "pillAria": "진행 중인 퀘스트 {{count}}개, 보상 받기 가능 {{claimable}}개",
+    "pillClaimableHint": "보상을 받을 수 있어요!",
+    "spotlightTitle": "퀘스트",
+    "seeAll": "전체 보기",
+    "daily": {
+      "fiftyXp": {
+        "title": "오늘 50 XP 얻기",
+        "desc": "하루가 바뀌기 전에 짧은 레슨 한 번."
+      },
+      "flashcards": {
+        "title": "플래시카드 15장 복습",
+        "desc": "간격 반복으로 단어를 오래 기억하세요."
+      }
+    },
+    "weekly": {
+      "threeLessons": {
+        "title": "이번 주 레슨 5개 완료",
+        "desc": "어떤 모듈이든 카운트됩니다."
+      },
+      "masterRow": {
+        "title": "새 모듈 마스터하기",
+        "desc": "한 모듈의 모든 행 테스트 통과."
+      }
+    },
+    "random": {
+      "tryStory": {
+        "title": "이야기 도전",
+        "desc": "오퍼가 끝나기 전 짧은 독해 한 편."
+      }
+    },
+    "friend": {
+      "overtake": {
+        "title": "이번 주 친구보다 XP 더 얻기",
+        "desc": "친한 라이벌 — 일요일까지 친구의 XP를 넘어보세요."
+      }
     }
   }
 }

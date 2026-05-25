@@ -13,11 +13,8 @@ import {
  *  Versioned so a future copy/UX change can re-fire it for everyone. */
 const MASTERY_TOAST_KEY_PREFIX = "lingo_mastery_toasted_v1_";
 import { Icon } from "@/shared/components/Icon";
-import { Card, ProgressRing, Button } from "@/shared/components/ui";
 import { useModal } from "@/shared/contexts/ModalContext";
-import { useApi } from "@/shared/api";
 import { useLangPath } from "@/shared/hooks/useLangPath";
-import { useQueryClient } from "@tanstack/react-query";
 import { useUserStats } from "@/shared/hooks/useUserStats";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { logSessionEvent } from "@/shared/telemetry/sessionLog";
@@ -36,14 +33,17 @@ import {
   graduateModule,
 } from "@/features/japanese/vocabGraduation";
 import type { Lesson, SideQuest } from "@/shared/domain/course";
-import { getCurrentModuleIndex } from "./moduleProgress";
+import {
+  getCurrentModuleIndex,
+  getNextLessonIndex,
+} from "./moduleProgress";
 import { useModuleAccordion } from "./useModuleAccordion";
 import { useLearnProfile } from "./hooks/useLearnProfile";
-import { LearnCourseMap } from "./components/LearnCourseMap";
+import { LearnMapScrollArea } from "./components/LearnMapScrollArea";
 import { LearnSidebar } from "./components/LearnSidebar";
 import { LearnTopBar } from "./components/LearnTopBar";
 import { LearnDevPanel } from "./components/LearnDevPanel";
-import { LearnProgressJsonOverlay } from "./components/LearnProgressJsonOverlay";
+import { YourPathCard } from "./components/YourPathCard";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
 
 export function LearnPage() {
@@ -74,8 +74,6 @@ export function LearnPage() {
   }, [language?.id, completedIds.length]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [showStartOverConfirm, setShowStartOverConfirm] = useState(false);
-  const [showProgressJson, setShowProgressJson] = useState(false);
-  const [startOverBusy, setStartOverBusy] = useState(false);
 
   useEffect(() => {
     const dev = searchParams.get("dev");
@@ -136,13 +134,6 @@ export function LearnPage() {
     [completedLessonIds],
   );
 
-  const hasCourseProgress = useMemo(() => {
-    if (!course) return false;
-    return course.modules.some((m) =>
-      m.lessons.some((l) => completedSet.has(l.id)),
-    );
-  }, [course, completedSet]);
-
   useEffect(() => {
     if (!course) return;
     for (const mod of course.modules) {
@@ -172,8 +163,6 @@ export function LearnPage() {
   // Keyed by module id in localStorage so the toast doesn't replay on
   // subsequent visits to /learn.
   const { showToast } = useToast();
-  const { progress, srs } = useApi();
-  const queryClient = useQueryClient();
   const masteryToastRefs = useRef<Set<string>>(new Set());
   useEffect(() => {
     if (!course) return;
@@ -208,28 +197,15 @@ export function LearnPage() {
     }
   }, [course, completedSet, showToast, t]);
 
-  const handleStartOver = async () => {
-    if (!course || startOverBusy) return;
-    setStartOverBusy(true);
-    try {
-      await resetLearnProgress(course.id, { progress, srs });
-      void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
-      showToast(
-        t("learn.startOverDone", {
-          defaultValue: "Progress reset — you're back at the start of the course.",
-        }),
-        "success",
-      );
-    } catch {
-      showToast(
-        t("learn.startOverFailed", {
-          defaultValue: "Could not reset progress. Try again.",
-        }),
-        "error",
-      );
-    } finally {
-      setStartOverBusy(false);
-    }
+  const handleStartOver = () => {
+    if (!course) return;
+    resetLearnProgress(course.id);
+    showToast(
+      t("learn.startOverDone", {
+        defaultValue: "Progress reset — you're back at the start of the course.",
+      }),
+      "success",
+    );
   };
 
   const handleToggleDevUnlock = () => {
@@ -382,81 +358,24 @@ export function LearnPage() {
       />
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start">
         <div className="min-w-0">
-          {(() => {
-            const allLessons = course.modules.flatMap((m) => m.lessons);
-            const totalLessons = allLessons.length;
-            const lessonsDone = allLessons.filter((l) =>
-              completedSet.has(l.id),
-            ).length;
-            const moduleCount = course.modules.length;
-            const pct =
-              totalLessons > 0
-                ? Math.round((lessonsDone / totalLessons) * 100)
-                : 0;
-            const streakDays = userStats.streak;
-            return (
-              <Card padding="lg" className="mb-6">
-                <div className="flex flex-col gap-5">
-                  <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="relative min-w-0 flex-1">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
-                      {t("learn.progressCard.kicker", {
-                        defaultValue: "Your path",
-                      })}
-                    </p>
-                    <h2 className="mt-1 text-lg font-semibold text-text-primary sm:text-xl">
-                      {course.title}
-                    </h2>
-                    {devUnlock ? (
-                      <button
-                        type="button"
-                        onClick={() => setShowProgressJson(true)}
-                        className="absolute right-0 top-0 rounded-md border border-border px-2 py-1 font-mono text-xs text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
-                        title={t("learn.progressJson", {
-                          defaultValue: "View progress JSON",
-                        })}
-                        aria-label={t("learn.progressJson", {
-                          defaultValue: "View progress JSON",
-                        })}
-                      >
-                        &lt;/&gt;
-                      </button>
-                    ) : null}
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <ProgressRing
-                      percent={pct}
-                      label={`${lessonsDone}/${totalLessons}`}
-                      sublabel={t("learn.progressCard.lessonsSub", {
-                        defaultValue: "lessons",
-                      })}
-                    />
-                    <div className="rounded-lg bg-surface-muted px-4 py-3 text-center">
-                      <p className="text-[0.625rem] font-semibold uppercase tracking-wider text-text-muted">
-                        {t("learn.progressCard.modulesKicker", {
-                          defaultValue: "Modules",
-                        })}
-                      </p>
-                      <p className="mt-0.5 text-xl font-bold text-text-primary leading-none">
-                        {moduleCount}
-                      </p>
-                    </div>
-                    {streakDays > 0 && (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-warning/10 px-3 py-1.5 text-sm font-bold text-warning">
-                        <Icon name="flame" size={16} aria-hidden />
-                        {t("learn.progressCard.streakChip", {
-                          defaultValue: "{{count}}-day streak",
-                          count: streakDays,
-                        })}
-                      </span>
-                    )}
-                  </div>
-                  </div>
-                </div>
-              </Card>
-            );
-          })()}
-          <LearnCourseMap
+          <YourPathCard
+            course={course}
+            completedSet={completedSet}
+            streakDays={userStats.streak}
+            onResume={() => {
+              const currentModule = course.modules[currentModuleIdx];
+              if (!currentModule) return;
+              const idx = getNextLessonIndex(
+                currentModule.lessons,
+                completedSet,
+              );
+              const lesson = currentModule.lessons[idx];
+              if (lesson) goToLesson(lesson);
+            }}
+            onJumpToModule={handleJumpToModule}
+            onStartOver={() => setShowStartOverConfirm(true)}
+          />
+          <LearnMapScrollArea
             course={course}
             completedSet={completedSet}
             devUnlock={devUnlock}
@@ -465,21 +384,6 @@ export function LearnPage() {
             onToggleModule={accordion.toggle}
             onLessonClick={goToLesson}
           />
-          {hasCourseProgress ? (
-            <div className="mt-10 flex flex-col items-center gap-3 border-t border-border pt-8">
-              <p className="max-w-md text-center text-sm text-text-secondary">
-                {t("learn.startOverHint")}
-              </p>
-              <Button
-                type="button"
-                variant="outline"
-                disabled={startOverBusy}
-                onClick={() => setShowStartOverConfirm(true)}
-              >
-                {t("learn.startOver")}
-              </Button>
-            </div>
-          ) : null}
         </div>
         <div className="hidden lg:block">
           <LearnSidebar
@@ -502,24 +406,18 @@ export function LearnPage() {
           confirmLabel={t("learn.startOver")}
           danger
           onConfirm={() => {
-            void handleStartOver().finally(() =>
-              setShowStartOverConfirm(false),
-            );
+            handleStartOver();
+            setShowStartOverConfirm(false);
           }}
           onCancel={() => setShowStartOverConfirm(false)}
         />
       ) : null}
 
-      {showProgressJson ? (
-        <LearnProgressJsonOverlay onClose={() => setShowProgressJson(false)} />
-      ) : null}
-
       <LearnDevPanel
         unlocked={devUnlock}
         onToggle={handleToggleDevUnlock}
-        onShowProgressJson={() => setShowProgressJson(true)}
         onClearProgress={() => {
-          if (course) void resetLearnProgress(course.id, { progress, srs });
+          if (course) resetLearnProgress(course.id);
         }}
         onClearGraduatedVocab={() => clearGraduatedVocab(course.id)}
       />

@@ -59,11 +59,17 @@ export function PathwayNode({
     onClick();
   };
 
+  // The "current" node is the scroll target for the
+  // BackToCurrentButton. We tag the row container (not the disc) so the
+  // intersection observer measures the full row including the label.
+  const isCurrent = state === "current";
+
   return (
     <div
       className="lingo-path-row"
       data-pos={positionOffset}
       data-cluster={cluster ? "true" : undefined}
+      data-current={isCurrent ? "true" : undefined}
     >
       <div
         className="lingo-node"

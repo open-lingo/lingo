@@ -119,7 +119,9 @@
     "lessonsAbove": "lecciones arriba",
     "lessonsBelow": "lecciones abajo",
     "showAllLessons": "Mostrar las {{count}} lecciones",
-    "showLess": "Mostrar menos"
+    "showLess": "Mostrar menos",
+    "backToCurrent": "Volver a la lección actual",
+    "backToCurrentShort": "Lección actual"
   },
   "alphabet": {
     "saySoundAloud": "Di el sonido en voz alta mientras escribes.",
@@ -958,6 +960,51 @@
       "insufficient": "No tienes suficientes lingotes para ese paquete.",
       "grindLock": "El tiempo sin anuncios es una recompensa por aprender de verdad, no por farmear lingotes. Tómate un descanso y vuelve mañana.",
       "capReached": "Has alcanzado el límite diario de 6h sin anuncios. Inténtalo más tarde."
+    }
+  },
+  "quests": {
+    "panel": {
+      "title": "Misiones",
+      "subtitle": "Completa misiones para ganar XP y lingotes.",
+      "tabAll": "Todas",
+      "tabDaily": "Diarias",
+      "tabWeekly": "Semanales",
+      "tabRandom": "Aleatorias",
+      "tabFriend": "Amigos",
+      "empty": "No hay misiones aquí.",
+      "level": "Nivel",
+      "xpToNext": "{{into}}/{{toNext}} XP para nivel {{next}}",
+      "streak": "Racha",
+      "lingots": "Lingotes",
+      "xp": "XP"
+    },
+    "pill": {
+      "label": "Misiones",
+      "aria": "Abrir misiones"
+    },
+    "spotlight": {
+      "title": "Próxima misión",
+      "seeAll": "Ver todas"
+    },
+    "row": {
+      "claim": "Reclamar",
+      "completed": "Completada",
+      "expired": "Expirada",
+      "rewards": "Recompensas",
+      "expires": "Expira",
+      "friend": "Amigo: {{name}}"
+    },
+    "rewards": {
+      "lingots": "{{count}} lingotes",
+      "xp": "{{count}} XP",
+      "adFreeMinutes": "{{count}}m sin anuncios",
+      "streakShield": "Escudo de racha"
+    },
+    "status": {
+      "claimable": "¡Reclamable!",
+      "active": "Activa",
+      "completed": "Completada",
+      "expired": "Expirada"
     }
   }
 }

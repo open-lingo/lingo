@@ -22,7 +22,7 @@ import { LearnLessonLengthsOverlay } from "./LearnLessonLengthsOverlay";
 export type LearnDevPanelProps = {
   unlocked: boolean;
   onToggle: () => void;
-  onShowProgressJson: () => void;
+  onShowProgressJson?: () => void;
   onClearProgress: () => void;
   onClearGraduatedVocab: () => void;
 };
