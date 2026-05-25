@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { AdminApi } from "./admin";
 import { DecksApi } from "./decks";
 import { ProgressApi } from "./progress";
+import { SocialApi } from "./social";
 import { StoriesApi } from "./stories";
 import { UsersApi } from "./users";
 import { SrsApi } from "./srs";
@@ -14,6 +15,7 @@ interface ApiContext {
   stories: StoriesApi;
   admin: AdminApi;
   progress: ProgressApi;
+  social: SocialApi;
 }
 
 const Ctx = createContext<ApiContext | null>(null);
@@ -43,6 +45,7 @@ export function ApiProvider({ children }: { children: ReactNode }) {
       stories: new StoriesApi(opts),
       admin: new AdminApi(opts),
       progress: new ProgressApi(opts),
+      social: new SocialApi(opts),
     };
   }, [getAccessTokenSilently]);
 
@@ -54,4 +57,11 @@ export function useApi(): ApiContext {
   const ctx = useContext(Ctx);
   if (!ctx) throw new Error("useApi must be used within <ApiProvider>");
   return ctx;
+}
+
+/** Non-throwing variant — returns null outside `<ApiProvider>`. Used by
+ *  hooks that have a mock fallback path (e.g. social hooks that don't want
+ *  to require an ApiProvider in unit tests). */
+export function useApiOptional(): ApiContext | null {
+  return useContext(Ctx);
 }

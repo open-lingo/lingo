@@ -7,6 +7,7 @@ import {
   fireEvent,
 } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { MockSocialProviders } from "@/test/socialTestUtils";
 import { InviteFriendsCard } from "./InviteFriendsCard";
 
 vi.mock("react-i18next", () => ({
@@ -41,9 +42,11 @@ afterEach(() => cleanup());
 describe("InviteFriendsCard", () => {
   it("renders the lingot + ad-free pitch in the CTA card", async () => {
     render(
-      <MemoryRouter>
-        <InviteFriendsCard />
-      </MemoryRouter>,
+      <MockSocialProviders>
+        <MemoryRouter>
+          <InviteFriendsCard />
+        </MemoryRouter>
+      </MockSocialProviders>,
     );
     await waitFor(() => {
       expect(
@@ -57,9 +60,11 @@ describe("InviteFriendsCard", () => {
 
   it("opens the modal with the invite URL when Get link is clicked", async () => {
     render(
-      <MemoryRouter>
-        <InviteFriendsCard />
-      </MemoryRouter>,
+      <MockSocialProviders>
+        <MemoryRouter>
+          <InviteFriendsCard />
+        </MemoryRouter>
+      </MockSocialProviders>,
     );
     await waitFor(() => {
       expect(

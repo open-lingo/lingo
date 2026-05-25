@@ -1,6 +1,7 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
 import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { MockSocialProviders } from "@/test/socialTestUtils";
 import { FriendsLeaderboardWidget } from "./FriendsLeaderboardWidget";
 
 vi.mock("react-i18next", () => ({
@@ -25,9 +26,11 @@ afterEach(() => cleanup());
 describe("FriendsLeaderboardWidget", () => {
   it("shows the friend leader and the current user once loaded", async () => {
     render(
-      <MemoryRouter>
-        <FriendsLeaderboardWidget />
-      </MemoryRouter>,
+      <MockSocialProviders>
+        <MemoryRouter>
+          <FriendsLeaderboardWidget />
+        </MemoryRouter>
+      </MockSocialProviders>,
     );
     await waitFor(() => {
       expect(screen.getByText(/^Friend leaderboard$/i)).toBeInTheDocument();

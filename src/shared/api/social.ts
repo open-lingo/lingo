@@ -89,9 +89,40 @@ export interface MyLeaderboardSummary {
   lang: string | null;
 }
 
+/** A single reaction bucket on an activity item. Mirrors the
+ *  `ActivityReaction` shape in `mockSocial.ts` so cached items can be reused
+ *  without a translation step. */
+export interface ActivityReaction {
+  kind: string;
+  count: number;
+  /** True if the current user has reacted with this kind. */
+  mine?: boolean;
+}
+
+export interface ActivityFeedItem {
+  id: string;
+  actor_id: string;
+  actor_username: string;
+  actor_display_name: string;
+  actor_profile_picture_key?: string | null;
+  kind: "streak" | "module" | "league" | "joined" | "milestone";
+  /** Human-rendered text from the backend. */
+  text: string;
+  /** ISO timestamp. */
+  occurred_at: string;
+  /** Per-kind reaction breakdown. */
+  reactions: ActivityReaction[];
+}
+
 export interface ActivityFeedResponse {
-  items: unknown[];
+  items: ActivityFeedItem[];
   cursor: string | null;
+}
+
+export interface ReactionToggleResult {
+  kind: string;
+  count: number;
+  mine: boolean;
 }
 
 export interface SendFriendRequestPayload {
@@ -101,6 +132,104 @@ export interface SendFriendRequestPayload {
 
 export interface FriendRequestStatus {
   status: "pending" | "accepted" | "exists";
+}
+
+// ─── Spotlight + streak snapshot ─────────────────────────────────────────────
+
+export interface LeagueSpotlightTopUser {
+  user_id: string;
+  username: string;
+  display_name: string;
+  profile_picture_key: string | null;
+  xp_this_period: number;
+  rank: number;
+}
+
+export interface LeagueSpotlight {
+  league: string;
+  league_tier: number;
+  my_row: LeaderboardEntry | null;
+  rank: number | null;
+  rank_yesterday: number | null;
+  rank_delta_today: number;
+  daily_xp: number[];
+  friend_median_daily_xp: number[];
+  top_three: LeagueSpotlightTopUser[];
+  promotion_threshold: number;
+  demotion_threshold: number;
+}
+
+export interface StreakSnapshot {
+  my_streak_days: number;
+  friend_median_streak_days: number;
+  best_friend_streak_days: number;
+  best_friend_username: string | null;
+}
+
+// ─── Invites ────────────────────────────────────────────────────────────────
+
+export interface InviteOffer {
+  code: string;
+  url: string;
+  lingot_reward_inviter: number;
+  lingot_reward_invitee: number;
+  ad_free_minutes_inviter: number;
+  ad_free_minutes_invitee: number;
+  monthly_cap: number;
+  redeemed_count_this_month: number;
+  first_lesson_required: boolean;
+}
+
+export interface InviteRedeemResult {
+  status: "ok" | "already_redeemed" | "expired" | "invalid" | "self";
+  lingot_reward: number;
+  ad_free_minutes: number;
+}
+
+// ─── Threads + messages ─────────────────────────────────────────────────────
+
+export interface ThreadParticipantUser {
+  user_id: string;
+  username: string;
+  display_name: string;
+  profile_picture_key: string | null;
+  status?: "active" | "idle" | null;
+}
+
+export interface ThreadItem {
+  id: string;
+  other_user: ThreadParticipantUser;
+  last_message: string;
+  last_time_iso: string;
+  unread_count: number;
+}
+
+export interface Message {
+  id: string;
+  thread_id: string;
+  from_user_id: string;
+  text: string;
+  sent_at: string;
+}
+
+export interface ThreadDetail {
+  thread: ThreadItem;
+  messages: Message[];
+}
+
+// ─── Quest targets ──────────────────────────────────────────────────────────
+
+export interface QuestTargetItem {
+  user_id: string;
+  username: string;
+  display_name: string;
+  profile_picture_key: string | null;
+  /** Streak gap (their streak − yours). Negative means they're behind. */
+  streak_gap: number;
+  /** Daily XP gap. */
+  xp_gap_today: number;
+  /** Short reason string from the backend (e.g. "within 50 XP today"). */
+  reason: string;
 }
 
 export class SocialApi extends ApiClient {
@@ -233,7 +362,7 @@ export class SocialApi extends ApiClient {
     );
   }
 
-  // ── Activity feed (stub) ───────────────────────────────────
+  // ── Activity feed ──────────────────────────────────────────
 
   getActivity(
     params?: { cursor?: string },
@@ -243,6 +372,79 @@ export class SocialApi extends ApiClient {
       params: params as Record<string, string | undefined>,
       signal,
       tag: "social:activity",
+    });
+  }
+
+  /** Toggle a reaction on an activity item. Returns the post-toggle state for
+   *  the affected kind so the client can reconcile its optimistic update. */
+  reactToActivity(
+    activityId: string,
+    kind: string,
+    signal?: AbortSignal,
+  ): Promise<ReactionToggleResult> {
+    return this.post<ReactionToggleResult>(
+      `${PREFIX}/activity/${encodeURIComponent(activityId)}/reactions/${encodeURIComponent(kind)}`,
+      undefined,
+      { signal, tag: `social:react:${activityId}:${kind}` },
+    );
+  }
+
+  // ── Spotlight + streak snapshot ────────────────────────────
+
+  getLeagueSpotlight(lang: string, signal?: AbortSignal): Promise<LeagueSpotlight> {
+    return this.get<LeagueSpotlight>(`${PREFIX}/leaderboards/spotlight`, {
+      params: { lang },
+      signal,
+      tag: `social:spotlight:${lang}`,
+    });
+  }
+
+  getStreakSnapshot(signal?: AbortSignal): Promise<StreakSnapshot> {
+    return this.get<StreakSnapshot>(`${PREFIX}/streak-snapshot`, {
+      signal,
+      tag: "social:streak-snapshot",
+    });
+  }
+
+  // ── Invites ────────────────────────────────────────────────
+
+  getInviteOffer(signal?: AbortSignal): Promise<InviteOffer> {
+    return this.get<InviteOffer>(`${PREFIX}/invites/offer`, {
+      signal,
+      tag: "social:invite-offer",
+    });
+  }
+
+  redeemInvite(code: string, signal?: AbortSignal): Promise<InviteRedeemResult> {
+    return this.post<InviteRedeemResult>(
+      `${PREFIX}/invites/redeem/${encodeURIComponent(code)}`,
+      undefined,
+      { signal, tag: `social:invite-redeem:${code}` },
+    );
+  }
+
+  // ── Threads ────────────────────────────────────────────────
+
+  getThreads(signal?: AbortSignal): Promise<ThreadItem[]> {
+    return this.get<ThreadItem[]>(`${PREFIX}/threads`, {
+      signal,
+      tag: "social:threads",
+    });
+  }
+
+  getThread(threadId: string, signal?: AbortSignal): Promise<ThreadDetail> {
+    return this.get<ThreadDetail>(
+      `${PREFIX}/threads/${encodeURIComponent(threadId)}`,
+      { signal, tag: `social:thread:${threadId}` },
+    );
+  }
+
+  // ── Quest targets ──────────────────────────────────────────
+
+  getQuestTargets(signal?: AbortSignal): Promise<QuestTargetItem[]> {
+    return this.get<QuestTargetItem[]>(`${PREFIX}/quest-targets`, {
+      signal,
+      tag: "social:quest-targets",
     });
   }
 }

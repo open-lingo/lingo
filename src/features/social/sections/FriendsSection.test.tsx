@@ -1,6 +1,7 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
 import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { MockSocialProviders } from "@/test/socialTestUtils";
 
 // useLangPath reads from LanguageContext — stub to a path joiner so
 // `<FriendRow>`'s message Link renders without a provider.
@@ -40,9 +41,11 @@ describe("FriendsSection — non-empty", () => {
   it("renders the populated friends list when the mock has friends", async () => {
     const { FriendsSearchAndList } = await import("./FriendsSection");
     render(
-      <MemoryRouter>
-        <FriendsSearchAndList />
-      </MemoryRouter>,
+      <MockSocialProviders>
+        <MemoryRouter>
+          <FriendsSearchAndList />
+        </MemoryRouter>
+      </MockSocialProviders>,
     );
     await waitFor(() => {
       expect(screen.getByText("Anna")).toBeInTheDocument();
@@ -68,9 +71,11 @@ describe("FriendsSection — empty state", () => {
     });
     const { FriendsSearchAndList } = await import("./FriendsSection");
     render(
-      <MemoryRouter>
-        <FriendsSearchAndList />
-      </MemoryRouter>,
+      <MockSocialProviders>
+        <MemoryRouter>
+          <FriendsSearchAndList />
+        </MemoryRouter>
+      </MockSocialProviders>,
     );
     expect(screen.getByText(/Nobody here yet/i)).toBeInTheDocument();
     expect(

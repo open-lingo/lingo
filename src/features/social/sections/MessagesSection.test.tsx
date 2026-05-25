@@ -1,6 +1,7 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
 import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { MockSocialProviders } from "@/test/socialTestUtils";
 import { MessagesSection } from "./MessagesSection";
 
 vi.mock("react-i18next", () => ({
@@ -34,9 +35,11 @@ afterEach(() => cleanup());
 describe("MessagesSection", () => {
   it("renders the thread list once mocks land", async () => {
     render(
-      <MemoryRouter>
-        <MessagesSection />
-      </MemoryRouter>,
+      <MockSocialProviders>
+        <MemoryRouter>
+          <MessagesSection />
+        </MemoryRouter>
+      </MockSocialProviders>,
     );
     await waitFor(() => {
       // First mock thread is with Anna — message appears in both the

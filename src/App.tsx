@@ -191,6 +191,11 @@ const AdminLessonEditorPage = lazyRetry(() =>
     default: m.AdminLessonEditorPage,
   })),
 );
+const PublicProfilePage = lazyRetry(() =>
+  import("@/features/profile/PublicProfilePage").then((m) => ({
+    default: m.PublicProfilePage,
+  })),
+);
 
 function ForumThreadRedirect() {
   const { threadId } = useParams<{ threadId: string }>();
@@ -215,6 +220,10 @@ const router = createBrowserRouter([
       { path: "logout", element: <LogoutPage /> },
       { path: "settings", element: <SettingsOpenRoute /> },
       { path: "settings/profile", element: <SettingsProfileOpenRoute /> },
+      // Global public profile route — not nested under `/:lang/*` because
+      // social is per-user, not per-language. Auth-optional (logged-out
+      // viewers can see public profiles).
+      { path: "u/:username", element: <PublicProfilePage /> },
       {
         path: "admin",
         element: <AdminLayout />,

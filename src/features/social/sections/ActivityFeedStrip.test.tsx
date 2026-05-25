@@ -1,6 +1,7 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
 import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { MockSocialProviders } from "@/test/socialTestUtils";
 import { ActivityFeedStrip } from "./ActivityFeedStrip";
 
 vi.mock("react-i18next", () => ({
@@ -34,9 +35,11 @@ afterEach(() => cleanup());
 describe("ActivityFeedStrip", () => {
   it("renders the friend activity cards from the mock once loaded", async () => {
     render(
-      <MemoryRouter>
-        <ActivityFeedStrip />
-      </MemoryRouter>,
+      <MockSocialProviders>
+        <MemoryRouter>
+          <ActivityFeedStrip />
+        </MemoryRouter>
+      </MockSocialProviders>,
     );
     await waitFor(() => {
       // Mock activity items reference these strings.
@@ -47,9 +50,11 @@ describe("ActivityFeedStrip", () => {
 
   it("each activity card has a reaction row with at least one button", async () => {
     render(
-      <MemoryRouter>
-        <ActivityFeedStrip />
-      </MemoryRouter>,
+      <MockSocialProviders>
+        <MemoryRouter>
+          <ActivityFeedStrip />
+        </MemoryRouter>
+      </MockSocialProviders>,
     );
     await waitFor(() => {
       // Each card has a reaction-row "Cheer on {name}" label on at least one

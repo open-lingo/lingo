@@ -1,6 +1,7 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
 import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { MockSocialProviders } from "@/test/socialTestUtils";
 import { LeagueSpotlightCard } from "./LeagueSpotlightCard";
 
 // Stub i18n: return default string passed as 2nd arg (or key when missing).
@@ -24,7 +25,11 @@ vi.mock("react-i18next", () => ({
 afterEach(() => cleanup());
 
 function renderWithRouter(ui: React.ReactNode) {
-  return render(<MemoryRouter>{ui}</MemoryRouter>);
+  return render(
+    <MockSocialProviders>
+      <MemoryRouter>{ui}</MemoryRouter>
+    </MockSocialProviders>,
+  );
 }
 
 describe("LeagueSpotlightCard", () => {
