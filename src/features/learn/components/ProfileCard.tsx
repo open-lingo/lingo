@@ -124,7 +124,7 @@ function StatTile({
           {value}
         </span>
       </div>
-      <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wider text-text-muted">
+      <p className="mt-0.5 text-[0.625rem] font-bold uppercase tracking-wider text-text-muted">
         {label}
       </p>
     </>

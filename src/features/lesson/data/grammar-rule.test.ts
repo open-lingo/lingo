@@ -4,6 +4,7 @@
  */
 import { describe, it, expect } from "vitest";
 import { getMockLessonContent } from "./mockLessons";
+import { M3_8 } from "./mock-ja-m3-v2";
 import type {
   GrammarRuleStep,
   ParticleClozeStep,
@@ -14,22 +15,28 @@ import type {
 // new M4/M5/M6/M7 grammar-rule and cloze coverage so the shape audit covers
 // the full grammar spine.
 const M3_IDS = [
-  "ja-m3-1",
-  "ja-m3-2",
-  "ja-m3-3",
-  "ja-m3-4",
-  "ja-m3-5",
-  "ja-m3-6",
-  "ja-m3-7",
-  "ja-m3-8",
+  "ja-m3-1-1",
+  "ja-m3-1-2",
+  "ja-m3-2-1",
+  "ja-m3-2-2",
+  "ja-m3-3-1",
+  "ja-m3-3-2",
+  "ja-m3-4-1",
+  "ja-m3-4-2",
+  "ja-m3-5-1",
+  "ja-m3-5-2",
+  "ja-m3-6-1",
+  "ja-m3-6-2",
+  "ja-m3-7-1",
+  "ja-m3-7-2",
 ];
 
 const ALL_GRAMMAR_LESSON_IDS = [
   ...M3_IDS,
-  "ja-m4-1", "ja-m4-2", "ja-m4-3", "ja-m4-4", "ja-m4-5", "ja-m4-6", "ja-m4-7", "ja-m4-8",
-  "ja-m5-1", "ja-m5-2", "ja-m5-3", "ja-m5-4", "ja-m5-5", "ja-m5-6", "ja-m5-7", "ja-m5-8",
-  "ja-m6-1", "ja-m6-2", "ja-m6-3", "ja-m6-4", "ja-m6-5", "ja-m6-6", "ja-m6-7", "ja-m6-8", "ja-m6-9",
-  "ja-m7-1", "ja-m7-2", "ja-m7-3", "ja-m7-4", "ja-m7-5", "ja-m7-6", "ja-m7-7", "ja-m7-8", "ja-m7-9",
+  "ja-m4-1-1", "ja-m4-1-2", "ja-m4-2-1", "ja-m4-2-2", "ja-m4-3-1", "ja-m4-3-2", "ja-m4-4-1", "ja-m4-4-2", "ja-m4-5-1", "ja-m4-5-2", "ja-m4-6-1", "ja-m4-6-2", "ja-m4-7-1", "ja-m4-7-2",
+  "ja-m5-1-1", "ja-m5-1-2", "ja-m5-2-1", "ja-m5-2-2", "ja-m5-3-1", "ja-m5-3-2", "ja-m5-4-1", "ja-m5-4-2", "ja-m5-5-1", "ja-m5-5-2", "ja-m5-6-1", "ja-m5-6-2", "ja-m5-7-1", "ja-m5-7-2",
+  "ja-m6-1-1", "ja-m6-1-2", "ja-m6-2-1", "ja-m6-2-2", "ja-m6-3-1", "ja-m6-3-2", "ja-m6-4-1", "ja-m6-4-2", "ja-m6-5-1", "ja-m6-5-2", "ja-m6-6-1", "ja-m6-6-2", "ja-m6-7-1", "ja-m6-7-2", "ja-m6-8-1", "ja-m6-8-2",
+  "ja-m7-1-1", "ja-m7-1-2", "ja-m7-2-1", "ja-m7-2-2", "ja-m7-3-1", "ja-m7-3-2", "ja-m7-4-1", "ja-m7-4-2", "ja-m7-5-1", "ja-m7-5-2", "ja-m7-6-1", "ja-m7-6-2", "ja-m7-7-1", "ja-m7-7-2", "ja-m7-8-1", "ja-m7-8-2",
 ];
 
 describe("M3 lesson registration", () => {
@@ -43,7 +50,7 @@ describe("M3 lesson registration", () => {
   }
 
   it("M3-1 contains a katakana SYSTEM info card (not per-row drill)", () => {
-    const lesson = getMockLessonContent("ja-m3-1")!;
+    const lesson = getMockLessonContent("ja-m3-1-1")!;
     const infoSteps = lesson.steps.filter((s) => s.type === "info");
     expect(infoSteps.length).toBeGreaterThan(0);
     // First info step should explain katakana as a system.
@@ -59,7 +66,7 @@ describe("M3 lesson registration", () => {
   });
 
   it("M3-8 is a row-test mastery lesson", () => {
-    const lesson = getMockLessonContent("ja-m3-8")!;
+    const lesson = M3_8;
     const rowTest = lesson.steps.find((s) => s.type === "row_test");
     expect(rowTest, "M3-8 missing row_test step").toBeDefined();
     if (rowTest?.type !== "row_test") return;
@@ -144,7 +151,7 @@ describe("particle_cloze step shape (M3-M7 grammar spine)", () => {
   });
 
   it("M3-4 (は as topic marker) has at least 5 cloze drills", () => {
-    const lesson = getMockLessonContent("ja-m3-4")!;
+    const lesson = getMockLessonContent("ja-m3-4-1")!;
     const clozes = lesson.steps.filter((s) => s.type === "particle_cloze");
     expect(clozes.length).toBeGreaterThanOrEqual(5);
   });

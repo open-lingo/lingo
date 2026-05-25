@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
-import { reviewCard, setCardState, getEffectiveState, shouldRepeatInSession } from "./engine";
+import { reviewCard, setCardState, getEffectiveState, shouldRepeatInSession, getDueModalities } from "./engine";
 import { useSRSyncSession } from "./useSRSyncSession";
 import { useSubscriptionQueue } from "./useSubscriptionQueue";
 import { useReviewQueueFilter } from "./useReviewQueueFilter";
@@ -17,7 +17,7 @@ import {
   REVIEW_MODE_LABELS,
   REVIEW_MODE_WORD_FIRST,
 } from "./reviewModes";
-import type { Flashcard, CardSegment, SRSRating } from "@/features/flashcards/data/types";
+import type { Flashcard, CardSegment, SRSRating, SRSModality } from "@/features/flashcards/data/types";
 import type { ParticleDef } from "@/features/practice/data/types";
 
 const REVIEW_MODE_STORAGE_KEY = "openlingo-review-mode";
@@ -105,21 +105,17 @@ function IntervalHint({
   cardId,
   rating,
   defaultEase,
+  modality,
 }: {
   cardId: string;
   rating: SRSRating;
   defaultEase?: number;
+  modality: SRSModality;
 }) {
-  // Flashcards grade BOTH modalities at once; the card next appears
-  // when EITHER modality is due. Preview the shorter of the two
-  // intervals to be honest about when the learner will see it again.
+  // Preview the interval for the TESTED modality only.
   const state = getEffectiveState(cardId, defaultEase);
-  const afterRec = reviewCard(state, "recognition", rating);
-  const afterBoth = reviewCard(afterRec, "production", rating);
-  const interval = Math.min(
-    afterBoth.recognition.interval,
-    afterBoth.production.interval,
-  );
+  const after = reviewCard(state, modality, rating);
+  const interval = after[modality].interval;
   if (interval === 0) return <span className="text-[10px]">&lt;1d</span>;
   if (interval === 1) return <span className="text-[10px]">1d</span>;
   if (interval < 30) return <span className="text-[10px]">{interval}d</span>;
@@ -178,6 +174,7 @@ export function FlashcardTester() {
   const [sessionStats, setSessionStats] = useState({ reviewed: 0, correct: 0 });
   // SM-2 step 7: cards scoring < 4 are appended for re-review within the session
   const [repeatCards, setRepeatCards] = useState<Flashcard[]>([]);
+  const [testedModality, setTestedModality] = useState<SRSModality>("recognition");
 
   const allCards = useMemo(() => {
     const base = queue?.queue ?? [];
@@ -187,17 +184,30 @@ export function FlashcardTester() {
   const card: Flashcard | undefined = allCards[index];
   const isSessionDone = !card;
 
+  // Pick which modality to test whenever the current card changes.
+  useEffect(() => {
+    if (!card) return;
+    const defaultEase = cardIdToDefaultEase?.[card.id];
+    const state = getEffectiveState(card.id, defaultEase);
+    const due = getDueModalities(state);
+    // Both due → recognition first (easier → harder). Neither due (new) → recognition.
+    if (due.includes("recognition")) {
+      setTestedModality("recognition");
+    } else if (due.includes("production")) {
+      setTestedModality("production");
+    } else {
+      setTestedModality("recognition");
+    }
+  }, [card, cardIdToDefaultEase]);
+
   const handleRate = useCallback(
     (rating: SRSRating) => {
       if (!card) return;
       const defaultEase = cardIdToDefaultEase?.[card.id];
       const current = getEffectiveState(card.id, defaultEase);
-      // Flashcards review surface exercises both directions of the card
-      // (front→back recall is production; back→front recognition). Until
-      // a per-modality flashcard mode exists, advance both modalities so
-      // recognition and production stay in lockstep on this surface.
-      const afterRec = reviewCard(current, "recognition", rating);
-      const next = reviewCard(afterRec, "production", rating);
+      // Grade ONLY the tested modality so recognition and production
+      // advance independently based on actual performance.
+      const next = reviewCard(current, testedModality, rating);
       setCardState(card.id, next);
 
       // SM-2 step 7: if quality < 4, re-show at end of session
@@ -213,7 +223,7 @@ export function FlashcardTester() {
       setFlipped(false);
       setIndex((i) => i + 1);
     },
-    [card, cardIdToDefaultEase],
+    [card, cardIdToDefaultEase, testedModality],
   );
 
   const handleRestart = useCallback(() => {
@@ -390,6 +400,21 @@ export function FlashcardTester() {
           )}
         </div>
 
+      {/* Modality indicator */}
+      <div className="flex items-center justify-center gap-1.5 text-xs font-medium text-text-muted">
+        {testedModality === "recognition" ? (
+          <>
+            <span aria-hidden="true">{"🔍"}</span>
+            <span>{t("flashcards.modeRecognition", "Recognition")}</span>
+          </>
+        ) : (
+          <>
+            <span aria-hidden="true">{"🗣️"}</span>
+            <span>{t("flashcards.modeProduction", "Production")}</span>
+          </>
+        )}
+      </div>
+
       {/* Card */}
       <button
         type="button"
@@ -406,7 +431,11 @@ export function FlashcardTester() {
           <CardFace
             card={currentCard}
             side={
-              reviewMode === "back-first" ? (flipped ? "front" : "back") : flipped ? "back" : "front"
+              // Recognition: front=English (back), reveal=Japanese (front)
+              // Production:  front=Japanese (front), reveal=English (back)
+              testedModality === "recognition"
+                ? flipped ? "front" : "back"
+                : flipped ? "back" : "front"
             }
             particles={particles}
             highlightMode={highlightMode}
@@ -414,7 +443,7 @@ export function FlashcardTester() {
         </p>
         <p className="mt-3 text-sm text-text-muted">
           {flipped
-            ? reviewMode === "back-first"
+            ? testedModality === "recognition"
               ? t("flashcards.wordLabel", "Word")
               : t("flashcards.answerLabel", "Answer")
             : "Tap to reveal"}
@@ -436,6 +465,7 @@ export function FlashcardTester() {
                 cardId={currentCard.id}
                 rating={rating}
                 defaultEase={cardIdToDefaultEase?.[currentCard.id]}
+                modality={testedModality}
               />
             </button>
           ))}

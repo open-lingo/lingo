@@ -17,11 +17,11 @@ import { describe, it, expect } from "vitest";
 import { getMockLessonContent } from "./mockLessons";
 
 const MODULE_LESSON_IDS: Record<string, string[]> = {
-  m3: ["ja-m3-1", "ja-m3-2", "ja-m3-3", "ja-m3-4", "ja-m3-5", "ja-m3-6", "ja-m3-7", "ja-m3-8"],
-  m4: ["ja-m4-1", "ja-m4-2", "ja-m4-3", "ja-m4-4", "ja-m4-5", "ja-m4-6", "ja-m4-7", "ja-m4-8"],
-  m5: ["ja-m5-1", "ja-m5-2", "ja-m5-3", "ja-m5-4", "ja-m5-5", "ja-m5-6", "ja-m5-7", "ja-m5-8"],
-  m6: ["ja-m6-1", "ja-m6-2", "ja-m6-3", "ja-m6-4", "ja-m6-5", "ja-m6-6", "ja-m6-7", "ja-m6-8", "ja-m6-9"],
-  m7: ["ja-m7-1", "ja-m7-2", "ja-m7-3", "ja-m7-4", "ja-m7-5", "ja-m7-6", "ja-m7-7", "ja-m7-8", "ja-m7-9"],
+  m3: ["ja-m3-1-1", "ja-m3-1-2", "ja-m3-2-1", "ja-m3-2-2", "ja-m3-3-1", "ja-m3-3-2", "ja-m3-4-1", "ja-m3-4-2", "ja-m3-5-1", "ja-m3-5-2", "ja-m3-6-1", "ja-m3-6-2", "ja-m3-7-1", "ja-m3-7-2"],
+  m4: ["ja-m4-1-1", "ja-m4-1-2", "ja-m4-2-1", "ja-m4-2-2", "ja-m4-3-1", "ja-m4-3-2", "ja-m4-4-1", "ja-m4-4-2", "ja-m4-5-1", "ja-m4-5-2", "ja-m4-6-1", "ja-m4-6-2", "ja-m4-7-1", "ja-m4-7-2"],
+  m5: ["ja-m5-1-1", "ja-m5-1-2", "ja-m5-2-1", "ja-m5-2-2", "ja-m5-3-1", "ja-m5-3-2", "ja-m5-4-1", "ja-m5-4-2", "ja-m5-5-1", "ja-m5-5-2", "ja-m5-6-1", "ja-m5-6-2", "ja-m5-7-1", "ja-m5-7-2"],
+  m6: ["ja-m6-1-1", "ja-m6-1-2", "ja-m6-2-1", "ja-m6-2-2", "ja-m6-3-1", "ja-m6-3-2", "ja-m6-4-1", "ja-m6-4-2", "ja-m6-5-1", "ja-m6-5-2", "ja-m6-6-1", "ja-m6-6-2", "ja-m6-7-1", "ja-m6-7-2", "ja-m6-8-1", "ja-m6-8-2"],
+  m7: ["ja-m7-1-1", "ja-m7-1-2", "ja-m7-2-1", "ja-m7-2-2", "ja-m7-3-1", "ja-m7-3-2", "ja-m7-4-1", "ja-m7-4-2", "ja-m7-5-1", "ja-m7-5-2", "ja-m7-6-1", "ja-m7-6-2", "ja-m7-7-1", "ja-m7-7-2", "ja-m7-8-1", "ja-m7-8-2"],
 };
 
 describe("M3-M7 lesson registration", () => {
@@ -65,13 +65,9 @@ describe("M3-M7 lesson registration", () => {
         expect(dialogueLines.length).toBeGreaterThan(0);
       });
 
-      it("contains exactly one row_test step (the mastery test)", () => {
-        const tests = lessonIds.flatMap((id) => {
-          const lesson = getMockLessonContent(id);
-          return lesson?.steps.filter((s) => s.type === "row_test") ?? [];
-        });
-        expect(tests.length).toBe(1);
-      });
+      // Mastery tests were removed from all modules during the sub-lesson
+      // split (2026-05-24). M3_8 still exists as an export but is no longer
+      // registered in the LESSONS map via getMockLessonContent.
 
       it("contains at least one speaking step (in the dialogue lesson)", () => {
         // Per Spencer's spec: one representative speaking target per dialogue
@@ -86,12 +82,16 @@ describe("M3-M7 lesson registration", () => {
   }
 });
 
-describe("standalone review pseudo-modules removed (2026-05-18)", () => {
-  // Compounding review now lives in every M3-M7 sub-lesson tail; the
-  // dedicated review-module registration was retired.
-  for (const id of ["m3-review", "m4-review", "m5-review", "m6-review"]) {
-    it(`ja-${id}-1 no longer resolves`, () => {
-      expect(getMockLessonContent(`ja-${id}-1`)).toBeNull();
+describe("SRS review lessons (2026-05-24)", () => {
+  for (const id of ["m3-review", "m4-review", "m5-review", "m6-review", "m7-review"]) {
+    it(`ja-${id}-1 resolves to a dynamic review lesson`, () => {
+      const lesson = getMockLessonContent(`ja-${id}-1`);
+      expect(lesson).not.toBeNull();
+      expect(lesson!.steps.length).toBeGreaterThan(0);
+    });
+    it(`ja-${id}-2 resolves to a dynamic review lesson`, () => {
+      const lesson = getMockLessonContent(`ja-${id}-2`);
+      expect(lesson).not.toBeNull();
     });
   }
 });

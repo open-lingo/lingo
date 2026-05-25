@@ -11,6 +11,8 @@ type Props = {
 export function Feedback({ correct, explanation }: Props) {
   return (
     <div
+      role="alert"
+      aria-live="assertive"
       className={`mt-4 rounded-2xl border-[1.5px] px-5 py-4 text-sm ${
         correct
           ? "border-accent bg-accent-muted text-accent"

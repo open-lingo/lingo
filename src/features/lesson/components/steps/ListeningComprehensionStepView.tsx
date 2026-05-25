@@ -102,6 +102,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
               key={opt.id}
               type="button"
               disabled={submitted}
+              aria-pressed={isSelected}
               onClick={() => setSelected(opt.id)}
               className={`rounded-xl border-[1.5px] px-4 py-3.5 text-left text-sm font-medium transition-colors duration-150 ${style}`}
             >

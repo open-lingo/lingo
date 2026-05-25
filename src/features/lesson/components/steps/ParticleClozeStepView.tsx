@@ -134,6 +134,7 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
               key={p}
               type="button"
               disabled={submitted}
+              aria-pressed={picked}
               onClick={() => setSelected(p)}
               className={`flex h-14 items-center justify-center rounded-xl border-2 font-japanese text-2xl font-bold transition-colors ${style}`}
             >

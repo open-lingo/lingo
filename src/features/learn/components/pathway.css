@@ -91,15 +91,15 @@
 }
 
 .lingo-mnum {
-  width: 38px;
-  height: 38px;
+  width: 2.375rem;
+  height: 2.375rem;
   flex-shrink: 0;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.22);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 800;
   letter-spacing: -0.02em;
 }
@@ -136,7 +136,7 @@
   padding: 2px 9px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.2);
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -165,7 +165,7 @@
   border-radius: 999px;
   background: var(--color-warning, #f59e0b);
   color: white;
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -282,10 +282,10 @@
 .lingo-node[data-cluster="true"] .lingo-node-disc {
   width: 60px;
   height: 60px;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 .lingo-node[data-cluster="true"] .lingo-node-label {
-  font-size: 10.5px;
+  font-size: 0.656rem;
 }
 .lingo-node-disc {
   width: 72px;
@@ -297,7 +297,7 @@
   background: var(--color-surface);
   border: 2px solid var(--color-border);
   color: var(--color-text-muted);
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
   font-family: "Noto Sans JP", "Inter", sans-serif;
   transition: transform 0.15s ease;
@@ -385,7 +385,7 @@
 .lingo-node-label {
   margin-top: 6px;
   padding: 2px 9px;
-  font-size: 11.5px;
+  font-size: 0.719rem;
   font-weight: 600;
   color: var(--color-text-secondary);
   text-align: center;
@@ -404,13 +404,13 @@
   position: absolute;
   top: -2px;
   left: -8px;
-  min-width: 22px;
-  height: 22px;
+  min-width: 1.375rem;
+  height: 1.375rem;
   padding: 0 6px;
   border-radius: 999px;
   background: var(--color-warning, #f59e0b);
   color: white;
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -428,7 +428,7 @@
   background: var(--color-surface);
   border: 1.5px solid var(--color-accent);
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 0.688rem;
   font-weight: 700;
   color: var(--color-accent);
   text-transform: uppercase;
@@ -471,7 +471,7 @@
   background: var(--color-accent);
   border: 1.5px solid var(--color-accent-hover);
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 800;
   color: white;
   text-transform: uppercase;
@@ -521,7 +521,7 @@
   );
 }
 .lingo-preview-eyebrow {
-  font-size: 11px;
+  font-size: 0.688rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -545,12 +545,12 @@
   background: var(--color-surface);
   border: 1px solid
     color-mix(in srgb, var(--m-c1, var(--color-accent)) 24%, var(--color-border));
-  font-size: 13px;
+  font-size: 0.813rem;
   color: var(--color-text-secondary);
 }
 .lingo-preview-item .lingo-pi-num {
-  width: 22px;
-  height: 22px;
+  width: 1.375rem;
+  height: 1.375rem;
   flex-shrink: 0;
   border-radius: 50%;
   background: color-mix(
@@ -563,14 +563,14 @@
     var(--m-c1, var(--color-accent)) 80%,
     var(--color-text-primary) 20%
   );
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .lingo-test-out-note {
-  font-size: 11.5px;
+  font-size: 0.719rem;
   color: var(--color-text-muted);
   font-style: italic;
   margin: 6px 0 0;
@@ -634,20 +634,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 1.375rem;
 }
 .lingo-quest-body {
   flex: 1;
   min-width: 0;
 }
 .lingo-quest-title {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0;
 }
 .lingo-quest-meta {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--color-text-muted);
   margin: 2px 0 0;
 }
@@ -671,7 +671,7 @@
   align-items: center;
   justify-content: center;
   color: var(--color-text-muted);
-  font-size: 13px;
+  font-size: 0.813rem;
 }
 .lingo-quest-progress.locked {
   background: var(--color-border);
@@ -752,10 +752,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 14px;
-  height: 14px;
+  width: 0.875rem;
+  height: 0.875rem;
   margin-top: 2px;
-  font-size: 13px;
+  font-size: 0.813rem;
   line-height: 1;
   /* Slight inward curl to match the subdot stack rhythm. */
   transform: translateX(5px);
@@ -777,7 +777,7 @@
   -webkit-text-stroke: 0;
   /* Size bump (~13%) + soft gold glow ring so the earned star reads
    * louder than the outline at a glance — Mika doesn't read pill text. */
-  font-size: 15px;
+  font-size: 0.938rem;
   filter:
     drop-shadow(0 0 4px color-mix(in srgb, var(--color-warning, #f59e0b) 65%, transparent))
     drop-shadow(0 0 8px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent));
@@ -879,12 +879,12 @@
   position: absolute;
   top: -8px;
   right: -8px;
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 50%;
   background: var(--color-surface);
   border: 1.5px solid #b45309;
-  font-size: 13px;
+  font-size: 0.813rem;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -908,13 +908,13 @@
   position: absolute;
   top: -4px;
   right: -4px;
-  width: 18px;
-  height: 18px;
+  width: 1.125rem;
+  height: 1.125rem;
   border-radius: 50%;
   background: var(--color-surface);
   border: 1.5px solid var(--color-accent);
   color: var(--color-accent);
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 800;
   display: flex;
   align-items: center;

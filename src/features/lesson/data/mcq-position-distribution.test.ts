@@ -35,11 +35,11 @@ import { describe, it, expect } from "vitest";
 import type { LessonContent, LessonStep } from "../types";
 
 // M3-M7 sub-lessons
-import { M3_1, M3_2, M3_3, M3_4, M3_5, M3_6, M3_7, M3_8 } from "./mock-ja-m3-v2";
-import { M4_1, M4_2, M4_3, M4_4, M4_5, M4_6, M4_7, M4_8 } from "./mock-ja-m4";
-import { M5_1, M5_2, M5_3, M5_4, M5_5, M5_6, M5_7, M5_8 } from "./mock-ja-m5";
-import { M6_1, M6_2, M6_3, M6_4, M6_5, M6_6, M6_7, M6_8, M6_9 } from "./mock-ja-m6";
-import { M7_1, M7_2, M7_3, M7_4, M7_5, M7_6, M7_7, M7_8, M7_9 } from "./mock-ja-m7";
+import { M3_1_1, M3_1_2, M3_2_1, M3_2_2, M3_3_1, M3_3_2, M3_4_1, M3_4_2, M3_5_1, M3_5_2, M3_6_1, M3_6_2, M3_7_1, M3_7_2, M3_8 } from "./mock-ja-m3-v2";
+import { M4_1_1, M4_1_2, M4_2_1, M4_2_2, M4_3_1, M4_3_2, M4_4_1, M4_4_2, M4_5_1, M4_5_2, M4_6_1, M4_6_2, M4_7_1, M4_7_2 } from "./mock-ja-m4";
+import { M5_1_1, M5_1_2, M5_2_1, M5_2_2, M5_3_1, M5_3_2, M5_4_1, M5_4_2, M5_5_1, M5_5_2, M5_6_1, M5_6_2, M5_7_1, M5_7_2 } from "./mock-ja-m5";
+import { M6_1_1, M6_1_2, M6_2_1, M6_2_2, M6_3_1, M6_3_2, M6_4_1, M6_4_2, M6_5_1, M6_5_2, M6_6_1, M6_6_2, M6_7_1, M6_7_2, M6_8_1, M6_8_2 } from "./mock-ja-m6";
+import { M7_1_1, M7_1_2, M7_2_1, M7_2_2, M7_3_1, M7_3_2, M7_4_1, M7_4_2, M7_5_1, M7_5_2, M7_6_1, M7_6_2, M7_7_1, M7_7_2, M7_8_1, M7_8_2 } from "./mock-ja-m7";
 
 // M1 (only the vowel + sa-row files contain inline LC — others use helper factories
 // from _consonantRowHelpers.ts that are already known-good).
@@ -53,11 +53,11 @@ import {
 const ALL_LESSONS: LessonContent[] = [
   MOCK_LESSON_JA_M1_L1A, MOCK_LESSON_JA_M1_L1B,
   MOCK_LESSON_JA_M1_SA_1, MOCK_LESSON_JA_M1_SA_2, MOCK_LESSON_JA_M1_SA_3,
-  M3_1, M3_2, M3_3, M3_4, M3_5, M3_6, M3_7, M3_8,
-  M4_1, M4_2, M4_3, M4_4, M4_5, M4_6, M4_7, M4_8,
-  M5_1, M5_2, M5_3, M5_4, M5_5, M5_6, M5_7, M5_8,
-  M6_1, M6_2, M6_3, M6_4, M6_5, M6_6, M6_7, M6_8, M6_9,
-  M7_1, M7_2, M7_3, M7_4, M7_5, M7_6, M7_7, M7_8, M7_9,
+  M3_1_1, M3_1_2, M3_2_1, M3_2_2, M3_3_1, M3_3_2, M3_4_1, M3_4_2, M3_5_1, M3_5_2, M3_6_1, M3_6_2, M3_7_1, M3_7_2, M3_8,
+  M4_1_1, M4_1_2, M4_2_1, M4_2_2, M4_3_1, M4_3_2, M4_4_1, M4_4_2, M4_5_1, M4_5_2, M4_6_1, M4_6_2, M4_7_1, M4_7_2,
+  M5_1_1, M5_1_2, M5_2_1, M5_2_2, M5_3_1, M5_3_2, M5_4_1, M5_4_2, M5_5_1, M5_5_2, M5_6_1, M5_6_2, M5_7_1, M5_7_2,
+  M6_1_1, M6_1_2, M6_2_1, M6_2_2, M6_3_1, M6_3_2, M6_4_1, M6_4_2, M6_5_1, M6_5_2, M6_6_1, M6_6_2, M6_7_1, M6_7_2, M6_8_1, M6_8_2,
+  M7_1_1, M7_1_2, M7_2_1, M7_2_2, M7_3_1, M7_3_2, M7_4_1, M7_4_2, M7_5_1, M7_5_2, M7_6_1, M7_6_2, M7_7_1, M7_7_2, M7_8_1, M7_8_2,
 ];
 
 /** Allow at most this fraction of the corpus per slot before we say the

@@ -52,8 +52,6 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
   const [reference, setReference] = useState<SymbolReference>(() =>
     getSystemFontReferenceFor(step.payload.symbol),
   );
-  /** Skip surfaces after this many failed attempts on the current letter. */
-  const SKIP_AFTER_FAILS = 2;
   /** Fade-out duration for user strokes on Check. Short enough that fast
    *  users don't sit waiting, long enough to read as a clear "your stroke
    *  is gone" affordance. Check is locked for this window. */
@@ -342,15 +340,13 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
               {t("alphabet.clear", "Clear")}
             </button>
           )}
-          {failCount >= SKIP_AFTER_FAILS && (
-            <button
-              type="button"
-              onClick={handleSkip}
-              className="motion-safe:animate-fade-up self-center text-sm font-medium text-text-muted underline decoration-dotted underline-offset-4 transition hover:text-text-primary"
-            >
-              {t("alphabet.skipLetter", "Skip this letter")}
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={handleSkip}
+            className="self-center text-sm font-medium text-text-muted underline decoration-dotted underline-offset-4 transition hover:text-text-primary"
+          >
+            {t("alphabet.skipLetter", "Skip this letter")}
+          </button>
         </div>
       )}
     </div>

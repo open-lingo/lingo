@@ -17,13 +17,27 @@ const STATE_PATH = ".auth/user.json";
 setup("authenticate via Auth0", async ({ page }) => {
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
 
-  // 2026-05-18 coordinator: skip interactive login when a saved state
-  // already exists and is non-empty (>1KB threshold from the README
-  // footgun note). Required for headless CI / non-interactive runs.
-  if (fs.existsSync(STATE_PATH) && fs.statSync(STATE_PATH).size > 1024) {
-    // eslint-disable-next-line no-console
-    console.log(`[auth.setup] reusing existing ${STATE_PATH} (${fs.statSync(STATE_PATH).size} bytes)`);
-    return;
+  // Skip interactive login when a saved state already exists AND contains
+  // actual auth tokens (not just settings data). Check for Auth0 SPA SDK
+  // keys in localStorage to verify the state is usable.
+  if (fs.existsSync(STATE_PATH)) {
+    try {
+      const state = JSON.parse(fs.readFileSync(STATE_PATH, "utf-8"));
+      const hasAuth = (state.origins ?? []).some((o: { localStorage?: { name: string }[] }) =>
+        (o.localStorage ?? []).some((item: { name: string }) =>
+          item.name.includes("auth0") || item.name.includes("@@auth0spajs@@"),
+        ),
+      );
+      if (hasAuth) {
+        // eslint-disable-next-line no-console
+        console.log(`[auth.setup] reusing existing ${STATE_PATH} (has auth tokens)`);
+        return;
+      }
+      // eslint-disable-next-line no-console
+      console.log(`[auth.setup] ${STATE_PATH} exists but has no auth tokens — re-authenticating`);
+    } catch {
+      // corrupt file, re-authenticate
+    }
   }
 
   // Go straight to /login — the LoginPage triggers the Auth0 redirect on mount.

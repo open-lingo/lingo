@@ -5,6 +5,7 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { applySpeechQueryParams, setSpeechFlag } from "@/shared/speech";
 import { applyDensityQueryParams } from "./data/lessonDensity";
 import { getMockLessonContent } from "./data/mockLessons";
+import { unlockLessonAtoms } from "./data/unlockLessonAtoms";
 import {
   clearLessonInProgress,
   loadLessonInProgress,
@@ -250,6 +251,8 @@ export function LessonPage() {
       isReview,
       wasSkipped,
     });
+    // Unlock atoms introduced by this lesson in the SRS store.
+    unlockLessonAtoms(lesson.id);
     // Buffer the attempt for server sync. SyncManager flushes the buffer
     // (manual / periodic / on exit) — no per-completion API call.
     // Replays of completed lessons are still recorded so the server has
@@ -359,10 +362,11 @@ export function LessonPage() {
         correct,
         conceptIds: [],
       });
-      // FSRS grading — gated by shouldWriteSrs so teach/intro/grammar_rule
-      // steps NEVER advance card state. Only review (graded retrieval)
-      // touches FSRS. Spencer's invariant: "only review cards count
-      // toward FSRS-6."
+      // FSRS grading — only fires in SRS review lessons (ja-mN-review-1/2).
+      // Content sub-lessons are pure introduction — they never write SRS
+      // state. Kana (M1/M2) has no SRS at all.
+      const isReviewLesson = /^ja-m[3-7]-review-[12]$/.test(lesson.id);
+      if (!isReviewLesson) return;
       const step = lesson.steps[stepIdx >= 0 ? stepIdx : 0];
       if (!step || !shouldWriteSrs(step)) return;
       const exercised = step.exercisedAtoms ?? [];

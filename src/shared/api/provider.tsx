@@ -24,12 +24,15 @@ const API_BASE_URL =
 const AUTH0_AUDIENCE =
   (import.meta.env.VITE_AUTH0_AUDIENCE as string | undefined) ?? "";
 
+const DEV_AUTH_BYPASS = import.meta.env.VITE_DEV_AUTH_BYPASS === "true";
+
 export function ApiProvider({ children }: { children: ReactNode }) {
   const { getAccessTokenSilently } = useAuth0();
 
   const api = useMemo(() => {
-    const getAccessToken = () =>
-      getAccessTokenSilently({ authorizationParams: { audience: AUTH0_AUDIENCE } });
+    const getAccessToken = DEV_AUTH_BYPASS
+      ? () => Promise.resolve("dev-bypass")
+      : () => getAccessTokenSilently({ authorizationParams: { audience: AUTH0_AUDIENCE } });
 
     const opts = { baseUrl: API_BASE_URL, getAccessToken };
 

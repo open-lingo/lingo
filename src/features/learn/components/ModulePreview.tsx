@@ -19,7 +19,7 @@ export function ModulePreview({
         {comingSoon ? "Coming soon" : "Peek at the lessons"}
       </p>
       {summary ? (
-        <p className="m-0 text-[13px] text-text-secondary">{summary}</p>
+        <p className="m-0 text-[0.813rem] text-text-secondary">{summary}</p>
       ) : null}
       {lessons.length > 0 ? (
         <div className="lingo-preview-list">
@@ -31,7 +31,7 @@ export function ModulePreview({
           ))}
         </div>
       ) : (
-        <p className="m-0 text-[12px] italic text-text-muted">
+        <p className="m-0 text-[0.75rem] italic text-text-muted">
           Lesson content is still being authored — check back soon.
         </p>
       )}

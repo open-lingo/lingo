@@ -60,13 +60,11 @@ import {
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
   withoutMcqBlocked,
-  phrase,
   pickReviewAtoms,
   reviewMatchPairs,
   selfExplain,
   sentenceMcq,
   speaking,
-  vocab,
   vocabMcq,
   assertNoSameAnswerCluster,
   assertAnswerRotation,
@@ -114,98 +112,91 @@ const M3_1_REVIEW = pickReviewAtoms("ja-m3-1-rev", M3_REVIEW_M1_POOL, 8);
 // a brief sentence-pattern sprinkle (X です) that re-uses the loanwords
 // without re-introducing them.
 
-export const M3_1: LessonContent = {
-  id: "ja-m3-1",
+/* ────────────────────────────────────────────────────────────────────────
+ * Sub-lesson 1/2 — Meet katakana + two loanwords + first です pattern
+ * ──────────────────────────────────────────────────────────────────────── */
+
+export const M3_1_1: LessonContent = {
+  id: "ja-m3-1-1",
   moduleId: "m3",
   courseId: COURSE,
   languageId: LANG,
-  title: "Katakana — the second alphabet",
+  title: "Katakana — Intro",
   description:
-    "Meet katakana as a system. Two high-frequency loanwords (coffee, taxi), then we put them in your first X です sentence.",
-  estimatedMinutes: 8,
-  xpReward: 20,
+    "Meet katakana. Two loanwords (coffee, taxi) introduced via context, then your first X です sentence.",
+  estimatedMinutes: 5,
+  xpReward: 10,
   steps: [
     infoStep(
       "ja-m3-1-info-system",
       "Katakana — hiragana's twin",
-      "Katakana (カタカナ) has the same 46 sounds as hiragana — just different, more angular shapes. It's used for: (1) loanwords from English and other languages (コーヒー = coffee), (2) foreign names, (3) onomatopoeia and emphasis (like italics in English). You'll meet 1–2 katakana words per M3+ lesson with romaji ruby on top, so you can read by sound while the shapes sink in. Want deliberate practice? The katakana drill lives in the Practice tab.",
+      "Katakana (カタカナ) has the same 46 sounds as hiragana — just different, more angular shapes. It's used for loanwords (コーヒー = coffee), foreign names, and emphasis. Romaji appears above new katakana so you can read by sound while the shapes sink in.",
       "culture",
     ),
-    phrase(
-      "ja-m3-1-coffee",
-      "Coffee",
-      "koohii",
-      "コーヒー",
-      "The ー is a long-vowel mark — stretch the previous vowel. 'koo-hii,' not 'ko-hi.' On menus everywhere.",
+    infoStep(
+      "ja-m3-1-info-chouon",
+      "The long-vowel mark: ー",
+      "In katakana, ー stretches the vowel before it. コーヒー is 'koo-hii' (long o, long i) — not 'ko-hi.' You'll see ー constantly in loanwords. Think of it as 'hold that note.'",
+      "grammar",
     ),
-    // Listening reinforcement on the just-introduced loanword.
+    // First encounter: learner sees "Coffee" and picks the katakana from
+    // tiles. Only one tile makes sense — figuroutable from the English.
+    build(
+      "ja-m3-1-intro-coffee",
+      "Coffee",
+      "コーヒー",
+      ["コーヒー", "タクシー", "ビール"],
+      ["コーヒー"],
+    ),
     listeningCompSentence({
       id: "ja-m3-1-lc-coffee",
       audioText: "コーヒー",
       correctMeaningEn: "coffee",
       distractorsEn: ["tea", "milk", "water"],
     }),
-    // Visual MCQ on the just-introduced loanword — image_mcq is the
-    // dominant retrieval modality for concrete imageable nouns. ☕ is the
-    // canonical N5 emoji for コーヒー; distractors drawn from M1 pool.
     vocabMcq(
       "ja-m3-1-mcq-coffee",
       { kana: "コーヒー", meaningEn: "coffee", emoji: "☕", fromModule: "m3" },
       M3_REVIEW_M1_POOL,
     ),
-    // Sentence-pattern SPRINKLE — re-use the loanword in an X です carrier
-    // (no formal rule explanation yet; M3-2 ships RULE_DESU_KA). Light
-    // exposure to the polite copula in context.
-    phrase(
-      "ja-m3-1-coffee-desu",
-      "It's coffee.",
-      "koohii desu",
-      "コーヒー です",
-      "Sneak preview: です is the polite 'is/are.' Full rule next lesson — for now, just notice the shape.",
-    ),
-    // Speaking break interleaved between phrase_cards (R3).
     speaking("ja-m3-1-speak-coffee-mid", "コーヒー", "Coffee"),
-    phrase(
-      "ja-m3-1-taxi",
-      "Taxi",
-      "takushii",
-      "タクシー",
-      "Japanese taxis have automatic doors — don't grab the handle, the driver opens it for you.",
+    // First です sentence — learner already knows コーヒー, です is the
+    // only unknown tile. Prompt makes it figuroutable.
+    build(
+      "ja-m3-1-intro-coffee-desu",
+      "It's coffee. (noun + です = polite 'is')",
+      "コーヒー です",
+      ["コーヒー", "です", "タクシー", "か"],
+      ["コーヒー", "です"],
     ),
-    // Listening break interleaved between phrase cards (R3).
+    // Second loanword — same pattern.
+    build(
+      "ja-m3-1-intro-taxi",
+      "Taxi",
+      "タクシー",
+      ["タクシー", "コーヒー", "ホテル"],
+      ["タクシー"],
+    ),
     listeningCompSentence({
       id: "ja-m3-1-lc-taxi",
       audioText: "タクシー",
       correctMeaningEn: "taxi",
       distractorsEn: ["coffee", "hotel", "beer"],
     }),
-    // Visual MCQ on タクシー — pairs with the LC above for audio+visual
-    // recognition on the same atom before it heads into the X です sprinkle.
     vocabMcq(
       "ja-m3-1-mcq-taxi",
       { kana: "タクシー", meaningEn: "taxi", emoji: "🚕", fromModule: "m3" },
       M3_REVIEW_M1_POOL,
     ),
-    phrase(
-      "ja-m3-1-taxi-desu",
-      "It's a taxi.",
-      "takushii desu",
-      "タクシー です",
-      "Same skeleton: noun + です. Easy substitution drills upcoming.",
-    ),
-    // Production break (speaking).
-    speaking("ja-m3-1-speak-coffee", "コーヒー", "Coffee"),
-    // Production step (build_sentence) — Coffee + です tile-bank assembly,
-    // the simplest stem the learner can produce at this point.
+    speaking("ja-m3-1-speak-taxi", "タクシー", "Taxi"),
+    // Second です sentence — same skeleton, different noun.
     build(
-      "ja-m3-1-translate-coffee",
-      "It's coffee.",
-      "コーヒー です",
-      ["コーヒー", "です", "タクシー"],
-      ["コーヒー", "です"],
+      "ja-m3-1-intro-taxi-desu",
+      "It's a taxi.",
+      "タクシー です",
+      ["タクシー", "です", "コーヒー", "か"],
+      ["タクシー", "です"],
     ),
-    // sentenceMcq — pattern discrimination between the two loanwords' です forms.
-    // Distractors are all near-misses: wrong noun, wrong sentence-type, wrong word-order.
     sentenceMcq({
       id: "ja-m3-1-mcq-taxi-desu",
       prompt: "Which sentence means 'It's a taxi.'?",
@@ -216,21 +207,19 @@ export const M3_1: LessonContent = {
         "これは タクシー です。",
       ],
       explanation:
-        "タクシー = taxi; です asserts politely. No か = statement, not question. The 'これは タクシーです' option says 'this is a taxi' — close, but the prompt is the bare 'It's a taxi.'",
+        "タクシー = taxi; です asserts politely. No か = statement, not question.",
     }),
-    // ─── Review tail (M1 atoms — kana the learner has fully read) ───
-    // Compounding-review loop on prior-module atoms. Earlier tail had
-    // 4 review steps; with the 3 fewer katakana phrase_cards we add
-    // 2 more here so the review ratio stays high.
-    // Review tail (M1 compounding review). Trimmed from 4 LCs to 1 LC
-    // because the two new inline vocabMcqs (coffee/taxi) already give the
-    // visual-recognition channel + the M1 audio channel was over-weighted
-    // (BETA flagged 4× LCs as monotony). Net step count parity with prior
-    // shipped version, but stronger M3-atom retrieval and lighter M1-only
-    // drilling.
-    vocabMcq("ja-m3-1-rev-mcq-1", M3_1_REVIEW[0], M3_REVIEW_M1_POOL),
+    build(
+      "ja-m3-1-translate-coffee",
+      "It's coffee.",
+      "コーヒー です",
+      ["コーヒー", "です", "タクシー"],
+      ["コーヒー", "です"],
+    ),
+    // Review tail — M1 atoms
+    speaking("ja-m3-1-rev-speak-a", M3_1_REVIEW[0].kana, M3_1_REVIEW[0].meaningEn),
     listeningCompSentence({
-      id: "ja-m3-1-rev-lc-1",
+      id: "ja-m3-1-rev-lc-a",
       audioText: M3_1_REVIEW[1].kana,
       correctMeaningEn: M3_1_REVIEW[1].meaningEn,
       distractorsEn: [
@@ -239,12 +228,62 @@ export const M3_1: LessonContent = {
         M3_1_REVIEW[4].meaningEn,
       ],
     }),
-    vocabMcq("ja-m3-1-rev-mcq-2", M3_1_REVIEW[2], M3_REVIEW_M1_POOL),
-    speaking("ja-m3-1-speak-taxi", "タクシー", "Taxi"),
-    vocabMcq("ja-m3-1-rev-mcq-3", M3_1_REVIEW[6], M3_REVIEW_M1_POOL),
-    // Final retrieval beat — re-use the loanword in a translate (typed)
-    // direction the OTHER way (taxi instead of coffee), so the X です
-    // pattern is exercised twice with different X-substitution.
+    vocabMcq("ja-m3-1-rev-mcq-b", M3_1_REVIEW[5], M3_REVIEW_M1_POOL),
+    infoStep(
+      "ja-m3-1-1-info-end",
+      "You can now read two katakana loanwords",
+      "Katakana コーヒー (coffee) and タクシー (taxi), the long-vowel mark ー, and your first X です polite statement pattern.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M3_1_1.steps);
+assertNoConsecutiveSame(M3_1_1.steps);
+
+/* ────────────────────────────────────────────────────────────────────────
+ * Sub-lesson 2/2 — Practice katakana loanwords in varied contexts + review
+ * ──────────────────────────────────────────────────────────────────────── */
+
+export const M3_1_2: LessonContent = {
+  id: "ja-m3-1-2",
+  moduleId: "m3",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Katakana — Practice",
+  description:
+    "Practice coffee + taxi in varied retrieval modes. Build です sentences from hearing. Review M1 kana.",
+  estimatedMinutes: 6,
+  xpReward: 12,
+  steps: [
+    listeningBuildSentence({
+      id: "ja-m3-1-lbs-coffee-desu",
+      target: "コーヒー です",
+      tiles: ["コーヒー", "です", "タクシー", "か"],
+      correctOrder: ["コーヒー", "です"],
+      promptEn: "It's coffee.",
+    }),
+    vocabMcq("ja-m3-1-rev-mcq-1", M3_1_REVIEW[0], M3_REVIEW_M1_POOL),
+    speaking("ja-m3-1-speak-taxi-desu", "タクシー です", "It's a taxi."),
+    listeningCompSentence({
+      id: "ja-m3-1-lc-coffee-desu",
+      audioText: "コーヒー です",
+      correctMeaningEn: "It's coffee.",
+      distractorsEn: ["It's a taxi.", "Is it coffee?", "Coffee, please."],
+    }),
+    sentenceMcq({
+      id: "ja-m3-1-mcq-coffee-desu",
+      prompt: "Which sentence means 'It's coffee.'?",
+      correctKana: "コーヒー です。",
+      distractorsKana: [
+        "タクシー です。",
+        "コーヒー ですか。",
+        "これは コーヒー です。",
+      ],
+      explanation:
+        "コーヒー = coffee; です makes it a polite statement. No か = not a question.",
+    }),
+    speaking("ja-m3-1-speak-coffee-desu", "コーヒー です", "It's coffee."),
     build(
       "ja-m3-1-translate-taxi",
       "It's a taxi.",
@@ -252,21 +291,65 @@ export const M3_1: LessonContent = {
       ["タクシー", "です", "コーヒー"],
       ["タクシー", "です"],
     ),
+    listeningCompSentence({
+      id: "ja-m3-1-lc-taxi-desu",
+      audioText: "タクシー です",
+      correctMeaningEn: "It's a taxi.",
+      distractorsEn: ["It's coffee.", "Is it a taxi?", "Taxi, please."],
+    }),
+    listeningBuildSentence({
+      id: "ja-m3-1-lbs-taxi-desu",
+      target: "タクシー です",
+      tiles: ["タクシー", "です", "コーヒー", "か"],
+      correctOrder: ["タクシー", "です"],
+      promptEn: "It's a taxi.",
+    }),
+    speaking("ja-m3-1-speak-taxi", "タクシー", "Taxi"),
+    sentenceMcq({
+      id: "ja-m3-1-mcq-which-taxi",
+      prompt: "Which one means 'taxi'?",
+      correctKana: "タクシー",
+      distractorsKana: [
+        "コーヒー",
+        "ビール",
+        "ホテル",
+      ],
+      explanation: "タクシー = taxi. コーヒー = coffee.",
+    }),
+    // Review tail — M1 atoms
+    speaking("ja-m3-1-rev-speak-2", M3_1_REVIEW[2].kana, M3_1_REVIEW[2].meaningEn),
+    listeningCompSentence({
+      id: "ja-m3-1-rev-lc-1",
+      audioText: M3_1_REVIEW[3].kana,
+      correctMeaningEn: M3_1_REVIEW[3].meaningEn,
+      distractorsEn: [
+        M3_1_REVIEW[4].meaningEn,
+        M3_1_REVIEW[5].meaningEn,
+        M3_1_REVIEW[6].meaningEn,
+      ],
+    }),
+    vocabMcq("ja-m3-1-rev-mcq-3", M3_1_REVIEW[6], M3_REVIEW_M1_POOL),
+    vocabMcq("ja-m3-1-rev-mcq-4", M3_1_REVIEW[4], M3_REVIEW_M1_POOL),
     reviewMatchPairs("ja-m3-1-rev", M3_1_REVIEW.slice(0, 5)),
+    build(
+      "ja-m3-1-final-coffee",
+      "It's coffee.",
+      "コーヒー です",
+      ["コーヒー", "です", "タクシー", "か"],
+      ["コーヒー", "です"],
+    ),
     infoStep(
-      "ja-m3-1-info-end",
-      "Two loanwords + your first X です",
-      "You can now order a coffee, hail a taxi, AND drop them into a polite 'it's X' sentence. The other katakana shapes will come — slowly, in context — across M3 and beyond. Next: the formal です + か rule.",
+      "ja-m3-1-2-info-end",
+      "You can now order a coffee in katakana",
+      "Two katakana loanwords — コーヒー and タクシー — plus the X です pattern for polite statements.",
       "win",
     ),
   ],
 };
 
-// Validate no same-answer cluster (no clozes in M3-1, but keep the gate
-// uniform across the module for future edits).
-assertNoSameAnswerCluster(M3_1.steps);
-assertAnswerRotation(M3_1.steps, 2);
-assertNoConsecutiveSame(M3_1.steps);
+assertNoSameAnswerCluster(M3_1_2.steps);
+assertNoConsecutiveSame(M3_1_2.steps);
+
 
 // ----- M3-2 — です + か (combined Grammar Rule Card + drills) ------------
 
@@ -299,100 +382,93 @@ const RULE_DESU_KA = grammarRule({
 
 const M3_2_REVIEW = pickReviewAtoms("ja-m3-2-rev", M3_REVIEW_M2_POOL, 4);
 
-export const M3_2: LessonContent = {
-  id: "ja-m3-2",
+/* ────────────────────────────────────────────────────────────────────────
+ * M3-2 Sub-lesson 1/2 — Grammar rule + people vocab via figuroutable builds
+ * ──────────────────────────────────────────────────────────────────────── */
+
+export const M3_2_1: LessonContent = {
+  id: "ja-m3-2-1",
   moduleId: "m3",
   courseId: COURSE,
   languageId: LANG,
   title: "です + か — your first sentences",
   description:
-    "Polite 'is/are' (です) and the question particle か. People vocab + drills + a review tap on the g-row.",
-  estimatedMinutes: 9,
-  xpReward: 22,
+    "Polite 'is/are' (です) and the question particle か. Five people-words introduced via context.",
+  estimatedMinutes: 6,
+  xpReward: 12,
   steps: [
-    infoStep(
-      "ja-m3-2-info-open",
-      "From kana to sentences",
-      "You can read hiragana. Now you build sentences. The pattern is brutally simple: [subject] [is what] です. Add か to ask. Almost everything in M3 hangs off these two pieces.",
-    ),
     RULE_DESU_KA,
-    // ── Atom intros (5 new people-words). Each emoji-bearing atom is
-    //    paired with an image MCQ retrieval beat immediately — the
-    //    "encode-and-apply" pattern. Compound nouns (にほんじん /
-    //    アメリカじん) have no canonical emoji so they get audio retrieval
-    //    via LC + speaking instead. ──
-    vocab(
-      "ja-m3-2-v-gakusei",
-      "Student",
-      "gakusei",
-      "がくせい",
-      "Often the first word you'll be asked at a hostel or share house.",
+    // がくせい — figuroutable from rule card example "わたしは がくせいです"
+    build(
+      "ja-m3-2-1-intro-gakusei",
+      "I am a student.",
+      "わたしは がくせいです",
+      ["わたし", "は", "がくせい", "です", "せんせい"],
+      ["わたし", "は", "がくせい", "です"],
     ),
-    // Image MCQ retrieval on がくせい (🎓). Replaces the prior LC at
-    // this position — visual modality is under-represented in M3 and the
-    // 4× LC pattern that lived here was a known monotony cluster.
     vocabMcq(
-      "ja-m3-2-mcq-gakusei",
+      "ja-m3-2-1-mcq-gakusei",
       { kana: "がくせい", meaningEn: "student", emoji: "🎓", fromModule: "m3" },
       M3_REVIEW_M1_POOL,
     ),
-    vocab("ja-m3-2-v-sensei", "Teacher", "sensei", "せんせい"),
-    // Image MCQ retrieval on せんせい (🧑‍🏫).
-    vocabMcq(
-      "ja-m3-2-mcq-sensei",
-      { kana: "せんせい", meaningEn: "teacher", emoji: "🧑‍🏫", fromModule: "m3" },
-      M3_REVIEW_M1_POOL,
+    // せんせい — single-tile pick, contrast with がくせい
+    build(
+      "ja-m3-2-1-intro-sensei",
+      "Teacher",
+      "せんせい",
+      ["せんせい", "がくせい", "ともだち"],
+      ["せんせい"],
     ),
-    vocab(
-      "ja-m3-2-v-nihonjin",
-      "Japanese (person)",
-      "nihonjin",
-      "にほんじん",
-      "じん (人) attaches to a country name to mean 'person from there.' アメリカじん = American.",
+    speaking("ja-m3-2-1-speak-sensei", "せんせい", "Teacher"),
+    // にほんじん — sentence with one unknown
+    build(
+      "ja-m3-2-1-intro-nihonjin",
+      "I am Japanese.",
+      "わたしは にほんじんです",
+      ["わたし", "は", "にほんじん", "です", "アメリカじん"],
+      ["わたし", "は", "にほんじん", "です"],
     ),
-    // Immediate listening retrieval on the BARE atom (compound noun with
-    // no canonical single-emoji art — audio is the right modality here).
     listeningCompSentence({
-      id: "ja-m3-2-lc-nihonjin-bare",
+      id: "ja-m3-2-1-lc-nihonjin",
       audioText: "にほんじん",
       correctMeaningEn: "Japanese (person)",
       distractorsEn: ["American (person)", "student", "teacher"],
     }),
-    vocab("ja-m3-2-v-amerikajin", "American (person)", "amerikajin", "アメリカじん"),
-    // Speaking — production on the BARE atom (no emoji = no image MCQ;
-    // production-via-voice gives アメリカじん a dedicated re-exposure).
-    speaking("ja-m3-2-speak-amerikajin", "アメリカじん", "American (person)"),
-    vocab(
-      "ja-m3-2-v-namae",
-      "Name",
-      "namae",
-      "なまえ",
-      "Pair with なんですか to ask 'what is it?' — 'なまえは なんですか.'",
+    // アメリカじん — single-tile pick, contrast with にほんじん
+    build(
+      "ja-m3-2-1-intro-amerikajin",
+      "American (person)",
+      "アメリカじん",
+      ["アメリカじん", "にほんじん", "がくせい"],
+      ["アメリカじん"],
     ),
-    // Image MCQ retrieval on なまえ (🪪 — the ID card emoji is the
-    // canonical N5 cue for "name").
+    speaking("ja-m3-2-1-speak-amerikajin", "アメリカじん", "American (person)"),
+    // なまえ — single-tile pick
+    build(
+      "ja-m3-2-1-intro-namae",
+      "Name",
+      "なまえ",
+      ["なまえ", "せんせい", "がくせい"],
+      ["なまえ"],
+    ),
     vocabMcq(
-      "ja-m3-2-mcq-namae",
+      "ja-m3-2-1-mcq-namae",
       { kana: "なまえ", meaningEn: "name", emoji: "🪪", fromModule: "m3" },
       M3_REVIEW_M1_POOL,
     ),
-    // ── Drill block: rotating-answer clozes, with non-cloze breaks
-    //    between every pair so R3 (no two-adjacent-same-type) holds.
-    //    Answers rotate か → は → か across the 3 clozes (2 distinct). ──
+    // First か drill — figuroutable from rule card
     cloze(
-      "ja-m3-2-cloze-1",
+      "ja-m3-2-1-cloze-ka",
       "がくせいです",
       "。",
       "か",
       ["か", "は", "が", "を"],
       "Are you a student?",
       "がくせいですか。",
-      "か at the end turns the statement 'I am a student' into the question 'Are you a student?'",
+      "か at the end turns the statement into a question.",
     ),
-    // sentenceMcq break — discrimination between question forms. Distractors
-    // are plausible-particle-misplacements, not word-order-impossible bait.
     sentenceMcq({
-      id: "ja-m3-2-mcq-question",
+      id: "ja-m3-2-1-mcq-question",
       prompt: "Which one ASKS 'Are you a teacher?'",
       correctKana: "せんせいですか。",
       distractorsKana: [
@@ -401,21 +477,86 @@ export const M3_2: LessonContent = {
         "せんせいの ですか。",
       ],
       explanation:
-        "か goes at the very end, after です. 'せんせいです' is a statement (no か); 'せんせいかです' puts か in the wrong slot; 'せんせいの ですか' tries to attach の (possession, M4) and is grammatical-shaped but means 'is it the teacher's?' — wrong meaning.",
+        "か goes at the very end, after です. 'せんせいです' is a statement; 'せんせいかです' puts か in the wrong slot.",
+    }),
+    build(
+      "ja-m3-2-1-build-nihonjin-q",
+      "Are you Japanese?",
+      "にほんじんですか",
+      ["にほんじん", "です", "か", "は", "アメリカじん"],
+      ["にほんじん", "です", "か"],
+    ),
+    speaking(
+      "ja-m3-2-1-speak-gakusei-desu",
+      "わたしは がくせいです",
+      "I am a student.",
+    ),
+    // Review tail
+    speaking("ja-m3-2-1-rev-speak-a", M3_2_REVIEW[0].kana, M3_2_REVIEW[0].meaningEn),
+    listeningCompSentence({
+      id: "ja-m3-2-1-rev-lc-a",
+      audioText: M3_2_REVIEW[1].kana,
+      correctMeaningEn: M3_2_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M3_2_REVIEW[2].meaningEn,
+        M3_2_REVIEW[3].meaningEn,
+        M3_REVIEW_M1_POOL[0].meaningEn,
+      ],
+    }),
+    reviewMatchPairs("ja-m3-2-1-rev", M3_2_REVIEW),
+    infoStep(
+      "ja-m3-2-1-info-end",
+      "You can now make polite statements and questions",
+      "です (polite copula) and か (question particle), plus five people-words: がくせい, せんせい, にほんじん, アメリカじん, and なまえ.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M3_2_1.steps);
+assertNoConsecutiveSame(M3_2_1.steps);
+
+/* ────────────────────────────────────────────────────────────────────────
+ * M3-2 Sub-lesson 2/2 — Varied retrieval on people vocab + です/か drills
+ * ──────────────────────────────────────────────────────────────────────── */
+
+const M3_2_2_REVIEW = pickReviewAtoms("ja-m3-2-2-rev", M3_REVIEW_M1_POOL, 5);
+
+export const M3_2_2: LessonContent = {
+  id: "ja-m3-2-2",
+  moduleId: "m3",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "です + か — drill & produce",
+  description:
+    "Varied retrieval on people vocab. Cloze drills rotate は and か. Production ramps up.",
+  estimatedMinutes: 6,
+  xpReward: 12,
+  steps: [
+    listeningBuildSentence({
+      id: "ja-m3-2-2-lbs-gakusei",
+      target: "わたしは がくせいです",
+      tiles: ["わたし", "は", "がくせい", "です", "せんせい", "か"],
+      correctOrder: ["わたし", "は", "がくせい", "です"],
+      promptEn: "I am a student.",
     }),
     cloze(
-      "ja-m3-2-cloze-2",
+      "ja-m3-2-2-cloze-ha",
       "わたし",
       " せんせいです。",
       "は",
       ["は", "が", "を", "の"],
       "I am a teacher.",
       "わたしは せんせいです。",
-      "は marks the topic (you'll get the formal rule in M3-4). For now: 'わたしは X です' = 'I am X.'",
+      "は marks the topic. 'わたしは X です' = 'I am X.'",
     ),
-    // listening break between clozes (R3 interleave).
+    vocabMcq(
+      "ja-m3-2-2-mcq-sensei",
+      { kana: "せんせい", meaningEn: "teacher", emoji: "🧑‍🏫", fromModule: "m3" },
+      M3_REVIEW_M1_POOL,
+    ),
     listeningCompSentence({
-      id: "ja-m3-2-lc-nihonjin",
+      id: "ja-m3-2-2-lc-nihonjin",
       audioText: "にほんじんですか",
       correctMeaningEn: "Are you Japanese?",
       distractorsEn: [
@@ -425,7 +566,7 @@ export const M3_2: LessonContent = {
       ],
     }),
     cloze(
-      "ja-m3-2-cloze-3",
+      "ja-m3-2-2-cloze-ka",
       "なまえは なんです",
       "。",
       "か",
@@ -434,11 +575,32 @@ export const M3_2: LessonContent = {
       "なまえは なんですか。",
       "なん = 'what.' Statement ends in か to ask.",
     ),
-    // ── selfExplain at N-1 placement (after 3 cloze commits + MCQ + LC —
-    //    learner has now USED か twice and は once, so probing the rule
-    //    lands after retrieval, not before — CLT expertise-reversal). ──
+    sentenceMcq({
+      id: "ja-m3-2-2-mcq-statement-vs-q",
+      prompt: "Which is a STATEMENT (not a question)?",
+      correctKana: "わたしは アメリカじんです。",
+      distractorsKana: [
+        "アメリカじんですか。",
+        "にほんじんですか。",
+        "せんせいですか。",
+      ],
+      explanation:
+        "Statements end with です (no か). All other options end with か = question.",
+    }),
+    speaking(
+      "ja-m3-2-2-speak-watashi-sensei",
+      "わたしは せんせいです",
+      "I am a teacher.",
+    ),
+    build(
+      "ja-m3-2-2-build-amerikajin",
+      "I am American.",
+      "わたしは アメリカじんです",
+      ["わたし", "は", "アメリカじん", "です", "にほんじん"],
+      ["わたし", "は", "アメリカじん", "です"],
+    ),
     selfExplain({
-      id: "ja-m3-2-self-ka",
+      id: "ja-m3-2-2-self-ka",
       anchorLabel: "You picked か in: がくせいです＿",
       anchorAudioText: "がくせいですか",
       question: "Why is か correct at the end of this sentence?",
@@ -448,134 +610,219 @@ export const M3_2: LessonContent = {
         text: "か marks the speaker as the subject of the sentence.",
       },
       ruleExplanation:
-        "か is the question particle — it lives at the very end and converts statement→question. It is NOT a subject marker (that's が, coming in M6), and it doesn't always follow です — か can attach to other sentence endings too.",
+        "か is the question particle — it lives at the very end and converts statement to question. It is NOT a subject marker (that's が, coming in M6).",
     }),
-    // ── Production: voice-first then tile-first. Two distinct production
-    //    modalities (speaking + build) hit the ≥2-speaking-per-sub target
-    //    BETA flagged. Production beats land on canonical self-intro
-    //    sentences the learner can re-use day-1. ──
-    speaking(
-      "ja-m3-2-speak-watashi-sensei",
-      "わたしは せんせいです",
-      "I am a teacher.",
-    ),
-    // Tile-bank build on a different X-substitution so the production
-    // beat exercises generalization, not repetition.
+    listeningCompSentence({
+      id: "ja-m3-2-2-lc-namae",
+      audioText: "なまえは なんですか",
+      correctMeaningEn: "What is your name?",
+      distractorsEn: [
+        "I am a student.",
+        "Are you a teacher?",
+        "This is a name.",
+      ],
+    }),
     build(
-      "ja-m3-2-translate-nihonjin",
+      "ja-m3-2-2-build-nihonjin",
       "I am Japanese.",
       "わたしは にほんじんです",
       ["わたし", "は", "にほんじん", "です", "がくせい"],
       ["わたし", "は", "にほんじん", "です"],
     ),
-    // ── Review tail (M2 g-row atoms — visual MCQ + match) ──
-    // M2 atoms here, M1 elsewhere so the learner sees ALL prior modules
-    // across M3. Earlier listening break (-rev-lc-megane) + this tail
-    // satisfy the ≥0.25 compounding-review ratio.
-    vocabMcq("ja-m3-2-rev-mcq-megane", M3_2_REVIEW[0], M3_REVIEW_M2_POOL),
-    reviewMatchPairs("ja-m3-2-rev", M3_2_REVIEW),
+    speaking(
+      "ja-m3-2-2-speak-amerikajin-q",
+      "アメリカじんですか",
+      "Are you American?",
+    ),
+    cloze(
+      "ja-m3-2-2-cloze-ha-2",
+      "ともだち",
+      " がくせいです。",
+      "は",
+      ["は", "が", "を", "に"],
+      "My friend is a student.",
+      "ともだちは がくせいです。",
+      "Topic = friend. Statement = student.",
+    ),
+    // Review tail
+    speaking("ja-m3-2-2-rev-speak-1", M3_2_2_REVIEW[0].kana, M3_2_2_REVIEW[0].meaningEn),
+    listeningCompSentence({
+      id: "ja-m3-2-2-rev-lc-1",
+      audioText: M3_2_2_REVIEW[1].kana,
+      correctMeaningEn: M3_2_2_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M3_2_2_REVIEW[2].meaningEn,
+        M3_2_2_REVIEW[3].meaningEn,
+        M3_2_2_REVIEW[4].meaningEn,
+      ],
+    }),
+    vocabMcq("ja-m3-2-2-rev-mcq-2", M3_2_2_REVIEW[3], M3_REVIEW_M1_POOL),
+    reviewMatchPairs("ja-m3-2-2-rev", M3_2_2_REVIEW.slice(0, 4)),
     infoStep(
-      "ja-m3-2-info-end",
-      "You can now introduce yourself politely",
-      "Two grammar pieces — です to assert, か to ask — plus five people-words. You can already say who you are AND ask the same of someone else. Next: 5 more vocab worked into adjective example sentences.",
+      "ja-m3-2-2-info-end",
+      "You can now introduce yourself and ask someone's name",
+      "Cloze-drilling は and か in rotation, self-explaining why か makes a question, and building sentences like わたしは アメリカじんです.",
       "win",
     ),
   ],
 };
 
-assertNoSameAnswerCluster(M3_2.steps);
-assertAnswerRotation(M3_2.steps, 2);
-assertNoConsecutiveSame(M3_2.steps);
+assertNoSameAnswerCluster(M3_2_2.steps);
+assertAnswerRotation(M3_2_2.steps, 2);
+assertNoConsecutiveSame(M3_2_2.steps);
 
 // ----- M3-3 — More vocab + adjective EXPOSURE + listening -----------------
 
 const M3_3_REVIEW = pickReviewAtoms("ja-m3-3-rev", M3_REVIEW_M1_POOL, 6);
 
-export const M3_3: LessonContent = {
-  id: "ja-m3-3",
+/* ────────────────────────────────────────────────────────────────────────
+ * M3-3 Sub-lesson 1/2 — Five concrete nouns via figuroutable builds
+ * ──────────────────────────────────────────────────────────────────────── */
+
+export const M3_3_1: LessonContent = {
+  id: "ja-m3-3-1",
+  moduleId: "m3",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Things — book, water, cat, dog, friend",
+  description:
+    "Five concrete nouns introduced in context via single-tile picks and one-unknown sentences.",
+  estimatedMinutes: 6,
+  xpReward: 12,
+  steps: [
+    build(
+      "ja-m3-3-1-intro-hon",
+      "Book",
+      "ほん",
+      ["ほん", "みず", "ねこ"],
+      ["ほん"],
+    ),
+    vocabMcq(
+      "ja-m3-3-1-mcq-hon",
+      { kana: "ほん", meaningEn: "book", emoji: "📖", fromModule: "m3" },
+      M3_REVIEW_M1_POOL,
+    ),
+    build(
+      "ja-m3-3-1-intro-mizu",
+      "Water",
+      "みず",
+      ["みず", "ほん", "いぬ"],
+      ["みず"],
+    ),
+    vocabMcq(
+      "ja-m3-3-1-mcq-mizu",
+      { kana: "みず", meaningEn: "water", emoji: "💧", fromModule: "m3" },
+      M3_REVIEW_M1_POOL,
+    ),
+    speaking("ja-m3-3-1-speak-mizu", "みず", "Water"),
+    build(
+      "ja-m3-3-1-intro-neko",
+      "Cat",
+      "ねこ",
+      ["ねこ", "いぬ", "ほん"],
+      ["ねこ"],
+    ),
+    vocabMcq(
+      "ja-m3-3-1-mcq-neko",
+      { kana: "ねこ", meaningEn: "cat", emoji: "🐱", fromModule: "m3" },
+      M3_REVIEW_M1_POOL,
+    ),
+    build(
+      "ja-m3-3-1-intro-inu",
+      "Dog",
+      "いぬ",
+      ["いぬ", "ねこ", "みず"],
+      ["いぬ"],
+    ),
+    vocabMcq(
+      "ja-m3-3-1-mcq-inu",
+      { kana: "いぬ", meaningEn: "dog", emoji: "🐕", fromModule: "m3" },
+      M3_REVIEW_M1_POOL,
+    ),
+    speaking("ja-m3-3-1-speak-neko", "ねこ", "Cat"),
+    build(
+      "ja-m3-3-1-intro-tomodachi",
+      "Friend",
+      "ともだち",
+      ["ともだち", "がくせい", "せんせい"],
+      ["ともだち"],
+    ),
+    vocabMcq(
+      "ja-m3-3-1-mcq-tomodachi",
+      { kana: "ともだち", meaningEn: "friend", emoji: "👫", fromModule: "m3" },
+      M3_REVIEW_M1_POOL,
+    ),
+    build(
+      "ja-m3-3-1-build-hon-desu",
+      "This is a book.",
+      "これは ほんです",
+      ["これ", "は", "ほん", "です", "みず"],
+      ["これ", "は", "ほん", "です"],
+    ),
+    listeningCompSentence({
+      id: "ja-m3-3-1-lc-neko-desu",
+      audioText: "これは ねこです",
+      correctMeaningEn: "This is a cat.",
+      distractorsEn: ["This is a dog.", "This is water.", "This is a book."],
+    }),
+    speaking("ja-m3-3-1-speak-tomodachi", "ともだち", "Friend"),
+    // Review tail
+    speaking("ja-m3-3-1-rev-speak-1", M3_3_REVIEW[0].kana, M3_3_REVIEW[0].meaningEn),
+    listeningCompSentence({
+      id: "ja-m3-3-1-rev-lc-1",
+      audioText: M3_3_REVIEW[1].kana,
+      correctMeaningEn: M3_3_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M3_3_REVIEW[2].meaningEn,
+        M3_3_REVIEW[3].meaningEn,
+        M3_3_REVIEW[4].meaningEn,
+      ],
+    }),
+    reviewMatchPairs("ja-m3-3-1-rev", M3_3_REVIEW.slice(0, 5)),
+    infoStep(
+      "ja-m3-3-1-info-end",
+      "You can now name five everyday things",
+      "Five concrete nouns — ほん (book), みず (water), ねこ (cat), いぬ (dog), and ともだち (friend) — used in これは X です sentences.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M3_3_1.steps);
+assertNoConsecutiveSame(M3_3_1.steps);
+
+/* ────────────────────────────────────────────────────────────────────────
+ * M3-3 Sub-lesson 2/2 — Adjective exposure + varied retrieval on nouns
+ * ──────────────────────────────────────────────────────────────────────── */
+
+const M3_3_2_REVIEW = pickReviewAtoms("ja-m3-3-2-rev", M3_REVIEW_M2_POOL, 4);
+
+export const M3_3_2: LessonContent = {
+  id: "ja-m3-3-2",
   moduleId: "m3",
   courseId: COURSE,
   languageId: LANG,
   title: "Things + colors in context",
   description:
-    "Five more vocab words plus exposure to color words inside です sentences. Listening + visual recall woven through.",
-  estimatedMinutes: 9,
-  xpReward: 22,
+    "Practice nouns in sentences. Adjective exposure via pattern-matching.",
+  estimatedMinutes: 6,
+  xpReward: 12,
   steps: [
     infoStep(
-      "ja-m3-3-info-open",
-      "Five things, some colors",
-      "Five concrete nouns + three color words slipped into example sentences. We won't drill the color grammar yet — just spot the pattern: 'これは [color]です.' (This is [color].)",
-    ),
-    // ── Atom intros with immediate visual MCQ retrieval (encode-and-apply
-    //    pattern). Every emoji-bearing concrete noun gets paired with an
-    //    image_mcq beat — the dominant retrieval modality per the rubric. ──
-    vocab("ja-m3-3-v-hon", "Book", "hon", "ほん"),
-    vocabMcq(
-      "ja-m3-3-mcq-hon",
-      { kana: "ほん", meaningEn: "book", emoji: "📖", fromModule: "m3" },
-      M3_REVIEW_M1_POOL,
-    ),
-    // Listening break (also a prior-module review tap on a g-row atom).
-    listeningCompSentence({
-      id: "ja-m3-3-rev-lc-gohan",
-      audioText: "ごはん",
-      correctMeaningEn: "rice/meal",
-      distractorsEn: ["glasses", "key", "well/energy"],
-    }),
-    vocab("ja-m3-3-v-mizu", "Water", "mizu", "みず"),
-    vocabMcq(
-      "ja-m3-3-mcq-mizu",
-      { kana: "みず", meaningEn: "water", emoji: "💧", fromModule: "m3" },
-      M3_REVIEW_M1_POOL,
-    ),
-    // ねこ: visual MCQ FIRST, then bare vocab card was redundant — dropped
-    // per GAMMA audit. Speaking follows the MCQ directly: image → voice.
-    vocabMcq(
-      "ja-m3-3-mcq-neko",
-      { kana: "ねこ", meaningEn: "cat", emoji: "🐱", fromModule: "m3" },
-      M3_REVIEW_M1_POOL,
-    ),
-    speaking("ja-m3-3-speak-neko", "ねこ", "Cat"),
-    // いぬ: mirror the ねこ pattern — visual MCQ IS the introduction.
-    // No bare vocab card; the image + (later) sentence_build carriers
-    // give the atom its full coverage. (Wave-4B inconsistency fix
-    // 2026-05-21 — ねこ collapsed at line 525; this mirrors that.)
-    vocabMcq(
-      "ja-m3-3-mcq-inu",
-      { kana: "いぬ", meaningEn: "dog", emoji: "🐕", fromModule: "m3" },
-      M3_REVIEW_M1_POOL,
-    ),
-    vocab(
-      "ja-m3-3-v-tomodachi",
-      "Friend",
-      "tomodachi",
-      "ともだち",
-      "Used regardless of gender or closeness — there's no separate word for 'best friend.'",
-    ),
-    vocabMcq(
-      "ja-m3-3-mcq-tomodachi",
-      { kana: "ともだち", meaningEn: "friend", emoji: "👫", fromModule: "m3" },
-      M3_REVIEW_M1_POOL,
-    ),
-    infoStep(
-      "ja-m3-3-info-adj",
+      "ja-m3-3-2-info-adj",
       "Adjective preview — just spot the shape",
-      "Same skeleton you already know: [topic] は [word] です. Three of these are coming. No new rule — pattern-match only.",
+      "Same skeleton: [topic] は [word] です. Colors fit the same slot as nouns. No new rule — pattern-match only: これは あおいです = 'This is blue.'",
       "grammar",
     ),
-    phrase(
-      "ja-m3-3-adj-blue",
-      "This is blue.",
-      "kore wa aoi desu",
-      "これは あおいです",
-      "あおい = blue. Notice the adjective sits in front of です — same slot as a noun.",
+    build(
+      "ja-m3-3-2-build-mizu-desu",
+      "This is water.",
+      "これは みずです",
+      ["これ", "は", "みず", "です", "ほん", "ねこ"],
+      ["これ", "は", "みず", "です"],
     ),
-    // sentenceMcq break — pattern discrimination on the adjective skeleton.
-    // Replaces the second adjective phrase_card (red) so the pointer-word
-    // contrast (これ/それ/あれ) becomes a retrieval moment, not just exposure.
     sentenceMcq({
-      id: "ja-m3-3-mcq-adj-red",
+      id: "ja-m3-3-2-mcq-adj-red",
       prompt: "Which sentence means 'That is red.'?",
       correctKana: "それは あかいです",
       distractorsKana: [
@@ -586,45 +833,26 @@ export const M3_3: LessonContent = {
       explanation:
         "それ = 'that' (near you), これ = 'this', あれ = 'that over there'. あかい = red, あおい = blue.",
     }),
-    phrase(
-      "ja-m3-3-adj-big",
-      "That (over there) is big.",
-      "are wa ookii desu",
-      "あれは おおきいです",
-      "おおきい = big. Three pointer words preview: これ/それ/あれ — formal lesson next module.",
-    ),
-    // ── Drill block: 2 clozes split by a listening break (R3). ──
-    cloze(
-      "ja-m3-3-cloze-1",
-      "これ",
-      " ほんです。",
-      "は",
-      ["は", "が", "を", "に"],
-      "This is a book.",
-      "これは ほんです。",
-      "Standard 'X is Y' statement. は as topic — formal rule next lesson.",
-    ),
-    // Production break — translate the adjective skeleton.
+    speaking("ja-m3-3-2-speak-inu", "いぬ", "Dog"),
     build(
-      "ja-m3-3-translate-blue",
+      "ja-m3-3-2-build-blue",
       "This is blue.",
       "これは あおいです",
       ["これ", "は", "あおい", "です", "あかい"],
       ["これ", "は", "あおい", "です"],
     ),
     cloze(
-      "ja-m3-3-cloze-2",
-      "それは あかいです",
-      "。",
-      "か",
-      ["か", "は", "が", "の"],
-      "Is that red?",
-      "それは あかいですか。",
-      "Adjective sentence + か = question. Same skeleton as a noun sentence.",
+      "ja-m3-3-2-cloze-ha",
+      "これ",
+      " ほんです。",
+      "は",
+      ["は", "が", "を", "に"],
+      "This is a book.",
+      "これは ほんです。",
+      "Standard 'X is Y' statement. は marks the topic.",
     ),
-    // listening break — bridges the cloze block and the review tail.
     listeningCompSentence({
-      id: "ja-m3-3-lc-water",
+      id: "ja-m3-3-2-lc-water",
       audioText: "これは みずです",
       correctMeaningEn: "This is water.",
       distractorsEn: [
@@ -633,27 +861,77 @@ export const M3_3: LessonContent = {
         "This is red.",
       ],
     }),
-    // Hard direction (speaking) late in the sub-lesson — standards §4.
+    cloze(
+      "ja-m3-3-2-cloze-ka",
+      "それは あかいです",
+      "。",
+      "か",
+      ["か", "は", "が", "の"],
+      "Is that red?",
+      "それは あかいですか。",
+      "Adjective sentence + か = question.",
+    ),
+    vocabMcq(
+      "ja-m3-3-2-mcq-neko",
+      { kana: "ねこ", meaningEn: "cat", emoji: "🐱", fromModule: "m3" },
+      M3_REVIEW_M1_POOL,
+    ),
+    build(
+      "ja-m3-3-2-build-tomodachi",
+      "My friend is a cat.",
+      "ともだちは ねこです",
+      ["ともだち", "は", "ねこ", "です", "いぬ"],
+      ["ともだち", "は", "ねこ", "です"],
+    ),
     speaking(
-      "ja-m3-3-speak-tomodachi",
+      "ja-m3-3-2-speak-tomodachi-neko",
       "ともだちは ねこです",
       "My friend is a cat.",
     ),
-    // ── Review tail (M1 atoms) ──
-    vocabMcq("ja-m3-3-rev-mcq-1", M3_3_REVIEW[0], M3_REVIEW_M1_POOL),
-    reviewMatchPairs("ja-m3-3-rev", M3_3_REVIEW.slice(0, 4)),
+    listeningBuildSentence({
+      id: "ja-m3-3-2-lbs-inu",
+      target: "これは いぬです",
+      tiles: ["これ", "は", "いぬ", "です", "ねこ", "か"],
+      correctOrder: ["これ", "は", "いぬ", "です"],
+      promptEn: "This is a dog.",
+    }),
+    sentenceMcq({
+      id: "ja-m3-3-2-mcq-big",
+      prompt: "Which sentence means 'That (over there) is big.'?",
+      correctKana: "あれは おおきいです。",
+      distractorsKana: [
+        "これは おおきいです。",
+        "あれは あおいです。",
+        "それは おおきいです。",
+      ],
+      explanation: "あれ = that over there. おおきい = big.",
+    }),
+    // Review tail
+    speaking("ja-m3-3-2-rev-speak-1", M3_3_2_REVIEW[0].kana, M3_3_2_REVIEW[0].meaningEn),
+    listeningCompSentence({
+      id: "ja-m3-3-2-rev-lc-1",
+      audioText: M3_3_2_REVIEW[1].kana,
+      correctMeaningEn: M3_3_2_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M3_3_2_REVIEW[2].meaningEn,
+        M3_3_2_REVIEW[3].meaningEn,
+        M3_REVIEW_M1_POOL[1].meaningEn,
+      ],
+    }),
+    vocabMcq("ja-m3-3-2-rev-mcq-2", M3_3_2_REVIEW[2], M3_REVIEW_M2_POOL),
+    reviewMatchPairs("ja-m3-3-2-rev", M3_3_2_REVIEW),
     infoStep(
-      "ja-m3-3-info-end",
-      "You can now describe what's in front of you",
-      "Five new words plus you've now seen the adjective pattern three times. You can point at a thing and say what color, what kind, what it is. Next: the は particle that ties them all together.",
+      "ja-m3-3-2-info-end",
+      "You can now spot adjectives in sentences",
+      "Adjective exposure via pattern-matching: あおい (blue), あかい (red), おおきい (big) dropped into the familiar これは X です skeleton.",
       "win",
     ),
   ],
 };
 
-assertNoSameAnswerCluster(M3_3.steps);
-assertAnswerRotation(M3_3.steps, 2);
-assertNoConsecutiveSame(M3_3.steps);
+assertNoSameAnswerCluster(M3_3_2.steps);
+assertAnswerRotation(M3_3_2.steps, 2);
+assertNoConsecutiveSame(M3_3_2.steps);
 
 // ----- M3-4 — は as topic marker (Grammar Rule Card + drilled) -----------
 
@@ -686,40 +964,34 @@ const RULE_HA = grammarRule({
 
 const M3_4_REVIEW = pickReviewAtoms("ja-m3-4-rev", M3_REVIEW_M2_POOL, 4);
 
-export const M3_4: LessonContent = {
-  id: "ja-m3-4",
+/* ────────────────────────────────────────────────────────────────────────
+ * M3-4 Sub-lesson 1/2 — は grammar rule + initial cloze drilling
+ * ──────────────────────────────────────────────────────────────────────── */
+
+export const M3_4_1: LessonContent = {
+  id: "ja-m3-4-1",
   moduleId: "m3",
   courseId: COURSE,
   languageId: LANG,
   title: "は — the topic marker",
   description:
-    "The single most-used particle in Japanese. Frame the topic, then say what's true of it.",
-  estimatedMinutes: 10,
-  xpReward: 24,
+    "The single most-used particle. Frame the topic, then say what's true of it.",
+  estimatedMinutes: 6,
+  xpReward: 12,
   steps: [
-    infoStep(
-      "ja-m3-4-info-open",
-      "The framing particle",
-      "は is the workhorse particle of beginner Japanese — it shows up in almost every sentence. You've seen it in passing; now we drill it explicitly.",
-    ),
     RULE_HA,
-    // ── は cloze block, interleaved with non-cloze break-beats AND
-    //    answer rotation across は / か / です-slot. Per Wave-4B brief
-    //    we tighten assertAnswerRotation to minDistinct=3 — so the
-    //    block must include か and です-slot fills, not all は.
     cloze(
-      "ja-m3-4-cloze-1",
+      "ja-m3-4-1-cloze-1",
       "わたし",
       " がくせいです。",
       "は",
       ["は", "が", "を", "に"],
       "I am a student.",
       "わたしは がくせいです。",
-      "Self-introduction. わたしは = 'as for me.' Then がくせいです = 'student.'",
+      "Self-introduction. わたしは = 'as for me.'",
     ),
-    // sentenceMcq break — pattern discrimination between は drills.
     sentenceMcq({
-      id: "ja-m3-4-mcq-topic",
+      id: "ja-m3-4-1-mcq-topic",
       prompt: "Which sentence means 'I am a student.'?",
       correctKana: "わたしは がくせいです。",
       distractorsKana: [
@@ -729,48 +1001,18 @@ export const M3_4: LessonContent = {
       ],
       explanation: "は = topic marker. が is the subject marker (later); の is possession.",
     }),
-    // Re-keyed to か-form to balance answer distribution (was 5×は + 1×か
-    // + 1×です — the です-cloze taught "です is a particle" by negative
-    // testing and was dropped; this cloze covers question-form instead).
     cloze(
-      "ja-m3-4-cloze-2",
+      "ja-m3-4-1-cloze-2",
       "ねこは あおいです",
       "。",
       "か",
       ["か", "は", "が", "の"],
       "Is the cat blue?",
       "ねこは あおいですか。",
-      "Statement (ねこは あおいです) + か = question. Same skeleton, different ending particle.",
+      "Statement + か = question.",
     ),
-    // MCQ break — pick the kana sentence that matches the English meaning.
-    sentenceMcq({
-      id: "ja-m3-4-mcq-name",
-      prompt: "Which sentence means 'What is your name?'",
-      correctKana: "なまえは なんですか。",
-      distractorsKana: [
-        "なまえは ですか。",
-        "なまえか なんです。",
-        "なまえは なんです。",
-      ],
-      explanation:
-        "Topic は 'name'; question marker か at the end. The other options drop one or the other.",
-    }),
-    // ── Answer-rotation injection: this cloze answer is か (not は) so
-    //    the block has 2 distinct correct particles. We add a です-slot
-    //    cloze later to get to minDistinct=3. ──
-    cloze(
-      "ja-m3-4-cloze-3-q",
-      "なまえは なんです",
-      "。",
-      "か",
-      ["か", "は", "が", "の"],
-      "What is your name?",
-      "なまえは なんですか。",
-      "Statement structure + final か to ask. Compare with the は drills — different slot, different particle.",
-    ),
-    // Listening break.
     listeningCompSentence({
-      id: "ja-m3-4-lc-water",
+      id: "ja-m3-4-1-lc-water",
       audioText: "これは みずです",
       correctMeaningEn: "This is water.",
       distractorsEn: [
@@ -780,7 +1022,7 @@ export const M3_4: LessonContent = {
       ],
     }),
     cloze(
-      "ja-m3-4-cloze-4",
+      "ja-m3-4-1-cloze-3",
       "これ",
       " みずです。",
       "は",
@@ -789,16 +1031,42 @@ export const M3_4: LessonContent = {
       "これは みずです。",
       "Topic = this. Statement = is water.",
     ),
-    // Translate break between clozes (R3 interleave + production direction).
+    speaking(
+      "ja-m3-4-1-speak-amerikajin",
+      "わたしは アメリカじんです",
+      "I am American.",
+    ),
     build(
-      "ja-m3-4-translate-friend",
+      "ja-m3-4-1-build-friend",
       "My friend is a teacher.",
       "ともだちは せんせいです",
       ["ともだち", "は", "せんせい", "です", "がくせい"],
       ["ともだち", "は", "せんせい", "です"],
     ),
     cloze(
-      "ja-m3-4-cloze-5",
+      "ja-m3-4-1-cloze-4",
+      "なまえは なんです",
+      "。",
+      "か",
+      ["か", "は", "が", "の"],
+      "What is your name?",
+      "なまえは なんですか。",
+      "Statement structure + final か to ask.",
+    ),
+    sentenceMcq({
+      id: "ja-m3-4-1-mcq-name",
+      prompt: "Which sentence means 'What is your name?'",
+      correctKana: "なまえは なんですか。",
+      distractorsKana: [
+        "なまえは ですか。",
+        "なまえか なんです。",
+        "なまえは なんです。",
+      ],
+      explanation:
+        "Topic は + question marker か at the end.",
+    }),
+    cloze(
+      "ja-m3-4-1-cloze-5",
       "ともだち",
       " せんせいです。",
       "は",
@@ -807,9 +1075,8 @@ export const M3_4: LessonContent = {
       "ともだちは せんせいです。",
       "Topic = friend. Statement = teacher.",
     ),
-    // Listening break interleaved between consecutive clozes (R3).
     listeningCompSentence({
-      id: "ja-m3-4-lc-tomodachi-amerikajin",
+      id: "ja-m3-4-1-lc-tomodachi",
       audioText: "ともだちは アメリカじんです",
       correctMeaningEn: "My friend is American.",
       distractorsEn: [
@@ -818,31 +1085,93 @@ export const M3_4: LessonContent = {
         "Are you American?",
       ],
     }),
-    // ── Forced sentence_build (production direction) — replaces the prior
-    //    cloze-6-desu which drilled です in a particle-cloze slot. Drilling
-    //    です as a "particle to pick" is negative testing (Roediger & Marsh
-    //    2005) — the learner pattern-matches "です is one of the particles."
-    //    A forced tile-bank build exercises the same target sentence in the
-    //    production direction without that risk.
-    //
-    //    Tile bank kept in the current M3 pre-attached-particle style for
-    //    consistency with the other 14 builds — Spencer flagged the
-    //    particle-separation gotcha as a separate cross-curriculum sweep
-    //    (see task #13). ──
     build(
-      "ja-m3-4-build-dog-pointer",
-      "Build: 'That over there is a dog.'",
+      "ja-m3-4-1-build-dog",
+      "That over there is a dog.",
       "あれは いぬです",
       ["あれ", "は", "いぬ", "です", "これ", "ねこ"],
       ["あれ", "は", "いぬ", "です"],
     ),
-    // sentenceMcq break BEFORE selfExplain (so selfExplain lands at N-1
-    // of the drill cluster — after 5 clozes + 3 MCQs of commits).
-    // (Atom swapped from あに to ともだち 2026-05-21 — あに is taught
-    // formally in M3-5, so using it here would be test-before-teach.
-    // ともだち is already taught in M3-3.)
+    speaking(
+      "ja-m3-4-1-speak-kore-hon",
+      "これは ほんです",
+      "This is a book.",
+    ),
+    // Review tail
+    speaking("ja-m3-4-1-rev-speak-1", M3_4_REVIEW[0].kana, M3_4_REVIEW[0].meaningEn),
+    listeningCompSentence({
+      id: "ja-m3-4-1-rev-lc-1",
+      audioText: M3_4_REVIEW[1].kana,
+      correctMeaningEn: M3_4_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M3_4_REVIEW[2].meaningEn,
+        M3_4_REVIEW[3].meaningEn,
+        M3_REVIEW_M1_POOL[0].meaningEn,
+      ],
+    }),
+    vocabMcq("ja-m3-4-1-rev-mcq-2", M3_4_REVIEW[2], M3_REVIEW_M2_POOL),
+    reviewMatchPairs("ja-m3-4-1-rev", M3_4_REVIEW),
+    infoStep(
+      "ja-m3-4-1-info-end",
+      "You can now frame any topic with は",
+      "The topic marker は — 'as for X, ...' — drilled in cloze slots across people, things, and question sentences like なまえは なんですか.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M3_4_1.steps);
+assertAnswerRotation(M3_4_1.steps, 2);
+assertNoConsecutiveSame(M3_4_1.steps);
+
+/* ────────────────────────────────────────────────────────────────────────
+ * M3-4 Sub-lesson 2/2 — Production + selfExplain on は
+ * ──────────────────────────────────────────────────────────────────────── */
+
+const M3_4_2_REVIEW = pickReviewAtoms("ja-m3-4-2-rev", M3_REVIEW_M1_POOL, 5);
+
+export const M3_4_2: LessonContent = {
+  id: "ja-m3-4-2",
+  moduleId: "m3",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "は — produce & explain",
+  description:
+    "Production-heavy practice on は sentences. Build, speak, then explain why は is correct.",
+  estimatedMinutes: 6,
+  xpReward: 12,
+  steps: [
+    build(
+      "ja-m3-4-2-build-nihonjin",
+      "I am Japanese.",
+      "わたしは にほんじんです",
+      ["わたし", "は", "にほんじん", "です", "アメリカじん"],
+      ["わたし", "は", "にほんじん", "です"],
+    ),
+    speaking(
+      "ja-m3-4-2-speak-nihonjin",
+      "わたしは にほんじんです",
+      "I am Japanese.",
+    ),
+    cloze(
+      "ja-m3-4-2-cloze-1",
+      "ねこ",
+      " いぬです。",
+      "は",
+      ["は", "が", "を", "に"],
+      "The cat is a dog. (silly but grammatical!)",
+      "ねこは いぬです。",
+      "Topic = cat. The grammar works even if the meaning is absurd.",
+    ),
+    listeningBuildSentence({
+      id: "ja-m3-4-2-lbs-tomodachi",
+      target: "ともだちは にほんじんです",
+      tiles: ["ともだち", "は", "にほんじん", "です", "アメリカじん", "か"],
+      correctOrder: ["ともだち", "は", "にほんじん", "です"],
+      promptEn: "My friend is Japanese.",
+    }),
     sentenceMcq({
-      id: "ja-m3-4-mcq-recap",
+      id: "ja-m3-4-2-mcq-recap",
       prompt: "Which sentence asks 'Is that your friend?'",
       correctKana: "あれは ともだちですか。",
       distractorsKana: [
@@ -850,14 +1179,42 @@ export const M3_4: LessonContent = {
         "あれが ともだちですか。",
         "それは ともだちですか。",
       ],
-      explanation:
-        "Topic は + statement + か = polite yes/no question. The distractors: missing か (statement), wrong particle (が = subject, M6), and wrong demonstrative (それ = that-near-you, not that-over-there).",
+      explanation: "Topic は + statement + か = polite yes/no question.",
     }),
-    // ── selfExplain at N-1 — after the full drill cluster has committed,
-    //    probe the rule (CLT expertise-reversal). Distractor is rule-citing-
-    //    but-wrong, not dismiss-on-sight. ──
+    cloze(
+      "ja-m3-4-2-cloze-2",
+      "いぬです",
+      "。",
+      "か",
+      ["か", "は", "が", "を"],
+      "Is it a dog?",
+      "いぬですか。",
+      "Statement → question via か.",
+    ),
+    build(
+      "ja-m3-4-2-build-namae",
+      "What is your name?",
+      "なまえは なんですか",
+      ["なまえ", "は", "なん", "です", "か", "わたし"],
+      ["なまえ", "は", "なん", "です", "か"],
+    ),
+    listeningCompSentence({
+      id: "ja-m3-4-2-lc-gakusei-q",
+      audioText: "がくせいですか",
+      correctMeaningEn: "Are you a student?",
+      distractorsEn: [
+        "I am a student.",
+        "Is it a teacher?",
+        "What is your name?",
+      ],
+    }),
+    speaking(
+      "ja-m3-4-2-speak-kore-mizu",
+      "これは みずです",
+      "This is water.",
+    ),
     selfExplain({
-      id: "ja-m3-4-self-ha",
+      id: "ja-m3-4-2-self-ha",
       anchorLabel: "You picked は in: わたし＿ がくせいです",
       anchorAudioText: "わたしは がくせいです",
       question: "Why is は correct here?",
@@ -867,120 +1224,104 @@ export const M3_4: LessonContent = {
         text: "は is the subject marker showing who performs the action.",
       },
       ruleExplanation:
-        "は marks the TOPIC (what the sentence is about), not the grammatical subject. The distractor describes が (subject marker, coming in M6). 'First noun' is a surface pattern that breaks the moment the topic isn't first (e.g., 'きょう、わたしは…' — today, as for me…).",
+        "は marks the TOPIC (what the sentence is about), not the grammatical subject. The distractor describes が (subject marker, coming in M6).",
     }),
-    // Production: speaking on the canonical self-introduction. The
-    // translate step above already covered word-tile production;
-    // speaking closes the production loop on a different sentence.
-    speaking(
-      "ja-m3-4-speak-watashi",
-      "わたしは アメリカじんです",
-      "I am American.",
+    build(
+      "ja-m3-4-2-build-sensei-q",
+      "Is my friend a teacher?",
+      "ともだちは せんせいですか",
+      ["ともだち", "は", "せんせい", "です", "か", "がくせい"],
+      ["ともだち", "は", "せんせい", "です", "か"],
     ),
-    // ── Review tail (M2 g-row + match) ──
-    vocabMcq("ja-m3-4-rev-mcq-1", M3_4_REVIEW[0], M3_REVIEW_M2_POOL),
+    speaking(
+      "ja-m3-4-2-speak-tomodachi-sensei",
+      "ともだちは せんせいです",
+      "My friend is a teacher.",
+    ),
     listeningCompSentence({
-      id: "ja-m3-4-rev-lc-kagi",
-      audioText: M3_4_REVIEW[1].kana,
-      correctMeaningEn: M3_4_REVIEW[1].meaningEn,
+      id: "ja-m3-4-2-lc-inu",
+      audioText: "あれは いぬですか",
+      correctMeaningEn: "Is that a dog?",
       distractorsEn: [
-        M3_4_REVIEW[2].meaningEn,
-        M3_4_REVIEW[3].meaningEn,
-        M3_REVIEW_M1_POOL[0].meaningEn,
+        "Is that a cat?",
+        "That is a dog.",
+        "This is a dog.",
       ],
     }),
-    // Second prior-module review tap (M1 atom this time, breaks the
-    // M2-only run + further re-balances toward review).
-    vocabMcq("ja-m3-4-rev-mcq-2", M3_REVIEW_M1_POOL[3], M3_REVIEW_M1_POOL),
-    // Cumulative translate — re-uses にほんじん (Wave-4B n=1 atom fix).
-    build(
-      "ja-m3-4-translate-nihonjin",
-      "I am Japanese.",
-      "わたしは にほんじんです",
-      ["わたし", "は", "にほんじん", "です", "アメリカじん"],
-      ["わたし", "は", "にほんじん", "です"],
-    ),
-    reviewMatchPairs("ja-m3-4-rev", M3_4_REVIEW),
+    // Review tail
+    speaking("ja-m3-4-2-rev-speak-1", M3_4_2_REVIEW[0].kana, M3_4_2_REVIEW[0].meaningEn),
+    listeningCompSentence({
+      id: "ja-m3-4-2-rev-lc-1",
+      audioText: M3_4_2_REVIEW[1].kana,
+      correctMeaningEn: M3_4_2_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M3_4_2_REVIEW[2].meaningEn,
+        M3_4_2_REVIEW[3].meaningEn,
+        M3_4_2_REVIEW[4].meaningEn,
+      ],
+    }),
+    vocabMcq("ja-m3-4-2-rev-mcq-2", M3_4_2_REVIEW[3], M3_REVIEW_M1_POOL),
+    reviewMatchPairs("ja-m3-4-2-rev", M3_4_2_REVIEW.slice(0, 4)),
     infoStep(
-      "ja-m3-4-info-end",
-      "You can now frame a sentence the polite-Japanese way",
-      "Five rotating drills, one pattern: topic は statement です — with か to ask. You can introduce yourself, describe objects, and ask back. Next: mixed interleaved practice across は + です + か.",
+      "ja-m3-4-2-info-end",
+      "You can now explain why は is correct",
+      "Production + self-explanation on は — you built sentences, spoke them aloud, and explained the topic-marker rule in your own reasoning.",
       "win",
     ),
   ],
 };
 
-assertNoSameAnswerCluster(M3_4.steps);
-// Answer distribution rotates between 2 distinct particles (は / か) across
-// the M3-4 cloze block. The prior 6th cloze drilled です in a particle
-// slot (negative-testing risk per Roediger & Marsh 2005); it was replaced
-// with a forced sentence_build that exercises the same target sentence in
-// the production direction. With です gone from the particle pool the gate
-// is honestly minDistinct=2 — see lesson-authoring-guide.md §13.12 for
-// the doc-vs-gate drift rule.
-assertAnswerRotation(M3_4.steps, 2);
-assertNoConsecutiveSame(M3_4.steps);
+assertNoSameAnswerCluster(M3_4_2.steps);
+assertAnswerRotation(M3_4_2.steps, 2);
+assertNoConsecutiveSame(M3_4_2.steps);
 
-// ----- M3-5 — Interleaved drill — は + です + か (answer-rotating) -------
+// ----- M3-5 — Interleaved drill — は + です + か -------
 
 const M3_5_REVIEW = pickReviewAtoms("ja-m3-5-rev", M3_REVIEW_M1_POOL, 5);
 
-export const M3_5: LessonContent = {
-  id: "ja-m3-5",
+/* ────────────────────────────────────────────────────────────────────────
+ * M3-5 Sub-lesson 1/2 — Introduce あに + interleaved cloze drilling
+ * ──────────────────────────────────────────────────────────────────────── */
+
+export const M3_5_1: LessonContent = {
+  id: "ja-m3-5-1",
   moduleId: "m3",
   courseId: COURSE,
   languageId: LANG,
-  title: "Interleaved drill — は + です + か",
+  title: "Interleaved drill — は + か (part 1)",
   description:
-    "Mixed practice. The correct particle ROTATES across clozes — no two same-answer in a row. Production sprinkled in.",
-  estimatedMinutes: 10,
-  xpReward: 24,
+    "Introduce older brother (あに). Mixed cloze practice — the correct particle rotates.",
+  estimatedMinutes: 6,
+  xpReward: 12,
   steps: [
-    infoStep(
-      "ja-m3-5-info-open",
-      "Mix it up",
-      "Three grammar pieces interleaved. Each cloze asks you to pick the right particle from the set you know. Watch the answer rotate — there's no pattern to memorize.",
+    // あに — figuroutable: learner knows all tiles except あに
+    build(
+      "ja-m3-5-1-intro-ani",
+      "My older brother is American.",
+      "あには アメリカじんです",
+      ["あに", "は", "アメリカじん", "です", "わたし"],
+      ["あに", "は", "アメリカじん", "です"],
+      ["あに", "アメリカじん"],
     ),
-    // ── Brief vocab teach for あに (older brother). Atom is registered
-    //    as M3-introduced as of 2026-05-21 (was M4 — fixed the M3-5/6/7
-    //    forward-leak per Spencer's "teach, then build" principle). ──
-    vocab(
-      "ja-m3-5-v-ani",
-      "(my) older brother",
-      "ani",
-      "あに",
-      "あに is the humble form — used when talking about YOUR own brother to others. Family vocab uses different forms for 'my X' vs 'your X' — more in M4.",
-    ),
-    // ── Rotating clozes: は → か → は → か (max 2 same-answer adjacent
-    //    OK per the gate, but rotate every step here for max difficulty). ──
-    // Pre-rebuild this was 「は か は か は か」 with each correct answer
-    // matching the surface position — the M3-5 same-answer anti-pattern
-    // the spec calls out. Now answers rotate and the surface position of
-    // the blank moves between mid-sentence and end-of-sentence.
-    // (Topic swapped from あなた to ともだち 2026-05-21 — あなた stays M4
-    // territory; ともだち is already taught and the drill is identical.)
+    listeningCompSentence({
+      id: "ja-m3-5-1-lc-ani",
+      audioText: "あに",
+      correctMeaningEn: "(my) older brother",
+      distractorsEn: ["friend", "teacher", "student"],
+    }),
     cloze(
-      "ja-m3-5-cloze-1",
+      "ja-m3-5-1-cloze-1",
       "ともだち",
       " せんせいですか。",
       "は",
       ["は", "が", "を", "に"],
       "Is my friend a teacher?",
       "ともだちは せんせいですか。",
-      "Topic = my friend. The question word か is already there — you need は.",
+      "Topic = my friend. か is already there — you need は.",
     ),
-    // Production break (translate, hard direction). Re-uses あに +
-    // アメリカじん atoms (Wave-4B: n=1 atom re-exposure).
-    build(
-      "ja-m3-5-translate-ani",
-      "My older brother is American.",
-      "あには アメリカじんです",
-      ["あに", "は", "アメリカじん", "です", "にほんじん"],
-      ["あに", "は", "アメリカじん", "です"],
-      ["あに", "アメリカじん"],
-    ),
+    speaking("ja-m3-5-1-speak-ani", "あに", "(my) older brother"),
     cloze(
-      "ja-m3-5-cloze-2",
+      "ja-m3-5-1-cloze-2",
       "がくせいです",
       "。",
       "か",
@@ -989,46 +1330,32 @@ export const M3_5: LessonContent = {
       "がくせいですか。",
       "Statement → question via か.",
     ),
-    // listening_build BREAK — assemble a sentence from word-tiles.
+    build(
+      "ja-m3-5-1-build-ani-nihonjin",
+      "My older brother is Japanese.",
+      "あには にほんじんです",
+      ["あに", "は", "にほんじん", "です", "アメリカじん"],
+      ["あに", "は", "にほんじん", "です"],
+    ),
     listeningBuildSentence({
-      id: "ja-m3-5-lb-name",
+      id: "ja-m3-5-1-lb-name",
       target: "なまえは なんですか",
       tiles: ["なまえ", "は", "なん", "です", "か", "わたし", "ともだち"],
       correctOrder: ["なまえ", "は", "なん", "です", "か"],
-      promptEn: "Hear it, build it: 'What is your name?'",
+      promptEn: "What is your name?",
     }),
-    // Cloze on にほんじん carrier (Wave-4B: n=1 atom re-exposure).
     cloze(
-      "ja-m3-5-cloze-3",
+      "ja-m3-5-1-cloze-3",
       "せんせい",
       " にほんじんです。",
       "は",
       ["は", "が", "を", "に"],
       "The teacher is Japanese.",
       "せんせいは にほんじんです。",
-      "Topic = the teacher. Statement = Japanese (person).",
+      "Topic = the teacher.",
     ),
-    // Speaking break — production direction on the most-canonical sentence.
-    speaking(
-      "ja-m3-5-speak-watashi",
-      "わたしは アメリカじんです",
-      "I am American.",
-    ),
-    cloze(
-      "ja-m3-5-cloze-4",
-      "なまえは なんです",
-      "。",
-      "か",
-      ["か", "は", "が", "の"],
-      "What is your name?",
-      "なまえは なんですか。",
-      "Already has は; need か at the end to ask the question.",
-    ),
-    // sentenceMcq break — discrimination between は/か placements.
-    // (Subject swapped from あなた to わたし 2026-05-21 — あなた is M4
-    // pronoun, deferred to keep M3 free of forward-leak.)
     sentenceMcq({
-      id: "ja-m3-5-mcq-discriminate",
+      id: "ja-m3-5-1-mcq-discriminate",
       prompt: "Which sentence asks 'Am I a teacher?'",
       correctKana: "わたしは せんせいですか。",
       distractorsKana: [
@@ -1036,36 +1363,25 @@ export const M3_5: LessonContent = {
         "わたしか せんせいです。",
         "わたしは ですか せんせい。",
       ],
-      explanation:
-        "Topic は first, statement, then か to question. Word order is fixed. (You'd say this when asking someone to confirm your role — 'Am I supposed to be the teacher here?')",
+      explanation: "Topic は first, statement, then か to question. Word order is fixed.",
     }),
-    cloze(
-      "ja-m3-5-cloze-5",
-      "ともだち",
-      " アメリカじんです。",
-      "は",
-      ["は", "が", "を", "に"],
-      "My friend is American.",
-      "ともだちは アメリカじんです。",
-      "Second exposure to アメリカじん within this sub-lesson — building rep memory.",
+    speaking(
+      "ja-m3-5-1-speak-watashi",
+      "わたしは アメリカじんです",
+      "I am American.",
     ),
-    // sentenceMcq break — discriminate なまえです vs なまえですか.
-    // Re-exposes the なまえです atom (Wave-4B: n=1 fix).
-    sentenceMcq({
-      id: "ja-m3-5-mcq-namae-desu",
-      prompt: "Which sentence says 'It's a name.'?",
-      correctKana: "なまえです。",
-      distractorsKana: [
-        "なまえですか。",
-        "なまえは なんですか。",
-        "なまえの ですか。",
-      ],
-      explanation:
-        "なまえ + です = 'is a name.' No か = statement. なまえです is the bare-noun assertion.",
-    }),
-    // listening break before final cloze.
+    cloze(
+      "ja-m3-5-1-cloze-4",
+      "なまえは なんです",
+      "。",
+      "か",
+      ["か", "は", "が", "の"],
+      "What is your name?",
+      "なまえは なんですか。",
+      "Already has は; need か at the end to ask.",
+    ),
     listeningCompSentence({
-      id: "ja-m3-5-lc-are",
+      id: "ja-m3-5-1-lc-are",
       audioText: "あれは いぬですか",
       correctMeaningEn: "Is that a dog?",
       distractorsEn: [
@@ -1075,19 +1391,132 @@ export const M3_5: LessonContent = {
       ],
     }),
     cloze(
-      "ja-m3-5-cloze-6",
+      "ja-m3-5-1-cloze-5",
+      "ともだち",
+      " アメリカじんです。",
+      "は",
+      ["は", "が", "を", "に"],
+      "My friend is American.",
+      "ともだちは アメリカじんです。",
+      "Topic = friend.",
+    ),
+    // Review tail
+    speaking("ja-m3-5-1-rev-speak-1", M3_5_REVIEW[0].kana, M3_5_REVIEW[0].meaningEn),
+    listeningCompSentence({
+      id: "ja-m3-5-1-rev-lc-1",
+      audioText: M3_5_REVIEW[1].kana,
+      correctMeaningEn: M3_5_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M3_5_REVIEW[2].meaningEn,
+        M3_5_REVIEW[3].meaningEn,
+        M3_5_REVIEW[4].meaningEn,
+      ],
+    }),
+    vocabMcq("ja-m3-5-1-rev-mcq-2", M3_5_REVIEW[3], M3_REVIEW_M1_POOL),
+    reviewMatchPairs("ja-m3-5-1-rev", M3_5_REVIEW.slice(0, 4)),
+    infoStep(
+      "ja-m3-5-1-info-end",
+      "You can now say 'my older brother is...'",
+      "New word あに (older brother) plus interleaved は and か cloze drilling — the correct particle rotates so you must read the sentence each time.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M3_5_1.steps);
+assertAnswerRotation(M3_5_1.steps, 2);
+assertNoConsecutiveSame(M3_5_1.steps);
+
+/* ────────────────────────────────────────────────────────────────────────
+ * M3-5 Sub-lesson 2/2 — More interleaved drills + selfExplain
+ * ──────────────────────────────────────────────────────────────────────── */
+
+const M3_5_2_REVIEW = pickReviewAtoms("ja-m3-5-2-rev", M3_REVIEW_M2_POOL, 4);
+
+export const M3_5_2: LessonContent = {
+  id: "ja-m3-5-2",
+  moduleId: "m3",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Interleaved drill — は + か (part 2)",
+  description:
+    "Continued mixed practice. Production ramps up. SelfExplain probes か.",
+  estimatedMinutes: 6,
+  xpReward: 12,
+  steps: [
+    build(
+      "ja-m3-5-2-build-ani-amerikajin",
+      "My older brother is American.",
+      "あには アメリカじんです",
+      ["あに", "は", "アメリカじん", "です", "にほんじん"],
+      ["あに", "は", "アメリカじん", "です"],
+      ["あに", "アメリカじん"],
+    ),
+    cloze(
+      "ja-m3-5-2-cloze-1",
       "あれは いぬです",
       "。",
       "か",
       ["か", "は", "が", "を"],
       "Is that a dog?",
       "あれは いぬですか。",
-      "あれ = that-over-there (preview of next module). Statement + か.",
+      "Statement + か = question.",
     ),
-    // ── selfExplain at N-1 of the drill cluster — after 6 cloze commits
-    //    + 2 MCQs + listening_build, probe why the か at sentence end works. ──
+    sentenceMcq({
+      id: "ja-m3-5-2-mcq-namae",
+      prompt: "Which sentence says 'It's a name.'?",
+      correctKana: "なまえです。",
+      distractorsKana: [
+        "なまえですか。",
+        "なまえは なんですか。",
+        "なまえの ですか。",
+      ],
+      explanation: "なまえ + です = 'is a name.' No か = statement.",
+    }),
+    speaking(
+      "ja-m3-5-2-speak-ani-nihonjin",
+      "あには にほんじんです",
+      "My older brother is Japanese.",
+    ),
+    cloze(
+      "ja-m3-5-2-cloze-2",
+      "あに",
+      " がくせいです。",
+      "は",
+      ["は", "が", "を", "に"],
+      "My older brother is a student.",
+      "あには がくせいです。",
+      "Topic = older brother.",
+    ),
+    listeningCompSentence({
+      id: "ja-m3-5-2-lc-sensei-q",
+      audioText: "せんせいですか",
+      correctMeaningEn: "Are you a teacher?",
+      distractorsEn: [
+        "I am a teacher.",
+        "Is it a student?",
+        "My friend is a teacher.",
+      ],
+    }),
+    build(
+      "ja-m3-5-2-build-nihonjin-q",
+      "Is the teacher Japanese?",
+      "せんせいは にほんじんですか",
+      ["せんせい", "は", "にほんじん", "です", "か", "アメリカじん"],
+      ["せんせい", "は", "にほんじん", "です", "か"],
+    ),
+    cloze(
+      "ja-m3-5-2-cloze-3",
+      "にほんじんです",
+      "。",
+      "か",
+      ["か", "は", "が", "の"],
+      "Are you Japanese?",
+      "にほんじんですか。",
+      "Statement + か.",
+    ),
     selfExplain({
-      id: "ja-m3-5-self-particle-pick",
+      id: "ja-m3-5-2-self-particle",
       anchorLabel: "Compare: あれは いぬです vs あれは いぬですか",
       anchorAudioText: "あれは いぬですか",
       question:
@@ -1098,109 +1527,117 @@ export const M3_5: LessonContent = {
         text: "か at the end emphasizes the topic for the listener.",
       },
       ruleExplanation:
-        "か is the question particle. It doesn't depend on what the noun is (the 'animals' surface bait is a coincidence here), and it doesn't emphasize the topic (that role is played by intonation or by adding よ/ね — coming later). Question marker, full stop.",
+        "か is the question particle. It doesn't depend on what the noun is. Question marker, full stop.",
     }),
-    // ── Review tail (M1 atoms — fresh subset, different seed than M3-3) ──
-    vocabMcq("ja-m3-5-rev-mcq-1", M3_5_REVIEW[0], M3_REVIEW_M1_POOL),
+    listeningBuildSentence({
+      id: "ja-m3-5-2-lbs-tomodachi",
+      target: "ともだちは せんせいですか",
+      tiles: ["ともだち", "は", "せんせい", "です", "か", "がくせい"],
+      correctOrder: ["ともだち", "は", "せんせい", "です", "か"],
+      promptEn: "Is my friend a teacher?",
+    }),
+    speaking(
+      "ja-m3-5-2-speak-namae-q",
+      "なまえは なんですか",
+      "What is your name?",
+    ),
+    build(
+      "ja-m3-5-2-build-kore-neko",
+      "This is a cat.",
+      "これは ねこです",
+      ["これ", "は", "ねこ", "です", "いぬ"],
+      ["これ", "は", "ねこ", "です"],
+    ),
+    sentenceMcq({
+      id: "ja-m3-5-2-mcq-ani-q",
+      prompt: "Which sentence asks 'Is your older brother a student?'",
+      correctKana: "あには がくせいですか。",
+      distractorsKana: [
+        "あには がくせいです。",
+        "あにが がくせいですか。",
+        "あには せんせいですか。",
+      ],
+      explanation: "Topic は + statement + か = question.",
+    }),
+    // Review tail
+    speaking("ja-m3-5-2-rev-speak-1", M3_5_2_REVIEW[0].kana, M3_5_2_REVIEW[0].meaningEn),
     listeningCompSentence({
-      id: "ja-m3-5-rev-lc-1",
-      audioText: M3_5_REVIEW[1].kana,
-      correctMeaningEn: M3_5_REVIEW[1].meaningEn,
+      id: "ja-m3-5-2-rev-lc-1",
+      audioText: M3_5_2_REVIEW[1].kana,
+      correctMeaningEn: M3_5_2_REVIEW[1].meaningEn,
       distractorsEn: [
-        M3_5_REVIEW[2].meaningEn,
-        M3_5_REVIEW[3].meaningEn,
-        M3_5_REVIEW[4].meaningEn,
+        M3_5_2_REVIEW[2].meaningEn,
+        M3_5_2_REVIEW[3].meaningEn,
+        M3_REVIEW_M1_POOL[2].meaningEn,
       ],
     }),
-    // Second review tap on a different M1 atom.
-    vocabMcq("ja-m3-5-rev-mcq-2", M3_5_REVIEW[3], M3_REVIEW_M1_POOL),
-    // Build cumulative — re-uses にほんじん (Wave-4B n=1 atom fix).
-    build(
-      "ja-m3-5-build-nihonjin",
-      "Build: 'My older brother is Japanese.'",
-      "あには にほんじんです",
-      ["あに", "は", "にほんじん", "です", "わたし", "アメリカじん"],
-      ["あに", "は", "にほんじん", "です"],
-    ),
-    // Speaking on the just-built sentence — closes production loop.
-    speaking(
-      "ja-m3-5-speak-ani-nihonjin",
-      "あには にほんじんです",
-      "My older brother is Japanese.",
-    ),
-    reviewMatchPairs("ja-m3-5-rev", M3_5_REVIEW.slice(0, 4)),
+    vocabMcq("ja-m3-5-2-rev-mcq-2", M3_5_2_REVIEW[2], M3_REVIEW_M2_POOL),
+    reviewMatchPairs("ja-m3-5-2-rev", M3_5_2_REVIEW),
     infoStep(
-      "ja-m3-5-info-end",
-      "You can now mix three particles in real time",
-      "Mixed drills + production + a rotating-answer policy. You've now interleaved は + です + か across very different sentences and modes — that's the spaced practice that makes patterns stick.",
+      "ja-m3-5-2-info-end",
+      "You can now tell は and か apart under pressure",
+      "Mixed drilling with self-explanation: you know か converts statements to questions and は marks the topic — and you can articulate why.",
       "win",
     ),
   ],
 };
 
-assertNoSameAnswerCluster(M3_5.steps);
-assertAnswerRotation(M3_5.steps, 2);
-assertNoConsecutiveSame(M3_5.steps);
+assertNoSameAnswerCluster(M3_5_2.steps);
+assertAnswerRotation(M3_5_2.steps, 2);
+assertNoConsecutiveSame(M3_5_2.steps);
 
 // ----- M3-6 — Production — sentence build + speaking + translate ---------
 
 const M3_6_REVIEW = pickReviewAtoms("ja-m3-6-rev", M3_REVIEW_M2_POOL, 4);
 
-export const M3_6: LessonContent = {
-  id: "ja-m3-6",
+/* ────────────────────────────────────────────────────────────────────────
+ * M3-6 Sub-lesson 1/2 — Production-heavy builds + speaking
+ * ──────────────────────────────────────────────────────────────────────── */
+
+export const M3_6_1: LessonContent = {
+  id: "ja-m3-6-1",
   moduleId: "m3",
   courseId: COURSE,
   languageId: LANG,
-  title: "Sentence Build — putting it together",
+  title: "Sentence Build — putting it together (part 1)",
   description:
-    "Production-heavy. Six cumulative sentences across build, translate, listening_build, and your voice.",
-  estimatedMinutes: 10,
-  xpReward: 26,
+    "Production-heavy. Build sentences from tiles, then speak them aloud.",
+  estimatedMinutes: 6,
+  xpReward: 12,
   steps: [
-    infoStep(
-      "ja-m3-6-info-open",
-      "Production time",
-      "Six sentences, four modes (build, translate, listening_build, speak). Tap the tiles, type the answer, hear and assemble, then say it out loud.",
-    ),
-    // ── 6-sentence production cluster — interleaved across modes. ──
     build(
-      "ja-m3-6-s1",
-      "Say: I am American.",
+      "ja-m3-6-1-s1",
+      "I am American.",
       "わたしは アメリカじんです",
       ["わたし", "は", "アメリカじん", "です", "がくせい", "にほんじん"],
       ["わたし", "は", "アメリカじん", "です"],
     ),
-    // Speaking on the just-built sentence — hard direction immediately
-    // (Bjork retrieval difficulty).
     speaking(
-      "ja-m3-6-speak-s1",
+      "ja-m3-6-1-speak-s1",
       "わたしは アメリカじんです",
       "I am American.",
     ),
     build(
-      "ja-m3-6-translate-s2",
+      "ja-m3-6-1-s2",
       "What is your name?",
       "なまえは なんですか",
       ["なまえ", "は", "なん", "です", "か", "わたし"],
       ["なまえ", "は", "なん", "です", "か"],
     ),
-    // Recognition break between consecutive builds — cognitive variety in
-    // a production-heavy run. Image MCQ on a noun the next build uses.
     vocabMcq(
-      "ja-m3-6-mcq-mizu-mid",
+      "ja-m3-6-1-mcq-mizu",
       { kana: "みず", meaningEn: "water", emoji: "💧", fromModule: "m3" },
       M3_REVIEW_M1_POOL,
     ),
     build(
-      "ja-m3-6-s3",
-      "Say: This is water.",
+      "ja-m3-6-1-s3",
+      "This is water.",
       "これは みずです",
       ["これ", "は", "みず", "です", "ほん", "それ"],
       ["これ", "は", "みず", "です"],
     ),
-    // listening break interrupts the build→build run (R3 interleave).
     listeningCompSentence({
-      id: "ja-m3-6-lc-mid",
+      id: "ja-m3-6-1-lc-ani",
       audioText: "あには がくせいです",
       correctMeaningEn: "My older brother is a student.",
       distractorsEn: [
@@ -1209,53 +1646,27 @@ export const M3_6: LessonContent = {
         "Is your older brother a student?",
       ],
     }),
-    // Build re-exposing あに (Wave-4B: n=1 atom re-exposure).
     build(
-      "ja-m3-6-s-ani",
-      "Say: My older brother is a teacher.",
+      "ja-m3-6-1-s4",
+      "My older brother is a teacher.",
       "あには せんせいです",
       ["あに", "は", "せんせい", "です", "わたし", "がくせい"],
       ["あに", "は", "せんせい", "です"],
     ),
+    speaking(
+      "ja-m3-6-1-speak-s4",
+      "あには せんせいです",
+      "My older brother is a teacher.",
+    ),
     listeningBuildSentence({
-      id: "ja-m3-6-lb-s4",
+      id: "ja-m3-6-1-lb-tomodachi",
       target: "ともだちは せんせいです",
       tiles: ["ともだち", "は", "せんせい", "です", "わたし", "がくせい"],
       correctOrder: ["ともだち", "は", "せんせい", "です"],
-      promptEn: "Hear it, build it: 'My friend is a teacher.'",
+      promptEn: "My friend is a teacher.",
     }),
-    speaking(
-      "ja-m3-6-speak-s4",
-      "ともだちは せんせいです",
-      "My friend is a teacher.",
-    ),
-    // Translate re-exposing にほんじん (Wave-4B: n=1 atom re-exposure).
-    build(
-      "ja-m3-6-translate-nihonjin",
-      "My friend is Japanese.",
-      "ともだちは にほんじんです",
-      ["ともだち", "は", "にほんじん", "です", "アメリカじん"],
-      ["ともだち", "は", "にほんじん", "です"],
-    ),
-    // Listening break between consecutive builds — same modality-variety
-    // logic as above. Re-exposes the ねこ vs いぬ contrast the next mcq uses.
-    // (The build-s5 step that previously lived here was dropped 2026-05-21
-    // — M3-6's build_sentence share was 30% (over the 25% bar); the
-    // mcq-recall below covers the same retrieval target without another
-    // production beat.)
-    listeningCompSentence({
-      id: "ja-m3-6-lc-neko-iru",
-      audioText: "それは ねこですか",
-      correctMeaningEn: "Is that a cat?",
-      distractorsEn: [
-        "Is this a cat?",
-        "That is a cat.",
-        "Is that a dog?",
-      ],
-    }),
-    // sentenceMcq retrieval check after the production block.
     sentenceMcq({
-      id: "ja-m3-6-mcq-recall",
+      id: "ja-m3-6-1-mcq-recall",
       prompt: "Which sentence asks 'Is that a dog?'",
       correctKana: "あれは いぬですか。",
       distractorsKana: [
@@ -1265,44 +1676,119 @@ export const M3_6: LessonContent = {
       ],
       explanation: "あれ = 'that over there'; いぬ = dog; か = question.",
     }),
-    // ── Review tail (M2 g-row + an M1 anchor, fresh subset) ──
+    build(
+      "ja-m3-6-1-s5",
+      "My friend is Japanese.",
+      "ともだちは にほんじんです",
+      ["ともだち", "は", "にほんじん", "です", "アメリカじん"],
+      ["ともだち", "は", "にほんじん", "です"],
+    ),
+    speaking(
+      "ja-m3-6-1-speak-namae",
+      "なまえは なんですか",
+      "What is your name?",
+    ),
     listeningCompSentence({
-      id: "ja-m3-6-rev-lc-g",
-      audioText: M3_6_REVIEW[0].kana,
-      correctMeaningEn: M3_6_REVIEW[0].meaningEn,
+      id: "ja-m3-6-1-lc-neko",
+      audioText: "それは ねこですか",
+      correctMeaningEn: "Is that a cat?",
       distractorsEn: [
-        M3_6_REVIEW[1].meaningEn,
+        "Is this a cat?",
+        "That is a cat.",
+        "Is that a dog?",
+      ],
+    }),
+    // Review tail
+    speaking("ja-m3-6-1-rev-speak-1", M3_6_REVIEW[0].kana, M3_6_REVIEW[0].meaningEn),
+    listeningCompSentence({
+      id: "ja-m3-6-1-rev-lc-1",
+      audioText: M3_6_REVIEW[1].kana,
+      correctMeaningEn: M3_6_REVIEW[1].meaningEn,
+      distractorsEn: [
         M3_6_REVIEW[2].meaningEn,
         M3_6_REVIEW[3].meaningEn,
+        M3_REVIEW_M1_POOL[4].meaningEn,
       ],
     }),
-    vocabMcq("ja-m3-6-rev-mcq-g", M3_6_REVIEW[1], M3_REVIEW_M2_POOL),
-    // listening break between the two vocabMcq review steps (R3 interleave).
-    listeningCompSentence({
-      id: "ja-m3-6-rev-lc-m1",
-      audioText: M3_REVIEW_M1_POOL[5].kana,
-      correctMeaningEn: M3_REVIEW_M1_POOL[5].meaningEn,
-      distractorsEn: [
-        M3_REVIEW_M1_POOL[7].meaningEn,
-        M3_REVIEW_M1_POOL[8].meaningEn,
-        M3_REVIEW_M1_POOL[9].meaningEn,
-      ],
-    }),
-    vocabMcq("ja-m3-6-rev-mcq-m1", M3_REVIEW_M1_POOL[6], M3_REVIEW_M1_POOL),
-    // Speaking on a M3 atom bare-noun pattern — re-exposes なまえです
-    // (Wave-4B n=1 atom fix).
+    vocabMcq("ja-m3-6-1-rev-mcq-2", M3_6_REVIEW[2], M3_REVIEW_M2_POOL),
+    reviewMatchPairs("ja-m3-6-1-rev", M3_6_REVIEW),
+    infoStep(
+      "ja-m3-6-1-info-end",
+      "You can now build full sentences from scratch",
+      "Production-mode practice: building and speaking sentences like わたしは アメリカじんです, なまえは なんですか, and これは みずです.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M3_6_1.steps);
+assertNoConsecutiveSame(M3_6_1.steps);
+
+/* ────────────────────────────────────────────────────────────────────────
+ * M3-6 Sub-lesson 2/2 — More production + cumulative review
+ * ──────────────────────────────────────────────────────────────────────── */
+
+const M3_6_2_REVIEW = pickReviewAtoms("ja-m3-6-2-rev", M3_REVIEW_M1_POOL, 5);
+
+export const M3_6_2: LessonContent = {
+  id: "ja-m3-6-2",
+  moduleId: "m3",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Sentence Build — putting it together (part 2)",
+  description:
+    "Continue producing full sentences. Listening + speaking interleaved.",
+  estimatedMinutes: 6,
+  xpReward: 12,
+  steps: [
+    build(
+      "ja-m3-6-2-s1",
+      "Is my friend a teacher?",
+      "ともだちは せんせいですか",
+      ["ともだち", "は", "せんせい", "です", "か", "がくせい"],
+      ["ともだち", "は", "せんせい", "です", "か"],
+    ),
     speaking(
-      "ja-m3-6-speak-namae-desu",
+      "ja-m3-6-2-speak-s1",
+      "ともだちは せんせいですか",
+      "Is my friend a teacher?",
+    ),
+    listeningCompSentence({
+      id: "ja-m3-6-2-lc-ani-amerikajin",
+      audioText: "あには アメリカじんです",
+      correctMeaningEn: "My older brother is American.",
+      distractorsEn: [
+        "I am American.",
+        "Are you American?",
+        "My friend is American.",
+      ],
+    }),
+    build(
+      "ja-m3-6-2-s2",
+      "My older brother is American.",
+      "あには アメリカじんです",
+      ["あに", "は", "アメリカじん", "です", "にほんじん", "わたし"],
+      ["あに", "は", "アメリカじん", "です"],
+    ),
+    vocabMcq(
+      "ja-m3-6-2-mcq-hon",
+      { kana: "ほん", meaningEn: "book", emoji: "📖", fromModule: "m3" },
+      M3_REVIEW_M1_POOL,
+    ),
+    build(
+      "ja-m3-6-2-s3",
+      "This is a book.",
+      "これは ほんです",
+      ["これ", "は", "ほん", "です", "みず", "ねこ"],
+      ["これ", "は", "ほん", "です"],
+    ),
+    speaking(
+      "ja-m3-6-2-speak-namae-desu",
       "なまえです",
       "It's a name.",
     ),
-    vocabMcq("ja-m3-6-rev-mcq-g2", M3_6_REVIEW[2], M3_REVIEW_M2_POOL),
-    // Final cumulative sentenceMcq — replaces an identical-shape namae-desu
-    // MCQ that appeared three times across M3-5/6/7 (BETA flagged the
-    // duplication). This one tests a different sentence the learner hasn't
-    // drilled to death — discriminating ともだち's nationality form.
     sentenceMcq({
-      id: "ja-m3-6-mcq-tomodachi-question",
+      id: "ja-m3-6-2-mcq-tomodachi-q",
       prompt: "Which sentence asks 'Is your friend Japanese?'",
       correctKana: "ともだちは にほんじんですか。",
       distractorsKana: [
@@ -1310,37 +1796,74 @@ export const M3_6: LessonContent = {
         "ともだちが にほんじんですか。",
         "ともだちは アメリカじんですか。",
       ],
-      explanation:
-        "Topic は + statement にほんじんです + か = polite yes/no question. The distractors: missing か (statement), wrong particle (が = subject marker, M6), wrong nationality (American instead of Japanese).",
+      explanation: "Topic は + statement + か = polite question.",
     }),
-    reviewMatchPairs("ja-m3-6-rev", M3_6_REVIEW),
+    listeningBuildSentence({
+      id: "ja-m3-6-2-lbs-gakusei-q",
+      target: "がくせいですか",
+      tiles: ["がくせい", "です", "か", "は", "わたし"],
+      correctOrder: ["がくせい", "です", "か"],
+      promptEn: "Are you a student?",
+    }),
+    build(
+      "ja-m3-6-2-s4",
+      "Is that a cat?",
+      "あれは ねこですか",
+      ["あれ", "は", "ねこ", "です", "か", "いぬ"],
+      ["あれ", "は", "ねこ", "です", "か"],
+    ),
+    speaking(
+      "ja-m3-6-2-speak-watashi-nihonjin",
+      "わたしは にほんじんです",
+      "I am Japanese.",
+    ),
+    listeningCompSentence({
+      id: "ja-m3-6-2-lc-kore-mizu",
+      audioText: "これは みずです",
+      correctMeaningEn: "This is water.",
+      distractorsEn: [
+        "This is a book.",
+        "That is water.",
+        "Is this water?",
+      ],
+    }),
+    build(
+      "ja-m3-6-2-s5",
+      "I am a student.",
+      "わたしは がくせいです",
+      ["わたし", "は", "がくせい", "です", "せんせい"],
+      ["わたし", "は", "がくせい", "です"],
+    ),
+    // Review tail
+    speaking("ja-m3-6-2-rev-speak-1", M3_6_2_REVIEW[0].kana, M3_6_2_REVIEW[0].meaningEn),
+    listeningCompSentence({
+      id: "ja-m3-6-2-rev-lc-1",
+      audioText: M3_6_2_REVIEW[1].kana,
+      correctMeaningEn: M3_6_2_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M3_6_2_REVIEW[2].meaningEn,
+        M3_6_2_REVIEW[3].meaningEn,
+        M3_6_2_REVIEW[4].meaningEn,
+      ],
+    }),
+    vocabMcq("ja-m3-6-2-rev-mcq-2", M3_6_2_REVIEW[3], M3_REVIEW_M1_POOL),
+    reviewMatchPairs("ja-m3-6-2-rev", M3_6_2_REVIEW.slice(0, 4)),
     infoStep(
-      "ja-m3-6-info-end",
-      "You can now produce six full sentences across four modes",
-      "Introduce yourself, ask someone's name, describe objects, talk about your brother and friends, and ask yes/no questions — all under your own production. That's a real first conversation toolkit.",
+      "ja-m3-6-2-info-end",
+      "You can now produce questions and statements fluently",
+      "Sentence builds, listening comprehension, and speaking across statements (です) and questions (ですか) — all from tiles to voice.",
       "win",
     ),
   ],
 };
 
-assertNoSameAnswerCluster(M3_6.steps);
-assertAnswerRotation(M3_6.steps, 2);
-assertNoConsecutiveSame(M3_6.steps);
+assertNoSameAnswerCluster(M3_6_2.steps);
+assertNoConsecutiveSame(M3_6_2.steps);
 
 // ----- M3-7 — Dialogue closer + cumulative review (dialogueListen) -------
 
-const M3_7_REVIEW = pickReviewAtoms(
-  "ja-m3-7-rev",
-  // Pull from BOTH M1 and M2 here — the final non-test sub-lesson should
-  // surface the broadest atom set the learner has built across the module.
-  M3_M7_REVIEW_POOL,
-  6,
-);
+const M3_7_REVIEW = pickReviewAtoms("ja-m3-7-rev", M3_M7_REVIEW_POOL, 6);
 
-// Formal teach for も — the dialogue uses も and the post-dialogue MCQ
-// retrieves it, so the teach lands BEFORE the dialogue. M4+ lessons can
-// then weave も into sentence examples without re-teaching ("teach once,
-// build subtly").
 const RULE_MO = grammarRule({
   id: "ja-m3-7-rule-mo",
   title: "も — 'X too' / 'X also'",
@@ -1368,59 +1891,83 @@ const RULE_MO = grammarRule({
     "わたしも is one of the most useful two-syllable phrases in conversational Japanese — anywhere someone says where they're from, what they do, what they like, 'me too' is your in.",
 });
 
-export const M3_7: LessonContent = {
-  id: "ja-m3-7",
+/* ────────────────────────────────────────────────────────────────────────
+ * M3-7 Sub-lesson 1/2 — Introduce すみません + teach も + pre-dialogue drills
+ * ──────────────────────────────────────────────────────────────────────── */
+
+export const M3_7_1: LessonContent = {
+  id: "ja-m3-7-1",
   moduleId: "m3",
   courseId: COURSE,
   languageId: LANG,
-  title: "Mini-dialogue — meeting someone",
+  title: "Mini-dialogue — meeting someone (part 1)",
   description:
-    "A short exchange — name + nationality + polite closing. Listen first (audio-only), then comprehension Qs, then cumulative review.",
-  estimatedMinutes: 10,
-  xpReward: 24,
+    "Learn すみません (excuse me) and も (also). Build up to a dialogue scene.",
+  estimatedMinutes: 6,
+  xpReward: 12,
   steps: [
     infoStep(
-      "ja-m3-7-info-open",
+      "ja-m3-7-1-info-open",
       "Drop into the scene",
-      "You're at a guesthouse common room. A new arrival named ケン (Ken) sits down and starts the conversation. Every word and grammar piece is something you've met across M3 — plus one new particle you'll formally meet partway through.",
+      "You're at a guesthouse common room. A new arrival named ケン (Ken) sits down. First: a polite opener + one new particle.",
       "culture",
     ),
-    // ── Warm-up: greeting atom + light retrieval ──
-    vocab(
-      "ja-m3-7-warmup-sumimasen",
+    // すみません — single-tile pick
+    build(
+      "ja-m3-7-1-intro-sumimasen",
       "Excuse me",
-      "sumimasen",
       "すみません",
-      "Opens any polite stranger interaction — also doubles as 'sorry' and 'thanks for taking the trouble.'",
+      ["すみません", "がくせい", "ともだち"],
+      ["すみません"],
     ),
     listeningCompSentence({
-      id: "ja-m3-7-warmup-lc-sumimasen",
+      id: "ja-m3-7-1-lc-sumimasen",
       audioText: "すみません",
       correctMeaningEn: "Excuse me",
       distractorsEn: ["Thank you", "Hello", "Goodbye"],
     }),
-    // ── Cumulative grammar drill (was post-dialogue; moved before so the
-    //    dialogue is the lesson's emotional peak). Recap も atom: あに
-    //    (n=1 re-exposure), せんせい, がくせい. ──
+    speaking("ja-m3-7-1-speak-sumimasen", "すみません", "Excuse me"),
+    // Teach も
+    RULE_MO,
+    // First も sentence — figuroutable from rule card example
+    build(
+      "ja-m3-7-1-build-mo",
+      "I am American too.",
+      "わたしも アメリカじんです",
+      ["わたし", "も", "アメリカじん", "です", "は"],
+      ["わたし", "も", "アメリカじん", "です"],
+    ),
+    sentenceMcq({
+      id: "ja-m3-7-1-mcq-mo-vs-ha",
+      prompt: "Which says 'My friend is ALSO a teacher'?",
+      correctKana: "ともだちも せんせいです。",
+      distractorsKana: [
+        "ともだちは せんせいです。",
+        "ともだちも がくせいです。",
+        "わたしも せんせいです。",
+      ],
+      explanation:
+        "も = 'also'. は = plain topic. がくせい = student, not teacher. わたし = I, not friend.",
+    }),
     cloze(
-      "ja-m3-7-cloze-ani-statement",
+      "ja-m3-7-1-cloze-ha",
       "あに",
       " アメリカじんです。",
       "は",
       ["は", "が", "を", "に"],
       "My older brother is American.",
       "あには アメリカじんです。",
-      "Topic = older brother. Statement = American. Re-exposes あに in the canonical statement frame.",
+      "Plain は — no 'also' sense here.",
     ),
     build(
-      "ja-m3-7-translate-final",
+      "ja-m3-7-1-build-gakusei",
       "I am a student.",
       "わたしは がくせいです",
       ["わたし", "は", "がくせい", "です", "せんせい"],
       ["わたし", "は", "がくせい", "です"],
     ),
     cloze(
-      "ja-m3-7-cloze-question",
+      "ja-m3-7-1-cloze-ka",
       "せんせいです",
       "。",
       "か",
@@ -1429,14 +1976,32 @@ export const M3_7: LessonContent = {
       "せんせいですか。",
       "Statement → question via か.",
     ),
-    // Cumulative recognition tail — vocabMcq + LC + vocabMcq + LC.
-    vocabMcq(
-      "ja-m3-7-rev-mcq-1",
-      M3_7_REVIEW.find((a) => Boolean(a.emoji))!,
-      M3_M7_REVIEW_POOL,
-    ),
     listeningCompSentence({
-      id: "ja-m3-7-rev-lc-cumulative",
+      id: "ja-m3-7-1-lc-namae-q",
+      audioText: "なまえは なんですか",
+      correctMeaningEn: "What is your name?",
+      distractorsEn: [
+        "I am a student.",
+        "Are you a teacher?",
+        "Excuse me.",
+      ],
+    }),
+    build(
+      "ja-m3-7-1-build-namae-q",
+      "What is your name?",
+      "なまえは なんですか",
+      ["なまえ", "は", "なん", "です", "か", "わたし"],
+      ["なまえ", "は", "なん", "です", "か"],
+    ),
+    speaking(
+      "ja-m3-7-1-speak-mo",
+      "わたしも がくせいです",
+      "I am also a student.",
+    ),
+    // Review tail
+    speaking("ja-m3-7-1-rev-speak-1", M3_7_REVIEW[0].kana, M3_7_REVIEW[0].meaningEn),
+    listeningCompSentence({
+      id: "ja-m3-7-1-rev-lc-1",
       audioText: M3_7_REVIEW[1].kana,
       correctMeaningEn: M3_7_REVIEW[1].meaningEn,
       distractorsEn: [
@@ -1446,118 +2011,75 @@ export const M3_7: LessonContent = {
       ],
     }),
     vocabMcq(
-      "ja-m3-7-rev-mcq-2",
+      "ja-m3-7-1-rev-mcq-2",
       M3_7_REVIEW.filter((a) => Boolean(a.emoji))[1]!,
       M3_M7_REVIEW_POOL,
     ),
-    // Cloze re-encounters あに in question form (Wave-4B n=1 re-exposure).
-    cloze(
-      "ja-m3-7-cloze-ani-question",
-      "あに",
-      " アメリカじんですか。",
-      "は",
-      ["は", "が", "を", "に"],
-      "Is your older brother American?",
-      "あには アメリカじんですか。",
-      "Topic = older brother. Question particle at the end.",
+    reviewMatchPairs("ja-m3-7-1-rev", M3_7_REVIEW.slice(0, 5)),
+    infoStep(
+      "ja-m3-7-1-info-end",
+      "You can now say 'excuse me' and 'me too'",
+      "すみません (excuse me) for polite openers, plus も — the 'also' particle that swaps in for は when agreeing: わたしも がくせいです.",
+      "win",
     ),
-    // ── DIALOGUE PRELUDE — surface the sentence Ken will ask + teach も. ──
-    build(
-      "ja-m3-7-warmup-translate",
-      "What is your name?",
-      "なまえは なんですか",
-      ["なまえ", "は", "なん", "です", "か", "わたし"],
-      ["なまえ", "は", "なん", "です", "か"],
-    ),
-    // Formal teach for も — happens BEFORE the dialogue so the dialogue's
-    // use of も lands on a learner who has just met the rule. "Teach
-    // once, then build on it" — M4+ uses も in sentence examples without
-    // re-teaching.
-    RULE_MO,
-    // First contextual exposure of も as a sentence — pattern card with no
-    // retrieval pressure. The dialogue (next step) is where retrieval
-    // happens for real.
-    phrase(
-      "ja-m3-7-mo-phrase",
-      "I am American too.",
-      "watashi mo amerikajin desu",
-      "わたしも アメリカじんです",
-      "Notice the swap: は → も. Same skeleton; the topic becomes 'me, also.' You'll hear Ken use this exact shape in a moment.",
-    ),
-    // ── THE dialogue_listen step. 3 turns + 3 comprehension MCQs. ──
-    // (Hardcoded "Spencer" name leak replaced with "ケン" (Ken) — a generic
-    // Japanese given name suitable for a stranger in a guesthouse scene.)
+  ],
+};
+
+assertNoSameAnswerCluster(M3_7_1.steps);
+assertAnswerRotation(M3_7_1.steps, 2);
+assertNoConsecutiveSame(M3_7_1.steps);
+
+/* ────────────────────────────────────────────────────────────────────────
+ * M3-7 Sub-lesson 2/2 — The dialogue + post-dialogue retrieval + review
+ * ──────────────────────────────────────────────────────────────────────── */
+
+const M3_7_2_REVIEW = pickReviewAtoms("ja-m3-7-2-rev", M3_M7_REVIEW_POOL, 5);
+
+export const M3_7_2: LessonContent = {
+  id: "ja-m3-7-2",
+  moduleId: "m3",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Mini-dialogue — meeting someone (part 2)",
+  description:
+    "Listen to the full dialogue, answer comprehension questions, then produce key lines.",
+  estimatedMinutes: 6,
+  xpReward: 12,
+  steps: [
     dialogueListen({
-      id: "ja-m3-7-dialogue",
+      id: "ja-m3-7-2-dialogue",
       lines: [
-        {
-          speaker: "Ken",
-          kana: "すみません、なまえは なんですか。",
-        },
-        {
-          // あなたは？ ("And you?") was dropped 2026-05-21 — あなた is M4
-          // pronoun territory and using it in M3-7 was a forward-leak.
-          // The shortened line still works dramatically: you assert your
-          // name, Ken picks up the thread and reciprocates.
-          speaker: "You",
-          kana: "わたしは ケン です。",
-          audioText: "わたしは ケン です。",
-        },
-        {
-          speaker: "Ken",
-          kana: "わたしも ケンです。アメリカじんですか。",
-        },
-        {
-          speaker: "You",
-          kana: "はい。わたしは アメリカじんです。",
-        },
+        { speaker: "Ken", kana: "すみません、なまえは なんですか。" },
+        { speaker: "You", kana: "わたしは ケン です。", audioText: "わたしは ケン です。" },
+        { speaker: "Ken", kana: "わたしも ケンです。アメリカじんですか。" },
+        { speaker: "You", kana: "はい。わたしは アメリカじんです。" },
       ],
       questions: [
         {
           id: "q1-name",
           prompt: "What does Ken ask first?",
           correctText: "What is your name?",
-          distractors: [
-            "Are you American?",
-            "Where are you from?",
-            "Are you a student?",
-          ],
-          explanation:
-            "なまえは なんですか literally 'as for your name, what is it?' — the canonical 'what's your name' opener.",
+          distractors: ["Are you American?", "Where are you from?", "Are you a student?"],
+          explanation: "なまえは なんですか = 'What is your name?'",
         },
         {
           id: "q2-nationality",
           prompt: "What is the second speaker's nationality?",
           correctText: "American",
-          distractors: [
-            "Japanese",
-            "Both Japanese and American",
-            "It isn't said",
-          ],
-          explanation:
-            "The second speaker confirms はい (yes) to アメリカじんですか (Are you American?), so they are American.",
+          distractors: ["Japanese", "Both Japanese and American", "It isn't said"],
+          explanation: "The second speaker confirms はい to アメリカじんですか.",
         },
         {
           id: "q3-shared-name",
           prompt: "What name do BOTH speakers share?",
           correctText: "Ken",
-          distractors: [
-            "They have different names",
-            "Sensei",
-            "Tomodachi",
-          ],
-          explanation:
-            "Both reply with わたしは ケン / わたしも ケンです. The も on Ken's second turn signals 'me too' — same name as you just gave.",
+          distractors: ["They have different names", "Sensei", "Tomodachi"],
+          explanation: "わたしも ケンです = 'I am also Ken.' も signals 'me too.'",
         },
       ],
     }),
-    // ── Post-dialogue retrieval on も (now a real review beat — も was
-    //    formally taught above + just used in the dialogue). ──
-    // (Distractor 2 swapped from あなたも to ともだちも 2026-05-21 — あなた
-    // is M4 pronoun; ともだち is already-taught M3 vocab. Discrimination
-    // tested is now subject-noun (わたし vs ともだち), not pronoun forms.)
     sentenceMcq({
-      id: "ja-m3-7-mcq-also",
+      id: "ja-m3-7-2-mcq-also",
       prompt: "Which sentence says 'I am ALSO Ken.'?",
       correctKana: "わたしも ケンです。",
       distractorsKana: [
@@ -1566,38 +2088,253 @@ export const M3_7: LessonContent = {
         "わたしも ケンですか。",
       ],
       explanation:
-        "も replaces は when you mean 'X too.' は alone = 'I am Ken' (missing 'also'). ともだちも = 'my friend is also Ken' — wrong subject. The question-form ですか changes the sentence type. No か at the end = statement.",
+        "も replaces は when you mean 'X too.' は alone = no 'also'. ともだちも = wrong subject. ですか = question.",
     }),
-    // Post-dialogue speaking — say the dialogue's most-useful line. Hard
-    // direction, riding the dialogue's energy.
     speaking(
-      "ja-m3-7-speak-meet",
+      "ja-m3-7-2-speak-watashi-ken",
       "わたしは ケン です",
       "I am Ken.",
     ),
-    // ── Close on a confidence step — match-pairs is recognition-easy
-    //    after the cognitively-heavy dialogue + production. End the
-    //    lesson where the learner is most likely to be right. ──
-    reviewMatchPairs("ja-m3-7-rev", M3_7_REVIEW.slice(0, 6)),
+    build(
+      "ja-m3-7-2-build-mo-gakusei",
+      "I am also a student.",
+      "わたしも がくせいです",
+      ["わたし", "も", "がくせい", "です", "は", "せんせい"],
+      ["わたし", "も", "がくせい", "です"],
+    ),
+    listeningCompSentence({
+      id: "ja-m3-7-2-lc-sumimasen",
+      audioText: "すみません",
+      correctMeaningEn: "Excuse me",
+      distractorsEn: ["Thank you", "Hello", "Goodbye"],
+    }),
+    cloze(
+      "ja-m3-7-2-cloze-mo",
+      "わたし",
+      " にほんじんです。",
+      "も",
+      ["も", "は", "が", "を"],
+      "I am also Japanese.",
+      "わたしも にほんじんです。",
+      "も = 'also'. Swaps in for は when agreeing.",
+    ),
+    speaking(
+      "ja-m3-7-2-speak-sumimasen",
+      "すみません",
+      "Excuse me",
+    ),
+    build(
+      "ja-m3-7-2-build-namae-q",
+      "What is your name?",
+      "なまえは なんですか",
+      ["なまえ", "は", "なん", "です", "か", "も"],
+      ["なまえ", "は", "なん", "です", "か"],
+    ),
+    sentenceMcq({
+      id: "ja-m3-7-2-mcq-mo-friend",
+      prompt: "Which says 'My friend is also a student.'?",
+      correctKana: "ともだちも がくせいです。",
+      distractorsKana: [
+        "ともだちは がくせいです。",
+        "ともだちも せんせいです。",
+        "わたしも がくせいです。",
+      ],
+      explanation: "ともだち = friend; も = also; がくせい = student.",
+    }),
+    listeningBuildSentence({
+      id: "ja-m3-7-2-lbs-mo-amerikajin",
+      target: "わたしも アメリカじんです",
+      tiles: ["わたし", "も", "アメリカじん", "です", "は", "にほんじん"],
+      correctOrder: ["わたし", "も", "アメリカじん", "です"],
+      promptEn: "I am American too.",
+    }),
+    speaking(
+      "ja-m3-7-2-speak-mo-amerikajin",
+      "わたしも アメリカじんです",
+      "I am American too.",
+    ),
+    cloze(
+      "ja-m3-7-2-cloze-ani-ha",
+      "あに",
+      " にほんじんです。",
+      "は",
+      ["は", "も", "が", "を"],
+      "My older brother is Japanese.",
+      "あには にほんじんです。",
+      "Plain topic — no 'also' sense. は is correct.",
+    ),
+    // Review tail
+    speaking("ja-m3-7-2-rev-speak-1", M3_7_2_REVIEW[0].kana, M3_7_2_REVIEW[0].meaningEn),
+    listeningCompSentence({
+      id: "ja-m3-7-2-rev-lc-1",
+      audioText: M3_7_2_REVIEW[1].kana,
+      correctMeaningEn: M3_7_2_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M3_7_2_REVIEW[2].meaningEn,
+        M3_7_2_REVIEW[3].meaningEn,
+        M3_7_2_REVIEW[4].meaningEn,
+      ],
+    }),
+    vocabMcq("ja-m3-7-2-rev-mcq-2", M3_7_2_REVIEW[3], M3_M7_REVIEW_POOL),
+    reviewMatchPairs("ja-m3-7-2-rev", M3_7_2_REVIEW.slice(0, 5)),
     infoStep(
-      "ja-m3-7-info-end",
-      "You can now hold a first real conversation",
-      "Multi-turn dialogue + three comprehension Qs + your own production. You also picked up も — the 'X too' particle you'll see threaded through M4 onward without anyone calling it out again. Next: the mastery test.",
+      "ja-m3-7-2-info-end",
+      "You can now follow a real self-introduction dialogue",
+      "A full dialogue scene: names, nationalities, and も (also) — you listened, answered comprehension questions, and produced key lines.",
       "win",
     ),
   ],
 };
 
-assertNoSameAnswerCluster(M3_7.steps);
-assertAnswerRotation(M3_7.steps, 2);
-assertNoConsecutiveSame(M3_7.steps);
+assertNoSameAnswerCluster(M3_7_2.steps);
+assertAnswerRotation(M3_7_2.steps, 2);
+assertNoConsecutiveSame(M3_7_2.steps);
+
+// ----- M3-9 — Story comprehension — Meeting someone new --------------------
+
+export const M3_9: LessonContent = {
+  id: "ja-m3-9",
+  moduleId: "m3",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Story — Meeting someone new",
+  description:
+    "Listen to a short conversation between two people meeting for the first time. Answer questions and practice key lines.",
+  estimatedMinutes: 5,
+  xpReward: 15,
+  steps: [
+    infoStep(
+      "ja-m3-9-info-open",
+      "Story time — Meeting someone new",
+      "Listen to a short conversation between ゆき and たけし. They are meeting for the first time at school. Answer questions as you go.",
+    ),
+    dialogueListen({
+      id: "ja-m3-9-scene-1",
+      lines: [
+        { speaker: "ゆき", kana: "すみません。なまえは なんですか。" },
+        { speaker: "たけし", kana: "わたしは たけしです。アメリカじんです。" },
+        { speaker: "ゆき", kana: "わたしは ゆきです。にほんじんです。" },
+      ],
+      questions: [
+        {
+          id: "s1-q1",
+          prompt: "What is たけし's nationality?",
+          correctText: "American",
+          distractors: ["Japanese", "Both American and Japanese", "It isn't said"],
+          explanation: "たけし says アメリカじんです = 'I am American.'",
+        },
+        {
+          id: "s1-q2",
+          prompt: "Who asks for the other person's name?",
+          correctText: "ゆき",
+          distractors: ["たけし", "Both of them", "Neither"],
+          explanation: "ゆき opens with なまえは なんですか = 'What is your name?'",
+        },
+      ],
+    }),
+    build(
+      "ja-m3-9-build-intro",
+      "Introduce yourself: I am a student.",
+      "わたしは がくせいです",
+      ["わたし", "は", "がくせい", "です", "せんせい", "も"],
+      ["わたし", "は", "がくせい", "です"],
+    ),
+    sentenceMcq({
+      id: "ja-m3-9-mcq-yuki-intro",
+      prompt: "How does ゆき introduce herself?",
+      correctKana: "わたしは ゆきです。にほんじんです。",
+      distractorsKana: [
+        "わたしは ゆきです。アメリカじんです。",
+        "わたしは たけしです。にほんじんです。",
+        "なまえは ゆきですか。",
+      ],
+      explanation: "ゆき gives her name then nationality: にほんじん = Japanese.",
+    }),
+    dialogueListen({
+      id: "ja-m3-9-scene-2",
+      lines: [
+        { speaker: "ゆき", kana: "がくせいですか。" },
+        { speaker: "たけし", kana: "はい、がくせいです。" },
+        { speaker: "たけし", kana: "ゆきも がくせいですか。" },
+        { speaker: "ゆき", kana: "はい、わたしも がくせいです。" },
+      ],
+      questions: [
+        {
+          id: "s2-q1",
+          prompt: "Are both ゆき and たけし students?",
+          correctText: "Yes, both are students",
+          distractors: ["Only ゆき is", "Only たけし is", "Neither is"],
+          explanation: "Both confirm がくせいです. ゆき adds わたしも = 'me too.'",
+        },
+        {
+          id: "s2-q2",
+          prompt: "What particle shows たけし is asking 'you TOO?'",
+          correctText: "も",
+          distractors: ["は", "か", "です"],
+          explanation: "ゆきも がくせいですか — も replaces は to mean 'also.'",
+        },
+      ],
+    }),
+    cloze(
+      "ja-m3-9-cloze-mo",
+      "わたし",
+      " がくせいです。 (I am ALSO a student.)",
+      "も",
+      ["も", "は", "が", "を"],
+      "I am also a student.",
+      "わたしも がくせいです。",
+      "も = 'also'. Swaps in for は when agreeing.",
+    ),
+    build(
+      "ja-m3-9-build-question",
+      "Ask: Are you American?",
+      "アメリカじんですか",
+      ["アメリカじん", "です", "か", "にほんじん", "は"],
+      ["アメリカじん", "です", "か"],
+    ),
+    listeningBuildSentence({
+      id: "ja-m3-9-lb-gakusei-q",
+      target: "がくせいですか",
+      tiles: ["がくせい", "です", "か", "は", "も"],
+      correctOrder: ["がくせい", "です", "か"],
+      promptEn: "Hear it, build it: 'Are you a student?'",
+    }),
+    speaking(
+      "ja-m3-9-speak-intro",
+      "わたしは たけしです",
+      "I am Takeshi.",
+    ),
+    sentenceMcq({
+      id: "ja-m3-9-mcq-story-end",
+      prompt: "What do ゆき and たけし have in common?",
+      correctKana: "がくせいです",
+      distractorsKana: [
+        "にほんじんです",
+        "アメリカじんです",
+        "せんせいです",
+      ],
+      explanation: "Both are students — がくせい. They have different nationalities.",
+    }),
+    speaking(
+      "ja-m3-9-speak-mo",
+      "わたしも がくせいです",
+      "I am also a student.",
+    ),
+    infoStep(
+      "ja-m3-9-info-end",
+      "You can now follow a conversation between strangers meeting",
+      "You listened to ゆき and たけし introduce themselves, share nationalities, and discover they're both students — using も to say 'me too.'",
+      "win",
+    ),
+  ],
+};
+
+assertNoConsecutiveSame(M3_9.steps);
+assertPassiveCardsHaveFollowup(M3_9.steps);
+assertNoExplanationOnPassive(M3_9.steps);
+assertExplanationDoesntLeakAnswer(M3_9.steps);
 
 // ----- M3-8 — Row test (mastery ★) ----------------------------------------
-// PRESERVED from the prior structure. The row test is the mastery surface
-// that gates module completion — its shape is contracted by ja-m3-m7-coverage
-// + grammar-rule + mockCourse tests. Items expanded slightly for cumulative
-// coverage of the new dense sub-lessons + re-expose Wave-4B n=1 atoms
-// (にほんじん / あに / なまえです / アメリカじん) in the test bank.
 
 function particleMc(
   id: string,
@@ -1607,8 +2344,6 @@ function particleMc(
   distractors: [string, string, string],
   explanation: string,
 ): MultipleChoiceStep {
-  // Rotate the correct slot by id-hash so the row-test mc doesn't always
-  // render the correct answer in position 0 (2026-05-18 audit).
   const items = [
     { id: "correct", text: correct },
     { id: "opt-1", text: distractors[0] },
@@ -1661,7 +2396,7 @@ const M3_TEST_ITEMS: RowTestItem[] = [
       "わたしも ケンです",
       "も",
       ["は", "が", "の"],
-      "も = 'X too / X also' (taught in M3-7's dialogue). Replaces は when you're agreeing-by-extension with what was just said.",
+      "も = 'X too / X also'. Replaces は when agreeing-by-extension.",
     ),
   },
   {
@@ -1742,11 +2477,9 @@ export const M3_8: LessonContent = {
 };
 
 // ---------------------------------------------------------------------------
-// Passive-card lint (2026-05-22): every phrase_card / info / grammar_rule
-// must have a same-atom graded follow-up at i+2..i+3, no `explanation` field,
-// and no graded explanation that contains a chunk of its own answer.
+// Passive-card lint
 // ---------------------------------------------------------------------------
-for (const lesson of [M3_1, M3_2, M3_3, M3_4, M3_5, M3_6, M3_7, M3_8]) {
+for (const lesson of [M3_1_1, M3_1_2, M3_2_1, M3_2_2, M3_3_1, M3_3_2, M3_4_1, M3_4_2, M3_5_1, M3_5_2, M3_6_1, M3_6_2, M3_7_1, M3_7_2, M3_9, M3_8]) {
   assertPassiveCardsHaveFollowup(lesson.steps);
   assertNoExplanationOnPassive(lesson.steps);
   assertExplanationDoesntLeakAnswer(lesson.steps);

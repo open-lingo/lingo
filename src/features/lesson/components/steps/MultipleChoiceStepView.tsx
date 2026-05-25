@@ -168,6 +168,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
               key={opt.id}
               type="button"
               disabled={submitted}
+              aria-pressed={isSelected}
               onClick={() => setSelected(opt.id)}
               className={`rounded-xl border-2 transition-colors duration-150 ${layout} ${style} ${submitted ? "cursor-default" : "cursor-pointer"}`}
             >

@@ -445,4 +445,142 @@ Every graded step factory in `_jaGrammarHelpers.ts` accepts an `exercisedAtomKan
 
 ---
 
+---
+
+## 14. Story comprehension lessons
+
+Story comprehension lessons are standalone, mid-module lessons that give the learner a longer listening experience — a short dialogue between two characters — broken into chunks with interleaved comprehension checks and production practice. They use **only vocabulary and grammar already introduced** earlier in the module (no new atoms).
+
+### 14.1 Purpose
+
+- Contextual review of grammar and vocab in a realistic conversation
+- Longer-form listening (vs. the single-sentence drills in regular sub-lessons)
+- Active engagement throughout — the learner answers questions and builds sentences between chunks
+- A "reward" lesson that learners can look forward to mid-module
+
+### 14.2 Placement
+
+One per module, placed **mid-module** after the main grammar drills but before production-heavy and dialogue-closer lessons:
+
+| Module | Placement | ID pattern |
+|--------|-----------|------------|
+| M3 | After M3-7-2 (end of module, before mastery test) | `ja-m3-9` |
+| M4 | After M4-5-2 (after interleaved drills) | `ja-m4-story` |
+| M5 | After M5-5-2 (after money talk) | `ja-m5-story` |
+| M6 | After M6-6-2 (after 3-particle interleave) | `ja-m6-story` |
+| M7 | After M7-6-2 (after compound sentences) | `ja-m7-story` |
+
+### 14.3 Constraints
+
+- **Only previously-learned material.** No new vocab, no new grammar. Every word in the story must have been introduced in an earlier lesson within this module or a prior module.
+- **Formal/polite language only.** All sentences use です/ます forms.
+- **Practical scenarios.** Meeting someone, ordering food, asking about daily life — not abstract grammar exercises.
+- **Distinct from the module's dialogue_listen closer.** Each module already has a dialogue closer at lesson 7-8. The story lesson should use a different scenario.
+- **No review tail.** Story lessons are pure comprehension/production — no `pickReviewAtoms` tail.
+
+### 14.4 Template (12 steps)
+
+```
+Story lesson — <scenario name> (target: 12 steps, ~5 min)
+
+  1.  [info: open]           Set the scene. Name the characters, describe
+                             the situation. One sentence.
+
+  ── Scene 1 (3-4 dialogue lines, 2 MCQs) ──
+  2.  dialogue_listen         First chunk of the conversation. 2 comprehension
+                             MCQs. Transcript reveals after first answer.
+
+  3.  build_sentence          Practice a key pattern from scene 1.
+                             Must be a sentence heard in the dialogue.
+
+  4.  sentenceMcq             Comprehension check — "How did X introduce
+                             herself?" or "Which sentence means Y?"
+
+  ── Scene 2 (3-4 dialogue lines, 2 MCQs) ──
+  5.  dialogue_listen         Second chunk. Builds on scene 1 (same characters,
+                             conversation continues). 2 MCQs.
+
+  6.  particle_cloze          Grammar drill anchored in story context.
+                             Use a sentence from the dialogue.
+
+  7.  build_sentence          Practice another key pattern from scene 2.
+      OR listening_build      Swap in listening_build for variety — learner
+                             hears a story line and assembles it from tiles.
+
+  ── Retrieval + production ──
+  8.  listening_build         Hear a line from the story, build it from tiles.
+      OR listening_comp       Pick the meaning of a replayed line.
+
+  9.  speaking                Say a key line from the story aloud.
+
+  10. sentenceMcq             Overall comprehension — "What do both characters
+                             have in common?" or "Which particle does X?"
+
+  11. speaking                Say another key line aloud.
+
+  12. [info: win]             Celebrate. Reference what the learner just did
+                             in context ("You followed a real conversation
+                             about X"). Tease the next lesson.
+```
+
+### 14.5 Step variety
+
+Vary which step types appear in slots 7-8 across modules so the stories don't all feel identical:
+
+| Slot | Options | Notes |
+|------|---------|-------|
+| 7 | `build_sentence`, `listeningBuildSentence` | Alternate between modules |
+| 8 | `listeningBuildSentence`, `listeningCompSentence` | Alternate between modules |
+
+Additional step types that work well in stories (for future longer stories):
+- **`fill_blank`** — fill in a missing word from a story line
+- **`selfExplain`** — after a tricky grammar point, ask "why was も used here?"
+- **`listeningBuildSentence`** — hear a story line, assemble it (tests precise listening)
+
+### 14.6 Dialogue authoring rules
+
+- **3-4 lines per scene**, 2 scenes per story. Total: 6-8 dialogue lines.
+- **2 MCQs per scene.** Exactly 3 distractors per question.
+- **Speaker labels** are character names (ゆき, たけし, Staff), not "Speaker A."
+- **Reuse the same characters** across the module's story and its dialogue closer if possible — builds familiarity.
+- Use `transcriptRevealAfter: "first-answer"` (the default) so the learner can re-read after engaging.
+
+### 14.7 Assertions
+
+Story lessons must pass the same assertions as regular sub-lessons:
+
+```typescript
+assertNoConsecutiveSame(STORY.steps);
+assertPassiveCardsHaveFollowup(STORY.steps);
+assertNoExplanationOnPassive(STORY.steps);
+assertExplanationDoesntLeakAnswer(STORY.steps);
+```
+
+They are **excluded** from `assertNoSameAnswerCluster` and `assertAnswerRotation` (which apply to cloze-heavy sub-lessons, not story flows).
+
+### 14.8 Export and registration
+
+```typescript
+// In mock-ja-mN.ts:
+export const MN_STORY: LessonContent = { id: "ja-mN-story", moduleId: "mN", ... };
+
+// In mockLessons.ts — import + register:
+import { ..., MN_STORY } from "./mock-ja-mN";
+// In LESSONS record:
+"ja-mN-story": MN_STORY,
+```
+
+Add the story to the module's bottom-of-file assertion loop alongside the other lessons.
+
+### 14.9 Future: longer stories (M8+)
+
+The current 12-step / 2-scene template suits M3-M7 where grammar is still simple. For M8+ modules with richer grammar, stories can expand to:
+
+- 3 scenes (3 `dialogue_listen` chunks)
+- 16-18 steps total
+- `build_sentence` responses where the learner "replies" to the story characters
+- The existing `storyComprehension()` factory in `_jaGrammarHelpers.ts` composes `[dialogueListen(narrative), build_sentence]` — use it for narrative-format (non-dialogue) stories where speaker labels are suppressed.
+
+---
+
 *This guide is the condensed output of the M3-M7 rebuild waves (per `curriculum-roadmap-n5-2026-05-18.md` Q8 resolution) plus the 2026-05-21 M3 rewrite retrospective and the 2026-05-23 SRS modality / canonical template lock. Refine as new findings land.*

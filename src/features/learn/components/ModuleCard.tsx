@@ -83,7 +83,7 @@ export function ModuleCard({
         <div className="lingo-mnum">{badgeLabel}</div>
         <div className="min-w-0 flex-1">
           {module.eyebrow ? (
-            <div className="text-[11px] font-bold uppercase tracking-[0.12em] opacity-90">
+            <div className="text-[0.688rem] font-bold uppercase tracking-[0.12em] opacity-90">
               {module.eyebrow}
             </div>
           ) : null}

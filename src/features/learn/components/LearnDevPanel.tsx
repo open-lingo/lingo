@@ -191,7 +191,7 @@ function SessionLogOverlay({ onClose }: { onClose: () => void }) {
                       </span>
                       <span>{fmtMs(l.ms)}</span>
                       <span
-                        className={`text-[10px] font-bold uppercase ${
+                        className={`text-[0.625rem] font-bold uppercase ${
                           l.completed ? "text-success" : "text-text-muted"
                         }`}
                       >
@@ -237,7 +237,7 @@ function SessionLogOverlay({ onClose }: { onClose: () => void }) {
 function Stat({ label, value }: { label: string; value: number | string }) {
   return (
     <div className="rounded border border-border bg-surface-muted px-2 py-1.5">
-      <div className="text-[10px] uppercase tracking-wider text-text-muted">{label}</div>
+      <div className="text-[0.625rem] uppercase tracking-wider text-text-muted">{label}</div>
       <div className="text-sm font-bold text-text-primary tabular-nums">{value}</div>
     </div>
   );

@@ -373,7 +373,7 @@ export function LearnPage() {
                       })}
                     />
                     <div className="rounded-lg bg-surface-muted px-4 py-3 text-center">
-                      <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+                      <p className="text-[0.625rem] font-semibold uppercase tracking-wider text-text-muted">
                         {t("learn.progressCard.modulesKicker", {
                           defaultValue: "Modules",
                         })}

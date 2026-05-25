@@ -96,16 +96,16 @@ function pickClusterGlyph(
 
 /**
  * Detect the row-cluster prefix for a lesson id, if any. Lessons named
- * `ja-m1-<row>-<suffix>` are sub-lessons of a row cluster; everything
+ * `ja-m<N>-<row>-<suffix>` are sub-lessons of a row cluster; everything
  * else is a standalone lesson.
  *
  * Returns `null` for non-cluster lessons (e.g. `ja-m1-l1`, `m1-l0`).
  */
 function clusterPrefix(id: string): string | null {
-  // Match `ja-m1-<rowId>-<suffix>` where suffix is `1|2|3|test` style.
+  // Match `ja-m<N>-<rowId>-<suffix>` where suffix is `1|2|3|test` style.
   // The rowId itself may contain hyphens (e.g. `da-ba`, `yo-sh-ch`,
   // `yo-m-r`, `yo-n-h`), so we anchor on the trailing `-(\d+|test)$` segment.
-  const m = /^(ja-m1-.+)-(\d+|test)$/.exec(id);
+  const m = /^(ja-m\d+-.+)-(\d+|test)$/.exec(id);
   if (!m) return null;
   return m[1];
 }

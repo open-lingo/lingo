@@ -20,8 +20,6 @@ export type UserSettings = {
   };
   accessibility: {
     reducedMotion: boolean;
-    highContrast?: boolean;
-    fontScale?: number;
   };
   audio: {
     soundEnabled: boolean;
@@ -98,8 +96,6 @@ export const DEFAULT_SETTINGS: UserSettings = {
   },
   accessibility: {
     reducedMotion: false,
-    highContrast: false,
-    fontScale: 1,
   },
   audio: {
     soundEnabled: true,

@@ -149,6 +149,7 @@ export function SelfExplanationMcqStepView({ step, onComplete, onContinue }: Pro
               key={opt.id}
               type="button"
               disabled={submitted}
+              aria-pressed={isSelected}
               onClick={() => setSelected(opt.id)}
               className={`rounded-xl border-2 px-4 py-5 text-left text-base font-medium leading-snug transition-colors duration-150 ${style} ${submitted ? "cursor-default" : "cursor-pointer"}`}
             >

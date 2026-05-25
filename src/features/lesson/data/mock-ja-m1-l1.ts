@@ -1,34 +1,36 @@
 import type { LessonContent, LessonStep } from "../types";
 import { getTtsUrl } from "@/shared/japanese/tts";
-import { correctSlot, listeningComp } from "./_consonantRowHelpers";
+import { correctSlot, listeningComp, speaking } from "./_consonantRowHelpers";
+import { assertNoConsecutiveSame } from "./_jaGrammarHelpers";
 
 /**
- * Vowels: あ い う え お — two sub-lessons (~10 minutes total).
+ * Vowels: あ い う え お — three sub-lessons (~18 steps each, ~15 minutes total).
  *
- * Structure (2026-05-16 R2):
- *   1/2 — per vowel: intro → trace (min 2 passes, one card) → recognition
- *         (audio→kana, preview-on-tap kana buttons). Interleaved with
- *         listening_build word introductions (あい, いえ, あおい, うえ).
- *         Final round: symbol_to_sound (kana→romaji) per vowel — harder
- *         direction, comes after recognition is solid.
- *   2/2 — one trace per vowel, recognition pass-through, listening_build
- *         for the four vowel-only words (incl いいえ), listening_comp on
- *         meanings, final symbol_to_sound round.
- *
- * Why this order: easier progression. Audio→kana (recognition) is more
- * concrete because the user hears the target. Kana→romaji (symbol_to_sound)
- * forces recall from a visual prompt — push it later when the kana is
- * familiar.
+ * Structure (2026-05-24 R4 — expanded to 3 sub-lessons):
+ *   1/3 — Introduce あ い う: symbolIntro → traceTwice → immediate retrieval
+ *         per kana. Build first words: あい (love), いう (to say). Speaking
+ *         on あい, listening comprehension, win card.
+ *   2/3 — Introduce え お: symbolIntro → traceTwice → retrieval per kana.
+ *         Light review of あ い う (recognition MCQs). Build words using
+ *         all 5: いえ (house), あおい (blue), うえ (above). Speaking on いえ,
+ *         win card.
+ *   3/3 — Full review: NO new introductions. Pure retrieval + production
+ *         across all 5 vowels and all learned words. symbolToSound for all
+ *         5, listeningBuild, wordImageMcq, listeningComp, speaking on あおい
+ *         and いいえ, reviewMatchPairs for all 5 vowels. Fast-paced,
+ *         varied, confidence-building. Identity-anchored win card.
  *
  * Conventions:
  *   - All symbol_to_sound + symbol_recognition use the 2026-05-16 revamp:
  *     buttons preview their OWN audio on tap, separate Check button.
  *   - Tile bank for listening_build is vowel-only.
- *   - IDs `ja-m1-l1-1` / `ja-m1-l1-2` match the row-cluster pattern so
- *     they group visually as one row with two progress dots. Review-tail
- *     augmentation is gated by checking the rowId is a real curriculum
- *     row (see `mockLessons.ts`), so these don't accidentally pick up a
- *     tail for the non-existent "l1" row.
+ *   - IDs `ja-m1-l1-1` / `ja-m1-l1-2` / `ja-m1-l1-3` match the row-cluster
+ *     pattern so they group visually as one row with three progress dots.
+ *     Review-tail augmentation is gated by checking the rowId is a real
+ *     curriculum row (see `mockLessons.ts`), so these don't accidentally
+ *     pick up a tail for the non-existent "l1" row.
+ *   - assertNoConsecutiveSame at file bottom guards against monotony
+ *     spikes (max 2 consecutive of any watched type).
  */
 
 const VOWEL_TILES = ["あ", "い", "う", "え", "お"];
@@ -45,8 +47,8 @@ const ALL_VOWELS = [
 /**
  * Closed-set vocab pool for word_image_mcq distractors in the vowel
  * lessons. Per user direction (2026-05-16): every word_image_mcq option
- * is drawn from this set, so by the end of the two sub-lessons the user
- * has seen each of the 5 vowel-words ~4 times across MCQ + build steps.
+ * is drawn from this set, so by the end of the three sub-lessons the user
+ * has seen each of the 5 vowel-words multiple times across MCQ + build steps.
  *
  * Noto Emoji choices:
  *   あい  → ❤️   heart
@@ -55,6 +57,7 @@ const ALL_VOWELS = [
  *   あおい → 🔵   blue circle (color swatch, unambiguous)
  *   いいえ → 🙅   person gesturing "no" (chose over ❌ to avoid the
  *                 "wrong answer" connotation in a learning UI)
+ *   いう  → 🗣️   speaking (the "to say" sense)
  */
 type VowelWord = {
   kana: string;
@@ -68,6 +71,7 @@ const VOWEL_WORDS: VowelWord[] = [
   { kana: "うえ",   meaningEn: "above", emoji: "⬆️" },
   { kana: "あおい", meaningEn: "blue",  emoji: "🔵" },
   { kana: "いいえ", meaningEn: "no",    emoji: "🙅" },
+  { kana: "いう",   meaningEn: "to say", emoji: "🗣️" },
 ];
 
 function pickThreeDistractors(symbol: string) {
@@ -205,28 +209,6 @@ function traceTwice(
   };
 }
 
-function traceOnce(
-  id: string,
-  symbol: string,
-  romanization: string,
-  hint: string,
-): LessonStep {
-  return {
-    id,
-    type: "symbol_trace",
-    payload: {
-      symbol,
-      romanization,
-      ipa: "",
-      hint,
-      scriptId: "hiragana",
-      hasStrokeOrder: true,
-    },
-    showGuide: true,
-    minCorrectAttempts: 1,
-  };
-}
-
 /**
  * word_image_mcq — 2×2 grid of word options. User reads "What is the
  * word for 'X'?", taps to preview audio + see kana, commits with Check.
@@ -284,9 +266,29 @@ function listeningBuild(
   };
 }
 
+/**
+ * Vowel-specific match_pairs step — matches kana to romaji. Unlike the
+ * grammar-spine `reviewMatchPairs` which maps kana→meaningEn, this maps
+ * each vowel symbol to its romanization for kana literacy drilling.
+ */
+function vowelMatchPairs(id: string): LessonStep {
+  return {
+    id,
+    type: "match_pairs",
+    prompt: "Match each kana to its sound",
+    playAudioOnSelect: true,
+    pairs: ALL_VOWELS.map((v, i) => ({
+      id: `p-${i}`,
+      source: v.symbol,
+      target: v.romaji,
+      sourceAnnotation: [{ surface: v.symbol, reading: v.symbol }],
+    })),
+  };
+}
+
 /* ────────────────────────────────────────────────────────────────────────
- * Sub-lesson 1/2 — intro+trace+recognition per vowel, build words inline,
- *                  final symbol_to_sound round.
+ * Sub-lesson 1/3 — Introduce あ い う, first words, speaking + listening.
+ *                  ~18 steps.
  * ──────────────────────────────────────────────────────────────────────── */
 
 export const MOCK_LESSON_JA_M1_L1A: LessonContent = {
@@ -294,79 +296,70 @@ export const MOCK_LESSON_JA_M1_L1A: LessonContent = {
   moduleId: "m1",
   courseId: "mock-1",
   languageId: "ja",
-  title: "Vowels — Intro 1",
+  title: "Vowels — あ い う",
   description:
-    "Meet the five Japanese vowels and your first words: love, house, blue, above.",
+    "Meet the first three Japanese vowels and your first words: love, to say.",
   estimatedMinutes: 5,
   xpReward: 12,
-  introducesVocabIds: ["ai", "ie", "ue", "aoi"],
+  introducesVocabIds: ["ai", "iu"],
   steps: [
+    // 1. Welcome
     {
-      id: "ja-l1a-info-0",
+      id: "ja-vowel-1-info-0",
       type: "info",
       title: "Welcome to Japanese!",
       body:
-        "You'll learn the five vowels — あ い う え お — and your first four words built from them. Trace each kana, find its sound, then assemble words you hear.",
+        "You'll learn the five vowels — あ い う え お — across three short lessons. Let's start with the first three: あ, い, う.",
       variant: "culture",
     },
 
-    // a + i pair, then build love
-    symbolIntro("ja-l1a-intro-a", "あ", "a", "/a/", "like 'a' in 'father'", "あい (love)"),
-    traceTwice("ja-l1a-trace-a", "あ", "a", "like 'a' in 'father'"),
-    recognition("ja-l1a-recog-a", "あ", "a", "like 'a' in 'father'"),
+    // 2-4. あ (a): intro → trace × 2 → recognition
+    symbolIntro("ja-vowel-1-intro-a", "あ", "a", "/a/", "like 'a' in 'father'", "あい (love)"),
+    traceTwice("ja-vowel-1-trace-a", "あ", "a", "like 'a' in 'father'"),
+    recognition("ja-vowel-1-recog-a", "あ", "a", "like 'a' in 'father'"),
 
-    symbolIntro("ja-l1a-intro-i", "い", "i", "/i/", "like 'ee' in 'see'", "いえ (house)"),
-    traceTwice("ja-l1a-trace-i", "い", "i", "like 'ee' in 'see'"),
-    recognition("ja-l1a-recog-i", "い", "i", "like 'ee' in 'see'"),
+    // 5-7. い (i): intro → trace × 2 → wordImageMcq (uses あい to preview)
+    symbolIntro("ja-vowel-1-intro-i", "い", "i", "/i/", "like 'ee' in 'see'", "いう (to say)"),
+    traceTwice("ja-vowel-1-trace-i", "い", "i", "like 'ee' in 'see'"),
+    wordImageMcq("ja-vowel-1-mcq-ai", "あい"),
 
-    // Word discovery — MCQ FIRST (emoji + audio + kana), then build it.
-    wordImageMcq("ja-l1a-mcq-ai", "あい"),
-    listeningBuild("ja-l1a-build-ai", "あい", "love", VOWEL_TILES),
+    // 8-10. う (u): intro → trace × 2 → recognition
+    symbolIntro("ja-vowel-1-intro-u", "う", "u", "/ɯ/", "like 'oo' in 'food', lips unrounded", "うえ (above)"),
+    traceTwice("ja-vowel-1-trace-u", "う", "u", "like 'oo' in 'food'"),
+    recognition("ja-vowel-1-recog-u", "う", "u", "like 'oo' in 'food'"),
 
-    // u + e pair, then build house
-    symbolIntro("ja-l1a-intro-u", "う", "u", "/ɯ/", "like 'oo' in 'food', lips unrounded", "うえ (above)"),
-    traceTwice("ja-l1a-trace-u", "う", "u", "like 'oo' in 'food'"),
-    recognition("ja-l1a-recog-u", "う", "u", "like 'oo' in 'food'"),
+    // 11-12. Build first words: あい (love), いう (to say)
+    listeningBuild("ja-vowel-1-build-ai", "あい", "love", VOWEL_TILES),
+    listeningBuild("ja-vowel-1-build-iu", "いう", "to say", VOWEL_TILES),
 
-    symbolIntro("ja-l1a-intro-e", "え", "e", "/e/", "like 'e' in 'bed'", "いえ (house)"),
-    traceTwice("ja-l1a-trace-e", "え", "e", "like 'e' in 'bed'"),
-    recognition("ja-l1a-recog-e", "え", "e", "like 'e' in 'bed'"),
+    // 13. Speaking: あい
+    speaking("ja-vowel-1-speak-ai", "あい", "love"),
 
-    wordImageMcq("ja-l1a-mcq-ie", "いえ"),
-    listeningBuild("ja-l1a-build-ie", "いえ", "house", VOWEL_TILES),
+    // 14-15. Listening comprehension
+    listeningComp("ja-vowel-1-lc-ai", "あい", "ai", "love", ["to say", "house", "above"]),
+    listeningComp("ja-vowel-1-lc-iu", "いう", "iu", "to say", ["love", "house", "blue"]),
 
-    // o, then build blue + above
-    symbolIntro("ja-l1a-intro-o", "お", "o", "/o/", "like 'o' in 'or'", "あおい (blue)"),
-    traceTwice("ja-l1a-trace-o", "お", "o", "like 'o' in 'or'"),
-    recognition("ja-l1a-recog-o", "お", "o", "like 'o' in 'or'"),
+    // 16. MCQ on いう
+    wordImageMcq("ja-vowel-1-mcq-iu", "いう"),
 
-    wordImageMcq("ja-l1a-mcq-aoi", "あおい"),
-    listeningBuild("ja-l1a-build-aoi", "あおい", "blue", VOWEL_TILES),
-    wordImageMcq("ja-l1a-mcq-ue", "うえ"),
-    listeningBuild("ja-l1a-build-ue", "うえ", "above", VOWEL_TILES),
+    // 17. Recognition recall あ
+    recognition("ja-vowel-1-recog-a2", "あ", "a", "like 'a' in 'father'"),
 
-    // Final round — harder direction (kana → romaji). They've drilled
-    // recognition all lesson; now flip the prompt.
-    symbolToSound("ja-l1a-sts-a", "あ", "a", "like 'a' in 'father'"),
-    symbolToSound("ja-l1a-sts-i", "い", "i", "like 'ee' in 'see'"),
-    symbolToSound("ja-l1a-sts-u", "う", "u", "like 'oo' in 'food'"),
-    symbolToSound("ja-l1a-sts-e", "え", "e", "like 'e' in 'bed'"),
-    symbolToSound("ja-l1a-sts-o", "お", "o", "like 'o' in 'or'"),
-
+    // 18. Win card
     {
-      id: "ja-l1a-info-end",
+      id: "ja-vowel-1-info-end",
       type: "info",
-      title: "Halfway through vowels",
+      title: "Three down, two to go!",
       body:
-        "Nice — you've met all five vowels and built four words. The next sub-lesson reinforces them.",
-      variant: "default",
+        "You've learned あ, い, う — and built your first words: あい (love) and いう (to say). Next up: え and お.",
+      variant: "win",
     },
   ],
 };
 
 /* ────────────────────────────────────────────────────────────────────────
- * Sub-lesson 2/2 — one trace pass, recognition pass, listening_builds
- *                  (adds いいえ), listening_comp, final symbol_to_sound.
+ * Sub-lesson 2/3 — Introduce え お, light review of あ い う, build words
+ *                  with all 5 vowels. ~18 steps.
  * ──────────────────────────────────────────────────────────────────────── */
 
 export const MOCK_LESSON_JA_M1_L1B: LessonContent = {
@@ -374,71 +367,158 @@ export const MOCK_LESSON_JA_M1_L1B: LessonContent = {
   moduleId: "m1",
   courseId: "mock-1",
   languageId: "ja",
-  title: "Vowels — Intro 2",
+  title: "Vowels — え お",
   description:
-    "Trace each vowel one more time, build four vowel-only words, and lock in the meanings.",
+    "Meet the last two vowels and build words using all five: house, blue, above.",
   estimatedMinutes: 5,
   xpReward: 12,
-  introducesVocabIds: ["iie"],
+  introducesVocabIds: ["ie", "aoi", "ue"],
   steps: [
+    // 1. Intro
     {
-      id: "ja-l1b-info-0",
+      id: "ja-vowel-2-info-0",
       type: "info",
-      title: "Vowels — round 2",
+      title: "Two more vowels",
       body:
-        "One more pass through each vowel, then four words to build: 'blue', 'house', 'above', and 'no'.",
+        "You already know あ, い, う. Let's add え and お — then you'll have the full set of five Japanese vowels.",
       variant: "default",
     },
 
-    // One trace per vowel
-    traceOnce("ja-l1b-trace-a", "あ", "a", "like 'a' in 'father'"),
-    traceOnce("ja-l1b-trace-i", "い", "i", "like 'ee' in 'see'"),
-    traceOnce("ja-l1b-trace-u", "う", "u", "like 'oo' in 'food'"),
-    traceOnce("ja-l1b-trace-e", "え", "e", "like 'e' in 'bed'"),
-    traceOnce("ja-l1b-trace-o", "お", "o", "like 'o' in 'or'"),
+    // 2-4. え (e): intro → trace × 2 → recognition
+    symbolIntro("ja-vowel-2-intro-e", "え", "e", "/e/", "like 'e' in 'bed'", "いえ (house)"),
+    traceTwice("ja-vowel-2-trace-e", "え", "e", "like 'e' in 'bed'"),
+    recognition("ja-vowel-2-recog-e", "え", "e", "like 'e' in 'bed'"),
 
-    // Recognition pass-through (audio → kana, easier direction first)
-    recognition("ja-l1b-recog-a", "あ", "a", "like 'a' in 'father'"),
-    recognition("ja-l1b-recog-i", "い", "i", "like 'ee' in 'see'"),
-    recognition("ja-l1b-recog-u", "う", "u", "like 'oo' in 'food'"),
-    recognition("ja-l1b-recog-e", "え", "e", "like 'e' in 'bed'"),
-    recognition("ja-l1b-recog-o", "お", "o", "like 'o' in 'or'"),
+    // 5-7. お (o): intro → trace × 2 → symbolToSound
+    symbolIntro("ja-vowel-2-intro-o", "お", "o", "/o/", "like 'o' in 'or'", "あおい (blue)"),
+    traceTwice("ja-vowel-2-trace-o", "お", "o", "like 'o' in 'or'"),
+    symbolToSound("ja-vowel-2-sts-o", "お", "o", "like 'o' in 'or'"),
 
-    // Four vowel-only word builds (adds いいえ = "no"). Each preceded
-    // by its word_image_mcq so the meaning is recalled before the
-    // tile-assembly drill.
-    wordImageMcq("ja-l1b-mcq-aoi", "あおい"),
-    listeningBuild("ja-l1b-build-aoi", "あおい", "blue", VOWEL_TILES),
-    wordImageMcq("ja-l1b-mcq-ie", "いえ"),
-    listeningBuild("ja-l1b-build-ie", "いえ", "house", VOWEL_TILES),
-    wordImageMcq("ja-l1b-mcq-ue", "うえ"),
-    listeningBuild("ja-l1b-build-ue", "うえ", "above", VOWEL_TILES),
-    wordImageMcq("ja-l1b-mcq-iie", "いいえ"),
-    listeningBuild("ja-l1b-build-iie", "いいえ", "no", VOWEL_TILES_WITH_DOUBLE_I),
+    // 8-10. Light review of あ い う — interleaved with a word MCQ to
+    // avoid 3 consecutive recognition steps.
+    recognition("ja-vowel-2-recog-a", "あ", "a", "like 'a' in 'father'"),
+    recognition("ja-vowel-2-recog-i", "い", "i", "like 'ee' in 'see'"),
+    wordImageMcq("ja-vowel-2-mcq-ie", "いえ"),
+    recognition("ja-vowel-2-recog-u", "う", "u", "like 'oo' in 'food'"),
 
-    // Listening comprehension — hear the word, pick its meaning.
-    // Routed through `listeningComp` factory so the correct slot is
-    // rotated by id hash (not always position 0). Pre-2026-05-18 these
-    // were inline literals with correctOptionId hardcoded to "a".
-    listeningComp("ja-l1b-lc-aoi", "あおい", "aoi", "blue",   ["love", "house", "above"]),
-    listeningComp("ja-l1b-lc-ie",  "いえ",   "ie",  "house",  ["above", "blue", "no"]),
-    listeningComp("ja-l1b-lc-ue",  "うえ",   "ue",  "above",  ["house", "love", "blue"]),
-    listeningComp("ja-l1b-lc-iie", "いいえ", "iie", "no",     ["house", "blue", "love"]),
+    // 11. Build いえ (house)
+    listeningBuild("ja-vowel-2-build-ie", "いえ", "house", VOWEL_TILES),
 
-    // Final symbol_to_sound round — harder direction, kana → romaji
-    symbolToSound("ja-l1b-sts-a", "あ", "a", "like 'a' in 'father'"),
-    symbolToSound("ja-l1b-sts-i", "い", "i", "like 'ee' in 'see'"),
-    symbolToSound("ja-l1b-sts-u", "う", "u", "like 'oo' in 'food'"),
-    symbolToSound("ja-l1b-sts-e", "え", "e", "like 'e' in 'bed'"),
-    symbolToSound("ja-l1b-sts-o", "お", "o", "like 'o' in 'or'"),
+    // 13-14. Build あおい (blue)
+    wordImageMcq("ja-vowel-2-mcq-aoi", "あおい"),
+    listeningBuild("ja-vowel-2-build-aoi", "あおい", "blue", VOWEL_TILES),
 
+    // 15. Build うえ (above)
+    listeningBuild("ja-vowel-2-build-ue", "うえ", "above", VOWEL_TILES),
+
+    // 16. Speaking: いえ
+    speaking("ja-vowel-2-speak-ie", "いえ", "house"),
+
+    // 17. Listening comprehension on あおい
+    listeningComp("ja-vowel-2-lc-aoi", "あおい", "aoi", "blue", ["love", "house", "above"]),
+
+    // 18. Win card
     {
-      id: "ja-l1b-info-end",
+      id: "ja-vowel-2-info-end",
       type: "info",
-      title: "Vowels complete!",
+      title: "All five vowels learned!",
       body:
-        "Five vowels mastered. Five words: あい, いえ, うえ, あおい, いいえ. Next: consonants.",
-      variant: "default",
+        "あ い う え お — you've met them all! Plus three new words: いえ (house), あおい (blue), うえ (above). One more lesson to lock them in.",
+      variant: "win",
     },
   ],
 };
+
+/* ────────────────────────────────────────────────────────────────────────
+ * Sub-lesson 3/3 — Full Review. NO new introductions — pure retrieval
+ *                  and production. Fast-paced, varied, confidence-building.
+ *                  ~18 steps.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+export const MOCK_LESSON_JA_M1_L1C: LessonContent = {
+  id: "ja-m1-l1-3",
+  moduleId: "m1",
+  courseId: "mock-1",
+  languageId: "ja",
+  title: "Vowels — Full Review",
+  description:
+    "Lock in all 5 vowels and every word you've learned — no new material, just mastery.",
+  estimatedMinutes: 5,
+  xpReward: 15,
+  introducesVocabIds: ["iie"],
+  steps: [
+    // 1. Intro
+    {
+      id: "ja-vowel-3-info-0",
+      type: "info",
+      title: "Show what you know",
+      body:
+        "No new kana this time — just speed drills on all five vowels and every word you've built. Let's go!",
+      variant: "default",
+    },
+
+    // 2-6. symbolToSound (see kana → pick romaji) for all 5 vowels
+    symbolToSound("ja-vowel-3-sts-a", "あ", "a", "like 'a' in 'father'"),
+    symbolToSound("ja-vowel-3-sts-i", "い", "i", "like 'ee' in 'see'"),
+    wordImageMcq("ja-vowel-3-mcq-ai", "あい"),
+    symbolToSound("ja-vowel-3-sts-u", "う", "u", "like 'oo' in 'food'"),
+    symbolToSound("ja-vowel-3-sts-e", "え", "e", "like 'e' in 'bed'"),
+
+    // 7-8. listeningBuild: あい, いえ
+    listeningBuild("ja-vowel-3-build-ai", "あい", "love", VOWEL_TILES),
+    listeningBuild("ja-vowel-3-build-ie", "いえ", "house", VOWEL_TILES),
+
+    // 9. symbolToSound for お
+    symbolToSound("ja-vowel-3-sts-o", "お", "o", "like 'o' in 'or'"),
+
+    // 10. wordImageMcq on うえ
+    wordImageMcq("ja-vowel-3-mcq-ue", "うえ"),
+
+    // 11. listeningBuild: あおい
+    listeningBuild("ja-vowel-3-build-aoi", "あおい", "blue", VOWEL_TILES),
+
+    // 12-13. Listening comprehension
+    listeningComp("ja-vowel-3-lc-ie", "いえ", "ie", "house", ["love", "blue", "above"]),
+    listeningComp("ja-vowel-3-lc-aoi", "あおい", "aoi", "blue", ["no", "house", "love"]),
+
+    // 14. Speaking: あおい
+    speaking("ja-vowel-3-speak-aoi", "あおい", "blue"),
+
+    // 15. Build いいえ (no) — capstone word
+    wordImageMcq("ja-vowel-3-mcq-iie", "いいえ"),
+    listeningBuild("ja-vowel-3-build-iie", "いいえ", "no", VOWEL_TILES_WITH_DOUBLE_I),
+
+    // 17. Speaking: いいえ
+    speaking("ja-vowel-3-speak-iie", "いいえ", "no"),
+
+    // 18. reviewMatchPairs: all 5 vowels (kana → romaji)
+    vowelMatchPairs("ja-vowel-3-match"),
+
+    // 19. Identity-anchored win card
+    {
+      id: "ja-vowel-3-info-end",
+      type: "info",
+      title: "You can read all 5 Japanese vowels!",
+      body:
+        "あ い う え お — you can read them, write them, hear them, and say them. Six words down: あい, いう, いえ, うえ, あおい, いいえ. Next: your first consonants.",
+      variant: "win",
+    },
+  ],
+};
+
+/* ────────────────────────────────────────────────────────────────────────
+ * Build-time monotony guard — fails at import if any watched step type
+ * appears 3+ times in a row. Uses the M3-M7 standard watch set expanded
+ * for M1 kana step types.
+ * ──────────────────────────────────────────────────────────────────────── */
+const M1_WATCH: ReadonlyArray<LessonStep["type"]> = [
+  "symbol_trace",
+  "symbol_recognition",
+  "symbol_to_sound",
+  "word_image_mcq",
+  "listening_build",
+  "listening_comprehension",
+];
+assertNoConsecutiveSame(MOCK_LESSON_JA_M1_L1A.steps, 2, M1_WATCH);
+assertNoConsecutiveSame(MOCK_LESSON_JA_M1_L1B.steps, 2, M1_WATCH);
+assertNoConsecutiveSame(MOCK_LESSON_JA_M1_L1C.steps, 2, M1_WATCH);
