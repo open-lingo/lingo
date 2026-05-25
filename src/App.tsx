@@ -92,6 +92,7 @@ const MessengerPage = lazyRetry(
 );
 const ShopPage = lazyRetry(() => import("@/features/shop/ShopPage"));
 const LearnPage = lazyRetry(() => import("@/features/learn/LearnPage"));
+const TravelSprintPage = lazyRetry(() => import("@/features/learn/TravelSprintPage"));
 const AssetTestPage = lazyRetry(() => import("@/features/asset-test/AssetTestPage"));
 const PickerTestPage = lazyRetry(() => import("@/features/picker-test/PickerTestPage"));
 const GetStartedPage = lazyRetry(() => import("@/features/landing/GetStartedPage"));
@@ -254,6 +255,7 @@ const router = createBrowserRouter([
                 children: [
                   { index: true, element: <LearnPage /> },
                   { path: "courses", element: <Navigate to=".." replace /> },
+                  { path: "travel-sprint", element: <TravelSprintPage /> },
                   { path: "lessons/:lessonId", element: <KeyedLessonPage /> },
                 ],
               },

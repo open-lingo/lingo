@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ParticleClozeStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -8,6 +8,7 @@ import { AnnotatedJa } from "@/shared/japanese";
 import { playJaAudio, getTtsUrl } from "@/shared/japanese/tts";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
 
@@ -33,6 +34,22 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
   const [celebrationText, setCelebrationText] = useState("");
 
   const isCorrect = selected === step.correctParticle;
+
+  const handleEnter = useCallback(() => {
+    if (!submitted && selected) handleSubmit();
+    else if (submitted && !celebrating) onContinue();
+  }, [submitted, selected, celebrating]);
+
+  useLessonKeyboard({
+    onEnter: handleEnter,
+    onNumber: (n) => {
+      if (!submitted && n <= step.options.length) {
+        setSelected(step.options[n - 1]);
+      }
+    },
+    enabled: !celebrating,
+  });
+
   const fullAudio = step.audioText ?? null;
   const hasFullAudio = !!fullAudio && !!getTtsUrl(fullAudio);
 

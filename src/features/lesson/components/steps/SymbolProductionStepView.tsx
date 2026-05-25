@@ -8,6 +8,7 @@ import { logAlphabetEvent } from "@/features/practice/alphabet/alphabetAnalytics
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { ProgressDots } from "../ProgressDots";
 import { useCanvasSize } from "../useCanvasSize";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 /** Celebration window between final pass and Continue button. */
 const CELEBRATE_MS = 1100;
@@ -142,6 +143,13 @@ export function SymbolProductionStepView({
     if (passed) onComplete(step.id, true);
     onContinue();
   }, [passed, step.id, onComplete, onContinue]);
+
+  const handleKeyEnter = useCallback(() => {
+    if (done) handleContinue();
+    else if (!celebrating) handleCheck();
+  }, [done, celebrating, handleContinue, handleCheck]);
+
+  useLessonKeyboard({ onEnter: handleKeyEnter, enabled: !celebrating });
 
   return (
     <div className="flex flex-1 flex-col gap-3">

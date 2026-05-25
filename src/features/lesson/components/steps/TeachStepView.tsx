@@ -3,6 +3,7 @@ import { ContinueButton } from "../ContinueButton";
 import { AnnotatedJa } from "@/shared/japanese";
 import { getTtsUrl, useAutoPlayJaAudio, playJaAudio } from "@/shared/japanese/tts";
 import { Icon } from "@/shared/components/Icon";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 type Props = {
   step: TeachStep;
@@ -10,6 +11,7 @@ type Props = {
 };
 
 export function TeachStepView({ step, onContinue }: Props) {
+  useLessonKeyboard({ onEnter: onContinue });
   const { content } = step;
   const { vocab } = content;
   const ttsUrl = vocab ? getTtsUrl(vocab.term) : null;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import type { WordImageMcqStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
@@ -6,6 +6,7 @@ import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { useTranslation } from "react-i18next";
 import { notoEmojiUrl, lingoArtUrl } from "@/shared/assets/notoEmoji";
 import { playJaAudio, getTtsUrl } from "@/shared/japanese/tts";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
 
@@ -40,6 +41,21 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   const [celebrationText, setCelebrationText] = useState("");
 
   const isCorrect = selected === step.correctOptionId;
+
+  const handleEnter = useCallback(() => {
+    if (!submitted && selected) handleSubmit();
+    else if (submitted && !celebrating) onContinue();
+  }, [submitted, selected, celebrating]);
+
+  useLessonKeyboard({
+    onEnter: handleEnter,
+    onNumber: (n) => {
+      if (!submitted && n <= step.options.length) {
+        handleTap(step.options[n - 1].id, step.options[n - 1].word);
+      }
+    },
+    enabled: !celebrating,
+  });
 
   function handleTap(optId: string, word: string) {
     if (submitted) return;

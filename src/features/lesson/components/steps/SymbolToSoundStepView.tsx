@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { SymbolToSoundStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -7,6 +7,7 @@ import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { getTtsUrl } from "@/shared/japanese/tts";
 import { getAlphabetAudioUrl } from "@/shared/audio/alphabetAudio";
 import { playLocalAudio } from "@/shared/audio/volume";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
 
@@ -72,6 +73,19 @@ export function SymbolToSoundStepView({
       window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
     }
   }
+
+  const handleEnter = useCallback(() => {
+    if (!submitted && selected) handleSubmit();
+    else if (submitted && !celebrating) onContinue();
+  }, [submitted, selected, celebrating, onContinue]);
+
+  useLessonKeyboard({
+    onEnter: handleEnter,
+    onNumber: (n) => {
+      if (!submitted && n <= step.options.length) handleOptionTap(step.options[n - 1]);
+    },
+    enabled: !celebrating,
+  });
 
   const optionCount = step.options.length;
   const optionGridCols =

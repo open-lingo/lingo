@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { MultipleChoiceStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -13,6 +13,7 @@ import {
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { stepHasSentenceContent } from "../../data/_stepPredicates";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
 
@@ -31,10 +32,22 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
 
   const isCorrect = selected === step.correctOptionId;
 
-  // Auto-play prompt audio 500ms after mount. Either an explicit
-  // promptAudioText (audio-first drills) or — when the prompt itself is
-  // pure Japanese — the prompt string.
   useAutoPlayJaAudio(step.promptAudioText, `mc-${step.id}`);
+
+  const handleEnter = useCallback(() => {
+    if (!submitted && selected) handleSubmit();
+    else if (submitted && !celebrating) onContinue();
+  }, [submitted, selected, celebrating]);
+
+  useLessonKeyboard({
+    onEnter: handleEnter,
+    onNumber: (n) => {
+      if (!submitted && n <= step.options.length) {
+        setSelected(step.options[n - 1].id);
+      }
+    },
+    enabled: !celebrating,
+  });
 
   function handleSubmit() {
     if (!selected) return;

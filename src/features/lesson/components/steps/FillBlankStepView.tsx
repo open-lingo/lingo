@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import type { FillBlankStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { AnnotatedJa } from "@/shared/japanese";
 import { ExplainButton } from "../ExplainButton";
 import { stepHasSentenceContent } from "../../data/_stepPredicates";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 type Props = {
   step: FillBlankStep;
@@ -36,6 +37,13 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
     setSubmitted(true);
     onComplete(step.id, isCorrect);
   }
+
+  const handleEnter = useCallback(() => {
+    if (!submitted && allFilled) handleSubmit();
+    else if (submitted) onContinue();
+  }, [submitted, allFilled, onContinue]);
+
+  useLessonKeyboard({ onEnter: handleEnter });
 
   const parts = step.sentence.split("{{blank}}");
   const hasSubmittedWrong = submitted && !isCorrect;

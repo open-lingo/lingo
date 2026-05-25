@@ -22,6 +22,8 @@ export type UserSettings = {
     reducedMotion: boolean;
     /** When true, applies Atkinson Hyperlegible as the UI font for improved readability. */
     dyslexiaFont: boolean;
+    /** Global font-size scale factor. 1.0 = default (16px). Range 0.85–1.4. */
+    fontSize?: number;
   };
   audio: {
     soundEnabled: boolean;

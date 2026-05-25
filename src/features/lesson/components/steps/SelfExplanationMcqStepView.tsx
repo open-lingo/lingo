@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { SelfExplanationMcqStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -7,6 +7,7 @@ import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedJa } from "@/shared/japanese";
 import { getTtsUrl, playJaAudio } from "@/shared/japanese/tts";
 import { Icon } from "@/shared/components/Icon";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
 
@@ -51,7 +52,22 @@ export function SelfExplanationMcqStepView({ step, onComplete, onContinue }: Pro
 
   const selectedOpt = orderedOptions.find((o) => o.id === selected);
   const isCorrect = selected === step.correctOptionId;
-  const missType = selectedOpt?.reasonType; // only meaningful when wrong
+  const missType = selectedOpt?.reasonType;
+
+  const handleEnter = useCallback(() => {
+    if (!submitted && selected) handleSubmit();
+    else if (submitted && !celebrating) onContinue();
+  }, [submitted, selected, celebrating]);
+
+  useLessonKeyboard({
+    onEnter: handleEnter,
+    onNumber: (n) => {
+      if (!submitted && n <= orderedOptions.length) {
+        setSelected(orderedOptions[n - 1].id);
+      }
+    },
+    enabled: !celebrating,
+  });
 
   const anchorAudioAvailable =
     !!step.anchor.audioText && !!getTtsUrl(step.anchor.audioText);

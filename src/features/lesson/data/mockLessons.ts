@@ -101,6 +101,10 @@ import {
   MOCK_LESSON_JA_M2_YOON_RARE_3,
 } from "./mock-ja-m2-yoon-rare";
 import { MOCK_LESSON_JA_SIDEQUEST_SURVIVAL } from "./mock-ja-sidequest-survival";
+import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_NAVIGATION } from "./mock-ja-sidequest-travel-navigation";
+import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_ORDERING } from "./mock-ja-sidequest-travel-ordering";
+import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_HELP } from "./mock-ja-sidequest-travel-help";
+import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_SHOPPING } from "./mock-ja-sidequest-travel-shopping";
 import {
   M3_1_1,
   M3_1_2,
@@ -280,6 +284,10 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m1-yoon-rare-3": MOCK_LESSON_JA_M2_YOON_RARE_3,
   // Sidequest lessons — day-1 unlocks, no row/module attachment.
   "ja-sidequest-survival-phrases": MOCK_LESSON_JA_SIDEQUEST_SURVIVAL,
+  "ja-sidequest-travel-navigation": MOCK_LESSON_JA_SIDEQUEST_TRAVEL_NAVIGATION,
+  "ja-sidequest-travel-ordering": MOCK_LESSON_JA_SIDEQUEST_TRAVEL_ORDERING,
+  "ja-sidequest-travel-help": MOCK_LESSON_JA_SIDEQUEST_TRAVEL_HELP,
+  "ja-sidequest-travel-shopping": MOCK_LESSON_JA_SIDEQUEST_TRAVEL_SHOPPING,
   // M3-M7 — grammar-spine modules (restructure 2026-05-16). Hand-authored
   // and registered explicitly. The augmentWithReviewTail helper skips them
   // because their ids don't match `ja-mN-{rowId}-{suffix}`.

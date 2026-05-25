@@ -697,6 +697,25 @@
   color: white;
 }
 
+.lingo-quest-card.featured {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-accent, #059669) 12%, var(--color-surface))
+      0%,
+    color-mix(in srgb, var(--color-info, #0ea5e9) 8%, var(--color-surface))
+      100%
+  );
+  border-color: var(--color-accent, #059669);
+  border-width: 0.125rem;
+}
+.lingo-quest-card.featured .lingo-quest-emoji {
+  background: var(--color-accent, #059669);
+  color: white;
+}
+.lingo-quest-card.featured .lingo-quest-title {
+  color: var(--color-accent, #059669);
+}
+
 /* ---------------------------------------------------------------- row clusters */
 
 /* Sub-lesson progress dots — sit to the LEFT of the disc, vertically

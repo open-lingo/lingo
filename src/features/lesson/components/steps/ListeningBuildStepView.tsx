@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { ListeningBuildStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -9,6 +9,7 @@ import { getTtsUrl } from "@/shared/japanese/tts";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
 
@@ -84,6 +85,13 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
       window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
     }
   }
+
+  const handleEnter = useCallback(() => {
+    if (!submitted && placed.length > 0) handleSubmit();
+    else if (submitted && !celebrating) onContinue();
+  }, [submitted, placed.length, celebrating, onContinue]);
+
+  useLessonKeyboard({ onEnter: handleEnter, enabled: !celebrating });
 
   const audioUrl = getTtsUrl(step.targetSentence);
   function handlePlay() {

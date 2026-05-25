@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ListeningComprehensionStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -8,6 +8,7 @@ import { getTtsUrl } from "@/shared/japanese/tts";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
 
@@ -25,6 +26,21 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
   const [celebrationText, setCelebrationText] = useState("");
 
   const isCorrect = selected === step.correctOptionId;
+
+  const handleEnter = useCallback(() => {
+    if (!submitted && selected) handleSubmit();
+    else if (submitted && !celebrating) onContinue();
+  }, [submitted, selected, celebrating]);
+
+  useLessonKeyboard({
+    onEnter: handleEnter,
+    onNumber: (n) => {
+      if (!submitted && n <= step.options.length) {
+        setSelected(step.options[n - 1].id);
+      }
+    },
+    enabled: !celebrating,
+  });
 
   const audioUrl = step.transcript ? getTtsUrl(step.transcript) : null;
 

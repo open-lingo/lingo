@@ -164,12 +164,12 @@ export function getMockCourse(languageId: string): Course {
         progress: 0,
       },
       {
-        id: "travel-specifics",
+        id: "ja-travel-sprint",
         emoji: "✈️",
-        title: "Travel Specifics",
-        meta: "10 words · subway, hotel, taxi",
-        unlockAfter: "ja-m1-complete",
+        title: "Travel Sprint",
+        meta: "4 lessons · listen & speak · Pimsleur-style",
         progress: 0,
+        featured: true,
       },
       {
         id: "festivals-culture",

@@ -13,6 +13,13 @@ export function SideQuestCard({ quest, locked, onClick }: SideQuestCardProps) {
   const ringStyle: CSSProperties = {
     ["--p" as never]: `${Math.max(0, Math.min(100, quest.progress))}%`,
   } as CSSProperties;
+  const cls = [
+    "lingo-quest-card",
+    quest.isDaily ? "daily" : "",
+    quest.featured ? "featured" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
   return (
     <button
       type="button"
@@ -21,7 +28,7 @@ export function SideQuestCard({ quest, locked, onClick }: SideQuestCardProps) {
       }}
       disabled={locked}
       data-locked={locked}
-      className={`lingo-quest-card${quest.isDaily ? " daily" : ""}`}
+      className={cls}
     >
       <div className="lingo-quest-emoji" aria-hidden>
         {quest.emoji}

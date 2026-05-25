@@ -5,6 +5,7 @@ import { playJaAudio, useAutoPlayJaAudio, getTtsUrl } from "@/shared/japanese/tt
 import { ContinueButton } from "../ContinueButton";
 import { lookupKanaEmoji, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import { playSfx } from "@/shared/audio/sfx";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 type Props = {
   step: PhraseCardStep;
@@ -18,7 +19,13 @@ type Props = {
  * not know kana yet).
  */
 export function PhraseCardStepView({ step, onContinue }: Props) {
-  // Auto-play on mount (de-duplicated per step.id by the hook).
+  useLessonKeyboard({
+    onEnter: () => {
+      playSfx("passive-advance");
+      onContinue();
+    },
+  });
+
   useAutoPlayJaAudio(step.kana, `phrase-${step.id}`);
 
   // Cheap guard: if the manifest is missing this audio, the play button

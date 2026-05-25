@@ -255,7 +255,20 @@ export function LearnPage() {
   const SIDEQUEST_TO_LESSON: Record<string, string> = {
     "ja-survival-phrasebook": "ja-sidequest-survival-phrases",
   };
+  const SIDEQUEST_TO_ROUTE: Record<string, string> = {
+    "ja-travel-sprint": "learn/travel-sprint",
+  };
+  const TRAVEL_SPRINT_LESSONS = [
+    "ja-sidequest-travel-navigation",
+    "ja-sidequest-travel-ordering",
+    "ja-sidequest-travel-help",
+    "ja-sidequest-travel-shopping",
+  ];
   const sideQuests: SideQuest[] = (course.sideQuests ?? []).map((q) => {
+    if (q.id === "ja-travel-sprint") {
+      const done = TRAVEL_SPRINT_LESSONS.filter((l) => completedSet.has(l)).length;
+      return { ...q, progress: Math.round((done / TRAVEL_SPRINT_LESSONS.length) * 100) };
+    }
     const lessonId = SIDEQUEST_TO_LESSON[q.id];
     if (lessonId && completedSet.has(lessonId)) {
       return { ...q, progress: 100 };
@@ -263,6 +276,11 @@ export function LearnPage() {
     return q;
   });
   const onSideQuestClick = (quest: SideQuest) => {
+    const route = SIDEQUEST_TO_ROUTE[quest.id];
+    if (route) {
+      navigate(langPath(route));
+      return;
+    }
     const lessonId = SIDEQUEST_TO_LESSON[quest.id];
     if (!lessonId) return;
     navigate(langPath(`learn/lessons/${lessonId}`));

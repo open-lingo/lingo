@@ -1,6 +1,7 @@
 import type { InfoStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { playSfx } from "@/shared/audio/sfx";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 type Props = {
   step: InfoStep;
@@ -52,6 +53,8 @@ export function InfoStepView({ step, onContinue }: Props) {
   const v = variantConfig[step.variant ?? "default"];
   const variant = step.variant ?? "default";
   const isHero = variant === "culture" || variant === "win";
+
+  useLessonKeyboard({ onEnter: () => handleContinue() });
 
   const handleContinue = () => {
     // Passive — non-progress chirp + light haptic. See sfx.ts.

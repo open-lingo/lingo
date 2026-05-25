@@ -5,6 +5,7 @@ import { ContinueButton } from "../ContinueButton";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedJa } from "@/shared/japanese";
 import { playJaAudio, getTtsUrl } from "@/shared/japanese/tts";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
 
@@ -73,6 +74,13 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
   const allMatched = matched.size === step.pairs.length;
   const failed = mistakes >= MAX_MISTAKES;
   const finished = allMatched || failed;
+
+  useLessonKeyboard({
+    onEnter: () => {
+      if (finished && !celebrating) onContinue();
+    },
+    enabled: finished && !celebrating,
+  });
 
   // Auto-complete on either pass (all matched, <MAX mistakes) or fail
   // (>=MAX mistakes mid-grid). Pass criterion is now "no fail" so the

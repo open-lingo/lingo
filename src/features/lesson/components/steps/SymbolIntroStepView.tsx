@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { SymbolIntroStep } from "../../types";
 import { Icon } from "@/shared/components/Icon";
 import { ContinueButton } from "../ContinueButton";
@@ -19,6 +19,7 @@ import {
   useStrokeAnimation,
   type SymbolReference,
 } from "@/shared/glyphs";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 type Props = {
   step: SymbolIntroStep;
@@ -32,10 +33,10 @@ const INTRO_STROKE_PX = 18;
 export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
   const { payload } = step;
 
-  const handleContinue = () => {
+  const handleContinue = useCallback(() => {
     onComplete(step.id, true);
     onContinue();
-  };
+  }, [step.id, onComplete, onContinue]);
   const [reference, setReference] = useState<SymbolReference>(() =>
     getSystemFontReferenceFor(payload.symbol),
   );
@@ -78,6 +79,11 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
   // No animation = nothing to wait on. Continue is enabled immediately
   // for system-font fallback rendering.
   const continueReady = !showAnimated || animationSeen;
+
+  useLessonKeyboard({
+    onEnter: handleContinue,
+    enabled: continueReady,
+  });
 
   function handlePlay() {
     // Replay both: audio + stroke animation, so the learner gets the

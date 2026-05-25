@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
@@ -225,6 +225,34 @@ export function FlashcardTester() {
     },
     [card, cardIdToDefaultEase, testedModality],
   );
+
+  const handleRateRef = useRef(handleRate);
+  handleRateRef.current = handleRate;
+  const flippedRef = useRef(flipped);
+  flippedRef.current = flipped;
+
+  useEffect(() => {
+    function handler(e: KeyboardEvent) {
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        if (!flippedRef.current) setFlipped(true);
+        return;
+      }
+      if (flippedRef.current) {
+        const ratings: SRSRating[] = ["again", "hard", "good", "easy"];
+        const n = parseInt(e.key, 10);
+        if (n >= 1 && n <= 4) {
+          e.preventDefault();
+          handleRateRef.current(ratings[n - 1]);
+        }
+      }
+    }
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
 
   const handleRestart = useCallback(() => {
     setIndex(0);

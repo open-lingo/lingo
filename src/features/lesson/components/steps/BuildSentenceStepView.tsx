@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { BuildSentenceStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -7,6 +7,7 @@ import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedJa } from "@/shared/japanese";
 import { useAutoPlayJaAudio } from "@/shared/japanese/tts";
 import { ExplainButton } from "../ExplainButton";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
 
@@ -49,6 +50,16 @@ export function BuildSentenceStepView({ step, onComplete, onContinue }: Props) {
   });
 
   const isCorrect = JSON.stringify(placed) === JSON.stringify(step.correctOrder);
+
+  const handleEnter = useCallback(() => {
+    if (!submitted && placed.length > 0) handleSubmit();
+    else if (submitted && !celebrating) onContinue();
+  }, [submitted, placed.length, celebrating]);
+
+  useLessonKeyboard({
+    onEnter: handleEnter,
+    enabled: !celebrating,
+  });
 
   function addTile(tile: string, originalIndex: number) {
     if (submitted) return;

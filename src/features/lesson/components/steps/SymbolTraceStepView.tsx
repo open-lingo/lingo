@@ -12,6 +12,7 @@ import { Icon } from "@/shared/components/Icon";
 import { autoPlayAlphabetAudio, getAlphabetAudioUrl } from "@/shared/audio/alphabetAudio";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { getTtsUrl, playJaAudio } from "@/shared/japanese/tts";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 /** No horizontal reservation needed — dots now sit in the controls row. */
 const SIDE_DOTS_RESERVED_PX = 0;
@@ -207,6 +208,13 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
     if (passed) onComplete(step.id, true);
     onContinue();
   }, [passed, step.id, onComplete, onContinue]);
+
+  const handleKeyEnter = useCallback(() => {
+    if (done) handleContinue();
+    else if (!celebrating && !checkLocked) handleCheck();
+  }, [done, celebrating, checkLocked, handleContinue, handleCheck]);
+
+  useLessonKeyboard({ onEnter: handleKeyEnter, enabled: !celebrating });
 
   return (
     <div className="flex flex-1 flex-col gap-3">

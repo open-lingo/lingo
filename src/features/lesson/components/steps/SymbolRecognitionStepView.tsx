@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import type { SymbolRecognitionStep } from "../../types";
 import { Icon } from "@/shared/components/Icon";
@@ -15,6 +15,7 @@ import {
   playJaAudio,
   useAutoPlayJaAudio,
 } from "@/shared/japanese/tts";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
 
@@ -73,6 +74,19 @@ export function SymbolRecognitionStepView({
       window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
     }
   }
+
+  const handleEnter = useCallback(() => {
+    if (!submitted && selected) handleSubmit();
+    else if (submitted && !celebrating) onContinue();
+  }, [submitted, selected, celebrating, onContinue]);
+
+  useLessonKeyboard({
+    onEnter: handleEnter,
+    onNumber: (n) => {
+      if (!submitted && n <= step.options.length) setSelected(step.options[n - 1].id);
+    },
+    enabled: !celebrating,
+  });
 
   const hasAudio =
     Boolean(step.payload.audioKey) ||

@@ -9,6 +9,7 @@ import { getTtsUrl, playJaAudio } from "@/shared/japanese/tts";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const TURN_GAP_MS = 400;
 const CELEBRATE_MS = 1100;
@@ -193,6 +194,25 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
   const currentSelection = currentQ ? selectionByQ[currentQ.id] : undefined;
   const currentCorrect =
     currentQ && currentSelection === currentQ.correctOptionId;
+
+  const handleEnter = useCallback(() => {
+    if (!currentCommitted && currentSelection) commitCurrent();
+    else if (currentCommitted && !allCommitted) advanceToNext();
+    else if (allCommitted && !celebrating) onContinue();
+  }, [currentCommitted, currentSelection, allCommitted, celebrating]);
+
+  useLessonKeyboard({
+    onEnter: handleEnter,
+    onNumber: (n) => {
+      if (currentQ && !currentCommitted && n <= currentQ.options.length) {
+        setSelectionByQ((prev) => ({
+          ...prev,
+          [currentQ.id]: currentQ.options[n - 1].id,
+        }));
+      }
+    },
+    enabled: !celebrating,
+  });
 
   // Sentence-level explain affordance — surfaces after any wrong commit on
   // the current question; tracks across questions via committed state.

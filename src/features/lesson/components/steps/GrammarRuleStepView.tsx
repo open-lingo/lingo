@@ -4,6 +4,7 @@ import { AnnotatedJa } from "@/shared/japanese";
 import { getTtsUrl, playJaAudio } from "@/shared/japanese/tts";
 import { Icon } from "@/shared/components/Icon";
 import { playSfx } from "@/shared/audio/sfx";
+import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 type Props = {
   step: GrammarRuleStep;
@@ -22,6 +23,13 @@ type Props = {
  * `particle_cloze` or `multiple_choice`).
  */
 export function GrammarRuleStepView({ step, onContinue }: Props) {
+  useLessonKeyboard({
+    onEnter: () => {
+      playSfx("passive-advance");
+      onContinue();
+    },
+  });
+
   return (
     <div className="flex flex-1 flex-col gap-6">
       <p className="text-xs font-bold uppercase tracking-[0.1em] text-text-muted">

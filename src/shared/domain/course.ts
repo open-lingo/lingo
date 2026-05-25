@@ -61,6 +61,8 @@ export type SideQuest = {
   progress: number;
   /** Styled as the warning-tone "daily" card when true. */
   isDaily?: boolean;
+  /** Highlighted with accent gradient in the sidequest rail. */
+  featured?: boolean;
 };
 
 export type Course = {

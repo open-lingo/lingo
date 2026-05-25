@@ -183,6 +183,32 @@ export function SettingsContent() {
             {t("settings.dyslexiaFont", "Dyslexia-friendly font (Atkinson Hyperlegible)")}
           </span>
         </label>
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-text-primary">
+              {t("settings.fontSize", "Font size")}
+            </span>
+            <span className="text-xs font-medium text-text-muted">
+              {Math.round((settings.accessibility.fontSize ?? 1) * 100)}%
+            </span>
+          </div>
+          <input
+            type="range"
+            min={0.85}
+            max={1.4}
+            step={0.05}
+            value={settings.accessibility.fontSize ?? 1}
+            onChange={(e) =>
+              updateSetting("accessibility.fontSize", parseFloat(e.target.value))
+            }
+            className="w-full accent-accent"
+          />
+          <div className="flex justify-between text-[10px] text-text-muted">
+            <span>85%</span>
+            <span>100%</span>
+            <span>140%</span>
+          </div>
+        </div>
       </section>
 
       <section className="space-y-2">
