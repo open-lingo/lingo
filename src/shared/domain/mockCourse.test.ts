@@ -130,7 +130,7 @@ describe("curriculum lesson counts", () => {
 
   it("content modules sit in order with no review interleave", () => {
     const order = course.modules.map((m) => m.id);
-    expect(order.slice(2)).toEqual(["m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m14", "m15", "m16"]);
+    expect(order.slice(2)).toEqual(["m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m14", "m15", "m16", "m17", "m19", "m21", "m22", "m25"]);
   });
 
   it("yoon-rare-test is the final yōon node before recap", () => {
