@@ -4,6 +4,29 @@ By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **
 
 ## Done (recently)
 
+### 2026-05-25 social / MVP pass
+
+- [x] **Social end-to-end:** `SocialApi` wired through `ApiProvider`; granular TanStack Query hooks; mutations with optimistic updates; Add-Friend silent-422 bug fixed (`to_username`/`to_user_id` snake_case); public profile `/u/:username` with friend-state-aware actions; leaderboards live; threads stub backed by real backend; blocked-users panel in Settings; `UserPreviewPopover` + `AddFriendButton` reused across community surfaces.
+- [x] **Social backend:** reactions endpoint + array on activity items; league spotlight; streak snapshot; invite offer + redeem; threads/messages read; quest-targets. Single `social` table split into `social_friends` + `social_friend_requests` + `social_blocks` + 6 extension tables.
+- [x] **Quests:** types + panel + spotlight + pill (frontend); backend `GET /quests` / `POST /{id}/progress` / `claim` / `refresh` + 6 seeded quests for Trevor + 4 pytests. _Frontend hook still on localStorage — swap is a follow-up._
+- [x] **Backend `api_error` + `require_repo` refactor** rolled across users/admin/community/decks/stories routers.
+- [x] **FSRS-6 SRS migration** (Spencer) — `srs_cards_v2` table with JSON state + computed `due_date` index; Dynamo `state_json` + `dueDate` GSI; legacy SM-2 table dropped on startup.
+- [x] **CORS-via-500 fixed** on `/social/activity` — defensive filter on canonical `ActivityKind` + `expose_headers=*`.
+- [x] **Spanish (`es`) UI locale** — full `es.json` parity with `en.json`; settings picker.
+- [x] **51 new UI primitives** + responsive hooks (`useViewport`/`useMediaQuery`/`useFocusTrap`/`useEscapeKey`); Modal/Sheet/Dialog/Popover/Tooltip/Accordion/Field/Input/Select/Checkbox/Radio/Switch/Slider/Spinner/Skeleton/Badge/Toast/Avatar/SegmentedControl/Pagination/Stepper/FilterBar.
+- [x] **Learn page revamp** — YourPathCard hero with active-module spotlight + per-module fluency strip; map content scrolls in its own region; "back to current lesson" floating button; sidebar capped to viewport with internal scroll. Standalone course-progress card removed.
+- [x] **Ad provider DI** — `AdProvider` interface + `FakeAd`/`AdSense` providers + context; `DailyWelcomeAd` once-per-day banner. _UI deferred per ad-free MVP trial._
+- [x] **Ad-free time module** — lingot SKUs (30m/2h/24h) + grind-detector + AdFreePill in header + shop section. _UI deferred per ad-free MVP trial._
+- [x] **Mobile pass** — header right-cluster collapses below `md`; body-scroll-locked mobile menu; 44px tap-target sweep.
+- [x] **Practice page mocks unified** behind `usePracticeData()` + `useGrammarPracticeData()` hooks with swap-path documented.
+- [x] **Community deck preview regression fixed** — `ContentBrowserPage` now passes `onPreview` / `onStoryPreview` to `CommunityItemCard`.
+- [x] **WeekSparkline / PracticeHubSection visible** — Tailwind alpha-modifier silently dropped on CSS-var hex colors; patched two visible offenders, full tokens.css → channel-triple sweep is a follow-up.
+- [x] **In-app `/docs` route removed** — will live on a separate site.
+- [x] **Design docs:** `leagues-design-2026-05-25.md`, `xp-curve-design-2026-05-25.md`, `cosmetics-design-2026-05-25.md` (lingo-core); `mvp-alignment-review-2026-05-25.md` + `social-engagement-research-2026-05-25.md` (lingo).
+- [x] **Expanded seed:** 20 users, 24 friendships, 5 requests, 1 block, 15 activity items, 21 reactions, 1 invite + 2 redemptions, 2 threads + 9 messages, 6 quests.
+
+### Earlier 2026-05-25
+
 - [x] Lesson progress sync: per-step `recordStepEvent`, draft `draft:{lessonId}`, `materializeOrphanDrafts`, `syncedAt` on mid-lesson sync, SyncManager lessons row (no false failure icon after successful batch)
 - [x] Start over: moved to bottom of Learn page; account-wide copy; `DELETE /progress/me` + local wipe + `DELETE /srs/all`
 - [x] Dev: `</>` Progress JSON overlay on Learn (`LearnProgressJsonOverlay`) — server + local snapshot

@@ -4,7 +4,7 @@ Vite + React 19 + TypeScript + Tailwind language-learning SPA. Talks to `lingo-c
 
 ## Critical orientation
 
-- **Most recent session handoff:** `docs/handoff-2026-05-25.md` — what shipped 2026-05-25 (sub-lesson restructure, SRS review lessons, per-modality flashcards, accessibility pass, 8-persona audit). **Read this first when picking up a thread.**
+- **Most recent session handoff:** `docs/handoff-2026-05-25-social-mvp-pass.md` — what shipped 2026-05-25 in the social/MVP pass (Spanish locale, ad provider DI, ad-free time, 51 UI primitives + responsive hooks, learn page revamp, quests system end-to-end, social page fully wired to backend, community profile previews, public profile route, mobile pass, deck preview restore, practice mock unification, backend api_error refactor, quests + reactions + invites + threads + spotlight endpoints, FSRS-6 SRS migration). **Read this first when picking up a thread.** Earlier handoff `docs/handoff-2026-05-25.md` covers the sub-lesson restructure + SRS review lessons that shipped earlier the same day.
 - **Source of truth for project state:** `docs/PROJECT_STATE.md`. Read this first when starting a feature — the rest of `docs/` is a mix of current planning, stale task specs, and design docs.
 - **Architecture audit + conformance gaps:** `docs/ARCHITECTURE_REVIEW.md` — read before any structural change.
 - **Real-user feedback log:** `docs/user-feedback/` — verbatim tester observations + Spencer's product notes per session. Higher product-signal than the synthesized agent audits; read before any UX-touching change.

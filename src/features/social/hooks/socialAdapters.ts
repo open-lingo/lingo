@@ -201,8 +201,8 @@ export function adaptSpotlight(
     league,
     myRow: weeklyMyRow ?? (s.my_row ? adaptLeaderboardEntry(s.my_row, true) : null),
     rankDeltaToday: s.rank_delta_today,
-    dailyXp: s.daily_xp ?? [],
-    friendMedianDaily: s.friend_median_daily_xp ?? [],
+    dailyXp: Array.isArray(s.daily_xp) ? s.daily_xp : [],
+    friendMedianDaily: Array.isArray(s.friend_median_daily_xp) ? s.friend_median_daily_xp : [],
   };
 }
 
