@@ -50,6 +50,11 @@ export function subscribeLessonProgress(fn: () => void): () => void {
   return () => listeners.delete(fn);
 }
 
+/** Re-read localStorage for the active user and notify UI subscribers. */
+export function refreshLessonProgressFromStorage(): void {
+  notifyProgressChanged();
+}
+
 function loadStore(): ProgressStore {
   if (typeof window === "undefined") return { completed: {} };
   try {

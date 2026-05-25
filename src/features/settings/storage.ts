@@ -77,11 +77,20 @@ export function migrateToSingleKey(userId: string | null): void {
 }
 
 /**
- * Call when auth state is known. If the current user differs from the last stored user,
- * clears user-specific localStorage keys and updates last-user-id.
+ * Call when auth state is settled (not while Auth0 is still loading).
+ * If the current user differs from the last stored user, clears user-specific
+ * localStorage keys and updates last-user-id.
+ *
+ * Passing `null` while auth is loading is a no-op — avoids stomping last-user-id
+ * to "" on hard refresh before `user.sub` is available (which made lesson progress
+ * read the anonymous cache until a full re-login).
  */
-export function ensureUserConsistency(userId: string | null): void {
+export function ensureUserConsistency(
+  userId: string | null,
+  options?: { authLoading?: boolean },
+): void {
   if (typeof window === "undefined") return;
+  if (options?.authLoading) return;
   try {
     const current = norm(userId);
     const last = localStorage.getItem(LAST_USER_KEY) ?? "";

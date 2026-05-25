@@ -3,6 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api";
 import { ensureUserConsistency } from "@/features/settings/storage";
+import { refreshLessonProgressFromStorage } from "@/shared/domain/mockProgress";
 import {
   getPendingAttempts,
   hydrateLessonProgressFromServer,
@@ -12,51 +13,53 @@ import { LESSON_SYNC_INTERVAL_MS } from "./useLessonSyncSession";
 import { setNextLessonSyncAt } from "./engine/lessonStorage";
 
 /**
- * On sign-in: hydrate lesson completions from GET /progress/me, then flush
- * any buffered attempts. While signed in, periodically POST pending attempts
- * (mirrors SRSPendingSync — lesson sync is not limited to the lesson page).
+ * After auth is ready: hydrate lesson completions from GET /progress/me, flush
+ * buffered attempts, and keep pulling while signed in.
  */
 export function LessonProgressHydrate() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, isLoading: authLoading } = useAuth();
   const { progress } = useApi();
   const queryClient = useQueryClient();
-  const ranForUserRef = useRef<string | null>(null);
+  const hydratedForUserRef = useRef<string | null>(null);
 
   useEffect(() => {
     const userId = user?.sub;
-    if (!isAuthenticated || !userId) {
-      ranForUserRef.current = null;
+    if (authLoading || !isAuthenticated || !userId) {
+      if (!authLoading && !isAuthenticated) {
+        hydratedForUserRef.current = null;
+      }
       return;
     }
-    if (ranForUserRef.current === userId) return;
-    ranForUserRef.current = userId;
-    ensureUserConsistency(userId);
 
-    const sync = () =>
-      syncLessonProgressWithServer({
-        batch: (payload) => progress.batchAttempts(payload),
-        getMe: () => progress.getMe(),
-      }).then(() => {
-        void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
-      });
+    ensureUserConsistency(userId, { authLoading: false });
+    refreshLessonProgressFromStorage();
+
+    if (hydratedForUserRef.current === userId) return;
+    hydratedForUserRef.current = userId;
 
     (async () => {
       try {
         await hydrateLessonProgressFromServer(() => progress.getMe());
+        refreshLessonProgressFromStorage();
       } catch {
         /* local cache may still be usable */
       }
       try {
-        await sync();
+        await syncLessonProgressWithServer({
+          batch: (payload) => progress.batchAttempts(payload),
+          getMe: () => progress.getMe(),
+        });
+        refreshLessonProgressFromStorage();
+        void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
       } catch {
-        ranForUserRef.current = null;
+        hydratedForUserRef.current = null;
       }
     })();
-  }, [isAuthenticated, user?.sub, progress, queryClient]);
+  }, [authLoading, isAuthenticated, user?.sub, progress, queryClient]);
 
   // Background flush anywhere in the app when attempts are buffered.
   useEffect(() => {
-    if (!isAuthenticated) return;
+    if (authLoading || !isAuthenticated) return;
 
     const runIfDirty = () => {
       if (getPendingAttempts().length === 0) return;
@@ -65,6 +68,7 @@ export function LessonProgressHydrate() {
         getMe: () => progress.getMe(),
       })
         .then(() => {
+          refreshLessonProgressFromStorage();
           void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
         })
         .catch(() => {});
@@ -79,7 +83,7 @@ export function LessonProgressHydrate() {
       clearInterval(interval);
       setNextLessonSyncAt(null);
     };
-  }, [isAuthenticated, progress, queryClient]);
+  }, [authLoading, isAuthenticated, progress, queryClient]);
 
   return null;
 }

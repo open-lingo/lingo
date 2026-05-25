@@ -251,7 +251,7 @@ function migrateFromLegacy(): Partial<UserSettings> {
 }
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, isLoading: authLoading } = useAuth();
   const { users } = useApi();
   const [settings, setSettingsState] = useState<UserSettings>(DEFAULT_SETTINGS);
   const [isLoading, setIsLoading] = useState(true);
@@ -317,7 +317,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, [isAuthenticated, userId, users]);
+  }, [isAuthenticated, userId, users, authLoading]);
 
   const updateSetting = useCallback(
     (path: string, value: unknown) => {
