@@ -523,7 +523,7 @@ export const M10_2_1: LessonContent = {
     }),
     vocabMcq(
       "ja-m10-2-1-mcq-kesa",
-      { kana: "けさ", meaningEn: "this morning", emoji: "🌅", fromModule: "m7" },
+      { kana: "けさ", meaningEn: "this morning", emoji: "🌅", fromModule: "m10" },
       M10_REVIEW_M5_POOL,
     ),
     // ── ねます → ねました (slept) ──
@@ -1987,7 +1987,7 @@ export const M10_6_1: LessonContent = {
     ),
     vocabMcq(
       "ja-m10-6-1-mcq-kyonen",
-      { kana: "きょねん", meaningEn: "last year", emoji: "📅", fromModule: "m7" },
+      { kana: "きょねん", meaningEn: "last year", emoji: "📅", fromModule: "m10" },
       M10_REVIEW_M5_POOL,
     ),
     // ── Sentences with new time words ──

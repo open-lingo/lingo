@@ -14,7 +14,7 @@ import { HeroSection } from "./HeroSection";
 import { AccountOverviewCard } from "./AccountOverviewCard";
 import { FlashcardsTile } from "./FlashcardsTile";
 import { RecentPracticeTile } from "./RecentPracticeTile";
-import { QuestsCard } from "./QuestsCard";
+// import { QuestsCard } from "./QuestsCard"; // deactivated — mock data only
 import { SocialCard } from "./SocialCard";
 import { CommunityStrip } from "./CommunityStrip";
 
@@ -87,22 +87,18 @@ export function RestructuredHome({ greetingName }: Props) {
         style={{
           gridTemplateAreas: `
             "account account social"
-            "flash quests social"
-            "recent quests social"
+            "flash recent social"
           `,
         }}
       >
         <div style={{ gridArea: "account" }} className="lg:col-span-2">
           <AccountOverviewCard />
         </div>
-        <div style={{ gridArea: "social" }} className="lg:row-span-3">
+        <div style={{ gridArea: "social" }} className="lg:row-span-2">
           <SocialCard />
         </div>
         <div style={{ gridArea: "flash" }}>
           <FlashcardsTile />
-        </div>
-        <div style={{ gridArea: "quests" }} className="lg:row-span-2">
-          <QuestsCard />
         </div>
         <div style={{ gridArea: "recent" }}>
           <RecentPracticeTile />

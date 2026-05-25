@@ -446,7 +446,7 @@ export const M14_1_2: LessonContent = {
     ),
     vocabMcq(
       "ja-m14-1-2-mcq-denwa",
-      { kana: "でんわ", meaningEn: "phone", emoji: "☎️", fromModule: "m2" },
+      { kana: "でんわ", meaningEn: "phone", emoji: "☎️", fromModule: "m14" },
       M14_REVIEW_POOL,
     ),
     // ── かける (make a call / hang) — Group 2 ──
@@ -1533,7 +1533,7 @@ export const M14_5_1: LessonContent = {
     ),
     vocabMcq(
       "ja-m14-5-1-mcq-shashin",
-      { kana: "しゃしん", meaningEn: "photo", emoji: "📸", fromModule: "m2" },
+      { kana: "しゃしん", meaningEn: "photo", emoji: "📸", fromModule: "m14" },
       M14_REVIEW_POOL,
     ),
     // ── Request drills ──
@@ -1694,7 +1694,7 @@ export const M14_5_2: LessonContent = {
     ),
     vocabMcq(
       "ja-m14-5-2-mcq-kagi",
-      { kana: "かぎ", meaningEn: "key", emoji: "🔑", fromModule: "m2" },
+      { kana: "かぎ", meaningEn: "key", emoji: "🔑", fromModule: "m14" },
       M14_REVIEW_POOL,
     ),
     // ── Real-world requests mixing all groups ──

@@ -267,7 +267,7 @@ export const M12_1_1: LessonContent = {
     ),
     vocabMcq(
       "ja-m12-1-1-mcq-niji",
-      { kana: "にじ", meaningEn: "2 o'clock", emoji: "🕑", fromModule: "m5" },
+      { kana: "にじ", meaningEn: "2 o'clock", emoji: "🕑", fromModule: "m12" },
       M12_REVIEW_POOL,
     ),
     // ── さんじ (3 o'clock) ──
@@ -600,7 +600,7 @@ export const M12_2_1: LessonContent = {
     ),
     vocabMcq(
       "ja-m12-2-1-mcq-juuji",
-      { kana: "じゅうじ", meaningEn: "10 o'clock", emoji: "🕙", fromModule: "m5" },
+      { kana: "じゅうじ", meaningEn: "10 o'clock", emoji: "🕙", fromModule: "m12" },
       M12_REVIEW_POOL,
     ),
     // ── じゅういちじ (11 o'clock) ──
@@ -1216,7 +1216,7 @@ export const M12_4_1: LessonContent = {
     ),
     vocabMcq(
       "ja-m12-4-1-mcq-kin",
-      { kana: "きんようび", meaningEn: "Friday", emoji: "📅", fromModule: "m5" },
+      { kana: "きんようび", meaningEn: "Friday", emoji: "📅", fromModule: "m12" },
       M12_REVIEW_POOL,
     ),
     // ── どようび (Saturday) ──

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Card, ProgressRing, WeekSparkline } from "@/shared/components/ui";
+import { Card, WeekSparkline } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { getMockProgressSummary } from "@/shared/domain/mockProgress";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
@@ -24,11 +24,6 @@ export function AccountOverviewCard() {
   // Mock data still feeds anything the backend doesn't yet provide
   // (daily-goal minutes, today's XP delta, kana mastery, week sparkline).
   const p = getMockProgressSummary();
-
-  const dailyPct = Math.min(
-    100,
-    Math.round((p.dailyGoalCompletedMinutes / p.dailyGoalMinutes) * 100),
-  );
 
   const xpTotal = stats.xp;
   // MOCK: backend doesn't yet surface "xp earned today" — keep the mock delta.
@@ -66,29 +61,7 @@ export function AccountOverviewCard() {
       </div>
 
       {/* Top metric row */}
-      <div className="mt-5 grid gap-4 sm:grid-cols-3">
-        {/* Daily goal ring */}
-        <div className="flex items-center gap-3">
-          <ProgressRing
-            percent={dailyPct}
-            label={`${p.dailyGoalCompletedMinutes}m`}
-            sublabel={t("home.restructured.account.ringSublabel", { defaultValue: "goal" })}
-            accentClass="text-accent"
-          />
-          <div>
-            <p className="text-sm font-medium text-text-secondary">
-              {t("home.restructured.account.dailyGoalLabel", { defaultValue: "Daily goal" })}
-            </p>
-            <p className="text-xs text-text-muted">
-              {t("home.restructured.account.dailyGoalProgress", {
-                defaultValue: "{{done}} / {{goal}} min today",
-                done: p.dailyGoalCompletedMinutes,
-                goal: p.dailyGoalMinutes,
-              })}
-            </p>
-          </div>
-        </div>
-
+      <div className="mt-5 grid gap-4 sm:grid-cols-2">
         {/* Streak */}
         <div className="flex items-center gap-3">
           <div className="relative flex h-[84px] w-[84px] items-center justify-center">

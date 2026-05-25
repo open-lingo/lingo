@@ -134,7 +134,7 @@ export const M9_1_1: LessonContent = {
     }),
     vocabMcq(
       "ja-m9-1-1-mcq-kirei",
-      { kana: "きれい", meaningEn: "pretty/clean", emoji: "✨", fromModule: "m7" },
+      { kana: "きれい", meaningEn: "pretty/clean", emoji: "✨", fromModule: "m9" },
       M9_REVIEW_M7,
     ),
     // ── しずか (quiet) — build intro ──
@@ -1141,7 +1141,7 @@ export const M9_4_1: LessonContent = {
     ),
     vocabMcq(
       "ja-m9-4-1-mcq-hima",
-      { kana: "ひま", meaningEn: "free/not busy", emoji: "😴", fromModule: "m7" },
+      { kana: "ひま", meaningEn: "free/not busy", emoji: "😴", fromModule: "m9" },
       M9_REVIEW_M7,
     ),
     // ── たいへん (tough/terrible) ──
@@ -1502,7 +1502,7 @@ export const M9_5_1: LessonContent = {
     ),
     vocabMcq(
       "ja-m9-5-1-mcq-kantan",
-      { kana: "かんたん", meaningEn: "simple/easy", emoji: "👌", fromModule: "m7" },
+      { kana: "かんたん", meaningEn: "simple/easy", emoji: "👌", fromModule: "m9" },
       M9_REVIEW_M7,
     ),
     // ── な-adjective negative: じゃないです ──

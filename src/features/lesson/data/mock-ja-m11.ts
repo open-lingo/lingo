@@ -285,7 +285,7 @@ export const M11_1_1: LessonContent = {
     ),
     vocabMcq(
       "ja-m11-1-1-mcq-yoku",
-      { kana: "よく", meaningEn: "often", emoji: "🔄", fromModule: "m7" },
+      { kana: "よく", meaningEn: "often", emoji: "🔄", fromModule: "m11" },
       M11_REVIEW_M7_POOL,
     ),
     // ── ときどき (sometimes) ──
@@ -1988,7 +1988,7 @@ export const M11_6_1: LessonContent = {
     ),
     vocabMcq(
       "ja-m11-6-1-mcq-maishuu",
-      { kana: "まいしゅう", meaningEn: "every week", emoji: "📅", fromModule: "m7" },
+      { kana: "まいしゅう", meaningEn: "every week", emoji: "📅", fromModule: "m11" },
       M11_REVIEW_M7_POOL,
     ),
     // ── まいつき (every month) ──

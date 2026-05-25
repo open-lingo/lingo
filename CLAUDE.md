@@ -73,7 +73,7 @@ When you need any of these, build the shared primitive first.
 
 **Modality split (2026-05-23):** each card carries two FSRS sub-states (`recognition` + `production`). `reviewCard(state, modality, rating)` and `gradeFromLesson(state, modality, outcome)` update one sub-state at a time; `isDue(state)` is true if either is due. Migration: legacy flat FSRS-6 entries from localStorage are upgraded to modal on read (both sub-states get the same starting state); pre-FSRS-6 SM-2 entries are dropped.
 
-**Backend mismatch (known gap, separate fix):** `lingo-core/app/srs/schemas.py` still has the legacy SM-2 shape (easeFactor + repetitions). Sync requests would 422 against current backend — fix is a coordinated migration with `lingo-core`.
+**Backend schema (migrated 2026-05-25):** `lingo-core/app/srs/schemas.py` now matches the frontend FSRS-6 modal shape (recognition + production sub-states). SQLite stores full state as JSON with a computed `due_date` column for index queries. Legacy SM-2 table is dropped on startup. DynamoDB stores state as `state_json` attribute with top-level `dueDate` for the GSI.
 
 ## Vocab SRS unification — phases 1-4 shipped 2026-05-23
 
