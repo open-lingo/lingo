@@ -22,12 +22,6 @@ import {
 import { useSubscribedDecks } from "./useSubscribedDecks";
 import { useFlashcardDueSummary } from "./useFlashcardDueSummary";
 
-// MOCK: weekly review-volume series — replace with SRS aggregate per day.
-const MOCK_WEEK_REVIEWS = [8, 0, 12, 4, 18, 0, 6];
-// MOCK: rollups derived from MOCK_WEEK_REVIEWS until SRS exposes a stats endpoint.
-const MOCK_WEEK_TOTAL = MOCK_WEEK_REVIEWS.reduce((a, b) => a + b, 0);
-// MOCK: per-deck retention until the deck object carries a retention field.
-const MOCK_DECK_RETENTION = [82, 76, 91, 70, 88, 73, 85];
 
 function DueCarousel({
   cards,
@@ -114,7 +108,6 @@ function DeckCard({
       : `${deck.cardCount} ${t("flashcards.cards")}`;
   return (
     <div className="relative flex w-full items-center gap-2 rounded-lg border border-border bg-surface p-4 transition hover:border-border-muted hover:shadow">
-      {/* MOCK: retentionPct — replace with real per-deck retention. */}
       <span
         className="absolute right-3 top-3 rounded-full bg-success/10 px-2 py-0.5 text-xs font-semibold text-success"
         aria-label={t("flashcards.retentionLabel", "Retention")}
@@ -219,11 +212,18 @@ export function FlashcardsPage() {
     totalCount,
     learningCount,
     masteredCount,
+    weekReviews,
+    deckRetentions,
     deck,
     courseDecks,
     communityPacksWithDecks,
     isLoading: cardsDueLoading,
   } = useFlashcardDueSummary(langId);
+
+  const weekTotal = useMemo(
+    () => weekReviews.reduce((a, b) => a + b, 0),
+    [weekReviews],
+  );
 
   const { openDeckPreview } = useCommunityContent();
 
@@ -291,16 +291,15 @@ export function FlashcardsPage() {
             </div>
             <div>
               <WeekSparkline
-                data={MOCK_WEEK_REVIEWS}
+                data={weekReviews}
                 ariaLabel={t(
                   "flashcards.weekAria",
                   "Cards reviewed this week",
                 )}
               />
               <p className="mt-2 text-xs text-text-muted">
-                {/* MOCK: MOCK_WEEK_TOTAL — replace with reviews-this-week aggregate. */}
                 {t("flashcards.weekCaption", "{{count}} cards this week", {
-                  count: MOCK_WEEK_TOTAL,
+                  count: weekTotal,
                 })}
               </p>
             </div>
@@ -537,9 +536,7 @@ export function FlashcardsPage() {
               <li key={d.id}>
                 <DeckCard
                   deck={d}
-                  retentionPct={
-                    MOCK_DECK_RETENTION[idx % MOCK_DECK_RETENTION.length]
-                  }
+                  retentionPct={deckRetentions[idx] ?? 0}
                   onClick={() => {
                     openDeckPreview(d.deck, null, { onSubscriptionChange: handleSubscriptionChange });
                   }}

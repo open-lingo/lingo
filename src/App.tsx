@@ -24,6 +24,7 @@ import { ReadingPracticePage } from "@/features/practice/ReadingPracticePage";
 import { SpeakingPracticePage } from "@/features/practice/SpeakingPracticePage";
 import { CounterPracticePage } from "@/features/practice/CounterPracticePage";
 import { GrammarRedirect } from "@/features/grammar/GrammarRedirect";
+import { PlacementTestPage } from "@/features/placement/PlacementTestPage";
 import { RootRoute } from "@/routes/RootRoute";
 import { LandingRoute } from "@/routes/LandingRoute";
 import { ProtectedHome } from "@/routes/ProtectedHome";
@@ -270,6 +271,8 @@ const router = createBrowserRouter([
                   { path: "courses", element: <Navigate to=".." replace /> },
                   { path: "travel-sprint", element: <TravelSprintPage /> },
                   { path: "lessons/:lessonId", element: <KeyedLessonPage /> },
+                  { path: "placement-test", element: <PlacementTestPage /> },
+                  { path: "test-out/:moduleId", element: <PlacementTestPage /> },
                 ],
               },
               {

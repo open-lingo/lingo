@@ -82,6 +82,12 @@ export function Layout() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-text-primary">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-surface-primary focus:text-text-primary focus:rounded focus:ring-2"
+      >
+        {t("nav.skipToContent", "Skip to content")}
+      </a>
       <SRSPendingSync />
       <LessonProgressHydrate />
       <header className="sticky top-0 z-40 border-b border-border bg-surface">
@@ -319,7 +325,7 @@ export function Layout() {
         )}
       </header>
       {showAppAds ? <DailyWelcomeAd /> : null}
-      <main className="mx-auto w-full max-w-screen-2xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+      <main id="main-content" className="mx-auto w-full max-w-screen-2xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
         <Outlet />
       </main>
       <SiteFooter />

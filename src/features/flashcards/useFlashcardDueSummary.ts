@@ -4,7 +4,11 @@ import {
   getSRSStore,
   isLearning,
   isMastered,
+  addDays,
+  getToday,
 } from "./engine";
+import type { SRSStore } from "./engine";
+import type { SRSCardState } from "./data/types";
 import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { useSubscribedDecks } from "./useSubscribedDecks";
 import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
@@ -19,6 +23,64 @@ function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
     image: d.image,
     locale: d.locale,
   };
+}
+
+/**
+ * Count reviews per day for the last 7 days from the SRS store.
+ * Checks both recognition and production `lastReviewDate` on each card.
+ * Returns an array of 7 numbers [6 days ago, 5 days ago, ..., today].
+ */
+function computeWeekReviews(
+  srsStore: SRSStore,
+  cardIds: Set<string>,
+): number[] {
+  const today = getToday();
+  // Build lookup: day string -> index (0 = 6 days ago, 6 = today)
+  const dayToIndex = new Map<string, number>();
+  for (let i = 0; i < 7; i++) {
+    const day = addDays(today, i - 6);
+    dayToIndex.set(day, i);
+  }
+
+  const counts = [0, 0, 0, 0, 0, 0, 0];
+  for (const [id, state] of Object.entries(srsStore)) {
+    if (!cardIds.has(id)) continue;
+    // Count each modality independently — a card reviewed in both
+    // directions on the same day counts as 2 reviews.
+    for (const modality of ["recognition", "production"] as const) {
+      const sub = state[modality];
+      if (sub.reps === 0) continue; // never reviewed
+      const idx = dayToIndex.get(sub.lastReviewDate);
+      if (idx !== undefined) counts[idx]++;
+    }
+  }
+  return counts;
+}
+
+/**
+ * Compute retention percentage for a set of card IDs.
+ * Retention = total reps / (total reps + total lapses) across all
+ * modalities with reps > 0. Returns 0 when no cards have been reviewed.
+ */
+function computeDeckRetention(
+  srsStore: SRSStore,
+  cardIds: string[],
+): number {
+  let totalReps = 0;
+  let totalLapses = 0;
+  for (const id of cardIds) {
+    const state: SRSCardState | undefined = srsStore[id];
+    if (!state) continue;
+    for (const modality of ["recognition", "production"] as const) {
+      const sub = state[modality];
+      if (sub.reps > 0) {
+        totalReps += sub.reps;
+        totalLapses += sub.lapses;
+      }
+    }
+  }
+  if (totalReps === 0) return 0;
+  return Math.round((totalReps / (totalReps + totalLapses)) * 100);
 }
 
 export function useFlashcardDueSummary(langId: string) {
@@ -36,8 +98,8 @@ export function useFlashcardDueSummary(langId: string) {
     const { queue: dueQueue, totalCount: dueCount } = buildReviewQueue(allCards);
 
     // Derive card-state bucket counts from the live SRS store. The
-    // store is the source of truth for per-card SM-2 progress; we cross
-    // reference each scoped card against it so totals reflect the
+    // store is the source of truth for per-card FSRS-6 progress; we
+    // cross reference each scoped card against it so totals reflect the
     // exact decks contributing to the user's review queue.
     const srsStore = getSRSStore();
     const totalCount = allCards.length;
@@ -48,6 +110,16 @@ export function useFlashcardDueSummary(langId: string) {
       if (isMastered(state)) masteredCount++;
       else if (isLearning(state)) learningCount++;
     }
+
+    // Real review-volume sparkline: per-day counts for the last 7 days
+    const allCardIds = new Set(allCards.map((c) => c.id));
+    const weekReviews = computeWeekReviews(srsStore, allCardIds);
+
+    // Per-deck retention: reps / (reps + lapses) for reviewed cards
+    const deckRetentions: number[] = byLang.map(({ deck: d }) => {
+      const ids = (d.cards ?? []).map((c) => c.id);
+      return computeDeckRetention(srsStore, ids);
+    });
 
     const firstDeck = byLang[0]?.deck;
     const packs = byLang.map(({ addon, deck: d }) => ({
@@ -66,6 +138,8 @@ export function useFlashcardDueSummary(langId: string) {
       totalCount,
       learningCount,
       masteredCount,
+      weekReviews,
+      deckRetentions,
       deck: firstDeck ? deckResponseToFlashcardDeck(firstDeck) : null,
       courseDecks,
       communityPacksWithDecks: packs,

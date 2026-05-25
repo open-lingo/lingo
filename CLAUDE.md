@@ -104,6 +104,10 @@ Goal: unify lesson reviews + flashcard practice onto one SRS state per atom, so 
 
 **Story comprehension factory (2026-05-23):** `storyComprehension({...})` in `_jaGrammarHelpers.ts` composes `[dialogueListen(narrative), build_sentence]` — the L7 closer alternative to `dialogueListen` for narrative-style M8+ content. `DialogueListenStep.format: "narrative"` suppresses speaker chips; line cap relaxed from 4 to 8. See `docs/lesson-authoring-guide.md` §13.13 for the locked canonical M8+ template.
 
+**Placement test (2026-05-25):** 2-stage adaptive placement test in `src/features/placement/`. Stage 1: 8 screening items (one per difficulty tier across M3-M27). Stage 2: 3 items per module in a window around the estimated floor. 100% threshold (3/3) per module. Passing seeds SRS atoms as `state: "learning"`, `dueDate: today` (one review required). Same engine powers per-module "test out" via `/ja/learn/test-out/:moduleId`. Question bank: 75 items (3 per module) using `cloze()` and `sentenceMcq()` factories. Onboarding prompt shows on Learn page for new JA users with no completed lessons. Old `buildPlacementTest.ts` (M1-M3 only) is superseded.
+
+**TTS coverage (2026-05-25):** Full M3-M27 TTS coverage shipped. `scripts/emit-tts-deck.mjs` regex fixed from `m[1-9]` to `m\d+` (was missing M10-M27). Period-variant dedup strips trailing `。` (saves ~394 files). Runtime `getTtsUrl()` falls back to ±`。` variant. 2504 unique texts covered, 0 gaps.
+
 **Follow-up cleanups (lower priority):**
 
 - Migrate `M3_M7_REVIEW_POOL` in `_jaGrammarHelpers.ts` to be derived from `JA_COURSE_ATOMS` (filter by `fromModule`). Single source of truth.

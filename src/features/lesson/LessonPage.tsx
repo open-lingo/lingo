@@ -131,6 +131,7 @@ export function LessonPage() {
   const [retryAttempted, setRetryAttempted] = useState<Set<string>>(
     () => new Set(),
   );
+  const stepContainerRef = useRef<HTMLDivElement>(null);
   const wasResumed = hydrated !== null;
   const completionRecordedRef = useRef(false);
 
@@ -227,6 +228,21 @@ export function LessonPage() {
     // to avoid re-firing as the user progresses.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wasResumed]);
+
+  // Focus management: when the step changes, move focus to the step
+  // container so screen-reader users land on the new content. Skip
+  // the initial mount (the page already focuses naturally).
+  const stepMountedRef = useRef(false);
+  useEffect(() => {
+    if (!stepMountedRef.current) {
+      stepMountedRef.current = true;
+      return;
+    }
+    // RAF so the new step DOM has rendered before we pull focus.
+    requestAnimationFrame(() => {
+      stepContainerRef.current?.focus();
+    });
+  }, [currentStepIdx, replayQueue.length]);
 
   // Persist completion when the user finishes the lesson. Calculation
   // mirrors the values LessonComplete shows so the XP we record matches
@@ -371,7 +387,7 @@ export function LessonPage() {
       // FSRS grading — only fires in SRS review lessons (ja-mN-review-1/2).
       // Content sub-lessons are pure introduction — they never write SRS
       // state. Kana (M1/M2) has no SRS at all.
-      const isReviewLesson = /^ja-m[3-7]-review-[12]$/.test(lesson.id);
+      const isReviewLesson = /^ja-m\d+-review-[12]$/.test(lesson.id);
       if (!isReviewLesson) return;
       const step = lesson.steps[stepIdx >= 0 ? stepIdx : 0];
       if (!step || !shouldWriteSrs(step)) return;
@@ -595,7 +611,12 @@ export function LessonPage() {
         </div>
       )}
 
-      <div className="flex flex-1 flex-col py-4">
+      <div
+        ref={stepContainerRef}
+        tabIndex={-1}
+        aria-label={t("lesson.stepContainer", "Lesson step")}
+        className="flex flex-1 flex-col py-4 outline-none"
+      >
         {currentStep && (
           <StepRenderer
             // Force remount on retry so the step view starts from a clean

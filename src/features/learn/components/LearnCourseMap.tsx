@@ -1,8 +1,6 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { composeButtonClasses } from "@/shared/components/ui/Button";
-import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import type { Course, Lesson } from "@/shared/domain/course";
 import {
   getCurrentModuleIndex,
@@ -28,7 +26,7 @@ import { Button } from "@/shared/components/ui";
  * Flip to true when the feature ships and the buttons + modal wake
  * back up.
  */
-const TEST_OUT_ENABLED = false;
+const TEST_OUT_ENABLED = true;
 
 export type LearnCourseMapProps = {
   course: Course;
@@ -50,21 +48,15 @@ export function LearnCourseMap({
   onLessonClick,
 }: LearnCourseMapProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const currentIdx = getCurrentModuleIndex(course, completedSet);
   const currentModule = course.modules[currentIdx] ?? course.modules[0];
   const nextIdx = getNextLessonIndex(currentModule.lessons, completedSet);
   const currentLesson: Lesson | undefined = currentModule.lessons[nextIdx];
   const hasProgress = completedSet.size > 0;
 
-  const [testOutModuleIdx, setTestOutModuleIdx] = useState<number | null>(null);
-
   const resumeCurrent = () => {
     if (currentLesson) onLessonClick(currentLesson);
-  };
-
-  const testOut = (moduleId: string) => {
-    const n = course.modules.findIndex((m) => m.id === moduleId);
-    setTestOutModuleIdx(n);
   };
 
   return (
@@ -93,7 +85,7 @@ export function LearnCourseMap({
           // lesson without grinding to it. Without this, non-current
           // modules render as a preview list and look "unreachable" even
           // when the per-lesson lock is bypassed.
-          const showPathway = isCurrent || devUnlock;
+          const showPathway = isCurrent || status === "completed" || devUnlock;
           const pathway =
             showPathway ? (
               <ModulePathway
@@ -124,12 +116,12 @@ export function LearnCourseMap({
                     {t("learn.resumeLesson", { title: currentLesson.title })}
                   </Button>
                 ) : null}
-                {TEST_OUT_ENABLED ? (
+                {TEST_OUT_ENABLED && status !== "completed" ? (
                   <>
                     <Button
                       type="button"
                       variant="secondary"
-                      onClick={() => testOut(mod.id)}
+                      onClick={() => navigate(langPath(`learn/test-out/${mod.id}`))}
                     >
                       {t("learn.testOutModule", {
                         n: display.contentNumber ?? display.badgeLabel,
@@ -154,8 +146,12 @@ export function LearnCourseMap({
                   {t("learn.flashcardsLessonDecksButton")}
                 </Link>
               </>
-            ) : TEST_OUT_ENABLED && !isCurrent && !mod.comingSoon ? (
-              <Button type="button" variant="secondary" onClick={() => testOut(mod.id)}>
+            ) : TEST_OUT_ENABLED && !isCurrent && !mod.comingSoon && status !== "completed" ? (
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => navigate(langPath(`learn/test-out/${mod.id}`))}
+              >
                 {t("learn.testOutModule", { n: i })}
               </Button>
             ) : null;
@@ -187,19 +183,6 @@ export function LearnCourseMap({
         />
       ) : null}
 
-      {TEST_OUT_ENABLED && testOutModuleIdx !== null ? (
-        <ConfirmModal
-          title={t("learn.testOutComingSoonTitle", "Test-out is coming soon")}
-          message={t(
-            "learn.testOutComingSoonBody",
-            "We're building a diagnostic that'll let you skip ahead by passing a quick check. For now, work through the lessons — your progress saves automatically.",
-          )}
-          cancelLabel={t("learn.testOutComingSoonDismiss", "Got it")}
-          confirmLabel={t("learn.testOutComingSoonCta", "Keep learning")}
-          onConfirm={() => setTestOutModuleIdx(null)}
-          onCancel={() => setTestOutModuleIdx(null)}
-        />
-      ) : null}
     </section>
   );
 }

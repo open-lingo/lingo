@@ -40,6 +40,8 @@ import {
 import { useModuleAccordion } from "./useModuleAccordion";
 import { useLearnProfile } from "./hooks/useLearnProfile";
 import { LearnMapScrollArea } from "./components/LearnMapScrollArea";
+import { PlacementPrompt } from "@/features/placement/components/PlacementPrompt";
+import { isPlacementDismissed, dismissPlacement } from "@/features/placement/hooks/usePlacementDismissed";
 import { LearnSidebar } from "./components/LearnSidebar";
 import { LearnTopBar } from "./components/LearnTopBar";
 import { LearnDevPanel } from "./components/LearnDevPanel";
@@ -58,6 +60,12 @@ export function LearnPage() {
 
   const completedIds = useCompletedLessonIds();
   const [devUnlock, setDevUnlockState] = useState(() => isDevUnlockOn());
+  const [placementDismissedByUser, setPlacementDismissedByUser] = useState(false);
+  const showPlacement =
+    !placementDismissedByUser &&
+    language?.id === "ja" &&
+    !isPlacementDismissed() &&
+    completedIds.length === 0;
 
   // Telemetry: one page_view per language visit. Stable ref so React 19
   // StrictMode + language changes during dev don't double-fire.
@@ -425,6 +433,18 @@ export function LearnPage() {
         }}
         onClearGraduatedVocab={() => clearGraduatedVocab(course.id)}
       />
+      {showPlacement && (
+        <PlacementPrompt
+          onStart={() => {
+            setPlacementDismissedByUser(true);
+            navigate(langPath("learn/placement-test"));
+          }}
+          onSkip={() => {
+            dismissPlacement();
+            setPlacementDismissedByUser(true);
+          }}
+        />
+      )}
     </>
   );
 }
