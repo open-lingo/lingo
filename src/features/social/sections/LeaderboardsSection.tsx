@@ -3,29 +3,36 @@
  * Friends. Weekly uses a Duolingo-style league card with promotion +
  * demotion zones; Monthly + Friends use plain top-N tables.
  *
- * MOCK: every row is fake. Replace with backend queries scoped to period.
+ * Wired to the real social API via `useWeeklyLeaderboard`,
+ * `useMonthlyLeaderboard`, `useFriendsLeaderboard`, and `useLeagueSpotlight`
+ * (the latter gives us the league name/emoji/zone metadata that used to come
+ * from `MOCK_LEAGUE`). Skeleton + empty states are surfaced inline so the
+ * card can stand alone on the social page.
  */
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 import { UsernameDisplay } from "../components/UsernameDisplay";
 import { ProfilePreviewPopover } from "../components/ProfilePreviewPopover";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
-  MOCK_LEAGUE,
-  MOCK_WEEKLY_LB,
-  MOCK_MONTHLY_LB,
-  MOCK_FRIENDS_LB,
-  type LeaderboardRow,
-} from "../mock/mockSocial";
+  useFriendsLeaderboard,
+  useLeagueSpotlight,
+  useMonthlyLeaderboard,
+  useWeeklyLeaderboard,
+} from "../hooks/useSocial";
+import type { LeaderboardRow } from "../mock/mockSocial";
+import type { LeagueSpotlight } from "../hooks/useSocial.types";
 
 type Tab = "weekly" | "monthly" | "friends";
 
-const TABS: { id: Tab; label: string; iconName: "flame" | "trophy" | "users" }[] = [
-  { id: "weekly", label: "Weekly Sprint", iconName: "flame" },
-  { id: "monthly", label: "Monthly", iconName: "trophy" },
-  { id: "friends", label: "Friends", iconName: "users" },
+const TABS: { id: Tab; labelKey: string; fallback: string; iconName: "flame" | "trophy" | "users" }[] = [
+  { id: "weekly", labelKey: "social.leaderboards.tabWeekly", fallback: "Weekly Sprint", iconName: "flame" },
+  { id: "monthly", labelKey: "social.leaderboards.tabMonthly", fallback: "Monthly", iconName: "trophy" },
+  { id: "friends", labelKey: "social.leaderboards.tabFriends", fallback: "Friends", iconName: "users" },
 ];
 
 export function LeaderboardsSection() {
@@ -38,7 +45,9 @@ export function LeaderboardsSection() {
  * stand alone on the social page.
  */
 export function UnifiedLeaderboardCard() {
+  const { t } = useTranslation();
   const [tab, setTab] = useState<Tab>("weekly");
+  const spotlight = useLeagueSpotlight();
 
   return (
     <Card padding="none" className="overflow-hidden">
@@ -50,27 +59,30 @@ export function UnifiedLeaderboardCard() {
           </span>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
-              Leaderboards
+              {t("social.leaderboards.kicker", "Leaderboards")}
             </p>
             <h2 className="text-lg font-semibold text-text-primary">
-              This sprint and beyond
+              {t("social.leaderboards.title", "This sprint and beyond")}
             </h2>
           </div>
         </div>
         <p className="text-xs text-text-muted sm:text-right">
-          Weekly resets Sunday · Monthly resets the 1st
+          {t(
+            "social.leaderboards.resetCadence",
+            "Weekly resets Sunday · Monthly resets the 1st",
+          )}
         </p>
       </div>
 
       {/* Tab strip */}
       <div className="flex border-b border-border bg-surface-muted px-2 pt-2">
-        {TABS.map((t) => {
-          const isActive = tab === t.id;
+        {TABS.map((tabDef) => {
+          const isActive = tab === tabDef.id;
           return (
             <button
-              key={t.id}
+              key={tabDef.id}
               type="button"
-              onClick={() => setTab(t.id)}
+              onClick={() => setTab(tabDef.id)}
               className={cn(
                 "relative flex flex-1 items-center justify-center gap-1.5 px-3 py-2 text-sm font-semibold transition",
                 isActive
@@ -79,8 +91,8 @@ export function UnifiedLeaderboardCard() {
               )}
               aria-pressed={isActive}
             >
-              <Icon name={t.iconName} size={14} aria-hidden />
-              {t.label}
+              <Icon name={tabDef.iconName} size={14} aria-hidden />
+              {t(tabDef.labelKey, tabDef.fallback)}
               {isActive ? (
                 <span
                   aria-hidden
@@ -95,7 +107,9 @@ export function UnifiedLeaderboardCard() {
       {/* Tab body — flush content, no inner padding so league/board cards
           render edge-to-edge with the card border. */}
       <div>
-        {tab === "weekly" ? <WeeklyLeagueBody /> : null}
+        {tab === "weekly" ? (
+          <WeeklyLeagueBody spotlight={spotlight.data ?? null} />
+        ) : null}
         {tab === "monthly" ? <MonthlyBody /> : null}
         {tab === "friends" ? <FriendsBody /> : null}
       </div>
@@ -112,7 +126,15 @@ export function UnifiedLeaderboardCard() {
 export function CompactUnifiedLeaderboardCard({
   limit = 5,
 }: { limit?: number } = {}) {
+  const { t } = useTranslation();
+  const langPath = useLangPath();
   const [tab, setTab] = useState<Tab>("weekly");
+  const spotlight = useLeagueSpotlight();
+  const weekly = useWeeklyLeaderboard();
+  const monthly = useMonthlyLeaderboard();
+  const friends = useFriendsLeaderboard();
+
+  const resetLabel = spotlight.data?.league.resetLabel ?? "";
 
   return (
     <Card padding="none" className="flex flex-col overflow-hidden">
@@ -121,19 +143,21 @@ export function CompactUnifiedLeaderboardCard({
           <Icon name="trophy" size={11} aria-hidden />
         </span>
         <h3 className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
-          Leaderboards
+          {t("social.leaderboards.kicker", "Leaderboards")}
         </h3>
-        <p className="ml-auto text-[10px] text-text-muted">{MOCK_LEAGUE.resetLabel}</p>
+        {resetLabel ? (
+          <p className="ml-auto text-[10px] text-text-muted">{resetLabel}</p>
+        ) : null}
       </div>
 
       <div className="flex border-b border-border bg-surface-muted">
-        {TABS.map((t) => {
-          const isActive = tab === t.id;
+        {TABS.map((tabDef) => {
+          const isActive = tab === tabDef.id;
           return (
             <button
-              key={t.id}
+              key={tabDef.id}
               type="button"
-              onClick={() => setTab(t.id)}
+              onClick={() => setTab(tabDef.id)}
               className={cn(
                 "relative flex flex-1 items-center justify-center gap-1 px-1 py-1.5 text-[11px] font-semibold transition",
                 isActive
@@ -142,8 +166,8 @@ export function CompactUnifiedLeaderboardCard({
               )}
               aria-pressed={isActive}
             >
-              <Icon name={t.iconName} size={11} aria-hidden />
-              {t.label}
+              <Icon name={tabDef.iconName} size={11} aria-hidden />
+              {t(tabDef.labelKey, tabDef.fallback)}
               {isActive ? (
                 <span
                   aria-hidden
@@ -155,24 +179,63 @@ export function CompactUnifiedLeaderboardCard({
         })}
       </div>
 
-      {tab === "weekly" ? <CompactRows rows={MOCK_WEEKLY_LB} limit={limit} pillEmoji={MOCK_LEAGUE.emoji} pillLabel={MOCK_LEAGUE.name} /> : null}
-      {tab === "monthly" ? <CompactRows rows={MOCK_MONTHLY_LB} limit={limit} /> : null}
-      {tab === "friends" ? <CompactRows rows={MOCK_FRIENDS_LB} limit={limit} /> : null}
+      {tab === "weekly" ? (
+        <CompactRows
+          rows={weekly.data ?? []}
+          isLoading={weekly.isLoading}
+          limit={limit}
+          pillEmoji={spotlight.data?.league.emoji}
+          pillLabel={spotlight.data?.league.name}
+        />
+      ) : null}
+      {tab === "monthly" ? (
+        <CompactRows
+          rows={monthly.data ?? []}
+          isLoading={monthly.isLoading}
+          limit={limit}
+        />
+      ) : null}
+      {tab === "friends" ? (
+        <CompactRows
+          rows={friends.data ?? []}
+          isLoading={friends.isLoading}
+          limit={limit}
+        />
+      ) : null}
+
+      <Link
+        to={langPath("community/leaderboard")}
+        className="mt-auto border-t border-border bg-surface-muted px-3 py-1.5 text-center text-[11px] font-medium text-accent hover:bg-accent-muted"
+      >
+        {t("social.leaderboards.seeFull", "See full leaderboard →")}
+      </Link>
     </Card>
   );
 }
 
 function CompactRows({
   rows,
+  isLoading,
   limit,
   pillEmoji,
   pillLabel,
 }: {
   rows: LeaderboardRow[];
+  isLoading: boolean;
   limit: number;
   pillEmoji?: string;
   pillLabel?: string;
 }) {
+  const { t } = useTranslation();
+  if (isLoading) return <CompactRowsSkeleton count={limit} />;
+  if (rows.length === 0) {
+    return (
+      <p className="px-3 py-4 text-center text-[11px] text-text-muted">
+        {t("social.leaderboards.empty", "No rankings yet. Earn some XP to land on the board!")}
+      </p>
+    );
+  }
+
   const meIdx = rows.findIndex((r) => r.isMe);
   // Top N + always include "me" if outside the window.
   const baseIndexes = new Set<number>();
@@ -184,7 +247,11 @@ function CompactRows({
     <div className="flex flex-1 flex-col">
       {pillLabel ? (
         <div className="flex items-center gap-2 border-b border-border bg-gradient-to-br from-accent/15 via-accent-muted to-surface px-3 py-1.5">
-          <span aria-hidden className="text-base">{pillEmoji}</span>
+          {pillEmoji ? (
+            <span aria-hidden className="text-base">
+              {pillEmoji}
+            </span>
+          ) : null}
           <p className="text-[11px] font-bold text-text-primary">{pillLabel}</p>
         </div>
       ) : null}
@@ -214,7 +281,7 @@ function CompactRows({
                 />
                 {row.isMe ? (
                   <span className="rounded-full bg-accent px-1 py-px text-[9px] font-bold uppercase text-on-accent">
-                    You
+                    {t("social.leaderboards.you", "You")}
                   </span>
                 ) : null}
                 <span className="ml-auto text-[11px] font-bold text-text-primary">
@@ -225,13 +292,21 @@ function CompactRows({
           );
         })}
       </ul>
-      <button
-        type="button"
-        className="mt-auto border-t border-border bg-surface-muted px-3 py-1.5 text-[11px] font-medium text-accent hover:bg-accent-muted"
-      >
-        See full leaderboard →
-      </button>
     </div>
+  );
+}
+
+function CompactRowsSkeleton({ count }: { count: number }) {
+  return (
+    <ul className="divide-y divide-border" aria-hidden>
+      {Array.from({ length: count }).map((_, i) => (
+        <li key={i} className="flex animate-pulse items-center gap-2 px-3 py-1.5">
+          <div className="h-5 w-5 rounded-full bg-border" />
+          <div className="h-2.5 w-24 rounded bg-border" />
+          <div className="ml-auto h-2.5 w-10 rounded bg-border" />
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -261,34 +336,71 @@ function CompactRank({ rank }: { rank: number }) {
 }
 
 function MonthlyBody() {
+  const { t } = useTranslation();
+  const monthly = useMonthlyLeaderboard();
+  const rows = monthly.data ?? [];
+
+  if (monthly.isLoading) {
+    return (
+      <div className="grid gap-px bg-border md:grid-cols-2">
+        <FlatBoardSkeleton title={t("social.leaderboards.topXp", "Top XP")} />
+        <FlatBoardSkeleton
+          title={t("social.leaderboards.topLessons", "Top lessons completed")}
+        />
+      </div>
+    );
+  }
+  if (rows.length === 0) {
+    return (
+      <p className="px-5 py-6 text-center text-xs text-text-muted">
+        {t("social.leaderboards.emptyMonthly", "No monthly rankings yet — be the first.")}
+      </p>
+    );
+  }
+
+  // Monthly board doesn't carry lesson counts from the API; surface XP only.
   return (
-    <div className="grid gap-px bg-border md:grid-cols-2">
-      <FlatBoard title="Top XP" rows={MOCK_MONTHLY_LB} metric="xp" />
-      <FlatBoard
-        title="Top lessons completed"
-        rows={[...MOCK_MONTHLY_LB]
-          .sort((a, b) => b.lessons - a.lessons)
-          .map((r, i) => ({ ...r, rank: i + 1 }))}
-        metric="lessons"
-      />
+    <div className="grid gap-px bg-border">
+      <FlatBoard title={t("social.leaderboards.topXp", "Top XP")} rows={rows} metric="xp" />
     </div>
   );
 }
 
 function FriendsBody() {
+  const { t } = useTranslation();
+  const friends = useFriendsLeaderboard();
+  const rows = friends.data ?? [];
+
+  if (friends.isLoading) {
+    return (
+      <FlatBoardSkeleton title={t("social.leaderboards.friendsXp", "Friends only — Weekly XP")} />
+    );
+  }
+  if (rows.length === 0) {
+    return (
+      <p className="px-5 py-6 text-center text-xs text-text-muted">
+        {t(
+          "social.leaderboards.emptyFriends",
+          "Add friends to start a friends-only leaderboard.",
+        )}
+      </p>
+    );
+  }
   return (
     <FlatBoard
-      title="Friends only — Weekly XP"
-      rows={MOCK_FRIENDS_LB}
+      title={t("social.leaderboards.friendsXp", "Friends only — Weekly XP")}
+      rows={rows}
       metric="xp"
-      footer="Want bigger competition? Promote out of your friends list — Weekly Sprint pits you against everyone."
+      footer={t(
+        "social.leaderboards.friendsFooter",
+        "Want bigger competition? Promote out of your friends list — Weekly Sprint pits you against everyone.",
+      )}
     />
   );
 }
 
 /**
  * Edge-to-edge board variant rendered directly inside the unified card.
- * Same row shape as `BoardCard` but without the wrapping Card border.
  */
 function FlatBoard({
   title,
@@ -301,6 +413,7 @@ function FlatBoard({
   metric: "xp" | "lessons";
   footer?: string;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="bg-surface">
       <div className="border-b border-border px-5 py-2.5">
@@ -331,21 +444,27 @@ function FlatBoard({
                 />
                 {row.isMe ? (
                   <span className="rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase text-on-accent">
-                    You
+                    {t("social.leaderboards.you", "You")}
                   </span>
                 ) : null}
-                <span className="text-xs" aria-hidden>
-                  {row.user.language.flag}
-                </span>
+                {row.user.language.flag ? (
+                  <span className="text-xs" aria-hidden>
+                    {row.user.language.flag}
+                  </span>
+                ) : null}
               </div>
-              <p className="text-xs text-text-muted">{row.user.lastActiveLabel}</p>
+              {row.user.lastActiveLabel ? (
+                <p className="text-xs text-text-muted">{row.user.lastActiveLabel}</p>
+              ) : null}
             </Link>
             <div className="text-right">
               <p className="text-sm font-bold text-text-primary">
                 {metric === "xp" ? row.xp.toLocaleString() : row.lessons}
               </p>
               <p className="text-[10px] text-text-muted">
-                {metric === "xp" ? "XP" : "lessons"}
+                {metric === "xp"
+                  ? t("social.leaderboards.xpUnit", "XP")
+                  : t("social.leaderboards.lessonsUnit", "lessons")}
               </p>
             </div>
           </li>
@@ -360,13 +479,53 @@ function FlatBoard({
   );
 }
 
+function FlatBoardSkeleton({ title }: { title: string }) {
+  return (
+    <div className="bg-surface">
+      <div className="border-b border-border px-5 py-2.5">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+          {title}
+        </h3>
+      </div>
+      <ul className="divide-y divide-border" aria-hidden>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <li key={i} className="flex animate-pulse items-center gap-3 px-5 py-3">
+            <div className="h-8 w-8 rounded-full bg-border" />
+            <div className="flex-1 space-y-1.5">
+              <div className="h-3 w-32 rounded bg-border" />
+              <div className="h-2.5 w-20 rounded bg-border" />
+            </div>
+            <div className="h-4 w-12 rounded bg-border" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 /**
  * Weekly league rendered edge-to-edge for the unified card. Keeps the
- * gradient header + zone legend + full row list of the standalone variant.
+ * gradient header + zone legend + full row list. Uses spotlight data for the
+ * league chrome (name/emoji/zones) and the live weekly board for rows.
  */
-function WeeklyLeagueBody() {
-  const rows = MOCK_WEEKLY_LB;
-  const { promotionZone, demotionZone } = MOCK_LEAGUE;
+function WeeklyLeagueBody({ spotlight }: { spotlight: LeagueSpotlight | null }) {
+  const { t } = useTranslation();
+  const weekly = useWeeklyLeaderboard();
+  const rows = weekly.data ?? [];
+
+  if (weekly.isLoading || !spotlight) {
+    return <WeeklyLeagueSkeleton />;
+  }
+  if (rows.length === 0) {
+    return (
+      <p className="px-5 py-6 text-center text-xs text-text-muted">
+        {t("social.leaderboards.emptyWeekly", "No weekly rankings yet — earn XP to join the sprint.")}
+      </p>
+    );
+  }
+
+  const { league } = spotlight;
+  const { promotionZone, demotionZone } = league;
   const total = rows.length;
   const demotionStart = total - demotionZone + 1;
 
@@ -375,31 +534,36 @@ function WeeklyLeagueBody() {
       <div className="flex items-center justify-between gap-3 bg-gradient-to-br from-accent/15 via-accent-muted to-surface px-5 py-4">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-surface text-2xl shadow-sm">
-            <span aria-hidden>{MOCK_LEAGUE.emoji}</span>
+            <span aria-hidden>{league.emoji}</span>
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
-              Current league
+              {t("social.leaderboards.currentLeague", "Current league")}
             </p>
-            <h3 className="text-lg font-bold text-text-primary">{MOCK_LEAGUE.name}</h3>
+            <h3 className="text-lg font-bold text-text-primary">{league.name}</h3>
             <p className="text-xs text-text-muted">
-              Tier {MOCK_LEAGUE.tierIndex} of {MOCK_LEAGUE.tierTotal}
+              {t("social.leaderboards.tierOf", "Tier {{n}} of {{total}}", {
+                n: league.tierIndex,
+                total: league.tierTotal,
+              })}
             </p>
           </div>
         </div>
         <div className="text-right">
-          <p className="text-xs text-text-muted">Sprint ends</p>
-          <p className="text-sm font-bold text-text-primary">{MOCK_LEAGUE.resetLabel}</p>
+          <p className="text-xs text-text-muted">
+            {t("social.leaderboards.sprintEnds", "Sprint ends")}
+          </p>
+          <p className="text-sm font-bold text-text-primary">{league.resetLabel}</p>
         </div>
       </div>
       <div className="flex items-center gap-4 border-y border-border bg-surface-muted px-5 py-2 text-[11px]">
         <span className="inline-flex items-center gap-1.5 text-success">
           <span className="inline-block h-2 w-2 rounded-full bg-success" />
-          Top {promotionZone} promote
+          {t("social.leaderboards.zonePromote", "Top {{n}} promote", { n: promotionZone })}
         </span>
         <span className="inline-flex items-center gap-1.5 text-warning">
           <span className="inline-block h-2 w-2 rounded-full bg-warning" />
-          Bottom {demotionZone} demote
+          {t("social.leaderboards.zoneDemote", "Bottom {{n}} demote", { n: demotionZone })}
         </span>
       </div>
       <ul className="divide-y divide-border">
@@ -421,64 +585,29 @@ function WeeklyLeagueBody() {
   );
 }
 
-export function WeeklyLeague() {
-  const rows = MOCK_WEEKLY_LB;
-  const { promotionZone, demotionZone } = MOCK_LEAGUE;
-  const total = rows.length;
-  const demotionStart = total - demotionZone + 1;
-
+function WeeklyLeagueSkeleton() {
   return (
-    <Card padding="none" className="overflow-hidden">
-      {/* League header */}
-      <div className="flex items-center justify-between gap-3 border-b border-border bg-gradient-to-br from-accent/15 via-accent-muted to-surface px-5 py-4">
-        <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-surface text-2xl shadow-sm">
-            <span aria-hidden>{MOCK_LEAGUE.emoji}</span>
-          </div>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
-              Current league
-            </p>
-            <h3 className="text-lg font-bold text-text-primary">{MOCK_LEAGUE.name}</h3>
-            <p className="text-xs text-text-muted">
-              Tier {MOCK_LEAGUE.tierIndex} of {MOCK_LEAGUE.tierTotal}
-            </p>
-          </div>
-        </div>
-        <div className="text-right">
-          <p className="text-xs text-text-muted">Sprint ends</p>
-          <p className="text-sm font-bold text-text-primary">{MOCK_LEAGUE.resetLabel}</p>
+    <div aria-hidden>
+      <div className="flex items-center gap-3 bg-surface-muted px-5 py-4">
+        <div className="h-12 w-12 animate-pulse rounded-xl bg-border" />
+        <div className="flex-1 space-y-2">
+          <div className="h-3 w-24 animate-pulse rounded bg-border" />
+          <div className="h-4 w-32 animate-pulse rounded bg-border" />
         </div>
       </div>
-
-      {/* Zone legend */}
-      <div className="flex items-center gap-4 border-b border-border bg-surface-muted px-5 py-2 text-[11px]">
-        <span className="inline-flex items-center gap-1.5 text-success">
-          <span className="inline-block h-2 w-2 rounded-full bg-success" />
-          Top {promotionZone} promote
-        </span>
-        <span className="inline-flex items-center gap-1.5 text-warning">
-          <span className="inline-block h-2 w-2 rounded-full bg-warning" />
-          Bottom {demotionZone} demote
-        </span>
-      </div>
-
       <ul className="divide-y divide-border">
-        {rows.map((row) => (
-          <LeagueRow
-            key={row.user.id}
-            row={row}
-            zone={
-              row.rank <= promotionZone
-                ? "promote"
-                : row.rank >= demotionStart
-                  ? "demote"
-                  : "safe"
-            }
-          />
+        {[0, 1, 2, 3, 4].map((i) => (
+          <li key={i} className="flex animate-pulse items-center gap-3 px-5 py-3">
+            <div className="h-8 w-8 rounded-full bg-border" />
+            <div className="flex-1 space-y-1.5">
+              <div className="h-3 w-32 rounded bg-border" />
+              <div className="h-2.5 w-20 rounded bg-border" />
+            </div>
+            <div className="h-4 w-12 rounded bg-border" />
+          </li>
         ))}
       </ul>
-    </Card>
+    </div>
   );
 }
 
@@ -489,6 +618,7 @@ function LeagueRow({
   row: LeaderboardRow;
   zone: "promote" | "demote" | "safe";
 }) {
+  const { t } = useTranslation();
   return (
     <li
       className={cn(
@@ -510,28 +640,34 @@ function LeagueRow({
           />
           {row.isMe ? (
             <span className="rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase text-on-accent">
-              You
+              {t("social.leaderboards.you", "You")}
             </span>
           ) : null}
-          <span className="text-xs" aria-hidden>
-            {row.user.language.flag}
-          </span>
+          {row.user.language.flag ? (
+            <span className="text-xs" aria-hidden>
+              {row.user.language.flag}
+            </span>
+          ) : null}
         </div>
         <div className="flex items-center gap-3 text-xs text-text-muted">
-          <span className="inline-flex items-center gap-0.5">
-            <Icon name="graduationCap" size={11} aria-hidden />
-            {row.lessons} lessons
-          </span>
-          <span className="inline-flex items-center gap-0.5">
-            <Icon name="flame" size={11} aria-hidden />
-            {row.user.streakDays}d
-          </span>
+          {row.lessons > 0 ? (
+            <span className="inline-flex items-center gap-0.5">
+              <Icon name="graduationCap" size={11} aria-hidden />
+              {t("social.leaderboards.lessonsCount", "{{n}} lessons", { n: row.lessons })}
+            </span>
+          ) : null}
+          {row.user.streakDays > 0 ? (
+            <span className="inline-flex items-center gap-0.5">
+              <Icon name="flame" size={11} aria-hidden />
+              {row.user.streakDays}d
+            </span>
+          ) : null}
         </div>
       </Link>
       <DeltaIndicator delta={row.delta} />
       <div className="text-right">
         <p className="text-sm font-bold text-text-primary">{row.xp.toLocaleString()}</p>
-        <p className="text-[10px] text-text-muted">XP</p>
+        <p className="text-[10px] text-text-muted">{t("social.leaderboards.xpUnit", "XP")}</p>
       </div>
       <ZoneTag zone={zone} />
     </li>
@@ -554,11 +690,7 @@ function RankBadge({ rank }: { rank: number }) {
         )}
         aria-label={`Rank ${rank}`}
       >
-        {rank === 1 ? (
-          <Icon name="crown" size={14} aria-hidden />
-        ) : (
-          rank
-        )}
+        {rank === 1 ? <Icon name="crown" size={14} aria-hidden /> : rank}
       </div>
     );
   }
@@ -601,225 +733,5 @@ function ZoneTag({ zone }: { zone: "promote" | "demote" | "safe" }) {
     >
       {zone}
     </span>
-  );
-}
-
-export function MonthlyBoards() {
-  return (
-    <div className="grid gap-5 lg:grid-cols-2">
-      <BoardCard title="Top XP — This month" rows={MOCK_MONTHLY_LB} metric="xp" />
-      <BoardCard
-        title="Top lessons completed — This month"
-        rows={[...MOCK_MONTHLY_LB].sort((a, b) => b.lessons - a.lessons).map((r, i) => ({
-          ...r,
-          rank: i + 1,
-        }))}
-        metric="lessons"
-      />
-    </div>
-  );
-}
-
-export function MonthlyTopXpCard({ limit = 10 }: { limit?: number }) {
-  return (
-    <BoardCard
-      title="Top XP — This month"
-      rows={MOCK_MONTHLY_LB.slice(0, limit)}
-      metric="xp"
-    />
-  );
-}
-
-export function MonthlyTopLessonsCard({ limit = 10 }: { limit?: number }) {
-  const sorted = [...MOCK_MONTHLY_LB]
-    .sort((a, b) => b.lessons - a.lessons)
-    .slice(0, limit)
-    .map((r, i) => ({ ...r, rank: i + 1 }));
-  return (
-    <BoardCard title="Top lessons — This month" rows={sorted} metric="lessons" />
-  );
-}
-
-export function FriendsBoard({ limit }: { limit?: number } = {}) {
-  const rows = limit ? MOCK_FRIENDS_LB.slice(0, limit) : MOCK_FRIENDS_LB;
-  return (
-    <BoardCard
-      title="Friends only — Weekly XP"
-      rows={rows}
-      metric="xp"
-      footer="Want bigger competition? Promote out of your friends list — Weekly Sprint pits you against everyone."
-    />
-  );
-}
-
-/**
- * Sidebar variant of the Weekly League — top 3 promote zone + a window
- * around the current user. Used on the unified social page so leaderboards
- * stay glanceable next to the messages pane.
- */
-export function CompactLeagueAside() {
-  const rows = MOCK_WEEKLY_LB;
-  const { promotionZone, demotionZone } = MOCK_LEAGUE;
-  const total = rows.length;
-  const demotionStart = total - demotionZone + 1;
-  const meIdx = rows.findIndex((r) => r.isMe);
-
-  // Always show top 3, then a window around "me" (me ± 1) — dedupe.
-  const indexes = new Set<number>([0, 1, 2]);
-  if (meIdx >= 0) {
-    indexes.add(Math.max(0, meIdx - 1));
-    indexes.add(meIdx);
-    indexes.add(Math.min(total - 1, meIdx + 1));
-  }
-  const visible = [...indexes].sort((a, b) => a - b).map((i) => rows[i]);
-
-  return (
-    <Card padding="none" className="overflow-hidden">
-      <div className="flex items-center justify-between gap-3 border-b border-border bg-gradient-to-br from-accent/15 via-accent-muted to-surface px-4 py-3">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface text-xl shadow-sm">
-            <span aria-hidden>{MOCK_LEAGUE.emoji}</span>
-          </div>
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-              This week
-            </p>
-            <h3 className="text-sm font-bold text-text-primary">{MOCK_LEAGUE.name}</h3>
-          </div>
-        </div>
-        <p className="text-right text-[10px] text-text-muted">{MOCK_LEAGUE.resetLabel}</p>
-      </div>
-      <ul className="divide-y divide-border">
-        {visible.map((row, i) => {
-          const prevIdx = i > 0 ? rows.indexOf(visible[i - 1]) : -1;
-          const curIdx = rows.indexOf(row);
-          const gap = prevIdx >= 0 && curIdx - prevIdx > 1;
-          return (
-            <li key={row.user.id}>
-              {gap ? (
-                <div className="border-t border-dashed border-border px-4 py-1 text-center text-[9px] uppercase tracking-wider text-text-muted">
-                  · · ·
-                </div>
-              ) : null}
-              <div
-                className={cn(
-                  "flex items-center gap-2.5 px-4 py-2",
-                  row.isMe ? "bg-accent-muted" : "",
-                )}
-              >
-                <RankBadge rank={row.rank} />
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-1.5">
-                    <UsernameDisplay
-                      name={row.user.name}
-                      cosmetic={row.user.cosmetic}
-                      className="truncate text-xs"
-                    />
-                    {row.isMe ? (
-                      <span className="rounded-full bg-accent px-1 py-px text-[8px] font-bold uppercase text-on-accent">
-                        You
-                      </span>
-                    ) : null}
-                  </div>
-                </div>
-                <ZoneTagMini
-                  zone={
-                    row.rank <= promotionZone
-                      ? "promote"
-                      : row.rank >= demotionStart
-                        ? "demote"
-                        : "safe"
-                  }
-                />
-                <p className="text-xs font-bold text-text-primary">{row.xp.toLocaleString()}</p>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-    </Card>
-  );
-}
-
-function ZoneTagMini({ zone }: { zone: "promote" | "demote" | "safe" }) {
-  if (zone === "safe") return null;
-  return (
-    <span
-      className={cn(
-        "h-1.5 w-1.5 rounded-full",
-        zone === "promote" ? "bg-success" : "bg-warning",
-      )}
-      aria-label={zone}
-    />
-  );
-}
-
-function BoardCard({
-  title,
-  rows,
-  metric,
-  footer,
-}: {
-  title: string;
-  rows: LeaderboardRow[];
-  metric: "xp" | "lessons";
-  footer?: string;
-}) {
-  return (
-    <Card padding="none" className="overflow-hidden">
-      <div className="border-b border-border px-5 py-3">
-        <h3 className="text-sm font-semibold text-text-primary">{title}</h3>
-      </div>
-      <ul className="divide-y divide-border">
-        {rows.map((row) => (
-          <li
-            key={`${title}-${row.user.id}`}
-            className={cn(
-              "flex items-center gap-3 px-5 py-3 transition",
-              row.isMe ? "bg-accent-muted" : "hover:bg-surface-muted",
-            )}
-          >
-            <RankBadge rank={row.rank} />
-            <ProfilePreviewPopover user={row.user} />
-            <Link
-              to={`/u/${encodeURIComponent(row.user.name)}`}
-              className="min-w-0 flex-1 hover:underline focus:underline focus:outline-none"
-            >
-              <div className="flex items-center gap-2">
-                <UsernameDisplay
-                  name={row.user.name}
-                  cosmetic={row.user.cosmetic}
-                  className="truncate text-sm"
-                />
-                {row.isMe ? (
-                  <span className="rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase text-on-accent">
-                    You
-                  </span>
-                ) : null}
-                <span className="text-xs" aria-hidden>
-                  {row.user.language.flag}
-                </span>
-              </div>
-              <p className="text-xs text-text-muted">
-                {row.user.lastActiveLabel}
-              </p>
-            </Link>
-            <div className="text-right">
-              <p className="text-sm font-bold text-text-primary">
-                {metric === "xp" ? row.xp.toLocaleString() : row.lessons}
-              </p>
-              <p className="text-[10px] text-text-muted">
-                {metric === "xp" ? "XP" : "lessons"}
-              </p>
-            </div>
-          </li>
-        ))}
-      </ul>
-      {footer ? (
-        <p className="border-t border-border bg-surface-muted px-5 py-3 text-xs text-text-muted">
-          {footer}
-        </p>
-      ) : null}
-    </Card>
   );
 }

@@ -187,33 +187,37 @@ export interface InviteRedeemResult {
 }
 
 // ─── Threads + messages ─────────────────────────────────────────────────────
-
-export interface ThreadParticipantUser {
-  user_id: string;
-  username: string;
-  display_name: string;
-  profile_picture_key: string | null;
-  status?: "active" | "idle" | null;
-}
+// Shape matches `lingo-core/app/social/schemas.py` exactly (flat fields, no
+// nested `other_user`/`thread`). Earlier iterations of this file had a
+// nested shape that didn't match the backend — the adapter would silently
+// crash with "Cannot read properties of undefined (reading 'user_id')" when
+// rendering the messages list. Keep the field names flat + snake_case.
 
 export interface ThreadItem {
   id: string;
-  other_user: ThreadParticipantUser;
-  last_message: string;
-  last_time_iso: string;
+  other_user_id: string;
+  other_username: string;
+  other_display_name: string;
+  other_avatar_key: string | null;
+  last_message_preview: string;
+  last_message_at: string;
   unread_count: number;
 }
 
 export interface Message {
   id: string;
   thread_id: string;
-  from_user_id: string;
-  text: string;
+  sender_id: string;
+  body: string;
   sent_at: string;
 }
 
 export interface ThreadDetail {
-  thread: ThreadItem;
+  id: string;
+  other_user_id: string;
+  other_username: string;
+  other_display_name: string;
+  other_avatar_key: string | null;
   messages: Message[];
 }
 
@@ -307,9 +311,9 @@ export class SocialApi extends ApiClient {
     signal?: AbortSignal,
   ): Promise<LeaderboardResponse> {
     return this.get<LeaderboardResponse>(
-      `${PREFIX}/leaderboards/${encodeURIComponent(lang)}/weekly`,
+      `${PREFIX}/leaderboards/weekly`,
       {
-        params: params as Record<string, number | undefined>,
+        params: { lang, ...(params as Record<string, string | number | undefined>) },
         signal,
         tag: `social:leaderboard:weekly:${lang}`,
       },
@@ -322,9 +326,9 @@ export class SocialApi extends ApiClient {
     signal?: AbortSignal,
   ): Promise<LeaderboardResponse> {
     return this.get<LeaderboardResponse>(
-      `${PREFIX}/leaderboards/${encodeURIComponent(lang)}/monthly`,
+      `${PREFIX}/leaderboards/monthly`,
       {
-        params: params as Record<string, number | undefined>,
+        params: { lang, ...(params as Record<string, string | number | undefined>) },
         signal,
         tag: `social:leaderboard:monthly:${lang}`,
       },

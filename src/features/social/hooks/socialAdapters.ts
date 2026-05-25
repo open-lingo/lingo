@@ -207,25 +207,71 @@ export function adaptSpotlight(
 }
 
 export function adaptThread(t: ApiThreadItem): ChatThread {
-  const { status, label } = lastActiveLabel(t.last_time_iso);
+  const iso = t.last_message_at;
+  const { status, label } = lastActiveLabel(iso);
   return {
     id: t.id,
     user: {
-      id: t.other_user.user_id,
-      name: t.other_user.display_name || t.other_user.username,
-      imageUrl: t.other_user.profile_picture_key ?? undefined,
+      id: t.other_user_id,
+      name: t.other_display_name || t.other_username,
+      imageUrl: t.other_avatar_key ?? undefined,
       language: langOf(null),
       streakDays: 0,
       totalXp: 0,
       lessonsCompleted: 0,
-      status: t.other_user.status ?? status,
+      status,
       lastActiveLabel: label,
     },
-    lastMessage: t.last_message,
-    lastTimeLabel: timeAgo(t.last_time_iso),
+    lastMessage: t.last_message_preview,
+    lastTimeLabel: timeAgo(iso),
     unreadCount: t.unread_count,
     messages: [],
   };
+}
+
+/** Map a `ThreadDetailResponse` from the backend into the UI `ChatThread`
+ *  shape, populating `messages` with the seeded history. */
+export function adaptThreadDetail(
+  d: import("@/shared/api/social").ThreadDetail,
+  meUserId: string | null,
+): ChatThread {
+  return {
+    id: d.id,
+    user: {
+      id: d.other_user_id,
+      name: d.other_display_name || d.other_username,
+      imageUrl: d.other_avatar_key ?? undefined,
+      language: langOf(null),
+      streakDays: 0,
+      totalXp: 0,
+      lessonsCompleted: 0,
+      status: "idle",
+      lastActiveLabel: "",
+    },
+    lastMessage: d.messages.at(-1)?.body ?? "",
+    lastTimeLabel: d.messages.length > 0 ? timeAgo(d.messages.at(-1)!.sent_at) : "",
+    unreadCount: 0,
+    messages: d.messages.map((m) => ({
+      id: m.id,
+      fromId: meUserId && m.sender_id === meUserId ? "me" : m.sender_id,
+      text: m.body,
+      timeLabel: formatAbsoluteTimeLabel(m.sent_at),
+    })),
+  };
+}
+
+function formatAbsoluteTimeLabel(iso: string): string {
+  const t = new Date(iso).getTime();
+  if (Number.isNaN(t)) return "";
+  const d = new Date(t);
+  const today = new Date();
+  const sameDay =
+    d.getFullYear() === today.getFullYear() &&
+    d.getMonth() === today.getMonth() &&
+    d.getDate() === today.getDate();
+  const hh = d.getHours().toString().padStart(2, "0");
+  const mm = d.getMinutes().toString().padStart(2, "0");
+  return sameDay ? `Today · ${hh}:${mm}` : `${d.toLocaleDateString()} · ${hh}:${mm}`;
 }
 
 export function adaptPublicProfile(p: PublicProfile): {

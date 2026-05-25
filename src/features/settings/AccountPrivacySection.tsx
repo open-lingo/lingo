@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api/provider";
 import { useToast } from "@/shared/contexts/ToastContext";
@@ -11,6 +12,8 @@ import {
   clearCookieConsent,
 } from "@/shared/legal/cookieConsent";
 import { privacyContactHref, privacyContactLabel } from "@/features/legal/legalConfig";
+import { useUnblockUser } from "@/features/social/hooks/useSocialMutations";
+import { SOCIAL_QUERY_KEYS } from "@/features/social/hooks/useSocial";
 
 type AccountPrivacySectionProps = {
   /** When true, omit the section heading (parent panel already has a title). */
@@ -20,12 +23,22 @@ type AccountPrivacySectionProps = {
 export function AccountPrivacySection({ embedded = false }: AccountPrivacySectionProps) {
   const { t } = useTranslation();
   const { isAuthenticated, logout, user } = useAuth();
-  const { users } = useApi();
+  const { users, social } = useApi();
   const { showToast } = useToast();
   const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
   const [confirmText, setConfirmText] = useState("");
   const consent = getCookieConsent();
+
+  // Blocked users — only loaded when authed. The unblock mutation invalidates
+  // this query on success so the row disappears immediately.
+  const blocksQuery = useQuery({
+    queryKey: SOCIAL_QUERY_KEYS.blocks,
+    queryFn: ({ signal }) => social.listBlocks(signal),
+    enabled: isAuthenticated,
+    staleTime: 60_000,
+  });
+  const unblock = useUnblockUser();
 
   if (!isAuthenticated) {
     return (
@@ -101,6 +114,52 @@ export function AccountPrivacySection({ embedded = false }: AccountPrivacySectio
             {t("legal.cookies.rejectAds", "Turn off ads cookies")}
           </button>
         </div>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-xs font-medium text-text-primary">
+          {t("legal.settings.blockedTitle", "Blocked users")}
+        </p>
+        {blocksQuery.isLoading ? (
+          <p className="text-xs text-text-muted">
+            {t("common.loading", "Loading…")}
+          </p>
+        ) : (blocksQuery.data?.length ?? 0) === 0 ? (
+          <p className="text-xs text-text-muted">
+            {t(
+              "legal.settings.blockedEmpty",
+              "You haven't blocked anyone. Block someone from their profile to silence them everywhere.",
+            )}
+          </p>
+        ) : (
+          <ul className="divide-y divide-border rounded-lg border border-border bg-surface">
+            {(blocksQuery.data ?? []).map((b) => (
+              <li
+                key={b.user_id}
+                className="flex items-center gap-2 px-3 py-2 text-xs"
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-semibold text-text-primary">
+                    {b.display_name || b.username}
+                  </p>
+                  <p className="truncate text-[10px] text-text-muted">
+                    @{b.username}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  disabled={unblock.isPending}
+                  onClick={() => unblock.mutate(b.user_id)}
+                  className="rounded-md border border-border bg-surface px-2 py-1 text-[11px] font-medium text-text-secondary transition hover:bg-surface-muted hover:text-text-primary disabled:opacity-50"
+                >
+                  {unblock.isPending && unblock.variables === b.user_id
+                    ? "…"
+                    : t("legal.settings.unblock", "Unblock")}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div className="space-y-2 rounded-lg border border-red-500/30 bg-red-500/5 p-3">

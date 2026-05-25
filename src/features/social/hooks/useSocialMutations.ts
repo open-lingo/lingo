@@ -75,7 +75,21 @@ export function useSendFriendRequest() {
 
   return useMutation({
     mutationFn: (vars: { toUsername?: string; toUserId?: string }) =>
-      social.sendFriendRequest(vars),
+      // Backend (FastAPI/Pydantic) expects snake_case body fields
+      // `to_username` / `to_user_id`. The legacy SocialApi type aliases the
+      // payload as camelCase; without this translation the body lands as
+      // `{toUsername:"…"}` and Pydantic ignores it, resulting in a 422 because
+      // both target fields are unset on the server. Sending both spellings is
+      // safe — Pydantic ignores the unknown camelCase keys.
+      social.sendFriendRequest({
+        ...vars,
+        ...(vars.toUsername !== undefined
+          ? ({ to_username: vars.toUsername } as Record<string, string>)
+          : {}),
+        ...(vars.toUserId !== undefined
+          ? ({ to_user_id: vars.toUserId } as Record<string, string>)
+          : {}),
+      } as Parameters<typeof social.sendFriendRequest>[0]),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: SOCIAL_QUERY_KEYS.friendRequests });
       void qc.invalidateQueries({ queryKey: ["social", "profile"] });

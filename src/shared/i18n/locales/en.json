@@ -80,7 +80,10 @@
       "deleteConfirmLabel": "Type DELETE to confirm",
       "deleteButton": "Delete my account",
       "deleteSuccess": "Account deleted",
-      "deleteFailed": "Could not delete account. Try again or contact us."
+      "deleteFailed": "Could not delete account. Try again or contact us.",
+      "blockedTitle": "Blocked users",
+      "blockedEmpty": "You haven't blocked anyone. Block someone from their profile to silence them everywhere.",
+      "unblock": "Unblock"
     }
   },
   "landing": {
@@ -688,7 +691,8 @@
     "cardsReviewed": "Cards reviewed",
     "contributions": "Contributions",
     "prs": "PRs",
-    "reviews": "Reviews"
+    "reviews": "Reviews",
+    "heading": "Where you stand"
   },
   "studio": {
     "headerBackToCreatorStudio": "Creator Studio",
@@ -1521,7 +1525,8 @@
       "sayHi": "Say hi to {{name}}",
       "iceBreaker": "Send a wave to break the ice — they'll see it pop in your activity feed too.",
       "emptyTitle": "No messages yet",
-      "emptyDesc": "Once you add friends, your conversations will show up here."
+      "emptyDesc": "Once you add friends, your conversations will show up here.",
+      "sendsLocalOnly": "Drafts stay on this device — server-side delivery is rolling out."
     },
     "spotlight": {
       "currentLeague": "Current league",
@@ -1570,6 +1575,32 @@
       "haveCode": "Have an invite code?",
       "codePlaceholder": "xxxx-yyyy-zzzz",
       "redeem": "Redeem"
+    },
+    "leaderboards": {
+      "kicker": "Leaderboards",
+      "title": "This sprint and beyond",
+      "resetCadence": "Weekly resets Sunday · Monthly resets the 1st",
+      "tabWeekly": "Weekly Sprint",
+      "tabMonthly": "Monthly",
+      "tabFriends": "Friends",
+      "topXp": "Top XP",
+      "topLessons": "Top lessons completed",
+      "friendsXp": "Friends only — Weekly XP",
+      "friendsFooter": "Want bigger competition? Promote out of your friends list — Weekly Sprint pits you against everyone.",
+      "xpUnit": "XP",
+      "lessonsUnit": "lessons",
+      "lessonsCount": "{{n}} lessons",
+      "sprintEnds": "Sprint ends",
+      "currentLeague": "Current league",
+      "tierOf": "Tier {{n}} of {{total}}",
+      "zonePromote": "Top {{n}} promote",
+      "zoneDemote": "Bottom {{n}} demote",
+      "you": "You",
+      "seeFull": "See full leaderboard →",
+      "empty": "No rankings yet. Earn some XP to land on the board!",
+      "emptyWeekly": "No weekly rankings yet — earn XP to join the sprint.",
+      "emptyMonthly": "No monthly rankings yet — be the first.",
+      "emptyFriends": "Add friends to start a friends-only leaderboard."
     }
   }
 }

@@ -37,6 +37,42 @@ export interface UserSettings {
   [key: string]: unknown;
 }
 
+/** Snake-case friendship status surfaced by `/users/discover` and
+ *  `/social/profiles/{username}`. Matches the backend `PublicFriendshipStatus`
+ *  Literal so the discriminating string compares are exhaustive. */
+export type PublicFriendshipStatus =
+  | "self"
+  | "friend"
+  | "request_in"
+  | "request_out"
+  | "blocked"
+  | "none";
+
+export interface PublicUserSummary {
+  auth0_id: string;
+  user_id: string;
+  username: string;
+  display_name: string;
+  profile_picture_key: string | null;
+  learning_language: string | null;
+  weekly_xp: number;
+  streak_days: number;
+  friendship_status: PublicFriendshipStatus;
+}
+
+export interface DiscoverUsersResponse {
+  users: PublicUserSummary[];
+  total: number;
+  has_more: boolean;
+}
+
+export interface DiscoverUsersParams {
+  q?: string;
+  lang?: string;
+  limit?: number;
+  offset?: number;
+}
+
 export class UsersApi extends ApiClient {
   /** Register a new user (first login). */
   register(payload: CreateUserPayload, signal?: AbortSignal): Promise<User> {

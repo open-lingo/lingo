@@ -41,12 +41,6 @@ export function ActivityFeedStrip() {
         <h3 className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
           {t("social.activity.title", "Friends recently")}
         </h3>
-        <button
-          type="button"
-          className="ml-auto text-[11px] font-medium text-accent hover:text-accent-hover"
-        >
-          {t("social.activity.seeAll", "See all")}
-        </button>
       </div>
       {isLoading ? (
         <ActivitySkeleton />

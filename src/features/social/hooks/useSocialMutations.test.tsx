@@ -92,7 +92,11 @@ describe("useSendFriendRequest", () => {
     });
 
     await waitFor(() => expect(social.sendFriendRequest).toHaveBeenCalledOnce());
-    expect(social.sendFriendRequest).toHaveBeenCalledWith({ toUsername: "kenji" });
+    // Hook spreads snake_case alongside camelCase so the FastAPI server reads
+    // the field correctly. See useSocialMutations.useSendFriendRequest.
+    expect(social.sendFriendRequest).toHaveBeenCalledWith(
+      expect.objectContaining({ to_username: "kenji" }),
+    );
     await waitFor(() =>
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: SOCIAL_QUERY_KEYS.friendRequests,

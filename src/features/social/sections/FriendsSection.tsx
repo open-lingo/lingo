@@ -11,7 +11,7 @@
  * fire against.
  */
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
@@ -55,6 +55,8 @@ export function FriendsSection() {
  */
 export function FriendsSearchAndList() {
   const { t } = useTranslation();
+  const langPath = useLangPath();
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const { data, isLoading } = useFriends();
 
@@ -100,7 +102,10 @@ export function FriendsSearchAndList() {
             action={{
               label: t("social.friends.emptyAction", "Find friends"),
               onClick: () => {
-                /* MOCK: real impl opens the find-friends modal. */
+                // Take the user to the contributors page where they can
+                // browse and friend other learners. Keeps the empty-state
+                // CTA discoverable without a separate find-friends modal.
+                navigate(langPath("community/contributors"));
               },
             }}
           />
@@ -225,12 +230,6 @@ export function FriendRequestsPanel() {
             {requests.length}
           </span>
         </h3>
-        <button
-          type="button"
-          className="ml-auto text-[11px] font-medium text-accent hover:text-accent-hover"
-        >
-          {t("social.requests.seeAll", "See all")}
-        </button>
       </div>
       <ul className="divide-y divide-border">
         {requests.map((u) => (

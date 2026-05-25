@@ -304,8 +304,68 @@ export function useFriendRequests(options?: HookOptions): Result<SocialUser[]> {
 export function useFriendSuggestions(
   options?: HookOptions,
 ): Result<{ user: SocialUser; reason: string }[]> {
-  // No backend endpoint for suggestions yet — mock-backed always.
-  return useMockResource(MOCK_FRIEND_SUGGESTIONS, options);
+  const enabled = isSocialApiEnabled();
+  const api = useApiOptional();
+  const social: SocialApi | null = api?.social ?? null;
+  const friends = useFriends();
+  const requests = useFriendRequests();
+
+  // No `GET /social/suggestions` endpoint exists yet — until backend ships
+  // one we synthesize a list from the existing `/quest-targets` payload
+  // (friends-of-friends reachable by streak/XP gap) and subtract people the
+  // viewer already knows.
+  // TODO(backend): GET /social/suggestions?lang=… returning richer "you and X
+  // both follow Y" reasons. For now we surface the streak/XP gap as the
+  // reason since that's what the backend computes.
+  const apiResult = useApiResource({
+    queryKey: SOCIAL_QUERY_KEYS.questTargets,
+    queryFn: social ? (signal) => social.getQuestTargets(signal) : null,
+    select: (rows) => rows,
+    staleTime: 60_000,
+    enabled,
+  });
+  // Always call the mock hook so React sees a stable call order regardless of
+  // which path is active. The result is only consumed in the mock branch.
+  const mockResult = useMockResource(MOCK_FRIEND_SUGGESTIONS, options);
+
+  if (!enabled) return mockResult;
+
+  const friendIds = new Set((friends.data ?? []).map((f) => f.id));
+  // `useFriendRequests` returns an adapted "incoming" list of SocialUser via
+  // `adaptIncomingRequests`, so its ids only cover incoming. Outgoing
+  // requests are rare enough that an extra suggestion row is acceptable.
+  const requestIds = new Set((requests.data ?? []).map((r) => r.id));
+  const suggestions = (apiResult.data ?? [])
+    .filter((q) => !friendIds.has(q.user_id) && !requestIds.has(q.user_id))
+    .slice(0, 6)
+    .map((q) => ({
+      user: {
+        id: q.user_id,
+        name: q.display_name || q.username,
+        imageUrl: q.profile_picture_key ?? undefined,
+        language: { code: "", flag: "", label: "" },
+        streakDays: 0,
+        totalXp: 0,
+        lessonsCompleted: 0,
+        status: "idle" as const,
+        lastActiveLabel: "",
+      },
+      reason: q.reason,
+    }));
+
+  const override = options?.override as
+    | { user: SocialUser; reason: string }[]
+    | undefined;
+  if (override !== undefined) {
+    return { data: override, isLoading: false, isEmpty: override.length === 0 };
+  }
+  return {
+    data: apiResult.isLoading ? null : suggestions,
+    isLoading: apiResult.isLoading,
+    isEmpty: !apiResult.isLoading && suggestions.length === 0,
+    isError: apiResult.isError,
+    refetch: apiResult.refetch,
+  };
 }
 
 export function useActivityFeed(options?: HookOptions): Result<ActivityItem[]> {

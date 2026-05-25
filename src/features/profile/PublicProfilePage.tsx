@@ -132,7 +132,15 @@ export function PublicProfilePage() {
       login();
       return;
     }
-    void runAction(social.sendFriendRequest({ toUsername: username! }));
+    // Backend expects snake_case body fields. The legacy SocialApi types alias
+    // them as camelCase; spread both so the request lands intact regardless of
+    // which spelling Pydantic reads.
+    void runAction(
+      social.sendFriendRequest({
+        toUsername: username!,
+        ...({ to_username: username! } as Record<string, string>),
+      } as Parameters<typeof social.sendFriendRequest>[0]),
+    );
   }
   function handleAccept() {
     if (!socialProfile) return;

@@ -588,7 +588,8 @@
     "cardsReviewed": "복습 카드",
     "contributions": "기여",
     "prs": "PR",
-    "reviews": "리뷰"
+    "reviews": "리뷰",
+    "heading": "내 위치"
   },
   "studio": {
     "headerBackToCreatorStudio": "크리에이터 스튜디오",
@@ -1431,7 +1432,8 @@
       "sayHi": "{{name}}님에게 인사하기",
       "iceBreaker": "👋 손 흔들기로 대화를 시작해 보세요 — 활동 피드에도 표시돼요.",
       "emptyTitle": "아직 메시지가 없어요",
-      "emptyDesc": "친구를 추가하면 대화가 여기에 표시돼요."
+      "emptyDesc": "친구를 추가하면 대화가 여기에 표시돼요.",
+      "sendsLocalOnly": "메시지는 현재 기기에만 저장됩니다 — 서버 동기화는 출시 예정입니다."
     },
     "spotlight": {
       "currentLeague": "현재 리그",
@@ -1480,6 +1482,39 @@
       "haveCode": "초대 코드가 있나요?",
       "codePlaceholder": "xxxx-yyyy-zzzz",
       "redeem": "사용"
+    },
+    "leaderboards": {
+      "kicker": "리더보드",
+      "title": "이번 주 그리고 그 이상",
+      "resetCadence": "주간은 일요일 · 월간은 1일에 초기화",
+      "tabWeekly": "주간",
+      "tabMonthly": "월간",
+      "tabFriends": "친구",
+      "topXp": "최고 XP",
+      "topLessons": "완료한 레슨",
+      "friendsXp": "친구끼리 — 주간 XP",
+      "friendsFooter": "더 큰 경쟁을 원하시나요? 친구 목록에서 승급하세요 — 주간 스프린트는 모두와의 경쟁입니다.",
+      "xpUnit": "XP",
+      "lessonsUnit": "레슨",
+      "lessonsCount": "{{n}}레슨",
+      "sprintEnds": "스프린트 종료",
+      "currentLeague": "현재 리그",
+      "tierOf": "{{total}}단계 중 {{n}}단계",
+      "zonePromote": "상위 {{n}}명 승급",
+      "zoneDemote": "하위 {{n}}명 강등",
+      "you": "본인",
+      "seeFull": "전체 리더보드 보기 →",
+      "empty": "아직 순위가 없습니다. XP를 쌓아 보드에 오르세요!",
+      "emptyWeekly": "아직 주간 순위가 없습니다 — XP를 쌓아 합류하세요.",
+      "emptyMonthly": "아직 월간 순위가 없습니다 — 첫 번째가 되어 보세요.",
+      "emptyFriends": "친구를 추가하고 친구 전용 리더보드를 시작하세요."
+    }
+  },
+  "legal": {
+    "settings": {
+      "blockedTitle": "차단한 사용자",
+      "blockedEmpty": "차단한 사용자가 없습니다. 프로필에서 차단하면 모든 곳에서 보이지 않게 됩니다.",
+      "unblock": "차단 해제"
     }
   }
 }

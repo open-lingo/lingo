@@ -27,7 +27,6 @@ export type {
   InviteRedeemResult,
   ThreadItem,
   ThreadDetail,
-  ThreadParticipantUser,
   Message,
   QuestTargetItem,
 } from "./social";

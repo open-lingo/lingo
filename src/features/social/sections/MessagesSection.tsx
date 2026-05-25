@@ -2,11 +2,20 @@
  * Messages tab — thread list (left) + active conversation (right). 1-1 only
  * for v1; group chat / voice / read receipts are out of scope.
  *
- * Active thread is selected by local state. Composer state is local and
- * mock-only — sending appends to the in-memory transcript so Spencer can
- * test the empty-state-to-message flow visually.
+ * Active thread is selected by local state. The thread list comes from
+ * `useThreads()` (real API when enabled, mock otherwise). When a thread is
+ * selected we lazy-load its messages via `socialApi.getThread(threadId)` so
+ * the seeded history (Trevor↔Sora, Trevor↔Kenji) actually paints.
+ *
+ * Composer is currently local-only: there is no `POST /threads/{id}/messages`
+ * endpoint yet, so optimistic sends append to client state with a clear UX
+ * hint ("Saved locally") and do NOT persist on the server.
+ *
+ * TODO(backend): POST /social/threads/{thread_id}/messages → 201 Message
+ * TODO(backend): POST /social/threads/with/{user_id} → 200 ThreadItem
  */
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
@@ -17,6 +26,9 @@ import { UserAvatar } from "../components/UserAvatar";
 import { UsernameDisplay } from "../components/UsernameDisplay";
 import { KudosButton } from "../components/KudosButton";
 import { useThreads } from "../hooks/useSocial";
+import { useApiOptional } from "@/shared/api";
+import { useAuth } from "@/shared/auth/useAuth";
+import { adaptThreadDetail } from "../hooks/socialAdapters";
 import type { ChatMessage, ChatThread } from "../mock/mockSocial";
 
 type Props = {
@@ -29,6 +41,8 @@ type Props = {
 export function MessagesSection({ initialFriendId, heightClassName }: Props = {}) {
   const { t } = useTranslation();
   const { data, isLoading } = useThreads();
+  const apiOpt = useApiOptional();
+  const { user: auth0User, isAuthenticated } = useAuth();
   const [threads, setThreads] = useState<ChatThread[]>([]);
   const [activeId, setActiveId] = useState<string>("");
   const [draft, setDraft] = useState("");
@@ -36,8 +50,8 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
     initialFriendId ? "thread" : "list",
   );
 
-  // Hydrate local thread state once data lands. Subsequent edits live in
-  // local state until the real API offers a mutation surface.
+  // Hydrate local thread state once data lands. Subsequent edits (sends)
+  // live in local state until the real API offers a send-message endpoint.
   useEffect(() => {
     if (!data || threads.length > 0) return;
     setThreads(data);
@@ -45,6 +59,47 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
       (initialFriendId && data.find((th) => th.user.id === initialFriendId)) || data[0];
     if (initial) setActiveId(initial.id);
   }, [data, threads.length, initialFriendId]);
+
+  // Resolve the current user's backend id so message bubbles can correctly
+  // mark "me". We use the lightweight `users.getMe()` call already
+  // memoized by `useApi`. Falls back to the auth0 sub when offline / mock.
+  const meQuery = useQuery({
+    queryKey: ["users", auth0User?.sub ?? "anon", "me"],
+    queryFn: () => apiOpt!.users.getMe(),
+    enabled: !!apiOpt && isAuthenticated,
+    staleTime: 60_000,
+  });
+  const meUserId = meQuery.data?.id ?? null;
+
+  // When a thread is selected and we don't have its messages yet, fetch the
+  // detail and splice in the seeded history. Subsequent local sends append
+  // to that array.
+  const needsDetail = useMemo(() => {
+    if (!activeId) return false;
+    const thread = threads.find((th) => th.id === activeId);
+    return !!thread && thread.messages.length === 0;
+  }, [activeId, threads]);
+
+  // Only fetch detail when we have a live API client AND the active id
+  // looks like a server UUID (rules out mock thread ids that are prefixed
+  // with `t-`). The mock threads already carry their seed messages inline.
+  const looksLikeServerId = /^[0-9a-f-]{8,}$/i.test(activeId);
+  const detailQuery = useQuery({
+    queryKey: ["social", "thread-detail", activeId],
+    queryFn: () => apiOpt!.social.getThread(activeId),
+    enabled: !!apiOpt && needsDetail && looksLikeServerId,
+    staleTime: 30_000,
+  });
+
+  useEffect(() => {
+    if (!detailQuery.data) return;
+    const hydrated = adaptThreadDetail(detailQuery.data, meUserId);
+    setThreads((prev) =>
+      prev.map((th) =>
+        th.id === hydrated.id ? { ...th, messages: hydrated.messages } : th,
+      ),
+    );
+  }, [detailQuery.data, meUserId]);
 
   if (isLoading || threads.length === 0) {
     if (!isLoading && (data?.length ?? 0) === 0) {
@@ -66,6 +121,11 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
 
   const active = threads.find((th) => th.id === activeId) ?? threads[0];
 
+  // Compose: the backend does not have a `POST /threads/{id}/messages`
+  // endpoint yet so sends are local-only. We optimistically append to
+  // client state; the next reload will lose the message until backend
+  // support lands.
+  // TODO(backend): POST /social/threads/{thread_id}/messages
   const handleSend = () => {
     const text = draft.trim();
     if (!text) return;
@@ -110,13 +170,14 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
               <h3 className="text-sm font-semibold text-text-primary">
                 {t("social.messages.title", "Messages")}
               </h3>
-              <button
-                type="button"
+              <Link
+                to="../social"
                 className="flex h-7 w-7 items-center justify-center rounded-lg text-text-muted transition hover:bg-accent-muted hover:text-accent"
-                aria-label={t("social.messages.newAria", "New message")}
+                aria-label={t("social.messages.newAria", "Start a new conversation from your friends list")}
+                title={t("social.messages.newAria", "Start a new conversation from your friends list")}
               >
                 <Icon name="pencil" size={14} aria-hidden />
-              </button>
+              </Link>
             </div>
             <div className="relative mt-2">
               <span className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-text-muted">
@@ -239,7 +300,9 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
 
           {/* Messages */}
           <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
-            {active.messages.length === 0 ? (
+            {detailQuery.isFetching && active.messages.length === 0 ? (
+              <ThreadMessagesSkeleton />
+            ) : active.messages.length === 0 ? (
               <EmptyThread name={active.user.name} />
             ) : (
               active.messages.map((m, i) => {
@@ -289,6 +352,12 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
 
           {/* Composer */}
           <div className="border-t border-border bg-surface px-3 py-3">
+            <p className="mb-1.5 text-[10px] text-text-muted">
+              {t(
+                "social.messages.sendsLocalOnly",
+                "Drafts stay on this device — server-side delivery is rolling out.",
+              )}
+            </p>
             <div className="flex items-end gap-2">
               <button
                 type="button"
@@ -353,6 +422,22 @@ function EmptyThread({ name }: { name: string }) {
       <div className="mt-4">
         <KudosButton initialCount={0} emoji="👋" size="md" />
       </div>
+    </div>
+  );
+}
+
+function ThreadMessagesSkeleton() {
+  return (
+    <div className="space-y-3" aria-hidden>
+      {[0, 1, 2].map((i) => (
+        <div
+          key={i}
+          className={cn(
+            "h-10 animate-pulse rounded-2xl bg-surface",
+            i % 2 ? "ml-auto w-[60%]" : "w-[70%]",
+          )}
+        />
+      ))}
     </div>
   );
 }

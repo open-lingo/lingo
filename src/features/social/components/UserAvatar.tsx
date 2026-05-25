@@ -4,6 +4,7 @@
  * Spencer can see the slot in action; the underlying type stays open-ended so
  * a real cosmetics system can drop in without breaking call sites.
  */
+import { useEffect, useState } from "react";
 import { cn } from "@/shared/components/ui/cn";
 
 export type AvatarFrame =
@@ -46,6 +47,11 @@ export function UserAvatar({
 }: Props) {
   const s = SIZE[size];
   const initial = name.charAt(0).toUpperCase();
+  const [imageFailed, setImageFailed] = useState(false);
+  useEffect(() => {
+    setImageFailed(false);
+  }, [imageUrl]);
+  const showImage = !!imageUrl && imageUrl.trim().length > 0 && !imageFailed;
 
   const frameStyle: React.CSSProperties =
     frame.kind === "solid"
@@ -73,8 +79,13 @@ export function UserAvatar({
             s.inner,
           )}
         >
-          {imageUrl ? (
-            <img src={imageUrl} alt="" className="h-full w-full object-cover" />
+          {showImage ? (
+            <img
+              src={imageUrl}
+              alt=""
+              className="h-full w-full object-cover"
+              onError={() => setImageFailed(true)}
+            />
           ) : (
             <span className={cn("font-bold text-accent", s.text)} aria-hidden>
               {initial}

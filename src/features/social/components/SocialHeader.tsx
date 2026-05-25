@@ -10,6 +10,7 @@ import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useAuth } from "@/shared/auth/useAuth";
+import { resolveUserAvatarUrl } from "@/shared/auth/resolveUserAvatarUrl";
 import { useUserStats } from "@/shared/hooks/useUserStats";
 import { UserAvatar } from "./UserAvatar";
 import { UsernameDisplay } from "./UsernameDisplay";
@@ -25,6 +26,7 @@ export function SocialHeader() {
 
   const displayName =
     user?.nickname ?? user?.given_name ?? user?.name ?? me.name;
+  const avatarUrl = resolveUserAvatarUrl(undefined, user ?? undefined);
 
   return (
     <Card
@@ -34,6 +36,7 @@ export function SocialHeader() {
     >
       <UserAvatar
         name={displayName}
+        imageUrl={avatarUrl}
         frame={me.frame}
         status="active"
         size="md"
