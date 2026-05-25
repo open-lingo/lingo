@@ -42,7 +42,10 @@
     "guestLogin": "Log in",
     "guestStart": "Start",
     "lingotsTooltip": "{{count}} lingots",
-    "lingotsLoading": "Loading lingots…"
+    "lingotsLoading": "Loading lingots…",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mobileLabel": "Mobile navigation"
   },
   "authMenu": {
     "themeLabel": "Theme",

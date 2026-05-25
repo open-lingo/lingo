@@ -118,7 +118,7 @@ export function CommunityDecksLayout({
           {searchSlot}
           <Link
             to={newTo}
-            className="inline-flex items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-accent-hover"
+            className="inline-flex min-h-9 items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-accent-hover"
           >
             <Icon name="plus" size={16} aria-hidden />
             {t("community.contentBrowserNewDeck")}

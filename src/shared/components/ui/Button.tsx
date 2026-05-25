@@ -37,8 +37,12 @@ const sizeClasses: Record<ButtonSize, string> = {
 // `!justify-start` overrides the `justify-center` in baseBehavior — menu
 // rows are left-aligned (icon + label), not centered. Without `!important`
 // Tailwind's class declaration order leaves the layout ambiguous.
+//
+// `min-h-[44px]` makes every menu row a comfortable touch target on
+// mobile while still reading as compact on desktop (py-2 keeps the
+// vertical density on rows whose content already pushes past 44px).
 const menuRowLayout =
-  "w-full !justify-start gap-3 rounded-none px-4 py-2 text-left text-sm font-normal";
+  "min-h-[44px] w-full !justify-start gap-3 rounded-none px-4 py-2 text-left text-sm font-normal";
 
 // Layout is variant-owned (not size-driven) — primary-3d is a single
 // hero spec across landing + lesson, not a size scale.

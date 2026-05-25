@@ -60,6 +60,19 @@ export function Layout() {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  // Lock body scroll while the mobile menu is open so users don't
+  // scroll the page behind the open panel. Restores prior overflow on
+  // unmount / close. Survives orientation change because we only listen
+  // to `mobileMenuOpen` state, not viewport size.
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [mobileMenuOpen]);
+
   useEffect(() => {
     loadAdSenseScript();
     const onConsent = () => loadAdSenseScript();
@@ -168,10 +181,23 @@ export function Layout() {
             </nav>
           ) : null}
 
-          {/* Right side: utilities + mobile menu button */}
-          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
-            {isAuthenticated && <SyncManagerTrigger />}
-            {isAuthenticated && <AdFreePill />}
+          {/* Right side: utilities + mobile menu button.
+              On <sm (≤640px) we hide SyncManagerTrigger + AdFreePill to keep
+              the header on one line at 375px. Sync status surfaces inside the
+              mobile menu instead; AdFreePill auto-hides when not active.
+              LingotBalance + LanguageSelector stay visible because they're
+              the highest-signal status chips. */}
+          <div className="flex min-w-0 shrink items-center justify-end gap-1 sm:gap-2">
+            {isAuthenticated && (
+              <span className="hidden sm:inline-flex">
+                <SyncManagerTrigger />
+              </span>
+            )}
+            {isAuthenticated && (
+              <span className="hidden sm:inline-flex">
+                <AdFreePill />
+              </span>
+            )}
             {isAuthenticated && <LingotBalance />}
             {isAuthenticated && <LanguageSelector />}
             {isAuthenticated ? (
@@ -192,9 +218,10 @@ export function Layout() {
                   e.stopPropagation();
                   setMobileMenuOpen((o) => !o);
                 }}
-                className="relative z-50 flex h-10 w-10 shrink-0 items-center justify-center text-text-secondary hover:text-text-primary md:hidden [touch-action:manipulation]"
+                className="relative z-50 -mr-1 flex h-11 w-11 shrink-0 items-center justify-center text-text-secondary hover:text-text-primary md:hidden [touch-action:manipulation]"
                 aria-expanded={mobileMenuOpen}
-                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-controls="mobile-nav"
+                aria-label={mobileMenuOpen ? t("nav.closeMenu", "Close menu") : t("nav.openMenu", "Open menu")}
               >
                 {mobileMenuOpen ? (
                   <Icon name="close" size={24} />
@@ -206,83 +233,89 @@ export function Layout() {
           </div>
         </div>
 
-        {/* Mobile nav — signed-in only */}
+        {/* Mobile nav — signed-in only.
+            Slides down from the header. Backdrop catches taps outside.
+            Rows are min-h-[44px] tap targets. Sync trigger and ad-free
+            pill are surfaced here since they're hidden in the compact
+            header at narrow widths. */}
         {isAuthenticated && mobileMenuOpen && (
-          <div className="border-t border-border bg-surface md:hidden">
-            <nav className="flex flex-col gap-0.5 px-3 py-3" aria-label="Mobile navigation">
-              <Link
-                to="/home"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`rounded-lg px-4 py-3 text-base ${
-                  homeActive
-                    ? "font-semibold text-text-primary"
-                    : "font-medium text-text-primary hover:bg-surface-muted"
-                }`}
+          <>
+            {/* Backdrop — clicking it closes the menu without firing a route nav. */}
+            <button
+              type="button"
+              aria-label={t("nav.closeMenu", "Close menu")}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-x-0 bottom-0 top-12 z-30 bg-overlay/40 md:hidden"
+            />
+            <div
+              id="mobile-nav"
+              className="relative z-40 origin-top border-t border-border bg-surface shadow-popover animate-fade-up motion-reduce:animate-none md:hidden"
+            >
+              <nav
+                className="flex flex-col gap-0.5 px-3 py-3"
+                aria-label={t("nav.mobileLabel", "Mobile navigation")}
               >
-                {t("nav.home")}
-              </Link>
-              <Link
-                to={langPath("learn")}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`rounded-lg px-4 py-3 text-base ${
-                  learnActive
-                    ? "font-semibold text-text-primary"
-                    : "font-medium text-text-primary hover:bg-surface-muted"
-                }`}
-              >
-                {t("nav.learn")}
-              </Link>
-              <Link
-                to={langPath("practice")}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`rounded-lg px-4 py-3 text-base ${
-                  practiceActive
-                    ? "font-semibold text-text-primary"
-                    : "font-medium text-text-primary hover:bg-surface-muted"
-                }`}
-              >
-                {t("nav.practice")}
-              </Link>
-              <Link
-                to={langPath("social")}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`rounded-lg px-4 py-3 text-base ${
-                  socialActive
-                    ? "font-semibold text-text-primary"
-                    : "font-medium text-text-primary hover:bg-surface-muted"
-                }`}
-              >
-                {t("nav.social", "Social")}
-              </Link>
-              <Link
-                to={langPath("community")}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`rounded-lg px-4 py-3 text-base ${
-                  communityActive
-                    ? "font-semibold text-text-primary"
-                    : "font-medium text-text-primary hover:bg-surface-muted"
-                }`}
-              >
-                {t("nav.community")}
-              </Link>
-              {leaderboardOn ? (
-                <Link
-                  to={langPath("community/leaderboard")}
+                <MobileNavLink
+                  to="/home"
+                  active={homeActive}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between gap-2 rounded-lg px-4 py-3 text-base ${
-                    leaderboardActive
-                      ? "font-semibold text-text-primary"
-                      : "font-medium text-text-primary hover:bg-surface-muted"
-                  }`}
-                >
-                  <span>{t("nav.leaderboard")}</span>
-                  <span className="rounded-full bg-surface-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-text-muted">
-                    {t("nav.leaderboardSoonBadge", "Soon")}
-                  </span>
-                </Link>
-              ) : null}
-            </nav>
-          </div>
+                  label={t("nav.home")}
+                />
+                <MobileNavLink
+                  to={langPath("learn")}
+                  active={learnActive}
+                  onClick={() => setMobileMenuOpen(false)}
+                  label={t("nav.learn")}
+                />
+                <MobileNavLink
+                  to={langPath("practice")}
+                  active={practiceActive}
+                  onClick={() => setMobileMenuOpen(false)}
+                  label={t("nav.practice")}
+                />
+                <MobileNavLink
+                  to={langPath("social")}
+                  active={socialActive}
+                  onClick={() => setMobileMenuOpen(false)}
+                  label={t("nav.social", "Social")}
+                />
+                <MobileNavLink
+                  to={langPath("community")}
+                  active={communityActive}
+                  onClick={() => setMobileMenuOpen(false)}
+                  label={t("nav.community")}
+                />
+                {leaderboardOn ? (
+                  <Link
+                    to={langPath("community/leaderboard")}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex min-h-[44px] items-center justify-between gap-2 rounded-lg px-4 py-3 text-base ${
+                      leaderboardActive
+                        ? "font-semibold text-text-primary"
+                        : "font-medium text-text-primary hover:bg-surface-muted"
+                    }`}
+                  >
+                    <span>{t("nav.leaderboard")}</span>
+                    <span className="rounded-full bg-surface-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-text-muted">
+                      {t("nav.leaderboardSoonBadge", "Soon")}
+                    </span>
+                  </Link>
+                ) : null}
+              </nav>
+              {/* Utility row — sync + ad-free surfaced for mobile since they're
+                  hidden in the compact header. AdFreePill self-hides when no
+                  ad-free window is active. */}
+              <div className="flex items-center gap-3 border-t border-border px-4 py-2.5">
+                <span className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+                  {t("syncManager.titleShort", "Sync")}
+                </span>
+                <SyncManagerTrigger />
+                <span className="ml-auto">
+                  <AdFreePill />
+                </span>
+              </div>
+            </div>
+          </>
         )}
       </header>
       {showAppAds ? <DailyWelcomeAd /> : null}
@@ -297,5 +330,33 @@ export function Layout() {
       {isThemeEditorOpen && <ThemeEditorPanel />}
       <ToastContainer />
     </div>
+  );
+}
+
+/** Mobile nav row: ≥44px tap target, big text, semantic active state. */
+function MobileNavLink({
+  to,
+  active,
+  onClick,
+  label,
+}: {
+  to: string;
+  active: boolean;
+  onClick: () => void;
+  label: string;
+}) {
+  return (
+    <Link
+      to={to}
+      onClick={onClick}
+      aria-current={active ? "page" : undefined}
+      className={`flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base ${
+        active
+          ? "font-semibold text-text-primary"
+          : "font-medium text-text-primary hover:bg-surface-muted"
+      }`}
+    >
+      {label}
+    </Link>
   );
 }
