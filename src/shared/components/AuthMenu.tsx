@@ -27,8 +27,11 @@ export function AuthMenu() {
   const { openThemeEditor } = useTheme();
   const flags = useFeatureFlags();
 
+  // Fix M8 — user-scoped key so a previous account's role doesn't leak
+  // into the menu after a logout/login switch (admin shortcuts etc).
+  const userIdKey = user?.sub ?? "anon";
   const { data: me } = useQuery({
-    queryKey: ["users", "me"],
+    queryKey: ["users", userIdKey, "me"],
     queryFn: () => users.getMe(),
     enabled: isAuthenticated,
     retry: (_, err) => !(err instanceof ApiError && err.status === 404),

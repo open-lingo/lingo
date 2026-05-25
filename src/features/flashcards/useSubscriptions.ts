@@ -5,18 +5,20 @@ import type { Subscription } from "@/shared/api/users";
 
 /** Cached deck subscriptions. Shares cache with useSubscribedDecks, useDeckManagerData, etc. */
 export function useSubscriptions() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const { users } = useApi();
   const queryClient = useQueryClient();
+  // Fix M8 — user-scoped cache key; see useDeckSubscriptions for context.
+  const userId = user?.sub ?? "anon";
 
   const { data: subscriptions = [], isLoading } = useQuery({
-    queryKey: ["users", "subscriptions", "deck"],
+    queryKey: ["users", userId, "subscriptions", "deck"],
     queryFn: () => users.getSubscriptions({ contentType: "deck" }),
     enabled: isAuthenticated,
   });
 
   const invalidate = () => {
-    queryClient.invalidateQueries({ queryKey: ["users", "subscriptions", "deck"] });
+    queryClient.invalidateQueries({ queryKey: ["users", userId, "subscriptions", "deck"] });
     queryClient.invalidateQueries({ queryKey: ["decks", "batch"] });
   };
 

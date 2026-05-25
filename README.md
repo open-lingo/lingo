@@ -162,8 +162,9 @@ State is **local-first** (localStorage). Sync is triggered manually or at the en
 ## i18n
 
 - Locales: **English** (`en.json`) and **Korean** (`ko.json`)
-- Detection order: `localStorage` → browser, cached under `i18nextLng`
-- The **UI locale** (interface language) is independent of the **learning language** (content language)
+- **UI locale** (menus/buttons): `settings.learning.uiLocale` — changed in **Settings → General** (dropdown); synced to i18next by `SettingsContext`
+- **Learning language** (course content): `settings.learning.learningLanguageId` — changed via header **`LanguageSelector`** only, not the settings modal
+- The UI locale and learning language are independent
 
 ## Supported learning languages
 

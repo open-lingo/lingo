@@ -119,6 +119,25 @@ export function clearAllStepEvents(): void {
   setStepEvents([]);
 }
 
+/** Fix H9 — drop step events older than `maxAgeDays` (default 30). Guards
+ *  against orphan-event accumulation when a user abandons a lesson without
+ *  completing it: the draft attempt covers the events from `materializeOrphanDrafts`'s
+ *  perspective, but if no draft ever syncs (auth dropped, offline forever)
+ *  the events would otherwise linger until the quota fills. */
+export function gcOldStepEvents(maxAgeDays: number = 30): number {
+  if (typeof window === "undefined") return 0;
+  const cutoffMs = Date.now() - maxAgeDays * 24 * 60 * 60 * 1000;
+  const events = getStepEvents();
+  const kept = events.filter((e) => {
+    const t = Date.parse(e.recordedAt);
+    return Number.isFinite(t) && t >= cutoffMs;
+  });
+  if (kept.length !== events.length) {
+    setStepEvents(kept);
+  }
+  return events.length - kept.length;
+}
+
 /** A pending lesson attempt in the local buffer.
  *
  * Mirrors `BatchAttempt` from the API client. Stored verbatim so the buffer

@@ -59,7 +59,7 @@ function QuickTile({
           "text-[11px] font-semibold leading-snug sm:text-xs",
           "break-words [overflow-wrap:anywhere] hyphens-auto",
           q.emphasis === "accent"
-            ? "border-accent/45 bg-accent/10 text-accent hover:bg-accent/15"
+            ? "border-accent bg-accent-muted text-accent hover:bg-accent hover:text-accent-foreground"
             : "border-border bg-surface-muted text-text-primary hover:border-border-muted hover:bg-surface",
         )}
       >

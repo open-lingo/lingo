@@ -33,8 +33,11 @@ export function useLearnProfile(): LearnProfile {
   const progress = getMockProgressSummary();
   const hasNoProgress = getMockCompletedLessonIds().length === 0;
 
+  // Fix M8 — user-scoped key so a logout/login switch doesn't surface the
+  // prior user's profile from cache before the new fetch completes.
+  const userId = user?.sub ?? "anon";
   const { data: me, isLoading: meLoading } = useQuery({
-    queryKey: ["users", "me"],
+    queryKey: ["users", userId, "me"],
     queryFn: () => users.getMe(),
     enabled: isAuthenticated,
     staleTime: 60_000,

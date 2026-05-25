@@ -18,12 +18,16 @@ export function useDeckSubscriptions(): {
   isAuthenticated: boolean;
   invalidate: () => void;
 } {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const { users, decks: decksApi } = useApi();
   const queryClient = useQueryClient();
+  // Fix M8 — user-scoped key. Without `userId` in the cache key, signing
+  // out user A and signing in B briefly surfaces A's deck list as B's
+  // before refetch completes.
+  const userId = user?.sub ?? "anon";
 
   const { data: subscriptions = [], isLoading: subsLoading } = useQuery({
-    queryKey: ["users", "subscriptions", "deck"],
+    queryKey: ["users", userId, "subscriptions", "deck"],
     queryFn: () => users.getSubscriptions({ contentType: "deck" }),
     enabled: isAuthenticated,
   });
@@ -40,7 +44,7 @@ export function useDeckSubscriptions(): {
   });
 
   const invalidate = () => {
-    queryClient.invalidateQueries({ queryKey: ["users", "subscriptions", "deck"] });
+    queryClient.invalidateQueries({ queryKey: ["users", userId, "subscriptions", "deck"] });
     queryClient.invalidateQueries({ queryKey: ["decks", "batch"] });
   };
 

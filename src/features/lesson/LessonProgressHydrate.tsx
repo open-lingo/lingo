@@ -5,6 +5,7 @@ import { useApi } from "@/shared/api";
 import { useProgressMe } from "@/shared/hooks/useProgressMe";
 import { ensureUserConsistency } from "@/features/settings/storage";
 import {
+  gcOldStepEvents,
   getLessonDirtyCount,
   syncLessonProgressWithServer,
 } from "./engine";
@@ -26,6 +27,18 @@ export function LessonProgressHydrate() {
     if (authLoading || !isAuthenticated || !userId) return;
     ensureUserConsistency(userId, { authLoading: false });
   }, [authLoading, isAuthenticated, user?.sub]);
+
+  // Fix H9 — one-shot GC of orphaned step events at app boot. Step events
+  // older than 30 days were never going to make it to the server (a draft
+  // for that lesson, if any, will already have synced or been collected),
+  // so drop them so they don't accumulate into the quota over months of use.
+  useEffect(() => {
+    try {
+      gcOldStepEvents();
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
   // After /progress/me has loaded, push any buffered attempts then refresh summary.
   useEffect(() => {

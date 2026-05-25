@@ -33,8 +33,10 @@ export function HomePage() {
   const { language } = useLanguage();
   const { isProgressReady, isLoading: progressLoading } = useProgressMe();
 
+  // Fix M8 — user-scoped key (shared with useLearnProfile).
+  const userIdKey = user?.sub ?? "anon";
   const { data: me, error: meError, isError: meIsError } = useQuery({
-    queryKey: ["users", "me"],
+    queryKey: ["users", userIdKey, "me"],
     queryFn: () => users.getMe(),
     enabled: isAuthenticated,
     retry: (failureCount, err) => {

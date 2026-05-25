@@ -82,14 +82,30 @@ export function ProfileEditPanel() {
           profile_picture_key: avatarUrl.trim() || undefined,
           bio: bio.trim() || undefined,
         });
-        await queryClient.invalidateQueries({ queryKey: ["users", "me"] });
+        // Fix M8 — user-scoped key now includes userId between "users" and
+        // "me". Use a predicate so we invalidate the active user's profile
+        // cache without nuking unrelated `users` queries.
+        await queryClient.invalidateQueries({
+          predicate: (q) => {
+            const k = q.queryKey;
+            return Array.isArray(k) && k[0] === "users" && k.includes("me");
+          },
+        });
       } else {
         await users.register({
           username: username.trim(),
           display_name: realName.trim() || username.trim(),
         });
         setIsRegistered(true);
-        await queryClient.invalidateQueries({ queryKey: ["users", "me"] });
+        // Fix M8 — user-scoped key now includes userId between "users" and
+        // "me". Use a predicate so we invalidate the active user's profile
+        // cache without nuking unrelated `users` queries.
+        await queryClient.invalidateQueries({
+          predicate: (q) => {
+            const k = q.queryKey;
+            return Array.isArray(k) && k[0] === "users" && k.includes("me");
+          },
+        });
       }
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);

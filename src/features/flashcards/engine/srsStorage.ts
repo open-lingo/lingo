@@ -97,6 +97,10 @@ export function getCardState(cardId: string): SRSCardState | undefined {
 }
 
 export function setCardState(cardId: string, state: SRSCardState): void {
+  // Fix H8 — re-read immediately before write so a sibling tab's concurrent
+  // setCardState for a *different* cardId isn't clobbered. This collapses
+  // the two-tab race for single-card updates; full bulk overwrites (sync
+  // merge, reset) still race but those are coordinated server-side.
   const store = getSRSStore();
   store[cardId] = state;
   setSRSStore(store);

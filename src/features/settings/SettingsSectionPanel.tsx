@@ -18,6 +18,7 @@ import {
 const UI_LOCALE_LABELS: Record<string, string> = {
   en: "English",
   ko: "한국어",
+  es: "Español",
 };
 
 type SettingsSectionPanelProps = {

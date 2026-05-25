@@ -63,3 +63,52 @@ describe("ApiClient — 401 retry with fresh token", () => {
     expect(fetchSpy).toHaveBeenCalledTimes(2);
   });
 });
+
+describe("ApiClient — skipAuth (Fix M7)", () => {
+  let fetchSpy: ReturnType<typeof vi.spyOn>;
+
+  beforeEach(() => {
+    fetchSpy = vi.spyOn(globalThis, "fetch");
+  });
+  afterEach(() => {
+    fetchSpy.mockRestore();
+  });
+
+  it("omits the Authorization header and never calls getAccessToken", async () => {
+    fetchSpy.mockResolvedValueOnce(
+      new Response(JSON.stringify({ ok: true }), { status: 200 }) as Response,
+    );
+    const getAccessToken = vi.fn(async () => "should-not-be-used");
+
+    const client = new ApiClient({
+      baseUrl: "https://api.test",
+      getAccessToken,
+      retryBaseDelay: 0,
+      skipAuth: true,
+    });
+    await client.get<{ ok: boolean }>("/public");
+
+    expect(getAccessToken).not.toHaveBeenCalled();
+    const init = fetchSpy.mock.calls[0]?.[1] as RequestInit | undefined;
+    const headers = init?.headers as Record<string, string> | undefined;
+    expect(headers && "Authorization" in headers).toBe(false);
+  });
+
+  it("does not attempt a 401 retry when skipAuth is set", async () => {
+    fetchSpy.mockResolvedValue(
+      new Response("nope", { status: 401 }) as Response,
+    );
+    const getAccessToken = vi.fn(async () => "");
+
+    const client = new ApiClient({
+      baseUrl: "https://api.test",
+      getAccessToken,
+      retryBaseDelay: 0,
+      skipAuth: true,
+    });
+    await expect(client.get("/public")).rejects.toThrow();
+    // Only the single initial request — no token-refresh retry path.
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    expect(getAccessToken).not.toHaveBeenCalled();
+  });
+});

@@ -13,6 +13,15 @@ export interface ApiClientOptions {
   maxRetries?: number;
   /** Base delay in ms before first retry (doubled each attempt, default 500). */
   retryBaseDelay?: number;
+  /**
+   * Skip the Authorization header entirely. Use this for clients hitting
+   * public endpoints (e.g. `FinanceApi` → `/finance/transparency`) so the
+   * request fires without waiting on Auth0 token acquisition.
+   *
+   * When true the configured `getAccessToken` is never invoked, so callers
+   * may pass a no-op token resolver.
+   */
+  skipAuth?: boolean;
 }
 
 export class ApiError extends Error {
@@ -68,6 +77,7 @@ export class ApiClient {
   private readonly _getToken: () => Promise<string>;
   private readonly _maxRetries: number;
   private readonly _retryBaseDelay: number;
+  private readonly _skipAuth: boolean;
 
   /** Active AbortControllers keyed by a caller-chosen tag. */
   private _inflight = new Map<string, AbortController>();
@@ -77,6 +87,7 @@ export class ApiClient {
     this._getToken = opts.getAccessToken;
     this._maxRetries = opts.maxRetries ?? 2;
     this._retryBaseDelay = opts.retryBaseDelay ?? 500;
+    this._skipAuth = opts.skipAuth ?? false;
   }
 
   // ── Public helpers ────────────────────────────────────────
@@ -126,7 +137,7 @@ export class ApiClient {
     opts?: RequestOptions & { tag?: string },
   ): Promise<T> {
     const url = this._buildUrl(path, opts?.params);
-    let token = await this._getToken();
+    let token = this._skipAuth ? "" : await this._getToken();
 
     const controller = new AbortController();
     const tag = opts?.tag;
@@ -141,9 +152,11 @@ export class ApiClient {
 
     const buildInit = (currentToken: string): RequestInit => {
       const headers: Record<string, string> = {
-        Authorization: `Bearer ${currentToken}`,
         ...opts?.headers,
       };
+      if (!this._skipAuth) {
+        headers.Authorization = `Bearer ${currentToken}`;
+      }
       if (body !== undefined) {
         headers["Content-Type"] = "application/json";
       }
@@ -170,7 +183,7 @@ export class ApiClient {
           return (await resp.json()) as T;
         }
 
-        if (resp.status === 401 && !unauthorizedRetryUsed) {
+        if (resp.status === 401 && !unauthorizedRetryUsed && !this._skipAuth) {
           unauthorizedRetryUsed = true;
           // Re-fetch token and immediately retry without consuming a 5xx slot.
           token = await this._getToken();

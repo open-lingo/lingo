@@ -2,6 +2,7 @@ import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AdminApi } from "./admin";
 import { DecksApi } from "./decks";
+import { FinanceApi } from "./finance";
 import { ProgressApi } from "./progress";
 import { SocialApi } from "./social";
 import { StoriesApi } from "./stories";
@@ -16,6 +17,8 @@ interface ApiContext {
   admin: AdminApi;
   progress: ProgressApi;
   social: SocialApi;
+  /** Public endpoints — no Auth0 token, fires immediately on first paint. */
+  finance: FinanceApi;
 }
 
 const Ctx = createContext<ApiContext | null>(null);
@@ -46,6 +49,13 @@ export function ApiProvider({ children }: { children: ReactNode }) {
       admin: new AdminApi(opts),
       progress: new ProgressApi(opts),
       social: new SocialApi(opts),
+      // FinanceApi hits public endpoints — skip auth so the funding meter
+      // can paint without blocking on Auth0 (and works for signed-out users).
+      finance: new FinanceApi({
+        baseUrl: API_BASE_URL,
+        getAccessToken: () => Promise.resolve(""),
+        skipAuth: true,
+      }),
     };
   }, [getAccessTokenSilently]);
 

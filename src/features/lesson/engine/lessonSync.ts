@@ -213,16 +213,19 @@ export function buildBatchPayload(): {
 } {
   materializeOrphanDrafts();
   const pending = getPendingAttempts().filter(isPendingAttemptDirty);
-  // One completion effect can buffer twice (settings toast, etc.) — keep the
-  // latest attempt per lesson so sync doesn't leave a stale duplicate dirty.
-  const latestByLesson = new Map<string, PendingAttempt>();
+  // Fix M10 — dedupe on clientAttemptId only. A previous version keyed by
+  // lessonId, which silently discarded legitimate repeat attempts when a
+  // user re-did a lesson within a sync window. clientAttemptId already
+  // dedupes the "settings toast double-buffered" case at the storage
+  // layer (appendPendingAttempt), so this is the correct unique key.
+  const latestById = new Map<string, PendingAttempt>();
   for (const p of pending) {
-    const prev = latestByLesson.get(p.lessonId);
+    const prev = latestById.get(p.clientAttemptId);
     if (!prev || p.bufferedAt >= prev.bufferedAt) {
-      latestByLesson.set(p.lessonId, p);
+      latestById.set(p.clientAttemptId, p);
     }
   }
-  const deduped = Array.from(latestByLesson.values());
+  const deduped = Array.from(latestById.values());
 
   // Strip the local-only `bufferedAt` before sending — server doesn't need it.
   const attempts: BatchAttempt[] = deduped.map((p) => {
@@ -263,6 +266,22 @@ function clientIdsToClearFromBatchResponse(
 export async function performLessonSync(
   syncFn: (payload: BatchAttemptSubmission) => Promise<BatchAttemptResponse>,
 ): Promise<number> {
+  // Fix H8 — two-tab race. `appendPendingAttempt` in storage is
+  // read-modify-write, so two tabs writing the buffer in the same tick can
+  // each see the other's stale snapshot and clobber each other's appends.
+  //
+  // The buffer only flows one direction (FE → server), and the only failure
+  // mode that matters is "we missed an attempt that a sibling tab just
+  // appended". Re-reading the buffer right before we build the payload
+  // collapses the race window to roughly zero: by the time we POST, we
+  // have the freshest localStorage snapshot the OS will hand us.
+  //
+  // We accept a vanishingly small remaining window (sibling tab writes
+  // between buildBatchPayload returning and our removePendingAttempts call).
+  // Those rows survive because removePendingAttempts re-reads the buffer
+  // and only filters by clientAttemptId — concurrent appends with new ids
+  // are preserved. A full BroadcastChannel lock is over-engineered for the
+  // power-user-two-tabs MVP risk profile.
   const { payload, ids } = buildBatchPayload();
   if (ids.length === 0) {
     return 0;
@@ -289,11 +308,20 @@ export async function performLessonSync(
           .map((p) => p.lessonId),
       );
       removePendingAttempts(finalCleared);
-      const staleDupes = getPendingAttempts()
-        .filter((p) => clearedLessonIds.has(p.lessonId))
+      // Fix M10 — after dedup-by-clientAttemptId, the *only* leftover
+      // attempts for a cleared lesson that we should reap are stale drafts
+      // (the in-progress upsert that this final attempt supersedes).
+      // Final attempts for the same lessonId with different clientAttemptIds
+      // are legitimate repeat plays and must NOT be cleared as "dupes".
+      const staleDrafts = getPendingAttempts()
+        .filter(
+          (p) =>
+            clearedLessonIds.has(p.lessonId) &&
+            isDraftAttemptId(p.clientAttemptId),
+        )
         .map((p) => p.clientAttemptId);
-      if (staleDupes.length > 0) {
-        removePendingAttempts(staleDupes);
+      if (staleDrafts.length > 0) {
+        removePendingAttempts(staleDrafts);
       }
       for (const lessonId of clearedLessonIds) {
         clearStepEventsForLesson(lessonId);

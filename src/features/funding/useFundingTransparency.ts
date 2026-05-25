@@ -1,9 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import { useApi } from "@/shared/api";
 import type { FundingTransparency } from "@/shared/api/finance";
-
-const API_BASE =
-  (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim() ||
-  "http://localhost:8000";
 
 const FALLBACK: FundingTransparency = {
   adFundedPercent: 40,
@@ -12,19 +9,28 @@ const FALLBACK: FundingTransparency = {
   periodLabel: "Last 30 days",
 };
 
-async function fetchTransparency(): Promise<FundingTransparency> {
-  const res = await fetch(`${API_BASE.replace(/\/+$/, "")}/api/core/v1/finance/transparency`, {
-    cache: "no-store",
-  });
-  if (!res.ok) return FALLBACK;
-  return res.json() as Promise<FundingTransparency>;
-}
-
-/** Cached funding split for the bottom meter (public API, no auth). */
+/**
+ * Cached funding split for the bottom meter (public API, no auth).
+ *
+ * Fix M7 — was calling `fetch()` directly with a hand-rolled URL, bypassing
+ * `ApiClient` retry / error normalization. Now goes through the shared
+ * `FinanceApi` instance wired up in `ApiProvider` with `skipAuth: true`
+ * so the request still fires on the landing page without an Auth0 token.
+ */
 export function useFundingTransparency() {
+  const { finance } = useApi();
   return useQuery({
     queryKey: ["finance", "transparency"],
-    queryFn: fetchTransparency,
+    queryFn: async ({ signal }): Promise<FundingTransparency> => {
+      try {
+        return await finance.getTransparency(signal);
+      } catch {
+        // Hard fall back to the manual default rather than surfacing the
+        // error: the meter is visible on signed-out marketing pages where
+        // a red retry state would be jarring.
+        return FALLBACK;
+      }
+    },
     staleTime: 60 * 60 * 1000,
     placeholderData: FALLBACK,
   });

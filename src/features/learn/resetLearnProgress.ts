@@ -13,6 +13,7 @@ import type { SrsApi } from "@/shared/api/srs";
 import {
   clearLessonProgressReset,
   clearMockProgress,
+  markLessonProgressReset,
 } from "@/shared/domain/mockProgress";
 
 const MASTERY_TOAST_PREFIX = "lingo_mastery_toasted_v1_";
@@ -53,8 +54,15 @@ export async function resetLearnProgress(
 ): Promise<void> {
   resetLearnProgressLocal(courseId);
   if (!api) return;
-  await Promise.all([
-    api.progress.resetMe().catch(() => {}),
-    api.srs.clearAll().catch(() => {}),
+  // Fix H10 — mark the reset flag AFTER kicking off the server reset so
+  // useProgressMe won't re-merge stale phone-era rollups into the just-cleared
+  // local store before the server's post-reset GET round-trip confirms the
+  // wipe. useProgressMe clears the flag once it sees the empty server state.
+  const [progressResult] = await Promise.allSettled([
+    api.progress.resetMe(),
+    api.srs.clearAll(),
   ]);
+  if (progressResult.status === "fulfilled") {
+    markLessonProgressReset();
+  }
 }

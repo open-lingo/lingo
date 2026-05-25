@@ -10,6 +10,7 @@ export {
   type RecordAttemptInput,
 } from "./lessonSync";
 export {
+  gcOldStepEvents,
   getPendingAttempts,
   getStepEvents,
   getLastLessonSyncAt,
