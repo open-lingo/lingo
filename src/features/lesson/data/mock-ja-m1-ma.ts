@@ -129,6 +129,7 @@ export const MOCK_LESSON_JA_M1_MA_3: LessonContent = {
       body: "Tap the mic and say each word. Short words = lenient scoring.", variant: "tip" },
     speaking("ja-ma3-speak-uma",  "うま", "horse"),
     speaking("ja-ma3-speak-kame", "かめ", "turtle"),
+    wordImageMcq(ctx, "ja-ma3-mcq-rev-momo", "もも"),
     speaking("ja-ma3-speak-momo", "もも", "peach"),
 
     // ─── Sentence sprinkle (M1 desu/ka — Spencer 2026-05-17) ───

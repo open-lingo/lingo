@@ -446,6 +446,8 @@ export const MOCK_LESSON_JA_M1_SA_3: LessonContent = {
     },
     speaking("ja-sa3-speak-asa",   "あさ", "morning"),
     speaking("ja-sa3-speak-sushi", "すし", "sushi"),
+    listeningComp("ja-sa3-lc-asa", "あさ", "asa", "morning",
+      ["sushi", "sky", "shell"]),
     speaking("ja-sa3-speak-sora",  "そら", "sky"),
 
     // ─── Sentence sprinkle (M1 desu/ka — Spencer 2026-05-17) ───

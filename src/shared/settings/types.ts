@@ -20,6 +20,8 @@ export type UserSettings = {
   };
   accessibility: {
     reducedMotion: boolean;
+    /** When true, applies Atkinson Hyperlegible as the UI font for improved readability. */
+    dyslexiaFont: boolean;
   };
   audio: {
     soundEnabled: boolean;
@@ -96,6 +98,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
   },
   accessibility: {
     reducedMotion: false,
+    dyslexiaFont: false,
   },
   audio: {
     soundEnabled: true,

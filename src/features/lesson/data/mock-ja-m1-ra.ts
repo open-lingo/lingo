@@ -140,6 +140,8 @@ export const MOCK_LESSON_JA_M1_RA_3: LessonContent = {
       body: "Tap the mic and say each word. The tap-r is hard to nail — aim for soft, not rolled.", variant: "tip" },
     speaking("ja-ra3-speak-sakura", "さくら", "cherry blossom"),
     speaking("ja-ra3-speak-kore",   "これ",   "this"),
+    listeningComp("ja-ra3-lc-sakura", "さくら", "sakura", "cherry blossom",
+      ["this", "color", "mountain"]),
     speaking("ja-ra3-speak-iro",    "いろ",   "color"),
 
     // R2-defer-F prior-row review tail — vowels through ya pool.

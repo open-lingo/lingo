@@ -68,7 +68,7 @@ export const MOCK_LESSON_JA_M1_KA_1: LessonContent = {
   introducesVocabIds: ["kai"],
   steps: [
     { id: "ja-ka1-info-0", type: "info", title: "The k-sounds, part 1",
-      body: "Two new kana: か and き. Each adds a 'k-' to a vowel you already know.",
+      body: "Two new kana: か and き. Each adds a 'k-' to a vowel you already know. You'll spot か everywhere in anime — it turns any sentence into a question (ですか). Listen for it at the end of every line that goes up in pitch.",
       variant: "culture" },
 
     symbolIntro("ja-ka1-intro-ka", "か", "ka", "/ka/", "like 'ka' in 'car'", "かい (shell)"),

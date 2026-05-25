@@ -55,7 +55,7 @@ export function AuthMenu() {
 
   if (isLoading) {
     return (
-      <div className="h-9 w-9 animate-pulse rounded-full bg-surface-elevated" aria-hidden />
+      <div className="h-9 w-9 motion-safe:animate-pulse rounded-full bg-surface-elevated" aria-hidden />
     );
   }
 

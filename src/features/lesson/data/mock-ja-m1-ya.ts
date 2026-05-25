@@ -132,6 +132,8 @@ export const MOCK_LESSON_JA_M1_YA_3: LessonContent = {
       body: "Tap the mic and say each word. Short words = lenient scoring.", variant: "tip" },
     speaking("ja-ya3-speak-yama", "やま", "mountain"),
     speaking("ja-ya3-speak-yuki", "ゆき", "snow"),
+    listeningComp("ja-ya3-lc-yama", "やま", "yama", "mountain",
+      ["snow", "to read", "river"]),
     speaking("ja-ya3-speak-yomu", "よむ", "to read"),
 
     // R2-defer-F prior-row review tail — vowels through ma pool.

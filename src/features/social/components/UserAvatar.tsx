@@ -63,7 +63,7 @@ export function UserAvatar({
           "flex items-center justify-center rounded-full",
           s.box,
           hasFrame ? "p-[2px]" : "",
-          frame.kind === "animated" ? "animate-pulse" : "",
+          frame.kind === "animated" ? "motion-safe:animate-pulse" : "",
         )}
         style={frameStyle}
       >

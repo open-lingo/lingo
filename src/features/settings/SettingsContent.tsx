@@ -170,6 +170,19 @@ export function SettingsContent() {
             {t("settings.reducedMotion")}
           </span>
         </label>
+        <label className="flex cursor-pointer items-center gap-2">
+          <input
+            type="checkbox"
+            checked={settings.accessibility.dyslexiaFont ?? false}
+            onChange={(e) =>
+              updateSetting("accessibility.dyslexiaFont", e.target.checked)
+            }
+            className="rounded border-border text-accent focus:ring-accent"
+          />
+          <span className="text-sm text-text-primary">
+            {t("settings.dyslexiaFont", "Dyslexia-friendly font (Atkinson Hyperlegible)")}
+          </span>
+        </label>
       </section>
 
       <section className="space-y-2">

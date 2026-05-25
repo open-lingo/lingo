@@ -272,7 +272,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       }
       if (typeof window !== "undefined" && stored?.accessibility?.reducedMotion === undefined) {
         const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        stored = { ...stored, accessibility: { ...stored?.accessibility, reducedMotion: prefersReduced } };
+        stored = { ...stored, accessibility: { ...DEFAULT_SETTINGS.accessibility, ...stored?.accessibility, reducedMotion: prefersReduced } };
       }
       const merged = mergeWithDefaults(stored ?? {});
       if (!cancelled) {

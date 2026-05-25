@@ -165,8 +165,18 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   );
 
   const activeTokens = useMemo(
-    () => resolveTokens(effectiveThemeId, data.customThemes),
-    [effectiveThemeId, data.customThemes]
+    () => {
+      const tokens = resolveTokens(effectiveThemeId, data.customThemes);
+      // Override font when dyslexia-friendly font is enabled in accessibility settings.
+      if (settings.accessibility?.dyslexiaFont) {
+        return {
+          ...tokens,
+          font: { ...tokens.font, family: '"Atkinson Hyperlegible", ' + tokens.font.family },
+        };
+      }
+      return tokens;
+    },
+    [effectiveThemeId, data.customThemes, settings.accessibility?.dyslexiaFont]
   );
 
   useEffect(() => {
@@ -177,6 +187,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     // swaps in the chosen face. This keeps theme application synchronous
     // for color/radius changes (which are the common case).
     void loadFontFamily(getFontIdFromFamily(activeTokens.font?.family));
+    // Ensure Atkinson Hyperlegible is loaded when the dyslexia-friendly
+    // font toggle is active (the getFontIdFromFamily lookup won't resolve
+    // it when the family string has been prepended to a base theme font).
+    if (settings.accessibility?.dyslexiaFont) {
+      void loadFontFamily("atkinson");
+    }
     applyThemeToDOM(activeTokens);
     const root = document.documentElement;
     // Ensure light/dark class is set correctly — remove both and add current mode

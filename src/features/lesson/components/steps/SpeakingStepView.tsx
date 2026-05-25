@@ -577,7 +577,7 @@ function SpeakingStepRecognized({
           }
           className={`flex h-20 w-20 items-center justify-center rounded-full border-[1.5px] text-white shadow-[0_4px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:shadow-[0_5px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_2px_0_0_var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-40 ${
             recog.listening
-              ? "border-red-700 bg-red-500 animate-pulse"
+              ? "border-red-700 bg-red-500 motion-safe:animate-pulse"
               : "border-accent-hover bg-accent"
           }`}
           aria-label={recog.listening ? "Stop recording" : "Tap to speak"}

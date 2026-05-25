@@ -129,6 +129,8 @@ export const MOCK_LESSON_JA_M1_NA_3: LessonContent = {
       body: "Tap the mic and say each word. Short words = lenient scoring.", variant: "tip" },
     speaking("ja-na3-speak-nani",   "なに",   "what"),
     speaking("ja-na3-speak-neko",   "ねこ",   "cat"),
+    listeningComp("ja-na3-lc-nani", "なに", "nani", "what",
+      ["cat", "mushroom", "moon"]),
     speaking("ja-na3-speak-kinoko", "きのこ", "mushroom"),
 
     // ─── Sentence sprinkle (M1 desu/ka — Spencer 2026-05-17) ───

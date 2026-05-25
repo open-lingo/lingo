@@ -23,7 +23,7 @@ export function LanguageSelector() {
 
   if (isLoading || !language) {
     return (
-      <div className="h-9 w-14 animate-pulse rounded-lg bg-surface-elevated" aria-hidden />
+      <div className="h-9 w-14 motion-safe:animate-pulse rounded-lg bg-surface-elevated" aria-hidden />
     );
   }
 

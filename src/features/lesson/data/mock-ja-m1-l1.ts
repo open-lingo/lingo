@@ -309,7 +309,7 @@ export const MOCK_LESSON_JA_M1_L1A: LessonContent = {
       type: "info",
       title: "Welcome to Japanese!",
       body:
-        "You'll learn the five vowels — あ い う え お — across three short lessons. Let's start with the first three: あ, い, う.",
+        "You'll learn the five vowels — あ い う え お — across three short lessons. These are the same characters you see in anime subtitles and manga speech bubbles. Let's start with the first three: あ, い, う.",
       variant: "culture",
     },
 
@@ -351,7 +351,7 @@ export const MOCK_LESSON_JA_M1_L1A: LessonContent = {
       type: "info",
       title: "Three down, two to go!",
       body:
-        "You've learned あ, い, う — and built your first words: あい (love) and いう (to say). Next up: え and お.",
+        "You've learned あ, い, う — and built your first words: あい (love) and いう (to say). Fun fact: あい (love) appears in countless anime titles — you can now spot it in the wild. Next up: え and お.",
       variant: "win",
     },
   ],
@@ -500,7 +500,7 @@ export const MOCK_LESSON_JA_M1_L1C: LessonContent = {
       type: "info",
       title: "You can read all 5 Japanese vowels!",
       body:
-        "あ い う え お — you can read them, write them, hear them, and say them. Six words down: あい, いう, いえ, うえ, あおい, いいえ. Next: your first consonants.",
+        "あ い う え お — you can read them, write them, hear them, and say them. Six words down: あい, いう, いえ, うえ, あおい, いいえ. You can already pick out vowel kana on anime title cards and manga covers. Next: your first consonants.",
       variant: "win",
     },
   ],

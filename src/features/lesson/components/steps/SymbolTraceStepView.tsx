@@ -199,7 +199,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
       failCount,
       lastScore,
     });
-    onComplete(step.id, false);
+    onComplete(step.id, true);
     onContinue();
   }, [step.id, step.payload.symbol, step.payload.scriptId, failCount, lastScore, onComplete, onContinue]);
 

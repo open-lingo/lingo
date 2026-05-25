@@ -165,6 +165,8 @@ export const MOCK_LESSON_JA_M1_WA_3: LessonContent = {
       body: "Tap the mic and say each word. わたし is 3 syllables so the recognizer is a touch stricter — speak clearly.", variant: "tip" },
     speaking("ja-wa3-speak-kawa",    "かわ",   "river"),
     speaking("ja-wa3-speak-hon",     "ほん",   "book"),
+    listeningComp("ja-wa3-lc-kawa", "かわ", "kawa", "river",
+      ["book", "I / me", "mountain"]),
     speaking("ja-wa3-speak-watashi", "わたし", "I / me"),
 
     // R2-defer-F prior-row review tail — vowels through ra pool (the
