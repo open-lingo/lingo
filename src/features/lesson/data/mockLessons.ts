@@ -191,6 +191,11 @@ import {
   M25_STORY, M25_7_1, M25_7_2,
 } from "./mock-ja-m25";
 import {
+  M26_1_1, M26_1_2, M26_2_1, M26_2_2, M26_3_1, M26_3_2,
+  M26_4_1, M26_4_2, M26_5_1, M26_5_2, M26_6_1, M26_6_2,
+  M26_STORY, M26_7_1, M26_7_2,
+} from "./mock-ja-m26";
+import {
   M3_1_1,
   M3_1_2,
   M3_2_1,
@@ -615,6 +620,15 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m25-6-1": M25_6_1, "ja-m25-6-2": M25_6_2,
   "ja-m25-story": M25_STORY,
   "ja-m25-7-1": M25_7_1, "ja-m25-7-2": M25_7_2,
+  // M26 — Explanatory & Excess
+  "ja-m26-1-1": M26_1_1, "ja-m26-1-2": M26_1_2,
+  "ja-m26-2-1": M26_2_1, "ja-m26-2-2": M26_2_2,
+  "ja-m26-3-1": M26_3_1, "ja-m26-3-2": M26_3_2,
+  "ja-m26-4-1": M26_4_1, "ja-m26-4-2": M26_4_2,
+  "ja-m26-5-1": M26_5_1, "ja-m26-5-2": M26_5_2,
+  "ja-m26-6-1": M26_6_1, "ja-m26-6-2": M26_6_2,
+  "ja-m26-story": M26_STORY,
+  "ja-m26-7-1": M26_7_1, "ja-m26-7-2": M26_7_2,
 };
 
 // ----- Inter-module review modules — REMOVED 2026-05-18 -------------------
