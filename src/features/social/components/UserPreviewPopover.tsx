@@ -28,6 +28,7 @@ import { Icon } from "@/shared/components/Icon";
 import { Avatar } from "@/features/community/components/Avatar";
 import { cn } from "@/shared/components/ui/cn";
 import { AddFriendButton } from "./AddFriendButton";
+import { userSlug } from "@/features/social/userSlug";
 
 export type UserPreviewPopoverProps = {
   /** Public username / handle — used for routing + add-friend mutation. */
@@ -134,7 +135,7 @@ export function UserPreviewPopover({
             <div className="flex flex-col gap-2 border-t border-border px-4 py-3">
               <AddFriendButton targetUsername={username} size="md" className="w-full justify-center" />
               <Link
-                to={`/u/${encodeURIComponent(username)}`}
+                to={`/u/${userSlug({ username, name: displayName ?? username })}`}
                 onClick={() => setOpen(false)}
                 className="inline-flex items-center justify-center gap-1.5 rounded-md border border-border bg-surface px-3 py-1.5 text-sm font-semibold text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
               >
