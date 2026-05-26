@@ -53,6 +53,12 @@ export interface AuthoredDeckSample {
   language: string | null;
 }
 
+export interface PublicProfileLeague {
+  name: string;
+  tier_index: number;
+  emoji: string;
+}
+
 export interface PublicProfile {
   user_id: string;
   username: string;
@@ -71,6 +77,7 @@ export interface PublicProfile {
   last_active_date?: string | null;
   authored_deck_count?: number;
   authored_decks_sample?: AuthoredDeckSample[];
+  league?: PublicProfileLeague | null;
 }
 
 export interface LeaderboardEntry {

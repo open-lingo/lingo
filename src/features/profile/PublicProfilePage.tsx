@@ -168,6 +168,7 @@ export function PublicProfilePage() {
   const authoredSample: AuthoredDeckSample[] =
     socialProfile?.authored_decks_sample ?? [];
   const xpRemaining = xpToNextLevel(level, xp);
+  const league = socialProfile?.league ?? null;
 
   async function runAction(p: Promise<unknown>, successOnDone = true) {
     setActionState("pending");
@@ -258,6 +259,12 @@ export function PublicProfilePage() {
             label={t("profile.publicLevelLabel", "Level")}
             value={`Level ${level} · ${xpRemaining.toLocaleString()} XP to next`}
           />
+          {league && (
+            <Stat
+              label={t("profile.publicLeagueLabel", "League")}
+              value={`${league.emoji} ${league.name}`}
+            />
+          )}
           <Stat
             label={t("profile.publicLingotsLabel", "Lingots")}
             value={lingots.toLocaleString()}
