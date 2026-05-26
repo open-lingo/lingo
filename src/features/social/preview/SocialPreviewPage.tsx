@@ -20,7 +20,9 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
+import { LeaguesModal } from "../components/LeaguesModal";
 import { SocialHeader } from "../components/SocialHeader";
+import { useSocial } from "../hooks/useSocial";
 import { ActivityFeedStrip } from "../sections/ActivityFeedStrip";
 import {
   FriendsSearchAndList,
@@ -38,10 +40,21 @@ type MobileTab = "spotlight" | "friends" | "messages";
 export default function SocialPreviewPage() {
   const { t } = useTranslation();
   const [mobileTab, setMobileTab] = useState<MobileTab>("spotlight");
+  const [leaguesOpen, setLeaguesOpen] = useState(false);
+  // Pull the league info via useSocial so the modal knows which row to
+  // highlight as "You're here". Falls back to null when unavailable.
+  const social = useSocial();
+  const currentTierIndex = social.league?.tierIndex ?? null;
 
   return (
     <div className="flex flex-col gap-3">
       <SocialHeader />
+
+      <LeaguesModal
+        open={leaguesOpen}
+        onClose={() => setLeaguesOpen(false)}
+        currentTierIndex={currentTierIndex}
+      />
 
       {/* Mobile: 3-tab strip */}
       <nav
@@ -77,6 +90,7 @@ export default function SocialPreviewPage() {
         {mobileTab === "spotlight" ? (
           <>
             <LeagueSpotlightCard scrollToId="leaderboards" compact />
+            <ViewAllLeaguesButton onOpen={() => setLeaguesOpen(true)} />
             <FriendsLeaderboardWidget />
             <ActivityFeedStrip />
             <InviteFriendsCard />
@@ -97,6 +111,7 @@ export default function SocialPreviewPage() {
       {/* Desktop: spotlight full-width, then 12-col grid. */}
       <div className="hidden flex-col gap-3 lg:flex">
         <LeagueSpotlightCard scrollToId="leaderboards" />
+        <ViewAllLeaguesButton onOpen={() => setLeaguesOpen(true)} />
 
         <ActivityFeedStrip />
 
@@ -116,6 +131,20 @@ export default function SocialPreviewPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+function ViewAllLeaguesButton({ onOpen }: { onOpen: () => void }) {
+  const { t } = useTranslation();
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      data-testid="view-all-leagues-trigger"
+      className="self-start rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-text-secondary shadow-sm hover:bg-surface-muted hover:text-text-primary"
+    >
+      {t("social.leagues.viewAll", "View all leagues")} →
+    </button>
   );
 }
 
