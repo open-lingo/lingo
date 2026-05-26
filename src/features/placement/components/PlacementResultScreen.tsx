@@ -24,7 +24,7 @@ export function PlacementResultScreen({
       <div className="flex flex-1 flex-col items-center justify-center gap-6 px-6 text-center">
         <div className="flex h-20 w-20 items-center justify-center rounded-full bg-accent/10">
           <Icon
-            name={passed ? "check-circle" : "x-circle"}
+            name={passed ? "check" : "close"}
             size={48}
             className={passed ? "text-accent" : "text-error"}
           />
@@ -50,7 +50,7 @@ export function PlacementResultScreen({
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-6 px-6 text-center">
       <div className="flex h-20 w-20 items-center justify-center rounded-full bg-accent/10">
-        <Icon name="graduation-cap" size={48} className="text-accent" />
+        <Icon name="graduationCap" size={48} className="text-accent" />
       </div>
       <h1 className="text-2xl font-bold text-text-primary">
         {passed ? "Placement complete!" : "Starting from the top"}

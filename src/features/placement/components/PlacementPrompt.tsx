@@ -60,7 +60,7 @@ export function PlacementPrompt({ onStart, onSkip }: Props) {
       >
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
-            <Icon name="zap" size={24} className="text-accent" />
+            <Icon name="sparkles" size={24} className="text-accent" />
           </div>
           <h2
             id="placement-prompt-heading"
