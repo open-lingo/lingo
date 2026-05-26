@@ -134,14 +134,14 @@ function SortableCardItem({
       <div
         className={`group flex items-center gap-1 rounded-lg border px-2 py-2 transition ${
           isSelected
-            ? "border-green-500 bg-green-50 dark:border-green-600 dark:bg-green-900/20"
-            : "border-transparent hover:bg-gray-100 dark:hover:bg-gray-700/50"
+            ? "border-accent bg-accent-muted"
+            : "border-transparent hover:bg-surface-muted"
         } ${isDragging ? "opacity-50" : ""}`}
       >
         <span
           {...attributes}
           {...listeners}
-          className="cursor-grab touch-none shrink-0 rounded p-1 text-gray-400 hover:bg-gray-200 hover:text-gray-600 active:cursor-grabbing dark:hover:bg-gray-600 dark:hover:text-gray-300"
+          className="cursor-grab touch-none shrink-0 rounded p-1 text-text-muted hover:bg-surface-muted hover:text-text-secondary active:cursor-grabbing"
           title={dragTitle}
           aria-label={dragTitle}
         >
@@ -172,7 +172,7 @@ function SortableCardItem({
               onMoveUp();
             }}
             disabled={realIndex === 0}
-            className="rounded p-0.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 dark:hover:bg-gray-600"
+            className="rounded p-0.5 text-text-muted hover:bg-surface-muted disabled:opacity-30"
             title={moveUpTitle}
           >
             <Icon name="chevronUp" size={14} />
@@ -184,7 +184,7 @@ function SortableCardItem({
               onMoveDown();
             }}
             disabled={realIndex === cardsLength - 1}
-            className="rounded p-0.5 text-gray-500 hover:bg-gray-200 disabled:opacity-30 dark:hover:bg-gray-600"
+            className="rounded p-0.5 text-text-muted hover:bg-surface-muted disabled:opacity-30"
             title={moveDownTitle}
           >
             <Icon name="chevronDown" size={14} />
@@ -195,7 +195,7 @@ function SortableCardItem({
               e.stopPropagation();
               onDuplicate();
             }}
-            className="rounded p-0.5 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600"
+            className="rounded p-0.5 text-text-muted hover:bg-surface-muted"
             title={duplicateTitle}
           >
             <Icon name="copy" size={14} />
@@ -206,7 +206,7 @@ function SortableCardItem({
               e.stopPropagation();
               onDelete();
             }}
-            className="rounded p-0.5 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
+            className="rounded p-0.5 text-destructive hover:bg-destructive/10"
             title={deleteTitle}
           >
             <Icon name="close" size={14} />
@@ -538,10 +538,10 @@ export function DeckEditor() {
   if (loadError) {
     return (
       <div className="space-y-6">
-        <p className="text-red-600 dark:text-red-400">{loadError}</p>
+        <p className="text-destructive">{loadError}</p>
         <Link
           to={langPath("community/contribute")}
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+          className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted"
         >
           {t("community.contribute")}
         </Link>
@@ -558,7 +558,7 @@ export function DeckEditor() {
         setHasUnsavedChanges(true);
       }}
       placeholder={t("community.contributeNamePlaceholder")}
-      className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-base font-medium text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+      className="rounded-lg border border-border bg-surface px-3 py-1.5 text-base font-medium text-text-primary"
     />
   );
 
@@ -623,7 +623,7 @@ export function DeckEditor() {
                   setLanguageId(e.target.value);
                   setHasUnsavedChanges(true);
                 }}
-                className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="rounded border border-border px-2 py-1 text-sm bg-surface text-text-primary"
               >
                 {AVAILABLE_LEARNING_LANGUAGES.map((lang) => (
                   <option key={lang.id} value={lang.id}>
@@ -644,7 +644,7 @@ export function DeckEditor() {
                   setHasUnsavedChanges(true);
                 }}
                 placeholder={t("community.contributeDescriptionPlaceholder")}
-                className="w-full rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="w-full rounded border border-border px-2 py-1 text-sm bg-surface text-text-primary"
               />
             </div>
             <div className="min-w-[200px]">
@@ -659,7 +659,7 @@ export function DeckEditor() {
                   setHasUnsavedChanges(true);
                 }}
                 placeholder={t("community.editorDeckImageUrlPlaceholder")}
-                className="w-full rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="w-full rounded border border-border px-2 py-1 text-sm bg-surface text-text-primary"
               />
             </div>
             <div className="min-w-[120px]">
@@ -677,7 +677,7 @@ export function DeckEditor() {
                   setHasUnsavedChanges(true);
                 }}
                 placeholder={t("community.editorDefaultEasePlaceholder")}
-                className="w-full rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="w-full rounded border border-border px-2 py-1 text-sm bg-surface text-text-primary"
               />
             </div>
           </div>
@@ -693,19 +693,19 @@ export function DeckEditor() {
               value={cardSearch}
               onChange={(e) => setCardSearch(e.target.value)}
               placeholder={t("community.editorSearchCards")}
-              className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className="w-full rounded border border-border px-2 py-1.5 text-sm bg-surface text-text-primary"
             />
             <button
               type="button"
               onClick={addCard}
-              className="mt-2 w-full rounded-lg bg-green-600 py-2 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+              className="mt-2 w-full rounded-lg bg-accent py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
             >
               + {t("community.editorAddCard")}
             </button>
           </div>
           <div className="flex-1 overflow-y-auto p-2">
             {cards.length === 0 ? (
-              <p className="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+              <p className="py-8 text-center text-sm text-text-muted">
                 {t("community.editorNoCards")}
               </p>
             ) : (
@@ -759,7 +759,7 @@ export function DeckEditor() {
             <select
               value={previewReviewMode}
               onChange={(e) => setPreviewReviewMode(e.target.value as ReviewMode)}
-              className="rounded border border-gray-300 px-2 py-1 text-xs dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className="rounded border border-border px-2 py-1 text-xs bg-surface text-text-primary"
               title={t("flashcards.reviewModeLabel")}
             >
               {REVIEW_MODES.map((m) => (
@@ -781,7 +781,7 @@ export function DeckEditor() {
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center text-center">
-                <p className="text-gray-500 dark:text-gray-400">
+                <p className="text-text-muted">
                   {cards.length === 0
                     ? t("community.editorAddFirstCard")
                     : t("community.editorSelectCardToPreview")}
@@ -790,7 +790,7 @@ export function DeckEditor() {
                   <button
                     type="button"
                     onClick={addCard}
-                    className="mt-4 rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+                    className="mt-4 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
                   >
                     {t("community.editorAddFirstCard")}
                   </button>
@@ -823,7 +823,7 @@ export function DeckEditor() {
 }
 
 const inputClass =
-  "min-w-0 w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white";
+  "min-w-0 w-full rounded-lg border border-border px-3 py-2 bg-surface text-text-primary";
 const textareaClass = inputClass + " min-h-[80px] resize-y";
 
 function ActiveCardEditor({
@@ -908,7 +908,7 @@ function ActiveCardEditor({
     <div className="w-full min-w-0 max-w-full space-y-6">
       {/* Card mode: Simple | Segmented */}
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="mb-1 block text-sm font-medium text-text-secondary">
           {t("community.editorCardMode")}
         </label>
         <div className="flex gap-4">
@@ -918,7 +918,7 @@ function ActiveCardEditor({
               name="cardMode"
               checked={mode === CARD_MODE_SIMPLE}
               onChange={() => setMode(CARD_MODE_SIMPLE)}
-              className="rounded border-gray-300 dark:border-gray-600"
+              className="rounded border-border"
             />
             {t("community.editorCardModeSimple")}
           </label>
@@ -928,7 +928,7 @@ function ActiveCardEditor({
               name="cardMode"
               checked={mode === CARD_MODE_SEGMENTED}
               onChange={() => setMode(CARD_MODE_SEGMENTED)}
-              className="rounded border-gray-300 dark:border-gray-600"
+              className="rounded border-border"
             />
             {t("community.editorCardModeSegmented")}
           </label>
@@ -938,7 +938,7 @@ function ActiveCardEditor({
       {isSimple ? (
         <>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="mb-1 block text-sm font-medium text-text-secondary">
               {t("community.editorFront")}
             </label>
             <textarea
@@ -961,7 +961,7 @@ function ActiveCardEditor({
             )}
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="mb-1 block text-sm font-medium text-text-secondary">
               {t("community.editorBack")}
             </label>
             <textarea
@@ -987,7 +987,7 @@ function ActiveCardEditor({
       ) : (
         <>
           <div>
-            <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+            <label className="mb-1 block text-sm text-text-muted">
               {t("community.editorCardType")}
             </label>
             <select
@@ -1009,7 +1009,7 @@ function ActiveCardEditor({
             t={t}
           />
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="mb-1 block text-sm font-medium text-text-secondary">
               {t("community.editorBack")}
             </label>
             <textarea
@@ -1035,7 +1035,7 @@ function ActiveCardEditor({
       )}
 
       <div>
-        <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+        <label className="mb-1 block text-sm text-text-muted">
           {t("community.editorNote")}
         </label>
         <textarea
@@ -1047,7 +1047,7 @@ function ActiveCardEditor({
         />
       </div>
       <div>
-        <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+        <label className="mb-1 block text-sm text-text-muted">
           {t("community.editorImageUrl")}
         </label>
         <input
@@ -1060,22 +1060,22 @@ function ActiveCardEditor({
       </div>
 
       {/* Collapsible Advanced */}
-      <div className="rounded-lg border border-gray-200 dark:border-gray-600">
+      <div className="rounded-lg border border-border">
         <button
           type="button"
           onClick={() => setAdvancedOpen((o) => !o)}
-          className="flex w-full items-center justify-between px-3 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300"
+          className="flex w-full items-center justify-between px-3 py-2 text-left text-sm font-medium text-text-secondary"
         >
           {t("community.editorAdvanced")}
           {hasAdvanced && (
-            <span className="rounded bg-gray-200 px-1.5 text-xs dark:bg-gray-600">1</span>
+            <span className="rounded bg-surface-muted px-1.5 text-xs">1</span>
           )}
           <Icon name="chevronDown" size={14} className={`text-gray-500 transition ${advancedOpen ? "" : "-rotate-90"}`} />
         </button>
         {advancedOpen && (
-          <div className="space-y-4 border-t border-gray-200 p-3 dark:border-gray-600">
+          <div className="space-y-4 border-t border-border p-3">
             <div>
-              <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+              <label className="mb-1 block text-sm text-text-muted">
                 {t("community.editorReasoning")}
               </label>
               <textarea
@@ -1087,7 +1087,7 @@ function ActiveCardEditor({
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+              <label className="mb-1 block text-sm text-text-muted">
                 {t("community.editorDefinition")}
               </label>
               <textarea
@@ -1099,7 +1099,7 @@ function ActiveCardEditor({
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+              <label className="mb-1 block text-sm text-text-muted">
                 {t("community.editorContext")}
               </label>
               <textarea
@@ -1118,7 +1118,7 @@ function ActiveCardEditor({
 }
 
 const segmentInputClass =
-  "min-w-0 flex-1 rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white";
+  "min-w-0 flex-1 rounded-lg border border-border px-3 py-2 bg-surface text-text-primary";
 
 function PartsEditor({
   segments,
@@ -1147,13 +1147,13 @@ function PartsEditor({
   return (
     <div className="min-w-0">
       <div className="mb-2 flex items-center justify-between">
-        <label className="text-sm text-gray-600 dark:text-gray-400">
+        <label className="text-sm text-text-muted">
           {t("community.editorParts")}
         </label>
         <button
           type="button"
           onClick={addPart}
-          className="shrink-0 text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400"
+          className="shrink-0 text-sm font-medium text-accent hover:text-accent-hover"
         >
           + {t("community.editorAddPart")}
         </button>
@@ -1178,7 +1178,7 @@ function PartsEditor({
             <button
               type="button"
               onClick={() => removePart(i)}
-              className="shrink-0 rounded-lg p-2 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
+              className="shrink-0 rounded-lg p-2 text-destructive hover:bg-destructive/10"
             >
               <Icon name="close" size={14} />
             </button>

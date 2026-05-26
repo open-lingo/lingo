@@ -254,7 +254,7 @@ export function CardManagerPage() {
             </button>
             <Link
               to={langPath("practice/stories")}
-              className="inline-block text-green-600 dark:text-green-400"
+              className="inline-block text-accent"
             >
               {t("flashcards.cardManager.readStories", "Read stories")}
             </Link>
@@ -272,7 +272,7 @@ export function CardManagerPage() {
         </h1>
         <Link
           to={langPath("practice/flashcards")}
-          className="mt-1 block text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          className="mt-1 block text-sm text-text-muted hover:text-text-primary"
         >
           <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("flashcards.backToHub")}
         </Link>
@@ -446,7 +446,7 @@ export function CardManagerPage() {
                 <button
                   type="button"
                   onClick={() => startEditDue(mc)}
-                  className="text-left text-gray-700 hover:underline dark:text-gray-300"
+                  className="text-left text-text-secondary hover:underline"
                 >
                   {mc.state ? cardEarliestDueDate(mc.state) : "—"}
                 </button>
@@ -458,13 +458,13 @@ export function CardManagerPage() {
             sortable: true,
             render: (mc) => {
               if (!mc.state) {
-                return <span className="text-gray-600 dark:text-gray-400">—</span>;
+                return <span className="text-text-muted">—</span>;
               }
               const rec = mc.state.recognition.difficulty;
               const prod = mc.state.production.difficulty;
               return (
                 <span
-                  className="text-gray-600 dark:text-gray-400"
+                  className="text-text-muted"
                   title={`Recognition ${rec.toFixed(1)} / Production ${prod.toFixed(1)}`}
                 >
                   {Math.max(rec, prod).toFixed(1)}
@@ -480,12 +480,12 @@ export function CardManagerPage() {
               <span
                 className={`inline-flex rounded px-2 py-0.5 text-xs font-medium ${
                   mc.status === "due"
-                    ? "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400"
+                    ? "bg-warning/15 text-warning"
                     : mc.status === "buried"
-                    ? "bg-gray-200 text-gray-800 dark:bg-gray-600 dark:text-gray-300"
+                    ? "bg-surface-muted text-text-secondary"
                     : mc.status === "new"
-                    ? "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400"
-                    : "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+                    ? "bg-info/15 text-info"
+                    : "bg-success/15 text-success"
                 }`}
               >
                 {t(`flashcards.cardManager.status${mc.status.charAt(0).toUpperCase() + mc.status.slice(1)}`, mc.status)}
@@ -503,7 +503,7 @@ export function CardManagerPage() {
                   <button
                     type="button"
                     onClick={() => handleEditCard(mc)}
-                    className="rounded px-2 py-1 text-xs font-medium text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/20"
+                    className="rounded px-2 py-1 text-xs font-medium text-link hover:bg-link/10"
                   >
                     {t("flashcards.cardManager.edit", "Edit")}
                   </button>
@@ -512,7 +512,7 @@ export function CardManagerPage() {
                   <button
                     type="button"
                     onClick={() => handleUnbury(mc.card.id)}
-                    className="rounded px-2 py-1 text-xs font-medium text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20"
+                    className="rounded px-2 py-1 text-xs font-medium text-success hover:bg-success/10"
                   >
                     {t("flashcards.cardManager.unbury", "Unbury")}
                   </button>
@@ -520,7 +520,7 @@ export function CardManagerPage() {
                   <button
                     type="button"
                     onClick={() => handleBury(mc.card.id)}
-                    className="rounded px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+                    className="rounded px-2 py-1 text-xs font-medium text-text-muted hover:bg-surface-muted"
                   >
                     {t("flashcards.cardManager.bury", "Bury")}
                   </button>
@@ -529,7 +529,7 @@ export function CardManagerPage() {
                   <button
                     type="button"
                     onClick={() => handleReset(mc.card.id)}
-                    className="rounded px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
+                    className="rounded px-2 py-1 text-xs font-medium text-destructive hover:bg-destructive/10"
                   >
                     {t("flashcards.cardManager.reset", "Reset")}
                   </button>

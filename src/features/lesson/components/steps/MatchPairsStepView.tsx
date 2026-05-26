@@ -159,7 +159,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue }: Props) {
     matched:
       "border-accent bg-accent-muted text-accent opacity-60",
     wrong:
-      "motion-safe:animate-shake border-error bg-red-50 text-error dark:bg-red-950/30",
+      "motion-safe:animate-shake border-error bg-error/10 text-error",
   };
 
   // Independently shuffle each column so source[i] never lines up with

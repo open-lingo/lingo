@@ -85,7 +85,7 @@ export function StoryDetailPage() {
   if (apiStory === undefined) {
     return (
       <div className="mx-auto max-w-2xl space-y-4">
-        <p className="text-gray-500 dark:text-gray-400">{t("common.loading")}</p>
+        <p className="text-text-muted">{t("common.loading")}</p>
       </div>
     );
   }
@@ -93,12 +93,12 @@ export function StoryDetailPage() {
   if (!story) {
     return (
       <div className="mx-auto max-w-2xl space-y-4">
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-text-muted">
           {t("stories.storyNotFound")}
         </p>
         <Link
           to={langPath("practice/stories")}
-          className="text-sm text-green-600 dark:text-green-400"
+          className="text-sm text-accent"
         >
           {t("stories.back")}
         </Link>
@@ -114,30 +114,30 @@ export function StoryDetailPage() {
       <div className="flex items-center justify-between">
         <Link
           to={langPath("practice/stories")}
-          className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          className="text-sm text-text-muted hover:text-text-primary"
         >
           {t("stories.back")}
         </Link>
       </div>
 
-      <article className="rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+      <article className="rounded-xl border border-border bg-surface p-6">
         <header className="mb-4">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-text-primary">
             {story.title}
           </h1>
           {story.description && (
-            <p className="mt-1 text-gray-600 dark:text-gray-400">
+            <p className="mt-1 text-text-muted">
               {story.description}
             </p>
           )}
-          <div className="mt-2 flex gap-2 text-xs text-gray-500 dark:text-gray-400">
+          <div className="mt-2 flex gap-2 text-xs text-text-muted">
             <span>{t("stories.communityStories")}</span>
           </div>
         </header>
 
         <div className="prose prose-sm dark:prose-invert max-w-none">
           {hasBody && segments.length > 0 ? (
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-text-secondary leading-relaxed">
               {segments.map((seg, i) => {
                 if (seg.type === "text") {
                   return <span key={i}>{seg.text}</span>;
@@ -152,21 +152,21 @@ export function StoryDetailPage() {
                       onClick={() =>
                         setActiveCardId(isActive ? null : seg.cardId)
                       }
-                      className={`cursor-pointer border-b border-dashed border-green-500/70 bg-green-500/10 px-0.5 py-0 text-inherit hover:bg-green-500/20 dark:border-green-400/70 dark:bg-green-500/20 dark:hover:bg-green-500/30 ${
-                        isActive ? "bg-green-500/25 dark:bg-green-500/40" : ""
+                      className={`cursor-pointer border-b border-dashed border-accent/70 bg-accent/10 px-0.5 py-0 text-inherit hover:bg-accent/20 ${
+                        isActive ? "bg-accent/25" : ""
                       }`}
                     >
                       {seg.display}
                     </button>
                     {isActive && card && (
                       <span
-                        className="absolute left-0 top-full z-10 mt-1 flex max-w-xs flex-col gap-2 rounded-lg border border-gray-200 bg-white p-3 shadow-lg dark:border-gray-600 dark:bg-gray-800"
+                        className="absolute left-0 top-full z-10 mt-1 flex max-w-xs flex-col gap-2 rounded-lg border border-border bg-surface p-3 shadow-lg"
                         role="tooltip"
                       >
-                        <span className="font-medium text-gray-900 dark:text-white">
+                        <span className="font-medium text-text-primary">
                           {card.front}
                         </span>
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
+                        <span className="text-sm text-text-muted">
                           {card.back}
                         </span>
                         {language?.id && (
@@ -174,7 +174,7 @@ export function StoryDetailPage() {
                             type="button"
                             disabled={addLoading === card.id || isAdded}
                             onClick={() => handleAddToVocab(card)}
-                            className="self-start rounded bg-green-600 px-2 py-1 text-xs font-medium text-white hover:bg-green-700 disabled:opacity-50 dark:bg-green-500 dark:hover:bg-green-600"
+                            className="self-start rounded bg-accent px-2 py-1 text-xs font-medium text-accent-foreground hover:bg-accent-hover disabled:opacity-50"
                           >
                             {addLoading === card.id
                               ? "…"
@@ -187,7 +187,7 @@ export function StoryDetailPage() {
                     )}
                     {isActive && !card && (
                       <span
-                        className="absolute left-0 top-full z-10 mt-1 rounded border border-amber-200 bg-amber-50 px-2 py-1 text-xs text-amber-800 dark:border-amber-800 dark:bg-amber-900/30 dark:text-amber-200"
+                        className="absolute left-0 top-full z-10 mt-1 rounded border border-warning/30 bg-warning/10 px-2 py-1 text-xs text-warning"
                         role="tooltip"
                       >
                         {t("stories.cardNotFound")}
@@ -198,7 +198,7 @@ export function StoryDetailPage() {
               })}
             </p>
           ) : (
-            <p className="text-gray-700 dark:text-gray-300">
+            <p className="text-text-secondary">
               {t("stories.contentPlaceholder")}
             </p>
           )}

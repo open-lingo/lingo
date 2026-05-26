@@ -153,9 +153,9 @@ export function ReadingPracticePage() {
                   let cls = "w-full rounded-lg border px-4 py-3 text-left text-sm font-medium transition";
                   if (showResult) {
                     if (isCorrect) {
-                      cls += " border-green-500 bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-300";
+                      cls += " border-green-500 bg-green-50 text-green-800";
                     } else if (isSelected) {
-                      cls += " border-red-500 bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-300";
+                      cls += " border-red-500 bg-red-50 text-red-800";
                     } else {
                       cls += " border-border bg-surface text-text-secondary opacity-50";
                     }
@@ -180,12 +180,12 @@ export function ReadingPracticePage() {
               {showResult && (
                 <div className="mt-4">
                   {selectedAnswer === question.correctOptionId ? (
-                    <p className="text-sm font-semibold text-green-600 dark:text-green-400">
+                    <p className="text-sm font-semibold text-accent">
                       <Icon name="check" size={16} className="mr-1 inline" />
                       Correct!
                     </p>
                   ) : (
-                    <p className="text-sm text-red-600 dark:text-red-400">
+                    <p className="text-sm text-destructive">
                       <Icon name="close" size={16} className="mr-1 inline" />
                       {question.explanation || "Try again next time!"}
                     </p>

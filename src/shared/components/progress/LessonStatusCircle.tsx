@@ -19,12 +19,12 @@ export function LessonStatusCircle({
     <span
       className={`inline-flex shrink-0 items-center justify-center rounded-full border-2 ${sizeClass} ${className} ${
         status === "completed"
-          ? "border-emerald-500 bg-emerald-500 text-white"
+          ? "border-success bg-success text-white"
           : status === "locked"
-            ? "border-gray-400 bg-gray-200 text-gray-500 dark:border-gray-500 dark:bg-gray-600 dark:text-gray-400"
+            ? "border-border-muted bg-surface-muted text-text-muted"
             : status === "incomplete"
-              ? "border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-700"
-              : "border-emerald-500 bg-white text-emerald-600 dark:bg-gray-800 dark:text-emerald-400"
+              ? "border-border bg-surface"
+              : "border-accent bg-surface text-accent"
       }`}
     >
       {status === "completed" ? (

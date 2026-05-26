@@ -252,7 +252,7 @@ export function SpeechTunePage() {
           </div>
         )}
         {engine === "whisper" && whisperStatus === "error" && (
-          <div className="mb-3 rounded-lg border border-error bg-red-50 p-3 text-sm text-error dark:bg-red-950/30">
+          <div className="mb-3 rounded-lg border border-error bg-error/10 p-3 text-sm text-error">
             Whisper failed to load. Switch to Web Speech API above, or check
             the console.
           </div>
@@ -340,7 +340,7 @@ export function SpeechTunePage() {
           </div>
 
           {api.error && (
-            <div className="mb-3 rounded-lg border border-error bg-red-50 p-2 text-sm text-error dark:bg-red-950/30">
+            <div className="mb-3 rounded-lg border border-error bg-red-50 p-2 text-sm text-error">
               error: {api.error}
             </div>
           )}
@@ -580,8 +580,8 @@ function VerdictPill({
 }) {
   const styles: Record<Verdict, string> = {
     perfect: "border-accent bg-accent-muted text-accent",
-    close: "border-amber-500 bg-amber-100 text-amber-700 dark:bg-amber-950/30",
-    "try-again": "border-error bg-red-50 text-error dark:bg-red-950/30",
+    close: "border-warning bg-warning/15 text-warning",
+    "try-again": "border-error bg-error/10 text-error",
   };
   const label: Record<Verdict, string> = {
     perfect: "Perfect",

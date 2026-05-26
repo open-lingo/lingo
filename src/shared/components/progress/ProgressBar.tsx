@@ -25,14 +25,14 @@ export function ProgressBar({
     <div className={className}>
       {(label || valueLabel) && (
         <div className="mb-2 flex items-center justify-between text-sm">
-          {label && <span className="text-gray-900 dark:text-white">{label}</span>}
+          {label && <span className="text-text-primary">{label}</span>}
           {valueLabel && (
-            <span className="text-gray-600 dark:text-gray-400">{valueLabel}</span>
+            <span className="text-text-muted">{valueLabel}</span>
           )}
         </div>
       )}
       <div
-        className={`overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700 ${heightClass}`}
+        className={`overflow-hidden rounded-full bg-surface-muted ${heightClass}`}
         role="progressbar"
         aria-valuenow={percent}
         aria-valuemin={0}
@@ -40,7 +40,7 @@ export function ProgressBar({
         aria-label={ariaLabel}
       >
         <div
-          className="h-full rounded-full bg-emerald-500 dark:bg-emerald-600 transition-[width]"
+          className="h-full rounded-full bg-accent transition-[width]"
           style={{ width: `${Math.min(100, Math.max(0, percent))}%` }}
         />
       </div>

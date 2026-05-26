@@ -117,6 +117,7 @@ function HeroSection({ langName, bgImage }: { langName: string | null; bgImage?:
       }
     >
       {hasBg ? (
+        {/* dark: intentional — heavier overlay on dark themes for legibility over background images */}
         <span
           className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/55 to-black/20 dark:from-black/80 dark:via-black/65"
           aria-hidden

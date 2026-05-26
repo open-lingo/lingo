@@ -183,7 +183,7 @@ function PerKindForm({ step, onChange }: { step: LessonStep; onChange: (s: Lesso
     default:
       return (
         <div className="space-y-3">
-          <div className="rounded border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900 dark:border-amber-800/40 dark:bg-amber-900/30 dark:text-amber-200">
+          <div className="rounded border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
             No structured form for <code>{step.type}</code> yet — use the JSON tab
             to edit this step. All other fields below are inherited from
             <code> LessonStep </code>.
@@ -211,7 +211,7 @@ function JsonEditor({ step, onChange }: { step: LessonStep; onChange: (s: Lesson
         className="h-72 w-full resize-y rounded border border-border bg-surface px-3 py-2 font-mono text-xs text-text-primary"
         spellCheck={false}
       />
-      {err && <p className="text-xs text-rose-600 dark:text-rose-400">{err}</p>}
+      {err && <p className="text-xs text-rose-600">{err}</p>}
       <div className="flex items-center justify-end gap-2">
         <button
           onClick={() => {

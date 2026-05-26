@@ -22,10 +22,10 @@ export function LearnCoursesPage() {
   if (!course) {
     return (
       <div className="mx-auto max-w-2xl space-y-4">
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-text-muted">
           Select a learning language in Settings to see your courses.
         </p>
-        <button type="button" onClick={openSettings} className="text-sm text-blue-600 dark:text-blue-400">
+        <button type="button" onClick={openSettings} className="text-sm text-link">
           <Icon name="arrowBigRight" size={14} className="inline" /> Settings
         </button>
       </div>
@@ -35,10 +35,10 @@ export function LearnCoursesPage() {
   return (
     <div className="space-y-10">
       <section>
-        <h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+        <h2 className="mb-2 text-lg font-semibold text-text-primary">
           {course.title}
         </h2>
-        <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mb-4 text-sm text-text-muted">
           {t("learn.officialCourseDesc")}
         </p>
         <div className="space-y-3">
@@ -53,14 +53,14 @@ export function LearnCoursesPage() {
       </section>
 
       <section>
-        <h2 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+        <h2 className="mb-2 text-lg font-semibold text-text-primary">
           {t("learn.customCourseModules")}
         </h2>
-        <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mb-4 text-sm text-text-muted">
           {t("learn.customCourseModulesDesc")}
         </p>
         {customCourses.length === 0 ? (
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-text-muted">
             {t("learn.noCustomModules")}
           </p>
         ) : (
@@ -72,16 +72,16 @@ export function LearnCoursesPage() {
                 <Link
                   key={addon.id}
                   to={langPath("community/explore")}
-                  className="flex items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 transition hover:border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
+                  className="flex items-start gap-4 rounded-lg border border-border bg-surface p-4 transition hover:border-border-muted"
                 >
                   <span className="text-2xl" role="img">
                     {flag}
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="font-medium text-gray-900 dark:text-white">
+                    <p className="font-medium text-text-primary">
                       {addon.name}
                     </p>
-                    <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+                    <p className="mt-0.5 text-xs text-text-muted line-clamp-2">
                       {addon.description}
                     </p>
                   </div>
@@ -92,7 +92,7 @@ export function LearnCoursesPage() {
         )}
         <Link
           to={langPath("community/explore")}
-          className="mt-3 inline-block text-sm font-medium text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+          className="mt-3 inline-block text-sm font-medium text-accent hover:text-accent-hover"
         >
           {t("learn.browseAllCourses")} <Icon name="arrowBigRight" size={14} className="inline" />
         </Link>
@@ -100,7 +100,7 @@ export function LearnCoursesPage() {
 
       <Link
         to={langPath("")}
-        className="inline-block text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+        className="inline-block text-sm text-text-muted hover:text-text-primary"
       >
         {t("common.backToHome")}
       </Link>

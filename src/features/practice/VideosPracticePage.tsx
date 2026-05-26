@@ -65,10 +65,10 @@ export function VideosPracticePage() {
   if (!language) {
     return (
       <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-lg font-semibold text-text-primary">
           {t("practice.videosTitle")}
         </h2>
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-text-muted">
           Choose a learning language to see videos.
         </p>
       </div>
@@ -78,18 +78,18 @@ export function VideosPracticePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-lg font-semibold text-text-primary">
           {t("practice.videosTitle")}
         </h2>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-1 text-sm text-text-muted">
           {t("practice.videosSubtitle", { language: languageName })}
         </p>
-        <p className="mt-2 text-xs text-amber-600 dark:text-amber-500">
+        <p className="mt-2 text-xs text-amber-600">
           {t("practice.videosMockNote")}
         </p>
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-black dark:border-gray-700">
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-black">
         {/* Video placeholder */}
         <div className="flex aspect-video items-center justify-center bg-gray-900">
           <div className="text-center text-gray-500">
@@ -125,8 +125,8 @@ export function VideosPracticePage() {
       </div>
 
       {/* Rolling transcript */}
-      <div className="rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-        <h3 className="border-b border-gray-200 px-4 py-3 text-sm font-medium text-gray-900 dark:border-gray-700 dark:text-white">
+      <div className="rounded-xl border border-gray-200 bg-white">
+        <h3 className="border-b border-gray-200 px-4 py-3 text-sm font-medium text-gray-900">
           Transcript
         </h3>
         <div
@@ -142,7 +142,7 @@ export function VideosPracticePage() {
                   if (el) segmentRefs.current.set(segment.id, el);
                 }}
                 className={`flex flex-wrap gap-1 py-1.5 ${
-                  isActive ? "bg-green-50 dark:bg-green-900/20" : ""
+                  isActive ? "bg-green-50" : ""
                 }`}
                 style={{ scrollMargin: "1rem" }}
               >
@@ -154,9 +154,9 @@ export function VideosPracticePage() {
                       <button
                         type="button"
                         onClick={() => handleAddWord(word)}
-                        className={`rounded px-1 py-0.5 text-left transition hover:bg-green-200 dark:hover:bg-green-800/50 ${
+                        className={`rounded px-1 py-0.5 text-left transition hover:bg-green-200 ${
                           isAdded
-                            ? "bg-green-200 text-green-800 dark:bg-green-800/50 dark:text-green-200"
+                            ? "bg-green-200 text-green-800"
                             : "hover:underline"
                         } ${justAdded ? "ring-1 ring-green-500" : ""}`}
                         title={t("practice.addToDeck")}
@@ -164,7 +164,7 @@ export function VideosPracticePage() {
                         {word}
                       </button>
                       {justAdded && (
-                        <span className="inline-flex items-center gap-1 text-xs text-green-600 dark:text-green-400">
+                        <span className="inline-flex items-center gap-1 text-xs text-accent">
                           <Icon name="check" size={12} /> {t("practice.addedToDeck")}
                         </span>
                       )}
@@ -178,7 +178,7 @@ export function VideosPracticePage() {
       </div>
 
       {addedWords.size > 0 && (
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-text-muted">
           {addedWords.size} word(s) added to deck (mock — not persisted).
         </p>
       )}

@@ -39,20 +39,20 @@ export function ForumPage() {
           <div>
             <Link
               to={langPath("community/explore")}
-              className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              className="text-sm text-gray-600 hover:text-gray-900"
             >
               <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("community.title")}
             </Link>
-            <h1 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">
+            <h1 className="mt-2 text-xl font-semibold text-text-primary">
               {t("forum.title")}
             </h1>
-            <p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400">
+            <p className="mt-0.5 text-sm text-text-muted">
               {t("forum.subtitle")}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <Link
                 to={langPath("community/discuss/new")}
-                className="rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+                className="rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700"
               >
                 {t("forum.newThread")}
               </Link>
@@ -62,8 +62,8 @@ export function ForumPage() {
                   onClick={() => setSort("hot")}
                   className={`rounded-md px-3 py-1.5 text-sm font-medium ${
                     sort === "hot"
-                      ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
-                      : "border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+                      ? "bg-gray-900 text-white bg-surface text-text-primary"
+                      : "border border-gray-300 text-gray-700 hover:bg-gray-50"
                   }`}
                 >
                   {t("forum.hot")}
@@ -73,8 +73,8 @@ export function ForumPage() {
                   onClick={() => setSort("new")}
                   className={`rounded-md px-3 py-1.5 text-sm font-medium ${
                     sort === "new"
-                      ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
-                      : "border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+                      ? "bg-gray-900 text-white bg-surface text-text-primary"
+                      : "border border-gray-300 text-gray-700 hover:bg-gray-50"
                   }`}
                 >
                   {t("forum.new")}
@@ -174,8 +174,8 @@ export function ForumPage() {
 
         {/* Sidebar - 30% */}
         <aside className="space-y-4 lg:w-80 lg:shrink-0 lg:flex-[3]">
-          <div className="rounded-md border border-gray-200 p-4 dark:border-gray-700 dark:bg-gray-800/50">
-            <h2 className="text-sm font-semibold text-gray-900 dark:text-white">
+          <div className="rounded-md border border-gray-200 p-4/50">
+            <h2 className="text-sm font-semibold text-text-primary">
               {t("community.popularContent")}
             </h2>
             <ul className="mt-2 space-y-1">
@@ -183,7 +183,7 @@ export function ForumPage() {
                 <li key={addon.id}>
                   <Link
                     to={langPath("community/explore")}
-                    className="block truncate text-sm text-gray-700 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400"
+                    className="block truncate text-sm text-gray-700 hover:text-green-600"
                   >
                     {addon.name}
                   </Link>
@@ -191,8 +191,8 @@ export function ForumPage() {
               ))}
             </ul>
           </div>
-          <div className="rounded-md border border-gray-200 p-4 dark:border-gray-700 dark:bg-gray-800/50">
-            <h2 className="text-sm font-semibold text-gray-900 dark:text-white">
+          <div className="rounded-md border border-gray-200 p-4/50">
+            <h2 className="text-sm font-semibold text-text-primary">
               {t("forum.categories")}
             </h2>
             <ul className="mt-2 space-y-0.5">
@@ -202,8 +202,8 @@ export function ForumPage() {
                   onClick={() => setCategoryId(null)}
                   className={`block w-full rounded px-2 py-1.5 text-left text-sm ${
                     !categoryId
-                      ? "bg-gray-200 font-medium text-gray-900 dark:bg-gray-700 dark:text-white"
-                      : "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+                      ? "bg-gray-200 font-medium text-gray-900"
+                      : "text-gray-600 hover:bg-gray-100"
                   }`}
                 >
                   {t("forum.allCategories")}
@@ -216,8 +216,8 @@ export function ForumPage() {
                     onClick={() => setCategoryId(cat.id)}
                     className={`block w-full rounded px-2 py-1.5 text-left text-sm ${
                       categoryId === cat.id
-                        ? "bg-gray-200 font-medium text-gray-900 dark:bg-gray-700 dark:text-white"
-                        : "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+                        ? "bg-gray-200 font-medium text-gray-900"
+                        : "text-gray-600 hover:bg-gray-100"
                     }`}
                   >
                     {t(cat.nameKey)}

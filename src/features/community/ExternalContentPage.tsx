@@ -107,12 +107,12 @@ function ExternalContentCard({
           {contentLang?.flag ?? "🌐"}
         </span>
         {transLang && (
-          <span className="rounded bg-blue-50 px-2 py-0.5 text-xs text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+          <span className="rounded bg-blue-50 px-2 py-0.5 text-xs text-blue-700">
             {transLang.name} {t("externalContent.available")}
           </span>
         )}
         {item.skill && item.skill !== "other" && (
-          <span className="rounded bg-amber-50 px-2 py-0.5 text-xs text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+          <span className="rounded bg-amber-50 px-2 py-0.5 text-xs text-amber-700">
             {t(`externalContent.skill.${item.skill}`)}
           </span>
         )}
@@ -213,16 +213,16 @@ export function ExternalContentPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-xl font-bold text-text-primary">
           {t("externalContent.title")}
         </h2>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-1 text-sm text-text-muted">
           {t("externalContent.intro")}
         </p>
       </div>
 
       {/* Filters row */}
-      <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+      <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4/50">
         <div>
           <label htmlFor="ext-search" className="sr-only">
             {t("externalContent.searchPlaceholder")}
@@ -233,7 +233,7 @@ export function ExternalContentPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("externalContent.searchPlaceholder")}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
           />
         </div>
 
@@ -245,7 +245,7 @@ export function ExternalContentPage() {
             <select
               value={contentLanguage}
               onChange={(e) => setContentLanguage(e.target.value)}
-              className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className="rounded border border-border px-2 py-1 text-sm bg-surface text-text-primary"
             >
               <option value="all">{t("externalContent.filterAll")}</option>
               {Object.entries(LANGUAGE_CONFIGS).map(([id, cfg]) => (
@@ -265,7 +265,7 @@ export function ExternalContentPage() {
               onChange={(e) =>
                 setContentType(e.target.value as ExternalContentType | "all")
               }
-              className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className="rounded border border-border px-2 py-1 text-sm bg-surface text-text-primary"
             >
               {CONTENT_TYPES.map((ct) => (
                 <option key={ct} value={ct}>
@@ -286,7 +286,7 @@ export function ExternalContentPage() {
               onChange={(e) =>
                 setLevel(e.target.value as ExternalContentLevel | "all")
               }
-              className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className="rounded border border-border px-2 py-1 text-sm bg-surface text-text-primary"
             >
               {LEVELS.map((l) => (
                 <option key={l} value={l}>
@@ -305,7 +305,7 @@ export function ExternalContentPage() {
             <select
               value={translationFilter}
               onChange={(e) => setTranslationFilter(e.target.value)}
-              className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className="rounded border border-border px-2 py-1 text-sm bg-surface text-text-primary"
             >
               <option value="all">{t("externalContent.filterAll")}</option>
               <option value="any">{t("externalContent.filterTranslationAny")}</option>
@@ -323,7 +323,7 @@ export function ExternalContentPage() {
               onChange={(e) =>
                 setSkill(e.target.value as ExternalContentSkill | "all")
               }
-              className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className="rounded border border-border px-2 py-1 text-sm bg-surface text-text-primary"
             >
               {SKILLS.map((s) => (
                 <option key={s} value={s}>
@@ -342,7 +342,7 @@ export function ExternalContentPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className="rounded border border-border px-2 py-1 text-sm bg-surface text-text-primary"
             >
               <option value="newest">{t("externalContent.sortNewest")}</option>
               <option value="upvotes">{t("externalContent.sortUpvotes")}</option>
@@ -353,20 +353,20 @@ export function ExternalContentPage() {
       </div>
 
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+        <p className="text-sm text-text-muted">
           {filteredItems.length} {t("externalContent.results")}
         </p>
         <button
           type="button"
           disabled
-          className="rounded-lg border border-gray-300 bg-gray-100 px-3 py-1.5 text-sm text-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400"
+          className="rounded-lg border border-gray-300 bg-gray-100 px-3 py-1.5 text-sm text-gray-500"
         >
           {t("externalContent.addComingSoon")}
         </button>
       </div>
 
       {filteredItems.length === 0 ? (
-        <p className="rounded-lg border border-gray-200 bg-gray-50 py-12 text-center text-gray-500 dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-400">
+        <p className="rounded-lg border border-gray-200 bg-gray-50 py-12 text-center text-gray-500/50">
           {t("externalContent.noResults")}
         </p>
       ) : (

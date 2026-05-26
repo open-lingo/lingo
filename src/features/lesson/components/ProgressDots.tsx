@@ -69,7 +69,7 @@ export function ProgressDots({
             <span
               key={i}
               className={`h-3.5 w-3.5 rounded-full transition-colors duration-300 ${
-                i < filled ? "bg-emerald-500" : "bg-gray-300 dark:bg-gray-600"
+                i < filled ? "bg-accent" : "bg-border"
               }`}
             />
           ))}

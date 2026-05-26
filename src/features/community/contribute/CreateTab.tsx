@@ -75,48 +75,48 @@ export function CreateTab() {
   if (step === "preview") {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-          <Link to={langPath("community/contribute/create")} className="hover:text-gray-900 dark:hover:text-white">
+        <div className="flex items-center gap-2 text-sm text-text-muted">
+          <Link to={langPath("community/contribute/create")} className="hover:text-text-primary">
             {t("community.studioCreateNew")}
           </Link>
           <span>/</span>
-          <span className="text-gray-900 dark:text-white">
+          <span className="text-text-primary">
             {t("community.addonKindFlashcardPack")}
           </span>
         </div>
 
         <div>
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h2 className="text-lg font-semibold text-text-primary">
             {t("community.studioPreviewBeforeEdit")}
           </h2>
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-1 text-sm text-text-muted">
             {t("community.studioPreviewDeckDesc")}
           </p>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
-            <h3 className="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+          <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-4/50">
+            <h3 className="mb-3 text-sm font-medium text-text-secondary">
               {t("community.studioSampleCard")}
             </h3>
             <CardPreview card={SAMPLE_CARD} languageId="ko" compact />
           </div>
           <div className="flex flex-col justify-center gap-4">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-text-muted">
               {t("community.studioPreviewDeckBullets")}
             </p>
             <div className="flex gap-3">
               <button
                 type="button"
                 onClick={() => setStep("type")}
-                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
                 {t("forum.cancel")}
               </button>
               <button
                 type="button"
                 onClick={handleStartEditing}
-                className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+                className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
               >
                 {t("community.studioStartEditing")}
               </button>
@@ -130,10 +130,10 @@ export function CreateTab() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-lg font-semibold text-text-primary">
           {t("community.studioWhatToCreate")}
         </h2>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-1 text-sm text-text-muted">
           {t("community.studioWhatToCreateDesc")}
         </p>
       </div>
@@ -150,13 +150,13 @@ export function CreateTab() {
         <button
           type="button"
           onClick={handlePickDeck}
-          className="flex flex-col rounded-xl border-2 border-gray-200 p-6 text-left transition hover:border-green-400 hover:bg-green-50/50 dark:border-gray-700 dark:hover:border-green-600 dark:hover:bg-green-900/10"
+          className="flex flex-col rounded-xl border-2 border-gray-200 p-6 text-left transition hover:border-green-400 hover:bg-green-50/50"
         >
           <Icon name="layers" size={36} className="shrink-0" />
-          <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
+          <h3 className="mt-3 font-semibold text-text-primary">
             {t("community.addonKindFlashcardPack")}
           </h3>
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-1 text-sm text-text-muted">
             {t("community.studioDeckCardDesc")}
           </p>
         </button>
@@ -165,23 +165,23 @@ export function CreateTab() {
           type="button"
           onClick={handleUploadClick}
           disabled={uploading}
-          className="flex flex-col rounded-xl border-2 border-gray-200 p-6 text-left transition hover:border-green-400 hover:bg-green-50/50 disabled:opacity-60 dark:border-gray-700 dark:hover:border-green-600 dark:hover:bg-green-900/10"
+          className="flex flex-col rounded-xl border-2 border-gray-200 p-6 text-left transition hover:border-green-400 hover:bg-green-50/50 disabled:opacity-60"
         >
           <Icon name="upload" size={36} className="shrink-0" />
-          <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
+          <h3 className="mt-3 font-semibold text-text-primary">
             {t("community.uploadDeck", "Upload deck")}
           </h3>
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-1 text-sm text-text-muted">
             {t("community.uploadDeckDesc", "Upload a deck JSON file (same format as our API)")}
           </p>
         </button>
 
-        <div className="flex flex-col rounded-xl border-2 border-dashed border-gray-200 p-6 opacity-60 dark:border-gray-700">
+        <div className="flex flex-col rounded-xl border-2 border-dashed border-gray-200 p-6 opacity-60">
           <Icon name="decks" size={36} className="shrink-0 opacity-60" />
-          <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
+          <h3 className="mt-3 font-semibold text-text-primary">
             {t("community.addonKindCourse")}
           </h3>
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-1 text-sm text-text-muted">
             {t("community.studioCourseComingSoon")}
           </p>
         </div>
@@ -189,13 +189,13 @@ export function CreateTab() {
         <button
           type="button"
           onClick={() => navigate(langPath("community/contribute/create/story"))}
-          className="flex flex-col rounded-xl border-2 border-gray-200 p-6 text-left transition hover:border-green-400 hover:bg-green-50/50 dark:border-gray-700 dark:hover:border-green-600 dark:hover:bg-green-900/10"
+          className="flex flex-col rounded-xl border-2 border-gray-200 p-6 text-left transition hover:border-green-400 hover:bg-green-50/50"
         >
           <Icon name="stories" size={36} className="shrink-0" />
-          <h3 className="mt-3 font-semibold text-gray-900 dark:text-white">
+          <h3 className="mt-3 font-semibold text-text-primary">
             {t("community.addonKindStory")}
           </h3>
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-1 text-sm text-text-muted">
             {t("community.studioStoryCardDesc", "Write stories with clickable vocab linked to cards.")}
           </p>
         </button>

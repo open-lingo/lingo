@@ -21,7 +21,7 @@ function VoteButtons({ up, down, userVote, onVote }: {
       <button
         type="button"
         onClick={() => onVote?.(1)}
-        className={`rounded p-1 ${userVote === 1 ? "text-green-600 dark:text-green-400" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-400"}`}
+        className={`rounded p-1 ${userVote === 1 ? "text-accent" : "text-gray-500 hover:text-gray-700"}`}
         aria-label="Upvote"
       >
         ▲
@@ -30,7 +30,7 @@ function VoteButtons({ up, down, userVote, onVote }: {
       <button
         type="button"
         onClick={() => onVote?.(-1)}
-        className={`rounded p-1 ${userVote === -1 ? "text-red-600 dark:text-red-400" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-400"}`}
+        className={`rounded p-1 ${userVote === -1 ? "text-destructive" : "text-gray-500 hover:text-gray-700"}`}
         aria-label="Downvote"
       >
         ▼
@@ -53,10 +53,10 @@ export function ThreadPage() {
   if (!thread) {
     return (
       <div className="mx-auto max-w-4xl space-y-4">
-        <Link to={langPath("community/discuss")} className="text-sm text-gray-600 hover:underline dark:text-gray-400">
+        <Link to={langPath("community/discuss")} className="text-sm text-gray-600 hover:underline">
           <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("forum.backToForum")}
         </Link>
-        <p className="text-gray-500 dark:text-gray-400">{t("forum.threadNotFound")}</p>
+        <p className="text-text-muted">{t("forum.threadNotFound")}</p>
       </div>
     );
   }
@@ -65,12 +65,12 @@ export function ThreadPage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
-      <Link to={langPath("community/discuss")} className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+      <Link to={langPath("community/discuss")} className="text-sm text-gray-600 hover:text-gray-900">
         <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("forum.backToForum")}
       </Link>
 
       {/* Thread */}
-      <article className="flex gap-4 rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+      <article className="flex gap-4 rounded-lg border border-gray-200 bg-white p-6">
         <div className="shrink-0">
           <VoteButtons
             up={thread.upvoteCount}
@@ -81,23 +81,23 @@ export function ThreadPage() {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             {thread.isPinned && (
-              <span className="rounded bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/50 dark:text-amber-200">
+              <span className="rounded bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-800">
                 {t("forum.pinned")}
               </span>
             )}
             {tags.map((tag) => (
               <span
                 key={tag!.id}
-                className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+                className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-700"
               >
                 {tag!.name}
               </span>
             ))}
           </div>
-          <h1 className="mt-2 text-xl font-bold text-gray-900 dark:text-white">
+          <h1 className="mt-2 text-xl font-bold text-text-primary">
             {thread.title}
           </h1>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-sm text-text-muted">
             {thread.authorName} · {formatDate(thread.createdAt)}
           </p>
           <div className="mt-4">
@@ -108,14 +108,14 @@ export function ThreadPage() {
 
       {/* Replies */}
       <section>
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-lg font-semibold text-text-primary">
           {thread.replyCount} {t("forum.replies")}
         </h2>
         <div className="mt-4 space-y-4">
           {posts.map((post) => (
             <div
               key={post.id}
-              className="flex gap-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+              className="flex gap-4 rounded-lg border border-gray-200 bg-white p-4"
             >
               <div className="shrink-0">
                 <VoteButtons
@@ -125,7 +125,7 @@ export function ThreadPage() {
                 />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {post.authorName} · {formatDate(post.createdAt)}
                 </p>
                 <div className="mt-2">
@@ -138,8 +138,8 @@ export function ThreadPage() {
       </section>
 
       {/* Reply form */}
-      <section className="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <section className="rounded-lg border border-gray-200 bg-white p-6">
+        <h2 className="text-lg font-semibold text-text-primary">
           {t("forum.reply")}
         </h2>
         {showReplyForm ? (
@@ -157,7 +157,7 @@ export function ThreadPage() {
                   setReplyBody("");
                   setShowReplyForm(false);
                 }}
-                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
                 {t("forum.cancel")}
               </button>
@@ -169,7 +169,7 @@ export function ThreadPage() {
                   setShowReplyForm(false);
                 }}
                 disabled={!replyBody.trim()}
-                className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50 dark:bg-green-500 dark:hover:bg-green-600"
+                className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
               >
                 {t("forum.postReply")}
               </button>
@@ -179,7 +179,7 @@ export function ThreadPage() {
           <button
             type="button"
             onClick={() => setShowReplyForm(true)}
-            className="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            className="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
             {t("forum.writeReply")}
           </button>

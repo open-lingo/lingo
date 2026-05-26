@@ -36,8 +36,8 @@ export function ProfileEditPage() {
   if (!isAuthenticated || !user) {
     return (
       <div className="mx-auto max-w-xl space-y-4">
-        <p className="text-gray-500 dark:text-gray-400">Sign in to edit your profile.</p>
-        <Link to="/login" className="text-sm text-blue-600 dark:text-blue-400">
+        <p className="text-text-muted">Sign in to edit your profile.</p>
+        <Link to="/login" className="text-sm text-link">
           Log in
         </Link>
       </div>
@@ -60,20 +60,20 @@ export function ProfileEditPage() {
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-text-primary">
           {t("profile.editTitle")}
         </h1>
         <Link
           to="/settings/profile"
-          className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          className="text-sm text-text-muted hover:text-text-primary"
         >
           {t("common.back")}
         </Link>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+      <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-border bg-surface p-6">
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-1 block text-sm font-medium text-text-secondary">
             {t("profile.avatarUrl")}
           </label>
           <div className="flex items-center gap-4">
@@ -85,7 +85,7 @@ export function ProfileEditPage() {
                 onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
               />
             ) : (
-              <div className="flex h-16 w-16 items-center justify-center text-gray-500 dark:text-gray-400">
+              <div className="flex h-16 w-16 items-center justify-center text-text-muted">
                 <Icon name="user" size={32} />
               </div>
             )}
@@ -94,13 +94,13 @@ export function ProfileEditPage() {
               value={avatarUrl}
               onChange={(e) => setAvatarUrl(e.target.value)}
               placeholder="https://..."
-              className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className="flex-1 rounded-lg border border-border px-3 py-2 text-sm bg-surface text-text-primary"
             />
           </div>
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-1 block text-sm font-medium text-text-secondary">
             {t("profile.username")}
           </label>
           <input
@@ -108,12 +108,12 @@ export function ProfileEditPage() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="@username"
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full rounded-lg border border-border px-3 py-2 text-sm bg-surface text-text-primary"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-1 block text-sm font-medium text-text-secondary">
             {t("profile.realName")}
           </label>
           <input
@@ -121,12 +121,12 @@ export function ProfileEditPage() {
             value={realName}
             onChange={(e) => setRealName(e.target.value)}
             placeholder={t("profile.realNamePlaceholder")}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full rounded-lg border border-border px-3 py-2 text-sm bg-surface text-text-primary"
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-1 block text-sm font-medium text-text-secondary">
             {t("profile.status")}
           </label>
           <textarea
@@ -134,21 +134,21 @@ export function ProfileEditPage() {
             onChange={(e) => setStatus(e.target.value)}
             placeholder={t("profile.statusPlaceholder")}
             rows={3}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full rounded-lg border border-border px-3 py-2 text-sm bg-surface text-text-primary"
           />
         </div>
 
         <div className="flex items-center gap-3">
           <button
             type="submit"
-            className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
           >
             {saved ? t("profile.saved") : t("profile.save")}
           </button>
           <button
             type="button"
             onClick={() => navigate("/settings")}
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 dark:border-gray-600 dark:text-gray-200"
+            className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-secondary"
           >
             {t("common.back")}
           </button>

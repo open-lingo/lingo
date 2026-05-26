@@ -264,7 +264,7 @@ export function FlashcardTester() {
 
   if (subQueueLoading) {
     return (
-      <p className="text-gray-500 dark:text-gray-400">
+      <p className="text-text-muted">
         {t("flashcards.loading", "Loading…")}
       </p>
     );
@@ -273,7 +273,7 @@ export function FlashcardTester() {
   if (!queue) {
     return (
       <div className="mx-auto max-w-md space-y-3 py-8 text-center">
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-text-muted">
           {queueFilter.kind !== "all"
             ? t(
                 "flashcards.reviewFilterEmpty",

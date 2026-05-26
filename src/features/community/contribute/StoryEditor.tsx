@@ -318,10 +318,10 @@ export function StoryEditor() {
   if (loadError) {
     return (
       <div className="space-y-6 p-6">
-        <p className="text-red-600 dark:text-red-400">{loadError}</p>
+        <p className="text-destructive">{loadError}</p>
         <a
           href={langPath("community/contribute")}
-          className="text-sm text-green-600 hover:underline dark:text-green-400"
+          className="text-sm text-green-600 hover:underline"
         >
           {t("community.contribute")}
         </a>
@@ -349,13 +349,13 @@ export function StoryEditor() {
               setHasUnsavedChanges(true);
             }}
             placeholder={t("community.storyEditorTitlePlaceholder", "Untitled story")}
-            className="rounded-lg border border-gray-300 bg-white px-3 py-1 text-base font-medium text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="rounded-lg border border-gray-300 bg-white px-3 py-1 text-base font-medium text-gray-900"
           />
         }
       />
 
       {/* Metadata bar */}
-      <div className="flex flex-wrap items-center gap-4 border-b border-gray-200 bg-gray-50/50 px-4 py-2 dark:border-gray-700 dark:bg-gray-800/50">
+      <div className="flex flex-wrap items-center gap-4 border-b border-gray-200 bg-gray-50/50 px-4 py-2/50">
         <div>
           <label className="mr-2 text-xs text-gray-500">{t("forum.language")}</label>
           <select
@@ -364,7 +364,7 @@ export function StoryEditor() {
               setLanguageId(e.target.value);
               setHasUnsavedChanges(true);
             }}
-            className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="rounded border border-border px-2 py-1 text-sm bg-surface text-text-primary"
           >
             {AVAILABLE_LEARNING_LANGUAGES.map((lang) => (
               <option key={lang.id} value={lang.id}>
@@ -383,7 +383,7 @@ export function StoryEditor() {
               setHasUnsavedChanges(true);
             }}
             placeholder={t("community.contributeDescriptionPlaceholder")}
-            className="w-full rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full rounded border border-border px-2 py-1 text-sm bg-surface text-text-primary"
           />
         </div>
       </div>
@@ -391,40 +391,40 @@ export function StoryEditor() {
       {/* Three-pane layout */}
       <div className="flex min-h-0 flex-1">
         {/* Left: Companion deck panel */}
-        <aside className="flex w-56 shrink-0 flex-col border-r border-gray-200 bg-gray-50/50 dark:border-gray-700 dark:bg-gray-800/50">
-          <div className="border-b border-gray-200 p-3 dark:border-gray-700">
-            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <aside className="flex w-56 shrink-0 flex-col border-r border-gray-200 bg-gray-50/50/50">
+          <div className="border-b border-gray-200 p-3">
+            <h3 className="text-sm font-medium text-text-secondary">
               {t("community.storyEditorCompanionDeck", "Companion deck")}
             </h3>
           </div>
           <div className="flex-1 overflow-y-auto p-3">
             {!companionDeckId ? (
               <div className="space-y-3 text-center">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {t("community.storyEditorDeckRequired", "Link or create a deck to add vocab links.")}
                 </p>
                 <button
                   type="button"
                   onClick={handleCreateDeck}
-                  className="w-full rounded-lg border border-dashed border-gray-300 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:text-green-700 dark:border-gray-600 dark:text-gray-400 dark:hover:border-green-600 dark:hover:text-green-400"
+                  className="w-full rounded-lg border border-dashed border-gray-300 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:text-green-700"
                 >
                   + {t("community.storyEditorCreateDeck", "Create deck")}
                 </button>
                 <button
                   type="button"
                   onClick={() => setLinkDeckOpen(true)}
-                  className="w-full rounded-lg border border-dashed border-gray-300 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:text-green-700 dark:border-gray-600 dark:text-gray-400 dark:hover:border-green-600 dark:hover:text-green-400"
+                  className="w-full rounded-lg border border-dashed border-gray-300 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:text-green-700"
                 >
                   {t("community.storyEditorLinkDeck", "Link existing")}
                 </button>
                 {linkDeckOpen && (
-                  <div className="space-y-1 border-t border-gray-200 pt-2 dark:border-gray-700">
+                  <div className="space-y-1 border-t border-gray-200 pt-2">
                     {myDecks.map((d) => (
                       <button
                         key={d.id}
                         type="button"
                         onClick={() => handleLinkDeck(d.id, d.name, d.cardCount)}
-                        className="block w-full rounded px-2 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="block w-full rounded px-2 py-1 text-left text-sm hover:bg-surface-muted"
                       >
                         {d.name} ({d.cardCount})
                       </button>
@@ -441,7 +441,7 @@ export function StoryEditor() {
               </div>
             ) : (
               <div className="space-y-2">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {companionDeck?.name ?? "Deck"} ({companionDeck?.cardCount ?? 0} cards)
                 </p>
                 {companionCards.slice(0, 15).map((c) => (
@@ -449,7 +449,7 @@ export function StoryEditor() {
                     key={c.id}
                     type="button"
                     onClick={() => handleEditCard(c.id)}
-                    className="block w-full truncate rounded px-2 py-1 text-left text-xs text-gray-600 hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
+                    className="block w-full truncate rounded px-2 py-1 text-left text-xs text-gray-600 hover:bg-gray-200"
                     title={c.back}
                   >
                     {c.front} → {c.back}
@@ -461,9 +461,9 @@ export function StoryEditor() {
         </aside>
 
         {/* Center: Body editor */}
-        <main className="relative min-w-0 flex-1 overflow-y-auto border-r border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+        <main className="relative min-w-0 flex-1 overflow-y-auto border-r border-gray-200 bg-white p-6">
           <div className="flex items-center justify-between gap-2 pb-2">
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="text-xs text-text-muted">
               {t("community.storyEditorBodyHint", "Write your story. Use [card:id]word[/card] to link vocab.")}
             </span>
             <div className="flex gap-2">
@@ -471,7 +471,7 @@ export function StoryEditor() {
                 <button
                   type="button"
                   onClick={handleLinkToCard}
-                  className="rounded border border-gray-300 px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
+                  className="rounded border border-gray-300 px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-50"
                 >
                   {t("community.storyEditorLinkToCard", "Link to card")}
                 </button>
@@ -479,7 +479,7 @@ export function StoryEditor() {
               <button
                 type="button"
                 onClick={() => setShowPreview((p) => !p)}
-                className="rounded border border-gray-300 px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700"
+                className="rounded border border-gray-300 px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-50"
               >
                 {showPreview ? t("common.hidePreview") : t("common.showPreview")}
               </button>
@@ -512,14 +512,14 @@ export function StoryEditor() {
               setHasUnsavedChanges(true);
             }}
             placeholder={t("community.storyEditorBodyPlaceholder", "Write your story here…")}
-            className="min-h-[400px] w-full resize-y rounded-lg border border-gray-300 px-4 py-3 text-base leading-relaxed text-gray-900 placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500"
+            className="min-h-[400px] w-full resize-y rounded-lg border border-gray-300 px-4 py-3 text-base leading-relaxed text-gray-900 placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500"
           />
         </main>
 
         {/* Right: Preview */}
         {showPreview && (
-          <aside className="flex w-80 shrink-0 flex-col bg-gray-50/50 p-4 dark:bg-gray-800/50">
-            <h3 className="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+          <aside className="flex w-80 shrink-0 flex-col bg-gray-50/50 p-4/50">
+            <h3 className="mb-3 text-sm font-medium text-text-secondary">
               {t("community.editorLivePreview")}
             </h3>
             <div className="prose prose-sm max-w-none dark:prose-invert">
@@ -532,7 +532,7 @@ export function StoryEditor() {
                     onCardClick={handleEditCard}
                   />
                   {brokenCardIds.length > 0 && (
-                    <p className="mt-2 text-xs text-amber-600 dark:text-amber-400">
+                    <p className="mt-2 text-xs text-warning">
                       {t("community.storyEditorBrokenRefs", "{{count}} broken card reference(s)", {
                         count: brokenCardIds.length,
                       })}
@@ -540,7 +540,7 @@ export function StoryEditor() {
                   )}
                 </>
               ) : (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-text-muted">
                   {t("community.storyEditorPreviewEmpty")}
                 </p>
               )}

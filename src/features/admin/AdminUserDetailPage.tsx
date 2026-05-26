@@ -663,7 +663,7 @@ export function AdminUserDetailPage() {
                   return (
                     <li
                       key={deck.id}
-                      className="rounded-lg border border-border p-3 dark:border-gray-700"
+                      className="rounded-lg border border-border p-3"
                     >
                       <div className="flex flex-wrap items-center gap-4">
                         <img
@@ -691,7 +691,7 @@ export function AdminUserDetailPage() {
                               type="button"
                               onClick={() => handleUnpublishDeck(deck.id)}
                               disabled={isBusy}
-                              className="rounded border border-amber-300 px-2 py-1 text-sm font-medium text-amber-700 hover:bg-amber-50 disabled:opacity-50 dark:border-amber-700 dark:text-amber-400 dark:hover:bg-amber-900/20"
+                              className="rounded border border-amber-300 px-2 py-1 text-sm font-medium text-amber-700 hover:bg-amber-50 disabled:opacity-50"
                             >
                               {deckAction?.id === deck.id && deckAction?.action === "unpublish"
                                 ? t("common.loading")
@@ -702,7 +702,7 @@ export function AdminUserDetailPage() {
                               type="button"
                               onClick={() => handlePublishDeck(deck.id)}
                               disabled={isBusy}
-                              className="rounded border border-green-300 px-2 py-1 text-sm font-medium text-green-700 hover:bg-green-50 disabled:opacity-50 dark:border-green-700 dark:text-green-400 dark:hover:bg-green-900/20"
+                              className="rounded border border-green-300 px-2 py-1 text-sm font-medium text-green-700 hover:bg-green-50 disabled:opacity-50"
                             >
                               {deckAction?.id === deck.id && deckAction?.action === "publish"
                                 ? t("common.loading")
@@ -711,7 +711,7 @@ export function AdminUserDetailPage() {
                           )}
                           {deckDeleteConfirm === deck.id ? (
                             <span className="flex items-center gap-1">
-                              <span className="text-xs text-amber-700 dark:text-amber-400">
+                              <span className="text-xs text-warning">
                                 {t("admin.deleteDeckConfirm")}
                               </span>
                               <button
@@ -726,7 +726,7 @@ export function AdminUserDetailPage() {
                                 type="button"
                                 onClick={() => setDeckDeleteConfirm(null)}
                                 disabled={!!deckAction}
-                                className="rounded border border-gray-300 px-2 py-1 text-xs font-medium dark:border-gray-600"
+                                className="rounded border border-gray-300 px-2 py-1 text-xs font-medium"
                               >
                                 {t("forum.cancel")}
                               </button>
@@ -736,7 +736,7 @@ export function AdminUserDetailPage() {
                               type="button"
                               onClick={() => handleDeleteDeckClick(deck.id)}
                               disabled={isBusy}
-                              className="rounded border border-red-300 px-2 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50 dark:border-red-700 dark:text-red-400 dark:hover:bg-red-900/20"
+                              className="rounded border border-red-300 px-2 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50"
                             >
                               {t("admin.deleteDeck")}
                             </button>

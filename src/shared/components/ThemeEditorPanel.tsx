@@ -390,7 +390,7 @@ export function ThemeEditorPanel() {
           {/* Your Themes */}
           <section className="mb-6">
             <div className="mb-2 flex items-center justify-between">
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-text-muted">
                 {t("settings.yourThemes", "Your themes")}
               </h3>
               <button

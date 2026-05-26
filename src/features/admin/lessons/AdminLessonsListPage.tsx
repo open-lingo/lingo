@@ -134,7 +134,7 @@ export function AdminLessonsListPage() {
       sortable: true,
       render: (r) =>
         r.hasDraft ? (
-          <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
+          <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-900">
             <Icon name="pencil" className="h-3 w-3" />
             draft
           </span>
@@ -192,7 +192,7 @@ export function AdminLessonsListPage() {
             <strong className="text-text-primary">{rows.length}</strong> total
           </span>
           <span className="tabular-nums">
-            <strong className="text-amber-700 dark:text-amber-400">
+            <strong className="text-warning">
               {draftCount}
             </strong>{" "}
             drafted

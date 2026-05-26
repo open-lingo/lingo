@@ -30,23 +30,23 @@ export function NewThreadPage() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <Link to={langPath("community")} className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+      <Link to={langPath("community")} className="text-sm text-gray-600 hover:text-gray-900">
           <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("community.title")}
         </Link>
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <h1 className="text-2xl font-bold text-text-primary">
         {t("forum.newThread")}
       </h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="thread-category" className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label htmlFor="thread-category" className="mb-1 block text-sm font-medium text-text-secondary">
             {t("forum.category")}
           </label>
           <select
             id="thread-category"
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900"
           >
             {FORUM_CATEGORIES.map((cat) => (
               <option key={cat.id} value={cat.id}>
@@ -57,7 +57,7 @@ export function NewThreadPage() {
         </div>
 
         <div>
-          <label htmlFor="thread-title" className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label htmlFor="thread-title" className="mb-1 block text-sm font-medium text-text-secondary">
             {t("forum.threadTitle")}
           </label>
           <input
@@ -67,12 +67,12 @@ export function NewThreadPage() {
             onChange={(e) => setTitle(e.target.value)}
             placeholder={t("forum.threadTitlePlaceholder")}
             required
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-500 placeholder-text-muted"
           />
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-2 block text-sm font-medium text-text-secondary">
             {t("forum.tags")}
           </label>
           <div className="flex flex-wrap gap-2">
@@ -83,8 +83,8 @@ export function NewThreadPage() {
                 onClick={() => toggleTag(tag.id)}
                 className={`rounded-full px-3 py-1 text-sm font-medium transition ${
                   tagIds.includes(tag.id)
-                    ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                    ? "bg-gray-900 text-white bg-surface text-text-primary"
+                    : "bg-gray-100 text-gray-700 hover:bg-surface-muted"
                 }`}
               >
                 {tag.name}
@@ -94,7 +94,7 @@ export function NewThreadPage() {
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-1 block text-sm font-medium text-text-secondary">
             {t("forum.body")}
           </label>
           <MarkdownEditor
@@ -108,14 +108,14 @@ export function NewThreadPage() {
         <div className="flex gap-3">
           <Link
             to={langPath("community/discuss")}
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
             {t("forum.cancel")}
           </Link>
           <button
             type="submit"
             disabled={!title.trim() || !body.trim()}
-            className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50 dark:bg-green-500 dark:hover:bg-green-600"
+            className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
           >
             {t("forum.createThread")}
           </button>

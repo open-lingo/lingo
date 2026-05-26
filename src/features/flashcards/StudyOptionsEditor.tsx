@@ -47,11 +47,11 @@ export function StudyOptionsEditor({ decks }: { decks: ManagedDeck[] }) {
   const reviewBase = langPath("practice/flashcards/review");
 
   return (
-    <section className="rounded-xl border border-gray-200 bg-gray-50/50 p-4 dark:border-gray-700 dark:bg-gray-800/40">
-      <h2 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">
+    <section className="rounded-xl border border-border bg-surface-muted/50 p-4">
+      <h2 className="mb-1 text-lg font-semibold text-text-primary">
         {t("flashcards.studyOptions.title", "Study options")}
       </h2>
-      <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+      <p className="mb-4 text-sm text-text-muted">
         {t(
           "flashcards.studyOptions.subtitle",
           "Create named sets of decks (a deck can be in several options). Use Study to review only those cards."
@@ -60,19 +60,19 @@ export function StudyOptionsEditor({ decks }: { decks: ManagedDeck[] }) {
 
       <div className="space-y-3">
         {options.length === 0 ? (
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-text-muted">
             {t("flashcards.studyOptions.empty", "No study options yet. Add one below.")}
           </p>
         ) : (
           options.map((opt) => (
             <div
               key={opt.id}
-              className="rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-600 dark:bg-gray-900"
+              className="rounded-lg border border-border bg-surface p-3"
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="min-w-0">
-                  <p className="font-medium text-gray-900 dark:text-white">{opt.name}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="font-medium text-text-primary">{opt.name}</p>
+                  <p className="text-xs text-text-muted">
                     {t("flashcards.studyOptions.deckCount", "{{count}} decks", {
                       count: opt.deckIds.length,
                     })}
@@ -81,14 +81,14 @@ export function StudyOptionsEditor({ decks }: { decks: ManagedDeck[] }) {
                 <div className="flex flex-wrap items-center gap-2">
                   <Link
                     to={`${reviewBase}?studyOption=${encodeURIComponent(opt.id)}`}
-                    className="rounded-lg bg-green-600 px-3 py-1 text-xs font-medium text-white hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-500"
+                    className="rounded-lg bg-accent px-3 py-1 text-xs font-medium text-accent-foreground hover:bg-accent-hover"
                   >
                     {t("flashcards.studyOptions.study", "Study")}
                   </Link>
                   <button
                     type="button"
                     onClick={() => setExpandedId(expandedId === opt.id ? null : opt.id)}
-                    className="rounded-lg border border-gray-300 px-3 py-1 text-xs font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+                    className="rounded-lg border border-border px-3 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
                   >
                     {expandedId === opt.id
                       ? t("flashcards.studyOptions.collapse", "Hide decks")
@@ -97,14 +97,14 @@ export function StudyOptionsEditor({ decks }: { decks: ManagedDeck[] }) {
                   <button
                     type="button"
                     onClick={() => removeOption(opt.id)}
-                    className="rounded-lg px-2 py-1 text-xs text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/40"
+                    className="rounded-lg px-2 py-1 text-xs text-destructive hover:bg-destructive/10"
                   >
                     {t("flashcards.studyOptions.remove", "Remove")}
                   </button>
                 </div>
               </div>
               {expandedId === opt.id && (
-                <ul className="mt-3 max-h-48 space-y-2 overflow-y-auto border-t border-gray-100 pt-3 dark:border-gray-700">
+                <ul className="mt-3 max-h-48 space-y-2 overflow-y-auto border-t border-border pt-3">
                   {decks.length === 0 ? (
                     <li className="text-sm text-gray-500">
                       {t("flashcards.studyOptions.noSubscribedDecks", "Subscribe to decks first.")}
@@ -112,10 +112,10 @@ export function StudyOptionsEditor({ decks }: { decks: ManagedDeck[] }) {
                   ) : (
                     decks.map((d) => (
                       <li key={d.id}>
-                        <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-800 dark:text-gray-200">
+                        <label className="flex cursor-pointer items-center gap-2 text-sm text-text-primary">
                           <input
                             type="checkbox"
-                            className="rounded border-gray-300 dark:border-gray-600"
+                            className="rounded border-border"
                             checked={opt.deckIds.includes(d.id)}
                             onChange={(e) => toggleDeckInOption(opt.id, d.id, e.target.checked)}
                           />
@@ -131,18 +131,18 @@ export function StudyOptionsEditor({ decks }: { decks: ManagedDeck[] }) {
         )}
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-gray-200 pt-4 dark:border-gray-700">
+      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border pt-4">
         <input
           type="text"
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           placeholder={t("flashcards.studyOptions.newPlaceholder", "New study option name")}
-          className="min-w-[12rem] flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+          className="min-w-[12rem] flex-1 rounded-lg border border-border px-3 py-2 text-sm bg-surface text-text-primary"
         />
         <button
           type="button"
           onClick={addOption}
-          className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
+          className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
         >
           {t("flashcards.studyOptions.add", "Add study option")}
         </button>

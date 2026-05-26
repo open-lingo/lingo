@@ -7,7 +7,7 @@ export function Tag({
 }) {
   return (
     <span
-      className={`inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-300 ${className}`}
+      className={`inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-700 ${className}`}
     >
       {children}
     </span>

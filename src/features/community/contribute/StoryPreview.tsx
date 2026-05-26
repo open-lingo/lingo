@@ -15,7 +15,7 @@ export function StoryPreview({ body, cardsById = {}, brokenCardIds = [], onCardC
   if (!body) return null;
 
   return (
-    <div className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+    <div className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-text-secondary">
       {segments.map((seg, i) => {
         if (seg.type === "text") {
           return <span key={i}>{seg.text}</span>;
@@ -40,8 +40,8 @@ export function StoryPreview({ body, cardsById = {}, brokenCardIds = [], onCardC
             }
             className={
               isBroken
-                ? "rounded bg-amber-100 px-0.5 font-medium text-amber-800 dark:bg-amber-900/40 dark:text-amber-200"
-                : "cursor-pointer rounded bg-emerald-100 px-0.5 underline decoration-emerald-400 decoration-dotted hover:bg-emerald-200 dark:bg-emerald-900/40 dark:decoration-emerald-500 dark:hover:bg-emerald-900/60"
+                ? "rounded bg-amber-100 px-0.5 font-medium text-amber-800"
+                : "cursor-pointer rounded bg-emerald-100 px-0.5 underline decoration-emerald-400 decoration-dotted hover:bg-emerald-200"
             }
             title={isBroken ? "Card not found" : card?.back ? `Edit: ${card.back}` : undefined}
           >

@@ -24,7 +24,7 @@ export function ProgressBarWithCheckpoints({
   return (
     <div className={className}>
       <div
-        className="relative h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+        className="relative h-2 overflow-hidden rounded-full bg-surface-muted"
         role="progressbar"
         aria-valuenow={completed}
         aria-valuemin={0}
@@ -32,7 +32,7 @@ export function ProgressBarWithCheckpoints({
         aria-label={ariaLabel}
       >
         <div
-          className="h-full rounded-full bg-emerald-500 dark:bg-emerald-600 transition-[width]"
+          className="h-full rounded-full bg-accent transition-[width]"
           style={{ width: `${percent}%` }}
         />
         {checkpoints.map((cp, i) => {
@@ -40,7 +40,7 @@ export function ProgressBarWithCheckpoints({
           return (
             <span
               key={cp.id}
-              className="absolute top-1/2 h-3 w-0.5 -translate-y-1/2 rounded-full bg-gray-400 dark:bg-gray-500"
+              className="absolute top-1/2 h-3 w-0.5 -translate-y-1/2 rounded-full bg-border-muted"
               style={{ left: `${position}%`, transform: "translate(-50%, -50%)" }}
               title={cp.label ? `${cp.label}${cp.completed ? " ✓" : ""}` : undefined}
             />

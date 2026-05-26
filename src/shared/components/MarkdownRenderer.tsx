@@ -12,6 +12,7 @@ export function MarkdownRenderer({ children, className = "" }: MarkdownRendererP
 
   return (
     <div
+      {/* dark:prose-invert is intentional — @tailwindcss/typography requires it for .dark class prose */}
       className={`prose prose-sm max-w-none dark:prose-invert prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-img:max-w-full prose-img:h-auto ${className}`}
     >
       <ReactMarkdown

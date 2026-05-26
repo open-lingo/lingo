@@ -73,7 +73,7 @@ export function CardQuickEditor({
     >
       <div className="space-y-4 p-6">
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-1 block text-sm font-medium text-text-secondary">
             {t("community.editorFront")}
           </label>
           <input
@@ -81,11 +81,11 @@ export function CardQuickEditor({
             value={front}
             onChange={(e) => setFront(e.target.value)}
             placeholder={t("community.editorCardFrontPlaceholder")}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full rounded-lg border border-border px-3 py-2 bg-surface text-text-primary"
           />
         </div>
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-1 block text-sm font-medium text-text-secondary">
             {t("community.editorBack")}
           </label>
           <input
@@ -93,17 +93,17 @@ export function CardQuickEditor({
             value={back}
             onChange={(e) => setBack(e.target.value)}
             placeholder="Translation"
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full rounded-lg border border-border px-3 py-2 bg-surface text-text-primary"
           />
         </div>
         <div>
-          <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+          <label className="mb-1 block text-sm text-text-muted">
             {t("community.editorCardType")}
           </label>
           <select
             value={type}
             onChange={(e) => setType(e.target.value as FlashcardType)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full rounded-lg border border-border px-3 py-2 bg-surface text-text-primary"
           >
             {CARD_TYPES.map(({ value, labelKey }) => (
               <option key={value} value={value}>
@@ -113,7 +113,7 @@ export function CardQuickEditor({
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+          <label className="mb-1 block text-sm text-text-muted">
             {t("community.editorNote")}
           </label>
           <input
@@ -121,11 +121,11 @@ export function CardQuickEditor({
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder={t("community.editorNotePlaceholder")}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full rounded-lg border border-border px-3 py-2 bg-surface text-text-primary"
           />
         </div>
         <div>
-          <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+          <label className="mb-1 block text-sm text-text-muted">
             {t("community.editorImageUrl")}
           </label>
           <input
@@ -133,14 +133,14 @@ export function CardQuickEditor({
             value={image}
             onChange={(e) => setImage(e.target.value)}
             placeholder={t("community.editorImageUrlPlaceholder")}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full rounded-lg border border-border px-3 py-2 bg-surface text-text-primary"
           />
         </div>
         <div className="flex justify-end gap-2 pt-2">
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
             {t("forum.cancel")}
           </button>
@@ -148,7 +148,7 @@ export function CardQuickEditor({
             type="button"
             onClick={handleSave}
             disabled={!canSave}
-            className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50 dark:bg-green-500 dark:hover:bg-green-600"
+            className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
           >
             {t("community.storyEditorSaveCard", "Save card")}
           </button>

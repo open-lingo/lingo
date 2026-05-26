@@ -146,7 +146,7 @@ export function StepListPane({ steps, selectedIndex, onSelect, onChange }: Props
                     <Icon name="copy" className="inline h-3 w-3" /> dup
                   </button>
                   <button
-                    className="rounded border border-border bg-surface px-1.5 py-0.5 text-[10px] text-rose-700 hover:bg-rose-50 dark:text-rose-300 dark:hover:bg-rose-900/30"
+                    className="rounded border border-border bg-surface px-1.5 py-0.5 text-[10px] text-rose-700 hover:bg-rose-50"
                     onClick={(e) => {
                       e.stopPropagation();
                       remove(idx);

@@ -108,7 +108,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
           if (submitted && isAnswer) {
             style = "border-accent bg-accent-muted text-accent";
           } else if (submitted && isSelected && !isAnswer) {
-            style = "border-error bg-red-50 text-error dark:bg-red-950/30";
+            style = "border-error bg-error/10 text-error";
           } else if (isSelected) {
             style = "border-accent bg-accent-muted text-accent";
           }

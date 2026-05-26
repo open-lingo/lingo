@@ -16,7 +16,7 @@ export function Feedback({ correct, explanation }: Props) {
       className={`mt-4 rounded-2xl border-[1.5px] px-5 py-4 text-sm ${
         correct
           ? "border-accent bg-accent-muted text-accent"
-          : "border-error bg-red-50 text-error dark:bg-red-950/30"
+          : "border-error bg-error/10 text-error"
       }`}
     >
       <span className="text-base font-bold">{correct ? "Correct!" : "Not quite"}</span>

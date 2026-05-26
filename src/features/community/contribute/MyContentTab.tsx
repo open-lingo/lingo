@@ -60,12 +60,12 @@ function deckToItem(deck: {
 }
 
 const STATUS_STYLES: Record<ContentStatus, string> = {
-  draft: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200",
-  submitted: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-200",
-  review: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200",
-  published: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200",
-  changes_requested: "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-200",
-  rejected: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200",
+  draft: "bg-gray-100 text-gray-800",
+  submitted: "bg-blue-100 text-blue-800",
+  review: "bg-amber-100 text-amber-800",
+  published: "bg-emerald-100 text-emerald-800",
+  changes_requested: "bg-orange-100 text-orange-800",
+  rejected: "bg-red-100 text-red-800",
 };
 
 export function MyContentTab() {
@@ -200,12 +200,12 @@ export function MyContentTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-lg font-semibold text-text-primary">
           {t("community.studioMyContent")}
         </h2>
         <Link
           to={langPath("community/contribute/create")}
-          className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+          className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
         >
           {t("community.studioCreateNew")}
         </Link>
@@ -217,7 +217,7 @@ export function MyContentTab() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={t("community.studioSearchPlaceholder")}
-          className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-500 sm:w-56 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
+          className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-500 sm:w-56 placeholder-text-muted"
         />
         <div className="flex flex-wrap gap-1">
           {(["all", ...CONTENT_KINDS] as const).map((k) => (
@@ -227,8 +227,8 @@ export function MyContentTab() {
               onClick={() => setKindFilter(k)}
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                 kindFilter === k
-                  ? "bg-green-600 text-white dark:bg-green-500"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                  ? "bg-green-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-surface-muted"
               }`}
             >
               {kindLabels[k]}
@@ -243,8 +243,8 @@ export function MyContentTab() {
               onClick={() => setStatusFilter(s)}
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                 statusFilter === s
-                  ? "bg-green-600 text-white dark:bg-green-500"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                  ? "bg-green-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-surface-muted"
               }`}
             >
               {t(`community.studioFilter${s.charAt(0).toUpperCase() + s.slice(1)}`)}
@@ -254,17 +254,17 @@ export function MyContentTab() {
       </div>
 
       {loading ? (
-        <p className="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+        <p className="py-8 text-center text-sm text-text-muted">
           {t("common.loading")}
         </p>
       ) : filteredItems.length === 0 ? (
-        <div className="rounded-xl border-2 border-dashed border-gray-300 py-16 text-center dark:border-gray-600">
-          <p className="text-gray-600 dark:text-gray-400">
+        <div className="rounded-xl border-2 border-dashed border-gray-300 py-16 text-center">
+          <p className="text-text-muted">
             {t("community.studioNoContent")}
           </p>
           <Link
             to={langPath("community/contribute/create")}
-            className="mt-4 inline-block rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+            className="mt-4 inline-block rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
           >
             {t("community.studioCreateFirst")}
           </Link>
@@ -291,7 +291,7 @@ export function MyContentTab() {
             return (
               <li
                 key={`${item.kind}-${item.id}`}
-                className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className="flex min-w-0 flex-1 items-start gap-4">
                   {coverUrl ? (
@@ -309,8 +309,8 @@ export function MyContentTab() {
                     </div>
                   )}
                   <div>
-                    <h3 className="font-medium text-gray-900 dark:text-white">{item.name}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <h3 className="font-medium text-text-primary">{item.name}</h3>
+                    <p className="text-sm text-text-muted">
                       {kindLabel} • {langName}
                       {item.cardCount != null && ` • ${item.cardCount} cards`}
                     </p>
@@ -329,7 +329,7 @@ export function MyContentTab() {
                           type="button"
                           onClick={() => handlePublishStory(item.id)}
                           disabled={busy}
-                          className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50 dark:bg-green-500 dark:hover:bg-green-600"
+                          className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
                         >
                           {t("community.studioPublish")}
                         </button>
@@ -339,7 +339,7 @@ export function MyContentTab() {
                           type="button"
                           onClick={() => handleUnpublishStory(item.id)}
                           disabled={busy}
-                          className="rounded-lg border border-amber-500 px-3 py-1.5 text-sm font-medium text-amber-600 hover:bg-amber-50 disabled:opacity-50 dark:border-amber-600 dark:text-amber-400 dark:hover:bg-amber-900/20"
+                          className="rounded-lg border border-amber-500 px-3 py-1.5 text-sm font-medium text-amber-600 hover:bg-amber-50 disabled:opacity-50"
                         >
                           {t("community.studioUnpublish")}
                         </button>
@@ -353,7 +353,7 @@ export function MyContentTab() {
                           type="button"
                           onClick={() => handlePublish(item.id)}
                           disabled={busy}
-                          className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50 dark:bg-green-500 dark:hover:bg-green-600"
+                          className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
                         >
                           {t("community.studioPublish")}
                         </button>
@@ -363,7 +363,7 @@ export function MyContentTab() {
                           type="button"
                           onClick={() => handleUnpublish(item.id)}
                           disabled={busy}
-                          className="rounded-lg border border-amber-500 px-3 py-1.5 text-sm font-medium text-amber-600 hover:bg-amber-50 disabled:opacity-50 dark:border-amber-600 dark:text-amber-400 dark:hover:bg-amber-900/20"
+                          className="rounded-lg border border-amber-500 px-3 py-1.5 text-sm font-medium text-amber-600 hover:bg-amber-50 disabled:opacity-50"
                         >
                           {t("community.studioUnpublish")}
                         </button>
@@ -374,7 +374,7 @@ export function MyContentTab() {
                     <>
                       <Link
                         to={langPath(`community/decks/${item.id}`)}
-                        className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                        className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
                       >
                         {t("community.studioPreview")}
                       </Link>
@@ -382,7 +382,7 @@ export function MyContentTab() {
                         to={langPath(`community/decks/${item.id}`)}
                         target="_blank"
                         rel="noreferrer"
-                        className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+                        className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700"
                       >
                         {t("community.studioEdit")}
                       </Link>
@@ -391,7 +391,7 @@ export function MyContentTab() {
                   {item.kind === "story" && (
                     <Link
                       to={langPath(`community/contribute/create/story/${item.id}`)}
-                      className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+                      className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700"
                     >
                       {t("community.studioEdit")}
                     </Link>

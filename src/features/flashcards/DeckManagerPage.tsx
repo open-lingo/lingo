@@ -42,15 +42,15 @@ function DeckGroupSection({
     <section className="space-y-3">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h2>
+          <h2 className="text-lg font-semibold text-text-primary">{title}</h2>
           {description ? (
-            <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">{description}</p>
+            <p className="mt-0.5 text-sm text-text-muted">{description}</p>
           ) : null}
         </div>
         {studyGroupHref ? (
           <Link
             to={studyGroupHref}
-            className="text-sm font-medium text-green-600 hover:underline dark:text-green-400"
+            className="text-sm font-medium text-accent hover:underline"
           >
             {t("flashcards.deckManager.studyThisGroup", "Study this group")}
           </Link>
@@ -165,7 +165,7 @@ export function DeckManagerPage() {
         render: (d: ManagedDeck) => (
           <Link
             to={`${reviewBase}?decks=${encodeURIComponent(d.id)}`}
-            className="text-sm font-medium text-green-600 hover:underline dark:text-green-400"
+            className="text-sm font-medium text-accent hover:underline"
           >
             {t("flashcards.deckManager.studyDeck", "Study")}
           </Link>
@@ -178,7 +178,7 @@ export function DeckManagerPage() {
         render: (d: ManagedDeck) => (
           <Link
             to={langPath("practice/flashcards")}
-            className="font-medium text-gray-900 hover:underline dark:text-white"
+            className="font-medium text-text-primary hover:underline"
           >
             {d.name}
           </Link>
@@ -189,7 +189,7 @@ export function DeckManagerPage() {
         label: t("flashcards.deckManager.colCards", "Cards"),
         sortable: true,
         render: (d: ManagedDeck) => (
-          <span className="text-gray-600 dark:text-gray-400">{d.cardCount}</span>
+          <span className="text-text-muted">{d.cardCount}</span>
         ),
       },
       {
@@ -205,12 +205,12 @@ export function DeckManagerPage() {
                 max={99}
                 value={editingNewPerDayValue}
                 onChange={(e) => setEditingNewPerDayValue(e.target.value)}
-                className="w-16 rounded border border-gray-300 px-1.5 py-0.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="w-16 rounded border border-border px-1.5 py-0.5 text-sm bg-surface text-text-primary"
               />
               <button
                 type="button"
                 onClick={saveNewPerDay}
-                className="text-green-600 dark:text-green-400"
+                className="text-success"
               >
                 <Icon name="check" size={16} />
               </button>
@@ -226,7 +226,7 @@ export function DeckManagerPage() {
             <button
               type="button"
               onClick={() => startEditNewPerDay(d)}
-              className="text-left text-gray-700 hover:underline dark:text-gray-300"
+              className="text-left text-text-secondary hover:underline"
             >
               {d.subscription?.newCardsPerDay ?? 5}
             </button>
@@ -246,7 +246,7 @@ export function DeckManagerPage() {
                   newCardOrder: e.target.value as "ordered" | "shuffled",
                 })
               }
-              className="rounded border border-gray-300 px-2 py-0.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              className="rounded border border-border px-2 py-0.5 text-sm bg-surface text-text-primary"
             >
               <option value="ordered">
                 {t("flashcards.deckManager.orderOrdered", "Ordered")}
@@ -270,7 +270,7 @@ export function DeckManagerPage() {
               onChange={(e) =>
                 updateSubscription(d.id, { enabled: e.target.checked })
               }
-              className="rounded border-gray-300 dark:border-gray-600"
+              className="rounded border-border"
             />
           </label>
         ),
@@ -279,7 +279,7 @@ export function DeckManagerPage() {
 
   if (isLoading) {
     return (
-      <div className="py-12 text-center text-gray-500 dark:text-gray-400">
+      <div className="py-12 text-center text-text-muted">
         {t("flashcards.deckManager.loading", "Loading…")}
       </div>
     );
@@ -289,12 +289,12 @@ export function DeckManagerPage() {
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-text-primary">
             {t("flashcards.deckManager.title", "Deck Manager")}
           </h1>
           <Link
             to={langPath("practice/flashcards")}
-            className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            className="text-sm text-text-muted hover:text-text-primary"
           >
             <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("flashcards.backToHub")}
           </Link>
@@ -302,13 +302,13 @@ export function DeckManagerPage() {
         <button
           type="button"
           onClick={refresh}
-          className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+          className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-secondary hover:bg-surface-muted"
         >
           {t("flashcards.deckManager.refresh", "Refresh")}
         </button>
       </div>
 
-      <p className="text-sm text-gray-500 dark:text-gray-400">
+      <p className="text-sm text-text-muted">
         {t("flashcards.deckManager.subtitle", "Manage subscription settings for {{language}} decks.", {
           language: languageName,
         })}
@@ -317,13 +317,13 @@ export function DeckManagerPage() {
       <StudyOptionsEditor decks={decks} />
 
       {decks.length === 0 ? (
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-8 text-center dark:border-gray-700 dark:bg-gray-800/50">
-          <p className="text-gray-600 dark:text-gray-400">
+        <div className="rounded-xl border border-border bg-surface-muted p-8 text-center">
+          <p className="text-text-muted">
             {t("flashcards.deckManager.noDecks", "No decks yet. Subscribe to a deck to manage settings.")}
           </p>
           <Link
             to={langPath("community/explore")}
-            className="mt-4 inline-block text-green-600 dark:text-green-400"
+            className="mt-4 inline-block text-accent"
           >
             {t("flashcards.deckManager.browseDecks", "Browse community decks")}
           </Link>
@@ -340,7 +340,7 @@ export function DeckManagerPage() {
             filters={[]}
           />
 
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-text-muted">
             {t("flashcards.deckManager.showing", "Showing {{count}} of {{total}} decks", {
               count: filtered.length,
               total: decks.length,
@@ -395,7 +395,7 @@ export function DeckManagerPage() {
             vocabDecks.length === 0 &&
             lessonDecks.length === 0 &&
             otherDecks.length === 0 ? (
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-text-muted">
               {t("flashcards.deckManager.noResults", "No decks match")}
             </p>
           ) : null}

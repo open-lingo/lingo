@@ -40,6 +40,7 @@ export function WelcomeBanner({
       }
     >
       {hasBgImage ? (
+        {/* dark: intentional — heavier overlay on dark themes for legibility over background images */}
         <span
           className="absolute inset-0 bg-black/55 dark:bg-black/65"
           aria-hidden

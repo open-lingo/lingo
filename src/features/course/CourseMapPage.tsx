@@ -31,10 +31,10 @@ export function CourseMapPage() {
   if (!course) {
     return (
       <div className="mx-auto max-w-2xl space-y-4">
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-text-muted">
           Select a learning language in Settings to see your course path.
         </p>
-        <Link to="/settings" className="text-sm text-blue-600 dark:text-blue-400">
+        <Link to="/settings" className="text-sm text-link">
           <Icon name="arrowBigRight" size={14} className="inline" /> Settings
         </Link>
       </div>
@@ -48,22 +48,22 @@ export function CourseMapPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-text-primary">
           {course.title}
         </h1>
         <Link
           to="/"
-          className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          className="text-sm text-text-muted hover:text-text-primary"
         >
           {t("common.backToHome")}
         </Link>
       </div>
 
-      <p className="text-sm text-gray-600 dark:text-gray-400">
+      <p className="text-sm text-text-muted">
         Your path. Completed lessons are filled; tap a lesson to practice.
       </p>
 
-      <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+      <div className="overflow-x-auto rounded-xl border border-border bg-surface p-6">
         <svg
           viewBox={`0 0 ${totalWidth} ${totalHeight}`}
           className="mx-auto block w-full max-w-md"
@@ -146,16 +146,16 @@ export function CourseMapPage() {
                 <span
                   className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 ${
                     done
-                      ? "border-green-500 bg-green-500 text-white"
+                      ? "border-success bg-success text-white"
                       : locked
-                        ? "border-gray-400 bg-gray-300 text-gray-500 dark:border-gray-500 dark:bg-gray-600"
-                        : "border-green-500 bg-white text-green-600 dark:bg-gray-800 dark:text-green-400"
+                        ? "border-border-muted bg-surface-muted text-text-muted"
+                        : "border-accent bg-surface text-accent"
                   }`}
                 >
                   {done ? <Icon name="check" size={18} /> : locked ? <Icon name="lock" size={18} /> : <span className="text-base leading-none">·</span>}
                 </span>
-                <span className="text-gray-600 dark:text-gray-400">{moduleTitle}</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-text-muted">{moduleTitle}</span>
+                <span className="font-medium text-text-primary">
                   {lesson.title}
                 </span>
               </li>
