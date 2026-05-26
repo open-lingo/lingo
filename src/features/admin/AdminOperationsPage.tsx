@@ -16,7 +16,7 @@
  */
 
 import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { ApiError } from "@/shared/api/client";
 import { useApi } from "@/shared/api/provider";
@@ -134,6 +134,15 @@ function OpsUnavailableBanner({ where }: { where: string }) {
 
 function CostRevenueTab() {
   const { ops } = useApi();
+  const qc = useQueryClient();
+
+  const syncAws = useMutation({
+    mutationFn: () => ops.syncAwsCosts(),
+    onSuccess: () => {
+      // Refetch cost-side data; revenue is independent.
+      qc.invalidateQueries({ queryKey: ["ops", "costs"] });
+    },
+  });
 
   const revenueSummary = useQuery<RevenueSummary>({
     queryKey: ["ops", "revenue", "summary"],
@@ -196,6 +205,30 @@ function CostRevenueTab() {
 
   return (
     <div className="space-y-6">
+      {/* Sync controls */}
+      <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-surface-muted px-4 py-3">
+        <div>
+          <p className="text-sm font-medium text-text-primary">AWS cost sync</p>
+          <p className="text-xs text-text-muted">
+            {syncAws.isPending
+              ? "Syncing — calling Cost Explorer (~$0.03)…"
+              : syncAws.isSuccess
+                ? "Synced. Numbers refresh below."
+                : syncAws.isError
+                  ? `Failed: ${(syncAws.error as Error)?.message ?? "unknown"}`
+                  : "Fetches month-to-date costs by service + by domain. Costs ~$0.03 per call."}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => syncAws.mutate()}
+          disabled={syncAws.isPending}
+          className="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {syncAws.isPending ? "Syncing…" : "Sync now"}
+        </button>
+      </div>
+
       {/* Headline net + funding meter */}
       <div className="grid gap-4 md:grid-cols-2">
         <Card padding="lg">

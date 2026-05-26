@@ -184,6 +184,14 @@ export class OpsApi extends ApiClient {
     return this.get<FundingPercent>(`${PREFIX}/finance/funding/percent`);
   }
 
+  /**
+   * Trigger an AWS Cost Explorer sync. Admin only.
+   * Cost: ~$0.03 per call (3 CE requests). Use sparingly.
+   */
+  async syncAwsCosts(): Promise<unknown> {
+    return this.post<unknown>(`${PREFIX}/finance/sources/aws/sync`, {});
+  }
+
   // Subscriptions
   async getSubscriptionsSummary(): Promise<SubscriptionsSummary> {
     return this.get<SubscriptionsSummary>(`${PREFIX}/subscriptions/summary`);
