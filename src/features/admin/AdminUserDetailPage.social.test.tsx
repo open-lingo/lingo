@@ -104,8 +104,9 @@ describe("AdminUserDetailPage — Social tab", () => {
 
   it("renders a Social tab and loads requests when opened", async () => {
     renderPage("user-1");
-    // Wait for the user to load (the page renders a loading state until then).
-    const socialTab = await screen.findByRole("button", { name: /social/i });
+    // Tabs render with role="tab" (see TabButton). Wait for the user load
+    // to settle so the tab list renders, then locate by tab role.
+    const socialTab = await screen.findByRole("tab", { name: /social/i });
     expect(socialTab).toBeInTheDocument();
     fireEvent.click(socialTab);
 
@@ -118,7 +119,7 @@ describe("AdminUserDetailPage — Social tab", () => {
 
   it("admin accept fires the endpoint with the right ids", async () => {
     renderPage("user-1");
-    const socialTab = await screen.findByRole("button", { name: /social/i });
+    const socialTab = await screen.findByRole("tab", { name: /social/i });
     fireEvent.click(socialTab);
     const acceptBtn = await screen.findByRole("button", { name: /accept/i });
     fireEvent.click(acceptBtn);
