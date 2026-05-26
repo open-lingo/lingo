@@ -7,6 +7,8 @@ import { UserAvatar } from "@/shared/components/UserAvatar";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useFriends, useSocial } from "@/features/social/hooks/useSocial";
 import { toHomeFriendPreview } from "@/features/social/mock/mockSocial";
+import { UserPreviewPopover } from "@/features/social/components/UserPreviewPopover";
+import { userSlug } from "@/features/social/userSlug";
 
 export function SocialCard() {
   const { t } = useTranslation();
@@ -90,25 +92,35 @@ export function SocialCard() {
         </div>
       ) : (
         <ul className="mt-5 space-y-3">
-          {homeFriendsPreview.map((f) => (
-            <li key={f.id} className="flex items-center gap-3">
-              <UserAvatar name={f.name} size="sm" status={f.status} />
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium text-text-primary">{f.name}</p>
-                <p className="text-xs text-text-muted">
-                  {f.status === "active"
-                    ? t("home.restructured.social.activeToday", {
-                        defaultValue: "Active today",
-                      })
-                    : t("home.restructured.social.idle", { defaultValue: "Idle" })}
-                </p>
-              </div>
-              <span className="inline-flex items-center gap-1 rounded-full bg-warning/10 px-2 py-0.5 text-xs font-bold text-warning">
-                <Icon name="flame" size={12} aria-hidden />
-                {f.streak}
-              </span>
-            </li>
-          ))}
+          {homeFriendsPreview.map((f) => {
+            const slug = userSlug({ username: f.username, name: f.name });
+            return (
+              <li key={f.id} className="flex items-center gap-3">
+                <UserPreviewPopover username={slug} displayName={f.name}>
+                  <UserAvatar name={f.name} size="sm" status={f.status} />
+                </UserPreviewPopover>
+                <div className="min-w-0 flex-1">
+                  <Link
+                    to={`/u/${slug}`}
+                    className="truncate text-sm font-medium text-text-primary hover:underline"
+                  >
+                    {f.name}
+                  </Link>
+                  <p className="text-xs text-text-muted">
+                    {f.status === "active"
+                      ? t("home.restructured.social.activeToday", {
+                          defaultValue: "Active today",
+                        })
+                      : t("home.restructured.social.idle", { defaultValue: "Idle" })}
+                  </p>
+                </div>
+                <span className="inline-flex items-center gap-1 rounded-full bg-warning/10 px-2 py-0.5 text-xs font-bold text-warning">
+                  <Icon name="flame" size={12} aria-hidden />
+                  {f.streak}
+                </span>
+              </li>
+            );
+          })}
         </ul>
       )}
 
@@ -145,9 +157,19 @@ export function SocialCard() {
             })}
           </p>
           <div className="mt-2 flex items-center gap-3 rounded-xl border border-dashed border-border p-3">
-            <UserAvatar name={sug.user.name} size="sm" status={sug.user.status} />
+            <UserPreviewPopover
+              username={userSlug(sug.user)}
+              displayName={sug.user.name}
+            >
+              <UserAvatar name={sug.user.name} size="sm" status={sug.user.status} />
+            </UserPreviewPopover>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-text-primary">{sug.user.name}</p>
+              <Link
+                to={`/u/${userSlug(sug.user)}`}
+                className="truncate text-sm font-medium text-text-primary hover:underline"
+              >
+                {sug.user.name}
+              </Link>
               <p className="truncate text-xs text-text-muted">{sug.reason}</p>
             </div>
             <button
