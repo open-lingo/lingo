@@ -5,6 +5,7 @@
  * Display name and avatar come from the authenticated user (useAuth);
  * streak comes from useUserStats; league + weekly rank come from useSocial.
  */
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
@@ -14,9 +15,11 @@ import { resolveUserAvatarUrl } from "@/shared/auth/resolveUserAvatarUrl";
 import { useUserStats } from "@/shared/hooks/useUserStats";
 import { UserAvatar } from "./UserAvatar";
 import { UsernameDisplay } from "./UsernameDisplay";
+import { FindFriendModal } from "./FindFriendModal";
 import { useSocial } from "../hooks/useSocial";
 
 export function SocialHeader() {
+  const [findFriendOpen, setFindFriendOpen] = useState(false);
   const langPath = useLangPath();
   const { user } = useAuth();
   const { stats } = useUserStats();
@@ -83,11 +86,13 @@ export function SocialHeader() {
         </Link>
         <button
           type="button"
+          onClick={() => setFindFriendOpen(true)}
           className="inline-flex items-center gap-1 rounded-md bg-accent px-2.5 py-1 text-xs font-semibold text-on-accent shadow-sm transition hover:bg-accent-hover"
         >
           <Icon name="userPlus" size={13} aria-hidden />
           Add friend
         </button>
+        <FindFriendModal open={findFriendOpen} onClose={() => setFindFriendOpen(false)} />
         <button
           type="button"
           className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border bg-surface text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
