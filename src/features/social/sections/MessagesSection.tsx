@@ -15,6 +15,7 @@
  * TODO(backend): POST /social/threads/with/{user_id} → 200 ThreadItem
  */
 import { useEffect, useMemo, useState } from "react";
+import { userSlug } from "@/features/social/userSlug";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -265,7 +266,7 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
             >
               <Icon name="chevronLeft" size={16} aria-hidden />
             </button>
-            <Link to={`/u/${encodeURIComponent(active.user.name)}`}>
+            <Link to={`/u/${userSlug(active.user)}`}>
               <UserAvatar
                 name={active.user.name}
                 imageUrl={active.user.imageUrl}
@@ -275,7 +276,7 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
               />
             </Link>
             <Link
-              to={`/u/${encodeURIComponent(active.user.name)}`}
+              to={`/u/${userSlug(active.user)}`}
               className="min-w-0 flex-1 hover:underline focus:underline focus:outline-none"
             >
               <UsernameDisplay

@@ -10,6 +10,7 @@
  * card can stand alone on the social page.
  */
 import { useState } from "react";
+import { userSlug } from "@/features/social/userSlug";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
@@ -433,7 +434,7 @@ function FlatBoard({
             <RankBadge rank={row.rank} />
             <ProfilePreviewPopover user={row.user} />
             <Link
-              to={`/u/${encodeURIComponent(row.user.name)}`}
+              to={`/u/${userSlug(row.user)}`}
               className="min-w-0 flex-1 hover:underline focus:underline focus:outline-none"
             >
               <div className="flex items-center gap-2">
@@ -629,7 +630,7 @@ function LeagueRow({
       <RankBadge rank={row.rank} />
       <ProfilePreviewPopover user={row.user} />
       <Link
-        to={`/u/${encodeURIComponent(row.user.name)}`}
+        to={`/u/${userSlug(row.user)}`}
         className="min-w-0 flex-1 hover:underline focus:underline focus:outline-none"
       >
         <div className="flex items-center gap-2">

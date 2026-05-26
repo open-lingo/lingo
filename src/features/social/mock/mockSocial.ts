@@ -11,7 +11,11 @@ import type { UsernameCosmetic } from "../components/UsernameDisplay";
 
 export type SocialUser = {
   id: string;
+  /** Display name (can contain spaces, unicode). For UI only — never use in URLs. */
   name: string;
+  /** URL-safe handle (matches backend username regex). Falls back to slugified
+   *  `name` via `userSlug()` when not provided. Always prefer this for /u/ links. */
+  username?: string;
   /** Optional profile image. When absent, falls back to initial letter. */
   imageUrl?: string;
   /** Currently-studied language (display only). */

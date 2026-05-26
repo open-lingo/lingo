@@ -13,7 +13,15 @@
  * `ProfilePreviewPopover.tsx`. This component intentionally takes only
  * the cheap inputs the marketplace surfaces have on hand.
  */
-import { useState, type ReactNode, type MouseEvent, type KeyboardEvent } from "react";
+import {
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type MouseEvent,
+  type KeyboardEvent,
+} from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
@@ -49,6 +57,18 @@ export function UserPreviewPopover({
 }: UserPreviewPopoverProps) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLSpanElement>(null);
+  const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
+
+  // Compute the popover position relative to the trigger when opening.
+  // Why portal + fixed: the previous absolute positioning was clipped (and
+  // grew the parent's scrollable height) when a scrollable card ancestor
+  // had overflow-y:auto. Portaling to document.body escapes that.
+  useLayoutEffect(() => {
+    if (!open || !triggerRef.current) return;
+    const r = triggerRef.current.getBoundingClientRect();
+    setPos({ top: r.bottom + 8, left: r.left });
+  }, [open]);
 
   const onTriggerClick = (e: MouseEvent) => {
     // Prevent the wrapped Link / Card from navigating when the user is
@@ -70,8 +90,9 @@ export function UserPreviewPopover({
   const Wrapper = inline ? "span" : "div";
 
   return (
-    <Wrapper className={cn(inline ? "relative inline-block" : "relative block", className)}>
+    <Wrapper className={cn(inline ? "inline-block" : "block", className)}>
       <span
+        ref={triggerRef}
         role="button"
         tabIndex={0}
         onClick={onTriggerClick}
@@ -83,19 +104,21 @@ export function UserPreviewPopover({
         {children}
       </span>
 
-      {open ? (
-        <>
-          <button
-            type="button"
-            aria-label={t("common.close")}
-            className="fixed inset-0 z-30 cursor-default bg-transparent"
-            onClick={() => setOpen(false)}
-          />
-          <div
-            role="dialog"
-            aria-label={t("social.preview.dialogLabel", "Profile preview")}
-            className="absolute left-0 top-full z-40 mt-2 w-72 rounded-xl border border-border bg-surface shadow-card"
-          >
+      {open && pos
+        ? createPortal(
+            <>
+              <button
+                type="button"
+                aria-label={t("common.close")}
+                className="fixed inset-0 z-[100] cursor-default bg-transparent"
+                onClick={() => setOpen(false)}
+              />
+              <div
+                role="dialog"
+                aria-label={t("social.preview.dialogLabel", "Profile preview")}
+                className="fixed z-[101] w-72 rounded-xl border border-border bg-surface shadow-card"
+                style={{ top: pos.top, left: pos.left }}
+              >
             <div className="flex items-start gap-3 p-4">
               <Avatar name={displayName ?? username} src={imageUrl} size="md" />
               <div className="min-w-0 flex-1">
@@ -119,9 +142,11 @@ export function UserPreviewPopover({
                 {t("social.preview.viewProfile", "View profile")}
               </Link>
             </div>
-          </div>
-        </>
-      ) : null}
+              </div>
+            </>,
+            document.body,
+          )
+        : null}
     </Wrapper>
   );
 }

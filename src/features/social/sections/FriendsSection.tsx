@@ -11,6 +11,7 @@
  * fire against.
  */
 import { useMemo, useState } from "react";
+import { userSlug } from "@/features/social/userSlug";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
@@ -273,7 +274,7 @@ function SuggestionRow({ user, reason }: { user: SocialUser; reason: string }) {
     <li className="flex items-center gap-2.5 bg-surface px-3 py-2">
       <ProfilePreviewPopover user={user} />
       <Link
-        to={`/u/${encodeURIComponent(user.name)}`}
+        to={`/u/${userSlug(user)}`}
         className="min-w-0 flex-1 hover:underline focus:underline focus:outline-none"
       >
         <UsernameDisplay
@@ -330,7 +331,7 @@ function FriendRow({ user }: { user: SocialUser }) {
       <ProfilePreviewPopover user={user} />
       <div className="min-w-0 flex-1">
         <Link
-          to={`/u/${encodeURIComponent(user.name)}`}
+          to={`/u/${userSlug(user)}`}
           className="flex items-center gap-1.5 hover:underline focus:underline focus:outline-none"
           aria-label={t("social.friends.openProfileAria", "Open {{name}}'s profile", {
             name: user.name,
@@ -448,7 +449,7 @@ function FriendRequestRow({ user }: { user: SocialUser }) {
     <li className="flex items-center gap-2.5 bg-accent-muted/30 px-3 py-2">
       <ProfilePreviewPopover user={user} />
       <Link
-        to={`/u/${encodeURIComponent(user.name)}`}
+        to={`/u/${userSlug(user)}`}
         className="min-w-0 flex-1 hover:underline focus:underline focus:outline-none"
         aria-label={t("social.requests.openProfileAria", "View {{name}}'s profile before accepting", {
           name: user.name,

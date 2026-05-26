@@ -143,6 +143,7 @@ export function adaptLeaderboardEntry(e: LeaderboardEntry, isMe: boolean): Leade
     user: {
       id: e.user_id,
       name: e.display_name || e.username,
+      username: e.username,
       imageUrl: e.profile_picture_key ?? undefined,
       language: langOf(null),
       streakDays: 0,

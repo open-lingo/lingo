@@ -7,6 +7,7 @@
  * without component change. Skeleton + empty states are handled here.
  */
 import { useTranslation } from "react-i18next";
+import { userSlug } from "@/features/social/userSlug";
 import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
@@ -73,7 +74,7 @@ function ActivityCard({ item }: { item: ActivityItem }) {
   return (
     <li className="flex w-[280px] shrink-0 flex-col gap-1.5 rounded-lg border border-border bg-surface-muted px-2.5 py-2">
       <div className="flex items-center gap-2.5">
-        <Link to={`/u/${encodeURIComponent(item.user.name)}`} aria-label={item.user.name}>
+        <Link to={`/u/${userSlug(item.user)}`} aria-label={item.user.name}>
           <UserAvatar
             name={item.user.name}
             imageUrl={item.user.imageUrl}
@@ -84,7 +85,7 @@ function ActivityCard({ item }: { item: ActivityItem }) {
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
             <Link
-              to={`/u/${encodeURIComponent(item.user.name)}`}
+              to={`/u/${userSlug(item.user)}`}
               className="min-w-0 hover:underline focus:underline focus:outline-none"
             >
               <UsernameDisplay
