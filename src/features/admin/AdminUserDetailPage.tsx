@@ -101,6 +101,12 @@ export function AdminUserDetailPage() {
   const [editingCard, setEditingCard] = useState<string | null>(null);
   const [editDueDate, setEditDueDate] = useState("");
   const [editEase, setEditEase] = useState("");
+  // Award-XP modal state. Admins enter an amount + reason and the
+  // server-side endpoint updates the user row + leaderboard.
+  const [awardXpOpen, setAwardXpOpen] = useState(false);
+  const [awardXpAmount, setAwardXpAmount] = useState("100");
+  const [awardXpReason, setAwardXpReason] = useState("");
+  const [awardingXp, setAwardingXp] = useState(false);
   // Admin social-moderation tab state. Friend requests on behalf of the
   // user; populated lazily when the tab is opened.
   const [socialRequests, setSocialRequests] =
@@ -137,6 +143,45 @@ export function AdminUserDetailPage() {
     setLoading(true);
     loadUserData().finally(() => setLoading(false));
   }, [userId, loadUserData]);
+
+  const handleAwardXp = async () => {
+    if (!userId) return;
+    const parsed = Number(awardXpAmount);
+    if (!Number.isFinite(parsed) || Math.floor(parsed) === 0) {
+      showToast(
+        t("admin.awardXp.invalidAmount", "Enter a non-zero amount"),
+        "error",
+      );
+      return;
+    }
+    setAwardingXp(true);
+    try {
+      const result = await admin.awardXp(userId, {
+        amount: Math.floor(parsed),
+        reason: awardXpReason.trim(),
+      });
+      showToast(
+        t("admin.awardXp.success", "Awarded {{n}} XP (total {{xp}})", {
+          n: result.awarded,
+          xp: result.xp,
+        }),
+        "success",
+      );
+      setAwardXpOpen(false);
+      setAwardXpAmount("100");
+      setAwardXpReason("");
+      // Refresh the user row so the page reflects the new totals; the
+      // admin detail page reads via loadUserData (no separate XP query).
+      await loadUserData();
+    } catch {
+      showToast(
+        t("admin.awardXp.error", "Failed to award XP"),
+        "error",
+      );
+    } finally {
+      setAwardingXp(false);
+    }
+  };
 
   const handleDeleteUser = async () => {
     if (!userId) return;
@@ -413,11 +458,88 @@ export function AdminUserDetailPage() {
           </p>
         </div>
         <div className="flex gap-2">
+          <Button type="button" variant="secondary" onClick={() => setAwardXpOpen(true)}>
+            {t("admin.awardXp.button", "Award XP")}
+          </Button>
           <Button type="button" variant="danger" onClick={() => setShowDeleteConfirm(true)}>
             {t("admin.deleteUser")}
           </Button>
         </div>
       </div>
+
+      {awardXpOpen ? (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="award-xp-title"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          onClick={() => {
+            if (!awardingXp) setAwardXpOpen(false);
+          }}
+        >
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              void handleAwardXp();
+            }}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md rounded-lg border border-border bg-surface p-5 shadow-xl"
+          >
+            <h2 id="award-xp-title" className="text-base font-semibold text-text-primary">
+              {t("admin.awardXp.title", "Award XP")}
+            </h2>
+            <p className="mt-1 text-xs text-text-muted">
+              {t(
+                "admin.awardXp.subtitle",
+                "Adds XP to @{{name}}. Use a negative amount to subtract. Leaderboards update for opted-in users.",
+                { name: user.username },
+              )}
+            </p>
+            <label className="mt-4 block text-xs font-medium text-text-secondary">
+              {t("admin.awardXp.amountLabel", "Amount")}
+              <input
+                type="number"
+                inputMode="numeric"
+                value={awardXpAmount}
+                onChange={(e) => setAwardXpAmount(e.target.value)}
+                autoFocus
+                disabled={awardingXp}
+                className={cn("mt-1 w-full", inputClassName)}
+              />
+            </label>
+            <label className="mt-3 block text-xs font-medium text-text-secondary">
+              {t("admin.awardXp.reasonLabel", "Reason")}
+              <input
+                type="text"
+                value={awardXpReason}
+                onChange={(e) => setAwardXpReason(e.target.value)}
+                placeholder={t(
+                  "admin.awardXp.reasonPlaceholder",
+                  "e.g. 'leaderboard test'",
+                )}
+                disabled={awardingXp}
+                maxLength={500}
+                className={cn("mt-1 w-full", inputClassName)}
+              />
+            </label>
+            <div className="mt-5 flex justify-end gap-2">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => setAwardXpOpen(false)}
+                disabled={awardingXp}
+              >
+                {t("forum.cancel")}
+              </Button>
+              <Button type="submit" variant="primary" disabled={awardingXp}>
+                {awardingXp
+                  ? t("common.loading")
+                  : t("admin.awardXp.submit", "Award")}
+              </Button>
+            </div>
+          </form>
+        </div>
+      ) : null}
 
       {showDeleteConfirm ? (
         <ConfirmModal
