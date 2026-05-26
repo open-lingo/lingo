@@ -292,6 +292,7 @@ export const MOCK_FRIEND_QUEST: FriendQuest = {
 export type HomeFriendPreview = {
   id: string;
   name: string;
+  username?: string;
   streak: number;
   status: "active" | "idle";
 };
@@ -300,6 +301,7 @@ export function toHomeFriendPreview(user: SocialUser): HomeFriendPreview {
   return {
     id: user.id,
     name: user.name,
+    username: user.username,
     streak: user.streakDays,
     status: user.status,
   };
