@@ -33,7 +33,7 @@ export function TabList({
       className={cn(
         "flex gap-1",
         variant === "underline" && "border-b border-border",
-        wrap ? "flex-wrap" : "overflow-x-auto whitespace-nowrap",
+        wrap ? "flex-wrap" : "no-scrollbar overflow-x-auto whitespace-nowrap",
         className,
       )}
     >

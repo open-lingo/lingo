@@ -47,6 +47,16 @@ html::-webkit-scrollbar-corner {
   background: transparent;
 }
 
+/* Hide scrollbar visually while preserving scroll behavior (e.g. on tab
+   strips that may overflow horizontally on narrow viewports). */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .scrollbar-theme {
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);

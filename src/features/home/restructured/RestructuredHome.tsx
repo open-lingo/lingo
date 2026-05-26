@@ -81,26 +81,23 @@ export function RestructuredHome({ greetingName }: Props) {
         lessonIndexLabel={lessonIndexLabel}
       />
 
-      {/* Main 3-column grid. Below lg: stacks single column. */}
-      <div
-        className="grid gap-5 lg:grid-cols-3"
-        style={{
-          gridTemplateAreas: `
-            "account account social"
-            "flash recent social"
-          `,
-        }}
-      >
-        <div style={{ gridArea: "account" }} className="lg:col-span-2">
+      {/* Main grid. Below lg: stacks single column. At lg+: 3 cols with
+          account spanning 2, social spanning both rows on the right.
+          Layout falls out of auto-placement + col/row-span hints — no
+          gridTemplateAreas needed (which used to apply at all widths
+          and blow out mobile because it referenced columns that didn't
+          exist below lg). */}
+      <div className="grid gap-5 lg:grid-cols-3">
+        <div className="lg:col-span-2">
           <AccountOverviewCard />
         </div>
-        <div style={{ gridArea: "social" }} className="lg:row-span-2">
+        <div className="lg:row-span-2">
           <SocialCard />
         </div>
-        <div style={{ gridArea: "flash" }}>
+        <div>
           <FlashcardsTile />
         </div>
-        <div style={{ gridArea: "recent" }}>
+        <div>
           <RecentPracticeTile />
         </div>
       </div>
