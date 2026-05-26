@@ -1,17 +1,35 @@
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { UserAvatar } from "@/shared/components/UserAvatar";
 import { useLangPath } from "@/shared/hooks/useLangPath";
-import { useSocial } from "@/features/social/hooks/useSocial";
+import { useFriends, useSocial } from "@/features/social/hooks/useSocial";
+import { toHomeFriendPreview } from "@/features/social/mock/mockSocial";
 
 export function SocialCard() {
   const { t } = useTranslation();
   const langPath = useLangPath();
-  const { homeFriendsPreview, friendQuest, primarySuggestion } = useSocial({
+  // Friends comes from the real backend (when VITE_SOCIAL_API is enabled,
+  // which is the default). The rest of the card — friend quest + suggestions
+  // — still uses the mock bundle until matching backend endpoints land.
+  const { friendQuest, primarySuggestion } = useSocial({
     homeFriendsLimit: 3,
   });
+  const friendsQuery = useFriends();
+  const friends = friendsQuery.data ?? [];
+  const homeFriendsPreview = useMemo(
+    () =>
+      [...friends]
+        .sort((a, b) => {
+          if (a.status !== b.status) return a.status === "active" ? -1 : 1;
+          return b.streakDays - a.streakDays;
+        })
+        .slice(0, 3)
+        .map(toHomeFriendPreview),
+    [friends],
+  );
   const fq = friendQuest;
   const sug = primarySuggestion;
 
@@ -35,27 +53,64 @@ export function SocialCard() {
         </Link>
       </div>
 
-      <ul className="mt-5 space-y-3">
-        {homeFriendsPreview.map((f) => (
-          <li key={f.id} className="flex items-center gap-3">
-            <UserAvatar name={f.name} size="sm" status={f.status} />
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-text-primary">{f.name}</p>
-              <p className="text-xs text-text-muted">
-                {f.status === "active"
-                  ? t("home.restructured.social.activeToday", {
-                      defaultValue: "Active today",
-                    })
-                  : t("home.restructured.social.idle", { defaultValue: "Idle" })}
-              </p>
-            </div>
-            <span className="inline-flex items-center gap-1 rounded-full bg-warning/10 px-2 py-0.5 text-xs font-bold text-warning">
-              <Icon name="flame" size={12} aria-hidden />
-              {f.streak}
-            </span>
-          </li>
-        ))}
-      </ul>
+      {friendsQuery.isLoading ? (
+        <ul className="mt-5 space-y-3" aria-hidden>
+          {[0, 1, 2].map((i) => (
+            <li key={i} className="flex animate-pulse items-center gap-3">
+              <div className="h-8 w-8 rounded-full bg-border" />
+              <div className="flex-1 space-y-1.5">
+                <div className="h-3 w-24 rounded bg-border" />
+                <div className="h-2.5 w-16 rounded bg-border" />
+              </div>
+              <div className="h-5 w-10 rounded-full bg-border" />
+            </li>
+          ))}
+        </ul>
+      ) : homeFriendsPreview.length === 0 ? (
+        <div className="mt-5 rounded-xl border border-dashed border-border bg-surface-muted p-4 text-center">
+          <p className="text-sm font-medium text-text-primary">
+            {t("home.restructured.social.emptyTitle", {
+              defaultValue: "No friends yet",
+            })}
+          </p>
+          <p className="mt-1 text-xs text-text-muted">
+            {t("home.restructured.social.emptyDesc", {
+              defaultValue: "Add friends to share streaks and quests.",
+            })}
+          </p>
+          <Link
+            to={langPath("social")}
+            className="mt-3 inline-flex items-center gap-1 rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-on-accent transition hover:bg-accent-hover"
+          >
+            {t("home.restructured.social.emptyCta", {
+              defaultValue: "Find friends",
+            })}
+            <Icon name="chevronRight" size={12} aria-hidden />
+          </Link>
+        </div>
+      ) : (
+        <ul className="mt-5 space-y-3">
+          {homeFriendsPreview.map((f) => (
+            <li key={f.id} className="flex items-center gap-3">
+              <UserAvatar name={f.name} size="sm" status={f.status} />
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium text-text-primary">{f.name}</p>
+                <p className="text-xs text-text-muted">
+                  {f.status === "active"
+                    ? t("home.restructured.social.activeToday", {
+                        defaultValue: "Active today",
+                      })
+                    : t("home.restructured.social.idle", { defaultValue: "Idle" })}
+                </p>
+              </div>
+              <span className="inline-flex items-center gap-1 rounded-full bg-warning/10 px-2 py-0.5 text-xs font-bold text-warning">
+                <Icon name="flame" size={12} aria-hidden />
+                {f.streak}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
 
       <div className="mt-5 rounded-xl border border-border bg-surface-muted p-4">
         <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
