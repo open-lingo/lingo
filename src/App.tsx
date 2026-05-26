@@ -186,6 +186,11 @@ const AdminDecksPage = lazyRetry(() =>
 const AdminStoriesPage = lazyRetry(() =>
   import("@/features/admin/AdminStoriesPage").then((m) => ({ default: m.AdminStoriesPage })),
 );
+const AdminOperationsPage = lazyRetry(() =>
+  import("@/features/admin/AdminOperationsPage").then((m) => ({
+    default: m.AdminOperationsPage,
+  })),
+);
 const AdminLessonsListPage = lazyRetry(() =>
   import("@/features/admin/lessons/AdminLessonsListPage").then((m) => ({
     default: m.AdminLessonsListPage,
@@ -253,6 +258,7 @@ const router = createBrowserRouter([
               { path: "lessons/:lessonId", element: <AdminLessonEditorPage /> },
             ],
           },
+          { path: "operations", element: <AdminOperationsPage /> },
         ],
       },
       {

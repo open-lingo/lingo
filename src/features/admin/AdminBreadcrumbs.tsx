@@ -11,6 +11,7 @@ export function AdminBreadcrumbs() {
   const isContentDecks = pathname.includes("/admin/content/decks");
   const isContentStories = pathname.includes("/admin/content/stories");
   const isContentLessons = pathname.includes("/admin/content/lessons");
+  const isOperations = pathname.includes("/admin/operations");
 
   return (
     <nav
@@ -22,6 +23,9 @@ export function AdminBreadcrumbs() {
       </NavPillLink>
       <NavPillLink to="/admin/content/decks" isActive={isContent}>
         {t("admin.content")}
+      </NavPillLink>
+      <NavPillLink to="/admin/operations" isActive={isOperations}>
+        {t("admin.operations", "Operations")}
       </NavPillLink>
       {isContent && (
         <>

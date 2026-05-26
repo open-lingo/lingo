@@ -1,5 +1,6 @@
 export { ApiClient, ApiError } from "./client";
 export type { ApiClientOptions } from "./client";
+export { OpsApi } from "./ops";
 export { UsersApi } from "./users";
 export type { User, UserSettings, CreateUserPayload, UpdateUserPayload, Subscription } from "./users";
 export { SrsApi } from "./srs";

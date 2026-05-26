@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { AdminApi } from "./admin";
 import { DecksApi } from "./decks";
 import { FinanceApi } from "./finance";
+import { OpsApi } from "./ops";
 import { ProgressApi } from "./progress";
 import { SocialApi } from "./social";
 import { StoriesApi } from "./stories";
@@ -19,12 +20,22 @@ interface ApiContext {
   social: SocialApi;
   /** Public endpoints — no Auth0 token, fires immediately on first paint. */
   finance: FinanceApi;
+  /**
+   * lingo-ops admin API. Hits a different host than lingo-core
+   * (VITE_OPS_API_BASE_URL, default localhost:8001 for local dev).
+   * Auth0 JWT auto-attaches; backend admin gate is environment-driven
+   * via ADMIN_USER_IDS on lingo-ops.
+   */
+  ops: OpsApi;
 }
 
 const Ctx = createContext<ApiContext | null>(null);
 
 const API_BASE_URL =
   (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? "http://localhost:8000";
+
+const OPS_API_BASE_URL =
+  (import.meta.env.VITE_OPS_API_BASE_URL as string | undefined) ?? "http://localhost:8001";
 
 const AUTH0_AUDIENCE =
   (import.meta.env.VITE_AUTH0_AUDIENCE as string | undefined) ?? "";
@@ -56,6 +67,7 @@ export function ApiProvider({ children }: { children: ReactNode }) {
         getAccessToken: () => Promise.resolve(""),
         skipAuth: true,
       }),
+      ops: new OpsApi({ baseUrl: OPS_API_BASE_URL, getAccessToken }),
     };
   }, [getAccessTokenSilently]);
 
