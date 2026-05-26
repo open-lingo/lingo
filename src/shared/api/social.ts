@@ -47,6 +47,12 @@ export type FriendshipStatus =
   | "blocked"
   | "self";
 
+export interface AuthoredDeckSample {
+  id: string;
+  name: string;
+  language: string | null;
+}
+
 export interface PublicProfile {
   user_id: string;
   username: string;
@@ -58,6 +64,13 @@ export interface PublicProfile {
   streak: number;
   xp: number;
   friendship_status?: FriendshipStatus | null;
+  // Enriched fields appended for PublicProfilePage. Optional so older
+  // backends that don't ship them still satisfy the type.
+  lingots?: number;
+  level?: number;
+  last_active_date?: string | null;
+  authored_deck_count?: number;
+  authored_decks_sample?: AuthoredDeckSample[];
 }
 
 export interface LeaderboardEntry {

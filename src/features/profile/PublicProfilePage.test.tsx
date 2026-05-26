@@ -140,4 +140,30 @@ describe("PublicProfilePage", () => {
       expect(screen.getByText(/this profile is private/i)).toBeInTheDocument(),
     );
   });
+
+  it("renders enriched stats (lingots, level, authored decks, last active)", async () => {
+    mockGetPublicProfile.mockResolvedValue(
+      baseSocial({
+        friendship_status: "friend",
+        lingots: 42,
+        level: 4,
+        last_active_date: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+        authored_deck_count: 2,
+        authored_decks_sample: [
+          { id: "deck-1", name: "Hiragana basics", language: "ja" },
+          { id: "deck-2", name: "Katakana basics", language: "ja" },
+        ],
+      }),
+    );
+    renderPage();
+    // Lingots value
+    await screen.findByText("42", undefined, { timeout: 3000 });
+    // Level chip
+    expect(screen.getByText(/Level 4/i)).toBeInTheDocument();
+    // Authored deck list
+    expect(screen.getByText(/Hiragana basics/i)).toBeInTheDocument();
+    expect(screen.getByText(/Katakana basics/i)).toBeInTheDocument();
+    // Last-active is rendered relative (≈2h ago) for a recent timestamp.
+    expect(screen.getByText(/active 2h ago/i)).toBeInTheDocument();
+  });
 });

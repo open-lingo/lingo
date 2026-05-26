@@ -24,7 +24,8 @@ import { useAuth } from "@/shared/auth/useAuth";
 import { UserAvatar } from "@/shared/components/UserAvatar";
 import { Button } from "@/shared/components/ui/Button";
 import { ApiError } from "@/shared/api/client";
-import type { FriendshipStatus } from "@/shared/api/social";
+import type { AuthoredDeckSample, FriendshipStatus } from "@/shared/api/social";
+import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { usePublicProfile } from "./usePublicProfile";
 
 type ActionState = "idle" | "pending" | "done";
@@ -34,6 +35,51 @@ function formatJoinDate(iso: string | null | undefined, locale: string): string 
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "";
   return d.toLocaleDateString(locale, { year: "numeric", month: "long" });
+}
+
+/**
+ * Format a last-active timestamp. Recent activity collapses to relative
+ * ("active 2h ago"), older falls back to absolute ("last seen May 25").
+ */
+function formatLastActive(
+  iso: string | null | undefined,
+  locale: string,
+  t: TFunction,
+): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  const deltaMs = Date.now() - d.getTime();
+  if (deltaMs < 0) {
+    // Future clock skew; render as "active now" rather than "in 2h".
+    return t("profile.publicLastActiveNow", "active now");
+  }
+  const mins = Math.floor(deltaMs / 60_000);
+  if (mins < 1) return t("profile.publicLastActiveNow", "active now");
+  if (mins < 60) return `active ${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `active ${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `active ${days}d ago`;
+  return `last seen ${d.toLocaleDateString(locale, { month: "short", day: "numeric" })}`;
+}
+
+/**
+ * Approximate XP curve for the "XP to next level" display. Mirrors the
+ * back-end progression at a glance; exact values aren't load-bearing here
+ * since the backend authoritatively assigns levels.
+ */
+function xpToNextLevel(level: number, xp: number): number {
+  const nextThreshold = (level + 1) * 100 * (1 + (level - 1) * 0.15);
+  const remaining = Math.max(0, Math.ceil(nextThreshold - xp));
+  return remaining;
+}
+
+function formatLearningLanguage(code: string | null | undefined): string | null {
+  if (!code) return null;
+  const cfg = getLanguageConfig(code);
+  if (cfg) return `${cfg.flag} ${cfg.name}`;
+  return code.toUpperCase();
 }
 
 const PROFILE_CARD_STYLE: CSSProperties = {
@@ -109,6 +155,19 @@ export function PublicProfilePage() {
   const xp = socialProfile?.xp ?? 0;
   const streak = socialProfile?.streak ?? 0;
   const joined = formatJoinDate(socialProfile?.joined_at ?? user?.created_at, i18n.language);
+  // Enriched fields (Task 2). All optional on the type — degrade gracefully.
+  const lingots = socialProfile?.lingots ?? 0;
+  const level = socialProfile?.level ?? 1;
+  const lastActiveLabel = formatLastActive(
+    socialProfile?.last_active_date,
+    i18n.language,
+    t,
+  );
+  const learningLanguageLabel = formatLearningLanguage(learningLanguage);
+  const authoredCount = socialProfile?.authored_deck_count ?? 0;
+  const authoredSample: AuthoredDeckSample[] =
+    socialProfile?.authored_decks_sample ?? [];
+  const xpRemaining = xpToNextLevel(level, xp);
 
   async function runAction(p: Promise<unknown>, successOnDone = true) {
     setActionState("pending");
@@ -192,19 +251,66 @@ export function PublicProfilePage() {
           </div>
         </header>
 
-        <dl className="mt-6 grid gap-3 sm:grid-cols-3">
+        <dl className="mt-6 grid gap-3 sm:grid-cols-3" data-testid="public-profile-stats">
           <Stat label={t("profile.publicStreakLabel", "Streak")} value={`${streak} 🔥`} />
           <Stat label={t("profile.publicXpLabel", "XP")} value={xp.toLocaleString()} />
-          {learningLanguage && (
+          <Stat
+            label={t("profile.publicLevelLabel", "Level")}
+            value={`Level ${level} · ${xpRemaining.toLocaleString()} XP to next`}
+          />
+          <Stat
+            label={t("profile.publicLingotsLabel", "Lingots")}
+            value={lingots.toLocaleString()}
+          />
+          {learningLanguageLabel && (
             <Stat
               label={t("profile.publicLearningLabel", "Learning")}
-              value={learningLanguage.toUpperCase()}
+              value={learningLanguageLabel}
+            />
+          )}
+          {lastActiveLabel && (
+            <Stat
+              label={t("profile.publicLastActiveLabel", "Last active")}
+              value={lastActiveLabel}
             />
           )}
           {joined && (
             <Stat label={t("profile.publicJoinedLabel", "Joined")} value={joined} />
           )}
         </dl>
+
+        {authoredCount > 0 && (
+          <section className="mt-6" data-testid="public-profile-authored">
+            <h2 className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
+              {`Authored decks (${authoredCount})`}
+            </h2>
+            <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+              {authoredSample.map((d) => (
+                <li
+                  key={d.id}
+                  className="rounded-lg border border-border bg-surface-muted px-3 py-2"
+                >
+                  <Link
+                    to={`/decks/${d.id}`}
+                    className="block text-sm font-medium text-text-primary hover:underline"
+                  >
+                    {d.name || t("profile.publicUnnamedDeck", "(unnamed deck)")}
+                  </Link>
+                  {d.language && (
+                    <p className="mt-0.5 text-[11px] uppercase tracking-wider text-text-muted">
+                      {d.language}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
+            {authoredCount > authoredSample.length && (
+              <p className="mt-2 text-xs text-text-muted">
+                {`+ ${authoredCount - authoredSample.length} more`}
+              </p>
+            )}
+          </section>
+        )}
 
         {actionError && (
           <p
