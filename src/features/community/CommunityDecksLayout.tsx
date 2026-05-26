@@ -82,14 +82,21 @@ export function CommunityDecksLayout({
   const showRail = !hideRightRail;
 
   function tabLabel(label: string, count: number | undefined) {
+    // Why: render the badge slot at a fixed width whether count is loaded or
+    // not, so tabs don't reflow + re-align the strip when counts land.
+    // `invisible` keeps layout but hides the placeholder visually.
     return (
       <span className="inline-flex items-center gap-2">
         <span>{label}</span>
-        {typeof count === "number" && (
-          <span className="rounded-full bg-surface-muted px-1.5 py-0.5 text-[10px] font-semibold tabular-nums text-text-muted">
-            {count}
-          </span>
-        )}
+        <span
+          className={
+            "rounded-full bg-surface-muted px-1.5 py-0.5 text-[10px] font-semibold tabular-nums text-text-muted" +
+            (typeof count === "number" ? "" : " invisible")
+          }
+          aria-hidden={typeof count !== "number"}
+        >
+          {typeof count === "number" ? count : 0}
+        </span>
       </span>
     );
   }
