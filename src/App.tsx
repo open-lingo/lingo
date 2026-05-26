@@ -191,6 +191,11 @@ const AdminOperationsPage = lazyRetry(() =>
     default: m.AdminOperationsPage,
   })),
 );
+const AdminXpConfigPage = lazyRetry(() =>
+  import("@/features/admin/AdminXpConfigPage").then((m) => ({
+    default: m.AdminXpConfigPage,
+  })),
+);
 const AdminLessonsListPage = lazyRetry(() =>
   import("@/features/admin/lessons/AdminLessonsListPage").then((m) => ({
     default: m.AdminLessonsListPage,
@@ -259,6 +264,7 @@ const router = createBrowserRouter([
             ],
           },
           { path: "operations", element: <AdminOperationsPage /> },
+          { path: "xp-config", element: <AdminXpConfigPage /> },
         ],
       },
       {

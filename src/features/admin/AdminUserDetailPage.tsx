@@ -6,7 +6,11 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
-import type { UserListItem } from "@/shared/api/admin";
+import type {
+  AdminFriendRequestItem,
+  AdminFriendRequestsResponse,
+  UserListItem,
+} from "@/shared/api/admin";
 import type { Subscription } from "@/shared/api/users";
 import type { DeckResponse } from "@/shared/api/decks";
 import type { SRSCardState, SRSModalityState } from "@/features/flashcards/data/types";
@@ -20,7 +24,7 @@ import { AlertBanner } from "@/shared/components/ui/AlertBanner";
 import { inputClassName } from "@/shared/components/ui/formStyles";
 import { cn } from "@/shared/components/ui/cn";
 
-type TabId = "profile" | "subscriptions" | "content" | "srs";
+type TabId = "profile" | "subscriptions" | "content" | "srs" | "social";
 
 /**
  * Why: server returns SRS payloads as opaque blobs, so legacy flat FSRS
@@ -97,6 +101,12 @@ export function AdminUserDetailPage() {
   const [editingCard, setEditingCard] = useState<string | null>(null);
   const [editDueDate, setEditDueDate] = useState("");
   const [editEase, setEditEase] = useState("");
+  // Admin social-moderation tab state. Friend requests on behalf of the
+  // user; populated lazily when the tab is opened.
+  const [socialRequests, setSocialRequests] =
+    useState<AdminFriendRequestsResponse>({ incoming: [], outgoing: [] });
+  const [socialLoading, setSocialLoading] = useState(false);
+  const [socialBusyId, setSocialBusyId] = useState<string | null>(null);
 
   const loadUserData = useCallback(async () => {
     if (!userId) return;
@@ -317,6 +327,47 @@ export function AdminUserDetailPage() {
     }
   };
 
+  const loadSocialRequests = useCallback(async () => {
+    if (!userId) return;
+    setSocialLoading(true);
+    try {
+      const res = await admin.listFriendRequests(userId);
+      setSocialRequests(res);
+    } catch {
+      setSocialRequests({ incoming: [], outgoing: [] });
+    } finally {
+      setSocialLoading(false);
+    }
+  }, [userId, admin]);
+
+  const handleAcceptRequest = async (req: AdminFriendRequestItem) => {
+    if (!userId) return;
+    setSocialBusyId(req.user_id);
+    try {
+      await admin.acceptFriendRequest(userId, req.user_id);
+      showToast(t("admin.social.acceptSuccess", "Friend request accepted"), "success");
+      await loadSocialRequests();
+    } catch {
+      showToast(t("admin.social.acceptError", "Failed to accept"), "error");
+    } finally {
+      setSocialBusyId(null);
+    }
+  };
+
+  const handleDeclineRequest = async (req: AdminFriendRequestItem) => {
+    if (!userId) return;
+    setSocialBusyId(req.user_id);
+    try {
+      await admin.declineFriendRequest(userId, req.user_id);
+      showToast(t("admin.social.declineSuccess", "Friend request removed"), "success");
+      await loadSocialRequests();
+    } catch {
+      showToast(t("admin.social.declineError", "Failed to remove"), "error");
+    } finally {
+      setSocialBusyId(null);
+    }
+  };
+
   const handleResetSrsCard = async (cardId: string) => {
     if (!userId || !confirm(t("admin.srsResetConfirm", "Reset this card's SRS state?"))) return;
     try {
@@ -347,6 +398,7 @@ export function AdminUserDetailPage() {
     { id: "subscriptions", label: t("admin.subscriptions") },
     { id: "content", label: t("admin.content") },
     { id: "srs", label: t("admin.srs", "SRS") },
+    { id: "social", label: t("admin.socialTab", "Social") },
   ];
 
   return (
@@ -387,6 +439,7 @@ export function AdminUserDetailPage() {
             onClick={() => {
               setActiveTab(tab.id);
               if (tab.id === "srs") loadSrsState();
+              if (tab.id === "social") loadSocialRequests();
             }}
           >
             {tab.label}
@@ -748,6 +801,123 @@ export function AdminUserDetailPage() {
                 })}
               </ul>
             )}
+          </div>
+        )}
+
+        {activeTab === "social" && (
+          <div className="space-y-6" data-testid="admin-social-tab">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-text-secondary">
+                {t(
+                  "admin.social.desc",
+                  "Moderate this user's friend requests. Accept or decline pending requests on their behalf.",
+                )}
+              </p>
+              <button
+                type="button"
+                onClick={loadSocialRequests}
+                disabled={socialLoading}
+                className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-primary transition hover:bg-surface-muted disabled:opacity-50"
+              >
+                {socialLoading
+                  ? t("common.loading")
+                  : t("flashcards.cardManager.refresh", "Refresh")}
+              </button>
+            </div>
+
+            <section>
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+                {t("admin.social.incoming", "Incoming requests")}
+                <span className="ml-1.5 text-text-secondary">
+                  {socialRequests.incoming.length}
+                </span>
+              </h2>
+              {socialRequests.incoming.length === 0 ? (
+                <p className="mt-2 text-sm text-text-muted">
+                  {t("admin.social.noIncoming", "No incoming requests.")}
+                </p>
+              ) : (
+                <ul className="mt-2 divide-y divide-border rounded-lg border border-border">
+                  {socialRequests.incoming.map((r) => (
+                    <li
+                      key={r.user_id}
+                      className="flex items-center justify-between px-3 py-2"
+                    >
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-medium text-text-primary">
+                          @{r.username}
+                        </p>
+                        <p className="truncate text-xs text-text-muted">
+                          {r.display_name}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleAcceptRequest(r)}
+                          disabled={socialBusyId === r.user_id}
+                          className="rounded-md bg-accent px-3 py-1 text-xs font-semibold text-on-accent transition hover:bg-accent-hover disabled:opacity-50"
+                        >
+                          {socialBusyId === r.user_id
+                            ? t("common.loading")
+                            : t("admin.social.accept", "Accept")}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeclineRequest(r)}
+                          disabled={socialBusyId === r.user_id}
+                          className="rounded-md border border-border px-3 py-1 text-xs font-semibold text-text-primary transition hover:bg-surface-muted disabled:opacity-50"
+                        >
+                          {t("admin.social.decline", "Decline")}
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+
+            <section>
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+                {t("admin.social.outgoing", "Outgoing requests")}
+                <span className="ml-1.5 text-text-secondary">
+                  {socialRequests.outgoing.length}
+                </span>
+              </h2>
+              {socialRequests.outgoing.length === 0 ? (
+                <p className="mt-2 text-sm text-text-muted">
+                  {t("admin.social.noOutgoing", "No outgoing requests.")}
+                </p>
+              ) : (
+                <ul className="mt-2 divide-y divide-border rounded-lg border border-border">
+                  {socialRequests.outgoing.map((r) => (
+                    <li
+                      key={r.user_id}
+                      className="flex items-center justify-between px-3 py-2"
+                    >
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-medium text-text-primary">
+                          @{r.username}
+                        </p>
+                        <p className="truncate text-xs text-text-muted">
+                          {r.display_name}
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleDeclineRequest(r)}
+                        disabled={socialBusyId === r.user_id}
+                        className="rounded-md border border-border px-3 py-1 text-xs font-semibold text-text-primary transition hover:bg-surface-muted disabled:opacity-50"
+                      >
+                        {socialBusyId === r.user_id
+                          ? t("common.loading")
+                          : t("admin.social.cancel", "Cancel")}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
           </div>
         )}
 

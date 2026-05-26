@@ -65,6 +65,7 @@ export function adaptFriend(f: ApiFriend): SocialUser {
   return {
     id: f.user_id,
     name: f.display_name || f.username,
+    username: f.username,
     imageUrl: f.profile_picture_key ?? undefined,
     language: langOf(null),
     streakDays: f.streak,
@@ -79,6 +80,7 @@ export function adaptFriendRequest(r: ApiFriendRequest): SocialUser {
   return {
     id: r.user_id,
     name: r.display_name || r.username,
+    username: r.username,
     language: langOf(null),
     streakDays: 0,
     totalXp: 0,
@@ -121,6 +123,7 @@ export function adaptActivity(item: ApiActivityItem): ActivityItem {
     user: {
       id: item.actor_id,
       name: item.actor_display_name || item.actor_username,
+      username: item.actor_username,
       imageUrl: item.actor_profile_picture_key ?? undefined,
       language: langOf(null),
       streakDays: 0,
@@ -215,6 +218,7 @@ export function adaptThread(t: ApiThreadItem): ChatThread {
     user: {
       id: t.other_user_id,
       name: t.other_display_name || t.other_username,
+      username: t.other_username,
       imageUrl: t.other_avatar_key ?? undefined,
       language: langOf(null),
       streakDays: 0,
@@ -241,6 +245,7 @@ export function adaptThreadDetail(
     user: {
       id: d.other_user_id,
       name: d.other_display_name || d.other_username,
+      username: d.other_username,
       imageUrl: d.other_avatar_key ?? undefined,
       language: langOf(null),
       streakDays: 0,
@@ -285,6 +290,7 @@ export function adaptPublicProfile(p: PublicProfile): {
     user: {
       id: p.user_id,
       name: p.display_name || p.username,
+      username: p.username,
       imageUrl: p.profile_picture_key ?? undefined,
       language: langOf(p.learning_language),
       streakDays: p.streak,
