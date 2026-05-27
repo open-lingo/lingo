@@ -947,7 +947,10 @@
 .lingo-resume-bar {
   position: sticky;
   bottom: calc(var(--funding-meter-height, 3.5rem) + 0.75rem);
-  z-index: 20;
+  /* Keep below modals (z-50) and toasts (z-60). The sticky-bottom resume
+   * bar must NEVER paint above an open ConfirmModal / FindFriendModal —
+   * limit it to single-digit z so it stays under any z-30/40 floaters too. */
+  z-index: 10;
   margin: 18px auto 0;
   max-width: 420px;
   display: flex;

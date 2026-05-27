@@ -99,7 +99,7 @@ export function BackToCurrentButton({
       type="button"
       onClick={handleClick}
       aria-label={accessibleLabel}
-      className="pointer-events-auto absolute bottom-4 right-4 z-30 inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent/25 transition hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      className="pointer-events-auto absolute bottom-4 right-4 z-20 inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent/25 transition hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       <Icon name="arrowRight" size={16} aria-hidden className="rotate-90" />
       <span>
