@@ -17,4 +17,17 @@ export function applyThemeToDOM(tokens: ThemeTokens): void {
   root.style.setProperty("--shadow-card", tokens.shadow.card);
   root.style.setProperty("--shadow-popover", tokens.shadow.popover);
   root.style.setProperty("--font-family", tokens.font.family);
+  // Display + mono are optional — only set the CSS var when the theme
+  // provides one. Default Tailwind fallbacks in tailwind.config.js handle
+  // the unset case (display inherits body; mono falls back to ui-monospace).
+  if (tokens.font.display) {
+    root.style.setProperty("--font-display", tokens.font.display);
+  } else {
+    root.style.removeProperty("--font-display");
+  }
+  if (tokens.font.mono) {
+    root.style.setProperty("--font-family-mono", tokens.font.mono);
+  } else {
+    root.style.removeProperty("--font-family-mono");
+  }
 }

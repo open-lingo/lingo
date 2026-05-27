@@ -36,7 +36,14 @@ export type ThemeTokens = {
     popover: string;
   };
   font: {
+    /** Primary body font. Applied as `--font-family`. */
     family: string;
+    /** Optional display font for headings — applied as `--font-display`.
+     *  When unset the `font-display` Tailwind class inherits the body font,
+     *  so default themes don't surprise users with a different serif voice. */
+    display?: string;
+    /** Optional monospace font — applied as `--font-family-mono`. */
+    mono?: string;
   };
 };
 

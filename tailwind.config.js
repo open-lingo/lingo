@@ -39,11 +39,16 @@ export default {
       },
       fontFamily: {
         japanese: ['"Noto Sans JP"', "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        // Editorial display family — resolves to system serif by default,
-        // overridden to Fraunces by the "Academia" theme (or wherever an
-        // opt-in skin wants a serif voice). Keeps the typographic
-        // hierarchy intact when Fraunces isn't loaded.
-        display: ['var(--font-display, "ui-serif")', "Georgia", "serif"],
+        // `font-display` Tailwind class — resolves to the theme's display
+        // font when set, otherwise inherits the body font. Themes opt in by
+        // setting --font-display via the ThemeTokens.font.display slot
+        // (e.g. the Academia community theme picks Fraunces). Default theme
+        // leaves it unset so headings render in the body font — no surprise
+        // serif voice on a vanilla install.
+        display: ["var(--font-display, inherit)"],
+        // `font-mono` — same pattern. Themes can override to a custom
+        // monospace via ThemeTokens.font.mono.
+        mono: ["var(--font-family-mono, ui-monospace, SFMono-Regular, Menlo, monospace)"],
       },
       boxShadow: {
         card: "var(--shadow-card)",

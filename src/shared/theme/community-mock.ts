@@ -17,7 +17,14 @@ export const MOCK_COMMUNITY_THEMES: (ThemeDefinition & {
     version: "1.0",
     tokens: {
       ...BUILT_IN_THEMES.sepia.tokens,
-      font: { family: getFontFamily("fraunces") },
+      // Keep the body font as sepia's default; Academia's character comes
+      // from the display-font override picking up Fraunces for headings.
+      // `font-display` Tailwind class lights up wherever component code
+      // already opted in (Cards, FacetSidebar, PublicProfilePage masthead).
+      font: {
+        ...BUILT_IN_THEMES.sepia.tokens.font,
+        display: getFontFamily("fraunces"),
+      },
       colors: {
         ...BUILT_IN_THEMES.sepia.tokens.colors,
         // Slightly warmer accent against the sepia paper — leans into a

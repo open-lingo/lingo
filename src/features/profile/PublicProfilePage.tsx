@@ -30,7 +30,7 @@
  * goes through theme tokens (bg-surface / text-text-primary / etc.).
  */
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
@@ -47,37 +47,21 @@ import { usePublicProfile } from "./usePublicProfile";
 
 type ActionState = "idle" | "pending" | "done";
 
-// ─── Editorial typography ────────────────────────────────────────────────────
-// Display: Fraunces — weight-axis variable serif with optical-size variants;
-// gives the masthead actual character without leaning wedding-invite.
-// Body / numerics: IBM Plex Sans + Plex Mono — humanist sans with a slight
-// mechanical edge that pairs the serif without going generic.
-const DISPLAY_FONT =
-  '"Fraunces", "Iowan Old Style", "Times New Roman", Times, serif';
-const BODY_FONT =
-  '"IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
-const MONO_FONT =
-  '"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
+// ─── Theme-driven typography ────────────────────────────────────────────────
+// The page used to inject Fraunces + IBM Plex on mount. That made the profile
+// page render in a fixed serif/sans pair regardless of which theme the user
+// picked, which leaks aesthetic across the rest of the app. Now headings
+// resolve to `var(--font-display)` (themes can set it) and numerics to
+// `var(--font-family-mono)` (ditto). Both default to inherit so a vanilla
+// theme renders in the body font — a theme like "Academia" can override.
+const DISPLAY_FONT = "var(--font-display, inherit)";
+const BODY_FONT = "var(--font-family, inherit)";
+const MONO_FONT = "var(--font-family-mono, ui-monospace, SFMono-Regular, Menlo, monospace)";
 
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?" +
-  "family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900" +
-  "&family=IBM+Plex+Sans:wght@400;500;600" +
-  "&family=IBM+Plex+Mono:wght@500;600" +
-  "&display=swap";
-
-/** Inject Fraunces + IBM Plex once on mount. Idempotent across StrictMode. */
+/** No-op kept for the call-site below; previously injected Google Fonts at
+ *  mount. Removed — theme system owns font loading via fontLoader.ts. */
 function useEditorialFonts() {
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const id = "lingo-profile-editorial-fonts";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
+  // Intentionally empty.
 }
 
 // ─── Formatters ──────────────────────────────────────────────────────────────
