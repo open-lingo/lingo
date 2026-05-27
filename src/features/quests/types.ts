@@ -31,7 +31,8 @@ export type QuestRewards = {
   lingots?: number;
   /** Bonus XP credited on claim. */
   xp?: number;
-  /** Minutes of ad-free playback (placeholder until ad-free agent merges). */
+  /** Minutes of ad-free playback. Granted via `useBuyAdFreeTime` /
+   *  `useAdFreeStatus` in `features/adFree/`. */
   adFreeMinutes?: number;
   /** "Streak shield" — saves a streak on a missed day. */
   streakShield?: boolean;
