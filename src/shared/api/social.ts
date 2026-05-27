@@ -119,17 +119,31 @@ export interface ActivityReaction {
   mine?: boolean;
 }
 
+/**
+ * Activity-feed item shape. Matches `lingo-core/app/social/schemas.py`
+ * exactly: the feed is now pull-based and synthesised from each friend's
+ * recent progress attempts (the activity ``id`` is the underlying
+ * ``attemptId``). ``kind`` is always ``"lesson_completed"`` for now; the
+ * union stays open so future kinds (level-up, streak milestone) can land
+ * without breaking callers.
+ */
 export interface ActivityFeedItem {
   id: string;
-  actor_id: string;
-  actor_username: string;
-  actor_display_name: string;
-  actor_profile_picture_key?: string | null;
-  kind: "streak" | "module" | "league" | "joined" | "milestone";
-  /** Human-rendered text from the backend. */
-  text: string;
-  /** ISO timestamp. */
-  occurred_at: string;
+  user_id: string;
+  username: string;
+  display_name: string;
+  profile_picture_key?: string | null;
+  kind:
+    | "lesson_completed"
+    | "streak_milestone"
+    | "level_up"
+    | "friend_joined"
+    | "achievement";
+  /** Per-kind payload — lesson_completed includes
+   *  ``{lessonId, score, passed, durationSec}``. */
+  payload: Record<string, unknown>;
+  /** ISO timestamp — the underlying attempt's ``attemptedAt``. */
+  created_at: string;
   /** Per-kind reaction breakdown. */
   reactions: ActivityReaction[];
 }

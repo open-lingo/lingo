@@ -115,16 +115,57 @@ function adaptReaction(r: ApiActivityReaction): ActivityReaction {
   return { kind: k, count: r.count, mine: r.mine };
 }
 
+/** Map backend activity kinds → the mockSocial UI kind union. The UI
+ *  only renders a couple of pre-defined kinds (`streak`/`module`/etc.),
+ *  so we fold the broader backend enum down to the closest match.
+ *  Defaults to ``"module"`` since the dominant case today is
+ *  ``lesson_completed``. */
+function adaptKind(k: ApiActivityItem["kind"]): ActivityItem["kind"] {
+  switch (k) {
+    case "lesson_completed":
+      return "module";
+    case "streak_milestone":
+      return "streak";
+    case "level_up":
+      return "league";
+    case "friend_joined":
+      return "joined";
+    case "achievement":
+      return "milestone";
+    default:
+      return "module";
+  }
+}
+
+function buildActivityText(item: ApiActivityItem): string {
+  const lessonId =
+    typeof item.payload?.lessonId === "string" ? item.payload.lessonId : null;
+  switch (item.kind) {
+    case "lesson_completed":
+      return lessonId ? `Finished ${lessonId}` : "Finished a lesson";
+    case "streak_milestone":
+      return "Hit a streak milestone";
+    case "level_up":
+      return "Leveled up";
+    case "friend_joined":
+      return "Joined Open Lingo";
+    case "achievement":
+      return "Unlocked an achievement";
+    default:
+      return "Made progress";
+  }
+}
+
 export function adaptActivity(item: ApiActivityItem): ActivityItem {
-  const { status, label } = lastActiveLabel(item.occurred_at);
+  const { status, label } = lastActiveLabel(item.created_at);
   const reactions = (item.reactions ?? []).map(adaptReaction);
   return {
     id: item.id,
     user: {
-      id: item.actor_id,
-      name: item.actor_display_name || item.actor_username,
-      username: item.actor_username,
-      imageUrl: item.actor_profile_picture_key ?? undefined,
+      id: item.user_id,
+      name: item.display_name || item.username,
+      username: item.username,
+      imageUrl: item.profile_picture_key ?? undefined,
       language: langOf(null),
       streakDays: 0,
       totalXp: 0,
@@ -132,9 +173,9 @@ export function adaptActivity(item: ApiActivityItem): ActivityItem {
       status,
       lastActiveLabel: label,
     },
-    kind: item.kind,
-    text: item.text,
-    timeLabel: timeAgo(item.occurred_at),
+    kind: adaptKind(item.kind),
+    text: buildActivityText(item),
+    timeLabel: timeAgo(item.created_at),
     kudosCount: reactions.reduce((sum, r) => sum + r.count, 0),
     reactions,
   };
