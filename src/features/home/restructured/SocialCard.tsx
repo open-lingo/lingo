@@ -5,22 +5,32 @@ import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { UserAvatar } from "@/shared/components/UserAvatar";
 import { useLangPath } from "@/shared/hooks/useLangPath";
-import { useFriends, useSocial } from "@/features/social/hooks/useSocial";
+import {
+  useFriendSuggestions,
+  useFriends,
+  useSocial,
+} from "@/features/social/hooks/useSocial";
 import { toHomeFriendPreview } from "@/features/social/mock/mockSocial";
 import { UserPreviewPopover } from "@/features/social/components/UserPreviewPopover";
 import { userSlug } from "@/features/social/userSlug";
+import { useSendFriendRequest } from "@/features/social/hooks/useSocialMutations";
 
 export function SocialCard() {
   const { t } = useTranslation();
   const langPath = useLangPath();
-  // Friends comes from the real backend (when VITE_SOCIAL_API is enabled,
-  // which is the default). The rest of the card — friend quest + suggestions
-  // — still uses the mock bundle until matching backend endpoints land.
-  const { friendQuest, primarySuggestion } = useSocial({
+  // Friends + suggestions come from the real backend (when VITE_SOCIAL_API
+  // is enabled — the default). Friend-quest mock-data remains until that
+  // endpoint lands.
+  const { friendQuest } = useSocial({
     homeFriendsLimit: 3,
   });
   const friendsQuery = useFriends();
   const friends = friendsQuery.data ?? [];
+  // One suggestion per card. Cap the fetch at 5 so the FE has a couple of
+  // fallbacks if the maintainer decides to rotate the displayed pick later.
+  const suggestionsQuery = useFriendSuggestions({ limit: 5 });
+  const sug = suggestionsQuery.data?.[0] ?? null;
+  const sendFriendRequest = useSendFriendRequest();
   const homeFriendsPreview = useMemo(
     () =>
       [...friends]
@@ -33,7 +43,6 @@ export function SocialCard() {
     [friends],
   );
   const fq = friendQuest;
-  const sug = primarySuggestion;
 
   return (
     <Card padding="lg" className="flex h-full flex-col">
@@ -174,7 +183,12 @@ export function SocialCard() {
             </div>
             <button
               type="button"
-              className="rounded-md bg-accent px-2.5 py-1 text-xs font-semibold text-on-accent transition hover:bg-accent-hover"
+              disabled={sendFriendRequest.isPending || !sug.user.username}
+              onClick={() => {
+                if (!sug.user.username) return;
+                sendFriendRequest.mutate({ toUsername: sug.user.username });
+              }}
+              className="rounded-md bg-accent px-2.5 py-1 text-xs font-semibold text-on-accent transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60"
             >
               {t("home.restructured.social.followCta", { defaultValue: "Follow" })}
             </button>

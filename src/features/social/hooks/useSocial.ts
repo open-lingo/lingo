@@ -37,7 +37,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery, type QueryKey } from "@tanstack/react-query";
 import { useApiOptional } from "@/shared/api";
-import type { SocialApi } from "@/shared/api/social";
+import type {
+  BlockedUser as ApiBlockedUser,
+  FriendRequestsBundle,
+  SocialApi,
+} from "@/shared/api/social";
 import {
   MOCK_ACTIVITY,
   MOCK_DAILY_XP,
@@ -67,6 +71,7 @@ import {
 import {
   adaptActivity,
   adaptFriend,
+  adaptFriendRequest,
   adaptIncomingRequests,
   adaptInvite,
   adaptLeaderboardEntry,
@@ -98,6 +103,7 @@ const SOCIAL_QUERY_KEYS = {
   inviteOffer: ["social", "invite-offer"] as const,
   profile: (username: string) => ["social", "profile", username] as const,
   questTargets: ["social", "quest-targets"] as const,
+  suggestions: (limit: number) => ["social", "suggestions", limit] as const,
 } as const;
 
 export { SOCIAL_QUERY_KEYS };
@@ -302,25 +308,35 @@ export function useFriendRequests(options?: HookOptions): Result<SocialUser[]> {
 }
 
 export function useFriendSuggestions(
-  options?: HookOptions,
+  options?: HookOptions & { limit?: number },
 ): Result<{ user: SocialUser; reason: string }[]> {
   const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
-  const friends = useFriends();
-  const requests = useFriendRequests();
+  const limit = options?.limit ?? 10;
 
-  // No `GET /social/suggestions` endpoint exists yet — until backend ships
-  // one we synthesize a list from the existing `/quest-targets` payload
-  // (friends-of-friends reachable by streak/XP gap) and subtract people the
-  // viewer already knows.
-  // TODO(backend): GET /social/suggestions?lang=… returning richer "you and X
-  // both follow Y" reasons. For now we surface the streak/XP gap as the
-  // reason since that's what the backend computes.
+  // Real backend endpoint: GET /api/core/v1/social/suggestions returns users
+  // who share the requester's learning language and are not already friends
+  // or blocked.
   const apiResult = useApiResource({
-    queryKey: SOCIAL_QUERY_KEYS.questTargets,
-    queryFn: social ? (signal) => social.getQuestTargets(signal) : null,
-    select: (rows) => rows,
+    queryKey: SOCIAL_QUERY_KEYS.suggestions(limit),
+    queryFn: social ? (signal) => social.getSuggestions(limit, signal) : null,
+    select: (resp) =>
+      resp.items.map((it) => ({
+        user: {
+          id: it.user_id,
+          name: it.display_name || it.username,
+          username: it.username,
+          imageUrl: it.profile_picture_key ?? undefined,
+          language: { code: "", flag: "", label: "" },
+          streakDays: it.streak,
+          totalXp: it.xp,
+          lessonsCompleted: 0,
+          status: "idle" as const,
+          lastActiveLabel: "",
+        },
+        reason: it.reason,
+      })),
     staleTime: 60_000,
     enabled,
   });
@@ -330,42 +346,13 @@ export function useFriendSuggestions(
 
   if (!enabled) return mockResult;
 
-  const friendIds = new Set((friends.data ?? []).map((f) => f.id));
-  // `useFriendRequests` returns an adapted "incoming" list of SocialUser via
-  // `adaptIncomingRequests`, so its ids only cover incoming. Outgoing
-  // requests are rare enough that an extra suggestion row is acceptable.
-  const requestIds = new Set((requests.data ?? []).map((r) => r.id));
-  const suggestions = (apiResult.data ?? [])
-    .filter((q) => !friendIds.has(q.user_id) && !requestIds.has(q.user_id))
-    .slice(0, 6)
-    .map((q) => ({
-      user: {
-        id: q.user_id,
-        name: q.display_name || q.username,
-        imageUrl: q.profile_picture_key ?? undefined,
-        language: { code: "", flag: "", label: "" },
-        streakDays: 0,
-        totalXp: 0,
-        lessonsCompleted: 0,
-        status: "idle" as const,
-        lastActiveLabel: "",
-      },
-      reason: q.reason,
-    }));
-
   const override = options?.override as
     | { user: SocialUser; reason: string }[]
     | undefined;
   if (override !== undefined) {
     return { data: override, isLoading: false, isEmpty: override.length === 0 };
   }
-  return {
-    data: apiResult.isLoading ? null : suggestions,
-    isLoading: apiResult.isLoading,
-    isEmpty: !apiResult.isLoading && suggestions.length === 0,
-    isError: apiResult.isError,
-    refetch: apiResult.refetch,
-  };
+  return apiResult;
 }
 
 export function useActivityFeed(options?: HookOptions): Result<ActivityItem[]> {
@@ -519,5 +506,57 @@ export function useInviteOffer(options?: HookOptions): Result<InviteOffer> {
     enabled,
   });
   const mockResult = useMockResource(MOCK_INVITE_OFFER, options);
+  return enabled ? apiResult : mockResult;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Deep friend-management surfaces — used by /:lang/social/friends.
+// ────────────────────────────────────────────────────────────────────────────
+
+/** Both halves of the friend-requests bundle (incoming + outgoing). The
+ *  existing `useFriendRequests()` drops the outgoing list; deep friend
+ *  management needs both so we can render Accept/Decline AND Cancel rows. */
+export function useFriendRequestsBundle(
+  options?: HookOptions,
+): Result<{ incoming: SocialUser[]; outgoing: SocialUser[] }> {
+  const enabled = isSocialApiEnabled();
+  const api = useApiOptional();
+  const social: SocialApi | null = api?.social ?? null;
+  const apiResult = useApiResource({
+    queryKey: SOCIAL_QUERY_KEYS.friendRequests,
+    queryFn: social ? (signal) => social.getFriendRequests(signal) : null,
+    select: (bundle: FriendRequestsBundle) => ({
+      incoming: (bundle.incoming ?? []).map(adaptFriendRequest),
+      outgoing: (bundle.outgoing ?? []).map(adaptFriendRequest),
+    }),
+    override: options?.override as
+      | { incoming: SocialUser[]; outgoing: SocialUser[] }
+      | undefined,
+    staleTime: 60_000,
+    enabled,
+  });
+  // Mock path: synthesize a bundle from MOCK_FRIEND_REQUESTS (incoming only).
+  const mockResult = useMockResource(
+    { incoming: MOCK_FRIEND_REQUESTS, outgoing: [] as SocialUser[] },
+    options,
+  );
+  return enabled ? apiResult : mockResult;
+}
+
+/** Blocked users list. Mock path returns an empty array — there is no
+ *  MOCK_BLOCKED fixture; the surface should render its empty state. */
+export function useBlocks(options?: HookOptions): Result<ApiBlockedUser[]> {
+  const enabled = isSocialApiEnabled();
+  const api = useApiOptional();
+  const social: SocialApi | null = api?.social ?? null;
+  const apiResult = useApiResource({
+    queryKey: SOCIAL_QUERY_KEYS.blocks,
+    queryFn: social ? (signal) => social.listBlocks(signal) : null,
+    select: (rows: ApiBlockedUser[]) => rows,
+    override: options?.override as ApiBlockedUser[] | undefined,
+    staleTime: 60_000,
+    enabled,
+  });
+  const mockResult = useMockResource([] as ApiBlockedUser[], options);
   return enabled ? apiResult : mockResult;
 }

@@ -241,6 +241,23 @@ export interface ThreadDetail {
   messages: Message[];
 }
 
+// ─── Friend suggestions ─────────────────────────────────────────────────────
+
+export interface FriendSuggestionItem {
+  user_id: string;
+  username: string;
+  display_name: string;
+  profile_picture_key: string | null;
+  learning_language: string | null;
+  streak: number;
+  xp: number;
+  reason: string;
+}
+
+export interface FriendSuggestionsResponse {
+  items: FriendSuggestionItem[];
+}
+
 // ─── Quest targets ──────────────────────────────────────────────────────────
 
 export interface QuestTargetItem {
@@ -463,12 +480,39 @@ export class SocialApi extends ApiClient {
     );
   }
 
+  /** Open (or create) a 1:1 thread with the given user. Returns the existing
+   *  thread item when one already exists between the caller and `userId`;
+   *  otherwise the backend creates one and returns it. */
+  getOrCreateThreadWith(
+    userId: string,
+    signal?: AbortSignal,
+  ): Promise<ThreadItem> {
+    return this.post<ThreadItem>(
+      `${PREFIX}/threads/with/${encodeURIComponent(userId)}`,
+      undefined,
+      { signal, tag: `social:thread-with:${userId}` },
+    );
+  }
+
   // ── Quest targets ──────────────────────────────────────────
 
   getQuestTargets(signal?: AbortSignal): Promise<QuestTargetItem[]> {
     return this.get<QuestTargetItem[]>(`${PREFIX}/quest-targets`, {
       signal,
       tag: "social:quest-targets",
+    });
+  }
+
+  // ── Friend suggestions ─────────────────────────────────────
+
+  getSuggestions(
+    limit = 10,
+    signal?: AbortSignal,
+  ): Promise<FriendSuggestionsResponse> {
+    return this.get<FriendSuggestionsResponse>(`${PREFIX}/suggestions`, {
+      params: { limit },
+      signal,
+      tag: "social:suggestions",
     });
   }
 }
