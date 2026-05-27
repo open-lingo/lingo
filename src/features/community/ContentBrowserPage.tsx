@@ -785,7 +785,7 @@ export function ContentBrowserPage() {
                 : t("community.contentBrowserNoResults")}
             </div>
           ) : (
-            <div className="grid gap-3 sm:grid-cols-1 xl:grid-cols-2">
+            <div className="grid auto-rows-fr gap-4 sm:grid-cols-1 xl:grid-cols-2">
               {pagedRows.map((row) => {
                 // Wire the preview button on the card to the same callback the
                 // row-name click uses. ``row.onRowClick`` is built upstream to

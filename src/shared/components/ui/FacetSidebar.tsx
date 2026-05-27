@@ -1,3 +1,17 @@
+/**
+ * FacetSidebar — a finding aid for browsing a curated library.
+ *
+ * Design notes (don't make this generic again — it earns its character):
+ *   - Section labels: small-caps in the display serif. Reads like a library
+ *     catalog header, not a SaaS sidebar.
+ *   - Active filter rows: a tinted bar on the left edge + accent text. No
+ *     full-row background — keeps the list scannable.
+ *   - Active filter count: a serif numeral next to the section label so the
+ *     count feels part of the heading, not a UI tag.
+ *   - No nested cards. The sidebar is one panel with hairline dividers
+ *     between sections. Less chrome, more legibility.
+ *   - Top-level search box: open, with a serif italic placeholder for tone.
+ */
 import { useState, type ReactNode } from "react";
 import { cn } from "./cn";
 
@@ -40,8 +54,8 @@ function ChevronDown({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      width={14}
-      height={14}
+      width={12}
+      height={12}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -51,6 +65,26 @@ function ChevronDown({ className }: { className?: string }) {
       aria-hidden
     >
       <path d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
+
+function SearchGlyph({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width={14}
+      height={14}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
     </svg>
   );
 }
@@ -65,11 +99,10 @@ export function FacetSidebar({
   onSearchChange,
   searchPlaceholder,
   clearAllLabel = "Clear all",
-  resetLabel = "Reset",
-  searchWithinPlaceholder = "Filter…",
+  resetLabel = "reset",
+  searchWithinPlaceholder = "filter within…",
   className,
 }: FacetSidebarProps) {
-  // Per-section collapse state. Default: first two open, rest closed.
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>(() => {
     const out: Record<string, boolean> = {};
     facets.forEach((f, i) => {
@@ -78,158 +111,241 @@ export function FacetSidebar({
     return out;
   });
 
-  // Per-section search-within text.
   const [withinSearch, setWithinSearch] = useState<Record<string, string>>({});
+
+  const totalActive = Object.values(selections).reduce(
+    (sum, vals) => sum + (vals?.length ?? 0),
+    0,
+  );
 
   return (
     <aside
       className={cn(
-        "w-full shrink-0 space-y-3 rounded-xl border border-border bg-surface-muted p-3 lg:w-64 lg:sticky lg:top-4 lg:self-start",
+        "w-full shrink-0 rounded-2xl border border-border bg-surface lg:w-72 lg:sticky lg:top-4 lg:self-start",
+        // Subtle inner edge for depth without a heavy shadow.
+        "shadow-[inset_0_1px_0_0_rgb(255_255_255/0.04)]",
         className,
       )}
     >
+      <header className="flex items-baseline justify-between border-b border-border/70 px-5 pb-3 pt-4">
+        <div className="flex items-baseline gap-2">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+            Refine
+          </span>
+          {totalActive > 0 && (
+            <span
+              className="font-display text-sm font-medium leading-none text-accent"
+              style={{ fontVariationSettings: '"opsz" 14' }}
+            >
+              {totalActive} active
+            </span>
+          )}
+        </div>
+        {totalActive > 0 && onClearAll && (
+          <button
+            type="button"
+            onClick={onClearAll}
+            className="text-[11px] font-medium uppercase tracking-wider text-text-muted underline-offset-2 hover:text-accent hover:underline"
+          >
+            {clearAllLabel}
+          </button>
+        )}
+      </header>
+
       {onSearchChange && (
-        <div className="pb-1">
+        <div className="border-b border-border/70 px-5 py-4">
           <label htmlFor="facet-search" className="sr-only">
             {searchPlaceholder ?? "Search"}
           </label>
-          <input
-            id="facet-search"
-            type="search"
-            value={search ?? ""}
-            onChange={(e) => onSearchChange(e.target.value)}
-            placeholder={searchPlaceholder}
-            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
-          />
+          <div className="group relative">
+            <SearchGlyph className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 text-text-muted transition group-focus-within:text-accent" />
+            <input
+              id="facet-search"
+              type="search"
+              value={search ?? ""}
+              onChange={(e) => onSearchChange(e.target.value)}
+              placeholder={searchPlaceholder}
+              className="w-full border-0 border-b border-border bg-transparent py-1.5 pl-6 text-sm text-text-primary placeholder:font-display placeholder:italic placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-0"
+              style={{ fontVariationSettings: '"opsz" 14' }}
+            />
+          </div>
         </div>
       )}
 
-      {facets.map((facet) => {
-        const selected = selections[facet.id] ?? [];
-        const multi = facet.multiSelect ?? true;
-        const isCollapsed = !!collapsed[facet.id];
-        const threshold = facet.searchableAfter ?? DEFAULT_SEARCH_THRESHOLD;
-        const showWithinSearch = threshold > 0 && facet.options.length > threshold;
-        const q = (withinSearch[facet.id] ?? "").trim().toLowerCase();
-        const visibleOptions = q
-          ? facet.options.filter((o) => o.label.toLowerCase().includes(q))
-          : facet.options;
-        const hasSelection = selected.length > 0;
+      <div className="divide-y divide-border/70">
+        {facets.map((facet) => {
+          const selected = selections[facet.id] ?? [];
+          const multi = facet.multiSelect ?? true;
+          const isCollapsed = !!collapsed[facet.id];
+          const threshold = facet.searchableAfter ?? DEFAULT_SEARCH_THRESHOLD;
+          const showWithinSearch =
+            threshold > 0 && facet.options.length > threshold;
+          const q = (withinSearch[facet.id] ?? "").trim().toLowerCase();
+          const visibleOptions = q
+            ? facet.options.filter((o) => o.label.toLowerCase().includes(q))
+            : facet.options;
+          const hasSelection = selected.length > 0;
 
-        return (
-          <div
-            key={facet.id}
-            className="rounded-lg border border-border/60 bg-surface/60"
-          >
-            <div className="flex items-center justify-between gap-2 px-2 py-1.5">
-              <button
-                type="button"
-                onClick={() =>
-                  setCollapsed((prev) => ({ ...prev, [facet.id]: !prev[facet.id] }))
-                }
-                className="flex min-w-0 flex-1 items-center gap-1.5 text-left text-xs font-semibold uppercase tracking-wide text-text-muted hover:text-text-primary"
-                aria-expanded={!isCollapsed}
-              >
-                <ChevronDown
-                  className={cn(
-                    "shrink-0 transition-transform",
-                    isCollapsed && "-rotate-90",
-                  )}
-                />
-                <span className="truncate">{facet.label}</span>
-                {hasSelection && (
-                  <span className="rounded-full bg-accent-muted px-1.5 py-0.5 text-[10px] font-semibold tabular-nums text-accent">
-                    {selected.length}
-                  </span>
-                )}
-              </button>
-              {hasSelection && onClear && (
+          return (
+            <section key={facet.id} className="px-5 py-3.5">
+              <div className="flex items-center justify-between gap-2">
                 <button
                   type="button"
-                  onClick={() => onClear(facet.id)}
-                  className="shrink-0 rounded px-1.5 py-0.5 text-[11px] font-medium text-text-secondary hover:bg-surface-muted hover:text-accent"
+                  onClick={() =>
+                    setCollapsed((prev) => ({
+                      ...prev,
+                      [facet.id]: !prev[facet.id],
+                    }))
+                  }
+                  className="group flex min-w-0 flex-1 items-baseline gap-2 text-left"
+                  aria-expanded={!isCollapsed}
                 >
-                  {resetLabel}
-                </button>
-              )}
-            </div>
-
-            {!isCollapsed && (
-              <div className="space-y-1 px-2 pb-2">
-                {showWithinSearch && (
-                  <input
-                    type="search"
-                    value={withinSearch[facet.id] ?? ""}
-                    onChange={(e) =>
-                      setWithinSearch((prev) => ({
-                        ...prev,
-                        [facet.id]: e.target.value,
-                      }))
-                    }
-                    placeholder={searchWithinPlaceholder}
-                    className="mb-1 w-full rounded-md border border-border bg-surface px-2 py-1 text-xs text-text-primary placeholder-text-muted focus:outline-none focus:ring-1 focus:ring-accent"
+                  <ChevronDown
+                    className={cn(
+                      "translate-y-[2px] shrink-0 text-text-muted transition-transform group-hover:text-text-primary",
+                      isCollapsed && "-rotate-90",
+                    )}
                   />
+                  <span
+                    className="font-display text-[13px] font-medium uppercase tracking-[0.14em] text-text-primary group-hover:text-accent"
+                    style={{ fontVariationSettings: '"opsz" 12' }}
+                  >
+                    {facet.label}
+                  </span>
+                  {hasSelection && (
+                    <span
+                      className="font-display text-sm font-medium leading-none text-accent"
+                      style={{ fontVariationSettings: '"opsz" 14' }}
+                    >
+                      · {selected.length}
+                    </span>
+                  )}
+                </button>
+                {hasSelection && onClear && (
+                  <button
+                    type="button"
+                    onClick={() => onClear(facet.id)}
+                    className="shrink-0 text-[10px] font-medium uppercase tracking-wider text-text-muted underline-offset-2 hover:text-accent hover:underline"
+                  >
+                    {resetLabel}
+                  </button>
                 )}
-                <ul className="space-y-0.5">
-                  {visibleOptions.map((opt) => {
-                    const isChecked = selected.includes(opt.value);
-                    return (
-                      <li key={opt.value}>
-                        <label
-                          className={cn(
-                            "flex cursor-pointer items-center gap-2 rounded-md px-1.5 py-1 text-sm transition hover:bg-surface-muted",
-                            isChecked &&
-                              "bg-accent-muted/60 text-accent ring-1 ring-accent/30",
-                          )}
-                        >
-                          <input
-                            type={multi ? "checkbox" : "radio"}
-                            name={multi ? undefined : facet.id}
-                            checked={isChecked}
-                            onChange={() => onToggle(facet.id, opt.value)}
-                            className="shrink-0 rounded border-border bg-surface text-accent focus:ring-accent"
-                          />
-                          {opt.icon && (
-                            <span className="shrink-0" aria-hidden>
-                              {opt.icon}
-                            </span>
-                          )}
-                          <span
+              </div>
+
+              {!isCollapsed && (
+                <div className="mt-3 space-y-1">
+                  {showWithinSearch && (
+                    <input
+                      type="search"
+                      value={withinSearch[facet.id] ?? ""}
+                      onChange={(e) =>
+                        setWithinSearch((prev) => ({
+                          ...prev,
+                          [facet.id]: e.target.value,
+                        }))
+                      }
+                      placeholder={searchWithinPlaceholder}
+                      className="mb-2 w-full border-0 border-b border-border/70 bg-transparent py-1 text-xs text-text-primary placeholder:font-display placeholder:italic placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-0"
+                    />
+                  )}
+                  <ul className="space-y-px">
+                    {visibleOptions.map((opt) => {
+                      const isChecked = selected.includes(opt.value);
+                      return (
+                        <li key={opt.value}>
+                          <label
                             className={cn(
-                              "min-w-0 flex-1 truncate",
-                              isChecked ? "text-accent" : "text-text-primary",
+                              "group/option relative flex cursor-pointer items-center gap-2.5 rounded-md py-1.5 pl-3 pr-2 text-sm transition-colors",
+                              "hover:bg-accent/[0.04]",
+                              isChecked && "text-accent",
                             )}
                           >
-                            {opt.label}
-                          </span>
-                          {typeof opt.count === "number" && (
-                            <span className="shrink-0 rounded-full bg-surface-muted px-1.5 py-0.5 text-[10px] tabular-nums text-text-muted">
-                              {opt.count}
+                            {/* Active-state bar on the left edge */}
+                            <span
+                              className={cn(
+                                "absolute left-0 top-1/2 h-4 w-[2px] -translate-y-1/2 rounded-r-sm transition-all",
+                                isChecked
+                                  ? "bg-accent opacity-100"
+                                  : "bg-transparent opacity-0 group-hover/option:bg-accent/40 group-hover/option:opacity-100",
+                              )}
+                              aria-hidden
+                            />
+                            <input
+                              type={multi ? "checkbox" : "radio"}
+                              name={multi ? undefined : facet.id}
+                              checked={isChecked}
+                              onChange={() => onToggle(facet.id, opt.value)}
+                              className="sr-only"
+                            />
+                            {/* Custom indicator — small square / circle */}
+                            <span
+                              className={cn(
+                                "flex h-3.5 w-3.5 shrink-0 items-center justify-center border transition-colors",
+                                multi ? "rounded-[3px]" : "rounded-full",
+                                isChecked
+                                  ? "border-accent bg-accent"
+                                  : "border-border bg-transparent group-hover/option:border-accent/60",
+                              )}
+                              aria-hidden
+                            >
+                              {isChecked && (
+                                <svg
+                                  width="10"
+                                  height="10"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="3.5"
+                                  className="text-on-accent"
+                                >
+                                  <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                              )}
                             </span>
-                          )}
-                        </label>
+                            {opt.icon && (
+                              <span className="shrink-0 text-base leading-none" aria-hidden>
+                                {opt.icon}
+                              </span>
+                            )}
+                            <span
+                              className={cn(
+                                "min-w-0 flex-1 truncate",
+                                isChecked
+                                  ? "font-medium text-accent"
+                                  : "text-text-secondary group-hover/option:text-text-primary",
+                              )}
+                            >
+                              {opt.label}
+                            </span>
+                            {typeof opt.count === "number" && (
+                              <span
+                                className={cn(
+                                  "shrink-0 font-display text-[11px] tabular-nums leading-none transition-colors",
+                                  isChecked
+                                    ? "text-accent"
+                                    : "text-text-muted group-hover/option:text-text-secondary",
+                                )}
+                                style={{ fontVariationSettings: '"opsz" 9' }}
+                              >
+                                {opt.count}
+                              </span>
+                            )}
+                          </label>
+                        </li>
+                      );
+                    })}
+                    {visibleOptions.length === 0 && (
+                      <li className="px-3 py-2 font-display text-xs italic text-text-muted">
+                        no matches
                       </li>
-                    );
-                  })}
-                  {visibleOptions.length === 0 && (
-                    <li className="px-1.5 py-1 text-xs text-text-muted">—</li>
-                  )}
-                </ul>
-              </div>
-            )}
-          </div>
-        );
-      })}
-
-      {onClearAll && (
-        <button
-          type="button"
-          onClick={onClearAll}
-          className="rounded-md px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted hover:text-text-primary"
-        >
-          {clearAllLabel}
-        </button>
-      )}
+                    )}
+                  </ul>
+                </div>
+              )}
+            </section>
+          );
+        })}
+      </div>
     </aside>
   );
 }

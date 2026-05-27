@@ -39,6 +39,11 @@ export default {
       },
       fontFamily: {
         japanese: ['"Noto Sans JP"', "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        // Editorial display serif — used by community surfaces (cards,
+        // section headers) for character. Variable font; use
+        // `style={{ fontVariationSettings: '"opsz" N' }}` at the use-site
+        // to tune optical sizing.
+        display: ['"Fraunces"', "ui-serif", "Georgia", "serif"],
       },
       boxShadow: {
         card: "var(--shadow-card)",

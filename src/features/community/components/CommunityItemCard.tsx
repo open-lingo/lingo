@@ -5,6 +5,7 @@ import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { useDeckVote } from "../hooks/useDeckVote";
 import { Avatar } from "./Avatar";
 import { UserPreviewPopover } from "@/features/social/components/UserPreviewPopover";
+import { cn } from "@/shared/components/ui/cn";
 import type { AddonKind } from "../types";
 
 const ADDON_KIND_KEYS: Record<AddonKind, string> = {
@@ -13,6 +14,33 @@ const ADDON_KIND_KEYS: Record<AddonKind, string> = {
   story: "community.addonKindStory",
   grammar: "community.addonKindGrammar",
 };
+
+/**
+ * Editorial library cards get a thin accent strip down the left edge, colored
+ * per language. Gives a wall of cards visual rhythm without requiring real
+ * cover art for every deck. Falls back to a neutral accent for unknown
+ * languages so anything new still renders.
+ */
+function languageAccentClass(languageId: string): string {
+  switch (languageId) {
+    case "ja":
+      return "bg-gradient-to-b from-rose-400 to-rose-600";
+    case "ko":
+      return "bg-gradient-to-b from-sky-400 to-indigo-600";
+    case "zh":
+      return "bg-gradient-to-b from-red-500 to-amber-500";
+    case "es":
+      return "bg-gradient-to-b from-amber-400 to-orange-600";
+    case "fr":
+      return "bg-gradient-to-b from-blue-500 to-indigo-700";
+    case "de":
+      return "bg-gradient-to-b from-zinc-700 to-amber-500";
+    case "en":
+      return "bg-gradient-to-b from-emerald-400 to-emerald-600";
+    default:
+      return "bg-gradient-to-b from-accent to-accent-hover";
+  }
+}
 
 export type CommunityItemCardItem = {
   id: string;
@@ -140,78 +168,127 @@ export function CommunityItemCard({
     );
   }
 
-  // full
+  // full — editorial library card. Vertical layout with a language-accent
+  // strip on the left, serif title, and a bottom-aligned footer so cards
+  // share equal heights in a grid (use `auto-rows-fr` on the parent).
+  const accentClass = languageAccentClass(item.languageId);
   return (
-    <div className="flex items-start gap-4 rounded-lg border border-border bg-surface p-4">
-      <span className="text-2xl" role="img" aria-label={langName}>
-        {flag}
-      </span>
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="font-medium text-text-primary">{item.name}</span>
-          {showCommunityBadge && (
-            <span className="rounded bg-accent-muted px-1.5 py-0.5 text-xs font-medium text-accent">
-              {t("community.communityPackBadge")}
-            </span>
-          )}
+    <article
+      className="group/card relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-card"
+    >
+      {/* Language accent strip — vertical bar on the left edge */}
+      <span
+        aria-hidden
+        className={cn(
+          "pointer-events-none absolute inset-y-0 left-0 w-[3px] transition-opacity",
+          accentClass,
+          "opacity-70 group-hover/card:opacity-100",
+        )}
+      />
+
+      <div className="flex flex-1 flex-col gap-3 p-5 pl-6">
+        {/* Top: language chip + kind + community badge + owner-status */}
+        <div className="flex flex-wrap items-center gap-2 text-[11px]">
+          <span
+            className="inline-flex items-center gap-1 rounded-full bg-surface-muted px-2 py-0.5 font-medium uppercase tracking-wider text-text-secondary"
+            aria-label={langName}
+          >
+            <span aria-hidden className="text-sm leading-none">{flag}</span>
+            <span>{langName}</span>
+          </span>
           {item.kind && (
-            <span className="rounded bg-surface-muted px-1.5 py-0.5 text-xs text-text-secondary">
+            <span className="inline-flex items-center rounded-full border border-border/70 px-2 py-0.5 font-medium uppercase tracking-wider text-text-muted">
               {t(ADDON_KIND_KEYS[item.kind])}
             </span>
           )}
-        </div>
-        <p className="mt-0.5 text-sm text-text-secondary line-clamp-2">{item.description}</p>
-        <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-text-muted">
-          <span>{item.itemCount ?? "—"} {t("community.addonsItems")}</span>
-          <span className="inline-flex items-center gap-0.5"><Icon name="chevronUp" size={14} /> {item.upvoteCount ?? 0}</span>
-          {item.discussionCount != null && item.discussionCount > 0 && (
-            <span>💬 {item.discussionCount} {t("community.discussions")}</span>
+          {showCommunityBadge && (
+            <span className="inline-flex items-center rounded-full bg-accent/10 px-2 py-0.5 font-medium uppercase tracking-wider text-accent">
+              {t("community.communityPackBadge")}
+            </span>
+          )}
+          {ownedDeckId && ownedStatus && (
+            <span
+              className={cn(
+                "ml-auto inline-flex items-center rounded-full px-2 py-0.5 font-medium uppercase tracking-wider",
+                ownedStatus === "published"
+                  ? "bg-success/10 text-success"
+                  : "bg-warning/10 text-warning",
+              )}
+            >
+              {ownedStatus}
+            </span>
           )}
         </div>
-        {item.maintainerName && (
-          item.maintainerUsername ? (
-            <div className="mt-2">
-              <UserPreviewPopover
-                username={item.maintainerUsername}
-                displayName={item.maintainerName}
-              >
-                <span className="inline-flex items-center gap-1.5">
+
+        {/* Title — editorial serif, 2 lines max */}
+        <h3
+          className="font-display text-[19px] font-semibold leading-snug text-text-primary line-clamp-2 transition-colors group-hover/card:text-accent"
+          style={{ fontVariationSettings: '"opsz" 24' }}
+        >
+          {item.name}
+        </h3>
+
+        {/* Description — 2 lines max, takes available vertical space so the
+            footer stays bottom-aligned across cards of varying length */}
+        <p className="line-clamp-2 flex-1 text-[13.5px] leading-relaxed text-text-secondary">
+          {item.description || (
+            <span className="font-display italic text-text-muted">No description yet.</span>
+          )}
+        </p>
+
+        {/* Footer: maintainer (left) + counts + actions (right) */}
+        <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-3 text-xs">
+          <div className="flex min-w-0 items-center gap-3">
+            {item.maintainerName ? (
+              item.maintainerUsername ? (
+                <UserPreviewPopover
+                  username={item.maintainerUsername}
+                  displayName={item.maintainerName}
+                >
+                  <span className="inline-flex min-w-0 items-center gap-1.5">
+                    <Avatar name={item.maintainerName} size="xs" />
+                    <span className="truncate text-text-secondary hover:text-text-primary">
+                      {item.maintainerName}
+                    </span>
+                  </span>
+                </UserPreviewPopover>
+              ) : (
+                <span className="inline-flex min-w-0 items-center gap-1.5">
                   <Avatar name={item.maintainerName} size="xs" />
-                  <span className="text-xs text-text-muted hover:text-text-primary">
+                  <span className="truncate text-text-secondary">
                     {item.maintainerName}
                   </span>
                 </span>
-              </UserPreviewPopover>
-            </div>
-          ) : (
-            <div className="mt-2 flex items-center gap-1.5">
-              <Avatar name={item.maintainerName} size="xs" />
-              <span className="text-xs text-text-muted">{item.maintainerName}</span>
-            </div>
-          )
-        )}
-      </div>
-      <div className="flex shrink-0 flex-col items-end gap-2">
-        {ownedDeckId && ownedStatus && (
-          <span
-            className={`rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
-              ownedStatus === "published"
-                ? "bg-accent-muted text-accent"
-                : "bg-surface-muted text-text-secondary"
-            }`}
-          >
-            {ownedStatus}
-          </span>
-        )}
-        <div className="flex items-center gap-1.5">
-          {isDeck && deckId ? (
-            <DeckUpvoteButton deckId={deckId} fallbackCount={item.upvoteCount ?? 0} />
-          ) : (
-            <button
-              type="button"
-              className="rounded px-2 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
-              aria-label="Upvote"
+              )
+            ) : (
+              <span className="font-display italic text-text-muted">unattributed</span>
+            )}
+            <span
+              className="font-display tabular-nums text-text-muted"
+              style={{ fontVariationSettings: '"opsz" 10' }}
+              aria-label={`${item.itemCount ?? 0} ${t("community.addonsItems")}`}
             >
+              {item.itemCount ?? "—"} {t("community.addonsItems")}
+            </span>
+            {item.discussionCount != null && item.discussionCount > 0 && (
+              <span
+                className="font-display tabular-nums text-text-muted"
+                style={{ fontVariationSettings: '"opsz" 10' }}
+              >
+                · {item.discussionCount} {t("community.discussions")}
+              </span>
+            )}
+          </div>
+
+          <div className="flex shrink-0 items-center gap-1.5">
+            {isDeck && deckId ? (
+              <DeckUpvoteButton deckId={deckId} fallbackCount={item.upvoteCount ?? 0} />
+            ) : (
+              <button
+                type="button"
+                className="rounded px-2 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
+                aria-label="Upvote"
+              >
               <Icon name="chevronUp" size={14} className="inline" />
             </button>
           )}
@@ -265,14 +342,14 @@ export function CommunityItemCard({
           {isDeck ? (
             <Link
               to={langPath("practice/flashcards")}
-              className="rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-accent/90"
+              className="rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-on-accent shadow-sm hover:bg-accent-hover"
             >
               {t("community.contentBrowserOpen")}
             </Link>
           ) : isStory && storyId ? (
             <Link
               to={langPath(`practice/stories/${storyId}`)}
-              className="rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-accent/90"
+              className="rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-on-accent shadow-sm hover:bg-accent-hover"
             >
               {t("community.contentBrowserOpen")}
             </Link>
@@ -284,9 +361,10 @@ export function CommunityItemCard({
               {t("community.contentBrowserOpen")}
             </Link>
           )}
-        </div>
+          </div>
+        </footer>
       </div>
-    </div>
+    </article>
   );
 }
 
