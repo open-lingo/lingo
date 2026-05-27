@@ -1227,7 +1227,19 @@
     "searchPlaceholder": "Search…",
     "home": {
       "title": "Dashboard",
-      "placeholder": "Vital signs land here."
+      "placeholder": "Vital signs land here.",
+      "viewUsers": "Browse →",
+      "viewMod": "Review →",
+      "usersTotal": "Total",
+      "usersNew7d": "New 7d",
+      "usersActive7d": "Active 7d",
+      "usersError": "Couldn't load user stats",
+      "netMonth": "Net this month",
+      "awsByService": "AWS costs MTD",
+      "recentJobs": "Recent jobs",
+      "alerts": "Active alerts",
+      "noJobs": "No jobs logged in the last day.",
+      "allClear": "All systems nominal."
     },
     "moderation": {
       "pendingDecks": "Pending decks",

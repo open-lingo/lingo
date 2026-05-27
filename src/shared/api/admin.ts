@@ -37,11 +37,33 @@ export interface ListUsersResponse {
   nextCursor: string | null;
 }
 
+export interface AdminUserStats {
+  total: number;
+  new_since: number;
+  active_since: number;
+  since_days: number;
+}
+
 export class AdminApi extends ApiClient {
   /** List users (paginated). */
-  listUsers(params?: { limit?: number; cursor?: string }): Promise<ListUsersResponse> {
+  listUsers(params?: {
+    limit?: number;
+    cursor?: string;
+    search?: string;
+    status?: string;
+    community_status?: string;
+    sort?: "created_at" | "last_active_date" | "xp";
+    order?: "asc" | "desc";
+  }): Promise<ListUsersResponse> {
     return this.get<ListUsersResponse>(`${PREFIX}/users`, {
       params: params as Record<string, string | number | undefined>,
+    });
+  }
+
+  /** Aggregate user counts (total + last-N-day new + last-N-day active). */
+  getUserStats(sinceDays = 7): Promise<AdminUserStats> {
+    return this.get<AdminUserStats>(`${PREFIX}/stats/users`, {
+      params: { since_days: sinceDays },
     });
   }
 
