@@ -10,10 +10,12 @@
  * section (in-page anchor) or `/leaderboard` if mounted standalone.
  */
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 import { UsernameDisplay } from "../components/UsernameDisplay";
+import { userSlug } from "../userSlug";
 import { useLeagueSpotlight, useWeeklyLeaderboard } from "../hooks/useSocial";
 
 export type LeagueSpotlightCardProps = {
@@ -123,19 +125,21 @@ export function LeagueSpotlightCard({
             </p>
             <ol className="flex items-center gap-2">
               {top3.map((row) => (
-                <li
-                  key={row.user.id}
-                  className="flex min-w-0 flex-1 items-center gap-2 rounded-lg border border-border bg-surface-muted px-2.5 py-1.5"
-                >
-                  <PodiumRank rank={row.rank} />
-                  <UsernameDisplay
-                    name={row.user.name}
-                    cosmetic={row.user.cosmetic}
-                    className="truncate text-xs"
-                  />
-                  <span className="ml-auto shrink-0 text-[11px] font-bold text-text-primary">
-                    {row.xp.toLocaleString()}
-                  </span>
+                <li key={row.user.id} className="min-w-0 flex-1">
+                  <Link
+                    to={`/u/${userSlug(row.user)}`}
+                    className="flex items-center gap-2 rounded-lg border border-border bg-surface-muted px-2.5 py-1.5 transition hover:border-accent hover:bg-accent-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  >
+                    <PodiumRank rank={row.rank} />
+                    <UsernameDisplay
+                      name={row.user.name}
+                      cosmetic={row.user.cosmetic}
+                      className="truncate text-xs"
+                    />
+                    <span className="ml-auto shrink-0 text-[11px] font-bold text-text-primary">
+                      {row.xp.toLocaleString()}
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ol>

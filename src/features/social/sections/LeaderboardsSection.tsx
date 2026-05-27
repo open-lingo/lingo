@@ -268,10 +268,11 @@ function CompactRows({
                   · · ·
                 </div>
               ) : null}
-              <div
+              <Link
+                to={`/u/${userSlug(row.user)}`}
                 className={cn(
-                  "flex items-center gap-2 px-3 py-1.5",
-                  row.isMe ? "bg-accent-muted" : "",
+                  "flex items-center gap-2 px-3 py-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+                  row.isMe ? "bg-accent-muted" : "hover:bg-surface-muted",
                 )}
               >
                 <CompactRank rank={row.rank} />
@@ -288,7 +289,7 @@ function CompactRows({
                 <span className="ml-auto text-[11px] font-bold text-text-primary">
                   {row.xp.toLocaleString()}
                 </span>
-              </div>
+              </Link>
             </li>
           );
         })}
