@@ -1,11 +1,35 @@
 import type { ThemeDefinition } from "./types";
 import { BUILT_IN_THEMES } from "./presets";
+import { getFontFamily } from "./fonts";
 
 /** Mock community themes for development. Replace with API fetch later. */
 export const MOCK_COMMUNITY_THEMES: (ThemeDefinition & {
   stars?: number;
   downloads?: number;
 })[] = [
+  {
+    // "Academia" — sepia palette + Fraunces serif. Reads as a marked-up
+    // edition / old library catalog. The font auto-loads via fontLoader
+    // because tokens.font.family resolves to the "fraunces" preset id.
+    id: "comm-academia",
+    name: "Academia",
+    author: "open_lingo",
+    version: "1.0",
+    tokens: {
+      ...BUILT_IN_THEMES.sepia.tokens,
+      font: { family: getFontFamily("fraunces") },
+      colors: {
+        ...BUILT_IN_THEMES.sepia.tokens.colors,
+        // Slightly warmer accent against the sepia paper — leans into a
+        // marginalia-pencil red without going garish.
+        accent: "#9c2c2c",
+        accentHover: "#7a2222",
+        accentMuted: "#f0e0d6",
+      },
+    },
+    stars: 0,
+    downloads: 0,
+  },
   {
     id: "comm-midnight-hangul",
     name: "Midnight Hangul",

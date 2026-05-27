@@ -12,6 +12,9 @@ export const FONT_PRESETS: { id: string; name: string; value: string }[] = [
   { id: "source-sans", name: "Source Sans 3", value: `"Source Sans 3", ${SYSTEM}` },
   { id: "nunito", name: "Nunito", value: `"Nunito", ${SYSTEM}` },
   { id: "lora", name: "Lora", value: `"Lora", Georgia, serif` },
+  // Fraunces — variable serif, opsz axis. Used by the "Academia" community
+  // theme and (later) the Patron-tier per-user profile font cosmetic.
+  { id: "fraunces", name: "Fraunces", value: `"Fraunces", ui-serif, Georgia, serif` },
   { id: "georgia", name: "Georgia", value: 'Georgia, "Times New Roman", Times, serif' },
   { id: "atkinson", name: "Atkinson Hyperlegible", value: `"Atkinson Hyperlegible", ${SYSTEM}` },
 ];

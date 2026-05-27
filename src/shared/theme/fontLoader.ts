@@ -32,6 +32,8 @@ const FONT_URLS: Record<string, string> = {
     "https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap",
   lora:
     "https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap",
+  fraunces:
+    "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,ital@9..144,400;9..144,500;9..144,600;9..144,700;9..144,400,1&display=swap",
   atkinson:
     "https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;500;600;700&display=swap",
 };
