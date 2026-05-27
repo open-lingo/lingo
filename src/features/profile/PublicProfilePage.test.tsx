@@ -158,8 +158,11 @@ describe("PublicProfilePage", () => {
     renderPage();
     // Lingots value
     await screen.findByText("42", undefined, { timeout: 3000 });
-    // Level chip
-    expect(screen.getByText(/Level 4/i)).toBeInTheDocument();
+    // Level kicker + numeral live in adjacent elements in the editorial
+    // redesign — assert both are on the page rather than matching a
+    // combined string.
+    expect(screen.getAllByText(/level/i).length).toBeGreaterThan(0);
+    expect(screen.getByText("4")).toBeInTheDocument();
     // Authored deck list
     expect(screen.getByText(/Hiragana basics/i)).toBeInTheDocument();
     expect(screen.getByText(/Katakana basics/i)).toBeInTheDocument();

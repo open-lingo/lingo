@@ -13,9 +13,24 @@
  *
  * When the social endpoint 404s the page renders a "private profile" panel
  * — see usePublicProfile for the visibility flow.
+ *
+ * ## Visual direction (2026-05-27)
+ *
+ * Editorial / magazine. Hierarchy is encoded in the type ramp itself —
+ * Fraunces display serif for the name (one cliff drop to body sans), IBM
+ * Plex Mono for the numeric stat row, IBM Plex Sans for everything else.
+ * The page reads top-to-bottom like a feature opener: masthead → byline →
+ * numeric "by the numbers" rail → bylined works (authored decks).
+ *
+ * Fonts are injected via <link> on mount so the rest of the app's lazy
+ * font system is untouched.
+ *
+ * The league chip is the only place a hardcoded color lands — a brass
+ * foil gradient that reads as "earned" in every theme. Everything else
+ * goes through theme tokens (bg-surface / text-text-primary / etc.).
  */
 
-import { useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
@@ -23,12 +38,49 @@ import { useApi } from "@/shared/api/provider";
 import { useAuth } from "@/shared/auth/useAuth";
 import { UserAvatar } from "@/shared/components/UserAvatar";
 import { Button } from "@/shared/components/ui/Button";
+import { Icon } from "@/shared/components/Icon";
+import type { IconName } from "@/shared/iconRegistry";
 import { ApiError } from "@/shared/api/client";
 import type { AuthoredDeckSample, FriendshipStatus } from "@/shared/api/social";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { usePublicProfile } from "./usePublicProfile";
 
 type ActionState = "idle" | "pending" | "done";
+
+// ─── Editorial typography ────────────────────────────────────────────────────
+// Display: Fraunces — weight-axis variable serif with optical-size variants;
+// gives the masthead actual character without leaning wedding-invite.
+// Body / numerics: IBM Plex Sans + Plex Mono — humanist sans with a slight
+// mechanical edge that pairs the serif without going generic.
+const DISPLAY_FONT =
+  '"Fraunces", "Iowan Old Style", "Times New Roman", Times, serif';
+const BODY_FONT =
+  '"IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+const MONO_FONT =
+  '"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
+
+const FONT_HREF =
+  "https://fonts.googleapis.com/css2?" +
+  "family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900" +
+  "&family=IBM+Plex+Sans:wght@400;500;600" +
+  "&family=IBM+Plex+Mono:wght@500;600" +
+  "&display=swap";
+
+/** Inject Fraunces + IBM Plex once on mount. Idempotent across StrictMode. */
+function useEditorialFonts() {
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const id = "lingo-profile-editorial-fonts";
+    if (document.getElementById(id)) return;
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "stylesheet";
+    link.href = FONT_HREF;
+    document.head.appendChild(link);
+  }, []);
+}
+
+// ─── Formatters ──────────────────────────────────────────────────────────────
 
 function formatJoinDate(iso: string | null | undefined, locale: string): string {
   if (!iso) return "";
@@ -75,24 +127,36 @@ function xpToNextLevel(level: number, xp: number): number {
   return remaining;
 }
 
-function formatLearningLanguage(code: string | null | undefined): string | null {
-  if (!code) return null;
-  const cfg = getLanguageConfig(code);
-  if (cfg) return `${cfg.flag} ${cfg.name}`;
-  return code.toUpperCase();
+/**
+ * Progress through the current level as a 0..1 fraction. Used by the
+ * hairline progress bar under the level chip; same approximation as
+ * xpToNextLevel above (backend is authoritative for the level number).
+ */
+function levelProgress(level: number, xp: number): number {
+  const prev = level * 100 * (1 + Math.max(0, level - 2) * 0.15);
+  const next = (level + 1) * 100 * (1 + (level - 1) * 0.15);
+  const span = Math.max(1, next - prev);
+  return Math.min(1, Math.max(0, (xp - prev) / span));
 }
 
-const PROFILE_CARD_STYLE: CSSProperties = {
-  // Same surface treatment used by other detail pages; kept as inline style
-  // to avoid pulling in a one-off util class.
-  borderRadius: "0.75rem",
-};
+function formatLearningLanguage(
+  code: string | null | undefined,
+): { label: string; flag: string | null } | null {
+  if (!code) return null;
+  const cfg = getLanguageConfig(code);
+  if (cfg) return { label: cfg.name, flag: cfg.flag };
+  return { label: code.toUpperCase(), flag: null };
+}
+
+// ─── Page ───────────────────────────────────────────────────────────────────
 
 export function PublicProfilePage() {
   const { username } = useParams<{ username: string }>();
   const { t, i18n } = useTranslation();
   const { social } = useApi();
   const { login, isAuthenticated } = useAuth();
+
+  useEditorialFonts();
 
   const { user, social: socialProfile, isPrivate, notFound, isLoading, isError, refetch } =
     usePublicProfile(username);
@@ -155,7 +219,7 @@ export function PublicProfilePage() {
   const xp = socialProfile?.xp ?? 0;
   const streak = socialProfile?.streak ?? 0;
   const joined = formatJoinDate(socialProfile?.joined_at ?? user?.created_at, i18n.language);
-  // Enriched fields (Task 2). All optional on the type — degrade gracefully.
+  // Enriched fields. All optional on the type — degrade gracefully.
   const lingots = socialProfile?.lingots ?? 0;
   const level = socialProfile?.level ?? 1;
   const lastActiveLabel = formatLastActive(
@@ -163,11 +227,12 @@ export function PublicProfilePage() {
     i18n.language,
     t,
   );
-  const learningLanguageLabel = formatLearningLanguage(learningLanguage);
+  const lang = formatLearningLanguage(learningLanguage);
   const authoredCount = socialProfile?.authored_deck_count ?? 0;
   const authoredSample: AuthoredDeckSample[] =
     socialProfile?.authored_decks_sample ?? [];
   const xpRemaining = xpToNextLevel(level, xp);
+  const progress = levelProgress(level, xp);
   const league = socialProfile?.league ?? null;
 
   async function runAction(p: Promise<unknown>, successOnDone = true) {
@@ -220,100 +285,227 @@ export function PublicProfilePage() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-6 py-10">
-      <section
-        className="border border-border bg-surface p-6 shadow-sm"
-        style={PROFILE_CARD_STYLE}
-        data-testid="public-profile-card"
-      >
-        <header className="flex flex-wrap items-start gap-4">
-          <UserAvatar name={displayName} src={avatarSrc} size="lg" />
-          <div className="min-w-0 flex-1">
-            <h1 className="truncate text-2xl font-bold text-text-primary">
-              {displayName}
-            </h1>
-            <p className="truncate text-sm text-text-muted">@{username}</p>
-            {bio && (
-              <p className="mt-2 max-w-prose text-sm text-text-secondary">{bio}</p>
-            )}
+    <main
+      className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-8 sm:py-14"
+      style={{ fontFamily: BODY_FONT }}
+    >
+      <article data-testid="public-profile-card" className="relative">
+        {/* ── Masthead ────────────────────────────────────────────── */}
+        <header className="relative">
+          {/* Eyebrow: small-caps "profile" label, sits above the name like a
+              kicker on a magazine feature. */}
+          <p
+            className="text-[10px] font-semibold uppercase tracking-[0.28em] text-text-muted"
+            style={{ fontFeatureSettings: '"ss01"' }}
+          >
+            {t("profile.publicKicker", "Learner Profile")}
+            <span aria-hidden className="mx-2 text-text-muted/50">·</span>
+            <span className="text-text-muted">@{username}</span>
+          </p>
+
+          <div className="mt-4 grid gap-6 sm:grid-cols-[1fr_auto] sm:gap-10">
+            <div className="min-w-0">
+              {/* Name — display serif, large, the answer to "who is this".
+                  Mobile: 40px; desktop scales up to 64px via clamp. */}
+              <h1
+                className="break-words text-text-primary"
+                style={{
+                  fontFamily: DISPLAY_FONT,
+                  fontWeight: 900,
+                  fontSize: "clamp(2.5rem, 6vw, 4rem)",
+                  lineHeight: 0.95,
+                  letterSpacing: "-0.025em",
+                  fontFeatureSettings: '"ss01", "ss02"',
+                }}
+              >
+                {displayName}
+              </h1>
+
+              {/* Byline row: friendship pill + last-active. The "is this person
+                  active and how do I relate to them" answer in one sentence. */}
+              <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+                <FriendshipPill status={friendship ?? null} t={t} />
+                {lastActiveLabel && (
+                  <span className="inline-flex items-center gap-1.5 text-xs text-text-muted">
+                    <span
+                      aria-hidden
+                      className="inline-block h-1.5 w-1.5 rounded-full bg-text-muted/60"
+                    />
+                    {lastActiveLabel}
+                  </span>
+                )}
+                {joined && (
+                  <span className="text-xs text-text-muted">
+                    <span aria-hidden className="mr-1.5 opacity-50">·</span>
+                    {t("profile.publicJoinedShort", "Joined")} {joined}
+                  </span>
+                )}
+              </div>
+
+              {bio && (
+                <p
+                  className="mt-5 max-w-prose text-[15px] leading-relaxed text-text-secondary"
+                  style={{ fontFamily: BODY_FONT }}
+                >
+                  {bio}
+                </p>
+              )}
+            </div>
+
+            {/* Right column: avatar + league emblem floats above it. On mobile
+                this stacks under the name. */}
+            <div className="flex items-start justify-start gap-4 sm:flex-col sm:items-end sm:gap-3">
+              <div className="relative">
+                <div
+                  className="rounded-full p-[2px]"
+                  style={{
+                    background:
+                      "conic-gradient(from 140deg, var(--color-border), var(--color-accent) 30%, var(--color-border) 60%, var(--color-accent) 90%, var(--color-border))",
+                  }}
+                >
+                  <div className="rounded-full bg-surface p-[3px]">
+                    <UserAvatar
+                      name={displayName}
+                      src={avatarSrc}
+                      size="lg"
+                      className="!h-20 !w-20 !text-3xl"
+                    />
+                  </div>
+                </div>
+                {league && <LeagueEmblem league={league} />}
+              </div>
+              <div className="hidden sm:block" aria-hidden>
+                {/* hairline divider that visually anchors the action column */}
+                <div className="mt-1 h-px w-16 bg-border" />
+              </div>
+              <PrimaryAction
+                status={friendship ?? null}
+                actionState={actionState}
+                onAddFriend={handleAddFriend}
+                onAccept={handleAccept}
+                onUnblock={handleUnblock}
+                onUnfriend={handleUnfriend}
+                onBlock={handleBlock}
+                t={t}
+              />
+            </div>
           </div>
-          <div className="flex flex-col items-end gap-2">
-            <FriendshipBadge status={friendship ?? null} t={t} />
-            <PrimaryAction
-              status={friendship ?? null}
-              actionState={actionState}
-              onAddFriend={handleAddFriend}
-              onAccept={handleAccept}
-              onUnblock={handleUnblock}
-              onUnfriend={handleUnfriend}
-              onBlock={handleBlock}
-              t={t}
-            />
-          </div>
+
+          {/* Thick separator between masthead and stats — the only rule on the
+              page that isn't a hairline. Marks "above the fold" identity. */}
+          <div
+            aria-hidden
+            className="mt-8 h-[3px] w-full bg-text-primary/85"
+          />
         </header>
 
-        <dl className="mt-6 grid gap-3 sm:grid-cols-3" data-testid="public-profile-stats">
-          <Stat label={t("profile.publicStreakLabel", "Streak")} value={`${streak} 🔥`} />
-          <Stat label={t("profile.publicXpLabel", "XP")} value={xp.toLocaleString()} />
-          <Stat
-            label={t("profile.publicLevelLabel", "Level")}
-            value={`Level ${level} · ${xpRemaining.toLocaleString()} XP to next`}
-          />
-          {league && (
-            <Stat
-              label={t("profile.publicLeagueLabel", "League")}
-              value={`${league.emoji} ${league.name}`}
+        {/* ── By-the-numbers rail ─────────────────────────────────── */}
+        <section
+          aria-label={t("profile.publicStatsLabel", "Profile stats")}
+          data-testid="public-profile-stats"
+          className="mt-8"
+        >
+          <dl className="grid grid-cols-2 gap-y-7 sm:grid-cols-4 sm:gap-y-0">
+            <NumberStat
+              icon="sparkles"
+              label={t("profile.publicXpLabel", "XP")}
+              value={xp.toLocaleString()}
             />
-          )}
-          <Stat
-            label={t("profile.publicLingotsLabel", "Lingots")}
-            value={lingots.toLocaleString()}
-          />
-          {learningLanguageLabel && (
-            <Stat
-              label={t("profile.publicLearningLabel", "Learning")}
-              value={learningLanguageLabel}
+            <NumberStat
+              icon="flame"
+              label={t("profile.publicStreakLabel", "Day streak")}
+              value={streak.toLocaleString()}
+              accentValue={streak > 0}
             />
-          )}
-          {lastActiveLabel && (
-            <Stat
-              label={t("profile.publicLastActiveLabel", "Last active")}
-              value={lastActiveLabel}
+            <NumberStat
+              icon="gem"
+              label={t("profile.publicLingotsLabel", "Lingots")}
+              value={lingots.toLocaleString()}
             />
-          )}
-          {joined && (
-            <Stat label={t("profile.publicJoinedLabel", "Joined")} value={joined} />
-          )}
-        </dl>
+            <NumberStat
+              icon="graduationCap"
+              label={t("profile.publicLevelLabel", "Level")}
+              value={level.toLocaleString()}
+              caption={`+${xpRemaining.toLocaleString()} XP to ${level + 1}`}
+              progress={progress}
+            />
+          </dl>
+        </section>
 
+        {/* ── Secondary context strip: learning language ──────────── */}
+        {lang && (
+          <section className="mt-10 flex items-baseline gap-3">
+            <span
+              className="text-[10px] font-semibold uppercase tracking-[0.28em] text-text-muted"
+            >
+              {t("profile.publicLearningLabel", "Learning")}
+            </span>
+            <span
+              className="flex items-baseline gap-2 text-text-primary"
+              style={{
+                fontFamily: DISPLAY_FONT,
+                fontWeight: 500,
+                fontStyle: "italic",
+                fontSize: "1.5rem",
+                lineHeight: 1,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              {lang.flag && (
+                <span aria-hidden className="text-xl not-italic">
+                  {lang.flag}
+                </span>
+              )}
+              {lang.label}
+            </span>
+          </section>
+        )}
+
+        {/* ── Authored decks — "Bylined Works" ────────────────────── */}
         {authoredCount > 0 && (
-          <section className="mt-6" data-testid="public-profile-authored">
-            <h2 className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
-              {`Authored decks (${authoredCount})`}
-            </h2>
-            <ul className="mt-2 grid gap-2 sm:grid-cols-2">
-              {authoredSample.map((d) => (
-                <li
+          <section
+            className="mt-12"
+            data-testid="public-profile-authored"
+            aria-labelledby="authored-heading"
+          >
+            <div className="flex items-baseline justify-between gap-4 border-b border-border pb-3">
+              <h2
+                id="authored-heading"
+                className="text-text-primary"
+                style={{
+                  fontFamily: DISPLAY_FONT,
+                  fontWeight: 700,
+                  fontSize: "1.5rem",
+                  letterSpacing: "-0.015em",
+                }}
+              >
+                {t("profile.publicAuthoredHeading", "Bylined Decks")}
+              </h2>
+              <span
+                className="text-[11px] font-medium uppercase tracking-[0.18em] text-text-muted"
+                style={{ fontFamily: MONO_FONT }}
+              >
+                {authoredCount.toString().padStart(2, "0")} {t("profile.publicAuthoredCount", "total")}
+              </span>
+            </div>
+            <ul className="mt-2 divide-y divide-border-muted">
+              {authoredSample.map((d, i) => (
+                <DeckRow
                   key={d.id}
-                  className="rounded-lg border border-border bg-surface-muted px-3 py-2"
-                >
-                  <Link
-                    to={`/decks/${d.id}`}
-                    className="block text-sm font-medium text-text-primary hover:underline"
-                  >
-                    {d.name || t("profile.publicUnnamedDeck", "(unnamed deck)")}
-                  </Link>
-                  {d.language && (
-                    <p className="mt-0.5 text-[11px] uppercase tracking-wider text-text-muted">
-                      {d.language}
-                    </p>
-                  )}
-                </li>
+                  deck={d}
+                  index={i + 1}
+                  unnamedFallback={t("profile.publicUnnamedDeck", "(unnamed deck)")}
+                />
               ))}
             </ul>
             {authoredCount > authoredSample.length && (
-              <p className="mt-2 text-xs text-text-muted">
-                {`+ ${authoredCount - authoredSample.length} more`}
+              <p
+                className="mt-4 text-xs italic text-text-muted"
+                style={{ fontFamily: DISPLAY_FONT }}
+              >
+                {t("profile.publicAuthoredMore", "and")}{" "}
+                {(authoredCount - authoredSample.length).toLocaleString()}{" "}
+                {t("profile.publicAuthoredMoreSuffix", "more in the archive")}
               </p>
             )}
           </section>
@@ -322,27 +514,183 @@ export function PublicProfilePage() {
         {actionError && (
           <p
             role="alert"
-            className="mt-4 rounded border border-error/40 bg-error/10 px-3 py-2 text-sm text-error"
+            className="mt-6 rounded-md border border-error/40 bg-error/10 px-3 py-2 text-sm text-error"
           >
             {actionError}
           </p>
         )}
-      </section>
+      </article>
     </main>
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+// ─── Sub-components ──────────────────────────────────────────────────────────
+
+/**
+ * One slot in the by-the-numbers rail. The numeral is the loud part —
+ * Plex Mono at 30-40px, slightly tighter tracking; the label is the
+ * small-cap kicker above it. No box, no border — separation comes from
+ * the vertical rule between siblings (sm and up).
+ */
+function NumberStat({
+  icon,
+  label,
+  value,
+  caption,
+  accentValue,
+  progress,
+}: {
+  icon: IconName;
+  label: string;
+  value: string;
+  caption?: string;
+  accentValue?: boolean;
+  progress?: number; // 0..1, optional micro progress bar
+}) {
   return (
-    <div className="rounded-lg border border-border bg-surface-muted px-3 py-2">
-      <dt className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
-        {label}
-      </dt>
-      <dd className="mt-1 text-sm font-medium text-text-primary">{value}</dd>
+    <div className="relative px-1 sm:px-5 sm:first:pl-0 sm:last:pr-0 sm:[&:not(:first-child)]:border-l sm:[&:not(:first-child)]:border-border">
+      <div className="flex items-center gap-1.5 text-text-muted">
+        <Icon name={icon} size={12} strokeWidth={2.25} />
+        <span className="text-[10px] font-semibold uppercase tracking-[0.22em]">
+          {label}
+        </span>
+      </div>
+      <div
+        className={
+          "mt-2 tabular-nums " +
+          (accentValue ? "text-accent" : "text-text-primary")
+        }
+        style={{
+          fontFamily: MONO_FONT,
+          fontWeight: 600,
+          fontSize: "clamp(1.875rem, 4.5vw, 2.5rem)",
+          lineHeight: 1,
+          letterSpacing: "-0.02em",
+        }}
+      >
+        {value}
+      </div>
+      {caption && (
+        <div
+          className="mt-2 text-[11px] text-text-muted"
+          style={{ fontFamily: MONO_FONT }}
+        >
+          {caption}
+        </div>
+      )}
+      {typeof progress === "number" && (
+        <div
+          className="mt-2 h-[2px] w-full overflow-hidden rounded-full bg-border"
+          aria-hidden
+        >
+          <div
+            className="h-full bg-text-primary/70 transition-[width] duration-500"
+            style={{ width: `${Math.round(progress * 100)}%` }}
+          />
+        </div>
+      )}
     </div>
   );
 }
 
+/**
+ * League emblem — the one place hardcoded colors live. Brass-foil gradient
+ * with a subtle ring; positioned over the avatar's lower-right like a
+ * decoration pin. Works on every theme because brass reads as brass on
+ * any background.
+ */
+function LeagueEmblem({
+  league,
+}: {
+  league: { name: string; tier_index: number; emoji: string };
+}) {
+  const BRASS_GRADIENT =
+    "linear-gradient(135deg, #d4a857 0%, #f7e2a3 38%, #c08a3a 62%, #efd382 100%)";
+  const ringStyle: CSSProperties = {
+    backgroundImage: BRASS_GRADIENT,
+    boxShadow:
+      "0 0 0 2px var(--color-surface), 0 4px 12px -2px rgba(193,138,55,0.45), inset 0 1px 0 rgba(255,255,255,0.5)",
+  };
+  return (
+    <div
+      className="absolute -bottom-1 -right-1 flex h-9 w-9 items-center justify-center rounded-full"
+      style={ringStyle}
+      role="img"
+      aria-label={`${league.name} league`}
+      title={league.name}
+    >
+      <span className="text-base leading-none drop-shadow-sm" aria-hidden>
+        {league.emoji}
+      </span>
+    </div>
+  );
+}
+
+/**
+ * One bylined-work row. Magazine-feature treatment: oversized index numeral
+ * on the left (Plex Mono, faint), deck name as the title, language as a
+ * "filed under" small-cap tag, and an arrow that animates on hover.
+ */
+function DeckRow({
+  deck,
+  index,
+  unnamedFallback,
+}: {
+  deck: AuthoredDeckSample;
+  index: number;
+  unnamedFallback: string;
+}) {
+  return (
+    <li>
+      <Link
+        to={`/decks/${deck.id}`}
+        className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-4 py-4 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      >
+        <span
+          aria-hidden
+          className="text-text-muted/40 group-hover:text-accent/70 transition-colors tabular-nums"
+          style={{
+            fontFamily: MONO_FONT,
+            fontWeight: 500,
+            fontSize: "1.125rem",
+          }}
+        >
+          {index.toString().padStart(2, "0")}
+        </span>
+        <div className="min-w-0">
+          <h3
+            className="truncate text-text-primary group-hover:text-accent transition-colors"
+            style={{
+              fontFamily: DISPLAY_FONT,
+              fontWeight: 700,
+              fontSize: "1.25rem",
+              letterSpacing: "-0.01em",
+              lineHeight: 1.2,
+            }}
+          >
+            {deck.name || unnamedFallback}
+          </h3>
+          {deck.language && (
+            <p
+              className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-text-muted"
+            >
+              <span className="opacity-60">filed under</span>{" "}
+              <span className="text-text-secondary">{deck.language}</span>
+            </p>
+          )}
+        </div>
+        <span
+          aria-hidden
+          className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border text-text-muted transition-all duration-200 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-foreground group-hover:translate-x-0.5"
+        >
+          <Icon name="arrowRight" size={14} strokeWidth={2.25} />
+        </span>
+      </Link>
+    </li>
+  );
+}
+
+/** Fallback shell for loading / not-found / private / error states. */
 function ProfileShell({
   heading,
   children,
@@ -351,43 +699,75 @@ function ProfileShell({
   children?: React.ReactNode;
 }) {
   return (
-    <main className="mx-auto w-full max-w-3xl px-6 py-10">
-      <h1 className="text-2xl font-semibold text-text-primary">{heading}</h1>
-      {children && <div className="mt-3">{children}</div>}
+    <main
+      className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-8 sm:py-14"
+      style={{ fontFamily: BODY_FONT }}
+    >
+      <h1
+        className="text-text-primary"
+        style={{
+          fontFamily: DISPLAY_FONT,
+          fontWeight: 700,
+          fontSize: "clamp(1.875rem, 4vw, 2.5rem)",
+          lineHeight: 1.05,
+          letterSpacing: "-0.02em",
+        }}
+      >
+        {heading}
+      </h1>
+      {children && <div className="mt-4">{children}</div>}
     </main>
   );
 }
 
-function FriendshipBadge({
+/**
+ * Friendship pill — small, lowercase-typographic chip that sits inline with
+ * the byline. No background fill except for the destructive states; this is
+ * metadata, not a call to action.
+ */
+function FriendshipPill({
   status,
   t,
 }: {
   status: FriendshipStatus | null;
   t: TFunction;
 }) {
-  if (!status || status === "self") return null;
-  const label =
+  if (!status || status === "self" || status === "none") return null;
+
+  const labelAndIcon: { label: string; icon: IconName; tone: string } | null =
     status === "friend"
-      ? t("profile.badgeFriend", "Friends")
+      ? {
+          label: t("profile.badgeFriend", "Friends"),
+          icon: "check",
+          tone: "border-accent/40 text-accent bg-accent-muted/40",
+        }
       : status === "request_in"
-        ? t("profile.badgeRequestIn", "Wants to be friends")
+        ? {
+            label: t("profile.badgeRequestIn", "Wants to be friends"),
+            icon: "userPlus",
+            tone: "border-border text-text-secondary bg-surface-muted",
+          }
         : status === "request_out"
-          ? t("profile.badgeRequestOut", "Request pending")
+          ? {
+              label: t("profile.badgeRequestOut", "Request pending"),
+              icon: "users",
+              tone: "border-border text-text-muted bg-surface-muted",
+            }
           : status === "blocked"
-            ? t("profile.badgeBlocked", "Blocked")
+            ? {
+                label: t("profile.badgeBlocked", "Blocked"),
+                icon: "shield",
+                tone: "border-error/40 text-error bg-error/10",
+              }
             : null;
-  if (!label) return null;
-  const tone =
-    status === "friend"
-      ? "bg-accent-muted text-accent"
-      : status === "blocked"
-        ? "bg-error/15 text-error"
-        : "bg-surface-muted text-text-secondary";
+
+  if (!labelAndIcon) return null;
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${tone}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${labelAndIcon.tone}`}
     >
-      {label}
+      <Icon name={labelAndIcon.icon} size={11} strokeWidth={2.5} />
+      {labelAndIcon.label}
     </span>
   );
 }
@@ -417,8 +797,9 @@ function PrimaryAction({
     return (
       <Link
         to="/settings/profile"
-        className="rounded-md border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text-primary hover:bg-surface-muted"
+        className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2 text-sm font-medium text-text-primary transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
+        <Icon name="pencil" size={14} strokeWidth={2.25} />
         {t("profile.publicEditProfile", "Edit profile")}
       </Link>
     );
@@ -484,8 +865,10 @@ function FriendDropdown({
         size="sm"
         aria-expanded={open}
         aria-haspopup="menu"
+        className="!gap-1.5"
       >
-        {busy ? "…" : t("profile.publicFriends", "Friends ▾")}
+        {busy ? "…" : t("profile.publicFriends", "Friends")}
+        <Icon name="chevronDown" size={13} strokeWidth={2.25} />
       </Button>
       {open && (
         <div
