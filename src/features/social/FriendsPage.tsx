@@ -90,6 +90,14 @@ export function FriendsPage() {
 
   return (
     <div className="space-y-4">
+      {/* Back link — sub-route, primary egress is the social page above. */}
+      <Link
+        to={langPath("social")}
+        className="inline-flex items-center gap-1 text-xs font-medium text-text-secondary transition hover:text-accent"
+      >
+        <span aria-hidden>←</span>
+        {t("social.friendsPage.back", "Back to social")}
+      </Link>
       <header className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">

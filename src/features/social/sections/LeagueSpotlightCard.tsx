@@ -56,40 +56,85 @@ export function LeagueSpotlightCard({
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  // Path-to-promotion math: how many ranks above me until I hit the
+  // promotion zone? Negative = already inside the zone.
+  const ranksToPromotion =
+    myRank !== null ? Math.max(0, myRank - league.promotionZone) : null;
+  const ranksToDemotion =
+    myRank !== null
+      ? Math.max(0, rows.length - league.demotionZone + 1 - myRank)
+      : null;
+
   return (
     <Card padding="none" className="overflow-hidden">
-      {/* Hero band */}
-      <div className="flex flex-col gap-3 bg-gradient-to-br from-accent/20 via-accent-muted to-surface px-5 py-4 sm:flex-row sm:items-center sm:gap-5">
-        <div className="flex items-center gap-3">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-surface text-3xl shadow-sm">
-            <span aria-hidden>{league.emoji}</span>
-          </div>
-          <div className="min-w-0">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-              {t("social.spotlight.currentLeague", "Current league")}
-            </p>
-            <h2 className="text-xl font-bold leading-tight text-text-primary">
-              {league.name}
-            </h2>
-            <p className="text-[11px] text-text-muted">
+      {/* Hero band — three densely-packed columns on lg+ so we don't waste
+          horizontal real estate. Stacks on small screens. */}
+      <div
+        className={cn(
+          "grid gap-4 bg-gradient-to-br from-accent/20 via-accent-muted to-surface px-5 py-4",
+          "sm:grid-cols-[auto_1fr_auto] sm:items-center",
+        )}
+      >
+        {/* Col 1: emblem */}
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-surface text-3xl shadow-sm">
+          <span aria-hidden>{league.emoji}</span>
+        </div>
+
+        {/* Col 2: league + meta — fills the previously-wasted middle space */}
+        <div className="min-w-0">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+            {t("social.spotlight.currentLeague", "Current league")}
+          </p>
+          <h2 className="text-xl font-bold leading-tight text-text-primary">
+            {league.name}
+          </h2>
+          <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-text-muted">
+            <span>
               {t("social.spotlight.tierOf", "Tier {{n}} of {{total}}", {
                 n: league.tierIndex,
                 total: league.tierTotal,
-              })}{" "}
-              · {league.resetLabel}
-            </p>
-          </div>
+              })}
+            </span>
+            <span aria-hidden>·</span>
+            <span>{league.resetLabel}</span>
+            {ranksToPromotion !== null && ranksToPromotion > 0 ? (
+              <>
+                <span aria-hidden>·</span>
+                <span className="font-medium text-text-secondary">
+                  {t(
+                    "social.spotlight.ranksToPromote",
+                    "{{n}} {{n, plural, one {rank} other {ranks}}} to promote",
+                    { n: ranksToPromotion },
+                  )}
+                </span>
+              </>
+            ) : ranksToDemotion !== null && ranksToDemotion > 0 ? (
+              <>
+                <span aria-hidden>·</span>
+                <span className="font-medium text-text-secondary">
+                  {t(
+                    "social.spotlight.safeBy",
+                    "safe by {{n}} {{n, plural, one {rank} other {ranks}}}",
+                    { n: ranksToDemotion },
+                  )}
+                </span>
+              </>
+            ) : null}
+          </p>
         </div>
 
-        {/* Rank pill */}
+        {/* Col 3: rank + delta + tiny week summary stacked tight */}
         {myRank !== null ? (
-          <div className="flex items-center gap-3 rounded-xl border border-border bg-surface px-4 py-2.5 shadow-sm sm:ml-auto">
+          <div className="flex items-center gap-3 rounded-xl border border-border bg-surface px-3 py-2 shadow-sm">
             <div className="text-right">
               <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
                 {t("social.spotlight.yourRank", "Your rank")}
               </p>
               <p className="text-2xl font-bold leading-none text-text-primary">
                 #{myRank}
+              </p>
+              <p className="mt-0.5 text-[10px] tabular-nums text-text-muted">
+                {myDailyTotal.toLocaleString()} {t("social.spotlight.xpThisWeek", "XP this week")}
               </p>
             </div>
             <RankDeltaBadge delta={rankDeltaToday} />
@@ -116,13 +161,23 @@ export function LeagueSpotlightCard({
         </div>
       ) : null}
 
-      {/* Top-3 + sparkline row */}
+      {/* Top-3 + week comparison — denser, smaller sparkline so the podium
+          takes the lion's share of width on wide screens. */}
       {!compact ? (
-        <div className="grid gap-px border-t border-border bg-border sm:grid-cols-[1fr_220px]">
+        <div className="grid gap-px border-t border-border bg-border sm:grid-cols-[1.5fr_1fr]">
           <div className="bg-surface px-5 py-3">
-            <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-              {t("social.spotlight.podium", "This week's podium")}
-            </p>
+            <div className="mb-2 flex items-baseline justify-between gap-2">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+                {t("social.spotlight.podium", "This week's podium")}
+              </p>
+              {top3.length > 0 ? (
+                <p className="text-[10px] tabular-nums text-text-muted">
+                  {t("social.spotlight.leaderXp", "leader {{n}} XP", {
+                    n: top3[0].xp.toLocaleString(),
+                  })}
+                </p>
+              ) : null}
+            </div>
             <ol className="flex items-center gap-2">
               {top3.map((row) => (
                 <li key={row.user.id} className="min-w-0 flex-1">
@@ -134,9 +189,9 @@ export function LeagueSpotlightCard({
                     <UsernameDisplay
                       name={row.user.name}
                       cosmetic={row.user.cosmetic}
-                      className="truncate text-xs"
+                      className="min-w-0 flex-1 truncate text-xs"
                     />
-                    <span className="ml-auto shrink-0 text-[11px] font-bold text-text-primary">
+                    <span className="shrink-0 text-[11px] font-bold tabular-nums text-text-primary">
                       {row.xp.toLocaleString()}
                     </span>
                   </Link>
@@ -145,24 +200,26 @@ export function LeagueSpotlightCard({
             </ol>
           </div>
           <div className="bg-surface px-5 py-3">
-            <p className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-              {t("social.spotlight.thisWeek", "This week vs. friend median")}
-            </p>
+            <div className="mb-1 flex items-baseline justify-between gap-2">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+                {t("social.spotlight.thisWeek", "You vs. friend median")}
+              </p>
+              <p
+                className={cn(
+                  "text-[11px] font-semibold tabular-nums",
+                  diff >= 0 ? "text-success" : "text-warning",
+                )}
+              >
+                {diff >= 0
+                  ? t("social.spotlight.deltaAhead", "+{{n}}", {
+                      n: diff.toLocaleString(),
+                    })
+                  : t("social.spotlight.deltaBehind", "{{n}}", {
+                      n: diff.toLocaleString(),
+                    })}
+              </p>
+            </div>
             <DailyBars mine={dailyXp} median={friendMedianDaily} />
-            <p
-              className={cn(
-                "mt-1 text-[11px] font-semibold",
-                diff >= 0 ? "text-success" : "text-warning",
-              )}
-            >
-              {diff >= 0
-                ? t("social.spotlight.aheadBy", "+{{n}} XP ahead", {
-                    n: diff.toLocaleString(),
-                  })
-                : t("social.spotlight.behindBy", "{{n}} XP behind", {
-                    n: Math.abs(diff).toLocaleString(),
-                  })}
-            </p>
           </div>
         </div>
       ) : null}
