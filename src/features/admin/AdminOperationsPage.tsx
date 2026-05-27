@@ -132,7 +132,7 @@ function OpsUnavailableBanner({ where }: { where: string }) {
 
 // ─── Cost & Revenue tab ──────────────────────────────────────
 
-function CostRevenueTab() {
+export function CostRevenueTab() {
   const { ops } = useApi();
   const qc = useQueryClient();
 
@@ -459,7 +459,7 @@ function RevenueCard({
 
 // ─── Subscriptions tab ───────────────────────────────────────
 
-function SubscriptionsTab() {
+export function SubscriptionsTab() {
   const { ops } = useApi();
   const summary = useQuery<SubscriptionsSummary>({
     queryKey: ["ops", "subs", "summary"],
@@ -613,7 +613,7 @@ function SubscriptionsTab() {
 
 // ─── Ads tab ─────────────────────────────────────────────────
 
-function AdsTab() {
+export function AdsTab() {
   const { ops } = useApi();
   const summary = useQuery<AdsSummary>({
     queryKey: ["ops", "ads", "summary"],
@@ -771,7 +771,7 @@ const STATUS_VARIANT: Record<JobStatus, "success" | "error" | "warning" | "info"
   skipped: "warning",
 };
 
-function JobsTab() {
+export function JobsTab() {
   const { ops } = useApi();
   const [statusFilter, setStatusFilter] = useState<JobStatus | "">("");
   const [jobNameFilter, setJobNameFilter] = useState("");

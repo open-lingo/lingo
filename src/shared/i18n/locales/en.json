@@ -1289,7 +1289,10 @@
     "language": "Language",
     "ops": {
       "tabs": {
-        "opsBundle": "Costs · Subs · Ads · Jobs",
+        "costs": "Costs",
+        "subscriptions": "Subscriptions",
+        "ads": "Ads",
+        "jobs": "Jobs",
         "xp": "XP config",
         "settings": "Settings"
       },

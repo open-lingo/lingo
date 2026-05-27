@@ -1,29 +1,39 @@
 /**
- * AdminOpsPage — operational tools at /admin/ops.
+ * AdminOpsPage — consolidated operational tools at /admin/ops.
  *
- * Tabs: costs, subscriptions, ads, jobs, XP config, settings (placeholder).
+ * Six tabs: Costs, Subscriptions, Ads, Jobs, XP config, Settings.
  *
- * Tab content lives in the existing AdminOperationsPage (which keeps the
- * four ops tabs) and the existing AdminXpConfigPage. Both are inlined as
- * tab content so /admin/ops is the single ops surface.
+ * Cost/Subs/Ads/Jobs tab bodies are imported from AdminOperationsPage
+ * (the original four-tab page) so we don't duplicate the data-fetching
+ * logic. XP config is the existing AdminXpConfigPage, embedded as a
+ * tab. Settings is a placeholder — future home of platform-level
+ * runtime config (CORS origins, feature flags, etc.).
  */
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { TabButton, TabList } from "@/shared/components/ui/Tabs";
 
-import { AdminOperationsPage } from "./AdminOperationsPage";
+import {
+  AdsTab,
+  CostRevenueTab,
+  JobsTab,
+  SubscriptionsTab,
+} from "./AdminOperationsPage";
 import { AdminXpConfigPage } from "./AdminXpConfigPage";
 
-type TabId = "ops" | "xp" | "settings";
+type TabId = "costs" | "subscriptions" | "ads" | "jobs" | "xp" | "settings";
 
 export function AdminOpsPage() {
   const { t } = useTranslation();
-  const [tab, setTab] = useState<TabId>("ops");
+  const [tab, setTab] = useState<TabId>("costs");
 
   const tabs: { id: TabId; label: string }[] = useMemo(
     () => [
-      { id: "ops", label: t("admin.ops.tabs.opsBundle", "Costs · Subs · Ads · Jobs") },
+      { id: "costs", label: t("admin.ops.tabs.costs", "Costs") },
+      { id: "subscriptions", label: t("admin.ops.tabs.subscriptions", "Subscriptions") },
+      { id: "ads", label: t("admin.ops.tabs.ads", "Ads") },
+      { id: "jobs", label: t("admin.ops.tabs.jobs", "Jobs") },
       { id: "xp", label: t("admin.ops.tabs.xp", "XP config") },
       { id: "settings", label: t("admin.ops.tabs.settings", "Settings") },
     ],
@@ -41,7 +51,10 @@ export function AdminOpsPage() {
       </TabList>
 
       <div>
-        {tab === "ops" && <AdminOperationsPage />}
+        {tab === "costs" && <CostRevenueTab />}
+        {tab === "subscriptions" && <SubscriptionsTab />}
+        {tab === "ads" && <AdsTab />}
+        {tab === "jobs" && <JobsTab />}
         {tab === "xp" && <AdminXpConfigPage />}
         {tab === "settings" && <SettingsPlaceholder />}
       </div>
