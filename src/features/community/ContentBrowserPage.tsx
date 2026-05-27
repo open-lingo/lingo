@@ -24,6 +24,7 @@ import { useCommunityContent } from "./CommunityContentContext";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { FacetSidebar, type Facet } from "@/shared/components/ui/FacetSidebar";
+import { cn } from "@/shared/components/ui/cn";
 import { useApi } from "@/shared/api/provider";
 import type { DeckResponse } from "@/shared/api/decks";
 import { sortByUpdatedAtDesc } from "@/shared/utils/dateUtils";
@@ -129,7 +130,15 @@ export function ContentBrowserPage() {
   const [languageFilter, setLanguageFilter] = useState<string | "all" | null>(
     () => (langParam ? langParam : null),
   );
-  const [typeFilter, setTypeFilter] = useState<ContentType | "all">("all");
+  // Default to the first enabled content type — no "All" view since
+  // story/deck/course cards diverge fundamentally and will eventually grow
+  // their own filter bars.
+  const firstEnabledType: ContentType = explore.flashcardDecks
+    ? "flashcard-pack"
+    : explore.courses
+      ? "course"
+      : "story";
+  const [typeFilter, setTypeFilter] = useState<ContentType | "all">(firstEnabledType);
   const [sortBy, setSortBy] = useState<SortOption>("newest");
   const [levelFilters, setLevelFilters] = useState<Set<string>>(new Set());
   const [otherFilters, setOtherFilters] = useState<Set<string>>(new Set());
@@ -142,20 +151,20 @@ export function ContentBrowserPage() {
   }, [langParam]);
 
   useEffect(() => {
-    let resolvedType = TYPE_FROM_PARAM[typeParam ?? ""] ?? "all";
+    let resolvedType: ContentType | "all" = TYPE_FROM_PARAM[typeParam ?? ""] ?? "all";
     if (resolvedType === "story" && !explore.stories) resolvedType = "all";
     if (resolvedType === "course" && !explore.courses) resolvedType = "all";
     if (resolvedType === "flashcard-pack" && !explore.flashcardDecks) resolvedType = "all";
-    if (
-      typeParam &&
-      resolvedType === "all" &&
-      typeParam !== "all" &&
-      TYPE_FROM_PARAM[typeParam] !== undefined
-    ) {
-      navigate(langPath("community/explore"), { replace: true });
+    // No "All" view — fall back to the first enabled type when the URL
+    // doesn't specify one (or specifies a disabled one).
+    if (resolvedType === "all") {
+      resolvedType = firstEnabledType;
+      if (typeParam && TYPE_FROM_PARAM[typeParam] !== undefined) {
+        navigate(langPath("community/explore"), { replace: true });
+      }
     }
     setTypeFilter(resolvedType);
-  }, [typeParam, explore.stories, explore.courses, explore.flashcardDecks, navigate, langPath]);
+  }, [typeParam, explore.stories, explore.courses, explore.flashcardDecks, navigate, langPath, firstEnabledType]);
 
   const [apiDecks, setApiDecks] = useState<DeckResponse[]>([]);
   const [apiDecksLoading, setApiDecksLoading] = useState(true);
@@ -382,15 +391,11 @@ export function ContentBrowserPage() {
   }, [facetLanguageIds, langId, t]);
 
   const facets: Facet[] = useMemo(() => {
+    // NB: type filter intentionally NOT in the sidebar — it's promoted to a
+    // top-level tab strip above the result grid because different content
+    // types render fundamentally different cards (story vs deck vs course)
+    // and the page-level layout should reflect that.
     const out: Facet[] = [];
-    if (typeFacetOptions.length > 0) {
-      out.push({
-        id: FACET_TYPE,
-        label: t("community.contentBrowserFacetType"),
-        options: typeFacetOptions,
-        multiSelect: false,
-      });
-    }
     out.push({
       id: FACET_LANGUAGE,
       label: t("community.contentBrowserFacetLanguage"),
@@ -410,7 +415,7 @@ export function ContentBrowserPage() {
       multiSelect: true,
     });
     return out;
-  }, [typeFacetOptions, languageFacetOptions, t]);
+  }, [languageFacetOptions, t]);
 
   const selections: Record<string, string[]> = useMemo(() => {
     const out: Record<string, string[]> = {};
@@ -689,6 +694,37 @@ export function ContentBrowserPage() {
               onClearAll={handleClearAll}
               clearAllLabel={t("community.contentBrowserClearAll")}
             />
+          )}
+
+          {/* Content-type tab strip — no "All" because the content types
+              are fundamentally different (story vs deck vs course) and will
+              eventually grow their own filter bars + card shapes. Tab labels
+              come from `typeFacetOptions` so feature-flag gating still
+              applies. Default is the first enabled type. */}
+          {typeFacetOptions.length > 0 && (
+            <div
+              role="tablist"
+              aria-label={t("community.contentBrowserFacetType")}
+              className="-mb-2 flex flex-wrap gap-1 border-b border-border"
+            >
+              {typeFacetOptions.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  role="tab"
+                  aria-selected={typeFilter === opt.value}
+                  onClick={() => setTypeFilter(opt.value as ContentType)}
+                  className={cn(
+                    "relative -mb-px px-3 py-2 text-sm font-medium transition",
+                    typeFilter === opt.value
+                      ? "border-b-2 border-accent text-accent"
+                      : "border-b-2 border-transparent text-text-secondary hover:text-text-primary",
+                  )}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
           )}
 
           <div className="flex items-center justify-between gap-3">

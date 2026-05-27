@@ -4,6 +4,15 @@ import type { Subscription } from "./users";
 
 const PREFIX = "/api/core/v1/admin";
 
+export interface BanRecord {
+  reason: string;
+  started_at: string;
+  expires_at: string | null;
+  ended_at: string | null;
+  moderator_id: string;
+  notes: string | null;
+}
+
 export interface UserListItem {
   id: string;
   auth0_id: string;
@@ -15,8 +24,28 @@ export interface UserListItem {
   community_status: string | null;
   community_status_expiration: string | null;
   role: string;
+  xp?: number;
+  level?: number;
+  last_active_date?: string | null;
+  account_ban_history?: BanRecord[];
+  community_ban_history?: BanRecord[];
   created_at: string;
   updated_at: string;
+}
+
+export type BanKind = "account" | "community";
+export type BanDuration = "24h" | "7d" | "30d" | "permanent";
+
+export interface BanRequest {
+  type: BanKind;
+  reason: string;
+  duration: BanDuration;
+  notes?: string;
+}
+
+export interface UnbanRequest {
+  type: BanKind;
+  notes?: string;
 }
 
 export type UserRole = "user" | "trusted_creator" | "moderator" | "admin" | "super_admin";
@@ -231,6 +260,22 @@ export class AdminApi extends ApiClient {
   declineFriendRequest(userId: string, otherId: string): Promise<void> {
     return this.delete(
       `${PREFIX}/social/users/${encodeURIComponent(userId)}/friend-requests/${encodeURIComponent(otherId)}`,
+    );
+  }
+
+  /** Ban a user (account-wide or community-only). */
+  banUser(userId: string, body: BanRequest): Promise<UserListItem> {
+    return this.post<UserListItem>(
+      `${PREFIX}/users/${encodeURIComponent(userId)}/ban`,
+      body,
+    );
+  }
+
+  /** Unban a user — closes the most recent open ban record. */
+  unbanUser(userId: string, body: UnbanRequest): Promise<UserListItem> {
+    return this.post<UserListItem>(
+      `${PREFIX}/users/${encodeURIComponent(userId)}/unban`,
+      body,
     );
   }
 }

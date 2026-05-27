@@ -314,7 +314,6 @@ const router = createBrowserRouter([
               { path: "home-preview", element: <HomeRestructureMockup /> },
               { path: "social", element: <SocialPreviewPage /> },
               { path: "social/friends", element: <FriendsPage /> },
-              { path: "social-preview", element: <SocialPreviewPage /> },
               { path: "messenger", element: <MessengerPage /> },
               { path: "messenger/:friendId", element: <MessengerPage /> },
               { path: "asset-test", element: <AssetTestPage /> },

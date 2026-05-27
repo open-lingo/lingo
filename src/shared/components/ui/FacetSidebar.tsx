@@ -39,16 +39,24 @@ export type FacetSidebarProps = {
   onToggle: (facetId: string, value: string) => void;
   onClear?: (facetId: string) => void;
   onClearAll?: () => void;
+  /** Optional "only this" handler — when provided, each row gets a hover
+   *  affordance that clears other selections in the facet and sets just
+   *  this value. Caller implements (typically: `onClear(facetId)` then
+   *  `onToggle(facetId, value)`). */
+  onOnly?: (facetId: string, value: string) => void;
   search?: string;
   onSearchChange?: (s: string) => void;
   searchPlaceholder?: string;
   clearAllLabel?: string;
   resetLabel?: string;
   searchWithinPlaceholder?: string;
+  onlyLabel?: string;
   className?: string;
 };
 
-const DEFAULT_SEARCH_THRESHOLD = 8;
+// Lower threshold than the previous 8 — most facets are ≤10 options and the
+// search-within input is unobtrusive enough to surface earlier.
+const DEFAULT_SEARCH_THRESHOLD = 4;
 
 function ChevronDown({ className }: { className?: string }) {
   return (
@@ -95,12 +103,14 @@ export function FacetSidebar({
   onToggle,
   onClear,
   onClearAll,
+  onOnly,
   search,
   onSearchChange,
   searchPlaceholder,
   clearAllLabel = "Clear all",
   resetLabel = "reset",
-  searchWithinPlaceholder = "filter within…",
+  searchWithinPlaceholder = "filter…",
+  onlyLabel = "Only",
   className,
 }: FacetSidebarProps) {
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>(() => {
@@ -133,10 +143,7 @@ export function FacetSidebar({
             Refine
           </span>
           {totalActive > 0 && (
-            <span
-              className="font-display text-sm font-medium leading-none text-accent"
-              style={{ fontVariationSettings: '"opsz" 14' }}
-            >
+            <span className="text-xs font-semibold tabular-nums leading-none text-accent">
               {totalActive} active
             </span>
           )}
@@ -165,8 +172,7 @@ export function FacetSidebar({
               value={search ?? ""}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder={searchPlaceholder}
-              className="w-full border-0 border-b border-border bg-transparent py-1.5 pl-6 text-sm text-text-primary placeholder:font-display placeholder:italic placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-0"
-              style={{ fontVariationSettings: '"opsz" 14' }}
+              className="w-full border-0 border-b border-border bg-transparent py-1.5 pl-6 text-sm text-text-primary placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-0"
             />
           </div>
         </div>
@@ -206,17 +212,11 @@ export function FacetSidebar({
                       isCollapsed && "-rotate-90",
                     )}
                   />
-                  <span
-                    className="font-display text-[13px] font-medium uppercase tracking-[0.14em] text-text-primary group-hover:text-accent"
-                    style={{ fontVariationSettings: '"opsz" 12' }}
-                  >
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-text-primary group-hover:text-accent">
                     {facet.label}
                   </span>
                   {hasSelection && (
-                    <span
-                      className="font-display text-sm font-medium leading-none text-accent"
-                      style={{ fontVariationSettings: '"opsz" 14' }}
-                    >
+                    <span className="text-xs font-semibold tabular-nums leading-none text-accent">
                       · {selected.length}
                     </span>
                   )}
@@ -245,7 +245,7 @@ export function FacetSidebar({
                         }))
                       }
                       placeholder={searchWithinPlaceholder}
-                      className="mb-2 w-full border-0 border-b border-border/70 bg-transparent py-1 text-xs text-text-primary placeholder:font-display placeholder:italic placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-0"
+                      className="mb-2 w-full border-0 border-b border-border/70 bg-transparent py-1 text-xs text-text-primary placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-0"
                     />
                   )}
                   <ul className="space-y-px">
@@ -320,22 +320,40 @@ export function FacetSidebar({
                             {typeof opt.count === "number" && (
                               <span
                                 className={cn(
-                                  "shrink-0 font-display text-[11px] tabular-nums leading-none transition-colors",
+                                  "shrink-0 text-[11px] tabular-nums leading-none transition-colors",
                                   isChecked
                                     ? "text-accent"
                                     : "text-text-muted group-hover/option:text-text-secondary",
+                                  // Hide on hover when the "Only" action is
+                                  // available so the count doesn't fight the
+                                  // hover affordance for real estate.
+                                  onOnly && "group-hover/option:invisible",
                                 )}
-                                style={{ fontVariationSettings: '"opsz" 9' }}
                               >
                                 {opt.count}
                               </span>
+                            )}
+                            {onOnly && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  onOnly(facet.id, opt.value);
+                                }}
+                                tabIndex={-1}
+                                aria-label={`${onlyLabel} ${opt.label}`}
+                                className="invisible absolute right-2 text-[10px] font-semibold uppercase tracking-wider text-accent underline-offset-2 hover:underline group-hover/option:visible"
+                              >
+                                {onlyLabel}
+                              </button>
                             )}
                           </label>
                         </li>
                       );
                     })}
                     {visibleOptions.length === 0 && (
-                      <li className="px-3 py-2 font-display text-xs italic text-text-muted">
+                      <li className="px-3 py-2 text-xs italic text-text-muted">
                         no matches
                       </li>
                     )}

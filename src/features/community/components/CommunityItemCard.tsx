@@ -15,32 +15,6 @@ const ADDON_KIND_KEYS: Record<AddonKind, string> = {
   grammar: "community.addonKindGrammar",
 };
 
-/**
- * Editorial library cards get a thin accent strip down the left edge, colored
- * per language. Gives a wall of cards visual rhythm without requiring real
- * cover art for every deck. Falls back to a neutral accent for unknown
- * languages so anything new still renders.
- */
-function languageAccentClass(languageId: string): string {
-  switch (languageId) {
-    case "ja":
-      return "bg-gradient-to-b from-rose-400 to-rose-600";
-    case "ko":
-      return "bg-gradient-to-b from-sky-400 to-indigo-600";
-    case "zh":
-      return "bg-gradient-to-b from-red-500 to-amber-500";
-    case "es":
-      return "bg-gradient-to-b from-amber-400 to-orange-600";
-    case "fr":
-      return "bg-gradient-to-b from-blue-500 to-indigo-700";
-    case "de":
-      return "bg-gradient-to-b from-zinc-700 to-amber-500";
-    case "en":
-      return "bg-gradient-to-b from-emerald-400 to-emerald-600";
-    default:
-      return "bg-gradient-to-b from-accent to-accent-hover";
-  }
-}
 
 export type CommunityItemCardItem = {
   id: string;
@@ -168,25 +142,12 @@ export function CommunityItemCard({
     );
   }
 
-  // full — editorial library card. Vertical layout with a language-accent
-  // strip on the left, serif title, and a bottom-aligned footer so cards
+  // full — library card. Vertical layout, bottom-aligned footer so cards
   // share equal heights in a grid (use `auto-rows-fr` on the parent).
-  const accentClass = languageAccentClass(item.languageId);
+  // Cover art will land later; until then the cards stay calm.
   return (
-    <article
-      className="group/card relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-card"
-    >
-      {/* Language accent strip — vertical bar on the left edge */}
-      <span
-        aria-hidden
-        className={cn(
-          "pointer-events-none absolute inset-y-0 left-0 w-[3px] transition-opacity",
-          accentClass,
-          "opacity-70 group-hover/card:opacity-100",
-        )}
-      />
-
-      <div className="flex flex-1 flex-col gap-3 p-5 pl-6">
+    <article className="group/card relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-card">
+      <div className="flex flex-1 flex-col gap-3 p-5">
         {/* Top: language chip + kind + community badge + owner-status */}
         <div className="flex flex-wrap items-center gap-2 text-[11px]">
           <span
@@ -220,11 +181,9 @@ export function CommunityItemCard({
           )}
         </div>
 
-        {/* Title — editorial serif, 2 lines max */}
-        <h3
-          className="font-display text-[19px] font-semibold leading-snug text-text-primary line-clamp-2 transition-colors group-hover/card:text-accent"
-          style={{ fontVariationSettings: '"opsz" 24' }}
-        >
+        {/* Title — bold sans, 2 lines max. Body font; themes can override
+            via `font-display` if a theme provides one. */}
+        <h3 className="font-display text-[17px] font-semibold leading-snug text-text-primary line-clamp-2 transition-colors group-hover/card:text-accent">
           {item.name}
         </h3>
 
@@ -232,7 +191,7 @@ export function CommunityItemCard({
             footer stays bottom-aligned across cards of varying length */}
         <p className="line-clamp-2 flex-1 text-[13.5px] leading-relaxed text-text-secondary">
           {item.description || (
-            <span className="font-display italic text-text-muted">No description yet.</span>
+            <span className="italic text-text-muted">No description yet.</span>
           )}
         </p>
 
@@ -261,37 +220,32 @@ export function CommunityItemCard({
                 </span>
               )
             ) : (
-              <span className="font-display italic text-text-muted">unattributed</span>
+              <span className="italic text-text-muted">unattributed</span>
             )}
-            <span
-              className="font-display tabular-nums text-text-muted"
-              style={{ fontVariationSettings: '"opsz" 10' }}
-              aria-label={`${item.itemCount ?? 0} ${t("community.addonsItems")}`}
-            >
-              {item.itemCount ?? "—"} {t("community.addonsItems")}
-            </span>
-            {item.discussionCount != null && item.discussionCount > 0 && (
+            {/* Item count only makes sense for things that have a card
+                count (decks / courses). Stories don't render this. */}
+            {!isStory && typeof item.itemCount === "number" && (
               <span
-                className="font-display tabular-nums text-text-muted"
-                style={{ fontVariationSettings: '"opsz" 10' }}
+                className="tabular-nums text-text-muted"
+                aria-label={`${item.itemCount} ${t("community.addonsItems")}`}
               >
+                {item.itemCount} {t("community.addonsItems")}
+              </span>
+            )}
+            {item.discussionCount != null && item.discussionCount > 0 && (
+              <span className="tabular-nums text-text-muted">
                 · {item.discussionCount} {t("community.discussions")}
               </span>
             )}
           </div>
 
           <div className="flex shrink-0 items-center gap-1.5">
-            {isDeck && deckId ? (
+            {/* Upvote only renders for decks — no vote API for stories yet,
+                and rendering a dead button was the kind of AI-blip the
+                maintainer keeps flagging. */}
+            {isDeck && deckId && (
               <DeckUpvoteButton deckId={deckId} fallbackCount={item.upvoteCount ?? 0} />
-            ) : (
-              <button
-                type="button"
-                className="rounded px-2 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
-                aria-label="Upvote"
-              >
-              <Icon name="chevronUp" size={14} className="inline" />
-            </button>
-          )}
+            )}
           {ownedDeckId ? (
             <Link
               to={langPath(`community/decks/${ownedDeckId}`)}

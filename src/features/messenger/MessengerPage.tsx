@@ -22,7 +22,7 @@ export default function MessengerPage() {
       <header className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <Link
-            to={langPath("social-preview")}
+            to={langPath("social")}
             className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-surface text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
             aria-label="Back to social"
           >
