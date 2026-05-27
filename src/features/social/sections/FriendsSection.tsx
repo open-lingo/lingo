@@ -125,7 +125,16 @@ export function FriendsSearchAndList() {
           {t("social.friends.title", "Your friends")}
           <span className="ml-1.5 text-text-secondary">{filtered.length}</span>
         </h3>
-        <div className="relative ml-auto w-full max-w-[260px]">
+        {/* "See all →" links into the dedicated friend-management surface
+         *  (FriendsPage). Kept inline so the summary card stays a quick-look
+         *  card on the social page; the deep view owns sort/filter/blocks. */}
+        <Link
+          to={langPath("social/friends")}
+          className="ml-auto whitespace-nowrap text-[11px] font-semibold text-accent hover:underline focus:underline focus:outline-none"
+        >
+          {t("social.friends.seeAll", "See all")} →
+        </Link>
+        <div className="relative w-full max-w-[220px]">
           <span className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-text-muted">
             <Icon name="search" size={13} aria-hidden />
           </span>
