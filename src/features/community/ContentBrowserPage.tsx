@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect, useCallback } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
@@ -664,9 +664,6 @@ export function ContentBrowserPage() {
     );
   }, [setSearchParams]);
 
-  const hasActiveFilters = chips.length > 0 || showSearchResults;
-  const showFeatured = !hasActiveFilters && rows.length === 0;
-
   return (
     <CommunityDecksLayout browseCount={browseCount} searchSlot={searchSlot}>
       <div className="flex flex-col gap-6 lg:flex-row lg:gap-6">
@@ -766,8 +763,6 @@ export function ContentBrowserPage() {
               </label>
             </div>
           </div>
-
-          {showFeatured && <FeaturedStrip />}
 
           {view === "list" ? (
             <CommunityContentTable
@@ -882,55 +877,3 @@ function Pagination({
   );
 }
 
-// Each card links to a pre-filtered Explore URL. Tag-based filtering
-// matches against deck name/description (substring) since tags aren't
-// yet a structured field — see ContentBrowserPage filter pipeline.
-// Korean Pathway has no canonical tag yet so it falls back to ?lang=ko.
-const FEATURED_MOCK = [
-  {
-    id: "featured-1",
-    title: "Korean Beginner Pathway",
-    subtitle: "Official · 240 cards",
-    accent: "from-accent to-accent-hover",
-    to: "?lang=ko",
-  },
-  {
-    id: "featured-2",
-    title: "JLPT N5 Vocabulary",
-    subtitle: "Maintained · 600 cards",
-    accent: "from-warning to-error",
-    to: "?tag=jlpt-n5",
-  },
-  {
-    id: "featured-3",
-    title: "K-Drama Phrases",
-    subtitle: "Verified · 180 cards",
-    accent: "from-info to-accent",
-    to: "?tag=kdrama",
-  },
-];
-
-function FeaturedStrip() {
-  return (
-    <div className="grid gap-3 sm:grid-cols-3">
-      {FEATURED_MOCK.map((item) => (
-        <Link
-          key={item.id}
-          to={item.to}
-          className="block overflow-hidden rounded-lg border border-border bg-surface transition hover:border-accent hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-        >
-          <div className={`h-16 bg-gradient-to-br ${item.accent}`} aria-hidden />
-          <div className="p-3">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-              Featured
-            </p>
-            <p className="mt-1 truncate text-sm font-semibold text-text-primary">
-              {item.title}
-            </p>
-            <p className="text-xs text-text-muted">{item.subtitle}</p>
-          </div>
-        </Link>
-      ))}
-    </div>
-  );
-}
