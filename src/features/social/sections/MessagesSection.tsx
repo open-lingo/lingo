@@ -11,10 +11,13 @@
  * endpoint yet, so optimistic sends append to client state with a clear UX
  * hint ("Saved locally") and do NOT persist on the server.
  *
+ * "New conversation" picker uses `getOrCreateThreadWith(userId)` so the
+ * caller can spin up a thread for any friend without first checking whether
+ * one exists.
+ *
  * TODO(backend): POST /social/threads/{thread_id}/messages → 201 Message
- * TODO(backend): POST /social/threads/with/{user_id} → 200 ThreadItem
  */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { userSlug } from "@/features/social/userSlug";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -26,11 +29,12 @@ import { cn } from "@/shared/components/ui/cn";
 import { UserAvatar } from "../components/UserAvatar";
 import { UsernameDisplay } from "../components/UsernameDisplay";
 import { KudosButton } from "../components/KudosButton";
+import { PickFriendModal } from "../components/PickFriendModal";
 import { useThreads } from "../hooks/useSocial";
 import { useApiOptional } from "@/shared/api";
 import { useAuth } from "@/shared/auth/useAuth";
-import { adaptThreadDetail } from "../hooks/socialAdapters";
-import type { ChatMessage, ChatThread } from "../mock/mockSocial";
+import { adaptThread, adaptThreadDetail } from "../hooks/socialAdapters";
+import type { ChatMessage, ChatThread, SocialUser } from "../mock/mockSocial";
 
 type Props = {
   /** Pre-select a thread by user id (deep-link path param `friendId`). */
@@ -50,6 +54,9 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
   const [mobilePane, setMobilePane] = useState<"list" | "thread">(
     initialFriendId ? "thread" : "list",
   );
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const [emojiOpen, setEmojiOpen] = useState(false);
+  const composerRef = useRef<HTMLTextAreaElement | null>(null);
 
   // Hydrate local thread state once data lands. Subsequent edits (sends)
   // live in local state until the real API offers a send-message endpoint.
@@ -102,19 +109,74 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
     );
   }, [detailQuery.data, meUserId]);
 
+  /** Open (or create) a thread with the picked friend. Reuses the existing
+   *  thread when one already exists locally, otherwise asks the backend via
+   *  `getOrCreateThreadWith` and splices the result into the local list. In
+   *  the mock-only / no-API path we fall back to a synthetic local thread. */
+  const handlePickFriend = async (friend: SocialUser) => {
+    setPickerOpen(false);
+    const existing = threads.find((th) => th.user.id === friend.id);
+    if (existing) {
+      setActiveId(existing.id);
+      setMobilePane("thread");
+      return;
+    }
+    if (apiOpt) {
+      try {
+        const item = await apiOpt.social.getOrCreateThreadWith(friend.id);
+        const adapted = adaptThread(item);
+        setThreads((prev) =>
+          prev.some((th) => th.id === adapted.id) ? prev : [adapted, ...prev],
+        );
+        setActiveId(adapted.id);
+        setMobilePane("thread");
+        return;
+      } catch {
+        // Fall through to the local-thread fallback below so the picker
+        // still feels responsive when the endpoint is unreachable.
+      }
+    }
+    // Mock / offline fallback: synthesize a thread that lives only in client
+    // state (matches the existing local-only send pattern).
+    const stub: ChatThread = {
+      id: `t-local-${friend.id}`,
+      user: friend,
+      lastMessage: "",
+      lastTimeLabel: "",
+      unreadCount: 0,
+      messages: [],
+    };
+    setThreads((prev) =>
+      prev.some((th) => th.user.id === friend.id) ? prev : [stub, ...prev],
+    );
+    setActiveId(stub.id);
+    setMobilePane("thread");
+  };
+
   if (isLoading || threads.length === 0) {
     if (!isLoading && (data?.length ?? 0) === 0) {
       return (
-        <Card padding="md">
-          <EmptyState
-            icon={<Icon name="messageCircle" size={20} aria-hidden />}
-            title={t("social.messages.emptyTitle", "No messages yet")}
-            description={t(
-              "social.messages.emptyDesc",
-              "Once you add friends, your conversations will show up here.",
-            )}
+        <>
+          <Card padding="md">
+            <EmptyState
+              icon={<Icon name="messageCircle" size={20} aria-hidden />}
+              title={t("social.messages.emptyTitle", "No messages yet")}
+              description={t(
+                "social.messages.emptyDesc",
+                "Once you add friends, your conversations will show up here.",
+              )}
+              action={{
+                label: t("social.messages.startConversation", "New conversation"),
+                onClick: () => setPickerOpen(true),
+              }}
+            />
+          </Card>
+          <PickFriendModal
+            open={pickerOpen}
+            onClose={() => setPickerOpen(false)}
+            onPick={handlePickFriend}
           />
-        </Card>
+        </>
       );
     }
     return <MessagesSkeleton heightClassName={heightClassName} />;
@@ -168,17 +230,27 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
         >
           <div className="border-b border-border px-4 py-3">
             <div className="flex items-center justify-between gap-2">
+              {/* Per the messenger redesign, the "New conversation" affordance
+               *  sits at the TOP-LEFT of the thread list so right-handed
+               *  thumbs can reach it on mobile. Plus-icon button reads as
+               *  "create" — the legacy pencil Link merely jumped back to
+               *  the social page, which was a different action. */}
+              <button
+                type="button"
+                onClick={() => setPickerOpen(true)}
+                className="flex h-7 w-7 items-center justify-center rounded-lg text-text-muted transition hover:bg-accent-muted hover:text-accent"
+                aria-label={t(
+                  "social.messages.newAria",
+                  "Start a new conversation",
+                )}
+                title={t("social.messages.newAria", "Start a new conversation")}
+              >
+                <Icon name="plus" size={16} aria-hidden />
+              </button>
               <h3 className="text-sm font-semibold text-text-primary">
                 {t("social.messages.title", "Messages")}
               </h3>
-              <Link
-                to="../social"
-                className="flex h-7 w-7 items-center justify-center rounded-lg text-text-muted transition hover:bg-accent-muted hover:text-accent"
-                aria-label={t("social.messages.newAria", "Start a new conversation from your friends list")}
-                title={t("social.messages.newAria", "Start a new conversation from your friends list")}
-              >
-                <Icon name="pencil" size={14} aria-hidden />
-              </Link>
+              <span className="h-7 w-7" aria-hidden />
             </div>
             <div className="relative mt-2">
               <span className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-text-muted">
@@ -360,14 +432,43 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
               )}
             </p>
             <div className="flex items-end gap-2">
-              <button
-                type="button"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
-                aria-label={t("social.messages.addEmojiAria", "Add emoji")}
-              >
-                <Icon name="smile" size={18} aria-hidden />
-              </button>
+              {/* Emoji picker trigger + popover. We keep the popover tightly
+               *  scoped to a hand-curated grid (no library, no unicode
+               *  search) — Spencer's brief: "20-30 chars … no need for
+               *  unicode search / categories". Clicking an emoji appends
+               *  to the draft and returns focus to the textarea so the user
+               *  can keep typing. */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setEmojiOpen((o) => !o)}
+                  aria-haspopup="dialog"
+                  aria-expanded={emojiOpen}
+                  className={cn(
+                    "flex h-9 w-9 items-center justify-center rounded-lg transition",
+                    emojiOpen
+                      ? "bg-accent-muted text-accent"
+                      : "text-text-muted hover:bg-surface-muted hover:text-text-primary",
+                  )}
+                  aria-label={t("social.messages.addEmojiAria", "Add emoji")}
+                >
+                  <Icon name="smile" size={18} aria-hidden />
+                </button>
+                {emojiOpen ? (
+                  <EmojiPickerPopover
+                    onPick={(emoji) => {
+                      setDraft((d) => d + emoji);
+                      // Return focus to the textarea so the user can keep
+                      // typing after picking. Close-on-outside-click handles
+                      // dismissal.
+                      requestAnimationFrame(() => composerRef.current?.focus());
+                    }}
+                    onClose={() => setEmojiOpen(false)}
+                  />
+                ) : null}
+              </div>
               <textarea
+                ref={composerRef}
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 onKeyDown={(e) => {
@@ -400,7 +501,72 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
           </div>
         </section>
       </div>
+
+      <PickFriendModal
+        open={pickerOpen}
+        onClose={() => setPickerOpen(false)}
+        onPick={handlePickFriend}
+      />
     </Card>
+  );
+}
+
+/** Hand-curated grid of common chat emoji. No library, no unicode search,
+ *  no category tabs — keep the popover small and quick to scan. Tap an
+ *  emoji to append it to the composer draft. */
+const QUICK_EMOJI = [
+  "😀", "😂", "🤣", "😊", "😍", "😘",
+  "😎", "🤔", "😅", "🙃", "😴", "🥳",
+  "😭", "😡", "🤯", "🙄", "👍", "👎",
+  "👏", "🙏", "🙌", "👌", "💪", "🤝",
+  "❤️", "🔥", "✨", "🎉", "💯", "🌟",
+];
+
+function EmojiPickerPopover({
+  onPick,
+  onClose,
+}: {
+  onPick: (emoji: string) => void;
+  onClose: () => void;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+    }
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      ref={ref}
+      role="dialog"
+      aria-label="Emoji picker"
+      className="absolute bottom-full left-0 z-40 mb-2 w-[260px] rounded-lg border border-border bg-surface p-2 shadow-popover"
+    >
+      <div className="grid grid-cols-6 gap-1">
+        {QUICK_EMOJI.map((emoji) => (
+          <button
+            key={emoji}
+            type="button"
+            onClick={() => onPick(emoji)}
+            className="flex h-9 w-9 items-center justify-center rounded-md text-xl transition hover:bg-surface-muted focus:bg-surface-muted focus:outline-none"
+            aria-label={`Insert ${emoji}`}
+          >
+            <span aria-hidden>{emoji}</span>
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }
 

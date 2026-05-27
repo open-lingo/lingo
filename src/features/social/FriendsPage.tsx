@@ -229,7 +229,7 @@ function AllFriendsTab() {
       if (langFilter !== "all" && f.language?.code !== langFilter) return false;
       if (!q) return true;
       return (
-        f.name.toLowerCase().includes(q) ||
+        (f.name ?? "").toLowerCase().includes(q) ||
         (f.username ?? "").toLowerCase().includes(q)
       );
     });

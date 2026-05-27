@@ -15,5 +15,9 @@ import type { SocialUser } from "./mock/mockSocial";
 
 export function userSlug(user: Pick<SocialUser, "username" | "name">): string {
   if (user.username && user.username.length > 0) return user.username;
+  // Defensive: some records arrive with no name (mocks, partial backend
+  // responses). Return an empty slug rather than crashing — the link will
+  // 404 cleanly instead of taking down the whole render.
+  if (!user.name) return "";
   return user.name.toLowerCase().replace(/[^a-z0-9]+/g, "");
 }

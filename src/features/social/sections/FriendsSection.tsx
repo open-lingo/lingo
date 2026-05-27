@@ -66,7 +66,7 @@ export function FriendsSearchAndList() {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return friends;
-    return friends.filter((f) => f.name.toLowerCase().includes(q));
+    return friends.filter((f) => (f.name ?? "").toLowerCase().includes(q));
   }, [friends, query]);
 
   // Grouping: active first, then idle. Each group sorted by recency

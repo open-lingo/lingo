@@ -39,11 +39,11 @@ export default {
       },
       fontFamily: {
         japanese: ['"Noto Sans JP"', "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        // Editorial display serif — used by community surfaces (cards,
-        // section headers) for character. Variable font; use
-        // `style={{ fontVariationSettings: '"opsz" N' }}` at the use-site
-        // to tune optical sizing.
-        display: ['"Fraunces"', "ui-serif", "Georgia", "serif"],
+        // Editorial display family — resolves to system serif by default,
+        // overridden to Fraunces by the "Academia" theme (or wherever an
+        // opt-in skin wants a serif voice). Keeps the typographic
+        // hierarchy intact when Fraunces isn't loaded.
+        display: ['var(--font-display, "ui-serif")', "Georgia", "serif"],
       },
       boxShadow: {
         card: "var(--shadow-card)",
