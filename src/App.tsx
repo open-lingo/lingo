@@ -171,33 +171,26 @@ const NewThreadPage = lazyRetry(() =>
 const AdminLayout = lazyRetry(() =>
   import("@/features/admin/AdminLayout").then((m) => ({ default: m.AdminLayout })),
 );
-const AdminUsersLayout = lazyRetry(() =>
-  import("@/features/admin/AdminUsersLayout").then((m) => ({ default: m.AdminUsersLayout })),
+const AdminHomePage = lazyRetry(() =>
+  import("@/features/admin/AdminHomePage").then((m) => ({ default: m.AdminHomePage })),
 );
-const AdminUserEmptyState = lazyRetry(() =>
-  import("@/features/admin/AdminUserEmptyState").then((m) => ({ default: m.AdminUserEmptyState })),
+const AdminUsersListPage = lazyRetry(() =>
+  import("@/features/admin/AdminUsersListPage").then((m) => ({ default: m.AdminUsersListPage })),
 );
 const AdminUserDetailPage = lazyRetry(() =>
   import("@/features/admin/AdminUserDetailPage").then((m) => ({ default: m.AdminUserDetailPage })),
 );
-const AdminContentLayout = lazyRetry(() =>
-  import("@/features/admin/AdminContentLayout").then((m) => ({ default: m.AdminContentLayout })),
+const AdminModerationPage = lazyRetry(() =>
+  import("@/features/admin/AdminModerationPage").then((m) => ({ default: m.AdminModerationPage })),
+);
+const AdminOpsPage = lazyRetry(() =>
+  import("@/features/admin/AdminOpsPage").then((m) => ({ default: m.AdminOpsPage })),
 );
 const AdminDecksPage = lazyRetry(() =>
   import("@/features/admin/AdminDecksPage").then((m) => ({ default: m.AdminDecksPage })),
 );
 const AdminStoriesPage = lazyRetry(() =>
   import("@/features/admin/AdminStoriesPage").then((m) => ({ default: m.AdminStoriesPage })),
-);
-const AdminOperationsPage = lazyRetry(() =>
-  import("@/features/admin/AdminOperationsPage").then((m) => ({
-    default: m.AdminOperationsPage,
-  })),
-);
-const AdminXpConfigPage = lazyRetry(() =>
-  import("@/features/admin/AdminXpConfigPage").then((m) => ({
-    default: m.AdminXpConfigPage,
-  })),
 );
 const AdminLessonsListPage = lazyRetry(() =>
   import("@/features/admin/lessons/AdminLessonsListPage").then((m) => ({
@@ -246,28 +239,25 @@ const router = createBrowserRouter([
         path: "admin",
         element: <AdminLayout />,
         children: [
-          { index: true, element: <Navigate to="/admin/users" replace /> },
-          {
-            path: "users",
-            element: <AdminUsersLayout />,
-            children: [
-              { index: true, element: <AdminUserEmptyState /> },
-              { path: ":userId", element: <AdminUserDetailPage /> },
-            ],
-          },
+          { index: true, element: <Navigate to="/admin/home" replace /> },
+          { path: "home", element: <AdminHomePage /> },
+          { path: "users", element: <AdminUsersListPage /> },
+          { path: "users/:userId", element: <AdminUserDetailPage /> },
+          { path: "moderation", element: <AdminModerationPage /> },
+          { path: "ops", element: <AdminOpsPage /> },
+          // Deep-link compatibility — preserve old URLs during the migration.
+          { path: "operations", element: <Navigate to="/admin/ops" replace /> },
+          { path: "xp-config", element: <Navigate to="/admin/ops" replace /> },
           {
             path: "content",
-            element: <AdminContentLayout />,
             children: [
-              { index: true, element: <Navigate to="decks" replace /> },
+              { index: true, element: <Navigate to="/admin/moderation" replace /> },
               { path: "decks", element: <AdminDecksPage /> },
               { path: "stories", element: <AdminStoriesPage /> },
               { path: "lessons", element: <AdminLessonsListPage /> },
               { path: "lessons/:lessonId", element: <AdminLessonEditorPage /> },
             ],
           },
-          { path: "operations", element: <AdminOperationsPage /> },
-          { path: "xp-config", element: <AdminXpConfigPage /> },
         ],
       },
       {

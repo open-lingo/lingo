@@ -1215,6 +1215,38 @@
     "badgeBlocked": "Blocked"
   },
   "admin": {
+    "title": "Admin",
+    "nav": {
+      "label": "Admin sections",
+      "home": "Home",
+      "users": "Users",
+      "moderation": "Moderation",
+      "ops": "Ops"
+    },
+    "breadcrumbs": "Breadcrumbs",
+    "searchPlaceholder": "Search…",
+    "home": {
+      "title": "Dashboard",
+      "placeholder": "Vital signs land here."
+    },
+    "moderation": {
+      "pendingDecks": "Pending decks",
+      "pendingStories": "Pending stories",
+      "reports": "Reported content",
+      "banned": "Banned users",
+      "banUser": "Ban a user",
+      "reportsTitle": "No reports yet",
+      "reportsDesc": "When users flag content it'll appear here."
+    },
+    "ops": {
+      "tabs": {
+        "opsBundle": "Costs · Subs · Ads · Jobs",
+        "xp": "XP config",
+        "settings": "Settings"
+      },
+      "settingsTitle": "Settings — coming soon",
+      "settingsDesc": "Future home of platform-level runtime config (CORS origins, feature flags, etc)."
+    },
     "users": "Users",
     "content": "Content",
     "decks": "Decks",
