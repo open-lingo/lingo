@@ -36,7 +36,7 @@ export default function MessengerPage() {
           </div>
         </div>
         <Link
-          to={langPath("social-preview")}
+          to={langPath("social/friends")}
           className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-2 text-sm font-medium text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
         >
           <Icon name="users" size={15} aria-hidden />
