@@ -7,6 +7,7 @@ import { OpsApi } from "./ops";
 import { ProgressApi } from "./progress";
 import { SocialApi } from "./social";
 import { StoriesApi } from "./stories";
+import { TagsApi } from "./tags";
 import { UsersApi } from "./users";
 import { SrsApi } from "./srs";
 
@@ -20,6 +21,13 @@ interface ApiContext {
   social: SocialApi;
   /** Public endpoints — no Auth0 token, fires immediately on first paint. */
   finance: FinanceApi;
+  /**
+   * Canonical deck tag dictionary (admin-curated). Public read, skips
+   * auth so the community-browse facet sidebar can paint without
+   * waiting on an Auth0 token. Admin mutations go through `AdminApi`
+   * once that surface is wired (follow-up).
+   */
+  tags: TagsApi;
   /**
    * lingo-ops admin API. Hits a different host than lingo-core
    * (VITE_OPS_API_BASE_URL, default localhost:8001 for local dev).
@@ -63,6 +71,13 @@ export function ApiProvider({ children }: { children: ReactNode }) {
       // FinanceApi hits public endpoints — skip auth so the funding meter
       // can paint without blocking on Auth0 (and works for signed-out users).
       finance: new FinanceApi({
+        baseUrl: API_BASE_URL,
+        getAccessToken: () => Promise.resolve(""),
+        skipAuth: true,
+      }),
+      // Tags list endpoint is public too — same pattern as FinanceApi so the
+      // community-browse facet chips can render for signed-out users.
+      tags: new TagsApi({
         baseUrl: API_BASE_URL,
         getAccessToken: () => Promise.resolve(""),
         skipAuth: true,

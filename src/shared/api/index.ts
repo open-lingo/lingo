@@ -4,6 +4,8 @@ export { OpsApi } from "./ops";
 export { UsersApi } from "./users";
 export type { User, UserSettings, CreateUserPayload, UpdateUserPayload, Subscription } from "./users";
 export { SrsApi } from "./srs";
+export { TagsApi } from "./tags";
+export type { Tag } from "./tags";
 export { SocialApi } from "./social";
 export type {
   Friend,
