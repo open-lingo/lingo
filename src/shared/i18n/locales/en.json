@@ -20,7 +20,9 @@
     "hidePreview": "Hide preview",
     "showPreview": "Show preview",
     "backToHome": "Back to home",
-    "user": "User"
+    "user": "User",
+    "previous": "Previous",
+    "next": "Next"
   },
   "nav": {
     "siteName": "Open Lingo",
@@ -1225,6 +1227,23 @@
     },
     "breadcrumbs": "Breadcrumbs",
     "searchPlaceholder": "Search…",
+    "usersList": {
+      "sort": "Sort by",
+      "sortJoined": "Joined",
+      "sortLastActive": "Last active",
+      "sortXp": "XP",
+      "order": "Order",
+      "desc": "Descending",
+      "asc": "Ascending",
+      "searchingFor": "Searching for",
+      "tier": "Tier",
+      "xp": "XP",
+      "lastActive": "Last active",
+      "joined": "Joined",
+      "community": "Community",
+      "noMatches": "No users match that search.",
+      "pageX": "Page {{n}}"
+    },
     "home": {
       "title": "Dashboard",
       "placeholder": "Vital signs land here.",
