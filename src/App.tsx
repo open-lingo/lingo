@@ -186,6 +186,9 @@ const AdminModerationPage = lazyRetry(() =>
 const AdminOpsPage = lazyRetry(() =>
   import("@/features/admin/AdminOpsPage").then((m) => ({ default: m.AdminOpsPage })),
 );
+const AdminAuditPage = lazyRetry(() =>
+  import("@/features/admin/AdminAuditPage").then((m) => ({ default: m.AdminAuditPage })),
+);
 const AdminDecksPage = lazyRetry(() =>
   import("@/features/admin/AdminDecksPage").then((m) => ({ default: m.AdminDecksPage })),
 );
@@ -201,6 +204,9 @@ const AdminLessonEditorPage = lazyRetry(() =>
   import("@/features/admin/lessons/AdminLessonEditorPage").then((m) => ({
     default: m.AdminLessonEditorPage,
   })),
+);
+const AdminEventsPage = lazyRetry(
+  () => import("@/features/admin/events/EventsPage"),
 );
 const PublicProfilePage = lazyRetry(() =>
   import("@/features/profile/PublicProfilePage").then((m) => ({
@@ -245,6 +251,8 @@ const router = createBrowserRouter([
           { path: "users/:userId", element: <AdminUserDetailPage /> },
           { path: "moderation", element: <AdminModerationPage /> },
           { path: "ops", element: <AdminOpsPage /> },
+          { path: "ops/audit", element: <AdminAuditPage /> },
+          { path: "events", element: <AdminEventsPage /> },
           // Deep-link compatibility — preserve old URLs during the migration.
           { path: "operations", element: <Navigate to="/admin/ops" replace /> },
           { path: "xp-config", element: <Navigate to="/admin/ops" replace /> },

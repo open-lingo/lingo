@@ -65,6 +65,12 @@ const NAV_ITEMS: NavItem[] = [
       p.startsWith("/admin/operations") ||
       p.startsWith("/admin/xp-config"),
   },
+  {
+    to: "/admin/events",
+    labelKey: "admin.nav.events",
+    labelFallback: "Events",
+    match: (p) => p.startsWith("/admin/events"),
+  },
 ];
 
 function activeItem(pathname: string): NavItem | null {
