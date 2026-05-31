@@ -17,6 +17,11 @@
  */
 
 import { ApiClient } from "./client";
+import type {
+  EventFilters,
+  EventListResponse,
+  EventRow,
+} from "@/features/admin/events/types";
 
 const PREFIX = "/api/ops/v1";
 
@@ -222,5 +227,23 @@ export class OpsApi extends ApiClient {
   }
   async getJobsSummary(): Promise<JobsSummaryResponse> {
     return this.get<JobsSummaryResponse>(`${PREFIX}/jobs/summary`);
+  }
+
+  // Events
+  async listEvents(filters: EventFilters = {}): Promise<EventListResponse> {
+    return this.get<EventListResponse>(`${PREFIX}/events`, {
+      params: {
+        user_id: filters.userId,
+        event_type: filters.eventType,
+        status: filters.status,
+        since: filters.since,
+        until: filters.until,
+        limit: filters.limit,
+      },
+    });
+  }
+
+  async getEvent(id: string): Promise<EventRow> {
+    return this.get<EventRow>(`${PREFIX}/events/${encodeURIComponent(id)}`);
   }
 }
