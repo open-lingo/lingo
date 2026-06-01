@@ -36,13 +36,13 @@ export function AccountOverviewCard() {
   const isJa = language?.id === "ja";
 
   return (
-    <Card padding="lg" className="h-full">
+    <Card padding="md">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
             {t("home.restructured.account.kicker", { defaultValue: "Account overview" })}
           </p>
-          <h2 className="mt-1 text-lg font-semibold text-text-primary sm:text-xl">
+          <h2 className="mt-0.5 text-base font-semibold text-text-primary sm:text-lg">
             {t("home.restructured.account.headline", {
               defaultValue: "Your progress at a glance",
             })}
@@ -57,7 +57,7 @@ export function AccountOverviewCard() {
         </span>
       </div>
 
-      <div className="mt-5 grid gap-4 sm:grid-cols-3 sm:items-start">
+      <div className="mt-4 grid gap-4 sm:grid-cols-3 sm:items-start">
         <div className="flex items-center gap-3">
           <ProgressRing
             percent={dailyPct}
@@ -126,7 +126,7 @@ export function AccountOverviewCard() {
         </div>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-4">
         <div className="flex items-baseline justify-between text-sm">
           <span className="font-medium text-text-secondary">
             {t("home.restructured.account.xpLine", {
@@ -159,7 +159,7 @@ export function AccountOverviewCard() {
       </div>
 
       {isJa ? (
-        <div className="mt-5 flex items-center justify-between gap-4 rounded-xl bg-surface-muted px-4 py-3">
+        <div className="mt-4 flex items-center justify-between gap-4 rounded-xl bg-surface-muted px-4 py-2.5">
           <div className="min-w-0">
             <p className="text-sm font-medium text-text-primary">
               {t("home.restructured.account.kanaTitle", {

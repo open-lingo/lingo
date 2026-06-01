@@ -13,28 +13,28 @@ export function RecentPracticeTile() {
 
   return (
     <Link to={langPath(recent.href)} className="block h-full">
-      <Card padding="md" className="group h-full transition hover:border-accent/60 hover:shadow-md">
+      <Card padding="sm" className="group h-full transition hover:border-accent/60 hover:shadow-md">
         <div className="flex items-start justify-between gap-3">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-muted text-text-secondary transition group-hover:bg-accent-muted group-hover:text-accent">
-            <Icon name={recent.iconName} size={22} aria-hidden />
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-surface-muted text-text-secondary transition group-hover:bg-accent-muted group-hover:text-accent">
+            <Icon name={recent.iconName} size={20} aria-hidden />
           </span>
           <span className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
             {t("home.restructured.recent.kicker", { defaultValue: "Recent" })}
           </span>
         </div>
-        <p className="mt-3 text-sm font-medium text-text-secondary">
+        <p className="mt-2 text-sm font-medium text-text-secondary">
           {t("home.restructured.recent.label", { defaultValue: "Continue practice" })}
         </p>
         <p className="text-base font-semibold text-text-primary leading-tight">
           {recent.title}
         </p>
-        <p className="mt-1 text-xs text-text-muted">
+        <p className="mt-0.5 text-xs text-text-muted">
           {t("home.restructured.recent.subtitle", {
             defaultValue: "Last reviewed {{hours}}h ago",
             hours: recent.subtitleHoursAgo,
           })}
         </p>
-        <div className="mt-4 flex items-center gap-1.5 text-sm font-medium text-accent">
+        <div className="mt-3 flex items-center gap-1.5 text-sm font-medium text-accent">
           {t("home.restructured.recent.cta", { defaultValue: "Pick up where you left off" })}
           <Icon
             name="chevronRight"

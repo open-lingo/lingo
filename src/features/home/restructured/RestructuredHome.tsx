@@ -110,7 +110,7 @@ export function RestructuredHome({ greetingName }: Props) {
   })();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <HeroSection
         name={greetingName}
         language={langConfig ?? null}
@@ -128,7 +128,7 @@ export function RestructuredHome({ greetingName }: Props) {
           gridTemplateAreas needed (which used to apply at all widths
           and blow out mobile because it referenced columns that didn't
           exist below lg). */}
-      <div className="grid gap-5 lg:grid-cols-3">
+      <div className="grid gap-4 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <AccountOverviewCard />
         </div>

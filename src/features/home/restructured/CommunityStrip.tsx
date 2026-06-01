@@ -91,7 +91,7 @@ export function CommunityStrip() {
 
   return (
     <Card padding="none" className="overflow-hidden">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-3.5">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-2.5">
         <div className="flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-muted text-accent">
             <Icon name="globe" size={18} aria-hidden />
@@ -126,7 +126,7 @@ export function CommunityStrip() {
           <li key={row.id}>
             <Link
               to={row.href}
-              className="group flex h-full items-start gap-3 px-5 py-4 transition hover:bg-surface-muted"
+              className="group flex h-full items-start gap-3 px-4 py-3 transition hover:bg-surface-muted"
             >
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-muted text-text-secondary transition group-hover:bg-accent-muted group-hover:text-accent">
                 <Icon name={row.iconName} size={20} />

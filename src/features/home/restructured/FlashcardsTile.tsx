@@ -22,10 +22,10 @@ export function FlashcardsTile() {
   const allCaughtUp = !isLoading && cardsDue === 0;
 
   return (
-    <Card padding="md" className="h-full">
+    <Card padding="sm" className="h-full">
       <div className="flex items-start justify-between gap-3">
         <span
-          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${
             allCaughtUp
               ? "bg-success/10 text-success"
               : "bg-accent-muted text-accent"
@@ -33,7 +33,7 @@ export function FlashcardsTile() {
         >
           <Icon
             name={allCaughtUp ? "sparkles" : "decks"}
-            size={22}
+            size={20}
             aria-hidden
           />
         </span>
@@ -43,7 +43,7 @@ export function FlashcardsTile() {
           </span>
         ) : null}
       </div>
-      <p className="mt-3 text-sm font-medium text-text-secondary">
+      <p className="mt-2 text-sm font-medium text-text-secondary">
         {t("home.restructured.flashcards.label", { defaultValue: "Flashcards" })}
       </p>
       {allCaughtUp ? (
@@ -71,7 +71,7 @@ export function FlashcardsTile() {
         </p>
       )}
       {previewCards.length > 0 ? (
-        <div className="mt-3 flex items-center gap-1.5">
+        <div className="mt-2 flex items-center gap-1.5">
           {previewCards.map((card) => (
             <span
               key={card.id}
@@ -88,7 +88,7 @@ export function FlashcardsTile() {
       ) : null}
       <Link
         to={langPath(cardsDue > 0 ? "practice/flashcards/review" : "practice/flashcards")}
-        className={`mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold transition ${
+        className={`mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-semibold transition ${
           allCaughtUp
             ? "border border-border bg-surface text-text-secondary hover:border-accent/40 hover:text-text-primary"
             : "bg-accent text-on-accent hover:bg-accent-hover"

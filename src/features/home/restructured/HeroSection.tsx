@@ -59,7 +59,7 @@ export function HeroSection({
         />
       ) : null}
 
-      <div className="relative grid gap-6 px-6 py-8 sm:px-8 sm:py-10 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-10">
+      <div className="relative grid gap-5 px-6 py-6 sm:px-8 sm:py-7 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-8">
         {/* Left: greeting + CTA */}
         <div>
           <p
@@ -72,7 +72,7 @@ export function HeroSection({
           </p>
           <h1
             className={cn(
-              "mt-2 text-2xl font-extrabold leading-tight sm:text-3xl md:text-4xl",
+              "mt-1.5 text-2xl font-extrabold leading-tight sm:text-3xl md:text-[2rem]",
               hasBg ? "text-white" : "text-text-primary",
             )}
           >
@@ -83,7 +83,7 @@ export function HeroSection({
           </h1>
           <p
             className={cn(
-              "mt-2 max-w-md text-base sm:text-lg",
+              "mt-1.5 max-w-md text-sm sm:text-base",
               hasBg ? "text-gray-100" : "text-text-secondary",
             )}
           >
@@ -99,11 +99,11 @@ export function HeroSection({
                 })}
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-3">
+          <div className="mt-4 flex flex-wrap items-center gap-3">
             <Link
               to={startLessonHref}
               className={cn(
-                "group inline-flex items-center gap-2.5 rounded-xl px-5 py-3 text-base font-semibold shadow-card transition",
+                "group inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-base font-semibold shadow-card transition",
                 hasBg
                   ? "bg-white text-accent hover:bg-white/95"
                   : "bg-accent text-on-accent hover:bg-accent-hover",
