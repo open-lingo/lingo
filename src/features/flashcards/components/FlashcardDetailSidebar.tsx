@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Icon } from "@/shared/components/Icon";
 import { PlainText } from "@/shared/components/PlainText";
-import type { Flashcard, CardSegment } from "@/features/flashcards/data/types";
+import { playLocalAudio } from "@/shared/audio/volume";
+import type { Flashcard, CardSegment, Example } from "@/features/flashcards/data/types";
 import type { ParticleDef } from "@/features/practice/data/types";
 
 function getParticleById(particles: ParticleDef[] | null, id: string): ParticleDef | undefined {
@@ -22,9 +25,63 @@ export function hasSidebarContent(card: Flashcard): boolean {
   if (card.reasoning) return true;
   if (card.definition) return true;
   if (card.context) return true;
+  if (card.examples && card.examples.length > 0) return true;
   const segs = getSegments(card);
   if (segs && segs.length > 0) return true;
   return false;
+}
+
+const MAX_EXAMPLES_COLLAPSED = 3;
+
+function ExamplesList({ examples }: { examples: Example[] }) {
+  const { t } = useTranslation();
+  const [expanded, setExpanded] = useState(false);
+  const visible = expanded ? examples : examples.slice(0, MAX_EXAMPLES_COLLAPSED);
+  const remaining = examples.length - MAX_EXAMPLES_COLLAPSED;
+  return (
+    <section className="border-t border-border pt-2">
+      <span className="text-xs font-medium text-text-muted">
+        {t("flashcards.examples", "Examples")}
+      </span>
+      <ul className="mt-1.5 space-y-2">
+        {visible.map((ex, i) => (
+          <li key={i} className="text-xs">
+            <div className="flex items-start gap-1.5">
+              <div className="min-w-0 flex-1">
+                <div className="text-text-primary">
+                  <PlainText>{ex.text}</PlainText>
+                </div>
+                {ex.translation && (
+                  <div className="mt-0.5 text-text-muted">
+                    <PlainText>{ex.translation}</PlainText>
+                  </div>
+                )}
+              </div>
+              {ex.audioUrl && (
+                <button
+                  type="button"
+                  onClick={() => playLocalAudio(ex.audioUrl!)}
+                  className="shrink-0 rounded p-1 text-text-muted transition hover:bg-surface hover:text-text-primary"
+                  aria-label={t("flashcards.examplePlay", "Play example audio")}
+                >
+                  <Icon name="volume" size={14} aria-hidden />
+                </button>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+      {!expanded && remaining > 0 && (
+        <button
+          type="button"
+          onClick={() => setExpanded(true)}
+          className="mt-1.5 text-xs font-medium text-accent hover:underline"
+        >
+          {t("flashcards.examplesMore", "+{{count}} more", { count: remaining })}
+        </button>
+      )}
+    </section>
+  );
 }
 
 type Layout = "sidebar" | "stacked";
@@ -118,6 +175,10 @@ export function FlashcardDetailSidebar({
               <PlainText>{card.reasoning}</PlainText>
             </div>
           </section>
+        )}
+
+        {card.examples && card.examples.length > 0 && (
+          <ExamplesList examples={card.examples} />
         )}
       </div>
     </aside>

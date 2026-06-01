@@ -447,6 +447,9 @@
     "segmentBreakdown": "Segment breakdown",
     "reasoning": "Reasoning",
     "detailsLabel": "Card details",
+    "examples": "Examples",
+    "examplesMore": "+{{count}} more",
+    "examplePlay": "Play example audio",
     "reviewFilterEmpty": "Nothing to review for this selection. Try another study option or subscribe to more decks.",
     "reviewNoQueue": "No flashcard deck for this language yet. Subscribe to a deck from the community or select Korean in the language selector to try the sample deck.",
     "info": {

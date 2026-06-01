@@ -4,6 +4,26 @@ export type CardSegment = {
   particleId?: string;
 };
 
+/**
+ * A worked example sentence that uses the card's target vocabulary.
+ *
+ * Rendered in the card detail sidebar after the user reveals the answer.
+ * Up to three examples show by default with a "+N more" toggle for
+ * additional ones. Both word and sentence cards accept examples.
+ */
+export type Example = {
+  /** Foreign-language sentence. */
+  text: string;
+  /** Optional translation/gloss in the learner's UI language. */
+  translation?: string;
+  /**
+   * Optional audio clip URL. When set, the sidebar renders a small
+   * play button that uses `playLocalAudio` (the shared HTMLAudioElement
+   * wrapper that honors the global volume slider). No URL → no button.
+   */
+  audioUrl?: string;
+};
+
 export type FlashcardType = "word" | "sentence" | "other";
 
 export type FlashcardBase = {
@@ -17,6 +37,11 @@ export type FlashcardBase = {
   reasoning?: string;
   definition?: string;
   context?: string;
+  /**
+   * Optional worked-example sentences using the card's vocabulary.
+   * Shown in the detail sidebar after the user reveals the answer.
+   */
+  examples?: Example[];
   /** For course decks: set at load based on lesson progress. Omitted = unlocked (e.g. community decks). */
   unlocked?: boolean;
 };

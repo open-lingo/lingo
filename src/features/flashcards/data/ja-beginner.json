@@ -13,6 +13,11 @@
       "parts": [
         { "segment": "こんにち", "meaning": "this day" },
         { "segment": "は", "particleId": "wa" }
+      ],
+      "examples": [
+        { "text": "こんにちは、田中さん。", "translation": "Hello, Mr. Tanaka." },
+        { "text": "先生、こんにちは。", "translation": "Hello, teacher." },
+        { "text": "皆さん、こんにちは。", "translation": "Hello, everyone." }
       ]
     },
     {
@@ -38,6 +43,10 @@
         { "segment": "りんご", "meaning": "apple" },
         { "segment": "を", "particleId": "wo" },
         { "segment": "食べます", "meaning": "eat (polite)" }
+      ],
+      "examples": [
+        { "text": "毎朝りんごを食べます。", "translation": "I eat an apple every morning." },
+        { "text": "妹はりんごが好きです。", "translation": "My little sister likes apples." }
       ]
     },
     {
@@ -60,7 +69,12 @@
       "type": "other",
       "definition": "Thank you (polite).",
       "context": "Use after someone helps you or gives something.",
-      "reasoning": "ありがたい = grateful, ございます = polite form of ある (to exist)."
+      "reasoning": "ありがたい = grateful, ございます = polite form of ある (to exist).",
+      "examples": [
+        { "text": "助けてくれてありがとうございます。", "translation": "Thank you for helping me." },
+        { "text": "プレゼントをありがとうございます。", "translation": "Thank you for the present." },
+        { "text": "今日はありがとうございます。", "translation": "Thank you for today." }
+      ]
     }
   ]
 }
