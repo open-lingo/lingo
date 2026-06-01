@@ -346,12 +346,6 @@ export function PublicProfilePage() {
   // Cancel / Inventory) floats top-right ON the banner with a subtle
   // surface-pill so it stays legible against any banner art.
   const hasBanner = !!bannerStyle;
-  // Banner sizing — Twitter/Discord proportions. Tall enough to read as a
-  // real header, not a thin accent stripe. Banner is also shifted down a
-  // tinge from the article's top edge so there's a small breath of page
-  // background above it (avoids the slammed-against-the-top look).
-  const bannerBackdropClass = hasBanner ? "h-[200px] sm:h-[280px]" : "";
-  const bannerTopOffsetClass = hasBanner ? "top-4 sm:top-5" : "";
   // Per-button surface-pill backdrop so the ghost-variant owner
   // controls stay legible over any banner art (otherwise icon + label
   // can smear into vaporwave magenta / sunset orange).
@@ -361,33 +355,6 @@ export function PublicProfilePage() {
   return (
     <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
       <article data-testid="public-profile-card" className="relative">
-        {/* ── Banner backdrop (optional) ───────────────────────────
-              When the viewer has equipped a banner, it renders as an
-              absolutely-positioned strip behind the masthead. The
-              article reserves vertical room via padding-top below, and
-              the masthead sits with raised z-index so it overlays.
-              When no banner is equipped, nothing here renders and the
-              page looks identical to its pre-banner state. */}
-        {bannerStyle && (
-          <div
-            className={`pointer-events-none absolute inset-x-0 -mx-5 overflow-hidden rounded-xl sm:-mx-8 ${bannerTopOffsetClass} ${bannerBackdropClass}`}
-            role="img"
-            aria-label={bannerStyle.label}
-          >
-            <bannerStyle.Svg
-              preserveAspectRatio="xMidYMid slice"
-              className="block h-full w-full"
-            />
-            {/* Bottom-to-top gradient so the byline metadata + bio that
-                spills past the banner's bottom edge fades into the page
-                background instead of slamming into it. */}
-            <div
-              aria-hidden
-              className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-b from-transparent to-black/15"
-            />
-          </div>
-        )}
-
         {/* ── Owner action bar (top-right) ─────────────────────────
               The canonical home for owner controls (Edit / Save /
               Cancel / Inventory). Floated above the masthead so it's
@@ -476,15 +443,36 @@ export function PublicProfilePage() {
               straddles the banner's bottom edge. */}
         <header
           className={
-            "relative z-10 " +
-            // Padding-top reserves room for the absolutely-positioned
-            // banner so the masthead text sits ON the lower half of the
-            // banner art. Sizes pair with bannerBackdropClass +
-            // bannerTopOffsetClass above (banner ends at top + height:
-            // 4+200=204 mobile / 5+280=285 desktop).
-            (hasBanner ? "pt-[150px] sm:pt-[220px]" : "")
+            "relative " +
+            (hasBanner
+              ? "overflow-hidden rounded-xl p-6 sm:p-8"
+              : "")
           }
         >
+          {/* Banner fills the entire masthead block as a background. The
+              SVG slices to cover at any aspect ratio so the art always
+              fills edge-to-edge. A scrim layer above the SVG keeps the
+              text legible regardless of banner brightness. */}
+          {bannerStyle && (
+            <>
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 overflow-hidden"
+              >
+                <bannerStyle.Svg
+                  preserveAspectRatio="xMidYMid slice"
+                  className="block h-full w-full"
+                />
+              </div>
+              <div
+                aria-hidden
+                role="img"
+                aria-label={bannerStyle.label}
+                className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-black/15 to-black/45"
+              />
+            </>
+          )}
+          <div className="relative z-10">
           <p
             className={
               "text-xs font-medium uppercase tracking-wide " +
@@ -605,7 +593,14 @@ export function PublicProfilePage() {
                 />
               ) : (
                 bio && (
-                  <p className="mt-4 max-w-prose text-sm leading-relaxed text-text-secondary">
+                  <p
+                    className={
+                      "mt-4 max-w-prose text-sm leading-relaxed " +
+                      (hasBanner
+                        ? "text-white/95 text-shadow-banner-soft"
+                        : "text-text-secondary")
+                    }
+                  >
                     {bio}
                   </p>
                 )
@@ -621,15 +616,7 @@ export function PublicProfilePage() {
                 it straddles the banner/content boundary. The
                 surface-colored ring acts as a halo against any banner
                 hue and gives a "lifted out of the banner" affordance. */}
-            <div
-              className={
-                "flex items-start justify-start gap-4 sm:flex-col sm:items-end sm:gap-3 " +
-                // Negative margin tuned so the avatar straddles the
-                // banner's bottom edge given the new taller banner +
-                // top offset. See bannerBackdropClass math.
-                (hasBanner ? "-mt-2 sm:-mt-4" : "")
-              }
-            >
+            <div className="flex items-start justify-start gap-4 sm:flex-col sm:items-end sm:gap-3">
               <div
                 className={
                   "relative " +
@@ -682,7 +669,14 @@ export function PublicProfilePage() {
           </div>
 
           {/* Hairline divider between masthead and stats. */}
-          <div aria-hidden className="mt-6 h-px w-full bg-border" />
+          <div
+            aria-hidden
+            className={
+              "mt-6 h-px w-full " +
+              (hasBanner ? "bg-white/20" : "bg-border")
+            }
+          />
+          </div>
         </header>
 
         {/* ── Stats grid ──────────────────────────────────────────── */}
