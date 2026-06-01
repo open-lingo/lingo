@@ -3,35 +3,35 @@
  * notifySRSStoreChanged() event fires (same bus as the SRS engine).
  *
  * Returns `{ scores, record, top }`:
- *   - `scores`: Record<kana, score> for fast O(1) reads in render
- *   - `record(signal, kana)`: write through; bumps the store
- *   - `top(n, candidates?)`: returns top-N struggle kana for the active language
+ *   - `scores`: Record<symbol, score> for fast O(1) reads in render
+ *   - `record(signal, symbol)`: write through; bumps the store
+ *   - `top(n, candidates?)`: returns top-N struggle symbols for the active language
  */
 import { useCallback, useMemo } from "react";
 import { useSRSStoreRevision } from "@/features/flashcards/SRSStoreRevisionContext";
 import {
-  getKanaStruggleStore,
-  recordKanaStruggle,
-  topStruggleKana,
+  getSymbolStruggleStore,
+  recordSymbolStruggle,
+  topStruggleSymbols,
   type StruggleSignal,
 } from "./struggleStore";
 
-export type UseKanaStruggleResult = {
+export type UseSymbolStruggleResult = {
   scores: Record<string, number>;
-  record: (signal: StruggleSignal, kana: string) => void;
+  record: (signal: StruggleSignal, symbol: string) => void;
   top: (n: number, candidates?: ReadonlySet<string>) => string[];
 };
 
-export function useKanaStruggle(lang: string): UseKanaStruggleResult {
+export function useSymbolStruggle(lang: string): UseSymbolStruggleResult {
   // Subscribe to the same revision context the SRS engine uses, so any
   // mutation (here or from another consumer) triggers a re-render.
   const revision = useSRSStoreRevision();
 
   const scores = useMemo<Record<string, number>>(() => {
-    const store = getKanaStruggleStore(lang);
+    const store = getSymbolStruggleStore(lang);
     const out: Record<string, number> = {};
-    for (const [kana, entry] of Object.entries(store)) {
-      out[kana] = entry.score;
+    for (const [symbol, entry] of Object.entries(store)) {
+      out[symbol] = entry.score;
     }
     return out;
     // revision is the explicit dep — store reads are otherwise opaque to React.
@@ -39,15 +39,15 @@ export function useKanaStruggle(lang: string): UseKanaStruggleResult {
   }, [lang, revision]);
 
   const record = useCallback(
-    (signal: StruggleSignal, kana: string) => {
-      recordKanaStruggle(lang, signal, kana);
+    (signal: StruggleSignal, symbol: string) => {
+      recordSymbolStruggle(lang, signal, symbol);
     },
     [lang],
   );
 
   const top = useCallback(
     (n: number, candidates?: ReadonlySet<string>) => {
-      return topStruggleKana(lang, n, candidates);
+      return topStruggleSymbols(lang, n, candidates);
       // revision excluded — `top` is queried imperatively at known moments.
     },
     [lang],
@@ -55,3 +55,7 @@ export function useKanaStruggle(lang: string): UseKanaStruggleResult {
 
   return { scores, record, top };
 }
+
+// Back-compat alias.
+export type UseKanaStruggleResult = UseSymbolStruggleResult;
+export const useKanaStruggle = useSymbolStruggle;

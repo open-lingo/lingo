@@ -520,7 +520,7 @@ export const M3_M7_REVIEW_POOL: ReviewAtom[] = [
   { kana: "ジュース",   meaningEn: "juice",             emoji: "🧃", fromModule: "m7" },
 ];
 
-import { topStruggleKana } from "@/features/japanese/kanaMastery/struggleStore";
+import { topStruggleKana } from "@/shared/symbolMastery";
 
 /**
  * Build-time guard: every M1 row and every M2 sub-row must have ≥2 anchor

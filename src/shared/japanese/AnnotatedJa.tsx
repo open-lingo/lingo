@@ -4,7 +4,7 @@ import type { JapaneseAnnotation } from "./types";
 import {
   useTrackExposure,
   useKanaHelperVisible,
-} from "@/features/japanese/kanaMastery";
+} from "@/features/languages/ja/symbolMastery";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 
 type CommonProps = {

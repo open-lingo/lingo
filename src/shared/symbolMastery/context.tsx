@@ -9,104 +9,110 @@ import {
   type ReactNode,
 } from "react";
 import { useAuth } from "@/shared/auth/useAuth";
-import { isKana } from "@/shared/japanese/kanaTable";
-import {
-  getStore,
-  setStore,
-  storageKey,
-} from "./storage";
+import { getStore, setStore, storageKey } from "./storage";
 import {
   helperHidden,
   newMasteryState,
-  type KanaMasteryState,
-  type KanaMasteryStore,
+  type SymbolMasteryState,
+  type SymbolMasteryStore,
 } from "./types";
 
 type Ctx = {
-  store: KanaMasteryStore;
-  registerExposure: (kana: string) => void;
-  recordCorrect: (kana: string) => void;
-  recordIncorrect: (kana: string) => void;
-  isHelperHidden: (kana: string) => boolean;
+  store: SymbolMasteryStore;
+  registerExposure: (symbol: string) => void;
+  recordCorrect: (symbol: string) => void;
+  recordIncorrect: (symbol: string) => void;
+  isHelperHidden: (symbol: string) => boolean;
 };
 
-const KanaMasteryContext = createContext<Ctx | null>(null);
+const SymbolMasteryContext = createContext<Ctx | null>(null);
 
-/** Per-session exposure dedupe — a kana rendered 10 times in one screen counts once. */
+/** Per-session exposure dedupe — a symbol rendered 10 times in one screen counts once. */
 function makeSessionId(): string {
   return Math.random().toString(36).slice(2);
 }
 
-export function KanaMasteryProvider({
+export function SymbolMasteryProvider({
   children,
   userIdOverride,
+  isSymbol,
+  storageKeyPrefix,
 }: {
   children: ReactNode;
   /** When set (e.g. from tests), pins the userId for storage scope. */
   userIdOverride?: string | null;
+  /** Validator: returns true if the input string is a recognized symbol of this language. */
+  isSymbol: (s: string) => boolean;
+  /** Optional localStorage key prefix. Default preserves JA's pre-extraction `kanaMastery:v1:` shape. */
+  storageKeyPrefix?: string;
 }) {
   const { user } = useAuth();
   const userId = userIdOverride ?? user?.sub ?? null;
-  const [store, setLocalStore] = useState<KanaMasteryStore>(() => getStore(userId));
+  const [store, setLocalStore] = useState<SymbolMasteryStore>(() =>
+    getStore(userId, storageKeyPrefix),
+  );
   const sessionIdRef = useRef(makeSessionId());
   const exposedThisSessionRef = useRef<Set<string>>(new Set());
 
   // Re-hydrate when user identity changes (login/logout).
   useEffect(() => {
-    setLocalStore(getStore(userId));
+    setLocalStore(getStore(userId, storageKeyPrefix));
     sessionIdRef.current = makeSessionId();
     exposedThisSessionRef.current = new Set();
-  }, [userId]);
+  }, [userId, storageKeyPrefix]);
 
   // Cross-tab sync.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const onStorage = (e: StorageEvent) => {
-      if (e.key !== storageKey(userId)) return;
-      setLocalStore(getStore(userId));
+      if (e.key !== storageKey(userId, storageKeyPrefix)) return;
+      setLocalStore(getStore(userId, storageKeyPrefix));
     };
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
-  }, [userId]);
+  }, [userId, storageKeyPrefix]);
 
   const persist = useCallback(
-    (next: KanaMasteryStore) => {
-      setStore(userId, next);
+    (next: SymbolMasteryStore) => {
+      setStore(userId, next, storageKeyPrefix);
       setLocalStore({ ...next });
     },
-    [userId],
+    [userId, storageKeyPrefix],
   );
 
   const mutate = useCallback(
-    (kana: string, fn: (prev: KanaMasteryState) => KanaMasteryState) => {
-      const current = getStore(userId);
-      const prev = current[kana] ?? newMasteryState(kana);
+    (
+      symbol: string,
+      fn: (prev: SymbolMasteryState) => SymbolMasteryState,
+    ) => {
+      const current = getStore(userId, storageKeyPrefix);
+      const prev = current[symbol] ?? newMasteryState(symbol);
       const next = fn(prev);
-      const updated = { ...current, [kana]: next };
+      const updated = { ...current, [symbol]: next };
       persist(updated);
     },
-    [userId, persist],
+    [userId, persist, storageKeyPrefix],
   );
 
   const registerExposure = useCallback(
-    (kana: string) => {
-      if (!isKana(kana)) return;
-      const sessionKey = `${sessionIdRef.current}:${kana}`;
+    (symbol: string) => {
+      if (!isSymbol(symbol)) return;
+      const sessionKey = `${sessionIdRef.current}:${symbol}`;
       if (exposedThisSessionRef.current.has(sessionKey)) return;
       exposedThisSessionRef.current.add(sessionKey);
-      mutate(kana, (prev) => ({
+      mutate(symbol, (prev) => ({
         ...prev,
         exposures: prev.exposures + 1,
         lastSeen: new Date().toISOString(),
       }));
     },
-    [mutate],
+    [mutate, isSymbol],
   );
 
   const recordCorrect = useCallback(
-    (kana: string) => {
-      if (!isKana(kana)) return;
-      mutate(kana, (prev) => {
+    (symbol: string) => {
+      if (!isSymbol(symbol)) return;
+      mutate(symbol, (prev) => {
         const streak = prev.streak + 1;
         // SM-2-ish: stretch interval on streaks. Both conditions in
         // helperHidden are AND-gated, so interval matters.
@@ -131,13 +137,13 @@ export function KanaMasteryProvider({
         };
       });
     },
-    [mutate],
+    [mutate, isSymbol],
   );
 
   const recordIncorrect = useCallback(
-    (kana: string) => {
-      if (!isKana(kana)) return;
-      mutate(kana, (prev) => ({
+    (symbol: string) => {
+      if (!isSymbol(symbol)) return;
+      mutate(symbol, (prev) => ({
         ...prev,
         incorrectCount: prev.incorrectCount + 1,
         exposures: prev.exposures + 1,
@@ -148,11 +154,11 @@ export function KanaMasteryProvider({
         dueDate: new Date().toISOString().slice(0, 10),
       }));
     },
-    [mutate],
+    [mutate, isSymbol],
   );
 
   const isHelperHidden = useCallback(
-    (kana: string) => helperHidden(store[kana]),
+    (symbol: string) => helperHidden(store[symbol]),
     [store],
   );
 
@@ -168,9 +174,9 @@ export function KanaMasteryProvider({
   );
 
   return (
-    <KanaMasteryContext.Provider value={value}>
+    <SymbolMasteryContext.Provider value={value}>
       {children}
-    </KanaMasteryContext.Provider>
+    </SymbolMasteryContext.Provider>
   );
 }
 
@@ -184,6 +190,6 @@ const NOOP_CTX: Ctx = {
   isHelperHidden: () => false,
 };
 
-export function useKanaMastery(): Ctx {
-  return useContext(KanaMasteryContext) ?? NOOP_CTX;
+export function useSymbolMastery(): Ctx {
+  return useContext(SymbolMasteryContext) ?? NOOP_CTX;
 }

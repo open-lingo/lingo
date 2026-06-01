@@ -15,7 +15,7 @@ import type { LessonContent, LessonStep } from "./types";
 import { StepRenderer } from "./components/StepRenderer";
 import { LessonProgressBar } from "./components/LessonProgressBar";
 import { LessonComplete } from "./components/LessonComplete";
-import { KanaMasteryProvider } from "@/features/japanese/kanaMastery";
+import { KanaMasteryProvider } from "@/features/languages/ja/symbolMastery";
 import {
   getMockCompletedLessonIds,
   isLessonCompleted,

@@ -1,5 +1,5 @@
 /**
- * KanaStruggleStore — per-kana "how hard is this for the learner" score,
+ * SymbolStruggleStore — per-symbol "how hard is this for the learner" score,
  * tracked client-side until Phase 2a swaps in FSRS-6 stability.
  *
  * Signals (bump score on these):
@@ -10,20 +10,22 @@
  *   bypassed via "show me":  +10
  *
  * Per-language scoping: `lingo_kana_struggle_v1` localStorage key holds
- * a `Record<langId, Record<kana, KanaStruggleEntry>>` shape so the same
- * device can track multiple languages without collision.
+ * a `Record<langId, Record<symbol, SymbolStruggleEntry>>` shape so the
+ * same device can track multiple languages without collision. (Storage
+ * key name preserved for compat; per-language stores branch within.)
  *
  * The carry-over picker in `lessonBuilder` reads this store at build time.
  * The runtime `RowTestStep` runner reads it on construction to bias the
  * initial queue toward struggle items.
  *
  * Notifies via `notifySRSStoreChanged()` (Trevor's existing event bus) so
- * any consuming `useKanaStruggle()` hook subscribers re-render on writes.
+ * any consuming `useSymbolStruggle()` hook subscribers re-render on writes.
  */
 
 import { notifySRSStoreChanged } from "@/features/flashcards/SRSStoreRevisionContext";
 
-export type KanaStruggleEntry = {
+export type SymbolStruggleEntry = {
+  /** The symbol surface (kept as `kana` for storage shape compat). */
   kana: string;
   /** Higher = harder. Clamped to [0, 100]. */
   score: number;
@@ -31,7 +33,7 @@ export type KanaStruggleEntry = {
   updatedAt: string;
 };
 
-export type KanaStruggleStore = Record<string, KanaStruggleEntry>;
+export type SymbolStruggleStore = Record<string, SymbolStruggleEntry>;
 
 export type StruggleSignal =
   | "incorrect"
@@ -39,6 +41,10 @@ export type StruggleSignal =
   | "slow"
   | "hint"
   | "reveal";
+
+/** Back-compat aliases for the JA names. */
+export type KanaStruggleEntry = SymbolStruggleEntry;
+export type KanaStruggleStore = SymbolStruggleStore;
 
 const STORAGE_KEY = "lingo_kana_struggle_v1";
 const MAX_SCORE = 100;
@@ -50,7 +56,7 @@ const SIGNAL_DELTA: Record<StruggleSignal, number> = {
   reveal: 10,
 };
 
-type RootStore = Record<string, KanaStruggleStore>;
+type RootStore = Record<string, SymbolStruggleStore>;
 
 function loadRoot(): RootStore {
   if (typeof window === "undefined") return {};
@@ -73,32 +79,32 @@ function saveRoot(root: RootStore): void {
   }
 }
 
-export function getKanaStruggleStore(lang: string): KanaStruggleStore {
+export function getSymbolStruggleStore(lang: string): SymbolStruggleStore {
   const root = loadRoot();
   return root[lang] ?? {};
 }
 
-export function recordKanaStruggle(
+export function recordSymbolStruggle(
   lang: string,
   signal: StruggleSignal,
-  kana: string,
-): KanaStruggleEntry {
-  if (!kana) {
-    // Defensive — empty kana is a no-op but we still return a stub entry.
+  symbol: string,
+): SymbolStruggleEntry {
+  if (!symbol) {
+    // Defensive — empty symbol is a no-op but we still return a stub entry.
     return { kana: "", score: 0, updatedAt: new Date().toISOString() };
   }
   const root = loadRoot();
-  const lang_store: KanaStruggleStore = root[lang] ?? {};
-  const prev = lang_store[kana];
+  const lang_store: SymbolStruggleStore = root[lang] ?? {};
+  const prev = lang_store[symbol];
   const prevScore = prev?.score ?? 0;
   const delta = SIGNAL_DELTA[signal];
   const nextScore = Math.max(0, Math.min(MAX_SCORE, prevScore + delta));
-  const entry: KanaStruggleEntry = {
-    kana,
+  const entry: SymbolStruggleEntry = {
+    kana: symbol,
     score: nextScore,
     updatedAt: new Date().toISOString(),
   };
-  lang_store[kana] = entry;
+  lang_store[symbol] = entry;
   root[lang] = lang_store;
   saveRoot(root);
   notifySRSStoreChanged();
@@ -106,20 +112,20 @@ export function recordKanaStruggle(
 }
 
 /**
- * Return the `topN` most-struggled kana from `lang`'s store. Optionally
- * scoped to a candidate kana set (used by the carry-over picker so we only
+ * Return the `topN` most-struggled symbols from `lang`'s store. Optionally
+ * scoped to a candidate symbol set (used by the carry-over picker so we only
  * surface items the learner has met in earlier sub-lessons of THIS row).
  *
  * Sort: score descending, then `updatedAt` descending (most recent struggle
  * first), so two items with the same score still resolve to a stable but
  * recency-aware order.
  */
-export function topStruggleKana(
+export function topStruggleSymbols(
   lang: string,
   topN: number,
   candidates?: ReadonlySet<string>,
 ): string[] {
-  const store = getKanaStruggleStore(lang);
+  const store = getSymbolStruggleStore(lang);
   const entries = Object.values(store).filter((e) => {
     if (!candidates) return true;
     return candidates.has(e.kana);
@@ -131,7 +137,7 @@ export function topStruggleKana(
   return entries.slice(0, Math.max(0, topN)).map((e) => e.kana);
 }
 
-export function clearKanaStruggleStore(lang?: string): void {
+export function clearSymbolStruggleStore(lang?: string): void {
   if (typeof window === "undefined") return;
   if (!lang) {
     window.localStorage.removeItem(STORAGE_KEY);
@@ -143,3 +149,9 @@ export function clearKanaStruggleStore(lang?: string): void {
   saveRoot(root);
   notifySRSStoreChanged();
 }
+
+// Back-compat aliases (JA-named exports). Phase 2 call sites can drop them.
+export const getKanaStruggleStore = getSymbolStruggleStore;
+export const recordKanaStruggle = recordSymbolStruggle;
+export const topStruggleKana = topStruggleSymbols;
+export const clearKanaStruggleStore = clearSymbolStruggleStore;

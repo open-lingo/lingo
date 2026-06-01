@@ -64,7 +64,7 @@ function moduleIdForRow(row: RowDef): string {
 }
 import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
 import { getTtsUrl, hasTtsAudio } from "@/shared/tts";
-import { topStruggleKana } from "@/features/japanese/kanaMastery/struggleStore";
+import { topStruggleKana } from "@/shared/symbolMastery";
 import {
   getDensityConfig,
   warnDensityCapped,
