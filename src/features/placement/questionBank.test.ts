@@ -7,8 +7,23 @@ import {
 import { ALL_TESTABLE_MODULES } from "./tiers";
 
 describe("questionBank", () => {
-  it("has 75 items total (3 per module × 25 modules)", () => {
-    expect(PLACEMENT_QUESTION_BANK.length).toBe(75);
+  it("has 75 JA items (3 per module × 25 modules)", () => {
+    // The bank is language-aware: JA is the complete spine (3 × 25); other
+    // languages (KO M3, etc.) are partial banks layered on top, so the total
+    // bank size grows as new languages get placement content.
+    const jaItems = PLACEMENT_QUESTION_BANK.filter(
+      (i) => (i.languageId ?? "ja") === "ja",
+    );
+    expect(jaItems.length).toBe(75);
+  });
+
+  it("non-JA items all declare an explicit languageId", () => {
+    const nonJa = PLACEMENT_QUESTION_BANK.filter(
+      (i) => (i.languageId ?? "ja") !== "ja",
+    );
+    for (const item of nonJa) {
+      expect(item.languageId, `${item.id} must declare languageId`).toBeTruthy();
+    }
   });
 
   it("has exactly 3 items for every testable module", () => {
