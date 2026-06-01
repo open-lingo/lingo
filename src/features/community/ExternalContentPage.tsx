@@ -366,7 +366,7 @@ export function ExternalContentPage() {
       </div>
 
       {filteredItems.length === 0 ? (
-        <p className="rounded-lg border border-gray-200 bg-gray-50 py-12 text-center text-gray-500/50">
+        <p className="rounded-lg border border-gray-200 bg-gray-50 py-6 text-center text-gray-500/50">
           {t("externalContent.noResults")}
         </p>
       ) : (

@@ -573,7 +573,7 @@ function EmojiPickerPopover({
 function EmptyThread({ name }: { name: string }) {
   const { t } = useTranslation();
   return (
-    <div className="flex h-full flex-col items-center justify-center py-12 text-center">
+    <div className="flex h-full flex-col items-center justify-center py-6 text-center">
       <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-accent-muted text-accent">
         <Icon name="hand" size={22} aria-hidden />
       </div>

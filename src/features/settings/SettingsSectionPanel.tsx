@@ -100,13 +100,6 @@ function GeneralPanel() {
 
   return (
     <div>
-      <SectionIntro
-        title={t("settings.nav.general", "General")}
-        help={t(
-          "settings.generalHelp",
-          "App-wide preferences. Change your study language from the flag menu in the header.",
-        )}
-      />
       {isAuthenticated && profileUsername && (
         <div className="mb-5">
           <Link
@@ -160,13 +153,6 @@ function AppearancePanel() {
 
   return (
     <div>
-      <SectionIntro
-        title={t("settings.theme")}
-        help={t(
-          "settings.appearanceHelp",
-          "Colors and contrast for the whole app.",
-        )}
-      />
       <div className="flex flex-wrap gap-2">
         {themePresets.map((p) => (
           <ChoiceChip
@@ -206,13 +192,6 @@ function AudioPanel() {
 
   return (
     <div>
-      <SectionIntro
-        title={t("settings.nav.audio", "Audio")}
-        help={t(
-          "settings.audioHelp",
-          "Control lesson sounds and auto-play without changing your device volume.",
-        )}
-      />
       <div className="space-y-4">
         <div>
           <div className="mb-1 flex items-center justify-between">
@@ -280,10 +259,6 @@ function AccessibilityPanel() {
 
   return (
     <div>
-      <SectionIntro
-        title={t("settings.accessibility")}
-        help={t("settings.accessibilityHelp")}
-      />
       <div className="space-y-3">
         <label className="flex cursor-pointer items-center gap-2">
           <input
@@ -351,10 +326,6 @@ function NotificationsPanel() {
 
   return (
     <div>
-      <SectionIntro
-        title={t("settings.notifications")}
-        help={t("settings.notificationsHelp")}
-      />
       <label className="flex cursor-pointer items-center gap-2">
         <input
           type="checkbox"
@@ -397,17 +368,12 @@ function NotificationsPanel() {
 }
 
 function PrivacyPanel() {
-  const { t } = useTranslation();
   return (
     <div>
-      <SectionIntro
-        title={t("legal.settings.privacyTitle", "Privacy & data")}
-        help={t(
-          "legal.settings.privacyBlurb",
-          "We store your learning progress and profile to run the app. We do not sell your personal information.",
-        )}
-      />
-      <AccountPrivacySection embedded />
+      {/* AccountPrivacySection owns its own heading + blurb. The
+          settings modal's left nav already labels the section, so we
+          drop the duplicate SectionIntro wrapper. */}
+      <AccountPrivacySection />
     </div>
   );
 }

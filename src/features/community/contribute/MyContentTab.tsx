@@ -258,7 +258,7 @@ export function MyContentTab() {
           {t("common.loading")}
         </p>
       ) : filteredItems.length === 0 ? (
-        <div className="rounded-xl border-2 border-dashed border-gray-300 py-16 text-center">
+        <div className="rounded-xl border-2 border-dashed border-gray-300 py-6 text-center">
           <p className="text-text-muted">
             {t("community.studioNoContent")}
           </p>

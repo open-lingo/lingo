@@ -404,7 +404,7 @@ export function PracticePage() {
                   to={langPath(c.to)}
                   className="group flex h-full items-start gap-3 rounded-xl border border-border bg-surface p-3 transition hover:border-accent hover:bg-surface-muted"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-muted text-base font-bold text-accent">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-muted text-base text-text-muted/60">
                     {c.emoji}
                   </span>
                   <div className="min-w-0">

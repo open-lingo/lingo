@@ -337,7 +337,7 @@ function AllFriendsTab() {
       {isLoading ? (
         <FriendsTableSkeleton />
       ) : sorted.length === 0 ? (
-        <p className="py-12 text-center text-sm text-text-muted">
+        <p className="py-6 text-center text-sm text-text-muted">
           {t("social.friendsPage.noMatch", "No friends match these filters.")}
         </p>
       ) : (

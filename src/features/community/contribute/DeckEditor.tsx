@@ -811,7 +811,7 @@ export function DeckEditor() {
               t={t}
             />
           ) : (
-            <p className="py-12 text-center text-sm text-text-muted">
+            <p className="py-6 text-center text-sm text-text-muted">
               {t("community.editorSelectCardToPreview")}
             </p>
           )}
