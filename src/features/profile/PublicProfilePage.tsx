@@ -4,7 +4,7 @@
  *
  * Renders the correct primary action for the viewer↔target relationship:
  *
- *   ``self``         → "Edit profile" (opens settings)
+ *   ``self``         → "Edit profile" (toggles the inline edit form)
  *   ``none``         → "Add friend" (POST /social/v1/friends/requests)
  *   ``request_out``  → "Request sent" (disabled)
  *   ``request_in``   → "Accept request" (POST .../accept)
@@ -14,31 +14,24 @@
  * When the social endpoint 404s the page renders a "private profile" panel
  * — see usePublicProfile for the visibility flow.
  *
- * ## Visual direction (2026-05-27)
+ * Self-only affordances:
+ *   - Inline edit form (toggled by "Edit profile")
+ *   - "Inventory" button → slides a popout in from the right with
+ *     `InventorySection` (equip / unequip decorators)
  *
- * Editorial / magazine. Hierarchy is encoded in the type ramp itself —
- * Fraunces display serif for the name (one cliff drop to body sans), IBM
- * Plex Mono for the numeric stat row, IBM Plex Sans for everything else.
- * The page reads top-to-bottom like a feature opener: masthead → byline →
- * numeric "by the numbers" rail → bylined works (authored decks).
- *
- * Fonts are injected via <link> on mount so the rest of the app's lazy
- * font system is untouched.
- *
- * The league chip is the only place a hardcoded color lands — a brass
- * foil gradient that reads as "earned" in every theme. Everything else
- * goes through theme tokens (bg-surface / text-text-primary / etc.).
+ * Typography: uses the app's standard font tokens (Tailwind defaults +
+ * theme tokens). No custom Google Fonts injection — the page should look
+ * like the rest of the app, not a magazine feature.
  */
 
-import { useState, type CSSProperties } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState, type CSSProperties } from "react";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 import { useApi } from "@/shared/api/provider";
 import { useAuth } from "@/shared/auth/useAuth";
 import { Button } from "@/shared/components/ui/Button";
 import { Input } from "@/shared/components/ui/Input";
-import { Textarea } from "@/shared/components/ui/Textarea";
 import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
 import { ApiError } from "@/shared/api/client";
@@ -46,28 +39,14 @@ import type { AuthoredDeckSample, FriendshipStatus } from "@/shared/api/social";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { DecoratedAvatar } from "@/shared/components/DecoratedAvatar";
 import { useEquippedDecorator } from "@/features/shop/useEquippedDecorator";
+import { useEquippedTitle } from "@/features/shop/useEquippedTitle";
+import { TITLE_ITEMS } from "@/features/shop/shopCatalog";
 import { InventorySection } from "@/features/shop/InventorySection";
+import { InventoryPopout } from "@/features/shop/InventoryPopout";
 import { usePublicProfile } from "./usePublicProfile";
 import { useOwnProfile } from "./useOwnProfile";
 
 type ActionState = "idle" | "pending" | "done";
-
-// ─── Theme-driven typography ────────────────────────────────────────────────
-// The page used to inject Fraunces + IBM Plex on mount. That made the profile
-// page render in a fixed serif/sans pair regardless of which theme the user
-// picked, which leaks aesthetic across the rest of the app. Now headings
-// resolve to `var(--font-display)` (themes can set it) and numerics to
-// `var(--font-family-mono)` (ditto). Both default to inherit so a vanilla
-// theme renders in the body font — a theme like "Academia" can override.
-const DISPLAY_FONT = "var(--font-display, inherit)";
-const BODY_FONT = "var(--font-family, inherit)";
-const MONO_FONT = "var(--font-family-mono, ui-monospace, SFMono-Regular, Menlo, monospace)";
-
-/** No-op kept for the call-site below; previously injected Google Fonts at
- *  mount. Removed — theme system owns font loading via fontLoader.ts. */
-function useEditorialFonts() {
-  // Intentionally empty.
-}
 
 // ─── Formatters ──────────────────────────────────────────────────────────────
 
@@ -92,7 +71,6 @@ function formatLastActive(
   if (Number.isNaN(d.getTime())) return "";
   const deltaMs = Date.now() - d.getTime();
   if (deltaMs < 0) {
-    // Future clock skew; render as "active now" rather than "in 2h".
     return t("profile.publicLastActiveNow", "active now");
   }
   const mins = Math.floor(deltaMs / 60_000);
@@ -141,17 +119,17 @@ function formatLearningLanguage(
 
 export function PublicProfilePage() {
   const { username } = useParams<{ username: string }>();
+  const [searchParams] = useSearchParams();
   const { t, i18n } = useTranslation();
   const { social } = useApi();
   const { login, isAuthenticated } = useAuth();
-
-  useEditorialFonts();
 
   const { user, social: socialProfile, isPrivate, notFound, isLoading, isError, refetch } =
     usePublicProfile(username);
 
   const [actionState, setActionState] = useState<ActionState>("idle");
   const [actionError, setActionError] = useState<string | null>(null);
+  const [inventoryOpen, setInventoryOpen] = useState(false);
 
   const friendship: FriendshipStatus | null | undefined = socialProfile?.friendship_status;
 
@@ -162,12 +140,19 @@ export function PublicProfilePage() {
     socialProfile?.profile_picture_key ?? user?.profile_picture_key ?? undefined;
   const bio = socialProfile?.bio ?? user?.bio ?? null;
 
+  // Register mode — set when HomePage redirects an authenticated viewer
+  // here because their backend record doesn't exist yet (?register=1).
+  // The page treats the URL username as the seed for the registration
+  // form and calls ``users.register`` on save.
+  const registerMode = isAuthenticated && notFound && searchParams.get("register") === "1";
+
   // Own-profile hooks — must be above any early returns (Rules of Hooks).
   const isSelf = friendship === "self";
   const ownProfileInitial = {
     displayName,
     bio: bio ?? "",
     avatarUrl: avatarSrc ?? "",
+    username: username ?? "",
   };
   const {
     editMode,
@@ -178,15 +163,41 @@ export function PublicProfilePage() {
     save,
     isSaving,
     saveError,
-  } = useOwnProfile(ownProfileInitial);
+  } = useOwnProfile(ownProfileInitial, { registerMode });
 
-  // Decorator ring is sourced from the *viewer*'s settings, so we only
-  // render it when the viewer is looking at their own profile. The social
-  // endpoint doesn't currently surface another user's equipped decorator;
-  // until it does, leaking the viewer's ring onto a stranger's avatar would
-  // be misleading.
-  const { style: viewerDecoratorStyle } = useEquippedDecorator();
-  const decoratorStyle = isSelf ? viewerDecoratorStyle : null;
+  // Auto-open the edit form when arriving in register mode so the form is
+  // the page's primary content rather than buried behind a button.
+  useEffect(() => {
+    if (registerMode) {
+      openEdit({
+        displayName: "",
+        bio: "",
+        avatarUrl: "",
+        username: username ?? "",
+      });
+    }
+    // openEdit is stable enough — depending on it would re-fire the
+    // effect every state change on the hook; we only want this once
+    // per arrival in register mode.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [registerMode, username]);
+
+  const { style: decoratorStyle } = useEquippedDecorator();
+  const { equippedId: equippedTitleId } = useEquippedTitle();
+
+  // Resolve the wear-text for the equipped title (e.g. "Night Owl"). Only
+  // shown when the viewer is on their OWN profile — until the social
+  // endpoint surfaces another user's equipped title, leaking the viewer's
+  // title onto a stranger's masthead would be misleading.
+  const equippedTitleText = (() => {
+    if (!isSelf || !equippedTitleId) return null;
+    const item = TITLE_ITEMS.find((i) => i.id === equippedTitleId);
+    if (!item) return null;
+    const base = item.titleKey.replace(/\.title$/, "");
+    return t(`shop.items.${base}.wear`, {
+      defaultValue: t(`shop.items.${item.titleKey}`, { defaultValue: item.id }),
+    });
+  })();
 
   if (!username) {
     return <ProfileShell heading={t("profile.publicNotFound", "Profile not found")} />;
@@ -195,6 +206,28 @@ export function PublicProfilePage() {
     return (
       <ProfileShell heading={t("profile.publicLoading", "Loading profile…")}>
         <div className="motion-safe:animate-pulse text-sm text-text-muted">…</div>
+      </ProfileShell>
+    );
+  }
+  if (registerMode) {
+    return (
+      <ProfileShell
+        heading={t("profile.registerHeading", "Pick your username")}
+      >
+        <p className="mb-6 text-sm text-text-secondary">
+          {t(
+            "profile.registerDesc",
+            "Your username is how friends find you. You can edit your display name and bio later.",
+          )}
+        </p>
+        <RegisterForm
+          draft={draft}
+          setDraft={setDraft}
+          save={save}
+          isSaving={isSaving}
+          saveError={saveError}
+          t={t}
+        />
       </ProfileShell>
     );
   }
@@ -236,7 +269,6 @@ export function PublicProfilePage() {
   const xp = socialProfile?.xp ?? 0;
   const streak = socialProfile?.streak ?? 0;
   const joined = formatJoinDate(socialProfile?.joined_at ?? user?.created_at, i18n.language);
-  // Enriched fields. All optional on the type — degrade gracefully.
   const lingots = socialProfile?.lingots ?? 0;
   const level = socialProfile?.level ?? 1;
   const lastActiveLabel = formatLastActive(
@@ -302,45 +334,61 @@ export function PublicProfilePage() {
   }
 
   return (
-    <main
-      className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-8 sm:py-14"
-      style={{ fontFamily: BODY_FONT }}
-    >
+    <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
       <article data-testid="public-profile-card" className="relative">
-        {/* ── Masthead ────────────────────────────────────────────── */}
+        {/* ── Masthead ─────────────────────────────────────────────
+              When the owner toggles "Edit profile" the display-name
+              heading and the bio paragraph swap their text for inline
+              <Input>/<Textarea> elements positioned and sized to match
+              the displayed text. No separate "edit form" section — the
+              page IS the editor. */}
         <header className="relative">
-          {/* Eyebrow: small-caps "profile" label, sits above the name like a
-              kicker on a magazine feature. */}
-          <p
-            className="text-[10px] font-semibold uppercase tracking-[0.28em] text-text-muted"
-            style={{ fontFeatureSettings: '"ss01"' }}
-          >
+          <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
             {t("profile.publicKicker", "Learner Profile")}
-            <span aria-hidden className="mx-2 text-text-muted/50">·</span>
-            <span className="text-text-muted">@{username}</span>
+            <span aria-hidden className="mx-2 opacity-50">·</span>
+            <span>@{username}</span>
           </p>
+
+          {isSelf && editMode && saveError && (
+            <p className="mt-3 rounded-lg bg-error/10 px-3 py-2 text-sm text-error">
+              {saveError}
+            </p>
+          )}
 
           <div className="mt-4 grid gap-6 sm:grid-cols-[1fr_auto] sm:gap-10">
             <div className="min-w-0">
-              {/* Name — display serif, large, the answer to "who is this".
-                  Mobile: 40px; desktop scales up to 64px via clamp. */}
-              <h1
-                className="break-words text-text-primary"
-                style={{
-                  fontFamily: DISPLAY_FONT,
-                  fontWeight: 900,
-                  fontSize: "clamp(2.5rem, 6vw, 4rem)",
-                  lineHeight: 0.95,
-                  letterSpacing: "-0.025em",
-                  fontFeatureSettings: '"ss01", "ss02"',
-                }}
-              >
-                {displayName}
-              </h1>
+              {isSelf && editMode ? (
+                <input
+                  type="text"
+                  value={draft.displayName}
+                  onChange={(e) =>
+                    setDraft((d) => ({ ...d, displayName: e.target.value }))
+                  }
+                  placeholder={t(
+                    "profile.realNamePlaceholder",
+                    "Your name",
+                  )}
+                  aria-label={t("profile.realName", "Display name")}
+                  className="w-full break-words border-b-2 border-accent/40 bg-transparent text-3xl font-bold tracking-tight text-text-primary outline-none focus:border-accent sm:text-4xl"
+                />
+              ) : (
+                <h1 className="break-words text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+                  {displayName}
+                </h1>
+              )}
 
-              {/* Byline row: friendship pill + last-active. The "is this person
-                  active and how do I relate to them" answer in one sentence. */}
-              <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+              {/* Equipped title — render under the heading. Acts as a
+                  subtitle / honorific. Only visible on self profiles
+                  until the social endpoint exposes other users' titles. */}
+              {equippedTitleText && (
+                <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+                  <Icon name="crown" size={14} strokeWidth={2.25} aria-hidden />
+                  {equippedTitleText}
+                </p>
+              )}
+
+              {/* Byline row: friendship pill + last-active. */}
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
                 <FriendshipPill status={friendship ?? null} t={t} />
                 {lastActiveLabel && (
                   <span className="inline-flex items-center gap-1.5 text-xs text-text-muted">
@@ -359,18 +407,52 @@ export function PublicProfilePage() {
                 )}
               </div>
 
-              {bio && (
-                <p
-                  className="mt-5 max-w-prose text-[15px] leading-relaxed text-text-secondary"
-                  style={{ fontFamily: BODY_FONT }}
-                >
-                  {bio}
-                </p>
+              {/* Bio. In edit mode this becomes a textarea inline at
+                  the same visual position; otherwise it's a paragraph. */}
+              {isSelf && editMode ? (
+                <textarea
+                  value={draft.bio}
+                  onChange={(e) =>
+                    setDraft((d) => ({ ...d, bio: e.target.value }))
+                  }
+                  placeholder={t(
+                    "profile.statusPlaceholder",
+                    "Tell people about yourself",
+                  )}
+                  aria-label={t("profile.status", "Bio")}
+                  rows={2}
+                  className="mt-4 w-full max-w-prose resize-y rounded-md border border-border bg-transparent px-2 py-1.5 text-sm leading-relaxed text-text-secondary outline-none focus:border-accent"
+                />
+              ) : (
+                bio && (
+                  <p className="mt-4 max-w-prose text-sm leading-relaxed text-text-secondary">
+                    {bio}
+                  </p>
+                )
+              )}
+
+              {/* Avatar URL — only shown in edit mode, as a small
+                  unobtrusive row under the bio. Keeps the editor
+                  inline rather than a separate form. */}
+              {isSelf && editMode && (
+                <div className="mt-3 max-w-prose">
+                  <label className="mb-1 block text-xs font-medium text-text-muted">
+                    {t("profile.avatarUrl", "Avatar URL")}
+                  </label>
+                  <input
+                    type="url"
+                    value={draft.avatarUrl}
+                    onChange={(e) =>
+                      setDraft((d) => ({ ...d, avatarUrl: e.target.value }))
+                    }
+                    placeholder="https://..."
+                    className="w-full rounded-md border border-border bg-transparent px-2 py-1.5 text-sm text-text-primary outline-none focus:border-accent"
+                  />
+                </div>
               )}
             </div>
 
-            {/* Right column: avatar + league emblem floats above it. On mobile
-                this stacks under the name. */}
+            {/* Right column: avatar + actions. */}
             <div className="flex items-start justify-start gap-4 sm:flex-col sm:items-end sm:gap-3">
               <div className="relative">
                 <DecoratedAvatar
@@ -382,129 +464,73 @@ export function PublicProfilePage() {
                 />
                 {league && <LeagueEmblem league={league} />}
               </div>
-              <div className="hidden sm:block" aria-hidden>
-                {/* hairline divider that visually anchors the action column */}
-                <div className="mt-1 h-px w-16 bg-border" />
-              </div>
-              <PrimaryAction
-                status={friendship ?? null}
-                actionState={actionState}
-                onAddFriend={handleAddFriend}
-                onAccept={handleAccept}
-                onUnblock={handleUnblock}
-                onUnfriend={handleUnfriend}
-                onBlock={handleBlock}
-                onEditProfile={() =>
-                  openEdit({
-                    displayName: displayName,
-                    bio: bio ?? "",
-                    avatarUrl: avatarSrc ?? "",
-                  })
-                }
-                t={t}
-              />
+              {isSelf && editMode ? (
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="primary"
+                    size="sm"
+                    disabled={isSaving}
+                    onClick={() => save()}
+                  >
+                    {isSaving
+                      ? t("common.loading", "Saving…")
+                      : t("profile.save", "Save")}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={cancelEdit}
+                  >
+                    {t("common.cancel", "Cancel")}
+                  </Button>
+                </div>
+              ) : (
+                <PrimaryAction
+                  status={friendship ?? null}
+                  actionState={actionState}
+                  onAddFriend={handleAddFriend}
+                  onAccept={handleAccept}
+                  onUnblock={handleUnblock}
+                  onUnfriend={handleUnfriend}
+                  onBlock={handleBlock}
+                  onEditProfile={() =>
+                    openEdit({
+                      displayName: displayName,
+                      bio: bio ?? "",
+                      avatarUrl: avatarSrc ?? "",
+                    })
+                  }
+                  t={t}
+                />
+              )}
+              {isSelf && !editMode && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setInventoryOpen(true)}
+                  className="!gap-1.5"
+                >
+                  <Icon name="package" size={14} strokeWidth={2.25} aria-hidden />
+                  {t("profile.publicInventoryCta", "Inventory")}
+                </Button>
+              )}
             </div>
           </div>
 
-          {/* Thick separator between masthead and stats — the only rule on the
-              page that isn't a hairline. Marks "above the fold" identity. */}
-          <div
-            aria-hidden
-            className="mt-8 h-[3px] w-full bg-text-primary/85"
-          />
+          {/* Hairline divider between masthead and stats. */}
+          <div aria-hidden className="mt-6 h-px w-full bg-border" />
         </header>
 
-        {/* ── Inline edit form (self only) ────────────────────────── */}
-        {isSelf && editMode && (
-          <section
-            aria-label="Edit profile"
-            className="mt-8 rounded-xl border border-border bg-surface p-6 space-y-5"
-          >
-            <h2 className="text-base font-semibold text-text-primary">
-              {t("profile.editTitle", "Edit profile")}
-            </h2>
-
-            {saveError && (
-              <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error">
-                {saveError}
-              </p>
-            )}
-
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text-secondary">
-                {t("profile.realName", "Display name")}
-              </label>
-              <Input
-                value={draft.displayName}
-                onChange={(e) =>
-                  setDraft((d) => ({ ...d, displayName: e.target.value }))
-                }
-                placeholder={t("profile.realNamePlaceholder", "Your name")}
-              />
-            </div>
-
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text-secondary">
-                {t("profile.status", "Bio")}
-              </label>
-              <Textarea
-                value={draft.bio}
-                onChange={(e) =>
-                  setDraft((d) => ({ ...d, bio: e.target.value }))
-                }
-                placeholder={t(
-                  "profile.statusPlaceholder",
-                  "Tell people about yourself",
-                )}
-                rows={2}
-              />
-            </div>
-
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text-secondary">
-                {t("profile.avatarUrl", "Avatar URL")}
-              </label>
-              <Input
-                type="url"
-                value={draft.avatarUrl}
-                onChange={(e) =>
-                  setDraft((d) => ({ ...d, avatarUrl: e.target.value }))
-                }
-                placeholder="https://..."
-              />
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Button
-                type="button"
-                variant="primary"
-                size="sm"
-                disabled={isSaving}
-                onClick={() => save()}
-              >
-                {isSaving
-                  ? t("common.loading", "Saving…")
-                  : t("profile.save", "Save")}
-              </Button>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={cancelEdit}
-              >
-                {t("common.cancel", "Cancel")}
-              </Button>
-            </div>
-          </section>
-        )}
-
-        {/* ── By-the-numbers rail ─────────────────────────────────── */}
+        {/* ── Stats grid ──────────────────────────────────────────── */}
         <section
           aria-label={t("profile.publicStatsLabel", "Profile stats")}
           data-testid="public-profile-stats"
           className="mt-8"
         >
-          <dl className="grid grid-cols-2 gap-y-7 sm:grid-cols-4 sm:gap-y-0">
+          <dl className="grid grid-cols-2 gap-y-6 sm:grid-cols-4 sm:gap-y-0">
             <NumberStat
               icon="sparkles"
               label={t("profile.publicXpLabel", "XP")}
@@ -531,30 +557,28 @@ export function PublicProfilePage() {
           </dl>
         </section>
 
-        {/* ── Decorator inventory (self only) ─────────────────────── */}
-        {isSelf && <InventorySection />}
+        {/* ── Decorator inventory popout (self only) ──────────────── */}
+        {isSelf && (
+          <InventoryPopout
+            open={inventoryOpen}
+            onClose={() => setInventoryOpen(false)}
+          >
+            <InventorySection
+              hideHeading
+              onAfterEquip={() => setInventoryOpen(false)}
+            />
+          </InventoryPopout>
+        )}
 
         {/* ── Secondary context strip: learning language ──────────── */}
         {lang && (
-          <section className="mt-10 flex items-baseline gap-3">
-            <span
-              className="text-[10px] font-semibold uppercase tracking-[0.28em] text-text-muted"
-            >
+          <section className="mt-10 flex items-center gap-3">
+            <span className="text-xs font-medium uppercase tracking-wide text-text-muted">
               {t("profile.publicLearningLabel", "Learning")}
             </span>
-            <span
-              className="flex items-baseline gap-2 text-text-primary"
-              style={{
-                fontFamily: DISPLAY_FONT,
-                fontWeight: 500,
-                fontStyle: "italic",
-                fontSize: "1.5rem",
-                lineHeight: 1,
-                letterSpacing: "-0.01em",
-              }}
-            >
+            <span className="inline-flex items-center gap-2 text-base font-medium text-text-primary">
               {lang.flag && (
-                <span aria-hidden className="text-xl not-italic">
+                <span aria-hidden className="text-xl">
                   {lang.flag}
                 </span>
               )}
@@ -563,51 +587,38 @@ export function PublicProfilePage() {
           </section>
         )}
 
-        {/* ── Authored decks — "Bylined Works" ────────────────────── */}
+        {/* ── Authored decks ──────────────────────────────────────── */}
         {authoredCount > 0 && (
           <section
-            className="mt-12"
+            className="mt-10"
             data-testid="public-profile-authored"
             aria-labelledby="authored-heading"
           >
-            <div className="flex items-baseline justify-between gap-4 border-b border-border pb-3">
+            <div className="flex items-baseline justify-between gap-4 border-b border-border pb-2">
               <h2
                 id="authored-heading"
-                className="text-text-primary"
-                style={{
-                  fontFamily: DISPLAY_FONT,
-                  fontWeight: 700,
-                  fontSize: "1.5rem",
-                  letterSpacing: "-0.015em",
-                }}
+                className="text-lg font-semibold text-text-primary"
               >
-                {t("profile.publicAuthoredHeading", "Bylined Decks")}
+                {t("profile.publicAuthoredHeading", "Authored decks")}
               </h2>
-              <span
-                className="text-[11px] font-medium uppercase tracking-[0.18em] text-text-muted"
-                style={{ fontFamily: MONO_FONT }}
-              >
-                {authoredCount.toString().padStart(2, "0")} {t("profile.publicAuthoredCount", "total")}
+              <span className="text-xs font-medium uppercase tracking-wide text-text-muted">
+                {authoredCount.toLocaleString()} {t("profile.publicAuthoredCount", "total")}
               </span>
             </div>
             <ul className="mt-2 divide-y divide-border-muted">
-              {authoredSample.map((d, i) => (
+              {authoredSample.map((d) => (
                 <DeckRow
                   key={d.id}
                   deck={d}
-                  index={i + 1}
                   unnamedFallback={t("profile.publicUnnamedDeck", "(unnamed deck)")}
                 />
               ))}
             </ul>
             {authoredCount > authoredSample.length && (
-              <p
-                className="mt-4 text-xs italic text-text-muted"
-                style={{ fontFamily: DISPLAY_FONT }}
-              >
+              <p className="mt-4 text-xs text-text-muted">
                 {t("profile.publicAuthoredMore", "and")}{" "}
                 {(authoredCount - authoredSample.length).toLocaleString()}{" "}
-                {t("profile.publicAuthoredMoreSuffix", "more in the archive")}
+                {t("profile.publicAuthoredMoreSuffix", "more")}
               </p>
             )}
           </section>
@@ -629,10 +640,9 @@ export function PublicProfilePage() {
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
 /**
- * One slot in the by-the-numbers rail. The numeral is the loud part —
- * Plex Mono at 30-40px, slightly tighter tracking; the label is the
- * small-cap kicker above it. No box, no border — separation comes from
- * the vertical rule between siblings (sm and up).
+ * One slot in the stats grid. The numeral is the loud part; the label is
+ * the small kicker above it. Separation comes from a vertical border
+ * between siblings on tablet+.
  */
 function NumberStat({
   icon,
@@ -652,33 +662,21 @@ function NumberStat({
   return (
     <div className="relative px-1 sm:px-5 sm:first:pl-0 sm:last:pr-0 sm:[&:not(:first-child)]:border-l sm:[&:not(:first-child)]:border-border">
       <div className="flex items-center gap-1.5 text-text-muted">
-        <Icon name={icon} size={12} strokeWidth={2.25} />
-        <span className="text-[10px] font-semibold uppercase tracking-[0.22em]">
+        <Icon name={icon} size={14} strokeWidth={2.25} aria-hidden />
+        <span className="text-xs font-medium uppercase tracking-wide">
           {label}
         </span>
       </div>
       <div
         className={
-          "mt-2 tabular-nums " +
+          "mt-1.5 text-2xl font-semibold tabular-nums sm:text-3xl " +
           (accentValue ? "text-accent" : "text-text-primary")
         }
-        style={{
-          fontFamily: MONO_FONT,
-          fontWeight: 600,
-          fontSize: "clamp(1.875rem, 4.5vw, 2.5rem)",
-          lineHeight: 1,
-          letterSpacing: "-0.02em",
-        }}
       >
         {value}
       </div>
       {caption && (
-        <div
-          className="mt-2 text-[11px] text-text-muted"
-          style={{ fontFamily: MONO_FONT }}
-        >
-          {caption}
-        </div>
+        <div className="mt-1.5 text-xs text-text-muted">{caption}</div>
       )}
       {typeof progress === "number" && (
         <div
@@ -696,10 +694,9 @@ function NumberStat({
 }
 
 /**
- * League emblem — the one place hardcoded colors live. Brass-foil gradient
- * with a subtle ring; positioned over the avatar's lower-right like a
- * decoration pin. Works on every theme because brass reads as brass on
- * any background.
+ * League emblem — brass-foil gradient with a subtle ring, positioned over
+ * the avatar's lower-right like a decoration pin. Brass reads as brass on
+ * any theme so the hardcoded color values stay put.
  */
 function LeagueEmblem({
   league,
@@ -729,55 +726,29 @@ function LeagueEmblem({
 }
 
 /**
- * One bylined-work row. Magazine-feature treatment: oversized index numeral
- * on the left (Plex Mono, faint), deck name as the title, language as a
- * "filed under" small-cap tag, and an arrow that animates on hover.
+ * One authored-deck row. Standard list item with arrow affordance on
+ * hover — matches the rest of the app's list patterns.
  */
 function DeckRow({
   deck,
-  index,
   unnamedFallback,
 }: {
   deck: AuthoredDeckSample;
-  index: number;
   unnamedFallback: string;
 }) {
   return (
     <li>
       <Link
         to={`/decks/${deck.id}`}
-        className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-4 py-4 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="group grid grid-cols-[1fr_auto] items-center gap-4 py-3 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
-        <span
-          aria-hidden
-          className="text-text-muted/40 group-hover:text-accent/70 transition-colors tabular-nums"
-          style={{
-            fontFamily: MONO_FONT,
-            fontWeight: 500,
-            fontSize: "1.125rem",
-          }}
-        >
-          {index.toString().padStart(2, "0")}
-        </span>
         <div className="min-w-0">
-          <h3
-            className="truncate text-text-primary group-hover:text-accent transition-colors"
-            style={{
-              fontFamily: DISPLAY_FONT,
-              fontWeight: 700,
-              fontSize: "1.25rem",
-              letterSpacing: "-0.01em",
-              lineHeight: 1.2,
-            }}
-          >
+          <h3 className="truncate text-base font-medium text-text-primary group-hover:text-accent">
             {deck.name || unnamedFallback}
           </h3>
           {deck.language && (
-            <p
-              className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-text-muted"
-            >
-              <span className="opacity-60">filed under</span>{" "}
-              <span className="text-text-secondary">{deck.language}</span>
+            <p className="mt-0.5 text-xs text-text-muted">
+              {deck.language}
             </p>
           )}
         </div>
@@ -801,20 +772,8 @@ function ProfileShell({
   children?: React.ReactNode;
 }) {
   return (
-    <main
-      className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-8 sm:py-14"
-      style={{ fontFamily: BODY_FONT }}
-    >
-      <h1
-        className="text-text-primary"
-        style={{
-          fontFamily: DISPLAY_FONT,
-          fontWeight: 700,
-          fontSize: "clamp(1.875rem, 4vw, 2.5rem)",
-          lineHeight: 1.05,
-          letterSpacing: "-0.02em",
-        }}
-      >
+    <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
+      <h1 className="text-2xl font-bold text-text-primary sm:text-3xl">
         {heading}
       </h1>
       {children && <div className="mt-4">{children}</div>}
@@ -823,9 +782,9 @@ function ProfileShell({
 }
 
 /**
- * Friendship pill — small, lowercase-typographic chip that sits inline with
- * the byline. No background fill except for the destructive states; this is
- * metadata, not a call to action.
+ * Friendship pill — small chip that sits inline with the byline. No
+ * background fill except for the destructive states; this is metadata,
+ * not a call to action.
  */
 function FriendshipPill({
   status,
@@ -866,9 +825,9 @@ function FriendshipPill({
   if (!labelAndIcon) return null;
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${labelAndIcon.tone}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium ${labelAndIcon.tone}`}
     >
-      <Icon name={labelAndIcon.icon} size={11} strokeWidth={2.5} />
+      <Icon name={labelAndIcon.icon} size={12} strokeWidth={2.5} aria-hidden />
       {labelAndIcon.label}
     </span>
   );
@@ -906,7 +865,7 @@ function PrimaryAction({
         onClick={onEditProfile}
         className="!gap-1.5"
       >
-        <Icon name="pencil" size={14} strokeWidth={2.25} />
+        <Icon name="pencil" size={14} strokeWidth={2.25} aria-hidden />
         {t("profile.publicEditProfile", "Edit profile")}
       </Button>
     );
@@ -975,7 +934,7 @@ function FriendDropdown({
         className="!gap-1.5"
       >
         {busy ? "…" : t("profile.publicFriends", "Friends")}
-        <Icon name="chevronDown" size={13} strokeWidth={2.25} />
+        <Icon name="chevronDown" size={13} strokeWidth={2.25} aria-hidden />
       </Button>
       {open && (
         <div
@@ -1007,6 +966,92 @@ function FriendDropdown({
         </div>
       )}
     </div>
+  );
+}
+
+/**
+ * RegisterForm — first-time username + display name capture. Rendered
+ * when the page is reached via the HomePage 404→register redirect.
+ *
+ * The same ``useOwnProfile`` draft state powers this form; the parent
+ * passes ``registerMode: true`` so save POSTs to ``users.register``.
+ */
+function RegisterForm({
+  draft,
+  setDraft,
+  save,
+  isSaving,
+  saveError,
+  t,
+}: {
+  draft: {
+    displayName: string;
+    bio: string;
+    avatarUrl: string;
+    username?: string;
+  };
+  setDraft: React.Dispatch<
+    React.SetStateAction<{
+      displayName: string;
+      bio: string;
+      avatarUrl: string;
+      username?: string;
+    }>
+  >;
+  save: () => void;
+  isSaving: boolean;
+  saveError: string | null;
+  t: TFunction;
+}) {
+  return (
+    <form
+      className="space-y-5 rounded-xl border border-border bg-surface p-6"
+      onSubmit={(e) => {
+        e.preventDefault();
+        save();
+      }}
+    >
+      {saveError && (
+        <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error">
+          {saveError}
+        </p>
+      )}
+
+      <div>
+        <label className="mb-1 block text-sm font-medium text-text-secondary">
+          {t("profile.username", "Username")}
+        </label>
+        <Input
+          value={draft.username ?? ""}
+          onChange={(e) =>
+            setDraft((d) => ({ ...d, username: e.target.value }))
+          }
+          placeholder="@username"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="mb-1 block text-sm font-medium text-text-secondary">
+          {t("profile.realName", "Display name")}
+        </label>
+        <Input
+          value={draft.displayName}
+          onChange={(e) =>
+            setDraft((d) => ({ ...d, displayName: e.target.value }))
+          }
+          placeholder={t("profile.realNamePlaceholder", "Your name")}
+        />
+      </div>
+
+      <div className="flex items-center gap-3">
+        <Button type="submit" variant="primary" size="sm" disabled={isSaving}>
+          {isSaving
+            ? t("common.loading", "Saving…")
+            : t("profile.registerCta", "Continue")}
+        </Button>
+      </div>
+    </form>
   );
 }
 

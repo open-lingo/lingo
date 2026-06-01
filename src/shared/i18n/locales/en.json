@@ -653,14 +653,26 @@
       },
       "titleNightOwl": {
         "title": "Night owl title",
-        "description": "A profile title for late-night learners."
+        "description": "A profile title for late-night learners.",
+        "wear": "Night Owl"
       }
     },
     "sectionInventory": "Your decorators",
+    "sectionFrames": "Avatar frames",
+    "sectionTitles": "Profile titles",
+    "sectionBanners": "Profile banners",
     "equip": "Equip",
     "unequip": "Unequip",
     "equipped": "Equipped",
-    "noDecoratorsOwned": "You don't own any decorators yet. Visit the shop to buy one."
+    "noDecoratorsOwned": "You don't own any decorators yet. Visit the shop to buy one.",
+    "noCosmeticsOwned": "You don't own any cosmetics yet. Visit the shop to buy some.",
+    "noFramesOwned": "No frames owned.",
+    "noTitlesOwned": "No titles owned.",
+    "noBannersOwned": "No banners available yet.",
+    "noneEquipped": "Nothing equipped.",
+    "currentlyEquipped": "Currently equipped",
+    "inventoryTitle": "Inventory",
+    "inventoryAria": "Inventory"
   },
   "funding": {
     "adFunded": "{{percent}}% ad-funded",
@@ -1246,7 +1258,11 @@
     "badgeFriend": "Friends",
     "badgeRequestIn": "Wants to be friends",
     "badgeRequestOut": "Request pending",
-    "badgeBlocked": "Blocked"
+    "badgeBlocked": "Blocked",
+    "publicInventoryCta": "Inventory",
+    "registerHeading": "Pick your username",
+    "registerDesc": "Your username is how friends find you. You can edit your display name and bio later.",
+    "registerCta": "Continue"
   },
   "admin": {
     "title": "Admin",

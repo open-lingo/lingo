@@ -45,6 +45,7 @@ import {
   MoreHorizontal,
   Music,
   Newspaper,
+  Package,
   GripVertical,
   Info,
   Layers2,
@@ -156,6 +157,8 @@ export const iconRegistry = {
   film: Film,
   tv: Tv,
   newspaper: Newspaper,
+  /** Package — inventory / shop items affordance */
+  package: Package,
   fileText: FileText,
   smartphone: Smartphone,
   search: Search,

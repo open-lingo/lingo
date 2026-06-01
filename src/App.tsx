@@ -271,7 +271,6 @@ const router = createBrowserRouter([
               { path: "lms", element: <AdminLmsPage /> },
               // Deep-link compatibility — preserve old URLs during the migration.
               { path: "operations", element: <Navigate to="/admin/ops" replace /> },
-              { path: "xp-config", element: <Navigate to="/admin/ops" replace /> },
               {
                 path: "content",
                 children: [

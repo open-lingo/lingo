@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { Icon } from "@/shared/components/Icon";
 import { useApi } from "@/shared/api/provider";
 import { useAuth } from "@/shared/auth/useAuth";
@@ -7,6 +9,7 @@ import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { ApiError } from "@/shared/api/client";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { supportedLngs } from "@/shared/i18n/i18n";
 import { utcToLocalHHmm, localToUtcHHmm } from "@/shared/utils/reminderTime";
@@ -70,9 +73,26 @@ function SectionIntro({
 
 function GeneralPanel() {
   const { t } = useTranslation();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const { settings, updateSetting } = useSettings();
-  const { openProfile } = useModal();
+  const { users } = useApi();
+  const { closeAll } = useModal();
+
+  // Resolve the viewer's username so the profile link can deep-link to
+  // ``/u/<username>``. Falls back to Auth0 claims when the backend record
+  // hasn't been created yet.
+  const { data: me } = useQuery({
+    queryKey: ["users", user?.sub ?? "anon", "me"],
+    queryFn: () => users.getMe(),
+    enabled: isAuthenticated,
+    retry: (_, err) => !(err instanceof ApiError && err.status === 404),
+    staleTime: 60_000,
+  });
+  const profileUsername =
+    me?.username?.trim() ||
+    user?.nickname?.trim() ||
+    user?.email?.split("@")[0]?.trim() ||
+    "";
 
   const uiLocaleValue = supportedLngs.find((lng) =>
     settings.learning.uiLocale.startsWith(lng),
@@ -87,16 +107,16 @@ function GeneralPanel() {
           "App-wide preferences. Change your study language from the flag menu in the header.",
         )}
       />
-      {isAuthenticated && (
+      {isAuthenticated && profileUsername && (
         <div className="mb-5">
-          <button
-            type="button"
-            onClick={openProfile}
+          <Link
+            to={`/u/${encodeURIComponent(profileUsername)}`}
+            onClick={closeAll}
             className="text-sm font-medium text-accent hover:text-accent-hover"
           >
             {t("profile.editProfile")}{" "}
             <Icon name="arrowBigRight" size={14} className="inline" />
-          </button>
+          </Link>
         </div>
       )}
 

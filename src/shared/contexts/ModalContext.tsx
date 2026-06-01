@@ -7,7 +7,7 @@ import {
   type ReactNode,
 } from "react";
 
-export type ModalId = "settings" | "profile" | string;
+export type ModalId = "settings" | string;
 
 export type ModalEntry = {
   id: ModalId;
@@ -22,8 +22,6 @@ type ModalContextValue = {
   closeAll: () => void;
   /** Convenience: open settings. */
   openSettings: () => void;
-  /** Convenience: open profile (pushes on stack). */
-  openProfile: () => void;
 };
 
 const ModalContext = createContext<ModalContextValue | null>(null);
@@ -42,7 +40,6 @@ export function ModalProvider({ children }: { children: ReactNode }) {
   const closeAll = useCallback(() => setStack([]), []);
 
   const openSettings = useCallback(() => open("settings"), [open]);
-  const openProfile = useCallback(() => open("profile"), [open]);
 
   const isOpen = stack.length > 0;
 
@@ -54,9 +51,8 @@ export function ModalProvider({ children }: { children: ReactNode }) {
       close,
       closeAll,
       openSettings,
-      openProfile,
     }),
-    [stack, isOpen, open, close, closeAll, openSettings, openProfile],
+    [stack, isOpen, open, close, closeAll, openSettings],
   );
 
   return (

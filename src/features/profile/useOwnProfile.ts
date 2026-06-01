@@ -7,13 +7,28 @@ export type OwnProfileDraft = {
   displayName: string;
   bio: string;
   avatarUrl: string;
+  /** Only used in register mode (no backend record exists yet). */
+  username?: string;
+};
+
+export type UseOwnProfileOptions = {
+  /**
+   * When true, the save mutation calls ``users.register`` instead of
+   * ``users.updateMe``. The PublicProfilePage flips this on for
+   * self-but-unregistered viewers so the first-time username + display
+   * name flow lives on the same surface as edit.
+   */
+  registerMode?: boolean;
 };
 
 /**
  * Manages edit-mode state and the save mutation for the own-profile case
  * on PublicProfilePage. Extracted so the page file doesn't grow further.
  */
-export function useOwnProfile(initial: OwnProfileDraft) {
+export function useOwnProfile(
+  initial: OwnProfileDraft,
+  opts: UseOwnProfileOptions = {},
+) {
   const { users } = useApi();
   const queryClient = useQueryClient();
 
@@ -34,12 +49,24 @@ export function useOwnProfile(initial: OwnProfileDraft) {
   }
 
   const saveMutation = useMutation({
-    mutationFn: () =>
-      users.updateMe({
+    mutationFn: async () => {
+      if (opts.registerMode) {
+        const username = (draft.username ?? "").trim();
+        const displayName = draft.displayName.trim() || username;
+        if (!username) {
+          throw new ApiError(400, { detail: "Username is required" });
+        }
+        return users.register({
+          username,
+          display_name: displayName,
+        });
+      }
+      return users.updateMe({
         display_name: draft.displayName.trim() || undefined,
         bio: draft.bio.trim() || undefined,
         profile_picture_key: draft.avatarUrl.trim() || undefined,
-      }),
+      });
+    },
     onSuccess: () => {
       setEditMode(false);
       setSaveError(null);
@@ -58,6 +85,12 @@ export function useOwnProfile(initial: OwnProfileDraft) {
     onError: (err: unknown) => {
       if (err instanceof ApiError && err.status === 409) {
         setSaveError("Username already taken.");
+      } else if (err instanceof ApiError && err.status === 400) {
+        const detail =
+          typeof err.body === "object" && err.body && "detail" in err.body
+            ? String((err.body as { detail?: unknown }).detail)
+            : "Please fill in the required fields.";
+        setSaveError(detail);
       } else {
         setSaveError("Failed to save — try again.");
       }

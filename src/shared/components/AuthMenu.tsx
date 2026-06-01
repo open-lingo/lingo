@@ -25,7 +25,7 @@ export function AuthMenu() {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const profile = user?.sub ? getStoredProfile(user.sub) : null;
-  const { openSettings, openProfile } = useModal();
+  const { openSettings } = useModal();
   const { openThemeEditor } = useTheme();
   const flags = useFeatureFlags();
 
@@ -120,39 +120,31 @@ export function AuthMenu() {
             <Icon name="settings" size={18} className="shrink-0 text-text-muted" />
             {t("nav.settings")}
           </Button>
-          {isAuthenticated && (
-            <>
-              {(() => {
-                // Public profile URL — prefer the backend ``me.username``
-                // (Auth0 sub maps to this in the seed). Fall back to the
-                // Auth0 ``nickname`` claim or the email local-part so the
-                // link still resolves for accounts that haven't picked a
-                // username yet. We hide the row only if we truly have
-                // nothing to route on.
-                const myUsername =
-                  me?.username?.trim() ||
-                  profile?.username?.trim() ||
-                  user?.nickname?.trim() ||
-                  user?.email?.split("@")[0]?.trim() ||
-                  "";
-                if (!myUsername) return null;
-                return (
-                  <Link
-                    to={`/u/${encodeURIComponent(myUsername)}`}
-                    className={menuLinkClass}
-                    onClick={() => setOpen(false)}
-                  >
-                    <Icon name="user" size={18} className="shrink-0 text-text-muted" />
-                    {t("authMenu.viewProfile", "View profile")}
-                  </Link>
-                );
-              })()}
-              <Button variant="menu" type="button" onClick={() => { setOpen(false); openProfile(); }}>
-                <Icon name="pencil" size={18} className="shrink-0 text-text-muted" />
-                {t("profile.editProfile")}
-              </Button>
-            </>
-          )}
+          {isAuthenticated && (() => {
+            // Public profile URL — prefer the backend ``me.username`` (Auth0
+            // sub maps to this in the seed). Fall back to the Auth0
+            // ``nickname`` claim or the email local-part so the link still
+            // resolves for accounts that haven't picked a username yet. The
+            // profile page now hosts inline editing — no separate "Edit
+            // profile" entry needed.
+            const myUsername =
+              me?.username?.trim() ||
+              profile?.username?.trim() ||
+              user?.nickname?.trim() ||
+              user?.email?.split("@")[0]?.trim() ||
+              "";
+            if (!myUsername) return null;
+            return (
+              <Link
+                to={`/u/${encodeURIComponent(myUsername)}`}
+                className={menuLinkClass}
+                onClick={() => setOpen(false)}
+              >
+                <Icon name="user" size={18} className="shrink-0 text-text-muted" />
+                {t("authMenu.viewProfile", "View profile")}
+              </Link>
+            );
+          })()}
           {showModeration && flags.community.tabs.contribute && (
             <Link
               to={langPath("community/contribute/admin")}

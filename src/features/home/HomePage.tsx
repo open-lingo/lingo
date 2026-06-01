@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -7,7 +7,6 @@ import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api/provider";
 import { ApiError } from "@/shared/api/client";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { useModal } from "@/shared/contexts/ModalContext";
 import { FlashcardsCard } from "@/features/flashcards/FlashcardsCard";
 import { PracticeCard } from "@/features/practice/PracticeCard";
 import { LanguagePickerModal } from "./LanguagePickerModal";
@@ -45,8 +44,8 @@ export function HomePage() {
     },
   });
 
-  const { openProfile } = useModal();
-  const hasOpenedRegistration = useRef(false);
+  const navigate = useNavigate();
+  const hasRedirectedToRegister = useRef(false);
 
   useEffect(() => {
     if (
@@ -54,12 +53,21 @@ export function HomePage() {
       meIsError &&
       meError instanceof ApiError &&
       meError.status === 404 &&
-      !hasOpenedRegistration.current
+      !hasRedirectedToRegister.current
     ) {
-      hasOpenedRegistration.current = true;
-      openProfile();
+      hasRedirectedToRegister.current = true;
+      // No backend record yet — send them to the public profile in
+      // register mode. Username is seeded from Auth0 claims and the page
+      // hosts the inline register form (same surface as edit).
+      const fallback =
+        user?.nickname?.trim() ||
+        user?.email?.split("@")[0]?.trim() ||
+        "";
+      if (fallback) {
+        navigate(`/u/${encodeURIComponent(fallback)}?register=1`, { replace: true });
+      }
     }
-  }, [isAuthenticated, meIsError, meError, openProfile]);
+  }, [isAuthenticated, meIsError, meError, navigate, user]);
 
   const welcomeName =
     me?.display_name?.trim() ??

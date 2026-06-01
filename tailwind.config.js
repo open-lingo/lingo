@@ -65,10 +65,15 @@ export default {
           "0%":   { opacity: "0", transform: "translateY(6px)" },
           "100%": { opacity: "1", transform: "translateY(0)"   },
         },
+        slideInRight: {
+          "0%":   { opacity: "0", transform: "translateX(16px)" },
+          "100%": { opacity: "1", transform: "translateX(0)"    },
+        },
       },
       animation: {
-        "rise-celebrate": "riseCelebrate 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards",
-        "fade-up":        "fadeUp 320ms cubic-bezier(0.16, 1, 0.3, 1) both",
+        "rise-celebrate":  "riseCelebrate 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "fade-up":         "fadeUp 320ms cubic-bezier(0.16, 1, 0.3, 1) both",
+        "slide-in-right":  "slideInRight 260ms cubic-bezier(0.16, 1, 0.3, 1) both",
       },
     },
   },

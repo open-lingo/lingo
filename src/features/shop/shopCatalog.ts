@@ -12,6 +12,12 @@ export type ShopItem = {
   iconName: string;
   /** When set, equipping this item renders a decorator ring. Must match decoratorStyles key. */
   decoratorId?: string;
+  /**
+   * When set, this item is a wearable profile title. The text rendered
+   * under the user's display name comes from
+   * ``shop.items.<titleKey>.wear`` in the i18n bundle.
+   */
+  titleId?: string;
 };
 
 /** Sample catalog — prices must match lingo-core/app/progress/shop_catalog.py */
@@ -112,6 +118,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     titleKey: "titleNightOwl.title",
     descriptionKey: "titleNightOwl.description",
     iconName: "crown",
+    titleId: "title-night-owl",
   },
 ];
 
@@ -121,3 +128,9 @@ export function getShopItem(id: string): ShopItem | undefined {
 
 /** All items that function as avatar decorators. */
 export const DECORATOR_ITEMS = SHOP_ITEMS.filter((i) => i.decoratorId != null);
+
+/** All items that function as wearable profile titles. */
+export const TITLE_ITEMS = SHOP_ITEMS.filter((i) => i.titleId != null);
+
+/** All cosmetic items (decorators, titles, future: banners). */
+export const COSMETIC_ITEMS = SHOP_ITEMS.filter((i) => i.category === "cosmetics");
