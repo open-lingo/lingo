@@ -18,13 +18,13 @@ import { ResumeBar } from "./ResumeBar";
 import { Button } from "@/shared/components/ui";
 
 /**
- * Feature flag — test-out (diagnostic skip-ahead) is not built yet.
- * See CLAUDE.md #58 (Phase 3b multi-step lesson container +
- * diagnostic skip-test). When false: don't render the "Test out of
- * Module N" buttons or the "coming soon" ConfirmModal at all (the
- * tombstone confused first-time users — Marc + Sora persona audit).
- * Flip to true when the feature ships and the buttons + modal wake
- * back up.
+ * Feature flag — test-out (diagnostic skip-ahead) is live. Buttons route
+ * to ``/learn/test-out/:moduleId`` which uses the adaptive placement
+ * engine to probe the module; on pass, ``applyPlacementResult`` marks
+ * every lesson up to and including that module complete locally and
+ * ``syncTestOutToServer`` mirrors the same completions to /progress/
+ * lessons/batch so the state travels with the user across devices.
+ * Flip to false if a regression makes the buttons unsafe to render.
  */
 const TEST_OUT_ENABLED = true;
 

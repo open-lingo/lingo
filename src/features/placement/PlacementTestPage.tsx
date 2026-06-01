@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { StepRenderer } from "@/features/lesson/components/StepRenderer";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useApi } from "@/shared/api/provider";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import {
   createInitialState,
@@ -12,6 +13,7 @@ import {
 } from "./engine/adaptiveEngine";
 import type { AdaptiveState } from "./engine/adaptiveEngine";
 import { applyPlacementResult } from "./engine/applyPlacement";
+import { syncTestOutToServer } from "./engine/syncTestOutToServer";
 import { getItemsForModule, instantiateItem } from "./questionBank";
 import { dismissPlacement } from "./hooks/usePlacementDismissed";
 import { PlacementProgressBar } from "./components/PlacementProgressBar";
@@ -23,6 +25,7 @@ export function PlacementTestPage() {
   const isTestOut = !!moduleId;
   const navigate = useNavigate();
   const langPath = useLangPath();
+  const { progress } = useApi();
 
   const [state, setState] = useState<AdaptiveState>(() =>
     isTestOut ? createTestOutState(moduleId!) : createInitialState(),
@@ -50,6 +53,10 @@ export function PlacementTestPage() {
         if (!isTestOut) dismissPlacement();
         setAppliedResult(result);
         setResultApplied(true);
+        // Mirror the local mockProgress writes to the server so a device
+        // switch / fresh login carries the test-out completions over.
+        // Fire-and-forget: local apply already persisted.
+        void syncTestOutToServer(progress, state.passedModules);
       }
       return;
     }
