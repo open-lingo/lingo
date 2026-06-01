@@ -187,7 +187,11 @@ export function PublicProfilePage() {
 
   const { style: decoratorStyle } = useEquippedDecorator();
   const { equippedId: equippedTitleId } = useEquippedTitle();
-  const { style: bannerStyle } = useEquippedBanner();
+  const { style: viewerBannerStyle } = useEquippedBanner();
+  // Until the public-profile endpoint surfaces the OWNER's equipped
+  // banner, only render a banner on the viewer's own profile. Otherwise
+  // the viewer's local-state banner leaks onto every stranger's page.
+  const bannerStyle = isSelf ? viewerBannerStyle : null;
 
   // Resolve the wear-text for the equipped title (e.g. "Night Owl"). Only
   // shown when the viewer is on their OWN profile — until the social
