@@ -37,9 +37,7 @@ export function GrammarRuleStepView({ step, onContinue }: Props) {
       </p>
 
       <div className="relative overflow-hidden rounded-3xl border-2 border-info/40 bg-gradient-to-br from-info/15 via-info/10 to-accent/10 px-7 py-9 shadow-[var(--shadow-card)]">
-        <span className="block text-5xl leading-none" aria-hidden>
-          📝
-        </span>
+        <Icon name="fileText" size={48} aria-hidden className="text-info" />
         <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
           {step.title}
         </h2>

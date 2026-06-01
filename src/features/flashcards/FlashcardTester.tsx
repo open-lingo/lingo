@@ -432,12 +432,12 @@ export function FlashcardTester() {
       <div className="flex items-center justify-center gap-1.5 text-xs font-medium text-text-muted">
         {testedModality === "recognition" ? (
           <>
-            <span aria-hidden="true">{"🔍"}</span>
+            <Icon name="search" size={12} aria-hidden />
             <span>{t("flashcards.modeRecognition", "Recognition")}</span>
           </>
         ) : (
           <>
-            <span aria-hidden="true">{"🗣️"}</span>
+            <Icon name="mic" size={12} aria-hidden />
             <span>{t("flashcards.modeProduction", "Production")}</span>
           </>
         )}

@@ -757,9 +757,7 @@ function TranscriptCard({
 
       {showSideBySide && (
         <div className="mt-3 flex items-start gap-3 border-t border-border pt-2">
-          <span className="text-lg leading-none text-text-muted" aria-hidden>
-            🎯
-          </span>
+          <Icon name="target" size={18} aria-hidden className="shrink-0 text-text-muted" />
           <div className="flex-1">
             <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
               Target

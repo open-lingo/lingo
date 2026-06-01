@@ -9,6 +9,7 @@ import {
   ArrowBigRight,
   ArrowLeft,
   ArrowRight,
+  BarChart2,
   LogOut,
   BookOpen,
   BookOpenText,
@@ -37,6 +38,8 @@ import {
   Headphones,
   HelpCircle,
   Heart,
+  Lightbulb,
+  Megaphone,
   MessageCircle,
   Mic,
   MoreHorizontal,
@@ -56,6 +59,7 @@ import {
   Podcast,
   Pause,
   Play,
+  Ruler,
   Search,
   Send,
   Smile,
@@ -70,6 +74,7 @@ import {
   Smartphone,
   Square,
   Star,
+  Target,
   Trophy,
   Tv,
   Trash2,
@@ -79,6 +84,7 @@ import {
   Users,
   Video,
   Volume2,
+  Zap,
   X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -164,6 +170,18 @@ export const iconRegistry = {
   users: Users,
   userPlus: UserPlus,
   moreHorizontal: MoreHorizontal,
+  /** BarChart2 — data/stats indicator */
+  barChart: BarChart2,
+  /** Lightbulb — tip / hint affordance */
+  lightbulb: Lightbulb,
+  /** Megaphone — announcement / speech */
+  megaphone: Megaphone,
+  /** Ruler — measurement / lengths */
+  ruler: Ruler,
+  /** Target / crosshair — "target" label in speaking steps */
+  target: Target,
+  /** Zap — quick / boost indicator */
+  zap: Zap,
   // Placeholder – replace with correct icon if needed
   placeholder: Square,
 } as const satisfies Record<string, LucideIcon>;

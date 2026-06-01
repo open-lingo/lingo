@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Icon } from "@/shared/components/Icon";
 import { Link, useParams } from "react-router-dom";
 import { isDevUnlockOn } from "@/shared/domain/mockProgress";
 import {
@@ -76,28 +77,28 @@ export function LearnDevPanel({
           onClick={() => setShowLengths(true)}
           className="rounded border border-border px-2 py-1 text-left hover:bg-surface-muted"
         >
-          📏 Lesson lengths
+          <Icon name="ruler" size={12} className="mr-1 inline-block" aria-hidden /> Lesson lengths
         </button>
         <button
           type="button"
           onClick={() => setShowSpeechLog(true)}
           className="rounded border border-border px-2 py-1 text-left hover:bg-surface-muted"
         >
-          📣 Speech log
+          <Icon name="megaphone" size={12} className="mr-1 inline-block" aria-hidden /> Speech log
         </button>
         <button
           type="button"
           onClick={() => setShowSessionLog(true)}
           className="rounded border border-border px-2 py-1 text-left hover:bg-surface-muted"
         >
-          📊 Tester session log
+          <Icon name="barChart" size={12} className="mr-1 inline-block" aria-hidden /> Tester session log
         </button>
         {lang ? (
           <Link
             to={`/${lang}/lesson-preview`}
             className="rounded border border-border px-2 py-1 text-left hover:bg-surface-muted"
           >
-            🧩 Step types
+            <Icon name="layoutGrid" size={12} className="mr-1 inline-block" aria-hidden /> Step types
           </Link>
         ) : null}
       </div>
@@ -146,8 +147,8 @@ function SessionLogOverlay({ onClose }: { onClose: () => void }) {
     <ModalBackdrop onClose={onClose} ariaLabelledBy="session-log-title">
       <div className="max-h-[80vh] w-full max-w-xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-popover">
         <div className="mb-3 flex items-center justify-between">
-          <h2 id="session-log-title" className="text-lg font-bold text-text-primary">
-            📊 Tester log
+          <h2 id="session-log-title" className="flex items-center gap-1.5 text-lg font-bold text-text-primary">
+            <Icon name="barChart" size={16} aria-hidden /> Tester log
           </h2>
           <Button type="button" variant="secondary" size="sm" onClick={onClose}>
             Close
@@ -278,8 +279,8 @@ function SpeechLogOverlay({ onClose }: { onClose: () => void }) {
     <ModalBackdrop onClose={onClose} ariaLabelledBy="speech-log-title">
       <div className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-popover">
         <div className="mb-3 flex items-center justify-between">
-          <h2 id="speech-log-title" className="text-lg font-bold text-text-primary">
-            📣 Speech log (last {entries.length}/20)
+          <h2 id="speech-log-title" className="flex items-center gap-1.5 text-lg font-bold text-text-primary">
+            <Icon name="megaphone" size={16} aria-hidden /> Speech log (last {entries.length}/20)
           </h2>
           <Button type="button" variant="secondary" size="sm" onClick={onClose}>
             Close

@@ -20,6 +20,7 @@ const MAX_TEST_MISTAKES = 3;
 import { useMemo, useState, useCallback, useRef } from "react";
 import type { RowTestStep, RowTestItem } from "../types";
 import { Button } from "@/shared/components/ui";
+import { Icon } from "@/shared/components/Icon";
 import { MultipleChoiceStepView } from "./steps/MultipleChoiceStepView";
 import { MatchPairsStepView } from "./steps/MatchPairsStepView";
 import { BuildSentenceStepView } from "./steps/BuildSentenceStepView";
@@ -137,7 +138,9 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
   if (phase === "passed") {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-5 py-12">
-        <div className="text-6xl">✅</div>
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-success/20 text-success">
+          <Icon name="check" size={40} />
+        </div>
         <h2 className="text-2xl font-bold text-text-primary">Row complete!</h2>
         <p className="text-sm text-text-muted">
           {correct}/{total} answered correctly · no items left

@@ -79,7 +79,7 @@ export function TeachStepView({ step, onContinue }: Props) {
 
       {content.note && (
         <div className="rounded-2xl border-[1.5px] border-border bg-surface-muted px-5 py-4 text-sm text-text-secondary">
-          <span className="mr-1.5">💡</span>
+          <Icon name="lightbulb" size={16} className="mr-1.5 inline-block shrink-0 text-warning" />
           {content.note}
         </div>
       )}

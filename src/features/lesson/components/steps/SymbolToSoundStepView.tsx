@@ -8,6 +8,7 @@ import { getTtsUrl } from "@/shared/japanese/tts";
 import { getAlphabetAudioUrl } from "@/shared/audio/alphabetAudio";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { Icon } from "@/shared/components/Icon";
 
 const CELEBRATE_MS = 1100;
 
@@ -139,9 +140,7 @@ export function SymbolToSoundStepView({
               className={style}
               aria-label={`Hear ${opt.text}`}
             >
-              <span aria-hidden className="text-xl">
-                🔊
-              </span>
+              <Icon name="volume" size={20} aria-hidden className="shrink-0" />
               <span>{opt.text}</span>
             </button>
           );

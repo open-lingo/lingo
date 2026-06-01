@@ -2,6 +2,8 @@ import type { InfoStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { playSfx } from "@/shared/audio/sfx";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { Icon } from "@/shared/components/Icon";
+import type { IconName } from "@/shared/iconRegistry";
 
 type Props = {
   step: InfoStep;
@@ -10,30 +12,34 @@ type Props = {
 
 const variantConfig: Record<
   NonNullable<InfoStep["variant"]>,
-  { icon: string; border: string; bg: string; text: string }
+  { icon: IconName; iconColor: string; border: string; bg: string; text: string }
 > = {
   default: {
-    icon: "ℹ️",
+    icon: "info",
+    iconColor: "text-text-muted",
     border: "border-border",
     bg: "bg-surface",
     text: "text-text-secondary",
   },
   tip: {
-    icon: "💡",
+    icon: "lightbulb",
+    iconColor: "text-warning",
     border: "border-warning/40",
     bg: "bg-warning/10",
     text: "text-text-secondary",
   },
   // Culture cards are typically lesson openers / closers — give them
-  // more presence: gradient pane, oversized emoji, larger headline.
+  // more presence: gradient pane, oversized icon, larger headline.
   culture: {
-    icon: "🌏",
+    icon: "globe",
+    iconColor: "text-info",
     border: "border-info/40",
     bg: "bg-gradient-to-br from-info/15 via-info/10 to-accent/10",
     text: "text-text-secondary",
   },
   grammar: {
-    icon: "📝",
+    icon: "fileText",
+    iconColor: "text-info",
     border: "border-info/40",
     bg: "bg-info/10",
     text: "text-text-secondary",
@@ -42,7 +48,8 @@ const variantConfig: Record<
   // gradient tone matches the mastery-star + Mastered pill so the
   // visual rhymes across the pathway.
   win: {
-    icon: "🏆",
+    icon: "trophy",
+    iconColor: "text-warning",
     border: "border-warning/50",
     bg: "bg-gradient-to-br from-warning/20 via-warning/10 to-accent/10",
     text: "text-text-secondary",
@@ -62,7 +69,7 @@ export function InfoStepView({ step, onContinue }: Props) {
     onContinue();
   };
 
-  // Hero variants (culture + win) get a tall card treatment: emoji
+  // Hero variants (culture + win) get a tall card treatment: icon
   // floats above a big title, body sits in larger relaxed type. Every
   // other variant keeps its compact two-column layout.
   if (isHero) {
@@ -71,9 +78,7 @@ export function InfoStepView({ step, onContinue }: Props) {
         <div
           className={`relative overflow-hidden rounded-3xl border-2 ${v.border} ${v.bg} px-7 py-9 shadow-[var(--shadow-card)]`}
         >
-          <span className="block text-6xl leading-none" aria-hidden>
-            {v.icon}
-          </span>
+          <Icon name={v.icon} size={48} aria-hidden className={v.iconColor} />
           {step.title && (
             <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
               {step.title}
@@ -102,7 +107,7 @@ export function InfoStepView({ step, onContinue }: Props) {
         className={`rounded-2xl border-2 ${v.border} ${v.bg} px-6 py-6 shadow-[var(--shadow-card)]`}
       >
         <div className="flex gap-4">
-          <span className="mt-0.5 text-3xl leading-none">{v.icon}</span>
+          <Icon name={v.icon} size={28} aria-hidden className={`mt-0.5 shrink-0 ${v.iconColor}`} />
           <p className={`text-lg leading-relaxed ${v.text}`}>{step.body}</p>
         </div>
       </div>
