@@ -180,7 +180,13 @@ export function PublicProfilePage() {
     saveError,
   } = useOwnProfile(ownProfileInitial);
 
-  const { style: decoratorStyle } = useEquippedDecorator();
+  // Decorator ring is sourced from the *viewer*'s settings, so we only
+  // render it when the viewer is looking at their own profile. The social
+  // endpoint doesn't currently surface another user's equipped decorator;
+  // until it does, leaking the viewer's ring onto a stranger's avatar would
+  // be misleading.
+  const { style: viewerDecoratorStyle } = useEquippedDecorator();
+  const decoratorStyle = isSelf ? viewerDecoratorStyle : null;
 
   if (!username) {
     return <ProfileShell heading={t("profile.publicNotFound", "Profile not found")} />;
