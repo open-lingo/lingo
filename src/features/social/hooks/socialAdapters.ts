@@ -233,13 +233,16 @@ export function adaptSpotlight(
   weeklyMyRow: LeaderboardRow | null,
 ): UiLeagueSpotlight {
   // Build a synthetic League object so existing UI works.
+  // promotion_threshold / demotion_threshold are null at the top/bottom tiers
+  // (obsidian has no promotion; bronze has no demotion). Coerce to 0 so the
+  // zone-row math (rank <= promotionZone) never blows up with null arithmetic.
   const league = {
     name: s.league,
     tierIndex: s.league_tier,
     tierTotal: 10,
     emoji: "💎",
-    promotionZone: s.promotion_threshold,
-    demotionZone: s.demotion_threshold,
+    promotionZone: s.promotion_threshold ?? 0,
+    demotionZone: s.demotion_threshold ?? 0,
     resetLabel: "",
   };
   return {
