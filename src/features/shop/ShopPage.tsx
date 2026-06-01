@@ -11,6 +11,7 @@ import { ApiError } from "@/shared/api/client";
 import { SHOP_ITEMS, type ShopItem } from "./shopCatalog";
 import { useInvalidateShopQueries, useShopState } from "./useShopState";
 import { AdFreeShopSection } from "@/features/adFree/AdFreeShopSection";
+import { ShopItemPreview } from "./components/ShopItemPreview";
 
 export default function ShopPage() {
   const { t } = useTranslation();
@@ -163,18 +164,14 @@ function ShopSection({
           return (
             <li key={item.id}>
               <Card padding="md" className="flex h-full flex-col">
-                <div className="flex items-start gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-md bg-surface-muted text-text-muted" aria-hidden>
-                    <Icon name={item.iconName as import("@/shared/iconRegistry").IconName} size={20} />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-text-primary">
-                      {t(`shop.items.${item.titleKey}`, { defaultValue: item.id })}
-                    </p>
-                    <p className="mt-0.5 text-sm text-text-secondary">
-                      {t(`shop.items.${item.descriptionKey}`, { defaultValue: "" })}
-                    </p>
-                  </div>
+                <ShopItemPreview item={item} />
+                <div className="mt-3 min-w-0">
+                  <p className="font-semibold text-text-primary">
+                    {t(`shop.items.${item.titleKey}`, { defaultValue: item.id })}
+                  </p>
+                  <p className="mt-0.5 text-sm text-text-secondary">
+                    {t(`shop.items.${item.descriptionKey}`, { defaultValue: "" })}
+                  </p>
                 </div>
                 <div className="mt-4 flex items-center justify-between gap-2">
                   <span className="inline-flex items-center gap-1 text-sm font-semibold text-accent">
