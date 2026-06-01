@@ -3,6 +3,7 @@
  * Spec: docs/superpowers/specs/2026-05-18-home-restructure-design.md
  * Mock-surface convention: search `// MOCK:` to find replacement sites.
  */
+import { useMemo } from "react";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
@@ -10,6 +11,8 @@ import { getMockCourse } from "@/shared/domain/mockCourse";
 import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
 import { useUserStats } from "@/shared/hooks/useUserStats";
 import { getNextLesson } from "@/features/course/nextLesson";
+import { findInProgressLessonId } from "@/features/lesson/data/lessonProgress";
+import type { NextLessonInfo } from "./types";
 import { HeroSection } from "./HeroSection";
 import { AccountOverviewCard } from "./AccountOverviewCard";
 import { FlashcardsTile } from "./FlashcardsTile";
@@ -28,9 +31,46 @@ export function RestructuredHome({ greetingName }: Props) {
   const langPath = useLangPath();
   const course = language ? getMockCourse(language.id) : null;
   const completedIds = useCompletedLessonIds();
-  const nextLesson = course ? getNextLesson(course, completedIds) : null;
   const langConfig = language ? getLanguageConfig(language.id) : null;
   const { stats } = useUserStats();
+
+  // Resume an in-progress lesson when one exists for this course — the
+  // partial-progress record persisted by LessonPage drives this. Falls
+  // through to the next-uncompleted lesson when nothing is mid-flight.
+  //
+  // The allow-list of lesson ids comes from the course modules: a
+  // resume record for a lesson in a different course (or stale from a
+  // removed lesson) is ignored. `useMemo` keeps the set stable as long
+  // as the course shape is.
+  const allowedLessonIds = useMemo(() => {
+    if (!course) return new Set<string>();
+    return new Set(course.modules.flatMap((m) => m.lessons.map((l) => l.id)));
+  }, [course]);
+  const inProgressLessonId = useMemo(
+    () => (allowedLessonIds.size > 0 ? findInProgressLessonId(allowedLessonIds) : null),
+    [allowedLessonIds],
+  );
+  const inProgressInfo: NextLessonInfo | null = useMemo(() => {
+    if (!course || !inProgressLessonId) return null;
+    for (const mod of course.modules) {
+      const lesson = mod.lessons.find((l) => l.id === inProgressLessonId);
+      if (lesson) {
+        return {
+          module: mod.title,
+          lesson: {
+            id: lesson.id,
+            title: lesson.title,
+            kind: lesson.kind,
+            alphabetId: lesson.alphabetId,
+          },
+        };
+      }
+    }
+    return null;
+  }, [course, inProgressLessonId]);
+  const fallbackNext = course ? getNextLesson(course, completedIds) : null;
+  const nextLesson = inProgressInfo ?? fallbackNext;
+  const isResume = inProgressInfo !== null;
 
   // "Continue lesson" should drop the user directly into the lesson player
   // rather than the Learn pathway. Branch on lesson.kind to handle alphabet
@@ -79,6 +119,7 @@ export function RestructuredHome({ greetingName }: Props) {
         streakDays={stats.streak}
         moduleProgressPercent={moduleProgressPercent}
         lessonIndexLabel={lessonIndexLabel}
+        isResume={isResume}
       />
 
       {/* Main grid. Below lg: stacks single column. At lg+: 3 cols with

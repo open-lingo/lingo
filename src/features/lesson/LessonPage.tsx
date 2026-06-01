@@ -42,6 +42,7 @@ import { useLessonSyncSession } from "./useLessonSyncSession";
 import type { LessonCompleteMastery } from "./components/LessonComplete";
 import {
   getLessonProgressBarCounts,
+  isGradedStep,
   shouldWriteSrs,
 } from "./data/_stepPredicates";
 import {
@@ -410,6 +411,23 @@ export function LessonPage() {
   );
 
   const handleContinue = useCallback(() => {
+    // Defense-in-depth: refuse to advance past a graded step that has not
+    // recorded a result yet. Step views already gate their own Continue
+    // button + Enter handler on `submitted`, but this guard means that
+    // any future regression (a step view that fires `onContinue` without
+    // calling `onComplete` first) can't silently skip a graded step.
+    // Teach / info / phrase_card / grammar_rule / symbol_intro are
+    // exempt — they're explanatory and never grade.
+    if (!inReplay && lesson) {
+      const active = lesson.steps[currentStepIdx];
+      if (
+        active &&
+        isGradedStep(active) &&
+        results[active.id] === undefined
+      ) {
+        return;
+      }
+    }
     // Replay-mode advance: shift the queue; finish when empty.
     if (inReplay) {
       const remaining = replayQueue.slice(1);

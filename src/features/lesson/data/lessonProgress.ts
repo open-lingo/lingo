@@ -149,3 +149,51 @@ export function clearAllLessonInProgress(): void {
     /* ignore */
   }
 }
+
+/**
+ * Find the most-recently-started in-progress lesson whose id is in
+ * `allowedLessonIds`. "Recency" is `startedAt` from the saved record
+ * (lessons resumed in succession overwrite their own `startedAt` only
+ * on first persistence — subsequent saves preserve it — so this is
+ * effectively "lesson the user started most recently").
+ *
+ * Returns `null` when no in-progress record matches. Records older than
+ * {@link STALE_AFTER_MS} are skipped (and would also be dropped on a
+ * subsequent {@link loadLessonInProgress} read).
+ *
+ * `allowedLessonIds` is the gate: a saved record for a lesson in a
+ * different course must not surface on Home for this course. Caller
+ * passes the current course's lesson id set.
+ */
+export function findInProgressLessonId(
+  allowedLessonIds: ReadonlySet<string>,
+): string | null {
+  if (typeof window === "undefined") return null;
+  let best: { lessonId: string; startedAtMs: number } | null = null;
+  const cutoffMs = Date.now() - STALE_AFTER_MS;
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (!k?.startsWith(KEY_PREFIX)) continue;
+      const lessonId = k.slice(KEY_PREFIX.length);
+      if (!allowedLessonIds.has(lessonId)) continue;
+      const raw = localStorage.getItem(k);
+      if (!raw) continue;
+      let parsed: { startedAt?: unknown } | null = null;
+      try {
+        parsed = JSON.parse(raw);
+      } catch {
+        continue;
+      }
+      if (!parsed || typeof parsed.startedAt !== "string") continue;
+      const startedAtMs = Date.parse(parsed.startedAt);
+      if (!Number.isFinite(startedAtMs) || startedAtMs < cutoffMs) continue;
+      if (!best || startedAtMs > best.startedAtMs) {
+        best = { lessonId, startedAtMs };
+      }
+    }
+  } catch {
+    return null;
+  }
+  return best?.lessonId ?? null;
+}

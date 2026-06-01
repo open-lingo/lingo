@@ -16,6 +16,9 @@ type Props = {
   moduleProgressPercent: number;
   /** "Lesson N of M" — derived externally. */
   lessonIndexLabel: { current: number; total: number } | null;
+  /** True when nextLesson is the user's mid-flight lesson (resume) rather
+   *  than the next non-completed lesson. Drives the CTA copy. */
+  isResume?: boolean;
 };
 
 export function HeroSection({
@@ -26,6 +29,7 @@ export function HeroSection({
   streakDays,
   moduleProgressPercent,
   lessonIndexLabel,
+  isResume = false,
 }: Props) {
   const { t } = useTranslation();
   const hasBg = Boolean(language?.backgroundImage);
@@ -105,7 +109,13 @@ export function HeroSection({
                   : "bg-accent text-on-accent hover:bg-accent-hover",
               )}
             >
-              {t("home.restructured.hero.continueCta", { defaultValue: "Continue lesson" })}
+              {isResume
+                ? t("home.restructured.hero.continueCta", {
+                    defaultValue: "Continue lesson",
+                  })
+                : t("home.restructured.hero.startNextCta", {
+                    defaultValue: "Start next lesson",
+                  })}
               <Icon
                 name="chevronRight"
                 size={20}
@@ -140,9 +150,13 @@ export function HeroSection({
                     hasBg ? "text-white/75" : "text-text-muted",
                   )}
                 >
-                  {t("home.restructured.hero.leftOffKicker", {
-                    defaultValue: "Where you left off",
-                  })}
+                  {isResume
+                    ? t("home.restructured.hero.leftOffKicker", {
+                        defaultValue: "Where you left off",
+                      })
+                    : t("home.restructured.hero.upNextKicker", {
+                        defaultValue: "Up next",
+                      })}
                 </p>
                 <p
                   className={cn(
