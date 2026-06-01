@@ -26,6 +26,7 @@ import type {
 } from "../types";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import { JA_COURSE_ATOMS_BY_KANA } from "@/features/flashcards/data/ja-course-atoms";
+import { withoutMcqBlocked as sharedWithoutMcqBlocked } from "@/shared/lessonAuthoring/imageMcqBlocklist";
 
 /**
  * Resolve a course atom ID from a phrase_card's kana. Used by the `phrase()`
@@ -720,9 +721,13 @@ export const WORD_IMAGE_MCQ_BLOCKLIST: ReadonlySet<string> = new Set([
  * blocklisted atoms can't be MCQ targets and shouldn't be MCQ distractors
  * either. The unfiltered pool stays available for matchPairs / listening
  * helpers (text + audio surfaces, no image).
+ *
+ * Thin JA wrapper over the generic `withoutMcqBlocked` in
+ * `shared/lessonAuthoring/imageMcqBlocklist.ts` — Phase 2 will route
+ * this through `LanguageModule.imageMcqBlocklist`.
  */
 export function withoutMcqBlocked(pool: ReviewAtom[]): ReviewAtom[] {
-  return pool.filter((a) => !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana));
+  return sharedWithoutMcqBlocked(WORD_IMAGE_MCQ_BLOCKLIST, pool);
 }
 
 /**
