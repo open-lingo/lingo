@@ -1,18 +1,23 @@
 /**
  * AdminHomePage — full-width dashboard hub at /admin/home.
  *
- * No sidebar — this IS the landing for all admin work.
+ * No sidebar — this IS the landing for all admin work and the only
+ * navigation surface for the admin area. Every inner /admin/* route is a
+ * leaf; reach them via the nav-cards grid below or content cross-links
+ * (e.g. an event row linking to /admin/users/:id).
  *
  * Sections:
  *   1. Header — "Admin" heading + current admin's display name
- *   2. Metrics strip — user count, events last 24h, pending moderation, jobs
- *   3. Navigation cards — large cards into each inner admin section
- *   4. Quick user search — jump to user detail by UUID or username
- *   5. Recent events strip — last 5 events + "See all" link
- *   6. 7-day events chart — vanilla SVG bar chart from events data
+ *   2. Metrics strip — user count, events last 24h, pending moderation,
+ *      failed jobs (24h)
+ *   3. Navigation cards — one card per top-level surface. We don't have
+ *      sub-tab cards: if it's a tab inside a page, the page-level card
+ *      covers it.
+ *   4. Recent events strip — last 5 events + "See all" link
+ *   5. 7-day events chart — vanilla SVG bar chart from events data
  */
-import { type FormEvent, useMemo, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -21,24 +26,19 @@ import {
   ShieldCheck,
   Wrench,
   BookOpen,
-  BarChart2,
-  Search,
-  ArrowRight,
   AlertTriangle,
   CheckCircle,
-  ClipboardList,
 } from "lucide-react";
 
 import { useApi } from "@/shared/api/provider";
 import { useAuth } from "@/shared/auth/useAuth";
-import type { AdminUserStats, AuditListResponse } from "@/shared/api/admin";
-import type { JobsSummaryResponse, RecentJobsResponse } from "@/shared/api/ops";
+import type { AdminUserStats } from "@/shared/api/admin";
+import type { JobsSummaryResponse } from "@/shared/api/ops";
 import type { EventListResponse } from "@/features/admin/events/types";
 import { Badge } from "@/shared/components/ui/Badge";
 import { Card } from "@/shared/components/ui/Card";
 import { NavCard } from "@/shared/components/ui/NavCard";
 import { cn } from "@/shared/components/ui/cn";
-import { inputClassName } from "@/shared/components/ui/formStyles";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -57,13 +57,6 @@ function formatRelative(iso: string | null | undefined): string {
 function isoToDate(iso: string): string {
   return iso.slice(0, 10); // "YYYY-MM-DD"
 }
-
-const STATUS_VARIANT = {
-  success: "success",
-  failed: "error",
-  running: "info",
-  skipped: "warning",
-} as const;
 
 // ── Metrics strip ─────────────────────────────────────────────────────────────
 
@@ -180,58 +173,6 @@ function EventsBarChart({ events }: { events: EventListResponse | undefined }) {
   );
 }
 
-// ── Quick user search ─────────────────────────────────────────────────────────
-
-function QuickUserSearch() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [value, setValue] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const q = value.trim();
-    if (!q) return;
-    // UUID-shaped: navigate directly to user detail
-    if (/^[0-9a-f-]{32,36}$/i.test(q)) {
-      navigate(`/admin/users/${encodeURIComponent(q)}`);
-    } else {
-      // Username: go to users list with the search pre-filled
-      navigate(`/admin/users?q=${encodeURIComponent(q)}`);
-    }
-    setValue("");
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
-      <div className="relative flex-1">
-        <Search
-          size={14}
-          aria-hidden
-          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
-        />
-        <input
-          ref={inputRef}
-          type="search"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder={t("admin.home.quickSearch", "Search by username or user ID…")}
-          aria-label={t("admin.home.quickSearch", "Search by username or user ID…")}
-          className={cn(inputClassName, "pl-8")}
-        />
-      </div>
-      <button
-        type="submit"
-        className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition hover:bg-accent-hover disabled:opacity-50"
-        disabled={!value.trim()}
-      >
-        Go
-        <ArrowRight size={14} aria-hidden />
-      </button>
-    </form>
-  );
-}
-
 // ── Main component ────────────────────────────────────────────────────────────
 
 export function AdminHomePage() {
@@ -249,12 +190,6 @@ export function AdminHomePage() {
   const jobsSummary = useQuery<JobsSummaryResponse>({
     queryKey: ["ops", "jobs", "summary"],
     queryFn: () => ops.getJobsSummary(),
-    staleTime: 60_000,
-  });
-
-  const recentJobs = useQuery<RecentJobsResponse>({
-    queryKey: ["ops", "jobs", "recent", "home"],
-    queryFn: () => ops.getJobsRecent({ limit: 5 }),
     staleTime: 60_000,
   });
 
@@ -287,12 +222,6 @@ export function AdminHomePage() {
       (e) => new Date(e.receivedAt).getTime() >= cutoff,
     ).length;
   }, [recentEvents.data]);
-
-  const recentAudit = useQuery<AuditListResponse>({
-    queryKey: ["admin", "audit", "home"],
-    queryFn: () => admin.listAudit({ limit: 5 }),
-    staleTime: 30_000,
-  });
 
   // Pending moderation items — draft decks (non-vocab) + draft stories
   const pendingDecksQuery = useQuery({
@@ -364,7 +293,8 @@ export function AdminHomePage() {
         />
       </div>
 
-      {/* Navigation cards */}
+      {/* Navigation cards — one card per top-level surface. Each card is
+          the entry point for its area; tabs/sub-pages live inside. */}
       <section aria-labelledby="nav-cards-heading">
         <h2
           id="nav-cards-heading"
@@ -382,14 +312,14 @@ export function AdminHomePage() {
           <NavCard
             to="/admin/moderation"
             title="Moderation"
-            description="Review pending decks, stories, and reported content."
+            description="Review pending decks, stories, reports, and bans."
             icon={<ShieldCheck size={20} />}
             count={pendingTotal ?? undefined}
           />
           <NavCard
             to="/admin/ops"
             title="Operations"
-            description="Costs, revenue, subscriptions, ads, and jobs."
+            description="Costs, revenue, subscriptions, ads, jobs, and the audit log."
             icon={<Wrench size={20} />}
           />
           <NavCard
@@ -399,41 +329,18 @@ export function AdminHomePage() {
             icon={<Activity size={20} />}
           />
           <NavCard
-            to="/admin/ops/audit"
-            title="Audit log"
-            description="Full history of admin actions with actor and target."
-            icon={<ClipboardList size={20} />}
-          />
-          <NavCard
             to="/admin/content/lessons"
-            title="Lessons"
-            description="Author and edit structured lesson content."
+            title="Content"
+            description="Author lessons; review and manage decks and stories."
             icon={<BookOpen size={20} />}
           />
           <NavCard
-            to="/admin/content/decks"
-            title="Decks"
-            description="View and moderate all published decks."
+            to="/admin/lms"
+            title="LMS"
+            description="Per-user learning-state moderation tool."
             icon={<BookOpen size={20} />}
-          />
-          <NavCard
-            to="/admin/content/stories"
-            title="Stories"
-            description="Review and publish community stories."
-            icon={<BarChart2 size={20} />}
           />
         </div>
-      </section>
-
-      {/* Quick user search */}
-      <section aria-labelledby="quick-search-heading">
-        <h2
-          id="quick-search-heading"
-          className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted"
-        >
-          Quick user lookup
-        </h2>
-        <QuickUserSearch />
       </section>
 
       <div className="grid gap-4 lg:grid-cols-2">
@@ -505,87 +412,6 @@ export function AdminHomePage() {
               <p className="text-sm text-text-muted">{t("common.loading")}</p>
             ) : (
               <EventsBarChart events={recentEvents.data} />
-            )}
-          </Card>
-        </section>
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-2">
-        {/* Recent jobs */}
-        <section aria-labelledby="recent-jobs-heading">
-          <Card padding="md" className="h-full">
-            <div className="mb-3 flex items-center justify-between">
-              <h2
-                id="recent-jobs-heading"
-                className="text-xs font-semibold uppercase tracking-wide text-text-muted"
-              >
-                Recent jobs
-              </h2>
-              <Link to="/admin/ops" className="text-xs font-medium text-accent hover:underline">
-                Ops →
-              </Link>
-            </div>
-            {recentJobs.isLoading ? (
-              <p className="text-sm text-text-muted">{t("common.loading")}</p>
-            ) : (recentJobs.data?.runs.length ?? 0) === 0 ? (
-              <p className="text-sm text-text-muted">No jobs logged recently.</p>
-            ) : (
-              <ul className="divide-y divide-border text-sm">
-                {recentJobs.data!.runs.map((r) => (
-                  <li key={r.id} className="flex items-center justify-between py-2">
-                    <span className="min-w-0 flex-1 truncate">
-                      <span className="font-mono text-xs text-text-primary">{r.jobName}</span>
-                    </span>
-                    <span className="mr-2 shrink-0 text-xs text-text-muted">
-                      {formatRelative(r.startedAt)}
-                    </span>
-                    <Badge size="sm" variant={STATUS_VARIANT[r.status]}>
-                      {r.status}
-                    </Badge>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </Card>
-        </section>
-
-        {/* Recent admin audit */}
-        <section aria-labelledby="recent-audit-heading">
-          <Card padding="md" className="h-full">
-            <div className="mb-3 flex items-center justify-between">
-              <h2
-                id="recent-audit-heading"
-                className="text-xs font-semibold uppercase tracking-wide text-text-muted"
-              >
-                Recent admin actions
-              </h2>
-              <Link
-                to="/admin/ops/audit"
-                className="text-xs font-medium text-accent hover:underline"
-              >
-                Full log →
-              </Link>
-            </div>
-            {recentAudit.isLoading ? (
-              <p className="text-sm text-text-muted">{t("common.loading")}</p>
-            ) : (recentAudit.data?.items.length ?? 0) === 0 ? (
-              <p className="text-sm text-text-muted">No admin actions yet.</p>
-            ) : (
-              <ul className="divide-y divide-border text-sm">
-                {recentAudit.data!.items.map((e) => (
-                  <li key={e.id} className="flex items-center justify-between gap-2 py-2">
-                    <span className="min-w-0 flex-1 truncate">
-                      <span className="font-mono text-xs text-text-primary">{e.action}</span>
-                      <span className="ml-2 text-xs text-text-muted">
-                        → {e.target_kind}/{e.target_id?.slice(0, 8) ?? "—"}
-                      </span>
-                    </span>
-                    <span className="shrink-0 text-xs text-text-muted">
-                      {formatRelative(e.at)}
-                    </span>
-                  </li>
-                ))}
-              </ul>
             )}
           </Card>
         </section>
