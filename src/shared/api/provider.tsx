@@ -12,6 +12,7 @@ import { StoriesApi } from "./stories";
 import { TagsApi } from "./tags";
 import { UsersApi } from "./users";
 import { SrsApi } from "./srs";
+import { getImpersonationTargetId } from "@/shared/auth/impersonation";
 
 interface ApiContext {
   users: UsersApi;
@@ -62,7 +63,14 @@ export function ApiProvider({ children }: { children: ReactNode }) {
       ? () => Promise.resolve("dev-bypass")
       : () => getAccessTokenSilently({ authorizationParams: { audience: AUTH0_AUDIENCE } });
 
-    const opts = { baseUrl: API_BASE_URL, getAccessToken };
+    // Re-read sessionStorage on every request — banner Stop/Start mutates
+    // it live and the next API call must reflect the new state without
+    // rebuilding the client.
+    const opts = {
+      baseUrl: API_BASE_URL,
+      getAccessToken,
+      getImpersonationTargetId,
+    };
 
     return {
       users: new UsersApi(opts),
@@ -88,6 +96,9 @@ export function ApiProvider({ children }: { children: ReactNode }) {
         getAccessToken: () => Promise.resolve(""),
         skipAuth: true,
       }),
+      // OpsApi deliberately skips impersonation: the admin should always
+      // hit the ops API as themselves so admin-gated routes resolve
+      // correctly even mid-impersonation.
       ops: new OpsApi({ baseUrl: OPS_API_BASE_URL, getAccessToken }),
     };
   }, [getAccessTokenSilently]);

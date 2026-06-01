@@ -22,6 +22,15 @@ export interface ApiClientOptions {
    * may pass a no-op token resolver.
    */
   skipAuth?: boolean;
+  /**
+   * Optional sync getter for the impersonation target user id. When it
+   * returns a non-empty string the client attaches an
+   * ``X-Impersonate-User-Id`` header on every request, and the BE
+   * (``get_acting_user``) treats the request as if it came from the
+   * target. Called fresh on EVERY request, so a banner Stop / new Start
+   * mid-session is honored without rebuilding the client.
+   */
+  getImpersonationTargetId?: () => string | null;
 }
 
 export class ApiError extends Error {
@@ -78,6 +87,7 @@ export class ApiClient {
   private readonly _maxRetries: number;
   private readonly _retryBaseDelay: number;
   private readonly _skipAuth: boolean;
+  private readonly _getImpersonationTargetId?: () => string | null;
 
   /** Active AbortControllers keyed by a caller-chosen tag. */
   private _inflight = new Map<string, AbortController>();
@@ -88,6 +98,7 @@ export class ApiClient {
     this._maxRetries = opts.maxRetries ?? 2;
     this._retryBaseDelay = opts.retryBaseDelay ?? 500;
     this._skipAuth = opts.skipAuth ?? false;
+    this._getImpersonationTargetId = opts.getImpersonationTargetId;
   }
 
   // ── Public helpers ────────────────────────────────────────
@@ -156,6 +167,13 @@ export class ApiClient {
       };
       if (!this._skipAuth) {
         headers.Authorization = `Bearer ${currentToken}`;
+      }
+      // Read impersonation state PER request, not at construction. The
+      // banner Stop button mutates sessionStorage live and the next API
+      // call must immediately resolve to the admin again.
+      if (this._getImpersonationTargetId && !this._skipAuth) {
+        const target = this._getImpersonationTargetId();
+        if (target) headers["X-Impersonate-User-Id"] = target;
       }
       if (body !== undefined) {
         headers["Content-Type"] = "application/json";
