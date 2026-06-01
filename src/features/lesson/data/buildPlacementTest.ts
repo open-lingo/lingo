@@ -70,7 +70,10 @@ function tag(id: string, section: PlacementSection): void {
 // Builder
 // ---------------------------------------------------------------------------
 
-export function buildPlacementTest(): LessonContent {
+export function buildPlacementTest(
+  // Phase 2: route through language registry; default "ja" preserves behavior.
+  languageId: string = "ja",
+): LessonContent {
   const steps: LessonStep[] = [];
 
   // ── Intro info ──────────────────────────────────────────────────────────
@@ -205,7 +208,7 @@ export function buildPlacementTest(): LessonContent {
     id: "ja-placement",
     moduleId: "placement",
     courseId: "mock-1",
-    languageId: "ja",
+    languageId,
     title: "Placement Test",
     description: "Diagnostic test to determine your starting point in the Japanese course.",
     estimatedMinutes: 5,
