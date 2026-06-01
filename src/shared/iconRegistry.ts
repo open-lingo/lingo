@@ -10,6 +10,7 @@ import {
   ArrowLeft,
   ArrowRight,
   BarChart2,
+  Camera,
   LogOut,
   BookOpen,
   BookOpenText,
@@ -175,6 +176,8 @@ export const iconRegistry = {
   moreHorizontal: MoreHorizontal,
   /** BarChart2 — data/stats indicator */
   barChart: BarChart2,
+  /** Camera — change profile picture affordance */
+  camera: Camera,
   /** Lightbulb — tip / hint affordance */
   lightbulb: Lightbulb,
   /** Megaphone — announcement / speech */

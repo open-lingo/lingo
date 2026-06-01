@@ -43,6 +43,7 @@ import { useEquippedTitle } from "@/features/shop/useEquippedTitle";
 import { TITLE_ITEMS } from "@/features/shop/shopCatalog";
 import { InventorySection } from "@/features/shop/InventorySection";
 import { InventoryPopout } from "@/features/shop/InventoryPopout";
+import { ModalBase } from "@/shared/components/ModalBase";
 import { usePublicProfile } from "./usePublicProfile";
 import { useOwnProfile } from "./useOwnProfile";
 
@@ -130,6 +131,7 @@ export function PublicProfilePage() {
   const [actionState, setActionState] = useState<ActionState>("idle");
   const [actionError, setActionError] = useState<string | null>(null);
   const [inventoryOpen, setInventoryOpen] = useState(false);
+  const [avatarModalOpen, setAvatarModalOpen] = useState(false);
 
   const friendship: FriendshipStatus | null | undefined = socialProfile?.friendship_status;
 
@@ -336,6 +338,70 @@ export function PublicProfilePage() {
   return (
     <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
       <article data-testid="public-profile-card" className="relative">
+        {/* ── Owner action bar (top-right) ─────────────────────────
+              The canonical home for owner controls (Edit / Save /
+              Cancel / Inventory). Floated above the masthead so it's
+              available regardless of where in the profile the user is
+              reading, and it never collides with content. Renders
+              only when the viewer owns the profile. */}
+        {isSelf && (
+          <div
+            data-testid="public-profile-actions"
+            className="mb-4 flex flex-wrap items-center justify-end gap-2"
+          >
+            {editMode ? (
+              <>
+                <Button
+                  type="button"
+                  variant="primary"
+                  size="sm"
+                  disabled={isSaving}
+                  onClick={() => save()}
+                >
+                  {isSaving
+                    ? t("common.loading", "Saving…")
+                    : t("profile.save", "Save")}
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={cancelEdit}
+                >
+                  {t("common.cancel", "Cancel")}
+                </Button>
+              </>
+            ) : (
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() =>
+                  openEdit({
+                    displayName,
+                    bio: bio ?? "",
+                    avatarUrl: avatarSrc ?? "",
+                  })
+                }
+                className="!gap-1.5"
+              >
+                <Icon name="pencil" size={14} strokeWidth={2.25} aria-hidden />
+                {t("profile.publicEditProfile", "Edit profile")}
+              </Button>
+            )}
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => setInventoryOpen(true)}
+              className="!gap-1.5"
+            >
+              <Icon name="package" size={14} strokeWidth={2.25} aria-hidden />
+              {t("profile.publicInventoryCta", "Inventory")}
+            </Button>
+          </div>
+        )}
+
         {/* ── Masthead ─────────────────────────────────────────────
               When the owner toggles "Edit profile" the display-name
               heading and the bio paragraph swap their text for inline
@@ -431,28 +497,11 @@ export function PublicProfilePage() {
                 )
               )}
 
-              {/* Avatar URL — only shown in edit mode, as a small
-                  unobtrusive row under the bio. Keeps the editor
-                  inline rather than a separate form. */}
-              {isSelf && editMode && (
-                <div className="mt-3 max-w-prose">
-                  <label className="mb-1 block text-xs font-medium text-text-muted">
-                    {t("profile.avatarUrl", "Avatar URL")}
-                  </label>
-                  <input
-                    type="url"
-                    value={draft.avatarUrl}
-                    onChange={(e) =>
-                      setDraft((d) => ({ ...d, avatarUrl: e.target.value }))
-                    }
-                    placeholder="https://..."
-                    className="w-full rounded-md border border-border bg-transparent px-2 py-1.5 text-sm text-text-primary outline-none focus:border-accent"
-                  />
-                </div>
-              )}
             </div>
 
-            {/* Right column: avatar + actions. */}
+            {/* Right column: avatar + non-self friendship action.
+                Self-owner controls (edit / inventory / save / cancel)
+                live exclusively in the top-right action bar above. */}
             <div className="flex items-start justify-start gap-4 sm:flex-col sm:items-end sm:gap-3">
               <div className="relative">
                 <DecoratedAvatar
@@ -463,30 +512,27 @@ export function PublicProfilePage() {
                   decoratorStyle={decoratorStyle}
                 />
                 {league && <LeagueEmblem league={league} />}
+                {/* Camera overlay — only when the owner is editing.
+                    Sits on the bottom-right of the avatar. Stops event
+                    propagation so the avatar itself never reacts. */}
+                {isSelf && editMode && (
+                  <button
+                    type="button"
+                    aria-label={t(
+                      "profile.avatarEditAria",
+                      "Change profile picture",
+                    )}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setAvatarModalOpen(true);
+                    }}
+                    className="absolute -bottom-1 -right-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-accent text-white shadow-md ring-2 ring-surface transition hover:bg-accent-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+                  >
+                    <Icon name="camera" size={14} strokeWidth={2.25} aria-hidden />
+                  </button>
+                )}
               </div>
-              {isSelf && editMode ? (
-                <div className="flex items-center gap-2">
-                  <Button
-                    type="button"
-                    variant="primary"
-                    size="sm"
-                    disabled={isSaving}
-                    onClick={() => save()}
-                  >
-                    {isSaving
-                      ? t("common.loading", "Saving…")
-                      : t("profile.save", "Save")}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={cancelEdit}
-                  >
-                    {t("common.cancel", "Cancel")}
-                  </Button>
-                </div>
-              ) : (
+              {!isSelf && (
                 <PrimaryAction
                   status={friendship ?? null}
                   actionState={actionState}
@@ -495,27 +541,8 @@ export function PublicProfilePage() {
                   onUnblock={handleUnblock}
                   onUnfriend={handleUnfriend}
                   onBlock={handleBlock}
-                  onEditProfile={() =>
-                    openEdit({
-                      displayName: displayName,
-                      bio: bio ?? "",
-                      avatarUrl: avatarSrc ?? "",
-                    })
-                  }
                   t={t}
                 />
-              )}
-              {isSelf && !editMode && (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setInventoryOpen(true)}
-                  className="!gap-1.5"
-                >
-                  <Icon name="package" size={14} strokeWidth={2.25} aria-hidden />
-                  {t("profile.publicInventoryCta", "Inventory")}
-                </Button>
               )}
             </div>
           </div>
@@ -568,6 +595,26 @@ export function PublicProfilePage() {
               onAfterEquip={() => setInventoryOpen(false)}
             />
           </InventoryPopout>
+        )}
+
+        {/* ── Avatar URL modal (self + edit mode) ──────────────────
+              Self-contained: the modal owns its pending/error state
+              and calls `users.updateMe({ profile_picture_key })`
+              directly so a user can change their picture without
+              committing the rest of their inline edits. On success it
+              syncs the draft so a subsequent Save doesn't clobber the
+              new value, then closes + refetches. */}
+        {isSelf && avatarModalOpen && (
+          <AvatarUrlModal
+            currentUrl={draft.avatarUrl}
+            onClose={() => setAvatarModalOpen(false)}
+            onSaved={(nextUrl) => {
+              setDraft((d) => ({ ...d, avatarUrl: nextUrl }));
+              setAvatarModalOpen(false);
+              void refetch();
+            }}
+            t={t}
+          />
         )}
 
         {/* ── Secondary context strip: learning language ──────────── */}
@@ -841,7 +888,6 @@ function PrimaryAction({
   onUnblock,
   onUnfriend,
   onBlock,
-  onEditProfile,
   t,
 }: {
   status: FriendshipStatus | null;
@@ -851,25 +897,13 @@ function PrimaryAction({
   onUnblock: () => void;
   onUnfriend: () => void;
   onBlock: () => void;
-  onEditProfile: () => void;
   t: TFunction;
 }) {
   const busy = actionState === "pending";
 
-  if (status === "self") {
-    return (
-      <Button
-        type="button"
-        variant="ghost"
-        size="sm"
-        onClick={onEditProfile}
-        className="!gap-1.5"
-      >
-        <Icon name="pencil" size={14} strokeWidth={2.25} aria-hidden />
-        {t("profile.publicEditProfile", "Edit profile")}
-      </Button>
-    );
-  }
+  // status === "self" is handled by the top-right action bar; the right
+  // column never renders a self action here.
+  if (status === "self") return null;
   if (status === "request_out") {
     return (
       <Button type="button" disabled variant="ghost" size="sm">
@@ -966,6 +1000,183 @@ function FriendDropdown({
         </div>
       )}
     </div>
+  );
+}
+
+/**
+ * AvatarUrlModal — owner-only modal for changing the profile picture.
+ *
+ * Two sections:
+ *   - Paste a URL (live): text input + Save. Validates basic shape.
+ *   - Upload from device (disabled): visible affordance but `<input
+ *     disabled>` + capture overlay + tooltip explaining custom uploads
+ *     are intentional-future, not broken.
+ *
+ * Backend field: `profile_picture_key` (see UpdateUserPayload). The
+ * field name is historical — it accepts a full URL string today.
+ */
+function AvatarUrlModal({
+  currentUrl,
+  onClose,
+  onSaved,
+  t,
+}: {
+  currentUrl: string;
+  onClose: () => void;
+  onSaved: (nextUrl: string) => void;
+  t: TFunction;
+}) {
+  const { users } = useApi();
+  const [url, setUrl] = useState(currentUrl);
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  function isValidUrl(value: string): boolean {
+    const trimmed = value.trim();
+    if (!trimmed) return true; // empty = clear, allowed
+    if (!/^https?:\/\//i.test(trimmed)) return false;
+    try {
+      new URL(trimmed);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  async function handleSave() {
+    const trimmed = url.trim();
+    if (!isValidUrl(trimmed)) {
+      setError(
+        t("profile.avatarModalUrlInvalid", "Enter a valid http:// or https:// URL."),
+      );
+      return;
+    }
+    setError(null);
+    setSaving(true);
+    try {
+      await users.updateMe({ profile_picture_key: trimmed || null });
+      onSaved(trimmed);
+    } catch (err) {
+      if (
+        err instanceof ApiError &&
+        typeof err.body === "object" &&
+        err.body &&
+        "detail" in err.body
+      ) {
+        setError(String((err.body as { detail?: unknown }).detail));
+      } else {
+        setError(t("profile.publicActionFailed", "Could not complete that action."));
+      }
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <ModalBase
+      title={t("profile.avatarModalTitle", "Profile picture")}
+      onClose={onClose}
+      maxWidth="max-w-md"
+    >
+      <div className="space-y-6 px-6 py-5">
+        {/* ── URL section ──────────────────────────────────────── */}
+        <section>
+          <h3 className="text-sm font-semibold text-text-primary">
+            {t("profile.avatarModalUrlSection", "Paste a URL")}
+          </h3>
+          <p className="mt-1 text-xs text-text-muted">
+            {t(
+              "profile.avatarModalUrlDesc",
+              "Link to a publicly-hosted image (JPG, PNG, or WebP).",
+            )}
+          </p>
+          <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+            <input
+              type="url"
+              value={url}
+              onChange={(e) => {
+                setUrl(e.target.value);
+                if (error) setError(null);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  void handleSave();
+                }
+              }}
+              placeholder="https://..."
+              aria-label={t("profile.avatarUrl", "Profile picture URL")}
+              className="min-w-0 flex-1 rounded-md border border-border bg-transparent px-3 py-2 text-sm text-text-primary outline-none focus:border-accent"
+            />
+            <Button
+              type="button"
+              variant="primary"
+              size="sm"
+              disabled={saving}
+              onClick={() => void handleSave()}
+            >
+              {saving
+                ? t("common.loading", "Saving…")
+                : t("profile.avatarModalUrlSave", "Save")}
+            </Button>
+          </div>
+          {error && (
+            <p
+              role="alert"
+              className="mt-2 rounded-md border border-error/40 bg-error/10 px-2.5 py-1.5 text-xs text-error"
+            >
+              {error}
+            </p>
+          )}
+        </section>
+
+        {/* ── Upload section (disabled placeholder) ────────────── */}
+        <section className="border-t border-border pt-5">
+          <div className="flex items-center justify-between gap-3">
+            <h3 className="text-sm font-semibold text-text-muted">
+              {t("profile.avatarModalUploadSection", "Upload from your device")}
+            </h3>
+            <span className="inline-flex items-center rounded-full border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-text-muted">
+              {t("profile.avatarModalUploadComingSoon", "Coming soon")}
+            </span>
+          </div>
+          <p className="mt-1 text-xs text-text-muted">
+            {t(
+              "profile.avatarModalUploadDesc",
+              "Custom uploads aren't supported yet — coming soon.",
+            )}
+          </p>
+          {/* Wrapper absorbs clicks so the disabled <input> can't even
+              open a file picker — defends against browser quirks where
+              `disabled` is treated as advisory. */}
+          <div
+            className="relative mt-3 cursor-not-allowed"
+            title={t(
+              "profile.avatarModalUploadDisabledTitle",
+              "Coming soon — we'll support custom uploads once storage is cheaper",
+            )}
+          >
+            <input
+              type="file"
+              accept="image/*"
+              disabled
+              aria-disabled="true"
+              tabIndex={-1}
+              className="block w-full cursor-not-allowed rounded-md border border-dashed border-border bg-surface-muted px-3 py-2 text-xs text-text-muted opacity-60"
+            />
+            {/* Transparent overlay that swallows clicks. */}
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            />
+          </div>
+        </section>
+      </div>
+    </ModalBase>
   );
 }
 

@@ -1262,7 +1262,17 @@
     "publicInventoryCta": "Inventory",
     "registerHeading": "Pick your username",
     "registerDesc": "Your username is how friends find you. You can edit your display name and bio later.",
-    "registerCta": "Continue"
+    "registerCta": "Continue",
+    "avatarEditAria": "Change profile picture",
+    "avatarModalTitle": "Profile picture",
+    "avatarModalUrlSection": "Paste a URL",
+    "avatarModalUrlDesc": "Link to a publicly-hosted image (JPG, PNG, or WebP).",
+    "avatarModalUrlSave": "Save",
+    "avatarModalUrlInvalid": "Enter a valid http:// or https:// URL.",
+    "avatarModalUploadSection": "Upload from your device",
+    "avatarModalUploadDesc": "Custom uploads aren't supported yet — coming soon.",
+    "avatarModalUploadComingSoon": "Coming soon",
+    "avatarModalUploadDisabledTitle": "Coming soon — we'll support custom uploads once storage is cheaper"
   },
   "admin": {
     "title": "Admin",
