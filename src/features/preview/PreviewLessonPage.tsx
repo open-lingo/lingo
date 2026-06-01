@@ -8,7 +8,7 @@ import { Card } from "@/shared/components/ui/Card";
 import { LanguagePickerGrid } from "@/features/home/LanguagePickerGrid";
 import { StepRenderer } from "@/features/lesson/components/StepRenderer";
 import { LessonProgressBar } from "@/features/lesson/components/LessonProgressBar";
-import { KanaMasteryProvider } from "@/features/languages/ja/symbolMastery";
+import { LanguageSymbolMasteryProvider as KanaMasteryProvider } from "@/shared/symbolMastery/LanguageSymbolMasteryProvider";
 import {
   AVAILABLE_LEARNING_LANGUAGE_IDS,
   getLanguageConfig,

@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import type { FillBlankStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
-import { AnnotatedJa } from "@/shared/japanese";
+import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { ExplainButton } from "../ExplainButton";
 import { stepHasSentenceContent } from "../../data/_stepPredicates";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";

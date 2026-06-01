@@ -4,7 +4,7 @@ import type { SelfExplanationMcqStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { AnnotatedJa } from "@/shared/japanese";
+import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";

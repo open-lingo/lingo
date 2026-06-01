@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { MatchPairsStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { AnnotatedJa } from "@/shared/japanese";
+import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 

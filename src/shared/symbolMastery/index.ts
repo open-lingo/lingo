@@ -1,16 +1,21 @@
 /**
  * Symbol mastery — generic per-script exposure + struggle engine.
  *
- * The language module supplies the `isSymbol` validator and optional
- * storage prefix; the engine handles the rest (exposure dedup, fade
- * gating, struggle-bucket ranking, cross-tab sync).
- *
- * The JA wrapper at `features/languages/ja/symbolMastery/` re-exports
- * pre-bound versions under the legacy `useKana*` names; today's call
- * sites consume from there.
+ * The language module supplies the `isSymbol` validator (via
+ * `module.symbolMastery.isSymbol`); the engine handles the rest
+ * (exposure dedup, fade gating, struggle-bucket ranking, cross-tab
+ * sync). Phase 2 (2026-06-01) retired the JA wrapper at
+ * `features/languages/ja/symbolMastery/`; today's lesson pages mount
+ * `LanguageSymbolMasteryProvider` (which auto-resolves the predicate
+ * from the active language module) and consume the generic hooks here.
  */
 
 export { SymbolMasteryProvider, useSymbolMastery } from "./context";
+// `LanguageSymbolMasteryProvider` is exported from its dedicated path
+// (`./LanguageSymbolMasteryProvider`) — not re-exported here because it
+// imports the central registry, which would pull JA's module into
+// every shared/symbolMastery consumer and create import cycles via
+// the lesson builder chain.
 export { useTrackExposure, useSymbolHelperVisible } from "./hooks";
 export type {
   SymbolMasteryState,

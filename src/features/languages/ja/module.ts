@@ -94,9 +94,13 @@ function toAtom(c: CourseAtom): Atom {
 
 const JA_ATOMS: Atom[] = JA_COURSE_ATOMS.map(toAtom);
 
-// ── Curriculum ───────────────────────────────────────────────────────────
+// ── Curriculum (lazy — breaks the registry ↔ mockCourse import cycle) ──
 
-const jaCurriculum: CourseModule[] = getMockCourse("ja").modules;
+let _jaCurriculum: CourseModule[] | null = null;
+function jaCurriculum(): CourseModule[] {
+  if (_jaCurriculum == null) _jaCurriculum = getMockCourse("ja").modules;
+  return _jaCurriculum;
+}
 
 // ── Particles (derived from courseAtoms.kind="particle") ─────────────────
 
@@ -302,7 +306,9 @@ export const jaModule: LanguageModule = {
   textDirection: "ltr",
 
   courseId: JA_COURSE_ID,
-  curriculum: jaCurriculum,
+  get curriculum() {
+    return jaCurriculum();
+  },
   courseAtoms: JA_ATOMS,
   grammarHelpers: grammarHelpers as unknown as LanguageModule["grammarHelpers"],
 

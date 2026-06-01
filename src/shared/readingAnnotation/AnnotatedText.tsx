@@ -1,26 +1,32 @@
 /**
  * Generic reading-annotation renderer.
  *
- * Today this is JA-coupled (kana tokenization, kana → romaji lookup,
- * kana mastery hook). Phase 2 will introduce an annotator-callback
- * prop so other languages (KO romanization, ZH pinyin) plug their own
- * tokenizer + helper-visibility hook in. The `AnnotatedJa` JA-wrapper
- * at `features/languages/ja/readingAnnotation/AnnotatedJa.tsx`
- * re-exports this under the original name so call sites don't change
- * shape during Phase 1.
+ * Phase 2 (2026-06-01) — the bare-text path now consumes the active
+ * language's `module.readingAnnotation` capability for tokenization +
+ * annotation. JA plugs in its kana-aware annotator via the
+ * `ReadingAnnotationCapability` slot (see
+ * `features/languages/ja/module.ts`).
+ *
+ * Segments mode still accepts the JA-content shape (`JapaneseAnnotation[]`)
+ * directly because lesson authoring tools serialize that shape into JA
+ * lesson content; per-language reading annotators are responsible for
+ * producing fragments in bare-text mode at runtime.
+ *
+ * When no language is active or the active language has no
+ * `readingAnnotation` capability, the component renders plain text
+ * (no helper, no ruby).
  */
 import { Fragment, useMemo, type ReactElement } from "react";
-import {
-  tokenizeJapanese,
-  isKana,
-  KANA_ROMAJI,
-} from "@/shared/japanese/kanaTable";
+import { isKana, KANA_ROMAJI, tokenizeJapanese } from "@/shared/japanese/kanaTable";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import {
+  useSymbolHelperVisible,
   useTrackExposure,
-  useKanaHelperVisible,
-} from "@/features/languages/ja/symbolMastery";
+} from "@/shared/symbolMastery";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { tryGetLanguageModule } from "@/shared/language/registry";
+import type { AnnotationFragment } from "@/shared/language/types";
 
 type CommonProps = {
   /** Inline className applied to the outer <span>. */
@@ -44,13 +50,13 @@ type SegmentedProps = CommonProps & {
 type Props = BareProps | SegmentedProps;
 
 /**
- * One renderer for every Japanese string in the app. Wraps kana in
- * <ruby><rt>romaji</rt></ruby>; the <rt> only shows if the learner has
- * NOT crossed the mastery bar for that kana.
+ * One renderer for every annotated string in the app. Wraps each
+ * annotation fragment in <ruby><rt>helper</rt></ruby>; the <rt> only
+ * shows if the learner has NOT crossed the mastery bar for that symbol.
  *
- * - Bare mode: `<AnnotatedJa text="みず" />` — tokenizes + auto-romaji.
- * - Segments mode: pass explicit `segments` for kanji words or to override
- *   romaji per segment.
+ * - Bare mode: `<AnnotatedText text="みず" />` — tokenizes via
+ *   `module.readingAnnotation.annotate`.
+ * - Segments mode: pass JA-shape segments for authored content.
  */
 export function AnnotatedText(props: Props): ReactElement {
   const segments = "segments" in props && props.segments ? props.segments : null;
@@ -58,9 +64,14 @@ export function AnnotatedText(props: Props): ReactElement {
   const className = props.className;
   const forceShowHelper = props.forceShowHelper ?? false;
 
+  // Active language id — null when no learner profile is set yet
+  // (LanguagePickerModal route). Falls back to "ja" so authored JA
+  // surfaces inside the lesson player keep rendering correctly.
+  const language = useActiveLanguageOrJa();
+
   if (segments) {
     return (
-      <span className={className} lang="ja">
+      <span className={className} lang={language}>
         {segments.map((seg, i) => (
           <SegmentRender key={i} segment={seg} forceShowHelper={forceShowHelper} />
         ))}
@@ -69,28 +80,74 @@ export function AnnotatedText(props: Props): ReactElement {
   }
 
   return (
-    <span className={className} lang="ja">
-      <BareRender text={text} forceShowHelper={forceShowHelper} />
+    <span className={className} lang={language}>
+      <BareRender
+        text={text}
+        forceShowHelper={forceShowHelper}
+        languageId={language}
+      />
     </span>
   );
 }
 
-function BareRender({ text, forceShowHelper }: { text: string; forceShowHelper: boolean }) {
-  const tokens = useMemo(() => tokenizeJapanese(text), [text]);
+function useActiveLanguageOrJa(): string {
+  try {
+    const { language } = useLanguage();
+    return language?.id ?? "ja";
+  } catch {
+    // No provider — defaults to JA so the JA-heavy lesson player keeps
+    // rendering in tests / Storybook contexts that don't mount the
+    // LanguageProvider.
+    return "ja";
+  }
+}
+
+function BareRender({
+  text,
+  forceShowHelper,
+  languageId,
+}: {
+  text: string;
+  forceShowHelper: boolean;
+  languageId: string;
+}) {
+  const fragments = useMemo<AnnotationFragment[]>(() => {
+    const module = tryGetLanguageModule(languageId);
+    const annotator = module?.readingAnnotation;
+    if (!annotator) {
+      // No capability — plain text. One fragment per char keeps the
+      // render shape stable.
+      return Array.from(text).map((ch) => ({ text: ch }));
+    }
+    return annotator.annotate(text);
+  }, [text, languageId]);
+
   return (
     <>
-      {tokens.map((tok, i) =>
-        tok.kana ? (
-          <KanaToken key={i} kana={tok.text} romaji={tok.romaji ?? ""} forceShowHelper={forceShowHelper} />
+      {fragments.map((frag, i) =>
+        frag.reading ? (
+          <SymbolToken
+            key={i}
+            symbol={frag.text}
+            symbolId={frag.symbolId ?? `${languageId}:${frag.text}`}
+            helper={frag.reading}
+            forceShowHelper={forceShowHelper}
+          />
         ) : (
-          <span key={i}>{tok.text}</span>
+          <span key={i}>{frag.text}</span>
         ),
       )}
     </>
   );
 }
 
-function SegmentRender({ segment, forceShowHelper }: { segment: JapaneseAnnotation; forceShowHelper: boolean }) {
+function SegmentRender({
+  segment,
+  forceShowHelper,
+}: {
+  segment: JapaneseAnnotation;
+  forceShowHelper: boolean;
+}) {
   const { surface, reading, romaji, role } = segment;
   // Pure non-kana segments (English prose, punctuation, numbers) render as
   // plain text — no <ruby>, no helper. This keeps "What does あい mean?"
@@ -113,10 +170,11 @@ function SegmentRender({ segment, forceShowHelper }: { segment: JapaneseAnnotati
       <Fragment>
         {tokens.map((tok, i) =>
           tok.kana ? (
-            <KanaToken
+            <SymbolToken
               key={i}
-              kana={tok.text}
-              romaji={tok.romaji ?? ""}
+              symbol={tok.text}
+              symbolId={`ja:${tok.text}`}
+              helper={tok.romaji ?? KANA_ROMAJI[tok.text] ?? ""}
               role={role}
               forceShowHelper={forceShowHelper}
             />
@@ -127,8 +185,8 @@ function SegmentRender({ segment, forceShowHelper }: { segment: JapaneseAnnotati
       </Fragment>
     );
   }
-  // Kanji branch — Phase 3 will animate this for furigana; for now,
-  // render the surface with the reading floating above as a single ruby.
+  // Kanji branch — render the surface with the reading floating above
+  // as a single ruby.
   const helper = romaji ?? reading;
   return (
     <ruby data-role={role}>
@@ -155,19 +213,21 @@ function KanaSegment({
   );
 }
 
-function KanaToken({
-  kana,
-  romaji,
+function SymbolToken({
+  symbol,
+  symbolId,
+  helper,
   role,
   forceShowHelper,
 }: {
-  kana: string;
-  romaji: string;
+  symbol: string;
+  symbolId: string;
+  helper: string;
   role?: JapaneseAnnotation["role"];
   forceShowHelper?: boolean;
 }) {
-  useTrackExposure(kana);
-  const masteryVisible = useKanaHelperVisible(kana);
+  useTrackExposure(symbol);
+  const masteryVisible = useSymbolHelperVisible(symbol);
   // Global "show romaji" setting (default ON until either: user turns
   // it off, learner reaches M15, or alphabet trainer marks the script
   // mastered). When ON, every kana on every surface shows its romaji
@@ -175,16 +235,15 @@ function KanaToken({
   // any caller's `forceShowHelper` override.
   const globalShowRomaji = useSettings().settings.learning.showRomaji ?? true;
   const helperVisible = globalShowRomaji || forceShowHelper || masteryVisible;
-  const fallback = romaji || KANA_ROMAJI[kana] || "";
   return (
-    <ruby data-role={role}>
-      {kana}
+    <ruby data-role={role} data-symbol-id={symbolId}>
+      {symbol}
       <rt
         className="kana-helper"
         data-visible={helperVisible ? "true" : "false"}
         aria-hidden={!helperVisible}
       >
-        {helperVisible ? fallback : "​"}
+        {helperVisible ? helper : "​"}
       </rt>
     </ruby>
   );

@@ -4,7 +4,7 @@ import type { DialogueListenStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { AnnotatedJa } from "@/shared/japanese";
+import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { Icon } from "@/shared/components/Icon";

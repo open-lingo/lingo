@@ -1,6 +1,6 @@
 import type { TeachStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
-import { AnnotatedJa } from "@/shared/japanese";
+import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { getTtsUrl, useAutoPlayJaAudio, playJaAudio } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";

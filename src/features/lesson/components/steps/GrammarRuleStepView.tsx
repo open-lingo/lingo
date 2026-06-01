@@ -1,6 +1,6 @@
 import type { GrammarRuleStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
-import { AnnotatedJa } from "@/shared/japanese";
+import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { playSfx } from "@/shared/audio/sfx";
