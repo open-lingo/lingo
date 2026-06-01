@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   getImpersonation,
   subscribeImpersonation,
@@ -29,13 +30,20 @@ export function ImpersonationProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<ImpersonationState | null>(() =>
     getImpersonation(),
   );
+  const queryClient = useQueryClient();
 
   useEffect(() => {
-    // Subscribe to start/stop. The setter from setImpersonation /
-    // clearImpersonation will fire and re-render anything reading via
-    // ``useImpersonation``.
-    return subscribeImpersonation((next) => setState(next));
-  }, []);
+    // Subscribe to start/stop. On any transition, wipe TanStack's cache:
+    // every "me"-shaped query (settings, progress, profile, social,
+    // subscriptions, etc.) is now answering for a different identity, so
+    // the cached payload is stale. invalidateQueries() with no filter
+    // marks everything stale; active observers refetch automatically
+    // under the new identity (header attached by ApiClient).
+    return subscribeImpersonation((next) => {
+      setState(next);
+      void queryClient.invalidateQueries();
+    });
+  }, [queryClient]);
 
   return <Ctx.Provider value={{ state }}>{children}</Ctx.Provider>;
 }

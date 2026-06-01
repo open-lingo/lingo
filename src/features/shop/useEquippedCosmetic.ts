@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api";
+import { useImpersonation } from "@/features/admin/impersonation/ImpersonationContext";
 
 /**
  * Shared read/write hook for any single-slot cosmetic stored under
@@ -20,10 +21,16 @@ export function useEquippedCosmetic(settingsKey: string) {
   const { isAuthenticated, user } = useAuth();
   const { users } = useApi();
   const queryClient = useQueryClient();
+  const impersonation = useImpersonation();
+  // Bake the impersonation target into the cache key so the admin's
+  // own equipped state and the impersonated user's don't share a slot.
+  // The broad invalidate-on-toggle in ImpersonationProvider catches
+  // staleness; this avoids cross-identity reads during the swap.
   const userId = user?.sub ?? "anon";
+  const actingAs = impersonation?.targetUserId ?? "self";
 
   const query = useQuery({
-    queryKey: ["users", userId, "settings", settingsKey],
+    queryKey: ["users", userId, "acting", actingAs, "settings", settingsKey],
     queryFn: async () => {
       const data = await users.getSettings();
       const shop = (data as Record<string, unknown>)?.shop;
