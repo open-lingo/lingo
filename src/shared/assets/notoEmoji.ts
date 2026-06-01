@@ -24,7 +24,7 @@
  *     Use `notoFlagUrl` for those.
  */
 
-import { JA_COURSE_ATOMS } from "@/features/flashcards/data/ja-course-atoms";
+import { JA_COURSE_ATOMS } from "@/features/languages/ja/courseAtoms";
 
 const NOTO_SVG_BASE = "/noto-emoji/svg";
 

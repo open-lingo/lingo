@@ -1,5 +1,5 @@
 import type { LessonContent, LessonStep } from "../types";
-import type { CourseAtom } from "@/features/flashcards/data/ja-course-atoms";
+import type { CourseAtom } from "@/features/languages/ja/courseAtoms";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
 import { getCardState, setCardState } from "@/features/flashcards/engine/srsStorage";
 import { isDue, getDueModalities, createInitialState } from "@/features/flashcards/engine/srs";

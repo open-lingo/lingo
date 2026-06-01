@@ -25,7 +25,7 @@ import type {
   WordImageMcqStep,
 } from "@/features/lesson/types";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
-import { JA_COURSE_ATOMS_BY_KANA } from "@/features/flashcards/data/ja-course-atoms";
+import { JA_COURSE_ATOMS_BY_KANA } from "@/features/languages/ja/courseAtoms";
 import { withoutMcqBlocked as sharedWithoutMcqBlocked } from "@/shared/lessonAuthoring/imageMcqBlocklist";
 
 /**

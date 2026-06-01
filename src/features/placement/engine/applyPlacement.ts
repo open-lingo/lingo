@@ -2,7 +2,7 @@ import { getMockCourse } from "@/shared/domain/mockCourse";
 import { markLessonCompleted } from "@/shared/domain/mockProgress";
 import { unlockLessonAtoms } from "@/features/lesson/data/unlockLessonAtoms";
 import { setCardState } from "@/features/flashcards/engine/srsStorage";
-import { JA_COURSE_ATOMS, isSrsEligibleAtom } from "@/features/flashcards/data/ja-course-atoms";
+import { JA_COURSE_ATOMS, isSrsEligibleAtom } from "@/features/languages/ja/courseAtoms";
 import type { SRSCardState } from "@/features/flashcards/data/types";
 
 export type PlacementResult = {

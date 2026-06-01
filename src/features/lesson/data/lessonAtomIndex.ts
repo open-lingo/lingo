@@ -1,4 +1,4 @@
-import { JA_COURSE_ATOMS, isSrsEligibleAtom, type CourseAtom } from "@/features/flashcards/data/ja-course-atoms";
+import { JA_COURSE_ATOMS, isSrsEligibleAtom, type CourseAtom } from "@/features/languages/ja/courseAtoms";
 
 const MODULE_ORDER = ["m1", "m2", "m3", "m4", "m5", "m6", "m7"] as const;
 

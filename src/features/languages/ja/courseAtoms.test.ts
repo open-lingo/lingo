@@ -16,7 +16,7 @@ import { M3_M7_REVIEW_POOL } from "@/features/languages/ja/grammarHelpers";
 import {
   JA_COURSE_ATOMS,
   JA_COURSE_ATOMS_BY_KANA,
-} from "./ja-course-atoms";
+} from "./courseAtoms";
 
 describe("ja-course-atoms", () => {
   it("has no duplicate IDs", () => {

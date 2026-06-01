@@ -12,7 +12,7 @@
  * IDs are stable forever once shipped. To add a word: append a new
  * CourseAtom entry — do NOT renumber.
  */
-import type { Flashcard, FlashcardDeck } from "./types";
+import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
 
 export type CourseAtomKind = "vocab" | "particle" | "phrase";
 
