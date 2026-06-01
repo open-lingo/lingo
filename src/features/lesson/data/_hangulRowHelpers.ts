@@ -17,7 +17,7 @@
  *     a play-button stub).
  */
 import type { LessonStep } from "../types";
-import { getTtsUrl } from "@/shared/japanese/tts";
+import { getTtsUrl } from "@/shared/tts";
 
 export type SyllableEntry = {
   /** A standalone Korean syllable block, e.g. 가 */

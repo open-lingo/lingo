@@ -9,7 +9,7 @@ import {
   getTtsUrl,
   playJaAudio,
   useAutoPlayJaAudio,
-} from "@/shared/japanese/tts";
+} from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { stepHasSentenceContent } from "../../data/_stepPredicates";

@@ -6,7 +6,7 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useCourseLevel } from "./useCourseLevel";
 import type { CounterDef } from "./data/ja-counters";
 import { getCounterDefs, getTtsLang } from "./data/practiceDataLoader";
-import { playJaAudio } from "@/shared/japanese/tts";
+import { playJaAudio } from "@/shared/tts";
 import { recordPracticeResult, pickWeighted } from "./practiceStats";
 
 function shuffle<T>(arr: T[]): T[] {

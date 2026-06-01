@@ -5,7 +5,7 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { useTranslation } from "react-i18next";
 import { notoEmojiUrl, lingoArtUrl } from "@/shared/assets/notoEmoji";
-import { playJaAudio, getTtsUrl } from "@/shared/japanese/tts";
+import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;

@@ -1,5 +1,5 @@
 import type { LessonContent, LessonStep } from "../types";
-import { getTtsUrl } from "@/shared/japanese/tts";
+import { getTtsUrl } from "@/shared/tts";
 import {
   correctSlot,
   listeningComp,

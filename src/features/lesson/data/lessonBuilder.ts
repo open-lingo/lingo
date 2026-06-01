@@ -63,7 +63,7 @@ function moduleIdForRow(row: RowDef): string {
   return HIRAGANA_ROWS.some((r) => r.id === row.id) ? "m1" : "m2";
 }
 import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
-import { getTtsUrl, hasTtsAudio } from "@/shared/japanese/tts";
+import { getTtsUrl, hasTtsAudio } from "@/shared/tts";
 import { topStruggleKana } from "@/features/japanese/kanaMastery/struggleStore";
 import {
   getDensityConfig,

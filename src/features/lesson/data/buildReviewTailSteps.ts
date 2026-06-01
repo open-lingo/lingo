@@ -30,7 +30,7 @@ import type {
 import type { AnchorWord, RowDef } from "./hiraganaCurriculum";
 import { ALL_ROWS } from "./hiraganaCurriculum";
 import { topStruggleKana } from "@/features/japanese/kanaMastery/struggleStore";
-import { getTtsUrl } from "@/shared/japanese/tts";
+import { getTtsUrl } from "@/shared/tts";
 import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
 
 export type ReviewTailOptions = {

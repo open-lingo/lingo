@@ -5,7 +5,7 @@ import { ContinueButton } from "../ContinueButton";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedJa, convertToHiragana } from "@/shared/japanese";
 import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
-import { getTtsUrl, playJaAudio, useAutoPlayJaAudio } from "@/shared/japanese/tts";
+import { getTtsUrl, playJaAudio, useAutoPlayJaAudio } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useSettings } from "@/shared/contexts/SettingsContext";

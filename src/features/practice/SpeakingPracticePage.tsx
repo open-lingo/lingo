@@ -6,7 +6,7 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useCourseLevel } from "./useCourseLevel";
 import type { SpeakingPrompt } from "./data/ja-speaking-prompts";
 import { getSpeakingPrompts, getTtsLang, getSpeechRecognitionLang } from "./data/practiceDataLoader";
-import { playJaAudio } from "@/shared/japanese/tts";
+import { playJaAudio } from "@/shared/tts";
 import { recordPracticeResult } from "./practiceStats";
 
 type SpeakingMode = "echo" | "response";

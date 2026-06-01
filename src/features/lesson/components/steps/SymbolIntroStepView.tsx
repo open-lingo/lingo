@@ -11,7 +11,7 @@ import {
   getTtsUrl,
   playJaAudio,
   useAutoPlayJaAudio,
-} from "@/shared/japanese/tts";
+} from "@/shared/tts";
 import {
   getReferenceFor,
   getSystemFontReferenceFor,

@@ -5,7 +5,7 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedJa } from "@/shared/japanese";
-import { getTtsUrl, playJaAudio } from "@/shared/japanese/tts";
+import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";

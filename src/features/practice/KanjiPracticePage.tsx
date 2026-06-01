@@ -9,7 +9,7 @@ import {
   type KanjiEntry,
   type KanjiCategory,
 } from "./data/ja-n5-kanji";
-import { playJaAudio } from "@/shared/japanese/tts";
+import { playJaAudio } from "@/shared/tts";
 import { recordPracticeResult, pickWeighted } from "./practiceStats";
 
 type KanjiMode = "kanji-meaning" | "meaning-kanji" | "kanji-reading";

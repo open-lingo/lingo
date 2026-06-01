@@ -21,7 +21,7 @@ import {
   type UseWhisperRecognitionApi,
   isSpeechRecognitionSupported,
 } from "@/shared/speech";
-import { getTtsUrl } from "@/shared/japanese/tts";
+import { getTtsUrl } from "@/shared/tts";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { convertToHiragana } from "@/shared/japanese/kanjiReading";
 

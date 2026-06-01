@@ -1,6 +1,16 @@
 /**
  * TTS audio resolver + playback.
  *
+ * Language-agnostic by behavior: callers pass `lang` (default `"ja"`) and
+ * we look up `"<lang>:<text>"` in a flat manifest. Today the only manifest
+ * shipped is the JA one (see manifest import below); Phase 4 will swap this
+ * for a per-language manifest registry. The public API + symbol names stay
+ * stable across that migration.
+ *
+ * Moved from `shared/japanese/tts.ts` in Phase 1 step 1 of the multilang
+ * dedup initiative — the resolver itself never needed to live under
+ * `japanese/`. See `dev/architecture/2026-06-01-multilang-parity-and-dedup.md`.
+ *
  * The Python pipeline writes mp3s into `lingo/src/pub/tts/<lang>/<hash>.mp3`
  * and a flat `manifest.json` keyed by `"<lang>:<text>"`. Vite serves the
  * `src/pub/` directory at the root path so the manifest values are usable
@@ -19,6 +29,10 @@
  * reliably regardless of how it was triggered.
  */
 import { useEffect } from "react";
+// One-language stopgap: this is the JA-only manifest today. Phase 4 swaps
+// this for a per-language manifest registry resolved via `lang`. Until
+// then, `getTtsUrl(text, "ko")` will simply miss (returns null), same as
+// any other unknown key.
 import manifest from "../../pub/tts/manifest.json";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { getAudioVolume, subscribeAudioVolume } from "@/shared/audio/volume";

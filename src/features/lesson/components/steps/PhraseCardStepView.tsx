@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import type { PhraseCardStep } from "../../types";
 import { Icon } from "@/shared/components/Icon";
-import { playJaAudio, useAutoPlayJaAudio, getTtsUrl } from "@/shared/japanese/tts";
+import { playJaAudio, useAutoPlayJaAudio, getTtsUrl } from "@/shared/tts";
 import { ContinueButton } from "../ContinueButton";
 import { lookupKanaEmoji, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import { playSfx } from "@/shared/audio/sfx";

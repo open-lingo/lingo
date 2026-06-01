@@ -1,7 +1,7 @@
 import type { GrammarRuleStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { AnnotatedJa } from "@/shared/japanese";
-import { getTtsUrl, playJaAudio } from "@/shared/japanese/tts";
+import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { playSfx } from "@/shared/audio/sfx";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";

@@ -11,7 +11,7 @@ import { useCanvasSize } from "../useCanvasSize";
 import { Icon } from "@/shared/components/Icon";
 import { autoPlayAlphabetAudio, getAlphabetAudioUrl } from "@/shared/audio/alphabetAudio";
 import { playLocalAudio } from "@/shared/audio/volume";
-import { getTtsUrl, playJaAudio } from "@/shared/japanese/tts";
+import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 /** No horizontal reservation needed — dots now sit in the controls row. */

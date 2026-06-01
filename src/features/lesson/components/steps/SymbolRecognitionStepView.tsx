@@ -14,7 +14,7 @@ import {
   getTtsUrl,
   playJaAudio,
   useAutoPlayJaAudio,
-} from "@/shared/japanese/tts";
+} from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
