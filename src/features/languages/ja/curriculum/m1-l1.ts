@@ -1,6 +1,6 @@
 import type { LessonContent, LessonStep } from "@/features/lesson/types";
 import { getTtsUrl } from "@/shared/tts";
-import { correctSlot, listeningComp, speaking } from "@/features/lesson/data/_consonantRowHelpers";
+import { correctSlot, listeningComp, speaking } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 import { assertNoConsecutiveSame } from "@/features/languages/ja/grammarHelpers";
 
 /**

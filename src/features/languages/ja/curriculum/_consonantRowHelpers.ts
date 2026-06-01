@@ -11,7 +11,7 @@
  * NOT shared with vowels (ja-m1-l1) or the auto-builder — vowels are
  * frozen and the auto-builder has its own preset/density logic.
  */
-import type { LessonStep } from "../types";
+import type { LessonStep } from "@/features/lesson/types";
 import { getTtsUrl } from "@/shared/tts";
 import { WORD_IMAGE_MCQ_BLOCKLIST } from "@/features/languages/ja/grammarHelpers";
 

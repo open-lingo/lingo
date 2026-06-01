@@ -3,7 +3,7 @@ import {
   assertExplanationDoesntLeakAnswer,
   assertNoExplanationOnPassive,
   assertPassiveCardsHaveFollowup,
-} from "@/features/lesson/data/_stepAssertions";
+} from "@/shared/lessonAuthoring/curriculumAssertions";
 
 /**
  * Survival Phrasebook — sidequest lesson (curriculum-design-v2 §6).

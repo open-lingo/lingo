@@ -12,7 +12,7 @@ import {
   matchKanaToRomaji,
   listeningComp,
   pickReviewWords,
-} from "@/features/lesson/data/_consonantRowHelpers";
+} from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
  * M2 voiced k → g: が ぎ ぐ げ ご.

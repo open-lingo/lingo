@@ -13,7 +13,7 @@ import type {
   WordImageMcqStep,
 } from "@/features/lesson/types";
 import { Icon } from "@/shared/components/Icon";
-import { checkPassiveCardFollowup } from "@/features/lesson/data/_stepAssertions";
+import { checkPassiveCardFollowup } from "@/shared/lessonAuthoring/curriculumAssertions";
 import { stepHasSentenceContent } from "@/features/lesson/data/_stepPredicates";
 
 type Props = {

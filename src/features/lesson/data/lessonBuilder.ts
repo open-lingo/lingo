@@ -70,7 +70,7 @@ import {
   warnDensityCapped,
   type DensityConfig,
 } from "./lessonDensity";
-import { padMatchPairsToTarget } from "./_consonantRowHelpers";
+import { padMatchPairsToTarget } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
  * Build a short, never-scolding explanation for a recognition MC. Always

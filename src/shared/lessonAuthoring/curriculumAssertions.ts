@@ -1,10 +1,10 @@
-import type { LessonStep } from "../types";
+import type { LessonStep } from "@/features/lesson/types";
 import {
   isPassiveStep,
   isGradedStep,
   getStepAtomIds,
   PASSIVE_STEP_KINDS,
-} from "./_stepPredicates";
+} from "@/features/lesson/data/_stepPredicates";
 
 const FOLLOWUP_WINDOW_END = 3; // inclusive
 

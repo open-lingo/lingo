@@ -48,7 +48,7 @@ import {
   assertExplanationDoesntLeakAnswer,
   assertNoExplanationOnPassive,
   assertPassiveCardsHaveFollowup,
-} from "@/features/lesson/data/_stepAssertions";
+} from "@/shared/lessonAuthoring/curriculumAssertions";
 
 const COURSE = "mock-1";
 const LANG = "ja";

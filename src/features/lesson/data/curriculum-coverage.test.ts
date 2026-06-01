@@ -18,7 +18,7 @@ import { MOCK_LESSON_JA_M1_MA_3 } from "@/features/languages/ja/curriculum/m1-ma
 import { MOCK_LESSON_JA_M1_YA_3 } from "@/features/languages/ja/curriculum/m1-ya";
 import { MOCK_LESSON_JA_M1_RA_3 } from "@/features/languages/ja/curriculum/m1-ra";
 import { MOCK_LESSON_JA_M1_WA_3 } from "@/features/languages/ja/curriculum/m1-wa";
-import { M1_PRIOR_KANA_POOL, M1_PRIOR_WORDS_POOL } from "./_consonantRowHelpers";
+import { M1_PRIOR_KANA_POOL, M1_PRIOR_WORDS_POOL } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 describe("alphabet-streamline coverage", () => {
   for (const row of ALL_ROWS) {

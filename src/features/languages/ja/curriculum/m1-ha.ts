@@ -4,7 +4,7 @@ import {
   symbolIntro, traceTwice, recognition, symbolToSound,
   wordImageMcq, listeningBuild, speaking, listeningComp,
   priorRowReviewTail,
-} from "@/features/lesson/data/_consonantRowHelpers";
+} from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
  * Ha-row: は ひ ふ へ ほ — three sub-lessons + auto row-test (~13 min).

@@ -12,7 +12,7 @@ import {
   matchKanaToRomaji,
   listeningComp,
   pickReviewWords,
-} from "@/features/lesson/data/_consonantRowHelpers";
+} from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
  * M2 yōon rare: にゃ ひゃ みゃ りゃ families — 12 kana total. 3 hand-

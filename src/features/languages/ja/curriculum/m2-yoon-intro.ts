@@ -12,7 +12,7 @@ import {
   matchKanaToRomaji,
   listeningComp,
   pickReviewWords,
-} from "@/features/lesson/data/_consonantRowHelpers";
+} from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
  * M2 yōon intro: きゃ きゅ きょ. 3 hand-authored sub-lessons + auto

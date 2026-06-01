@@ -5,7 +5,7 @@ import {
   listeningComp,
   priorRowReviewTail,
   speaking,
-} from "@/features/lesson/data/_consonantRowHelpers";
+} from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
  * Sa-row: さ し す せ そ — three sub-lessons + row-test (~12 min total).

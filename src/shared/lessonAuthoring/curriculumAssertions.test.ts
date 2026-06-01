@@ -4,8 +4,8 @@ import {
   assertNoExplanationOnPassive,
   assertExplanationDoesntLeakAnswer,
   checkPassiveCardFollowup,
-} from "./_stepAssertions";
-import type { LessonStep } from "../types";
+} from "./curriculumAssertions";
+import type { LessonStep } from "@/features/lesson/types";
 
 const phraseCard = (atomId?: string): LessonStep =>
   ({

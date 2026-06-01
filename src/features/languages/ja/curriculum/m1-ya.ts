@@ -4,7 +4,7 @@ import {
   symbolIntro, traceTwice, recognition, symbolToSound,
   wordImageMcq, listeningBuild, speaking, listeningComp,
   priorRowReviewTail,
-} from "@/features/lesson/data/_consonantRowHelpers";
+} from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
  * Ya-row: や ゆ よ — three sub-lessons + auto row-test (~11 min).

@@ -22,7 +22,7 @@ import type {
 } from "../types";
 import { ALL_ROWS, type RowDef } from "./hiraganaCurriculum";
 import { buildKanaRecognitionExplanation } from "./lessonBuilder";
-import { padMatchPairsToTarget } from "./_consonantRowHelpers";
+import { padMatchPairsToTarget } from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 const RECAP_ITEM_COUNT = 15;
 const RECAP_PASS_THRESHOLD = 0.7;

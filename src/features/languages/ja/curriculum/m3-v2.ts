@@ -75,7 +75,7 @@ import {
   assertExplanationDoesntLeakAnswer,
   assertNoExplanationOnPassive,
   assertPassiveCardsHaveFollowup,
-} from "@/features/lesson/data/_stepAssertions";
+} from "@/shared/lessonAuthoring/curriculumAssertions";
 import type {
   BuildSentenceStep,
   MatchPairsStep,

@@ -11,7 +11,7 @@ import {
   translateMcq,
   matchKanaToRomaji,
   pickReviewWords,
-} from "@/features/lesson/data/_consonantRowHelpers";
+} from "@/features/languages/ja/curriculum/_consonantRowHelpers";
 
 /**
  * M2 yōon voiced: ぎゃ じゃ びゃ ぴゃ families — 12 kana total. 3 hand-
