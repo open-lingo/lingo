@@ -40,7 +40,7 @@ vi.mock("kuroshiro-analyzer-kuromoji", () => {
 import {
   convertToHiragana,
   __resetKanjiReadingForTests,
-} from "./kanjiReading";
+} from "./kuroshiro";
 
 beforeEach(() => {
   state.initCalls = 0;

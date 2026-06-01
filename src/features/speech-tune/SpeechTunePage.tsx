@@ -23,7 +23,7 @@ import {
 } from "@/shared/speech";
 import { getTtsUrl } from "@/shared/tts";
 import { playLocalAudio } from "@/shared/audio/volume";
-import { convertToHiragana } from "@/shared/japanese/kanjiReading";
+import { convertToHiragana } from "@/features/languages/ja/readingAnnotation/kuroshiro";
 
 type WordEntry = {
   jp: string;
