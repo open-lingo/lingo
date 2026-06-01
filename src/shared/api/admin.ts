@@ -73,6 +73,21 @@ export interface AdminUserStats {
   since_days: number;
 }
 
+export interface AuditEntry {
+  id: string;
+  actor_id: string;
+  action: string;
+  target_id: string | null;
+  target_kind: string;
+  payload: Record<string, unknown>;
+  at: string;
+}
+
+export interface AuditListResponse {
+  items: AuditEntry[];
+  nextCursor: string | null;
+}
+
 export class AdminApi extends ApiClient {
   /** List users (paginated). */
   listUsers(params?: {
@@ -278,6 +293,46 @@ export class AdminApi extends ApiClient {
       body,
     );
   }
+
+  /** List admin audit log entries, newest first. */
+  listAudit(params?: {
+    limit?: number;
+    cursor?: string;
+    actor_id?: string;
+    target_kind?: string;
+  }): Promise<AuditListResponse> {
+    return this.get<AuditListResponse>(`${PREFIX}/audit`, {
+      params: params as Record<string, string | number | undefined>,
+    });
+  }
+
+  // ── LMS (Learning Management System) ──────────────────────────────────────
+
+  /** Get the full LMS snapshot for a user (learning state + stats + completed lessons). */
+  getLmsSnapshot(userId: string): Promise<LmsSnapshot> {
+    return this.get<LmsSnapshot>(`${PREFIX}/lms/${encodeURIComponent(userId)}`);
+  }
+
+  /** Patch the user's learning sub-blob (currentLesson, currentModule, learningLanguageId). */
+  patchLmsLearning(userId: string, patch: LmsLearningPatch): Promise<LmsLearningState> {
+    return this.patch<LmsLearningState>(
+      `${PREFIX}/lms/${encodeURIComponent(userId)}/learning`,
+      patch,
+    );
+  }
+
+  /** Award or retract XP via the LMS surface. */
+  awardLmsXp(userId: string, body: { amount: number; reason: string }): Promise<LmsXpResponse> {
+    return this.post<LmsXpResponse>(
+      `${PREFIX}/lms/${encodeURIComponent(userId)}/xp`,
+      body,
+    );
+  }
+
+  /** Wipe all lesson/day rollups and reset XP/streak. Destructive. */
+  resetLmsProgress(userId: string): Promise<void> {
+    return this.delete(`${PREFIX}/lms/${encodeURIComponent(userId)}/progress`);
+  }
 }
 
 export interface AdminFriendRequestItem {
@@ -308,4 +363,51 @@ export interface AwardXpResponse {
   level: number;
   awarded: number;
   reason: string;
+}
+
+// ── LMS (Learning Management System) types ───────────────────────────────────
+
+export interface LmsLearningState {
+  learningLanguageId: string | null;
+  currentModule: string | null;
+  currentLesson: string | null;
+}
+
+export interface LmsUserStats {
+  xp: number;
+  level: number;
+  streak: number;
+  bestStreak: number;
+  lingots: number;
+  lastActiveDate: string | null;
+}
+
+export interface LmsLessonSummary {
+  lessonId: string;
+  bestScore: number;
+  firstPassedAt: string | null;
+  latestAttemptAt: string;
+  attemptCount: number;
+}
+
+export interface LmsSnapshot {
+  userId: string;
+  username: string;
+  displayName: string;
+  learning: LmsLearningState;
+  stats: LmsUserStats;
+  completedLessons: LmsLessonSummary[];
+}
+
+export interface LmsLearningPatch {
+  learningLanguageId?: string;
+  currentModule?: string;
+  currentLesson?: string;
+}
+
+export interface LmsXpResponse {
+  userId: string;
+  xp: number;
+  level: number;
+  awarded: number;
 }

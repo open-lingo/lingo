@@ -68,6 +68,12 @@ const NAV_ITEMS: NavItem[] = [
     labelFallback: "Events",
     match: (p) => p.startsWith("/admin/events"),
   },
+  {
+    to: "/admin/lms",
+    labelKey: "admin.nav.lms",
+    labelFallback: "LMS",
+    match: (p) => p.startsWith("/admin/lms"),
+  },
 ];
 
 function activeItem(pathname: string): NavItem | null {

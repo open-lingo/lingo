@@ -211,6 +211,9 @@ const AdminLessonEditorPage = lazyRetry(() =>
 const AdminEventsPage = lazyRetry(
   () => import("@/features/admin/events/EventsPage"),
 );
+const AdminLmsPage = lazyRetry(() =>
+  import("@/features/admin/AdminLmsPage").then((m) => ({ default: m.AdminLmsPage })),
+);
 const PublicProfilePage = lazyRetry(() =>
   import("@/features/profile/PublicProfilePage").then((m) => ({
     default: m.PublicProfilePage,
@@ -265,6 +268,7 @@ const router = createBrowserRouter([
               { path: "ops", element: <AdminOpsPage /> },
               { path: "ops/audit", element: <AdminAuditPage /> },
               { path: "events", element: <AdminEventsPage /> },
+              { path: "lms", element: <AdminLmsPage /> },
               // Deep-link compatibility — preserve old URLs during the migration.
               { path: "operations", element: <Navigate to="/admin/ops" replace /> },
               { path: "xp-config", element: <Navigate to="/admin/ops" replace /> },
