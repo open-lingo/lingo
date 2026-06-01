@@ -1,4 +1,4 @@
-import type { CounterDef } from "./ja-counters";
+import type { CounterDef } from "@/features/languages/ja/classifiers";
 
 export const KO_COUNTER_DEFS: CounterDef[] = [
   {

@@ -4,7 +4,7 @@ import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useCourseLevel } from "./useCourseLevel";
-import type { CounterDef } from "./data/ja-counters";
+import type { CounterDef } from "@/features/languages/ja/classifiers";
 import { getCounterDefs, getTtsLang } from "./data/practiceDataLoader";
 import { playJaAudio } from "@/shared/tts";
 import { recordPracticeResult, pickWeighted } from "./practiceStats";

@@ -1,10 +1,10 @@
 import type { ReadingPassage } from "./ja-reading-passages";
 import type { SpeakingPrompt } from "./ja-speaking-prompts";
-import type { CounterDef } from "./ja-counters";
+import type { CounterDef } from "@/features/languages/ja/classifiers";
 
 import { READING_PASSAGES as JA_READING } from "./ja-reading-passages";
 import { SPEAKING_PROMPTS as JA_SPEAKING } from "./ja-speaking-prompts";
-import { COUNTER_DEFS as JA_COUNTERS } from "./ja-counters";
+import { COUNTER_DEFS as JA_COUNTERS } from "@/features/languages/ja/classifiers";
 import { KO_READING_PASSAGES } from "./ko-reading-passages";
 import { KO_SPEAKING_PROMPTS } from "./ko-speaking-prompts";
 import { KO_COUNTER_DEFS } from "./ko-counters";
