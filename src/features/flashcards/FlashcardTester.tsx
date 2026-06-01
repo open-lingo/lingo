@@ -11,6 +11,11 @@ import { useReviewQueueFilter } from "./useReviewQueueFilter";
 import { CardImage } from "./CardPreview";
 import { Icon } from "@/shared/components/Icon";
 import { PlainText } from "@/shared/components/PlainText";
+import { FlashcardsInfoModal } from "./components/FlashcardsInfoModal";
+import {
+  FlashcardsOnboardingGate,
+  FLASHCARDS_ONBOARDING_STORAGE_KEY,
+} from "./components/FlashcardsOnboardingGate";
 import {
   type ReviewMode,
   REVIEW_MODES,
@@ -133,6 +138,16 @@ export function FlashcardTester() {
 
   const [queueVersion, setQueueVersion] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
+
+  const handleResetOnboarding = useCallback(() => {
+    try {
+      localStorage.removeItem(FLASHCARDS_ONBOARDING_STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
+    setInfoOpen(false);
+  }, []);
 
   useSRSyncSession();
 
@@ -356,15 +371,25 @@ export function FlashcardTester() {
           >
             {t("flashcards.backToHub")}
           </Link>
-          <button
-            type="button"
-            onClick={() => setSettingsOpen((o) => !o)}
-            className="rounded-lg p-2 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
-            aria-label={t("flashcards.reviewSettings", "Review settings")}
-            aria-expanded={settingsOpen}
-          >
-            <Icon name="settings" size={20} />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={() => setInfoOpen(true)}
+              className="rounded-lg p-2 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+              aria-label={t("flashcards.info.openLabel", "How review works")}
+            >
+              <Icon name="info" size={20} />
+            </button>
+            <button
+              type="button"
+              onClick={() => setSettingsOpen((o) => !o)}
+              className="rounded-lg p-2 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+              aria-label={t("flashcards.reviewSettings", "Review settings")}
+              aria-expanded={settingsOpen}
+            >
+              <Icon name="settings" size={20} />
+            </button>
+          </div>
           {settingsOpen && (
             <>
               <div
@@ -594,6 +619,18 @@ export function FlashcardTester() {
           </span>
         </div>
       </div>
+
+      {/* First-time onboarding (auto, once per versioned flag). */}
+      <FlashcardsOnboardingGate enabled />
+
+      {/* On-demand reference, opened by the info icon. */}
+      {infoOpen && (
+        <FlashcardsInfoModal
+          mode="reference"
+          onClose={() => setInfoOpen(false)}
+          onResetOnboarding={handleResetOnboarding}
+        />
+      )}
     </div>
   );
 }
