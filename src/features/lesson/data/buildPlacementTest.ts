@@ -71,9 +71,16 @@ function tag(id: string, section: PlacementSection): void {
 // ---------------------------------------------------------------------------
 
 export function buildPlacementTest(
-  // Phase 2: route through language registry; default "ja" preserves behavior.
+  // JA-coupled — the kana/dakuten/grammar sections only make sense for
+  // Japanese. Non-JA languages should use `module.placementBank` (the
+  // adaptive Stage 1/2 engine) instead. Kept for the legacy /placement
+  // route until that route is generalized.
   languageId: string = "ja",
 ): LessonContent {
+  // Touch `languageId` so the param isn't flagged as unused — the
+  // legacy /placement route still threads it through to the LessonPage.
+  void languageId;
+
   const steps: LessonStep[] = [];
 
   // ── Intro info ──────────────────────────────────────────────────────────

@@ -3,23 +3,31 @@ import {
   isSrsEligibleAtom,
   type CourseAtom,
 } from "@/features/languages/ja/courseAtoms";
+import {
+  isLanguageRegistered,
+  tryGetLanguageModule,
+} from "@/shared/language/registry";
 
 /**
- * Lesson → atoms index.
+ * Lesson → atoms index. Routes through the central language registry
+ * per ADR-005.
  *
- * Currently hard-bound to JA via JA_COURSE_ATOMS. Per ADR-005, callers
- * should eventually pass a `languageId` and route through the central
- * language registry; the helper `courseAtomsFor(languageId)` is the
- * local seam that hardcodes "ja" today and will switch to
- * `getLanguageModule(languageId).courseAtoms` in Phase 2.
+ * This file still hands callers (`buildSrsReviewLesson`,
+ * `unlockLessonAtoms`) the JA-internal `CourseAtom` shape — they read
+ * kana / kanji / emoji / introducedByLessonId, which the contract-level
+ * `Atom` doesn't carry. The registry-gated `courseAtomsFor` ensures
+ * non-JA languages return an empty list rather than silently falling
+ * back to JA data.
+ *
+ * Phase 4+ (when KO lesson content lands) the JA-CourseAtom dependency
+ * here can be replaced by a JA-specific Atom subtype consumed via a
+ * per-language consumer surface.
  */
 function courseAtomsFor(languageId: string): ReadonlyArray<CourseAtom> {
-  // Phase 2: route through registry.
+  if (!isLanguageRegistered(languageId)) return [];
   if (languageId !== "ja") return [];
   return JA_COURSE_ATOMS;
 }
-
-const MODULE_ORDER = ["m1", "m2", "m3", "m4", "m5", "m6", "m7"] as const;
 
 const lessonToAtoms = new Map<string, CourseAtom[]>();
 
@@ -34,22 +42,25 @@ for (const atom of courseAtomsFor("ja")) {
 
 export function getAtomsForLesson(
   lessonId: string,
-  // Phase 2: route through registry; default "ja" preserves behavior.
   languageId: string = "ja",
 ): CourseAtom[] {
+  if (!isLanguageRegistered(languageId)) return [];
   if (languageId !== "ja") return [];
   return lessonToAtoms.get(lessonId) ?? [];
 }
 
 export function getAtomsUpToModule(
   moduleId: string,
-  // Phase 2: route through registry; default "ja" preserves behavior.
   languageId: string = "ja",
 ): CourseAtom[] {
-  const cutoff = MODULE_ORDER.indexOf(moduleId as (typeof MODULE_ORDER)[number]);
+  // Module order derived from the language module's curriculum, not
+  // hardcoded m1..m7.
+  const module = tryGetLanguageModule(languageId);
+  if (!module) return [];
+  const order = module.curriculum.map((m) => m.id);
+  const cutoff = order.indexOf(moduleId);
   if (cutoff === -1) return [];
-  const eligible = MODULE_ORDER.slice(0, cutoff + 1);
-  const set = new Set(eligible as readonly string[]);
+  const set = new Set(order.slice(0, cutoff + 1));
   return courseAtomsFor(languageId).filter(
     (a) => isSrsEligibleAtom(a) && set.has(a.fromModule),
   );
