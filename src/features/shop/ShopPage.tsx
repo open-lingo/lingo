@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@tanstack/react-query";
-import { Card, Button } from "@/shared/components/ui";
+import {
+  Card,
+  Button,
+  EmptyState,
+  SegmentedControl,
+  type SegmentedOption,
+} from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { LingotBalance } from "@/shared/components/LingotBalance";
 import { PageShell } from "@/shared/components/PageShell";
@@ -14,6 +20,29 @@ import { AdFreeShopSection } from "@/features/adFree/AdFreeShopSection";
 import { ShopItemPreview } from "./components/ShopItemPreview";
 import { useRewardedAd } from "@/features/ads/useRewardedAd";
 
+/**
+ * Ownership filter applied to the whole page. "All" is the default; the
+ * other two trim every section to either owned-only or unowned-only
+ * items. Ad-free time is exempt — it's a timed power-up with no purchase
+ * record, so it always renders.
+ */
+type OwnershipFilter = "all" | "owned" | "unowned";
+
+/**
+ * One of the four item-type bands we group cosmetics by. Power-ups are
+ * the first band (consumable, no decorator); the rest are cosmetics
+ * grouped by what visual slot they fill on the profile masthead.
+ */
+type GroupKey = "powerups" | "frames" | "titles" | "banners";
+
+function getGroupKey(item: ShopItem): GroupKey | null {
+  if (item.category === "powerups") return "powerups";
+  if (item.decoratorId) return "frames";
+  if (item.titleId) return "titles";
+  if (item.bannerId) return "banners";
+  return null;
+}
+
 export default function ShopPage() {
   const { t } = useTranslation();
   const { progress } = useApi();
@@ -21,6 +50,7 @@ export default function ShopPage() {
   const invalidate = useInvalidateShopQueries();
   const { lingots, statsReady, isOwned, ownedQuantity } = useShopState();
   const [pendingId, setPendingId] = useState<string | null>(null);
+  const [filter, setFilter] = useState<OwnershipFilter>("all");
   const rewardedAd = useRewardedAd();
 
   const purchaseMutation = useMutation({
@@ -71,6 +101,50 @@ export default function ShopPage() {
     purchaseMutation.mutate(itemId);
   };
 
+  // Predicate the active tab applies to every item. "all" is permissive
+  // (everything renders); the other two narrow by purchase state. For
+  // consumables, "owned" means at least one is in inventory.
+  const passesFilter = (item: ShopItem): boolean => {
+    if (filter === "all") return true;
+    const owned = isOwned(item.id, item.consumable);
+    return filter === "owned" ? owned : !owned;
+  };
+
+  // Group + filter in one pass so each section knows whether it has any
+  // surviving items under the active tab (and can hide its heading if
+  // not). The group order here drives the on-page order.
+  const grouped = useMemo(() => {
+    const groups: Record<GroupKey, ShopItem[]> = {
+      powerups: [],
+      frames: [],
+      titles: [],
+      banners: [],
+    };
+    for (const item of SHOP_ITEMS) {
+      const key = getGroupKey(item);
+      if (!key) continue;
+      if (!passesFilter(item)) continue;
+      groups[key].push(item);
+    }
+    return groups;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter, isOwned]);
+
+  const allGroupsEmpty =
+    grouped.powerups.length === 0 &&
+    grouped.frames.length === 0 &&
+    grouped.titles.length === 0 &&
+    grouped.banners.length === 0;
+
+  const tabOptions: SegmentedOption<OwnershipFilter>[] = [
+    { value: "all", label: t("shop.tabAll", { defaultValue: "All" }) },
+    { value: "owned", label: t("shop.tabOwned", { defaultValue: "Owned" }) },
+    {
+      value: "unowned",
+      label: t("shop.tabUnowned", { defaultValue: "Not owned" }),
+    },
+  ];
+
   return (
     <PageShell variant="wide" spaceY="lg" className="pb-8">
       <header className="flex flex-wrap items-start justify-between gap-3 sm:items-center">
@@ -105,31 +179,110 @@ export default function ShopPage() {
         </div>
       </header>
 
+      {/* Ownership tabs — applies to every section below except ad-free
+          (ad-free has no notion of "owned"; it's a timed power-up). */}
+      <div data-testid="shop-ownership-tabs" className="flex">
+        <SegmentedControl
+          value={filter}
+          onChange={setFilter}
+          options={tabOptions}
+          ariaLabel={t("shop.tabsAria", { defaultValue: "Filter by ownership" })}
+          size="sm"
+        />
+      </div>
+
       {rewardedAd.modalNode}
 
       <AdFreeShopSection lingots={lingots} statsReady={statsReady} />
 
-      <ShopSection
-        title={t("shop.sectionPowerups", { defaultValue: "Power-ups" })}
-        items={SHOP_ITEMS.filter((i) => i.category === "powerups")}
-        lingots={lingots}
-        statsReady={statsReady}
-        pendingId={pendingId}
-        isOwned={isOwned}
-        ownedQuantity={ownedQuantity}
-        onPurchase={handlePurchase}
-      />
+      {grouped.powerups.length > 0 && (
+        <ShopSection
+          title={t("shop.sectionPowerups", { defaultValue: "Power-ups" })}
+          items={grouped.powerups}
+          lingots={lingots}
+          statsReady={statsReady}
+          pendingId={pendingId}
+          isOwned={isOwned}
+          ownedQuantity={ownedQuantity}
+          onPurchase={handlePurchase}
+        />
+      )}
 
-      <ShopSection
-        title={t("shop.sectionCosmetics", { defaultValue: "Cosmetics" })}
-        items={SHOP_ITEMS.filter((i) => i.category === "cosmetics")}
-        lingots={lingots}
-        statsReady={statsReady}
-        pendingId={pendingId}
-        isOwned={isOwned}
-        ownedQuantity={ownedQuantity}
-        onPurchase={handlePurchase}
-      />
+      {grouped.frames.length > 0 && (
+        <ShopSection
+          title={t("shop.sectionFrames", { defaultValue: "Avatar frames" })}
+          items={grouped.frames}
+          lingots={lingots}
+          statsReady={statsReady}
+          pendingId={pendingId}
+          isOwned={isOwned}
+          ownedQuantity={ownedQuantity}
+          onPurchase={handlePurchase}
+        />
+      )}
+
+      {grouped.titles.length > 0 && (
+        <ShopSection
+          title={t("shop.sectionTitles", { defaultValue: "Profile titles" })}
+          items={grouped.titles}
+          lingots={lingots}
+          statsReady={statsReady}
+          pendingId={pendingId}
+          isOwned={isOwned}
+          ownedQuantity={ownedQuantity}
+          onPurchase={handlePurchase}
+        />
+      )}
+
+      {grouped.banners.length > 0 && (
+        <ShopSection
+          title={t("shop.sectionBanners", { defaultValue: "Profile banners" })}
+          items={grouped.banners}
+          lingots={lingots}
+          statsReady={statsReady}
+          pendingId={pendingId}
+          isOwned={isOwned}
+          ownedQuantity={ownedQuantity}
+          onPurchase={handlePurchase}
+        />
+      )}
+
+      {/* When the active tab matches zero items across every type band,
+          show an EmptyState rather than a wall of empty section
+          headings. Copy depends on which filter the user chose. */}
+      {allGroupsEmpty && (
+        <EmptyState
+          title={
+            filter === "owned"
+              ? t("shop.emptyOwned", {
+                  defaultValue: "You don't own anything yet.",
+                })
+              : t("shop.emptyUnowned", {
+                  defaultValue: "You own everything in the shop. Nice.",
+                })
+          }
+          description={
+            filter === "owned"
+              ? t("shop.emptyOwnedDesc", {
+                  defaultValue:
+                    "Buy something with your lingots and it'll show up here.",
+                })
+              : t("shop.emptyUnownedDesc", {
+                  defaultValue: "Try the All tab to see your collection.",
+                })
+          }
+          action={
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={() => setFilter("all")}
+            >
+              {t("shop.viewAll", { defaultValue: "View all items" })}
+            </Button>
+          }
+        />
+      )}
 
       <Card padding="md" className="border-dashed">
         <p className="text-sm text-text-secondary">
