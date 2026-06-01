@@ -1,6 +1,21 @@
+/**
+ * Generic reading-annotation renderer.
+ *
+ * Today this is JA-coupled (kana tokenization, kana → romaji lookup,
+ * kana mastery hook). Phase 2 will introduce an annotator-callback
+ * prop so other languages (KO romanization, ZH pinyin) plug their own
+ * tokenizer + helper-visibility hook in. The `AnnotatedJa` JA-wrapper
+ * at `features/languages/ja/readingAnnotation/AnnotatedJa.tsx`
+ * re-exports this under the original name so call sites don't change
+ * shape during Phase 1.
+ */
 import { Fragment, useMemo, type ReactElement } from "react";
-import { tokenizeJapanese, isKana, KANA_ROMAJI } from "./kanaTable";
-import type { JapaneseAnnotation } from "./types";
+import {
+  tokenizeJapanese,
+  isKana,
+  KANA_ROMAJI,
+} from "@/shared/japanese/kanaTable";
+import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import {
   useTrackExposure,
   useKanaHelperVisible,
@@ -37,7 +52,7 @@ type Props = BareProps | SegmentedProps;
  * - Segments mode: pass explicit `segments` for kanji words or to override
  *   romaji per segment.
  */
-export function AnnotatedJa(props: Props): ReactElement {
+export function AnnotatedText(props: Props): ReactElement {
   const segments = "segments" in props && props.segments ? props.segments : null;
   const text = "text" in props && props.text != null ? props.text : "";
   const className = props.className;
