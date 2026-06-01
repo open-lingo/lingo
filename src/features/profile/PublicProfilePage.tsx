@@ -445,7 +445,7 @@ export function PublicProfilePage() {
           className={
             "relative " +
             (hasBanner
-              ? "overflow-hidden rounded-xl p-6 sm:p-8"
+              ? "overflow-hidden rounded-xl p-4 sm:p-5"
               : "")
           }
         >
@@ -668,14 +668,6 @@ export function PublicProfilePage() {
             </div>
           </div>
 
-          {/* Hairline divider between masthead and stats. */}
-          <div
-            aria-hidden
-            className={
-              "mt-6 h-px w-full " +
-              (hasBanner ? "bg-white/20" : "bg-border")
-            }
-          />
           </div>
         </header>
 

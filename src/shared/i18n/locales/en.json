@@ -666,6 +666,46 @@
         "description": "A profile title for late-night learners.",
         "wear": "Night Owl"
       },
+      "titleEarlyBird": {
+        "title": "Early bird title",
+        "description": "For learners who get their reps in before sunrise.",
+        "wear": "Early Bird"
+      },
+      "titleBookworm": {
+        "title": "Bookworm title",
+        "description": "Worn by readers who can't put a story down.",
+        "wear": "Bookworm"
+      },
+      "titleWanderer": {
+        "title": "Wanderer title",
+        "description": "For learners who roam between languages and modules.",
+        "wear": "Wanderer"
+      },
+      "titlePolyglot": {
+        "title": "Polyglot title",
+        "description": "Earned by speakers of many tongues.",
+        "wear": "Polyglot"
+      },
+      "titleLinguist": {
+        "title": "Linguist title",
+        "description": "For students of how language itself works.",
+        "wear": "Linguist"
+      },
+      "titleWordsmith": {
+        "title": "Wordsmith title",
+        "description": "A title for vocabulary collectors.",
+        "wear": "Wordsmith"
+      },
+      "titleGlobetrotter": {
+        "title": "Globetrotter title",
+        "description": "For learners with a passport full of stamps.",
+        "wear": "Globetrotter"
+      },
+      "titleSensei": {
+        "title": "Sensei title",
+        "description": "A revered teacher's title — earned through mastery.",
+        "wear": "Sensei"
+      },
       "bannerSakura": {
         "title": "Sakura branch banner",
         "description": "Cherry blossoms drift across a blush pink sky."
