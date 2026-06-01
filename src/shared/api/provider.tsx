@@ -5,6 +5,7 @@ import { DecksApi } from "./decks";
 import { FinanceApi } from "./finance";
 import { OpsApi } from "./ops";
 import { ProgressApi } from "./progress";
+import { QuestsApi } from "./quests";
 import { SocialApi } from "./social";
 import { StoriesApi } from "./stories";
 import { TagsApi } from "./tags";
@@ -18,6 +19,7 @@ interface ApiContext {
   stories: StoriesApi;
   admin: AdminApi;
   progress: ProgressApi;
+  quests: QuestsApi;
   social: SocialApi;
   /** Public endpoints — no Auth0 token, fires immediately on first paint. */
   finance: FinanceApi;
@@ -67,6 +69,7 @@ export function ApiProvider({ children }: { children: ReactNode }) {
       stories: new StoriesApi(opts),
       admin: new AdminApi(opts),
       progress: new ProgressApi(opts),
+      quests: new QuestsApi(opts),
       social: new SocialApi(opts),
       // FinanceApi hits public endpoints — skip auth so the funding meter
       // can paint without blocking on Auth0 (and works for signed-out users).

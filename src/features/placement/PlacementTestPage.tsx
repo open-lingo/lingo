@@ -21,11 +21,34 @@ import { PlacementResultScreen } from "./components/PlacementResultScreen";
 import type { LessonStep } from "@/features/lesson/types";
 
 export function PlacementTestPage() {
-  const { moduleId } = useParams<{ moduleId?: string }>();
+  const { moduleId, lang } = useParams<{ moduleId?: string; lang?: string }>();
   const isTestOut = !!moduleId;
   const navigate = useNavigate();
   const langPath = useLangPath();
   const { progress } = useApi();
+
+  // Test-out engine + question bank are hard-coded to Japanese for now.
+  // If the URL lands here for any other language, jump them back to the
+  // learn page rather than serving JA prompts on a KO module id.
+  if (isTestOut && lang && lang !== "ja") {
+    return (
+      <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 p-8 text-center">
+        <h2 className="text-lg font-semibold">Test-out is Japanese-only for now</h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400 max-w-md">
+          The placement engine and question bank only ship Japanese content
+          today. Korean and other languages need their own bank before
+          test-out can ship there.
+        </p>
+        <button
+          type="button"
+          onClick={() => navigate(langPath("learn"))}
+          className="px-4 py-2 rounded bg-blue-600 text-white text-sm"
+        >
+          Back to Learn
+        </button>
+      </div>
+    );
+  }
 
   const [state, setState] = useState<AdaptiveState>(() =>
     isTestOut ? createTestOutState(moduleId!) : createInitialState(),

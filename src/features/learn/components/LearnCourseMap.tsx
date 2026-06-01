@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { composeButtonClasses } from "@/shared/components/ui/Button";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import type { Course, Lesson } from "@/shared/domain/course";
 import {
   getCurrentModuleIndex,
@@ -18,15 +19,19 @@ import { ResumeBar } from "./ResumeBar";
 import { Button } from "@/shared/components/ui";
 
 /**
- * Feature flag — test-out (diagnostic skip-ahead) is live. Buttons route
- * to ``/learn/test-out/:moduleId`` which uses the adaptive placement
- * engine to probe the module; on pass, ``applyPlacementResult`` marks
- * every lesson up to and including that module complete locally and
- * ``syncTestOutToServer`` mirrors the same completions to /progress/
- * lessons/batch so the state travels with the user across devices.
- * Flip to false if a regression makes the buttons unsafe to render.
+ * Feature flag — test-out (diagnostic skip-ahead) is live for Japanese
+ * only. The placement engine + question bank are hard-coded to JA
+ * (see ``features/placement/engine``) so the buttons only render when
+ * the user's learning language is JA. Korean (and any future language)
+ * needs its own bank before test-out can ship there.
+ *
+ * On pass, ``applyPlacementResult`` marks every lesson up to and
+ * including that module complete locally; ``syncTestOutToServer``
+ * mirrors the same completions to /progress/lessons/batch so the
+ * state travels across devices.
  */
 const TEST_OUT_ENABLED = true;
+const TEST_OUT_LANGUAGES = new Set(["ja"]);
 
 export type LearnCourseMapProps = {
   course: Course;
@@ -49,6 +54,9 @@ export function LearnCourseMap({
 }: LearnCourseMapProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const testOutEnabled =
+    TEST_OUT_ENABLED && !!language && TEST_OUT_LANGUAGES.has(language.id);
   const currentIdx = getCurrentModuleIndex(course, completedSet);
   const currentModule = course.modules[currentIdx] ?? course.modules[0];
   const nextIdx = getNextLessonIndex(currentModule.lessons, completedSet);
@@ -116,7 +124,7 @@ export function LearnCourseMap({
                     {t("learn.resumeLesson", { title: currentLesson.title })}
                   </Button>
                 ) : null}
-                {TEST_OUT_ENABLED && status !== "completed" ? (
+                {testOutEnabled && status !== "completed" ? (
                   <>
                     <Button
                       type="button"
@@ -146,7 +154,7 @@ export function LearnCourseMap({
                   {t("learn.flashcardsLessonDecksButton")}
                 </Link>
               </>
-            ) : TEST_OUT_ENABLED && !isCurrent && !mod.comingSoon && status !== "completed" ? (
+            ) : testOutEnabled && !isCurrent && !mod.comingSoon && status !== "completed" ? (
               <Button
                 type="button"
                 variant="secondary"

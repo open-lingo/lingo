@@ -51,6 +51,7 @@ export function LessonProgressHydrate() {
           getMe: () => progress.getMe(),
         });
         void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
+        void queryClient.invalidateQueries({ queryKey: ["core", "quests", "list"] });
         void refetch();
       } catch {
         /* buffer stays dirty for next interval */

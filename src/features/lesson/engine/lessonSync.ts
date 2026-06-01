@@ -212,7 +212,14 @@ export function buildBatchPayload(): {
   ids: string[];
 } {
   materializeOrphanDrafts();
-  const pending = getPendingAttempts().filter(isPendingAttemptDirty);
+  // Drafts are local-only UX state (powers the SyncManager dirty count
+  // mid-lesson). Sending them to /lessons/batch would publish premature
+  // ``lesson_completed`` events — every step would fan out a "completed"
+  // signal to the async pipeline (quest progress + leaderboard) before
+  // the user actually finished the lesson. Filter them out here.
+  const pending = getPendingAttempts()
+    .filter(isPendingAttemptDirty)
+    .filter((p) => !p.clientAttemptId.startsWith(DRAFT_ATTEMPT_PREFIX));
   // Fix M10 — dedupe on clientAttemptId only. A previous version keyed by
   // lessonId, which silently discarded legitimate repeat attempts when a
   // user re-did a lesson within a sync window. clientAttemptId already

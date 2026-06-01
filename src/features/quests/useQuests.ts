@@ -1,79 +1,54 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import type { Quest, QuestStatus, QuestStorageEntry } from "./types";
-import { buildMockQuestCatalog } from "./mockQuests";
+import { useCallback, useMemo } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useApiOptional } from "@/shared/api/provider";
+import type { ServerQuest } from "@/shared/api/quests";
+import type { Quest, QuestStatus } from "./types";
 
 /**
- * Local-first quest hook. Catalog comes from `mockQuests`; mutable state
- * (progress count + status flips) is persisted under one localStorage
- * key. Designed so the storage backend can be swapped for a backend
- * call later — the public surface (`{ quests, summary, addProgress,
- * complete, claim, refresh }`) is the stable contract.
+ * Server-backed quest hook.
  *
- * Contract for the future backend swap:
- *   - GET /quests/me  → list of QuestStorageEntry per user, server-merged
- *                       with the live catalog server-side.
- *   - POST /quests/{id}/progress  body: { delta }
- *   - POST /quests/{id}/claim     side effect: credit rewards
- *   - POST /quests/refresh        regenerate dailies on day-rollover
+ * Source of truth: lingo-core ``/api/core/v1/quests``. Quest progress is
+ * advanced by the async pipeline (lingo-async → ``/_internal/{id}/progress``)
+ * after XP / lesson / review events fire, so the hook just needs to read
+ * the server's current state. We refetch on mount + every 10s while the
+ * page is visible and invalidate after any client-side mutation
+ * (``progress.batchAttempts`` resolution, claim, refresh).
  *
- * For now everything is synchronous + local; the hook surfaces are
- * already in optimistic-update shape so wiring is mostly s/local/api/.
+ * The local-mock + localStorage path is gone — the server is authoritative.
+ * Older drafts kept a localStorage shadow for offline; that's a follow-up
+ * once we have a clear offline story.
  */
 
+export const QUESTS_QUERY_KEY = ["core", "quests", "list"] as const;
+// Legacy localStorage key, exported so any leftover panels that referenced
+// it during the local-mock era keep compiling. Safe to drop later.
 export const QUESTS_STORAGE_KEY = "lingo_quests_v1";
 
-type StoredMap = Record<string, QuestStorageEntry>;
+const LIVE_REFETCH_MS = 10_000;
 
-function readStorage(): StoredMap {
-  if (typeof localStorage === "undefined") return {};
-  try {
-    const raw = localStorage.getItem(QUESTS_STORAGE_KEY);
-    if (!raw) return {};
-    const parsed = JSON.parse(raw) as unknown;
-    if (!parsed || typeof parsed !== "object") return {};
-    return parsed as StoredMap;
-  } catch {
-    return {};
-  }
-}
-
-function writeStorage(map: StoredMap): void {
-  if (typeof localStorage === "undefined") return;
-  try {
-    localStorage.setItem(QUESTS_STORAGE_KEY, JSON.stringify(map));
-  } catch {
-    // ignore quota / privacy-mode errors
-  }
-}
-
-function mergeQuestState(catalog: Quest[], store: StoredMap): Quest[] {
-  return catalog.map((q) => {
-    const entry = store[q.id];
-    if (!entry) return q;
-    const status = computeStatus({
-      current: entry.current,
+function fromServer(q: ServerQuest): Quest {
+  return {
+    id: q.id,
+    type: q.type,
+    title: q.title,
+    description: q.description,
+    emoji: q.emoji,
+    progress: {
+      current: q.progress.current,
       target: q.progress.target,
-      stored: entry.status,
-      expiresAt: q.expiresAt,
-    });
-    return {
-      ...q,
-      progress: { ...q.progress, current: entry.current },
-      status,
-    };
-  });
-}
-
-function computeStatus(args: {
-  current: number;
-  target: number;
-  stored: QuestStatus;
-  expiresAt?: number;
-}): QuestStatus {
-  if (args.stored === "completed") return "completed";
-  if (args.expiresAt && Date.now() > args.expiresAt) return "expired";
-  if (args.current >= args.target) return "claimable";
-  return "active";
+      unit: q.progress.unit,
+    },
+    rewards: {
+      lingots: q.rewards?.lingots ?? undefined,
+      xp: q.rewards?.xp ?? undefined,
+      adFreeMinutes: q.rewards?.adFreeMinutes ?? undefined,
+      streakShield: q.rewards?.streakShield ?? undefined,
+    },
+    expiresAt: q.expiresAt ?? undefined,
+    friendId: q.friendId ?? undefined,
+    friendDisplayName: q.friendDisplayName ?? undefined,
+    status: q.status as QuestStatus,
+  };
 }
 
 export type QuestsSummary = {
@@ -108,94 +83,97 @@ function summarize(quests: Quest[]): QuestsSummary {
 export type UseQuestsResult = {
   quests: Quest[];
   summary: QuestsSummary;
-  /** Add `delta` to the quest's `progress.current`. Auto-flips to claimable. */
+  isLoading: boolean;
+  /** Bump quest progress server-side then refetch. Server is authoritative. */
   addProgress: (id: string, delta: number) => void;
-  /** Mark a claimable quest as completed (and persist). No-op otherwise. */
+  /** Claim a claimable quest (POST /quests/{id}/claim) then refetch. */
   claim: (id: string) => void;
-  /**
-   * Force-complete a quest by id (status → completed). Use sparingly —
-   * normal flow is addProgress() → claim(). Kept for tests + dev panel.
-   */
+  /** Force-complete via a large delta + claim. Kept for the dev panel. */
   complete: (id: string) => void;
-  /** Wipe local progress and restart the catalog. */
+  /** Server-side seed/regenerate of the catalog. */
   refresh: () => void;
 };
 
 export function useQuests(): UseQuestsResult {
-  // Catalog snapshot is stable for the lifetime of the hook — daily
-  // rotation is a follow-up (computeStatus already flips expired ones).
-  const catalog = useMemo(() => buildMockQuestCatalog(), []);
-  const [store, setStore] = useState<StoredMap>(() => readStorage());
+  // useApiOptional lets the hook be called from component-tests that don't
+  // wrap in <ApiProvider>. When ctx is null we return an empty + no-op
+  // surface; pages that render in dev/prod always have the provider.
+  const ctx = useApiOptional();
+  const questsApi = ctx?.quests;
+  const qc = useQueryClient();
 
-  // Keep storage in sync.
-  useEffect(() => {
-    writeStorage(store);
-  }, [store]);
+  const query = useQuery({
+    queryKey: QUESTS_QUERY_KEY,
+    queryFn: () => questsApi!.list(),
+    refetchInterval: LIVE_REFETCH_MS,
+    refetchOnWindowFocus: true,
+    staleTime: 0,
+    enabled: !!questsApi,
+  });
 
-  const quests = useMemo(
-    () => mergeQuestState(catalog, store),
-    [catalog, store],
-  );
+  const items = query.data?.items ?? [];
+  const quests = useMemo(() => items.map(fromServer), [items]);
   const summary = useMemo(() => summarize(quests), [quests]);
 
-  const addProgress = useCallback((id: string, delta: number) => {
-    if (!Number.isFinite(delta) || delta === 0) return;
-    setStore((prev) => {
-      const existing = prev[id];
-      const current = (existing?.current ?? 0) + delta;
-      const status: QuestStatus = existing?.status === "completed"
-        ? "completed"
-        : "active";
-      return {
-        ...prev,
-        [id]: {
-          id,
-          current: Math.max(0, current),
-          status,
-          claimedAt: existing?.claimedAt,
-        },
-      };
-    });
-  }, []);
+  const bumpMutation = useMutation({
+    mutationFn: ({ id, delta }: { id: string; delta: number }) =>
+      questsApi!.bumpProgress(id, delta),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: QUESTS_QUERY_KEY });
+    },
+  });
+
+  const claimMutation = useMutation({
+    mutationFn: (id: string) => questsApi!.claim(id),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: QUESTS_QUERY_KEY });
+    },
+  });
+
+  const refreshMutation = useMutation({
+    mutationFn: () => questsApi!.refresh(),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: QUESTS_QUERY_KEY });
+    },
+  });
+
+  const addProgress = useCallback(
+    (id: string, delta: number) => {
+      if (!Number.isFinite(delta) || delta === 0) return;
+      bumpMutation.mutate({ id, delta });
+    },
+    [bumpMutation],
+  );
 
   const claim = useCallback(
     (id: string) => {
-      const q = quests.find((x) => x.id === id);
-      if (!q) return;
-      if (q.status !== "claimable") return;
-      setStore((prev) => ({
-        ...prev,
-        [id]: {
-          id,
-          current: q.progress.current,
-          status: "completed",
-          claimedAt: Date.now(),
-        },
-      }));
+      claimMutation.mutate(id);
     },
-    [quests],
+    [claimMutation],
   );
 
   const complete = useCallback(
     (id: string) => {
       const q = quests.find((x) => x.id === id);
       if (!q) return;
-      setStore((prev) => ({
-        ...prev,
-        [id]: {
-          id,
-          current: Math.max(q.progress.current, q.progress.target),
-          status: "completed",
-          claimedAt: Date.now(),
-        },
-      }));
+      const need = Math.max(0, q.progress.target - q.progress.current);
+      if (need > 0) bumpMutation.mutate({ id, delta: need });
+      claimMutation.mutate(id);
     },
-    [quests],
+    [quests, bumpMutation, claimMutation],
   );
 
   const refresh = useCallback(() => {
-    setStore({});
-  }, []);
+    refreshMutation.mutate();
+  }, [refreshMutation]);
 
-  return { quests, summary, addProgress, claim, complete, refresh };
+  return {
+    quests,
+    summary,
+    isLoading: query.isLoading,
+    addProgress,
+    claim,
+    complete,
+    refresh,
+  };
 }

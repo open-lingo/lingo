@@ -23,6 +23,9 @@ export function useLessonSyncSource(): SyncSource {
       getMe: () => progress.getMe(),
     });
     void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
+    // Lesson completions advance quests via the async pipeline. Refetch
+    // the quest list so the UI reflects the new server-side progress.
+    void queryClient.invalidateQueries({ queryKey: ["core", "quests", "list"] });
   }, [progress, queryClient]);
 
   return {
