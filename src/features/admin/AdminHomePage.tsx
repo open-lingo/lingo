@@ -328,8 +328,8 @@ export function AdminHomePage() {
           />
           <NavCard
             to="/admin/lms"
-            title="LMS"
-            description="Per-user learning state and platform XP rate tuning."
+            title="Learning config"
+            description="Platform XP rate tuning and per-student learning lookups."
             icon={<Icon name="bookOpen" size={20} aria-hidden />}
           />
         </div>
