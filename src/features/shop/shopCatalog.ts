@@ -18,6 +18,12 @@ export type ShopItem = {
    * ``shop.items.<titleKey>.wear`` in the i18n bundle.
    */
   titleId?: string;
+  /**
+   * When set, this item is a profile banner. The id maps into
+   * ``bannerStyles.ts`` for the inline-SVG art that renders both the
+   * shop-card thumbnail and the equipped hero on PublicProfilePage.
+   */
+  bannerId?: string;
 };
 
 /** Sample catalog — prices must match lingo-core/app/progress/shop_catalog.py */
@@ -120,6 +126,92 @@ export const SHOP_ITEMS: ShopItem[] = [
     iconName: "crown",
     titleId: "title-night-owl",
   },
+
+  // ─── Profile banners ──────────────────────────────────────────────────────
+  // Inline-SVG art lives in `bannerSvgs.tsx`; the catalog only carries the
+  // SKU + price + a `bannerId` pointer. Prices follow the same accessibility
+  // floor as titles/frames (100-500 lingots) with the more elaborate art
+  // priced higher.
+  {
+    id: "banner-sakura",
+    price: 200,
+    category: "cosmetics",
+    consumable: false,
+    titleKey: "bannerSakura.title",
+    descriptionKey: "bannerSakura.description",
+    iconName: "sparkles",
+    bannerId: "banner-sakura",
+  },
+  {
+    id: "banner-vaporwave-sun",
+    price: 350,
+    category: "cosmetics",
+    consumable: false,
+    titleKey: "bannerVaporwaveSun.title",
+    descriptionKey: "bannerVaporwaveSun.description",
+    iconName: "sparkles",
+    bannerId: "banner-vaporwave-sun",
+  },
+  {
+    id: "banner-starry-night",
+    price: 250,
+    category: "cosmetics",
+    consumable: false,
+    titleKey: "bannerStarryNight.title",
+    descriptionKey: "bannerStarryNight.description",
+    iconName: "sparkles",
+    bannerId: "banner-starry-night",
+  },
+  {
+    id: "banner-hearts-confetti",
+    price: 150,
+    category: "cosmetics",
+    consumable: false,
+    titleKey: "bannerHeartsConfetti.title",
+    descriptionKey: "bannerHeartsConfetti.description",
+    iconName: "heart",
+    bannerId: "banner-hearts-confetti",
+  },
+  {
+    id: "banner-coffee-steam",
+    price: 150,
+    category: "cosmetics",
+    consumable: false,
+    titleKey: "bannerCoffeeSteam.title",
+    descriptionKey: "bannerCoffeeSteam.description",
+    iconName: "sparkles",
+    bannerId: "banner-coffee-steam",
+  },
+  {
+    id: "banner-sunset-mountains",
+    price: 300,
+    category: "cosmetics",
+    consumable: false,
+    titleKey: "bannerSunsetMountains.title",
+    descriptionKey: "bannerSunsetMountains.description",
+    iconName: "sparkles",
+    bannerId: "banner-sunset-mountains",
+  },
+  {
+    id: "banner-ocean-boat",
+    price: 300,
+    category: "cosmetics",
+    consumable: false,
+    titleKey: "bannerOceanBoat.title",
+    descriptionKey: "bannerOceanBoat.description",
+    iconName: "sparkles",
+    bannerId: "banner-ocean-boat",
+  },
+  {
+    id: "banner-meadow",
+    price: 200,
+    category: "cosmetics",
+    consumable: false,
+    titleKey: "bannerMeadow.title",
+    descriptionKey: "bannerMeadow.description",
+    iconName: "sparkles",
+    bannerId: "banner-meadow",
+  },
 ];
 
 export function getShopItem(id: string): ShopItem | undefined {
@@ -132,5 +224,8 @@ export const DECORATOR_ITEMS = SHOP_ITEMS.filter((i) => i.decoratorId != null);
 /** All items that function as wearable profile titles. */
 export const TITLE_ITEMS = SHOP_ITEMS.filter((i) => i.titleId != null);
 
-/** All cosmetic items (decorators, titles, future: banners). */
+/** All items that function as profile banners. */
+export const BANNER_ITEMS = SHOP_ITEMS.filter((i) => i.bannerId != null);
+
+/** All cosmetic items (decorators, titles, banners). */
 export const COSMETIC_ITEMS = SHOP_ITEMS.filter((i) => i.category === "cosmetics");

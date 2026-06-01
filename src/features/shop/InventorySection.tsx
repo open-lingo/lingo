@@ -1,11 +1,18 @@
 import { useTranslation } from "react-i18next";
 import { Card, Button } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { DECORATOR_ITEMS, TITLE_ITEMS, type ShopItem } from "./shopCatalog";
+import {
+  BANNER_ITEMS,
+  DECORATOR_ITEMS,
+  TITLE_ITEMS,
+  type ShopItem,
+} from "./shopCatalog";
 import { DECORATOR_STYLES } from "./decoratorStyles";
+import { BANNER_STYLES } from "./bannerStyles";
 import { useShopState } from "./useShopState";
 import { useEquippedDecorator } from "./useEquippedDecorator";
 import { useEquippedTitle } from "./useEquippedTitle";
+import { useEquippedBanner } from "./useEquippedBanner";
 
 type InventorySectionProps = {
   /**
@@ -37,11 +44,14 @@ export function InventorySection({ onAfterEquip, hideHeading }: InventorySection
   const { shop } = useShopState();
   const decorator = useEquippedDecorator();
   const title = useEquippedTitle();
+  const banner = useEquippedBanner();
 
   const ownedFrames = DECORATOR_ITEMS.filter((i) => shop.purchases.includes(i.id));
   const ownedTitles = TITLE_ITEMS.filter((i) => shop.purchases.includes(i.id));
+  const ownedBanners = BANNER_ITEMS.filter((i) => shop.purchases.includes(i.id));
 
-  const hasAny = ownedFrames.length > 0 || ownedTitles.length > 0;
+  const hasAny =
+    ownedFrames.length > 0 || ownedTitles.length > 0 || ownedBanners.length > 0;
 
   return (
     <section className={hideHeading ? undefined : "mt-10"}>
@@ -140,26 +150,41 @@ export function InventorySection({ onAfterEquip, hideHeading }: InventorySection
             })()}
           />
 
-          {/* Banners — stub. No banner SKUs ship yet, but rendering the
-              category empty-state communicates that this surface will
-              hold them when they do, so testers stop reporting "where
-              are my banners". */}
           <CosmeticCategory
             label={t("shop.sectionBanners", "Profile banners")}
-            owned={[]}
-            equippedId={null}
-            isEquipping={false}
-            renderSwatch={() => null}
-            renderEquippedSwatch={() => null}
-            onEquip={() => {}}
-            onUnequip={() => {}}
-            emptyLabel={t(
-              "shop.noBannersOwned",
-              "No banners available yet.",
+            owned={ownedBanners}
+            equippedId={banner.equippedId}
+            isEquipping={banner.isEquipping}
+            renderSwatch={(item) => (
+              <BannerSwatch bannerId={item.bannerId!} />
             )}
+            renderEquippedSwatch={() => {
+              if (!banner.equippedId) return null;
+              const owned = BANNER_ITEMS.find((b) => b.id === banner.equippedId);
+              if (!owned?.bannerId) return null;
+              return <BannerSwatch bannerId={owned.bannerId} />;
+            }}
+            onEquip={(id) => {
+              banner.equip(id);
+              onAfterEquip?.();
+            }}
+            onUnequip={() => banner.equip(null)}
+            emptyLabel={t("shop.noBannersOwned", "No banners owned.")}
             t={t}
-            getLabel={() => ""}
-            equippedLabel={null}
+            getLabel={(item) =>
+              t(`shop.items.${item.titleKey}`, { defaultValue: item.id })
+            }
+            equippedLabel={
+              banner.equippedId
+                ? t(
+                    `shop.items.${
+                      BANNER_ITEMS.find((b) => b.id === banner.equippedId)
+                        ?.titleKey ?? ""
+                    }`,
+                    { defaultValue: banner.equippedId },
+                  )
+                : null
+            }
           />
         </div>
       )}
@@ -306,6 +331,29 @@ function TitleSwatch() {
       aria-hidden
     >
       <Icon name="crown" size={18} />
+    </div>
+  );
+}
+
+/**
+ * Tiny banner thumbnail — a horizontal strip a little larger than the
+ * frame/title swatches so the 6:1 banner art is recognisable. Rendered
+ * via the bannerStyles registry so the SVG art is the same one the
+ * profile hero uses.
+ */
+function BannerSwatch({ bannerId }: { bannerId: string }) {
+  const style = BANNER_STYLES[bannerId];
+  if (!style) return null;
+  const Svg = style.Svg;
+  return (
+    <div
+      className="h-10 w-16 shrink-0 overflow-hidden rounded-md border border-border"
+      aria-hidden
+    >
+      <Svg
+        preserveAspectRatio="xMidYMid slice"
+        className="block h-full w-full"
+      />
     </div>
   );
 }

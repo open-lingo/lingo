@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
 import { getDecoratorStyle } from "../decoratorStyles";
+import { getBannerStyle } from "../bannerStyles";
 import type { ShopItem } from "../shopCatalog";
 
 /**
@@ -13,7 +14,7 @@ import type { ShopItem } from "../shopCatalog";
  *
  *   - frame   → empty-avatar silhouette + the gradient ring
  *   - title   → crown + the wear-text styled like the profile masthead
- *   - banner  → small banner SVG thumbnail in a 6:1 strip (added with banners SKUs)
+ *   - banner  → 6:1 inline-SVG thumbnail at ~60px tall
  *   - other   → fallback to the lucide icon at large size (power-ups etc.)
  *
  * Always fills the width of its parent and is `aria-hidden` — the card's
@@ -25,6 +26,9 @@ export function ShopItemPreview({ item }: { item: ShopItem }) {
   }
   if (item.titleId) {
     return <TitlePreview item={item} />;
+  }
+  if (item.bannerId) {
+    return <BannerPreview bannerId={item.bannerId} />;
   }
   return <IconPreview iconName={item.iconName as IconName} />;
 }
@@ -76,6 +80,31 @@ function TitlePreview({ item }: { item: ShopItem }) {
         <Icon name="crown" size={16} strokeWidth={2.25} aria-hidden />
         {wear}
       </span>
+    </div>
+  );
+}
+
+// ─── Banner ──────────────────────────────────────────────────────────────────
+
+/**
+ * Banner thumbnail. Renders the inline SVG art via the bannerStyles
+ * registry so the buyer sees what they'll equip on their profile. The
+ * svg uses `xMidYMid slice` so the 6:1 art fills the strip without
+ * letterboxing; ~60px tall keeps the shop card compact.
+ */
+function BannerPreview({ bannerId }: { bannerId: string }) {
+  const style = getBannerStyle(bannerId);
+  if (!style) return null;
+  const Svg = style.Svg;
+  return (
+    <div
+      className="-mx-1 overflow-hidden rounded-md border border-border"
+      aria-hidden
+    >
+      <Svg
+        preserveAspectRatio="xMidYMid slice"
+        className="block h-[60px] w-full"
+      />
     </div>
   );
 }

@@ -40,6 +40,7 @@ import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { DecoratedAvatar } from "@/shared/components/DecoratedAvatar";
 import { useEquippedDecorator } from "@/features/shop/useEquippedDecorator";
 import { useEquippedTitle } from "@/features/shop/useEquippedTitle";
+import { useEquippedBanner } from "@/features/shop/useEquippedBanner";
 import { TITLE_ITEMS } from "@/features/shop/shopCatalog";
 import { InventorySection } from "@/features/shop/InventorySection";
 import { InventoryPopout } from "@/features/shop/InventoryPopout";
@@ -186,6 +187,7 @@ export function PublicProfilePage() {
 
   const { style: decoratorStyle } = useEquippedDecorator();
   const { equippedId: equippedTitleId } = useEquippedTitle();
+  const { style: bannerStyle } = useEquippedBanner();
 
   // Resolve the wear-text for the equipped title (e.g. "Night Owl"). Only
   // shown when the viewer is on their OWN profile — until the social
@@ -338,6 +340,25 @@ export function PublicProfilePage() {
   return (
     <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
       <article data-testid="public-profile-card" className="relative">
+        {/* ── Banner hero (optional) ───────────────────────────────
+              When the viewer has equipped a profile banner, render it
+              as a 6:1 strip at the top of the article. The masthead
+              below sits flush against the bottom of the banner — the
+              avatar is intentionally NOT overlapped so the banner art
+              and the avatar each stand on their own visual ground. */}
+        {bannerStyle && (
+          <div
+            className="-mx-5 mb-6 overflow-hidden rounded-xl sm:-mx-8"
+            role="img"
+            aria-label={bannerStyle.label}
+          >
+            <bannerStyle.Svg
+              preserveAspectRatio="xMidYMid slice"
+              className="block h-[100px] w-full sm:h-[160px]"
+            />
+          </div>
+        )}
+
         {/* ── Owner action bar (top-right) ─────────────────────────
               The canonical home for owner controls (Edit / Save /
               Cancel / Inventory). Floated above the masthead so it's

@@ -655,6 +655,38 @@
         "title": "Night owl title",
         "description": "A profile title for late-night learners.",
         "wear": "Night Owl"
+      },
+      "bannerSakura": {
+        "title": "Sakura branch banner",
+        "description": "Cherry blossoms drift across a blush pink sky."
+      },
+      "bannerVaporwaveSun": {
+        "title": "Vaporwave sun banner",
+        "description": "Retro-futurist neon grid horizon."
+      },
+      "bannerStarryNight": {
+        "title": "Starry night banner",
+        "description": "Crescent moon over a deep midnight sky."
+      },
+      "bannerHeartsConfetti": {
+        "title": "Pastel hearts banner",
+        "description": "Tossed pink hearts on a cream backdrop."
+      },
+      "bannerCoffeeSteam": {
+        "title": "Coffee steam banner",
+        "description": "A cozy mug with steam curling up."
+      },
+      "bannerSunsetMountains": {
+        "title": "Sunset mountains banner",
+        "description": "Layered peaks under a warm orange sky."
+      },
+      "bannerOceanBoat": {
+        "title": "Sailboat banner",
+        "description": "A little boat riding teal rolling waves."
+      },
+      "bannerMeadow": {
+        "title": "Meadow banner",
+        "description": "Daisies and tulips in a sunlit field."
       }
     },
     "sectionInventory": "Your decorators",
