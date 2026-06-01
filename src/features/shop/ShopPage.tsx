@@ -165,8 +165,8 @@ function ShopSection({
             <li key={item.id}>
               <Card padding="md" className="flex h-full flex-col">
                 <div className="flex items-start gap-3">
-                  <span className="text-2xl" aria-hidden>
-                    {item.emoji}
+                  <span className="flex h-8 w-8 items-center justify-center rounded-md bg-surface-muted text-text-muted" aria-hidden>
+                    <Icon name={item.iconName as import("@/shared/iconRegistry").IconName} size={20} />
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="font-semibold text-text-primary">

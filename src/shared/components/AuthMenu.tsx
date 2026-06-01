@@ -14,6 +14,8 @@ import { Icon } from "@/shared/components/Icon";
 import { Button, composeButtonClasses } from "@/shared/components/ui/Button";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTheme } from "@/shared/contexts/ThemeContext";
+import { DecoratedAvatar } from "@/shared/components/DecoratedAvatar";
+import { useEquippedDecorator } from "@/features/shop/useEquippedDecorator";
 
 export function AuthMenu() {
   const { t } = useTranslation();
@@ -40,6 +42,7 @@ export function AuthMenu() {
   const role = me?.role;
   const siteAdmin = canAccessSiteAdmin(role);
   const showModeration = canModerateCommunityContent(role);
+  const { style: decoratorStyle } = useEquippedDecorator();
 
   const [imgError, setImgError] = useState(false);
   useEffect(() => {
@@ -75,18 +78,25 @@ export function AuthMenu() {
         type="button"
         variant="ghost"
         size="icon"
-        className={showAvatar ? "overflow-hidden hover:text-text-primary" : undefined}
+        className={
+          showAvatar
+            ? decoratorStyle
+              ? "overflow-visible hover:text-text-primary"
+              : "overflow-hidden hover:text-text-primary"
+            : undefined
+        }
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="true"
         aria-label={t("auth.accountMenu")}
       >
         {showAvatar ? (
-          <img
-            src={avatarUrl}
-            alt=""
-            className="h-full w-full object-cover"
-            onError={() => setImgError(true)}
+          <DecoratedAvatar
+            name={displayName}
+            src={avatarUrl ?? undefined}
+            size="sm"
+            decoratorStyle={decoratorStyle}
+            className={decoratorStyle ? undefined : "h-full w-full object-cover rounded-full"}
           />
         ) : (
           <Icon name="user" size={20} />

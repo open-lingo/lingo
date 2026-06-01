@@ -17,6 +17,7 @@
   "common": {
     "loading": "Loading...",
     "back": "Back",
+    "cancel": "Cancel",
     "hidePreview": "Hide preview",
     "showPreview": "Show preview",
     "backToHome": "Back to home",
@@ -626,11 +627,40 @@
         "title": "Gold profile frame",
         "description": "Show off with a golden avatar border."
       },
+      "profileFrameSilver": {
+        "title": "Silver profile frame",
+        "description": "A sleek silver border for your avatar."
+      },
+      "profileFrameBronze": {
+        "title": "Bronze profile frame",
+        "description": "A warm bronze border for your avatar."
+      },
+      "profileFrameBlue": {
+        "title": "Neon blue frame",
+        "description": "Electric blue glow around your avatar."
+      },
+      "profileFrameEmerald": {
+        "title": "Emerald frame",
+        "description": "Deep emerald ring for your avatar."
+      },
+      "profileFrameRose": {
+        "title": "Rose frame",
+        "description": "A rosy pink ring for your avatar."
+      },
+      "profileFramePlasma": {
+        "title": "Plasma frame",
+        "description": "Ultra-rare iridescent plasma border."
+      },
       "titleNightOwl": {
         "title": "Night owl title",
         "description": "A profile title for late-night learners."
       }
-    }
+    },
+    "sectionInventory": "Your decorators",
+    "equip": "Equip",
+    "unequip": "Unequip",
+    "equipped": "Equipped",
+    "noDecoratorsOwned": "You don't own any decorators yet. Visit the shop to buy one."
   },
   "funding": {
     "adFunded": "{{percent}}% ad-funded",
