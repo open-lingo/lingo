@@ -20,5 +20,8 @@ export function useEventDetail(id: string | null) {
     queryKey: ["ops", "events", "detail", id],
     queryFn: () => ops.getEvent(id!),
     enabled: id !== null,
+    // Detail view doesn't change once received — only the list view is live.
+    // Refetching one row on every focus is wasted bandwidth.
+    staleTime: 30_000,
   });
 }

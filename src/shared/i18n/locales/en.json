@@ -1255,7 +1255,9 @@
       "home": "Home",
       "users": "Users",
       "moderation": "Moderation",
-      "ops": "Ops"
+      "ops": "Ops",
+      "events": "Events",
+      "lms": "LMS"
     },
     "breadcrumbs": "Breadcrumbs",
     "searchPlaceholder": "Search…",
