@@ -346,7 +346,12 @@ export function PublicProfilePage() {
   // Cancel / Inventory) floats top-right ON the banner with a subtle
   // surface-pill so it stays legible against any banner art.
   const hasBanner = !!bannerStyle;
-  const bannerBackdropClass = hasBanner ? "h-[140px] sm:h-[200px]" : "";
+  // Banner sizing — Twitter/Discord proportions. Tall enough to read as a
+  // real header, not a thin accent stripe. Banner is also shifted down a
+  // tinge from the article's top edge so there's a small breath of page
+  // background above it (avoids the slammed-against-the-top look).
+  const bannerBackdropClass = hasBanner ? "h-[200px] sm:h-[280px]" : "";
+  const bannerTopOffsetClass = hasBanner ? "top-4 sm:top-5" : "";
   // Per-button surface-pill backdrop so the ghost-variant owner
   // controls stay legible over any banner art (otherwise icon + label
   // can smear into vaporwave magenta / sunset orange).
@@ -365,7 +370,7 @@ export function PublicProfilePage() {
               page looks identical to its pre-banner state. */}
         {bannerStyle && (
           <div
-            className={`pointer-events-none absolute inset-x-0 -top-0 -mx-5 overflow-hidden rounded-xl sm:-mx-8 ${bannerBackdropClass}`}
+            className={`pointer-events-none absolute inset-x-0 -mx-5 overflow-hidden rounded-xl sm:-mx-8 ${bannerTopOffsetClass} ${bannerBackdropClass}`}
             role="img"
             aria-label={bannerStyle.label}
           >
@@ -472,7 +477,12 @@ export function PublicProfilePage() {
         <header
           className={
             "relative z-10 " +
-            (hasBanner ? "pt-[90px] sm:pt-[140px]" : "")
+            // Padding-top reserves room for the absolutely-positioned
+            // banner so the masthead text sits ON the lower half of the
+            // banner art. Sizes pair with bannerBackdropClass +
+            // bannerTopOffsetClass above (banner ends at top + height:
+            // 4+200=204 mobile / 5+280=285 desktop).
+            (hasBanner ? "pt-[150px] sm:pt-[220px]" : "")
           }
         >
           <p
@@ -614,7 +624,10 @@ export function PublicProfilePage() {
             <div
               className={
                 "flex items-start justify-start gap-4 sm:flex-col sm:items-end sm:gap-3 " +
-                (hasBanner ? "-mt-10 sm:-mt-12" : "")
+                // Negative margin tuned so the avatar straddles the
+                // banner's bottom edge given the new taller banner +
+                // top offset. See bannerBackdropClass math.
+                (hasBanner ? "-mt-2 sm:-mt-4" : "")
               }
             >
               <div
