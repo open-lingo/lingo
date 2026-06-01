@@ -31,6 +31,7 @@ import { Card } from "@/shared/components/ui/Card";
 import { NavCard } from "@/shared/components/ui/NavCard";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
+import { SystemHealthPanel } from "@/features/admin/SystemHealthPanel";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -252,6 +253,9 @@ export function AdminHomePage() {
           Welcome back, {adminDisplayName}
         </p>
       </div>
+
+      {/* System health */}
+      <SystemHealthPanel />
 
       {/* Metrics strip */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
