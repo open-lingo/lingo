@@ -7,7 +7,7 @@ import {
   clearAllStepEvents,
   clearPendingAttempts,
 } from "@/features/lesson/engine/lessonStorage";
-import { clearGraduatedVocab } from "@/features/japanese/vocabGraduation";
+import { clearGraduatedVocab } from "@/shared/vocabGraduation";
 import type { ProgressApi } from "@/shared/api/progress";
 import type { SrsApi } from "@/shared/api/srs";
 import {
@@ -32,8 +32,19 @@ function clearMasteryToastFlags(): void {
   }
 }
 
-/** Wipe local learn caches (pathway, alphabet, reviews, lesson buffer). */
-export function resetLearnProgressLocal(courseId: string): void {
+/**
+ * Wipe local learn caches (pathway, alphabet, reviews, lesson buffer).
+ *
+ * `languageId` is required for language-scoped state (vocab
+ * graduation). The `courseId` arg here is overloaded in callers — some
+ * pass a course id ("mock-1") and some pass the language id ("ja") for
+ * historical reasons; both flow into per-course storage clearing,
+ * preserving pre-Phase-1 behavior.
+ */
+export function resetLearnProgressLocal(
+  languageId: string,
+  courseId: string,
+): void {
   clearMockProgress();
   clearAllAlphabetProgress();
   clearAllReviewSchedules();
@@ -42,17 +53,18 @@ export function resetLearnProgressLocal(courseId: string): void {
   clearAllStepEvents();
   clearSRSStore();
   notifySRSStoreChanged();
-  clearGraduatedVocab(courseId);
+  clearGraduatedVocab(languageId, courseId);
   clearMasteryToastFlags();
   clearLessonProgressReset();
 }
 
 /** Local reset plus server progress/SRS wipe when signed in. */
 export async function resetLearnProgress(
+  languageId: string,
   courseId: string,
   api?: { progress: ProgressApi; srs: SrsApi } | null,
 ): Promise<void> {
-  resetLearnProgressLocal(courseId);
+  resetLearnProgressLocal(languageId, courseId);
   if (!api) return;
   // Fix H10 — mark the reset flag AFTER kicking off the server reset so
   // useProgressMe won't re-merge stale phone-era rollups into the just-cleared

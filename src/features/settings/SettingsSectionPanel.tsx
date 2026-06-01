@@ -501,7 +501,10 @@ function LanguageDangerZone({ languageId }: { languageId: string }) {
   const onConfirm = async () => {
     setPending(true);
     try {
-      await resetLearnProgress(languageId, { progress, srs });
+      // courseId was historically conflated with languageId at this
+      // call site; preserve that to keep behavior identical. Phase 2
+      // can plumb the real course id through.
+      await resetLearnProgress(languageId, languageId, { progress, srs });
       showToast(
         t("settings.languageResetDone", {
           defaultValue:

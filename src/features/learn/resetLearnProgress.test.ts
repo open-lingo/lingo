@@ -31,12 +31,12 @@ describe("resetLearnProgress — Fix H10 reset-flag lifecycle", () => {
 
   it("sets the lesson-progress-reset flag after server reset succeeds", async () => {
     const api = buildApiStub({});
-    await resetLearnProgress("ja", api);
+    await resetLearnProgress("ja", "mock-1", api);
     expect(hasLessonProgressReset()).toBe(true);
   });
 
   it("does NOT set the flag for a local-only reset (no api)", async () => {
-    await resetLearnProgress("ja", null);
+    await resetLearnProgress("ja", "mock-1", null);
     expect(hasLessonProgressReset()).toBe(false);
   });
 
@@ -44,7 +44,7 @@ describe("resetLearnProgress — Fix H10 reset-flag lifecycle", () => {
     const api = buildApiStub({
       progressReset: () => Promise.reject(new Error("network")),
     });
-    await resetLearnProgress("ja", api);
+    await resetLearnProgress("ja", "mock-1", api);
     expect(hasLessonProgressReset()).toBe(false);
   });
 
@@ -52,7 +52,7 @@ describe("resetLearnProgress — Fix H10 reset-flag lifecycle", () => {
     const api = buildApiStub({
       srsClear: () => Promise.reject(new Error("srs-broken")),
     });
-    await resetLearnProgress("ja", api);
+    await resetLearnProgress("ja", "mock-1", api);
     // The reset flag tracks the lesson-progress side specifically; SRS is
     // independent and shouldn't block the lesson-rollup re-merge gate.
     expect(hasLessonProgressReset()).toBe(true);
@@ -62,7 +62,7 @@ describe("resetLearnProgress — Fix H10 reset-flag lifecycle", () => {
     const progressReset = vi.fn(() => Promise.resolve(undefined as unknown as void));
     const srsClear = vi.fn(() => Promise.resolve(undefined as unknown as void));
     const api = buildApiStub({ progressReset, srsClear });
-    await resetLearnProgress("ja", api);
+    await resetLearnProgress("ja", "mock-1", api);
     expect(progressReset).toHaveBeenCalledOnce();
     expect(srsClear).toHaveBeenCalledOnce();
   });

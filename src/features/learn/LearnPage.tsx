@@ -31,7 +31,7 @@ import { getAlphabetProgress } from "@/features/practice/alphabet/alphabetProgre
 import {
   clearGraduatedVocab,
   graduateModule,
-} from "@/features/japanese/vocabGraduation";
+} from "@/shared/vocabGraduation";
 import type { Lesson, SideQuest } from "@/shared/domain/course";
 import {
   getCurrentModuleIndex,
@@ -143,13 +143,13 @@ export function LearnPage() {
   );
 
   useEffect(() => {
-    if (!course) return;
+    if (!course || !language) return;
     for (const mod of course.modules) {
       if (mod.comingSoon) continue;
       if (mod.lessons.length === 0) continue;
       const allDone = mod.lessons.every((l) => completedSet.has(l.id));
       if (!allDone) continue;
-      graduateModule(course.id, mod);
+      graduateModule(language.id, course.id, mod);
       // Schedule first review for content modules (not review modules
       // themselves). Idempotent — re-running after re-mastery is a no-op.
       // Skip module ids that look like review modules (ending in -review).
@@ -157,7 +157,7 @@ export function LearnPage() {
         scheduleFirstReview(mod.id);
       }
     }
-  }, [course, completedSet]);
+  }, [course, completedSet, language]);
 
   // Surface the count of due reviews on the Learn header. Re-evaluated
   // when completedSet changes (which fires after each lesson finishes).
@@ -412,9 +412,11 @@ export function LearnPage() {
         unlocked={devUnlock}
         onToggle={handleToggleDevUnlock}
         onClearProgress={() => {
-          if (course) resetLearnProgress(course.id);
+          if (course && language) resetLearnProgress(language.id, course.id);
         }}
-        onClearGraduatedVocab={() => clearGraduatedVocab(course.id)}
+        onClearGraduatedVocab={() => {
+          if (language) clearGraduatedVocab(language.id, course.id);
+        }}
       />
       {showPlacement && (
         <PlacementPrompt
