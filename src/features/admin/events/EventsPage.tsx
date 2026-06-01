@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { useEventDetail, useEventList } from "./useEvents";
 import { EventRowItem } from "./EventRow";
 import { EventDetail } from "./EventDetail";
+import { EventPublisher } from "./EventPublisher";
 import type { EventFilters, EventRow } from "./types";
 
 const EVENT_TYPES = [
@@ -86,7 +87,12 @@ export default function EventsPage() {
           )}
         </div>
       </div>
-      <EventDetail event={detailQ.data ?? null} />
+      <div className="flex flex-col min-h-0">
+        <div className="flex-1 overflow-auto min-h-0">
+          <EventDetail event={detailQ.data ?? null} />
+        </div>
+        <EventPublisher />
+      </div>
     </div>
   );
 }

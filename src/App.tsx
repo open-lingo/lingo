@@ -49,7 +49,6 @@ const TermsOfServicePage = lazyRetry(() =>
 const AboutPage = lazyRetry(() =>
   import("@/features/legal/AboutPage").then((m) => ({ default: m.AboutPage })),
 );
-const QuestsPage = lazyRetry(() => import("@/features/quests/QuestsPage"));
 const VocabPage = lazyRetry(() =>
   import("@/features/vocab/VocabPage").then((m) => ({ default: m.VocabPage })),
 );
@@ -316,7 +315,6 @@ const router = createBrowserRouter([
                 ],
               },
               { path: "vocab", element: <VocabPage /> },
-              { path: "quests", element: <QuestsPage /> },
               { path: "shop", element: <ShopPage /> },
               { path: "grammar", element: <GrammarRedirect /> },
               { path: "speech-tune", element: <SpeechTunePage /> },

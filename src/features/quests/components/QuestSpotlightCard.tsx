@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useQuests } from "../useQuests";
+import { useQuestsModalUrl } from "../useQuestsModalUrl";
 import { QuestProgressBar } from "./QuestProgressBar";
 import { QuestsPanel } from "./QuestsPanel";
 
@@ -16,7 +17,7 @@ import { QuestsPanel } from "./QuestsPanel";
 export function QuestSpotlightCard() {
   const { t } = useTranslation();
   const { quests, summary, claim } = useQuests();
-  const [open, setOpen] = useState(false);
+  const { isOpen, open, close } = useQuestsModalUrl();
 
   const spotlight = useMemo(() => {
     // 1. Any claimable quest — show that first.
@@ -62,7 +63,7 @@ export function QuestSpotlightCard() {
           </h3>
           <button
             type="button"
-            onClick={() => setOpen(true)}
+            onClick={open}
             className="text-xs font-semibold text-accent hover:text-accent-hover"
           >
             {t("quests.seeAll", { defaultValue: "See all" })}
@@ -119,7 +120,7 @@ export function QuestSpotlightCard() {
           </div>
         </div>
       </Card>
-      <QuestsPanel isOpen={open} onClose={() => setOpen(false)} />
+      <QuestsPanel isOpen={isOpen} onClose={close} />
     </>
   );
 }

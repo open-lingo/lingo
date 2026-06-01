@@ -246,4 +246,21 @@ export class OpsApi extends ApiClient {
   async getEvent(id: string): Promise<EventRow> {
     return this.get<EventRow>(`${PREFIX}/events/${encodeURIComponent(id)}`);
   }
+
+  /**
+   * Synthetic event publisher — admin-only. Forwards to the kombu broker
+   * so the async pipeline (quest eval + leaderboard) sees a real event.
+   * Use for leaderboard / quest QA when you don't want to drive the UX.
+   */
+  async publishEvent(input: {
+    userId: string;
+    eventType: string;
+    payload: Record<string, unknown>;
+  }): Promise<{ published: boolean; event: Record<string, unknown> }> {
+    return this.post(`${PREFIX}/events/publish`, {
+      userId: input.userId,
+      eventType: input.eventType,
+      payload: input.payload,
+    });
+  }
 }

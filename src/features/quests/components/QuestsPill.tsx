@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 import { useQuests } from "../useQuests";
+import { useQuestsModalUrl } from "../useQuestsModalUrl";
 import { QuestsPanel } from "./QuestsPanel";
 
 export type QuestsPillProps = {
@@ -21,7 +21,7 @@ export type QuestsPillProps = {
 export function QuestsPill({ className, size = "sm" }: QuestsPillProps) {
   const { t } = useTranslation();
   const { summary } = useQuests();
-  const [open, setOpen] = useState(false);
+  const { isOpen, open, close } = useQuestsModalUrl();
 
   const hasClaimable = summary.claimable > 0;
 
@@ -29,7 +29,7 @@ export function QuestsPill({ className, size = "sm" }: QuestsPillProps) {
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={open}
         className={cn(
           "inline-flex items-center gap-1.5 rounded-full border font-semibold transition",
           size === "sm" ? "px-2.5 py-1 text-xs" : "px-3 py-1.5 text-sm",
@@ -69,7 +69,7 @@ export function QuestsPill({ className, size = "sm" }: QuestsPillProps) {
           />
         ) : null}
       </button>
-      <QuestsPanel isOpen={open} onClose={() => setOpen(false)} />
+      <QuestsPanel isOpen={isOpen} onClose={close} />
     </>
   );
 }

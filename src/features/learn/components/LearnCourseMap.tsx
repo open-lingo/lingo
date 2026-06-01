@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { composeButtonClasses } from "@/shared/components/ui/Button";
-import { useLanguage } from "@/shared/contexts/LanguageContext";
 import type { Course, Lesson } from "@/shared/domain/course";
 import {
   getCurrentModuleIndex,
@@ -19,11 +18,11 @@ import { ResumeBar } from "./ResumeBar";
 import { Button } from "@/shared/components/ui";
 
 /**
- * Feature flag — test-out (diagnostic skip-ahead) is live for Japanese
- * only. The placement engine + question bank are hard-coded to JA
- * (see ``features/placement/engine``) so the buttons only render when
- * the user's learning language is JA. Korean (and any future language)
- * needs its own bank before test-out can ship there.
+ * Feature flag — test-out (diagnostic skip-ahead) is live. Buttons
+ * render on every language; the PlacementTestPage handles the JA-only
+ * gate gracefully if someone hits the URL on a language whose bank
+ * isn't built yet. Showing the buttons everywhere keeps the feature
+ * discoverable even before per-language banks ship.
  *
  * On pass, ``applyPlacementResult`` marks every lesson up to and
  * including that module complete locally; ``syncTestOutToServer``
@@ -31,7 +30,6 @@ import { Button } from "@/shared/components/ui";
  * state travels across devices.
  */
 const TEST_OUT_ENABLED = true;
-const TEST_OUT_LANGUAGES = new Set(["ja"]);
 
 export type LearnCourseMapProps = {
   course: Course;
@@ -54,9 +52,7 @@ export function LearnCourseMap({
 }: LearnCourseMapProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { language } = useLanguage();
-  const testOutEnabled =
-    TEST_OUT_ENABLED && !!language && TEST_OUT_LANGUAGES.has(language.id);
+  const testOutEnabled = TEST_OUT_ENABLED;
   const currentIdx = getCurrentModuleIndex(course, completedSet);
   const currentModule = course.modules[currentIdx] ?? course.modules[0];
   const nextIdx = getNextLessonIndex(currentModule.lessons, completedSet);
