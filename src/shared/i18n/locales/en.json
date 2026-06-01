@@ -1380,7 +1380,7 @@
       "moderation": "Moderation",
       "ops": "Ops",
       "events": "Events",
-      "lms": "LMS"
+      "lms": "Learning config"
     },
     "breadcrumbs": "Breadcrumbs",
     "searchPlaceholder": "Search…",
@@ -1416,6 +1416,9 @@
       "alerts": "Active alerts",
       "noJobs": "No jobs logged in the last day.",
       "allClear": "All systems nominal."
+    },
+    "userLearning": {
+      "tabLabel": "Learning"
     },
     "moderation": {
       "pendingDecks": "Pending decks",

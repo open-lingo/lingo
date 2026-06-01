@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useApi } from "@/shared/api/provider";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -23,8 +23,21 @@ import { Button } from "@/shared/components/ui/Button";
 import { AlertBanner } from "@/shared/components/ui/AlertBanner";
 import { inputClassName } from "@/shared/components/ui/formStyles";
 import { cn } from "@/shared/components/ui/cn";
+import { LearningTab } from "./lms/LearningTab";
 
-type TabId = "profile" | "subscriptions" | "content" | "srs" | "social";
+type TabId = "profile" | "learning" | "subscriptions" | "content" | "srs" | "social";
+
+const TAB_IDS: readonly TabId[] = [
+  "profile",
+  "learning",
+  "subscriptions",
+  "content",
+  "srs",
+  "social",
+] as const;
+
+const isTabId = (v: string | null): v is TabId =>
+  v !== null && (TAB_IDS as readonly string[]).includes(v);
 
 /**
  * Why: server returns SRS payloads as opaque blobs, so legacy flat FSRS
@@ -78,7 +91,19 @@ export function AdminUserDetailPage() {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [content, setContent] = useState<DeckResponse[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<TabId>("profile");
+  // Tab state is URL-driven so external links (e.g. UserPicker on the
+  // Learning config page) can deep-link to /admin/users/:id?tab=learning.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const activeTab: TabId = isTabId(tabParam) ? tabParam : "profile";
+  const setActiveTab = (tab: TabId) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (tab === "profile") next.delete("tab");
+      else next.set("tab", tab);
+      return next;
+    });
+  };
   const [deleting, setDeleting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [addDeckId, setAddDeckId] = useState("");
@@ -428,6 +453,13 @@ export function AdminUserDetailPage() {
     }
   };
 
+  // Tab-driven lazy loaders. Fires both on click and on URL-driven deep
+  // links (e.g. /admin/users/:id?tab=srs).
+  useEffect(() => {
+    if (activeTab === "srs") loadSrsState();
+    if (activeTab === "social") loadSocialRequests();
+  }, [activeTab, loadSrsState, loadSocialRequests]);
+
   if (loading || !user) {
     return (
       <div className="flex justify-center py-12">
@@ -440,6 +472,7 @@ export function AdminUserDetailPage() {
 
   const tabs: { id: TabId; label: string }[] = [
     { id: "profile", label: t("admin.profile") },
+    { id: "learning", label: t("admin.userLearning.tabLabel", "Learning") },
     { id: "subscriptions", label: t("admin.subscriptions") },
     { id: "content", label: t("admin.content") },
     { id: "srs", label: t("admin.srs", "SRS") },
@@ -558,11 +591,7 @@ export function AdminUserDetailPage() {
           <TabButton
             key={tab.id}
             isActive={activeTab === tab.id}
-            onClick={() => {
-              setActiveTab(tab.id);
-              if (tab.id === "srs") loadSrsState();
-              if (tab.id === "social") loadSocialRequests();
-            }}
+            onClick={() => setActiveTab(tab.id)}
           >
             {tab.label}
           </TabButton>
@@ -755,6 +784,10 @@ export function AdminUserDetailPage() {
               </div>
             </dl>
           </div>
+        )}
+
+        {activeTab === "learning" && userId && (
+          <LearningTab userId={userId} />
         )}
 
         {activeTab === "subscriptions" && (
