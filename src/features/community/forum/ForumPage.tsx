@@ -15,6 +15,7 @@ import { Avatar } from "../components/Avatar";
 import { Tag } from "../components/Tag";
 import { DataTable } from "@/shared/components/data";
 import { formatTimeAgo } from "@/shared/utils/formatDate";
+import { PageShell } from "@/shared/components/PageShell";
 import type { ForumThread } from "./types";
 
 type SortMode = "hot" | "new";
@@ -32,7 +33,7 @@ export function ForumPage() {
     : threads;
 
   return (
-    <div className="mx-auto max-w-6xl">
+    <PageShell variant="wide">
       <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
         {/* Main - 70% */}
         <section className="min-w-0 flex-1 space-y-6 lg:flex-[7]">
@@ -228,6 +229,6 @@ export function ForumPage() {
           </div>
         </aside>
       </div>
-    </div>
+    </PageShell>
   );
 }

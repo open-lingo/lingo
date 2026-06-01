@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
-import { Button, Card, ProgressRing } from "@/shared/components/ui";
+import { Button, Card } from "@/shared/components/ui";
 import type { Course } from "@/shared/domain/course";
 import {
   getCurrentModuleIndex,
@@ -81,14 +81,11 @@ export function YourPathCard({
   const hasProgress = stats.done > 0;
 
   return (
-    <Card padding="lg" className="mb-6">
-      <div className="flex flex-col gap-5">
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
-              {t("learn.progressCard.kicker", { defaultValue: "Your path" })}
-            </p>
-            <h2 className="mt-1 text-lg font-semibold text-text-primary sm:text-xl">
+    <Card padding="md" className="mb-6">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <h2 className="text-lg font-semibold text-text-primary sm:text-xl">
               {currentModule ? currentModule.title : course.title}
             </h2>
             {currentModule?.summary ? (
@@ -97,37 +94,31 @@ export function YourPathCard({
               </p>
             ) : null}
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <ProgressRing
-              percent={stats.pct}
-              label={`${stats.done}/${stats.total}`}
-              sublabel={t("learn.progressCard.lessonsSub", {
-                defaultValue: "lessons",
-              })}
-            />
-            {streakDays > 0 ? (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-warning/10 px-3 py-1.5 text-sm font-bold text-warning">
-                <Icon name="flame" size={16} aria-hidden />
-                {t("learn.progressCard.streakChip", {
-                  defaultValue: "{{count}}-day streak",
-                  count: streakDays,
-                })}
-              </span>
-            ) : null}
-          </div>
         </div>
 
-        {/* Course-wide progress bar — was the LearnCourseOverviewCard's bar. */}
+        {/* Course-wide progress bar. The streak chip rides the row so the
+            hero doesn't burn a whole line on a single metric. */}
         <div className="space-y-1.5">
-          <div className="flex items-center justify-between text-xs text-text-muted">
+          <div className="flex items-center justify-between gap-3 text-xs text-text-muted">
             <span className="font-semibold uppercase tracking-wider">
               {t("learn.progressCard.overallLabel", {
                 defaultValue: "Course progress",
               })}
             </span>
-            <span className="tabular-nums font-bold text-accent">
-              {stats.pct}%
-            </span>
+            <div className="flex items-center gap-2">
+              {streakDays > 0 ? (
+                <span className="inline-flex items-center gap-1 rounded-full bg-warning/10 px-2 py-0.5 text-[0.7rem] font-bold text-warning">
+                  <Icon name="flame" size={12} aria-hidden />
+                  {t("learn.progressCard.streakChip", {
+                    defaultValue: "{{count}}-day streak",
+                    count: streakDays,
+                  })}
+                </span>
+              ) : null}
+              <span className="tabular-nums font-bold text-accent">
+                {stats.pct}%
+              </span>
+            </div>
           </div>
           <div className="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
             <div

@@ -15,6 +15,7 @@ import {
   parseDelimitedCards,
   type DelimiterMode,
 } from "./parseDelimitedCards";
+import { PageShell } from "@/shared/components/PageShell";
 
 type CreationMode = "blank" | "duplicate";
 
@@ -258,7 +259,7 @@ export function DeckCreatePage() {
     <CommunityDecksLayout
       rightRail={rightRail}
     >
-      <div className="mx-auto w-full max-w-3xl">
+      <PageShell variant="narrow">
         <header className="mb-6">
           <h1 className="text-2xl font-bold text-text-primary">
             {isImporting
@@ -622,7 +623,7 @@ export function DeckCreatePage() {
             </button>
           </div>
         </form>
-      </div>
+      </PageShell>
     </CommunityDecksLayout>
   );
 }

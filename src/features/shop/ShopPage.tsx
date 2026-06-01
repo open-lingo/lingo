@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Card, Button } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { LingotBalance } from "@/shared/components/LingotBalance";
+import { PageShell } from "@/shared/components/PageShell";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { useApi } from "@/shared/api";
 import { ApiError } from "@/shared/api/client";
@@ -68,21 +69,19 @@ export default function ShopPage() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl space-y-8 pb-8">
-      <header>
-        <p className="text-xs font-semibold uppercase tracking-wider text-accent">
-          {t("shop.kicker", { defaultValue: "Rewards" })}
-        </p>
-        <h1 className="mt-1 text-2xl font-bold text-text-primary sm:text-3xl">
-          {t("shop.title", { defaultValue: "Lingot shop" })}
-        </h1>
-        <p className="mt-2 max-w-xl text-sm text-text-secondary">
-          {t("shop.subtitle", {
-            defaultValue:
-              "Spend lingots you earn from lessons. Sample items for now — cosmetics and power-ups will hook into gameplay soon.",
-          })}
-        </p>
-        <div className="mt-4 inline-flex items-center gap-2 rounded-xl border border-border bg-surface-muted px-4 py-2">
+    <PageShell variant="narrow" spaceY="lg" className="pb-8">
+      <header className="flex flex-wrap items-start justify-between gap-3 sm:items-center">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-2xl font-bold text-text-primary sm:text-3xl">
+            {t("shop.title", { defaultValue: "Lingot shop" })}
+          </h1>
+          <p className="mt-1 max-w-md text-sm text-text-secondary">
+            {t("shop.subtitle", {
+              defaultValue: "Spend lingots from lessons on cosmetics and power-ups.",
+            })}
+          </p>
+        </div>
+        <div className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-muted px-4 py-2">
           <span className="text-sm text-text-secondary">
             {t("shop.balanceLabel", { defaultValue: "Your balance" })}
           </span>
@@ -123,7 +122,7 @@ export default function ShopPage() {
           })}
         </p>
       </Card>
-    </div>
+    </PageShell>
   );
 }
 

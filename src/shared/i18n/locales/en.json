@@ -600,7 +600,7 @@
   "shop": {
     "kicker": "Rewards",
     "title": "Lingot shop",
-    "subtitle": "Spend lingots you earn from lessons. Sample items for now — cosmetics and power-ups will hook into gameplay soon.",
+    "subtitle": "Spend lingots from lessons on cosmetics and power-ups.",
     "balanceLabel": "Your balance",
     "sectionPowerups": "Power-ups",
     "sectionCosmetics": "Cosmetics",

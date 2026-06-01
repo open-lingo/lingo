@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { FORUM_CATEGORIES, FORUM_TAGS } from "./mockForum";
 import { MarkdownEditor } from "./MarkdownEditor";
+import { PageShell } from "@/shared/components/PageShell";
 
 export function NewThreadPage() {
   const { t } = useTranslation();
@@ -29,7 +30,7 @@ export function NewThreadPage() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
+    <PageShell variant="narrow" spaceY="md">
       <Link to={langPath("community")} className="text-sm text-gray-600 hover:text-gray-900">
           <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("community.title")}
         </Link>
@@ -121,6 +122,6 @@ export function NewThreadPage() {
           </button>
         </div>
       </form>
-    </div>
+    </PageShell>
   );
 }

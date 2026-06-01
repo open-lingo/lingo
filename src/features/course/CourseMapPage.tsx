@@ -5,6 +5,7 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import type { Course, Lesson } from "@/shared/domain/course";
+import { PageShell } from "@/shared/components/PageShell";
 
 /** Flatten course into ordered lessons with module info for path rendering. */
 function flattenLessons(course: Course): { lesson: Lesson; moduleTitle: string; moduleId: string }[] {
@@ -30,14 +31,14 @@ export function CourseMapPage() {
 
   if (!course) {
     return (
-      <div className="mx-auto max-w-2xl space-y-4">
+      <PageShell variant="narrow" spaceY="sm">
         <p className="text-text-muted">
           Select a learning language in Settings to see your course path.
         </p>
         <Link to="/settings" className="text-sm text-link">
           <Icon name="arrowBigRight" size={14} className="inline" /> Settings
         </Link>
-      </div>
+      </PageShell>
     );
   }
 
@@ -46,7 +47,7 @@ export function CourseMapPage() {
   const totalHeight = items.length * STEP_Y + PATH_PADDING * 2;
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6">
+    <PageShell variant="narrow" spaceY="md">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-text-primary">
           {course.title}
@@ -163,6 +164,6 @@ export function CourseMapPage() {
           })}
         </ul>
       </div>
-    </div>
+    </PageShell>
   );
 }

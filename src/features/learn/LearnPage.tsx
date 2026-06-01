@@ -48,6 +48,7 @@ import { LearnTopBar } from "./components/LearnTopBar";
 import { LearnDevPanel } from "./components/LearnDevPanel";
 import { YourPathCard } from "./components/YourPathCard";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
+import { PageShell } from "@/shared/components/PageShell";
 
 export function LearnPage() {
   const { t } = useTranslation();
@@ -250,7 +251,7 @@ export function LearnPage() {
 
   if (!course) {
     return (
-      <div className="mx-auto max-w-2xl space-y-4">
+      <PageShell variant="narrow" spaceY="sm">
         <p className="text-text-muted">
           {t("learn.pickLanguage", "Select a learning language in Settings to see your course path.")}
         </p>
@@ -262,7 +263,7 @@ export function LearnPage() {
           <Icon name="settings" size={16} aria-hidden />
           {t("nav.settings")}
         </button>
-      </div>
+      </PageShell>
     );
   }
 
@@ -427,7 +428,7 @@ export function LearnPage() {
           page has a louder version per-language. We want this hidden
           enough that it's not the first thing people see, but findable
           by anyone scanning the bottom for "danger / reset" controls. */}
-      <div className="mt-12 flex flex-col items-center gap-2 pb-8 text-center">
+      <div className="mt-6 flex flex-col items-center gap-2 pb-4 text-center">
         <button
           type="button"
           onClick={() => setShowStartOverConfirm(true)}
