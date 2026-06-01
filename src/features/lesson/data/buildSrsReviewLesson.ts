@@ -111,7 +111,7 @@ export function buildSrsReviewLesson(opts: {
   languageId: string;
 }): LessonContent {
   const { moduleId, position, courseId, languageId } = opts;
-  const allAtoms = getAtomsUpToModule(moduleId);
+  const allAtoms = getAtomsUpToModule(moduleId, languageId);
   const id = `ja-${moduleId}-review-${position}`;
   const isRecognitionHeavy = position === 1;
 

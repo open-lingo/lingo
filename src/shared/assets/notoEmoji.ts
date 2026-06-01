@@ -24,7 +24,16 @@
  *     Use `notoFlagUrl` for those.
  */
 
-import { JA_COURSE_ATOMS } from "@/features/languages/ja/courseAtoms";
+import {
+  JA_COURSE_ATOMS,
+  type CourseAtom,
+} from "@/features/languages/ja/courseAtoms";
+
+/** Phase 2: route through the language registry per ADR-005. */
+function courseAtomsFor(languageId: string): ReadonlyArray<CourseAtom> {
+  if (languageId !== "ja") return [];
+  return JA_COURSE_ATOMS;
+}
 
 const NOTO_SVG_BASE = "/noto-emoji/svg";
 
@@ -163,9 +172,9 @@ export function notoFlagUrl(isoCode: string): string | null {
  * separate hand-maintained mirror to drift out of sync.
  */
 export const JA_KANA_EMOJI_MAP: ReadonlyMap<string, string> = new Map(
-  JA_COURSE_ATOMS.filter((a): a is typeof a & { emoji: string } => !!a.emoji).map(
-    (a) => [a.kana, a.emoji],
-  ),
+  courseAtomsFor("ja")
+    .filter((a): a is typeof a & { emoji: string } => !!a.emoji)
+    .map((a) => [a.kana, a.emoji]),
 );
 
 /**

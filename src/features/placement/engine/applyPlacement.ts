@@ -2,8 +2,18 @@ import { getMockCourse } from "@/shared/domain/mockCourse";
 import { markLessonCompleted } from "@/shared/domain/mockProgress";
 import { unlockLessonAtoms } from "@/features/lesson/data/unlockLessonAtoms";
 import { setCardState } from "@/features/flashcards/engine/srsStorage";
-import { JA_COURSE_ATOMS, isSrsEligibleAtom } from "@/features/languages/ja/courseAtoms";
+import {
+  JA_COURSE_ATOMS,
+  isSrsEligibleAtom,
+  type CourseAtom,
+} from "@/features/languages/ja/courseAtoms";
 import type { SRSCardState } from "@/features/flashcards/data/types";
+
+/** Phase 2: route through the language registry. */
+function courseAtomsFor(languageId: string): ReadonlyArray<CourseAtom> {
+  if (languageId !== "ja") return [];
+  return JA_COURSE_ATOMS;
+}
 
 export type PlacementResult = {
   passedModules: string[];
@@ -26,12 +36,16 @@ function createPlacementSeedState(): SRSCardState {
   return { recognition: { ...sub }, production: { ...sub } };
 }
 
-export function applyPlacementResult(passedModules: string[]): PlacementResult {
+export function applyPlacementResult(
+  passedModules: string[],
+  // Phase 2: route through registry; default "ja" preserves behavior.
+  languageId: string = "ja",
+): PlacementResult {
   if (passedModules.length === 0) {
     return { passedModules, skippedLessonCount: 0, seededAtomCount: 0 };
   }
 
-  const course = getMockCourse("ja");
+  const course = getMockCourse(languageId);
   const passedSet = new Set(passedModules);
   let lessonCount = 0;
 
@@ -50,7 +64,7 @@ export function applyPlacementResult(passedModules: string[]): PlacementResult {
 
   const seedState = createPlacementSeedState();
   let atomCount = 0;
-  for (const atom of JA_COURSE_ATOMS) {
+  for (const atom of courseAtomsFor(languageId)) {
     if (!isSrsEligibleAtom(atom)) continue;
     if (!passedSet.has(atom.fromModule)) continue;
     setCardState(atom.id, seedState);
