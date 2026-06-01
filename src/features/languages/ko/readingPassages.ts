@@ -1,4 +1,4 @@
-import type { ReadingPassage } from "./ja-reading-passages";
+import type { ReadingPassage } from "@/features/practice/data/ja-reading-passages";
 
 export const KO_READING_PASSAGES: ReadingPassage[] = [
   {

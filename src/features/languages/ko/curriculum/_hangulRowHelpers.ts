@@ -16,7 +16,7 @@
  *     up TTS via the ko manifest (none yet — fails silently and renders
  *     a play-button stub).
  */
-import type { LessonStep } from "../types";
+import type { LessonStep } from "@/features/lesson/types";
 import { getTtsUrl } from "@/shared/tts";
 
 export type SyllableEntry = {

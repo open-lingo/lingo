@@ -7,7 +7,7 @@ import {
   type RowDef,
 } from "@/features/lesson/data/hiraganaCurriculum";
 import { MODULE_RECAP_LESSON_IDS } from "@/features/lesson/data/generatedHiraganaLessons";
-import { KO_M1_ROWS } from "@/features/lesson/data/koreanCurriculum";
+import { KO_M1_ROWS } from "@/features/languages/ko/curriculum/m1-rows";
 export const ALPHABET_LESSON_ID = "m1-l0-alphabet";
 
 // `reviewModuleEntry` helper removed 2026-05-18 alongside the standalone

@@ -25,7 +25,7 @@
  * later module). M2 (aspirated + tense + compound vowels) will extend
  * this file with additional `KoRow` entries.
  */
-import type { LessonContent, LessonStep } from "../types";
+import type { LessonContent, LessonStep } from "@/features/lesson/types";
 import {
   type KoRowContext,
   type SyllableEntry,

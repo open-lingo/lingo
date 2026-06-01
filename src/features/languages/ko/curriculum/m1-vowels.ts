@@ -1,4 +1,4 @@
-import type { LessonContent, LessonStep } from "../types";
+import type { LessonContent, LessonStep } from "@/features/lesson/types";
 
 /**
  * Korean basic vowels — ㅏ ㅓ ㅗ ㅜ ㅡ ㅣ, taught as blocks with the

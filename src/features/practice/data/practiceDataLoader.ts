@@ -5,9 +5,9 @@ import type { CounterDef } from "@/features/languages/ja/classifiers";
 import { READING_PASSAGES as JA_READING } from "./ja-reading-passages";
 import { SPEAKING_PROMPTS as JA_SPEAKING } from "./ja-speaking-prompts";
 import { COUNTER_DEFS as JA_COUNTERS } from "@/features/languages/ja/classifiers";
-import { KO_READING_PASSAGES } from "./ko-reading-passages";
-import { KO_SPEAKING_PROMPTS } from "./ko-speaking-prompts";
-import { KO_COUNTER_DEFS } from "./ko-counters";
+import { KO_READING_PASSAGES } from "@/features/languages/ko/readingPassages";
+import { KO_SPEAKING_PROMPTS } from "@/features/languages/ko/speakingPrompts";
+import { KO_COUNTER_DEFS } from "@/features/languages/ko/classifiers";
 
 export function getReadingPassages(langId: string): ReadingPassage[] {
   if (langId === "ko") return KO_READING_PASSAGES;

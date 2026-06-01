@@ -1,4 +1,4 @@
-import type { LessonContent } from "../types";
+import type { LessonContent } from "@/features/lesson/types";
 
 /**
  * Hangul concept intro — the first thing a Korean learner sees.

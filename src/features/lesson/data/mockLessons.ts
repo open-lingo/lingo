@@ -1,10 +1,10 @@
 import type { LessonContent, LessonStep } from "../types";
-import { MOCK_LESSON_KO_M1_INTRO } from "./mock-ko-m1-intro";
+import { MOCK_LESSON_KO_M1_INTRO } from "@/features/languages/ko/curriculum/m1-intro";
 import {
   MOCK_LESSON_KO_M1_V1,
   MOCK_LESSON_KO_M1_V2,
-} from "./mock-ko-m1-vowels";
-import { buildAllKoreanRowLessons } from "./koreanCurriculum";
+} from "@/features/languages/ko/curriculum/m1-vowels";
+import { buildAllKoreanRowLessons } from "@/features/languages/ko/curriculum/m1-rows";
 import {
   MOCK_LESSON_JA_M1_L1A,
   MOCK_LESSON_JA_M1_L1B,

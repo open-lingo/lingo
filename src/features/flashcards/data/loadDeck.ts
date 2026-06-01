@@ -7,7 +7,7 @@ import jaDeck from "./ja-beginner.json";
 import addonKdrama from "./addon-kdrama.json";
 import addonParticles from "./addon-particles.json";
 import addonJlptN5 from "./addon-jlpt-n5.json";
-import koParticles from "@/features/practice/data/ko.json";
+import koParticles from "@/features/languages/ko/particles.json";
 import jaParticles from "@/features/practice/data/ja.json";
 
 const COURSE_ID = "mock-1";

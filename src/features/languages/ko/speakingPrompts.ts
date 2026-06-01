@@ -1,4 +1,4 @@
-import type { SpeakingPrompt } from "./ja-speaking-prompts";
+import type { SpeakingPrompt } from "@/features/practice/data/ja-speaking-prompts";
 
 export const KO_SPEAKING_PROMPTS: SpeakingPrompt[] = [
   { id: "ko-echo-1", targetPhrase: "안녕하세요", translation: "Hello", mode: "echo", minModule: 1 },
