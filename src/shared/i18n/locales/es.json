@@ -918,6 +918,21 @@
       "title": "Bienvenido de nuevo a Open Lingo",
       "subtitle": "Un mensaje rápido de un patrocinador antes de tu lección de hoy.",
       "dismiss": "Cerrar por hoy"
+    },
+    "rewarded": {
+      "title": "Ve un anuncio y gana 5 lingotes",
+      "countdown": "Recompensa disponible en {{count}}s…",
+      "rewardReady": "Recompensa lista — toca para reclamar",
+      "claimCta": "Reclamar 5 lingotes",
+      "claiming": "Reclamando…",
+      "forfeitTitle": "¿Renunciar a la recompensa?",
+      "forfeitMessage": "Ya viste el anuncio pero aún no has reclamado tus lingotes. ¿Cerrar de todos modos?",
+      "forfeitConfirm": "Cerrar sin reclamar",
+      "toastSuccess": "+{{count}} lingotes ganados",
+      "toastAlreadyCredited": "Ya se acreditó esta vista — inténtalo de nuevo en un momento.",
+      "toastFailed": "No se pudo reclamar — inténtalo de nuevo.",
+      "placeholderNoClient": "[anuncio de prueba — configura VITE_ADSENSE_CLIENT_ID]",
+      "placeholderNoSlot": "[anuncio de prueba — configura VITE_ADSENSE_REWARDED_SLOT_ID]"
     }
   },
   "adFree": {

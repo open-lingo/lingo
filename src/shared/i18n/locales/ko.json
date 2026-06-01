@@ -510,6 +510,7 @@
     "title": "링곳 상점",
     "subtitle": "레슨에서 얻은 링곳을 사용하세요. 샘플 아이템이며, 곧 게임플레이와 연동됩니다.",
     "balanceLabel": "보유 링곳",
+    "watchAdCta": "무료 링곳 받기",
     "sectionPowerups": "파워업",
     "sectionCosmetics": "꾸미기",
     "buy": "구매",
@@ -1256,6 +1257,21 @@
       "title": "오픈 링고에 다시 오신 것을 환영합니다",
       "subtitle": "오늘의 레슨을 시작하기 전, 후원사의 짧은 메시지입니다.",
       "dismiss": "오늘은 닫기"
+    },
+    "rewarded": {
+      "title": "광고를 보고 링곳 5개 받기",
+      "countdown": "{{count}}초 후 보상 잠금 해제…",
+      "rewardReady": "보상 준비 완료 — 받으려면 누르세요",
+      "claimCta": "링곳 5개 받기",
+      "claiming": "받는 중…",
+      "forfeitTitle": "보상을 포기하시겠습니까?",
+      "forfeitMessage": "광고는 끝났지만 아직 링곳을 받지 않았습니다. 그래도 닫으시겠습니까?",
+      "forfeitConfirm": "받지 않고 닫기",
+      "toastSuccess": "+{{count}} 링곳 획득",
+      "toastAlreadyCredited": "이미 적립되었습니다 — 잠시 후 다시 시도하세요.",
+      "toastFailed": "보상을 받지 못했습니다 — 다시 시도하세요.",
+      "placeholderNoClient": "[광고 자리표시자 — VITE_ADSENSE_CLIENT_ID 설정 필요]",
+      "placeholderNoSlot": "[광고 자리표시자 — VITE_ADSENSE_REWARDED_SLOT_ID 설정 필요]"
     }
   },
   "adFree": {

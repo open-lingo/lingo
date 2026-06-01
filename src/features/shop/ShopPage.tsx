@@ -12,6 +12,7 @@ import { SHOP_ITEMS, type ShopItem } from "./shopCatalog";
 import { useInvalidateShopQueries, useShopState } from "./useShopState";
 import { AdFreeShopSection } from "@/features/adFree/AdFreeShopSection";
 import { ShopItemPreview } from "./components/ShopItemPreview";
+import { useRewardedAd } from "@/features/ads/useRewardedAd";
 
 export default function ShopPage() {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ export default function ShopPage() {
   const invalidate = useInvalidateShopQueries();
   const { lingots, statsReady, isOwned, ownedQuantity } = useShopState();
   const [pendingId, setPendingId] = useState<string | null>(null);
+  const rewardedAd = useRewardedAd();
 
   const purchaseMutation = useMutation({
     mutationFn: (itemId: string) => progress.purchaseShopItem(itemId),
@@ -82,13 +84,28 @@ export default function ShopPage() {
             })}
           </p>
         </div>
-        <div className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-muted px-4 py-2">
-          <span className="text-sm text-text-secondary">
-            {t("shop.balanceLabel", { defaultValue: "Your balance" })}
-          </span>
-          <LingotBalance linkToShop={false} size="md" />
+        <div className="flex flex-wrap items-center gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={rewardedAd.open}
+            className="gap-1.5"
+            data-testid="shop-get-free-lingots"
+          >
+            <Icon name="plus" size={14} aria-hidden />
+            {t("shop.watchAdCta", { defaultValue: "Get free lingots" })}
+          </Button>
+          <div className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-muted px-4 py-2">
+            <span className="text-sm text-text-secondary">
+              {t("shop.balanceLabel", { defaultValue: "Your balance" })}
+            </span>
+            <LingotBalance linkToShop={false} size="md" />
+          </div>
         </div>
       </header>
+
+      {rewardedAd.modalNode}
 
       <AdFreeShopSection lingots={lingots} statsReady={statsReady} />
 

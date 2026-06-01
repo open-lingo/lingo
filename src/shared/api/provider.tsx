@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AdminApi } from "./admin";
+import { AdsApi } from "./ads";
 import { DecksApi } from "./decks";
 import { FinanceApi } from "./finance";
 import { OpsApi } from "./ops";
@@ -18,6 +19,7 @@ interface ApiContext {
   decks: DecksApi;
   stories: StoriesApi;
   admin: AdminApi;
+  ads: AdsApi;
   progress: ProgressApi;
   quests: QuestsApi;
   social: SocialApi;
@@ -68,6 +70,7 @@ export function ApiProvider({ children }: { children: ReactNode }) {
       decks: new DecksApi(opts),
       stories: new StoriesApi(opts),
       admin: new AdminApi(opts),
+      ads: new AdsApi(opts),
       progress: new ProgressApi(opts),
       quests: new QuestsApi(opts),
       social: new SocialApi(opts),

@@ -2,6 +2,10 @@
 export { AdSlot } from "./AdSlot";
 export { CollapsibleAdBanner } from "./CollapsibleAdBanner";
 export { DailyWelcomeAd } from "./DailyWelcomeAd";
+export { RewardedAdModal, REWARD_WATCH_SECONDS, REWARDED_MODAL_PLACEMENT } from "./RewardedAdModal";
+export { RewardedAdSlot } from "./RewardedAdSlot";
+export { useRewardedAd, type UseRewardedAd } from "./useRewardedAd";
+export { useClaimAdReward, type ClaimAdRewardInput } from "./useClaimAdReward";
 export { useAdsEnabled } from "./useAdsEnabled";
 export { loadAdSenseScript } from "./adsense";
 export { getAdSenseClient, isAdsFeatureEnabled } from "./config";

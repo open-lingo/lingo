@@ -602,6 +602,7 @@
     "title": "Lingot shop",
     "subtitle": "Spend lingots from lessons on cosmetics and power-ups.",
     "balanceLabel": "Your balance",
+    "watchAdCta": "Get free lingots",
     "sectionPowerups": "Power-ups",
     "sectionCosmetics": "Cosmetics",
     "buy": "Buy",
@@ -730,6 +731,21 @@
       "title": "Welcome back to Open Lingo",
       "subtitle": "A quick word from a sponsor before you start today's lesson.",
       "dismiss": "Dismiss for today"
+    },
+    "rewarded": {
+      "title": "Watch an ad to earn 5 lingots",
+      "countdown": "Reward unlocks in {{count}}s…",
+      "rewardReady": "Reward ready — tap to claim",
+      "claimCta": "Claim 5 lingots",
+      "claiming": "Claiming…",
+      "forfeitTitle": "Forfeit reward?",
+      "forfeitMessage": "You've finished the ad but haven't claimed your lingots yet. Close anyway?",
+      "forfeitConfirm": "Close without claiming",
+      "toastSuccess": "+{{count}} lingots earned",
+      "toastAlreadyCredited": "Already credited for this watch — try again in a moment.",
+      "toastFailed": "Couldn't claim reward — try again.",
+      "placeholderNoClient": "[ad placeholder — set VITE_ADSENSE_CLIENT_ID]",
+      "placeholderNoSlot": "[ad placeholder — set VITE_ADSENSE_REWARDED_SLOT_ID]"
     }
   },
   "progress": {
