@@ -13,7 +13,7 @@
  */
 import type { LessonStep } from "../types";
 import { getTtsUrl } from "@/shared/tts";
-import { WORD_IMAGE_MCQ_BLOCKLIST } from "./_jaGrammarHelpers";
+import { WORD_IMAGE_MCQ_BLOCKLIST } from "@/features/languages/ja/grammarHelpers";
 
 /**
  * Small kana / sokuon / long-vowel mark — must NEVER appear as a

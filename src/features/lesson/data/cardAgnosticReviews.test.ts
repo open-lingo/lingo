@@ -11,7 +11,7 @@ import {
   audioMeaningMcq,
   translationMcq,
   type ReviewAtom,
-} from "./_jaGrammarHelpers";
+} from "@/features/languages/ja/grammarHelpers";
 
 const POOL: ReviewAtom[] = [
   { kana: "ねこ", meaningEn: "cat",      emoji: "🐱", fromModule: "m1" },

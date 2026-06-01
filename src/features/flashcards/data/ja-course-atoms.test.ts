@@ -12,7 +12,7 @@
  */
 import { describe, expect, it } from "vitest";
 
-import { M3_M7_REVIEW_POOL } from "../../lesson/data/_jaGrammarHelpers";
+import { M3_M7_REVIEW_POOL } from "@/features/languages/ja/grammarHelpers";
 import {
   JA_COURSE_ATOMS,
   JA_COURSE_ATOMS_BY_KANA,

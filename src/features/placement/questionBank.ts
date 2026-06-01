@@ -1,5 +1,5 @@
 import type { LessonStep } from "@/features/lesson/types";
-import { cloze, sentenceMcq } from "@/features/lesson/data/_jaGrammarHelpers";
+import { cloze, sentenceMcq } from "@/features/languages/ja/grammarHelpers";
 
 // ---------------------------------------------------------------------------
 // Types

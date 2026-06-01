@@ -14,7 +14,7 @@ import {
   cloze,
   infoStep,
   slotFor,
-} from "./_jaGrammarHelpers";
+} from "@/features/languages/ja/grammarHelpers";
 
 // ---------------------------------------------------------------------------
 // Section tags — attached to step ids so the result scorer can bucket them.

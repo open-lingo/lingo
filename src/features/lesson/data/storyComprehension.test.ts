@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { storyComprehension } from "./_jaGrammarHelpers";
+import { storyComprehension } from "@/features/languages/ja/grammarHelpers";
 
 describe("storyComprehension", () => {
   it("composes [dialogue_listen(narrative), build_sentence]", () => {

@@ -17,7 +17,7 @@ import {
   infoStep,
   type ReviewAtom,
   withoutMcqBlocked,
-} from "./_jaGrammarHelpers";
+} from "@/features/languages/ja/grammarHelpers";
 
 const MAX_ATOMS = 18;
 const MAX_NEW = 5;

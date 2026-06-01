@@ -7,7 +7,7 @@ import {
   audioMeaningMcq,
   listeningBuildSentence,
   listeningCompSentence,
-} from "./_jaGrammarHelpers";
+} from "./grammarHelpers";
 
 describe("resolveAtom", () => {
   it("returns atomId + gloss for a known reading (コーヒー → ja-m3-1-coffee)", () => {
