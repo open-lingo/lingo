@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Icon } from "@/shared/components/Icon";
+import { Portal } from "@/shared/components/ui/Portal";
 
 export type ModalBaseMaxWidth =
   | "max-w-sm"
@@ -50,46 +51,48 @@ export function ModalBase({
   }, [onClose, closeOnEscape]);
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-start justify-center bg-overlay pt-16 backdrop-blur-sm sm:items-center sm:pt-0"
-      onClick={(e) => {
-        if (
-          closeOnBackdrop &&
-          panelRef.current &&
-          !panelRef.current.contains(e.target as Node)
-        ) {
-          onClose();
-        }
-      }}
-    >
+    <Portal>
       <div
-        ref={panelRef}
-        className={`relative mx-4 w-full ${maxWidth} overflow-y-auto rounded-xl border border-border bg-surface shadow-2xl`}
-        style={{ maxHeight: "85vh" }}
-        role="dialog"
-        aria-modal="true"
-        aria-label={title}
+        className="fixed inset-0 z-50 flex items-start justify-center bg-overlay pt-16 backdrop-blur-sm sm:items-center sm:pt-0"
+        onClick={(e) => {
+          if (
+            closeOnBackdrop &&
+            panelRef.current &&
+            !panelRef.current.contains(e.target as Node)
+          ) {
+            onClose();
+          }
+        }}
       >
-        <div className="flex items-center justify-between border-b border-border px-6 py-4">
-          <div className="flex min-w-0 flex-1 items-center gap-3">
-            {headerLeft}
-            <h2 className="truncate text-lg font-bold text-text-primary">
-              {title}
-            </h2>
+        <div
+          ref={panelRef}
+          className={`relative mx-4 w-full ${maxWidth} overflow-y-auto rounded-xl border border-border bg-surface shadow-2xl`}
+          style={{ maxHeight: "85vh" }}
+          role="dialog"
+          aria-modal="true"
+          aria-label={title}
+        >
+          <div className="flex items-center justify-between border-b border-border px-6 py-4">
+            <div className="flex min-w-0 flex-1 items-center gap-3">
+              {headerLeft}
+              <h2 className="truncate text-lg font-bold text-text-primary">
+                {title}
+              </h2>
+            </div>
+            {showCloseButton ? (
+              <button
+                type="button"
+                onClick={onClose}
+                className="shrink-0 rounded-lg p-1.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+                aria-label="Close"
+              >
+                <Icon name="close" size={20} />
+              </button>
+            ) : null}
           </div>
-          {showCloseButton ? (
-            <button
-              type="button"
-              onClick={onClose}
-              className="shrink-0 rounded-lg p-1.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
-              aria-label="Close"
-            >
-              <Icon name="close" size={20} />
-            </button>
-          ) : null}
+          {children}
         </div>
-        {children}
       </div>
-    </div>
+    </Portal>
   );
 }

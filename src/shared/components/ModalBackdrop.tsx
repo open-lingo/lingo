@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import { Portal } from "@/shared/components/ui/Portal";
 
 type ModalBackdropProps = {
   onClose: () => void;
@@ -30,22 +31,24 @@ export function ModalBackdrop({
   }, [onClose, closeOnEscape]);
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4 backdrop-blur-sm"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={ariaLabelledBy}
-      onClick={(e) => {
-        if (
-          closeOnBackdropClick &&
-          panelRef.current &&
-          !panelRef.current.contains(e.target as Node)
-        ) {
-          onClose();
-        }
-      }}
-    >
-      <div ref={panelRef}>{children}</div>
-    </div>
+    <Portal>
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4 backdrop-blur-sm"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={ariaLabelledBy}
+        onClick={(e) => {
+          if (
+            closeOnBackdropClick &&
+            panelRef.current &&
+            !panelRef.current.contains(e.target as Node)
+          ) {
+            onClose();
+          }
+        }}
+      >
+        <div ref={panelRef}>{children}</div>
+      </div>
+    </Portal>
   );
 }
