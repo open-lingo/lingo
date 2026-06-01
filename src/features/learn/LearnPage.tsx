@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useApi } from "@/shared/api/provider";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { getModuleMastery } from "./moduleMastery";
 import {
@@ -47,7 +46,6 @@ import { LearnSidebar } from "./components/LearnSidebar";
 import { LearnTopBar } from "./components/LearnTopBar";
 import { LearnDevPanel } from "./components/LearnDevPanel";
 import { YourPathCard } from "./components/YourPathCard";
-import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import { PageShell } from "@/shared/components/PageShell";
 
 export function LearnPage() {
@@ -83,7 +81,6 @@ export function LearnPage() {
     });
   }, [language?.id, completedIds.length]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [showStartOverConfirm, setShowStartOverConfirm] = useState(false);
 
   useEffect(() => {
     const dev = searchParams.get("dev");
@@ -206,29 +203,6 @@ export function LearnPage() {
       );
     }
   }, [course, completedSet, showToast, t]);
-
-  const { progress: progressApi, srs: srsApi } = useApi();
-
-  const handleStartOver = async () => {
-    if (!course) return;
-    try {
-      await resetLearnProgress(course.id, { progress: progressApi, srs: srsApi });
-      showToast(
-        t("learn.startOverDone", {
-          defaultValue:
-            "Progress reset across your account — you're back at the start.",
-        }),
-        "success",
-      );
-    } catch (_err) {
-      showToast(
-        t("learn.startOverError", {
-          defaultValue: "Couldn't fully reset on the server. Try again.",
-        }),
-        "error",
-      );
-    }
-  };
 
   const handleToggleDevUnlock = () => {
     const next = !devUnlock;
@@ -399,7 +373,6 @@ export function LearnPage() {
               if (lesson) goToLesson(lesson);
             }}
             onJumpToModule={handleJumpToModule}
-            onStartOver={() => setShowStartOverConfirm(true)}
           />
           <LearnMapScrollArea
             course={course}
@@ -423,41 +396,6 @@ export function LearnPage() {
           />
         </div>
       </div>
-
-      {/* Low-key footer — bottom-of-page reset entry. The full settings
-          page has a louder version per-language. We want this hidden
-          enough that it's not the first thing people see, but findable
-          by anyone scanning the bottom for "danger / reset" controls. */}
-      <div className="mt-6 flex flex-col items-center gap-2 pb-4 text-center">
-        <button
-          type="button"
-          onClick={() => setShowStartOverConfirm(true)}
-          className="text-xs text-text-muted/70 underline-offset-2 hover:text-text-secondary hover:underline"
-        >
-          {t("learn.startOver", { defaultValue: "Start over" })}
-        </button>
-        <p className="max-w-xs text-[0.65rem] text-text-muted/60">
-          {t("learn.startOverFooterHint", {
-            defaultValue:
-              "Wipes this course's progress across your whole account. Same control lives in Settings.",
-          })}
-        </p>
-      </div>
-
-      {showStartOverConfirm ? (
-        <ConfirmModal
-          title={t("learn.startOverTitle")}
-          message={t("learn.startOverConfirm")}
-          cancelLabel={t("forum.cancel")}
-          confirmLabel={t("learn.startOver")}
-          danger
-          onConfirm={() => {
-            handleStartOver();
-            setShowStartOverConfirm(false);
-          }}
-          onCancel={() => setShowStartOverConfirm(false)}
-        />
-      ) : null}
 
       <LearnDevPanel
         unlocked={devUnlock}
