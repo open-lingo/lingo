@@ -43,7 +43,10 @@ export function LearnMapScrollArea(props: LearnMapScrollAreaProps) {
     <div className="relative">
       <div
         ref={containerRef}
-        className="relative overflow-y-auto overflow-x-hidden lg:max-h-[calc(100vh-12rem)] lg:rounded-xl lg:border lg:border-border lg:bg-surface/40 lg:p-2"
+        // Bare scroll region — the parent LearnPage owns the outer
+        // shared `<Card>` that wraps this and YourPathCard so they
+        // read as one block. No own border / background / rounding.
+        className="relative overflow-y-auto overflow-x-hidden lg:max-h-[calc(100vh-12rem)]"
         style={{ scrollbarGutter: "stable" }}
         data-testid="learn-map-scroll"
       >

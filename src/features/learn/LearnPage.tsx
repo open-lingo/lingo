@@ -47,6 +47,7 @@ import { LearnTopBar } from "./components/LearnTopBar";
 import { LearnDevPanel } from "./components/LearnDevPanel";
 import { YourPathCard } from "./components/YourPathCard";
 import { PageShell } from "@/shared/components/PageShell";
+import { Card } from "@/shared/components/ui";
 
 export function LearnPage() {
   const { t } = useTranslation();
@@ -358,31 +359,41 @@ export function LearnPage() {
       />
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start">
         <div className="min-w-0">
-          <YourPathCard
-            course={course}
-            completedSet={completedSet}
-            streakDays={userStats.streak}
-            onResume={() => {
-              const currentModule = course.modules[currentModuleIdx];
-              if (!currentModule) return;
-              const idx = getNextLessonIndex(
-                currentModule.lessons,
-                completedSet,
-              );
-              const lesson = currentModule.lessons[idx];
-              if (lesson) goToLesson(lesson);
-            }}
-            onJumpToModule={handleJumpToModule}
-          />
-          <LearnMapScrollArea
-            course={course}
-            completedSet={completedSet}
-            devUnlock={devUnlock}
-            langPath={langPath}
-            isModuleOpen={accordion.isOpen}
-            onToggleModule={accordion.toggle}
-            onLessonClick={goToLesson}
-          />
+          {/* One shared shell around "Your path" summary + the module
+              map. The path header and the module rows read as a single
+              unit; inner module color tints + spacing live untouched
+              inside their components. */}
+          <Card padding="none" className="p-4 sm:p-6">
+            <YourPathCard
+              course={course}
+              completedSet={completedSet}
+              streakDays={userStats.streak}
+              onResume={() => {
+                const currentModule = course.modules[currentModuleIdx];
+                if (!currentModule) return;
+                const idx = getNextLessonIndex(
+                  currentModule.lessons,
+                  completedSet,
+                );
+                const lesson = currentModule.lessons[idx];
+                if (lesson) goToLesson(lesson);
+              }}
+              onJumpToModule={handleJumpToModule}
+            />
+            {/* Hairline divider between the path summary and the module
+                map so the two halves of the shared card remain visually
+                distinguishable without a second border. */}
+            <div aria-hidden className="-mx-4 mb-4 h-px bg-border sm:-mx-6" />
+            <LearnMapScrollArea
+              course={course}
+              completedSet={completedSet}
+              devUnlock={devUnlock}
+              langPath={langPath}
+              isModuleOpen={accordion.isOpen}
+              onToggleModule={accordion.toggle}
+              onLessonClick={goToLesson}
+            />
+          </Card>
         </div>
         <div className="hidden lg:block">
           <LearnSidebar

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
-import { Button, Card } from "@/shared/components/ui";
+import { Button } from "@/shared/components/ui";
 import type { Course } from "@/shared/domain/course";
 import {
   getCurrentModuleIndex,
@@ -81,7 +81,10 @@ export function YourPathCard({
   const hasProgress = stats.done > 0;
 
   return (
-    <Card padding="md" className="mb-6">
+    // Bare section — the parent LearnPage wraps this PLUS the module map
+    // in a single shared `<Card>` outer chrome so the path summary and
+    // module list read as one block. No border/background of our own.
+    <section className="pb-5">
       <div className="flex flex-col gap-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
@@ -181,7 +184,7 @@ export function YourPathCard({
         {/* Start-over moved to a low-key footer link at the very bottom of
             the learn page. The settings page also exposes it for clarity. */}
       </div>
-    </Card>
+    </section>
   );
 }
 
