@@ -314,14 +314,14 @@ function makeCtx(row: KoRow): KoRowContext {
   };
 }
 
-function buildRowSubLessons(row: KoRow): LessonContent[] {
+export function buildRowSubLessons(row: KoRow, moduleId: string = "m1"): LessonContent[] {
   const ctx = makeCtx(row);
   const [b1, b2, b3, b4, b5, b6] = row.blocks;
   const [w1, w2, w3] = row.words;
 
   const sub1: LessonContent = {
-    id: `ko-m1-${row.id}-1`,
-    moduleId: "m1",
+    id: `ko-${moduleId}-${row.id}-1`,
+    moduleId,
     courseId: "mock-1",
     languageId: "ko",
     title: `${row.title} — Intro 1`,
@@ -365,8 +365,8 @@ function buildRowSubLessons(row: KoRow): LessonContent[] {
   };
 
   const sub2: LessonContent = {
-    id: `ko-m1-${row.id}-2`,
-    moduleId: "m1",
+    id: `ko-${moduleId}-${row.id}-2`,
+    moduleId,
     courseId: "mock-1",
     languageId: "ko",
     title: `${row.title} — Intro 2`,
@@ -456,8 +456,8 @@ function buildRowSubLessons(row: KoRow): LessonContent[] {
   }
 
   const sub3: LessonContent = {
-    id: `ko-m1-${row.id}-3`,
-    moduleId: "m1",
+    id: `ko-${moduleId}-${row.id}-3`,
+    moduleId,
     courseId: "mock-1",
     languageId: "ko",
     title: `${row.title} — Review`,
@@ -473,7 +473,7 @@ function buildRowSubLessons(row: KoRow): LessonContent[] {
 
 /** Verify every word's blocks come from row + prior rows. Throws on the
  *  first violation. Runs at module load to catch authoring errors early. */
-function validateRowVocab(row: KoRow): void {
+export function validateRowVocab(row: KoRow): void {
   const known = new Set([...row.priorBlocks, ...row.blocks.map((b) => b.block)]);
   for (const w of row.words) {
     for (const block of Array.from(w.word)) {

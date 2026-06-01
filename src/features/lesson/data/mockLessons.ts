@@ -5,6 +5,7 @@ import {
   MOCK_LESSON_KO_M1_V2,
 } from "@/features/languages/ko/curriculum/m1-vowels";
 import { buildAllKoreanRowLessons } from "@/features/languages/ko/curriculum/m1-rows";
+import { buildAllKoreanM2Lessons } from "@/features/languages/ko/curriculum/m2";
 import {
   MOCK_LESSON_JA_M1_L1A,
   MOCK_LESSON_JA_M1_L1B,
@@ -308,6 +309,9 @@ import { buildPlacementTest } from "./buildPlacementTest";
 const KOREAN_ROW_LESSONS: Record<string, LessonContent> = Object.fromEntries(
   buildAllKoreanRowLessons().map((l) => [l.id, l]),
 );
+const KOREAN_M2_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  buildAllKoreanM2Lessons().map((l) => [l.id, l]),
+);
 
 const LESSONS: Record<string, LessonContent> = {
   // ─── Korean — Module 1 (Hangul foundation, 2026-05-19) ───────────────
@@ -318,6 +322,7 @@ const LESSONS: Record<string, LessonContent> = {
   "ko-m1-v-1": MOCK_LESSON_KO_M1_V1,
   "ko-m1-v-2": MOCK_LESSON_KO_M1_V2,
   ...KOREAN_ROW_LESSONS,
+  ...KOREAN_M2_LESSONS,
   // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,
   "ja-m1-l1-2": MOCK_LESSON_JA_M1_L1B,

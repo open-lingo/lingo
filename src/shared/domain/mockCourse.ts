@@ -8,6 +8,7 @@ import {
 } from "@/features/lesson/data/hiraganaCurriculum";
 import { MODULE_RECAP_LESSON_IDS } from "@/features/lesson/data/generatedHiraganaLessons";
 import { KO_M1_ROWS } from "@/features/languages/ko/curriculum/m1-rows";
+import { KO_M2_ROWS } from "@/features/languages/ko/curriculum/m2";
 export const ALPHABET_LESSON_ID = "m1-l0-alphabet";
 
 // `reviewModuleEntry` helper removed 2026-05-18 alongside the standalone
@@ -958,20 +959,32 @@ export function getMockCourse(languageId: string): Course {
       }
     }
 
-    const m2Lessons = [
-      { id: "ko-m2-asp-c-1",   title: "Aspirated ㅊ — Intro 1",   status: "available" as const },
-      { id: "ko-m2-asp-c-2",   title: "Aspirated ㅊ — Intro 2",   status: "available" as const },
-      { id: "ko-m2-asp-k-1",   title: "Aspirated ㅋ — Intro 1",   status: "available" as const },
-      { id: "ko-m2-asp-k-2",   title: "Aspirated ㅋ — Intro 2",   status: "available" as const },
-      { id: "ko-m2-asp-t-1",   title: "Aspirated ㅌ",             status: "available" as const },
-      { id: "ko-m2-asp-p-1",   title: "Aspirated ㅍ",             status: "available" as const },
-      { id: "ko-m2-tense-1",   title: "Tense ㄲ ㄸ",              status: "available" as const },
-      { id: "ko-m2-tense-2",   title: "Tense ㅃ ㅆ ㅉ",          status: "available" as const },
-      { id: "ko-m2-yv-1",      title: "Y-vowels ㅑ ㅕ ㅛ ㅠ",     status: "available" as const },
-      { id: "ko-m2-comp-1",    title: "Compound vowels ㅐ ㅔ",   status: "available" as const },
-      { id: "ko-m2-comp-2",    title: "W-vowels ㅘ ㅙ ㅝ ㅞ",     status: "available" as const },
-      { id: "ko-m2-batchim-1", title: "Final consonants (받침)", status: "available" as const },
-    ];
+    // M2 — aspirated + tense consonants + y-vowels (Phase 5, 2026-06-01).
+    // Each row gets 3 sub-lessons via the same row builder as M1.
+    // Compound vowels (ㅐ ㅔ ㅘ ㅝ ㅢ ㅟ) and final-consonant 받침 are
+    // deferred to a future M2 extension pass — out of scope here.
+    const m2Lessons: { id: string; title: string; status: "available"; kind?: "recap" }[] = [];
+    for (const row of KO_M2_ROWS) {
+      for (const suffix of ["1", "2", "3"] as const) {
+        const label = suffix === "3" ? "Review" : `Intro ${suffix}`;
+        m2Lessons.push({
+          id: `ko-m2-${row.id}-${suffix}`,
+          title: `${row.title} — ${label}`,
+          status: "available" as const,
+        });
+      }
+    }
+    m2Lessons.push({
+      id: "ko-m2-yv-1",
+      title: "Y-vowels — ㅑ ㅕ ㅛ ㅠ",
+      status: "available" as const,
+    });
+    m2Lessons.push({
+      id: "ko-m2-review",
+      title: "Module 2 — Full review",
+      status: "available" as const,
+      kind: "recap" as const,
+    });
 
     const m3Lessons = [
       { id: "ko-m3-1", title: "Greetings — 안녕하세요",          status: "available" as const },
