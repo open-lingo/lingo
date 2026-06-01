@@ -1,20 +1,32 @@
 /**
  * AdminLmsPage — /admin/lms
  *
- * LMS is the home for "tune learning state". Two URL-driven tabs:
- *   - `?tab=user-state` (default) — per-user student-file flow:
- *       - Search/pick a user (debounced, live-filtered)
- *       - View their learning language, current module/lesson, XP, streak
- *       - Inline edit: change current lesson, module, language (via Modal)
- *       - Adjust XP (positive or negative increment, with XP preview)
- *       - Reset all progress (with typed-confirmation destructive dialog)
- *   - `?tab=platform-xp` — platform-wide XP rate tuning (PlatformXpRatesPanel),
- *     formerly the "XP config" tab on /admin/ops.
+ * LMS is the home for "tune learning state". Single surface, no top-level
+ * tabs:
+ *   - When no user is selected: a centered user picker plus a collapsible
+ *     "Platform XP rates" section (the former /admin/ops "XP config" tab).
+ *   - When a user is selected: their student file (learning state, XP &
+ *     progress, completed lessons). Inline pencil-icon edits on the XP and
+ *     Lingots stat tiles open small "Adjust" modals; "Reset progress" is
+ *     the only destructive action.
+ *
+ * Lingot adjustment is backed by POST /api/core/v1/admin/lms/{user_id}/lingots
+ * (mirrors the XP-adjustment endpoint). Audit-logged as ``lms_adjust_lingots``.
  */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
-import { BookOpen, Edit2, RotateCcw, Search, TrendingUp, Trophy } from "lucide-react";
+import {
+  BookOpen,
+  ChevronDown,
+  ChevronRight,
+  Edit2,
+  Pencil,
+  RotateCcw,
+  Search,
+  Settings,
+  TrendingUp,
+  Trophy,
+} from "lucide-react";
 
 import { useApi } from "@/shared/api/provider";
 import type {
@@ -27,7 +39,6 @@ import { Button } from "@/shared/components/ui/Button";
 import { Card } from "@/shared/components/ui/Card";
 import { CenteredLoader } from "@/shared/components/ui/CenteredLoader";
 import { Modal } from "@/shared/components/ui/Modal";
-import { TabButton, TabList } from "@/shared/components/ui/Tabs";
 import { cn } from "@/shared/components/ui/cn";
 import { inputClassName } from "@/shared/components/ui/formStyles";
 
@@ -313,6 +324,98 @@ function AdjustXpModal({
   );
 }
 
+// ── Adjust Lingots Modal ──────────────────────────────────────────────────────
+
+function AdjustLingotsModal({
+  open,
+  currentLingots,
+  onClose,
+  onSave,
+  isPending,
+}: {
+  open: boolean;
+  currentLingots: number;
+  onClose: () => void;
+  onSave: (amount: number, reason: string) => void;
+  isPending: boolean;
+}) {
+  const [amount, setAmount] = useState("0");
+  const [reason, setReason] = useState("");
+
+  useEffect(() => {
+    if (open) {
+      setAmount("0");
+      setReason("");
+    }
+  }, [open]);
+
+  const parsed = parseInt(amount, 10);
+  const preview = isNaN(parsed) ? currentLingots : Math.max(0, currentLingots + parsed);
+
+  return (
+    <Modal
+      open={open}
+      onClose={onClose}
+      title="Adjust lingots"
+      size="md"
+      footer={
+        <>
+          <Button type="button" variant="secondary" size="sm" onClick={onClose} disabled={isPending}>
+            Cancel
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            onClick={() => onSave(parsed, reason || "admin-lms")}
+            disabled={isPending || isNaN(parsed) || parsed === 0}
+          >
+            {isPending ? "Applying…" : "Apply adjustment"}
+          </Button>
+        </>
+      }
+    >
+      <div className="space-y-4">
+        <div className="flex items-center gap-3 p-3 rounded-lg bg-surface-muted">
+          <span className="text-sm text-text-muted">Current lingots:</span>
+          <span className="font-mono font-semibold">{currentLingots.toLocaleString()}</span>
+        </div>
+        <div className="space-y-3">
+          <div>
+            <label className="text-xs font-medium text-text-muted uppercase tracking-wide block mb-1">
+              Amount (positive = grant, negative = retract)
+            </label>
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className={cn(inputClassName, "font-mono")}
+            />
+            {!isNaN(parsed) && parsed !== 0 && (
+              <p className="text-xs text-text-muted mt-1">
+                New lingots:{" "}
+                <span className="font-mono font-semibold">{preview.toLocaleString()}</span>
+                {parsed < 0 && preview === 0 && " (clamped to 0)"}
+              </p>
+            )}
+          </div>
+          <div>
+            <label className="text-xs font-medium text-text-muted uppercase tracking-wide block mb-1">
+              Reason (for audit log)
+            </label>
+            <input
+              type="text"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              placeholder="e.g. starter grant, refund, correcting error"
+              className={inputClassName}
+            />
+          </div>
+        </div>
+      </div>
+    </Modal>
+  );
+}
+
 // ── Reset Progress Modal ──────────────────────────────────────────────────────
 
 function ResetProgressModal({
@@ -402,6 +505,7 @@ function StudentFile({
   const qc = useQueryClient();
   const [editLearningOpen, setEditLearningOpen] = useState(false);
   const [adjustXpOpen, setAdjustXpOpen] = useState(false);
+  const [adjustLingotsOpen, setAdjustLingotsOpen] = useState(false);
   const [resetOpen, setResetOpen] = useState(false);
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
@@ -436,6 +540,16 @@ function StudentFile({
       invalidate();
       setAdjustXpOpen(false);
       showToast("XP adjusted.");
+    },
+  });
+
+  const adjustLingots = useMutation({
+    mutationFn: ({ amount, reason }: { amount: number; reason: string }) =>
+      admin.adjustLmsLingots(userId, { amount, reason }),
+    onSuccess: () => {
+      invalidate();
+      setAdjustLingotsOpen(false);
+      showToast("Lingots adjusted.");
     },
   });
 
@@ -526,32 +640,23 @@ function StudentFile({
         </dl>
       </Card>
 
-      {/* XP & Progress */}
+      {/* XP & Progress — pencil icons on XP and Lingots tiles open small
+          adjustment modals; the big destructive action stays a button. */}
       <Card padding="md">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <TrendingUp size={16} className="text-text-muted" />
             <h3 className="font-semibold text-text-primary">XP &amp; Progress</h3>
           </div>
-          <div className="flex gap-2">
-            <Button
-              type="button"
-              variant="secondary"
-              size="sm"
-              onClick={() => setAdjustXpOpen(true)}
-            >
-              Adjust XP
-            </Button>
-            <Button
-              type="button"
-              variant="danger"
-              size="sm"
-              onClick={() => setResetOpen(true)}
-            >
-              <RotateCcw size={13} />
-              Reset progress
-            </Button>
-          </div>
+          <Button
+            type="button"
+            variant="danger"
+            size="sm"
+            onClick={() => setResetOpen(true)}
+          >
+            <RotateCcw size={13} />
+            Reset progress
+          </Button>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {[
@@ -559,19 +664,38 @@ function StudentFile({
               label: "XP",
               value: snap.stats.xp.toLocaleString(),
               sub: `Level ${snap.stats.level}`,
+              onEdit: () => setAdjustXpOpen(true),
+              editLabel: "Adjust XP",
             },
             {
               label: "Streak",
               value: `${snap.stats.streak}d`,
               sub: `Best: ${snap.stats.bestStreak}d`,
+              onEdit: undefined,
+              editLabel: undefined,
             },
             {
               label: "Lingots",
               value: snap.stats.lingots.toLocaleString(),
               sub: "currency",
+              onEdit: () => setAdjustLingotsOpen(true),
+              editLabel: "Adjust lingots",
             },
-          ].map(({ label, value, sub }) => (
-            <div key={label} className="rounded-lg border border-border p-3 text-center">
+          ].map(({ label, value, sub, onEdit, editLabel }) => (
+            <div
+              key={label}
+              className="relative rounded-lg border border-border p-3 text-center"
+            >
+              {onEdit && (
+                <button
+                  type="button"
+                  onClick={onEdit}
+                  aria-label={editLabel}
+                  className="absolute top-1.5 right-1.5 inline-flex h-6 w-6 items-center justify-center rounded text-text-muted hover:text-text-primary hover:bg-surface-muted transition"
+                >
+                  <Pencil size={12} aria-hidden />
+                </button>
+              )}
               <p className="text-xs text-text-muted uppercase tracking-wide">{label}</p>
               <p className="text-2xl font-bold font-mono mt-1 text-text-primary">{value}</p>
               <p className="text-xs text-text-muted mt-0.5">{sub}</p>
@@ -649,6 +773,13 @@ function StudentFile({
         onSave={(amount, reason) => adjustXp.mutate({ amount, reason })}
         isPending={adjustXp.isPending}
       />
+      <AdjustLingotsModal
+        open={adjustLingotsOpen}
+        currentLingots={snap.stats.lingots}
+        onClose={() => setAdjustLingotsOpen(false)}
+        onSave={(amount, reason) => adjustLingots.mutate({ amount, reason })}
+        isPending={adjustLingots.isPending}
+      />
       <ResetProgressModal
         open={resetOpen}
         username={snap.username}
@@ -660,71 +791,67 @@ function StudentFile({
   );
 }
 
-// ── Page root ─────────────────────────────────────────────────────────────────
+// ── Platform XP rates — collapsible section on the picker view ────────────────
+//
+// Lives below the user picker, collapsed by default so the picker stays the
+// primary focus. Click the header to expand. This replaces the top-level
+// "Platform XP rates" tab so the LMS surface has a single linear flow:
+// search a user → student file, with platform-wide tuning one click away.
 
-type TabId = "user-state" | "platform-xp";
+function PlatformXpRatesSection() {
+  const [open, setOpen] = useState(false);
 
-const VALID_TABS: readonly TabId[] = ["user-state", "platform-xp"];
-
-function isTabId(value: string | null): value is TabId {
-  return value !== null && (VALID_TABS as readonly string[]).includes(value);
+  return (
+    <Card padding="none" className="w-full max-w-lg">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-surface-muted transition"
+        aria-expanded={open}
+        aria-controls="platform-xp-rates-body"
+      >
+        <Settings size={16} className="text-text-muted shrink-0" aria-hidden />
+        <div className="flex-1 min-w-0">
+          <p className="font-semibold text-text-primary">Platform XP rates</p>
+          <p className="text-xs text-text-muted">
+            Tune lesson / review / streak XP and lingot grants for all users.
+          </p>
+        </div>
+        {open ? (
+          <ChevronDown size={16} className="text-text-muted shrink-0" aria-hidden />
+        ) : (
+          <ChevronRight size={16} className="text-text-muted shrink-0" aria-hidden />
+        )}
+      </button>
+      {open && (
+        <div id="platform-xp-rates-body" className="border-t border-border p-4">
+          <PlatformXpRatesPanel hideHeader />
+        </div>
+      )}
+    </Card>
+  );
 }
 
+// ── Page root ─────────────────────────────────────────────────────────────────
+
 export function AdminLmsPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const tabParam = searchParams.get("tab");
-  const activeTab: TabId = isTabId(tabParam) ? tabParam : "user-state";
-
-  const setTab = (tab: TabId) => {
-    setSearchParams(
-      (prev) => {
-        const next = new URLSearchParams(prev);
-        if (tab === "user-state") {
-          next.delete("tab");
-        } else {
-          next.set("tab", tab);
-        }
-        return next;
-      },
-      { replace: true },
-    );
-  };
-
   const [selectedUser, setSelectedUser] = useState<UserListItem | null>(null);
 
   return (
-    <div className="flex flex-col flex-1">
-      <div className="border-b border-border px-4 sm:px-6">
-        <TabList aria-label="LMS sections">
-          <TabButton
-            isActive={activeTab === "user-state"}
-            onClick={() => setTab("user-state")}
-          >
-            User state
-          </TabButton>
-          <TabButton
-            isActive={activeTab === "platform-xp"}
-            onClick={() => setTab("platform-xp")}
-          >
-            Platform XP rates
-          </TabButton>
-        </TabList>
-      </div>
-
-      <div className="flex flex-col flex-1 p-4 sm:p-6">
-        {activeTab === "user-state" ? (
-          selectedUser ? (
-            <StudentFile
-              userId={selectedUser.id}
-              onClear={() => setSelectedUser(null)}
-            />
-          ) : (
-            <UserPicker onSelect={setSelectedUser} />
-          )
-        ) : (
-          <PlatformXpRatesPanel />
-        )}
-      </div>
+    <div className="flex flex-col flex-1 p-4 sm:p-6">
+      {selectedUser ? (
+        <StudentFile
+          userId={selectedUser.id}
+          onClear={() => setSelectedUser(null)}
+        />
+      ) : (
+        <div className="flex flex-col items-center flex-1">
+          <UserPicker onSelect={setSelectedUser} />
+          <div className="w-full max-w-lg pb-12">
+            <PlatformXpRatesSection />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

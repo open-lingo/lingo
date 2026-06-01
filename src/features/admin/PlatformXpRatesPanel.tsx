@@ -105,7 +105,13 @@ const FIELDS: FieldDef[] = [
   },
 ];
 
-export function PlatformXpRatesPanel() {
+export interface PlatformXpRatesPanelProps {
+  /** When true, omit the panel's own title/subtitle header — the caller
+   *  is providing context (e.g. a collapsible card with its own label). */
+  hideHeader?: boolean;
+}
+
+export function PlatformXpRatesPanel({ hideHeader = false }: PlatformXpRatesPanelProps = {}) {
   const { t } = useTranslation();
   const { admin } = useApi();
   const queryClient = useQueryClient();
@@ -169,17 +175,19 @@ export function PlatformXpRatesPanel() {
 
   return (
     <div className="space-y-6 max-w-4xl">
-      <header className="flex flex-col gap-1">
-        <h2 className="text-xl font-semibold text-text-primary">
-          {t("admin.xpConfig.title", "Platform XP rates")}
-        </h2>
-        <p className="text-sm text-text-muted">
-          {t(
-            "admin.xpConfig.subtitle",
-            "Tune how much XP and how many lingots learners earn. Changes apply to the next lesson sync — no redeploy needed.",
-          )}
-        </p>
-      </header>
+      {!hideHeader && (
+        <header className="flex flex-col gap-1">
+          <h2 className="text-xl font-semibold text-text-primary">
+            {t("admin.xpConfig.title", "Platform XP rates")}
+          </h2>
+          <p className="text-sm text-text-muted">
+            {t(
+              "admin.xpConfig.subtitle",
+              "Tune how much XP and how many lingots learners earn. Changes apply to the next lesson sync — no redeploy needed.",
+            )}
+          </p>
+        </header>
+      )}
 
       {error ? (
         <AlertBanner>

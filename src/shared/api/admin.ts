@@ -329,6 +329,17 @@ export class AdminApi extends ApiClient {
     );
   }
 
+  /** Grant or retract lingots (in-app currency) via the LMS surface. */
+  adjustLmsLingots(
+    userId: string,
+    body: { amount: number; reason: string },
+  ): Promise<LmsLingotsResponse> {
+    return this.post<LmsLingotsResponse>(
+      `${PREFIX}/lms/${encodeURIComponent(userId)}/lingots`,
+      body,
+    );
+  }
+
   /** Wipe all lesson/day rollups and reset XP/streak. Destructive. */
   resetLmsProgress(userId: string): Promise<void> {
     return this.delete(`${PREFIX}/lms/${encodeURIComponent(userId)}/progress`);
@@ -409,5 +420,11 @@ export interface LmsXpResponse {
   userId: string;
   xp: number;
   level: number;
+  awarded: number;
+}
+
+export interface LmsLingotsResponse {
+  userId: string;
+  lingots: number;
   awarded: number;
 }

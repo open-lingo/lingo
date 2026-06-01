@@ -8,9 +8,10 @@
  * logic. Settings is a placeholder — future home of platform-level
  * runtime config (CORS origins, feature flags, etc.).
  *
- * Platform-wide XP rate tuning lives on /admin/lms?tab=platform-xp, since
- * "tune learning state" (per-user + platform XP) is the LMS surface. Ops
- * is finance/jobs/audit only.
+ * Platform-wide XP rate tuning lives on /admin/lms in a collapsible
+ * "Platform XP rates" section below the user picker, since "tune learning
+ * state" (per-user + platform XP) is the LMS surface. Ops is finance /
+ * jobs / audit only.
  */
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
