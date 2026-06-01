@@ -63,11 +63,30 @@ body {
 *::-webkit-scrollbar-corner {
   background: transparent;
 }
-/* Hide the arrow buttons on webkit (Safari + older Chromium). */
-*::-webkit-scrollbar-button {
-  display: none;
-  width: 0;
-  height: 0;
+/* Hide the arrow buttons on every webkit/blink browser. The bare
+   ``::-webkit-scrollbar-button`` selector misses on some Chromium
+   builds — they reserve space for the button area unless you target the
+   explicit start/end/increment/decrement subtypes AND collapse the
+   dimensions. The root ``html`` scrollbar also needs its own rule
+   because the universal cascade can be overridden by the user-agent
+   stylesheet. We hit both surfaces and every subtype. */
+html::-webkit-scrollbar-button,
+*::-webkit-scrollbar-button,
+*::-webkit-scrollbar-button:start,
+*::-webkit-scrollbar-button:end,
+*::-webkit-scrollbar-button:vertical:start,
+*::-webkit-scrollbar-button:vertical:end,
+*::-webkit-scrollbar-button:vertical:start:decrement,
+*::-webkit-scrollbar-button:vertical:end:increment,
+*::-webkit-scrollbar-button:horizontal:start,
+*::-webkit-scrollbar-button:horizontal:end,
+*::-webkit-scrollbar-button:horizontal:start:decrement,
+*::-webkit-scrollbar-button:horizontal:end:increment {
+  display: block;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent;
+  border: none;
 }
 
 /* Hide scrollbar visually while preserving scroll behavior (e.g. on tab
