@@ -30,7 +30,7 @@ import { cn } from "@/shared/components/ui/cn";
 import { inputClassName } from "@/shared/components/ui/formStyles";
 import { TabButton, TabList } from "@/shared/components/ui/Tabs";
 import { useToast } from "@/shared/contexts/ToastContext";
-import { Search } from "lucide-react";
+import { Icon } from "@/shared/components/Icon";
 
 type TabId =
   | "pending-decks"
@@ -524,7 +524,8 @@ function BanUserTab() {
           )}
         </p>
         <div className="relative mt-3">
-          <Search
+          <Icon
+            name="search"
             size={14}
             aria-hidden
             className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"

@@ -20,7 +20,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
-import { Search } from "lucide-react";
 
 import { useApi } from "@/shared/api/provider";
 import type { ListUsersResponse, UserListItem } from "@/shared/api/admin";
@@ -156,7 +155,8 @@ export function AdminUsersListPage() {
             {t("common.loading", "Loading")}…
           </span>
           <div className="relative w-full sm:w-72">
-            <Search
+            <Icon
+              name="search"
               size={14}
               aria-hidden
               className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"

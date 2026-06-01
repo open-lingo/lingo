@@ -15,18 +15,6 @@
  */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  BookOpen,
-  ChevronDown,
-  ChevronRight,
-  Edit2,
-  Pencil,
-  RotateCcw,
-  Search,
-  Settings,
-  TrendingUp,
-  Trophy,
-} from "lucide-react";
 
 import { useApi } from "@/shared/api/provider";
 import type {
@@ -38,6 +26,7 @@ import { Badge } from "@/shared/components/ui/Badge";
 import { Button } from "@/shared/components/ui/Button";
 import { Card } from "@/shared/components/ui/Card";
 import { CenteredLoader } from "@/shared/components/ui/CenteredLoader";
+import { Icon } from "@/shared/components/Icon";
 import { Modal } from "@/shared/components/ui/Modal";
 import { cn } from "@/shared/components/ui/cn";
 import { inputClassName } from "@/shared/components/ui/formStyles";
@@ -77,7 +66,8 @@ function UserPicker({ onSelect }: { onSelect: (user: UserListItem) => void }) {
           </p>
         </div>
         <div className="relative">
-          <Search
+          <Icon
+            name="search"
             size={16}
             className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
             aria-hidden
@@ -527,7 +517,7 @@ function StudentFile({
       <Card padding="md">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <BookOpen size={16} className="text-text-muted" />
+            <Icon name="bookOpen" size={16} className="text-text-muted" aria-hidden />
             <h3 className="font-semibold text-text-primary">Learning State</h3>
           </div>
           <Button
@@ -536,7 +526,7 @@ function StudentFile({
             size="sm"
             onClick={() => setEditLearningOpen(true)}
           >
-            <Edit2 size={13} />
+            <Icon name="edit2" size={13} aria-hidden />
             Edit
           </Button>
         </div>
@@ -567,7 +557,7 @@ function StudentFile({
       <Card padding="md">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <TrendingUp size={16} className="text-text-muted" />
+            <Icon name="trendingUp" size={16} className="text-text-muted" aria-hidden />
             <h3 className="font-semibold text-text-primary">XP &amp; Progress</h3>
           </div>
           <Button
@@ -576,7 +566,7 @@ function StudentFile({
             size="sm"
             onClick={() => setResetOpen(true)}
           >
-            <RotateCcw size={13} />
+            <Icon name="rotateCcw" size={13} aria-hidden />
             Reset progress
           </Button>
         </div>
@@ -615,7 +605,7 @@ function StudentFile({
                   aria-label={editLabel}
                   className="absolute top-1.5 right-1.5 inline-flex h-6 w-6 items-center justify-center rounded text-text-muted hover:text-text-primary hover:bg-surface-muted transition"
                 >
-                  <Pencil size={12} aria-hidden />
+                  <Icon name="pencil" size={12} aria-hidden />
                 </button>
               )}
               <p className="text-xs text-text-muted uppercase tracking-wide">{label}</p>
@@ -634,7 +624,7 @@ function StudentFile({
       {/* Completed Lessons */}
       <Card padding="none">
         <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
-          <Trophy size={16} className="text-text-muted" />
+          <Icon name="trophy" size={16} className="text-text-muted" aria-hidden />
           <h3 className="font-semibold text-text-primary">Completed Lessons</h3>
           <Badge size="sm" variant="neutral" className="ml-auto">
             {snap.completedLessons.length}
@@ -740,7 +730,7 @@ function PlatformXpRatesSection() {
         aria-expanded={open}
         aria-controls="platform-xp-rates-body"
       >
-        <Settings size={16} className="text-text-muted shrink-0" aria-hidden />
+        <Icon name="settings" size={16} className="text-text-muted shrink-0" aria-hidden />
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-text-primary">Platform XP rates</p>
           <p className="text-xs text-text-muted">
@@ -748,9 +738,9 @@ function PlatformXpRatesSection() {
           </p>
         </div>
         {open ? (
-          <ChevronDown size={16} className="text-text-muted shrink-0" aria-hidden />
+          <Icon name="chevronDown" size={16} className="text-text-muted shrink-0" aria-hidden />
         ) : (
-          <ChevronRight size={16} className="text-text-muted shrink-0" aria-hidden />
+          <Icon name="chevronRight" size={16} className="text-text-muted shrink-0" aria-hidden />
         )}
       </button>
       {open && (

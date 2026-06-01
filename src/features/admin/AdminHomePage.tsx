@@ -20,15 +20,6 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
-import {
-  Users,
-  Activity,
-  ShieldCheck,
-  Wrench,
-  BookOpen,
-  AlertTriangle,
-  CheckCircle,
-} from "lucide-react";
 
 import { useApi } from "@/shared/api/provider";
 import { useAuth } from "@/shared/auth/useAuth";
@@ -38,6 +29,7 @@ import type { EventListResponse } from "@/features/admin/events/types";
 import { Badge } from "@/shared/components/ui/Badge";
 import { Card } from "@/shared/components/ui/Card";
 import { NavCard } from "@/shared/components/ui/NavCard";
+import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -271,24 +263,24 @@ export function AdminHomePage() {
               ? `${userStats.data.new_since} new last 7d`
               : undefined
           }
-          icon={<Users size={20} />}
+          icon={<Icon name="users" size={20} aria-hidden />}
         />
         <MetricCard
           label="Events (24h)"
           value={recentEvents.isLoading ? "—" : events24h.toLocaleString()}
-          icon={<Activity size={20} />}
+          icon={<Icon name="activity" size={20} aria-hidden />}
         />
         <MetricCard
           label="Pending review"
           value={pendingTotal === null ? "—" : pendingTotal.toLocaleString()}
           sub="decks + stories"
-          icon={<ShieldCheck size={20} />}
+          icon={<Icon name="shieldCheck" size={20} aria-hidden />}
           variant={pendingTotal !== null && pendingTotal > 0 ? "warning" : "default"}
         />
         <MetricCard
           label="Failed jobs (24h)"
           value={jobsSummary.isLoading ? "—" : failed24h.toLocaleString()}
-          icon={failed24h > 0 ? <AlertTriangle size={20} /> : <CheckCircle size={20} />}
+          icon={failed24h > 0 ? <Icon name="alertTriangle" size={20} aria-hidden /> : <Icon name="checkCircle" size={20} aria-hidden />}
           variant={failed24h > 0 ? "error" : "success"}
         />
       </div>
@@ -307,38 +299,38 @@ export function AdminHomePage() {
             to="/admin/users"
             title="Users"
             description="Browse, search, and manage user accounts."
-            icon={<Users size={20} />}
+            icon={<Icon name="users" size={20} aria-hidden />}
           />
           <NavCard
             to="/admin/moderation"
             title="Moderation"
             description="Review pending decks, stories, reports, and bans."
-            icon={<ShieldCheck size={20} />}
+            icon={<Icon name="shieldCheck" size={20} aria-hidden />}
             count={pendingTotal ?? undefined}
           />
           <NavCard
             to="/admin/ops"
             title="Operations"
             description="Costs, revenue, subscriptions, ads, jobs, and the audit log."
-            icon={<Wrench size={20} />}
+            icon={<Icon name="wrench" size={20} aria-hidden />}
           />
           <NavCard
             to="/admin/events"
             title="Events"
             description="Inspect the real-time event stream and handler outcomes."
-            icon={<Activity size={20} />}
+            icon={<Icon name="activity" size={20} aria-hidden />}
           />
           <NavCard
             to="/admin/content/lessons"
             title="Content"
             description="Author lessons; review and manage decks and stories."
-            icon={<BookOpen size={20} />}
+            icon={<Icon name="bookOpen" size={20} aria-hidden />}
           />
           <NavCard
             to="/admin/lms"
             title="LMS"
             description="Per-user learning state and platform XP rate tuning."
-            icon={<BookOpen size={20} />}
+            icon={<Icon name="bookOpen" size={20} aria-hidden />}
           />
         </div>
       </section>
