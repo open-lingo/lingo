@@ -6,18 +6,16 @@
  * imports of `JA_COURSE_ATOMS` / `jaGrammarHelpers` / etc. from outside
  * `features/languages/ja/` are anti-patterns — they will be caught by
  * the grep in the PR review checklist.
- *
- * KO is not yet registered (Phase 3). Until then,
- * `getLanguageModule("ko")` throws — callers that may be invoked
- * pre-Phase-3 should gate on `getAllLanguageIds().includes(id)`.
  */
 
 import { jaModule } from "@/features/languages/ja/module";
+import { koModule } from "@/features/languages/ko/module";
 import type { LanguageModule } from "./LanguageModule";
 import type { Atom, AtomId, LanguageId } from "./types";
 
 const MODULES: Partial<Record<LanguageId, LanguageModule>> = {
   ja: jaModule,
+  ko: koModule,
 };
 
 export function getLanguageModule(id: LanguageId): LanguageModule {
