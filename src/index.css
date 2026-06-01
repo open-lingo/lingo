@@ -17,34 +17,57 @@ body {
   font-family: var(--font-family);
 }
 
-/* Custom scrollbar — rounded, floating style using theme colors */
-html {
+/* ── Cute scrollbar — pill-in-pill, no arrows ──────────────────────────
+   Track is a rounded pill in the surface-muted tone; the thumb is a
+   smaller, darker pill nested inside (achieved via transparent border +
+   background-clip: padding-box, so the thumb "shrinks" inside the
+   track). Webkit scroll buttons (arrows) and corner are explicitly
+   hidden so we get a clean tube on every platform.
+   ──────────────────────────────────────────────────────────────────── */
+:root {
+  --scrollbar-size: 12px;
+  --scrollbar-thumb-inset: 3px; /* gap between thumb pill and track edge */
+}
+
+* {
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
-html::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+*::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
 }
-html::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: var(--scrollbar-track);
-  border-radius: var(--radius-lg);
-  margin: 4px;
+  border-radius: 999px;
+  margin: 6px;
 }
-html::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background: var(--scrollbar-thumb);
-  border-radius: var(--radius-lg);
-  border: 2px solid transparent;
+  border-radius: 999px;
+  /* Transparent border = inset gap; background-clip keeps the colored
+     fill inside the border so the thumb visibly nests in the track. */
+  border: var(--scrollbar-thumb-inset) solid transparent;
   background-clip: padding-box;
+  min-height: 32px; /* prevent micro-thumbs on tall scroll regions */
 }
-html::-webkit-scrollbar-thumb:hover {
+*::-webkit-scrollbar-thumb:hover {
   background: var(--scrollbar-thumb-hover);
-  border-radius: var(--radius-lg);
-  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-color: transparent;
+}
+*::-webkit-scrollbar-thumb:active {
+  background: var(--scrollbar-thumb-active, var(--scrollbar-thumb-hover));
   background-clip: padding-box;
 }
-html::-webkit-scrollbar-corner {
+*::-webkit-scrollbar-corner {
   background: transparent;
+}
+/* Hide the arrow buttons on webkit (Safari + older Chromium). */
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 /* Hide scrollbar visually while preserving scroll behavior (e.g. on tab
@@ -57,30 +80,13 @@ html::-webkit-scrollbar-corner {
   display: none;
 }
 
+/* Back-compat: ``.scrollbar-theme`` used to opt-in to the styled track
+   on nested overflow areas. Now everything inherits the pill-in-pill
+   look from the universal selector above, so this class becomes a
+   safe no-op alias. */
 .scrollbar-theme {
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-}
-.scrollbar-theme::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-.scrollbar-theme::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-  border-radius: var(--radius-lg);
-  margin: 4px;
-}
-.scrollbar-theme::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  border-radius: var(--radius-lg);
-  border: 2px solid transparent;
-  background-clip: padding-box;
-}
-.scrollbar-theme::-webkit-scrollbar-thumb:hover {
-  background: var(--scrollbar-thumb-hover);
-  border-radius: var(--radius-lg);
-  border: 2px solid transparent;
-  background-clip: padding-box;
 }
 .scrollbar-theme::-webkit-scrollbar-corner {
   background: transparent;

@@ -17,7 +17,10 @@ export type YourPathCardProps = {
   /** Click a module row to jump the map to it. */
   onJumpToModule: (moduleId: string) => void;
   /** Show the start-over CTA when the user has progress to wipe. */
-  onStartOver: () => void;
+  /** Kept on the prop surface for back-compat; the actual control lives
+   *  at the bottom of LearnPage now + in settings. Unused inside this
+   *  card. */
+  onStartOver?: () => void;
 };
 
 /**
@@ -42,7 +45,7 @@ export function YourPathCard({
   streakDays,
   onResume,
   onJumpToModule: _onJumpToModule,
-  onStartOver,
+  onStartOver: _onStartOver,
 }: YourPathCardProps) {
   const { t } = useTranslation();
 
@@ -184,19 +187,8 @@ export function YourPathCard({
             the learn page — duplicating the percentages here was just
             visual clutter. */}
 
-        {hasProgress ? (
-          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
-            <p className="text-sm text-text-secondary">
-              {t("learn.startOverHint", {
-                defaultValue:
-                  "Want a clean slate? Reset the course path on this device.",
-              })}
-            </p>
-            <Button type="button" variant="outline" onClick={onStartOver}>
-              {t("learn.startOver", { defaultValue: "Start over" })}
-            </Button>
-          </div>
-        ) : null}
+        {/* Start-over moved to a low-key footer link at the very bottom of
+            the learn page. The settings page also exposes it for clarity. */}
       </div>
     </Card>
   );

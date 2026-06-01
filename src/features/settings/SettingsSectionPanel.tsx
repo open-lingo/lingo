@@ -1,12 +1,17 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
+import { useApi } from "@/shared/api/provider";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useTheme } from "@/shared/contexts/ThemeContext";
+import { useToast } from "@/shared/contexts/ToastContext";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { supportedLngs } from "@/shared/i18n/i18n";
 import { utcToLocalHHmm, localToUtcHHmm } from "@/shared/utils/reminderTime";
+import { resetLearnProgress } from "@/features/learn/resetLearnProgress";
+import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import { AccountPrivacySection } from "./AccountPrivacySection";
 import { ChoiceChip, inputClassName } from "@/shared/components/ui/formStyles";
 import {
@@ -475,6 +480,7 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
             </span>
           </label>
         </div>
+        <LanguageDangerZone languageId={languageId} />
       </div>
     );
   }
@@ -494,6 +500,84 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
           "No language-specific display options for Korean yet.",
         )}
       </p>
+      <LanguageDangerZone languageId={languageId} />
     </div>
+  );
+}
+
+function LanguageDangerZone({ languageId }: { languageId: string }) {
+  const { t } = useTranslation();
+  const { progress, srs } = useApi();
+  const { showToast } = useToast();
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [pending, setPending] = useState(false);
+
+  const onConfirm = async () => {
+    setPending(true);
+    try {
+      await resetLearnProgress(languageId, { progress, srs });
+      showToast(
+        t("settings.languageResetDone", {
+          defaultValue:
+            "Progress reset across your account — you're back at the start.",
+        }),
+        "success",
+      );
+    } catch (_err) {
+      showToast(
+        t("settings.languageResetError", {
+          defaultValue: "Couldn't fully reset on the server. Try again.",
+        }),
+        "error",
+      );
+    } finally {
+      setPending(false);
+      setConfirmOpen(false);
+    }
+  };
+
+  return (
+    <section className="mt-8 border-t border-border pt-6">
+      <h4 className="text-sm font-semibold text-text-primary">
+        {t("settings.languageDangerZone", { defaultValue: "Reset progress" })}
+      </h4>
+      <p className="mt-1 text-xs text-text-muted max-w-md">
+        {t("settings.languageResetHint", {
+          defaultValue:
+            "Wipes lessons, SRS, and rollups for this language across your whole account. Other languages are not affected.",
+        })}
+      </p>
+      <button
+        type="button"
+        onClick={() => setConfirmOpen(true)}
+        disabled={pending}
+        className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-error/40 px-3 py-1.5 text-xs font-semibold text-error transition hover:bg-error/10 disabled:opacity-50"
+      >
+        <Icon name="trash" size={12} aria-hidden />
+        {pending
+          ? t("settings.languageResetWorking", { defaultValue: "Resetting…" })
+          : t("settings.languageResetCta", {
+              defaultValue: "Reset this language",
+            })}
+      </button>
+      {confirmOpen ? (
+        <ConfirmModal
+          title={t("settings.languageResetTitle", {
+            defaultValue: "Reset progress for this language?",
+          })}
+          message={t("settings.languageResetConfirm", {
+            defaultValue:
+              "This wipes lessons, SRS, and rollups for this language across your account. It cannot be undone.",
+          })}
+          cancelLabel={t("forum.cancel", { defaultValue: "Cancel" })}
+          confirmLabel={t("settings.languageResetCta", {
+            defaultValue: "Reset this language",
+          })}
+          danger
+          onConfirm={onConfirm}
+          onCancel={() => setConfirmOpen(false)}
+        />
+      ) : null}
+    </section>
   );
 }

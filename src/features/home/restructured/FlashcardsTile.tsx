@@ -19,12 +19,23 @@ export function FlashcardsTile() {
 
   const previewCards = dueQueue.slice(0, PREVIEW_LIMIT);
   const previewOverflow = Math.max(0, cardsDue - previewCards.length);
+  const allCaughtUp = !isLoading && cardsDue === 0;
 
   return (
     <Card padding="md" className="h-full">
       <div className="flex items-start justify-between gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-muted text-accent">
-          <Icon name="decks" size={22} aria-hidden />
+        <span
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${
+            allCaughtUp
+              ? "bg-success/10 text-success"
+              : "bg-accent-muted text-accent"
+          }`}
+        >
+          <Icon
+            name={allCaughtUp ? "sparkles" : "decks"}
+            size={22}
+            aria-hidden
+          />
         </span>
         {cardsDue > 0 ? (
           <span className="rounded-full bg-warning/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-warning">
@@ -35,15 +46,30 @@ export function FlashcardsTile() {
       <p className="mt-3 text-sm font-medium text-text-secondary">
         {t("home.restructured.flashcards.label", { defaultValue: "Flashcards" })}
       </p>
-      <p
-        className="text-3xl font-extrabold text-text-primary leading-none"
-        aria-busy={isLoading}
-      >
-        {isLoading ? "…" : cardsDue}
-        <span className="ml-1 text-sm font-medium text-text-secondary">
-          {t("home.restructured.flashcards.cardsSuffix", { defaultValue: "cards" })}
-        </span>
-      </p>
+      {allCaughtUp ? (
+        <>
+          <p className="text-2xl font-extrabold text-text-primary leading-tight">
+            {t("home.restructured.flashcards.allCaughtUp", {
+              defaultValue: "All caught up!",
+            })}
+          </p>
+          <p className="mt-0.5 text-xs text-text-muted">
+            {t("learn.flashcardsZeroDue", { defaultValue: "0 cards due today" })}
+          </p>
+        </>
+      ) : (
+        <p
+          className="text-3xl font-extrabold text-text-primary leading-none"
+          aria-busy={isLoading}
+        >
+          {isLoading ? "…" : cardsDue}
+          <span className="ml-1 text-sm font-medium text-text-secondary">
+            {t("home.restructured.flashcards.cardsSuffix", {
+              defaultValue: "cards",
+            })}
+          </span>
+        </p>
+      )}
       {previewCards.length > 0 ? (
         <div className="mt-3 flex items-center gap-1.5">
           {previewCards.map((card) => (
@@ -62,7 +88,11 @@ export function FlashcardsTile() {
       ) : null}
       <Link
         to={langPath(cardsDue > 0 ? "practice/flashcards/review" : "practice/flashcards")}
-        className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-on-accent transition hover:bg-accent-hover"
+        className={`mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold transition ${
+          allCaughtUp
+            ? "border border-border bg-surface text-text-secondary hover:border-accent/40 hover:text-text-primary"
+            : "bg-accent text-on-accent hover:bg-accent-hover"
+        }`}
       >
         {cardsDue > 0
           ? t("home.restructured.flashcards.reviewCta", { defaultValue: "Review now" })
