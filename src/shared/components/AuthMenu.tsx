@@ -164,7 +164,7 @@ export function AuthMenu() {
             </Link>
           )}
           {siteAdmin && (
-            <Link to="/admin/users" className={menuLinkClass} onClick={() => setOpen(false)}>
+            <Link to="/admin/home" className={menuLinkClass} onClick={() => setOpen(false)}>
               <Icon name="layoutDashboard" size={18} className="shrink-0 text-text-muted" />
               {t("nav.siteAdmin")}
             </Link>

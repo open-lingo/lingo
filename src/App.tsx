@@ -30,7 +30,6 @@ import { LandingRoute } from "@/routes/LandingRoute";
 import { ProtectedHome } from "@/routes/ProtectedHome";
 import { RequireAuth } from "@/routes/RequireAuth";
 import { SettingsOpenRoute } from "@/features/settings/SettingsOpenRoute";
-import { SettingsProfileOpenRoute } from "@/features/settings/SettingsProfileOpenRoute";
 
 // Lazy-loaded routes: anything heavy, role-restricted (admin/studio), or rarely-hit
 // on first paint. Split here keeps the main bundle focused on the learner happy path.
@@ -171,8 +170,8 @@ const NewThreadPage = lazyRetry(() =>
 const AdminShell = lazyRetry(() =>
   import("@/features/admin/AdminLayout").then((m) => ({ default: m.AdminShell })),
 );
-const AdminSidebarShell = lazyRetry(() =>
-  import("@/features/admin/AdminLayout").then((m) => ({ default: m.AdminSidebarShell })),
+const AdminInnerShell = lazyRetry(() =>
+  import("@/features/admin/AdminLayout").then((m) => ({ default: m.AdminInnerShell })),
 );
 const AdminHomePage = lazyRetry(() =>
   import("@/features/admin/AdminHomePage").then((m) => ({ default: m.AdminHomePage })),
@@ -242,7 +241,6 @@ const router = createBrowserRouter([
       { path: "try", element: <PreviewLessonPage /> },
       { path: "logout", element: <LogoutPage /> },
       { path: "settings", element: <SettingsOpenRoute /> },
-      { path: "settings/profile", element: <SettingsProfileOpenRoute /> },
       // Global public profile route — not nested under `/:lang/*` because
       // social is per-user, not per-language. Auth-optional (logged-out
       // viewers can see public profiles).
@@ -258,9 +256,11 @@ const router = createBrowserRouter([
               { path: "home", element: <AdminHomePage /> },
             ],
           },
-          // Inner admin pages — sidebar nav + breadcrumbs
+          // Inner admin pages — no sidebar; just a back-to-dashboard link.
+          // Navigation lives on /admin/home; pages are reachable via the
+          // dashboard's nav-cards grid or in-content cross-links.
           {
-            element: <AdminSidebarShell />,
+            element: <AdminInnerShell />,
             children: [
               { path: "users", element: <AdminUsersListPage /> },
               { path: "users/:userId", element: <AdminUserDetailPage /> },

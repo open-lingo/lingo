@@ -30,8 +30,7 @@ import { cn } from "@/shared/components/ui/cn";
 import { inputClassName } from "@/shared/components/ui/formStyles";
 import { TabButton, TabList } from "@/shared/components/ui/Tabs";
 import { useToast } from "@/shared/contexts/ToastContext";
-
-import { useAdminSearch } from "./AdminLayout";
+import { Search } from "lucide-react";
 
 type TabId =
   | "pending-decks"
@@ -446,7 +445,7 @@ function BanUserTab() {
   const { t } = useTranslation();
   const { admin } = useApi();
   const showToast = useToast().showToast;
-  const { query, setQuery } = useAdminSearch();
+  const [query, setQuery] = useState("");
   const [candidates, setCandidates] = useState<UserListItem[]>([]);
   const [searching, setSearching] = useState(false);
   const [selected, setSelected] = useState<UserListItem | null>(null);
@@ -457,7 +456,7 @@ function BanUserTab() {
   const [submitting, setSubmitting] = useState(false);
   const debounceRef = useRef<number | null>(null);
 
-  // Use the admin shell's search box (top-right) as the user picker.
+  // Debounce the local search box and fan out to /admin/users.
   useEffect(() => {
     if (debounceRef.current) window.clearTimeout(debounceRef.current);
     if (!query.trim()) {
@@ -521,9 +520,24 @@ function BanUserTab() {
         <p className="mt-1 text-xs text-text-muted">
           {t(
             "admin.moderation.pickUserHint",
-            "Type a username substring in the search box at the top right.",
+            "Type a username substring to find a user.",
           )}
         </p>
+        <div className="relative mt-3">
+          <Search
+            size={14}
+            aria-hidden
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
+          />
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={t("admin.searchUsers", "Search users…")}
+            aria-label={t("admin.searchUsers", "Search users…")}
+            className={cn(inputClassName, "pl-8")}
+          />
+        </div>
         <div className="mt-3 space-y-2">
           {searching ? (
             <p className="text-sm text-text-muted">{t("common.loading")}</p>
