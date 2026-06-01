@@ -13,33 +13,67 @@ import { useApi } from "@/shared/api/provider";
  * leaderboard has competitors), QA-ing quest evaluation rules without
  * driving the lesson UI, repro-ing a real event from /admin/events by
  * tweaking the JSON.
+ *
+ * Architecture gotcha (real bug 2026-05-31): the XP-credit pipeline is
+ * split by event type. ``lesson_completed`` ONLY fires quest evaluation —
+ * the consumer does NOT credit XP, because in the hot path lingo-core's
+ * ``/progress/lessons/batch`` credits user.xp INLINE before publishing.
+ * ``xp_awarded`` with ``source != "lesson"`` is the consumer-credit path.
+ * Sending an ``xp_awarded`` with ``source="lesson"`` is a no-op for user
+ * XP — the consumer skips it assuming the producer already credited.
+ * Templates below default ``xp_awarded`` to ``source="manual"`` so the
+ * admin-publish-then-credit happy path works without further thought.
  */
 
-const TEMPLATES: Record<string, Record<string, unknown>> = {
+interface TemplateMeta {
+  payload: Record<string, unknown>;
+  /** Single-line behavior summary shown beside the type select. */
+  hint: string;
+}
+
+const TEMPLATES: Record<string, TemplateMeta> = {
   xp_awarded: {
-    amount: 25,
-    source: "lesson",
-    learning_language_id: "ja",
-    leaderboard_opt_in: true,
+    payload: {
+      amount: 25,
+      // source MUST be "manual" (or "quest"/"streak"/"review") to credit
+      // the user. "lesson" causes the consumer to skip, because in real
+      // flows the producer credits inline before publishing.
+      source: "manual",
+      learning_language_id: "ja",
+      leaderboard_opt_in: true,
+    },
+    hint: "Credits user XP + updates leaderboard. Use source=manual.",
   },
   lesson_completed: {
-    lesson_id: "m3-l1",
-    score: 1.0,
-    perfect: true,
-    attempted_at: "2026-05-31T00:00:00Z",
+    payload: {
+      lesson_id: "m3-l1",
+      score: 1.0,
+      perfect: true,
+      attempted_at: "2026-05-31T00:00:00Z",
+    },
+    hint: "Quest evaluation only — does NOT credit XP. Use xp_awarded for XP.",
   },
   review_completed: {
-    card_id: "synth-1",
-    modality: "recognition",
-    rating: "good",
-    count: 5,
+    payload: {
+      card_id: "synth-1",
+      modality: "recognition",
+      rating: "good",
+      count: 5,
+    },
+    hint: "Advances card-count quests. Does NOT touch SRS state or XP.",
   },
   friend_added: {
-    friend_id: "00000000-0000-0000-0000-000000000000",
+    payload: {
+      friend_id: "00000000-0000-0000-0000-000000000000",
+    },
+    hint: "Advances social quests for user_id (not friend_id).",
   },
   subscription_changed: {
-    tier: "supporter",
-    event: "new",
+    payload: {
+      tier: "supporter",
+      event: "new",
+    },
+    hint: "Stub handler — currently no side effects.",
   },
 };
 
@@ -51,7 +85,7 @@ export function EventPublisher() {
   const [userId, setUserId] = useState("");
   const [eventType, setEventType] = useState<string>("xp_awarded");
   const [payloadText, setPayloadText] = useState(
-    JSON.stringify(TEMPLATES.xp_awarded, null, 2),
+    JSON.stringify(TEMPLATES.xp_awarded.payload, null, 2),
   );
   const [error, setError] = useState<string | null>(null);
 
@@ -76,8 +110,11 @@ export function EventPublisher() {
 
   const handleTypeChange = (next: string) => {
     setEventType(next);
-    setPayloadText(JSON.stringify(TEMPLATES[next] ?? {}, null, 2));
+    const tpl = TEMPLATES[next];
+    setPayloadText(JSON.stringify(tpl?.payload ?? {}, null, 2));
   };
+
+  const activeHint = TEMPLATES[eventType]?.hint;
 
   return (
     <section className="border-t border-gray-200 dark:border-gray-800 p-4 space-y-3 text-sm bg-gray-50 dark:bg-gray-900/40">
@@ -99,6 +136,18 @@ export function EventPublisher() {
             <option key={t} value={t}>{t}</option>
           ))}
         </select>
+
+        {activeHint ? (
+          <>
+            <span className="text-xs text-gray-500" />
+            <p
+              className="text-xs text-amber-700 dark:text-amber-400 -mt-1"
+              data-testid="event-hint"
+            >
+              {activeHint}
+            </p>
+          </>
+        ) : null}
 
         <label htmlFor="evuser" className="text-xs text-gray-500">user_id</label>
         <input
