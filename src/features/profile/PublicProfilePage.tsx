@@ -337,24 +337,48 @@ export function PublicProfilePage() {
     void runAction(social.blockUser(socialProfile.user_id));
   }
 
+  // Banner-as-header mode: the equipped banner becomes a backdrop the
+  // masthead sits ON TOP of (Twitter/Discord profile-header pattern).
+  // We reserve vertical space on the article via top padding so the
+  // header content slides down behind/onto the absolutely-positioned
+  // banner. The avatar is pulled up (negative margin) so it straddles
+  // the banner's bottom edge, and the owner action bar (Edit / Save /
+  // Cancel / Inventory) floats top-right ON the banner with a subtle
+  // surface-pill so it stays legible against any banner art.
+  const hasBanner = !!bannerStyle;
+  const bannerBackdropClass = hasBanner ? "h-[140px] sm:h-[200px]" : "";
+  // Per-button surface-pill backdrop so the ghost-variant owner
+  // controls stay legible over any banner art (otherwise icon + label
+  // can smear into vaporwave magenta / sunset orange).
+  const ownerPillOverBanner =
+    "!bg-surface/85 !backdrop-blur-sm !shadow-sm hover:!bg-surface";
+
   return (
     <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
       <article data-testid="public-profile-card" className="relative">
-        {/* ── Banner hero (optional) ───────────────────────────────
-              When the viewer has equipped a profile banner, render it
-              as a 6:1 strip at the top of the article. The masthead
-              below sits flush against the bottom of the banner — the
-              avatar is intentionally NOT overlapped so the banner art
-              and the avatar each stand on their own visual ground. */}
+        {/* ── Banner backdrop (optional) ───────────────────────────
+              When the viewer has equipped a banner, it renders as an
+              absolutely-positioned strip behind the masthead. The
+              article reserves vertical room via padding-top below, and
+              the masthead sits with raised z-index so it overlays.
+              When no banner is equipped, nothing here renders and the
+              page looks identical to its pre-banner state. */}
         {bannerStyle && (
           <div
-            className="-mx-5 mb-6 overflow-hidden rounded-xl sm:-mx-8"
+            className={`pointer-events-none absolute inset-x-0 -top-0 -mx-5 overflow-hidden rounded-xl sm:-mx-8 ${bannerBackdropClass}`}
             role="img"
             aria-label={bannerStyle.label}
           >
             <bannerStyle.Svg
               preserveAspectRatio="xMidYMid slice"
-              className="block h-[100px] w-full sm:h-[160px]"
+              className="block h-full w-full"
+            />
+            {/* Bottom-to-top gradient so the byline metadata + bio that
+                spills past the banner's bottom edge fades into the page
+                background instead of slamming into it. */}
+            <div
+              aria-hidden
+              className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-b from-transparent to-black/15"
             />
           </div>
         )}
@@ -364,11 +388,21 @@ export function PublicProfilePage() {
               Cancel / Inventory). Floated above the masthead so it's
               available regardless of where in the profile the user is
               reading, and it never collides with content. Renders
-              only when the viewer owns the profile. */}
+              only when the viewer owns the profile.
+
+              When a banner is equipped, each button gets a subtle
+              surface-pill background so it stays legible over busy
+              banner art (the underlying Button "ghost" variant has no
+              fill on its own). */}
         {isSelf && (
           <div
             data-testid="public-profile-actions"
-            className="mb-4 flex flex-wrap items-center justify-end gap-2"
+            className={
+              "z-20 flex flex-wrap items-center justify-end gap-2 " +
+              (hasBanner
+                ? "absolute right-3 top-3 sm:right-4 sm:top-4"
+                : "relative mb-4")
+            }
           >
             {editMode ? (
               <>
@@ -388,6 +422,7 @@ export function PublicProfilePage() {
                   variant="ghost"
                   size="sm"
                   onClick={cancelEdit}
+                  className={hasBanner ? ownerPillOverBanner : undefined}
                 >
                   {t("common.cancel", "Cancel")}
                 </Button>
@@ -404,7 +439,7 @@ export function PublicProfilePage() {
                     avatarUrl: avatarSrc ?? "",
                   })
                 }
-                className="!gap-1.5"
+                className={`!gap-1.5 ${hasBanner ? ownerPillOverBanner : ""}`}
               >
                 <Icon name="pencil" size={14} strokeWidth={2.25} aria-hidden />
                 {t("profile.publicEditProfile", "Edit profile")}
@@ -415,7 +450,7 @@ export function PublicProfilePage() {
               variant="ghost"
               size="sm"
               onClick={() => setInventoryOpen(true)}
-              className="!gap-1.5"
+              className={`!gap-1.5 ${hasBanner ? ownerPillOverBanner : ""}`}
             >
               <Icon name="package" size={14} strokeWidth={2.25} aria-hidden />
               {t("profile.publicInventoryCta", "Inventory")}
@@ -428,9 +463,26 @@ export function PublicProfilePage() {
               heading and the bio paragraph swap their text for inline
               <Input>/<Textarea> elements positioned and sized to match
               the displayed text. No separate "edit form" section — the
-              page IS the editor. */}
-        <header className="relative">
-          <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
+              page IS the editor.
+
+              When a banner is equipped the masthead pads its top so the
+              kicker + display name sit against the banner art, and the
+              avatar's column gets a negative top offset so the avatar
+              straddles the banner's bottom edge. */}
+        <header
+          className={
+            "relative z-10 " +
+            (hasBanner ? "pt-[90px] sm:pt-[140px]" : "")
+          }
+        >
+          <p
+            className={
+              "text-xs font-medium uppercase tracking-wide " +
+              (hasBanner
+                ? "text-white/90 text-shadow-banner-soft"
+                : "text-text-muted")
+            }
+          >
             {t("profile.publicKicker", "Learner Profile")}
             <span aria-hidden className="mx-2 opacity-50">·</span>
             <span>@{username}</span>
@@ -459,7 +511,14 @@ export function PublicProfilePage() {
                   className="w-full break-words border-b-2 border-accent/40 bg-transparent text-3xl font-bold tracking-tight text-text-primary outline-none focus:border-accent sm:text-4xl"
                 />
               ) : (
-                <h1 className="break-words text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+                <h1
+                  className={
+                    "break-words text-3xl font-bold tracking-tight sm:text-4xl " +
+                    (hasBanner
+                      ? "text-white text-shadow-banner"
+                      : "text-text-primary")
+                  }
+                >
                   {displayName}
                 </h1>
               )}
@@ -468,7 +527,14 @@ export function PublicProfilePage() {
                   subtitle / honorific. Only visible on self profiles
                   until the social endpoint exposes other users' titles. */}
               {equippedTitleText && (
-                <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+                <p
+                  className={
+                    "mt-1 inline-flex items-center gap-1.5 text-sm font-medium " +
+                    (hasBanner
+                      ? "text-white/95 text-shadow-banner-soft"
+                      : "text-accent")
+                  }
+                >
                   <Icon name="crown" size={14} strokeWidth={2.25} aria-hidden />
                   {equippedTitleText}
                 </p>
@@ -478,16 +544,33 @@ export function PublicProfilePage() {
               <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
                 <FriendshipPill status={friendship ?? null} t={t} />
                 {lastActiveLabel && (
-                  <span className="inline-flex items-center gap-1.5 text-xs text-text-muted">
+                  <span
+                    className={
+                      "inline-flex items-center gap-1.5 text-xs " +
+                      (hasBanner
+                        ? "text-white/90 text-shadow-banner-soft"
+                        : "text-text-muted")
+                    }
+                  >
                     <span
                       aria-hidden
-                      className="inline-block h-1.5 w-1.5 rounded-full bg-text-muted/60"
+                      className={
+                        "inline-block h-1.5 w-1.5 rounded-full " +
+                        (hasBanner ? "bg-white/70" : "bg-text-muted/60")
+                      }
                     />
                     {lastActiveLabel}
                   </span>
                 )}
                 {joined && (
-                  <span className="text-xs text-text-muted">
+                  <span
+                    className={
+                      "text-xs " +
+                      (hasBanner
+                        ? "text-white/90 text-shadow-banner-soft"
+                        : "text-text-muted")
+                    }
+                  >
                     <span aria-hidden className="mr-1.5 opacity-50">·</span>
                     {t("profile.publicJoinedShort", "Joined")} {joined}
                   </span>
@@ -522,9 +605,26 @@ export function PublicProfilePage() {
 
             {/* Right column: avatar + non-self friendship action.
                 Self-owner controls (edit / inventory / save / cancel)
-                live exclusively in the top-right action bar above. */}
-            <div className="flex items-start justify-start gap-4 sm:flex-col sm:items-end sm:gap-3">
-              <div className="relative">
+                live exclusively in the top-right action bar above.
+
+                When a banner is equipped, the avatar gets pulled UP so
+                it straddles the banner/content boundary. The
+                surface-colored ring acts as a halo against any banner
+                hue and gives a "lifted out of the banner" affordance. */}
+            <div
+              className={
+                "flex items-start justify-start gap-4 sm:flex-col sm:items-end sm:gap-3 " +
+                (hasBanner ? "-mt-10 sm:-mt-12" : "")
+              }
+            >
+              <div
+                className={
+                  "relative " +
+                  (hasBanner
+                    ? "rounded-full bg-surface p-1 shadow-lg ring-4 ring-surface"
+                    : "")
+                }
+              >
                 <DecoratedAvatar
                   name={displayName}
                   src={avatarSrc}
