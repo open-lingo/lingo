@@ -8,7 +8,7 @@ import {
   getKanjiUpToModule,
   type KanjiEntry,
   type KanjiCategory,
-} from "./data/ja-n5-kanji";
+} from "@/features/languages/ja/secondScript/n5Kanji";
 import { playJaAudio } from "@/shared/tts";
 import { recordPracticeResult, pickWeighted } from "./practiceStats";
 
