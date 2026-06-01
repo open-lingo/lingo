@@ -12,7 +12,7 @@ import {
   type AdjEntry,
   type ConjugationForm,
   type AdjForm,
-} from "./data/ja-conjugation-tables";
+} from "@/features/languages/ja/conjugationTables";
 import { recordPracticeResult, pickWeighted } from "./practiceStats";
 
 type Category = "verbs" | "i-adj" | "na-adj";
