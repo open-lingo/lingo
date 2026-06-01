@@ -18,6 +18,7 @@ import { ModalRoot } from "@/shared/components/ModalRoot";
 import { ToastContainer } from "@/shared/components/ToastContainer";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTouchOnSession } from "@/shared/hooks/useTouchOnSession";
+import { ImpersonationBanner } from "@/features/admin/impersonation/ImpersonationBanner";
 import { LingotBalance } from "@/shared/components/LingotBalance";
 import { AdFreePill } from "@/features/adFree";
 import { useAuth } from "@/shared/auth/useAuth";
@@ -90,6 +91,7 @@ export function Layout() {
       </a>
       <SRSPendingSync />
       <LessonProgressHydrate />
+      <ImpersonationBanner />
       <header className="sticky top-0 z-40 border-b border-border bg-surface">
         <div className="mx-auto flex h-12 min-h-12 max-w-7xl items-center justify-between gap-2 px-3 sm:h-14 sm:px-4 sm:gap-4 lg:px-8">
           <div className="flex shrink-0 items-center gap-2">

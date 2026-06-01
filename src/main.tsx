@@ -10,6 +10,7 @@ import { LanguageProvider } from "@/shared/contexts/LanguageContext";
 import { ModalProvider } from "@/shared/contexts/ModalContext";
 import { ToastProvider } from "@/shared/contexts/ToastContext";
 import { ApiProvider } from "@/shared/api/provider";
+import { ImpersonationProvider } from "@/features/admin/impersonation/ImpersonationContext";
 import { FeatureFlagsProvider } from "@/shared/contexts/FeatureFlagsContext";
 import { SRSStoreRevisionProvider } from "@/features/flashcards/SRSStoreRevisionContext";
 import { AdProviderRoot } from "@/features/ads";
@@ -51,6 +52,7 @@ createRoot(document.getElementById("root")!).render(
     >
       <QueryClientProvider client={queryClient}>
         <ApiProvider>
+          <ImpersonationProvider>
           <FeatureFlagsProvider>
           <SRSStoreRevisionProvider>
           <SettingsProvider>
@@ -68,6 +70,7 @@ createRoot(document.getElementById("root")!).render(
           </SettingsProvider>
           </SRSStoreRevisionProvider>
           </FeatureFlagsProvider>
+          </ImpersonationProvider>
         </ApiProvider>
       </QueryClientProvider>
     </Auth0Provider>

@@ -24,6 +24,9 @@ import { AlertBanner } from "@/shared/components/ui/AlertBanner";
 import { inputClassName } from "@/shared/components/ui/formStyles";
 import { cn } from "@/shared/components/ui/cn";
 import { LearningTab } from "./lms/LearningTab";
+import { ImpersonateConfirmModal } from "./impersonation/ImpersonateConfirmModal";
+import { setImpersonation } from "@/shared/auth/impersonation";
+import { useQueryClient } from "@tanstack/react-query";
 
 type TabId = "profile" | "learning" | "subscriptions" | "content" | "srs" | "social";
 
@@ -132,6 +135,11 @@ export function AdminUserDetailPage() {
   const [awardXpAmount, setAwardXpAmount] = useState("100");
   const [awardXpReason, setAwardXpReason] = useState("");
   const [awardingXp, setAwardingXp] = useState(false);
+  // "Act as user" — confirmation modal gates the actual impersonation
+  // start so admins can't muscle-memory through it.
+  const [impersonateOpen, setImpersonateOpen] = useState(false);
+  const [impersonating, setImpersonating] = useState(false);
+  const qc = useQueryClient();
   // Admin social-moderation tab state. Friend requests on behalf of the
   // user; populated lazily when the tab is opened.
   const [socialRequests, setSocialRequests] =
@@ -205,6 +213,47 @@ export function AdminUserDetailPage() {
       );
     } finally {
       setAwardingXp(false);
+    }
+  };
+
+  const handleStartImpersonation = async () => {
+    if (!userId || !user) return;
+    setImpersonating(true);
+    try {
+      const res = await admin.impersonateStart(userId);
+      // Persist sessionStorage state BEFORE invalidating queries so the
+      // next /users/me refetch immediately attaches the header.
+      setImpersonation({
+        targetUserId: res.target_user_id,
+        targetUsername: res.target_username,
+        targetDisplayName: res.target_display_name,
+        // We don't have the admin's UUID here unless an upstream fetch
+        // attached it; recording targetUserId twice keeps the type
+        // honest and the banner just doesn't have a "return to admin"
+        // anchor (clicking Stop bounces back to /admin/users/<target>).
+        adminUserId: "",
+      });
+      // Force every cached query to refetch so the next page paints as
+      // the impersonated user.
+      qc.invalidateQueries();
+      setImpersonateOpen(false);
+      showToast(
+        t("admin.impersonate.started", "Now acting as @{{name}}", {
+          name: res.target_username,
+        }),
+        "success",
+      );
+      // Bounce to /learn where the impersonated user would naturally
+      // land. The banner stays sticky-top so the admin doesn't lose
+      // context.
+      navigate(langPath("learn"));
+    } catch {
+      showToast(
+        t("admin.impersonate.error", "Failed to start impersonation"),
+        "error",
+      );
+    } finally {
+      setImpersonating(false);
     }
   };
 
@@ -491,6 +540,14 @@ export function AdminUserDetailPage() {
           </p>
         </div>
         <div className="flex gap-2">
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => setImpersonateOpen(true)}
+            data-testid="impersonate-act-as"
+          >
+            {t("admin.impersonate.button", "Act as user")}
+          </Button>
           <Button type="button" variant="secondary" onClick={() => setAwardXpOpen(true)}>
             {t("admin.awardXp.button", "Award XP")}
           </Button>
@@ -583,6 +640,16 @@ export function AdminUserDetailPage() {
           danger
           onConfirm={handleDeleteUser}
           onCancel={() => setShowDeleteConfirm(false)}
+        />
+      ) : null}
+
+      {impersonateOpen ? (
+        <ImpersonateConfirmModal
+          targetUsername={user.username}
+          targetDisplayName={user.display_name ?? ""}
+          onConfirm={handleStartImpersonation}
+          onCancel={() => setImpersonateOpen(false)}
+          busy={impersonating}
         />
       ) : null}
 

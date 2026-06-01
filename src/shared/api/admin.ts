@@ -73,6 +73,13 @@ export interface AdminUserStats {
   since_days: number;
 }
 
+export interface ImpersonateStartResponse {
+  ok: boolean;
+  target_user_id: string;
+  target_username: string;
+  target_display_name: string;
+}
+
 export interface AuditEntry {
   id: string;
   actor_id: string;
@@ -246,6 +253,21 @@ export class AdminApi extends ApiClient {
       `${PREFIX}/users/${encodeURIComponent(userId)}/award-xp`,
       body,
     );
+  }
+
+  /** Begin impersonation. Returns target's public fields so the FE
+   * can render the "Acting as @<username>" banner without a follow-up
+   * roundtrip. Audit-logs ``impersonate_start``. */
+  impersonateStart(userId: string): Promise<ImpersonateStartResponse> {
+    return this.post<ImpersonateStartResponse>(
+      `${PREFIX}/impersonate/${encodeURIComponent(userId)}/start`,
+    );
+  }
+
+  /** End impersonation. Audit-logs ``impersonate_stop``. Returns 204
+   * (no body) on success. */
+  impersonateStop(): Promise<void> {
+    return this.post<void>(`${PREFIX}/impersonate/stop`);
   }
 
   // ── Admin social moderation ─────────────────────────────────────────────
