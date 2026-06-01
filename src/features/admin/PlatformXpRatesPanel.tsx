@@ -1,13 +1,16 @@
 /**
- * AdminXpConfigPage — tunes the XP / lingot economy without a redeploy.
+ * PlatformXpRatesPanel — embedded XP economy editor for the LMS page.
+ *
+ * Moved from AdminXpConfigPage (formerly the "XP config" tab on /admin/ops)
+ * into the LMS surface, alongside the per-user student-file flow. LMS is
+ * the home for "tune learning state", which covers both per-user moderation
+ * and platform-wide XP rate tuning.
  *
  * Backed by GET/PUT /api/core/v1/admin/platform-settings/xp. Each input is
  * a number; defaults come from the schema (10 / 15 / 2 / …) and are filled
- * in by the server when the key hasn't been seeded yet.
- *
- * Save is a single PUT — full-blob replace — so the form sends every key
- * even when only one changed. Optimistic update on the cache, rollback on
- * error.
+ * in by the server when the key hasn't been seeded yet. Save is a single
+ * PUT — full-blob replace — so the form sends every key even when only one
+ * changed. Optimistic update on the cache, rollback on error.
  */
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -102,7 +105,7 @@ const FIELDS: FieldDef[] = [
   },
 ];
 
-export function AdminXpConfigPage() {
+export function PlatformXpRatesPanel() {
   const { t } = useTranslation();
   const { admin } = useApi();
   const queryClient = useQueryClient();
@@ -165,11 +168,11 @@ export function AdminXpConfigPage() {
   };
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-6 max-w-4xl">
       <header className="flex flex-col gap-1">
-        <h1 className="text-2xl font-bold text-text-primary">
-          {t("admin.xpConfig.title", "XP economy")}
-        </h1>
+        <h2 className="text-xl font-semibold text-text-primary">
+          {t("admin.xpConfig.title", "Platform XP rates")}
+        </h2>
         <p className="text-sm text-text-muted">
           {t(
             "admin.xpConfig.subtitle",
@@ -266,4 +269,4 @@ export function AdminXpConfigPage() {
   );
 }
 
-export default AdminXpConfigPage;
+export default PlatformXpRatesPanel;

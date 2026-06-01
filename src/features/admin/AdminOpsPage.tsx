@@ -1,13 +1,16 @@
 /**
  * AdminOpsPage — consolidated operational tools at /admin/ops.
  *
- * Six tabs: Costs, Subscriptions, Ads, Jobs, XP config, Settings.
+ * Five tabs: Costs, Subscriptions, Ads, Jobs, Settings.
  *
  * Cost/Subs/Ads/Jobs tab bodies are imported from AdminOperationsPage
  * (the original four-tab page) so we don't duplicate the data-fetching
- * logic. XP config is the existing AdminXpConfigPage, embedded as a
- * tab. Settings is a placeholder — future home of platform-level
+ * logic. Settings is a placeholder — future home of platform-level
  * runtime config (CORS origins, feature flags, etc.).
+ *
+ * Platform-wide XP rate tuning lives on /admin/lms?tab=platform-xp, since
+ * "tune learning state" (per-user + platform XP) is the LMS surface. Ops
+ * is finance/jobs/audit only.
  */
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -20,9 +23,8 @@ import {
   JobsTab,
   SubscriptionsTab,
 } from "./AdminOperationsPage";
-import { AdminXpConfigPage } from "./AdminXpConfigPage";
 
-type TabId = "costs" | "subscriptions" | "ads" | "jobs" | "xp" | "settings";
+type TabId = "costs" | "subscriptions" | "ads" | "jobs" | "settings";
 
 export function AdminOpsPage() {
   const { t } = useTranslation();
@@ -34,7 +36,6 @@ export function AdminOpsPage() {
       { id: "subscriptions", label: t("admin.ops.tabs.subscriptions", "Subscriptions") },
       { id: "ads", label: t("admin.ops.tabs.ads", "Ads") },
       { id: "jobs", label: t("admin.ops.tabs.jobs", "Jobs") },
-      { id: "xp", label: t("admin.ops.tabs.xp", "XP config") },
       { id: "settings", label: t("admin.ops.tabs.settings", "Settings") },
     ],
     [t],
@@ -55,7 +56,6 @@ export function AdminOpsPage() {
         {tab === "subscriptions" && <SubscriptionsTab />}
         {tab === "ads" && <AdsTab />}
         {tab === "jobs" && <JobsTab />}
-        {tab === "xp" && <AdminXpConfigPage />}
         {tab === "settings" && <SettingsPlaceholder />}
       </div>
     </div>

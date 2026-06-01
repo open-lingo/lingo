@@ -1,15 +1,19 @@
 /**
  * AdminLmsPage — /admin/lms
  *
- * Tool for moderators to inspect and edit a user's learning state:
- *   - Search/pick a user (debounced, live-filtered)
- *   - View their learning language, current module/lesson, XP, streak
- *   - Inline edit: change current lesson, module, language (via Modal)
- *   - Adjust XP (positive or negative increment, with XP preview)
- *   - Reset all progress (with typed-confirmation destructive dialog)
+ * LMS is the home for "tune learning state". Two URL-driven tabs:
+ *   - `?tab=user-state` (default) — per-user student-file flow:
+ *       - Search/pick a user (debounced, live-filtered)
+ *       - View their learning language, current module/lesson, XP, streak
+ *       - Inline edit: change current lesson, module, language (via Modal)
+ *       - Adjust XP (positive or negative increment, with XP preview)
+ *       - Reset all progress (with typed-confirmation destructive dialog)
+ *   - `?tab=platform-xp` — platform-wide XP rate tuning (PlatformXpRatesPanel),
+ *     formerly the "XP config" tab on /admin/ops.
  */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
 import { BookOpen, Edit2, RotateCcw, Search, TrendingUp, Trophy } from "lucide-react";
 
 import { useApi } from "@/shared/api/provider";
@@ -23,8 +27,11 @@ import { Button } from "@/shared/components/ui/Button";
 import { Card } from "@/shared/components/ui/Card";
 import { CenteredLoader } from "@/shared/components/ui/CenteredLoader";
 import { Modal } from "@/shared/components/ui/Modal";
+import { TabButton, TabList } from "@/shared/components/ui/Tabs";
 import { cn } from "@/shared/components/ui/cn";
 import { inputClassName } from "@/shared/components/ui/formStyles";
+
+import { PlatformXpRatesPanel } from "./PlatformXpRatesPanel";
 
 // ── User Picker ───────────────────────────────────────────────────────────────
 
@@ -50,7 +57,7 @@ function UserPicker({ onSelect }: { onSelect: (user: UserListItem) => void }) {
   });
 
   return (
-    <div className="flex flex-col items-center justify-center flex-1 py-16">
+    <div className="flex flex-col items-center justify-center flex-1 py-8">
       <div className="w-full max-w-lg space-y-4">
         <div>
           <h2 className="text-xl font-semibold text-text-primary">Learning Management</h2>
@@ -655,16 +662,69 @@ function StudentFile({
 
 // ── Page root ─────────────────────────────────────────────────────────────────
 
+type TabId = "user-state" | "platform-xp";
+
+const VALID_TABS: readonly TabId[] = ["user-state", "platform-xp"];
+
+function isTabId(value: string | null): value is TabId {
+  return value !== null && (VALID_TABS as readonly string[]).includes(value);
+}
+
 export function AdminLmsPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const activeTab: TabId = isTabId(tabParam) ? tabParam : "user-state";
+
+  const setTab = (tab: TabId) => {
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (tab === "user-state") {
+          next.delete("tab");
+        } else {
+          next.set("tab", tab);
+        }
+        return next;
+      },
+      { replace: true },
+    );
+  };
+
   const [selectedUser, setSelectedUser] = useState<UserListItem | null>(null);
 
   return (
     <div className="flex flex-col flex-1">
-      {selectedUser ? (
-        <StudentFile userId={selectedUser.id} onClear={() => setSelectedUser(null)} />
-      ) : (
-        <UserPicker onSelect={setSelectedUser} />
-      )}
+      <div className="border-b border-border px-4 sm:px-6">
+        <TabList aria-label="LMS sections">
+          <TabButton
+            isActive={activeTab === "user-state"}
+            onClick={() => setTab("user-state")}
+          >
+            User state
+          </TabButton>
+          <TabButton
+            isActive={activeTab === "platform-xp"}
+            onClick={() => setTab("platform-xp")}
+          >
+            Platform XP rates
+          </TabButton>
+        </TabList>
+      </div>
+
+      <div className="flex flex-col flex-1 p-4 sm:p-6">
+        {activeTab === "user-state" ? (
+          selectedUser ? (
+            <StudentFile
+              userId={selectedUser.id}
+              onClear={() => setSelectedUser(null)}
+            />
+          ) : (
+            <UserPicker onSelect={setSelectedUser} />
+          )
+        ) : (
+          <PlatformXpRatesPanel />
+        )}
+      </div>
     </div>
   );
 }
