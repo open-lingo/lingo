@@ -186,22 +186,22 @@ export function PracticePage() {
   const xpToNext = Math.max(0, nextLevelXp - stats.xp);
 
   return (
-    <div className="space-y-5 sm:space-y-6">
+    <div className="space-y-4">
       {/* Zone 1 — Practice Overview hero */}
-      <Card padding="lg">
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+      <Card padding="md">
+        <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           {/* Left: kicker + headline + intro */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
               {t("practice.overview.kicker", { defaultValue: "Practice" })}
             </p>
-            <h1 className="mt-2 text-2xl font-extrabold leading-tight text-text-primary sm:text-3xl">
+            <h1 className="mt-1 text-xl font-extrabold leading-tight text-text-primary sm:text-2xl">
               {t("nav.practice")}
             </h1>
-            <p className="mt-2 max-w-xl text-sm leading-snug text-text-secondary sm:text-base">
+            <p className="mt-1.5 max-w-xl text-sm leading-snug text-text-secondary">
               {t("practice.intro")}
             </p>
-            <div className="mt-4 flex flex-wrap items-center gap-2">
+            <div className="mt-3 flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-muted px-3 py-1 text-xs font-semibold text-accent">
                 <Icon name="refresh" size={14} aria-hidden />
                 {t("practice.overview.dueChip", {
@@ -321,7 +321,7 @@ export function PracticePage() {
       </Card>
 
       {/* Zone 2 — Quick access grid */}
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
         <NavCard
           to={topReviewLink}
           icon={<Icon name="refresh" size={18} />}
@@ -381,210 +381,212 @@ export function PracticePage() {
         ))}
       </div>
 
-      {/* Zone 2.5 — Pre-made courses for this language */}
-      {language?.id && PRE_MADE_COURSES[language.id]?.length ? (
-        <section aria-labelledby="practice-courses-heading">
-          <div className="mb-2 flex items-end justify-between gap-2">
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-                {t("practice.overview.coursesKicker", { defaultValue: "Pre-made courses" })}
-              </p>
-              <h2 id="practice-courses-heading" className="text-base font-semibold text-text-primary">
-                {t("practice.overview.coursesHeadline", {
-                  defaultValue: "Learn {{language}} step by step",
-                  language: languageName,
-                })}
-              </h2>
-            </div>
-          </div>
-          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {PRE_MADE_COURSES[language.id].map((c) => (
-              <li key={c.id}>
-                <Link
-                  to={langPath(c.to)}
-                  className="group flex h-full items-start gap-3 rounded-xl border border-border bg-surface p-3 transition hover:border-accent hover:bg-surface-muted"
-                >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-muted text-base text-text-muted/60">
-                    {c.emoji}
-                  </span>
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-text-primary">{c.title}</p>
-                    <p className="text-xs text-text-muted">{c.subtitle}</p>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-
-      {/* Zone 2.75 — Skill drills (unlock-gated by course progress) */}
-      {getPracticeFeatures(langId).length > 0 && (
-        <section aria-labelledby="practice-skills-heading">
-          <div className="mb-2">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-              {t("practice.skills.kicker", { defaultValue: "Skill drills" })}
-            </p>
-            <h2 id="practice-skills-heading" className="text-base font-semibold text-text-primary">
-              {t("practice.skills.headline", { defaultValue: "Targeted practice" })}
-            </h2>
-          </div>
-          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {getPracticeFeatures(langId).map((feat) => {
-              const unlocked = courseLevel >= feat.unlockAtModule;
-              return (
-                <li key={feat.id}>
-                  {unlocked ? (
-                    <Link
-                      to={langPath(feat.route)}
-                      className="group flex h-full items-start gap-3 rounded-xl border border-border bg-surface p-3 transition hover:border-accent hover:bg-surface-muted"
-                    >
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-muted text-base font-bold text-accent">
-                        {feat.icon}
-                      </span>
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-semibold text-text-primary">{feat.title}</p>
-                        <p className="text-xs text-text-muted">{feat.description}</p>
-                      </div>
-                    </Link>
-                  ) : (
-                    <div className="flex h-full items-start gap-3 rounded-xl border border-border bg-surface-muted/50 p-3 opacity-60">
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-muted text-base font-bold text-text-muted">
-                        <Icon name="lock" size={18} />
-                      </span>
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-semibold text-text-secondary">{feat.title}</p>
-                        <p className="text-xs text-text-muted">
-                          {t("practice.skills.unlocksAt", {
-                            defaultValue: "Unlocks at Module {{module}}",
-                            module: feat.unlockAtModule,
-                          })}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-      )}
-
-      {/* Zone 3 — Domain sections */}
-      <div className="space-y-3">
-        <PracticeHubSection
-          ariaLabelledBy="hub-flashcards"
-          iconName="graduationCap"
-          title={t("flashcards.title")}
-          subtitle={t("flashcards.subtitle", { language: languageName })}
-          primaryTo={langPath("practice/flashcards")}
-          primaryLabel={t("practice.hub.openWorkspace")}
-          quickLinks={flashQuick}
-        />
-
-        <PracticeHubSection
-          ariaLabelledBy="hub-grammar"
-          iconName="bookOpen"
-          title={t("practice.hub.grammarTitle")}
-          subtitle={t("practice.hub.grammarSubtitle")}
-          primaryTo={langPath("practice/grammar")}
-          primaryLabel={t("practice.hub.openGrammar")}
-          quickLinks={grammarQuick}
-        />
-
-        {buckets.alphabets.length > 0 ? (
+      {/* Zone 3+4 — primary practice surfaces on the left, secondary catalog on the right. */}
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-start">
+        {/* Left column — domain hubs (primary surfaces). */}
+        <div className="space-y-3 min-w-0">
           <PracticeHubSection
-            ariaLabelledBy="hub-alphabet"
-            iconName="layers"
-            title={t("practice.hub.alphabetSectionTitle")}
-            subtitle={t("practice.hub.alphabetSectionSubtitle")}
-            primaryTo={alphabetPrimary}
-            primaryLabel={t("practice.hub.openAlphabet")}
-            quickLinks={alphabetQuick}
+            ariaLabelledBy="hub-flashcards"
+            iconName="graduationCap"
+            title={t("flashcards.title")}
+            subtitle={t("flashcards.subtitle", { language: languageName })}
+            primaryTo={langPath("practice/flashcards")}
+            primaryLabel={t("practice.hub.openWorkspace")}
+            quickLinks={flashQuick}
           />
-        ) : null}
 
-        {/* Per-section "last touched" inset strip — sourced from usePracticeData. */}
-        <Card padding="sm" className="bg-surface-muted">
-          <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-            {t("practice.overview.recentActivity", { defaultValue: "Recent activity" })}
-          </p>
-          <ul className="grid gap-2 sm:grid-cols-3">
-            <li className="flex items-center gap-2 rounded-lg bg-surface px-3 py-2">
-              <Icon name="graduationCap" size={16} className="text-accent" aria-hidden />
-              <div className="min-w-0">
-                <p className="truncate text-xs font-medium text-text-primary">
-                  {t("flashcards.title")}
-                </p>
-                <p className="truncate text-[11px] text-text-muted">
-                  {t("practice.overview.lastReviewed", {
-                    defaultValue: "Last reviewed {{hours}}h ago",
-                    hours: lastTouchedHours.flashcards,
-                  })}
-                </p>
-              </div>
-            </li>
-            <li className="flex items-center gap-2 rounded-lg bg-surface px-3 py-2">
-              <Icon name="bookOpen" size={16} className="text-accent" aria-hidden />
-              <div className="min-w-0">
-                <p className="truncate text-xs font-medium text-text-primary">
-                  {t("practice.hub.grammarTitle")}
-                </p>
-                <p className="truncate text-[11px] text-text-muted">
-                  {t("practice.overview.lastReviewed", {
-                    defaultValue: "Last reviewed {{hours}}h ago",
-                    hours: lastTouchedHours.grammar,
-                  })}
-                </p>
-              </div>
-            </li>
-            {buckets.alphabets.length > 0 ? (
-              <li className="flex items-center gap-2 rounded-lg bg-surface px-3 py-2">
-                <Icon name="layers" size={16} className="text-accent" aria-hidden />
+          <PracticeHubSection
+            ariaLabelledBy="hub-grammar"
+            iconName="bookOpen"
+            title={t("practice.hub.grammarTitle")}
+            subtitle={t("practice.hub.grammarSubtitle")}
+            primaryTo={langPath("practice/grammar")}
+            primaryLabel={t("practice.hub.openGrammar")}
+            quickLinks={grammarQuick}
+          />
+
+          {buckets.alphabets.length > 0 ? (
+            <PracticeHubSection
+              ariaLabelledBy="hub-alphabet"
+              iconName="layers"
+              title={t("practice.hub.alphabetSectionTitle")}
+              subtitle={t("practice.hub.alphabetSectionSubtitle")}
+              primaryTo={alphabetPrimary}
+              primaryLabel={t("practice.hub.openAlphabet")}
+              quickLinks={alphabetQuick}
+            />
+          ) : null}
+
+          {/* Recent-activity inset strip — sourced from usePracticeData. */}
+          <Card padding="sm" className="bg-surface-muted">
+            <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+              {t("practice.overview.recentActivity", { defaultValue: "Recent activity" })}
+            </p>
+            <ul className="grid gap-2 sm:grid-cols-3">
+              <li className="flex items-center gap-2 rounded-lg bg-surface px-3 py-1.5">
+                <Icon name="graduationCap" size={16} className="text-accent" aria-hidden />
                 <div className="min-w-0">
                   <p className="truncate text-xs font-medium text-text-primary">
-                    {t("practice.hub.alphabetJumpTitle")}
+                    {t("flashcards.title")}
                   </p>
                   <p className="truncate text-[11px] text-text-muted">
                     {t("practice.overview.lastReviewed", {
                       defaultValue: "Last reviewed {{hours}}h ago",
-                      hours: lastTouchedHours.alphabet,
+                      hours: lastTouchedHours.flashcards,
                     })}
                   </p>
                 </div>
               </li>
-            ) : null}
-          </ul>
-        </Card>
-
-        {moreStrip.length > 0 ? (
-          <section
-            className="rounded-xl border border-border bg-surface p-3"
-            aria-label={t("practice.hub.moreTrainers")}
-          >
-            <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
-              {t("practice.hub.moreTrainers")}
-            </h2>
-            <ul className="flex flex-wrap gap-1.5">
-              {moreStrip.map((item) => (
-                <li key={item.to + (item.label ?? "")}>
-                  <Link
-                    to={item.to}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface-muted px-2.5 py-1.5 text-xs font-medium text-text-primary hover:bg-surface"
-                  >
-                    {item.iconName ? <Icon name={item.iconName} size={14} aria-hidden /> : null}
-                    {!item.iconName && item.sampleCharacter ? (
-                      <span className="text-sm" aria-hidden>
-                        {item.sampleCharacter}
-                      </span>
-                    ) : null}
-                    {trainerLabel(item, t)}
-                  </Link>
+              <li className="flex items-center gap-2 rounded-lg bg-surface px-3 py-1.5">
+                <Icon name="bookOpen" size={16} className="text-accent" aria-hidden />
+                <div className="min-w-0">
+                  <p className="truncate text-xs font-medium text-text-primary">
+                    {t("practice.hub.grammarTitle")}
+                  </p>
+                  <p className="truncate text-[11px] text-text-muted">
+                    {t("practice.overview.lastReviewed", {
+                      defaultValue: "Last reviewed {{hours}}h ago",
+                      hours: lastTouchedHours.grammar,
+                    })}
+                  </p>
+                </div>
+              </li>
+              {buckets.alphabets.length > 0 ? (
+                <li className="flex items-center gap-2 rounded-lg bg-surface px-3 py-1.5">
+                  <Icon name="layers" size={16} className="text-accent" aria-hidden />
+                  <div className="min-w-0">
+                    <p className="truncate text-xs font-medium text-text-primary">
+                      {t("practice.hub.alphabetJumpTitle")}
+                    </p>
+                    <p className="truncate text-[11px] text-text-muted">
+                      {t("practice.overview.lastReviewed", {
+                        defaultValue: "Last reviewed {{hours}}h ago",
+                        hours: lastTouchedHours.alphabet,
+                      })}
+                    </p>
+                  </div>
                 </li>
-              ))}
+              ) : null}
             </ul>
-          </section>
-        ) : null}
+          </Card>
+        </div>
+
+        {/* Right column — pre-made courses + skill drills + more trainers (secondary catalog). */}
+        <aside className="space-y-3" aria-label={t("practice.overview.catalogAside", { defaultValue: "Practice catalog" })}>
+          {language?.id && PRE_MADE_COURSES[language.id]?.length ? (
+            <section aria-labelledby="practice-courses-heading" className="rounded-xl border border-border bg-surface p-3">
+              <div className="mb-2">
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+                  {t("practice.overview.coursesKicker", { defaultValue: "Pre-made courses" })}
+                </p>
+                <h2 id="practice-courses-heading" className="text-sm font-semibold text-text-primary">
+                  {t("practice.overview.coursesHeadline", {
+                    defaultValue: "Learn {{language}} step by step",
+                    language: languageName,
+                  })}
+                </h2>
+              </div>
+              <ul className="space-y-1.5">
+                {PRE_MADE_COURSES[language.id].map((c) => (
+                  <li key={c.id}>
+                    <Link
+                      to={langPath(c.to)}
+                      className="group flex items-center gap-2.5 rounded-lg border border-border bg-surface p-2 transition hover:border-accent hover:bg-surface-muted"
+                    >
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-surface-muted text-sm text-text-muted/70">
+                        {c.emoji}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="truncate text-xs font-semibold text-text-primary">{c.title}</p>
+                        <p className="truncate text-[11px] text-text-muted">{c.subtitle}</p>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {getPracticeFeatures(langId).length > 0 && (
+            <section aria-labelledby="practice-skills-heading" className="rounded-xl border border-border bg-surface p-3">
+              <div className="mb-2">
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+                  {t("practice.skills.kicker", { defaultValue: "Skill drills" })}
+                </p>
+                <h2 id="practice-skills-heading" className="text-sm font-semibold text-text-primary">
+                  {t("practice.skills.headline", { defaultValue: "Targeted practice" })}
+                </h2>
+              </div>
+              <ul className="space-y-1.5">
+                {getPracticeFeatures(langId).map((feat) => {
+                  const unlocked = courseLevel >= feat.unlockAtModule;
+                  return (
+                    <li key={feat.id}>
+                      {unlocked ? (
+                        <Link
+                          to={langPath(feat.route)}
+                          className="group flex items-center gap-2.5 rounded-lg border border-border bg-surface p-2 transition hover:border-accent hover:bg-surface-muted"
+                        >
+                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-accent-muted text-sm font-bold text-accent">
+                            {feat.icon}
+                          </span>
+                          <div className="min-w-0">
+                            <p className="truncate text-xs font-semibold text-text-primary">{feat.title}</p>
+                            <p className="truncate text-[11px] text-text-muted">{feat.description}</p>
+                          </div>
+                        </Link>
+                      ) : (
+                        <div className="flex items-center gap-2.5 rounded-lg border border-border bg-surface-muted/50 p-2 opacity-60">
+                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-surface-muted text-sm font-bold text-text-muted">
+                            <Icon name="lock" size={16} />
+                          </span>
+                          <div className="min-w-0">
+                            <p className="truncate text-xs font-semibold text-text-secondary">{feat.title}</p>
+                            <p className="truncate text-[11px] text-text-muted">
+                              {t("practice.skills.unlocksAt", {
+                                defaultValue: "Unlocks at Module {{module}}",
+                                module: feat.unlockAtModule,
+                              })}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          )}
+
+          {moreStrip.length > 0 ? (
+            <section
+              className="rounded-xl border border-border bg-surface p-3"
+              aria-label={t("practice.hub.moreTrainers")}
+            >
+              <h2 className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+                {t("practice.hub.moreTrainers")}
+              </h2>
+              <ul className="flex flex-wrap gap-1.5">
+                {moreStrip.map((item) => (
+                  <li key={item.to + (item.label ?? "")}>
+                    <Link
+                      to={item.to}
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface-muted px-2 py-1 text-xs font-medium text-text-primary hover:bg-surface"
+                    >
+                      {item.iconName ? <Icon name={item.iconName} size={14} aria-hidden /> : null}
+                      {!item.iconName && item.sampleCharacter ? (
+                        <span className="text-sm" aria-hidden>
+                          {item.sampleCharacter}
+                        </span>
+                      ) : null}
+                      {trainerLabel(item, t)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+        </aside>
       </div>
     </div>
   );
