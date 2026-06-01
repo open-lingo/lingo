@@ -120,6 +120,8 @@
     "lessonsBelow": "lecciones abajo",
     "showAllLessons": "Mostrar las {{count}} lecciones",
     "showLess": "Mostrar menos",
+    "flashcardsAllCaughtUp": "¡Todo al día!",
+    "flashcardsZeroDue": "0 tarjetas por revisar hoy",
     "backToCurrent": "Volver a la lección actual",
     "backToCurrentShort": "Lección actual"
   },

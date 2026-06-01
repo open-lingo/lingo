@@ -133,6 +133,8 @@
     "showAllLessons": "레슨 {{count}}개 모두 보기",
     "showLess": "접기",
     "flashcardsReviewStripTitle": "간격 반복 복습",
+    "flashcardsAllCaughtUp": "모두 완료!",
+    "flashcardsZeroDue": "오늘 복습할 카드 0장",
     "flashcardsLessonDecksButton": "레슨 덱 카드 복습",
     "pathHint": "모듈을 눌러 펼치세요. 깜빡이는 노드가 추천 경로입니다.",
     "pickLanguage": "설정에서 학습 언어를 선택하면 코스 경로가 표시됩니다.",

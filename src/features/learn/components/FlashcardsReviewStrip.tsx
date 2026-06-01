@@ -1,18 +1,51 @@
 import { lazy, Suspense } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Icon } from "@/shared/components/Icon";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useCardsDueCount } from "@/features/flashcards/useCardsDueCount";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 
 const StudyScopeShortcuts = lazy(() => import("@/features/flashcards/StudyScopeShortcuts"));
 
 export function FlashcardsReviewStrip() {
   const { t } = useTranslation();
+  const { language } = useLanguage();
+  const langId = language?.id ?? "";
+  const { count: cardsDue, isLoading } = useCardsDueCount(langId);
+  const langPath = useLangPath();
+
   return (
     <div className="mb-6 rounded-xl border border-border bg-surface-muted p-3">
       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
         {t("learn.flashcardsReviewStripTitle")}
       </p>
-      <Suspense fallback={null}>
-        <StudyScopeShortcuts compact />
-      </Suspense>
+
+      {!isLoading && cardsDue === 0 ? (
+        <Link
+          to={langPath("practice/flashcards")}
+          className="flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2.5 transition hover:border-accent hover:bg-surface-muted"
+        >
+          <Icon
+            name="sparkles"
+            size={16}
+            className="shrink-0 text-accent"
+            aria-hidden
+          />
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-text-primary">
+              {t("learn.flashcardsAllCaughtUp", "All caught up!")}
+            </p>
+            <p className="text-xs text-text-muted">
+              {t("learn.flashcardsZeroDue", "0 cards due today")}
+            </p>
+          </div>
+        </Link>
+      ) : (
+        <Suspense fallback={null}>
+          <StudyScopeShortcuts compact />
+        </Suspense>
+      )}
     </div>
   );
 }
