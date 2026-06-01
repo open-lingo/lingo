@@ -1,16 +1,19 @@
 /**
- * AdminLayout — the shell for every /admin/* route.
+ * AdminLayout — shells for /admin/* routes.
  *
- * - Persistent left rail on lg+, horizontal tab strip on smaller screens
- * - Top bar with section title + a search box (filters the users list on
- *   /admin/users; ignored elsewhere). The search value is published via
- *   AdminSearchContext so child pages can subscribe.
- * - Breadcrumb row above the outlet for sub-routes.
+ * Two exported layout components:
+ *
+ *   AdminShell        — auth check + bare Outlet. Used by /admin/home (dashboard hub).
+ *   AdminSidebarShell — auth check + persistent left-rail nav + breadcrumbs.
+ *                       Used by every /admin/* inner page.
+ *
+ * AdminSearchContext is kept here so AdminUsersListPage can read the
+ * search box value that lives in AdminSidebarShell's top bar.
  */
 import { createContext, useContext, useMemo, useState } from "react";
-import { Navigate, NavLink, Outlet, useLocation, useParams } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Search } from "lucide-react";
+import { ArrowLeft, Search } from "lucide-react";
 
 import { useAuth } from "@/shared/auth/useAuth";
 import { cn } from "@/shared/components/ui/cn";
@@ -38,12 +41,6 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
-  {
-    to: "/admin/home",
-    labelKey: "admin.nav.home",
-    labelFallback: "Home",
-    match: (p) => p === "/admin" || p === "/admin/" || p.startsWith("/admin/home"),
-  },
   {
     to: "/admin/users",
     labelKey: "admin.nav.users",
@@ -77,12 +74,11 @@ function activeItem(pathname: string): NavItem | null {
   return NAV_ITEMS.find((item) => item.match(pathname)) ?? null;
 }
 
-/** Admin area layout. Redirects to login if not authenticated. */
-export function AdminLayout() {
+// ── Auth guard ────────────────────────────────────────────────────────────────
+
+function AuthGuard({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
   const { isAuthenticated, isLoading } = useAuth();
-  const [query, setQuery] = useState("");
-  const searchCtx = useMemo(() => ({ query, setQuery }), [query]);
 
   if (isLoading) {
     return (
@@ -96,22 +92,76 @@ export function AdminLayout() {
     return <Navigate to="/landing" replace />;
   }
 
+  return <>{children}</>;
+}
+
+// ── AdminShell — bare auth wrapper (used by dashboard /admin/home) ─────────────
+
+/** Auth guard + bare Outlet. No sidebar. Used for /admin/home (dashboard hub). */
+export function AdminShell() {
   return (
-    <AdminSearchContext.Provider value={searchCtx}>
-      <div className="flex min-h-0 flex-1 flex-col gap-4 lg:flex-row lg:gap-6">
-        <DesktopRail />
-        <div className="flex min-h-0 flex-1 flex-col gap-4">
-          <MobileRail />
-          <AdminTopBar />
-          <AdminBreadcrumbRow />
-          <div className="min-h-0 flex-1">
-            <Outlet />
-          </div>
-        </div>
+    <AuthGuard>
+      <div className="min-h-0 flex-1">
+        <Outlet />
       </div>
-    </AdminSearchContext.Provider>
+    </AuthGuard>
   );
 }
+
+// ── AdminSidebarShell — full sidebar layout (used by inner pages) ─────────────
+
+/** Auth guard + left-rail sidebar + breadcrumbs. Used for all /admin/* inner pages. */
+export function AdminSidebarShell() {
+  const [query, setQuery] = useState("");
+  const searchCtx = useMemo(() => ({ query, setQuery }), [query]);
+
+  return (
+    <AuthGuard>
+      <AdminSearchContext.Provider value={searchCtx}>
+        <div className="flex min-h-0 flex-1 flex-col gap-4 lg:flex-row lg:gap-6">
+          <DesktopRail />
+          <div className="flex min-h-0 flex-1 flex-col gap-4">
+            <MobileRail />
+            <BackToDashboard />
+            <AdminTopBar />
+            <AdminBreadcrumbRow />
+            <div className="min-h-0 flex-1">
+              <Outlet />
+            </div>
+          </div>
+        </div>
+      </AdminSearchContext.Provider>
+    </AuthGuard>
+  );
+}
+
+/** "← Dashboard" link shown at the top of every inner admin page. */
+function BackToDashboard() {
+  return (
+    <div>
+      <Link
+        to="/admin/home"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted transition hover:text-text-primary"
+      >
+        <ArrowLeft size={15} aria-hidden />
+        Dashboard
+      </Link>
+    </div>
+  );
+}
+
+/**
+ * Legacy default export — kept so any lingering direct import of
+ * AdminLayout still resolves. Both old routes and new ones should
+ * use AdminShell / AdminSidebarShell via App.tsx.
+ *
+ * @deprecated Use AdminShell or AdminSidebarShell directly.
+ */
+export function AdminLayout() {
+  return <AdminSidebarShell />;
+}
+
+// ── Sidebar nav components ────────────────────────────────────────────────────
 
 function DesktopRail() {
   const { t } = useTranslation();
@@ -124,7 +174,6 @@ function DesktopRail() {
         <NavLink
           key={item.to}
           to={item.to}
-          end={item.to === "/admin/home"}
           className={({ isActive }) =>
             cn(
               "rounded-lg px-3 py-2 text-sm font-medium transition",
@@ -152,7 +201,6 @@ function MobileRail() {
         <NavLink
           key={item.to}
           to={item.to}
-          end={item.to === "/admin/home"}
           className={({ isActive }) =>
             cn(
               "shrink-0 rounded-lg px-3 py-2 text-sm font-medium transition",
@@ -222,7 +270,7 @@ function AdminBreadcrumbRow() {
     { label: t("admin.title", "Admin"), to: "/admin/home" },
   ];
 
-  if (active && active.to !== "/admin/home") {
+  if (active) {
     crumbs.push({ label: t(active.labelKey, active.labelFallback), to: active.to });
   }
 

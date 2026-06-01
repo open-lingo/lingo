@@ -168,8 +168,11 @@ const ThreadPage = lazyRetry(() =>
 const NewThreadPage = lazyRetry(() =>
   import("@/features/community/forum/NewThreadPage").then((m) => ({ default: m.NewThreadPage })),
 );
-const AdminLayout = lazyRetry(() =>
-  import("@/features/admin/AdminLayout").then((m) => ({ default: m.AdminLayout })),
+const AdminShell = lazyRetry(() =>
+  import("@/features/admin/AdminLayout").then((m) => ({ default: m.AdminShell })),
+);
+const AdminSidebarShell = lazyRetry(() =>
+  import("@/features/admin/AdminLayout").then((m) => ({ default: m.AdminSidebarShell })),
 );
 const AdminHomePage = lazyRetry(() =>
   import("@/features/admin/AdminHomePage").then((m) => ({ default: m.AdminHomePage })),
@@ -243,27 +246,38 @@ const router = createBrowserRouter([
       { path: "u/:username", element: <PublicProfilePage /> },
       {
         path: "admin",
-        element: <AdminLayout />,
         children: [
-          { index: true, element: <Navigate to="/admin/home" replace /> },
-          { path: "home", element: <AdminHomePage /> },
-          { path: "users", element: <AdminUsersListPage /> },
-          { path: "users/:userId", element: <AdminUserDetailPage /> },
-          { path: "moderation", element: <AdminModerationPage /> },
-          { path: "ops", element: <AdminOpsPage /> },
-          { path: "ops/audit", element: <AdminAuditPage /> },
-          { path: "events", element: <AdminEventsPage /> },
-          // Deep-link compatibility — preserve old URLs during the migration.
-          { path: "operations", element: <Navigate to="/admin/ops" replace /> },
-          { path: "xp-config", element: <Navigate to="/admin/ops" replace /> },
+          // Dashboard hub — no sidebar, full-width layout
           {
-            path: "content",
+            element: <AdminShell />,
             children: [
-              { index: true, element: <Navigate to="/admin/moderation" replace /> },
-              { path: "decks", element: <AdminDecksPage /> },
-              { path: "stories", element: <AdminStoriesPage /> },
-              { path: "lessons", element: <AdminLessonsListPage /> },
-              { path: "lessons/:lessonId", element: <AdminLessonEditorPage /> },
+              { index: true, element: <Navigate to="/admin/home" replace /> },
+              { path: "home", element: <AdminHomePage /> },
+            ],
+          },
+          // Inner admin pages — sidebar nav + breadcrumbs
+          {
+            element: <AdminSidebarShell />,
+            children: [
+              { path: "users", element: <AdminUsersListPage /> },
+              { path: "users/:userId", element: <AdminUserDetailPage /> },
+              { path: "moderation", element: <AdminModerationPage /> },
+              { path: "ops", element: <AdminOpsPage /> },
+              { path: "ops/audit", element: <AdminAuditPage /> },
+              { path: "events", element: <AdminEventsPage /> },
+              // Deep-link compatibility — preserve old URLs during the migration.
+              { path: "operations", element: <Navigate to="/admin/ops" replace /> },
+              { path: "xp-config", element: <Navigate to="/admin/ops" replace /> },
+              {
+                path: "content",
+                children: [
+                  { index: true, element: <Navigate to="/admin/moderation" replace /> },
+                  { path: "decks", element: <AdminDecksPage /> },
+                  { path: "stories", element: <AdminStoriesPage /> },
+                  { path: "lessons", element: <AdminLessonsListPage /> },
+                  { path: "lessons/:lessonId", element: <AdminLessonEditorPage /> },
+                ],
+              },
             ],
           },
         ],
