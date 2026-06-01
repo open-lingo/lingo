@@ -14,6 +14,7 @@ import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { supportedLngs } from "@/shared/i18n/i18n";
 import { utcToLocalHHmm, localToUtcHHmm } from "@/shared/utils/reminderTime";
 import { resetLearnProgress } from "@/features/learn/resetLearnProgress";
+import { tryGetLanguageModule } from "@/shared/language/registry";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import { AccountPrivacySection } from "./AccountPrivacySection";
 import { ChoiceChip, inputClassName } from "@/shared/components/ui/formStyles";
@@ -501,10 +502,13 @@ function LanguageDangerZone({ languageId }: { languageId: string }) {
   const onConfirm = async () => {
     setPending(true);
     try {
-      // courseId was historically conflated with languageId at this
-      // call site; preserve that to keep behavior identical. Phase 2
-      // can plumb the real course id through.
-      await resetLearnProgress(languageId, languageId, { progress, srs });
+      // Phase 2 (2026-06-01) — courseId now comes from the language
+      // module. Pre-Phase-2 this site passed `languageId` as the
+      // course id; the per-language vocab-graduation storage was
+      // keyed by that string so it has to keep being writable. The
+      // registry-backed value is `module.courseId` (today: "mock-1").
+      const courseId = tryGetLanguageModule(languageId)?.courseId ?? languageId;
+      await resetLearnProgress(languageId, courseId, { progress, srs });
       showToast(
         t("settings.languageResetDone", {
           defaultValue:

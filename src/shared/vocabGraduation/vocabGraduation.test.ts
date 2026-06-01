@@ -124,14 +124,16 @@ describe("vocabGraduation.graduateModule", () => {
     expect(getGraduatedVocab(LANG, "course-B").length).toBeGreaterThan(0);
   });
 
-  it("fires lingo:vocab-graduated CustomEvent with new items", () => {
+  it("fires lingo:vocab-graduated CustomEvent with new items and languageId", () => {
     const handler = vi.fn();
     window.addEventListener("lingo:vocab-graduated", handler);
     const m = makeModule("m1", ["ja-m1-ka-1", "ja-m1-ka-test"]);
     const added = graduateModule(LANG, "mock-1", m);
     expect(handler).toHaveBeenCalledTimes(1);
     const event = handler.mock.calls[0][0] as CustomEvent;
-    expect(event.detail).toEqual(added);
+    // Phase 2 (2026-06-01): detail is now {languageId, items} rather
+    // than items[] directly.
+    expect(event.detail).toEqual({ languageId: LANG, items: added });
     window.removeEventListener("lingo:vocab-graduated", handler);
   });
 

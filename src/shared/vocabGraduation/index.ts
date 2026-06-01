@@ -2,26 +2,25 @@
  * Vocab graduation — generic module-completion → flashcard graduation
  * pipeline.
  *
- * When a module is completed, all anchor words from that module's rows
- * "graduate" — they're snapshotted into the graduation store and a
- * `lingo:vocab-graduated` CustomEvent fires for the flashcards-side
- * receiver (other maintainer) to consume. The receiver isn't wired yet
- * so the dispatch is harmless until they wire it.
+ * When a module is completed, all anchor words from that module's
+ * curriculum-side anchor source "graduate" — they're snapshotted into
+ * the graduation store and a `lingo:vocab-graduated` CustomEvent fires
+ * for the flashcards-side receiver to consume. The receiver isn't wired
+ * yet so the dispatch is harmless until they wire it.
  *
  * Idempotency: `graduateModule` checks a per-course flag store and is a
  * no-op if the module has already graduated. The items array is deduped
- * by surface form (kana) so repeated calls never produce duplicates.
+ * by surface form so repeated calls never produce duplicates.
  *
- * Language scoping: every public function takes a `languageId`. Storage
- * keys are per-language so KO graduations don't trample JA ones. Anchor
- * resolution is currently JA-only (depends on the hiragana row catalog);
- * non-JA languages return `[]` until their per-language anchor source is
- * wired. Phase 2 will route resolution through the language registry.
+ * Phase 2 (2026-06-01) — anchor resolution routes through
+ * `module.vocabGraduation.collectAnchorsForModule(module)`. JA plugs in
+ * its hiragana-row walker via that slot. Languages without the
+ * capability get an empty list.
  */
 
 import type { CourseModule } from "@/shared/domain/course";
-import { ALL_ROWS } from "@/features/lesson/data/hiraganaCurriculum";
 import { notifySRSStoreChanged } from "@/features/flashcards/SRSStoreRevisionContext";
+import { tryGetLanguageModule } from "@/shared/language/registry";
 import {
   clearStorage,
   getCourseItems,
@@ -45,58 +44,32 @@ export function getGraduatedVocab(
 }
 
 /**
- * Parse a JA lesson id like `ja-m1-{rowId}-{suffix}` (or legacy
- * `ja-m1-{rowId}`) down to its row id. Row ids may contain hyphens
- * (`da-ba`, `yo-sh-ch`, `yo-m-r`) so we strip the trailing
- * `-(\d+|test|recap)` suffix only. Returns null for ids that don't
- * follow the JA row pattern.
- *
- * Phase 2: route through the language module's lesson-id parser.
- */
-function jaRowIdFromLessonId(lessonId: string): string | null {
-  const m = /^ja-m\d+-(.+)$/.exec(lessonId);
-  if (!m) return null;
-  let tail = m[1];
-  const sub = /^(.+)-(\d+|test|recap)$/.exec(tail);
-  if (sub) tail = sub[1];
-  return tail;
-}
-
-/**
- * Collect every anchor word reachable from the lessons of `module`.
- * Currently JA-only — walks the JA hiragana row catalog. Other languages
- * return `[]` here until their per-language anchor source is wired in
- * Phase 2.
+ * Collect every anchor word reachable from `module`. Routes through
+ * `LanguageModule.vocabGraduation.collectAnchorsForModule` so the
+ * language owns its own anchor-discovery logic. Languages without the
+ * capability return `[]`.
  */
 function collectModuleAnchorWords(
   languageId: string,
   module: CourseModule,
 ): GraduatedItem[] {
-  if (languageId !== "ja") return [];
+  const lm = tryGetLanguageModule(languageId);
+  const collector = lm?.vocabGraduation?.collectAnchorsForModule;
+  if (!collector) return [];
   const seen = new Set<string>();
   const items: GraduatedItem[] = [];
-  const rowsById = new Map(ALL_ROWS.map((r) => [r.id, r]));
-  const collectedRowIds = new Set<string>();
-
-  for (const lesson of module.lessons) {
-    const rowId = jaRowIdFromLessonId(lesson.id);
-    if (!rowId) continue;
-    if (collectedRowIds.has(rowId)) continue;
-    collectedRowIds.add(rowId);
-    const row = rowsById.get(rowId);
-    if (!row) continue;
-    for (const w of row.anchorWords) {
-      if (seen.has(w.kana)) continue;
-      seen.add(w.kana);
-      items.push({
-        kana: w.kana,
-        romaji: w.romaji,
-        meaning: w.meaning,
-        sourceModuleId: module.id,
-        sourceModuleTitle: module.eyebrow ?? module.title,
-        unlockedAt: new Date().toISOString(),
-      });
-    }
+  const nowIso = new Date().toISOString();
+  for (const anchor of collector(module)) {
+    if (seen.has(anchor.surface)) continue;
+    seen.add(anchor.surface);
+    items.push({
+      kana: anchor.surface,
+      romaji: anchor.romanization ?? "",
+      meaning: anchor.meaning ?? "",
+      sourceModuleId: module.id,
+      sourceModuleTitle: module.eyebrow ?? module.title,
+      unlockedAt: nowIso,
+    });
   }
   return items;
 }
@@ -163,15 +136,19 @@ export function clearGraduatedVocab(
   notifySRSStoreChanged();
 }
 
+export type VocabGraduatedEventDetail = {
+  languageId: string;
+  items: GraduatedItem[];
+};
+
 /**
- * Stub for the flashcards maintainer to override. Currently dispatches a
+ * Stub for the flashcards maintainer to override. Dispatches a
  * `lingo:vocab-graduated` CustomEvent on the window so a future receiver
  * can subscribe whenever it lands. No-op when items is empty.
  *
- * `event.detail` is the items array (backwards-compat with the pre-
- * multilang shape). `languageId` is exposed on the event as
- * `event.languageId` for the eventual multi-language receiver — Phase 2
- * will move this onto `event.detail` once the receiver lands.
+ * `event.detail = { languageId, items }` per Phase 2 (2026-06-01). The
+ * previous shape (detail = items[], languageId on event itself) is a
+ * clean break — no receiver consumed it.
  */
 export function notifyFlashcardsOfGraduation(
   languageId: string,
@@ -179,9 +156,8 @@ export function notifyFlashcardsOfGraduation(
 ): void {
   if (typeof window === "undefined") return;
   if (items.length === 0) return;
-  const event = new CustomEvent("lingo:vocab-graduated", { detail: items });
-  // Phase 2: fold this into `detail` once a receiver consumes it.
-  (event as unknown as { languageId: string }).languageId = languageId;
+  const detail: VocabGraduatedEventDetail = { languageId, items };
+  const event = new CustomEvent("lingo:vocab-graduated", { detail });
   window.dispatchEvent(event);
 }
 
