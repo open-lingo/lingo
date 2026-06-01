@@ -2,11 +2,35 @@ import { getAtomsForLesson } from "./lessonAtomIndex";
 
 const STORAGE_KEY = "lingo:unlocked-atoms";
 
+// Phase 2 (2026-06-01) — atom-id namespace migration (ADR-005). Same
+// canonicalization story as srsStorage: bare ids written pre-Phase-2 get
+// normalized to `ja:<bare>` on read; subsequent writes use the canonical
+// form. JA is the only shipped language today, so `ja:` is the default
+// prefix.
+const DEFAULT_LANG_PREFIX = "ja";
+
+function canonicalize(atomId: string): string {
+  if (atomId.includes(":")) return atomId;
+  return `${DEFAULT_LANG_PREFIX}:${atomId}`;
+}
+
 function getUnlockedSet(): Set<string> {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return new Set();
-    return new Set(JSON.parse(raw) as string[]);
+    const arr = JSON.parse(raw) as string[];
+    const canon = new Set(arr.map(canonicalize));
+    // Migrate-on-read: if any element was bare, rewrite the store so we
+    // never split bare/prefixed across subsequent writes.
+    const someBare = arr.some((a) => !a.includes(":"));
+    if (someBare) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([...canon]));
+      } catch {
+        // ignore quota errors.
+      }
+    }
+    return canon;
   } catch {
     return new Set();
   }
@@ -22,8 +46,9 @@ export function unlockLessonAtoms(lessonId: string): number {
   const set = getUnlockedSet();
   let added = 0;
   for (const atom of atoms) {
-    if (!set.has(atom.id)) {
-      set.add(atom.id);
+    const id = canonicalize(atom.id);
+    if (!set.has(id)) {
+      set.add(id);
       added++;
     }
   }
@@ -32,7 +57,7 @@ export function unlockLessonAtoms(lessonId: string): number {
 }
 
 export function isAtomUnlocked(atomId: string): boolean {
-  return getUnlockedSet().has(atomId);
+  return getUnlockedSet().has(canonicalize(atomId));
 }
 
 export function getUnlockedAtomIds(): Set<string> {

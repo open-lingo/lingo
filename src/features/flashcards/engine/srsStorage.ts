@@ -10,10 +10,31 @@ import { isLegacyFlatFsrsState, migrateFlatToModal } from "./srsMigration";
 // storage key is unchanged but the in-memory shape is now nested. Legacy
 // flat FSRS-6 entries are upgraded on read; legacy SM-2 entries are still
 // dropped.
+//
+// Phase 2 (2026-06-01) — atom-id namespace migration (ADR-005). Atom ids
+// are now `<lang>:<bare>` (e.g. `ja:ai`). The JA module's CourseAtom.id
+// is still bare internally, so callers may pass either shape — every
+// read/write canonicalizes to the prefixed form. On bulk read, legacy
+// bare entries are rewritten in-place so subsequent writes never split
+// a card's state across a bare/prefixed twin.
 const STORAGE_KEY = "open-lingo-srs:v2";
 const LEGACY_STORAGE_KEY = "open-lingo-srs";
 const LAST_SYNC_KEY = "open-lingo-srs-last-sync";
 const NEXT_SYNC_KEY = "open-lingo-srs-next-sync";
+
+const DEFAULT_LANG_PREFIX = "ja";
+
+/**
+ * Canonicalize a bare atom id to its `<lang>:<bare>` form for storage.
+ * Already-prefixed ids (containing `:`) pass through unchanged. Default
+ * prefix is `ja:` because JA is the only shipped language as of
+ * Phase 2; once a second language registers in Phase 3+, callers MUST
+ * pass prefixed ids and this default becomes unreachable.
+ */
+function canonicalize(atomId: string): string {
+  if (atomId.includes(":")) return atomId;
+  return `${DEFAULT_LANG_PREFIX}:${atomId}`;
+}
 
 export type SRSStore = Record<string, SRSCardState>;
 
@@ -73,9 +94,26 @@ export function getSRSStore(): SRSStore {
     if (!raw) return {};
     const parsed = JSON.parse(raw) as Record<string, unknown>;
     const valid: SRSStore = {};
+    // Phase 2 atom-id namespace migration — bare keys (no `:`) are
+    // rewritten to `ja:<key>`. Where both shapes already exist for the
+    // same atom (rare; only happens if a session wrote to both before
+    // this commit landed), prefixed wins.
+    let migrated = false;
     for (const [id, state] of Object.entries(parsed)) {
       const loaded = loadOne(state);
-      if (loaded) valid[id] = loaded;
+      if (!loaded) continue;
+      const canonical = canonicalize(id);
+      if (canonical !== id) migrated = true;
+      // Prefixed wins when both exist.
+      if (valid[canonical] && canonical !== id) continue;
+      valid[canonical] = loaded;
+    }
+    if (migrated) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(valid));
+      } catch {
+        // ignore quota errors — next write will re-attempt.
+      }
     }
     return valid;
   } catch {
@@ -93,7 +131,7 @@ export function setSRSStore(store: SRSStore): void {
 }
 
 export function getCardState(cardId: string): SRSCardState | undefined {
-  return getSRSStore()[cardId];
+  return getSRSStore()[canonicalize(cardId)];
 }
 
 export function setCardState(cardId: string, state: SRSCardState): void {
@@ -102,7 +140,7 @@ export function setCardState(cardId: string, state: SRSCardState): void {
   // the two-tab race for single-card updates; full bulk overwrites (sync
   // merge, reset) still race but those are coordinated server-side.
   const store = getSRSStore();
-  store[cardId] = state;
+  store[canonicalize(cardId)] = state;
   setSRSStore(store);
 }
 

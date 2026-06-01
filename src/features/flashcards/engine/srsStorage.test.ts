@@ -24,7 +24,7 @@ describe("srsStorage", () => {
     localStorage.setItem(
       STORAGE_KEY,
       JSON.stringify({
-        "legacy-1": {
+        "ja:legacy-1": {
           stability: 2.5,
           difficulty: 4.1,
           state: "review",
@@ -38,11 +38,11 @@ describe("srsStorage", () => {
       }),
     );
     const store = getSRSStore();
-    expect(store["legacy-1"].recognition.stability).toBe(2.5);
-    expect(store["legacy-1"].production.stability).toBe(2.5);
-    expect(store["legacy-1"].recognition.reps).toBe(1);
-    expect(store["legacy-1"].production.reps).toBe(1);
-    expect(store["legacy-1"].lastSyncedAt).toBe("2026-05-28T00:00:00Z");
+    expect(store["ja:legacy-1"].recognition.stability).toBe(2.5);
+    expect(store["ja:legacy-1"].production.stability).toBe(2.5);
+    expect(store["ja:legacy-1"].recognition.reps).toBe(1);
+    expect(store["ja:legacy-1"].production.reps).toBe(1);
+    expect(store["ja:legacy-1"].lastSyncedAt).toBe("2026-05-28T00:00:00Z");
   });
 
   it("drops pre-FSRS-6 SM-2 entries (no stability field)", () => {
@@ -63,23 +63,25 @@ describe("srsStorage", () => {
   });
 
   it("preserves modal states alongside upgraded legacy in same store", () => {
+    // Phase 2 (2026-06-01): bare atom ids canonicalize to `ja:<bare>`
+    // on read. Already-prefixed test keys pass through unchanged.
     const modal = createInitialState();
     localStorage.setItem(
       STORAGE_KEY,
       JSON.stringify({
-        "modal-1": modal,
-        "legacy-1": {
+        "ja:modal-1": modal,
+        "ja:legacy-1": {
           stability: 1, difficulty: 5, state: "learning",
           interval: 1, dueDate: "2026-05-23", lastReviewDate: "2026-05-23",
           reps: 1, lapses: 0,
         },
-        "sm2-1": { easeFactor: 2.5, repetitions: 3 },
+        "ja:sm2-1": { easeFactor: 2.5, repetitions: 3 },
       }),
     );
     const store = getSRSStore();
-    expect(Object.keys(store).sort()).toEqual(["legacy-1", "modal-1"]);
-    expect(store["modal-1"]).toEqual(modal);
-    expect(store["legacy-1"].recognition.stability).toBe(1);
+    expect(Object.keys(store).sort()).toEqual(["ja:legacy-1", "ja:modal-1"]);
+    expect(store["ja:modal-1"]).toEqual(modal);
+    expect(store["ja:legacy-1"].recognition.stability).toBe(1);
   });
 
   it("clearSRSStore wipes the key", () => {
