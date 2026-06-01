@@ -1,20 +1,27 @@
 name: deploy
 
-# Placeholder web deploy. The real plan is S3 + CloudFront + WAF.
-# Today: builds the SPA bundle so we catch build errors on every push,
-# but doesn't upload anywhere. Replace the "deploy to S3" job body
-# when the bucket + distribution land in lingo-infra.
+# Builds the SPA and deploys to S3 + CloudFront on every push to main.
+# Auth: GitHub OIDC -> ci-lingo-web role (no stored AWS keys). The role can
+# only write to the site bucket and invalidate its distribution.
 #
-# Requires org secrets when S3 upload lands:
-#   AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION
-# Plus repo variables (set later):
-#   LINGO_S3_BUCKET           — target bucket name
-#   LINGO_CLOUDFRONT_DIST_ID  — for invalidation
+# Repo variables (Settings -> Secrets and variables -> Actions -> Variables):
+#   VITE_API_BASE_URL       — lingo-core Lambda URL
+#   VITE_OPS_API_BASE_URL   — lingo-ops Lambda URL
+#   VITE_AUTH0_DOMAIN / VITE_AUTH0_CLIENT_ID / VITE_AUTH0_AUDIENCE
+#   LINGO_S3_BUCKET         — target bucket name
+#   LINGO_CLOUDFRONT_DIST_ID — for invalidation
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
+permissions:
+  id-token: write # required to mint the OIDC token
+  contents: read
+
+env:
+  AWS_REGION: us-west-1
 
 jobs:
   build:
@@ -28,11 +35,11 @@ jobs:
       - run: npm ci
       - name: build
         env:
-          # Wire when prod APIs are deployed:
-          #   VITE_API_BASE_URL=${{ vars.LINGO_API_BASE_URL }}
-          #   VITE_OPS_API_BASE_URL=${{ vars.LINGO_OPS_API_BASE_URL }}
-          VITE_API_BASE_URL: ${{ vars.LINGO_API_BASE_URL }}
-          VITE_OPS_API_BASE_URL: ${{ vars.LINGO_OPS_API_BASE_URL }}
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
+          VITE_OPS_API_BASE_URL: ${{ vars.VITE_OPS_API_BASE_URL }}
+          VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
+          VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
+          VITE_AUTH0_AUDIENCE: ${{ vars.VITE_AUTH0_AUDIENCE }}
         run: npm run build
       - name: upload bundle artifact
         uses: actions/upload-artifact@v4
@@ -50,12 +57,28 @@ jobs:
         with:
           name: dist
           path: dist/
-      - name: deploy (placeholder)
+      - uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: arn:aws:iam::349654078389:role/ci-lingo-web
+          aws-region: ${{ env.AWS_REGION }}
+      - name: sync to S3
         run: |
-          echo "::notice::Web deploy is a placeholder pending S3 + CloudFront migration."
-          echo "Bundle ready in dist/ (uploaded as artifact for inspection)."
-          echo "When the bucket lands, this step becomes:"
-          echo "  aws s3 sync dist/ s3://\$LINGO_S3_BUCKET --delete --cache-control 'public,max-age=31536000'"
-          echo "  aws s3 cp dist/index.html s3://\$LINGO_S3_BUCKET/index.html --cache-control 'no-cache'"
-          echo "  aws cloudfront create-invalidation --distribution-id \$LINGO_CLOUDFRONT_DIST_ID --paths '/index.html'"
-          ls -lah dist/ | head -20
+          # Hashed assets: cache forever (filenames change every build).
+          aws s3 sync dist/ "s3://${{ vars.LINGO_S3_BUCKET }}" \
+            --delete \
+            --exclude index.html \
+            --cache-control "public,max-age=31536000,immutable"
+          # index.html: never cache — it's the pointer to the hashed assets.
+          aws s3 cp dist/index.html "s3://${{ vars.LINGO_S3_BUCKET }}/index.html" \
+            --cache-control "no-cache"
+      - name: invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.LINGO_CLOUDFRONT_DIST_ID }}" \
+            --paths "/index.html" "/"
+      - name: verify site responds
+        run: |
+          sleep 10
+          status=$(curl -s -o /dev/null -w "%{http_code}" https://openlingoapp.com)
+          echo "Site returned HTTP $status"
+          test "$status" = "200"
