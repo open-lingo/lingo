@@ -19,6 +19,10 @@ export interface BatchAttempt {
   passed: boolean;
   score: number;
   stepResults: GradedStepResult[];
+  /** Mid-lesson snapshot. Server persists step results but skips event
+   *  emission so quest progress + leaderboard don't advance until the
+   *  user actually finishes the lesson. */
+  isDraft?: boolean;
 }
 
 export interface BatchAttemptSubmission {

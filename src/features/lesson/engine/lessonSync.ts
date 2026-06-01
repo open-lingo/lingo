@@ -212,14 +212,11 @@ export function buildBatchPayload(): {
   ids: string[];
 } {
   materializeOrphanDrafts();
-  // Drafts are local-only UX state (powers the SyncManager dirty count
-  // mid-lesson). Sending them to /lessons/batch would publish premature
-  // ``lesson_completed`` events — every step would fan out a "completed"
-  // signal to the async pipeline (quest progress + leaderboard) before
-  // the user actually finished the lesson. Filter them out here.
-  const pending = getPendingAttempts()
-    .filter(isPendingAttemptDirty)
-    .filter((p) => !p.clientAttemptId.startsWith(DRAFT_ATTEMPT_PREFIX));
+  // Drafts are sent to the server but flagged so it persists the step
+  // results without firing lesson_completed / xp_awarded / leaderboard
+  // events — those only fire on real lesson completion (see
+  // lingo-core ``progress/router.py`` for the gate).
+  const pending = getPendingAttempts().filter(isPendingAttemptDirty);
   // Fix M10 — dedupe on clientAttemptId only. A previous version keyed by
   // lessonId, which silently discarded legitimate repeat attempts when a
   // user re-did a lesson within a sync window. clientAttemptId already
@@ -235,9 +232,13 @@ export function buildBatchPayload(): {
   const deduped = Array.from(latestById.values());
 
   // Strip the local-only `bufferedAt` before sending — server doesn't need it.
+  // Flag draft attempts with isDraft so the server persists them but skips
+  // event emission (quest progress, leaderboard, xp_awarded) until the
+  // user actually finishes the lesson.
   const attempts: BatchAttempt[] = deduped.map((p) => {
     const { bufferedAt: _bufferedAt, ...rest } = p;
-    return rest;
+    const isDraft = p.clientAttemptId.startsWith(DRAFT_ATTEMPT_PREFIX);
+    return isDraft ? { ...rest, isDraft: true } : rest;
   });
   const checkStreak = shouldCheckStreakOnNextSync();
   return {
