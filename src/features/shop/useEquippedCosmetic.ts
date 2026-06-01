@@ -52,9 +52,14 @@ export function useEquippedCosmetic(settingsKey: string) {
       void queryClient.invalidateQueries({
         predicate: (q) => {
           const k = q.queryKey;
-          return (
-            Array.isArray(k) && k[0] === "users" && k.includes("settings")
-          );
+          if (!Array.isArray(k)) return false;
+          // Viewer's own settings — nav-avatar ring + inventory.
+          if (k[0] === "users" && k.includes("settings")) return true;
+          // Public-profile response carries the owner-resolved equipped
+          // ids, so equipping needs to refresh the viewer's own profile
+          // immediately rather than waiting for a stale-time refetch.
+          if (k[0] === "social" && k[1] === "profile") return true;
+          return false;
         },
       });
     },

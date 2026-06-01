@@ -38,9 +38,8 @@ import { ApiError } from "@/shared/api/client";
 import type { AuthoredDeckSample, FriendshipStatus } from "@/shared/api/social";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { DecoratedAvatar } from "@/shared/components/DecoratedAvatar";
-import { useEquippedDecorator } from "@/features/shop/useEquippedDecorator";
-import { useEquippedTitle } from "@/features/shop/useEquippedTitle";
-import { useEquippedBanner } from "@/features/shop/useEquippedBanner";
+import { getDecoratorStyle } from "@/features/shop/decoratorStyles";
+import { getBannerStyle } from "@/features/shop/bannerStyles";
 import { TITLE_ITEMS } from "@/features/shop/shopCatalog";
 import { InventorySection } from "@/features/shop/InventorySection";
 import { InventoryPopout } from "@/features/shop/InventoryPopout";
@@ -185,20 +184,20 @@ export function PublicProfilePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [registerMode, username]);
 
-  const { style: decoratorStyle } = useEquippedDecorator();
-  const { equippedId: equippedTitleId } = useEquippedTitle();
-  const { style: viewerBannerStyle } = useEquippedBanner();
-  // Until the public-profile endpoint surfaces the OWNER's equipped
-  // banner, only render a banner on the viewer's own profile. Otherwise
-  // the viewer's local-state banner leaks onto every stranger's page.
-  const bannerStyle = isSelf ? viewerBannerStyle : null;
+  // Equipped cosmetics come from the server-resolved owner state on the
+  // public-profile response. Falling back to null gives the bare profile
+  // for owners who haven't equipped anything (or older BEs that don't
+  // ship the fields). Every viewer sees the owner's choices — not their
+  // own — and the viewer's local equip mutations invalidate the
+  // public-profile query so self-profile reflects the change instantly.
+  const decoratorStyle = getDecoratorStyle(socialProfile?.equipped_decorator_id ?? null);
+  const bannerStyle = getBannerStyle(socialProfile?.equipped_banner_id ?? null);
+  const equippedTitleId = socialProfile?.equipped_title_id ?? null;
 
-  // Resolve the wear-text for the equipped title (e.g. "Night Owl"). Only
-  // shown when the viewer is on their OWN profile — until the social
-  // endpoint surfaces another user's equipped title, leaking the viewer's
-  // title onto a stranger's masthead would be misleading.
+  // Resolve the wear-text for the equipped title (e.g. "Night Owl") so it
+  // renders on every viewer's profile page (not just the owner).
   const equippedTitleText = (() => {
-    if (!isSelf || !equippedTitleId) return null;
+    if (!equippedTitleId) return null;
     const item = TITLE_ITEMS.find((i) => i.id === equippedTitleId);
     if (!item) return null;
     const base = item.titleKey.replace(/\.title$/, "");

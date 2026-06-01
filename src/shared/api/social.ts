@@ -78,6 +78,11 @@ export interface PublicProfile {
   authored_deck_count?: number;
   authored_decks_sample?: AuthoredDeckSample[];
   league?: PublicProfileLeague | null;
+  // Equipped cosmetics (owner-driven, server-resolved). Older BEs may
+  // omit them; the FE falls back to rendering an undecorated profile.
+  equipped_decorator_id?: string | null;
+  equipped_title_id?: string | null;
+  equipped_banner_id?: string | null;
 }
 
 export interface LeaderboardEntry {
