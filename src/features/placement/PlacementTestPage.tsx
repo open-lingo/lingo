@@ -15,6 +15,7 @@ import type { AdaptiveState } from "./engine/adaptiveEngine";
 import { applyPlacementResult } from "./engine/applyPlacement";
 import { syncTestOutToServer } from "./engine/syncTestOutToServer";
 import { getItemsForModule, instantiateItem } from "./questionBank";
+import { ALL_TESTABLE_MODULES } from "./tiers";
 import { dismissPlacement } from "./hooks/usePlacementDismissed";
 import { PlacementProgressBar } from "./components/PlacementProgressBar";
 import { PlacementResultScreen } from "./components/PlacementResultScreen";
@@ -27,11 +28,16 @@ export function PlacementTestPage() {
   const langPath = useLangPath();
   const { progress } = useApi();
 
-  // Test-out engine + question bank reach across languages — the JA
-  // bank ships now; KO and others share the same engine so we render
-  // whatever the bank has for the URL-named module. If a module has no
-  // items the engine just no-ops (renders an empty session that
-  // immediately finalizes).
+  // The placement question bank covers JA m3-m27. Anything else (the JA
+  // alphabet modules m1/m2, or future KO/ZH modules with their own
+  // module ids) has no items, so the engine would finalize immediately
+  // and show a misleading "Not quite yet" result. Detect the no-bank
+  // case up-front and render an honest "no test-out questions yet"
+  // message instead of pretending to test.
+  const hasBank =
+    !isTestOut ||
+    (moduleId != null && ALL_TESTABLE_MODULES.includes(moduleId) &&
+      getItemsForModule(moduleId).length > 0);
 
   const [state, setState] = useState<AdaptiveState>(() =>
     isTestOut ? createTestOutState(moduleId!) : createInitialState(),
@@ -85,6 +91,27 @@ export function PlacementTestPage() {
     // State already updated in handleStepComplete — the useEffect will
     // select the next item.
   }, []);
+
+  if (!hasBank) {
+    return (
+      <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 p-8 text-center">
+        <h2 className="text-lg font-semibold">No test-out questions yet</h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400 max-w-md">
+          The placement engine doesn't have any items for{" "}
+          <span className="font-mono">{moduleId}</span> on this language
+          yet. The Japanese course covers M3–M27; other modules + other
+          languages need their own bank before test-out can probe them.
+        </p>
+        <button
+          type="button"
+          onClick={() => navigate(langPath("learn"))}
+          className="px-4 py-2 rounded bg-blue-600 text-white text-sm"
+        >
+          Back to Learn
+        </button>
+      </div>
+    );
+  }
 
   if (appliedResult) {
     return (
