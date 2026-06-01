@@ -37,7 +37,7 @@ export function StoryPreviewModal({
 
   return (
     <ModalBackdrop onClose={onClose} ariaLabelledBy="story-preview-title">
-      <div className="relative flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-2xl">
+      <div className="relative flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-card">
         <button
           type="button"
           onClick={onClose}

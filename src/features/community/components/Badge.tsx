@@ -1,13 +1,13 @@
 type Variant = "default" | "success" | "warning" | "info" | "hot" | "solved" | "new";
 
 const variants: Record<Variant, string> = {
-  default: "bg-gray-100 text-gray-700",
-  success: "bg-emerald-100 text-emerald-800",
-  warning: "bg-amber-100 text-amber-800",
-  info: "bg-blue-100 text-blue-800",
-  hot: "bg-orange-100 text-orange-800",
-  solved: "bg-emerald-100 text-emerald-800",
-  new: "bg-blue-100 text-blue-800",
+  default: "bg-surface-muted text-text-secondary",
+  success: "bg-success/10 text-success",
+  warning: "bg-warning/10 text-warning",
+  info: "bg-accent-muted text-accent",
+  hot: "bg-warning/10 text-warning",
+  solved: "bg-success/10 text-success",
+  new: "bg-accent-muted text-accent",
 };
 
 export function Badge({

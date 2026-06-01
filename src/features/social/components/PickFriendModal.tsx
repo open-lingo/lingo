@@ -50,7 +50,7 @@ export function PickFriendModal({ open, onClose, onPick }: Props) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex w-full max-w-md flex-col overflow-hidden rounded-lg border border-border bg-surface shadow-xl"
+        className="flex w-full max-w-md flex-col overflow-hidden rounded-lg border border-border bg-surface shadow-card"
       >
         <div className="border-b border-border p-5">
           <h2 id="pick-friend-title" className="text-base font-semibold text-text-primary">

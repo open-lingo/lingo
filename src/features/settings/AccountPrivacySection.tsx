@@ -162,7 +162,7 @@ export function AccountPrivacySection({ embedded = false }: AccountPrivacySectio
         )}
       </div>
 
-      <div className="space-y-2 rounded-lg border border-red-500/30 bg-red-500/5 p-3">
+      <div className="space-y-2 rounded-lg border border-error/40 bg-error/5 p-3">
         <p className="text-xs font-medium text-text-primary">
           {t("legal.settings.deleteTitle", "Delete account")}
         </p>
@@ -186,7 +186,7 @@ export function AccountPrivacySection({ embedded = false }: AccountPrivacySectio
           type="button"
           disabled={!canDelete || deleting}
           onClick={handleDeleteAccount}
-          className="rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-700 disabled:opacity-50"
+          className="rounded-lg bg-error px-3 py-1.5 text-xs font-semibold text-white hover:bg-error/90 disabled:opacity-50"
         >
           {deleting
             ? t("common.loading", "Loading…")

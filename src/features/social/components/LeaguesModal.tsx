@@ -65,7 +65,7 @@ export function LeaguesModal({ open, onClose, currentTierIndex }: Props) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex max-h-[85vh] w-full max-w-lg flex-col rounded-lg border border-border bg-surface shadow-xl"
+        className="flex max-h-[85vh] w-full max-w-lg flex-col rounded-lg border border-border bg-surface shadow-card"
       >
         <header className="flex items-start justify-between gap-3 border-b border-border px-5 py-4">
           <div>

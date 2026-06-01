@@ -49,7 +49,7 @@ export function FindFriendModal({ open, onClose }: Props) {
       <form
         onSubmit={onSubmit}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-md rounded-lg border border-border bg-surface p-5 shadow-xl"
+        className="w-full max-w-md rounded-lg border border-border bg-surface p-5 shadow-card"
       >
         <h2 id="find-friend-title" className="text-base font-semibold text-text-primary">
           {t("social.findFriend.title", "Add a friend")}

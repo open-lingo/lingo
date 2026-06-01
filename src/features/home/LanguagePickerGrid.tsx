@@ -92,15 +92,17 @@ export function LanguagePickerGrid({
             const isSelected = selectedId === lang.id;
             const flagSrc = notoFlagUrl(FLAG_CODES[lang.id] ?? "");
 
+            // Single selection signal — color shift only. Dropped the
+            // shadow jump + ring-offset stack so the surface stops popping
+            // forward + outward when a card is picked. Cleaner read.
             let stateClasses =
-              "border-border shadow-md hover:-translate-y-0.5 hover:border-accent hover:shadow-xl active:translate-y-0 active:shadow-md";
+              "border-border hover:border-accent/40 active:translate-y-0";
             if (isSelected) {
-              stateClasses =
-                "border-accent shadow-xl ring-2 ring-accent/25 ring-offset-2 ring-offset-surface";
+              stateClasses = "border-accent";
             }
             if (!isAvailable) {
               stateClasses =
-                "border-border opacity-55 cursor-not-allowed shadow-none";
+                "border-border opacity-55 cursor-not-allowed";
             }
 
             const tint = LANG_TINT[lang.id];

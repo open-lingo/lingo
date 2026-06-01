@@ -56,7 +56,7 @@ export function PlacementPrompt({ onStart, onSkip }: Props) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="placement-prompt-heading"
-        className="w-full max-w-md rounded-2xl bg-surface-primary p-6 shadow-xl"
+        className="w-full max-w-md rounded-2xl bg-surface-primary p-6 shadow-card"
       >
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
