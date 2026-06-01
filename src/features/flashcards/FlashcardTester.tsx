@@ -12,6 +12,7 @@ import { CardImage } from "./CardPreview";
 import { Icon } from "@/shared/components/Icon";
 import { PlainText } from "@/shared/components/PlainText";
 import { FlashcardsInfoModal } from "./components/FlashcardsInfoModal";
+import { FlashcardDetailSidebar } from "./components/FlashcardDetailSidebar";
 import {
   FlashcardsOnboardingGate,
   FLASHCARDS_ONBOARDING_STORAGE_KEY,
@@ -361,9 +362,9 @@ export function FlashcardTester() {
   const currentCard = card!;
 
   return (
-    <div className="flex min-h-0 flex-1 gap-4">
-      {/* Main content */}
-      <div className="mx-auto flex min-w-0 max-w-md flex-1 flex-col space-y-4">
+    <div className="flex min-h-0 flex-1 justify-center gap-6">
+      {/* Main content — stays centered when no sidebar; pair centers when sidebar is present. */}
+      <div className="flex min-w-0 max-w-md flex-1 flex-col space-y-4">
         <div className="relative flex items-center justify-between">
           <Link
             to={langPath("practice/flashcards")}
@@ -533,69 +534,15 @@ export function FlashcardTester() {
         </button>
       )}
 
-      {/* Detail / explanation below buttons so they don't move when content appears */}
-      {flipped &&
-        (currentCard.note ||
-          currentCard.reasoning ||
-          currentCard.definition ||
-          currentCard.context ||
-          (currentCard.type === "word" && currentCard.parts?.length) ||
-          (currentCard.type === "sentence" && currentCard.words?.length)) && (
-          <div className="rounded-lg border border-border bg-surface-muted p-4 text-sm">
-            {(currentCard.type === "word" && currentCard.parts?.length) ||
-            (currentCard.type === "sentence" && currentCard.words?.length) ? (
-              <div className="mb-3 rounded-md bg-surface p-3">
-                <span className="text-xs font-medium text-text-muted">
-                  {t("flashcards.segmentBreakdown", "Segment breakdown")}
-                </span>
-                <div className="mt-2 space-y-1.5 text-xs">
-                  {((currentCard.type === "word" ? currentCard.parts : currentCard.words) ?? []).map((seg, i) => {
-                    const particle = seg.particleId ? getParticleById(particles, seg.particleId) : undefined;
-                    return (
-                      <div
-                        key={i}
-                        className="flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded px-2 py-1 odd:bg-surface-muted"
-                      >
-                        <span className="font-medium text-text-primary">{seg.segment}</span>
-                        {seg.meaning && (
-                          <span className="text-text-muted">| {seg.meaning}</span>
-                        )}
-                        {particle && (
-                          <span className="text-warning">
-                            | {particle.form}: {particle.meaning}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : null}
-            {currentCard.note && (
-              <div className="text-text-secondary">
-                <PlainText>{currentCard.note}</PlainText>
-              </div>
-            )}
-            {currentCard.definition && (
-              <div className="mt-1 font-medium text-text-primary">
-                <PlainText>{currentCard.definition}</PlainText>
-              </div>
-            )}
-            {currentCard.context && (
-              <div className="mt-0.5 text-text-muted">
-                <PlainText>{currentCard.context}</PlainText>
-              </div>
-            )}
-            {currentCard.reasoning && (
-              <div className="mt-2 border-t border-border pt-2 text-text-muted">
-                <span className="font-medium text-text-secondary">
-                  Reasoning:
-                </span>{" "}
-                <PlainText>{currentCard.reasoning}</PlainText>
-              </div>
-            )}
-          </div>
-        )}
+      {/* Detail panel stacked below the card on mobile. The lg:+ sidebar
+          variant lives outside the centered column as a sibling column. */}
+      {flipped && (
+        <FlashcardDetailSidebar
+          card={currentCard}
+          particles={particles}
+          layout="stacked"
+        />
+      )}
 
         {/* Floating counts widget */}
         <div
@@ -619,6 +566,16 @@ export function FlashcardTester() {
           </span>
         </div>
       </div>
+
+      {/* Off-center detail sidebar (lg:+ only). Card stays visually
+          centered when this isn't rendered (no content, or front side). */}
+      {flipped && (
+        <FlashcardDetailSidebar
+          card={currentCard}
+          particles={particles}
+          layout="sidebar"
+        />
+      )}
 
       {/* First-time onboarding (auto, once per versioned flag). */}
       <FlashcardsOnboardingGate enabled />
