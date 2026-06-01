@@ -232,17 +232,31 @@ function EditLearningModal({
   );
 }
 
-// ── Adjust XP Modal ───────────────────────────────────────────────────────────
+// ── Adjust amount modal (XP + lingots) ────────────────────────────────────────
 
-function AdjustXpModal({
+/**
+ * Shared "Adjust <amount>" modal — XP and lingots both flow through this.
+ * Caller supplies the title + currency label + reason placeholder, plus the
+ * current value to preview the post-adjustment number. Saves call onSave
+ * with the parsed delta + reason string ("" → "admin-lms" sentinel).
+ */
+function AdjustAmountModal({
   open,
-  currentXp,
+  title,
+  currentLabel,
+  currentValue,
+  reasonPlaceholder,
+  previewLabel,
   onClose,
   onSave,
   isPending,
 }: {
   open: boolean;
-  currentXp: number;
+  title: string;
+  currentLabel: string;
+  currentValue: number;
+  reasonPlaceholder: string;
+  previewLabel: string;
   onClose: () => void;
   onSave: (amount: number, reason: string) => void;
   isPending: boolean;
@@ -258,13 +272,13 @@ function AdjustXpModal({
   }, [open]);
 
   const parsed = parseInt(amount, 10);
-  const preview = isNaN(parsed) ? currentXp : Math.max(0, currentXp + parsed);
+  const preview = isNaN(parsed) ? currentValue : Math.max(0, currentValue + parsed);
 
   return (
     <Modal
       open={open}
       onClose={onClose}
-      title="Adjust XP"
+      title={title}
       size="md"
       footer={
         <>
@@ -284,8 +298,8 @@ function AdjustXpModal({
     >
       <div className="space-y-4">
         <div className="flex items-center gap-3 p-3 rounded-lg bg-surface-muted">
-          <span className="text-sm text-text-muted">Current XP:</span>
-          <span className="font-mono font-semibold">{currentXp.toLocaleString()}</span>
+          <span className="text-sm text-text-muted">{currentLabel}</span>
+          <span className="font-mono font-semibold">{currentValue.toLocaleString()}</span>
         </div>
         <div className="space-y-3">
           <div>
@@ -300,7 +314,7 @@ function AdjustXpModal({
             />
             {!isNaN(parsed) && parsed !== 0 && (
               <p className="text-xs text-text-muted mt-1">
-                New XP:{" "}
+                {previewLabel}{" "}
                 <span className="font-mono font-semibold">{preview.toLocaleString()}</span>
                 {parsed < 0 && preview === 0 && " (clamped to 0)"}
               </p>
@@ -314,99 +328,7 @@ function AdjustXpModal({
               type="text"
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              placeholder="e.g. test-account setup, correcting error"
-              className={inputClassName}
-            />
-          </div>
-        </div>
-      </div>
-    </Modal>
-  );
-}
-
-// ── Adjust Lingots Modal ──────────────────────────────────────────────────────
-
-function AdjustLingotsModal({
-  open,
-  currentLingots,
-  onClose,
-  onSave,
-  isPending,
-}: {
-  open: boolean;
-  currentLingots: number;
-  onClose: () => void;
-  onSave: (amount: number, reason: string) => void;
-  isPending: boolean;
-}) {
-  const [amount, setAmount] = useState("0");
-  const [reason, setReason] = useState("");
-
-  useEffect(() => {
-    if (open) {
-      setAmount("0");
-      setReason("");
-    }
-  }, [open]);
-
-  const parsed = parseInt(amount, 10);
-  const preview = isNaN(parsed) ? currentLingots : Math.max(0, currentLingots + parsed);
-
-  return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      title="Adjust lingots"
-      size="md"
-      footer={
-        <>
-          <Button type="button" variant="secondary" size="sm" onClick={onClose} disabled={isPending}>
-            Cancel
-          </Button>
-          <Button
-            type="button"
-            size="sm"
-            onClick={() => onSave(parsed, reason || "admin-lms")}
-            disabled={isPending || isNaN(parsed) || parsed === 0}
-          >
-            {isPending ? "Applying…" : "Apply adjustment"}
-          </Button>
-        </>
-      }
-    >
-      <div className="space-y-4">
-        <div className="flex items-center gap-3 p-3 rounded-lg bg-surface-muted">
-          <span className="text-sm text-text-muted">Current lingots:</span>
-          <span className="font-mono font-semibold">{currentLingots.toLocaleString()}</span>
-        </div>
-        <div className="space-y-3">
-          <div>
-            <label className="text-xs font-medium text-text-muted uppercase tracking-wide block mb-1">
-              Amount (positive = grant, negative = retract)
-            </label>
-            <input
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              className={cn(inputClassName, "font-mono")}
-            />
-            {!isNaN(parsed) && parsed !== 0 && (
-              <p className="text-xs text-text-muted mt-1">
-                New lingots:{" "}
-                <span className="font-mono font-semibold">{preview.toLocaleString()}</span>
-                {parsed < 0 && preview === 0 && " (clamped to 0)"}
-              </p>
-            )}
-          </div>
-          <div>
-            <label className="text-xs font-medium text-text-muted uppercase tracking-wide block mb-1">
-              Reason (for audit log)
-            </label>
-            <input
-              type="text"
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-              placeholder="e.g. starter grant, refund, correcting error"
+              placeholder={reasonPlaceholder}
               className={inputClassName}
             />
           </div>
@@ -766,16 +688,24 @@ function StudentFile({
         onSave={(patch) => patchLearning.mutate(patch)}
         isPending={patchLearning.isPending}
       />
-      <AdjustXpModal
+      <AdjustAmountModal
         open={adjustXpOpen}
-        currentXp={snap.stats.xp}
+        title="Adjust XP"
+        currentLabel="Current XP:"
+        currentValue={snap.stats.xp}
+        previewLabel="New XP:"
+        reasonPlaceholder="e.g. test-account setup, correcting error"
         onClose={() => setAdjustXpOpen(false)}
         onSave={(amount, reason) => adjustXp.mutate({ amount, reason })}
         isPending={adjustXp.isPending}
       />
-      <AdjustLingotsModal
+      <AdjustAmountModal
         open={adjustLingotsOpen}
-        currentLingots={snap.stats.lingots}
+        title="Adjust lingots"
+        currentLabel="Current lingots:"
+        currentValue={snap.stats.lingots}
+        previewLabel="New lingots:"
+        reasonPlaceholder="e.g. starter grant, refund, correcting error"
         onClose={() => setAdjustLingotsOpen(false)}
         onSave={(amount, reason) => adjustLingots.mutate({ amount, reason })}
         isPending={adjustLingots.isPending}
