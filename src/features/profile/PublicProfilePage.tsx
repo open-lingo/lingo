@@ -36,14 +36,19 @@ import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 import { useApi } from "@/shared/api/provider";
 import { useAuth } from "@/shared/auth/useAuth";
-import { UserAvatar } from "@/shared/components/UserAvatar";
 import { Button } from "@/shared/components/ui/Button";
+import { Input } from "@/shared/components/ui/Input";
+import { Textarea } from "@/shared/components/ui/Textarea";
 import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
 import { ApiError } from "@/shared/api/client";
 import type { AuthoredDeckSample, FriendshipStatus } from "@/shared/api/social";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
+import { DecoratedAvatar } from "@/shared/components/DecoratedAvatar";
+import { useEquippedDecorator } from "@/features/shop/useEquippedDecorator";
+import { InventorySection } from "@/features/shop/InventorySection";
 import { usePublicProfile } from "./usePublicProfile";
+import { useOwnProfile } from "./useOwnProfile";
 
 type ActionState = "idle" | "pending" | "done";
 
@@ -150,6 +155,33 @@ export function PublicProfilePage() {
 
   const friendship: FriendshipStatus | null | undefined = socialProfile?.friendship_status;
 
+  // Prefer enriched social fields, fall back to plain user fields.
+  // These are derived before any early return so they’re stable across renders.
+  const displayName = socialProfile?.display_name ?? user?.display_name ?? username ?? "";
+  const avatarSrc =
+    socialProfile?.profile_picture_key ?? user?.profile_picture_key ?? undefined;
+  const bio = socialProfile?.bio ?? user?.bio ?? null;
+
+  // Own-profile hooks — must be above any early returns (Rules of Hooks).
+  const isSelf = friendship === "self";
+  const ownProfileInitial = {
+    displayName,
+    bio: bio ?? "",
+    avatarUrl: avatarSrc ?? "",
+  };
+  const {
+    editMode,
+    draft,
+    setDraft,
+    openEdit,
+    cancelEdit,
+    save,
+    isSaving,
+    saveError,
+  } = useOwnProfile(ownProfileInitial);
+
+  const { style: decoratorStyle } = useEquippedDecorator();
+
   if (!username) {
     return <ProfileShell heading={t("profile.publicNotFound", "Profile not found")} />;
   }
@@ -194,11 +226,6 @@ export function PublicProfilePage() {
     );
   }
 
-  // Prefer enriched social fields, fall back to plain user fields.
-  const displayName = socialProfile?.display_name ?? user?.display_name ?? username;
-  const avatarSrc =
-    socialProfile?.profile_picture_key ?? user?.profile_picture_key ?? undefined;
-  const bio = socialProfile?.bio ?? user?.bio ?? null;
   const learningLanguage = socialProfile?.learning_language ?? null;
   const xp = socialProfile?.xp ?? 0;
   const streak = socialProfile?.streak ?? 0;
@@ -340,22 +367,13 @@ export function PublicProfilePage() {
                 this stacks under the name. */}
             <div className="flex items-start justify-start gap-4 sm:flex-col sm:items-end sm:gap-3">
               <div className="relative">
-                <div
-                  className="rounded-full p-[2px]"
-                  style={{
-                    background:
-                      "conic-gradient(from 140deg, var(--color-border), var(--color-accent) 30%, var(--color-border) 60%, var(--color-accent) 90%, var(--color-border))",
-                  }}
-                >
-                  <div className="rounded-full bg-surface p-[3px]">
-                    <UserAvatar
-                      name={displayName}
-                      src={avatarSrc}
-                      size="lg"
-                      className="!h-20 !w-20 !text-3xl"
-                    />
-                  </div>
-                </div>
+                <DecoratedAvatar
+                  name={displayName}
+                  src={avatarSrc}
+                  size="lg"
+                  className="!h-20 !w-20 !text-3xl"
+                  decoratorStyle={decoratorStyle}
+                />
                 {league && <LeagueEmblem league={league} />}
               </div>
               <div className="hidden sm:block" aria-hidden>
@@ -370,6 +388,13 @@ export function PublicProfilePage() {
                 onUnblock={handleUnblock}
                 onUnfriend={handleUnfriend}
                 onBlock={handleBlock}
+                onEditProfile={() =>
+                  openEdit({
+                    displayName: displayName,
+                    bio: bio ?? "",
+                    avatarUrl: avatarSrc ?? "",
+                  })
+                }
                 t={t}
               />
             </div>
@@ -382,6 +407,90 @@ export function PublicProfilePage() {
             className="mt-8 h-[3px] w-full bg-text-primary/85"
           />
         </header>
+
+        {/* ── Inline edit form (self only) ────────────────────────── */}
+        {isSelf && editMode && (
+          <section
+            aria-label="Edit profile"
+            className="mt-8 rounded-xl border border-border bg-surface p-6 space-y-5"
+          >
+            <h2 className="text-base font-semibold text-text-primary">
+              {t("profile.editTitle", "Edit profile")}
+            </h2>
+
+            {saveError && (
+              <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error">
+                {saveError}
+              </p>
+            )}
+
+            <div>
+              <label className="mb-1 block text-sm font-medium text-text-secondary">
+                {t("profile.realName", "Display name")}
+              </label>
+              <Input
+                value={draft.displayName}
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, displayName: e.target.value }))
+                }
+                placeholder={t("profile.realNamePlaceholder", "Your name")}
+              />
+            </div>
+
+            <div>
+              <label className="mb-1 block text-sm font-medium text-text-secondary">
+                {t("profile.status", "Bio")}
+              </label>
+              <Textarea
+                value={draft.bio}
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, bio: e.target.value }))
+                }
+                placeholder={t(
+                  "profile.statusPlaceholder",
+                  "Tell people about yourself",
+                )}
+                rows={2}
+              />
+            </div>
+
+            <div>
+              <label className="mb-1 block text-sm font-medium text-text-secondary">
+                {t("profile.avatarUrl", "Avatar URL")}
+              </label>
+              <Input
+                type="url"
+                value={draft.avatarUrl}
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, avatarUrl: e.target.value }))
+                }
+                placeholder="https://..."
+              />
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Button
+                type="button"
+                variant="primary"
+                size="sm"
+                disabled={isSaving}
+                onClick={() => save()}
+              >
+                {isSaving
+                  ? t("common.loading", "Saving…")
+                  : t("profile.save", "Save")}
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={cancelEdit}
+              >
+                {t("common.cancel", "Cancel")}
+              </Button>
+            </div>
+          </section>
+        )}
 
         {/* ── By-the-numbers rail ─────────────────────────────────── */}
         <section
@@ -415,6 +524,9 @@ export function PublicProfilePage() {
             />
           </dl>
         </section>
+
+        {/* ── Decorator inventory (self only) ─────────────────────── */}
+        {isSelf && <InventorySection />}
 
         {/* ── Secondary context strip: learning language ──────────── */}
         {lang && (
@@ -764,6 +876,7 @@ function PrimaryAction({
   onUnblock,
   onUnfriend,
   onBlock,
+  onEditProfile,
   t,
 }: {
   status: FriendshipStatus | null;
@@ -773,19 +886,23 @@ function PrimaryAction({
   onUnblock: () => void;
   onUnfriend: () => void;
   onBlock: () => void;
+  onEditProfile: () => void;
   t: TFunction;
 }) {
   const busy = actionState === "pending";
 
   if (status === "self") {
     return (
-      <Link
-        to="/settings/profile"
-        className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2 text-sm font-medium text-text-primary transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        onClick={onEditProfile}
+        className="!gap-1.5"
       >
         <Icon name="pencil" size={14} strokeWidth={2.25} />
         {t("profile.publicEditProfile", "Edit profile")}
-      </Link>
+      </Button>
     );
   }
   if (status === "request_out") {

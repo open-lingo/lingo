@@ -17,10 +17,16 @@ const mockAcceptFriendRequest = vi.fn();
 const mockUnblock = vi.fn();
 const mockUnfriend = vi.fn();
 const mockBlock = vi.fn();
+const mockGetSettings = vi.fn();
+const mockUpdateMe = vi.fn();
 
 vi.mock("@/shared/api/provider", () => ({
   useApi: () => ({
-    users: { getByUsername: mockGetByUsername },
+    users: {
+      getByUsername: mockGetByUsername,
+      getSettings: mockGetSettings,
+      updateMe: mockUpdateMe,
+    },
     social: {
       getPublicProfile: mockGetPublicProfile,
       sendFriendRequest: mockSendFriendRequest,
@@ -42,6 +48,21 @@ vi.mock("@/shared/auth/useAuth", () => ({
     signup: () => {},
     logout: () => {},
   }),
+}));
+
+// Stub shop state so InventorySection doesn't blow up in self-profile tests.
+vi.mock("@/features/shop/useShopState", () => ({
+  useShopState: () => ({
+    lingots: 0,
+    statsReady: true,
+    shop: { purchases: [], inventory: {} },
+    isLoading: false,
+    isOwned: () => false,
+    ownedQuantity: () => 0,
+    refetchStats: () => {},
+    refetchShop: () => {},
+  }),
+  useInvalidateShopQueries: () => () => {},
 }));
 
 import { PublicProfilePage } from "./PublicProfilePage";
@@ -104,7 +125,11 @@ describe("PublicProfilePage", () => {
     mockUnblock.mockReset();
     mockUnfriend.mockReset();
     mockBlock.mockReset();
+    mockGetSettings.mockReset();
+    mockUpdateMe.mockReset();
     mockGetByUsername.mockResolvedValue(baseUser);
+    mockGetSettings.mockResolvedValue({});
+    mockUpdateMe.mockResolvedValue(baseUser);
   });
 
   const cases: Array<{ status: FriendshipStatus; expect: string }> = [
@@ -139,6 +164,23 @@ describe("PublicProfilePage", () => {
     await waitFor(() =>
       expect(screen.getByText(/this profile is private/i)).toBeInTheDocument(),
     );
+  });
+
+  it("shows inline edit form when owner clicks Edit profile", async () => {
+    mockGetPublicProfile.mockResolvedValue(
+      baseSocial({ friendship_status: "self" }),
+    );
+    renderPage();
+    // The edit form starts hidden; it appears after clicking Edit profile.
+    // Wait for the profile to load first.
+    const editBtn = await screen.findByRole("button", { name: /edit profile/i });
+    // Before click, form should not be visible.
+    expect(screen.queryByPlaceholderText(/your name/i)).toBeNull();
+    // Import userEvent after DOM is settled.
+    const userEvent = (await import("@testing-library/user-event")).default;
+    await userEvent.setup().click(editBtn);
+    // After click, display name input should be visible.
+    expect(screen.getByPlaceholderText(/your name/i)).toBeInTheDocument();
   });
 
   it("renders enriched stats (lingots, level, authored decks, last active)", async () => {
