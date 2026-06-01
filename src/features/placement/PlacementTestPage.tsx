@@ -14,8 +14,8 @@ import {
 import type { AdaptiveState } from "./engine/adaptiveEngine";
 import { applyPlacementResult } from "./engine/applyPlacement";
 import { syncTestOutToServer } from "./engine/syncTestOutToServer";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getItemsForModule, instantiateItem } from "./questionBank";
-import { ALL_TESTABLE_MODULES } from "./tiers";
 import { dismissPlacement } from "./hooks/usePlacementDismissed";
 import { PlacementProgressBar } from "./components/PlacementProgressBar";
 import { PlacementResultScreen } from "./components/PlacementResultScreen";
@@ -28,16 +28,21 @@ export function PlacementTestPage() {
   const langPath = useLangPath();
   const { progress } = useApi();
 
-  // The placement question bank covers JA m3-m27. Anything else (the JA
-  // alphabet modules m1/m2, or future KO/ZH modules with their own
-  // module ids) has no items, so the engine would finalize immediately
-  // and show a misleading "Not quite yet" result. Detect the no-bank
-  // case up-front and render an honest "no test-out questions yet"
-  // message instead of pretending to test.
+  const { language } = useLanguage();
+  const langId = language?.id ?? "ja";
+
+  // The placement bank covers JA m3-m27 and KO m3. Other modules /
+  // languages without items render an honest "no test-out questions
+  // yet" message instead of running through an empty engine cycle and
+  // showing a misleading "Not quite yet, you need 100%".
   const hasBank =
     !isTestOut ||
-    (moduleId != null && ALL_TESTABLE_MODULES.includes(moduleId) &&
-      getItemsForModule(moduleId).length > 0);
+    (moduleId != null && getItemsForModule(moduleId, langId).length > 0);
+
+  const itemsLookup = useMemo(
+    () => (mod: string) => getItemsForModule(mod, langId),
+    [langId],
+  );
 
   const [state, setState] = useState<AdaptiveState>(() =>
     isTestOut ? createTestOutState(moduleId!) : createInitialState(),
@@ -53,10 +58,10 @@ export function PlacementTestPage() {
 
   const moduleLabel = useMemo(() => {
     if (!moduleId) return undefined;
-    const course = getMockCourse("ja");
+    const course = getMockCourse(langId);
     const mod = course.modules.find((m) => m.id === moduleId);
     return mod?.title ?? moduleId.toUpperCase();
-  }, [moduleId]);
+  }, [moduleId, langId]);
 
   useEffect(() => {
     if (state.stage === "done") {
@@ -72,7 +77,7 @@ export function PlacementTestPage() {
       }
       return;
     }
-    const nextItem = selectNextItem(state, getItemsForModule);
+    const nextItem = selectNextItem(state, itemsLookup);
     if (!nextItem) {
       setState((prev) => finalizeState(prev));
       return;
@@ -82,7 +87,7 @@ export function PlacementTestPage() {
 
   const handleStepComplete = useCallback(
     (stepId: string, correct: boolean) => {
-      setState((prev) => recordAnswer(prev, stepId, correct, getItemsForModule));
+      setState((prev) => recordAnswer(prev, stepId, correct, itemsLookup));
     },
     [],
   );

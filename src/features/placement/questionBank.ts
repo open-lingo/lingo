@@ -8,6 +8,9 @@ import { cloze, sentenceMcq } from "@/features/lesson/data/_jaGrammarHelpers";
 export type PlacementItemConfig = {
   id: string;
   moduleId: string;
+  /** Which language course this item belongs to. Defaults to "ja" for
+   *  back-compat with the JA-only initial bank. */
+  languageId?: string;
 } & (ClozeConfig | SentenceMcqConfig);
 
 type ClozeConfig = {
@@ -55,8 +58,14 @@ export function instantiateItem(config: PlacementItemConfig): LessonStep {
 // Helpers
 // ---------------------------------------------------------------------------
 
-export function getItemsForModule(moduleId: string): PlacementItemConfig[] {
-  return PLACEMENT_QUESTION_BANK.filter((i) => i.moduleId === moduleId);
+export function getItemsForModule(
+  moduleId: string,
+  languageId: string = "ja",
+): PlacementItemConfig[] {
+  return PLACEMENT_QUESTION_BANK.filter(
+    (i) =>
+      i.moduleId === moduleId && (i.languageId ?? "ja") === languageId,
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -562,5 +571,48 @@ export const PLACEMENT_QUESTION_BANK: readonly PlacementItemConfig[] = [
     prompt: "'It became warm.' — which is correct?",
     correctKana: "あたたかくなりました",
     distractorsKana: ["あたたかいになりました", "あたたかになりました", "あたたかくなります"],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────
+  // KOREAN — KO M3: first phrases (greetings, 이에요/예요, 저는, names)
+  // The KO course has Hangul-only M1/M2 (no testable grammar) and M3 is
+  // where real language content starts. Bank covers the M3 spine; KO M4+
+  // will land once those modules ship in the course mock.
+  // ─────────────────────────────────────────────────────────────────────
+  {
+    id: "pt-ko-m3-1", moduleId: "m3", languageId: "ko", type: "sentenceMcq",
+    prompt: "'Hello' (polite, all-purpose) — which is correct?",
+    correctKana: "안녕하세요",
+    distractorsKana: ["안녕히 가세요", "잘 자요", "감사합니다"],
+  },
+  {
+    id: "pt-ko-m3-2", moduleId: "m3", languageId: "ko", type: "sentenceMcq",
+    prompt: "'I am a student.' (저 = I, 학생 = student) — which is correct?",
+    correctKana: "저는 학생이에요",
+    distractorsKana: ["저는 학생예요", "저가 학생이에요", "저는 학생을 이에요"],
+  },
+  {
+    id: "pt-ko-m3-3", moduleId: "m3", languageId: "ko", type: "sentenceMcq",
+    prompt: "'I am Min-su.' — which is correct? (이에요 vs 예요 — name ends in a vowel)",
+    correctKana: "저는 민수예요",
+    distractorsKana: ["저는 민수이에요", "저는 민수에요", "저는 민수입니다요"],
+  },
+  {
+    id: "pt-ko-m3-4", moduleId: "m3", languageId: "ko", type: "sentenceMcq",
+    prompt: "'What is your name?' — which is the polite question?",
+    correctKana: "이름이 뭐예요?",
+    distractorsKana: ["이름이 뭐이에요?", "이름은 뭐 입니다?", "이름이 누구예요?"],
+  },
+  {
+    id: "pt-ko-m3-5", moduleId: "m3", languageId: "ko", type: "sentenceMcq",
+    prompt: "'Nice to meet you.' (first-time greeting) — which is correct?",
+    correctKana: "반갑습니다",
+    distractorsKana: ["미안합니다", "괜찮아요", "안녕히 계세요"],
+  },
+  {
+    id: "pt-ko-m3-6", moduleId: "m3", languageId: "ko", type: "sentenceMcq",
+    prompt: "'Three' (Sino-Korean number) — which is correct?",
+    correctKana: "삼",
+    distractorsKana: ["셋", "이", "사"],
   },
 ];
