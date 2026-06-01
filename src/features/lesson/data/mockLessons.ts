@@ -6,6 +6,7 @@ import {
 } from "@/features/languages/ko/curriculum/m1-vowels";
 import { buildAllKoreanRowLessons } from "@/features/languages/ko/curriculum/m1-rows";
 import { buildAllKoreanM2Lessons } from "@/features/languages/ko/curriculum/m2";
+import { MOCK_LESSON_KO_SIDEQUEST_SURVIVAL } from "@/features/languages/ko/curriculum/sidequest-survival";
 import {
   MOCK_LESSON_JA_M1_L1A,
   MOCK_LESSON_JA_M1_L1B,
@@ -323,6 +324,7 @@ const LESSONS: Record<string, LessonContent> = {
   "ko-m1-v-2": MOCK_LESSON_KO_M1_V2,
   ...KOREAN_ROW_LESSONS,
   ...KOREAN_M2_LESSONS,
+  "ko-sidequest-survival-phrases": MOCK_LESSON_KO_SIDEQUEST_SURVIVAL,
   // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,
   "ja-m1-l1-2": MOCK_LESSON_JA_M1_L1B,

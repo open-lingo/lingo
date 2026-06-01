@@ -1004,7 +1004,6 @@ export function getMockCourse(languageId: string): Course {
         title: "Survival Phrasebook",
         meta: "15 essentials · ~5 min · travel-ready",
         progress: 0,
-        comingSoon: true,
       },
       {
         id: "kdrama-vocab",

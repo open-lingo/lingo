@@ -254,6 +254,7 @@ export function LearnPage() {
   // stay click-no-op (existing behavior) until their lessons land.
   const SIDEQUEST_TO_LESSON: Record<string, string> = {
     "ja-survival-phrasebook": "ja-sidequest-survival-phrases",
+    "ko-survival-phrasebook": "ko-sidequest-survival-phrases",
   };
   const SIDEQUEST_TO_ROUTE: Record<string, string> = {
     "ja-travel-sprint": "learn/travel-sprint",
