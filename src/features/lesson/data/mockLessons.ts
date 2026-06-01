@@ -9,202 +9,202 @@ import {
   MOCK_LESSON_JA_M1_L1A,
   MOCK_LESSON_JA_M1_L1B,
   MOCK_LESSON_JA_M1_L1C,
-} from "./mock-ja-m1-l1";
+} from "@/features/languages/ja/curriculum/m1-l1";
 import {
   MOCK_LESSON_JA_M1_KA_1,
   MOCK_LESSON_JA_M1_KA_2,
   MOCK_LESSON_JA_M1_KA_3,
-} from "./mock-ja-m1-ka";
+} from "@/features/languages/ja/curriculum/m1-ka";
 import {
   MOCK_LESSON_JA_M1_SA_1,
   MOCK_LESSON_JA_M1_SA_2,
   MOCK_LESSON_JA_M1_SA_3,
-} from "./mock-ja-m1-sa";
+} from "@/features/languages/ja/curriculum/m1-sa";
 import {
   MOCK_LESSON_JA_M1_TA_1,
   MOCK_LESSON_JA_M1_TA_2,
   MOCK_LESSON_JA_M1_TA_3,
-} from "./mock-ja-m1-ta";
+} from "@/features/languages/ja/curriculum/m1-ta";
 import {
   MOCK_LESSON_JA_M1_NA_1,
   MOCK_LESSON_JA_M1_NA_2,
   MOCK_LESSON_JA_M1_NA_3,
-} from "./mock-ja-m1-na";
+} from "@/features/languages/ja/curriculum/m1-na";
 import {
   MOCK_LESSON_JA_M1_HA_1,
   MOCK_LESSON_JA_M1_HA_2,
   MOCK_LESSON_JA_M1_HA_3,
-} from "./mock-ja-m1-ha";
+} from "@/features/languages/ja/curriculum/m1-ha";
 import {
   MOCK_LESSON_JA_M1_MA_1,
   MOCK_LESSON_JA_M1_MA_2,
   MOCK_LESSON_JA_M1_MA_3,
-} from "./mock-ja-m1-ma";
+} from "@/features/languages/ja/curriculum/m1-ma";
 import {
   MOCK_LESSON_JA_M1_RA_1,
   MOCK_LESSON_JA_M1_RA_2,
   MOCK_LESSON_JA_M1_RA_3,
-} from "./mock-ja-m1-ra";
+} from "@/features/languages/ja/curriculum/m1-ra";
 import {
   MOCK_LESSON_JA_M1_YA_1,
   MOCK_LESSON_JA_M1_YA_2,
   MOCK_LESSON_JA_M1_YA_3,
-} from "./mock-ja-m1-ya";
+} from "@/features/languages/ja/curriculum/m1-ya";
 import {
   MOCK_LESSON_JA_M1_WA_1,
   MOCK_LESSON_JA_M1_WA_2,
   MOCK_LESSON_JA_M1_WA_3,
-} from "./mock-ja-m1-wa";
+} from "@/features/languages/ja/curriculum/m1-wa";
 import {
   MOCK_LESSON_JA_M2_G_1,
   MOCK_LESSON_JA_M2_G_2,
   MOCK_LESSON_JA_M2_G_3,
-} from "./mock-ja-m2-g";
+} from "@/features/languages/ja/curriculum/m2-g";
 import {
   MOCK_LESSON_JA_M2_Z_1,
   MOCK_LESSON_JA_M2_Z_2,
   MOCK_LESSON_JA_M2_Z_3,
-} from "./mock-ja-m2-z";
+} from "@/features/languages/ja/curriculum/m2-z";
 import {
   MOCK_LESSON_JA_M2_D_1,
   MOCK_LESSON_JA_M2_D_2,
   MOCK_LESSON_JA_M2_D_3,
-} from "./mock-ja-m2-d";
+} from "@/features/languages/ja/curriculum/m2-d";
 import {
   MOCK_LESSON_JA_M2_B_1,
   MOCK_LESSON_JA_M2_B_2,
   MOCK_LESSON_JA_M2_B_3,
-} from "./mock-ja-m2-b";
+} from "@/features/languages/ja/curriculum/m2-b";
 import {
   MOCK_LESSON_JA_M2_P_1,
   MOCK_LESSON_JA_M2_P_2,
   MOCK_LESSON_JA_M2_P_3,
-} from "./mock-ja-m2-p";
+} from "@/features/languages/ja/curriculum/m2-p";
 import {
   MOCK_LESSON_JA_M2_YOON_INTRO_1,
   MOCK_LESSON_JA_M2_YOON_INTRO_2,
   MOCK_LESSON_JA_M2_YOON_INTRO_3,
-} from "./mock-ja-m2-yoon-intro";
+} from "@/features/languages/ja/curriculum/m2-yoon-intro";
 import {
   MOCK_LESSON_JA_M2_YOON_SH_CH_1,
   MOCK_LESSON_JA_M2_YOON_SH_CH_2,
   MOCK_LESSON_JA_M2_YOON_SH_CH_3,
-} from "./mock-ja-m2-yoon-sh-ch";
+} from "@/features/languages/ja/curriculum/m2-yoon-sh-ch";
 import {
   MOCK_LESSON_JA_M2_YOON_VOICED_1,
   MOCK_LESSON_JA_M2_YOON_VOICED_2,
   MOCK_LESSON_JA_M2_YOON_VOICED_3,
-} from "./mock-ja-m2-yoon-voiced";
+} from "@/features/languages/ja/curriculum/m2-yoon-voiced";
 import {
   MOCK_LESSON_JA_M2_YOON_RARE_1,
   MOCK_LESSON_JA_M2_YOON_RARE_2,
   MOCK_LESSON_JA_M2_YOON_RARE_3,
-} from "./mock-ja-m2-yoon-rare";
-import { MOCK_LESSON_JA_SIDEQUEST_SURVIVAL } from "./mock-ja-sidequest-survival";
-import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_NAVIGATION } from "./mock-ja-sidequest-travel-navigation";
-import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_ORDERING } from "./mock-ja-sidequest-travel-ordering";
-import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_HELP } from "./mock-ja-sidequest-travel-help";
-import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_SHOPPING } from "./mock-ja-sidequest-travel-shopping";
+} from "@/features/languages/ja/curriculum/m2-yoon-rare";
+import { MOCK_LESSON_JA_SIDEQUEST_SURVIVAL } from "@/features/languages/ja/curriculum/sidequest-survival";
+import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_NAVIGATION } from "@/features/languages/ja/curriculum/sidequest-travel-navigation";
+import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_ORDERING } from "@/features/languages/ja/curriculum/sidequest-travel-ordering";
+import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_HELP } from "@/features/languages/ja/curriculum/sidequest-travel-help";
+import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_SHOPPING } from "@/features/languages/ja/curriculum/sidequest-travel-shopping";
 import {
   M8_1_1, M8_1_2, M8_2_1, M8_2_2, M8_3_1, M8_3_2,
   M8_4_1, M8_4_2, M8_5_1, M8_5_2, M8_6_1, M8_6_2,
   M8_STORY, M8_7_1, M8_7_2,
-} from "./mock-ja-m8";
+} from "@/features/languages/ja/curriculum/m8";
 import {
   M9_1_1, M9_1_2, M9_2_1, M9_2_2, M9_3_1, M9_3_2,
   M9_4_1, M9_4_2, M9_5_1, M9_5_2, M9_6_1, M9_6_2,
   M9_STORY, M9_7_1, M9_7_2,
-} from "./mock-ja-m9";
+} from "@/features/languages/ja/curriculum/m9";
 import {
   M10_1_1, M10_1_2, M10_2_1, M10_2_2, M10_3_1, M10_3_2,
   M10_4_1, M10_4_2, M10_5_1, M10_5_2, M10_6_1, M10_6_2,
   M10_STORY, M10_7_1, M10_7_2,
-} from "./mock-ja-m10";
+} from "@/features/languages/ja/curriculum/m10";
 import {
   M11_1_1, M11_1_2, M11_2_1, M11_2_2, M11_3_1, M11_3_2,
   M11_4_1, M11_4_2, M11_5_1, M11_5_2, M11_6_1, M11_6_2,
   M11_STORY, M11_7_1, M11_7_2,
-} from "./mock-ja-m11";
+} from "@/features/languages/ja/curriculum/m11";
 import {
   M12_1_1, M12_1_2, M12_2_1, M12_2_2, M12_3_1, M12_3_2,
   M12_4_1, M12_4_2, M12_5_1, M12_5_2, M12_6_1, M12_6_2,
   M12_STORY, M12_7_1, M12_7_2,
-} from "./mock-ja-m12";
+} from "@/features/languages/ja/curriculum/m12";
 import {
   M13_1_1, M13_1_2, M13_2_1, M13_2_2, M13_3_1, M13_3_2,
   M13_4_1, M13_4_2, M13_5_1, M13_5_2, M13_6_1, M13_6_2,
   M13_STORY, M13_7_1, M13_7_2,
-} from "./mock-ja-m13";
+} from "@/features/languages/ja/curriculum/m13";
 import {
   M14_1_1, M14_1_2, M14_2_1, M14_2_2, M14_3_1, M14_3_2,
   M14_4_1, M14_4_2, M14_5_1, M14_5_2, M14_6_1, M14_6_2,
   M14_STORY, M14_7_1, M14_7_2,
-} from "./mock-ja-m14";
+} from "@/features/languages/ja/curriculum/m14";
 import {
   M15_1_1, M15_1_2, M15_2_1, M15_2_2, M15_3_1, M15_3_2,
   M15_4_1, M15_4_2, M15_5_1, M15_5_2, M15_6_1, M15_6_2,
   M15_STORY, M15_7_1, M15_7_2,
-} from "./mock-ja-m15";
+} from "@/features/languages/ja/curriculum/m15";
 import {
   M16_1_1, M16_1_2, M16_2_1, M16_2_2, M16_3_1, M16_3_2,
   M16_4_1, M16_4_2, M16_5_1, M16_5_2, M16_6_1, M16_6_2,
   M16_STORY, M16_7_1, M16_7_2,
-} from "./mock-ja-m16";
+} from "@/features/languages/ja/curriculum/m16";
 import {
   M17_1_1, M17_1_2, M17_2_1, M17_2_2, M17_3_1, M17_3_2,
   M17_4_1, M17_4_2, M17_5_1, M17_5_2, M17_6_1, M17_6_2,
   M17_STORY, M17_7_1, M17_7_2,
-} from "./mock-ja-m17";
+} from "@/features/languages/ja/curriculum/m17";
 import {
   M18_1_1, M18_1_2, M18_2_1, M18_2_2, M18_3_1, M18_3_2,
   M18_4_1, M18_4_2, M18_5_1, M18_5_2, M18_6_1, M18_6_2,
   M18_STORY, M18_7_1, M18_7_2,
-} from "./mock-ja-m18";
+} from "@/features/languages/ja/curriculum/m18";
 import {
   M19_1_1, M19_1_2, M19_2_1, M19_2_2, M19_3_1, M19_3_2,
   M19_4_1, M19_4_2, M19_5_1, M19_5_2, M19_6_1, M19_6_2,
   M19_STORY, M19_7_1, M19_7_2,
-} from "./mock-ja-m19";
+} from "@/features/languages/ja/curriculum/m19";
 import {
   M20_1_1, M20_1_2, M20_2_1, M20_2_2, M20_3_1, M20_3_2,
   M20_4_1, M20_4_2, M20_5_1, M20_5_2, M20_6_1, M20_6_2,
   M20_STORY, M20_7_1, M20_7_2,
-} from "./mock-ja-m20";
+} from "@/features/languages/ja/curriculum/m20";
 import {
   M21_1_1, M21_1_2, M21_2_1, M21_2_2, M21_3_1, M21_3_2,
   M21_4_1, M21_4_2, M21_5_1, M21_5_2, M21_6_1, M21_6_2,
   M21_STORY, M21_7_1, M21_7_2,
-} from "./mock-ja-m21";
+} from "@/features/languages/ja/curriculum/m21";
 import {
   M22_1_1, M22_1_2, M22_2_1, M22_2_2, M22_3_1, M22_3_2,
   M22_4_1, M22_4_2, M22_5_1, M22_5_2, M22_6_1, M22_6_2,
   M22_STORY, M22_7_1, M22_7_2,
-} from "./mock-ja-m22";
+} from "@/features/languages/ja/curriculum/m22";
 import {
   M23_1_1, M23_1_2, M23_2_1, M23_2_2, M23_3_1, M23_3_2,
   M23_4_1, M23_4_2, M23_5_1, M23_5_2, M23_6_1, M23_6_2,
   M23_STORY, M23_7_1, M23_7_2,
-} from "./mock-ja-m23";
+} from "@/features/languages/ja/curriculum/m23";
 import {
   M25_1_1, M25_1_2, M25_2_1, M25_2_2, M25_3_1, M25_3_2,
   M25_4_1, M25_4_2, M25_5_1, M25_5_2, M25_6_1, M25_6_2,
   M25_STORY, M25_7_1, M25_7_2,
-} from "./mock-ja-m25";
+} from "@/features/languages/ja/curriculum/m25";
 import {
   M26_1_1, M26_1_2, M26_2_1, M26_2_2, M26_3_1, M26_3_2,
   M26_4_1, M26_4_2, M26_5_1, M26_5_2, M26_6_1, M26_6_2,
   M26_STORY, M26_7_1, M26_7_2,
-} from "./mock-ja-m26";
+} from "@/features/languages/ja/curriculum/m26";
 import {
   M24_1_1, M24_1_2, M24_2_1, M24_2_2, M24_3_1, M24_3_2,
   M24_4_1, M24_4_2, M24_5_1, M24_5_2, M24_6_1, M24_6_2,
   M24_STORY, M24_7_1, M24_7_2,
-} from "./mock-ja-m24";
+} from "@/features/languages/ja/curriculum/m24";
 import {
   M27_1_1, M27_1_2, M27_2_1, M27_2_2, M27_3_1, M27_3_2,
   M27_4_1, M27_4_2, M27_5_1, M27_5_2, M27_6_1, M27_6_2,
   M27_STORY, M27_7_1, M27_7_2,
-} from "./mock-ja-m27";
+} from "@/features/languages/ja/curriculum/m27";
 import {
   M3_1_1,
   M3_1_2,
@@ -221,7 +221,7 @@ import {
   M3_7_1,
   M3_7_2,
   M3_9,
-} from "./mock-ja-m3-v2";
+} from "@/features/languages/ja/curriculum/m3-v2";
 import {
   M4_1_1,
   M4_1_2,
@@ -238,7 +238,7 @@ import {
   M4_7_1,
   M4_7_2,
   M4_STORY,
-} from "./mock-ja-m4";
+} from "@/features/languages/ja/curriculum/m4";
 import {
   M5_1_1,
   M5_1_2,
@@ -255,7 +255,7 @@ import {
   M5_7_1,
   M5_7_2,
   M5_STORY,
-} from "./mock-ja-m5";
+} from "@/features/languages/ja/curriculum/m5";
 import {
   M6_1_1,
   M6_1_2,
@@ -274,7 +274,7 @@ import {
   M6_8_1,
   M6_8_2,
   M6_STORY,
-} from "./mock-ja-m6";
+} from "@/features/languages/ja/curriculum/m6";
 import {
   M7_1_1,
   M7_1_2,
@@ -293,7 +293,7 @@ import {
   M7_8_1,
   M7_8_2,
   M7_STORY,
-} from "./mock-ja-m7";
+} from "@/features/languages/ja/curriculum/m7";
 // `buildModuleReviewLessons` + jaReviewPools intentionally not imported.
 // 2026-05-18: standalone inter-module Review pseudo-modules removed from
 // the pathway; the helpers stay alive in their own files for future FSRS

@@ -9,15 +9,15 @@
 import { describe, it, expect } from "vitest";
 import { ALL_ROWS } from "./hiraganaCurriculum";
 import { buildRowSubLessons } from "./lessonBuilder";
-import { MOCK_LESSON_JA_M1_KA_3 } from "./mock-ja-m1-ka";
-import { MOCK_LESSON_JA_M1_SA_3 } from "./mock-ja-m1-sa";
-import { MOCK_LESSON_JA_M1_TA_3 } from "./mock-ja-m1-ta";
-import { MOCK_LESSON_JA_M1_NA_3 } from "./mock-ja-m1-na";
-import { MOCK_LESSON_JA_M1_HA_3 } from "./mock-ja-m1-ha";
-import { MOCK_LESSON_JA_M1_MA_3 } from "./mock-ja-m1-ma";
-import { MOCK_LESSON_JA_M1_YA_3 } from "./mock-ja-m1-ya";
-import { MOCK_LESSON_JA_M1_RA_3 } from "./mock-ja-m1-ra";
-import { MOCK_LESSON_JA_M1_WA_3 } from "./mock-ja-m1-wa";
+import { MOCK_LESSON_JA_M1_KA_3 } from "@/features/languages/ja/curriculum/m1-ka";
+import { MOCK_LESSON_JA_M1_SA_3 } from "@/features/languages/ja/curriculum/m1-sa";
+import { MOCK_LESSON_JA_M1_TA_3 } from "@/features/languages/ja/curriculum/m1-ta";
+import { MOCK_LESSON_JA_M1_NA_3 } from "@/features/languages/ja/curriculum/m1-na";
+import { MOCK_LESSON_JA_M1_HA_3 } from "@/features/languages/ja/curriculum/m1-ha";
+import { MOCK_LESSON_JA_M1_MA_3 } from "@/features/languages/ja/curriculum/m1-ma";
+import { MOCK_LESSON_JA_M1_YA_3 } from "@/features/languages/ja/curriculum/m1-ya";
+import { MOCK_LESSON_JA_M1_RA_3 } from "@/features/languages/ja/curriculum/m1-ra";
+import { MOCK_LESSON_JA_M1_WA_3 } from "@/features/languages/ja/curriculum/m1-wa";
 import { M1_PRIOR_KANA_POOL, M1_PRIOR_WORDS_POOL } from "./_consonantRowHelpers";
 
 describe("alphabet-streamline coverage", () => {

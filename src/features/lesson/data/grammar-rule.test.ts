@@ -4,7 +4,7 @@
  */
 import { describe, it, expect } from "vitest";
 import { getMockLessonContent } from "./mockLessons";
-import { M3_8 } from "./mock-ja-m3-v2";
+import { M3_8 } from "@/features/languages/ja/curriculum/m3-v2";
 import type {
   GrammarRuleStep,
   ParticleClozeStep,
