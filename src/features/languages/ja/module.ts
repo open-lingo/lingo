@@ -55,7 +55,7 @@ import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { isKana, tokenizeJapanese, KANA_ROMAJI } from "@/shared/japanese/kanaTable";
 import { lingoArtUrl, notoEmojiUrl } from "@/shared/assets/notoEmoji";
-import jaManifest from "@/pub/tts/manifest.json";
+import jaManifest from "../../../pub/tts/manifest.json";
 
 import { ALL_ROWS } from "@/features/lesson/data/hiraganaCurriculum";
 import {
