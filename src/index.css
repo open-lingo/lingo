@@ -184,6 +184,12 @@ ruby {
 .font-japanese {
   font-family: "Noto Sans JP", "Inter", ui-sans-serif, system-ui, sans-serif;
 }
+/* Apply Noto Sans KR to every Korean-language span so Hangul renders
+   consistently across platforms. Wrap KO content with lang="ko" to opt in. */
+:lang(ko),
+.font-korean {
+  font-family: "Noto Sans KR", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
 .kana-helper {
   font-size: 0.65em;
   font-weight: 500;
