@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ModalBase } from "@/shared/components/ModalBase";
 import { Icon } from "@/shared/components/Icon";
@@ -7,13 +7,14 @@ import { useUserStats } from "@/shared/hooks/useUserStats";
 import { xpProgressToNextLevel } from "@/features/progress/leveling";
 import type { Quest, QuestType } from "../types";
 import { useQuests } from "../useQuests";
+import { useQuestsModalUrl, type QuestsTab } from "../useQuestsModalUrl";
 import { QuestRow } from "./QuestRow";
 import { QuestProgressBar } from "./QuestProgressBar";
 
 export type QuestsPanelProps = {
   isOpen: boolean;
   onClose: () => void;
-  /** Initial tab — daily by default. */
+  /** Optional initial tab — defaults to the URL-driven ``questsTab`` param. */
   initialTab?: QuestType | "all";
 };
 
@@ -36,12 +37,14 @@ const TAB_ORDER: Array<QuestType | "all"> = [
 export function QuestsPanel({
   isOpen,
   onClose,
-  initialTab = "all",
+  initialTab,
 }: QuestsPanelProps) {
   const { t } = useTranslation();
   const { quests, claim } = useQuests();
   const { stats } = useUserStats();
-  const [tab, setTab] = useState<QuestType | "all">(initialTab);
+  const { tab: urlTab, open: openTab } = useQuestsModalUrl();
+  const tab: QuestType | "all" = initialTab ?? (urlTab as QuestType | "all");
+  const setTab = (next: QuestType | "all") => openTab(next as QuestsTab);
 
   const filtered = useMemo<Quest[]>(() => {
     if (tab === "all") return quests;
@@ -74,9 +77,9 @@ export function QuestsPanel({
     <ModalBase
       onClose={onClose}
       title={t("quests.panelTitle", { defaultValue: "Your quests" })}
-      maxWidth="max-w-2xl"
+      maxWidth="max-w-3xl"
     >
-      <div className="flex max-h-[78vh] flex-col">
+      <div className="flex max-h-[82vh] flex-col">
         {/* Level + XP header */}
         <section className="border-b border-border px-6 py-4">
           <div className="flex items-center justify-between gap-3">

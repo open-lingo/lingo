@@ -63,7 +63,7 @@ export function QuestSpotlightCard() {
           </h3>
           <button
             type="button"
-            onClick={open}
+            onClick={() => open()}
             className="text-xs font-semibold text-accent hover:text-accent-hover"
           >
             {t("quests.seeAll", { defaultValue: "See all" })}

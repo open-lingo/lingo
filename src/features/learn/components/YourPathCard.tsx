@@ -1,15 +1,12 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { Button, Card, ProgressRing } from "@/shared/components/ui";
-import { cn } from "@/shared/components/ui/cn";
 import type { Course } from "@/shared/domain/course";
 import {
   getCurrentModuleIndex,
-  getModuleStatus,
   getNextLessonIndex,
 } from "../moduleProgress";
-import { getModuleMastery } from "../moduleMastery";
 
 export type YourPathCardProps = {
   course: Course;
@@ -44,11 +41,10 @@ export function YourPathCard({
   completedSet,
   streakDays,
   onResume,
-  onJumpToModule,
+  onJumpToModule: _onJumpToModule,
   onStartOver,
 }: YourPathCardProps) {
   const { t } = useTranslation();
-  const [modulesExpanded, setModulesExpanded] = useState(false);
 
   const currentIdx = getCurrentModuleIndex(course, completedSet);
   const currentModule = course.modules[currentIdx];
@@ -78,22 +74,6 @@ export function YourPathCard({
     ? getNextLessonIndex(currentModule.lessons, completedSet)
     : 0;
   const nextLesson = currentModule?.lessons[nextLessonIdx];
-
-  const visibleModules = useMemo(
-    () =>
-      course.modules
-        .map((mod, index) => ({ mod, index }))
-        .filter(({ mod }) => !mod.comingSoon),
-    [course.modules],
-  );
-
-  // Compact view (mobile / collapsed): only the 3 nearest modules.
-  const compactModules = useMemo(() => {
-    if (visibleModules.length <= 3) return visibleModules;
-    const around = visibleModules.findIndex(({ index }) => index === currentIdx);
-    const start = Math.max(0, Math.min(around - 1, visibleModules.length - 3));
-    return visibleModules.slice(start, start + 3);
-  }, [visibleModules, currentIdx]);
 
   const hasProgress = stats.done > 0;
 
@@ -199,16 +179,10 @@ export function YourPathCard({
           </div>
         ) : null}
 
-        <ModuleFluencyStrip
-          course={course}
-          completedSet={completedSet}
-          currentIdx={currentIdx}
-          visibleModules={visibleModules}
-          compactModules={compactModules}
-          expanded={modulesExpanded}
-          onToggleExpand={() => setModulesExpanded((v) => !v)}
-          onJumpToModule={onJumpToModule}
-        />
+        {/* The per-module fluency strip used to render here; we now
+            rely on the full module list directly below the card on
+            the learn page — duplicating the percentages here was just
+            visual clutter. */}
 
         {hasProgress ? (
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
@@ -228,153 +202,3 @@ export function YourPathCard({
   );
 }
 
-type ModuleFluencyStripProps = {
-  course: Course;
-  completedSet: ReadonlySet<string>;
-  currentIdx: number;
-  visibleModules: Array<{ mod: Course["modules"][number]; index: number }>;
-  compactModules: Array<{ mod: Course["modules"][number]; index: number }>;
-  expanded: boolean;
-  onToggleExpand: () => void;
-  onJumpToModule: (moduleId: string) => void;
-};
-
-function ModuleFluencyStrip({
-  course,
-  completedSet,
-  currentIdx,
-  visibleModules,
-  compactModules,
-  expanded,
-  onToggleExpand,
-  onJumpToModule,
-}: ModuleFluencyStripProps) {
-  const { t } = useTranslation();
-  const rows = expanded ? visibleModules : compactModules;
-  const showToggle = visibleModules.length > compactModules.length;
-
-  return (
-    <section
-      className="border-t border-border pt-4"
-      aria-labelledby="your-path-modules-heading"
-    >
-      <div className="mb-2 flex items-center justify-between gap-2">
-        <h3
-          id="your-path-modules-heading"
-          className="m-0 text-xs font-semibold uppercase tracking-wider text-text-muted"
-        >
-          {t("learn.progressCard.allModulesHeading", {
-            defaultValue: "All modules",
-          })}
-        </h3>
-        {showToggle ? (
-          <button
-            type="button"
-            onClick={onToggleExpand}
-            className="text-xs font-semibold text-accent hover:text-accent-hover"
-          >
-            {expanded
-              ? t("learn.progressCard.showFewer", { defaultValue: "Show fewer" })
-              : t("learn.progressCard.showAll", {
-                  defaultValue: "Show all {{count}}",
-                  count: visibleModules.length,
-                })}
-          </button>
-        ) : null}
-      </div>
-      <ul className="space-y-1.5">
-        {rows.map(({ mod, index }) => {
-          const status = getModuleStatus(
-            index,
-            completedSet,
-            course.modules,
-          );
-          const isCurrent = index === currentIdx;
-          const mastery = getModuleMastery(mod, completedSet);
-          // Fluency = % of row-tests aced (mastery.passed/total) when the
-          // module has tests; otherwise raw lesson completion. The two
-          // metrics coincide for already-mastered modules.
-          const lessonsDone = mod.lessons.filter((l) =>
-            completedSet.has(l.id),
-          ).length;
-          const lessonPct =
-            mod.lessons.length > 0
-              ? Math.round((lessonsDone / mod.lessons.length) * 100)
-              : 0;
-          const fluencyPct =
-            mastery.total > 0
-              ? Math.round((mastery.passed / mastery.total) * 100)
-              : lessonPct;
-          return (
-            <li key={mod.id}>
-              <button
-                type="button"
-                onClick={() => onJumpToModule(mod.id)}
-                className={cn(
-                  "flex w-full items-center gap-3 rounded-lg border px-3 py-2 text-left transition",
-                  isCurrent
-                    ? "border-accent bg-accent/5"
-                    : "border-border bg-surface hover:border-accent/40 hover:bg-surface-muted",
-                )}
-                aria-current={isCurrent ? "step" : undefined}
-              >
-                <span
-                  className={cn(
-                    "grid h-7 w-7 shrink-0 place-items-center rounded-full text-xs font-extrabold",
-                    status === "completed"
-                      ? "bg-success/15 text-success"
-                      : status === "current"
-                        ? "bg-accent/15 text-accent"
-                        : "bg-surface-muted text-text-muted",
-                  )}
-                  aria-hidden
-                >
-                  {status === "completed" ? (
-                    <Icon name="check" size={14} />
-                  ) : status === "locked" ? (
-                    <Icon name="lock" size={12} />
-                  ) : (
-                    `M${index}`
-                  )}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-text-primary">
-                    {mod.title}
-                  </p>
-                  <div className="mt-1 flex items-center gap-2">
-                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-muted">
-                      <div
-                        className={cn(
-                          "h-full rounded-full transition-[width] duration-500",
-                          mastery.mastered
-                            ? "bg-warning"
-                            : status === "current"
-                              ? "bg-accent"
-                              : "bg-accent/70",
-                        )}
-                        style={{ width: `${fluencyPct}%` }}
-                      />
-                    </div>
-                    <span className="shrink-0 text-[0.7rem] font-bold tabular-nums text-text-muted">
-                      {fluencyPct}%
-                    </span>
-                  </div>
-                </div>
-                {mastery.mastered ? (
-                  <span
-                    className="shrink-0 text-base text-warning"
-                    aria-label={t("learn.progressCard.masteredAria", {
-                      defaultValue: "Mastered",
-                    })}
-                  >
-                    ★
-                  </span>
-                ) : null}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-    </section>
-  );
-}

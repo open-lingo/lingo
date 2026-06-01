@@ -14,37 +14,59 @@ import { useSearchParams } from "react-router-dom";
  * Sharing state through the URL is the cheapest coordination point.
  */
 const PARAM = "quests";
+const TAB_PARAM = "questsTab";
 const OPEN_VALUE = "open";
+
+export type QuestsTab = "all" | "daily" | "weekly" | "random" | "friend";
+
+const VALID_TABS: ReadonlySet<QuestsTab> = new Set([
+  "all",
+  "daily",
+  "weekly",
+  "random",
+  "friend",
+]);
 
 export function useQuestsModalUrl(): {
   isOpen: boolean;
-  open: () => void;
+  tab: QuestsTab;
+  open: (tab?: QuestsTab) => void;
   close: () => void;
 } {
   const [params, setParams] = useSearchParams();
   const isOpen = params.get(PARAM) === OPEN_VALUE;
+  const rawTab = params.get(TAB_PARAM);
+  const tab: QuestsTab = (
+    rawTab && VALID_TABS.has(rawTab as QuestsTab) ? rawTab : "all"
+  ) as QuestsTab;
 
-  const open = useCallback(() => {
-    setParams(
-      (prev) => {
-        const next = new URLSearchParams(prev);
-        next.set(PARAM, OPEN_VALUE);
-        return next;
-      },
-      { replace: false },
-    );
-  }, [setParams]);
+  const open = useCallback(
+    (nextTab?: QuestsTab) => {
+      setParams(
+        (prev) => {
+          const next = new URLSearchParams(prev);
+          next.set(PARAM, OPEN_VALUE);
+          if (nextTab) next.set(TAB_PARAM, nextTab);
+          else next.delete(TAB_PARAM);
+          return next;
+        },
+        { replace: false },
+      );
+    },
+    [setParams],
+  );
 
   const close = useCallback(() => {
     setParams(
       (prev) => {
         const next = new URLSearchParams(prev);
         next.delete(PARAM);
+        next.delete(TAB_PARAM);
         return next;
       },
       { replace: true },
     );
   }, [setParams]);
 
-  return { isOpen, open, close };
+  return { isOpen, tab, open, close };
 }
