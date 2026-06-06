@@ -7,15 +7,13 @@
  * selected we lazy-load its messages via `socialApi.getThread(threadId)` so
  * the seeded history (Trevor↔Sora, Trevor↔Kenji) actually paints.
  *
- * Composer is currently local-only: there is no `POST /threads/{id}/messages`
- * endpoint yet, so optimistic sends append to client state with a clear UX
- * hint ("Saved locally") and do NOT persist on the server.
+ * Composer persists via `POST /threads/{id}/messages`. Sends are optimistic
+ * (append a synthetic message to client state immediately, then reconcile
+ * with the server-issued id on success or roll back on error).
  *
  * "New conversation" picker uses `getOrCreateThreadWith(userId)` so the
  * caller can spin up a thread for any friend without first checking whether
  * one exists.
- *
- * TODO(backend): POST /social/threads/{thread_id}/messages → 201 Message
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { userSlug } from "@/features/social/userSlug";
@@ -184,26 +182,27 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
 
   const active = threads.find((th) => th.id === activeId) ?? threads[0];
 
-  // Compose: the backend does not have a `POST /threads/{id}/messages`
-  // endpoint yet so sends are local-only. We optimistically append to
-  // client state; the next reload will lose the message until backend
-  // support lands.
-  // TODO(backend): POST /social/threads/{thread_id}/messages
-  const handleSend = () => {
+  // Compose: persist via POST /threads/{id}/messages with an optimistic
+  // append + rollback. The synthetic id is replaced with the server-issued
+  // one on success. Mock / no-API path keeps the original local-only
+  // behavior so the demo flow stays functional offline.
+  const handleSend = async () => {
     const text = draft.trim();
     if (!text) return;
-    const newMsg: ChatMessage = {
-      id: `m-${Date.now()}`,
+    const tempId = `m-temp-${Date.now()}`;
+    const optimistic: ChatMessage = {
+      id: tempId,
       fromId: "me",
       text,
       timeLabel: "Now",
     };
+    const targetId = active.id;
     setThreads((prev) =>
       prev.map((th) =>
-        th.id === active.id
+        th.id === targetId
           ? {
               ...th,
-              messages: [...th.messages, newMsg],
+              messages: [...th.messages, optimistic],
               lastMessage: text,
               lastTimeLabel: "Now",
             }
@@ -211,6 +210,36 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
       ),
     );
     setDraft("");
+
+    // Skip the network call for mock / local-only threads (no API client OR
+    // a local-thread stub id).
+    if (!apiOpt || !/^[0-9a-f-]{8,}$/i.test(targetId)) return;
+    try {
+      const persisted = await apiOpt.social.sendThreadMessage(targetId, text);
+      setThreads((prev) =>
+        prev.map((th) =>
+          th.id === targetId
+            ? {
+                ...th,
+                messages: th.messages.map((m) =>
+                  m.id === tempId ? { ...m, id: persisted.id } : m,
+                ),
+              }
+            : th,
+        ),
+      );
+    } catch {
+      // Roll back the optimistic append and restore the draft so the user
+      // doesn't lose their text.
+      setThreads((prev) =>
+        prev.map((th) =>
+          th.id === targetId
+            ? { ...th, messages: th.messages.filter((m) => m.id !== tempId) }
+            : th,
+        ),
+      );
+      setDraft(text);
+    }
   };
 
   return (
@@ -425,12 +454,6 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
 
           {/* Composer */}
           <div className="border-t border-border bg-surface px-3 py-3">
-            <p className="mb-1.5 text-[10px] text-text-muted">
-              {t(
-                "social.messages.sendsLocalOnly",
-                "Drafts stay on this device — server-side delivery is rolling out.",
-              )}
-            </p>
             <div className="flex items-end gap-2">
               {/* Emoji picker trigger + popover. We keep the popover tightly
                *  scoped to a hand-curated grid (no library, no unicode

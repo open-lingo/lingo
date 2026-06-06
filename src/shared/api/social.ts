@@ -545,6 +545,21 @@ export class SocialApi extends ApiClient {
     );
   }
 
+  /** Send a new message in a thread the caller participates in. Returns the
+   *  persisted message so the UI can append it after the optimistic update
+   *  resolves (or roll back on error). */
+  sendThreadMessage(
+    threadId: string,
+    body: string,
+    signal?: AbortSignal,
+  ): Promise<Message> {
+    return this.post<Message>(
+      `${PREFIX}/threads/${encodeURIComponent(threadId)}/messages`,
+      { body },
+      { signal, tag: `social:thread-send:${threadId}` },
+    );
+  }
+
   // ── Quest targets ──────────────────────────────────────────
 
   getQuestTargets(signal?: AbortSignal): Promise<QuestTargetItem[]> {
