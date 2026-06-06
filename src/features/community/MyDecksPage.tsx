@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useApi } from "@/shared/api/provider";
-import { EmptyState } from "@/shared/components/EmptyState";
+import { EmptyState } from "@/shared/components/ui/EmptyState";
 import { useFeatureFlagsOptional } from "@/shared/contexts/FeatureFlagsContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import type { DeckResponse } from "@/shared/api/decks";
@@ -354,13 +354,14 @@ export function MyDecksPage() {
                 "community.myDecksEmptyDescription",
                 "Create your first deck to start sharing with the community — or just to study yourself.",
               )}
-              action={{
-                label: t(
-                  "community.myDecksEmptyAction",
-                  "+ Create your first deck",
-                ),
-                to: langPath("community/decks/new"),
-              }}
+              action={
+                <Link
+                  to={langPath("community/decks/new")}
+                  className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+                >
+                  {t("community.myDecksEmptyAction", "+ Create your first deck")}
+                </Link>
+              }
             />
           ) : (
             <EmptyState

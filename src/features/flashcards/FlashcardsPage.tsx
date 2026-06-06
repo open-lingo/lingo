@@ -6,7 +6,7 @@ import type { TFunction } from "i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { Card, WeekSparkline, CollapsibleSection } from "@/shared/components/ui";
-import { EmptyState } from "@/shared/components/EmptyState";
+import { EmptyState } from "@/shared/components/ui/EmptyState";
 import type { Flashcard } from "@/features/flashcards/data/types";
 import { useCommunityContent } from "@/features/community/CommunityContentContext";
 import { CommunityItemCard } from "@/features/community/components/CommunityItemCard";
@@ -500,10 +500,14 @@ export function FlashcardsPage() {
             "flashcards.noDueDescription",
             "Pick a deck below to study.",
           )}
-          action={{
-            label: t("flashcards.startFreeReview", "Start free review"),
-            to: langPath("practice/flashcards/review"),
-          }}
+          action={
+            <Link
+              to={langPath("practice/flashcards/review")}
+              className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+            >
+              {t("flashcards.startFreeReview", "Start free review")}
+            </Link>
+          }
         />
       )}
 
@@ -525,10 +529,14 @@ export function FlashcardsPage() {
               "flashcards.noDecksDescription",
               "Subscribe to community decks to start building your review queue.",
             )}
-            action={{
-              label: t("flashcards.browseCommunityDecks", "Browse community decks"),
-              to: langPath("community/explore"),
-            }}
+            action={
+              <Link
+                to={langPath("community/explore")}
+                className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+              >
+                {t("flashcards.browseCommunityDecks", "Browse community decks")}
+              </Link>
+            }
           />
         ) : (
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -567,10 +575,14 @@ export function FlashcardsPage() {
               "flashcards.noCommunityPacksDescription",
               "Browse community decks to find packs maintained by other learners.",
             )}
-            action={{
-              label: t("flashcards.browseToSubscribe", "Browse decks to subscribe"),
-              to: langPath("community/explore"),
-            }}
+            action={
+              <Link
+                to={langPath("community/explore")}
+                className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+              >
+                {t("flashcards.browseToSubscribe", "Browse decks to subscribe")}
+              </Link>
+            }
           />
         ) : (
           <ul className="grid gap-3 sm:grid-cols-2">

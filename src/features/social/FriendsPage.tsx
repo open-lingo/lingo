@@ -21,7 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { EmptyState } from "@/shared/components/EmptyState";
+import { EmptyState } from "@/shared/components/ui/EmptyState";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { cn } from "@/shared/components/ui/cn";
@@ -268,10 +268,15 @@ function AllFriendsTab() {
             "social.friendsPage.emptyDesc",
             "Find learners to follow in the community, or share your invite link.",
           )}
-          action={{
-            label: t("social.friendsPage.emptyAction", "Browse community"),
-            onClick: () => navigate(langPath("community/contributors")),
-          }}
+          action={
+            <button
+              type="button"
+              onClick={() => navigate(langPath("community/contributors"))}
+              className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+            >
+              {t("social.friendsPage.emptyAction", "Browse community")}
+            </button>
+          }
         />
       </Card>
     );

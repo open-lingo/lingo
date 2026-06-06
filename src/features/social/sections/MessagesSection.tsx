@@ -22,7 +22,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { EmptyState } from "@/shared/components/EmptyState";
+import { EmptyState } from "@/shared/components/ui/EmptyState";
 import { cn } from "@/shared/components/ui/cn";
 import { UserAvatar } from "../components/UserAvatar";
 import { UsernameDisplay } from "../components/UsernameDisplay";
@@ -163,10 +163,15 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
                 "social.messages.emptyDesc",
                 "Once you add friends, your conversations will show up here.",
               )}
-              action={{
-                label: t("social.messages.startConversation", "New conversation"),
-                onClick: () => setPickerOpen(true),
-              }}
+              action={
+                <button
+                  type="button"
+                  onClick={() => setPickerOpen(true)}
+                  className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+                >
+                  {t("social.messages.startConversation", "New conversation")}
+                </button>
+              }
             />
           </Card>
           <PickFriendModal

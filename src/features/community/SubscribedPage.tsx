@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useApi } from "@/shared/api/provider";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
-import { EmptyState } from "@/shared/components/EmptyState";
+import { EmptyState } from "@/shared/components/ui/EmptyState";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import type { DeckResponse } from "@/shared/api/decks";
 import type { StoryResponse } from "@/shared/api/stories";
@@ -254,13 +255,14 @@ export function SubscribedPage() {
               "community.subscribedEmptyDescription",
               "Browse community decks to start building a library.",
             )}
-            action={{
-              label: t(
-                "community.subscribedEmptyAction",
-                "Browse community decks",
-              ),
-              to: langPath("community/explore"),
-            }}
+            action={
+              <Link
+                to={langPath("community/explore")}
+                className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+              >
+                {t("community.subscribedEmptyAction", "Browse community decks")}
+              </Link>
+            }
           />
         ) : shouldGroup && groupedRows ? (
           <div className="space-y-5">

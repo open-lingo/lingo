@@ -16,7 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { EmptyState } from "@/shared/components/EmptyState";
+import { EmptyState } from "@/shared/components/ui/EmptyState";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { UsernameDisplay } from "../components/UsernameDisplay";
@@ -100,15 +100,18 @@ export function FriendsSearchAndList() {
               "social.friends.emptyDesc",
               "Add a friend or send an invite link to start trading streaks and reactions.",
             )}
-            action={{
-              label: t("social.friends.emptyAction", "Find friends"),
-              onClick: () => {
+            action={
+              <button
+                type="button"
                 // Take the user to the contributors page where they can
                 // browse and friend other learners. Keeps the empty-state
                 // CTA discoverable without a separate find-friends modal.
-                navigate(langPath("community/contributors"));
-              },
-            }}
+                onClick={() => navigate(langPath("community/contributors"))}
+                className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+              >
+                {t("social.friends.emptyAction", "Find friends")}
+              </button>
+            }
           />
         </div>
       </Card>
