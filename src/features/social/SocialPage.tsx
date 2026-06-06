@@ -20,24 +20,24 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
-import { LeaguesModal } from "../components/LeaguesModal";
-import { SocialHeader } from "../components/SocialHeader";
-import { useSocial } from "../hooks/useSocial";
-import { ActivityFeedStrip } from "../sections/ActivityFeedStrip";
+import { LeaguesModal } from "./components/LeaguesModal";
+import { SocialHeader } from "./components/SocialHeader";
+import { useSocial } from "./hooks/useSocial";
+import { ActivityFeedStrip } from "./sections/ActivityFeedStrip";
 import {
   FriendsSearchAndList,
   FriendRequestsPanel,
   FriendSuggestionsPanel,
-} from "../sections/FriendsSection";
-import { CompactUnifiedLeaderboardCard } from "../sections/LeaderboardsSection";
-import { LeagueSpotlightCard } from "../sections/LeagueSpotlightCard";
-import { FriendsLeaderboardWidget } from "../sections/FriendsLeaderboardWidget";
-import { InviteFriendsCard } from "../sections/InviteFriendsCard";
-import { MessagesSection } from "../sections/MessagesSection";
+} from "./sections/FriendsSection";
+import { CompactUnifiedLeaderboardCard } from "./sections/LeaderboardsSection";
+import { LeagueSpotlightCard } from "./sections/LeagueSpotlightCard";
+import { FriendsLeaderboardWidget } from "./sections/FriendsLeaderboardWidget";
+import { InviteFriendsCard } from "./sections/InviteFriendsCard";
+import { MessagesSection } from "./sections/MessagesSection";
 
 type MobileTab = "spotlight" | "friends" | "messages";
 
-export default function SocialPreviewPage() {
+export default function SocialPage() {
   const { t } = useTranslation();
   const [mobileTab, setMobileTab] = useState<MobileTab>("spotlight");
   const [leaguesOpen, setLeaguesOpen] = useState(false);

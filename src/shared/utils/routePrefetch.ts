@@ -29,7 +29,7 @@ const ignore = (p: Promise<unknown>) => {
 export const prefetchLearn = () =>
   ignore(import("@/features/learn/LearnPage"));
 export const prefetchSocial = () =>
-  ignore(import("@/features/social/preview/SocialPreviewPage"));
+  ignore(import("@/features/social/SocialPage"));
 export const prefetchShop = () =>
   ignore(import("@/features/shop/ShopPage"));
 export const prefetchCommunity = () =>

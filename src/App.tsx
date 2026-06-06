@@ -73,8 +73,8 @@ const LessonStepPreviewPage = lazyRetry(
 const HomeRestructureMockup = lazyRetry(
   () => import("@/features/home/dev/HomeRestructureMockup"),
 );
-const SocialPreviewPage = lazyRetry(
-  () => import("@/features/social/preview/SocialPreviewPage"),
+const SocialPage = lazyRetry(
+  () => import("@/features/social/SocialPage"),
 );
 const FriendsPage = lazyRetry(
   () => import("@/features/social/FriendsPage"),
@@ -368,7 +368,7 @@ const router = createBrowserRouter([
               { path: "speech-tune", element: <SpeechTunePage /> },
               { path: "lesson-preview", element: <LessonStepPreviewPage /> },
               { path: "home-preview", element: <HomeRestructureMockup /> },
-              { path: "social", element: <SocialPreviewPage /> },
+              { path: "social", element: <SocialPage /> },
               { path: "social/friends", element: <FriendsPage /> },
               { path: "messenger", element: <MessengerPage /> },
               { path: "messenger/:friendId", element: <MessengerPage /> },
