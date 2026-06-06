@@ -8,23 +8,9 @@ import { Layout } from "@/routes/Layout";
 import { LangLayout } from "@/routes/LangLayout";
 import { LearnLayout } from "@/features/learn/LearnLayout";
 import { FlashcardsPage } from "@/features/flashcards/FlashcardsPage";
-import { StoriesPage } from "@/features/stories/StoriesPage";
-import { StoryDetailPage } from "@/features/stories/StoryDetailPage";
-import { PracticeGrammarPage } from "@/features/practice/PracticeGrammarPage";
-import { PracticeAlphabetHubPage } from "@/features/practice/PracticeAlphabetHubPage";
 import { PracticePage } from "@/features/practice/PracticePage";
 import { PracticeLayout } from "@/features/practice/PracticeLayout";
-import { ParticlePracticePage } from "@/features/practice/ParticlePracticePage";
-import { KanjiPracticePage } from "@/features/practice/KanjiPracticePage";
-import { AlphabetPracticePage } from "@/features/practice/AlphabetPracticePage";
-import { ComponentsPracticePage } from "@/features/practice/ComponentsPracticePage";
-import { VideosPracticePage } from "@/features/practice/VideosPracticePage";
-import { ConjugationPracticePage } from "@/features/practice/ConjugationPracticePage";
-import { ReadingPracticePage } from "@/features/practice/ReadingPracticePage";
-import { SpeakingPracticePage } from "@/features/practice/SpeakingPracticePage";
-import { CounterPracticePage } from "@/features/practice/CounterPracticePage";
 import { GrammarRedirect } from "@/features/grammar/GrammarRedirect";
-import { PlacementTestPage } from "@/features/placement/PlacementTestPage";
 import { RootRoute } from "@/routes/RootRoute";
 import { LandingRoute } from "@/routes/LandingRoute";
 import { ProtectedHome } from "@/routes/ProtectedHome";
@@ -98,6 +84,51 @@ const MessengerPage = lazyRetry(
 );
 const ShopPage = lazyRetry(() => import("@/features/shop/ShopPage"));
 const LearnPage = lazyRetry(() => import("@/features/learn/LearnPage"));
+// Practice subroutes + placement + stories — reached only via the
+// Practice tab or onboarding. Keeping them out of the main bundle drops
+// ~200KB raw / ~50KB gzip from first-paint chunks.
+const StoriesPage = lazyRetry(() =>
+  import("@/features/stories/StoriesPage").then((m) => ({ default: m.StoriesPage })),
+);
+const StoryDetailPage = lazyRetry(() =>
+  import("@/features/stories/StoryDetailPage").then((m) => ({ default: m.StoryDetailPage })),
+);
+const PracticeGrammarPage = lazyRetry(() =>
+  import("@/features/practice/PracticeGrammarPage").then((m) => ({ default: m.PracticeGrammarPage })),
+);
+const PracticeAlphabetHubPage = lazyRetry(() =>
+  import("@/features/practice/PracticeAlphabetHubPage").then((m) => ({ default: m.PracticeAlphabetHubPage })),
+);
+const ParticlePracticePage = lazyRetry(() =>
+  import("@/features/practice/ParticlePracticePage").then((m) => ({ default: m.ParticlePracticePage })),
+);
+const KanjiPracticePage = lazyRetry(() =>
+  import("@/features/practice/KanjiPracticePage").then((m) => ({ default: m.KanjiPracticePage })),
+);
+const AlphabetPracticePage = lazyRetry(() =>
+  import("@/features/practice/AlphabetPracticePage").then((m) => ({ default: m.AlphabetPracticePage })),
+);
+const ComponentsPracticePage = lazyRetry(() =>
+  import("@/features/practice/ComponentsPracticePage").then((m) => ({ default: m.ComponentsPracticePage })),
+);
+const VideosPracticePage = lazyRetry(() =>
+  import("@/features/practice/VideosPracticePage").then((m) => ({ default: m.VideosPracticePage })),
+);
+const ConjugationPracticePage = lazyRetry(() =>
+  import("@/features/practice/ConjugationPracticePage").then((m) => ({ default: m.ConjugationPracticePage })),
+);
+const ReadingPracticePage = lazyRetry(() =>
+  import("@/features/practice/ReadingPracticePage").then((m) => ({ default: m.ReadingPracticePage })),
+);
+const SpeakingPracticePage = lazyRetry(() =>
+  import("@/features/practice/SpeakingPracticePage").then((m) => ({ default: m.SpeakingPracticePage })),
+);
+const CounterPracticePage = lazyRetry(() =>
+  import("@/features/practice/CounterPracticePage").then((m) => ({ default: m.CounterPracticePage })),
+);
+const PlacementTestPage = lazyRetry(() =>
+  import("@/features/placement/PlacementTestPage").then((m) => ({ default: m.PlacementTestPage })),
+);
 const TravelSprintPage = lazyRetry(() => import("@/features/learn/TravelSprintPage"));
 const AssetTestPage = lazyRetry(() => import("@/features/asset-test/AssetTestPage"));
 const PickerTestPage = lazyRetry(() => import("@/features/picker-test/PickerTestPage"));
