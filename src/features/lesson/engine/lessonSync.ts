@@ -122,9 +122,16 @@ function upsertInProgressAttempt(lessonId: string): void {
     readLessonStartedAt(lessonId) ??
     events[0]?.recordedAt ??
     new Date().toISOString();
-  const durationSec = Math.max(
-    minDurationSecForAttempt(stepResults),
-    Math.floor((Date.now() - Date.parse(startedAt)) / 1000),
+  // Cap at 1h — matches the backend sanity cap. Abandoned tabs / browser
+  // sleeps produce wildly inflated durations (days, weeks) that previously
+  // 422'd the whole batch sync. Server still clamps as defense-in-depth.
+  const MAX_DURATION_SEC = 3600;
+  const durationSec = Math.min(
+    MAX_DURATION_SEC,
+    Math.max(
+      minDurationSecForAttempt(stepResults),
+      Math.floor((Date.now() - Date.parse(startedAt)) / 1000),
+    ),
   );
 
   const attempt: PendingAttempt = {
@@ -186,9 +193,14 @@ export function minDurationSecForAttempt(stepResults: GradedStepResult[]): numbe
 /** Buffer a completed lesson attempt locally. Replaces any in-progress draft. */
 export function recordAttempt(input: RecordAttemptInput): PendingAttempt {
   removeDraftAttemptsForLesson(input.lessonId);
-  const durationSec = Math.max(
-    minDurationSecForAttempt(input.stepResults),
-    Math.floor(input.durationSec),
+  // Same 1h clamp as the draft path above. Abandoned tabs / browser
+  // sleeps were producing 95k-second durations that 422'd the batch.
+  const durationSec = Math.min(
+    3600,
+    Math.max(
+      minDurationSecForAttempt(input.stepResults),
+      Math.floor(input.durationSec),
+    ),
   );
   const attempt: PendingAttempt = {
     clientAttemptId: newAttemptId(),
