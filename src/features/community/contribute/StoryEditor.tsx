@@ -518,7 +518,7 @@ export function StoryEditor() {
 
         {/* Right: Preview */}
         {showPreview && (
-          <aside className="flex w-80 shrink-0 flex-col bg-gray-50/50 p-4/50">
+          <aside className="flex w-80 shrink-0 flex-col bg-gray-50/50 p-4">
             <h3 className="mb-3 text-sm font-medium text-text-secondary">
               {t("community.editorLivePreview")}
             </h3>

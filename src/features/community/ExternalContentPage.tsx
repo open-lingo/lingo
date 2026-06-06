@@ -222,7 +222,7 @@ export function ExternalContentPage() {
       </div>
 
       {/* Filters row */}
-      <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4/50">
+      <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
         <div>
           <label htmlFor="ext-search" className="sr-only">
             {t("externalContent.searchPlaceholder")}

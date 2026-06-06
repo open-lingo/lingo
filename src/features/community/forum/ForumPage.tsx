@@ -175,7 +175,7 @@ export function ForumPage() {
 
         {/* Sidebar - 30% */}
         <aside className="space-y-4 lg:w-80 lg:shrink-0 lg:flex-[3]">
-          <div className="rounded-md border border-gray-200 p-4/50">
+          <div className="rounded-md border border-gray-200 p-4">
             <h2 className="text-sm font-semibold text-text-primary">
               {t("community.popularContent")}
             </h2>
@@ -192,7 +192,7 @@ export function ForumPage() {
               ))}
             </ul>
           </div>
-          <div className="rounded-md border border-gray-200 p-4/50">
+          <div className="rounded-md border border-gray-200 p-4">
             <h2 className="text-sm font-semibold text-text-primary">
               {t("forum.categories")}
             </h2>

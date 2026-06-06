@@ -95,7 +95,7 @@ export function CreateTab() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-4/50">
+          <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-4">
             <h3 className="mb-3 text-sm font-medium text-text-secondary">
               {t("community.studioSampleCard")}
             </h3>
