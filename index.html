@@ -14,7 +14,12 @@
       Lora / Atkinson Hyperlegible) lazy-load via shared/theme/fontLoader.ts
       the first time the user picks them.
     -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!--
+      Weight set trimmed to 400 + 700 (was 400;500;600;700;800 per family).
+      Saves 6 webfont files on every JA/KO first paint. Browser synthesizes
+      intermediate weights from the loaded 700 for the rare 500/600/800 cases.
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/icon.ico" />
     <title>Open Lingo</title>
