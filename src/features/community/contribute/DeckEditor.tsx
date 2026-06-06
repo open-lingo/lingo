@@ -771,12 +771,13 @@ export function DeckEditor() {
           </div>
           <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
             {selectedCard ? (
-              <div className="w-full max-w-[280px]">
+              <div className="w-full max-w-[640px]">
                 <CardPreview
                   card={selectedCard}
                   languageId={languageId}
                   compact={false}
                   reviewMode={previewReviewMode}
+                  infoPosition="side"
                 />
               </div>
             ) : (

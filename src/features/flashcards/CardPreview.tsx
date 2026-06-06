@@ -106,6 +106,11 @@ type CardPreviewProps = {
   languageId?: string;
   compact?: boolean;
   reviewMode?: ReviewMode;
+  /** Where the note/definition/context/reasoning panel appears relative to
+   * the card. "stacked" (default) puts it below; "side" puts it to the
+   * right so the card stays vertically centered in its container even when
+   * the panel has content. */
+  infoPosition?: "stacked" | "side";
 };
 
 /** word-first: image only on back. image-first: image on both sides. back-first: image on "front" (back content). */
@@ -120,81 +125,105 @@ export function CardPreview({
   languageId = "ko",
   compact = false,
   reviewMode = "word-first",
+  infoPosition = "stacked",
 }: CardPreviewProps) {
   const [flipped, setFlipped] = useState(false);
   const [highlightMode, setHighlightMode] = useState(true);
   const particlesData = getParticlesForLanguage(languageId);
   const particles = particlesData?.particles ?? null;
 
-  return (
-    <div className="space-y-2">
-      <button
-        type="button"
-        onClick={() => setFlipped((f) => !f)}
-        className={`flex w-full flex-col items-center justify-center rounded-xl border-2 border-border bg-surface py-8 shadow-sm transition hover:border-accent ${
-          compact ? "min-h-[120px] py-4" : "min-h-[180px]"
+  const hasInfo = !!(card.note || card.reasoning || card.definition || card.context);
+
+  const cardButton = (
+    <button
+      type="button"
+      onClick={() => setFlipped((f) => !f)}
+      className={`flex w-full flex-col items-center justify-center rounded-xl border-2 border-border bg-surface py-8 shadow-sm transition hover:border-accent ${
+        compact ? "min-h-[120px] py-4" : "min-h-[180px]"
+      }`}
+    >
+      {shouldShowImage(reviewMode, flipped) && card.image && (
+        <CardImage src={card.image} className="mb-2 max-h-32 w-auto rounded object-contain" />
+      )}
+      <div
+        className={`w-full text-center text-text-primary ${
+          compact ? "[&_.prose]:text-base" : "[&_.prose]:text-lg"
         }`}
       >
-        {shouldShowImage(reviewMode, flipped) && card.image && (
-            <CardImage src={card.image} className="mb-2 max-h-32 w-auto rounded object-contain" />
-          )}
-        <div
-          className={`w-full text-center text-text-primary ${
-            compact ? "[&_.prose]:text-base" : "[&_.prose]:text-lg"
-          }`}
-        >
-          <CardFace
-            card={card}
-            side={
-              reviewMode === "back-first" ? (flipped ? "front" : "back") : flipped ? "back" : "front"
-            }
-            particles={particles}
-            highlightMode={highlightMode}
-          />
-        </div>
-        <p className="mt-2 text-xs text-text-muted">
-          {flipped ? "Answer" : "Tap to reveal"}
-        </p>
-      </button>
-      {flipped &&
-        (card.note || card.reasoning || card.definition || card.context) && (
-          <div
-            className={`rounded-lg border border-border bg-surface-muted p-3 text-sm ${
-              compact ? "text-xs" : ""
-            }`}
-          >
-            {card.note && (
-              <div className="text-text-secondary">
-                <PlainText>{card.note}</PlainText>
-              </div>
-            )}
-            {card.definition && (
-              <div className="mt-1 font-medium text-text-primary">
-                <PlainText>{card.definition}</PlainText>
-              </div>
-            )}
-            {card.context && (
-              <div className="mt-0.5 text-text-muted">
-                <PlainText>{card.context}</PlainText>
-              </div>
-            )}
-            {card.reasoning && (
-              <div className="mt-2 border-t border-border pt-2 text-text-muted">
-                <span className="font-medium text-text-secondary">Reasoning:</span>{" "}
-                <PlainText>{card.reasoning}</PlainText>
-              </div>
-            )}
-          </div>
-        )}
-      <label className="flex items-center gap-2 text-xs text-text-muted">
-        <input
-          type="checkbox"
-          checked={highlightMode}
-          onChange={(e) => setHighlightMode(e.target.checked)}
-          className="rounded border-border accent-accent"
+        <CardFace
+          card={card}
+          side={
+            reviewMode === "back-first" ? (flipped ? "front" : "back") : flipped ? "back" : "front"
+          }
+          particles={particles}
+          highlightMode={highlightMode}
         />
-        Highlight particles & roots
-      </label>
+      </div>
+      <p className="mt-2 text-xs text-text-muted">
+        {flipped ? "Answer" : "Tap to reveal"}
+      </p>
+    </button>
+  );
+
+  const infoPanel = flipped && hasInfo && (
+    <div
+      className={`rounded-lg border border-border bg-surface-muted p-3 text-sm ${
+        compact ? "text-xs" : ""
+      }`}
+    >
+      {card.note && (
+        <div className="text-text-secondary">
+          <PlainText>{card.note}</PlainText>
+        </div>
+      )}
+      {card.definition && (
+        <div className="mt-1 font-medium text-text-primary">
+          <PlainText>{card.definition}</PlainText>
+        </div>
+      )}
+      {card.context && (
+        <div className="mt-0.5 text-text-muted">
+          <PlainText>{card.context}</PlainText>
+        </div>
+      )}
+      {card.reasoning && (
+        <div className="mt-2 border-t border-border pt-2 text-text-muted">
+          <span className="font-medium text-text-secondary">Reasoning:</span>{" "}
+          <PlainText>{card.reasoning}</PlainText>
+        </div>
+      )}
+    </div>
+  );
+
+  const highlightToggle = (
+    <label className="flex items-center gap-2 text-xs text-text-muted">
+      <input
+        type="checkbox"
+        checked={highlightMode}
+        onChange={(e) => setHighlightMode(e.target.checked)}
+        className="rounded border-border accent-accent"
+      />
+      Highlight particles & roots
+    </label>
+  );
+
+  if (infoPosition === "side") {
+    return (
+      <div className="flex w-full items-start gap-4">
+        <div className="w-[280px] flex-shrink-0 space-y-2">
+          {cardButton}
+          {highlightToggle}
+        </div>
+        {infoPanel && <div className="min-w-0 flex-1 self-center">{infoPanel}</div>}
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-2">
+      {cardButton}
+      {infoPanel}
+      {highlightToggle}
     </div>
   );
 }
