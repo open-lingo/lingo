@@ -37,6 +37,9 @@ export function AuthMenu() {
     queryFn: () => users.getMe(),
     enabled: isAuthenticated,
     retry: (_, err) => !(err instanceof ApiError && err.status === 404),
+    // Live: shares cache with HomePage / useUserStats. Same cadence so all
+    // consumers settle on the same XP / role snapshot.
+    staleTime: 60_000,
   });
 
   const role = me?.role;

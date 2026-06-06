@@ -45,6 +45,9 @@ export function HomePage() {
       if (err instanceof ApiError && err.status === 404) return false;
       return failureCount < 2;
     },
+    // Live: getMe drives the home banner state (xp, streak, etc.) that
+    // updates after every lesson completion sync — keep it short.
+    staleTime: 60_000,
   });
 
   const navigate = useNavigate();

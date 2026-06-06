@@ -30,6 +30,10 @@ export function useDeckSubscriptions(): {
     queryKey: ["users", userId, "subscriptions", "deck"],
     queryFn: () => users.getSubscriptions({ contentType: "deck" }),
     enabled: isAuthenticated,
+    // Live: subscriptions change when the user toggles a deck — short
+    // staleTime so the next render after a subscribe/unsubscribe sees fresh
+    // data without a manual invalidate from every call site.
+    staleTime: 60_000,
   });
 
   const deckIds = useMemo(
@@ -41,6 +45,10 @@ export function useDeckSubscriptions(): {
     queryKey: ["decks", "batch", deckIds],
     queryFn: () => decksApi.getDecksBatch(deckIds),
     enabled: isAuthenticated && deckIds.length > 0,
+    // Slow: deck content + metadata change rarely (publish flow) but the
+    // user's subscribed list can churn; 5 minutes is the sweet spot between
+    // catching real updates and saving the FE from refetching on every nav.
+    staleTime: 5 * 60_000,
   });
 
   const invalidate = () => {

@@ -39,6 +39,8 @@ export function usePublicProfile(username: string | undefined): PublicProfileBun
     queryFn: () => users.getByUsername(username!),
     enabled: !!username,
     retry: (_, err) => !(err instanceof ApiError && err.status === 404),
+    // Slow: profile bio + display name change rarely; 5 min is plenty.
+    staleTime: 5 * 60_000,
   });
 
   const socialQuery = useQuery({
@@ -48,6 +50,9 @@ export function usePublicProfile(username: string | undefined): PublicProfileBun
     // 404 here means "private profile or visibility blocks the viewer" —
     // a domain signal, not a transient error. Don't retry.
     retry: (_, err) => !(err instanceof ApiError && err.status === 404),
+    // Slow: friendship_status flips when the viewer sends/cancels a request;
+    // mutations already invalidate this key. 5 min matches the user query.
+    staleTime: 5 * 60_000,
   });
 
   // Visibility 404 on the social endpoint while the users endpoint succeeded
