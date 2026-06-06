@@ -244,13 +244,23 @@ export function buildBatchPayload(): {
   const deduped = Array.from(latestById.values());
 
   // Strip the local-only `bufferedAt` before sending — server doesn't need it.
+  // Re-clamp `durationSec` at send-time even if recordAttempt already clamped:
+  // stale buffer entries from before the clamp landed still carry tens-of-
+  // thousands-of-seconds values, and the server rejects those with 422,
+  // which leaves them in the buffer forever and the periodic sync hammers
+  // the server every 30s. Clamping here drains the bad rows out.
   // Flag draft attempts with isDraft so the server persists them but skips
   // event emission (quest progress, leaderboard, xp_awarded) until the
   // user actually finishes the lesson.
+  const MAX_DURATION_SEC = 3600;
   const attempts: BatchAttempt[] = deduped.map((p) => {
     const { bufferedAt: _bufferedAt, ...rest } = p;
+    const clamped = {
+      ...rest,
+      durationSec: Math.min(MAX_DURATION_SEC, Math.max(1, rest.durationSec)),
+    };
     const isDraft = p.clientAttemptId.startsWith(DRAFT_ATTEMPT_PREFIX);
-    return isDraft ? { ...rest, isDraft: true } : rest;
+    return isDraft ? { ...clamped, isDraft: true } : clamped;
   });
   const checkStreak = shouldCheckStreakOnNextSync();
   return {

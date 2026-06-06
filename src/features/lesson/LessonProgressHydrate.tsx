@@ -62,26 +62,45 @@ export function LessonProgressHydrate() {
   useEffect(() => {
     if (authLoading || !isAuthenticated) return;
 
+    // Exponential backoff on failure. Without it the buffer hammers the
+    // server every 30s forever if the user has a poison-pill attempt
+    // (durationSec from an abandoned-tab buffer, etc.). Cap at 10 minutes.
+    let backoffMs = LESSON_SYNC_INTERVAL_MS;
+    const MAX_BACKOFF_MS = 10 * 60 * 1000;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    const scheduleNext = (delay: number) => {
+      setNextLessonSyncAt(new Date(Date.now() + delay).toISOString());
+      timeoutId = setTimeout(runIfDirty, delay);
+    };
+
     const runIfDirty = () => {
-      if (getLessonDirtyCount() === 0) return;
+      if (getLessonDirtyCount() === 0) {
+        // Nothing to do — reset backoff and sleep at the base interval.
+        backoffMs = LESSON_SYNC_INTERVAL_MS;
+        scheduleNext(LESSON_SYNC_INTERVAL_MS);
+        return;
+      }
       void syncLessonProgressWithServer({
         batch: (payload) => progress.batchAttempts(payload),
         getMe: () => progress.getMe(),
       })
         .then(() => {
+          backoffMs = LESSON_SYNC_INTERVAL_MS;
           void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
           void refetch();
         })
-        .catch(() => {});
-      setNextLessonSyncAt(
-        new Date(Date.now() + LESSON_SYNC_INTERVAL_MS).toISOString(),
-      );
+        .catch(() => {
+          backoffMs = Math.min(backoffMs * 2, MAX_BACKOFF_MS);
+        })
+        .finally(() => {
+          scheduleNext(backoffMs);
+        });
     };
 
     runIfDirty();
-    const interval = setInterval(runIfDirty, LESSON_SYNC_INTERVAL_MS);
     return () => {
-      clearInterval(interval);
+      if (timeoutId !== null) clearTimeout(timeoutId);
       setNextLessonSyncAt(null);
     };
   }, [authLoading, isAuthenticated, progress, queryClient, refetch]);
