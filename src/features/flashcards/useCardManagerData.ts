@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { useApi } from "@/shared/api";
 import {
   getSRSStore,
+  getCardState,
   isDue,
   isBuried,
   setCardState,
@@ -76,8 +77,12 @@ export function useCardManagerData(languageId: string) {
     // Card Manager UI exposes a single due-date column; writing it
     // updates both modality sub-states. Per-modality due-date editing
     // can land if/when the UI surfaces both columns separately.
-    const store = getSRSStore();
-    const base = store[cardId] ?? createInitialState();
+    //
+    // Use getCardState (canonicalizes the lookup) rather than the bare
+    // `store[cardId]` read — the store keys are `ja:<bare>` after the
+    // namespace migration, so a raw-id lookup misses and we'd overwrite
+    // the existing state with a fresh one carrying only the new dueDate.
+    const base = getCardState(cardId) ?? createInitialState();
     const next = {
       ...base,
       recognition: { ...base.recognition, dueDate: newDueDate },
@@ -90,8 +95,7 @@ export function useCardManagerData(languageId: string) {
   };
 
   const handleBury = (cardId: string) => {
-    const store = getSRSStore();
-    const state = store[cardId];
+    const state = getCardState(cardId);
     if (state) {
       setCardState(cardId, { ...buryCard(state), lastSyncedAt: undefined });
       notifySRSStoreChanged();
@@ -108,8 +112,7 @@ export function useCardManagerData(languageId: string) {
   };
 
   const handleUnbury = (cardId: string) => {
-    const store = getSRSStore();
-    const state = store[cardId];
+    const state = getCardState(cardId);
     if (state && state.buriedUntil) {
       setCardState(cardId, { ...unburyCard(state), lastSyncedAt: undefined });
       notifySRSStoreChanged();
