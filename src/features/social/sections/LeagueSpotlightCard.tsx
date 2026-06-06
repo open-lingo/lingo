@@ -16,7 +16,7 @@ import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 import { UsernameDisplay } from "../components/UsernameDisplay";
 import { userSlug } from "../userSlug";
-import { useLeagueSpotlight, useWeeklyLeaderboard } from "../hooks/useSocial";
+import { useLeaderboardBundle } from "../hooks/useSocial";
 
 export type LeagueSpotlightCardProps = {
   /** When provided, the "See full" CTA scrolls to this in-page id. */
@@ -30,15 +30,18 @@ export function LeagueSpotlightCard({
   compact = false,
 }: LeagueSpotlightCardProps) {
   const { t } = useTranslation();
-  const spotlight = useLeagueSpotlight();
-  const board = useWeeklyLeaderboard();
+  // Shares the batched bundle query with `UnifiedLeaderboardCard` — same
+  // queryKey means React Query dedupes the request when both mount on the
+  // social page (one network call total instead of four).
+  const bundle = useLeaderboardBundle();
 
-  if (spotlight.isLoading || board.isLoading || !spotlight.data || !board.data) {
+  if (bundle.isLoading || !bundle.data) {
     return <SpotlightSkeleton compact={compact} />;
   }
 
-  const { league, myRow, rankDeltaToday, dailyXp, friendMedianDaily } = spotlight.data;
-  const rows = board.data;
+  const { spotlight: spotlightData, weekly } = bundle.data;
+  const { league, myRow, rankDeltaToday, dailyXp, friendMedianDaily } = spotlightData;
+  const rows = weekly;
   const top3 = rows.slice(0, 3);
   const myRank = myRow?.rank ?? null;
   const inPromoteZone = myRank !== null && myRank <= league.promotionZone;

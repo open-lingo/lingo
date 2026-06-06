@@ -198,6 +198,19 @@ export interface LeagueSpotlight {
   demotion_threshold: number;
 }
 
+/**
+ * One-shot batched leaderboards payload for the social page card. Returned by
+ * ``GET /leaderboards/bundle?lang=…`` — backend fans out weekly + monthly +
+ * friends + spotlight via ``asyncio.gather`` so all four reads run in parallel
+ * within a single Lambda invocation. Cuts the page from 4 round-trips to 1.
+ */
+export interface LeaderboardBundle {
+  weekly: LeaderboardResponse;
+  monthly: LeaderboardResponse;
+  friends: LeaderboardResponse;
+  spotlight: LeagueSpotlight;
+}
+
 export interface StreakSnapshot {
   my_streak_days: number;
   friend_median_streak_days: number;
@@ -399,6 +412,25 @@ export class SocialApi extends ApiClient {
       params: params as Record<string, string | undefined>,
       signal,
       tag: "social:leaderboard:friends",
+    });
+  }
+
+  /**
+   * Batched leaderboards bundle — one request, four boards. Backend uses
+   * ``asyncio.gather`` to run weekly/monthly/friends/spotlight in parallel
+   * inside a single invocation. Use this for surfaces that need all four
+   * boards (the social page leaderboards card); individual endpoints stay
+   * for narrow-rail variants that only need one board.
+   */
+  getLeaderboardBundle(
+    lang: string,
+    params?: { limit?: number; offset?: number },
+    signal?: AbortSignal,
+  ): Promise<LeaderboardBundle> {
+    return this.get<LeaderboardBundle>(`${PREFIX}/leaderboards/bundle`, {
+      params: { lang, ...(params as Record<string, string | number | undefined>) },
+      signal,
+      tag: `social:leaderboard:bundle:${lang}`,
     });
   }
 

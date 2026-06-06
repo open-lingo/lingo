@@ -40,6 +40,7 @@ import { useApiOptional } from "@/shared/api";
 import type {
   BlockedUser as ApiBlockedUser,
   FriendRequestsBundle,
+  LeaderboardBundle as ApiLeaderboardBundle,
   SocialApi,
 } from "@/shared/api/social";
 import {
@@ -99,6 +100,8 @@ const SOCIAL_QUERY_KEYS = {
   friendsLb: (lang: string | undefined) =>
     ["social", "leaderboard", "friends", lang ?? "*"] as const,
   spotlight: (lang: string) => ["social", "spotlight", lang] as const,
+  leaderboardBundle: (lang: string) =>
+    ["social", "leaderboard", "bundle", lang] as const,
   streakSnapshot: ["social", "streak-snapshot"] as const,
   inviteOffer: ["social", "invite-offer"] as const,
   profile: (username: string) => ["social", "profile", username] as const,
@@ -114,6 +117,12 @@ export { SOCIAL_QUERY_KEYS };
  *  — we force it OFF there so the existing mock-backed tests continue to
  *  work without a backend stub. */
 export function isSocialApiEnabled(): boolean {
+  // Test-only escape hatch — lets a unit test opt into the API path without
+  // having to mutate the module's own `import.meta.env` binding (which
+  // Vitest scopes per module and can't be mutated from outside).
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const forced = (globalThis as any).__FORCE_SOCIAL_API__;
+  if (forced === true) return true;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const env = (import.meta as any).env ?? {};
   if (env.MODE === "test") return env.VITE_SOCIAL_API === "1" || env.VITE_SOCIAL_API === "true";
@@ -453,6 +462,86 @@ export function useMonthlyLeaderboard(options?: HookOptions): Result<Leaderboard
     enabled,
   });
   const mockResult = useMockResource(MOCK_MONTHLY_LB, options);
+  return enabled ? apiResult : mockResult;
+}
+
+/**
+ * Batched leaderboards bundle — one network request for weekly + monthly +
+ * friends + spotlight. Backend uses ``asyncio.gather`` to run all four reads
+ * in parallel within a single Lambda invocation.
+ *
+ * Consumers (the social-page Leaderboards section + LeagueSpotlightCard)
+ * should call this once; React Query dedupes the request when multiple
+ * components share the same query key, so two consumers on the same page
+ * still fire only one network call.
+ *
+ * Returns the four sub-results pre-adapted into the UI types each surface
+ * already expects, plus the raw spotlight payload for downstream needs.
+ */
+export type UseLeaderboardBundleResult = Result<{
+  weekly: LeaderboardRow[];
+  monthly: LeaderboardRow[];
+  friends: LeaderboardRow[];
+  spotlight: LeagueSpotlight;
+}>;
+
+export function useLeaderboardBundle(options?: HookOptions): UseLeaderboardBundleResult {
+  const enabled = isSocialApiEnabled();
+  const api = useApiOptional();
+  const social: SocialApi | null = api?.social ?? null;
+  // Lang isn't dynamic yet — pin to ja until LanguageContext is threaded in.
+  const lang = "ja";
+
+  const apiResult = useApiResource<
+    ApiLeaderboardBundle,
+    {
+      weekly: LeaderboardRow[];
+      monthly: LeaderboardRow[];
+      friends: LeaderboardRow[];
+      spotlight: LeagueSpotlight;
+    }
+  >({
+    queryKey: SOCIAL_QUERY_KEYS.leaderboardBundle(lang),
+    queryFn: social ? (signal) => social.getLeaderboardBundle(lang, undefined, signal) : null,
+    select: (b) => {
+      const weekly = b.weekly.entries.map((e) =>
+        adaptLeaderboardEntry(e, b.weekly.my_rank !== null && e.rank === b.weekly.my_rank),
+      );
+      const monthly = b.monthly.entries.map((e) =>
+        adaptLeaderboardEntry(e, b.monthly.my_rank !== null && e.rank === b.monthly.my_rank),
+      );
+      const friends = b.friends.entries.map((e) =>
+        adaptLeaderboardEntry(e, b.friends.my_rank !== null && e.rank === b.friends.my_rank),
+      );
+      const myWeeklyRow = weekly.find((r) => r.isMe) ?? null;
+      return {
+        weekly,
+        monthly,
+        friends,
+        spotlight: adaptSpotlight(b.spotlight, myWeeklyRow),
+      };
+    },
+    // Live data — same cadence as the individual leaderboard hooks.
+    staleTime: 60_000,
+    enabled,
+  });
+
+  // Mock fallback — synthesize the same shape from existing fixtures.
+  const myMockRow = MOCK_WEEKLY_LB.find((r) => r.isMe) ?? null;
+  const rankToday = myMockRow?.rank ?? 999;
+  const mockBundle = {
+    weekly: MOCK_WEEKLY_LB,
+    monthly: MOCK_MONTHLY_LB,
+    friends: MOCK_FRIENDS_LB,
+    spotlight: {
+      league: MOCK_LEAGUE,
+      myRow: myMockRow,
+      rankDeltaToday: MOCK_RANK_YESTERDAY - rankToday,
+      dailyXp: MOCK_DAILY_XP,
+      friendMedianDaily: MOCK_FRIEND_MEDIAN_DAILY,
+    } as LeagueSpotlight,
+  };
+  const mockResult = useMockResource(mockBundle, options);
   return enabled ? apiResult : mockResult;
 }
 

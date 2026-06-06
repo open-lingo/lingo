@@ -21,6 +21,7 @@ import { ProfilePreviewPopover } from "../components/ProfilePreviewPopover";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
   useFriendsLeaderboard,
+  useLeaderboardBundle,
   useLeagueSpotlight,
   useMonthlyLeaderboard,
   useWeeklyLeaderboard,
@@ -48,7 +49,10 @@ export function LeaderboardsSection() {
 export function UnifiedLeaderboardCard() {
   const { t } = useTranslation();
   const [tab, setTab] = useState<Tab>("weekly");
-  const spotlight = useLeagueSpotlight();
+  // Single batched fetch covers all four reads (weekly + monthly + friends +
+  // spotlight). React Query dedupes the request when LeagueSpotlightCard
+  // mounts on the same page, so the social page still fires only one call.
+  const bundle = useLeaderboardBundle();
 
   return (
     <Card padding="none" className="overflow-hidden">
@@ -109,10 +113,18 @@ export function UnifiedLeaderboardCard() {
           render edge-to-edge with the card border. */}
       <div>
         {tab === "weekly" ? (
-          <WeeklyLeagueBody spotlight={spotlight.data ?? null} />
+          <WeeklyLeagueBody
+            spotlight={bundle.data?.spotlight ?? null}
+            rows={bundle.data?.weekly ?? []}
+            isLoading={bundle.isLoading}
+          />
         ) : null}
-        {tab === "monthly" ? <MonthlyBody /> : null}
-        {tab === "friends" ? <FriendsBody /> : null}
+        {tab === "monthly" ? (
+          <MonthlyBody rows={bundle.data?.monthly ?? []} isLoading={bundle.isLoading} />
+        ) : null}
+        {tab === "friends" ? (
+          <FriendsBody rows={bundle.data?.friends ?? []} isLoading={bundle.isLoading} />
+        ) : null}
       </div>
     </Card>
   );
@@ -337,12 +349,16 @@ function CompactRank({ rank }: { rank: number }) {
   );
 }
 
-function MonthlyBody() {
+function MonthlyBody({
+  rows,
+  isLoading,
+}: {
+  rows: LeaderboardRow[];
+  isLoading: boolean;
+}) {
   const { t } = useTranslation();
-  const monthly = useMonthlyLeaderboard();
-  const rows = monthly.data ?? [];
 
-  if (monthly.isLoading) {
+  if (isLoading) {
     return (
       <div className="grid gap-px bg-border md:grid-cols-2">
         <FlatBoardSkeleton title={t("social.leaderboards.topXp", "Top XP")} />
@@ -368,12 +384,16 @@ function MonthlyBody() {
   );
 }
 
-function FriendsBody() {
+function FriendsBody({
+  rows,
+  isLoading,
+}: {
+  rows: LeaderboardRow[];
+  isLoading: boolean;
+}) {
   const { t } = useTranslation();
-  const friends = useFriendsLeaderboard();
-  const rows = friends.data ?? [];
 
-  if (friends.isLoading) {
+  if (isLoading) {
     return (
       <FlatBoardSkeleton title={t("social.leaderboards.friendsXp", "Friends only — Weekly XP")} />
     );
@@ -510,12 +530,18 @@ function FlatBoardSkeleton({ title }: { title: string }) {
  * gradient header + zone legend + full row list. Uses spotlight data for the
  * league chrome (name/emoji/zones) and the live weekly board for rows.
  */
-function WeeklyLeagueBody({ spotlight }: { spotlight: LeagueSpotlight | null }) {
+function WeeklyLeagueBody({
+  spotlight,
+  rows,
+  isLoading,
+}: {
+  spotlight: LeagueSpotlight | null;
+  rows: LeaderboardRow[];
+  isLoading: boolean;
+}) {
   const { t } = useTranslation();
-  const weekly = useWeeklyLeaderboard();
-  const rows = weekly.data ?? [];
 
-  if (weekly.isLoading || !spotlight) {
+  if (isLoading || !spotlight) {
     return <WeeklyLeagueSkeleton />;
   }
   if (rows.length === 0) {
