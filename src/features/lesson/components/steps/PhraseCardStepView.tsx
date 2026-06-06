@@ -64,6 +64,9 @@ export function PhraseCardStepView({ step, onContinue }: Props) {
             src={emojiUrl}
             alt=""
             aria-hidden
+            width={64}
+            height={64}
+            decoding="async"
             className="mx-auto mb-4 h-16 w-16"
           />
         )}

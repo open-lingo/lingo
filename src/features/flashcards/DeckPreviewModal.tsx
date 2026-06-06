@@ -127,6 +127,8 @@ export function DeckPreviewModal({
             <img
               src={coverUrl}
               alt=""
+              loading="lazy"
+              decoding="async"
               className="h-40 w-full object-cover sm:h-48"
             />
             <div className="px-6 py-4">

@@ -83,6 +83,8 @@ export function UserAvatar({
             <img
               src={imageUrl}
               alt=""
+              loading="lazy"
+              decoding="async"
               className="h-full w-full object-cover"
               onError={() => setImageFailed(true)}
             />

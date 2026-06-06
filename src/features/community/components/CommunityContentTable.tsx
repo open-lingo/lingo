@@ -160,7 +160,13 @@ function NameCell({ row }: { row: CommunityContentRow }) {
         aria-hidden
       >
         {cover ? (
-          <img src={cover} alt="" className="h-full w-full object-cover" />
+          <img
+            src={cover}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover"
+          />
         ) : (
           <Icon name="bookOpen" size={18} />
         )}

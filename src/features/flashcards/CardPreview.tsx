@@ -17,6 +17,8 @@ export function CardImage({ src, className }: { src: string; className?: string 
     <img
       src={src}
       alt=""
+      loading="lazy"
+      decoding="async"
       className={className}
       onError={() => setError(true)}
     />

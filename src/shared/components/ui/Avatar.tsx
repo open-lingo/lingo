@@ -55,6 +55,8 @@ export function Avatar({
       <img
         src={src}
         alt={alt ?? name ?? ""}
+        loading="lazy"
+        decoding="async"
         className={cn(
           "inline-block shrink-0 object-cover ring-1 ring-border",
           sizeClasses[size],

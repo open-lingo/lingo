@@ -298,6 +298,8 @@ export function MyContentTab() {
                     <img
                       src={coverUrl}
                       alt=""
+                      loading="lazy"
+                      decoding="async"
                       className="h-12 w-16 shrink-0 rounded-lg object-cover"
                     />
                   ) : (
