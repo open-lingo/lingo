@@ -419,13 +419,15 @@ export function ContentBrowserPage() {
 
   const selections: Record<string, string[]> = useMemo(() => {
     const out: Record<string, string[]> = {};
-    if (typeFilter !== "all") out[FACET_TYPE] = [typeFilter];
+    // FACET_TYPE intentionally not included — the type facet was promoted to
+    // a top-level tab strip and is no longer a sidebar facet, so the
+    // FacetSidebar never reads its selection.
     if (languageFilter && languageFilter !== "all")
       out[FACET_LANGUAGE] = [languageFilter];
     if (levelFilters.size > 0) out[FACET_LEVEL] = Array.from(levelFilters);
     if (otherFilters.size > 0) out[FACET_OTHER] = Array.from(otherFilters);
     return out;
-  }, [typeFilter, languageFilter, levelFilters, otherFilters]);
+  }, [languageFilter, levelFilters, otherFilters]);
 
   const handleFacetToggle = useCallback(
     (facetId: string, value: string) => {
@@ -473,12 +475,12 @@ export function ContentBrowserPage() {
     [typeFilter, navigate, langPath],
   );
 
+  // FACET_TYPE is not in the sidebar facets (it's a top-level tab strip), so
+  // the clear-facet button never fires for it. Type is cleared via the chip
+  // strip's X handler, which routes through `handleFacetToggle`.
   const handleClearFacet = useCallback(
     (facetId: string) => {
-      if (facetId === FACET_TYPE) {
-        setTypeFilter("all");
-        if (typeParam) navigate(langPath("community/explore"), { replace: true });
-      } else if (facetId === FACET_LANGUAGE) {
+      if (facetId === FACET_LANGUAGE) {
         setLanguageFilter(null);
       } else if (facetId === FACET_LEVEL) {
         setLevelFilters(new Set());
@@ -486,7 +488,7 @@ export function ContentBrowserPage() {
         setOtherFilters(new Set());
       }
     },
-    [typeParam, navigate, langPath],
+    [],
   );
 
   const handleClearAll = useCallback(() => {
