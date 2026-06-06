@@ -4,7 +4,6 @@ import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 import type { LanguageConfig } from "@/shared/domain/languageConfig";
 import type { NextLessonInfo } from "./types";
-import { MOCK_HERO_PAUSED_HOURS_AGO } from "./mockHomeData";
 
 type Props = {
   name: string;
@@ -218,19 +217,11 @@ export function HeroSection({
               </div>
             </div>
 
-            <p className={cn("mt-3 text-[11px]", hasBg ? "text-white/70" : "text-text-muted")}>
-              {/* MOCK: replace MOCK_HERO_PAUSED_HOURS_AGO with telemetry-driven last-lesson-start timestamp. */}
-              {langName
-                ? t("home.restructured.hero.pausedAt", {
-                    defaultValue: "{{language}} · paused {{hours}}h ago",
-                    language: langName,
-                    hours: MOCK_HERO_PAUSED_HOURS_AGO,
-                  })
-                : t("home.restructured.hero.pausedAtNoLang", {
-                    defaultValue: "Paused {{hours}}h ago",
-                    hours: MOCK_HERO_PAUSED_HOURS_AGO,
-                  })}
-            </p>
+            {langName ? (
+              <p className={cn("mt-3 text-[11px]", hasBg ? "text-white/70" : "text-text-muted")}>
+                {langName}
+              </p>
+            ) : null}
           </div>
         ) : null}
       </div>

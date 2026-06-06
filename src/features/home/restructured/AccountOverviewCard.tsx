@@ -1,10 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { Card, ProgressRing, WeekSparkline } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useUserStats } from "@/shared/hooks/useUserStats";
 import { useLocalProgressSummary } from "@/shared/hooks/useLocalProgressSummary";
-import { MOCK_KANA_MASTERY } from "./mockHomeData";
 
 const XP_PER_LEVEL = 500;
 
@@ -14,7 +12,6 @@ function nextLevelXpFor(level: number) {
 
 export function AccountOverviewCard() {
   const { t } = useTranslation();
-  const { language } = useLanguage();
   const { stats } = useUserStats();
   const { summary: p, weekMinutes } = useLocalProgressSummary();
 
@@ -32,8 +29,6 @@ export function AccountOverviewCard() {
 
   const weekTotalMin = weekMinutes.reduce((a, b) => a + b, 0);
   const daysActiveThisWeek = weekMinutes.filter((n) => n > 0).length;
-
-  const isJa = language?.id === "ja";
 
   return (
     <Card padding="md">
@@ -158,30 +153,9 @@ export function AccountOverviewCard() {
         </div>
       </div>
 
-      {isJa ? (
-        <div className="mt-4 flex items-center justify-between gap-4 rounded-xl bg-surface-muted px-4 py-2.5">
-          <div className="min-w-0">
-            <p className="text-sm font-medium text-text-primary">
-              {t("home.restructured.account.kanaTitle", {
-                defaultValue: "Hiragana mastery",
-              })}
-            </p>
-            <p className="text-xs text-text-secondary">
-              {t("home.restructured.account.kanaCaption", {
-                defaultValue: "{{retained}} of {{total}} kana confidently retained",
-                retained: MOCK_KANA_MASTERY.retained,
-                total: MOCK_KANA_MASTERY.total,
-              })}
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="text-lg font-bold text-text-primary">{MOCK_KANA_MASTERY.percent}%</p>
-            <p className="text-[10px] uppercase tracking-wider text-text-muted">
-              {t("home.restructured.account.kanaRetention", { defaultValue: "retention" })}
-            </p>
-          </div>
-        </div>
-      ) : null}
+      {/* Kana mastery surface intentionally removed — the previous block
+          rendered MOCK_KANA_MASTERY without a real telemetry source. Add
+          back when the kana mastery rollup endpoint lands. */}
     </Card>
   );
 }

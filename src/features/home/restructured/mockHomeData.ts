@@ -6,13 +6,6 @@
  */
 import type { IconName } from "@/shared/iconRegistry";
 
-// MOCK: replace with JA-specific kana SRS retention query.
-export const MOCK_KANA_MASTERY = {
-  percent: 38,
-  retained: 17,
-  total: 46,
-};
-
 // MOCK: replace with SRS "next N due card fronts" query.
 export const MOCK_CARDS_HOT_PREVIEW = ["か", "き", "く", "け", "こ"];
 
@@ -77,6 +70,3 @@ export const MOCK_WEEKLY_QUEST = {
   goal: 5,
   xp: 75,
 };
-
-// MOCK: replace with telemetry-driven "paused N ago" timestamp.
-export const MOCK_HERO_PAUSED_HOURS_AGO = 2;
