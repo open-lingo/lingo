@@ -15,6 +15,7 @@ import { RestructuredHome } from "./restructured/RestructuredHome";
 import { Card, Button } from "@/shared/components/ui";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { useProgressMe } from "@/shared/hooks/useProgressMe";
+import { useHomePrefetch } from "./useHomePrefetch";
 
 const storyCard = {
   to: "practice/stories",
@@ -31,6 +32,8 @@ export function HomePage() {
   const { users } = useApi();
   const { language } = useLanguage();
   const { isProgressReady, isLoading: progressLoading } = useProgressMe();
+  // Idle-prefetch the most-likely next routes (learn/social/community/shop).
+  useHomePrefetch();
 
   // Fix M8 — user-scoped key (shared with useLearnProfile).
   const userIdKey = user?.sub ?? "anon";
