@@ -26,6 +26,13 @@ import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { isLeaderboardEnabled } from "@/shared/config/featureFlags";
 import { Icon } from "@/shared/components/Icon";
+import {
+  makePrefetchHandlers,
+  prefetchCommunity,
+  prefetchLearn,
+  prefetchPractice,
+  prefetchSocial,
+} from "@/shared/utils/routePrefetch";
 
 export function Layout() {
   const { t } = useTranslation();
@@ -133,6 +140,7 @@ export function Layout() {
               </Link>
               <Link
                 to={langPath("learn")}
+                {...makePrefetchHandlers(prefetchLearn)}
                 className={`rounded-md px-2 py-1.5 text-sm ${
                   learnActive
                     ? "font-medium text-text-primary"
@@ -143,6 +151,7 @@ export function Layout() {
               </Link>
               <Link
                 to={langPath("practice")}
+                {...makePrefetchHandlers(prefetchPractice)}
                 className={`rounded-md px-2 py-1.5 text-sm ${
                   practiceActive
                     ? "font-medium text-text-primary"
@@ -153,6 +162,7 @@ export function Layout() {
               </Link>
               <Link
                 to={langPath("social")}
+                {...makePrefetchHandlers(prefetchSocial)}
                 className={`rounded-md px-2 py-1.5 text-sm ${
                   socialActive
                     ? "font-medium text-text-primary"
@@ -163,6 +173,7 @@ export function Layout() {
               </Link>
               <Link
                 to={langPath("community")}
+                {...makePrefetchHandlers(prefetchCommunity)}
                 className={`rounded-md px-2 py-1.5 text-sm ${
                   communityActive
                     ? "font-medium text-text-primary"
@@ -273,24 +284,28 @@ export function Layout() {
                   to={langPath("learn")}
                   active={learnActive}
                   onClick={() => setMobileMenuOpen(false)}
+                  onPrefetch={prefetchLearn}
                   label={t("nav.learn")}
                 />
                 <MobileNavLink
                   to={langPath("practice")}
                   active={practiceActive}
                   onClick={() => setMobileMenuOpen(false)}
+                  onPrefetch={prefetchPractice}
                   label={t("nav.practice")}
                 />
                 <MobileNavLink
                   to={langPath("social")}
                   active={socialActive}
                   onClick={() => setMobileMenuOpen(false)}
+                  onPrefetch={prefetchSocial}
                   label={t("nav.social", "Social")}
                 />
                 <MobileNavLink
                   to={langPath("community")}
                   active={communityActive}
                   onClick={() => setMobileMenuOpen(false)}
+                  onPrefetch={prefetchCommunity}
                   label={t("nav.community")}
                 />
                 {leaderboardOn ? (
@@ -346,17 +361,20 @@ function MobileNavLink({
   to,
   active,
   onClick,
+  onPrefetch,
   label,
 }: {
   to: string;
   active: boolean;
   onClick: () => void;
+  onPrefetch?: () => void;
   label: string;
 }) {
   return (
     <Link
       to={to}
       onClick={onClick}
+      {...(onPrefetch ? makePrefetchHandlers(onPrefetch) : {})}
       aria-current={active ? "page" : undefined}
       className={`flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base ${
         active
