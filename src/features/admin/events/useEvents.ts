@@ -2,7 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useApi } from "@/shared/api/provider";
 import type { EventFilters, EventListResponse, EventRow } from "./types";
 
-const LIVE_REFETCH_MS = 3_000;
+// Admin events tab polls for "near-live" updates so a sysadmin
+// watching the feed sees new domain events appear without manual
+// refresh. 3s was unnecessarily aggressive: events trickle in over
+// seconds-to-minutes, not sub-second, and the admin still has a
+// manual refresh button. 15s with staleTime matching cuts cost by 5x
+// while still feeling live.
+const LIVE_REFETCH_MS = 15_000;
 
 export function useEventList(filters: EventFilters) {
   const { ops } = useApi();
@@ -10,7 +16,7 @@ export function useEventList(filters: EventFilters) {
     queryKey: ["ops", "events", "list", filters],
     queryFn: () => ops.listEvents(filters),
     refetchInterval: LIVE_REFETCH_MS,
-    staleTime: 0,
+    staleTime: LIVE_REFETCH_MS,
   });
 }
 

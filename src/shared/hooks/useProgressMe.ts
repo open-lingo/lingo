@@ -47,8 +47,13 @@ export function useProgressMe() {
       return summary;
     },
     enabled,
-    staleTime: 60_000,
-    gcTime: 5 * 60_000,
+    // LessonProgressHydrate explicitly invalidates ["progress", "me"] after
+    // every lesson-attempt sync, and shop purchases / placement tests also
+    // invalidate it. So the only "stale" window is when a different device
+    // mutates progress for the same user, which is rare. 5 min is a safe
+    // ceiling that saves a refetch on every cross-tab nav past 1 min.
+    staleTime: 5 * 60_000,
+    gcTime: 10 * 60_000,
     retry: 2,
   });
 
