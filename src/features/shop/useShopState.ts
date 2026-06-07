@@ -41,7 +41,10 @@ export function useShopState() {
       return parseShopState(data as Record<string, unknown>);
     },
     enabled: isAuthenticated,
-    staleTime: 30_000,
+    // Shop inventory + purchases only change on a shop mutation, which
+    // already calls useInvalidateShopQueries(). 30s was wastefully short —
+    // bumped to 5 min, mutation path keeps the user-perceived freshness.
+    staleTime: 5 * 60_000,
   });
 
   const shop = settingsQuery.data ?? { purchases: [], inventory: {} };

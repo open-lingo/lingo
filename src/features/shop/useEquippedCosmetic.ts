@@ -40,7 +40,11 @@ export function useEquippedCosmetic(settingsKey: string) {
       return eq;
     },
     enabled: isAuthenticated,
-    staleTime: 60_000,
+    // Equipped cosmetic changes only via the equip mutation below, which
+    // invalidates this key explicitly. 5 min cache instead of 1 min so the
+    // nav-avatar ring (which mounts this on every page) doesn't refetch
+    // settings JSON every navigation past the 60s mark.
+    staleTime: 5 * 60_000,
   });
 
   const mutation = useMutation({

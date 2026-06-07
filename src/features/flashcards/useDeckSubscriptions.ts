@@ -30,10 +30,11 @@ export function useDeckSubscriptions(): {
     queryKey: ["users", userId, "subscriptions", "deck"],
     queryFn: () => users.getSubscriptions({ contentType: "deck" }),
     enabled: isAuthenticated,
-    // Live: subscriptions change when the user toggles a deck — short
-    // staleTime so the next render after a subscribe/unsubscribe sees fresh
-    // data without a manual invalidate from every call site.
-    staleTime: 60_000,
+    // Subscriptions only change on user-triggered subscribe/unsubscribe,
+    // which already invalidates this key via invalidate() / community
+    // subscribe hooks. 5 min cache instead of 1 min — no perceived
+    // staleness because the mutation path is the only source of change.
+    staleTime: 5 * 60_000,
   });
 
   const deckIds = useMemo(

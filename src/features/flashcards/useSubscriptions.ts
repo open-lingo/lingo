@@ -15,9 +15,9 @@ export function useSubscriptions() {
     queryKey: ["users", userId, "subscriptions", "deck"],
     queryFn: () => users.getSubscriptions({ contentType: "deck" }),
     enabled: isAuthenticated,
-    // Live: same cadence as useDeckSubscriptions — subscriptions change on
-    // every toggle so a tight window keeps the UI in sync without churn.
-    staleTime: 60_000,
+    // Matches useDeckSubscriptions — toggles invalidate the key explicitly,
+    // so 5 min is safe and saves a refetch on every mount past the 60s mark.
+    staleTime: 5 * 60_000,
   });
 
   const invalidate = () => {
