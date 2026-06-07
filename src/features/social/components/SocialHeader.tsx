@@ -28,7 +28,7 @@ export function SocialHeader() {
   const unreadCount = threads.reduce((sum, t) => sum + t.unreadCount, 0);
 
   const displayName =
-    user?.nickname ?? user?.given_name ?? user?.name ?? me.name;
+    user?.nickname ?? user?.given_name ?? user?.name ?? me?.name ?? "";
   const avatarUrl = resolveUserAvatarUrl(undefined, user ?? undefined);
 
   return (
@@ -40,7 +40,7 @@ export function SocialHeader() {
       <UserAvatar
         name={displayName}
         imageUrl={avatarUrl}
-        frame={me.frame}
+        frame={me?.frame}
         status="active"
         size="md"
       />
@@ -51,17 +51,19 @@ export function SocialHeader() {
           </p>
         </div>
         <h1 className="text-lg font-bold leading-tight text-text-primary">
-          <UsernameDisplay name={displayName} cosmetic={me.cosmetic} />
+          <UsernameDisplay name={displayName} cosmetic={me?.cosmetic} />
         </h1>
       </div>
 
       <div className="flex flex-wrap items-center gap-1.5">
-        <StatChip
-          icon="trophy"
-          tone="accent"
-          label={`${league.emoji} ${league.name}`}
-          detail={myRow ? `#${myRow.rank}` : null}
-        />
+        {league ? (
+          <StatChip
+            icon="trophy"
+            tone="accent"
+            label={`${league.emoji} ${league.name}`}
+            detail={myRow ? `#${myRow.rank}` : null}
+          />
+        ) : null}
         <StatChip icon="flame" tone="warning" label={`${stats.streak}d`} />
         <StatChip
           icon="star"

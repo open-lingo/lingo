@@ -32,7 +32,7 @@ import { useThreads } from "../hooks/useSocial";
 import { useApiOptional } from "@/shared/api";
 import { useAuth } from "@/shared/auth/useAuth";
 import { adaptThread, adaptThreadDetail } from "../hooks/socialAdapters";
-import type { ChatMessage, ChatThread, SocialUser } from "../mock/mockSocial";
+import type { ChatMessage, ChatThread, SocialUser } from "../types";
 
 type Props = {
   /** Pre-select a thread by user id (deep-link path param `friendId`). */

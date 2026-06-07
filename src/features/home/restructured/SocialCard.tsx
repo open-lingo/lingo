@@ -10,7 +10,7 @@ import {
   useFriends,
   useSocial,
 } from "@/features/social/hooks/useSocial";
-import { toHomeFriendPreview } from "@/features/social/mock/mockSocial";
+import { toHomeFriendPreview } from "@/features/social/adapters";
 import { UserPreviewPopover } from "@/features/social/components/UserPreviewPopover";
 import { userSlug } from "@/features/social/userSlug";
 import { useSendFriendRequest } from "@/features/social/hooks/useSocialMutations";
@@ -133,45 +133,47 @@ export function SocialCard() {
         </ul>
       )}
 
-      <div className="mt-3 rounded-lg border border-border bg-surface-muted px-3 py-2">
-        <div className="flex items-baseline justify-between gap-2">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-            {t("home.restructured.social.friendQuestKicker", { defaultValue: "Friend quest" })}
-          </p>
-          <span className="text-[10px] text-text-muted">
-            {t("home.restructured.social.friendQuestProgress", {
-              defaultValue: "{{you}}/1 · {{friend}}/1",
-              you: fq.you,
-              friend: fq.friend,
-            })}
-          </span>
-        </div>
-        <p className="mt-0.5 truncate text-sm font-semibold text-text-primary">
-          {t(fq.labelKey, { defaultValue: fq.labelDefault })}
-        </p>
-        <div className="mt-1.5 flex items-center gap-3 text-xs">
-          <span className="inline-flex items-center gap-1">
-            <Icon
-              name={fq.you >= 1 ? "check" : "circle"}
-              size={12}
-              className={fq.you >= 1 ? "text-success" : "text-text-muted"}
-              aria-hidden
-            />
-            <span className="font-medium text-text-secondary">
-              {t("home.restructured.social.youLabel", { defaultValue: "You" })}
+      {fq ? (
+        <div className="mt-3 rounded-lg border border-border bg-surface-muted px-3 py-2">
+          <div className="flex items-baseline justify-between gap-2">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+              {t("home.restructured.social.friendQuestKicker", { defaultValue: "Friend quest" })}
+            </p>
+            <span className="text-[10px] text-text-muted">
+              {t("home.restructured.social.friendQuestProgress", {
+                defaultValue: "{{you}}/1 · {{friend}}/1",
+                you: fq.you,
+                friend: fq.friend,
+              })}
             </span>
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <Icon
-              name={fq.friend >= 1 ? "check" : "circle"}
-              size={12}
-              className={fq.friend >= 1 ? "text-success" : "text-text-muted"}
-              aria-hidden
-            />
-            <span className="truncate font-medium text-text-secondary">{fq.friendName}</span>
-          </span>
+          </div>
+          <p className="mt-0.5 truncate text-sm font-semibold text-text-primary">
+            {t(fq.labelKey, { defaultValue: fq.labelDefault })}
+          </p>
+          <div className="mt-1.5 flex items-center gap-3 text-xs">
+            <span className="inline-flex items-center gap-1">
+              <Icon
+                name={fq.you >= 1 ? "check" : "circle"}
+                size={12}
+                className={fq.you >= 1 ? "text-success" : "text-text-muted"}
+                aria-hidden
+              />
+              <span className="font-medium text-text-secondary">
+                {t("home.restructured.social.youLabel", { defaultValue: "You" })}
+              </span>
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <Icon
+                name={fq.friend >= 1 ? "check" : "circle"}
+                size={12}
+                className={fq.friend >= 1 ? "text-success" : "text-text-muted"}
+                aria-hidden
+              />
+              <span className="truncate font-medium text-text-secondary">{fq.friendName}</span>
+            </span>
+          </div>
         </div>
-      </div>
+      ) : null}
 
       {sug ? (
         <div className="mt-3">

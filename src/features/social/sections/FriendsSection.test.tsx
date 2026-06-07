@@ -3,6 +3,17 @@ import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { MockSocialProviders } from "@/test/socialTestUtils";
 
+vi.mock("@/shared/api", async () => {
+  const actual = await vi.importActual<typeof import("@/shared/api")>("@/shared/api");
+  const { makeFixtureSocialApi } = await import("@/test/socialTestUtils");
+  const social = makeFixtureSocialApi();
+  return {
+    ...actual,
+    useApiOptional: () => ({ social }),
+    useApi: () => ({ social }),
+  };
+});
+
 // useLangPath reads from LanguageContext — stub to a path joiner so
 // `<FriendRow>`'s message Link renders without a provider.
 vi.mock("@/shared/hooks/useLangPath", () => ({

@@ -9,7 +9,7 @@ import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 import { UserAvatar } from "./UserAvatar";
 import { UsernameDisplay } from "./UsernameDisplay";
-import type { SocialUser } from "../mock/mockSocial";
+import type { SocialUser } from "../types";
 
 type Props = {
   user: SocialUser;

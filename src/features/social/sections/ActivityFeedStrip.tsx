@@ -16,7 +16,7 @@ import { UsernameDisplay } from "../components/UsernameDisplay";
 import { ReactionRow } from "../components/ReactionRow";
 import { useActivityFeed } from "../hooks/useSocial";
 import { useReactToActivity } from "../hooks/useSocialMutations";
-import type { ActivityItem } from "../mock/mockSocial";
+import type { ActivityItem } from "../types";
 
 const KIND_ICON: Record<
   ActivityItem["kind"],

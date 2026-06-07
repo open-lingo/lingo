@@ -2,6 +2,18 @@ import { describe, it, expect, afterEach, vi } from "vitest";
 import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { MockSocialProviders } from "@/test/socialTestUtils";
+
+vi.mock("@/shared/api", async () => {
+  const actual = await vi.importActual<typeof import("@/shared/api")>("@/shared/api");
+  const { makeFixtureSocialApi } = await import("@/test/socialTestUtils");
+  const social = makeFixtureSocialApi();
+  return {
+    ...actual,
+    useApiOptional: () => ({ social }),
+    useApi: () => ({ social }),
+  };
+});
+
 import { LeagueSpotlightCard } from "./LeagueSpotlightCard";
 
 // Stub i18n: return default string passed as 2nd arg (or key when missing).

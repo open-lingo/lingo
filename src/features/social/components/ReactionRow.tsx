@@ -11,7 +11,7 @@ import {
   REACTION_EMOJI,
   type ActivityReaction,
   type ReactionKind,
-} from "../mock/mockSocial";
+} from "../types";
 
 export type ReactionRowProps = {
   /** Existing reactions on the item (from server). */

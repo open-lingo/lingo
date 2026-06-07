@@ -11,7 +11,7 @@
  * The slug is for URL generation only. For *display* always use `name`.
  */
 
-import type { SocialUser } from "./mock/mockSocial";
+import type { SocialUser } from "./types";
 
 export function userSlug(user: Pick<SocialUser, "username" | "name">): string {
   if (user.username && user.username.length > 0) return user.username;

@@ -14,7 +14,7 @@ import { Icon } from "@/shared/components/Icon";
 import { UserAvatar } from "./UserAvatar";
 import { UsernameDisplay } from "./UsernameDisplay";
 import { useFriends } from "../hooks/useSocial";
-import type { SocialUser } from "../mock/mockSocial";
+import type { SocialUser } from "../types";
 
 type Props = {
   open: boolean;

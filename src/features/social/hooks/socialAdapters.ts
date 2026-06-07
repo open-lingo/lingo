@@ -1,10 +1,6 @@
 /**
  * Adapter functions that translate `SocialApi` responses (snake_case,
- * server-shaped) into the UI-shaped types in `mock/mockSocial.ts`. Keeps
- * the consumer components unchanged when the API path is active.
- *
- * If/when the UI types are renamed away from "mock" naming, these adapters
- * remain the single seam to update.
+ * server-shaped) into the UI-shaped types in `../types.ts`.
  */
 import type {
   ActivityFeedItem as ApiActivityItem,
@@ -27,7 +23,7 @@ import type {
   LeaderboardRow,
   ReactionKind,
   SocialUser,
-} from "../mock/mockSocial";
+} from "../types";
 import type { LeagueSpotlight as UiLeagueSpotlight } from "./useSocial.types";
 
 // Languages we know about. Map ISO codes → display tokens.
@@ -115,7 +111,7 @@ function adaptReaction(r: ApiActivityReaction): ActivityReaction {
   return { kind: k, count: r.count, mine: r.mine };
 }
 
-/** Map backend activity kinds → the mockSocial UI kind union. The UI
+/** Map backend activity kinds → the UI kind union. The UI
  *  only renders a couple of pre-defined kinds (`streak`/`module`/etc.),
  *  so we fold the broader backend enum down to the closest match.
  *  Defaults to ``"module"`` since the dominant case today is

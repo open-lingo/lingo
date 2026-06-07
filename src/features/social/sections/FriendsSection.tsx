@@ -35,7 +35,7 @@ import {
   useSendFriendRequest,
   useUnfriend,
 } from "../hooks/useSocialMutations";
-import type { SocialUser } from "../mock/mockSocial";
+import type { SocialUser } from "../types";
 
 export function FriendsSection() {
   return (

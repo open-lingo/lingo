@@ -2,6 +2,18 @@ import { describe, it, expect, afterEach, vi } from "vitest";
 import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { MockSocialProviders } from "@/test/socialTestUtils";
+
+vi.mock("@/shared/api", async () => {
+  const actual = await vi.importActual<typeof import("@/shared/api")>("@/shared/api");
+  const { makeFixtureSocialApi } = await import("@/test/socialTestUtils");
+  const social = makeFixtureSocialApi();
+  return {
+    ...actual,
+    useApiOptional: () => ({ social }),
+    useApi: () => ({ social }),
+  };
+});
+
 import { ActivityFeedStrip } from "./ActivityFeedStrip";
 
 vi.mock("react-i18next", () => ({
@@ -42,9 +54,8 @@ describe("ActivityFeedStrip", () => {
       </MockSocialProviders>,
     );
     await waitFor(() => {
-      // Mock activity items reference these strings.
       expect(screen.getByText(/Module 2/i)).toBeInTheDocument();
-      expect(screen.getByText(/64-day streak/i)).toBeInTheDocument();
+      expect(screen.getByText(/streak milestone/i)).toBeInTheDocument();
     });
   });
 

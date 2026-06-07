@@ -74,7 +74,7 @@ export function InviteFriendsCard() {
 
 function InviteModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useTranslation();
-  const { data: offer } = useInviteOffer({ instant: true });
+  const { data: offer } = useInviteOffer();
   const { showToast } = useToast();
   const redeem = useRedeemInvite();
   const [copied, setCopied] = useState(false);

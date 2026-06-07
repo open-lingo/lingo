@@ -26,7 +26,7 @@ import {
   useMonthlyLeaderboard,
   useWeeklyLeaderboard,
 } from "../hooks/useSocial";
-import type { LeaderboardRow } from "../mock/mockSocial";
+import type { LeaderboardRow } from "../types";
 import type { LeagueSpotlight } from "../hooks/useSocial.types";
 
 type Tab = "weekly" | "monthly" | "friends";

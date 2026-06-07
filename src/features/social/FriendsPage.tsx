@@ -37,7 +37,7 @@ import {
   useUnblockUser,
   useUnfriend,
 } from "./hooks/useSocialMutations";
-import type { SocialUser } from "./mock/mockSocial";
+import type { SocialUser } from "./types";
 import { LEAGUE_TIERS } from "./data/leagueTiers";
 
 type Tab = "all" | "requests" | "blocked";

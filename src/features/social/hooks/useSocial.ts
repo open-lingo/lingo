@@ -1,40 +1,4 @@
-/**
- * Social feature data hooks — the seam between UI components and the
- * `SocialApi` (FastAPI service).
- *
- * Two hook flavors live here:
- *
- * 1) `useSocial()` — synchronous bundle hook used by the home Social card
- *    and the page header. Returns all sub-resources at once for components
- *    that need the whole graph immediately and don't care about loading
- *    states (mock-backed; no flicker).
- *
- * 2) Granular per-resource hooks (`useActivityFeed`, `useFriends`,
- *    `useThreads`, `useWeeklyLeaderboard`, …) — each returns
- *    `{ data, isLoading, isEmpty }`. Used by the social-page sections so
- *    they can render skeletons + empty states independently.
- *
- *    When `VITE_SOCIAL_API` is set (default `"1"` in dev) each hook returns
- *    a TanStack-Query–backed result against `useApi().social.*` and adapts
- *    the server response into the UI types defined in `mock/mockSocial.ts`
- *    via `socialAdapters.ts`. When unset (or "0"), each hook falls back to
- *    the in-memory mock with the original `setTimeout(80)` "loading"
- *    behavior so tests + the legacy mockup flow keep working.
- *
- * Contract every granular hook returns:
- *
- *   {
- *     data: T | null,        // null until first frame "lands"
- *     isLoading: boolean,    // true while the fetch is pending
- *     isEmpty: boolean,      // sugar: true when data resolved but empty
- *     isError?: boolean,     // present on the API path
- *     refetch?: () => void,  // present on the API path
- *   }
- *
- * Tests can pass `{ instant: true }` to skip the mock delay. The API path
- * ignores `instant` (TanStack Query handles its own pending lifecycle).
- */
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useQuery, type QueryKey } from "@tanstack/react-query";
 import { useApiOptional } from "@/shared/api";
 import type {
@@ -43,32 +7,18 @@ import type {
   LeaderboardBundle as ApiLeaderboardBundle,
   SocialApi,
 } from "@/shared/api/social";
-import {
-  MOCK_ACTIVITY,
-  MOCK_DAILY_XP,
-  MOCK_FRIEND_MEDIAN_DAILY,
-  MOCK_FRIEND_QUEST,
-  MOCK_FRIEND_REQUESTS,
-  MOCK_FRIEND_SUGGESTIONS,
-  MOCK_FRIENDS,
-  MOCK_FRIENDS_LB,
-  MOCK_INVITE_OFFER,
-  MOCK_LEAGUE,
-  MOCK_ME,
-  MOCK_MONTHLY_LB,
-  MOCK_RANK_YESTERDAY,
-  MOCK_STREAK_SNAPSHOT,
-  MOCK_THREADS,
-  MOCK_WEEKLY_LB,
-  getHomeFriendsPreview,
-  type ActivityItem,
-  type ChatThread,
-  type FriendQuest,
-  type HomeFriendPreview,
-  type InviteOffer,
-  type LeaderboardRow,
-  type SocialUser,
-} from "../mock/mockSocial";
+import type {
+  ActivityItem,
+  ChatThread,
+  FriendQuest,
+  HomeFriendPreview,
+  InviteOffer,
+  LeaderboardRow,
+  LeagueInfo,
+  SocialUser,
+  StreakSnapshot,
+} from "../types";
+import { toHomeFriendPreview } from "../adapters";
 import {
   adaptActivity,
   adaptFriend,
@@ -83,11 +33,6 @@ import {
 import type { LeagueSpotlight } from "./useSocial.types";
 
 export type { LeagueSpotlight } from "./useSocial.types";
-
-export type SocialDataSource = "mock" | "api";
-
-/** Default settle delay for the mock fetch. Short enough to feel snappy. */
-const MOCK_DELAY_MS = 80;
 
 const SOCIAL_QUERY_KEYS = {
   friends: ["social", "friends"] as const,
@@ -111,84 +56,7 @@ const SOCIAL_QUERY_KEYS = {
 
 export { SOCIAL_QUERY_KEYS };
 
-/** Returns true if the env flag opts in to the real API. Defaults to "1"
- *  (enabled) when the env var is unset so dev work hits the seeded backend
- *  by default. Tests run under vitest where `import.meta.env.MODE === "test"`
- *  — we force it OFF there so the existing mock-backed tests continue to
- *  work without a backend stub. */
-export function isSocialApiEnabled(): boolean {
-  // Test-only escape hatch — lets a unit test opt into the API path without
-  // having to mutate the module's own `import.meta.env` binding (which
-  // Vitest scopes per module and can't be mutated from outside).
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const forced = (globalThis as any).__FORCE_SOCIAL_API__;
-  if (forced === true) return true;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const env = (import.meta as any).env ?? {};
-  if (env.MODE === "test") return env.VITE_SOCIAL_API === "1" || env.VITE_SOCIAL_API === "true";
-  const flag = env.VITE_SOCIAL_API;
-  if (flag === undefined || flag === null || flag === "") return true;
-  return flag === "1" || flag === "true";
-}
-
-// ────────────────────────────────────────────────────────────────────────────
-// Bundle hook — synchronous, mock-backed, used by home + page header.
-// ────────────────────────────────────────────────────────────────────────────
-
-export type UseSocialResult = {
-  source: SocialDataSource;
-  isLoading: boolean;
-  isError: boolean;
-  me: SocialUser;
-  friends: SocialUser[];
-  /** Sorted subset for the home Social card. */
-  homeFriendsPreview: HomeFriendPreview[];
-  friendRequests: SocialUser[];
-  friendSuggestions: { user: SocialUser; reason: string }[];
-  primarySuggestion: { user: SocialUser; reason: string } | null;
-  friendQuest: FriendQuest;
-  activity: ActivityItem[];
-  threads: ChatThread[];
-  weeklyLeaderboard: typeof MOCK_WEEKLY_LB;
-  monthlyLeaderboard: typeof MOCK_MONTHLY_LB;
-  friendsLeaderboard: typeof MOCK_FRIENDS_LB;
-  league: typeof MOCK_LEAGUE;
-};
-
-export function useSocial(options?: { homeFriendsLimit?: number }): UseSocialResult {
-  const homeLimit = options?.homeFriendsLimit ?? 3;
-
-  return useMemo(
-    () => ({
-      source: "mock",
-      isLoading: false,
-      isError: false,
-      me: MOCK_ME,
-      friends: MOCK_FRIENDS,
-      homeFriendsPreview: getHomeFriendsPreview(homeLimit),
-      friendRequests: MOCK_FRIEND_REQUESTS,
-      friendSuggestions: MOCK_FRIEND_SUGGESTIONS,
-      primarySuggestion: MOCK_FRIEND_SUGGESTIONS[0] ?? null,
-      friendQuest: MOCK_FRIEND_QUEST,
-      activity: MOCK_ACTIVITY,
-      threads: MOCK_THREADS,
-      weeklyLeaderboard: MOCK_WEEKLY_LB,
-      monthlyLeaderboard: MOCK_MONTHLY_LB,
-      friendsLeaderboard: MOCK_FRIENDS_LB,
-      league: MOCK_LEAGUE,
-    }),
-    [homeLimit],
-  );
-}
-
-// ────────────────────────────────────────────────────────────────────────────
-// Granular hooks — each `{ data, isLoading, isEmpty }`.
-// ────────────────────────────────────────────────────────────────────────────
-
 export type HookOptions = {
-  /** If true, resolve synchronously on first render (mock path only). */
-  instant?: boolean;
-  /** Override the resolved value (tests / empty-state demos). */
   override?: unknown;
 };
 
@@ -200,57 +68,18 @@ export type Result<T> = {
   refetch?: () => void;
 };
 
-function useMockResource<T>(value: T, options?: HookOptions): Result<T> {
-  const instant = options?.instant ?? false;
-  const override = options?.override as T | undefined;
-  const resolved = override !== undefined ? override : value;
-
-  const [data, setData] = useState<T | null>(instant ? resolved : null);
-
-  useEffect(() => {
-    if (instant) {
-      setData(resolved);
-      return;
-    }
-    let cancelled = false;
-    const handle = setTimeout(() => {
-      if (!cancelled) setData(resolved);
-    }, MOCK_DELAY_MS);
-    return () => {
-      cancelled = true;
-      clearTimeout(handle);
-    };
-    // Intentionally not depending on `resolved` — would re-fire on every
-    // render. Tests use `instant: true` if they need to swap value.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [instant]);
-
-  return {
-    data,
-    isLoading: data === null,
-    isEmpty: isEmptyValue(data),
-  };
-}
-
 function isEmptyValue(v: unknown): boolean {
-  if (v === null || v === undefined) return false; // loading, not empty
+  if (v === null || v === undefined) return false;
   if (Array.isArray(v)) return v.length === 0;
   return false;
 }
 
-/**
- * Run a TanStack `useQuery` against the real social API and map it back to
- * the `{ data, isLoading, isEmpty, isError, refetch }` contract every
- * consumer expects. Provided as a tiny adapter so the per-resource hooks
- * stay one-liner thin.
- */
 function useApiResource<TServer, TUi>(opts: {
   queryKey: QueryKey;
   queryFn: ((signal: AbortSignal) => Promise<TServer>) | null;
   select: (raw: TServer) => TUi;
-  /** Honor the existing `override` hatch from `HookOptions`. */
   override?: TUi;
-  staleTime?: number;
+  staleTime: number;
   enabled?: boolean;
 }): Result<TUi> {
   const { queryKey, queryFn, select, override, staleTime, enabled } = opts;
@@ -262,7 +91,7 @@ function useApiResource<TServer, TUi>(opts: {
       return queryFn(signal);
     },
     select,
-    staleTime: staleTime ?? 60_000,
+    staleTime,
     enabled: finalEnabled,
   });
   if (override !== undefined) {
@@ -270,7 +99,7 @@ function useApiResource<TServer, TUi>(opts: {
   }
   return {
     data: q.data ?? null,
-    isLoading: finalEnabled ? q.isLoading : true,
+    isLoading: finalEnabled ? q.isLoading : false,
     isEmpty: isEmptyValue(q.data),
     isError: q.isError,
     refetch: () => {
@@ -279,55 +108,127 @@ function useApiResource<TServer, TUi>(opts: {
   };
 }
 
-export function useMe(options?: HookOptions): Result<SocialUser> {
-  // No API endpoint yet — keep mock-backed always.
-  return useMockResource(MOCK_ME, options);
+export type UseSocialResult = {
+  isLoading: boolean;
+  isError: boolean;
+  me: SocialUser | null;
+  friends: SocialUser[];
+  homeFriendsPreview: HomeFriendPreview[];
+  friendRequests: SocialUser[];
+  friendSuggestions: { user: SocialUser; reason: string }[];
+  primarySuggestion: { user: SocialUser; reason: string } | null;
+  friendQuest: FriendQuest | null;
+  activity: ActivityItem[];
+  threads: ChatThread[];
+  weeklyLeaderboard: LeaderboardRow[];
+  monthlyLeaderboard: LeaderboardRow[];
+  friendsLeaderboard: LeaderboardRow[];
+  league: LeagueInfo | null;
+};
+
+export function useSocial(options?: { homeFriendsLimit?: number }): UseSocialResult {
+  const homeLimit = options?.homeFriendsLimit ?? 3;
+  const friends = useFriends();
+  const friendRequests = useFriendRequests();
+  const friendSuggestions = useFriendSuggestions();
+  const activity = useActivityFeed();
+  const threads = useThreads();
+  const bundle = useLeaderboardBundle();
+
+  return useMemo(() => {
+    const friendsData = friends.data ?? [];
+    const suggestionsData = friendSuggestions.data ?? [];
+    const homeFriendsPreview = [...friendsData]
+      .sort((a, b) => {
+        if (a.status !== b.status) return a.status === "active" ? -1 : 1;
+        return b.streakDays - a.streakDays;
+      })
+      .slice(0, homeLimit)
+      .map(toHomeFriendPreview);
+
+    return {
+      isLoading:
+        friends.isLoading ||
+        friendRequests.isLoading ||
+        friendSuggestions.isLoading ||
+        activity.isLoading ||
+        threads.isLoading ||
+        bundle.isLoading,
+      isError:
+        Boolean(friends.isError) ||
+        Boolean(friendRequests.isError) ||
+        Boolean(friendSuggestions.isError) ||
+        Boolean(activity.isError) ||
+        Boolean(threads.isError) ||
+        Boolean(bundle.isError),
+      me: null,
+      friends: friendsData,
+      homeFriendsPreview,
+      friendRequests: friendRequests.data ?? [],
+      friendSuggestions: suggestionsData,
+      primarySuggestion: suggestionsData[0] ?? null,
+      friendQuest: null,
+      activity: activity.data ?? [],
+      threads: threads.data ?? [],
+      weeklyLeaderboard: bundle.data?.weekly ?? [],
+      monthlyLeaderboard: bundle.data?.monthly ?? [],
+      friendsLeaderboard: bundle.data?.friends ?? [],
+      league: bundle.data?.spotlight.league ?? null,
+    };
+  }, [
+    homeLimit,
+    friends.data,
+    friends.isLoading,
+    friends.isError,
+    friendRequests.data,
+    friendRequests.isLoading,
+    friendRequests.isError,
+    friendSuggestions.data,
+    friendSuggestions.isLoading,
+    friendSuggestions.isError,
+    activity.data,
+    activity.isLoading,
+    activity.isError,
+    threads.data,
+    threads.isLoading,
+    threads.isError,
+    bundle.data,
+    bundle.isLoading,
+    bundle.isError,
+  ]);
 }
 
 export function useFriends(options?: HookOptions): Result<SocialUser[]> {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.friends,
     queryFn: social ? (signal) => social.getFriends(signal) : null,
     select: (data) => data.map(adaptFriend),
     override: options?.override as SocialUser[] | undefined,
     staleTime: 60_000,
-    enabled,
   });
-  const mockResult = useMockResource(MOCK_FRIENDS, options);
-  return enabled ? apiResult : mockResult;
 }
 
 export function useFriendRequests(options?: HookOptions): Result<SocialUser[]> {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.friendRequests,
     queryFn: social ? (signal) => social.getFriendRequests(signal) : null,
     select: adaptIncomingRequests,
     override: options?.override as SocialUser[] | undefined,
     staleTime: 60_000,
-    enabled,
   });
-  const mockResult = useMockResource(MOCK_FRIEND_REQUESTS, options);
-  return enabled ? apiResult : mockResult;
 }
 
 export function useFriendSuggestions(
   options?: HookOptions & { limit?: number },
 ): Result<{ user: SocialUser; reason: string }[]> {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
   const limit = options?.limit ?? 10;
-
-  // Real backend endpoint: GET /api/core/v1/social/suggestions returns users
-  // who share the requester's learning language and are not already friends
-  // or blocked.
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.suggestions(limit),
     queryFn: social ? (signal) => social.getSuggestions(limit, signal) : null,
     select: (resp) =>
@@ -346,91 +247,55 @@ export function useFriendSuggestions(
         },
         reason: it.reason,
       })),
+    override: options?.override as
+      | { user: SocialUser; reason: string }[]
+      | undefined,
     staleTime: 60_000,
-    enabled,
   });
-  // Always call the mock hook so React sees a stable call order regardless of
-  // which path is active. The result is only consumed in the mock branch.
-  const mockResult = useMockResource(MOCK_FRIEND_SUGGESTIONS, options);
-
-  if (!enabled) return mockResult;
-
-  const override = options?.override as
-    | { user: SocialUser; reason: string }[]
-    | undefined;
-  if (override !== undefined) {
-    return { data: override, isLoading: false, isEmpty: override.length === 0 };
-  }
-  return apiResult;
 }
 
 export function useActivityFeed(options?: HookOptions): Result<ActivityItem[]> {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.activity,
     queryFn: social ? (signal) => social.getActivity(undefined, signal) : null,
     select: (resp) => resp.items.map(adaptActivity),
     override: options?.override as ActivityItem[] | undefined,
     staleTime: 30_000,
-    enabled,
   });
-  const mockResult = useMockResource(MOCK_ACTIVITY, options);
-  return enabled ? apiResult : mockResult;
 }
 
 export function useThreads(options?: HookOptions): Result<ChatThread[]> {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.threads,
     queryFn: social ? (signal) => social.getThreads(signal) : null,
     select: (data) => data.map(adaptThread),
     override: options?.override as ChatThread[] | undefined,
     staleTime: 30_000,
-    enabled,
   });
-  const mockResult = useMockResource(MOCK_THREADS, options);
-  return enabled ? apiResult : mockResult;
 }
 
 export function useLeagueSpotlight(options?: HookOptions): Result<LeagueSpotlight> {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
-  // Lang isn't dynamic yet — pin to ja until LanguageContext is threaded in.
   const lang = "ja";
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.spotlight(lang),
     queryFn: social ? (signal) => social.getLeagueSpotlight(lang, signal) : null,
     select: (s) => adaptSpotlight(s, null),
     override: options?.override as LeagueSpotlight | undefined,
     staleTime: 60_000,
-    enabled,
   });
-
-  // Mock path: synthesize the spotlight from the mock weekly leaderboard.
-  const myRow = MOCK_WEEKLY_LB.find((r) => r.isMe) ?? null;
-  const rankToday = myRow?.rank ?? 999;
-  const mockSpotlight: LeagueSpotlight = {
-    league: MOCK_LEAGUE,
-    myRow,
-    rankDeltaToday: MOCK_RANK_YESTERDAY - rankToday,
-    dailyXp: MOCK_DAILY_XP,
-    friendMedianDaily: MOCK_FRIEND_MEDIAN_DAILY,
-  };
-  const mockResult = useMockResource(mockSpotlight, options);
-  return enabled ? apiResult : mockResult;
 }
 
 export function useWeeklyLeaderboard(options?: HookOptions): Result<LeaderboardRow[]> {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
   const lang = "ja";
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.weeklyLb(lang),
     queryFn: social ? (signal) => social.getWeeklyLeaderboard(lang, undefined, signal) : null,
     select: (r) =>
@@ -439,18 +304,14 @@ export function useWeeklyLeaderboard(options?: HookOptions): Result<LeaderboardR
       ),
     override: options?.override as LeaderboardRow[] | undefined,
     staleTime: 60_000,
-    enabled,
   });
-  const mockResult = useMockResource(MOCK_WEEKLY_LB, options);
-  return enabled ? apiResult : mockResult;
 }
 
 export function useMonthlyLeaderboard(options?: HookOptions): Result<LeaderboardRow[]> {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
   const lang = "ja";
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.monthlyLb(lang),
     queryFn: social ? (signal) => social.getMonthlyLeaderboard(lang, undefined, signal) : null,
     select: (r) =>
@@ -459,25 +320,9 @@ export function useMonthlyLeaderboard(options?: HookOptions): Result<Leaderboard
       ),
     override: options?.override as LeaderboardRow[] | undefined,
     staleTime: 60_000,
-    enabled,
   });
-  const mockResult = useMockResource(MOCK_MONTHLY_LB, options);
-  return enabled ? apiResult : mockResult;
 }
 
-/**
- * Batched leaderboards bundle — one network request for weekly + monthly +
- * friends + spotlight. Backend uses ``asyncio.gather`` to run all four reads
- * in parallel within a single Lambda invocation.
- *
- * Consumers (the social-page Leaderboards section + LeagueSpotlightCard)
- * should call this once; React Query dedupes the request when multiple
- * components share the same query key, so two consumers on the same page
- * still fire only one network call.
- *
- * Returns the four sub-results pre-adapted into the UI types each surface
- * already expects, plus the raw spotlight payload for downstream needs.
- */
 export type UseLeaderboardBundleResult = Result<{
   weekly: LeaderboardRow[];
   monthly: LeaderboardRow[];
@@ -486,13 +331,11 @@ export type UseLeaderboardBundleResult = Result<{
 }>;
 
 export function useLeaderboardBundle(options?: HookOptions): UseLeaderboardBundleResult {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
-  // Lang isn't dynamic yet — pin to ja until LanguageContext is threaded in.
   const lang = "ja";
 
-  const apiResult = useApiResource<
+  return useApiResource<
     ApiLeaderboardBundle,
     {
       weekly: LeaderboardRow[];
@@ -521,35 +364,22 @@ export function useLeaderboardBundle(options?: HookOptions): UseLeaderboardBundl
         spotlight: adaptSpotlight(b.spotlight, myWeeklyRow),
       };
     },
-    // Live data — same cadence as the individual leaderboard hooks.
+    override: options?.override as
+      | {
+          weekly: LeaderboardRow[];
+          monthly: LeaderboardRow[];
+          friends: LeaderboardRow[];
+          spotlight: LeagueSpotlight;
+        }
+      | undefined,
     staleTime: 60_000,
-    enabled,
   });
-
-  // Mock fallback — synthesize the same shape from existing fixtures.
-  const myMockRow = MOCK_WEEKLY_LB.find((r) => r.isMe) ?? null;
-  const rankToday = myMockRow?.rank ?? 999;
-  const mockBundle = {
-    weekly: MOCK_WEEKLY_LB,
-    monthly: MOCK_MONTHLY_LB,
-    friends: MOCK_FRIENDS_LB,
-    spotlight: {
-      league: MOCK_LEAGUE,
-      myRow: myMockRow,
-      rankDeltaToday: MOCK_RANK_YESTERDAY - rankToday,
-      dailyXp: MOCK_DAILY_XP,
-      friendMedianDaily: MOCK_FRIEND_MEDIAN_DAILY,
-    } as LeagueSpotlight,
-  };
-  const mockResult = useMockResource(mockBundle, options);
-  return enabled ? apiResult : mockResult;
 }
 
 export function useFriendsLeaderboard(options?: HookOptions): Result<LeaderboardRow[]> {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.friendsLb("ja"),
     queryFn: social ? (signal) => social.getFriendsLeaderboard({ lang: "ja" }, signal) : null,
     select: (r) =>
@@ -558,60 +388,39 @@ export function useFriendsLeaderboard(options?: HookOptions): Result<Leaderboard
       ),
     override: options?.override as LeaderboardRow[] | undefined,
     staleTime: 60_000,
-    enabled,
   });
-  const mockResult = useMockResource(MOCK_FRIENDS_LB, options);
-  return enabled ? apiResult : mockResult;
 }
 
-export function useStreakSnapshot(
-  options?: HookOptions,
-): Result<typeof MOCK_STREAK_SNAPSHOT> {
-  const enabled = isSocialApiEnabled();
+export function useStreakSnapshot(options?: HookOptions): Result<StreakSnapshot> {
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.streakSnapshot,
     queryFn: social ? (signal) => social.getStreakSnapshot(signal) : null,
     select: adaptStreakSnapshot,
-    override: options?.override as typeof MOCK_STREAK_SNAPSHOT | undefined,
+    override: options?.override as StreakSnapshot | undefined,
     staleTime: 60_000,
-    enabled,
   });
-  const mockResult = useMockResource(MOCK_STREAK_SNAPSHOT, options);
-  return enabled ? apiResult : mockResult;
 }
 
 export function useInviteOffer(options?: HookOptions): Result<InviteOffer> {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.inviteOffer,
     queryFn: social ? (signal) => social.getInviteOffer(signal) : null,
     select: adaptInvite,
     override: options?.override as InviteOffer | undefined,
     staleTime: 60_000,
-    enabled,
   });
-  const mockResult = useMockResource(MOCK_INVITE_OFFER, options);
-  return enabled ? apiResult : mockResult;
 }
 
-// ────────────────────────────────────────────────────────────────────────────
-// Deep friend-management surfaces — used by /:lang/social/friends.
-// ────────────────────────────────────────────────────────────────────────────
-
-/** Both halves of the friend-requests bundle (incoming + outgoing). The
- *  existing `useFriendRequests()` drops the outgoing list; deep friend
- *  management needs both so we can render Accept/Decline AND Cancel rows. */
 export function useFriendRequestsBundle(
   options?: HookOptions,
 ): Result<{ incoming: SocialUser[]; outgoing: SocialUser[] }> {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.friendRequests,
     queryFn: social ? (signal) => social.getFriendRequests(signal) : null,
     select: (bundle: FriendRequestsBundle) => ({
@@ -622,30 +431,17 @@ export function useFriendRequestsBundle(
       | { incoming: SocialUser[]; outgoing: SocialUser[] }
       | undefined,
     staleTime: 60_000,
-    enabled,
   });
-  // Mock path: synthesize a bundle from MOCK_FRIEND_REQUESTS (incoming only).
-  const mockResult = useMockResource(
-    { incoming: MOCK_FRIEND_REQUESTS, outgoing: [] as SocialUser[] },
-    options,
-  );
-  return enabled ? apiResult : mockResult;
 }
 
-/** Blocked users list. Mock path returns an empty array — there is no
- *  MOCK_BLOCKED fixture; the surface should render its empty state. */
 export function useBlocks(options?: HookOptions): Result<ApiBlockedUser[]> {
-  const enabled = isSocialApiEnabled();
   const api = useApiOptional();
   const social: SocialApi | null = api?.social ?? null;
-  const apiResult = useApiResource({
+  return useApiResource({
     queryKey: SOCIAL_QUERY_KEYS.blocks,
     queryFn: social ? (signal) => social.listBlocks(signal) : null,
     select: (rows: ApiBlockedUser[]) => rows,
     override: options?.override as ApiBlockedUser[] | undefined,
     staleTime: 60_000,
-    enabled,
   });
-  const mockResult = useMockResource([] as ApiBlockedUser[], options);
-  return enabled ? apiResult : mockResult;
 }
