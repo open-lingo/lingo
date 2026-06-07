@@ -24,7 +24,13 @@ export const QUESTS_QUERY_KEY = ["core", "quests", "list"] as const;
 // it during the local-mock era keep compiling. Safe to drop later.
 export const QUESTS_STORAGE_KEY = "lingo_quests_v1";
 
-const LIVE_REFETCH_MS = 10_000;
+// Quest progress lives in the async pipeline — it advances after XP/lesson/review
+// events fire on the server, so the FE doesn't need second-by-second polling.
+// We already invalidate on mutations (claim/bump/refresh) and after
+// LessonProgressHydrate syncs buffered attempts, so the refetch interval is just
+// a long backstop to catch progress that arrived via another tab/session.
+// 60s × 2 panels open ≈ 120 req/hr per learner; 10s was 720 req/hr.
+const LIVE_REFETCH_MS = 60_000;
 
 function fromServer(q: ServerQuest): Quest {
   return {
@@ -107,7 +113,12 @@ export function useQuests(): UseQuestsResult {
     queryFn: () => questsApi!.list(),
     refetchInterval: LIVE_REFETCH_MS,
     refetchOnWindowFocus: true,
-    staleTime: 0,
+    // staleTime matches the refetch interval — within a 60s window any in-flight
+    // mount of useQuests on another component (LearnTopBar + LearnSidebar share
+    // the key, so the cache dedupes) reads the cache instead of refetching.
+    // Mutations explicitly invalidate, so the user-perceived freshness for
+    // claim / bump / refresh is unchanged.
+    staleTime: LIVE_REFETCH_MS,
     enabled: !!questsApi,
   });
 
