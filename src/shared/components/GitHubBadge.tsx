@@ -1,26 +1,39 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Icon } from "@/shared/components/Icon";
 
 const REPO_URL = "https://github.com/open-lingo/lingo";
 const API_URL = "https://api.github.com/repos/open-lingo/lingo";
 
-export function GitHubBadge() {
-  const [stars, setStars] = useState<number | null>(null);
+/**
+ * Stargazer counts are public + rate-limited (60/hr unauth from one IP).
+ * We had a raw `fetch` in a useEffect, which re-ran on every mount across
+ * landing / community-rail / contribute pages — easy way to burn quota
+ * and pay for the same data 4-6 times per session. Hoist to a shared
+ * TanStack Query key with a 1-hour staleTime so every consumer reads
+ * the same cache and the badge falls back to no number on rate-limit.
+ */
+async function fetchStargazerCount(): Promise<number | null> {
+  try {
+    const res = await fetch(API_URL);
+    if (!res.ok) return null;
+    const data = (await res.json()) as { stargazers_count?: number };
+    return typeof data?.stargazers_count === "number"
+      ? data.stargazers_count
+      : null;
+  } catch {
+    return null;
+  }
+}
 
-  useEffect(() => {
-    let ok = true;
-    fetch(API_URL)
-      .then((res) => res.json())
-      .then((data: { stargazers_count?: number }) => {
-        if (ok && typeof data?.stargazers_count === "number") {
-          setStars(data.stargazers_count);
-        }
-      })
-      .catch(() => {});
-    return () => {
-      ok = false;
-    };
-  }, []);
+export function GitHubBadge() {
+  const { data: stars } = useQuery({
+    queryKey: ["github", "repo-stars", "open-lingo/lingo"] as const,
+    queryFn: fetchStargazerCount,
+    staleTime: 60 * 60 * 1000, // 1 hour
+    gcTime: 2 * 60 * 60 * 1000,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <a
