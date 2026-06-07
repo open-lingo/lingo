@@ -23,6 +23,10 @@ export interface BatchAttempt {
    *  emission so quest progress + leaderboard don't advance until the
    *  user actually finishes the lesson. */
   isDraft?: boolean;
+  /** Synthesised from a placement-test pass or per-module test-out.
+   *  Persists the lesson as completed (course-map unlock) but server
+   *  gates XP + lingots to zero so the flow can't be farmed. */
+  isTestOut?: boolean;
 }
 
 export interface BatchAttemptSubmission {

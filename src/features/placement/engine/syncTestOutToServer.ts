@@ -31,10 +31,15 @@ export function buildTestOutAttempts(passedModules: string[]): BatchAttempt[] {
         clientAttemptId: `testout-${mod.id}-${lesson.id}-${stamp}-${idx++}`,
         lessonId: lesson.id,
         attemptedAt: now,
-        durationSec: 0,
+        // Server clamps to [1, 3600]; 1 is the truthful floor here (no
+        // time was spent on the lesson itself).
+        durationSec: 1,
         passed: true,
         score: 1.0,
         stepResults: [],
+        // Server-side flag: gates XP + lingots even though passed=true.
+        // Without it the user would farm currency on every test-out.
+        isTestOut: true,
       });
     }
   }
