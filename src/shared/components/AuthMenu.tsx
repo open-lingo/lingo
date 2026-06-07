@@ -37,9 +37,11 @@ export function AuthMenu() {
     queryFn: () => users.getMe(),
     enabled: isAuthenticated,
     retry: (_, err) => !(err instanceof ApiError && err.status === 404),
-    // Live: shares cache with HomePage / useUserStats. Same cadence so all
-    // consumers settle on the same XP / role snapshot.
-    staleTime: 60_000,
+    // /users/me is slow-moving (XP bumps only on lesson sync, role basically
+    // never). Shares cache with HomePage / useLearnProfile / SettingsSectionPanel
+    // via the same key. Mutations invalidate ["users", uid, "me"] explicitly,
+    // so we can cache at 5 min instead of refetching every nav after a minute.
+    staleTime: 5 * 60_000,
   });
 
   const role = me?.role;

@@ -87,7 +87,9 @@ function GeneralPanel() {
     queryFn: () => users.getMe(),
     enabled: isAuthenticated,
     retry: (_, err) => !(err instanceof ApiError && err.status === 404),
-    staleTime: 60_000,
+    // Shared key with HomePage / AuthMenu — 5 min so opening Settings doesn't
+    // round-trip /users/me when the cache already has fresh data.
+    staleTime: 5 * 60_000,
   });
   const profileUsername =
     me?.username?.trim() ||

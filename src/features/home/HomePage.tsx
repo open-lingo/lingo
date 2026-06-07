@@ -45,9 +45,12 @@ export function HomePage() {
       if (err instanceof ApiError && err.status === 404) return false;
       return failureCount < 2;
     },
-    // Live: getMe drives the home banner state (xp, streak, etc.) that
-    // updates after every lesson completion sync — keep it short.
-    staleTime: 60_000,
+    // /users/me drives the home banner (xp, streak, etc.). LessonProgressHydrate
+    // invalidates ["progress","me"] and ["users",uid,"me"] after each lesson
+    // sync, and any /users/me mutation invalidates this key too — so we cache
+    // at 5 min and rely on the invalidate path for freshness. Was 60s, which
+    // refired every cross-page nav after a minute idle.
+    staleTime: 5 * 60_000,
   });
 
   const navigate = useNavigate();

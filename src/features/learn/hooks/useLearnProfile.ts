@@ -40,7 +40,10 @@ export function useLearnProfile(): LearnProfile {
     queryKey: ["users", userId, "me"],
     queryFn: () => users.getMe(),
     enabled: isAuthenticated,
-    staleTime: 60_000,
+    // Shared cache with HomePage / AuthMenu / SettingsSectionPanel — 5 min so
+    // navigating back into Learn after using another tab doesn't refetch
+    // a profile that only changes via mutation (which invalidates the key).
+    staleTime: 5 * 60_000,
   });
 
   const displayName =
