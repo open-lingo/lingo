@@ -13,11 +13,14 @@ describe("buildTestOutAttempts", () => {
     for (const a of attempts) {
       expect(a.passed).toBe(true);
       expect(a.score).toBe(1.0);
-      expect(a.durationSec).toBe(0);
+      // Server validator is ge=1; 0 was silently 422'ing every sync.
+      expect(a.durationSec).toBe(1);
       expect(a.stepResults).toEqual([]);
       expect(a.clientAttemptId).toMatch(/^testout-m3-/);
       expect(a.lessonId).toBeTruthy();
       expect(a.attemptedAt).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+      // Currency gate — server skips XP/lingots when this is true.
+      expect(a.isTestOut).toBe(true);
     }
   });
 
