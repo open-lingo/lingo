@@ -1,12 +1,14 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { Card } from "@/shared/components/ui";
-import { MOCK_THREADS } from "@/features/community/forum/mockForum";
+import { useApi } from "@/shared/api/provider";
+import type { CommunityThread } from "@/shared/api/community";
 
 type ActivityRow = {
   id: string;
@@ -21,12 +23,21 @@ export function HomeActivityPanel() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const flags = useFeatureFlags();
+  const { community } = useApi();
+
+  const threadsQuery = useQuery<CommunityThread[]>({
+    queryKey: ["community", "threads", "home-activity"],
+    queryFn: ({ signal }) =>
+      community.listThreads({ sort: "new", limit: 10 }, signal),
+    staleTime: 60_000,
+    enabled: flags.community.tabs.discuss,
+  });
 
   const rows = useMemo((): ActivityRow[] => {
     const items: ActivityRow[] = [];
 
     if (flags.community.tabs.discuss) {
-      const recent = [...MOCK_THREADS]
+      const recent = [...(threadsQuery.data ?? [])]
         .filter((thread) => !thread.isPinned)
         .sort(
           (a, b) =>
@@ -34,6 +45,8 @@ export function HomeActivityPanel() {
         )
         .slice(0, 2);
 
+      const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+      const now = Date.now();
       for (const thread of recent) {
         items.push({
           id: `thread-${thread.id}`,
@@ -41,7 +54,9 @@ export function HomeActivityPanel() {
           title: thread.title,
           subtitle: t("home.activity.forumReplies", { count: thread.replyCount }),
           href: langPath(`community/discuss/thread/${thread.id}`),
-          isNew: thread.status === "new",
+          // Why: backend status is open|closed|locked — not a "new" signal.
+          // Treat threads created in the last 24h as new instead.
+          isNew: now - new Date(thread.createdAt).getTime() < ONE_DAY_MS,
         });
       }
     }
@@ -68,7 +83,7 @@ export function HomeActivityPanel() {
     }
 
     return items.slice(0, 4);
-  }, [flags.community.tabs, langPath, t]);
+  }, [flags.community.tabs, langPath, t, threadsQuery.data]);
 
   if (rows.length === 0) {
     return (

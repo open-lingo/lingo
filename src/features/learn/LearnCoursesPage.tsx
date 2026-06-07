@@ -1,4 +1,6 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { useModal } from "@/shared/contexts/ModalContext";
@@ -6,18 +8,38 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
-import { getTrendingCourses } from "@/features/community/mockCommunity";
+import { useApi } from "@/shared/api/provider";
+import type { CommunityAddon } from "@/shared/api/community";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { ModuleCard } from "@/features/course/components";
+
+const TRENDING_COURSE_LIMIT = 4;
 
 export function LearnCoursesPage() {
   const { t } = useTranslation();
   const { openSettings } = useModal();
   const langPath = useLangPath();
   const { language } = useLanguage();
+  const { community } = useApi();
   const course = language ? getMockCourse(language.id) : null;
   const completedIds = useCompletedLessonIds();
-  const customCourses = language ? getTrendingCourses(language.id) : [];
+
+  const trendingQuery = useQuery<CommunityAddon[]>({
+    queryKey: ["community", "addons", { kind: "course", languageId: language?.id }],
+    queryFn: ({ signal }) =>
+      community.listAddons(
+        { kind: "course", languageId: language?.id, limit: 50 },
+        signal,
+      ),
+    staleTime: 5 * 60_000,
+    enabled: Boolean(language?.id),
+  });
+  const customCourses = useMemo(() => {
+    const list = trendingQuery.data ?? [];
+    return [...list]
+      .sort((a, b) => b.upvoteCount - a.upvoteCount)
+      .slice(0, TRENDING_COURSE_LIMIT);
+  }, [trendingQuery.data]);
 
   if (!course) {
     return (

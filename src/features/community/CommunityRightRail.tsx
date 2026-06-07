@@ -1,35 +1,33 @@
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
 import { GitHubBadge } from "@/shared/components/GitHubBadge";
-import { Avatar } from "./components/Avatar";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
-import { UserPreviewPopover } from "@/features/social/components/UserPreviewPopover";
+import { useApi } from "@/shared/api/provider";
+import type { CommunityTag } from "@/shared/api/community";
 
-// Mock data — wire to real APIs once contributor + tag aggregation exists.
-// Brief explicitly OK'd fake data for the marketplace feel.
-const MOCK_TOP_CONTRIBUTORS = [
-  { handle: "haru", upvotes: 1240 },
-  { handle: "minji", upvotes: 980 },
-  { handle: "spencer", upvotes: 620 },
-  { handle: "trevor", upvotes: 410 },
-  { handle: "yuki", upvotes: 280 },
-];
-
-const MOCK_TRENDING_TAGS = [
-  { tag: "korean-particles", count: 18 },
-  { tag: "k-drama", count: 14 },
-  { tag: "topik-i", count: 11 },
-  { tag: "kanji-radicals", count: 9 },
-  { tag: "n5", count: 7 },
-];
+// Why: backend has no trending-by-recency aggregate yet — fall back to the
+// curated tag list (`/community/tags`) so the slot stays useful. The "count"
+// column shown next to each tag is hidden until backend ships trending stats.
+// TODO: wire real trending aggregate when it lands.
+// Why: top-contributors panel hidden entirely — there is no backend
+// aggregate and an honest empty rail is preferable to fake handles.
 
 export function CommunityRightRail() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const flags = useFeatureFlags();
+  const { community } = useApi();
+
+  const tagsQuery = useQuery<CommunityTag[]>({
+    queryKey: ["community", "tags"],
+    queryFn: ({ signal }) => community.listTags(signal),
+    staleTime: 5 * 60_000,
+  });
+  const trendingTags = (tagsQuery.data ?? []).slice(0, 8);
 
   // Submit-story is gated behind community.tabs.contribute — keep the
   // entry-point flag-aligned so the right rail doesn't dead-end users
@@ -74,49 +72,27 @@ export function CommunityRightRail() {
         </ul>
       </RailCard>
 
-      <RailCard heading={t("community.railTopContributors", "Top contributors")}>
-        <ul className="space-y-2">
-          {MOCK_TOP_CONTRIBUTORS.map(({ handle, upvotes }) => (
-            <li key={handle} className="flex items-center justify-between gap-2 text-sm">
-              <UserPreviewPopover
-                username={handle}
-                displayName={`@${handle}`}
-                statsLine={t("community.contributorStatsUpvotes", {
-                  upvotes: upvotes.toLocaleString(),
-                  defaultValue: "{{upvotes}} upvotes",
-                })}
-                className="min-w-0"
-              >
-                <span className="inline-flex min-w-0 items-center gap-2">
-                  <Avatar name={handle} size="xs" />
-                  <span className="truncate text-text-primary hover:text-accent">
-                    @{handle}
-                  </span>
-                </span>
-              </UserPreviewPopover>
-              <span className="inline-flex items-center gap-1 shrink-0 text-xs tabular-nums text-text-muted">
-                <Icon name="star" size={12} aria-hidden />
-                {upvotes.toLocaleString()}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </RailCard>
-
       <RailCard heading={t("community.railTrendingTags", "Trending tags")}>
-        <ul className="flex flex-wrap gap-1.5">
-          {MOCK_TRENDING_TAGS.map(({ tag, count }) => (
-            <li key={tag}>
-              <Link
-                to={langPath(`community/explore?tag=${encodeURIComponent(tag)}`)}
-                className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-muted px-2 py-0.5 text-xs text-text-secondary hover:border-accent hover:text-accent"
-              >
-                #{tag}
-                <span className="text-text-muted">{count}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {trendingTags.length === 0 ? (
+          <p className="text-xs text-text-muted">
+            {t("community.railTrendingTagsEmpty", "No tags yet.")}
+          </p>
+        ) : (
+          <ul className="flex flex-wrap gap-1.5">
+            {trendingTags.map((tag) => (
+              <li key={tag.id}>
+                <Link
+                  to={langPath(
+                    `community/explore?tag=${encodeURIComponent(tag.slug)}`,
+                  )}
+                  className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-muted px-2 py-0.5 text-xs text-text-secondary hover:border-accent hover:text-accent"
+                >
+                  #{tag.slug}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </RailCard>
 
       <RailCard heading={t("community.railOpenSource", "Open source")}>

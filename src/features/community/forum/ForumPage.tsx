@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Icon } from "@/shared/components/Icon";
@@ -6,12 +6,11 @@ import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useApi } from "@/shared/api";
 import type {
+  CommunityAddon,
   CommunityCategory,
   CommunityTag,
   CommunityThread,
 } from "@/shared/api/community";
-import { TOP_CONTRIBUTORS } from "./mockForum";
-import { getAllAddons } from "../mockCommunity";
 import { Badge } from "../components/Badge";
 import { Avatar } from "../components/Avatar";
 import { Tag } from "../components/Tag";
@@ -53,11 +52,54 @@ export function ForumPage() {
     staleTime: 60_000,
   });
 
+  // Popular content rail — pulls top addons by upvote regardless of language.
+  // Limit 5 since the rail only shows 5 rows.
+  const popularAddonsQuery = useQuery<CommunityAddon[]>({
+    queryKey: ["community", "addons", "popular-rail"],
+    queryFn: ({ signal }) => community.listAddons({ limit: 25 }, signal),
+    staleTime: 5 * 60_000,
+  });
+
+  // Bucket recent threads by author for "top contributors" rail. There is
+  // no backend aggregate yet — see ContributorsPage TODO. Pull a larger
+  // window than the table needs so the bucket is meaningful.
+  const recentThreadsQuery = useQuery<CommunityThread[]>({
+    queryKey: ["community", "threads", "recent-for-contributors"],
+    queryFn: ({ signal }) =>
+      community.listThreads({ sort: "new", limit: 200 }, signal),
+    staleTime: 5 * 60_000,
+  });
+
   const categories = categoriesQuery.data ?? [];
   const tags = tagsQuery.data ?? [];
   const threads = threadsQuery.data ?? [];
 
   const tagById = new Map(tags.map((tag) => [tag.id, tag]));
+
+  const popularAddons = useMemo(() => {
+    const list = popularAddonsQuery.data ?? [];
+    return [...list]
+      .sort((a, b) => b.upvoteCount - a.upvoteCount)
+      .slice(0, 5);
+  }, [popularAddonsQuery.data]);
+
+  const topContributors = useMemo(() => {
+    const list = recentThreadsQuery.data ?? [];
+    const bucket = new Map<string, { id: string; name: string; postCount: number }>();
+    for (const th of list) {
+      const entry = bucket.get(th.authorId);
+      if (entry) entry.postCount += 1;
+      else
+        bucket.set(th.authorId, {
+          id: th.authorId,
+          name: th.authorName,
+          postCount: 1,
+        });
+    }
+    return Array.from(bucket.values())
+      .sort((a, b) => b.postCount - a.postCount)
+      .slice(0, 5);
+  }, [recentThreadsQuery.data]);
 
   return (
     <PageShell variant="wide">
@@ -218,18 +260,24 @@ export function ForumPage() {
             <h2 className="text-sm font-semibold text-text-primary">
               {t("community.popularContent")}
             </h2>
-            <ul className="mt-2 space-y-1">
-              {getAllAddons().slice(0, 5).map((addon) => (
-                <li key={addon.id}>
-                  <Link
-                    to={langPath("community/explore")}
-                    className="block truncate text-sm text-gray-700 hover:text-green-600"
-                  >
-                    {addon.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {popularAddons.length === 0 ? (
+              <p className="mt-2 text-xs text-text-muted">
+                {t("community.popularContentEmpty", "No content yet.")}
+              </p>
+            ) : (
+              <ul className="mt-2 space-y-1">
+                {popularAddons.map((addon) => (
+                  <li key={addon.id}>
+                    <Link
+                      to={langPath("community/explore")}
+                      className="block truncate text-sm text-gray-700 hover:text-green-600"
+                    >
+                      {addon.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <div className="rounded-md border border-gray-200 p-4">
             <h2 className="text-sm font-semibold text-text-primary">
@@ -267,19 +315,30 @@ export function ForumPage() {
             </ul>
           </div>
           {/* TODO: backend doesn't expose a top-contributors aggregate yet; */}
-          {/* swap to real data once /community/contributors lands. */}
+          {/* bucketing recent threads by author until /community/contributors lands. */}
           <div className="rounded-md border border-gray-200 p-4">
             <h2 className="text-sm font-semibold text-text-primary">
               {t("forum.topContributors")}
             </h2>
-            <ul className="mt-2 space-y-1">
-              {TOP_CONTRIBUTORS.map((c) => (
-                <li key={c.id} className="flex items-center justify-between text-sm">
-                  <span className="text-gray-700">{c.name}</span>
-                  <span className="text-text-muted tabular-nums">{c.postCount}</span>
-                </li>
-              ))}
-            </ul>
+            {topContributors.length === 0 ? (
+              <p className="mt-2 text-xs text-text-muted">
+                {t("forum.topContributorsEmpty", "No contributors yet.")}
+              </p>
+            ) : (
+              <ul className="mt-2 space-y-1">
+                {topContributors.map((c) => (
+                  <li
+                    key={c.id}
+                    className="flex items-center justify-between text-sm"
+                  >
+                    <span className="text-gray-700">{c.name}</span>
+                    <span className="text-text-muted tabular-nums">
+                      {c.postCount}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </aside>
       </div>

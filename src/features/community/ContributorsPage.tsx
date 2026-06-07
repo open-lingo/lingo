@@ -1,110 +1,81 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { CommunityDecksLayout } from "./CommunityDecksLayout";
 import { Avatar } from "./components/Avatar";
 import { DataTable, type DataTableColumn } from "@/shared/components/data";
+import { CenteredLoader } from "@/shared/components/ui/CenteredLoader";
+import { EmptyState } from "@/shared/components/ui/EmptyState";
 import { UserPreviewPopover } from "@/features/social/components/UserPreviewPopover";
 import { AddFriendButton } from "@/features/social/components/AddFriendButton";
+import { useApi } from "@/shared/api/provider";
+import type { CommunityThread } from "@/shared/api/community";
 
 type Contributor = {
+  id: string;
   handle: string;
   displayName: string;
-  upvotes: number;
-  decksCount: number;
-  followers: number;
-  joinedYear: number;
-  badge?: "official" | "verified";
+  threadCount: number;
+  latestThreadAt: string;
 };
 
-// Mock — wire to backend once a contributors aggregate exists.
-const MOCK_CONTRIBUTORS: Contributor[] = [
-  {
-    handle: "haru",
-    displayName: "Haru Tanaka",
-    upvotes: 1240,
-    decksCount: 18,
-    followers: 312,
-    joinedYear: 2024,
-    badge: "official",
-  },
-  {
-    handle: "minji",
-    displayName: "Minji Park",
-    upvotes: 980,
-    decksCount: 14,
-    followers: 245,
-    joinedYear: 2024,
-    badge: "verified",
-  },
-  {
-    handle: "spencer",
-    displayName: "Spencer O.",
-    upvotes: 620,
-    decksCount: 9,
-    followers: 180,
-    joinedYear: 2025,
-    badge: "verified",
-  },
-  {
-    handle: "trevor",
-    displayName: "Trevor L.",
-    upvotes: 410,
-    decksCount: 7,
-    followers: 120,
-    joinedYear: 2025,
-  },
-  {
-    handle: "yuki",
-    displayName: "Yuki Sato",
-    upvotes: 280,
-    decksCount: 6,
-    followers: 88,
-    joinedYear: 2025,
-  },
-  {
-    handle: "jihoon",
-    displayName: "Jihoon Kim",
-    upvotes: 210,
-    decksCount: 4,
-    followers: 64,
-    joinedYear: 2025,
-  },
-  {
-    handle: "marie",
-    displayName: "Marie Dubois",
-    upvotes: 180,
-    decksCount: 3,
-    followers: 52,
-    joinedYear: 2025,
-  },
-  {
-    handle: "alex",
-    displayName: "Alex Chen",
-    upvotes: 95,
-    decksCount: 2,
-    followers: 31,
-    joinedYear: 2026,
-  },
-];
+type SortKey = "threads" | "recent" | "name";
 
-type SortKey = "upvotes" | "decks" | "followers" | "name";
+const TOP_LIMIT = 20;
 
 export function ContributorsPage() {
   const { t } = useTranslation();
-  const [sortKey, setSortKey] = useState<SortKey>("upvotes");
+  const [sortKey, setSortKey] = useState<SortKey>("threads");
+  const { community } = useApi();
+
+  // Why: no backend contributors aggregate yet — bucket recent threads by
+  // author_id. Pull a wide-enough window (200) to make the bucket meaningful.
+  // TODO: replace with /community/contributors once the aggregate ships.
+  const threadsQuery = useQuery<CommunityThread[]>({
+    queryKey: ["community", "threads", "recent-for-contributors"],
+    queryFn: ({ signal }) =>
+      community.listThreads({ sort: "new", limit: 200 }, signal),
+    staleTime: 5 * 60_000,
+  });
+
+  const contributors = useMemo<Contributor[]>(() => {
+    const list = threadsQuery.data ?? [];
+    const bucket = new Map<string, Contributor>();
+    for (const th of list) {
+      const entry = bucket.get(th.authorId);
+      if (entry) {
+        entry.threadCount += 1;
+        if (th.updatedAt > entry.latestThreadAt) {
+          entry.latestThreadAt = th.updatedAt;
+        }
+      } else {
+        bucket.set(th.authorId, {
+          id: th.authorId,
+          handle: th.authorId,
+          displayName: th.authorName || th.authorId,
+          threadCount: 1,
+          latestThreadAt: th.updatedAt,
+        });
+      }
+    }
+    return Array.from(bucket.values()).slice(0, TOP_LIMIT);
+  }, [threadsQuery.data]);
 
   const rows = useMemo(() => {
-    const arr = [...MOCK_CONTRIBUTORS];
+    const arr = [...contributors];
     arr.sort((a, b) => {
-      if (sortKey === "upvotes") return b.upvotes - a.upvotes;
-      if (sortKey === "decks") return b.decksCount - a.decksCount;
-      if (sortKey === "followers") return b.followers - a.followers;
+      if (sortKey === "threads") return b.threadCount - a.threadCount;
+      if (sortKey === "recent")
+        return (
+          new Date(b.latestThreadAt).getTime() -
+          new Date(a.latestThreadAt).getTime()
+        );
       return a.displayName.localeCompare(b.displayName);
     });
     return arr;
-  }, [sortKey]);
+  }, [contributors, sortKey]);
 
   const columns: DataTableColumn<Contributor>[] = [
     {
@@ -114,10 +85,9 @@ export function ContributorsPage() {
         <UserPreviewPopover
           username={c.handle}
           displayName={c.displayName}
-          statsLine={t("community.contributorStatsLine", {
-            decks: c.decksCount,
-            upvotes: c.upvotes.toLocaleString(),
-            defaultValue: "{{decks}} decks · {{upvotes}} upvotes",
+          statsLine={t("community.contributorThreadsLine", {
+            threads: c.threadCount,
+            defaultValue: "{{threads}} threads",
           })}
         >
           <span className="group inline-flex min-w-0 items-center gap-3">
@@ -127,46 +97,35 @@ export function ContributorsPage() {
                 <span className="truncate font-medium text-text-primary group-hover:text-accent">
                   {c.displayName}
                 </span>
-                {c.badge && <BadgePill kind={c.badge} />}
               </span>
-              <span className="block truncate text-xs text-text-muted">@{c.handle}</span>
+              <span className="block truncate text-xs text-text-muted">
+                @{c.handle}
+              </span>
             </span>
           </span>
         </UserPreviewPopover>
       ),
     },
     {
-      key: "upvotes",
-      label: t("community.contributorUpvotes", "Upvotes"),
+      key: "threads",
+      label: t("community.contributorThreads", "Threads"),
       className: "text-right",
       render: (c) => (
         <span className="inline-flex items-center gap-1 tabular-nums text-text-secondary">
-          <Icon name="star" size={12} aria-hidden />
-          {c.upvotes.toLocaleString()}
+          <Icon name="fileText" size={12} aria-hidden />
+          {c.threadCount}
         </span>
       ),
     },
     {
-      key: "decks",
-      label: t("community.contributorDecks", "Decks"),
-      className: "hidden sm:table-cell text-right",
-      render: (c) => (
-        <span className="tabular-nums text-text-secondary">{c.decksCount}</span>
-      ),
-    },
-    {
-      key: "followers",
-      label: t("community.contributorFollowers", "Followers"),
+      key: "recent",
+      label: t("community.contributorLatest", "Latest"),
       className: "hidden md:table-cell text-right",
       render: (c) => (
-        <span className="tabular-nums text-text-secondary">{c.followers}</span>
+        <span className="text-text-muted">
+          {new Date(c.latestThreadAt).toLocaleDateString()}
+        </span>
       ),
-    },
-    {
-      key: "joined",
-      label: t("community.contributorJoined", "Joined"),
-      className: "hidden lg:table-cell text-right",
-      render: (c) => <span className="text-text-muted">{c.joinedYear}</span>,
     },
     {
       key: "addFriend",
@@ -193,7 +152,7 @@ export function ContributorsPage() {
     <CommunityDecksLayout>
       <div className="rounded-lg border border-accent-muted bg-accent-muted/30 px-3 py-2 text-sm text-accent">
         {t("community.contributorsBanner", {
-          count: MOCK_CONTRIBUTORS.length,
+          count: contributors.length,
           defaultValue:
             "{{count}} learners building Open Lingo. Follow, learn from them, contribute back.",
         })}
@@ -203,7 +162,7 @@ export function ContributorsPage() {
         <div className="flex items-center justify-between gap-3">
           <p className="text-sm text-text-secondary">
             <span className="font-semibold text-text-primary">
-              {MOCK_CONTRIBUTORS.length}
+              {contributors.length}
             </span>{" "}
             {t("community.contributorsLabel", "contributors")}
           </p>
@@ -216,14 +175,11 @@ export function ContributorsPage() {
               onChange={(e) => setSortKey(e.target.value as SortKey)}
               className="rounded-md border border-border bg-surface px-2 py-1.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
             >
-              <option value="upvotes">
-                {t("community.contributorSortUpvotes", "Most upvoted")}
+              <option value="threads">
+                {t("community.contributorSortThreads", "Most threads")}
               </option>
-              <option value="decks">
-                {t("community.contributorSortDecks", "Most decks")}
-              </option>
-              <option value="followers">
-                {t("community.contributorSortFollowers", "Most followers")}
+              <option value="recent">
+                {t("community.contributorSortRecent", "Most recent")}
               </option>
               <option value="name">
                 {t("community.contributorSortName", "Name")}
@@ -232,27 +188,24 @@ export function ContributorsPage() {
           </label>
         </div>
 
-        <DataTable<Contributor>
-          columns={columns}
-          rows={rows}
-          getRowKey={(c) => c.handle}
-        />
+        {threadsQuery.isLoading ? (
+          <CenteredLoader py="lg" label={t("common.loading")} />
+        ) : rows.length === 0 ? (
+          <EmptyState
+            title={t("community.contributorsEmptyTitle", "No contributors yet")}
+            description={t(
+              "community.contributorsEmptyDescription",
+              "Start a thread to be the first contributor.",
+            )}
+          />
+        ) : (
+          <DataTable<Contributor>
+            columns={columns}
+            rows={rows}
+            getRowKey={(c) => c.id}
+          />
+        )}
       </section>
     </CommunityDecksLayout>
-  );
-}
-
-function BadgePill({ kind }: { kind: "official" | "verified" }) {
-  const cls =
-    kind === "official"
-      ? "bg-accent/15 text-accent"
-      : "bg-info/15 text-info";
-  return (
-    <span
-      className={`inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${cls}`}
-    >
-      <Icon name={kind === "official" ? "check" : "star"} size={10} aria-hidden />
-      {kind}
-    </span>
   );
 }

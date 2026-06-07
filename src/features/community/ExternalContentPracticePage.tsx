@@ -4,12 +4,19 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
-import { MOCK_EXTERNAL_CONTENT } from "./mockExternalContent";
+import { EmptyState } from "@/shared/components/ui/EmptyState";
 import { parseUrlPlatform, PLATFORM_ICON_NAMES } from "./parseUrlPlatform";
 import { CONTENT_TYPE_ICONS } from "./contentTypeIcons";
 import { useExternalContentSubscriptions } from "./useExternalContentSubscriptions";
 import type { ExternalContentItem } from "./types";
+
+// Why: external_content backend domain doesn't exist yet. The flag-gated
+// page would normally render subscribed items here, but with no source of
+// items we render an empty state. Local subscription state is still
+// retained via the hook (localStorage) for when the backend lands.
+const NO_ITEMS: ExternalContentItem[] = [];
 
 function PracticeCard({
   item,
@@ -122,14 +129,30 @@ export function ExternalContentPracticePage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { language } = useLanguage();
+  const flags = useFeatureFlags();
   const langId = language?.id ?? "ko";
   const { subscribedIds, toggleDone, isDone, unsubscribe } =
     useExternalContentSubscriptions();
 
   const subscribedItems = useMemo(() => {
-    const idSet = new Set(subscribedIds);
-    return MOCK_EXTERNAL_CONTENT.filter((item) => idSet.has(item.id));
+    void subscribedIds;
+    return NO_ITEMS;
   }, [subscribedIds]);
+
+  if (!flags.community.tabs.externalContent) {
+    return (
+      <EmptyState
+        title={t(
+          "externalContent.comingSoonTitle",
+          "External content coming soon",
+        )}
+        description={t(
+          "externalContent.comingSoonDescription",
+          "We're building a directory of community-curated learning resources. Check back later.",
+        )}
+      />
+    );
+  }
 
   const forLanguage = useMemo(
     () => subscribedItems.filter((i) => i.contentLanguageId === langId),

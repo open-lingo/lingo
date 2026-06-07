@@ -3,7 +3,8 @@ import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { getLanguageConfig, LANGUAGE_CONFIGS } from "@/shared/domain/languageConfig";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { getExternalContent } from "./mockExternalContent";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { EmptyState } from "@/shared/components/ui/EmptyState";
 import { parseUrlPlatform, PLATFORM_ICON_NAMES } from "./parseUrlPlatform";
 import { CONTENT_TYPE_ICONS } from "./contentTypeIcons";
 import { useExternalContentSubscriptions } from "./useExternalContentSubscriptions";
@@ -14,6 +15,12 @@ import type {
   ExternalContentLevel,
   ExternalContentSkill,
 } from "./types";
+
+// Why: no backend external_content domain exists yet. The surface stays
+// flag-gated (`community.tabs.externalContent`, default false). When the flag
+// is off we render an empty-state placeholder so a direct nav hit doesn't
+// crash. TODO: build out lingo-core/app/external_content/ to unblock this.
+const NO_ITEMS: ExternalContentItem[] = [];
 
 type SortOption = "newest" | "upvotes" | "az";
 
@@ -170,6 +177,7 @@ const platform = parseUrlPlatform(link.url);
 export function ExternalContentPage() {
   const { t } = useTranslation();
   const { language } = useLanguage();
+  const flags = useFeatureFlags();
   const langId = language?.id ?? "ko";
 
   const [search, setSearch] = useState("");
@@ -181,10 +189,28 @@ export function ExternalContentPage() {
   const [skill, setSkill] = useState<ExternalContentSkill | "all">("all");
   const [sortBy, setSortBy] = useState<SortOption>("newest");
 
-  const allItems = useMemo(() => {
-    const lang = contentLanguage === "all" ? undefined : contentLanguage;
-    return getExternalContent(lang);
+  // Backend domain doesn't exist yet — feed an empty list when the flag is
+  // off (the page route already only mounts when the flag is on, but keep
+  // the guard so a stale URL doesn't render stale-shape stubs either).
+  const allItems = useMemo<ExternalContentItem[]>(() => {
+    void contentLanguage;
+    return NO_ITEMS;
   }, [contentLanguage]);
+
+  if (!flags.community.tabs.externalContent) {
+    return (
+      <EmptyState
+        title={t(
+          "externalContent.comingSoonTitle",
+          "External content coming soon",
+        )}
+        description={t(
+          "externalContent.comingSoonDescription",
+          "We're building a directory of community-curated learning resources. Check back later.",
+        )}
+      />
+    );
+  }
 
   const filteredItems = useMemo(() => {
     let list = allItems.filter((item) => {

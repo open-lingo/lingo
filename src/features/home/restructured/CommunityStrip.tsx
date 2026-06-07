@@ -1,12 +1,14 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
-import { MOCK_THREADS } from "@/features/community/forum/mockForum";
+import { useApi } from "@/shared/api/provider";
+import type { CommunityThread } from "@/shared/api/community";
 
 type Row = {
   id: string;
@@ -22,12 +24,23 @@ export function CommunityStrip() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const flags = useFeatureFlags();
+  const { community } = useApi();
+
+  const threadsQuery = useQuery<CommunityThread[]>({
+    queryKey: ["community", "threads", "home-strip"],
+    queryFn: ({ signal }) =>
+      community.listThreads({ sort: "new", limit: 10 }, signal),
+    staleTime: 60_000,
+    enabled: flags.community.tabs.discuss,
+  });
 
   const rows = useMemo((): Row[] => {
     const items: Row[] = [];
+    const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+    const now = Date.now();
 
     if (flags.community.tabs.discuss) {
-      const recent = [...MOCK_THREADS]
+      const recent = [...(threadsQuery.data ?? [])]
         .filter((thread) => !thread.isPinned)
         .sort(
           (a, b) =>
@@ -45,7 +58,8 @@ export function CommunityStrip() {
           }),
           iconName: "fileText",
           href: langPath(`community/discuss/thread/${thread.id}`),
-          isNew: thread.status === "new",
+          // Why: backend status is open|closed|locked — treat <24h as new.
+          isNew: now - new Date(thread.createdAt).getTime() < ONE_DAY_MS,
         });
       }
     }
@@ -83,7 +97,7 @@ export function CommunityStrip() {
     });
 
     return items.slice(0, 3);
-  }, [flags.community.tabs, langPath, t]);
+  }, [flags.community.tabs, langPath, t, threadsQuery.data]);
 
   if (rows.length === 0) {
     return null;

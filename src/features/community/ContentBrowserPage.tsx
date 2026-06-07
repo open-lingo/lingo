@@ -1,13 +1,14 @@
 import { useMemo, useState, useEffect, useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
   getLanguageConfig,
   LANGUAGE_CONFIGS,
   AVAILABLE_LEARNING_LANGUAGE_IDS,
 } from "@/shared/domain/languageConfig";
-import { getAllAddons } from "./mockCommunity";
+import type { CommunityAddon as ApiCommunityAddon } from "@/shared/api/community";
 import {
   CommunityContentTable,
   type CommunityContentRow,
@@ -115,7 +116,12 @@ export function ContentBrowserPage() {
   const { language } = useLanguage();
   const flags = useFeatureFlags();
   const explore = flags.community.explore;
-  const { decks: decksApi, users: usersApi, stories: storiesApi } = useApi();
+  const {
+    decks: decksApi,
+    users: usersApi,
+    stories: storiesApi,
+    community: communityApi,
+  } = useApi();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const typeParam = searchParams.get("type");
@@ -286,24 +292,48 @@ export function ContentBrowserPage() {
     [subscribedDecks, subscribedStories],
   );
 
-  const mockAddons = useMemo(() => {
-    const addons = getAllAddons().filter(
-      (a): a is CommunityAddon => a.kind === "course" || a.kind === "story",
-    );
-    return addons.filter((a) => {
-      if (a.kind === "course" && !explore.courses) return false;
-      if (a.kind === "story" && !explore.stories) return false;
-      return true;
-    });
-  }, [explore.courses, explore.stories]);
+  // Backend addons cover community-uploaded courses/flashcard-packs/stories.
+  // Why: backend AddonResponse has no maintainerIds/discussionCount/userUpvoted —
+  // we map to a best-effort CommunityAddon shape; missing fields stay undefined.
+  const addonsQuery = useQuery<ApiCommunityAddon[]>({
+    queryKey: ["community", "addons", { languageId: effectiveLanguage }],
+    queryFn: ({ signal }) =>
+      communityApi.listAddons({ languageId: effectiveLanguage }, signal),
+    staleTime: 60_000,
+  });
+
+  const communityAddons = useMemo<CommunityAddon[]>(() => {
+    const list = addonsQuery.data ?? [];
+    return list
+      .filter((a): a is ApiCommunityAddon =>
+        a.kind === "course" || a.kind === "story",
+      )
+      .filter((a) => {
+        if (a.kind === "course" && !explore.courses) return false;
+        if (a.kind === "story" && !explore.stories) return false;
+        return true;
+      })
+      .map<CommunityAddon>((a) => ({
+        id: a.id,
+        kind: a.kind as CommunityAddon["kind"],
+        languageId: a.languageId,
+        name: a.name,
+        description: a.description,
+        sourceUrl: a.sourceUrl ?? undefined,
+        maintainerIds: a.authorId ? [a.authorId] : [],
+        upvoteCount: a.upvoteCount,
+        updatedAt: a.updatedAt,
+        itemCount: a.itemCount ?? undefined,
+      }));
+  }, [addonsQuery.data, explore.courses, explore.stories]);
 
   const browseContent = useMemo(() => {
     const parts: (DeckCardItem | StoryCardItem | CommunityAddon)[] = [];
     if (explore.flashcardDecks) parts.push(...apiDeckCards);
     if (explore.stories) parts.push(...apiStoryCards);
-    parts.push(...mockAddons);
+    parts.push(...communityAddons);
     return parts;
-  }, [apiDeckCards, apiStoryCards, mockAddons, explore.flashcardDecks, explore.stories]);
+  }, [apiDeckCards, apiStoryCards, communityAddons, explore.flashcardDecks, explore.stories]);
 
   const facetLanguageIds = useMemo(() => {
     const fromContent = new Set(browseContent.map((a) => a.languageId));
