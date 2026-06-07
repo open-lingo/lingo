@@ -31,10 +31,13 @@ const DEFAULT_LANG_PREFIX = "ja";
  * Phase 2; once a second language registers in Phase 3+, callers MUST
  * pass prefixed ids and this default becomes unreachable.
  */
-function canonicalize(atomId: string): string {
+export function canonicalize(atomId: string): string {
   if (atomId.includes(":")) return atomId;
   return `${DEFAULT_LANG_PREFIX}:${atomId}`;
 }
+
+/** Alias used by consumers outside this file to make the intent obvious. */
+export const canonicalizeCardId = canonicalize;
 
 export type SRSStore = Record<string, SRSCardState>;
 

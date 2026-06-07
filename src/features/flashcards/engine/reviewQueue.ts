@@ -1,6 +1,6 @@
 import type { Flashcard, SRSCardState } from "../data/types";
 import { isDue, createInitialState, cardMaxDifficulty } from "./srs";
-import { getSRSStore } from "./srsStorage";
+import { getSRSStore, canonicalize } from "./srsStorage";
 
 const DEFAULT_NEW_CARDS_PER_DAY = 5;
 
@@ -47,7 +47,7 @@ export function buildReviewQueue(
   const unseenCards: Flashcard[] = [];
 
   for (const card of cards) {
-    const state = store[card.id];
+    const state = store[canonicalize(card.id)];
     if (!state) {
       unseenCards.push(card);
     } else if (isDue(state)) {
@@ -99,7 +99,7 @@ export function buildQueueFromSubscriptions(
     const defaultEase = deck.defaultEase ?? 2.5;
     for (const card of deck.cards) {
       cardIdToDefaultEase[card.id] = defaultEase;
-      const state = srsStore[card.id];
+      const state = srsStore[canonicalize(card.id)];
       if (!state) {
         const list = unseenByDeck.get(sub.contentId) ?? [];
         list.push(card);
@@ -154,7 +154,7 @@ export function countCardsDue(
   let unseen = 0;
 
   for (const card of cards) {
-    const state = store[card.id];
+    const state = store[canonicalize(card.id)];
     if (!state) {
       unseen++;
     } else if (isDue(state)) {
@@ -171,5 +171,5 @@ export function countCardsDue(
  */
 export function getEffectiveState(cardId: string, defaultEase?: number): SRSCardState {
   const store = getSRSStore();
-  return store[cardId] ?? createInitialState(defaultEase);
+  return store[canonicalize(cardId)] ?? createInitialState(defaultEase);
 }

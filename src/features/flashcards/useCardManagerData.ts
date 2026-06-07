@@ -13,6 +13,7 @@ import {
   createInitialState,
   performSync,
 } from "./engine";
+import { canonicalizeCardId } from "./engine/srsStorage";
 import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { notifySRSStoreChanged } from "./SRSStoreRevisionContext";
 import { useDeckSubscriptions } from "./useDeckSubscriptions";
@@ -44,7 +45,8 @@ export function useCardManagerData(languageId: string) {
       for (const deck of byLang) {
         deckList.push({ id: deck.id, name: deck.name });
         for (const card of deck.cards ?? []) {
-          const state = srsStore[card.id];
+          // canonicalize: deck `card.id` is bare, store keys are `ja:<bare>`.
+          const state = srsStore[canonicalizeCardId(card.id)];
           let status: ManagedCard["status"] = "new";
           if (state) {
             if (isBuried(state)) status = "buried";

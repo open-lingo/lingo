@@ -8,6 +8,7 @@ import {
   getToday,
 } from "./engine";
 import type { SRSStore } from "./engine";
+import { canonicalizeCardId } from "./engine/srsStorage";
 import type { SRSCardState } from "./data/types";
 import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { useSubscribedDecks } from "./useSubscribedDecks";
@@ -69,7 +70,7 @@ function computeDeckRetention(
   let totalReps = 0;
   let totalLapses = 0;
   for (const id of cardIds) {
-    const state: SRSCardState | undefined = srsStore[id];
+    const state: SRSCardState | undefined = srsStore[canonicalizeCardId(id)];
     if (!state) continue;
     for (const modality of ["recognition", "production"] as const) {
       const sub = state[modality];
@@ -106,7 +107,7 @@ export function useFlashcardDueSummary(langId: string) {
     let learningCount = 0;
     let masteredCount = 0;
     for (const card of allCards) {
-      const state = srsStore[card.id];
+      const state = srsStore[canonicalizeCardId(card.id)];
       if (isMastered(state)) masteredCount++;
       else if (isLearning(state)) learningCount++;
     }
