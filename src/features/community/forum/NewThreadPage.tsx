@@ -2,32 +2,84 @@ import { useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLangPath } from "@/shared/hooks/useLangPath";
-import { FORUM_CATEGORIES, FORUM_TAGS } from "./mockForum";
+import { useApi } from "@/shared/api";
+import type { CommunityCategory, CommunityTag } from "@/shared/api/community";
 import { MarkdownEditor } from "./MarkdownEditor";
 import { PageShell } from "@/shared/components/PageShell";
+import { CenteredLoader } from "@/shared/components/ui/CenteredLoader";
+import { useToast } from "@/shared/contexts/ToastContext";
 
 export function NewThreadPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const navigate = useNavigate();
-  const [categoryId, setCategoryId] = useState(FORUM_CATEGORIES[0]?.id ?? "general");
+  const { community } = useApi();
+  const qc = useQueryClient();
+  const { showToast } = useToast();
+
+  const categoriesQuery = useQuery<CommunityCategory[]>({
+    queryKey: ["community", "categories"],
+    queryFn: ({ signal }) => community.listCategories(signal),
+    staleTime: 5 * 60_000,
+  });
+
+  const tagsQuery = useQuery<CommunityTag[]>({
+    queryKey: ["community", "tags"],
+    queryFn: ({ signal }) => community.listTags(signal),
+    staleTime: 5 * 60_000,
+  });
+
+  const categories = categoriesQuery.data ?? [];
+  const tags = tagsQuery.data ?? [];
+
+  const [categoryId, setCategoryId] = useState<string>("");
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [tagIds, setTagIds] = useState<string[]>([]);
 
+  // Default categoryId once categories arrive.
+  if (!categoryId && categories.length > 0) {
+    setCategoryId(categories[0]!.id);
+  }
+
   const toggleTag = (id: string) => {
     setTagIds((prev) =>
-      prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id],
     );
   };
 
+  const createMutation = useMutation({
+    mutationFn: () =>
+      community.createThread({
+        categoryId,
+        title: title.trim(),
+        bodyMarkdown: body,
+        tagIds,
+      }),
+    onSuccess: (newThread) => {
+      qc.invalidateQueries({ queryKey: ["community", "threads"] });
+      navigate(langPath(`community/discuss/thread/${newThread.id}`));
+    },
+    onError: () => {
+      showToast(t("forum.createError") ?? "Could not create thread", "error");
+    },
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim() || !body.trim()) return;
-    // Mock: would POST to API
-    navigate(langPath("community/discuss"));
+    if (!title.trim() || !body.trim() || !categoryId) return;
+    createMutation.mutate();
   };
+
+  if (categoriesQuery.isLoading) {
+    return (
+      <PageShell variant="narrow" spaceY="md">
+        <CenteredLoader py="lg" />
+      </PageShell>
+    );
+  }
 
   return (
     <PageShell variant="narrow" spaceY="md">
@@ -49,9 +101,9 @@ export function NewThreadPage() {
             onChange={(e) => setCategoryId(e.target.value)}
             className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900"
           >
-            {FORUM_CATEGORIES.map((cat) => (
+            {categories.map((cat) => (
               <option key={cat.id} value={cat.id}>
-                {t(cat.nameKey)}
+                {t(cat.nameKey, { defaultValue: cat.slug })}
               </option>
             ))}
           </select>
@@ -77,7 +129,7 @@ export function NewThreadPage() {
             {t("forum.tags")}
           </label>
           <div className="flex flex-wrap gap-2">
-            {FORUM_TAGS.map((tag) => (
+            {tags.map((tag) => (
               <button
                 key={tag.id}
                 type="button"
@@ -115,7 +167,7 @@ export function NewThreadPage() {
           </Link>
           <button
             type="submit"
-            disabled={!title.trim() || !body.trim()}
+            disabled={!title.trim() || !body.trim() || !categoryId || createMutation.isPending}
             className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
           >
             {t("forum.createThread")}

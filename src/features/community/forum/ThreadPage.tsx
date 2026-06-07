@@ -2,13 +2,34 @@ import { useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { MarkdownRenderer } from "@/shared/components/MarkdownRenderer";
-import { getThreadById, getPostsByThreadId, getTagById } from "./mockForum";
+import { CenteredLoader } from "@/shared/components/ui/CenteredLoader";
+import { useApi } from "@/shared/api";
+import type {
+  CommunityPost,
+  CommunityTag,
+  CommunityThread,
+} from "@/shared/api/community";
 import { MarkdownEditor } from "./MarkdownEditor";
 import { useDateFormat } from "@/shared/utils/formatDate";
+import { useToast } from "@/shared/contexts/ToastContext";
 
-function VoteButtons({ up, down, userVote, onVote }: {
+type VoteTarget =
+  | { kind: "thread"; id: string }
+  | { kind: "post"; id: string };
+
+function VoteButtons({
+  up,
+  down,
+  userVote,
+  onVote,
+}: {
   up: number;
   down: number;
   userVote?: 1 | -1;
@@ -44,12 +65,105 @@ export function ThreadPage() {
   const langPath = useLangPath();
   const { formatDate } = useDateFormat();
   const { threadId } = useParams<{ threadId: string }>();
+  const { community } = useApi();
+  const qc = useQueryClient();
+  const { showToast } = useToast();
+
   const [replyBody, setReplyBody] = useState("");
   const [showReplyForm, setShowReplyForm] = useState(false);
 
-  const thread = threadId ? getThreadById(threadId) : undefined;
-  const posts = thread ? getPostsByThreadId(thread.id) : [];
+  const threadQuery = useQuery<CommunityThread>({
+    queryKey: ["community", "thread", threadId],
+    queryFn: ({ signal }) => community.getThread(threadId!, signal),
+    enabled: Boolean(threadId),
+    staleTime: 60_000,
+  });
 
+  const postsQuery = useQuery<CommunityPost[]>({
+    queryKey: ["community", "thread", threadId, "posts"],
+    queryFn: ({ signal }) => community.listPosts(threadId!, undefined, signal),
+    enabled: Boolean(threadId),
+    staleTime: 60_000,
+  });
+
+  const tagsQuery = useQuery<CommunityTag[]>({
+    queryKey: ["community", "tags"],
+    queryFn: ({ signal }) => community.listTags(signal),
+    staleTime: 5 * 60_000,
+  });
+
+  const replyMutation = useMutation({
+    mutationFn: (body: string) =>
+      community.createPost(threadId!, { bodyMarkdown: body }),
+    onSuccess: () => {
+      setReplyBody("");
+      setShowReplyForm(false);
+      qc.invalidateQueries({ queryKey: ["community", "thread", threadId, "posts"] });
+      qc.invalidateQueries({ queryKey: ["community", "thread", threadId] });
+    },
+    onError: () => {
+      showToast(t("forum.replyError") ?? "Could not post reply", "error");
+    },
+  });
+
+  // Why: backend vote endpoints return `{status: "ok"}` only — no fresh counts.
+  // We optimistically bump the cached thread/post and re-fetch on error.
+  const voteMutation = useMutation({
+    mutationFn: ({ target, value }: { target: VoteTarget; value: 1 | -1 }) =>
+      target.kind === "thread"
+        ? community.voteThread(target.id, value)
+        : community.votePost(target.id, value),
+    onMutate: async ({ target, value }) => {
+      if (target.kind === "thread") {
+        await qc.cancelQueries({ queryKey: ["community", "thread", target.id] });
+        const prev = qc.getQueryData<CommunityThread>(["community", "thread", target.id]);
+        if (prev) {
+          qc.setQueryData<CommunityThread>(["community", "thread", target.id], {
+            ...prev,
+            upvoteCount: prev.upvoteCount + (value === 1 ? 1 : 0),
+            downvoteCount: prev.downvoteCount + (value === -1 ? 1 : 0),
+          });
+        }
+        return { prev };
+      }
+      const key = ["community", "thread", threadId, "posts"] as const;
+      await qc.cancelQueries({ queryKey: key });
+      const prevList = qc.getQueryData<CommunityPost[]>(key);
+      if (prevList) {
+        qc.setQueryData<CommunityPost[]>(
+          key,
+          prevList.map((p) =>
+            p.id === target.id
+              ? {
+                  ...p,
+                  upvoteCount: p.upvoteCount + (value === 1 ? 1 : 0),
+                  downvoteCount: p.downvoteCount + (value === -1 ? 1 : 0),
+                }
+              : p,
+          ),
+        );
+      }
+      return { prevList };
+    },
+    onError: (_err, { target }, ctx) => {
+      if (target.kind === "thread" && ctx && "prev" in ctx && ctx.prev) {
+        qc.setQueryData(["community", "thread", target.id], ctx.prev);
+      } else if (target.kind === "post" && ctx && "prevList" in ctx && ctx.prevList) {
+        qc.setQueryData(["community", "thread", threadId, "posts"], ctx.prevList);
+      }
+      showToast(t("forum.voteError") ?? "Could not record vote", "error");
+    },
+  });
+
+  if (threadQuery.isLoading) {
+    return (
+      <div className="mx-auto max-w-4xl space-y-4">
+        <CenteredLoader py="lg" />
+      </div>
+    );
+  }
+
+  const thread = threadQuery.data;
   if (!thread) {
     return (
       <div className="mx-auto max-w-4xl space-y-4">
@@ -61,7 +175,11 @@ export function ThreadPage() {
     );
   }
 
-  const tags = thread.tagIds.map((tid) => getTagById(tid)).filter(Boolean);
+  const posts = postsQuery.data ?? [];
+  const tagById = new Map((tagsQuery.data ?? []).map((tag) => [tag.id, tag]));
+  const threadTags = thread.tagIds
+    .map((tid) => tagById.get(tid))
+    .filter((tag): tag is CommunityTag => Boolean(tag));
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
@@ -75,7 +193,9 @@ export function ThreadPage() {
           <VoteButtons
             up={thread.upvoteCount}
             down={thread.downvoteCount}
-            userVote={thread.userVote}
+            onVote={(v) =>
+              voteMutation.mutate({ target: { kind: "thread", id: thread.id }, value: v })
+            }
           />
         </div>
         <div className="min-w-0 flex-1">
@@ -85,12 +205,12 @@ export function ThreadPage() {
                 {t("forum.pinned")}
               </span>
             )}
-            {tags.map((tag) => (
+            {threadTags.map((tag) => (
               <span
-                key={tag!.id}
+                key={tag.id}
                 className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-700"
               >
-                {tag!.name}
+                {tag.name}
               </span>
             ))}
           </div>
@@ -112,28 +232,37 @@ export function ThreadPage() {
           {thread.replyCount} {t("forum.replies")}
         </h2>
         <div className="mt-4 space-y-4">
-          {posts.map((post) => (
-            <div
-              key={post.id}
-              className="flex gap-4 rounded-lg border border-gray-200 bg-white p-4"
-            >
-              <div className="shrink-0">
-                <VoteButtons
-                  up={post.upvoteCount}
-                  down={post.downvoteCount}
-                  userVote={post.userVote}
-                />
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm text-text-muted">
-                  {post.authorName} · {formatDate(post.createdAt)}
-                </p>
-                <div className="mt-2">
-                  <MarkdownRenderer>{post.bodyMarkdown}</MarkdownRenderer>
+          {postsQuery.isLoading ? (
+            <CenteredLoader py="md" />
+          ) : (
+            posts.map((post) => (
+              <div
+                key={post.id}
+                className="flex gap-4 rounded-lg border border-gray-200 bg-white p-4"
+              >
+                <div className="shrink-0">
+                  <VoteButtons
+                    up={post.upvoteCount}
+                    down={post.downvoteCount}
+                    onVote={(v) =>
+                      voteMutation.mutate({
+                        target: { kind: "post", id: post.id },
+                        value: v,
+                      })
+                    }
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm text-text-muted">
+                    {post.authorName} · {formatDate(post.createdAt)}
+                  </p>
+                  <div className="mt-2">
+                    <MarkdownRenderer>{post.bodyMarkdown}</MarkdownRenderer>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </section>
 
@@ -164,11 +293,10 @@ export function ThreadPage() {
               <button
                 type="button"
                 onClick={() => {
-                  // Mock: would submit to API
-                  setReplyBody("");
-                  setShowReplyForm(false);
+                  if (!replyBody.trim()) return;
+                  replyMutation.mutate(replyBody);
                 }}
-                disabled={!replyBody.trim()}
+                disabled={!replyBody.trim() || replyMutation.isPending}
                 className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
               >
                 {t("forum.postReply")}

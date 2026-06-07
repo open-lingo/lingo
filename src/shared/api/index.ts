@@ -35,4 +35,24 @@ export type {
   Message,
   QuestTargetItem,
 } from "./social";
+export { CommunityApi } from "./community";
+export type {
+  CommunityCategory,
+  CommunityTag,
+  CommunityContentLink,
+  CommunityThread,
+  CommunityPost,
+  CommunityAddon,
+  CommunityMarkdown,
+  ThreadVoteState,
+  CommunityThreadCreate,
+  CommunityThreadPatch,
+  CommunityPostCreate,
+  CommunityPostPatch,
+  CommunityTagCreate,
+  CommunityAddonCreate,
+  CommunityAddonPatch,
+  CommunityContentLinkCreate,
+  CommunityMarkdownStore,
+} from "./community";
 export { ApiProvider, useApi, useApiOptional } from "./provider";

@@ -1055,7 +1055,13 @@
     "actions": "작업",
     "open": "열기",
     "trendingTags": "인기 태그",
-    "topContributors": "우수 기여자"
+    "topContributors": "우수 기여자",
+    "loading": "불러오는 중…",
+    "noThreads": "아직 스레드가 없습니다",
+    "noThreadsDesc": "첫 번째로 토론을 시작해보세요.",
+    "replyError": "답글을 게시할 수 없습니다",
+    "voteError": "투표를 기록할 수 없습니다",
+    "createError": "스레드를 생성할 수 없습니다"
   },
   "profile": {
     "editTitle": "프로필 수정",

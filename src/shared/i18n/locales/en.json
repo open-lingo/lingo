@@ -1351,7 +1351,13 @@
     "actions": "Actions",
     "open": "Open",
     "trendingTags": "Trending tags",
-    "topContributors": "Top contributors"
+    "topContributors": "Top contributors",
+    "loading": "Loading…",
+    "noThreads": "No threads yet",
+    "noThreadsDesc": "Be the first to start a discussion.",
+    "replyError": "Could not post reply",
+    "voteError": "Could not record vote",
+    "createError": "Could not create thread"
   },
   "profile": {
     "editTitle": "Edit profile",
