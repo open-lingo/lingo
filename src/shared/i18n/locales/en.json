@@ -564,7 +564,14 @@
       "editMyVocab": "Edit My Vocab",
       "edit": "Edit",
       "selectedCount": "{{count}} selected",
-      "clearSelection": "Clear"
+      "clearSelection": "Clear",
+      "modalityEditTitle": "Adjust SRS dates",
+      "recognition": "Recognition",
+      "production": "Production",
+      "nextDue": "Next due",
+      "lastReviewed": "Last reviewed",
+      "save": "Save",
+      "cancel": "Cancel"
     }
   },
   "home": {

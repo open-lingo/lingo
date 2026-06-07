@@ -445,7 +445,14 @@
       "editMyVocab": "내 단어장 편집",
       "edit": "편집",
       "selectedCount": "{{count}}개 선택됨",
-      "clearSelection": "선택 해제"
+      "clearSelection": "선택 해제",
+      "modalityEditTitle": "SRS 날짜 조정",
+      "recognition": "인지",
+      "production": "산출",
+      "nextDue": "다음 복습일",
+      "lastReviewed": "마지막 복습일",
+      "save": "저장",
+      "cancel": "취소"
     }
   },
   "home": {

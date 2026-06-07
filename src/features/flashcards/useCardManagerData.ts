@@ -76,19 +76,46 @@ export function useCardManagerData(languageId: string) {
   const refresh = () => setRefreshTrigger((c) => c + 1);
 
   const updateDueDate = (cardId: string, newDueDate: string) => {
-    // Card Manager UI exposes a single due-date column; writing it
-    // updates both modality sub-states. Per-modality due-date editing
-    // can land if/when the UI surfaces both columns separately.
-    //
-    // Use getCardState (canonicalizes the lookup) rather than the bare
-    // `store[cardId]` read — the store keys are `ja:<bare>` after the
-    // namespace migration, so a raw-id lookup misses and we'd overwrite
-    // the existing state with a fresh one carrying only the new dueDate.
+    // Convenience setter that writes the same date to both sub-states.
+    // Per-modality editing is exposed via updateModalityDates below.
     const base = getCardState(cardId) ?? createInitialState();
     const next = {
       ...base,
       recognition: { ...base.recognition, dueDate: newDueDate },
       production: { ...base.production, dueDate: newDueDate },
+      lastSyncedAt: undefined,
+    };
+    setCardState(cardId, next);
+    notifySRSStoreChanged();
+    refresh();
+  };
+
+  const updateModalityDates = (
+    cardId: string,
+    dates: Partial<{
+      recognitionDue: string;
+      recognitionLastReview: string;
+      productionDue: string;
+      productionLastReview: string;
+    }>,
+  ) => {
+    const base = getCardState(cardId) ?? createInitialState();
+    const next = {
+      ...base,
+      recognition: {
+        ...base.recognition,
+        ...(dates.recognitionDue ? { dueDate: dates.recognitionDue } : {}),
+        ...(dates.recognitionLastReview
+          ? { lastReviewDate: dates.recognitionLastReview }
+          : {}),
+      },
+      production: {
+        ...base.production,
+        ...(dates.productionDue ? { dueDate: dates.productionDue } : {}),
+        ...(dates.productionLastReview
+          ? { lastReviewDate: dates.productionLastReview }
+          : {}),
+      },
       lastSyncedAt: undefined,
     };
     setCardState(cardId, next);
@@ -141,6 +168,7 @@ export function useCardManagerData(languageId: string) {
     isLoading,
     refresh,
     updateDueDate,
+    updateModalityDates,
     handleBury,
     handleUnbury,
     handleReset,

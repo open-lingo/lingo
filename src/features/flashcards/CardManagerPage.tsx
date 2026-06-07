@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -6,6 +6,9 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useApi } from "@/shared/api";
 import { FilterBar, DataTable } from "@/shared/components/data";
 import { Icon } from "@/shared/components/Icon";
+import { Modal } from "@/shared/components/ui/Modal";
+import { Button } from "@/shared/components/ui/Button";
+import { inputClassName } from "@/shared/components/ui/formStyles";
 import { useCardManagerData, type ManagedCard } from "./useCardManagerData";
 import {
   cardEarliestDueDate,
@@ -38,7 +41,7 @@ export function CardManagerPage() {
     cards,
     decks,
     isLoading,
-    updateDueDate,
+    updateModalityDates,
     handleBury,
     handleUnbury,
     handleReset,
@@ -50,8 +53,7 @@ export function CardManagerPage() {
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("dueDate");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
-  const [editingDue, setEditingDue] = useState<string | null>(null);
-  const [editingDueValue, setEditingDueValue] = useState("");
+  const [modalityEditCard, setModalityEditCard] = useState<ManagedCard | null>(null);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [editVocabLoading, setEditVocabLoading] = useState(false);
 
@@ -153,20 +155,6 @@ export function CardManagerPage() {
   const toggleSort = (key: SortKey) => {
     if (sortKey === key) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
     else setSortKey(key);
-  };
-
-  const startEditDue = (mc: ManagedCard) => {
-    setEditingDue(mc.card.id);
-    setEditingDueValue(
-      mc.state ? cardEarliestDueDate(mc.state) : new Date().toISOString().slice(0, 10),
-    );
-  };
-
-  const saveDueEdit = () => {
-    if (editingDue && editingDueValue) {
-      updateDueDate(editingDue, editingDueValue);
-      setEditingDue(null);
-    }
   };
 
   if (isLoading) {
@@ -418,39 +406,16 @@ export function CardManagerPage() {
             key: "dueDate",
             label: t("flashcards.cardManager.colDue", "Due"),
             sortable: true,
-            render: (mc) =>
-              editingDue === mc.card.id ? (
-                <div className="flex items-center gap-1">
-                  <input
-                    type="date"
-                    value={editingDueValue}
-                    onChange={(e) => setEditingDueValue(e.target.value)}
-                    className="w-32 rounded border border-border bg-surface px-1.5 py-0.5 text-sm text-text-primary"
-                  />
-                  <button
-                    type="button"
-                    onClick={saveDueEdit}
-                    className="text-success"
-                  >
-                    <Icon name="check" size={16} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setEditingDue(null)}
-                    className="text-text-muted"
-                  >
-                    <Icon name="close" size={14} />
-                  </button>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => startEditDue(mc)}
-                  className="text-left text-text-secondary hover:underline"
-                >
-                  {mc.state ? cardEarliestDueDate(mc.state) : "—"}
-                </button>
-              ),
+            render: (mc) => (
+              <button
+                type="button"
+                onClick={() => setModalityEditCard(mc)}
+                className="text-left text-text-secondary hover:underline"
+                aria-label={t("flashcards.cardManager.modalityEditTitle", "Adjust SRS dates")}
+              >
+                {mc.state ? formatDueHint(mc.state) : "—"}
+              </button>
+            ),
           },
           {
             key: "ease",
@@ -547,6 +512,202 @@ export function CardManagerPage() {
         selectedIds={selectedIds}
         onSelectionChange={setSelectedIds}
       />
+
+      <ModalityDateModal
+        card={modalityEditCard}
+        onClose={() => setModalityEditCard(null)}
+        onSave={(cardId, dates) => {
+          updateModalityDates(cardId, dates);
+          setModalityEditCard(null);
+        }}
+      />
     </div>
+  );
+}
+
+/**
+ * Compact label for the Due column: "YYYY-MM-DD (R)" or "(P)" indicating
+ * which modality drives the earliest due date. When the two modality
+ * dueDates are equal, just shows the date.
+ */
+function formatDueHint(state: {
+  recognition: { dueDate: string };
+  production: { dueDate: string };
+}): string {
+  const r = state.recognition.dueDate;
+  const p = state.production.dueDate;
+  if (r === p) return r;
+  return r < p ? `${r} (R)` : `${p} (P)`;
+}
+
+type ModalityDates = {
+  recognitionDue: string;
+  recognitionLastReview: string;
+  productionDue: string;
+  productionLastReview: string;
+};
+
+type ModalityDateModalProps = {
+  card: ManagedCard | null;
+  onClose: () => void;
+  onSave: (cardId: string, dates: Partial<ModalityDates>) => void;
+};
+
+function ModalityDateModal({ card, onClose, onSave }: ModalityDateModalProps) {
+  const { t } = useTranslation();
+  const open = card !== null;
+
+  // Snapshot the initial values from the card the modal opens with.
+  const initial = useMemo<ModalityDates>(() => {
+    const today = new Date().toISOString().slice(0, 10);
+    if (!card?.state) {
+      return {
+        recognitionDue: today,
+        recognitionLastReview: "",
+        productionDue: today,
+        productionLastReview: "",
+      };
+    }
+    return {
+      recognitionDue: card.state.recognition.dueDate,
+      recognitionLastReview: card.state.recognition.lastReviewDate,
+      productionDue: card.state.production.dueDate,
+      productionLastReview: card.state.production.lastReviewDate,
+    };
+  }, [card]);
+
+  const [values, setValues] = useState<ModalityDates>(initial);
+
+  // Re-seed when the modal re-opens for a different card.
+  useEffect(() => {
+    if (open) setValues(initial);
+  }, [open, initial]);
+
+  if (!card) return null;
+
+  const handleSave = () => {
+    const patch: Partial<ModalityDates> = {};
+    if (values.recognitionDue !== initial.recognitionDue) {
+      patch.recognitionDue = values.recognitionDue;
+    }
+    if (values.recognitionLastReview !== initial.recognitionLastReview) {
+      patch.recognitionLastReview = values.recognitionLastReview;
+    }
+    if (values.productionDue !== initial.productionDue) {
+      patch.productionDue = values.productionDue;
+    }
+    if (values.productionLastReview !== initial.productionLastReview) {
+      patch.productionLastReview = values.productionLastReview;
+    }
+    onSave(card.card.id, patch);
+  };
+
+  const labelClass =
+    "text-xs font-medium uppercase tracking-wide text-text-muted block mb-1";
+
+  return (
+    <Modal
+      open={open}
+      onClose={onClose}
+      size="lg"
+      title={t("flashcards.cardManager.modalityEditTitle", "Adjust SRS dates")}
+      footer={
+        <>
+          <Button type="button" variant="secondary" size="sm" onClick={onClose}>
+            {t("flashcards.cardManager.cancel", "Cancel")}
+          </Button>
+          <Button type="button" size="sm" onClick={handleSave}>
+            {t("flashcards.cardManager.save", "Save")}
+          </Button>
+        </>
+      }
+    >
+      <div className="space-y-5">
+        <div className="rounded-lg border border-border bg-surface-muted px-4 py-3">
+          <div className="text-base font-semibold text-text-primary">
+            {card.card.front}
+          </div>
+          <div className="mt-0.5 text-sm text-text-muted">
+            {card.card.back}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-text-primary">
+              {t("flashcards.cardManager.recognition", "Recognition")}
+            </h3>
+            <div>
+              <label className={labelClass} htmlFor="recognition-due">
+                {t("flashcards.cardManager.nextDue", "Next due")}
+              </label>
+              <input
+                id="recognition-due"
+                type="date"
+                value={values.recognitionDue}
+                onChange={(e) =>
+                  setValues((v) => ({ ...v, recognitionDue: e.target.value }))
+                }
+                className={inputClassName}
+              />
+            </div>
+            <div>
+              <label className={labelClass} htmlFor="recognition-last">
+                {t("flashcards.cardManager.lastReviewed", "Last reviewed")}
+              </label>
+              <input
+                id="recognition-last"
+                type="date"
+                value={values.recognitionLastReview}
+                onChange={(e) =>
+                  setValues((v) => ({
+                    ...v,
+                    recognitionLastReview: e.target.value,
+                  }))
+                }
+                className={inputClassName}
+              />
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-text-primary">
+              {t("flashcards.cardManager.production", "Production")}
+            </h3>
+            <div>
+              <label className={labelClass} htmlFor="production-due">
+                {t("flashcards.cardManager.nextDue", "Next due")}
+              </label>
+              <input
+                id="production-due"
+                type="date"
+                value={values.productionDue}
+                onChange={(e) =>
+                  setValues((v) => ({ ...v, productionDue: e.target.value }))
+                }
+                className={inputClassName}
+              />
+            </div>
+            <div>
+              <label className={labelClass} htmlFor="production-last">
+                {t("flashcards.cardManager.lastReviewed", "Last reviewed")}
+              </label>
+              <input
+                id="production-last"
+                type="date"
+                value={values.productionLastReview}
+                onChange={(e) =>
+                  setValues((v) => ({
+                    ...v,
+                    productionLastReview: e.target.value,
+                  }))
+                }
+                className={inputClassName}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </Modal>
   );
 }
