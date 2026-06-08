@@ -77,11 +77,15 @@ function saveStore(store: ProgressStore): void {
   }
 }
 
-function rollupToCompletion(rollup: LessonRollup): LessonCompletion {
-  const firstAt = rollup.firstPassedAt ?? rollup.latestAttemptAt;
+function rollupToCompletion(rollup: LessonRollup): LessonCompletion | null {
+  // A lesson is "completed" only when the user has actually passed it
+  // end-to-end. Drafts (mid-lesson syncs from a single step) also produce
+  // rollups, but with `firstPassedAt = null` — synthesising a completion
+  // for those would advance the course-map unlock state on a single step.
+  if (!rollup.firstPassedAt) return null;
   return {
     lessonId: rollup.lessonId,
-    firstCompletedAt: firstAt,
+    firstCompletedAt: rollup.firstPassedAt,
     lastCompletedAt: rollup.latestAttemptAt,
     bestAccuracy: rollup.bestScore,
     lastXp: 0,
@@ -124,6 +128,9 @@ export function mergeServerLessonRollups(rollups: LessonRollup[]): number {
 
   for (const rollup of rollups) {
     const incoming = rollupToCompletion(rollup);
+    // Skip rollups that haven't reached lesson-pass — drafts contribute
+    // here but mustn't advance unlock state.
+    if (!incoming) continue;
     const merged = mergeCompletion(store.completed[rollup.lessonId], incoming);
     const prev = store.completed[rollup.lessonId];
     if (

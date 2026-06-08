@@ -128,4 +128,23 @@ describe("mergeServerLessonRollups", () => {
     expect(after.bestAccuracy).toBe(0.95);
     expect(after.reviewCount).toBe(1);
   });
+
+  it("does NOT mark a lesson completed for draft-only rollups (firstPassedAt is null)", () => {
+    // Server creates a rollup for every attempt, including drafts that
+    // never pass the lesson — those have firstPassedAt = null. The merge
+    // must not treat them as completions or a single synced step would
+    // unlock the next lesson on the course map.
+    const rollups: LessonRollup[] = [
+      {
+        lessonId: "ko-m1-mid-lesson-sync",
+        bestScore: 1,
+        firstPassedAt: null,
+        latestAttemptAt: "2026-05-03T10:00:00.000Z",
+        attemptCount: 1,
+      },
+    ];
+    expect(mergeServerLessonRollups(rollups)).toBe(0);
+    expect(isLessonCompleted("ko-m1-mid-lesson-sync")).toBe(false);
+    expect(getLessonCompletion("ko-m1-mid-lesson-sync")).toBeNull();
+  });
 });
