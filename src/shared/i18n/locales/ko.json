@@ -179,7 +179,20 @@
       "streakSublabel": "일 연속",
       "alphabetDescription": "읽기·쓰기·듣기 드릴",
       "recentActivity": "최근 활동",
-      "lastReviewed": "{{hours}}시간 전 복습"
+      "lastReviewed": "{{hours}}시간 전 복습",
+      "statDueLabel": "복습 카드",
+      "statDueCaption": "복습 준비됨",
+      "statRetentionLabel": "기억 유지율",
+      "statRetentionCaption": "회상 정확도",
+      "statRetentionEmpty": "—",
+      "statRetentionEmptyCaption": "복습하면 표시",
+      "statStreakLabel": "연속 학습일",
+      "statStreakCaption": "최고 {{best}}일",
+      "statStreakCaptionEmpty": "오늘 시작하세요",
+      "statReviewsLabel": "복습 수",
+      "statReviewsCaption": "이번 주 {{count}}회 · {{days}}/7일 활동",
+      "weekReviewsAria": "이번 주 일별 복습 수",
+      "masteredCaption": "{{mastered}}개 숙달 · {{learning}}개 학습 중"
     },
     "hub": {
       "dueSummary": "복습 예정 카드 {{count}}장",
@@ -272,6 +285,24 @@
         "other": "기타",
         "all": "조사"
       }
+    },
+    "hub2": {
+      "continueKicker": "계속하기",
+      "continueTitle": "학습 이어가기",
+      "reviewNowTitle": "복습 카드 풀기",
+      "reviewNowDesc": "대기열에 카드 {{count}}장 준비됨",
+      "reviewNoneTitle": "플래시카드",
+      "reviewNoneDesc": "모두 완료 — 미리 학습하기",
+      "modulesTitle": "모듈 복습",
+      "modulesDueDesc": "복습할 모듈 {{count}}개",
+      "modulesNoneDesc": "모두 완료",
+      "grammarTitle": "문법 연습",
+      "grammarDesc": "레슨과 연계된 집중 드릴",
+      "moreTitle": "다른 연습 방법",
+      "coursesTitle": "준비된 코스",
+      "skillsTitle": "스킬 드릴",
+      "alphabetTitle": "문자 & 스크립트",
+      "trainersTitle": "트레이너"
     }
   },
   "flashcards": {
