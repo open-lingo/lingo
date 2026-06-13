@@ -255,7 +255,20 @@
       "streakSublabel": "day streak",
       "alphabetDescription": "Reading, writing, and listening drills",
       "recentActivity": "Recent activity",
-      "lastReviewed": "Last reviewed {{hours}}h ago"
+      "lastReviewed": "Last reviewed {{hours}}h ago",
+      "statDueLabel": "Cards due",
+      "statDueCaption": "ready to review",
+      "statRetentionLabel": "Retention",
+      "statRetentionCaption": "recall accuracy",
+      "statRetentionEmpty": "—",
+      "statRetentionEmptyCaption": "review to build",
+      "statStreakLabel": "Day streak",
+      "statStreakCaption": "best {{best}}",
+      "statStreakCaptionEmpty": "start today",
+      "statReviewsLabel": "Reviews",
+      "statReviewsCaption": "{{count}} this week · {{days}}/7 active",
+      "weekReviewsAria": "Reviews per day this week",
+      "masteredCaption": "{{mastered}} mastered · {{learning}} learning"
     },
     "hub": {
       "dueSummary": "{{count}} cards due for review",
@@ -359,6 +372,24 @@
         "other": "Other",
         "all": "Particles"
       }
+    },
+    "hub2": {
+      "continueKicker": "Keep going",
+      "continueTitle": "Continue learning",
+      "reviewNowTitle": "Review due cards",
+      "reviewNowDesc": "{{count}} cards ready in your queue",
+      "reviewNoneTitle": "Flashcards",
+      "reviewNoneDesc": "All caught up — get ahead",
+      "modulesTitle": "Module reviews",
+      "modulesDueDesc": "{{count}} modules need review",
+      "modulesNoneDesc": "All caught up",
+      "grammarTitle": "Grammar practice",
+      "grammarDesc": "Targeted drills tied to lessons",
+      "moreTitle": "More ways to practice",
+      "coursesTitle": "Pre-made courses",
+      "skillsTitle": "Skill drills",
+      "alphabetTitle": "Alphabet & scripts",
+      "trainersTitle": "Trainers"
     }
   },
   "flashcards": {
