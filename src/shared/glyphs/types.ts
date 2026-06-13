@@ -10,8 +10,8 @@
  *     non-deterministic across OSes; used as the fallback when a script has no
  *     bundled data.
  *   - {@link svgReference}: deterministic KanjiVG-style stroke data — used for
- *     hiragana + katakana today; future scripts plug in by shipping data and
- *     setting `hasStrokeOrder: true` in their AlphabetDef.
+ *     hiragana, katakana, and Hangul jamo today; further scripts plug in by
+ *     shipping data and setting `hasStrokeOrder: true` in their AlphabetDef.
  */
 
 export type StrokePoint = readonly [number, number];

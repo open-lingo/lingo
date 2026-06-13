@@ -155,7 +155,8 @@
     "footerTerms": "Terms",
     "footerAttribution": "Attribution",
     "footerCopyright": "© {{year}} Open Lingo · MIT License",
-    "footerStrokeOrder": "Stroke order: "
+    "footerStrokeOrder": "Stroke order: ",
+    "footerStrokeOrderHangul": "Hangul stroke data © Open Lingo"
   },
   "learn": {
     "intro": "Your learning path, courses, and community modules.",

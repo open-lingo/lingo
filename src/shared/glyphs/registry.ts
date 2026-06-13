@@ -6,7 +6,7 @@ import { svgReference } from "./svgReference";
  * Script identifier used by alphabets to opt into bundled glyph data. Strings
  * deliberately match the `AlphabetDef.id` they appear in.
  */
-export type ScriptId = "hiragana" | "katakana" | string;
+export type ScriptId = "hiragana" | "katakana" | "hangul" | string;
 
 type GlyphFile = {
   viewBox: [number, number, number, number];
@@ -24,6 +24,8 @@ const SCRIPT_LOADERS: Record<string, GlyphSource> = {
     import("./data/hiragana.json").then((m) => m.default as unknown as GlyphFile),
   katakana: () =>
     import("./data/katakana.json").then((m) => m.default as unknown as GlyphFile),
+  hangul: () =>
+    import("./data/hangul.json").then((m) => m.default as unknown as GlyphFile),
 };
 
 const cache = new Map<string, Promise<GlyphFile>>();

@@ -87,7 +87,9 @@ export function SiteFooter({ className = "" }: { className?: string }) {
             className="text-text-secondary hover:text-text-primary"
           >
             CC BY-SA 3.0
-          </a>
+          </a>{" "}
+          ·{" "}
+          {t("landing.footerStrokeOrderHangul", "Hangul stroke data © Open Lingo")}
         </span>
       </div>
     </footer>

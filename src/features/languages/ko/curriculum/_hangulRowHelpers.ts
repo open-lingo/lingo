@@ -6,9 +6,12 @@
  * consonant occupies the left slot).
  *
  * Notable Korean-specific decisions:
- *   - scriptId is "hangul" (no glyph data yet; renderer falls back to
- *     system font). flip `hasStrokeOrder` to true once `data/hangul.json`
- *     ships.
+ *   - scriptId is "hangul". `data/hangul.json` ships per-JAMO stroke order,
+ *     so the jamo trace surface (/practice/alphabet/hangul) animates stroke
+ *     order. These curriculum steps trace SYLLABLE BLOCKS (가, 나, …), for
+ *     which there's no per-block stroke data, so `hasStrokeOrder` stays false
+ *     here — the renderer falls back to the system-font guide. Syllable-level
+ *     stroke composition is a follow-up.
  *   - Tiles for build steps are SYLLABLE BLOCKS, not jamo. A Korean
  *     word like 고기 is two cognitive units (고, 기), not four (ㄱ,
  *     ㅗ, ㄱ, ㅣ). The block IS the mora.
