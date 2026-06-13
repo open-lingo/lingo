@@ -110,7 +110,7 @@ import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_SHOPPING } from "@/features/languages/j
 import {
   M8_1_1, M8_1_2, M8_2_1, M8_2_2, M8_3_1, M8_3_2,
   M8_4_1, M8_4_2, M8_5_1, M8_5_2, M8_6_1, M8_6_2,
-  M8_STORY, M8_7_1, M8_7_2,
+  M8_8_1, M8_8_2, M8_STORY, M8_7_1, M8_7_2,
 } from "@/features/languages/ja/curriculum/m8";
 import {
   M9_1_1, M9_1_2, M9_2_1, M9_2_2, M9_3_1, M9_3_2,
@@ -155,6 +155,7 @@ import {
 import {
   M17_1_1, M17_1_2, M17_2_1, M17_2_2, M17_3_1, M17_3_2,
   M17_4_1, M17_4_2, M17_5_1, M17_5_2, M17_6_1, M17_6_2,
+  M17_8_1, M17_8_2,
   M17_STORY, M17_7_1, M17_7_2,
 } from "@/features/languages/ja/curriculum/m17";
 import {
@@ -185,6 +186,7 @@ import {
 import {
   M23_1_1, M23_1_2, M23_2_1, M23_2_2, M23_3_1, M23_3_2,
   M23_4_1, M23_4_2, M23_5_1, M23_5_2, M23_6_1, M23_6_2,
+  M23_8_1, M23_8_2,
   M23_STORY, M23_7_1, M23_7_2,
 } from "@/features/languages/ja/curriculum/m23";
 import {
@@ -301,6 +303,9 @@ import {
 // the pathway; the helpers stay alive in their own files for future FSRS
 // surfacing (Learn page / flashcards), but no longer wired here.
 import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
+import { withKanaReviewTail } from "./kanaReviewTails";
+import { padMatchPairsFloor, type MatchPadContext } from "./matchPairsFloor";
+import { getMockCourse } from "@/shared/domain/mockCourse";
 import { ALL_ROWS } from "./hiraganaCurriculum";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { buildReviewTailSteps } from "./buildReviewTailSteps";
@@ -490,6 +495,8 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m8-5-2": M8_5_2,
   "ja-m8-6-1": M8_6_1,
   "ja-m8-6-2": M8_6_2,
+  "ja-m8-8-1": M8_8_1,
+  "ja-m8-8-2": M8_8_2,
   "ja-m8-story": M8_STORY,
   "ja-m8-7-1": M8_7_1,
   "ja-m8-7-2": M8_7_2,
@@ -570,6 +577,7 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m17-2-1": M17_2_1, "ja-m17-2-2": M17_2_2,
   "ja-m17-3-1": M17_3_1, "ja-m17-3-2": M17_3_2,
   "ja-m17-4-1": M17_4_1, "ja-m17-4-2": M17_4_2,
+  "ja-m17-8-1": M17_8_1, "ja-m17-8-2": M17_8_2,
   "ja-m17-5-1": M17_5_1, "ja-m17-5-2": M17_5_2,
   "ja-m17-6-1": M17_6_1, "ja-m17-6-2": M17_6_2,
   "ja-m17-story": M17_STORY,
@@ -621,6 +629,7 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m22-7-1": M22_7_1, "ja-m22-7-2": M22_7_2,
   // M23 — Capability & Suggestions
   "ja-m23-1-1": M23_1_1, "ja-m23-1-2": M23_1_2,
+  "ja-m23-8-1": M23_8_1, "ja-m23-8-2": M23_8_2,
   "ja-m23-2-1": M23_2_1, "ja-m23-2-2": M23_2_2,
   "ja-m23-3-1": M23_3_1, "ja-m23-3-2": M23_3_2,
   "ja-m23-4-1": M23_4_1, "ja-m23-4-2": M23_4_2,
@@ -797,26 +806,55 @@ function stripBuildSentenceSteps(lesson: LessonContent): LessonContent {
   return { ...lesson, steps };
 }
 
+/**
+ * Heavy, curriculum-wide indexes for the match-pairs floor pass, built
+ * once from the RAW LESSONS map (no post-passes → no recursion). `todayMs`
+ * is refreshed per call so FSRS overdue scoring stays current.
+ */
+let matchPadHeavyBits: Omit<MatchPadContext, "todayMs"> | null = null;
+function getMatchPadContext(): MatchPadContext {
+  if (!matchPadHeavyBits) {
+    const rawLessons = Object.values(LESSONS);
+    const rawById = new Map(rawLessons.map((l) => [l.id, l]));
+    const orderedLessonIds: string[] = [];
+    const course = getMockCourse("ja");
+    for (const mod of course.modules) {
+      const m = mod as unknown as {
+        lessons?: { id: string }[];
+        lessonGroups?: { lessons?: { id: string }[] }[];
+      };
+      for (const l of m.lessons ?? []) orderedLessonIds.push(l.id);
+      for (const g of m.lessonGroups ?? [])
+        for (const l of g.lessons ?? []) orderedLessonIds.push(l.id);
+    }
+    matchPadHeavyBits = { rawLessons, rawById, orderedLessonIds };
+  }
+  return { ...matchPadHeavyBits, todayMs: Date.now() };
+}
+
 export function getMockLessonContent(
   lessonId: string,
 ): LessonContent | null {
   const base = LESSONS[lessonId] ?? null;
   if (base) {
-    const augmented = augmentWithReviewTail(base);
-    if (isSunsetModuleForBuildSentence(augmented.moduleId)) {
-      return stripBuildSentenceSteps(augmented);
-    }
-    return augmented;
+    const augmented = withKanaReviewTail(augmentWithReviewTail(base));
+    const shaped = isSunsetModuleForBuildSentence(augmented.moduleId)
+      ? stripBuildSentenceSteps(augmented)
+      : augmented;
+    return padMatchPairsFloor(shaped, getMatchPadContext());
   }
 
   const reviewMatch = /^ja-(m\d+)-review-([12])$/.exec(lessonId);
   if (reviewMatch) {
-    return buildSrsReviewLesson({
-      moduleId: reviewMatch[1],
-      position: parseInt(reviewMatch[2]) as 1 | 2,
-      courseId: "mock-1",
-      languageId: "ja",
-    });
+    return padMatchPairsFloor(
+      buildSrsReviewLesson({
+        moduleId: reviewMatch[1],
+        position: parseInt(reviewMatch[2]) as 1 | 2,
+        courseId: "mock-1",
+        languageId: "ja",
+      }),
+      getMatchPadContext(),
+    );
   }
 
   // Placement test — dynamically built, not in the static LESSONS map.

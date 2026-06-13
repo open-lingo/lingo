@@ -338,7 +338,7 @@ export function LearnPage() {
               count: dueReviews.length,
             })}
           >
-            <span aria-hidden>🔄</span>
+            <Icon name="refresh" size={12} aria-hidden />
             {t("learn.reviewsDue", {
               defaultValue:
                 dueReviews.length === 1

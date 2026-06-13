@@ -248,7 +248,7 @@ export function ExternalContentPage() {
       </div>
 
       {/* Filters row */}
-      <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+      <div className="flex flex-col gap-4 rounded-lg border border-border bg-surface-muted p-4">
         <div>
           <label htmlFor="ext-search" className="sr-only">
             {t("externalContent.searchPlaceholder")}
@@ -259,13 +259,13 @@ export function ExternalContentPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("externalContent.searchPlaceholder")}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm"
           />
         </div>
 
         <div className="flex flex-wrap items-center gap-4">
           <div>
-            <label className="mr-2 text-xs text-gray-500">
+            <label className="mr-2 text-xs text-text-muted">
               {t("externalContent.filterContentLanguage")}
             </label>
             <select
@@ -283,7 +283,7 @@ export function ExternalContentPage() {
           </div>
 
           <div>
-            <label className="mr-2 text-xs text-gray-500">
+            <label className="mr-2 text-xs text-text-muted">
               {t("externalContent.filterContentType")}
             </label>
             <select
@@ -304,7 +304,7 @@ export function ExternalContentPage() {
           </div>
 
           <div>
-            <label className="mr-2 text-xs text-gray-500">
+            <label className="mr-2 text-xs text-text-muted">
               {t("externalContent.filterLevel")}
             </label>
             <select
@@ -325,7 +325,7 @@ export function ExternalContentPage() {
           </div>
 
           <div>
-            <label className="mr-2 text-xs text-gray-500">
+            <label className="mr-2 text-xs text-text-muted">
               {t("externalContent.filterTranslation")}
             </label>
             <select
@@ -341,7 +341,7 @@ export function ExternalContentPage() {
           </div>
 
           <div>
-            <label className="mr-2 text-xs text-gray-500">
+            <label className="mr-2 text-xs text-text-muted">
               {t("externalContent.filterSkill")}
             </label>
             <select
@@ -362,7 +362,7 @@ export function ExternalContentPage() {
           </div>
 
           <div>
-            <label className="mr-2 text-xs text-gray-500">
+            <label className="mr-2 text-xs text-text-muted">
               {t("externalContent.sortBy")}
             </label>
             <select
@@ -385,14 +385,14 @@ export function ExternalContentPage() {
         <button
           type="button"
           disabled
-          className="rounded-lg border border-gray-300 bg-gray-100 px-3 py-1.5 text-sm text-gray-500"
+          className="rounded-lg border border-border bg-surface-muted px-3 py-1.5 text-sm text-text-muted"
         >
           {t("externalContent.addComingSoon")}
         </button>
       </div>
 
       {filteredItems.length === 0 ? (
-        <p className="rounded-lg border border-gray-200 bg-gray-50 py-6 text-center text-gray-500/50">
+        <p className="rounded-lg border border-border bg-surface-muted py-6 text-center text-text-muted">
           {t("externalContent.noResults")}
         </p>
       ) : (

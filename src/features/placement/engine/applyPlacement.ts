@@ -1,6 +1,9 @@
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { markLessonCompleted } from "@/shared/domain/mockProgress";
-import { unlockLessonAtoms } from "@/features/lesson/data/unlockLessonAtoms";
+import {
+  unlockLessonAtoms,
+  unlockAtomIds,
+} from "@/features/lesson/data/unlockLessonAtoms";
 import { setCardState } from "@/features/flashcards/engine/srsStorage";
 import {
   getCourseAtoms,
@@ -29,6 +32,9 @@ function createPlacementSeedState(): SRSCardState {
   return { recognition: { ...sub }, production: { ...sub } };
 }
 
+const REVIEW_LESSON_RE = /^ja-m\d+-review-[12]$/;
+const JA_KANA_MODULES = ["m1", "m2"];
+
 export function applyPlacementResult(
   passedModules: string[],
   languageId: string = "ja",
@@ -42,11 +48,23 @@ export function applyPlacementResult(
 
   const course = getMockCourse(languageId);
   const passedSet = new Set(passedModules);
+
+  // If any M3+ module passed, the learner clearly knows kana — auto-complete
+  // M1 and M2 so the linear unlock chain isn't broken.
+  if (languageId === "ja") {
+    for (const kana of JA_KANA_MODULES) {
+      if (!passedSet.has(kana)) passedSet.add(kana);
+    }
+  }
+
   let lessonCount = 0;
 
   for (const mod of course.modules) {
     if (!passedSet.has(mod.id)) continue;
     for (const lesson of mod.lessons) {
+      // Don't pre-complete review lessons — they're the learner's first SRS
+      // review opportunity and should remain available.
+      if (REVIEW_LESSON_RE.test(lesson.id)) continue;
       markLessonCompleted(lesson.id, {
         accuracy: 1,
         xpEarned: 0,
@@ -58,14 +76,20 @@ export function applyPlacementResult(
   }
 
   const seedState = createPlacementSeedState();
-  let atomCount = 0;
+  const seededIds: string[] = [];
   for (const atom of getCourseAtoms(languageId)) {
     if (!atom.srsEligible) continue;
     if (atom.fromModule === undefined) continue;
     if (!passedSet.has(atom.fromModule)) continue;
     setCardState(atom.id, seedState);
-    atomCount++;
+    seededIds.push(atom.id);
   }
+  // M8+ atoms carry module-level attribution only (no introducedByLessonId),
+  // so the per-lesson unlock above can't reach them — unlock the seeded
+  // atoms directly or SRS review lessons will skip them.
+  unlockAtomIds(seededIds);
+  const atomCount = seededIds.length;
 
-  return { passedModules, skippedLessonCount: lessonCount, seededAtomCount: atomCount };
+  const allPassed = [...passedSet];
+  return { passedModules: allPassed, skippedLessonCount: lessonCount, seededAtomCount: atomCount };
 }

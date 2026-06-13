@@ -120,7 +120,9 @@ function SpeakingStepPlaceholder({
       {silentMode && <SilentModeNotice />}
 
       <div className="rounded-2xl border-[1.5px] border-warning/40 bg-warning/10 px-5 py-4 text-sm text-text-secondary">
-        <span className="mr-1.5">🎤</span>
+        <span className="mr-1.5 inline-flex align-text-bottom" aria-hidden>
+          <Icon name="mic" size={16} />
+        </span>
         Speech recognition is not yet available. Practice saying the phrase aloud, then continue.
       </div>
 
@@ -171,6 +173,12 @@ type LocalVerdict = Verdict | "idle";
  *  affordance. 30s is generous on cold-cache + slow-connection paths
  *  (the model is ~74MB quantized) but short enough to spot stuck loads. */
 const WHISPER_LOAD_TIMEOUT_MS = 30_000;
+
+/** Deadline for a recognition attempt to produce ANY outcome (verdict or
+ *  error) after the mic tap. Covers the gate hole where a session starts
+ *  but never finishes — ignored permission prompt, engine hang — so
+ *  `attempts` never increments and the skip never unlocks. */
+const STUCK_SESSION_TIMEOUT_MS = 15_000;
 
 const CELEBRATE_MS = 1100;
 
@@ -238,6 +246,22 @@ function SpeakingStepRecognized({
    *  still loading — surfaces the "slow load — skip?" UI. Resets when
    *  the load completes or the component unmounts. */
   const [slowLoad, setSlowLoad] = useState<boolean>(false);
+  /** Timestamp of the latest mic tap with no outcome yet; null once a
+   *  verdict or error lands. Drives the stuck-session watchdog. */
+  const [pendingSince, setPendingSince] = useState<number | null>(null);
+  /** Flipped by the watchdog when a started session produces nothing
+   *  within STUCK_SESSION_TIMEOUT_MS — joins recognitionUnusable so the
+   *  skip escape surfaces. */
+  const [stuckSession, setStuckSession] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (pendingSince === null) return;
+    const timer = setTimeout(
+      () => setStuckSession(true),
+      STUCK_SESSION_TIMEOUT_MS,
+    );
+    return () => clearTimeout(timer);
+  }, [pendingSince]);
 
   // Watchdog: if Whisper hasn't loaded in WHISPER_LOAD_TIMEOUT_MS, flip
   // slowLoad so the helper text + skip button surface. Without this the
@@ -425,6 +449,8 @@ function SpeakingStepRecognized({
   function handleRecord() {
     setVerdict("idle");
     setMatch(null);
+    setStuckSession(false);
+    setPendingSince(Date.now());
     recog.start();
   }
 
@@ -435,6 +461,12 @@ function SpeakingStepRecognized({
   function handleListen() {
     playJaAudio(step.targetPhrase);
   }
+
+  // Any outcome (graded verdict or error-driven try-again) disarms the
+  // stuck-session watchdog — the normal escapes take over from here.
+  useEffect(() => {
+    if (verdict !== "idle") setPendingSince(null);
+  }, [verdict]);
 
   const bestAltText = match?.bestAlternative?.raw ?? "";
 
@@ -455,6 +487,9 @@ function SpeakingStepRecognized({
         : "Loading speech model (one-time download)…";
     }
     if (whisperTranscribing) return "Transcribing…";
+    if (stuckSession && verdict === "idle") {
+      return "We're not hearing anything back — your mic may be blocked. You can skip this step.";
+    }
     if (recog.error === "no-mic") {
       return "Microphone access blocked. Tap the mic icon in your browser's address bar, allow it, then try again.";
     }
@@ -501,6 +536,7 @@ function SpeakingStepRecognized({
   // shouldn't have to guess whether the issue is fixable.
   const recognitionUnusable =
     !supported ||
+    stuckSession ||
     recog.error === "no-mic" ||
     recog.error === "audio-capture" ||
     recog.error === "not-supported" ||
@@ -583,7 +619,7 @@ function SpeakingStepRecognized({
           }`}
           aria-label={recog.listening ? "Stop recording" : "Tap to speak"}
         >
-          <span className="text-3xl">🎤</span>
+          <Icon name="mic" size={32} aria-hidden />
         </button>
 
         <p className={`min-h-[1.5rem] text-sm ${helperToneClass}`}>
@@ -655,17 +691,11 @@ function SpeakingStepRecognized({
       </div>
 
       {passed ? (
-        celebrating ? (
-          <div className="invisible" aria-hidden>
-            <ContinueButton onClick={() => {}} />
-          </div>
-        ) : (
-          <ContinueButton
-            onClick={onContinue}
-            variant={verdict === "perfect" ? "correct" : undefined}
-            label={verdict === "close" ? "Continue anyway" : undefined}
-          />
-        )
+        <ContinueButton
+          onClick={onContinue}
+          variant={verdict === "perfect" ? "correct" : undefined}
+          label={verdict === "close" ? "Continue anyway" : undefined}
+        />
       ) : canSkipAfterTry ? (
         // After 2 fails OR a persistent error: explicit opt-out. Not
         // styled as success — uses the secondary surface so the
@@ -705,7 +735,9 @@ function SilentModeNotice() {
       className="rounded-xl border border-border bg-surface-muted px-4 py-2.5 text-xs text-text-secondary"
       role="status"
     >
-      <span className="mr-1.5" aria-hidden>🔇</span>
+      <span className="mr-1.5 inline-flex align-text-bottom" aria-hidden>
+        <Icon name="volumeX" size={14} />
+      </span>
       Audio silenced — tap the speaker to hear it.
     </div>
   );
@@ -741,7 +773,7 @@ function TranscriptCard({
           className={`text-lg leading-none ${passed ? "text-success" : "text-danger"}`}
           aria-hidden
         >
-          {passed ? "✓" : "✗"}
+          <Icon name={passed ? "check" : "close"} size={18} strokeWidth={3} />
         </span>
         <div className="flex-1">
           <p className="text-xs font-bold uppercase tracking-wider text-text-muted">

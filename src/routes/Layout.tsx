@@ -49,6 +49,10 @@ export function Layout() {
 
   const homeActive = pathname === "/home";
   const learnActive = /^\/[^/]+\/learn/.test(pathname);
+  // Focused flows (inside a lesson / test) drop the marketing footer and
+  // tighten main padding — on short laptop viewports (MacBook 14" ≈ 840px
+  // usable) the footer alone pushed every lesson step below the fold.
+  const focusedFlow = /\/lessons\/|\/test-out\/|\/placement-test/.test(pathname);
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
   const communityActive = /\/community/.test(pathname);
   const socialActive = /^\/[^/]+\/social/.test(pathname);
@@ -92,7 +96,7 @@ export function Layout() {
     <div className="flex min-h-screen flex-col bg-background text-text-primary">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-surface-primary focus:text-text-primary focus:rounded focus:ring-2"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-surface-elevated focus:text-text-primary focus:rounded focus:ring-2"
       >
         {t("nav.skipToContent", "Skip to content")}
       </a>
@@ -342,13 +346,19 @@ export function Layout() {
         )}
       </header>
       {showAppAds ? <DailyWelcomeAd /> : null}
-      <main id="main-content" className="mx-auto w-full max-w-screen-2xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+      {/* Mounted between header and main so on <sm it renders in-flow below
+          the header (it used to float over page H1s on mobile); ≥sm it's the
+          fixed top-right panel as before. */}
+      <FundingMeter />
+      <main
+        id="main-content"
+        className={`mx-auto w-full max-w-screen-2xl flex-1 px-4 sm:px-6 lg:px-8 ${focusedFlow ? "py-3" : "py-8"}`}
+      >
         <Outlet />
       </main>
-      <SiteFooter />
+      {!focusedFlow && <SiteFooter />}
       {showAppAds ? <CollapsibleAdBanner /> : null}
       <CookieConsent />
-      <FundingMeter />
       <ModalRoot />
       {isThemeEditorOpen && <ThemeEditorPanel />}
       <ToastContainer />

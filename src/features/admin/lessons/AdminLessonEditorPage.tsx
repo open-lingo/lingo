@@ -236,6 +236,7 @@ function ExportModal({ source, onClose }: { source: string; onClose: () => void 
           </div>
           <button
             onClick={onClose}
+            aria-label="Close"
             className="rounded p-1 text-text-muted hover:bg-surface hover:text-text-primary"
           >
             <Icon name="close" className="h-4 w-4" />

@@ -49,25 +49,29 @@ const menuRowLayout =
 const primary3dLayout =
   "min-h-12 gap-2 rounded-xl border-[1.5px] px-6 py-3 text-base font-bold uppercase tracking-wide";
 
+// Filled accent variants get a solid muted disabled treatment instead of
+// opacity — fading white-on-accent to 50% drops the label below WCAG
+// contrast (~2.3:1). Non-filled variants keep the classic opacity fade.
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-accent text-accent-foreground hover:bg-accent-hover hover:text-accent-foreground",
+    "bg-accent text-accent-foreground hover:bg-accent-hover hover:text-accent-foreground disabled:bg-surface-muted disabled:text-text-muted disabled:shadow-none",
   secondary:
-    "border border-border bg-surface text-text-primary hover:bg-surface-muted",
-  ghost: "text-text-primary hover:bg-surface-muted",
+    "border border-border bg-surface text-text-primary hover:bg-surface-muted disabled:opacity-50",
+  ghost: "text-text-primary hover:bg-surface-muted disabled:opacity-50",
   outline:
-    "border border-border bg-transparent text-text-primary hover:bg-surface-muted",
-  danger: "border border-error bg-error/10 text-error hover:bg-error/20",
-  menu: "text-text-primary hover:bg-surface-muted",
+    "border border-border bg-transparent text-text-primary hover:bg-surface-muted disabled:opacity-50",
+  danger:
+    "border border-error bg-error/10 text-error hover:bg-error/20 disabled:opacity-50",
+  menu: "text-text-primary hover:bg-surface-muted disabled:opacity-50",
   "primary-3d":
-    "border-accent-hover bg-accent text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:bg-accent-hover hover:-translate-y-px hover:shadow-[0_4px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)] disabled:hover:translate-y-0 disabled:hover:shadow-[0_3px_0_0_var(--color-accent-hover)]",
+    "border-accent-hover bg-accent text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:bg-accent-hover hover:-translate-y-px hover:shadow-[0_4px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)] disabled:border-border disabled:bg-surface-muted disabled:text-text-muted disabled:shadow-[0_3px_0_0_var(--color-border)] disabled:hover:translate-y-0 disabled:hover:bg-surface-muted disabled:hover:shadow-[0_3px_0_0_var(--color-border)]",
 };
 
 const accentOutlineClasses =
-  "border-accent text-accent hover:bg-accent-muted hover:text-accent";
+  "border-accent text-accent hover:bg-accent-muted hover:text-accent disabled:opacity-50";
 
 const baseBehavior =
-  "inline-flex items-center justify-center transition disabled:cursor-not-allowed disabled:opacity-50";
+  "inline-flex items-center justify-center transition disabled:cursor-not-allowed";
 
 /** Shared class names for `<button>` / `<Link>` so menu rows match `Button`. */
 export function composeButtonClasses({

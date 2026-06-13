@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { SymbolIntroStep } from "../../types";
 import { Icon } from "@/shared/components/Icon";
 import { ContinueButton } from "../ContinueButton";
@@ -25,12 +26,28 @@ type Props = {
   step: SymbolIntroStep;
   onComplete: (stepId: string, correct: boolean) => void;
   onContinue: () => void;
+  /** Replay runs skip the watch-the-strokes Continue lock — the learner
+   *  has already completed this lesson at least once. */
+  skipAnimationGate?: boolean;
 };
 
-const INTRO_CANVAS_SIZE = 340;
+const INTRO_CANVAS_MAX = 340;
 const INTRO_STROKE_PX = 18;
 
-export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
+/** Square canvas side, clamped to 36% of the viewport height so the
+ *  romaji pill + Continue stay on-screen on short laptop viewports. */
+function introCanvasSize(): number {
+  if (typeof window === "undefined") return INTRO_CANVAS_MAX;
+  return Math.min(INTRO_CANVAS_MAX, Math.round(window.innerHeight * 0.36));
+}
+
+export function SymbolIntroStepView({
+  step,
+  onComplete,
+  onContinue,
+  skipAnimationGate = false,
+}: Props) {
+  const { t } = useTranslation();
   const { payload } = step;
 
   const handleContinue = useCallback(() => {
@@ -77,8 +94,8 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
 
   const showAnimated = Boolean(payload.hasStrokeOrder && reference.glyph);
   // No animation = nothing to wait on. Continue is enabled immediately
-  // for system-font fallback rendering.
-  const continueReady = !showAnimated || animationSeen;
+  // for system-font fallback rendering, and on replay runs.
+  const continueReady = skipAnimationGate || !showAnimated || animationSeen;
 
   useLessonKeyboard({
     onEnter: handleContinue,
@@ -104,7 +121,7 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
   //  - Continue stays at the page bottom slot anchored by flex-1 spacer.
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-1 flex-col items-center justify-center gap-4">
         {showAnimated ? (
           <SymbolAnimation
             reference={reference}
@@ -143,10 +160,15 @@ export function SymbolIntroStepView({ step, onComplete, onContinue }: Props) {
          *  the same word above Continue both crowds the layout and reveals
          *  vocab before the lesson teaches it. */}
       </div>
-      {/* Spacer absorbs leftover vertical space so Continue anchors at the
-       *  card's bottom regardless of which optional fields are populated. */}
-      <div className="flex-1" />
-      <ContinueButton onClick={handleContinue} disabled={!continueReady} />
+      {/* Content block is `flex-1` + centered, so the glyph sits in the
+       *  middle of the space above Continue instead of clinging to the top
+       *  with a dead gap below (Spencer 2026-06-13 desktop dead-space fix).
+       *  Continue stays bottom-anchored as the last flex child. */}
+      <ContinueButton
+        onClick={handleContinue}
+        disabled={!continueReady}
+        label={continueReady ? undefined : t("alphabet.watchStrokes", "Watch the strokes…")}
+      />
     </div>
   );
 }
@@ -167,6 +189,9 @@ function SymbolAnimation({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const glyph = reference.glyph;
   const animation = useStrokeAnimation(glyph, { autoPlay: true });
+  // Sized once per mount — resizing mid-animation is rare and resets the
+  // canvas anyway, so it isn't worth a ResizeObserver here.
+  const [size] = useState(introCanvasSize);
 
   // When parent bumps replayKey, reset + play the animation again.
   // Skip the initial 0 — autoPlay already handles first mount.
@@ -190,13 +215,13 @@ function SymbolAnimation({
     if (!ctx) return;
 
     const dpr = window.devicePixelRatio ?? 1;
-    canvas.width = INTRO_CANVAS_SIZE * dpr;
-    canvas.height = INTRO_CANVAS_SIZE * dpr;
-    canvas.style.width = `${INTRO_CANVAS_SIZE}px`;
-    canvas.style.height = `${INTRO_CANVAS_SIZE}px`;
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    canvas.style.width = `${size}px`;
+    canvas.style.height = `${size}px`;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
-    ctx.clearRect(0, 0, INTRO_CANVAS_SIZE, INTRO_CANVAS_SIZE);
+    ctx.clearRect(0, 0, size, size);
 
     const isDark =
       typeof document !== "undefined" &&
@@ -209,8 +234,8 @@ function SymbolAnimation({
     renderStrokesProgressive(
       ctx,
       glyph,
-      INTRO_CANVAS_SIZE,
-      INTRO_CANVAS_SIZE,
+      size,
+      size,
       { strokeIndex: glyph.strokes.length, strokeProgress: 0 },
       {
         lineWidth: INTRO_STROKE_PX,
@@ -226,8 +251,8 @@ function SymbolAnimation({
     renderStrokesProgressive(
       ctx,
       glyph,
-      INTRO_CANVAS_SIZE,
-      INTRO_CANVAS_SIZE,
+      size,
+      size,
       frame,
       {
         lineWidth: INTRO_STROKE_PX,
@@ -235,14 +260,14 @@ function SymbolAnimation({
         activeColor: "#0ea5e9",
       },
     );
-  }, [glyph, animation.frame]);
+  }, [glyph, animation.frame, size]);
 
   return (
     <canvas
       ref={canvasRef}
       aria-hidden
       className="rounded-lg"
-      style={{ width: INTRO_CANVAS_SIZE, height: INTRO_CANVAS_SIZE }}
+      style={{ width: size, height: size }}
     />
   );
 }

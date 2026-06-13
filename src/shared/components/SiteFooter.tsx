@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "@/shared/auth/useAuth";
 
 const BRAND_MARK_STYLE: React.CSSProperties = {
   maskImage: "url('/icon.ico')",
@@ -14,6 +15,7 @@ const BRAND_MARK_STYLE: React.CSSProperties = {
 
 export function SiteFooter({ className = "" }: { className?: string }) {
   const { t } = useTranslation();
+  const { isAuthenticated } = useAuth();
   const year = new Date().getFullYear();
 
   return (
@@ -53,7 +55,9 @@ export function SiteFooter({ className = "" }: { className?: string }) {
           <FooterExternal href="https://github.com/open-lingo/lingo">
             {t("landing.footerOpenSource", "Open source")}
           </FooterExternal>
-          <FooterLink to="/login">{t("landing.footerSignIn", "Sign in")}</FooterLink>
+          {!isAuthenticated && (
+            <FooterLink to="/login">{t("landing.footerSignIn", "Sign in")}</FooterLink>
+          )}
         </FooterCol>
 
         <FooterCol heading={t("landing.footerLegal", "Legal")}>

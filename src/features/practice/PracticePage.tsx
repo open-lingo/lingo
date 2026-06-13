@@ -85,7 +85,7 @@ export function PracticePage() {
 
   const { dueCount, isLoading: dueLoading } = useFlashcardDueSummary(langId);
   const { stats, isReady } = useUserStats();
-  const { data: practiceData } = usePracticeData();
+  const { data: practiceData } = usePracticeData(langId);
   const {
     todayMinutes: practiceTodayMin,
     weekMinutes: practiceWeekMinutes,
@@ -178,7 +178,8 @@ export function PracticePage() {
   const moreStrip = [...buckets.kanji, ...buckets.components];
 
   // Derived metrics for the hero overview card.
-  const dueRingPercent = Math.round((dueModules / totalModules) * 100);
+  const dueRingPercent =
+    totalModules > 0 ? Math.round((dueModules / totalModules) * 100) : 0;
   const weekTotalMin = practiceWeekMinutes.reduce((a, b) => a + b, 0);
   const daysActiveThisWeek = practiceWeekMinutes.filter((n) => n > 0).length;
 
@@ -417,58 +418,53 @@ export function PracticePage() {
             />
           ) : null}
 
-          {/* Recent-activity inset strip — sourced from usePracticeData. */}
-          <Card padding="sm" className="bg-surface-muted">
-            <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-              {t("practice.overview.recentActivity", { defaultValue: "Recent activity" })}
-            </p>
-            <ul className="grid gap-2 sm:grid-cols-3">
-              <li className="flex items-center gap-2 rounded-lg bg-surface px-3 py-1.5">
-                <Icon name="graduationCap" size={16} className="text-accent" aria-hidden />
-                <div className="min-w-0">
-                  <p className="truncate text-xs font-medium text-text-primary">
-                    {t("flashcards.title")}
-                  </p>
-                  <p className="truncate text-[11px] text-text-muted">
-                    {t("practice.overview.lastReviewed", {
-                      defaultValue: "Last reviewed {{hours}}h ago",
-                      hours: lastTouchedHours.flashcards,
-                    })}
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-center gap-2 rounded-lg bg-surface px-3 py-1.5">
-                <Icon name="bookOpen" size={16} className="text-accent" aria-hidden />
-                <div className="min-w-0">
-                  <p className="truncate text-xs font-medium text-text-primary">
-                    {t("practice.hub.grammarTitle")}
-                  </p>
-                  <p className="truncate text-[11px] text-text-muted">
-                    {t("practice.overview.lastReviewed", {
-                      defaultValue: "Last reviewed {{hours}}h ago",
-                      hours: lastTouchedHours.grammar,
-                    })}
-                  </p>
-                </div>
-              </li>
-              {buckets.alphabets.length > 0 ? (
-                <li className="flex items-center gap-2 rounded-lg bg-surface px-3 py-1.5">
-                  <Icon name="layers" size={16} className="text-accent" aria-hidden />
-                  <div className="min-w-0">
-                    <p className="truncate text-xs font-medium text-text-primary">
-                      {t("practice.hub.alphabetJumpTitle")}
-                    </p>
-                    <p className="truncate text-[11px] text-text-muted">
-                      {t("practice.overview.lastReviewed", {
-                        defaultValue: "Last reviewed {{hours}}h ago",
-                        hours: lastTouchedHours.alphabet,
-                      })}
-                    </p>
-                  </div>
-                </li>
-              ) : null}
-            </ul>
-          </Card>
+          {/* Recent-activity inset strip — sourced from usePracticeData.
+              Tiles only render when there's real recorded activity (null =
+              never practiced). The grammar tile was removed 2026-06-12: the
+              particle trainer doesn't record timestamps, so it had no real
+              source. */}
+          {(lastTouchedHours.flashcards !== null ||
+            (buckets.alphabets.length > 0 && lastTouchedHours.alphabet !== null)) && (
+            <Card padding="sm" className="bg-surface-muted">
+              <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+                {t("practice.overview.recentActivity", { defaultValue: "Recent activity" })}
+              </p>
+              <ul className="grid gap-2 sm:grid-cols-3">
+                {lastTouchedHours.flashcards !== null ? (
+                  <li className="flex items-center gap-2 rounded-lg bg-surface px-3 py-1.5">
+                    <Icon name="graduationCap" size={16} className="text-accent" aria-hidden />
+                    <div className="min-w-0">
+                      <p className="truncate text-xs font-medium text-text-primary">
+                        {t("flashcards.title")}
+                      </p>
+                      <p className="truncate text-[11px] text-text-muted">
+                        {t("practice.overview.lastReviewed", {
+                          defaultValue: "Last reviewed {{hours}}h ago",
+                          hours: lastTouchedHours.flashcards,
+                        })}
+                      </p>
+                    </div>
+                  </li>
+                ) : null}
+                {buckets.alphabets.length > 0 && lastTouchedHours.alphabet !== null ? (
+                  <li className="flex items-center gap-2 rounded-lg bg-surface px-3 py-1.5">
+                    <Icon name="layers" size={16} className="text-accent" aria-hidden />
+                    <div className="min-w-0">
+                      <p className="truncate text-xs font-medium text-text-primary">
+                        {t("practice.hub.alphabetJumpTitle")}
+                      </p>
+                      <p className="truncate text-[11px] text-text-muted">
+                        {t("practice.overview.lastReviewed", {
+                          defaultValue: "Last reviewed {{hours}}h ago",
+                          hours: lastTouchedHours.alphabet,
+                        })}
+                      </p>
+                    </div>
+                  </li>
+                ) : null}
+              </ul>
+            </Card>
+          )}
         </div>
 
         {/* Right column — pre-made courses + skill drills + more trainers (secondary catalog). */}

@@ -67,7 +67,9 @@ export default function TravelSprintPage() {
       </button>
 
       <div className="text-center">
-        <span className="text-5xl">✈️</span>
+        <span className="inline-flex text-accent" aria-hidden>
+          <Icon name="plane" size={48} />
+        </span>
         <h1 className="mt-3 text-2xl font-extrabold tracking-tight text-text-primary">
           Travel Sprint
         </h1>

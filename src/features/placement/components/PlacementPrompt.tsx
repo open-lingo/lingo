@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
 };
 
 export function PlacementPrompt({ onStart, onSkip }: Props) {
+  const { t } = useTranslation();
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -56,7 +58,7 @@ export function PlacementPrompt({ onStart, onSkip }: Props) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="placement-prompt-heading"
-        className="w-full max-w-md rounded-2xl bg-surface-primary p-6 shadow-card"
+        className="w-full max-w-md rounded-2xl bg-surface-elevated p-6 shadow-card"
       >
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
@@ -66,14 +68,15 @@ export function PlacementPrompt({ onStart, onSkip }: Props) {
             id="placement-prompt-heading"
             className="text-xl font-bold text-text-primary"
           >
-            Placement Test
+            {t("placement.promptTitle", "Placement Test")}
           </h2>
         </div>
 
         <p className="mt-4 text-text-secondary">
-          Already know some Japanese? Take a 2-minute placement test to skip
-          ahead to the right level. You can also test out of individual modules
-          later.
+          {t(
+            "placement.promptBody",
+            "Already know some Japanese? Take a 2-minute placement test to skip ahead to the right level. You can also test out of individual modules later.",
+          )}
         </p>
 
         <div className="mt-6 flex gap-3">
@@ -81,13 +84,13 @@ export function PlacementPrompt({ onStart, onSkip }: Props) {
             onClick={onStart}
             className="flex-1 rounded-xl bg-accent px-4 py-3 font-semibold text-white shadow-md hover:bg-accent-hover active:scale-[0.98]"
           >
-            Take the test
+            {t("placement.promptStart", "Take the test")}
           </button>
           <button
             onClick={onSkip}
-            className="flex-1 rounded-xl border border-border-primary px-4 py-3 font-semibold text-text-secondary hover:bg-surface-muted active:scale-[0.98]"
+            className="flex-1 rounded-xl border border-border px-4 py-3 font-semibold text-text-secondary hover:bg-surface-muted active:scale-[0.98]"
           >
-            Start from scratch
+            {t("placement.promptSkip", "Start from scratch")}
           </button>
         </div>
       </div>

@@ -28,8 +28,16 @@ export function isPassiveStep(step: LessonStep): boolean {
   return PASSIVE_STEP_KINDS.has(step.type);
 }
 
+/**
+ * "Graded" = retrieval the learner can get wrong. Excludes the whole
+ * TEACH set, not just PASSIVE_STEP_KINDS: `teach` and `symbol_intro`
+ * emit a completion signal (always-correct) for resume bookkeeping, but
+ * they're exposure — counting them inflated the progress-bar total and
+ * the accuracy denominator, and made the advance guard in
+ * `LessonPage.handleContinue` treat intro cards as quiz steps.
+ */
 export function isGradedStep(step: LessonStep): boolean {
-  return !isPassiveStep(step);
+  return !TEACH_STEP_KINDS.has(step.type);
 }
 
 /**
@@ -92,12 +100,33 @@ export function stepHasSentenceContent(step: LessonStep): boolean {
  *     currently returns [] for graded steps until that lands)
  */
 /**
- * Pure computation behind the lesson progress bar. Excludes passive cards
- * (phrase_card / info / grammar_rule) from both `total` and the running
- * `current` counter so tapping "Got it" on a teach card never advances the
- * chip. `current` ticks only when a graded step at index < currentStepIdx
- * has a recorded result (correct or incorrect — either constitutes
- * commitment).
+ * Progress weight of a graded step. Trace steps require
+ * `minCorrectAttempts` passes — each successful pass is one bar tick
+ * (Spencer 2026-06-13: effort should match progress; a 2-pass trace is
+ * not the same unit as a one-tap MCQ). A skipped trace credits full
+ * weight so skipping never stalls the bar.
+ */
+export function gradedStepWeight(step: LessonStep): number {
+  if (step.type === "symbol_trace") {
+    return Math.max(1, step.minCorrectAttempts ?? 1);
+  }
+  if (step.type === "row_test") {
+    return Math.max(1, step.items?.length ?? 1);
+  }
+  return 1;
+}
+
+/**
+ * Pure computation behind the lesson progress bar. Excludes teach-kind
+ * cards (phrase_card / info / grammar_rule / teach / symbol_intro) from
+ * both `total` and the running `current` counter so tapping "Got it" on a
+ * teach card never advances the chip.
+ *
+ * `current` ticks when a graded step at index < currentStepIdx has a
+ * recorded result (correct or incorrect — either constitutes
+ * commitment). Trace steps additionally tick mid-step: `passCounts`
+ * carries successful passes for the active trace, so each accepted
+ * stroke advances the bar immediately.
  *
  * Extracted so it can be unit-tested without rendering LessonPage.
  */
@@ -105,11 +134,29 @@ export function computeGradedProgress(
   steps: ReadonlyArray<LessonStep>,
   currentStepIdx: number,
   results: Readonly<Record<string, unknown>>,
+  passCounts: Readonly<Record<string, number>> = {},
 ): { current: number; total: number } {
-  const total = steps.filter(isGradedStep).length;
-  const current = steps
-    .slice(0, currentStepIdx)
-    .filter((s) => isGradedStep(s) && results[s.id] !== undefined).length;
+  let total = 0;
+  let current = 0;
+  steps.forEach((s, idx) => {
+    if (!isGradedStep(s)) return;
+    const w = gradedStepWeight(s);
+    total += w;
+    if (s.type === "symbol_trace" || s.type === "row_test") {
+      // Multi-unit steps tick per pass/item via passCounts. Completed
+      // ones (committed result, behind the cursor) count full weight
+      // even after a resume wipes in-memory passCounts.
+      if (idx < currentStepIdx && results[s.id] !== undefined) {
+        current += w;
+      } else {
+        current += Math.min(passCounts[s.id] ?? 0, w);
+      }
+      return;
+    }
+    if (idx < currentStepIdx && results[s.id] !== undefined) {
+      current += 1;
+    }
+  });
   return { current, total };
 }
 
@@ -126,8 +173,9 @@ export function getLessonProgressBarCounts(
   currentStepIdx: number,
   results: Readonly<Record<string, unknown>>,
   inReplay: boolean,
+  passCounts: Readonly<Record<string, number>> = {},
 ): { current: number; total: number } {
-  const graded = computeGradedProgress(steps, currentStepIdx, results);
+  const graded = computeGradedProgress(steps, currentStepIdx, results, passCounts);
   if (graded.total > 0) {
     return {
       current: inReplay ? graded.total : graded.current,

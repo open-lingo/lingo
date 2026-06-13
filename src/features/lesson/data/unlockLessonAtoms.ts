@@ -43,10 +43,19 @@ function saveUnlockedSet(set: Set<string>): void {
 export function unlockLessonAtoms(lessonId: string): number {
   const atoms = getAtomsForLesson(lessonId);
   if (atoms.length === 0) return 0;
+  return unlockAtomIds(atoms.map((a) => a.id));
+}
+
+/**
+ * Unlock atoms by id directly. Used by placement/test-out seeding
+ * (2026-06-12): passed modules seed SRS state per `fromModule`, and those
+ * same atoms must be unlocked or review lessons will skip them.
+ */
+export function unlockAtomIds(atomIds: Iterable<string>): number {
   const set = getUnlockedSet();
   let added = 0;
-  for (const atom of atoms) {
-    const id = canonicalize(atom.id);
+  for (const atomId of atomIds) {
+    const id = canonicalize(atomId);
     if (!set.has(id)) {
       set.add(id);
       added++;

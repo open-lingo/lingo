@@ -7,22 +7,15 @@ import type { Quest, QuestStatus } from "./types";
 /**
  * Server-backed quest hook.
  *
- * Source of truth: lingo-core ``/api/core/v1/quests``. Quest progress is
- * advanced by the async pipeline (lingo-async → ``/_internal/{id}/progress``)
- * after XP / lesson / review events fire, so the hook just needs to read
- * the server's current state. We refetch on mount + every 10s while the
- * page is visible and invalidate after any client-side mutation
- * (``progress.batchAttempts`` resolution, claim, refresh).
- *
- * The local-mock + localStorage path is gone — the server is authoritative.
- * Older drafts kept a localStorage shadow for offline; that's a follow-up
- * once we have a clear offline story.
+ * Source of truth: lingo-core ``/api/core/v1/quests``. Quest progress
+ * advances SYNCHRONOUSLY inside the lesson batch handler
+ * (lingo-core/app/progress/router.py → app/quests/logic.py) — the
+ * "lingo-async" pipeline an older draft referenced never existed. The
+ * hook reads server state, refetching on mount + a 60s backstop, and
+ * invalidates after client-side mutations (batch sync, claim, refresh).
  */
 
 export const QUESTS_QUERY_KEY = ["core", "quests", "list"] as const;
-// Legacy localStorage key, exported so any leftover panels that referenced
-// it during the local-mock era keep compiling. Safe to drop later.
-export const QUESTS_STORAGE_KEY = "lingo_quests_v1";
 
 // Quest progress lives in the async pipeline — it advances after XP/lesson/review
 // events fire on the server, so the FE doesn't need second-by-second polling.
@@ -138,6 +131,8 @@ export function useQuests(): UseQuestsResult {
     mutationFn: (id: string) => questsApi!.claim(id),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: QUESTS_QUERY_KEY });
+      // Claims grant lingots/XP server-side — refresh balances.
+      qc.invalidateQueries({ queryKey: ["progress", "me"] });
     },
   });
 

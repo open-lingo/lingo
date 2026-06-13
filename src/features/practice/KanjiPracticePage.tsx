@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Card } from "@/shared/components/ui";
+import { Card, CenteredLoader } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useCourseLevel } from "./useCourseLevel";
 import {
@@ -342,11 +342,13 @@ export function KanjiPracticePage() {
         </Card>
       ) : (
         <Card padding="lg" className="text-center">
-          <p className="text-text-muted">
-            {pool.length === 0
-              ? "No kanji available for this set at your current level."
-              : "Loading..."}
-          </p>
+          {pool.length === 0 ? (
+            <p className="text-text-muted">
+              No kanji available for this set at your current level.
+            </p>
+          ) : (
+            <CenteredLoader py="sm" label="Loading" />
+          )}
         </Card>
       )}
 

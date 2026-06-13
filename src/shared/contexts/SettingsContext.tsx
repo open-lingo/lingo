@@ -18,6 +18,7 @@ import {
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api/provider";
 import { setAudioVolume } from "@/shared/audio/volume";
+import { setSfxEnabled } from "@/shared/audio/sfx";
 
 type SettingsContextValue = {
   settings: UserSettings;
@@ -382,6 +383,10 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setAudioVolume(settings.audio.volume ?? 1);
   }, [settings.audio.volume]);
+
+  useEffect(() => {
+    setSfxEnabled(settings.audio.soundEnabled ?? true);
+  }, [settings.audio.soundEnabled]);
 
   const value = useMemo(
     () => ({

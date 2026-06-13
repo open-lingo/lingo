@@ -6,13 +6,17 @@
  *   - 〜たり〜たりする (doing things like X and Y): non-exhaustive listing
  *   - counter 〜かい/回 (times): いっかい, にかい, さんかい...
  *
- * Vocab (~25): え (painting), しゃしん (photos), つり (fishing), ハイキング,
+ * Vocab (~26): え (painting), しゃしん (photos), つり (fishing), ハイキング,
  *   キャンプ, ジョギング, テレビ, ラジオ, ざっし (magazine), まんが,
- *   アニメ, あつめる (collect), つくる (make/create),
+ *   アニメ, あつめる (collect), つくる (make/create), もの (thing),
  *   しゅみ (hobby), きく (listen), よむ (read), かく (write/draw),
  *   いっかい (1 time), にかい (2 times), さんかい (3 times),
  *   まいにち (every day), まいしゅう (every week), ときどき (sometimes),
  *   よく (often), あまり (not much)
+ *
+ * 2026-06-12 sentence-variety reauthor: backlog word もの formally introduced
+ * in ja-m24-2-1 (was previously used here without a formal teach). Story
+ * lesson converted to the storyComprehension() factory (§13.13 narrative).
  *
  * Split into 14 sub-lessons + 1 story = 15 exports.
  * Each sub-lesson has 18-22 steps.
@@ -36,6 +40,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  storyComprehension,
   translateStep,
   vocabMcq,
   assertNoSameAnswerCluster,
@@ -170,7 +175,7 @@ const RULE_KAI_COUNTER = grammarRule({
 //   (え, しゃしん, つり, ハイキング, キャンプ, ジョギング)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_1_1_REVIEW = pickReviewAtoms("ja-m24-1-1-rev", M24_REVIEW_POOL, 4);
+const M24_1_1_REVIEW = pickReviewAtoms("ja-m24-1-1-rev", M24_REVIEW_POOL, 6);
 
 export const M24_1_1: LessonContent = {
   id: "ja-m24-1-1",
@@ -193,7 +198,7 @@ export const M24_1_1: LessonContent = {
       "ja-m24-1-1-build-e",
       "Pick the Japanese word for: Painting / Picture",
       "え",
-      ["え", "しゃしん", "つり", "ハイキング"],
+      ["ハイキング", "しゃしん", "え", "つり"],
       ["え"],
     ),
     vocabMcq(
@@ -206,7 +211,7 @@ export const M24_1_1: LessonContent = {
       "ja-m24-1-1-build-shashin",
       "Pick the Japanese word for: Photo",
       "しゃしん",
-      ["しゃしん", "え", "つり", "キャンプ"],
+      ["え", "つり", "キャンプ", "しゃしん"],
       ["しゃしん"],
     ),
     vocabMcq(
@@ -219,7 +224,7 @@ export const M24_1_1: LessonContent = {
       "ja-m24-1-1-build-tsuri",
       "Pick the Japanese word for: Fishing",
       "つり",
-      ["つり", "しゃしん", "え", "ジョギング"],
+      ["え", "ジョギング", "しゃしん", "つり"],
       ["つり"],
     ),
     speaking("ja-m24-1-1-speak-tsuri", "つり", "Fishing"),
@@ -228,7 +233,7 @@ export const M24_1_1: LessonContent = {
       "ja-m24-1-1-build-haikingu",
       "Pick the Japanese word for: Hiking",
       "ハイキング",
-      ["ハイキング", "キャンプ", "ジョギング", "つり"],
+      ["つり", "ジョギング", "キャンプ", "ハイキング"],
       ["ハイキング"],
     ),
     listeningCompSentence({
@@ -242,7 +247,7 @@ export const M24_1_1: LessonContent = {
       "ja-m24-1-1-build-kyanpu",
       "Pick the Japanese word for: Camping",
       "キャンプ",
-      ["キャンプ", "ハイキング", "ジョギング", "つり"],
+      ["ジョギング", "ハイキング", "つり", "キャンプ"],
       ["キャンプ"],
     ),
     listeningCompSentence({
@@ -256,7 +261,7 @@ export const M24_1_1: LessonContent = {
       "ja-m24-1-1-build-jogingu",
       "Pick the Japanese word for: Jogging",
       "ジョギング",
-      ["ジョギング", "ハイキング", "キャンプ", "つり"],
+      ["キャンプ", "つり", "ジョギング", "ハイキング"],
       ["ジョギング"],
     ),
     speaking("ja-m24-1-1-speak-jogingu", "ジョギング", "Jogging"),
@@ -320,7 +325,7 @@ assertNoConsecutiveSame(M24_1_1.steps);
 //   (テレビ, ラジオ, ざっし, まんが, アニメ + しゅみ)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_1_2_REVIEW = pickReviewAtoms("ja-m24-1-2-rev", M24_REVIEW_POOL, 4);
+const M24_1_2_REVIEW = pickReviewAtoms("ja-m24-1-2-rev", M24_REVIEW_POOL, 6);
 
 export const M24_1_2: LessonContent = {
   id: "ja-m24-1-2",
@@ -343,7 +348,7 @@ export const M24_1_2: LessonContent = {
       "ja-m24-1-2-build-terebi",
       "Pick the Japanese word for: TV",
       "テレビ",
-      ["テレビ", "ラジオ", "まんが", "アニメ"],
+      ["ラジオ", "まんが", "テレビ", "アニメ"],
       ["テレビ"],
     ),
     vocabMcq(
@@ -356,7 +361,7 @@ export const M24_1_2: LessonContent = {
       "ja-m24-1-2-build-rajio",
       "Pick the Japanese word for: Radio",
       "ラジオ",
-      ["ラジオ", "テレビ", "ざっし", "まんが"],
+      ["まんが", "ざっし", "テレビ", "ラジオ"],
       ["ラジオ"],
     ),
     listeningCompSentence({
@@ -370,7 +375,7 @@ export const M24_1_2: LessonContent = {
       "ja-m24-1-2-build-zasshi",
       "Pick the Japanese word for: Magazine",
       "ざっし",
-      ["ざっし", "まんが", "ラジオ", "テレビ"],
+      ["まんが", "ラジオ", "テレビ", "ざっし"],
       ["ざっし"],
     ),
     speaking("ja-m24-1-2-speak-zasshi", "ざっし", "Magazine"),
@@ -379,7 +384,7 @@ export const M24_1_2: LessonContent = {
       "ja-m24-1-2-build-manga",
       "Pick the Japanese word for: Manga",
       "まんが",
-      ["まんが", "ざっし", "アニメ", "テレビ"],
+      ["ざっし", "アニメ", "テレビ", "まんが"],
       ["まんが"],
     ),
     vocabMcq(
@@ -392,7 +397,7 @@ export const M24_1_2: LessonContent = {
       "ja-m24-1-2-build-anime",
       "Pick the Japanese word for: Anime",
       "アニメ",
-      ["アニメ", "まんが", "テレビ", "ラジオ"],
+      ["テレビ", "アニメ", "まんが", "ラジオ"],
       ["アニメ"],
     ),
     listeningCompSentence({
@@ -406,7 +411,7 @@ export const M24_1_2: LessonContent = {
       "ja-m24-1-2-build-shumi",
       "Pick the Japanese word for: Hobby",
       "しゅみ",
-      ["しゅみ", "ざっし", "まんが", "テレビ"],
+      ["テレビ", "まんが", "ざっし", "しゅみ"],
       ["しゅみ"],
     ),
     sentenceMcq({
@@ -424,13 +429,13 @@ export const M24_1_2: LessonContent = {
       "ja-m24-1-2-build-shumi-answer",
       "Answer: My hobby is reading manga.",
       "しゅみは まんがを よむことです",
-      ["しゅみ", "は", "まんが", "を", "よむこと", "です", "アニメ"],
+      ["まんが", "しゅみ", "を", "アニメ", "よむこと", "です", "は"],
       ["しゅみ", "は", "まんが", "を", "よむこと", "です"],
     ),
     selfExplain({
       id: "ja-m24-1-2-self-explain",
-      anchorLabel: "しゅみは なんですか",
-      anchorAudioText: "しゅみは なんですか",
+      anchorLabel: "しゅみは まんがを よむことです",
+      anchorAudioText: "しゅみは まんがを よむことです",
       question: "How is しゅみ different from すき?",
       rule: { text: "しゅみ is a noun meaning 'hobby' — the activity itself. すき is an adjective meaning 'liked.' You can say しゅみは [activity]です or [activity]が すきです." },
       surface: { text: "しゅみ and すき mean the same thing — they're synonyms." },
@@ -475,7 +480,7 @@ assertNoConsecutiveSame(M24_1_2.steps);
 //   (のがすき review + あつめる, つくる)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_2_1_REVIEW = pickReviewAtoms("ja-m24-2-1-rev", M24_REVIEW_POOL, 4);
+const M24_2_1_REVIEW = pickReviewAtoms("ja-m24-2-1-rev", M24_REVIEW_POOL, 6);
 
 export const M24_2_1: LessonContent = {
   id: "ja-m24-2-1",
@@ -499,7 +504,7 @@ export const M24_2_1: LessonContent = {
       "ja-m24-2-1-build-atsumeru",
       "Pick the Japanese word for: Collect",
       "あつめる",
-      ["あつめる", "つくる", "かく", "よむ"],
+      ["つくる", "かく", "あつめる", "よむ"],
       ["あつめる"],
     ),
     listeningCompSentence({
@@ -513,16 +518,30 @@ export const M24_2_1: LessonContent = {
       "ja-m24-2-1-build-tsukuru",
       "Pick the Japanese word for: Make / Create",
       "つくる",
-      ["つくる", "あつめる", "よむ", "きく"],
+      ["きく", "よむ", "あつめる", "つくる"],
       ["つくる"],
     ),
     speaking("ja-m24-2-1-speak-tsukuru", "つくる", "Make / Create"),
+    // ── もの (thing) — formal intro; pairs with あつめる/つくる ──
+    build(
+      "ja-m24-2-1-build-mono",
+      "Pick the Japanese word for: Thing (physical object)",
+      "もの",
+      ["しゃしん", "しゅみ", "もの", "え"],
+      ["もの"],
+    ),
+    listeningCompSentence({
+      id: "ja-m24-2-1-lc-mono",
+      audioText: "もの",
+      correctMeaningEn: "thing (physical object)",
+      distractorsEn: ["hobby", "painting", "photo"],
+    }),
     // ── のがすき drills ──
     build(
       "ja-m24-2-1-build-suki-e",
       "Say: I like drawing pictures.",
       "えを かくのが すきです",
-      ["え", "を", "かくのが", "すき", "です", "きらい"],
+      ["です", "え", "かくのが", "すき", "を", "きらい"],
       ["え", "を", "かくのが", "すき", "です"],
     ),
     sentenceMcq({
@@ -560,15 +579,15 @@ export const M24_2_1: LessonContent = {
       "ja-m24-2-1-build-suki-tsukuru",
       "Say: I like making things.",
       "ものを つくるのが すきです",
-      ["もの", "を", "つくるのが", "すき", "です", "きらい"],
+      ["です", "きらい", "もの", "を", "すき", "つくるのが"],
       ["もの", "を", "つくるのが", "すき", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m24-2-1-lb-suki",
-      target: "えを かくのが すきです",
-      tiles: ["え", "を", "かくのが", "すき", "です", "きらい", "しゃしん"],
-      correctOrder: ["え", "を", "かくのが", "すき", "です"],
-      promptEn: "Hear it, build it: 'I like drawing pictures.'",
+      target: "ほんを よむのが すきです",
+      tiles: ["すき", "ほん", "です", "を", "きらい", "よむのが", "ざっし"],
+      correctOrder: ["ほん", "を", "よむのが", "すき", "です"],
+      promptEn: "Hear it, build it: 'I like reading books.'",
     }),
     cloze(
       "ja-m24-2-1-cloze-ga",
@@ -582,8 +601,8 @@ export const M24_2_1: LessonContent = {
     ),
     selfExplain({
       id: "ja-m24-2-1-self-explain",
-      anchorLabel: "えを かくのが すきです",
-      anchorAudioText: "えを かくのが すきです",
+      anchorLabel: "ラジオを きくのが すきです",
+      anchorAudioText: "ラジオを きくのが すきです",
       question: "This is the same pattern as M16's のがすき. What new verbs did you learn for it?",
       rule: { text: "あつめる (collect) and つくる (make). Both work with のがすき: あつめるのが すきです, つくるのが すきです." },
       surface: { text: "No new verbs — のがすき only works with old verbs." },
@@ -593,8 +612,8 @@ export const M24_2_1: LessonContent = {
     }),
     speaking(
       "ja-m24-2-1-speak-suki",
-      "しゃしんを とるのが すきです",
-      "I like taking photos.",
+      "ラジオを きくのが すきです",
+      "I like listening to the radio.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m24-2-1-rev-mcq-1", M24_2_1_REVIEW[0], M24_REVIEW_POOL),
@@ -627,7 +646,7 @@ assertNoConsecutiveSame(M24_2_1.steps);
 // M24-2-2 — "Like doing" practice
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_2_2_REVIEW = pickReviewAtoms("ja-m24-2-2-rev", M24_REVIEW_POOL, 4);
+const M24_2_2_REVIEW = pickReviewAtoms("ja-m24-2-2-rev", M24_REVIEW_POOL, 6);
 
 export const M24_2_2: LessonContent = {
   id: "ja-m24-2-2",
@@ -649,19 +668,19 @@ export const M24_2_2: LessonContent = {
       "ja-m24-2-2-build-suki-anime",
       "Say: I like watching anime.",
       "アニメを みるのが すきです",
-      ["アニメ", "を", "みるのが", "すき", "です", "きらい"],
+      ["を", "きらい", "みるのが", "アニメ", "すき", "です"],
       ["アニメ", "を", "みるのが", "すき", "です"],
     ),
     sentenceMcq({
       id: "ja-m24-2-2-mcq-kirai",
       prompt: "Which means 'I dislike jogging.'?",
-      correctKana: "ジョギングのが きらいです。",
+      correctKana: "ジョギングするのが きらいです。",
       distractorsKana: [
-        "ジョギングのが すきです。",
+        "ジョギングするのが すきです。",
         "ジョギングを します。",
         "ジョギングは たのしいです。",
       ],
-      explanation: "のがきらい = dislike doing.",
+      explanation: "するのが きらい = dislike doing.",
     }),
     cloze(
       "ja-m24-2-2-cloze-suki",
@@ -675,32 +694,32 @@ export const M24_2_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m24-2-2-lc-suki-tsuri",
-      audioText: "つりをするのが すきです",
-      correctMeaningEn: "I like fishing.",
+      audioText: "えいがを みるのが すきです",
+      correctMeaningEn: "I like watching movies.",
       distractorsEn: [
-        "I dislike fishing.",
-        "I go fishing.",
-        "Fishing is fun.",
+        "I dislike watching movies.",
+        "I watch movies.",
+        "Movies are fun.",
       ],
     }),
     build(
       "ja-m24-2-2-build-kirai-rajio",
       "Say: I dislike listening to the radio.",
       "ラジオを きくのが きらいです",
-      ["ラジオ", "を", "きくのが", "きらい", "です", "すき"],
+      ["すき", "です", "ラジオ", "きくのが", "きらい", "を"],
       ["ラジオ", "を", "きくのが", "きらい", "です"],
     ),
     speaking(
       "ja-m24-2-2-speak-suki-haikingu",
-      "ハイキングが すきです",
-      "I like hiking.",
+      "ともだちと いっしょに ハイキングを します",
+      "I go hiking together with friends.",
     ),
     listeningBuildSentence({
       id: "ja-m24-2-2-lb-suki-manga",
-      target: "まんがを よむのが すきです",
-      tiles: ["まんが", "を", "よむのが", "すき", "です", "きらい", "テレビ"],
-      correctOrder: ["まんが", "を", "よむのが", "すき", "です"],
-      promptEn: "Hear it, build it: 'I like reading manga.'",
+      target: "ざっしを よむのが すきです",
+      tiles: ["よむのが", "ざっし", "すき", "を", "です", "きらい", "まんが"],
+      correctOrder: ["ざっし", "を", "よむのが", "すき", "です"],
+      promptEn: "Hear it, build it: 'I like reading magazines.'",
     }),
     sentenceMcq({
       id: "ja-m24-2-2-mcq-shumi",
@@ -725,19 +744,19 @@ export const M24_2_2: LessonContent = {
     ),
     build(
       "ja-m24-2-2-build-suki-atsumeru",
-      "Say: I like collecting things.",
-      "ものを あつめるのが すきです",
-      ["もの", "を", "あつめるのが", "すき", "です", "きらい"],
-      ["もの", "を", "あつめるのが", "すき", "です"],
+      "Say: I like collecting stamps.",
+      "きってを あつめるのが すきです",
+      ["あつめるのが", "きって", "すき", "を", "きらい", "です"],
+      ["きって", "を", "あつめるのが", "すき", "です"],
     ),
     translateStep({
       id: "ja-m24-2-2-translate",
-      promptEn: "I like taking photos.",
+      promptEn: "I like collecting manga.",
       acceptedAnswers: [
-        "しゃしんを とるのが すきです",
-        "しゃしんを とるのが すきです。",
+        "まんがを あつめるのが すきです",
+        "まんがを あつめるのが すきです。",
       ],
-      audioText: "しゃしんを とるのが すきです",
+      audioText: "まんがを あつめるのが すきです",
     }),
     selfExplain({
       id: "ja-m24-2-2-self-explain",
@@ -751,9 +770,9 @@ export const M24_2_2: LessonContent = {
         "Noun + が + すき: キャンプが すきです. Verb phrase + のが + すき: みるのが すきです. の nominalizes verbs only.",
     }),
     speaking(
-      "ja-m24-2-2-speak-anime",
-      "アニメを みるのが すきです",
-      "I like watching anime.",
+      "ja-m24-2-2-speak-ongaku",
+      "おんがくを きくのが すきです",
+      "I like listening to music.",
     ),
     // ── Review tail ──
     speaking("ja-m24-2-2-rev-speak-1", M24_2_2_REVIEW[0].kana, M24_2_2_REVIEW[0].meaningEn),
@@ -787,7 +806,7 @@ assertNoConsecutiveSame(M24_2_2.steps);
 //   (たり〜たりする)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_3_1_REVIEW = pickReviewAtoms("ja-m24-3-1-rev", M24_REVIEW_POOL, 4);
+const M24_3_1_REVIEW = pickReviewAtoms("ja-m24-3-1-rev", M24_REVIEW_POOL, 6);
 
 export const M24_3_1: LessonContent = {
   id: "ja-m24-3-1",
@@ -811,7 +830,7 @@ export const M24_3_1: LessonContent = {
       "ja-m24-3-1-build-tari-1",
       "Say: I do things like watching TV and reading manga.",
       "テレビを みたり まんがを よんだりします",
-      ["テレビ", "を", "みたり", "まんが", "を", "よんだり", "します", "みます"],
+      ["みます", "まんが", "テレビ", "みたり", "よんだり", "を", "を", "します"],
       ["テレビ", "を", "みたり", "まんが", "を", "よんだり", "します"],
     ),
     sentenceMcq({
@@ -827,12 +846,12 @@ export const M24_3_1: LessonContent = {
     }),
     cloze(
       "ja-m24-3-1-cloze-tari",
-      "テレビを みたり まんがを よんだり",
+      "ほんを よんだり てがみを かいたり",
       "。",
       "します",
       ["します", "する", "です", "ます"],
-      "I do things like watching TV and reading manga.",
-      "テレビを みたり まんがを よんだりします。",
+      "I do things like reading books and writing letters.",
+      "ほんを よんだり てがみを かいたりします。",
       "します closes the たり〜たり list.",
     ),
     listeningCompSentence({
@@ -849,7 +868,7 @@ export const M24_3_1: LessonContent = {
       "ja-m24-3-1-build-tari-2",
       "Say: On weekends, I do things like camping and jogging.",
       "しゅうまつに キャンプを したり ジョギングを したりします",
-      ["しゅうまつ", "に", "キャンプ", "を", "したり", "ジョギング", "を", "したり", "します"],
+      ["ジョギング", "します", "キャンプ", "を", "したり", "したり", "しゅうまつ", "を", "に"],
       ["しゅうまつ", "に", "キャンプ", "を", "したり", "ジョギング", "を", "したり", "します"],
     ),
     sentenceMcq({
@@ -865,10 +884,10 @@ export const M24_3_1: LessonContent = {
     }),
     listeningBuildSentence({
       id: "ja-m24-3-1-lb-tari",
-      target: "えを かいたり しゃしんを とったりします",
-      tiles: ["え", "を", "かいたり", "しゃしん", "を", "とったり", "します", "みたり"],
-      correctOrder: ["え", "を", "かいたり", "しゃしん", "を", "とったり", "します"],
-      promptEn: "Hear it, build it: 'I do things like drawing and taking photos.'",
+      target: "キャンプを したり しゃしんを とったりします",
+      tiles: ["しゃしん", "キャンプ", "を", "したり", "を", "とったり", "します", "みたり"],
+      correctOrder: ["キャンプ", "を", "したり", "しゃしん", "を", "とったり", "します"],
+      promptEn: "Hear it, build it: 'I do things like camping and taking photos.'",
     }),
     cloze(
       "ja-m24-3-1-cloze-tari-2",
@@ -884,7 +903,7 @@ export const M24_3_1: LessonContent = {
       "ja-m24-3-1-build-tari-3",
       "Say: I do things like collecting and making.",
       "あつめたり つくったりします",
-      ["あつめたり", "つくったり", "します", "あつめます", "つくります"],
+      ["つくったり", "あつめます", "します", "あつめたり", "つくります"],
       ["あつめたり", "つくったり", "します"],
     ),
     selfExplain({
@@ -900,8 +919,8 @@ export const M24_3_1: LessonContent = {
     }),
     speaking(
       "ja-m24-3-1-speak-tari",
-      "テレビを みたり まんがを よんだりします",
-      "I do things like watching TV and reading manga.",
+      "つりを したり えを かいたりします",
+      "I do things like fishing and drawing.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m24-3-1-rev-mcq-1", M24_3_1_REVIEW[0], M24_REVIEW_POOL),
@@ -934,7 +953,7 @@ assertNoConsecutiveSame(M24_3_1.steps);
 // M24-3-2 — たり〜たり practice
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_3_2_REVIEW = pickReviewAtoms("ja-m24-3-2-rev", M24_REVIEW_POOL, 4);
+const M24_3_2_REVIEW = pickReviewAtoms("ja-m24-3-2-rev", M24_REVIEW_POOL, 6);
 
 export const M24_3_2: LessonContent = {
   id: "ja-m24-3-2",
@@ -957,7 +976,7 @@ export const M24_3_2: LessonContent = {
       "ja-m24-3-2-build-tokidoki",
       "Pick the Japanese word for: Sometimes",
       "ときどき",
-      ["ときどき", "よく", "あまり", "まいにち"],
+      ["まいにち", "ときどき", "よく", "あまり"],
       ["ときどき"],
     ),
     listeningCompSentence({
@@ -970,7 +989,7 @@ export const M24_3_2: LessonContent = {
       "ja-m24-3-2-build-yoku",
       "Pick the Japanese word for: Often",
       "よく",
-      ["よく", "ときどき", "あまり", "まいしゅう"],
+      ["ときどき", "まいしゅう", "あまり", "よく"],
       ["よく"],
     ),
     speaking("ja-m24-3-2-speak-yoku", "よく", "Often"),
@@ -979,7 +998,7 @@ export const M24_3_2: LessonContent = {
       "ja-m24-3-2-build-tari-tokidoki",
       "Say: Sometimes I do things like reading magazines and listening to the radio.",
       "ときどき ざっしを よんだり ラジオを きいたりします",
-      ["ときどき", "ざっし", "を", "よんだり", "ラジオ", "を", "きいたり", "します"],
+      ["よんだり", "を", "します", "ラジオ", "を", "きいたり", "ときどき", "ざっし"],
       ["ときどき", "ざっし", "を", "よんだり", "ラジオ", "を", "きいたり", "します"],
     ),
     sentenceMcq({
@@ -1014,16 +1033,16 @@ export const M24_3_2: LessonContent = {
       ],
     }),
     build(
-      "ja-m24-3-2-build-tari-anime",
-      "Say: I do things like watching anime and collecting manga.",
-      "アニメを みたり まんがを あつめたりします",
-      ["アニメ", "を", "みたり", "まんが", "を", "あつめたり", "します"],
-      ["アニメ", "を", "みたり", "まんが", "を", "あつめたり", "します"],
+      "ja-m24-3-2-build-tari-ongaku",
+      "Say: I do things like listening to music and drawing.",
+      "おんがくを きいたり えを かいたりします",
+      ["かいたり", "おんがく", "を", "きいたり", "え", "を", "します"],
+      ["おんがく", "を", "きいたり", "え", "を", "かいたり", "します"],
     ),
     listeningBuildSentence({
       id: "ja-m24-3-2-lb-tari",
       target: "ときどき えを かいたり しゃしんを とったりします",
-      tiles: ["ときどき", "え", "を", "かいたり", "しゃしん", "を", "とったり", "します"],
+      tiles: ["します", "え", "しゃしん", "ときどき", "を", "とったり", "かいたり", "を"],
       correctOrder: ["ときどき", "え", "を", "かいたり", "しゃしん", "を", "とったり", "します"],
       promptEn: "Hear it, build it: 'Sometimes I do things like drawing and taking photos.'",
     }),
@@ -1094,7 +1113,7 @@ assertNoConsecutiveSame(M24_3_2.steps);
 //   (いっかい, にかい, さんかい + まいにち, まいしゅう)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_4_1_REVIEW = pickReviewAtoms("ja-m24-4-1-rev", M24_REVIEW_POOL, 4);
+const M24_4_1_REVIEW = pickReviewAtoms("ja-m24-4-1-rev", M24_REVIEW_POOL, 6);
 
 export const M24_4_1: LessonContent = {
   id: "ja-m24-4-1",
@@ -1118,7 +1137,7 @@ export const M24_4_1: LessonContent = {
       "ja-m24-4-1-build-ikkai",
       "Pick the Japanese word for: Once (1 time)",
       "いっかい",
-      ["いっかい", "にかい", "さんかい", "ときどき"],
+      ["にかい", "さんかい", "いっかい", "ときどき"],
       ["いっかい"],
     ),
     listeningCompSentence({
@@ -1132,7 +1151,7 @@ export const M24_4_1: LessonContent = {
       "ja-m24-4-1-build-nikai",
       "Pick the Japanese word for: Twice (2 times)",
       "にかい",
-      ["にかい", "いっかい", "さんかい", "よく"],
+      ["よく", "いっかい", "にかい", "さんかい"],
       ["にかい"],
     ),
     speaking("ja-m24-4-1-speak-nikai", "にかい", "Twice"),
@@ -1141,7 +1160,7 @@ export const M24_4_1: LessonContent = {
       "ja-m24-4-1-build-sankai",
       "Pick the Japanese word for: Three times",
       "さんかい",
-      ["さんかい", "にかい", "いっかい", "まいにち"],
+      ["にかい", "いっかい", "さんかい", "まいにち"],
       ["さんかい"],
     ),
     listeningCompSentence({
@@ -1155,14 +1174,14 @@ export const M24_4_1: LessonContent = {
       "ja-m24-4-1-build-mainichi",
       "Pick the Japanese word for: Every day",
       "まいにち",
-      ["まいにち", "まいしゅう", "ときどき", "よく"],
+      ["まいしゅう", "まいにち", "ときどき", "よく"],
       ["まいにち"],
     ),
     build(
       "ja-m24-4-1-build-maishuu",
       "Pick the Japanese word for: Every week",
       "まいしゅう",
-      ["まいしゅう", "まいにち", "いっかい", "にかい"],
+      ["にかい", "まいにち", "まいしゅう", "いっかい"],
       ["まいしゅう"],
     ),
     // ── Counter drills ──
@@ -1170,7 +1189,7 @@ export const M24_4_1: LessonContent = {
       "ja-m24-4-1-build-nikai-jogingu",
       "Say: I jog twice a week.",
       "まいしゅう にかい ジョギングします",
-      ["まいしゅう", "にかい", "ジョギング", "します", "いっかい", "さんかい"],
+      ["にかい", "まいしゅう", "いっかい", "ジョギング", "さんかい", "します"],
       ["まいしゅう", "にかい", "ジョギング", "します"],
     ),
     sentenceMcq({
@@ -1187,21 +1206,21 @@ export const M24_4_1: LessonContent = {
     cloze(
       "ja-m24-4-1-cloze-kai",
       "まいしゅう ",
-      " ジョギングします。",
+      " としょかんに いきます。",
       "にかい",
       ["にかい", "いっかい", "さんかい", "ときどき"],
-      "I jog twice a week.",
-      "まいしゅう にかい ジョギングします。",
+      "I go to the library twice a week.",
+      "まいしゅう にかい としょかんに いきます。",
       "にかい = twice. Counts occurrences.",
     ),
     listeningCompSentence({
       id: "ja-m24-4-1-lc-mainichi",
-      audioText: "まいにち いっかい さんぽします",
-      correctMeaningEn: "I take a walk once every day.",
+      audioText: "まいにち いっかい ほんを よみます",
+      correctMeaningEn: "I read a book once every day.",
       distractorsEn: [
-        "I take a walk every week.",
-        "I sometimes take a walk.",
-        "I take three walks a day.",
+        "I read a book every week.",
+        "I sometimes read books.",
+        "I read three books a day.",
       ],
     }),
     selfExplain({
@@ -1217,8 +1236,8 @@ export const M24_4_1: LessonContent = {
     }),
     speaking(
       "ja-m24-4-1-speak-counter",
-      "まいしゅう にかい ジョギングします",
-      "I jog twice a week.",
+      "まいにち さんかい コーヒーを のみます",
+      "I drink coffee three times every day.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m24-4-1-rev-mcq-1", M24_4_1_REVIEW[0], M24_REVIEW_POOL),
@@ -1251,7 +1270,7 @@ assertNoConsecutiveSame(M24_4_1.steps);
 // M24-4-2 — Counter かい practice + あまり
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_4_2_REVIEW = pickReviewAtoms("ja-m24-4-2-rev", M24_REVIEW_POOL, 4);
+const M24_4_2_REVIEW = pickReviewAtoms("ja-m24-4-2-rev", M24_REVIEW_POOL, 6);
 
 export const M24_4_2: LessonContent = {
   id: "ja-m24-4-2",
@@ -1274,7 +1293,7 @@ export const M24_4_2: LessonContent = {
       "ja-m24-4-2-build-amari",
       "Pick the Japanese word for: Not much / Not often",
       "あまり",
-      ["あまり", "よく", "ときどき", "まいにち"],
+      ["よく", "ときどき", "あまり", "まいにち"],
       ["あまり"],
     ),
     listeningCompSentence({
@@ -1292,7 +1311,7 @@ export const M24_4_2: LessonContent = {
       "ja-m24-4-2-build-sankai-tsuri",
       "Say: I went fishing three times.",
       "つりに さんかい いきました",
-      ["つり", "に", "さんかい", "いきました", "にかい", "いっかい"],
+      ["にかい", "つり", "に", "さんかい", "いっかい", "いきました"],
       ["つり", "に", "さんかい", "いきました"],
     ),
     sentenceMcq({
@@ -1309,11 +1328,11 @@ export const M24_4_2: LessonContent = {
     cloze(
       "ja-m24-4-2-cloze-kai",
       "まいにち ",
-      " さんぽします。",
+      " いぬと さんぽします。",
       "いっかい",
       ["いっかい", "にかい", "さんかい", "よく"],
-      "I take a walk once every day.",
-      "まいにち いっかい さんぽします。",
+      "I take a walk with my dog once every day.",
+      "まいにち いっかい いぬと さんぽします。",
       "いっかい = once.",
     ),
     listeningCompSentence({
@@ -1330,13 +1349,13 @@ export const M24_4_2: LessonContent = {
       "ja-m24-4-2-build-amari-tsuri",
       "Say: I don't go fishing much.",
       "あまり つりに いきません",
-      ["あまり", "つり", "に", "いきません", "いきます", "よく"],
+      ["いきます", "あまり", "つり", "に", "よく", "いきません"],
       ["あまり", "つり", "に", "いきません"],
     ),
     listeningBuildSentence({
       id: "ja-m24-4-2-lb-counter",
       target: "まいしゅう さんかい ジョギングします",
-      tiles: ["まいしゅう", "さんかい", "ジョギング", "します", "にかい", "いっかい"],
+      tiles: ["します", "ジョギング", "さんかい", "にかい", "まいしゅう", "いっかい"],
       correctOrder: ["まいしゅう", "さんかい", "ジョギング", "します"],
       promptEn: "Hear it, build it: 'I jog three times a week.'",
     }),
@@ -1363,12 +1382,12 @@ export const M24_4_2: LessonContent = {
     ),
     translateStep({
       id: "ja-m24-4-2-translate",
-      promptEn: "I jog three times a week.",
+      promptEn: "I go to the park twice a week.",
       acceptedAnswers: [
-        "まいしゅう さんかい ジョギングします",
-        "まいしゅう さんかい ジョギングします。",
+        "まいしゅう にかい こうえんに いきます",
+        "まいしゅう にかい こうえんに いきます。",
       ],
-      audioText: "まいしゅう さんかい ジョギングします",
+      audioText: "まいしゅう にかい こうえんに いきます",
     }),
     selfExplain({
       id: "ja-m24-4-2-self-explain",
@@ -1383,8 +1402,8 @@ export const M24_4_2: LessonContent = {
     }),
     speaking(
       "ja-m24-4-2-speak-amari",
-      "あまり つりに いきません",
-      "I don't go fishing much.",
+      "あまり キャンプに いきません",
+      "I don't go camping much.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m24-4-2-rev-mcq-1", M24_4_2_REVIEW[0], M24_REVIEW_POOL),
@@ -1417,7 +1436,7 @@ assertNoConsecutiveSame(M24_4_2.steps);
 // M24-5-1 — Interleaved drill I (all patterns)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_5_1_REVIEW = pickReviewAtoms("ja-m24-5-1-rev", M24_REVIEW_POOL, 4);
+const M24_5_1_REVIEW = pickReviewAtoms("ja-m24-5-1-rev", M24_REVIEW_POOL, 6);
 
 export const M24_5_1: LessonContent = {
   id: "ja-m24-5-1",
@@ -1437,19 +1456,19 @@ export const M24_5_1: LessonContent = {
     ),
     cloze(
       "ja-m24-5-1-cloze-noga",
-      "しゃしんを とる",
+      "いぬと さんぽする",
       " すきです。",
       "のが",
       ["のが", "が", "は", "を"],
-      "I like taking photos.",
-      "しゃしんを とるのが すきです。",
+      "I like taking walks with my dog.",
+      "いぬと さんぽするのが すきです。",
       "のが nominalizes the verb phrase.",
     ),
     build(
       "ja-m24-5-1-build-tari",
       "Say: I do things like hiking and camping.",
       "ハイキングを したり キャンプを したりします",
-      ["ハイキング", "を", "したり", "キャンプ", "を", "したり", "します"],
+      ["キャンプ", "を", "したり", "を", "します", "ハイキング", "したり"],
       ["ハイキング", "を", "したり", "キャンプ", "を", "したり", "します"],
     ),
     sentenceMcq({
@@ -1477,39 +1496,39 @@ export const M24_5_1: LessonContent = {
       "ja-m24-5-1-build-suki-tsuri",
       "Say: I like fishing.",
       "つりが すきです",
-      ["つり", "が", "すき", "です", "きらい", "は"],
+      ["は", "つり", "です", "きらい", "すき", "が"],
       ["つり", "が", "すき", "です"],
     ),
     cloze(
       "ja-m24-5-1-cloze-tari",
-      "テレビを みたり ラジオを きいたり",
+      "やまに いったり うみに いったり",
       "。",
       "します",
       ["します", "する", "です", "ます"],
-      "I do things like watching TV and listening to the radio.",
-      "テレビを みたり ラジオを きいたりします。",
+      "I do things like going to the mountains and the sea.",
+      "やまに いったり うみに いったりします。",
       "します closes the たり list.",
     ),
     speaking(
       "ja-m24-5-1-speak-counter",
-      "まいにち いっかい さんぽします",
-      "I take a walk once every day.",
+      "まいしゅう さんかい アニメを みます",
+      "I watch anime three times a week.",
     ),
     listeningBuildSentence({
       id: "ja-m24-5-1-lb-suki",
-      target: "えを かくのが すきです",
-      tiles: ["え", "を", "かくのが", "すき", "です", "きらい", "つくる"],
-      correctOrder: ["え", "を", "かくのが", "すき", "です"],
-      promptEn: "Hear it, build it: 'I like drawing pictures.'",
+      target: "てがみを かくのが すきです",
+      tiles: ["かくのが", "てがみ", "すき", "を", "です", "きらい", "え"],
+      correctOrder: ["てがみ", "を", "かくのが", "すき", "です"],
+      promptEn: "Hear it, build it: 'I like writing letters.'",
     }),
     sentenceMcq({
       id: "ja-m24-5-1-mcq-amari",
-      prompt: "Which means 'I don't read magazines much.'?",
-      correctKana: "あまり ざっしを よみません。",
+      prompt: "Which means 'I don't jog much.'?",
+      correctKana: "あまり ジョギングを しません。",
       distractorsKana: [
-        "よく ざっしを よみます。",
-        "ときどき ざっしを よみます。",
-        "まいにち ざっしを よみます。",
+        "よく ジョギングを します。",
+        "ときどき ジョギングを します。",
+        "まいにち ジョギングを します。",
       ],
       explanation: "あまり + negative = not much.",
     }),
@@ -1517,22 +1536,22 @@ export const M24_5_1: LessonContent = {
       "ja-m24-5-1-build-shumi",
       "Answer: My hobby is taking photos.",
       "しゅみは しゃしんです",
-      ["しゅみ", "は", "しゃしん", "です", "つり", "が"],
+      ["です", "が", "しゃしん", "は", "つり", "しゅみ"],
       ["しゅみ", "は", "しゃしん", "です"],
     ),
     translateStep({
       id: "ja-m24-5-1-translate",
-      promptEn: "I do things like watching TV and reading manga.",
+      promptEn: "I do things like listening to the radio and reading magazines.",
       acceptedAnswers: [
-        "テレビを みたり まんがを よんだりします",
-        "テレビを みたり まんがを よんだりします。",
+        "ラジオを きいたり ざっしを よんだりします",
+        "ラジオを きいたり ざっしを よんだりします。",
       ],
-      audioText: "テレビを みたり まんがを よんだりします",
+      audioText: "ラジオを きいたり ざっしを よんだりします",
     }),
     selfExplain({
       id: "ja-m24-5-1-self-explain",
       anchorLabel: "Three hobby patterns mixed",
-      anchorAudioText: "テレビを みたり まんがを よんだりします",
+      anchorAudioText: "ハイキングを したり キャンプを したりします",
       question: "When would you use たり vs のがすき to talk about hobbies?",
       rule: { text: "のがすき describes PREFERENCE (I like doing X). たり〜たり describes BEHAVIOR (I do things like X and Y). Different purposes." },
       surface: { text: "They're interchangeable — both describe hobbies." },
@@ -1542,8 +1561,8 @@ export const M24_5_1: LessonContent = {
     }),
     speaking(
       "ja-m24-5-1-speak-tari",
-      "つりを したり キャンプを したりします",
-      "I do things like fishing and camping.",
+      "えを かいたり ものを つくったりします",
+      "I do things like drawing and making things.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m24-5-1-rev-mcq-1", M24_5_1_REVIEW[0], M24_REVIEW_POOL),
@@ -1576,7 +1595,7 @@ assertNoConsecutiveSame(M24_5_1.steps);
 // M24-5-2 — Interleaved drill II
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_5_2_REVIEW = pickReviewAtoms("ja-m24-5-2-rev", M24_REVIEW_POOL, 4);
+const M24_5_2_REVIEW = pickReviewAtoms("ja-m24-5-2-rev", M24_REVIEW_POOL, 6);
 
 export const M24_5_2: LessonContent = {
   id: "ja-m24-5-2",
@@ -1598,7 +1617,7 @@ export const M24_5_2: LessonContent = {
       "ja-m24-5-2-build-tari-weekend",
       "Say: On weekends, I do things like drawing and jogging.",
       "しゅうまつに えを かいたり ジョギングを したりします",
-      ["しゅうまつ", "に", "え", "を", "かいたり", "ジョギング", "を", "したり", "します"],
+      ["ジョギング", "に", "しゅうまつ", "を", "します", "かいたり", "え", "を", "したり"],
       ["しゅうまつ", "に", "え", "を", "かいたり", "ジョギング", "を", "したり", "します"],
     ),
     cloze(
@@ -1631,7 +1650,7 @@ export const M24_5_2: LessonContent = {
       "ja-m24-5-2-build-suki-collect",
       "Say: I like collecting photos.",
       "しゃしんを あつめるのが すきです",
-      ["しゃしん", "を", "あつめるのが", "すき", "です", "きらい"],
+      ["すき", "きらい", "しゃしん", "を", "あつめるのが", "です"],
       ["しゃしん", "を", "あつめるのが", "すき", "です"],
     ),
     listeningCompSentence({
@@ -1658,20 +1677,20 @@ export const M24_5_2: LessonContent = {
       "ja-m24-5-2-build-counter-daily",
       "Say: I read manga twice every day.",
       "まいにち にかい まんがを よみます",
-      ["まいにち", "にかい", "まんが", "を", "よみます", "さんかい"],
+      ["を", "にかい", "さんかい", "よみます", "まんが", "まいにち"],
       ["まいにち", "にかい", "まんが", "を", "よみます"],
     ),
     listeningBuildSentence({
       id: "ja-m24-5-2-lb-tari",
-      target: "えを かいたり しゃしんを とったりします",
-      tiles: ["え", "を", "かいたり", "しゃしん", "を", "とったり", "します", "みたり"],
-      correctOrder: ["え", "を", "かいたり", "しゃしん", "を", "とったり", "します"],
-      promptEn: "Hear it, build it: 'I do things like drawing and taking photos.'",
+      target: "ざっしを よんだり テレビを みたりします",
+      tiles: ["テレビ", "ざっし", "を", "よんだり", "を", "みたり", "します", "きいたり"],
+      correctOrder: ["ざっし", "を", "よんだり", "テレビ", "を", "みたり", "します"],
+      promptEn: "Hear it, build it: 'I do things like reading magazines and watching TV.'",
     }),
     speaking(
       "ja-m24-5-2-speak-suki",
-      "アニメを みるのが すきです",
-      "I like watching anime.",
+      "えいがを みるのが すきです",
+      "I like watching movies.",
     ),
     sentenceMcq({
       id: "ja-m24-5-2-mcq-shumi-answer",
@@ -1706,8 +1725,8 @@ export const M24_5_2: LessonContent = {
     }),
     speaking(
       "ja-m24-5-2-speak-tari",
-      "テレビを みたり ざっしを よんだりします",
-      "I do things like watching TV and reading magazines.",
+      "おんがくを きいたり ほんを よんだりします",
+      "I do things like listening to music and reading books.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m24-5-2-rev-mcq-1", M24_5_2_REVIEW[0], M24_REVIEW_POOL),
@@ -1740,7 +1759,7 @@ assertNoConsecutiveSame(M24_5_2.steps);
 // M24-6-1 — Production I
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_6_1_REVIEW = pickReviewAtoms("ja-m24-6-1-rev", M24_REVIEW_POOL, 4);
+const M24_6_1_REVIEW = pickReviewAtoms("ja-m24-6-1-rev", M24_REVIEW_POOL, 6);
 
 export const M24_6_1: LessonContent = {
   id: "ja-m24-6-1",
@@ -1754,20 +1773,20 @@ export const M24_6_1: LessonContent = {
   xpReward: 24,
   steps: [
     infoStep("ja-m24-6-1-info-open", "Full production", "Build, speak, translate — no recognition crutches."),
-    build("ja-m24-6-1-build-1", "Say: I like making things.", "ものを つくるのが すきです", ["もの", "を", "つくるのが", "すき", "です", "きらい"], ["もの", "を", "つくるのが", "すき", "です"]),
+    build("ja-m24-6-1-build-1", "Say: I like making things.", "ものを つくるのが すきです", ["すき", "つくるのが", "です", "を", "もの", "きらい"], ["もの", "を", "つくるのが", "すき", "です"]),
     speaking("ja-m24-6-1-speak-1", "しゅうまつに えを かいたり しゃしんを とったりします", "On weekends, I do things like drawing and taking photos."),
-    build("ja-m24-6-1-build-2", "Say: I jog twice a week.", "まいしゅう にかい ジョギングします", ["まいしゅう", "にかい", "ジョギング", "します", "さんかい"], ["まいしゅう", "にかい", "ジョギング", "します"]),
-    listeningBuildSentence({ id: "ja-m24-6-1-lb-1", target: "つりが すきです", tiles: ["つり", "が", "すき", "です", "きらい", "は"], correctOrder: ["つり", "が", "すき", "です"], promptEn: "Hear it, build it: 'I like fishing.'" }),
+    build("ja-m24-6-1-build-2", "Say: I go fishing once a week.", "まいしゅう いっかい つりに いきます", ["つり", "まいしゅう", "いっかい", "に", "いきます", "にかい"], ["まいしゅう", "いっかい", "つり", "に", "いきます"]),
+    listeningBuildSentence({ id: "ja-m24-6-1-lb-1", target: "つりが すきです", tiles: ["です", "が", "つり", "は", "きらい", "すき"], correctOrder: ["つり", "が", "すき", "です"], promptEn: "Hear it, build it: 'I like fishing.'" }),
     speaking("ja-m24-6-1-speak-2", "あまり ラジオを ききません", "I don't listen to the radio much."),
-    build("ja-m24-6-1-build-3", "Say: My hobby is photography.", "しゅみは しゃしんです", ["しゅみ", "は", "しゃしん", "です", "つり", "が"], ["しゅみ", "は", "しゃしん", "です"]),
+    build("ja-m24-6-1-build-3", "Say: My hobby is jogging.", "しゅみは ジョギングです", ["ジョギング", "しゅみ", "は", "です", "つり", "が"], ["しゅみ", "は", "ジョギング", "です"]),
     sentenceMcq({ id: "ja-m24-6-1-mcq-1", prompt: "Which uses たり correctly?", correctKana: "まんがを よんだり アニメを みたりします。", distractorsKana: ["まんがを よんで アニメを みます。", "まんがとアニメが すきです。", "まんがを よみたり アニメを みたりします。"], explanation: "よんだり (from よむ → よんだ + り) is correct. よみたり is wrong." }),
-    build("ja-m24-6-1-build-4", "Say: I sometimes do things like collecting manga.", "ときどき まんがを あつめたりします", ["ときどき", "まんが", "を", "あつめたり", "します", "あつめます"], ["ときどき", "まんが", "を", "あつめたり", "します"]),
+    build("ja-m24-6-1-build-4", "Say: I sometimes do things like collecting manga.", "ときどき まんがを あつめたりします", ["あつめます", "あつめたり", "を", "ときどき", "まんが", "します"], ["ときどき", "まんが", "を", "あつめたり", "します"]),
     translateStep({ id: "ja-m24-6-1-translate-1", promptEn: "I like collecting things.", acceptedAnswers: ["ものを あつめるのが すきです", "ものを あつめるのが すきです。"], audioText: "ものを あつめるのが すきです" }),
-    speaking("ja-m24-6-1-speak-3", "まいにち いっかい さんぽします", "I take a walk once every day."),
+    speaking("ja-m24-6-1-speak-3", "まいしゅう いっかい としょかんに いきます", "I go to the library once a week."),
     listeningCompSentence({ id: "ja-m24-6-1-lc-1", audioText: "ときどき キャンプを したり つりを したりします", correctMeaningEn: "I sometimes do things like camping and fishing.", distractorsEn: ["I camp and fish.", "I like camping and fishing.", "I camp every day."] }),
-    build("ja-m24-6-1-build-5", "Ask: What is your hobby?", "しゅみは なんですか", ["しゅみ", "は", "なん", "です", "か", "だれ"], ["しゅみ", "は", "なん", "です", "か"]),
+    build("ja-m24-6-1-build-5", "Ask: What is Yuki's hobby?", "ゆきさんの しゅみは なんですか", ["なん", "しゅみ", "ゆきさんの", "は", "か", "です", "だれ"], ["ゆきさんの", "しゅみ", "は", "なん", "です", "か"]),
     selfExplain({ id: "ja-m24-6-1-self-explain", anchorLabel: "Production mastery", anchorAudioText: "しゅうまつに えを かいたりします", question: "How do you say what you like AND how often?", rule: { text: "Combine: えを かくのが すきです (I like drawing) + まいしゅう にかい かきます (I draw twice a week). Two separate sentences, each using its own pattern." }, surface: { text: "Use たり to say frequency — えを かいたり にかい します." }, distractor: { text: "Use のが + かい together: えを かくのが にかいです." }, ruleExplanation: "のがすき = preference (what you like). かい = frequency (how often). They're separate patterns used in separate sentences." }),
-    speaking("ja-m24-6-1-speak-4", "しゅみは なんですか", "What is your hobby?"),
+    speaking("ja-m24-6-1-speak-4", "しゅみは まんがです", "My hobby is manga."),
     // ── Review tail ──
     vocabMcq("ja-m24-6-1-rev-mcq-1", M24_6_1_REVIEW[0], M24_REVIEW_POOL),
     listeningCompSentence({ id: "ja-m24-6-1-rev-lc-1", audioText: M24_6_1_REVIEW[1].kana, correctMeaningEn: M24_6_1_REVIEW[1].meaningEn, distractorsEn: [M24_6_1_REVIEW[2].meaningEn, M24_6_1_REVIEW[3].meaningEn, M24_REVIEW_POOL[10].meaningEn] }),
@@ -1785,7 +1804,7 @@ assertNoConsecutiveSame(M24_6_1.steps);
 // M24-6-2 — Production II
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_6_2_REVIEW = pickReviewAtoms("ja-m24-6-2-rev", M24_REVIEW_POOL, 4);
+const M24_6_2_REVIEW = pickReviewAtoms("ja-m24-6-2-rev", M24_REVIEW_POOL, 6);
 
 export const M24_6_2: LessonContent = {
   id: "ja-m24-6-2",
@@ -1798,19 +1817,19 @@ export const M24_6_2: LessonContent = {
   xpReward: 24,
   steps: [
     infoStep("ja-m24-6-2-info-open", "Final production", "Last round. Every M24 pattern in flowing conversation."),
-    build("ja-m24-6-2-build-1", "Say: I do things like fishing and hiking on weekends.", "しゅうまつに つりを したり ハイキングを したりします", ["しゅうまつ", "に", "つり", "を", "したり", "ハイキング", "を", "したり", "します"], ["しゅうまつ", "に", "つり", "を", "したり", "ハイキング", "を", "したり", "します"]),
-    speaking("ja-m24-6-2-speak-1", "えを かくのが すきです", "I like drawing pictures."),
+    build("ja-m24-6-2-build-1", "Say: I do things like fishing and hiking on weekends.", "しゅうまつに つりを したり ハイキングを したりします", ["ハイキング", "しゅうまつ", "したり", "します", "つり", "したり", "を", "を", "に"], ["しゅうまつ", "に", "つり", "を", "したり", "ハイキング", "を", "したり", "します"]),
+    speaking("ja-m24-6-2-speak-1", "こうえんを さんぽするのが すきです", "I like taking walks in the park."),
     cloze("ja-m24-6-2-cloze-kai", "まいしゅう ", " えを かきます。", "さんかい", ["さんかい", "にかい", "いっかい", "よく"], "I draw pictures three times a week.", "まいしゅう さんかい えを かきます。", "さんかい = three times."),
-    build("ja-m24-6-2-build-2", "Answer the hobby question: I like watching anime.", "アニメを みるのが すきです", ["アニメ", "を", "みるのが", "すき", "です", "きらい"], ["アニメ", "を", "みるのが", "すき", "です"]),
+    build("ja-m24-6-2-build-2", "Answer the hobby question: I like collecting magazines.", "ざっしを あつめるのが すきです", ["すき", "ざっし", "あつめるのが", "を", "きらい", "です"], ["ざっし", "を", "あつめるのが", "すき", "です"]),
     sentenceMcq({ id: "ja-m24-6-2-mcq-1", prompt: "Which means 'I don't go camping much.'?", correctKana: "あまり キャンプに いきません。", distractorsKana: ["よく キャンプに いきます。", "ときどき キャンプに いきます。", "まいしゅう キャンプに いきます。"], explanation: "あまり + negative = not much." }),
-    listeningBuildSentence({ id: "ja-m24-6-2-lb-1", target: "まいしゅう にかい ジョギングします", tiles: ["まいしゅう", "にかい", "ジョギング", "します", "さんかい", "いっかい"], correctOrder: ["まいしゅう", "にかい", "ジョギング", "します"], promptEn: "Hear it, build it: 'I jog twice a week.'" }),
+    listeningBuildSentence({ id: "ja-m24-6-2-lb-1", target: "まいにち いっかい ラジオを ききます", tiles: ["ラジオ", "まいにち", "いっかい", "を", "ききます", "にかい"], correctOrder: ["まいにち", "いっかい", "ラジオ", "を", "ききます"], promptEn: "Hear it, build it: 'I listen to the radio once every day.'" }),
     speaking("ja-m24-6-2-speak-2", "ときどき つりを したり キャンプを したりします", "I sometimes do things like fishing and camping."),
-    build("ja-m24-6-2-build-3", "Say: I don't watch anime much.", "あまり アニメを みません", ["あまり", "アニメ", "を", "みません", "みます", "よく"], ["あまり", "アニメ", "を", "みません"]),
-    cloze("ja-m24-6-2-cloze-tari", "テレビを みたり まんがを よんだり", "。", "します", ["します", "する", "です", "ます"], "I do things like watching TV and reading manga.", "テレビを みたり まんがを よんだりします。", "します closes the たり list."),
+    build("ja-m24-6-2-build-3", "Say: I don't watch anime much.", "あまり アニメを みません", ["みます", "を", "みません", "アニメ", "あまり", "よく"], ["あまり", "アニメ", "を", "みません"]),
+    cloze("ja-m24-6-2-cloze-tari", "しゃしんを とっ", " えを かいたりします。", "たり", ["たり", "て", "ます", "の"], "I do things like taking photos and drawing.", "しゃしんを とったり えを かいたりします。", "とったり = た-form of とる + り."),
     listeningCompSentence({ id: "ja-m24-6-2-lc-1", audioText: "しゅみは つりです", correctMeaningEn: "My hobby is fishing.", distractorsEn: ["I like fishing.", "I fish every day.", "Do you like fishing?"] }),
-    translateStep({ id: "ja-m24-6-2-translate", promptEn: "I do things like watching anime and reading manga.", acceptedAnswers: ["アニメを みたり まんがを よんだりします", "アニメを みたり まんがを よんだりします。"], audioText: "アニメを みたり まんがを よんだりします" }),
-    build("ja-m24-6-2-build-4", "Say: I like making things and collecting photos.", "ものを つくるのが すきです", ["もの", "を", "つくるのが", "すき", "です", "きらい"], ["もの", "を", "つくるのが", "すき", "です"]),
-    selfExplain({ id: "ja-m24-6-2-self-explain", anchorLabel: "M24 production mastery", anchorAudioText: "テレビを みたり まんがを よんだりします", question: "If someone asks しゅみは なんですか, how can you answer using ALL three M24 patterns?", rule: { text: "Answer with しゅみは [hobby]です (naming it). Then add のがすきです (expressing preference) and まいしゅう [Nかい] します (frequency)." }, surface: { text: "Use たり to combine all three into one sentence." }, distractor: { text: "You can only use one pattern per answer — pick the best one." }, ruleExplanation: "Natural answer: しゅみは えです。えを かくのが すきです。まいしゅう にかい かきます。Three patterns, three sentences." }),
+    translateStep({ id: "ja-m24-6-2-translate", promptEn: "I do things like watching movies and listening to music.", acceptedAnswers: ["えいがを みたり おんがくを きいたりします", "えいがを みたり おんがくを きいたりします。"], audioText: "えいがを みたり おんがくを きいたりします" }),
+    build("ja-m24-6-2-build-4", "Say: I like taking photos of my dog.", "いぬの しゃしんを とるのが すきです", ["しゃしん", "いぬ", "の", "を", "とるのが", "すき", "です", "きらい"], ["いぬ", "の", "しゃしん", "を", "とるのが", "すき", "です"]),
+    selfExplain({ id: "ja-m24-6-2-self-explain", anchorLabel: "M24 production mastery", anchorAudioText: "しゅうまつに つりを したり ハイキングを したりします", question: "If someone asks しゅみは なんですか, how can you answer using ALL three M24 patterns?", rule: { text: "Answer with しゅみは [hobby]です (naming it). Then add のがすきです (expressing preference) and まいしゅう [Nかい] します (frequency)." }, surface: { text: "Use たり to combine all three into one sentence." }, distractor: { text: "You can only use one pattern per answer — pick the best one." }, ruleExplanation: "Natural answer: しゅみは えです。えを かくのが すきです。まいしゅう にかい かきます。Three patterns, three sentences." }),
     speaking("ja-m24-6-2-speak-3", "しゅみは しゃしんです", "My hobby is photography."),
     // ── Review tail ──
     speaking("ja-m24-6-2-rev-speak-1", M24_6_2_REVIEW[0].kana, M24_6_2_REVIEW[0].meaningEn),
@@ -1826,7 +1845,7 @@ assertAnswerRotation(M24_6_2.steps, 1);
 assertNoConsecutiveSame(M24_6_2.steps);
 
 // ═══════════════════════════════════════════════════════════════════════
-// M24-STORY — Weekend hobbies conversation
+// M24-STORY — Takeshi's weekend (storyComprehension narrative, §13.13)
 // ═══════════════════════════════════════════════════════════════════════
 
 export const M24_STORY: LessonContent = {
@@ -1834,48 +1853,130 @@ export const M24_STORY: LessonContent = {
   moduleId: "m24",
   courseId: COURSE,
   languageId: LANG,
-  title: "Story — Weekend hobbies",
+  title: "Story — Takeshi's weekend",
   description:
-    "Listen to friends discuss their weekend hobbies. Answer comprehension questions and practice key patterns.",
+    "Listen to たけし describe his hobbies and weekends. Answer comprehension questions and build your replies.",
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep("ja-m24-story-info-open", "Story time — Weekend hobbies", "ゆき and たけし are talking about what they do on weekends. Listen for hobbies, preferences, and frequency."),
-    dialogueListen({
-      id: "ja-m24-story-scene-1",
-      lines: [
-        { speaker: "ゆき", kana: "しゅみは なんですか。" },
-        { speaker: "たけし", kana: "えを かくのが すきです。まいしゅう にかい かきます。" },
-        { speaker: "ゆき", kana: "いいですね。わたしは しゃしんを とるのが すきです。" },
-        { speaker: "たけし", kana: "しゅうまつに なにを しますか。" },
+    infoStep(
+      "ja-m24-story-info-open",
+      "Story time — Takeshi's weekend",
+      "たけし tells you about his hobbies. Listen for preferences, たり lists, and frequency words — then reply yourself.",
+    ),
+    ...storyComprehension({
+      idPrefix: "ja-m24-story-scene-1",
+      narrative: [
+        { kana: "わたしの しゅみは えを かくことです。" },
+        { kana: "まいしゅう にかい えを かきます。" },
+        { kana: "しゅうまつに ハイキングを したり しゃしんを とったりします。" },
+        { kana: "でも、あまり テレビを みません。" },
       ],
-      questions: [
-        { id: "s1-q1", prompt: "What is Takeshi's hobby?", correctText: "Drawing pictures.", distractors: ["Taking photos.", "Fishing.", "Reading manga."], explanation: "えを かくのが すきです = I like drawing pictures." },
-        { id: "s1-q2", prompt: "How often does Takeshi draw?", correctText: "Twice a week.", distractors: ["Once a day.", "Three times a week.", "Every day."], explanation: "まいしゅう にかい = twice a week." },
+      comprehensionQuestions: [
+        {
+          id: "s1-q1",
+          prompt: "What is Takeshi's hobby?",
+          correctText: "Drawing pictures.",
+          distractors: ["Taking photos.", "Watching TV.", "Fishing."],
+          explanation: "しゅみは えを かくことです = my hobby is drawing pictures.",
+        },
+        {
+          id: "s1-q2",
+          prompt: "How often does Takeshi draw?",
+          correctText: "Twice a week.",
+          distractors: ["Once a day.", "Three times a week.", "Every day."],
+          explanation: "まいしゅう にかい = twice a week.",
+        },
+      ],
+      responseBuild: {
+        target: "わたしも えを かくのが すきです",
+        tiles: ["え", "わたし", "かくのが", "も", "を", "すき", "です", "は"],
+        correctOrder: ["わたし", "も", "え", "を", "かくのが", "すき", "です"],
+        promptEn: "Reply to たけし: 'I like drawing pictures too.'",
+      },
+    }),
+    sentenceMcq({
+      id: "ja-m24-story-mcq-1",
+      prompt: "Which does Takeshi NOT do much?",
+      correctKana: "Watch TV.",
+      distractorsKana: ["Draw pictures.", "Go hiking.", "Take photos."],
+      explanation: "あまり テレビを みません = doesn't watch TV much.",
+    }),
+    ...storyComprehension({
+      idPrefix: "ja-m24-story-scene-2",
+      narrative: [
+        { kana: "ときどき ともだちと キャンプに いきます。" },
+        { kana: "やまで しゃしんを とります。" },
+        { kana: "よるは まんがを よんだり おんがくを きいたりします。" },
+        { kana: "ふるい まんがを あつめるのが すきです。" },
+      ],
+      comprehensionQuestions: [
+        {
+          id: "s2-q1",
+          prompt: "Where does Takeshi take photos?",
+          correctText: "In the mountains.",
+          distractors: ["At the sea.", "In the park.", "At school."],
+          explanation: "やまで しゃしんを とります = takes photos in the mountains.",
+        },
+        {
+          id: "s2-q2",
+          prompt: "What does Takeshi do at night?",
+          correctText: "Things like reading manga and listening to music.",
+          distractors: [
+            "Things like jogging and hiking.",
+            "He watches TV.",
+            "He goes camping.",
+          ],
+          explanation: "よんだり きいたりします = does things like reading and listening.",
+        },
+      ],
+      responseBuild: {
+        target: "いっしょに キャンプに いきましょう",
+        tiles: ["キャンプ", "いっしょに", "に", "いきましょう", "いきます", "つり"],
+        correctOrder: ["いっしょに", "キャンプ", "に", "いきましょう"],
+        promptEn: "Invite たけし: 'Let's go camping together.'",
+      },
+    }),
+    listeningCompSentence({
+      id: "ja-m24-story-lc-1",
+      audioText: "よるは まんがを よんだり おんがくを きいたりします",
+      correctMeaningEn: "At night, I do things like reading manga and listening to music.",
+      distractorsEn: [
+        "At night, I watch TV.",
+        "In the morning, I read magazines.",
+        "At night, I do things like drawing and jogging.",
       ],
     }),
-    build("ja-m24-story-build-1", "Say: I like drawing pictures.", "えを かくのが すきです", ["え", "を", "かくのが", "すき", "です", "きらい"], ["え", "を", "かくのが", "すき", "です"]),
-    sentenceMcq({ id: "ja-m24-story-mcq-1", prompt: "What is Yuki's hobby?", correctKana: "Taking photos.", distractorsKana: ["Drawing.", "Fishing.", "Jogging."], explanation: "しゃしんを とるのが すきです = I like taking photos." }),
-    dialogueListen({
-      id: "ja-m24-story-scene-2",
-      lines: [
-        { speaker: "ゆき", kana: "しゅうまつに しゃしんを とったり ハイキングを したりします。" },
-        { speaker: "たけし", kana: "いいですね! わたしも ときどき ハイキングを します。" },
-        { speaker: "ゆき", kana: "アニメは みますか。" },
-        { speaker: "たけし", kana: "あまり みません。でも、まんがは よく よみます。" },
-      ],
-      questions: [
-        { id: "s2-q1", prompt: "What does Yuki do on weekends?", correctText: "Things like taking photos and hiking.", distractors: ["Only taking photos.", "Only hiking.", "Watching anime."], explanation: "しゃしんを とったり ハイキングを したりします = things like photos and hiking." },
-        { id: "s2-q2", prompt: "Does Takeshi watch much anime?", correctText: "No, not much. But he reads manga often.", distractors: ["Yes, he watches a lot.", "He watches every day.", "He doesn't know what anime is."], explanation: "あまり みません = doesn't watch much. まんがは よく よみます = reads manga often." },
-      ],
+    listeningBuildSentence({
+      id: "ja-m24-story-lb-1",
+      target: "やまで しゃしんを とります",
+      tiles: ["しゃしん", "やま", "で", "を", "とります", "うみ"],
+      correctOrder: ["やま", "で", "しゃしん", "を", "とります"],
+      promptEn: "Hear it, build it: 'I take photos in the mountains.'",
     }),
-    cloze("ja-m24-story-cloze-1", "しゃしんを とったり ハイキングを したり", "。", "します", ["します", "する", "です", "ます"], "I do things like taking photos and hiking.", "しゃしんを とったり ハイキングを したりします。", "します closes the たり list."),
-    listeningBuildSentence({ id: "ja-m24-story-lb-1", target: "えを かくのが すきです", tiles: ["え", "を", "かくのが", "すき", "です", "きらい", "しゃしん"], correctOrder: ["え", "を", "かくのが", "すき", "です"], promptEn: "Hear it, build it: 'I like drawing pictures.'" }),
-    listeningCompSentence({ id: "ja-m24-story-lc-1", audioText: "あまり アニメを みません", correctMeaningEn: "I don't watch anime much.", distractorsEn: ["I watch anime often.", "I watch anime every day.", "I like anime."] }),
-    speaking("ja-m24-story-speak-1", "しゃしんを とったり ハイキングを したりします", "I do things like taking photos and hiking."),
-    sentenceMcq({ id: "ja-m24-story-mcq-summary", prompt: "What media does Takeshi consume?", correctKana: "He reads manga often but doesn't watch anime much.", distractorsKana: ["He watches anime every day.", "He reads magazines.", "He listens to the radio."], explanation: "まんがは よく よみます, but あまり アニメを みません." }),
-    speaking("ja-m24-story-speak-2", "まんがは よく よみます", "I often read manga."),
-    infoStep("ja-m24-story-info-end", "You can follow a natural hobby conversation", "You understood のがすき, たり〜たり, frequency words, and あまり in a real weekend chat.", "win"),
+    speaking(
+      "ja-m24-story-speak-1",
+      "ときどき ともだちと キャンプに いきます",
+      "I sometimes go camping with friends.",
+    ),
+    sentenceMcq({
+      id: "ja-m24-story-mcq-summary",
+      prompt: "Which hobby does Takeshi NOT mention?",
+      correctKana: "Fishing.",
+      distractorsKana: ["Drawing.", "Camping.", "Collecting manga."],
+      explanation: "He mentions drawing, hiking, photos, camping, manga, and music — never fishing.",
+    }),
+    speaking(
+      "ja-m24-story-speak-2",
+      "ふるい まんがを あつめるのが すきです",
+      "I like collecting old manga.",
+    ),
+    infoStep(
+      "ja-m24-story-info-end",
+      "You followed a real story about hobbies",
+      "You understood のがすき, たり〜たり, frequency words, and あまり in a natural narrative — and replied in Japanese.",
+      "win",
+    ),
   ],
 };
 
@@ -1888,7 +1989,7 @@ assertExplanationDoesntLeakAnswer(M24_STORY.steps);
 // M24-7-1 — Comprehension closer
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_7_1_REVIEW = pickReviewAtoms("ja-m24-7-1-rev", M24_REVIEW_POOL, 4);
+const M24_7_1_REVIEW = pickReviewAtoms("ja-m24-7-1-rev", M24_REVIEW_POOL, 6);
 
 export const M24_7_1: LessonContent = {
   id: "ja-m24-7-1",
@@ -1914,17 +2015,17 @@ export const M24_7_1: LessonContent = {
         { id: "d-q2", prompt: "How often does Takeshi go?", correctText: "About twice a week.", distractors: ["Once a day.", "Three times a week.", "Every day."], explanation: "にかいぐらい = about twice." },
       ],
     }),
-    build("ja-m24-7-1-build-1", "Say: I often do things like fishing and camping on weekends.", "しゅうまつに よく つりを したり キャンプを したりします", ["しゅうまつ", "に", "よく", "つり", "を", "したり", "キャンプ", "を", "したり", "します"], ["しゅうまつ", "に", "よく", "つり", "を", "したり", "キャンプ", "を", "したり", "します"]),
-    sentenceMcq({ id: "ja-m24-7-1-mcq-1", prompt: "How does ゆき ask about frequency?", correctKana: "まいしゅう なんかい いきますか。", distractorsKana: ["まいにち なにを しますか。", "しゅみは なんですか。", "どこに いきますか。"], explanation: "なんかい = how many times." }),
+    build("ja-m24-7-1-build-1", "Say: I often do things like fishing and camping on weekends.", "しゅうまつに よく つりを したり キャンプを したりします", ["よく", "しゅうまつ", "を", "に", "します", "キャンプ", "つり", "を", "したり", "したり"], ["しゅうまつ", "に", "よく", "つり", "を", "したり", "キャンプ", "を", "したり", "します"]),
+    sentenceMcq({ id: "ja-m24-7-1-mcq-1", prompt: "How does ゆき ask about frequency?", correctKana: "まいしゅう なんかい いきますか。", distractorsKana: ["まいにち なにを しますか。", "いつ つりに いきますか。", "どこに いきますか。"], explanation: "なんかい = how many times." }),
     listeningCompSentence({ id: "ja-m24-7-1-lc-1", audioText: "つりと キャンプが すきです", correctMeaningEn: "I like fishing and camping.", distractorsEn: ["I dislike fishing and camping.", "I go fishing and camping.", "I do fishing and camping."] }),
-    cloze("ja-m24-7-1-cloze-1", "つりを し", " キャンプを したりします。", "たり", ["たり", "て", "ます", "の"], "I do things like fishing and camping.", "つりを したり キャンプを したりします。", "したり = た-form of する + り."),
-    build("ja-m24-7-1-build-2", "Say: I go about twice a week.", "まいしゅう にかいぐらい いきます", ["まいしゅう", "にかいぐらい", "いきます", "さんかい", "いっかい"], ["まいしゅう", "にかいぐらい", "いきます"]),
+    cloze("ja-m24-7-1-cloze-1", "ラジオを きいたり ジョギングを し", "します。", "たり", ["たり", "て", "ます", "の"], "I do things like listening to the radio and jogging.", "ラジオを きいたり ジョギングを したりします。", "したり = た-form of する + り."),
+    build("ja-m24-7-1-build-2", "Say: I go about twice a week.", "まいしゅう にかいぐらい いきます", ["にかいぐらい", "いっかい", "まいしゅう", "いきます", "さんかい"], ["まいしゅう", "にかいぐらい", "いきます"]),
     speaking("ja-m24-7-1-speak-1", "つりと キャンプが すきです", "I like fishing and camping."),
-    listeningBuildSentence({ id: "ja-m24-7-1-lb-1", target: "まいしゅう にかい つりに いきます", tiles: ["まいしゅう", "にかい", "つり", "に", "いきます", "さんかい", "キャンプ"], correctOrder: ["まいしゅう", "にかい", "つり", "に", "いきます"], promptEn: "Hear it, build it: 'I go fishing twice a week.'" }),
-    cloze("ja-m24-7-1-cloze-2", "えを かく", " すきです。", "のが", ["のが", "が", "は", "を"], "I like drawing.", "えを かくのが すきです。", "のが nominalizes the verb."),
-    translateStep({ id: "ja-m24-7-1-translate", promptEn: "On weekends, I do things like fishing and camping.", acceptedAnswers: ["しゅうまつに つりを したり キャンプを したりします", "しゅうまつに つりを したり キャンプを したりします。"], audioText: "しゅうまつに つりを したり キャンプを したりします" }),
+    listeningBuildSentence({ id: "ja-m24-7-1-lb-1", target: "まいしゅう にかい つりに いきます", tiles: ["いきます", "にかい", "さんかい", "つり", "まいしゅう", "に", "キャンプ"], correctOrder: ["まいしゅう", "にかい", "つり", "に", "いきます"], promptEn: "Hear it, build it: 'I go fishing twice a week.'" }),
+    cloze("ja-m24-7-1-cloze-2", "うみで しゃしんを とる", " すきです。", "のが", ["のが", "が", "は", "を"], "I like taking photos at the sea.", "うみで しゃしんを とるのが すきです。", "のが nominalizes the verb."),
+    translateStep({ id: "ja-m24-7-1-translate", promptEn: "On weekends, I do things like reading manga and watching anime.", acceptedAnswers: ["しゅうまつに まんがを よんだり アニメを みたりします", "しゅうまつに まんがを よんだり アニメを みたりします。"], audioText: "しゅうまつに まんがを よんだり アニメを みたりします" }),
     selfExplain({ id: "ja-m24-7-1-self-explain", anchorLabel: "つりを したり キャンプを したりします", anchorAudioText: "つりを したり キャンプを したりします", question: "Does たり〜たり imply Takeshi ONLY does fishing and camping?", rule: { text: "No — たり〜たり is non-exhaustive. It means 'things like X and Y, among other activities.' He might do other things too." }, surface: { text: "Yes — たり lists everything exhaustively, like と." }, distractor: { text: "たり means he alternates between ONLY these two activities." }, ruleExplanation: "たり〜たり = 'things like... (among others).' Unlike と (exhaustive list), it leaves room for unmentioned activities." }),
-    speaking("ja-m24-7-1-speak-2", "しゅうまつに つりを したり キャンプを したりします", "On weekends, I do things like fishing and camping."),
+    speaking("ja-m24-7-1-speak-2", "しゅうまつに しゃしんを とったり ジョギングを したりします", "On weekends, I do things like taking photos and jogging."),
     // ── Review tail ──
     vocabMcq("ja-m24-7-1-rev-mcq-1", M24_7_1_REVIEW[0], M24_REVIEW_POOL),
     listeningCompSentence({ id: "ja-m24-7-1-rev-lc-1", audioText: M24_7_1_REVIEW[1].kana, correctMeaningEn: M24_7_1_REVIEW[1].meaningEn, distractorsEn: [M24_7_1_REVIEW[2].meaningEn, M24_7_1_REVIEW[3].meaningEn, M24_REVIEW_POOL[12].meaningEn] }),
@@ -1942,7 +2043,7 @@ assertNoConsecutiveSame(M24_7_1.steps);
 // M24-7-2 — Final mixed drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M24_7_2_REVIEW = pickReviewAtoms("ja-m24-7-2-rev", M24_REVIEW_POOL, 5);
+const M24_7_2_REVIEW = pickReviewAtoms("ja-m24-7-2-rev", M24_REVIEW_POOL, 6);
 
 export const M24_7_2: LessonContent = {
   id: "ja-m24-7-2",
@@ -1955,18 +2056,18 @@ export const M24_7_2: LessonContent = {
   xpReward: 24,
   steps: [
     infoStep("ja-m24-7-2-info-open", "Final M24 drill", "Everything from M24 mixed together. Prove you own every pattern."),
-    build("ja-m24-7-2-build-1", "Answer: My hobby is hiking.", "しゅみは ハイキングです", ["しゅみ", "は", "ハイキング", "です", "つり", "が"], ["しゅみ", "は", "ハイキング", "です"]),
-    cloze("ja-m24-7-2-cloze-1", "アニメを みたり まんがを よんだり", "。", "します", ["します", "する", "です", "ます"], "I do things like watching anime and reading manga.", "アニメを みたり まんがを よんだりします。", "します closes the たり list."),
+    build("ja-m24-7-2-build-1", "Answer: My hobby is hiking.", "しゅみは ハイキングです", ["ハイキング", "は", "つり", "しゅみ", "が", "です"], ["しゅみ", "は", "ハイキング", "です"]),
+    cloze("ja-m24-7-2-cloze-1", "しゃしんを とったり つりを したり", "。", "します", ["します", "する", "です", "ます"], "I do things like taking photos and fishing.", "しゃしんを とったり つりを したりします。", "します closes the たり list."),
     speaking("ja-m24-7-2-speak-1", "まいしゅう さんかい ジョギングします", "I jog three times a week."),
     sentenceMcq({ id: "ja-m24-7-2-mcq-1", prompt: "Which means 'I like taking photos.'?", correctKana: "しゃしんを とるのが すきです。", distractorsKana: ["しゃしんを とるのが きらいです。", "しゃしんを とります。", "しゃしんが ほしいです。"], explanation: "とるのがすき = like taking." }),
-    build("ja-m24-7-2-build-2", "Say: I don't read magazines much.", "あまり ざっしを よみません", ["あまり", "ざっし", "を", "よみません", "よみます", "よく"], ["あまり", "ざっし", "を", "よみません"]),
-    listeningBuildSentence({ id: "ja-m24-7-2-lb-1", target: "ときどき えを かいたりします", tiles: ["ときどき", "え", "を", "かいたり", "します", "かきます", "よく"], correctOrder: ["ときどき", "え", "を", "かいたり", "します"], promptEn: "Hear it, build it: 'I sometimes do things like drawing.'" }),
+    build("ja-m24-7-2-build-2", "Say: I don't read magazines much.", "あまり ざっしを よみません", ["よく", "よみません", "よみます", "ざっし", "を", "あまり"], ["あまり", "ざっし", "を", "よみません"]),
+    listeningBuildSentence({ id: "ja-m24-7-2-lb-1", target: "ときどき えを かいたりします", tiles: ["え", "します", "よく", "かいたり", "を", "かきます", "ときどき"], correctOrder: ["ときどき", "え", "を", "かいたり", "します"], promptEn: "Hear it, build it: 'I sometimes do things like drawing.'" }),
     listeningCompSentence({ id: "ja-m24-7-2-lc-1", audioText: "まいにち いっかい さんぽします", correctMeaningEn: "I take a walk once every day.", distractorsEn: ["I take a walk every week.", "I take three walks a day.", "I sometimes walk."] }),
-    build("ja-m24-7-2-build-3", "Say: I like making things.", "ものを つくるのが すきです", ["もの", "を", "つくるのが", "すき", "です", "きらい"], ["もの", "を", "つくるのが", "すき", "です"]),
-    cloze("ja-m24-7-2-cloze-2", "しゃしんを とる", " すきです。", "のが", ["のが", "が", "は", "を"], "I like taking photos.", "しゃしんを とるのが すきです。", "のが nominalizes the verb."),
-    speaking("ja-m24-7-2-speak-2", "しゅうまつに キャンプを したり つりを したりします", "On weekends, I do things like camping and fishing."),
+    build("ja-m24-7-2-build-3", "Say: I like drawing manga.", "まんがを かくのが すきです", ["かくのが", "まんが", "を", "すき", "です", "きらい"], ["まんが", "を", "かくのが", "すき", "です"]),
+    cloze("ja-m24-7-2-cloze-2", "ねこの えを かく", " すきです。", "のが", ["のが", "が", "は", "を"], "I like drawing pictures of cats.", "ねこの えを かくのが すきです。", "のが nominalizes the verb."),
+    speaking("ja-m24-7-2-speak-2", "しゅうまつに ハイキングを したり えを かいたりします", "On weekends, I do things like hiking and drawing."),
     sentenceMcq({ id: "ja-m24-7-2-mcq-2", prompt: "Which correctly uses the かい counter?", correctKana: "にほんに さんかい いきました。", distractorsKana: ["にほんに みっつ いきました。", "にほんに さんにん いきました。", "にほんに さんぼん いきました。"], explanation: "さんかい = three times. かい counts occurrences." }),
-    build("ja-m24-7-2-build-4", "Say: I often listen to the radio.", "よく ラジオを ききます", ["よく", "ラジオ", "を", "ききます", "ききません", "あまり"], ["よく", "ラジオ", "を", "ききます"]),
+    build("ja-m24-7-2-build-4", "Say: I often listen to the radio.", "よく ラジオを ききます", ["ききます", "を", "ききません", "よく", "ラジオ", "あまり"], ["よく", "ラジオ", "を", "ききます"]),
     translateStep({ id: "ja-m24-7-2-translate", promptEn: "I do things like watching anime and collecting manga.", acceptedAnswers: ["アニメを みたり まんがを あつめたりします", "アニメを みたり まんがを あつめたりします。"], audioText: "アニメを みたり まんがを あつめたりします" }),
     selfExplain({ id: "ja-m24-7-2-self-explain", anchorLabel: "All M24 patterns mastered", anchorAudioText: "しゅうまつに つりを したりします", question: "Name the three patterns you learned in M24.", rule: { text: "1) のがすき (like doing — review). 2) たり〜たりする (non-exhaustive listing). 3) かい counter (counting times)." }, surface: { text: "つり, キャンプ, and ジョギング — three hobby nouns." }, distractor: { text: "すき, きらい, and あまり — three frequency words." }, ruleExplanation: "M24 grammar: のがすき (preference), たり〜たり (casual listing), かい (times counter)." }),
     speaking("ja-m24-7-2-speak-3", "しゅみは つりです。まいしゅう にかい いきます", "My hobby is fishing. I go twice a week."),
@@ -1974,7 +2075,7 @@ export const M24_7_2: LessonContent = {
     vocabMcq("ja-m24-7-2-rev-mcq-1", M24_7_2_REVIEW[0], M24_REVIEW_POOL),
     listeningCompSentence({ id: "ja-m24-7-2-rev-lc-1", audioText: M24_7_2_REVIEW[1].kana, correctMeaningEn: M24_7_2_REVIEW[1].meaningEn, distractorsEn: [M24_7_2_REVIEW[2].meaningEn, M24_7_2_REVIEW[3].meaningEn, M24_REVIEW_POOL[13].meaningEn] }),
     speaking("ja-m24-7-2-rev-speak-1", M24_7_2_REVIEW[2].kana, M24_7_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m24-7-2-rev", M24_7_2_REVIEW.slice(0, 4)),
+    reviewMatchPairs("ja-m24-7-2-rev", M24_7_2_REVIEW),
     infoStep("ja-m24-7-2-info-end", "You can now talk about hobbies like a natural Japanese speaker", "All M24 grammar mastered: のがすき, たり〜たりする, and かい counter — in full production.", "win"),
   ],
 };

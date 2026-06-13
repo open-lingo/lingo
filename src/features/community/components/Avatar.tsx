@@ -23,7 +23,7 @@ export function Avatar({
 
   return (
     <div
-      className={`inline-flex shrink-0 items-center justify-center rounded-full bg-gray-200 font-medium text-gray-600 ${sizeClasses[size]} ${className}`}
+      className={`inline-flex shrink-0 items-center justify-center rounded-full bg-surface-muted font-medium text-text-secondary ${sizeClasses[size]} ${className}`}
       title={name}
     >
       {src ? (

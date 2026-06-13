@@ -17,6 +17,7 @@ import { ApiError } from "@/shared/api/client";
 import { SHOP_ITEMS, type ShopItem } from "./shopCatalog";
 import { useInvalidateShopQueries, useShopState } from "./useShopState";
 import { AdFreeShopSection } from "@/features/adFree/AdFreeShopSection";
+import { getBannerStyle } from "./bannerStyles";
 import { ShopItemPreview } from "./components/ShopItemPreview";
 import { useRewardedAd } from "@/features/ads/useRewardedAd";
 
@@ -193,11 +194,21 @@ export default function ShopPage() {
 
       {rewardedAd.modalNode}
 
+      <FeaturedBanner
+        items={grouped.banners}
+        lingots={lingots}
+        statsReady={statsReady}
+        pendingId={pendingId}
+        isOwned={isOwned}
+        onPurchase={handlePurchase}
+      />
+
       <AdFreeShopSection lingots={lingots} statsReady={statsReady} />
 
       {grouped.powerups.length > 0 && (
         <ShopSection
           title={t("shop.sectionPowerups", { defaultValue: "Power-ups" })}
+          tint={{ chip: "bg-sky-500", tile: "bg-sky-500/15 text-sky-500" }}
           items={grouped.powerups}
           lingots={lingots}
           statsReady={statsReady}
@@ -211,6 +222,7 @@ export default function ShopPage() {
       {grouped.frames.length > 0 && (
         <ShopSection
           title={t("shop.sectionFrames", { defaultValue: "Avatar frames" })}
+          tint={{ chip: "bg-amber-500", tile: "bg-amber-500/15 text-amber-600" }}
           items={grouped.frames}
           lingots={lingots}
           statsReady={statsReady}
@@ -224,6 +236,7 @@ export default function ShopPage() {
       {grouped.titles.length > 0 && (
         <ShopSection
           title={t("shop.sectionTitles", { defaultValue: "Profile titles" })}
+          tint={{ chip: "bg-violet-500", tile: "bg-violet-500/15 text-violet-500" }}
           items={grouped.titles}
           lingots={lingots}
           statsReady={statsReady}
@@ -237,6 +250,7 @@ export default function ShopPage() {
       {grouped.banners.length > 0 && (
         <ShopSection
           title={t("shop.sectionBanners", { defaultValue: "Profile banners" })}
+          tint={{ chip: "bg-pink-500", tile: "bg-pink-500/15 text-pink-500" }}
           items={grouped.banners}
           lingots={lingots}
           statsReady={statsReady}
@@ -297,8 +311,80 @@ export default function ShopPage() {
   );
 }
 
+/**
+ * "Spend your boldness in one place" — a single full-bleed featured
+ * banner anchors the page; every card below stays disciplined. Picks
+ * the first banner the user doesn't own yet.
+ */
+function FeaturedBanner({
+  items,
+  lingots,
+  statsReady,
+  pendingId,
+  isOwned,
+  onPurchase,
+}: {
+  items: ShopItem[];
+  lingots: number | null;
+  statsReady: boolean;
+  pendingId: string | null;
+  isOwned: (id: string, consumable: boolean) => boolean;
+  onPurchase: (itemId: string, price: number) => void;
+}) {
+  const { t } = useTranslation();
+  const item = items.find((b) => !isOwned(b.id, false));
+  if (!item || !item.bannerId) return null;
+  const style = getBannerStyle(item.bannerId);
+  if (!style) return null;
+  const Svg = style.Svg;
+  const canAfford = statsReady && lingots !== null && lingots >= item.price;
+  const busy = pendingId === item.id;
+  return (
+    <section
+      className="relative overflow-hidden rounded-2xl border border-border shadow-[var(--shadow-card)]"
+      aria-label={t("shop.featured", { defaultValue: "Featured banner" })}
+    >
+      <Svg
+        preserveAspectRatio="xMidYMid slice"
+        className="block h-36 w-full sm:h-44"
+        aria-hidden
+      />
+      <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/55 via-black/10 to-transparent p-4 sm:p-5">
+        <div className="flex w-full items-end justify-between gap-3">
+          <div className="min-w-0">
+            <p className="text-[0.65rem] font-bold uppercase tracking-widest text-white/80">
+              {t("shop.featuredLabel", { defaultValue: "Featured" })}
+            </p>
+            <p className="truncate text-lg font-extrabold text-white">
+              {t(`shop.items.${item.titleKey}`, { defaultValue: item.id })}
+            </p>
+          </div>
+          <Button
+            type="button"
+            variant="primary-3d"
+            size="sm"
+            className="shrink-0"
+            disabled={!statsReady || busy || !canAfford}
+            onClick={() => onPurchase(item.id, item.price)}
+          >
+            <span className="inline-flex items-center gap-1.5">
+              {!canAfford ? <Icon name="lock" size={13} aria-hidden /> : null}
+              <Icon name="gem" size={13} aria-hidden />
+              {item.price}
+            </span>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 type SectionProps = {
   title: string;
+  /** Section identity — `chip` colors the header marker, `tile` the
+   *  icon previews. One sharp hue per section (power-ups ice, frames
+   *  gold, titles violet); fixed hues w/ alpha stay theme-safe. */
+  tint?: { chip: string; tile: string };
   items: ShopItem[];
   lingots: number | null;
   statsReady: boolean;
@@ -310,6 +396,7 @@ type SectionProps = {
 
 function ShopSection({
   title,
+  tint,
   items,
   lingots,
   statsReady,
@@ -322,7 +409,12 @@ function ShopSection({
 
   return (
     <section>
-      <h2 className="mb-3 text-lg font-semibold text-text-primary">{title}</h2>
+      <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-text-primary">
+        {tint ? (
+          <span className={`h-5 w-1.5 rounded-full ${tint.chip}`} aria-hidden />
+        ) : null}
+        {title}
+      </h2>
       <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {items.map((item) => {
           const owned = isOwned(item.id, item.consumable);
@@ -334,7 +426,7 @@ function ShopSection({
           return (
             <li key={item.id}>
               <Card padding="md" className="flex h-full flex-col">
-                <ShopItemPreview item={item} />
+                <ShopItemPreview item={item} tint={tint?.tile} />
                 <div className="mt-3 min-w-0">
                   <p className="font-semibold text-text-primary">
                     {t(`shop.items.${item.titleKey}`, { defaultValue: item.id })}
@@ -343,11 +435,7 @@ function ShopSection({
                     {t(`shop.items.${item.descriptionKey}`, { defaultValue: "" })}
                   </p>
                 </div>
-                <div className="mt-4 flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-accent">
-                    <Icon name="gem" size={14} aria-hidden />
-                    {item.price}
-                  </span>
+                <div className="mt-4 flex items-center justify-end gap-2">
                   {!item.consumable && owned ? (
                     <span className="text-xs font-medium text-success">
                       {t("shop.owned", { defaultValue: "Owned" })}
@@ -371,15 +459,26 @@ function ShopSection({
                   }
                   onClick={() => onPurchase(item.id, item.price)}
                 >
-                  {busy
-                    ? t("common.loading", { defaultValue: "Loading…" })
-                    : !item.consumable && owned
-                      ? t("shop.owned", { defaultValue: "Owned" })
-                      : showBuyAgain
+                  {busy ? (
+                    t("common.loading", { defaultValue: "Loading…" })
+                  ) : !item.consumable && owned ? (
+                    t("shop.owned", { defaultValue: "Owned" })
+                  ) : (
+                    // Price IS the label — a page of "Need more lingots"
+                    // read as switched-off; a price + lock still sells.
+                    <span className="inline-flex items-center gap-1.5">
+                      {!canAfford && !showBuyAgain ? (
+                        <Icon name="lock" size={13} aria-hidden />
+                      ) : null}
+                      {showBuyAgain
                         ? t("shop.buyAgain", { defaultValue: "Buy again" })
-                        : canAfford
-                          ? t("shop.buy", { defaultValue: "Buy" })
-                          : t("shop.needMore", { defaultValue: "Need more lingots" })}
+                        : t("shop.buy", { defaultValue: "Buy" })}
+                      <span className="inline-flex items-center gap-0.5 font-bold">
+                        <Icon name="gem" size={13} aria-hidden />
+                        {item.price}
+                      </span>
+                    </span>
+                  )}
                 </Button>
               </Card>
             </li>

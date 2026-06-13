@@ -77,15 +77,14 @@ export function SymbolToSoundStepView({
 
   const handleEnter = useCallback(() => {
     if (!submitted && selected) handleSubmit();
-    else if (submitted && !celebrating) onContinue();
-  }, [submitted, selected, celebrating, onContinue]);
+    else if (submitted) onContinue();
+  }, [submitted, selected, onContinue]);
 
   useLessonKeyboard({
     onEnter: handleEnter,
     onNumber: (n) => {
       if (!submitted && n <= step.options.length) handleOptionTap(step.options[n - 1]);
     },
-    enabled: !celebrating,
   });
 
   const optionCount = step.options.length;
@@ -104,15 +103,17 @@ export function SymbolToSoundStepView({
           "Tap a sound to hear it. Pick the one that matches.",
         )}
       </p>
-      <div className="flex justify-center">
+      {/* mt-auto / mb-auto pair centers the glyph + options block in the
+          leftover column height; CTA stays pinned at the bottom. */}
+      <div className="mt-auto flex justify-center">
         <span
-          className="font-japanese text-[140px] font-bold leading-none text-text-primary"
+          className="font-japanese text-[clamp(140px,22dvh,200px)] font-bold leading-none text-text-primary"
           aria-hidden
         >
           {step.payload.symbol}
         </span>
       </div>
-      <div className={`relative grid gap-4 ${optionGridCols}`}>
+      <div className={`relative mb-auto grid gap-4 ${optionGridCols}`}>
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
@@ -120,16 +121,16 @@ export function SymbolToSoundStepView({
           // Selected state uses solid accent fill so the picked button is
           // unmistakable in both dark and light themes.
           let style =
-            "flex items-center justify-center gap-3 rounded-xl border-2 border-border bg-surface py-8 text-center text-2xl font-bold text-text-primary transition-colors duration-150 hover:border-accent";
+            "flex items-center justify-center gap-3 rounded-xl border-2 border-border bg-surface py-8 text-center text-2xl sm:text-3xl font-bold text-text-primary transition-colors duration-150 hover:border-accent";
           if (submitted && isAnswer) {
             style =
-              "flex items-center justify-center gap-3 rounded-xl border-2 border-accent bg-accent py-8 text-center text-2xl font-bold text-white transition-colors duration-150";
+              "flex items-center justify-center gap-3 rounded-xl border-2 border-accent bg-accent py-8 text-center text-2xl sm:text-3xl font-bold text-white transition-colors duration-150";
           } else if (submitted && isSelected && !isAnswer) {
             style =
-              "flex items-center justify-center gap-3 rounded-xl border-2 border-error bg-error/15 py-8 text-center text-2xl font-bold text-error transition-colors duration-150";
+              "flex items-center justify-center gap-3 rounded-xl border-2 border-error bg-error/15 py-8 text-center text-2xl sm:text-3xl font-bold text-error transition-colors duration-150";
           } else if (isSelected) {
             style =
-              "flex items-center justify-center gap-3 rounded-xl border-2 border-accent bg-accent py-8 text-center text-2xl font-bold text-white transition-colors duration-150";
+              "flex items-center justify-center gap-3 rounded-xl border-2 border-accent bg-accent py-8 text-center text-2xl sm:text-3xl font-bold text-white transition-colors duration-150";
           }
           return (
             <button
@@ -145,27 +146,25 @@ export function SymbolToSoundStepView({
             </button>
           );
         })}
-        {celebrating && <CelebrationToast text={celebrationText} />}
       </div>
-      {submitted && !isCorrect && <Feedback correct={false} />}
-      {!submitted ? (
-        <ContinueButton
-          onClick={handleSubmit}
-          label="Check"
-          disabled={!selected}
-        />
-      ) : celebrating ? (
-        <div className="invisible" aria-hidden>
-          <ContinueButton onClick={() => {}} />
-        </div>
-      ) : (
-        <div className="motion-safe:animate-fade-up">
+      {/* Single bottom block: banner + CTA together so the button never
+          moves on submit. */}
+      <div className="relative flex flex-col gap-4">
+        {celebrating && <CelebrationToast text={celebrationText} />}
+        {submitted && !isCorrect && <Feedback correct={false} />}
+        {!submitted ? (
+          <ContinueButton
+            onClick={handleSubmit}
+            label="Check"
+            disabled={!selected}
+          />
+        ) : (
           <ContinueButton
             onClick={onContinue}
             variant={isCorrect ? "correct" : "incorrect"}
           />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

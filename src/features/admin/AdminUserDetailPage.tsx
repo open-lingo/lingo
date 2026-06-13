@@ -1001,7 +1001,7 @@ export function AdminUserDetailPage() {
                                 type="button"
                                 onClick={() => setDeckDeleteConfirm(null)}
                                 disabled={!!deckAction}
-                                className="rounded border border-gray-300 px-2 py-1 text-xs font-medium"
+                                className="rounded border border-border px-2 py-1 text-xs font-medium"
                               >
                                 {t("forum.cancel")}
                               </button>

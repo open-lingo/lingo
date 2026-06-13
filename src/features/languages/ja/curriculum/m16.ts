@@ -9,9 +9,14 @@
  *
  * Prereqs: て-form (M14), ている (M15), てもいい (M15), ない-form (M11).
  *
- * Split into 14 sub-lessons + 1 story = 15 exports.
+ * Split into 14 sub-lessons + 1 story = 15 exports. The story lesson uses the
+ * storyComprehension() factory (§13.13 locked template).
  * Each sub-lesson has 18-22 steps. All vocab introductions use build() steps
  * where the learner assembles the word from tiles (figuroutable pattern).
+ *
+ * Backlog weave (2026-06-12 sentence-variety rewrite): さきに (first/before —
+ * taught ja-m16-3-2, reused 6-1 + story) and この へん (this area — taught
+ * ja-m16-5-2, reused 6-2 + 7-1). ところ deferred (no natural carrier here).
  *
  * Key teaching points:
  *   - てはいけません is the OPPOSITE of てもいい (M15)
@@ -27,7 +32,6 @@ import type { LessonContent } from "@/features/lesson/types";
 import {
   build,
   cloze,
-  dialogueListen,
   grammarRule,
   infoStep,
   listeningBuildSentence,
@@ -39,6 +43,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  storyComprehension,
   translateStep,
   vocabMcq,
   assertNoSameAnswerCluster,
@@ -204,7 +209,7 @@ const RULE_NO_GA_SUKI = grammarRule({
 // M16-1-1 — "You must not" (てはいけません intro)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_1_1_REVIEW = pickReviewAtoms("ja-m16-1-1-rev", M16_REVIEW_POOL, 4);
+const M16_1_1_REVIEW = pickReviewAtoms("ja-m16-1-1-rev", M16_REVIEW_POOL, 6);
 
 export const M16_1_1: LessonContent = {
   id: "ja-m16-1-1",
@@ -228,7 +233,7 @@ export const M16_1_1: LessonContent = {
       "ja-m16-1-1-build-suwaru",
       "Pick the Japanese word for: Sit",
       "すわる",
-      ["すわる", "さわる", "すう", "とめる"],
+      ["さわる", "すう", "すわる", "とめる"],
       ["すわる"],
     ),
     listeningCompSentence({
@@ -242,7 +247,7 @@ export const M16_1_1: LessonContent = {
       "ja-m16-1-1-build-sawaru",
       "Pick the Japanese word for: Touch",
       "さわる",
-      ["さわる", "すわる", "すう", "かえる"],
+      ["すわる", "さわる", "すう", "かえる"],
       ["さわる"],
     ),
     speaking("ja-m16-1-1-speak-sawaru", "さわる", "Touch"),
@@ -251,7 +256,7 @@ export const M16_1_1: LessonContent = {
       "ja-m16-1-1-build-suu",
       "Pick the Japanese word for: Smoke/Inhale",
       "すう",
-      ["すう", "すわる", "さわる", "あらう"],
+      ["すわる", "すう", "さわる", "あらう"],
       ["すう"],
     ),
     listeningCompSentence({
@@ -265,7 +270,7 @@ export const M16_1_1: LessonContent = {
       "ja-m16-1-1-build-suwatte",
       "Say: You must not sit here.",
       "ここに すわってはいけません",
-      ["ここ", "に", "すわって", "はいけません", "てもいいです", "さわって"],
+      ["すわって", "てもいいです", "ここ", "はいけません", "に", "さわって"],
       ["ここ", "に", "すわって", "はいけません"],
     ),
     cloze(
@@ -285,7 +290,7 @@ export const M16_1_1: LessonContent = {
       distractorsKana: [
         "さわってもいいです。",
         "さわってください。",
-        "さわらないでください。",
+        "さわりません。",
       ],
       explanation: "さわって + はいけません = you must not touch.",
     }),
@@ -301,18 +306,18 @@ export const M16_1_1: LessonContent = {
     }),
     cloze(
       "ja-m16-1-1-cloze-2",
-      "ここに ",
+      "そこに ",
       "はいけません。",
       "すわって",
       ["すわって", "さわって", "すって", "とめて"],
-      "You must not sit here.",
-      "ここに すわってはいけません。",
+      "You must not sit there.",
+      "そこに すわってはいけません。",
       "すわる → te-form すわって + はいけません.",
     ),
     selfExplain({
       id: "ja-m16-1-1-self",
       anchorLabel: "すってはいけません (must not smoke)",
-      anchorAudioText: "たばこを すってはいけません",
+      anchorAudioText: "ここで たばこを すってはいけません",
       question: "How is てはいけません different from てもいいです?",
       rule: { text: "てもいいです grants permission ('you may'). てはいけません states prohibition ('you must not'). They are opposites built on the same て-form." },
       surface: { text: "てはいけません is the past tense of てもいいです." },
@@ -355,7 +360,7 @@ assertNoConsecutiveSame(M16_1_1.steps);
 // M16-1-2 — "You must not" (てはいけません drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_1_2_REVIEW = pickReviewAtoms("ja-m16-1-2-rev", M16_REVIEW_POOL, 4);
+const M16_1_2_REVIEW = pickReviewAtoms("ja-m16-1-2-rev", M16_REVIEW_POOL, 6);
 
 export const M16_1_2: LessonContent = {
   id: "ja-m16-1-2",
@@ -378,7 +383,7 @@ export const M16_1_2: LessonContent = {
       "ja-m16-1-2-build-tomeru",
       "Pick the Japanese word for: Park / Stop",
       "とめる",
-      ["とめる", "すわる", "さわる", "はいる"],
+      ["すわる", "とめる", "さわる", "はいる"],
       ["とめる"],
     ),
     listeningCompSentence({
@@ -402,7 +407,7 @@ export const M16_1_2: LessonContent = {
       "ja-m16-1-2-build-hairu",
       "Pick the Japanese word for: Enter",
       "はいる",
-      ["はいる", "とめる", "すわる", "かえる"],
+      ["とめる", "はいる", "すわる", "かえる"],
       ["はいる"],
     ),
     sentenceMcq({
@@ -428,16 +433,16 @@ export const M16_1_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m16-1-2-lb-1",
-      target: "ここに くるまを とめてはいけません",
-      tiles: ["ここ", "に", "くるま", "を", "とめて", "はいけません", "もいいです"],
-      correctOrder: ["ここ", "に", "くるま", "を", "とめて", "はいけません"],
-      promptEn: "Hear it, build it: 'You must not park your car here.'",
+      target: "えきの まえに とめてはいけません",
+      tiles: ["とめて", "えき", "はいけません", "の", "まえ", "に", "もいいです"],
+      correctOrder: ["えき", "の", "まえ", "に", "とめて", "はいけません"],
+      promptEn: "Hear it, build it: 'You must not park in front of the station.'",
     }),
     build(
       "ja-m16-1-2-build-shashin",
       "Say: You must not take photos.",
       "しゃしんを とってはいけません",
-      ["しゃしん", "を", "とって", "はいけません", "もいいです", "ください"],
+      ["とって", "しゃしん", "はいけません", "を", "もいいです", "ください"],
       ["しゃしん", "を", "とって", "はいけません"],
     ),
     sentenceMcq({
@@ -445,7 +450,7 @@ export const M16_1_2: LessonContent = {
       prompt: "Which means 'You may sit here.'? (NOT prohibition!)",
       correctKana: "ここに すわってもいいです。",
       distractorsKana: [
-        "ここに すわってはいけません。",
+        "そこに すわってもいいです。",
         "ここに すわらないでください。",
         "ここに すわってください。",
       ],
@@ -453,12 +458,12 @@ export const M16_1_2: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m16-1-2-lc-shashin",
-      audioText: "しゃしんを とってはいけません",
-      correctMeaningEn: "You must not take photos.",
+      audioText: "でんしゃで たべてはいけません",
+      correctMeaningEn: "You must not eat on the train.",
       distractorsEn: [
-        "You may take photos.",
-        "Please take photos.",
-        "I took photos.",
+        "You may eat on the train.",
+        "Please eat on the train.",
+        "I eat on the train.",
       ],
     }),
     cloze(
@@ -473,12 +478,12 @@ export const M16_1_2: LessonContent = {
     ),
     translateStep({
       id: "ja-m16-1-2-translate",
-      promptEn: "You must not smoke here.",
+      promptEn: "You must not smoke at the station.",
       acceptedAnswers: [
-        "ここで たばこを すってはいけません",
-        "ここで たばこを すってはいけません。",
+        "えきで たばこを すってはいけません",
+        "えきで たばこを すってはいけません。",
       ],
-      audioText: "ここで たばこを すってはいけません",
+      audioText: "えきで たばこを すってはいけません",
     }),
     selfExplain({
       id: "ja-m16-1-2-self",
@@ -526,7 +531,7 @@ assertNoConsecutiveSame(M16_1_2.steps);
 // M16-2-1 — "Please don't" (ないでください intro)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_2_1_REVIEW = pickReviewAtoms("ja-m16-2-1-rev", M16_REVIEW_POOL, 4);
+const M16_2_1_REVIEW = pickReviewAtoms("ja-m16-2-1-rev", M16_REVIEW_POOL, 6);
 
 export const M16_2_1: LessonContent = {
   id: "ja-m16-2-1",
@@ -550,17 +555,17 @@ export const M16_2_1: LessonContent = {
       "ja-m16-2-1-build-sawara",
       "Say: Please don't touch.",
       "さわらないでください",
-      ["さわらないで", "ください", "さわって", "はいけません"],
+      ["ください", "さわって", "さわらないで", "はいけません"],
       ["さわらないで", "ください"],
     ),
     listeningCompSentence({
       id: "ja-m16-2-1-lc-sawara",
-      audioText: "さわらないでください",
-      correctMeaningEn: "Please don't touch.",
+      audioText: "いぬに さわらないでください",
+      correctMeaningEn: "Please don't touch the dog.",
       distractorsEn: [
-        "You must not touch.",
-        "Please touch.",
-        "I don't touch.",
+        "You must not touch the dog.",
+        "Please touch the dog.",
+        "I don't touch dogs.",
       ],
     }),
     sentenceMcq({
@@ -588,15 +593,15 @@ export const M16_2_1: LessonContent = {
       "ja-m16-2-1-build-hairanaide",
       "Say: Please don't enter.",
       "はいらないでください",
-      ["はいらないで", "ください", "はいって", "はいけません"],
+      ["はいって", "ください", "はいらないで", "はいけません"],
       ["はいらないで", "ください"],
     ),
     listeningBuildSentence({
       id: "ja-m16-2-1-lb-sawara",
-      target: "さわらないでください",
-      tiles: ["さわらないで", "ください", "さわって", "はいけません", "もいいです"],
-      correctOrder: ["さわらないで", "ください"],
-      promptEn: "Hear it, build it: 'Please don't touch.'",
+      target: "テレビを みないでください",
+      tiles: ["みないで", "テレビ", "ください", "を", "みて", "はいけません"],
+      correctOrder: ["テレビ", "を", "みないで", "ください"],
+      promptEn: "Hear it, build it: 'Please don't watch TV.'",
     }),
     cloze(
       "ja-m16-2-1-cloze-2",
@@ -623,7 +628,7 @@ export const M16_2_1: LessonContent = {
       "ja-m16-2-1-build-tomenaide",
       "Say: Please don't park here.",
       "ここに とめないでください",
-      ["ここ", "に", "とめないで", "ください", "とめて", "はいけません"],
+      ["とめて", "ここ", "ください", "に", "とめないで", "はいけません"],
       ["ここ", "に", "とめないで", "ください"],
     ),
     listeningCompSentence({
@@ -638,18 +643,18 @@ export const M16_2_1: LessonContent = {
     }),
     cloze(
       "ja-m16-2-1-cloze-3",
-      "はいら",
+      "いま はいら",
       "ください。",
       "ないで",
       ["ないで", "って", "なくて", "ないと"],
-      "Please don't enter.",
-      "はいらないでください。",
+      "Please don't enter right now.",
+      "いま はいらないでください。",
       "はいる → はいらない + でください.",
     ),
     selfExplain({
       id: "ja-m16-2-1-self",
       anchorLabel: "さわらないでください (please don't touch)",
-      anchorAudioText: "さわらないでください",
+      anchorAudioText: "いぬに さわらないでください",
       question: "Why ないで instead of なくて before ください?",
       rule: { text: "For negative requests, the pattern is [ない-form] + で + ください. なくて is the te-form of ない used for linking sentences — it cannot form a request." },
       surface: { text: "なくてください and ないでください mean the same thing." },
@@ -692,7 +697,7 @@ assertNoConsecutiveSame(M16_2_1.steps);
 // M16-2-2 — "Please don't" (ないでください drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_2_2_REVIEW = pickReviewAtoms("ja-m16-2-2-rev", M16_REVIEW_POOL, 4);
+const M16_2_2_REVIEW = pickReviewAtoms("ja-m16-2-2-rev", M16_REVIEW_POOL, 6);
 
 export const M16_2_2: LessonContent = {
   id: "ja-m16-2-2",
@@ -725,7 +730,7 @@ export const M16_2_2: LessonContent = {
       "ja-m16-2-2-build-1",
       "Say: Please don't eat in the classroom.",
       "きょうしつで たべないでください",
-      ["きょうしつ", "で", "たべないで", "ください", "たべて", "はいけません"],
+      ["たべないで", "きょうしつ", "ください", "で", "たべて", "はいけません"],
       ["きょうしつ", "で", "たべないで", "ください"],
     ),
     sentenceMcq({
@@ -741,12 +746,12 @@ export const M16_2_2: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m16-2-2-lc-1",
-      audioText: "きょうしつで たべないでください",
-      correctMeaningEn: "Please don't eat in the classroom.",
+      audioText: "としょかんで たべないでください",
+      correctMeaningEn: "Please don't eat in the library.",
       distractorsEn: [
-        "You must not eat in the classroom.",
-        "Please eat in the classroom.",
-        "I don't eat in the classroom.",
+        "You must not eat in the library.",
+        "Please eat in the library.",
+        "I don't eat in the library.",
       ],
     }),
     cloze(
@@ -761,17 +766,17 @@ export const M16_2_2: LessonContent = {
     ),
     build(
       "ja-m16-2-2-build-2",
-      "Say: Please don't touch the art.",
-      "さわらないでください",
-      ["さわらないで", "ください", "さわって", "はいけません"],
-      ["さわらないで", "ください"],
+      "Say: Please don't touch that.",
+      "それに さわらないでください",
+      ["さわって", "それ", "ください", "に", "さわらないで"],
+      ["それ", "に", "さわらないで", "ください"],
     ),
     listeningBuildSentence({
       id: "ja-m16-2-2-lb-1",
-      target: "きょうしつで たべないでください",
-      tiles: ["きょうしつ", "で", "たべないで", "ください", "たべて", "はいけません"],
-      correctOrder: ["きょうしつ", "で", "たべないで", "ください"],
-      promptEn: "Hear it, build it: 'Please don't eat in the classroom.'",
+      target: "ここで あそばないでください",
+      tiles: ["あそんで", "ここ", "ください", "で", "あそばないで", "はいけません"],
+      correctOrder: ["ここ", "で", "あそばないで", "ください"],
+      promptEn: "Hear it, build it: 'Please don't play here.'",
     }),
     sentenceMcq({
       id: "ja-m16-2-2-mcq-2",
@@ -786,13 +791,13 @@ export const M16_2_2: LessonContent = {
     }),
     cloze(
       "ja-m16-2-2-cloze-3",
-      "しゃしんを とら",
+      "わたしの コーヒーを のま",
       "ください。",
       "ないで",
       ["ないで", "って", "なくて", "ないと"],
-      "Please don't take photos.",
-      "しゃしんを とらないでください。",
-      "とる → とらない + でください.",
+      "Please don't drink my coffee.",
+      "わたしの コーヒーを のまないでください。",
+      "のむ → のまない + でください.",
     ),
     listeningCompSentence({
       id: "ja-m16-2-2-lc-2",
@@ -806,24 +811,24 @@ export const M16_2_2: LessonContent = {
     }),
     build(
       "ja-m16-2-2-build-3",
-      "Say: You must not enter the office.",
-      "じむしょに はいってはいけません",
-      ["じむしょ", "に", "はいって", "はいけません", "はいらないで", "ください"],
-      ["じむしょ", "に", "はいって", "はいけません"],
+      "Say: You must not enter the classroom.",
+      "きょうしつに はいってはいけません",
+      ["はいって", "きょうしつ", "はいけません", "に", "はいらないで", "ください"],
+      ["きょうしつ", "に", "はいって", "はいけません"],
     ),
     translateStep({
       id: "ja-m16-2-2-translate",
-      promptEn: "Please don't touch.",
+      promptEn: "Please don't drink the water.",
       acceptedAnswers: [
-        "さわらないでください",
-        "さわらないでください。",
+        "みずを のまないでください",
+        "みずを のまないでください。",
       ],
-      audioText: "さわらないでください",
+      audioText: "みずを のまないでください",
     }),
     selfExplain({
       id: "ja-m16-2-2-self",
       anchorLabel: "ないでください vs てはいけません",
-      anchorAudioText: "たべないでください",
+      anchorAudioText: "としょかんで たべないでください",
       question: "When would you use ないでください instead of てはいけません?",
       rule: { text: "ないでください is a polite request — asking someone to please refrain. てはいけません is a strict prohibition — stating a rule. Use ないでください for person-to-person requests; てはいけません for rules and signs." },
       surface: { text: "They mean the same thing — pick whichever sounds better." },
@@ -866,7 +871,7 @@ assertNoConsecutiveSame(M16_2_2.steps);
 // M16-3-1 — "After doing X" (てから intro)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_3_1_REVIEW = pickReviewAtoms("ja-m16-3-1-rev", M16_REVIEW_POOL, 4);
+const M16_3_1_REVIEW = pickReviewAtoms("ja-m16-3-1-rev", M16_REVIEW_POOL, 6);
 
 export const M16_3_1: LessonContent = {
   id: "ja-m16-3-1",
@@ -890,7 +895,7 @@ export const M16_3_1: LessonContent = {
       "ja-m16-3-1-build-arau",
       "Pick the Japanese word for: Wash",
       "あらう",
-      ["あらう", "かえる", "きがえる", "すわる"],
+      ["かえる", "あらう", "きがえる", "すわる"],
       ["あらう"],
     ),
     listeningCompSentence({
@@ -904,7 +909,7 @@ export const M16_3_1: LessonContent = {
       "ja-m16-3-1-build-kigaeru",
       "Pick the Japanese word for: Change clothes",
       "きがえる",
-      ["きがえる", "あらう", "かえる", "さわる"],
+      ["あらう", "かえる", "きがえる", "さわる"],
       ["きがえる"],
     ),
     speaking("ja-m16-3-1-speak-kigaeru", "きがえる", "Change clothes"),
@@ -913,7 +918,7 @@ export const M16_3_1: LessonContent = {
       "ja-m16-3-1-build-kaeru",
       "Pick the Japanese word for: Return / Go home",
       "かえる",
-      ["かえる", "あらう", "きがえる", "はいる"],
+      ["きがえる", "かえる", "あらう", "はいる"],
       ["かえる"],
     ),
     listeningCompSentence({
@@ -927,7 +932,7 @@ export const M16_3_1: LessonContent = {
       "ja-m16-3-1-build-tekara-1",
       "Say: After washing hands, I eat.",
       "てを あらってから たべます",
-      ["て", "を", "あらって", "から", "たべます", "みます", "かえって"],
+      ["あらって", "たべます", "て", "から", "を", "みます", "かえって"],
       ["て", "を", "あらって", "から", "たべます"],
     ),
     cloze(
@@ -953,12 +958,12 @@ export const M16_3_1: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m16-3-1-lc-tekara",
-      audioText: "てを あらってから たべます",
-      correctMeaningEn: "After washing my hands, I eat.",
+      audioText: "シャワーを あびてから ねます",
+      correctMeaningEn: "After taking a shower, I go to bed.",
       distractorsEn: [
-        "I wash my hands because I eat.",
-        "I wash my hands and eat.",
-        "Before washing my hands, I eat.",
+        "I take a shower because I sleep.",
+        "Before showering, I go to bed.",
+        "I shower and wake up.",
       ],
     }),
     cloze(
@@ -1017,7 +1022,7 @@ assertNoConsecutiveSame(M16_3_1.steps);
 // M16-3-2 — "After doing X" (てから drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_3_2_REVIEW = pickReviewAtoms("ja-m16-3-2-rev", M16_REVIEW_POOL, 4);
+const M16_3_2_REVIEW = pickReviewAtoms("ja-m16-3-2-rev", M16_REVIEW_POOL, 6);
 
 export const M16_3_2: LessonContent = {
   id: "ja-m16-3-2",
@@ -1040,7 +1045,7 @@ export const M16_3_2: LessonContent = {
       "ja-m16-3-2-build-shukudai",
       "Pick the Japanese word for: Homework",
       "しゅくだい",
-      ["しゅくだい", "きょうしつ", "じむしょ", "エレベーター"],
+      ["きょうしつ", "じむしょ", "しゅくだい", "エレベーター"],
       ["しゅくだい"],
     ),
     listeningCompSentence({
@@ -1054,7 +1059,7 @@ export const M16_3_2: LessonContent = {
       "ja-m16-3-2-build-kyoushitsu",
       "Pick the Japanese word for: Classroom",
       "きょうしつ",
-      ["きょうしつ", "しゅくだい", "じむしょ", "かいだん"],
+      ["しゅくだい", "きょうしつ", "じむしょ", "かいだん"],
       ["きょうしつ"],
     ),
     speaking("ja-m16-3-2-speak-kyoushitsu", "きょうしつ", "Classroom"),
@@ -1073,7 +1078,7 @@ export const M16_3_2: LessonContent = {
       "ja-m16-3-2-build-tekara-1",
       "Say: After eating breakfast, I go to school.",
       "あさごはんを たべてから がっこうに いきます",
-      ["あさごはん", "を", "たべて", "から", "がっこう", "に", "いきます", "かえります"],
+      ["たべて", "がっこう", "あさごはん", "いきます", "を", "に", "から", "かえります"],
       ["あさごはん", "を", "たべて", "から", "がっこう", "に", "いきます"],
     ),
     sentenceMcq({
@@ -1111,26 +1116,26 @@ export const M16_3_2: LessonContent = {
       "ja-m16-3-2-build-tekara-2",
       "Say: After going home, I do homework.",
       "うちに かえってから しゅくだいを します",
-      ["うち", "に", "かえって", "から", "しゅくだい", "を", "します", "みます"],
+      ["かえって", "しゅくだい", "うち", "します", "に", "を", "から", "みます"],
       ["うち", "に", "かえって", "から", "しゅくだい", "を", "します"],
     ),
-    listeningBuildSentence({
-      id: "ja-m16-3-2-lb-1",
-      target: "しゅくだいを してから テレビを みます",
-      tiles: ["しゅくだい", "を", "して", "から", "テレビ", "を", "みます", "あそびます"],
-      correctOrder: ["しゅくだい", "を", "して", "から", "テレビ", "を", "みます"],
-      promptEn: "Hear it, build it: 'After doing homework, I watch TV.'",
-    }),
+    build(
+      "ja-m16-3-2-build-saki",
+      "さきに means 'first / before anything else.' Say: First, I do my homework.",
+      "さきに しゅくだいを します",
+      ["しゅくだい", "さきに", "します", "を", "てから"],
+      ["さきに", "しゅくだい", "を", "します"],
+    ),
     translateStep({
       id: "ja-m16-3-2-translate",
-      promptEn: "After washing my hands, I eat.",
+      promptEn: "After studying, I go to bed.",
       acceptedAnswers: [
-        "てを あらってから たべます",
-        "てを あらってから たべます。",
-        "てを あらってから、たべます",
-        "てを あらってから、たべます。",
+        "べんきょうしてから ねます",
+        "べんきょうしてから ねます。",
+        "べんきょうしてから、ねます",
+        "べんきょうしてから、ねます。",
       ],
-      audioText: "てを あらってから たべます",
+      audioText: "べんきょうしてから ねます",
     }),
     selfExplain({
       id: "ja-m16-3-2-self",
@@ -1144,8 +1149,8 @@ export const M16_3_2: LessonContent = {
     }),
     speaking(
       "ja-m16-3-2-speak",
-      "しゅくだいを してから テレビを みます",
-      "After doing homework, I watch TV.",
+      "しゅくだいを してから おんがくを ききます",
+      "After doing homework, I listen to music.",
     ),
     // ── Review tail ──
     speaking("ja-m16-3-2-rev-speak-1", M16_3_2_REVIEW[0].kana, M16_3_2_REVIEW[0].meaningEn),
@@ -1178,7 +1183,7 @@ assertNoConsecutiveSame(M16_3_2.steps);
 // M16-4-1 — "I like doing..." (のがすき intro)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_4_1_REVIEW = pickReviewAtoms("ja-m16-4-1-rev", M16_REVIEW_POOL, 4);
+const M16_4_1_REVIEW = pickReviewAtoms("ja-m16-4-1-rev", M16_REVIEW_POOL, 6);
 
 export const M16_4_1: LessonContent = {
   id: "ja-m16-4-1",
@@ -1202,7 +1207,7 @@ export const M16_4_1: LessonContent = {
       "ja-m16-4-1-build-suki",
       "Pick the Japanese word for: Like",
       "すき",
-      ["すき", "きらい", "すわる", "さわる"],
+      ["きらい", "すき", "すわる", "さわる"],
       ["すき"],
     ),
     listeningCompSentence({
@@ -1215,7 +1220,7 @@ export const M16_4_1: LessonContent = {
       "ja-m16-4-1-build-kirai",
       "Pick the Japanese word for: Dislike",
       "きらい",
-      ["きらい", "すき", "かえる", "あらう"],
+      ["すき", "かえる", "きらい", "あらう"],
       ["きらい"],
     ),
     speaking("ja-m16-4-1-speak-kirai", "きらい", "Dislike"),
@@ -1224,7 +1229,7 @@ export const M16_4_1: LessonContent = {
       "ja-m16-4-1-build-ryouri",
       "Say: I like cooking.",
       "りょうりを するのが すきです",
-      ["りょうり", "を", "するのが", "すき", "です", "きらい"],
+      ["するのが", "りょうり", "です", "を", "きらい", "すき"],
       ["りょうり", "を", "するのが", "すき", "です"],
     ),
     cloze(
@@ -1250,12 +1255,12 @@ export const M16_4_1: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m16-4-1-lc-ryouri",
-      audioText: "りょうりを するのが すきです",
-      correctMeaningEn: "I like cooking.",
+      audioText: "えいがを みるのが すきです",
+      correctMeaningEn: "I like watching movies.",
       distractorsEn: [
-        "I dislike cooking.",
-        "I'm cooking.",
-        "I cook well.",
+        "I dislike watching movies.",
+        "I'm watching a movie.",
+        "I like making movies.",
       ],
     }),
     cloze(
@@ -1269,18 +1274,18 @@ export const M16_4_1: LessonContent = {
       "よむ + のが + すき = like reading.",
     ),
     build(
-      "ja-m16-4-1-build-kirai-benkyou",
-      "Say: I dislike studying.",
-      "べんきょうするのが きらいです",
-      ["べんきょう", "するのが", "きらい", "です", "すき"],
-      ["べんきょう", "するのが", "きらい", "です"],
+      "ja-m16-4-1-build-kirai-souji",
+      "Say: I dislike cleaning.",
+      "そうじを するのが きらいです",
+      ["するのが", "そうじ", "きらい", "を", "です", "すき"],
+      ["そうじ", "を", "するのが", "きらい", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m16-4-1-lb-1",
-      target: "りょうりを するのが すきです",
-      tiles: ["りょうり", "を", "するのが", "すき", "です", "きらい"],
-      correctOrder: ["りょうり", "を", "するのが", "すき", "です"],
-      promptEn: "Hear it, build it: 'I like cooking.'",
+      target: "にほんごを べんきょうするのが すきです",
+      tiles: ["べんきょうするのが", "にほんご", "すき", "を", "です", "きらい"],
+      correctOrder: ["にほんご", "を", "べんきょうするのが", "すき", "です"],
+      promptEn: "Hear it, build it: 'I like studying Japanese.'",
     }),
     selfExplain({
       id: "ja-m16-4-1-self",
@@ -1294,8 +1299,8 @@ export const M16_4_1: LessonContent = {
     }),
     speaking(
       "ja-m16-4-1-speak-suki",
-      "りょうりを するのが すきです",
-      "I like cooking.",
+      "はしるのが すきです",
+      "I like running.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m16-4-1-rev-mcq-1", M16_4_1_REVIEW[0], M16_REVIEW_POOL),
@@ -1328,7 +1333,7 @@ assertNoConsecutiveSame(M16_4_1.steps);
 // M16-4-2 — "I like doing..." (のがすき/きらい drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_4_2_REVIEW = pickReviewAtoms("ja-m16-4-2-rev", M16_REVIEW_POOL, 4);
+const M16_4_2_REVIEW = pickReviewAtoms("ja-m16-4-2-rev", M16_REVIEW_POOL, 6);
 
 export const M16_4_2: LessonContent = {
   id: "ja-m16-4-2",
@@ -1361,7 +1366,7 @@ export const M16_4_2: LessonContent = {
       "ja-m16-4-2-build-1",
       "Say: I dislike running.",
       "はしるのが きらいです",
-      ["はしる", "のが", "きらい", "です", "すき"],
+      ["きらい", "はしる", "です", "のが", "すき"],
       ["はしる", "のが", "きらい", "です"],
     ),
     sentenceMcq({
@@ -1377,12 +1382,12 @@ export const M16_4_2: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m16-4-2-lc-1",
-      audioText: "はしるのが きらいです",
-      correctMeaningEn: "I dislike running.",
+      audioText: "そうじを するのが きらいです",
+      correctMeaningEn: "I dislike cleaning.",
       distractorsEn: [
-        "I like running.",
-        "I'm running.",
-        "I run fast.",
+        "I like cleaning.",
+        "I'm cleaning.",
+        "I dislike laundry.",
       ],
     }),
     cloze(
@@ -1397,24 +1402,24 @@ export const M16_4_2: LessonContent = {
     ),
     build(
       "ja-m16-4-2-build-2",
-      "Say: I like listening to music.",
-      "おんがくを きくのが すきです",
-      ["おんがく", "を", "きくのが", "すき", "です", "きらい"],
-      ["おんがく", "を", "きくのが", "すき", "です"],
+      "Say: I like drinking coffee.",
+      "コーヒーを のむのが すきです",
+      ["のむのが", "コーヒー", "すき", "を", "です", "きらい"],
+      ["コーヒー", "を", "のむのが", "すき", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m16-4-2-lb-1",
-      target: "およぐのが すきです",
-      tiles: ["およぐ", "のが", "すき", "です", "きらい", "はしる"],
-      correctOrder: ["およぐ", "のが", "すき", "です"],
-      promptEn: "Hear it, build it: 'I like swimming.'",
+      target: "テレビを みるのが すきです",
+      tiles: ["みるのが", "テレビ", "すき", "を", "です", "はしる"],
+      correctOrder: ["テレビ", "を", "みるのが", "すき", "です"],
+      promptEn: "Hear it, build it: 'I like watching TV.'",
     }),
     sentenceMcq({
       id: "ja-m16-4-2-mcq-2",
       prompt: "Which sentence means 'I dislike cooking.'?",
       correctKana: "りょうりを するのが きらいです。",
       distractorsKana: [
-        "りょうりを するのが すきです。",
+        "りょうりを するのを きらいです。",
         "りょうりを しないのが きらいです。",
         "りょうりを するが きらいです。",
       ],
@@ -1434,7 +1439,7 @@ export const M16_4_2: LessonContent = {
       "ja-m16-4-2-build-3",
       "Say: I dislike waking up early.",
       "はやく おきるのが きらいです",
-      ["はやく", "おきる", "のが", "きらい", "です", "すき"],
+      ["おきる", "きらい", "はやく", "です", "のが", "すき"],
       ["はやく", "おきる", "のが", "きらい", "です"],
     ),
     listeningCompSentence({
@@ -1449,14 +1454,14 @@ export const M16_4_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m16-4-2-translate",
-      promptEn: "I like cooking.",
+      promptEn: "I like reading books.",
       acceptedAnswers: [
-        "りょうりを するのが すきです",
-        "りょうりを するのが すきです。",
-        "りょうりするのが すきです",
-        "りょうりするのが すきです。",
+        "ほんを よむのが すきです",
+        "ほんを よむのが すきです。",
+        "ほんをよむのがすきです",
+        "ほんをよむのがすきです。",
       ],
-      audioText: "りょうりを するのが すきです",
+      audioText: "ほんを よむのが すきです",
     }),
     selfExplain({
       id: "ja-m16-4-2-self",
@@ -1470,8 +1475,8 @@ export const M16_4_2: LessonContent = {
     }),
     speaking(
       "ja-m16-4-2-speak",
-      "はしるのが きらいです",
-      "I dislike running.",
+      "てがみを かくのが すきです",
+      "I like writing letters.",
     ),
     // ── Review tail ──
     speaking("ja-m16-4-2-rev-speak-1", M16_4_2_REVIEW[0].kana, M16_4_2_REVIEW[0].meaningEn),
@@ -1504,7 +1509,7 @@ assertNoConsecutiveSame(M16_4_2.steps);
 // M16-5-1 — "Rules" (てもいい vs てはいけない discrimination)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_5_1_REVIEW = pickReviewAtoms("ja-m16-5-1-rev", M16_REVIEW_POOL, 4);
+const M16_5_1_REVIEW = pickReviewAtoms("ja-m16-5-1-rev", M16_REVIEW_POOL, 6);
 
 export const M16_5_1: LessonContent = {
   id: "ja-m16-5-1",
@@ -1527,7 +1532,7 @@ export const M16_5_1: LessonContent = {
       "ja-m16-5-1-build-jimusho",
       "Pick the Japanese word for: Office",
       "じむしょ",
-      ["じむしょ", "きょうしつ", "エレベーター", "かいだん"],
+      ["きょうしつ", "じむしょ", "エレベーター", "かいだん"],
       ["じむしょ"],
     ),
     listeningCompSentence({
@@ -1541,7 +1546,7 @@ export const M16_5_1: LessonContent = {
       "ja-m16-5-1-build-elevator",
       "Pick the Japanese word for: Elevator",
       "エレベーター",
-      ["エレベーター", "じむしょ", "きょうしつ", "かいだん"],
+      ["じむしょ", "かいだん", "エレベーター", "きょうしつ"],
       ["エレベーター"],
     ),
     speaking("ja-m16-5-1-speak-elevator", "エレベーター", "Elevator"),
@@ -1550,7 +1555,7 @@ export const M16_5_1: LessonContent = {
       "ja-m16-5-1-build-kaidan",
       "Pick the Japanese word for: Stairs",
       "かいだん",
-      ["かいだん", "エレベーター", "じむしょ", "きょうしつ"],
+      ["エレベーター", "かいだん", "じむしょ", "きょうしつ"],
       ["かいだん"],
     ),
     listeningCompSentence({
@@ -1572,7 +1577,7 @@ export const M16_5_1: LessonContent = {
     ),
     sentenceMcq({
       id: "ja-m16-5-1-mcq-1",
-      prompt: "Which sentence means 'You must not run in the hallway.'?",
+      prompt: "Which sentence means 'You must not run in the hallway (ろうか)'?",
       correctKana: "ろうかで はしってはいけません。",
       distractorsKana: [
         "ろうかで はしってもいいです。",
@@ -1595,7 +1600,7 @@ export const M16_5_1: LessonContent = {
       "ja-m16-5-1-build-moii",
       "Say: You may sit here.",
       "ここに すわってもいいです",
-      ["ここ", "に", "すわって", "もいいです", "はいけません", "ないでください"],
+      ["すわって", "ここ", "もいいです", "に", "はいけません", "ないでください"],
       ["ここ", "に", "すわって", "もいいです"],
     ),
     listeningCompSentence({
@@ -1613,7 +1618,7 @@ export const M16_5_1: LessonContent = {
       prompt: "Which means 'You may take photos.'?",
       correctKana: "しゃしんを とってもいいです。",
       distractorsKana: [
-        "しゃしんを とってはいけません。",
+        "しゃしんを とるのが すきです。",
         "しゃしんを とらないでください。",
         "しゃしんを とってください。",
       ],
@@ -1675,7 +1680,7 @@ assertNoConsecutiveSame(M16_5_1.steps);
 // M16-5-2 — "Rules" (permission vs prohibition extended drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_5_2_REVIEW = pickReviewAtoms("ja-m16-5-2-rev", M16_REVIEW_POOL, 4);
+const M16_5_2_REVIEW = pickReviewAtoms("ja-m16-5-2-rev", M16_REVIEW_POOL, 6);
 
 export const M16_5_2: LessonContent = {
   id: "ja-m16-5-2",
@@ -1719,7 +1724,7 @@ export const M16_5_2: LessonContent = {
       "ja-m16-5-2-build-1",
       "Say: Please don't run.",
       "はしらないでください",
-      ["はしらないで", "ください", "はしって", "はいけません"],
+      ["はしって", "ください", "はしらないで", "はいけません"],
       ["はしらないで", "ください"],
     ),
     listeningCompSentence({
@@ -1745,37 +1750,37 @@ export const M16_5_2: LessonContent = {
     sentenceMcq({
       id: "ja-m16-5-2-mcq-2",
       prompt: "Your friend is about to touch a painting. Politely stop them:",
-      correctKana: "さわらないでください。",
+      correctKana: "それに さわらないでください。",
       distractorsKana: [
-        "さわってはいけません。",
-        "さわってもいいです。",
-        "さわってください。",
+        "それに さわってはいけません。",
+        "それに さわってもいいです。",
+        "それに さわってください。",
       ],
       explanation: "ないでください = polite request to a person. てはいけません = a rule/prohibition.",
     }),
     build(
-      "ja-m16-5-2-build-2",
-      "Say: You may enter.",
-      "はいってもいいです",
-      ["はいって", "もいいです", "はいけません", "ないでください"],
-      ["はいって", "もいいです"],
+      "ja-m16-5-2-build-hen",
+      "この へん means 'this area / around here.' Say: You must not park around here.",
+      "この へんに とめてはいけません",
+      ["とめて", "この", "はいけません", "へん", "に", "もいいです"],
+      ["この", "へん", "に", "とめて", "はいけません"],
     ),
     listeningBuildSentence({
       id: "ja-m16-5-2-lb-1",
-      target: "エレベーターで たばこを すってはいけません",
-      tiles: ["エレベーター", "で", "たばこ", "を", "すって", "はいけません", "もいいです"],
-      correctOrder: ["エレベーター", "で", "たばこ", "を", "すって", "はいけません"],
-      promptEn: "Hear it, build it: 'You must not smoke in the elevator.'",
+      target: "びょういんで はしってはいけません",
+      tiles: ["はしって", "びょういん", "はいけません", "で", "もいいです", "はしらないで"],
+      correctOrder: ["びょういん", "で", "はしって", "はいけません"],
+      promptEn: "Hear it, build it: 'You must not run in the hospital.'",
     }),
     cloze(
       "ja-m16-5-2-cloze-3",
-      "じむしょに はいら",
+      "エレベーターの まえに とめ",
       "ください。",
       "ないで",
       ["ないで", "って", "なくて", "ないと"],
-      "Please don't enter the office.",
-      "じむしょに はいらないでください。",
-      "はいる → はいらない + でください = polite negative request.",
+      "Please don't park in front of the elevator.",
+      "エレベーターの まえに とめないでください。",
+      "とめる → とめない + でください = polite negative request.",
     ),
     listeningCompSentence({
       id: "ja-m16-5-2-lc-2",
@@ -1853,7 +1858,7 @@ assertNoConsecutiveSame(M16_5_2.steps);
 // M16-6-1 — "Sequences and routines" (てから + daily routine)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_6_1_REVIEW = pickReviewAtoms("ja-m16-6-1-rev", M16_REVIEW_POOL, 4);
+const M16_6_1_REVIEW = pickReviewAtoms("ja-m16-6-1-rev", M16_REVIEW_POOL, 6);
 
 export const M16_6_1: LessonContent = {
   id: "ja-m16-6-1",
@@ -1876,17 +1881,17 @@ export const M16_6_1: LessonContent = {
       "ja-m16-6-1-build-1",
       "Say: After going home, I cook.",
       "うちに かえってから りょうりを します",
-      ["うち", "に", "かえって", "から", "りょうり", "を", "します", "たべます"],
+      ["かえって", "りょうり", "うち", "します", "に", "を", "から", "たべます"],
       ["うち", "に", "かえって", "から", "りょうり", "を", "します"],
     ),
     cloze(
       "ja-m16-6-1-cloze-1",
-      "りょうりを する",
+      "こうえんで はしる",
       " すきです。",
       "のが",
       ["のが", "のを", "のに", "のは"],
-      "I like cooking.",
-      "りょうりを するのが すきです。",
+      "I like running in the park.",
+      "こうえんで はしるのが すきです。",
       "のが nominalizes the verb for すき.",
     ),
     sentenceMcq({
@@ -1924,13 +1929,13 @@ export const M16_6_1: LessonContent = {
       "ja-m16-6-1-build-2",
       "Say: I like running.",
       "はしるのが すきです",
-      ["はしる", "のが", "すき", "です", "きらい"],
+      ["すき", "はしる", "です", "のが", "きらい"],
       ["はしる", "のが", "すき", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m16-6-1-lb-1",
       target: "うちに かえってから シャワーを あびます",
-      tiles: ["うち", "に", "かえって", "から", "シャワー", "を", "あびます", "きがえます"],
+      tiles: ["かえって", "シャワー", "うち", "あびます", "に", "を", "から", "きがえます"],
       correctOrder: ["うち", "に", "かえって", "から", "シャワー", "を", "あびます"],
       promptEn: "Hear it, build it: 'After going home, I take a shower.'",
     }),
@@ -1959,7 +1964,7 @@ export const M16_6_1: LessonContent = {
       "ja-m16-6-1-build-3",
       "Say: After changing clothes, I eat breakfast.",
       "きがえてから あさごはんを たべます",
-      ["きがえて", "から", "あさごはん", "を", "たべます", "のみます"],
+      ["あさごはん", "きがえて", "たべます", "から", "を", "のみます"],
       ["きがえて", "から", "あさごはん", "を", "たべます"],
     ),
     listeningCompSentence({
@@ -1972,16 +1977,41 @@ export const M16_6_1: LessonContent = {
         "After cleaning, I do laundry.",
       ],
     }),
+    // ── じぶん (oneself) — routines you do by yourself ──
+    build(
+      "ja-m16-6-1-build-jibun",
+      "Routines are often solo. Pick the word for: oneself / myself",
+      "じぶん",
+      ["わたし", "じぶん", "ともだち", "あなた"],
+      ["じぶん"],
+    ),
+    listeningCompSentence({
+      id: "ja-m16-6-1-lc-jibun",
+      audioText: "じぶんで りょうりを します",
+      correctMeaningEn: "I cook by myself.",
+      distractorsEn: [
+        "I cook with a friend.",
+        "I like cooking.",
+        "I cook at home.",
+      ],
+    }),
+    build(
+      "ja-m16-6-1-build-jibun-2",
+      "Say: I like cooking by myself.",
+      "じぶんで りょうりを するのが すきです",
+      ["する", "りょうり", "じぶん", "すき", "のが", "で", "を", "です", "きらい"],
+      ["じぶん", "で", "りょうり", "を", "する", "のが", "すき", "です"],
+    ),
     translateStep({
       id: "ja-m16-6-1-translate",
-      promptEn: "After doing homework, I watch TV.",
+      promptEn: "After taking a shower, I go to bed.",
       acceptedAnswers: [
-        "しゅくだいを してから テレビを みます",
-        "しゅくだいを してから テレビを みます。",
-        "しゅくだいを してから、テレビを みます",
-        "しゅくだいを してから、テレビを みます。",
+        "シャワーを あびてから ねます",
+        "シャワーを あびてから ねます。",
+        "シャワーを あびてから、ねます",
+        "シャワーを あびてから、ねます。",
       ],
-      audioText: "しゅくだいを してから テレビを みます",
+      audioText: "シャワーを あびてから ねます",
     }),
     selfExplain({
       id: "ja-m16-6-1-self",
@@ -1995,8 +2025,8 @@ export const M16_6_1: LessonContent = {
     }),
     speaking(
       "ja-m16-6-1-speak",
-      "きがえてから あさごはんを たべます",
-      "After changing clothes, I eat breakfast.",
+      "さきに しゅくだいを してから あそびます",
+      "First I do my homework, then I play.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m16-6-1-rev-mcq-1", M16_6_1_REVIEW[0], M16_REVIEW_POOL),
@@ -2029,7 +2059,7 @@ assertNoConsecutiveSame(M16_6_1.steps);
 // M16-6-2 — "Sequences and routines" (combined drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_6_2_REVIEW = pickReviewAtoms("ja-m16-6-2-rev", M16_REVIEW_POOL, 4);
+const M16_6_2_REVIEW = pickReviewAtoms("ja-m16-6-2-rev", M16_REVIEW_POOL, 6);
 
 export const M16_6_2: LessonContent = {
   id: "ja-m16-6-2",
@@ -2050,57 +2080,57 @@ export const M16_6_2: LessonContent = {
     // ── Mixed four-way drills ──
     cloze(
       "ja-m16-6-2-cloze-1",
-      "てを あらって",
-      "、たべます。",
+      "ほんを よんで",
+      "、ねます。",
       "から",
       ["から", "はいけません", "もいいです", "ないで"],
-      "After washing hands, I eat.",
-      "てを あらってから、たべます。",
+      "After reading a book, I go to bed.",
+      "ほんを よんでから、ねます。",
       "て + から = time sequence.",
     ),
     sentenceMcq({
       id: "ja-m16-6-2-mcq-1",
-      prompt: "Which means 'You must not smoke here.'?",
-      correctKana: "ここで たばこを すってはいけません。",
+      prompt: "Which means 'You must not smoke at the station.'?",
+      correctKana: "えきで たばこを すってはいけません。",
       distractorsKana: [
-        "ここで たばこを すわないでください。",
-        "ここで たばこを すってもいいです。",
-        "ここで たばこを すってから のみます。",
+        "えきで たばこを すわないでください。",
+        "えきで たばこを すってもいいです。",
+        "えきで たばこを すってから のみます。",
       ],
       explanation: "すって + はいけません = strict prohibition.",
     }),
     build(
       "ja-m16-6-2-build-1",
-      "Say: Please don't touch.",
-      "さわらないでください",
-      ["さわらないで", "ください", "さわって", "はいけません"],
-      ["さわらないで", "ください"],
+      "Say: Please don't wait here.",
+      "ここで またないでください",
+      ["まって", "ここ", "ください", "で", "またないで"],
+      ["ここ", "で", "またないで", "ください"],
     ),
     listeningCompSentence({
       id: "ja-m16-6-2-lc-1",
-      audioText: "おんがくを きくのが すきです",
-      correctMeaningEn: "I like listening to music.",
+      audioText: "コーヒーを のむのが すきです",
+      correctMeaningEn: "I like drinking coffee.",
       distractorsEn: [
-        "I dislike listening to music.",
-        "I listen to music.",
-        "After listening to music, I study.",
+        "I dislike drinking coffee.",
+        "I drink coffee.",
+        "After drinking coffee, I study.",
       ],
     }),
     cloze(
       "ja-m16-6-2-cloze-2",
-      "りょうりを する",
+      "てがみを かく",
       " すきです。",
       "のが",
       ["のが", "から", "のを", "って"],
-      "I like cooking.",
-      "りょうりを するのが すきです。",
+      "I like writing letters.",
+      "てがみを かくのが すきです。",
       "のが nominalizes for すき.",
     ),
     build(
       "ja-m16-6-2-build-2",
       "Say: You must not enter the office.",
       "じむしょに はいってはいけません",
-      ["じむしょ", "に", "はいって", "はいけません", "もいいです", "ないでください"],
+      ["はいって", "じむしょ", "はいけません", "に", "もいいです", "ないでください"],
       ["じむしょ", "に", "はいって", "はいけません"],
     ),
     sentenceMcq({
@@ -2117,19 +2147,19 @@ export const M16_6_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m16-6-2-lb-1",
       target: "しゅくだいを してから あそびます",
-      tiles: ["しゅくだい", "を", "して", "から", "あそびます", "べんきょうします", "はいけません"],
+      tiles: ["して", "あそびます", "しゅくだい", "から", "を", "べんきょうします", "はいけません"],
       correctOrder: ["しゅくだい", "を", "して", "から", "あそびます"],
       promptEn: "Hear it, build it: 'After doing homework, I play.'",
     }),
     cloze(
       "ja-m16-6-2-cloze-3",
-      "エレベーターで たべて",
+      "この へんで たばこを すって",
       "。",
       "はいけません",
       ["はいけません", "もいいです", "から", "のが"],
-      "You must not eat in the elevator.",
-      "エレベーターで たべてはいけません。",
-      "て + はいけません = prohibition.",
+      "You must not smoke around here.",
+      "この へんで たばこを すってはいけません。",
+      "て + はいけません = prohibition. この へん = this area.",
     ),
     listeningCompSentence({
       id: "ja-m16-6-2-lc-2",
@@ -2145,18 +2175,18 @@ export const M16_6_2: LessonContent = {
       "ja-m16-6-2-build-3",
       "Say: I like swimming.",
       "およぐのが すきです",
-      ["およぐ", "のが", "すき", "です", "きらい"],
+      ["すき", "およぐ", "です", "のが", "きらい"],
       ["およぐ", "のが", "すき", "です"],
     ),
     cloze(
       "ja-m16-6-2-cloze-4",
-      "さわら",
+      "ここで およが",
       "ください。",
       "ないで",
       ["ないで", "って", "なくて", "から"],
-      "Please don't touch.",
-      "さわらないでください。",
-      "さわる → さわらない + でください.",
+      "Please don't swim here.",
+      "ここで およがないでください。",
+      "およぐ → およがない + でください.",
     ),
     selfExplain({
       id: "ja-m16-6-2-self",
@@ -2170,8 +2200,8 @@ export const M16_6_2: LessonContent = {
     }),
     speaking(
       "ja-m16-6-2-speak",
-      "てを あらってから たべます",
-      "After washing my hands, I eat.",
+      "そうじを してから せんたくを します",
+      "After cleaning, I do laundry.",
     ),
     // ── Review tail ──
     speaking("ja-m16-6-2-rev-speak-1", M16_6_2_REVIEW[0].kana, M16_6_2_REVIEW[0].meaningEn),
@@ -2201,7 +2231,8 @@ assertAnswerRotation(M16_6_2.steps, 1);
 assertNoConsecutiveSame(M16_6_2.steps);
 
 // ═══════════════════════════════════════════════════════════════════════
-// M16-STORY — Dialogue: at school discussing rules
+// M16-STORY — Narrated story: a day of rules and routines
+//   (storyComprehension factory per authoring guide §13.13)
 // ═══════════════════════════════════════════════════════════════════════
 
 export const M16_STORY: LessonContent = {
@@ -2209,137 +2240,146 @@ export const M16_STORY: LessonContent = {
   moduleId: "m16",
   courseId: COURSE,
   languageId: LANG,
-  title: "Story — School rules",
+  title: "Story — Library day",
   description:
-    "Listen to two students discuss what's allowed and forbidden at school. Answer questions and practice key patterns.",
+    "Follow a narrated day — library rules, homework first, then music — and reply with your own sentences.",
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
     infoStep(
       "ja-m16-story-info-open",
-      "Story time — School rules",
-      "ゆき and たけし are visiting a museum on a school trip. They ask about the rules.",
+      "Story time — Library day",
+      "Listen to a short story about a day at the library and the evening routine that follows. Answer the questions between chunks, then reply yourself.",
     ),
-    dialogueListen({
-      id: "ja-m16-story-scene-1",
-      lines: [
-        { speaker: "ゆき", kana: "しゃしんを とってもいいですか。" },
-        { speaker: "Staff", kana: "いいえ、ここでは とってはいけません。" },
-        { speaker: "たけし", kana: "すわってもいいですか。" },
-        { speaker: "Staff", kana: "はい、すわってもいいです。" },
+    ...storyComprehension({
+      idPrefix: "ja-m16-story-s1",
+      narrative: [
+        { kana: "きょうは ともだちと としょかんに いきます。" },
+        { kana: "としょかんで たべてはいけません。" },
+        { kana: "でも、ここで ほんを よんでもいいです。" },
+        { kana: "わたしは としょかんで べんきょうするのが すきです。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s1-q1",
-          prompt: "May they take photos?",
-          correctText: "No, photos are forbidden here.",
-          distractors: ["Yes, photos are allowed.", "Only ゆき may.", "The staff didn't answer."],
-          explanation: "とってはいけません = you must not take (photos).",
+          prompt: "Where does the narrator go today?",
+          correctText: "To the library, with a friend.",
+          distractors: [
+            "To school, with a friend.",
+            "To the library, alone.",
+            "To the office, with a teacher.",
+          ],
+          explanation:
+            "ともだちと としょかんに いきます = 'I go to the library with a friend.'",
         },
         {
           id: "s1-q2",
-          prompt: "May they sit down?",
-          correctText: "Yes, sitting is allowed.",
-          distractors: ["No, sitting is forbidden.", "Only if they ask first.", "The staff didn't say."],
-          explanation: "すわってもいいです = you may sit.",
+          prompt: "What must you NOT do in the library?",
+          correctText: "Eat.",
+          distractors: ["Read books.", "Study.", "Enter."],
+          explanation: "たべてはいけません = you must not eat.",
         },
       ],
+      responseBuild: {
+        target: "ここで しゃしんを とってもいいですか",
+        tiles: ["とって", "ここ", "もいいです", "しゃしん", "で", "か", "を"],
+        correctOrder: ["ここ", "で", "しゃしん", "を", "とって", "もいいです", "か"],
+        promptEn: "Ask the librarian: 'May I take photos here?'",
+      },
     }),
-    build(
-      "ja-m16-story-build-1",
-      "Say: You must not take photos here.",
-      "ここでは とってはいけません",
-      ["ここ", "では", "とって", "はいけません", "もいいです", "ください"],
-      ["ここ", "では", "とって", "はいけません"],
-    ),
     sentenceMcq({
       id: "ja-m16-story-mcq-1",
-      prompt: "What did the staff say about sitting?",
-      correctKana: "You may sit.",
+      prompt: "Which rule did the story state?",
+      correctKana: "としょかんで たべてはいけません。",
       distractorsKana: [
-        "You must not sit.",
-        "Please don't sit.",
-        "Sit down, please.",
+        "としょかんで たべてもいいです。",
+        "としょかんで よんではいけません。",
+        "としょかんで たべてください。",
       ],
-      explanation: "すわってもいいです = you may sit (permission).",
+      explanation: "たべて + はいけません = eating is prohibited.",
     }),
-    dialogueListen({
-      id: "ja-m16-story-scene-2",
-      lines: [
-        { speaker: "ゆき", kana: "おべんとうを たべてもいいですか。" },
-        { speaker: "Staff", kana: "ここでは たべないでください。そとで たべてください。" },
-        { speaker: "たけし", kana: "じゃあ、そとに でてから たべましょう。" },
-        { speaker: "ゆき", kana: "うん。わたしは おべんとうを たべるのが すきです。" },
+    ...storyComprehension({
+      idPrefix: "ja-m16-story-s2",
+      narrative: [
+        { kana: "うちに かえってから、さきに しゅくだいを します。" },
+        { kana: "しゅくだいを してから、おんがくを ききます。" },
+        { kana: "よる じゅうじに ねます。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s2-q1",
-          prompt: "Where should they eat?",
-          correctText: "Outside.",
-          distractors: ["Inside the museum.", "In the classroom.", "They can't eat at all."],
-          explanation: "そとで たべてください = please eat outside.",
+          prompt: "What does the narrator do FIRST after going home?",
+          correctText: "Homework.",
+          distractors: ["Listen to music.", "Watch TV.", "Take a shower."],
+          explanation: "さきに しゅくだいを します = I do homework first.",
         },
         {
           id: "s2-q2",
-          prompt: "What does ゆき like doing?",
-          correctText: "She likes eating bento.",
-          distractors: ["She likes taking photos.", "She dislikes eating.", "She likes the museum."],
-          explanation: "おべんとうを たべるのが すきです = I like eating bento.",
+          prompt: "When does the narrator go to bed?",
+          correctText: "At 10 at night.",
+          distractors: ["At 9 at night.", "At 10 in the morning.", "Right after homework."],
+          explanation: "よる じゅうじに ねます = I go to bed at 10 at night.",
         },
       ],
+      responseBuild: {
+        target: "わたしは ほんを よむのが すきです",
+        tiles: ["よむのが", "わたし", "ほん", "は", "すき", "を", "です"],
+        correctOrder: ["わたし", "は", "ほん", "を", "よむのが", "すき", "です"],
+        promptEn: "Reply with your own preference: 'I like reading books.'",
+      },
     }),
     cloze(
       "ja-m16-story-cloze-1",
-      "そとに でて",
-      "、たべましょう。",
+      "うちに かえって",
+      "、しゅくだいを します。",
       "から",
       ["から", "はいけません", "もいいです", "ないで"],
-      "After going outside, let's eat.",
-      "そとに でてから、たべましょう。",
-      "てから = after doing (going outside first, then eating).",
+      "After going home, I do homework.",
+      "うちに かえってから、しゅくだいを します。",
+      "てから = after doing (going home first, then homework).",
     ),
     listeningBuildSentence({
       id: "ja-m16-story-lb-1",
-      target: "ここでは たべないでください",
-      tiles: ["ここ", "では", "たべないで", "ください", "たべて", "はいけません"],
-      correctOrder: ["ここ", "では", "たべないで", "ください"],
-      promptEn: "Hear it, build it: 'Please don't eat here.'",
+      target: "としょかんで たべてはいけません",
+      tiles: ["たべて", "としょかん", "はいけません", "で", "もいいです", "ください"],
+      correctOrder: ["としょかん", "で", "たべて", "はいけません"],
+      promptEn: "Hear it, build it: 'You must not eat in the library.'",
     }),
     listeningCompSentence({
       id: "ja-m16-story-lc-1",
-      audioText: "おべんとうを たべるのが すきです",
-      correctMeaningEn: "I like eating bento.",
+      audioText: "しゅくだいを してから おんがくを ききます",
+      correctMeaningEn: "After doing homework, I listen to music.",
       distractorsEn: [
-        "I dislike eating bento.",
-        "I ate bento.",
-        "Please eat bento.",
+        "I do homework because of the music.",
+        "Before doing homework, I listen to music.",
+        "After listening to music, I do homework.",
       ],
     }),
     speaking(
       "ja-m16-story-speak-1",
-      "しゃしんを とってはいけません",
-      "You must not take photos.",
+      "ここで ほんを よんでもいいです",
+      "You may read books here.",
     ),
     sentenceMcq({
       id: "ja-m16-story-mcq-summary",
-      prompt: "In the story, what THREE grammar points appeared?",
-      correctKana: "てもいい, てはいけません, ないでください, てから, のがすき",
+      prompt: "What is the narrator's evening order?",
+      correctKana: "Homework first, then music, bed at ten.",
       distractorsKana: [
-        "Only てもいい and てはいけません.",
-        "Only ないでください and てから.",
-        "Only のがすき.",
+        "Music first, then homework, bed at ten.",
+        "Homework first, then TV, bed at nine.",
+        "Shower first, then homework, then music.",
       ],
-      explanation: "All four M16 patterns appeared: permission, prohibition, negative request, sequence, and preference.",
+      explanation: "さきに しゅくだい → おんがく → よる じゅうじに ねます.",
     }),
     speaking(
       "ja-m16-story-speak-2",
-      "そとに でてから たべましょう",
-      "After going outside, let's eat.",
+      "さきに しゅくだいを します",
+      "First, I do my homework.",
     ),
     infoStep(
       "ja-m16-story-info-end",
-      "You followed a real conversation about rules and preferences",
-      "Permission, prohibition, polite requests, sequences, and likes — all in one museum visit. Real Japanese in context.",
+      "You followed a narrated day of rules and routines",
+      "Library rules, homework before play, and your own preferences — prohibition, sequence, and のがすき all in one story.",
       "win",
     ),
   ],
@@ -2354,7 +2394,7 @@ assertExplanationDoesntLeakAnswer(M16_STORY.steps);
 // M16-7-1 — Mixed drill (all te-form applications)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_7_1_REVIEW = pickReviewAtoms("ja-m16-7-1-rev", M16_REVIEW_POOL, 5);
+const M16_7_1_REVIEW = pickReviewAtoms("ja-m16-7-1-rev", M16_REVIEW_POOL, 6);
 
 export const M16_7_1: LessonContent = {
   id: "ja-m16-7-1",
@@ -2386,29 +2426,29 @@ export const M16_7_1: LessonContent = {
     }),
     cloze(
       "ja-m16-7-1-cloze-1",
-      "てを あらって",
-      "、たべます。",
+      "シャワーを あびて",
+      "、ねます。",
       "から",
       ["から", "はいけません", "もいいです", "のが"],
-      "After washing hands, I eat.",
-      "てを あらってから、たべます。",
+      "After taking a shower, I go to bed.",
+      "シャワーを あびてから、ねます。",
       "て + から = time sequence.",
     ),
     build(
       "ja-m16-7-1-build-1",
       "Say: I like reading books.",
       "ほんを よむのが すきです",
-      ["ほん", "を", "よむ", "のが", "すき", "です", "きらい"],
+      ["よむ", "すき", "ほん", "のが", "を", "です", "きらい"],
       ["ほん", "を", "よむ", "のが", "すき", "です"],
     ),
     listeningCompSentence({
       id: "ja-m16-7-1-lc-1",
-      audioText: "ここに すわらないでください",
-      correctMeaningEn: "Please don't sit here.",
+      audioText: "この へんに えきが ありますか",
+      correctMeaningEn: "Is there a station around here?",
       distractorsEn: [
-        "You must not sit here.",
-        "Please sit here.",
-        "You may sit here.",
+        "Is there a station in front of here?",
+        "Is the station far from here?",
+        "Is there a classroom around here?",
       ],
     }),
     sentenceMcq({
@@ -2424,36 +2464,36 @@ export const M16_7_1: LessonContent = {
     }),
     cloze(
       "ja-m16-7-1-cloze-2",
-      "きょうしつで たべて",
+      "でんしゃで たべて",
       "。",
       "はいけません",
       ["はいけません", "もいいです", "から", "のが"],
-      "You must not eat in the classroom.",
-      "きょうしつで たべてはいけません。",
+      "You must not eat on the train.",
+      "でんしゃで たべてはいけません。",
       "て + はいけません = prohibition.",
     ),
     build(
       "ja-m16-7-1-build-2",
-      "Say: After doing homework, I watch TV.",
-      "しゅくだいを してから テレビを みます",
-      ["しゅくだい", "を", "して", "から", "テレビ", "を", "みます", "します"],
-      ["しゅくだい", "を", "して", "から", "テレビ", "を", "みます"],
+      "Say: After playing with my friend, I go home.",
+      "ともだちと あそんでから うちに かえります",
+      ["あそんで", "ともだち", "かえります", "と", "うち", "から", "に"],
+      ["ともだち", "と", "あそんで", "から", "うち", "に", "かえります"],
     ),
     listeningBuildSentence({
       id: "ja-m16-7-1-lb-1",
-      target: "さわらないでください",
-      tiles: ["さわらないで", "ください", "さわって", "はいけません", "もいいです"],
-      correctOrder: ["さわらないで", "ください"],
-      promptEn: "Hear it, build it: 'Please don't touch.'",
+      target: "その ほんを よまないでください",
+      tiles: ["よまないで", "その", "ください", "ほん", "を", "よんで"],
+      correctOrder: ["その", "ほん", "を", "よまないで", "ください"],
+      promptEn: "Hear it, build it: 'Please don't read that book.'",
     }),
     cloze(
       "ja-m16-7-1-cloze-3",
-      "およぐ",
+      "ともだちと あそぶ",
       " すきです。",
       "のが",
       ["のが", "から", "のを", "って"],
-      "I like swimming.",
-      "およぐのが すきです。",
+      "I like playing with friends.",
+      "ともだちと あそぶのが すきです。",
       "の nominalizes; が marks the subject of すき.",
     ),
     sentenceMcq({
@@ -2471,7 +2511,7 @@ export const M16_7_1: LessonContent = {
       "ja-m16-7-1-build-3",
       "Say: You must not park here.",
       "ここに くるまを とめてはいけません",
-      ["ここ", "に", "くるま", "を", "とめて", "はいけません", "もいいです"],
+      ["とめて", "くるま", "ここ", "はいけません", "に", "を", "もいいです"],
       ["ここ", "に", "くるま", "を", "とめて", "はいけません"],
     ),
     listeningCompSentence({
@@ -2486,13 +2526,13 @@ export const M16_7_1: LessonContent = {
     }),
     cloze(
       "ja-m16-7-1-cloze-4",
-      "はいら",
+      "ここで しゃしんを とら",
       "ください。",
       "ないで",
       ["ないで", "って", "なくて", "から"],
-      "Please don't enter.",
-      "はいらないでください。",
-      "はいる → はいらない + でください.",
+      "Please don't take photos here.",
+      "ここで しゃしんを とらないでください。",
+      "とる → とらない + でください.",
     ),
     selfExplain({
       id: "ja-m16-7-1-self",
@@ -2506,7 +2546,7 @@ export const M16_7_1: LessonContent = {
     }),
     speaking(
       "ja-m16-7-1-speak",
-      "ここで すわってはいけません",
+      "ここに すわってはいけません",
       "You must not sit here.",
     ),
     // ── Review tail ──
@@ -2523,7 +2563,7 @@ export const M16_7_1: LessonContent = {
     }),
     vocabMcq("ja-m16-7-1-rev-mcq-1", M16_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M16_REVIEW_POOL),
     speaking("ja-m16-7-1-rev-speak-2", M16_7_1_REVIEW[2].kana, M16_7_1_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m16-7-1-rev", M16_7_1_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m16-7-1-rev", M16_7_1_REVIEW),
     infoStep(
       "ja-m16-7-1-info-end",
       "You can deploy every te-form pattern on demand",
@@ -2541,7 +2581,7 @@ assertNoConsecutiveSame(M16_7_1.steps);
 // M16-7-2 — Production (translate + speaking)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M16_7_2_REVIEW = pickReviewAtoms("ja-m16-7-2-rev", M16_REVIEW_POOL, 5);
+const M16_7_2_REVIEW = pickReviewAtoms("ja-m16-7-2-rev", M16_REVIEW_POOL, 6);
 
 export const M16_7_2: LessonContent = {
   id: "ja-m16-7-2",
@@ -2562,36 +2602,36 @@ export const M16_7_2: LessonContent = {
     // ── Production drills ──
     build(
       "ja-m16-7-2-build-1",
-      "Say: You must not smoke in the elevator.",
-      "エレベーターで たばこを すってはいけません",
-      ["エレベーター", "で", "たばこ", "を", "すって", "はいけません", "もいいです"],
-      ["エレベーター", "で", "たばこ", "を", "すって", "はいけません"],
+      "Say: You must not smoke in the park.",
+      "こうえんで たばこを すってはいけません",
+      ["すって", "たばこ", "こうえん", "はいけません", "で", "を", "もいいです"],
+      ["こうえん", "で", "たばこ", "を", "すって", "はいけません"],
     ),
     speaking(
       "ja-m16-7-2-speak-1",
-      "エレベーターで たばこを すってはいけません",
-      "You must not smoke in the elevator.",
+      "こうえんで たばこを すってはいけません",
+      "You must not smoke in the park.",
     ),
     translateStep({
       id: "ja-m16-7-2-translate-1",
-      promptEn: "Please don't touch.",
+      promptEn: "Please don't take photos here.",
       acceptedAnswers: [
-        "さわらないでください",
-        "さわらないでください。",
+        "ここで しゃしんを とらないでください",
+        "ここで しゃしんを とらないでください。",
       ],
-      audioText: "さわらないでください",
+      audioText: "ここで しゃしんを とらないでください",
     }),
     build(
       "ja-m16-7-2-build-2",
-      "Say: After washing hands, I eat.",
-      "てを あらってから たべます",
-      ["て", "を", "あらって", "から", "たべます", "のみます", "きがえます"],
-      ["て", "を", "あらって", "から", "たべます"],
+      "Say: After going home, I write a letter.",
+      "うちに かえってから てがみを かきます",
+      ["かえって", "てがみ", "うち", "かきます", "に", "を", "から"],
+      ["うち", "に", "かえって", "から", "てがみ", "を", "かきます"],
     ),
     speaking(
       "ja-m16-7-2-speak-2",
-      "てを あらってから たべます",
-      "After washing my hands, I eat.",
+      "うちに かえってから てがみを かきます",
+      "After going home, I write a letter.",
     ),
     sentenceMcq({
       id: "ja-m16-7-2-mcq-1",
@@ -2608,32 +2648,32 @@ export const M16_7_2: LessonContent = {
       "ja-m16-7-2-build-3",
       "Say: I dislike running.",
       "はしるのが きらいです",
-      ["はしる", "のが", "きらい", "です", "すき"],
+      ["きらい", "はしる", "です", "のが", "すき"],
       ["はしる", "のが", "きらい", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m16-7-2-lb-1",
-      target: "ここに すわってはいけません",
-      tiles: ["ここ", "に", "すわって", "はいけません", "もいいです", "ください"],
-      correctOrder: ["ここ", "に", "すわって", "はいけません"],
-      promptEn: "Hear it, build it: 'You must not sit here.'",
+      target: "きょうしつで ねてはいけません",
+      tiles: ["ねて", "きょうしつ", "はいけません", "で", "もいいです", "おきて"],
+      correctOrder: ["きょうしつ", "で", "ねて", "はいけません"],
+      promptEn: "Hear it, build it: 'You must not sleep in the classroom.'",
     }),
     translateStep({
       id: "ja-m16-7-2-translate-2",
-      promptEn: "After doing homework, I watch TV.",
+      promptEn: "After doing homework, I play.",
       acceptedAnswers: [
-        "しゅくだいを してから テレビを みます",
-        "しゅくだいを してから テレビを みます。",
-        "しゅくだいを してから、テレビを みます",
-        "しゅくだいを してから、テレビを みます。",
+        "しゅくだいを してから あそびます",
+        "しゅくだいを してから あそびます。",
+        "しゅくだいを してから、あそびます",
+        "しゅくだいを してから、あそびます。",
       ],
-      audioText: "しゅくだいを してから テレビを みます",
+      audioText: "しゅくだいを してから あそびます",
     }),
     build(
       "ja-m16-7-2-build-4",
       "Say: Please don't enter the office.",
       "じむしょに はいらないでください",
-      ["じむしょ", "に", "はいらないで", "ください", "はいって", "はいけません"],
+      ["はいって", "じむしょ", "ください", "に", "はいらないで", "はいけません"],
       ["じむしょ", "に", "はいらないで", "ください"],
     ),
     speaking(
@@ -2643,20 +2683,20 @@ export const M16_7_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m16-7-2-lc-1",
-      audioText: "きがえてから あさごはんを たべます",
-      correctMeaningEn: "After changing clothes, I eat breakfast.",
+      audioText: "うちに かえってから テレビを みます",
+      correctMeaningEn: "After going home, I watch TV.",
       distractorsEn: [
-        "I change clothes because of breakfast.",
-        "I eat breakfast and change clothes.",
-        "Before changing clothes, I eat breakfast.",
+        "I go home because of the TV.",
+        "I watch TV and then go home.",
+        "Before going home, I watch TV.",
       ],
     }),
     build(
       "ja-m16-7-2-build-5",
-      "Say: I like listening to music.",
-      "おんがくを きくのが すきです",
-      ["おんがく", "を", "きくのが", "すき", "です", "きらい"],
-      ["おんがく", "を", "きくのが", "すき", "です"],
+      "Say: I like watching TV.",
+      "テレビを みるのが すきです",
+      ["みるのが", "テレビ", "すき", "を", "です", "きらい"],
+      ["テレビ", "を", "みるのが", "すき", "です"],
     ),
     cloze(
       "ja-m16-7-2-cloze-1",
@@ -2671,7 +2711,7 @@ export const M16_7_2: LessonContent = {
     selfExplain({
       id: "ja-m16-7-2-self",
       anchorLabel: "M16 patterns in production",
-      anchorAudioText: "さわらないでください",
+      anchorAudioText: "のまないでください",
       question: "What base form does ないでください use?",
       rule: { text: "ないでください uses the ない-form (plain negative) of the verb. さわる → さわらない → さわらないでください. The ない-form was taught in M11." },
       surface: { text: "ないでください uses the て-form, just like てはいけません." },
@@ -2680,8 +2720,8 @@ export const M16_7_2: LessonContent = {
     }),
     speaking(
       "ja-m16-7-2-speak-4",
-      "りょうりを するのが すきです",
-      "I like cooking.",
+      "こうえんで はしるのが すきです",
+      "I like running in the park.",
     ),
     // ── Review tail ──
     speaking("ja-m16-7-2-rev-speak-1", M16_7_2_REVIEW[0].kana, M16_7_2_REVIEW[0].meaningEn),
@@ -2697,7 +2737,7 @@ export const M16_7_2: LessonContent = {
     }),
     vocabMcq("ja-m16-7-2-rev-mcq-1", M16_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M16_REVIEW_POOL),
     speaking("ja-m16-7-2-rev-speak-2", M16_7_2_REVIEW[2].kana, M16_7_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m16-7-2-rev", M16_7_2_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m16-7-2-rev", M16_7_2_REVIEW),
     infoStep(
       "ja-m16-7-2-info-end",
       "You can produce every te-form pattern from memory",

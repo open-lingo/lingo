@@ -77,15 +77,14 @@ export function SymbolRecognitionStepView({
 
   const handleEnter = useCallback(() => {
     if (!submitted && selected) handleSubmit();
-    else if (submitted && !celebrating) onContinue();
-  }, [submitted, selected, celebrating, onContinue]);
+    else if (submitted) onContinue();
+  }, [submitted, selected, onContinue]);
 
   useLessonKeyboard({
     onEnter: handleEnter,
     onNumber: (n) => {
       if (!submitted && n <= step.options.length) setSelected(step.options[n - 1].id);
     },
-    enabled: !celebrating,
   });
 
   const hasAudio =
@@ -94,6 +93,8 @@ export function SymbolRecognitionStepView({
   const romanization = step.payload.romanization;
   return (
     <div className="flex flex-1 flex-col gap-4">
+      {/* Content cluster centers as one unit in leftover height. */}
+      <div className="my-auto flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-center gap-3">
         <h2 className="text-lg font-medium text-text-secondary">
           {t("alphabet.taskPickSymbol", "Pick the symbol for")}{" "}
@@ -112,22 +113,27 @@ export function SymbolRecognitionStepView({
           </button>
         )}
       </div>
-      <div className="relative grid grid-cols-2 gap-4">
+      {/* dvh-aware row height: cards grow into leftover column height on
+          tall windows instead of stranding dead space. */}
+      <div
+        className="grid grid-cols-2 gap-4"
+        style={{ gridAutoRows: "minmax(clamp(7.5rem, 22dvh, 13rem), auto)" }}
+      >
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
           // Solid accent fill on selected = unmistakable in any theme.
           let style =
-            "font-japanese rounded-xl border-2 border-border bg-surface py-9 text-5xl font-bold text-text-primary transition-colors duration-150 hover:border-accent";
+            "font-japanese rounded-xl border-2 border-border bg-surface py-9 text-5xl sm:text-6xl font-bold text-text-primary transition-colors duration-150 hover:border-accent";
           if (submitted && isAnswer) {
             style =
-              "font-japanese rounded-xl border-2 border-accent bg-accent py-9 text-5xl font-bold text-white transition-colors duration-150";
+              "font-japanese rounded-xl border-2 border-accent bg-accent py-9 text-5xl sm:text-6xl font-bold text-white transition-colors duration-150";
           } else if (submitted && isSelected && !isAnswer) {
             style =
-              "font-japanese rounded-xl border-2 border-error bg-error/15 py-9 text-5xl font-bold text-error transition-colors duration-150";
+              "font-japanese rounded-xl border-2 border-error bg-error/15 py-9 text-5xl sm:text-6xl font-bold text-error transition-colors duration-150";
           } else if (isSelected) {
             style =
-              "font-japanese rounded-xl border-2 border-accent bg-accent py-9 text-5xl font-bold text-white transition-colors duration-150";
+              "font-japanese rounded-xl border-2 border-accent bg-accent py-9 text-5xl sm:text-6xl font-bold text-white transition-colors duration-150";
           }
           return (
             <button
@@ -149,27 +155,26 @@ export function SymbolRecognitionStepView({
             </button>
           );
         })}
-        {celebrating && <CelebrationToast text={celebrationText} />}
       </div>
-      {submitted && !isCorrect && <Feedback correct={false} />}
-      {!submitted ? (
-        <ContinueButton
-          onClick={handleSubmit}
-          label="Check"
-          disabled={!selected}
-        />
-      ) : celebrating ? (
-        <div className="invisible" aria-hidden>
-          <ContinueButton onClick={() => {}} />
-        </div>
-      ) : (
-        <div className="motion-safe:animate-fade-up">
+      </div>
+      {/* Single bottom-anchored block: banner + CTA together so the
+          button never moves on submit. */}
+      <div className="relative flex flex-col gap-4">
+        {celebrating && <CelebrationToast text={celebrationText} />}
+        {submitted && !isCorrect && <Feedback correct={false} />}
+        {!submitted ? (
+          <ContinueButton
+            onClick={handleSubmit}
+            label="Check"
+            disabled={!selected}
+          />
+        ) : (
           <ContinueButton
             onClick={onContinue}
             variant={isCorrect ? "correct" : "incorrect"}
           />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

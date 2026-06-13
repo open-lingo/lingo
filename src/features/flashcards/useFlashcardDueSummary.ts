@@ -14,6 +14,7 @@ import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { useSubscribedDecks } from "./useSubscribedDecks";
 import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
 import type { DeckResponse } from "@/shared/api/decks";
+import { buildEnrichedJaCourseDeck } from "./data/courseDeck";
 
 function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
   return {
@@ -96,6 +97,18 @@ export function useFlashcardDueSummary(langId: string) {
     for (const { deck: d } of byLang) {
       allCards.push(...(d.cards ?? []));
     }
+
+    // Client-generated course deck (from curriculum atoms), unlocked per
+    // the lesson-progress store. This is what makes flashcards actually
+    // populate — the old course-deck wiring was a 5-card stub keyed off a
+    // stale lesson→card map. Only unlocked cards enter the queue.
+    const courseDeck =
+      langId === "ja" ? buildEnrichedJaCourseDeck() : null;
+    const courseUnlocked = (courseDeck?.cards ?? []).filter(
+      (c) => c.unlocked,
+    );
+    allCards.push(...courseUnlocked);
+
     const { queue: dueQueue, totalCount: dueCount } = buildReviewQueue(allCards);
 
     // Derive card-state bucket counts from the live SRS store. The
@@ -133,6 +146,14 @@ export function useFlashcardDueSummary(langId: string) {
       cardCount: (d.cards ?? []).length,
       deck: deckResponseToFlashcardDeck(d),
     }));
+    if (courseDeck && courseUnlocked.length > 0) {
+      courseDecks.unshift({
+        id: courseDeck.id,
+        name: courseDeck.name,
+        cardCount: courseUnlocked.length,
+        deck: { ...courseDeck, cards: courseUnlocked },
+      });
+    }
     return {
       dueQueue,
       dueCount,

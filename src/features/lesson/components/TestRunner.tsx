@@ -21,6 +21,9 @@ import { useMemo, useState, useCallback, useRef } from "react";
 import type { RowTestStep, RowTestItem } from "../types";
 import { Button } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
+import { reportGradedAnswer } from "../juice";
+import { Confetti } from "./Confetti";
+import { playSfx } from "@/shared/audio/sfx";
 import { MultipleChoiceStepView } from "./steps/MultipleChoiceStepView";
 import { MatchPairsStepView } from "./steps/MatchPairsStepView";
 import { BuildSentenceStepView } from "./steps/BuildSentenceStepView";
@@ -32,7 +35,7 @@ type Props = {
    * `true` for a clean completion and `false` for skipped — mirroring the
    * pass/fail signature StepRenderer already expects.
    */
-  onComplete: (stepId: string, correct: boolean) => void;
+  onComplete: (stepId: string, correct: boolean, progressTicks?: number) => void;
   onContinue: () => void;
 };
 
@@ -97,7 +100,17 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
     (isCorrect: boolean) => {
       if (queue.length === 0) return;
       const [current, ...rest] = queue;
+      // Per-item juice: each item is its own combo/chime event (unique
+      // key per attempt so retries chime again). The step-level report
+      // in LessonPage is suppressed for row tests to avoid doubling.
+      reportGradedAnswer(
+        `${step.id}#${current.origIdx}r${current.retries}`,
+        isCorrect,
+      );
       if (isCorrect) {
+        const newCount = correctSet.has(current.origIdx)
+          ? correctSet.size
+          : correctSet.size + 1;
         setCorrectSet((prev) => {
           if (prev.has(current.origIdx)) return prev;
           const next = new Set(prev);
@@ -108,7 +121,13 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
         setAttemptKey((k) => k + 1);
         if (rest.length === 0) {
           setPhase("passed");
-          onComplete(step.id, true);
+          playSfx("complete");
+          onComplete(step.id, true, newCount);
+        } else {
+          // Incremental tick — feeds the weighted top progress bar
+          // (row_test weight = item count). Final verdict still lands
+          // with the pass/fail call; last-write-wins on the boolean.
+          onComplete(step.id, true, newCount);
         }
         return;
       }
@@ -127,7 +146,7 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
       ]);
       setAttemptKey((k) => k + 1);
     },
-    [queue, mistakes, onComplete, step.id],
+    [queue, mistakes, correctSet, onComplete, step.id],
   );
 
   const skip = useCallback(() => {
@@ -138,6 +157,10 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
   if (phase === "passed") {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-5 py-12">
+        {/* Row tests are the module's climactic beats — full fanfare
+            (ordinary perfect lessons already get confetti; the harder
+            milestone shouldn't celebrate less). */}
+        <Confetti />
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-success/20 text-success">
           <Icon name="check" size={40} />
         </div>
@@ -155,7 +178,9 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
   if (phase === "skipped") {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-5 py-12">
-        <div className="text-5xl">⏭️</div>
+        <div className="text-text-muted" aria-hidden>
+          <Icon name="skipForward" size={48} />
+        </div>
         <h2 className="text-xl font-bold text-text-primary">Test skipped</h2>
         <p className="text-sm text-text-muted">
           You can come back any time — tap the row's test slot to earn the
@@ -171,7 +196,9 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
   if (phase === "failed") {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-5 py-12">
-        <div className="text-5xl">💥</div>
+        <div className="text-error" aria-hidden>
+          <Icon name="heartCrack" size={48} />
+        </div>
         <h2 className="text-2xl font-bold text-text-primary">Out of attempts</h2>
         <p className="max-w-sm text-center text-sm text-text-muted">
           {correct}/{total} answered correctly before missing 3. Come back
@@ -186,14 +213,13 @@ export function TestRunner({ step, onComplete, onContinue }: Props) {
 
   // Running: render the front-of-queue item.
   const current = queue[0];
-  const progressLabel = `${correct}/${total} done`;
 
   return (
     <div className="flex flex-1 flex-col gap-3">
-      <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-wider text-text-muted">
-        <span className="font-semibold">Row test</span>
+      {/* Slim header: progress lives in the top lesson bar now (weighted
+          per item) — only test-level info remains: attempts left + Skip. */}
+      <div className="flex items-center justify-end gap-3 text-xs uppercase tracking-wider text-text-muted">
         <div className="flex items-center gap-3">
-          <span>{progressLabel}</span>
           <span
             className="flex items-center gap-1.5"
             aria-label={`${MAX_TEST_MISTAKES - mistakes} attempts left`}
@@ -278,6 +304,7 @@ function TestItemView({
   if (item.kind === "match") {
     return (
       <MatchPairsStepView
+        hideMistakeDots
         step={item.payload}
         onComplete={handleComplete}
         onContinue={handleContinue}

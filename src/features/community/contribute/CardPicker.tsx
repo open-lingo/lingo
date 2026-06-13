@@ -33,11 +33,11 @@ export function CardPicker({
 
   return (
     <div
-      className="absolute z-50 w-72 rounded-lg border border-gray-200 bg-white shadow-lg"
+      className="absolute z-50 w-72 rounded-lg border border-border bg-surface shadow-lg"
       role="dialog"
       aria-label={t("community.storyEditorCardPicker", "Link to card")}
     >
-      <div className="border-b border-gray-200 p-2">
+      <div className="border-b border-border p-2">
         <input
           type="search"
           value={search}
@@ -65,7 +65,7 @@ export function CardPicker({
                 >
                   <span className="font-medium text-text-primary">{card.front}</span>
                   <span className="ml-2 text-text-muted">{card.back}</span>
-                  <span className="ml-2 rounded bg-gray-200 px-1 text-xs">
+                  <span className="ml-2 rounded bg-surface-muted px-1 text-xs">
                     {card.type}
                   </span>
                 </button>
@@ -74,11 +74,11 @@ export function CardPicker({
           </ul>
         )}
       </div>
-      <div className="border-t border-gray-200 p-2">
+      <div className="border-t border-border p-2">
         <button
           type="button"
           onClick={() => onCreateNew(selectedText)}
-          className="w-full rounded border border-dashed border-gray-300 py-2 text-sm font-medium text-green-600 hover:border-green-400 hover:bg-green-50"
+          className="w-full rounded border border-dashed border-border py-2 text-sm font-medium text-green-600 hover:border-green-400 hover:bg-green-50"
         >
           + {t("community.storyEditorCreateNewCard", "Create new card")}
         </button>

@@ -166,7 +166,11 @@ export function QuestsPanel({
         </nav>
 
         {/* Body */}
-        <div className="flex-1 space-y-3 overflow-y-auto px-6 py-4">
+        {/* Static window sized to exactly 3 daily cards (3×121px + gaps +
+            padding) — the panel no longer resizes per tab/bucket; longer
+            lists scroll inside (Spencer 2026-06-13). min() guards short
+            laptop windows. */}
+        <div className="h-[min(26rem,60vh)] space-y-3 overflow-y-auto px-6 py-4">
           {sorted.length === 0 ? (
             <p className="rounded-lg border border-dashed border-border bg-surface-muted/60 p-4 text-center text-sm text-text-secondary">
               {t("quests.empty", {
@@ -174,8 +178,14 @@ export function QuestsPanel({
               })}
             </p>
           ) : (
-            sorted.map((q) => (
-              <QuestRow key={q.id} quest={q} onClaim={claim} />
+            sorted.map((q, i) => (
+              <div
+                key={q.id}
+                className="motion-safe:animate-fade-up"
+                style={{ animationDelay: `${Math.min(i, 6) * 60}ms` }}
+              >
+                <QuestRow quest={q} onClaim={claim} />
+              </div>
             ))
           )}
         </div>

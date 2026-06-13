@@ -1547,5 +1547,30 @@
       "blockedEmpty": "차단한 사용자가 없습니다. 프로필에서 차단하면 모든 곳에서 보이지 않게 됩니다.",
       "unblock": "차단 해제"
     }
+  },
+  "placement": {
+    "promptTitle": "배치고사",
+    "promptBody": "이미 일본어를 좀 아시나요? 2분짜리 배치고사로 알맞은 레벨로 건너뛰세요. 나중에 개별 모듈 테스트 아웃도 가능합니다.",
+    "promptStart": "테스트 시작",
+    "promptSkip": "처음부터 시작",
+    "screeningLabel": "선별 · {{done}} / {{total}}",
+    "probingLabel": "탐색 · {{module}}",
+    "testOutLabel": "테스트 아웃 · {{module}}",
+    "testOutPassedTitle": "모듈 통과!",
+    "testOutFailedTitle": "아직은 아니에요",
+    "testOutPassedBody": "{{module}} 모듈을 테스트 아웃했습니다. 어휘 {{atomCount}}개가 빠른 복습을 위해 복습 대기열에 추가되었습니다.",
+    "testOutFailedBody": "테스트 아웃에는 100%가 필요합니다. 연습을 계속하고 준비되면 다시 도전하세요.",
+    "continue": "계속",
+    "resultPassedTitle": "배치 완료!",
+    "resultFailedTitle": "처음부터 시작",
+    "resultMastery": "다음을 마스터했음을 보여주었습니다:",
+    "resultModuleCount_other": "모듈 {{count}}개",
+    "resultSkipped": ". 레슨 {{lessonCount}}개를 건너뛰고 어휘 {{atomCount}}개를 복습 대기열에 추가했습니다.",
+    "resultFailedBody": "걱정 마세요 — 기초부터 시작합니다. 코스가 차근차근 실력을 쌓아 드립니다.",
+    "startLearning": "학습 시작",
+    "noBankTitle": "아직 테스트 아웃 문제가 없습니다",
+    "noBankBodyBefore": "배치 엔진에 다음 모듈의 문항이 아직 없습니다:",
+    "noBankBodyAfter": "(이 언어 기준). 일본어 코스는 M3–M27을 다룹니다. 다른 모듈과 언어는 자체 문제 은행이 필요합니다.",
+    "backToLearn": "학습으로 돌아가기"
   }
 }

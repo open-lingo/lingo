@@ -47,16 +47,16 @@ export function ResetProgressModal({ open, username, onClose, onConfirm, isPendi
       }
     >
       <div className="space-y-4">
-        <div className="p-3 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800">
-          <p className="text-sm text-red-800 dark:text-red-300 font-medium">
+        <div className="p-3 rounded-lg bg-error/10 border border-error/30">
+          <p className="text-sm text-error font-medium">
             This will permanently:
           </p>
-          <ul className="text-sm text-red-700 dark:text-red-400 mt-1 list-disc list-inside space-y-0.5">
+          <ul className="text-sm text-error mt-1 list-disc list-inside space-y-0.5">
             <li>Delete all lesson completion records for @{username}</li>
             <li>Reset XP, level, streak, and lingots to zero</li>
             <li>Clear their last active date</li>
           </ul>
-          <p className="text-sm text-red-800 dark:text-red-300 mt-2 font-medium">
+          <p className="text-sm text-error mt-2 font-medium">
             This cannot be undone.
           </p>
         </div>

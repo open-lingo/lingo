@@ -95,10 +95,6 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
           label="Check"
           disabled={normalized.length === 0}
         />
-      ) : celebrating ? (
-        <div className="invisible" aria-hidden>
-          <ContinueButton onClick={() => {}} />
-        </div>
       ) : (
         <ContinueButton
           onClick={onContinue}

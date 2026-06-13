@@ -16,8 +16,17 @@
  *   だいじょうぶ (okay/fine), ぜひ (by all means), きっと (surely),
  *   たのしい (fun), たのしみ (looking forward to)
  *
- * Split into 14 sub-lessons + 1 story = 15 exports.
+ * Split into 14 sub-lessons + 1 story = 15 registered exports, plus an
+ * UNREGISTERED expansion pair (M23_8_1 / M23_8_2) teaching 〜ができます
+ * (can do) and できる (dictionary form) — backlog weave; recommended
+ * registration position: directly after ja-m23-1-2.
  * Each sub-lesson has 18-22 steps.
+ *
+ * 2026-06-12 sentence-variety reauthor: no sentence repeated >3x module-wide
+ * (fresh activities per potential/volitional slot), review-particle cloze
+ * ≤25%, build tile banks scrambled (no answer-first / answer-order leaks),
+ * review tails widened to 6-pair match, M23_8_1/M23_8_2 (〜ができます /
+ * できる) authored as the promised unregistered expansion pair.
  *
  * ID scheme: ja-m23-{n}-{sub} e.g. ja-m23-1-1, ja-m23-1-2
  * Export names: M23_1_1, M23_1_2, M23_2_1, M23_2_2, etc.
@@ -38,6 +47,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  storyComprehension,
   translateStep,
   vocabMcq,
   assertNoSameAnswerCluster,
@@ -73,18 +83,18 @@ const M23_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_JOUZU = grammarRule({
   id: "ja-m23-rule-jouzu",
-  title: "〜のがじょうずです / へたです — good at / bad at",
+  title: "〜がじょうずです / へたです — good at / bad at",
   rule:
-    "To say someone is good or bad at DOING something, nominalize the verb with の and add がじょうずです (good at) or がへたです (bad at): [verb dictionary form] + のが + じょうず/へた + です. Note: Don't use じょうず about yourself — it sounds boastful. Use とくいです (strong at) instead for yourself.",
+    "To say someone is good or bad at something, mark the skill with が: ダンスが じょうずです (good at dance), りょうりが へたです (bad at cooking). If the skill is a VERB phrase, nominalize it with の first: ピアノを ひくのが じょうずです (good at playing the piano). Nouns take が directly — only verbs need のが.",
   examples: [
     {
-      ja: "たけしさんは すいえいのが じょうずです。",
-      romaji: "Takeshi-san wa suiei no ga jouzu desu.",
-      en: "Takeshi is good at swimming.",
+      ja: "たけしさんは ダンスが じょうずです。",
+      romaji: "Takeshi-san wa dansu ga jouzu desu.",
+      en: "Takeshi is good at dance.",
     },
     {
-      ja: "わたしは りょうりのが へたです。",
-      romaji: "watashi wa ryouri no ga heta desu.",
+      ja: "わたしは りょうりが へたです。",
+      romaji: "watashi wa ryouri ga heta desu.",
       en: "I'm bad at cooking.",
     },
     {
@@ -94,10 +104,10 @@ const RULE_JOUZU = grammarRule({
     },
   ],
   antiPattern: {
-    ja: "わたしは すいえいが じょうずです。",
-    romaji: "watashi wa suiei ga jouzu desu.",
-    en: "(incomplete — without の, the nominalization is missing for verb phrases)",
-    why: "For verb phrases ('doing X'), you need の to nominalize: すいえいの. For simple noun subjects (すいえい alone as a skill), が directly works, but the verb-phrase pattern always needs の.",
+    ja: "ゆきさんは うたうが じょうずです。",
+    romaji: "Yuki-san wa utau ga jouzu desu.",
+    en: "(broken — a verb can't take が directly)",
+    why: "Verbs must be nominalized with の before が: うたうのが じょうずです. Nouns (ダンス, りょうり, すいえい) take が directly — no の.",
   },
   cultureNote:
     "Japanese modesty: don't say じょうず about yourself. Say とくい (strong at) or まあまあ (so-so) instead. じょうず is for complimenting others.",
@@ -172,7 +182,7 @@ const RULE_MASENKA = grammarRule({
 //   (うんてん, ダンス, ピアノ, すいえい + じょうず, へた)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_1_1_REVIEW = pickReviewAtoms("ja-m23-1-1-rev", M23_REVIEW_POOL, 4);
+const M23_1_1_REVIEW = pickReviewAtoms("ja-m23-1-1-rev", M23_REVIEW_POOL, 6);
 
 export const M23_1_1: LessonContent = {
   id: "ja-m23-1-1",
@@ -195,7 +205,7 @@ export const M23_1_1: LessonContent = {
       "ja-m23-1-1-build-unten",
       "Pick the Japanese word for: Driving",
       "うんてん",
-      ["うんてん", "ダンス", "ピアノ", "すいえい"],
+      ["ダンス", "うんてん", "ピアノ", "すいえい"],
       ["うんてん"],
     ),
     listeningCompSentence({
@@ -209,7 +219,7 @@ export const M23_1_1: LessonContent = {
       "ja-m23-1-1-build-dansu",
       "Pick the Japanese word for: Dance",
       "ダンス",
-      ["ダンス", "うんてん", "ピアノ", "すいえい"],
+      ["うんてん", "ピアノ", "ダンス", "すいえい"],
       ["ダンス"],
     ),
     vocabMcq(
@@ -222,7 +232,7 @@ export const M23_1_1: LessonContent = {
       "ja-m23-1-1-build-piano",
       "Pick the Japanese word for: Piano",
       "ピアノ",
-      ["ピアノ", "ダンス", "うんてん", "すいえい"],
+      ["ダンス", "うんてん", "すいえい", "ピアノ"],
       ["ピアノ"],
     ),
     vocabMcq(
@@ -235,7 +245,7 @@ export const M23_1_1: LessonContent = {
       "ja-m23-1-1-build-suiei",
       "Pick the Japanese word for: Swimming",
       "すいえい",
-      ["すいえい", "ピアノ", "ダンス", "うんてん"],
+      ["ピアノ", "すいえい", "ダンス", "うんてん"],
       ["すいえい"],
     ),
     speaking("ja-m23-1-1-speak-suiei", "すいえい", "Swimming"),
@@ -244,14 +254,14 @@ export const M23_1_1: LessonContent = {
       "ja-m23-1-1-build-jouzu",
       "Pick the Japanese word for: Skillful / Good at",
       "じょうず",
-      ["じょうず", "へた", "すき", "きらい"],
+      ["へた", "すき", "じょうず", "きらい"],
       ["じょうず"],
     ),
     build(
       "ja-m23-1-1-build-heta",
       "Pick the Japanese word for: Unskillful / Bad at",
       "へた",
-      ["へた", "じょうず", "きらい", "すき"],
+      ["じょうず", "へた", "きらい", "すき"],
       ["へた"],
     ),
     sentenceMcq({
@@ -287,8 +297,8 @@ export const M23_1_1: LessonContent = {
     ),
     selfExplain({
       id: "ja-m23-1-1-self-explain",
-      anchorLabel: "すいえいが じょうずです",
-      anchorAudioText: "すいえいが じょうずです",
+      anchorLabel: "ピアノが じょうずです",
+      anchorAudioText: "ピアノが じょうずです",
       question: "Why shouldn't you say わたしは〜がじょうずです about yourself?",
       rule: { text: "じょうず is used to compliment others. Using it about yourself sounds boastful in Japanese culture. Use とくい (strong at) instead for yourself." },
       surface: { text: "じょうず is only for activities you do professionally." },
@@ -333,7 +343,7 @@ assertNoConsecutiveSame(M23_1_1.steps);
 //   (drill じょうず/へた + うたう, おどる, ひく)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_1_2_REVIEW = pickReviewAtoms("ja-m23-1-2-rev", M23_REVIEW_POOL, 4);
+const M23_1_2_REVIEW = pickReviewAtoms("ja-m23-1-2-rev", M23_REVIEW_POOL, 6);
 
 export const M23_1_2: LessonContent = {
   id: "ja-m23-1-2",
@@ -356,7 +366,7 @@ export const M23_1_2: LessonContent = {
       "ja-m23-1-2-build-utau",
       "Pick the Japanese word for: Sing",
       "うたう",
-      ["うたう", "おどる", "ひく", "すいえい"],
+      ["おどる", "うたう", "ひく", "すいえい"],
       ["うたう"],
     ),
     listeningCompSentence({
@@ -370,7 +380,7 @@ export const M23_1_2: LessonContent = {
       "ja-m23-1-2-build-odoru",
       "Pick the Japanese word for: Dance (verb)",
       "おどる",
-      ["おどる", "うたう", "ひく", "うんてん"],
+      ["うたう", "ひく", "おどる", "うんてん"],
       ["おどる"],
     ),
     speaking("ja-m23-1-2-speak-odoru", "おどる", "Dance (verb)"),
@@ -379,7 +389,7 @@ export const M23_1_2: LessonContent = {
       "ja-m23-1-2-build-hiku",
       "Pick the Japanese word for: Play (instrument)",
       "ひく",
-      ["ひく", "うたう", "おどる", "すいえい"],
+      ["うたう", "おどる", "すいえい", "ひく"],
       ["ひく"],
     ),
     listeningCompSentence({
@@ -394,7 +404,7 @@ export const M23_1_2: LessonContent = {
       "ja-m23-1-2-build-jouzu",
       "Say: She is good at singing.",
       "かのじょは うたうのが じょうずです",
-      ["かのじょ", "は", "うたう", "のが", "じょうず", "です", "へた"],
+      ["うたう", "かのじょ", "じょうず", "は", "のが", "へた", "です"],
       ["かのじょ", "は", "うたう", "のが", "じょうず", "です"],
     ),
     sentenceMcq({
@@ -432,7 +442,7 @@ export const M23_1_2: LessonContent = {
       "ja-m23-1-2-build-heta-unten",
       "Say: I'm bad at driving.",
       "わたしは うんてんが へたです",
-      ["わたし", "は", "うんてん", "が", "へた", "です", "じょうず"],
+      ["うんてん", "わたし", "へた", "は", "が", "じょうず", "です"],
       ["わたし", "は", "うんてん", "が", "へた", "です"],
     ),
     cloze(
@@ -493,7 +503,7 @@ assertNoConsecutiveSame(M23_1_2.steps);
 //   (〜ましょう + activity vocab)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_2_1_REVIEW = pickReviewAtoms("ja-m23-2-1-rev", M23_REVIEW_POOL, 4);
+const M23_2_1_REVIEW = pickReviewAtoms("ja-m23-2-1-rev", M23_REVIEW_POOL, 6);
 
 export const M23_2_1: LessonContent = {
   id: "ja-m23-2-1",
@@ -517,7 +527,7 @@ export const M23_2_1: LessonContent = {
       "ja-m23-2-1-build-issho",
       "Pick the Japanese word for: Together",
       "いっしょに",
-      ["いっしょに", "さんぽ", "かいもの", "パーティー"],
+      ["さんぽ", "いっしょに", "かいもの", "パーティー"],
       ["いっしょに"],
     ),
     listeningCompSentence({
@@ -531,7 +541,7 @@ export const M23_2_1: LessonContent = {
       "ja-m23-2-1-build-sanpo",
       "Pick the Japanese word for: Walk / Stroll",
       "さんぽ",
-      ["さんぽ", "いっしょに", "かいもの", "うんてん"],
+      ["いっしょに", "かいもの", "さんぽ", "うんてん"],
       ["さんぽ"],
     ),
     speaking("ja-m23-2-1-speak-sanpo", "さんぽ", "Walk / Stroll"),
@@ -540,7 +550,7 @@ export const M23_2_1: LessonContent = {
       "ja-m23-2-1-build-kaimono",
       "Pick the Japanese word for: Shopping",
       "かいもの",
-      ["かいもの", "さんぽ", "パーティー", "えいが"],
+      ["さんぽ", "パーティー", "えいが", "かいもの"],
       ["かいもの"],
     ),
     vocabMcq(
@@ -553,7 +563,7 @@ export const M23_2_1: LessonContent = {
       "ja-m23-2-1-build-mashou-iki",
       "Say: Let's go together.",
       "いっしょに いきましょう",
-      ["いっしょに", "いきましょう", "いきます", "いきませんか", "ください"],
+      ["いきます", "いっしょに", "いきましょう", "いきませんか", "ください"],
       ["いっしょに", "いきましょう"],
     ),
     sentenceMcq({
@@ -591,15 +601,15 @@ export const M23_2_1: LessonContent = {
       "ja-m23-2-1-build-mashou-benkyou",
       "Say: Let's study Japanese.",
       "にほんごを べんきょうしましょう",
-      ["にほんご", "を", "べんきょうしましょう", "べんきょうします", "べんきょうしません"],
+      ["べんきょうしましょう", "にほんご", "を", "べんきょうします", "べんきょうしません"],
       ["にほんご", "を", "べんきょうしましょう"],
     ),
     listeningBuildSentence({
       id: "ja-m23-2-1-lb-mashou",
-      target: "いっしょに いきましょう",
-      tiles: ["いっしょに", "いきましょう", "いきます", "いきませんか", "ください"],
-      correctOrder: ["いっしょに", "いきましょう"],
-      promptEn: "Hear it, build it: 'Let's go together.'",
+      target: "こうえんに いきましょう",
+      tiles: ["いきましょう", "こうえん", "に", "いきませんか", "がっこう"],
+      correctOrder: ["こうえん", "に", "いきましょう"],
+      promptEn: "Hear it, build it: 'Let's go to the park.'",
     }),
     selfExplain({
       id: "ja-m23-2-1-self-explain",
@@ -614,8 +624,8 @@ export const M23_2_1: LessonContent = {
     }),
     speaking(
       "ja-m23-2-1-speak-mashou",
-      "いっしょに さんぽしましょう",
-      "Let's take a walk together.",
+      "いっしょに かいものに いきましょう",
+      "Let's go shopping together.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m23-2-1-rev-mcq-1", M23_2_1_REVIEW[0], M23_REVIEW_POOL),
@@ -649,7 +659,7 @@ assertNoConsecutiveSame(M23_2_1.steps);
 //   (drill ましょう + パーティー, やくそく)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_2_2_REVIEW = pickReviewAtoms("ja-m23-2-2-rev", M23_REVIEW_POOL, 4);
+const M23_2_2_REVIEW = pickReviewAtoms("ja-m23-2-2-rev", M23_REVIEW_POOL, 6);
 
 export const M23_2_2: LessonContent = {
   id: "ja-m23-2-2",
@@ -672,7 +682,7 @@ export const M23_2_2: LessonContent = {
       "ja-m23-2-2-build-paatii",
       "Pick the Japanese word for: Party",
       "パーティー",
-      ["パーティー", "やくそく", "さんぽ", "かいもの"],
+      ["やくそく", "パーティー", "さんぽ", "かいもの"],
       ["パーティー"],
     ),
     vocabMcq(
@@ -685,7 +695,7 @@ export const M23_2_2: LessonContent = {
       "ja-m23-2-2-build-yakusoku",
       "Pick the Japanese word for: Promise / Appointment",
       "やくそく",
-      ["やくそく", "パーティー", "さんぽ", "かいもの"],
+      ["パーティー", "さんぽ", "やくそく", "かいもの"],
       ["やくそく"],
     ),
     listeningCompSentence({
@@ -699,7 +709,7 @@ export const M23_2_2: LessonContent = {
       "ja-m23-2-2-build-mashou-party",
       "Say: Let's have a party.",
       "パーティーを しましょう",
-      ["パーティー", "を", "しましょう", "します", "しません"],
+      ["を", "しましょう", "パーティー", "します", "しません"],
       ["パーティー", "を", "しましょう"],
     ),
     sentenceMcq({
@@ -737,15 +747,15 @@ export const M23_2_2: LessonContent = {
       "ja-m23-2-2-build-mashou-kaeri",
       "Say: Let's go home.",
       "かえりましょう",
-      ["かえりましょう", "かえります", "かえりません", "かえりました"],
+      ["かえります", "かえりましょう", "かえりません", "かえりました"],
       ["かえりましょう"],
     ),
     listeningBuildSentence({
       id: "ja-m23-2-2-lb-mashou",
-      target: "パーティーを しましょう",
-      tiles: ["パーティー", "を", "しましょう", "します", "しませんか"],
-      correctOrder: ["パーティー", "を", "しましょう"],
-      promptEn: "Hear it, build it: 'Let's have a party.'",
+      target: "がっこうで べんきょうしましょう",
+      tiles: ["べんきょうしましょう", "がっこう", "で", "べんきょうしませんか", "えき"],
+      correctOrder: ["がっこう", "で", "べんきょうしましょう"],
+      promptEn: "Hear it, build it: 'Let's study at school.'",
     }),
     sentenceMcq({
       id: "ja-m23-2-2-mcq-discrimination",
@@ -760,14 +770,12 @@ export const M23_2_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m23-2-2-translate",
-      promptEn: "Let's go shopping together.",
+      promptEn: "Let's study at the library.",
       acceptedAnswers: [
-        "いっしょに かいものしましょう",
-        "いっしょに かいものしましょう。",
-        "いっしょに かいものを しましょう",
-        "いっしょに かいものを しましょう。",
+        "としょかんで べんきょうしましょう",
+        "としょかんで べんきょうしましょう。",
       ],
-      audioText: "いっしょに かいものしましょう",
+      audioText: "としょかんで べんきょうしましょう",
     }),
     selfExplain({
       id: "ja-m23-2-2-self-explain",
@@ -817,7 +825,7 @@ assertNoConsecutiveSame(M23_2_2.steps);
 //   (〜ませんか + えいが, しゅうまつ, ひま)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_3_1_REVIEW = pickReviewAtoms("ja-m23-3-1-rev", M23_REVIEW_POOL, 4);
+const M23_3_1_REVIEW = pickReviewAtoms("ja-m23-3-1-rev", M23_REVIEW_POOL, 6);
 
 export const M23_3_1: LessonContent = {
   id: "ja-m23-3-1",
@@ -841,7 +849,7 @@ export const M23_3_1: LessonContent = {
       "ja-m23-3-1-build-eiga",
       "Pick the Japanese word for: Movie",
       "えいが",
-      ["えいが", "しゅうまつ", "ひま", "パーティー"],
+      ["しゅうまつ", "えいが", "ひま", "パーティー"],
       ["えいが"],
     ),
     vocabMcq(
@@ -854,7 +862,7 @@ export const M23_3_1: LessonContent = {
       "ja-m23-3-1-build-shuumatsu",
       "Pick the Japanese word for: Weekend",
       "しゅうまつ",
-      ["しゅうまつ", "にちようび", "どようび", "えいが"],
+      ["にちようび", "どようび", "しゅうまつ", "えいが"],
       ["しゅうまつ"],
     ),
     listeningCompSentence({
@@ -868,7 +876,7 @@ export const M23_3_1: LessonContent = {
       "ja-m23-3-1-build-hima",
       "Pick the Japanese word for: Free time / Not busy",
       "ひま",
-      ["ひま", "いそがしい", "しゅうまつ", "えいが"],
+      ["いそがしい", "しゅうまつ", "ひま", "えいが"],
       ["ひま"],
     ),
     speaking("ja-m23-3-1-speak-hima", "ひま", "Free time / Not busy"),
@@ -877,7 +885,7 @@ export const M23_3_1: LessonContent = {
       "ja-m23-3-1-build-masenka-eiga",
       "Ask: Won't you watch a movie?",
       "えいがを みませんか",
-      ["えいが", "を", "みませんか", "みましょう", "みます"],
+      ["みませんか", "えいが", "を", "みましょう", "みます"],
       ["えいが", "を", "みませんか"],
     ),
     sentenceMcq({
@@ -914,7 +922,7 @@ export const M23_3_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m23-3-1-lb-masenka",
       target: "いっしょに さんぽしませんか",
-      tiles: ["いっしょに", "さんぽしませんか", "さんぽしましょう", "さんぽします"],
+      tiles: ["さんぽしませんか", "いっしょに", "さんぽしましょう", "さんぽします"],
       correctOrder: ["いっしょに", "さんぽしませんか"],
       promptEn: "Hear it, build it: 'Shall we take a walk together?'",
     }),
@@ -922,13 +930,13 @@ export const M23_3_1: LessonContent = {
       "ja-m23-3-1-build-masenka-kaimono",
       "Ask: Won't you go shopping on the weekend?",
       "しゅうまつに かいものしませんか",
-      ["しゅうまつ", "に", "かいものしませんか", "かいものしましょう", "かいものします"],
+      ["かいものしませんか", "しゅうまつ", "に", "かいものしましょう", "かいものします"],
       ["しゅうまつ", "に", "かいものしませんか"],
     ),
     selfExplain({
       id: "ja-m23-3-1-self-explain",
-      anchorLabel: "えいがを みませんか",
-      anchorAudioText: "えいがを みませんか",
+      anchorLabel: "しゅうまつに かいものしませんか",
+      anchorAudioText: "しゅうまつに かいものしませんか",
       question: "How is ませんか different from ましょう?",
       rule: { text: "ませんか is a polite invitation that gives room to decline. ましょう is a confident suggestion that assumes agreement." },
       surface: { text: "ませんか is negative — it means 'let's not do it.'" },
@@ -973,7 +981,7 @@ assertNoConsecutiveSame(M23_3_1.steps);
 //   (drill ませんか + にちようび, どようび, いそがしい)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_3_2_REVIEW = pickReviewAtoms("ja-m23-3-2-rev", M23_REVIEW_POOL, 4);
+const M23_3_2_REVIEW = pickReviewAtoms("ja-m23-3-2-rev", M23_REVIEW_POOL, 6);
 
 export const M23_3_2: LessonContent = {
   id: "ja-m23-3-2",
@@ -996,7 +1004,7 @@ export const M23_3_2: LessonContent = {
       "ja-m23-3-2-build-nichiyoubi",
       "Pick the Japanese word for: Sunday",
       "にちようび",
-      ["にちようび", "どようび", "しゅうまつ", "ひま"],
+      ["どようび", "にちようび", "しゅうまつ", "ひま"],
       ["にちようび"],
     ),
     listeningCompSentence({
@@ -1010,7 +1018,7 @@ export const M23_3_2: LessonContent = {
       "ja-m23-3-2-build-doyoubi",
       "Pick the Japanese word for: Saturday",
       "どようび",
-      ["どようび", "にちようび", "しゅうまつ", "えいが"],
+      ["にちようび", "しゅうまつ", "どようび", "えいが"],
       ["どようび"],
     ),
     speaking("ja-m23-3-2-speak-doyoubi", "どようび", "Saturday"),
@@ -1019,7 +1027,7 @@ export const M23_3_2: LessonContent = {
       "ja-m23-3-2-build-isogashii",
       "Pick the Japanese word for: Busy",
       "いそがしい",
-      ["いそがしい", "ひま", "たのしい", "だいじょうぶ"],
+      ["ひま", "たのしい", "いそがしい", "だいじょうぶ"],
       ["いそがしい"],
     ),
     listeningCompSentence({
@@ -1037,7 +1045,7 @@ export const M23_3_2: LessonContent = {
       "ja-m23-3-2-build-masenka-nichiyou",
       "Ask: Won't you go to a movie on Sunday?",
       "にちようびに えいがを みませんか",
-      ["にちようび", "に", "えいが", "を", "みませんか", "みましょう"],
+      ["えいが", "にちようび", "みませんか", "に", "を", "みましょう"],
       ["にちようび", "に", "えいが", "を", "みませんか"],
     ),
     sentenceMcq({
@@ -1075,24 +1083,24 @@ export const M23_3_2: LessonContent = {
       "ja-m23-3-2-build-hima",
       "Say: I'm free on Sunday.",
       "にちようびは ひまです",
-      ["にちようび", "は", "ひま", "です", "いそがしい"],
+      ["ひま", "にちようび", "は", "いそがしい", "です"],
       ["にちようび", "は", "ひま", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m23-3-2-lb-masenka-doyou",
       target: "どようびに パーティーに きませんか",
-      tiles: ["どようび", "に", "パーティー", "に", "きませんか", "きましょう"],
+      tiles: ["パーティー", "どようび", "に", "きませんか", "に", "きましょう"],
       correctOrder: ["どようび", "に", "パーティー", "に", "きませんか"],
       promptEn: "Hear it, build it: 'Won't you come to the party on Saturday?'",
     }),
     translateStep({
       id: "ja-m23-3-2-translate",
-      promptEn: "Shall we watch a movie on Sunday?",
+      promptEn: "Won't you watch a movie on Saturday?",
       acceptedAnswers: [
-        "にちようびに えいがを みませんか",
-        "にちようびに えいがを みませんか。",
+        "どようびに えいがを みませんか",
+        "どようびに えいがを みませんか。",
       ],
-      audioText: "にちようびに えいがを みませんか",
+      audioText: "どようびに えいがを みませんか",
     }),
     selfExplain({
       id: "ja-m23-3-2-self-explain",
@@ -1107,8 +1115,8 @@ export const M23_3_2: LessonContent = {
     }),
     speaking(
       "ja-m23-3-2-speak-accept",
-      "ぜひ いきましょう",
-      "By all means, let's go!",
+      "いいですね。いきましょう",
+      "Sounds good — let's go!",
     ),
     // ── Review tail ──
     vocabMcq("ja-m23-3-2-rev-mcq-1", M23_3_2_REVIEW[0], M23_REVIEW_POOL),
@@ -1141,7 +1149,7 @@ assertNoConsecutiveSame(M23_3_2.steps);
 // M23-4-1 — ましょう vs ませんか interleave
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_4_1_REVIEW = pickReviewAtoms("ja-m23-4-1-rev", M23_REVIEW_POOL, 4);
+const M23_4_1_REVIEW = pickReviewAtoms("ja-m23-4-1-rev", M23_REVIEW_POOL, 6);
 
 export const M23_4_1: LessonContent = {
   id: "ja-m23-4-1",
@@ -1164,7 +1172,7 @@ export const M23_4_1: LessonContent = {
       "ja-m23-4-1-build-daijoubu",
       "Pick the Japanese word for: Okay / Fine",
       "だいじょうぶ",
-      ["だいじょうぶ", "ぜひ", "ひま", "いそがしい"],
+      ["ぜひ", "だいじょうぶ", "ひま", "いそがしい"],
       ["だいじょうぶ"],
     ),
     listeningCompSentence({
@@ -1178,7 +1186,7 @@ export const M23_4_1: LessonContent = {
       "ja-m23-4-1-build-zehi",
       "Pick the Japanese word for: By all means",
       "ぜひ",
-      ["ぜひ", "だいじょうぶ", "きっと", "たのしい"],
+      ["だいじょうぶ", "きっと", "ぜひ", "たのしい"],
       ["ぜひ"],
     ),
     speaking("ja-m23-4-1-speak-zehi", "ぜひ", "By all means"),
@@ -1208,17 +1216,17 @@ export const M23_4_1: LessonContent = {
       "ja-m23-4-1-build-mashou-kaeri",
       "Your friend is tired. Suggest: Let's go home.",
       "かえりましょう",
-      ["かえりましょう", "かえりませんか", "かえります", "かえりました"],
+      ["かえりませんか", "かえります", "かえりましょう", "かえりました"],
       ["かえりましょう"],
     ),
     listeningCompSentence({
       id: "ja-m23-4-1-lc-masenka-eiga",
-      audioText: "えいがを みませんか",
-      correctMeaningEn: "Shall we watch a movie?",
+      audioText: "こうえんに いきませんか",
+      correctMeaningEn: "Won't you go to the park?",
       distractorsEn: [
-        "Let's watch a movie.",
-        "I watch movies.",
-        "I don't watch movies.",
+        "Let's go to the park.",
+        "I go to the park.",
+        "Won't you go to the station?",
       ],
     }),
     cloze(
@@ -1235,13 +1243,13 @@ export const M23_4_1: LessonContent = {
       "ja-m23-4-1-build-accept",
       "Accept an invitation: By all means, let's go.",
       "ぜひ いきましょう",
-      ["ぜひ", "いきましょう", "いきませんか", "いきます"],
+      ["いきましょう", "ぜひ", "いきませんか", "いきます"],
       ["ぜひ", "いきましょう"],
     ),
     listeningBuildSentence({
       id: "ja-m23-4-1-lb-masenka",
       target: "しゅうまつに さんぽしませんか",
-      tiles: ["しゅうまつ", "に", "さんぽしませんか", "さんぽしましょう", "さんぽします"],
+      tiles: ["さんぽしませんか", "しゅうまつ", "に", "さんぽしましょう", "さんぽします"],
       correctOrder: ["しゅうまつ", "に", "さんぽしませんか"],
       promptEn: "Hear it, build it: 'Shall we take a walk on the weekend?'",
     }),
@@ -1258,12 +1266,12 @@ export const M23_4_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m23-4-1-translate",
-      promptEn: "Won't you come to the party on Saturday?",
+      promptEn: "Won't you come to my house on Saturday?",
       acceptedAnswers: [
-        "どようびに パーティーに きませんか",
-        "どようびに パーティーに きませんか。",
+        "どようびに わたしの いえに きませんか",
+        "どようびに わたしの いえに きませんか。",
       ],
-      audioText: "どようびに パーティーに きませんか",
+      audioText: "どようびに わたしの いえに きませんか",
     }),
     selfExplain({
       id: "ja-m23-4-1-self-explain",
@@ -1312,7 +1320,7 @@ assertNoConsecutiveSame(M23_4_1.steps);
 // M23-4-2 — Interleave II (all patterns)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_4_2_REVIEW = pickReviewAtoms("ja-m23-4-2-rev", M23_REVIEW_POOL, 4);
+const M23_4_2_REVIEW = pickReviewAtoms("ja-m23-4-2-rev", M23_REVIEW_POOL, 6);
 
 export const M23_4_2: LessonContent = {
   id: "ja-m23-4-2",
@@ -1335,7 +1343,7 @@ export const M23_4_2: LessonContent = {
       "ja-m23-4-2-build-kitto",
       "Pick the Japanese word for: Surely / Definitely",
       "きっと",
-      ["きっと", "ぜひ", "だいじょうぶ", "たのしい"],
+      ["ぜひ", "きっと", "だいじょうぶ", "たのしい"],
       ["きっと"],
     ),
     listeningCompSentence({
@@ -1349,7 +1357,7 @@ export const M23_4_2: LessonContent = {
       "ja-m23-4-2-build-tanoshii",
       "Pick the Japanese word for: Fun / Enjoyable",
       "たのしい",
-      ["たのしい", "きっと", "ぜひ", "いそがしい"],
+      ["きっと", "ぜひ", "たのしい", "いそがしい"],
       ["たのしい"],
     ),
     speaking("ja-m23-4-2-speak-tanoshii", "たのしい", "Fun / Enjoyable"),
@@ -1358,7 +1366,7 @@ export const M23_4_2: LessonContent = {
       "ja-m23-4-2-build-tanoshimi",
       "Pick the Japanese word for: Looking forward to",
       "たのしみ",
-      ["たのしみ", "たのしい", "やくそく", "ぜひ"],
+      ["たのしい", "やくそく", "たのしみ", "ぜひ"],
       ["たのしみ"],
     ),
     listeningCompSentence({
@@ -1393,25 +1401,25 @@ export const M23_4_2: LessonContent = {
       "ja-m23-4-2-build-masenka-utai",
       "Ask: Won't you sing with me?",
       "いっしょに うたいませんか",
-      ["いっしょに", "うたいませんか", "うたいましょう", "うたいます"],
+      ["うたいませんか", "いっしょに", "うたいましょう", "うたいます"],
       ["いっしょに", "うたいませんか"],
     ),
     listeningBuildSentence({
       id: "ja-m23-4-2-lb-jouzu",
       target: "ゆきさんは ピアノを ひくのが じょうずです",
-      tiles: ["ゆきさん", "は", "ピアノ", "を", "ひくのが", "じょうず", "です", "へた"],
+      tiles: ["ピアノ", "ゆきさん", "ひくのが", "は", "を", "へた", "じょうず", "です"],
       correctOrder: ["ゆきさん", "は", "ピアノ", "を", "ひくのが", "じょうず", "です"],
       promptEn: "Hear it, build it: 'Yuki is good at playing the piano.'",
     }),
     cloze(
       "ja-m23-4-2-cloze-noga",
-      "すいえい",
+      "うたう",
       " へたです。",
       "のが",
       ["のが", "が", "は", "を"],
-      "Bad at swimming.",
-      "すいえいのが へたです。",
-      "のが nominalizes — 'the act of swimming.'",
+      "Bad at singing.",
+      "うたうのが へたです。",
+      "うたう is a verb — verbs need のが to become the subject of へた.",
     ),
     sentenceMcq({
       id: "ja-m23-4-2-mcq-tanoshimi",
@@ -1426,12 +1434,12 @@ export const M23_4_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m23-4-2-translate",
-      promptEn: "She is good at singing.",
+      promptEn: "My father is good at driving.",
       acceptedAnswers: [
-        "かのじょは うたうのが じょうずです",
-        "かのじょは うたうのが じょうずです。",
+        "ちちは うんてんが じょうずです",
+        "ちちは うんてんが じょうずです。",
       ],
-      audioText: "かのじょは うたうのが じょうずです",
+      audioText: "ちちは うんてんが じょうずです",
     }),
     selfExplain({
       id: "ja-m23-4-2-self-explain",
@@ -1480,7 +1488,7 @@ assertNoConsecutiveSame(M23_4_2.steps);
 // M23-5-1 — Full interleave drill I
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_5_1_REVIEW = pickReviewAtoms("ja-m23-5-1-rev", M23_REVIEW_POOL, 4);
+const M23_5_1_REVIEW = pickReviewAtoms("ja-m23-5-1-rev", M23_REVIEW_POOL, 6);
 
 export const M23_5_1: LessonContent = {
   id: "ja-m23-5-1",
@@ -1512,7 +1520,7 @@ export const M23_5_1: LessonContent = {
       "ja-m23-5-1-build-masenka",
       "Ask: Won't you come to the party?",
       "パーティーに きませんか",
-      ["パーティー", "に", "きませんか", "きましょう", "きます"],
+      ["きましょう", "パーティー", "きませんか", "に", "きます"],
       ["パーティー", "に", "きませんか"],
     ),
     sentenceMcq({
@@ -1549,14 +1557,14 @@ export const M23_5_1: LessonContent = {
     build(
       "ja-m23-5-1-build-jouzu-suiei",
       "Say: He is good at swimming.",
-      "かれは すいえいのが じょうずです",
-      ["かれ", "は", "すいえい", "のが", "じょうず", "です", "へた"],
-      ["かれ", "は", "すいえい", "のが", "じょうず", "です"],
+      "かれは すいえいが じょうずです",
+      ["すいえい", "かれ", "が", "は", "じょうず", "のが", "です"],
+      ["かれ", "は", "すいえい", "が", "じょうず", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m23-5-1-lb-masenka",
       target: "しゅうまつに えいがを みませんか",
-      tiles: ["しゅうまつ", "に", "えいが", "を", "みませんか", "みましょう", "みます"],
+      tiles: ["えいが", "しゅうまつ", "みませんか", "に", "を", "みましょう", "みます"],
       correctOrder: ["しゅうまつ", "に", "えいが", "を", "みませんか"],
       promptEn: "Hear it, build it: 'Shall we watch a movie on the weekend?'",
     }),
@@ -1585,7 +1593,7 @@ export const M23_5_1: LessonContent = {
       "ja-m23-5-1-build-heta-ryouri",
       "Say: I'm bad at cooking.",
       "わたしは りょうりが へたです",
-      ["わたし", "は", "りょうり", "が", "へた", "です", "じょうず"],
+      ["りょうり", "わたし", "へた", "は", "が", "じょうず", "です"],
       ["わたし", "は", "りょうり", "が", "へた", "です"],
     ),
     listeningCompSentence({
@@ -1610,7 +1618,7 @@ export const M23_5_1: LessonContent = {
     selfExplain({
       id: "ja-m23-5-1-self-explain",
       anchorLabel: "じょうず/へた + ましょう/ませんか",
-      anchorAudioText: "すいえいのが じょうずです",
+      anchorAudioText: "うんてんが へたです",
       question: "Can you use じょうず with ましょう in one sentence?",
       rule: { text: "Yes — e.g., 'He's good at swimming, so let's go swimming.' They serve different functions: じょうず describes ability, ましょう suggests an action." },
       surface: { text: "No — じょうず and ましょう are the same grammar pattern and can't combine." },
@@ -1620,7 +1628,7 @@ export const M23_5_1: LessonContent = {
     }),
     speaking(
       "ja-m23-5-1-speak-full",
-      "かれは すいえいのが じょうずです",
+      "かれは すいえいが じょうずです",
       "He is good at swimming.",
     ),
     // ── Review tail ──
@@ -1654,7 +1662,7 @@ assertNoConsecutiveSame(M23_5_1.steps);
 // M23-5-2 — Full interleave drill II
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_5_2_REVIEW = pickReviewAtoms("ja-m23-5-2-rev", M23_REVIEW_POOL, 4);
+const M23_5_2_REVIEW = pickReviewAtoms("ja-m23-5-2-rev", M23_REVIEW_POOL, 6);
 
 export const M23_5_2: LessonContent = {
   id: "ja-m23-5-2",
@@ -1676,7 +1684,7 @@ export const M23_5_2: LessonContent = {
       "ja-m23-5-2-build-jouzu",
       "Say: Yuki is good at dancing.",
       "ゆきさんは おどるのが じょうずです",
-      ["ゆきさん", "は", "おどるのが", "じょうず", "です", "へた"],
+      ["おどるのが", "ゆきさん", "じょうず", "は", "へた", "です"],
       ["ゆきさん", "は", "おどるのが", "じょうず", "です"],
     ),
     cloze(
@@ -1691,8 +1699,8 @@ export const M23_5_2: LessonContent = {
     ),
     speaking(
       "ja-m23-5-2-speak-masenka",
-      "どようびに えいがを みませんか",
-      "Shall we watch a movie on Saturday?",
+      "どようびに こうえんに いきませんか",
+      "Won't you go to the park on Saturday?",
     ),
     sentenceMcq({
       id: "ja-m23-5-2-mcq-heta",
@@ -1709,40 +1717,40 @@ export const M23_5_2: LessonContent = {
       "ja-m23-5-2-build-masenka-odori",
       "Ask: Won't you dance together?",
       "いっしょに おどりませんか",
-      ["いっしょに", "おどりませんか", "おどりましょう", "おどります"],
+      ["おどりましょう", "いっしょに", "おどりませんか", "おどります"],
       ["いっしょに", "おどりませんか"],
     ),
     listeningCompSentence({
       id: "ja-m23-5-2-lc-kitto",
-      audioText: "きっと たのしいです",
-      correctMeaningEn: "It's surely fun.",
+      audioText: "きっと だいじょうぶです",
+      correctMeaningEn: "It's surely okay.",
       distractorsEn: [
-        "It's not fun.",
+        "It's surely fun.",
         "I'm looking forward to it.",
-        "It's okay.",
+        "By all means.",
       ],
     }),
     cloze(
       "ja-m23-5-2-cloze-noga",
-      "ピアノを ひく",
-      " じょうずです。",
+      "えいがを みる",
+      " すきです。",
       "のが",
       ["のが", "が", "は", "を"],
-      "Good at playing piano.",
-      "ピアノを ひくのが じょうずです。",
-      "のが nominalizes the verb phrase.",
+      "I like watching movies.",
+      "えいがを みるのが すきです。",
+      "のが nominalizes the verb phrase — the same pattern works with すき.",
     ),
     build(
       "ja-m23-5-2-build-tanoshimi",
       "Say: I'm looking forward to the party.",
       "パーティーが たのしみです",
-      ["パーティー", "が", "たのしみ", "です", "たのしい", "は"],
+      ["たのしみ", "パーティー", "が", "たのしい", "は", "です"],
       ["パーティー", "が", "たのしみ", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m23-5-2-lb-heta",
       target: "わたしは りょうりが へたです",
-      tiles: ["わたし", "は", "りょうり", "が", "へた", "です", "じょうず"],
+      tiles: ["りょうり", "わたし", "へた", "は", "が", "じょうず", "です"],
       correctOrder: ["わたし", "は", "りょうり", "が", "へた", "です"],
       promptEn: "Hear it, build it: 'I'm bad at cooking.'",
     }),
@@ -1769,12 +1777,12 @@ export const M23_5_2: LessonContent = {
     ),
     translateStep({
       id: "ja-m23-5-2-translate",
-      promptEn: "Yuki is good at playing the piano.",
+      promptEn: "My friend is good at playing the piano.",
       acceptedAnswers: [
-        "ゆきさんは ピアノを ひくのが じょうずです",
-        "ゆきさんは ピアノを ひくのが じょうずです。",
+        "ともだちは ピアノを ひくのが じょうずです",
+        "ともだちは ピアノを ひくのが じょうずです。",
       ],
-      audioText: "ゆきさんは ピアノを ひくのが じょうずです",
+      audioText: "ともだちは ピアノを ひくのが じょうずです",
     }),
     selfExplain({
       id: "ja-m23-5-2-self-explain",
@@ -1823,7 +1831,7 @@ assertNoConsecutiveSame(M23_5_2.steps);
 // M23-6-1 — Production I
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_6_1_REVIEW = pickReviewAtoms("ja-m23-6-1-rev", M23_REVIEW_POOL, 4);
+const M23_6_1_REVIEW = pickReviewAtoms("ja-m23-6-1-rev", M23_REVIEW_POOL, 6);
 
 export const M23_6_1: LessonContent = {
   id: "ja-m23-6-1",
@@ -1844,26 +1852,26 @@ export const M23_6_1: LessonContent = {
     build(
       "ja-m23-6-1-build-1",
       "Say: She is good at swimming.",
-      "かのじょは すいえいのが じょうずです",
-      ["かのじょ", "は", "すいえい", "のが", "じょうず", "です", "へた"],
-      ["かのじょ", "は", "すいえい", "のが", "じょうず", "です"],
+      "かのじょは すいえいが じょうずです",
+      ["すいえい", "かのじょ", "じょうず", "は", "が", "のが", "へた", "です"],
+      ["かのじょ", "は", "すいえい", "が", "じょうず", "です"],
     ),
     speaking(
       "ja-m23-6-1-speak-1",
-      "いっしょに かいものしましょう",
-      "Let's go shopping together.",
+      "いっしょに うみに いきましょう",
+      "Let's go to the sea together.",
     ),
     build(
       "ja-m23-6-1-build-2",
       "Ask: Won't you come to the party on Sunday?",
       "にちようびに パーティーに きませんか",
-      ["にちようび", "に", "パーティー", "に", "きませんか", "きましょう"],
+      ["パーティー", "にちようび", "に", "きませんか", "に", "きましょう"],
       ["にちようび", "に", "パーティー", "に", "きませんか"],
     ),
     listeningBuildSentence({
       id: "ja-m23-6-1-lb-1",
       target: "うたうのが じょうずです",
-      tiles: ["うたう", "のが", "じょうず", "です", "へた", "が"],
+      tiles: ["じょうず", "うたう", "のが", "へた", "が", "です"],
       correctOrder: ["うたう", "のが", "じょうず", "です"],
       promptEn: "Hear it, build it: 'Good at singing.'",
     }),
@@ -1876,7 +1884,7 @@ export const M23_6_1: LessonContent = {
       "ja-m23-6-1-build-3",
       "Say: I'm bad at dancing.",
       "わたしは おどるのが へたです",
-      ["わたし", "は", "おどるのが", "へた", "です", "じょうず"],
+      ["おどるのが", "わたし", "へた", "は", "じょうず", "です"],
       ["わたし", "は", "おどるのが", "へた", "です"],
     ),
     sentenceMcq({
@@ -1894,19 +1902,19 @@ export const M23_6_1: LessonContent = {
       "ja-m23-6-1-build-4",
       "Say: Let's study Japanese together.",
       "いっしょに にほんごを べんきょうしましょう",
-      ["いっしょに", "にほんご", "を", "べんきょうしましょう", "べんきょうしませんか"],
+      ["にほんご", "いっしょに", "べんきょうしましょう", "を", "べんきょうしませんか"],
       ["いっしょに", "にほんご", "を", "べんきょうしましょう"],
     ),
     translateStep({
       id: "ja-m23-6-1-translate-1",
-      promptEn: "I'm bad at cooking.",
+      promptEn: "I'm bad at singing.",
       acceptedAnswers: [
-        "わたしは りょうりが へたです",
-        "わたしは りょうりが へたです。",
-        "りょうりが へたです",
-        "りょうりが へたです。",
+        "わたしは うたうのが へたです",
+        "わたしは うたうのが へたです。",
+        "うたうのが へたです",
+        "うたうのが へたです。",
       ],
-      audioText: "わたしは りょうりが へたです",
+      audioText: "わたしは うたうのが へたです",
     }),
     speaking(
       "ja-m23-6-1-speak-3",
@@ -1925,10 +1933,10 @@ export const M23_6_1: LessonContent = {
     }),
     build(
       "ja-m23-6-1-build-5",
-      "Say: It'll surely be fun. I'm looking forward to it.",
-      "きっと たのしいです。たのしみです",
-      ["きっと", "たのしい", "です", "たのしみ", "です"],
-      ["きっと", "たのしい", "です"],
+      "Say: The party will surely be fun.",
+      "パーティーは きっと たのしいです",
+      ["きっと", "パーティー", "たのしい", "は", "たのしみ", "です"],
+      ["パーティー", "は", "きっと", "たのしい", "です"],
     ),
     selfExplain({
       id: "ja-m23-6-1-self-explain",
@@ -1977,7 +1985,7 @@ assertNoConsecutiveSame(M23_6_1.steps);
 // M23-6-2 — Production II
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_6_2_REVIEW = pickReviewAtoms("ja-m23-6-2-rev", M23_REVIEW_POOL, 4);
+const M23_6_2_REVIEW = pickReviewAtoms("ja-m23-6-2-rev", M23_REVIEW_POOL, 6);
 
 export const M23_6_2: LessonContent = {
   id: "ja-m23-6-2",
@@ -1997,10 +2005,10 @@ export const M23_6_2: LessonContent = {
     ),
     build(
       "ja-m23-6-2-build-1",
-      "Say: Takeshi is good at singing and dancing.",
-      "たけしさんは うたうのが じょうずです",
-      ["たけしさん", "は", "うたう", "のが", "じょうず", "です", "へた"],
-      ["たけしさん", "は", "うたう", "のが", "じょうず", "です"],
+      "Say: My older sister is good at dance.",
+      "あねは ダンスが じょうずです",
+      ["ダンス", "あね", "じょうず", "は", "が", "のが", "です"],
+      ["あね", "は", "ダンス", "が", "じょうず", "です"],
     ),
     speaking(
       "ja-m23-6-2-speak-1",
@@ -2020,9 +2028,9 @@ export const M23_6_2: LessonContent = {
     build(
       "ja-m23-6-2-build-2",
       "Say: I'm bad at swimming, but I like it.",
-      "すいえいのが へたですが、すきです",
-      ["すいえい", "のが", "へた", "です", "が", "すき", "です"],
-      ["すいえい", "のが", "へた", "です", "が", "すき", "です"],
+      "すいえいが へたですが、すきです",
+      ["へた", "すいえい", "が", "です", "じょうず", "が", "すき", "です"],
+      ["すいえい", "が", "へた", "です", "が", "すき", "です"],
     ),
     listeningCompSentence({
       id: "ja-m23-6-2-lc-1",
@@ -2049,7 +2057,7 @@ export const M23_6_2: LessonContent = {
       "ja-m23-6-2-build-3",
       "Say: Let's have a party on the weekend.",
       "しゅうまつに パーティーを しましょう",
-      ["しゅうまつ", "に", "パーティー", "を", "しましょう", "しませんか"],
+      ["パーティー", "しゅうまつ", "を", "に", "しましょう", "しませんか"],
       ["しゅうまつ", "に", "パーティー", "を", "しましょう"],
     ),
     cloze(
@@ -2060,7 +2068,7 @@ export const M23_6_2: LessonContent = {
       ["が", "は", "を", "のが"],
       "Bad at driving.",
       "うんてんが へたです。",
-      "が marks the skill.",
+      "うんてん is a noun — nouns take が directly. のが is only for verb phrases.",
     ),
     speaking(
       "ja-m23-6-2-speak-2",
@@ -2069,24 +2077,24 @@ export const M23_6_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m23-6-2-lb-1",
-      target: "ぜひ いきましょう。たのしみです",
-      tiles: ["ぜひ", "いきましょう", "たのしみ", "です", "いきませんか"],
-      correctOrder: ["ぜひ", "いきましょう"],
-      promptEn: "Hear it, build it: 'By all means, let's go!'",
+      target: "こうえんで さんぽしましょう",
+      tiles: ["さんぽしましょう", "こうえん", "で", "さんぽしませんか", "えき"],
+      correctOrder: ["こうえん", "で", "さんぽしましょう"],
+      promptEn: "Hear it, build it: 'Let's take a walk in the park.'",
     }),
     translateStep({
       id: "ja-m23-6-2-translate",
-      promptEn: "Won't you come to the party on Saturday?",
+      promptEn: "Won't you go shopping on Sunday?",
       acceptedAnswers: [
-        "どようびに パーティーに きませんか",
-        "どようびに パーティーに きませんか。",
+        "にちようびに かいものに いきませんか",
+        "にちようびに かいものに いきませんか。",
       ],
-      audioText: "どようびに パーティーに きませんか",
+      audioText: "にちようびに かいものに いきませんか",
     }),
     selfExplain({
       id: "ja-m23-6-2-self-explain",
       anchorLabel: "M23 production mastery",
-      anchorAudioText: "いっしょに おどりましょう",
+      anchorAudioText: "しゅうまつに パーティーを しましょう",
       question: "You've learned four patterns this module. Which two are invitation/suggestion forms?",
       rule: { text: "ましょう (let's — confident) and ませんか (shall we? — polite). Both replace ます to suggest doing something." },
       surface: { text: "じょうず and へた — they invite someone to practice a skill." },
@@ -2144,120 +2152,137 @@ export const M23_STORY: LessonContent = {
     infoStep(
       "ja-m23-story-info-open",
       "Story time — Weekend plans",
-      "ゆき and たけし are making plans for the weekend. They talk about what they're good at and invite each other to activities.",
+      "たけし tells you about his weekend — what he's good and bad at, and his plans with ゆき. Listen and reply.",
     ),
-    dialogueListen({
-      id: "ja-m23-story-scene-1",
-      lines: [
-        { speaker: "ゆき", kana: "たけしさんは ピアノを ひくのが じょうずですね。" },
-        { speaker: "たけし", kana: "ありがとうございます。でも、おどるのは へたです。" },
-        { speaker: "ゆき", kana: "しゅうまつに パーティーが ありますよ。いっしょに いきませんか。" },
-        { speaker: "たけし", kana: "ぜひ! たのしみです。" },
+    ...storyComprehension({
+      idPrefix: "ja-m23-story-scene-1",
+      narrative: [
+        { kana: "わたしは うたうのが すきです。" },
+        { kana: "でも、おどるのが へたです。" },
+        { kana: "ともだちの ゆきさんは ダンスが じょうずです。" },
+        { kana: "どようびに パーティーが あります。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s1-q1",
-          prompt: "What is Takeshi good at?",
-          correctText: "Playing the piano.",
-          distractors: ["Dancing.", "Singing.", "Swimming."],
-          explanation: "ピアノを ひくのが じょうずです = good at playing piano.",
+          prompt: "What is Takeshi bad at?",
+          correctText: "Dancing.",
+          distractors: ["Singing.", "Piano.", "Swimming."],
+          explanation: "おどるのが へたです = bad at dancing.",
         },
         {
           id: "s1-q2",
-          prompt: "How does Takeshi respond to the invitation?",
-          correctText: "He enthusiastically accepts.",
-          distractors: ["He declines.", "He says he's busy.", "He says maybe."],
-          explanation: "ぜひ! たのしみです = by all means! I'm looking forward to it.",
+          prompt: "Who is good at dance?",
+          correctText: "Yuki.",
+          distractors: ["Takeshi.", "Both of them.", "Neither of them."],
+          explanation: "ゆきさんは ダンスが じょうずです = Yuki is good at dance.",
         },
       ],
+      responseBuild: {
+        target: "パーティーで いっしょに うたいませんか",
+        tiles: ["うたいませんか", "パーティー", "いっしょに", "で", "うたいましょう", "うたいます"],
+        correctOrder: ["パーティー", "で", "いっしょに", "うたいませんか"],
+        promptEn: "Invite him: 'Won't you sing together at the party?'",
+      },
     }),
-    build(
-      "ja-m23-story-build-1",
-      "Say: He is good at playing the piano.",
-      "ピアノを ひくのが じょうずです",
-      ["ピアノ", "を", "ひくのが", "じょうず", "です", "へた"],
-      ["ピアノ", "を", "ひくのが", "じょうず", "です"],
-    ),
     sentenceMcq({
       id: "ja-m23-story-mcq-1",
-      prompt: "What is Takeshi bad at?",
-      correctKana: "Dancing.",
-      distractorsKana: ["Piano.", "Singing.", "Swimming."],
-      explanation: "おどるのは へたです = bad at dancing.",
-    }),
-    dialogueListen({
-      id: "ja-m23-story-scene-2",
-      lines: [
-        { speaker: "ゆき", kana: "にちようびは ひまですか。" },
-        { speaker: "たけし", kana: "はい、ひまです。なにを しますか。" },
-        { speaker: "ゆき", kana: "えいがを みませんか。きっと たのしいですよ。" },
-        { speaker: "たけし", kana: "いいですね! いっしょに いきましょう。" },
+      prompt: "Why might Takeshi not dance at the party?",
+      correctKana: "He is bad at dancing.",
+      distractorsKana: [
+        "He is busy on Saturday.",
+        "He doesn't like parties.",
+        "Yuki is bad at dancing.",
       ],
-      questions: [
+      explanation: "おどるのが へたです — he says he's bad at dancing.",
+    }),
+    ...storyComprehension({
+      idPrefix: "ja-m23-story-scene-2",
+      narrative: [
+        { kana: "にちようびは ひまです。" },
+        { kana: "ゆきさんと えいがを みます。" },
+        { kana: "かいものも します。" },
+        { kana: "きっと たのしいです。" },
+      ],
+      comprehensionQuestions: [
         {
           id: "s2-q1",
           prompt: "Is Takeshi free on Sunday?",
           correctText: "Yes, he's free.",
           distractors: ["No, he's busy.", "He has an appointment.", "He doesn't say."],
-          explanation: "はい、ひまです = yes, I'm free.",
+          explanation: "にちようびは ひまです = Sunday is free.",
         },
         {
           id: "s2-q2",
-          prompt: "What does Yuki suggest?",
-          correctText: "Watching a movie.",
-          distractors: ["Going shopping.", "Taking a walk.", "Having a party."],
-          explanation: "えいがを みませんか = shall we watch a movie?",
+          prompt: "What will Takeshi do on Sunday?",
+          correctText: "Watch a movie and go shopping with Yuki.",
+          distractors: [
+            "Go to a party with Yuki.",
+            "Take a walk alone.",
+            "Practice the piano.",
+          ],
+          explanation: "えいがを みます + かいものも します = movie, and shopping too.",
         },
       ],
+      responseBuild: {
+        target: "わたしも にちようびは ひまです",
+        tiles: ["にちようび", "わたし", "ひま", "も", "は", "です", "いそがしい"],
+        correctOrder: ["わたし", "も", "にちようび", "は", "ひま", "です"],
+        promptEn: "Reply: 'I'm also free on Sunday.'",
+      },
     }),
     cloze(
       "ja-m23-story-cloze-1",
-      "えいがを み",
+      "いっしょに えいがを み",
       "。",
-      "ませんか",
-      ["ませんか", "ましょう", "ます", "ました"],
-      "Shall we watch a movie?",
-      "えいがを みませんか。",
-      "ませんか = polite invitation.",
+      "ましょう",
+      ["ましょう", "ませんか", "ます", "ました"],
+      "Let's watch a movie together.",
+      "いっしょに えいがを みましょう。",
+      "ましょう = let's — the confirmed plan.",
     ),
     listeningBuildSentence({
       id: "ja-m23-story-lb-1",
-      target: "いっしょに いきましょう",
-      tiles: ["いっしょに", "いきましょう", "いきませんか", "いきます"],
-      correctOrder: ["いっしょに", "いきましょう"],
-      promptEn: "Hear it, build it: 'Let's go together.'",
+      target: "ゆきさんは ダンスが じょうずです",
+      tiles: ["ダンス", "ゆきさん", "じょうず", "は", "が", "のが", "へた", "です"],
+      correctOrder: ["ゆきさん", "は", "ダンス", "が", "じょうず", "です"],
+      promptEn: "Hear it, build it: 'Yuki is good at dance.'",
     }),
     listeningCompSentence({
       id: "ja-m23-story-lc-1",
-      audioText: "きっと たのしいですよ",
-      correctMeaningEn: "It'll surely be fun!",
+      audioText: "ゆきさんと えいがを みます",
+      correctMeaningEn: "I'll watch a movie with Yuki.",
       distractorsEn: [
-        "It's not fun.",
-        "I'm busy.",
-        "It's okay.",
+        "Won't you watch a movie with Yuki?",
+        "Yuki watches movies alone.",
+        "Let's watch a movie with Yuki.",
       ],
     }),
     speaking(
       "ja-m23-story-speak-1",
-      "ぜひ いきましょう",
-      "By all means, let's go!",
+      "いっしょに いきましょう",
+      "Let's go together.",
     ),
     sentenceMcq({
       id: "ja-m23-story-mcq-summary",
-      prompt: "What are Yuki and Takeshi doing on Sunday?",
-      correctKana: "Watching a movie together.",
-      distractorsKana: ["Going to a party.", "Going shopping.", "Taking a walk."],
-      explanation: "They agreed on えいがを みませんか → いっしょに いきましょう.",
+      prompt: "What is Takeshi's weekend like?",
+      correctKana: "A party on Saturday, then a movie and shopping on Sunday.",
+      distractorsKana: [
+        "A movie on Saturday, a party on Sunday.",
+        "He's busy both days.",
+        "He's staying home all weekend.",
+      ],
+      explanation: "どようびに パーティー + にちようびに えいがと かいもの.",
     }),
     speaking(
       "ja-m23-story-speak-2",
-      "えいがを みませんか",
-      "Shall we watch a movie?",
+      "きっと たのしいです",
+      "It'll surely be fun.",
     ),
     infoStep(
       "ja-m23-story-info-end",
-      "You can follow a conversation about skills and weekend plans",
-      "You understood じょうず/へた, ましょう/ませんか, and real invitation responses in a natural conversation.",
+      "You can follow a story about skills and weekend plans",
+      "You understood じょうず/へた, ましょう/ませんか, and replied with your own invitations in Japanese.",
       "win",
     ),
   ],
@@ -2272,7 +2297,7 @@ assertExplanationDoesntLeakAnswer(M23_STORY.steps);
 // M23-7-1 — Comprehension closer
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_7_1_REVIEW = pickReviewAtoms("ja-m23-7-1-rev", M23_REVIEW_POOL, 4);
+const M23_7_1_REVIEW = pickReviewAtoms("ja-m23-7-1-rev", M23_REVIEW_POOL, 6);
 
 export const M23_7_1: LessonContent = {
   id: "ja-m23-7-1",
@@ -2293,7 +2318,7 @@ export const M23_7_1: LessonContent = {
     dialogueListen({
       id: "ja-m23-7-1-dialogue",
       lines: [
-        { speaker: "ゆき", kana: "たけしさんは すいえいのが じょうずですね。どようびに いっしょに いきませんか。" },
+        { speaker: "ゆき", kana: "たけしさんは すいえいが じょうずですね。どようびに いっしょに いきませんか。" },
         { speaker: "たけし", kana: "すみません、どようびは やくそくが あります。にちようびは だいじょうぶです。" },
         { speaker: "ゆき", kana: "じゃあ、にちようびに いきましょう。" },
         { speaker: "たけし", kana: "いいですね! たのしみです。" },
@@ -2319,7 +2344,7 @@ export const M23_7_1: LessonContent = {
       "ja-m23-7-1-build-1",
       "Say: Sorry, I have an appointment on Saturday.",
       "すみません、どようびは やくそくが あります",
-      ["すみません", "どようび", "は", "やくそく", "が", "あります", "ありません"],
+      ["やくそく", "すみません", "どようび", "が", "は", "ありません", "あります"],
       ["すみません", "どようび", "は", "やくそく", "が", "あります"],
     ),
     sentenceMcq({
@@ -2353,7 +2378,7 @@ export const M23_7_1: LessonContent = {
       "ja-m23-7-1-build-2",
       "Confirm the plan: Let's go on Sunday.",
       "にちようびに いきましょう",
-      ["にちようび", "に", "いきましょう", "いきませんか", "いきます"],
+      ["いきましょう", "にちようび", "に", "いきませんか", "いきます"],
       ["にちようび", "に", "いきましょう"],
     ),
     speaking(
@@ -2363,20 +2388,20 @@ export const M23_7_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m23-7-1-lb-1",
-      target: "にちようびに いきましょう",
-      tiles: ["にちようび", "に", "いきましょう", "いきませんか", "いきます"],
-      correctOrder: ["にちようび", "に", "いきましょう"],
-      promptEn: "Hear it, build it: 'Let's go on Sunday.'",
+      target: "にちようびに うみに いきましょう",
+      tiles: ["うみ", "にちようび", "いきましょう", "に", "に", "いきませんか"],
+      correctOrder: ["にちようび", "に", "うみ", "に", "いきましょう"],
+      promptEn: "Hear it, build it: 'Let's go to the sea on Sunday.'",
     }),
     cloze(
       "ja-m23-7-1-cloze-2",
       "すいえい",
       " じょうずです。",
-      "のが",
-      ["のが", "が", "は", "を"],
+      "が",
+      ["が", "のが", "は", "を"],
       "Good at swimming.",
-      "すいえいのが じょうずです。",
-      "のが nominalizes — 'the act of swimming.'",
+      "すいえいが じょうずです。",
+      "すいえい is a noun — nouns take が directly; only verb phrases need のが.",
     ),
     translateStep({
       id: "ja-m23-7-1-translate",
@@ -2434,7 +2459,7 @@ assertNoConsecutiveSame(M23_7_1.steps);
 // M23-7-2 — Final mixed drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M23_7_2_REVIEW = pickReviewAtoms("ja-m23-7-2-rev", M23_REVIEW_POOL, 5);
+const M23_7_2_REVIEW = pickReviewAtoms("ja-m23-7-2-rev", M23_REVIEW_POOL, 6);
 
 export const M23_7_2: LessonContent = {
   id: "ja-m23-7-2",
@@ -2454,25 +2479,25 @@ export const M23_7_2: LessonContent = {
     ),
     build(
       "ja-m23-7-2-build-1",
-      "Say: She is good at swimming.",
-      "かのじょは すいえいのが じょうずです",
-      ["かのじょ", "は", "すいえい", "のが", "じょうず", "です", "へた"],
-      ["かのじょ", "は", "すいえい", "のが", "じょうず", "です"],
+      "Say: Yuki is good at driving.",
+      "ゆきさんは うんてんが じょうずです",
+      ["うんてん", "ゆきさん", "じょうず", "は", "が", "のが", "です"],
+      ["ゆきさん", "は", "うんてん", "が", "じょうず", "です"],
     ),
     cloze(
       "ja-m23-7-2-cloze-1",
-      "いっしょに かいものし",
+      "ともだちと こうえんに いき",
       "。",
       "ましょう",
       ["ましょう", "ませんか", "ます", "ません"],
-      "Let's go shopping together.",
-      "いっしょに かいものしましょう。",
+      "Let's go to the park with a friend.",
+      "ともだちと こうえんに いきましょう。",
       "ましょう = confident suggestion.",
     ),
     speaking(
       "ja-m23-7-2-speak-1",
-      "えいがを みませんか",
-      "Shall we watch a movie?",
+      "おちゃを のみませんか",
+      "Won't you have some tea?",
     ),
     sentenceMcq({
       id: "ja-m23-7-2-mcq-1",
@@ -2489,13 +2514,13 @@ export const M23_7_2: LessonContent = {
       "ja-m23-7-2-build-2",
       "Ask: Won't you sing together?",
       "いっしょに うたいませんか",
-      ["いっしょに", "うたいませんか", "うたいましょう", "うたいます"],
+      ["うたいましょう", "うたいませんか", "いっしょに", "うたいます"],
       ["いっしょに", "うたいませんか"],
     ),
     listeningBuildSentence({
       id: "ja-m23-7-2-lb-1",
       target: "ぜひ! たのしみです",
-      tiles: ["ぜひ", "たのしみ", "です", "たのしい", "きっと"],
+      tiles: ["たのしみ", "きっと", "ぜひ", "です", "たのしい"],
       correctOrder: ["ぜひ"],
       promptEn: "Hear it, build the first word: 'By all means!'",
     }),
@@ -2523,13 +2548,13 @@ export const M23_7_2: LessonContent = {
       "ja-m23-7-2-build-3",
       "Say: I'm looking forward to the weekend.",
       "しゅうまつが たのしみです",
-      ["しゅうまつ", "が", "たのしみ", "です", "たのしい", "は"],
+      ["たのしみ", "しゅうまつ", "です", "が", "たのしい", "は"],
       ["しゅうまつ", "が", "たのしみ", "です"],
     ),
     speaking(
       "ja-m23-7-2-speak-2",
-      "すいえいのが じょうずです",
-      "Good at swimming.",
+      "かのじょは すいえいが じょうずです",
+      "She is good at swimming.",
     ),
     sentenceMcq({
       id: "ja-m23-7-2-mcq-2",
@@ -2546,22 +2571,22 @@ export const M23_7_2: LessonContent = {
       "ja-m23-7-2-build-4",
       "Say: Let's study together.",
       "いっしょに べんきょうしましょう",
-      ["いっしょに", "べんきょうしましょう", "べんきょうしませんか", "べんきょうします"],
+      ["べんきょうしませんか", "いっしょに", "べんきょうしましょう", "べんきょうします"],
       ["いっしょに", "べんきょうしましょう"],
     ),
     translateStep({
       id: "ja-m23-7-2-translate",
-      promptEn: "Takeshi is good at playing the piano.",
+      promptEn: "Yuki is good at singing.",
       acceptedAnswers: [
-        "たけしさんは ピアノを ひくのが じょうずです",
-        "たけしさんは ピアノを ひくのが じょうずです。",
+        "ゆきさんは うたうのが じょうずです",
+        "ゆきさんは うたうのが じょうずです。",
       ],
-      audioText: "たけしさんは ピアノを ひくのが じょうずです",
+      audioText: "ゆきさんは うたうのが じょうずです",
     }),
     selfExplain({
       id: "ja-m23-7-2-self-explain",
       anchorLabel: "All M23 patterns mastered",
-      anchorAudioText: "いっしょに いきましょう",
+      anchorAudioText: "いっしょに べんきょうしましょう",
       question: "Name the four patterns you learned in M23.",
       rule: { text: "1) のがじょうず (good at). 2) のがへた (bad at). 3) ましょう (let's). 4) ませんか (shall we? — invitation)." },
       surface: { text: "じょうず, ましょう, ませんか, and たのしい — four grammar forms." },
@@ -2571,8 +2596,8 @@ export const M23_7_2: LessonContent = {
     }),
     speaking(
       "ja-m23-7-2-speak-3",
-      "いっしょに パーティーに いきましょう",
-      "Let's go to the party together.",
+      "いっしょに うみに いきましょう",
+      "Let's go to the sea together.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m23-7-2-rev-mcq-1", M23_7_2_REVIEW[0], M23_REVIEW_POOL),
@@ -2587,7 +2612,7 @@ export const M23_7_2: LessonContent = {
       ],
     }),
     speaking("ja-m23-7-2-rev-speak-1", M23_7_2_REVIEW[2].kana, M23_7_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m23-7-2-rev", M23_7_2_REVIEW.slice(0, 4)),
+    reviewMatchPairs("ja-m23-7-2-rev", M23_7_2_REVIEW),
     infoStep(
       "ja-m23-7-2-info-end",
       "You can now talk about skills, suggest plans, invite friends, and respond naturally",
@@ -2602,6 +2627,334 @@ assertAnswerRotation(M23_7_2.steps, 1);
 assertNoConsecutiveSame(M23_7_2.steps);
 
 // ═══════════════════════════════════════════════════════════════════════
+// M23-8-1 / M23-8-2 — UNREGISTERED expansion pair: 〜ができます / できる
+//   (backlog weave — register in mockLessons.ts directly after ja-m23-1-2)
+// ═══════════════════════════════════════════════════════════════════════
+
+const RULE_DEKIMASU = grammarRule({
+  id: "ja-m23-rule-dekimasu",
+  title: "〜ができます — can do",
+  rule:
+    "To say you CAN do something, mark the skill with が and add できます: にほんごが できます (I can speak Japanese). The ability target always takes が — never を. できます is about ability (yes/no); じょうずです is about skill quality (how well).",
+  examples: [
+    {
+      ja: "にほんごが できます。",
+      romaji: "nihongo ga dekimasu.",
+      en: "I can speak Japanese.",
+    },
+    {
+      ja: "うんてんが できます。",
+      romaji: "unten ga dekimasu.",
+      en: "I can drive.",
+    },
+    {
+      ja: "かのじょは りょうりが できます。",
+      romaji: "kanojo wa ryouri ga dekimasu.",
+      en: "She can cook.",
+    },
+  ],
+  antiPattern: {
+    ja: "にほんごを できます。",
+    romaji: "nihongo o dekimasu.",
+    en: "(broken — できます takes が, not を)",
+    why: "できます is a potential expression: the thing you are able to do is marked with が. を marks direct objects of action verbs, not ability targets.",
+  },
+  cultureNote:
+    "にほんごが できます is the standard way to say you can speak a language — no separate verb for 'speak' is needed.",
+});
+
+const M23_8_1_REVIEW = pickReviewAtoms("ja-m23-8-1-rev", M23_REVIEW_POOL, 6);
+
+export const M23_8_1: LessonContent = {
+  id: "ja-m23-8-1",
+  moduleId: "m23",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Can do (intro)",
+  description:
+    "Ability with 〜ができます: say what you can and can't do, and how it differs from じょうず.",
+  estimatedMinutes: 9,
+  xpReward: 24,
+  steps: [
+    infoStep(
+      "ja-m23-8-1-info-open",
+      "What can you do?",
+      "じょうず says how WELL you do something. できます says whether you CAN do it at all. One pattern, every skill you own.",
+    ),
+    RULE_DEKIMASU,
+    build(
+      "ja-m23-8-1-build-dekimasu",
+      "Say: I can speak Japanese.",
+      "にほんごが できます",
+      ["できます", "にほんご", "が", "を", "できません"],
+      ["にほんご", "が", "できます"],
+    ),
+    listeningCompSentence({
+      id: "ja-m23-8-1-lc-dansu",
+      audioText: "ダンスが できます",
+      correctMeaningEn: "I can dance.",
+      distractorsEn: [
+        "I can't dance.",
+        "I'm good at dance.",
+        "Let's dance.",
+      ],
+    }),
+    sentenceMcq({
+      id: "ja-m23-8-1-mcq-ryouri",
+      prompt: "Which means 'She can cook.'?",
+      correctKana: "かのじょは りょうりが できます。",
+      distractorsKana: [
+        "かのじょは りょうりが できません。",
+        "かのじょは りょうりが じょうずです。",
+        "かのじょは りょうりを します。",
+      ],
+      explanation: "りょうりが できます = can cook (ability). じょうず would mean she's good at it.",
+    }),
+    cloze(
+      "ja-m23-8-1-cloze-ga",
+      "すいえい",
+      " できます。",
+      "が",
+      ["が", "を", "は", "のが"],
+      "I can swim.",
+      "すいえいが できます。",
+      "The ability target of できます takes the subject marker, never を.",
+    ),
+    build(
+      "ja-m23-8-1-build-dekimasen",
+      "Say: I can't drive.",
+      "うんてんが できません",
+      ["できません", "うんてん", "できます", "が", "を"],
+      ["うんてん", "が", "できません"],
+    ),
+    listeningBuildSentence({
+      id: "ja-m23-8-1-lb-piano",
+      target: "ピアノが できますか",
+      tiles: ["できますか", "ピアノ", "が", "できません", "を"],
+      correctOrder: ["ピアノ", "が", "できますか"],
+      promptEn: "Hear it, build it: 'Can you play the piano?'",
+    }),
+    sentenceMcq({
+      id: "ja-m23-8-1-mcq-dekiru-vs-jouzu",
+      prompt: "Which means 'I CAN swim.' (ability — not skill level)?",
+      correctKana: "すいえいが できます。",
+      distractorsKana: [
+        "すいえいが じょうずです。",
+        "すいえいが すきです。",
+        "すいえいを します。",
+      ],
+      explanation: "できます = can (ability). じょうず = good at (quality). すき = like.",
+    }),
+    selfExplain({
+      id: "ja-m23-8-1-self-explain",
+      anchorLabel: "うんてんが できます",
+      anchorAudioText: "うんてんが できます",
+      question: "What's the difference between できます and じょうずです?",
+      rule: { text: "できます = whether you CAN do it (yes/no ability). じょうずです = how WELL you do it (skill quality). You can do something without being good at it." },
+      surface: { text: "They mean the same — both say you're good at something." },
+      distractor: { text: "できます is the past tense of じょうずです." },
+      ruleExplanation:
+        "できます answers 'can you?' じょうず answers 'are you good?' うんてんが できますが、へたです — I can drive, but badly.",
+    }),
+    speaking(
+      "ja-m23-8-1-speak-dekimasu",
+      "にほんごが できます",
+      "I can speak Japanese.",
+    ),
+    // ── Review tail ──
+    vocabMcq("ja-m23-8-1-rev-mcq-1", M23_8_1_REVIEW[0], M23_REVIEW_POOL),
+    listeningCompSentence({
+      id: "ja-m23-8-1-rev-lc-1",
+      audioText: M23_8_1_REVIEW[1].kana,
+      correctMeaningEn: M23_8_1_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M23_8_1_REVIEW[2].meaningEn,
+        M23_8_1_REVIEW[3].meaningEn,
+        M23_REVIEW_POOL[14].meaningEn,
+      ],
+    }),
+    speaking("ja-m23-8-1-rev-speak-1", M23_8_1_REVIEW[2].kana, M23_8_1_REVIEW[2].meaningEn),
+    reviewMatchPairs("ja-m23-8-1-rev", M23_8_1_REVIEW),
+    infoStep(
+      "ja-m23-8-1-info-end",
+      "You can now say what you can and can't do",
+      "〜ができます / できません — ability unlocked, and you know how it differs from じょうず.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M23_8_1.steps);
+assertAnswerRotation(M23_8_1.steps, 1);
+assertNoConsecutiveSame(M23_8_1.steps);
+
+const RULE_DEKIRU = grammarRule({
+  id: "ja-m23-rule-dekiru",
+  title: "できる — the dictionary form",
+  rule:
+    "できる is the plain (dictionary) form of できます. You'll meet it in dictionaries, casual speech, and inside larger grammar patterns later. In polite です/ます speech, keep using できます.",
+  examples: [
+    {
+      ja: "ダンスが できる。",
+      romaji: "dansu ga dekiru.",
+      en: "I can dance. (casual)",
+    },
+    {
+      ja: "うんてんが できますか。",
+      romaji: "unten ga dekimasu ka.",
+      en: "Can you drive? (polite question)",
+    },
+    {
+      ja: "はい、できます。",
+      romaji: "hai, dekimasu.",
+      en: "Yes, I can.",
+    },
+  ],
+  antiPattern: {
+    ja: "ダンスが できるです。",
+    romaji: "dansu ga dekiru desu.",
+    en: "(broken — don't attach です to できる)",
+    why: "できる is already a complete plain-form verb. The polite equivalent is できます — not できる + です.",
+  },
+  cultureNote:
+    "[skill]が できますか is a natural getting-to-know-you (and job interview) question in Japan.",
+});
+
+const M23_8_2_REVIEW = pickReviewAtoms("ja-m23-8-2-rev", M23_REVIEW_POOL, 6);
+
+export const M23_8_2: LessonContent = {
+  id: "ja-m23-8-2",
+  moduleId: "m23",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Can do (practice)",
+  description:
+    "Drill できます questions and answers, and meet できる — the dictionary form.",
+  estimatedMinutes: 9,
+  xpReward: 24,
+  steps: [
+    infoStep(
+      "ja-m23-8-2-info-open",
+      "Asking 'can you?'",
+      "Turn できます into questions and answers — and meet できる, the form you'll find in every dictionary.",
+    ),
+    RULE_DEKIRU,
+    build(
+      "ja-m23-8-2-build-dekiru",
+      "Pick the dictionary form of できます.",
+      "できる",
+      ["できますか", "できる", "できません", "できました"],
+      ["できる"],
+    ),
+    listeningCompSentence({
+      id: "ja-m23-8-2-lc-dekiru",
+      audioText: "ダンスが できる",
+      correctMeaningEn: "I can dance. (casual)",
+      distractorsEn: [
+        "I can dance. (polite)",
+        "I can't dance.",
+        "I'm good at dance.",
+      ],
+    }),
+    build(
+      "ja-m23-8-2-build-question",
+      "Ask: Can you drive?",
+      "うんてんが できますか",
+      ["できます", "うんてん", "できますか", "が", "を"],
+      ["うんてん", "が", "できますか"],
+    ),
+    sentenceMcq({
+      id: "ja-m23-8-2-mcq-answer",
+      prompt: "Someone asks if you can drive and you CAN. How do you answer?",
+      correctKana: "はい、できます。",
+      distractorsKana: [
+        "いいえ、できません。",
+        "はい、へたです。",
+        "はい、できますか。",
+      ],
+      explanation: "はい、できます = yes, I can. You don't need to repeat うんてんが.",
+    }),
+    cloze(
+      "ja-m23-8-2-cloze-masen",
+      "ダンスが でき",
+      "。",
+      "ません",
+      ["ません", "ます", "ましょう", "ませんか"],
+      "I can't dance.",
+      "ダンスが できません。",
+      "The polite negative ending turns 'can do' into 'cannot do.'",
+    ),
+    listeningBuildSentence({
+      id: "ja-m23-8-2-lb-mo",
+      target: "ピアノも できます",
+      tiles: ["できます", "ピアノ", "も", "できません", "が"],
+      correctOrder: ["ピアノ", "も", "できます"],
+      promptEn: "Hear it, build it: 'I can play the piano, too.'",
+    }),
+    sentenceMcq({
+      id: "ja-m23-8-2-mcq-casual",
+      prompt: "Which is the CASUAL way to say 'I can cook.'?",
+      correctKana: "りょうりが できる。",
+      distractorsKana: [
+        "りょうりが できます。",
+        "りょうりが できません。",
+        "りょうりが じょうずです。",
+      ],
+      explanation: "できる is the plain/casual form; できます is polite.",
+    }),
+    selfExplain({
+      id: "ja-m23-8-2-self-explain",
+      anchorLabel: "りょうりが できる",
+      anchorAudioText: "りょうりが できる",
+      question: "When would you use できる instead of できます?",
+      rule: { text: "In casual speech with friends, and in plain-form writing. In polite です/ます conversation, stick with できます." },
+      surface: { text: "できる is MORE polite than できます — use it with your boss." },
+      distractor: { text: "できる is the past tense of できます." },
+      ruleExplanation:
+        "できる (plain) and できます (polite) mean the same thing — the choice is register, not meaning.",
+    }),
+    speaking(
+      "ja-m23-8-2-speak-question",
+      "ダンスが できますか",
+      "Can you dance?",
+    ),
+    translateStep({
+      id: "ja-m23-8-2-translate",
+      promptEn: "Can you speak Japanese?",
+      acceptedAnswers: [
+        "にほんごが できますか",
+        "にほんごが できますか。",
+      ],
+      audioText: "にほんごが できますか",
+    }),
+    // ── Review tail ──
+    vocabMcq("ja-m23-8-2-rev-mcq-1", M23_8_2_REVIEW[0], M23_REVIEW_POOL),
+    listeningCompSentence({
+      id: "ja-m23-8-2-rev-lc-1",
+      audioText: M23_8_2_REVIEW[1].kana,
+      correctMeaningEn: M23_8_2_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M23_8_2_REVIEW[2].meaningEn,
+        M23_8_2_REVIEW[3].meaningEn,
+        M23_REVIEW_POOL[15].meaningEn,
+      ],
+    }),
+    speaking("ja-m23-8-2-rev-speak-1", M23_8_2_REVIEW[2].kana, M23_8_2_REVIEW[2].meaningEn),
+    reviewMatchPairs("ja-m23-8-2-rev", M23_8_2_REVIEW),
+    infoStep(
+      "ja-m23-8-2-info-end",
+      "You can now ask and answer 'can you?' in two registers",
+      "できますか / はい、できます — plus できる for casual speech. Ability talk complete.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M23_8_2.steps);
+assertAnswerRotation(M23_8_2.steps, 1);
+assertNoConsecutiveSame(M23_8_2.steps);
+
+// ═══════════════════════════════════════════════════════════════════════
 // Module-level assertions
 // ═══════════════════════════════════════════════════════════════════════
 
@@ -2609,6 +2962,8 @@ const ALL_M23 = [
   M23_1_1, M23_1_2, M23_2_1, M23_2_2, M23_3_1, M23_3_2,
   M23_4_1, M23_4_2, M23_5_1, M23_5_2, M23_6_1, M23_6_2,
   M23_STORY, M23_7_1, M23_7_2,
+  // Unregistered expansion pair — still linted at import time:
+  M23_8_1, M23_8_2,
 ];
 
 assertNoSameAnswerCluster(ALL_M23.flatMap((l) => l.steps));

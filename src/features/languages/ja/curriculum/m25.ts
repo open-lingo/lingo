@@ -10,13 +10,19 @@
  * Vocab (~25): よてい (plan), けいかく (plan/planning), しゅっぱつ (departure),
  *   とうちゃく (arrival), りょこう (travel), がいこく (foreign country),
  *   おんせん (hot spring), まつり (festival), はなび (fireworks),
- *   けっこん (marriage), そつぎょう (graduation)
+ *   けっこん (marriage), そつぎょう (graduation),
+ *   はじめて (for the first time), ええ (yes — casual), りゅうがくせい (exchange student)
+ *
+ * 2026-06-12 sentence-variety reauthor: backlog words はじめて + ええ introduced
+ * in ja-m25-4-2, りゅうがくせい in ja-m25-5-2. Story lesson converted to the
+ * storyComprehension() factory (§13.13 narrative).
  *
  * Split into 14 sub-lessons + 1 story = 15 exports.
  * Each sub-lesson has 18-22 steps. All vocab introductions use build() steps
  * where the learner assembles the word from tiles (figuroutable pattern).
  *
- * Story: Planning a trip to Japan.
+ * Story: Yuki's trips to Japan — storyComprehension() narrative
+ * (past experiences with ことがあります + next-year plans with つもりです).
  *
  * ID scheme: ja-m25-{n}-{sub} e.g. ja-m25-1-1, ja-m25-1-2
  * Export names: M25_1_1, M25_1_2, M25_2_1, M25_2_2, etc.
@@ -26,7 +32,6 @@ import type { LessonContent } from "@/features/lesson/types";
 import {
   build,
   cloze,
-  dialogueListen,
   grammarRule,
   infoStep,
   listeningBuildSentence,
@@ -38,6 +43,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  storyComprehension,
   translateStep,
   vocabMcq,
   assertNoSameAnswerCluster,
@@ -203,7 +209,7 @@ const RULE_TOKI = grammarRule({
 // M25-1-1 — Vocab intro: plans & travel (first batch)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_1_1_REVIEW = pickReviewAtoms("ja-m25-1-1-rev", M25_REVIEW_POOL, 4);
+const M25_1_1_REVIEW = pickReviewAtoms("ja-m25-1-1-rev", M25_REVIEW_POOL, 6);
 
 export const M25_1_1: LessonContent = {
   id: "ja-m25-1-1",
@@ -226,7 +232,7 @@ export const M25_1_1: LessonContent = {
       "ja-m25-1-1-build-yotei",
       "Pick the Japanese word for: Plan / Schedule",
       "よてい",
-      ["よてい", "けいかく", "しゅっぱつ", "りょこう"],
+      ["りょこう", "けいかく", "よてい", "しゅっぱつ"],
       ["よてい"],
     ),
     listeningCompSentence({
@@ -240,7 +246,7 @@ export const M25_1_1: LessonContent = {
       "ja-m25-1-1-build-keikaku",
       "Pick the Japanese word for: Planning",
       "けいかく",
-      ["けいかく", "よてい", "とうちゃく", "しゅっぱつ"],
+      ["しゅっぱつ", "とうちゃく", "よてい", "けいかく"],
       ["けいかく"],
     ),
     vocabMcq(
@@ -253,7 +259,7 @@ export const M25_1_1: LessonContent = {
       "ja-m25-1-1-build-shuppatsu",
       "Pick the Japanese word for: Departure",
       "しゅっぱつ",
-      ["しゅっぱつ", "とうちゃく", "りょこう", "よてい"],
+      ["よてい", "しゅっぱつ", "りょこう", "とうちゃく"],
       ["しゅっぱつ"],
     ),
     speaking("ja-m25-1-1-speak-shuppatsu", "しゅっぱつ", "Departure"),
@@ -262,7 +268,7 @@ export const M25_1_1: LessonContent = {
       "ja-m25-1-1-build-touchaku",
       "Pick the Japanese word for: Arrival",
       "とうちゃく",
-      ["とうちゃく", "しゅっぱつ", "けいかく", "よてい"],
+      ["けいかく", "しゅっぱつ", "よてい", "とうちゃく"],
       ["とうちゃく"],
     ),
     listeningCompSentence({
@@ -276,7 +282,7 @@ export const M25_1_1: LessonContent = {
       "ja-m25-1-1-build-ryokou",
       "Pick the Japanese word for: Travel / Trip",
       "りょこう",
-      ["りょこう", "けいかく", "しゅっぱつ", "とうちゃく"],
+      ["しゅっぱつ", "とうちゃく", "りょこう", "けいかく"],
       ["りょこう"],
     ),
     vocabMcq(
@@ -300,13 +306,13 @@ export const M25_1_1: LessonContent = {
       "ja-m25-1-1-build-ryokou-sent",
       "Say: Travel is fun.",
       "りょこうは たのしいです",
-      ["りょこう", "は", "たのしい", "です", "けいかく", "おもしろい"],
+      ["は", "たのしい", "りょこう", "けいかく", "です", "おもしろい"],
       ["りょこう", "は", "たのしい", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m25-1-1-lb-yotei",
       target: "あしたの よていは なんですか",
-      tiles: ["あした", "の", "よてい", "は", "なん", "ですか", "けいかく", "だれ"],
+      tiles: ["よてい", "だれ", "の", "ですか", "あした", "けいかく", "なん", "は"],
       correctOrder: ["あした", "の", "よてい", "は", "なん", "ですか"],
       promptEn: "Hear it, build it: 'What is tomorrow's plan?'",
     }),
@@ -357,7 +363,7 @@ assertNoConsecutiveSame(M25_1_1.steps);
 // M25-1-2 — Vocab intro: events & milestones
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_1_2_REVIEW = pickReviewAtoms("ja-m25-1-2-rev", M25_REVIEW_POOL, 4);
+const M25_1_2_REVIEW = pickReviewAtoms("ja-m25-1-2-rev", M25_REVIEW_POOL, 6);
 
 export const M25_1_2: LessonContent = {
   id: "ja-m25-1-2",
@@ -380,7 +386,7 @@ export const M25_1_2: LessonContent = {
       "ja-m25-1-2-build-gaikoku",
       "Pick the Japanese word for: Foreign country",
       "がいこく",
-      ["がいこく", "おんせん", "まつり", "はなび"],
+      ["まつり", "はなび", "おんせん", "がいこく"],
       ["がいこく"],
     ),
     listeningCompSentence({
@@ -394,7 +400,7 @@ export const M25_1_2: LessonContent = {
       "ja-m25-1-2-build-onsen",
       "Pick the Japanese word for: Hot spring",
       "おんせん",
-      ["おんせん", "がいこく", "まつり", "けっこん"],
+      ["がいこく", "まつり", "おんせん", "けっこん"],
       ["おんせん"],
     ),
     vocabMcq(
@@ -407,7 +413,7 @@ export const M25_1_2: LessonContent = {
       "ja-m25-1-2-build-matsuri",
       "Pick the Japanese word for: Festival",
       "まつり",
-      ["まつり", "はなび", "おんせん", "そつぎょう"],
+      ["そつぎょう", "まつり", "おんせん", "はなび"],
       ["まつり"],
     ),
     speaking("ja-m25-1-2-speak-matsuri", "まつり", "Festival"),
@@ -416,7 +422,7 @@ export const M25_1_2: LessonContent = {
       "ja-m25-1-2-build-hanabi",
       "Pick the Japanese word for: Fireworks",
       "はなび",
-      ["はなび", "まつり", "けっこん", "がいこく"],
+      ["がいこく", "はなび", "けっこん", "まつり"],
       ["はなび"],
     ),
     vocabMcq(
@@ -429,7 +435,7 @@ export const M25_1_2: LessonContent = {
       "ja-m25-1-2-build-kekkon",
       "Pick the Japanese word for: Marriage",
       "けっこん",
-      ["けっこん", "そつぎょう", "まつり", "はなび"],
+      ["まつり", "はなび", "そつぎょう", "けっこん"],
       ["けっこん"],
     ),
     listeningCompSentence({
@@ -443,7 +449,7 @@ export const M25_1_2: LessonContent = {
       "ja-m25-1-2-build-sotsugyou",
       "Pick the Japanese word for: Graduation",
       "そつぎょう",
-      ["そつぎょう", "けっこん", "がいこく", "おんせん"],
+      ["けっこん", "がいこく", "そつぎょう", "おんせん"],
       ["そつぎょう"],
     ),
     speaking("ja-m25-1-2-speak-sotsugyou", "そつぎょう", "Graduation"),
@@ -463,13 +469,13 @@ export const M25_1_2: LessonContent = {
       "ja-m25-1-2-build-gaikoku-sent",
       "Say: I want to go to a foreign country.",
       "がいこくに いきたいです",
-      ["がいこく", "に", "いきたい", "です", "おんせん", "みたい"],
+      ["に", "いきたい", "です", "がいこく", "おんせん", "みたい"],
       ["がいこく", "に", "いきたい", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m25-1-2-lb-onsen",
       target: "おんせんに はいりたいです",
-      tiles: ["おんせん", "に", "はいりたい", "です", "いきたい", "まつり"],
+      tiles: ["です", "いきたい", "おんせん", "に", "はいりたい", "まつり"],
       correctOrder: ["おんせん", "に", "はいりたい", "です"],
       promptEn: "Hear it, build it: 'I want to enter a hot spring.'",
     }),
@@ -520,7 +526,7 @@ assertNoConsecutiveSame(M25_1_2.steps);
 // M25-2-1 — Grammar: つもりです (intend to) + drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_2_1_REVIEW = pickReviewAtoms("ja-m25-2-1-rev", M25_REVIEW_POOL, 4);
+const M25_2_1_REVIEW = pickReviewAtoms("ja-m25-2-1-rev", M25_REVIEW_POOL, 6);
 
 export const M25_2_1: LessonContent = {
   id: "ja-m25-2-1",
@@ -565,7 +571,7 @@ export const M25_2_1: LessonContent = {
       "ja-m25-2-1-build-tsumori-1",
       "Say: I intend to travel next year.",
       "らいねん りょこうする つもりです",
-      ["らいねん", "りょこう", "する", "つもり", "です", "した", "けいかく"],
+      ["する", "けいかく", "つもり", "です", "りょこう", "した", "らいねん"],
       ["らいねん", "りょこう", "する", "つもり", "です"],
     ),
     listeningCompSentence({
@@ -590,8 +596,8 @@ export const M25_2_1: LessonContent = {
     ),
     speaking(
       "ja-m25-2-1-speak-1",
-      "にほんに いく つもりです",
-      "I intend to go to Japan.",
+      "にほんごを べんきょうする つもりです",
+      "I plan to study Japanese.",
     ),
     cloze(
       "ja-m25-2-1-cloze-3",
@@ -606,7 +612,7 @@ export const M25_2_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m25-2-1-lb-1",
       target: "けっこんする つもりです",
-      tiles: ["けっこん", "する", "つもり", "です", "した", "こと"],
+      tiles: ["する", "です", "した", "こと", "つもり", "けっこん"],
       correctOrder: ["けっこん", "する", "つもり", "です"],
       promptEn: "Hear it, build it: 'I intend to get married.'",
     }),
@@ -643,8 +649,8 @@ export const M25_2_1: LessonContent = {
     }),
     speaking(
       "ja-m25-2-1-speak-2",
-      "らいねん りょこうする つもりです",
-      "I intend to travel next year.",
+      "ともだちと まつりに いく つもりです",
+      "I plan to go to a festival with a friend.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m25-2-1-rev-mcq-1", M25_2_1_REVIEW[0], M25_REVIEW_POOL),
@@ -677,7 +683,7 @@ assertNoConsecutiveSame(M25_2_1.steps);
 // M25-2-2 — More つもりです + vocab in context
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_2_2_REVIEW = pickReviewAtoms("ja-m25-2-2-rev", M25_REVIEW_POOL, 4);
+const M25_2_2_REVIEW = pickReviewAtoms("ja-m25-2-2-rev", M25_REVIEW_POOL, 6);
 
 export const M25_2_2: LessonContent = {
   id: "ja-m25-2-2",
@@ -699,7 +705,7 @@ export const M25_2_2: LessonContent = {
       "ja-m25-2-2-build-1",
       "Say: I intend to watch fireworks.",
       "はなびを みる つもりです",
-      ["はなび", "を", "みる", "つもり", "です", "みた", "こと"],
+      ["みた", "はなび", "つもり", "こと", "みる", "です", "を"],
       ["はなび", "を", "みる", "つもり", "です"],
     ),
     cloze(
@@ -737,7 +743,7 @@ export const M25_2_2: LessonContent = {
       "ja-m25-2-2-build-2",
       "Say: I don't intend to get married yet.",
       "まだ けっこんしない つもりです",
-      ["まだ", "けっこん", "しない", "つもり", "です", "する", "よてい"],
+      ["つもり", "けっこん", "まだ", "です", "する", "よてい", "しない"],
       ["まだ", "けっこん", "しない", "つもり", "です"],
     ),
     speaking(
@@ -757,20 +763,17 @@ export const M25_2_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m25-2-2-lb-1",
-      target: "がいこくに いく つもりです",
-      tiles: ["がいこく", "に", "いく", "つもり", "です", "いった", "こと"],
-      correctOrder: ["がいこく", "に", "いく", "つもり", "です"],
-      promptEn: "Hear it, build it: 'I intend to go to a foreign country.'",
+      target: "やまに いく つもりです",
+      tiles: ["いく", "に", "やま", "いった", "つもり", "こと", "です"],
+      correctOrder: ["やま", "に", "いく", "つもり", "です"],
+      promptEn: "Hear it, build it: 'I intend to go to the mountains.'",
     }),
-    cloze(
-      "ja-m25-2-2-cloze-3",
-      "しゅっぱつの よてい",
-      "なんじですか。",
-      "は",
-      ["は", "が", "を", "に"],
-      "What time is the departure schedule?",
-      "しゅっぱつの よていは なんじですか。",
-      "は marks the topic — 'the departure plan.'",
+    build(
+      "ja-m25-2-2-build-shuppatsu",
+      "Ask: What time is the departure?",
+      "しゅっぱつは なんじですか",
+      ["なんじ", "しゅっぱつ", "は", "ですか", "とうちゃく", "の"],
+      ["しゅっぱつ", "は", "なんじ", "ですか"],
     ),
     sentenceMcq({
       id: "ja-m25-2-2-mcq-2",
@@ -785,12 +788,12 @@ export const M25_2_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m25-2-2-translate",
-      promptEn: "I intend to go to the festival.",
+      promptEn: "I plan to take photos at the festival.",
       acceptedAnswers: [
-        "まつりに いく つもりです",
-        "まつりに いく つもりです。",
+        "まつりで しゃしんを とる つもりです",
+        "まつりで しゃしんを とる つもりです。",
       ],
-      audioText: "まつりに いく つもりです",
+      audioText: "まつりで しゃしんを とる つもりです",
     }),
     selfExplain({
       id: "ja-m25-2-2-self-explain",
@@ -839,7 +842,7 @@ assertNoConsecutiveSame(M25_2_2.steps);
 // M25-3-1 — Grammar: 〜にいく (go to do) + drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_3_1_REVIEW = pickReviewAtoms("ja-m25-3-1-rev", M25_REVIEW_POOL, 4);
+const M25_3_1_REVIEW = pickReviewAtoms("ja-m25-3-1-rev", M25_REVIEW_POOL, 6);
 
 export const M25_3_1: LessonContent = {
   id: "ja-m25-3-1",
@@ -873,7 +876,7 @@ export const M25_3_1: LessonContent = {
       "ja-m25-3-1-build-1",
       "Say: Let's go eat lunch.",
       "ひるごはんを たべに いきましょう",
-      ["ひるごはん", "を", "たべ", "に", "いきましょう", "いきます", "たべる"],
+      ["を", "ひるごはん", "いきましょう", "たべる", "いきます", "たべ", "に"],
       ["ひるごはん", "を", "たべ", "に", "いきましょう"],
     ),
     listeningCompSentence({
@@ -909,14 +912,14 @@ export const M25_3_1: LessonContent = {
     ),
     speaking(
       "ja-m25-3-1-speak-1",
-      "えいがを みに いきます",
-      "I'll go to watch a movie.",
+      "パンを かいに いきます",
+      "I'll go to buy bread.",
     ),
     build(
       "ja-m25-3-1-build-2",
       "Say: I went to buy a souvenir.",
       "おみやげを かいに いきました",
-      ["おみやげ", "を", "かい", "に", "いきました", "いきます", "かう"],
+      ["いきます", "を", "かう", "おみやげ", "いきました", "かい", "に"],
       ["おみやげ", "を", "かい", "に", "いきました"],
     ),
     cloze(
@@ -932,7 +935,7 @@ export const M25_3_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m25-3-1-lb-1",
       target: "まつりを みに いきましょう",
-      tiles: ["まつり", "を", "み", "に", "いきましょう", "いきます", "みる"],
+      tiles: ["み", "いきます", "いきましょう", "を", "みる", "まつり", "に"],
       correctOrder: ["まつり", "を", "み", "に", "いきましょう"],
       promptEn: "Hear it, build it: 'Let's go watch the festival.'",
     }),
@@ -958,8 +961,8 @@ export const M25_3_1: LessonContent = {
     }),
     speaking(
       "ja-m25-3-1-speak-2",
-      "ひるごはんを たべに いきましょう",
-      "Let's go eat lunch.",
+      "コーヒーを のみに いきましょう",
+      "Let's go drink coffee.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m25-3-1-rev-mcq-1", M25_3_1_REVIEW[0], M25_REVIEW_POOL),
@@ -992,7 +995,7 @@ assertNoConsecutiveSame(M25_3_1.steps);
 // M25-3-2 — にいく in context + つもり interleave
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_3_2_REVIEW = pickReviewAtoms("ja-m25-3-2-rev", M25_REVIEW_POOL, 4);
+const M25_3_2_REVIEW = pickReviewAtoms("ja-m25-3-2-rev", M25_REVIEW_POOL, 6);
 
 export const M25_3_2: LessonContent = {
   id: "ja-m25-3-2",
@@ -1014,7 +1017,7 @@ export const M25_3_2: LessonContent = {
       "ja-m25-3-2-build-1",
       "Say: I plan to go watch fireworks.",
       "はなびを みに いく つもりです",
-      ["はなび", "を", "み", "に", "いく", "つもり", "です", "みる"],
+      ["に", "つもり", "み", "みる", "を", "いく", "はなび", "です"],
       ["はなび", "を", "み", "に", "いく", "つもり", "です"],
     ),
     cloze(
@@ -1060,30 +1063,30 @@ export const M25_3_2: LessonContent = {
     ),
     speaking(
       "ja-m25-3-2-speak-1",
-      "はなびを みに いく つもりです",
-      "I plan to go watch fireworks.",
+      "ともだちに あいに いく つもりです",
+      "I plan to go meet a friend.",
     ),
     build(
       "ja-m25-3-2-build-2",
       "Say: I want to go to see the graduation ceremony.",
       "そつぎょうしきを みに いきたいです",
-      ["そつぎょうしき", "を", "み", "に", "いきたい", "です", "みる", "いく"],
+      ["いきたい", "いく", "です", "に", "み", "みる", "そつぎょうしき", "を"],
       ["そつぎょうしき", "を", "み", "に", "いきたい", "です"],
     ),
     cloze(
       "ja-m25-3-2-cloze-3",
-      "ともだちに あい",
+      "ともだちと えいがを み",
       "いきました。",
       "に",
       ["に", "と", "で", "は"],
-      "I went to meet a friend.",
-      "ともだちに あいに いきました。",
-      "に marks the purpose — going to meet.",
+      "I went with a friend to watch a movie.",
+      "ともだちと えいがを みに いきました。",
+      "に marks the purpose — going to watch.",
     ),
     listeningBuildSentence({
       id: "ja-m25-3-2-lb-1",
       target: "すしを たべに いく つもりです",
-      tiles: ["すし", "を", "たべ", "に", "いく", "つもり", "です", "たべる"],
+      tiles: ["を", "いく", "すし", "つもり", "に", "たべ", "たべる", "です"],
       correctOrder: ["すし", "を", "たべ", "に", "いく", "つもり", "です"],
       promptEn: "Hear it, build it: 'I plan to go eat sushi.'",
     }),
@@ -1154,7 +1157,7 @@ assertNoConsecutiveSame(M25_3_2.steps);
 // M25-4-1 — Grammar: ことがあります (experience) + drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_4_1_REVIEW = pickReviewAtoms("ja-m25-4-1-rev", M25_REVIEW_POOL, 4);
+const M25_4_1_REVIEW = pickReviewAtoms("ja-m25-4-1-rev", M25_REVIEW_POOL, 6);
 
 export const M25_4_1: LessonContent = {
   id: "ja-m25-4-1",
@@ -1199,7 +1202,7 @@ export const M25_4_1: LessonContent = {
       "ja-m25-4-1-build-1",
       "Say: I have been to a hot spring before.",
       "おんせんに はいった ことが あります",
-      ["おんせん", "に", "はいった", "こと", "が", "あります", "はいる", "つもり"],
+      ["はいった", "はいる", "おんせん", "つもり", "に", "あります", "が", "こと"],
       ["おんせん", "に", "はいった", "こと", "が", "あります"],
     ),
     listeningCompSentence({
@@ -1224,14 +1227,14 @@ export const M25_4_1: LessonContent = {
     ),
     speaking(
       "ja-m25-4-1-speak-1",
-      "にほんに いった ことが あります",
-      "I have been to Japan before.",
+      "まつりで しゃしんを とった ことが あります",
+      "I have taken photos at a festival before.",
     ),
     build(
       "ja-m25-4-1-build-2",
       "Say: I have never been to a festival.",
       "まつりに いった ことが ありません",
-      ["まつり", "に", "いった", "こと", "が", "ありません", "あります", "いく"],
+      ["あります", "に", "いく", "ありません", "が", "まつり", "こと", "いった"],
       ["まつり", "に", "いった", "こと", "が", "ありません"],
     ),
     cloze(
@@ -1246,10 +1249,10 @@ export const M25_4_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m25-4-1-lb-1",
-      target: "すしを たべた ことが あります",
-      tiles: ["すし", "を", "たべた", "こと", "が", "あります", "たべる", "ありません"],
-      correctOrder: ["すし", "を", "たべた", "こと", "が", "あります"],
-      promptEn: "Hear it, build it: 'I have eaten sushi before.'",
+      target: "がいこくで まつりを みた ことが あります",
+      tiles: ["まつり", "がいこく", "で", "を", "みた", "こと", "が", "あります", "ありません"],
+      correctOrder: ["がいこく", "で", "まつり", "を", "みた", "こと", "が", "あります"],
+      promptEn: "Hear it, build it: 'I have seen a festival abroad before.'",
     }),
     sentenceMcq({
       id: "ja-m25-4-1-mcq-2",
@@ -1264,14 +1267,14 @@ export const M25_4_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m25-4-1-translate",
-      promptEn: "I have seen fireworks before.",
+      promptEn: "I have written a letter in Japanese before.",
       acceptedAnswers: [
-        "はなびを みた ことが あります",
-        "はなびを みた ことが あります。",
-        "はなびを みたことが あります",
-        "はなびを みたことがあります",
+        "にほんごで てがみを かいた ことが あります",
+        "にほんごで てがみを かいた ことが あります。",
+        "にほんごで てがみを かいたことが あります",
+        "にほんごで てがみを かいたことがあります",
       ],
-      audioText: "はなびを みた ことが あります",
+      audioText: "にほんごで てがみを かいた ことが あります",
     }),
     selfExplain({
       id: "ja-m25-4-1-self-explain",
@@ -1286,8 +1289,8 @@ export const M25_4_1: LessonContent = {
     }),
     speaking(
       "ja-m25-4-1-speak-2",
-      "おんせんに はいった ことが あります",
-      "I have been to a hot spring before.",
+      "やまで キャンプを した ことが あります",
+      "I have camped in the mountains before.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m25-4-1-rev-mcq-1", M25_4_1_REVIEW[0], M25_REVIEW_POOL),
@@ -1320,7 +1323,7 @@ assertNoConsecutiveSame(M25_4_1.steps);
 // M25-4-2 — ことがある in context + prior grammar interleave
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_4_2_REVIEW = pickReviewAtoms("ja-m25-4-2-rev", M25_REVIEW_POOL, 4);
+const M25_4_2_REVIEW = pickReviewAtoms("ja-m25-4-2-rev", M25_REVIEW_POOL, 6);
 
 export const M25_4_2: LessonContent = {
   id: "ja-m25-4-2",
@@ -1336,13 +1339,31 @@ export const M25_4_2: LessonContent = {
     infoStep(
       "ja-m25-4-2-info-open",
       "Experience meets intention",
-      "'I've been to Japan before — next time I plan to go to Osaka.' Combine experience + plans.",
+      "'I've been to Japan before — next time I plan to go to Osaka.' Combine experience + plans. Plus two small words: はじめて and ええ.",
     ),
+    // ── はじめて (for the first time) — pairs naturally with experiences ──
+    build(
+      "ja-m25-4-2-build-hajimete",
+      "Pick the Japanese word for: For the first time",
+      "はじめて",
+      ["ときどき", "あまり", "よく", "はじめて"],
+      ["はじめて"],
+    ),
+    listeningCompSentence({
+      id: "ja-m25-4-2-lc-hajimete",
+      audioText: "はじめて すしを たべました",
+      correctMeaningEn: "I ate sushi for the first time.",
+      distractorsEn: [
+        "I have eaten sushi before.",
+        "I sometimes eat sushi.",
+        "I want to eat sushi.",
+      ],
+    }),
     build(
       "ja-m25-4-2-build-1",
       "Say: I have traveled abroad before.",
       "がいこくに りょこうした ことが あります",
-      ["がいこく", "に", "りょこうした", "こと", "が", "あります", "りょこうする", "つもり"],
+      ["あります", "りょこうする", "に", "が", "つもり", "こと", "りょこうした", "がいこく"],
       ["がいこく", "に", "りょこうした", "こと", "が", "あります"],
     ),
     cloze(
@@ -1388,33 +1409,30 @@ export const M25_4_2: LessonContent = {
     ),
     speaking(
       "ja-m25-4-2-speak-1",
-      "がいこくに りょこうした ことが あります",
-      "I have traveled abroad before.",
+      "はじめて おんせんに はいりました",
+      "I went into a hot spring for the first time.",
     ),
     build(
       "ja-m25-4-2-build-2",
       "Say: I have never seen fireworks. I want to see them.",
       "はなびを みた ことが ありません",
-      ["はなび", "を", "みた", "こと", "が", "ありません", "あります", "みる"],
+      ["こと", "みる", "はなび", "ありません", "を", "が", "みた", "あります"],
       ["はなび", "を", "みた", "こと", "が", "ありません"],
-    ),
-    cloze(
-      "ja-m25-4-2-cloze-3",
-      "けっこんした こと",
-      " ありますか。",
-      "が",
-      ["が", "は", "を", "に"],
-      "Have you ever been married?",
-      "けっこんした ことが ありますか。",
-      "が marks こと as subject.",
     ),
     listeningBuildSentence({
       id: "ja-m25-4-2-lb-1",
-      target: "にほんに いった ことが ありますか",
-      tiles: ["にほん", "に", "いった", "こと", "が", "ありますか", "ありません", "いく"],
-      correctOrder: ["にほん", "に", "いった", "こと", "が", "ありますか"],
-      promptEn: "Hear it, build it: 'Have you been to Japan before?'",
+      target: "おんせんに いった ことが ありますか",
+      tiles: ["こと", "おんせん", "に", "いった", "が", "ありますか", "ありません", "いく"],
+      correctOrder: ["おんせん", "に", "いった", "こと", "が", "ありますか"],
+      promptEn: "Hear it, build it: 'Have you been to a hot spring before?'",
     }),
+    build(
+      "ja-m25-4-2-build-kekkon",
+      "Ask: Have you ever been married?",
+      "けっこんした ことが ありますか",
+      ["こと", "けっこん", "した", "が", "ありますか", "ありません", "する"],
+      ["けっこん", "した", "こと", "が", "ありますか"],
+    ),
     sentenceMcq({
       id: "ja-m25-4-2-mcq-2",
       prompt: "Which sentence means 'I have tried natto before.'?",
@@ -1425,6 +1443,24 @@ export const M25_4_2: LessonContent = {
         "なっとうを たべに いきました。",
       ],
       explanation: "たべた + ことがあります = have eaten (experienced) before.",
+    }),
+    // ── ええ (yes — casual) — the natural reply to ことがありますか ──
+    build(
+      "ja-m25-4-2-build-ee",
+      "Pick the casual Japanese word for: Yes (friendly agreement)",
+      "ええ",
+      ["いいえ", "あの", "ええ", "はい"],
+      ["ええ"],
+    ),
+    listeningCompSentence({
+      id: "ja-m25-4-2-lc-ee",
+      audioText: "ええ、いった ことが あります",
+      correctMeaningEn: "Yes, I've been there before.",
+      distractorsEn: [
+        "No, I've never been.",
+        "Yes, I plan to go.",
+        "Well, I don't know.",
+      ],
     }),
     translateStep({
       id: "ja-m25-4-2-translate",
@@ -1438,7 +1474,7 @@ export const M25_4_2: LessonContent = {
     selfExplain({
       id: "ja-m25-4-2-self-explain",
       anchorLabel: "ことがあります vs つもりです",
-      anchorAudioText: "にほんに いった ことが あります",
+      anchorAudioText: "まつりに いった ことが あります",
       question: "What's the difference between ことがあります and つもりです?",
       rule: { text: "ことがあります = past experience (have done before). つもりです = future intention (plan to do). Different time directions." },
       surface: { text: "They mean the same thing — both talk about doing something." },
@@ -1463,7 +1499,6 @@ export const M25_4_2: LessonContent = {
         M25_REVIEW_POOL[7].meaningEn,
       ],
     }),
-    speaking("ja-m25-4-2-rev-speak-1", M25_4_2_REVIEW[2].kana, M25_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-4-2-rev", M25_4_2_REVIEW),
     infoStep(
       "ja-m25-4-2-info-end",
@@ -1482,7 +1517,7 @@ assertNoConsecutiveSame(M25_4_2.steps);
 // M25-5-1 — Grammar: 〜とき (when) + drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_5_1_REVIEW = pickReviewAtoms("ja-m25-5-1-rev", M25_REVIEW_POOL, 4);
+const M25_5_1_REVIEW = pickReviewAtoms("ja-m25-5-1-rev", M25_REVIEW_POOL, 6);
 
 export const M25_5_1: LessonContent = {
   id: "ja-m25-5-1",
@@ -1527,7 +1562,7 @@ export const M25_5_1: LessonContent = {
       "ja-m25-5-1-build-1",
       "Say: When I went to school, I met a friend.",
       "がっこうに いった とき ともだちに あいました",
-      ["がっこう", "に", "いった", "とき", "ともだち", "に", "あいました", "いく", "あう"],
+      ["ともだち", "いく", "がっこう", "とき", "いった", "に", "あう", "あいました", "に"],
       ["がっこう", "に", "いった", "とき", "ともだち", "に", "あいました"],
     ),
     listeningCompSentence({
@@ -1559,7 +1594,7 @@ export const M25_5_1: LessonContent = {
       "ja-m25-5-1-build-2",
       "Say: When I'm sad, I listen to music.",
       "かなしい とき おんがくを ききます",
-      ["かなしい", "とき", "おんがく", "を", "ききます", "かなしくない", "みます"],
+      ["みます", "とき", "かなしくない", "ききます", "おんがく", "かなしい", "を"],
       ["かなしい", "とき", "おんがく", "を", "ききます"],
     ),
     cloze(
@@ -1574,10 +1609,10 @@ export const M25_5_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m25-5-1-lb-1",
-      target: "ひまな とき えいがを みます",
-      tiles: ["ひまな", "とき", "えいが", "を", "みます", "ひまの", "ききます"],
-      correctOrder: ["ひまな", "とき", "えいが", "を", "みます"],
-      promptEn: "Hear it, build it: 'When I'm free, I watch movies.'",
+      target: "ひまな とき ざっしを よみます",
+      tiles: ["ざっし", "ひまな", "とき", "を", "よみます", "ひまの", "ききます"],
+      correctOrder: ["ひまな", "とき", "ざっし", "を", "よみます"],
+      promptEn: "Hear it, build it: 'When I'm free, I read magazines.'",
     }),
     sentenceMcq({
       id: "ja-m25-5-1-mcq-2",
@@ -1592,14 +1627,14 @@ export const M25_5_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m25-5-1-translate",
-      promptEn: "When I'm free, I watch movies.",
+      promptEn: "When I'm free, I read manga.",
       acceptedAnswers: [
-        "ひまな とき えいがを みます",
-        "ひまな とき、えいがを みます",
-        "ひまな とき、えいがを みます。",
-        "ひまなとき えいがをみます",
+        "ひまな とき まんがを よみます",
+        "ひまな とき、まんがを よみます",
+        "ひまな とき、まんがを よみます。",
+        "ひまなとき まんがをよみます",
       ],
-      audioText: "ひまな とき えいがを みます",
+      audioText: "ひまな とき まんがを よみます",
     }),
     selfExplain({
       id: "ja-m25-5-1-self-explain",
@@ -1614,8 +1649,8 @@ export const M25_5_1: LessonContent = {
     }),
     speaking(
       "ja-m25-5-1-speak-2",
-      "こどもの とき よく あそびました",
-      "When I was a child, I played a lot.",
+      "こどもの とき よく テレビを みました",
+      "When I was a child, I often watched TV.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m25-5-1-rev-mcq-1", M25_5_1_REVIEW[0], M25_REVIEW_POOL),
@@ -1648,7 +1683,7 @@ assertNoConsecutiveSame(M25_5_1.steps);
 // M25-5-2 — とき in context + all-grammar interleave
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_5_2_REVIEW = pickReviewAtoms("ja-m25-5-2-rev", M25_REVIEW_POOL, 4);
+const M25_5_2_REVIEW = pickReviewAtoms("ja-m25-5-2-rev", M25_REVIEW_POOL, 6);
 
 export const M25_5_2: LessonContent = {
   id: "ja-m25-5-2",
@@ -1664,13 +1699,31 @@ export const M25_5_2: LessonContent = {
     infoStep(
       "ja-m25-5-2-info-open",
       "Everything connects",
-      "Stack all four patterns: 'When I went to Japan, I went to see fireworks. I plan to go again.'",
+      "Stack all four patterns: 'When I went to Japan, I went to see fireworks. I plan to go again.' Plus one new word: りゅうがくせい.",
     ),
+    // ── りゅうがくせい (exchange student) — pairs with のとき ──
+    build(
+      "ja-m25-5-2-build-ryuugakusei",
+      "Pick the Japanese word for: Exchange student",
+      "りゅうがくせい",
+      ["がくせい", "りゅうがくせい", "ともだち", "せんせい"],
+      ["りゅうがくせい"],
+    ),
+    listeningCompSentence({
+      id: "ja-m25-5-2-lc-ryuugakusei",
+      audioText: "りゅうがくせいの とき にほんに すんでいました",
+      correctMeaningEn: "When I was an exchange student, I lived in Japan.",
+      distractorsEn: [
+        "When I was a child, I lived in Japan.",
+        "I plan to study abroad in Japan.",
+        "The exchange student went to Japan.",
+      ],
+    }),
     build(
       "ja-m25-5-2-build-1",
       "Say: When I traveled, I went to a hot spring.",
       "りょこうした とき おんせんに いきました",
-      ["りょこうした", "とき", "おんせん", "に", "いきました", "りょこうする", "いく"],
+      ["に", "とき", "いく", "りょこうする", "いきました", "りょこうした", "おんせん"],
       ["りょこうした", "とき", "おんせん", "に", "いきました"],
     ),
     cloze(
@@ -1716,30 +1769,30 @@ export const M25_5_2: LessonContent = {
     ),
     speaking(
       "ja-m25-5-2-speak-1",
-      "りょこうした とき おんせんに いきました",
-      "When I traveled, I went to a hot spring.",
+      "りゅうがくせいの とき まつりに いきました",
+      "When I was an exchange student, I went to festivals.",
     ),
     build(
       "ja-m25-5-2-build-2",
       "Say: When I go to Japan, I plan to eat sushi.",
       "にほんに いく とき すしを たべる つもりです",
-      ["にほん", "に", "いく", "とき", "すし", "を", "たべる", "つもり", "です", "たべた"],
+      ["たべる", "にほん", "たべた", "です", "いく", "とき", "に", "を", "つもり", "すし"],
       ["にほん", "に", "いく", "とき", "すし", "を", "たべる", "つもり", "です"],
     ),
     cloze(
       "ja-m25-5-2-cloze-3",
-      "はなびを みに いく",
+      "おみやげを かいに いく",
       "です。",
       "つもり",
       ["つもり", "こと", "とき", "ため"],
-      "I plan to go watch fireworks.",
-      "はなびを みに いく つもりです。",
+      "I plan to go buy souvenirs.",
+      "おみやげを かいに いく つもりです。",
       "にいく + つもり = plan to go do.",
     ),
     listeningBuildSentence({
       id: "ja-m25-5-2-lb-1",
       target: "にほんに いった とき まつりを みました",
-      tiles: ["にほん", "に", "いった", "とき", "まつり", "を", "みました", "いく", "みる"],
+      tiles: ["いく", "みました", "にほん", "まつり", "に", "とき", "いった", "を", "みる"],
       correctOrder: ["にほん", "に", "いった", "とき", "まつり", "を", "みました"],
       promptEn: "Hear it, build it: 'When I went to Japan, I saw a festival.'",
     }),
@@ -1811,7 +1864,7 @@ assertNoConsecutiveSame(M25_5_2.steps);
 // M25-6-1 — Interleaved drill (all four grammar points)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_6_1_REVIEW = pickReviewAtoms("ja-m25-6-1-rev", M25_REVIEW_POOL, 4);
+const M25_6_1_REVIEW = pickReviewAtoms("ja-m25-6-1-rev", M25_REVIEW_POOL, 6);
 
 export const M25_6_1: LessonContent = {
   id: "ja-m25-6-1",
@@ -1831,12 +1884,12 @@ export const M25_6_1: LessonContent = {
     ),
     cloze(
       "ja-m25-6-1-cloze-1",
-      "にほんに いく",
+      "あした としょかんで べんきょうする",
       "です。",
       "つもり",
       ["つもり", "こと", "とき", "ため"],
-      "I intend to go to Japan.",
-      "にほんに いく つもりです。",
+      "I plan to study at the library tomorrow.",
+      "あした としょかんで べんきょうする つもりです。",
       "Dictionary form + つもり = intention.",
     ),
     sentenceMcq({
@@ -1864,7 +1917,7 @@ export const M25_6_1: LessonContent = {
       "ja-m25-6-1-build-1",
       "Say: When I'm free, I go to the park.",
       "ひまな とき こうえんに いきます",
-      ["ひまな", "とき", "こうえん", "に", "いきます", "ひまの", "いきました"],
+      ["ひまの", "とき", "いきました", "ひまな", "こうえん", "に", "いきます"],
       ["ひまな", "とき", "こうえん", "に", "いきます"],
     ),
     cloze(
@@ -1879,18 +1932,18 @@ export const M25_6_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m25-6-1-lc-1",
-      audioText: "はなびを みに いく つもりです",
-      correctMeaningEn: "I plan to go watch fireworks.",
+      audioText: "うみに およぎに いく つもりです",
+      correctMeaningEn: "I plan to go swimming at the sea.",
       distractorsEn: [
-        "I went to watch fireworks.",
-        "I have watched fireworks before.",
-        "When I watch fireworks, I'm happy.",
+        "I went swimming at the sea.",
+        "I have swum at the sea before.",
+        "I plan to go to a hot spring.",
       ],
     }),
     speaking(
       "ja-m25-6-1-speak-1",
-      "おんせんに はいった ことが あります",
-      "I have been to a hot spring before.",
+      "がいこくに にかい いった ことが あります",
+      "I have been abroad twice.",
     ),
     cloze(
       "ja-m25-6-1-cloze-4",
@@ -1906,26 +1959,23 @@ export const M25_6_1: LessonContent = {
       "ja-m25-6-1-build-2",
       "Say: I plan to study when I go home.",
       "うちに かえった とき べんきょうする つもりです",
-      ["うち", "に", "かえった", "とき", "べんきょう", "する", "つもり", "です", "かえる"],
+      ["です", "うち", "つもり", "べんきょう", "とき", "かえる", "する", "かえった", "に"],
       ["うち", "に", "かえった", "とき", "べんきょう", "する", "つもり", "です"],
-    ),
-    cloze(
-      "ja-m25-6-1-cloze-5",
-      "けっこんした こと",
-      " ありますか。",
-      "が",
-      ["が", "は", "を", "に"],
-      "Have you ever been married?",
-      "けっこんした ことが ありますか。",
-      "が marks こと as subject of ある.",
     ),
     listeningBuildSentence({
       id: "ja-m25-6-1-lb-1",
       target: "まつりに いった ことが あります",
-      tiles: ["まつり", "に", "いった", "こと", "が", "あります", "ありません", "いく"],
+      tiles: ["に", "いった", "ありません", "まつり", "あります", "こと", "が", "いく"],
       correctOrder: ["まつり", "に", "いった", "こと", "が", "あります"],
       promptEn: "Hear it, build it: 'I have been to a festival before.'",
     }),
+    build(
+      "ja-m25-6-1-build-3",
+      "Ask: Have you ever seen Japanese fireworks?",
+      "にほんの はなびを みた ことが ありますか",
+      ["はなび", "にほん", "の", "を", "みた", "こと", "が", "ありますか", "ありません"],
+      ["にほん", "の", "はなび", "を", "みた", "こと", "が", "ありますか"],
+    ),
     translateStep({
       id: "ja-m25-6-1-translate",
       promptEn: "When I go abroad, I plan to go to a hot spring.",
@@ -1939,7 +1989,7 @@ export const M25_6_1: LessonContent = {
     selfExplain({
       id: "ja-m25-6-1-self-explain",
       anchorLabel: "Four patterns: つもり / にいく / ことがある / とき",
-      anchorAudioText: "にほんに いく つもりです",
+      anchorAudioText: "あした としょかんで べんきょうする つもりです",
       question: "Which pattern talks about PAST experience, not future plans?",
       rule: { text: "ことがあります — it uses the た-form and means 'have done before.' The others (つもり, にいく, とき) can be about the future." },
       surface: { text: "つもりです — it means 'I intended to' (past)." },
@@ -1949,8 +1999,8 @@ export const M25_6_1: LessonContent = {
     }),
     speaking(
       "ja-m25-6-1-speak-2",
-      "がいこくに いく とき おんせんに いく つもりです",
-      "When I go abroad, I plan to go to a hot spring.",
+      "ひまな とき ともだちに あいに いきます",
+      "When I'm free, I go to meet friends.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m25-6-1-rev-mcq-1", M25_6_1_REVIEW[0], M25_REVIEW_POOL),
@@ -1983,7 +2033,7 @@ assertNoConsecutiveSame(M25_6_1.steps);
 // M25-6-2 — Production drill (build + speak + translate heavy)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_6_2_REVIEW = pickReviewAtoms("ja-m25-6-2-rev", M25_REVIEW_POOL, 5);
+const M25_6_2_REVIEW = pickReviewAtoms("ja-m25-6-2-rev", M25_REVIEW_POOL, 6);
 
 export const M25_6_2: LessonContent = {
   id: "ja-m25-6-2",
@@ -2005,13 +2055,13 @@ export const M25_6_2: LessonContent = {
       "ja-m25-6-2-build-1",
       "Say: I plan to go to a foreign country next year.",
       "らいねん がいこくに いく つもりです",
-      ["らいねん", "がいこく", "に", "いく", "つもり", "です", "いった", "こと"],
+      ["いく", "がいこく", "こと", "です", "に", "つもり", "いった", "らいねん"],
       ["らいねん", "がいこく", "に", "いく", "つもり", "です"],
     ),
     speaking(
       "ja-m25-6-2-speak-1",
-      "らいねん がいこくに いく つもりです",
-      "I plan to go to a foreign country next year.",
+      "ともだちと いっしょに がいこくに いく つもりです",
+      "I plan to go abroad together with a friend.",
     ),
     listeningCompSentence({
       id: "ja-m25-6-2-lc-1",
@@ -2027,7 +2077,7 @@ export const M25_6_2: LessonContent = {
       "ja-m25-6-2-build-2",
       "Say: When I went to Japan, I ate sushi.",
       "にほんに いった とき すしを たべました",
-      ["にほん", "に", "いった", "とき", "すし", "を", "たべました", "いく", "たべる"],
+      ["すし", "いく", "いった", "たべました", "に", "にほん", "とき", "を", "たべる"],
       ["にほん", "に", "いった", "とき", "すし", "を", "たべました"],
     ),
     sentenceMcq({
@@ -2043,22 +2093,22 @@ export const M25_6_2: LessonContent = {
     }),
     speaking(
       "ja-m25-6-2-speak-2",
-      "にほんに いった とき すしを たべました",
-      "When I went to Japan, I ate sushi.",
+      "にほんに いった とき ともだちに あいました",
+      "When I went to Japan, I met a friend.",
     ),
     build(
       "ja-m25-6-2-build-3",
       "Say: Let's go watch the festival.",
       "まつりを みに いきましょう",
-      ["まつり", "を", "み", "に", "いきましょう", "みる", "いきます"],
+      ["に", "いきましょう", "を", "いきます", "まつり", "みる", "み"],
       ["まつり", "を", "み", "に", "いきましょう"],
     ),
     listeningBuildSentence({
       id: "ja-m25-6-2-lb-1",
-      target: "そつぎょうしたら りょこうする つもりです",
-      tiles: ["そつぎょう", "したら", "りょこう", "する", "つもり", "です", "した", "こと"],
-      correctOrder: ["そつぎょう", "したら", "りょこう", "する", "つもり", "です"],
-      promptEn: "Hear it, build it: 'After I graduate, I plan to travel.'",
+      target: "なつやすみに りょこうする つもりです",
+      tiles: ["りょこう", "なつやすみ", "に", "する", "つもり", "です", "した", "こと"],
+      correctOrder: ["なつやすみ", "に", "りょこう", "する", "つもり", "です"],
+      promptEn: "Hear it, build it: 'I plan to travel during summer break.'",
     }),
     cloze(
       "ja-m25-6-2-cloze-1",
@@ -2072,14 +2122,14 @@ export const M25_6_2: LessonContent = {
     ),
     speaking(
       "ja-m25-6-2-speak-3",
-      "まつりを みに いきましょう",
-      "Let's go watch the festival.",
+      "いっしょに まつりに いきましょう",
+      "Let's go to the festival together.",
     ),
     build(
       "ja-m25-6-2-build-4",
       "Say: I have never been abroad.",
       "がいこくに いった ことが ありません",
-      ["がいこく", "に", "いった", "こと", "が", "ありません", "あります", "いく"],
+      ["あります", "こと", "いった", "に", "ありません", "が", "いく", "がいこく"],
       ["がいこく", "に", "いった", "こと", "が", "ありません"],
     ),
     cloze(
@@ -2095,7 +2145,7 @@ export const M25_6_2: LessonContent = {
     selfExplain({
       id: "ja-m25-6-2-self-explain",
       anchorLabel: "All four patterns in production",
-      anchorAudioText: "にほんに いった ことが あります",
+      anchorAudioText: "まつりで はなびを みた ことが あります",
       question: "If you want to say 'I plan to go eat,' which pattern(s) do you combine?",
       rule: { text: "にいく (purpose: go to eat) + つもり (intention: I plan to). Combined: たべに いく つもりです." },
       surface: { text: "Just つもり is enough — たべる つもりです means the same thing." },
@@ -2105,18 +2155,18 @@ export const M25_6_2: LessonContent = {
     }),
     speaking(
       "ja-m25-6-2-speak-4",
-      "がいこくに いった ことが ありません",
-      "I have never been abroad.",
+      "おんせんに はいった ことが ありません",
+      "I have never been in a hot spring.",
     ),
     translateStep({
       id: "ja-m25-6-2-translate",
-      promptEn: "I have been to a hot spring before.",
+      promptEn: "I have been to Japan twice.",
       acceptedAnswers: [
-        "おんせんに はいった ことが あります",
-        "おんせんに はいった ことが あります。",
-        "おんせんに はいったことがあります",
+        "にほんに にかい いった ことが あります",
+        "にほんに にかい いった ことが あります。",
+        "にほんに にかい いったことがあります",
       ],
-      audioText: "おんせんに はいった ことが あります",
+      audioText: "にほんに にかい いった ことが あります",
     }),
     // ── Review tail ──
     vocabMcq("ja-m25-6-2-rev-mcq-1", M25_6_2_REVIEW[0], M25_REVIEW_POOL),
@@ -2131,7 +2181,7 @@ export const M25_6_2: LessonContent = {
       ],
     }),
     speaking("ja-m25-6-2-rev-speak-1", M25_6_2_REVIEW[2].kana, M25_6_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m25-6-2-rev", M25_6_2_REVIEW.slice(0, 4)),
+    reviewMatchPairs("ja-m25-6-2-rev", M25_6_2_REVIEW),
     infoStep(
       "ja-m25-6-2-info-end",
       "You can now produce all M25 patterns from memory",
@@ -2154,137 +2204,137 @@ export const M25_STORY: LessonContent = {
   moduleId: "m25",
   courseId: COURSE,
   languageId: LANG,
-  title: "Story — Planning a trip to Japan",
+  title: "Story — Yuki's trips to Japan",
   description:
-    "Listen to two friends plan a trip to Japan. Answer questions and practice key patterns.",
+    "Listen to ゆき talk about her trips to Japan and her plans for next year. Answer comprehension questions and build your replies.",
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
     infoStep(
       "ja-m25-story-info-open",
-      "Story time — Planning a trip",
-      "ゆき and マイク are planning a trip to Japan. Listen to them discuss where to go and what to do.",
+      "Story time — Yuki's trips to Japan",
+      "ゆき tells you about her past trips to Japan and what she plans next. Listen for ことがあります, つもりです, にいく, and とき — then reply yourself.",
     ),
-    dialogueListen({
-      id: "ja-m25-story-scene-1",
-      lines: [
-        { speaker: "マイク", kana: "にほんに いった ことが ありますか。" },
-        { speaker: "ゆき", kana: "はい、にかい いった ことが あります。おんせんに はいりました。" },
-        { speaker: "マイク", kana: "いいですね。ぼくは にほんに いった ことが ありません。" },
-        { speaker: "ゆき", kana: "じゃあ、いっしょに いく つもりですか。" },
+    ...storyComprehension({
+      idPrefix: "ja-m25-story-scene-1",
+      narrative: [
+        { kana: "わたしは にほんに にかい いった ことが あります。" },
+        { kana: "はじめて いった とき、おんせんに はいりました。" },
+        { kana: "にほんで まつりを みた ことも あります。" },
+        { kana: "らいねんも にほんに いく つもりです。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s1-q1",
-          prompt: "How many times has ゆき been to Japan?",
+          prompt: "How many times has Yuki been to Japan?",
           correctText: "Twice.",
           distractors: ["Once.", "Three times.", "Never."],
-          explanation: "にかい いった ことがあります = has been twice.",
+          explanation: "にかい いった ことが あります = has been twice.",
         },
         {
           id: "s1-q2",
-          prompt: "Has マイク been to Japan?",
-          correctText: "No, never.",
-          distractors: ["Yes, once.", "Yes, twice.", "He doesn't say."],
-          explanation: "いった ことが ありません = has never been.",
+          prompt: "What did Yuki do on her first trip?",
+          correctText: "She went into a hot spring.",
+          distractors: [
+            "She watched fireworks.",
+            "She bought souvenirs.",
+            "She went to a wedding.",
+          ],
+          explanation:
+            "はじめて いった とき、おんせんに はいりました = on her first trip, she bathed in a hot spring.",
         },
       ],
+      responseBuild: {
+        target: "わたしは にほんに いった ことが ありません",
+        tiles: ["いった", "にほん", "わたし", "は", "に", "こと", "が", "ありません", "あります"],
+        correctOrder: ["わたし", "は", "にほん", "に", "いった", "こと", "が", "ありません"],
+        promptEn: "Reply to ゆき: 'I have never been to Japan.'",
+      },
     }),
-    build(
-      "ja-m25-story-build-1",
-      "Say: I have never been to Japan.",
-      "にほんに いった ことが ありません",
-      ["にほん", "に", "いった", "こと", "が", "ありません", "あります", "いく"],
-      ["にほん", "に", "いった", "こと", "が", "ありません"],
-    ),
     sentenceMcq({
       id: "ja-m25-story-mcq-1",
-      prompt: "What did ゆき do in Japan?",
-      correctKana: "She went to a hot spring.",
+      prompt: "Which line from the story means 'I plan to go to Japan next year too'?",
+      correctKana: "らいねんも にほんに いく つもりです。",
       distractorsKana: [
-        "She went to a festival.",
-        "She watched fireworks.",
-        "She got married.",
+        "きょねん にほんに いきました。",
+        "ことし にほんに いく よていです。",
+        "らいねん にほんに いく ことが あります。",
       ],
-      explanation: "おんせんに はいりました = bathed in a hot spring.",
+      explanation: "らいねんも = next year too. Dictionary form + つもりです = plan to.",
     }),
-    dialogueListen({
-      id: "ja-m25-story-scene-2",
-      lines: [
-        { speaker: "マイク", kana: "にほんに いく とき、なにを する つもりですか。" },
-        { speaker: "ゆき", kana: "まつりを みに いく つもりです。はなびも みたいです。" },
-        { speaker: "マイク", kana: "いいですね。しゅっぱつは なんがつですか。" },
-        { speaker: "ゆき", kana: "はちがつの よていです。なつまつりの とき いきましょう。" },
+    ...storyComprehension({
+      idPrefix: "ja-m25-story-scene-2",
+      narrative: [
+        { kana: "らいねんの なつは ともだちと いく よていです。" },
+        { kana: "ともだちは にほんに いった ことが ありません。" },
+        { kana: "いっしょに はなびを みに いく つもりです。" },
+        { kana: "まつりで おみやげを かいたいです。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s2-q1",
-          prompt: "What does ゆき plan to do in Japan?",
-          correctText: "Go watch a festival and see fireworks.",
-          distractors: ["Go to a hot spring.", "Visit a school.", "Go shopping."],
-          explanation: "まつりを みに いく つもり + はなびも みたい.",
+          prompt: "Who is Yuki going to Japan with next year?",
+          correctText: "A friend.",
+          distractors: ["Her teacher.", "An exchange student.", "She's going alone."],
+          explanation: "ともだちと いく よていです = the plan is to go with a friend.",
         },
         {
           id: "s2-q2",
-          prompt: "When is the planned departure?",
-          correctText: "August.",
-          distractors: ["July.", "September.", "They haven't decided."],
-          explanation: "はちがつの よていです = the plan is August.",
+          prompt: "What do they plan to go see together?",
+          correctText: "Fireworks.",
+          distractors: ["A hot spring.", "A graduation ceremony.", "A wedding."],
+          explanation: "はなびを みに いく = go (in order) to watch fireworks.",
         },
       ],
-    }),
-    cloze(
-      "ja-m25-story-cloze-1",
-      "まつりを み",
-      "いく つもりです。",
-      "に",
-      ["に", "を", "で", "と"],
-      "I plan to go watch a festival.",
-      "まつりを みに いく つもりです。",
-      "に marks purpose — going to watch.",
-    ),
-    listeningBuildSentence({
-      id: "ja-m25-story-lb-1",
-      target: "はちがつの よていです",
-      tiles: ["はちがつ", "の", "よてい", "です", "けいかく", "つもり"],
-      correctOrder: ["はちがつ", "の", "よてい", "です"],
-      promptEn: "Hear it, build it: 'The plan is August.'",
+      responseBuild: {
+        target: "わたしも はなびを みたいです",
+        tiles: ["はなび", "みたいです", "わたし", "も", "を", "みた"],
+        correctOrder: ["わたし", "も", "はなび", "を", "みたいです"],
+        promptEn: "Reply to ゆき: 'I want to see fireworks too.'",
+      },
     }),
     listeningCompSentence({
       id: "ja-m25-story-lc-1",
-      audioText: "なつまつりの とき いきましょう",
-      correctMeaningEn: "Let's go during the summer festival.",
+      audioText: "ともだちは にほんに いった ことが ありません",
+      correctMeaningEn: "My friend has never been to Japan.",
       distractorsEn: [
-        "Let's go in winter.",
-        "The summer festival is over.",
-        "I plan to go to a festival.",
+        "My friend has been to Japan twice.",
+        "My friend plans to go to Japan.",
+        "I have never been to Japan.",
       ],
+    }),
+    listeningBuildSentence({
+      id: "ja-m25-story-lb-1",
+      target: "いっしょに はなびを みに いく つもりです",
+      tiles: ["はなび", "み", "いっしょに", "を", "に", "いく", "です", "つもり", "みた"],
+      correctOrder: ["いっしょに", "はなび", "を", "み", "に", "いく", "つもり", "です"],
+      promptEn: "Hear it, build it: 'We plan to go watch fireworks together.'",
     }),
     speaking(
       "ja-m25-story-speak-1",
-      "まつりを みに いく つもりです",
-      "I plan to go watch a festival.",
+      "わたしは にほんに にかい いった ことが あります",
+      "I have been to Japan twice.",
     ),
     sentenceMcq({
       id: "ja-m25-story-mcq-summary",
-      prompt: "Which M25 patterns appeared in the story?",
-      correctKana: "つもり, にいく, ことがある, and とき — all four.",
+      prompt: "What is Yuki's plan for next summer?",
+      correctKana: "Go to Japan with a friend and watch fireworks.",
       distractorsKana: [
-        "Only つもり and ことがある.",
-        "Only にいく and とき.",
-        "Only つもり.",
+        "Go to a hot spring alone.",
+        "Move to Japan as an exchange student.",
+        "Watch fireworks in her own country.",
       ],
-      explanation: "All four M25 patterns appeared: intention, purpose, experience, and timing.",
+      explanation: "She's going with a friend and they plan to watch fireworks together.",
     }),
     speaking(
       "ja-m25-story-speak-2",
-      "なつまつりの とき いきましょう",
-      "Let's go during the summer festival.",
+      "いっしょに はなびを みに いきましょう",
+      "Let's go watch fireworks together.",
     ),
     infoStep(
       "ja-m25-story-info-end",
-      "You followed a real conversation about planning a trip to Japan",
-      "Intentions, purposes, experiences, and timing — all working together in a natural conversation.",
+      "You followed a real story about experiences and plans",
+      "You understood ことがあります, つもりです, にいく, and とき in a natural narrative — and replied in Japanese.",
       "win",
     ),
   ],
@@ -2299,7 +2349,7 @@ assertExplanationDoesntLeakAnswer(M25_STORY.steps);
 // M25-7-1 — Mixed drill (all patterns, comprehension focus)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_7_1_REVIEW = pickReviewAtoms("ja-m25-7-1-rev", M25_REVIEW_POOL, 4);
+const M25_7_1_REVIEW = pickReviewAtoms("ja-m25-7-1-rev", M25_REVIEW_POOL, 6);
 
 export const M25_7_1: LessonContent = {
   id: "ja-m25-7-1",
@@ -2329,14 +2379,14 @@ export const M25_7_1: LessonContent = {
     }),
     sentenceMcq({
       id: "ja-m25-7-1-mcq-1",
-      prompt: "Which means 'I went to buy a souvenir.'?",
-      correctKana: "おみやげを かいに いきました。",
+      prompt: "Which means 'I went to meet a friend.'?",
+      correctKana: "ともだちに あいに いきました。",
       distractorsKana: [
-        "おみやげを かう つもりです。",
-        "おみやげを かった ことが あります。",
-        "おみやげを かう とき いきました。",
+        "ともだちと いきました。",
+        "ともだちに あう つもりです。",
+        "ともだちに あった ことが あります。",
       ],
-      explanation: "かい (stem) + にいきました = went to buy.",
+      explanation: "あい (stem of あう) + にいきました = went to meet.",
     }),
     cloze(
       "ja-m25-7-1-cloze-1",
@@ -2352,12 +2402,12 @@ export const M25_7_1: LessonContent = {
       "ja-m25-7-1-build-1",
       "Say: When traveling, I take photos.",
       "りょこうする とき しゃしんを とります",
-      ["りょこう", "する", "とき", "しゃしん", "を", "とります", "した", "とりました"],
+      ["を", "した", "とき", "りょこう", "とりました", "とります", "する", "しゃしん"],
       ["りょこう", "する", "とき", "しゃしん", "を", "とります"],
     ),
     listeningCompSentence({
       id: "ja-m25-7-1-lc-2",
-      audioText: "そつぎょうしたら がいこくに いく つもりです",
+      audioText: "そつぎょうしてから がいこくに いく つもりです",
       correctMeaningEn: "After I graduate, I plan to go abroad.",
       distractorsEn: [
         "I graduated and went abroad.",
@@ -2377,8 +2427,8 @@ export const M25_7_1: LessonContent = {
     ),
     speaking(
       "ja-m25-7-1-speak-1",
-      "りょこうする とき しゃしんを とります",
-      "When traveling, I take photos.",
+      "りょこうする とき おみやげを かいます",
+      "When traveling, I buy souvenirs.",
     ),
     sentenceMcq({
       id: "ja-m25-7-1-mcq-2",
@@ -2395,7 +2445,7 @@ export const M25_7_1: LessonContent = {
       "ja-m25-7-1-build-2",
       "Say: I have eaten ramen in Japan before.",
       "にほんで ラーメンを たべた ことが あります",
-      ["にほん", "で", "ラーメン", "を", "たべた", "こと", "が", "あります", "ありません"],
+      ["ラーメン", "こと", "あります", "を", "たべた", "が", "で", "ありません", "にほん"],
       ["にほん", "で", "ラーメン", "を", "たべた", "こと", "が", "あります"],
     ),
     cloze(
@@ -2411,7 +2461,7 @@ export const M25_7_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m25-7-1-lb-1",
       target: "おんせんに はいりに いきたいです",
-      tiles: ["おんせん", "に", "はいり", "に", "いきたい", "です", "はいる", "いく"],
+      tiles: ["はいり", "に", "いきたい", "です", "おんせん", "いく", "に", "はいる"],
       correctOrder: ["おんせん", "に", "はいり", "に", "いきたい", "です"],
       promptEn: "Hear it, build it: 'I want to go bathe in a hot spring.'",
     }),
@@ -2428,8 +2478,8 @@ export const M25_7_1: LessonContent = {
     }),
     speaking(
       "ja-m25-7-1-speak-2",
-      "そつぎょうしたら がいこくに いく つもりです",
-      "After I graduate, I plan to go abroad.",
+      "りゅうがくせいの とき はじめて おんせんに はいりました",
+      "When I was an exchange student, I went into a hot spring for the first time.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m25-7-1-rev-mcq-1", M25_7_1_REVIEW[0], M25_REVIEW_POOL),
@@ -2462,7 +2512,7 @@ assertNoConsecutiveSame(M25_7_1.steps);
 // M25-7-2 — Production (translate + build + speaking heavy)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M25_7_2_REVIEW = pickReviewAtoms("ja-m25-7-2-rev", M25_REVIEW_POOL, 5);
+const M25_7_2_REVIEW = pickReviewAtoms("ja-m25-7-2-rev", M25_REVIEW_POOL, 6);
 
 export const M25_7_2: LessonContent = {
   id: "ja-m25-7-2",
@@ -2484,13 +2534,13 @@ export const M25_7_2: LessonContent = {
       "ja-m25-7-2-build-1",
       "Say: I plan to go see a festival.",
       "まつりを みに いく つもりです",
-      ["まつり", "を", "み", "に", "いく", "つもり", "です", "みる", "こと"],
+      ["を", "つもり", "こと", "みる", "み", "に", "まつり", "です", "いく"],
       ["まつり", "を", "み", "に", "いく", "つもり", "です"],
     ),
     speaking(
       "ja-m25-7-2-speak-1",
-      "まつりを みに いく つもりです",
-      "I plan to go see a festival.",
+      "らいげつ おんせんに いく つもりです",
+      "I plan to go to a hot spring next month.",
     ),
     listeningCompSentence({
       id: "ja-m25-7-2-lc-1",
@@ -2506,7 +2556,7 @@ export const M25_7_2: LessonContent = {
       "ja-m25-7-2-build-2",
       "Say: When I go abroad, I plan to go to a hot spring.",
       "がいこくに いく とき おんせんに いく つもりです",
-      ["がいこく", "に", "いく", "とき", "おんせん", "に", "いく", "つもり", "です", "いった"],
+      ["いった", "つもり", "とき", "に", "おんせん", "いく", "です", "に", "いく", "がいこく"],
       ["がいこく", "に", "いく", "とき", "おんせん", "に", "いく", "つもり", "です"],
     ),
     sentenceMcq({
@@ -2522,20 +2572,20 @@ export const M25_7_2: LessonContent = {
     }),
     speaking(
       "ja-m25-7-2-speak-2",
-      "がいこくに いく とき おんせんに いく つもりです",
-      "When I go abroad, I plan to go to a hot spring.",
+      "こどもの とき はなびを みました",
+      "When I was a child, I saw fireworks.",
     ),
     build(
       "ja-m25-7-2-build-3",
       "Say: Let's go eat lunch.",
       "ひるごはんを たべに いきましょう",
-      ["ひるごはん", "を", "たべ", "に", "いきましょう", "たべる", "いきます"],
+      ["たべ", "いきます", "たべる", "を", "に", "いきましょう", "ひるごはん"],
       ["ひるごはん", "を", "たべ", "に", "いきましょう"],
     ),
     listeningBuildSentence({
       id: "ja-m25-7-2-lb-1",
       target: "こどもの とき おんせんに いきました",
-      tiles: ["こども", "の", "とき", "おんせん", "に", "いきました", "こどもな", "いく"],
+      tiles: ["の", "いきました", "に", "いく", "とき", "こどもな", "こども", "おんせん"],
       correctOrder: ["こども", "の", "とき", "おんせん", "に", "いきました"],
       promptEn: "Hear it, build it: 'When I was a child, I went to a hot spring.'",
     }),
@@ -2551,14 +2601,14 @@ export const M25_7_2: LessonContent = {
     ),
     speaking(
       "ja-m25-7-2-speak-3",
-      "ひるごはんを たべに いきましょう",
-      "Let's go eat lunch.",
+      "ばんごはんを たべに いきましょう",
+      "Let's go eat dinner.",
     ),
     build(
       "ja-m25-7-2-build-4",
       "Say: I have been to a graduation ceremony before.",
       "そつぎょうしきに いった ことが あります",
-      ["そつぎょうしき", "に", "いった", "こと", "が", "あります", "ありません", "いく"],
+      ["に", "ありません", "そつぎょうしき", "が", "いく", "こと", "いった", "あります"],
       ["そつぎょうしき", "に", "いった", "こと", "が", "あります"],
     ),
     listeningCompSentence({
@@ -2584,7 +2634,7 @@ export const M25_7_2: LessonContent = {
     selfExplain({
       id: "ja-m25-7-2-self-explain",
       anchorLabel: "All four M25 patterns mastered",
-      anchorAudioText: "にほんに いく つもりです",
+      anchorAudioText: "けっこんする つもりです",
       question: "You want to say 'When I traveled, I went to see a festival.' Which patterns do you use?",
       rule: { text: "とき (when) + にいく (go to see). りょこうした とき、まつりを みに いきました." },
       surface: { text: "つもり (plan) + ことがある (experience). りょこうする つもりで、まつりの ことが あります." },
@@ -2594,17 +2644,17 @@ export const M25_7_2: LessonContent = {
     }),
     speaking(
       "ja-m25-7-2-speak-4",
-      "そつぎょうしきに いった ことが あります",
-      "I have been to a graduation ceremony before.",
+      "けっこんしきに いった ことが あります",
+      "I have been to a wedding before.",
     ),
     translateStep({
       id: "ja-m25-7-2-translate",
-      promptEn: "I plan to go watch fireworks.",
+      promptEn: "I plan to go watch a movie.",
       acceptedAnswers: [
-        "はなびを みに いく つもりです",
-        "はなびを みに いく つもりです。",
+        "えいがを みに いく つもりです",
+        "えいがを みに いく つもりです。",
       ],
-      audioText: "はなびを みに いく つもりです",
+      audioText: "えいがを みに いく つもりです",
     }),
     // ── Review tail ──
     vocabMcq("ja-m25-7-2-rev-mcq-1", M25_7_2_REVIEW[0], M25_REVIEW_POOL),
@@ -2619,7 +2669,7 @@ export const M25_7_2: LessonContent = {
       ],
     }),
     speaking("ja-m25-7-2-rev-speak-1", M25_7_2_REVIEW[2].kana, M25_7_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m25-7-2-rev", M25_7_2_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m25-7-2-rev", M25_7_2_REVIEW),
     infoStep(
       "ja-m25-7-2-info-end",
       "You can plan trips, share experiences, explain purposes, and link events by timing",

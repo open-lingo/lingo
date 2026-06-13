@@ -6,7 +6,6 @@ import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getPracticeItemsForLanguage } from "@/features/practice/practiceNavItems";
-import { useGrammarPracticeData } from "@/features/practice/hooks/usePracticeData";
 
 export function PracticeGrammarPage() {
   const { t } = useTranslation();
@@ -15,7 +14,6 @@ export function PracticeGrammarPage() {
   const langPath = useLangPath();
   const langId = language?.id ?? "ko";
   const languageName = getLanguageConfig(langId)?.name ?? langId;
-  const { data: grammarData } = useGrammarPracticeData();
 
   const navItems = getPracticeItemsForLanguage(language?.id, flags);
   const particleItem = navItems.find((item) => item.to.includes("/practice/particles"));
@@ -36,40 +34,20 @@ export function PracticeGrammarPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       {/* Zone 1 — Header tile */}
+      {/* Stat tiles (trainers / lessons / hours) removed 2026-06-12 — they
+          were hardcoded mocks with no real backing source. Reintroduce only
+          once grammar practice records real activity. */}
       <Card padding="lg">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-          <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
-              {t("practice.grammarPage.kicker", { defaultValue: "Grammar practice" })}
-            </p>
-            <h1 className="mt-1 text-2xl font-bold text-text-primary sm:text-3xl">
-              {t("practice.grammarPage.title")}
-            </h1>
-            <p className="mt-2 max-w-2xl text-pretty text-sm text-text-secondary">
-              {t("practice.grammarPage.intro", { language: languageName })}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:shrink-0">
-            <div className="rounded-lg bg-surface-muted p-3 text-center">
-              <p className="text-lg font-bold text-text-primary">{grammarData.trainerCount}</p>
-              <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-                {t("practice.grammarPage.statTrainers", { defaultValue: "Trainers" })}
-              </p>
-            </div>
-            <div className="rounded-lg bg-surface-muted p-3 text-center">
-              <p className="text-lg font-bold text-text-primary">{grammarData.lessonCount}</p>
-              <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-                {t("practice.grammarPage.statLessons", { defaultValue: "Lessons" })}
-              </p>
-            </div>
-            <div className="rounded-lg bg-surface-muted p-3 text-center">
-              <p className="text-lg font-bold text-text-primary">{grammarData.hoursPracticed}</p>
-              <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-                {t("practice.grammarPage.statHours", { defaultValue: "Hours" })}
-              </p>
-            </div>
-          </div>
+        <div className="min-w-0">
+          <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+            {t("practice.grammarPage.kicker", { defaultValue: "Grammar practice" })}
+          </p>
+          <h1 className="mt-1 text-2xl font-bold text-text-primary sm:text-3xl">
+            {t("practice.grammarPage.title")}
+          </h1>
+          <p className="mt-2 max-w-2xl text-pretty text-sm text-text-secondary">
+            {t("practice.grammarPage.intro", { language: languageName })}
+          </p>
         </div>
       </Card>
 

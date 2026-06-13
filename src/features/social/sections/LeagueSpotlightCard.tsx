@@ -35,8 +35,33 @@ export function LeagueSpotlightCard({
   // social page (one network call total instead of four).
   const bundle = useLeaderboardBundle();
 
-  if (bundle.isLoading || !bundle.data) {
+  if (bundle.isLoading) {
     return <SpotlightSkeleton compact={compact} />;
+  }
+
+  // Resolved without data (endpoint error / leagues not provisioned) — show a
+  // quiet unavailable state instead of skeletoning forever.
+  if (!bundle.data) {
+    return (
+      <Card padding="none" className="overflow-hidden">
+        <div className="flex items-center gap-3 bg-surface-muted px-5 py-4">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-surface text-text-muted shadow-sm">
+            <Icon name="trophy" size={24} aria-hidden />
+          </div>
+          <div className="min-w-0">
+            <h2 className="text-base font-bold text-text-primary">
+              {t("social.spotlight.unavailableTitle", "Leagues are warming up")}
+            </h2>
+            <p className="text-xs text-text-muted">
+              {t(
+                "social.spotlight.unavailableBody",
+                "We couldn't load your league right now — check back soon.",
+              )}
+            </p>
+          </div>
+        </div>
+      </Card>
+    );
   }
 
   const { spotlight: spotlightData, weekly } = bundle.data;

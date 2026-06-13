@@ -11,7 +11,8 @@
  * Key teaching point: い-adj vs な-adj discrimination. きれい/きらい/ゆうめい
  * look like they end in い but they are な-adjectives.
  *
- * Split into 14 sub-lessons + 1 story = 15 exports.
+ * Split into 14 sub-lessons + 1 storyComprehension() story = 15 exports.
+ * Backlog weave: こんな (this kind of) introduced context-heavy in M9-6-2.
  * Each sub-lesson has 18-22 steps. All vocab introductions use build() or
  * vocabMcq (image-MCQ-as-intro for concrete nouns). All drill uses factory
  * helpers from _jaGrammarHelpers.
@@ -23,7 +24,6 @@ import type { LessonContent } from "@/features/lesson/types";
 import {
   build,
   cloze,
-  dialogueListen,
   grammarRule,
   infoStep,
   listeningBuildSentence,
@@ -35,6 +35,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  storyComprehension,
   vocabMcq,
   assertNoSameAnswerCluster,
   assertAnswerRotation,
@@ -82,7 +83,7 @@ const M9_REVIEW_M7 = withoutMcqBlocked(
 // M9-1-1 — "Pretty and quiet" intro (きれい, しずか + grammarRule for な-adj)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_1_1_REVIEW = pickReviewAtoms("ja-m9-1-1-rev", M9_REVIEW_M7, 4);
+const M9_1_1_REVIEW = pickReviewAtoms("ja-m9-1-1-rev", M9_REVIEW_M7, 6);
 
 export const M9_1_1: LessonContent = {
   id: "ja-m9-1-1",
@@ -123,7 +124,7 @@ export const M9_1_1: LessonContent = {
       "ja-m9-1-1-build-kirei",
       "Pick the Japanese word for: Pretty / Clean",
       "きれい",
-      ["きれい", "しずか", "おおきい", "あつい"],
+      ["しずか", "きれい", "おおきい", "あつい"],
       ["きれい"],
     ),
     listeningCompSentence({
@@ -142,7 +143,7 @@ export const M9_1_1: LessonContent = {
       "ja-m9-1-1-build-shizuka",
       "Pick the Japanese word for: Quiet",
       "しずか",
-      ["しずか", "きれい", "にぎやか", "ちいさい"],
+      ["にぎやか", "きれい", "しずか", "ちいさい"],
       ["しずか"],
     ),
     speaking("ja-m9-1-1-speak-shizuka", "しずかです", "It's quiet."),
@@ -157,7 +158,7 @@ export const M9_1_1: LessonContent = {
       "ja-m9-1-1-build-kirei-desu",
       "Say: It's pretty.",
       "きれいです",
-      ["きれい", "です", "しずか", "な"],
+      ["です", "しずか", "きれい", "な"],
       ["きれい", "です"],
     ),
     sentenceMcq({
@@ -175,7 +176,7 @@ export const M9_1_1: LessonContent = {
       "ja-m9-1-1-build-shizuka-na",
       "Say: A quiet library",
       "しずかな としょかん",
-      ["しずか", "な", "としょかん", "きれい", "の"],
+      ["としょかん", "きれい", "な", "しずか", "の"],
       ["しずか", "な", "としょかん"],
     ),
     cloze(
@@ -191,7 +192,7 @@ export const M9_1_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m9-1-1-lb-shizuka",
       target: "しずかです",
-      tiles: ["しずか", "です", "きれい", "な"],
+      tiles: ["きれい", "です", "な", "しずか"],
       correctOrder: ["しずか", "です"],
       promptEn: "Hear it, build it: 'It's quiet.'",
     }),
@@ -218,9 +219,9 @@ export const M9_1_1: LessonContent = {
         "きれい is a な-adjective. When it modifies a noun, it takes な: きれいな はな. い-adjectives don't use な (おおきい ねこ, not おおきいな ねこ).",
     }),
     speaking(
-      "ja-m9-1-1-speak-kirei-na",
-      "きれいな はな",
-      "A pretty flower",
+      "ja-m9-1-1-speak-kirei-umi",
+      "きれいな うみ",
+      "A pretty sea",
     ),
     // ── Review tail ──
     vocabMcq("ja-m9-1-1-rev-mcq-1", M9_1_1_REVIEW[0], M9_REVIEW_POOL),
@@ -253,7 +254,7 @@ assertNoConsecutiveSame(M9_1_1.steps);
 // M9-1-2 — "Pretty and quiet" practice (な-adj present + な before nouns)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_1_2_REVIEW = pickReviewAtoms("ja-m9-1-2-rev", M9_REVIEW_M6, 4);
+const M9_1_2_REVIEW = pickReviewAtoms("ja-m9-1-2-rev", M9_REVIEW_M6, 6);
 
 export const M9_1_2: LessonContent = {
   id: "ja-m9-1-2",
@@ -297,7 +298,7 @@ export const M9_1_2: LessonContent = {
       "ja-m9-1-2-build-shizuka-machi",
       "Say: It's a quiet town.",
       "しずかな まちです",
-      ["しずか", "な", "まち", "です", "きれい", "の"],
+      ["まち", "きれい", "です", "な", "しずか", "の"],
       ["しずか", "な", "まち", "です"],
     ),
     listeningCompSentence({
@@ -317,11 +318,11 @@ export const M9_1_2: LessonContent = {
       "は marks the topic. な only appears between a な-adj and a noun it modifies, not before です.",
     ),
     build(
-      "ja-m9-1-2-build-kirei-na-hana",
-      "Say: A pretty flower",
-      "きれいな はな",
-      ["きれい", "な", "はな", "の", "しずか"],
-      ["きれい", "な", "はな"],
+      "ja-m9-1-2-build-kirei-na-yama",
+      "Say: A pretty mountain",
+      "きれいな やま",
+      ["やま", "しずか", "な", "きれい", "の"],
+      ["きれい", "な", "やま"],
     ),
     sentenceMcq({
       id: "ja-m9-1-2-mcq-attr",
@@ -347,7 +348,7 @@ export const M9_1_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m9-1-2-lb-kirei-desu",
       target: "この はなは きれいです",
-      tiles: ["この", "はな", "は", "きれい", "です", "しずか", "な"],
+      tiles: ["はな", "きれい", "この", "です", "は", "な", "しずか"],
       correctOrder: ["この", "はな", "は", "きれい", "です"],
       promptEn: "Hear it, build it: 'This flower is pretty.'",
     }),
@@ -360,7 +361,7 @@ export const M9_1_2: LessonContent = {
       "ja-m9-1-2-build-kono-machi",
       "Say: This town is quiet.",
       "この まちは しずかです",
-      ["この", "まち", "は", "しずか", "です", "きれい", "な"],
+      ["まち", "きれい", "は", "この", "しずか", "です", "な"],
       ["この", "まち", "は", "しずか", "です"],
     ),
     sentenceMcq({
@@ -374,15 +375,35 @@ export const M9_1_2: LessonContent = {
       ],
       explanation: "Even though きれい ends in い, it's a な-adjective: きれいな こうえん.",
     }),
-    cloze(
-      "ja-m9-1-2-cloze-ha-2",
-      "としょかん",
-      " しずかです。",
-      "は",
-      ["は", "な", "の", "が"],
-      "The library is quiet.",
-      "としょかんは しずかです。",
-      "は marks the topic. しずかです is the predicate — no な needed here.",
+    // ── ところ (place) — build intro ──
+    build(
+      "ja-m9-1-2-build-tokoro",
+      "Pick the Japanese word for: Place",
+      "ところ",
+      ["まち", "ところ", "へや", "こうえん"],
+      ["ところ"],
+    ),
+    listeningCompSentence({
+      id: "ja-m9-1-2-lc-tokoro",
+      audioText: "ここは きれいな ところです",
+      correctMeaningEn: "This is a pretty place.",
+      distractorsEn: [
+        "This is a quiet place.",
+        "This is a pretty room.",
+        "This is a pretty town.",
+      ],
+    }),
+    speaking(
+      "ja-m9-1-2-speak-tokoro",
+      "しずかな ところ",
+      "A quiet place",
+    ),
+    build(
+      "ja-m9-1-2-build-toshokan",
+      "Say: The library is quiet.",
+      "としょかんは しずかです",
+      ["しずか", "としょかん", "です", "は", "な"],
+      ["としょかん", "は", "しずか", "です"],
     ),
     // ── selfExplain at N-1 ──
     selfExplain({
@@ -427,7 +448,7 @@ assertNoConsecutiveSame(M9_1_2.steps);
 // M9-2-1 — "Like and dislike" intro (すき, きらい + Xが すきです pattern)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_2_1_REVIEW = pickReviewAtoms("ja-m9-2-1-rev", M9_REVIEW_M5, 4);
+const M9_2_1_REVIEW = pickReviewAtoms("ja-m9-2-1-rev", M9_REVIEW_M5, 6);
 
 export const M9_2_1: LessonContent = {
   id: "ja-m9-2-1",
@@ -468,7 +489,7 @@ export const M9_2_1: LessonContent = {
       "ja-m9-2-1-build-suki",
       "Pick the Japanese word for: Like",
       "すき",
-      ["すき", "きらい", "すこし", "おおきい"],
+      ["きらい", "すき", "すこし", "おおきい"],
       ["すき"],
     ),
     listeningCompSentence({
@@ -482,7 +503,7 @@ export const M9_2_1: LessonContent = {
       "ja-m9-2-1-build-kirai",
       "Pick the Japanese word for: Dislike",
       "きらい",
-      ["きらい", "すき", "きれい", "つまらない"],
+      ["すき", "きらい", "きれい", "つまらない"],
       ["きらい"],
     ),
     speaking("ja-m9-2-1-speak-kirai", "きらいです", "I dislike (it)."),
@@ -491,7 +512,7 @@ export const M9_2_1: LessonContent = {
       "ja-m9-2-1-build-coffee-suki",
       "Say: I like coffee.",
       "コーヒーが すきです",
-      ["コーヒー", "が", "すき", "です", "を", "きらい"],
+      ["すき", "を", "コーヒー", "です", "が", "きらい"],
       ["コーヒー", "が", "すき", "です"],
     ),
     cloze(
@@ -516,27 +537,24 @@ export const M9_2_1: LessonContent = {
       explanation: "きらいです = dislike. The disliked thing takes が.",
     }),
     listeningBuildSentence({
-      id: "ja-m9-2-1-lb-suki",
-      target: "コーヒーが すきです",
-      tiles: ["コーヒー", "が", "すき", "です", "を", "きらい"],
-      correctOrder: ["コーヒー", "が", "すき", "です"],
-      promptEn: "Hear it, build it: 'I like coffee.'",
+      id: "ja-m9-2-1-lb-hon-suki",
+      target: "ほんが すきです",
+      tiles: ["きらい", "すき", "ほん", "です", "が", "を"],
+      correctOrder: ["ほん", "が", "すき", "です"],
+      promptEn: "Hear it, build it: 'I like books.'",
     }),
-    cloze(
-      "ja-m9-2-1-cloze-ga-2",
-      "にほんごが すき",
-      "。",
-      "です",
-      ["です", "な", "は", "か"],
-      "I like Japanese.",
-      "にほんごが すきです。",
-      "です completes the predicate in polite form.",
+    build(
+      "ja-m9-2-1-build-nihongo-suki",
+      "Say: I like Japanese.",
+      "にほんごが すきです",
+      ["すき", "にほんご", "です", "が", "を", "きらい"],
+      ["にほんご", "が", "すき", "です"],
     ),
     build(
       "ja-m9-2-1-build-kirai-sentence",
       "Say: I dislike hot weather.",
       "あつい てんきが きらいです",
-      ["あつい", "てんき", "が", "きらい", "です", "すき", "は"],
+      ["てんき", "きらい", "あつい", "です", "が", "すき", "は"],
       ["あつい", "てんき", "が", "きらい", "です"],
     ),
     sentenceMcq({
@@ -563,9 +581,9 @@ export const M9_2_1: LessonContent = {
         "Japanese 'like' (すき) is a feeling-adjective, not an action. The thing you like is the subject of that feeling, so it takes が.",
     }),
     speaking(
-      "ja-m9-2-1-speak-suki",
-      "コーヒーが すきです",
-      "I like coffee.",
+      "ja-m9-2-1-speak-yama-suki",
+      "やまが すきです",
+      "I like mountains.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m9-2-1-rev-mcq-1", M9_2_1_REVIEW[0], M9_REVIEW_POOL),
@@ -598,7 +616,7 @@ assertNoConsecutiveSame(M9_2_1.steps);
 // M9-2-2 — "Like and dislike" practice (すき/きらい drill with が)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_2_2_REVIEW = pickReviewAtoms("ja-m9-2-2-rev", M9_REVIEW_M4, 4);
+const M9_2_2_REVIEW = pickReviewAtoms("ja-m9-2-2-rev", M9_REVIEW_M4, 6);
 
 export const M9_2_2: LessonContent = {
   id: "ja-m9-2-2",
@@ -630,7 +648,7 @@ export const M9_2_2: LessonContent = {
       "ja-m9-2-2-build-inu-suki",
       "Say: I like dogs.",
       "いぬが すきです",
-      ["いぬ", "が", "すき", "です", "を", "きらい"],
+      ["すき", "いぬ", "です", "を", "が", "きらい"],
       ["いぬ", "が", "すき", "です"],
     ),
     sentenceMcq({
@@ -664,13 +682,13 @@ export const M9_2_2: LessonContent = {
       "ja-m9-2-2-build-kirai-sakana",
       "Say: I dislike fish.",
       "さかなが きらいです",
-      ["さかな", "が", "きらい", "です", "すき", "は"],
+      ["きらい", "さかな", "です", "が", "すき", "は"],
       ["さかな", "が", "きらい", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m9-2-2-lb-suki",
       target: "おちゃが すきです",
-      tiles: ["おちゃ", "が", "すき", "です", "を", "きらい"],
+      tiles: ["きらい", "すき", "おちゃ", "が", "です", "を"],
       correctOrder: ["おちゃ", "が", "すき", "です"],
       promptEn: "Hear it, build it: 'I like green tea.'",
     }),
@@ -704,7 +722,7 @@ export const M9_2_2: LessonContent = {
       "ja-m9-2-2-build-sukina",
       "Say: My favorite food",
       "すきな たべもの",
-      ["すき", "な", "たべもの", "の", "きらい"],
+      ["たべもの", "きらい", "な", "すき", "の"],
       ["すき", "な", "たべもの"],
     ),
     sentenceMcq({
@@ -732,7 +750,7 @@ export const M9_2_2: LessonContent = {
     selfExplain({
       id: "ja-m9-2-2-se",
       anchorLabel: "You used が with すき, but を with たべます.",
-      anchorAudioText: "コーヒーが すきです",
+      anchorAudioText: "おんがくが すきです",
       question: "Why does すき use が while たべます uses を?",
       rule: { text: "すき is an adjective (describes a state), so the 'liked thing' is the subject (が). たべます is a verb (describes an action), so the eaten thing is the object (を)." },
       surface: { text: "が and を are interchangeable in all sentences." },
@@ -771,7 +789,7 @@ assertNoConsecutiveSame(M9_2_2.steps);
 // M9-3-1 — "Good at, bad at" intro (じょうず, へた + contrasting i-adj)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_3_1_REVIEW = pickReviewAtoms("ja-m9-3-1-rev", M9_REVIEW_M3, 4);
+const M9_3_1_REVIEW = pickReviewAtoms("ja-m9-3-1-rev", M9_REVIEW_M3, 6);
 
 export const M9_3_1: LessonContent = {
   id: "ja-m9-3-1",
@@ -794,7 +812,7 @@ export const M9_3_1: LessonContent = {
       "ja-m9-3-1-build-jouzu",
       "Pick the Japanese word for: Skilled / Good at",
       "じょうず",
-      ["じょうず", "へた", "すき", "じょうぶ"],
+      ["へた", "じょうず", "すき", "じょうぶ"],
       ["じょうず"],
     ),
     listeningCompSentence({
@@ -808,7 +826,7 @@ export const M9_3_1: LessonContent = {
       "ja-m9-3-1-build-heta",
       "Pick the Japanese word for: Unskilled / Bad at",
       "へた",
-      ["へた", "じょうず", "きらい", "ひま"],
+      ["じょうず", "へた", "きらい", "ひま"],
       ["へた"],
     ),
     speaking("ja-m9-3-1-speak-heta", "へたです", "I'm bad at it."),
@@ -817,7 +835,7 @@ export const M9_3_1: LessonContent = {
       "ja-m9-3-1-build-jouzu-sent",
       "Say: You're good at Japanese.",
       "にほんごが じょうずです",
-      ["にほんご", "が", "じょうず", "です", "へた", "を"],
+      ["じょうず", "にほんご", "を", "です", "が", "へた"],
       ["にほんご", "が", "じょうず", "です"],
     ),
     cloze(
@@ -842,11 +860,11 @@ export const M9_3_1: LessonContent = {
       explanation: "へた = bad at/unskilled. うた = song/singing. が marks the skill.",
     }),
     listeningBuildSentence({
-      id: "ja-m9-3-1-lb-jouzu",
-      target: "にほんごが じょうずです",
-      tiles: ["にほんご", "が", "じょうず", "です", "へた", "を"],
-      correctOrder: ["にほんご", "が", "じょうず", "です"],
-      promptEn: "Hear it, build it: 'You're good at Japanese.'",
+      id: "ja-m9-3-1-lb-eigo-jouzu",
+      target: "えいごが じょうずです",
+      tiles: ["じょうず", "えいご", "です", "へた", "が", "を"],
+      correctOrder: ["えいご", "が", "じょうず", "です"],
+      promptEn: "Hear it, build it: 'You're good at English.'",
     }),
     cloze(
       "ja-m9-3-1-cloze-na-jouzu",
@@ -862,7 +880,7 @@ export const M9_3_1: LessonContent = {
       "ja-m9-3-1-build-jouzu-na",
       "Say: A skilled cook (a person who's good at cooking)",
       "りょうりが じょうずな ひと",
-      ["りょうり", "が", "じょうず", "な", "ひと", "の", "へた"],
+      ["ひと", "じょうず", "りょうり", "な", "が", "の", "へた"],
       ["りょうり", "が", "じょうず", "な", "ひと"],
     ),
     sentenceMcq({
@@ -930,7 +948,7 @@ assertNoConsecutiveSame(M9_3_1.steps);
 // M9-3-2 — "Good at, bad at" practice (i-adj vs na-adj discrimination)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_3_2_REVIEW = pickReviewAtoms("ja-m9-3-2-rev", M9_REVIEW_M6, 4);
+const M9_3_2_REVIEW = pickReviewAtoms("ja-m9-3-2-rev", M9_REVIEW_M6, 6);
 
 export const M9_3_2: LessonContent = {
   id: "ja-m9-3-2",
@@ -960,20 +978,20 @@ export const M9_3_2: LessonContent = {
       explanation: "きれい LOOKS like it ends in い, but it's a な-adjective. The い is part of the kanji reading (綺麗).",
     }),
     cloze(
-      "ja-m9-3-2-cloze-na-jouzu",
-      "じょうず",
-      " ひと (a skilled person)",
+      "ja-m9-3-2-cloze-na-suki",
+      "すき",
+      " のみもの (a favorite drink)",
       "な",
       ["な", "い", "の", "く"],
-      "A skilled person",
-      "じょうずな ひと",
-      "じょうず is a な-adjective: じょうずな ひと.",
+      "A favorite drink",
+      "すきな のみもの",
+      "すき is a な-adjective — use な before the noun it describes.",
     ),
     build(
       "ja-m9-3-2-build-ookii",
       "Say: A big dog (い-adjective)",
       "おおきい いぬ",
-      ["おおきい", "いぬ", "な", "おおきな"],
+      ["いぬ", "な", "おおきい", "おおきな"],
       ["おおきい", "いぬ"],
     ),
     listeningCompSentence({
@@ -1007,24 +1025,24 @@ export const M9_3_2: LessonContent = {
       "ja-m9-3-2-build-heta-na",
       "Say: A person bad at sports",
       "スポーツが へたな ひと",
-      ["スポーツ", "が", "へた", "な", "ひと", "い", "の"],
+      ["へた", "ひと", "スポーツ", "な", "が", "い", "の"],
       ["スポーツ", "が", "へた", "な", "ひと"],
     ),
     listeningBuildSentence({
       id: "ja-m9-3-2-lb-kirai-na",
       target: "きらいな たべもの",
-      tiles: ["きらい", "な", "たべもの", "い", "の", "すき"],
+      tiles: ["たべもの", "すき", "な", "きらい", "い", "の"],
       correctOrder: ["きらい", "な", "たべもの"],
       promptEn: "Hear it, build it: 'A disliked food'",
     }),
     cloze(
       "ja-m9-3-2-cloze-na-kirei",
       "きれい",
-      " はな (a pretty flower)",
+      " みせ (a pretty shop)",
       "な",
       ["な", "い", "く", "に"],
-      "A pretty flower",
-      "きれいな はな",
+      "A pretty shop",
+      "きれいな みせ",
       "きれい is a な-adjective even though it ends in い.",
     ),
     sentenceMcq({
@@ -1039,15 +1057,15 @@ export const M9_3_2: LessonContent = {
       explanation: "い-adj keeps い before nouns. な-adj adds な before nouns.",
     }),
     speaking(
-      "ja-m9-3-2-speak-jouzu",
-      "りょうりが じょうずです",
-      "You're good at cooking.",
+      "ja-m9-3-2-speak-tomodachi-jouzu",
+      "ともだちは りょうりが じょうずです",
+      "My friend is good at cooking.",
     ),
     build(
       "ja-m9-3-2-build-kirei-heya",
       "Say: A pretty room",
       "きれいな へや",
-      ["きれい", "な", "へや", "い", "の", "しずか"],
+      ["へや", "しずか", "な", "きれい", "い", "の"],
       ["きれい", "な", "へや"],
     ),
     listeningCompSentence({
@@ -1060,7 +1078,7 @@ export const M9_3_2: LessonContent = {
     selfExplain({
       id: "ja-m9-3-2-se",
       anchorLabel: "きれい ends in い but takes な before nouns, not い.",
-      anchorAudioText: "きれいな はな",
+      anchorAudioText: "きれいな みせ",
       question: "Why isn't きれい an い-adjective even though it ends in い?",
       rule: { text: "The い in きれい is part of the word's stem (from kanji 綺麗), not the adjective-class い ending. True い-adjectives have い as a removable suffix." },
       surface: { text: "Words ending in い are always い-adjectives." },
@@ -1099,7 +1117,7 @@ assertNoConsecutiveSame(M9_3_2.steps);
 // M9-4-1 — "How are you?" intro (げんき, ひま, たいへん, だいじょうぶ + よ)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_4_1_REVIEW = pickReviewAtoms("ja-m9-4-1-rev", M9_REVIEW_M7, 4);
+const M9_4_1_REVIEW = pickReviewAtoms("ja-m9-4-1-rev", M9_REVIEW_M7, 6);
 
 export const M9_4_1: LessonContent = {
   id: "ja-m9-4-1",
@@ -1122,7 +1140,7 @@ export const M9_4_1: LessonContent = {
       "ja-m9-4-1-build-genki",
       "Pick the Japanese word for: Healthy / Energetic",
       "げんき",
-      ["げんき", "ひま", "たいへん", "だいじょうぶ"],
+      ["ひま", "げんき", "たいへん", "だいじょうぶ"],
       ["げんき"],
     ),
     listeningCompSentence({
@@ -1136,7 +1154,7 @@ export const M9_4_1: LessonContent = {
       "ja-m9-4-1-build-hima",
       "Pick the Japanese word for: Free / Not busy",
       "ひま",
-      ["ひま", "げんき", "たいへん", "しずか"],
+      ["たいへん", "ひま", "げんき", "しずか"],
       ["ひま"],
     ),
     vocabMcq(
@@ -1149,7 +1167,7 @@ export const M9_4_1: LessonContent = {
       "ja-m9-4-1-build-taihen",
       "Pick the Japanese word for: Tough / Terrible",
       "たいへん",
-      ["たいへん", "だいじょうぶ", "げんき", "ひま"],
+      ["だいじょうぶ", "たいへん", "げんき", "ひま"],
       ["たいへん"],
     ),
     speaking("ja-m9-4-1-speak-taihen", "たいへんです", "It's tough."),
@@ -1158,7 +1176,7 @@ export const M9_4_1: LessonContent = {
       "ja-m9-4-1-build-daijoubu",
       "Pick the Japanese word for: Okay / Alright",
       "だいじょうぶ",
-      ["だいじょうぶ", "たいへん", "げんき", "きれい"],
+      ["げんき", "だいじょうぶ", "たいへん", "きれい"],
       ["だいじょうぶ"],
     ),
     listeningCompSentence({
@@ -1184,7 +1202,7 @@ export const M9_4_1: LessonContent = {
       "ja-m9-4-1-build-genki-yo",
       "Say: I'm fine, really!",
       "げんきですよ",
-      ["げんき", "です", "よ", "ね", "か"],
+      ["よ", "ね", "げんき", "です", "か"],
       ["げんき", "です", "よ"],
     ),
     sentenceMcq({
@@ -1198,15 +1216,12 @@ export const M9_4_1: LessonContent = {
       ],
       explanation: "よ adds emphasis/conviction. 'I'm telling you it's okay!'",
     }),
-    cloze(
-      "ja-m9-4-1-cloze-ha",
-      "きょう",
-      " ひまです。 (Today I'm free.)",
-      "は",
-      ["は", "が", "な", "も"],
-      "Today I'm free.",
-      "きょうは ひまです。",
-      "は marks the topic (today). ひま is a な-adjective meaning free/not busy.",
+    build(
+      "ja-m9-4-1-build-kyou-hima",
+      "Say: Today I'm free.",
+      "きょうは ひまです",
+      ["ひま", "きょう", "です", "は", "げんき"],
+      ["きょう", "は", "ひま", "です"],
     ),
     cloze(
       "ja-m9-4-1-cloze-yo",
@@ -1221,14 +1236,14 @@ export const M9_4_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m9-4-1-lb-daijoubu-yo",
       target: "だいじょうぶですよ",
-      tiles: ["だいじょうぶ", "です", "よ", "ね", "か"],
+      tiles: ["か", "です", "だいじょうぶ", "ね", "よ"],
       correctOrder: ["だいじょうぶ", "です", "よ"],
       promptEn: "Hear it, build it: 'It's okay, I promise!'",
     }),
     speaking(
-      "ja-m9-4-1-speak-daijoubu-yo",
-      "だいじょうぶですよ",
-      "It's okay, I promise!",
+      "ja-m9-4-1-speak-ocha-atsui-yo",
+      "この おちゃは あついですよ",
+      "This tea is hot, you know!",
     ),
     // ── selfExplain at N-1 ──
     selfExplain({
@@ -1273,7 +1288,7 @@ assertNoConsecutiveSame(M9_4_1.steps);
 // M9-4-2 — "How are you?" practice (よ/ね sentence-finals in context)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_4_2_REVIEW = pickReviewAtoms("ja-m9-4-2-rev", M9_REVIEW_M5, 4);
+const M9_4_2_REVIEW = pickReviewAtoms("ja-m9-4-2-rev", M9_REVIEW_M5, 6);
 
 export const M9_4_2: LessonContent = {
   id: "ja-m9-4-2",
@@ -1317,7 +1332,7 @@ export const M9_4_2: LessonContent = {
       "ja-m9-4-2-build-atsui-ne",
       "Say: It's hot today, right?",
       "きょうは あついですね",
-      ["きょう", "は", "あつい", "です", "ね", "よ", "か"],
+      ["あつい", "きょう", "ね", "です", "は", "よ", "か"],
       ["きょう", "は", "あつい", "です", "ね"],
     ),
     sentenceMcq({
@@ -1333,29 +1348,29 @@ export const M9_4_2: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m9-4-2-lc-ne",
-      audioText: "この まちは しずかですね",
-      correctMeaningEn: "This town is quiet, isn't it?",
+      audioText: "この えきは きれいですね",
+      correctMeaningEn: "This station is clean, isn't it?",
       distractorsEn: [
-        "This town is quiet, I tell you!",
-        "Is this town quiet?",
-        "This town is not quiet.",
+        "This station is clean, I tell you!",
+        "Is this station clean?",
+        "This station is not clean.",
       ],
     }),
     cloze(
       "ja-m9-4-2-cloze-yo-1",
-      "げんきです",
-      "。 (I'm fine, really!)",
+      "この パンは おいしいです",
+      "。 (This bread is delicious, you know!)",
       "よ",
       ["よ", "ね", "か", "は"],
-      "I'm fine, really!",
-      "げんきですよ。",
-      "よ adds conviction — 'I'm telling you I'm fine!'",
+      "This bread is delicious, you know!",
+      "この パンは おいしいですよ。",
+      "よ adds conviction — recommending the bread to someone who hasn't tried it.",
     ),
     build(
       "ja-m9-4-2-build-shizuka-ne",
       "Say: It's quiet, isn't it?",
       "しずかですね",
-      ["しずか", "です", "ね", "よ", "か"],
+      ["ね", "しずか", "か", "です", "よ"],
       ["しずか", "です", "ね"],
     ),
     sentenceMcq({
@@ -1372,7 +1387,7 @@ export const M9_4_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m9-4-2-lb-genki-yo",
       target: "げんきですよ",
-      tiles: ["げんき", "です", "よ", "ね", "か"],
+      tiles: ["です", "ね", "げんき", "よ", "か"],
       correctOrder: ["げんき", "です", "よ"],
       promptEn: "Hear it, build it: 'I'm fine, really!'",
     }),
@@ -1395,7 +1410,7 @@ export const M9_4_2: LessonContent = {
       "ja-m9-4-2-build-taihen-yo",
       "Say: It's tough, I tell you!",
       "たいへんですよ",
-      ["たいへん", "です", "よ", "ね", "か"],
+      ["ね", "です", "たいへん", "か", "よ"],
       ["たいへん", "です", "よ"],
     ),
     listeningCompSentence({
@@ -1451,7 +1466,7 @@ assertNoConsecutiveSame(M9_4_2.steps);
 // M9-5-1 — "Convenient or not" intro (べんり, ふべん, かんたん + negative)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_5_1_REVIEW = pickReviewAtoms("ja-m9-5-1-rev", M9_REVIEW_M4, 4);
+const M9_5_1_REVIEW = pickReviewAtoms("ja-m9-5-1-rev", M9_REVIEW_M4, 6);
 
 export const M9_5_1: LessonContent = {
   id: "ja-m9-5-1",
@@ -1474,7 +1489,7 @@ export const M9_5_1: LessonContent = {
       "ja-m9-5-1-build-benri",
       "Pick the Japanese word for: Convenient",
       "べんり",
-      ["べんり", "ふべん", "かんたん", "きれい"],
+      ["ふべん", "べんり", "かんたん", "きれい"],
       ["べんり"],
     ),
     listeningCompSentence({
@@ -1488,7 +1503,7 @@ export const M9_5_1: LessonContent = {
       "ja-m9-5-1-build-fuben",
       "Pick the Japanese word for: Inconvenient",
       "ふべん",
-      ["ふべん", "べんり", "たいへん", "ひま"],
+      ["べんり", "ふべん", "たいへん", "ひま"],
       ["ふべん"],
     ),
     speaking("ja-m9-5-1-speak-fuben", "ふべんです", "It's inconvenient."),
@@ -1497,7 +1512,7 @@ export const M9_5_1: LessonContent = {
       "ja-m9-5-1-build-kantan",
       "Pick the Japanese word for: Simple / Easy",
       "かんたん",
-      ["かんたん", "たいへん", "べんり", "じょうず"],
+      ["たいへん", "かんたん", "べんり", "じょうず"],
       ["かんたん"],
     ),
     vocabMcq(
@@ -1537,7 +1552,7 @@ export const M9_5_1: LessonContent = {
       "ja-m9-5-1-build-shizuka-neg",
       "Say: It's not quiet.",
       "しずかじゃないです",
-      ["しずか", "じゃないです", "くないです", "です", "な"],
+      ["じゃないです", "くないです", "しずか", "です", "な"],
       ["しずか", "じゃないです"],
     ),
     cloze(
@@ -1569,7 +1584,7 @@ export const M9_5_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m9-5-1-lb-neg",
       target: "きれいじゃないです",
-      tiles: ["きれい", "じゃないです", "くないです", "です", "な"],
+      tiles: ["くないです", "じゃないです", "きれい", "です", "な"],
       correctOrder: ["きれい", "じゃないです"],
       promptEn: "Hear it, build it: 'It's not pretty.'",
     }),
@@ -1577,7 +1592,7 @@ export const M9_5_1: LessonContent = {
       "ja-m9-5-1-build-fuben-sent",
       "Say: This town is not convenient.",
       "この まちは べんりじゃないです",
-      ["この", "まち", "は", "べんり", "じゃないです", "くないです", "です"],
+      ["まち", "べんり", "じゃないです", "この", "は", "くないです", "です"],
       ["この", "まち", "は", "べんり", "じゃないです"],
     ),
     // ── selfExplain at N-1 ──
@@ -1628,7 +1643,7 @@ assertNoConsecutiveSame(M9_5_1.steps);
 // M9-5-2 — "Convenient or not" practice (な-adj negative drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_5_2_REVIEW = pickReviewAtoms("ja-m9-5-2-rev", M9_REVIEW_M3, 4);
+const M9_5_2_REVIEW = pickReviewAtoms("ja-m9-5-2-rev", M9_REVIEW_M3, 6);
 
 export const M9_5_2: LessonContent = {
   id: "ja-m9-5-2",
@@ -1660,7 +1675,7 @@ export const M9_5_2: LessonContent = {
       "ja-m9-5-2-build-hima-neg",
       "Say: I'm not free (I'm busy).",
       "ひまじゃないです",
-      ["ひま", "じゃないです", "くないです", "です"],
+      ["じゃないです", "ひま", "くないです", "です"],
       ["ひま", "じゃないです"],
     ),
     sentenceMcq({
@@ -1676,9 +1691,9 @@ export const M9_5_2: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m9-5-2-lc-neg-1",
-      audioText: "しずかじゃないです",
-      correctMeaningEn: "It's not quiet",
-      distractorsEn: ["It's quiet", "It's not pretty", "It's not convenient"],
+      audioText: "たいへんじゃないです",
+      correctMeaningEn: "It's not tough",
+      distractorsEn: ["It's tough", "It's not quiet", "It's not okay"],
     }),
     cloze(
       "ja-m9-5-2-cloze-ga",
@@ -1694,7 +1709,7 @@ export const M9_5_2: LessonContent = {
       "ja-m9-5-2-build-jouzu-neg",
       "Say: I'm not good at Japanese.",
       "にほんごが じょうずじゃないです",
-      ["にほんご", "が", "じょうず", "じゃないです", "くないです", "を"],
+      ["じょうず", "じゃないです", "にほんご", "くないです", "が", "を"],
       ["にほんご", "が", "じょうず", "じゃないです"],
     ),
     sentenceMcq({
@@ -1711,7 +1726,7 @@ export const M9_5_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m9-5-2-lb-neg",
       target: "すきじゃないです",
-      tiles: ["すき", "じゃないです", "くないです", "です", "が"],
+      tiles: ["じゃないです", "が", "すき", "くないです", "です"],
       correctOrder: ["すき", "じゃないです"],
       promptEn: "Hear it, build it: 'I don't like it.'",
     }),
@@ -1729,13 +1744,13 @@ export const M9_5_2: LessonContent = {
       "ja-m9-5-2-build-kirai-neg",
       "Say: I don't dislike it.",
       "きらいじゃないです",
-      ["きらい", "じゃないです", "くないです", "です"],
+      ["じゃないです", "くないです", "きらい", "です"],
       ["きらい", "じゃないです"],
     ),
     speaking(
-      "ja-m9-5-2-speak-genki-neg",
-      "げんきじゃないです",
-      "I'm not well.",
+      "ja-m9-5-2-speak-hima-neg",
+      "きょうは ひまじゃないです",
+      "I'm not free today.",
     ),
     listeningCompSentence({
       id: "ja-m9-5-2-lc-neg-2",
@@ -1797,7 +1812,7 @@ assertNoConsecutiveSame(M9_5_2.steps);
 // M9-6-1 — "Famous and lively" intro (ゆうめい, にぎやか + とても/すこし/ちょっと)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_6_1_REVIEW = pickReviewAtoms("ja-m9-6-1-rev", M9_REVIEW_M6, 4);
+const M9_6_1_REVIEW = pickReviewAtoms("ja-m9-6-1-rev", M9_REVIEW_M6, 6);
 
 export const M9_6_1: LessonContent = {
   id: "ja-m9-6-1",
@@ -1820,7 +1835,7 @@ export const M9_6_1: LessonContent = {
       "ja-m9-6-1-build-yuumei",
       "Pick the Japanese word for: Famous",
       "ゆうめい",
-      ["ゆうめい", "にぎやか", "きれい", "しずか"],
+      ["にぎやか", "ゆうめい", "きれい", "しずか"],
       ["ゆうめい"],
     ),
     listeningCompSentence({
@@ -1834,7 +1849,7 @@ export const M9_6_1: LessonContent = {
       "ja-m9-6-1-build-nigiyaka",
       "Pick the Japanese word for: Lively / Bustling",
       "にぎやか",
-      ["にぎやか", "しずか", "ゆうめい", "げんき"],
+      ["しずか", "にぎやか", "ゆうめい", "げんき"],
       ["にぎやか"],
     ),
     speaking("ja-m9-6-1-speak-nigiyaka", "にぎやかです", "It's lively."),
@@ -1843,7 +1858,7 @@ export const M9_6_1: LessonContent = {
       "ja-m9-6-1-build-totemo",
       "Pick the Japanese word for: Very",
       "とても",
-      ["とても", "すこし", "ちょっと", "たくさん"],
+      ["すこし", "とても", "ちょっと", "たくさん"],
       ["とても"],
     ),
     sentenceMcq({
@@ -1861,7 +1876,7 @@ export const M9_6_1: LessonContent = {
       "ja-m9-6-1-build-sukoshi",
       "Pick the Japanese word for: A little",
       "すこし",
-      ["すこし", "とても", "ちょっと", "おおきい"],
+      ["ちょっと", "すこし", "とても", "おおきい"],
       ["すこし"],
     ),
     listeningCompSentence({
@@ -1874,7 +1889,7 @@ export const M9_6_1: LessonContent = {
       "ja-m9-6-1-build-chotto",
       "Pick the Japanese word for: A bit (casual)",
       "ちょっと",
-      ["ちょっと", "すこし", "とても", "ちかい"],
+      ["とても", "ちょっと", "すこし", "ちかい"],
       ["ちょっと"],
     ),
     // ── Sentence builds with degree adverbs ──
@@ -1882,7 +1897,7 @@ export const M9_6_1: LessonContent = {
       "ja-m9-6-1-build-totemo-yuumei",
       "Say: This temple is very famous.",
       "この おてらは とても ゆうめいです",
-      ["この", "おてら", "は", "とても", "ゆうめい", "です", "すこし"],
+      ["おてら", "ゆうめい", "この", "とても", "は", "すこし", "です"],
       ["この", "おてら", "は", "とても", "ゆうめい", "です"],
     ),
     cloze(
@@ -1909,7 +1924,7 @@ export const M9_6_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m9-6-1-lb-totemo",
       target: "とても きれいです",
-      tiles: ["とても", "きれい", "です", "すこし", "な"],
+      tiles: ["きれい", "すこし", "とても", "です", "な"],
       correctOrder: ["とても", "きれい", "です"],
       promptEn: "Hear it, build it: 'It's very pretty.'",
     }),
@@ -1971,7 +1986,7 @@ assertNoConsecutiveSame(M9_6_1.steps);
 // M9-6-2 — "Famous and lively" practice (degree adverbs + adj)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_6_2_REVIEW = pickReviewAtoms("ja-m9-6-2-rev", M9_REVIEW_M7, 4);
+const M9_6_2_REVIEW = pickReviewAtoms("ja-m9-6-2-rev", M9_REVIEW_M7, 6);
 
 export const M9_6_2: LessonContent = {
   id: "ja-m9-6-2",
@@ -1980,14 +1995,14 @@ export const M9_6_2: LessonContent = {
   languageId: LANG,
   title: "Famous and lively — practice",
   description:
-    "Drill degree adverbs with な-adjectives. Mix とても, すこし, ちょっと across contexts.",
+    "Drill degree adverbs with な-adjectives. Mix とても, すこし, ちょっと across contexts — plus こんな (this kind of).",
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
     infoStep(
       "ja-m9-6-2-info-open",
       "Dial it up or down",
-      "Mix degree adverbs freely: とても (very), すこし (a little), ちょっと (a bit). All slot right before the adjective.",
+      "Mix degree adverbs freely: とても (very), すこし (a little), ちょっと (a bit). All slot right before the adjective. You'll also meet こんな — 'this kind of.'",
     ),
     cloze(
       "ja-m9-6-2-cloze-totemo",
@@ -2003,7 +2018,7 @@ export const M9_6_2: LessonContent = {
       "ja-m9-6-2-build-sukoshi-fuben",
       "Say: It's a little inconvenient.",
       "すこし ふべんです",
-      ["すこし", "ふべん", "です", "とても", "べんり"],
+      ["ふべん", "とても", "です", "すこし", "べんり"],
       ["すこし", "ふべん", "です"],
     ),
     sentenceMcq({
@@ -2023,6 +2038,21 @@ export const M9_6_2: LessonContent = {
       correctMeaningEn: "This park is very pretty.",
       distractorsEn: ["This park is a little pretty.", "This park is not pretty.", "This park is famous."],
     }),
+    // ── こんな (this kind of) — context-heavy intro ──
+    build(
+      "ja-m9-6-2-build-konna",
+      "Pick the Japanese word for: This kind of / Like this",
+      "こんな",
+      ["この", "こんな", "その", "どの"],
+      ["こんな"],
+    ),
+    build(
+      "ja-m9-6-2-build-konna-machi",
+      "Say: I like lively towns like this.",
+      "こんな にぎやかな まちが すきです",
+      ["まち", "にぎやか", "こんな", "が", "な", "すき", "です", "しずか"],
+      ["こんな", "にぎやか", "な", "まち", "が", "すき", "です"],
+    ),
     cloze(
       "ja-m9-6-2-cloze-sukoshi",
       "",
@@ -2037,7 +2067,7 @@ export const M9_6_2: LessonContent = {
       "ja-m9-6-2-build-totemo-yuumei-ne",
       "Say: This restaurant is very famous, isn't it?",
       "この みせは とても ゆうめいですね",
-      ["この", "みせ", "は", "とても", "ゆうめい", "です", "ね", "よ"],
+      ["みせ", "とても", "この", "ゆうめい", "は", "です", "よ", "ね"],
       ["この", "みせ", "は", "とても", "ゆうめい", "です", "ね"],
     ),
     sentenceMcq({
@@ -2054,7 +2084,7 @@ export const M9_6_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m9-6-2-lb-sukoshi",
       target: "すこし にぎやかです",
-      tiles: ["すこし", "にぎやか", "です", "とても", "しずか"],
+      tiles: ["にぎやか", "とても", "すこし", "です", "しずか"],
       correctOrder: ["すこし", "にぎやか", "です"],
       promptEn: "Hear it, build it: 'It's a little lively.'",
     }),
@@ -2072,9 +2102,19 @@ export const M9_6_2: LessonContent = {
       "ja-m9-6-2-build-chotto-taihen",
       "Say: It's a bit tough.",
       "ちょっと たいへんです",
-      ["ちょっと", "たいへん", "です", "とても", "すこし"],
+      ["たいへん", "すこし", "ちょっと", "です", "とても"],
       ["ちょっと", "たいへん", "です"],
     ),
+    listeningCompSentence({
+      id: "ja-m9-6-2-lc-konna",
+      audioText: "こんな みせは べんりですね",
+      correctMeaningEn: "Shops like this are convenient, aren't they?",
+      distractorsEn: [
+        "This shop is inconvenient, isn't it?",
+        "Which shop is convenient?",
+        "That shop is famous, you know!",
+      ],
+    }),
     speaking(
       "ja-m9-6-2-speak-totemo-nigiyaka",
       "とても にぎやかですね",
@@ -2126,7 +2166,7 @@ export const M9_6_2: LessonContent = {
     infoStep(
       "ja-m9-6-2-info-end",
       "You can now express degrees — from 'a bit' to 'very' with any adjective",
-      "とても (very), すこし (a little), ちょっと (a bit) — all slot before the adjective and stack with よ/ね naturally.",
+      "とても (very), すこし (a little), ちょっと (a bit) — all slot before the adjective and stack with よ/ね naturally. And こんな まち (a town like this) points at the kind of thing you mean.",
       "win",
     ),
   ],
@@ -2137,7 +2177,7 @@ assertAnswerRotation(M9_6_2.steps, 2);
 assertNoConsecutiveSame(M9_6_2.steps);
 
 // ═══════════════════════════════════════════════════════════════════════
-// M9_STORY — Dialogue: visiting a friend's neighborhood
+// M9_STORY — Narrated visit to a friend's town (storyComprehension closer)
 // ═══════════════════════════════════════════════════════════════════════
 
 export const M9_STORY: LessonContent = {
@@ -2145,153 +2185,148 @@ export const M9_STORY: LessonContent = {
   moduleId: "m9",
   courseId: COURSE,
   languageId: LANG,
-  title: "Story — My neighborhood",
+  title: "Story — My friend's town",
   description:
-    "Listen to two friends talk about a neighborhood. Comprehension questions and production practice with na-adjectives.",
+    "Follow a narrated visit to a friend's quiet town — na-adjectives, degree words, こんな, and よ/ね in a real story. Reply with your own sentences.",
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
     infoStep(
       "ja-m9-story-info-open",
       "Story time — visiting a friend's town",
-      "ゆき is visiting たけし's neighborhood for the first time. Listen as they walk around and describe what they see.",
+      "Listen to a short story about visiting a friend's town. Answer the questions between chunks, then reply to your friend yourself.",
     ),
-    dialogueListen({
-      id: "ja-m9-story-scene-1",
-      lines: [
-        { speaker: "ゆき", kana: "この まちは しずかですね。" },
-        { speaker: "たけし", kana: "うん、とても しずかですよ。でも ちょっと ふべんです。" },
-        { speaker: "ゆき", kana: "そうですか。この こうえんは きれいですね。" },
-        { speaker: "たけし", kana: "ここは ゆうめいな こうえんですよ。" },
+    ...storyComprehension({
+      idPrefix: "ja-m9-story-s1",
+      narrative: [
+        { kana: "きょう、ともだちの まちに いきます。" },
+        { kana: "この まちは とても しずかです。" },
+        { kana: "まちに きれいな こうえんが あります。" },
+        { kana: "その こうえんは ゆうめいですよ。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s1-q1",
-          prompt: "How does たけし describe his town?",
-          correctText: "Very quiet but a bit inconvenient",
+          prompt: "Where does the narrator go today?",
+          correctText: "To a friend's town.",
           distractors: [
-            "Very lively and convenient",
-            "A little quiet and famous",
-            "Pretty but not convenient",
+            "To a friend's school.",
+            "To a famous library.",
+            "To the station with a teacher.",
           ],
-          explanation: "とても しずかですよ。でも ちょっと ふべんです = Very quiet. But a bit inconvenient.",
+          explanation: "ともだちの まちに いきます = 'I go to my friend's town.'",
         },
         {
           id: "s1-q2",
-          prompt: "What does たけし say about the park?",
-          correctText: "It's a famous park",
+          prompt: "How does the narrator describe the town?",
+          correctText: "Very quiet.",
           distractors: [
-            "It's a quiet park",
-            "It's a pretty park",
-            "It's a new park",
+            "Very lively.",
+            "A little inconvenient.",
+            "Famous and big.",
           ],
-          explanation: "ゆうめいな こうえんですよ = It's a famous park, I tell you!",
+          explanation: "とても しずかです = 'It's very quiet.'",
         },
       ],
+      responseBuild: {
+        target: "きれいな こうえんですね",
+        tiles: ["こうえん", "です", "きれい", "ね", "な", "よ", "しずか"],
+        correctOrder: ["きれい", "な", "こうえん", "です", "ね"],
+        promptEn: "Agree with your friend: 'It's a pretty park, isn't it?'",
+      },
     }),
-    build(
-      "ja-m9-story-build-shizuka",
-      "Say: This town is quiet, isn't it?",
-      "この まちは しずかですね",
-      ["この", "まち", "は", "しずか", "です", "ね", "よ", "きれい"],
-      ["この", "まち", "は", "しずか", "です", "ね"],
-    ),
     sentenceMcq({
-      id: "ja-m9-story-mcq-fuben",
-      prompt: "In the story, what is ちょっと ふべん about?",
-      correctKana: "たけし's town (a bit inconvenient)",
+      id: "ja-m9-story-mcq-kouen",
+      prompt: "What did the story say about the park?",
+      correctKana: "その こうえんは ゆうめいです。",
       distractorsKana: [
-        "The park (a bit inconvenient)",
-        "ゆき's house (a bit inconvenient)",
-        "The library (a bit inconvenient)",
+        "その こうえんは にぎやかです。",
+        "その こうえんは ふべんです。",
+        "その こうえんは きれいじゃないです。",
       ],
-      explanation: "たけし says: でも ちょっと ふべんです — his town is quiet but a bit inconvenient.",
+      explanation: "ゆうめいですよ — the narrator tells us the park is famous.",
     }),
-    dialogueListen({
-      id: "ja-m9-story-scene-2",
-      lines: [
-        { speaker: "ゆき", kana: "としょかんは ありますか。" },
-        { speaker: "たけし", kana: "はい。すこし とおいですが、とても しずかな としょかんですよ。" },
-        { speaker: "ゆき", kana: "いいですね。にほんごが じょうずですね、たけしさん。" },
-        { speaker: "たけし", kana: "いいえ、まだ へたですよ。" },
+    ...storyComprehension({
+      idPrefix: "ja-m9-story-s2",
+      narrative: [
+        { kana: "ともだちと ゆうめいな レストランに いきます。" },
+        { kana: "りょうりは とても おいしいですよ。" },
+        { kana: "でも、すこし にぎやかです。" },
+        { kana: "わたしは こんな まちが すきです。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s2-q1",
-          prompt: "What does たけし say about the library?",
-          correctText: "It's a bit far but very quiet",
+          prompt: "What is the restaurant like?",
+          correctText: "Famous, with very delicious food.",
           distractors: [
-            "It's close and very pretty",
-            "It's famous and convenient",
-            "There is no library",
+            "Quiet, with cheap food.",
+            "New, but the food is bad.",
+            "Convenient, but a bit far.",
           ],
-          explanation: "すこし とおいですが、とても しずかな としょかんです = A bit far, but a very quiet library.",
+          explanation: "ゆうめいな レストラン — and りょうりは とても おいしいです.",
         },
         {
           id: "s2-q2",
-          prompt: "How does たけし respond to the compliment about his Japanese?",
-          correctText: "No, I'm still bad at it (modestly)",
+          prompt: "How does the narrator feel about the town?",
+          correctText: "They like towns like this.",
           distractors: [
-            "Thank you, I practice every day",
-            "Yes, I'm very good",
-            "I don't like Japanese",
+            "They dislike towns like this.",
+            "They think it is too inconvenient.",
+            "They want a livelier town.",
           ],
-          explanation: "いいえ、まだ へたですよ = No, I'm still unskilled. Japanese humility pattern.",
+          explanation: "こんな まちが すきです = 'I like towns like this.'",
         },
       ],
+      responseBuild: {
+        target: "とても おいしいですね",
+        tiles: ["おいしい", "です", "とても", "ね", "よ", "か"],
+        correctOrder: ["とても", "おいしい", "です", "ね"],
+        promptEn: "You're both eating — agree: 'It's very delicious, isn't it?'",
+      },
     }),
     cloze(
-      "ja-m9-story-cloze-ne",
-      "きれいです",
-      "。 (It's pretty, isn't it?)",
-      "ね",
-      ["ね", "よ", "か", "は"],
-      "It's pretty, isn't it?",
-      "きれいですね。",
-      "ね seeks agreement — ゆき is sharing an observation with たけし.",
+      "ja-m9-story-cloze-ga",
+      "わたしは こんな まち",
+      " すきです。",
+      "が",
+      ["が", "を", "は", "の"],
+      "I like towns like this.",
+      "わたしは こんな まちが すきです。",
+      "The liked thing takes が with すき — even with こんな in front.",
     ),
     listeningBuildSentence({
-      id: "ja-m9-story-lb-yuumei",
-      target: "ゆうめいな こうえんですよ",
-      tiles: ["ゆうめい", "な", "こうえん", "です", "よ", "ね", "の"],
-      correctOrder: ["ゆうめい", "な", "こうえん", "です", "よ"],
-      promptEn: "Hear it, build it: 'It's a famous park, you know!'",
-    }),
-    listeningCompSentence({
-      id: "ja-m9-story-lc-shizuka-na",
-      audioText: "しずかな としょかん",
-      correctMeaningEn: "A quiet library",
-      distractorsEn: [
-        "A pretty library",
-        "A famous library",
-        "A lively library",
-      ],
+      id: "ja-m9-story-lb-shizuka",
+      target: "この まちは とても しずかです",
+      tiles: ["まち", "しずか", "とても", "この", "は", "です", "にぎやか"],
+      correctOrder: ["この", "まち", "は", "とても", "しずか", "です"],
+      promptEn: "Hear a line from the story, build it: 'This town is very quiet.'",
     }),
     speaking(
-      "ja-m9-story-speak-shizuka-ne",
-      "この まちは しずかですね",
-      "This town is quiet, isn't it?",
+      "ja-m9-story-speak-konna",
+      "こんな まちが すきです",
+      "I like towns like this.",
     ),
     sentenceMcq({
       id: "ja-m9-story-mcq-summary",
-      prompt: "In the whole story, which sentence-ender did both ゆき and たけし use most?",
-      correctKana: "ね and よ (agreement-seeking and emphasis)",
+      prompt: "You want to agree with your friend about the food. Which ending?",
+      correctKana: "おいしいですね (shared experience)",
       distractorsKana: [
-        "か (question marker)",
-        "の (possessive particle)",
-        "を (direct object marker)",
+        "おいしいですよ (new information)",
+        "おいしいですか (question)",
+        "おいしくないです (negative)",
       ],
-      explanation: "The conversation is full of ね (seeking shared feeling) and よ (emphasizing information).",
+      explanation: "You're both tasting it — ね invites shared agreement.",
     }),
     speaking(
-      "ja-m9-story-speak-jouzu",
-      "にほんごが じょうずですね",
-      "You're good at Japanese, aren't you?",
+      "ja-m9-story-speak-resutoran",
+      "ゆうめいな レストランですね",
+      "It's a famous restaurant, isn't it?",
     ),
     infoStep(
       "ja-m9-story-info-end",
-      "You just followed a real conversation about a neighborhood",
-      "しずか, きれい, ゆうめい, ふべん, じょうず, へた — all used naturally with とても, すこし, ちょっと, and the sentence-final ね/よ. That's real Japanese.",
+      "You just followed a real story about a friend's town",
+      "しずか, きれい, ゆうめい, にぎやか — with とても, すこし, こんな, and the sentence-final ね/よ. That's natural narrated Japanese.",
       "win",
     ),
   ],
@@ -2306,7 +2341,7 @@ assertExplanationDoesntLeakAnswer(M9_STORY.steps);
 // M9-7-1 — "i vs na discrimination" (mixed drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_7_1_REVIEW = pickReviewAtoms("ja-m9-7-1-rev", M9_REVIEW_M5, 5);
+const M9_7_1_REVIEW = pickReviewAtoms("ja-m9-7-1-rev", M9_REVIEW_M5, 6);
 
 export const M9_7_1: LessonContent = {
   id: "ja-m9-7-1",
@@ -2349,7 +2384,7 @@ export const M9_7_1: LessonContent = {
       "ja-m9-7-1-build-kirai-na",
       "Say: Disliked food (food one dislikes)",
       "きらいな たべもの",
-      ["きらい", "な", "たべもの", "い", "の"],
+      ["たべもの", "きらい", "い", "な", "の"],
       ["きらい", "な", "たべもの"],
     ),
     sentenceMcq({
@@ -2383,26 +2418,26 @@ export const M9_7_1: LessonContent = {
       "ja-m9-7-1-build-ookii-neko",
       "Say: A big cat (い-adjective — no な!)",
       "おおきい ねこ",
-      ["おおきい", "ねこ", "な", "おおきな"],
+      ["ねこ", "おおきな", "おおきい", "な"],
       ["おおきい", "ねこ"],
     ),
     sentenceMcq({
-      id: "ja-m9-7-1-mcq-shizuka-neg",
-      prompt: "Negative of しずか (quiet)?",
-      correctKana: "しずかじゃないです",
+      id: "ja-m9-7-1-mcq-nigiyaka-neg",
+      prompt: "Negative of にぎやか (lively)?",
+      correctKana: "にぎやかじゃないです",
       distractorsKana: [
-        "しずかくないです",
-        "しずかいくないです",
-        "しずかないです",
+        "にぎやかくないです",
+        "にぎやかいくないです",
+        "にぎやかないです",
       ],
-      explanation: "しずか is a な-adjective → しずかじゃないです.",
+      explanation: "にぎやか is a な-adjective → にぎやかじゃないです.",
     }),
     listeningBuildSentence({
       id: "ja-m9-7-1-lb-kirei-na",
-      target: "きれいな はな",
-      tiles: ["きれい", "な", "はな", "い", "の"],
-      correctOrder: ["きれい", "な", "はな"],
-      promptEn: "Hear it, build it: 'A pretty flower'",
+      target: "きれいな えき",
+      tiles: ["えき", "しずか", "な", "きれい", "の", "い"],
+      correctOrder: ["きれい", "な", "えき"],
+      promptEn: "Hear it, build it: 'A clean station'",
     }),
     cloze(
       "ja-m9-7-1-cloze-i-neg",
@@ -2426,16 +2461,16 @@ export const M9_7_1: LessonContent = {
       explanation: "ゆうめい is a な-adjective. ゆうめいな ひと, ゆうめいじゃないです.",
     }),
     build(
-      "ja-m9-7-1-build-shizuka-neg",
-      "Say: It's not quiet.",
-      "しずかじゃないです",
-      ["しずか", "じゃないです", "くないです", "です", "な"],
-      ["しずか", "じゃないです"],
+      "ja-m9-7-1-build-yuumei-neg",
+      "Say: This shop is not famous.",
+      "この みせは ゆうめいじゃないです",
+      ["みせ", "ゆうめい", "じゃないです", "この", "は", "くないです"],
+      ["この", "みせ", "は", "ゆうめい", "じゃないです"],
     ),
     speaking(
-      "ja-m9-7-1-speak-kirei-neg",
-      "きれいじゃないです",
-      "It's not pretty.",
+      "ja-m9-7-1-speak-heta-neg",
+      "へたじゃないです",
+      "I'm not bad at it.",
     ),
     listeningCompSentence({
       id: "ja-m9-7-1-lc-ookiku",
@@ -2486,7 +2521,7 @@ assertNoConsecutiveSame(M9_7_1.steps);
 // M9-7-2 — "Production" (translate + speaking heavy, よ/ね in sentences)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M9_7_2_REVIEW = pickReviewAtoms("ja-m9-7-2-rev", M9_REVIEW_POOL, 5);
+const M9_7_2_REVIEW = pickReviewAtoms("ja-m9-7-2-rev", M9_REVIEW_POOL, 6);
 
 export const M9_7_2: LessonContent = {
   id: "ja-m9-7-2",
@@ -2508,7 +2543,7 @@ export const M9_7_2: LessonContent = {
       "ja-m9-7-2-build-totemo-kirei-ne",
       "Say: This flower is very pretty, isn't it?",
       "この はなは とても きれいですね",
-      ["この", "はな", "は", "とても", "きれい", "です", "ね", "よ"],
+      ["はな", "きれい", "とても", "この", "です", "は", "よ", "ね"],
       ["この", "はな", "は", "とても", "きれい", "です", "ね"],
     ),
     speaking(
@@ -2531,7 +2566,7 @@ export const M9_7_2: LessonContent = {
       "ja-m9-7-2-build-jouzu-ne",
       "Say: You're very good at cooking, aren't you?",
       "りょうりが とても じょうずですね",
-      ["りょうり", "が", "とても", "じょうず", "です", "ね", "よ", "を"],
+      ["じょうず", "とても", "りょうり", "です", "が", "ね", "を", "よ"],
       ["りょうり", "が", "とても", "じょうず", "です", "ね"],
     ),
     listeningCompSentence({
@@ -2558,18 +2593,18 @@ export const M9_7_2: LessonContent = {
       "ja-m9-7-2-build-fuben-yo",
       "Say: It's a bit inconvenient, you know!",
       "ちょっと ふべんですよ",
-      ["ちょっと", "ふべん", "です", "よ", "ね", "とても"],
+      ["ふべん", "とても", "です", "ちょっと", "よ", "ね"],
       ["ちょっと", "ふべん", "です", "よ"],
     ),
     speaking(
-      "ja-m9-7-2-speak-daijoubu-yo",
-      "だいじょうぶですよ",
-      "It's okay, I promise!",
+      "ja-m9-7-2-speak-eki-benri-yo",
+      "この えきは べんりですよ",
+      "This station is convenient, you know!",
     ),
     listeningBuildSentence({
       id: "ja-m9-7-2-lb-sukina",
       target: "すきな たべものは ラーメンです",
-      tiles: ["すき", "な", "たべもの", "は", "ラーメン", "です", "きらい"],
+      tiles: ["たべもの", "ラーメン", "な", "すき", "は", "きらい", "です"],
       correctOrder: ["すき", "な", "たべもの", "は", "ラーメン", "です"],
       promptEn: "Hear it, build it: 'My favorite food is ramen.'",
     }),
@@ -2586,20 +2621,20 @@ export const M9_7_2: LessonContent = {
     }),
     cloze(
       "ja-m9-7-2-cloze-yo",
-      "げんきです",
-      "。 (I'm well, really!)",
+      "この レストランは ゆうめいです",
+      "。 (This restaurant is famous, you know!)",
       "よ",
       ["よ", "ね", "か", "な"],
-      "I'm well, really!",
-      "げんきですよ。",
-      "よ adds emphasis — assuring the listener.",
+      "This restaurant is famous, you know!",
+      "この レストランは ゆうめいですよ。",
+      "よ — telling someone information they don't know yet.",
     ),
     build(
-      "ja-m9-7-2-build-kirai-neg",
-      "Say: I don't dislike it.",
-      "きらいじゃないです",
-      ["きらい", "じゃないです", "くないです", "です"],
-      ["きらい", "じゃないです"],
+      "ja-m9-7-2-build-taihen-neg",
+      "Say: It's not tough.",
+      "たいへんじゃないです",
+      ["じゃないです", "たいへん", "くないです", "です"],
+      ["たいへん", "じゃないです"],
     ),
     speaking(
       "ja-m9-7-2-speak-totemo-shizuka",
@@ -2616,7 +2651,7 @@ export const M9_7_2: LessonContent = {
       "ja-m9-7-2-build-sukina-tabemono",
       "Say: What's your favorite food?",
       "すきな たべものは なんですか",
-      ["すき", "な", "たべもの", "は", "なん", "です", "か", "きらい"],
+      ["たべもの", "なん", "すき", "な", "は", "きらい", "です", "か"],
       ["すき", "な", "たべもの", "は", "なん", "です", "か"],
     ),
     // ── selfExplain at N-1 ──
@@ -2649,7 +2684,7 @@ export const M9_7_2: LessonContent = {
       ],
     }),
     speaking("ja-m9-7-2-rev-speak-1", M9_7_2_REVIEW[2].kana, M9_7_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m9-7-2-rev", M9_7_2_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m9-7-2-rev", M9_7_2_REVIEW),
     infoStep(
       "ja-m9-7-2-info-end",
       "You can now produce full Japanese sentences with な-adjectives, degree words, and natural sentence-final particles",

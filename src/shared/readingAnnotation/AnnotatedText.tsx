@@ -35,6 +35,13 @@ type CommonProps = {
    *  state. Used by teaching scaffolds (e.g. M2 "How do you say X?" MCQ)
    *  where the romaji IS the lookup key, not the answer. */
   forceShowHelper?: boolean;
+  /** When true, force the romaji helper OFF regardless of the global
+   *  show-romaji setting, mastery state, or `forceShowHelper`. Used where
+   *  the romaji would give away the answer — e.g. character-build tile
+   *  banks, which print "su/shi/..." above each kana and let a learner
+   *  solve by matching romaji to the English prompt without reading any
+   *  kana (Spencer 2026-06-13). Wins over every other visibility input. */
+  hideHelper?: boolean;
 };
 
 type BareProps = CommonProps & {
@@ -63,6 +70,7 @@ export function AnnotatedText(props: Props): ReactElement {
   const text = "text" in props && props.text != null ? props.text : "";
   const className = props.className;
   const forceShowHelper = props.forceShowHelper ?? false;
+  const hideHelper = props.hideHelper ?? false;
 
   // Active language id — null when no learner profile is set yet
   // (LanguagePickerModal route). Falls back to "ja" so authored JA
@@ -73,7 +81,12 @@ export function AnnotatedText(props: Props): ReactElement {
     return (
       <span className={className} lang={language}>
         {segments.map((seg, i) => (
-          <SegmentRender key={i} segment={seg} forceShowHelper={forceShowHelper} />
+          <SegmentRender
+            key={i}
+            segment={seg}
+            forceShowHelper={forceShowHelper}
+            hideHelper={hideHelper}
+          />
         ))}
       </span>
     );
@@ -84,6 +97,7 @@ export function AnnotatedText(props: Props): ReactElement {
       <BareRender
         text={text}
         forceShowHelper={forceShowHelper}
+        hideHelper={hideHelper}
         languageId={language}
       />
     </span>
@@ -105,10 +119,12 @@ function useActiveLanguageOrJa(): string {
 function BareRender({
   text,
   forceShowHelper,
+  hideHelper,
   languageId,
 }: {
   text: string;
   forceShowHelper: boolean;
+  hideHelper?: boolean;
   languageId: string;
 }) {
   const fragments = useMemo<AnnotationFragment[]>(() => {
@@ -132,6 +148,7 @@ function BareRender({
             symbolId={frag.symbolId ?? `${languageId}:${frag.text}`}
             helper={frag.reading}
             forceShowHelper={forceShowHelper}
+            hideHelper={hideHelper}
           />
         ) : (
           <span key={i}>{frag.text}</span>
@@ -144,9 +161,11 @@ function BareRender({
 function SegmentRender({
   segment,
   forceShowHelper,
+  hideHelper,
 }: {
   segment: JapaneseAnnotation;
   forceShowHelper: boolean;
+  hideHelper?: boolean;
 }) {
   const { surface, reading, romaji, role } = segment;
   // Pure non-kana segments (English prose, punctuation, numbers) render as
@@ -164,7 +183,14 @@ function SegmentRender({
     // If author supplied an explicit segment-level romaji, prefer it over
     // per-token lookup for the *whole* segment as a single annotation.
     if (romaji) {
-      return <KanaSegment surface={surface} romaji={romaji} role={role} />;
+      return (
+        <KanaSegment
+          surface={surface}
+          romaji={romaji}
+          role={role}
+          hideHelper={hideHelper}
+        />
+      );
     }
     return (
       <Fragment>
@@ -177,6 +203,7 @@ function SegmentRender({
               helper={tok.romaji ?? KANA_ROMAJI[tok.text] ?? ""}
               role={role}
               forceShowHelper={forceShowHelper}
+              hideHelper={hideHelper}
             />
           ) : (
             <span key={i}>{tok.text}</span>
@@ -191,7 +218,9 @@ function SegmentRender({
   return (
     <ruby data-role={role}>
       {surface}
-      <rt className="kana-helper">{helper}</rt>
+      <rt className="kana-helper" aria-hidden={hideHelper}>
+        {hideHelper ? "​" : helper}
+      </rt>
     </ruby>
   );
 }
@@ -200,15 +229,19 @@ function KanaSegment({
   surface,
   romaji,
   role,
+  hideHelper,
 }: {
   surface: string;
   romaji: string;
   role?: JapaneseAnnotation["role"];
+  hideHelper?: boolean;
 }) {
   return (
     <ruby data-role={role}>
       {surface}
-      <rt className="kana-helper">{romaji}</rt>
+      <rt className="kana-helper" aria-hidden={hideHelper}>
+        {hideHelper ? "​" : romaji}
+      </rt>
     </ruby>
   );
 }
@@ -219,12 +252,14 @@ function SymbolToken({
   helper,
   role,
   forceShowHelper,
+  hideHelper,
 }: {
   symbol: string;
   symbolId: string;
   helper: string;
   role?: JapaneseAnnotation["role"];
   forceShowHelper?: boolean;
+  hideHelper?: boolean;
 }) {
   useTrackExposure(symbol);
   const masteryVisible = useSymbolHelperVisible(symbol);
@@ -233,8 +268,11 @@ function SymbolToken({
   // mastered). When ON, every kana on every surface shows its romaji
   // helper. When OFF, falls back to per-kana mastery visibility +
   // any caller's `forceShowHelper` override.
+  // `hideHelper` is a hard OFF that wins over everything (answer-giveaway
+  // surfaces like character-build tile banks).
   const globalShowRomaji = useSettings().settings.learning.showRomaji ?? true;
-  const helperVisible = globalShowRomaji || forceShowHelper || masteryVisible;
+  const helperVisible =
+    !hideHelper && (globalShowRomaji || forceShowHelper || masteryVisible);
   return (
     <ruby data-role={role} data-symbol-id={symbolId}>
       {symbol}

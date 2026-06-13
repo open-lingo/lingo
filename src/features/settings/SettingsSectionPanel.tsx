@@ -251,6 +251,27 @@ function AudioPanel() {
             </span>
           </span>
         </label>
+        <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-surface p-3">
+          <input
+            type="checkbox"
+            checked={settings.audio.soundEnabled}
+            onChange={(e) =>
+              updateSetting("audio.soundEnabled", e.target.checked)
+            }
+            className="mt-0.5 h-4 w-4 shrink-0 accent-accent"
+          />
+          <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+            <span className="text-sm font-medium text-text-primary">
+              {t("settings.soundEffects", "Sound effects")}
+            </span>
+            <span className="text-xs text-text-muted">
+              {t(
+                "settings.soundEffectsHelp",
+                "Soft chimes for answers, matches, and lesson completion. Speech audio is unaffected.",
+              )}
+            </span>
+          </span>
+        </label>
       </div>
     </div>
   );
@@ -464,6 +485,30 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
                 {t(
                   "settings.showRomajiHelp",
                   "Shows romaji above kana across the app. Turns off automatically once you pass the alphabet test or reach Module 15 — turn it back on any time.",
+                )}
+              </span>
+            </span>
+          </label>
+          <label className="flex cursor-pointer items-start gap-2">
+            <input
+              type="checkbox"
+              checked={settings.learning.hideBuildTileRomaji ?? false}
+              onChange={(e) =>
+                updateSetting("learning.hideBuildTileRomaji", e.target.checked)
+              }
+              className="mt-0.5 rounded border-border text-accent focus:ring-accent"
+            />
+            <span>
+              <span className="block text-sm text-text-primary">
+                {t(
+                  "settings.hideBuildTileRomaji",
+                  "Hide romaji on spelling tiles",
+                )}
+              </span>
+              <span className="block text-xs text-text-muted">
+                {t(
+                  "settings.hideBuildTileRomajiHelp",
+                  "On word-building exercises, hides romaji on the kana tiles — tap a tile to hear its sound and reveal it, or hover to peek. Turns on automatically at Module 10 once you can read kana. Independent of the reading aid above.",
                 )}
               </span>
             </span>

@@ -36,8 +36,8 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
 
   const handleEnter = useCallback(() => {
     if (!submitted && selected) handleSubmit();
-    else if (submitted && !celebrating) onContinue();
-  }, [submitted, selected, celebrating]);
+    else if (submitted) onContinue();
+  }, [submitted, selected]);
 
   useLessonKeyboard({
     onEnter: handleEnter,
@@ -46,7 +46,6 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
         setSelected(step.options[n - 1].id);
       }
     },
-    enabled: !celebrating,
   });
 
   function handleSubmit() {
@@ -89,6 +88,8 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
           hasSubmittedWrong={hasSubmittedWrong}
         />
       )}
+      {/* Content cluster centers as one unit in leftover height. */}
+      <div className="my-auto flex flex-col gap-6">
       {step.audioOnlyPrompt ? (
         <div className="flex flex-col items-center gap-3 py-4">
           <button
@@ -134,7 +135,16 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
         <p className="text-sm text-text-muted">{step.hint}</p>
       )}
 
-      <div className={gridClasses} style={{ minHeight: optionsAre4 ? 320 : 260 }}>
+      {/* dvh-driven min-height lets option cards grow on tall windows
+          (auto-rows-fr splits the extra height evenly). */}
+      <div
+        className={gridClasses}
+        style={{
+          minHeight: optionsAre4
+            ? "clamp(320px, 52dvh, 640px)"
+            : "clamp(260px, 44dvh, 520px)",
+        }}
+      >
         {step.options.map((opt, idx) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
@@ -171,9 +181,9 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
           // - Long text (sentences, English): left-aligned text-xl.
           const isShortGlyph = opt.text.length <= 2;
           const layout = step.optionsRevealRomajiOnSelect
-            ? "flex items-center justify-center py-8 px-4 text-3xl font-bold min-h-[120px]"
+            ? "flex items-center justify-center py-8 px-4 text-3xl sm:text-4xl font-bold min-h-[120px]"
             : isShortGlyph
-              ? "flex items-center justify-center py-9 text-5xl font-bold"
+              ? "flex items-center justify-center py-9 text-5xl sm:text-6xl font-bold"
               : "px-4 py-6 text-left text-xl font-medium leading-snug";
 
           return (
@@ -205,31 +215,29 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
             </button>
           );
         })}
-        {celebrating && <CelebrationToast text={celebrationText} />}
+      </div>
       </div>
 
-      {submitted && !isCorrect && (
-        <Feedback correct={false} explanation={step.explanation} />
-      )}
-
-      {!submitted ? (
-        <ContinueButton
-          onClick={handleSubmit}
-          label="Check"
-          disabled={!selected}
-        />
-      ) : celebrating ? (
-        <div className="invisible" aria-hidden>
-          <ContinueButton onClick={() => {}} />
-        </div>
-      ) : (
-        <div className="motion-safe:animate-fade-up">
+      {/* Single bottom-anchored block: wrong-answer banner + CTA together
+          so the button never moves on submit. */}
+      <div className="relative flex flex-col gap-4">
+        {celebrating && <CelebrationToast text={celebrationText} />}
+        {submitted && !isCorrect && (
+          <Feedback correct={false} explanation={step.explanation} />
+        )}
+        {!submitted ? (
+          <ContinueButton
+            onClick={handleSubmit}
+            label="Check"
+            disabled={!selected}
+          />
+        ) : (
           <ContinueButton
             onClick={onContinue}
             variant={isCorrect ? "correct" : "incorrect"}
           />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

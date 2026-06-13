@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 
 type Props = {
@@ -17,6 +18,7 @@ export function PlacementResultScreen({
   testOutModuleLabel,
   onContinue,
 }: Props) {
+  const { t } = useTranslation();
   const passed = passedModules.length > 0;
 
   if (isTestOut) {
@@ -30,18 +32,28 @@ export function PlacementResultScreen({
           />
         </div>
         <h1 className="text-2xl font-bold text-text-primary">
-          {passed ? "Module cleared!" : "Not quite yet"}
+          {passed
+            ? t("placement.testOutPassedTitle", "Module cleared!")
+            : t("placement.testOutFailedTitle", "Not quite yet")}
         </h1>
         <p className="max-w-md text-text-secondary">
           {passed
-            ? `You tested out of ${testOutModuleLabel ?? passedModules[0]}. ${seededAtomCount} vocab items are now in your review queue for a quick refresher.`
-            : `You need 100% to test out. Keep practicing and try again when you're ready.`}
+            ? t("placement.testOutPassedBody", {
+                defaultValue:
+                  "You tested out of {{module}}. {{atomCount}} vocab items are now in your review queue for a quick refresher.",
+                module: testOutModuleLabel ?? passedModules[0],
+                atomCount: seededAtomCount,
+              })
+            : t(
+                "placement.testOutFailedBody",
+                "You need 100% to test out. Keep practicing and try again when you're ready.",
+              )}
         </p>
         <button
           onClick={onContinue}
           className="rounded-xl bg-accent px-8 py-3 text-lg font-semibold text-white shadow-md hover:bg-accent-hover active:scale-[0.98]"
         >
-          Continue
+          {t("placement.continue", "Continue")}
         </button>
       </div>
     );
@@ -53,17 +65,29 @@ export function PlacementResultScreen({
         <Icon name="graduationCap" size={48} className="text-accent" />
       </div>
       <h1 className="text-2xl font-bold text-text-primary">
-        {passed ? "Placement complete!" : "Starting from the top"}
+        {passed
+          ? t("placement.resultPassedTitle", "Placement complete!")
+          : t("placement.resultFailedTitle", "Starting from the top")}
       </h1>
       {passed ? (
         <>
           <p className="max-w-md text-text-secondary">
-            You demonstrated mastery of{" "}
+            {t("placement.resultMastery", {
+              defaultValue: "You demonstrated mastery of",
+            })}{" "}
             <span className="font-semibold text-text-primary">
-              {passedModules.length} module{passedModules.length !== 1 ? "s" : ""}
+              {t("placement.resultModuleCount", {
+                defaultValue: "{{count}} module",
+                defaultValue_other: "{{count}} modules",
+                count: passedModules.length,
+              })}
             </span>
-            . We skipped {skippedLessonCount} lessons and added {seededAtomCount} vocab
-            items to your review queue for a quick refresher.
+            {t("placement.resultSkipped", {
+              defaultValue:
+                ". We skipped {{lessonCount}} lessons and added {{atomCount}} vocab items to your review queue for a quick refresher.",
+              lessonCount: skippedLessonCount,
+              atomCount: seededAtomCount,
+            })}
           </p>
           <div className="flex flex-wrap justify-center gap-2">
             {passedModules.map((m) => (
@@ -78,15 +102,17 @@ export function PlacementResultScreen({
         </>
       ) : (
         <p className="max-w-md text-text-secondary">
-          No worries — you'll start with the fundamentals. The course will build
-          your skills step by step.
+          {t(
+            "placement.resultFailedBody",
+            "No worries — you'll start with the fundamentals. The course will build your skills step by step.",
+          )}
         </p>
       )}
       <button
         onClick={onContinue}
         className="rounded-xl bg-accent px-8 py-3 text-lg font-semibold text-white shadow-md hover:bg-accent-hover active:scale-[0.98]"
       >
-        Start learning
+        {t("placement.startLearning", "Start learning")}
       </button>
     </div>
   );

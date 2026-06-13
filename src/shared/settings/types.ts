@@ -84,6 +84,23 @@ export type UserSettings = {
      * turns romaji back on manually.
      */
     romajiAutoFlipped?: boolean;
+    /**
+     * When true, character-build tile banks ("Build the word for X") hide
+     * the per-kana romaji label until the learner taps a tile (also plays
+     * its sound) or hovers it briefly — forcing kana reading instead of
+     * matching romaji to the English prompt. Independent of `showRomaji`:
+     * romaji can stay on everywhere else while build tiles fade first.
+     *
+     * Default OFF (romaji shown) as a beginner scaffold; auto-flips ON
+     * (one-time) when the learner reaches Module 10 — by ~10h in they can
+     * read kana. Learner-toggleable from Settings either way.
+     */
+    hideBuildTileRomaji?: boolean;
+    /**
+     * One-shot guard for the Module-10 auto-flip of `hideBuildTileRomaji`,
+     * so it won't re-fire if the learner turns it back off manually.
+     */
+    buildTileRomajiAutoFlipped?: boolean;
   };
   display?: {
     dateLocale?: string;
@@ -121,6 +138,8 @@ export const DEFAULT_SETTINGS: UserSettings = {
     showAlphabetFurigana: true,
     showRomaji: true,
     romajiAutoFlipped: false,
+    hideBuildTileRomaji: false,
+    buildTileRomajiAutoFlipped: false,
   },
   display: {},
   flashcards: {

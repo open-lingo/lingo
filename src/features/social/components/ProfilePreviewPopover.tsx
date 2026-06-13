@@ -5,6 +5,7 @@
  */
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 import { UserAvatar } from "./UserAvatar";
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export function ProfilePreviewPopover({ user, children }: Props) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   return (
@@ -92,7 +94,7 @@ export function ProfilePreviewPopover({ user, children }: Props) {
                 className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm font-semibold text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
               >
                 <Icon name="user" size={14} aria-hidden />
-                Full profile
+                {t("social.preview.viewProfile", "View profile")}
               </Link>
             </div>
           </div>

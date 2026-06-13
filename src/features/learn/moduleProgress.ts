@@ -50,7 +50,15 @@ export function getModuleDisplay(
   };
 }
 
-/** Derive module status from completion (linear: complete previous to unlock next). */
+const REVIEW_LESSON_RE = /^ja-m\d+-review-[12]$/;
+
+function isContentLesson(lesson: { id: string }): boolean {
+  return !REVIEW_LESSON_RE.test(lesson.id);
+}
+
+/** Derive module status from completion (linear: complete previous to unlock next).
+ *  Review lessons (SRS practice) don't gate module progression — only content
+ *  sub-lessons count toward the unlock chain. */
 export function getModuleStatus(
   moduleIndex: number,
   completedLessonIds: ReadonlySet<string>,
@@ -58,14 +66,14 @@ export function getModuleStatus(
 ): ModuleStatus {
   if (moduleIndex === 0) {
     const mod = modules[0];
-    const allDone = mod.lessons.every((l) => completedLessonIds.has(l.id));
+    const allDone = mod.lessons.filter(isContentLesson).every((l) => completedLessonIds.has(l.id));
     return allDone ? "completed" : "current";
   }
   const prevMod = modules[moduleIndex - 1];
-  const prevAllDone = prevMod.lessons.every((l) => completedLessonIds.has(l.id));
+  const prevAllDone = prevMod.lessons.filter(isContentLesson).every((l) => completedLessonIds.has(l.id));
   if (!prevAllDone) return "locked";
   const mod = modules[moduleIndex];
-  const allDone = mod.lessons.every((l) => completedLessonIds.has(l.id));
+  const allDone = mod.lessons.filter(isContentLesson).every((l) => completedLessonIds.has(l.id));
   return allDone ? "completed" : "current";
 }
 

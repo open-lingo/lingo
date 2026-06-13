@@ -53,10 +53,11 @@ const MODULE_TITLES: Record<string, string> = {
 export const GENERATED_HIRAGANA_LESSONS: Record<string, LessonContent> = (() => {
   const map: Record<string, LessonContent> = {};
   ALL_ROWS.forEach((row) => {
-    // ka's Intro 1 + Intro 2 are hand-authored (mock-ja-m1-ka.ts overrides
-    // via mockLessons.ts spread order). The row-test (suffix "test") IS
-    // auto-built here — buildRowTestLesson produces a row_test step
-    // covering all 5 kana, same as every other consonant row's test.
+    // Every row's content sub-lessons are now hand-authored
+    // (languages/ja/curriculum/m1-*.ts, m2-*.ts) and override these via
+    // mockLessons.ts spread order — the generated versions below survive
+    // as the fallback. Row-tests (suffix "test") ARE served from here:
+    // buildRowTestLesson produces the row_test step for every row.
     for (const lesson of buildRowSubLessons(row)) {
       map[lesson.id] = lesson;
     }

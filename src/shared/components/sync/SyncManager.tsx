@@ -3,6 +3,7 @@ import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { formatTimeAgo } from "@/shared/utils/formatDate";
 import { cn } from "@/shared/components/ui/cn";
+import { Spinner } from "@/shared/components/ui/Spinner";
 import type { SyncSource } from "./types";
 
 function formatTimeUntil(iso: string): string {
@@ -145,7 +146,11 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
         }
       >
         {anySyncing ? (
-          <Icon name="refresh" size={18} strokeWidth={2} className="animate-spin" />
+          <Spinner
+            size="sm"
+            className="text-current"
+            label={t("syncManager.syncing", { defaultValue: "Syncing" })}
+          />
         ) : showError ? (
           <Icon name="cloudAlert" size={20} strokeWidth={1.75} />
         ) : (
@@ -224,11 +229,13 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
                       busy && "text-text-muted",
                     )}
                   >
-                    {busy
-                      ? t("syncManager.syncingShort", { defaultValue: "…" })
-                      : synced
-                        ? "✓"
-                        : source.dirtyCount}
+                    {busy ? (
+                      t("syncManager.syncingShort", { defaultValue: "…" })
+                    ) : synced ? (
+                      <Icon name="check" size={12} strokeWidth={3} aria-hidden />
+                    ) : (
+                      source.dirtyCount
+                    )}
                   </span>
                 </li>
               );

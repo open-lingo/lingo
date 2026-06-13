@@ -1180,7 +1180,9 @@ function buildRowTestLesson(row: RowDef, sub: SubLessonDef): LessonContent {
     title: `${row.title.split(":")[0]} — Row test`,
     description: `Row-test for ${row.title}.`,
     estimatedMinutes: 3,
-    xpReward: 10,
+    // Tests pay a premium over the 12-XP drills they cap — retrieval
+    // under test conditions is the highest-value rep (testing effect).
+    xpReward: 25,
     introducesVocabIds: [],
     steps: [intro, testStep],
   };

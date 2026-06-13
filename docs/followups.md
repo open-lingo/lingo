@@ -29,9 +29,11 @@ Each entry: `file:line — note`.
 - `src/features/home/restructured/{AccountOverviewCard,QuestsCard,RecentPracticeTile,CommunityStrip}.tsx`
   — read from `mockHomeData.ts`; wire to real progress endpoints when the
   home restructure picks up backend work.
-- `src/features/quests/useQuests.ts` — talks to localStorage only. Backend
-  `GET /quests` / `POST /{id}/progress` / `claim` / `refresh` shipped this
-  session; swap is mechanical (wrap in `useQuery` + add a `QuestsApi` client).
+- ~~`useQuests.ts` localStorage swap~~ — DONE 2026-06-13: hook is
+  server-authoritative against the real `app/quests/` backend (the
+  2026-05-25 "backend shipped" claim was false — that agent died
+  uncommitted). Remaining: client-side application of `adFreeMinutes`
+  claim rewards; friend-quest generation.
 - `src/features/profile/PublicProfilePage.tsx` — relies on
   `friendship_status` from `social.getPublicProfile`. If a user has never
   triggered the social cache yet, all profiles show "Add friend". Acceptable
@@ -62,3 +64,19 @@ Each entry: `file:line — note`.
   merged. Legacy `ConfirmModal` / `ModalBase` / `ModalBackdrop` still
   ship alongside the new `Modal` / `Dialog`. 13 call sites use the legacy
   trinity. Pull the commit when ready to one-shot the migration.
+
+## Lesson UI polish ledger (M1–7 walkthrough, 2026-06-13)
+
+### DONE this session (uncommitted, pending Spencer review)
+- Empty SRS review (`ja-mN-review-1/2` with nothing due) no longer awards XP / marks the node complete — `isEmptyReviewLesson` guard in `LessonPage.tsx` + `emptyReviewGuard.test.ts`. Redirects to Learn, hides the XP chip.
+- SymbolIntro single-glyph dead-space: content centered in space above the CTA (`flex-1 + justify-center`).
+- CTA harmony: SymbolTrace / SymbolProduction / DialogueListen now anchor the Check button at the standard y≈749 (added a `flex-1` spacer) instead of floating ~130px high. DialogueListen banner no longer nudges the CTA on commit.
+
+### OPEN — deferred, don't forget
+- **Match-pairs shouldn't use full sentences** as match items — looks tacky. Prefer single words / short phrases. (Spencer flagged.)
+- **SymbolIntro residual top dead-space**: centering leaves an equal gap above the glyph; Spencer suspects it may be a light-mode perception thing. Revisit.
+- **Correct-answer celebration is brief (1100ms `CELEBRATE_MS`)** — fast clickers barely register it. Optional: bump duration or make it more felt. (Affirmation exists in every graded view; not missing.)
+- **CTA anchor unverified on Translate / FillBlank** — measured Trace/Production/Dialogue + 6 anchored views; these two share the top-stacked root pattern but weren't reached. Check they hit y≈749.
+- **Trace CHECK is clickable on an empty canvas** → scores 0% / burns an attempt. Could disable until `hasStrokes`.
+- Cosmetic: generic globe icon reused on every `infoStep` open card; double romaji (per-kana ruby + transliteration line) on grammar/example cards; particle を shows ruby "o" but line "wo" (harmless convention mismatch).
+- Row-test "3 dots" = mistake indicator (`MAX_TEST_MISTAKES`), not progress — could be clearer to a first-timer.

@@ -69,9 +69,15 @@ export default {
           "0%":   { opacity: "0", transform: "translateX(16px)" },
           "100%": { opacity: "1", transform: "translateX(0)"    },
         },
+        tilePop: {
+          "0%":   { opacity: "0", transform: "scale(0.4)"  },
+          "70%":  { opacity: "1", transform: "scale(1.08)" },
+          "100%": { opacity: "1", transform: "scale(1)"    },
+        },
       },
       animation: {
         "rise-celebrate":  "riseCelebrate 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "tile-pop":        "tilePop 160ms cubic-bezier(0.34, 1.56, 0.64, 1)",
         "fade-up":         "fadeUp 320ms cubic-bezier(0.16, 1, 0.3, 1) both",
         "slide-in-right":  "slideInRight 260ms cubic-bezier(0.16, 1, 0.3, 1) both",
       },

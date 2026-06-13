@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { StepRenderer } from "@/features/lesson/components/StepRenderer";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useApi } from "@/shared/api/provider";
@@ -22,6 +23,7 @@ import { PlacementResultScreen } from "./components/PlacementResultScreen";
 import type { LessonStep } from "@/features/lesson/types";
 
 export function PlacementTestPage() {
+  const { t } = useTranslation();
   const { moduleId } = useParams<{ moduleId?: string }>();
   const isTestOut = !!moduleId;
   const navigate = useNavigate();
@@ -100,19 +102,23 @@ export function PlacementTestPage() {
   if (!hasBank) {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 p-8 text-center">
-        <h2 className="text-lg font-semibold">No test-out questions yet</h2>
-        <p className="text-sm text-gray-600 dark:text-gray-400 max-w-md">
-          The placement engine doesn't have any items for{" "}
-          <span className="font-mono">{moduleId}</span> on this language
-          yet. The Japanese course covers M3–M27; other modules + other
-          languages need their own bank before test-out can probe them.
+        <h2 className="text-lg font-semibold">
+          {t("placement.noBankTitle", "No test-out questions yet")}
+        </h2>
+        <p className="text-sm text-text-secondary max-w-md">
+          {t("placement.noBankBodyBefore", "The placement engine doesn't have any items for")}{" "}
+          <span className="font-mono">{moduleId}</span>{" "}
+          {t(
+            "placement.noBankBodyAfter",
+            "on this language yet. The Japanese course covers M3–M27; other modules + other languages need their own bank before test-out can probe them.",
+          )}
         </p>
         <button
           type="button"
           onClick={() => navigate(langPath("learn"))}
-          className="px-4 py-2 rounded bg-blue-600 text-white text-sm"
+          className="px-4 py-2 rounded bg-accent text-white text-sm hover:bg-accent-hover"
         >
-          Back to Learn
+          {t("placement.backToLearn", "Back to Learn")}
         </button>
       </div>
     );
@@ -132,7 +138,7 @@ export function PlacementTestPage() {
   }
 
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-surface-primary">
+    <div className="flex min-h-[100dvh] flex-col bg-background">
       <PlacementProgressBar
         state={state}
         isTestOut={isTestOut}

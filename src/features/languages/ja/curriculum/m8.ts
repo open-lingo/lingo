@@ -7,9 +7,16 @@
  *   - い-adjective negative: 〜くない (たかい → たかくない; いい → よくない)
  *   - と (and/with — noun connector: "コーヒーとパン")
  *
- * Split into 15 sub-lessons (14 drill + 1 story).
+ * Split into 15 sub-lessons (14 drill + 1 story), plus 2 exported-but-
+ * unregistered sub-lessons (M8_8_1 / M8_8_2 — こちら/そちら/あちら/どちら
+ * + どうですか; see the sentence-variety reauthor report for registration).
  * Each sub-lesson has ~20 steps. All vocab introductions use build() steps
  * where the learner assembles the word from tiles (figuroutable pattern).
+ *
+ * 2026-06-12 sentence-variety reauthor: review-particle cloze thinned to
+ * ≤25%, no sentence repeated >3x module-wide, practice sub-lessons use
+ * fresh sentences, build tile banks scrambled, story converted to the
+ * storyComprehension() factory (§13.13 locked template).
  *
  * ID scheme: ja-m8-{n}-{sub} e.g. ja-m8-1-1, ja-m8-1-2
  * Export names: M8_1_1, M8_1_2, M8_2_1, M8_2_2, etc.
@@ -19,7 +26,6 @@ import type { LessonContent } from "@/features/lesson/types";
 import {
   build,
   cloze,
-  dialogueListen,
   grammarRule,
   infoStep,
   listeningBuildSentence,
@@ -31,6 +37,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  storyComprehension,
   vocabMcq,
   assertNoSameAnswerCluster,
   assertAnswerRotation,
@@ -152,7 +159,7 @@ const RULE_TO = grammarRule({
 //   (この/その/あの/どの + first 4 adj: おおきい, ちいさい, たかい, やすい)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_1_1_REVIEW = pickReviewAtoms("ja-m8-1-1-rev", M8_REVIEW_POOL, 4);
+const M8_1_1_REVIEW = pickReviewAtoms("ja-m8-1-1-rev", M8_REVIEW_POOL, 6);
 
 export const M8_1_1: LessonContent = {
   id: "ja-m8-1-1",
@@ -176,7 +183,7 @@ export const M8_1_1: LessonContent = {
       "ja-m8-1-1-build-ookii",
       "Pick the Japanese word for: Big",
       "おおきい",
-      ["おおきい", "ちいさい", "たかい", "やすい"],
+      ["たかい", "ちいさい", "おおきい", "やすい"],
       ["おおきい"],
     ),
     listeningCompSentence({
@@ -190,7 +197,7 @@ export const M8_1_1: LessonContent = {
       "ja-m8-1-1-build-chiisai",
       "Pick the Japanese word for: Small",
       "ちいさい",
-      ["ちいさい", "おおきい", "たかい", "ふるい"],
+      ["おおきい", "たかい", "ふるい", "ちいさい"],
       ["ちいさい"],
     ),
     vocabMcq(
@@ -203,7 +210,7 @@ export const M8_1_1: LessonContent = {
       "ja-m8-1-1-build-takai",
       "Pick the Japanese word for: Expensive",
       "たかい",
-      ["たかい", "やすい", "おおきい", "ちいさい"],
+      ["おおきい", "たかい", "ちいさい", "やすい"],
       ["たかい"],
     ),
     speaking("ja-m8-1-1-speak-takai", "たかい", "Expensive"),
@@ -212,7 +219,7 @@ export const M8_1_1: LessonContent = {
       "ja-m8-1-1-build-yasui",
       "Pick the Japanese word for: Cheap",
       "やすい",
-      ["やすい", "たかい", "ちいさい", "おおきい"],
+      ["たかい", "おおきい", "やすい", "ちいさい"],
       ["やすい"],
     ),
     listeningCompSentence({
@@ -226,7 +233,7 @@ export const M8_1_1: LessonContent = {
       "ja-m8-1-1-build-kono-kuruma",
       "Say: This car is big.",
       "この くるまは おおきいです",
-      ["この", "くるま", "は", "おおきい", "です", "その", "ちいさい"],
+      ["です", "この", "は", "その", "ちいさい", "くるま", "おおきい"],
       ["この", "くるま", "は", "おおきい", "です"],
     ),
     sentenceMcq({
@@ -240,27 +247,24 @@ export const M8_1_1: LessonContent = {
       ],
       explanation: "その = that (near listener). たかい = expensive.",
     }),
-    cloze(
-      "ja-m8-1-1-cloze-ha",
-      "この ペン",
-      " やすいです。",
-      "は",
-      ["は", "が", "を", "の"],
-      "This pen is cheap.",
-      "この ペンは やすいです。",
-      "は marks the topic — 'this pen' is what we're talking about.",
+    build(
+      "ja-m8-1-1-build-kono-hana",
+      "Say: This flower is cheap.",
+      "この はなは やすいです",
+      ["やすい", "この", "は", "たかい", "はな", "です", "その"],
+      ["この", "はな", "は", "やすい", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m8-1-1-lb-chiisai",
       target: "この かばんは ちいさいです",
-      tiles: ["この", "かばん", "は", "ちいさい", "です", "おおきい", "その"],
+      tiles: ["おおきい", "この", "かばん", "は", "ちいさい", "です", "その"],
       correctOrder: ["この", "かばん", "は", "ちいさい", "です"],
       promptEn: "Hear it, build it: 'This bag is small.'",
     }),
     selfExplain({
       id: "ja-m8-1-1-self-explain",
-      anchorLabel: "You used この in: この ペンは やすいです",
-      anchorAudioText: "この ペンは やすいです",
+      anchorLabel: "You used この in: この はなは やすいです",
+      anchorAudioText: "この はなは やすいです",
       question: "Why この instead of これ?",
       rule: { text: "この attaches to a noun (この + ペン). これ stands alone without a noun." },
       surface: { text: "この sounds more polite than これ." },
@@ -269,9 +273,9 @@ export const M8_1_1: LessonContent = {
         "この/その/あの/どの always need a noun after them. これ/それ/あれ/どれ stand alone.",
     }),
     speaking(
-      "ja-m8-1-1-speak-kono",
-      "この くるまは おおきいです",
-      "This car is big.",
+      "ja-m8-1-1-speak-ano-yama",
+      "あの やまは おおきいです",
+      "That mountain (over there) is big.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-1-1-rev-mcq-1", M8_1_1_REVIEW[0], M8_REVIEW_POOL),
@@ -305,7 +309,7 @@ assertNoConsecutiveSame(M8_1_1.steps);
 //   (drill この/その + adj, review tail from M3-M7)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_1_2_REVIEW = pickReviewAtoms("ja-m8-1-2-rev", M8_REVIEW_POOL, 4);
+const M8_1_2_REVIEW = pickReviewAtoms("ja-m8-1-2-rev", M8_REVIEW_POOL, 6);
 
 export const M8_1_2: LessonContent = {
   id: "ja-m8-1-2",
@@ -328,7 +332,7 @@ export const M8_1_2: LessonContent = {
       "ja-m8-1-2-build-ano-ookii",
       "Say: That hotel (over there) is big.",
       "あの ホテルは おおきいです",
-      ["あの", "ホテル", "は", "おおきい", "です", "この", "ちいさい"],
+      ["です", "ホテル", "おおきい", "この", "あの", "ちいさい", "は"],
       ["あの", "ホテル", "は", "おおきい", "です"],
     ),
     listeningCompSentence({
@@ -341,15 +345,12 @@ export const M8_1_2: LessonContent = {
         "That car (over there) is big.",
       ],
     }),
-    cloze(
-      "ja-m8-1-2-cloze-ha-1",
-      "その かばん",
-      " ちいさいです。",
-      "は",
-      ["は", "が", "を", "に"],
-      "That bag is small.",
-      "その かばんは ちいさいです。",
-      "は marks the topic.",
+    build(
+      "ja-m8-1-2-build-sono-shatsu",
+      "Say: That shirt is small.",
+      "その シャツは ちいさいです",
+      ["です", "シャツ", "ちいさい", "は", "その", "この", "おおきい"],
+      ["その", "シャツ", "は", "ちいさい", "です"],
     ),
     sentenceMcq({
       id: "ja-m8-1-2-mcq-dono",
@@ -367,18 +368,13 @@ export const M8_1_2: LessonContent = {
       "ja-m8-1-2-build-dono-hon",
       "Ask: Which book is interesting?",
       "どの ほんが おもしろいですか",
-      ["どの", "ほん", "が", "おもしろい", "です", "か", "この", "は"],
+      ["ほん", "は", "おもしろい", "が", "です", "か", "どの", "この"],
       ["どの", "ほん", "が", "おもしろい", "です", "か"],
     ),
-    cloze(
-      "ja-m8-1-2-cloze-ga",
-      "どの カメラ",
-      " たかいですか。",
-      "が",
-      ["が", "は", "を", "の"],
+    speaking(
+      "ja-m8-1-2-speak-dono-kamera",
+      "どの カメラが たかいですか",
       "Which camera is expensive?",
-      "どの カメラが たかいですか。",
-      "が marks the subject in a question — 'which camera' is the unknown.",
     ),
     listeningCompSentence({
       id: "ja-m8-1-2-lc-kono-yasui",
@@ -392,14 +388,14 @@ export const M8_1_2: LessonContent = {
     }),
     speaking(
       "ja-m8-1-2-speak-ano",
-      "あの ホテルは おおきいです",
-      "That hotel (over there) is big.",
+      "あの びょういんは おおきいです",
+      "That hospital (over there) is big.",
     ),
     build(
       "ja-m8-1-2-build-sono-yasui",
       "Say: That bag is cheap.",
       "その かばんは やすいです",
-      ["その", "かばん", "は", "やすい", "です", "この", "たかい"],
+      ["この", "たかい", "は", "やすい", "かばん", "です", "その"],
       ["その", "かばん", "は", "やすい", "です"],
     ),
     sentenceMcq({
@@ -414,20 +410,17 @@ export const M8_1_2: LessonContent = {
     }),
     listeningBuildSentence({
       id: "ja-m8-1-2-lb-sono-takai",
-      target: "その カメラは たかいです",
-      tiles: ["その", "カメラ", "は", "たかい", "です", "この", "やすい"],
-      correctOrder: ["その", "カメラ", "は", "たかい", "です"],
-      promptEn: "Hear it, build it: 'That camera is expensive.'",
+      target: "その じしょは たかいです",
+      tiles: ["たかい", "じしょ", "その", "です", "は", "やすい", "この"],
+      correctOrder: ["その", "じしょ", "は", "たかい", "です"],
+      promptEn: "Hear it, build it: 'That dictionary is expensive.'",
     }),
-    cloze(
-      "ja-m8-1-2-cloze-no",
-      "わたし",
-      " かばんは おおきいです。",
-      "の",
-      ["の", "は", "が", "を"],
-      "My bag is big.",
-      "わたしの かばんは おおきいです。",
-      "M4 review: の marks possession — my bag.",
+    build(
+      "ja-m8-1-2-build-tomodachi-kuruma",
+      "Say: My friend's car is big.",
+      "ともだちの くるまは おおきいです",
+      ["です", "くるま", "ともだち", "ちいさい", "は", "おおきい", "の"],
+      ["ともだち", "の", "くるま", "は", "おおきい", "です"],
     ),
     selfExplain({
       id: "ja-m8-1-2-self-explain",
@@ -442,8 +435,8 @@ export const M8_1_2: LessonContent = {
     }),
     speaking(
       "ja-m8-1-2-speak-dono",
-      "どの ペンが やすいですか",
-      "Which pen is cheap?",
+      "どの かばんが やすいですか",
+      "Which bag is cheap?",
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-1-2-rev-mcq-1", M8_1_2_REVIEW[0], M8_REVIEW_POOL),
@@ -477,7 +470,7 @@ assertNoConsecutiveSame(M8_1_2.steps);
 //   (いい/よい, わるい, おいしい, まずい + い-adj conjugation rule)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_2_1_REVIEW = pickReviewAtoms("ja-m8-2-1-rev", M8_REVIEW_POOL, 4);
+const M8_2_1_REVIEW = pickReviewAtoms("ja-m8-2-1-rev", M8_REVIEW_POOL, 6);
 
 export const M8_2_1: LessonContent = {
   id: "ja-m8-2-1",
@@ -501,7 +494,7 @@ export const M8_2_1: LessonContent = {
       "ja-m8-2-1-build-ii",
       "Pick the Japanese word for: Good",
       "いい",
-      ["いい", "わるい", "おいしい", "まずい"],
+      ["わるい", "まずい", "いい", "おいしい"],
       ["いい"],
     ),
     listeningCompSentence({
@@ -519,7 +512,7 @@ export const M8_2_1: LessonContent = {
       "ja-m8-2-1-build-warui",
       "Pick the Japanese word for: Bad",
       "わるい",
-      ["わるい", "いい", "まずい", "ふるい"],
+      ["いい", "まずい", "わるい", "ふるい"],
       ["わるい"],
     ),
     vocabMcq(
@@ -532,7 +525,7 @@ export const M8_2_1: LessonContent = {
       "ja-m8-2-1-build-oishii",
       "Pick the Japanese word for: Delicious",
       "おいしい",
-      ["おいしい", "まずい", "いい", "たかい"],
+      ["いい", "おいしい", "たかい", "まずい"],
       ["おいしい"],
     ),
     speaking("ja-m8-2-1-speak-oishii", "おいしい", "Delicious"),
@@ -541,7 +534,7 @@ export const M8_2_1: LessonContent = {
       "ja-m8-2-1-build-mazui",
       "Pick the Japanese word for: Bad-tasting",
       "まずい",
-      ["まずい", "おいしい", "わるい", "やすい"],
+      ["わるい", "まずい", "おいしい", "やすい"],
       ["まずい"],
     ),
     listeningCompSentence({
@@ -566,23 +559,18 @@ export const M8_2_1: LessonContent = {
       "ja-m8-2-1-build-oishikunai",
       "Say: This isn't delicious.",
       "これは おいしくないです",
-      ["これ", "は", "おいしくない", "です", "おいしい", "まずい"],
+      ["まずい", "です", "これ", "おいしい", "おいしくない", "は"],
       ["これ", "は", "おいしくない", "です"],
     ),
-    cloze(
-      "ja-m8-2-1-cloze-ha",
-      "この コーヒー",
-      " いいです。",
-      "は",
-      ["は", "が", "を", "の"],
-      "This coffee is good.",
-      "この コーヒーは いいです。",
-      "は marks the topic.",
+    speaking(
+      "ja-m8-2-1-speak-ii-camera",
+      "あなたの カメラは いいです",
+      "Your camera is good.",
     ),
     listeningBuildSentence({
       id: "ja-m8-2-1-lb-yokunai",
       target: "この ほんは よくないです",
-      tiles: ["この", "ほん", "は", "よくない", "です", "いい", "わるい"],
+      tiles: ["です", "いい", "は", "わるい", "ほん", "この", "よくない"],
       correctOrder: ["この", "ほん", "は", "よくない", "です"],
       promptEn: "Hear it, build it: 'This book isn't good.'",
     }),
@@ -599,8 +587,8 @@ export const M8_2_1: LessonContent = {
     }),
     speaking(
       "ja-m8-2-1-speak-yokunai",
-      "この ほんは よくないです",
-      "This book isn't good.",
+      "あの みせは よくないです",
+      "That shop (over there) isn't good.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-2-1-rev-mcq-1", M8_2_1_REVIEW[0], M8_REVIEW_POOL),
@@ -634,7 +622,7 @@ assertNoConsecutiveSame(M8_2_1.steps);
 //   (い-adj present/negative drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_2_2_REVIEW = pickReviewAtoms("ja-m8-2-2-rev", M8_REVIEW_POOL, 4);
+const M8_2_2_REVIEW = pickReviewAtoms("ja-m8-2-2-rev", M8_REVIEW_POOL, 6);
 
 export const M8_2_2: LessonContent = {
   id: "ja-m8-2-2",
@@ -668,7 +656,7 @@ export const M8_2_2: LessonContent = {
       "ja-m8-2-2-build-mazukunai",
       "Say: This isn't bad-tasting.",
       "これは まずくないです",
-      ["これ", "は", "まずくない", "です", "おいしくない", "まずい"],
+      ["おいしくない", "です", "は", "これ", "まずい", "まずくない"],
       ["これ", "は", "まずくない", "です"],
     ),
     listeningCompSentence({
@@ -681,27 +669,24 @@ export const M8_2_2: LessonContent = {
         "This ramen is bad-tasting.",
       ],
     }),
-    cloze(
-      "ja-m8-2-2-cloze-ha-1",
-      "この すし",
-      " おいしいです。",
-      "は",
-      ["は", "が", "を", "と"],
-      "This sushi is delicious.",
-      "この すしは おいしいです。",
-      "は marks the topic.",
+    build(
+      "ja-m8-2-2-build-haha-ryouri",
+      "Say: Mother's cooking is delicious.",
+      "ははの りょうりは おいしいです",
+      ["は", "おいしい", "はは", "まずい", "りょうり", "の", "です"],
+      ["はは", "の", "りょうり", "は", "おいしい", "です"],
     ),
     build(
       "ja-m8-2-2-build-yokunai-test",
       "Say: This test isn't good.",
       "この テストは よくないです",
-      ["この", "テスト", "は", "よくない", "です", "いい", "わるい"],
+      ["テスト", "よくない", "は", "この", "わるい", "です", "いい"],
       ["この", "テスト", "は", "よくない", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m8-2-2-lb-warui",
       target: "あの みせは わるいです",
-      tiles: ["あの", "みせ", "は", "わるい", "です", "いい", "この"],
+      tiles: ["です", "は", "みせ", "この", "わるい", "あの", "いい"],
       correctOrder: ["あの", "みせ", "は", "わるい", "です"],
       promptEn: "Hear it, build it: 'That shop (over there) is bad.'",
     }),
@@ -716,16 +701,16 @@ export const M8_2_2: LessonContent = {
       ],
       explanation: "いい is irregular. Its negative comes from よい → よくない.",
     }),
-    cloze(
-      "ja-m8-2-2-cloze-no",
-      "ともだち",
-      " くるまは いいです。",
-      "の",
-      ["の", "は", "が", "を"],
-      "My friend's car is good.",
-      "ともだちの くるまは いいです。",
-      "の marks possession — friend's car.",
-    ),
+    listeningCompSentence({
+      id: "ja-m8-2-2-lc-ane-inu",
+      audioText: "あねの いぬは おおきいです",
+      correctMeaningEn: "My older sister's dog is big.",
+      distractorsEn: [
+        "My older brother's dog is big.",
+        "My older sister's cat is big.",
+        "My older sister's dog is small.",
+      ],
+    }),
     speaking(
       "ja-m8-2-2-speak-oishikunai",
       "この パンは おいしくないです",
@@ -735,7 +720,7 @@ export const M8_2_2: LessonContent = {
       "ja-m8-2-2-build-ii-sensei",
       "Say: That teacher is good.",
       "その せんせいは いいです",
-      ["その", "せんせい", "は", "いい", "です", "わるい", "この"],
+      ["です", "その", "わるい", "せんせい", "は", "この", "いい"],
       ["その", "せんせい", "は", "いい", "です"],
     ),
     listeningCompSentence({
@@ -748,20 +733,20 @@ export const M8_2_2: LessonContent = {
         "This camera is expensive.",
       ],
     }),
-    cloze(
-      "ja-m8-2-2-cloze-ha-2",
-      "あの ホテル",
-      " よくないです。",
-      "は",
-      ["は", "が", "を", "の"],
-      "That hotel (over there) isn't good.",
-      "あの ホテルは よくないです。",
-      "は marks the topic.",
-    ),
+    listeningCompSentence({
+      id: "ja-m8-2-2-lc-warui-hotel",
+      audioText: "あの ホテルは よくないです",
+      correctMeaningEn: "That hotel (over there) isn't good.",
+      distractorsEn: [
+        "That hotel is good.",
+        "This hotel isn't good.",
+        "That hotel (over there) is bad.",
+      ],
+    }),
     selfExplain({
       id: "ja-m8-2-2-self-explain",
       anchorLabel: "おいしい → おいしくない, but いい → よくない",
-      anchorAudioText: "よくないです",
+      anchorAudioText: "おいしくないです",
       question: "How do you form the negative of a regular い-adjective like おいしい?",
       rule: { text: "Drop the final い and add くない: おいしい → おいしくない." },
       surface: { text: "Add くない to the whole word without changing anything." },
@@ -771,8 +756,8 @@ export const M8_2_2: LessonContent = {
     }),
     speaking(
       "ja-m8-2-2-speak-warukun",
-      "それは わるくないです",
-      "That isn't bad.",
+      "あの ホテルは わるくないです",
+      "That hotel (over there) isn't bad.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-2-2-rev-mcq-1", M8_2_2_REVIEW[0], M8_REVIEW_POOL),
@@ -806,7 +791,7 @@ assertNoConsecutiveSame(M8_2_2.steps);
 //   (あつい, さむい, つめたい, あたたかい + と particle)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_3_1_REVIEW = pickReviewAtoms("ja-m8-3-1-rev", M8_REVIEW_POOL, 4);
+const M8_3_1_REVIEW = pickReviewAtoms("ja-m8-3-1-rev", M8_REVIEW_POOL, 6);
 
 export const M8_3_1: LessonContent = {
   id: "ja-m8-3-1",
@@ -830,7 +815,7 @@ export const M8_3_1: LessonContent = {
       "ja-m8-3-1-build-atsui",
       "Pick the Japanese word for: Hot",
       "あつい",
-      ["あつい", "さむい", "つめたい", "あたたかい"],
+      ["あたたかい", "さむい", "つめたい", "あつい"],
       ["あつい"],
     ),
     listeningCompSentence({
@@ -844,7 +829,7 @@ export const M8_3_1: LessonContent = {
       "ja-m8-3-1-build-samui",
       "Pick the Japanese word for: Cold (weather)",
       "さむい",
-      ["さむい", "あつい", "つめたい", "やすい"],
+      ["あつい", "さむい", "つめたい", "やすい"],
       ["さむい"],
     ),
     vocabMcq(
@@ -857,7 +842,7 @@ export const M8_3_1: LessonContent = {
       "ja-m8-3-1-build-tsumetai",
       "Pick the Japanese word for: Cold (to touch)",
       "つめたい",
-      ["つめたい", "さむい", "あたたかい", "ちいさい"],
+      ["さむい", "あたたかい", "ちいさい", "つめたい"],
       ["つめたい"],
     ),
     speaking("ja-m8-3-1-speak-tsumetai", "つめたい", "Cold (to touch)"),
@@ -866,7 +851,7 @@ export const M8_3_1: LessonContent = {
       "ja-m8-3-1-build-atatakai",
       "Pick the Japanese word for: Warm",
       "あたたかい",
-      ["あたたかい", "あつい", "つめたい", "さむい"],
+      ["あつい", "さむい", "つめたい", "あたたかい"],
       ["あたたかい"],
     ),
     listeningCompSentence({
@@ -890,7 +875,7 @@ export const M8_3_1: LessonContent = {
       "ja-m8-3-1-build-to-hon",
       "Say: There's a book and a pen.",
       "ほんと ペンが あります",
-      ["ほん", "と", "ペン", "が", "あります", "は", "の"],
+      ["と", "は", "ほん", "の", "が", "ペン", "あります"],
       ["ほん", "と", "ペン", "が", "あります"],
     ),
     sentenceMcq({
@@ -907,7 +892,7 @@ export const M8_3_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m8-3-1-lb-tsumetai",
       target: "この みずは つめたいです",
-      tiles: ["この", "みず", "は", "つめたい", "です", "あつい", "あたたかい"],
+      tiles: ["です", "つめたい", "この", "あつい", "あたたかい", "みず", "は"],
       correctOrder: ["この", "みず", "は", "つめたい", "です"],
       promptEn: "Hear it, build it: 'This water is cold (to touch).'",
     }),
@@ -924,8 +909,8 @@ export const M8_3_1: LessonContent = {
     }),
     speaking(
       "ja-m8-3-1-speak-atsui",
-      "この コーヒーは あついです",
-      "This coffee is hot.",
+      "この おちゃは あついです",
+      "This tea is hot.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-3-1-rev-mcq-1", M8_3_1_REVIEW[0], M8_REVIEW_POOL),
@@ -959,7 +944,7 @@ assertNoConsecutiveSame(M8_3_1.steps);
 //   (と connector drill + adj review)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_3_2_REVIEW = pickReviewAtoms("ja-m8-3-2-rev", M8_REVIEW_POOL, 4);
+const M8_3_2_REVIEW = pickReviewAtoms("ja-m8-3-2-rev", M8_REVIEW_POOL, 6);
 
 export const M8_3_2: LessonContent = {
   id: "ja-m8-3-2",
@@ -981,7 +966,7 @@ export const M8_3_2: LessonContent = {
       "ja-m8-3-2-build-to-sushi",
       "Say: Sushi and ramen, please.",
       "すしと ラーメンを ください",
-      ["すし", "と", "ラーメン", "を", "ください", "パン", "は"],
+      ["パン", "ください", "ラーメン", "は", "と", "を", "すし"],
       ["すし", "と", "ラーメン", "を", "ください"],
     ),
     cloze(
@@ -1019,30 +1004,27 @@ export const M8_3_2: LessonContent = {
       "ja-m8-3-2-build-samukunai",
       "Say: Today isn't cold.",
       "きょうは さむくないです",
-      ["きょう", "は", "さむくない", "です", "さむい", "あつい"],
+      ["あつい", "です", "きょう", "さむい", "さむくない", "は"],
       ["きょう", "は", "さむくない", "です"],
     ),
-    cloze(
-      "ja-m8-3-2-cloze-ha",
-      "この みず",
-      " つめたいです。",
-      "は",
-      ["は", "と", "が", "を"],
-      "This water is cold (to touch).",
-      "この みずは つめたいです。",
-      "は marks the topic.",
+    build(
+      "ja-m8-3-2-build-umi-tsumetai",
+      "Say: The sea's water is cold (to touch).",
+      "うみの みずは つめたいです",
+      ["みず", "つめたい", "うみ", "は", "の", "です", "あつい"],
+      ["うみ", "の", "みず", "は", "つめたい", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m8-3-2-lb-atsui",
       target: "この ラーメンは あついです",
-      tiles: ["この", "ラーメン", "は", "あつい", "です", "つめたい", "おいしい"],
+      tiles: ["おいしい", "です", "この", "ラーメン", "は", "つめたい", "あつい"],
       correctOrder: ["この", "ラーメン", "は", "あつい", "です"],
       promptEn: "Hear it, build it: 'This ramen is hot.'",
     }),
     speaking(
       "ja-m8-3-2-speak-atatakai",
-      "この おちゃは あたたかいです",
-      "This tea is warm.",
+      "きょうは あたたかいです",
+      "Today is warm.",
     ),
     sentenceMcq({
       id: "ja-m8-3-2-mcq-tsumetakunai",
@@ -1059,7 +1041,7 @@ export const M8_3_2: LessonContent = {
       "ja-m8-3-2-build-to-juice",
       "Say: Coffee and juice.",
       "コーヒーと ジュース",
-      ["コーヒー", "と", "ジュース", "みず", "おちゃ", "は"],
+      ["おちゃ", "は", "ジュース", "コーヒー", "と", "みず"],
       ["コーヒー", "と", "ジュース"],
     ),
     cloze(
@@ -1095,8 +1077,8 @@ export const M8_3_2: LessonContent = {
     }),
     speaking(
       "ja-m8-3-2-speak-to",
-      "コーヒーと パンを ください",
-      "Coffee and bread, please.",
+      "ぎゅうにゅうと パンを ください",
+      "Milk and bread, please.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-3-2-rev-mcq-1", M8_3_2_REVIEW[0], M8_REVIEW_POOL),
@@ -1130,7 +1112,7 @@ assertNoConsecutiveSame(M8_3_2.steps);
 //   (ながい, みじかい, おもしろい, つまらない)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_4_1_REVIEW = pickReviewAtoms("ja-m8-4-1-rev", M8_REVIEW_POOL, 4);
+const M8_4_1_REVIEW = pickReviewAtoms("ja-m8-4-1-rev", M8_REVIEW_POOL, 6);
 
 export const M8_4_1: LessonContent = {
   id: "ja-m8-4-1",
@@ -1153,7 +1135,7 @@ export const M8_4_1: LessonContent = {
       "ja-m8-4-1-build-nagai",
       "Pick the Japanese word for: Long",
       "ながい",
-      ["ながい", "みじかい", "おもしろい", "つまらない"],
+      ["みじかい", "おもしろい", "ながい", "つまらない"],
       ["ながい"],
     ),
     listeningCompSentence({
@@ -1167,7 +1149,7 @@ export const M8_4_1: LessonContent = {
       "ja-m8-4-1-build-mijikai",
       "Pick the Japanese word for: Short",
       "みじかい",
-      ["みじかい", "ながい", "ちいさい", "おそい"],
+      ["ながい", "ちいさい", "みじかい", "おそい"],
       ["みじかい"],
     ),
     vocabMcq(
@@ -1180,7 +1162,7 @@ export const M8_4_1: LessonContent = {
       "ja-m8-4-1-build-omoshiroi",
       "Pick the Japanese word for: Interesting",
       "おもしろい",
-      ["おもしろい", "つまらない", "ながい", "いい"],
+      ["いい", "ながい", "おもしろい", "つまらない"],
       ["おもしろい"],
     ),
     speaking("ja-m8-4-1-speak-omoshiroi", "おもしろい", "Interesting"),
@@ -1189,7 +1171,7 @@ export const M8_4_1: LessonContent = {
       "ja-m8-4-1-build-tsumaranai",
       "Pick the Japanese word for: Boring",
       "つまらない",
-      ["つまらない", "おもしろい", "みじかい", "まずい"],
+      ["おもしろい", "まずい", "みじかい", "つまらない"],
       ["つまらない"],
     ),
     listeningCompSentence({
@@ -1203,7 +1185,7 @@ export const M8_4_1: LessonContent = {
       "ja-m8-4-1-build-kono-nagai",
       "Say: This movie is long.",
       "この えいがは ながいです",
-      ["この", "えいが", "は", "ながい", "です", "みじかい", "その"],
+      ["です", "その", "は", "えいが", "ながい", "みじかい", "この"],
       ["この", "えいが", "は", "ながい", "です"],
     ),
     sentenceMcq({
@@ -1217,15 +1199,10 @@ export const M8_4_1: LessonContent = {
       ],
       explanation: "その = that. おもしろい = interesting.",
     }),
-    cloze(
-      "ja-m8-4-1-cloze-ha",
-      "あの えいが",
-      " つまらないです。",
-      "は",
-      ["は", "が", "を", "と"],
-      "That movie (over there) is boring.",
-      "あの えいがは つまらないです。",
-      "は marks the topic.",
+    speaking(
+      "ja-m8-4-1-speak-mijikai-eiga",
+      "その えいがは みじかいです",
+      "That movie is short.",
     ),
     listeningCompSentence({
       id: "ja-m8-4-1-lc-mijikai-sentence",
@@ -1240,7 +1217,7 @@ export const M8_4_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m8-4-1-lb-omoshiroi",
       target: "この ほんは おもしろいです",
-      tiles: ["この", "ほん", "は", "おもしろい", "です", "つまらない", "ながい"],
+      tiles: ["おもしろい", "ほん", "です", "つまらない", "は", "この", "ながい"],
       correctOrder: ["この", "ほん", "は", "おもしろい", "です"],
       promptEn: "Hear it, build it: 'This book is interesting.'",
     }),
@@ -1292,7 +1269,7 @@ assertNoConsecutiveSame(M8_4_1.steps);
 //   (mixed adj + この/その drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_4_2_REVIEW = pickReviewAtoms("ja-m8-4-2-rev", M8_REVIEW_POOL, 4);
+const M8_4_2_REVIEW = pickReviewAtoms("ja-m8-4-2-rev", M8_REVIEW_POOL, 6);
 
 export const M8_4_2: LessonContent = {
   id: "ja-m8-4-2",
@@ -1325,7 +1302,7 @@ export const M8_4_2: LessonContent = {
       "ja-m8-4-2-build-omoshiroku",
       "Say: That book isn't interesting.",
       "その ほんは おもしろくないです",
-      ["その", "ほん", "は", "おもしろくない", "です", "おもしろい", "この"],
+      ["おもしろい", "ほん", "おもしろくない", "その", "は", "です", "この"],
       ["その", "ほん", "は", "おもしろくない", "です"],
     ),
     listeningCompSentence({
@@ -1352,15 +1329,15 @@ export const M8_4_2: LessonContent = {
       "ja-m8-4-2-build-takai-hotel",
       "Say: That hotel is expensive.",
       "あの ホテルは たかいです",
-      ["あの", "ホテル", "は", "たかい", "です", "やすい", "この"],
+      ["この", "あの", "やすい", "たかい", "は", "です", "ホテル"],
       ["あの", "ホテル", "は", "たかい", "です"],
     ),
     listeningBuildSentence({
-      id: "ja-m8-4-2-lb-mijikai-shinbun",
-      target: "この しんぶんは みじかいです",
-      tiles: ["この", "しんぶん", "は", "みじかい", "です", "ながい", "その"],
-      correctOrder: ["この", "しんぶん", "は", "みじかい", "です"],
-      promptEn: "Hear it, build it: 'This newspaper is short.'",
+      id: "ja-m8-4-2-lb-mijikai-tegami",
+      target: "ともだちの てがみは みじかいです",
+      tiles: ["てがみ", "ともだち", "みじかい", "の", "は", "です", "ながい"],
+      correctOrder: ["ともだち", "の", "てがみ", "は", "みじかい", "です"],
+      promptEn: "Hear it, build it: 'My friend's letter is short.'",
     }),
     sentenceMcq({
       id: "ja-m8-4-2-mcq-tsumaranai-movie",
@@ -1384,36 +1361,33 @@ export const M8_4_2: LessonContent = {
       "と connects book AND newspaper.",
     ),
     listeningCompSentence({
-      id: "ja-m8-4-2-lc-yasui-pen",
-      audioText: "この ペンは やすいです",
-      correctMeaningEn: "This pen is cheap.",
+      id: "ja-m8-4-2-lc-yasui-tokei",
+      audioText: "あの とけいは やすいです",
+      correctMeaningEn: "That watch (over there) is cheap.",
       distractorsEn: [
-        "This pen is expensive.",
-        "That pen is cheap.",
-        "This pen is short.",
+        "That watch (over there) is expensive.",
+        "This watch is cheap.",
+        "That watch (over there) is small.",
       ],
     }),
     speaking(
       "ja-m8-4-2-speak-nagakunai",
-      "この えいがは ながくないです",
-      "This movie isn't long.",
+      "この ほんは ながくないです",
+      "This book isn't long.",
     ),
     build(
       "ja-m8-4-2-build-dono-yasui",
       "Ask: Which camera is cheap?",
       "どの カメラが やすいですか",
-      ["どの", "カメラ", "が", "やすい", "です", "か", "は", "この"],
+      ["この", "やすい", "は", "か", "どの", "が", "カメラ", "です"],
       ["どの", "カメラ", "が", "やすい", "です", "か"],
     ),
-    cloze(
-      "ja-m8-4-2-cloze-ha-2",
-      "その しんぶん",
-      " ながいです。",
-      "は",
-      ["は", "が", "と", "の"],
-      "That newspaper is long.",
-      "その しんぶんは ながいです。",
-      "は marks the topic.",
+    build(
+      "ja-m8-4-2-build-toshokan-hon",
+      "Say: The library's books are interesting.",
+      "としょかんの ほんは おもしろいです",
+      ["つまらない", "としょかん", "は", "の", "ほん", "おもしろい", "です"],
+      ["としょかん", "の", "ほん", "は", "おもしろい", "です"],
     ),
     selfExplain({
       id: "ja-m8-4-2-self-explain",
@@ -1428,8 +1402,8 @@ export const M8_4_2: LessonContent = {
     }),
     speaking(
       "ja-m8-4-2-speak-omoshiroi",
-      "この ほんは おもしろいです",
-      "This book is interesting.",
+      "その しんぶんは おもしろいです",
+      "That newspaper is interesting.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-4-2-rev-mcq-1", M8_4_2_REVIEW[0], M8_REVIEW_POOL),
@@ -1463,7 +1437,7 @@ assertNoConsecutiveSame(M8_4_2.steps);
 //   (むずかしい, やさしい, はやい, おそい)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_5_1_REVIEW = pickReviewAtoms("ja-m8-5-1-rev", M8_REVIEW_POOL, 4);
+const M8_5_1_REVIEW = pickReviewAtoms("ja-m8-5-1-rev", M8_REVIEW_POOL, 6);
 
 export const M8_5_1: LessonContent = {
   id: "ja-m8-5-1",
@@ -1486,7 +1460,7 @@ export const M8_5_1: LessonContent = {
       "ja-m8-5-1-build-muzukashii",
       "Pick the Japanese word for: Difficult",
       "むずかしい",
-      ["むずかしい", "やさしい", "はやい", "おそい"],
+      ["やさしい", "はやい", "おそい", "むずかしい"],
       ["むずかしい"],
     ),
     listeningCompSentence({
@@ -1500,7 +1474,7 @@ export const M8_5_1: LessonContent = {
       "ja-m8-5-1-build-yasashii",
       "Pick the Japanese word for: Easy / Kind",
       "やさしい",
-      ["やさしい", "むずかしい", "やすい", "いい"],
+      ["むずかしい", "やすい", "いい", "やさしい"],
       ["やさしい"],
     ),
     vocabMcq(
@@ -1513,7 +1487,7 @@ export const M8_5_1: LessonContent = {
       "ja-m8-5-1-build-hayai",
       "Pick the Japanese word for: Fast / Early",
       "はやい",
-      ["はやい", "おそい", "ながい", "みじかい"],
+      ["みじかい", "ながい", "おそい", "はやい"],
       ["はやい"],
     ),
     speaking("ja-m8-5-1-speak-hayai", "はやい", "Fast / Early"),
@@ -1522,7 +1496,7 @@ export const M8_5_1: LessonContent = {
       "ja-m8-5-1-build-osoi",
       "Pick the Japanese word for: Slow / Late",
       "おそい",
-      ["おそい", "はやい", "おおきい", "ふるい"],
+      ["はやい", "おおきい", "おそい", "ふるい"],
       ["おそい"],
     ),
     listeningCompSentence({
@@ -1536,7 +1510,7 @@ export const M8_5_1: LessonContent = {
       "ja-m8-5-1-build-kono-test",
       "Say: This test is difficult.",
       "この テストは むずかしいです",
-      ["この", "テスト", "は", "むずかしい", "です", "やさしい", "その"],
+      ["は", "テスト", "むずかしい", "その", "やさしい", "です", "この"],
       ["この", "テスト", "は", "むずかしい", "です"],
     ),
     sentenceMcq({
@@ -1550,15 +1524,12 @@ export const M8_5_1: LessonContent = {
       ],
       explanation: "やさしい can mean 'easy' or 'kind' depending on context. For a person, it's 'kind.'",
     }),
-    cloze(
-      "ja-m8-5-1-cloze-ha",
-      "この でんしゃ",
-      " はやいです。",
-      "は",
-      ["は", "が", "を", "の"],
-      "This train is fast.",
-      "この でんしゃは はやいです。",
-      "は marks the topic.",
+    build(
+      "ja-m8-5-1-build-nihon-densha",
+      "Say: Japanese trains are fast.",
+      "にほんの でんしゃは はやいです",
+      ["はやい", "おそい", "にほん", "の", "でんしゃ", "です", "は"],
+      ["にほん", "の", "でんしゃ", "は", "はやい", "です"],
     ),
     listeningCompSentence({
       id: "ja-m8-5-1-lc-osoi-bus",
@@ -1572,10 +1543,10 @@ export const M8_5_1: LessonContent = {
     }),
     listeningBuildSentence({
       id: "ja-m8-5-1-lb-muzukashii",
-      target: "この テストは むずかしいです",
-      tiles: ["この", "テスト", "は", "むずかしい", "です", "やさしい", "その"],
-      correctOrder: ["この", "テスト", "は", "むずかしい", "です"],
-      promptEn: "Hear it, build it: 'This test is difficult.'",
+      target: "この じしょは むずかしいです",
+      tiles: ["むずかしい", "この", "じしょ", "です", "は", "やさしい", "その"],
+      correctOrder: ["この", "じしょ", "は", "むずかしい", "です"],
+      promptEn: "Hear it, build it: 'This dictionary is difficult.'",
     }),
     selfExplain({
       id: "ja-m8-5-1-self-explain",
@@ -1590,8 +1561,8 @@ export const M8_5_1: LessonContent = {
     }),
     speaking(
       "ja-m8-5-1-speak-muzukashii",
-      "この テストは むずかしいです",
-      "This test is difficult.",
+      "その ほんは むずかしいです",
+      "That book is difficult.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-5-1-rev-mcq-1", M8_5_1_REVIEW[0], M8_REVIEW_POOL),
@@ -1625,7 +1596,7 @@ assertNoConsecutiveSame(M8_5_1.steps);
 //   (interleaved adj negative + と)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_5_2_REVIEW = pickReviewAtoms("ja-m8-5-2-rev", M8_REVIEW_POOL, 4);
+const M8_5_2_REVIEW = pickReviewAtoms("ja-m8-5-2-rev", M8_REVIEW_POOL, 6);
 
 export const M8_5_2: LessonContent = {
   id: "ja-m8-5-2",
@@ -1658,7 +1629,7 @@ export const M8_5_2: LessonContent = {
       "ja-m8-5-2-build-hayakunai",
       "Say: This train isn't fast.",
       "この でんしゃは はやくないです",
-      ["この", "でんしゃ", "は", "はやくない", "です", "はやい", "おそい"],
+      ["はやくない", "です", "でんしゃ", "おそい", "はやい", "この", "は"],
       ["この", "でんしゃ", "は", "はやくない", "です"],
     ),
     listeningCompSentence({
@@ -1685,26 +1656,23 @@ export const M8_5_2: LessonContent = {
       "ja-m8-5-2-build-yasashikunai",
       "Say: This test isn't easy.",
       "この テストは やさしくないです",
-      ["この", "テスト", "は", "やさしくない", "です", "むずかしい", "やさしい"],
+      ["やさしい", "この", "です", "は", "テスト", "むずかしい", "やさしくない"],
       ["この", "テスト", "は", "やさしくない", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m8-5-2-lb-hayai-densha",
       target: "あの でんしゃは はやいです",
-      tiles: ["あの", "でんしゃ", "は", "はやい", "です", "おそい", "この"],
+      tiles: ["おそい", "あの", "です", "はやい", "でんしゃ", "この", "は"],
       correctOrder: ["あの", "でんしゃ", "は", "はやい", "です"],
       promptEn: "Hear it, build it: 'That train (over there) is fast.'",
     }),
-    cloze(
-      "ja-m8-5-2-cloze-ha",
-      "あの バス",
-      " おそいです。",
-      "は",
-      ["は", "と", "が", "を"],
-      "That bus (over there) is slow.",
-      "あの バスは おそいです。",
-      "は marks the topic.",
-    ),
+    listeningBuildSentence({
+      id: "ja-m8-5-2-lb-osoi-bus",
+      target: "あの バスは おそいです",
+      tiles: ["です", "バス", "はやい", "おそい", "あの", "は", "この"],
+      correctOrder: ["あの", "バス", "は", "おそい", "です"],
+      promptEn: "Hear it, build it: 'That bus (over there) is slow.'",
+    }),
     sentenceMcq({
       id: "ja-m8-5-2-mcq-yasashii-test",
       prompt: "Which sentence means 'Which test is easy?'",
@@ -1718,14 +1686,14 @@ export const M8_5_2: LessonContent = {
     }),
     speaking(
       "ja-m8-5-2-speak-hayakunai",
-      "この でんしゃは はやくないです",
-      "This train isn't fast.",
+      "この バスは はやくないです",
+      "This bus isn't fast.",
     ),
     build(
       "ja-m8-5-2-build-to-coffee",
       "Say: Coffee and tea, please.",
       "コーヒーと おちゃを ください",
-      ["コーヒー", "と", "おちゃ", "を", "ください", "みず", "は"],
+      ["は", "コーヒー", "おちゃ", "と", "ください", "を", "みず"],
       ["コーヒー", "と", "おちゃ", "を", "ください"],
     ),
     listeningCompSentence({
@@ -1738,16 +1706,17 @@ export const M8_5_2: LessonContent = {
         "That book (over there) is interesting.",
       ],
     }),
-    cloze(
-      "ja-m8-5-2-cloze-no",
-      "せんせい",
-      " テストは むずかしいです。",
-      "の",
-      ["の", "は", "と", "が"],
-      "The teacher's test is difficult.",
-      "せんせいの テストは むずかしいです。",
-      "の marks possession — the teacher's test.",
-    ),
+    sentenceMcq({
+      id: "ja-m8-5-2-mcq-sensei-test",
+      prompt: "Which sentence means 'The teacher's test is difficult.'?",
+      correctKana: "せんせいの テストは むずかしいです。",
+      distractorsKana: [
+        "せんせいは テストは むずかしいです。",
+        "せんせいの テストは やさしいです。",
+        "がくせいの テストは むずかしいです。",
+      ],
+      explanation: "の marks possession — the teacher's test. むずかしい = difficult.",
+    }),
     selfExplain({
       id: "ja-m8-5-2-self-explain",
       anchorLabel: "むずかしい → むずかしくない, はやい → はやくない",
@@ -1761,8 +1730,8 @@ export const M8_5_2: LessonContent = {
     }),
     speaking(
       "ja-m8-5-2-speak-yasashii",
-      "その せんせいは やさしいです",
-      "That teacher is kind.",
+      "わたしの せんせいは やさしいです",
+      "My teacher is kind.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-5-2-rev-mcq-1", M8_5_2_REVIEW[0], M8_REVIEW_POOL),
@@ -1796,7 +1765,7 @@ assertNoConsecutiveSame(M8_5_2.steps);
 //   (ちかい, とおい, ひろい, せまい)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_6_1_REVIEW = pickReviewAtoms("ja-m8-6-1-rev", M8_REVIEW_POOL, 4);
+const M8_6_1_REVIEW = pickReviewAtoms("ja-m8-6-1-rev", M8_REVIEW_POOL, 6);
 
 export const M8_6_1: LessonContent = {
   id: "ja-m8-6-1",
@@ -1819,7 +1788,7 @@ export const M8_6_1: LessonContent = {
       "ja-m8-6-1-build-chikai",
       "Pick the Japanese word for: Near",
       "ちかい",
-      ["ちかい", "とおい", "ひろい", "せまい"],
+      ["とおい", "ひろい", "ちかい", "せまい"],
       ["ちかい"],
     ),
     listeningCompSentence({
@@ -1833,7 +1802,7 @@ export const M8_6_1: LessonContent = {
       "ja-m8-6-1-build-tooi",
       "Pick the Japanese word for: Far",
       "とおい",
-      ["とおい", "ちかい", "ながい", "おおきい"],
+      ["ながい", "おおきい", "とおい", "ちかい"],
       ["とおい"],
     ),
     vocabMcq(
@@ -1846,7 +1815,7 @@ export const M8_6_1: LessonContent = {
       "ja-m8-6-1-build-hiroi",
       "Pick the Japanese word for: Wide / Spacious",
       "ひろい",
-      ["ひろい", "せまい", "おおきい", "ながい"],
+      ["おおきい", "ひろい", "せまい", "ながい"],
       ["ひろい"],
     ),
     speaking("ja-m8-6-1-speak-hiroi", "ひろい", "Wide / Spacious"),
@@ -1855,7 +1824,7 @@ export const M8_6_1: LessonContent = {
       "ja-m8-6-1-build-semai",
       "Pick the Japanese word for: Narrow / Cramped",
       "せまい",
-      ["せまい", "ひろい", "ちいさい", "みじかい"],
+      ["ひろい", "みじかい", "せまい", "ちいさい"],
       ["せまい"],
     ),
     listeningCompSentence({
@@ -1869,7 +1838,7 @@ export const M8_6_1: LessonContent = {
       "ja-m8-6-1-build-kono-eki",
       "Say: This station is near.",
       "この えきは ちかいです",
-      ["この", "えき", "は", "ちかい", "です", "とおい", "その"],
+      ["えき", "その", "ちかい", "は", "この", "です", "とおい"],
       ["この", "えき", "は", "ちかい", "です"],
     ),
     sentenceMcq({
@@ -1883,15 +1852,12 @@ export const M8_6_1: LessonContent = {
       ],
       explanation: "とおい = far. その = that (near listener).",
     }),
-    cloze(
-      "ja-m8-6-1-cloze-ha",
-      "この へや",
-      " ひろいです。",
-      "は",
-      ["は", "が", "を", "と"],
-      "This room is spacious.",
-      "この へやは ひろいです。",
-      "は marks the topic.",
+    build(
+      "ja-m8-6-1-build-gakkou-hiroi",
+      "Say: That school is spacious.",
+      "あの がっこうは ひろいです",
+      ["がっこう", "は", "この", "あの", "ひろい", "せまい", "です"],
+      ["あの", "がっこう", "は", "ひろい", "です"],
     ),
     listeningCompSentence({
       id: "ja-m8-6-1-lc-semai-heya",
@@ -1906,7 +1872,7 @@ export const M8_6_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m8-6-1-lb-chikai",
       target: "コンビニは ちかいです",
-      tiles: ["コンビニ", "は", "ちかい", "です", "とおい", "この", "えき"],
+      tiles: ["は", "です", "ちかい", "とおい", "この", "えき", "コンビニ"],
       correctOrder: ["コンビニ", "は", "ちかい", "です"],
       promptEn: "Hear it, build it: 'The convenience store is near.'",
     }),
@@ -1923,8 +1889,8 @@ export const M8_6_1: LessonContent = {
     }),
     speaking(
       "ja-m8-6-1-speak-tooi",
-      "その がっこうは とおいです",
-      "That school is far.",
+      "あの やまは とおいです",
+      "That mountain (over there) is far.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-6-1-rev-mcq-1", M8_6_1_REVIEW[0], M8_REVIEW_POOL),
@@ -1958,7 +1924,7 @@ assertNoConsecutiveSame(M8_6_1.steps);
 //   (full adj system drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_6_2_REVIEW = pickReviewAtoms("ja-m8-6-2-rev", M8_REVIEW_POOL, 4);
+const M8_6_2_REVIEW = pickReviewAtoms("ja-m8-6-2-rev", M8_REVIEW_POOL, 6);
 
 export const M8_6_2: LessonContent = {
   id: "ja-m8-6-2",
@@ -1991,7 +1957,7 @@ export const M8_6_2: LessonContent = {
       "ja-m8-6-2-build-tookunai",
       "Say: The school isn't far.",
       "がっこうは とおくないです",
-      ["がっこう", "は", "とおくない", "です", "とおい", "ちかい"],
+      ["は", "がっこう", "です", "とおい", "とおくない", "ちかい"],
       ["がっこう", "は", "とおくない", "です"],
     ),
     listeningCompSentence({
@@ -2004,29 +1970,24 @@ export const M8_6_2: LessonContent = {
         "This park is near.",
       ],
     }),
-    cloze(
-      "ja-m8-6-2-cloze-ha-1",
-      "あの みせ",
-      " せまいです。",
-      "は",
-      ["は", "が", "を", "と"],
+    speaking(
+      "ja-m8-6-2-speak-semai-mise",
+      "あの みせは せまいです",
       "That shop (over there) is cramped.",
-      "あの みせは せまいです。",
-      "は marks the topic.",
     ),
     build(
       "ja-m8-6-2-build-hirokunai",
       "Say: This room isn't spacious.",
       "この へやは ひろくないです",
-      ["この", "へや", "は", "ひろくない", "です", "ひろい", "せまい"],
+      ["せまい", "この", "は", "ひろい", "です", "ひろくない", "へや"],
       ["この", "へや", "は", "ひろくない", "です"],
     ),
     listeningBuildSentence({
-      id: "ja-m8-6-2-lb-semai-heya",
-      target: "あの へやは せまいです",
-      tiles: ["あの", "へや", "は", "せまい", "です", "ひろい", "この"],
-      correctOrder: ["あの", "へや", "は", "せまい", "です"],
-      promptEn: "Hear it, build it: 'That room (over there) is cramped.'",
+      id: "ja-m8-6-2-lb-semai-ie",
+      target: "この いえは せまいです",
+      tiles: ["です", "ひろい", "せまい", "は", "あの", "この", "いえ"],
+      correctOrder: ["この", "いえ", "は", "せまい", "です"],
+      promptEn: "Hear it, build it: 'This house is cramped.'",
     }),
     sentenceMcq({
       id: "ja-m8-6-2-mcq-dono-chikai",
@@ -2068,18 +2029,15 @@ export const M8_6_2: LessonContent = {
       "ja-m8-6-2-build-dono-hiroi",
       "Ask: Which room is spacious?",
       "どの へやが ひろいですか",
-      ["どの", "へや", "が", "ひろい", "です", "か", "この", "は"],
+      ["です", "は", "へや", "が", "か", "どの", "この", "ひろい"],
       ["どの", "へや", "が", "ひろい", "です", "か"],
     ),
-    cloze(
-      "ja-m8-6-2-cloze-ha-2",
-      "この まち",
-      " ひろいです。",
-      "は",
-      ["は", "が", "と", "の"],
-      "This town is spacious.",
-      "この まちは ひろいです。",
-      "は marks the topic — this town.",
+    build(
+      "ja-m8-6-2-build-eki-semai",
+      "Say: The station's toilet is cramped.",
+      "えきの トイレは せまいです",
+      ["の", "は", "せまい", "です", "えき", "トイレ", "ひろい"],
+      ["えき", "の", "トイレ", "は", "せまい", "です"],
     ),
     selfExplain({
       id: "ja-m8-6-2-self-explain",
@@ -2094,8 +2052,8 @@ export const M8_6_2: LessonContent = {
     }),
     speaking(
       "ja-m8-6-2-speak-chikai",
-      "この えきは ちかいです",
-      "This station is near.",
+      "ぎんこうは ちかいです",
+      "The bank is near.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-6-2-rev-mcq-1", M8_6_2_REVIEW[0], M8_REVIEW_POOL),
@@ -2125,6 +2083,357 @@ assertAnswerRotation(M8_6_2.steps, 2);
 assertNoConsecutiveSame(M8_6_2.steps);
 
 // ═══════════════════════════════════════════════════════════════════════
+// M8-8-1 / M8-8-2 — "This way, please" (polite direction demonstratives)
+//
+// Backlog weave (2026-06-12): completes the こそあど paradigm with the
+// polite direction series こちら/そちら/あちら/どちら, plus どう(ですか)
+// — the natural question word for an adjectives module.
+//
+// ⚠️ EXPORTED BUT NOT REGISTERED. Registration (mockLessons.ts) + atom
+// registry updates (courseAtoms.ts: fromModule/introducedByLessonId for
+// kochira/sochira/achira/dochira/dou) are central changes — see the
+// reauthor report. Recommended position: between ja-m8-6-2 and ja-m8-story.
+// ═══════════════════════════════════════════════════════════════════════
+
+const RULE_KOCHIRA = grammarRule({
+  id: "ja-m8-rule-kochira",
+  title: "こちら / そちら / あちら / どちら — polite directions",
+  rule:
+    "The last こそあど set: こちら (this way, near me), そちら (that way, near you), あちら (over there, far from both), どちら (which way?). They're the polite cousins of ここ/そこ/あそこ/どこ — staff and strangers use them constantly.",
+  examples: [
+    {
+      ja: "トイレは こちらです。",
+      romaji: "toire wa kochira desu.",
+      en: "The bathroom is this way.",
+    },
+    {
+      ja: "えきは あちらです。",
+      romaji: "eki wa achira desu.",
+      en: "The station is over there.",
+    },
+    {
+      ja: "としょかんは どちらですか。",
+      romaji: "toshokan wa dochira desu ka.",
+      en: "Which way is the library?",
+    },
+  ],
+  antiPattern: {
+    ja: "こちら ほんは おもしろいです。",
+    romaji: "kochira hon wa omoshiroi desu.",
+    en: "(broken — こちら stands alone; before a noun use この)",
+    why: "こちら works like これ/ここ — it never attaches to a noun. 'This book' is この ほん.",
+  },
+  cultureNote:
+    "Shop staff greet you with こちらへ どうぞ ('this way, please'). どちら is also the extra-polite way to ask where someone is from: どちらからですか.",
+});
+
+const M8_8_1_REVIEW = pickReviewAtoms("ja-m8-8-1-rev", M8_REVIEW_POOL, 6);
+
+export const M8_8_1: LessonContent = {
+  id: "ja-m8-8-1",
+  moduleId: "m8",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "This way, please I",
+  description:
+    "The polite direction series こちら/そちら/あちら/どちら — pointing the way like shop staff do.",
+  estimatedMinutes: 9,
+  xpReward: 24,
+  steps: [
+    infoStep(
+      "ja-m8-8-1-info-open",
+      "Pointing the way, politely",
+      "You know この/その/あの for nouns and ここ/そこ/あそこ for places. The last set — こちら/そちら/あちら/どちら — points at directions, the polite way.",
+    ),
+    RULE_KOCHIRA,
+    // ── こちら (this way) ──
+    build(
+      "ja-m8-8-1-build-kochira",
+      "Pick the Japanese word for: This way (polite)",
+      "こちら",
+      ["そちら", "こちら", "あちら", "どちら"],
+      ["こちら"],
+    ),
+    listeningCompSentence({
+      id: "ja-m8-8-1-lc-kochira",
+      audioText: "トイレは こちらです",
+      correctMeaningEn: "The bathroom is this way.",
+      distractorsEn: [
+        "The bathroom is over there.",
+        "Which way is the bathroom?",
+        "The bathroom is that way (near you).",
+      ],
+    }),
+    // ── そちら (that way, near you) ──
+    build(
+      "ja-m8-8-1-build-sochira",
+      "Pick the Japanese word for: That way, near you (polite)",
+      "そちら",
+      ["あちら", "そちら", "どちら", "こちら"],
+      ["そちら"],
+    ),
+    speaking("ja-m8-8-1-speak-sochira", "そちら", "That way (near you)"),
+    // ── あちら (over there) ──
+    build(
+      "ja-m8-8-1-build-achira",
+      "Pick the Japanese word for: Over there (polite)",
+      "あちら",
+      ["こちら", "そちら", "あちら", "どちら"],
+      ["あちら"],
+    ),
+    listeningCompSentence({
+      id: "ja-m8-8-1-lc-achira",
+      audioText: "あちら",
+      correctMeaningEn: "over there (far from both — polite)",
+      distractorsEn: [
+        "this way (polite)",
+        "that way, near you (polite)",
+        "which way? (polite)",
+      ],
+    }),
+    // ── どちら (which way?) ──
+    build(
+      "ja-m8-8-1-build-dochira",
+      "Pick the Japanese word for: Which way? (polite)",
+      "どちら",
+      ["あちら", "こちら", "そちら", "どちら"],
+      ["どちら"],
+    ),
+    // ── Sentence drills ──
+    build(
+      "ja-m8-8-1-build-ginkou",
+      "Say: The bank is this way.",
+      "ぎんこうは こちらです",
+      ["こちら", "ぎんこう", "は", "です", "あちら", "そちら"],
+      ["ぎんこう", "は", "こちら", "です"],
+    ),
+    sentenceMcq({
+      id: "ja-m8-8-1-mcq-achira",
+      prompt: "Which sentence means 'The hospital is over there.'?",
+      correctKana: "びょういんは あちらです。",
+      distractorsKana: [
+        "びょういんは こちらです。",
+        "びょういんは そちらです。",
+        "えきは あちらです。",
+      ],
+      explanation: "あちら = over there, far from both speaker and listener.",
+    }),
+    build(
+      "ja-m8-8-1-build-toshokan",
+      "Ask: Which way is the library?",
+      "としょかんは どちらですか",
+      ["どちら", "としょかん", "は", "です", "か", "こちら"],
+      ["としょかん", "は", "どちら", "です", "か"],
+    ),
+    listeningBuildSentence({
+      id: "ja-m8-8-1-lb-sochira",
+      target: "えきは そちらです",
+      tiles: ["そちら", "えき", "は", "です", "あちら"],
+      correctOrder: ["えき", "は", "そちら", "です"],
+      promptEn: "Hear it, build it: 'The station is that way (near you).'",
+    }),
+    selfExplain({
+      id: "ja-m8-8-1-self-explain",
+      anchorLabel: "You used こちら in: ぎんこうは こちらです",
+      anchorAudioText: "ぎんこうは こちらです",
+      question: "How is こちら different from ここ?",
+      rule: {
+        text: "こちら is the polite version — it points at a direction or side, and is what you'd use with strangers or customers.",
+      },
+      surface: { text: "こちら is the casual version of ここ." },
+      distractor: { text: "こちら means 'far away'; ここ means 'near.'" },
+      ruleExplanation:
+        "こ/そ/あ/ど + ちら is the polite direction series. Staff and strangers say こちら/そちら/あちら where friends might say ここ/そこ/あそこ.",
+    }),
+    speaking(
+      "ja-m8-8-1-speak-dochira",
+      "トイレは どちらですか",
+      "Which way is the bathroom?",
+    ),
+    // ── Review tail ──
+    vocabMcq("ja-m8-8-1-rev-mcq-1", M8_8_1_REVIEW[0], M8_REVIEW_POOL),
+    listeningCompSentence({
+      id: "ja-m8-8-1-rev-lc-1",
+      audioText: M8_8_1_REVIEW[1].kana,
+      correctMeaningEn: M8_8_1_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M8_8_1_REVIEW[2].meaningEn,
+        M8_8_1_REVIEW[3].meaningEn,
+        M8_REVIEW_POOL[14].meaningEn,
+      ],
+    }),
+    speaking("ja-m8-8-1-rev-speak-1", M8_8_1_REVIEW[2].kana, M8_8_1_REVIEW[2].meaningEn),
+    reviewMatchPairs("ja-m8-8-1-rev", M8_8_1_REVIEW),
+    infoStep(
+      "ja-m8-8-1-info-end",
+      "You can now point the way like a local",
+      "こちら, そちら, あちら, どちら — the polite direction series, completing the こそあど system.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M8_8_1.steps);
+assertAnswerRotation(M8_8_1.steps, 1);
+assertNoConsecutiveSame(M8_8_1.steps);
+
+// ═══════════════════════════════════════════════════════════════════════
+// M8-8-2 — "This way, please" practice + どうですか
+// ═══════════════════════════════════════════════════════════════════════
+
+const RULE_DOU = grammarRule({
+  id: "ja-m8-rule-dou",
+  title: "どうですか — how is it?",
+  rule:
+    "どう asks 'how?'. [topic]は どうですか = 'How is [topic]?' — and the natural answer is one of your new adjectives: おいしいです, むずかしいです, いいです.",
+  examples: [
+    {
+      ja: "この ほんは どうですか。",
+      romaji: "kono hon wa dou desu ka.",
+      en: "How is this book?",
+    },
+    {
+      ja: "がっこうは どうですか。",
+      romaji: "gakkou wa dou desu ka.",
+      en: "How is school?",
+    },
+  ],
+  antiPattern: {
+    ja: "トイレは どうですか。",
+    romaji: "toire wa dou desu ka.",
+    en: "(odd when asking for directions — this asks 'how is the toilet?', not 'where is it?')",
+    why: "どう asks for a description. To ask the way, use どちら (or どこ): トイレは どちらですか.",
+  },
+});
+
+const M8_8_2_REVIEW = pickReviewAtoms("ja-m8-8-2-rev", M8_REVIEW_POOL, 6);
+
+export const M8_8_2: LessonContent = {
+  id: "ja-m8-8-2",
+  moduleId: "m8",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "This way, please II",
+  description:
+    "Drill the polite direction series, plus どうですか — the question your adjectives were made to answer.",
+  estimatedMinutes: 9,
+  xpReward: 24,
+  steps: [
+    infoStep(
+      "ja-m8-8-2-info-open",
+      "How is it?",
+      "Practice こちら/そちら/あちら/どちら — and meet どうですか, the 'how is it?' question that every adjective you've learned can answer.",
+    ),
+    RULE_DOU,
+    build(
+      "ja-m8-8-2-build-dou-hon",
+      "Ask: How is this book?",
+      "この ほんは どうですか",
+      ["どう", "この", "ほん", "は", "です", "か", "どちら"],
+      ["この", "ほん", "は", "どう", "です", "か"],
+    ),
+    sentenceMcq({
+      id: "ja-m8-8-2-mcq-dou-reply",
+      prompt: "Someone asks: この ラーメンは どうですか。 Which reply makes sense?",
+      correctKana: "おいしいです。",
+      distractorsKana: ["こちらです。", "ラーメンです。", "ください。"],
+      explanation:
+        "どうですか asks for a description, so you answer with an adjective.",
+    }),
+    listeningCompSentence({
+      id: "ja-m8-8-2-lc-dou-kamera",
+      audioText: "その カメラは どうですか",
+      correctMeaningEn: "How is that camera?",
+      distractorsEn: [
+        "Which way is that camera?",
+        "Which camera is good?",
+        "That camera is good.",
+      ],
+    }),
+    build(
+      "ja-m8-8-2-build-mise-achira",
+      "Say: The shop is over there.",
+      "みせは あちらです",
+      ["あちら", "みせ", "は", "です", "こちら", "どちら"],
+      ["みせ", "は", "あちら", "です"],
+    ),
+    speaking(
+      "ja-m8-8-2-speak-konbini",
+      "コンビニは どちらですか",
+      "Which way is the convenience store?",
+    ),
+    listeningBuildSentence({
+      id: "ja-m8-8-2-lb-hoteru",
+      target: "ホテルは そちらです",
+      tiles: ["そちら", "ホテル", "は", "です", "どちら"],
+      correctOrder: ["ホテル", "は", "そちら", "です"],
+      promptEn: "Hear it, build it: 'The hotel is that way (near you).'",
+    }),
+    sentenceMcq({
+      id: "ja-m8-8-2-mcq-dou-gakkou",
+      prompt: "Which question asks 'How is school?'",
+      correctKana: "がっこうは どうですか。",
+      distractorsKana: [
+        "がっこうは どちらですか。",
+        "がっこうは どこですか。",
+        "がっこうは いいですか。",
+      ],
+      explanation:
+        "どう = how. どちら = which way, どこ = where — different questions.",
+    }),
+    build(
+      "ja-m8-8-2-build-heya-kochira",
+      "Say: My friend's room is this way.",
+      "ともだちの へやは こちらです",
+      ["へや", "ともだち", "こちら", "の", "は", "です", "あちら"],
+      ["ともだち", "の", "へや", "は", "こちら", "です"],
+    ),
+    selfExplain({
+      id: "ja-m8-8-2-self-explain",
+      anchorLabel: "You asked: がっこうは どうですか",
+      anchorAudioText: "がっこうは どうですか",
+      question: "What kind of answer does どうですか expect?",
+      rule: {
+        text: "A description — usually an adjective sentence, like おもしろいです or むずかしいです.",
+      },
+      surface: { text: "A yes-or-no answer." },
+      distractor: { text: "A place name — どうですか asks where something is." },
+      ruleExplanation:
+        "どう asks 'how?', so the natural reply is an adjective. どちら asks 'which way?', どこ asks 'where?' — keep the three apart.",
+    }),
+    speaking(
+      "ja-m8-8-2-speak-dou",
+      "あの みせは どうですか",
+      "How is that shop (over there)?",
+    ),
+    // ── Review tail ──
+    vocabMcq("ja-m8-8-2-rev-mcq-1", M8_8_2_REVIEW[0], M8_REVIEW_POOL),
+    listeningCompSentence({
+      id: "ja-m8-8-2-rev-lc-1",
+      audioText: M8_8_2_REVIEW[1].kana,
+      correctMeaningEn: M8_8_2_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M8_8_2_REVIEW[2].meaningEn,
+        M8_8_2_REVIEW[3].meaningEn,
+        M8_REVIEW_POOL[15].meaningEn,
+      ],
+    }),
+    speaking("ja-m8-8-2-rev-speak-1", M8_8_2_REVIEW[2].kana, M8_8_2_REVIEW[2].meaningEn),
+    reviewMatchPairs("ja-m8-8-2-rev", M8_8_2_REVIEW),
+    infoStep(
+      "ja-m8-8-2-info-end",
+      "You can now ask how things are — and point the way",
+      "どうですか + every adjective you know, plus こちら/そちら/あちら/どちら in real directions.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M8_8_2.steps);
+assertAnswerRotation(M8_8_2.steps, 1);
+assertNoConsecutiveSame(M8_8_2.steps);
+
+// ═══════════════════════════════════════════════════════════════════════
 // M8-STORY — Shopping scene with adjectives
 // ═══════════════════════════════════════════════════════════════════════
 
@@ -2135,131 +2444,143 @@ export const M8_STORY: LessonContent = {
   languageId: LANG,
   title: "Story — Shopping for a camera",
   description:
-    "Listen to two friends compare items in a shop using adjectives and demonstratives.",
+    "Follow a narrated shopping trip — cameras and watches described with adjectives and demonstratives — and reply with your own sentences.",
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
     infoStep(
       "ja-m8-story-info-open",
       "Story time — Shopping",
-      "ゆき and たけし are in an electronics shop, looking at cameras and bags. Listen as they describe what they see.",
+      "Listen to a short story about a trip to a camera shop. Answer the questions between chunks, then reply to the shop staff yourself.",
     ),
-    dialogueListen({
-      id: "ja-m8-story-scene-1",
-      lines: [
-        { speaker: "ゆき", kana: "この カメラは たかいですね。" },
-        { speaker: "たけし", kana: "そうですね。でも、あの カメラは やすいですよ。" },
-        { speaker: "ゆき", kana: "あの カメラは いいですか。" },
-        { speaker: "たけし", kana: "はい、あの カメラは いいです。おおきくないですが、いいです。" },
+    ...storyComprehension({
+      idPrefix: "ja-m8-story-s1",
+      narrative: [
+        { kana: "きょう、ともだちと カメラの みせに いきます。" },
+        { kana: "その みせは ひろいです。" },
+        { kana: "みせに カメラと とけいが あります。" },
+        { kana: "あたらしい カメラは たかいです。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s1-q1",
-          prompt: "What does ゆき say about この カメラ?",
-          correctText: "It's expensive.",
-          distractors: ["It's cheap.", "It's good.", "It's big."],
-          explanation: "ゆき says この カメラは たかいですね = 'This camera is expensive, isn't it.'",
+          prompt: "Where does the narrator go today?",
+          correctText: "To a camera shop, with a friend.",
+          distractors: [
+            "To the station, with a friend.",
+            "To a camera shop, alone.",
+            "To the library, with a teacher.",
+          ],
+          explanation:
+            "ともだちと カメラの みせに いきます = 'I go to the camera shop with a friend.'",
         },
         {
           id: "s1-q2",
-          prompt: "What does たけし say about あの カメラ?",
-          correctText: "It's cheap and good, but not big.",
-          distractors: ["It's expensive but good.", "It's big and cheap.", "It's bad."],
-          explanation: "たけし says あの カメラ is やすい (cheap), いい (good), and おおきくない (not big).",
+          prompt: "What is in the shop?",
+          correctText: "Cameras and watches.",
+          distractors: [
+            "Cameras and bags.",
+            "Watches and pens.",
+            "Cameras and books.",
+          ],
+          explanation: "カメラと とけいが あります — と joins the two nouns.",
         },
       ],
+      responseBuild: {
+        target: "どの とけいが やすいですか",
+        tiles: ["とけい", "やすい", "どの", "です", "が", "か", "この"],
+        correctOrder: ["どの", "とけい", "が", "やすい", "です", "か"],
+        promptEn: "Ask the shop staff: 'Which watch is cheap?'",
+      },
     }),
-    build(
-      "ja-m8-story-build-takai",
-      "Say: This camera is expensive.",
-      "この カメラは たかいです",
-      ["この", "カメラ", "は", "たかい", "です", "やすい", "あの"],
-      ["この", "カメラ", "は", "たかい", "です"],
-    ),
     sentenceMcq({
-      id: "ja-m8-story-mcq-yasui",
-      prompt: "Which sentence means 'That camera (over there) is cheap.'?",
-      correctKana: "あの カメラは やすいです。",
+      id: "ja-m8-story-mcq-atarashii",
+      prompt: "How did the story describe the new cameras?",
+      correctKana: "あたらしい カメラは たかいです。",
       distractorsKana: [
-        "この カメラは やすいです。",
-        "あの カメラは たかいです。",
-        "その カメラは やすいです。",
+        "あたらしい カメラは やすいです。",
+        "ふるい カメラは たかいです。",
+        "あたらしい カメラは おおきいです。",
       ],
-      explanation: "あの = that (over there). やすい = cheap.",
     }),
-    dialogueListen({
-      id: "ja-m8-story-scene-2",
-      lines: [
-        { speaker: "ゆき", kana: "この かばんと あの かばん、どちらが いいですか。" },
-        { speaker: "たけし", kana: "この かばんは おおきいですが、あの かばんは ちいさいです。" },
-        { speaker: "ゆき", kana: "ちいさい かばんは やすいですか。" },
-        { speaker: "たけし", kana: "はい、やすいです。あたらしいですよ。" },
+    ...storyComprehension({
+      idPrefix: "ja-m8-story-s2",
+      narrative: [
+        { kana: "ふるい カメラは やすいです。" },
+        { kana: "ちいさい とけいも やすいです。" },
+        { kana: "その ちいさい とけいは あたらしいです。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s2-q1",
-          prompt: "What does たけし say about この かばん?",
-          correctText: "It's big.",
-          distractors: ["It's small.", "It's new.", "It's cheap."],
-          explanation: "たけし says この かばんは おおきいです = 'This bag is big.'",
+          prompt: "Are the old cameras expensive?",
+          correctText: "No — they're cheap.",
+          distractors: [
+            "Yes — they're expensive.",
+            "The story doesn't say.",
+            "They're sold out.",
+          ],
+          explanation: "ふるい カメラは やすいです = 'The old cameras are cheap.'",
         },
         {
           id: "s2-q2",
-          prompt: "Is the small bag cheap?",
-          correctText: "Yes, and it's new.",
-          distractors: ["No, it's expensive.", "Yes, but it's old.", "It isn't said."],
-          explanation: "たけし confirms はい、やすいです。あたらしいですよ = 'Yes, cheap. And it's new!'",
+          prompt: "What does the story say about the small watch?",
+          correctText: "It's cheap and new.",
+          distractors: [
+            "It's expensive but new.",
+            "It's cheap but old.",
+            "It's big and cheap.",
+          ],
+          explanation:
+            "ちいさい とけいも やすいです (cheap too) + あたらしいです (new).",
         },
       ],
+      responseBuild: {
+        target: "この とけいと あの カメラを ください",
+        tiles: ["と", "この", "カメラ", "とけい", "ください", "あの", "を", "その"],
+        correctOrder: ["この", "とけい", "と", "あの", "カメラ", "を", "ください"],
+        promptEn:
+          "Tell the staff what you want: 'This watch and that camera (over there), please.'",
+      },
     }),
     cloze(
       "ja-m8-story-cloze-to",
-      "この カメラ",
-      " あの かばんを ください。",
+      "みせに カメラ",
+      " とけいが あります。",
       "と",
       ["と", "は", "が", "の"],
-      "This camera and that bag, please.",
-      "この カメラと あの かばんを ください。",
-      "と connects the camera AND the bag.",
+      "There are cameras and watches in the shop.",
+      "みせに カメラと とけいが あります。",
+      "と joins the two nouns — cameras AND watches.",
     ),
     listeningBuildSentence({
-      id: "ja-m8-story-lb-chiisai",
-      target: "ちいさい かばんは やすいです",
-      tiles: ["ちいさい", "かばん", "は", "やすい", "です", "おおきい", "たかい"],
-      correctOrder: ["ちいさい", "かばん", "は", "やすい", "です"],
-      promptEn: "Hear it, build it: 'The small bag is cheap.'",
-    }),
-    listeningCompSentence({
-      id: "ja-m8-story-lc-ookikunai",
-      audioText: "あの カメラは おおきくないです",
-      correctMeaningEn: "That camera (over there) isn't big.",
-      distractorsEn: [
-        "That camera is big.",
-        "This camera isn't big.",
-        "That camera isn't expensive.",
-      ],
+      id: "ja-m8-story-lb-furui",
+      target: "ふるい カメラは やすいです",
+      tiles: ["カメラ", "ふるい", "やすい", "は", "です", "あたらしい", "たかい"],
+      correctOrder: ["ふるい", "カメラ", "は", "やすい", "です"],
+      promptEn: "Hear it, build it: 'The old cameras are cheap.'",
     }),
     speaking(
-      "ja-m8-story-speak-takai",
-      "この カメラは たかいです",
-      "This camera is expensive.",
+      "ja-m8-story-speak-mo",
+      "ちいさい とけいも やすいです",
+      "The small watches are cheap too.",
     ),
     sentenceMcq({
       id: "ja-m8-story-mcq-summary",
-      prompt: "In the story, which item did たけし describe as あたらしい?",
-      correctKana: "ちいさい かばん",
-      distractorsKana: ["おおきい かばん", "この カメラ", "あの カメラ"],
-      explanation: "たけし said the small bag is やすい and あたらしい (new).",
+      prompt: "In the story, which item was both cheap AND new?",
+      correctKana: "ちいさい とけい",
+      distractorsKana: ["ふるい カメラ", "あたらしい カメラ", "おおきい とけい"],
+      explanation: "The small watch was やすい (cheap) and あたらしい (new).",
     }),
     speaking(
-      "ja-m8-story-speak-yasui",
-      "あの カメラは やすいです",
-      "That camera (over there) is cheap.",
+      "ja-m8-story-speak-kudasai",
+      "この とけいと あの カメラを ください",
+      "This watch and that camera (over there), please.",
     ),
     infoStep(
       "ja-m8-story-info-end",
-      "You can now follow a shopping conversation using adjectives",
-      "You used たかい, やすい, おおきい, ちいさい, and あたらしい to compare items — plus この/あの and と in a real shopping scene.",
+      "You can now follow a narrated shopping trip",
+      "You understood a real story — old and new, cheap and expensive — and replied to the staff with your own questions and requests.",
       "win",
     ),
   ],
@@ -2275,7 +2596,7 @@ assertExplanationDoesntLeakAnswer(M8_STORY.steps);
 //   (all adj + この/その/あの/どの + と)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_7_1_REVIEW = pickReviewAtoms("ja-m8-7-1-rev", M8_REVIEW_POOL, 4);
+const M8_7_1_REVIEW = pickReviewAtoms("ja-m8-7-1-rev", M8_REVIEW_POOL, 6);
 
 export const M8_7_1: LessonContent = {
   id: "ja-m8-7-1",
@@ -2308,7 +2629,7 @@ export const M8_7_1: LessonContent = {
       "ja-m8-7-1-build-atarashii",
       "Say: That newspaper is new.",
       "その しんぶんは あたらしいです",
-      ["その", "しんぶん", "は", "あたらしい", "です", "ふるい", "この"],
+      ["しんぶん", "は", "です", "あたらしい", "ふるい", "その", "この"],
       ["その", "しんぶん", "は", "あたらしい", "です"],
     ),
     listeningCompSentence({
@@ -2335,13 +2656,13 @@ export const M8_7_1: LessonContent = {
       "ja-m8-7-1-build-yokunai-mise",
       "Say: That shop isn't good.",
       "その みせは よくないです",
-      ["その", "みせ", "は", "よくない", "です", "いい", "わるい"],
+      ["みせ", "は", "わるい", "よくない", "その", "です", "いい"],
       ["その", "みせ", "は", "よくない", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m8-7-1-lb-oishii-ramen",
       target: "この ラーメンは おいしいです",
-      tiles: ["この", "ラーメン", "は", "おいしい", "です", "まずい", "あつい"],
+      tiles: ["まずい", "あつい", "は", "おいしい", "です", "この", "ラーメン"],
       correctOrder: ["この", "ラーメン", "は", "おいしい", "です"],
       promptEn: "Hear it, build it: 'This ramen is delicious.'",
     }),
@@ -2385,19 +2706,20 @@ export const M8_7_1: LessonContent = {
       "ja-m8-7-1-build-semai-heya",
       "Say: This room is cramped.",
       "この へやは せまいです",
-      ["この", "へや", "は", "せまい", "です", "ひろい", "あの"],
+      ["あの", "ひろい", "この", "へや", "は", "です", "せまい"],
       ["この", "へや", "は", "せまい", "です"],
     ),
-    cloze(
-      "ja-m8-7-1-cloze-no",
-      "せんせい",
-      " テストは やさしいです。",
-      "の",
-      ["の", "は", "が", "と"],
-      "The teacher's test is easy.",
-      "せんせいの テストは やさしいです。",
-      "の marks possession — the teacher's test.",
-    ),
+    sentenceMcq({
+      id: "ja-m8-7-1-mcq-ane-heya",
+      prompt: "Which sentence means 'My older sister's room is spacious.'?",
+      correctKana: "あねの へやは ひろいです。",
+      distractorsKana: [
+        "あにの へやは ひろいです。",
+        "あねの へやは せまいです。",
+        "わたしの へやは ひろいです。",
+      ],
+      explanation: "の marks possession, and あね = older sister. ひろい = spacious.",
+    }),
     selfExplain({
       id: "ja-m8-7-1-self-explain",
       anchorLabel: "いい → よくない (exception), たかい → たかくない (regular)",
@@ -2446,7 +2768,7 @@ assertNoConsecutiveSame(M8_7_1.steps);
 //   (translate + build + speaking heavy)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M8_7_2_REVIEW = pickReviewAtoms("ja-m8-7-2-rev", M8_REVIEW_POOL, 5);
+const M8_7_2_REVIEW = pickReviewAtoms("ja-m8-7-2-rev", M8_REVIEW_POOL, 6);
 
 export const M8_7_2: LessonContent = {
   id: "ja-m8-7-2",
@@ -2468,13 +2790,13 @@ export const M8_7_2: LessonContent = {
       "ja-m8-7-2-build-1",
       "Say: This coffee is delicious.",
       "この コーヒーは おいしいです",
-      ["この", "コーヒー", "は", "おいしい", "です", "まずい", "その"],
+      ["おいしい", "まずい", "は", "この", "です", "その", "コーヒー"],
       ["この", "コーヒー", "は", "おいしい", "です"],
     ),
     speaking(
       "ja-m8-7-2-speak-1",
-      "この コーヒーは おいしいです",
-      "This coffee is delicious.",
+      "この おちゃは おいしいです",
+      "This tea is delicious.",
     ),
     listeningCompSentence({
       id: "ja-m8-7-2-lc-1",
@@ -2490,7 +2812,7 @@ export const M8_7_2: LessonContent = {
       "ja-m8-7-2-build-2",
       "Say: That test isn't difficult.",
       "その テストは むずかしくないです",
-      ["その", "テスト", "は", "むずかしくない", "です", "むずかしい", "この"],
+      ["は", "です", "むずかしくない", "この", "むずかしい", "その", "テスト"],
       ["その", "テスト", "は", "むずかしくない", "です"],
     ),
     sentenceMcq({
@@ -2506,22 +2828,22 @@ export const M8_7_2: LessonContent = {
     }),
     speaking(
       "ja-m8-7-2-speak-2",
-      "その テストは むずかしくないです",
-      "That test isn't difficult.",
+      "せんせいの テストは むずかしくないです",
+      "The teacher's test isn't difficult.",
     ),
     build(
       "ja-m8-7-2-build-3",
       "Say: Ramen and bread, please.",
       "ラーメンと パンを ください",
-      ["ラーメン", "と", "パン", "を", "ください", "コーヒー", "は"],
+      ["は", "ラーメン", "を", "パン", "ください", "と", "コーヒー"],
       ["ラーメン", "と", "パン", "を", "ください"],
     ),
     listeningBuildSentence({
       id: "ja-m8-7-2-lb-1",
-      target: "この へやは ひろいです",
-      tiles: ["この", "へや", "は", "ひろい", "です", "せまい", "あの"],
-      correctOrder: ["この", "へや", "は", "ひろい", "です"],
-      promptEn: "Hear it, build it: 'This room is spacious.'",
+      target: "あつい コーヒーを のみます",
+      tiles: ["コーヒー", "あつい", "のみます", "を", "つめたい", "おちゃ"],
+      correctOrder: ["あつい", "コーヒー", "を", "のみます"],
+      promptEn: "Hear it, build it: 'I drink hot coffee.'",
     }),
     cloze(
       "ja-m8-7-2-cloze-to",
@@ -2535,14 +2857,14 @@ export const M8_7_2: LessonContent = {
     ),
     speaking(
       "ja-m8-7-2-speak-3",
-      "この えきは ちかいです",
-      "This station is near.",
+      "ともだちの いえは ちかいです",
+      "My friend's house is near.",
     ),
     build(
       "ja-m8-7-2-build-4",
       "Say: This book isn't good.",
       "この ほんは よくないです",
-      ["この", "ほん", "は", "よくない", "です", "いい", "わるい"],
+      ["ほん", "わるい", "この", "は", "よくない", "いい", "です"],
       ["この", "ほん", "は", "よくない", "です"],
     ),
     listeningCompSentence({
@@ -2555,15 +2877,12 @@ export const M8_7_2: LessonContent = {
         "That train (over there) isn't fast.",
       ],
     }),
-    cloze(
-      "ja-m8-7-2-cloze-ha",
-      "この しんぶん",
-      " ながいです。",
-      "は",
-      ["は", "と", "が", "の"],
-      "This newspaper is long.",
-      "この しんぶんは ながいです。",
-      "は marks the topic.",
+    build(
+      "ja-m8-7-2-build-chichi-kuruma",
+      "Say: Father's car is old.",
+      "ちちの くるまは ふるいです",
+      ["くるま", "です", "は", "あたらしい", "の", "ちち", "ふるい"],
+      ["ちち", "の", "くるま", "は", "ふるい", "です"],
     ),
     selfExplain({
       id: "ja-m8-7-2-self-explain",
@@ -2594,7 +2913,7 @@ export const M8_7_2: LessonContent = {
       ],
     }),
     speaking("ja-m8-7-2-rev-speak-1", M8_7_2_REVIEW[2].kana, M8_7_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m8-7-2-rev", M8_7_2_REVIEW.slice(0, 4)),
+    reviewMatchPairs("ja-m8-7-2-rev", M8_7_2_REVIEW),
     infoStep(
       "ja-m8-7-2-info-end",
       "You can now describe, compare, and negate adjectives across every category",
@@ -2615,6 +2934,9 @@ assertNoConsecutiveSame(M8_7_2.steps);
 const ALL_M8 = [
   M8_1_1, M8_1_2, M8_2_1, M8_2_2, M8_3_1, M8_3_2,
   M8_4_1, M8_4_2, M8_5_1, M8_5_2, M8_6_1, M8_6_2,
+  // M8_8_1 / M8_8_2 are exported but not yet registered (see header note);
+  // they're included here so the import-time lint still covers them.
+  M8_8_1, M8_8_2,
   M8_STORY, M8_7_1, M8_7_2,
 ];
 

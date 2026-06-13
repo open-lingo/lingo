@@ -1,7 +1,11 @@
 import type { LessonContent, LessonStep } from "../types";
 import type { CourseAtom } from "@/features/languages/ja/courseAtoms";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
-import { getCardState, setCardState } from "@/features/flashcards/engine/srsStorage";
+import {
+  getCardState,
+  setCardState,
+  canonicalizeCardId,
+} from "@/features/flashcards/engine/srsStorage";
 import { isDue, getDueModalities, createInitialState } from "@/features/flashcards/engine/srs";
 import { getUnlockedAtomIds } from "./unlockLessonAtoms";
 import type { SRSCardState } from "@/features/flashcards/data/types";
@@ -118,7 +122,9 @@ export function buildSrsReviewLesson(opts: {
   const unlockedIds = getUnlockedAtomIds();
   const candidates: AtomWithState[] = [];
   for (const atom of allAtoms) {
-    if (!unlockedIds.has(atom.id)) continue;
+    // The unlock store keys are canonical (`ja:<id>`); CourseAtom ids are
+    // bare. Canonicalize before the membership check or nothing matches.
+    if (!unlockedIds.has(canonicalizeCardId(atom.id))) continue;
     let state = getCardState(atom.id);
     const isNewCard = !state;
     if (!state) {

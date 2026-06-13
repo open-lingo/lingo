@@ -6,15 +6,22 @@
  *   - 〜のなかで〜がいちばん (most among): "Among the three, ramen is the best."
  *   - どちら/どっち (which of two): "Which is cheaper, A or B?"
  *
- * Vocab (~25): おなじ (same), ちがう (different), もっと (more), いちばん (most/best),
+ * Vocab (~28): おなじ (same), ちがう (different), もっと (more), いちばん (most/best),
  *   ほう (direction/side), まち (town), レストラン, ラーメン, カレー, パスタ,
  *   りょうり (cooking/cuisine), にく (meat), さかな (fish), やさい (vegetables),
  *   くだもの (fruit), おおさか, とうきょう, きょうと, ひろしま,
  *   ゆうめい (famous), しずか (quiet), にぎやか (lively), べんり (convenient),
- *   ふべん (inconvenient), きれい (beautiful/clean)
+ *   ふべん (inconvenient), きれい (beautiful/clean),
+ *   おおい (many — backlog weave, M22-2-2), すくない (few — backlog weave, M22-3-2),
+ *   いろいろ (various — backlog weave, M22-4-2)
  *
  * Split into 14 sub-lessons + 1 story = 15 exports.
  * Each sub-lesson has 18-22 steps.
+ *
+ * 2026-06-12 sentence-variety reauthor: no sentence repeated >3x module-wide
+ * (fresh comparison pairs / superlative domains per slot), review-particle
+ * cloze ≤25%, build tile banks scrambled (no answer-first / answer-order
+ * leaks), review tails widened to 6-pair match.
  *
  * ID scheme: ja-m22-{n}-{sub} e.g. ja-m22-1-1, ja-m22-1-2
  * Export names: M22_1_1, M22_1_2, M22_2_1, M22_2_2, etc.
@@ -36,6 +43,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  storyComprehension,
   translateStep,
   vocabMcq,
   assertNoSameAnswerCluster,
@@ -170,7 +178,7 @@ const RULE_DOCHIRA = grammarRule({
 //   (おなじ, ちがう, もっと, いちばん, ほう + comparison sentences)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_1_1_REVIEW = pickReviewAtoms("ja-m22-1-1-rev", M22_REVIEW_POOL, 4);
+const M22_1_1_REVIEW = pickReviewAtoms("ja-m22-1-1-rev", M22_REVIEW_POOL, 6);
 
 export const M22_1_1: LessonContent = {
   id: "ja-m22-1-1",
@@ -193,7 +201,7 @@ export const M22_1_1: LessonContent = {
       "ja-m22-1-1-build-onaji",
       "Pick the Japanese word for: Same",
       "おなじ",
-      ["おなじ", "ちがう", "もっと", "いちばん"],
+      ["ちがう", "おなじ", "もっと", "いちばん"],
       ["おなじ"],
     ),
     listeningCompSentence({
@@ -207,7 +215,7 @@ export const M22_1_1: LessonContent = {
       "ja-m22-1-1-build-chigau",
       "Pick the Japanese word for: Different",
       "ちがう",
-      ["ちがう", "おなじ", "もっと", "ほう"],
+      ["おなじ", "もっと", "ちがう", "ほう"],
       ["ちがう"],
     ),
     speaking("ja-m22-1-1-speak-chigau", "ちがう", "Different"),
@@ -216,7 +224,7 @@ export const M22_1_1: LessonContent = {
       "ja-m22-1-1-build-motto",
       "Pick the Japanese word for: More",
       "もっと",
-      ["もっと", "いちばん", "おなじ", "ちがう"],
+      ["いちばん", "おなじ", "もっと", "ちがう"],
       ["もっと"],
     ),
     listeningCompSentence({
@@ -230,7 +238,7 @@ export const M22_1_1: LessonContent = {
       "ja-m22-1-1-build-ichiban",
       "Pick the Japanese word for: Most / Best",
       "いちばん",
-      ["いちばん", "もっと", "ちがう", "おなじ"],
+      ["もっと", "ちがう", "おなじ", "いちばん"],
       ["いちばん"],
     ),
     vocabMcq(
@@ -243,7 +251,7 @@ export const M22_1_1: LessonContent = {
       "ja-m22-1-1-build-hou",
       "Pick the Japanese word for: Direction / Side",
       "ほう",
-      ["ほう", "おなじ", "いちばん", "もっと"],
+      ["おなじ", "ほう", "いちばん", "もっと"],
       ["ほう"],
     ),
     // ── Sentence context drills ──
@@ -253,7 +261,7 @@ export const M22_1_1: LessonContent = {
       correctKana: "おなじです。",
       distractorsKana: [
         "ちがいます。",
-        "もっと おおきいです。",
+        "もっと たかいです。",
         "いちばんです。",
       ],
       explanation: "おなじ = same. おなじです = they are the same.",
@@ -262,25 +270,22 @@ export const M22_1_1: LessonContent = {
       "ja-m22-1-1-build-motto-ookii",
       "Say: It's bigger (more big).",
       "もっと おおきいです",
-      ["もっと", "おおきい", "です", "いちばん", "ちいさい"],
+      ["おおきい", "いちばん", "もっと", "ちいさい", "です"],
       ["もっと", "おおきい", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m22-1-1-lb-ichiban",
       target: "いちばん おいしいです",
-      tiles: ["いちばん", "おいしい", "です", "もっと", "たかい"],
+      tiles: ["おいしい", "もっと", "いちばん", "たかい", "です"],
       correctOrder: ["いちばん", "おいしい", "です"],
       promptEn: "Hear it, build it: 'It's the most delicious.'",
     }),
-    cloze(
-      "ja-m22-1-1-cloze-ha",
-      "これと それは おなじ",
-      "。",
-      "です",
-      ["です", "ます", "だ", "か"],
-      "This and that are the same.",
-      "これと それは おなじです。",
-      "です completes the statement.",
+    build(
+      "ja-m22-1-1-build-onaji-sentence",
+      "Say: This and that are the same.",
+      "これと それは おなじです",
+      ["それ", "おなじ", "と", "です", "これ", "は", "ちがう"],
+      ["これ", "と", "それ", "は", "おなじ", "です"],
     ),
     selfExplain({
       id: "ja-m22-1-1-self-explain",
@@ -330,7 +335,7 @@ assertNoConsecutiveSame(M22_1_1.steps);
 //   (drill おなじ, ちがう, もっと, いちばん + food vocab)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_1_2_REVIEW = pickReviewAtoms("ja-m22-1-2-rev", M22_REVIEW_POOL, 4);
+const M22_1_2_REVIEW = pickReviewAtoms("ja-m22-1-2-rev", M22_REVIEW_POOL, 6);
 
 export const M22_1_2: LessonContent = {
   id: "ja-m22-1-2",
@@ -353,7 +358,7 @@ export const M22_1_2: LessonContent = {
       "ja-m22-1-2-build-resutoran",
       "Pick the Japanese word for: Restaurant",
       "レストラン",
-      ["レストラン", "ラーメン", "カレー", "パスタ"],
+      ["ラーメン", "カレー", "レストラン", "パスタ"],
       ["レストラン"],
     ),
     vocabMcq(
@@ -366,7 +371,7 @@ export const M22_1_2: LessonContent = {
       "ja-m22-1-2-build-raamen",
       "Pick the Japanese word for: Ramen",
       "ラーメン",
-      ["ラーメン", "レストラン", "カレー", "パスタ"],
+      ["レストラン", "ラーメン", "カレー", "パスタ"],
       ["ラーメン"],
     ),
     listeningCompSentence({
@@ -380,7 +385,7 @@ export const M22_1_2: LessonContent = {
       "ja-m22-1-2-build-karee",
       "Pick the Japanese word for: Curry",
       "カレー",
-      ["カレー", "ラーメン", "レストラン", "パスタ"],
+      ["ラーメン", "レストラン", "パスタ", "カレー"],
       ["カレー"],
     ),
     speaking("ja-m22-1-2-speak-karee", "カレー", "Curry"),
@@ -400,7 +405,7 @@ export const M22_1_2: LessonContent = {
       "ja-m22-1-2-build-ichiban-oishii",
       "Say: This restaurant is the best.",
       "この レストランが いちばんです",
-      ["この", "レストラン", "が", "いちばん", "です", "もっと", "あの"],
+      ["いちばん", "この", "が", "レストラン", "あの", "です", "もっと"],
       ["この", "レストラン", "が", "いちばん", "です"],
     ),
     cloze(
@@ -416,7 +421,7 @@ export const M22_1_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m22-1-2-lb-chigau",
       target: "カレーと ラーメンは ちがいます",
-      tiles: ["カレー", "と", "ラーメン", "は", "ちがいます", "おなじ", "です"],
+      tiles: ["ラーメン", "ちがいます", "と", "カレー", "は", "おなじ", "です"],
       correctOrder: ["カレー", "と", "ラーメン", "は", "ちがいます"],
       promptEn: "Hear it, build it: 'Curry and ramen are different.'",
     }),
@@ -488,7 +493,7 @@ assertNoConsecutiveSame(M22_1_2.steps);
 //   (〜のほうが〜より pattern + food vocab)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_2_1_REVIEW = pickReviewAtoms("ja-m22-2-1-rev", M22_REVIEW_POOL, 4);
+const M22_2_1_REVIEW = pickReviewAtoms("ja-m22-2-1-rev", M22_REVIEW_POOL, 6);
 
 export const M22_2_1: LessonContent = {
   id: "ja-m22-2-1",
@@ -512,7 +517,7 @@ export const M22_2_1: LessonContent = {
       "ja-m22-2-1-build-niku",
       "Pick the Japanese word for: Meat",
       "にく",
-      ["にく", "さかな", "やさい", "くだもの"],
+      ["さかな", "にく", "やさい", "くだもの"],
       ["にく"],
     ),
     vocabMcq(
@@ -525,7 +530,7 @@ export const M22_2_1: LessonContent = {
       "ja-m22-2-1-build-sakana",
       "Pick the Japanese word for: Fish",
       "さかな",
-      ["さかな", "にく", "やさい", "くだもの"],
+      ["にく", "やさい", "さかな", "くだもの"],
       ["さかな"],
     ),
     vocabMcq(
@@ -538,7 +543,7 @@ export const M22_2_1: LessonContent = {
       "ja-m22-2-1-build-yasai",
       "Pick the Japanese word for: Vegetables",
       "やさい",
-      ["やさい", "にく", "さかな", "くだもの"],
+      ["にく", "さかな", "くだもの", "やさい"],
       ["やさい"],
     ),
     speaking("ja-m22-2-1-speak-yasai", "やさい", "Vegetables"),
@@ -547,7 +552,7 @@ export const M22_2_1: LessonContent = {
       "ja-m22-2-1-build-hou-niku",
       "Say: Meat is more expensive than fish.",
       "にくのほうが さかなより たかいです",
-      ["にく", "のほうが", "さかな", "より", "たかい", "です", "やすい"],
+      ["さかな", "たかい", "にく", "より", "のほうが", "やすい", "です"],
       ["にく", "のほうが", "さかな", "より", "たかい", "です"],
     ),
     sentenceMcq({
@@ -604,8 +609,8 @@ export const M22_2_1: LessonContent = {
     }),
     speaking(
       "ja-m22-2-1-speak-hou",
-      "にくのほうが さかなより たかいです",
-      "Meat is more expensive than fish.",
+      "りんごのほうが バナナより おおきいです",
+      "Apples are bigger than bananas.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m22-2-1-rev-mcq-1", M22_2_1_REVIEW[0], M22_REVIEW_POOL),
@@ -639,7 +644,7 @@ assertNoConsecutiveSame(M22_2_1.steps);
 //   (drill のほうが〜より with broader adjectives)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_2_2_REVIEW = pickReviewAtoms("ja-m22-2-2-rev", M22_REVIEW_POOL, 4);
+const M22_2_2_REVIEW = pickReviewAtoms("ja-m22-2-2-rev", M22_REVIEW_POOL, 6);
 
 export const M22_2_2: LessonContent = {
   id: "ja-m22-2-2",
@@ -662,7 +667,7 @@ export const M22_2_2: LessonContent = {
       "ja-m22-2-2-build-kudamono",
       "Pick the Japanese word for: Fruit",
       "くだもの",
-      ["くだもの", "やさい", "にく", "さかな"],
+      ["やさい", "くだもの", "にく", "さかな"],
       ["くだもの"],
     ),
     vocabMcq(
@@ -675,7 +680,7 @@ export const M22_2_2: LessonContent = {
       "ja-m22-2-2-build-ryouri",
       "Pick the Japanese word for: Cooking / Cuisine",
       "りょうり",
-      ["りょうり", "くだもの", "やさい", "レストラン"],
+      ["くだもの", "やさい", "りょうり", "レストラン"],
       ["りょうり"],
     ),
     listeningCompSentence({
@@ -684,12 +689,27 @@ export const M22_2_2: LessonContent = {
       correctMeaningEn: "cooking / cuisine",
       distractorsEn: ["fruit", "vegetables", "restaurant"],
     }),
+    // ── おおい (many) — backlog weave ──
+    build(
+      "ja-m22-2-2-build-ooi",
+      "Pick the Japanese word for: Many / Numerous",
+      "おおい",
+      ["すくない", "おなじ", "おおい", "ちがう"],
+      ["おおい"],
+    ),
+    build(
+      "ja-m22-2-2-build-ooi-context",
+      "Say: This restaurant has many dishes.",
+      "この レストランは りょうりが おおいです",
+      ["りょうり", "この", "おおい", "レストラン", "は", "が", "です", "すくない"],
+      ["この", "レストラン", "は", "りょうり", "が", "おおい", "です"],
+    ),
     // ── Comparison drills ──
     build(
       "ja-m22-2-2-build-kudamono-comp",
       "Say: Fruit is cheaper than meat.",
       "くだもののほうが にくより やすいです",
-      ["くだもの", "のほうが", "にく", "より", "やすい", "です", "たかい"],
+      ["にく", "やすい", "くだもの", "より", "のほうが", "たかい", "です"],
       ["くだもの", "のほうが", "にく", "より", "やすい", "です"],
     ),
     sentenceMcq({
@@ -727,15 +747,15 @@ export const M22_2_2: LessonContent = {
       "ja-m22-2-2-build-sakana-oishii",
       "Say: Fish is more delicious than vegetables.",
       "さかなのほうが やさいより おいしいです",
-      ["さかな", "のほうが", "やさい", "より", "おいしい", "です", "にく"],
+      ["やさい", "おいしい", "さかな", "より", "のほうが", "にく", "です"],
       ["さかな", "のほうが", "やさい", "より", "おいしい", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m22-2-2-lb-niku",
-      target: "にくのほうが さかなより たかいです",
-      tiles: ["にく", "のほうが", "さかな", "より", "たかい", "です", "やすい"],
-      correctOrder: ["にく", "のほうが", "さかな", "より", "たかい", "です"],
-      promptEn: "Hear it, build it: 'Meat is more expensive than fish.'",
+      target: "バナナのほうが りんごより やすいです",
+      tiles: ["りんご", "やすい", "バナナ", "より", "のほうが", "たかい", "です"],
+      correctOrder: ["バナナ", "のほうが", "りんご", "より", "やすい", "です"],
+      promptEn: "Hear it, build it: 'Bananas are cheaper than apples.'",
     }),
     cloze(
       "ja-m22-2-2-cloze-nohouga",
@@ -749,12 +769,12 @@ export const M22_2_2: LessonContent = {
     ),
     translateStep({
       id: "ja-m22-2-2-translate",
-      promptEn: "Meat is more expensive than fish.",
+      promptEn: "Vegetables are cheaper than meat.",
       acceptedAnswers: [
-        "にくのほうが さかなより たかいです",
-        "にくのほうが さかなより たかいです。",
+        "やさいのほうが にくより やすいです",
+        "やさいのほうが にくより やすいです。",
       ],
-      audioText: "にくのほうが さかなより たかいです",
+      audioText: "やさいのほうが にくより やすいです",
     }),
     selfExplain({
       id: "ja-m22-2-2-self-explain",
@@ -804,7 +824,7 @@ assertNoConsecutiveSame(M22_2_2.steps);
 //   (〜のなかで〜がいちばん + city vocab)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_3_1_REVIEW = pickReviewAtoms("ja-m22-3-1-rev", M22_REVIEW_POOL, 4);
+const M22_3_1_REVIEW = pickReviewAtoms("ja-m22-3-1-rev", M22_REVIEW_POOL, 6);
 
 export const M22_3_1: LessonContent = {
   id: "ja-m22-3-1",
@@ -828,7 +848,7 @@ export const M22_3_1: LessonContent = {
       "ja-m22-3-1-build-oosaka",
       "Pick the Japanese word for: Osaka",
       "おおさか",
-      ["おおさか", "とうきょう", "きょうと", "ひろしま"],
+      ["とうきょう", "おおさか", "きょうと", "ひろしま"],
       ["おおさか"],
     ),
     listeningCompSentence({
@@ -842,7 +862,7 @@ export const M22_3_1: LessonContent = {
       "ja-m22-3-1-build-kyouto",
       "Pick the Japanese word for: Kyoto",
       "きょうと",
-      ["きょうと", "おおさか", "とうきょう", "ひろしま"],
+      ["おおさか", "とうきょう", "きょうと", "ひろしま"],
       ["きょうと"],
     ),
     speaking("ja-m22-3-1-speak-kyouto", "きょうと", "Kyoto"),
@@ -851,7 +871,7 @@ export const M22_3_1: LessonContent = {
       "ja-m22-3-1-build-hiroshima",
       "Pick the Japanese word for: Hiroshima",
       "ひろしま",
-      ["ひろしま", "きょうと", "おおさか", "とうきょう"],
+      ["きょうと", "おおさか", "とうきょう", "ひろしま"],
       ["ひろしま"],
     ),
     listeningCompSentence({
@@ -865,7 +885,7 @@ export const M22_3_1: LessonContent = {
       "ja-m22-3-1-build-ichiban-ookii",
       "Say: Among Japan, Tokyo is the biggest.",
       "にほんのなかで とうきょうが いちばん おおきいです",
-      ["にほん", "のなかで", "とうきょう", "が", "いちばん", "おおきい", "です", "おおさか"],
+      ["とうきょう", "いちばん", "にほん", "が", "のなかで", "おおさか", "おおきい", "です"],
       ["にほん", "のなかで", "とうきょう", "が", "いちばん", "おおきい", "です"],
     ),
     sentenceMcq({
@@ -901,21 +921,21 @@ export const M22_3_1: LessonContent = {
     }),
     cloze(
       "ja-m22-3-1-cloze-ga",
-      "にほんのなかで とうきょう",
+      "くだもののなかで りんご",
       " いちばん おおきいです。",
       "が",
       ["が", "は", "の", "を"],
-      "Among Japan, Tokyo is the biggest.",
-      "にほんのなかで とうきょうが いちばん おおきいです。",
-      "が marks the winner — Tokyo IS the biggest.",
+      "Among fruits, apples are the biggest.",
+      "くだもののなかで りんごが いちばん おおきいです。",
+      "が marks the winner — apples ARE the biggest.",
     ),
     selfExplain({
       id: "ja-m22-3-1-self-explain",
-      anchorLabel: "にほんのなかで とうきょうが いちばん おおきいです",
-      anchorAudioText: "にほんのなかで とうきょうが いちばん おおきいです",
+      anchorLabel: "くだもののなかで りんごが いちばん おおきいです",
+      anchorAudioText: "くだもののなかで りんごが いちばん おおきいです",
       question: "What does のなかで do in this sentence?",
-      rule: { text: "のなかで establishes the comparison group — 'among [Japan's cities].' Without it, there's no defined set to be 'the most' within." },
-      surface: { text: "のなかで means 'inside' — Tokyo is physically inside Japan." },
+      rule: { text: "のなかで establishes the comparison group — 'among [fruits].' Without it, there's no defined set to be 'the most' within." },
+      surface: { text: "のなかで means 'inside' — the apple is physically inside the fruit." },
       distractor: { text: "のなかで is optional — いちばん alone creates the superlative." },
       ruleExplanation:
         "のなかで = 'among / within [group].' It defines what the superlative is relative to. いちばん = 'number one.'",
@@ -957,7 +977,7 @@ assertNoConsecutiveSame(M22_3_1.steps);
 //   (drill のなかで〜がいちばん with mixed categories)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_3_2_REVIEW = pickReviewAtoms("ja-m22-3-2-rev", M22_REVIEW_POOL, 4);
+const M22_3_2_REVIEW = pickReviewAtoms("ja-m22-3-2-rev", M22_REVIEW_POOL, 6);
 
 export const M22_3_2: LessonContent = {
   id: "ja-m22-3-2",
@@ -980,7 +1000,7 @@ export const M22_3_2: LessonContent = {
       "ja-m22-3-2-build-yuumei",
       "Pick the Japanese word for: Famous",
       "ゆうめい",
-      ["ゆうめい", "しずか", "にぎやか", "べんり"],
+      ["しずか", "ゆうめい", "にぎやか", "べんり"],
       ["ゆうめい"],
     ),
     listeningCompSentence({
@@ -994,7 +1014,7 @@ export const M22_3_2: LessonContent = {
       "ja-m22-3-2-build-shizuka",
       "Pick the Japanese word for: Quiet",
       "しずか",
-      ["しずか", "ゆうめい", "にぎやか", "きれい"],
+      ["ゆうめい", "にぎやか", "しずか", "きれい"],
       ["しずか"],
     ),
     speaking("ja-m22-3-2-speak-shizuka", "しずか", "Quiet"),
@@ -1003,7 +1023,7 @@ export const M22_3_2: LessonContent = {
       "ja-m22-3-2-build-nigiyaka",
       "Pick the Japanese word for: Lively / Bustling",
       "にぎやか",
-      ["にぎやか", "しずか", "ゆうめい", "べんり"],
+      ["しずか", "ゆうめい", "べんり", "にぎやか"],
       ["にぎやか"],
     ),
     listeningCompSentence({
@@ -1012,12 +1032,27 @@ export const M22_3_2: LessonContent = {
       correctMeaningEn: "lively / bustling",
       distractorsEn: ["quiet", "famous", "convenient"],
     }),
+    // ── すくない (few) — backlog weave ──
+    build(
+      "ja-m22-3-2-build-sukunai",
+      "Pick the Japanese word for: Few / Not many",
+      "すくない",
+      ["おおい", "すくない", "しずか", "にぎやか"],
+      ["すくない"],
+    ),
+    build(
+      "ja-m22-3-2-build-sukunai-context",
+      "Say: There are few vegetables.",
+      "やさいが すくないです",
+      ["すくない", "やさい", "おおい", "が", "です"],
+      ["やさい", "が", "すくない", "です"],
+    ),
     // ── Mixed superlative drills ──
     build(
       "ja-m22-3-2-build-yuumei-kyouto",
       "Say: Among Japanese cities, Kyoto is the most famous.",
       "にほんのまちのなかで きょうとが いちばん ゆうめいです",
-      ["にほんのまち", "のなかで", "きょうと", "が", "いちばん", "ゆうめい", "です", "おおさか"],
+      ["きょうと", "ゆうめい", "にほんのまち", "が", "のなかで", "いちばん", "おおさか", "です"],
       ["にほんのまち", "のなかで", "きょうと", "が", "いちばん", "ゆうめい", "です"],
     ),
     sentenceMcq({
@@ -1044,7 +1079,7 @@ export const M22_3_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m22-3-2-lb-yuumei",
       target: "きょうとが いちばん ゆうめいです",
-      tiles: ["きょうと", "が", "いちばん", "ゆうめい", "です", "もっと", "おおさか"],
+      tiles: ["いちばん", "きょうと", "ゆうめい", "が", "もっと", "おおさか", "です"],
       correctOrder: ["きょうと", "が", "いちばん", "ゆうめい", "です"],
       promptEn: "Hear it, build it: 'Kyoto is the most famous.'",
     }),
@@ -1060,17 +1095,17 @@ export const M22_3_2: LessonContent = {
     ),
     translateStep({
       id: "ja-m22-3-2-translate",
-      promptEn: "Among Japanese cities, Kyoto is the most famous.",
+      promptEn: "Among Japanese cities, Tokyo is the liveliest.",
       acceptedAnswers: [
-        "にほんのまちのなかで きょうとが いちばん ゆうめいです",
-        "にほんのまちのなかで きょうとが いちばん ゆうめいです。",
+        "にほんのまちのなかで とうきょうが いちばん にぎやかです",
+        "にほんのまちのなかで とうきょうが いちばん にぎやかです。",
       ],
-      audioText: "にほんのまちのなかで きょうとが いちばん ゆうめいです",
+      audioText: "にほんのまちのなかで とうきょうが いちばん にぎやかです",
     }),
     selfExplain({
       id: "ja-m22-3-2-self-explain",
-      anchorLabel: "おおさかが いちばん にぎやかです",
-      anchorAudioText: "おおさかが いちばん にぎやかです",
+      anchorLabel: "きょうとが いちばん ゆうめいです",
+      anchorAudioText: "きょうとが いちばん ゆうめいです",
       question: "How is のなかで〜がいちばん different from のほうが〜より?",
       rule: { text: "のなかで〜がいちばん picks the TOP ONE from a group of 3+. のほうが〜より compares exactly TWO things." },
       surface: { text: "They mean the same thing — both compare two items." },
@@ -1115,7 +1150,7 @@ assertNoConsecutiveSame(M22_3_2.steps);
 //   (どちら/どっち + city/food comparisons)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_4_1_REVIEW = pickReviewAtoms("ja-m22-4-1-rev", M22_REVIEW_POOL, 4);
+const M22_4_1_REVIEW = pickReviewAtoms("ja-m22-4-1-rev", M22_REVIEW_POOL, 6);
 
 export const M22_4_1: LessonContent = {
   id: "ja-m22-4-1",
@@ -1139,7 +1174,7 @@ export const M22_4_1: LessonContent = {
       "ja-m22-4-1-build-benri",
       "Pick the Japanese word for: Convenient",
       "べんり",
-      ["べんり", "ふべん", "きれい", "ゆうめい"],
+      ["ふべん", "きれい", "べんり", "ゆうめい"],
       ["べんり"],
     ),
     listeningCompSentence({
@@ -1153,7 +1188,7 @@ export const M22_4_1: LessonContent = {
       "ja-m22-4-1-build-fuben",
       "Pick the Japanese word for: Inconvenient",
       "ふべん",
-      ["ふべん", "べんり", "しずか", "にぎやか"],
+      ["べんり", "ふべん", "しずか", "にぎやか"],
       ["ふべん"],
     ),
     speaking("ja-m22-4-1-speak-fuben", "ふべん", "Inconvenient"),
@@ -1162,7 +1197,7 @@ export const M22_4_1: LessonContent = {
       "ja-m22-4-1-build-kirei",
       "Pick the Japanese word for: Beautiful / Clean",
       "きれい",
-      ["きれい", "ゆうめい", "しずか", "にぎやか"],
+      ["ゆうめい", "しずか", "にぎやか", "きれい"],
       ["きれい"],
     ),
     listeningCompSentence({
@@ -1176,7 +1211,7 @@ export const M22_4_1: LessonContent = {
       "ja-m22-4-1-build-dochira",
       "Ask: Which is more convenient, the train or the bus?",
       "でんしゃと バスと どちらが べんりですか",
-      ["でんしゃ", "と", "バス", "と", "どちら", "が", "べんり", "です", "か"],
+      ["バス", "どちら", "でんしゃ", "と", "が", "と", "べんり", "か", "です"],
       ["でんしゃ", "と", "バス", "と", "どちら", "が", "べんり", "です", "か"],
     ),
     sentenceMcq({
@@ -1214,7 +1249,7 @@ export const M22_4_1: LessonContent = {
       "ja-m22-4-1-build-answer",
       "Answer: The train is more convenient.",
       "でんしゃのほうが べんりです",
-      ["でんしゃ", "のほうが", "べんり", "です", "バス", "ふべん"],
+      ["べんり", "でんしゃ", "バス", "のほうが", "ふべん", "です"],
       ["でんしゃ", "のほうが", "べんり", "です"],
     ),
     selfExplain({
@@ -1265,7 +1300,7 @@ assertNoConsecutiveSame(M22_4_1.steps);
 //   (drill どちら/どっち with answer patterns)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_4_2_REVIEW = pickReviewAtoms("ja-m22-4-2-rev", M22_REVIEW_POOL, 4);
+const M22_4_2_REVIEW = pickReviewAtoms("ja-m22-4-2-rev", M22_REVIEW_POOL, 6);
 
 export const M22_4_2: LessonContent = {
   id: "ja-m22-4-2",
@@ -1288,7 +1323,7 @@ export const M22_4_2: LessonContent = {
       "ja-m22-4-2-build-pasuta",
       "Pick the Japanese word for: Pasta",
       "パスタ",
-      ["パスタ", "ラーメン", "カレー", "レストラン"],
+      ["ラーメン", "パスタ", "カレー", "レストラン"],
       ["パスタ"],
     ),
     listeningCompSentence({
@@ -1302,16 +1337,31 @@ export const M22_4_2: LessonContent = {
       "ja-m22-4-2-build-machi",
       "Pick the Japanese word for: Town / City",
       "まち",
-      ["まち", "パスタ", "レストラン", "りょうり"],
+      ["パスタ", "レストラン", "まち", "りょうり"],
       ["まち"],
     ),
     speaking("ja-m22-4-2-speak-machi", "まち", "Town / City"),
+    // ── いろいろ (various) — backlog weave ──
+    build(
+      "ja-m22-4-2-build-iroiro",
+      "Pick the Japanese word for: Various / All kinds of",
+      "いろいろ",
+      ["いちばん", "おなじ", "いろいろ", "ちがう"],
+      ["いろいろ"],
+    ),
+    build(
+      "ja-m22-4-2-build-iroiro-context",
+      "Say: There are various restaurants in this town.",
+      "この まちに いろいろな レストランが あります",
+      ["レストラン", "この", "いろいろな", "まち", "に", "が", "あります", "おなじ"],
+      ["この", "まち", "に", "いろいろな", "レストラン", "が", "あります"],
+    ),
     // ── Q&A drills ──
     build(
       "ja-m22-4-2-build-docchi",
       "Ask (casually): Which is cheaper, pasta or curry?",
       "パスタと カレーと どっちが やすいですか",
-      ["パスタ", "と", "カレー", "と", "どっち", "が", "やすい", "です", "か"],
+      ["カレー", "どっち", "パスタ", "と", "が", "と", "やすい", "か", "です"],
       ["パスタ", "と", "カレー", "と", "どっち", "が", "やすい", "です", "か"],
     ),
     sentenceMcq({
@@ -1334,7 +1384,7 @@ export const M22_4_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m22-4-2-lb-dochira",
       target: "にくと さかなと どちらが すきですか",
-      tiles: ["にく", "と", "さかな", "と", "どちら", "が", "すき", "です", "か"],
+      tiles: ["さかな", "どちら", "にく", "と", "が", "と", "すき", "か", "です"],
       correctOrder: ["にく", "と", "さかな", "と", "どちら", "が", "すき", "です", "か"],
       promptEn: "Hear it, build it: 'Which do you like more, meat or fish?'",
     }),
@@ -1373,19 +1423,19 @@ export const M22_4_2: LessonContent = {
       "ja-m22-4-2-build-dochiramo",
       "Say: Both are delicious.",
       "どちらも おいしいです",
-      ["どちら", "も", "おいしい", "です", "のほうが", "より"],
+      ["おいしい", "どちら", "のほうが", "も", "より", "です"],
       ["どちら", "も", "おいしい", "です"],
     ),
     translateStep({
       id: "ja-m22-4-2-translate",
-      promptEn: "Which do you like more, ramen or curry?",
+      promptEn: "Which do you like more, sushi or ramen?",
       acceptedAnswers: [
-        "ラーメンと カレーと どちらが すきですか",
-        "ラーメンと カレーと どちらが すきですか。",
-        "ラーメンと カレーと どっちが すきですか",
-        "ラーメンと カレーと どっちが すきですか。",
+        "すしと ラーメンと どちらが すきですか",
+        "すしと ラーメンと どちらが すきですか。",
+        "すしと ラーメンと どっちが すきですか",
+        "すしと ラーメンと どっちが すきですか。",
       ],
-      audioText: "ラーメンと カレーと どちらが すきですか",
+      audioText: "すしと ラーメンと どちらが すきですか",
     }),
     selfExplain({
       id: "ja-m22-4-2-self-explain",
@@ -1434,7 +1484,7 @@ assertNoConsecutiveSame(M22_4_2.steps);
 // M22-5-1 — Interleaved drill (comparative + superlative)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_5_1_REVIEW = pickReviewAtoms("ja-m22-5-1-rev", M22_REVIEW_POOL, 4);
+const M22_5_1_REVIEW = pickReviewAtoms("ja-m22-5-1-rev", M22_REVIEW_POOL, 6);
 
 export const M22_5_1: LessonContent = {
   id: "ja-m22-5-1",
@@ -1467,7 +1517,7 @@ export const M22_5_1: LessonContent = {
       "ja-m22-5-1-build-ichiban-shizuka",
       "Say: Among these cities, Kyoto is the quietest.",
       "この まちのなかで きょうとが いちばん しずかです",
-      ["この", "まち", "のなかで", "きょうと", "が", "いちばん", "しずか", "です", "おおさか"],
+      ["きょうと", "しずか", "この", "まち", "が", "のなかで", "いちばん", "おおさか", "です"],
       ["この", "まち", "のなかで", "きょうと", "が", "いちばん", "しずか", "です"],
     ),
     sentenceMcq({
@@ -1493,25 +1543,25 @@ export const M22_5_1: LessonContent = {
     }),
     cloze(
       "ja-m22-5-1-cloze-nakade",
-      "にく",
-      " さかなが いちばん やすいです。",
+      "くだもの",
+      " バナナが いちばん やすいです。",
       "のなかで",
       ["のなかで", "のほうが", "より", "と"],
-      "Among meats, fish is the cheapest.",
-      "にくのなかで さかなが いちばん やすいです。",
+      "Among fruits, bananas are the cheapest.",
+      "くだもののなかで バナナが いちばん やすいです。",
       "のなかで defines the comparison group.",
     ),
     build(
       "ja-m22-5-1-build-hou-benri",
       "Say: The train is more convenient than the bus.",
       "でんしゃのほうが バスより べんりです",
-      ["でんしゃ", "のほうが", "バス", "より", "べんり", "です", "ふべん"],
+      ["バス", "べんり", "でんしゃ", "より", "のほうが", "ふべん", "です"],
       ["でんしゃ", "のほうが", "バス", "より", "べんり", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m22-5-1-lb-dochira",
       target: "にくと さかなと どちらが たかいですか",
-      tiles: ["にく", "と", "さかな", "と", "どちら", "が", "たかい", "です", "か"],
+      tiles: ["さかな", "どちら", "にく", "と", "が", "と", "たかい", "か", "です"],
       correctOrder: ["にく", "と", "さかな", "と", "どちら", "が", "たかい", "です", "か"],
       promptEn: "Hear it, build it: 'Which is more expensive, meat or fish?'",
     }),
@@ -1538,12 +1588,12 @@ export const M22_5_1: LessonContent = {
     ),
     translateStep({
       id: "ja-m22-5-1-translate",
-      promptEn: "Among fruits, apples are the most delicious.",
+      promptEn: "Among Japanese dishes, sushi is the most famous.",
       acceptedAnswers: [
-        "くだもののなかで りんごが いちばん おいしいです",
-        "くだもののなかで りんごが いちばん おいしいです。",
+        "にほんりょうりのなかで すしが いちばん ゆうめいです",
+        "にほんりょうりのなかで すしが いちばん ゆうめいです。",
       ],
-      audioText: "くだもののなかで りんごが いちばん おいしいです",
+      audioText: "にほんりょうりのなかで すしが いちばん ゆうめいです",
     }),
     listeningCompSentence({
       id: "ja-m22-5-1-lc-hou",
@@ -1602,7 +1652,7 @@ assertNoConsecutiveSame(M22_5_1.steps);
 // M22-5-2 — Interleaved drill II (all three patterns)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_5_2_REVIEW = pickReviewAtoms("ja-m22-5-2-rev", M22_REVIEW_POOL, 4);
+const M22_5_2_REVIEW = pickReviewAtoms("ja-m22-5-2-rev", M22_REVIEW_POOL, 6);
 
 export const M22_5_2: LessonContent = {
   id: "ja-m22-5-2",
@@ -1624,7 +1674,7 @@ export const M22_5_2: LessonContent = {
       "ja-m22-5-2-build-dochira",
       "Ask: Which is more famous, Osaka or Kyoto?",
       "おおさかと きょうとと どちらが ゆうめいですか",
-      ["おおさか", "と", "きょうと", "と", "どちら", "が", "ゆうめい", "です", "か"],
+      ["きょうと", "どちら", "おおさか", "と", "が", "と", "ゆうめい", "か", "です"],
       ["おおさか", "と", "きょうと", "と", "どちら", "が", "ゆうめい", "です", "か"],
     ),
     cloze(
@@ -1662,7 +1712,7 @@ export const M22_5_2: LessonContent = {
       "ja-m22-5-2-build-nakade",
       "Say: Among this food, curry is the cheapest.",
       "この りょうりのなかで カレーが いちばん やすいです",
-      ["この", "りょうり", "のなかで", "カレー", "が", "いちばん", "やすい", "です", "ラーメン"],
+      ["カレー", "やすい", "この", "りょうり", "が", "のなかで", "いちばん", "ラーメン", "です"],
       ["この", "りょうり", "のなかで", "カレー", "が", "いちばん", "やすい", "です"],
     ),
     cloze(
@@ -1677,10 +1727,10 @@ export const M22_5_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m22-5-2-lb-ichiban",
-      target: "にほんのなかで とうきょうが いちばん おおきいです",
-      tiles: ["にほん", "のなかで", "とうきょう", "が", "いちばん", "おおきい", "です", "おおさか"],
-      correctOrder: ["にほん", "のなかで", "とうきょう", "が", "いちばん", "おおきい", "です"],
-      promptEn: "Hear it, build it: 'In Japan, Tokyo is the biggest.'",
+      target: "この レストランのなかで カレーが いちばん たかいです",
+      tiles: ["カレー", "たかい", "この", "レストラン", "が", "のなかで", "いちばん", "やすい", "です"],
+      correctOrder: ["この", "レストラン", "のなかで", "カレー", "が", "いちばん", "たかい", "です"],
+      promptEn: "Hear it, build it: 'Among this restaurant's dishes, the curry is the most expensive.'",
     }),
     sentenceMcq({
       id: "ja-m22-5-2-mcq-docchi",
@@ -1697,7 +1747,7 @@ export const M22_5_2: LessonContent = {
       "ja-m22-5-2-build-hou-kirei",
       "Say: Kyoto is more beautiful than Hiroshima.",
       "きょうとのほうが ひろしまより きれいです",
-      ["きょうと", "のほうが", "ひろしま", "より", "きれい", "です", "しずか"],
+      ["ひろしま", "きれい", "きょうと", "より", "のほうが", "しずか", "です"],
       ["きょうと", "のほうが", "ひろしま", "より", "きれい", "です"],
     ),
     listeningCompSentence({
@@ -1722,14 +1772,14 @@ export const M22_5_2: LessonContent = {
     ),
     translateStep({
       id: "ja-m22-5-2-translate",
-      promptEn: "Which is more beautiful, Kyoto or Osaka?",
+      promptEn: "Which is more delicious, pasta or curry?",
       acceptedAnswers: [
-        "きょうとと おおさかと どちらが きれいですか",
-        "きょうとと おおさかと どちらが きれいですか。",
-        "きょうとと おおさかと どっちが きれいですか",
-        "きょうとと おおさかと どっちが きれいですか。",
+        "パスタと カレーと どちらが おいしいですか",
+        "パスタと カレーと どちらが おいしいですか。",
+        "パスタと カレーと どっちが おいしいですか",
+        "パスタと カレーと どっちが おいしいですか。",
       ],
-      audioText: "きょうとと おおさかと どちらが きれいですか",
+      audioText: "パスタと カレーと どちらが おいしいですか",
     }),
     selfExplain({
       id: "ja-m22-5-2-self-explain",
@@ -1778,7 +1828,7 @@ assertNoConsecutiveSame(M22_5_2.steps);
 // M22-6-1 — Production (build + speaking heavy)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_6_1_REVIEW = pickReviewAtoms("ja-m22-6-1-rev", M22_REVIEW_POOL, 4);
+const M22_6_1_REVIEW = pickReviewAtoms("ja-m22-6-1-rev", M22_REVIEW_POOL, 6);
 
 export const M22_6_1: LessonContent = {
   id: "ja-m22-6-1",
@@ -1800,39 +1850,39 @@ export const M22_6_1: LessonContent = {
       "ja-m22-6-1-build-1",
       "Say: Meat is more expensive than vegetables.",
       "にくのほうが やさいより たかいです",
-      ["にく", "のほうが", "やさい", "より", "たかい", "です", "やすい"],
+      ["やさい", "たかい", "にく", "より", "のほうが", "やすい", "です"],
       ["にく", "のほうが", "やさい", "より", "たかい", "です"],
     ),
     speaking(
       "ja-m22-6-1-speak-1",
-      "にくのほうが やさいより たかいです",
-      "Meat is more expensive than vegetables.",
+      "コーヒーのほうが おちゃより たかいです",
+      "Coffee is more expensive than tea.",
     ),
     build(
       "ja-m22-6-1-build-2",
       "Ask: Which do you like more, meat or fish?",
       "にくと さかなと どちらが すきですか",
-      ["にく", "と", "さかな", "と", "どちら", "が", "すき", "です", "か"],
+      ["さかな", "どちら", "にく", "と", "が", "と", "すき", "か", "です"],
       ["にく", "と", "さかな", "と", "どちら", "が", "すき", "です", "か"],
     ),
     listeningBuildSentence({
       id: "ja-m22-6-1-lb-1",
-      target: "くだもののなかで りんごが いちばん おいしいです",
-      tiles: ["くだもの", "のなかで", "りんご", "が", "いちばん", "おいしい", "です", "バナナ"],
-      correctOrder: ["くだもの", "のなかで", "りんご", "が", "いちばん", "おいしい", "です"],
-      promptEn: "Hear it, build it: 'Among fruits, apples are the most delicious.'",
+      target: "りょうりのなかで カレーが いちばん すきです",
+      tiles: ["カレー", "すき", "りょうり", "が", "のなかで", "いちばん", "ラーメン", "です"],
+      correctOrder: ["りょうり", "のなかで", "カレー", "が", "いちばん", "すき", "です"],
+      promptEn: "Hear it, build it: 'Among foods, I like curry the most.'",
     }),
     speaking(
       "ja-m22-6-1-speak-2",
-      "ラーメンと カレーと どちらが すきですか",
-      "Which do you like more, ramen or curry?",
+      "やさいと くだものと どちらが すきですか",
+      "Which do you like more, vegetables or fruit?",
     ),
     build(
       "ja-m22-6-1-build-3",
-      "Answer: Ramen is more delicious.",
-      "ラーメンのほうが おいしいです",
-      ["ラーメン", "のほうが", "おいしい", "です", "より", "カレー"],
-      ["ラーメン", "のほうが", "おいしい", "です"],
+      "Answer: I like fruit more.",
+      "くだもののほうが すきです",
+      ["すき", "くだもの", "やさい", "のほうが", "より", "です"],
+      ["くだもの", "のほうが", "すき", "です"],
     ),
     sentenceMcq({
       id: "ja-m22-6-1-mcq-1",
@@ -1849,7 +1899,7 @@ export const M22_6_1: LessonContent = {
       "ja-m22-6-1-build-4",
       "Say: Among Japanese cities, Osaka is the liveliest.",
       "にほんのまちのなかで おおさかが いちばん にぎやかです",
-      ["にほんのまち", "のなかで", "おおさか", "が", "いちばん", "にぎやか", "です", "とうきょう"],
+      ["おおさか", "にぎやか", "にほんのまち", "が", "のなかで", "いちばん", "とうきょう", "です"],
       ["にほんのまち", "のなかで", "おおさか", "が", "いちばん", "にぎやか", "です"],
     ),
     speaking(
@@ -1859,18 +1909,18 @@ export const M22_6_1: LessonContent = {
     ),
     translateStep({
       id: "ja-m22-6-1-translate-1",
-      promptEn: "Fish is more delicious than meat.",
+      promptEn: "Ramen is more delicious than pasta.",
       acceptedAnswers: [
-        "さかなのほうが にくより おいしいです",
-        "さかなのほうが にくより おいしいです。",
+        "ラーメンのほうが パスタより おいしいです",
+        "ラーメンのほうが パスタより おいしいです。",
       ],
-      audioText: "さかなのほうが にくより おいしいです",
+      audioText: "ラーメンのほうが パスタより おいしいです",
     }),
     build(
       "ja-m22-6-1-build-5",
       "Say: This restaurant is more convenient.",
       "この レストランのほうが べんりです",
-      ["この", "レストラン", "のほうが", "べんり", "です", "ふべん", "あの"],
+      ["べんり", "この", "レストラン", "あの", "のほうが", "ふべん", "です"],
       ["この", "レストラン", "のほうが", "べんり", "です"],
     ),
     listeningCompSentence({
@@ -1930,7 +1980,7 @@ assertNoConsecutiveSame(M22_6_1.steps);
 // M22-6-2 — Production II (more build + speaking)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_6_2_REVIEW = pickReviewAtoms("ja-m22-6-2-rev", M22_REVIEW_POOL, 4);
+const M22_6_2_REVIEW = pickReviewAtoms("ja-m22-6-2-rev", M22_REVIEW_POOL, 6);
 
 export const M22_6_2: LessonContent = {
   id: "ja-m22-6-2",
@@ -1952,7 +2002,7 @@ export const M22_6_2: LessonContent = {
       "ja-m22-6-2-build-1",
       "Ask: Which city is more beautiful, Kyoto or Hiroshima?",
       "きょうとと ひろしまと どちらが きれいですか",
-      ["きょうと", "と", "ひろしま", "と", "どちら", "が", "きれい", "です", "か"],
+      ["ひろしま", "どちら", "きょうと", "と", "が", "と", "きれい", "か", "です"],
       ["きょうと", "と", "ひろしま", "と", "どちら", "が", "きれい", "です", "か"],
     ),
     speaking(
@@ -1963,7 +2013,7 @@ export const M22_6_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m22-6-2-lb-1",
       target: "さかなのほうが にくより やすいです",
-      tiles: ["さかな", "のほうが", "にく", "より", "やすい", "です", "たかい"],
+      tiles: ["にく", "やすい", "さかな", "より", "のほうが", "たかい", "です"],
       correctOrder: ["さかな", "のほうが", "にく", "より", "やすい", "です"],
       promptEn: "Hear it, build it: 'Fish is cheaper than meat.'",
     }),
@@ -1971,7 +2021,7 @@ export const M22_6_2: LessonContent = {
       "ja-m22-6-2-build-2",
       "Say: Among this food, ramen is the most delicious.",
       "この りょうりのなかで ラーメンが いちばん おいしいです",
-      ["この", "りょうり", "のなかで", "ラーメン", "が", "いちばん", "おいしい", "です", "カレー"],
+      ["ラーメン", "おいしい", "この", "りょうり", "が", "のなかで", "いちばん", "カレー", "です"],
       ["この", "りょうり", "のなかで", "ラーメン", "が", "いちばん", "おいしい", "です"],
     ),
     sentenceMcq({
@@ -1994,7 +2044,7 @@ export const M22_6_2: LessonContent = {
       "ja-m22-6-2-build-3",
       "Say: Vegetables and fruit are the same price.",
       "やさいと くだものは おなじ ねだんです",
-      ["やさい", "と", "くだもの", "は", "おなじ", "ねだん", "です", "ちがう"],
+      ["くだもの", "おなじ", "やさい", "と", "は", "ねだん", "ちがう", "です"],
       ["やさい", "と", "くだもの", "は", "おなじ", "ねだん", "です"],
     ),
     cloze(
@@ -2021,7 +2071,7 @@ export const M22_6_2: LessonContent = {
       "ja-m22-6-2-build-4",
       "Ask casually: Which is quieter?",
       "どっちが しずかですか",
-      ["どっち", "が", "しずか", "です", "か", "どちら", "にぎやか"],
+      ["しずか", "どっち", "どちら", "が", "にぎやか", "か", "です"],
       ["どっち", "が", "しずか", "です", "か"],
     ),
     translateStep({
@@ -2035,8 +2085,8 @@ export const M22_6_2: LessonContent = {
     }),
     speaking(
       "ja-m22-6-2-speak-3",
-      "おおさかのほうが きょうとより にぎやかです",
-      "Osaka is livelier than Kyoto.",
+      "とうきょうのほうが ひろしまより おおきいです",
+      "Tokyo is bigger than Hiroshima.",
     ),
     cloze(
       "ja-m22-6-2-cloze-nakade",
@@ -2051,7 +2101,7 @@ export const M22_6_2: LessonContent = {
     selfExplain({
       id: "ja-m22-6-2-self-explain",
       anchorLabel: "Full comparison production mastered",
-      anchorAudioText: "どちらも おいしいです",
+      anchorAudioText: "パスタのほうが カレーより やすいです",
       question: "Can you use もっと with のほうが〜より?",
       rule: { text: "No — のほうが already implies 'more.' Adding もっと is redundant. もっと is for standalone intensification: もっと おおきいです (bigger)." },
       surface: { text: "Yes — もっとのほうが means 'even more than.' Always combine them." },
@@ -2061,8 +2111,8 @@ export const M22_6_2: LessonContent = {
     }),
     speaking(
       "ja-m22-6-2-speak-4",
-      "どちらも おいしいです",
-      "Both are delicious.",
+      "どちらも すきです",
+      "I like both.",
     ),
     // ── Review tail ──
     speaking("ja-m22-6-2-rev-speak-1", M22_6_2_REVIEW[0].kana, M22_6_2_REVIEW[0].meaningEn),
@@ -2100,32 +2150,36 @@ export const M22_STORY: LessonContent = {
   moduleId: "m22",
   courseId: COURSE,
   languageId: LANG,
-  title: "Story — Choosing a restaurant",
+  title: "Story — Yuki's town",
   description:
-    "Listen to two friends compare restaurants and cities. Answer comprehension questions and practice key comparison patterns.",
+    "Listen to Yuki describe her town and its restaurants. Answer comprehension questions and build your replies with comparison patterns.",
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
     infoStep(
       "ja-m22-story-info-open",
-      "Story time — Choosing a restaurant",
-      "ゆき and たけし are deciding where to eat. They compare restaurants, food, and prices.",
+      "Story time — Yuki's town",
+      "ゆき tells you about her town, its restaurants, and her favorite food. Listen and reply.",
     ),
-    dialogueListen({
-      id: "ja-m22-story-scene-1",
-      lines: [
-        { speaker: "ゆき", kana: "ラーメンと カレーと どちらが すきですか。" },
-        { speaker: "たけし", kana: "ラーメンのほうが すきです。おいしいですよ。" },
-        { speaker: "ゆき", kana: "でも、この レストランのほうが あの レストランより やすいです。" },
-        { speaker: "たけし", kana: "じゃあ、この レストランに しましょう。" },
+    ...storyComprehension({
+      idPrefix: "ja-m22-story-scene-1",
+      narrative: [
+        { kana: "わたしの まちは レストランが すくないです。" },
+        { kana: "でも、いろいろな りょうりが あります。" },
+        { kana: "この レストランのほうが あの レストランより やすいです。" },
+        { kana: "この レストランの カレーは おいしいですよ。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s1-q1",
-          prompt: "Which food does たけし prefer?",
-          correctText: "Ramen.",
-          distractors: ["Curry.", "Both equally.", "Neither."],
-          explanation: "ラーメンのほうが すきです = I like ramen more.",
+          prompt: "Does Yuki's town have many restaurants?",
+          correctText: "No — it has few restaurants.",
+          distractors: [
+            "Yes — it has many restaurants.",
+            "It has no restaurants.",
+            "She doesn't say.",
+          ],
+          explanation: "レストランが すくないです = there are few restaurants.",
         },
         {
           id: "s1-q2",
@@ -2135,84 +2189,97 @@ export const M22_STORY: LessonContent = {
           explanation: "この レストランのほうが あの レストランより やすいです = this one is cheaper.",
         },
       ],
+      responseBuild: {
+        target: "わたしの まちも レストランが すくないです",
+        tiles: ["まち", "わたしの", "すくない", "レストラン", "も", "が", "です", "おおい"],
+        correctOrder: ["わたしの", "まち", "も", "レストラン", "が", "すくない", "です"],
+        promptEn: "Reply: 'My town also has few restaurants.'",
+      },
     }),
-    build(
-      "ja-m22-story-build-1",
-      "Say: Ramen is more delicious.",
-      "ラーメンのほうが おいしいです",
-      ["ラーメン", "のほうが", "おいしい", "です", "カレー", "より"],
-      ["ラーメン", "のほうが", "おいしい", "です"],
-    ),
     sentenceMcq({
       id: "ja-m22-story-mcq-1",
-      prompt: "What did ゆき compare?",
-      correctKana: "The prices of two restaurants.",
-      distractorsKana: ["The taste of the food.", "The size of the restaurants.", "The location."],
-      explanation: "ゆき said この レストランのほうが やすいです — comparing restaurant prices.",
-    }),
-    dialogueListen({
-      id: "ja-m22-story-scene-2",
-      lines: [
-        { speaker: "ゆき", kana: "この レストランの りょうりのなかで なにが いちばん おいしいですか。" },
-        { speaker: "たけし", kana: "ラーメンが いちばん おいしいです。ゆうめいですよ。" },
-        { speaker: "ゆき", kana: "じゃあ、わたしも ラーメンに します。にくと さかなと どちらが すきですか。" },
-        { speaker: "たけし", kana: "どちらも すきですが、にくのほうが すきです。" },
+      prompt: "Which sentence did Yuki say about the two restaurants?",
+      correctKana: "この レストランのほうが あの レストランより やすいです。",
+      distractorsKana: [
+        "あの レストランのほうが この レストランより やすいです。",
+        "この レストランと あの レストランは おなじです。",
+        "あの レストランが いちばん やすいです。",
       ],
-      questions: [
+      explanation: "のほうが marks the winner — THIS restaurant is the cheaper one.",
+    }),
+    ...storyComprehension({
+      idPrefix: "ja-m22-story-scene-2",
+      narrative: [
+        { kana: "まちのなかで この レストランが いちばん ゆうめいです。" },
+        { kana: "ラーメンも カレーも おいしいです。" },
+        { kana: "でも、わたしは カレーのほうが すきです。" },
+        { kana: "あなたは どちらが すきですか。" },
+      ],
+      comprehensionQuestions: [
         {
           id: "s2-q1",
-          prompt: "What is the most delicious item at this restaurant?",
-          correctText: "Ramen.",
-          distractors: ["Curry.", "Pasta.", "Fish."],
-          explanation: "ラーメンが いちばん おいしいです = ramen is the most delicious.",
+          prompt: "Which restaurant is the most famous in town?",
+          correctText: "This restaurant — the cheap one.",
+          distractors: ["That restaurant.", "A restaurant in Tokyo.", "None of them."],
+          explanation: "まちのなかで この レストランが いちばん ゆうめいです = this one is the most famous in town.",
         },
         {
           id: "s2-q2",
-          prompt: "Does たけし like meat or fish more?",
-          correctText: "He likes both, but prefers meat.",
-          distractors: ["He likes fish more.", "He likes both equally.", "He doesn't like either."],
-          explanation: "どちらも すきですが、にくのほうが すきです = likes both, but prefers meat.",
+          prompt: "Which food does Yuki prefer?",
+          correctText: "Curry.",
+          distractors: ["Ramen.", "Both equally.", "Neither."],
+          explanation: "カレーのほうが すきです = I like curry more.",
         },
       ],
+      responseBuild: {
+        target: "わたしは ラーメンのほうが すきです",
+        tiles: ["ラーメン", "すき", "わたし", "は", "のほうが", "より", "カレー", "です"],
+        correctOrder: ["わたし", "は", "ラーメン", "のほうが", "すき", "です"],
+        promptEn: "Answer her question: 'I like ramen more.'",
+      },
     }),
     cloze(
       "ja-m22-story-cloze-1",
-      "ラーメン",
-      " いちばん おいしいです。",
-      "が",
-      ["が", "は", "の", "を"],
-      "Ramen is the most delicious.",
-      "ラーメンが いちばん おいしいです。",
-      "が marks the 'number one' item.",
+      "カレー",
+      " ラーメンより すきです。",
+      "のほうが",
+      ["のほうが", "より", "のなかで", "は"],
+      "I like curry more than ramen.",
+      "カレーのほうが ラーメンより すきです。",
+      "のほうが marks the preferred one.",
     ),
     listeningBuildSentence({
       id: "ja-m22-story-lb-1",
-      target: "ラーメンのほうが すきです",
-      tiles: ["ラーメン", "のほうが", "すき", "です", "より", "カレー"],
-      correctOrder: ["ラーメン", "のほうが", "すき", "です"],
-      promptEn: "Hear it, build it: 'I like ramen more.'",
+      target: "まちのなかで この レストランが いちばん ゆうめいです",
+      tiles: ["この", "ゆうめい", "まち", "レストラン", "が", "のなかで", "いちばん", "です"],
+      correctOrder: ["まち", "のなかで", "この", "レストラン", "が", "いちばん", "ゆうめい", "です"],
+      promptEn: "Hear it, build it: 'In town, this restaurant is the most famous.'",
     }),
     listeningCompSentence({
       id: "ja-m22-story-lc-1",
-      audioText: "どちらも すきです",
-      correctMeaningEn: "I like both.",
+      audioText: "いろいろな りょうりが あります",
+      correctMeaningEn: "There are various dishes.",
       distractorsEn: [
-        "Which do you like?",
-        "I don't like either.",
-        "I like one more.",
+        "There are few dishes.",
+        "The dishes are all the same.",
+        "The dishes are expensive.",
       ],
     }),
     speaking(
       "ja-m22-story-speak-1",
-      "ラーメンが いちばん おいしいです",
-      "Ramen is the most delicious.",
+      "わたしは カレーのほうが すきです",
+      "I like curry more.",
     ),
     sentenceMcq({
       id: "ja-m22-story-mcq-summary",
-      prompt: "In the story, which restaurant did they choose?",
-      correctKana: "この レストラン (the cheaper one).",
-      distractorsKana: ["あの レストラン.", "どちらも.", "They couldn't decide."],
-      explanation: "たけし said じゃあ、この レストランに しましょう — let's go with this one.",
+      prompt: "What do we know about Yuki's town?",
+      correctKana: "It has few restaurants, but this one is famous and has various dishes.",
+      distractorsKana: [
+        "It has many restaurants, all the same.",
+        "It has no famous restaurants.",
+        "It only serves ramen.",
+      ],
+      explanation: "レストランが すくない + いろいろな りょうり + いちばん ゆうめい — few restaurants, varied food, one famous spot.",
     }),
     speaking(
       "ja-m22-story-speak-2",
@@ -2221,8 +2288,8 @@ export const M22_STORY: LessonContent = {
     ),
     infoStep(
       "ja-m22-story-info-end",
-      "You can follow a conversation about comparing restaurants and food",
-      "You understood comparative, superlative, and which-of-two questions in a real restaurant scene.",
+      "You can follow a story comparing restaurants and food",
+      "You understood comparative, superlative, and which-of-two patterns in a real narrative — and replied in Japanese.",
       "win",
     ),
   ],
@@ -2237,7 +2304,7 @@ assertExplanationDoesntLeakAnswer(M22_STORY.steps);
 // M22-7-1 — Comprehension closer (dialogue)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_7_1_REVIEW = pickReviewAtoms("ja-m22-7-1-rev", M22_REVIEW_POOL, 4);
+const M22_7_1_REVIEW = pickReviewAtoms("ja-m22-7-1-rev", M22_REVIEW_POOL, 6);
 
 export const M22_7_1: LessonContent = {
   id: "ja-m22-7-1",
@@ -2284,7 +2351,7 @@ export const M22_7_1: LessonContent = {
       "ja-m22-7-1-build-1",
       "Say: Osaka is livelier than Tokyo.",
       "おおさかのほうが とうきょうより にぎやかです",
-      ["おおさか", "のほうが", "とうきょう", "より", "にぎやか", "です", "しずか"],
+      ["とうきょう", "にぎやか", "おおさか", "より", "のほうが", "しずか", "です"],
       ["おおさか", "のほうが", "とうきょう", "より", "にぎやか", "です"],
     ),
     sentenceMcq({
@@ -2306,32 +2373,32 @@ export const M22_7_1: LessonContent = {
     }),
     cloze(
       "ja-m22-7-1-cloze-1",
-      "おおさか",
-      " とうきょうより にぎやかです。",
+      "とうきょう",
+      " おおさかより おおきいです。",
       "のほうが",
       ["のほうが", "より", "のなかで", "は"],
-      "Osaka is livelier than Tokyo.",
-      "おおさかのほうが とうきょうより にぎやかです。",
-      "のほうが marks Osaka as the winner.",
+      "Tokyo is bigger than Osaka.",
+      "とうきょうのほうが おおさかより おおきいです。",
+      "のほうが marks Tokyo as the winner.",
     ),
     build(
       "ja-m22-7-1-build-2",
       "Say: Kyoto is the most beautiful.",
       "きょうとが いちばん きれいです",
-      ["きょうと", "が", "いちばん", "きれい", "です", "しずか", "おおさか"],
+      ["きれい", "きょうと", "いちばん", "が", "しずか", "おおさか", "です"],
       ["きょうと", "が", "いちばん", "きれい", "です"],
     ),
     speaking(
       "ja-m22-7-1-speak-1",
-      "おおさかのほうが とうきょうより にぎやかです",
-      "Osaka is livelier than Tokyo.",
+      "ひろしまのほうが とうきょうより しずかです",
+      "Hiroshima is quieter than Tokyo.",
     ),
     listeningBuildSentence({
       id: "ja-m22-7-1-lb-1",
-      target: "きょうとが いちばん きれいです",
-      tiles: ["きょうと", "が", "いちばん", "きれい", "です", "おおさか", "しずか"],
-      correctOrder: ["きょうと", "が", "いちばん", "きれい", "です"],
-      promptEn: "Hear it, build it: 'Kyoto is the most beautiful.'",
+      target: "おおさかが いちばん べんりです",
+      tiles: ["べんり", "おおさか", "いちばん", "が", "きょうと", "ふべん", "です"],
+      correctOrder: ["おおさか", "が", "いちばん", "べんり", "です"],
+      promptEn: "Hear it, build it: 'Osaka is the most convenient.'",
     }),
     cloze(
       "ja-m22-7-1-cloze-2",
@@ -2345,14 +2412,14 @@ export const M22_7_1: LessonContent = {
     ),
     translateStep({
       id: "ja-m22-7-1-translate",
-      promptEn: "Which is bigger, Tokyo or Osaka?",
+      promptEn: "Which is quieter, Hiroshima or Kyoto?",
       acceptedAnswers: [
-        "とうきょうと おおさかと どちらが おおきいですか",
-        "とうきょうと おおさかと どちらが おおきいですか。",
-        "とうきょうと おおさかと どっちが おおきいですか",
-        "とうきょうと おおさかと どっちが おおきいですか。",
+        "ひろしまと きょうとと どちらが しずかですか",
+        "ひろしまと きょうとと どちらが しずかですか。",
+        "ひろしまと きょうとと どっちが しずかですか",
+        "ひろしまと きょうとと どっちが しずかですか。",
       ],
-      audioText: "とうきょうと おおさかと どちらが おおきいですか",
+      audioText: "ひろしまと きょうとと どちらが しずかですか",
     }),
     selfExplain({
       id: "ja-m22-7-1-self-explain",
@@ -2367,8 +2434,8 @@ export const M22_7_1: LessonContent = {
     }),
     speaking(
       "ja-m22-7-1-speak-2",
-      "きょうとが いちばん きれいです",
-      "Kyoto is the most beautiful.",
+      "にほんのまちのなかで きょうとが いちばん きれいです",
+      "Among Japanese cities, Kyoto is the most beautiful.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m22-7-1-rev-mcq-1", M22_7_1_REVIEW[0], M22_REVIEW_POOL),
@@ -2401,7 +2468,7 @@ assertNoConsecutiveSame(M22_7_1.steps);
 // M22-7-2 — Final mixed drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M22_7_2_REVIEW = pickReviewAtoms("ja-m22-7-2-rev", M22_REVIEW_POOL, 5);
+const M22_7_2_REVIEW = pickReviewAtoms("ja-m22-7-2-rev", M22_REVIEW_POOL, 6);
 
 export const M22_7_2: LessonContent = {
   id: "ja-m22-7-2",
@@ -2423,7 +2490,7 @@ export const M22_7_2: LessonContent = {
       "ja-m22-7-2-build-1",
       "Say: This curry is more delicious than that ramen.",
       "この カレーのほうが あの ラーメンより おいしいです",
-      ["この", "カレー", "のほうが", "あの", "ラーメン", "より", "おいしい", "です"],
+      ["あの", "おいしい", "この", "ラーメン", "カレー", "より", "のほうが", "です"],
       ["この", "カレー", "のほうが", "あの", "ラーメン", "より", "おいしい", "です"],
     ),
     sentenceMcq({
@@ -2456,13 +2523,13 @@ export const M22_7_2: LessonContent = {
       "ja-m22-7-2-build-2",
       "Say: Tokyo is the most convenient.",
       "とうきょうが いちばん べんりです",
-      ["とうきょう", "が", "いちばん", "べんり", "です", "のほうが", "おおさか"],
+      ["べんり", "とうきょう", "いちばん", "が", "のほうが", "おおさか", "です"],
       ["とうきょう", "が", "いちばん", "べんり", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m22-7-2-lb-1",
       target: "どちらも ゆうめいです",
-      tiles: ["どちら", "も", "ゆうめい", "です", "のほうが", "が"],
+      tiles: ["ゆうめい", "どちら", "のほうが", "も", "が", "です"],
       correctOrder: ["どちら", "も", "ゆうめい", "です"],
       promptEn: "Hear it, build it: 'Both are famous.'",
     }),
@@ -2488,14 +2555,14 @@ export const M22_7_2: LessonContent = {
     ),
     speaking(
       "ja-m22-7-2-speak-2",
-      "にほんのなかで とうきょうが いちばん おおきいです",
-      "In Japan, Tokyo is the biggest.",
+      "この まちは レストランが おおいです",
+      "This town has many restaurants.",
     ),
     build(
       "ja-m22-7-2-build-3",
       "Say: These two are different.",
       "この ふたつは ちがいます",
-      ["この", "ふたつ", "は", "ちがいます", "おなじ", "です"],
+      ["ふたつ", "この", "ちがいます", "は", "おなじ", "です"],
       ["この", "ふたつ", "は", "ちがいます"],
     ),
     sentenceMcq({
@@ -2511,12 +2578,12 @@ export const M22_7_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m22-7-2-translate",
-      promptEn: "Among this food, the ramen is the most delicious.",
+      promptEn: "Among this restaurant's dishes, the pasta is the cheapest.",
       acceptedAnswers: [
-        "この りょうりのなかで ラーメンが いちばん おいしいです",
-        "この りょうりのなかで ラーメンが いちばん おいしいです。",
+        "この レストランのなかで パスタが いちばん やすいです",
+        "この レストランのなかで パスタが いちばん やすいです。",
       ],
-      audioText: "この りょうりのなかで ラーメンが いちばん おいしいです",
+      audioText: "この レストランのなかで パスタが いちばん やすいです",
     }),
     selfExplain({
       id: "ja-m22-7-2-self-explain",
@@ -2531,8 +2598,8 @@ export const M22_7_2: LessonContent = {
     }),
     speaking(
       "ja-m22-7-2-speak-3",
-      "ラーメンと カレーと どちらが すきですか",
-      "Which do you like more, ramen or curry?",
+      "やまと うみと どちらが すきですか",
+      "Which do you like more, the mountains or the sea?",
     ),
     // ── Review tail ──
     vocabMcq("ja-m22-7-2-rev-mcq-1", M22_7_2_REVIEW[0], M22_REVIEW_POOL),
@@ -2547,7 +2614,7 @@ export const M22_7_2: LessonContent = {
       ],
     }),
     speaking("ja-m22-7-2-rev-speak-1", M22_7_2_REVIEW[2].kana, M22_7_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m22-7-2-rev", M22_7_2_REVIEW.slice(0, 4)),
+    reviewMatchPairs("ja-m22-7-2-rev", M22_7_2_REVIEW),
     infoStep(
       "ja-m22-7-2-info-end",
       "You can now compare, rank, and choose between anything in Japanese",

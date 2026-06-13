@@ -20,7 +20,15 @@ import type { ShopItem } from "../shopCatalog";
  * Always fills the width of its parent and is `aria-hidden` — the card's
  * title + description carry the semantic label.
  */
-export function ShopItemPreview({ item }: { item: ShopItem }) {
+export function ShopItemPreview({
+  item,
+  tint,
+}: {
+  item: ShopItem;
+  /** Section identity tint for icon items — one sharp colored element
+   *  per card (frames/banners carry their own color). */
+  tint?: string;
+}) {
   if (item.decoratorId) {
     return <FramePreview decoratorId={item.decoratorId} />;
   }
@@ -30,7 +38,7 @@ export function ShopItemPreview({ item }: { item: ShopItem }) {
   if (item.bannerId) {
     return <BannerPreview bannerId={item.bannerId} />;
   }
-  return <IconPreview iconName={item.iconName as IconName} />;
+  return <IconPreview iconName={item.iconName as IconName} tint={tint} />;
 }
 
 // ─── Frame ───────────────────────────────────────────────────────────────────
@@ -116,10 +124,14 @@ function BannerPreview({ bannerId }: { bannerId: string }) {
  * look like equipped" preview, so we promote the lucide glyph to a larger
  * disc to match the visual weight of frame/title/banner previews.
  */
-function IconPreview({ iconName }: { iconName: IconName }) {
+function IconPreview({ iconName, tint }: { iconName: IconName; tint?: string }) {
   return (
     <div className="flex items-center justify-center py-2" aria-hidden>
-      <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-surface-muted text-text-muted">
+      <span
+        className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl ${
+          tint ?? "bg-surface-muted text-text-muted"
+        }`}
+      >
         <Icon name={iconName} size={32} strokeWidth={1.75} />
       </span>
     </div>

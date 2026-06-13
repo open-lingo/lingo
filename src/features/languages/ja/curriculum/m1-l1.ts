@@ -328,19 +328,20 @@ export const MOCK_LESSON_JA_M1_L1A: LessonContent = {
     traceTwice("ja-vowel-1-trace-u", "う", "u", "like 'oo' in 'food'"),
     recognition("ja-vowel-1-recog-u", "う", "u", "like 'oo' in 'food'"),
 
-    // 11-12. Build first words: あい (love), いう (to say)
+    // 11. Build あい (introduced by the image MCQ above)
     listeningBuild("ja-vowel-1-build-ai", "あい", "love", VOWEL_TILES),
+
+    // 12. Introduce いう via image MCQ BEFORE asking the learner to spell
+    // it — production never precedes introduction.
+    wordImageMcq("ja-vowel-1-mcq-iu", "いう"),
     listeningBuild("ja-vowel-1-build-iu", "いう", "to say", VOWEL_TILES),
 
-    // 13. Speaking: あい
+    // 14. Speaking: あい
     speaking("ja-vowel-1-speak-ai", "あい", "love"),
 
-    // 14-15. Listening comprehension
+    // 15-16. Listening comprehension
     listeningComp("ja-vowel-1-lc-ai", "あい", "ai", "love", ["to say", "house", "above"]),
     listeningComp("ja-vowel-1-lc-iu", "いう", "iu", "to say", ["love", "house", "blue"]),
-
-    // 16. MCQ on いう
-    wordImageMcq("ja-vowel-1-mcq-iu", "いう"),
 
     // 17. Recognition recall あ
     recognition("ja-vowel-1-recog-a2", "あ", "a", "like 'a' in 'father'"),
@@ -408,7 +409,9 @@ export const MOCK_LESSON_JA_M1_L1B: LessonContent = {
     wordImageMcq("ja-vowel-2-mcq-aoi", "あおい"),
     listeningBuild("ja-vowel-2-build-aoi", "あおい", "blue", VOWEL_TILES),
 
-    // 15. Build うえ (above)
+    // 15-16. Introduce うえ via image MCQ, then build it — production
+    // never precedes introduction.
+    wordImageMcq("ja-vowel-2-mcq-ue", "うえ"),
     listeningBuild("ja-vowel-2-build-ue", "うえ", "above", VOWEL_TILES),
 
     // 16. Speaking: いえ

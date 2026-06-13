@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { renderHook } from "@testing-library/react";
 import { usePracticeData } from "./usePracticeData";
+import { markLessonCompleted } from "@/shared/domain/mockProgress";
 
 describe("usePracticeData", () => {
   beforeEach(() => {
@@ -8,7 +9,7 @@ describe("usePracticeData", () => {
   });
 
   it("returns a stable shape", () => {
-    const { result } = renderHook(() => usePracticeData());
+    const { result } = renderHook(() => usePracticeData("ja"));
     const keys = Object.keys(result.current.data).sort();
     expect(keys).toEqual(
       [
@@ -22,52 +23,43 @@ describe("usePracticeData", () => {
   });
 
   it("returns a 7-day week minutes array (oldest -> newest)", () => {
-    const { result } = renderHook(() => usePracticeData());
+    const { result } = renderHook(() => usePracticeData("ja"));
     expect(result.current.data.weekMinutes).toHaveLength(7);
     expect(result.current.data.weekMinutes.every((n) => typeof n === "number")).toBe(true);
   });
 
-  it("exposes due/total modules with sane defaults", () => {
-    const { result } = renderHook(() => usePracticeData());
+  it("starts with zero minutes when no lessons are completed", () => {
+    const { result } = renderHook(() => usePracticeData("ja"));
+    expect(result.current.data.todayMinutes).toBe(0);
+    expect(result.current.data.weekMinutes.every((n) => n === 0)).toBe(true);
+  });
+
+  it("derives todayMinutes from lesson completions", () => {
+    markLessonCompleted("ja-m3-1", { accuracy: 1, xpEarned: 10, isReview: false });
+    const { result } = renderHook(() => usePracticeData("ja"));
+    expect(result.current.data.todayMinutes).toBeGreaterThan(0);
+    // todayMinutes is the last entry of the week array.
+    const week = result.current.data.weekMinutes;
+    expect(result.current.data.todayMinutes).toBe(week[week.length - 1]);
+  });
+
+  it("exposes due/total modules from the review schedule + course map", () => {
+    const { result } = renderHook(() => usePracticeData("ja"));
     const { dueModules, totalModules } = result.current.data;
-    expect(typeof dueModules).toBe("number");
-    expect(typeof totalModules).toBe("number");
     expect(totalModules).toBeGreaterThan(0);
-    expect(dueModules).toBeGreaterThanOrEqual(0);
-    expect(dueModules).toBeLessThanOrEqual(totalModules);
+    // Fresh storage — nothing scheduled, so nothing due.
+    expect(dueModules).toBe(0);
   });
 
-  it("exposes per-section last-touched hours", () => {
-    const { result } = renderHook(() => usePracticeData());
+  it("reports null last-touched hours when there is no recorded activity", () => {
+    const { result } = renderHook(() => usePracticeData("ja"));
     const { lastTouchedHours } = result.current.data;
-    expect(typeof lastTouchedHours.flashcards).toBe("number");
-    expect(typeof lastTouchedHours.grammar).toBe("number");
-    expect(typeof lastTouchedHours.alphabet).toBe("number");
+    expect(lastTouchedHours.flashcards).toBeNull();
+    expect(lastTouchedHours.alphabet).toBeNull();
   });
 
-  it("exposes todayMinutes as a number", () => {
-    const { result } = renderHook(() => usePracticeData());
-    expect(typeof result.current.data.todayMinutes).toBe("number");
-    expect(result.current.data.todayMinutes).toBeGreaterThanOrEqual(0);
-  });
-
-  it("reports isLoading=false in the mock implementation", () => {
-    const { result } = renderHook(() => usePracticeData());
+  it("reports isLoading=false (synchronous local reads)", () => {
+    const { result } = renderHook(() => usePracticeData("ja"));
     expect(result.current.isLoading).toBe(false);
-  });
-});
-
-describe("useGrammarPracticeData", () => {
-  beforeEach(() => {
-    localStorage.clear();
-  });
-
-  it("returns trainer/lesson/hours counts", async () => {
-    const { useGrammarPracticeData } = await import("./usePracticeData");
-    const { result } = renderHook(() => useGrammarPracticeData());
-    const { data } = result.current;
-    expect(typeof data.trainerCount).toBe("number");
-    expect(typeof data.lessonCount).toBe("number");
-    expect(typeof data.hoursPracticed).toBe("number");
   });
 });

@@ -9,6 +9,7 @@
     "srsLabel": "Flashcards",
     "lessonsLabel": "Lessons",
     "syncNow": "Sync now",
+    "syncing": "Syncing",
     "syncingShort": "…",
     "autoSoon": "Auto-sync in {{time}}",
     "lastSync": "Last sync: {{time}}",
@@ -1849,7 +1850,9 @@
       "thisWeek": "This week vs. friend median",
       "aheadBy": "+{{n}} XP ahead",
       "behindBy": "{{n}} XP behind",
-      "seeFull": "See full leaderboard"
+      "seeFull": "See full leaderboard",
+      "unavailableTitle": "Leagues are warming up",
+      "unavailableBody": "We couldn't load your league right now — check back soon."
     },
     "friendsLb": {
       "title": "Friend leaderboard",
@@ -1910,5 +1913,31 @@
       "emptyMonthly": "No monthly rankings yet — be the first.",
       "emptyFriends": "Add friends to start a friends-only leaderboard."
     }
+  },
+  "placement": {
+    "promptTitle": "Placement Test",
+    "promptBody": "Already know some Japanese? Take a 2-minute placement test to skip ahead to the right level. You can also test out of individual modules later.",
+    "promptStart": "Take the test",
+    "promptSkip": "Start from scratch",
+    "screeningLabel": "Screening · {{done}} / {{total}}",
+    "probingLabel": "Probing · {{module}}",
+    "testOutLabel": "Test out · {{module}}",
+    "testOutPassedTitle": "Module cleared!",
+    "testOutFailedTitle": "Not quite yet",
+    "testOutPassedBody": "You tested out of {{module}}. {{atomCount}} vocab items are now in your review queue for a quick refresher.",
+    "testOutFailedBody": "You need 100% to test out. Keep practicing and try again when you're ready.",
+    "continue": "Continue",
+    "resultPassedTitle": "Placement complete!",
+    "resultFailedTitle": "Starting from the top",
+    "resultMastery": "You demonstrated mastery of",
+    "resultModuleCount_one": "{{count}} module",
+    "resultModuleCount_other": "{{count}} modules",
+    "resultSkipped": ". We skipped {{lessonCount}} lessons and added {{atomCount}} vocab items to your review queue for a quick refresher.",
+    "resultFailedBody": "No worries — you'll start with the fundamentals. The course will build your skills step by step.",
+    "startLearning": "Start learning",
+    "noBankTitle": "No test-out questions yet",
+    "noBankBodyBefore": "The placement engine doesn't have any items for",
+    "noBankBodyAfter": "on this language yet. The Japanese course covers M3–M27; other modules + other languages need their own bank before test-out can probe them.",
+    "backToLearn": "Back to Learn"
   }
 }

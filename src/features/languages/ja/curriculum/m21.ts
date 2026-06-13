@@ -19,12 +19,19 @@
  * ID scheme: ja-m21-{n}-{sub} e.g. ja-m21-1-1, ja-m21-1-2
  * Export names: M21_1_1, M21_1_2, M21_2_1, M21_2_2, etc.
  * Clustering regex /^(ja-m\d+-.+)-(\d+|test)$/ groups under prefix ja-m21-1, etc.
+ *
+ * 2026-06-12 sentence-variety reauthor: review-particle cloze thinned to
+ * ≤25% (excess を clozes converted to production builds), no sentence
+ * repeated >3x module-wide, build tile banks scrambled, story converted to
+ * the storyComprehension() factory (§13.13 locked template). Backlog
+ * dining-politeness words woven in: どうぞ (M21-4-1), どうも (M21-4-2),
+ * いかが + けっこう (M21-6-2), ほか (M21-7-1), ちょうど (M21-7-2);
+ * たくさん (taught M20) reused in carriers.
  */
 import type { LessonContent } from "@/features/lesson/types";
 import {
   build,
   cloze,
-  dialogueListen,
   grammarRule,
   infoStep,
   listeningBuildSentence,
@@ -36,6 +43,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  storyComprehension,
   translateStep,
   vocabMcq,
   assertNoSameAnswerCluster,
@@ -170,7 +178,7 @@ const RULE_HAI_COUNTER = grammarRule({
 //   (food vocab: たまご, にく, さかな, やさい + emoji MCQ)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_1_1_REVIEW = pickReviewAtoms("ja-m21-1-1-rev", M21_REVIEW_POOL, 4);
+const M21_1_1_REVIEW = pickReviewAtoms("ja-m21-1-1-rev", M21_REVIEW_POOL, 6);
 
 export const M21_1_1: LessonContent = {
   id: "ja-m21-1-1",
@@ -231,7 +239,7 @@ export const M21_1_1: LessonContent = {
       "ja-m21-1-1-build-tamago",
       "Say: I eat eggs.",
       "たまごを たべます",
-      ["たまご", "を", "たべます", "にく", "のみます"],
+      ["たべます", "たまご", "にく", "のみます", "を"],
       ["たまご", "を", "たべます"],
     ),
     sentenceMcq({
@@ -245,20 +253,17 @@ export const M21_1_1: LessonContent = {
       ],
       explanation: "さかな = fish. たべます = eat.",
     }),
-    cloze(
-      "ja-m21-1-1-cloze-wo",
-      "にく",
-      " たべます。",
-      "を",
-      ["を", "は", "が", "に"],
-      "I eat meat.",
-      "にくを たべます。",
-      "を marks the direct object — meat is what you eat.",
+    build(
+      "ja-m21-1-1-build-niku-wo",
+      "Say: I eat meat.",
+      "にくを たべます",
+      ["たべます", "やさい", "にく", "を", "のみます"],
+      ["にく", "を", "たべます"],
     ),
     listeningBuildSentence({
       id: "ja-m21-1-1-lb-yasai",
       target: "やさいを たべます",
-      tiles: ["やさい", "を", "たべます", "さかな", "のみます"],
+      tiles: ["たべます", "を", "のみます", "さかな", "やさい"],
       correctOrder: ["やさい", "を", "たべます"],
       promptEn: "Hear it, build it: 'I eat vegetables.'",
     }),
@@ -274,9 +279,9 @@ export const M21_1_1: LessonContent = {
         "を marks the direct object of the verb. にく (meat) is what you eat (たべます), so it takes を.",
     }),
     speaking(
-      "ja-m21-1-1-speak-niku",
-      "にくを たべます",
-      "I eat meat.",
+      "ja-m21-1-1-speak-sakana",
+      "さかなを たべます",
+      "I eat fish.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m21-1-1-rev-mcq-1", M21_1_1_REVIEW[0], M21_REVIEW_POOL),
@@ -310,7 +315,7 @@ assertNoConsecutiveSame(M21_1_1.steps);
 //   (drill たまご, にく, さかな, やさい in sentences + ごはん, おべんとう, とりにく)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_1_2_REVIEW = pickReviewAtoms("ja-m21-1-2-rev", M21_REVIEW_POOL, 4);
+const M21_1_2_REVIEW = pickReviewAtoms("ja-m21-1-2-rev", M21_REVIEW_POOL, 6);
 
 export const M21_1_2: LessonContent = {
   id: "ja-m21-1-2",
@@ -340,7 +345,7 @@ export const M21_1_2: LessonContent = {
       "ja-m21-1-2-build-gohan",
       "Pick the Japanese word for: Cooked rice / meal",
       "ごはん",
-      ["ごはん", "パン", "にく", "さかな"],
+      ["にく", "パン", "ごはん", "さかな"],
       ["ごはん"],
     ),
     vocabMcq(
@@ -365,18 +370,8 @@ export const M21_1_2: LessonContent = {
       "ja-m21-1-2-build-toriniku",
       "Say: I eat chicken.",
       "とりにくを たべます",
-      ["とりにく", "を", "たべます", "さかな", "のみます"],
+      ["を", "のみます", "さかな", "とりにく", "たべます"],
       ["とりにく", "を", "たべます"],
-    ),
-    cloze(
-      "ja-m21-1-2-cloze-wo",
-      "ごはん",
-      " たべます。",
-      "を",
-      ["を", "は", "が", "に"],
-      "I eat rice.",
-      "ごはんを たべます。",
-      "を marks rice as the direct object of eating.",
     ),
     sentenceMcq({
       id: "ja-m21-1-2-mcq-gohan-sent",
@@ -389,10 +384,17 @@ export const M21_1_2: LessonContent = {
       ],
       explanation: "おべんとう = lunch box. たべます = eat.",
     }),
+    build(
+      "ja-m21-1-2-build-gohan-sakana",
+      "Say: I eat rice and fish.",
+      "ごはんと さかなを たべます",
+      ["さかな", "を", "ごはん", "たべます", "と", "のみます"],
+      ["ごはん", "と", "さかな", "を", "たべます"],
+    ),
     listeningBuildSentence({
       id: "ja-m21-1-2-lb-gohan",
       target: "ごはんを たべます",
-      tiles: ["ごはん", "を", "たべます", "にく", "のみます"],
+      tiles: ["を", "のみます", "にく", "ごはん", "たべます"],
       correctOrder: ["ごはん", "を", "たべます"],
       promptEn: "Hear it, build it: 'I eat rice.'",
     }),
@@ -463,7 +465,7 @@ assertNoConsecutiveSame(M21_1_2.steps);
 //   (くだもの, りんご, バナナ, ぎゅうにゅう, ジュース)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_2_1_REVIEW = pickReviewAtoms("ja-m21-2-1-rev", M21_REVIEW_POOL, 4);
+const M21_2_1_REVIEW = pickReviewAtoms("ja-m21-2-1-rev", M21_REVIEW_POOL, 6);
 
 export const M21_2_1: LessonContent = {
   id: "ja-m21-2-1",
@@ -493,7 +495,7 @@ export const M21_2_1: LessonContent = {
       "ja-m21-2-1-build-ringo",
       "Pick the Japanese word for: Apple",
       "りんご",
-      ["りんご", "みかん", "バナナ", "くだもの"],
+      ["みかん", "りんご", "バナナ", "くだもの"],
       ["りんご"],
     ),
     listeningCompSentence({
@@ -507,7 +509,7 @@ export const M21_2_1: LessonContent = {
       "ja-m21-2-1-build-banana",
       "Pick the Japanese word for: Banana",
       "バナナ",
-      ["バナナ", "りんご", "くだもの", "みかん"],
+      ["みかん", "くだもの", "りんご", "バナナ"],
       ["バナナ"],
     ),
     speaking("ja-m21-2-1-speak-banana", "バナナ", "Banana"),
@@ -516,7 +518,7 @@ export const M21_2_1: LessonContent = {
       "ja-m21-2-1-build-gyuunyuu",
       "Pick the Japanese word for: Milk",
       "ぎゅうにゅう",
-      ["ぎゅうにゅう", "ジュース", "おさけ", "みず"],
+      ["おさけ", "ぎゅうにゅう", "ジュース", "みず"],
       ["ぎゅうにゅう"],
     ),
     listeningCompSentence({
@@ -530,7 +532,7 @@ export const M21_2_1: LessonContent = {
       "ja-m21-2-1-build-juusu",
       "Pick the Japanese word for: Juice",
       "ジュース",
-      ["ジュース", "ぎゅうにゅう", "コーヒー", "おちゃ"],
+      ["おちゃ", "ぎゅうにゅう", "コーヒー", "ジュース"],
       ["ジュース"],
     ),
     vocabMcq(
@@ -539,15 +541,12 @@ export const M21_2_1: LessonContent = {
       M21_REVIEW_POOL,
     ),
     // ── Sentence drills ──
-    cloze(
-      "ja-m21-2-1-cloze-wo",
-      "ジュース",
-      " のみます。",
-      "を",
-      ["を", "は", "が", "に"],
-      "I drink juice.",
-      "ジュースを のみます。",
-      "を marks juice as the direct object of drinking.",
+    build(
+      "ja-m21-2-1-build-juusu-nomu",
+      "Say: I drink juice.",
+      "ジュースを のみます",
+      ["のみます", "ぎゅうにゅう", "ジュース", "を", "たべます"],
+      ["ジュース", "を", "のみます"],
     ),
     sentenceMcq({
       id: "ja-m21-2-1-mcq-gyuunyuu-sent",
@@ -564,7 +563,7 @@ export const M21_2_1: LessonContent = {
       "ja-m21-2-1-build-ringo-taberu",
       "Say: I eat an apple.",
       "りんごを たべます",
-      ["りんご", "を", "たべます", "バナナ", "のみます"],
+      ["のみます", "バナナ", "を", "たべます", "りんご"],
       ["りんご", "を", "たべます"],
     ),
     selfExplain({
@@ -615,7 +614,7 @@ assertNoConsecutiveSame(M21_2_1.steps);
 //   (みかん, おさけ + パン review + sentence variety)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_2_2_REVIEW = pickReviewAtoms("ja-m21-2-2-rev", M21_REVIEW_POOL, 4);
+const M21_2_2_REVIEW = pickReviewAtoms("ja-m21-2-2-rev", M21_REVIEW_POOL, 6);
 
 export const M21_2_2: LessonContent = {
   id: "ja-m21-2-2",
@@ -638,7 +637,7 @@ export const M21_2_2: LessonContent = {
       "ja-m21-2-2-build-mikan",
       "Pick the Japanese word for: Mandarin orange",
       "みかん",
-      ["みかん", "りんご", "バナナ", "くだもの"],
+      ["りんご", "くだもの", "みかん", "バナナ"],
       ["みかん"],
     ),
     listeningCompSentence({
@@ -659,7 +658,7 @@ export const M21_2_2: LessonContent = {
       "ja-m21-2-2-build-osake",
       "Pick the Japanese word for: Alcohol / sake",
       "おさけ",
-      ["おさけ", "ジュース", "ぎゅうにゅう", "おちゃ"],
+      ["おちゃ", "おさけ", "ジュース", "ぎゅうにゅう"],
       ["おさけ"],
     ),
     listeningCompSentence({
@@ -673,19 +672,16 @@ export const M21_2_2: LessonContent = {
       "ja-m21-2-2-build-pan-taberu",
       "Say: I eat bread.",
       "パンを たべます",
-      ["パン", "を", "たべます", "ごはん", "のみます"],
+      ["たべます", "パン", "を", "ごはん", "のみます"],
       ["パン", "を", "たべます"],
     ),
-    cloze(
-      "ja-m21-2-2-cloze-wo",
-      "おさけ",
-      " のみます。",
-      "を",
-      ["を", "は", "が", "に"],
-      "I drink alcohol.",
-      "おさけを のみます。",
-      "を marks the direct object — alcohol is what you drink.",
-    ),
+    listeningBuildSentence({
+      id: "ja-m21-2-2-lb-osake",
+      target: "おさけを のみます",
+      tiles: ["のみます", "おちゃ", "おさけ", "を", "たべます"],
+      correctOrder: ["おさけ", "を", "のみます"],
+      promptEn: "Hear it, build it: 'I drink alcohol.'",
+    }),
     sentenceMcq({
       id: "ja-m21-2-2-mcq-mikan",
       prompt: "Which sentence means 'I eat a mandarin.'?",
@@ -700,7 +696,7 @@ export const M21_2_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m21-2-2-lb-pan",
       target: "パンを たべます",
-      tiles: ["パン", "を", "たべます", "ごはん", "のみます"],
+      tiles: ["たべます", "パン", "を", "ごはん", "のみます"],
       correctOrder: ["パン", "を", "たべます"],
       promptEn: "Hear it, build it: 'I eat bread.'",
     }),
@@ -716,12 +712,12 @@ export const M21_2_2: LessonContent = {
     ),
     translateStep({
       id: "ja-m21-2-2-translate",
-      promptEn: "I drink juice.",
+      promptEn: "I drink milk.",
       acceptedAnswers: [
-        "ジュースを のみます",
-        "ジュースを のみます。",
+        "ぎゅうにゅうを のみます",
+        "ぎゅうにゅうを のみます。",
       ],
-      audioText: "ジュースを のみます",
+      audioText: "ぎゅうにゅうを のみます",
     }),
     selfExplain({
       id: "ja-m21-2-2-self-explain",
@@ -771,7 +767,7 @@ assertNoConsecutiveSame(M21_2_2.steps);
 //   (や incomplete list: パンやたまご)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_3_1_REVIEW = pickReviewAtoms("ja-m21-3-1-rev", M21_REVIEW_POOL, 4);
+const M21_3_1_REVIEW = pickReviewAtoms("ja-m21-3-1-rev", M21_REVIEW_POOL, 6);
 
 export const M21_3_1: LessonContent = {
   id: "ja-m21-3-1",
@@ -795,7 +791,7 @@ export const M21_3_1: LessonContent = {
       "ja-m21-3-1-build-pan-ya-tamago",
       "Say: I buy bread and eggs (among other things).",
       "パンや たまごを かいます",
-      ["パン", "や", "たまご", "を", "かいます", "と", "のみます"],
+      ["と", "たまご", "や", "かいます", "を", "パン", "のみます"],
       ["パン", "や", "たまご", "を", "かいます"],
     ),
     listeningCompSentence({
@@ -821,11 +817,11 @@ export const M21_3_1: LessonContent = {
     sentenceMcq({
       id: "ja-m21-3-1-mcq-ya-vs-to",
       prompt: "Which particle means 'and (among other things)'?",
-      correctKana: "パンや たまごを かいます。",
+      correctKana: "くだものや パンを かいます。",
       distractorsKana: [
-        "パンと たまごを かいます。",
-        "パンは たまごを かいます。",
-        "パンを たまごを かいます。",
+        "くだものと パンを かいます。",
+        "くだものは パンを かいます。",
+        "くだものを パンを かいます。",
       ],
       explanation: "や = and (open list, implying more). と = and (only those two).",
     }),
@@ -833,13 +829,13 @@ export const M21_3_1: LessonContent = {
       "ja-m21-3-1-build-niku-ya-yasai",
       "Say: I eat meat and vegetables (among other things).",
       "にくや やさいを たべます",
-      ["にく", "や", "やさい", "を", "たべます", "と", "かいます"],
+      ["かいます", "や", "にく", "と", "を", "たべます", "やさい"],
       ["にく", "や", "やさい", "を", "たべます"],
     ),
     listeningBuildSentence({
       id: "ja-m21-3-1-lb-ya",
       target: "さかなや やさいを かいます",
-      tiles: ["さかな", "や", "やさい", "を", "かいます", "と", "たべます"],
+      tiles: ["と", "さかな", "かいます", "や", "やさい", "たべます", "を"],
       correctOrder: ["さかな", "や", "やさい", "を", "かいます"],
       promptEn: "Hear it, build it: 'I buy fish and vegetables (among other things).'",
     }),
@@ -855,18 +851,15 @@ export const M21_3_1: LessonContent = {
     ),
     speaking(
       "ja-m21-3-1-speak-ya-1",
-      "パンや たまごを かいます",
-      "I buy bread and eggs (among other things).",
+      "たまごや ぎゅうにゅうを かいます",
+      "I buy eggs and milk (among other things).",
     ),
-    cloze(
-      "ja-m21-3-1-cloze-wo",
-      "にくや さかな",
-      " たべます。",
-      "を",
-      ["を", "や", "は", "が"],
-      "I eat meat and fish (among other things).",
-      "にくや さかなを たべます。",
-      "を marks the direct object — the listed items are what you eat.",
+    build(
+      "ja-m21-3-1-build-niku-sakana",
+      "Say: I eat meat and fish (among other things).",
+      "にくや さかなを たべます",
+      ["さかな", "を", "にく", "たべます", "や", "と"],
+      ["にく", "や", "さかな", "を", "たべます"],
     ),
     sentenceMcq({
       id: "ja-m21-3-1-mcq-ya-meaning",
@@ -881,12 +874,12 @@ export const M21_3_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m21-3-1-translate",
-      promptEn: "I eat meat and fish (among other things).",
+      promptEn: "I eat vegetables and fruit (among other things).",
       acceptedAnswers: [
-        "にくや さかなを たべます",
-        "にくや さかなを たべます。",
+        "やさいや くだものを たべます",
+        "やさいや くだものを たべます。",
       ],
-      audioText: "にくや さかなを たべます",
+      audioText: "やさいや くだものを たべます",
     }),
     selfExplain({
       id: "ja-m21-3-1-self-explain",
@@ -936,7 +929,7 @@ assertNoConsecutiveSame(M21_3_1.steps);
 //   (や vs と contrast drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_3_2_REVIEW = pickReviewAtoms("ja-m21-3-2-rev", M21_REVIEW_POOL, 4);
+const M21_3_2_REVIEW = pickReviewAtoms("ja-m21-3-2-rev", M21_REVIEW_POOL, 6);
 
 export const M21_3_2: LessonContent = {
   id: "ja-m21-3-2",
@@ -969,17 +962,17 @@ export const M21_3_2: LessonContent = {
       "ja-m21-3-2-build-to",
       "Say: Coffee and tea, please. (only those two)",
       "コーヒーと おちゃを ください",
-      ["コーヒー", "と", "おちゃ", "を", "ください", "や", "は"],
+      ["や", "は", "コーヒー", "ください", "おちゃ", "を", "と"],
       ["コーヒー", "と", "おちゃ", "を", "ください"],
     ),
     listeningCompSentence({
       id: "ja-m21-3-2-lc-ya",
-      audioText: "くだものや やさいを たべます",
-      correctMeaningEn: "I eat fruit and vegetables (among other things).",
+      audioText: "くだものや やさいを たくさん たべます",
+      correctMeaningEn: "I eat lots of fruit and vegetables (among other things).",
       distractorsEn: [
+        "I eat a little fruit and vegetables.",
         "I eat only fruit and vegetables.",
-        "I eat fruit or vegetables.",
-        "I buy fruit and vegetables.",
+        "I buy lots of fruit and vegetables.",
       ],
     }),
     cloze(
@@ -1007,13 +1000,13 @@ export const M21_3_2: LessonContent = {
       "ja-m21-3-2-build-ya-fruit",
       "Say: I eat apples and bananas (among other things).",
       "りんごや バナナを たべます",
-      ["りんご", "や", "バナナ", "を", "たべます", "と", "かいます"],
+      ["や", "りんご", "たべます", "を", "バナナ", "かいます", "と"],
       ["りんご", "や", "バナナ", "を", "たべます"],
     ),
     listeningBuildSentence({
       id: "ja-m21-3-2-lb-to",
       target: "たまごと パンを ください",
-      tiles: ["たまご", "と", "パン", "を", "ください", "や", "かいます"],
+      tiles: ["を", "たまご", "と", "パン", "かいます", "や", "ください"],
       correctOrder: ["たまご", "と", "パン", "を", "ください"],
       promptEn: "Hear it, build it: 'Eggs and bread, please.' (only those two)",
     }),
@@ -1029,8 +1022,8 @@ export const M21_3_2: LessonContent = {
     ),
     speaking(
       "ja-m21-3-2-speak-ya",
-      "にくや さかなを たべます",
-      "I eat meat and fish (among other things).",
+      "とりにくや たまごを たべます",
+      "I eat chicken and eggs (among other things).",
     ),
     listeningCompSentence({
       id: "ja-m21-3-2-lc-to",
@@ -1042,15 +1035,12 @@ export const M21_3_2: LessonContent = {
         "I drink coffee and juice.",
       ],
     }),
-    cloze(
-      "ja-m21-3-2-cloze-wo",
-      "やさいや くだもの",
-      " かいます。",
-      "を",
-      ["を", "や", "と", "は"],
-      "I buy vegetables and fruit (among other things).",
-      "やさいや くだものを かいます。",
-      "を marks what you buy.",
+    build(
+      "ja-m21-3-2-build-yasai-kudamono",
+      "Say: I buy vegetables and fruit (among other things).",
+      "やさいや くだものを かいます",
+      ["くだもの", "を", "かいます", "やさい", "や", "と"],
+      ["やさい", "や", "くだもの", "を", "かいます"],
     ),
     sentenceMcq({
       id: "ja-m21-3-2-mcq-meaning",
@@ -1065,17 +1055,17 @@ export const M21_3_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m21-3-2-translate",
-      promptEn: "I buy bread and eggs (among other things).",
+      promptEn: "I drink juice and milk (among other things).",
       acceptedAnswers: [
-        "パンや たまごを かいます",
-        "パンや たまごを かいます。",
+        "ジュースや ぎゅうにゅうを のみます",
+        "ジュースや ぎゅうにゅうを のみます。",
       ],
-      audioText: "パンや たまごを かいます",
+      audioText: "ジュースや ぎゅうにゅうを のみます",
     }),
     selfExplain({
       id: "ja-m21-3-2-self-explain",
       anchorLabel: "You used both や and と in this lesson",
-      anchorAudioText: "パンや たまごを かいます",
+      anchorAudioText: "たまごや にくを かいます",
       question: "When do you use や instead of と?",
       rule: { text: "や when the list is incomplete — there are more items. と when the list is complete." },
       surface: { text: "や for food; と for everything else." },
@@ -1087,6 +1077,29 @@ export const M21_3_2: LessonContent = {
       "ja-m21-3-2-speak-to",
       "コーヒーと おちゃを ください",
       "Coffee and tea, please.",
+    ),
+    // ── など (etc.) — new word; makes the や open-list explicit ──
+    build(
+      "ja-m21-3-2-build-nado",
+      "Pick the Japanese for: etc. / and so on",
+      "など",
+      ["でも", "など", "まで", "から"],
+      ["など"],
+    ),
+    listeningCompSentence({
+      id: "ja-m21-3-2-lc-nado",
+      audioText: "パンや たまごなどを かいます",
+      correctMeaningEn: "I buy bread, eggs, and so on.",
+      distractorsEn: [
+        "I buy only bread and eggs.",
+        "I buy bread or eggs.",
+        "I eat bread, eggs, and so on.",
+      ],
+    }),
+    speaking(
+      "ja-m21-3-2-speak-nado",
+      "やさいや にくなどを たべます",
+      "I eat vegetables, meat, and so on.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m21-3-2-rev-mcq-1", M21_3_2_REVIEW[0], M21_REVIEW_POOL),
@@ -1120,7 +1133,7 @@ assertNoConsecutiveSame(M21_3_2.steps);
 //   (おさら, はし, スプーン, フォーク, ナイフ, コップ)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_4_1_REVIEW = pickReviewAtoms("ja-m21-4-1-rev", M21_REVIEW_POOL, 4);
+const M21_4_1_REVIEW = pickReviewAtoms("ja-m21-4-1-rev", M21_REVIEW_POOL, 6);
 
 export const M21_4_1: LessonContent = {
   id: "ja-m21-4-1",
@@ -1157,6 +1170,24 @@ export const M21_4_1: LessonContent = {
       correctMeaningEn: "Chopsticks, please.",
       distractorsEn: ["A spoon, please.", "A plate, please.", "A fork, please."],
     }),
+    // ── どうぞ (here you are / go ahead) — dining-politeness backlog ──
+    build(
+      "ja-m21-4-1-build-douzo",
+      "Pick the Japanese phrase for: 'here you are / go ahead' (handing something over)",
+      "どうぞ",
+      ["ください", "どうぞ", "おねがいします", "すみません"],
+      ["どうぞ"],
+    ),
+    listeningCompSentence({
+      id: "ja-m21-4-1-lc-douzo",
+      audioText: "はい、どうぞ",
+      correctMeaningEn: "Here you are. (handing something over)",
+      distractorsEn: [
+        "Please give me that.",
+        "Excuse me.",
+        "Yes, please help me.",
+      ],
+    }),
     // ── スプーン (spoon) ──
     vocabMcq(
       "ja-m21-4-1-mcq-supuun",
@@ -1169,7 +1200,7 @@ export const M21_4_1: LessonContent = {
       "ja-m21-4-1-build-fooku",
       "Pick the Japanese word for: Fork",
       "フォーク",
-      ["フォーク", "スプーン", "ナイフ", "はし"],
+      ["はし", "ナイフ", "スプーン", "フォーク"],
       ["フォーク"],
     ),
     listeningCompSentence({
@@ -1183,7 +1214,7 @@ export const M21_4_1: LessonContent = {
       "ja-m21-4-1-build-naifu",
       "Pick the Japanese word for: Knife",
       "ナイフ",
-      ["ナイフ", "フォーク", "スプーン", "はし"],
+      ["フォーク", "はし", "スプーン", "ナイフ"],
       ["ナイフ"],
     ),
     speaking("ja-m21-4-1-speak-naifu", "ナイフ", "Knife"),
@@ -1198,18 +1229,8 @@ export const M21_4_1: LessonContent = {
       "ja-m21-4-1-build-hashi-kudasai",
       "Say: Chopsticks, please.",
       "はしを ください",
-      ["はし", "を", "ください", "スプーン", "は"],
+      ["ください", "はし", "スプーン", "を", "は"],
       ["はし", "を", "ください"],
-    ),
-    cloze(
-      "ja-m21-4-1-cloze-wo",
-      "フォーク",
-      " ください。",
-      "を",
-      ["を", "は", "が", "に"],
-      "A fork, please.",
-      "フォークを ください。",
-      "を marks the object of ください — the fork is what you're asking for.",
     ),
     sentenceMcq({
       id: "ja-m21-4-1-mcq-supuun-sent",
@@ -1222,6 +1243,13 @@ export const M21_4_1: LessonContent = {
       ],
       explanation: "スプーン = spoon. を ください = please give me.",
     }),
+    build(
+      "ja-m21-4-1-build-fooku-kudasai",
+      "Say: A fork, please.",
+      "フォークを ください",
+      ["ください", "ナイフ", "フォーク", "を"],
+      ["フォーク", "を", "ください"],
+    ),
     selfExplain({
       id: "ja-m21-4-1-self-explain",
       anchorLabel: "You asked for: フォークを ください",
@@ -1270,7 +1298,7 @@ assertNoConsecutiveSame(M21_4_1.steps);
 //   (ちゃわん, カップ + utensil drill with や)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_4_2_REVIEW = pickReviewAtoms("ja-m21-4-2-rev", M21_REVIEW_POOL, 4);
+const M21_4_2_REVIEW = pickReviewAtoms("ja-m21-4-2-rev", M21_REVIEW_POOL, 6);
 
 export const M21_4_2: LessonContent = {
   id: "ja-m21-4-2",
@@ -1300,7 +1328,7 @@ export const M21_4_2: LessonContent = {
       "ja-m21-4-2-build-kappu",
       "Pick the Japanese word for: Cup",
       "カップ",
-      ["カップ", "コップ", "ちゃわん", "おさら"],
+      ["コップ", "ちゃわん", "カップ", "おさら"],
       ["カップ"],
     ),
     listeningCompSentence({
@@ -1309,12 +1337,30 @@ export const M21_4_2: LessonContent = {
       correctMeaningEn: "A cup, please.",
       distractorsEn: ["A glass, please.", "A bowl, please.", "A plate, please."],
     }),
+    // ── どうも (casual thanks) — dining-politeness backlog ──
+    build(
+      "ja-m21-4-2-build-doumo",
+      "Someone hands you a cup and says どうぞ. Pick the natural reply: 'thanks (casual)'",
+      "どうも",
+      ["どうぞ", "ありがとう", "どうも", "すみません"],
+      ["どうも"],
+    ),
+    listeningCompSentence({
+      id: "ja-m21-4-2-lc-doumo",
+      audioText: "どうも",
+      correctMeaningEn: "Thanks. (casual)",
+      distractorsEn: [
+        "Here you are.",
+        "Excuse me.",
+        "You're welcome.",
+      ],
+    }),
     // ── Drill with や ──
     build(
       "ja-m21-4-2-build-hashi-ya-supuun",
       "Say: Chopsticks and a spoon (among other things), please.",
       "はしや スプーンを ください",
-      ["はし", "や", "スプーン", "を", "ください", "と", "フォーク"],
+      ["と", "や", "を", "はし", "ください", "フォーク", "スプーン"],
       ["はし", "や", "スプーン", "を", "ください"],
     ),
     cloze(
@@ -1352,7 +1398,7 @@ export const M21_4_2: LessonContent = {
       "ja-m21-4-2-build-chawan-kudasai",
       "Say: A rice bowl and a plate, please. (only those)",
       "ちゃわんと おさらを ください",
-      ["ちゃわん", "と", "おさら", "を", "ください", "や", "コップ"],
+      ["を", "おさら", "コップ", "や", "と", "ください", "ちゃわん"],
       ["ちゃわん", "と", "おさら", "を", "ください"],
     ),
     cloze(
@@ -1368,7 +1414,7 @@ export const M21_4_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m21-4-2-lb-kappu",
       target: "カップを ください",
-      tiles: ["カップ", "を", "ください", "コップ", "は"],
+      tiles: ["は", "ください", "カップ", "を", "コップ"],
       correctOrder: ["カップ", "を", "ください"],
       promptEn: "Hear it, build it: 'A cup, please.'",
     }),
@@ -1429,7 +1475,7 @@ assertNoConsecutiveSame(M21_4_2.steps);
 //   (counter はい/ぱい/ばい + irregular readings drill)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_5_1_REVIEW = pickReviewAtoms("ja-m21-5-1-rev", M21_REVIEW_POOL, 4);
+const M21_5_1_REVIEW = pickReviewAtoms("ja-m21-5-1-rev", M21_REVIEW_POOL, 6);
 
 export const M21_5_1: LessonContent = {
   id: "ja-m21-5-1",
@@ -1453,7 +1499,7 @@ export const M21_5_1: LessonContent = {
       "ja-m21-5-1-build-ippai",
       "Pick the counter for: 1 cup",
       "いっぱい",
-      ["いっぱい", "にはい", "さんばい", "いちはい"],
+      ["さんばい", "いっぱい", "にはい", "いちはい"],
       ["いっぱい"],
     ),
     listeningCompSentence({
@@ -1467,7 +1513,7 @@ export const M21_5_1: LessonContent = {
       "ja-m21-5-1-build-nihai",
       "Pick the counter for: 2 cups",
       "にはい",
-      ["にはい", "いっぱい", "さんばい", "にっぱい"],
+      ["にっぱい", "さんばい", "にはい", "いっぱい"],
       ["にはい"],
     ),
     speaking("ja-m21-5-1-speak-nihai", "ジュースを にはい ください", "Two glasses of juice, please."),
@@ -1476,7 +1522,7 @@ export const M21_5_1: LessonContent = {
       "ja-m21-5-1-build-sanbai",
       "Pick the counter for: 3 cups",
       "さんばい",
-      ["さんばい", "さんはい", "にはい", "よんはい"],
+      ["さんはい", "さんばい", "にはい", "よんはい"],
       ["さんばい"],
     ),
     listeningCompSentence({
@@ -1488,39 +1534,36 @@ export const M21_5_1: LessonContent = {
     // ── Drill the irregular pattern ──
     sentenceMcq({
       id: "ja-m21-5-1-mcq-ippai",
-      prompt: "How do you say '1 cup of coffee, please'?",
-      correctKana: "コーヒーを いっぱい ください。",
+      prompt: "How do you say '1 glass of water, please'?",
+      correctKana: "みずを いっぱい ください。",
       distractorsKana: [
-        "コーヒーを いちはい ください。",
-        "コーヒーを にはい ください。",
-        "コーヒーを さんばい ください。",
+        "みずを いちはい ください。",
+        "みずを にはい ください。",
+        "みずを さんばい ください。",
       ],
       explanation: "1 cup = いっぱい (irregular). NOT いちはい.",
     }),
-    cloze(
-      "ja-m21-5-1-cloze-wo-1",
-      "ぎゅうにゅう",
-      " にはい ください。",
-      "を",
-      ["を", "は", "が", "に"],
-      "Two glasses of milk, please.",
-      "ぎゅうにゅうを にはい ください。",
-      "を marks what you're ordering.",
-    ),
     build(
       "ja-m21-5-1-build-ocha-sanbai",
       "Say: Three cups of tea, please.",
       "おちゃを さんばい ください",
-      ["おちゃ", "を", "さんばい", "ください", "さんはい", "にはい"],
+      ["ください", "おちゃ", "さんはい", "を", "さんばい", "にはい"],
       ["おちゃ", "を", "さんばい", "ください"],
     ),
     listeningBuildSentence({
       id: "ja-m21-5-1-lb-ippai",
-      target: "コーヒーを いっぱい ください",
-      tiles: ["コーヒー", "を", "いっぱい", "ください", "にはい", "おちゃ"],
-      correctOrder: ["コーヒー", "を", "いっぱい", "ください"],
-      promptEn: "Hear it, build it: 'One cup of coffee, please.'",
+      target: "ジュースを いっぱい ください",
+      tiles: ["いっぱい", "ください", "ジュース", "を", "にはい"],
+      correctOrder: ["ジュース", "を", "いっぱい", "ください"],
+      promptEn: "Hear it, build it: 'One glass of juice, please.'",
     }),
+    build(
+      "ja-m21-5-1-build-nihai-gyuunyuu",
+      "Say: Two glasses of milk, please.",
+      "ぎゅうにゅうを にはい ください",
+      ["にはい", "ください", "ぎゅうにゅう", "を", "いっぱい"],
+      ["ぎゅうにゅう", "を", "にはい", "ください"],
+    ),
     cloze(
       "ja-m21-5-1-cloze-wo-2",
       "ジュース",
@@ -1534,7 +1577,7 @@ export const M21_5_1: LessonContent = {
     selfExplain({
       id: "ja-m21-5-1-self-explain",
       anchorLabel: "You used いっぱい, not いちはい",
-      anchorAudioText: "コーヒーを いっぱい ください",
+      anchorAudioText: "みずを いっぱい ください",
       question: "Why いっぱい and not いちはい for 1 cup?",
       rule: { text: "1, 6, 8, and 10 use the irregular っぱい form. 3 uses ばい. The rest use はい." },
       surface: { text: "いっぱい sounds more polite than いちはい." },
@@ -1579,7 +1622,7 @@ assertNoConsecutiveSame(M21_5_1.steps);
 //   (よんはい, ごはい, ろっぱい + mixed counter practice)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_5_2_REVIEW = pickReviewAtoms("ja-m21-5-2-rev", M21_REVIEW_POOL, 4);
+const M21_5_2_REVIEW = pickReviewAtoms("ja-m21-5-2-rev", M21_REVIEW_POOL, 6);
 
 export const M21_5_2: LessonContent = {
   id: "ja-m21-5-2",
@@ -1602,7 +1645,7 @@ export const M21_5_2: LessonContent = {
       "ja-m21-5-2-build-yonhai",
       "Pick the counter for: 4 cups",
       "よんはい",
-      ["よんはい", "さんばい", "ごはい", "よっぱい"],
+      ["さんばい", "よんはい", "よっぱい", "ごはい"],
       ["よんはい"],
     ),
     listeningCompSentence({
@@ -1616,7 +1659,7 @@ export const M21_5_2: LessonContent = {
       "ja-m21-5-2-build-gohai",
       "Pick the counter for: 5 cups",
       "ごはい",
-      ["ごはい", "よんはい", "ろっぱい", "ごっぱい"],
+      ["ろっぱい", "よんはい", "ごはい", "ごっぱい"],
       ["ごはい"],
     ),
     speaking("ja-m21-5-2-speak-gohai", "みずを ごはい ください", "Five glasses of water, please."),
@@ -1625,7 +1668,7 @@ export const M21_5_2: LessonContent = {
       "ja-m21-5-2-build-roppai",
       "Pick the counter for: 6 cups",
       "ろっぱい",
-      ["ろっぱい", "ろくはい", "ごはい", "ななはい"],
+      ["ななはい", "ごはい", "ろくはい", "ろっぱい"],
       ["ろっぱい"],
     ),
     listeningCompSentence({
@@ -1646,26 +1689,23 @@ export const M21_5_2: LessonContent = {
       "ja-m21-5-2-build-mixed",
       "Say: Two cups of coffee, please.",
       "コーヒーを にはい ください",
-      ["コーヒー", "を", "にはい", "ください", "いっぱい", "さんばい"],
+      ["ください", "さんばい", "にはい", "を", "いっぱい", "コーヒー"],
       ["コーヒー", "を", "にはい", "ください"],
-    ),
-    cloze(
-      "ja-m21-5-2-cloze-wo",
-      "おちゃ",
-      " よんはい のみました。",
-      "を",
-      ["を", "は", "が", "に"],
-      "I drank four cups of tea.",
-      "おちゃを よんはい のみました。",
-      "を marks what you drank.",
     ),
     listeningBuildSentence({
       id: "ja-m21-5-2-lb-sanbai",
       target: "ぎゅうにゅうを さんばい のみます",
-      tiles: ["ぎゅうにゅう", "を", "さんばい", "のみます", "さんはい", "にはい"],
+      tiles: ["のみます", "を", "にはい", "ぎゅうにゅう", "さんはい", "さんばい"],
       correctOrder: ["ぎゅうにゅう", "を", "さんばい", "のみます"],
       promptEn: "Hear it, build it: 'I drink three glasses of milk.'",
     }),
+    build(
+      "ja-m21-5-2-build-yonhai-ocha",
+      "Say: I drank four cups of tea.",
+      "おちゃを よんはい のみました",
+      ["よんはい", "のみました", "おちゃ", "を", "ごはい"],
+      ["おちゃ", "を", "よんはい", "のみました"],
+    ),
     sentenceMcq({
       id: "ja-m21-5-2-mcq-yonhai",
       prompt: "Which is the correct counter for 4 cups?",
@@ -1675,12 +1715,12 @@ export const M21_5_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m21-5-2-translate",
-      promptEn: "One cup of coffee, please.",
+      promptEn: "One cup of tea, please.",
       acceptedAnswers: [
-        "コーヒーを いっぱい ください",
-        "コーヒーを いっぱい ください。",
+        "おちゃを いっぱい ください",
+        "おちゃを いっぱい ください。",
       ],
-      audioText: "コーヒーを いっぱい ください",
+      audioText: "おちゃを いっぱい ください",
     }),
     selfExplain({
       id: "ja-m21-5-2-self-explain",
@@ -1730,7 +1770,7 @@ assertNoConsecutiveSame(M21_5_2.steps);
 //   (と quotation: 「いただきます」といいます)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_6_1_REVIEW = pickReviewAtoms("ja-m21-6-1-rev", M21_REVIEW_POOL, 4);
+const M21_6_1_REVIEW = pickReviewAtoms("ja-m21-6-1-rev", M21_REVIEW_POOL, 6);
 
 export const M21_6_1: LessonContent = {
   id: "ja-m21-6-1",
@@ -1754,17 +1794,17 @@ export const M21_6_1: LessonContent = {
       "ja-m21-6-1-build-itadakimasu",
       "Say: They say 'itadakimasu.'",
       "「いただきます」と いいます",
-      ["「いただきます」", "と", "いいます", "は", "を"],
+      ["と", "は", "を", "「いただきます」", "いいます"],
       ["「いただきます」", "と", "いいます"],
     ),
     listeningCompSentence({
       id: "ja-m21-6-1-lc-itadakimasu",
-      audioText: "「いただきます」と いいます",
-      correctMeaningEn: "They say 'itadakimasu.'",
+      audioText: "「ありがとう」と いいます",
+      correctMeaningEn: "They say 'arigatou.'",
       distractorsEn: [
-        "They say 'gochisousama.'",
-        "They eat itadakimasu.",
-        "Itadakimasu is delicious.",
+        "They say 'sumimasen.'",
+        "They write 'arigatou.'",
+        "They say 'itadakimasu.'",
       ],
     }),
     // ── 「ごちそうさまでした」と いいます ──
@@ -1772,28 +1812,28 @@ export const M21_6_1: LessonContent = {
       "ja-m21-6-1-build-gochisousama",
       "Say: They say 'gochisousama deshita.'",
       "「ごちそうさまでした」と いいます",
-      ["「ごちそうさまでした」", "と", "いいます", "は", "を"],
+      ["は", "「ごちそうさまでした」", "いいます", "を", "と"],
       ["「ごちそうさまでした」", "と", "いいます"],
     ),
     sentenceMcq({
       id: "ja-m21-6-1-mcq-to-quote",
-      prompt: "Which sentence means 'They say itadakimasu.'?",
-      correctKana: "「いただきます」と いいます。",
+      prompt: "Which sentence means 'They say arigatou gozaimasu.'?",
+      correctKana: "「ありがとうございます」と いいます。",
       distractorsKana: [
-        "「いただきます」は いいます。",
-        "「いただきます」を いいます。",
-        "「いただきます」が いいます。",
+        "「ありがとうございます」は いいます。",
+        "「ありがとうございます」を いいます。",
+        "「ありがとうございます」が いいます。",
       ],
       explanation: "と marks the quoted phrase — what someone says.",
     }),
     cloze(
       "ja-m21-6-1-cloze-to-1",
-      "「いただきます」",
+      "「おねがいします」",
       " いいます。",
       "と",
       ["と", "は", "を", "が"],
-      "They say 'itadakimasu.'",
-      "「いただきます」と いいます。",
+      "They say 'onegai shimasu.'",
+      "「おねがいします」と いいます。",
       "と marks the quotation — the words someone says.",
     ),
     // ── なんと いいますか (what do you call it?) ──
@@ -1801,7 +1841,7 @@ export const M21_6_1: LessonContent = {
       "ja-m21-6-1-build-nanto",
       "Ask: What do you call this in Japanese?",
       "これは にほんごで なんと いいますか",
-      ["これ", "は", "にほんご", "で", "なん", "と", "いいます", "か"],
+      ["か", "にほんご", "と", "これ", "いいます", "は", "なん", "で"],
       ["これ", "は", "にほんご", "で", "なん", "と", "いいます", "か"],
     ),
     listeningCompSentence({
@@ -1825,20 +1865,20 @@ export const M21_6_1: LessonContent = {
       "なんと = 'what' + quotation と.",
     ),
     listeningBuildSentence({
-      id: "ja-m21-6-1-lb-gochisousama",
-      target: "「ごちそうさまでした」と いいます",
-      tiles: ["「ごちそうさまでした」", "と", "いいます", "は", "を"],
-      correctOrder: ["「ごちそうさまでした」", "と", "いいます"],
-      promptEn: "Hear it, build it: 'They say gochisousama deshita.'",
+      id: "ja-m21-6-1-lb-arigatou",
+      target: "「ありがとうございます」と いいます",
+      tiles: ["と", "いいます", "「ありがとうございます」", "は", "を"],
+      correctOrder: ["「ありがとうございます」", "と", "いいます"],
+      promptEn: "Hear it, build it: 'They say arigatou gozaimasu.'",
     }),
     sentenceMcq({
       id: "ja-m21-6-1-mcq-nanto",
-      prompt: "How do you ask 'What do you call this in Japanese?'",
-      correctKana: "これは にほんごで なんと いいますか。",
+      prompt: "How do you ask 'What do you call that in Japanese?'",
+      correctKana: "それは にほんごで なんと いいますか。",
       distractorsKana: [
-        "これは にほんごで なにを いいますか。",
-        "これは にほんごで なんは いいますか。",
-        "これは にほんごで なにが いいますか。",
+        "それは にほんごで なにを いいますか。",
+        "それは にほんごで なんは いいますか。",
+        "それは にほんごで なにが いいますか。",
       ],
       explanation: "なんと いいますか = 'What is it called?' なん + と (quotation).",
     }),
@@ -1854,9 +1894,9 @@ export const M21_6_1: LessonContent = {
         "The quotation と is different from the 'and' と. Here, と connects a quoted phrase to the verb of saying: [quote]と いいます = 'they say [quote].'",
     }),
     speaking(
-      "ja-m21-6-1-speak-itadakimasu",
-      "「いただきます」と いいます",
-      "They say 'itadakimasu.'",
+      "ja-m21-6-1-speak-douzo",
+      "「どうぞ」と いいます",
+      "They say 'douzo' (here you are).",
     ),
     // ── Review tail ──
     vocabMcq("ja-m21-6-1-rev-mcq-1", M21_6_1_REVIEW[0], M21_REVIEW_POOL),
@@ -1890,7 +1930,7 @@ assertNoConsecutiveSame(M21_6_1.steps);
 //   (と quotation in context: ordering, culture phrases)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_6_2_REVIEW = pickReviewAtoms("ja-m21-6-2-rev", M21_REVIEW_POOL, 4);
+const M21_6_2_REVIEW = pickReviewAtoms("ja-m21-6-2-rev", M21_REVIEW_POOL, 6);
 
 export const M21_6_2: LessonContent = {
   id: "ja-m21-6-2",
@@ -1913,17 +1953,17 @@ export const M21_6_2: LessonContent = {
       "ja-m21-6-2-build-sumimasen",
       "Say: They say 'sumimasen' (to call the waiter).",
       "「すみません」と いいます",
-      ["「すみません」", "と", "いいます", "は", "を"],
+      ["と", "いいます", "「すみません」", "は", "を"],
       ["「すみません」", "と", "いいます"],
     ),
     cloze(
       "ja-m21-6-2-cloze-to-1",
-      "「ごちそうさまでした」",
+      "「どうぞ」",
       " いいます。",
       "と",
       ["と", "は", "を", "が"],
-      "They say 'gochisousama deshita.'",
-      "「ごちそうさまでした」と いいます。",
+      "They say 'douzo' (here you are).",
+      "「どうぞ」と いいます。",
       "と marks the quoted phrase.",
     ),
     listeningCompSentence({
@@ -1951,7 +1991,7 @@ export const M21_6_2: LessonContent = {
       "ja-m21-6-2-build-nanto-tabemono",
       "Ask: What do you call this food in Japanese?",
       "この たべものは にほんごで なんと いいますか",
-      ["この", "たべもの", "は", "にほんご", "で", "なん", "と", "いいます", "か"],
+      ["は", "で", "なん", "いいます", "この", "か", "たべもの", "と", "にほんご"],
       ["この", "たべもの", "は", "にほんご", "で", "なん", "と", "いいます", "か"],
     ),
     cloze(
@@ -1965,16 +2005,16 @@ export const M21_6_2: LessonContent = {
       "で marks the language — 'in Japanese.'",
     ),
     listeningBuildSentence({
-      id: "ja-m21-6-2-lb-itadakimasu",
-      target: "「いただきます」と いいます",
-      tiles: ["「いただきます」", "と", "いいます", "は", "を", "「ごちそうさまでした」"],
-      correctOrder: ["「いただきます」", "と", "いいます"],
-      promptEn: "Hear it, build it: 'They say itadakimasu.'",
+      id: "ja-m21-6-2-lb-doumo",
+      target: "「どうも」と いいます",
+      tiles: ["と", "「どうも」", "いいます", "は", "を", "「どうぞ」"],
+      correctOrder: ["「どうも」", "と", "いいます"],
+      promptEn: "Hear it, build it: 'They say doumo (casual thanks).'",
     }),
     speaking(
-      "ja-m21-6-2-speak-gochisousama",
-      "「ごちそうさまでした」と いいます",
-      "They say 'gochisousama deshita.'",
+      "ja-m21-6-2-speak-arigatou",
+      "「ありがとうございます」と いいます",
+      "They say 'arigatou gozaimasu.'",
     ),
     cloze(
       "ja-m21-6-2-cloze-to-2",
@@ -1997,16 +2037,51 @@ export const M21_6_2: LessonContent = {
       ],
       explanation: "なんと = 'what' + quotation と. いいますか = 'is it called?'",
     }),
+    // ── いかが + けっこう (polite offer + polite refusal) — backlog ──
+    build(
+      "ja-m21-6-2-build-ikaga",
+      "Pick the Japanese word for: 'how about…?' (polite offer)",
+      "いかが",
+      ["いくら", "いかが", "どこ", "なに"],
+      ["いかが"],
+    ),
+    listeningCompSentence({
+      id: "ja-m21-6-2-lc-ikaga",
+      audioText: "おちゃは いかがですか",
+      correctMeaningEn: "How about some tea? (polite offer)",
+      distractorsEn: [
+        "How much is the tea?",
+        "Where is the tea?",
+        "Is the tea delicious?",
+      ],
+    }),
+    build(
+      "ja-m21-6-2-build-kekkou",
+      "Pick the polite refusal: 'no thank you, I'm fine'",
+      "けっこうです",
+      ["ください", "けっこうです", "おねがいします", "どうぞ"],
+      ["けっこうです"],
+    ),
+    listeningCompSentence({
+      id: "ja-m21-6-2-lc-kekkou",
+      audioText: "いいえ、けっこうです",
+      correctMeaningEn: "No thank you, I'm fine.",
+      distractorsEn: [
+        "Yes, please.",
+        "One more cup, please.",
+        "It's delicious.",
+      ],
+    }),
     translateStep({
       id: "ja-m21-6-2-translate",
-      promptEn: "They say 'itadakimasu.'",
+      promptEn: "They say 'arigatou.'",
       acceptedAnswers: [
-        "「いただきます」と いいます",
-        "「いただきます」と いいます。",
-        "いただきますと いいます",
-        "いただきますと いいます。",
+        "「ありがとう」と いいます",
+        "「ありがとう」と いいます。",
+        "ありがとうと いいます",
+        "ありがとうと いいます。",
       ],
-      audioText: "「いただきます」と いいます",
+      audioText: "「ありがとう」と いいます",
     }),
     selfExplain({
       id: "ja-m21-6-2-self-explain",
@@ -2021,8 +2096,8 @@ export const M21_6_2: LessonContent = {
     }),
     speaking(
       "ja-m21-6-2-speak-nanto",
-      "これは にほんごで なんと いいますか",
-      "What do you call this in Japanese?",
+      "この たべものは にほんごで なんと いいますか",
+      "What do you call this food in Japanese?",
     ),
     // ── Review tail ──
     vocabMcq("ja-m21-6-2-rev-mcq-1", M21_6_2_REVIEW[0], M21_REVIEW_POOL),
@@ -2052,8 +2127,9 @@ assertAnswerRotation(M21_6_2.steps, 1);
 assertNoConsecutiveSame(M21_6_2.steps);
 
 // ═══════════════════════════════════════════════════════════════════════
-// M21-STORY — Ordering at a restaurant
-//   (full meal from menu to check)
+// M21-STORY — ゆき's restaurant lunch (storyComprehension factory, §13.13)
+//   Single-voice narrative + comprehension MCQs + response build.
+//   Only previously-taught material (M21 + earlier modules).
 // ═══════════════════════════════════════════════════════════════════════
 
 export const M21_STORY: LessonContent = {
@@ -2061,131 +2137,101 @@ export const M21_STORY: LessonContent = {
   moduleId: "m21",
   courseId: COURSE,
   languageId: LANG,
-  title: "Story — Ordering at a restaurant",
+  title: "Story — ゆき's restaurant lunch",
   description:
-    "Listen to a customer order a full meal at a Japanese restaurant — from greeting to payment.",
+    "Listen to ゆき tell the story of her lunch at a restaurant — what she ate, drank, and said. Answer questions and reply to her.",
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
     infoStep(
       "ja-m21-story-info-open",
-      "Story time — At the restaurant",
-      "ゆき goes to a restaurant for lunch. She orders food and drinks, and uses all the phrases you've learned. Listen carefully!",
+      "Story time — ゆき's lunch",
+      "ゆき tells you about her lunch at a restaurant yesterday. Listen to her story, then reply.",
     ),
-    // ── Scene 1: Arriving and ordering ──
-    dialogueListen({
-      id: "ja-m21-story-scene-1",
-      lines: [
-        { speaker: "ゆき", kana: "すみません。" },
-        { speaker: "てんいん", kana: "いらっしゃいませ。なにを たべますか。" },
-        { speaker: "ゆき", kana: "さかなと やさいを ください。" },
-        { speaker: "てんいん", kana: "のみものは なにが いいですか。" },
+    ...storyComprehension({
+      idPrefix: "ja-m21-story",
+      narrative: [
+        { kana: "きのう、ともだちと レストランに いきました。" },
+        { kana: "さかなや やさいを たべました。" },
+        { kana: "おちゃを にはい のみました。" },
+        { kana: "たべるまえに、「いただきます」と いいました。" },
+        { kana: "ごはんは とても おいしかったです。" },
+        { kana: "「ごちそうさまでした」と いいました。" },
+        { kana: "また レストランに いきたいです。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
-          id: "s1-q1",
-          prompt: "What food does ゆき order?",
-          correctText: "Fish and vegetables.",
-          distractors: ["Meat and rice.", "Chicken and eggs.", "Bread and fish."],
-          explanation: "ゆき says さかなと やさいを ください = 'Fish and vegetables, please.'",
+          id: "q1",
+          prompt: "What did ゆき eat?",
+          correctText: "Fish and vegetables (among other things).",
+          distractors: [
+            "Meat and rice.",
+            "Chicken and eggs.",
+            "Only fish.",
+          ],
+          explanation:
+            "さかなや やさいを たべました — や means the list is open (and other things).",
         },
         {
-          id: "s1-q2",
-          prompt: "What does the staff ask about?",
-          correctText: "What she'd like to drink.",
-          distractors: ["What she'd like to eat.", "How many cups she wants.", "Whether she wants chopsticks."],
-          explanation: "のみものは なにが いいですか = 'What would you like to drink?'",
-        },
-      ],
-    }),
-    build(
-      "ja-m21-story-build-order",
-      "Say: Fish and vegetables, please.",
-      "さかなと やさいを ください",
-      ["さかな", "と", "やさい", "を", "ください", "や", "にく"],
-      ["さかな", "と", "やさい", "を", "ください"],
-    ),
-    sentenceMcq({
-      id: "ja-m21-story-mcq-greeting",
-      prompt: "How did ゆき get the waiter's attention?",
-      correctKana: "すみません。",
-      distractorsKana: [
-        "いただきます。",
-        "いらっしゃいませ。",
-        "ごちそうさまでした。",
-      ],
-      explanation: "すみません = 'Excuse me' — used to call the waiter.",
-    }),
-    // ── Scene 2: Drinks and closing ──
-    dialogueListen({
-      id: "ja-m21-story-scene-2",
-      lines: [
-        { speaker: "ゆき", kana: "おちゃを いっぱい ください。" },
-        { speaker: "てんいん", kana: "はい、おちゃを いっぱいですね。" },
-        { speaker: "ゆき", kana: "「いただきます」" },
-        { speaker: "ゆき", kana: "おいしいです！ 「ごちそうさまでした」" },
-      ],
-      questions: [
-        {
-          id: "s2-q1",
-          prompt: "What drink does ゆき order?",
-          correctText: "One cup of tea.",
-          distractors: ["Two cups of coffee.", "One glass of juice.", "Three cups of tea."],
-          explanation: "おちゃを いっぱい ください = 'One cup of tea, please.'",
+          id: "q2",
+          prompt: "How many cups of tea did she drink?",
+          correctText: "Two.",
+          distractors: ["One.", "Three.", "Six."],
+          explanation: "にはい = two cups. おちゃを にはい のみました.",
         },
         {
-          id: "s2-q2",
-          prompt: "What does ゆき say about the food?",
-          correctText: "It's delicious.",
-          distractors: ["It's expensive.", "It's not good.", "It's cheap."],
-          explanation: "おいしいです = 'It's delicious!'",
+          id: "q3",
+          prompt: "What did ゆき say after the meal?",
+          correctText: "Gochisousama deshita.",
+          distractors: ["Itadakimasu.", "Sumimasen.", "Onegai shimasu."],
+          explanation:
+            "「ごちそうさまでした」と いいました — said after eating ('It was a feast').",
         },
       ],
+      responseBuild: {
+        target: "わたしも いきたいです",
+        tiles: ["いきたいです", "わたし", "たべたいです", "も"],
+        correctOrder: ["わたし", "も", "いきたいです"],
+        promptEn: "Reply to ゆき: 'I want to go too.'",
+      },
+      exercisedAtomKanas: ["さかな", "やさい", "おちゃ", "レストラン"],
     }),
-    cloze(
-      "ja-m21-story-cloze-wo",
-      "おちゃ",
-      " いっぱい ください。",
-      "を",
-      ["を", "は", "が", "と"],
-      "One cup of tea, please.",
-      "おちゃを いっぱい ください。",
-      "を marks what you're ordering.",
-    ),
-    listeningBuildSentence({
-      id: "ja-m21-story-lb-itadakimasu",
-      target: "「いただきます」と いいます",
-      tiles: ["「いただきます」", "と", "いいます", "は", "を", "ください"],
-      correctOrder: ["「いただきます」", "と", "いいます"],
-      promptEn: "Hear it, build it: 'They say itadakimasu.'",
-    }),
-    listeningCompSentence({
-      id: "ja-m21-story-lc-oishii",
-      audioText: "おいしいです",
-      correctMeaningEn: "It's delicious.",
-      distractorsEn: ["It's expensive.", "It's cheap.", "It's big."],
-    }),
-    speaking(
-      "ja-m21-story-speak-order",
-      "さかなと やさいを ください",
-      "Fish and vegetables, please.",
-    ),
     sentenceMcq({
       id: "ja-m21-story-mcq-summary",
-      prompt: "In the story, what did ゆき say after eating?",
-      correctKana: "ごちそうさまでした",
-      distractorsKana: ["いただきます", "すみません", "おいしくないです"],
-      explanation: "ごちそうさまでした is said after eating — 'It was a feast.'",
+      prompt: "In the story, what did ゆき say before eating?",
+      correctKana: "いただきます",
+      distractorsKana: ["ごちそうさまでした", "すみません", "おねがいします"],
+      explanation: "いただきます is said before eating — 'I humbly receive.'",
+    }),
+    cloze(
+      "ja-m21-story-cloze-ya",
+      "さかな",
+      " やさいを たべました。",
+      "や",
+      ["や", "と", "は", "を"],
+      "I ate fish and vegetables (among other things).",
+      "さかなや やさいを たべました。",
+      "や — ゆき ate more than just fish and vegetables.",
+    ),
+    listeningCompSentence({
+      id: "ja-m21-story-lc-oishii",
+      audioText: "ごはんは とても おいしかったです",
+      correctMeaningEn: "The meal was very delicious.",
+      distractorsEn: [
+        "The meal was very expensive.",
+        "The meal is delicious. (now)",
+        "The rice was a little cold.",
+      ],
     }),
     speaking(
-      "ja-m21-story-speak-itadakimasu",
-      "いただきます",
-      "Itadakimasu (before eating).",
+      "ja-m21-story-speak-mata",
+      "また レストランに いきたいです",
+      "I want to go to the restaurant again.",
     ),
     infoStep(
       "ja-m21-story-info-end",
-      "You just followed a real restaurant conversation",
-      "From すみません to ごちそうさまでした — you ordered, ate, and paid your respects. That's a full Japanese dining experience.",
+      "You followed a whole restaurant story — in Japanese",
+      "What ゆき ate, how much she drank, and what she said before and after the meal — and you replied. That's the full M21 toolkit in action.",
       "win",
     ),
   ],
@@ -2201,7 +2247,7 @@ assertExplanationDoesntLeakAnswer(M21_STORY.steps);
 //   (food + utensils + counters + や)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_7_1_REVIEW = pickReviewAtoms("ja-m21-7-1-rev", M21_REVIEW_POOL, 5);
+const M21_7_1_REVIEW = pickReviewAtoms("ja-m21-7-1-rev", M21_REVIEW_POOL, 6);
 
 export const M21_7_1: LessonContent = {
   id: "ja-m21-7-1",
@@ -2234,7 +2280,7 @@ export const M21_7_1: LessonContent = {
       "ja-m21-7-1-build-sakana-ya",
       "Say: I eat fish and eggs (among other things).",
       "さかなや たまごを たべます",
-      ["さかな", "や", "たまご", "を", "たべます", "と", "かいます"],
+      ["たべます", "かいます", "たまご", "と", "を", "さかな", "や"],
       ["さかな", "や", "たまご", "を", "たべます"],
     ),
     // ── Utensils ──
@@ -2255,47 +2301,62 @@ export const M21_7_1: LessonContent = {
       correctMeaningEn: "A rice bowl, please.",
       distractorsEn: ["A plate, please.", "A cup, please.", "A glass, please."],
     }),
+    // ── ほか (other / something else) — dining backlog ──
+    build(
+      "ja-m21-7-1-build-hoka",
+      "Pick the Japanese word for: 'other / something else'",
+      "ほか",
+      ["これ", "ほか", "なに", "どこ"],
+      ["ほか"],
+    ),
+    listeningCompSentence({
+      id: "ja-m21-7-1-lc-hoka",
+      audioText: "ほかに のみものは ありますか",
+      correctMeaningEn: "Do you have any other drinks?",
+      distractorsEn: [
+        "Do you have any other food?",
+        "How much is this drink?",
+        "What is this drink called?",
+      ],
+    }),
     // ── Counter ──
     build(
       "ja-m21-7-1-build-ippai",
       "Say: Two cups of coffee, please.",
       "コーヒーを にはい ください",
-      ["コーヒー", "を", "にはい", "ください", "いっぱい", "さんばい"],
+      ["ください", "さんばい", "にはい", "を", "いっぱい", "コーヒー"],
       ["コーヒー", "を", "にはい", "ください"],
     ),
-    cloze(
-      "ja-m21-7-1-cloze-wo",
-      "ジュース",
-      " さんばい のみます。",
-      "を",
-      ["を", "は", "が", "や"],
-      "I drink three glasses of juice.",
-      "ジュースを さんばい のみます。",
-      "を marks what you drink.",
-    ),
+    listeningBuildSentence({
+      id: "ja-m21-7-1-lb-sanbai",
+      target: "ジュースを さんばい のみます",
+      tiles: ["さんばい", "のみます", "ジュース", "を", "にはい"],
+      correctOrder: ["ジュース", "を", "さんばい", "のみます"],
+      promptEn: "Hear it, build it: 'I drink three glasses of juice.'",
+    }),
     // ── Quotation ──
     build(
-      "ja-m21-7-1-build-itadakimasu",
-      "Say: They say 'itadakimasu.'",
-      "「いただきます」と いいます",
-      ["「いただきます」", "と", "いいます", "は", "を"],
-      ["「いただきます」", "と", "いいます"],
+      "ja-m21-7-1-build-onegai",
+      "Say: They say 'onegai shimasu.'",
+      "「おねがいします」と いいます",
+      ["と", "「おねがいします」", "いいます", "は", "を"],
+      ["「おねがいします」", "と", "いいます"],
     ),
     cloze(
       "ja-m21-7-1-cloze-to",
-      "「ごちそうさまでした」",
+      "「どうも」",
       " いいます。",
       "と",
       ["と", "は", "を", "が"],
-      "They say 'gochisousama deshita.'",
-      "「ごちそうさまでした」と いいます。",
+      "They say 'doumo' (casual thanks).",
+      "「どうも」と いいます。",
       "と marks the quotation.",
     ),
     // ── Mixed production ──
     listeningBuildSentence({
       id: "ja-m21-7-1-lb-pan-ya",
       target: "パンや くだものを かいます",
-      tiles: ["パン", "や", "くだもの", "を", "かいます", "と", "たべます"],
+      tiles: ["くだもの", "や", "を", "かいます", "たべます", "と", "パン"],
       correctOrder: ["パン", "や", "くだもの", "を", "かいます"],
       promptEn: "Hear it, build it: 'I buy bread and fruit (among other things).'",
     }),
@@ -2338,17 +2399,17 @@ export const M21_7_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m21-7-1-translate",
-      promptEn: "One cup of coffee, please.",
+      promptEn: "Four cups of tea, please.",
       acceptedAnswers: [
-        "コーヒーを いっぱい ください",
-        "コーヒーを いっぱい ください。",
+        "おちゃを よんはい ください",
+        "おちゃを よんはい ください。",
       ],
-      audioText: "コーヒーを いっぱい ください",
+      audioText: "おちゃを よんはい ください",
     }),
     speaking(
       "ja-m21-7-1-speak-quote",
-      "「いただきます」と いいます",
-      "They say 'itadakimasu.'",
+      "これは なんと いいますか",
+      "What is this called?",
     ),
     // ── Review tail ──
     vocabMcq(
@@ -2366,7 +2427,7 @@ export const M21_7_1: LessonContent = {
         M21_REVIEW_POOL[0].meaningEn,
       ],
     }),
-    reviewMatchPairs("ja-m21-7-1-rev", M21_7_1_REVIEW.slice(0, 4)),
+    reviewMatchPairs("ja-m21-7-1-rev", M21_7_1_REVIEW),
     infoStep(
       "ja-m21-7-1-info-end",
       "You just drilled every M21 concept in one session",
@@ -2385,7 +2446,7 @@ assertNoConsecutiveSame(M21_7_1.steps);
 //   (translate + speaking heavy)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M21_7_2_REVIEW = pickReviewAtoms("ja-m21-7-2-rev", M21_REVIEW_POOL, 5);
+const M21_7_2_REVIEW = pickReviewAtoms("ja-m21-7-2-rev", M21_REVIEW_POOL, 6);
 
 export const M21_7_2: LessonContent = {
   id: "ja-m21-7-2",
@@ -2405,15 +2466,15 @@ export const M21_7_2: LessonContent = {
     ),
     build(
       "ja-m21-7-2-build-1",
-      "Say: I eat meat and fish (among other things).",
-      "にくや さかなを たべます",
-      ["にく", "や", "さかな", "を", "たべます", "と", "かいます"],
-      ["にく", "や", "さかな", "を", "たべます"],
+      "Say: I buy lunch boxes and bread (among other things).",
+      "おべんとうや パンを かいます",
+      ["パン", "かいます", "おべんとう", "や", "を", "と"],
+      ["おべんとう", "や", "パン", "を", "かいます"],
     ),
     speaking(
       "ja-m21-7-2-speak-1",
-      "にくや さかなを たべます",
-      "I eat meat and fish (among other things).",
+      "やさいや ごはんを たべます",
+      "I eat vegetables and rice (among other things).",
     ),
     listeningCompSentence({
       id: "ja-m21-7-2-lc-1",
@@ -2429,7 +2490,7 @@ export const M21_7_2: LessonContent = {
       "ja-m21-7-2-build-2",
       "Say: A spoon and chopsticks, please.",
       "スプーンと はしを ください",
-      ["スプーン", "と", "はし", "を", "ください", "や", "フォーク"],
+      ["はし", "スプーン", "ください", "と", "を", "や", "フォーク"],
       ["スプーン", "と", "はし", "を", "ください"],
     ),
     sentenceMcq({
@@ -2445,20 +2506,20 @@ export const M21_7_2: LessonContent = {
     }),
     speaking(
       "ja-m21-7-2-speak-2",
-      "コーヒーを いっぱい ください",
-      "One cup of coffee, please.",
+      "コーヒーは いかがですか",
+      "How about some coffee?",
     ),
     build(
       "ja-m21-7-2-build-3",
       "Say: They say 'gochisousama deshita.'",
       "「ごちそうさまでした」と いいます",
-      ["「ごちそうさまでした」", "と", "いいます", "は", "を"],
+      ["は", "「ごちそうさまでした」", "いいます", "を", "と"],
       ["「ごちそうさまでした」", "と", "いいます"],
     ),
     listeningBuildSentence({
       id: "ja-m21-7-2-lb-1",
       target: "はしや スプーンを ください",
-      tiles: ["はし", "や", "スプーン", "を", "ください", "と", "フォーク"],
+      tiles: ["と", "や", "を", "はし", "ください", "フォーク", "スプーン"],
       correctOrder: ["はし", "や", "スプーン", "を", "ください"],
       promptEn: "Hear it, build it: 'Chopsticks and a spoon (among other things), please.'",
     }),
@@ -2474,14 +2535,14 @@ export const M21_7_2: LessonContent = {
     ),
     speaking(
       "ja-m21-7-2-speak-3",
-      "「いただきます」と いいます",
-      "They say 'itadakimasu.'",
+      "「おねがいします」と いいます",
+      "They say 'onegai shimasu.'",
     ),
     build(
       "ja-m21-7-2-build-4",
       "Say: Two cups of milk, please.",
       "ぎゅうにゅうを にはい ください",
-      ["ぎゅうにゅう", "を", "にはい", "ください", "いっぱい", "さんばい"],
+      ["いっぱい", "ください", "ぎゅうにゅう", "を", "さんばい", "にはい"],
       ["ぎゅうにゅう", "を", "にはい", "ください"],
     ),
     listeningCompSentence({
@@ -2494,20 +2555,38 @@ export const M21_7_2: LessonContent = {
         "I eat apples or mandarins.",
       ],
     }),
+    // ── ちょうど (exactly) — dining backlog ──
+    build(
+      "ja-m21-7-2-build-choudo",
+      "Pick the Japanese word for: 'exactly / just'",
+      "ちょうど",
+      ["とても", "ちょうど", "たくさん", "すこし"],
+      ["ちょうど"],
+    ),
+    listeningCompSentence({
+      id: "ja-m21-7-2-lc-choudo",
+      audioText: "ちょうど せんえんです",
+      correctMeaningEn: "It's exactly 1,000 yen.",
+      distractorsEn: [
+        "It's about 1,000 yen.",
+        "It's exactly 100 yen.",
+        "It's 3,000 yen.",
+      ],
+    }),
     cloze(
       "ja-m21-7-2-cloze-to",
-      "「ごちそうさまでした」",
+      "「ありがとう」",
       " いいます。",
       "と",
       ["と", "は", "を", "が"],
-      "They say 'gochisousama deshita.'",
-      "「ごちそうさまでした」と いいます。",
+      "They say 'arigatou.'",
+      "「ありがとう」と いいます。",
       "と marks the quoted phrase.",
     ),
     selfExplain({
       id: "ja-m21-7-2-self-explain",
       anchorLabel: "You've used や, と (quotation and listing), counters, and food vocab",
-      anchorAudioText: "にくや さかなを たべます",
+      anchorAudioText: "おべんとうや パンを かいます",
       question: "The と in 「いただきます」と いいます — is it the same と as in パンと にく?",
       rule: { text: "No — the first と is quotation ('they say…'); the second と means 'and' (listing two items)." },
       surface: { text: "Yes — both mean 'and.'" },
@@ -2546,7 +2625,7 @@ export const M21_7_2: LessonContent = {
       ],
     }),
     speaking("ja-m21-7-2-rev-speak-1", M21_7_2_REVIEW[2].kana, M21_7_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m21-7-2-rev", M21_7_2_REVIEW.slice(0, 4)),
+    reviewMatchPairs("ja-m21-7-2-rev", M21_7_2_REVIEW),
     infoStep(
       "ja-m21-7-2-info-end",
       "You can now navigate a full Japanese meal — from ordering to leaving",

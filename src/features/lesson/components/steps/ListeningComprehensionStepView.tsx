@@ -29,8 +29,8 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
 
   const handleEnter = useCallback(() => {
     if (!submitted && selected) handleSubmit();
-    else if (submitted && !celebrating) onContinue();
-  }, [submitted, selected, celebrating]);
+    else if (submitted) onContinue();
+  }, [submitted, selected]);
 
   useLessonKeyboard({
     onEnter: handleEnter,
@@ -39,7 +39,6 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
         setSelected(step.options[n - 1].id);
       }
     },
-    enabled: !celebrating,
   });
 
   const audioUrl = step.transcript ? getTtsUrl(step.transcript) : null;
@@ -69,6 +68,8 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
+      {/* Content cluster centers as one unit in leftover height. */}
+      <div className="my-auto flex flex-col gap-6">
       <div className="flex items-center gap-4">
         <button
           type="button"
@@ -99,7 +100,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
         {step.question}
       </h2>
 
-      <div className="relative grid gap-3">
+      <div className="grid gap-3">
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
@@ -120,26 +121,30 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
               disabled={submitted}
               aria-pressed={isSelected}
               onClick={() => setSelected(opt.id)}
-              className={`rounded-xl border-[1.5px] px-4 py-3.5 text-left text-sm font-medium transition-colors duration-150 ${style}`}
+              className={`rounded-xl border-[1.5px] px-4 py-4 text-left text-base font-medium transition-colors duration-150 sm:text-lg ${style}`}
             >
               {opt.text}
             </button>
           );
         })}
-        {celebrating && <CelebrationToast text={celebrationText} />}
+      </div>
       </div>
 
-      {submitted && <Feedback correct={isCorrect} explanation={step.explanation} />}
-
-      {!submitted ? (
-        <ContinueButton onClick={handleSubmit} label="Check" disabled={!selected} />
-      ) : celebrating ? (
-        <div className="invisible" aria-hidden>
-          <ContinueButton onClick={() => {}} />
-        </div>
-      ) : (
-        <ContinueButton onClick={onContinue} variant={isCorrect ? "correct" : "incorrect"} />
-      )}
+      {/* Single bottom-anchored block: banner + CTA together so the
+          button never moves on submit. Banner only on wrong — correct
+          celebrates via toast (a success banner shoved layout around for
+          fast learners and read as a stranded island on tall windows). */}
+      <div className="relative flex flex-col gap-4">
+        {celebrating && <CelebrationToast text={celebrationText} />}
+        {submitted && !isCorrect && (
+          <Feedback correct={false} explanation={step.explanation} />
+        )}
+        {!submitted ? (
+          <ContinueButton onClick={handleSubmit} label="Check" disabled={!selected} />
+        ) : (
+          <ContinueButton onClick={onContinue} variant={isCorrect ? "correct" : "incorrect"} />
+        )}
+      </div>
     </div>
   );
 }

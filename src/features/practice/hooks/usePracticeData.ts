@@ -1,32 +1,45 @@
 /**
  * Single source of truth for practice-page data.
  *
- * Today this returns typed mock values. When swapping to a real
- * backend, replace the body with a real TanStack Query
- * (e.g. `useQuery({ queryKey: ["practice", "summary"], ... })` against
- * `/api/core/v1/practice/summary`). Component contracts (the
- * `PracticeData` shape) stay stable. Until then it serves typed mocks.
+ * Every stat is derived from real local state (2026-06-12 pass — the old
+ * hardcoded `MOCK_*` constants are gone):
  *
- * Cross-page note: the Home page pulls weekly activity from
- * `useLocalProgressSummary()` in `src/shared/hooks/useLocalProgressSummary.ts`
- * (lives on `main`, not yet on this branch's working tree). Once that
- * hook is here, the recommended next step is to delegate the
- * `weekMinutes`/`todayMinutes` fields to it so the `WeekSparkline`
- * widget on Home and Practice match. The wrapping shape stays the
- * same — only the inside of this hook changes.
+ * - `todayMinutes` / `weekMinutes` — lesson-completion cache via
+ *   `getWeekPracticeMinutes()` (same signal the Home `WeekSparkline` uses),
+ *   live-updated through `subscribeLessonProgress`.
+ * - `dueModules` / `totalModules` — module review schedule
+ *   (`getDueReviews`) measured against the course map (`getMockCourse`).
+ * - `lastTouchedHours.flashcards` — most recent review across the FSRS
+ *   store (`getSRSStore` + `cardLastReviewedAt`). `null` = never reviewed.
+ * - `lastTouchedHours.alphabet` — newest `updatedAt` across the language's
+ *   alphabet-progress entries. `null` = never practiced.
  *
- * Every `MOCK_*` constant that used to be sprinkled across
- * `PracticePage.tsx`, `PracticeGrammarPage.tsx`, etc. now lives here
- * and only here. Don't reintroduce per-component mock constants — feed
- * new fields through this hook so the swap remains a one-file change.
+ * Removed (no real backing source — don't reintroduce fabricated numbers,
+ * wire a real source first):
+ * - `lastTouchedHours.grammar` — the particle trainer doesn't record
+ *   activity timestamps anywhere yet.
+ * - `useGrammarPracticeData` (`trainerCount` / `lessonCount` /
+ *   `hoursPracticed`) — all three were invented; the grammar page stat
+ *   tiles were removed with it.
  */
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  getWeekPracticeMinutes,
+  subscribeLessonProgress,
+} from "@/shared/domain/mockProgress";
+import { getMockCourse } from "@/shared/domain/mockCourse";
+import { getDueReviews } from "@/features/lesson/data/moduleReviewSchedule";
+import { getSRSStore } from "@/features/flashcards/engine/srsStorage";
+import { cardLastReviewedAt } from "@/features/flashcards/engine";
+import { getAlphabetProgress } from "@/features/practice/alphabet/alphabetProgress";
+import { getLanguageConfig } from "@/shared/domain/languageConfig";
 
 export interface PracticeLastTouchedHours {
-  flashcards: number;
-  grammar: number;
-  alphabet: number;
+  /** Hours since the most recent flashcard review, or null if never. */
+  flashcards: number | null;
+  /** Hours since the alphabet trainer last saved progress, or null if never. */
+  alphabet: number | null;
 }
 
 export interface PracticeData {
@@ -36,9 +49,9 @@ export interface PracticeData {
   weekMinutes: number[];
   /** Modules with due reviews. */
   dueModules: number;
-  /** Total modules tracked. */
+  /** Total modules in the course map. */
   totalModules: number;
-  /** Hours since last activity per domain. */
+  /** Hours since last activity per domain (null = no activity recorded). */
   lastTouchedHours: PracticeLastTouchedHours;
 }
 
@@ -47,68 +60,63 @@ export interface UsePracticeDataResult {
   isLoading: boolean;
 }
 
-/**
- * Mock values. Update here (and only here) when swapping in real data.
- * `weekMinutes` is oldest -> newest, so the last entry is "today".
- */
-const MOCK_WEEK_MINUTES: number[] = [12, 0, 8, 5, 14, 6, 9];
-const MOCK_TODAY_MIN = 12;
-const MOCK_DUE_MODULES = 3;
-const MOCK_TOTAL_MODULES = 4;
-const MOCK_LAST_TOUCHED_HOURS: PracticeLastTouchedHours = {
-  flashcards: 2,
-  grammar: 9,
-  alphabet: 22,
-};
+function hoursAgo(iso: string, nowMs: number): number | null {
+  const t = new Date(iso).getTime();
+  if (Number.isNaN(t)) return null;
+  return Math.max(0, Math.floor((nowMs - t) / 3_600_000));
+}
 
-export function usePracticeData(): UsePracticeDataResult {
-  return useMemo<UsePracticeDataResult>(
-    () => ({
+/** Hours since the newest flashcard review across the whole SRS store. */
+function flashcardsLastTouchedHours(nowMs: number): number | null {
+  let newest: string | null = null;
+  for (const state of Object.values(getSRSStore())) {
+    const at = cardLastReviewedAt(state);
+    // Cards that have never been reviewed fall back to an empty / invalid
+    // day string — skip anything that doesn't parse.
+    if (Number.isNaN(new Date(at).getTime())) continue;
+    if (newest === null || at > newest) newest = at;
+  }
+  return newest ? hoursAgo(newest, nowMs) : null;
+}
+
+/** Hours since any alphabet-progress write for this language. */
+function alphabetLastTouchedHours(langId: string, nowMs: number): number | null {
+  const cfg = getLanguageConfig(langId);
+  const defs = cfg?.alphabets ?? (cfg?.alphabet ? [cfg.alphabet] : []);
+  let newest: string | null = null;
+  for (const def of defs) {
+    const progress = getAlphabetProgress(langId, def.id);
+    if (!progress?.updatedAt) continue;
+    if (newest === null || progress.updatedAt > newest) {
+      newest = progress.updatedAt;
+    }
+  }
+  return newest ? hoursAgo(newest, nowMs) : null;
+}
+
+export function usePracticeData(langId: string): UsePracticeDataResult {
+  // Re-derive when lesson progress changes (completion writes, sync hydrate).
+  const [version, setVersion] = useState(0);
+  useEffect(() => subscribeLessonProgress(() => setVersion((v) => v + 1)), []);
+
+  return useMemo<UsePracticeDataResult>(() => {
+    const nowMs = Date.now();
+    const weekMinutes = getWeekPracticeMinutes();
+    const course = getMockCourse(langId);
+
+    return {
       data: {
-        todayMinutes: MOCK_TODAY_MIN,
-        weekMinutes: MOCK_WEEK_MINUTES,
-        dueModules: MOCK_DUE_MODULES,
-        totalModules: MOCK_TOTAL_MODULES,
-        lastTouchedHours: MOCK_LAST_TOUCHED_HOURS,
+        todayMinutes: weekMinutes[weekMinutes.length - 1] ?? 0,
+        weekMinutes,
+        dueModules: getDueReviews(course, nowMs).length,
+        totalModules: course.modules.length,
+        lastTouchedHours: {
+          flashcards: flashcardsLastTouchedHours(nowMs),
+          alphabet: alphabetLastTouchedHours(langId, nowMs),
+        },
       },
       isLoading: false,
-    }),
-    [],
-  );
-}
-
-// ---------- Grammar subpage ----------
-
-export interface GrammarPracticeData {
-  trainerCount: number;
-  lessonCount: number;
-  hoursPracticed: number;
-}
-
-export interface UseGrammarPracticeDataResult {
-  data: GrammarPracticeData;
-  isLoading: boolean;
-}
-
-const MOCK_GRAMMAR_TRAINER_COUNT = 4;
-const MOCK_GRAMMAR_LESSON_COUNT = 0;
-const MOCK_GRAMMAR_HOURS_PRACTICED = 0;
-
-/**
- * Grammar-subpage data. Kept separate from `usePracticeData` because
- * the shape is page-specific (trainer roster stats vs. the practice
- * hub overview). Same swap-to-real-query pattern applies.
- */
-export function useGrammarPracticeData(): UseGrammarPracticeDataResult {
-  return useMemo<UseGrammarPracticeDataResult>(
-    () => ({
-      data: {
-        trainerCount: MOCK_GRAMMAR_TRAINER_COUNT,
-        lessonCount: MOCK_GRAMMAR_LESSON_COUNT,
-        hoursPracticed: MOCK_GRAMMAR_HOURS_PRACTICED,
-      },
-      isLoading: false,
-    }),
-    [],
-  );
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- `version` re-derives from storage
+  }, [langId, version]);
 }

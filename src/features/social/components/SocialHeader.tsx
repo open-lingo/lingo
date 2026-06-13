@@ -7,6 +7,7 @@
  */
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -19,6 +20,7 @@ import { FindFriendModal } from "./FindFriendModal";
 import { useSocial } from "../hooks/useSocial";
 
 export function SocialHeader() {
+  const { t } = useTranslation();
   const [findFriendOpen, setFindFriendOpen] = useState(false);
   const langPath = useLangPath();
   const { user } = useAuth();
@@ -92,7 +94,7 @@ export function SocialHeader() {
           className="inline-flex items-center gap-1 rounded-md bg-accent px-2.5 py-1 text-xs font-semibold text-on-accent shadow-sm transition hover:bg-accent-hover"
         >
           <Icon name="userPlus" size={13} aria-hidden />
-          Add friend
+          {t("social.addFriend.add", "Add friend")}
         </button>
         <FindFriendModal open={findFriendOpen} onClose={() => setFindFriendOpen(false)} />
         <button
