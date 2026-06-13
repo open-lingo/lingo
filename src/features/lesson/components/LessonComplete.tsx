@@ -88,19 +88,30 @@ export function LessonComplete({
       )}
 
       <div className="flex w-full items-center justify-around gap-4 rounded-2xl border-[1.5px] border-border bg-surface px-6 py-5 shadow-[var(--shadow-card)]">
-        <Stat
-          label={t("lesson.accuracy", "Accuracy")}
-          value={`${percent}%`}
-          accent={percent >= 80}
-        />
-        <div className="h-10 w-px bg-border" aria-hidden />
+        {/* Accuracy + Score only make sense when the lesson had graded steps.
+            Exposure-only lessons (phrase cards, info) have totalGraded === 0;
+            showing "100% / 0/0" reads as a bug, so collapse to XP only. */}
+        {totalGraded > 0 && (
+          <>
+            <Stat
+              label={t("lesson.accuracy", "Accuracy")}
+              value={`${percent}%`}
+              accent={percent >= 80}
+            />
+            <div className="h-10 w-px bg-border" aria-hidden />
+          </>
+        )}
         <Stat label={t("lesson.xpEarned", "XP earned")} value={`+${xp}`} accent />
-        <div className="h-10 w-px bg-border" aria-hidden />
-        <Stat
-          label={t("lesson.score", "Score")}
-          value={`${correctCount}/${totalGraded}`}
-          accent={false}
-        />
+        {totalGraded > 0 && (
+          <>
+            <div className="h-10 w-px bg-border" aria-hidden />
+            <Stat
+              label={t("lesson.score", "Score")}
+              value={`${correctCount}/${totalGraded}`}
+              accent={false}
+            />
+          </>
+        )}
       </div>
 
       {mastery ? (
