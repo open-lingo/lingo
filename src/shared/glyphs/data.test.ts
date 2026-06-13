@@ -1,7 +1,11 @@
 import { describe, it, expect } from "vitest";
 import hiragana from "./data/hiragana.json";
 import katakana from "./data/katakana.json";
-import { getAlphabetById } from "@/shared/domain/languageConfig";
+import hangul from "./data/hangul.json";
+import {
+  getAlphabetById,
+  getAlphabetDisplaySections,
+} from "@/shared/domain/languageConfig";
 
 type GlyphFile = {
   viewBox: [number, number, number, number];
@@ -61,10 +65,47 @@ describe("kana glyph data", () => {
     expect(missing).toEqual([]);
   });
 
+  it("hangul file has a non-empty viewBox", () => {
+    const file = hangul as unknown as GlyphFile;
+    expect(file.viewBox).toHaveLength(4);
+    expect(file.viewBox[2]).toBeGreaterThan(0);
+    expect(file.viewBox[3]).toBeGreaterThan(0);
+  });
+
+  it("every Hangul jamo in the alphabet def has stroke data", () => {
+    const file = hangul as unknown as GlyphFile;
+    const def = getAlphabetById("ko", "hangul");
+    if (!def) throw new Error("hangul alphabet not found");
+    // The jamo the learner actually traces come from the alphabet's
+    // characters list (40 basic jamo). Syllable blocks are out of scope.
+    const jamo = def.characters ?? [];
+    expect(jamo.length).toBeGreaterThan(0);
+    const missing: string[] = [];
+    for (const ch of jamo) {
+      const entry = file.characters[ch];
+      if (!entry || !entry.strokes?.length) missing.push(ch);
+    }
+    expect(missing).toEqual([]);
+  });
+
+  it("Hangul stroke data covers every section character", () => {
+    const file = hangul as unknown as GlyphFile;
+    const def = getAlphabetById("ko", "hangul");
+    if (!def) throw new Error("hangul alphabet not found");
+    const sectionChars = getAlphabetDisplaySections(def).flatMap(
+      (s) => s.characters,
+    );
+    const missing = sectionChars.filter(
+      (ch) => !file.characters[ch]?.strokes?.length,
+    );
+    expect(missing).toEqual([]);
+  });
+
   it("every stroke entry has a path and a start point", () => {
     const all: Array<[string, GlyphFile]> = [
       ["hiragana", hiragana as unknown as GlyphFile],
       ["katakana", katakana as unknown as GlyphFile],
+      ["hangul", hangul as unknown as GlyphFile],
     ];
     const broken: string[] = [];
     for (const [scriptId, file] of all) {

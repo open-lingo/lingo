@@ -59,8 +59,9 @@ export type AlphabetDef = {
   /**
    * When true, this script ships per-stroke SVG data (see src/shared/glyphs/data)
    * and the trace UX renders numbered stroke-order guides + animation playback.
-   * Latin alphabets leave this false; kana set it true; Hangul gets it when its
-   * data lands. Default: false (system-font reference, no stroke-order UX).
+   * Latin alphabets leave this false; kana and Hangul set it true (Hangul
+   * jamo stroke data lives in src/shared/glyphs/data/hangul.json). Default:
+   * false (system-font reference, no stroke-order UX).
    */
   hasStrokeOrder?: boolean;
 };
@@ -626,6 +627,7 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
       id: "hangul",
       name: "Hangul",
       description: "Korean alphabet",
+      hasStrokeOrder: true,
       characters: [
         "ㄱ",
         "ㄴ",
