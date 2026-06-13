@@ -69,6 +69,7 @@
     "cookies": {
       "bannerTitle": "Cookies on Open Lingo",
       "bannerBody": "We use essential storage for sign-in and your learning progress. With your permission, we also allow advertising cookies (e.g. Google AdSense) to help fund the free tier. We do not sell your personal information.",
+      "bannerBodyShort": "We use cookies to run the app and fund the free tier.",
       "essentialOnly": "Essential only",
       "acceptAll": "Accept all",
       "settingsTitle": "Advertising cookies",
@@ -93,8 +94,7 @@
     }
   },
   "landing": {
-    "heroTitle": "Remember what you learn.",
-    "heroSubtitle": "Serious language learning without distractions. Open source, community-driven, with spaced repetition that actually works.",
+    "heroSubtitle": "Structured courses, spaced-repetition flashcards, and story-based reading — all in a free, open-source app you actually own.",
     "heroTagline": "Built by learners · Open source",
     "heroBullet1": "Import Anki decks · Bring your existing cards",
     "heroBullet2": "No streak manipulation · Study at your own pace",

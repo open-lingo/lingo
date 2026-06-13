@@ -38,8 +38,7 @@
     "githubRepo": "Ver en GitHub"
   },
   "landing": {
-    "heroTitle": "Recuerda lo que aprendes.",
-    "heroSubtitle": "Aprendizaje de idiomas serio y sin distracciones. Código abierto, impulsado por la comunidad, con repetición espaciada que de verdad funciona.",
+    "heroSubtitle": "Cursos estructurados, tarjetas de repetición espaciada y lectura basada en historias — todo en una app gratuita y de código abierto que de verdad es tuya.",
     "heroTagline": "Hecho por aprendices · Código abierto",
     "heroBullet1": "Importa mazos de Anki · Trae tus tarjetas existentes",
     "heroBullet2": "Sin manipulación de rachas · Estudia a tu propio ritmo",

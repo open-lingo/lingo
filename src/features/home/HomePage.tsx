@@ -12,7 +12,7 @@ import { PracticeCard } from "@/features/practice/PracticeCard";
 import { LanguagePickerModal } from "./LanguagePickerModal";
 import { HomeNavCard } from "./HomeNavCard";
 import { RestructuredHome } from "./restructured/RestructuredHome";
-import { Card, Button } from "@/shared/components/ui";
+import { Card, Button, Skeleton } from "@/shared/components/ui";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { useProgressMe } from "@/shared/hooks/useProgressMe";
 import { useHomePrefetch } from "./useHomePrefetch";
@@ -96,8 +96,18 @@ export function HomePage() {
 
   if (authLoading || waitingForProgress) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <p className="text-text-muted">{t("common.loading")}</p>
+      <div className="space-y-6" aria-busy="true" aria-live="polite">
+        <span className="sr-only">{t("common.loading")}</span>
+        <Skeleton shape="text" width="w-56" height="h-8" />
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="rounded-xl border border-border bg-surface p-5">
+              <Skeleton shape="circle" width="w-10" height="h-10" />
+              <Skeleton shape="text" width="w-32" height="h-5" className="mt-3" />
+              <Skeleton shape="text" lines={2} className="mt-2" />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
