@@ -18,6 +18,13 @@ export type ReviewQueue = {
   newCount: number;
   /** Extra-practice cards surfaced by a free review (not-yet-due). */
   extraCount?: number;
+  /**
+   * Count of reviewed-but-not-yet-due cards available to a free review,
+   * regardless of whether `free` is currently on. Lets the UI hide the
+   * "Start a free review" CTA when there's genuinely nothing to surface
+   * (otherwise the button is a silent no-op).
+   */
+  notYetDueCount?: number;
   totalCount: number;
   /** Map cardId -> deck defaultEase for new cards */
   cardIdToDefaultEase?: Record<string, number>;
@@ -160,6 +167,7 @@ export function buildQueueFromSubscriptions(
     dueCount: reviewCards.length,
     newCount: newCards.length,
     extraCount: extraCards.length,
+    notYetDueCount: notYetDue.length,
     totalCount: queue.length,
     cardIdToDefaultEase,
   };

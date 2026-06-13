@@ -371,14 +371,19 @@ export function FlashcardTester() {
               {t("flashcards.reviewMore", "Review More")}
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={handleStartFreeReview}
-              className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover"
-            >
-              <Icon name="sparkles" size={16} aria-hidden />
-              {t("flashcards.startFreeReview", "Start a free review")}
-            </button>
+            // Only offer free review when there are reviewed-but-not-yet-due
+            // cards to surface. Otherwise the button is a silent no-op (the
+            // queue would rebuild empty and re-show this same screen).
+            (queue.notYetDueCount ?? 0) > 0 && (
+              <button
+                type="button"
+                onClick={handleStartFreeReview}
+                className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover"
+              >
+                <Icon name="sparkles" size={16} aria-hidden />
+                {t("flashcards.startFreeReview", "Start a free review")}
+              </button>
+            )
           )}
           <Link
             to={langPath("practice/flashcards")}

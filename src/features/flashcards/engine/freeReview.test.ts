@@ -50,6 +50,25 @@ describe("free review (extra practice)", () => {
     expect(q.queue.map((c) => c.id)).toEqual(["b", "c", "a"]);
   });
 
+  it("reports notYetDueCount so the UI can hide a no-op free-review CTA", () => {
+    // No SRS state at all + newCardsPerDay 0 => nothing due, nothing new,
+    // and nothing reviewed-but-not-due. The free-review button would be a
+    // silent no-op, so notYetDueCount must be 0.
+    const emptyStore: Record<string, SRSCardState> = {};
+    const q0 = buildQueueFromSubscriptions(subs, decks, emptyStore, { free: true });
+    expect(q0.notYetDueCount).toBe(0);
+    expect(q0.totalCount).toBe(0);
+
+    // With reviewed-but-not-due cards present, the count is non-zero even
+    // when free is off (so the completion screen can decide before flipping).
+    const seenStore: Record<string, SRSCardState> = {
+      [canonicalize("a")]: notDueState(3),
+      [canonicalize("b")]: notDueState(5),
+    };
+    const q1 = buildQueueFromSubscriptions(subs, decks, seenStore, { free: false });
+    expect(q1.notYetDueCount).toBe(2);
+  });
+
   it("does NOT add extras when real reviews are due (free is a fallback only)", () => {
     const store: Record<string, SRSCardState> = {
       // 'a' is due today.
