@@ -1814,7 +1814,9 @@
       "title": "Friends recently",
       "seeAll": "See all",
       "empty": "No friend activity yet — add friends to start seeing wins here.",
-      "cheerOn": "Cheer on {{name}}"
+      "cheerOn": "Cheer on {{name}}",
+      "showMine": "Show mine",
+      "hideMine": "Hide mine"
     },
     "friends": {
       "title": "Your friends",
@@ -1834,7 +1836,8 @@
       "unfriendConfirmTitle": "Unfriend {{name}}?",
       "unfriendConfirmBody": "You'll stop seeing each other on leaderboards and the activity feed.",
       "blockConfirmTitle": "Block {{name}}?",
-      "blockConfirmBody": "Blocked users can't message you, see your profile, or appear in your leaderboards."
+      "blockConfirmBody": "Blocked users can't message you, see your profile, or appear in your leaderboards.",
+      "viewProfile": "View profile"
     },
     "requests": {
       "title": "Requests",
@@ -1940,6 +1943,27 @@
       "emptyWeekly": "No weekly rankings yet — earn XP to join the sprint.",
       "emptyMonthly": "No monthly rankings yet — be the first.",
       "emptyFriends": "Add friends to start a friends-only leaderboard."
+    },
+    "title": "Social",
+    "tabs": {
+      "overview": "Overview",
+      "friends": "Friends",
+      "league": "League",
+      "messages": "Messages"
+    },
+    "leagues": {
+      "viewAll": "View all leagues"
+    },
+    "findFriend": {
+      "title": "Add a friend",
+      "subtitle": "Search by username or display name. We'll send a friend request — they have to accept before you appear in each other's lists.",
+      "searchPlaceholder": "Search learners…",
+      "hint": "Start typing to search for people to add.",
+      "noResultsTitle": "No matches",
+      "noResultsDesc": "No learners match that search. Try a different username.",
+      "respond": "Respond",
+      "blocked": "Blocked",
+      "xpWk": "XP/wk"
     }
   },
   "placement": {

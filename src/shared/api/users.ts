@@ -102,6 +102,28 @@ export class UsersApi extends ApiClient {
     });
   }
 
+  /**
+   * Search/browse discoverable learners. Backs the social "add friend"
+   * search: each row carries `friendship_status` so the UI can show
+   * Add / Pending / Friends without a second round-trip. `q` filters by
+   * username or display name; omitting it returns a discover feed.
+   */
+  discover(
+    params: DiscoverUsersParams = {},
+    signal?: AbortSignal,
+  ): Promise<DiscoverUsersResponse> {
+    return this.get<DiscoverUsersResponse>(`${PREFIX}/discover`, {
+      params: {
+        ...(params.q ? { q: params.q } : {}),
+        ...(params.lang ? { lang: params.lang } : {}),
+        limit: params.limit ?? 12,
+        ...(params.offset ? { offset: params.offset } : {}),
+      },
+      signal,
+      tag: "users:discover",
+    });
+  }
+
   /** Get the current user's settings / preferences. */
   getSettings(signal?: AbortSignal): Promise<UserSettings> {
     return this.get<UserSettings>(`${PREFIX}/me/settings`, {

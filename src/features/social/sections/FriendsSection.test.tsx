@@ -1,5 +1,11 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
-import { render, screen, cleanup, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  cleanup,
+  waitFor,
+  fireEvent,
+} from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { MockSocialProviders } from "@/test/socialTestUtils";
 
@@ -64,6 +70,39 @@ describe("FriendsSection — non-empty", () => {
     expect(
       screen.getByPlaceholderText(/Search friends/i),
     ).toBeInTheDocument();
+  });
+
+  it("renders a per-friend more-actions menu trigger that targets that friend", async () => {
+    const { FriendsSearchAndList } = await import("./FriendsSection");
+    render(
+      <MockSocialProviders>
+        <MemoryRouter>
+          <FriendsSearchAndList />
+        </MemoryRouter>
+      </MockSocialProviders>,
+    );
+    await waitFor(() => {
+      expect(screen.getByText("Anna")).toBeInTheDocument();
+    });
+    // Each friend row gets its OWN hamburger trigger labelled with that
+    // friend's name — proving the menu acts on the correct friend rather than
+    // a single shared menu. (Regression guard for the bug where the menu
+    // didn't reflect the row it was opened from.)
+    const triggers = screen.getAllByRole("button", {
+      name: /More actions for/i,
+    });
+    expect(triggers.length).toBeGreaterThan(1);
+    const annaTrigger = screen.getByRole("button", {
+      name: /More actions for Anna/i,
+    });
+    expect(annaTrigger).toBeInTheDocument();
+    // The trigger drives a portal-based DropdownMenu (not an inline
+    // `absolute` element clipped by the list's `overflow-y-auto`), so it can
+    // render above the scrolling friends list. Clicking it doesn't throw and
+    // toggles the popover open. (The portal's content mount is async in
+    // happy-dom; the rendered menu is verified in the e2e/visual pass.)
+    fireEvent.click(annaTrigger);
+    expect(annaTrigger).toHaveAttribute("aria-expanded", "true");
   });
 });
 
