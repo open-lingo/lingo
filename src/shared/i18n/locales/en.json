@@ -425,7 +425,7 @@
     "duePeek": "Cards waiting for a review",
     "noDueTitle": "No cards due right now",
     "noDueDescription": "Pick a deck below to study.",
-    "startFreeReview": "Start free review",
+    "startFreeReview": "Start a free review",
     "yourDecksKicker": "Library",
     "noDecksTitle": "No subscribed decks yet",
     "noDecksDescription": "Subscribe to community decks to start building your review queue.",
@@ -602,8 +602,20 @@
       "nextDue": "Next due",
       "lastReviewed": "Last reviewed",
       "save": "Save",
-      "cancel": "Cancel"
-    }
+      "cancel": "Cancel",
+      "colDifficulty": "Difficulty",
+      "vocabComingTitle": "Not yet implemented",
+      "vocabComingDesc": "Personal vocabulary saved from stories will live here soon. For now, manage your subscribed and lesson decks under All cards.",
+      "noMatchTitle": "No cards match",
+      "noMatchDesc": "Try clearing a filter or adjusting your search.",
+      "pagination": "Card pages"
+    },
+    "modeRecognition": "Recognition",
+    "modeProduction": "Production",
+    "tapToReveal": "Tap to reveal",
+    "extraCount": "Extra",
+    "freeReviewNote": "Free review shows cards before they're due. It won't change your schedule much — Good/Easy just nudge intervals.",
+    "ratingShortcut": "Shortcut: {{key}}"
   },
   "home": {
     "welcomeBack": "Welcome back, {{name}}",

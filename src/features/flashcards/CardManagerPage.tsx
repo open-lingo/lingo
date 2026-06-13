@@ -3,11 +3,14 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { useApi } from "@/shared/api";
-import { FilterBar, DataTable } from "@/shared/components/data";
+import { DataTable } from "@/shared/components/data";
 import { Icon } from "@/shared/components/Icon";
 import { Modal } from "@/shared/components/ui/Modal";
 import { Button } from "@/shared/components/ui/Button";
+import { EmptyState } from "@/shared/components/ui/EmptyState";
+import { FacetSidebar, type Facet } from "@/shared/components/ui/FacetSidebar";
+import { Pagination } from "@/shared/components/ui/Pagination";
+import { SegmentedControl } from "@/shared/components/ui/SegmentedControl";
 import { inputClassName } from "@/shared/components/ui/formStyles";
 import { useCardManagerData, type ManagedCard } from "./useCardManagerData";
 import {
@@ -20,7 +23,10 @@ const CARD_MANAGER_TAB = "tab";
 const TAB_ALL = "all";
 const TAB_MY_VOCAB = "vocab";
 
+const PAGE_SIZE = 25;
+
 type StatusFilter = "all" | "due" | "new" | "learning" | "buried";
+const STATUS_VALUES: StatusFilter[] = ["due", "new", "learning", "buried"];
 type SortKey = "dueDate" | "ease" | "deck" | "lastReview" | "front";
 
 function isVocabDeck(deckId: string): boolean {
@@ -32,7 +38,6 @@ export function CardManagerPage() {
   const langPath = useLangPath();
   const navigate = useNavigate();
   const { language } = useLanguage();
-  const { decks: decksApi } = useApi();
   const languageId = language?.id ?? "ko";
   const [searchParams] = useSearchParams();
   const tab = searchParams.get(CARD_MANAGER_TAB) === TAB_MY_VOCAB ? TAB_MY_VOCAB : TAB_ALL;
@@ -48,35 +53,42 @@ export function CardManagerPage() {
     refresh,
   } = useCardManagerData(languageId);
 
-  const [deckFilter, setDeckFilter] = useState<string>("all");
-  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  // Faceted multi-select selections: facetId -> selected values.
+  const [facetSelections, setFacetSelections] = useState<Record<string, string[]>>({
+    deck: [],
+    status: [],
+  });
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("dueDate");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [page, setPage] = useState(1);
   const [modalityEditCard, setModalityEditCard] = useState<ManagedCard | null>(null);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
-  const [editVocabLoading, setEditVocabLoading] = useState(false);
 
-  const vocabCards = useMemo(
-    () => cards.filter((m) => isVocabDeck(m.deckId)),
-    [cards]
-  );
+  const deckSel = facetSelections.deck ?? [];
+  const statusSel = facetSelections.status ?? [];
 
-  const vocabDeckId = vocabCards[0]?.deckId;
-
-  const handleEditMyVocab = async () => {
-    if (vocabDeckId) {
-      navigate(langPath(`community/decks/${vocabDeckId}`));
-      return;
-    }
-    if (!decksApi) return;
-    setEditVocabLoading(true);
-    try {
-      const deck = await decksApi.getMyVocabDeck(languageId);
-      navigate(langPath(`community/decks/${deck.id}`));
-    } finally {
-      setEditVocabLoading(false);
-    }
+  const toggleFacet = (facetId: string, value: string) => {
+    setFacetSelections((prev) => {
+      const cur = prev[facetId] ?? [];
+      const next = cur.includes(value)
+        ? cur.filter((v) => v !== value)
+        : [...cur, value];
+      return { ...prev, [facetId]: next };
+    });
+    setPage(1);
+  };
+  const clearFacet = (facetId: string) => {
+    setFacetSelections((prev) => ({ ...prev, [facetId]: [] }));
+    setPage(1);
+  };
+  const clearAllFacets = () => {
+    setFacetSelections({ deck: [], status: [] });
+    setPage(1);
+  };
+  const onlyFacet = (facetId: string, value: string) => {
+    setFacetSelections((prev) => ({ ...prev, [facetId]: [value] }));
+    setPage(1);
   };
 
   const handleEditCard = (mc: ManagedCard) => {
@@ -99,13 +111,13 @@ export function CardManagerPage() {
   };
 
   const filtered = useMemo(() => {
-    let list = tab === TAB_MY_VOCAB ? vocabCards : cards;
+    let list = cards;
 
-    if (deckFilter !== "all") {
-      list = list.filter((m) => m.deckId === deckFilter);
+    if (deckSel.length > 0) {
+      list = list.filter((m) => deckSel.includes(m.deckId));
     }
-    if (statusFilter !== "all") {
-      list = list.filter((m) => m.status === statusFilter);
+    if (statusSel.length > 0) {
+      list = list.filter((m) => statusSel.includes(m.status));
     }
     if (search.trim()) {
       const q = search.trim().toLowerCase();
@@ -150,7 +162,19 @@ export function CardManagerPage() {
     });
 
     return sorted;
-  }, [tab, cards, vocabCards, deckFilter, statusFilter, search, sortKey, sortDir]);
+  }, [cards, deckSel, statusSel, search, sortKey, sortDir]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const clampedPage = Math.min(page, totalPages);
+  const paged = useMemo(
+    () => filtered.slice((clampedPage - 1) * PAGE_SIZE, clampedPage * PAGE_SIZE),
+    [filtered, clampedPage],
+  );
+
+  // Keep page in range if filters shrink the list.
+  useEffect(() => {
+    if (page > totalPages) setPage(totalPages);
+  }, [page, totalPages]);
 
   const toggleSort = (key: SortKey) => {
     if (sortKey === key) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
@@ -165,10 +189,7 @@ export function CardManagerPage() {
     );
   }
 
-  const displayCards = tab === TAB_MY_VOCAB ? vocabCards : cards;
-  const isEmpty = displayCards.length === 0;
-
-  if (cards.length === 0) {
+  if (cards.length === 0 && tab === TAB_ALL) {
     return (
       <div className="space-y-6">
         <div>
@@ -197,144 +218,133 @@ export function CardManagerPage() {
     );
   }
 
-  if (tab === TAB_MY_VOCAB && isEmpty) {
+  // Tab header — shared across All / My Vocab.
+  const header = (
+    <div>
+      <h1 className="text-2xl font-bold text-text-primary">
+        {t("flashcards.cardManager.title", "Card Manager")}
+      </h1>
+      <Link
+        to={langPath("practice/flashcards")}
+        className="mt-1 block text-sm text-text-muted hover:text-text-primary"
+      >
+        <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("flashcards.backToHub")}
+      </Link>
+    </div>
+  );
+
+  const tabSwitcher = (
+    <SegmentedControl<typeof TAB_ALL | typeof TAB_MY_VOCAB>
+      value={tab}
+      ariaLabel={t("flashcards.cardManager.tabAll", "All cards")}
+      onChange={(next) => {
+        navigate(
+          next === TAB_MY_VOCAB
+            ? `${langPath("practice/flashcards/cards")}?${CARD_MANAGER_TAB}=${TAB_MY_VOCAB}`
+            : langPath("practice/flashcards/cards"),
+        );
+      }}
+      options={[
+        { value: TAB_ALL, label: t("flashcards.cardManager.tabAll", "All cards") },
+        { value: TAB_MY_VOCAB, label: t("flashcards.cardManager.tabMyVocab", "My Vocab") },
+      ]}
+    />
+  );
+
+  // My Vocab is a stub for now — coming soon empty state.
+  if (tab === TAB_MY_VOCAB) {
     return (
       <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold text-text-primary">
-            {t("flashcards.cardManager.title", "Card Manager")}
-          </h1>
-          <Link
-            to={langPath("practice/flashcards")}
-            className="mt-1 block text-sm text-text-secondary hover:text-text-primary"
-          >
-            <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("flashcards.backToHub")}
-          </Link>
-        </div>
-        <div className="flex gap-2">
-          <Link
-            to={langPath("practice/flashcards/cards")}
-            className="rounded-lg px-3 py-2 text-sm font-medium transition bg-surface-muted text-text-primary hover:bg-surface-muted/80"
-          >
-            {t("flashcards.cardManager.tabAll", "All cards")}
-          </Link>
-          <Link
-            to={`${langPath("practice/flashcards/cards")}?${CARD_MANAGER_TAB}=${TAB_MY_VOCAB}`}
-            className="rounded-lg px-3 py-2 text-sm font-medium transition bg-accent text-white"
-          >
-            {t("flashcards.cardManager.tabMyVocab", "My Vocab")}
-          </Link>
-        </div>
-        <div className="rounded-xl border border-border bg-surface-muted p-12 text-center">
-          <p className="text-text-secondary">
-            {t("flashcards.cardManager.noVocabYet", "No vocab words yet. Add words from stories while reading.")}
-          </p>
-          <div className="mt-4 flex flex-wrap justify-center gap-3">
-            <button
-              type="button"
-              onClick={handleEditMyVocab}
-              disabled={editVocabLoading}
-              className="inline-block rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-primary hover:bg-surface-muted"
-            >
-              {editVocabLoading
-                ? t("flashcards.cardManager.loading", "Loading…")
-                : t("flashcards.cardManager.editMyVocab", "Edit My Vocab")}
-            </button>
+        {header}
+        {tabSwitcher}
+        <EmptyState
+          icon={<Icon name="sparkles" size={22} aria-hidden />}
+          title={t("flashcards.cardManager.vocabComingTitle", "Not yet implemented")}
+          description={t(
+            "flashcards.cardManager.vocabComingDesc",
+            "Personal vocabulary saved from stories will live here soon. For now, manage your subscribed and lesson decks under All cards.",
+          )}
+          action={
             <Link
-              to={langPath("practice/stories")}
-              className="inline-block text-accent"
+              to={langPath("practice/flashcards/cards")}
+              className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
             >
-              {t("flashcards.cardManager.readStories", "Read stories")}
+              {t("flashcards.cardManager.tabAll", "All cards")}
             </Link>
-          </div>
-        </div>
+          }
+        />
       </div>
     );
   }
 
+  // Build facets for the sidebar (deck + status), with live counts.
+  const deckCounts = new Map<string, number>();
+  for (const m of cards) deckCounts.set(m.deckId, (deckCounts.get(m.deckId) ?? 0) + 1);
+  const statusCounts = new Map<string, number>();
+  for (const m of cards) statusCounts.set(m.status, (statusCounts.get(m.status) ?? 0) + 1);
+
+  const facets: Facet[] = [
+    {
+      id: "deck",
+      label: t("flashcards.cardManager.filterDeck", "Deck"),
+      options: decks.map((d) => ({
+        value: d.id,
+        label: d.name,
+        count: deckCounts.get(d.id) ?? 0,
+      })),
+    },
+    {
+      id: "status",
+      label: t("flashcards.cardManager.filterStatus", "Status"),
+      options: STATUS_VALUES.map((s) => ({
+        value: s,
+        label: t(
+          `flashcards.cardManager.status${s.charAt(0).toUpperCase() + s.slice(1)}`,
+          s,
+        ),
+        count: statusCounts.get(s) ?? 0,
+      })),
+    },
+  ];
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-text-primary">
-          {t("flashcards.cardManager.title", "Card Manager")}
-        </h1>
-        <Link
-          to={langPath("practice/flashcards")}
-          className="mt-1 block text-sm text-text-muted hover:text-text-primary"
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        {header}
+        {tabSwitcher}
+      </div>
+
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+        <FacetSidebar
+          facets={facets}
+          selections={facetSelections}
+          onToggle={toggleFacet}
+          onClear={clearFacet}
+          onClearAll={clearAllFacets}
+          onOnly={onlyFacet}
+          search={search}
+          onSearchChange={(s) => {
+            setSearch(s);
+            setPage(1);
+          }}
+          searchPlaceholder={t("flashcards.cardManager.searchPlaceholder", "Front or back…")}
+          clearAllLabel={t("flashcards.cardManager.clearSelection", "Clear")}
+        />
+
+        <div className="min-w-0 flex-1 space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="text-sm text-text-muted">
+          {t("flashcards.cardManager.showing", "Showing {{count}} of {{total}} cards", { count: filtered.length, total: cards.length })}
+        </p>
+        <button
+          type="button"
+          onClick={refresh}
+          className="inline-flex items-center gap-1.5 rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
         >
-          <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("flashcards.backToHub")}
-        </Link>
+          <Icon name="refresh" size={14} aria-hidden />
+          {t("flashcards.cardManager.refresh", "Refresh")}
+        </button>
       </div>
-
-      <div className="flex flex-wrap items-center gap-2">
-        <div className="flex gap-2">
-          <Link
-            to={langPath("practice/flashcards/cards")}
-            className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
-              tab === TAB_ALL ? "bg-accent text-white" : "bg-surface-muted text-text-primary hover:bg-surface-muted/80"
-            }`}
-          >
-            {t("flashcards.cardManager.tabAll", "All cards")}
-          </Link>
-          <Link
-            to={`${langPath("practice/flashcards/cards")}?${CARD_MANAGER_TAB}=${TAB_MY_VOCAB}`}
-            className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
-              tab === TAB_MY_VOCAB ? "bg-accent text-white" : "bg-surface-muted text-text-primary hover:bg-surface-muted/80"
-            }`}
-          >
-            {t("flashcards.cardManager.tabMyVocab", "My Vocab")}
-          </Link>
-        </div>
-        {(tab === TAB_MY_VOCAB || vocabCards.length > 0) && (
-          <button
-            type="button"
-            onClick={handleEditMyVocab}
-            disabled={editVocabLoading}
-            className="rounded-lg border border-border px-3 py-2 text-sm font-medium text-text-primary hover:bg-surface-muted"
-          >
-            {editVocabLoading
-              ? t("flashcards.cardManager.loading", "Loading…")
-              : t("flashcards.cardManager.editMyVocab", "Edit My Vocab")}
-          </button>
-        )}
-      </div>
-
-      <FilterBar
-        filters={[
-          {
-            label: t("flashcards.cardManager.filterDeck", "Deck"),
-            value: deckFilter,
-            options: [
-              { label: t("flashcards.cardManager.allDecks", "All decks"), value: "all" },
-              ...(tab === TAB_MY_VOCAB ? decks.filter((d) => isVocabDeck(d.id)) : decks).map((d) => ({ label: d.name, value: d.id })),
-            ],
-            onChange: setDeckFilter,
-          },
-          {
-            label: t("flashcards.cardManager.filterStatus", "Status"),
-            value: statusFilter,
-            options: [
-              { label: t("flashcards.cardManager.allStatuses", "All"), value: "all" },
-              { label: t("flashcards.cardManager.statusDue", "Due"), value: "due" },
-              { label: t("flashcards.cardManager.statusNew", "New"), value: "new" },
-              { label: t("flashcards.cardManager.statusLearning", "Learning"), value: "learning" },
-              { label: t("flashcards.cardManager.statusBuried", "Buried"), value: "buried" },
-            ],
-            onChange: (v) => setStatusFilter(v as StatusFilter),
-          },
-        ]}
-        search={{
-          label: t("flashcards.cardManager.search", "Search"),
-          placeholder: t("flashcards.cardManager.searchPlaceholder", "Front or back…"),
-          value: search,
-          onChange: setSearch,
-          onRefresh: refresh,
-        }}
-      />
-
-      <p className="text-sm text-text-muted">
-        {t("flashcards.cardManager.showing", "Showing {{count}} of {{total}} cards", { count: filtered.length, total: displayCards.length })}
-      </p>
 
       {selectedIds.size > 0 && (
         <div className="flex flex-wrap items-center gap-2 rounded-lg border border-border bg-surface-muted px-4 py-2">
@@ -503,7 +513,7 @@ export function CardManagerPage() {
             ),
           },
         ]}
-        rows={filtered}
+        rows={paged}
         getRowKey={(mc) => mc.card.id}
         sortKey={sortKey}
         sortDir={sortDir}
@@ -512,6 +522,29 @@ export function CardManagerPage() {
         selectedIds={selectedIds}
         onSelectionChange={setSelectedIds}
       />
+
+      {filtered.length === 0 && (
+        <EmptyState
+          title={t("flashcards.cardManager.noMatchTitle", "No cards match")}
+          description={t(
+            "flashcards.cardManager.noMatchDesc",
+            "Try clearing a filter or adjusting your search.",
+          )}
+        />
+      )}
+
+      {totalPages > 1 && (
+        <div className="flex justify-center pt-2">
+          <Pagination
+            page={clampedPage}
+            totalPages={totalPages}
+            onPageChange={setPage}
+            ariaLabel={t("flashcards.cardManager.pagination", "Card pages")}
+          />
+        </div>
+      )}
+        </div>
+      </div>
 
       <ModalityDateModal
         card={modalityEditCard}
