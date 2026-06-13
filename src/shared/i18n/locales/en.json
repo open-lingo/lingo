@@ -1910,5 +1910,10 @@
       "emptyMonthly": "No monthly rankings yet — be the first.",
       "emptyFriends": "Add friends to start a friends-only leaderboard."
     }
+  },
+  "placement": {
+    "noBankTitle": "No test-out questions yet",
+    "noBankDesc": "The placement engine doesn't have any items for {{module}} on this language yet. The Japanese course covers M3–M27; other modules and languages need their own bank before test-out can probe them.",
+    "backToLearn": "Back to Learn"
   }
 }
