@@ -502,10 +502,10 @@ export function FlashcardsPage() {
           )}
           action={
             <Link
-              to={langPath("practice/flashcards/review")}
+              to={`${langPath("practice/flashcards/review")}?free=1`}
               className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
             >
-              {t("flashcards.startFreeReview", "Start free review")}
+              {t("flashcards.startFreeReview", "Start a free review")}
             </Link>
           }
         />

@@ -307,7 +307,7 @@
     "duePeek": "복습을 기다리는 카드",
     "noDueTitle": "지금 복습할 카드가 없습니다",
     "noDueDescription": "아래 덱을 선택해 공부하세요.",
-    "startFreeReview": "자유 복습 시작",
+    "startFreeReview": "무료 복습 시작",
     "yourDecksKicker": "라이브러리",
     "noDecksTitle": "구독한 덱이 아직 없습니다",
     "noDecksDescription": "커뮤니티 덱을 구독해 복습 큐를 만들어 보세요.",
@@ -452,8 +452,20 @@
       "nextDue": "다음 복습일",
       "lastReviewed": "마지막 복습일",
       "save": "저장",
-      "cancel": "취소"
-    }
+      "cancel": "취소",
+      "colDifficulty": "난이도",
+      "vocabComingTitle": "아직 구현되지 않음",
+      "vocabComingDesc": "스토리에서 저장한 개인 어휘가 곧 여기에 표시됩니다. 지금은 모든 카드에서 구독 및 레슨 덱을 관리하세요.",
+      "noMatchTitle": "일치하는 카드 없음",
+      "noMatchDesc": "필터를 지우거나 검색어를 조정해 보세요.",
+      "pagination": "카드 페이지"
+    },
+    "modeRecognition": "인식",
+    "modeProduction": "생성",
+    "tapToReveal": "탭하여 확인",
+    "extraCount": "추가",
+    "freeReviewNote": "무료 복습은 예정일 전에 카드를 보여줍니다. 일정에는 큰 영향이 없습니다.",
+    "ratingShortcut": "단축키: {{key}}"
   },
   "home": {
     "welcomeBack": "{{name}}님, 다시 오신 걸 환영해요",

@@ -110,4 +110,44 @@ describe("FlashcardDetailSidebar", () => {
     expect(screen.getByText("私")).toBeTruthy();
     expect(screen.getByText(/I/)).toBeTruthy();
   });
+
+  it("overlay variant is absolutely positioned (no layout shift)", () => {
+    const card: Flashcard = {
+      id: "x",
+      type: "word",
+      front: "人",
+      back: "person",
+      note: "kanji",
+    };
+    render(
+      <I18nextProvider i18n={i18n}>
+        <FlashcardDetailSidebar card={card} particles={null} layout="overlay" />
+      </I18nextProvider>,
+    );
+    const aside = screen.getByRole("complementary");
+    expect(aside.className).toContain("absolute");
+    expect(aside.className).toContain("left-full");
+  });
+
+  it("overlay renders the toolbar above the body when provided", () => {
+    const card: Flashcard = {
+      id: "x",
+      type: "word",
+      front: "人",
+      back: "person",
+      note: "kanji note",
+    };
+    render(
+      <I18nextProvider i18n={i18n}>
+        <FlashcardDetailSidebar
+          card={card}
+          particles={null}
+          layout="overlay"
+          toolbar={<button type="button">tool</button>}
+        />
+      </I18nextProvider>,
+    );
+    expect(screen.getByRole("button", { name: "tool" })).toBeTruthy();
+    expect(screen.getByText("kanji note")).toBeTruthy();
+  });
 });

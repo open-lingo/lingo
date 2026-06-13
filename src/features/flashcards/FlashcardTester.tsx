@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -8,6 +8,8 @@ import { reviewCard, setCardState, getEffectiveState, shouldRepeatInSession, get
 import { useSRSyncSession } from "./useSRSyncSession";
 import { useSubscriptionQueue } from "./useSubscriptionQueue";
 import { useReviewQueueFilter } from "./useReviewQueueFilter";
+import { useImagePreload } from "./useImagePreload";
+import { getModalityTheme } from "./modalityTheme";
 import { CardImage } from "./CardPreview";
 import { Icon } from "@/shared/components/Icon";
 import { PlainText } from "@/shared/components/PlainText";
@@ -137,6 +139,9 @@ export function FlashcardTester() {
   const particlesData = getParticlesForLanguage(languageId);
   const particles = particlesData?.particles ?? null;
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const freeReview = searchParams.get("free") === "1";
+
   const [queueVersion, setQueueVersion] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
@@ -156,7 +161,8 @@ export function FlashcardTester() {
   const { queue, isLoading: subQueueLoading } = useSubscriptionQueue(
     languageId,
     queueVersion,
-    queueFilter
+    queueFilter,
+    { free: freeReview }
   );
 
   const cardIdToDefaultEase = queue?.cardIdToDefaultEase;
@@ -199,6 +205,9 @@ export function FlashcardTester() {
 
   const card: Flashcard | undefined = allCards[index];
   const isSessionDone = !card;
+
+  // Warm the next few cards' artwork so images don't pop in after flip.
+  useImagePreload(allCards, index, 3);
 
   // Pick which modality to test whenever the current card changes.
   useEffect(() => {
@@ -270,13 +279,26 @@ export function FlashcardTester() {
     return () => document.removeEventListener("keydown", handler);
   }, []);
 
-  const handleRestart = useCallback(() => {
+  const restartSession = useCallback(() => {
     setIndex(0);
     setFlipped(false);
     setRepeatCards([]);
     setSessionStats({ reviewed: 0, correct: 0 });
     setQueueVersion((v) => v + 1);
   }, []);
+
+  const handleRestart = useCallback(() => {
+    restartSession();
+  }, [restartSession]);
+
+  // "Keep practicing" — flip into free-review mode (surfaces not-yet-due
+  // cards) and rebuild the queue. Sets ?free=1 so a refresh keeps the mode.
+  const handleStartFreeReview = useCallback(() => {
+    const next = new URLSearchParams(searchParams);
+    next.set("free", "1");
+    setSearchParams(next, { replace: true });
+    restartSession();
+  }, [searchParams, setSearchParams, restartSession]);
 
   if (subQueueLoading) {
     return (
@@ -339,14 +361,25 @@ export function FlashcardTester() {
             </span>
           </div>
         </div>
-        <div className="flex gap-3">
-          <button
-            type="button"
-            onClick={handleRestart}
-            className="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover"
-          >
-            {t("flashcards.reviewMore", "Review More")}
-          </button>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          {queue.dueCount > 0 || queue.newCount > 0 ? (
+            <button
+              type="button"
+              onClick={handleRestart}
+              className="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover"
+            >
+              {t("flashcards.reviewMore", "Review More")}
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handleStartFreeReview}
+              className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover"
+            >
+              <Icon name="sparkles" size={16} aria-hidden />
+              {t("flashcards.startFreeReview", "Start a free review")}
+            </button>
+          )}
           <Link
             to={langPath("practice/flashcards")}
             className="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-text-primary hover:bg-surface-muted"
@@ -354,17 +387,52 @@ export function FlashcardTester() {
             {t("flashcards.backToHub")}
           </Link>
         </div>
+        {freeReview && (
+          <p className="text-xs text-text-muted">
+            {t(
+              "flashcards.freeReviewNote",
+              "Free review shows cards before they're due. It won't change your schedule much — Good/Easy just nudge intervals.",
+            )}
+          </p>
+        )}
       </div>
     );
   }
 
   // TS narrowing: card is guaranteed defined after isSessionDone guard
   const currentCard = card!;
+  const modalityTheme = getModalityTheme(testedModality);
+
+  // Toolbar for the detail overlay — lets the learner jump straight to the
+  // review/FSRS settings or the "how review works" reference from the panel.
+  const detailToolbar = (
+    <>
+      <button
+        type="button"
+        onClick={() => setInfoOpen(true)}
+        className="rounded p-1 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+        aria-label={t("flashcards.info.openLabel", "How review works")}
+      >
+        <Icon name="info" size={16} />
+      </button>
+      <button
+        type="button"
+        onClick={() => setSettingsOpen(true)}
+        className="rounded p-1 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+        aria-label={t("flashcards.reviewSettings", "Review settings")}
+      >
+        <Icon name="settings" size={16} />
+      </button>
+    </>
+  );
 
   return (
-    <div className="flex min-h-0 flex-1 justify-center gap-6">
-      {/* Main content — stays centered when no sidebar; pair centers when sidebar is present. */}
-      <div className="flex min-w-0 max-w-md flex-1 flex-col space-y-4">
+    // `justify-center` keeps the card column horizontally centered. The detail
+    // panel is rendered as an absolute overlay INSIDE the centered column, so
+    // revealing it never displaces the card.
+    <div className="flex min-h-0 flex-1 justify-center">
+      {/* Main content — always centered; detail panel floats beside it. */}
+      <div className="relative flex min-w-0 max-w-md flex-1 flex-col space-y-4">
         <div className="relative flex items-center justify-between">
           <Link
             to={langPath("practice/flashcards")}
@@ -454,26 +522,23 @@ export function FlashcardTester() {
           )}
         </div>
 
-      {/* Modality indicator */}
-      <div className="flex items-center justify-center gap-1.5 text-xs font-medium text-text-muted">
-        {testedModality === "recognition" ? (
-          <>
-            <Icon name="search" size={12} aria-hidden />
-            <span>{t("flashcards.modeRecognition", "Recognition")}</span>
-          </>
-        ) : (
-          <>
-            <Icon name="mic" size={12} aria-hidden />
-            <span>{t("flashcards.modeProduction", "Production")}</span>
-          </>
-        )}
+      {/* Modality indicator — color-coded chip (recognition=info, production=accent). */}
+      <div className="flex items-center justify-center">
+        <span
+          className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${modalityTheme.chip}`}
+        >
+          <Icon name={modalityTheme.icon} size={12} aria-hidden />
+          {testedModality === "recognition"
+            ? t("flashcards.modeRecognition", "Recognition")
+            : t("flashcards.modeProduction", "Production")}
+        </span>
       </div>
 
-      {/* Card */}
+      {/* Card — top rail color signals the active modality. */}
       <button
         type="button"
         onClick={() => setFlipped((f) => !f)}
-        className="flex min-h-[220px] w-full flex-col items-center justify-center rounded-xl border-2 border-border bg-surface py-12 shadow-sm transition hover:border-accent"
+        className={`flex min-h-[220px] w-full flex-col items-center justify-center rounded-xl border-2 border-t-4 border-border bg-surface py-12 shadow-sm transition hover:border-accent ${modalityTheme.rail}`}
       >
         {showImage(reviewMode, flipped) && currentCard.image && (
           <CardImage
@@ -500,20 +565,28 @@ export function FlashcardTester() {
             ? testedModality === "recognition"
               ? t("flashcards.wordLabel", "Word")
               : t("flashcards.answerLabel", "Answer")
-            : "Tap to reveal"}
+            : t("flashcards.tapToReveal", "Tap to reveal")}
         </p>
       </button>
 
       {/* Rating buttons (only when flipped) – above detail so layout doesn't shift */}
       {flipped ? (
         <div className="grid grid-cols-4 gap-2">
-          {RATING_BUTTONS.map(({ rating, label, color }) => (
+          {RATING_BUTTONS.map(({ rating, label, color }, i) => (
             <button
               key={rating}
               type="button"
               onClick={() => handleRate(rating)}
-              className={`flex flex-col items-center gap-0.5 rounded-xl px-3 py-3 text-sm font-semibold transition ${color}`}
+              className={`relative flex flex-col items-center gap-0.5 rounded-xl px-3 py-3 text-sm font-semibold transition ${color}`}
+              title={t("flashcards.ratingShortcut", "Shortcut: {{key}}", { key: i + 1 })}
             >
+              {/* Keyboard shortcut keycap (lg:+ — keeps mobile clean). */}
+              <span
+                className="absolute right-1.5 top-1.5 hidden h-4 w-4 items-center justify-center rounded bg-black/15 text-[10px] font-bold leading-none lg:flex"
+                aria-hidden
+              >
+                {i + 1}
+              </span>
               {label}
               <IntervalHint
                 cardId={currentCard.id}
@@ -534,13 +607,24 @@ export function FlashcardTester() {
         </button>
       )}
 
-      {/* Detail panel stacked below the card on mobile. The lg:+ sidebar
-          variant lives outside the centered column as a sibling column. */}
+      {/* Detail panel stacked below the card on mobile. On lg:+ it floats
+          as an absolute overlay (below) so the card never shifts. */}
       {flipped && (
         <FlashcardDetailSidebar
           card={currentCard}
           particles={particles}
           layout="stacked"
+        />
+      )}
+
+      {/* lg:+ detail overlay — absolutely positioned to the right of the
+          column, with a settings/info toolbar. Zero layout shift. */}
+      {flipped && (
+        <FlashcardDetailSidebar
+          card={currentCard}
+          particles={particles}
+          layout="overlay"
+          toolbar={detailToolbar}
         />
       )}
 
@@ -564,18 +648,17 @@ export function FlashcardTester() {
           <span className="text-sm text-text-muted">
             {t("flashcards.againCount")}: <strong className="text-warning">{repeatCards.length}</strong>
           </span>
+          {freeReview && (queue.extraCount ?? 0) > 0 && (
+            <>
+              <span className="text-border">·</span>
+              <span className="text-sm text-text-muted">
+                {t("flashcards.extraCount", "Extra")}:{" "}
+                <strong className="text-accent">{queue.extraCount}</strong>
+              </span>
+            </>
+          )}
         </div>
       </div>
-
-      {/* Off-center detail sidebar (lg:+ only). Card stays visually
-          centered when this isn't rendered (no content, or front side). */}
-      {flipped && (
-        <FlashcardDetailSidebar
-          card={currentCard}
-          particles={particles}
-          layout="sidebar"
-        />
-      )}
 
       {/* First-time onboarding (auto, once per versioned flag). */}
       <FlashcardsOnboardingGate enabled />
