@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { EmptyState } from "@/shared/components/ui/EmptyState";
+import { DropdownMenu } from "@/shared/components/ui/DropdownMenu";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { UsernameDisplay } from "../components/UsernameDisplay";
@@ -158,7 +159,7 @@ export function FriendsSearchAndList() {
           {t("social.friends.noMatch", "No friends match “{{query}}”.", { query })}
         </p>
       ) : (
-        <ul className="grid max-h-[520px] auto-rows-min grid-cols-1 content-start gap-px overflow-y-auto bg-border md:grid-cols-2">
+        <ul className="grid max-h-[420px] auto-rows-min grid-cols-1 content-start gap-px overflow-y-auto bg-border md:grid-cols-2">
           {grouped.active.length > 0 ? (
             <SectionDivider
               label={t("social.friends.onlineNow", "Online now")}
@@ -333,13 +334,13 @@ function lastActiveScore(label: string): number {
 function FriendRow({ user }: { user: SocialUser }) {
   const { t } = useTranslation();
   const langPath = useLangPath();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
   const [confirm, setConfirm] = useState<null | "unfriend" | "block">(null);
   const unfriend = useUnfriend();
   const block = useBlockUser();
 
   return (
-    <li className="group flex items-center gap-3 bg-surface px-3 py-2.5 transition hover:bg-surface-muted">
+    <li className="group flex items-center gap-2.5 bg-surface px-3 py-2 transition hover:bg-surface-muted">
       <ProfilePreviewPopover user={user} />
       <div className="min-w-0 flex-1">
         <Link
@@ -367,50 +368,48 @@ function FriendRow({ user }: { user: SocialUser }) {
       >
         <Icon name="messageCircle" size={14} aria-hidden />
       </Link>
-      <div className="relative">
-        <button
-          type="button"
-          onClick={() => setMenuOpen((o) => !o)}
-          aria-haspopup="menu"
-          aria-expanded={menuOpen}
-          aria-label={t("social.friends.moreAria", "More actions for {{name}}", {
-            name: user.name,
-          })}
-          className="flex h-8 w-8 items-center justify-center rounded-md text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
-        >
-          <Icon name="moreHorizontal" size={14} aria-hidden />
-        </button>
-        {menuOpen ? (
-          <div
-            role="menu"
-            className="absolute right-0 top-full z-20 mt-1 w-44 rounded-md border border-border bg-surface py-1 shadow-popover"
-            onMouseLeave={() => setMenuOpen(false)}
+      {/* Portal-based dropdown — renders above the scrolling friends list
+       *  (the old inline `absolute` menu was clipped by the list's
+       *  `overflow-y-auto`) and the menu items close over THIS row's `user`
+       *  so the actions always target the right friend. */}
+      <DropdownMenu
+        placement="bottom-end"
+        ariaLabel={t("social.friends.moreAria", "More actions for {{name}}", {
+          name: user.name,
+        })}
+        trigger={
+          <button
+            type="button"
+            aria-label={t("social.friends.moreAria", "More actions for {{name}}", {
+              name: user.name,
+            })}
+            className="flex h-8 w-8 items-center justify-center rounded-md text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
           >
-            <button
-              role="menuitem"
-              type="button"
-              className="block w-full px-3 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
-              onClick={() => {
-                setMenuOpen(false);
-                setConfirm("unfriend");
-              }}
-            >
-              {t("social.friends.unfriend", "Unfriend")}
-            </button>
-            <button
-              role="menuitem"
-              type="button"
-              className="block w-full px-3 py-2 text-left text-sm text-error hover:bg-error/10"
-              onClick={() => {
-                setMenuOpen(false);
-                setConfirm("block");
-              }}
-            >
-              {t("social.friends.block", "Block")}
-            </button>
-          </div>
-        ) : null}
-      </div>
+            <Icon name="moreHorizontal" size={14} aria-hidden />
+          </button>
+        }
+        items={[
+          {
+            key: "profile",
+            label: t("social.friends.viewProfile", "View profile"),
+            leading: <Icon name="user" size={14} aria-hidden />,
+            onSelect: () => navigate(`/u/${userSlug(user)}`),
+          },
+          {
+            key: "unfriend",
+            label: t("social.friends.unfriend", "Unfriend"),
+            leading: <Icon name="userMinus" size={14} aria-hidden />,
+            onSelect: () => setConfirm("unfriend"),
+          },
+          {
+            key: "block",
+            label: t("social.friends.block", "Block"),
+            leading: <Icon name="ban" size={14} aria-hidden />,
+            danger: true,
+            onSelect: () => setConfirm("block"),
+          },
+        ]}
+      />
       {confirm === "unfriend" ? (
         <ConfirmModal
           title={t("social.friends.unfriendConfirmTitle", "Unfriend {{name}}?", {

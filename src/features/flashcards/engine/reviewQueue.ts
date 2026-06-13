@@ -1,8 +1,11 @@
 import type { Flashcard, SRSCardState } from "../data/types";
-import { isDue, createInitialState, cardMaxDifficulty } from "./srs";
+import { isDue, isBuried, createInitialState, cardMaxDifficulty, cardEarliestDueDate } from "./srs";
 import { getSRSStore, canonicalize } from "./srsStorage";
 
 const DEFAULT_NEW_CARDS_PER_DAY = 5;
+
+/** Cap on cards surfaced in a free/extra-practice session (not-yet-due cards). */
+const FREE_REVIEW_CAP = 20;
 
 export type ReviewQueue = {
   /** Due review cards (sorted by ease for mix) */
@@ -13,6 +16,15 @@ export type ReviewQueue = {
   queue: Flashcard[];
   dueCount: number;
   newCount: number;
+  /** Extra-practice cards surfaced by a free review (not-yet-due). */
+  extraCount?: number;
+  /**
+   * Count of reviewed-but-not-yet-due cards available to a free review,
+   * regardless of whether `free` is currently on. Lets the UI hide the
+   * "Start a free review" CTA when there's genuinely nothing to surface
+   * (otherwise the button is a silent no-op).
+   */
+  notYetDueCount?: number;
   totalCount: number;
   /** Map cardId -> deck defaultEase for new cards */
   cardIdToDefaultEase?: Record<string, number>;
@@ -85,12 +97,16 @@ export function buildQueueFromSubscriptions(
   subscriptions: DeckSubscription[],
   decks: DeckWithCards[],
   srsStore: Record<string, SRSCardState> = getSRSStore(),
+  options: { free?: boolean } = {},
 ): ReviewQueue {
   const decksById = new Map(decks.map((d) => [d.id, d]));
   const cardIdToDefaultEase: Record<string, number> = {};
 
   const due: Array<{ card: Flashcard; state: SRSCardState }> = [];
   const unseenByDeck = new Map<string, Flashcard[]>();
+  // Cards that already have state but aren't due today — fuel for a free
+  // (extra-practice) session when nothing is otherwise scheduled.
+  const notYetDue: Array<{ card: Flashcard; state: SRSCardState }> = [];
 
   for (const sub of subscriptions) {
     const deck = decksById.get(sub.contentId);
@@ -106,6 +122,8 @@ export function buildQueueFromSubscriptions(
         unseenByDeck.set(sub.contentId, list);
       } else if (isDue(state)) {
         due.push({ card, state });
+      } else if (!isBuried(state)) {
+        notYetDue.push({ card, state });
       }
     }
   }
@@ -128,7 +146,19 @@ export function buildQueueFromSubscriptions(
     newCards.push(...slice);
   }
 
-  const queue = [...reviewCards, ...newCards];
+  // Free review: if the regular queue is empty (nothing due, no new cards
+  // left for today), pull the soonest-due not-yet-due cards so the learner
+  // can keep practicing. These don't change the dueCount/newCount headline —
+  // they're extra practice, surfaced via a dedicated `extraCount`.
+  let extraCards: Flashcard[] = [];
+  if (options.free && reviewCards.length === 0 && newCards.length === 0) {
+    notYetDue.sort((a, b) =>
+      cardEarliestDueDate(a.state).localeCompare(cardEarliestDueDate(b.state)),
+    );
+    extraCards = notYetDue.slice(0, FREE_REVIEW_CAP).map((r) => r.card);
+  }
+
+  const queue = [...reviewCards, ...newCards, ...extraCards];
 
   return {
     review: reviewCards,
@@ -136,6 +166,8 @@ export function buildQueueFromSubscriptions(
     queue,
     dueCount: reviewCards.length,
     newCount: newCards.length,
+    extraCount: extraCards.length,
+    notYetDueCount: notYetDue.length,
     totalCount: queue.length,
     cardIdToDefaultEase,
   };
