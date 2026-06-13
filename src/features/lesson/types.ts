@@ -61,6 +61,14 @@ export type StepBase = {
    * pipeline.
    */
   modality?: StepModality;
+  /**
+   * Track B (grammar SRS) point ids this step drills (e.g. "wa-topic",
+   * "te-form"). When present on a graded step in a review lesson, completing
+   * it advances the grammar-point's FSRS state via `reviewGrammarPoint`
+   * (separate from the vocab `exercisedAtoms` write). Set by the grammar
+   * review generator; see `grammarSrs.ts` + `buildSrsReviewLesson`.
+   */
+  exercisedGrammar?: string[];
 };
 
 export type InfoStep = StepBase & {

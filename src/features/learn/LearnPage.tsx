@@ -4,10 +4,10 @@ import { useTranslation } from "react-i18next";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { getModuleMastery } from "./moduleMastery";
 import {
-  getDueReviews,
   scheduleFirstReview,
   reviewModuleIdFor,
 } from "@/features/lesson/data/moduleReviewSchedule";
+import { getDerivedDueReviews } from "@/features/lesson/data/derivedReviews";
 
 /** localStorage key shape for the one-shot mastery-transition toast.
  *  Versioned so a future copy/UX change can re-fire it for everyone. */
@@ -162,7 +162,9 @@ export function LearnPage() {
   // Surface the count of due reviews on the Learn header. Re-evaluated
   // when completedSet changes (which fires after each lesson finishes).
   const dueReviews = useMemo(
-    () => (course ? getDueReviews(course) : []),
+    // Phase 4: performance-derived (real due vocab + grammar), not the blind
+    // module calendar. Re-derives when completedSet changes.
+    () => (course ? getDerivedDueReviews(course) : []),
     [course, completedSet],
   );
 

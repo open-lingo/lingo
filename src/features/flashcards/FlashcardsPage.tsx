@@ -26,12 +26,16 @@ import { useFlashcardDueSummary } from "./useFlashcardDueSummary";
 function DueCarousel({
   cards,
   dueCount,
+  backlogCount,
+  newPerDay,
   reviewHref,
   onPreviewDeck,
   t,
 }: {
   cards: Flashcard[];
   dueCount: number;
+  backlogCount: number;
+  newPerDay: number;
   reviewHref: string;
   onPreviewDeck: () => void;
   t: TFunction;
@@ -52,6 +56,15 @@ function DueCarousel({
           >
             {t("flashcards.duePeek", "Cards waiting for a review")}
           </h2>
+          {backlogCount > 0 && (
+            <p className="mt-1 text-xs text-text-muted">
+              {t("flashcards.backlog", {
+                defaultValue: "{{count}} more queued — {{perDay}} new added each day",
+                count: backlogCount,
+                perDay: newPerDay,
+              })}
+            </p>
+          )}
         </div>
         <Link
           to={reviewHref}
@@ -209,6 +222,8 @@ export function FlashcardsPage() {
   const {
     dueQueue,
     dueCount,
+    backlogCount,
+    newCardsAllowed,
     totalCount,
     learningCount,
     masteredCount,
@@ -486,6 +501,8 @@ export function FlashcardsPage() {
         <DueCarousel
           cards={dueQueue}
           dueCount={dueCount}
+          backlogCount={backlogCount}
+          newPerDay={newCardsAllowed}
           reviewHref={langPath("practice/flashcards/review")}
           onPreviewDeck={() => {
             openDeckPreview(deck ?? null, null, { onSubscriptionChange: handleSubscriptionChange });

@@ -55,7 +55,8 @@ import {
   setCardState,
 } from "@/features/flashcards/engine";
 import { notifySRSStoreChanged } from "@/features/flashcards/SRSStoreRevisionContext";
-import type { SRSModality } from "@/features/flashcards/data/types";
+import { reviewGrammarPoint } from "@/features/flashcards/engine/grammarSrs";
+import type { SRSModality, SRSRating } from "@/features/flashcards/data/types";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
   parseModuleIndex,
@@ -489,17 +490,33 @@ export function LessonPage() {
       const step = lesson.steps[stepIdx >= 0 ? stepIdx : 0];
       if (!step || !shouldWriteSrs(step)) return;
       const exercised = step.exercisedAtoms ?? [];
-      if (exercised.length === 0) return;
+      const exercisedGrammar = step.exercisedGrammar ?? [];
+      if (exercised.length === 0 && exercisedGrammar.length === 0) return;
       const retried = retryAttempted.has(stepId);
       const modality = step.modality ?? "both";
       const modalities: SRSModality[] =
         modality === "both" ? ["recognition", "production"] : [modality];
+      // Track A — vocab atoms (D4: a grammar step's sentence vocab counts too).
       for (const atomId of exercised) {
         let state = getCardState(atomId) ?? createInitialState();
         for (const m of modalities) {
           state = gradeFromLesson(state, m, { correct, retried });
         }
         setCardState(atomId, state);
+      }
+      // Track B — grammar points (separate store; mirrors gradeFromLesson's
+      // correct/retried → rating mapping).
+      if (exercisedGrammar.length > 0) {
+        const grammarRating: SRSRating = !correct
+          ? "again"
+          : retried
+            ? "hard"
+            : "good";
+        for (const pointId of exercisedGrammar) {
+          for (const m of modalities) {
+            reviewGrammarPoint(pointId, m, grammarRating);
+          }
+        }
       }
       notifySRSStoreChanged();
     },

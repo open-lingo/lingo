@@ -80,3 +80,30 @@ Each entry: `file:line — note`.
 - **Trace CHECK is clickable on an empty canvas** → scores 0% / burns an attempt. Could disable until `hasStrokes`.
 - Cosmetic: generic globe icon reused on every `infoStep` open card; double romaji (per-kana ruby + transliteration line) on grammar/example cards; particle を shows ruby "o" but line "wo" (harmless convention mismatch).
 - Row-test "3 dots" = mistake indicator (`MAX_TEST_MISTAKES`), not progress — could be clearer to a first-timer.
+
+## M9–M15 review (2026-06-13)
+- GRAMMAR: accurate across all 7 modules incl. the famous traps (te-form う/つ/る→って + いく→いって + かえる; month しがつ/しちがつ/くがつ; minute ごふん-not-ぷん; いい→よかった; が-marking for すき/じょうず; な-adj じゃない-not-くない). Wrong forms are consistently used as deliberate distractors/antiPatterns with explicit callouts. No content bugs found.
+- COVERAGE GAP (not a bug): the conformance guards (atom-coverage, moduleConformance, mcq-position-distribution, kanaWordIntroOrder) stop at M7. M8–M15 grammar is correct but NOT machine-protected for intro-before-review / density / atom re-surfacing / MCQ-slot distribution. Consider extending the test ranges to M8–M15 (watch the m[3-7] hardcode landmine).
+
+## Curriculum rigor + retention architecture — NEEDS DEEPER LOOK (2026-06-13)
+Two items from the M9–M15 review discussion, both deferred for a dedicated pass:
+
+1. **Machine-guard the whole course (not just M1–M7).** Extend the conformance
+   suites — atom-coverage, moduleConformance, mcq-position-distribution,
+   kanaWordIntroOrder, sub-lesson-density — to cover M8–M15 (and stay generic as
+   the course grows). These tests encode the research constraints
+   (intro-before-review, ≥1 cued/free-recall, slot rotation, atom re-surfacing
+   ≥3×); leaving M8–15 uncovered means compliance rests on author discipline.
+   ⚠ Watch the `m[3-7]` / range-hardcode landmine when widening ranges.
+
+2. **Retention on-ramp / SRS population (higher leverage).** SRS state is written
+   ONLY in the optional review-lesson nodes (Spencer's invariant). A learner who
+   does the 6 content sub-lessons but skips the 2 review nodes gets ~3–7 *massed*
+   encounters and NOTHING scheduled in FSRS → decays to recognition that fades in
+   ~a week (learning-science-foundation §4.5). Need a deep dive on getting atoms
+   into FSRS earlier without breaking "reviews are the only graded surface," plus
+   cross-day spacing nudges (the §4.4 "come back tomorrow" gating already
+   recommended). Research basis: Cepeda 2006 (spacing ratio), Roediger & Karpicke
+   2006, Nation (~8–15 encounters for durable vocab; lessons supply ~5–7).
+   NOTE: lessons are correctly sized per CLT (2–4 atoms) — do NOT fatten them;
+   "more depth" = more spacing + more generative processing, not more atoms.

@@ -109,7 +109,16 @@ export function useFlashcardDueSummary(langId: string) {
     );
     allCards.push(...courseUnlocked);
 
-    const { queue: dueQueue, totalCount: dueCount } = buildReviewQueue(allCards);
+    const {
+      queue: dueQueue,
+      totalCount: dueCount,
+      newCount: newToday,
+      unseenTotal,
+      newCardsAllowed,
+    } = buildReviewQueue(allCards);
+    // Backlog = unlocked-but-unstudied cards waiting behind today's new-card
+    // allotment. Shown to the learner so the intake throttle is visible.
+    const backlogCount = Math.max(0, unseenTotal - newToday);
 
     // Derive card-state bucket counts from the live SRS store. The
     // store is the source of truth for per-card FSRS-6 progress; we
@@ -157,6 +166,9 @@ export function useFlashcardDueSummary(langId: string) {
     return {
       dueQueue,
       dueCount,
+      newToday,
+      backlogCount,
+      newCardsAllowed,
       totalCount,
       learningCount,
       masteredCount,
