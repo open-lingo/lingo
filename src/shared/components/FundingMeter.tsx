@@ -17,7 +17,6 @@ export function FundingMeter() {
   const { t } = useTranslation();
   const { data } = useFundingTransparency();
   const adPercent = data?.adFundedPercent ?? 40;
-  const premiumPercent = data?.premiumPercent ?? 100 - adPercent;
   const source = data?.source ?? "estimated";
   const period = data?.periodLabel ?? "Last 30 days";
 
@@ -66,7 +65,10 @@ export function FundingMeter() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [collapsed]);
 
-  const ariaLabel = t("funding.ariaLabel", { adPercent, premiumPercent });
+  const ariaLabel = t("funding.ariaLabel", {
+    adPercent,
+    defaultValue: "{{adPercent}}% ad-funded",
+  });
 
   return (
     <div
@@ -117,7 +119,7 @@ export function FundingMeter() {
             {t("funding.panelBody", {
               adPercent,
               defaultValue:
-                "Ads cover {{adPercent}}% of our costs this period. Premium covers the rest. We never sell your data.",
+                "Light, optional ads cover about {{adPercent}}% of our costs — the goal is to stay free on ads alone, never on the learning path. We never sell your data.",
             })}
           </p>
 

@@ -23,6 +23,8 @@ import { LingotBalance } from "@/shared/components/LingotBalance";
 import { AdFreePill } from "@/features/adFree";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useTheme } from "@/shared/contexts/ThemeContext";
+import { useSettings } from "@/shared/contexts/SettingsContext";
+import { SidebarNav } from "@/routes/SidebarNav";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { isLeaderboardEnabled } from "@/shared/config/featureFlags";
 import { Icon } from "@/shared/components/Icon";
@@ -38,7 +40,11 @@ export function Layout() {
   const { t } = useTranslation();
   const location = useLocation();
   const { isThemeEditorOpen } = useTheme();
+  const { settings } = useSettings();
   const { isAuthenticated } = useAuth();
+  // Sidebar layout only applies to authed users on ≥lg; mobile + signed-out
+  // always use the top bar.
+  const sidebarMode = isAuthenticated && settings.appearance.navLayout === "sidebar";
   // Fires POST /progress/me/touch once per session after auth.
   useTouchOnSession();
   const flags = useFeatureFlags();
@@ -89,7 +95,12 @@ export function Layout() {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-text-primary">
+    <div
+      className={`flex min-h-screen flex-col bg-background text-text-primary ${
+        sidebarMode ? "lg:pl-60" : ""
+      }`}
+    >
+      {sidebarMode ? <SidebarNav /> : null}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-surface-primary focus:text-text-primary focus:rounded focus:ring-2"
@@ -99,7 +110,11 @@ export function Layout() {
       <SRSPendingSync />
       <LessonProgressHydrate />
       <ImpersonationBanner />
-      <header className="sticky top-0 z-40 border-b border-border bg-surface">
+      <header
+        className={`sticky top-0 z-40 border-b border-border bg-surface ${
+          sidebarMode ? "lg:hidden" : ""
+        }`}
+      >
         <div className="mx-auto flex h-12 min-h-12 max-w-7xl items-center justify-between gap-2 px-3 sm:h-14 sm:px-4 sm:gap-4 lg:px-8">
           <div className="flex shrink-0 items-center gap-2">
             <span
@@ -342,7 +357,17 @@ export function Layout() {
         )}
       </header>
       {showAppAds ? <DailyWelcomeAd /> : null}
-      <main id="main-content" className="mx-auto w-full max-w-screen-2xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+      {/* Content fills at least the viewport below the header so the footer
+          sits just past the fold — present (legal/SEO links) but out of the
+          way, keeping the app feeling "locked in" to learning. Header is
+          h-12 (3rem) / sm:h-14 (3.5rem); in sidebar mode there's no top
+          header on ≥lg, so go full-viewport there. */}
+      <main
+        id="main-content"
+        className={`mx-auto w-full max-w-screen-2xl flex-1 px-4 py-8 sm:px-6 lg:px-8 min-h-[calc(100svh_-_3rem)] sm:min-h-[calc(100svh_-_3.5rem)] ${
+          sidebarMode ? "lg:min-h-[100svh]" : ""
+        }`}
+      >
         <Outlet />
       </main>
       <SiteFooter />

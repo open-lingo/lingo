@@ -144,7 +144,9 @@ function GeneralPanel() {
 function AppearancePanel() {
   const { t } = useTranslation();
   const { activeThemeId, setTheme, openThemeEditor } = useTheme();
+  const { settings, updateSetting } = useSettings();
   const { close } = useModal();
+  const navLayout = settings.appearance.navLayout ?? "topbar";
 
   const themePresets = [
     { id: "auto", labelKey: "settings.themeAuto" },
@@ -183,6 +185,32 @@ function AppearancePanel() {
         {t("settings.customizeTheme", "Customize theme")}{" "}
         <Icon name="arrowBigRight" size={14} className="inline" />
       </button>
+
+      <div className="mt-6">
+        <p className="mb-2 text-sm font-medium text-text-primary">
+          {t("settings.navLayout", "Navigation layout")}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <ChoiceChip
+            selected={navLayout === "topbar"}
+            onClick={() => updateSetting("appearance.navLayout", "topbar")}
+          >
+            {t("settings.navLayoutTopbar", "Top bar")}
+          </ChoiceChip>
+          <ChoiceChip
+            selected={navLayout === "sidebar"}
+            onClick={() => updateSetting("appearance.navLayout", "sidebar")}
+          >
+            {t("settings.navLayoutSidebar", "Sidebar")}
+          </ChoiceChip>
+        </div>
+        <p className="mt-2 text-xs text-text-muted">
+          {t(
+            "settings.navLayoutHint",
+            "Sidebar shows on larger screens; mobile always uses the top bar.",
+          )}
+        </p>
+      </div>
     </div>
   );
 }

@@ -24,6 +24,8 @@ import {
   ChevronRight,
   ChevronUp,
   Circle,
+  Clock,
+  Moon,
   Cloud,
   CloudAlert,
   CloudSync,
@@ -206,6 +208,10 @@ export const iconRegistry = {
   target: Target,
   /** Zap — quick / boost indicator */
   zap: Zap,
+  /** Clock — time / duration (e.g. ad-free 30m window) */
+  clock: Clock,
+  /** Moon — overnight / all-day quiet (e.g. ad-free 24h window) */
+  moon: Moon,
   // Placeholder – replace with correct icon if needed
   placeholder: Square,
 } as const satisfies Record<string, LucideIcon>;

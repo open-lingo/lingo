@@ -34,7 +34,7 @@ export function SiteFooter({ className = "" }: { className?: string }) {
           <p className="mt-2 max-w-xs text-[13px] leading-relaxed text-text-muted">
             {t(
               "landing.footerBlurb",
-              "Free, open-source language learning. MIT-licensed. Built by learners, supported by Premium."
+              "Free, open-source language learning. MIT-licensed. Built by learners, ad-supported — no paywalls."
             )}
           </p>
         </div>

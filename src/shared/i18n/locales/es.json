@@ -70,7 +70,7 @@
     "featureOpenSource": "Código abierto",
     "featureOpenSourceDesc": "Libre para usar, modificar y contribuir. Sin ataduras.",
     "ctaTitle": "¿Listo para empezar a aprender?",
-    "ctaSubtitle": "Gratis para comenzar · Premium elimina los anuncios",
+    "ctaSubtitle": "Gratis para siempre · Sin anuncios en la ruta de aprendizaje",
     "whyDifferentTitle": "Por qué somos diferentes",
     "whyDifferent1": "Sin manipulación de rachas",
     "whyDifferent1Desc": "Estudia cuando quieras. Sin culpa, sin presión.",
@@ -83,7 +83,7 @@
     "productPreviewTitle": "Mira Open Lingo en acción",
     "productPreviewSubtitle": "Cursos, tarjetas SRS, práctica de letras e historias. Pruébalo gratis.",
     "fundingTitle": "Cómo nos mantenemos gratis",
-    "fundingDesc": "Open Lingo se financia con una mezcla de anuncios y suscripciones premium. Cuanta menos publicidad, más sostenible. Los usuarios premium pueden ocultar la barra de financiación.",
+    "fundingDesc": "Open Lingo es gratis y de código abierto. Lo mantendremos con anuncios ligeros y opcionales —nunca en la ruta de aprendizaje— y nunca venderemos tus datos.",
     "localesLabel": "Idiomas de la interfaz",
     "learningLanguagesLabel": "Idiomas para aprender",
     "statsDecksLabel": "mazos de la comunidad",
@@ -361,9 +361,9 @@
   },
   "funding": {
     "adFunded": "{{percent}}% financiado por anuncios",
-    "premium": "{{percent}}% premium",
-    "ariaLabel": "{{adPercent}}% financiado por anuncios, {{premiumPercent}}% por premium",
-    "hideWithPremium": "Puedes ocultar esta barra con Premium."
+    "premium": "{{percent}}% financiado por la comunidad",
+    "ariaLabel": "{{adPercent}}% financiado por anuncios",
+    "hideWithPremium": "Open Lingo es gratis y de código abierto."
   },
   "progress": {
     "title": "Tu progreso",

@@ -123,9 +123,10 @@ export function LessonComplete({
           }`}
         >
           {mastery.justMastered ? (
-            <p className="m-0 text-base font-extrabold">
+            <p className="m-0 flex items-center justify-center gap-2 text-base font-extrabold">
+              <Icon name="crown" size={18} aria-hidden />
               {t("lesson.moduleMastered", {
-                defaultValue: "★ Module mastered — {{module}}",
+                defaultValue: "Module mastered — {{module}}",
                 module: mastery.moduleTitle,
               })}
             </p>

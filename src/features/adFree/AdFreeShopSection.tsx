@@ -112,8 +112,14 @@ export function AdFreeShopSection({ lingots, statsReady }: Props) {
             <li key={sku.id}>
               <Card padding="md" className="flex h-full flex-col">
                 <div className="flex items-start gap-3">
-                  <span className="text-2xl" aria-hidden>
-                    {sku.id === "30m" ? "⏱️" : sku.id === "2h" ? "🛡️" : "🌙"}
+                  <span
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-muted text-accent"
+                    aria-hidden
+                  >
+                    <Icon
+                      name={sku.id === "30m" ? "clock" : sku.id === "2h" ? "shield" : "moon"}
+                      size={18}
+                    />
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="font-semibold text-text-primary">

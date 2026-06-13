@@ -143,7 +143,7 @@ export function LandingPage() {
         <p className="mt-3.5 text-[13px] text-text-muted">
           {t(
             "landing.heroMeta",
-            "No credit card · No ads on the learning path · Premium optional"
+            "No credit card · No ads on the learning path · Free & open-source"
           )}
         </p>
 
@@ -232,7 +232,7 @@ export function LandingPage() {
               <p className="mt-1 max-w-md text-sm leading-[1.55] text-text-secondary">
                 {t(
                   "landing.openDesc",
-                  "Every feature ships under MIT. Self-host if you want. Premium funds servers; ads stay off the learning path."
+                  "Every feature ships under MIT. Self-host if you want. Light ads fund the servers — and never touch the learning path."
                 )}
               </p>
             </div>
