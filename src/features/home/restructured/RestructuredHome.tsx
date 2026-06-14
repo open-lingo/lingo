@@ -1,7 +1,15 @@
 /**
- * Returning-user home — restructured layout (2026-05-18).
- * Spec: docs/superpowers/specs/2026-05-18-home-restructure-design.md
- * Mock-surface convention: search `// MOCK:` to find replacement sites.
+ * Returning-user home — bento dashboard (no-scroll on desktop).
+ *
+ * Layout is a tight bento grid built around motivation loops, NOT a vertical
+ * widget feed:
+ *   Row 1  Hero "Continue learning" + reward strip (streak / level / XP)
+ *   Row 2  Today's Plan · Flashcards due · Friend leaderboard  (3 cols)
+ *   Row 3  Trending community strip (4 compact tiles)
+ *
+ * Each block answers one question: what should I do? / how am I doing? /
+ * what are my friends doing? / what's cool in the community? / what reward
+ * am I about to earn?
  */
 import { useMemo } from "react";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -13,13 +21,13 @@ import { useUserStats } from "@/shared/hooks/useUserStats";
 import { getNextLesson } from "@/features/course/nextLesson";
 import { findInProgressLessonId } from "@/features/lesson/data/lessonProgress";
 import type { NextLessonInfo } from "./types";
-import { HeroSection } from "./HeroSection";
-import { AccountOverviewCard } from "./AccountOverviewCard";
+import { HeroContinue } from "./HeroContinue";
+import { TodaysPlan } from "./TodaysPlan";
 import { FlashcardsTile } from "./FlashcardsTile";
-import { RecentPracticeTile } from "./RecentPracticeTile";
-// import { QuestsCard } from "./QuestsCard"; // deactivated — mock data only
-import { SocialCard } from "./SocialCard";
-import { CommunityStrip } from "./CommunityStrip";
+import { LeaderboardCard } from "./LeaderboardCard";
+import { TrendingRow } from "./TrendingRow";
+
+const XP_PER_LEVEL = 500;
 
 type Props = {
   /** Friendly first-name greeting (already sanitized by HomePage). */
@@ -34,14 +42,10 @@ export function RestructuredHome({ greetingName }: Props) {
   const langConfig = language ? getLanguageConfig(language.id) : null;
   const { stats } = useUserStats();
 
-  // Resume an in-progress lesson when one exists for this course — the
-  // partial-progress record persisted by LessonPage drives this. Falls
-  // through to the next-uncompleted lesson when nothing is mid-flight.
-  //
-  // The allow-list of lesson ids comes from the course modules: a
-  // resume record for a lesson in a different course (or stale from a
-  // removed lesson) is ignored. `useMemo` keeps the set stable as long
-  // as the course shape is.
+  // Resume an in-progress lesson when one exists for this course; otherwise
+  // fall through to the next non-completed lesson. The allow-list of lesson
+  // ids comes from the course modules so a stale/foreign resume record is
+  // ignored.
   const allowedLessonIds = useMemo(() => {
     if (!course) return new Set<string>();
     return new Set(course.modules.flatMap((m) => m.lessons.map((l) => l.id)));
@@ -72,9 +76,8 @@ export function RestructuredHome({ greetingName }: Props) {
   const nextLesson = inProgressInfo ?? fallbackNext;
   const isResume = inProgressInfo !== null;
 
-  // "Continue lesson" should drop the user directly into the lesson player
-  // rather than the Learn pathway. Branch on lesson.kind to handle alphabet
-  // lessons, which live under a different route. Fallback: Learn page.
+  // "Continue" drops the user directly into the lesson player. Alphabet
+  // lessons live under a different route; fall back to the Learn page.
   const startLessonHref = (() => {
     if (!nextLesson) return langPath("learn");
     const { kind, alphabetId, id } = nextLesson.lesson;
@@ -84,9 +87,6 @@ export function RestructuredHome({ greetingName }: Props) {
     return langPath(`learn/lessons/${id}`);
   })();
 
-  // Module progress derived from how many lessons of the active module are done.
-  // Falls back to 0 when no course/module is available (defensive — first-time
-  // users don't render this component, so this is a safety net).
   const moduleProgressPercent = (() => {
     if (!course || !nextLesson) return 0;
     const completed = new Set(completedIds);
@@ -109,9 +109,15 @@ export function RestructuredHome({ greetingName }: Props) {
     return { current: idx + 1, total: activeModule.lessons.length };
   })();
 
+  // Level / XP-to-next for the hero reward strip.
+  const level = stats.level;
+  const nextLevelXp = Math.max(1, level) * XP_PER_LEVEL;
+  const levelPct = Math.min(100, Math.round((stats.xp / nextLevelXp) * 100));
+  const xpToNext = Math.max(0, nextLevelXp - stats.xp);
+
   return (
     <div className="space-y-4">
-      <HeroSection
+      <HeroContinue
         name={greetingName}
         language={langConfig ?? null}
         startLessonHref={startLessonHref}
@@ -120,30 +126,23 @@ export function RestructuredHome({ greetingName }: Props) {
         moduleProgressPercent={moduleProgressPercent}
         lessonIndexLabel={lessonIndexLabel}
         isResume={isResume}
+        level={level}
+        xpTotal={stats.xp}
+        xpToNext={xpToNext}
+        levelPct={levelPct}
       />
 
-      {/* Main grid. Below lg: stacks single column. At lg+: 3 cols with
-          account spanning 2, social spanning both rows on the right.
-          Layout falls out of auto-placement + col/row-span hints — no
-          gridTemplateAreas needed (which used to apply at all widths
-          and blow out mobile because it referenced columns that didn't
-          exist below lg). */}
-      <div className="grid gap-4 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          <AccountOverviewCard />
-        </div>
-        <div className="lg:row-span-2">
-          <SocialCard />
-        </div>
-        <div>
-          <FlashcardsTile />
-        </div>
-        <div>
-          <RecentPracticeTile />
-        </div>
+      {/* Row 2 — the motivation core: plan, flashcards, leaderboard.
+          Below lg stacks single column; at lg+ it's a 3-up row of equal
+          height cards. */}
+      <div className="grid items-stretch gap-4 lg:grid-cols-3">
+        <TodaysPlan />
+        <FlashcardsTile />
+        <LeaderboardCard />
       </div>
 
-      <CommunityStrip />
+      {/* Row 3 — community discovery strip. */}
+      <TrendingRow />
     </div>
   );
 }

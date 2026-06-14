@@ -674,6 +674,60 @@
       "grammarHeatmap": "Grammar heatmap",
       "leaderboard": "Leaderboard",
       "community": "Community"
+    },
+    "restructured": {
+      "hero": {
+        "greeting": "Hi {{name}}",
+        "continueTitle": "Continue {{title}}",
+        "upNextTitle": "Up next: {{title}}",
+        "keepGoing": "Let's keep going.",
+        "lessonOfWithName": "Lesson {{current}} of {{total}} · {{title}}",
+        "continueLearning": "Continue learning",
+        "startLearning": "Start learning",
+        "dayStreak": "day streak",
+        "levelLabel": "Level {{level}}",
+        "xpToNext": "{{xp}} XP to level {{level}}",
+        "totalXp": "{{xp}} total XP"
+      },
+      "plan": {
+        "kicker": "Today's plan",
+        "headline": "Build your momentum",
+        "count": "{{done}}/{{total}} done",
+        "empty": "No quests right now — check back tomorrow.",
+        "cta": "Knock one out",
+        "allDoneCta": "All done — keep practising"
+      },
+      "flashcards": {
+        "duePill": "Due",
+        "label": "Flashcards",
+        "allCaughtUp": "All caught up!",
+        "cardsSuffix": "cards",
+        "reviewCta": "Review now",
+        "openCta": "Open flashcards"
+      },
+      "leaderboard": {
+        "kicker": "This week",
+        "headline": "Leaderboard",
+        "addCta": "Add",
+        "you": "You",
+        "emptyTitle": "No friends yet",
+        "emptyDesc": "Add friends to see who's ahead.",
+        "toOvertake": "{{n}} XP to pass {{name}}",
+        "youLead": "You're leading — defend the top!"
+      },
+      "trending": {
+        "headline": "Trending in the community",
+        "browse": "Browse all",
+        "newBadge": "New",
+        "empty": "No community content yet — be the first to publish a deck.",
+        "deckMeta": "{{count}} cards · {{up}} upvotes",
+        "deckMetaNoCount": "{{up}} upvotes",
+        "threadMeta": "{{count}} replies",
+        "kind": {
+          "deck": "Deck",
+          "thread": "Discussion"
+        }
+      }
     }
   },
   "auth": {

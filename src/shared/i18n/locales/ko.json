@@ -552,6 +552,60 @@
       "grammarHeatmap": "문법 히트맵",
       "leaderboard": "리더보드",
       "community": "커뮤니티"
+    },
+    "restructured": {
+      "hero": {
+        "greeting": "안녕하세요, {{name}}님",
+        "continueTitle": "{{title}} 이어하기",
+        "upNextTitle": "다음: {{title}}",
+        "keepGoing": "계속 진행해요.",
+        "lessonOfWithName": "레슨 {{current}} / {{total}} · {{title}}",
+        "continueLearning": "이어서 학습하기",
+        "startLearning": "학습 시작하기",
+        "dayStreak": "일 연속",
+        "levelLabel": "레벨 {{level}}",
+        "xpToNext": "레벨 {{level}}까지 {{xp}} XP",
+        "totalXp": "총 {{xp}} XP"
+      },
+      "plan": {
+        "kicker": "오늘의 계획",
+        "headline": "오늘의 흐름 만들기",
+        "count": "{{done}}/{{total}} 완료",
+        "empty": "지금은 퀘스트가 없어요 — 내일 다시 확인하세요.",
+        "cta": "하나 끝내기",
+        "allDoneCta": "모두 완료 — 계속 연습하기"
+      },
+      "flashcards": {
+        "duePill": "복습",
+        "label": "플래시카드",
+        "allCaughtUp": "모두 완료!",
+        "cardsSuffix": "장",
+        "reviewCta": "지금 복습",
+        "openCta": "플래시카드 열기"
+      },
+      "leaderboard": {
+        "kicker": "이번 주",
+        "headline": "리더보드",
+        "addCta": "추가",
+        "you": "나",
+        "emptyTitle": "아직 친구가 없어요",
+        "emptyDesc": "친구를 추가해 순위를 확인하세요.",
+        "toOvertake": "{{name}}님을 넘으려면 {{n}} XP",
+        "youLead": "선두예요 — 1위를 지켜요!"
+      },
+      "trending": {
+        "headline": "커뮤니티 인기",
+        "browse": "모두 보기",
+        "newBadge": "신규",
+        "empty": "아직 커뮤니티 콘텐츠가 없어요 — 첫 덱을 만들어 보세요.",
+        "deckMeta": "{{count}}장 · 추천 {{up}}",
+        "deckMetaNoCount": "추천 {{up}}",
+        "threadMeta": "댓글 {{count}}개",
+        "kind": {
+          "deck": "덱",
+          "thread": "토론"
+        }
+      }
     }
   },
   "account": {
