@@ -702,7 +702,7 @@ export function ContentBrowserPage() {
   }, [setSearchParams]);
 
   return (
-    <CommunityDecksLayout browseCount={browseCount} searchSlot={searchSlot}>
+    <CommunityDecksLayout searchSlot={searchSlot}>
       <div className="flex flex-col gap-6 lg:flex-row lg:gap-6">
         <FacetSidebar
           facets={facets}
