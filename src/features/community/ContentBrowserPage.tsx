@@ -19,8 +19,9 @@ import {
   CommunitySelectedChips,
   type ChipDescriptor,
 } from "./components/CommunitySelectedChips";
-import { CommunityDecksLayout } from "./CommunityDecksLayout";
+import { CommunityDiscoveryLayout } from "./CommunityDiscoveryLayout";
 import { useBrowseSubscribedContent } from "./useBrowseSubscribedContent";
+import { useCreatorDirectory } from "./hooks/useCreatorDirectory";
 import { useCommunityContent } from "./CommunityContentContext";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
@@ -65,8 +66,8 @@ function deckToCardItem(d: DeckResponse): DeckCardItem {
     languageId: d.languageId,
     name: d.name,
     description: d.description ?? "",
-    maintainerIds: [],
-    upvoteCount: 0,
+    maintainerIds: d.authorId ? [d.authorId] : [],
+    upvoteCount: d.voteCount ?? 0,
     updatedAt: d.updatedAt ?? d.createdAt ?? "",
     itemCount: d.cardCount,
     deckId: d.id,
@@ -81,7 +82,7 @@ function storyToCardItem(s: StoryResponse): StoryCardItem {
     languageId: s.languageId,
     name: s.title,
     description: s.description ?? "",
-    maintainerIds: [],
+    maintainerIds: s.authorId ? [s.authorId] : [],
     upvoteCount: 0,
     updatedAt: s.updatedAt ?? s.createdAt ?? "",
     storyId: s.id,
@@ -180,6 +181,7 @@ export function ContentBrowserPage() {
   const [subscribedStories, setSubscribedStories] = useState<StoryResponse[]>([]);
 
   const { openDeckPreview, openStoryPreview } = useCommunityContent();
+  const { resolveCreator } = useCreatorDirectory();
 
   const langId = language?.id ?? "ko";
   // Default: no language filter (all languages). The learner's current language
@@ -280,7 +282,24 @@ export function ContentBrowserPage() {
   const { search, setSearch, subscribeLoading, handleSubscribe, handleUnsubscribe } =
     useBrowseSubscribedContent({ onRefresh: refreshSubscribedSets });
 
-  const apiDeckCards = useMemo(() => apiDecks.map(deckToCardItem), [apiDecks]);
+  // Seed the search box + sort from the URL once on mount so the Discover
+  // home's hero search / "see all" links land pre-filtered.
+  const qParam = searchParams.get("q");
+  const sortParam = searchParams.get("sort");
+  useEffect(() => {
+    if (qParam) setSearch(qParam);
+    if (sortParam === "newest" || sortParam === "trending" || sortParam === "upvotes" || sortParam === "name") {
+      setSortBy(sortParam);
+    }
+    // Mount-only seed; subsequent typing/sorting is local state.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Companion decks are study-only (tied to a story) and excluded from browse.
+  const apiDeckCards = useMemo(
+    () => apiDecks.filter((d) => !d.companionToStoryId).map(deckToCardItem),
+    [apiDecks],
+  );
   const apiStoryCards = useMemo(() => apiStories.map(storyToCardItem), [apiStories]);
 
   const subscribedIds = useMemo(
@@ -579,17 +598,23 @@ export function ContentBrowserPage() {
         to = langPath(`learn`);
       }
 
+      // Resolve the creator (name + avatar) from the directory when the
+      // content carries an author id. Falls back to any maintainerName the
+      // addon already reported.
+      const authorId = addon.maintainerIds[0];
+      const creator = resolveCreator(authorId);
+
       return {
         id,
         kind: addon.kind,
         name: addon.name,
         description: addon.description,
-        authorName: addon.maintainerName,
+        authorName: creator?.displayName ?? addon.maintainerName,
+        authorAvatarUrl: creator?.avatarUrl,
+        authorUsername: creator?.username,
         languageId: addon.languageId,
         itemCount: addon.itemCount,
         upvoteCount: addon.upvoteCount,
-        // Backend doesn't track downloads yet — use upvotes * fudge for demo numbers.
-        downloadCount: addon.upvoteCount ? Math.round(addon.upvoteCount * 3.2) : 0,
         updatedAt: addon.updatedAt,
         image: (addon as DeckCardItem).image ?? undefined,
         to,
@@ -610,6 +635,7 @@ export function ContentBrowserPage() {
     handleUnsubscribe,
     openDeckPreview,
     openStoryPreview,
+    resolveCreator,
   ]);
 
   // Preview-on-name-click now lives in ``onRowClick`` above — these are
@@ -702,7 +728,7 @@ export function ContentBrowserPage() {
   }, [setSearchParams]);
 
   return (
-    <CommunityDecksLayout browseCount={browseCount} searchSlot={searchSlot}>
+    <CommunityDiscoveryLayout searchSlot={searchSlot}>
       <div className="flex flex-col gap-6 lg:flex-row lg:gap-6">
         <FacetSidebar
           facets={facets}
@@ -870,6 +896,8 @@ export function ContentBrowserPage() {
                       itemCount: row.itemCount,
                       upvoteCount: row.upvoteCount,
                       maintainerName: row.authorName,
+                      maintainerUsername: row.authorUsername,
+                      maintainerAvatarUrl: row.authorAvatarUrl,
                       image: row.image ?? null,
                     }}
                     variant="full"
@@ -893,7 +921,7 @@ export function ContentBrowserPage() {
           )}
         </section>
       </div>
-    </CommunityDecksLayout>
+    </CommunityDiscoveryLayout>
   );
 }
 

@@ -22,6 +22,7 @@ const mockDecks = {
 };
 const mockUsers = {
   getSubscriptions: vi.fn(),
+  discover: vi.fn(),
 };
 const mockStories = {
   listBrowseStories: vi.fn(),
@@ -89,6 +90,7 @@ describe("ContentBrowserPage", () => {
     mockDecks.listAdminDecks.mockResolvedValue([]);
     mockDecks.listMyDecks.mockResolvedValue([]);
     mockUsers.getSubscriptions.mockResolvedValue([]);
+    mockUsers.discover.mockResolvedValue({ users: [], total: 0, has_more: false });
     mockStories.listBrowseStories.mockResolvedValue([]);
   });
 

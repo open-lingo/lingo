@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
+import { Avatar } from "@/shared/components/ui/Avatar";
 import { DataTable, type DataTableColumn } from "@/shared/components/data";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
@@ -13,6 +14,10 @@ export type CommunityContentRow = {
   name: string;
   description?: string;
   authorName?: string;
+  /** Resolved creator avatar URL (falls back to initials). */
+  authorAvatarUrl?: string;
+  /** Creator handle for the avatar fallback. */
+  authorUsername?: string;
   languageId: string;
   itemCount?: number;
   upvoteCount?: number;
@@ -175,10 +180,20 @@ function NameCell({ row }: { row: CommunityContentRow }) {
         <div className="truncate font-medium text-text-primary group-hover:text-accent">
           {row.name}
         </div>
-        <div className="truncate text-xs text-text-muted">
-          {row.authorName ? `@${row.authorName}` : ""}
-          {row.authorName && row.description ? " · " : ""}
-          {row.description}
+        <div className="flex min-w-0 items-center gap-1.5 text-xs text-text-muted">
+          {row.authorName ? (
+            <span className="inline-flex shrink-0 items-center gap-1">
+              <Avatar
+                src={row.authorAvatarUrl}
+                name={row.authorName}
+                size="xs"
+                className="h-4 w-4 text-[8px]"
+              />
+              <span className="truncate">{row.authorName}</span>
+            </span>
+          ) : null}
+          {row.authorName && row.description ? <span aria-hidden>·</span> : null}
+          {row.description ? <span className="truncate">{row.description}</span> : null}
         </div>
       </div>
     </>

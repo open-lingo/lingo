@@ -148,8 +148,14 @@ const AlphabetLessonPage = lazyRetry(() =>
     default: m.AlphabetLessonPage,
   })),
 );
+const CommunityHomePage = lazyRetry(() =>
+  import("@/features/community/CommunityHomePage").then((m) => ({ default: m.CommunityHomePage })),
+);
 const ContentBrowserPage = lazyRetry(() =>
   import("@/features/community/ContentBrowserPage").then((m) => ({ default: m.ContentBrowserPage })),
+);
+const LibraryPage = lazyRetry(() =>
+  import("@/features/community/LibraryPage").then((m) => ({ default: m.LibraryPage })),
 );
 const ContributorsPage = lazyRetry(() =>
   import("@/features/community/ContributorsPage").then((m) => ({ default: m.ContributorsPage })),
@@ -182,12 +188,6 @@ const StoryEditor = lazyRetry(() =>
 );
 const DeckCreatePage = lazyRetry(() =>
   import("@/features/community/DeckCreatePage").then((m) => ({ default: m.DeckCreatePage })),
-);
-const MyDecksPage = lazyRetry(() =>
-  import("@/features/community/MyDecksPage").then((m) => ({ default: m.MyDecksPage })),
-);
-const SubscribedPage = lazyRetry(() =>
-  import("@/features/community/SubscribedPage").then((m) => ({ default: m.SubscribedPage })),
 );
 const ForumPage = lazyRetry(() =>
   import("@/features/community/forum/ForumPage").then((m) => ({ default: m.ForumPage })),
@@ -379,11 +379,11 @@ const router = createBrowserRouter([
                 element: <CommunityLayout />,
                 children: [
                   { index: true, element: <Navigate to="explore" replace /> },
-                  { path: "explore", element: <ContentBrowserPage /> },
+                  { path: "explore", element: <CommunityHomePage /> },
+                  { path: "browse", element: <ContentBrowserPage /> },
+                  { path: "library", element: <LibraryPage /> },
                   { path: "contributors", element: <ContributorsPage /> },
-                  { path: "subscribed", element: <SubscribedPage /> },
                   { path: "decks/new", element: <DeckCreatePage /> },
-                  { path: "decks/mine", element: <MyDecksPage /> },
                   { path: "decks/:deckId", element: <DeckEditor /> },
                   { path: "external-content", element: <ExternalContentPage /> },
                   {

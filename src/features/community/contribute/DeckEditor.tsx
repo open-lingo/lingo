@@ -566,7 +566,7 @@ export function DeckEditor() {
     { label: t("community.breadcrumbCommunity"), to: langPath("community") },
     {
       label: t("community.breadcrumbMyDecks"),
-      to: langPath("community/decks/mine"),
+      to: langPath("community/library?tab=mine"),
     },
     { label: name.trim() || t("community.deckCreateTitle") },
   ];

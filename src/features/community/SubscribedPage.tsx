@@ -8,7 +8,6 @@ import { EmptyState } from "@/shared/components/ui/EmptyState";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import type { DeckResponse } from "@/shared/api/decks";
 import type { StoryResponse } from "@/shared/api/stories";
-import { CommunityDecksLayout } from "./CommunityDecksLayout";
 import { useBrowseSubscribedContent } from "./useBrowseSubscribedContent";
 import { SubscribedRow } from "./components/SubscribedRow";
 
@@ -19,7 +18,8 @@ type SortKey = "recent" | "name" | "cards";
 const ALL_LANGS = "__all__";
 const GROUP_THRESHOLD = 5;
 
-export function SubscribedPage() {
+/** Body of the "Subscribed" library tab — rendered inside CommunityLibraryLayout. */
+export function SubscribedBody() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { decks: decksApi, users: usersApi, stories: storiesApi } = useApi();
@@ -196,8 +196,7 @@ export function SubscribedPage() {
   );
 
   return (
-    <CommunityDecksLayout>
-      <section className="space-y-5">
+    <section className="space-y-5">
         {/* Header */}
         <div className="flex items-baseline justify-between gap-3">
           <h2 className="text-lg font-semibold text-text-primary">
@@ -257,7 +256,7 @@ export function SubscribedPage() {
             )}
             action={
               <Link
-                to={langPath("community/explore")}
+                to={langPath("community/browse")}
                 className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
               >
                 {t("community.subscribedEmptyAction", "Browse community decks")}
@@ -284,8 +283,7 @@ export function SubscribedPage() {
         ) : (
           <ul className="space-y-1.5">{filteredRows.map(renderRow)}</ul>
         )}
-      </section>
-    </CommunityDecksLayout>
+    </section>
   );
 }
 

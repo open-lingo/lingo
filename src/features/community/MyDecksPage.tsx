@@ -5,11 +5,9 @@ import { Icon } from "@/shared/components/Icon";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useApi } from "@/shared/api/provider";
 import { EmptyState } from "@/shared/components/ui/EmptyState";
-import { useFeatureFlagsOptional } from "@/shared/contexts/FeatureFlagsContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import type { DeckResponse } from "@/shared/api/decks";
 import type { FlashcardDeck } from "@/features/flashcards/data/types";
-import { CommunityDecksLayout } from "./CommunityDecksLayout";
 import { useCommunityContent } from "./CommunityContentContext";
 import type { CommunityAddon } from "./types";
 
@@ -113,13 +111,12 @@ function deckToAddon(d: DeckResponse): CommunityAddon {
 type SortKey = "name" | "status" | "cards" | "updated";
 type SortDir = "asc" | "desc";
 
-export function MyDecksPage() {
+/** Body of the "My decks" library tab — rendered inside CommunityLibraryLayout. */
+export function MyDecksBody() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { decks: decksApi } = useApi();
   const { openDeckPreview } = useCommunityContent();
-  const flags = useFeatureFlagsOptional();
-  const contributeEnabled = flags?.community?.tabs?.contribute ?? false;
 
   const [myDecks, setMyDecks] = useState<DeckResponse[]>([]);
   const [loading, setLoading] = useState(true);
@@ -219,52 +216,15 @@ export function MyDecksPage() {
     });
   }, []);
 
-  const rightRail = (
-    <div className="space-y-4">
-      <div className="rounded-xl border border-border bg-surface p-4">
-        <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
-          {t("community.myDecksRailKicker", "Your authoring")}
-        </p>
-        <dl className="mt-3 space-y-2">
-          <RailStat
-            label={t("community.myDecksStatDecks", "Decks")}
-            value={stats.decksCount}
-          />
-          <RailStat
-            label={t("community.myDecksStatCards", "Cards total")}
-            value={stats.cardsTotal}
-          />
-          <RailStat
-            label={t("community.myDecksStatApproved", "Approved")}
-            value={stats.approvedCount}
-          />
-        </dl>
-      </div>
-
-      {stats.hasDraft && contributeEnabled && (
-        <div className="rounded-xl bg-accent-muted/40 p-4">
-          <p className="text-sm text-text-primary">
-            {t(
-              "community.myDecksSubmitForReviewBlurb",
-              "Have a deck ready? Submit it for community review.",
-            )}
-          </p>
-          <Link
-            to={langPath("community/contribute")}
-            className="mt-2 inline-block text-sm font-medium text-accent hover:underline"
-          >
-            {t("community.myDecksSubmitForReviewLink", "Learn more")}
-          </Link>
-        </div>
-      )}
-    </div>
-  );
-
   return (
-    <CommunityDecksLayout
-      rightRail={rightRail}
-    >
-      <section className="min-w-0 space-y-4">
+    <section className="min-w-0 space-y-4">
+        {/* Authoring stats strip */}
+        <dl className="flex flex-wrap gap-3">
+          <StatPill label={t("community.myDecksStatDecks", "Decks")} value={stats.decksCount} />
+          <StatPill label={t("community.myDecksStatCards", "Cards total")} value={stats.cardsTotal} />
+          <StatPill label={t("community.myDecksStatApproved", "Approved")} value={stats.approvedCount} />
+        </dl>
+
         {/* Header row */}
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-lg font-semibold text-text-primary">
@@ -557,8 +517,7 @@ export function MyDecksPage() {
             </ul>
           </div>
         )}
-      </section>
-    </CommunityDecksLayout>
+    </section>
   );
 }
 
@@ -642,10 +601,10 @@ function IconAction({
   );
 }
 
-function RailStat({ label, value }: { label: string; value: number }) {
+function StatPill({ label, value }: { label: string; value: number }) {
   return (
-    <div className="flex items-center justify-between">
-      <dt className="text-sm text-text-secondary">{label}</dt>
+    <div className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-1.5">
+      <dt className="text-xs text-text-muted">{label}</dt>
       <dd className="text-sm font-semibold tabular-nums text-text-primary">
         {value}
       </dd>

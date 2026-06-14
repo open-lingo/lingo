@@ -156,7 +156,7 @@ export function DeckCreatePage() {
   }
 
   function handleCancel() {
-    navigate(langPath("community/decks/mine"));
+    navigate(langPath("community/library?tab=mine"));
   }
 
   const previewItem: CommunityItemCardItem = {
