@@ -1,5 +1,15 @@
 # Retention Architecture — Design Proposal (2026-06-13)
 
+> ⚠️ **PARTIALLY SUPERSEDED (2026-06-15).** The intake/scheduling decisions
+> here — §4 "do not seed-at-unlock", §6 **D7** "new-card cap adaptive", §8
+> "seed-at-unlock is a trap" — are **superseded** by
+> `srs-scheduling-model-2026-06-15.md`. That spec changes the architecture to
+> **show-all-due + course-self-covers-review** (sub-lesson review steps write
+> FSRS, review lessons gate, seed-on-unlock→next-day, reviewer all-due/no-cap),
+> which invalidates the throttle-architecture premises those decisions rested
+> on. The Track-A/B analysis, current-state map, and reference-deck findings
+> below still stand. Read the new spec first.
+
 **Status:** DRAFT for review. No code changed. Author: walkthrough/retention analysis session.
 **Goal Spencer set:** "make sure people don't forget the things we teach them." The app is polished and structured; this doc is about *durable memory*, not UI.
 
@@ -63,7 +73,7 @@ Keep them **separate** (per Spencer). Both adaptive (FSRS-style), tracking diffe
 | Status today | ✅ scheduling works; needs an engagement driver | ❌ no scheduler at all |
 
 ### Track A fixes (small) — CORRECTED after feasibility check
-**Do NOT seed-at-unlock.** Adversarial check against `reviewQueue.ts:49-66` + `countCardsDue:148-166` shows the queue already separates cards correctly: **no FSRS state → "unseen" → throttled to `newCardsPerDay` (default 5)**; **has state + due → uncapped review pile**. Seeding FSRS state at unlock would break this throttle — seed due-today and you flood the review pile with hundreds of cards; seed due-later and the card is invisible *and* no longer counts as unseen intake, so it never surfaces. The current lazy model is the right one, and `countCardsDue` already returns an honest "today's load" = `dueReviews + min(unseen, newCardsPerDay)`. (This reverses my earlier claim that seed-at-unlock was the root fix and a quest prerequisite — it is neither.)
+**Do NOT seed-at-unlock.** ⛔ *SUPERSEDED 2026-06-15 (`srs-scheduling-model-2026-06-15.md` §6): the "due-later → never surfaces" objection assumed throttled intake; under show-all-due, seed-on-unlock→next-day is the correct mechanism.* — Adversarial check against `reviewQueue.ts:49-66` + `countCardsDue:148-166` shows the queue already separates cards correctly: **no FSRS state → "unseen" → throttled to `newCardsPerDay` (default 5)**; **has state + due → uncapped review pile**. Seeding FSRS state at unlock would break this throttle — seed due-today and you flood the review pile with hundreds of cards; seed due-later and the card is invisible *and* no longer counts as unseen intake, so it never surfaces. The current lazy model is the right one, and `countCardsDue` already returns an honest "today's load" = `dueReviews + min(unseen, newCardsPerDay)`. (This reverses my earlier claim that seed-at-unlock was the root fix and a quest prerequisite — it is neither.)
 
 The real Track A gaps are **engagement and throughput**, not scheduling:
 - **No forcing function** drives the learner to clear the daily queue (the only nudge is the coarse module chip). → the daily quest below.
@@ -99,12 +109,12 @@ The real Track A gaps are **engagement and throughput**, not scheduling:
 - ✅ **D4 — Credit rules — DECIDED.** A completed sentence review counts as a **full word review** (full FSRS credit) for each vocab atom it contains, *and* advances the Track B grammar unit. Sentences pull double duty — they are the production rep for their vocab.
 - **D5 — Daily quest N + sources.** Rec: **N=20, capped at `countCardsDue()`; both flashcard reviews AND lesson review-node atom-gradings count.** Matches your "auto-complete if caught up / swap" exactly.
 - **D6 — Backend scope.** Rec: **piggyback the local-first SRS store with a new key namespace** (`open-lingo-srs-grammar:v1`) mirroring `srsSync.ts` delta-merge, so Track B doesn't block on backend. ⚠ **REVISED DIRECTION (Spencer 2026-06-14):** separate SRS stores are fragmentation — eventually fold grammar (and sentence) items into the **deck system as card types** so everything SRS schedules + syncs through ONE path. The `open-lingo-srs-grammar:v1` store is a deliberate stopgap; migrate it into a "grammar deck" when we do more grammar SRS. See `docs/followups.md` → "SRS storage unification".
-- ✅ **D7 — engagement vs throttle — DECIDED.** Backlog **visible** to the learner ("N queued, 5/day") + new-card cap **adaptive** to unlock rate.
+- ✅ **D7 — engagement vs throttle — DECIDED.** ⛔ *SUPERSEDED 2026-06-15: no new-card cap by default (lesson pace is the throttle); optional user max-reviews/day instead. See `srs-scheduling-model-2026-06-15.md` D5.* Backlog **visible** to the learner ("N queued, 5/day") + new-card cap **adaptive** to unlock rate.
 
 ---
 
 ## 8. Feasibility findings from the hardening pass (implementer risks)
-- **Seed-at-unlock is a trap** — breaks the new-card throttle (`reviewQueue.ts:49-66`). Don't.
+- **Seed-at-unlock is a trap** — breaks the new-card throttle (`reviewQueue.ts:49-66`). Don't. ⛔ *SUPERSEDED 2026-06-15: seed due-**today** is the trap; seed due-**next-day** under show-all-due is correct (`srs-scheduling-model-2026-06-15.md` D4).*
 - **Track B must stay off the word-deck path** — `buildJaCourseDeck` includes everything `isSrsEligibleAtom` passes (→ D1).
 - **`moduleConformance` + `m[3-7]` range-hardcode landmine** — atom-shape/module-range changes must update the conformance suites in lockstep (they stop at M7 — see the coverage-gap follow-up).
 - **Quest event source unverified** — confirm flashcard ratings (not just lesson grading) feed the quest "review" metric before D5 is real.
