@@ -237,15 +237,68 @@ const SURVIVAL_ATOMS: KoAtom[] = [
   atom({ surface: "잠시만요", meaningEn: "one moment, please", romanization: "jamsimanyo", partOfSpeech: "phrase", fromModule: "sidequest-survival", kind: "phrase" }),
 ];
 
+/**
+ * M3 vocab — first-phrases module. Greetings, the 이에요/예요 copula,
+ * self-introduction vocab (저 / 이름 / 학생 / 선생님), and Sino-Korean
+ * numbers 1-10. The placement bank (placementBank.ts makeM3Items) was
+ * authored against this exact set, so the surfaces here are the source of
+ * truth those items resolve against.
+ *
+ * Register note: 안녕하세요 / 감사합니다 / 네 / 아니요 already exist as
+ * `sidequest-survival` phrase atoms (first-write-wins in the lookup map),
+ * so M3 does NOT re-register them — it reuses them. M3 adds the phrases
+ * the survival quest didn't cover plus the copula + numbers spine.
+ *
+ * CONTENT-TODO: verify register consistency with a Korean speaker —
+ * the M3 spine mixes the 해요-style polite copula (이에요/예요) with the
+ * formal 합니다-style (반갑습니다); both are correct first-meeting Korean
+ * but the sequencing rationale should be confirmed against the N-level map.
+ */
+const M3_VOCAB: KoAtom[] = [
+  // Greetings + social phrases (phrase-level)
+  atom({ surface: "안녕히 가세요", meaningEn: "goodbye (to person leaving)", romanization: "annyeonghi gaseyo", partOfSpeech: "phrase", fromModule: "m3", kind: "phrase" }),
+  atom({ surface: "안녕히 계세요", meaningEn: "goodbye (to person staying)", romanization: "annyeonghi gyeseyo", partOfSpeech: "phrase", fromModule: "m3", kind: "phrase" }),
+  atom({ surface: "반갑습니다", meaningEn: "nice to meet you", romanization: "bangapseumnida", partOfSpeech: "phrase", fromModule: "m3", kind: "phrase" }),
+  atom({ surface: "안녕", meaningEn: "hi / bye (casual)", romanization: "annyeong", partOfSpeech: "phrase", fromModule: "m3", kind: "phrase" }),
+  // Self-introduction vocab
+  atom({ surface: "저", meaningEn: "I / me (polite)", romanization: "jeo", emoji: "🙋", partOfSpeech: "pronoun", fromModule: "m3", kind: "vocab" }),
+  atom({ surface: "이름", meaningEn: "name", romanization: "ireum", emoji: "🪪", partOfSpeech: "noun", fromModule: "m3", kind: "vocab" }),
+  atom({ surface: "학생", meaningEn: "student", romanization: "haksaeng", emoji: "🧑‍🎓", partOfSpeech: "noun", fromModule: "m3", kind: "vocab" }),
+  atom({ surface: "선생님", meaningEn: "teacher", romanization: "seonsaengnim", emoji: "🧑‍🏫", partOfSpeech: "noun", fromModule: "m3", kind: "vocab" }),
+  atom({ surface: "친구", meaningEn: "friend", romanization: "chingu", emoji: "👫", partOfSpeech: "noun", fromModule: "m3", kind: "vocab" }),
+  atom({ surface: "뭐", meaningEn: "what", romanization: "mwo", emoji: "❓", partOfSpeech: "pronoun", fromModule: "m3", kind: "vocab" }),
+  // Copula — the polite 이에요 (after consonant) / 예요 (after vowel)
+  atom({ surface: "이에요", meaningEn: "to be (polite, after consonant)", romanization: "ieyo", partOfSpeech: "grammar", fromModule: "m3", kind: "vocab", srsEligible: false }),
+  atom({ surface: "예요", meaningEn: "to be (polite, after vowel)", romanization: "yeyo", partOfSpeech: "grammar", fromModule: "m3", kind: "vocab", srsEligible: false }),
+  // Sino-Korean numbers 1-10
+  atom({ surface: "일", meaningEn: "one (1, Sino)", romanization: "il", emoji: "1️⃣", partOfSpeech: "noun", fromModule: "m3", kind: "vocab" }),
+  atom({ surface: "이", meaningEn: "two (2, Sino)", romanization: "i", emoji: "2️⃣", partOfSpeech: "noun", fromModule: "m3", kind: "vocab", srsEligible: false }),
+  atom({ surface: "삼", meaningEn: "three (3, Sino)", romanization: "sam", emoji: "3️⃣", partOfSpeech: "noun", fromModule: "m3", kind: "vocab" }),
+  atom({ surface: "사", meaningEn: "four (4, Sino)", romanization: "sa", emoji: "4️⃣", partOfSpeech: "noun", fromModule: "m3", kind: "vocab", srsEligible: false }),
+  atom({ surface: "오", meaningEn: "five (5, Sino)", romanization: "o", emoji: "5️⃣", partOfSpeech: "noun", fromModule: "m3", kind: "vocab", srsEligible: false }),
+  atom({ surface: "육", meaningEn: "six (6, Sino)", romanization: "yuk", emoji: "6️⃣", partOfSpeech: "noun", fromModule: "m3", kind: "vocab" }),
+  atom({ surface: "칠", meaningEn: "seven (7, Sino)", romanization: "chil", emoji: "7️⃣", partOfSpeech: "noun", fromModule: "m3", kind: "vocab" }),
+  atom({ surface: "팔", meaningEn: "eight (8, Sino)", romanization: "pal", emoji: "8️⃣", partOfSpeech: "noun", fromModule: "m3", kind: "vocab" }),
+  atom({ surface: "구", meaningEn: "nine (9, Sino)", romanization: "gu", emoji: "9️⃣", partOfSpeech: "noun", fromModule: "m3", kind: "vocab", srsEligible: false }),
+  atom({ surface: "십", meaningEn: "ten (10, Sino)", romanization: "sip", emoji: "🔟", partOfSpeech: "noun", fromModule: "m3", kind: "vocab" }),
+];
+
 // ─── Aggregate + lookup map ──────────────────────────────────────────────
 
 /**
- * Full KO atom registry. Order = M1 vocab → M2 vocab → jamo → particles
- * → survival. Order matters for nothing today but is stable for diffability.
+ * Full KO atom registry. Order = M1 vocab → M2 vocab → M3 vocab → jamo →
+ * particles → survival. Order matters for nothing today but is stable for
+ * diffability.
+ *
+ * Duplicate surfaces across modules (e.g. 이/사/오 appear as both M1 anchor
+ * words and M3 Sino numbers) are deduped first-write-wins by the lookup
+ * map below; the later-module copies are marked `srsEligible: false` so the
+ * SRS pool keeps one canonical card per surface.
  */
 export const KO_COURSE_ATOMS: ReadonlyArray<KoAtom> = [
   ...M1_VOCAB,
   ...M2_VOCAB,
+  ...M3_VOCAB,
   ...JAMO_ATOMS,
   ...PARTICLE_ATOMS,
   ...SURVIVAL_ATOMS,

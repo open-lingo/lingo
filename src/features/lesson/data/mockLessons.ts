@@ -6,6 +6,7 @@ import {
 } from "@/features/languages/ko/curriculum/m1-vowels";
 import { buildAllKoreanRowLessons } from "@/features/languages/ko/curriculum/m1-rows";
 import { buildAllKoreanM2Lessons } from "@/features/languages/ko/curriculum/m2";
+import { KO_M3_LESSONS } from "@/features/languages/ko/curriculum/m3";
 import { MOCK_LESSON_KO_SIDEQUEST_SURVIVAL } from "@/features/languages/ko/curriculum/sidequest-survival";
 import {
   MOCK_LESSON_JA_M1_L1A,
@@ -313,6 +314,9 @@ const KOREAN_ROW_LESSONS: Record<string, LessonContent> = Object.fromEntries(
 const KOREAN_M2_LESSONS: Record<string, LessonContent> = Object.fromEntries(
   buildAllKoreanM2Lessons().map((l) => [l.id, l]),
 );
+const KOREAN_M3_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M3_LESSONS.map((l) => [l.id, l]),
+);
 
 const LESSONS: Record<string, LessonContent> = {
   // ─── Korean — Module 1 (Hangul foundation, 2026-05-19) ───────────────
@@ -324,6 +328,11 @@ const LESSONS: Record<string, LessonContent> = {
   "ko-m1-v-2": MOCK_LESSON_KO_M1_V2,
   ...KOREAN_ROW_LESSONS,
   ...KOREAN_M2_LESSONS,
+  // ─── Korean — Module 3 (First phrases, 2026-06-13) ───────────────────
+  // greetings → formality → 이에요/예요 copula → 저는 X → asking names →
+  // Sino numbers → mini-dialogue → mastery test. Backs the M3 pathway
+  // nodes that previously resolved to null.
+  ...KOREAN_M3_LESSONS,
   "ko-sidequest-survival-phrases": MOCK_LESSON_KO_SIDEQUEST_SURVIVAL,
   // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,

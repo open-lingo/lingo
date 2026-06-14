@@ -81,8 +81,70 @@ const japanesePreview: PreviewLesson = {
   ],
 };
 
+/**
+ * Korean preview — a first taste of Hangul. KO has no TTS manifest yet
+ * (browser speech-synthesis covers audio steps), so the audio-driven
+ * listening_build step relies on the runtime TTS fallback the same way KO
+ * M1/M2 lessons do. Vocab is pulled from the M1/M3 emoji-bearing atom set
+ * so the word_image_mcq has real art.
+ */
+const koreanPreview: PreviewLesson = {
+  languageId: "ko",
+  title: "Try Korean in 2 minutes",
+  subtitle: "Read your first Hangul — no signup, no commitment.",
+  estimatedMinutes: 2,
+  steps: [
+    {
+      // Emoji must exist in the local Noto subset (src/pub/noto-emoji/svg)
+      // or the tile renders a broken image — these four are verified present.
+      id: "preview-ko-1-word-mcq",
+      type: "word_image_mcq",
+      meaningEn: "tree",
+      correctOptionId: "namu",
+      options: [
+        { id: "namu", word: "나무", emoji: "🌳" },
+        { id: "bada", word: "바다", emoji: "🌊" },
+        { id: "chingu", word: "친구", emoji: "👫" },
+        { id: "bi", word: "비", emoji: "🌧️" },
+      ],
+    },
+    {
+      id: "preview-ko-2-listen-build",
+      type: "listening_build",
+      audioKey: "아이",
+      prompt: "Build what you hear — it means 'child'.",
+      targetSentence: "아이",
+      tiles: ["아", "이", "오", "우"],
+      correctOrder: ["아", "이"],
+      granularity: "character",
+    },
+    {
+      id: "preview-ko-3-speaking",
+      type: "speaking",
+      targetPhrase: "안녕하세요",
+      translation: "hello",
+      stubbed: true,
+    },
+    {
+      id: "preview-ko-4-greeting",
+      type: "multiple_choice",
+      prompt: "감사합니다 — what does it mean?",
+      promptAudioText: "감사합니다",
+      correctOptionId: "thanks",
+      optionsHideRomaji: true,
+      options: [
+        { id: "thanks", text: "Thank you" },
+        { id: "hello", text: "Hello" },
+        { id: "bye", text: "Goodbye" },
+        { id: "sorry", text: "I'm sorry" },
+      ],
+    },
+  ],
+};
+
 const PREVIEW_LESSONS: Record<string, PreviewLesson> = {
   ja: japanesePreview,
+  ko: koreanPreview,
 };
 
 export function getPreviewLesson(languageId: string): PreviewLesson | null {
