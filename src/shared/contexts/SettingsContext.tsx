@@ -67,114 +67,129 @@ function setByPath(obj: Record<string, unknown>, path: string, value: unknown): 
   current[parts[parts.length - 1]] = value;
 }
 
-function toBackendPatch(settings: UserSettings): Record<string, unknown> {
+/**
+ * Build the cross-device patch sent to `PATCH /me/settings`. The backend
+ * stores an opaque blob (`extra: allow`) and deep-merges nested objects, so we
+ * send the FULL settings object for every namespace that maps to real runtime
+ * behavior — appearance (incl. navLayout), accessibility, audio, notifications,
+ * learning, display, flashcards. localStorage stays the instant-apply cache;
+ * this keeps the account authoritative so switching device/browser preserves
+ * sidebar-vs-topbar, reduced-motion, volume, font size, etc.
+ *
+ * Legacy flat keys (`theme`, `learningLanguage`, `uiLocale`) are still mirrored
+ * so older clients / server consumers that read the flat shape keep working.
+ */
+export function toBackendPatch(settings: UserSettings): Record<string, unknown> {
   const patch: Record<string, unknown> = {};
-  if (settings.appearance?.themeId != null) {
-    patch.theme = settings.appearance.themeId;
-    patch.appearance = { themeId: settings.appearance.themeId };
+
+  if (settings.appearance != null) {
+    patch.appearance = { ...settings.appearance };
+    if (settings.appearance.themeId != null) {
+      patch.theme = settings.appearance.themeId; // legacy flat mirror
+    }
   }
-  const learning: Record<string, unknown> = {};
-  if (settings.learning?.learningLanguageId != null) {
-    patch.learningLanguage = settings.learning.learningLanguageId;
-    learning.learningLanguageId = settings.learning.learningLanguageId;
+  if (settings.accessibility != null) {
+    patch.accessibility = { ...settings.accessibility };
   }
-  if (settings.learning?.uiLocale != null) {
-    patch.uiLocale = settings.learning.uiLocale;
-    learning.uiLocale = settings.learning.uiLocale;
+  if (settings.audio != null) {
+    patch.audio = { ...settings.audio };
   }
-  if (settings.learning?.onboardingCompleted === true) {
-    learning.onboardingCompleted = true;
+  if (settings.notifications != null) {
+    patch.notifications = { ...settings.notifications };
   }
-  if (Object.keys(learning).length > 0) {
-    patch.learning = learning;
+  if (settings.display != null && Object.keys(settings.display).length > 0) {
+    patch.display = { ...settings.display };
   }
-  if (settings.notifications != null) patch.notifications = settings.notifications;
-  if (settings.flashcards != null) patch.flashcards = settings.flashcards;
+  if (settings.flashcards != null) {
+    patch.flashcards = settings.flashcards;
+  }
+
+  if (settings.learning != null) {
+    patch.learning = { ...settings.learning };
+    if (settings.learning.learningLanguageId != null) {
+      patch.learningLanguage = settings.learning.learningLanguageId; // legacy flat mirror
+    }
+    if (settings.learning.uiLocale != null) {
+      patch.uiLocale = settings.learning.uiLocale; // legacy flat mirror
+    }
+  }
+
   return patch;
 }
 
-function fromBackendResponse(backend: Record<string, unknown>): Partial<UserSettings> {
+function isObj(v: unknown): v is Record<string, unknown> {
+  return v != null && typeof v === "object" && !Array.isArray(v);
+}
+
+/**
+ * Hydrate UserSettings from the backend blob. Every namespace round-trips:
+ * nested objects win, but legacy flat keys (`theme`, `learningLanguage`,
+ * `uiLocale`) are honored as a fallback so accounts written by older clients
+ * still load. Each namespace is layered over its DEFAULT so a partial blob
+ * never drops sibling fields.
+ */
+export function fromBackendResponse(backend: Record<string, unknown>): Partial<UserSettings> {
   const partial: Partial<UserSettings> = {};
-  if (typeof backend.theme === "string") {
-    partial.appearance = {
-      ...DEFAULT_SETTINGS.appearance,
-      themeId: backend.theme,
-    };
+
+  // appearance — nested wins; flat `theme` is the fallback.
+  const appearance: Record<string, unknown> = { ...DEFAULT_SETTINGS.appearance };
+  if (typeof backend.theme === "string") appearance.themeId = backend.theme;
+  if (isObj(backend.appearance)) Object.assign(appearance, backend.appearance);
+  if (typeof appearance.themeId !== "string" || !appearance.themeId) {
+    appearance.themeId = DEFAULT_SETTINGS.appearance.themeId;
   }
-  if (typeof backend.learningLanguage === "string") {
-    partial.learning = {
-      ...(partial.learning ?? DEFAULT_SETTINGS.learning),
-      learningLanguageId: backend.learningLanguage,
-    };
-  }
-  if (typeof backend.uiLocale === "string") {
-    partial.learning = {
-      ...(partial.learning ?? DEFAULT_SETTINGS.learning),
-      uiLocale: backend.uiLocale,
-    };
-  }
-  if (backend.appearance && typeof backend.appearance === "object") {
-    const appearance = backend.appearance as Record<string, unknown>;
-    partial.appearance = {
-      ...DEFAULT_SETTINGS.appearance,
-      ...(partial.appearance ?? {}),
-      themeId: typeof appearance.themeId === "string" ? appearance.themeId : undefined,
-    } as UserSettings["appearance"];
-    if (!partial.appearance!.themeId) {
-      partial.appearance!.themeId = DEFAULT_SETTINGS.appearance.themeId;
-    }
-  }
-  if (backend.learning && typeof backend.learning === "object") {
-    const learning = backend.learning as Record<string, unknown>;
-    partial.learning = {
-      ...DEFAULT_SETTINGS.learning,
-      ...(partial.learning ?? {}),
-      ...learning,
-    } as UserSettings["learning"];
-    if (learning.onboardingCompleted === true) {
-      partial.learning!.onboardingCompleted = true;
-    }
-  }
-  // Legacy flat key only — treat as onboarded when a language was saved.
-  if (
-    typeof backend.learningLanguage === "string" &&
-    partial.learning?.onboardingCompleted !== true
-  ) {
-    partial.learning = {
-      ...(partial.learning ?? DEFAULT_SETTINGS.learning),
-      onboardingCompleted: true,
-    };
-  }
-  if (backend.accessibility && typeof backend.accessibility === "object") {
+  partial.appearance = appearance as UserSettings["appearance"];
+
+  // accessibility
+  if (isObj(backend.accessibility)) {
     partial.accessibility = {
       ...DEFAULT_SETTINGS.accessibility,
-      ...(backend.accessibility as Record<string, unknown>),
+      ...backend.accessibility,
     } as UserSettings["accessibility"];
-    delete (partial.accessibility as Record<string, unknown>).reducedMotion;
-    const pm = (backend.accessibility as Record<string, unknown>).reducedMotion;
-    if (typeof pm === "boolean") partial.accessibility!.reducedMotion = pm;
   }
-  if (backend.notifications && typeof backend.notifications === "object") {
-    partial.notifications = {
-      ...DEFAULT_SETTINGS.notifications,
-      ...(backend.notifications as Record<string, unknown>),
-    } as UserSettings["notifications"];
-  }
-  if (backend.audio && typeof backend.audio === "object") {
+
+  // audio
+  if (isObj(backend.audio)) {
     partial.audio = {
       ...DEFAULT_SETTINGS.audio,
-      ...(backend.audio as Record<string, unknown>),
+      ...backend.audio,
     } as UserSettings["audio"];
   }
-  if (backend.display && typeof backend.display === "object") {
-    partial.display = backend.display as UserSettings["display"];
+
+  // notifications
+  if (isObj(backend.notifications)) {
+    partial.notifications = {
+      ...DEFAULT_SETTINGS.notifications,
+      ...backend.notifications,
+    } as UserSettings["notifications"];
   }
-  if (backend.flashcards && typeof backend.flashcards === "object") {
-    const fc = backend.flashcards as Record<string, unknown>;
+
+  // display
+  if (isObj(backend.display)) {
+    partial.display = { ...backend.display } as UserSettings["display"];
+  }
+
+  // flashcards
+  if (isObj(backend.flashcards)) {
     partial.flashcards = {
-      studyOptions: parseStudyOptions(fc.studyOptions),
+      studyOptions: parseStudyOptions(backend.flashcards.studyOptions),
     };
   }
+
+  // learning — nested wins; flat `learningLanguage` / `uiLocale` are fallbacks.
+  const learning: Record<string, unknown> = { ...DEFAULT_SETTINGS.learning };
+  if (typeof backend.learningLanguage === "string") {
+    learning.learningLanguageId = backend.learningLanguage;
+  }
+  if (typeof backend.uiLocale === "string") learning.uiLocale = backend.uiLocale;
+  if (isObj(backend.learning)) Object.assign(learning, backend.learning);
+  // A saved learning language (nested or legacy flat) implies onboarding done,
+  // so clearing site data never replays the first-launch language modal.
+  if (learning.learningLanguageId && learning.onboardingCompleted !== true) {
+    learning.onboardingCompleted = true;
+  }
+  partial.learning = learning as UserSettings["learning"];
+
   return partial;
 }
 

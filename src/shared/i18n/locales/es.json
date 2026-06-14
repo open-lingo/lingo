@@ -902,8 +902,7 @@
     "uiLocaleHelp": "Idioma para menús y botones.",
     "alphabetDisplay": "Visualización del alfabeto",
     "alphabetDisplayHelp": "Controla cómo se muestran la romanización y las ayudas de lectura de los alfabetos.",
-    "showAlphabetRomanization": "Mostrar romanización debajo de los caracteres del alfabeto",
-    "showAlphabetFurigana": "Mostrar furigana sobre el texto japonés (cuando esté disponible)"
+    "showAlphabetRomanization": "Mostrar romanización debajo de los caracteres del alfabeto"
   },
   "ads": {
     "label": "Anuncio",

@@ -28,7 +28,6 @@ export type UserSettings = {
     fontSize?: number;
   };
   audio: {
-    soundEnabled: boolean;
     /**
      * When true, the auto-play hook (`useAutoPlayJaAudio`) becomes a no-op
      * so the device never produces unbidden TTS audio on step mount —
@@ -66,7 +65,6 @@ export type UserSettings = {
     onboardingCompleted?: boolean;
     uiLocale: string;
     showAlphabetRomanization?: boolean;
-    showAlphabetFurigana?: boolean;
     /**
      * Global "show romaji reading aid" toggle. When true (the default),
      * every kana surface in the app renders romaji above un-mastered
@@ -106,7 +104,6 @@ export const DEFAULT_SETTINGS: UserSettings = {
     dyslexiaFont: false,
   },
   audio: {
-    soundEnabled: true,
     silentMode: false,
     volume: 1,
   },
@@ -121,7 +118,6 @@ export const DEFAULT_SETTINGS: UserSettings = {
     onboardingCompleted: false,
     uiLocale: "en",
     showAlphabetRomanization: true,
-    showAlphabetFurigana: true,
     showRomaji: true,
     romajiAutoFlipped: false,
   },
