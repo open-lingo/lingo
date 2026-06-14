@@ -6,8 +6,6 @@ import {
   type DeckWithCards,
   type ReviewQueue,
 } from "./engine";
-import { adaptiveNewCardsPerDay } from "./engine/reviewQueue";
-import { canonicalizeCardId } from "./engine/srsStorage";
 import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { useDeckSubscriptions } from "./useDeckSubscriptions";
 import { useSettings } from "@/shared/contexts/SettingsContext";
@@ -101,8 +99,6 @@ export function useSubscriptionQueue(
     const courseDeck = buildEnrichedJaCourseDeck();
     const unlocked = (courseDeck.cards ?? []).filter((c) => c.unlocked);
     if (unlocked.length === 0) return null;
-    const store = getSRSStore();
-    const unseen = unlocked.filter((c) => !store[canonicalizeCardId(c.id)]).length;
     return {
       deck: {
         id: courseDeck.id,
@@ -111,7 +107,11 @@ export function useSubscriptionQueue(
       },
       sub: {
         contentId: courseDeck.id,
-        newCardsPerDay: adaptiveNewCardsPerDay(unseen),
+        // D5 (srs-scheduling-model-2026-06-15): default to NO intake cap —
+        // every unlocked word is reviewable; lesson pace is the throttle.
+        // Optional user cap via settings.flashcards.maxNewCardsPerDay.
+        newCardsPerDay:
+          settings.flashcards?.maxNewCardsPerDay ?? unlocked.length,
         newCardOrder: "ordered",
       },
     };

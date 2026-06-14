@@ -7,6 +7,7 @@ import { applyDensityQueryParams } from "./data/lessonDensity";
 import { applyTraceGateQueryParam, applyTrayOverrideParam, consumeStepJumpParam } from "./data/devGates";
 import { getMockLessonContent } from "./data/mockLessons";
 import { unlockLessonAtoms } from "./data/unlockLessonAtoms";
+import { seedUnlockedAtomsDueNextDay } from "./data/seedSchedule";
 import { resetLessonJuice, reportGradedAnswer } from "./juice";
 import { expectedXp, isTestLessonId, XP_LESSON_COMPLETE, XP_TEST_BONUS } from "@/features/progress/xpRules";
 import {
@@ -339,6 +340,12 @@ export function LessonPage() {
     });
     // Unlock atoms introduced by this lesson in the SRS store.
     unlockLessonAtoms(lesson.id);
+    // D4 (seed-on-unlock): schedule newly-unlocked atoms due NEXT day so they
+    // surface in the standalone reviewer tomorrow, never same-day. Content
+    // lessons only — review lessons grade, they don't seed.
+    if (!isReview) {
+      seedUnlockedAtomsDueNextDay(lesson.id);
+    }
     // Buffer the attempt for server sync. SyncManager flushes the buffer
     // (manual / periodic / on exit) — no per-completion API call.
     // Replays of completed lessons are still recorded so the server has

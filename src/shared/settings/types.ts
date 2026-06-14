@@ -18,6 +18,13 @@ export type FlashcardsSettings = {
    * `useSubscriptionQueue`.
    */
   hideCourseDeck?: boolean;
+  /**
+   * Optional user intake cap (D5, srs-scheduling-model-2026-06-15). Unset =
+   * no cap: every unlocked word is available to review (lesson pace is the
+   * throttle). Set a number to limit new cards/day if the learner wants a
+   * lighter daily load.
+   */
+  maxNewCardsPerDay?: number;
 };
 
 export type UserSettings = {
