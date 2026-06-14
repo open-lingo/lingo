@@ -36,4 +36,12 @@ describe("buildTestOutAttempts", () => {
       expect(a.clientAttemptId.startsWith("testout-m3-")).toBe(true);
     }
   });
+
+  it("builds attempts against the requested course (KO → ko-* lesson ids)", () => {
+    const attempts = buildTestOutAttempts(["m3"], "ko");
+    expect(attempts.length).toBeGreaterThan(0);
+    for (const a of attempts) {
+      expect(a.lessonId.startsWith("ko-")).toBe(true);
+    }
+  });
 });

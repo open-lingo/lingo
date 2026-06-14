@@ -1722,9 +1722,31 @@
       "unblock": "차단 해제"
     }
   },
+  "ftue": {
+    "fallbackLanguage": "새 언어",
+    "motivationTitle": "{{language}}을(를) 배우는 이유는 무엇인가요?",
+    "motivationSubtitle": "선택 사항이에요 — 관련 예문을 고르는 데 도움이 됩니다.",
+    "motivation": {
+      "travel": "여행",
+      "culture": "문화 & 미디어",
+      "work": "일 또는 학업",
+      "family": "가족 & 친구",
+      "curious": "그냥 궁금해서"
+    },
+    "skip": "건너뛰기",
+    "goalTitle": "일일 목표를 정하세요",
+    "goalSubtitle": "하루에 몇 분이 적당한가요? 언제든 바꿀 수 있어요.",
+    "goalMinutes": "{{n}}분",
+    "goalCommit": "목표 정하기",
+    "startTitle": "어디서부터 시작할까요?",
+    "startSubtitle": "{{language}}이(가) 처음이라면 처음부터 시작하세요. 이미 좀 아신다면 선택형 배치고사로 앞으로 건너뛸 수 있어요 — 전적으로 선택입니다.",
+    "startFromBeginning": "처음부터 시작",
+    "takePlacement": "선택형 배치고사 보기",
+    "placementOptionalNote": "배치고사는 선택 사항이에요 — 건너뛰어도 아무런 손해가 없습니다."
+  },
   "placement": {
     "promptTitle": "배치고사",
-    "promptBody": "이미 일본어를 좀 아시나요? 2분짜리 배치고사로 알맞은 레벨로 건너뛰세요. 나중에 개별 모듈 테스트 아웃도 가능합니다.",
+    "promptBody": "이미 좀 아시나요? 2분짜리 배치고사로 알맞은 레벨로 건너뛰세요. 나중에 개별 모듈 테스트 아웃도 가능합니다.",
     "promptStart": "테스트 시작",
     "promptSkip": "처음부터 시작",
     "screeningLabel": "선별 · {{done}} / {{total}}",
@@ -1744,7 +1766,7 @@
     "startLearning": "학습 시작",
     "noBankTitle": "아직 테스트 아웃 문제가 없습니다",
     "noBankBodyBefore": "배치 엔진에 다음 모듈의 문항이 아직 없습니다:",
-    "noBankBodyAfter": "(이 언어 기준). 일본어 코스는 M3–M27을 다룹니다. 다른 모듈과 언어는 자체 문제 은행이 필요합니다.",
+    "noBankBodyAfter": "(이 코스 기준). 각 코스는 테스트 아웃을 위해 자체 문제 은행이 필요합니다.",
     "backToLearn": "학습으로 돌아가기"
   }
 }

@@ -48,7 +48,9 @@ export function PlacementTestPage() {
   );
 
   const [state, setState] = useState<AdaptiveState>(() =>
-    isTestOut ? createTestOutState(moduleId!) : createInitialState(),
+    isTestOut
+      ? createTestOutState(moduleId!, langId)
+      : createInitialState(langId),
   );
 
   const [currentStep, setCurrentStep] = useState<LessonStep | null>(null);
@@ -69,14 +71,14 @@ export function PlacementTestPage() {
   useEffect(() => {
     if (state.stage === "done") {
       if (!resultApplied) {
-        const result = applyPlacementResult(state.passedModules);
+        const result = applyPlacementResult(state.passedModules, langId);
         if (!isTestOut) dismissPlacement();
         setAppliedResult(result);
         setResultApplied(true);
         // Mirror the local mockProgress writes to the server so a device
         // switch / fresh login carries the test-out completions over.
         // Fire-and-forget: local apply already persisted.
-        void syncTestOutToServer(progress, state.passedModules);
+        void syncTestOutToServer(progress, state.passedModules, langId);
       }
       return;
     }
@@ -86,7 +88,7 @@ export function PlacementTestPage() {
       return;
     }
     setCurrentStep(instantiateItem(nextItem));
-  }, [state, resultApplied, isTestOut]);
+  }, [state, resultApplied, isTestOut, langId, itemsLookup, progress]);
 
   const handleStepComplete = useCallback(
     (stepId: string, correct: boolean) => {

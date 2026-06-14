@@ -2090,9 +2090,31 @@
       "xpWk": "XP/wk"
     }
   },
+  "ftue": {
+    "fallbackLanguage": "your new language",
+    "motivationTitle": "What brings you to {{language}}?",
+    "motivationSubtitle": "Optional — it just helps us pick relevant examples.",
+    "motivation": {
+      "travel": "Travel",
+      "culture": "Culture & media",
+      "work": "Work or study",
+      "family": "Family & friends",
+      "curious": "Just curious"
+    },
+    "skip": "Skip",
+    "goalTitle": "Pick a daily goal",
+    "goalSubtitle": "How many minutes a day feels right? You can change this any time.",
+    "goalMinutes": "{{n}} min",
+    "goalCommit": "Commit to my goal",
+    "startTitle": "Where do you want to start?",
+    "startSubtitle": "New to {{language}}? Start at the beginning. Already know some? An optional placement can move you ahead — entirely your call.",
+    "startFromBeginning": "Start from the beginning",
+    "takePlacement": "Take the optional placement",
+    "placementOptionalNote": "The placement is optional — skipping it costs you nothing."
+  },
   "placement": {
     "promptTitle": "Placement Test",
-    "promptBody": "Already know some Japanese? Take a 2-minute placement test to skip ahead to the right level. You can also test out of individual modules later.",
+    "promptBody": "Already know some? Take a 2-minute placement test to skip ahead to the right level. You can also test out of individual modules later.",
     "promptStart": "Take the test",
     "promptSkip": "Start from scratch",
     "screeningLabel": "Screening · {{done}} / {{total}}",
@@ -2112,7 +2134,7 @@
     "resultFailedBody": "No worries — you'll start with the fundamentals. The course will build your skills step by step.",
     "startLearning": "Start learning",
     "noBankTitle": "No test-out questions yet",
-    "noBankDesc": "The placement engine doesn't have any items for {{module}} on this language yet. The Japanese course covers M3–M27; other modules and languages need their own bank before test-out can probe them.",
+    "noBankDesc": "The placement engine doesn't have any test-out items for {{module}} on this course yet. Each course needs its own question bank before test-out can probe a module.",
     "backToLearn": "Back to Learn"
   }
 }

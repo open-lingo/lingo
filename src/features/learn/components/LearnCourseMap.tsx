@@ -16,13 +16,14 @@ import { ModulePathway } from "./ModulePathway";
 import { ModulePreview } from "./ModulePreview";
 import { ResumeBar } from "./ResumeBar";
 import { Button } from "@/shared/components/ui";
+import { getItemsForModule } from "@/features/placement/questionBank";
 
 /**
- * Feature flag — test-out (diagnostic skip-ahead) is live. Buttons
- * render on every language; the PlacementTestPage handles the JA-only
- * gate gracefully if someone hits the URL on a language whose bank
- * isn't built yet. Showing the buttons everywhere keeps the feature
- * discoverable even before per-language banks ship.
+ * Feature flag — test-out (diagnostic skip-ahead) is live for every course
+ * that ships a placement bank (JA + KO today). The button is gated per
+ * module on bank existence (``moduleHasBank``), so a learner only sees
+ * "Test out" where the engine actually has questions to probe — no dead
+ * buttons that bounce to the "no questions yet" screen.
  *
  * On pass, ``applyPlacementResult`` marks every lesson up to and
  * including that module complete locally; ``syncTestOutToServer``
@@ -53,6 +54,8 @@ export function LearnCourseMap({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const testOutEnabled = TEST_OUT_ENABLED;
+  const moduleHasBank = (moduleId: string) =>
+    getItemsForModule(moduleId, course.languageId).length > 0;
   const currentIdx = getCurrentModuleIndex(course, completedSet);
   const currentModule = course.modules[currentIdx] ?? course.modules[0];
   const nextIdx = getNextLessonIndex(currentModule.lessons, completedSet);
@@ -120,7 +123,7 @@ export function LearnCourseMap({
                     {t("learn.resumeLesson", { title: currentLesson.title })}
                   </Button>
                 ) : null}
-                {testOutEnabled && status !== "completed" ? (
+                {testOutEnabled && status !== "completed" && moduleHasBank(mod.id) ? (
                   <>
                     <Button
                       type="button"
@@ -150,13 +153,13 @@ export function LearnCourseMap({
                   {t("learn.flashcardsLessonDecksButton")}
                 </Link>
               </>
-            ) : testOutEnabled && !isCurrent && !mod.comingSoon && status !== "completed" ? (
+            ) : testOutEnabled && !isCurrent && !mod.comingSoon && status !== "completed" && moduleHasBank(mod.id) ? (
               <Button
                 type="button"
                 variant="secondary"
                 onClick={() => navigate(langPath(`learn/test-out/${mod.id}`))}
               >
-                {t("learn.testOutModule", { n: i })}
+                {t("learn.testOutModule", { n: display.contentNumber ?? i })}
               </Button>
             ) : null;
 

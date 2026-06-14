@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { dismissPlacement } from "@/features/placement/hooks/usePlacementDismissed";
 
@@ -37,9 +39,12 @@ export function shouldShowFirstSessionArc(opts: {
 }
 
 export function FirstSessionArc() {
+  const { t } = useTranslation();
   const { settings, updateSetting } = useSettings();
+  const { language } = useLanguage();
   const navigate = useNavigate();
   const langPath = useLangPath();
+  const langName = language?.name ?? t("ftue.fallbackLanguage", "your new language");
   const [step, setStep] = useState<0 | 1 | 2>(0);
   const [goal, setGoal] = useState<number>(
     settings.learning.dailyGoalMinutes ?? 10,
@@ -81,10 +86,16 @@ export function FirstSessionArc() {
               id="ftue-motivation-h"
               className="text-xl font-bold text-text-primary"
             >
-              What brings you to Japanese?
+              {t("ftue.motivationTitle", {
+                defaultValue: "What brings you to {{language}}?",
+                language: langName,
+              })}
             </h2>
             <p className="mt-1.5 text-sm text-text-secondary">
-              Optional — it just helps us pick relevant examples.
+              {t(
+                "ftue.motivationSubtitle",
+                "Optional — it just helps us pick relevant examples.",
+              )}
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
               {MOTIVATIONS.map((m) => (
@@ -97,7 +108,7 @@ export function FirstSessionArc() {
                   }}
                   className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium text-text-primary transition hover:border-accent"
                 >
-                  {m.label}
+                  {t(`ftue.motivation.${m.id}`, m.label)}
                 </button>
               ))}
             </div>
@@ -106,7 +117,7 @@ export function FirstSessionArc() {
               onClick={() => setStep(1)}
               className="mt-6 text-sm font-medium text-text-muted underline decoration-dotted underline-offset-4 transition hover:text-text-primary"
             >
-              Skip
+              {t("ftue.skip", "Skip")}
             </button>
           </section>
         )}
@@ -114,10 +125,13 @@ export function FirstSessionArc() {
         {step === 1 && (
           <section aria-labelledby="ftue-goal-h">
             <h2 id="ftue-goal-h" className="text-xl font-bold text-text-primary">
-              Pick a daily goal
+              {t("ftue.goalTitle", "Pick a daily goal")}
             </h2>
             <p className="mt-1.5 text-sm text-text-secondary">
-              How many minutes a day feels right? You can change this any time.
+              {t(
+                "ftue.goalSubtitle",
+                "How many minutes a day feels right? You can change this any time.",
+              )}
             </p>
             <div className="mt-5 grid grid-cols-2 gap-2">
               {GOAL_OPTIONS.map((m) => (
@@ -132,7 +146,7 @@ export function FirstSessionArc() {
                       : "border-border bg-surface text-text-primary hover:border-accent"
                   }`}
                 >
-                  {m} min
+                  {t("ftue.goalMinutes", { defaultValue: "{{n}} min", n: m })}
                 </button>
               ))}
             </div>
@@ -144,7 +158,7 @@ export function FirstSessionArc() {
               }}
               className="mt-6 w-full rounded-xl border-[1.5px] border-accent-hover bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:bg-accent-hover"
             >
-              Commit to my goal
+              {t("ftue.goalCommit", "Commit to my goal")}
             </button>
           </section>
         )}
@@ -155,11 +169,14 @@ export function FirstSessionArc() {
               id="ftue-start-h"
               className="text-xl font-bold text-text-primary"
             >
-              Where do you want to start?
+              {t("ftue.startTitle", "Where do you want to start?")}
             </h2>
             <p className="mt-1.5 text-sm text-text-secondary">
-              New to Japanese? Start at the beginning. Already know some? An
-              optional placement can move you ahead — entirely your call.
+              {t("ftue.startSubtitle", {
+                defaultValue:
+                  "New to {{language}}? Start at the beginning. Already know some? An optional placement can move you ahead — entirely your call.",
+                language: langName,
+              })}
             </p>
             <div className="mt-5 space-y-2.5">
               <button
@@ -167,7 +184,7 @@ export function FirstSessionArc() {
                 onClick={() => finish(() => navigate(langPath("learn")))}
                 className="w-full rounded-xl border-[1.5px] border-accent-hover bg-accent px-5 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition hover:bg-accent-hover"
               >
-                Start from the beginning
+                {t("ftue.startFromBeginning", "Start from the beginning")}
               </button>
               <button
                 type="button"
@@ -176,11 +193,14 @@ export function FirstSessionArc() {
                 }
                 className="w-full rounded-xl border border-border bg-surface px-5 py-3 text-sm font-semibold text-text-secondary transition hover:border-accent hover:text-text-primary"
               >
-                Take the optional placement
+                {t("ftue.takePlacement", "Take the optional placement")}
               </button>
             </div>
             <p className="mt-3 text-center text-xs text-text-muted">
-              The placement is optional — skipping it costs you nothing.
+              {t(
+                "ftue.placementOptionalNote",
+                "The placement is optional — skipping it costs you nothing.",
+              )}
             </p>
           </section>
         )}

@@ -1,9 +1,16 @@
-import { SKILL_TIERS, ALL_TESTABLE_MODULES, getTierForModule } from "../tiers";
+import {
+  getSkillTiers,
+  getAllTestableModules,
+  getTierForModule,
+} from "../tiers";
 import type { PlacementItemConfig } from "../questionBank";
 
 export type PlacementStage = "screening" | "probing" | "done";
 
 export type AdaptiveState = {
+  /** Course the placement is leveling. Drives the tier set (which modules
+   *  group together + which is the screening rep). */
+  languageId: string;
   stage: PlacementStage;
   screeningResults: Record<number, boolean>;
   estimatedFloorTier: number | null;
@@ -18,9 +25,13 @@ export type AdaptiveState = {
 
 const MAX_TOTAL_ITEMS = 25;
 const CONSECUTIVE_WRONG_CUTOFF = 2;
+const DEFAULT_LANGUAGE = "ja";
 
-export function createInitialState(): AdaptiveState {
+export function createInitialState(
+  languageId: string = DEFAULT_LANGUAGE,
+): AdaptiveState {
   return {
+    languageId,
     stage: "screening",
     screeningResults: {},
     estimatedFloorTier: null,
@@ -34,8 +45,12 @@ export function createInitialState(): AdaptiveState {
   };
 }
 
-export function createTestOutState(moduleId: string): AdaptiveState {
+export function createTestOutState(
+  moduleId: string,
+  languageId: string = DEFAULT_LANGUAGE,
+): AdaptiveState {
   return {
+    languageId,
     stage: "probing",
     screeningResults: {},
     estimatedFloorTier: null,
@@ -56,12 +71,13 @@ export function selectNextItem(
   if (state.stage === "done") return null;
   if (state.totalServed >= MAX_TOTAL_ITEMS) return null;
 
+  const tiers = getSkillTiers(state.languageId);
   const served = new Set(state.servedItemIds);
 
   if (state.stage === "screening") {
     const nextTierIdx = Object.keys(state.screeningResults).length;
-    if (nextTierIdx >= SKILL_TIERS.length) return null;
-    const tier = SKILL_TIERS[nextTierIdx];
+    if (nextTierIdx >= tiers.length) return null;
+    const tier = tiers[nextTierIdx];
     const items = getItemsForModule(tier.screeningModuleId);
     return items.find((i) => !served.has(i.id)) ?? null;
   }
@@ -100,19 +116,20 @@ function computeFloorTier(results: Record<number, boolean>): number {
   return highestPassed + 1;
 }
 
-function buildProbeWindow(floorTier: number): string[] {
-  const tiers: number[] = [];
-  if (floorTier >= SKILL_TIERS.length) {
-    tiers.push(SKILL_TIERS.length - 2, SKILL_TIERS.length - 1);
+function buildProbeWindow(floorTier: number, languageId: string): string[] {
+  const tiers = getSkillTiers(languageId);
+  const tierIdxs: number[] = [];
+  if (floorTier >= tiers.length) {
+    tierIdxs.push(tiers.length - 2, tiers.length - 1);
   } else {
-    if (floorTier > 0) tiers.push(floorTier - 1);
-    tiers.push(floorTier);
-    if (floorTier + 1 < SKILL_TIERS.length) tiers.push(floorTier + 1);
+    if (floorTier > 0) tierIdxs.push(floorTier - 1);
+    tierIdxs.push(floorTier);
+    if (floorTier + 1 < tiers.length) tierIdxs.push(floorTier + 1);
   }
 
   const modules: string[] = [];
-  for (const t of tiers) {
-    if (t >= 0 && t < SKILL_TIERS.length) modules.push(...SKILL_TIERS[t].modules);
+  for (const t of tierIdxs) {
+    if (t >= 0 && t < tiers.length) modules.push(...tiers[t].modules);
   }
   return modules.slice(0, 7);
 }
@@ -123,6 +140,7 @@ export function recordAnswer(
   correct: boolean,
   getItemsForModule: (moduleId: string) => PlacementItemConfig[],
 ): AdaptiveState {
+  const tiers = getSkillTiers(state.languageId);
   const next: AdaptiveState = {
     ...state,
     servedItemIds: [...state.servedItemIds, itemId],
@@ -133,11 +151,11 @@ export function recordAnswer(
     const tierIdx = Object.keys(state.screeningResults).length;
     next.screeningResults = { ...state.screeningResults, [tierIdx]: correct };
 
-    if (Object.keys(next.screeningResults).length >= SKILL_TIERS.length) {
+    if (Object.keys(next.screeningResults).length >= tiers.length) {
       const floor = computeFloorTier(next.screeningResults);
       next.estimatedFloorTier = floor;
       next.stage = "probing";
-      next.probeQueue = buildProbeWindow(floor);
+      next.probeQueue = buildProbeWindow(floor, state.languageId);
       next.currentProbeModule = next.probeQueue[0] ?? null;
 
       if (next.probeQueue.length === 0) {
@@ -204,7 +222,7 @@ function computePassedModules(state: AdaptiveState): string[] {
   }
 
   const passed: string[] = [];
-  for (const modId of ALL_TESTABLE_MODULES) {
+  for (const modId of getAllTestableModules(state.languageId)) {
     const probed = state.probeResults[modId];
 
     if (probed) {
@@ -214,7 +232,7 @@ function computePassedModules(state: AdaptiveState): string[] {
         break;
       }
     } else {
-      const modTier = getTierForModule(modId);
+      const modTier = getTierForModule(modId, state.languageId);
       if (modTier !== null && modTier < (state.estimatedFloorTier ?? 0)) {
         passed.push(modId);
       } else {
