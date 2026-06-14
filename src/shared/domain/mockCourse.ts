@@ -1104,6 +1104,72 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m12-8", title: "M12 Mastery Test",                status: "available" as const },
     ];
 
+    const m13Lessons = [
+      { id: "ko-m13-1", title: "월 — months",                       status: "available" as const },
+      { id: "ko-m13-2", title: "Frequency — 항상 / 자주 / 가끔",     status: "available" as const },
+      { id: "ko-m13-3", title: "부터 / 까지 — from … until",         status: "available" as const },
+      { id: "ko-m13-4", title: "그래서 — so / therefore",           status: "available" as const },
+      { id: "ko-m13-5", title: "Routine — how often",               status: "available" as const },
+      { id: "ko-m13-6", title: "Schedules — ranges + actions",      status: "available" as const },
+      { id: "ko-m13-7", title: "Mini-dialogue — your routine",      status: "available" as const },
+      { id: "ko-m13-8", title: "M13 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m14Lessons = [
+      { id: "ko-m14-1", title: "고 — and / and then",               status: "available" as const },
+      { id: "ko-m14-2", title: "아서 / 어서 — and so (sequence)",    status: "available" as const },
+      { id: "ko-m14-3", title: "아서 / 어서 — because",              status: "available" as const },
+      { id: "ko-m14-4", title: "Big numbers — 백 / 천 / 만",         status: "available" as const },
+      { id: "ko-m14-5", title: "Prices — 원 + big numbers",          status: "available" as const },
+      { id: "ko-m14-6", title: "아 / 어 주세요 — please do",         status: "available" as const },
+      { id: "ko-m14-7", title: "Mini-dialogue — asking for help",   status: "available" as const },
+      { id: "ko-m14-8", title: "M14 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m15Lessons = [
+      { id: "ko-m15-1", title: "고 있어요 — is …-ing",              status: "available" as const },
+      { id: "ko-m15-2", title: "고 있어요 — questions & more",       status: "available" as const },
+      { id: "ko-m15-3", title: "아도 / 어도 돼요 — may I…?",         status: "available" as const },
+      { id: "ko-m15-4", title: "Yes you may / no you may not",      status: "available" as const },
+      { id: "ko-m15-5", title: "지만 — but / although",             status: "available" as const },
+      { id: "ko-m15-6", title: "Ongoing actions + contrast",       status: "available" as const },
+      { id: "ko-m15-7", title: "Mini-dialogue — at the café",       status: "available" as const },
+      { id: "ko-m15-8", title: "M15 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m16Lessons = [
+      { id: "ko-m16-1", title: "(으)면 안 돼요 — you must not",      status: "available" as const },
+      { id: "ko-m16-2", title: "지 마세요 — please don't",           status: "available" as const },
+      { id: "ko-m16-3", title: "고 나서 — after doing",             status: "available" as const },
+      { id: "ko-m16-4", title: "좋아하다 — to like",                status: "available" as const },
+      { id: "ko-m16-5", title: "싫어하다 — to dislike",             status: "available" as const },
+      { id: "ko-m16-6", title: "Rules & preferences",              status: "available" as const },
+      { id: "ko-m16-7", title: "Mini-dialogue — house rules",       status: "available" as const },
+      { id: "ko-m16-8", title: "M16 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m17Lessons = [
+      { id: "ko-m17-1", title: "Getting around — 버스, 지하철",      status: "available" as const },
+      { id: "ko-m17-2", title: "(으)로 — by (transport)",           status: "available" as const },
+      { id: "ko-m17-3", title: "타다 / 내리다 — get on / off",       status: "available" as const },
+      { id: "ko-m17-4", title: "Directions — 왼쪽 / 오른쪽",         status: "available" as const },
+      { id: "ko-m17-5", title: "까지 — as far as (a place)",         status: "available" as const },
+      { id: "ko-m17-6", title: "Getting somewhere",                status: "available" as const },
+      { id: "ko-m17-7", title: "Mini-dialogue — asking the way",    status: "available" as const },
+      { id: "ko-m17-8", title: "M17 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m18Lessons = [
+      { id: "ko-m18-1", title: "Weather — 날씨, 비, 눈",            status: "available" as const },
+      { id: "ko-m18-2", title: "덥다 / 춥다 — hot & cold",          status: "available" as const },
+      { id: "ko-m18-3", title: "Seasons — 봄 / 여름 / 가을 / 겨울",  status: "available" as const },
+      { id: "ko-m18-4", title: "(으)ㄹ 거예요 — will / probably",    status: "available" as const },
+      { id: "ko-m18-5", title: "것 같아요 — I think / it seems",     status: "available" as const },
+      { id: "ko-m18-6", title: "Forecasting",                      status: "available" as const },
+      { id: "ko-m18-7", title: "Mini-dialogue — the weather",       status: "available" as const },
+      { id: "ko-m18-8", title: "M18 Mastery Test",                  status: "available" as const },
+    ];
+
     const sideQuests: SideQuest[] = [
       {
         id: "ko-survival-phrasebook",
@@ -1240,6 +1306,54 @@ export function getMockCourse(languageId: string): Course {
           summary: "The clock (native-number hours + Sino-number minutes), days of the week, and the time particle 에.",
           lessons: m12Lessons,
           accent: { from: "#06b6d4", to: "#0891b2" },
+        },
+        {
+          id: "m13",
+          title: "Months & frequency",
+          eyebrow: "Module 13 · Habits",
+          summary: "Months (Sino + 월, incl. 유월/시월), the frequency spectrum (항상→전혀), ranges 부터/까지, and 그래서.",
+          lessons: m13Lessons,
+          accent: { from: "#0ea5e9", to: "#0284c7" },
+        },
+        {
+          id: "m14",
+          title: "Connecting & requesting",
+          eyebrow: "Module 14 · Combine",
+          summary: "The 고 and 아/어서 clause connectives, 아/어 주세요 requests, and big Sino numbers (백/천/만).",
+          lessons: m14Lessons,
+          accent: { from: "#6366f1", to: "#8b5cf6" },
+        },
+        {
+          id: "m15",
+          title: "Now, allowed, but",
+          eyebrow: "Module 15 · Nuance",
+          summary: "The progressive 고 있어요, asking/granting permission with 도 돼요, and contrast with 지만.",
+          lessons: m15Lessons,
+          accent: { from: "#ec4899", to: "#db2777" },
+        },
+        {
+          id: "m16",
+          title: "Rules & preferences",
+          eyebrow: "Module 16 · Permit",
+          summary: "Prohibition (으)면 안 돼요, the negative request 지 마세요, 고 나서, and 좋아하다/싫어하다.",
+          lessons: m16Lessons,
+          accent: { from: "#f97316", to: "#ea580c" },
+        },
+        {
+          id: "m17",
+          title: "Getting around",
+          eyebrow: "Module 17 · Travel",
+          summary: "Transport vocab, the means particle (으)로, 타다/내리다, directions, and the spatial 까지.",
+          lessons: m17Lessons,
+          accent: { from: "#14b8a6", to: "#0d9488" },
+        },
+        {
+          id: "m18",
+          title: "Weather & the future",
+          eyebrow: "Module 18 · Predict",
+          summary: "Weather & seasons, the ㅂ-irregular 덥다/춥다, the future (으)ㄹ 거예요, and 것 같아요 (it seems).",
+          lessons: m18Lessons,
+          accent: { from: "#8b5cf6", to: "#7c3aed" },
         },
       ],
       sideQuests,
