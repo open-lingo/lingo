@@ -60,6 +60,7 @@ export function Layout() {
   // usable) the footer alone pushed every lesson step below the fold.
   const focusedFlow = /\/lessons\/|\/test-out\/|\/placement-test/.test(pathname);
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
+  const journeyActive = /^\/[^/]+\/progress/.test(pathname);
   const communityActive = /\/community/.test(pathname);
   const socialActive = /^\/[^/]+\/social/.test(pathname);
   const leaderboardActive =
@@ -178,6 +179,16 @@ export function Layout() {
                 }`}
               >
                 {t("nav.practice")}
+              </Link>
+              <Link
+                to={langPath("progress")}
+                className={`rounded-md px-2 py-1.5 text-sm ${
+                  journeyActive
+                    ? "font-medium text-text-primary"
+                    : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                }`}
+              >
+                {t("nav.journey", "Journey")}
               </Link>
               <Link
                 to={langPath("social")}
@@ -311,6 +322,12 @@ export function Layout() {
                   onClick={() => setMobileMenuOpen(false)}
                   onPrefetch={prefetchPractice}
                   label={t("nav.practice")}
+                />
+                <MobileNavLink
+                  to={langPath("progress")}
+                  active={journeyActive}
+                  onClick={() => setMobileMenuOpen(false)}
+                  label={t("nav.journey", "Journey")}
                 />
                 <MobileNavLink
                   to={langPath("social")}
