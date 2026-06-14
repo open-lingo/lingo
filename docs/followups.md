@@ -107,3 +107,16 @@ Two items from the M9–M15 review discussion, both deferred for a dedicated pas
    2006, Nation (~8–15 encounters for durable vocab; lessons supply ~5–7).
    NOTE: lessons are correctly sized per CLT (2–4 atoms) — do NOT fatten them;
    "more depth" = more spacing + more generative processing, not more atoms.
+
+## Daily-review quest (retention 1b) — DONE + Trevor handoff (2026-06-14)
+SHIPPED: lingo-core `daily-reviews` quest (unit "reviews", target 20, `app/quests/logic.py`); frontend `FlashcardTester` reports the session's review count to it ONCE on session-end (batched), and auto-completes it when the learner is caught up (`useFlashcardDueSummary().dueCount === 0`) so few-card days aren't stuck at 8/20.
+TREVOR / remaining backend coordination:
+- **Swap when nothing's due at day start:** the quest generator can't see the client-side SRS due-count, so the reviews quest always generates. A learner with 0 due cards who never opens flashcards sees 0/20 all day. Options: client reports due-count when fetching quests (so the server can swap/skip), or accept the auto-complete-on-open behavior.
+- **Trust:** the bump endpoint trusts the client `delta` (a client could over-report reviews). Add server-side sanity bounds if it matters.
+- **adFreeMinutes** reward application is still unwired (pre-existing, per lingo-core CLAUDE.md).
+
+## SRS storage unification — ARCHITECTURE DIRECTION (Spencer 2026-06-14, no changes yet)
+Storing SRS state in different places is wasteful. Anything with an SRS component (vocab, grammar points, sentences) should be **treated as a flashcard and live in the deck system** — one store, one scheduler — instead of a separate store per concept.
+- Today there are multiple SRS stores: Track A vocab `open-lingo-srs:v2`, Track B grammar `open-lingo-srs-grammar:v1` (added this session), plus the per-module `moduleReviewSchedule`. That's the fragmentation to undo.
+- When we do MORE grammar SRS: fold grammar points (and sentence items) into the deck system as card types, so they schedule + sync through the same path as vocab cards. The Track B `grammarSrs.ts` store is a deliberate stopgap — migrate it into a "grammar deck" once the deck system can hold non-word cards.
+- Also applies to the COURSE: the course deck (`courseDeck.ts`) and grammar/sentence reviews should all be one deck-backed SRS surface, checked for consistency.
