@@ -7,6 +7,9 @@ import {
 import { buildAllKoreanRowLessons } from "@/features/languages/ko/curriculum/m1-rows";
 import { buildAllKoreanM2Lessons } from "@/features/languages/ko/curriculum/m2";
 import { KO_M3_LESSONS } from "@/features/languages/ko/curriculum/m3";
+import { KO_M4_LESSONS } from "@/features/languages/ko/curriculum/m4";
+import { KO_M5_LESSONS } from "@/features/languages/ko/curriculum/m5";
+import { KO_M6_LESSONS } from "@/features/languages/ko/curriculum/m6";
 import { MOCK_LESSON_KO_SIDEQUEST_SURVIVAL } from "@/features/languages/ko/curriculum/sidequest-survival";
 import {
   MOCK_LESSON_JA_M1_L1A,
@@ -317,6 +320,15 @@ const KOREAN_M2_LESSONS: Record<string, LessonContent> = Object.fromEntries(
 const KOREAN_M3_LESSONS: Record<string, LessonContent> = Object.fromEntries(
   KO_M3_LESSONS.map((l) => [l.id, l]),
 );
+const KOREAN_M4_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M4_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M5_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M5_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M6_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M6_LESSONS.map((l) => [l.id, l]),
+);
 
 const LESSONS: Record<string, LessonContent> = {
   // ─── Korean — Module 1 (Hangul foundation, 2026-05-19) ───────────────
@@ -333,6 +345,15 @@ const LESSONS: Record<string, LessonContent> = {
   // Sino numbers → mini-dialogue → mastery test. Backs the M3 pathway
   // nodes that previously resolved to null.
   ...KOREAN_M3_LESSONS,
+  // ─── Korean — Modules 4-6 (2026-06-13) ───────────────────────────────
+  // M4 things & possession (의 + 이거/그거/저거), M5 numbers/counters/
+  // ordering (native numbers + 개/명/잔 + 주세요), M6 places & existence
+  // (있어요/없어요 + 에/에서 + 어디). Mirrors the JA M4-M6 grammar arc with
+  // Korean's own grammar. Backs the M4/M5/M6 pathway nodes added to the
+  // KO course in mockCourse.ts.
+  ...KOREAN_M4_LESSONS,
+  ...KOREAN_M5_LESSONS,
+  ...KOREAN_M6_LESSONS,
   "ko-sidequest-survival-phrases": MOCK_LESSON_KO_SIDEQUEST_SURVIVAL,
   // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,

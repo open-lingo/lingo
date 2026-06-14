@@ -21,6 +21,9 @@ export type KoAtomSource =
   | "m1"
   | "m2"
   | "m3"
+  | "m4"
+  | "m5"
+  | "m6"
   | "sidequest-survival"
   | "future";
 
@@ -123,6 +126,7 @@ const PARTICLE_ATOMS: KoAtom[] = [
   atom({ surface: "를", meaningEn: "object marker (after vowel)", romanization: "reul", partOfSpeech: "particle", fromModule: "m3", kind: "particle" }),
   atom({ surface: "에", meaningEn: "at / to / in (time or place)", romanization: "e", partOfSpeech: "particle", fromModule: "m3", kind: "particle" }),
   atom({ surface: "에서", meaningEn: "at (location of action) / from", romanization: "eseo", partOfSpeech: "particle", fromModule: "m3", kind: "particle" }),
+  atom({ surface: "의", meaningEn: "possessive 's (of)", romanization: "ui", partOfSpeech: "particle", fromModule: "m4", kind: "particle" }),
 ];
 
 /**
@@ -283,6 +287,117 @@ const M3_VOCAB: KoAtom[] = [
   atom({ surface: "십", meaningEn: "ten (10, Sino)", romanization: "sip", emoji: "🔟", partOfSpeech: "noun", fromModule: "m3", kind: "vocab" }),
 ];
 
+/**
+ * M4 vocab — "Things & possession". Everyday objects + the demonstrative
+ * system (이거 / 그거 / 저거 — this / that-near-you / that-over-there) + the
+ * possessive 의 (and its contractions 제 = 저의, 네 = 너의). Mirrors the JA
+ * M4 arc (の + これ/それ/あれ) but with Korean's three-way 이/그/저 deixis.
+ *
+ * 거 (= 것, "thing/one") is the bound noun that 이/그/저 attach to in speech:
+ * 이거 = "this thing". We teach the contracted spoken forms (이거/그거/저거,
+ * 제 거 = "my thing") since that's what learners actually hear.
+ *
+ * CONTENT-TODO: a Korean speaker should confirm the contraction teaching
+ * order (제 vs 저의) reads naturally for absolute beginners — both are
+ * correct; 제 is far more common in speech.
+ */
+const M4_VOCAB: KoAtom[] = [
+  // Everyday objects (verified Noto art for image MCQs)
+  atom({ surface: "책", meaningEn: "book", romanization: "chaek", emoji: "📖", partOfSpeech: "noun", fromModule: "m4", kind: "vocab" }),
+  atom({ surface: "펜", meaningEn: "pen", romanization: "pen", emoji: "🖊️", partOfSpeech: "noun", fromModule: "m4", kind: "vocab" }),
+  atom({ surface: "가방", meaningEn: "bag", romanization: "gabang", emoji: "👜", partOfSpeech: "noun", fromModule: "m4", kind: "vocab" }),
+  atom({ surface: "의자", meaningEn: "chair", romanization: "uija", emoji: "🪑", partOfSpeech: "noun", fromModule: "m4", kind: "vocab" }),
+  atom({ surface: "문", meaningEn: "door", romanization: "mun", emoji: "🚪", partOfSpeech: "noun", fromModule: "m4", kind: "vocab" }),
+  atom({ surface: "핸드폰", meaningEn: "cellphone", romanization: "haendeupon", emoji: "📱", partOfSpeech: "noun", fromModule: "m4", kind: "vocab" }),
+  // Demonstrative "thing" forms (spoken contractions of 이것/그것/저것)
+  atom({ surface: "이거", meaningEn: "this (thing)", romanization: "igeo", partOfSpeech: "pronoun", fromModule: "m4", kind: "vocab" }),
+  atom({ surface: "그거", meaningEn: "that (thing, near you)", romanization: "geugeo", partOfSpeech: "pronoun", fromModule: "m4", kind: "vocab" }),
+  atom({ surface: "저거", meaningEn: "that (thing, over there)", romanization: "jeogeo", partOfSpeech: "pronoun", fromModule: "m4", kind: "vocab" }),
+  // Demonstrative determiners (이/그/저 + noun)
+  atom({ surface: "이", meaningEn: "this (+ noun)", romanization: "i", partOfSpeech: "other", fromModule: "m4", kind: "vocab", srsEligible: false }),
+  atom({ surface: "그", meaningEn: "that (+ noun, near you)", romanization: "geu", partOfSpeech: "other", fromModule: "m4", kind: "vocab" }),
+  atom({ surface: "저", meaningEn: "that (+ noun, over there)", romanization: "jeo", partOfSpeech: "other", fromModule: "m4", kind: "vocab", srsEligible: false }),
+  // Possessive contractions + the bound noun 거 / 것
+  atom({ surface: "제", meaningEn: "my (polite, = 저의)", romanization: "je", partOfSpeech: "pronoun", fromModule: "m4", kind: "vocab" }),
+  atom({ surface: "거", meaningEn: "thing / one (spoken 것)", romanization: "geo", partOfSpeech: "noun", fromModule: "m4", kind: "vocab", srsEligible: false }),
+];
+
+/**
+ * M5 vocab — "Numbers, counting & ordering". The NATIVE-Korean number set
+ * (하나~열, used for counting things, people, age, and hours) + the most
+ * common counters (개 generic things, 명 people, 잔 cups/glasses) + 주세요
+ * ("please give"). Mirrors the JA M5 arc (native numbers + ください + 〜つ/
+ * 〜にん counters). Money reuses the Sino numbers already taught in M3.
+ *
+ * IMPORTANT Korean fact (taught, not a bug): the native numbers 1-4 and 20
+ * take a CONTRACTED form directly before a counter:
+ *   하나→한, 둘→두, 셋→세, 넷→네, 스물→스무.
+ * So "one book" is 한 개, not 하나 개. M5 teaches both the standalone
+ * counting forms and the pre-counter contractions explicitly.
+ *
+ * CONTENT-TODO: native-speaker check that 개/명/잔 are the right first three
+ * counters for an N5-equivalent learner, and that the contraction lesson
+ * lands before the ordering drill.
+ */
+const M5_VOCAB: KoAtom[] = [
+  // Native numbers 1-10 (standalone counting forms)
+  atom({ surface: "하나", meaningEn: "one (1, native)", romanization: "hana", emoji: "1️⃣", partOfSpeech: "noun", fromModule: "m5", kind: "vocab", srsEligible: false }),
+  atom({ surface: "둘", meaningEn: "two (2, native)", romanization: "dul", emoji: "2️⃣", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "셋", meaningEn: "three (3, native)", romanization: "set", emoji: "3️⃣", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "넷", meaningEn: "four (4, native)", romanization: "net", emoji: "4️⃣", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "다섯", meaningEn: "five (5, native)", romanization: "daseot", emoji: "5️⃣", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "여섯", meaningEn: "six (6, native)", romanization: "yeoseot", emoji: "6️⃣", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "일곱", meaningEn: "seven (7, native)", romanization: "ilgop", emoji: "7️⃣", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "여덟", meaningEn: "eight (8, native)", romanization: "yeodeol", emoji: "8️⃣", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "아홉", meaningEn: "nine (9, native)", romanization: "ahop", emoji: "9️⃣", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "열", meaningEn: "ten (10, native)", romanization: "yeol", emoji: "🔟", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  // Pre-counter contracted forms (taught explicitly)
+  atom({ surface: "한", meaningEn: "one (before a counter)", romanization: "han", partOfSpeech: "other", fromModule: "m5", kind: "vocab", srsEligible: false }),
+  atom({ surface: "두", meaningEn: "two (before a counter)", romanization: "du", partOfSpeech: "other", fromModule: "m5", kind: "vocab", srsEligible: false }),
+  atom({ surface: "세", meaningEn: "three (before a counter)", romanization: "se", partOfSpeech: "other", fromModule: "m5", kind: "vocab", srsEligible: false }),
+  // Counters
+  atom({ surface: "개", meaningEn: "counter: things / items", romanization: "gae", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "명", meaningEn: "counter: people", romanization: "myeong", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "잔", meaningEn: "counter: cups / glasses", romanization: "jan", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  // Ordering / money vocab
+  atom({ surface: "주세요", meaningEn: "please give (me)", romanization: "juseyo", partOfSpeech: "verb", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "물", meaningEn: "water", romanization: "mul", emoji: "💧", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "빵", meaningEn: "bread", romanization: "ppang", emoji: "🍞", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "얼마", meaningEn: "how much", romanization: "eolma", partOfSpeech: "pronoun", fromModule: "m5", kind: "vocab" }),
+  atom({ surface: "원", meaningEn: "won (₩, currency)", romanization: "won", partOfSpeech: "noun", fromModule: "m5", kind: "vocab" }),
+];
+
+/**
+ * M6 vocab — "Places & existence". Place nouns + the existence verbs
+ * 있어요 ("there is / I have") and 없어요 ("there isn't / I don't have"),
+ * the location particles 에 (static location of existence) vs 에서 (location
+ * of an action — already registered in M3 particles), the subject markers
+ * 이/가 with existence, and 어디 ("where"). Mirrors the JA M6 arc (に/で/が +
+ * あります/います) — but Korean uses ONE existence verb 있다 for both living
+ * and non-living things, which is simpler than JA's あります/います split.
+ *
+ * CONTENT-TODO: native-speaker check that the 에 (existence) vs 에서 (action)
+ * contrast is introduced in an order that doesn't confuse beginners, and
+ * that the 어디에 있어요? question phrasing is the most natural default.
+ */
+const M6_VOCAB: KoAtom[] = [
+  // Place nouns
+  atom({ surface: "집", meaningEn: "house / home", romanization: "jip", emoji: "🏠", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
+  atom({ surface: "학교", meaningEn: "school", romanization: "hakgyo", emoji: "🏫", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
+  atom({ surface: "가게", meaningEn: "store / shop", romanization: "gage", emoji: "🏪", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
+  atom({ surface: "식당", meaningEn: "restaurant", romanization: "sikdang", emoji: "🍜", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
+  atom({ surface: "역", meaningEn: "(train) station", romanization: "yeok", emoji: "🚉", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
+  atom({ surface: "병원", meaningEn: "hospital", romanization: "byeongwon", emoji: "🏥", partOfSpeech: "noun", fromModule: "m6", kind: "vocab" }),
+  // Existence verbs
+  atom({ surface: "있어요", meaningEn: "there is / I have", romanization: "isseoyo", partOfSpeech: "verb", fromModule: "m6", kind: "vocab" }),
+  atom({ surface: "없어요", meaningEn: "there isn't / I don't have", romanization: "eopseoyo", partOfSpeech: "verb", fromModule: "m6", kind: "vocab" }),
+  // Question word
+  atom({ surface: "어디", meaningEn: "where", romanization: "eodi", partOfSpeech: "pronoun", fromModule: "m6", kind: "vocab" }),
+  // Position nouns (used with 에)
+  atom({ surface: "여기", meaningEn: "here", romanization: "yeogi", partOfSpeech: "pronoun", fromModule: "m6", kind: "vocab", srsEligible: false }),
+  atom({ surface: "거기", meaningEn: "there (near you)", romanization: "geogi", partOfSpeech: "pronoun", fromModule: "m6", kind: "vocab", srsEligible: false }),
+];
+
 // ─── Aggregate + lookup map ──────────────────────────────────────────────
 
 /**
@@ -299,6 +414,9 @@ export const KO_COURSE_ATOMS: ReadonlyArray<KoAtom> = [
   ...M1_VOCAB,
   ...M2_VOCAB,
   ...M3_VOCAB,
+  ...M4_VOCAB,
+  ...M5_VOCAB,
+  ...M6_VOCAB,
   ...JAMO_ATOMS,
   ...PARTICLE_ATOMS,
   ...SURVIVAL_ATOMS,
