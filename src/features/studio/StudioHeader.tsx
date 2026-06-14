@@ -52,7 +52,7 @@ export function StudioHeader({
     <div className="flex flex-wrap items-center gap-3 border-b border-border bg-surface px-4 py-3">
       <div className="flex items-center gap-3">
         <Link
-          to={langPath("community/decks/mine")}
+          to={langPath("community/library?tab=mine")}
           className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-text-primary"
           title={t("studio.headerBackToMyDecks", "Back to My Decks")}
         >

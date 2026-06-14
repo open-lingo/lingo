@@ -29,6 +29,8 @@ export type CommunityItemCardItem = {
   /** Public handle of the maintainer — when present, the maintainer chip
    *  opens a profile preview popover with an "Add friend" action. */
   maintainerUsername?: string;
+  /** Resolved maintainer avatar URL — falls back to initials when absent. */
+  maintainerAvatarUrl?: string;
   image?: string | null;
   deckId?: string;
   storyId?: string;
@@ -207,7 +209,7 @@ export function CommunityItemCard({
                   displayName={item.maintainerName}
                 >
                   <span className="inline-flex min-w-0 items-center gap-1.5">
-                    <Avatar name={item.maintainerName} size="xs" />
+                    <Avatar name={item.maintainerName} src={item.maintainerAvatarUrl} size="xs" />
                     <span className="truncate text-text-secondary hover:text-text-primary">
                       {item.maintainerName}
                     </span>
@@ -215,7 +217,7 @@ export function CommunityItemCard({
                 </UserPreviewPopover>
               ) : (
                 <span className="inline-flex min-w-0 items-center gap-1.5">
-                  <Avatar name={item.maintainerName} size="xs" />
+                  <Avatar name={item.maintainerName} src={item.maintainerAvatarUrl} size="xs" />
                   <span className="truncate text-text-secondary">
                     {item.maintainerName}
                   </span>
