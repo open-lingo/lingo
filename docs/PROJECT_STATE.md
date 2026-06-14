@@ -1,6 +1,6 @@
 # Open Lingo — project state
 
-**Last updated:** 2026-05-25  
+**Last updated:** 2026-06-15  
 **Purpose:** Accurate snapshot for humans and agents. For launch tasks see [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md).
 
 ---
@@ -8,6 +8,15 @@
 ## Executive summary
 
 Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-core** (FastAPI). Core loop: **learn → lessons → flashcards (SRS) → settings**. Community deck browse/subscribe works; forum, contribute, and leaderboard are **feature-flagged off** for launch. Legal, landing/auth split, ads framework, and funding meter API exist; **live revenue** is post-launch.
+
+### Recent (2026-06-15 — SRS scheduling model + course-deck reviewer)
+
+- **Reviewer plays the course deck** — the flashcard reviewer (`useSubscriptionQueue`) now injects the auto-subscribed client course deck (unlocked words), not just backend subscription decks. A course-only learner finally has a working reviewer. `flashcards.hideCourseDeck` opts super-users out.
+- **D4 — seed-on-unlock + bug fix** — `buildSrsReviewLesson` made **pure** (it was seeding every unlocked atom due-today at build time → flooded the reviewer). Content-lesson completion now schedules atoms **due next-day** (`seedUnlockedAtomsDueNextDay`), never same-day.
+- **D5 — reviewer shows every unlocked word** (no intake cap by default; `flashcards.maxNewCardsPerDay` to limit).
+- **SRS scheduling model spec** — `docs/srs-scheduling-model-2026-06-15.md` (D1–D8), ralph-hardened; **supersedes** the intake decisions in `retention-architecture-design-2026-06-13.md`.
+- **Remaining (Phase 2):** D3 review-lesson gating (needs hard-vs-soft call), D2 vocab prior-atom review-tail generator, D1 store unification, D7 FTUE. Full detail: **`docs/handoff-2026-06-15.md`**.
+- 599 tests pass; verified live in Playwright.
 
 ### Recent (2026-05-25 final session)
 

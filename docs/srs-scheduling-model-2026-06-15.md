@@ -214,3 +214,9 @@ UX hard vs soft (§7.8); Listening modality (§7.7).
   assumption → author vocab prior-atom tail; step-scoped gate), D4 explicit
   next-day offset noted, docs-to-reconcile list added. Net: the model holds,
   but D2 is **more work than a gate removal** — that's the headline.
+- 2026-06-15: **D4 + D5 SHIPPED** (`2756331`). D4: `createSeededState` +
+  `seedUnlockedAtomsDueNextDay`; `buildSrsReviewLesson` made pure. D5: reviewer
+  default no-cap + `flashcards.maxNewCardsPerDay`. tsc + 599 tests + live
+  Playwright (store stays empty on reviewer load; New:8/Due:0 vs old Due:8).
+  Remaining: **D3** (needs hard-vs-soft call), **D2** (vocab tail generator),
+  **D1** (store unify), **D7** (FTUE). See `docs/handoff-2026-06-15.md`.
