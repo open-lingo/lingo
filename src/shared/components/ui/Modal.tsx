@@ -28,6 +28,8 @@ export type ModalProps = {
   onClose: () => void;
   /** Header title (also used as aria-label fallback). */
   title?: string;
+  /** Id of an element that labels the dialog. Takes precedence over `title` for the accessible name (use when the visible title lives in the body, not the header). */
+  ariaLabelledBy?: string;
   /** Optional left adornment in the header (e.g. back button). */
   headerLeft?: ReactNode;
   /** Optional right adornment in the header (rendered before the close button). */
@@ -71,6 +73,7 @@ export function Modal({
   open,
   onClose,
   title,
+  ariaLabelledBy,
   headerLeft,
   headerRight,
   showHeaderDivider,
@@ -119,7 +122,8 @@ export function Modal({
           ref={panelRef}
           role="dialog"
           aria-modal="true"
-          aria-label={title}
+          aria-label={ariaLabelledBy ? undefined : title}
+          aria-labelledby={ariaLabelledBy}
           tabIndex={-1}
           className={cn(
             // Mobile: bottom sheet, full width, rounded top, slide-up animation.

@@ -1,41 +1,30 @@
-import { useState, useMemo, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { useApi } from "@/shared/api/provider";
 import { useSubscriptions } from "@/features/flashcards/useSubscriptions";
 import { Icon } from "@/shared/components/Icon";
-import { ModalBackdrop } from "@/shared/components/ModalBackdrop";
-import { PlainText } from "@/shared/components/PlainText";
-import { Button } from "@/shared/components/ui/Button";
-import { cn } from "@/shared/components/ui/cn";
-import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
+import { Modal } from "@/shared/components/ui/Modal";
+import { computeDeckStats } from "@/features/flashcards/deckStats";
+import {
+  DeckPreviewHeader,
+  type DeckPreviewAuthor,
+} from "@/features/flashcards/components/DeckPreviewHeader";
+import { DeckStatsPanel } from "@/features/flashcards/components/DeckStatsPanel";
+import { CardCarousel } from "@/features/flashcards/components/CardCarousel";
+import { SubscribeButton } from "@/features/flashcards/components/SubscribeButton";
+import type { FlashcardDeck } from "@/features/flashcards/data/types";
 import type { CommunityAddon } from "@/features/community/types";
 import { useDateFormat } from "@/shared/utils/formatDate";
-
-function cardMatchesSearch(card: Flashcard, q: string): boolean {
-  const trimmed = q.trim();
-  if (!trimmed) return true;
-  const searchable = [
-    card.front,
-    card.back,
-    card.note,
-    card.reasoning,
-    card.type === "other" ? card.definition : undefined,
-    card.type === "other" ? card.context : undefined,
-  ]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
-  const words = trimmed.toLowerCase().split(/\s+/);
-  return words.every((word) => searchable.includes(word));
-}
 
 type DeckPreviewModalProps = {
   deck: FlashcardDeck | null;
   addon: CommunityAddon | null;
+  /** Resolved author (name + avatar) when the caller has directory data. */
+  author?: DeckPreviewAuthor;
+  /** Caller-supplied upvote count (e.g. from the marketplace item). */
+  upvoteCount?: number;
   onClose: () => void;
   onSubscriptionChange?: () => void;
 };
@@ -43,236 +32,161 @@ type DeckPreviewModalProps = {
 export function DeckPreviewModal({
   deck,
   addon,
+  author,
+  upvoteCount,
   onClose,
   onSubscriptionChange,
 }: DeckPreviewModalProps) {
   const { t } = useTranslation();
   const { formatDateOnly } = useDateFormat();
-  const langPath = useLangPath();
   const { users: usersApi } = useApi();
   const { subscriptions, isLoading: subsQueryLoading } = useSubscriptions();
-  const [search, setSearch] = useState("");
   const [subscribeLoading, setSubscribeLoading] = useState(false);
 
   const deckId = deck?.id ?? addon?.deckId ?? addon?.id ?? "";
   const isCourseDeck = Boolean(deck?.courseId);
+  const canSubscribe = Boolean(deckId) && !isCourseDeck;
 
-  const subscriptionsLoading =
-    deckId && !isCourseDeck ? subsQueryLoading : false;
+  const subscriptionsLoading = canSubscribe ? subsQueryLoading : false;
   const isSubscribed =
-    Boolean(deckId && !isCourseDeck) &&
-    subscriptions.some((s) => s.contentId === deckId);
+    canSubscribe && subscriptions.some((s) => s.contentId === deckId);
 
   const handleSubscribe = useCallback(() => {
-    if (!deckId || isCourseDeck) return;
+    if (!canSubscribe) return;
     setSubscribeLoading(true);
     usersApi
       .addSubscription({ contentType: "deck", contentId: deckId })
       .then(() => onSubscriptionChange?.())
       .finally(() => setSubscribeLoading(false));
-  }, [usersApi, deckId, isCourseDeck, onSubscriptionChange]);
+  }, [usersApi, deckId, canSubscribe, onSubscriptionChange]);
 
   const handleUnsubscribe = useCallback(() => {
-    if (!deckId || isCourseDeck) return;
+    if (!canSubscribe) return;
     setSubscribeLoading(true);
     usersApi
       .removeSubscription("deck", deckId)
       .then(() => onSubscriptionChange?.())
       .finally(() => setSubscribeLoading(false));
-  }, [usersApi, deckId, isCourseDeck, onSubscriptionChange]);
+  }, [usersApi, deckId, canSubscribe, onSubscriptionChange]);
 
-  const reviewHref = langPath("practice/flashcards/review");
-  const hasCards = deck != null && deck.cards.length > 0;
+  const cards = deck?.cards ?? [];
+  const hasCards = cards.length > 0;
 
-  const filteredCards = useMemo(() => {
-    if (!deck?.cards) return [];
-    if (!search.trim()) return deck.cards;
-    return deck.cards.filter((c) => cardMatchesSearch(c, search));
-  }, [deck?.cards, search]);
+  const stats = useMemo(() => computeDeckStats(cards), [cards]);
 
   const title = deck?.name ?? addon?.name ?? "";
+  const description = addon?.description ?? "";
   const cardCount = deck?.cards.length ?? addon?.itemCount ?? 0;
-  const coverUrl = getDeckImageUrl(
-    deck?.id ?? addon?.deckId ?? addon?.id ?? "",
-    deck?.image ?? addon?.image,
-  );
+  const coverUrl = getDeckImageUrl(deckId, deck?.image ?? addon?.image);
 
   const languageId = deck?.languageId ?? addon?.languageId ?? "";
-  const languageName =
-    getLanguageConfig(languageId)?.name ?? (languageId || "—");
-  const creatorName = addon?.maintainerIds?.length
-    ? t("flashcards.byCreator", { name: "User" })
-    : deck?.courseId
-      ? t("flashcards.creatorCourse")
-      : t("flashcards.creatorUnknown");
-  const updatedDate = addon?.updatedAt
-    ? t("flashcards.updated", { date: formatDateOnly(addon.updatedAt) })
-    : null;
-  const upvoteCount = addon?.upvoteCount ?? 0;
+  const langConfig = getLanguageConfig(languageId);
+  const languageName = langConfig?.name ?? (languageId || "—");
+
+  const resolvedAuthor: DeckPreviewAuthor | undefined =
+    author ?? (addon?.maintainerName ? { displayName: addon.maintainerName } : undefined);
+
+  const fallbackUpvotes = upvoteCount ?? addon?.upvoteCount ?? 0;
+  const updatedDate = addon?.updatedAt ? formatDateOnly(addon.updatedAt) : null;
 
   return (
-    <ModalBackdrop onClose={onClose} ariaLabelledBy="deck-preview-title">
-      <div className="relative flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-2xl">
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute right-3 top-3 z-10 rounded-lg border border-border bg-surface/95 p-2 text-text-primary shadow-sm backdrop-blur-sm transition hover:bg-surface-muted"
-          aria-label={t("flashcards.close")}
-        >
-          <Icon name="close" size={20} />
-        </button>
+    <Modal
+      open
+      onClose={onClose}
+      size="2xl"
+      unpadded
+      showCloseButton
+      ariaLabelledBy="deck-preview-title"
+    >
+      <div className="flex flex-col">
+        <div className="px-5 pt-2 sm:px-6">
+          <DeckPreviewHeader
+            title={title}
+            coverUrl={coverUrl}
+            languageName={languageName}
+            languageFlag={langConfig?.flag}
+            author={resolvedAuthor}
+            deckId={canSubscribe ? deckId : undefined}
+            fallbackUpvotes={fallbackUpvotes}
+            showVotes={!isCourseDeck}
+          />
+        </div>
 
-        <div className="flex min-h-0 flex-1">
-          <div className="min-w-0 flex-1 overflow-y-auto">
-            <img
-              src={coverUrl}
-              alt=""
-              loading="lazy"
-              decoding="async"
-              className="h-40 w-full object-cover sm:h-48"
-            />
-            <div className="px-6 py-4">
-              <h2 id="deck-preview-title" className="text-xl font-semibold text-text-primary">
-                {title}
-              </h2>
-              {addon?.description && (
-                <p className="mt-1 line-clamp-2 text-sm text-text-secondary">
-                  {addon.description}
-                </p>
-              )}
-            </div>
+        {description && (
+          <p className="px-5 text-sm leading-relaxed text-text-secondary sm:px-6">
+            {description}
+          </p>
+        )}
 
-            <div className="border-t border-border px-6 py-3">
-              <h3 className="mb-2 text-sm font-medium text-text-primary">
-                {t("flashcards.cardPreview")}
-              </h3>
-              {hasCards ? (
-                <>
-                  <label htmlFor="deck-preview-search" className="sr-only">
-                    {t("flashcards.searchPlaceholder")}
-                  </label>
-                  <input
-                    id="deck-preview-search"
-                    type="search"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    placeholder={t("flashcards.searchPlaceholder")}
-                    className="w-full rounded-lg border border-border bg-surface-muted px-3 py-2 text-sm text-text-primary placeholder:text-text-muted"
-                  />
-                </>
-              ) : (
-                <p className="text-sm text-text-muted">{t("flashcards.previewNoCards")}</p>
-              )}
-            </div>
-
-            {hasCards && (
-              <div className="px-6 pb-4">
-                {filteredCards.length === 0 ? (
-                  <p className="py-8 text-center text-sm text-text-muted">
-                    {t("flashcards.searchNoResults")}
-                  </p>
-                ) : (
-                  <ul className="space-y-2" role="list">
-                    {filteredCards.map((card) => (
-                      <li
-                        key={card.id}
-                        className="rounded-lg border border-border bg-surface-muted px-4 py-3"
-                      >
-                        <div className="font-medium text-text-primary [&>*]:my-0">
-                          <PlainText>{card.front}</PlainText>
-                        </div>
-                        <div className="mt-0.5 text-sm text-text-secondary [&>*]:my-0">
-                          <PlainText>{card.back}</PlainText>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+        {/* Stats — card count + complexity + difficulty */}
+        <div className="mt-4 border-t border-border px-5 py-4 sm:px-6">
+          <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-text-secondary">
+            <span className="inline-flex items-center gap-1.5">
+              <Icon name="layers" size={15} aria-hidden />
+              <span className="font-medium text-text-primary tabular-nums">
+                {cardCount}
+              </span>
+              {t("flashcards.cards", "cards")}
+            </span>
+            {updatedDate && (
+              <span className="inline-flex items-center gap-1.5 text-text-muted">
+                <Icon name="clock" size={15} aria-hidden />
+                {t("flashcards.updated", { date: updatedDate })}
+              </span>
             )}
-
-            <div className="border-t border-border px-6 py-4">
-              <h3 className="text-sm font-medium text-text-primary">Comments</h3>
-              <p className="mt-1 text-sm text-text-muted">
-                {t("flashcards.commentsComingSoon")}
-              </p>
-            </div>
           </div>
-
-          <aside className="flex w-48 shrink-0 flex-col gap-4 border-l border-border bg-surface-muted/50 px-4 py-4">
-            <div className="space-y-3">
-              <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
-                {creatorName}
-              </p>
-              {updatedDate && (
-                <p className="text-sm text-text-secondary">{updatedDate}</p>
+          {hasCards ? (
+            <DeckStatsPanel stats={stats} />
+          ) : (
+            <p className="text-xs text-text-muted">
+              {t(
+                "flashcards.statsUnavailable",
+                "Detailed stats unavailable for this pack.",
               )}
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
-                  {t("flashcards.language")}
-                </p>
-                <p className="text-sm text-text-primary">{languageName}</p>
-              </div>
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
-                  {t("flashcards.cards")}
-                </p>
-                <p className="text-sm text-text-primary">{cardCount}</p>
-              </div>
-              {addon && upvoteCount >= 0 && (
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
-                    {t("flashcards.upvotesLabel")}
-                  </p>
-                  <p className="text-sm text-text-primary">
-                    <Icon name="chevronUp" size={14} className="inline" /> {upvoteCount}
-                  </p>
-                </div>
-              )}
-              {(deck?.locale ?? addon?.locale) && (
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
-                    {t("flashcards.locale")}
-                  </p>
-                  <p className="text-sm text-text-primary">
-                    {deck?.locale ?? addon?.locale}
-                  </p>
-                </div>
-              )}
-            </div>
-          </aside>
-        </div>
-
-        <div className="flex flex-wrap justify-end gap-3 border-t border-border px-6 py-4">
-          {!isCourseDeck && deckId && !subscriptionsLoading && (
-            <Button
-              type="button"
-              variant="outline"
-              disabled={subscribeLoading}
-              onClick={isSubscribed ? handleUnsubscribe : handleSubscribe}
-              className={cn(
-                isSubscribed &&
-                  "border-success/60 bg-success/10 text-success hover:bg-success/15",
-              )}
-            >
-              {subscribeLoading
-                ? "…"
-                : isSubscribed
-                  ? t("flashcards.subscribed")
-                  : t("flashcards.subscribe")}
-            </Button>
+            </p>
           )}
-          <Button type="button" variant="outline" onClick={onClose}>
-            {t("flashcards.close")}
-          </Button>
-          <Link
-            to={reviewHref}
-            className="inline-flex items-center justify-center rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-white transition hover:bg-accent-hover"
-          >
-            {t("flashcards.startReview")}
-          </Link>
         </div>
+
+        {/* Real SRS card preview */}
+        <div className="border-t border-border px-5 py-4 sm:px-6">
+          <h3 className="mb-3 text-sm font-medium text-text-primary">
+            {t("flashcards.cardPreview", "Card preview")}
+          </h3>
+          {hasCards ? (
+            <CardCarousel cards={cards} languageId={languageId} />
+          ) : (
+            <p className="text-sm text-text-muted">
+              {t(
+                "flashcards.previewNoCards",
+                "Card preview not available for this pack.",
+              )}
+            </p>
+          )}
+        </div>
+
+        {/* Subscribe — the one great action */}
+        {canSubscribe && !subscriptionsLoading && (
+          <div className="sticky bottom-0 border-t border-border bg-surface px-5 py-4 sm:px-6">
+            <SubscribeButton
+              isSubscribed={isSubscribed}
+              loading={subscribeLoading}
+              onSubscribe={handleSubscribe}
+              onUnsubscribe={handleUnsubscribe}
+            />
+            <p className="mt-2 text-center text-xs text-text-muted">
+              {isSubscribed
+                ? t(
+                    "flashcards.subscribedHint",
+                    "Review these cards from your flashcards practice.",
+                  )
+                : t(
+                    "flashcards.subscribeHint",
+                    "Subscribe to add this deck to your reviews.",
+                  )}
+            </p>
+          </div>
+        )}
       </div>
-    </ModalBackdrop>
+    </Modal>
   );
 }

@@ -46,7 +46,17 @@ export function CommunityHomePage() {
 
   const previewFor = (item: MarketplaceItem) => {
     if (item.kind === "flashcard-pack" && item.deck) {
-      return () => openDeckPreview(deckResponseToFlashcardDeck(item.deck!), null);
+      return () =>
+        openDeckPreview(deckResponseToFlashcardDeck(item.deck!), null, {
+          author: item.creator
+            ? {
+                displayName: item.creator.displayName,
+                username: item.creator.username,
+                avatarUrl: item.creator.avatarUrl,
+              }
+            : undefined,
+          upvoteCount: item.upvoteCount,
+        });
     }
     if (item.kind === "story" && item.story) {
       return () => openStoryPreview(item.story!);
