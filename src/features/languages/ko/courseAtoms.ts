@@ -24,6 +24,12 @@ export type KoAtomSource =
   | "m4"
   | "m5"
   | "m6"
+  | "m7"
+  | "m8"
+  | "m9"
+  | "m10"
+  | "m11"
+  | "m12"
   | "sidequest-survival"
   | "future";
 
@@ -398,6 +404,218 @@ const M6_VOCAB: KoAtom[] = [
   atom({ surface: "거기", meaningEn: "there (near you)", romanization: "geogi", partOfSpeech: "pronoun", fromModule: "m6", kind: "vocab", srsEligible: false }),
 ];
 
+/**
+ * M7 vocab — "Verbs & the 해요 present". The first action verbs + the polite
+ * 해요-style present tense + the object particle 을/를. Mirrors the JA M7 arc
+ * (dictionary verbs + ます polite + を) re-expressed in Korean's own grammar.
+ *
+ * Korean teaching facts baked into the content:
+ *   - 해요-style polite present doubles as the FUTURE ("I eat" / "I'll eat").
+ *   - The 해요 conjugation depends on the verb's final stem vowel:
+ *       ㅏ/ㅗ stems take 아요 (가다→가요, 보다→봐요),
+ *       other vowels take 어요 (먹다→먹어요, 마시다→마셔요),
+ *       하다 verbs become 해요 (하다→해요, 공부하다→공부해요).
+ *   - The object particle is 을 after a consonant, 를 after a vowel
+ *     (already registered as M3 particles — M7 reuses them).
+ *
+ * We register BOTH the dictionary form (for the teach step) and the
+ * conjugated 해요 form (the surface the learner actually drills) as atoms,
+ * so the SRS pool can carry the form learners are graded on. Dictionary
+ * forms are srsEligible: false (recognition aids, not review targets).
+ *
+ * CONTENT-TODO: native-speaker check that 가요/와요/먹어요/마셔요/봐요/해요
+ * are the right first six and the 아요/어요 split is taught in a beginner-
+ * friendly order.
+ */
+const M7_VOCAB: KoAtom[] = [
+  // Dictionary forms (recognition aids — not separate SRS targets)
+  atom({ surface: "가다", meaningEn: "to go (dictionary form)", romanization: "gada", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
+  atom({ surface: "오다", meaningEn: "to come (dictionary form)", romanization: "oda", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
+  atom({ surface: "먹다", meaningEn: "to eat (dictionary form)", romanization: "meokda", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
+  atom({ surface: "마시다", meaningEn: "to drink (dictionary form)", romanization: "masida", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
+  atom({ surface: "보다", meaningEn: "to see / watch (dictionary form)", romanization: "boda", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
+  atom({ surface: "하다", meaningEn: "to do (dictionary form)", romanization: "hada", partOfSpeech: "verb", fromModule: "m7", kind: "vocab", srsEligible: false }),
+  // 해요-form (the drilled / graded surface)
+  atom({ surface: "가요", meaningEn: "go / will go (polite)", romanization: "gayo", partOfSpeech: "verb", fromModule: "m7", kind: "vocab" }),
+  atom({ surface: "와요", meaningEn: "come / will come (polite)", romanization: "wayo", partOfSpeech: "verb", fromModule: "m7", kind: "vocab" }),
+  atom({ surface: "먹어요", meaningEn: "eat / will eat (polite)", romanization: "meogeoyo", partOfSpeech: "verb", fromModule: "m7", kind: "vocab" }),
+  atom({ surface: "마셔요", meaningEn: "drink / will drink (polite)", romanization: "masyeoyo", partOfSpeech: "verb", fromModule: "m7", kind: "vocab" }),
+  atom({ surface: "봐요", meaningEn: "see / watch (polite)", romanization: "bwayo", partOfSpeech: "verb", fromModule: "m7", kind: "vocab" }),
+  atom({ surface: "해요", meaningEn: "do / will do (polite)", romanization: "haeyo", partOfSpeech: "verb", fromModule: "m7", kind: "vocab" }),
+  // Object nouns for the 을/를 drills (concrete, emoji-bearing where possible)
+  atom({ surface: "밥", meaningEn: "(cooked) rice / a meal", romanization: "bap", emoji: "🍚", partOfSpeech: "noun", fromModule: "m7", kind: "vocab" }),
+  atom({ surface: "커피", meaningEn: "coffee", romanization: "keopi", emoji: "☕", partOfSpeech: "noun", fromModule: "m7", kind: "vocab", srsEligible: false }),
+  atom({ surface: "영화", meaningEn: "movie", romanization: "yeonghwa", emoji: "🎬", partOfSpeech: "noun", fromModule: "m7", kind: "vocab" }),
+  atom({ surface: "공부", meaningEn: "study / studying", romanization: "gongbu", emoji: "📚", partOfSpeech: "noun", fromModule: "m7", kind: "vocab" }),
+];
+
+/**
+ * M8 vocab — "Describing things" (descriptive verbs / adjectives). Korean
+ * adjectives ARE verbs (descriptive verbs), so they conjugate to 해요-style
+ * just like action verbs: 좋다→좋아요, 크다→커요, 작다→작아요, 예쁘다→예뻐요,
+ * 맛있다→맛있어요, 비싸다→비싸요. M8 also teaches the attributive form
+ * (descriptive verb + -(으)ㄴ before a noun: 좋은 책 "a good book", 큰 가방
+ * "a big bag"). Mirrors the JA M8 arc (い-adjective predicate + attributive).
+ *
+ * Negation (안) is deferred to M11 so the negation system lands in one place.
+ *
+ * Korean facts baked in:
+ *   - ㅡ-stems drop ㅡ before 아/어 (예쁘다→예뻐요, 크다→커요, 바쁘다→바빠요).
+ *   - The attributive of a descriptive verb is the stem + -(으)ㄴ
+ *     (좋다→좋은, 작다→작은, 크다→큰, 예쁘다→예쁜).
+ *
+ * CONTENT-TODO: native-speaker check the ㅡ-drop conjugations (커요/예뻐요/
+ * 바빠요) and the attributive forms (좋은/큰/작은/예쁜) for the first set.
+ */
+const M8_VOCAB: KoAtom[] = [
+  // Dictionary forms (recognition aids)
+  atom({ surface: "좋다", meaningEn: "to be good (dictionary form)", romanization: "jota", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+  atom({ surface: "크다", meaningEn: "to be big (dictionary form)", romanization: "keuda", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+  atom({ surface: "작다", meaningEn: "to be small (dictionary form)", romanization: "jakda", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+  atom({ surface: "예쁘다", meaningEn: "to be pretty (dictionary form)", romanization: "yeppeuda", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+  atom({ surface: "맛있다", meaningEn: "to be delicious (dictionary form)", romanization: "masitda", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+  atom({ surface: "비싸다", meaningEn: "to be expensive (dictionary form)", romanization: "bissada", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+  // 해요-form (drilled surface)
+  atom({ surface: "좋아요", meaningEn: "is good / I like it (polite)", romanization: "joayo", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab" }),
+  atom({ surface: "커요", meaningEn: "is big (polite)", romanization: "keoyo", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab" }),
+  atom({ surface: "작아요", meaningEn: "is small (polite)", romanization: "jagayo", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab" }),
+  atom({ surface: "예뻐요", meaningEn: "is pretty (polite)", romanization: "yeppeoyo", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab" }),
+  atom({ surface: "맛있어요", meaningEn: "is delicious (polite)", romanization: "masisseoyo", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab" }),
+  atom({ surface: "비싸요", meaningEn: "is expensive (polite)", romanization: "bissayo", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab" }),
+  // Attributive forms (descriptive verb + -(으)ㄴ before a noun)
+  atom({ surface: "좋은", meaningEn: "good (+ noun)", romanization: "joeun", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+  atom({ surface: "큰", meaningEn: "big (+ noun)", romanization: "keun", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+  atom({ surface: "작은", meaningEn: "small (+ noun)", romanization: "jageun", partOfSpeech: "adjective", fromModule: "m8", kind: "vocab", srsEligible: false }),
+];
+
+/**
+ * M9 vocab — "Connecting things" (and / with / also). Korean noun-joining +
+ * the 도 ("too / also") particle. Mirrors the JA M8 と (and/with) + the JA
+ * よ/ね sense of layering on extra meaning, re-expressed in Korean.
+ *
+ * Korean facts baked in:
+ *   - 하고 joins nouns and also means "with" — works after vowel OR consonant
+ *     (커피하고 빵 "coffee and bread"; 친구하고 "with a friend"). It's the most
+ *     beginner-friendly connector (no consonant/vowel split), so it leads.
+ *   - 와 / 과 is the more formal noun "and": 와 after a vowel (커피와),
+ *     과 after a consonant (빵과). Same meaning, written register.
+ *   - 도 ("too / also") REPLACES 은/는/이/가/을/를 — never stacks with them
+ *     (저도 "me too", NOT 저는도). This is the headline teaching point.
+ *
+ * CONTENT-TODO: native-speaker check the 하고 vs 와/과 register framing and
+ * that the "도 replaces the subject/object particle" rule is stated cleanly.
+ */
+const M9_VOCAB: KoAtom[] = [
+  // Connectors
+  atom({ surface: "하고", meaningEn: "and / with (spoken, nouns)", romanization: "hago", partOfSpeech: "particle", fromModule: "m9", kind: "particle" }),
+  atom({ surface: "와", meaningEn: "and (formal, after a vowel)", romanization: "wa", partOfSpeech: "particle", fromModule: "m9", kind: "particle" }),
+  atom({ surface: "과", meaningEn: "and (formal, after a consonant)", romanization: "gwa", partOfSpeech: "particle", fromModule: "m9", kind: "particle" }),
+  atom({ surface: "도", meaningEn: "too / also", romanization: "do", partOfSpeech: "particle", fromModule: "m9", kind: "particle", srsEligible: false }),
+  // Support vocab for the connector drills
+  atom({ surface: "빵", meaningEn: "bread", romanization: "ppang", emoji: "🍞", partOfSpeech: "noun", fromModule: "m9", kind: "vocab", srsEligible: false }),
+  atom({ surface: "우유", meaningEn: "milk", romanization: "uyu", emoji: "🥛", partOfSpeech: "noun", fromModule: "m9", kind: "vocab", srsEligible: false }),
+  atom({ surface: "사과", meaningEn: "apple", romanization: "sagwa", emoji: "🍎", partOfSpeech: "noun", fromModule: "m9", kind: "vocab" }),
+];
+
+/**
+ * M10 vocab — "The past tense" (았어요 / 었어요 / 했어요). Polite past for
+ * action verbs AND descriptive verbs, plus the past copula 였어요/이었어요
+ * ("was"). Mirrors the JA M10 arc (ました / でした) re-expressed in Korean.
+ *
+ * Korean facts baked in:
+ *   - The past stem mirrors the 해요-present vowel choice:
+ *       ㅏ/ㅗ stems → 았어요 (가다→갔어요, 좋다→좋았어요),
+ *       other vowels → 었어요 (먹다→먹었어요, 마시다→마셨어요),
+ *       하다 verbs → 했어요 (공부하다→공부했어요).
+ *   - The copula past is 였어요 after a vowel (친구였어요 "was a friend")
+ *     and 이었어요 after a consonant (학생이었어요 "was a student").
+ *
+ * We register the conjugated past surfaces learners drill on. Present-form
+ * verbs from M7/M8 are reused for the teach steps.
+ *
+ * CONTENT-TODO: native-speaker check the past conjugations (갔어요/왔어요/
+ * 먹었어요/마셨어요/봤어요/했어요/좋았어요) and the 였어요/이었어요 split.
+ */
+const M10_VOCAB: KoAtom[] = [
+  // Action-verb past
+  atom({ surface: "갔어요", meaningEn: "went (polite past)", romanization: "gasseoyo", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
+  atom({ surface: "왔어요", meaningEn: "came (polite past)", romanization: "wasseoyo", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
+  atom({ surface: "먹었어요", meaningEn: "ate (polite past)", romanization: "meogeosseoyo", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
+  atom({ surface: "마셨어요", meaningEn: "drank (polite past)", romanization: "masyeosseoyo", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
+  atom({ surface: "봤어요", meaningEn: "saw / watched (polite past)", romanization: "bwasseoyo", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
+  atom({ surface: "했어요", meaningEn: "did (polite past)", romanization: "haesseoyo", partOfSpeech: "verb", fromModule: "m10", kind: "vocab" }),
+  // Descriptive-verb past
+  atom({ surface: "좋았어요", meaningEn: "was good (polite past)", romanization: "joasseoyo", partOfSpeech: "adjective", fromModule: "m10", kind: "vocab" }),
+  atom({ surface: "맛있었어요", meaningEn: "was delicious (polite past)", romanization: "masisseosseoyo", partOfSpeech: "adjective", fromModule: "m10", kind: "vocab" }),
+  // Copula past
+  atom({ surface: "였어요", meaningEn: "was (after a vowel)", romanization: "yeosseoyo", partOfSpeech: "grammar", fromModule: "m10", kind: "vocab", srsEligible: false }),
+  atom({ surface: "이었어요", meaningEn: "was (after a consonant)", romanization: "ieosseoyo", partOfSpeech: "grammar", fromModule: "m10", kind: "vocab", srsEligible: false }),
+  // Time-frame adverbs (anchor the past in time)
+  atom({ surface: "어제", meaningEn: "yesterday", romanization: "eoje", partOfSpeech: "adverb", fromModule: "m10", kind: "vocab" }),
+  atom({ surface: "오늘", meaningEn: "today", romanization: "oneul", partOfSpeech: "adverb", fromModule: "m10", kind: "vocab" }),
+];
+
+/**
+ * M11 vocab — "Saying no & saying can't" (negation + ability + wanting).
+ * The 안 (simple negation: "don't / not") vs 못 (inability: "can't") split,
+ * their past forms, and 고 싶어요 ("want to"). Mirrors the JA M11 negation
+ * arc (ません / ない / can't) re-expressed in Korean.
+ *
+ * Korean facts baked in:
+ *   - 안 + verb = simple negation ("I don't go" 안 가요). 안 goes BEFORE the
+ *     verb (short negation), the most common spoken form.
+ *   - 못 + verb = inability ("I can't go" 못 가요) — circumstance, not skill.
+ *   - 하다-verbs split the negation: 공부 안 해요 / 공부 못 해요 (안/못 sits
+ *     between the noun and 하다, not before the whole word). Headline gotcha.
+ *   - "want to" = verb stem + 고 싶어요 (가다→가고 싶어요, 먹다→먹고 싶어요).
+ *
+ * CONTENT-TODO: native-speaker check the 안/못 placement rule (especially the
+ * 공부 안 해요 split) and the 고 싶어요 stem attachment for the verb set.
+ */
+const M11_VOCAB: KoAtom[] = [
+  atom({ surface: "안", meaningEn: "not (simple negation, before a verb)", romanization: "an", partOfSpeech: "adverb", fromModule: "m11", kind: "vocab" }),
+  atom({ surface: "못", meaningEn: "can't (inability, before a verb)", romanization: "mot", partOfSpeech: "adverb", fromModule: "m11", kind: "vocab" }),
+  // "want to" — verb stem + 고 싶어요
+  atom({ surface: "싶어요", meaningEn: "want to (with verb stem + 고)", romanization: "sipeoyo", partOfSpeech: "verb", fromModule: "m11", kind: "vocab", srsEligible: false }),
+  atom({ surface: "가고 싶어요", meaningEn: "want to go", romanization: "gago sipeoyo", partOfSpeech: "phrase", fromModule: "m11", kind: "phrase" }),
+  atom({ surface: "먹고 싶어요", meaningEn: "want to eat", romanization: "meokgo sipeoyo", partOfSpeech: "phrase", fromModule: "m11", kind: "phrase" }),
+];
+
+/**
+ * M12 vocab — "Time & the week" (clock + days). Telling time uses BOTH
+ * number systems: NATIVE numbers + 시 for the hour (한 시 = 1 o'clock),
+ * SINO numbers + 분 for minutes (삼십 분 = 30 minutes). Days of the week
+ * (요일) + the time particle 에 ("at"). Mirrors the JA M12 arc (〜じ / 〜ふん
+ * + days + に time marker) re-expressed in Korean.
+ *
+ * Korean facts baked in:
+ *   - Hours use NATIVE numbers with their pre-counter contractions
+ *     (한 시, 두 시, 세 시 — already taught in M5) + the counter 시.
+ *   - Minutes use SINO numbers (taught in M3) + 분.
+ *   - 에 marks the time of an event (세 시에 = "at 3 o'clock") — same 에 as
+ *     the M6 location particle, a discrimination point worth flagging.
+ *   - 반 = "half (past)": 한 시 반 = 1:30.
+ *
+ * CONTENT-TODO: native-speaker check the day-of-week surfaces and that the
+ * native-hour / Sino-minute split is taught in a beginner-friendly order.
+ */
+const M12_VOCAB: KoAtom[] = [
+  // Clock counters
+  atom({ surface: "시", meaningEn: "o'clock (hour counter)", romanization: "si", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
+  atom({ surface: "분", meaningEn: "minute(s)", romanization: "bun", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
+  atom({ surface: "반", meaningEn: "half (past the hour)", romanization: "ban", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
+  atom({ surface: "지금", meaningEn: "now", romanization: "jigeum", partOfSpeech: "adverb", fromModule: "m12", kind: "vocab" }),
+  atom({ surface: "몇", meaningEn: "how many / what (number)", romanization: "myeot", partOfSpeech: "other", fromModule: "m12", kind: "vocab" }),
+  // Days of the week
+  atom({ surface: "월요일", meaningEn: "Monday", romanization: "woryoil", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
+  atom({ surface: "화요일", meaningEn: "Tuesday", romanization: "hwayoil", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
+  atom({ surface: "수요일", meaningEn: "Wednesday", romanization: "suyoil", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
+  atom({ surface: "목요일", meaningEn: "Thursday", romanization: "mogyoil", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
+  atom({ surface: "금요일", meaningEn: "Friday", romanization: "geumyoil", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
+  atom({ surface: "토요일", meaningEn: "Saturday", romanization: "toyoil", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
+  atom({ surface: "일요일", meaningEn: "Sunday", romanization: "iryoil", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
+];
+
 // ─── Aggregate + lookup map ──────────────────────────────────────────────
 
 /**
@@ -417,6 +635,12 @@ export const KO_COURSE_ATOMS: ReadonlyArray<KoAtom> = [
   ...M4_VOCAB,
   ...M5_VOCAB,
   ...M6_VOCAB,
+  ...M7_VOCAB,
+  ...M8_VOCAB,
+  ...M9_VOCAB,
+  ...M10_VOCAB,
+  ...M11_VOCAB,
+  ...M12_VOCAB,
   ...JAMO_ATOMS,
   ...PARTICLE_ATOMS,
   ...SURVIVAL_ATOMS,
