@@ -1170,6 +1170,72 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m18-8", title: "M18 Mastery Test",                  status: "available" as const },
     ];
 
+    const m19Lessons = [
+      { id: "ko-m19-1", title: "Family — 가족, 엄마, 아빠",          status: "available" as const },
+      { id: "ko-m19-2", title: "Siblings — 형 / 오빠 / 누나 / 언니",  status: "available" as const },
+      { id: "ko-m19-3", title: "우리 — our / my (family)",           status: "available" as const },
+      { id: "ko-m19-4", title: "Counting people — 명",              status: "available" as const },
+      { id: "ko-m19-5", title: "Age — 살",                          status: "available" as const },
+      { id: "ko-m19-6", title: "Describing your family",            status: "available" as const },
+      { id: "ko-m19-7", title: "Mini-dialogue — family",            status: "available" as const },
+      { id: "ko-m19-8", title: "M19 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m20Lessons = [
+      { id: "ko-m20-1", title: "Body — 머리, 눈, 코, 입",            status: "available" as const },
+      { id: "ko-m20-2", title: "Body — 손, 발, 배, 목",             status: "available" as const },
+      { id: "ko-m20-3", title: "아프다 — to hurt / be sick",         status: "available" as const },
+      { id: "ko-m20-4", title: "Health — 병원, 약, 감기, 열",        status: "available" as const },
+      { id: "ko-m20-5", title: "(으)니까 — because / since",        status: "available" as const },
+      { id: "ko-m20-6", title: "Explaining you're sick",            status: "available" as const },
+      { id: "ko-m20-7", title: "Mini-dialogue — at the doctor's",    status: "available" as const },
+      { id: "ko-m20-8", title: "M20 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m21Lessons = [
+      { id: "ko-m21-1", title: "Food — 고기, 생선, 채소, 과일",       status: "available" as const },
+      { id: "ko-m21-2", title: "Dishes — 김치, 비빔밥, 라면",        status: "available" as const },
+      { id: "ko-m21-3", title: "하고 / (이)랑 — and / with",        status: "available" as const },
+      { id: "ko-m21-4", title: "Counting drinks — 잔",             status: "available" as const },
+      { id: "ko-m21-5", title: "(이)라고 하다 — it's called …",      status: "available" as const },
+      { id: "ko-m21-6", title: "Ordering food",                     status: "available" as const },
+      { id: "ko-m21-7", title: "Mini-dialogue — at a restaurant",    status: "available" as const },
+      { id: "ko-m21-8", title: "M21 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m22Lessons = [
+      { id: "ko-m22-1", title: "보다 — than",                       status: "available" as const },
+      { id: "ko-m22-2", title: "더 / 덜 — more / less",             status: "available" as const },
+      { id: "ko-m22-3", title: "제일 / 가장 — the most",            status: "available" as const },
+      { id: "ko-m22-4", title: "중에서 — among / out of",          status: "available" as const },
+      { id: "ko-m22-5", title: "Which is more …?",                  status: "available" as const },
+      { id: "ko-m22-6", title: "Comparing food & places",           status: "available" as const },
+      { id: "ko-m22-7", title: "Mini-dialogue — which is better?",   status: "available" as const },
+      { id: "ko-m22-8", title: "M22 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m23Lessons = [
+      { id: "ko-m23-1", title: "Activities — 수영, 운전, 노래, 요리",  status: "available" as const },
+      { id: "ko-m23-2", title: "(으)ㄹ 수 있다 / 없다 — can / cannot", status: "available" as const },
+      { id: "ko-m23-3", title: "잘하다 / 못하다 — good / bad at",     status: "available" as const },
+      { id: "ko-m23-4", title: "(으)ㄹ까요? — shall we …?",          status: "available" as const },
+      { id: "ko-m23-5", title: "(으)ㅂ시다 — let's …",              status: "available" as const },
+      { id: "ko-m23-6", title: "Making plans",                      status: "available" as const },
+      { id: "ko-m23-7", title: "Mini-dialogue — let's do something", status: "available" as const },
+      { id: "ko-m23-8", title: "M23 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m24Lessons = [
+      { id: "ko-m24-1", title: "Hobbies — 취미, 그림, 사진, 음악",     status: "available" as const },
+      { id: "ko-m24-2", title: "(으)ㄹ 줄 알다 / 모르다 — know how to", status: "available" as const },
+      { id: "ko-m24-3", title: "거나 — or (doing X or Y)",          status: "available" as const },
+      { id: "ko-m24-4", title: "Counting times — 번",              status: "available" as const },
+      { id: "ko-m24-5", title: "How often — 일주일에 두 번",         status: "available" as const },
+      { id: "ko-m24-6", title: "Describing your hobbies",           status: "available" as const },
+      { id: "ko-m24-7", title: "Mini-dialogue — hobbies",           status: "available" as const },
+      { id: "ko-m24-8", title: "M24 Mastery Test",                  status: "available" as const },
+    ];
+
     const sideQuests: SideQuest[] = [
       {
         id: "ko-survival-phrasebook",
@@ -1354,6 +1420,54 @@ export function getMockCourse(languageId: string): Course {
           summary: "Weather & seasons, the ㅂ-irregular 덥다/춥다, the future (으)ㄹ 거예요, and 것 같아요 (it seems).",
           lessons: m18Lessons,
           accent: { from: "#8b5cf6", to: "#7c3aed" },
+        },
+        {
+          id: "m19",
+          title: "Family & people",
+          eyebrow: "Module 19 · Kin",
+          summary: "Family & sibling words, the in-group 우리 ('my'), counting people with 명, and giving ages with 살.",
+          lessons: m19Lessons,
+          accent: { from: "#f43f5e", to: "#e11d48" },
+        },
+        {
+          id: "m20",
+          title: "Body & health",
+          eyebrow: "Module 20 · Care",
+          summary: "Body parts, the ㅡ-irregular 아파요 ('hurts'), health vocab, and the reason connector (으)니까.",
+          lessons: m20Lessons,
+          accent: { from: "#10b981", to: "#059669" },
+        },
+        {
+          id: "m21",
+          title: "Food & restaurants",
+          eyebrow: "Module 21 · Dine",
+          summary: "Food & Korean dishes, listing with 하고/(이)랑, counting drinks with 잔, and naming with (이)라고 하다.",
+          lessons: m21Lessons,
+          accent: { from: "#f59e0b", to: "#d97706" },
+        },
+        {
+          id: "m22",
+          title: "Comparison",
+          eyebrow: "Module 22 · Compare",
+          summary: "Comparatives with 보다 and 더/덜, superlatives with 제일/가장, and picking the best with 중에서.",
+          lessons: m22Lessons,
+          accent: { from: "#06b6d4", to: "#0891b2" },
+        },
+        {
+          id: "m23",
+          title: "Ability & suggestions",
+          eyebrow: "Module 23 · Plan",
+          summary: "Ability with (으)ㄹ 수 있다/없다, skills with 잘하다/못하다, and suggestions with (으)ㄹ까요? / (으)ㅂ시다.",
+          lessons: m23Lessons,
+          accent: { from: "#6366f1", to: "#4f46e5" },
+        },
+        {
+          id: "m24",
+          title: "Hobbies & activities",
+          eyebrow: "Module 24 · Enjoy",
+          summary: "Hobby vocab, knowing how with (으)ㄹ 줄 알다/모르다, alternatives with 거나, and counting times with 번.",
+          lessons: m24Lessons,
+          accent: { from: "#a855f7", to: "#9333ea" },
         },
       ],
       sideQuests,

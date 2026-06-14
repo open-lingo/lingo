@@ -22,6 +22,12 @@ import { KO_M15_LESSONS } from "@/features/languages/ko/curriculum/m15";
 import { KO_M16_LESSONS } from "@/features/languages/ko/curriculum/m16";
 import { KO_M17_LESSONS } from "@/features/languages/ko/curriculum/m17";
 import { KO_M18_LESSONS } from "@/features/languages/ko/curriculum/m18";
+import { KO_M19_LESSONS } from "@/features/languages/ko/curriculum/m19";
+import { KO_M20_LESSONS } from "@/features/languages/ko/curriculum/m20";
+import { KO_M21_LESSONS } from "@/features/languages/ko/curriculum/m21";
+import { KO_M22_LESSONS } from "@/features/languages/ko/curriculum/m22";
+import { KO_M23_LESSONS } from "@/features/languages/ko/curriculum/m23";
+import { KO_M24_LESSONS } from "@/features/languages/ko/curriculum/m24";
 import { MOCK_LESSON_KO_SIDEQUEST_SURVIVAL } from "@/features/languages/ko/curriculum/sidequest-survival";
 import {
   MOCK_LESSON_JA_M1_L1A,
@@ -377,6 +383,24 @@ const KOREAN_M17_LESSONS: Record<string, LessonContent> = Object.fromEntries(
 const KOREAN_M18_LESSONS: Record<string, LessonContent> = Object.fromEntries(
   KO_M18_LESSONS.map((l) => [l.id, l]),
 );
+const KOREAN_M19_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M19_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M20_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M20_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M21_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M21_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M22_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M22_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M23_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M23_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M24_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M24_LESSONS.map((l) => [l.id, l]),
+);
 
 const LESSONS: Record<string, LessonContent> = {
   // ─── Korean — Module 1 (Hangul foundation, 2026-05-19) ───────────────
@@ -430,6 +454,12 @@ const LESSONS: Record<string, LessonContent> = {
   ...KOREAN_M16_LESSONS,
   ...KOREAN_M17_LESSONS,
   ...KOREAN_M18_LESSONS,
+  ...KOREAN_M19_LESSONS,
+  ...KOREAN_M20_LESSONS,
+  ...KOREAN_M21_LESSONS,
+  ...KOREAN_M22_LESSONS,
+  ...KOREAN_M23_LESSONS,
+  ...KOREAN_M24_LESSONS,
   "ko-sidequest-survival-phrases": MOCK_LESSON_KO_SIDEQUEST_SURVIVAL,
   // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,
