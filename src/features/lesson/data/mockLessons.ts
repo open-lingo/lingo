@@ -28,6 +28,9 @@ import { KO_M21_LESSONS } from "@/features/languages/ko/curriculum/m21";
 import { KO_M22_LESSONS } from "@/features/languages/ko/curriculum/m22";
 import { KO_M23_LESSONS } from "@/features/languages/ko/curriculum/m23";
 import { KO_M24_LESSONS } from "@/features/languages/ko/curriculum/m24";
+import { KO_M25_LESSONS } from "@/features/languages/ko/curriculum/m25";
+import { KO_M26_LESSONS } from "@/features/languages/ko/curriculum/m26";
+import { KO_M27_LESSONS } from "@/features/languages/ko/curriculum/m27";
 import { MOCK_LESSON_KO_SIDEQUEST_SURVIVAL } from "@/features/languages/ko/curriculum/sidequest-survival";
 import {
   MOCK_LESSON_JA_M1_L1A,
@@ -401,6 +404,15 @@ const KOREAN_M23_LESSONS: Record<string, LessonContent> = Object.fromEntries(
 const KOREAN_M24_LESSONS: Record<string, LessonContent> = Object.fromEntries(
   KO_M24_LESSONS.map((l) => [l.id, l]),
 );
+const KOREAN_M25_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M25_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M26_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M26_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M27_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M27_LESSONS.map((l) => [l.id, l]),
+);
 
 const LESSONS: Record<string, LessonContent> = {
   // ─── Korean — Module 1 (Hangul foundation, 2026-05-19) ───────────────
@@ -460,6 +472,15 @@ const LESSONS: Record<string, LessonContent> = {
   ...KOREAN_M22_LESSONS,
   ...KOREAN_M23_LESSONS,
   ...KOREAN_M24_LESSONS,
+  // ─── Korean — Modules 25-27 (final KO module parity, M1-M27) ─────────
+  // M25 plans & intentions ((으)려고 하다 + (으)러 가다 + (으)ㄴ 적이 있다 +
+  // (으)ㄹ 때), M26 explaining & excess (거든요 + 너무 + 아/어서 + connectives),
+  // M27 modal grammar (아/어야 되다 + 는 게 좋다 + 아/어지다 + 이/가 되다).
+  // Mirrors the JA M25-M27 arc in Korean's own grammar. Completes KO module
+  // parity with JA. Backs the M25-M27 pathway nodes added in mockCourse.ts.
+  ...KOREAN_M25_LESSONS,
+  ...KOREAN_M26_LESSONS,
+  ...KOREAN_M27_LESSONS,
   "ko-sidequest-survival-phrases": MOCK_LESSON_KO_SIDEQUEST_SURVIVAL,
   // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,
