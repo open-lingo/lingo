@@ -101,6 +101,23 @@ export type UserSettings = {
      * so it won't re-fire if the learner turns it back off manually.
      */
     buildTileRomajiAutoFlipped?: boolean;
+    /**
+     * Self-chosen daily study target in minutes (FTUE goal-setting step).
+     * Drives the home Daily-goal card. Default 10. The learner picks this in
+     * the first-session arc; evidence shows self-chosen goals retain better
+     * than assigned ones (docs/ftue-design-2026-06-14.md).
+     */
+    dailyGoalMinutes?: number;
+    /**
+     * One-shot: true after the new-user first-session arc (motivation →
+     * daily goal → optional placement) has run. Separate from
+     * `onboardingCompleted` (which only marks the language pick). The arc
+     * shows once, only to brand-new users (no lesson progress).
+     */
+    ftueArcSeen?: boolean;
+    /** Optional motivation the learner picked in the arc (travel/culture/…).
+     *  Recorded for later personalization; no behavior depends on it yet. */
+    motivation?: string;
   };
   display?: {
     dateLocale?: string;
@@ -140,6 +157,8 @@ export const DEFAULT_SETTINGS: UserSettings = {
     romajiAutoFlipped: false,
     hideBuildTileRomaji: false,
     buildTileRomajiAutoFlipped: false,
+    dailyGoalMinutes: 10,
+    ftueArcSeen: false,
   },
   display: {},
   flashcards: {

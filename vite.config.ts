@@ -168,5 +168,10 @@ export default defineConfig({
     setupFiles: ["./src/test/setup.ts"],
     css: false,
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
+    // Several integration tests walk the entire JA curriculum (build every
+    // lesson) and legitimately take 5-11s; the 5s default flakes them under
+    // machine load. A real assertion failure still fails instantly — this
+    // only prevents slow-but-passing whole-course walks from timing out.
+    testTimeout: 20000,
   },
 });

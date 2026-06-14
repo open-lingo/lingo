@@ -42,6 +42,7 @@ import { useLearnProfile } from "./hooks/useLearnProfile";
 import { LearnMapScrollArea } from "./components/LearnMapScrollArea";
 import { PlacementPrompt } from "@/features/placement/components/PlacementPrompt";
 import { isPlacementDismissed, dismissPlacement } from "@/features/placement/hooks/usePlacementDismissed";
+import { getStoredSettings } from "@/features/settings/storage";
 import { LearnSidebar } from "./components/LearnSidebar";
 import { LearnTopBar } from "./components/LearnTopBar";
 import { LearnDevPanel } from "./components/LearnDevPanel";
@@ -66,7 +67,11 @@ export function LearnPage() {
     !placementDismissedByUser &&
     language?.id === "ja" &&
     !isPlacementDismissed() &&
-    completedIds.length === 0;
+    completedIds.length === 0 &&
+    // The first-session arc (FirstSessionArc) owns the new-user placement
+    // offer; only fall back to this standalone prompt once the arc has run
+    // (it dismisses placement on finish, so in practice this stays hidden).
+    getStoredSettings()?.learning?.ftueArcSeen === true;
 
   // Telemetry: one page_view per language visit. Stable ref so React 19
   // StrictMode + language changes during dev don't double-fire.
