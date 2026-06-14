@@ -2,11 +2,16 @@ import { createContext, useContext, useState, useCallback, type ReactNode } from
 import { DeckPreviewModal } from "@/features/flashcards/DeckPreviewModal";
 import { StoryPreviewModal } from "@/features/stories/StoryPreviewModal";
 import type { FlashcardDeck } from "@/features/flashcards/data/types";
+import type { DeckPreviewAuthor } from "@/features/flashcards/components/DeckPreviewHeader";
 import type { CommunityAddon } from "./types";
 import type { StoryResponse } from "@/shared/api/stories";
 
 type DeckPreviewOptions = {
   onSubscriptionChange?: () => void;
+  /** Resolved author (name + avatar) for the deck masthead. */
+  author?: DeckPreviewAuthor;
+  /** Caller-known upvote count (e.g. from the marketplace item). */
+  upvoteCount?: number;
 };
 
 type StoryPreviewOptions = {
@@ -78,6 +83,8 @@ export function CommunityContentProvider({ children }: { children: ReactNode }) 
         <DeckPreviewModal
           deck={previewDeck}
           addon={previewAddon}
+          author={deckPreviewOptions.author}
+          upvoteCount={deckPreviewOptions.upvoteCount}
           onClose={closePreview}
           onSubscriptionChange={deckPreviewOptions.onSubscriptionChange}
         />

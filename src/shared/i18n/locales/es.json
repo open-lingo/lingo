@@ -311,7 +311,24 @@
       "edit": "Editar",
       "selectedCount": "{{count}} seleccionadas",
       "clearSelection": "Limpiar"
-    }
+    },
+    "unsubscribe": "Cancelar suscripción",
+    "complexityMix": "{{complex}} complejas · {{simple}} simples",
+    "complexLabel": "complejas",
+    "simpleLabel": "simples",
+    "difficultyDistribution": "Distribución de dificultad",
+    "difficultyEasy": "Fácil",
+    "difficultyMedium": "Media",
+    "difficultyHard": "Difícil",
+    "maintainerLabel": "Mantenedor",
+    "removeUpvote": "Quitar voto",
+    "upvote": "Votar",
+    "previousCard": "Tarjeta anterior",
+    "nextCard": "Tarjeta siguiente",
+    "cardCounter": "{{current}} de {{total}}",
+    "statsUnavailable": "Estadísticas detalladas no disponibles para este paquete.",
+    "subscribedHint": "Repasa estas tarjetas desde tu práctica de tarjetas.",
+    "subscribeHint": "Suscríbete para añadir este mazo a tus repasos."
   },
   "home": {
     "welcomeBack": "Bienvenido de nuevo, {{name}}",
