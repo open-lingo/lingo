@@ -30,7 +30,7 @@ import { KudosButton } from "../components/KudosButton";
 import { PickFriendModal } from "../components/PickFriendModal";
 import { useThreads } from "../hooks/useSocial";
 import { useApiOptional } from "@/shared/api";
-import { useAuth } from "@/shared/auth/useAuth";
+import { useMe } from "@/shared/hooks/useMe";
 import { adaptThread, adaptThreadDetail } from "../hooks/socialAdapters";
 import type { ChatMessage, ChatThread, SocialUser } from "../types";
 
@@ -45,7 +45,6 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
   const { t } = useTranslation();
   const { data, isLoading } = useThreads();
   const apiOpt = useApiOptional();
-  const { user: auth0User, isAuthenticated } = useAuth();
   const [threads, setThreads] = useState<ChatThread[]>([]);
   const [activeId, setActiveId] = useState<string>("");
   const [draft, setDraft] = useState("");
@@ -67,15 +66,10 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
   }, [data, threads.length, initialFriendId]);
 
   // Resolve the current user's backend id so message bubbles can correctly
-  // mark "me". We use the lightweight `users.getMe()` call already
-  // memoized by `useApi`. Falls back to the auth0 sub when offline / mock.
-  const meQuery = useQuery({
-    queryKey: ["users", auth0User?.sub ?? "anon", "me"],
-    queryFn: () => apiOpt!.users.getMe(),
-    enabled: !!apiOpt && isAuthenticated,
-    staleTime: 60_000,
-  });
-  const meUserId = meQuery.data?.id ?? null;
+  // mark "me". Shared `useMe()` query — dedupes against the masthead / nav
+  // avatar etc. under the same key + 5-min staleTime.
+  const { me } = useMe();
+  const meUserId = me?.id ?? null;
 
   // When a thread is selected and we don't have its messages yet, fetch the
   // detail and splice in the seeded history. Subsequent local sends append

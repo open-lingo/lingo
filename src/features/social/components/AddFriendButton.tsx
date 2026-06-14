@@ -16,12 +16,13 @@
  * cross-check against either field.
  */
 import { useMemo } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 import { useApiOptional } from "@/shared/api";
 import { useAuth } from "@/shared/auth/useAuth";
+import { useMe } from "@/shared/hooks/useMe";
 import { useSendFriendRequest } from "../hooks/useSocialMutations";
 import { SOCIAL_QUERY_KEYS } from "../hooks/useSocial";
 import type { Friend as ApiFriend, FriendRequestsBundle } from "@/shared/api/social";
@@ -44,18 +45,10 @@ function caseInsensitiveEqual(a: string | undefined | null, b: string | undefine
   return a.toLocaleLowerCase() === b.toLocaleLowerCase();
 }
 
-/** Resolve current user's username via `users.getMe()`. Returns null when
- *  unauthenticated or the API client isn't mounted. */
+/** Resolve current user's username via the shared `useMe()` query. Returns
+ *  null when unauthenticated or the API client isn't mounted. */
 function useMyUsername(): string | null {
-  const apiOpt = useApiOptional();
-  const { isAuthenticated, user } = useAuth();
-  const userIdKey = user?.sub ?? "anon";
-  const { data: me } = useQuery({
-    queryKey: ["users", userIdKey, "me"],
-    queryFn: () => apiOpt!.users.getMe(),
-    enabled: !!apiOpt && isAuthenticated,
-    staleTime: 60_000,
-  });
+  const { me } = useMe();
   return me?.username ?? null;
 }
 
