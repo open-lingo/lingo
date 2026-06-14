@@ -16,6 +16,12 @@ import { KO_M9_LESSONS } from "@/features/languages/ko/curriculum/m9";
 import { KO_M10_LESSONS } from "@/features/languages/ko/curriculum/m10";
 import { KO_M11_LESSONS } from "@/features/languages/ko/curriculum/m11";
 import { KO_M12_LESSONS } from "@/features/languages/ko/curriculum/m12";
+import { KO_M13_LESSONS } from "@/features/languages/ko/curriculum/m13";
+import { KO_M14_LESSONS } from "@/features/languages/ko/curriculum/m14";
+import { KO_M15_LESSONS } from "@/features/languages/ko/curriculum/m15";
+import { KO_M16_LESSONS } from "@/features/languages/ko/curriculum/m16";
+import { KO_M17_LESSONS } from "@/features/languages/ko/curriculum/m17";
+import { KO_M18_LESSONS } from "@/features/languages/ko/curriculum/m18";
 import { MOCK_LESSON_KO_SIDEQUEST_SURVIVAL } from "@/features/languages/ko/curriculum/sidequest-survival";
 import {
   MOCK_LESSON_JA_M1_L1A,
@@ -353,6 +359,24 @@ const KOREAN_M11_LESSONS: Record<string, LessonContent> = Object.fromEntries(
 const KOREAN_M12_LESSONS: Record<string, LessonContent> = Object.fromEntries(
   KO_M12_LESSONS.map((l) => [l.id, l]),
 );
+const KOREAN_M13_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M13_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M14_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M14_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M15_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M15_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M16_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M16_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M17_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M17_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M18_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M18_LESSONS.map((l) => [l.id, l]),
+);
 
 const LESSONS: Record<string, LessonContent> = {
   // ─── Korean — Module 1 (Hangul foundation, 2026-05-19) ───────────────
@@ -391,6 +415,21 @@ const LESSONS: Record<string, LessonContent> = {
   ...KOREAN_M10_LESSONS,
   ...KOREAN_M11_LESSONS,
   ...KOREAN_M12_LESSONS,
+  // ─── Korean — Modules 13-18 (2026-06-13) ─────────────────────────────
+  // N4-ish spine continuing KO→JA parity. M13 months/frequency/부터·까지·
+  // 그래서, M14 clause connectives (고 / 아·어서) + 아·어 주세요 requests +
+  // big numbers, M15 progressive (고 있어요) + permission (도 돼요) + 지만,
+  // M16 prohibition ((으)면 안 돼요) + 지 마세요 + 고 나서 + 좋아하다/싫어하다,
+  // M17 transport + (으)로 + 타다/내리다 + directions + place 까지, M18
+  // weather/seasons + future ((으)ㄹ 거예요) + 것 같아요. Mirrors the JA
+  // M13-M18 arc in Korean's own grammar. Backs the M13-M18 pathway nodes
+  // added to the KO course in mockCourse.ts.
+  ...KOREAN_M13_LESSONS,
+  ...KOREAN_M14_LESSONS,
+  ...KOREAN_M15_LESSONS,
+  ...KOREAN_M16_LESSONS,
+  ...KOREAN_M17_LESSONS,
+  ...KOREAN_M18_LESSONS,
   "ko-sidequest-survival-phrases": MOCK_LESSON_KO_SIDEQUEST_SURVIVAL,
   // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,

@@ -30,6 +30,12 @@ export type KoAtomSource =
   | "m10"
   | "m11"
   | "m12"
+  | "m13"
+  | "m14"
+  | "m15"
+  | "m16"
+  | "m17"
+  | "m18"
   | "sidequest-survival"
   | "future";
 
@@ -616,6 +622,143 @@ const M12_VOCAB: KoAtom[] = [
   atom({ surface: "일요일", meaningEn: "Sunday", romanization: "iryoil", partOfSpeech: "noun", fromModule: "m12", kind: "vocab" }),
 ];
 
+/**
+ * M13 — Months, frequency, and 부터/까지 + 아서/어서 (reason).
+ * Months are Sino number + 월 (1월 = 일월). 6월/10월 contract: 유월, 시월
+ * (NOT 육월/십월) — a real spelling rule, taught explicitly in the lessons.
+ */
+const M13_VOCAB: KoAtom[] = [
+  // Month counter + the two irregulars worth registering as anchors
+  atom({ surface: "월", meaningEn: "month (counter, with Sino numbers)", romanization: "wol", partOfSpeech: "noun", fromModule: "m13", kind: "vocab" }),
+  atom({ surface: "유월", meaningEn: "June (irregular: not 육월)", romanization: "yuwol", partOfSpeech: "noun", fromModule: "m13", kind: "vocab" }),
+  atom({ surface: "시월", meaningEn: "October (irregular: not 십월)", romanization: "siwol", partOfSpeech: "noun", fromModule: "m13", kind: "vocab" }),
+  // Frequency adverbs
+  atom({ surface: "항상", meaningEn: "always", romanization: "hangsang", partOfSpeech: "adverb", fromModule: "m13", kind: "vocab" }),
+  atom({ surface: "자주", meaningEn: "often", romanization: "jaju", partOfSpeech: "adverb", fromModule: "m13", kind: "vocab" }),
+  atom({ surface: "가끔", meaningEn: "sometimes", romanization: "gakkeum", partOfSpeech: "adverb", fromModule: "m13", kind: "vocab" }),
+  atom({ surface: "별로", meaningEn: "not really / not much (with negative)", romanization: "byeollo", partOfSpeech: "adverb", fromModule: "m13", kind: "vocab" }),
+  atom({ surface: "전혀", meaningEn: "(not) at all (with negative)", romanization: "jeonhyeo", partOfSpeech: "adverb", fromModule: "m13", kind: "vocab" }),
+  // 비 (rain) already registered in M1; reused here (no re-declare).
+  // Range particles
+  atom({ surface: "부터", meaningEn: "from (a starting time)", romanization: "buteo", partOfSpeech: "particle", fromModule: "m13", kind: "particle" }),
+  atom({ surface: "까지", meaningEn: "until / up to", romanization: "kkaji", partOfSpeech: "particle", fromModule: "m13", kind: "particle" }),
+  // Reason connective (te-form 'so/because' equivalent)
+  atom({ surface: "그래서", meaningEn: "so / therefore", romanization: "geuraeseo", partOfSpeech: "adverb", fromModule: "m13", kind: "vocab" }),
+  // Daily-routine vocab supporting the frequency sentences
+  atom({ surface: "회사", meaningEn: "company / workplace", romanization: "hoesa", emoji: "🏢", partOfSpeech: "noun", fromModule: "m13", kind: "vocab" }),
+  atom({ surface: "운동", meaningEn: "exercise / working out", romanization: "undong", emoji: "🏃", partOfSpeech: "noun", fromModule: "m13", kind: "vocab" }),
+];
+
+/**
+ * M14 — Connecting clauses: 고 (and-then), 아/어서 (sequence), 아/어 주세요
+ * (do-for-me requests) + big Sino numbers 백/천/만.
+ * 고 is the Korean workhorse for "and then / and also" between clauses —
+ * the closest functional analog to the JA て-form's listing/sequencing role.
+ */
+const M14_VOCAB: KoAtom[] = [
+  // Clause connectives
+  atom({ surface: "고", meaningEn: "and / and then (joins clauses)", romanization: "go", partOfSpeech: "particle", fromModule: "m14", kind: "particle" }),
+  atom({ surface: "아서", meaningEn: "and so / and then (after ㅏ/ㅗ stem)", romanization: "aseo", partOfSpeech: "grammar", fromModule: "m14", kind: "vocab", srsEligible: false }),
+  atom({ surface: "어서", meaningEn: "and so / and then (other stems)", romanization: "eoseo", partOfSpeech: "grammar", fromModule: "m14", kind: "vocab", srsEligible: false }),
+  // Request form
+  // 주세요 (please give) already registered in M5; M14 extends it to the
+  // "verb-아/어 + 주세요" do-for-me request (no re-declare of the bare form).
+  atom({ surface: "도와주세요", meaningEn: "please help (me)", romanization: "dowajuseyo", partOfSpeech: "phrase", fromModule: "m14", kind: "phrase" }),
+  // Big Sino numbers (원 'won' already in M5)
+  atom({ surface: "백", meaningEn: "hundred", romanization: "baek", partOfSpeech: "noun", fromModule: "m14", kind: "vocab" }),
+  atom({ surface: "천", meaningEn: "thousand", romanization: "cheon", partOfSpeech: "noun", fromModule: "m14", kind: "vocab" }),
+  atom({ surface: "만", meaningEn: "ten thousand", romanization: "man", partOfSpeech: "noun", fromModule: "m14", kind: "vocab" }),
+  // Support verbs used in request sentences
+  atom({ surface: "기다리다", meaningEn: "to wait (dictionary form)", romanization: "gidarida", partOfSpeech: "verb", fromModule: "m14", kind: "vocab", srsEligible: false }),
+  atom({ surface: "기다려 주세요", meaningEn: "please wait (for me)", romanization: "gidaryeo juseyo", partOfSpeech: "phrase", fromModule: "m14", kind: "phrase" }),
+];
+
+/**
+ * M15 — 고 있어요 (progressive), 아/어도 돼요 (permission), 지만 (but).
+ * 고 싶어요 (want to) is already taught in M11; M15 builds the rest of the
+ * "ongoing action + permission + contrast" cluster (JA's ている / てもいい /
+ * けど arc).
+ */
+const M15_VOCAB: KoAtom[] = [
+  atom({ surface: "고 있어요", meaningEn: "is ...-ing (progressive)", romanization: "go isseoyo", partOfSpeech: "grammar", fromModule: "m15", kind: "vocab", srsEligible: false }),
+  atom({ surface: "도 돼요", meaningEn: "may / it's okay to (permission)", romanization: "do dwaeyo", partOfSpeech: "grammar", fromModule: "m15", kind: "vocab", srsEligible: false }),
+  atom({ surface: "지만", meaningEn: "but / although (joins clauses)", romanization: "jiman", partOfSpeech: "particle", fromModule: "m15", kind: "particle" }),
+  // Support verbs
+  atom({ surface: "자다", meaningEn: "to sleep (dictionary form)", romanization: "jada", partOfSpeech: "verb", fromModule: "m15", kind: "vocab", srsEligible: false }),
+  atom({ surface: "쉬다", meaningEn: "to rest (dictionary form)", romanization: "swida", partOfSpeech: "verb", fromModule: "m15", kind: "vocab", srsEligible: false }),
+  atom({ surface: "전화", meaningEn: "phone / phone call", romanization: "jeonhwa", emoji: "📞", partOfSpeech: "noun", fromModule: "m15", kind: "vocab" }),
+];
+
+/**
+ * M16 — Prohibition + negative requests + sequence + like/dislike.
+ * 으면 안 돼요 (must not), 지 마세요 (please don't), 고 나서 (after doing),
+ * 좋아하다/싫어하다 (like/dislike doing). Mirrors JA M16.
+ */
+const M16_VOCAB: KoAtom[] = [
+  atom({ surface: "으면 안 돼요", meaningEn: "must not / you may not (after consonant)", romanization: "eumyeon an dwaeyo", partOfSpeech: "grammar", fromModule: "m16", kind: "vocab", srsEligible: false }),
+  atom({ surface: "면 안 돼요", meaningEn: "must not / you may not (after vowel)", romanization: "myeon an dwaeyo", partOfSpeech: "grammar", fromModule: "m16", kind: "vocab", srsEligible: false }),
+  atom({ surface: "지 마세요", meaningEn: "please don't (do)", romanization: "ji maseyo", partOfSpeech: "grammar", fromModule: "m16", kind: "vocab", srsEligible: false }),
+  atom({ surface: "고 나서", meaningEn: "after doing (then)", romanization: "go naseo", partOfSpeech: "grammar", fromModule: "m16", kind: "vocab", srsEligible: false }),
+  atom({ surface: "좋아하다", meaningEn: "to like (dictionary form)", romanization: "joahada", partOfSpeech: "verb", fromModule: "m16", kind: "vocab", srsEligible: false }),
+  atom({ surface: "좋아해요", meaningEn: "like(s) (polite)", romanization: "joahaeyo", partOfSpeech: "verb", fromModule: "m16", kind: "vocab" }),
+  atom({ surface: "싫어하다", meaningEn: "to dislike (dictionary form)", romanization: "sireohada", partOfSpeech: "verb", fromModule: "m16", kind: "vocab", srsEligible: false }),
+  atom({ surface: "싫어해요", meaningEn: "dislike(s) (polite)", romanization: "sireohaeyo", partOfSpeech: "verb", fromModule: "m16", kind: "vocab" }),
+  atom({ surface: "담배", meaningEn: "cigarette(s)", romanization: "dambae", emoji: "🚬", partOfSpeech: "noun", fromModule: "m16", kind: "vocab" }),
+];
+
+/**
+ * M17 — Transportation & directions: (으)로 (by means), directions vocab,
+ * 까지 (as far as, reused from M13). Mirrors JA M17 (で transport / direction).
+ */
+const M17_VOCAB: KoAtom[] = [
+  // Means particle
+  atom({ surface: "로", meaningEn: "by / by means of (after vowel or ㄹ)", romanization: "ro", partOfSpeech: "particle", fromModule: "m17", kind: "particle" }),
+  atom({ surface: "으로", meaningEn: "by / by means of (after consonant)", romanization: "euro", partOfSpeech: "particle", fromModule: "m17", kind: "particle" }),
+  // Transport vocab
+  atom({ surface: "버스", meaningEn: "bus", romanization: "beoseu", emoji: "🚌", partOfSpeech: "noun", fromModule: "m17", kind: "vocab" }),
+  atom({ surface: "지하철", meaningEn: "subway", romanization: "jihacheol", emoji: "🚇", partOfSpeech: "noun", fromModule: "m17", kind: "vocab" }),
+  atom({ surface: "택시", meaningEn: "taxi", romanization: "taeksi", emoji: "🚕", partOfSpeech: "noun", fromModule: "m17", kind: "vocab" }),
+  atom({ surface: "기차", meaningEn: "train", romanization: "gicha", emoji: "🚆", partOfSpeech: "noun", fromModule: "m17", kind: "vocab" }),
+  atom({ surface: "비행기", meaningEn: "airplane", romanization: "bihaenggi", emoji: "✈️", partOfSpeech: "noun", fromModule: "m17", kind: "vocab" }),
+  // 역 (station) already registered in M6; reused here (no re-declare).
+  // Directions
+  atom({ surface: "왼쪽", meaningEn: "left side", romanization: "oenjjok", partOfSpeech: "noun", fromModule: "m17", kind: "vocab" }),
+  atom({ surface: "오른쪽", meaningEn: "right side", romanization: "oreunjjok", partOfSpeech: "noun", fromModule: "m17", kind: "vocab" }),
+  atom({ surface: "똑바로", meaningEn: "straight ahead", romanization: "ttokbaro", partOfSpeech: "adverb", fromModule: "m17", kind: "vocab" }),
+  // Motion verbs
+  atom({ surface: "타다", meaningEn: "to ride / get on (dictionary form)", romanization: "tada", partOfSpeech: "verb", fromModule: "m17", kind: "vocab", srsEligible: false }),
+  atom({ surface: "타요", meaningEn: "ride / get on (polite)", romanization: "tayo", partOfSpeech: "verb", fromModule: "m17", kind: "vocab" }),
+  atom({ surface: "내리다", meaningEn: "to get off (dictionary form)", romanization: "naerida", partOfSpeech: "verb", fromModule: "m17", kind: "vocab", srsEligible: false }),
+];
+
+/**
+ * M18 — Weather & nature + future / probability: 을 거예요 (will / probably),
+ * 겠어요 (I'll / it'll), 것 같아요 (I think / it seems). Mirrors JA M18
+ * (でしょう / とおもいます).
+ */
+const M18_VOCAB: KoAtom[] = [
+  // Weather & nature
+  atom({ surface: "날씨", meaningEn: "weather", romanization: "nalssi", emoji: "🌤️", partOfSpeech: "noun", fromModule: "m18", kind: "vocab" }),
+  atom({ surface: "맑다", meaningEn: "to be clear / sunny (dictionary form)", romanization: "makda", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab", srsEligible: false }),
+  atom({ surface: "맑아요", meaningEn: "is clear / sunny (polite)", romanization: "malgayo", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab" }),
+  atom({ surface: "흐리다", meaningEn: "to be cloudy (dictionary form)", romanization: "heurida", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab", srsEligible: false }),
+  atom({ surface: "흐려요", meaningEn: "is cloudy (polite)", romanization: "heuryeoyo", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab" }),
+  atom({ surface: "눈", meaningEn: "snow", romanization: "nun", emoji: "❄️", partOfSpeech: "noun", fromModule: "m18", kind: "vocab" }),
+  atom({ surface: "바람", meaningEn: "wind", romanization: "baram", emoji: "💨", partOfSpeech: "noun", fromModule: "m18", kind: "vocab" }),
+  atom({ surface: "덥다", meaningEn: "to be hot (weather, dictionary form)", romanization: "deopda", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab", srsEligible: false }),
+  atom({ surface: "더워요", meaningEn: "is hot (polite, ㅂ-irregular)", romanization: "deowoyo", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab" }),
+  atom({ surface: "춥다", meaningEn: "to be cold (weather, dictionary form)", romanization: "chupda", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab", srsEligible: false }),
+  atom({ surface: "추워요", meaningEn: "is cold (polite, ㅂ-irregular)", romanization: "chuwoyo", partOfSpeech: "adjective", fromModule: "m18", kind: "vocab" }),
+  // Seasons
+  atom({ surface: "봄", meaningEn: "spring", romanization: "bom", emoji: "🌸", partOfSpeech: "noun", fromModule: "m18", kind: "vocab" }),
+  atom({ surface: "여름", meaningEn: "summer", romanization: "yeoreum", emoji: "🏖️", partOfSpeech: "noun", fromModule: "m18", kind: "vocab" }),
+  atom({ surface: "가을", meaningEn: "autumn / fall", romanization: "gaeul", emoji: "🍂", partOfSpeech: "noun", fromModule: "m18", kind: "vocab" }),
+  atom({ surface: "겨울", meaningEn: "winter", romanization: "gyeoul", emoji: "⛄", partOfSpeech: "noun", fromModule: "m18", kind: "vocab" }),
+  // Future / probability endings
+  atom({ surface: "거예요", meaningEn: "will / probably (future, after ㄹ)", romanization: "geoyeyo", partOfSpeech: "grammar", fromModule: "m18", kind: "vocab", srsEligible: false }),
+  atom({ surface: "것 같아요", meaningEn: "I think / it seems (that)", romanization: "geot gatayo", partOfSpeech: "grammar", fromModule: "m18", kind: "vocab", srsEligible: false }),
+];
+
 // ─── Aggregate + lookup map ──────────────────────────────────────────────
 
 /**
@@ -641,6 +784,12 @@ export const KO_COURSE_ATOMS: ReadonlyArray<KoAtom> = [
   ...M10_VOCAB,
   ...M11_VOCAB,
   ...M12_VOCAB,
+  ...M13_VOCAB,
+  ...M14_VOCAB,
+  ...M15_VOCAB,
+  ...M16_VOCAB,
+  ...M17_VOCAB,
+  ...M18_VOCAB,
   ...JAMO_ATOMS,
   ...PARTICLE_ATOMS,
   ...SURVIVAL_ATOMS,
