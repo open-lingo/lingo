@@ -55,6 +55,10 @@ export function Layout() {
 
   const homeActive = pathname === "/home";
   const learnActive = /^\/[^/]+\/learn/.test(pathname);
+  // Focused flows (inside a lesson / test) drop the marketing footer and
+  // tighten main padding — on short laptop viewports (MacBook 14" ≈ 840px
+  // usable) the footer alone pushed every lesson step below the fold.
+  const focusedFlow = /\/lessons\/|\/test-out\/|\/placement-test/.test(pathname);
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
   const communityActive = /\/community/.test(pathname);
   const socialActive = /^\/[^/]+\/social/.test(pathname);
@@ -103,7 +107,7 @@ export function Layout() {
       {sidebarMode ? <SidebarNav /> : null}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-surface-primary focus:text-text-primary focus:rounded focus:ring-2"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-surface-elevated focus:text-text-primary focus:rounded focus:ring-2"
       >
         {t("nav.skipToContent", "Skip to content")}
       </a>
@@ -356,20 +360,27 @@ export function Layout() {
         )}
       </header>
       {showAppAds ? <DailyWelcomeAd /> : null}
-      {/* Content fills at least the viewport below the header so the footer
-          sits just past the fold — present (legal/SEO links) but out of the
-          way, keeping the app feeling "locked in" to learning. Header is
-          h-12 (3rem) / sm:h-14 (3.5rem); in sidebar mode there's no top
-          header on ≥lg, so go full-viewport there. */}
+      {/* Mounted between header and main so on <sm it renders in-flow below
+          the header (it used to float over page H1s on mobile); ≥sm it's the
+          fixed top-right panel as before. */}
+      <FundingMeter />
+      {/* Non-focused pages: content fills the viewport below the header so the
+          footer sits just past the fold (present but out of the way). Focused
+          flows (lessons/tests) drop the footer + tighten padding so steps
+          aren't pushed below the fold. */}
       <main
         id="main-content"
-        className={`mx-auto w-full max-w-screen-2xl flex-1 px-4 py-8 sm:px-6 lg:px-8 min-h-[calc(100svh_-_2.75rem)] sm:min-h-[calc(100svh_-_3rem)] ${
-          sidebarMode ? "lg:min-h-[100svh]" : ""
+        className={`mx-auto w-full max-w-screen-2xl flex-1 px-4 sm:px-6 lg:px-8 ${
+          focusedFlow
+            ? "py-3"
+            : `py-8 min-h-[calc(100svh_-_2.75rem)] sm:min-h-[calc(100svh_-_3rem)] ${
+                sidebarMode ? "lg:min-h-[100svh]" : ""
+              }`
         }`}
       >
         <Outlet />
       </main>
-      <SiteFooter />
+      {!focusedFlow && <SiteFooter />}
       {showAppAds ? <CollapsibleAdBanner /> : null}
       {isAuthenticated && (
         <FloatingLanguagePill className={sidebarMode ? "lg:hidden" : ""} />
@@ -385,7 +396,6 @@ export function Layout() {
         </div>
       )}
       <CookieConsent />
-      <FundingMeter />
       <ModalRoot />
       {isThemeEditorOpen && <ThemeEditorPanel />}
       <ToastContainer />

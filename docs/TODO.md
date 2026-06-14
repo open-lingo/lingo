@@ -4,11 +4,22 @@ By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **
 
 ## Done (recently)
 
+### 2026-06-13 engagement + kana-polish wave (Spencer + Claude)
+
+- [x] **Quests backend (real this time):** `lingo-core/app/quests/` — list/bump/claim/refresh to the FE contract; state in the user-settings blob; progress advances synchronously in the lesson batch handler; claim grants lingots/XP + streak-shield→freeze inventory; 2 pytests. `useQuests` lingo-async fiction excised.
+- [x] **XP reconciliation:** server authoritative; client mirror `features/progress/xpRules.ts`; triangular leveling deleted (500-linear both sides); test/recap +10 premium (server-matched on lesson-id suffix).
+- [x] **Streak freezes consume** on gap days (were sold-but-inert); 7-day milestone chip.
+- [x] **Tier-1 juice:** Web-Audio sfx engine (no assets), per-run combo w/ pitch-up, non-blocking celebration toasts (above CTA), LessonComplete choreography (count-up, confetti, streak/level row), 247 Noto emoji SVGs vendored + glyph fallback.
+- [x] **Lesson layout stability:** fixed-height shell w/ internal scroll (window never scrolls); options/CTA move 0px on submit (measured); ghost-sized build trays; word-build slots (fresh) / growing pill (review) with pop animation; container-sized match grids; dvh-arithmetic banned for step content.
+- [x] **Kana m1/m2:** intro-before-spell conformance test + decoy floor; review tails (3 cards) on intro lessons; weighted progress bar (trace passes + row-test items tick live); earned trace skip (+`?trace-gate=0`); confusable-kana distractor bias; row-test fanfare + slim header; index-true dupe-tile placement; per-item test juice.
+- [x] **Quest panel + shop design pass** (frontend-design skill): static 3-card quest window, tinted Noto-SVG icon tiles, reward pills, hero claim button + chime, staggered entrance; shop featured-banner hero, section identity tints, price-forward buy buttons.
+- [x] Dev dials: `?step=N`, `?trace-gate`, `?tray=slots|pill`.
+
 ### 2026-05-25 social / MVP pass
 
 - [x] **Social end-to-end:** `SocialApi` wired through `ApiProvider`; granular TanStack Query hooks; mutations with optimistic updates; Add-Friend silent-422 bug fixed (`to_username`/`to_user_id` snake_case); public profile `/u/:username` with friend-state-aware actions; leaderboards live; threads stub backed by real backend; blocked-users panel in Settings; `UserPreviewPopover` + `AddFriendButton` reused across community surfaces.
 - [x] **Social backend:** reactions endpoint + array on activity items; league spotlight; streak snapshot; invite offer + redeem; threads/messages read; quest-targets. Single `social` table split into `social_friends` + `social_friend_requests` + `social_blocks` + 6 extension tables.
-- [x] **Quests:** types + panel + spotlight + pill (frontend); backend `GET /quests` / `POST /{id}/progress` / `claim` / `refresh` + 6 seeded quests for Trevor + 4 pytests. _Frontend hook still on localStorage — swap is a follow-up._
+- [x] **Quests (frontend):** types + panel + spotlight + pill. _Correction 2026-06-13: the backend half claimed here never landed (the agent died uncommitted — verified against git history); the real backend shipped 2026-06-13, see below._
 - [x] **Backend `api_error` + `require_repo` refactor** rolled across users/admin/community/decks/stories routers.
 - [x] **FSRS-6 SRS migration** (Spencer) — `srs_cards_v2` table with JSON state + computed `due_date` index; Dynamo `state_json` + `dueDate` GSI; legacy SM-2 table dropped on startup.
 - [x] **CORS-via-500 fixed** on `/social/activity` — defensive filter on canonical `ActivityKind` + `expose_headers=*`.
@@ -49,7 +60,14 @@ By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **
 - [x] Japanese stub: flashcards (5 cards), particles (8), stories (6)
 - [x] Korean: flashcards (5 cards), particles (8), stories (6)
 - [x] Content design docs: CONTENT-DESIGN.md (course vs community, versioning), FLASHCARD-DATA.md (vocab manifest, lesson completion flow)
-- [x] SRS engine: SM-2, srsStorage, reviewQueue, FlashcardTester ratings, ProgressSummary cards due
+- [x] SRS engine: SM-2 (since migrated to FSRS-6, 2026-05-23/25), srsStorage, reviewQueue, FlashcardTester ratings, ProgressSummary cards due
+- [x] **Adaptive placement test** — 2-stage, 75-item question bank, 100% threshold, SRS seeding, onboarding prompt
+- [x] **Module test-out** — same placement engine, single-module mode via `/ja/learn/test-out/:moduleId`
+- [x] **SRS write gate fix** — M8-M27 review lessons now correctly write FSRS state
+- [x] **dark: → token migration** — ~465 hard-coded `dark:` Tailwind classes → CSS variable tokens (58 files)
+- [x] **A11y pass** — step focus management, skip-to-content, PlacementPrompt dialog a11y, WCAG AA contrast
+- [x] **Flashcard mock stats → real** — sparkline + retention from actual SRS store
+- [x] **Module revisiting** — completed modules show pathway
 - [x] Community deck preview: DeckPreviewModal sidebar, metadata, comments stub, Subscribe button
 - [x] Community content wiring: ContentBrowserPage + FlashcardsPage use decks/subscriptions API
 - [x] Modal system: stack-based ModalContext, ModalBase, ModalRoot (replaced SettingsModalContext)
@@ -108,6 +126,7 @@ Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status
 - [x] **Homepage for logged-out users** → [homepage-ux.md](tasks/homepage-ux.md) — **done** — Guest hero, community pointers, streaks, XP in ProgressSummary
 - [ ] **SRS viewer redesign** → [srs-viewer-redesign.md](tasks/srs-viewer-redesign.md) — partial — New/review/Again/buried counts; back-first mode, counts widget done
 - [ ] **Card markdown** → [card-markdown-editor.md](tasks/card-markdown-editor.md) — Markdown for card content; rich editor; inline images in markdown
+- [ ] **Flashcards UI pass + Anki .apkg import** → [flashcards-anki-scoping-2026-06-13.md](flashcards-anki-scoping-2026-06-13.md) — scoped, awaiting Spencer go/no-go; media storage (no S3 pipeline) is the Anki blocker
 
 ## Community
 

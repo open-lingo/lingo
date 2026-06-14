@@ -24,11 +24,17 @@ import { RowTestStepView } from "./steps/RowTestStepView";
 
 type Props = {
   step: LessonStep;
-  onComplete: (stepId: string, correct: boolean) => void;
+  /** `progressTicks` (trace steps only): cumulative successful passes,
+   *  so the weighted progress bar ticks per stroke. */
+  onComplete: (stepId: string, correct: boolean, progressTicks?: number) => void;
   onContinue: () => void;
+  /** True when the learner is replaying an already-completed lesson —
+   *  first-view pacing gates (e.g. the symbol-intro stroke animation
+   *  lock) are skipped on replays. */
+  isReplayRun?: boolean;
 };
 
-export function StepRenderer({ step, onComplete, onContinue }: Props) {
+export function StepRenderer({ step, onComplete, onContinue, isReplayRun }: Props) {
   switch (step.type) {
     case "info":
       return <InfoStepView step={step} onContinue={onContinue} />;
@@ -48,6 +54,7 @@ export function StepRenderer({ step, onComplete, onContinue }: Props) {
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}
+          isReplayRun={isReplayRun}
         />
       );
     case "match_pairs":
@@ -104,6 +111,7 @@ export function StepRenderer({ step, onComplete, onContinue }: Props) {
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}
+          skipAnimationGate={isReplayRun}
         />
       );
     case "symbol_trace":

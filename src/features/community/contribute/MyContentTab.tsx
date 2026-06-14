@@ -60,7 +60,7 @@ function deckToItem(deck: {
 }
 
 const STATUS_STYLES: Record<ContentStatus, string> = {
-  draft: "bg-gray-100 text-gray-800",
+  draft: "bg-surface-muted text-text-primary",
   submitted: "bg-blue-100 text-blue-800",
   review: "bg-amber-100 text-amber-800",
   published: "bg-emerald-100 text-emerald-800",
@@ -217,7 +217,7 @@ export function MyContentTab() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={t("community.studioSearchPlaceholder")}
-          className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-500 sm:w-56 placeholder-text-muted"
+          className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text-primary placeholder:text-text-muted sm:w-56"
         />
         <div className="flex flex-wrap gap-1">
           {(["all", ...CONTENT_KINDS] as const).map((k) => (
@@ -228,7 +228,7 @@ export function MyContentTab() {
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                 kindFilter === k
                   ? "bg-green-600 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-surface-muted"
+                  : "bg-surface-muted text-text-secondary hover:bg-surface-muted"
               }`}
             >
               {kindLabels[k]}
@@ -244,7 +244,7 @@ export function MyContentTab() {
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                 statusFilter === s
                   ? "bg-green-600 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-surface-muted"
+                  : "bg-surface-muted text-text-secondary hover:bg-surface-muted"
               }`}
             >
               {t(`community.studioFilter${s.charAt(0).toUpperCase() + s.slice(1)}`)}
@@ -258,7 +258,7 @@ export function MyContentTab() {
           {t("common.loading")}
         </p>
       ) : filteredItems.length === 0 ? (
-        <div className="rounded-xl border-2 border-dashed border-gray-300 py-6 text-center">
+        <div className="rounded-xl border-2 border-dashed border-border py-6 text-center">
           <p className="text-text-muted">
             {t("community.studioNoContent")}
           </p>
@@ -291,7 +291,7 @@ export function MyContentTab() {
             return (
               <li
                 key={`${item.kind}-${item.id}`}
-                className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className="flex min-w-0 flex-1 items-start gap-4">
                   {coverUrl ? (
@@ -376,7 +376,7 @@ export function MyContentTab() {
                     <>
                       <Link
                         to={langPath(`community/decks/${item.id}`)}
-                        className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-secondary hover:bg-surface-muted"
                       >
                         {t("community.studioPreview")}
                       </Link>

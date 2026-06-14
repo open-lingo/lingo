@@ -114,16 +114,15 @@ export function CourseMapPage() {
                   strokeWidth={2}
                 />
                 {done && (
-                  <text
-                    x={x}
-                    y={y + 5}
-                    textAnchor="middle"
-                    fill="white"
-                    fontSize="14"
-                    fontWeight="bold"
-                  >
-                    ✓
-                  </text>
+                  <Icon
+                    name="check"
+                    x={x - 7}
+                    y={y - 7}
+                    size={14}
+                    color="white"
+                    strokeWidth={3}
+                    aria-hidden
+                  />
                 )}
                 <title>
                   {moduleTitle} · {lesson.title}

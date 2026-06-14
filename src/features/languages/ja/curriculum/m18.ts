@@ -8,9 +8,14 @@
  *
  * Prereqs: い-adjective (M8), な-adjective (M9+), ます-form verbs (M9+).
  *
- * Split into 14 sub-lessons + 1 story = 15 exports.
+ * Split into 14 sub-lessons + 1 story = 15 exports. The story lesson uses the
+ * storyComprehension() factory (§13.13 locked template).
  * Each sub-lesson has 18-22 steps. All vocab introductions use build() steps
  * where the learner assembles the word from tiles (figuroutable pattern).
+ *
+ * Backlog weave (2026-06-12 sentence-variety rewrite): あつい (hot — kana
+ * taught in M8; weather sense woven here in 2-2 / 5-1 / 5-2 / 6-1 / 6-2).
+ * だんだん deferred — it needs 〜くなります (not taught until M27).
  *
  * Vocab (~25): てんき, はれ, くもり, あめ, ゆき, かぜ,
  *   あたたかい, すずしい, むしあつい, やま, かわ, うみ, そら, はな, き,
@@ -24,7 +29,6 @@ import type { LessonContent } from "@/features/lesson/types";
 import {
   build,
   cloze,
-  dialogueListen,
   grammarRule,
   infoStep,
   listeningBuildSentence,
@@ -36,6 +40,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  storyComprehension,
   translateStep,
   vocabMcq,
   assertNoSameAnswerCluster,
@@ -168,7 +173,7 @@ const RULE_ADJ_NOUN_MOD = grammarRule({
 //   (てんき, はれ, くもり, あめ, ゆき, かぜ)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_1_1_REVIEW = pickReviewAtoms("ja-m18-1-1-rev", M18_REVIEW_POOL, 4);
+const M18_1_1_REVIEW = pickReviewAtoms("ja-m18-1-1-rev", M18_REVIEW_POOL, 6);
 
 export const M18_1_1: LessonContent = {
   id: "ja-m18-1-1",
@@ -191,7 +196,7 @@ export const M18_1_1: LessonContent = {
       "ja-m18-1-1-build-tenki",
       "Pick the Japanese word for: Weather",
       "てんき",
-      ["てんき", "はれ", "あめ", "かぜ"],
+      ["はれ", "てんき", "あめ", "かぜ"],
       ["てんき"],
     ),
     listeningCompSentence({
@@ -205,7 +210,7 @@ export const M18_1_1: LessonContent = {
       "ja-m18-1-1-build-hare",
       "Pick the Japanese word for: Clear weather / Sunny",
       "はれ",
-      ["はれ", "くもり", "あめ", "ゆき"],
+      ["くもり", "あめ", "はれ", "ゆき"],
       ["はれ"],
     ),
     vocabMcq(
@@ -218,7 +223,7 @@ export const M18_1_1: LessonContent = {
       "ja-m18-1-1-build-kumori",
       "Pick the Japanese word for: Cloudy",
       "くもり",
-      ["くもり", "はれ", "あめ", "かぜ"],
+      ["はれ", "くもり", "あめ", "かぜ"],
       ["くもり"],
     ),
     vocabMcq(
@@ -231,7 +236,7 @@ export const M18_1_1: LessonContent = {
       "ja-m18-1-1-build-ame",
       "Pick the Japanese word for: Rain",
       "あめ",
-      ["あめ", "ゆき", "はれ", "くもり"],
+      ["ゆき", "はれ", "あめ", "くもり"],
       ["あめ"],
     ),
     vocabMcq(
@@ -244,7 +249,7 @@ export const M18_1_1: LessonContent = {
       "ja-m18-1-1-build-yuki",
       "Pick the Japanese word for: Snow",
       "ゆき",
-      ["ゆき", "あめ", "かぜ", "くもり"],
+      ["あめ", "ゆき", "かぜ", "くもり"],
       ["ゆき"],
     ),
     vocabMcq(
@@ -257,7 +262,7 @@ export const M18_1_1: LessonContent = {
       "ja-m18-1-1-build-kaze",
       "Pick the Japanese word for: Wind",
       "かぜ",
-      ["かぜ", "あめ", "ゆき", "はれ"],
+      ["あめ", "かぜ", "ゆき", "はれ"],
       ["かぜ"],
     ),
     speaking("ja-m18-1-1-speak-kaze", "かぜ", "Wind"),
@@ -266,7 +271,7 @@ export const M18_1_1: LessonContent = {
       "ja-m18-1-1-build-tenki-ii",
       "Say: The weather is nice today.",
       "きょうは てんきが いいです",
-      ["きょう", "は", "てんき", "が", "いい", "です", "わるい", "あめ"],
+      ["てんき", "きょう", "いい", "は", "が", "です", "わるい", "あめ"],
       ["きょう", "は", "てんき", "が", "いい", "です"],
     ),
     sentenceMcq({
@@ -276,14 +281,14 @@ export const M18_1_1: LessonContent = {
       distractorsKana: [
         "きょうは はれです。",
         "きょうは ゆきです。",
-        "きょうは くもりです。",
+        "あしたは あめです。",
       ],
       explanation: "あめ = rain. きょうは あめです = today is rain (it's raining).",
     }),
     listeningBuildSentence({
       id: "ja-m18-1-1-lb-hare",
       target: "あしたは はれです",
-      tiles: ["あした", "は", "はれ", "です", "くもり", "あめ"],
+      tiles: ["はれ", "あした", "です", "は", "くもり", "あめ"],
       correctOrder: ["あした", "は", "はれ", "です"],
       promptEn: "Hear it, build it: 'Tomorrow is sunny.'",
     }),
@@ -333,7 +338,7 @@ assertNoConsecutiveSame(M18_1_1.steps);
 // M18-1-2 — "Weather words" drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_1_2_REVIEW = pickReviewAtoms("ja-m18-1-2-rev", M18_REVIEW_POOL, 4);
+const M18_1_2_REVIEW = pickReviewAtoms("ja-m18-1-2-rev", M18_REVIEW_POOL, 6);
 
 export const M18_1_2: LessonContent = {
   id: "ja-m18-1-2",
@@ -355,7 +360,7 @@ export const M18_1_2: LessonContent = {
       "ja-m18-1-2-build-1",
       "Say: Tomorrow is cloudy.",
       "あしたは くもりです",
-      ["あした", "は", "くもり", "です", "はれ", "あめ"],
+      ["くもり", "あした", "です", "は", "はれ", "あめ"],
       ["あした", "は", "くもり", "です"],
     ),
     listeningCompSentence({
@@ -384,7 +389,7 @@ export const M18_1_2: LessonContent = {
       correctKana: "きょうは はれです。",
       distractorsKana: [
         "きょうは くもりです。",
-        "きょうは あめです。",
+        "きょうは ゆきです。",
         "あしたは はれです。",
       ],
       explanation: "はれ = clear/sunny. きょう = today.",
@@ -393,13 +398,13 @@ export const M18_1_2: LessonContent = {
       "ja-m18-1-2-build-2",
       "Say: The wind is strong today.",
       "きょうは かぜが つよいです",
-      ["きょう", "は", "かぜ", "が", "つよい", "です", "よわい", "おおきい"],
+      ["かぜ", "きょう", "つよい", "は", "が", "です", "よわい"],
       ["きょう", "は", "かぜ", "が", "つよい", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m18-1-2-lb-1",
       target: "あしたは ゆきです",
-      tiles: ["あした", "は", "ゆき", "です", "あめ", "はれ"],
+      tiles: ["ゆき", "あした", "です", "は", "あめ", "はれ"],
       correctOrder: ["あした", "は", "ゆき", "です"],
       promptEn: "Hear it, build it: 'Tomorrow is snowy.'",
     }),
@@ -408,52 +413,49 @@ export const M18_1_2: LessonContent = {
       "きょうは てんきが いいです",
       "The weather is nice today.",
     ),
-    cloze(
-      "ja-m18-1-2-cloze-ha",
-      "あした",
-      " あめです。",
-      "は",
-      ["は", "が", "に", "で"],
-      "It will rain tomorrow.",
-      "あしたは あめです。",
-      "は marks あした as the topic.",
+    build(
+      "ja-m18-1-2-build-ame",
+      "Say: It will rain tomorrow.",
+      "あしたは あめです",
+      ["あめ", "あした", "です", "は", "ゆき", "きょう"],
+      ["あした", "は", "あめ", "です"],
     ),
     translateStep({
       id: "ja-m18-1-2-translate-1",
-      promptEn: "It's raining today.",
+      promptEn: "It's cloudy today.",
       acceptedAnswers: [
-        "きょうは あめです",
-        "きょうは あめです。",
+        "きょうは くもりです",
+        "きょうは くもりです。",
       ],
-      audioText: "きょうは あめです",
+      audioText: "きょうは くもりです",
     }),
     build(
       "ja-m18-1-2-build-3",
       "Ask: How's the weather tomorrow?",
       "あしたの てんきは どうですか",
-      ["あした", "の", "てんき", "は", "どう", "です", "か", "なん"],
+      ["てんき", "あした", "どう", "の", "は", "です", "か", "なん"],
       ["あした", "の", "てんき", "は", "どう", "です", "か"],
     ),
     listeningCompSentence({
       id: "ja-m18-1-2-lc-2",
-      audioText: "きょうは かぜが つよいです",
-      correctMeaningEn: "The wind is strong today.",
+      audioText: "あしたは てんきが いいです",
+      correctMeaningEn: "The weather will be nice tomorrow.",
       distractorsEn: [
-        "The wind is weak today.",
-        "It's windy tomorrow.",
-        "It's raining and windy.",
+        "The weather is bad tomorrow.",
+        "The weather is nice today.",
+        "It's raining tomorrow.",
       ],
     }),
     sentenceMcq({
       id: "ja-m18-1-2-mcq-tenki",
-      prompt: "Which is the correct way to ask about tomorrow's weather?",
-      correctKana: "あしたの てんきは どうですか。",
+      prompt: "Which is the correct way to ask about today's weather?",
+      correctKana: "きょうの てんきは どうですか。",
       distractorsKana: [
-        "あしたの てんきが どうですか。",
-        "あしたは てんきの どうですか。",
-        "あしたで てんきは どうですか。",
+        "きょうの てんきが どうですか。",
+        "きょうは てんきの どうですか。",
+        "きょうで てんきは どうですか。",
       ],
-      explanation: "あしたの てんきは = as for tomorrow's weather. どうですか = how is it?",
+      explanation: "きょうの てんきは = as for today's weather. どうですか = how is it?",
     }),
     selfExplain({
       id: "ja-m18-1-2-self-explain",
@@ -502,7 +504,7 @@ assertNoConsecutiveSame(M18_1_2.steps);
 // M18-2-1 — "Probably" (でしょう intro)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_2_1_REVIEW = pickReviewAtoms("ja-m18-2-1-rev", M18_REVIEW_POOL, 4);
+const M18_2_1_REVIEW = pickReviewAtoms("ja-m18-2-1-rev", M18_REVIEW_POOL, 6);
 
 export const M18_2_1: LessonContent = {
   id: "ja-m18-2-1",
@@ -526,7 +528,7 @@ export const M18_2_1: LessonContent = {
       "ja-m18-2-1-build-atatakai",
       "Pick the Japanese word for: Warm",
       "あたたかい",
-      ["あたたかい", "すずしい", "あつい", "さむい"],
+      ["すずしい", "あたたかい", "あつい", "さむい"],
       ["あたたかい"],
     ),
     listeningCompSentence({
@@ -540,7 +542,7 @@ export const M18_2_1: LessonContent = {
       "ja-m18-2-1-build-suzushii",
       "Pick the Japanese word for: Cool (temperature)",
       "すずしい",
-      ["すずしい", "あたたかい", "さむい", "あつい"],
+      ["あたたかい", "さむい", "すずしい", "あつい"],
       ["すずしい"],
     ),
     speaking("ja-m18-2-1-speak-suzushii", "すずしい", "Cool"),
@@ -549,7 +551,7 @@ export const M18_2_1: LessonContent = {
       "ja-m18-2-1-build-mushiatsui",
       "Pick the Japanese word for: Humid / Muggy",
       "むしあつい",
-      ["むしあつい", "あたたかい", "すずしい", "つめたい"],
+      ["あたたかい", "むしあつい", "すずしい", "つめたい"],
       ["むしあつい"],
     ),
     listeningCompSentence({
@@ -563,7 +565,7 @@ export const M18_2_1: LessonContent = {
       "ja-m18-2-1-build-deshou-ame",
       "Say: It will probably rain tomorrow.",
       "あしたは あめでしょう",
-      ["あした", "は", "あめ", "でしょう", "です", "はれ"],
+      ["あめ", "あした", "でしょう", "は", "です", "はれ"],
       ["あした", "は", "あめ", "でしょう"],
     ),
     cloze(
@@ -587,12 +589,37 @@ export const M18_2_1: LessonContent = {
       ],
       explanation: "でしょう = probably. あたたかい = warm.",
     }),
+    // ── たぶん (probably) — build intro ──
+    build(
+      "ja-m18-2-1-build-tabun",
+      "Pick the Japanese word for: Probably",
+      "たぶん",
+      ["ときどき", "たぶん", "いつも", "とても"],
+      ["たぶん"],
+    ),
+    listeningCompSentence({
+      id: "ja-m18-2-1-lc-tabun",
+      audioText: "たぶん きょうは あめでしょう",
+      correctMeaningEn: "It will probably rain today.",
+      distractorsEn: [
+        "It will probably snow today.",
+        "It will definitely rain today.",
+        "It rained yesterday.",
+      ],
+    }),
+    build(
+      "ja-m18-2-1-build-tabun-samui",
+      "Say: It will probably be cold tomorrow.",
+      "たぶん あしたは さむいでしょう",
+      ["さむい", "あした", "たぶん", "でしょう", "は", "あつい"],
+      ["たぶん", "あした", "は", "さむい", "でしょう"],
+    ),
     listeningBuildSentence({
       id: "ja-m18-2-1-lb-deshou",
-      target: "あしたは あめでしょう",
-      tiles: ["あした", "は", "あめ", "でしょう", "です", "ゆき"],
-      correctOrder: ["あした", "は", "あめ", "でしょう"],
-      promptEn: "Hear it, build it: 'It will probably rain tomorrow.'",
+      target: "きょうは くもりでしょう",
+      tiles: ["くもり", "きょう", "でしょう", "は", "です", "はれ"],
+      correctOrder: ["きょう", "は", "くもり", "でしょう"],
+      promptEn: "Hear it, build it: 'Today is probably cloudy.'",
     }),
     cloze(
       "ja-m18-2-1-cloze-deshou-2",
@@ -616,8 +643,8 @@ export const M18_2_1: LessonContent = {
     }),
     selfExplain({
       id: "ja-m18-2-1-self-explain",
-      anchorLabel: "あしたは あめでしょう / あしたは あたたかいでしょう",
-      anchorAudioText: "あしたは あめでしょう",
+      anchorLabel: "あめでしょう / あたたかいでしょう",
+      anchorAudioText: "らいしゅうは あめでしょう",
       question: "How does でしょう change the meaning compared to です?",
       rule: { text: "です = is (certain). でしょう = probably is (prediction/guess). でしょう replaces です to express uncertainty or probability." },
       surface: { text: "でしょう is just a polite version of です — they mean the same thing." },
@@ -661,7 +688,7 @@ assertNoConsecutiveSame(M18_2_1.steps);
 // M18-2-2 — "Probably" practice
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_2_2_REVIEW = pickReviewAtoms("ja-m18-2-2-rev", M18_REVIEW_POOL, 4);
+const M18_2_2_REVIEW = pickReviewAtoms("ja-m18-2-2-rev", M18_REVIEW_POOL, 6);
 
 export const M18_2_2: LessonContent = {
   id: "ja-m18-2-2",
@@ -683,7 +710,7 @@ export const M18_2_2: LessonContent = {
       "ja-m18-2-2-build-1",
       "Say: It will probably snow tomorrow.",
       "あしたは ゆきでしょう",
-      ["あした", "は", "ゆき", "でしょう", "です", "あめ"],
+      ["ゆき", "あした", "でしょう", "は", "です", "あめ"],
       ["あした", "は", "ゆき", "でしょう"],
     ),
     listeningCompSentence({
@@ -721,7 +748,7 @@ export const M18_2_2: LessonContent = {
       "ja-m18-2-2-build-2",
       "Say: The wind will probably be strong tomorrow.",
       "あしたは かぜが つよいでしょう",
-      ["あした", "は", "かぜ", "が", "つよい", "でしょう", "よわい", "です"],
+      ["かぜ", "あした", "つよい", "は", "が", "でしょう", "です"],
       ["あした", "は", "かぜ", "が", "つよい", "でしょう"],
     ),
     cloze(
@@ -736,40 +763,40 @@ export const M18_2_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m18-2-2-lb-1",
-      target: "らいしゅうは さむいでしょう",
-      tiles: ["らいしゅう", "は", "さむい", "でしょう", "です", "あつい"],
-      correctOrder: ["らいしゅう", "は", "さむい", "でしょう"],
-      promptEn: "Hear it, build it: 'Next week will probably be cold.'",
+      target: "あきは すずしいでしょう",
+      tiles: ["すずしい", "あき", "でしょう", "は", "です", "あたたかい"],
+      correctOrder: ["あき", "は", "すずしい", "でしょう"],
+      promptEn: "Hear it, build it: 'Autumn will probably be cool.'",
     }),
     speaking(
       "ja-m18-2-2-speak-1",
-      "あしたは ゆきでしょう",
-      "It will probably snow tomorrow.",
+      "なつは あついでしょう",
+      "Summer will probably be hot.",
     ),
     translateStep({
       id: "ja-m18-2-2-translate-1",
-      promptEn: "Tomorrow will probably be sunny.",
+      promptEn: "It will probably snow next week.",
       acceptedAnswers: [
-        "あしたは はれでしょう",
-        "あしたは はれでしょう。",
+        "らいしゅうは ゆきでしょう",
+        "らいしゅうは ゆきでしょう。",
       ],
-      audioText: "あしたは はれでしょう",
+      audioText: "らいしゅうは ゆきでしょう",
     }),
     build(
       "ja-m18-2-2-build-3",
       "Say: This summer will probably be muggy.",
       "ことしの なつは むしあついでしょう",
-      ["ことし", "の", "なつ", "は", "むしあつい", "でしょう", "すずしい", "です"],
+      ["なつ", "ことし", "むしあつい", "の", "は", "でしょう", "すずしい", "です"],
       ["ことし", "の", "なつ", "は", "むしあつい", "でしょう"],
     ),
     listeningCompSentence({
       id: "ja-m18-2-2-lc-2",
-      audioText: "あしたは あたたかいでしょう",
-      correctMeaningEn: "Tomorrow will probably be warm.",
+      audioText: "あしたは すずしいでしょう",
+      correctMeaningEn: "Tomorrow will probably be cool.",
       distractorsEn: [
-        "Tomorrow is warm.",
-        "Tomorrow will probably be cool.",
-        "Today is warm.",
+        "Tomorrow is cool.",
+        "Tomorrow will probably be warm.",
+        "Today is cool.",
       ],
     }),
     sentenceMcq({
@@ -830,7 +857,7 @@ assertNoConsecutiveSame(M18_2_2.steps);
 // M18-3-1 — "I think that" (とおもいます intro)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_3_1_REVIEW = pickReviewAtoms("ja-m18-3-1-rev", M18_REVIEW_POOL, 4);
+const M18_3_1_REVIEW = pickReviewAtoms("ja-m18-3-1-rev", M18_REVIEW_POOL, 6);
 
 export const M18_3_1: LessonContent = {
   id: "ja-m18-3-1",
@@ -854,7 +881,7 @@ export const M18_3_1: LessonContent = {
       "ja-m18-3-1-build-haru",
       "Pick the Japanese word for: Spring",
       "はる",
-      ["はる", "なつ", "あき", "ふゆ"],
+      ["なつ", "はる", "あき", "ふゆ"],
       ["はる"],
     ),
     vocabMcq(
@@ -867,7 +894,7 @@ export const M18_3_1: LessonContent = {
       "ja-m18-3-1-build-natsu",
       "Pick the Japanese word for: Summer",
       "なつ",
-      ["なつ", "はる", "ふゆ", "あき"],
+      ["はる", "ふゆ", "なつ", "あき"],
       ["なつ"],
     ),
     vocabMcq(
@@ -880,7 +907,7 @@ export const M18_3_1: LessonContent = {
       "ja-m18-3-1-build-aki",
       "Pick the Japanese word for: Autumn",
       "あき",
-      ["あき", "なつ", "はる", "ふゆ"],
+      ["なつ", "あき", "はる", "ふゆ"],
       ["あき"],
     ),
     vocabMcq(
@@ -893,7 +920,7 @@ export const M18_3_1: LessonContent = {
       "ja-m18-3-1-build-fuyu",
       "Pick the Japanese word for: Winter",
       "ふゆ",
-      ["ふゆ", "あき", "はる", "なつ"],
+      ["あき", "ふゆ", "はる", "なつ"],
       ["ふゆ"],
     ),
     vocabMcq(
@@ -906,7 +933,7 @@ export const M18_3_1: LessonContent = {
       "ja-m18-3-1-build-omoimasu-1",
       "Say: I think tomorrow will be cold.",
       "あしたは さむいと おもいます",
-      ["あした", "は", "さむい", "と", "おもいます", "でしょう", "だ"],
+      ["さむい", "あした", "おもいます", "は", "と", "でしょう", "だ"],
       ["あした", "は", "さむい", "と", "おもいます"],
     ),
     cloze(
@@ -933,7 +960,7 @@ export const M18_3_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m18-3-1-lb-omoimasu",
       target: "あめだと おもいます",
-      tiles: ["あめ", "だ", "と", "おもいます", "です", "でしょう"],
+      tiles: ["おもいます", "あめ", "と", "だ", "です", "でしょう"],
       correctOrder: ["あめ", "だ", "と", "おもいます"],
       promptEn: "Hear it, build it: 'I think it will rain.'",
     }),
@@ -984,7 +1011,7 @@ assertNoConsecutiveSame(M18_3_1.steps);
 // M18-3-2 — "I think that" practice
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_3_2_REVIEW = pickReviewAtoms("ja-m18-3-2-rev", M18_REVIEW_POOL, 4);
+const M18_3_2_REVIEW = pickReviewAtoms("ja-m18-3-2-rev", M18_REVIEW_POOL, 6);
 
 export const M18_3_2: LessonContent = {
   id: "ja-m18-3-2",
@@ -1006,7 +1033,7 @@ export const M18_3_2: LessonContent = {
       "ja-m18-3-2-build-1",
       "Say: I think summer is muggy.",
       "なつは むしあついと おもいます",
-      ["なつ", "は", "むしあつい", "と", "おもいます", "でしょう", "です"],
+      ["むしあつい", "なつ", "おもいます", "は", "と", "でしょう", "です"],
       ["なつ", "は", "むしあつい", "と", "おもいます"],
     ),
     listeningCompSentence({
@@ -1044,7 +1071,7 @@ export const M18_3_2: LessonContent = {
       "ja-m18-3-2-build-2",
       "Say: I think tomorrow will be cloudy.",
       "あしたは くもりだと おもいます",
-      ["あした", "は", "くもり", "だ", "と", "おもいます", "でしょう"],
+      ["くもり", "あした", "おもいます", "は", "だ", "と", "でしょう"],
       ["あした", "は", "くもり", "だ", "と", "おもいます"],
     ),
     cloze(
@@ -1059,10 +1086,10 @@ export const M18_3_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m18-3-2-lb-1",
-      target: "なつは むしあついと おもいます",
-      tiles: ["なつ", "は", "むしあつい", "と", "おもいます", "でしょう", "です"],
-      correctOrder: ["なつ", "は", "むしあつい", "と", "おもいます"],
-      promptEn: "Hear it, build it: 'I think summer is muggy.'",
+      target: "ふゆは ゆきが おおいと おもいます",
+      tiles: ["ゆき", "ふゆ", "おおい", "は", "が", "と", "おもいます", "でしょう"],
+      correctOrder: ["ふゆ", "は", "ゆき", "が", "おおい", "と", "おもいます"],
+      promptEn: "Hear it, build it: 'I think winter has a lot of snow.'",
     }),
     speaking(
       "ja-m18-3-2-speak-1",
@@ -1071,20 +1098,20 @@ export const M18_3_2: LessonContent = {
     ),
     translateStep({
       id: "ja-m18-3-2-translate-1",
-      promptEn: "I think it will rain.",
+      promptEn: "I think it's cloudy.",
       acceptedAnswers: [
-        "あめだと おもいます",
-        "あめだと おもいます。",
-        "あめだとおもいます",
-        "あめだとおもいます。",
+        "くもりだと おもいます",
+        "くもりだと おもいます。",
+        "くもりだとおもいます",
+        "くもりだとおもいます。",
       ],
-      audioText: "あめだと おもいます",
+      audioText: "くもりだと おもいます",
     }),
     build(
       "ja-m18-3-2-build-3",
       "Say: I think spring is the best season.",
       "はるが いちばん いい きせつだと おもいます",
-      ["はる", "が", "いちばん", "いい", "きせつ", "だ", "と", "おもいます", "なつ"],
+      ["いちばん", "はる", "いい", "が", "きせつ", "おもいます", "だ", "と", "なつ"],
       ["はる", "が", "いちばん", "いい", "きせつ", "だ", "と", "おもいます"],
     ),
     listeningCompSentence({
@@ -1111,7 +1138,7 @@ export const M18_3_2: LessonContent = {
     selfExplain({
       id: "ja-m18-3-2-self-explain",
       anchorLabel: "でしょう vs とおもいます",
-      anchorAudioText: "あめだと おもいます",
+      anchorAudioText: "ゆきだと おもいます",
       question: "When would you use あめでしょう vs あめだと おもいます?",
       rule: { text: "あめでしょう = general prediction (like a weather forecast). あめだと おもいます = personal opinion ('I personally think it will rain'). でしょう is objective; とおもいます is subjective." },
       surface: { text: "They're interchangeable — use whichever sounds better." },
@@ -1121,8 +1148,8 @@ export const M18_3_2: LessonContent = {
     }),
     speaking(
       "ja-m18-3-2-speak-2",
-      "あきは すずしいと おもいます",
-      "I think autumn is cool.",
+      "はるが いちばん いい きせつだと おもいます",
+      "I think spring is the best season.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m18-3-2-rev-mcq-1", M18_3_2_REVIEW[0], M18_REVIEW_POOL),
@@ -1155,7 +1182,7 @@ assertNoConsecutiveSame(M18_3_2.steps);
 // M18-4-1 — "Nature words" vocab (やま, かわ, うみ, そら, はな, き)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_4_1_REVIEW = pickReviewAtoms("ja-m18-4-1-rev", M18_REVIEW_POOL, 4);
+const M18_4_1_REVIEW = pickReviewAtoms("ja-m18-4-1-rev", M18_REVIEW_POOL, 6);
 
 export const M18_4_1: LessonContent = {
   id: "ja-m18-4-1",
@@ -1178,7 +1205,7 @@ export const M18_4_1: LessonContent = {
       "ja-m18-4-1-build-yama",
       "Pick the Japanese word for: Mountain",
       "やま",
-      ["やま", "かわ", "うみ", "もり"],
+      ["かわ", "やま", "うみ", "もり"],
       ["やま"],
     ),
     vocabMcq(
@@ -1191,7 +1218,7 @@ export const M18_4_1: LessonContent = {
       "ja-m18-4-1-build-kawa",
       "Pick the Japanese word for: River",
       "かわ",
-      ["かわ", "うみ", "やま", "はな"],
+      ["うみ", "かわ", "やま", "はな"],
       ["かわ"],
     ),
     listeningCompSentence({
@@ -1205,7 +1232,7 @@ export const M18_4_1: LessonContent = {
       "ja-m18-4-1-build-umi",
       "Pick the Japanese word for: Sea / Ocean",
       "うみ",
-      ["うみ", "かわ", "そら", "やま"],
+      ["かわ", "そら", "うみ", "やま"],
       ["うみ"],
     ),
     vocabMcq(
@@ -1218,7 +1245,7 @@ export const M18_4_1: LessonContent = {
       "ja-m18-4-1-build-sora",
       "Pick the Japanese word for: Sky",
       "そら",
-      ["そら", "うみ", "やま", "き"],
+      ["うみ", "そら", "やま", "き"],
       ["そら"],
     ),
     speaking("ja-m18-4-1-speak-sora", "そら", "Sky"),
@@ -1227,7 +1254,7 @@ export const M18_4_1: LessonContent = {
       "ja-m18-4-1-build-hana",
       "Pick the Japanese word for: Flower",
       "はな",
-      ["はな", "き", "もり", "にわ"],
+      ["き", "はな", "もり", "にわ"],
       ["はな"],
     ),
     vocabMcq(
@@ -1240,7 +1267,7 @@ export const M18_4_1: LessonContent = {
       "ja-m18-4-1-build-ki",
       "Pick the Japanese word for: Tree",
       "き",
-      ["き", "はな", "もり", "にわ"],
+      ["はな", "もり", "き", "にわ"],
       ["き"],
     ),
     vocabMcq(
@@ -1253,7 +1280,7 @@ export const M18_4_1: LessonContent = {
       "ja-m18-4-1-build-yama-kirei",
       "Say: The mountain is beautiful.",
       "やまは きれいです",
-      ["やま", "は", "きれい", "です", "おおきい", "うみ"],
+      ["きれい", "やま", "です", "は", "おおきい", "うみ"],
       ["やま", "は", "きれい", "です"],
     ),
     sentenceMcq({
@@ -1315,7 +1342,7 @@ assertNoConsecutiveSame(M18_4_1.steps);
 //   (もり, にわ + adj+noun review)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_4_2_REVIEW = pickReviewAtoms("ja-m18-4-2-rev", M18_REVIEW_POOL, 4);
+const M18_4_2_REVIEW = pickReviewAtoms("ja-m18-4-2-rev", M18_REVIEW_POOL, 6);
 
 export const M18_4_2: LessonContent = {
   id: "ja-m18-4-2",
@@ -1339,7 +1366,7 @@ export const M18_4_2: LessonContent = {
       "ja-m18-4-2-build-mori",
       "Pick the Japanese word for: Forest",
       "もり",
-      ["もり", "にわ", "やま", "き"],
+      ["にわ", "もり", "やま", "き"],
       ["もり"],
     ),
     vocabMcq(
@@ -1352,7 +1379,7 @@ export const M18_4_2: LessonContent = {
       "ja-m18-4-2-build-niwa",
       "Pick the Japanese word for: Garden",
       "にわ",
-      ["にわ", "もり", "はな", "き"],
+      ["もり", "はな", "にわ", "き"],
       ["にわ"],
     ),
     speaking("ja-m18-4-2-speak-niwa", "にわ", "Garden"),
@@ -1361,7 +1388,7 @@ export const M18_4_2: LessonContent = {
       "ja-m18-4-2-build-ookii-yama",
       "Say: A big mountain.",
       "おおきい やま",
-      ["おおきい", "やま", "おおきな", "うみ", "ちいさい"],
+      ["やま", "おおきな", "おおきい", "うみ", "ちいさい"],
       ["おおきい", "やま"],
     ),
     listeningCompSentence({
@@ -1395,23 +1422,20 @@ export const M18_4_2: LessonContent = {
       "ja-m18-4-2-build-kirei-hana",
       "Say: Beautiful flowers are blooming in the garden.",
       "にわに きれいな はなが さいています",
-      ["にわ", "に", "きれい", "な", "はな", "が", "さいて", "います", "おおきい"],
+      ["きれい", "にわ", "はな", "に", "な", "が", "さいて", "います", "おおきい"],
       ["にわ", "に", "きれい", "な", "はな", "が", "さいて", "います"],
     ),
-    cloze(
-      "ja-m18-4-2-cloze-i-adj",
-      "すずしい",
-      "が ふいています。",
-      " かぜ",
-      [" かぜ", "な かぜ", " やま", "な うみ"],
-      "A cool breeze is blowing.",
-      "すずしい かぜが ふいています。",
-      "い-adjective directly modifies the noun — no な.",
+    build(
+      "ja-m18-4-2-build-kaze",
+      "Say: A strong wind is blowing.",
+      "つよい かぜが ふいています",
+      ["かぜ", "つよい", "ふいて", "が", "います", "すずしい"],
+      ["つよい", "かぜ", "が", "ふいて", "います"],
     ),
     listeningBuildSentence({
       id: "ja-m18-4-2-lb-1",
       target: "おおきい もりが あります",
-      tiles: ["おおきい", "もり", "が", "あります", "おおきな", "にわ"],
+      tiles: ["もり", "おおきい", "あります", "が", "おおきな", "にわ"],
       correctOrder: ["おおきい", "もり", "が", "あります"],
       promptEn: "Hear it, build it: 'There's a big forest.'",
     }),
@@ -1476,7 +1500,7 @@ assertNoConsecutiveSame(M18_4_2.steps);
 // M18-5-1 — Interleaved drill (でしょう + とおもいます + adj-mod)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_5_1_REVIEW = pickReviewAtoms("ja-m18-5-1-rev", M18_REVIEW_POOL, 4);
+const M18_5_1_REVIEW = pickReviewAtoms("ja-m18-5-1-rev", M18_REVIEW_POOL, 6);
 
 export const M18_5_1: LessonContent = {
   id: "ja-m18-5-1",
@@ -1496,29 +1520,29 @@ export const M18_5_1: LessonContent = {
     ),
     cloze(
       "ja-m18-5-1-cloze-deshou",
-      "あしたは はれ",
+      "らいしゅうは はれ",
       "。",
       "でしょう",
       ["でしょう", "です", "だ", "ます"],
-      "Tomorrow will probably be sunny.",
-      "あしたは はれでしょう。",
+      "Next week will probably be sunny.",
+      "らいしゅうは はれでしょう。",
       "でしょう = probability.",
     ),
     cloze(
       "ja-m18-5-1-cloze-to",
-      "さむいだ",
+      "この もりは しずかだ",
       " おもいます。",
       "と",
       ["と", "は", "が", "を"],
-      "I think it will be cold.",
-      "さむいだと おもいます。",
-      "...wait — さむい is an い-adj, so no だ! But this cloze tests と placement.",
+      "I think this forest is quiet.",
+      "この もりは しずかだと おもいます。",
+      "な-adjective + だ + と marks the quoted thought before おもいます.",
     ),
     build(
       "ja-m18-5-1-build-1",
       "Say: I think tomorrow will be warm.",
       "あしたは あたたかいと おもいます",
-      ["あした", "は", "あたたかい", "と", "おもいます", "でしょう", "だ"],
+      ["あたたかい", "あした", "おもいます", "は", "と", "でしょう", "だ"],
       ["あした", "は", "あたたかい", "と", "おもいます"],
     ),
     listeningCompSentence({
@@ -1556,20 +1580,20 @@ export const M18_5_1: LessonContent = {
       "ja-m18-5-1-build-2",
       "Say: Tomorrow will probably be muggy.",
       "あしたは むしあついでしょう",
-      ["あした", "は", "むしあつい", "でしょう", "です", "すずしい"],
+      ["むしあつい", "あした", "でしょう", "は", "です", "すずしい"],
       ["あした", "は", "むしあつい", "でしょう"],
     ),
     listeningBuildSentence({
       id: "ja-m18-5-1-lb-1",
-      target: "ふゆは さむいと おもいます",
-      tiles: ["ふゆ", "は", "さむい", "と", "おもいます", "でしょう", "だ"],
-      correctOrder: ["ふゆ", "は", "さむい", "と", "おもいます"],
-      promptEn: "Hear it, build it: 'I think winter is cold.'",
+      target: "そらが きれいだと おもいます",
+      tiles: ["きれい", "そら", "だ", "が", "と", "おもいます", "でしょう"],
+      correctOrder: ["そら", "が", "きれい", "だ", "と", "おもいます"],
+      promptEn: "Hear it, build it: 'I think the sky is beautiful.'",
     }),
     speaking(
       "ja-m18-5-1-speak-1",
-      "あしたは あめでしょう",
-      "It will probably rain tomorrow.",
+      "らいしゅうは あめでしょう",
+      "It will probably rain next week.",
     ),
     cloze(
       "ja-m18-5-1-cloze-deshou-2",
@@ -1585,32 +1609,32 @@ export const M18_5_1: LessonContent = {
       "ja-m18-5-1-build-3",
       "Say: I think there are beautiful flowers in the garden.",
       "にわに きれいな はなが あると おもいます",
-      ["にわ", "に", "きれい", "な", "はな", "が", "ある", "と", "おもいます", "です"],
+      ["きれい", "にわ", "はな", "に", "な", "ある", "が", "と", "おもいます", "です"],
       ["にわ", "に", "きれい", "な", "はな", "が", "ある", "と", "おもいます"],
     ),
     translateStep({
       id: "ja-m18-5-1-translate-1",
-      promptEn: "It will probably rain tomorrow.",
+      promptEn: "Next week will probably be hot.",
       acceptedAnswers: [
-        "あしたは あめでしょう",
-        "あしたは あめでしょう。",
+        "らいしゅうは あついでしょう",
+        "らいしゅうは あついでしょう。",
       ],
-      audioText: "あしたは あめでしょう",
+      audioText: "らいしゅうは あついでしょう",
     }),
     listeningCompSentence({
       id: "ja-m18-5-1-lc-2",
-      audioText: "はるは あたたかいと おもいます",
-      correctMeaningEn: "I think spring is warm.",
+      audioText: "なつは あついと おもいます",
+      correctMeaningEn: "I think summer is hot.",
       distractorsEn: [
-        "Spring will probably be warm.",
-        "Spring is warm.",
-        "I think spring is cool.",
+        "Summer will probably be hot.",
+        "Summer is hot.",
+        "I think summer is cool.",
       ],
     }),
     selfExplain({
       id: "ja-m18-5-1-self-explain",
       anchorLabel: "Three M18 patterns mixed",
-      anchorAudioText: "あしたは はれでしょう",
+      anchorAudioText: "らいしゅうは はれでしょう",
       question: "For a な-adjective like きれい, how do you form とおもいます?",
       rule: { text: "きれい + だ + と おもいます. な-adjectives and nouns need だ before と. い-adjectives connect directly (さむいと おもいます)." },
       surface: { text: "きれい + と おもいます — no だ needed for any adjective." },
@@ -1620,8 +1644,8 @@ export const M18_5_1: LessonContent = {
     }),
     speaking(
       "ja-m18-5-1-speak-2",
-      "この やまは きれいだと おもいます",
-      "I think this mountain is beautiful.",
+      "この もりは しずかだと おもいます",
+      "I think this forest is quiet.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m18-5-1-rev-mcq-1", M18_5_1_REVIEW[0], M18_REVIEW_POOL),
@@ -1654,7 +1678,7 @@ assertNoConsecutiveSame(M18_5_1.steps);
 // M18-5-2 — Interleaved drill II (production-heavy)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_5_2_REVIEW = pickReviewAtoms("ja-m18-5-2-rev", M18_REVIEW_POOL, 5);
+const M18_5_2_REVIEW = pickReviewAtoms("ja-m18-5-2-rev", M18_REVIEW_POOL, 6);
 
 export const M18_5_2: LessonContent = {
   id: "ja-m18-5-2",
@@ -1676,7 +1700,7 @@ export const M18_5_2: LessonContent = {
       "ja-m18-5-2-build-1",
       "Say: I think tomorrow will be sunny.",
       "あしたは はれだと おもいます",
-      ["あした", "は", "はれ", "だ", "と", "おもいます", "でしょう"],
+      ["はれ", "あした", "おもいます", "は", "だ", "と", "でしょう"],
       ["あした", "は", "はれ", "だ", "と", "おもいます"],
     ),
     speaking(
@@ -1695,10 +1719,10 @@ export const M18_5_2: LessonContent = {
     }),
     build(
       "ja-m18-5-2-build-2",
-      "Say: Beautiful flowers are blooming.",
-      "きれいな はなが さいています",
-      ["きれい", "な", "はな", "が", "さいて", "います", "おおきい"],
-      ["きれい", "な", "はな", "が", "さいて", "います"],
+      "Say: I drink cold water.",
+      "つめたい みずを のみます",
+      ["みず", "つめたい", "のみます", "を", "あつい"],
+      ["つめたい", "みず", "を", "のみます"],
     ),
     listeningCompSentence({
       id: "ja-m18-5-2-lc-1",
@@ -1712,14 +1736,14 @@ export const M18_5_2: LessonContent = {
     }),
     speaking(
       "ja-m18-5-2-speak-2",
-      "きれいな はなが さいています",
-      "Beautiful flowers are blooming.",
+      "つめたい みずを のみます",
+      "I drink cold water.",
     ),
     build(
       "ja-m18-5-2-build-3",
       "Say: I think this river is beautiful.",
       "この かわは きれいだと おもいます",
-      ["この", "かわ", "は", "きれい", "だ", "と", "おもいます", "です"],
+      ["かわ", "きれい", "この", "は", "だ", "と", "おもいます", "です"],
       ["この", "かわ", "は", "きれい", "だ", "と", "おもいます"],
     ),
     translateStep({
@@ -1748,15 +1772,15 @@ export const M18_5_2: LessonContent = {
       "ja-m18-5-2-build-4",
       "Say: There's a big forest near the mountain.",
       "やまの ちかくに おおきい もりが あります",
-      ["やま", "の", "ちかく", "に", "おおきい", "もり", "が", "あります", "きれいな"],
+      ["ちかく", "やま", "おおきい", "の", "に", "もり", "あります", "が", "きれいな"],
       ["やま", "の", "ちかく", "に", "おおきい", "もり", "が", "あります"],
     ),
     listeningBuildSentence({
       id: "ja-m18-5-2-lb-1",
-      target: "あしたは あめでしょう",
-      tiles: ["あした", "は", "あめ", "でしょう", "です", "ゆき"],
-      correctOrder: ["あした", "は", "あめ", "でしょう"],
-      promptEn: "Hear it, build it: 'It will probably rain tomorrow.'",
+      target: "なつは あついでしょう",
+      tiles: ["あつい", "なつ", "でしょう", "は", "です", "すずしい"],
+      correctOrder: ["なつ", "は", "あつい", "でしょう"],
+      promptEn: "Hear it, build it: 'Summer will probably be hot.'",
     }),
     speaking(
       "ja-m18-5-2-speak-3",
@@ -1765,18 +1789,18 @@ export const M18_5_2: LessonContent = {
     ),
     cloze(
       "ja-m18-5-2-cloze-da",
-      "あめ",
+      "くもり",
       "と おもいます。",
       "だ",
       ["だ", "な", "の", "は"],
-      "I think it will rain.",
-      "あめだと おもいます。",
+      "I think it's cloudy.",
+      "くもりだと おもいます。",
       "Nouns need だ before と おもいます.",
     ),
     selfExplain({
       id: "ja-m18-5-2-self-explain",
       anchorLabel: "Full M18 production",
-      anchorAudioText: "この かわは きれいだと おもいます",
+      anchorAudioText: "この もりは しずかだと おもいます",
       question: "Three grammar tools in M18 — when would you use each?",
       rule: { text: "でしょう = general prediction (weather forecast). とおもいます = personal opinion. adj+noun modification = describing specific things. Different contexts, different tools." },
       surface: { text: "Use でしょう for formal situations and とおもいます for casual ones." },
@@ -1786,8 +1810,8 @@ export const M18_5_2: LessonContent = {
     }),
     speaking(
       "ja-m18-5-2-speak-4",
-      "この かわは きれいだと おもいます",
-      "I think this river is beautiful.",
+      "そらが きれいだと おもいます",
+      "I think the sky is beautiful.",
     ),
     // ── Review tail ──
     speaking("ja-m18-5-2-rev-speak-1", M18_5_2_REVIEW[0].kana, M18_5_2_REVIEW[0].meaningEn),
@@ -1803,7 +1827,7 @@ export const M18_5_2: LessonContent = {
     }),
     vocabMcq("ja-m18-5-2-rev-mcq-1", M18_5_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     speaking("ja-m18-5-2-rev-speak-2", M18_5_2_REVIEW[2].kana, M18_5_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m18-5-2-rev", M18_5_2_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m18-5-2-rev", M18_5_2_REVIEW),
     infoStep(
       "ja-m18-5-2-info-end",
       "You can produce every M18 pattern from memory",
@@ -1821,7 +1845,7 @@ assertNoConsecutiveSame(M18_5_2.steps);
 // M18-6-1 — Seasons and weather (compound practice)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_6_1_REVIEW = pickReviewAtoms("ja-m18-6-1-rev", M18_REVIEW_POOL, 5);
+const M18_6_1_REVIEW = pickReviewAtoms("ja-m18-6-1-rev", M18_REVIEW_POOL, 6);
 
 export const M18_6_1: LessonContent = {
   id: "ja-m18-6-1",
@@ -1841,10 +1865,10 @@ export const M18_6_1: LessonContent = {
     ),
     build(
       "ja-m18-6-1-build-1",
-      "Say: I think spring is warm.",
-      "はるは あたたかいと おもいます",
-      ["はる", "は", "あたたかい", "と", "おもいます", "でしょう", "だ"],
-      ["はる", "は", "あたたかい", "と", "おもいます"],
+      "Say: I think the weather is nice in spring.",
+      "はるは てんきが いいと おもいます",
+      ["てんき", "はる", "いい", "は", "が", "と", "おもいます", "でしょう"],
+      ["はる", "は", "てんき", "が", "いい", "と", "おもいます"],
     ),
     listeningCompSentence({
       id: "ja-m18-6-1-lc-1",
@@ -1881,7 +1905,7 @@ export const M18_6_1: LessonContent = {
       "ja-m18-6-1-build-2",
       "Say: Summer is probably muggy.",
       "なつは むしあついでしょう",
-      ["なつ", "は", "むしあつい", "でしょう", "です", "すずしい"],
+      ["むしあつい", "なつ", "でしょう", "は", "です", "すずしい"],
       ["なつ", "は", "むしあつい", "でしょう"],
     ),
     cloze(
@@ -1897,20 +1921,20 @@ export const M18_6_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m18-6-1-lb-1",
       target: "はるは あたたかいでしょう",
-      tiles: ["はる", "は", "あたたかい", "でしょう", "です", "さむい"],
+      tiles: ["あたたかい", "はる", "でしょう", "は", "です", "さむい"],
       correctOrder: ["はる", "は", "あたたかい", "でしょう"],
       promptEn: "Hear it, build it: 'Spring will probably be warm.'",
     }),
     speaking(
       "ja-m18-6-1-speak-1",
-      "なつは むしあついでしょう",
-      "Summer will probably be muggy.",
+      "なつは あついと おもいます",
+      "I think summer is hot.",
     ),
     build(
       "ja-m18-6-1-build-3",
       "Say: I think winter has a lot of snow.",
       "ふゆは ゆきが おおいと おもいます",
-      ["ふゆ", "は", "ゆき", "が", "おおい", "と", "おもいます", "でしょう"],
+      ["ゆき", "おおい", "ふゆ", "は", "が", "おもいます", "と", "でしょう"],
       ["ふゆ", "は", "ゆき", "が", "おおい", "と", "おもいます"],
     ),
     translateStep({
@@ -1924,29 +1948,29 @@ export const M18_6_1: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m18-6-1-lc-2",
-      audioText: "あきは すずしいと おもいます",
-      correctMeaningEn: "I think autumn is cool.",
+      audioText: "あきは すずしいでしょう",
+      correctMeaningEn: "Autumn will probably be cool.",
       distractorsEn: [
-        "Autumn will probably be cool.",
+        "I think autumn is cool.",
         "Autumn is cool.",
-        "I think autumn is warm.",
+        "Autumn will probably be warm.",
       ],
     }),
     build(
       "ja-m18-6-1-build-4",
       "Say: Beautiful flowers bloom in spring.",
       "はるに きれいな はなが さきます",
-      ["はる", "に", "きれい", "な", "はな", "が", "さきます", "で"],
+      ["きれい", "はる", "はな", "に", "な", "さきます", "が", "で"],
       ["はる", "に", "きれい", "な", "はな", "が", "さきます"],
     ),
     selfExplain({
       id: "ja-m18-6-1-self-explain",
       anchorLabel: "Season descriptions with でしょう and とおもいます",
-      anchorAudioText: "なつは あついでしょう",
-      question: "A weather forecaster says なつは あついでしょう. How would YOU say you think summer is hot?",
-      rule: { text: "なつは あついと おもいます. The forecaster uses でしょう (objective prediction). You use とおもいます (personal opinion)." },
+      anchorAudioText: "ふゆは さむいでしょう",
+      question: "A weather forecaster says ふゆは さむいでしょう. How would YOU say you think winter is cold?",
+      rule: { text: "ふゆは さむいと おもいます. The forecaster uses でしょう (objective prediction). You use とおもいます (personal opinion)." },
       surface: { text: "You'd say the same thing — でしょう works for personal opinions too." },
-      distractor: { text: "You'd say なつは あついだと おもいます — adding だ after い-adjectives for emphasis." },
+      distractor: { text: "You'd say ふゆは さむいだと おもいます — adding だ after い-adjectives for emphasis." },
       ruleExplanation:
         "Forecaster: でしょう (evidence-based). Personal opinion: とおもいます (I think). い-adj never takes だ before と.",
     }),
@@ -1968,7 +1992,7 @@ export const M18_6_1: LessonContent = {
       ],
     }),
     vocabMcq("ja-m18-6-1-rev-mcq-1", M18_6_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
-    reviewMatchPairs("ja-m18-6-1-rev", M18_6_1_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m18-6-1-rev", M18_6_1_REVIEW),
     infoStep(
       "ja-m18-6-1-info-end",
       "You can now describe every season's weather and scenery",
@@ -1986,7 +2010,7 @@ assertNoConsecutiveSame(M18_6_1.steps);
 // M18-6-2 — Compound production
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_6_2_REVIEW = pickReviewAtoms("ja-m18-6-2-rev", M18_REVIEW_POOL, 5);
+const M18_6_2_REVIEW = pickReviewAtoms("ja-m18-6-2-rev", M18_REVIEW_POOL, 6);
 
 export const M18_6_2: LessonContent = {
   id: "ja-m18-6-2",
@@ -2008,7 +2032,7 @@ export const M18_6_2: LessonContent = {
       "ja-m18-6-2-build-1",
       "Say: I think this sea is beautiful.",
       "この うみは きれいだと おもいます",
-      ["この", "うみ", "は", "きれい", "だ", "と", "おもいます", "な"],
+      ["うみ", "きれい", "この", "は", "だ", "と", "おもいます", "な"],
       ["この", "うみ", "は", "きれい", "だ", "と", "おもいます"],
     ),
     speaking(
@@ -2018,19 +2042,19 @@ export const M18_6_2: LessonContent = {
     ),
     translateStep({
       id: "ja-m18-6-2-translate-1",
-      promptEn: "I think summer is muggy.",
+      promptEn: "I think summer is hot.",
       acceptedAnswers: [
-        "なつは むしあついと おもいます",
-        "なつは むしあついと おもいます。",
+        "なつは あついと おもいます",
+        "なつは あついと おもいます。",
       ],
-      audioText: "なつは むしあついと おもいます",
+      audioText: "なつは あついと おもいます",
     }),
     build(
       "ja-m18-6-2-build-2",
-      "Say: The sky will probably be clear tomorrow.",
-      "あしたは そらが はれでしょう",
-      ["あした", "は", "そら", "が", "はれ", "でしょう", "くもり", "です"],
-      ["あした", "は", "そら", "が", "はれ", "でしょう"],
+      "Say: The sky will probably be beautiful tomorrow.",
+      "あしたは そらが きれいでしょう",
+      ["そら", "あした", "きれい", "は", "が", "でしょう", "くもり", "です"],
+      ["あした", "は", "そら", "が", "きれい", "でしょう"],
     ),
     listeningCompSentence({
       id: "ja-m18-6-2-lc-1",
@@ -2044,47 +2068,47 @@ export const M18_6_2: LessonContent = {
     }),
     speaking(
       "ja-m18-6-2-speak-2",
-      "あしたは はれでしょう",
-      "Tomorrow will probably be sunny.",
+      "あしたは てんきが いいでしょう",
+      "The weather will probably be nice tomorrow.",
     ),
     build(
       "ja-m18-6-2-build-3",
       "Say: I think there are beautiful mountains in autumn.",
       "あきは きれいな やまが あると おもいます",
-      ["あき", "は", "きれい", "な", "やま", "が", "ある", "と", "おもいます", "です"],
+      ["きれい", "あき", "やま", "は", "な", "ある", "が", "と", "おもいます", "です"],
       ["あき", "は", "きれい", "な", "やま", "が", "ある", "と", "おもいます"],
     ),
     translateStep({
       id: "ja-m18-6-2-translate-2",
-      promptEn: "Tomorrow will probably be warm.",
+      promptEn: "Spring will probably be warm.",
       acceptedAnswers: [
-        "あしたは あたたかいでしょう",
-        "あしたは あたたかいでしょう。",
+        "はるは あたたかいでしょう",
+        "はるは あたたかいでしょう。",
       ],
-      audioText: "あしたは あたたかいでしょう",
+      audioText: "はるは あたたかいでしょう",
     }),
     sentenceMcq({
       id: "ja-m18-6-2-mcq-1",
-      prompt: "Which means 'A cool breeze is blowing.'?",
-      correctKana: "すずしい かぜが ふいています。",
+      prompt: "Which means 'A cold wind is blowing.'?",
+      correctKana: "つめたい かぜが ふいています。",
       distractorsKana: [
         "つよい かぜが ふいています。",
-        "すずしいな かぜが ふいています。",
-        "すずしい うみが みえます。",
+        "つめたいな かぜが ふいています。",
+        "つめたい みずが あります。",
       ],
-      explanation: "すずしい = cool (い-adj). かぜ = wind. ふいています = is blowing.",
+      explanation: "つめたい = cold (い-adj). かぜ = wind. ふいています = is blowing.",
     }),
     build(
       "ja-m18-6-2-build-4",
       "Say: There's a big river near the forest.",
       "もりの ちかくに おおきい かわが あります",
-      ["もり", "の", "ちかく", "に", "おおきい", "かわ", "が", "あります", "やま"],
+      ["ちかく", "もり", "おおきい", "の", "に", "かわ", "あります", "が", "やま"],
       ["もり", "の", "ちかく", "に", "おおきい", "かわ", "が", "あります"],
     ),
     listeningBuildSentence({
       id: "ja-m18-6-2-lb-1",
       target: "ふゆは さむいでしょう",
-      tiles: ["ふゆ", "は", "さむい", "でしょう", "です", "あつい"],
+      tiles: ["さむい", "ふゆ", "でしょう", "は", "です", "あつい"],
       correctOrder: ["ふゆ", "は", "さむい", "でしょう"],
       promptEn: "Hear it, build it: 'Winter will probably be cold.'",
     }),
@@ -2116,8 +2140,8 @@ export const M18_6_2: LessonContent = {
     }),
     speaking(
       "ja-m18-6-2-speak-4",
-      "あきは きれいな やまが あると おもいます",
-      "I think autumn has beautiful mountains.",
+      "にわに おおきい きが あります",
+      "There's a big tree in the garden.",
     ),
     // ── Review tail ──
     speaking("ja-m18-6-2-rev-speak-1", M18_6_2_REVIEW[0].kana, M18_6_2_REVIEW[0].meaningEn),
@@ -2133,7 +2157,7 @@ export const M18_6_2: LessonContent = {
     }),
     vocabMcq("ja-m18-6-2-rev-mcq-1", M18_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     speaking("ja-m18-6-2-rev-speak-2", M18_6_2_REVIEW[2].kana, M18_6_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m18-6-2-rev", M18_6_2_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m18-6-2-rev", M18_6_2_REVIEW),
     infoStep(
       "ja-m18-6-2-info-end",
       "You can produce every M18 pattern in complex sentences",
@@ -2148,7 +2172,8 @@ assertAnswerRotation(M18_6_2.steps, 1);
 assertNoConsecutiveSame(M18_6_2.steps);
 
 // ═══════════════════════════════════════════════════════════════════════
-// M18_STORY — Planning outdoor activities based on weather
+// M18_STORY — Narrated story: weekend plans around the weather
+//   (storyComprehension factory per authoring guide §13.13)
 // ═══════════════════════════════════════════════════════════════════════
 
 export const M18_STORY: LessonContent = {
@@ -2158,67 +2183,67 @@ export const M18_STORY: LessonContent = {
   languageId: LANG,
   title: "Story — Weekend plans",
   description:
-    "Listen to two friends plan outdoor activities based on the weather forecast. Answer questions and practice key patterns.",
+    "Follow a narrated weekend plan built around the weather forecast — and reply with your own sentences.",
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
     infoStep(
       "ja-m18-story-info-open",
       "Story time — Weekend plans",
-      "ゆき and たけし are planning what to do this weekend. The weather will decide.",
+      "Listen to a short story about weekend plans that depend on the weather. Answer the questions between chunks, then reply yourself.",
     ),
-    dialogueListen({
-      id: "ja-m18-story-scene-1",
-      lines: [
-        { speaker: "ゆき", kana: "あしたの てんきは どうですか。" },
-        { speaker: "たけし", kana: "あしたは はれでしょう。あたたかいと おもいます。" },
-        { speaker: "ゆき", kana: "じゃあ、やまに いきましょうか。" },
-        { speaker: "たけし", kana: "いいですね。はるだから はなが きれいでしょう。" },
+    ...storyComprehension({
+      idPrefix: "ja-m18-story-s1",
+      narrative: [
+        { kana: "あしたは はれでしょう。" },
+        { kana: "あたたかいと おもいます。" },
+        { kana: "ともだちと やまに いきます。" },
+        { kana: "やまに きれいな はなが さいています。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s1-q1",
           prompt: "What's the weather forecast for tomorrow?",
           correctText: "Probably sunny and warm.",
           distractors: ["Rainy and cold.", "Cloudy but warm.", "Snowy."],
-          explanation: "はれでしょう = probably sunny. あたたかいと おもいます = I think it'll be warm.",
+          explanation:
+            "はれでしょう = probably sunny. あたたかいと おもいます = I think it'll be warm.",
         },
         {
           id: "s1-q2",
-          prompt: "Where do they plan to go?",
-          correctText: "To the mountains.",
-          distractors: ["To the sea.", "To a park.", "To a river."],
-          explanation: "やまに いきましょうか = shall we go to the mountains?",
+          prompt: "Where will the narrator go?",
+          correctText: "To the mountains, with a friend.",
+          distractors: ["To the sea, alone.", "To a park, with a friend.", "To a river."],
+          explanation: "ともだちと やまに いきます = I'll go to the mountains with a friend.",
         },
       ],
+      responseBuild: {
+        target: "あしたの てんきは どうですか",
+        tiles: ["てんき", "あした", "どう", "の", "は", "です", "か"],
+        correctOrder: ["あした", "の", "てんき", "は", "どう", "です", "か"],
+        promptEn: "Ask about the forecast yourself: 'How's the weather tomorrow?'",
+      },
     }),
-    build(
-      "ja-m18-story-build-1",
-      "Say: Tomorrow will probably be sunny.",
-      "あしたは はれでしょう",
-      ["あした", "は", "はれ", "でしょう", "です", "くもり"],
-      ["あした", "は", "はれ", "でしょう"],
-    ),
     sentenceMcq({
       id: "ja-m18-story-mcq-1",
-      prompt: "Why does たけし think the flowers will be beautiful?",
-      correctKana: "Because it's spring.",
+      prompt: "Which part was the narrator's personal OPINION (not a forecast)?",
+      correctKana: "I think it will be warm.",
       distractorsKana: [
-        "Because it's warm.",
-        "Because of the rain.",
-        "Because they're in the mountains.",
+        "It will probably be sunny.",
+        "We go to the mountains.",
+        "Flowers are blooming.",
       ],
-      explanation: "はるだから = because it's spring.",
+      explanation: "あたたかいと おもいます = opinion (とおもいます). はれでしょう = forecast (でしょう).",
     }),
-    dialogueListen({
-      id: "ja-m18-story-scene-2",
-      lines: [
-        { speaker: "ゆき", kana: "でも、あさってはどうですか。" },
-        { speaker: "たけし", kana: "あさっては くもりでしょう。かぜも つよいと おもいます。" },
-        { speaker: "ゆき", kana: "じゃあ、あさっては うみに いかないほうが いいですね。" },
-        { speaker: "たけし", kana: "そうですね。にわで はなを みましょう。" },
+    ...storyComprehension({
+      idPrefix: "ja-m18-story-s2",
+      narrative: [
+        { kana: "でも、あさっては くもりでしょう。" },
+        { kana: "かぜも つよいと おもいます。" },
+        { kana: "あさっては うみに いきません。" },
+        { kana: "にわで はなを みます。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s2-q1",
           prompt: "What's the forecast for the day after tomorrow?",
@@ -2228,12 +2253,18 @@ export const M18_STORY: LessonContent = {
         },
         {
           id: "s2-q2",
-          prompt: "What do they decide to do instead of going to the sea?",
+          prompt: "What will the narrator do instead of going to the sea?",
           correctText: "Look at flowers in the garden.",
-          distractors: ["Go to the mountains.", "Stay home.", "Go to a river."],
-          explanation: "にわで はなを みましょう = let's look at flowers in the garden.",
+          distractors: ["Go to the mountains.", "Stay home and watch TV.", "Go to a river."],
+          explanation: "にわで はなを みます = I'll look at flowers in the garden.",
         },
       ],
+      responseBuild: {
+        target: "にわで はなを みましょう",
+        tiles: ["はな", "にわ", "みましょう", "で", "を", "やま"],
+        correctOrder: ["にわ", "で", "はな", "を", "みましょう"],
+        promptEn: "Suggest the backup plan: 'Let's look at flowers in the garden.'",
+      },
     }),
     cloze(
       "ja-m18-story-cloze-1",
@@ -2247,10 +2278,10 @@ export const M18_STORY: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m18-story-lb-1",
-      target: "あしたは はれでしょう",
-      tiles: ["あした", "は", "はれ", "でしょう", "です", "あめ"],
-      correctOrder: ["あした", "は", "はれ", "でしょう"],
-      promptEn: "Hear it, build it: 'Tomorrow will probably be sunny.'",
+      target: "かぜも つよいと おもいます",
+      tiles: ["つよい", "かぜ", "おもいます", "も", "と", "でしょう"],
+      correctOrder: ["かぜ", "も", "つよい", "と", "おもいます"],
+      promptEn: "Hear it, build it: 'I think the wind will be strong too.'",
     }),
     listeningCompSentence({
       id: "ja-m18-story-lc-1",
@@ -2264,12 +2295,12 @@ export const M18_STORY: LessonContent = {
     }),
     speaking(
       "ja-m18-story-speak-1",
-      "あしたは はれでしょう",
-      "Tomorrow will probably be sunny.",
+      "やまに きれいな はなが さいています",
+      "Beautiful flowers are blooming in the mountains.",
     ),
     sentenceMcq({
       id: "ja-m18-story-mcq-summary",
-      prompt: "What's their full weekend plan?",
+      prompt: "What's the full weekend plan?",
       correctKana: "Tomorrow: mountains (sunny). Day after: garden flowers (cloudy/windy).",
       distractorsKana: [
         "Tomorrow: sea. Day after: mountains.",
@@ -2285,8 +2316,8 @@ export const M18_STORY: LessonContent = {
     ),
     infoStep(
       "ja-m18-story-info-end",
-      "You followed a real weather-based planning conversation",
-      "Forecasts with でしょう, opinions with とおもいます, and nature vocab — all in a natural weekend planning chat.",
+      "You followed a narrated weather-based plan",
+      "Forecasts with でしょう, opinions with とおもいます, and nature vocab — a real weekend plan in Japanese.",
       "win",
     ),
   ],
@@ -2301,7 +2332,7 @@ assertExplanationDoesntLeakAnswer(M18_STORY.steps);
 // M18-7-1 — Comprehension closer (all M18 grammar)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_7_1_REVIEW = pickReviewAtoms("ja-m18-7-1-rev", M18_REVIEW_POOL, 5);
+const M18_7_1_REVIEW = pickReviewAtoms("ja-m18-7-1-rev", M18_REVIEW_POOL, 6);
 
 export const M18_7_1: LessonContent = {
   id: "ja-m18-7-1",
@@ -2323,7 +2354,7 @@ export const M18_7_1: LessonContent = {
       "ja-m18-7-1-build-1",
       "Say: I think this forest is big.",
       "この もりは おおきいと おもいます",
-      ["この", "もり", "は", "おおきい", "と", "おもいます", "でしょう", "だ"],
+      ["もり", "おおきい", "この", "は", "と", "おもいます", "でしょう", "だ"],
       ["この", "もり", "は", "おおきい", "と", "おもいます"],
     ),
     cloze(
@@ -2361,7 +2392,7 @@ export const M18_7_1: LessonContent = {
       "ja-m18-7-1-build-2",
       "Say: The sky is clear today.",
       "きょうは そらが はれています",
-      ["きょう", "は", "そら", "が", "はれて", "います", "くもって", "です"],
+      ["そら", "きょう", "はれて", "は", "が", "います", "くもって", "です"],
       ["きょう", "は", "そら", "が", "はれて", "います"],
     ),
     cloze(
@@ -2376,10 +2407,10 @@ export const M18_7_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m18-7-1-lb-1",
-      target: "あきは すずしいでしょう",
-      tiles: ["あき", "は", "すずしい", "でしょう", "です", "あたたかい"],
-      correctOrder: ["あき", "は", "すずしい", "でしょう"],
-      promptEn: "Hear it, build it: 'Autumn will probably be cool.'",
+      target: "あしたは そらが きれいでしょう",
+      tiles: ["そら", "きれい", "あした", "は", "が", "でしょう", "です"],
+      correctOrder: ["あした", "は", "そら", "が", "きれい", "でしょう"],
+      promptEn: "Hear it, build it: 'The sky will probably be beautiful tomorrow.'",
     }),
     speaking(
       "ja-m18-7-1-speak-1",
@@ -2400,7 +2431,7 @@ export const M18_7_1: LessonContent = {
       "ja-m18-7-1-build-3",
       "Say: There's a beautiful sea near the mountain.",
       "やまの ちかくに きれいな うみが あります",
-      ["やま", "の", "ちかく", "に", "きれい", "な", "うみ", "が", "あります", "かわ"],
+      ["ちかく", "やま", "きれい", "の", "に", "な", "うみ", "あります", "が", "かわ"],
       ["やま", "の", "ちかく", "に", "きれい", "な", "うみ", "が", "あります"],
     ),
     translateStep({
@@ -2414,18 +2445,18 @@ export const M18_7_1: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m18-7-1-lc-2",
-      audioText: "はるは あたたかいでしょう",
-      correctMeaningEn: "Spring will probably be warm.",
+      audioText: "なつは むしあついでしょう",
+      correctMeaningEn: "Summer will probably be muggy.",
       distractorsEn: [
-        "I think spring is warm.",
-        "Spring is warm.",
-        "Spring will probably be cool.",
+        "I think summer is muggy.",
+        "Summer is muggy.",
+        "Summer will probably be cool.",
       ],
     }),
     selfExplain({
       id: "ja-m18-7-1-self-explain",
       anchorLabel: "Full M18 grammar — でしょう, とおもいます, adj+noun",
-      anchorAudioText: "あしたは あめでしょう",
+      anchorAudioText: "あしたは あめだと おもいます",
       question: "List three ways to express 'tomorrow will be rainy':",
       rule: { text: "1. あしたは あめです (fact). 2. あしたは あめでしょう (prediction). 3. あしたは あめだと おもいます (personal opinion). Three levels of certainty." },
       surface: { text: "There's only one way — あしたは あめです. でしょう and とおもいます add nothing." },
@@ -2452,7 +2483,7 @@ export const M18_7_1: LessonContent = {
     }),
     vocabMcq("ja-m18-7-1-rev-mcq-1", M18_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     speaking("ja-m18-7-1-rev-speak-2", M18_7_1_REVIEW[2].kana, M18_7_1_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m18-7-1-rev", M18_7_1_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m18-7-1-rev", M18_7_1_REVIEW),
     infoStep(
       "ja-m18-7-1-info-end",
       "You can now discuss weather, nature, and opinions fluently",
@@ -2470,7 +2501,7 @@ assertNoConsecutiveSame(M18_7_1.steps);
 // M18-7-2 — Production
 // ═══════════════════════════════════════════════════════════════════════
 
-const M18_7_2_REVIEW = pickReviewAtoms("ja-m18-7-2-rev", M18_REVIEW_POOL, 5);
+const M18_7_2_REVIEW = pickReviewAtoms("ja-m18-7-2-rev", M18_REVIEW_POOL, 6);
 
 export const M18_7_2: LessonContent = {
   id: "ja-m18-7-2",
@@ -2490,30 +2521,30 @@ export const M18_7_2: LessonContent = {
     ),
     build(
       "ja-m18-7-2-build-1",
-      "Say: It will probably rain tomorrow.",
-      "あしたは あめでしょう",
-      ["あした", "は", "あめ", "でしょう", "です", "ゆき"],
-      ["あした", "は", "あめ", "でしょう"],
+      "Say: Winter will probably have a lot of snow.",
+      "ふゆは ゆきが おおいでしょう",
+      ["ゆき", "ふゆ", "おおい", "は", "が", "でしょう", "おもいます"],
+      ["ふゆ", "は", "ゆき", "が", "おおい", "でしょう"],
     ),
     speaking(
       "ja-m18-7-2-speak-1",
-      "あしたは あめでしょう",
-      "It will probably rain tomorrow.",
+      "ふゆは ゆきが おおいでしょう",
+      "Winter will probably have a lot of snow.",
     ),
     translateStep({
       id: "ja-m18-7-2-translate-1",
-      promptEn: "I think spring is warm.",
+      promptEn: "I think this sea is beautiful.",
       acceptedAnswers: [
-        "はるは あたたかいと おもいます",
-        "はるは あたたかいと おもいます。",
+        "この うみは きれいだと おもいます",
+        "この うみは きれいだと おもいます。",
       ],
-      audioText: "はるは あたたかいと おもいます",
+      audioText: "この うみは きれいだと おもいます",
     }),
     build(
       "ja-m18-7-2-build-2",
       "Say: Beautiful flowers are blooming in the garden.",
       "にわに きれいな はなが さいています",
-      ["にわ", "に", "きれい", "な", "はな", "が", "さいて", "います", "おおきい"],
+      ["きれい", "にわ", "はな", "に", "な", "さいて", "が", "います", "おおきい"],
       ["にわ", "に", "きれい", "な", "はな", "が", "さいて", "います"],
     ),
     speaking(
@@ -2535,7 +2566,7 @@ export const M18_7_2: LessonContent = {
       "ja-m18-7-2-build-3",
       "Say: I think this river is beautiful.",
       "この かわは きれいだと おもいます",
-      ["この", "かわ", "は", "きれい", "だ", "と", "おもいます", "な"],
+      ["かわ", "きれい", "この", "だ", "は", "と", "おもいます", "な"],
       ["この", "かわ", "は", "きれい", "だ", "と", "おもいます"],
     ),
     sentenceMcq({
@@ -2558,7 +2589,7 @@ export const M18_7_2: LessonContent = {
       "ja-m18-7-2-build-4",
       "Say: Summer will probably be muggy.",
       "なつは むしあついでしょう",
-      ["なつ", "は", "むしあつい", "でしょう", "です", "すずしい"],
+      ["むしあつい", "でしょう", "なつ", "は", "です", "すずしい"],
       ["なつ", "は", "むしあつい", "でしょう"],
     ),
     translateStep({
@@ -2573,24 +2604,24 @@ export const M18_7_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m18-7-2-lb-1",
       target: "はるに きれいな はなが さきます",
-      tiles: ["はる", "に", "きれい", "な", "はな", "が", "さきます", "おおきい"],
+      tiles: ["きれい", "はる", "はな", "に", "な", "さきます", "が", "おおきい"],
       correctOrder: ["はる", "に", "きれい", "な", "はな", "が", "さきます"],
       promptEn: "Hear it, build it: 'Beautiful flowers bloom in spring.'",
     }),
     cloze(
       "ja-m18-7-2-cloze-da",
-      "この やまは きれい",
+      "この もりは きれい",
       "と おもいます。",
       "だ",
       ["だ", "な", "の", "は"],
-      "I think this mountain is beautiful.",
-      "この やまは きれいだと おもいます。",
+      "I think this forest is beautiful.",
+      "この もりは きれいだと おもいます。",
       "な-adj + だ + と おもいます.",
     ),
     selfExplain({
       id: "ja-m18-7-2-self-explain",
       anchorLabel: "Full M18 production mastery",
-      anchorAudioText: "にわに きれいな はなが さいています",
+      anchorAudioText: "おおきい もりが あります",
       question: "In this sentence, why な after きれい but not い after おおきい?",
       rule: { text: "きれい is a な-adjective — it needs な to modify a noun (きれいな はな). おおきい is an い-adjective — it modifies directly (おおきい もり). Check the adjective type to decide." },
       surface: { text: "おおきい ends in い, which is like な. So they both connect the same way." },
@@ -2600,8 +2631,8 @@ export const M18_7_2: LessonContent = {
     }),
     speaking(
       "ja-m18-7-2-speak-4",
-      "はるに きれいな はなが さきます",
-      "Beautiful flowers bloom in spring.",
+      "はるが いちばん いい きせつだと おもいます",
+      "I think spring is the best season.",
     ),
     // ── Review tail ──
     speaking("ja-m18-7-2-rev-speak-1", M18_7_2_REVIEW[0].kana, M18_7_2_REVIEW[0].meaningEn),
@@ -2617,7 +2648,7 @@ export const M18_7_2: LessonContent = {
     }),
     vocabMcq("ja-m18-7-2-rev-mcq-1", M18_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     speaking("ja-m18-7-2-rev-speak-2", M18_7_2_REVIEW[2].kana, M18_7_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m18-7-2-rev", M18_7_2_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m18-7-2-rev", M18_7_2_REVIEW),
     infoStep(
       "ja-m18-7-2-info-end",
       "You can produce every M18 weather and nature pattern from memory",

@@ -8,7 +8,7 @@
  */
 
 import type { LessonRollup } from "@/shared/api/progress";
-import { getActiveUserStorageId } from "@/features/settings/storage";
+import { getActiveUserStorageId, getStoredSettings } from "@/features/settings/storage";
 
 const STORAGE_PREFIX = "open-lingo-lesson-progress:";
 const DEV_UNLOCK_KEY = "lingo_dev_unlock";
@@ -329,6 +329,14 @@ function dailyGoalMinutesFromCompletions(
   return Math.min(goalMinutes, lessonsToday * estimateMinutesPerLesson);
 }
 
+/** Self-chosen daily goal (FTUE goal-setting step), falling back to the
+ *  default when unset. Read from the settings store so the home Daily-goal
+ *  card reflects what the learner committed to. */
+function dailyGoalSetting(): number {
+  const v = getStoredSettings()?.learning?.dailyGoalMinutes;
+  return typeof v === "number" && v > 0 ? v : MOCK_PROGRESS.dailyGoalMinutes;
+}
+
 export function getMockProgressSummary(): ProgressSummary {
   if (typeof window === "undefined") return { ...MOCK_PROGRESS };
 
@@ -339,7 +347,7 @@ export function getMockProgressSummary(): ProgressSummary {
     return {
       streakDays: 0,
       lessonsCompletedThisWeek: 0,
-      dailyGoalMinutes: MOCK_PROGRESS.dailyGoalMinutes,
+      dailyGoalMinutes: dailyGoalSetting(),
       dailyGoalCompletedMinutes: 0,
       cardsDueToday: 0,
       xpTotal: 0,
@@ -365,7 +373,7 @@ export function getMockProgressSummary(): ProgressSummary {
     if (last.getTime() >= sevenDaysAgoMs) lessonsThisWeek += 1;
   }
 
-  const dailyGoalMinutes = MOCK_PROGRESS.dailyGoalMinutes;
+  const dailyGoalMinutes = dailyGoalSetting();
 
   return {
     streakDays: computeStreakDays(completedDayKeys),

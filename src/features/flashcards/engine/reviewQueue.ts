@@ -4,6 +4,24 @@ import { getSRSStore, canonicalize } from "./srsStorage";
 
 const DEFAULT_NEW_CARDS_PER_DAY = 5;
 
+/** Adaptive new-card intake (retention Phase 2, Spencer D7). Lessons unlock
+ *  ~4-8 atoms/day; a fixed 5/day intake lets the backlog grow unbounded. So
+ *  scale intake to drain the backlog over ~3 weeks, floored at the base and
+ *  capped so we never flood the learner (CLT — don't dump 200 new cards).
+ *  Backlog-based (not timestamped unlock-rate): a growing backlog *is* the
+ *  signal that unlock outran intake, so this self-corrects. */
+const ADAPTIVE_DRAIN_DAYS = 21;
+const ADAPTIVE_MAX_NEW_CARDS = 15;
+
+export function adaptiveNewCardsPerDay(
+  backlog: number,
+  base: number = DEFAULT_NEW_CARDS_PER_DAY,
+  max: number = ADAPTIVE_MAX_NEW_CARDS,
+): number {
+  if (backlog <= 0) return base;
+  return Math.min(max, Math.max(base, Math.ceil(backlog / ADAPTIVE_DRAIN_DAYS)));
+}
+
 /** Cap on cards surfaced in a free/extra-practice session (not-yet-due cards). */
 const FREE_REVIEW_CAP = 20;
 
@@ -26,6 +44,13 @@ export type ReviewQueue = {
    */
   notYetDueCount?: number;
   totalCount: number;
+  /** All unlocked-but-never-studied cards (pre-cap). `unseenTotal - newCount`
+   *  is the throttled backlog waiting behind today's new-card allotment —
+   *  surfaced to the learner so the intake throttle is visible, not silent. */
+  unseenTotal: number;
+  /** The effective new-card cap applied (adaptive unless explicitly passed) —
+   *  so the UI can show the real "N/day" instead of a hardcoded number. */
+  newCardsAllowed: number;
   /** Map cardId -> deck defaultEase for new cards */
   cardIdToDefaultEase?: Record<string, number>;
 };
@@ -51,7 +76,7 @@ export type DeckWithCards = {
  */
 export function buildReviewQueue(
   cards: Flashcard[],
-  newCardsPerDay: number = DEFAULT_NEW_CARDS_PER_DAY,
+  newCardsPerDay?: number,
 ): ReviewQueue {
   const store = getSRSStore();
 
@@ -67,6 +92,10 @@ export function buildReviewQueue(
     }
   }
 
+  // Adaptive intake when no explicit cap is passed (course-deck path);
+  // explicit caps (subscription decks) are respected as-is.
+  const cap = newCardsPerDay ?? adaptiveNewCardsPerDay(unseenCards.length);
+
   // Sort by FSRS difficulty descending (harder cards first while user is
   // fresh; easier cards trail). Matches the prior SM-2 "ease ascending"
   // intent — under FSRS, higher difficulty = harder card. With the
@@ -75,7 +104,7 @@ export function buildReviewQueue(
   review.sort((a, b) => cardMaxDifficulty(b.state) - cardMaxDifficulty(a.state));
 
   const reviewCards = review.map((r) => r.card);
-  const newCards = unseenCards.slice(0, newCardsPerDay);
+  const newCards = unseenCards.slice(0, cap);
   const queue = [...reviewCards, ...newCards];
 
   return {
@@ -85,6 +114,8 @@ export function buildReviewQueue(
     dueCount: reviewCards.length,
     newCount: newCards.length,
     totalCount: queue.length,
+    unseenTotal: unseenCards.length,
+    newCardsAllowed: cap,
   };
 }
 
@@ -160,6 +191,9 @@ export function buildQueueFromSubscriptions(
 
   const queue = [...reviewCards, ...newCards, ...extraCards];
 
+  let unseenTotal = 0;
+  for (const list of unseenByDeck.values()) unseenTotal += list.length;
+
   return {
     review: reviewCards,
     newCards,
@@ -169,6 +203,9 @@ export function buildQueueFromSubscriptions(
     extraCount: extraCards.length,
     notYetDueCount: notYetDue.length,
     totalCount: queue.length,
+    unseenTotal,
+    // Subscriptions use per-deck caps; report how many were actually admitted.
+    newCardsAllowed: newCards.length,
     cardIdToDefaultEase,
   };
 }
@@ -179,7 +216,7 @@ export function buildQueueFromSubscriptions(
  */
 export function countCardsDue(
   cards: Flashcard[],
-  newCardsPerDay: number = DEFAULT_NEW_CARDS_PER_DAY,
+  newCardsPerDay?: number,
 ): number {
   const store = getSRSStore();
   let dueReviews = 0;
@@ -194,7 +231,8 @@ export function countCardsDue(
     }
   }
 
-  return dueReviews + Math.min(unseen, newCardsPerDay);
+  const cap = newCardsPerDay ?? adaptiveNewCardsPerDay(unseen);
+  return dueReviews + Math.min(unseen, cap);
 }
 
 /**

@@ -10,6 +10,9 @@
  *   - ので (because — softer/more formal than から, taught in M13)
  *     Natural context: あたまがいたいので、くすりをのみます
  *   - Adjective review with body context
+ *   - Backlog adverbs woven in (2026-06-12 sentence-variety pass):
+ *     ゆっくり / ゆっくりと (rest/take it easy; slowly — intro M20-2-2)
+ *     and たくさん (a lot — intro M20-3-1), in health-advice carriers.
  *
  * ので vs から contrast:
  *   - から (M13) = direct/explanatory, slightly casual
@@ -39,6 +42,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  storyComprehension,
   translateStep,
   vocabMcq,
   assertNoSameAnswerCluster,
@@ -168,7 +172,7 @@ const RULE_NODE_VS_KARA = grammarRule({
 //   (あたま, かお, め, みみ, はな (nose), くち)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_1_1_REVIEW = pickReviewAtoms("ja-m20-1-1-rev", M20_REVIEW_POOL, 4);
+const M20_1_1_REVIEW = pickReviewAtoms("ja-m20-1-1-rev", M20_REVIEW_POOL, 6);
 
 export const M20_1_1: LessonContent = {
   id: "ja-m20-1-1",
@@ -191,7 +195,7 @@ export const M20_1_1: LessonContent = {
       "ja-m20-1-1-build-atama",
       "Pick the Japanese word for: head",
       "あたま",
-      ["あたま", "かお", "め", "みみ"],
+      ["め", "あたま", "みみ", "かお"],
       ["あたま"],
     ),
     listeningCompSentence({
@@ -205,7 +209,7 @@ export const M20_1_1: LessonContent = {
       "ja-m20-1-1-build-kao",
       "Pick the Japanese word for: face",
       "かお",
-      ["かお", "あたま", "くち", "みみ"],
+      ["くち", "かお", "あたま", "みみ"],
       ["かお"],
     ),
     speaking("ja-m20-1-1-speak-kao", "かお", "Face"),
@@ -214,7 +218,7 @@ export const M20_1_1: LessonContent = {
       "ja-m20-1-1-build-me",
       "Pick the Japanese word for: eyes",
       "め",
-      ["め", "みみ", "はな", "くち"],
+      ["はな", "くち", "め", "みみ"],
       ["め"],
     ),
     listeningCompSentence({
@@ -253,7 +257,7 @@ export const M20_1_1: LessonContent = {
       "ja-m20-1-1-build-me-sentence",
       "Say: My eyes are big.",
       "めが おおきいです",
-      ["め", "が", "おおきい", "です", "ちいさい", "みみ"],
+      ["ちいさい", "です", "おおきい", "め", "が", "みみ"],
       ["め", "が", "おおきい", "です"],
     ),
     sentenceMcq({
@@ -269,12 +273,12 @@ export const M20_1_1: LessonContent = {
     }),
     cloze(
       "ja-m20-1-1-cloze-ga",
-      "め",
-      " おおきいです。",
+      "くち",
+      " ちいさいです。",
       "が",
       ["が", "は", "を", "の"],
-      "My eyes are big.",
-      "めが おおきいです。",
+      "My mouth is small.",
+      "くちが ちいさいです。",
       "が marks the subject in a descriptive statement about a body part.",
     ),
     selfExplain({
@@ -290,8 +294,8 @@ export const M20_1_1: LessonContent = {
     }),
     speaking(
       "ja-m20-1-1-speak-sentence",
-      "かおを あらいました",
-      "I washed my face.",
+      "みみが おおきいです",
+      "My ears are big.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m20-1-1-rev-mcq-1", M20_1_1_REVIEW[0], M20_REVIEW_POOL),
@@ -324,7 +328,7 @@ assertNoConsecutiveSame(M20_1_1.steps);
 // M20-1-2 — "Body" vocab (は teeth, て, あし, おなか, せなか, ゆび, かみ hair)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_1_2_REVIEW = pickReviewAtoms("ja-m20-1-2-rev", M20_REVIEW_POOL, 4);
+const M20_1_2_REVIEW = pickReviewAtoms("ja-m20-1-2-rev", M20_REVIEW_POOL, 6);
 
 export const M20_1_2: LessonContent = {
   id: "ja-m20-1-2",
@@ -347,7 +351,7 @@ export const M20_1_2: LessonContent = {
       "ja-m20-1-2-build-ha",
       "Pick the Japanese word for: teeth",
       "は",
-      ["は", "て", "め", "くち"],
+      ["くち", "て", "め", "は"],
       ["は"],
     ),
     listeningCompSentence({
@@ -365,7 +369,7 @@ export const M20_1_2: LessonContent = {
       "ja-m20-1-2-build-te",
       "Pick the Japanese word for: hand(s)",
       "て",
-      ["て", "あし", "ゆび", "は"],
+      ["は", "あし", "て", "ゆび"],
       ["て"],
     ),
     speaking("ja-m20-1-2-speak-te", "て", "Hand"),
@@ -386,7 +390,7 @@ export const M20_1_2: LessonContent = {
       "ja-m20-1-2-build-onaka",
       "Pick the Japanese word for: stomach",
       "おなか",
-      ["おなか", "せなか", "あたま", "かお"],
+      ["せなか", "かお", "おなか", "あたま"],
       ["おなか"],
     ),
     sentenceMcq({
@@ -405,7 +409,7 @@ export const M20_1_2: LessonContent = {
       "ja-m20-1-2-build-senaka",
       "Pick the Japanese word for: back (body)",
       "せなか",
-      ["せなか", "おなか", "あし", "あたま"],
+      ["あたま", "あし", "おなか", "せなか"],
       ["せなか"],
     ),
     speaking("ja-m20-1-2-speak-senaka", "せなか", "Back"),
@@ -414,7 +418,7 @@ export const M20_1_2: LessonContent = {
       "ja-m20-1-2-build-yubi",
       "Pick the Japanese word for: finger(s)",
       "ゆび",
-      ["ゆび", "て", "あし", "は"],
+      ["て", "ゆび", "は", "あし"],
       ["ゆび"],
     ),
     listeningCompSentence({
@@ -428,7 +432,7 @@ export const M20_1_2: LessonContent = {
       "ja-m20-1-2-build-kami",
       "Pick the Japanese word for: hair",
       "かみ",
-      ["かみ", "かお", "あたま", "め"],
+      ["かお", "あたま", "め", "かみ"],
       ["かみ"],
     ),
     sentenceMcq({
@@ -457,7 +461,7 @@ export const M20_1_2: LessonContent = {
       "ja-m20-1-2-build-ha-sentence",
       "Say: I brush my teeth every morning.",
       "まいあさ はを みがきます",
-      ["まいあさ", "は", "を", "みがきます", "あし", "あらいます"],
+      ["みがきます", "あし", "は", "まいあさ", "を", "あらいます"],
       ["まいあさ", "は", "を", "みがきます"],
     ),
     selfExplain({
@@ -473,8 +477,8 @@ export const M20_1_2: LessonContent = {
     }),
     speaking(
       "ja-m20-1-2-speak-sentence",
-      "てを あらいます",
-      "I wash my hands.",
+      "かみを あらいます",
+      "I wash my hair.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m20-1-2-rev-mcq-1", M20_1_2_REVIEW[0], M20_REVIEW_POOL),
@@ -507,7 +511,7 @@ assertNoConsecutiveSame(M20_1_2.steps);
 // M20-2-1 — "It hurts" (〜がいたい) intro
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_2_1_REVIEW = pickReviewAtoms("ja-m20-2-1-rev", M20_REVIEW_POOL, 4);
+const M20_2_1_REVIEW = pickReviewAtoms("ja-m20-2-1-rev", M20_REVIEW_POOL, 6);
 
 export const M20_2_1: LessonContent = {
   id: "ja-m20-2-1",
@@ -531,101 +535,73 @@ export const M20_2_1: LessonContent = {
       "ja-m20-2-1-build-atama-itai",
       "Say: My head hurts.",
       "あたまが いたいです",
-      ["あたま", "が", "いたい", "です", "は", "おなか"],
+      ["いたい", "あたま", "です", "が", "は", "おなか"],
       ["あたま", "が", "いたい", "です"],
-    ),
-    listeningCompSentence({
-      id: "ja-m20-2-1-lc-atama-itai",
-      audioText: "あたまが いたいです",
-      correctMeaningEn: "My head hurts.",
-      distractorsEn: [
-        "My stomach hurts.",
-        "My head is big.",
-        "My head is fine.",
-      ],
-    }),
-    // ── おなかがいたい (stomachache) ──
-    build(
-      "ja-m20-2-1-build-onaka-itai",
-      "Say: My stomach hurts.",
-      "おなかが いたいです",
-      ["おなか", "が", "いたい", "です", "あたま", "せなか"],
-      ["おなか", "が", "いたい", "です"],
-    ),
-    speaking("ja-m20-2-1-speak-onaka", "おなかが いたいです", "My stomach hurts."),
-    // ── はがいたい (toothache) ──
-    build(
-      "ja-m20-2-1-build-ha-itai",
-      "Say: My teeth hurt.",
-      "はが いたいです",
-      ["は", "が", "いたい", "です", "くち", "め"],
-      ["は", "が", "いたい", "です"],
-    ),
-    sentenceMcq({
-      id: "ja-m20-2-1-mcq-ha-itai",
-      prompt: "Which means 'I have a toothache'?",
-      correctKana: "はが いたいです。",
-      distractorsKana: [
-        "はを いたいです。",
-        "くちが いたいです。",
-        "はが おおきいです。",
-      ],
-      explanation: "は = teeth. が marks the body part. いたい = hurts.",
-    }),
-    // ── More body pain patterns ──
-    cloze(
-      "ja-m20-2-1-cloze-ga-1",
-      "あし",
-      " いたいです。",
-      "が",
-      ["が", "は", "を", "の"],
-      "My feet hurt.",
-      "あしが いたいです。",
-      "が marks the body part that hurts.",
-    ),
-    listeningBuildSentence({
-      id: "ja-m20-2-1-lb-atama",
-      target: "あたまが いたいです",
-      tiles: ["あたま", "が", "いたい", "です", "おなか", "は"],
-      correctOrder: ["あたま", "が", "いたい", "です"],
-      promptEn: "Hear it, build it: 'My head hurts.'",
-    }),
-    sentenceMcq({
-      id: "ja-m20-2-1-mcq-senaka",
-      prompt: "Which means 'My back hurts.'?",
-      correctKana: "せなかが いたいです。",
-      distractorsKana: [
-        "おなかが いたいです。",
-        "せなかは いたいです。",
-        "せなかを いたいです。",
-      ],
-      explanation: "せなか = back. が + いたい is the standard pain pattern.",
-    }),
-    build(
-      "ja-m20-2-1-build-me-itai",
-      "Say: My eyes hurt.",
-      "めが いたいです",
-      ["め", "が", "いたい", "です", "みみ", "あたま"],
-      ["め", "が", "いたい", "です"],
-    ),
-    cloze(
-      "ja-m20-2-1-cloze-ga-2",
-      "ゆび",
-      " いたいです。",
-      "が",
-      ["が", "は", "を", "に"],
-      "My finger hurts.",
-      "ゆびが いたいです。",
-      "が marks the hurting body part.",
     ),
     listeningCompSentence({
       id: "ja-m20-2-1-lc-onaka-itai",
       audioText: "おなかが いたいです",
       correctMeaningEn: "My stomach hurts.",
       distractorsEn: [
+        "My head hurts.",
         "I'm hungry.",
-        "My back hurts.",
         "My stomach is full.",
+      ],
+    }),
+    // ── はがいたい (toothache) ──
+    build(
+      "ja-m20-2-1-build-ha-itai",
+      "Say: My teeth hurt.",
+      "はが いたいです",
+      ["です", "は", "いたい", "が", "くち", "め"],
+      ["は", "が", "いたい", "です"],
+    ),
+    speaking("ja-m20-2-1-speak-senaka-itai", "せなかが いたいです", "My back hurts."),
+    sentenceMcq({
+      id: "ja-m20-2-1-mcq-me-itai",
+      prompt: "Which means 'My eyes hurt.'?",
+      correctKana: "めが いたいです。",
+      distractorsKana: [
+        "めを いたいです。",
+        "みみが いたいです。",
+        "めは いたいです。",
+      ],
+      explanation: "め = eyes. が marks the body part. いたい = hurts.",
+    }),
+    // ── More body pain patterns ──
+    listeningBuildSentence({
+      id: "ja-m20-2-1-lb-te-itai",
+      target: "てが いたいです",
+      tiles: ["いたい", "て", "です", "が", "ゆび", "は"],
+      correctOrder: ["て", "が", "いたい", "です"],
+      promptEn: "Hear it, build it: 'My hand hurts.'",
+    }),
+    sentenceMcq({
+      id: "ja-m20-2-1-mcq-yubi-itai",
+      prompt: "Which means 'My finger hurts.'?",
+      correctKana: "ゆびが いたいです。",
+      distractorsKana: [
+        "ては いたいです。",
+        "ゆびを いたいです。",
+        "あしは いたいです。",
+      ],
+      explanation: "ゆび = finger. が + いたい is the standard pain pattern.",
+    }),
+    build(
+      "ja-m20-2-1-build-ashi-itai",
+      "Say: My feet hurt.",
+      "あしが いたいです",
+      ["が", "あし", "いたい", "です", "て", "せなか"],
+      ["あし", "が", "いたい", "です"],
+    ),
+    listeningCompSentence({
+      id: "ja-m20-2-1-lc-atama-onaka",
+      audioText: "あたまと おなかが いたいです",
+      correctMeaningEn: "My head and stomach hurt.",
+      distractorsEn: [
+        "My head and back hurt.",
+        "Only my stomach hurts.",
+        "My head is big.",
       ],
     }),
     selfExplain({
@@ -641,8 +617,8 @@ export const M20_2_1: LessonContent = {
     }),
     speaking(
       "ja-m20-2-1-speak-sentence",
-      "はが いたいです",
-      "My teeth hurt.",
+      "みみが いたいです",
+      "My ear hurts.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m20-2-1-rev-mcq-1", M20_2_1_REVIEW[0], M20_REVIEW_POOL),
@@ -675,7 +651,7 @@ assertNoConsecutiveSame(M20_2_1.steps);
 // M20-2-2 — Pain drill + medical context
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_2_2_REVIEW = pickReviewAtoms("ja-m20-2-2-rev", M20_REVIEW_POOL, 4);
+const M20_2_2_REVIEW = pickReviewAtoms("ja-m20-2-2-rev", M20_REVIEW_POOL, 6);
 
 export const M20_2_2: LessonContent = {
   id: "ja-m20-2-2",
@@ -703,7 +679,7 @@ export const M20_2_2: LessonContent = {
       "ja-m20-2-2-build-byouki",
       "Say: I am sick.",
       "びょうきです",
-      ["びょうき", "です", "げんき", "いたい"],
+      ["げんき", "です", "びょうき", "いたい"],
       ["びょうき", "です"],
     ),
     // ── くすり (medicine) ──
@@ -727,7 +703,7 @@ export const M20_2_2: LessonContent = {
       "ja-m20-2-2-build-isha",
       "Pick the Japanese word for: doctor",
       "いしゃ",
-      ["いしゃ", "せんせい", "びょうき", "くすり"],
+      ["びょうき", "せんせい", "くすり", "いしゃ"],
       ["いしゃ"],
     ),
     speaking("ja-m20-2-2-speak-isha", "いしゃ", "Doctor"),
@@ -736,7 +712,7 @@ export const M20_2_2: LessonContent = {
       "ja-m20-2-2-build-netsu",
       "Pick the Japanese word for: fever",
       "ねつ",
-      ["ねつ", "かぜ", "びょうき", "くすり"],
+      ["くすり", "かぜ", "びょうき", "ねつ"],
       ["ねつ"],
     ),
     sentenceMcq({
@@ -750,30 +726,27 @@ export const M20_2_2: LessonContent = {
       ],
       explanation: "ねつがあります = 'there is a fever' = 'I have a fever.' あります for non-living things.",
     }),
-    // ── Medical context drills ──
-    cloze(
-      "ja-m20-2-2-cloze-wo",
-      "くすり",
-      " のみます。",
-      "を",
-      ["を", "が", "は", "に"],
-      "I take medicine.",
-      "くすりを のみます。",
-      "を marks the direct object — medicine is what you take.",
+    // ── Medical context drills + ゆっくり (take it easy) ──
+    build(
+      "ja-m20-2-2-build-yukkuri",
+      "Pick the Japanese word for: slowly / restfully (take it easy)",
+      "ゆっくり",
+      ["はやく", "ゆっくり", "すこし", "とても"],
+      ["ゆっくり"],
     ),
     build(
       "ja-m20-2-2-build-isha-ni",
       "Say: I go to the doctor.",
       "いしゃに いきます",
-      ["いしゃ", "に", "いきます", "を", "びょういん", "で"],
+      ["いきます", "いしゃ", "に", "を", "びょういん", "で"],
       ["いしゃ", "に", "いきます"],
     ),
     listeningBuildSentence({
       id: "ja-m20-2-2-lb-kusuri",
-      target: "くすりを のみます",
-      tiles: ["くすり", "を", "のみます", "が", "あります", "いしゃ"],
-      correctOrder: ["くすり", "を", "のみます"],
-      promptEn: "Hear it, build it: 'I take medicine.'",
+      target: "くすりを かいます",
+      tiles: ["かいます", "くすり", "を", "が", "のみます", "いしゃ"],
+      correctOrder: ["くすり", "を", "かいます"],
+      promptEn: "Hear it, build it: 'I buy medicine.'",
     }),
     sentenceMcq({
       id: "ja-m20-2-2-mcq-isha",
@@ -786,26 +759,34 @@ export const M20_2_2: LessonContent = {
       ],
       explanation: "いしゃに = to the doctor. いきました = went.",
     }),
-    cloze(
-      "ja-m20-2-2-cloze-ga",
-      "ねつ",
-      " あります。",
-      "が",
-      ["が", "は", "を", "に"],
-      "I have a fever.",
-      "ねつが あります。",
-      "が marks the subject with あります — 'a fever exists.'",
+    listeningCompSentence({
+      id: "ja-m20-2-2-lc-yukkuri",
+      audioText: "ゆっくり やすんでください",
+      correctMeaningEn: "Please rest well (take it easy).",
+      distractorsEn: [
+        "Please hurry and rest.",
+        "Please take medicine.",
+        "Please speak slowly.",
+      ],
+    }),
+    // ── ゆっくりと (slowly, adverb) — backlog weave ──
+    build(
+      "ja-m20-2-2-build-yukkurito",
+      "Say: I walk slowly.",
+      "ゆっくりと あるきます",
+      ["はやく", "あるきます", "ゆっくりと", "たべます"],
+      ["ゆっくりと", "あるきます"],
     ),
     translateStep({
       id: "ja-m20-2-2-translate",
-      promptEn: "My head hurts.",
+      promptEn: "My eyes hurt.",
       acceptedAnswers: [
-        "あたまが いたいです",
-        "あたまが いたいです。",
-        "あたまがいたいです",
-        "あたまがいたいです。",
+        "めが いたいです",
+        "めが いたいです。",
+        "めがいたいです",
+        "めがいたいです。",
       ],
-      audioText: "あたまが いたいです",
+      audioText: "めが いたいです",
     }),
     selfExplain({
       id: "ja-m20-2-2-self-explain",
@@ -820,8 +801,8 @@ export const M20_2_2: LessonContent = {
     }),
     speaking(
       "ja-m20-2-2-speak-sentence",
-      "ねつが あります",
-      "I have a fever.",
+      "くすりを ください",
+      "Medicine, please.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m20-2-2-rev-mcq-1", M20_2_2_REVIEW[0], M20_REVIEW_POOL),
@@ -854,7 +835,7 @@ assertNoConsecutiveSame(M20_2_2.steps);
 // M20-3-1 — More health vocab (かぜ, せっけん, タオル, めがね)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_3_1_REVIEW = pickReviewAtoms("ja-m20-3-1-rev", M20_REVIEW_POOL, 4);
+const M20_3_1_REVIEW = pickReviewAtoms("ja-m20-3-1-rev", M20_REVIEW_POOL, 6);
 
 export const M20_3_1: LessonContent = {
   id: "ja-m20-3-1",
@@ -882,17 +863,17 @@ export const M20_3_1: LessonContent = {
       "ja-m20-3-1-build-kaze",
       "Say: I caught a cold.",
       "かぜを ひきました",
-      ["かぜ", "を", "ひきました", "が", "あります", "びょうき"],
+      ["が", "を", "びょうき", "かぜ", "ひきました", "あります"],
       ["かぜ", "を", "ひきました"],
     ),
     listeningCompSentence({
       id: "ja-m20-3-1-lc-kaze",
-      audioText: "かぜを ひきました",
-      correctMeaningEn: "I caught a cold.",
+      audioText: "おとうとは かぜを ひきました",
+      correctMeaningEn: "My little brother caught a cold.",
       distractorsEn: [
-        "I have a fever.",
-        "I'm sick.",
-        "The wind is blowing.",
+        "My little brother has a fever.",
+        "I caught a cold.",
+        "My little brother is fine.",
       ],
     }),
     // ── せっけん (soap) ──
@@ -907,7 +888,7 @@ export const M20_3_1: LessonContent = {
       "ja-m20-3-1-build-taoru",
       "Pick the Japanese word for: towel",
       "タオル",
-      ["タオル", "せっけん", "くすり", "めがね"],
+      ["くすり", "せっけん", "タオル", "めがね"],
       ["タオル"],
     ),
     listeningCompSentence({
@@ -948,26 +929,34 @@ export const M20_3_1: LessonContent = {
       "ja-m20-3-1-build-taoru-sentence",
       "Say: I dry my hands with a towel.",
       "タオルで てを ふきます",
-      ["タオル", "で", "て", "を", "ふきます", "あらいます", "せっけん"],
+      ["ふきます", "を", "て", "で", "せっけん", "タオル", "あらいます"],
       ["タオル", "で", "て", "を", "ふきます"],
     ),
     listeningBuildSentence({
       id: "ja-m20-3-1-lb-kaze",
-      target: "かぜを ひきました",
-      tiles: ["かぜ", "を", "ひきました", "が", "あります", "ねつ"],
-      correctOrder: ["かぜ", "を", "ひきました"],
-      promptEn: "Hear it, build it: 'I caught a cold.'",
+      target: "かぜを ひきましたか",
+      tiles: ["ひきました", "かぜ", "か", "を", "ねつ", "が"],
+      correctOrder: ["かぜ", "を", "ひきました", "か"],
+      promptEn: "Hear it, build it: 'Did you catch a cold?'",
     }),
-    cloze(
-      "ja-m20-3-1-cloze-wo",
-      "めがね",
-      " かけています。",
-      "を",
-      ["を", "が", "は", "で"],
-      "I wear glasses.",
-      "めがねを かけています。",
-      "を marks the direct object — glasses are what you put on.",
+    // ── たくさん (a lot) — health-advice adverb ──
+    build(
+      "ja-m20-3-1-build-takusan",
+      "Pick the Japanese word for: a lot / many",
+      "たくさん",
+      ["すこし", "ちょっと", "たくさん", "とても"],
+      ["たくさん"],
     ),
+    listeningCompSentence({
+      id: "ja-m20-3-1-lc-takusan",
+      audioText: "みずを たくさん のんでください",
+      correctMeaningEn: "Please drink lots of water.",
+      distractorsEn: [
+        "Please drink a little water.",
+        "Please buy lots of water.",
+        "Please drink lots of tea.",
+      ],
+    }),
     selfExplain({
       id: "ja-m20-3-1-self-explain",
       anchorLabel: "かぜをひく — a fixed phrase",
@@ -981,8 +970,8 @@ export const M20_3_1: LessonContent = {
     }),
     speaking(
       "ja-m20-3-1-speak-sentence",
-      "せっけんで てを あらいます",
-      "I wash my hands with soap.",
+      "まいばん かみを あらいます",
+      "I wash my hair every night.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m20-3-1-rev-mcq-1", M20_3_1_REVIEW[0], M20_REVIEW_POOL),
@@ -1015,7 +1004,7 @@ assertNoConsecutiveSame(M20_3_1.steps);
 // M20-3-2 — Body & health mixed drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_3_2_REVIEW = pickReviewAtoms("ja-m20-3-2-rev", M20_REVIEW_POOL, 4);
+const M20_3_2_REVIEW = pickReviewAtoms("ja-m20-3-2-rev", M20_REVIEW_POOL, 6);
 
 export const M20_3_2: LessonContent = {
   id: "ja-m20-3-2",
@@ -1045,33 +1034,23 @@ export const M20_3_2: LessonContent = {
       ],
       explanation: "ねつがあって (te-form of ある + connection) + あたまがいたい. Combined symptoms.",
     }),
-    cloze(
-      "ja-m20-3-2-cloze-ga-1",
-      "あし",
-      " いたいです。",
-      "が",
-      ["が", "は", "を", "に"],
-      "My feet hurt.",
-      "あしが いたいです。",
-      "が marks the body part that hurts.",
-    ),
+    listeningCompSentence({
+      id: "ja-m20-3-2-lc-hana-itai",
+      audioText: "はなが いたいです",
+      correctMeaningEn: "My nose hurts.",
+      distractorsEn: [
+        "My nose is tall.",
+        "My ear hurts.",
+        "I caught a cold.",
+      ],
+    }),
     build(
       "ja-m20-3-2-build-1",
       "Say: I wash my face with soap.",
       "せっけんで かおを あらいます",
-      ["せっけん", "で", "かお", "を", "あらいます", "て", "に"],
+      ["かお", "せっけん", "あらいます", "で", "を", "て", "に"],
       ["せっけん", "で", "かお", "を", "あらいます"],
     ),
-    listeningCompSentence({
-      id: "ja-m20-3-2-lc-1",
-      audioText: "みみが いたいです",
-      correctMeaningEn: "My ear hurts.",
-      distractorsEn: [
-        "My eye hurts.",
-        "My ear is big.",
-        "I can't hear.",
-      ],
-    }),
     sentenceMcq({
       id: "ja-m20-3-2-mcq-2",
       prompt: "Which means 'I'll take medicine and rest.'?",
@@ -1083,39 +1062,31 @@ export const M20_3_2: LessonContent = {
       ],
       explanation: "くすりをのんで (te-form: take medicine) + やすみます (rest).",
     }),
-    cloze(
-      "ja-m20-3-2-cloze-de",
-      "タオル",
-      " かおを ふきます。",
-      "で",
-      ["で", "を", "が", "に"],
-      "I dry my face with a towel.",
-      "タオルで かおを ふきます。",
-      "で marks the tool/means.",
+    build(
+      "ja-m20-3-2-build-taoru",
+      "Say: I dry my face with a towel.",
+      "タオルで かおを ふきます",
+      ["ふきます", "タオル", "かお", "で", "を", "あらいます", "て"],
+      ["タオル", "で", "かお", "を", "ふきます"],
     ),
     build(
       "ja-m20-3-2-build-2",
       "Say: I brush my teeth every night.",
       "まいばん はを みがきます",
-      ["まいばん", "は", "を", "みがきます", "まいあさ", "あらいます"],
+      ["みがきます", "は", "あらいます", "まいあさ", "を", "まいばん"],
       ["まいばん", "は", "を", "みがきます"],
     ),
     listeningBuildSentence({
       id: "ja-m20-3-2-lb-1",
-      target: "いしゃに いきます",
-      tiles: ["いしゃ", "に", "いきます", "を", "で", "びょうき"],
-      correctOrder: ["いしゃ", "に", "いきます"],
-      promptEn: "Hear it, build it: 'I go to the doctor.'",
+      target: "びょういんに いきます",
+      tiles: ["いきます", "びょういん", "に", "を", "で", "いしゃ"],
+      correctOrder: ["びょういん", "に", "いきます"],
+      promptEn: "Hear it, build it: 'I go to the hospital.'",
     }),
-    cloze(
-      "ja-m20-3-2-cloze-wo",
-      "くすり",
-      " のみました。",
-      "を",
-      ["を", "が", "は", "で"],
+    speaking(
+      "ja-m20-3-2-speak-kusuri",
+      "くすりを のみました",
       "I took medicine.",
-      "くすりを のみました。",
-      "を marks the direct object.",
     ),
     sentenceMcq({
       id: "ja-m20-3-2-mcq-3",
@@ -1132,7 +1103,7 @@ export const M20_3_2: LessonContent = {
       "ja-m20-3-2-build-3",
       "Say: I caught a cold. I have a fever.",
       "かぜを ひきました ねつが あります",
-      ["かぜ", "を", "ひきました", "ねつ", "が", "あります", "びょうき"],
+      ["が", "を", "あります", "びょうき", "ひきました", "かぜ", "ねつ"],
       ["かぜ", "を", "ひきました", "ねつ", "が", "あります"],
     ),
     listeningCompSentence({
@@ -1159,7 +1130,7 @@ export const M20_3_2: LessonContent = {
     selfExplain({
       id: "ja-m20-3-2-self-explain",
       anchorLabel: "Body + health vocabulary review",
-      anchorAudioText: "かぜを ひきました",
+      anchorAudioText: "かぜを ひきました ねつが あります",
       question: "What particle goes with かぜ when saying 'caught a cold'?",
       rule: { text: "かぜをひく is a set phrase — を marks かぜ as the object of ひく (to catch/pull). This is fixed; don't substitute が or は." },
       surface: { text: "Any particle works — かぜがひく and かぜをひく are both correct." },
@@ -1169,8 +1140,8 @@ export const M20_3_2: LessonContent = {
     }),
     speaking(
       "ja-m20-3-2-speak",
-      "ねつが あります",
-      "I have a fever.",
+      "せっけんを かいます",
+      "I buy soap.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m20-3-2-rev-mcq-1", M20_3_2_REVIEW[0], M20_REVIEW_POOL),
@@ -1203,7 +1174,7 @@ assertNoConsecutiveSame(M20_3_2.steps);
 // M20-4-1 — ので intro (because, softer than から)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_4_1_REVIEW = pickReviewAtoms("ja-m20-4-1-rev", M20_REVIEW_POOL, 4);
+const M20_4_1_REVIEW = pickReviewAtoms("ja-m20-4-1-rev", M20_REVIEW_POOL, 6);
 
 export const M20_4_1: LessonContent = {
   id: "ja-m20-4-1",
@@ -1227,17 +1198,17 @@ export const M20_4_1: LessonContent = {
       "ja-m20-4-1-build-itai-node",
       "Say: Because my head hurts, I'll take medicine.",
       "あたまが いたいので くすりを のみます",
-      ["あたま", "が", "いたい", "ので", "くすり", "を", "のみます", "から"],
+      ["のみます", "いたい", "あたま", "ので", "から", "くすり", "が", "を"],
       ["あたま", "が", "いたい", "ので", "くすり", "を", "のみます"],
     ),
     listeningCompSentence({
       id: "ja-m20-4-1-lc-itai-node",
-      audioText: "あたまが いたいので くすりを のみます",
-      correctMeaningEn: "Because my head hurts, I'll take medicine.",
+      audioText: "あしが いたいので こうえんに いきません",
+      correctMeaningEn: "Because my feet hurt, I won't go to the park.",
       distractorsEn: [
-        "My head hurts and I have medicine.",
-        "I take medicine, so my head hurts.",
-        "Because I take medicine, my head hurts.",
+        "My feet hurt because I went to the park.",
+        "Because my feet hurt, I'll go to the hospital.",
+        "I won't go to the park, so my feet hurt.",
       ],
     }),
     // ── Noun + なので ──
@@ -1245,7 +1216,7 @@ export const M20_4_1: LessonContent = {
       "ja-m20-4-1-build-byouki-nanode",
       "Say: Because I'm sick, I won't go to school.",
       "びょうきなので がっこうに いきません",
-      ["びょうき", "なので", "がっこう", "に", "いきません", "から", "います"],
+      ["から", "なので", "がっこう", "います", "に", "びょうき", "いきません"],
       ["びょうき", "なので", "がっこう", "に", "いきません"],
     ),
     sentenceMcq({
@@ -1264,13 +1235,13 @@ export const M20_4_1: LessonContent = {
       "ja-m20-4-1-build-aru-node",
       "Say: Because I have a fever, I'll rest today.",
       "ねつが あるので きょうは やすみます",
-      ["ねつ", "が", "ある", "ので", "きょう", "は", "やすみます", "から"],
+      ["ので", "は", "ねつ", "やすみます", "ある", "きょう", "から", "が"],
       ["ねつ", "が", "ある", "ので", "きょう", "は", "やすみます"],
     ),
     speaking(
       "ja-m20-4-1-speak-aru-node",
-      "ねつが あるので きょうは やすみます",
-      "Because I have a fever, I'll rest today.",
+      "かぜを ひいたので うちに います",
+      "Because I caught a cold, I'm staying home.",
     ),
     // ── ので drill ──
     cloze(
@@ -1285,10 +1256,10 @@ export const M20_4_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m20-4-1-lb-node",
-      target: "あたまが いたいので くすりを のみます",
-      tiles: ["あたま", "が", "いたい", "ので", "くすり", "を", "のみます", "から"],
-      correctOrder: ["あたま", "が", "いたい", "ので", "くすり", "を", "のみます"],
-      promptEn: "Hear it, build it: 'Because my head hurts, I'll take medicine.'",
+      target: "おなかが いたいので くすりを のみます",
+      tiles: ["くすり", "おなか", "いたい", "が", "ので", "を", "のみます", "から"],
+      correctOrder: ["おなか", "が", "いたい", "ので", "くすり", "を", "のみます"],
+      promptEn: "Hear it, build it: 'Because my stomach hurts, I'll take medicine.'",
     }),
     sentenceMcq({
       id: "ja-m20-4-1-mcq-node-vs-kara",
@@ -1304,18 +1275,18 @@ export const M20_4_1: LessonContent = {
     cloze(
       "ja-m20-4-1-cloze-nanode",
       "びょうき",
-      "、がっこうに いきません。",
+      "、きょうは やすみます。",
       "なので",
       ["なので", "ので", "から", "だから"],
-      "Because I'm sick, I won't go to school.",
-      "びょうきなので、がっこうに いきません。",
+      "Because I'm sick, I'll rest today.",
+      "びょうきなので、きょうは やすみます。",
       "Nouns need な before ので.",
     ),
     build(
       "ja-m20-4-1-build-kaze-node",
       "Say: Because I caught a cold, I'll go to the doctor.",
       "かぜを ひいたので いしゃに いきます",
-      ["かぜ", "を", "ひいた", "ので", "いしゃ", "に", "いきます", "から"],
+      ["に", "ので", "から", "いきます", "いしゃ", "を", "かぜ", "ひいた"],
       ["かぜ", "を", "ひいた", "ので", "いしゃ", "に", "いきます"],
     ),
     selfExplain({
@@ -1331,8 +1302,8 @@ export const M20_4_1: LessonContent = {
     }),
     speaking(
       "ja-m20-4-1-speak-sentence",
-      "びょうきなので がっこうに いきません",
-      "Because I'm sick, I won't go to school.",
+      "かぜなので はやく ねます",
+      "Because of my cold, I'll go to bed early.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m20-4-1-rev-mcq-1", M20_4_1_REVIEW[0], M20_REVIEW_POOL),
@@ -1365,7 +1336,7 @@ assertNoConsecutiveSame(M20_4_1.steps);
 // M20-4-2 — ので vs から contrast drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_4_2_REVIEW = pickReviewAtoms("ja-m20-4-2-rev", M20_REVIEW_POOL, 4);
+const M20_4_2_REVIEW = pickReviewAtoms("ja-m20-4-2-rev", M20_REVIEW_POOL, 6);
 
 export const M20_4_2: LessonContent = {
   id: "ja-m20-4-2",
@@ -1410,7 +1381,7 @@ export const M20_4_2: LessonContent = {
       "ja-m20-4-2-build-kara",
       "Say: I'll rest because I'm tired. (direct/casual)",
       "つかれたから やすみます",
-      ["つかれた", "から", "やすみます", "ので", "です"],
+      ["ので", "やすみます", "から", "つかれた", "です"],
       ["つかれた", "から", "やすみます"],
     ),
     listeningCompSentence({
@@ -1448,15 +1419,15 @@ export const M20_4_2: LessonContent = {
       "ja-m20-4-2-build-node-itai",
       "Say: Because my stomach hurts, I won't eat.",
       "おなかが いたいので たべません",
-      ["おなか", "が", "いたい", "ので", "たべません", "から", "のみません"],
+      ["から", "ので", "のみません", "たべません", "いたい", "が", "おなか"],
       ["おなか", "が", "いたい", "ので", "たべません"],
     ),
     listeningBuildSentence({
       id: "ja-m20-4-2-lb-kara",
-      target: "つかれたから やすみます",
-      tiles: ["つかれた", "から", "やすみます", "ので", "です", "ません"],
-      correctOrder: ["つかれた", "から", "やすみます"],
-      promptEn: "Hear it, build it: 'I'll rest because I'm tired.'",
+      target: "つかれたから コーヒーを のみます",
+      tiles: ["コーヒー", "つかれた", "のみます", "から", "を", "ので", "やすみます"],
+      correctOrder: ["つかれた", "から", "コーヒー", "を", "のみます"],
+      promptEn: "Hear it, build it: 'I'm tired, so I'll drink coffee.'",
     }),
     sentenceMcq({
       id: "ja-m20-4-2-mcq-3",
@@ -1539,7 +1510,7 @@ assertNoConsecutiveSame(M20_4_2.steps);
 // M20-5-1 — Interleaved drill (body + がいたい + ので)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_5_1_REVIEW = pickReviewAtoms("ja-m20-5-1-rev", M20_REVIEW_POOL, 5);
+const M20_5_1_REVIEW = pickReviewAtoms("ja-m20-5-1-rev", M20_REVIEW_POOL, 6);
 
 export const M20_5_1: LessonContent = {
   id: "ja-m20-5-1",
@@ -1583,7 +1554,7 @@ export const M20_5_1: LessonContent = {
       "ja-m20-5-1-build-1",
       "Say: Because I have a fever, I'll go to the doctor.",
       "ねつが あるので いしゃに いきます",
-      ["ねつ", "が", "ある", "ので", "いしゃ", "に", "いきます", "から"],
+      ["ある", "に", "ねつ", "が", "から", "ので", "いきます", "いしゃ"],
       ["ねつ", "が", "ある", "ので", "いしゃ", "に", "いきます"],
     ),
     listeningCompSentence({
@@ -1607,29 +1578,26 @@ export const M20_5_1: LessonContent = {
       ],
       explanation: "Noun (かぜ) + なので. No だ before なので.",
     }),
-    cloze(
-      "ja-m20-5-1-cloze-ga",
-      "みみ",
-      " いたいです。",
-      "が",
-      ["が", "は", "を", "に"],
-      "My ear hurts.",
-      "みみが いたいです。",
-      "が marks the body part that hurts.",
+    build(
+      "ja-m20-5-1-build-takusan",
+      "Say: I drink lots of water.",
+      "みずを たくさん のみます",
+      ["たくさん", "みず", "のみます", "を", "すこし", "たべます"],
+      ["みず", "を", "たくさん", "のみます"],
     ),
     build(
       "ja-m20-5-1-build-2",
       "Say: I wash my hands with soap because of my cold.",
       "かぜなので せっけんで てを あらいます",
-      ["かぜ", "なので", "せっけん", "で", "て", "を", "あらいます", "から"],
+      ["なので", "で", "せっけん", "を", "あらいます", "から", "かぜ", "て"],
       ["かぜ", "なので", "せっけん", "で", "て", "を", "あらいます"],
     ),
     listeningBuildSentence({
       id: "ja-m20-5-1-lb-1",
-      target: "おなかが いたいので なにも たべません",
-      tiles: ["おなか", "が", "いたい", "ので", "なにも", "たべません", "から", "のみません"],
-      correctOrder: ["おなか", "が", "いたい", "ので", "なにも", "たべません"],
-      promptEn: "Hear it, build it: 'Because my stomach hurts, I won't eat anything.'",
+      target: "あしが いたいので でんしゃで いきます",
+      tiles: ["でんしゃ", "あし", "いたい", "が", "ので", "で", "いきます", "から"],
+      correctOrder: ["あし", "が", "いたい", "ので", "でんしゃ", "で", "いきます"],
+      promptEn: "Hear it, build it: 'Because my feet hurt, I'll go by train.'",
     }),
     sentenceMcq({
       id: "ja-m20-5-1-mcq-3",
@@ -1644,20 +1612,20 @@ export const M20_5_1: LessonContent = {
     }),
     cloze(
       "ja-m20-5-1-cloze-nanode",
-      "びょうき",
-      "、きょうは やすみます。",
+      "あめ",
+      "、こうえんに いきません。",
       "なので",
       ["なので", "ので", "から", "だから"],
-      "Because I'm sick, I'll rest today.",
-      "びょうきなので、きょうは やすみます。",
+      "Because of the rain, I won't go to the park.",
+      "あめなので、こうえんに いきません。",
       "Noun + なので.",
     ),
     build(
       "ja-m20-5-1-build-3",
-      "Say: I dry my face with a towel.",
-      "タオルで かおを ふきます",
-      ["タオル", "で", "かお", "を", "ふきます", "あらいます", "せっけん"],
-      ["タオル", "で", "かお", "を", "ふきます"],
+      "Say: I buy a towel and soap.",
+      "タオルと せっけんを かいます",
+      ["せっけん", "タオル", "かいます", "と", "を", "ふきます", "で"],
+      ["タオル", "と", "せっけん", "を", "かいます"],
     ),
     translateStep({
       id: "ja-m20-5-1-translate",
@@ -1683,8 +1651,8 @@ export const M20_5_1: LessonContent = {
     }),
     speaking(
       "ja-m20-5-1-speak",
-      "ねつが あるので いしゃに いきます",
-      "Because I have a fever, I'll go to the doctor.",
+      "あたまが いたいので はやく ねます",
+      "Because my head hurts, I'll go to bed early.",
     ),
     // ── Review tail ──
     speaking("ja-m20-5-1-rev-speak-1", M20_5_1_REVIEW[0].kana, M20_5_1_REVIEW[0].meaningEn),
@@ -1700,7 +1668,7 @@ export const M20_5_1: LessonContent = {
     }),
     vocabMcq("ja-m20-5-1-rev-mcq-1", M20_5_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M20_REVIEW_POOL),
     speaking("ja-m20-5-1-rev-speak-2", M20_5_1_REVIEW[2].kana, M20_5_1_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m20-5-1-rev", M20_5_1_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m20-5-1-rev", M20_5_1_REVIEW),
     infoStep(
       "ja-m20-5-1-info-end",
       "You can describe symptoms, give reasons, and navigate a medical situation",
@@ -1718,7 +1686,7 @@ assertNoConsecutiveSame(M20_5_1.steps);
 // M20-5-2 — Production (translate + speaking health scenarios)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_5_2_REVIEW = pickReviewAtoms("ja-m20-5-2-rev", M20_REVIEW_POOL, 5);
+const M20_5_2_REVIEW = pickReviewAtoms("ja-m20-5-2-rev", M20_REVIEW_POOL, 6);
 
 export const M20_5_2: LessonContent = {
   id: "ja-m20-5-2",
@@ -1739,15 +1707,15 @@ export const M20_5_2: LessonContent = {
     // ── Production drills ──
     build(
       "ja-m20-5-2-build-1",
-      "Say: Because my head hurts, I'll take medicine.",
-      "あたまが いたいので くすりを のみます",
-      ["あたま", "が", "いたい", "ので", "くすり", "を", "のみます", "から"],
-      ["あたま", "が", "いたい", "ので", "くすり", "を", "のみます"],
+      "Say: Because my head hurts, I'll rest well.",
+      "あたまが いたいので ゆっくり やすみます",
+      ["ゆっくり", "あたま", "いたい", "が", "ので", "やすみます", "から", "はやく"],
+      ["あたま", "が", "いたい", "ので", "ゆっくり", "やすみます"],
     ),
     speaking(
       "ja-m20-5-2-speak-1",
-      "あたまが いたいので くすりを のみます",
-      "Because my head hurts, I'll take medicine.",
+      "ねつが あるので みずを たくさん のみます",
+      "Because I have a fever, I drink lots of water.",
     ),
     translateStep({
       id: "ja-m20-5-2-translate-1",
@@ -1764,13 +1732,13 @@ export const M20_5_2: LessonContent = {
       "ja-m20-5-2-build-2",
       "Say: I wash my hands with soap every day.",
       "まいにち せっけんで てを あらいます",
-      ["まいにち", "せっけん", "で", "て", "を", "あらいます", "かお", "まいあさ"],
+      ["せっけん", "で", "を", "まいにち", "まいあさ", "かお", "あらいます", "て"],
       ["まいにち", "せっけん", "で", "て", "を", "あらいます"],
     ),
     speaking(
       "ja-m20-5-2-speak-2",
-      "まいにち せっけんで てを あらいます",
-      "I wash my hands with soap every day.",
+      "まいばん タオルで かおを ふきます",
+      "I dry my face with a towel every night.",
     ),
     sentenceMcq({
       id: "ja-m20-5-2-mcq-1",
@@ -1787,13 +1755,13 @@ export const M20_5_2: LessonContent = {
       "ja-m20-5-2-build-3",
       "Say: My teeth hurt, so I went to the doctor.",
       "はが いたいので いしゃに いきました",
-      ["は", "が", "いたい", "ので", "いしゃ", "に", "いきました", "から"],
+      ["から", "いたい", "が", "は", "いしゃ", "ので", "に", "いきました"],
       ["は", "が", "いたい", "ので", "いしゃ", "に", "いきました"],
     ),
     listeningBuildSentence({
       id: "ja-m20-5-2-lb-1",
       target: "びょうきなので やすみます",
-      tiles: ["びょうき", "なので", "やすみます", "から", "いきます"],
+      tiles: ["いきます", "から", "なので", "やすみます", "びょうき"],
       correctOrder: ["びょうき", "なので", "やすみます"],
       promptEn: "Hear it, build it: 'Because I'm sick, I'll rest.'",
     }),
@@ -1812,13 +1780,13 @@ export const M20_5_2: LessonContent = {
       "ja-m20-5-2-build-4",
       "Say: Because I'm sick, I won't go to work.",
       "びょうきなので しごとに いきません",
-      ["びょうき", "なので", "しごと", "に", "いきません", "から", "がっこう"],
+      ["しごと", "なので", "に", "いきません", "がっこう", "びょうき", "から"],
       ["びょうき", "なので", "しごと", "に", "いきません"],
     ),
     speaking(
       "ja-m20-5-2-speak-3",
-      "びょうきなので しごとに いきません",
-      "Because I'm sick, I won't go to work.",
+      "あしが いたいので ゆっくりと あるきます",
+      "Because my feet hurt, I walk slowly.",
     ),
     listeningCompSentence({
       id: "ja-m20-5-2-lc-1",
@@ -1834,7 +1802,7 @@ export const M20_5_2: LessonContent = {
       "ja-m20-5-2-build-5",
       "Say: Because I caught a cold, I take medicine and rest.",
       "かぜを ひいたので くすりを のんで やすみます",
-      ["かぜ", "を", "ひいた", "ので", "くすり", "を", "のんで", "やすみます", "から"],
+      ["を", "のんで", "から", "ので", "くすり", "ひいた", "を", "やすみます", "かぜ"],
       ["かぜ", "を", "ひいた", "ので", "くすり", "を", "のんで", "やすみます"],
     ),
     cloze(
@@ -1860,8 +1828,8 @@ export const M20_5_2: LessonContent = {
     }),
     speaking(
       "ja-m20-5-2-speak-4",
-      "かぜを ひいたので くすりを のんで やすみます",
-      "Because I caught a cold, I take medicine and rest.",
+      "ゆっくり やすんでください",
+      "Please rest well (take it easy).",
     ),
     // ── Review tail ──
     speaking("ja-m20-5-2-rev-speak-1", M20_5_2_REVIEW[0].kana, M20_5_2_REVIEW[0].meaningEn),
@@ -1877,7 +1845,7 @@ export const M20_5_2: LessonContent = {
     }),
     vocabMcq("ja-m20-5-2-rev-mcq-1", M20_5_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M20_REVIEW_POOL),
     speaking("ja-m20-5-2-rev-speak-2", M20_5_2_REVIEW[2].kana, M20_5_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m20-5-2-rev", M20_5_2_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m20-5-2-rev", M20_5_2_REVIEW),
     infoStep(
       "ja-m20-5-2-info-end",
       "You can produce complete health sentences from memory",
@@ -1895,7 +1863,7 @@ assertNoConsecutiveSame(M20_5_2.steps);
 // M20-6-1 — Adjective review with body context
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_6_1_REVIEW = pickReviewAtoms("ja-m20-6-1-rev", M20_REVIEW_POOL, 5);
+const M20_6_1_REVIEW = pickReviewAtoms("ja-m20-6-1-rev", M20_REVIEW_POOL, 6);
 
 export const M20_6_1: LessonContent = {
   id: "ja-m20-6-1",
@@ -1918,7 +1886,7 @@ export const M20_6_1: LessonContent = {
       "ja-m20-6-1-build-1",
       "Say: My hands are big.",
       "てが おおきいです",
-      ["て", "が", "おおきい", "です", "ちいさい", "あし"],
+      ["ちいさい", "が", "です", "おおきい", "あし", "て"],
       ["て", "が", "おおきい", "です"],
     ),
     listeningCompSentence({
@@ -1942,62 +1910,59 @@ export const M20_6_1: LessonContent = {
       ],
       explanation: "かみ = hair. ながい = long.",
     }),
-    cloze(
-      "ja-m20-6-1-cloze-ga-1",
-      "はな",
-      " たかいです。",
-      "が",
-      ["が", "は", "を", "の"],
-      "My nose is tall/high (prominent).",
-      "はなが たかいです。",
-      "が marks the body part as the subject.",
+    build(
+      "ja-m20-6-1-build-hana",
+      "Say: My nose is tall (prominent).",
+      "はなが たかいです",
+      ["たかい", "はな", "です", "が", "は", "ひくい"],
+      ["はな", "が", "たかい", "です"],
     ),
     build(
       "ja-m20-6-1-build-2",
       "Say: My ears are small.",
       "みみが ちいさいです",
-      ["みみ", "が", "ちいさい", "です", "おおきい", "め"],
+      ["おおきい", "ちいさい", "め", "です", "が", "みみ"],
       ["みみ", "が", "ちいさい", "です"],
     ),
     speaking(
       "ja-m20-6-1-speak-1",
-      "てが おおきいです",
-      "My hands are big.",
+      "かみが みじかいです",
+      "My hair is short.",
     ),
     sentenceMcq({
       id: "ja-m20-6-1-mcq-2",
-      prompt: "Which means 'My forehead is hot' (as in fever)?",
-      correctKana: "おでこが あついです。",
+      prompt: "Which means 'My face is hot' (as in fever)?",
+      correctKana: "かおが あついです。",
       distractorsKana: [
-        "あたまが あついです。",
-        "おでこが つめたいです。",
-        "おでこが いたいです。",
+        "かおが つめたいです。",
+        "あたまが おおきいです。",
+        "かおが いたいです。",
       ],
-      explanation: "おでこ = forehead. あつい = hot.",
+      explanation: "かお = face. あつい = hot — a hot face often means a fever.",
     }),
-    cloze(
-      "ja-m20-6-1-cloze-ga-2",
-      "あし",
-      " ながいです。",
-      "が",
-      ["が", "は", "を", "に"],
-      "My legs are long.",
-      "あしが ながいです。",
-      "が marks the body part.",
-    ),
+    listeningCompSentence({
+      id: "ja-m20-6-1-lc-te",
+      audioText: "てが ちいさいです",
+      correctMeaningEn: "My hands are small.",
+      distractorsEn: [
+        "My hands are big.",
+        "My feet are small.",
+        "My hands hurt.",
+      ],
+    }),
     build(
       "ja-m20-6-1-build-3",
       "Say: Because my eyes hurt, I can't read.",
       "めが いたいので ほんを よめません",
-      ["め", "が", "いたい", "ので", "ほん", "を", "よめません", "から"],
+      ["を", "ので", "よめません", "から", "が", "め", "ほん", "いたい"],
       ["め", "が", "いたい", "ので", "ほん", "を", "よめません"],
     ),
     listeningBuildSentence({
       id: "ja-m20-6-1-lb-1",
-      target: "かみが ながいです",
-      tiles: ["かみ", "が", "ながい", "です", "みじかい", "は"],
-      correctOrder: ["かみ", "が", "ながい", "です"],
-      promptEn: "Hear it, build it: 'My hair is long.'",
+      target: "あしが ながいです",
+      tiles: ["ながい", "あし", "です", "が", "みじかい", "は"],
+      correctOrder: ["あし", "が", "ながい", "です"],
+      promptEn: "Hear it, build it: 'My legs are long.'",
     }),
     listeningCompSentence({
       id: "ja-m20-6-1-lc-2",
@@ -2011,14 +1976,14 @@ export const M20_6_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m20-6-1-translate",
-      promptEn: "My hands are big.",
+      promptEn: "My eyes are big.",
       acceptedAnswers: [
-        "てが おおきいです",
-        "てが おおきいです。",
-        "てがおおきいです",
-        "てがおおきいです。",
+        "めが おおきいです",
+        "めが おおきいです。",
+        "めがおおきいです",
+        "めがおおきいです。",
       ],
-      audioText: "てが おおきいです",
+      audioText: "めが おおきいです",
     }),
     selfExplain({
       id: "ja-m20-6-1-self-explain",
@@ -2033,8 +1998,8 @@ export const M20_6_1: LessonContent = {
     }),
     speaking(
       "ja-m20-6-1-speak-2",
-      "めが いたいので ほんを よめません",
-      "Because my eyes hurt, I can't read.",
+      "かみが ながいので きります",
+      "My hair is long, so I'll cut it.",
     ),
     // ── Review tail ──
     speaking("ja-m20-6-1-rev-speak-1", M20_6_1_REVIEW[0].kana, M20_6_1_REVIEW[0].meaningEn),
@@ -2050,7 +2015,7 @@ export const M20_6_1: LessonContent = {
     }),
     vocabMcq("ja-m20-6-1-rev-mcq-1", M20_6_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M20_REVIEW_POOL),
     speaking("ja-m20-6-1-rev-speak-2", M20_6_1_REVIEW[2].kana, M20_6_1_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m20-6-1-rev", M20_6_1_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m20-6-1-rev", M20_6_1_REVIEW),
     infoStep(
       "ja-m20-6-1-info-end",
       "You can describe body parts with adjectives and explain health reasons",
@@ -2068,7 +2033,7 @@ assertNoConsecutiveSame(M20_6_1.steps);
 // M20-6-2 — Full production (body + health + ので)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_6_2_REVIEW = pickReviewAtoms("ja-m20-6-2-rev", M20_REVIEW_POOL, 5);
+const M20_6_2_REVIEW = pickReviewAtoms("ja-m20-6-2-rev", M20_REVIEW_POOL, 6);
 
 export const M20_6_2: LessonContent = {
   id: "ja-m20-6-2",
@@ -2091,13 +2056,13 @@ export const M20_6_2: LessonContent = {
       "ja-m20-6-2-build-1",
       "Say: Because I caught a cold, I have a fever.",
       "かぜを ひいたので ねつが あります",
-      ["かぜ", "を", "ひいた", "ので", "ねつ", "が", "あります", "から"],
+      ["を", "が", "あります", "ひいた", "かぜ", "ので", "から", "ねつ"],
       ["かぜ", "を", "ひいた", "ので", "ねつ", "が", "あります"],
     ),
     speaking(
       "ja-m20-6-2-speak-1",
-      "かぜを ひいたので ねつが あります",
-      "Because I caught a cold, I have a fever.",
+      "かぜを ひいたので ゆっくり やすみます",
+      "Because I caught a cold, I'll rest well.",
     ),
     translateStep({
       id: "ja-m20-6-2-translate-1",
@@ -2114,13 +2079,13 @@ export const M20_6_2: LessonContent = {
       "ja-m20-6-2-build-2",
       "Say: I wash my face and brush my teeth every morning.",
       "まいあさ かおを あらって はを みがきます",
-      ["まいあさ", "かお", "を", "あらって", "は", "を", "みがきます", "て"],
+      ["あらって", "を", "みがきます", "かお", "は", "て", "を", "まいあさ"],
       ["まいあさ", "かお", "を", "あらって", "は", "を", "みがきます"],
     ),
     speaking(
       "ja-m20-6-2-speak-2",
-      "まいあさ かおを あらって はを みがきます",
-      "Every morning I wash my face and brush my teeth.",
+      "まいばん はを みがいて ねます",
+      "Every night I brush my teeth and go to bed.",
     ),
     sentenceMcq({
       id: "ja-m20-6-2-mcq-1",
@@ -2137,13 +2102,13 @@ export const M20_6_2: LessonContent = {
       "ja-m20-6-2-build-3",
       "Say: My back hurts. Please give me medicine.",
       "せなかが いたいです くすりを ください",
-      ["せなか", "が", "いたい", "です", "くすり", "を", "ください", "おなか"],
+      ["ください", "が", "です", "くすり", "おなか", "を", "いたい", "せなか"],
       ["せなか", "が", "いたい", "です", "くすり", "を", "ください"],
     ),
     listeningBuildSentence({
       id: "ja-m20-6-2-lb-1",
       target: "めが いたいので めがねを かけません",
-      tiles: ["め", "が", "いたい", "ので", "めがね", "を", "かけません", "から"],
+      tiles: ["を", "め", "ので", "めがね", "いたい", "から", "かけません", "が"],
       correctOrder: ["め", "が", "いたい", "ので", "めがね", "を", "かけません"],
       promptEn: "Hear it, build it: 'Because my eyes hurt, I won't wear glasses.'",
     }),
@@ -2162,13 +2127,13 @@ export const M20_6_2: LessonContent = {
       "ja-m20-6-2-build-4",
       "Say: I dry my hands with a towel.",
       "タオルで てを ふきます",
-      ["タオル", "で", "て", "を", "ふきます", "せっけん", "あらいます"],
+      ["せっけん", "あらいます", "ふきます", "タオル", "て", "で", "を"],
       ["タオル", "で", "て", "を", "ふきます"],
     ),
     speaking(
       "ja-m20-6-2-speak-3",
-      "せなかが いたいです",
-      "My back hurts.",
+      "ゆびが いたいので てがみを かきません",
+      "Because my finger hurts, I won't write a letter.",
     ),
     listeningCompSentence({
       id: "ja-m20-6-2-lc-1",
@@ -2182,10 +2147,10 @@ export const M20_6_2: LessonContent = {
     }),
     build(
       "ja-m20-6-2-build-5",
-      "Say: Because my teeth hurt, I went to the doctor.",
-      "はが いたいので いしゃに いきました",
-      ["は", "が", "いたい", "ので", "いしゃ", "に", "いきました", "から"],
-      ["は", "が", "いたい", "ので", "いしゃ", "に", "いきました"],
+      "Say: Because my ear hurt, I went to the hospital.",
+      "みみが いたいので びょういんに いきました",
+      ["びょういん", "みみ", "いたい", "が", "ので", "に", "いきました", "から"],
+      ["みみ", "が", "いたい", "ので", "びょういん", "に", "いきました"],
     ),
     cloze(
       "ja-m20-6-2-cloze-node",
@@ -2210,8 +2175,8 @@ export const M20_6_2: LessonContent = {
     }),
     speaking(
       "ja-m20-6-2-speak-4",
-      "はが いたいので いしゃに いきました",
-      "Because my teeth hurt, I went to the doctor.",
+      "おなかが いたいので いしゃに いきます",
+      "Because my stomach hurts, I'll go to the doctor.",
     ),
     // ── Review tail ──
     speaking("ja-m20-6-2-rev-speak-1", M20_6_2_REVIEW[0].kana, M20_6_2_REVIEW[0].meaningEn),
@@ -2227,7 +2192,7 @@ export const M20_6_2: LessonContent = {
     }),
     vocabMcq("ja-m20-6-2-rev-mcq-1", M20_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M20_REVIEW_POOL),
     speaking("ja-m20-6-2-rev-speak-2", M20_6_2_REVIEW[2].kana, M20_6_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m20-6-2-rev", M20_6_2_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m20-6-2-rev", M20_6_2_REVIEW),
     infoStep(
       "ja-m20-6-2-info-end",
       "You can produce every M20 pattern from memory",
@@ -2242,7 +2207,9 @@ assertAnswerRotation(M20_6_2.steps, 1);
 assertNoConsecutiveSame(M20_6_2.steps);
 
 // ═══════════════════════════════════════════════════════════════════════
-// M20-STORY — Visiting a doctor, describing symptoms
+// M20-STORY — たけし's sick week (storyComprehension factory, §13.13)
+//   Module closer: single-voice narrative + comprehension MCQs + response
+//   build. Only previously-taught material (M20 + earlier modules).
 // ═══════════════════════════════════════════════════════════════════════
 
 export const M20_STORY: LessonContent = {
@@ -2250,137 +2217,99 @@ export const M20_STORY: LessonContent = {
   moduleId: "m20",
   courseId: COURSE,
   languageId: LANG,
-  title: "Story — Visiting the doctor",
+  title: "Story — たけし got sick",
   description:
-    "Listen to a patient visit a doctor, describe symptoms, and receive advice. Answer questions and practice key patterns.",
+    "Listen to たけし tell the story of his cold — symptoms, the doctor, the medicine, and getting better. Answer questions and reply to him.",
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
     infoStep(
       "ja-m20-story-info-open",
-      "Story time — At the clinic",
-      "たけし isn't feeling well. He visits a clinic and describes his symptoms to the doctor.",
+      "Story time — たけし got sick",
+      "たけし tells you about last week, when he caught a cold. Listen to his story, then reply.",
     ),
-    dialogueListen({
-      id: "ja-m20-story-scene-1",
-      lines: [
-        { speaker: "いしゃ", kana: "どうしましたか。" },
-        { speaker: "たけし", kana: "あたまが いたいです。ねつも あります。" },
-        { speaker: "いしゃ", kana: "いつからですか。" },
-        { speaker: "たけし", kana: "きのうからです。かぜを ひいたと おもいます。" },
+    ...storyComprehension({
+      idPrefix: "ja-m20-story",
+      narrative: [
+        { kana: "きのう、かぜを ひきました。" },
+        { kana: "ねつが ありました。" },
+        { kana: "あたまも いたくて、なにも たべませんでした。" },
+        { kana: "いしゃに いきました。" },
+        { kana: "びょういんで くすりを かいました。" },
+        { kana: "くすりを のんで、ゆっくり やすみました。" },
+        { kana: "きょうは げんきです。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
-          id: "s1-q1",
-          prompt: "What are たけし's symptoms?",
-          correctText: "Headache and fever.",
-          distractors: ["Stomachache and fever.", "Headache only.", "Toothache and cold."],
-          explanation: "あたまがいたい = headache. ねつもあります = also has a fever.",
+          id: "q1",
+          prompt: "What were たけし's symptoms?",
+          correctText: "A fever and a headache.",
+          distractors: [
+            "A stomachache and a toothache.",
+            "A fever only.",
+            "Sore feet.",
+          ],
+          explanation:
+            "ねつが ありました = had a fever. あたまも いたくて = his head also hurt.",
         },
         {
-          id: "s1-q2",
-          prompt: "When did the symptoms start?",
-          correctText: "Yesterday.",
-          distractors: ["Today.", "Two days ago.", "Last week."],
-          explanation: "きのうから = since yesterday.",
+          id: "q2",
+          prompt: "What did he buy at the hospital?",
+          correctText: "Medicine.",
+          distractors: ["Soap.", "A towel.", "Glasses."],
+          explanation: "びょういんで くすりを かいました = bought medicine at the hospital.",
+        },
+        {
+          id: "q3",
+          prompt: "How is たけし today?",
+          correctText: "He's well again.",
+          distractors: [
+            "Still sick.",
+            "His fever got worse.",
+            "He's at the hospital.",
+          ],
+          explanation: "きょうは げんきです = today I'm well.",
         },
       ],
+      responseBuild: {
+        target: "ゆっくり やすんでください",
+        tiles: ["やすんで", "ゆっくり", "ください", "はやく", "のんで"],
+        correctOrder: ["ゆっくり", "やすんで", "ください"],
+        promptEn: "Reply to たけし: 'Please rest well (take it easy).'",
+      },
+      exercisedAtomKanas: ["かぜ", "ねつ", "あたま", "いしゃ", "くすり", "ゆっくりと"],
     }),
-    build(
-      "ja-m20-story-build-1",
-      "Say: My head hurts. I also have a fever.",
-      "あたまが いたいです ねつも あります",
-      ["あたま", "が", "いたい", "です", "ねつ", "も", "あります", "おなか"],
-      ["あたま", "が", "いたい", "です", "ねつ", "も", "あります"],
-    ),
     sentenceMcq({
-      id: "ja-m20-story-mcq-1",
-      prompt: "The doctor asked どうしましたか. What does this mean?",
-      correctKana: "What happened? / What's wrong?",
+      id: "ja-m20-story-mcq-summary",
+      prompt: "Why didn't たけし eat anything?",
+      correctKana: "Because his head hurt too (he felt awful).",
       distractorsKana: [
-        "What's your name?",
-        "How old are you?",
-        "Where does it hurt?",
+        "Because the food was expensive.",
+        "Because the hospital was closed.",
+        "Because he wasn't home.",
       ],
-      explanation: "どうしましたか = What happened? The standard doctor opening question.",
-    }),
-    dialogueListen({
-      id: "ja-m20-story-scene-2",
-      lines: [
-        { speaker: "いしゃ", kana: "のどは いたいですか。" },
-        { speaker: "たけし", kana: "はい、すこし いたいです。" },
-        { speaker: "いしゃ", kana: "かぜですね。くすりを だしますので、のんでください。" },
-        { speaker: "たけし", kana: "わかりました。ありがとうございます。" },
-      ],
-      questions: [
-        {
-          id: "s2-q1",
-          prompt: "What is the doctor's diagnosis?",
-          correctText: "It's a cold.",
-          distractors: ["It's the flu.", "It's a stomachache.", "He needs surgery."],
-          explanation: "かぜですね = It's a cold.",
-        },
-        {
-          id: "s2-q2",
-          prompt: "What does the doctor tell たけし to do?",
-          correctText: "Take the prescribed medicine.",
-          distractors: ["Go home and sleep.", "Come back tomorrow.", "Drink lots of water."],
-          explanation: "くすりをだしますので、のんでください = I'll prescribe medicine, so please take it.",
-        },
-      ],
-    }),
-    cloze(
-      "ja-m20-story-cloze-1",
-      "くすりを だします",
-      "、のんでください。",
-      "ので",
-      ["ので", "から", "が", "は"],
-      "I'll prescribe medicine, so please take it.",
-      "くすりを だしますので、のんでください。",
-      "ので connects the doctor's action (prescribing) to the instruction (take it).",
-    ),
-    listeningBuildSentence({
-      id: "ja-m20-story-lb-1",
-      target: "あたまが いたいです",
-      tiles: ["あたま", "が", "いたい", "です", "おなか", "は"],
-      correctOrder: ["あたま", "が", "いたい", "です"],
-      promptEn: "Hear it, build it: 'My head hurts.'",
+      explanation:
+        "あたまも いたくて、なにも たべませんでした — his head also hurt, so he didn't eat anything.",
     }),
     listeningCompSentence({
       id: "ja-m20-story-lc-1",
-      audioText: "くすりを のんでください",
-      correctMeaningEn: "Please take medicine.",
+      audioText: "きょうは げんきです",
+      correctMeaningEn: "Today I'm well.",
       distractorsEn: [
-        "Please buy medicine.",
-        "I took medicine.",
-        "I have medicine.",
+        "Today I'm sick.",
+        "Today I'll rest.",
+        "Today I have a fever.",
       ],
     }),
     speaking(
       "ja-m20-story-speak-1",
-      "あたまが いたいです ねつも あります",
-      "My head hurts. I also have a fever.",
-    ),
-    sentenceMcq({
-      id: "ja-m20-story-mcq-summary",
-      prompt: "Which M20 patterns appeared in the story?",
-      correctKana: "がいたい (pain), ので (reason), medical vocab (くすり, ねつ, かぜ)",
-      distractorsKana: [
-        "Only body parts vocabulary.",
-        "Only ので grammar.",
-        "Only adjective descriptions.",
-      ],
-      explanation: "The story combined pain expressions, ので reasons, and medical vocabulary — a complete clinic visit.",
-    }),
-    speaking(
-      "ja-m20-story-speak-2",
-      "かぜを ひきました",
-      "I caught a cold.",
+      "かぜを ひいて いしゃに いきました",
+      "I caught a cold and went to the doctor.",
     ),
     infoStep(
       "ja-m20-story-info-end",
-      "You followed a real doctor visit — in Japanese",
-      "Symptoms, diagnosis, prescription — all in context. You can navigate a Japanese clinic.",
+      "You followed a whole illness story — in Japanese",
+      "Symptoms, the doctor, medicine, recovery — and you gave health advice back. That's the full M20 toolkit in action.",
       "win",
     ),
   ],
@@ -2395,7 +2324,7 @@ assertExplanationDoesntLeakAnswer(M20_STORY.steps);
 // M20-7-1 — Comprehension closer (dialogue at the pharmacy)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_7_1_REVIEW = pickReviewAtoms("ja-m20-7-1-rev", M20_REVIEW_POOL, 5);
+const M20_7_1_REVIEW = pickReviewAtoms("ja-m20-7-1-rev", M20_REVIEW_POOL, 6);
 
 export const M20_7_1: LessonContent = {
   id: "ja-m20-7-1",
@@ -2442,7 +2371,7 @@ export const M20_7_1: LessonContent = {
       "ja-m20-7-1-build-1",
       "Ask: Do you have cold medicine?",
       "かぜの くすりは ありますか",
-      ["かぜ", "の", "くすり", "は", "あります", "か", "が", "ください"],
+      ["くすり", "が", "か", "ください", "の", "かぜ", "は", "あります"],
       ["かぜ", "の", "くすり", "は", "あります", "か"],
     ),
     sentenceMcq({
@@ -2456,15 +2385,10 @@ export const M20_7_1: LessonContent = {
       ],
       explanation: "この くすりが いいです = this medicine is good (recommendation).",
     }),
-    cloze(
-      "ja-m20-7-1-cloze-no",
-      "かぜ",
-      " くすりは ありますか。",
-      "の",
-      ["の", "は", "が", "を"],
-      "Do you have cold medicine?",
-      "かぜの くすりは ありますか。",
-      "の connects かぜ (cold) to くすり (medicine) — medicine FOR colds.",
+    speaking(
+      "ja-m20-7-1-speak-mizu",
+      "みずを たくさん のんでください",
+      "Please drink lots of water.",
     ),
     listeningCompSentence({
       id: "ja-m20-7-1-lc-1",
@@ -2480,13 +2404,13 @@ export const M20_7_1: LessonContent = {
       "ja-m20-7-1-build-2",
       "Say: Because I have a fever, I take medicine.",
       "ねつが あるので くすりを のみます",
-      ["ねつ", "が", "ある", "ので", "くすり", "を", "のみます", "から"],
+      ["が", "から", "を", "くすり", "ねつ", "ので", "ある", "のみます"],
       ["ねつ", "が", "ある", "ので", "くすり", "を", "のみます"],
     ),
     speaking(
       "ja-m20-7-1-speak-1",
-      "かぜの くすりは ありますか",
-      "Do you have cold medicine?",
+      "おなかの くすりは ありますか",
+      "Do you have stomach medicine?",
     ),
     sentenceMcq({
       id: "ja-m20-7-1-mcq-2",
@@ -2502,30 +2426,27 @@ export const M20_7_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m20-7-1-lb-1",
       target: "ねつが あるので きょうは やすみます",
-      tiles: ["ねつ", "が", "ある", "ので", "きょう", "は", "やすみます", "から"],
+      tiles: ["ので", "は", "ねつ", "やすみます", "ある", "きょう", "から", "が"],
       correctOrder: ["ねつ", "が", "ある", "ので", "きょう", "は", "やすみます"],
       promptEn: "Hear it, build it: 'Because I have a fever, I'll rest today.'",
     }),
-    cloze(
-      "ja-m20-7-1-cloze-ga",
-      "おなか",
-      " いたいです。",
-      "が",
-      ["が", "は", "を", "に"],
-      "My stomach hurts.",
-      "おなかが いたいです。",
-      "が marks the body part that hurts.",
+    build(
+      "ja-m20-7-1-build-mimi-node",
+      "Say: Because my ear hurts, I won't listen to music.",
+      "みみが いたいので おんがくを ききません",
+      ["おんがく", "みみ", "いたい", "が", "ので", "を", "ききません", "から"],
+      ["みみ", "が", "いたい", "ので", "おんがく", "を", "ききません"],
     ),
     translateStep({
       id: "ja-m20-7-1-translate",
-      promptEn: "Do you have cold medicine?",
+      promptEn: "My ear hurts.",
       acceptedAnswers: [
-        "かぜの くすりは ありますか",
-        "かぜの くすりは ありますか。",
-        "かぜのくすりはありますか",
-        "かぜのくすりはありますか。",
+        "みみが いたいです",
+        "みみが いたいです。",
+        "みみがいたいです",
+        "みみがいたいです。",
       ],
-      audioText: "かぜの くすりは ありますか",
+      audioText: "みみが いたいです",
     }),
     selfExplain({
       id: "ja-m20-7-1-self-explain",
@@ -2540,8 +2461,8 @@ export const M20_7_1: LessonContent = {
     }),
     speaking(
       "ja-m20-7-1-speak-2",
-      "ねつが あるので くすりを のみます",
-      "Because I have a fever, I take medicine.",
+      "かぜを ひいたので くすりを かいました",
+      "Because I caught a cold, I bought medicine.",
     ),
     // ── Review tail ──
     speaking("ja-m20-7-1-rev-speak-1", M20_7_1_REVIEW[0].kana, M20_7_1_REVIEW[0].meaningEn),
@@ -2557,7 +2478,7 @@ export const M20_7_1: LessonContent = {
     }),
     vocabMcq("ja-m20-7-1-rev-mcq-1", M20_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M20_REVIEW_POOL),
     speaking("ja-m20-7-1-rev-speak-2", M20_7_1_REVIEW[2].kana, M20_7_1_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m20-7-1-rev", M20_7_1_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m20-7-1-rev", M20_7_1_REVIEW),
     infoStep(
       "ja-m20-7-1-info-end",
       "You can visit a pharmacy and ask for what you need in Japanese",
@@ -2575,7 +2496,7 @@ assertNoConsecutiveSame(M20_7_1.steps);
 // M20-7-2 — Module wrap-up (all M20 patterns)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M20_7_2_REVIEW = pickReviewAtoms("ja-m20-7-2-rev", M20_REVIEW_POOL, 5);
+const M20_7_2_REVIEW = pickReviewAtoms("ja-m20-7-2-rev", M20_REVIEW_POOL, 6);
 
 export const M20_7_2: LessonContent = {
   id: "ja-m20-7-2",
@@ -2598,13 +2519,13 @@ export const M20_7_2: LessonContent = {
       "ja-m20-7-2-build-1",
       "Say: Because my head hurts, I'll take medicine and rest.",
       "あたまが いたいので くすりを のんで やすみます",
-      ["あたま", "が", "いたい", "ので", "くすり", "を", "のんで", "やすみます", "から"],
+      ["ので", "を", "くすり", "から", "のんで", "が", "いたい", "やすみます", "あたま"],
       ["あたま", "が", "いたい", "ので", "くすり", "を", "のんで", "やすみます"],
     ),
     speaking(
       "ja-m20-7-2-speak-1",
-      "あたまが いたいので くすりを のんで やすみます",
-      "Because my head hurts, I'll take medicine and rest.",
+      "びょうきなので みずを たくさん のみます",
+      "Because I'm sick, I drink lots of water.",
     ),
     translateStep({
       id: "ja-m20-7-2-translate-1",
@@ -2630,32 +2551,32 @@ export const M20_7_2: LessonContent = {
     }),
     build(
       "ja-m20-7-2-build-2",
-      "Say: I wash my hands with soap because of the cold.",
-      "かぜなので せっけんで てを あらいます",
-      ["かぜ", "なので", "せっけん", "で", "て", "を", "あらいます", "から"],
-      ["かぜ", "なので", "せっけん", "で", "て", "を", "あらいます"],
+      "Say: Because of my cold, I drink lots of tea.",
+      "かぜなので おちゃを たくさん のみます",
+      ["おちゃ", "かぜ", "たくさん", "なので", "を", "のみます", "から", "すこし"],
+      ["かぜ", "なので", "おちゃ", "を", "たくさん", "のみます"],
     ),
     listeningCompSentence({
       id: "ja-m20-7-2-lc-1",
-      audioText: "おなかが いたいので なにも たべません",
-      correctMeaningEn: "Because my stomach hurts, I won't eat anything.",
+      audioText: "あたまが いたいので しごとを やすみます",
+      correctMeaningEn: "Because my head hurts, I'm taking the day off work.",
       distractorsEn: [
-        "My stomach is empty, so I'll eat.",
-        "Because I ate, my stomach hurts.",
-        "Because I'm not hungry, I won't eat.",
+        "Because of work, my head hurts.",
+        "Because my head hurts, I'll go to work.",
+        "Because I'm sick, I'm taking the day off school.",
       ],
     }),
     build(
       "ja-m20-7-2-build-3",
       "Say: My hair is long and my eyes are big.",
       "かみが ながくて めが おおきいです",
-      ["かみ", "が", "ながくて", "め", "が", "おおきい", "です", "ちいさい"],
+      ["が", "ちいさい", "かみ", "です", "おおきい", "ながくて", "が", "め"],
       ["かみ", "が", "ながくて", "め", "が", "おおきい", "です"],
     ),
     speaking(
       "ja-m20-7-2-speak-2",
-      "かぜなので せっけんで てを あらいます",
-      "Because of the cold, I wash my hands with soap.",
+      "せっけんと タオルを かいました",
+      "I bought soap and a towel.",
     ),
     cloze(
       "ja-m20-7-2-cloze-node",
@@ -2670,7 +2591,7 @@ export const M20_7_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m20-7-2-lb-1",
       target: "せっけんで てを あらいます",
-      tiles: ["せっけん", "で", "て", "を", "あらいます", "タオル", "ふきます"],
+      tiles: ["を", "で", "せっけん", "タオル", "て", "ふきます", "あらいます"],
       correctOrder: ["せっけん", "で", "て", "を", "あらいます"],
       promptEn: "Hear it, build it: 'I wash my hands with soap.'",
     }),
@@ -2700,7 +2621,7 @@ export const M20_7_2: LessonContent = {
       "ja-m20-7-2-build-4",
       "Say: Please brush your teeth.",
       "はを みがいてください",
-      ["は", "を", "みがいて", "ください", "あらって", "のんで"],
+      ["あらって", "のんで", "は", "を", "ください", "みがいて"],
       ["は", "を", "みがいて", "ください"],
     ),
     selfExplain({
@@ -2716,8 +2637,8 @@ export const M20_7_2: LessonContent = {
     }),
     speaking(
       "ja-m20-7-2-speak-3",
-      "びょうきなので きょうは やすみます",
-      "Because I'm sick, I'll rest today.",
+      "びょうきなので ゆっくり ねます",
+      "Because I'm sick, I'll sleep in (rest well).",
     ),
     // ── Review tail ──
     speaking("ja-m20-7-2-rev-speak-1", M20_7_2_REVIEW[0].kana, M20_7_2_REVIEW[0].meaningEn),
@@ -2733,7 +2654,7 @@ export const M20_7_2: LessonContent = {
     }),
     vocabMcq("ja-m20-7-2-rev-mcq-1", M20_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M20_REVIEW_POOL),
     speaking("ja-m20-7-2-rev-speak-2", M20_7_2_REVIEW[2].kana, M20_7_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m20-7-2-rev", M20_7_2_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m20-7-2-rev", M20_7_2_REVIEW),
     infoStep(
       "ja-m20-7-2-info-end",
       "You own the complete body, health, and reason toolkit",

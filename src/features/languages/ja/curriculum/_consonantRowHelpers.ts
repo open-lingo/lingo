@@ -13,6 +13,8 @@
  */
 import type { LessonStep } from "@/features/lesson/types";
 import { getTtsUrl } from "@/shared/tts";
+import { KANA_ROMAJI } from "@/shared/japanese/kanaTable";
+import { CONFUSABLES } from "@/features/lesson/data/hiraganaCurriculum";
 import { WORD_IMAGE_MCQ_BLOCKLIST } from "@/features/languages/ja/grammarHelpers";
 
 /**
@@ -115,12 +117,38 @@ export function correctSlot(id: string, slots = 4): number {
 }
 
 function pickThreeKanaDistractors(ctx: RowContext, symbol: string) {
-  const fromRow = ctx.allKana.filter((v) => v.symbol !== symbol);
-  if (fromRow.length >= 3) return fromRow.slice(0, 3);
+  // Visually-confusable kana first (ね/れ/わ, ぬ/め, た/な — CONFUSABLES
+  // map) when already known (this row or the prior-kana pool). The
+  // hand-authored rows previously drew row-local only, so the classic
+  // confusion pairs were never co-presented (2026-06-13 m1 audit). Cap
+  // at 2 so at least one row-mate keeps the in-row contrast.
+  const known = new Set([
+    ...ctx.allKana.map((v) => v.symbol),
+    ...ctx.tileBankPool,
+  ]);
+  const out: { symbol: string; romaji: string }[] = [];
+  for (const c of CONFUSABLES[symbol] ?? []) {
+    if (out.length >= 2) break;
+    if (c !== symbol && known.has(c) && !out.some((o) => o.symbol === c)) {
+      // romaji MUST be populated: `symbol_to_sound` renders it as the
+      // button label. Leaving it "" shipped blank buttons (ja-m1-ta-1
+      // ち had 2 blank confusable options, 2026-06-13). `symbol_recognition`
+      // ignores romaji (glyph-only), so the gap went unnoticed.
+      out.push({ symbol: c, romaji: KANA_ROMAJI[c] ?? "" });
+    }
+  }
+  const fromRow = ctx.allKana.filter(
+    (v) => v.symbol !== symbol && !out.some((o) => o.symbol === v.symbol),
+  );
   const filler = ctx.tileBankPool
-    .filter((s) => s !== symbol && !fromRow.some((v) => v.symbol === s))
-    .map((symbol) => ({ symbol, romaji: "" }));
-  return [...fromRow, ...filler].slice(0, 3);
+    .filter(
+      (s) =>
+        s !== symbol &&
+        !out.some((o) => o.symbol === s) &&
+        !fromRow.some((v) => v.symbol === s),
+    )
+    .map((sym) => ({ symbol: sym, romaji: KANA_ROMAJI[sym] ?? "" }));
+  return [...out, ...fromRow, ...filler].slice(0, 3);
 }
 
 /**
@@ -840,19 +868,25 @@ export function priorWordBuildSentence(rowId: string, suffix: string): LessonSte
   const seed = `${rowId}-rev-build-${suffix}`;
   const [target] = pickFromPool(multiMora, seed, 1);
   const mora = moraTilesFor(target.kana);
-  // Decoy = a single mora drawn from a different prior word. Avoids
-  // padding with row-current kana (forbidden by the "prior-row only"
-  // rule) and avoids same-word repetition.
-  const decoyCandidates = pool.filter((w) => w.kana !== target.kana);
-  let decoyTile: string | null = null;
-  if (decoyCandidates.length > 0) {
-    const [decoyWord] = pickFromPool(decoyCandidates, `${seed}-decoy`, 1);
-    const decoyMora = moraTilesFor(decoyWord.kana).filter(
-      (t) => !mora.includes(t),
-    );
-    decoyTile = decoyMora[0] ?? null;
+  // Decoys = mora drawn from OTHER prior words, padded to answer + 3 so
+  // the build discriminates rather than just orders (a 1-decoy bank —
+  // or いいえ's ZERO-decoy bank — was nearly a giveaway). Still honors
+  // the "prior-row only" rule: decoys never preview the current row.
+  const decoyCandidates = pickFromPool(
+    pool.filter((w) => w.kana !== target.kana),
+    `${seed}-decoy`,
+    pool.length,
+  );
+  const decoys: string[] = [];
+  outer: for (const w of decoyCandidates) {
+    for (const t of moraTilesFor(w.kana)) {
+      if (!mora.includes(t) && !decoys.includes(t)) {
+        decoys.push(t);
+        if (decoys.length >= 3) break outer;
+      }
+    }
   }
-  const tiles = decoyTile ? [...mora, decoyTile] : [...mora];
+  const tiles = [...mora, ...decoys];
   return {
     id: `m1-${rowId}-3-rev-build-${suffix}`,
     type: "build_sentence",

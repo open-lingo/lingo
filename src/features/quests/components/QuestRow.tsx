@@ -1,8 +1,47 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
+import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
+import { playSfx } from "@/shared/audio/sfx";
 import type { Quest } from "../types";
 import { QuestProgressBar } from "./QuestProgressBar";
+
+/** Per-type tile tint — fixed hues with alpha so all four themes keep
+ *  contrast. One sharp colored element per card; the card itself stays
+ *  neutral (dominant + sharp beats evenly-tinted). */
+const TYPE_TINT: Record<Quest["type"], string> = {
+  daily: "bg-amber-500/15 text-amber-600",
+  weekly: "bg-indigo-500/15 text-indigo-500",
+  random: "bg-violet-500/15 text-violet-500",
+  friend: "bg-pink-500/15 text-pink-500",
+};
+
+/** Crisp Noto SVG with raw-glyph fallback (same pattern as vocab cards). */
+function QuestIcon({ emoji, tint }: { emoji: string; tint: string }) {
+  const [failed, setFailed] = useState(false);
+  const src = notoEmojiUrl(emoji);
+  return (
+    <div
+      className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl ${tint}`}
+      aria-hidden
+    >
+      {src && !failed ? (
+        <img
+          src={src}
+          alt=""
+          width={28}
+          height={28}
+          onError={() => setFailed(true)}
+          className="h-7 w-7 select-none"
+          draggable={false}
+        />
+      ) : (
+        <span className="text-2xl">{emoji}</span>
+      )}
+    </div>
+  );
+}
 
 export type QuestRowProps = {
   quest: Quest;
@@ -17,10 +56,10 @@ function formatTimeRemaining(expiresAt?: number): string | null {
   const minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
   if (hours >= 24) {
     const days = Math.floor(hours / 24);
-    return `${days}d`;
+    return `${days}d left`;
   }
-  if (hours > 0) return `${hours}h`;
-  return `${Math.max(1, minutes)}m`;
+  if (hours > 0) return `${hours}h left`;
+  return `${Math.max(1, minutes)}m left`;
 }
 
 /**
@@ -62,12 +101,7 @@ export function QuestRow({ quest, onClaim }: QuestRowProps) {
   return (
     <div className={containerCls}>
       <div className="flex items-start gap-3">
-        <div
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-surface-muted text-2xl"
-          aria-hidden
-        >
-          {quest.emoji}
-        </div>
+        <QuestIcon emoji={quest.emoji} tint={TYPE_TINT[quest.type] ?? TYPE_TINT.daily} />
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
             <p className="truncate text-sm font-semibold text-text-primary">
@@ -103,22 +137,22 @@ export function QuestRow({ quest, onClaim }: QuestRowProps) {
             {Math.min(progress.current, progress.target)} / {progress.target}{" "}
             {progress.unit}
           </span>
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-1.5">
             {rewards.lingots ? (
-              <span className="inline-flex items-center gap-0.5 font-semibold text-accent">
-                <Icon name="gem" size={12} aria-hidden />
+              <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2 py-0.5 text-xs font-bold text-accent">
+                <Icon name="gem" size={13} aria-hidden />
                 {rewards.lingots}
               </span>
             ) : null}
             {rewards.xp ? (
-              <span className="inline-flex items-center gap-0.5 font-semibold text-warning">
-                <Icon name="star" size={12} aria-hidden />
+              <span className="inline-flex items-center gap-1 rounded-full bg-warning/15 px-2 py-0.5 text-xs font-bold text-warning">
+                <Icon name="star" size={13} aria-hidden />
                 {rewards.xp}
               </span>
             ) : null}
             {rewards.streakShield ? (
               <span
-                className="inline-flex items-center gap-0.5 font-semibold text-emerald-600 dark:text-emerald-400"
+                className="inline-flex items-center gap-0.5 font-semibold text-success"
                 title={t("quests.shieldHint", {
                   defaultValue: "Streak shield — saves your streak once",
                 })}
@@ -144,12 +178,15 @@ export function QuestRow({ quest, onClaim }: QuestRowProps) {
       {isClaimable ? (
         <Button
           type="button"
-          variant="primary"
-          onClick={() => onClaim?.(quest.id)}
+          variant="primary-3d"
+          onClick={() => {
+            playSfx("match");
+            onClaim?.(quest.id);
+          }}
           className="w-full"
         >
           <span className="inline-flex items-center gap-1.5">
-            <Icon name="sparkles" size={14} aria-hidden />
+            <Icon name="sparkles" size={16} aria-hidden />
             {t("quests.claim", { defaultValue: "Claim reward" })}
           </span>
         </Button>

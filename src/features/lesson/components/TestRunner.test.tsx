@@ -115,14 +115,14 @@ describe("TestRunner — review-tail mechanics", () => {
         onContinue={onContinue}
       />,
     );
-    // Initial front of queue is item-0; progress label "0/3 done".
-    expect(screen.getByText("0/3 done")).toBeInTheDocument();
+    // No incremental progress reported yet.
+    expect(onComplete).not.toHaveBeenCalled();
     expect(screen.getByTestId("mc-stub-item-0")).toBeInTheDocument();
 
     // Wrong answer to item-0 — should re-queue, NOT advance progress.
     fireEvent.click(screen.getByText("answer-wrong"));
-    // Now item-1 is front (item-0 went to back), progress still 0/3.
-    expect(screen.getByText("0/3 done")).toBeInTheDocument();
+    // Now item-1 is front (item-0 went to back); no progress reported.
+    expect(onComplete).not.toHaveBeenCalled();
     expect(screen.getByTestId("mc-stub-item-1")).toBeInTheDocument();
   });
 
@@ -139,17 +139,17 @@ describe("TestRunner — review-tail mechanics", () => {
     );
     // item-0 correct → progress 1/2, front is item-1.
     fireEvent.click(screen.getByText("answer-correct"));
-    expect(screen.getByText("1/2 done")).toBeInTheDocument();
-    expect(onComplete).not.toHaveBeenCalled();
+    // Incremental tick reported for the weighted top bar; verdict still
+    // pending (boolean true is provisional, last-write-wins).
+    expect(onComplete).toHaveBeenCalledWith("step-root", true, 1);
 
     // item-1 wrong → re-queued at the back, front is item-1 again.
     fireEvent.click(screen.getByText("answer-wrong"));
-    expect(screen.getByText("1/2 done")).toBeInTheDocument();
     // Queue is now [item-1], correctSet = {item-0}.
 
     // item-1 correct → queue empties, onComplete fires with `true`.
     fireEvent.click(screen.getByText("answer-correct"));
-    expect(onComplete).toHaveBeenCalledWith("step-root", true);
+    expect(onComplete).toHaveBeenLastCalledWith("step-root", true, 2);
     // Phase flipped to "passed" — terminal screen visible.
     expect(screen.getByText(/Row complete/)).toBeInTheDocument();
   });
@@ -189,7 +189,7 @@ describe("TestRunner — review-tail mechanics", () => {
     fireEvent.click(screen.getByText("answer-wrong"));
     fireEvent.click(screen.getByText("answer-wrong"));
     fireEvent.click(screen.getByText("answer-correct"));
-    expect(onComplete).toHaveBeenCalledWith("step-root", true);
+    expect(onComplete).toHaveBeenLastCalledWith("step-root", true, 1);
   });
 
   it("Skip flow: confirm modal → onComplete(stepId, false)", () => {

@@ -299,6 +299,23 @@ function AudioPanel() {
             />
           }
         />
+        <SettingRow
+          asLabel
+          label={t("settings.soundEffects", "Sound effects")}
+          help={t(
+            "settings.soundEffectsHelp",
+            "Soft chimes for answers, matches, and lesson completion. Speech audio is unaffected.",
+          )}
+          control={
+            <Switch
+              checked={settings.audio.soundEnabled ?? true}
+              onCheckedChange={(next) =>
+                updateSetting("audio.soundEnabled", next)
+              }
+              ariaLabel={t("settings.soundEffects", "Sound effects")}
+            />
+          }
+        />
       </SettingsGroup>
     </Panel>
   );
@@ -534,7 +551,25 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
               />
             }
           />
+          <SettingRow
+            asLabel
+            label={t("settings.hideBuildTileRomaji", "Hide romaji on spelling tiles")}
+            help={t(
+              "settings.hideBuildTileRomajiHelp",
+              "On word-building exercises, hides romaji on the kana tiles — tap a tile to hear its sound and reveal it, or hover to peek. Turns on automatically at Module 10 once you can read kana. Independent of the reading aid above.",
+            )}
+            control={
+              <Switch
+                checked={settings.learning.hideBuildTileRomaji ?? false}
+                onCheckedChange={(next) =>
+                  updateSetting("learning.hideBuildTileRomaji", next)
+                }
+                ariaLabel={t("settings.hideBuildTileRomaji", "Hide romaji on spelling tiles")}
+              />
+            }
+          />
         </SettingsGroup>
+
 
         <LanguageDangerZone languageId={languageId} />
       </Panel>

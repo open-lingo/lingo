@@ -1,11 +1,15 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import { Navigate, useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { applySpeechQueryParams, setSpeechFlag } from "@/shared/speech";
 import { applyDensityQueryParams } from "./data/lessonDensity";
+import { applyTraceGateQueryParam, applyTrayOverrideParam, consumeStepJumpParam } from "./data/devGates";
 import { getMockLessonContent } from "./data/mockLessons";
 import { unlockLessonAtoms } from "./data/unlockLessonAtoms";
+import { seedUnlockedAtomsDueNextDay } from "./data/seedSchedule";
+import { resetLessonJuice, reportGradedAnswer } from "./juice";
+import { expectedXp, isTestLessonId, XP_LESSON_COMPLETE, XP_TEST_BONUS } from "@/features/progress/xpRules";
 import {
   clearLessonInProgress,
   loadLessonInProgress,
@@ -52,11 +56,13 @@ import {
   setCardState,
 } from "@/features/flashcards/engine";
 import { notifySRSStoreChanged } from "@/features/flashcards/SRSStoreRevisionContext";
-import type { SRSModality } from "@/features/flashcards/data/types";
+import { reviewGrammarPoint } from "@/features/flashcards/engine/grammarSrs";
+import type { SRSModality, SRSRating } from "@/features/flashcards/data/types";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
   parseModuleIndex,
   shouldAutoFlipRomaji,
+  shouldAutoFadeBuildTileRomaji,
 } from "@/shared/settings/romajiAutoFlip";
 
 const LESSON_PASS_THRESHOLD = 0.7;
@@ -64,6 +70,20 @@ const LESSON_PASS_THRESHOLD = 0.7;
 /** Replays of an already-completed lesson award a fraction of the original
  *  XP — the activity is review, not a new milestone. Tweak in one place. */
 const REVIEW_XP_MULTIPLIER = 0.25;
+
+/** An SRS review node the learner opened before any vocabulary was due:
+ *  `buildSrsReviewLesson` returns the single "Nothing to review yet"
+ *  placeholder (no graded steps). Such a visit must be a no-op — no XP,
+ *  no completion mark (so the node resurfaces once cards are actually
+ *  due) — instead of awarding a full lesson's XP for zero retrieval
+ *  (Spencer 2026-06-13 audit). Keyed off the lesson DEFINITION, not the
+ *  run's results, so an all-info intro lesson (no review id) is unaffected. */
+export function isEmptyReviewLesson(lesson: LessonContent): boolean {
+  return (
+    /^ja-m\d+-review-[12]$/.test(lesson.id) &&
+    !lesson.steps.some(isGradedStep)
+  );
+}
 
 /** Step types eligible for the end-of-lesson replay tail. Info / teach /
  *  symbol_intro / phrase_card / grammar_rule are exposure chrome, not
@@ -121,6 +141,17 @@ export function LessonPage() {
   const [results, setResults] = useState<Record<string, boolean>>(
     () => hydrated?.results ?? {},
   );
+  // Synchronous mirror of `results` for the advance guard in
+  // handleContinue. Step views that fire onComplete + onContinue in the
+  // same tick (trace skip, symbol-intro Continue) would otherwise race
+  // the state commit: the guard's closure still sees the old `results`,
+  // refuses the advance, and the learner has to click twice.
+  const resultsRef = useRef<Record<string, boolean>>(hydrated?.results ?? {});
+  // Successful trace passes per step id — drives the weighted progress
+  // bar (each accepted stroke = one tick; see gradedStepWeight). Not
+  // persisted: a reload mid-trace restarts that step's passes, and
+  // completed traces fall back to their committed result.
+  const [passCounts, setPassCounts] = useState<Record<string, number>>({});
   const startedAtRef = useRef<string>(
     hydrated?.startedAt ?? new Date().toISOString(),
   );
@@ -138,6 +169,7 @@ export function LessonPage() {
 
   useEffect(() => {
     completionRecordedRef.current = false;
+    resetLessonJuice();
   }, [lessonId]);
 
   // `?speech=1` deep-links the speech-recognition feature flag on; the
@@ -163,7 +195,16 @@ export function LessonPage() {
     // Sub-lesson density preset + per-key overrides. See
     // `lessonDensity.ts` for the full list of `?density-*` params.
     const densityChanged = applyDensityQueryParams(next);
-    if (speechChanged || dialsChanged || densityChanged) {
+    // `?trace-gate=0` — dev dial disabling the earned-skip gate on traces.
+    const gateChanged = applyTraceGateQueryParam(next);
+    // `?tray=slots|pill` — dev override for the word-build tray variant.
+    const trayChanged = applyTrayOverrideParam(next);
+    // `?step=N` — dev jump to a step index (layout verification reach).
+    const jump = consumeStepJumpParam(next);
+    if (jump !== null && lesson) {
+      setCurrentStepIdx(Math.min(jump, lesson.steps.length - 1));
+    }
+    if (speechChanged || dialsChanged || densityChanged || gateChanged || trayChanged || jump !== null) {
       setSearchParams(next, { replace: true });
     }
   }, [searchParams, setSearchParams]);
@@ -242,6 +283,7 @@ export function LessonPage() {
     // RAF so the new step DOM has rendered before we pull focus.
     requestAnimationFrame(() => {
       stepContainerRef.current?.focus();
+      stepContainerRef.current?.scrollTo?.(0, 0);
     });
   }, [currentStepIdx, replayQueue.length]);
 
@@ -258,10 +300,31 @@ export function LessonPage() {
     if (!finished || !lesson) return;
     if (completionRecordedRef.current) return;
     completionRecordedRef.current = true;
+    // Empty SRS review (nothing was due): a no-op visit. Don't award XP,
+    // don't mark the node complete, don't buffer a passed attempt — just
+    // log + clear so the node resurfaces when cards are actually due.
+    if (isEmptyReviewLesson(lesson)) {
+      logSessionEvent("lesson_end", {
+        lessonId: lesson.id,
+        moduleId: lesson.moduleId,
+        accuracy: 1,
+        xpEarned: 0,
+        isReview,
+        wasSkipped: false,
+        stepsGraded: 0,
+      });
+      clearLessonInProgress(lesson.id);
+      return;
+    }
     const correctCount = Object.values(results).filter(Boolean).length;
     const gradedSteps = Object.keys(results).length;
     const accuracy = gradedSteps > 0 ? correctCount / gradedSteps : 1;
-    const baseXp = lesson.xpReward ?? 10;
+    // Server-formula estimate — keeps the local record consistent with
+    // what the batch sync awards (see features/progress/xpRules).
+    const baseXp = expectedXp({
+      lessonId: lesson.id,
+      perfect: accuracy >= 0.999,
+    });
     const xpEarned = isReview
       ? Math.max(1, Math.round(baseXp * REVIEW_XP_MULTIPLIER))
       : baseXp;
@@ -277,6 +340,12 @@ export function LessonPage() {
     });
     // Unlock atoms introduced by this lesson in the SRS store.
     unlockLessonAtoms(lesson.id);
+    // D4 (seed-on-unlock): schedule newly-unlocked atoms due NEXT day so they
+    // surface in the standalone reviewer tomorrow, never same-day. Content
+    // lessons only — review lessons grade, they don't seed.
+    if (!isReview) {
+      seedUnlockedAtomsDueNextDay(lesson.id);
+    }
     // Buffer the attempt for server sync. SyncManager flushes the buffer
     // (manual / periodic / on exit) — no per-completion API call.
     // Replays of completed lessons are still recorded so the server has
@@ -349,6 +418,21 @@ export function LessonPage() {
         "info",
       );
     }
+
+    // Earlier, build-tile-only fade: at Module 10 the spelling-build tiles
+    // stop pre-showing romaji and switch to tap/hover-to-reveal, so the
+    // learner reads the kana. One-shot, idempotent, independent of the
+    // global romaji aid above.
+    if (
+      shouldAutoFadeBuildTileRomaji({ settings, reachedModuleIndex })
+    ) {
+      updateSetting("learning.hideBuildTileRomaji", true);
+      updateSetting("learning.buildTileRomajiAutoFlipped", true);
+      showToast(
+        "Spelling tiles now hide romaji — tap a tile to hear it. Adjust in Settings.",
+        "info",
+      );
+    }
   }, [finished, lesson, results, isReview, settings, updateSetting, showToast]);
 
   const totalSteps = lesson?.steps.length ?? 0;
@@ -361,8 +445,9 @@ export function LessonPage() {
         currentStepIdx,
         results,
         replayQueue.length > 0,
+        passCounts,
       ),
-    [lesson, currentStepIdx, results, replayQueue.length],
+    [lesson, currentStepIdx, results, replayQueue.length, passCounts],
   );
   const inReplay = replayQueue.length > 0;
   const currentStep: LessonStep | undefined = inReplay
@@ -370,14 +455,33 @@ export function LessonPage() {
     : lesson?.steps[currentStepIdx];
 
   const handleStepComplete = useCallback(
-    (stepId: string, correct: boolean) => {
+    (stepId: string, correct: boolean, progressTicks?: number) => {
       // Last-write-wins. A retry that passes upgrades the verdict to
       // correct; a retry that fails too stays incorrect. Accuracy at
       // lesson end reflects final state.
+      resultsRef.current = { ...resultsRef.current, [stepId]: correct };
       setResults((prev) => ({ ...prev, [stepId]: correct }));
+      if (correct && progressTicks !== undefined) {
+        setPassCounts((prev) =>
+          (prev[stepId] ?? 0) >= progressTicks
+            ? prev
+            : { ...prev, [stepId]: progressTicks },
+        );
+      }
       // Buffer step + draft attempt for SyncManager (see recordStepEvent).
       if (!lesson) return;
       const stepIdx = lesson.steps.findIndex((s) => s.id === stepId);
+      // Combo + correct/incorrect sound — the single audio call site for
+      // grading. Passive steps never reach here (they don't call
+      // onComplete), but gate on isGradedStep as defense-in-depth so a
+      // future passive step that does can't bump the combo.
+      const gradedStep = lesson.steps[stepIdx >= 0 ? stepIdx : 0];
+      // Row tests run their own per-item juice inside TestRunner (each
+      // item chimes + ticks the combo); the step-level report here would
+      // double-count.
+      if (gradedStep && isGradedStep(gradedStep) && gradedStep.type !== "row_test") {
+        reportGradedAnswer(stepId, correct);
+      }
       recordStepEvent({
         lessonId: lesson.id,
         stepId,
@@ -393,17 +497,33 @@ export function LessonPage() {
       const step = lesson.steps[stepIdx >= 0 ? stepIdx : 0];
       if (!step || !shouldWriteSrs(step)) return;
       const exercised = step.exercisedAtoms ?? [];
-      if (exercised.length === 0) return;
+      const exercisedGrammar = step.exercisedGrammar ?? [];
+      if (exercised.length === 0 && exercisedGrammar.length === 0) return;
       const retried = retryAttempted.has(stepId);
       const modality = step.modality ?? "both";
       const modalities: SRSModality[] =
         modality === "both" ? ["recognition", "production"] : [modality];
+      // Track A — vocab atoms (D4: a grammar step's sentence vocab counts too).
       for (const atomId of exercised) {
         let state = getCardState(atomId) ?? createInitialState();
         for (const m of modalities) {
           state = gradeFromLesson(state, m, { correct, retried });
         }
         setCardState(atomId, state);
+      }
+      // Track B — grammar points (separate store; mirrors gradeFromLesson's
+      // correct/retried → rating mapping).
+      if (exercisedGrammar.length > 0) {
+        const grammarRating: SRSRating = !correct
+          ? "again"
+          : retried
+            ? "hard"
+            : "good";
+        for (const pointId of exercisedGrammar) {
+          for (const m of modalities) {
+            reviewGrammarPoint(pointId, m, grammarRating);
+          }
+        }
       }
       notifySRSStoreChanged();
     },
@@ -423,7 +543,7 @@ export function LessonPage() {
       if (
         active &&
         isGradedStep(active) &&
-        results[active.id] === undefined
+        resultsRef.current[active.id] === undefined
       ) {
         return;
       }
@@ -571,6 +691,11 @@ export function LessonPage() {
   }
 
   if (finished) {
+    // Empty review → no celebration screen. Bounce back to Learn; the node
+    // stays available (we never marked it complete) for when cards are due.
+    if (isEmptyReviewLesson(lesson)) {
+      return <Navigate to={langPath("learn")} replace />;
+    }
     const correctCount = Object.values(results).filter(Boolean).length;
     const gradedSteps = Object.keys(results).length;
     const mastery = computeMasteryForCompletion(lesson, results, language?.id);
@@ -601,8 +726,15 @@ export function LessonPage() {
 
   return (
     <KanaMasteryProvider>
-    <div className="mx-auto flex min-h-[70vh] max-w-2xl flex-col">
-      <div className="flex items-center gap-4 py-5">
+    {/* Fixed app-like shell (Spencer 2026-06-13): the WINDOW never
+        scrolls during a lesson. The shell is exactly viewport height
+        (minus topbar + focus-mode main padding); the step area below the
+        header is the only scroll container, so long content (grammar
+        cards) scrolls inside with the styled scrollbar while the page
+        chrome stays put. Full-width so the image-MCQ breakout fits the
+        scroller without horizontal overflow. */}
+    <div className="mx-auto flex h-[calc(100dvh-6.5rem)] w-full flex-col">
+      <div className="mx-auto flex w-full max-w-2xl items-center gap-4 py-3">
         <button
           type="button"
           onClick={handleExit}
@@ -619,12 +751,16 @@ export function LessonPage() {
         />
         <LessonMetaChips
           estimatedMinutes={lesson.estimatedMinutes}
-          xpReward={lesson.xpReward}
+          xpReward={
+            isEmptyReviewLesson(lesson)
+              ? 0
+              : XP_LESSON_COMPLETE + (isTestLessonId(lesson.id) ? XP_TEST_BONUS : 0)
+          }
         />
       </div>
 
       {inReplay && (
-        <div className="mb-2 rounded-lg border border-warning/40 bg-warning/10 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-warning">
+        <div className="mx-auto mb-2 w-full max-w-2xl rounded-lg border border-warning/40 bg-warning/10 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-warning">
           Review · {replayQueue.length} left
         </div>
       )}
@@ -633,8 +769,9 @@ export function LessonPage() {
         ref={stepContainerRef}
         tabIndex={-1}
         aria-label={t("lesson.stepContainer", "Lesson step")}
-        className="flex flex-1 flex-col py-4 outline-none"
+        className="flex flex-1 flex-col overflow-y-auto py-4 outline-none"
       >
+        <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col">
         {currentStep && (
           <StepRenderer
             // Force remount on retry so the step view starts from a clean
@@ -643,8 +780,10 @@ export function LessonPage() {
             step={currentStep}
             onComplete={handleStepComplete}
             onContinue={handleContinue}
+            isReplayRun={isReview || /^ja-m\d+-review-/.test(lesson.id)}
           />
         )}
+        </div>
       </div>
     </div>
     </KanaMasteryProvider>

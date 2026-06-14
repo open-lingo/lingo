@@ -42,7 +42,7 @@ export default function EventsPage() {
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)]">
       {/* Tab bar */}
-      <div className="border-b border-gray-200 dark:border-gray-800 px-0">
+      <div className="border-b border-border px-0">
         <TabList aria-label="Events sections">
           <TabButton
             isActive={activeTab === "inspector"}
@@ -63,8 +63,8 @@ export default function EventsPage() {
       {activeTab === "inspector" && (
         <div className="flex-1 grid grid-cols-[2fr_1fr] min-h-0">
           {/* List + filters */}
-          <div className="flex flex-col border-r border-gray-200 dark:border-gray-800">
-            <div className="flex gap-2 p-3 border-b border-gray-200 dark:border-gray-800 text-sm flex-wrap">
+          <div className="flex flex-col border-r border-border">
+            <div className="flex gap-2 p-3 border-b border-border text-sm flex-wrap">
               <select
                 value={filters.eventType ?? ""}
                 onChange={(e) =>
@@ -99,7 +99,7 @@ export default function EventsPage() {
                 }
                 className="px-2 py-1 border rounded flex-1 font-mono text-xs"
               />
-              <span className="ml-auto text-xs text-gray-500 self-center">
+              <span className="ml-auto text-xs text-text-muted self-center">
                 {listQ.data?.total ?? 0} events
               </span>
             </div>
@@ -114,7 +114,7 @@ export default function EventsPage() {
               ))}
               {listQ.isLoading && <div className="p-3 text-sm">Loading…</div>}
               {!listQ.isLoading && items.length === 0 && (
-                <div className="p-3 text-sm text-gray-500">
+                <div className="p-3 text-sm text-text-muted">
                   No events. Complete a lesson and they should appear within ~3s.
                 </div>
               )}

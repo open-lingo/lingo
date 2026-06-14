@@ -65,6 +65,14 @@ export function FundingMeter() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [collapsed]);
 
+  // Lesson-flow surfaces (lessons, placement test, test-out) are full-focus —
+  // the floating pill overlapped step content there. Hide it entirely; the
+  // Learn hub and the rest of the app still show it.
+  const isLessonFlow = /\/learn\/(lessons\/|placement-test|test-out\/)/.test(
+    location.pathname,
+  );
+  if (isLessonFlow) return null;
+
   const ariaLabel = t("funding.ariaLabel", {
     adPercent,
     defaultValue: "{{adPercent}}% ad-funded",
@@ -72,7 +80,7 @@ export function FundingMeter() {
 
   return (
     <div
-      className="pointer-events-none fixed right-0 top-[var(--header-height,3rem)] z-30 flex justify-end px-3 pt-3 sm:px-4"
+      className="pointer-events-none static flex justify-end px-3 pt-3 sm:fixed sm:right-0 sm:top-[var(--header-height,3rem)] sm:z-30 sm:px-4"
       role="status"
       aria-label={ariaLabel}
     >

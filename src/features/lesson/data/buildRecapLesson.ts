@@ -231,7 +231,8 @@ export function buildRecapLesson(
     title: `${moduleTitle} — Recap`,
     description: `Module-level recap for ${moduleTitle}.`,
     estimatedMinutes: 5,
-    xpReward: 20,
+    // Module capstone — pays above row tests (25).
+    xpReward: 30,
     introducesVocabIds: [],
     steps: [intro, testStep, outro],
   };

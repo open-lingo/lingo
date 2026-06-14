@@ -1,7 +1,13 @@
 /**
- * Small "rise + fade" toast shown between the final passing attempt and the
- * Continue button. Subtle gamification — prevents the page from feeling
- * stagnant on success.
+ * Small "rise + fade" toast shown over the step content on a correct
+ * answer. Subtle gamification — prevents the page from feeling stagnant on
+ * success. Non-blocking: the Continue button renders alongside it, so the
+ * toast rewards pace instead of taxing it.
+ *
+ * Combo escalation (calm tiers): from 3 consecutive correct answers a
+ * small "🔥 N in a row" pill rides under the copy; from 5 the toast scales
+ * up a notch. The count comes from the lesson-run combo in `../juice` at
+ * mount time, so callers keep the same `text`-only API.
  *
  * Positions absolutely; the parent should be `relative` (typically the
  * DrawingCanvas wrapper). For users with `prefers-reduced-motion: reduce`,
@@ -9,22 +15,46 @@
  * span still appears for the duration but without movement.
  */
 
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
+import { getCombo } from "../juice";
 
 type Props = {
   text: string;
 };
 
 export function CelebrationToast({ text }: Props) {
+  const { t } = useTranslation();
+  // Capture once — the combo can change under us when the learner answers
+  // the next step while this toast is still fading.
+  const [combo] = useState(getCombo);
+  const scale = combo >= 5 ? "scale-110" : "";
   return (
+    // Renders ABOVE its relative parent (bottom-full), horizontally
+    // centered. Overlay-centering inside the parent put the pill on top
+    // of left-aligned options/tiles, where it read as a button that had
+    // jumped out of place (Spencer 2026-06-13).
     <div
       role="status"
       aria-live="polite"
-      className="pointer-events-none absolute inset-0 flex items-center justify-center"
+      className="pointer-events-none absolute inset-x-0 bottom-full mb-3 flex justify-center"
     >
-      <span className="rounded-full border-[1.5px] border-accent-hover bg-accent px-5 py-1.5 text-base font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_var(--color-accent-hover)] motion-safe:animate-rise-celebrate">
-        {text}
-      </span>
+      <div
+        className={`flex flex-col items-center gap-1.5 motion-safe:animate-rise-celebrate ${scale}`}
+      >
+        <span className="rounded-full border-[1.5px] border-accent-hover bg-accent px-5 py-1.5 text-base font-bold uppercase tracking-wide text-white shadow-[0_3px_0_0_var(--color-accent-hover)]">
+          {text}
+        </span>
+        {combo >= 3 && (
+          <span className="rounded-full bg-warning/15 px-3 py-0.5 text-xs font-bold text-warning">
+            {t("lesson.combo", {
+              defaultValue: "🔥 {{n}} in a row",
+              n: combo,
+            })}
+          </span>
+        )}
+      </div>
     </div>
   );
 }

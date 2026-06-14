@@ -44,14 +44,29 @@ export function useCanvasSize({
     const compute = () => {
       const available =
         (el.clientWidth || maxWidth) - reservedHorizontalPx;
-      const next = Math.max(minWidth, Math.min(maxWidth, available));
+      // Short-viewport clamp: keep the canvas to ≤38% of the window
+      // height so the prompt, feedback row, and Check button still fit
+      // on one screen (MacBook 14" ≈ 840px usable). Width-derived sizing
+      // alone overflowed there.
+      const heightCapWidth =
+        typeof window !== "undefined"
+          ? Math.floor((window.innerHeight * 0.38) / aspectRatio)
+          : maxWidth;
+      const next = Math.max(
+        minWidth,
+        Math.min(maxWidth, available, heightCapWidth),
+      );
       setWidth(next);
     };
     compute();
     const ro = new ResizeObserver(compute);
     ro.observe(el);
-    return () => ro.disconnect();
-  }, [maxWidth, minWidth, reservedHorizontalPx]);
+    window.addEventListener("resize", compute);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", compute);
+    };
+  }, [maxWidth, minWidth, reservedHorizontalPx, aspectRatio]);
 
   return {
     wrapperRef,

@@ -41,7 +41,7 @@ function PracticeCard({
       className={`flex flex-col gap-3 rounded-xl border p-4 transition ${
         isDone
           ? "border-green-200 bg-green-50/50"
-          : "border-gray-200 bg-white"
+          : "border-border bg-surface"
       }`}
     >
       <div className="flex items-start justify-between gap-2">
@@ -63,7 +63,7 @@ function PracticeCard({
             className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-2 transition ${
               isDone
                 ? "border-green-600 bg-green-600 text-white"
-                : "border-gray-300 text-gray-400 hover:border-gray-400 hover:text-gray-600"
+                : "border-border text-text-muted hover:border-text-muted hover:text-text-secondary"
             }`}
             aria-label={isDone ? t("externalContent.practice.done") : t("externalContent.practice.notDone")}
           >
@@ -72,7 +72,7 @@ function PracticeCard({
           <button
             type="button"
             onClick={onUnsubscribe}
-            className="rounded px-2 py-1 text-xs font-medium text-gray-500 hover:bg-gray-100 hover:text-red-600"
+            className="rounded px-2 py-1 text-xs font-medium text-text-muted hover:bg-surface-muted hover:text-red-600"
           >
             {t("externalContent.practice.unsubscribe")}
           </button>
@@ -84,7 +84,7 @@ function PracticeCard({
           <Icon name={CONTENT_TYPE_ICONS[item.contentType]} size={14} aria-hidden />
           {t(`externalContent.contentType.${item.contentType}`)}
         </span>
-        <span className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-700">
+        <span className="rounded bg-surface-muted px-2 py-0.5 text-xs text-text-secondary">
           {t(`externalContent.level.${item.level}`)}
         </span>
         <span
@@ -113,7 +113,7 @@ function PracticeCard({
               target="_blank"
               rel="noopener noreferrer"
               title={link.description ?? label}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface-muted px-3 py-1.5 text-sm font-medium text-text-secondary transition hover:bg-surface-muted"
             >
               <Icon name={iconName} size={16} className="shrink-0" aria-hidden />
               {label}
@@ -175,7 +175,7 @@ export function ExternalContentPracticePage() {
       </div>
 
       {subscribedItems.length === 0 ? (
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-8 text-center/50">
+        <div className="rounded-xl border border-border bg-surface-muted p-8 text-center">
           <p className="text-text-muted">
             {t("externalContent.practice.noSubscriptions")}
           </p>

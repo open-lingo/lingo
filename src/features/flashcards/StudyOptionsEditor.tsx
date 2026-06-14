@@ -106,7 +106,7 @@ export function StudyOptionsEditor({ decks }: { decks: ManagedDeck[] }) {
               {expandedId === opt.id && (
                 <ul className="mt-3 max-h-48 space-y-2 overflow-y-auto border-t border-border pt-3">
                   {decks.length === 0 ? (
-                    <li className="text-sm text-gray-500">
+                    <li className="text-sm text-text-muted">
                       {t("flashcards.studyOptions.noSubscribedDecks", "Subscribe to decks first.")}
                     </li>
                   ) : (

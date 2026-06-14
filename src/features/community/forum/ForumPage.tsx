@@ -109,7 +109,7 @@ export function ForumPage() {
           <div>
             <Link
               to={langPath("community/explore")}
-              className="text-sm text-gray-600 hover:text-gray-900"
+              className="text-sm text-text-secondary hover:text-text-primary"
             >
               <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("community.title")}
             </Link>
@@ -132,8 +132,8 @@ export function ForumPage() {
                   onClick={() => setSort("hot")}
                   className={`rounded-md px-3 py-1.5 text-sm font-medium ${
                     sort === "hot"
-                      ? "bg-gray-900 text-white bg-surface text-text-primary"
-                      : "border border-gray-300 text-gray-700 hover:bg-gray-50"
+                      ? "bg-accent text-white"
+                      : "border border-border text-text-secondary hover:bg-surface-muted"
                   }`}
                 >
                   {t("forum.hot")}
@@ -143,8 +143,8 @@ export function ForumPage() {
                   onClick={() => setSort("new")}
                   className={`rounded-md px-3 py-1.5 text-sm font-medium ${
                     sort === "new"
-                      ? "bg-gray-900 text-white bg-surface text-text-primary"
-                      : "border border-gray-300 text-gray-700 hover:bg-gray-50"
+                      ? "bg-accent text-white"
+                      : "border border-border text-text-secondary hover:bg-surface-muted"
                   }`}
                 >
                   {t("forum.new")}
@@ -256,7 +256,7 @@ export function ForumPage() {
 
         {/* Sidebar - 30% */}
         <aside className="space-y-4 lg:w-80 lg:shrink-0 lg:flex-[3]">
-          <div className="rounded-md border border-gray-200 p-4">
+          <div className="rounded-md border border-border p-4">
             <h2 className="text-sm font-semibold text-text-primary">
               {t("community.popularContent")}
             </h2>
@@ -270,7 +270,7 @@ export function ForumPage() {
                   <li key={addon.id}>
                     <Link
                       to={langPath("community/explore")}
-                      className="block truncate text-sm text-gray-700 hover:text-green-600"
+                      className="block truncate text-sm text-text-secondary hover:text-green-600"
                     >
                       {addon.name}
                     </Link>
@@ -279,7 +279,7 @@ export function ForumPage() {
               </ul>
             )}
           </div>
-          <div className="rounded-md border border-gray-200 p-4">
+          <div className="rounded-md border border-border p-4">
             <h2 className="text-sm font-semibold text-text-primary">
               {t("forum.categories")}
             </h2>
@@ -290,8 +290,8 @@ export function ForumPage() {
                   onClick={() => setCategoryId(null)}
                   className={`block w-full rounded px-2 py-1.5 text-left text-sm ${
                     !categoryId
-                      ? "bg-gray-200 font-medium text-gray-900"
-                      : "text-gray-600 hover:bg-gray-100"
+                      ? "bg-surface-muted font-medium text-text-primary"
+                      : "text-text-secondary hover:bg-surface-muted"
                   }`}
                 >
                   {t("forum.allCategories")}
@@ -304,8 +304,8 @@ export function ForumPage() {
                     onClick={() => setCategoryId(cat.id)}
                     className={`block w-full rounded px-2 py-1.5 text-left text-sm ${
                       categoryId === cat.id
-                        ? "bg-gray-200 font-medium text-gray-900"
-                        : "text-gray-600 hover:bg-gray-100"
+                        ? "bg-surface-muted font-medium text-text-primary"
+                        : "text-text-secondary hover:bg-surface-muted"
                     }`}
                   >
                     {t(cat.nameKey, { defaultValue: cat.slug })}
@@ -316,7 +316,7 @@ export function ForumPage() {
           </div>
           {/* TODO: backend doesn't expose a top-contributors aggregate yet; */}
           {/* bucketing recent threads by author until /community/contributors lands. */}
-          <div className="rounded-md border border-gray-200 p-4">
+          <div className="rounded-md border border-border p-4">
             <h2 className="text-sm font-semibold text-text-primary">
               {t("forum.topContributors")}
             </h2>
@@ -331,7 +331,7 @@ export function ForumPage() {
                     key={c.id}
                     className="flex items-center justify-between text-sm"
                   >
-                    <span className="text-gray-700">{c.name}</span>
+                    <span className="text-text-secondary">{c.name}</span>
                     <span className="text-text-muted tabular-nums">
                       {c.postCount}
                     </span>

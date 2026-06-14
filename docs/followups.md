@@ -29,9 +29,11 @@ Each entry: `file:line — note`.
 - `src/features/home/restructured/{AccountOverviewCard,QuestsCard,RecentPracticeTile,CommunityStrip}.tsx`
   — read from `mockHomeData.ts`; wire to real progress endpoints when the
   home restructure picks up backend work.
-- `src/features/quests/useQuests.ts` — talks to localStorage only. Backend
-  `GET /quests` / `POST /{id}/progress` / `claim` / `refresh` shipped this
-  session; swap is mechanical (wrap in `useQuery` + add a `QuestsApi` client).
+- ~~`useQuests.ts` localStorage swap~~ — DONE 2026-06-13: hook is
+  server-authoritative against the real `app/quests/` backend (the
+  2026-05-25 "backend shipped" claim was false — that agent died
+  uncommitted). Remaining: client-side application of `adFreeMinutes`
+  claim rewards; friend-quest generation.
 - `src/features/profile/PublicProfilePage.tsx` — relies on
   `friendship_status` from `social.getPublicProfile`. If a user has never
   triggered the social cache yet, all profiles show "Add friend". Acceptable
@@ -62,3 +64,60 @@ Each entry: `file:line — note`.
   merged. Legacy `ConfirmModal` / `ModalBase` / `ModalBackdrop` still
   ship alongside the new `Modal` / `Dialog`. 13 call sites use the legacy
   trinity. Pull the commit when ready to one-shot the migration.
+
+## Lesson UI polish ledger (M1–7 walkthrough, 2026-06-13)
+
+### DONE this session (uncommitted, pending Spencer review)
+- Empty SRS review (`ja-mN-review-1/2` with nothing due) no longer awards XP / marks the node complete — `isEmptyReviewLesson` guard in `LessonPage.tsx` + `emptyReviewGuard.test.ts`. Redirects to Learn, hides the XP chip.
+- SymbolIntro single-glyph dead-space: content centered in space above the CTA (`flex-1 + justify-center`).
+- CTA harmony: SymbolTrace / SymbolProduction / DialogueListen now anchor the Check button at the standard y≈749 (added a `flex-1` spacer) instead of floating ~130px high. DialogueListen banner no longer nudges the CTA on commit.
+
+### OPEN — deferred, don't forget
+- **Match-pairs shouldn't use full sentences** as match items — looks tacky. Prefer single words / short phrases. (Spencer flagged.)
+- **SymbolIntro residual top dead-space**: centering leaves an equal gap above the glyph; Spencer suspects it may be a light-mode perception thing. Revisit.
+- **Correct-answer celebration is brief (1100ms `CELEBRATE_MS`)** — fast clickers barely register it. Optional: bump duration or make it more felt. (Affirmation exists in every graded view; not missing.)
+- **CTA anchor unverified on Translate / FillBlank** — measured Trace/Production/Dialogue + 6 anchored views; these two share the top-stacked root pattern but weren't reached. Check they hit y≈749.
+- **Trace CHECK is clickable on an empty canvas** → scores 0% / burns an attempt. Could disable until `hasStrokes`.
+- Cosmetic: generic globe icon reused on every `infoStep` open card; double romaji (per-kana ruby + transliteration line) on grammar/example cards; particle を shows ruby "o" but line "wo" (harmless convention mismatch).
+- Row-test "3 dots" = mistake indicator (`MAX_TEST_MISTAKES`), not progress — could be clearer to a first-timer.
+
+## M9–M15 review (2026-06-13)
+- GRAMMAR: accurate across all 7 modules incl. the famous traps (te-form う/つ/る→って + いく→いって + かえる; month しがつ/しちがつ/くがつ; minute ごふん-not-ぷん; いい→よかった; が-marking for すき/じょうず; な-adj じゃない-not-くない). Wrong forms are consistently used as deliberate distractors/antiPatterns with explicit callouts. No content bugs found.
+- COVERAGE GAP (not a bug): the conformance guards (atom-coverage, moduleConformance, mcq-position-distribution, kanaWordIntroOrder) stop at M7. M8–M15 grammar is correct but NOT machine-protected for intro-before-review / density / atom re-surfacing / MCQ-slot distribution. Consider extending the test ranges to M8–M15 (watch the m[3-7] hardcode landmine).
+
+## Curriculum rigor + retention architecture — NEEDS DEEPER LOOK (2026-06-13)
+Two items from the M9–M15 review discussion, both deferred for a dedicated pass:
+
+1. **Machine-guard the whole course (not just M1–M7).** Extend the conformance
+   suites — atom-coverage, moduleConformance, mcq-position-distribution,
+   kanaWordIntroOrder, sub-lesson-density — to cover M8–M15 (and stay generic as
+   the course grows). These tests encode the research constraints
+   (intro-before-review, ≥1 cued/free-recall, slot rotation, atom re-surfacing
+   ≥3×); leaving M8–15 uncovered means compliance rests on author discipline.
+   ⚠ Watch the `m[3-7]` / range-hardcode landmine when widening ranges.
+
+2. **Retention on-ramp / SRS population (higher leverage).** SRS state is written
+   ONLY in the optional review-lesson nodes (Spencer's invariant). A learner who
+   does the 6 content sub-lessons but skips the 2 review nodes gets ~3–7 *massed*
+   encounters and NOTHING scheduled in FSRS → decays to recognition that fades in
+   ~a week (learning-science-foundation §4.5). Need a deep dive on getting atoms
+   into FSRS earlier without breaking "reviews are the only graded surface," plus
+   cross-day spacing nudges (the §4.4 "come back tomorrow" gating already
+   recommended). Research basis: Cepeda 2006 (spacing ratio), Roediger & Karpicke
+   2006, Nation (~8–15 encounters for durable vocab; lessons supply ~5–7).
+   NOTE: lessons are correctly sized per CLT (2–4 atoms) — do NOT fatten them;
+   "more depth" = more spacing + more generative processing, not more atoms.
+
+## Daily-review quest (retention 1b) — frontend DONE + Trevor handoff (2026-06-14)
+FRONTEND (committed, lingo): `FlashcardTester` reports the session's review count to the daily-reviews quest ONCE on session-end (batched), and auto-completes it when the learner is caught up (`useFlashcardDueSummary().dueCount === 0`) so few-card days aren't stuck at 8/20.
+LINGO-CORE (UNCOMMITTED — left in Trevor's working tree, NOT pushed): added the `daily-reviews` quest (unit "reviews", target 20) to `app/quests/logic.py` + updated `tests/test_quests.py` (62 pass). ⚠ `app/quests/` is entirely untracked in lingo-core (Trevor's WIP), so I left my edit in the working tree rather than split the module across commits — **Trevor: commit my logic.py + test change with the rest of the quest module.**
+TREVOR / remaining backend coordination:
+- **Swap when nothing's due at day start:** the quest generator can't see the client-side SRS due-count, so the reviews quest always generates. A learner with 0 due cards who never opens flashcards sees 0/20 all day. Options: client reports due-count when fetching quests (so the server can swap/skip), or accept the auto-complete-on-open behavior.
+- **Trust:** the bump endpoint trusts the client `delta` (a client could over-report reviews). Add server-side sanity bounds if it matters.
+- **adFreeMinutes** reward application is still unwired (pre-existing, per lingo-core CLAUDE.md).
+
+## SRS storage unification — ARCHITECTURE DIRECTION (Spencer 2026-06-14, no changes yet)
+Storing SRS state in different places is wasteful. Anything with an SRS component (vocab, grammar points, sentences) should be **treated as a flashcard and live in the deck system** — one store, one scheduler — instead of a separate store per concept.
+- Today there are multiple SRS stores: Track A vocab `open-lingo-srs:v2`, Track B grammar `open-lingo-srs-grammar:v1` (added this session), plus the per-module `moduleReviewSchedule`. That's the fragmentation to undo.
+- When we do MORE grammar SRS: fold grammar points (and sentence items) into the deck system as card types, so they schedule + sync through the same path as vocab cards. The Track B `grammarSrs.ts` store is a deliberate stopgap — migrate it into a "grammar deck" once the deck system can hold non-word cards.
+- Also applies to the COURSE: the course deck (`courseDeck.ts`) and grammar/sentence reviews should all be one deck-backed SRS surface, checked for consistency.

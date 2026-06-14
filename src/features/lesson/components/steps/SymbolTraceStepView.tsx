@@ -13,6 +13,7 @@ import { autoPlayAlphabetAudio, getAlphabetAudioUrl } from "@/shared/audio/alpha
 import { playLocalAudio } from "@/shared/audio/volume";
 import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { isTraceSkipGateDisabled } from "../../data/devGates";
 
 /** No horizontal reservation needed — dots now sit in the controls row. */
 const SIDE_DOTS_RESERVED_PX = 0;
@@ -25,11 +26,11 @@ import {
 
 type Props = {
   step: SymbolTraceStep;
-  onComplete: (stepId: string, correct: boolean) => void;
+  onComplete: (stepId: string, correct: boolean, progressTicks?: number) => void;
   onContinue: () => void;
 };
 
-/** Celebration window between final pass and Continue button. */
+/** How long the celebration toast stays mounted after the final pass. */
 const CELEBRATE_MS = 1100;
 
 export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
@@ -50,6 +51,10 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
   // Tracks whether the user has drawn anything on the current attempt so the
   // Clear button can hide until it's useful. Reset when we wipe the canvas.
   const [hasStrokes, setHasStrokes] = useState(false);
+  // Skip is earned, not free: at least one Check attempt (pass or fail)
+  // must happen before "Skip this letter" appears (Spencer 2026-06-13).
+  // Dev dial `?trace-gate=0` (see devGates.ts) pre-satisfies the gate.
+  const [attempted, setAttempted] = useState(isTraceSkipGateDisabled);
   const [reference, setReference] = useState<SymbolReference>(() =>
     getSystemFontReferenceFor(step.payload.symbol),
   );
@@ -106,6 +111,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
 
   const handleCheck = useCallback(() => {
     if (checkLocked) return;
+    setAttempted(true);
     setFeedback(null);
     const canvas = canvasRef.current?.getCanvas();
     const strokes = canvasRef.current?.getStrokes() ?? [];
@@ -141,21 +147,20 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
         } else if (step.payload.audioKey) {
           playLocalAudio(getAlphabetAudioUrl(step.payload.audioKey));
         }
-        // Persist partial trace progress on EVERY pass, not just final. The
-        // parent's handler increments the saved traceCount so dropping mid
-        // trace step doesn't lose the pass on resume.
-        onComplete(step.id, true);
+        // Report EVERY pass with the cumulative count — the parent feeds
+        // it to the weighted progress bar, so each accepted stroke ticks
+        // the bar (gradedStepWeight gives traces minCorrectAttempts
+        // units of weight).
+        onComplete(step.id, true, next);
         if (next >= step.minCorrectAttempts) {
-          // Final pass — celebrate, then reveal Continue. Leave the user's
+          // Final pass — celebrate and reveal Continue. Leave the user's
           // last drawing on the canvas so they can see what they accomplished
           // (instead of staring at a wiped board).
           setFeedback(null);
+          setDone(true);
           setCelebrationText(pickCelebrationText(t));
           setCelebrating(true);
-          window.setTimeout(() => {
-            setCelebrating(false);
-            setDone(true);
-          }, CELEBRATE_MS);
+          window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
         } else {
           // Inter-attempt celebration — testers reported a mechanical feel
           // between pass 1 and pass 2 with zero acknowledgement of the win.
@@ -200,21 +205,23 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
       failCount,
       lastScore,
     });
-    onComplete(step.id, true);
+    // Skip credits FULL progress weight — skipping must never stall the
+    // bar relative to tracing (Spencer's own replay pattern).
+    onComplete(step.id, true, step.minCorrectAttempts);
     onContinue();
-  }, [step.id, step.payload.symbol, step.payload.scriptId, failCount, lastScore, onComplete, onContinue]);
+  }, [step.id, step.payload.symbol, step.payload.scriptId, step.minCorrectAttempts, failCount, lastScore, onComplete, onContinue]);
 
   const handleContinue = useCallback(() => {
-    if (passed) onComplete(step.id, true);
+    if (passed) onComplete(step.id, true, step.minCorrectAttempts);
     onContinue();
-  }, [passed, step.id, onComplete, onContinue]);
+  }, [passed, step.id, step.minCorrectAttempts, onComplete, onContinue]);
 
   const handleKeyEnter = useCallback(() => {
     if (done) handleContinue();
-    else if (!celebrating && !checkLocked) handleCheck();
-  }, [done, celebrating, checkLocked, handleContinue, handleCheck]);
+    else if (!checkLocked) handleCheck();
+  }, [done, checkLocked, handleContinue, handleCheck]);
 
-  useLessonKeyboard({ onEnter: handleKeyEnter, enabled: !celebrating });
+  useLessonKeyboard({ onEnter: handleKeyEnter });
 
   return (
     <div className="flex flex-1 flex-col gap-3">
@@ -320,15 +327,16 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
           </span>
         )}
       </p>
-      {/* Button slot: stays a constant height across all three phases so the
-          lesson card doesn't shrink-then-grow during celebration. */}
+      {/* Spacer drops Check/Skip to the standard bottom anchor (y≈749,
+       *  shared with every other graded step) so the button doesn't jump
+       *  when moving between a trace step and the next (Spencer 2026-06-13
+       *  CTA-harmony pass). Canvas + feedback stay read-where-expected up top. */}
+      <div className="flex-1" />
+      {/* Button slot: stays a constant height across both phases so the
+          lesson card doesn't shrink-then-grow. */}
       {done ? (
         <div className="motion-safe:animate-fade-up">
           <ContinueButton onClick={handleContinue} />
-        </div>
-      ) : celebrating ? (
-        <div className="invisible" aria-hidden>
-          <ContinueButton onClick={() => {}} />
         </div>
       ) : (
         <div className="flex flex-col items-stretch gap-2">
@@ -348,13 +356,15 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
               {t("alphabet.clear", "Clear")}
             </button>
           )}
-          <button
-            type="button"
-            onClick={handleSkip}
-            className="self-center text-sm font-medium text-text-muted underline decoration-dotted underline-offset-4 transition hover:text-text-primary"
-          >
-            {t("alphabet.skipLetter", "Skip this letter")}
-          </button>
+          {attempted && (
+            <button
+              type="button"
+              onClick={handleSkip}
+              className="motion-safe:animate-fade-up self-center text-sm font-medium text-text-muted underline decoration-dotted underline-offset-4 transition hover:text-text-primary"
+            >
+              {t("alphabet.skipLetter", "Skip this letter")}
+            </button>
+          )}
         </div>
       )}
     </div>

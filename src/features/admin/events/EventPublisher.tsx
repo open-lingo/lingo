@@ -117,15 +117,15 @@ export function EventPublisher() {
   const activeHint = TEMPLATES[eventType]?.hint;
 
   return (
-    <section className="border-t border-gray-200 dark:border-gray-800 p-4 space-y-3 text-sm bg-gray-50 dark:bg-gray-900/40">
+    <section className="border-t border-border p-4 space-y-3 text-sm bg-surface-muted">
       <header className="flex items-center justify-between">
         <h3 className="font-semibold">Publish synthetic event</h3>
-        <span className="text-xs text-gray-500">
+        <span className="text-xs text-text-muted">
           Fakes a producer call. Quests + leaderboard react as if real.
         </span>
       </header>
       <div className="grid grid-cols-[10rem_1fr] gap-3 items-center">
-        <label htmlFor="evtype" className="text-xs text-gray-500">event_type</label>
+        <label htmlFor="evtype" className="text-xs text-text-muted">event_type</label>
         <select
           id="evtype"
           value={eventType}
@@ -139,9 +139,9 @@ export function EventPublisher() {
 
         {activeHint ? (
           <>
-            <span className="text-xs text-gray-500" />
+            <span className="text-xs text-text-muted" />
             <p
-              className="text-xs text-amber-700 dark:text-amber-400 -mt-1"
+              className="text-xs text-warning -mt-1"
               data-testid="event-hint"
             >
               {activeHint}
@@ -149,7 +149,7 @@ export function EventPublisher() {
           </>
         ) : null}
 
-        <label htmlFor="evuser" className="text-xs text-gray-500">user_id</label>
+        <label htmlFor="evuser" className="text-xs text-text-muted">user_id</label>
         <input
           id="evuser"
           type="text"
@@ -159,7 +159,7 @@ export function EventPublisher() {
           className="px-2 py-1 border rounded font-mono text-xs"
         />
 
-        <label htmlFor="evpayload" className="text-xs text-gray-500 self-start mt-1">
+        <label htmlFor="evpayload" className="text-xs text-text-muted self-start mt-1">
           payload JSON
         </label>
         <textarea
@@ -180,7 +180,7 @@ export function EventPublisher() {
           {mutation.isPending ? "Publishing…" : "Publish event"}
         </button>
         {mutation.isSuccess && (
-          <span className="text-xs text-green-700 dark:text-green-400">
+          <span className="text-xs text-success">
             Published. Event should appear in the inspector within ~3s.
           </span>
         )}

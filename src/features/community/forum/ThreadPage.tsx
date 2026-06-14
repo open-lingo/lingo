@@ -42,7 +42,7 @@ function VoteButtons({
       <button
         type="button"
         onClick={() => onVote?.(1)}
-        className={`rounded p-1 ${userVote === 1 ? "text-accent" : "text-gray-500 hover:text-gray-700"}`}
+        className={`rounded p-1 ${userVote === 1 ? "text-accent" : "text-text-muted hover:text-text-secondary"}`}
         aria-label="Upvote"
       >
         ▲
@@ -51,7 +51,7 @@ function VoteButtons({
       <button
         type="button"
         onClick={() => onVote?.(-1)}
-        className={`rounded p-1 ${userVote === -1 ? "text-destructive" : "text-gray-500 hover:text-gray-700"}`}
+        className={`rounded p-1 ${userVote === -1 ? "text-destructive" : "text-text-muted hover:text-text-secondary"}`}
         aria-label="Downvote"
       >
         ▼
@@ -167,7 +167,7 @@ export function ThreadPage() {
   if (!thread) {
     return (
       <div className="mx-auto max-w-4xl space-y-4">
-        <Link to={langPath("community/discuss")} className="text-sm text-gray-600 hover:underline">
+        <Link to={langPath("community/discuss")} className="text-sm text-text-secondary hover:underline">
           <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("forum.backToForum")}
         </Link>
         <p className="text-text-muted">{t("forum.threadNotFound")}</p>
@@ -183,12 +183,12 @@ export function ThreadPage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
-      <Link to={langPath("community/discuss")} className="text-sm text-gray-600 hover:text-gray-900">
+      <Link to={langPath("community/discuss")} className="text-sm text-text-secondary hover:text-text-primary">
         <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("forum.backToForum")}
       </Link>
 
       {/* Thread */}
-      <article className="flex gap-4 rounded-lg border border-gray-200 bg-white p-6">
+      <article className="flex gap-4 rounded-lg border border-border bg-surface p-6">
         <div className="shrink-0">
           <VoteButtons
             up={thread.upvoteCount}
@@ -208,7 +208,7 @@ export function ThreadPage() {
             {threadTags.map((tag) => (
               <span
                 key={tag.id}
-                className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-700"
+                className="rounded bg-surface-muted px-2 py-0.5 text-xs text-text-secondary"
               >
                 {tag.name}
               </span>
@@ -238,7 +238,7 @@ export function ThreadPage() {
             posts.map((post) => (
               <div
                 key={post.id}
-                className="flex gap-4 rounded-lg border border-gray-200 bg-white p-4"
+                className="flex gap-4 rounded-lg border border-border bg-surface p-4"
               >
                 <div className="shrink-0">
                   <VoteButtons
@@ -267,7 +267,7 @@ export function ThreadPage() {
       </section>
 
       {/* Reply form */}
-      <section className="rounded-lg border border-gray-200 bg-white p-6">
+      <section className="rounded-lg border border-border bg-surface p-6">
         <h2 className="text-lg font-semibold text-text-primary">
           {t("forum.reply")}
         </h2>
@@ -286,7 +286,7 @@ export function ThreadPage() {
                   setReplyBody("");
                   setShowReplyForm(false);
                 }}
-                className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted"
               >
                 {t("forum.cancel")}
               </button>
@@ -307,7 +307,7 @@ export function ThreadPage() {
           <button
             type="button"
             onClick={() => setShowReplyForm(true)}
-            className="mt-4 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="mt-4 rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted"
           >
             {t("forum.writeReply")}
           </button>

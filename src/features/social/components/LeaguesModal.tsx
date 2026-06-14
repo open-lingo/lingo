@@ -14,6 +14,7 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
+import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 import {
   LEAGUE_TIERS,
@@ -88,7 +89,7 @@ export function LeaguesModal({ open, onClose, currentTierIndex }: Props) {
             className="rounded-md px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
             aria-label={t("common.close", "Close")}
           >
-            ✕
+            <Icon name="close" size={14} aria-hidden />
           </button>
         </header>
 

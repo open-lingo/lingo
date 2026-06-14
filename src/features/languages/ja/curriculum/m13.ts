@@ -33,7 +33,6 @@ import type { LessonContent } from "@/features/lesson/types";
 import {
   build,
   cloze,
-  dialogueListen,
   grammarRule,
   infoStep,
   listeningBuildSentence,
@@ -45,6 +44,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  storyComprehension,
   translateStep,
   vocabMcq,
   assertNoSameAnswerCluster,
@@ -179,7 +179,7 @@ const RULE_FREQUENCY = grammarRule({
 //   (いちがつ, にがつ, さんがつ, しがつ, ごがつ, ろくがつ)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_1_1_REVIEW = pickReviewAtoms("ja-m13-1-1-rev", M13_REVIEW_POOL, 4);
+const M13_1_1_REVIEW = pickReviewAtoms("ja-m13-1-1-rev", M13_REVIEW_POOL, 6);
 
 export const M13_1_1: LessonContent = {
   id: "ja-m13-1-1",
@@ -202,7 +202,7 @@ export const M13_1_1: LessonContent = {
       "ja-m13-1-1-build-ichigatsu",
       "Build: January",
       "いちがつ",
-      ["いちがつ", "にがつ", "さんがつ", "しがつ"],
+      ["さんがつ", "しがつ", "にがつ", "いちがつ"],
       ["いちがつ"],
     ),
     listeningCompSentence({
@@ -216,7 +216,7 @@ export const M13_1_1: LessonContent = {
       "ja-m13-1-1-build-nigatsu",
       "Build: February",
       "にがつ",
-      ["にがつ", "いちがつ", "さんがつ", "ごがつ"],
+      ["いちがつ", "ごがつ", "さんがつ", "にがつ"],
       ["にがつ"],
     ),
     speaking("ja-m13-1-1-speak-nigatsu", "にがつ", "February"),
@@ -225,7 +225,7 @@ export const M13_1_1: LessonContent = {
       "ja-m13-1-1-build-sangatsu",
       "Build: March",
       "さんがつ",
-      ["さんがつ", "にがつ", "ろくがつ", "いちがつ"],
+      ["にがつ", "いちがつ", "ろくがつ", "さんがつ"],
       ["さんがつ"],
     ),
     listeningCompSentence({
@@ -239,7 +239,7 @@ export const M13_1_1: LessonContent = {
       "ja-m13-1-1-build-shigatsu",
       "Build: April (careful — it's NOT よんがつ)",
       "しがつ",
-      ["しがつ", "よんがつ", "ごがつ", "ろくがつ"],
+      ["ごがつ", "しがつ", "よんがつ", "ろくがつ"],
       ["しがつ"],
     ),
     sentenceMcq({
@@ -254,7 +254,7 @@ export const M13_1_1: LessonContent = {
       "ja-m13-1-1-build-gogatsu",
       "Build: May",
       "ごがつ",
-      ["ごがつ", "ろくがつ", "しがつ", "にがつ"],
+      ["にがつ", "ごがつ", "ろくがつ", "しがつ"],
       ["ごがつ"],
     ),
     speaking("ja-m13-1-1-speak-gogatsu", "ごがつ", "May"),
@@ -263,7 +263,7 @@ export const M13_1_1: LessonContent = {
       "ja-m13-1-1-build-rokugatsu",
       "Build: June",
       "ろくがつ",
-      ["ろくがつ", "ごがつ", "さんがつ", "しちがつ"],
+      ["しちがつ", "さんがつ", "ごがつ", "ろくがつ"],
       ["ろくがつ"],
     ),
     listeningCompSentence({
@@ -326,7 +326,7 @@ assertNoConsecutiveSame(M13_1_1.steps);
 // M13_1_2 — "Months 1–6" drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_1_2_REVIEW = pickReviewAtoms("ja-m13-1-2-rev", M13_REVIEW_POOL, 4);
+const M13_1_2_REVIEW = pickReviewAtoms("ja-m13-1-2-rev", M13_REVIEW_POOL, 6);
 
 export const M13_1_2: LessonContent = {
   id: "ja-m13-1-2",
@@ -349,7 +349,7 @@ export const M13_1_2: LessonContent = {
       "ja-m13-1-2-build-birthday",
       "Say: My birthday is in March.",
       "たんじょうびは さんがつです",
-      ["たんじょうび", "は", "さんがつ", "です", "しがつ", "ごがつ"],
+      ["は", "しがつ", "さんがつ", "たんじょうび", "ごがつ", "です"],
       ["たんじょうび", "は", "さんがつ", "です"],
     ),
     listeningCompSentence({
@@ -362,15 +362,12 @@ export const M13_1_2: LessonContent = {
         "June is cold.",
       ],
     }),
-    cloze(
-      "ja-m13-1-2-cloze-ni-1",
-      "にがつ",
-      " にほんに いきます。",
-      "に",
-      ["に", "は", "で", "を"],
-      "I'll go to Japan in February.",
-      "にがつに にほんに いきます。",
-      "に marks the time point — 'in February.'",
+    build(
+      "ja-m13-1-2-build-nigatsu-nihon",
+      "Say: I'll go to Japan in February.",
+      "にがつに にほんに いきます",
+      ["にほん", "にがつ", "に", "に", "いきます", "は", "さんがつ"],
+      ["にがつ", "に", "にほん", "に", "いきます"],
     ),
     sentenceMcq({
       id: "ja-m13-1-2-mcq-gogatsu",
@@ -387,25 +384,22 @@ export const M13_1_2: LessonContent = {
       "ja-m13-1-2-build-rokugatsu-sent",
       "Say: It rains a lot in June.",
       "ろくがつは あめが おおいです",
-      ["ろくがつ", "は", "あめ", "が", "おおい", "です", "さんがつ", "すくない"],
+      ["が", "です", "あめ", "さんがつ", "すくない", "は", "おおい", "ろくがつ"],
       ["ろくがつ", "は", "あめ", "が", "おおい", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m13-1-2-lb-shigatsu-sent",
       target: "しがつに がっこうが はじまります",
-      tiles: ["しがつ", "に", "がっこう", "が", "はじまります", "おわります", "ろくがつ"],
+      tiles: ["ろくがつ", "が", "がっこう", "に", "おわります", "しがつ", "はじまります"],
       correctOrder: ["しがつ", "に", "がっこう", "が", "はじまります"],
       promptEn: "Hear it, build it: 'School starts in April.'",
     }),
-    cloze(
-      "ja-m13-1-2-cloze-ha-1",
-      "さんがつ",
-      " さくらが きれいです。",
-      "は",
-      ["は", "に", "が", "で"],
-      "In March, cherry blossoms are beautiful.",
-      "さんがつは さくらが きれいです。",
-      "は marks さんがつ as the topic — 'as for March...'",
+    build(
+      "ja-m13-1-2-build-sangatsu-sakura",
+      "Say: In March, cherry blossoms are beautiful.",
+      "さんがつは さくらが きれいです",
+      ["さくら", "さんがつ", "は", "が", "きれい", "です", "に"],
+      ["さんがつ", "は", "さくら", "が", "きれい", "です"],
     ),
     speaking(
       "ja-m13-1-2-speak-gogatsu-sent",
@@ -492,7 +486,7 @@ assertNoConsecutiveSame(M13_1_2.steps);
 //   (しちがつ, はちがつ, くがつ, じゅうがつ, じゅういちがつ, じゅうにがつ)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_2_1_REVIEW = pickReviewAtoms("ja-m13-2-1-rev", M13_REVIEW_POOL, 4);
+const M13_2_1_REVIEW = pickReviewAtoms("ja-m13-2-1-rev", M13_REVIEW_POOL, 6);
 
 export const M13_2_1: LessonContent = {
   id: "ja-m13-2-1",
@@ -515,7 +509,7 @@ export const M13_2_1: LessonContent = {
       "ja-m13-2-1-build-shichigatsu",
       "Build: July (careful — NOT なながつ)",
       "しちがつ",
-      ["しちがつ", "なながつ", "はちがつ", "ろくがつ"],
+      ["なながつ", "はちがつ", "ろくがつ", "しちがつ"],
       ["しちがつ"],
     ),
     listeningCompSentence({
@@ -529,7 +523,7 @@ export const M13_2_1: LessonContent = {
       "ja-m13-2-1-build-hachigatsu",
       "Build: August",
       "はちがつ",
-      ["はちがつ", "しちがつ", "くがつ", "ろくがつ"],
+      ["くがつ", "しちがつ", "ろくがつ", "はちがつ"],
       ["はちがつ"],
     ),
     speaking("ja-m13-2-1-speak-hachigatsu", "はちがつ", "August"),
@@ -538,7 +532,7 @@ export const M13_2_1: LessonContent = {
       "ja-m13-2-1-build-kugatsu",
       "Build: September (NOT きゅうがつ)",
       "くがつ",
-      ["くがつ", "きゅうがつ", "じゅうがつ", "はちがつ"],
+      ["はちがつ", "くがつ", "じゅうがつ", "きゅうがつ"],
       ["くがつ"],
     ),
     sentenceMcq({
@@ -553,7 +547,7 @@ export const M13_2_1: LessonContent = {
       "ja-m13-2-1-build-juugatsu",
       "Build: October",
       "じゅうがつ",
-      ["じゅうがつ", "くがつ", "じゅういちがつ", "はちがつ"],
+      ["くがつ", "はちがつ", "じゅういちがつ", "じゅうがつ"],
       ["じゅうがつ"],
     ),
     listeningCompSentence({
@@ -567,7 +561,7 @@ export const M13_2_1: LessonContent = {
       "ja-m13-2-1-build-juuichigatsu",
       "Build: November",
       "じゅういちがつ",
-      ["じゅういちがつ", "じゅうにがつ", "じゅうがつ", "いちがつ"],
+      ["じゅうにがつ", "じゅうがつ", "じゅういちがつ", "いちがつ"],
       ["じゅういちがつ"],
     ),
     speaking("ja-m13-2-1-speak-juuichigatsu", "じゅういちがつ", "November"),
@@ -576,7 +570,7 @@ export const M13_2_1: LessonContent = {
       "ja-m13-2-1-build-juunigatsu",
       "Build: December",
       "じゅうにがつ",
-      ["じゅうにがつ", "じゅういちがつ", "にがつ", "じゅうがつ"],
+      ["じゅういちがつ", "じゅうがつ", "じゅうにがつ", "にがつ"],
       ["じゅうにがつ"],
     ),
     listeningCompSentence({
@@ -639,7 +633,7 @@ assertNoConsecutiveSame(M13_2_1.steps);
 // M13_2_2 — "Months 7–12" drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_2_2_REVIEW = pickReviewAtoms("ja-m13-2-2-rev", M13_REVIEW_POOL, 4);
+const M13_2_2_REVIEW = pickReviewAtoms("ja-m13-2-2-rev", M13_REVIEW_POOL, 6);
 
 export const M13_2_2: LessonContent = {
   id: "ja-m13-2-2",
@@ -662,7 +656,7 @@ export const M13_2_2: LessonContent = {
       "ja-m13-2-2-build-natsu",
       "Say: August is hot.",
       "はちがつは あついです",
-      ["はちがつ", "は", "あつい", "です", "しちがつ", "さむい"],
+      ["あつい", "です", "はちがつ", "しちがつ", "さむい", "は"],
       ["はちがつ", "は", "あつい", "です"],
     ),
     listeningCompSentence({
@@ -675,15 +669,12 @@ export const M13_2_2: LessonContent = {
         "February is cold.",
       ],
     }),
-    cloze(
-      "ja-m13-2-2-cloze-ni-1",
-      "くがつ",
-      " にほんに いきます。",
-      "に",
-      ["に", "は", "で", "を"],
-      "I'll go to Japan in September.",
-      "くがつに にほんに いきます。",
-      "に marks the time point — 'in September.'",
+    build(
+      "ja-m13-2-2-build-kugatsu-test",
+      "Say: There's a test in September.",
+      "くがつに テストが あります",
+      ["テスト", "くがつ", "に", "が", "あります", "くじ", "は"],
+      ["くがつ", "に", "テスト", "が", "あります"],
     ),
     sentenceMcq({
       id: "ja-m13-2-2-mcq-juuichigatsu",
@@ -700,25 +691,22 @@ export const M13_2_2: LessonContent = {
       "ja-m13-2-2-build-shichigatsu-sent",
       "Say: Summer vacation is in July.",
       "なつやすみは しちがつです",
-      ["なつやすみ", "は", "しちがつ", "です", "はちがつ", "ろくがつ"],
+      ["は", "しちがつ", "はちがつ", "なつやすみ", "ろくがつ", "です"],
       ["なつやすみ", "は", "しちがつ", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m13-2-2-lb-juugatsu",
       target: "じゅうがつは すずしいです",
-      tiles: ["じゅうがつ", "は", "すずしい", "です", "あつい", "じゅういちがつ"],
+      tiles: ["すずしい", "は", "じゅういちがつ", "じゅうがつ", "あつい", "です"],
       correctOrder: ["じゅうがつ", "は", "すずしい", "です"],
       promptEn: "Hear it, build it: 'October is cool.'",
     }),
-    cloze(
-      "ja-m13-2-2-cloze-ha-1",
-      "しちがつ",
-      " あついです。",
-      "は",
-      ["は", "に", "が", "で"],
-      "July is hot.",
-      "しちがつは あついです。",
-      "は marks しちがつ as the topic.",
+    build(
+      "ja-m13-2-2-build-nigatsu-samui",
+      "Say: February is cold.",
+      "にがつは さむいです",
+      ["さむい", "にがつ", "は", "です", "あつい", "に"],
+      ["にがつ", "は", "さむい", "です"],
     ),
     speaking(
       "ja-m13-2-2-speak-hachigatsu-sent",
@@ -731,6 +719,21 @@ export const M13_2_2: LessonContent = {
       correctKana: "くがつ",
       distractorsKana: ["きゅうがつ", "しちがつ", "じゅうがつ"],
       explanation: "September = くがつ. The on-reading of 9 is く, not きゅう.",
+    }),
+    // ── ひとつき (one month, duration) — context intro ──
+    build(
+      "ja-m13-2-2-build-hitotsuki",
+      "New word: ひとつき = one month (a length of time — not the month of January). Say: I'll be in Japan for one month.",
+      "ひとつき にほんに います",
+      ["にほん", "ひとつき", "に", "います", "いちがつ", "いきます"],
+      ["ひとつき", "にほん", "に", "います"],
+    ),
+    sentenceMcq({
+      id: "ja-m13-2-2-mcq-hitotsuki",
+      prompt: "Which word means 'one month long' (a duration — not the calendar month of January)?",
+      correctKana: "ひとつき",
+      distractorsKana: ["いちがつ", "ひとつ", "いちじ"],
+      explanation: "ひとつき = one month of time. いちがつ = January. ひとつ = one (thing). いちじ = 1 o'clock.",
     }),
     cloze(
       "ja-m13-2-2-cloze-ni-2",
@@ -763,9 +766,9 @@ export const M13_2_2: LessonContent = {
         "Three months use on-readings that differ from counting: 4=し (not よん), 7=しち (not なな), 9=く (not きゅう). All other months use the same reading as counting.",
     }),
     speaking(
-      "ja-m13-2-2-speak-juunigatsu-sent",
-      "じゅうにがつは さむいです",
-      "December is cold.",
+      "ja-m13-2-2-speak-kugatsu-sent",
+      "くがつは すずしいです",
+      "September is cool.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m13-2-2-rev-mcq-1", M13_2_2_REVIEW[0], M13_REVIEW_POOL),
@@ -798,7 +801,7 @@ assertNoConsecutiveSame(M13_2_2.steps);
 // M13_3_1 — "From...until" (から...まで time ranges)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_3_1_REVIEW = pickReviewAtoms("ja-m13-3-1-rev", M13_REVIEW_POOL, 4);
+const M13_3_1_REVIEW = pickReviewAtoms("ja-m13-3-1-rev", M13_REVIEW_POOL, 6);
 
 export const M13_3_1: LessonContent = {
   id: "ja-m13-3-1",
@@ -830,29 +833,29 @@ export const M13_3_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m13-3-1-lc-kara-made",
-      audioText: "くじから ごじまで はたらきます",
-      correctMeaningEn: "I work from 9 to 5.",
+      audioText: "はちじから よじまで はたらきます",
+      correctMeaningEn: "I work from 8 to 4.",
       distractorsEn: [
-        "I work from 5 to 9.",
-        "I study from 9 to 5.",
-        "I work until 9.",
+        "I work from 4 to 8.",
+        "I study from 8 to 4.",
+        "I work until 8.",
       ],
     }),
     cloze(
       "ja-m13-3-1-cloze-made-1",
-      "くじから ごじ",
-      " はたらきます。",
+      "にじから よじ",
+      " としょかんに います。",
       "まで",
       ["まで", "から", "に", "は"],
-      "I work from 9 to 5.",
-      "くじから ごじまで はたらきます。",
-      "まで marks the ending time — 'until 5.'",
+      "I'm at the library from 2 to 4.",
+      "にじから よじまで としょかんに います。",
+      "まで marks the ending time — 'until 4.'",
     ),
     build(
       "ja-m13-3-1-build-getsuyoubi",
       "Say: I go to school from Monday to Friday.",
       "げつようびから きんようびまで がっこうに いきます",
-      ["げつようび", "から", "きんようび", "まで", "がっこう", "に", "いきます", "かいしゃ"],
+      ["に", "から", "いきます", "まで", "きんようび", "げつようび", "がっこう", "かいしゃ"],
       ["げつようび", "から", "きんようび", "まで", "がっこう", "に", "いきます"],
     ),
     sentenceMcq({
@@ -879,7 +882,7 @@ export const M13_3_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m13-3-1-lb-kara-made",
       target: "はちじから さんじまで べんきょうします",
-      tiles: ["はちじ", "から", "さんじ", "まで", "べんきょうします", "はたらきます", "に"],
+      tiles: ["さんじ", "べんきょうします", "はちじ", "に", "から", "まで", "はたらきます"],
       correctOrder: ["はちじ", "から", "さんじ", "まで", "べんきょうします"],
       promptEn: "Hear it, build it: 'I study from 8 to 3.'",
     }),
@@ -895,8 +898,8 @@ export const M13_3_1: LessonContent = {
     ),
     speaking(
       "ja-m13-3-1-speak-kara-made",
-      "くじから ごじまで はたらきます",
-      "I work from 9 to 5.",
+      "くじから さんじまで がっこうに います",
+      "I'm at school from 9 to 3.",
     ),
     sentenceMcq({
       id: "ja-m13-3-1-mcq-month-range",
@@ -960,7 +963,7 @@ assertNoConsecutiveSame(M13_3_1.steps);
 // M13_3_2 — "From...until" drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_3_2_REVIEW = pickReviewAtoms("ja-m13-3-2-rev", M13_REVIEW_POOL, 4);
+const M13_3_2_REVIEW = pickReviewAtoms("ja-m13-3-2-rev", M13_REVIEW_POOL, 6);
 
 export const M13_3_2: LessonContent = {
   id: "ja-m13-3-2",
@@ -983,7 +986,7 @@ export const M13_3_2: LessonContent = {
       "ja-m13-3-2-build-kaisha",
       "Pick the Japanese word for: Company / Office",
       "かいしゃ",
-      ["かいしゃ", "がっこう", "きっさてん", "こうえん"],
+      ["きっさてん", "がっこう", "かいしゃ", "こうえん"],
       ["かいしゃ"],
     ),
     listeningCompSentence({
@@ -997,10 +1000,28 @@ export const M13_3_2: LessonContent = {
       "ja-m13-3-2-build-kissaten",
       "Pick the Japanese word for: Cafe",
       "きっさてん",
-      ["きっさてん", "かいしゃ", "こうえん", "みせ"],
+      ["かいしゃ", "きっさてん", "こうえん", "みせ"],
       ["きっさてん"],
     ),
     speaking("ja-m13-3-2-speak-kissaten", "きっさてん", "Cafe"),
+    // ── じゅぎょう (class / lesson) — context intro ──
+    build(
+      "ja-m13-3-2-build-jugyou",
+      "New word: じゅぎょう = class / lesson. Say: Class is from 9 to 3.",
+      "じゅぎょうは くじから さんじまでです",
+      ["くじ", "じゅぎょう", "は", "から", "さんじ", "まで", "です", "かいしゃ"],
+      ["じゅぎょう", "は", "くじ", "から", "さんじ", "まで", "です"],
+    ),
+    listeningCompSentence({
+      id: "ja-m13-3-2-lc-jugyou",
+      audioText: "じゅぎょうは じゅうじからです",
+      correctMeaningEn: "Class is from 10 o'clock.",
+      distractorsEn: [
+        "Class is until 10 o'clock.",
+        "Work is from 10 o'clock.",
+        "Class is at the school.",
+      ],
+    }),
     // ── から...まで with new vocab ──
     cloze(
       "ja-m13-3-2-cloze-kara-1",
@@ -1016,7 +1037,7 @@ export const M13_3_2: LessonContent = {
       "ja-m13-3-2-build-kissaten-sent",
       "Say: I'm at the cafe from 3 to 5.",
       "さんじから ごじまで きっさてんに います",
-      ["さんじ", "から", "ごじ", "まで", "きっさてん", "に", "います", "かいしゃ"],
+      ["かいしゃ", "きっさてん", "まで", "さんじ", "から", "います", "に", "ごじ"],
       ["さんじ", "から", "ごじ", "まで", "きっさてん", "に", "います"],
     ),
     cloze(
@@ -1031,21 +1052,21 @@ export const M13_3_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m13-3-2-lb-cafe",
-      target: "さんじから ごじまで きっさてんに います",
-      tiles: ["さんじ", "から", "ごじ", "まで", "きっさてん", "に", "います", "かいしゃ"],
-      correctOrder: ["さんじ", "から", "ごじ", "まで", "きっさてん", "に", "います"],
-      promptEn: "Hear it, build it: 'I'm at the cafe from 3 to 5.'",
+      target: "じゅうじから にじまで きっさてんに います",
+      tiles: ["に", "じゅうじ", "います", "まで", "きっさてん", "から", "にじ", "かいしゃ"],
+      correctOrder: ["じゅうじ", "から", "にじ", "まで", "きっさてん", "に", "います"],
+      promptEn: "Hear it, build it: 'I'm at the cafe from 10 to 2.'",
     }),
     sentenceMcq({
       id: "ja-m13-3-2-mcq-kaisha",
-      prompt: "Which sentence means 'I'm at the office from 9 to 6.'?",
-      correctKana: "くじから ろくじまで かいしゃに います。",
+      prompt: "Which sentence means 'I'm at the office from 10 to 4.'?",
+      correctKana: "じゅうじから よじまで かいしゃに います。",
       distractorsKana: [
-        "ろくじから くじまで かいしゃに います。",
-        "くじから ろくじまで がっこうに います。",
-        "くじに ろくじまで かいしゃに います。",
+        "よじから じゅうじまで かいしゃに います。",
+        "じゅうじから よじまで がっこうに います。",
+        "じゅうじに よじまで かいしゃに います。",
       ],
-      explanation: "くじから = from 9, ろくじまで = until 6, かいしゃ = office.",
+      explanation: "じゅうじから = from 10, よじまで = until 4, かいしゃ = office.",
     }),
     cloze(
       "ja-m13-3-2-cloze-kara-2",
@@ -1123,7 +1144,7 @@ assertNoConsecutiveSame(M13_3_2.steps);
 // M13_4_1 — "Because" (から as reason — the big grammar point)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_4_1_REVIEW = pickReviewAtoms("ja-m13-4-1-rev", M13_REVIEW_POOL, 4);
+const M13_4_1_REVIEW = pickReviewAtoms("ja-m13-4-1-rev", M13_REVIEW_POOL, 6);
 
 export const M13_4_1: LessonContent = {
   id: "ja-m13-4-1",
@@ -1155,30 +1176,30 @@ export const M13_4_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m13-4-1-lc-dakara-1",
-      audioText: "あめだから、いきません",
-      correctMeaningEn: "Because it's raining, I won't go.",
+      audioText: "やすみだから、がっこうに いきません",
+      correctMeaningEn: "Because it's a day off, I won't go to school.",
       distractorsEn: [
-        "It's raining, so I'll go.",
-        "I won't go until it rains.",
-        "I'll go from the rain.",
+        "Because it's a day off, I'll go to school.",
+        "Until the day off, I won't go to school.",
+        "Because it's raining, I won't go to school.",
       ],
     }),
     build(
       "ja-m13-4-1-build-yasumi",
       "Say: Because it's a day off, I'm at home.",
       "やすみだから、うちに います",
-      ["やすみ", "だから", "うち", "に", "います", "いきます", "まで"],
+      ["いきます", "まで", "います", "に", "やすみ", "だから", "うち"],
       ["やすみ", "だから", "うち", "に", "います"],
     ),
     cloze(
       "ja-m13-4-1-cloze-dakara-2",
-      "やすみ",
-      "、うちに います。",
+      "テスト",
+      "、べんきょうします。",
       "だから",
       ["だから", "から", "に", "は"],
-      "Because it's a day off, I'm at home.",
-      "やすみだから、うちに います。",
-      "だから links the reason (day off) to the result (at home).",
+      "Because there's a test, I'll study.",
+      "テストだから、べんきょうします。",
+      "だから links the reason (a test) to the result (studying).",
     ),
     sentenceMcq({
       id: "ja-m13-4-1-mcq-dakara",
@@ -1193,32 +1214,32 @@ export const M13_4_1: LessonContent = {
     }),
     build(
       "ja-m13-4-1-build-samui",
-      "Say: Because it's cold, I'll drink coffee.",
-      "さむいから、コーヒーを のみます",
-      ["さむい", "から", "コーヒー", "を", "のみます", "だから", "たべます"],
-      ["さむい", "から", "コーヒー", "を", "のみます"],
+      "Say: Because it's cold, I'll drink tea.",
+      "さむいから、おちゃを のみます",
+      ["おちゃ", "さむい", "から", "を", "のみます", "だから", "たべます"],
+      ["さむい", "から", "おちゃ", "を", "のみます"],
     ),
     listeningBuildSentence({
-      id: "ja-m13-4-1-lb-yasumi",
-      target: "やすみだから、うちに います",
-      tiles: ["やすみ", "だから", "うち", "に", "います", "いきます", "から"],
-      correctOrder: ["やすみ", "だから", "うち", "に", "います"],
-      promptEn: "Hear it, build it: 'Because it's a day off, I'm at home.'",
+      id: "ja-m13-4-1-lb-ame-uchi",
+      target: "あめだから、うちに います",
+      tiles: ["うち", "から", "に", "いきます", "います", "だから", "あめ"],
+      correctOrder: ["あめ", "だから", "うち", "に", "います"],
+      promptEn: "Hear it, build it: 'Because it's raining, I'm at home.'",
     }),
     cloze(
       "ja-m13-4-1-cloze-kara-adj",
-      "さむい",
-      "、コーヒーを のみます。",
+      "やすい",
+      "、かいます。",
       "から",
       ["から", "だから", "まで", "に"],
-      "Because it's cold, I'll drink coffee.",
-      "さむいから、コーヒーを のみます。",
+      "Because it's cheap, I'll buy it.",
+      "やすいから、かいます。",
       "With い-adjectives, use から directly — no だ needed.",
     ),
     speaking(
       "ja-m13-4-1-speak-dakara",
-      "あめだから、いきません",
-      "Because it's raining, I won't go.",
+      "あめだから、こうえんに いきません",
+      "Because it's raining, I won't go to the park.",
     ),
     sentenceMcq({
       id: "ja-m13-4-1-mcq-da-vs-no-da",
@@ -1230,6 +1251,24 @@ export const M13_4_1: LessonContent = {
         "うちに います、やすみだから。",
       ],
       explanation: "Nouns need だ before から: やすみ + だから. い-adjectives attach から directly.",
+    }),
+    // ── なぜ (why?) — context intro ──
+    build(
+      "ja-m13-4-1-build-naze",
+      "New word: なぜ = why? Ask: Why won't you go?",
+      "なぜ いきませんか",
+      ["いきません", "なぜ", "か", "だから", "いきます"],
+      ["なぜ", "いきません", "か"],
+    ),
+    listeningCompSentence({
+      id: "ja-m13-4-1-lc-naze",
+      audioText: "なぜ のみませんか",
+      correctMeaningEn: "Why won't you drink it?",
+      distractorsEn: [
+        "Why won't you eat it?",
+        "Because I won't drink it.",
+        "Won't you drink it?",
+      ],
     }),
     selfExplain({
       id: "ja-m13-4-1-self-explain",
@@ -1244,14 +1283,14 @@ export const M13_4_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m13-4-1-translate",
-      promptEn: "Because it's a day off, I'm at home.",
+      promptEn: "Because there's a test, I'll study.",
       acceptedAnswers: [
-        "やすみだから、うちに います",
-        "やすみだから、うちに います。",
-        "やすみだから うちに います",
-        "やすみだから うちに います。",
+        "テストだから、べんきょうします",
+        "テストだから、べんきょうします。",
+        "テストだから べんきょうします",
+        "テストだから べんきょうします。",
       ],
-      audioText: "やすみだから、うちに います",
+      audioText: "テストだから、べんきょうします",
     }),
     // ── Review tail ──
     vocabMcq("ja-m13-4-1-rev-mcq-1", M13_4_1_REVIEW[0], M13_REVIEW_POOL),
@@ -1284,7 +1323,7 @@ assertNoConsecutiveSame(M13_4_1.steps);
 // M13_4_2 — "Because" drill (more から as reason)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_4_2_REVIEW = pickReviewAtoms("ja-m13-4-2-rev", M13_REVIEW_POOL, 4);
+const M13_4_2_REVIEW = pickReviewAtoms("ja-m13-4-2-rev", M13_REVIEW_POOL, 6);
 
 export const M13_4_2: LessonContent = {
   id: "ja-m13-4-2",
@@ -1327,17 +1366,17 @@ export const M13_4_2: LessonContent = {
       "ja-m13-4-2-build-atsui",
       "Say: Because it's hot, I'll drink juice.",
       "あついから、ジュースを のみます",
-      ["あつい", "から", "ジュース", "を", "のみます", "だから", "コーヒー"],
+      ["コーヒー", "から", "ジュース", "あつい", "のみます", "を", "だから"],
       ["あつい", "から", "ジュース", "を", "のみます"],
     ),
     cloze(
       "ja-m13-4-2-cloze-kara-adj-1",
-      "あつい",
-      "、ジュースを のみます。",
+      "さむい",
+      "、うちに います。",
       "から",
       ["から", "だから", "まで", "に"],
-      "Because it's hot, I'll drink juice.",
-      "あついから、ジュースを のみます。",
+      "Because it's cold, I'm staying at home.",
+      "さむいから、うちに います。",
       "い-adjective + から (no だ needed).",
     ),
     sentenceMcq({
@@ -1362,13 +1401,13 @@ export const M13_4_2: LessonContent = {
       "ja-m13-4-2-build-time-kara",
       "Say: I work from 10 to 7.",
       "じゅうじから しちじまで はたらきます",
-      ["じゅうじ", "から", "しちじ", "まで", "はたらきます", "だから", "べんきょうします"],
+      ["はたらきます", "しちじ", "から", "まで", "だから", "じゅうじ", "べんきょうします"],
       ["じゅうじ", "から", "しちじ", "まで", "はたらきます"],
     ),
     listeningBuildSentence({
       id: "ja-m13-4-2-lb-nichiyoubi",
       target: "にちようびだから、うちに います",
-      tiles: ["にちようび", "だから", "うち", "に", "います", "から", "いきます"],
+      tiles: ["いきます", "に", "にちようび", "います", "うち", "だから", "から"],
       correctOrder: ["にちようび", "だから", "うち", "に", "います"],
       promptEn: "Hear it, build it: 'Because it's Sunday, I'm at home.'",
     }),
@@ -1389,10 +1428,28 @@ export const M13_4_2: LessonContent = {
       distractorsKana: ["from", "until", "toward"],
       explanation: "あめだから = because it's rain. The だ before から signals a reason, not a starting point.",
     }),
+    // ── どうして (why?) — context intro ──
+    build(
+      "ja-m13-4-2-build-doushite",
+      "New word: どうして = why? (a softer, more conversational なぜ). Ask: Why do you study Japanese?",
+      "どうして にほんごを べんきょうしますか",
+      ["にほんご", "どうして", "を", "べんきょうします", "か", "から", "まで"],
+      ["どうして", "にほんご", "を", "べんきょうします", "か"],
+    ),
+    listeningCompSentence({
+      id: "ja-m13-4-2-lc-doushite",
+      audioText: "どうして きっさてんに いきますか",
+      correctMeaningEn: "Why do you go to the cafe?",
+      distractorsEn: [
+        "When do you go to the cafe?",
+        "Why don't you go to the cafe?",
+        "Do you go to the cafe?",
+      ],
+    }),
     speaking(
       "ja-m13-4-2-speak-atsui",
-      "あついから、ジュースを のみます",
-      "Because it's hot, I'll drink juice.",
+      "あついから、みずを のみます",
+      "Because it's hot, I'll drink water.",
     ),
     selfExplain({
       id: "ja-m13-4-2-self-explain",
@@ -1407,14 +1464,14 @@ export const M13_4_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m13-4-2-translate",
-      promptEn: "Because it's Sunday, I don't go to school.",
+      promptEn: "Because it's Saturday, I don't go to school.",
       acceptedAnswers: [
-        "にちようびだから、がっこうに いきません",
-        "にちようびだから、がっこうに いきません。",
-        "にちようびだから がっこうに いきません",
-        "にちようびだから がっこうに いきません。",
+        "どようびだから、がっこうに いきません",
+        "どようびだから、がっこうに いきません。",
+        "どようびだから がっこうに いきません",
+        "どようびだから がっこうに いきません。",
       ],
-      audioText: "にちようびだから、がっこうに いきません",
+      audioText: "どようびだから、がっこうに いきません",
     }),
     // ── Review tail ──
     vocabMcq("ja-m13-4-2-rev-mcq-1", M13_4_2_REVIEW[0], M13_REVIEW_POOL),
@@ -1447,7 +1504,7 @@ assertNoConsecutiveSame(M13_4_2.steps);
 // M13_5_1 — "Daily routine" (routine verbs + frequency adverbs)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_5_1_REVIEW = pickReviewAtoms("ja-m13-5-1-rev", M13_REVIEW_POOL, 4);
+const M13_5_1_REVIEW = pickReviewAtoms("ja-m13-5-1-rev", M13_REVIEW_POOL, 6);
 
 export const M13_5_1: LessonContent = {
   id: "ja-m13-5-1",
@@ -1471,7 +1528,7 @@ export const M13_5_1: LessonContent = {
       "ja-m13-5-1-build-ha-o-migaku",
       "Pick the phrase for: Brush teeth",
       "はを みがきます",
-      ["はを みがきます", "かおを あらいます", "シャワーを あびます", "ふくを きます"],
+      ["ふくを きます", "はを みがきます", "かおを あらいます", "シャワーを あびます"],
       ["はを みがきます"],
     ),
     listeningCompSentence({
@@ -1485,7 +1542,7 @@ export const M13_5_1: LessonContent = {
       "ja-m13-5-1-build-kao-arau",
       "Pick the phrase for: Wash face",
       "かおを あらいます",
-      ["かおを あらいます", "はを みがきます", "ふくを きます", "おふろに はいります"],
+      ["はを みがきます", "おふろに はいります", "ふくを きます", "かおを あらいます"],
       ["かおを あらいます"],
     ),
     speaking("ja-m13-5-1-speak-arau", "かおを あらいます", "Wash face"),
@@ -1494,7 +1551,7 @@ export const M13_5_1: LessonContent = {
       "ja-m13-5-1-build-shower",
       "Pick the phrase for: Take a shower",
       "シャワーを あびます",
-      ["シャワーを あびます", "おふろに はいります", "はを みがきます", "かおを あらいます"],
+      ["かおを あらいます", "シャワーを あびます", "はを みがきます", "おふろに はいります"],
       ["シャワーを あびます"],
     ),
     listeningCompSentence({
@@ -1529,26 +1586,23 @@ export const M13_5_1: LessonContent = {
       "ja-m13-5-1-build-yoku",
       "Say: I often wash my face in the morning.",
       "よく あさ かおを あらいます",
-      ["よく", "あさ", "かおを", "あらいます", "いつも", "みがきます"],
+      ["みがきます", "あらいます", "よく", "あさ", "かおを", "いつも"],
       ["よく", "あさ", "かおを", "あらいます"],
     ),
-    cloze(
-      "ja-m13-5-1-cloze-o",
-      "いつも あさ かお",
-      " あらいます。",
-      "を",
-      ["を", "に", "は", "が"],
-      "I always wash my face in the morning.",
-      "いつも あさ かおを あらいます。",
-      "を marks the direct object — 'face' is what you wash.",
-    ),
     listeningBuildSentence({
-      id: "ja-m13-5-1-lb-migaku",
-      target: "いつも あさ はを みがきます",
-      tiles: ["いつも", "あさ", "はを", "みがきます", "よく", "あらいます"],
-      correctOrder: ["いつも", "あさ", "はを", "みがきます"],
-      promptEn: "Hear it, build it: 'I always brush my teeth in the morning.'",
+      id: "ja-m13-5-1-lb-kao",
+      target: "いつも あさ かおを あらいます",
+      tiles: ["あさ", "みがきます", "かおを", "いつも", "はを", "あらいます"],
+      correctOrder: ["いつも", "あさ", "かおを", "あらいます"],
+      promptEn: "Hear it, build it: 'I always wash my face in the morning.'",
     }),
+    build(
+      "ja-m13-5-1-build-shower-yoru",
+      "Say: I sometimes take a shower at night.",
+      "ときどき よる シャワーを あびます",
+      ["シャワーを", "ときどき", "よる", "あびます", "あさ", "あらいます"],
+      ["ときどき", "よる", "シャワーを", "あびます"],
+    ),
     selfExplain({
       id: "ja-m13-5-1-self-explain",
       anchorLabel: "You used いつも and ときどき in routine sentences",
@@ -1596,7 +1650,7 @@ assertNoConsecutiveSame(M13_5_1.steps);
 // M13_5_2 — "Daily routine" drill (more verbs + あまり/ぜんぜん)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_5_2_REVIEW = pickReviewAtoms("ja-m13-5-2-rev", M13_REVIEW_POOL, 4);
+const M13_5_2_REVIEW = pickReviewAtoms("ja-m13-5-2-rev", M13_REVIEW_POOL, 6);
 
 export const M13_5_2: LessonContent = {
   id: "ja-m13-5-2",
@@ -1619,7 +1673,7 @@ export const M13_5_2: LessonContent = {
       "ja-m13-5-2-build-ofuro",
       "Pick the phrase for: Take a bath",
       "おふろに はいります",
-      ["おふろに はいります", "シャワーを あびます", "かおを あらいます", "でんきを つけます"],
+      ["かおを あらいます", "おふろに はいります", "でんきを つけます", "シャワーを あびます"],
       ["おふろに はいります"],
     ),
     listeningCompSentence({
@@ -1633,7 +1687,7 @@ export const M13_5_2: LessonContent = {
       "ja-m13-5-2-build-fuku",
       "Pick the phrase for: Get dressed / Put on clothes",
       "ふくを きます",
-      ["ふくを きます", "おふろに はいります", "はを みがきます", "でんきを けします"],
+      ["はを みがきます", "でんきを けします", "おふろに はいります", "ふくを きます"],
       ["ふくを きます"],
     ),
     speaking("ja-m13-5-2-speak-fuku", "ふくを きます", "Get dressed"),
@@ -1642,7 +1696,7 @@ export const M13_5_2: LessonContent = {
       "ja-m13-5-2-build-denki-tsukeru",
       "Pick the phrase for: Turn on the light",
       "でんきを つけます",
-      ["でんきを つけます", "でんきを けします", "ふくを きます", "かおを あらいます"],
+      ["でんきを けします", "でんきを つけます", "ふくを きます", "かおを あらいます"],
       ["でんきを つけます"],
     ),
     listeningCompSentence({
@@ -1678,7 +1732,7 @@ export const M13_5_2: LessonContent = {
       "ja-m13-5-2-build-zenzen",
       "Say: I don't take a shower at all.",
       "ぜんぜん シャワーを あびません",
-      ["ぜんぜん", "シャワー", "を", "あびません", "あびます", "あまり"],
+      ["シャワー", "あびます", "あまり", "を", "ぜんぜん", "あびません"],
       ["ぜんぜん", "シャワー", "を", "あびません"],
     ),
     cloze(
@@ -1693,10 +1747,10 @@ export const M13_5_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m13-5-2-lb-amari",
-      target: "あまり おふろに はいりません",
-      tiles: ["あまり", "おふろ", "に", "はいりません", "はいります", "ぜんぜん"],
-      correctOrder: ["あまり", "おふろ", "に", "はいりません"],
-      promptEn: "Hear it, build it: 'I don't take a bath very often.'",
+      target: "あまり コーヒーを のみません",
+      tiles: ["ぜんぜん", "のみます", "を", "のみません", "あまり", "コーヒー"],
+      correctOrder: ["あまり", "コーヒー", "を", "のみません"],
+      promptEn: "Hear it, build it: 'I don't drink coffee very often.'",
     }),
     speaking(
       "ja-m13-5-2-speak-amari",
@@ -1754,7 +1808,7 @@ assertNoConsecutiveSame(M13_5_2.steps);
 // M13_6_1 — "How often?" (frequency + time expressions)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_6_1_REVIEW = pickReviewAtoms("ja-m13-6-1-rev", M13_REVIEW_POOL, 4);
+const M13_6_1_REVIEW = pickReviewAtoms("ja-m13-6-1-rev", M13_REVIEW_POOL, 6);
 
 export const M13_6_1: LessonContent = {
   id: "ja-m13-6-1",
@@ -1777,7 +1831,7 @@ export const M13_6_1: LessonContent = {
       "ja-m13-6-1-build-itsumo-kara",
       "Say: I always work from 9 to 5.",
       "いつも くじから ごじまで はたらきます",
-      ["いつも", "くじ", "から", "ごじ", "まで", "はたらきます", "よく", "べんきょうします"],
+      ["まで", "はたらきます", "よく", "から", "くじ", "ごじ", "いつも", "べんきょうします"],
       ["いつも", "くじ", "から", "ごじ", "まで", "はたらきます"],
     ),
     listeningCompSentence({
@@ -1790,15 +1844,12 @@ export const M13_6_1: LessonContent = {
         "I never go to the cafe.",
       ],
     }),
-    cloze(
-      "ja-m13-6-1-cloze-ni-1",
-      "よく きっさてん",
-      " いきます。",
-      "に",
-      ["に", "で", "を", "は"],
-      "I often go to the cafe.",
-      "よく きっさてんに いきます。",
-      "に marks the destination — 'to the cafe.'",
+    build(
+      "ja-m13-6-1-build-yoku-kissaten",
+      "Say: I often go to the cafe.",
+      "よく きっさてんに いきます",
+      ["きっさてん", "よく", "に", "いきます", "で", "あまり"],
+      ["よく", "きっさてん", "に", "いきます"],
     ),
     sentenceMcq({
       id: "ja-m13-6-1-mcq-amari",
@@ -1815,36 +1866,41 @@ export const M13_6_1: LessonContent = {
       "ja-m13-6-1-build-yoku-month",
       "Say: I often go to Japan in March.",
       "よく さんがつに にほんに いきます",
-      ["よく", "さんがつ", "に", "にほん", "に", "いきます", "いつも", "しがつ"],
+      ["いきます", "よく", "に", "さんがつ", "に", "にほん", "しがつ", "いつも"],
       ["よく", "さんがつ", "に", "にほん", "に", "いきます"],
     ),
-    cloze(
-      "ja-m13-6-1-cloze-de-1",
-      "ときどき きっさてん",
-      " コーヒーを のみます。",
-      "で",
-      ["で", "に", "を", "は"],
-      "I sometimes drink coffee at the cafe.",
-      "ときどき きっさてんで コーヒーを のみます。",
-      "で marks the location of the action — 'at the cafe.'",
+    build(
+      "ja-m13-6-1-build-toshokan-de",
+      "Say: I sometimes read books at the library.",
+      "ときどき としょかんで ほんを よみます",
+      ["としょかん", "ときどき", "で", "ほん", "を", "よみます", "に"],
+      ["ときどき", "としょかん", "で", "ほん", "を", "よみます"],
     ),
     listeningBuildSentence({
       id: "ja-m13-6-1-lb-amari-kaisha",
       target: "あまり かいしゃに いきません",
-      tiles: ["あまり", "かいしゃ", "に", "いきません", "いきます", "ぜんぜん"],
+      tiles: ["に", "ぜんぜん", "いきません", "あまり", "かいしゃ", "いきます"],
       correctOrder: ["あまり", "かいしゃ", "に", "いきません"],
       promptEn: "Hear it, build it: 'I don't often go to the office.'",
     }),
-    cloze(
-      "ja-m13-6-1-cloze-ha-1",
-      "しちがつ",
-      " あついです。",
-      "は",
-      ["は", "に", "で", "が"],
-      "July is hot.",
-      "しちがつは あついです。",
-      "は marks the topic — 'as for July.'",
+    // ── クラス (class) — context intro ──
+    build(
+      "ja-m13-6-1-build-kurasu",
+      "New word: クラス = class (katakana, from English 'class'). Say: Class is from 1 o'clock.",
+      "クラスは いちじからです",
+      ["いちじ", "クラス", "は", "から", "です", "まで"],
+      ["クラス", "は", "いちじ", "から", "です"],
     ),
+    listeningCompSentence({
+      id: "ja-m13-6-1-lc-kurasu",
+      audioText: "クラスは いちじから さんじまでです",
+      correctMeaningEn: "Class is from 1 to 3.",
+      distractorsEn: [
+        "Class is until 1.",
+        "Work is from 1 to 3.",
+        "Class is from 3.",
+      ],
+    }),
     sentenceMcq({
       id: "ja-m13-6-1-mcq-zenzen",
       prompt: "Which sentence is correct?",
@@ -1865,7 +1921,7 @@ export const M13_6_1: LessonContent = {
       "ja-m13-6-1-build-dakara",
       "Say: Because it's hot, I always drink juice.",
       "あついから、いつも ジュースを のみます",
-      ["あつい", "から", "いつも", "ジュース", "を", "のみます", "だから", "コーヒー"],
+      ["コーヒー", "を", "いつも", "のみます", "あつい", "だから", "ジュース", "から"],
       ["あつい", "から", "いつも", "ジュース", "を", "のみます"],
     ),
     selfExplain({
@@ -1919,7 +1975,7 @@ assertNoConsecutiveSame(M13_6_1.steps);
 // M13_6_2 — "How often?" drill (frequency + reasons)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_6_2_REVIEW = pickReviewAtoms("ja-m13-6-2-rev", M13_REVIEW_POOL, 4);
+const M13_6_2_REVIEW = pickReviewAtoms("ja-m13-6-2-rev", M13_REVIEW_POOL, 6);
 
 export const M13_6_2: LessonContent = {
   id: "ja-m13-6-2",
@@ -1962,7 +2018,7 @@ export const M13_6_2: LessonContent = {
       "ja-m13-6-2-build-compound-1",
       "Say: Because it's a day off, I don't often go to the office.",
       "やすみだから、あまり かいしゃに いきません",
-      ["やすみ", "だから", "あまり", "かいしゃ", "に", "いきません", "から", "いきます"],
+      ["いきません", "かいしゃ", "に", "から", "だから", "やすみ", "あまり", "いきます"],
       ["やすみ", "だから", "あまり", "かいしゃ", "に", "いきません"],
     ),
     cloze(
@@ -1996,15 +2052,15 @@ export const M13_6_2: LessonContent = {
       "ja-m13-6-2-build-zenzen-dakara",
       "Say: Because it's expensive, I don't buy it at all.",
       "たかいから、ぜんぜん かいません",
-      ["たかい", "から", "ぜんぜん", "かいません", "だから", "あまり", "かいます"],
+      ["あまり", "ぜんぜん", "かいます", "から", "かいません", "たかい", "だから"],
       ["たかい", "から", "ぜんぜん", "かいません"],
     ),
     listeningBuildSentence({
       id: "ja-m13-6-2-lb-compound",
-      target: "やすみだから、あまり かいしゃに いきません",
-      tiles: ["やすみ", "だから", "あまり", "かいしゃ", "に", "いきません", "から", "いきます"],
-      correctOrder: ["やすみ", "だから", "あまり", "かいしゃ", "に", "いきません"],
-      promptEn: "Hear it, build it: 'Because it's a day off, I don't often go to the office.'",
+      target: "やすみだから、こうえんに いきます",
+      tiles: ["に", "やすみ", "だから", "こうえん", "いきます", "から", "いきません"],
+      correctOrder: ["やすみ", "だから", "こうえん", "に", "いきます"],
+      promptEn: "Hear it, build it: 'Because it's a day off, I'll go to the park.'",
     }),
     cloze(
       "ja-m13-6-2-cloze-dakara-2",
@@ -2032,6 +2088,24 @@ export const M13_6_2: LessonContent = {
       ],
       explanation: "あまり requires a polite negative: いきません.",
     }),
+    // ── つぎ (next) — context intro ──
+    build(
+      "ja-m13-6-2-build-tsugi",
+      "New word: つぎ = next. Say: The next class is from 2 o'clock.",
+      "つぎの クラスは にじからです",
+      ["クラス", "つぎ", "の", "は", "にじ", "から", "です", "まで"],
+      ["つぎ", "の", "クラス", "は", "にじ", "から", "です"],
+    ),
+    listeningCompSentence({
+      id: "ja-m13-6-2-lc-tsugi",
+      audioText: "つぎの じゅぎょうは さんじからです",
+      correctMeaningEn: "The next class is from 3 o'clock.",
+      distractorsEn: [
+        "The next class is until 3 o'clock.",
+        "This class is from 3 o'clock.",
+        "The next class is from 2 o'clock.",
+      ],
+    }),
     selfExplain({
       id: "ja-m13-6-2-self-explain",
       anchorLabel: "You combined だから + frequency adverbs",
@@ -2054,6 +2128,25 @@ export const M13_6_2: LessonContent = {
       ],
       audioText: "さむいから、いつも おふろに はいります",
     }),
+    // ── あと (later / afterwards) — new word ──
+    build(
+      "ja-m13-6-2-build-ato",
+      "Pick the Japanese for: later / afterwards",
+      "あと",
+      ["いま", "あと", "つぎ", "きょう"],
+      ["あと"],
+    ),
+    listeningCompSentence({
+      id: "ja-m13-6-2-lc-ato",
+      audioText: "あとで べんきょうします",
+      correctMeaningEn: "I'll study later.",
+      distractorsEn: [
+        "I'm studying now.",
+        "I'll study tomorrow.",
+        "I won't study.",
+      ],
+    }),
+    speaking("ja-m13-6-2-speak-ato", "あとで ごはんを たべます", "I'll eat later."),
     // ── Review tail ──
     vocabMcq("ja-m13-6-2-rev-mcq-1", M13_6_2_REVIEW[0], M13_REVIEW_POOL),
     listeningCompSentence({
@@ -2092,47 +2185,53 @@ export const M13_STORY: LessonContent = {
   languageId: LANG,
   title: "Story — Planning a trip",
   description:
-    "Listen to two friends discuss when to visit Japan — using months, reasons, and schedules.",
+    "Follow たけし's plan to visit Japan — months, schedules (から...まで), and reasons (だから) in a connected story.",
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
     infoStep(
       "ja-m13-story-info-open",
       "Story time — When to go to Japan",
-      "ゆき and たけし are planning a trip to Japan. Listen as they discuss which month, why, and their schedules.",
+      "たけし is telling you about his trip to Japan. Listen for the month he chose, his reason, and his schedule — then reply to him.",
     ),
-    dialogueListen({
-      id: "ja-m13-story-scene-1",
-      lines: [
-        { speaker: "ゆき", kana: "なんがつに にほんに いきますか。" },
-        { speaker: "たけし", kana: "さんがつです。さくらが きれいだから。" },
-        { speaker: "ゆき", kana: "いいですね。さんがつは あたたかいですか。" },
-        { speaker: "たけし", kana: "ときどき さむいですが、いいですよ。" },
+    ...storyComprehension({
+      idPrefix: "ja-m13-story-s1",
+      narrative: [
+        { kana: "さんがつに にほんに いきます。" },
+        { kana: "さくらが きれいだから、さんがつが いいです。" },
+        { kana: "さんがつは ときどき さむいです。" },
+        { kana: "でも、ひとが おおいです。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s1-q1",
-          prompt: "When does たけし want to go to Japan?",
+          prompt: "When does たけし go to Japan?",
           correctText: "March",
           distractors: ["April", "July", "September"],
-          explanation: "たけし says さんがつです = March.",
+          explanation: "さんがつに にほんに いきます = he goes to Japan in March.",
         },
         {
           id: "s1-q2",
-          prompt: "Why does たけし want to go in March?",
+          prompt: "Why did he choose March?",
           correctText: "Because cherry blossoms are beautiful.",
           distractors: ["Because it's warm.", "Because it's cheap.", "Because it's a day off."],
-          explanation: "たけし says さくらが きれいだから = because the cherry blossoms are beautiful.",
+          explanation: "さくらが きれいだから = because the cherry blossoms are beautiful.",
+        },
+        {
+          id: "s1-q3",
+          prompt: "What is March weather like, according to たけし?",
+          correctText: "Sometimes cold.",
+          distractors: ["Always warm.", "Never cold.", "Always cold."],
+          explanation: "ときどき さむいです = it's sometimes cold.",
         },
       ],
+      responseBuild: {
+        promptEn: "Reply with たけし's reason: 'Because cherry blossoms are beautiful.'",
+        target: "さくらが きれいだから",
+        tiles: ["きれい", "さくら", "が", "だから", "から", "おおきい"],
+        correctOrder: ["さくら", "が", "きれい", "だから"],
+      },
     }),
-    build(
-      "ja-m13-story-build-sangatsu",
-      "Say: Because cherry blossoms are beautiful.",
-      "さくらが きれいだから",
-      ["さくら", "が", "きれい", "だから", "から", "おおきい"],
-      ["さくら", "が", "きれい", "だから"],
-    ),
     sentenceMcq({
       id: "ja-m13-story-mcq-weather",
       prompt: "How did たけし describe March weather?",
@@ -2140,47 +2239,36 @@ export const M13_STORY: LessonContent = {
       distractorsKana: ["いつも あたたかい", "ぜんぜん さむくない", "いつも さむい"],
       explanation: "たけし said ときどき さむいです = sometimes cold.",
     }),
-    dialogueListen({
-      id: "ja-m13-story-scene-2",
-      lines: [
-        { speaker: "ゆき", kana: "たけしさんは いつも なんじから なんじまで しごとですか。" },
-        { speaker: "たけし", kana: "くじから ろくじまでです。でも、さんがつは やすみを とります。" },
-        { speaker: "ゆき", kana: "いいですね。わたしも さんがつに いきます。" },
-        { speaker: "たけし", kana: "さんがつは さくらだから、ひとが おおいですよ。" },
+    ...storyComprehension({
+      idPrefix: "ja-m13-story-s2",
+      narrative: [
+        { kana: "わたしは げつようびから きんようびまで はたらきます。" },
+        { kana: "くじから ろくじまで かいしゃに います。" },
+        { kana: "でも、さんがつは やすみです。" },
+        { kana: "ひとつき にほんに います。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s2-q1",
           prompt: "What are たけし's work hours?",
           correctText: "9 to 6.",
           distractors: ["8 to 5.", "10 to 7.", "9 to 5."],
-          explanation: "たけし says くじから ろくじまで = from 9 to 6.",
+          explanation: "くじから ろくじまで かいしゃに います = he's at the office from 9 to 6.",
         },
         {
           id: "s2-q2",
-          prompt: "Why does たけし say March will be crowded?",
-          correctText: "Because of cherry blossoms, many people come.",
-          distractors: ["Because it's a holiday.", "Because the weather is nice.", "Because tickets are cheap."],
-          explanation: "たけし says さんがつは さくらだから、ひとが おおいです = because of cherry blossoms, lots of people.",
+          prompt: "How long will たけし stay in Japan?",
+          correctText: "One month.",
+          distractors: ["One week.", "From January.", "Until Monday."],
+          explanation: "ひとつき にほんに います = he'll be in Japan for one month.",
         },
       ],
-    }),
-    cloze(
-      "ja-m13-story-cloze-kara",
-      "くじ",
-      " ろくじまで しごとです。",
-      "から",
-      ["から", "まで", "に", "は"],
-      "I work from 9 to 6.",
-      "くじから ろくじまで しごとです。",
-      "から marks the starting time.",
-    ),
-    listeningBuildSentence({
-      id: "ja-m13-story-lb-sakura",
-      target: "さくらが きれいだから",
-      tiles: ["さくら", "が", "きれい", "だから", "から", "おおきい"],
-      correctOrder: ["さくら", "が", "きれい", "だから"],
-      promptEn: "Hear it, build it: 'Because cherry blossoms are beautiful.'",
+      responseBuild: {
+        promptEn: "Reply to たけし: 'I'll also go to Japan in March.'",
+        target: "わたしも さんがつに にほんに いきます",
+        tiles: ["さんがつ", "わたし", "も", "に", "にほん", "に", "いきます", "しがつ"],
+        correctOrder: ["わたし", "も", "さんがつ", "に", "にほん", "に", "いきます"],
+      },
     }),
     listeningCompSentence({
       id: "ja-m13-story-lc-hito",
@@ -2198,15 +2286,15 @@ export const M13_STORY: LessonContent = {
       "Because cherry blossoms are beautiful.",
     ),
     sentenceMcq({
-      id: "ja-m13-story-mcq-both",
-      prompt: "What did both ゆき and たけし decide to do?",
-      correctKana: "さんがつに にほんに いきます",
+      id: "ja-m13-story-mcq-hitotsuki",
+      prompt: "Which sentence means 'I'll be in Japan for one month.'?",
+      correctKana: "ひとつき にほんに います。",
       distractorsKana: [
-        "しがつに にほんに いきます",
-        "さんがつに かいしゃに いきます",
-        "しちがつに にほんに いきます",
+        "いちがつに にほんに います。",
+        "ひとつき にほんに いきます。",
+        "ひとつ にほんが あります。",
       ],
-      explanation: "Both decided to go to Japan in March (さんがつに にほんに いきます).",
+      explanation: "ひとつき = one month (duration) + います (stay). いちがつ = January. ひとつき + いきます mixes a duration with a motion verb.",
     }),
     speaking(
       "ja-m13-story-speak-schedule",
@@ -2215,8 +2303,8 @@ export const M13_STORY: LessonContent = {
     ),
     infoStep(
       "ja-m13-story-info-end",
-      "You followed a real conversation about travel plans",
-      "Months, reasons (だから), schedules (から...まで), and frequency (ときどき) — all in one natural conversation about visiting Japan.",
+      "You followed a real story about travel plans",
+      "Months, reasons (だから), schedules (から...まで), frequency (ときどき), and ひとつき — all in one connected story about visiting Japan.",
       "win",
     ),
   ],
@@ -2231,7 +2319,7 @@ assertExplanationDoesntLeakAnswer(M13_STORY.steps);
 // M13_7_1 — Mixed drill (time + frequency + から discrimination)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_7_1_REVIEW = pickReviewAtoms("ja-m13-7-1-rev", M13_REVIEW_POOL, 4);
+const M13_7_1_REVIEW = pickReviewAtoms("ja-m13-7-1-rev", M13_REVIEW_POOL, 6);
 
 export const M13_7_1: LessonContent = {
   id: "ja-m13-7-1",
@@ -2252,12 +2340,12 @@ export const M13_7_1: LessonContent = {
     // ── から discrimination drills ──
     cloze(
       "ja-m13-7-1-cloze-kara-time",
-      "しちがつ",
-      " はちがつまで なつやすみです。",
+      "しがつ",
+      " ろくがつまで あたたかいです。",
       "から",
       ["から", "だから", "まで", "に"],
-      "Summer vacation is from July to August.",
-      "しちがつから はちがつまで なつやすみです。",
+      "It's warm from April to June.",
+      "しがつから ろくがつまで あたたかいです。",
       "から = from (time range starting point).",
     ),
     sentenceMcq({
@@ -2281,7 +2369,7 @@ export const M13_7_1: LessonContent = {
       "ja-m13-7-1-build-month-range",
       "Say: It's cold from November to February.",
       "じゅういちがつから にがつまで さむいです",
-      ["じゅういちがつ", "から", "にがつ", "まで", "さむい", "です", "だから", "あつい"],
+      ["さむい", "あつい", "じゅういちがつ", "にがつ", "だから", "から", "まで", "です"],
       ["じゅういちがつ", "から", "にがつ", "まで", "さむい", "です"],
     ),
     listeningCompSentence({
@@ -2315,7 +2403,7 @@ export const M13_7_1: LessonContent = {
       "ja-m13-7-1-build-reason-freq",
       "Say: Because it's a day off, I don't go to the office at all.",
       "やすみだから、ぜんぜん かいしゃに いきません",
-      ["やすみ", "だから", "ぜんぜん", "かいしゃ", "に", "いきません", "から", "あまり"],
+      ["だから", "あまり", "やすみ", "いきません", "に", "かいしゃ", "から", "ぜんぜん"],
       ["やすみ", "だから", "ぜんぜん", "かいしゃ", "に", "いきません"],
     ),
     cloze(
@@ -2330,10 +2418,10 @@ export const M13_7_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m13-7-1-lb-mixed",
-      target: "じゅういちがつから にがつまで さむいです",
-      tiles: ["じゅういちがつ", "から", "にがつ", "まで", "さむい", "です", "あつい", "だから"],
-      correctOrder: ["じゅういちがつ", "から", "にがつ", "まで", "さむい", "です"],
-      promptEn: "Hear it, build it: 'It's cold from November to February.'",
+      target: "くがつから じゅういちがつまで すずしいです",
+      tiles: ["だから", "から", "あつい", "じゅういちがつ", "くがつ", "です", "まで", "すずしい"],
+      correctOrder: ["くがつ", "から", "じゅういちがつ", "まで", "すずしい", "です"],
+      promptEn: "Hear it, build it: 'It's cool from September to November.'",
     }),
     speaking(
       "ja-m13-7-1-speak-discrimination",
@@ -2353,12 +2441,12 @@ export const M13_7_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m13-7-1-translate",
-      promptEn: "It's cold from November to February.",
+      promptEn: "It's hot from July to September.",
       acceptedAnswers: [
-        "じゅういちがつから にがつまで さむいです",
-        "じゅういちがつから にがつまで さむいです。",
+        "しちがつから くがつまで あついです",
+        "しちがつから くがつまで あついです。",
       ],
-      audioText: "じゅういちがつから にがつまで さむいです",
+      audioText: "しちがつから くがつまで あついです",
     }),
     // ── Review tail ──
     vocabMcq("ja-m13-7-1-rev-mcq-1", M13_7_1_REVIEW[0], M13_REVIEW_POOL),
@@ -2391,7 +2479,7 @@ assertNoConsecutiveSame(M13_7_1.steps);
 // M13_7_2 — Production (full-sentence production + speaking)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M13_7_2_REVIEW = pickReviewAtoms("ja-m13-7-2-rev", M13_REVIEW_POOL, 4);
+const M13_7_2_REVIEW = pickReviewAtoms("ja-m13-7-2-rev", M13_REVIEW_POOL, 6);
 
 export const M13_7_2: LessonContent = {
   id: "ja-m13-7-2",
@@ -2414,7 +2502,7 @@ export const M13_7_2: LessonContent = {
       "ja-m13-7-2-build-1",
       "Say: I go to Japan in April.",
       "しがつに にほんに いきます",
-      ["しがつ", "に", "にほん", "に", "いきます", "よんがつ", "から"],
+      ["に", "にほん", "いきます", "から", "に", "しがつ", "よんがつ"],
       ["しがつ", "に", "にほん", "に", "いきます"],
     ),
     speaking(
@@ -2426,18 +2514,15 @@ export const M13_7_2: LessonContent = {
       "ja-m13-7-2-build-2",
       "Say: Because it's hot, I take a shower.",
       "あついから、シャワーを あびます",
-      ["あつい", "から", "シャワー", "を", "あびます", "だから", "はいります"],
+      ["を", "だから", "あつい", "から", "あびます", "はいります", "シャワー"],
       ["あつい", "から", "シャワー", "を", "あびます"],
     ),
-    cloze(
-      "ja-m13-7-2-cloze-dakara",
-      "にちようび",
-      "、ゆっくり おきます。",
-      "だから",
-      ["だから", "から", "まで", "に"],
-      "Because it's Sunday, I wake up slowly.",
-      "にちようびだから、ゆっくり おきます。",
-      "Noun + だから = because.",
+    build(
+      "ja-m13-7-2-build-yasumi-terebi",
+      "Say: Because it's a day off, I watch TV at home.",
+      "やすみだから、うちで テレビを みます",
+      ["うち", "やすみ", "だから", "で", "テレビ", "を", "みます", "から"],
+      ["やすみ", "だから", "うち", "で", "テレビ", "を", "みます"],
     ),
     speaking(
       "ja-m13-7-2-speak-2",
@@ -2446,27 +2531,24 @@ export const M13_7_2: LessonContent = {
     ),
     build(
       "ja-m13-7-2-build-3",
-      "Say: I always brush my teeth from morning.",
-      "いつも あさ はを みがきます",
-      ["いつも", "あさ", "はを", "みがきます", "ときどき", "あらいます"],
-      ["いつも", "あさ", "はを", "みがきます"],
+      "Say: I sometimes wash my face at night.",
+      "ときどき よる かおを あらいます",
+      ["かおを", "ときどき", "よる", "あらいます", "いつも", "みがきます"],
+      ["ときどき", "よる", "かおを", "あらいます"],
     ),
     listeningBuildSentence({
       id: "ja-m13-7-2-lb-1",
-      target: "しちがつから はちがつまで なつやすみです",
-      tiles: ["しちがつ", "から", "はちがつ", "まで", "なつやすみ", "です", "なながつ", "だから"],
-      correctOrder: ["しちがつ", "から", "はちがつ", "まで", "なつやすみ", "です"],
-      promptEn: "Hear it, build it: 'Summer vacation is from July to August.'",
+      target: "ろくがつから しちがつまで あめが おおいです",
+      tiles: ["あめ", "です", "おおい", "だから", "ろくがつ", "が", "から", "まで", "しちがつ"],
+      correctOrder: ["ろくがつ", "から", "しちがつ", "まで", "あめ", "が", "おおい", "です"],
+      promptEn: "Hear it, build it: 'There's a lot of rain from June to July.'",
     }),
-    cloze(
-      "ja-m13-7-2-cloze-kara",
-      "くじ",
-      " ごじまで はたらきます。",
-      "から",
-      ["から", "だから", "まで", "に"],
-      "I work from 9 to 5.",
-      "くじから ごじまで はたらきます。",
-      "Time + から = from (starting point).",
+    build(
+      "ja-m13-7-2-build-work-hours",
+      "Say: I work from 10 to 4.",
+      "じゅうじから よじまで はたらきます",
+      ["よじ", "じゅうじ", "から", "まで", "はたらきます", "だから", "に"],
+      ["じゅうじ", "から", "よじ", "まで", "はたらきます"],
     ),
     sentenceMcq({
       id: "ja-m13-7-2-mcq-month",
@@ -2482,10 +2564,10 @@ export const M13_7_2: LessonContent = {
     ),
     build(
       "ja-m13-7-2-build-4",
-      "Say: I don't often take a bath.",
-      "あまり おふろに はいりません",
-      ["あまり", "おふろ", "に", "はいりません", "ぜんぜん", "はいります"],
-      ["あまり", "おふろ", "に", "はいりません"],
+      "Say: I don't read books very often.",
+      "あまり ほんを よみません",
+      ["ほん", "あまり", "を", "よみません", "ぜんぜん", "よみます"],
+      ["あまり", "ほん", "を", "よみません"],
     ),
     selfExplain({
       id: "ja-m13-7-2-self-explain",
@@ -2536,7 +2618,7 @@ export const M13_7_2: LessonContent = {
       ],
     }),
     speaking("ja-m13-7-2-rev-speak-1", M13_7_2_REVIEW[2].kana, M13_7_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m13-7-2-rev", M13_7_2_REVIEW.slice(0, 4)),
+    reviewMatchPairs("ja-m13-7-2-rev", M13_7_2_REVIEW),
     infoStep(
       "ja-m13-7-2-info-end",
       "You can now describe schedules, give reasons, and talk about your daily life in Japanese",

@@ -141,7 +141,7 @@ export function PlacementTestPage() {
   }
 
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-surface-primary">
+    <div className="flex min-h-[100dvh] flex-col bg-background">
       <PlacementProgressBar
         state={state}
         isTestOut={isTestOut}

@@ -1,4 +1,4 @@
-export { useQuests, QUESTS_STORAGE_KEY } from "./useQuests";
+export { useQuests } from "./useQuests";
 export type {
   Quest,
   QuestType,

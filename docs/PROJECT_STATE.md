@@ -1,6 +1,6 @@
 # Open Lingo — project state
 
-**Last updated:** 2026-05-24  
+**Last updated:** 2026-06-15  
 **Purpose:** Accurate snapshot for humans and agents. For launch tasks see [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md).
 
 ---
@@ -8,6 +8,26 @@
 ## Executive summary
 
 Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-core** (FastAPI). Core loop: **learn → lessons → flashcards (SRS) → settings**. Community deck browse/subscribe works; forum, contribute, and leaderboard are **feature-flagged off** for launch. Legal, landing/auth split, ads framework, and funding meter API exist; **live revenue** is post-launch.
+
+### Recent (2026-06-15 — SRS scheduling model + course-deck reviewer)
+
+- **Reviewer plays the course deck** — the flashcard reviewer (`useSubscriptionQueue`) now injects the auto-subscribed client course deck (unlocked words), not just backend subscription decks. A course-only learner finally has a working reviewer. `flashcards.hideCourseDeck` opts super-users out.
+- **D4 — seed-on-unlock + bug fix** — `buildSrsReviewLesson` made **pure** (it was seeding every unlocked atom due-today at build time → flooded the reviewer). Content-lesson completion now schedules atoms **due next-day** (`seedUnlockedAtomsDueNextDay`), never same-day.
+- **D5 — reviewer shows every unlocked word** (no intake cap by default; `flashcards.maxNewCardsPerDay` to limit).
+- **SRS scheduling model spec** — `docs/srs-scheduling-model-2026-06-15.md` (D1–D8), ralph-hardened; **supersedes** the intake decisions in `retention-architecture-design-2026-06-13.md`.
+- **Remaining (Phase 2):** D3 review-lesson gating (needs hard-vs-soft call), D2 vocab prior-atom review-tail generator, D1 store unification, D7 FTUE. Full detail: **`docs/handoff-2026-06-15.md`**.
+- 599 tests pass; verified live in Playwright.
+
+### Recent (2026-05-25 final session)
+
+- **Adaptive placement test** shipped — 2-stage, 75-item question bank, 100% threshold, SRS seeding, onboarding prompt for new JA users
+- **Module test-out** enabled — same placement engine, single-module mode via `/ja/learn/test-out/:moduleId`
+- **SRS write gate Sev-1 fixed** — M8-M27 review lessons now correctly write FSRS state (regex was `[3-7]`, now `\d+`)
+- **Accessibility pass** — step focus management, skip-to-content link, PlacementPrompt dialog a11y, WCAG AA contrast fixes (dark accent, sepia/light textMuted)
+- **Dark: token migration** — ~465 hard-coded `dark:` Tailwind classes → CSS variable tokens across 58 files
+- **Mock → real data** — flashcard sparkline + retention stats wired to actual SRS store
+- **Module revisiting** — completed modules show their pathway (no longer locked out)
+- **897/897 tests pass**
 
 ---
 
@@ -32,7 +52,7 @@ Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-cor
 - [x] **Practice hub** — `/:lang/practice` index → `PracticePage` (not only flashcards)
 - [x] Flashcards: hub, review (`FlashcardTester`), card/deck managers
 - [x] Study options (settings + deck manager); review URL filters / scope shortcuts
-- [x] SRS: SM-2, localStorage, sync to API (`srsSync`, `SrsApi`)
+- [x] SRS: FSRS-6 (recognition/production modality split), localStorage, sync to API (`srsSync`, `SrsApi`)
 - [x] **Lesson progress sync:** per-step buffer, draft attempts (`draft:{lessonId}`), batch `POST /progress/lessons/batch`, SyncManager “Lessons” row (`useLessonSyncSource`, `LessonProgressHydrate`)
 - [x] **Start over:** bottom of Learn course map; wipes local + `DELETE /progress/me` + `DELETE /srs/all` when signed in
 - [x] **Dev progress inspector:** `</>` JSON overlay (server `GET /progress/me` + local cache) when dev unlock is on
@@ -78,8 +98,10 @@ Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-cor
 | **Progress API** | Partial | Lesson batch + `/progress/me`; home uses `useProgressMe` / `useUserStats` |
 | **Home (returning)** | Restructured | `RestructuredHome` grid; see [handoff-2026-05-24-home-sync-ux.md](./handoff-2026-05-24-home-sync-ux.md) |
 | **Sync UI** | Shipped | Cloud trigger + popover; lessons + SRS sources in `SyncManager` |
+| **Placement test** | Shipped | 2-stage adaptive, 75 items, onboarding prompt; `src/features/placement/` |
+| **Module test-out** | Shipped | Same engine, single-module; `/ja/learn/test-out/:moduleId` |
 | **Social (UI)** | Mock unified | `useSocial()` + `mockSocial.ts`; `/:lang/social` preview page |
-| **Quests API** | Planned | [quests-tracking-design](./superpowers/specs/2026-05-24-quests-tracking-design.md) |
+| **Quests API** | Shipped 2026-06-13 (`lingo-core/app/quests/` — state in user-settings blob, progress advances synchronously in the lesson batch handler) | [quests-tracking-design](./superpowers/specs/2026-05-24-quests-tracking-design.md) |
 | **Auth 401 refresh** | Planned | `tasks/auth-session-strategy.md` |
 | **ja.json UI** | Not started | `LOCALIZATION.md` |
 | **`.env.example` in lingo/** | Missing | README documents vars; add file optional |

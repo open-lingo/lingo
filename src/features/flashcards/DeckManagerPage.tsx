@@ -210,6 +210,7 @@ export function DeckManagerPage() {
               <button
                 type="button"
                 onClick={saveNewPerDay}
+                aria-label="Save new cards per day"
                 className="text-success"
               >
                 <Icon name="check" size={16} />
@@ -217,7 +218,7 @@ export function DeckManagerPage() {
               <button
                 type="button"
                 onClick={() => setEditingNewPerDay(null)}
-                className="text-gray-500"
+                className="text-text-muted"
               >
                 <Icon name="close" size={14} />
               </button>

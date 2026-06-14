@@ -40,13 +40,62 @@ for (const atom of courseAtomsFor("ja")) {
   lessonToAtoms.set(lid, arr);
 }
 
+/**
+ * M8+ fallback (2026-06-12 attribution backfill): content sub-lessons in
+ * m8..m27 carry module-level attribution (`fromModule`) but no per-atom
+ * `introducedByLessonId`. For a lesson absent from the static index,
+ * derive its atoms as "the lesson's module's attributed atoms whose
+ * surface form (kana or kanji) appears in the lesson's steps". Lesson
+ * content is resolved through the `__lingo_get_lesson_content__` global
+ * registered by mockLessons — same cycle-avoidance pattern as
+ * `__lingo_row_sub_lesson_ids__`.
+ */
+const fallbackAtomsCache = new Map<string, CourseAtom[]>();
+
+function atomSurfaces(atom: CourseAtom): string[] {
+  const out = atom.kana.split("/").map((s) => s.trim());
+  if (atom.kanji) out.push(...atom.kanji.split("/").map((s) => s.trim()));
+  return out.filter(Boolean);
+}
+
+function fallbackAtomsForLesson(lessonId: string): CourseAtom[] {
+  const cached = fallbackAtomsCache.get(lessonId);
+  if (cached) return cached;
+  // SRS review lessons re-surface already-unlocked atoms — never a source
+  // of new introductions.
+  const moduleId = /^ja-(m\d+)-(?!review-)/.exec(lessonId)?.[1] ?? null;
+  const getContent = (
+    globalThis as {
+      __lingo_get_lesson_content__?: (
+        id: string,
+      ) => { steps: unknown[] } | null;
+    }
+  ).__lingo_get_lesson_content__;
+  let atoms: CourseAtom[] = [];
+  if (moduleId && typeof getContent === "function") {
+    const lesson = getContent(lessonId);
+    if (lesson) {
+      const haystack = JSON.stringify(lesson.steps);
+      atoms = courseAtomsFor("ja").filter(
+        (a) =>
+          isSrsEligibleAtom(a) &&
+          a.fromModule === moduleId &&
+          !a.introducedByLessonId &&
+          atomSurfaces(a).some((s) => haystack.includes(s)),
+      );
+    }
+  }
+  fallbackAtomsCache.set(lessonId, atoms);
+  return atoms;
+}
+
 export function getAtomsForLesson(
   lessonId: string,
   languageId: string = "ja",
 ): CourseAtom[] {
   if (!isLanguageRegistered(languageId)) return [];
   if (languageId !== "ja") return [];
-  return lessonToAtoms.get(lessonId) ?? [];
+  return lessonToAtoms.get(lessonId) ?? fallbackAtomsForLesson(lessonId);
 }
 
 export function getAtomsUpToModule(

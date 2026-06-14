@@ -1,9 +1,18 @@
 import type { LessonContent, LessonStep } from "../types";
 import type { CourseAtom } from "@/features/languages/ja/courseAtoms";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
-import { getCardState, setCardState } from "@/features/flashcards/engine/srsStorage";
-import { isDue, getDueModalities, createInitialState } from "@/features/flashcards/engine/srs";
+import {
+  getCardState,
+  canonicalizeCardId,
+} from "@/features/flashcards/engine/srsStorage";
+import { isDue, isNew, getDueModalities, createInitialState } from "@/features/flashcards/engine/srs";
 import { getUnlockedAtomIds } from "./unlockLessonAtoms";
+import { buildGrammarReviewQueue } from "@/features/flashcards/engine/grammarSrs";
+import {
+  getGrammarReviewIndex,
+  sentenceVocabAtomIds,
+  clozeStepSentence,
+} from "./grammarReviewIndex";
 import type { SRSCardState } from "@/features/flashcards/data/types";
 import {
   audioImageMcq,
@@ -21,6 +30,9 @@ import {
 
 const MAX_ATOMS = 18;
 const MAX_NEW = 5;
+/** Track B grammar-point review steps appended per review lesson. Kept small
+ *  so vocab still dominates; production-2 lessons lean a touch heavier. */
+const MAX_GRAMMAR = 4;
 
 type AtomWithState = {
   atom: CourseAtom;
@@ -118,13 +130,16 @@ export function buildSrsReviewLesson(opts: {
   const unlockedIds = getUnlockedAtomIds();
   const candidates: AtomWithState[] = [];
   for (const atom of allAtoms) {
-    if (!unlockedIds.has(atom.id)) continue;
-    let state = getCardState(atom.id);
-    const isNewCard = !state;
-    if (!state) {
-      state = createInitialState();
-      setCardState(atom.id, state);
-    }
+    // The unlock store keys are canonical (`ja:<id>`); CourseAtom ids are
+    // bare. Canonicalize before the membership check or nothing matches.
+    if (!unlockedIds.has(canonicalizeCardId(atom.id))) continue;
+    // Pure construction (D4, scheduling-model-2026-06-15): NEVER persist
+    // state at build time — that seeded due-today on every course-deck build
+    // (the sentence-miner constructs every review lesson). Use an in-memory
+    // initial state for selection/step-building; the real write happens on
+    // grade (LessonPage) or on unlock (seedUnlockedAtomsDueNextDay).
+    const state = getCardState(atom.id) ?? createInitialState();
+    const isNewCard = isNew(state); // reps 0 — includes unlock-seeded atoms
     const dueModalities = isDue(state) ? getDueModalities(state) : [];
     if (dueModalities.length > 0 || isNewCard) {
       candidates.push({ atom, state, dueModalities, isNewCard });
@@ -208,6 +223,36 @@ export function buildSrsReviewLesson(opts: {
 
     lastType = step.type;
     steps.push(step);
+  }
+
+  // ── Track B: grammar-point review (retention 3b) ──
+  // Reuse authored particle-cloze steps, tagged with the grammar point they
+  // drill. Due points first, then new (seeded so completion grades them).
+  // Production-2 lessons skew slightly heavier on grammar.
+  const grammarIndex = getGrammarReviewIndex();
+  const grammarQueue = buildGrammarReviewQueue(unlockedIds);
+  const grammarCap = isRecognitionHeavy ? Math.floor(MAX_GRAMMAR / 2) : MAX_GRAMMAR;
+  const grammarPicks = [...grammarQueue.review, ...grammarQueue.newItems]
+    .filter((item) => grammarIndex.has(item.point.id))
+    .slice(0, grammarCap);
+  for (const item of grammarPicks) {
+    const templates = grammarIndex.get(item.point.id);
+    if (!templates || templates.length === 0) continue;
+    // No build-time seed (D4: pure construction). Track B state is written on
+    // grade by reviewGrammarPoint, which creates-if-missing.
+    const tmpl = templates[0];
+    // D4: the grammar review also gives full credit to the content vocab in
+    // its sentence (not just the authored particle atom).
+    const sentenceAtoms = sentenceVocabAtomIds(clozeStepSentence(tmpl));
+    const exercisedAtoms = Array.from(
+      new Set([...(tmpl.exercisedAtoms ?? []), ...sentenceAtoms]),
+    );
+    steps.push({
+      ...tmpl,
+      id: `${id}-grammar-${item.point.id}`,
+      exercisedGrammar: [item.point.id],
+      exercisedAtoms,
+    });
   }
 
   if (picked.length >= 5) {

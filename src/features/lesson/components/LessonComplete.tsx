@@ -1,9 +1,50 @@
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@/shared/components/Icon";
 import { Button } from "@/shared/components/ui";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useUserStats } from "@/shared/hooks/useUserStats";
+import { playSfx } from "@/shared/audio/sfx";
+import { expectedXp, XP_PER_LEVEL as XP_RULES_PER_LEVEL } from "@/features/progress/xpRules";
+import { Confetti } from "./Confetti";
 import type { LessonContent } from "../types";
+
+const XP_PER_LEVEL = XP_RULES_PER_LEVEL;
+
+function prefersStillness(): boolean {
+  if (typeof window === "undefined") return true;
+  if (document.documentElement.dataset.reducedMotion === "true") return true;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/**
+ * Animate 0 → target over ~700ms with an ease-out cubic. Renders the final
+ * value immediately under reduced motion (and therefore in tests).
+ */
+function useCountUp(target: number): number {
+  const [value, setValue] = useState(() =>
+    prefersStillness() ? target : 0,
+  );
+  useEffect(() => {
+    if (prefersStillness()) {
+      setValue(target);
+      return;
+    }
+    const start = performance.now();
+    const durationMs = 700;
+    let raf = 0;
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - start) / durationMs);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setValue(Math.round(target * eased));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target]);
+  return value;
+}
 
 /**
  * Mastery context — populated by LessonPage only when the just-finished
@@ -66,12 +107,27 @@ export function LessonComplete({
   const navigate = useNavigate();
   const langPath = useLangPath();
   const percent = totalGraded > 0 ? Math.round((correctCount / totalGraded) * 100) : 100;
-  const baseXp = lesson.xpReward ?? 10;
-  const xp = Math.max(1, Math.round(baseXp * xpMultiplier));
   const perfect = correctCount === totalGraded;
+  // Server-formula estimate (xpRules mirrors lingo-core/app/progress/xp.py)
+  // — the displayed number now matches what the batch sync will award,
+  // instead of the cosmetic lesson.xpReward.
+  const xp = expectedXp({
+    lessonId: lesson.id,
+    perfect,
+    multiplier: xpMultiplier,
+  });
+  const { stats, isReady: statsReady } = useUserStats();
+
+  const xpShown = useCountUp(xp);
+  const percentShown = useCountUp(percent);
+
+  useEffect(() => {
+    playSfx("complete");
+  }, []);
 
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center gap-6 py-12 text-center">
+      {perfect && <Confetti />}
       <div className="flex h-20 w-20 items-center justify-center rounded-full border-[1.5px] border-accent bg-accent-muted text-accent">
         {perfect ? (
           <Icon name="partyPopper" size={40} />
@@ -90,22 +146,32 @@ export function LessonComplete({
           Review run — reduced XP
         </span>
       )}
+      {perfect && totalGraded > 0 && (
+        <span className="rounded-full bg-warning/15 px-3 py-1 text-xs font-bold uppercase tracking-wide text-warning">
+          {t("lesson.perfectRun", "Perfect run!")}
+        </span>
+      )}
 
       <div className="flex w-full items-center justify-around gap-4 rounded-2xl border-[1.5px] border-border bg-surface px-6 py-5 shadow-[var(--shadow-card)]">
         {/* Accuracy + Score only make sense when the lesson had graded steps.
             Exposure-only lessons (phrase cards, info) have totalGraded === 0;
-            showing "100% / 0/0" reads as a bug, so collapse to XP only. */}
+            showing "100% / 0/0" reads as a bug, so collapse to XP only.
+            (Trevor's exposure fix + our count-up animation values.) */}
         {totalGraded > 0 && (
           <>
             <Stat
               label={t("lesson.accuracy", "Accuracy")}
-              value={`${percent}%`}
+              value={`${percentShown}%`}
               accent={percent >= 80}
             />
             <div className="h-10 w-px bg-border" aria-hidden />
           </>
         )}
-        <Stat label={t("lesson.xpEarned", "XP earned")} value={`+${xp}`} accent />
+        <Stat
+          label={t("lesson.xpEarned", "XP earned")}
+          value={`+${xpShown}`}
+          accent
+        />
         {totalGraded > 0 && (
           <>
             <div className="h-10 w-px bg-border" aria-hidden />
@@ -117,6 +183,46 @@ export function LessonComplete({
           </>
         )}
       </div>
+
+      {statsReady && (stats.streak > 0 || stats.xp > 0) && (
+        <div className="flex w-full items-center gap-4 rounded-2xl border-[1.5px] border-border bg-surface px-5 py-4 shadow-[var(--shadow-card)]">
+          {stats.streak > 0 && (
+            <div className="flex shrink-0 items-center gap-1.5 text-sm font-bold text-warning">
+              <span aria-hidden>🔥</span>
+              {stats.streak % 7 === 0
+                ? t("lesson.streakMilestone", {
+                    defaultValue: "{{n}} days — milestone!",
+                    n: stats.streak,
+                  })
+                : t("lesson.streakDays", {
+                    defaultValue: "{{n}} day streak",
+                    n: stats.streak,
+                  })}
+            </div>
+          )}
+          <div className="min-w-0 flex-1 text-left">
+            <div className="mb-1 flex items-baseline justify-between text-xs font-semibold">
+              <span className="text-text-secondary">
+                {t("lesson.levelLabel", {
+                  defaultValue: "Level {{n}}",
+                  n: stats.level,
+                })}
+              </span>
+              <span className="tabular-nums text-text-muted">
+                {stats.xp % XP_PER_LEVEL}/{XP_PER_LEVEL}
+              </span>
+            </div>
+            <div className="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
+              <div
+                className="h-full rounded-full bg-accent transition-[width] duration-700 ease-out"
+                style={{
+                  width: `${Math.min(100, ((stats.xp % XP_PER_LEVEL) / XP_PER_LEVEL) * 100)}%`,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {mastery ? (
         <div

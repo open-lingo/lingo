@@ -111,6 +111,21 @@ export function createInitialState(_initialEase?: number): SRSCardState {
   };
 }
 
+/**
+ * State for an atom scheduled by unlock (D4, scheduling-model-2026-06-15).
+ * Never-reviewed (reps 0 → still `isNew`, so in-course review lessons pick it
+ * up the same session) but with an explicit first-due date so it does NOT
+ * surface same-day in the standalone reviewer. `createInitialState` defaults
+ * dueDate to today; unlock-seeding passes next-day (or later).
+ */
+export function createSeededState(dueDate: string): SRSCardState {
+  const recognition = createInitialSubState();
+  const production = createInitialSubState();
+  recognition.dueDate = dueDate;
+  production.dueDate = dueDate;
+  return { recognition, production };
+}
+
 function toFsrsCard(sub: SRSModalityState, now: Date): FsrsCard {
   const lastReview = new Date(sub.lastReviewDate + "T12:00:00Z");
   const due = new Date(sub.dueDate + "T12:00:00Z");

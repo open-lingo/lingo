@@ -89,7 +89,9 @@ export function VideosPracticePage() {
         </p>
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-black">
+      {/* Intentional raw grays: video-player chrome stays dark in every theme
+          (like real video controls), so it must not follow surface tokens. */}
+      <div className="overflow-hidden rounded-xl border border-border bg-black">
         {/* Video placeholder */}
         <div className="flex aspect-video items-center justify-center bg-gray-900">
           <div className="text-center text-gray-500">
@@ -125,8 +127,8 @@ export function VideosPracticePage() {
       </div>
 
       {/* Rolling transcript */}
-      <div className="rounded-xl border border-gray-200 bg-white">
-        <h3 className="border-b border-gray-200 px-4 py-3 text-sm font-medium text-gray-900">
+      <div className="rounded-xl border border-border bg-surface">
+        <h3 className="border-b border-border px-4 py-3 text-sm font-medium text-text-primary">
           Transcript
         </h3>
         <div

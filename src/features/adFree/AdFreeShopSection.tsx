@@ -134,11 +134,7 @@ export function AdFreeShopSection({ lingots, statsReady }: Props) {
                     </p>
                   </div>
                 </div>
-                <div className="mt-4 flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-accent">
-                    <Icon name="gem" size={14} aria-hidden />
-                    {sku.price}
-                  </span>
+                <div className="mt-4 flex items-center justify-end gap-2">
                   <span className="text-xs text-text-muted tabular-nums">
                     {formatHM(sku.durationMs)}
                   </span>
@@ -160,13 +156,20 @@ export function AdFreeShopSection({ lingots, statsReady }: Props) {
                   }
                   onClick={() => setConfirmSku(sku)}
                 >
-                  {busy
-                    ? t("common.loading", { defaultValue: "Loading…" })
-                    : canAfford
-                      ? t("adFree.shop.buy", { defaultValue: "Buy" })
-                      : t("adFree.shop.needMore", {
-                          defaultValue: "Need more lingots",
-                        })}
+                  {busy ? (
+                    t("common.loading", { defaultValue: "Loading…" })
+                  ) : (
+                    <span className="inline-flex items-center gap-1.5">
+                      {!canAfford ? (
+                        <Icon name="lock" size={13} aria-hidden />
+                      ) : null}
+                      {t("adFree.shop.buy", { defaultValue: "Buy" })}
+                      <span className="inline-flex items-center gap-0.5 font-bold">
+                        <Icon name="gem" size={13} aria-hidden />
+                        {sku.price}
+                      </span>
+                    </span>
+                  )}
                 </Button>
               </Card>
             </li>

@@ -56,8 +56,8 @@ export function SelfExplanationMcqStepView({ step, onComplete, onContinue }: Pro
 
   const handleEnter = useCallback(() => {
     if (!submitted && selected) handleSubmit();
-    else if (submitted && !celebrating) onContinue();
-  }, [submitted, selected, celebrating]);
+    else if (submitted) onContinue();
+  }, [submitted, selected]);
 
   useLessonKeyboard({
     onEnter: handleEnter,
@@ -66,7 +66,6 @@ export function SelfExplanationMcqStepView({ step, onComplete, onContinue }: Pro
         setSelected(orderedOptions[n - 1].id);
       }
     },
-    enabled: !celebrating,
   });
 
   const anchorAudioAvailable =
@@ -196,10 +195,6 @@ export function SelfExplanationMcqStepView({ step, onComplete, onContinue }: Pro
           label={t("lesson.check", "Check")}
           disabled={!selected}
         />
-      ) : celebrating ? (
-        <div className="invisible" aria-hidden>
-          <ContinueButton onClick={() => {}} />
-        </div>
       ) : (
         <div className="motion-safe:animate-fade-up">
           <ContinueButton

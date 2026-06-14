@@ -28,7 +28,6 @@ import {
   Clock,
   Compass,
   Library,
-  Moon,
   Cloud,
   CloudAlert,
   CloudSync,
@@ -48,6 +47,7 @@ import {
   Headphones,
   HelpCircle,
   Heart,
+  HeartCrack,
   Lightbulb,
   Megaphone,
   MessageCircle,
@@ -65,8 +65,10 @@ import {
   Lock,
   LayoutDashboard,
   Menu,
+  Moon,
   MoreVertical,
   PartyPopper,
+  Plane,
   Podcast,
   Pause,
   Play,
@@ -83,10 +85,12 @@ import {
   Settings,
   Shield,
   ShieldCheck,
+  SkipForward,
   Smartphone,
   Square,
   Star,
   Target,
+  Timer,
   TrendingUp,
   Trophy,
   Tv,
@@ -99,6 +103,7 @@ import {
   Users,
   Video,
   Volume2,
+  VolumeX,
   Wrench,
   Zap,
   X,
@@ -169,6 +174,8 @@ export const iconRegistry = {
   /** Speaker icon for "play audio" buttons — distinct from `play` (▶
    *  triangle) so audio buttons read as audio, not as start-animation. */
   volume: Volume2,
+  /** Muted-speaker icon — "audio silenced" notices. */
+  volumeX: VolumeX,
   pause: Pause,
   upload: Upload,
   copy: Copy,
@@ -193,6 +200,16 @@ export const iconRegistry = {
   trophy: Trophy,
   crown: Crown,
   heart: Heart,
+  /** Broken heart — out-of-attempts / failure states. */
+  heartCrack: HeartCrack,
+  /** Timer / stopwatch — timed SKU and countdown affordances. */
+  timer: Timer,
+  /** Moon — overnight / rest affordances. */
+  moon: Moon,
+  /** Plane — travel-themed surfaces (Travel Sprint). */
+  plane: Plane,
+  /** Skip-forward — skipped/test-skipped states. */
+  skipForward: SkipForward,
   hand: Hand,
   messageCircle: MessageCircle,
   users: Users,
@@ -216,8 +233,6 @@ export const iconRegistry = {
   zap: Zap,
   /** Clock — time / duration (e.g. ad-free 30m window) */
   clock: Clock,
-  /** Moon — overnight / all-day quiet (e.g. ad-free 24h window) */
-  moon: Moon,
   // Placeholder – replace with correct icon if needed
   placeholder: Square,
 } as const satisfies Record<string, LucideIcon>;

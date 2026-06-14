@@ -1,5 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { seededShuffle } from "@/shared/utils/seededShuffle";
 import type { ListeningBuildStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
@@ -7,6 +8,7 @@ import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { getTtsUrl } from "@/shared/tts";
 import { playLocalAudio } from "@/shared/audio/volume";
+import { playSfx } from "@/shared/audio/sfx";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
@@ -46,34 +48,43 @@ function PromptWithEmphasis({ text }: { text: string }) {
 
 export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) {
   const { t } = useTranslation();
-  const [placed, setPlaced] = useState<string[]>([]);
+  // Bank INDICES, not texts — with duplicate glyphs (いいえ has two い)
+  // text-tracking ghosted the leftmost instance instead of the tile the
+  // learner actually clicked (Spencer 2026-06-13).
+  const [placedIdx, setPlacedIdx] = useState<number[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
 
-  const uniqueRemaining: string[] = [];
-  const seen = new Map<string, number>();
-  for (const tile of step.tiles) {
-    const placedCount = placed.filter((p) => p === tile).length;
-    const totalCount = step.tiles.filter((t) => t === tile).length;
-    const leftover = totalCount - placedCount;
-    const alreadyAdded = seen.get(tile) ?? 0;
-    if (alreadyAdded < leftover) {
-      uniqueRemaining.push(tile);
-      seen.set(tile, alreadyAdded + 1);
-    }
-  }
+  // Kana-row banks are authored answer-first ([...required, ...extras])
+  // and the vowel rows in plain あいうえお order — both leak the answer.
+  // Shuffle once at render, seeded on the step id so the order is stable
+  // across re-renders and resumes.
+  const bankTiles = useMemo(
+    () => seededShuffle(step.tiles, step.id),
+    [step.tiles, step.id],
+  );
 
+  // Position-stable tile bar: render every bank tile in its shuffled
+  // order, never reflow. The EXACT instance the learner clicked ghosts
+  // (index membership), so duplicate glyphs behave intuitively.
+  const tileUsedFlags: boolean[] = bankTiles.map((_, i) =>
+    placedIdx.includes(i),
+  );
+
+  const placed = placedIdx.map((i) => bankTiles[i]);
   const isCorrect = JSON.stringify(placed) === JSON.stringify(step.correctOrder);
 
-  function addTile(tile: string) {
+  function addTile(originalIndex: number) {
     if (submitted) return;
-    setPlaced((prev) => [...prev, tile]);
+    if (placedIdx.includes(originalIndex)) return;
+    playSfx("tile");
+    setPlacedIdx((prev) => [...prev, originalIndex]);
   }
 
-  function removeTile(index: number) {
+  function removeTile(trayPosition: number) {
     if (submitted) return;
-    setPlaced((prev) => prev.filter((_, i) => i !== index));
+    setPlacedIdx((prev) => prev.filter((_, i) => i !== trayPosition));
   }
 
   function handleSubmit() {
@@ -88,10 +99,10 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
 
   const handleEnter = useCallback(() => {
     if (!submitted && placed.length > 0) handleSubmit();
-    else if (submitted && !celebrating) onContinue();
-  }, [submitted, placed.length, celebrating, onContinue]);
+    else if (submitted) onContinue();
+  }, [submitted, placed.length, onContinue]);
 
-  useLessonKeyboard({ onEnter: handleEnter, enabled: !celebrating });
+  useLessonKeyboard({ onEnter: handleEnter });
 
   const audioUrl = getTtsUrl(step.targetSentence);
   function handlePlay() {
@@ -107,6 +118,8 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
+      {/* Content cluster centers as one unit in leftover height. */}
+      <div className="my-auto flex flex-col gap-7">
       {/* Prompt row — bigger play button + larger text. Quoted meanings
        *  get auto-bolded via PromptWithEmphasis. */}
       <div className="flex items-center gap-4">
@@ -127,64 +140,87 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
        *  are placed; once tiles arrive, flex-wrap handles overflow.
        *  TODO: account for long-word text wrapping when we ship phrases
        *  that exceed one line. */}
-      <div className="min-h-[80px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-4">
-        {placed.length === 0 ? (
-          <span className="text-base text-text-muted">
-            Tap tiles to build what you hear
-          </span>
-        ) : (
-          <div className="flex flex-wrap gap-2.5">
-            {placed.map((tile, i) => (
+      {/* Tray is pre-sized by an invisible ghost of the FULL answer, so
+          placing tiles never grows it — no reflow of the bank/CTA below
+          mid-interaction. Real tiles render in an overlay with identical
+          layout classes, so wrapping matches the ghost. */}
+      <div className="relative min-h-[80px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-4">
+        <div aria-hidden className="invisible flex flex-wrap gap-2.5">
+          {step.correctOrder.map((tile, i) => (
+            <span
+              key={`ghost-${i}`}
+              className="rounded-xl border-2 px-5 py-2.5 text-2xl sm:text-3xl font-bold"
+            >
+              <AnnotatedJa text={tile} />
+            </span>
+          ))}
+        </div>
+        <div className="absolute inset-0 flex flex-wrap content-start gap-2.5 px-4 py-4">
+          {placed.length === 0 ? (
+            <span className="self-center text-base text-text-muted">
+              Tap tiles to build what you hear
+            </span>
+          ) : (
+            placed.map((tile, i) => (
               <button
                 key={`${tile}-${i}`}
                 type="button"
                 disabled={submitted}
                 onClick={() => removeTile(i)}
-                className="rounded-xl border-2 border-accent bg-accent-muted px-5 py-2.5 text-2xl font-bold text-accent transition-colors duration-150 hover:bg-accent hover:text-white"
+                className="rounded-xl border-2 border-accent bg-accent-muted px-5 py-2.5 text-2xl sm:text-3xl font-bold text-accent transition-colors duration-150 hover:bg-accent hover:text-white"
               >
                 <AnnotatedJa text={tile} />
               </button>
-            ))}
-          </div>
-        )}
+            ))
+          )}
+        </div>
       </div>
 
       {/* Tile bank — buttons ~50% bigger font + matching padding. */}
       <div className="relative flex flex-wrap gap-3">
-        {uniqueRemaining.map((tile, i) => (
-          <button
-            key={`${tile}-${i}`}
-            type="button"
-            disabled={submitted}
-            onClick={() => addTile(tile)}
-            className="rounded-xl border-2 border-border bg-surface px-5 py-3 text-2xl font-bold text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50"
-          >
-            <AnnotatedJa text={tile} />
-          </button>
-        ))}
-        {celebrating && <CelebrationToast text={celebrationText} />}
+        {bankTiles.map((tile, i) => {
+          const used = tileUsedFlags[i];
+          return (
+            <button
+              key={`tile-${i}`}
+              type="button"
+              disabled={submitted || used}
+              onClick={() => addTile(i)}
+              aria-pressed={used}
+              className={
+                used
+                  ? "rounded-xl border-2 border-border bg-surface-muted px-5 py-3 text-2xl sm:py-4 sm:text-3xl font-bold text-text-muted opacity-40"
+                  : "rounded-xl border-2 border-border bg-surface px-5 py-3 text-2xl sm:py-4 sm:text-3xl font-bold text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50"
+              }
+            >
+              <AnnotatedJa text={tile} />
+            </button>
+          );
+        })}
+      </div>
       </div>
 
-      {submitted && <Feedback correct={isCorrect} />}
-
-      {submitted && !isCorrect && (
-        <p className="text-base text-text-secondary">
-          Correct:{" "}
-          <span className="font-bold text-text-primary">
-            {step.correctOrder.join(step.granularity === "character" ? "" : " ")}
-          </span>
-        </p>
-      )}
-
-      {!submitted ? (
-        <ContinueButton onClick={handleSubmit} label="Check" disabled={placed.length === 0} />
-      ) : celebrating ? (
-        <div className="invisible" aria-hidden>
-          <ContinueButton onClick={() => {}} />
-        </div>
-      ) : (
-        <ContinueButton onClick={onContinue} variant={isCorrect ? "correct" : "incorrect"} />
-      )}
+      {/* Single bottom-anchored block: wrong-answer banner + CTA live
+          together so the button NEVER moves on submit — the banner grows
+          the block upward while the CTA stays pinned. Correct answers
+          celebrate via toast only (no banner, no shift). */}
+      <div className="relative flex flex-col gap-4">
+        {celebrating && <CelebrationToast text={celebrationText} />}
+        {submitted && !isCorrect && <Feedback correct={false} />}
+        {submitted && !isCorrect && (
+          <p className="text-base text-text-secondary">
+            Correct:{" "}
+            <span className="font-bold text-text-primary">
+              {step.correctOrder.join(step.granularity === "character" ? "" : " ")}
+            </span>
+          </p>
+        )}
+        {!submitted ? (
+          <ContinueButton onClick={handleSubmit} label="Check" disabled={placed.length === 0} />
+        ) : (
+          <ContinueButton onClick={onContinue} variant={isCorrect ? "correct" : "incorrect"} />
+        )}
+      </div>
     </div>
   );
 }

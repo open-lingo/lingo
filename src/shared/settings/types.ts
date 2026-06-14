@@ -10,6 +10,21 @@ export type StudyOption = {
 
 export type FlashcardsSettings = {
   studyOptions: StudyOption[];
+  /**
+   * Super-user opt-out: when true, the auto-included course deck is hidden
+   * from the reviewer queue (power users who bring their own Anki/community
+   * decks). Default off/undefined — the course deck is "subscribed by
+   * default" so learners can review the words their lessons unlock. See
+   * `useSubscriptionQueue`.
+   */
+  hideCourseDeck?: boolean;
+  /**
+   * Optional user intake cap (D5, srs-scheduling-model-2026-06-15). Unset =
+   * no cap: every unlocked word is available to review (lesson pace is the
+   * throttle). Set a number to limit new cards/day if the learner wants a
+   * lighter daily load.
+   */
+  maxNewCardsPerDay?: number;
 };
 
 export type UserSettings = {
@@ -46,6 +61,9 @@ export type UserSettings = {
      * GainNode and the `playLocalAudio` HTMLAudio wrapper.
      */
     volume: number;
+    /** Soft UI sound effects (answer chimes, lesson-complete). Speech audio is
+     *  unaffected. Default on. */
+    soundEnabled?: boolean;
   };
   notifications: {
     dailyReminderTime?: string;
@@ -84,6 +102,40 @@ export type UserSettings = {
      * turns romaji back on manually.
      */
     romajiAutoFlipped?: boolean;
+    /**
+     * When true, character-build tile banks ("Build the word for X") hide
+     * the per-kana romaji label until the learner taps a tile (also plays
+     * its sound) or hovers it briefly — forcing kana reading instead of
+     * matching romaji to the English prompt. Independent of `showRomaji`:
+     * romaji can stay on everywhere else while build tiles fade first.
+     *
+     * Default OFF (romaji shown) as a beginner scaffold; auto-flips ON
+     * (one-time) when the learner reaches Module 10 — by ~10h in they can
+     * read kana. Learner-toggleable from Settings either way.
+     */
+    hideBuildTileRomaji?: boolean;
+    /**
+     * One-shot guard for the Module-10 auto-flip of `hideBuildTileRomaji`,
+     * so it won't re-fire if the learner turns it back off manually.
+     */
+    buildTileRomajiAutoFlipped?: boolean;
+    /**
+     * Self-chosen daily study target in minutes (FTUE goal-setting step).
+     * Drives the home Daily-goal card. Default 10. The learner picks this in
+     * the first-session arc; evidence shows self-chosen goals retain better
+     * than assigned ones (docs/ftue-design-2026-06-14.md).
+     */
+    dailyGoalMinutes?: number;
+    /**
+     * One-shot: true after the new-user first-session arc (motivation →
+     * daily goal → optional placement) has run. Separate from
+     * `onboardingCompleted` (which only marks the language pick). The arc
+     * shows once, only to brand-new users (no lesson progress).
+     */
+    ftueArcSeen?: boolean;
+    /** Optional motivation the learner picked in the arc (travel/culture/…).
+     *  Recorded for later personalization; no behavior depends on it yet. */
+    motivation?: string;
   };
   display?: {
     dateLocale?: string;
@@ -106,6 +158,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
   audio: {
     silentMode: false,
     volume: 1,
+    soundEnabled: true,
   },
   notifications: {
     reminderEnabled: false,
@@ -120,6 +173,10 @@ export const DEFAULT_SETTINGS: UserSettings = {
     showAlphabetRomanization: true,
     showRomaji: true,
     romajiAutoFlipped: false,
+    hideBuildTileRomaji: false,
+    buildTileRomajiAutoFlipped: false,
+    dailyGoalMinutes: 10,
+    ftueArcSeen: false,
   },
   display: {},
   flashcards: {

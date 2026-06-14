@@ -112,7 +112,7 @@ export const M6_1_1: LessonContent = {
       "ja-m6-1-1-build-koen",
       "Park",
       "こうえん",
-      ["こうえん", "がっこう", "うち", "えき"],
+      ["がっこう", "こうえん", "うち", "えき"],
       ["こうえん"],
     ),
     // immediate retrieval on the new atom
@@ -126,7 +126,7 @@ export const M6_1_1: LessonContent = {
       "ja-m6-1-1-build-gakkou",
       "School",
       "がっこう",
-      ["がっこう", "こうえん", "えき", "うち"],
+      ["こうえん", "えき", "がっこう", "うち"],
       ["がっこう"],
     ),
     // listening retrieval
@@ -141,7 +141,7 @@ export const M6_1_1: LessonContent = {
       "ja-m6-1-1-build-uchi",
       "Home / my place",
       "うち",
-      ["うち", "がっこう", "こうえん", "みせ"],
+      ["がっこう", "うち", "こうえん", "みせ"],
       ["うち"],
     ),
     // visual MCQ on うち
@@ -155,7 +155,7 @@ export const M6_1_1: LessonContent = {
       "ja-m6-1-1-build-eki",
       "Train station",
       "えき",
-      ["えき", "うち", "がっこう", "こうえん"],
+      ["うち", "がっこう", "えき", "こうえん"],
       ["えき"],
     ),
     // listening retrieval on えき
@@ -237,7 +237,7 @@ export const M6_1_2: LessonContent = {
       "ja-m6-1-2-build-toire",
       "Toilet",
       "トイレ",
-      ["トイレ", "コンビニ", "へや", "みせ"],
+      ["コンビニ", "トイレ", "へや", "みせ"],
       ["トイレ"],
     ),
     // listening retrieval
@@ -252,7 +252,7 @@ export const M6_1_2: LessonContent = {
       "ja-m6-1-2-build-konbini",
       "Convenience store",
       "コンビニ",
-      ["コンビニ", "トイレ", "へや", "みせ"],
+      ["トイレ", "へや", "コンビニ", "みせ"],
       ["コンビニ"],
     ),
     // speaking break
@@ -262,7 +262,7 @@ export const M6_1_2: LessonContent = {
       "ja-m6-1-2-build-heya",
       "Room",
       "へや",
-      ["へや", "コンビニ", "トイレ", "みせ"],
+      ["コンビニ", "みせ", "へや", "トイレ"],
       ["へや"],
     ),
     // visual MCQ on へや
@@ -276,7 +276,7 @@ export const M6_1_2: LessonContent = {
       "ja-m6-1-2-build-mise",
       "Shop",
       "みせ",
-      ["みせ", "へや", "コンビニ", "トイレ"],
+      ["へや", "コンビニ", "トイレ", "みせ"],
       ["みせ"],
     ),
     // visual MCQ on みせ
@@ -410,7 +410,7 @@ export const M6_2_1: LessonContent = {
       "ja-m6-2-1-build-ikimasu",
       "I go to school.",
       "がっこうに いきます",
-      ["がっこう", "に", "いきます", "います"],
+      ["に", "がっこう", "います", "いきます"],
       ["がっこう", "に", "いきます"],
     ),
     // First cloze — に dominates
@@ -463,7 +463,7 @@ export const M6_2_1: LessonContent = {
       "ja-m6-2-1-build-kaerimasu",
       "I'm going home.",
       "うちに かえります",
-      ["うち", "に", "かえります", "いきます"],
+      ["かえります", "うち", "に", "いきます"],
       ["うち", "に", "かえります"],
     ),
     cloze(
@@ -578,41 +578,41 @@ export const M6_2_2: LessonContent = {
     }),
     cloze(
       "ja-m6-2-2-cloze-1",
-      "こうえん",
+      "へや",
       " います。",
       "に",
       ["に", "で", "を", "は"],
-      "I'm at the park.",
-      "こうえんに います。",
+      "I'm in my room.",
+      "へやに います。",
       "Existence verb (います) + location → に.",
     ),
     // listening break
     listeningCompSentence({
-      id: "ja-m6-2-2-lc-eki",
-      audioText: "えきに います",
-      correctMeaningEn: "I'm at the station.",
+      id: "ja-m6-2-2-lc-mise",
+      audioText: "みせに います",
+      correctMeaningEn: "I'm at the shop.",
       distractorsEn: [
-        "I go to the station.",
-        "There's a station.",
-        "The station is here.",
+        "I go to the shop.",
+        "There's a shop.",
+        "The shop is here.",
       ],
     }),
     cloze(
       "ja-m6-2-2-cloze-2",
-      "えき",
+      "としょかん",
       " います。",
       "に",
       ["に", "で", "が", "は"],
-      "I'm at the station.",
-      "えきに います。",
+      "I'm at the library.",
+      "としょかんに います。",
       "Existence at a location → に.",
     ),
     // selfExplain — after multiple に commits
     selfExplain({
       id: "ja-m6-2-2-self-ni",
-      anchorLabel: "You picked に in: えき＿ います (I'm at the station)",
-      anchorAudioText: "えきに います",
-      question: "Why is に correct in 'えきに います'?",
+      anchorLabel: "You picked に in: としょかん＿ います (I'm at the library)",
+      anchorAudioText: "としょかんに います",
+      question: "Why is に correct in 'としょかんに います'?",
       rule: {
         text: "に marks WHERE something exists — the existence verb います always takes に, not で.",
       },
@@ -630,7 +630,7 @@ export const M6_2_2: LessonContent = {
       "ja-m6-2-2-translate-eki",
       "I'm at the station.",
       "えきに います",
-      ["えき", "に", "います", "で"],
+      ["に", "えき", "で", "います"],
       ["えき", "に", "います"],
     ),
     // speaking
@@ -643,36 +643,36 @@ export const M6_2_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m6-2-2-lb-koen",
       target: "こうえんに いきます",
-      tiles: ["こうえん", "に", "いきます", "うち", "で", "えき", "います"],
+      tiles: ["うち", "こうえん", "に", "で", "えき", "いきます", "います"],
       correctOrder: ["こうえん", "に", "いきます"],
       promptEn: "Hear it, build it: 'I go to the park.'",
     }),
     // sentenceMcq — cumulative pattern
     sentenceMcq({
       id: "ja-m6-2-2-mcq-cumulative",
-      prompt: "Which sentence means 'I'm going home.'?",
-      correctKana: "うちに かえります。",
+      prompt: "Which sentence means 'I'm going back to my room.'?",
+      correctKana: "へやに かえります。",
       distractorsKana: [
-        "うちで かえります。",
-        "うちに います。",
-        "うちが かえります。",
+        "へやで かえります。",
+        "へやに います。",
+        "へやが かえります。",
       ],
       explanation:
-        "Movement verb (かえる) + destination → に. うちに います means 'I'm at home' (different meaning).",
+        "Movement verb (かえる) + destination → に. へやに います means 'I'm in my room' (different meaning).",
     }),
     // production — compound
     build(
-      "ja-m6-2-2-translate-uchi",
-      "I'm going home.",
-      "うちに かえります",
-      ["うち", "に", "かえります", "で", "いきます"],
-      ["うち", "に", "かえります"],
+      "ja-m6-2-2-translate-nihon",
+      "I'm going back to Japan.",
+      "にほんに かえります",
+      ["かえります", "にほん", "に", "で", "いきます"],
+      ["にほん", "に", "かえります"],
     ),
     // speaking
     speaking(
-      "ja-m6-2-2-speak-uchi",
-      "うちに かえります",
-      "I'm going home.",
+      "ja-m6-2-2-speak-nihon",
+      "にほんに かえります",
+      "I'm going back to Japan.",
     ),
     // ── Review tail ──
     speaking("ja-m6-2-2-rev-speak-1", M6_2_2_REVIEW[0].kana, M6_2_2_REVIEW[0].meaningEn),
@@ -754,7 +754,7 @@ export const M6_3_1: LessonContent = {
       "ja-m6-3-1-build-benkyou",
       "I study at home.",
       "うちで べんきょうします",
-      ["うち", "で", "べんきょうします", "に", "います"],
+      ["で", "うち", "に", "べんきょうします", "います"],
       ["うち", "で", "べんきょうします"],
     ),
     cloze(
@@ -769,13 +769,13 @@ export const M6_3_1: LessonContent = {
     ),
     // listening break
     listeningCompSentence({
-      id: "ja-m6-3-1-lc-densha",
-      audioText: "でんしゃで いきます",
-      correctMeaningEn: "I go by train.",
+      id: "ja-m6-3-1-lc-bus",
+      audioText: "バスで いきます",
+      correctMeaningEn: "I go by bus.",
       distractorsEn: [
-        "I'm on the train.",
-        "There's a train.",
-        "The train station is here.",
+        "I'm on the bus.",
+        "There's a bus.",
+        "The bus stop is here.",
       ],
     }),
     // New verb: はたらきます (work) — build intro. Only はたらきます unknown.
@@ -783,7 +783,7 @@ export const M6_3_1: LessonContent = {
       "ja-m6-3-1-build-hataraki",
       "I work at a convenience store.",
       "コンビニで はたらきます",
-      ["コンビニ", "で", "はたらきます", "べんきょうします"],
+      ["で", "コンビニ", "べんきょうします", "はたらきます"],
       ["コンビニ", "で", "はたらきます"],
     ),
     cloze(
@@ -835,13 +835,13 @@ export const M6_3_1: LessonContent = {
     }),
     cloze(
       "ja-m6-3-1-cloze-4",
-      "がっこう",
-      " べんきょうします。",
+      "みせ",
+      " はたらきます。",
       "で",
       ["に", "で", "を", "の"],
-      "I study at school.",
-      "がっこうで べんきょうします。",
-      "Study is an action → setting → で.",
+      "I work at a shop.",
+      "みせで はたらきます。",
+      "Working is an action → setting → で.",
     ),
     // speaking
     speaking(
@@ -901,7 +901,7 @@ export const M6_3_2: LessonContent = {
       "ja-m6-3-2-build-densha",
       "I go by train.",
       "でんしゃで いきます",
-      ["でんしゃ", "で", "いきます", "バス", "に"],
+      ["バス", "でんしゃ", "で", "に", "いきます"],
       ["でんしゃ", "で", "いきます"],
     ),
     // listening break
@@ -920,7 +920,7 @@ export const M6_3_2: LessonContent = {
       "ja-m6-3-2-build-jitensha",
       "I go by bicycle.",
       "じてんしゃで いきます",
-      ["じてんしゃ", "で", "いきます", "でんしゃ", "に"],
+      ["でんしゃ", "じてんしゃ", "に", "で", "いきます"],
       ["じてんしゃ", "で", "いきます"],
     ),
     cloze(
@@ -938,7 +938,7 @@ export const M6_3_2: LessonContent = {
       "ja-m6-3-2-build-nemasu",
       "I sleep in (my) room.",
       "へやで ねます",
-      ["へや", "で", "ねます", "べんきょうします", "に"],
+      ["ねます", "へや", "で", "べんきょうします", "に"],
       ["へや", "で", "ねます"],
     ),
     cloze(
@@ -988,20 +988,20 @@ export const M6_3_2: LessonContent = {
       "ja-m6-3-2-translate-bus",
       "I go by bus.",
       "バスで いきます",
-      ["バス", "で", "いきます", "に"],
+      ["で", "バス", "に", "いきます"],
       ["バス", "で", "いきます"],
     ),
     // speaking
     speaking(
-      "ja-m6-3-2-speak-uchi",
-      "うちで べんきょうします",
-      "I study at home.",
+      "ja-m6-3-2-speak-toshokan",
+      "としょかんで べんきょうします",
+      "I study at the library.",
     ),
     // listening_build
     listeningBuildSentence({
       id: "ja-m6-3-2-lb-densha",
       target: "でんしゃで がっこうに いきます",
-      tiles: ["でんしゃ", "で", "がっこう", "に", "いきます", "うち", "あります"],
+      tiles: ["がっこう", "でんしゃ", "で", "に", "うち", "いきます", "あります"],
       correctOrder: ["でんしゃ", "で", "がっこう", "に", "いきます"],
       promptEn: "Hear it, build it: 'I go to school by train.'",
     }),
@@ -1091,7 +1091,7 @@ export const M6_4_1: LessonContent = {
       "ja-m6-4-1-build-arimasu",
       "There's a park.",
       "こうえんが あります",
-      ["こうえん", "が", "あります", "います", "に"],
+      ["が", "こうえん", "います", "あります", "に"],
       ["こうえん", "が", "あります"],
     ),
     cloze(
@@ -1127,16 +1127,16 @@ export const M6_4_1: LessonContent = {
     ),
     // sentenceMcq break
     sentenceMcq({
-      id: "ja-m6-4-1-mcq-toire",
-      prompt: "Which sentence means 'Is there a toilet?'",
-      correctKana: "トイレが ありますか。",
+      id: "ja-m6-4-1-mcq-mise",
+      prompt: "Which sentence means 'Is there a shop?'",
+      correctKana: "みせが ありますか。",
       distractorsKana: [
-        "トイレは ありますか。",
-        "トイレに あります。",
-        "トイレが います。",
+        "みせは ありますか。",
+        "みせに あります。",
+        "みせが いますか。",
       ],
       explanation:
-        "Existence question: new info (toilet) → が + あります + か. トイレが います is wrong — toilets are inanimate.",
+        "Existence question: new info (shop) → が + あります + か. みせが いますか is wrong — shops are inanimate.",
     }),
     cloze(
       "ja-m6-4-1-cloze-3",
@@ -1177,7 +1177,7 @@ export const M6_4_1: LessonContent = {
       "ja-m6-4-1-translate-toire",
       "Is there a toilet?",
       "トイレが ありますか",
-      ["トイレ", "が", "あります", "か", "います"],
+      ["か", "トイレ", "が", "います", "あります"],
       ["トイレ", "が", "あります", "か"],
     ),
     // speaking
@@ -1238,18 +1238,18 @@ export const M6_4_2: LessonContent = {
       "ja-m6-4-2-build-neko",
       "There's a cat.",
       "ねこが います",
-      ["ねこ", "が", "います", "あります"],
+      ["います", "ねこ", "が", "あります"],
       ["ねこ", "が", "います"],
     ),
     // listening break
     listeningCompSentence({
-      id: "ja-m6-4-2-lc-neko",
-      audioText: "ねこが います",
-      correctMeaningEn: "There's a cat.",
+      id: "ja-m6-4-2-lc-inu",
+      audioText: "いぬが います",
+      correctMeaningEn: "There's a dog.",
       distractorsEn: [
-        "I have a cat.",
-        "I like cats.",
-        "I'm with a cat.",
+        "I have a dog.",
+        "I like dogs.",
+        "I'm with a dog.",
       ],
     }),
     cloze(
@@ -1280,7 +1280,7 @@ export const M6_4_2: LessonContent = {
       "ja-m6-4-2-build-tomodachi",
       "There's a friend (here).",
       "ともだちが います",
-      ["ともだち", "が", "います", "あります", "ねこ"],
+      ["が", "ともだち", "あります", "います", "ねこ"],
       ["ともだち", "が", "います"],
     ),
     // listening break
@@ -1296,16 +1296,16 @@ export const M6_4_2: LessonContent = {
     }),
     // sentenceMcq — animacy + が pattern
     sentenceMcq({
-      id: "ja-m6-4-2-mcq-tomodachi",
-      prompt: "Which sentence means 'There's a friend (here).'?",
-      correctKana: "ともだちが います。",
+      id: "ja-m6-4-2-mcq-sensei",
+      prompt: "Which sentence means 'There's a teacher (here).'?",
+      correctKana: "せんせいが います。",
       distractorsKana: [
-        "ともだちが あります。",
-        "ともだちに います。",
-        "ともだちで います。",
+        "せんせいが あります。",
+        "せんせいに います。",
+        "せんせいで います。",
       ],
       explanation:
-        "Friends are alive → います. に / で don't appear in pure existence sentences (those need が).",
+        "Teachers are alive → います. に / で don't appear in pure existence sentences (those need が).",
     }),
     // selfExplain — animacy split
     selfExplain({
@@ -1328,25 +1328,25 @@ export const M6_4_2: LessonContent = {
     }),
     // production — tile-bank build
     build(
-      "ja-m6-4-2-translate-cat",
-      "There's a cat.",
-      "ねこが います",
-      ["ねこ", "が", "います", "あります"],
-      ["ねこ", "が", "います"],
+      "ja-m6-4-2-translate-dog",
+      "There's a dog.",
+      "いぬが います",
+      ["が", "いぬ", "あります", "います"],
+      ["いぬ", "が", "います"],
     ),
     // speaking
     speaking(
-      "ja-m6-4-2-speak-toire",
-      "トイレが ありますか",
-      "Is there a toilet?",
+      "ja-m6-4-2-speak-mise",
+      "みせが ありますか",
+      "Is there a shop?",
     ),
     // listening_build
     listeningBuildSentence({
-      id: "ja-m6-4-2-lb-koen",
-      target: "こうえんが あります",
-      tiles: ["こうえん", "が", "あります", "ねこ", "います", "うち", "で"],
-      correctOrder: ["こうえん", "が", "あります"],
-      promptEn: "Hear it, build it: 'There's a park.'",
+      id: "ja-m6-4-2-lb-mise",
+      target: "みせが あります",
+      tiles: ["あります", "みせ", "が", "ねこ", "います", "うち", "で"],
+      correctOrder: ["みせ", "が", "あります"],
+      promptEn: "Hear it, build it: 'There's a shop.'",
     }),
     // speaking — the most useful sentence
     speaking(
@@ -1404,33 +1404,33 @@ export const M6_5_1: LessonContent = {
     // Rotating clozes: に → で → に → で
     cloze(
       "ja-m6-5-1-cloze-1",
-      "がっこう",
+      "みせ",
       " いきます。",
       "に",
       ["に", "で", "を", "は"],
-      "I go to school.",
-      "がっこうに いきます。",
+      "I go to the shop.",
+      "みせに いきます。",
       "Movement → destination → に.",
     ),
     // listening break
     listeningCompSentence({
-      id: "ja-m6-5-1-lc-uchi",
-      audioText: "うちで べんきょうします",
-      correctMeaningEn: "I study at home.",
+      id: "ja-m6-5-1-lc-mise",
+      audioText: "みせで はたらきます",
+      correctMeaningEn: "I work at a shop.",
       distractorsEn: [
-        "I go home.",
-        "I'm at home.",
-        "Home is here.",
+        "I go to the shop.",
+        "I'm at the shop.",
+        "There's a shop.",
       ],
     }),
     cloze(
       "ja-m6-5-1-cloze-2",
-      "うち",
+      "としょかん",
       " べんきょうします。",
       "で",
       ["に", "で", "を", "の"],
-      "I study at home.",
-      "うちで べんきょうします。",
+      "I study at the library.",
+      "としょかんで べんきょうします。",
       "Action (study) → setting → で.",
     ),
     // sentenceMcq break
@@ -1448,53 +1448,53 @@ export const M6_5_1: LessonContent = {
     }),
     cloze(
       "ja-m6-5-1-cloze-3",
-      "じてんしゃ",
+      "タクシー",
       " いきます。",
       "で",
       ["に", "で", "を", "の"],
-      "I go by bicycle.",
-      "じてんしゃで いきます。",
+      "I go by taxi.",
+      "タクシーで いきます。",
       "Means of motion → で.",
     ),
     // listening break
     listeningCompSentence({
       id: "ja-m6-5-1-lc-kaerimasu",
-      audioText: "うちに かえります",
-      correctMeaningEn: "I'm going home.",
+      audioText: "へやに かえります",
+      correctMeaningEn: "I'm going back to my room.",
       distractorsEn: [
-        "I'm at home.",
-        "I study at home.",
-        "There's a home.",
+        "I'm in my room.",
+        "I sleep in my room.",
+        "There's a room.",
       ],
     }),
     cloze(
       "ja-m6-5-1-cloze-4",
-      "うち",
+      "ホテル",
       " かえります。",
       "に",
       ["に", "で", "を", "が"],
-      "I'm going home.",
-      "うちに かえります。",
+      "I'm going back to the hotel.",
+      "ホテルに かえります。",
       "Destination + motion verb (かえる) → に.",
     ),
     // vocabMcq break — prior-module review
     vocabMcq("ja-m6-5-1-rev-mcq-mid", M6_5_1_REVIEW[0], PRIOR_POOL),
     // production — tile-bank build
     build(
-      "ja-m6-5-1-translate-densha",
-      "I go to school by train.",
-      "でんしゃで がっこうに いきます",
-      ["でんしゃ", "で", "がっこう", "に", "いきます", "うち"],
-      ["でんしゃ", "で", "がっこう", "に", "いきます"],
+      "ja-m6-5-1-translate-taxi",
+      "I go to the station by taxi.",
+      "タクシーで えきに いきます",
+      ["えき", "タクシー", "で", "に", "いきます", "うち"],
+      ["タクシー", "で", "えき", "に", "いきます"],
     ),
     cloze(
       "ja-m6-5-1-cloze-5",
-      "コンビニ",
+      "えき",
       " はたらきます。",
       "で",
       ["に", "で", "を", "は"],
-      "I work at a convenience store.",
-      "コンビニで はたらきます。",
+      "I work at the station.",
+      "えきで はたらきます。",
       "Work = action → setting → で.",
     ),
     // speaking
@@ -1507,7 +1507,7 @@ export const M6_5_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m6-5-1-lb-eki",
       target: "バスで えきに いきます",
-      tiles: ["バス", "で", "えき", "に", "いきます", "がっこう", "うち"],
+      tiles: ["えき", "バス", "で", "に", "がっこう", "いきます", "うち"],
       correctOrder: ["バス", "で", "えき", "に", "いきます"],
       promptEn: "Hear it, build it: 'I go to the station by bus.'",
     }),
@@ -1560,12 +1560,12 @@ export const M6_5_2: LessonContent = {
     ),
     cloze(
       "ja-m6-5-2-cloze-1",
-      "えき",
+      "ホテル",
       " います。",
       "に",
       ["に", "で", "を", "は"],
-      "I'm at the station.",
-      "えきに います。",
+      "I'm at the hotel.",
+      "ホテルに います。",
       "Existence → location point → に.",
     ),
     // sentenceMcq break
@@ -1583,12 +1583,12 @@ export const M6_5_2: LessonContent = {
     }),
     cloze(
       "ja-m6-5-2-cloze-2",
-      "へや",
+      "うち",
       " ねます。",
       "で",
       ["に", "で", "を", "は"],
-      "I sleep in (my) room.",
-      "へやで ねます。",
+      "I sleep at home.",
+      "うちで ねます。",
       "Action (sleeping) → setting → で.",
     ),
     // listening break
@@ -1637,20 +1637,20 @@ export const M6_5_2: LessonContent = {
       "ja-m6-5-2-translate-cumulative",
       "I go home by bicycle.",
       "じてんしゃで うちに かえります",
-      ["じてんしゃ", "で", "うち", "に", "かえります", "います"],
+      ["うち", "じてんしゃ", "で", "に", "います", "かえります"],
       ["じてんしゃ", "で", "うち", "に", "かえります"],
     ),
     // speaking
     speaking(
-      "ja-m6-5-2-speak-densha",
-      "でんしゃで がっこうに いきます",
-      "I go to school by train.",
+      "ja-m6-5-2-speak-jitensha",
+      "じてんしゃで がっこうに いきます",
+      "I go to school by bicycle.",
     ),
     // listening_build
     listeningBuildSentence({
       id: "ja-m6-5-2-lb-bus",
       target: "バスで うちに かえります",
-      tiles: ["バス", "で", "うち", "に", "かえります", "えき", "いきます"],
+      tiles: ["うち", "バス", "で", "に", "えき", "かえります", "いきます"],
       correctOrder: ["バス", "で", "うち", "に", "かえります"],
       promptEn: "Hear it, build it: 'I go home by bus.'",
     }),
@@ -1669,17 +1669,17 @@ export const M6_5_2: LessonContent = {
     }),
     // production — compound sentence
     build(
-      "ja-m6-5-2-translate-eki",
-      "I'm at the station.",
-      "えきに います",
-      ["えき", "に", "います", "で", "あります"],
-      ["えき", "に", "います"],
+      "ja-m6-5-2-translate-mise",
+      "I'm at the shop.",
+      "みせに います",
+      ["います", "みせ", "に", "で", "あります"],
+      ["みせ", "に", "います"],
     ),
     // speaking
     speaking(
-      "ja-m6-5-2-speak-uchi",
-      "うちに かえります",
-      "I'm going home.",
+      "ja-m6-5-2-speak-heya",
+      "へやに かえります",
+      "I'm going back to my room.",
     ),
     // ── Review tail ──
     speaking("ja-m6-5-2-rev-speak-1", M6_5_2_REVIEW[0].kana, M6_5_2_REVIEW[0].meaningEn),
@@ -1776,12 +1776,12 @@ export const M6_6_1: LessonContent = {
     }),
     cloze(
       "ja-m6-6-1-cloze-3",
-      "うち",
+      "へや",
       " べんきょうします。",
       "で",
       ["で", "に", "が", "を"],
-      "I study at home.",
-      "うちで べんきょうします。",
+      "I study in my room.",
+      "へやで べんきょうします。",
       "Action setting → で.",
     ),
     // tile-bank build break
@@ -1789,7 +1789,7 @@ export const M6_6_1: LessonContent = {
       "ja-m6-6-1-translate-park-cat",
       "There's a cat at the park.",
       "こうえんに ねこが います",
-      ["こうえん", "に", "ねこ", "が", "います", "で"],
+      ["ねこ", "こうえん", "に", "が", "で", "います"],
       ["こうえん", "に", "ねこ", "が", "います"],
     ),
     cloze(
@@ -1806,16 +1806,16 @@ export const M6_6_1: LessonContent = {
     vocabMcq("ja-m6-6-1-rev-mcq-mid", M6_6_1_REVIEW[0], PRIOR_POOL),
     // sentenceMcq break
     sentenceMcq({
-      id: "ja-m6-6-1-mcq-cat-park",
-      prompt: "Which sentence means 'There's a cat in the park.'?",
-      correctKana: "こうえんに ねこが います。",
+      id: "ja-m6-6-1-mcq-dog-home",
+      prompt: "Which sentence means 'There's a dog at my house.'?",
+      correctKana: "うちに いぬが います。",
       distractorsKana: [
-        "こうえんが ねこに います。",
-        "こうえんで ねこは います。",
-        "こうえんに ねこは いますか。",
+        "うちが いぬに います。",
+        "うちで いぬは います。",
+        "うちに いぬは いますか。",
       ],
       explanation:
-        "Location (park) → に. Subject (cat, new info) → が.",
+        "Location (house) → に. Subject (dog, new info) → が.",
     }),
     cloze(
       "ja-m6-6-1-cloze-5",
@@ -1829,20 +1829,20 @@ export const M6_6_1: LessonContent = {
     ),
     // listening break
     listeningCompSentence({
-      id: "ja-m6-6-1-lc-neko",
-      audioText: "ねこが います",
-      correctMeaningEn: "There's a cat.",
+      id: "ja-m6-6-1-lc-sensei",
+      audioText: "せんせいが います",
+      correctMeaningEn: "There's a teacher (here).",
       distractorsEn: [
-        "I like cats.",
-        "The cat is far.",
-        "I go to the cat.",
+        "I am a teacher.",
+        "There's a student.",
+        "The teacher is far.",
       ],
     }),
     // speaking
     speaking(
-      "ja-m6-6-1-speak-toire",
-      "トイレが ありますか",
-      "Is there a toilet?",
+      "ja-m6-6-1-speak-toshokan",
+      "としょかんが ありますか",
+      "Is there a library?",
     ),
     // ── Review tail ──
     speaking("ja-m6-6-1-rev-speak-1", M6_6_1_REVIEW[1].kana, M6_6_1_REVIEW[1].meaningEn),
@@ -1893,12 +1893,12 @@ export const M6_6_2: LessonContent = {
     ),
     cloze(
       "ja-m6-6-2-cloze-1",
-      "ねこ",
+      "がくせい",
       " います。",
       "が",
       ["が", "は", "の", "を"],
-      "There's a cat.",
-      "ねこが います。",
+      "There's a student (here).",
+      "がくせいが います。",
       "Living thing + existence → が + います.",
     ),
     // listening break
@@ -1917,7 +1917,7 @@ export const M6_6_2: LessonContent = {
       "ja-m6-6-2-translate-eki-toire",
       "There's a toilet at the station.",
       "えきに トイレが あります",
-      ["えき", "に", "トイレ", "が", "あります", "で", "います"],
+      ["トイレ", "えき", "に", "が", "で", "あります", "います"],
       ["えき", "に", "トイレ", "が", "あります"],
     ),
     // sentenceMcq
@@ -1947,7 +1947,7 @@ export const M6_6_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m6-6-2-lb-toire",
       target: "えきに トイレが あります",
-      tiles: ["えき", "に", "トイレ", "が", "あります", "コンビニ", "で"],
+      tiles: ["トイレ", "えき", "に", "が", "コンビニ", "あります", "で"],
       correctOrder: ["えき", "に", "トイレ", "が", "あります"],
       promptEn: "Hear it, build it: 'There's a toilet at the station.'",
     }),
@@ -1963,16 +1963,16 @@ export const M6_6_2: LessonContent = {
     ),
     // speaking
     speaking(
-      "ja-m6-6-2-speak-toire",
-      "えきに トイレが あります",
-      "There's a toilet at the station.",
+      "ja-m6-6-2-speak-books",
+      "としょかんに ほんが あります",
+      "There are books at the library.",
     ),
     // production — compound build
     build(
       "ja-m6-6-2-translate-cumulative",
       "There's a friend at school.",
       "がっこうに ともだちが います",
-      ["がっこう", "に", "ともだち", "が", "います", "で"],
+      ["ともだち", "がっこう", "に", "が", "で", "います"],
       ["がっこう", "に", "ともだち", "が", "います"],
     ),
     // listening break
@@ -2077,11 +2077,11 @@ export const M6_STORY: LessonContent = {
       ],
     }),
     build(
-      "ja-m6-story-build-ni",
-      "Say: I go to school.",
-      "がっこうに いきます",
-      ["がっこう", "に", "いきます", "で", "かえります"],
-      ["がっこう", "に", "いきます"],
+      "ja-m6-story-build-densha",
+      "Say: I return by train.",
+      "でんしゃで かえります",
+      ["かえります", "でんしゃ", "で", "に", "いきます"],
+      ["でんしゃ", "で", "かえります"],
     ),
     sentenceMcq({
       id: "ja-m6-story-mcq-de",
@@ -2132,24 +2132,24 @@ export const M6_STORY: LessonContent = {
     listeningBuildSentence({
       id: "ja-m6-story-lb-neko",
       target: "こうえんに ねこが います",
-      tiles: ["こうえん", "に", "ねこ", "が", "います", "で", "あります"],
+      tiles: ["ねこ", "こうえん", "に", "が", "います", "で", "あります"],
       correctOrder: ["こうえん", "に", "ねこ", "が", "います"],
       promptEn: "Hear it, build it: 'There is a cat at the park.'",
     }),
     listeningCompSentence({
-      id: "ja-m6-story-lc-kaeri",
-      audioText: "うちに かえります",
-      correctMeaningEn: "I go home (return).",
+      id: "ja-m6-story-lc-eki",
+      audioText: "えきに いきます",
+      correctMeaningEn: "I go to the station.",
       distractorsEn: [
-        "I go to school.",
-        "I study at home.",
-        "I work at home.",
+        "I go home.",
+        "I'm at the station.",
+        "There's a station.",
       ],
     }),
     speaking(
-      "ja-m6-story-speak-ni",
-      "がっこうに いきます",
-      "I go to school.",
+      "ja-m6-story-speak-eki",
+      "えきに いきます",
+      "I go to the station.",
     ),
     sentenceMcq({
       id: "ja-m6-story-mcq-summary",
@@ -2204,16 +2204,16 @@ export const M6_7_1: LessonContent = {
       "ja-m6-7-1-s1",
       "I go to school by bicycle.",
       "じてんしゃで がっこうに いきます",
-      ["じてんしゃ", "で", "がっこう", "に", "いきます", "うち", "あります"],
+      ["がっこう", "じてんしゃ", "で", "に", "うち", "いきます", "あります"],
       ["じてんしゃ", "で", "がっこう", "に", "いきます"],
     ),
     // Sentence 2: build (short, existence question)
     build(
       "ja-m6-7-1-s2",
-      "Is there a toilet?",
-      "トイレが ありますか",
-      ["トイレ", "が", "あります", "か", "ねこ", "います"],
-      ["トイレ", "が", "あります", "か"],
+      "Is there a hotel?",
+      "ホテルが ありますか",
+      ["か", "ホテル", "が", "ねこ", "あります", "います"],
+      ["ホテル", "が", "あります", "か"],
     ),
     // sentenceMcq break
     sentenceMcq({
@@ -2231,20 +2231,20 @@ export const M6_7_1: LessonContent = {
     // Sentence 3: listening_build
     listeningBuildSentence({
       id: "ja-m6-7-1-s3",
-      target: "コンビニで はたらきます",
-      tiles: ["コンビニ", "で", "はたらきます", "うち", "べんきょうします"],
-      correctOrder: ["コンビニ", "で", "はたらきます"],
-      promptEn: "Hear it, build it: 'I work at a convenience store.'",
+      target: "としょかんで はたらきます",
+      tiles: ["はたらきます", "としょかん", "で", "うち", "べんきょうします"],
+      correctOrder: ["としょかん", "で", "はたらきます"],
+      promptEn: "Hear it, build it: 'I work at the library.'",
     }),
     // vocabMcq break — prior-module review
     vocabMcq("ja-m6-7-1-rev-mcq-early", M6_7_1_REVIEW[0], PRIOR_POOL),
     // Sentence 4: build
     build(
       "ja-m6-7-1-s4",
-      "I'm at the station.",
-      "えきに います",
-      ["えき", "に", "います", "で", "あります"],
-      ["えき", "に", "います"],
+      "I'm in my room.",
+      "へやに います",
+      ["います", "へや", "に", "で", "あります"],
+      ["へや", "に", "います"],
     ),
     // listening break
     listeningCompSentence({
@@ -2261,7 +2261,7 @@ export const M6_7_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m6-7-1-s5",
       target: "うちに ねこが います",
-      tiles: ["うち", "に", "ねこ", "が", "います", "コンビニ", "で", "あります"],
+      tiles: ["ねこ", "うち", "に", "が", "コンビニ", "います", "で", "あります"],
       correctOrder: ["うち", "に", "ねこ", "が", "います"],
       promptEn: "Hear it, build it: 'There's a cat at my house.'",
     }),
@@ -2283,14 +2283,14 @@ export const M6_7_1: LessonContent = {
       "ja-m6-7-1-s6",
       "There's a convenience store at the station.",
       "えきに コンビニが あります",
-      ["えき", "に", "コンビニ", "が", "あります", "います", "で"],
+      ["コンビニ", "えき", "に", "が", "います", "あります", "で"],
       ["えき", "に", "コンビニ", "が", "あります"],
     ),
     // speaking
     speaking(
       "ja-m6-7-1-speak-s2",
-      "トイレが ありますか",
-      "Is there a toilet?",
+      "ホテルが ありますか",
+      "Is there a hotel?",
     ),
     // ── Review tail ──
     speaking("ja-m6-7-1-rev-speak-1", M6_7_1_REVIEW[1].kana, M6_7_1_REVIEW[1].meaningEn),
@@ -2341,16 +2341,16 @@ export const M6_7_2: LessonContent = {
     ),
     // speaking — existence
     speaking(
-      "ja-m6-7-2-speak-neko",
-      "ねこが います",
-      "There's a cat.",
+      "ja-m6-7-2-speak-gakusei",
+      "がくせいが います",
+      "There's a student (here).",
     ),
     // build break
     build(
       "ja-m6-7-2-s1",
       "Is there a convenience store?",
       "コンビニが ありますか",
-      ["コンビニ", "が", "あります", "か", "います"],
+      ["か", "コンビニ", "が", "います", "あります"],
       ["コンビニ", "が", "あります", "か"],
     ),
     // speaking — means + destination
@@ -2374,23 +2374,23 @@ export const M6_7_2: LessonContent = {
     }),
     // speaking — compound existence
     speaking(
-      "ja-m6-7-2-speak-park-cat",
-      "こうえんに ねこが います",
-      "There's a cat at the park.",
+      "ja-m6-7-2-speak-park-dog",
+      "こうえんに いぬが います",
+      "There's a dog at the park.",
     ),
     // listening_build
     listeningBuildSentence({
       id: "ja-m6-7-2-lb-bus",
       target: "バスで がっこうに いきます",
-      tiles: ["バス", "で", "がっこう", "に", "いきます", "えき", "います"],
+      tiles: ["がっこう", "バス", "で", "に", "えき", "いきます", "います"],
       correctOrder: ["バス", "で", "がっこう", "に", "いきます"],
       promptEn: "Hear it, build it: 'I go to school by bus.'",
     }),
     // speaking — action setting
     speaking(
-      "ja-m6-7-2-speak-uchi",
-      "うちで べんきょうします",
-      "I study at home.",
+      "ja-m6-7-2-speak-mise",
+      "みせで はたらきます",
+      "I work at a shop.",
     ),
     // listening break
     listeningCompSentence({
@@ -2406,26 +2406,26 @@ export const M6_7_2: LessonContent = {
     // build — cumulative
     build(
       "ja-m6-7-2-s2",
-      "I'm going home by bus.",
-      "バスで うちに かえります",
-      ["バス", "で", "うち", "に", "かえります", "います"],
-      ["バス", "で", "うち", "に", "かえります"],
+      "I'm going home by taxi.",
+      "タクシーで うちに かえります",
+      ["うち", "タクシー", "で", "に", "います", "かえります"],
+      ["タクシー", "で", "うち", "に", "かえります"],
     ),
     // speaking — the most-useful pattern
     speaking(
-      "ja-m6-7-2-speak-toire",
-      "トイレが ありますか",
-      "Is there a toilet?",
+      "ja-m6-7-2-speak-koen",
+      "こうえんが ありますか",
+      "Is there a park?",
     ),
     // sentenceMcq — final cumulative
     sentenceMcq({
       id: "ja-m6-7-2-mcq-final",
-      prompt: "Which sentence means 'I work at a convenience store.'?",
-      correctKana: "コンビニで はたらきます。",
+      prompt: "Which sentence means 'I work at school.'?",
+      correctKana: "がっこうで はたらきます。",
       distractorsKana: [
-        "コンビニに はたらきます。",
-        "コンビニが はたらきます。",
-        "コンビニで います。",
+        "がっこうに はたらきます。",
+        "がっこうが はたらきます。",
+        "がっこうで います。",
       ],
       explanation:
         "Work = action → setting → で.",
@@ -2489,7 +2489,7 @@ export const M6_8_1: LessonContent = {
       "ja-m6-8-1-build-chikai",
       "It's close.",
       "ちかいです",
-      ["ちかい", "です", "とおい", "か"],
+      ["とおい", "ちかい", "です", "か"],
       ["ちかい", "です"],
     ),
     // listening retrieval
@@ -2504,7 +2504,7 @@ export const M6_8_1: LessonContent = {
       "ja-m6-8-1-build-tooi",
       "It's far.",
       "とおいです",
-      ["とおい", "です", "ちかい", "か"],
+      ["です", "ちかい", "とおい", "か"],
       ["とおい", "です"],
     ),
     // listening comprehension — discrimination
@@ -2519,7 +2519,7 @@ export const M6_8_1: LessonContent = {
       "ja-m6-8-1-build-doko",
       "Where is the station?",
       "えきは どこですか",
-      ["えき", "は", "どこ", "です", "か", "に"],
+      ["どこ", "えき", "は", "に", "です", "か"],
       ["えき", "は", "どこ", "です", "か"],
     ),
     // speaking — the key opener
@@ -2678,33 +2678,33 @@ export const M6_8_2: LessonContent = {
     }),
     cloze(
       "ja-m6-8-2-cloze-2",
-      "えき",
+      "としょかん",
       " います。",
       "に",
       ["に", "で", "を", "が"],
-      "I'm at the station.",
-      "えきに います。",
+      "I'm at the library.",
+      "としょかんに います。",
       "Pure existence → location point → に.",
     ),
     // listening break
     listeningCompSentence({
-      id: "ja-m6-8-2-lc-bus",
-      audioText: "バスで うちに かえります",
-      correctMeaningEn: "I'm going home by bus.",
+      id: "ja-m6-8-2-lc-jitensha",
+      audioText: "じてんしゃで うちに かえります",
+      correctMeaningEn: "I'm going home by bicycle.",
       distractorsEn: [
-        "I go to the bus stop.",
+        "I go to school by bicycle.",
         "I'm at home.",
-        "The bus is at home.",
+        "The bicycle is at home.",
       ],
     }),
     cloze(
       "ja-m6-8-2-cloze-3",
-      "コンビニ",
+      "ホテル",
       " はたらきます。",
       "で",
       ["で", "に", "が", "は"],
-      "I work at a convenience store.",
-      "コンビニで はたらきます。",
+      "I work at a hotel.",
+      "ホテルで はたらきます。",
       "Action → setting → で.",
     ),
     // production — tile-bank build
@@ -2712,32 +2712,32 @@ export const M6_8_2: LessonContent = {
       "ja-m6-8-2-translate-final",
       "I'm going home by bus.",
       "バスで うちに かえります",
-      ["バス", "で", "うち", "に", "かえります", "います"],
+      ["うち", "バス", "で", "に", "います", "かえります"],
       ["バス", "で", "うち", "に", "かえります"],
     ),
-    // speaking — the opener
+    // speaking — the opener, transferred to a new target
     speaking(
       "ja-m6-8-2-speak-doko",
-      "えきは どこですか",
-      "Where is the station?",
+      "トイレは どこですか",
+      "Where is the toilet?",
     ),
     // listening_build
     listeningBuildSentence({
       id: "ja-m6-8-2-lb-cumulative",
-      target: "えきに コンビニが あります",
-      tiles: ["えき", "に", "コンビニ", "が", "あります", "うち", "で", "います"],
-      correctOrder: ["えき", "に", "コンビニ", "が", "あります"],
-      promptEn: "Hear it, build it: 'There's a convenience store at the station.'",
+      target: "えきに みせが あります",
+      tiles: ["みせ", "えき", "に", "が", "うち", "あります", "で", "います"],
+      correctOrder: ["えき", "に", "みせ", "が", "あります"],
+      promptEn: "Hear it, build it: 'There's a shop at the station.'",
     }),
     // sentenceMcq — final pattern
     sentenceMcq({
       id: "ja-m6-8-2-mcq-final",
-      prompt: "Which sentence means 'I study at home.'?",
-      correctKana: "うちで べんきょうします。",
+      prompt: "Which sentence means 'I study in my room.'?",
+      correctKana: "へやで べんきょうします。",
       distractorsKana: [
-        "うちに べんきょうします。",
-        "うちが べんきょうします。",
-        "うちで います。",
+        "へやに べんきょうします。",
+        "へやが べんきょうします。",
+        "へやで います。",
       ],
       explanation:
         "Study = action → setting → で.",
@@ -2745,16 +2745,16 @@ export const M6_8_2: LessonContent = {
     // speaking — compound
     speaking(
       "ja-m6-8-2-speak-final",
-      "えきに トイレが あります",
-      "There's a toilet at the station.",
+      "コンビニに トイレが あります",
+      "There's a toilet at the convenience store.",
     ),
     // production — build
     build(
       "ja-m6-8-2-translate-doko",
-      "Where is the station?",
-      "えきは どこですか",
-      ["えき", "は", "どこ", "です", "か", "に", "が"],
-      ["えき", "は", "どこ", "です", "か"],
+      "Where is the convenience store?",
+      "コンビニは どこですか",
+      ["どこ", "コンビニ", "は", "に", "です", "か", "が"],
+      ["コンビニ", "は", "どこ", "です", "か"],
     ),
     // ── Review tail ──
     speaking("ja-m6-8-2-rev-speak-1", M6_8_2_REVIEW[0].kana, M6_8_2_REVIEW[0].meaningEn),

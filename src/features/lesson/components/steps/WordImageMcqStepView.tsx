@@ -33,25 +33,48 @@ function PromptWithEmphasis({ meaning }: { meaning: string }) {
   );
 }
 
+/**
+ * SVG art with a raw-glyph fallback: a vendored Noto file that's missing
+ * (or any future un-vendored emoji) renders the device emoji instead of
+ * a broken-image box. The vendored set is curated, so gaps are possible
+ * whenever new content is authored.
+ */
+function EmojiArt({ src, emoji }: { src: string | null; emoji: string }) {
+  const [failed, setFailed] = useState(false);
+  if (!src || failed) {
+    return (
+      <span aria-hidden className="text-8xl">
+        {emoji}
+      </span>
+    );
+  }
+  return (
+    <img
+      src={src}
+      alt=""
+      width={160}
+      height={160}
+      loading="eager"
+      onError={() => setFailed(true)}
+      className="h-[58%] w-[58%] max-h-64 max-w-64 select-none object-contain"
+      draggable={false}
+    />
+  );
+}
+
 export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   const { t } = useTranslation();
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
-  // Art-resolution fallback: notoEmojiUrl returns a URL even when the SVG
-  // isn't in the bundled subset (it 404s at fetch time). Without this the
-  // tile shows a broken-image icon. Track failed loads and fall back to the
-  // native-font emoji glyph. Helps any language whose art subset is partial
-  // (KO M2 야구/우유 today; future content too).
-  const [imgFailed, setImgFailed] = useState<Record<string, boolean>>({});
 
   const isCorrect = selected === step.correctOptionId;
 
   const handleEnter = useCallback(() => {
     if (!submitted && selected) handleSubmit();
-    else if (submitted && !celebrating) onContinue();
-  }, [submitted, selected, celebrating]);
+    else if (submitted) onContinue();
+  }, [submitted, selected]);
 
   useLessonKeyboard({
     onEnter: handleEnter,
@@ -60,7 +83,6 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
         handleTap(step.options[n - 1].id, step.options[n - 1].word);
       }
     },
-    enabled: !celebrating,
   });
 
   function handleTap(optId: string, word: string) {
@@ -87,20 +109,26 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
 
   return (
     <div className="flex flex-1 flex-col gap-6">
+      {/* Content cluster centers as one unit in leftover height. */}
+      <div className="my-auto flex flex-col gap-6">
       <h2 className="text-center text-xl font-medium leading-snug text-text-secondary sm:text-2xl">
         <PromptWithEmphasis meaning={step.meaningEn} />
       </h2>
 
-      {/* max-w cap shrinks the 2×2 ~15% vs unconstrained — emoji feels
-       *  proportional rather than swimming in empty card space. */}
-      <div className="relative mx-auto grid w-full max-w-[36rem] grid-cols-2 gap-4">
+      {/* Grid height ≈ its width (two stacked squares), so the width cap
+          is really a height cap: 100dvh minus the chrome + prompt +
+          Continue budget. Shrinks on short laptops (MacBook 14" ≈ 840px
+          usable); on tall windows it grows past the 42rem text column
+          (picture cards have no line-length constraint) via the
+          left-1/2 translate breakout, up to 56rem. */}
+      <div className="relative left-1/2 grid w-[clamp(18rem,calc(100dvh-22rem),56rem)] max-w-[calc(100vw-3rem)] -translate-x-1/2 grid-cols-2 gap-4">
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
           // Square buttons. Same solid-accent selection pattern as the
           // other 2026-05-16 MCQ revamps — unmistakable in dark mode.
           let base =
-            "relative flex aspect-square flex-col items-center justify-center rounded-2xl border-2 bg-surface p-4 transition-colors duration-150";
+            "flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border-2 bg-surface p-4 transition-colors duration-150";
           let stateClasses = "border-border hover:border-accent";
           if (submitted && isAnswer) {
             stateClasses = "border-accent bg-accent/10";
@@ -109,9 +137,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           } else if (isSelected) {
             stateClasses = "border-accent bg-accent/5";
           }
-          const emojiSrc = imgFailed[opt.id]
-            ? null
-            : lingoArtUrl(opt.word) ?? notoEmojiUrl(opt.emoji);
+          const emojiSrc = lingoArtUrl(opt.word) ?? notoEmojiUrl(opt.emoji);
           return (
             <button
               key={opt.id}
@@ -121,10 +147,11 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
               className={`${base} ${stateClasses}`}
               aria-label={`Hear and pick ${opt.word}`}
             >
-              {/* Kana inset across the top of the card. */}
+              {/* Kana stacked above the art (normal flow, not absolute) so
+               *  the card stays vertically balanced at any size. */}
               <span
                 className={
-                  "font-japanese absolute left-0 right-0 top-3 text-center text-2xl font-bold tracking-wide sm:text-3xl " +
+                  "font-japanese text-center text-2xl font-bold tracking-wide sm:text-3xl " +
                   (submitted && isAnswer
                     ? "text-accent"
                     : submitted && isSelected && !isAnswer
@@ -136,52 +163,32 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
               </span>
               {/* Emoji centered, sized to fill ~60–65% of the card.
                *  Noto Emoji SVG render — never device-dependent. */}
-              {emojiSrc ? (
-                <img
-                  src={emojiSrc}
-                  alt=""
-                  width={160}
-                  height={160}
-                  loading="eager"
-                  className="h-[60%] w-[60%] max-h-44 max-w-44 select-none object-contain"
-                  draggable={false}
-                  onError={() =>
-                    setImgFailed((prev) =>
-                      prev[opt.id] ? prev : { ...prev, [opt.id]: true },
-                    )
-                  }
-                />
-              ) : (
-                <span aria-hidden className="text-8xl">
-                  {opt.emoji}
-                </span>
-              )}
+              <EmojiArt src={emojiSrc} emoji={opt.emoji} />
             </button>
           );
         })}
-        {celebrating && <CelebrationToast text={celebrationText} />}
+      </div>
       </div>
 
-      {submitted && !isCorrect && <Feedback correct={false} />}
-
-      {!submitted ? (
-        <ContinueButton
-          onClick={handleSubmit}
-          label="Check"
-          disabled={!selected}
-        />
-      ) : celebrating ? (
-        <div className="invisible" aria-hidden>
-          <ContinueButton onClick={() => {}} />
-        </div>
-      ) : (
-        <div className="motion-safe:animate-fade-up">
+      {/* Single bottom-anchored block (banner + CTA) so the button never
+          moves on submit. Width mirrors the grid's breakout so the column
+          reads as one shape when the grid exceeds 42rem. */}
+      <div className="relative left-1/2 flex w-[max(100%,min(calc(100dvh-22rem),56rem))] max-w-[calc(100vw-3rem)] -translate-x-1/2 flex-col gap-4">
+        {celebrating && <CelebrationToast text={celebrationText} />}
+        {submitted && !isCorrect && <Feedback correct={false} />}
+        {!submitted ? (
+          <ContinueButton
+            onClick={handleSubmit}
+            label="Check"
+            disabled={!selected}
+          />
+        ) : (
           <ContinueButton
             onClick={onContinue}
             variant={isCorrect ? "correct" : "incorrect"}
           />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

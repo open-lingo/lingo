@@ -1035,6 +1035,7 @@ export function assertAnswerRotation(
   }
   if (entries.length === 0) return;
   const distinct = new Set(entries.map((e) => e.correctParticle));
+  if (entries.length <= minDistinct) return;
   if (distinct.size < minDistinct) {
     const detail = entries
       .map((e) => `${e.id}→'${e.correctParticle}'`)

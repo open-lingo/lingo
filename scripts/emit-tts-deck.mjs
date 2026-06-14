@@ -16,6 +16,13 @@ import { dirname, resolve, join } from "node:path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const DATA_DIR = resolve(__dirname, "../src/features/lesson/data");
+// 2026-06 multi-language restructure moved the JA curriculum out of
+// lesson/data into languages/ja/curriculum (module files lost the
+// "mock-ja-" prefix). hiraganaCurriculum.ts stayed behind.
+const JA_CURRICULUM_DIR = resolve(
+  __dirname,
+  "../src/features/languages/ja/curriculum",
+);
 const CURRICULUM = resolve(DATA_DIR, "hiraganaCurriculum.ts");
 const OUT = resolve(
   __dirname,
@@ -23,12 +30,14 @@ const OUT = resolve(
 );
 
 // Sources to scan. Curriculum is the source of truth for kana intros and
-// row anchor words; the mock-ja-m{1,2}-*.ts files carry hand-authored
-// vocab + words referenced in helpers like wordImageMcq / listeningBuild
-// / speaking / listeningComp.
+// row anchor words; the module files carry hand-authored vocab + words
+// referenced in helpers like wordImageMcq / listeningBuild / speaking /
+// listeningComp.
 const sources = [CURRICULUM];
-for (const f of readdirSync(DATA_DIR)) {
-  if (/^mock-ja-(m\d+|sidequest)(-.*)?\.ts$/.test(f)) sources.push(join(DATA_DIR, f));
+for (const f of readdirSync(JA_CURRICULUM_DIR)) {
+  if (/^(m\d+(-[\w-]+)?|sidequest(-[\w-]+)?)\.ts$/.test(f)) {
+    sources.push(join(JA_CURRICULUM_DIR, f));
+  }
 }
 
 const kanaSet = new Set();

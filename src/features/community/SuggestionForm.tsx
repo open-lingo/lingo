@@ -51,7 +51,7 @@ export function SuggestionForm() {
             id="suggestion-type"
             value={type}
             onChange={(e) => setType(e.target.value as SuggestionType)}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-text-primary"
           >
             <option value="bug">{t("community.suggestionsTypeBug")}</option>
             <option value="feature">{t("community.suggestionsTypeFeature")}</option>
@@ -69,7 +69,7 @@ export function SuggestionForm() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder={t("community.suggestionsTitlePlaceholder")}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-500 placeholder-text-muted"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-text-primary placeholder-text-muted"
           />
         </div>
         <div>
@@ -82,7 +82,7 @@ export function SuggestionForm() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder={t("community.suggestionsDescriptionPlaceholder")}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-500 placeholder-text-muted"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-text-primary placeholder-text-muted"
           />
         </div>
         <div className="flex flex-wrap gap-3">
@@ -96,7 +96,7 @@ export function SuggestionForm() {
             href="https://github.com/open-lingo/lingo/issues"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted"
           >
             {t("community.suggestionsViewAllIssues")}
           </a>

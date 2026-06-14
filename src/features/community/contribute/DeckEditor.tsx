@@ -160,7 +160,7 @@ function SortableCardItem({
             />
           )}
           <span className="truncate">
-            <span className="text-gray-500">{realIndex + 1}.</span>{" "}
+            <span className="text-text-muted">{realIndex + 1}.</span>{" "}
             {card.front || placeholder}
           </span>
         </button>
@@ -616,7 +616,7 @@ export function DeckEditor() {
       {showDeckSettings && (
         <div className="flex items-center gap-4 border-b border-border bg-surface-muted px-4 py-2">
             <div>
-              <label className="mr-2 text-xs text-gray-500">{t("forum.language")}</label>
+              <label className="mr-2 text-xs text-text-muted">{t("forum.language")}</label>
               <select
                 value={languageId}
                 onChange={(e) => {
@@ -633,7 +633,7 @@ export function DeckEditor() {
               </select>
             </div>
             <div className="min-w-[200px]">
-              <label className="mr-2 text-xs text-gray-500">
+              <label className="mr-2 text-xs text-text-muted">
                 {t("community.contributeDescription")}
               </label>
               <input
@@ -648,7 +648,7 @@ export function DeckEditor() {
               />
             </div>
             <div className="min-w-[200px]">
-              <label className="mr-2 text-xs text-gray-500">
+              <label className="mr-2 text-xs text-text-muted">
                 {t("community.editorDeckImageUrl")}
               </label>
               <input
@@ -663,7 +663,7 @@ export function DeckEditor() {
               />
             </div>
             <div className="min-w-[120px]">
-              <label className="mr-2 text-xs text-gray-500">
+              <label className="mr-2 text-xs text-text-muted">
                 {t("community.editorDefaultEase")}
               </label>
               <input
@@ -949,7 +949,7 @@ function ActiveCardEditor({
               placeholder={t("community.editorCardFrontPlaceholder")}
               className={
                 frontInvalid
-                  ? textareaClass.replace("border-gray-300", "border-red-500")
+                  ? textareaClass.replace("border-border", "border-red-500")
                   : textareaClass
               }
               rows={2}
@@ -972,7 +972,7 @@ function ActiveCardEditor({
               placeholder={t("community.editorCardBackPlaceholder")}
               className={
                 backInvalid
-                  ? textareaClass.replace("border-gray-300", "border-red-500")
+                  ? textareaClass.replace("border-border", "border-red-500")
                   : textareaClass
               }
               rows={2}
@@ -1020,7 +1020,7 @@ function ActiveCardEditor({
               placeholder={t("community.editorCardBackPlaceholder")}
               className={
                 backInvalid
-                  ? textareaClass.replace("border-gray-300", "border-red-500")
+                  ? textareaClass.replace("border-border", "border-red-500")
                   : textareaClass
               }
               rows={2}
@@ -1071,7 +1071,7 @@ function ActiveCardEditor({
           {hasAdvanced && (
             <span className="rounded bg-surface-muted px-1.5 text-xs">1</span>
           )}
-          <Icon name="chevronDown" size={14} className={`text-gray-500 transition ${advancedOpen ? "" : "-rotate-90"}`} />
+          <Icon name="chevronDown" size={14} className={`text-text-muted transition ${advancedOpen ? "" : "-rotate-90"}`} />
         </button>
         {advancedOpen && (
           <div className="space-y-4 border-t border-border p-3">

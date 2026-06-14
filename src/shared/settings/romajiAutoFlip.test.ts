@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
   ROMAJI_AUTO_OFF_MODULE,
+  BUILD_TILE_ROMAJI_FADE_MODULE,
   parseModuleIndex,
   shouldAutoFlipRomaji,
+  shouldAutoFadeBuildTileRomaji,
 } from "./romajiAutoFlip";
 import { DEFAULT_SETTINGS, type UserSettings } from "./types";
 
@@ -102,5 +104,58 @@ describe("shouldAutoFlipRomaji", () => {
       reachedModuleIndex: ROMAJI_AUTO_OFF_MODULE + 2,
     });
     expect(result.flipped).toBe(false);
+  });
+});
+
+describe("shouldAutoFadeBuildTileRomaji", () => {
+  it("fades at the build-tile threshold (M10), earlier than the global M15", () => {
+    expect(BUILD_TILE_ROMAJI_FADE_MODULE).toBeLessThan(ROMAJI_AUTO_OFF_MODULE);
+    expect(
+      shouldAutoFadeBuildTileRomaji({
+        settings: settingsWith({}),
+        reachedModuleIndex: BUILD_TILE_ROMAJI_FADE_MODULE,
+      }),
+    ).toBe(true);
+  });
+
+  it("does NOT fade below the threshold (M9)", () => {
+    expect(
+      shouldAutoFadeBuildTileRomaji({
+        settings: settingsWith({}),
+        reachedModuleIndex: BUILD_TILE_ROMAJI_FADE_MODULE - 1,
+      }),
+    ).toBe(false);
+  });
+
+  it("is independent of the global showRomaji aid (still fades while romaji on)", () => {
+    expect(
+      shouldAutoFadeBuildTileRomaji({
+        settings: settingsWith({ showRomaji: true }),
+        reachedModuleIndex: BUILD_TILE_ROMAJI_FADE_MODULE,
+      }),
+    ).toBe(true);
+  });
+
+  it("does not re-fire once the one-shot guard has fired", () => {
+    // User reached M10, fade fired, user turned it back off in Settings.
+    // buildTileRomajiAutoFlipped stays true → must not re-fade them.
+    expect(
+      shouldAutoFadeBuildTileRomaji({
+        settings: settingsWith({
+          hideBuildTileRomaji: false,
+          buildTileRomajiAutoFlipped: true,
+        }),
+        reachedModuleIndex: BUILD_TILE_ROMAJI_FADE_MODULE + 3,
+      }),
+    ).toBe(false);
+  });
+
+  it("no-ops when already faded", () => {
+    expect(
+      shouldAutoFadeBuildTileRomaji({
+        settings: settingsWith({ hideBuildTileRomaji: true }),
+        reachedModuleIndex: BUILD_TILE_ROMAJI_FADE_MODULE,
+      }),
+    ).toBe(false);
   });
 });

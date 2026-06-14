@@ -83,7 +83,7 @@ export function NewThreadPage() {
 
   return (
     <PageShell variant="narrow" spaceY="md">
-      <Link to={langPath("community")} className="text-sm text-gray-600 hover:text-gray-900">
+      <Link to={langPath("community")} className="text-sm text-text-secondary hover:text-text-primary">
           <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("community.title")}
         </Link>
       <h1 className="text-2xl font-bold text-text-primary">
@@ -99,7 +99,7 @@ export function NewThreadPage() {
             id="thread-category"
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-text-primary"
           >
             {categories.map((cat) => (
               <option key={cat.id} value={cat.id}>
@@ -120,7 +120,7 @@ export function NewThreadPage() {
             onChange={(e) => setTitle(e.target.value)}
             placeholder={t("forum.threadTitlePlaceholder")}
             required
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-500 placeholder-text-muted"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-text-primary placeholder-text-muted"
           />
         </div>
 
@@ -136,8 +136,8 @@ export function NewThreadPage() {
                 onClick={() => toggleTag(tag.id)}
                 className={`rounded-full px-3 py-1 text-sm font-medium transition ${
                   tagIds.includes(tag.id)
-                    ? "bg-gray-900 text-white bg-surface text-text-primary"
-                    : "bg-gray-100 text-gray-700 hover:bg-surface-muted"
+                    ? "bg-accent text-white"
+                    : "bg-surface-muted text-text-secondary hover:bg-surface-muted"
                 }`}
               >
                 {tag.name}
@@ -161,7 +161,7 @@ export function NewThreadPage() {
         <div className="flex gap-3">
           <Link
             to={langPath("community/discuss")}
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted"
           >
             {t("forum.cancel")}
           </Link>

@@ -17,7 +17,9 @@
     "module": "m3",
     "status": "shipped",
     "notes": "Yes/no questions with です＋か",
-    "dependsOn": ["wa-topic"]
+    "dependsOn": [
+      "wa-topic"
+    ]
   },
   {
     "id": "desu-copula",
@@ -37,7 +39,9 @@
     "module": "m3",
     "status": "shipped",
     "notes": "Negation of です; taught alongside affirmative",
-    "dependsOn": ["desu-copula"]
+    "dependsOn": [
+      "desu-copula"
+    ]
   },
   {
     "id": "no-possession",
@@ -47,7 +51,9 @@
     "module": "m4",
     "status": "shipped",
     "notes": "Noun-の-noun for possession and description",
-    "dependsOn": ["wa-topic"]
+    "dependsOn": [
+      "wa-topic"
+    ]
   },
   {
     "id": "kore-sore-are-dore",
@@ -57,7 +63,10 @@
     "module": "m4",
     "status": "shipped",
     "notes": "Ko-so-a-do pronoun set; standalone noun usage",
-    "dependsOn": ["desu-copula", "ka-question"]
+    "dependsOn": [
+      "desu-copula",
+      "ka-question"
+    ]
   },
   {
     "id": "mo-also",
@@ -67,7 +76,9 @@
     "module": "m4",
     "status": "backfill",
     "notes": "Backfill; replaces は to mean 'also'",
-    "dependsOn": ["wa-topic"]
+    "dependsOn": [
+      "wa-topic"
+    ]
   },
   {
     "id": "kara-origin",
@@ -77,7 +88,9 @@
     "module": "m5",
     "status": "shipped",
     "notes": "Place/origin usage; time usage taught later in m13",
-    "dependsOn": ["wa-topic"]
+    "dependsOn": [
+      "wa-topic"
+    ]
   },
   {
     "id": "kudasai",
@@ -107,7 +120,9 @@
     "module": "m5",
     "status": "shipped",
     "notes": "First counter; irregular ひとり/ふたり drilled early",
-    "dependsOn": ["numbers-1-10"]
+    "dependsOn": [
+      "numbers-1-10"
+    ]
   },
   {
     "id": "ni-location",
@@ -117,7 +132,9 @@
     "module": "m6",
     "status": "shipped",
     "notes": "Static location (に+ある/いる) and destination (に+いく)",
-    "dependsOn": ["wa-topic"]
+    "dependsOn": [
+      "wa-topic"
+    ]
   },
   {
     "id": "de-action",
@@ -127,7 +144,9 @@
     "module": "m6",
     "status": "shipped",
     "notes": "Contrasts with に; で marks where action happens",
-    "dependsOn": ["ni-location"]
+    "dependsOn": [
+      "ni-location"
+    ]
   },
   {
     "id": "ga-existence",
@@ -137,7 +156,9 @@
     "module": "m6",
     "status": "shipped",
     "notes": "Used with あります/います for existence sentences",
-    "dependsOn": ["wa-topic"]
+    "dependsOn": [
+      "wa-topic"
+    ]
   },
   {
     "id": "arimasu",
@@ -147,7 +168,10 @@
     "module": "m6",
     "status": "shipped",
     "notes": "Inanimate existence; paired with が and に",
-    "dependsOn": ["ga-existence", "ni-location"]
+    "dependsOn": [
+      "ga-existence",
+      "ni-location"
+    ]
   },
   {
     "id": "imasu",
@@ -157,7 +181,10 @@
     "module": "m6",
     "status": "shipped",
     "notes": "Animate existence; contrasted with あります",
-    "dependsOn": ["ga-existence", "ni-location"]
+    "dependsOn": [
+      "ga-existence",
+      "ni-location"
+    ]
   },
   {
     "id": "koko-soko-asoko",
@@ -167,7 +194,10 @@
     "module": "m6",
     "status": "backfill",
     "notes": "Backfill; ko-so-a location set used with に/で",
-    "dependsOn": ["kore-sore-are-dore", "ni-location"]
+    "dependsOn": [
+      "kore-sore-are-dore",
+      "ni-location"
+    ]
   },
   {
     "id": "dictionary-form",
@@ -187,7 +217,9 @@
     "module": "m7",
     "status": "shipped",
     "notes": "Polite verb ending; habitual and future meaning",
-    "dependsOn": ["dictionary-form"]
+    "dependsOn": [
+      "dictionary-form"
+    ]
   },
   {
     "id": "wo-object",
@@ -197,7 +229,9 @@
     "module": "m7",
     "status": "shipped",
     "notes": "Marks object of transitive verbs; noun-を-verb pattern",
-    "dependsOn": ["masu-present"]
+    "dependsOn": [
+      "masu-present"
+    ]
   },
   {
     "id": "kono-sono-ano-dono",
@@ -205,9 +239,11 @@
     "pointEn": "Demonstrative adjectives (this/that/which + noun)",
     "category": "demonstrative",
     "module": "m8",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Ko-so-a-do pre-noun modifiers; builds on pronoun set",
-    "dependsOn": ["kore-sore-are-dore"]
+    "dependsOn": [
+      "kore-sore-are-dore"
+    ]
   },
   {
     "id": "i-adj-present",
@@ -215,9 +251,11 @@
     "pointEn": "i-adjective present (formal)",
     "category": "adjective-form",
     "module": "m8",
-    "status": "planned",
+    "status": "shipped",
     "notes": "い-adjective + です for polite predicate",
-    "dependsOn": ["desu-copula"]
+    "dependsOn": [
+      "desu-copula"
+    ]
   },
   {
     "id": "i-adj-negative",
@@ -225,9 +263,11 @@
     "pointEn": "i-adjective negative",
     "category": "adjective-form",
     "module": "m8",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Drop い, add くない; いい→よくない irregular",
-    "dependsOn": ["i-adj-present"]
+    "dependsOn": [
+      "i-adj-present"
+    ]
   },
   {
     "id": "to-and",
@@ -235,7 +275,7 @@
     "pointEn": "And / with (exhaustive list)",
     "category": "particle",
     "module": "m8",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Noun-と-noun for complete listing; contrast with や later",
     "dependsOn": []
   },
@@ -245,9 +285,11 @@
     "pointEn": "na-adjective present",
     "category": "adjective-form",
     "module": "m9",
-    "status": "planned",
+    "status": "shipped",
     "notes": "na-adj stem + です; な linking for noun modification",
-    "dependsOn": ["desu-copula"]
+    "dependsOn": [
+      "desu-copula"
+    ]
   },
   {
     "id": "na-adj-negative",
@@ -255,9 +297,12 @@
     "pointEn": "na-adjective negative",
     "category": "adjective-form",
     "module": "m9",
-    "status": "planned",
+    "status": "shipped",
     "notes": "na-adj stem + じゃないです",
-    "dependsOn": ["na-adj-present", "janai-desu"]
+    "dependsOn": [
+      "na-adj-present",
+      "janai-desu"
+    ]
   },
   {
     "id": "yo-emphasis",
@@ -265,9 +310,11 @@
     "pointEn": "Emphasis / assertion particle",
     "category": "particle",
     "module": "m9",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Sentence-final; conveys new information to listener",
-    "dependsOn": ["desu-copula"]
+    "dependsOn": [
+      "desu-copula"
+    ]
   },
   {
     "id": "ne-agreement",
@@ -275,9 +322,11 @@
     "pointEn": "Agreement-seeking particle",
     "category": "particle",
     "module": "m9",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Sentence-final; seeks confirmation or shared sentiment",
-    "dependsOn": ["desu-copula"]
+    "dependsOn": [
+      "desu-copula"
+    ]
   },
   {
     "id": "masu-past",
@@ -285,9 +334,11 @@
     "pointEn": "Polite past",
     "category": "verb-form",
     "module": "m10",
-    "status": "planned",
+    "status": "shipped",
     "notes": "ます stem + した; past tense polite",
-    "dependsOn": ["masu-present"]
+    "dependsOn": [
+      "masu-present"
+    ]
   },
   {
     "id": "desu-past",
@@ -295,9 +346,11 @@
     "pointEn": "Copula past",
     "category": "copula",
     "module": "m10",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Past tense of です",
-    "dependsOn": ["desu-copula"]
+    "dependsOn": [
+      "desu-copula"
+    ]
   },
   {
     "id": "i-adj-past",
@@ -305,9 +358,11 @@
     "pointEn": "i-adjective past",
     "category": "adjective-form",
     "module": "m10",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Drop い, add かった; いい→よかった irregular",
-    "dependsOn": ["i-adj-present"]
+    "dependsOn": [
+      "i-adj-present"
+    ]
   },
   {
     "id": "i-adj-past-negative",
@@ -315,9 +370,11 @@
     "pointEn": "i-adjective past negative",
     "category": "adjective-form",
     "module": "m10",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Drop い, add くなかった; completes i-adj paradigm",
-    "dependsOn": ["i-adj-negative"]
+    "dependsOn": [
+      "i-adj-negative"
+    ]
   },
   {
     "id": "na-adj-past",
@@ -325,19 +382,24 @@
     "pointEn": "na-adjective past",
     "category": "adjective-form",
     "module": "m10",
-    "status": "planned",
+    "status": "shipped",
     "notes": "na-adj stem + でした",
-    "dependsOn": ["na-adj-present", "desu-past"]
+    "dependsOn": [
+      "na-adj-present",
+      "desu-past"
+    ]
   },
   {
     "id": "ta-form",
     "point": "たーけい",
     "pointEn": "ta-form (plain past)",
     "category": "verb-form",
-    "module": "m10",
-    "status": "planned",
-    "notes": "Plain past; same sound changes as te-form",
-    "dependsOn": ["dictionary-form"]
+    "module": "m14",
+    "status": "shipped",
+    "notes": "Shipped in M14 as a derivative of te-form (te->ta swap), not in M10",
+    "dependsOn": [
+      "dictionary-form"
+    ]
   },
   {
     "id": "masu-negative",
@@ -345,9 +407,11 @@
     "pointEn": "Polite negative",
     "category": "verb-form",
     "module": "m11",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Polite negative present; ます stem + せん",
-    "dependsOn": ["masu-present"]
+    "dependsOn": [
+      "masu-present"
+    ]
   },
   {
     "id": "masu-past-negative",
@@ -355,9 +419,12 @@
     "pointEn": "Polite past negative",
     "category": "verb-form",
     "module": "m11",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Polite past negative; completes ます paradigm",
-    "dependsOn": ["masu-negative", "masu-past"]
+    "dependsOn": [
+      "masu-negative",
+      "masu-past"
+    ]
   },
   {
     "id": "nai-form",
@@ -365,9 +432,11 @@
     "pointEn": "Negative plain form",
     "category": "verb-form",
     "module": "m11",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Plain negative; a-column + ない; する→しない, くる→こない",
-    "dependsOn": ["dictionary-form"]
+    "dependsOn": [
+      "dictionary-form"
+    ]
   },
   {
     "id": "mada-mou",
@@ -375,9 +444,12 @@
     "pointEn": "Still / already",
     "category": "temporal",
     "module": "m11",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Temporal adverbs; もう+affirmative, まだ+negative patterns",
-    "dependsOn": ["masu-past", "masu-negative"]
+    "dependsOn": [
+      "masu-past",
+      "masu-negative"
+    ]
   },
   {
     "id": "ni-time",
@@ -385,9 +457,11 @@
     "pointEn": "Time marker",
     "category": "particle",
     "module": "m12",
-    "status": "planned",
+    "status": "shipped",
     "notes": "に for specific time points; no に for relative times",
-    "dependsOn": ["ni-location"]
+    "dependsOn": [
+      "ni-location"
+    ]
   },
   {
     "id": "numbers-11-99",
@@ -395,9 +469,11 @@
     "pointEn": "Numbers 11-99",
     "category": "number",
     "module": "m12",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Compound numbers; builds on 1-10 base",
-    "dependsOn": ["numbers-1-10"]
+    "dependsOn": [
+      "numbers-1-10"
+    ]
   },
   {
     "id": "counter-ji",
@@ -405,9 +481,12 @@
     "pointEn": "Counter for hours (時)",
     "category": "counter",
     "module": "m12",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Hour counter; irregular readings at 4時, 7時, 9時",
-    "dependsOn": ["numbers-1-10", "ni-time"]
+    "dependsOn": [
+      "numbers-1-10",
+      "ni-time"
+    ]
   },
   {
     "id": "counter-fun",
@@ -415,9 +494,12 @@
     "pointEn": "Counter for minutes (分)",
     "category": "counter",
     "module": "m12",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Minute counter; rendaku variations drilled",
-    "dependsOn": ["numbers-1-10", "ni-time"]
+    "dependsOn": [
+      "numbers-1-10",
+      "ni-time"
+    ]
   },
   {
     "id": "frequency-adverbs",
@@ -425,9 +507,12 @@
     "pointEn": "Frequency adverbs",
     "category": "temporal",
     "module": "m13",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Frequency spectrum; あまり/ぜんぜん require negative verb",
-    "dependsOn": ["masu-present", "masu-negative"]
+    "dependsOn": [
+      "masu-present",
+      "masu-negative"
+    ]
   },
   {
     "id": "made-until",
@@ -435,9 +520,11 @@
     "pointEn": "Until / up to",
     "category": "particle",
     "module": "m13",
-    "status": "planned",
+    "status": "shipped",
     "notes": "End point marker; often paired with から",
-    "dependsOn": ["kara-origin"]
+    "dependsOn": [
+      "kara-origin"
+    ]
   },
   {
     "id": "kara-time",
@@ -445,9 +532,12 @@
     "pointEn": "From (time)",
     "category": "particle",
     "module": "m13",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Time-range usage; から〜まで pattern",
-    "dependsOn": ["kara-origin", "ni-time"]
+    "dependsOn": [
+      "kara-origin",
+      "ni-time"
+    ]
   },
   {
     "id": "numbers-100-10000",
@@ -455,9 +545,11 @@
     "pointEn": "Numbers 100-10,000",
     "category": "number",
     "module": "m14",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Larger numbers; irregular 300/600/800, 3000/8000",
-    "dependsOn": ["numbers-11-99"]
+    "dependsOn": [
+      "numbers-11-99"
+    ]
   },
   {
     "id": "counter-ko",
@@ -465,9 +557,11 @@
     "pointEn": "Counter for general objects (個)",
     "category": "counter",
     "module": "m14",
-    "status": "planned",
+    "status": "shipped",
     "notes": "General-purpose counter; fallback for uncategorized objects",
-    "dependsOn": ["numbers-1-10"]
+    "dependsOn": [
+      "numbers-1-10"
+    ]
   },
   {
     "id": "counter-mai",
@@ -475,9 +569,11 @@
     "pointEn": "Counter for flat objects (枚)",
     "category": "counter",
     "module": "m14",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Paper, plates, tickets; no irregular readings",
-    "dependsOn": ["numbers-1-10"]
+    "dependsOn": [
+      "numbers-1-10"
+    ]
   },
   {
     "id": "counter-hon",
@@ -485,9 +581,11 @@
     "pointEn": "Counter for cylindrical objects (本)",
     "category": "counter",
     "module": "m14",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Bottles, pens, trees; rendaku at 1/3/6/8/10",
-    "dependsOn": ["numbers-1-10"]
+    "dependsOn": [
+      "numbers-1-10"
+    ]
   },
   {
     "id": "kanji-set-1",
@@ -505,9 +603,12 @@
     "pointEn": "Want to do",
     "category": "modal",
     "module": "m15",
-    "status": "planned",
+    "status": "shipped",
     "notes": "ます stem + たい; conjugates like i-adjective",
-    "dependsOn": ["masu-present", "i-adj-present"]
+    "dependsOn": [
+      "masu-present",
+      "i-adj-present"
+    ]
   },
   {
     "id": "ga-hoshii",
@@ -515,19 +616,24 @@
     "pointEn": "Want (thing)",
     "category": "modal",
     "module": "m15",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Noun-が-ほしい; only for speaker's desire",
-    "dependsOn": ["ga-existence"]
+    "dependsOn": [
+      "ga-existence"
+    ]
   },
   {
     "id": "suki-kirai-no",
     "point": "すき/きらい＋の",
     "pointEn": "Like / dislike doing",
     "category": "modal",
-    "module": "m15",
-    "status": "planned",
-    "notes": "Verb-の-が-すき/きらい pattern; nominalization with の",
-    "dependsOn": ["na-adj-present", "no-possession"]
+    "module": "m16",
+    "status": "shipped",
+    "notes": "Shipped in M16 (suki/kirai + noga), one module later than planned",
+    "dependsOn": [
+      "na-adj-present",
+      "no-possession"
+    ]
   },
   {
     "id": "kedo",
@@ -535,138 +641,169 @@
     "pointEn": "But / however (casual)",
     "category": "causality",
     "module": "m15",
-    "status": "planned",
+    "status": "shipped",
     "notes": "Clause connector; softer than が for contrast",
-    "dependsOn": ["masu-present"]
+    "dependsOn": [
+      "masu-present"
+    ]
   },
   {
     "id": "te-form",
     "point": "てーけい",
     "pointEn": "te-form (formation rules)",
     "category": "verb-form",
-    "module": "m16",
-    "status": "planned",
-    "notes": "Core conjugation; godan sound changes, ichidan drop, irregulars",
-    "dependsOn": ["dictionary-form"]
+    "module": "m14",
+    "status": "shipped",
+    "notes": "Shipped in M14 (formation rules), not M16",
+    "dependsOn": [
+      "dictionary-form"
+    ]
   },
   {
     "id": "te-kudasai",
     "point": "てください",
     "pointEn": "Please do (request)",
     "category": "request-permission",
-    "module": "m16",
-    "status": "planned",
-    "notes": "Verb-て + ください; polite request with verbs",
-    "dependsOn": ["te-form", "kudasai"]
+    "module": "m14",
+    "status": "shipped",
+    "notes": "Shipped in M14 (Formation + Requests), not M16",
+    "dependsOn": [
+      "te-form",
+      "kudasai"
+    ]
   },
   {
     "id": "te-iru",
     "point": "ている",
     "pointEn": "Progressive / resultant state",
     "category": "verb-form",
-    "module": "m16",
-    "status": "planned",
-    "notes": "Ongoing action or resultant state; formal ています",
-    "dependsOn": ["te-form", "imasu"]
+    "module": "m15",
+    "status": "shipped",
+    "notes": "Shipped in M15 (progressive), not M16",
+    "dependsOn": [
+      "te-form",
+      "imasu"
+    ]
   },
   {
     "id": "te-mo-ii",
     "point": "てもいいです",
     "pointEn": "May I / it's okay to",
     "category": "request-permission",
-    "module": "m17",
-    "status": "planned",
-    "notes": "Permission pattern; て-form + もいいです",
-    "dependsOn": ["te-form"]
+    "module": "m15",
+    "status": "shipped",
+    "notes": "Shipped in M15 (permission), not M17",
+    "dependsOn": [
+      "te-form"
+    ]
   },
   {
     "id": "te-wa-ikemasen",
     "point": "てはいけません",
     "pointEn": "Must not / prohibited",
     "category": "request-permission",
-    "module": "m17",
-    "status": "planned",
-    "notes": "Prohibition pattern; contrasts with てもいい",
-    "dependsOn": ["te-form"]
+    "module": "m16",
+    "status": "shipped",
+    "notes": "Shipped in M16 (prohibition), not M17",
+    "dependsOn": [
+      "te-form"
+    ]
   },
   {
     "id": "naide-kudasai",
     "point": "ないでください",
     "pointEn": "Please don't",
     "category": "request-permission",
-    "module": "m17",
-    "status": "planned",
-    "notes": "Negative request; ない-form + でください",
-    "dependsOn": ["nai-form", "kudasai"]
+    "module": "m16",
+    "status": "shipped",
+    "notes": "Shipped in M16, not M17",
+    "dependsOn": [
+      "nai-form",
+      "kudasai"
+    ]
   },
   {
     "id": "te-kara",
     "point": "てから",
     "pointEn": "After doing",
     "category": "temporal",
-    "module": "m17",
-    "status": "planned",
-    "notes": "Sequential actions; te-form + から",
-    "dependsOn": ["te-form"]
+    "module": "m16",
+    "status": "shipped",
+    "notes": "Shipped in M16, not M17",
+    "dependsOn": [
+      "te-form"
+    ]
   },
   {
     "id": "e-direction",
     "point": "へ",
     "pointEn": "Direction / toward",
     "category": "particle",
-    "module": "m18",
-    "status": "planned",
-    "notes": "Directional particle; overlaps with に but emphasizes direction",
-    "dependsOn": ["ni-location"]
+    "module": "m17",
+    "status": "shipped",
+    "notes": "Shipped in M17 (directions), not M18",
+    "dependsOn": [
+      "ni-location"
+    ]
   },
   {
     "id": "made-ni",
     "point": "までに",
     "pointEn": "By (deadline)",
     "category": "temporal",
-    "module": "m18",
-    "status": "planned",
-    "notes": "Deadline marker; distinct from まで (until)",
-    "dependsOn": ["made-until", "ni-time"]
+    "module": "m17",
+    "status": "shipped",
+    "notes": "Shipped in M17, not M18",
+    "dependsOn": [
+      "made-until",
+      "ni-time"
+    ]
   },
   {
     "id": "mae-ni",
     "point": "まえに",
     "pointEn": "Before (doing)",
     "category": "temporal",
-    "module": "m18",
-    "status": "planned",
-    "notes": "Dictionary-form + まえに; before an action",
-    "dependsOn": ["dictionary-form", "ni-time"]
+    "module": "m17",
+    "status": "shipped",
+    "notes": "Shipped in M17, not M18",
+    "dependsOn": [
+      "dictionary-form",
+      "ni-time"
+    ]
   },
   {
     "id": "deshou",
     "point": "でしょう",
     "pointEn": "Probably / I suppose",
     "category": "modal",
-    "module": "m19",
-    "status": "planned",
-    "notes": "Conjecture; softer than だろう; used for weather, guesses",
-    "dependsOn": ["desu-copula"]
+    "module": "m18",
+    "status": "shipped",
+    "notes": "Shipped in M18 (weather), not M19",
+    "dependsOn": [
+      "desu-copula"
+    ]
   },
   {
     "id": "to-omoimasu",
     "point": "とおもいます",
     "pointEn": "I think that",
     "category": "modal",
-    "module": "m19",
-    "status": "planned",
-    "notes": "Clause + と思います; expresses opinion",
-    "dependsOn": ["masu-present"]
+    "module": "m18",
+    "status": "shipped",
+    "notes": "Shipped in M18, not M19",
+    "dependsOn": [
+      "masu-present"
+    ]
   },
   {
     "id": "family-register",
     "point": "かぞくのことば",
     "pointEn": "Family register (uchi/soto terms)",
     "category": "number",
-    "module": "m20",
-    "status": "planned",
-    "notes": "In-group vs out-group family terms; cultural register",
+    "module": "m19",
+    "status": "shipped",
+    "notes": "Shipped in M19 (family), not M20",
     "dependsOn": []
   },
   {
@@ -674,60 +811,73 @@
     "point": "〜さい",
     "pointEn": "Counter for age (さい)",
     "category": "counter",
-    "module": "m20",
-    "status": "planned",
-    "notes": "Age counter; irregular はたち for 20; often with なんさい question",
-    "dependsOn": ["numbers-1-10"]
+    "module": "m19",
+    "status": "shipped",
+    "notes": "Shipped in M19, not M20",
+    "dependsOn": [
+      "numbers-1-10"
+    ]
   },
   {
     "id": "ga-itai",
     "point": "がいたい",
     "pointEn": "Hurts / is painful",
     "category": "adjective-form",
-    "module": "m21",
-    "status": "planned",
-    "notes": "Body-part-が-いたい; i-adjective pattern for pain",
-    "dependsOn": ["ga-existence", "i-adj-present"]
+    "module": "m20",
+    "status": "shipped",
+    "notes": "Shipped in M20 (body/health), not M21",
+    "dependsOn": [
+      "ga-existence",
+      "i-adj-present"
+    ]
   },
   {
     "id": "node-because",
     "point": "ので",
     "pointEn": "Because (neutral/formal reason)",
     "category": "causality",
-    "module": "m21",
-    "status": "planned",
-    "notes": "Neutral reason clause; softer than から; na-adj+な+ので",
-    "dependsOn": ["masu-present"]
+    "module": "m20",
+    "status": "shipped",
+    "notes": "Shipped in M20, not M21",
+    "dependsOn": [
+      "masu-present"
+    ]
   },
   {
     "id": "to-quotation",
     "point": "と（いんよう）",
     "pointEn": "Quotation marker",
     "category": "particle",
-    "module": "m22",
-    "status": "planned",
-    "notes": "Direct/indirect quotation; と言います, と思います",
-    "dependsOn": ["masu-present"]
+    "module": "m21",
+    "status": "shipped",
+    "notes": "Shipped in M21 (food/restaurants), not M22",
+    "dependsOn": [
+      "masu-present"
+    ]
   },
   {
     "id": "ya-incomplete-list",
     "point": "や",
     "pointEn": "And (incomplete list)",
     "category": "particle",
-    "module": "m22",
-    "status": "planned",
-    "notes": "Non-exhaustive listing; contrasts with と; A-や-B-など",
-    "dependsOn": ["to-and"]
+    "module": "m21",
+    "status": "shipped",
+    "notes": "Shipped in M21, not M22",
+    "dependsOn": [
+      "to-and"
+    ]
   },
   {
     "id": "counter-hai",
     "point": "〜はい/ばい/ぱい",
     "pointEn": "Counter for cups/glasses (杯)",
     "category": "counter",
-    "module": "m22",
-    "status": "planned",
-    "notes": "Cups, glasses, bowls; rendaku at 1/3/6/8/10",
-    "dependsOn": ["numbers-1-10"]
+    "module": "m21",
+    "status": "shipped",
+    "notes": "Shipped in M21, not M22",
+    "dependsOn": [
+      "numbers-1-10"
+    ]
   },
   {
     "id": "kanji-set-2",
@@ -737,187 +887,242 @@
     "module": "m23",
     "status": "planned",
     "notes": "Second batch of kanji reading recognition",
-    "dependsOn": ["kanji-set-1"]
+    "dependsOn": [
+      "kanji-set-1"
+    ]
   },
   {
     "id": "yori-comparison",
     "point": "より",
     "pointEn": "Comparison (more than)",
     "category": "comparison",
-    "module": "m24",
-    "status": "planned",
-    "notes": "A-は-B-より-adjective; comparison standard marker",
-    "dependsOn": ["wa-topic", "i-adj-present"]
+    "module": "m22",
+    "status": "shipped",
+    "notes": "Shipped in M22 (comparison), not M24",
+    "dependsOn": [
+      "wa-topic",
+      "i-adj-present"
+    ]
   },
   {
     "id": "ichiban-superlative",
     "point": "いちばん",
     "pointEn": "Most / superlative",
     "category": "comparison",
-    "module": "m24",
-    "status": "planned",
-    "notes": "一番 + adjective; superlative with の中で scope",
-    "dependsOn": ["i-adj-present"]
+    "module": "m22",
+    "status": "shipped",
+    "notes": "Shipped in M22, not M24",
+    "dependsOn": [
+      "i-adj-present"
+    ]
   },
   {
     "id": "no-ga-jouzu",
     "point": "のがじょうず",
     "pointEn": "Good at (doing)",
     "category": "modal",
-    "module": "m25",
-    "status": "planned",
-    "notes": "Verb-の-が-じょうず; skill description",
-    "dependsOn": ["na-adj-present", "no-possession"]
+    "module": "m23",
+    "status": "shipped",
+    "notes": "Shipped in M23 (capability), not M25",
+    "dependsOn": [
+      "na-adj-present",
+      "no-possession"
+    ]
   },
   {
     "id": "no-ga-heta",
     "point": "のがへた",
     "pointEn": "Bad at (doing)",
     "category": "modal",
-    "module": "m25",
-    "status": "planned",
-    "notes": "Verb-の-が-へた; paired with じょうず",
-    "dependsOn": ["na-adj-present", "no-possession"]
+    "module": "m23",
+    "status": "shipped",
+    "notes": "Shipped in M23, not M25",
+    "dependsOn": [
+      "na-adj-present",
+      "no-possession"
+    ]
   },
   {
     "id": "mashou",
     "point": "ましょう",
     "pointEn": "Let's (suggestion)",
     "category": "modal",
-    "module": "m25",
-    "status": "planned",
-    "notes": "ます stem + しょう; volitional polite form",
-    "dependsOn": ["masu-present"]
+    "module": "m23",
+    "status": "shipped",
+    "notes": "Shipped in M23, not M25",
+    "dependsOn": [
+      "masu-present"
+    ]
   },
   {
     "id": "masenka",
     "point": "ませんか",
     "pointEn": "Shall we / won't you",
     "category": "modal",
-    "module": "m25",
-    "status": "planned",
-    "notes": "Polite invitation; softer than ましょう",
-    "dependsOn": ["masu-negative", "ka-question"]
+    "module": "m23",
+    "status": "shipped",
+    "notes": "Shipped in M23, not M25",
+    "dependsOn": [
+      "masu-negative",
+      "ka-question"
+    ]
   },
   {
     "id": "no-ga-suki",
     "point": "のがすき",
     "pointEn": "Like doing",
     "category": "modal",
-    "module": "m26",
-    "status": "planned",
-    "notes": "Verb-の-が-すき; related to すき/きらい+の but verb-focused",
-    "dependsOn": ["suki-kirai-no"]
+    "module": "m24",
+    "status": "shipped",
+    "notes": "Shipped in M24 (hobbies; first taught M16), not M26",
+    "dependsOn": [
+      "suki-kirai-no"
+    ]
   },
   {
     "id": "tari-tari-suru",
     "point": "たり〜たりする",
     "pointEn": "Do things like A and B",
     "category": "verb-form",
-    "module": "m26",
-    "status": "planned",
-    "notes": "Non-exhaustive action listing; ta-form + り pattern",
-    "dependsOn": ["ta-form"]
+    "module": "m24",
+    "status": "shipped",
+    "notes": "Shipped in M24, not M26",
+    "dependsOn": [
+      "ta-form"
+    ]
   },
   {
     "id": "tsumori-desu",
     "point": "つもりです",
     "pointEn": "Intend to",
     "category": "modal",
-    "module": "m27",
-    "status": "planned",
-    "notes": "Dictionary-form + つもりです; intention expression",
-    "dependsOn": ["dictionary-form", "desu-copula"]
+    "module": "m25",
+    "status": "shipped",
+    "notes": "Shipped in M25 (plans), not M27",
+    "dependsOn": [
+      "dictionary-form",
+      "desu-copula"
+    ]
   },
   {
     "id": "ni-iku",
     "point": "にいく",
     "pointEn": "Go to do (purpose)",
     "category": "verb-form",
-    "module": "m27",
-    "status": "planned",
-    "notes": "ます stem + に行く; purpose of movement",
-    "dependsOn": ["masu-present", "ni-location"]
+    "module": "m25",
+    "status": "shipped",
+    "notes": "Shipped in M25, not M27",
+    "dependsOn": [
+      "masu-present",
+      "ni-location"
+    ]
   },
   {
     "id": "koto-ga-aru",
     "point": "ことがある",
     "pointEn": "Have experienced",
     "category": "verb-form",
-    "module": "m27",
-    "status": "planned",
-    "notes": "ta-form + ことがある; life experience pattern",
-    "dependsOn": ["ta-form", "ga-existence"]
+    "module": "m25",
+    "status": "shipped",
+    "notes": "Shipped in M25, not M27",
+    "dependsOn": [
+      "ta-form",
+      "ga-existence"
+    ]
   },
   {
     "id": "toki",
     "point": "とき",
     "pointEn": "When (temporal clause)",
     "category": "temporal",
-    "module": "m27",
-    "status": "planned",
-    "notes": "Clause + とき; tense in sub-clause affects meaning",
-    "dependsOn": ["dictionary-form", "ta-form"]
+    "module": "m25",
+    "status": "shipped",
+    "notes": "Shipped in M25, not M27",
+    "dependsOn": [
+      "dictionary-form",
+      "ta-form"
+    ]
   },
   {
     "id": "kara-because",
     "point": "から（りゆう）",
     "pointEn": "Because (reason)",
     "category": "causality",
-    "module": "m28",
-    "status": "planned",
+    "module": "m13",
+    "status": "shipped",
     "notes": "Reason clause; more direct/casual than ので",
-    "dependsOn": ["masu-present"]
+    "dependsOn": [
+      "masu-present"
+    ],
+    "note": "ships in m13 (Schedules & reasons); was planned for m28"
   },
   {
     "id": "n-desu",
     "point": "んです",
     "pointEn": "Explanatory / it is that",
     "category": "modal",
-    "module": "m28",
-    "status": "planned",
+    "module": "m26",
+    "status": "shipped",
     "notes": "Explanatory nuance; のです casual form; na-adj+な+んです",
-    "dependsOn": ["desu-copula"]
+    "dependsOn": [
+      "desu-copula"
+    ],
+    "note": "ships in m26 (Explaining why); was planned for m28"
   },
   {
     "id": "sugiru",
     "point": "すぎる",
     "pointEn": "Too much / excessively",
     "category": "modal",
-    "module": "m28",
-    "status": "planned",
+    "module": "m26",
+    "status": "shipped",
     "notes": "ます stem / adj stem + すぎる; excess expression",
-    "dependsOn": ["masu-present", "i-adj-present"]
+    "dependsOn": [
+      "masu-present",
+      "i-adj-present"
+    ],
+    "note": "ships in m26 (Explaining why); was planned for m28"
   },
   {
     "id": "nakereba-naranai",
     "point": "なければならない",
     "pointEn": "Must / have to",
     "category": "modal",
-    "module": "m29",
-    "status": "planned",
+    "module": "m27",
+    "status": "shipped",
     "notes": "ない-form stem + ければならない; obligation",
-    "dependsOn": ["nai-form"]
+    "dependsOn": [
+      "nai-form"
+    ],
+    "note": "ships in m27 (Must, should, become); was planned for m29"
   },
   {
     "id": "hou-ga-ii",
     "point": "ほうがいい",
     "pointEn": "Had better / should",
     "category": "modal",
-    "module": "m29",
-    "status": "planned",
+    "module": "m27",
+    "status": "shipped",
     "notes": "ta-form + ほうがいい (positive advice); ない + ほうがいい (negative)",
-    "dependsOn": ["ta-form", "nai-form"]
+    "dependsOn": [
+      "ta-form",
+      "nai-form"
+    ],
+    "note": "ships in m27 (Must, should, become); was planned for m29"
   },
   {
     "id": "ku-ni-naru",
     "point": "く/になる",
     "pointEn": "Become (change of state)",
     "category": "verb-form",
-    "module": "m29",
-    "status": "planned",
+    "module": "m27",
+    "status": "shipped",
     "notes": "i-adj くなる, na-adj になる; change of state expression",
-    "dependsOn": ["i-adj-present", "na-adj-present"]
+    "dependsOn": [
+      "i-adj-present",
+      "na-adj-present"
+    ],
+    "note": "ships in m27 (Must, should, become); was planned for m29"
   },
   {
     "id": "kanji-set-3",
@@ -927,6 +1132,8 @@
     "module": "m29",
     "status": "planned",
     "notes": "Third batch of kanji reading recognition",
-    "dependsOn": ["kanji-set-2"]
+    "dependsOn": [
+      "kanji-set-2"
+    ]
   }
 ]

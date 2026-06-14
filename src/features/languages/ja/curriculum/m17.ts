@@ -10,13 +10,18 @@
  *
  * Prereqs: M1-M16 grammar (に/で from M6, verb ます-form from M9+).
  *
- * Split into 14 sub-lessons + 1 story = 15 exports.
+ * Split into 14 registered sub-lessons + 1 story = 15 registered exports,
+ * plus 2 NOT-YET-REGISTERED expansion sub-lessons (M17_8_1, M17_8_2 —
+ * position words + asking a police officer; suggested registration slot is
+ * between ja-m17-4-2 and ja-m17-5-1).
  * Each sub-lesson has 18-22 steps. All vocab introductions use build() steps
  * where the learner assembles the word from tiles (figuroutable pattern).
  *
  * Vocab (~30): ふね, タクシー, バスてい, くうこう, きっぷ, のりもの,
  *   まっすぐ, みぎ, ひだり, むこう, そば, ちかく, となり, あいだ,
  *   のる, おりる, わたる, まがる, とまる
+ * Expansion vocab (M17_8_x, unregistered): まえ (front), うしろ, なか,
+ *   した, よこ, けいかん, ポスト
  *
  * ID scheme: ja-m17-{n}-{sub} e.g. ja-m17-1-1, ja-m17-1-2
  * Export names: M17_1_1, M17_1_2, M17_2_1, M17_2_2, etc.
@@ -26,7 +31,6 @@ import type { LessonContent } from "@/features/lesson/types";
 import {
   build,
   cloze,
-  dialogueListen,
   grammarRule,
   infoStep,
   listeningBuildSentence,
@@ -38,6 +42,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  storyComprehension,
   translateStep,
   vocabMcq,
   assertNoSameAnswerCluster,
@@ -232,7 +237,7 @@ const RULE_MAE_NI = grammarRule({
 //   (ふね, タクシー, バスてい, くうこう, きっぷ, のりもの + で transport)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_1_1_REVIEW = pickReviewAtoms("ja-m17-1-1-rev", M17_REVIEW_POOL, 4);
+const M17_1_1_REVIEW = pickReviewAtoms("ja-m17-1-1-rev", M17_REVIEW_POOL, 6);
 
 export const M17_1_1: LessonContent = {
   id: "ja-m17-1-1",
@@ -256,7 +261,7 @@ export const M17_1_1: LessonContent = {
       "ja-m17-1-1-build-fune",
       "Pick the Japanese word for: Boat / Ship",
       "ふね",
-      ["ふね", "タクシー", "バス", "くるま"],
+      ["バス", "タクシー", "ふね", "くるま"],
       ["ふね"],
     ),
     vocabMcq(
@@ -269,7 +274,7 @@ export const M17_1_1: LessonContent = {
       "ja-m17-1-1-build-takushii",
       "Pick the Japanese word for: Taxi",
       "タクシー",
-      ["タクシー", "バス", "ふね", "でんしゃ"],
+      ["ふね", "でんしゃ", "タクシー", "バス"],
       ["タクシー"],
     ),
     listeningCompSentence({
@@ -283,7 +288,7 @@ export const M17_1_1: LessonContent = {
       "ja-m17-1-1-build-basutei",
       "Pick the Japanese word for: Bus stop",
       "バスてい",
-      ["バスてい", "えき", "くうこう", "タクシー"],
+      ["えき", "タクシー", "バスてい", "くうこう"],
       ["バスてい"],
     ),
     speaking("ja-m17-1-1-speak-basutei", "バスてい", "Bus stop"),
@@ -292,7 +297,7 @@ export const M17_1_1: LessonContent = {
       "ja-m17-1-1-build-kuukou",
       "Pick the Japanese word for: Airport",
       "くうこう",
-      ["くうこう", "えき", "バスてい", "びょういん"],
+      ["えき", "びょういん", "バスてい", "くうこう"],
       ["くうこう"],
     ),
     vocabMcq(
@@ -305,7 +310,7 @@ export const M17_1_1: LessonContent = {
       "ja-m17-1-1-build-kippu",
       "Pick the Japanese word for: Ticket",
       "きっぷ",
-      ["きっぷ", "きって", "かばん", "おかね"],
+      ["きって", "おかね", "きっぷ", "かばん"],
       ["きっぷ"],
     ),
     listeningCompSentence({
@@ -319,21 +324,18 @@ export const M17_1_1: LessonContent = {
       "ja-m17-1-1-build-norimono",
       "Pick the Japanese word for: Vehicle / Ride",
       "のりもの",
-      ["のりもの", "たてもの", "のみもの", "たべもの"],
+      ["たてもの", "のみもの", "のりもの", "たべもの"],
       ["のりもの"],
     ),
     speaking("ja-m17-1-1-speak-norimono", "のりもの", "Vehicle"),
     // ── で transport drills ──
-    cloze(
-      "ja-m17-1-1-cloze-de",
-      "タクシー",
-      " くうこうに いきます。",
-      "で",
-      ["で", "に", "を", "は"],
-      "I go to the airport by taxi.",
-      "タクシーで くうこうに いきます。",
-      "で marks the means of transport — the taxi is the 'tool' for going.",
-    ),
+    listeningBuildSentence({
+      id: "ja-m17-1-1-lb-de",
+      target: "でんしゃで がっこうに いきます",
+      tiles: ["がっこう", "でんしゃ", "いきます", "で", "に", "タクシー"],
+      correctOrder: ["でんしゃ", "で", "がっこう", "に", "いきます"],
+      promptEn: "Hear it, build it: 'I go to school by train.'",
+    }),
     sentenceMcq({
       id: "ja-m17-1-1-mcq-fune-de",
       prompt: "Which sentence means 'I go by boat.'?",
@@ -392,7 +394,7 @@ assertNoConsecutiveSame(M17_1_1.steps);
 //   (drill で transport + vocab, review tail from M3-M7)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_1_2_REVIEW = pickReviewAtoms("ja-m17-1-2-rev", M17_REVIEW_POOL, 4);
+const M17_1_2_REVIEW = pickReviewAtoms("ja-m17-1-2-rev", M17_REVIEW_POOL, 6);
 
 export const M17_1_2: LessonContent = {
   id: "ja-m17-1-2",
@@ -415,7 +417,7 @@ export const M17_1_2: LessonContent = {
       "ja-m17-1-2-build-fune-de",
       "Say: I go to the island by boat.",
       "ふねで しまに いきます",
-      ["ふね", "で", "しま", "に", "いきます", "タクシー", "を"],
+      ["しま", "で", "を", "ふね", "タクシー", "いきます", "に"],
       ["ふね", "で", "しま", "に", "いきます"],
     ),
     listeningCompSentence({
@@ -428,16 +430,13 @@ export const M17_1_2: LessonContent = {
         "I go to the hospital by train.",
       ],
     }),
-    cloze(
-      "ja-m17-1-2-cloze-de-1",
-      "バス",
-      " がっこうに いきます。",
-      "で",
-      ["で", "に", "を", "は"],
-      "I go to school by bus.",
-      "バスで がっこうに いきます。",
-      "で marks the vehicle (bus) as the means of transport.",
-    ),
+    listeningBuildSentence({
+      id: "ja-m17-1-2-lb-de-1",
+      target: "バスで がっこうに いきます",
+      tiles: ["いきます", "バス", "がっこう", "で", "に", "を"],
+      correctOrder: ["バス", "で", "がっこう", "に", "いきます"],
+      promptEn: "Hear it, build it: 'I go to school by bus.'",
+    }),
     sentenceMcq({
       id: "ja-m17-1-2-mcq-kuukou",
       prompt: "Which sentence means 'I go to the airport by train.'?",
@@ -453,36 +452,37 @@ export const M17_1_2: LessonContent = {
       "ja-m17-1-2-build-kippu",
       "Say: I buy a ticket at the station.",
       "えきで きっぷを かいます",
-      ["えき", "で", "きっぷ", "を", "かいます", "に", "バスてい"],
+      ["で", "きっぷ", "えき", "バスてい", "に", "かいます", "を"],
       ["えき", "で", "きっぷ", "を", "かいます"],
     ),
-    cloze(
-      "ja-m17-1-2-cloze-ni-1",
-      "タクシーで くうこう",
-      " いきます。",
-      "に",
-      ["に", "で", "を", "が"],
-      "I go to the airport by taxi.",
-      "タクシーで くうこうに いきます。",
-      "に marks the destination — the airport is where you arrive.",
-    ),
+    sentenceMcq({
+      id: "ja-m17-1-2-mcq-byouin",
+      prompt: "Which sentence means 'I go to the hospital by bus.'?",
+      correctKana: "バスで びょういんに いきます。",
+      distractorsKana: [
+        "バスに びょういんで いきます。",
+        "バスを びょういんに いきます。",
+        "バスは びょういんを いきます。",
+      ],
+      explanation: "で marks the vehicle (bus); に marks the destination (hospital).",
+    }),
     listeningBuildSentence({
       id: "ja-m17-1-2-lb-fune",
       target: "ふねで いきます",
-      tiles: ["ふね", "で", "いきます", "に", "タクシー", "かえります"],
+      tiles: ["で", "に", "かえります", "いきます", "タクシー", "ふね"],
       correctOrder: ["ふね", "で", "いきます"],
       promptEn: "Hear it, build it: 'I go by boat.'",
     }),
     speaking(
       "ja-m17-1-2-speak-takushii",
-      "タクシーで くうこうに いきます",
-      "I go to the airport by taxi.",
+      "タクシーで えきに いきます",
+      "I go to the station by taxi.",
     ),
     build(
       "ja-m17-1-2-build-basutei",
       "Say: I wait at the bus stop.",
       "バスていで まちます",
-      ["バスてい", "で", "まちます", "に", "えき", "いきます"],
+      ["いきます", "まちます", "えき", "バスてい", "で", "に"],
       ["バスてい", "で", "まちます"],
     ),
     translateStep({
@@ -530,8 +530,8 @@ export const M17_1_2: LessonContent = {
     }),
     speaking(
       "ja-m17-1-2-speak-kippu",
-      "えきで きっぷを かいます",
-      "I buy a ticket at the station.",
+      "えきで ともだちを まちます",
+      "I wait for a friend at the station.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m17-1-2-rev-mcq-1", M17_1_2_REVIEW[0], M17_REVIEW_POOL),
@@ -564,7 +564,7 @@ assertNoConsecutiveSame(M17_1_2.steps);
 // M17-2-1 — "Where are you going?" (に destination + へ direction)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_2_1_REVIEW = pickReviewAtoms("ja-m17-2-1-rev", M17_REVIEW_POOL, 4);
+const M17_2_1_REVIEW = pickReviewAtoms("ja-m17-2-1-rev", M17_REVIEW_POOL, 6);
 
 export const M17_2_1: LessonContent = {
   id: "ja-m17-2-1",
@@ -589,7 +589,7 @@ export const M17_2_1: LessonContent = {
       "ja-m17-2-1-build-noru",
       "Pick the Japanese word for: Get on / Ride",
       "のる",
-      ["のる", "おりる", "いく", "くる"],
+      ["くる", "のる", "いく", "おりる"],
       ["のる"],
     ),
     listeningCompSentence({
@@ -603,7 +603,7 @@ export const M17_2_1: LessonContent = {
       "ja-m17-2-1-build-oriru",
       "Pick the Japanese word for: Get off",
       "おりる",
-      ["おりる", "のる", "とまる", "わたる"],
+      ["とまる", "わたる", "のる", "おりる"],
       ["おりる"],
     ),
     speaking("ja-m17-2-1-speak-oriru", "おりる", "Get off"),
@@ -612,19 +612,20 @@ export const M17_2_1: LessonContent = {
       "ja-m17-2-1-build-eki-ni",
       "Say: I go to the station.",
       "えきに いきます",
-      ["えき", "に", "いきます", "で", "へ", "かえります"],
+      ["に", "いきます", "かえります", "へ", "えき", "で"],
       ["えき", "に", "いきます"],
     ),
-    cloze(
-      "ja-m17-2-1-cloze-ni",
-      "くうこう",
-      " いきます。",
-      "に",
-      ["に", "で", "を", "は"],
-      "I go to the airport.",
-      "くうこうに いきます。",
-      "に marks the destination — the airport is where you arrive.",
-    ),
+    translateStep({
+      id: "ja-m17-2-1-translate-ni",
+      promptEn: "I go to the hospital.",
+      acceptedAnswers: [
+        "びょういんに いきます",
+        "びょういんに いきます。",
+        "びょういんへ いきます",
+        "びょういんへ いきます。",
+      ],
+      audioText: "びょういんに いきます",
+    }),
     // ── へ direction drills ──
     cloze(
       "ja-m17-2-1-cloze-e",
@@ -651,24 +652,24 @@ export const M17_2_1: LessonContent = {
       "ja-m17-2-1-build-noru-densha",
       "Say: I get on the train.",
       "でんしゃに のります",
-      ["でんしゃ", "に", "のります", "おります", "で", "を"],
+      ["で", "に", "のります", "おります", "でんしゃ", "を"],
       ["でんしゃ", "に", "のります"],
     ),
     listeningBuildSentence({
       id: "ja-m17-2-1-lb-oriru",
       target: "バスを おります",
-      tiles: ["バス", "を", "おります", "に", "のります", "で"],
+      tiles: ["のります", "おります", "で", "に", "を", "バス"],
       correctOrder: ["バス", "を", "おります"],
       promptEn: "Hear it, build it: 'I get off the bus.'",
     }),
     listeningCompSentence({
       id: "ja-m17-2-1-lc-noru-densha",
-      audioText: "でんしゃに のります",
-      correctMeaningEn: "I get on the train.",
+      audioText: "タクシーに のります",
+      correctMeaningEn: "I get in a taxi.",
       distractorsEn: [
-        "I get off the train.",
-        "I go by train.",
-        "I wait for the train.",
+        "I get out of a taxi.",
+        "I go by taxi.",
+        "I wait for a taxi.",
       ],
     }),
     selfExplain({
@@ -718,7 +719,7 @@ assertNoConsecutiveSame(M17_2_1.steps);
 // M17-2-2 — "Getting on and off" practice
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_2_2_REVIEW = pickReviewAtoms("ja-m17-2-2-rev", M17_REVIEW_POOL, 4);
+const M17_2_2_REVIEW = pickReviewAtoms("ja-m17-2-2-rev", M17_REVIEW_POOL, 6);
 
 export const M17_2_2: LessonContent = {
   id: "ja-m17-2-2",
@@ -740,7 +741,7 @@ export const M17_2_2: LessonContent = {
       "ja-m17-2-2-build-1",
       "Say: I get on the bus at the bus stop.",
       "バスていで バスに のります",
-      ["バスてい", "で", "バス", "に", "のります", "おります", "を"],
+      ["を", "おります", "バス", "のります", "バスてい", "に", "で"],
       ["バスてい", "で", "バス", "に", "のります"],
     ),
     listeningCompSentence({
@@ -753,48 +754,45 @@ export const M17_2_2: LessonContent = {
         "I wait for the train at the station.",
       ],
     }),
-    cloze(
-      "ja-m17-2-2-cloze-ni-1",
-      "でんしゃ",
-      " のります。",
-      "に",
-      ["に", "で", "を", "は"],
-      "I get on the train.",
-      "でんしゃに のります。",
-      "に marks what you board — のる takes に.",
-    ),
+    listeningBuildSentence({
+      id: "ja-m17-2-2-lb-noru",
+      target: "ふねに のります",
+      tiles: ["のります", "ふね", "に", "おります", "を"],
+      correctOrder: ["ふね", "に", "のります"],
+      promptEn: "Hear it, build it: 'I get on the boat.'",
+    }),
     sentenceMcq({
       id: "ja-m17-2-2-mcq-oriru",
-      prompt: "Which sentence means 'I get off the bus.'?",
-      correctKana: "バスを おります。",
+      prompt: "Which sentence means 'I get off the train.'?",
+      correctKana: "でんしゃを おります。",
       distractorsKana: [
-        "バスに のります。",
-        "バスで いきます。",
-        "バスに おります。",
+        "でんしゃに のります。",
+        "でんしゃで いきます。",
+        "でんしゃに おります。",
       ],
-      explanation: "おりる takes を — you exit FROM the bus.",
+      explanation: "おりる takes を — you exit FROM the train.",
     }),
     build(
       "ja-m17-2-2-build-2",
       "Say: I head toward the airport by taxi.",
       "タクシーで くうこうへ いきます",
-      ["タクシー", "で", "くうこう", "へ", "いきます", "に", "を"],
+      ["いきます", "で", "へ", "を", "に", "くうこう", "タクシー"],
       ["タクシー", "で", "くうこう", "へ", "いきます"],
     ),
-    cloze(
-      "ja-m17-2-2-cloze-wo",
-      "バス",
-      " おります。",
-      "を",
-      ["を", "に", "で", "へ"],
-      "I get off the bus.",
-      "バスを おります。",
-      "おりる takes を — you exit FROM the bus.",
-    ),
+    listeningCompSentence({
+      id: "ja-m17-2-2-lc-oriru-fune",
+      audioText: "ふねを おります",
+      correctMeaningEn: "I get off the boat.",
+      distractorsEn: [
+        "I get on the boat.",
+        "I go by boat.",
+        "I stop the boat.",
+      ],
+    }),
     listeningBuildSentence({
       id: "ja-m17-2-2-lb-1",
       target: "えきで でんしゃに のります",
-      tiles: ["えき", "で", "でんしゃ", "に", "のります", "おります", "を"],
+      tiles: ["のります", "でんしゃ", "に", "おります", "えき", "を", "で"],
       correctOrder: ["えき", "で", "でんしゃ", "に", "のります"],
       promptEn: "Hear it, build it: 'I get on the train at the station.'",
     }),
@@ -818,7 +816,7 @@ export const M17_2_2: LessonContent = {
       "ja-m17-2-2-build-3",
       "Say: I buy a ticket and get on the train.",
       "きっぷを かってから でんしゃに のります",
-      ["きっぷ", "を", "かって", "から", "でんしゃ", "に", "のります", "おります"],
+      ["を", "かって", "のります", "でんしゃ", "から", "きっぷ", "おります", "に"],
       ["きっぷ", "を", "かって", "から", "でんしゃ", "に", "のります"],
     ),
     listeningCompSentence({
@@ -836,7 +834,7 @@ export const M17_2_2: LessonContent = {
       "がっこう",
       " いきます。",
       "へ",
-      ["へ", "に", "で", "を"],
+      ["へ", "は", "で", "を"],
       "I head toward school.",
       "がっこうへ いきます。",
       "へ marks the direction of travel.",
@@ -889,7 +887,7 @@ assertNoConsecutiveSame(M17_2_2.steps);
 //   (まっすぐ, みぎ, ひだり, わたる, まがる, とまる)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_3_1_REVIEW = pickReviewAtoms("ja-m17-3-1-rev", M17_REVIEW_POOL, 4);
+const M17_3_1_REVIEW = pickReviewAtoms("ja-m17-3-1-rev", M17_REVIEW_POOL, 6);
 
 export const M17_3_1: LessonContent = {
   id: "ja-m17-3-1",
@@ -912,7 +910,7 @@ export const M17_3_1: LessonContent = {
       "ja-m17-3-1-build-massugu",
       "Pick the Japanese word for: Straight ahead",
       "まっすぐ",
-      ["まっすぐ", "みぎ", "ひだり", "うしろ"],
+      ["ひだり", "まっすぐ", "みぎ", "うしろ"],
       ["まっすぐ"],
     ),
     listeningCompSentence({
@@ -926,7 +924,7 @@ export const M17_3_1: LessonContent = {
       "ja-m17-3-1-build-migi",
       "Pick the Japanese word for: Right",
       "みぎ",
-      ["みぎ", "ひだり", "まっすぐ", "まえ"],
+      ["まっすぐ", "まえ", "ひだり", "みぎ"],
       ["みぎ"],
     ),
     vocabMcq(
@@ -939,7 +937,7 @@ export const M17_3_1: LessonContent = {
       "ja-m17-3-1-build-hidari",
       "Pick the Japanese word for: Left",
       "ひだり",
-      ["ひだり", "みぎ", "まっすぐ", "した"],
+      ["まっすぐ", "みぎ", "ひだり", "した"],
       ["ひだり"],
     ),
     vocabMcq(
@@ -952,7 +950,7 @@ export const M17_3_1: LessonContent = {
       "ja-m17-3-1-build-wataru",
       "Pick the Japanese word for: Cross (a street)",
       "わたる",
-      ["わたる", "まがる", "とまる", "あるく"],
+      ["あるく", "とまる", "わたる", "まがる"],
       ["わたる"],
     ),
     speaking("ja-m17-3-1-speak-wataru", "わたる", "Cross"),
@@ -961,7 +959,7 @@ export const M17_3_1: LessonContent = {
       "ja-m17-3-1-build-magaru",
       "Pick the Japanese word for: Turn",
       "まがる",
-      ["まがる", "わたる", "とまる", "はしる"],
+      ["とまる", "まがる", "わたる", "はしる"],
       ["まがる"],
     ),
     listeningCompSentence({
@@ -975,7 +973,7 @@ export const M17_3_1: LessonContent = {
       "ja-m17-3-1-build-tomaru",
       "Pick the Japanese word for: Stop",
       "とまる",
-      ["とまる", "まがる", "わたる", "のる"],
+      ["わたる", "とまる", "のる", "まがる"],
       ["とまる"],
     ),
     speaking("ja-m17-3-1-speak-tomaru", "とまる", "Stop"),
@@ -984,7 +982,7 @@ export const M17_3_1: LessonContent = {
       "ja-m17-3-1-build-migi-magaru",
       "Say: Please turn right.",
       "みぎへ まがってください",
-      ["みぎ", "へ", "まがって", "ください", "ひだり", "わたって"],
+      ["ひだり", "まがって", "ください", "へ", "みぎ", "わたって"],
       ["みぎ", "へ", "まがって", "ください"],
     ),
     cloze(
@@ -992,7 +990,7 @@ export const M17_3_1: LessonContent = {
       "ひだり",
       " まがってください。",
       "へ",
-      ["へ", "に", "で", "を"],
+      ["へ", "が", "で", "を"],
       "Please turn left.",
       "ひだりへ まがってください。",
       "へ marks the direction you turn toward.",
@@ -1054,7 +1052,7 @@ assertNoConsecutiveSame(M17_3_1.steps);
 // M17-3-2 — "Asking for directions" drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_3_2_REVIEW = pickReviewAtoms("ja-m17-3-2-rev", M17_REVIEW_POOL, 4);
+const M17_3_2_REVIEW = pickReviewAtoms("ja-m17-3-2-rev", M17_REVIEW_POOL, 6);
 
 export const M17_3_2: LessonContent = {
   id: "ja-m17-3-2",
@@ -1076,28 +1074,28 @@ export const M17_3_2: LessonContent = {
       "ja-m17-3-2-build-1",
       "Say: Please cross the street.",
       "みちを わたってください",
-      ["みち", "を", "わたって", "ください", "まがって", "へ"],
+      ["わたって", "へ", "ください", "を", "みち", "まがって"],
       ["みち", "を", "わたって", "ください"],
     ),
     listeningCompSentence({
       id: "ja-m17-3-2-lc-1",
-      audioText: "ひだりへ まがってください",
-      correctMeaningEn: "Please turn left.",
+      audioText: "ひだりへ まがってから、はしを わたってください",
+      correctMeaningEn: "Turn left, then cross the bridge.",
       distractorsEn: [
-        "Please turn right.",
-        "Please go straight.",
-        "Please stop here.",
+        "Cross the bridge, then turn left.",
+        "Turn right, then cross the bridge.",
+        "Turn left, then cross the street.",
       ],
     }),
     cloze(
       "ja-m17-3-2-cloze-e-1",
-      "みぎ",
-      " まがってください。",
+      "ゆうびんきょく",
+      " いきます。",
       "へ",
-      ["へ", "に", "で", "を"],
-      "Please turn right.",
-      "みぎへ まがってください。",
-      "へ marks the direction you turn toward.",
+      ["へ", "は", "で", "を"],
+      "I head toward the post office.",
+      "ゆうびんきょくへ いきます。",
+      "へ marks the direction of travel.",
     ),
     sentenceMcq({
       id: "ja-m17-3-2-mcq-wataru",
@@ -1114,25 +1112,22 @@ export const M17_3_2: LessonContent = {
       "ja-m17-3-2-build-2",
       "Say: Go straight, then turn left.",
       "まっすぐ いってから ひだりへ まがってください",
-      ["まっすぐ", "いって", "から", "ひだり", "へ", "まがって", "ください", "みぎ"],
+      ["へ", "まがって", "ください", "まっすぐ", "ひだり", "みぎ", "いって", "から"],
       ["まっすぐ", "いって", "から", "ひだり", "へ", "まがって", "ください"],
     ),
-    cloze(
-      "ja-m17-3-2-cloze-wo",
-      "みち",
-      " わたってください。",
-      "を",
-      ["を", "へ", "に", "で"],
-      "Please cross the street.",
-      "みちを わたってください。",
-      "を marks what you cross — the street.",
+    build(
+      "ja-m17-3-2-build-wataru-magaru",
+      "Say: Cross the street, then turn right.",
+      "みちを わたってから、みぎへ まがってください",
+      ["みぎ", "わたって", "みち", "を", "から", "へ", "まがって", "ください", "ひだり"],
+      ["みち", "を", "わたって", "から", "みぎ", "へ", "まがって", "ください"],
     ),
     listeningBuildSentence({
       id: "ja-m17-3-2-lb-1",
-      target: "みぎへ まがってください",
-      tiles: ["みぎ", "へ", "まがって", "ください", "ひだり", "わたって"],
-      correctOrder: ["みぎ", "へ", "まがって", "ください"],
-      promptEn: "Hear it, build it: 'Please turn right.'",
+      target: "ここで とまってください",
+      tiles: ["とまって", "ここ", "で", "ください", "まがって", "わたって"],
+      correctOrder: ["ここ", "で", "とまって", "ください"],
+      promptEn: "Hear it, build it: 'Please stop here.'",
     }),
     speaking(
       "ja-m17-3-2-speak-1",
@@ -1154,7 +1149,7 @@ export const M17_3_2: LessonContent = {
       "ja-m17-3-2-build-3",
       "Say: The bus stops here.",
       "バスは ここで とまります",
-      ["バス", "は", "ここ", "で", "とまります", "に", "いきます"],
+      ["に", "バス", "とまります", "は", "いきます", "で", "ここ"],
       ["バス", "は", "ここ", "で", "とまります"],
     ),
     listeningCompSentence({
@@ -1167,16 +1162,6 @@ export const M17_3_2: LessonContent = {
         "Go straight and stop.",
       ],
     }),
-    cloze(
-      "ja-m17-3-2-cloze-de",
-      "ここ",
-      " とまります。",
-      "で",
-      ["で", "に", "を", "へ"],
-      "It stops here.",
-      "ここで とまります。",
-      "で marks the location where the action happens — stopping here.",
-    ),
     sentenceMcq({
       id: "ja-m17-3-2-mcq-massugu",
       prompt: "Which sentence means 'Go straight, then cross the street.'?",
@@ -1201,8 +1186,8 @@ export const M17_3_2: LessonContent = {
     }),
     speaking(
       "ja-m17-3-2-speak-2",
-      "みちを わたってください",
-      "Please cross the street.",
+      "バスていで とまってください",
+      "Please stop at the bus stop.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m17-3-2-rev-mcq-1", M17_3_2_REVIEW[0], M17_REVIEW_POOL),
@@ -1236,7 +1221,7 @@ assertNoConsecutiveSame(M17_3_2.steps);
 //   (むこう, そば, ちかく, となり, あいだ)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_4_1_REVIEW = pickReviewAtoms("ja-m17-4-1-rev", M17_REVIEW_POOL, 4);
+const M17_4_1_REVIEW = pickReviewAtoms("ja-m17-4-1-rev", M17_REVIEW_POOL, 6);
 
 export const M17_4_1: LessonContent = {
   id: "ja-m17-4-1",
@@ -1259,7 +1244,7 @@ export const M17_4_1: LessonContent = {
       "ja-m17-4-1-build-mukou",
       "Pick the Japanese word for: The other side / Across",
       "むこう",
-      ["むこう", "そば", "ちかく", "となり"],
+      ["となり", "むこう", "ちかく", "そば"],
       ["むこう"],
     ),
     listeningCompSentence({
@@ -1273,7 +1258,7 @@ export const M17_4_1: LessonContent = {
       "ja-m17-4-1-build-soba",
       "Pick the Japanese word for: Beside / Near",
       "そば",
-      ["そば", "むこう", "ちかく", "あいだ"],
+      ["ちかく", "そば", "むこう", "あいだ"],
       ["そば"],
     ),
     speaking("ja-m17-4-1-speak-soba", "そば", "Beside / Near"),
@@ -1282,7 +1267,7 @@ export const M17_4_1: LessonContent = {
       "ja-m17-4-1-build-chikaku",
       "Pick the Japanese word for: Close / Nearby",
       "ちかく",
-      ["ちかく", "そば", "となり", "むこう"],
+      ["そば", "むこう", "となり", "ちかく"],
       ["ちかく"],
     ),
     listeningCompSentence({
@@ -1296,7 +1281,7 @@ export const M17_4_1: LessonContent = {
       "ja-m17-4-1-build-tonari",
       "Pick the Japanese word for: Next to",
       "となり",
-      ["となり", "ちかく", "そば", "あいだ"],
+      ["そば", "あいだ", "ちかく", "となり"],
       ["となり"],
     ),
     speaking("ja-m17-4-1-speak-tonari", "となり", "Next to"),
@@ -1305,7 +1290,7 @@ export const M17_4_1: LessonContent = {
       "ja-m17-4-1-build-aida",
       "Pick the Japanese word for: Between",
       "あいだ",
-      ["あいだ", "となり", "むこう", "そば"],
+      ["そば", "となり", "あいだ", "むこう"],
       ["あいだ"],
     ),
     listeningCompSentence({
@@ -1319,7 +1304,7 @@ export const M17_4_1: LessonContent = {
       "ja-m17-4-1-build-tonari-eki",
       "Say: The post office is next to the station.",
       "ゆうびんきょくは えきの となりです",
-      ["ゆうびんきょく", "は", "えき", "の", "となり", "です", "そば", "ちかく"],
+      ["そば", "は", "です", "となり", "ゆうびんきょく", "ちかく", "の", "えき"],
       ["ゆうびんきょく", "は", "えき", "の", "となり", "です"],
     ),
     cloze(
@@ -1346,7 +1331,7 @@ export const M17_4_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m17-4-1-lb-mukou",
       target: "みせは みちの むこうです",
-      tiles: ["みせ", "は", "みち", "の", "むこう", "です", "となり", "ちかく"],
+      tiles: ["です", "ちかく", "となり", "は", "みせ", "みち", "むこう", "の"],
       correctOrder: ["みせ", "は", "みち", "の", "むこう", "です"],
       promptEn: "Hear it, build it: 'The shop is across the street.'",
     }),
@@ -1397,7 +1382,7 @@ assertNoConsecutiveSame(M17_4_1.steps);
 // M17-4-2 — "Nearby places" drill
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_4_2_REVIEW = pickReviewAtoms("ja-m17-4-2-rev", M17_REVIEW_POOL, 4);
+const M17_4_2_REVIEW = pickReviewAtoms("ja-m17-4-2-rev", M17_REVIEW_POOL, 6);
 
 export const M17_4_2: LessonContent = {
   id: "ja-m17-4-2",
@@ -1419,7 +1404,7 @@ export const M17_4_2: LessonContent = {
       "ja-m17-4-2-build-1",
       "Say: The hospital is near the station.",
       "びょういんは えきの そばです",
-      ["びょういん", "は", "えき", "の", "そば", "です", "となり", "ちかく"],
+      ["ちかく", "そば", "は", "えき", "びょういん", "です", "の", "となり"],
       ["びょういん", "は", "えき", "の", "そば", "です"],
     ),
     listeningCompSentence({
@@ -1432,15 +1417,12 @@ export const M17_4_2: LessonContent = {
         "The convenience store is across from the bank.",
       ],
     }),
-    cloze(
-      "ja-m17-4-2-cloze-no-1",
-      "がっこう",
-      " そばに こうえんが あります。",
-      "の",
-      ["の", "に", "で", "は"],
-      "There's a park near the school.",
-      "がっこうの そばに こうえんが あります。",
-      "の connects the reference noun to the location word.",
+    build(
+      "ja-m17-4-2-build-chikaku",
+      "Say: There's a post office near the bank.",
+      "ぎんこうの ちかくに ゆうびんきょくが あります",
+      ["ゆうびんきょく", "ちかく", "ぎんこう", "の", "に", "が", "あります", "となり"],
+      ["ぎんこう", "の", "ちかく", "に", "ゆうびんきょく", "が", "あります"],
     ),
     sentenceMcq({
       id: "ja-m17-4-2-mcq-mukou",
@@ -1457,23 +1439,23 @@ export const M17_4_2: LessonContent = {
       "ja-m17-4-2-build-2",
       "Say: The park is between the school and the hospital.",
       "こうえんは がっこうと びょういんの あいだです",
-      ["こうえん", "は", "がっこう", "と", "びょういん", "の", "あいだ", "です", "そば"],
+      ["がっこう", "びょういん", "は", "こうえん", "そば", "あいだ", "です", "の", "と"],
       ["こうえん", "は", "がっこう", "と", "びょういん", "の", "あいだ", "です"],
     ),
-    cloze(
-      "ja-m17-4-2-cloze-no-2",
-      "えきと ゆうびんきょく",
-      " あいだに ぎんこうが あります。",
-      "の",
-      ["の", "に", "で", "が"],
-      "There's a bank between the station and the post office.",
-      "えきと ゆうびんきょくの あいだに ぎんこうが あります。",
-      "の connects the 'A と B' pair to あいだ.",
-    ),
+    listeningCompSentence({
+      id: "ja-m17-4-2-lc-aida",
+      audioText: "えきと ゆうびんきょくの あいだに ぎんこうが あります",
+      correctMeaningEn: "There's a bank between the station and the post office.",
+      distractorsEn: [
+        "There's a bank next to the station.",
+        "There's a post office between the station and the bank.",
+        "There's a bank across from the post office.",
+      ],
+    }),
     listeningBuildSentence({
       id: "ja-m17-4-2-lb-1",
       target: "びょういんは えきの ちかくです",
-      tiles: ["びょういん", "は", "えき", "の", "ちかく", "です", "となり", "むこう"],
+      tiles: ["の", "むこう", "です", "えき", "びょういん", "ちかく", "は", "となり"],
       correctOrder: ["びょういん", "は", "えき", "の", "ちかく", "です"],
       promptEn: "Hear it, build it: 'The hospital is near the station.'",
     }),
@@ -1495,7 +1477,7 @@ export const M17_4_2: LessonContent = {
       "ja-m17-4-2-build-3",
       "Say: There's a convenience store near the hospital.",
       "びょういんの ちかくに コンビニが あります",
-      ["びょういん", "の", "ちかく", "に", "コンビニ", "が", "あります", "は"],
+      ["の", "ちかく", "が", "は", "に", "あります", "コンビニ", "びょういん"],
       ["びょういん", "の", "ちかく", "に", "コンビニ", "が", "あります"],
     ),
     listeningCompSentence({
@@ -1508,15 +1490,12 @@ export const M17_4_2: LessonContent = {
         "The school is between the park and the hospital.",
       ],
     }),
-    cloze(
-      "ja-m17-4-2-cloze-ni",
-      "えきの そば",
-      " レストランが あります。",
-      "に",
-      ["に", "の", "で", "は"],
-      "There's a restaurant near the station.",
-      "えきの そばに レストランが あります。",
-      "に marks the location where something exists.",
+    build(
+      "ja-m17-4-2-build-soba",
+      "Say: There's a restaurant near the station.",
+      "えきの そばに レストランが あります",
+      ["レストラン", "そば", "えき", "の", "に", "が", "あります", "むこう"],
+      ["えき", "の", "そば", "に", "レストラン", "が", "あります"],
     ),
     selfExplain({
       id: "ja-m17-4-2-self-explain",
@@ -1562,10 +1541,371 @@ assertAnswerRotation(M17_4_2.steps, 1);
 assertNoConsecutiveSame(M17_4_2.steps);
 
 // ═══════════════════════════════════════════════════════════════════════
+// M17-8-1 — "Positions" (NOT YET REGISTERED — expansion pair 1/2)
+//   Backlog N5 position words: まえ (front), うしろ, なか, した, よこ.
+//   Suggested registration slot: between ja-m17-4-2 and ja-m17-5-1.
+// ═══════════════════════════════════════════════════════════════════════
+
+const M17_8_1_REVIEW = pickReviewAtoms("ja-m17-8-1-rev", M17_REVIEW_POOL, 6);
+
+export const M17_8_1: LessonContent = {
+  id: "ja-m17-8-1",
+  moduleId: "m17",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Positions (intro)",
+  description:
+    "Five position words: まえ (front), うしろ (behind), なか (inside), した (under), よこ (beside).",
+  estimatedMinutes: 9,
+  xpReward: 24,
+  steps: [
+    infoStep(
+      "ja-m17-8-1-info-open",
+      "In front, behind, inside",
+      "You can say near and next to. Now pinpoint things exactly — in front, behind, inside, under, and beside.",
+    ),
+    // ── まえ (front) ──
+    build(
+      "ja-m17-8-1-build-mae",
+      "Pick the Japanese word for: Front / In front",
+      "まえ",
+      ["うしろ", "まえ", "なか", "よこ"],
+      ["まえ"],
+    ),
+    listeningCompSentence({
+      id: "ja-m17-8-1-lc-mae",
+      audioText: "まえ",
+      correctMeaningEn: "front / in front",
+      distractorsEn: ["behind", "inside", "beside"],
+    }),
+    // ── うしろ (behind) ──
+    build(
+      "ja-m17-8-1-build-ushiro",
+      "Pick the Japanese word for: Behind",
+      "うしろ",
+      ["した", "なか", "うしろ", "まえ"],
+      ["うしろ"],
+    ),
+    speaking("ja-m17-8-1-speak-ushiro", "うしろ", "Behind"),
+    // ── なか (inside) ──
+    build(
+      "ja-m17-8-1-build-naka",
+      "Pick the Japanese word for: Inside",
+      "なか",
+      ["うしろ", "よこ", "した", "なか"],
+      ["なか"],
+    ),
+    listeningCompSentence({
+      id: "ja-m17-8-1-lc-naka",
+      audioText: "なか",
+      correctMeaningEn: "inside",
+      distractorsEn: ["under", "beside", "front"],
+    }),
+    // ── した (under) ──
+    build(
+      "ja-m17-8-1-build-shita",
+      "Pick the Japanese word for: Under / Below",
+      "した",
+      ["よこ", "した", "まえ", "なか"],
+      ["した"],
+    ),
+    speaking("ja-m17-8-1-speak-shita", "した", "Under / Below"),
+    // ── よこ (beside) ──
+    build(
+      "ja-m17-8-1-build-yoko",
+      "Pick the Japanese word for: Beside / Side",
+      "よこ",
+      ["まえ", "よこ", "うしろ", "した"],
+      ["よこ"],
+    ),
+    listeningCompSentence({
+      id: "ja-m17-8-1-lc-yoko",
+      audioText: "よこ",
+      correctMeaningEn: "beside / side",
+      distractorsEn: ["behind", "inside", "under"],
+    }),
+    // ── Position sentence drills ──
+    build(
+      "ja-m17-8-1-build-mae-eki",
+      "Say: The bus stop is in front of the station.",
+      "バスていは えきの まえに あります",
+      ["えき", "バスてい", "は", "の", "まえ", "に", "あります", "うしろ"],
+      ["バスてい", "は", "えき", "の", "まえ", "に", "あります"],
+    ),
+    sentenceMcq({
+      id: "ja-m17-8-1-mcq-naka",
+      prompt: "Which sentence means 'There's a ticket inside the bag.'?",
+      correctKana: "かばんの なかに きっぷが あります。",
+      distractorsKana: [
+        "かばんの したに きっぷが あります。",
+        "かばんの よこに きっぷが あります。",
+        "きっぷの なかに かばんが あります。",
+      ],
+      explanation: "かばんの なか = inside the bag. Same Noun + の + position pattern.",
+    }),
+    listeningBuildSentence({
+      id: "ja-m17-8-1-lb-shita",
+      target: "いすの したに ねこが います",
+      tiles: ["ねこ", "いす", "の", "した", "に", "が", "います", "よこ"],
+      correctOrder: ["いす", "の", "した", "に", "ねこ", "が", "います"],
+      promptEn: "Hear it, build it: 'The cat is under the chair.'",
+    }),
+    selfExplain({
+      id: "ja-m17-8-1-self-explain",
+      anchorLabel: "えきの まえに あります",
+      anchorAudioText: "バスていは えきの まえに あります",
+      question: "Do the new position words use the same pattern as となり and ちかく?",
+      rule: { text: "Yes — Reference Noun + の + position word + に. えきの まえ, かばんの なか, いすの した all follow the pattern you learned with となり and ちかく." },
+      surface: { text: "No — まえ and うしろ attach directly to the noun without の." },
+      distractor: { text: "Position words come BEFORE the reference noun: まえの えき." },
+      ruleExplanation:
+        "All relative-position words share one structure: Noun + の + {まえ/うしろ/なか/した/よこ/となり/そば/ちかく/あいだ/むこう} + に.",
+    }),
+    speaking(
+      "ja-m17-8-1-speak-ushiro-ginkou",
+      "ぎんこうの うしろに こうえんが あります",
+      "There's a park behind the bank.",
+    ),
+    // ── Review tail ──
+    vocabMcq("ja-m17-8-1-rev-mcq-1", M17_8_1_REVIEW[0], M17_REVIEW_POOL),
+    listeningCompSentence({
+      id: "ja-m17-8-1-rev-lc-1",
+      audioText: M17_8_1_REVIEW[1].kana,
+      correctMeaningEn: M17_8_1_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M17_8_1_REVIEW[2].meaningEn,
+        M17_8_1_REVIEW[3].meaningEn,
+        M17_REVIEW_POOL[0].meaningEn,
+      ],
+    }),
+    speaking("ja-m17-8-1-rev-speak-1", M17_8_1_REVIEW[2].kana, M17_8_1_REVIEW[2].meaningEn),
+    reviewMatchPairs("ja-m17-8-1-rev", M17_8_1_REVIEW),
+    infoStep(
+      "ja-m17-8-1-info-end",
+      "You can now pinpoint exactly where things are",
+      "まえ, うしろ, なか, した, よこ — five position words on the familiar Noun + の pattern.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M17_8_1.steps);
+assertAnswerRotation(M17_8_1.steps, 1);
+assertNoConsecutiveSame(M17_8_1.steps);
+
+// ═══════════════════════════════════════════════════════════════════════
+// M17-8-2 — "Asking a police officer" (NOT YET REGISTERED — expansion 2/2)
+//   Backlog N5 words: けいかん (police officer), ポスト (postbox).
+//   Practices the 8-1 position words with fresh sentences.
+// ═══════════════════════════════════════════════════════════════════════
+
+const M17_8_2_REVIEW = pickReviewAtoms("ja-m17-8-2-rev", M17_REVIEW_POOL, 6);
+
+export const M17_8_2: LessonContent = {
+  id: "ja-m17-8-2",
+  moduleId: "m17",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Asking a police officer",
+  description:
+    "けいかん (police officer) + ポスト (postbox) — ask where things are and use position words in fresh sentences.",
+  estimatedMinutes: 9,
+  xpReward: 24,
+  steps: [
+    infoStep(
+      "ja-m17-8-2-info-open",
+      "Lost? Ask the police officer",
+      "The classic move in Japan: ask the けいかん at the police box. Two new words, then position practice.",
+    ),
+    // ── けいかん (police officer) ──
+    build(
+      "ja-m17-8-2-build-keikan",
+      "Pick the Japanese word for: Police officer",
+      "けいかん",
+      ["せんせい", "けいかん", "がくせい", "ともだち"],
+      ["けいかん"],
+    ),
+    vocabMcq(
+      "ja-m17-8-2-mcq-keikan",
+      { kana: "けいかん", meaningEn: "police officer", emoji: "👮", fromModule: "m17" },
+      M17_REVIEW_POOL,
+    ),
+    // ── ポスト (postbox) ──
+    build(
+      "ja-m17-8-2-build-posuto",
+      "Pick the Japanese word for: Postbox",
+      "ポスト",
+      ["バスてい", "ポスト", "きっぷ", "ゆうびんきょく"],
+      ["ポスト"],
+    ),
+    vocabMcq(
+      "ja-m17-8-2-mcq-posuto",
+      { kana: "ポスト", meaningEn: "postbox", emoji: "📮", fromModule: "m17" },
+      M17_REVIEW_POOL,
+    ),
+    // ── Asking + position drills ──
+    build(
+      "ja-m17-8-2-build-doko",
+      "Say: Excuse me, where is the postbox?",
+      "すみません、ポストは どこですか",
+      ["どこですか", "すみません", "ポスト", "は", "ここですか", "けいかん"],
+      ["すみません", "ポスト", "は", "どこですか"],
+    ),
+    listeningCompSentence({
+      id: "ja-m17-8-2-lc-posuto-mae",
+      audioText: "ポストは ぎんこうの まえに あります",
+      correctMeaningEn: "The postbox is in front of the bank.",
+      distractorsEn: [
+        "The postbox is behind the bank.",
+        "The postbox is inside the bank.",
+        "The postbox is beside the bank.",
+      ],
+    }),
+    build(
+      "ja-m17-8-2-build-kikimasu",
+      "Say: I ask the police officer.",
+      "けいかんに ききます",
+      ["ききます", "けいかん", "に", "を", "いきます"],
+      ["けいかん", "に", "ききます"],
+    ),
+    sentenceMcq({
+      id: "ja-m17-8-2-mcq-ushiro",
+      prompt: "Which sentence means 'The police officer is behind the post office.'?",
+      correctKana: "けいかんは ゆうびんきょくの うしろに います。",
+      distractorsKana: [
+        "けいかんは ゆうびんきょくの まえに います。",
+        "けいかんは ゆうびんきょくの なかに います。",
+        "ゆうびんきょくは けいかんの うしろに あります。",
+      ],
+      explanation: "うしろ = behind. People take います, not あります.",
+    }),
+    listeningBuildSentence({
+      id: "ja-m17-8-2-lb-naka",
+      target: "でんしゃの なかで ほんを よみます",
+      tiles: ["ほん", "でんしゃ", "の", "なか", "で", "を", "よみます", "した"],
+      correctOrder: ["でんしゃ", "の", "なか", "で", "ほん", "を", "よみます"],
+      promptEn: "Hear it, build it: 'I read a book inside the train.'",
+    }),
+    translateStep({
+      id: "ja-m17-8-2-translate-1",
+      promptEn: "The postbox is beside the station.",
+      acceptedAnswers: [
+        "ポストは えきの よこに あります",
+        "ポストは えきの よこに あります。",
+        "ポストは えきの よこです",
+        "ポストは えきの よこです。",
+      ],
+      audioText: "ポストは えきの よこに あります",
+    }),
+    listeningCompSentence({
+      id: "ja-m17-8-2-lc-keikan",
+      audioText: "えきの まえで けいかんに ききます",
+      correctMeaningEn: "I ask the police officer in front of the station.",
+      distractorsEn: [
+        "I ask the police officer behind the station.",
+        "The police officer asks me at the station.",
+        "I listen to music in front of the station.",
+      ],
+    }),
+    selfExplain({
+      id: "ja-m17-8-2-self-explain",
+      anchorLabel: "けいかんに ききます",
+      anchorAudioText: "けいかんに ききます",
+      question: "Why に after けいかん with ききます?",
+      rule: { text: "きく here means 'to ask.' The person you ask is marked with に — けいかんに ききます = 'I ask the police officer.'" },
+      surface: { text: "に marks the place, so this means 'I listen at the police officer.'" },
+      distractor: { text: "ききます always means 'listen,' so you need を: けいかんを ききます." },
+      ruleExplanation:
+        "きく covers both 'listen' (おんがくを きく) and 'ask' (けいかんに きく). The particle tells you which: を = listen to, に = ask someone.",
+    }),
+    speaking(
+      "ja-m17-8-2-speak-1",
+      "すみません、ポストは どこですか",
+      "Excuse me, where is the postbox?",
+    ),
+    // ── おまわりさん (police officer, friendly) — everyday synonym of けいかん ──
+    build(
+      "ja-m17-8-2-build-omawarisan",
+      "Pick the friendly, everyday word for: police officer",
+      "おまわりさん",
+      ["せんせい", "おまわりさん", "けいかん", "ともだち"],
+      ["おまわりさん"],
+    ),
+    listeningCompSentence({
+      id: "ja-m17-8-2-lc-omawarisan",
+      audioText: "おまわりさん、ぎんこうは どこですか",
+      correctMeaningEn: "Officer, where is the bank?",
+      distractorsEn: [
+        "Officer, where is the station?",
+        "Teacher, where is the bank?",
+        "Officer, what time is it?",
+      ],
+    }),
+    // ── すぐに (right away) — new word ──
+    build(
+      "ja-m17-8-2-build-suguni",
+      "Pick the Japanese for: right away / immediately",
+      "すぐに",
+      ["あとで", "すぐに", "ゆっくり", "いつも"],
+      ["すぐに"],
+    ),
+    listeningBuildSentence({
+      id: "ja-m17-8-2-lb-suguni",
+      target: "すぐに みぎへ まがってください",
+      tiles: ["まがってください", "すぐに", "ひだりへ", "みぎへ", "あとで"],
+      correctOrder: ["すぐに", "みぎへ", "まがってください"],
+      promptEn: "Hear it, build it: 'Turn right immediately.'",
+    }),
+    // ── なくす (to lose) — new word; travel mishap ──
+    build(
+      "ja-m17-8-2-build-nakusu",
+      "Pick the Japanese for: to lose (something)",
+      "なくす",
+      ["かう", "なくす", "まつ", "とる"],
+      ["なくす"],
+    ),
+    listeningCompSentence({
+      id: "ja-m17-8-2-lc-nakusu",
+      audioText: "きっぷを なくしました",
+      correctMeaningEn: "I lost my ticket.",
+      distractorsEn: [
+        "I bought a ticket.",
+        "I found my ticket.",
+        "I forgot my ticket.",
+      ],
+    }),
+    // ── Review tail ──
+    vocabMcq("ja-m17-8-2-rev-mcq-1", M17_8_2_REVIEW[0], M17_REVIEW_POOL),
+    listeningCompSentence({
+      id: "ja-m17-8-2-rev-lc-1",
+      audioText: M17_8_2_REVIEW[1].kana,
+      correctMeaningEn: M17_8_2_REVIEW[1].meaningEn,
+      distractorsEn: [
+        M17_8_2_REVIEW[2].meaningEn,
+        M17_8_2_REVIEW[3].meaningEn,
+        M17_REVIEW_POOL[1].meaningEn,
+      ],
+    }),
+    speaking("ja-m17-8-2-rev-speak-1", M17_8_2_REVIEW[2].kana, M17_8_2_REVIEW[2].meaningEn),
+    reviewMatchPairs("ja-m17-8-2-rev", M17_8_2_REVIEW),
+    infoStep(
+      "ja-m17-8-2-info-end",
+      "You can now ask for directions like a traveler in Japan",
+      "すみません、ポストは どこですか — and you'll understand the answer, wherever it points you.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M17_8_2.steps);
+assertAnswerRotation(M17_8_2.steps, 1);
+assertNoConsecutiveSame(M17_8_2.steps);
+
+// ═══════════════════════════════════════════════════════════════════════
 // M17-5-1 — "By when?" (までに deadline)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_5_1_REVIEW = pickReviewAtoms("ja-m17-5-1-rev", M17_REVIEW_POOL, 4);
+const M17_5_1_REVIEW = pickReviewAtoms("ja-m17-5-1-rev", M17_REVIEW_POOL, 6);
 
 export const M17_5_1: LessonContent = {
   id: "ja-m17-5-1",
@@ -1589,28 +1929,28 @@ export const M17_5_1: LessonContent = {
       "ja-m17-5-1-build-goji",
       "Say: I'll be back by 5 o'clock.",
       "ごじまでに かえります",
-      ["ごじ", "までに", "かえります", "まで", "いきます"],
+      ["かえります", "いきます", "までに", "まで", "ごじ"],
       ["ごじ", "までに", "かえります"],
     ),
     listeningCompSentence({
       id: "ja-m17-5-1-lc-goji",
-      audioText: "ごじまでに かえります",
-      correctMeaningEn: "I'll be back by 5 o'clock.",
+      audioText: "よじまでに ぎんこうに いきます",
+      correctMeaningEn: "I'll go to the bank by 4 o'clock.",
       distractorsEn: [
-        "I go home until 5 o'clock.",
-        "I go home at 5 o'clock.",
-        "I'm back after 5 o'clock.",
+        "I'm at the bank until 4 o'clock.",
+        "I'll go to the bank at 4 o'clock.",
+        "I'll go to the bank after 4 o'clock.",
       ],
     }),
     cloze(
       "ja-m17-5-1-cloze-madeni-1",
-      "くじ",
-      " くうこうに いきます。",
+      "しちじ",
+      " えきに いきます。",
       "までに",
       ["までに", "まで", "に", "から"],
-      "I'll go to the airport by 9 o'clock.",
-      "くじまでに くうこうに いきます。",
-      "までに = by (deadline). The action must happen before 9.",
+      "I'll go to the station by 7 o'clock.",
+      "しちじまでに えきに いきます。",
+      "までに = by (deadline). The action must happen before 7.",
     ),
     sentenceMcq({
       id: "ja-m17-5-1-mcq-madeni",
@@ -1627,7 +1967,7 @@ export const M17_5_1: LessonContent = {
       "ja-m17-5-1-build-ashita",
       "Say: Please submit by tomorrow.",
       "あしたまでに だしてください",
-      ["あした", "までに", "だして", "ください", "まで", "から"],
+      ["ください", "まで", "だして", "から", "あした", "までに"],
       ["あした", "までに", "だして", "ください"],
     ),
     cloze(
@@ -1642,42 +1982,42 @@ export const M17_5_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m17-5-1-lb-madeni",
-      target: "ごじまでに かえります",
-      tiles: ["ごじ", "までに", "かえります", "まで", "いきます", "に"],
-      correctOrder: ["ごじ", "までに", "かえります"],
-      promptEn: "Hear it, build it: 'I'll be back by 5 o'clock.'",
+      target: "くじまでに がっこうに いきます",
+      tiles: ["がっこう", "くじ", "までに", "に", "いきます", "まで"],
+      correctOrder: ["くじ", "までに", "がっこう", "に", "いきます"],
+      promptEn: "Hear it, build it: 'I'll go to school by 9 o'clock.'",
     }),
     speaking(
       "ja-m17-5-1-speak-kuji",
-      "くじまでに くうこうに いきます",
-      "I'll go to the airport by 9 o'clock.",
+      "ろくじまでに うちに かえります",
+      "I'll get home by 6 o'clock.",
     ),
     translateStep({
       id: "ja-m17-5-1-translate-1",
-      promptEn: "I'll be back by 5 o'clock.",
+      promptEn: "I'll go home by 3 o'clock.",
       acceptedAnswers: [
-        "ごじまでに かえります",
-        "ごじまでに かえります。",
-        "ごじまでにかえります",
-        "ごじまでにかえります。",
+        "さんじまでに うちに かえります",
+        "さんじまでに うちに かえります。",
+        "さんじまでに かえります",
+        "さんじまでに かえります。",
       ],
-      audioText: "ごじまでに かえります",
+      audioText: "さんじまでに うちに かえります",
     }),
     build(
       "ja-m17-5-1-build-kuji",
       "Say: I'll go to the airport by 9 by taxi.",
       "くじまでに タクシーで くうこうに いきます",
-      ["くじ", "までに", "タクシー", "で", "くうこう", "に", "いきます", "まで"],
+      ["に", "までに", "タクシー", "いきます", "くじ", "くうこう", "で", "まで"],
       ["くじ", "までに", "タクシー", "で", "くうこう", "に", "いきます"],
     ),
     listeningCompSentence({
       id: "ja-m17-5-1-lc-made-vs-madeni",
-      audioText: "さんじまで べんきょうします",
-      correctMeaningEn: "I study until 3 o'clock.",
+      audioText: "あさまで ねます",
+      correctMeaningEn: "I sleep until morning.",
       distractorsEn: [
-        "I study by 3 o'clock.",
-        "I study at 3 o'clock.",
-        "I study after 3 o'clock.",
+        "I sleep by morning.",
+        "I sleep in the morning.",
+        "I wake up before morning.",
       ],
     }),
     selfExplain({
@@ -1693,8 +2033,8 @@ export const M17_5_1: LessonContent = {
     }),
     speaking(
       "ja-m17-5-1-speak-ashita",
-      "あしたまでに だしてください",
-      "Please submit by tomorrow.",
+      "あしたまでに しゅくだいを だします",
+      "I'll submit my homework by tomorrow.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m17-5-1-rev-mcq-1", M17_5_1_REVIEW[0], M17_REVIEW_POOL),
@@ -1727,7 +2067,7 @@ assertNoConsecutiveSame(M17_5_1.steps);
 // M17-5-2 — "Before doing" (まえに)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_5_2_REVIEW = pickReviewAtoms("ja-m17-5-2-rev", M17_REVIEW_POOL, 4);
+const M17_5_2_REVIEW = pickReviewAtoms("ja-m17-5-2-rev", M17_REVIEW_POOL, 6);
 
 export const M17_5_2: LessonContent = {
   id: "ja-m17-5-2",
@@ -1751,95 +2091,95 @@ export const M17_5_2: LessonContent = {
       "ja-m17-5-2-build-gohan",
       "Say: I wash my hands before the meal.",
       "ごはんの まえに てを あらいます",
-      ["ごはん", "の", "まえに", "て", "を", "あらいます", "あとで", "から"],
+      ["て", "の", "ごはん", "から", "あとで", "を", "まえに", "あらいます"],
       ["ごはん", "の", "まえに", "て", "を", "あらいます"],
     ),
     listeningCompSentence({
       id: "ja-m17-5-2-lc-gohan",
-      audioText: "ごはんの まえに てを あらいます",
-      correctMeaningEn: "I wash my hands before the meal.",
+      audioText: "かいものの まえに ぎんこうに いきます",
+      correctMeaningEn: "I go to the bank before shopping.",
       distractorsEn: [
-        "I wash my hands after the meal.",
-        "I eat before washing my hands.",
-        "I wash my hands during the meal.",
+        "After shopping, I go to the bank.",
+        "Before going to the bank, I go shopping.",
+        "I buy things at the bank.",
       ],
     }),
     cloze(
       "ja-m17-5-2-cloze-maeni-1",
-      "ねる",
-      " ほんを よみます。",
+      "テレビを みる",
+      " しゅくだいを します。",
       "まえに",
       ["まえに", "あとで", "から", "ので"],
-      "I read a book before sleeping.",
-      "ねる まえに ほんを よみます。",
+      "I do my homework before watching TV.",
+      "テレビを みる まえに しゅくだいを します。",
       "Verb (dictionary form) + まえに = before doing.",
     ),
     sentenceMcq({
       id: "ja-m17-5-2-mcq-maeni",
-      prompt: "Which sentence means 'I buy a ticket before leaving.'?",
-      correctKana: "でかける まえに きっぷを かいます。",
+      prompt: "Which sentence means 'I drink tea before studying.'?",
+      correctKana: "べんきょうする まえに おちゃを のみます。",
       distractorsKana: [
-        "でかけてから きっぷを かいます。",
-        "でかける あとで きっぷを かいます。",
-        "きっぷを かってから でかけます。",
+        "べんきょうしてから おちゃを のみます。",
+        "べんきょうする あとで おちゃを のみます。",
+        "おちゃを のんでから べんきょうします。",
       ],
-      explanation: "でかける まえに = before leaving. Dictionary form + まえに.",
+      explanation: "べんきょうする まえに = before studying. Dictionary form + まえに.",
     }),
     build(
       "ja-m17-5-2-build-neru",
       "Say: I read before sleeping.",
       "ねる まえに ほんを よみます",
-      ["ねる", "まえに", "ほん", "を", "よみます", "あとで", "から"],
+      ["を", "から", "よみます", "ねる", "ほん", "まえに", "あとで"],
       ["ねる", "まえに", "ほん", "を", "よみます"],
     ),
     cloze(
-      "ja-m17-5-2-cloze-no",
-      "ごはん",
-      " まえに てを あらいます。",
-      "の",
-      ["の", "に", "で", "を"],
-      "I wash my hands before the meal.",
-      "ごはんの まえに てを あらいます。",
-      "Nouns need の before まえに. Verbs connect directly.",
+      "ja-m17-5-2-cloze-maeni-2",
+      "えいがの",
+      " ひるごはんを たべます。",
+      "まえに",
+      ["まえに", "あとで", "までに", "から"],
+      "I eat lunch before the movie.",
+      "えいがの まえに ひるごはんを たべます。",
+      "Noun + の + まえに = before [noun]. Verbs connect directly.",
     ),
     listeningBuildSentence({
       id: "ja-m17-5-2-lb-1",
-      target: "ねる まえに ほんを よみます",
-      tiles: ["ねる", "まえに", "ほん", "を", "よみます", "あとで", "てを"],
-      correctOrder: ["ねる", "まえに", "ほん", "を", "よみます"],
-      promptEn: "Hear it, build it: 'I read a book before sleeping.'",
+      target: "ねる まえに シャワーを あびます",
+      tiles: ["シャワー", "ねる", "まえに", "を", "あびます", "あとで"],
+      correctOrder: ["ねる", "まえに", "シャワー", "を", "あびます"],
+      promptEn: "Hear it, build it: 'I take a shower before sleeping.'",
     }),
     speaking(
       "ja-m17-5-2-speak-gohan",
-      "ごはんの まえに てを あらいます",
-      "I wash my hands before the meal.",
+      "しごとの まえに コーヒーを のみます",
+      "I drink coffee before work.",
     ),
     build(
       "ja-m17-5-2-build-dekakeru",
       "Say: I buy a ticket before going out.",
       "でかける まえに きっぷを かいます",
-      ["でかける", "まえに", "きっぷ", "を", "かいます", "の", "から"],
+      ["まえに", "の", "きっぷ", "かいます", "でかける", "から", "を"],
       ["でかける", "まえに", "きっぷ", "を", "かいます"],
     ),
     translateStep({
       id: "ja-m17-5-2-translate-1",
-      promptEn: "I read a book before sleeping.",
+      promptEn: "I study before the test.",
       acceptedAnswers: [
-        "ねる まえに ほんを よみます",
-        "ねる まえに ほんを よみます。",
-        "ねるまえに ほんを よみます",
-        "ねるまえに ほんを よみます。",
+        "テストの まえに べんきょうします",
+        "テストの まえに べんきょうします。",
+        "テストのまえに べんきょうします",
+        "テストのまえに べんきょうします。",
       ],
-      audioText: "ねる まえに ほんを よみます",
+      audioText: "テストの まえに べんきょうします",
     }),
     listeningCompSentence({
       id: "ja-m17-5-2-lc-dekakeru",
-      audioText: "でかける まえに きっぷを かいます",
-      correctMeaningEn: "I buy a ticket before going out.",
+      audioText: "がっこうに いく まえに あさごはんを たべます",
+      correctMeaningEn: "I eat breakfast before going to school.",
       distractorsEn: [
-        "After going out, I buy a ticket.",
-        "I buy a ticket and go out.",
-        "I go out to buy a ticket.",
+        "After going to school, I eat breakfast.",
+        "I go to school before eating breakfast.",
+        "I eat lunch before going to school.",
       ],
     }),
     sentenceMcq({
@@ -1866,8 +2206,8 @@ export const M17_5_2: LessonContent = {
     }),
     speaking(
       "ja-m17-5-2-speak-dekakeru",
-      "でかける まえに きっぷを かいます",
-      "I buy a ticket before going out.",
+      "ねる まえに にほんごを べんきょうします",
+      "I study Japanese before sleeping.",
     ),
     // ── Review tail ──
     vocabMcq("ja-m17-5-2-rev-mcq-1", M17_5_2_REVIEW[0], M17_REVIEW_POOL),
@@ -1900,7 +2240,7 @@ assertNoConsecutiveSame(M17_5_2.steps);
 // M17-6-1 — Interleaved drill (all M17 grammar)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_6_1_REVIEW = pickReviewAtoms("ja-m17-6-1-rev", M17_REVIEW_POOL, 5);
+const M17_6_1_REVIEW = pickReviewAtoms("ja-m17-6-1-rev", M17_REVIEW_POOL, 6);
 
 export const M17_6_1: LessonContent = {
   id: "ja-m17-6-1",
@@ -1933,93 +2273,93 @@ export const M17_6_1: LessonContent = {
       "くうこう",
       " いきます。",
       "に",
-      ["に", "で", "へ", "を"],
+      ["に", "で", "が", "を"],
       "I go to the airport.",
       "くうこうに いきます。",
       "に marks the destination you arrive at.",
     ),
     cloze(
       "ja-m17-6-1-cloze-e",
-      "みぎ",
+      "バスていで みぎ",
       " まがってください。",
       "へ",
-      ["へ", "に", "で", "を"],
-      "Please turn right.",
-      "みぎへ まがってください。",
+      ["へ", "を", "が", "は"],
+      "Please turn right at the bus stop.",
+      "バスていで みぎへ まがってください。",
       "へ marks the direction you turn toward.",
     ),
     build(
       "ja-m17-6-1-build-1",
       "Say: I'll go to the airport by 9 by taxi.",
       "くじまでに タクシーで くうこうに いきます",
-      ["くじ", "までに", "タクシー", "で", "くうこう", "に", "いきます", "へ"],
+      ["くうこう", "タクシー", "くじ", "で", "に", "までに", "へ", "いきます"],
       ["くじ", "までに", "タクシー", "で", "くうこう", "に", "いきます"],
     ),
     listeningCompSentence({
       id: "ja-m17-6-1-lc-1",
-      audioText: "でかける まえに きっぷを かいます",
-      correctMeaningEn: "I buy a ticket before going out.",
+      audioText: "でんしゃに のる まえに きっぷを かいます",
+      correctMeaningEn: "I buy a ticket before getting on the train.",
       distractorsEn: [
-        "After going out, I buy a ticket.",
-        "I buy a ticket by going out.",
-        "I go out to buy a ticket.",
+        "After getting on the train, I buy a ticket.",
+        "I buy a ticket before getting off the train.",
+        "I get on the train before buying a ticket.",
       ],
     }),
     cloze(
       "ja-m17-6-1-cloze-madeni",
-      "ごじ",
-      " かえります。",
+      "じゅうじ",
+      " ねます。",
       "までに",
       ["までに", "まで", "に", "で"],
-      "I'll be back by 5.",
-      "ごじまでに かえります。",
-      "までに = by (deadline).",
+      "I go to bed by 10.",
+      "じゅうじまでに ねます。",
+      "までに = by (deadline) — the going-to-bed happens before 10.",
     ),
     sentenceMcq({
       id: "ja-m17-6-1-mcq-maeni",
-      prompt: "Which sentence means 'Before the meal, I wash my hands.'?",
-      correctKana: "ごはんの まえに てを あらいます。",
+      prompt: "Which sentence means 'Before shopping, I go to the bank.'?",
+      correctKana: "かいものの まえに ぎんこうに いきます。",
       distractorsKana: [
-        "ごはんの あとで てを あらいます。",
-        "ごはんまでに てを あらいます。",
-        "ごはんから てを あらいます。",
+        "かいものの あとで ぎんこうに いきます。",
+        "かいものまでに ぎんこうに いきます。",
+        "ぎんこうに いく まえに かいものを します。",
       ],
-      explanation: "noun の まえに = before the [noun].",
+      explanation: "noun の まえに = before the [noun]. かいものの まえに = before shopping.",
     }),
     build(
       "ja-m17-6-1-build-2",
       "Say: Before sleeping, I read a book.",
       "ねる まえに ほんを よみます",
-      ["ねる", "まえに", "ほん", "を", "よみます", "から", "あとで"],
+      ["から", "よみます", "あとで", "を", "まえに", "ねる", "ほん"],
       ["ねる", "まえに", "ほん", "を", "よみます"],
     ),
     cloze(
       "ja-m17-6-1-cloze-maeni",
-      "ねる",
-      " ほんを よみます。",
+      "あさごはんの",
+      " シャワーを あびます。",
       "まえに",
       ["まえに", "までに", "あとで", "から"],
-      "I read a book before sleeping.",
-      "ねる まえに ほんを よみます。",
-      "Verb dictionary form + まえに = before doing.",
+      "I take a shower before breakfast.",
+      "あさごはんの まえに シャワーを あびます。",
+      "Noun + の + まえに = before [noun].",
     ),
     listeningBuildSentence({
       id: "ja-m17-6-1-lb-1",
       target: "ふねで しまに いきます",
-      tiles: ["ふね", "で", "しま", "に", "いきます", "へ", "まで"],
+      tiles: ["へ", "ふね", "しま", "で", "まで", "に", "いきます"],
       correctOrder: ["ふね", "で", "しま", "に", "いきます"],
       promptEn: "Hear it, build it: 'I go to the island by boat.'",
     }),
     speaking(
       "ja-m17-6-1-speak-1",
-      "くじまでに タクシーで くうこうに いきます",
-      "I'll go to the airport by 9 by taxi.",
+      "はちじまでに バスで がっこうに いきます",
+      "I'll go to school by bus by 8.",
     ),
     build(
       "ja-m17-6-1-build-3",
       "Say: Go straight, then turn left.",
       "まっすぐ いってから ひだりへ まがってください",
-      ["まっすぐ", "いって", "から", "ひだり", "へ", "まがって", "ください", "みぎ"],
+      ["いって", "から", "へ", "まがって", "ひだり", "ください", "まっすぐ", "みぎ"],
       ["まっすぐ", "いって", "から", "ひだり", "へ", "まがって", "ください"],
     ),
     listeningCompSentence({
@@ -2045,8 +2385,8 @@ export const M17_6_1: LessonContent = {
     }),
     speaking(
       "ja-m17-6-1-speak-2",
-      "ごはんの まえに てを あらいます",
-      "I wash my hands before the meal.",
+      "ひるごはんの まえに てを あらいます",
+      "I wash my hands before lunch.",
     ),
     // ── Review tail ──
     speaking("ja-m17-6-1-rev-speak-1", M17_6_1_REVIEW[0].kana, M17_6_1_REVIEW[0].meaningEn),
@@ -2061,7 +2401,7 @@ export const M17_6_1: LessonContent = {
       ],
     }),
     vocabMcq("ja-m17-6-1-rev-mcq-1", M17_6_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
-    reviewMatchPairs("ja-m17-6-1-rev", M17_6_1_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m17-6-1-rev", M17_6_1_REVIEW),
     infoStep(
       "ja-m17-6-1-info-end",
       "You can now mix all M17 particles in complex sentences",
@@ -2079,7 +2419,7 @@ assertNoConsecutiveSame(M17_6_1.steps);
 // M17-6-2 — Interleaved drill II (production-heavy)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_6_2_REVIEW = pickReviewAtoms("ja-m17-6-2-rev", M17_REVIEW_POOL, 5);
+const M17_6_2_REVIEW = pickReviewAtoms("ja-m17-6-2-rev", M17_REVIEW_POOL, 6);
 
 export const M17_6_2: LessonContent = {
   id: "ja-m17-6-2",
@@ -2101,30 +2441,30 @@ export const M17_6_2: LessonContent = {
       "ja-m17-6-2-build-1",
       "Say: I go to school by bus.",
       "バスで がっこうに いきます",
-      ["バス", "で", "がっこう", "に", "いきます", "へ", "タクシー"],
+      ["タクシー", "へ", "がっこう", "いきます", "バス", "に", "で"],
       ["バス", "で", "がっこう", "に", "いきます"],
     ),
     speaking(
       "ja-m17-6-2-speak-1",
-      "バスで がっこうに いきます",
-      "I go to school by bus.",
+      "タクシーで うちに かえります",
+      "I go home by taxi.",
     ),
     translateStep({
       id: "ja-m17-6-2-translate-1",
-      promptEn: "Please turn right.",
+      promptEn: "Turn left at the bus stop.",
       acceptedAnswers: [
-        "みぎへ まがってください",
-        "みぎへ まがってください。",
-        "みぎに まがってください",
-        "みぎに まがってください。",
+        "バスていで ひだりへ まがってください",
+        "バスていで ひだりへ まがってください。",
+        "バスていで ひだりに まがってください",
+        "バスていで ひだりに まがってください。",
       ],
-      audioText: "みぎへ まがってください",
+      audioText: "バスていで ひだりへ まがってください",
     }),
     build(
       "ja-m17-6-2-build-2",
       "Say: I'll be back by 5 by taxi.",
       "ごじまでに タクシーで かえります",
-      ["ごじ", "までに", "タクシー", "で", "かえります", "まで", "に"],
+      ["かえります", "ごじ", "までに", "タクシー", "まで", "で", "に"],
       ["ごじ", "までに", "タクシー", "で", "かえります"],
     ),
     listeningCompSentence({
@@ -2139,15 +2479,15 @@ export const M17_6_2: LessonContent = {
     }),
     speaking(
       "ja-m17-6-2-speak-2",
-      "ごじまでに かえります",
-      "I'll be back by 5.",
+      "しちじまでに うちに かえります",
+      "I'll get home by 7.",
     ),
     build(
       "ja-m17-6-2-build-3",
-      "Say: Before the meal, I wash my hands.",
-      "ごはんの まえに てを あらいます",
-      ["ごはん", "の", "まえに", "て", "を", "あらいます", "から"],
-      ["ごはん", "の", "まえに", "て", "を", "あらいます"],
+      "Say: Before breakfast, I wash my face.",
+      "あさごはんの まえに かおを あらいます",
+      ["かお", "あさごはん", "の", "まえに", "を", "あらいます", "から"],
+      ["あさごはん", "の", "まえに", "かお", "を", "あらいます"],
     ),
     translateStep({
       id: "ja-m17-6-2-translate-2",
@@ -2174,13 +2514,13 @@ export const M17_6_2: LessonContent = {
       "ja-m17-6-2-build-4",
       "Say: I get off the bus and cross the street.",
       "バスを おりてから みちを わたります",
-      ["バス", "を", "おりて", "から", "みち", "を", "わたります", "に"],
+      ["わたります", "から", "バス", "を", "に", "おりて", "を", "みち"],
       ["バス", "を", "おりて", "から", "みち", "を", "わたります"],
     ),
     listeningBuildSentence({
       id: "ja-m17-6-2-lb-1",
       target: "でかける まえに きっぷを かいます",
-      tiles: ["でかける", "まえに", "きっぷ", "を", "かいます", "から", "あとで"],
+      tiles: ["きっぷ", "を", "あとで", "かいます", "から", "でかける", "まえに"],
       correctOrder: ["でかける", "まえに", "きっぷ", "を", "かいます"],
       promptEn: "Hear it, build it: 'I buy a ticket before going out.'",
     }),
@@ -2189,16 +2529,17 @@ export const M17_6_2: LessonContent = {
       "まっすぐ いってから みぎへ まがってください",
       "Go straight, then turn right.",
     ),
-    cloze(
-      "ja-m17-6-2-cloze-de",
-      "ふね",
-      " しまに いきます。",
-      "で",
-      ["で", "に", "へ", "を"],
-      "I go to the island by boat.",
-      "ふねで しまに いきます。",
-      "で marks the means of transport.",
-    ),
+    sentenceMcq({
+      id: "ja-m17-6-2-mcq-umi",
+      prompt: "Which sentence means 'I go to the sea by boat.'?",
+      correctKana: "ふねで うみに いきます。",
+      distractorsKana: [
+        "ふねに うみで いきます。",
+        "ふねを うみに いきます。",
+        "ふねへ うみに いきます。",
+      ],
+      explanation: "で marks the vehicle (boat); に marks the destination (sea).",
+    }),
     selfExplain({
       id: "ja-m17-6-2-self-explain",
       anchorLabel: "M17 particle mastery",
@@ -2212,8 +2553,8 @@ export const M17_6_2: LessonContent = {
     }),
     speaking(
       "ja-m17-6-2-speak-4",
-      "バスを おりてから みちを わたります",
-      "After getting off the bus, I cross the street.",
+      "でんしゃを おりてから ぎんこうに いきます",
+      "After getting off the train, I go to the bank.",
     ),
     // ── Review tail ──
     speaking("ja-m17-6-2-rev-speak-1", M17_6_2_REVIEW[0].kana, M17_6_2_REVIEW[0].meaningEn),
@@ -2229,7 +2570,7 @@ export const M17_6_2: LessonContent = {
     }),
     vocabMcq("ja-m17-6-2-rev-mcq-1", M17_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
     speaking("ja-m17-6-2-rev-speak-2", M17_6_2_REVIEW[2].kana, M17_6_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m17-6-2-rev", M17_6_2_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m17-6-2-rev", M17_6_2_REVIEW),
     infoStep(
       "ja-m17-6-2-info-end",
       "You can produce every M17 pattern from memory",
@@ -2254,47 +2595,45 @@ export const M17_STORY: LessonContent = {
   languageId: LANG,
   title: "Story — Getting to the airport",
   description:
-    "Listen to two friends figure out how to get to the airport on time. Answer questions and practice key patterns.",
+    "Follow ゆき's narrated plan to get to the airport on time. Answer questions and build your replies.",
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
     infoStep(
       "ja-m17-story-info-open",
       "Story time — Airport rush",
-      "ゆき and たけし need to get to the airport by 9. Listen to their plan.",
+      "ゆき tells you her plan for getting to the airport by 9. Listen closely — you'll reply in Japanese.",
     ),
-    dialogueListen({
-      id: "ja-m17-story-scene-1",
-      lines: [
-        { speaker: "ゆき", kana: "くじまでに くうこうに いきます。" },
-        { speaker: "たけし", kana: "でんしゃで いきますか。" },
-        { speaker: "ゆき", kana: "いいえ、タクシーで いきます。でんしゃは おそいです。" },
-        { speaker: "たけし", kana: "そうですね。でかける まえに きっぷを かいますか。" },
+    ...storyComprehension({
+      idPrefix: "ja-m17-story-scene-1",
+      narrative: [
+        { kana: "きょう、ともだちと くうこうに いきます。" },
+        { kana: "くじまでに くうこうに いきます。" },
+        { kana: "でんしゃは おそいですから、タクシーで いきます。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s1-q1",
-          prompt: "By what time do they need to reach the airport?",
+          prompt: "By what time does ゆき need to reach the airport?",
           correctText: "By 9 o'clock.",
           distractors: ["By 5 o'clock.", "By 10 o'clock.", "No deadline mentioned."],
           explanation: "くじまでに = by 9 o'clock.",
         },
         {
           id: "s1-q2",
-          prompt: "How will they go?",
+          prompt: "How will she go?",
           correctText: "By taxi, because the train is slow.",
           distractors: ["By train.", "By bus.", "On foot."],
-          explanation: "タクシーで いきます. でんしゃは おそいです = the train is slow.",
+          explanation: "でんしゃは おそいですから、タクシーで いきます = the train is slow, so she goes by taxi.",
         },
       ],
+      responseBuild: {
+        target: "タクシーで いきましょう",
+        tiles: ["いきましょう", "タクシー", "で", "に", "でんしゃ"],
+        correctOrder: ["タクシー", "で", "いきましょう"],
+        promptEn: "Reply to ゆき: 'Let's go by taxi.'",
+      },
     }),
-    build(
-      "ja-m17-story-build-1",
-      "Say: I go to the airport by taxi.",
-      "タクシーで くうこうに いきます",
-      ["タクシー", "で", "くうこう", "に", "いきます", "へ", "でんしゃ"],
-      ["タクシー", "で", "くうこう", "に", "いきます"],
-    ),
     sentenceMcq({
       id: "ja-m17-story-mcq-1",
       prompt: "Why did ゆき choose a taxi?",
@@ -2306,83 +2645,86 @@ export const M17_STORY: LessonContent = {
       ],
       explanation: "でんしゃは おそいです = the train is slow.",
     }),
-    dialogueListen({
-      id: "ja-m17-story-scene-2",
-      lines: [
-        { speaker: "ゆき", kana: "いいえ、タクシーだから きっぷは いりません。" },
-        { speaker: "たけし", kana: "そうですか。くうこうの ちかくに コンビニが ありますか。" },
-        { speaker: "ゆき", kana: "はい、くうこうの となりに あります。" },
-        { speaker: "たけし", kana: "じゃあ、くうこうに ついてから コンビニに いきましょう。" },
+    ...storyComprehension({
+      idPrefix: "ja-m17-story-scene-2",
+      narrative: [
+        { kana: "くうこうの ちかくで タクシーを おります。" },
+        { kana: "くうこうの となりに みせが あります。" },
+        { kana: "みせで みずを かってから、ともだちを まちます。" },
+        { kana: "ごじまでに うちに かえります。" },
       ],
-      questions: [
+      comprehensionQuestions: [
         {
           id: "s2-q1",
-          prompt: "Do they need to buy a ticket?",
-          correctText: "No, because they're taking a taxi.",
-          distractors: ["Yes, at the station.", "Yes, at the airport.", "They already have one."],
-          explanation: "タクシーだから きっぷは いりません = because it's a taxi, no ticket needed.",
+          prompt: "Where does ゆき get out of the taxi?",
+          correctText: "Near the airport.",
+          distractors: ["Next to the shop.", "At the station.", "In front of her house."],
+          explanation: "くうこうの ちかくで タクシーを おります = she gets out near the airport.",
         },
         {
           id: "s2-q2",
-          prompt: "Where is the convenience store?",
-          correctText: "Next to the airport.",
-          distractors: ["Near the station.", "Across the street.", "Between the airport and the station."],
-          explanation: "くうこうの となりに あります = it's next to the airport.",
+          prompt: "What does she do before waiting for her friend?",
+          correctText: "Buys water at the shop.",
+          distractors: ["Buys a ticket.", "Eats lunch.", "Calls her friend."],
+          explanation: "みずを かってから、ともだちを まちます = after buying water, she waits.",
+        },
+        {
+          id: "s2-q3",
+          prompt: "By when will she be home?",
+          correctText: "By 5 o'clock.",
+          distractors: ["By 9 o'clock.", "By noon.", "She stays overnight."],
+          explanation: "ごじまでに うちに かえります = home by 5.",
         },
       ],
+      responseBuild: {
+        target: "みせで みずを かいましょう",
+        tiles: ["みず", "みせ", "で", "を", "かいましょう", "まちましょう"],
+        correctOrder: ["みせ", "で", "みず", "を", "かいましょう"],
+        promptEn: "Reply to ゆき: 'Let's buy water at the shop.'",
+      },
     }),
     cloze(
       "ja-m17-story-cloze-1",
-      "くうこう",
-      " となりに コンビニが あります。",
-      "の",
-      ["の", "に", "で", "は"],
-      "There's a convenience store next to the airport.",
-      "くうこうの となりに コンビニが あります。",
-      "の connects the reference noun to the location word.",
+      "ごじ",
+      " うちに かえります。",
+      "までに",
+      ["までに", "まで", "から", "に"],
+      "I'll be home by 5.",
+      "ごじまでに うちに かえります。",
+      "までに = by (deadline) — she must be home before 5.",
     ),
     listeningBuildSentence({
       id: "ja-m17-story-lb-1",
-      target: "タクシーで くうこうに いきます",
-      tiles: ["タクシー", "で", "くうこう", "に", "いきます", "へ", "でんしゃ"],
-      correctOrder: ["タクシー", "で", "くうこう", "に", "いきます"],
-      promptEn: "Hear it, build it: 'I go to the airport by taxi.'",
-    }),
-    listeningCompSentence({
-      id: "ja-m17-story-lc-1",
-      audioText: "くじまでに くうこうに いきます",
-      correctMeaningEn: "I'll go to the airport by 9.",
-      distractorsEn: [
-        "I go to the airport at 9.",
-        "I go to the airport until 9.",
-        "I go to the airport after 9.",
-      ],
+      target: "くうこうの となりに みせが あります",
+      tiles: ["みせ", "くうこう", "の", "となり", "に", "が", "あります", "ちかく"],
+      correctOrder: ["くうこう", "の", "となり", "に", "みせ", "が", "あります"],
+      promptEn: "Hear it, build it: 'There's a shop next to the airport.'",
     }),
     speaking(
       "ja-m17-story-speak-1",
-      "タクシーで くうこうに いきます",
-      "I go to the airport by taxi.",
-    ),
-    sentenceMcq({
-      id: "ja-m17-story-mcq-summary",
-      prompt: "What's their full plan?",
-      correctKana: "Take a taxi to the airport by 9, then go to the convenience store next door.",
-      distractorsKana: [
-        "Take a train to the airport, buy tickets, then go to a shop.",
-        "Walk to the airport before 9.",
-        "Take a bus and buy a ticket at the station.",
-      ],
-      explanation: "Taxi by 9, then コンビニ (next to the airport) after arriving.",
-    }),
-    speaking(
-      "ja-m17-story-speak-2",
       "くじまでに くうこうに いきます",
       "I'll go to the airport by 9.",
     ),
+    sentenceMcq({
+      id: "ja-m17-story-mcq-summary",
+      prompt: "What's ゆき's full plan?",
+      correctKana: "Taxi to the airport by 9, buy water at the shop next door, wait for her friend, home by 5.",
+      distractorsKana: [
+        "Train to the airport, buy a ticket, then shop until 5.",
+        "Walk to the airport before 9 and stay until night.",
+        "Bus to the station, then taxi home by 9.",
+      ],
+      explanation: "Taxi by 9 → water at the みせ next to the airport → wait → home by 5.",
+    }),
+    speaking(
+      "ja-m17-story-speak-2",
+      "くうこうの ちかくで タクシーを おります",
+      "I get out of the taxi near the airport.",
+    ),
     infoStep(
       "ja-m17-story-info-end",
-      "You followed a real travel-planning conversation",
-      "Taxis, deadlines, locations — you understood a natural plan to get to the airport. Real Japanese in action.",
+      "You followed a real travel plan — and answered back",
+      "Deadlines, transport, locations, and sequence — you tracked a full plan in Japanese and replied like a travel partner.",
       "win",
     ),
   ],
@@ -2397,7 +2739,7 @@ assertExplanationDoesntLeakAnswer(M17_STORY.steps);
 // M17-7-1 — Comprehension closer (dialogue)
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_7_1_REVIEW = pickReviewAtoms("ja-m17-7-1-rev", M17_REVIEW_POOL, 5);
+const M17_7_1_REVIEW = pickReviewAtoms("ja-m17-7-1-rev", M17_REVIEW_POOL, 6);
 
 export const M17_7_1: LessonContent = {
   id: "ja-m17-7-1",
@@ -2419,18 +2761,18 @@ export const M17_7_1: LessonContent = {
       "ja-m17-7-1-build-1",
       "Say: I get on the boat.",
       "ふねに のります",
-      ["ふね", "に", "のります", "おります", "で", "を"],
+      ["のります", "で", "を", "ふね", "おります", "に"],
       ["ふね", "に", "のります"],
     ),
     cloze(
-      "ja-m17-7-1-cloze-de",
-      "ふね",
-      " しまに いきます。",
-      "で",
-      ["で", "に", "へ", "を"],
-      "I go to the island by boat.",
-      "ふねで しまに いきます。",
-      "で marks the means of transport.",
+      "ja-m17-7-1-cloze-madeni-2",
+      "あした",
+      " きっぷを かってください。",
+      "までに",
+      ["までに", "まで", "から", "に"],
+      "Please buy the ticket by tomorrow.",
+      "あしたまでに きっぷを かってください。",
+      "までに = by (deadline) — the buying must happen before tomorrow.",
     ),
     listeningCompSentence({
       id: "ja-m17-7-1-lc-1",
@@ -2457,7 +2799,7 @@ export const M17_7_1: LessonContent = {
       "ja-m17-7-1-build-2",
       "Say: The hospital is between the station and the post office.",
       "びょういんは えきと ゆうびんきょくの あいだです",
-      ["びょういん", "は", "えき", "と", "ゆうびんきょく", "の", "あいだ", "です", "そば"],
+      ["そば", "ゆうびんきょく", "の", "えき", "びょういん", "あいだ", "と", "です", "は"],
       ["びょういん", "は", "えき", "と", "ゆうびんきょく", "の", "あいだ", "です"],
     ),
     cloze(
@@ -2465,38 +2807,38 @@ export const M17_7_1: LessonContent = {
       "ひだり",
       " まがってください。",
       "へ",
-      ["へ", "に", "で", "を"],
+      ["へ", "が", "で", "を"],
       "Please turn left.",
       "ひだりへ まがってください。",
       "へ marks the direction.",
     ),
     listeningBuildSentence({
       id: "ja-m17-7-1-lb-1",
-      target: "ごじまでに かえります",
-      tiles: ["ごじ", "までに", "かえります", "まで", "いきます", "に"],
-      correctOrder: ["ごじ", "までに", "かえります"],
-      promptEn: "Hear it, build it: 'I'll be back by 5.'",
+      target: "はちじまでに えきに いきます",
+      tiles: ["えき", "はちじ", "までに", "に", "いきます", "まで"],
+      correctOrder: ["はちじ", "までに", "えき", "に", "いきます"],
+      promptEn: "Hear it, build it: 'I'll go to the station by 8.'",
     }),
     speaking(
       "ja-m17-7-1-speak-1",
-      "ひだりへ まがってから まっすぐ いってください",
-      "Turn left, then go straight.",
+      "みぎへ まがってから みちを わたってください",
+      "Turn right, then cross the street.",
     ),
     cloze(
       "ja-m17-7-1-cloze-maeni",
-      "でかける",
+      "バスに のる",
       " きっぷを かいます。",
       "まえに",
       ["まえに", "までに", "あとで", "から"],
-      "I buy a ticket before going out.",
-      "でかける まえに きっぷを かいます。",
+      "I buy a ticket before getting on the bus.",
+      "バスに のる まえに きっぷを かいます。",
       "Verb dict. form + まえに = before doing.",
     ),
     build(
       "ja-m17-7-1-build-3",
       "Say: I get off the train at the station.",
       "えきで でんしゃを おります",
-      ["えき", "で", "でんしゃ", "を", "おります", "に", "のります"],
+      ["でんしゃ", "を", "に", "のります", "えき", "で", "おります"],
       ["えき", "で", "でんしゃ", "を", "おります"],
     ),
     translateStep({
@@ -2512,12 +2854,12 @@ export const M17_7_1: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m17-7-1-lc-2",
-      audioText: "でかける まえに きっぷを かいます",
-      correctMeaningEn: "I buy a ticket before going out.",
+      audioText: "うちに かえる まえに ぎんこうに いきます",
+      correctMeaningEn: "I go to the bank before going home.",
       distractorsEn: [
-        "After going out, I buy a ticket.",
-        "I buy a ticket by going out.",
-        "I buy a ticket and go out.",
+        "After going home, I go to the bank.",
+        "I go home before going to the bank.",
+        "I go to the bank by 5.",
       ],
     }),
     selfExplain({
@@ -2533,8 +2875,8 @@ export const M17_7_1: LessonContent = {
     }),
     speaking(
       "ja-m17-7-1-speak-2",
-      "えきで でんしゃを おります",
-      "I get off the train at the station.",
+      "バスていで バスを おります",
+      "I get off the bus at the bus stop.",
     ),
     // ── Review tail ──
     speaking("ja-m17-7-1-rev-speak-1", M17_7_1_REVIEW[0].kana, M17_7_1_REVIEW[0].meaningEn),
@@ -2550,7 +2892,7 @@ export const M17_7_1: LessonContent = {
     }),
     vocabMcq("ja-m17-7-1-rev-mcq-1", M17_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
     speaking("ja-m17-7-1-rev-speak-2", M17_7_1_REVIEW[2].kana, M17_7_1_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m17-7-1-rev", M17_7_1_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m17-7-1-rev", M17_7_1_REVIEW),
     infoStep(
       "ja-m17-7-1-info-end",
       "You can navigate Japan using five particle patterns",
@@ -2568,7 +2910,7 @@ assertNoConsecutiveSame(M17_7_1.steps);
 // M17-7-2 — Production
 // ═══════════════════════════════════════════════════════════════════════
 
-const M17_7_2_REVIEW = pickReviewAtoms("ja-m17-7-2-rev", M17_REVIEW_POOL, 5);
+const M17_7_2_REVIEW = pickReviewAtoms("ja-m17-7-2-rev", M17_REVIEW_POOL, 6);
 
 export const M17_7_2: LessonContent = {
   id: "ja-m17-7-2",
@@ -2588,15 +2930,15 @@ export const M17_7_2: LessonContent = {
     ),
     build(
       "ja-m17-7-2-build-1",
-      "Say: I go to the airport by taxi by 9.",
-      "くじまでに タクシーで くうこうに いきます",
-      ["くじ", "までに", "タクシー", "で", "くうこう", "に", "いきます", "まで"],
-      ["くじ", "までに", "タクシー", "で", "くうこう", "に", "いきます"],
+      "Say: I'll get home by train by 6.",
+      "ろくじまでに でんしゃで うちに かえります",
+      ["うち", "ろくじ", "でんしゃ", "までに", "で", "に", "かえります", "まで"],
+      ["ろくじ", "までに", "でんしゃ", "で", "うち", "に", "かえります"],
     ),
     speaking(
       "ja-m17-7-2-speak-1",
-      "くじまでに タクシーで くうこうに いきます",
-      "I go to the airport by taxi by 9.",
+      "よじまでに ぎんこうに いきます",
+      "I'll go to the bank by 4.",
     ),
     translateStep({
       id: "ja-m17-7-2-translate-1",
@@ -2611,13 +2953,13 @@ export const M17_7_2: LessonContent = {
       "ja-m17-7-2-build-2",
       "Say: Turn left, then go straight.",
       "ひだりへ まがってから まっすぐ いってください",
-      ["ひだり", "へ", "まがって", "から", "まっすぐ", "いって", "ください", "みぎ"],
+      ["へ", "いって", "まっすぐ", "まがって", "ください", "ひだり", "から", "みぎ"],
       ["ひだり", "へ", "まがって", "から", "まっすぐ", "いって", "ください"],
     ),
     speaking(
       "ja-m17-7-2-speak-2",
-      "ひだりへ まがってから まっすぐ いってください",
-      "Turn left, then go straight.",
+      "まっすぐ いってから はしを わたってください",
+      "Go straight, then cross the bridge.",
     ),
     listeningCompSentence({
       id: "ja-m17-7-2-lc-1",
@@ -2631,10 +2973,10 @@ export const M17_7_2: LessonContent = {
     }),
     build(
       "ja-m17-7-2-build-3",
-      "Say: I buy a ticket before going out.",
-      "でかける まえに きっぷを かいます",
-      ["でかける", "まえに", "きっぷ", "を", "かいます", "から", "あとで"],
-      ["でかける", "まえに", "きっぷ", "を", "かいます"],
+      "Say: I turn off the light before going out.",
+      "でかける まえに でんきを けします",
+      ["でんき", "けします", "でかける", "を", "つけます", "まえに", "あとで"],
+      ["でかける", "まえに", "でんき", "を", "けします"],
     ),
     sentenceMcq({
       id: "ja-m17-7-2-mcq-1",
@@ -2649,42 +2991,42 @@ export const M17_7_2: LessonContent = {
     }),
     speaking(
       "ja-m17-7-2-speak-3",
-      "でかける まえに きっぷを かいます",
-      "I buy a ticket before going out.",
+      "たべる まえに てを あらいます",
+      "I wash my hands before eating.",
     ),
     build(
       "ja-m17-7-2-build-4",
       "Say: The convenience store is between the station and the bank.",
       "コンビニは えきと ぎんこうの あいだです",
-      ["コンビニ", "は", "えき", "と", "ぎんこう", "の", "あいだ", "です", "となり"],
+      ["の", "えき", "と", "あいだ", "となり", "ぎんこう", "は", "コンビニ", "です"],
       ["コンビニ", "は", "えき", "と", "ぎんこう", "の", "あいだ", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m17-7-2-lb-1",
       target: "バスを おりてから みちを わたります",
-      tiles: ["バス", "を", "おりて", "から", "みち", "を", "わたります", "に"],
+      tiles: ["を", "わたります", "おりて", "から", "みち", "バス", "を", "に"],
       correctOrder: ["バス", "を", "おりて", "から", "みち", "を", "わたります"],
       promptEn: "Hear it, build it: 'After getting off the bus, I cross the street.'",
     }),
     translateStep({
       id: "ja-m17-7-2-translate-2",
-      promptEn: "I'll be back by 5 o'clock.",
+      promptEn: "I'll be back by 10 o'clock.",
       acceptedAnswers: [
-        "ごじまでに かえります",
-        "ごじまでに かえります。",
+        "じゅうじまでに かえります",
+        "じゅうじまでに かえります。",
       ],
-      audioText: "ごじまでに かえります",
+      audioText: "じゅうじまでに かえります",
     }),
-    cloze(
-      "ja-m17-7-2-cloze-no",
-      "えき",
-      " ちかくに レストランが あります。",
-      "の",
-      ["の", "に", "で", "は"],
-      "There's a restaurant near the station.",
-      "えきの ちかくに レストランが あります。",
-      "の connects the reference noun to the location word.",
-    ),
+    listeningCompSentence({
+      id: "ja-m17-7-2-lc-chikaku",
+      audioText: "えきの ちかくに レストランが あります",
+      correctMeaningEn: "There's a restaurant near the station.",
+      distractorsEn: [
+        "There's a restaurant next to the station.",
+        "There's a station near the restaurant.",
+        "There's a restaurant across from the station.",
+      ],
+    }),
     selfExplain({
       id: "ja-m17-7-2-self-explain",
       anchorLabel: "Full M17 production",
@@ -2698,8 +3040,8 @@ export const M17_7_2: LessonContent = {
     }),
     speaking(
       "ja-m17-7-2-speak-4",
-      "バスを おりてから みちを わたります",
-      "After getting off the bus, I cross the street.",
+      "バスに のる まえに きっぷを かいます",
+      "I buy a ticket before getting on the bus.",
     ),
     // ── Review tail ──
     speaking("ja-m17-7-2-rev-speak-1", M17_7_2_REVIEW[0].kana, M17_7_2_REVIEW[0].meaningEn),
@@ -2715,7 +3057,7 @@ export const M17_7_2: LessonContent = {
     }),
     vocabMcq("ja-m17-7-2-rev-mcq-1", M17_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
     speaking("ja-m17-7-2-rev-speak-2", M17_7_2_REVIEW[2].kana, M17_7_2_REVIEW[2].meaningEn),
-    reviewMatchPairs("ja-m17-7-2-rev", M17_7_2_REVIEW.slice(0, 5)),
+    reviewMatchPairs("ja-m17-7-2-rev", M17_7_2_REVIEW),
     infoStep(
       "ja-m17-7-2-info-end",
       "You can produce every M17 transport and direction pattern from memory",

@@ -88,7 +88,7 @@ export const M4_1_1: LessonContent = {
       "ja-m4-1-1-build-pen",
       "Pick the Japanese word for: Pen",
       "ペン",
-      ["ペン", "かばん", "ほん", "みず"],
+      ["みず", "ほん", "かばん", "ペン"],
       ["ペン"],
     ),
     listeningCompSentence({
@@ -107,7 +107,7 @@ export const M4_1_1: LessonContent = {
       "ja-m4-1-1-build-kaban",
       "Pick the Japanese word for: Bag",
       "かばん",
-      ["かばん", "ペン", "ほん", "ねこ"],
+      ["ペン", "かばん", "ねこ", "ほん"],
       ["かばん"],
     ),
     vocabMcq(
@@ -121,7 +121,7 @@ export const M4_1_1: LessonContent = {
       "ja-m4-1-1-build-kuruma",
       "Pick the Japanese word for: Car",
       "くるま",
-      ["くるま", "かばん", "ペン", "いぬ"],
+      ["いぬ", "ペン", "かばん", "くるま"],
       ["くるま"],
     ),
     listeningCompSentence({
@@ -135,19 +135,16 @@ export const M4_1_1: LessonContent = {
       "ja-m4-1-1-build-kore-pen",
       "Say: This is a pen.",
       "これは ペンです",
-      ["これ", "は", "ペン", "です", "かばん", "くるま"],
+      ["は", "かばん", "これ", "ペン", "です", "くるま"],
       ["これ", "は", "ペン", "です"],
     ),
-    cloze(
-      "ja-m4-1-1-cloze-ha",
-      "これ",
-      " かばんです。",
-      "は",
-      ["は", "が", "を", "に"],
-      "This is a bag.",
-      "これは かばんです。",
-      "これは marks the topic (this); です asserts. M3 grammar on a new M4 noun.",
-    ),
+    listeningBuildSentence({
+      id: "ja-m4-1-1-lb-kaban",
+      target: "これは かばんです",
+      tiles: ["ペン", "かばん", "は", "くるま", "これ", "です"],
+      correctOrder: ["これ", "は", "かばん", "です"],
+      promptEn: "Hear it, build it: 'This is a bag.'",
+    }),
     sentenceMcq({
       id: "ja-m4-1-1-mcq-sentence",
       prompt: "Which sentence means 'This is a car.'?",
@@ -159,21 +156,18 @@ export const M4_1_1: LessonContent = {
       ],
       explanation: "くるま = car. The other options are bag, pen, and book.",
     }),
-    cloze(
-      "ja-m4-1-1-cloze-ka",
-      "これは くるまです",
-      "。",
-      "か",
-      ["か", "は", "の", "を"],
-      "Is this a car?",
-      "これは くるまですか。",
-      "M3 review — か turns a statement into a question.",
+    build(
+      "ja-m4-1-1-build-hon-q",
+      "Ask: Is this a book?",
+      "これは ほんですか",
+      ["か", "ペン", "です", "これ", "ほん", "は"],
+      ["これ", "は", "ほん", "です", "か"],
     ),
     build(
       "ja-m4-1-1-build-kaban-question",
       "Ask: Is this a bag?",
       "これは かばんですか",
-      ["これ", "は", "かばん", "です", "か", "くるま", "ペン"],
+      ["ペン", "か", "かばん", "これ", "くるま", "は", "です"],
       ["これ", "は", "かばん", "です", "か"],
     ),
     speaking(
@@ -236,7 +230,7 @@ export const M4_1_2: LessonContent = {
       "ja-m4-1-2-build-kamera",
       "Pick the Japanese word for: Camera",
       "カメラ",
-      ["カメラ", "ペン", "くるま", "コーヒー"],
+      ["コーヒー", "カメラ", "ペン", "くるま"],
       ["カメラ"],
     ),
     speaking("ja-m4-1-2-speak-kamera", "カメラ", "Camera"),
@@ -251,7 +245,7 @@ export const M4_1_2: LessonContent = {
       "ja-m4-1-2-build-keitai",
       "Pick the Japanese word for: Mobile phone",
       "けいたい",
-      ["けいたい", "カメラ", "かばん", "タクシー"],
+      ["カメラ", "けいたい", "タクシー", "かばん"],
       ["けいたい"],
     ),
     vocabMcq(
@@ -264,7 +258,7 @@ export const M4_1_2: LessonContent = {
       "ja-m4-1-2-build-keitai-sentence",
       "Say: This is a mobile phone.",
       "これは けいたいです",
-      ["これ", "は", "けいたい", "です", "カメラ", "ペン"],
+      ["は", "です", "ペン", "これ", "けいたい", "カメラ"],
       ["これ", "は", "けいたい", "です"],
     ),
     sentenceMcq({
@@ -274,28 +268,25 @@ export const M4_1_2: LessonContent = {
       distractorsKana: [
         "これは けいたいです。",
         "これは くるまです。",
-        "これは ペンです。",
+        "それは カメラです。",
       ],
-      explanation: "カメラ = camera. The distractors are mobile phone, car, and pen.",
+      explanation: "カメラ = camera, and これ = 'this' (not それ). The other distractors are mobile phone and car.",
     }),
-    cloze(
-      "ja-m4-1-2-cloze-ha",
-      "これ",
-      " カメラです。",
-      "は",
-      ["は", "が", "を", "に"],
-      "This is a camera.",
-      "これは カメラです。",
-      "は marks the topic (this).",
+    build(
+      "ja-m4-1-2-build-keitai-q",
+      "Ask: Is that a mobile phone?",
+      "それは けいたいですか",
+      ["は", "カメラ", "です", "けいたい", "それ", "か"],
+      ["それ", "は", "けいたい", "です", "か"],
     ),
     listeningCompSentence({
       id: "ja-m4-1-2-lc-keitai-sentence",
-      audioText: "これは けいたいです",
-      correctMeaningEn: "This is a mobile phone.",
+      audioText: "それは カメラです",
+      correctMeaningEn: "That is a camera.",
       distractorsEn: [
+        "That is a mobile phone.",
         "This is a camera.",
-        "This is a bag.",
-        "Is this a mobile phone?",
+        "Is that a camera?",
       ],
     }),
     cloze(
@@ -312,18 +303,18 @@ export const M4_1_2: LessonContent = {
       "ja-m4-1-2-build-kuruma-q",
       "Ask: Is this a car?",
       "これは くるまですか",
-      ["これ", "は", "くるま", "です", "か", "かばん", "カメラ"],
+      ["は", "かばん", "くるま", "これ", "か", "です", "カメラ"],
       ["これ", "は", "くるま", "です", "か"],
     ),
     speaking(
       "ja-m4-1-2-speak-keitai",
-      "これは けいたいです",
-      "This is a mobile phone.",
+      "あれは ペンです",
+      "That over there is a pen.",
     ),
     listeningBuildSentence({
       id: "ja-m4-1-2-lb-pen",
       target: "これは ペンです",
-      tiles: ["これ", "は", "ペン", "です", "かばん", "カメラ"],
+      tiles: ["カメラ", "これ", "です", "ペン", "かばん", "は"],
       correctOrder: ["これ", "は", "ペン", "です"],
       promptEn: "Hear it, build it: 'This is a pen.'",
     }),
@@ -473,7 +464,7 @@ export const M4_2_1: LessonContent = {
       "ja-m4-2-1-build-watashi-pen",
       "Say: It's my pen.",
       "わたしの ペンです",
-      ["わたし", "の", "ペン", "です", "せんせい", "ともだち"],
+      ["せんせい", "わたし", "の", "ともだち", "です", "ペン"],
       ["わたし", "の", "ペン", "です"],
     ),
     speaking(
@@ -485,7 +476,7 @@ export const M4_2_1: LessonContent = {
       "ja-m4-2-1-build-sensei-hon",
       "It's the teacher's book.",
       "せんせいの ほんです",
-      ["せんせい", "の", "ほん", "です", "わたし", "ともだち"],
+      ["わたし", "ともだち", "ほん", "です", "せんせい", "の"],
       ["せんせい", "の", "ほん", "です"],
     ),
     listeningCompSentence({
@@ -500,15 +491,15 @@ export const M4_2_1: LessonContent = {
     }),
     listeningBuildSentence({
       id: "ja-m4-2-1-lb-watashi-kaban",
-      target: "わたしの かばんです",
-      tiles: ["わたし", "の", "かばん", "です", "ペン", "ほん"],
-      correctOrder: ["わたし", "の", "かばん", "です"],
-      promptEn: "Hear it, build it: 'It's my bag.'",
+      target: "わたしの くるまです",
+      tiles: ["の", "かばん", "です", "くるま", "ペン", "わたし"],
+      correctOrder: ["わたし", "の", "くるま", "です"],
+      promptEn: "Hear it, build it: 'It's my car.'",
     }),
     speaking(
       "ja-m4-2-1-speak-final",
-      "わたしの ペンです",
-      "It's my pen.",
+      "わたしの けいたいです",
+      "It's my mobile phone.",
     ),
     // ── Review tail ──
     speaking("ja-m4-2-1-rev-speak-1", M4_2_1_REVIEW[0].kana, M4_2_1_REVIEW[0].meaningEn),
@@ -572,12 +563,12 @@ export const M4_2_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m4-2-2-lc-nihon-kuruma",
-      audioText: "にほんの くるまです",
-      correctMeaningEn: "It's a Japanese car.",
+      audioText: "アメリカの くるまです",
+      correctMeaningEn: "It's an American car.",
       distractorsEn: [
-        "It's my car.",
-        "It's a Japanese camera.",
-        "Is it a Japanese car?",
+        "It's a Japanese car.",
+        "It's an American camera.",
+        "Is it an American car?",
       ],
     }),
     cloze(
@@ -590,22 +581,20 @@ export const M4_2_2: LessonContent = {
       "アメリカの カメラです。",
       "'America-kind-of camera' = an American camera.",
     ),
-    // Answer rotation — は
-    cloze(
-      "ja-m4-2-2-cloze-ha",
-      "これ",
-      " にほんの くるまです。",
-      "は",
-      ["は", "の", "が", "を"],
-      "This is a Japanese car.",
-      "これは にほんの くるまです。",
-      "は marks the topic (this); の links Japan to car.",
+    // Converted from review-は cloze (2026-06-12 sentence-variety wave):
+    // production build exercising the new "kind-of" の instead.
+    build(
+      "ja-m4-2-2-build-america-kuruma",
+      "Say: That is an American car.",
+      "それは アメリカの くるまです",
+      ["くるま", "それ", "カメラ", "の", "アメリカ", "です", "は", "にほん"],
+      ["それ", "は", "アメリカ", "の", "くるま", "です"],
     ),
     build(
       "ja-m4-2-2-build-nihon-kamera",
       "Say: It's a Japanese camera.",
       "にほんの カメラです",
-      ["にほん", "の", "カメラ", "です", "アメリカ", "くるま"],
+      ["アメリカ", "くるま", "です", "の", "カメラ", "にほん"],
       ["にほん", "の", "カメラ", "です"],
     ),
     sentenceMcq({
@@ -622,8 +611,8 @@ export const M4_2_2: LessonContent = {
     }),
     speaking(
       "ja-m4-2-2-speak-nihon",
-      "にほんの くるまです",
-      "It's a Japanese car.",
+      "せんせいの くるまです",
+      "It's the teacher's car.",
     ),
     // Self-explanation — after enough commits
     selfExplain({
@@ -647,36 +636,34 @@ export const M4_2_2: LessonContent = {
       "ja-m4-2-2-build-kore-nihon",
       "This is a Japanese car.",
       "これは にほんの くるまです",
-      ["これ", "は", "にほん", "の", "くるま", "です", "アメリカ", "カメラ"],
+      ["の", "アメリカ", "です", "は", "くるま", "これ", "にほん", "カメラ"],
       ["これ", "は", "にほん", "の", "くるま", "です"],
     ),
-    cloze(
-      "ja-m4-2-2-cloze-ka",
-      "わたしの ペンです",
-      "。",
-      "か",
-      ["か", "は", "の", "を"],
-      "Is it my pen?",
-      "わたしの ペンですか。",
-      "M3 review: か makes a question.",
+    // Converted from review-か cloze: question production with の.
+    build(
+      "ja-m4-2-2-build-keitai-q",
+      "Ask: Is it your friend's mobile phone?",
+      "ともだちの けいたいですか",
+      ["カメラ", "か", "けいたい", "ともだち", "わたし", "です", "の"],
+      ["ともだち", "の", "けいたい", "です", "か"],
     ),
     listeningBuildSentence({
       id: "ja-m4-2-2-lb-america",
       target: "アメリカの カメラです",
-      tiles: ["アメリカ", "の", "カメラ", "です", "にほん", "ペン"],
+      tiles: ["カメラ", "です", "アメリカ", "にほん", "の", "ペン"],
       correctOrder: ["アメリカ", "の", "カメラ", "です"],
       promptEn: "Hear it, build it: 'It's an American camera.'",
     }),
     speaking(
       "ja-m4-2-2-speak-final",
-      "これは にほんの くるまです",
-      "This is a Japanese car.",
+      "アメリカの コーヒーです",
+      "It's American coffee.",
     ),
     build(
       "ja-m4-2-2-build-question",
       "Ask: Is it the teacher's pen?",
       "せんせいの ペンですか",
-      ["せんせい", "の", "ペン", "です", "か", "わたし", "ほん"],
+      ["ほん", "の", "か", "です", "ペン", "せんせい", "わたし"],
       ["せんせい", "の", "ペン", "です", "か"],
     ),
     // ── Review tail ──
@@ -734,7 +721,7 @@ export const M4_3_1: LessonContent = {
       "ja-m4-3-1-build-kasa",
       "Pick the Japanese word for: Umbrella",
       "かさ",
-      ["かさ", "いす", "ペン", "ほん"],
+      ["ほん", "ペン", "いす", "かさ"],
       ["かさ"],
     ),
     vocabMcq(
@@ -747,7 +734,7 @@ export const M4_3_1: LessonContent = {
       "ja-m4-3-1-build-jisho",
       "Pick the Japanese word for: Dictionary",
       "じしょ",
-      ["じしょ", "かさ", "ほん", "みず"],
+      ["かさ", "みず", "じしょ", "ほん"],
       ["じしょ"],
     ),
     listeningCompSentence({
@@ -761,7 +748,7 @@ export const M4_3_1: LessonContent = {
       "ja-m4-3-1-build-isu",
       "Pick the Japanese word for: Chair",
       "いす",
-      ["いす", "じしょ", "かさ", "かばん"],
+      ["じしょ", "かばん", "かさ", "いす"],
       ["いす"],
     ),
     listeningCompSentence({
@@ -785,7 +772,7 @@ export const M4_3_1: LessonContent = {
       "ja-m4-3-1-build-sensei-jisho",
       "Say: It's the teacher's dictionary.",
       "せんせいの じしょです",
-      ["せんせい", "の", "じしょ", "です", "わたし", "かさ"],
+      ["じしょ", "の", "せんせい", "です", "かさ", "わたし"],
       ["せんせい", "の", "じしょ", "です"],
     ),
     listeningCompSentence({
@@ -846,7 +833,7 @@ export const M4_3_1: LessonContent = {
       "ja-m4-3-1-build-tomodachi-isu",
       "It's my friend's chair.",
       "ともだちの いすです",
-      ["ともだち", "の", "いす", "です", "せんせい", "じしょ"],
+      ["じしょ", "せんせい", "いす", "の", "です", "ともだち"],
       ["ともだち", "の", "いす", "です"],
     ),
     // ── Review tail ──
@@ -893,7 +880,7 @@ export const M4_3_2: LessonContent = {
       "ja-m4-3-2-build-tegami",
       "Pick the Japanese word for: Letter (postal)",
       "てがみ",
-      ["てがみ", "じしょ", "かさ", "ほん"],
+      ["ほん", "てがみ", "かさ", "じしょ"],
       ["てがみ"],
     ),
     speaking("ja-m4-3-2-speak-tegami", "てがみ", "Letter"),
@@ -908,7 +895,7 @@ export const M4_3_2: LessonContent = {
       "ja-m4-3-2-build-jitensha",
       "Pick the Japanese word for: Bicycle",
       "じてんしゃ",
-      ["じてんしゃ", "てがみ", "くるま", "かばん"],
+      ["てがみ", "じてんしゃ", "くるま", "かばん"],
       ["じてんしゃ"],
     ),
     vocabMcq(
@@ -930,7 +917,7 @@ export const M4_3_2: LessonContent = {
       "ja-m4-3-2-build-friend-bike",
       "Ask: Is it your friend's bicycle?",
       "ともだちの じてんしゃですか",
-      ["ともだち", "の", "じてんしゃ", "です", "か", "わたし", "じしょ"],
+      ["です", "じてんしゃ", "の", "じしょ", "か", "わたし", "ともだち"],
       ["ともだち", "の", "じてんしゃ", "です", "か"],
     ),
     listeningCompSentence({
@@ -943,15 +930,13 @@ export const M4_3_2: LessonContent = {
         "It's the teacher's bicycle.",
       ],
     }),
-    cloze(
-      "ja-m4-3-2-cloze-ha",
-      "これ",
-      " ともだちの てがみです。",
-      "は",
-      ["は", "の", "が", "を"],
-      "This is my friend's letter.",
-      "これは ともだちの てがみです。",
-      "は marks the topic (this).",
+    // Converted from review-は cloze: pointer + の production instead.
+    build(
+      "ja-m4-3-2-build-sensei-kasa",
+      "Say: This is the teacher's umbrella.",
+      "これは せんせいの かさです",
+      ["かさ", "これ", "です", "は", "てがみ", "わたし", "の", "せんせい"],
+      ["これ", "は", "せんせい", "の", "かさ", "です"],
     ),
     sentenceMcq({
       id: "ja-m4-3-2-mcq-discriminate",
@@ -968,7 +953,7 @@ export const M4_3_2: LessonContent = {
       "ja-m4-3-2-build-friend-umbrella",
       "It's my friend's umbrella.",
       "ともだちの かさです",
-      ["ともだち", "の", "かさ", "です", "せんせい", "ペン"],
+      ["です", "かさ", "の", "せんせい", "ともだち", "ペン"],
       ["ともだち", "の", "かさ", "です"],
     ),
     speaking(
@@ -976,21 +961,19 @@ export const M4_3_2: LessonContent = {
       "ともだちの てがみです",
       "It's my friend's letter.",
     ),
-    // M3 review cloze
-    cloze(
-      "ja-m4-3-2-cloze-ka",
-      "がくせいです",
-      "。",
-      "か",
-      ["か", "は", "の", "を"],
-      "Are you a student? (M3 review)",
-      "がくせいですか。",
-      "か at the end turns any statement into a question.",
-    ),
+    // Converted from review-か cloze: listening production over の with
+    // cross-module vocab (M2 ぼうし).
+    listeningBuildSentence({
+      id: "ja-m4-3-2-lb-boushi",
+      target: "ともだちの ぼうしです",
+      tiles: ["わたし", "ぼうし", "の", "かさ", "ともだち", "です"],
+      correctOrder: ["ともだち", "の", "ぼうし", "です"],
+      promptEn: "Hear it, build it: 'It's my friend's hat.'",
+    }),
     listeningBuildSentence({
       id: "ja-m4-3-2-lb-sensei-tegami",
       target: "せんせいの てがみです",
-      tiles: ["せんせい", "の", "てがみ", "です", "わたし", "かさ"],
+      tiles: ["かさ", "です", "わたし", "の", "せんせい", "てがみ"],
       correctOrder: ["せんせい", "の", "てがみ", "です"],
       promptEn: "Hear it, build it: 'It's the teacher's letter.'",
     }),
@@ -1082,7 +1065,7 @@ export const M4_4_1: LessonContent = {
       "ja-m4-4-1-build-kore",
       "Pick the Japanese word for: This (near me)",
       "これ",
-      ["これ", "それ", "あれ", "ほん"],
+      ["それ", "あれ", "これ", "ほん"],
       ["これ"],
     ),
     // ── それ — single tile, English disambiguates ──
@@ -1090,7 +1073,7 @@ export const M4_4_1: LessonContent = {
       "ja-m4-4-1-build-sore",
       "Pick the Japanese word for: That (near you)",
       "それ",
-      ["それ", "これ", "あれ", "かばん"],
+      ["これ", "それ", "あれ", "かばん"],
       ["それ"],
     ),
     // ── あれ — single tile ──
@@ -1098,28 +1081,27 @@ export const M4_4_1: LessonContent = {
       "ja-m4-4-1-build-are",
       "Pick the Japanese word for: That (far from both of us)",
       "あれ",
-      ["あれ", "これ", "それ", "くるま"],
+      ["それ", "これ", "あれ", "くるま"],
       ["あれ"],
     ),
     // ── Drills ──
-    cloze(
-      "ja-m4-4-1-cloze-1",
-      "それ",
-      " なんですか。",
-      "は",
-      ["は", "が", "を", "の"],
-      "What's that (near you)?",
-      "それは なんですか。",
-      "それ = near the listener. は marks the topic.",
+    // Converted from review-は cloze: build the question-word pointer
+    // sentence from the rule card instead.
+    build(
+      "ja-m4-4-1-build-sore-nan",
+      "Ask: What's that (near you)?",
+      "それは なんですか",
+      ["です", "か", "なん", "これ", "は", "どれ", "それ"],
+      ["それ", "は", "なん", "です", "か"],
     ),
     listeningCompSentence({
       id: "ja-m4-4-1-lc-are",
-      audioText: "あれは せんせいの くるまです",
-      correctMeaningEn: "That over there is the teacher's car.",
+      audioText: "あれは ともだちの じてんしゃです",
+      correctMeaningEn: "That over there is my friend's bicycle.",
       distractorsEn: [
-        "This is the teacher's car.",
-        "That near you is the teacher's car.",
-        "Is that the teacher's car?",
+        "This is my friend's bicycle.",
+        "That near you is my friend's bicycle.",
+        "Is that my friend's bicycle?",
       ],
     }),
     cloze(
@@ -1144,39 +1126,37 @@ export const M4_4_1: LessonContent = {
       explanation:
         "あれ = far from both. これ = near me; それ = near you.",
     }),
-    cloze(
-      "ja-m4-4-1-cloze-3",
-      "これ",
-      " わたしの ほんです。",
-      "は",
-      ["は", "が", "を", "に"],
-      "This is my book.",
-      "これは わたしの ほんです。",
-      "これ = near me. は marks it as topic.",
+    // Converted from review-は cloze: pointer + の production with あに.
+    build(
+      "ja-m4-4-1-build-ani-hon",
+      "Say: This is my older brother's book.",
+      "これは あにの ほんです",
+      ["の", "ねこ", "これ", "です", "あに", "わたし", "は", "ほん"],
+      ["これ", "は", "あに", "の", "ほん", "です"],
     ),
     build(
       "ja-m4-4-1-build-kore-mybag",
       "Say: This is my bag.",
       "これは わたしの かばんです",
-      ["これ", "は", "わたし", "の", "かばん", "です", "それ", "ともだち"],
+      ["です", "は", "わたし", "これ", "かばん", "の", "それ", "ともだち"],
       ["これ", "は", "わたし", "の", "かばん", "です"],
     ),
     speaking(
       "ja-m4-4-1-speak-are",
-      "あれは せんせいの くるまです",
-      "That over there is the teacher's car.",
+      "それは あにの ぼうしです",
+      "That is my older brother's hat.",
     ),
     build(
       "ja-m4-4-1-build-sore-pen",
       "Is that (near you) my friend's pen?",
       "それは ともだちの ペンですか",
-      ["それ", "は", "ともだち", "の", "ペン", "です", "か", "これ", "わたし"],
+      ["わたし", "は", "これ", "の", "それ", "ペン", "ともだち", "か", "です"],
       ["それ", "は", "ともだち", "の", "ペン", "です", "か"],
     ),
     listeningBuildSentence({
       id: "ja-m4-4-1-lb-kore-kasa",
       target: "これは わたしの かさです",
-      tiles: ["これ", "は", "わたし", "の", "かさ", "です", "それ", "ともだち"],
+      tiles: ["わたし", "かさ", "の", "それ", "ともだち", "は", "です", "これ"],
       correctOrder: ["これ", "は", "わたし", "の", "かさ", "です"],
       promptEn: "Hear it, build it: 'This is my umbrella.'",
     }),
@@ -1235,7 +1215,7 @@ export const M4_4_2: LessonContent = {
       "ja-m4-4-2-build-dore",
       "Pick the Japanese word for: Which one",
       "どれ",
-      ["どれ", "これ", "それ", "あれ"],
+      ["それ", "あれ", "どれ", "これ"],
       ["どれ"],
     ),
     vocabMcq(
@@ -1265,15 +1245,13 @@ export const M4_4_2: LessonContent = {
       ],
     }),
     // Mixed pointer clozes
-    cloze(
-      "ja-m4-4-2-cloze-ha-1",
-      "これ",
-      " あなたの ほんですか。",
-      "は",
-      ["は", "が", "を", "に"],
-      "Is this your book?",
-      "これは あなたの ほんですか。",
-      "これ = pointer (not question) so it takes は.",
+    // Converted from review-は cloze: question production over pointer + の.
+    build(
+      "ja-m4-4-2-build-anata-jisho",
+      "Ask: Is that (near you) your dictionary?",
+      "それは あなたの じしょですか",
+      ["じしょ", "あなた", "です", "これ", "それ", "か", "は", "わたし", "の"],
+      ["それ", "は", "あなた", "の", "じしょ", "です", "か"],
     ),
     cloze(
       "ja-m4-4-2-cloze-no",
@@ -1303,7 +1281,7 @@ export const M4_4_2: LessonContent = {
       "ja-m4-4-2-build-dore-jisho",
       "Ask: Which is your dictionary?",
       "どれが あなたの じしょですか",
-      ["どれ", "が", "あなた", "の", "じしょ", "です", "か", "は", "わたし"],
+      ["が", "じしょ", "どれ", "わたし", "の", "か", "は", "です", "あなた"],
       ["どれ", "が", "あなた", "の", "じしょ", "です", "か"],
     ),
     sentenceMcq({
@@ -1327,7 +1305,7 @@ export const M4_4_2: LessonContent = {
       "ja-m4-4-2-build-are-kuruma",
       "That over there is my friend's car.",
       "あれは ともだちの くるまです",
-      ["あれ", "は", "ともだち", "の", "くるま", "です", "これ", "せんせい"],
+      ["です", "の", "くるま", "これ", "せんせい", "あれ", "は", "ともだち"],
       ["あれ", "は", "ともだち", "の", "くるま", "です"],
     ),
     listeningCompSentence({
@@ -1448,25 +1426,23 @@ export const M4_5_1: LessonContent = {
     ),
     build(
       "ja-m4-5-1-build-nihon-kuruma",
-      "This is a Japanese car.",
-      "これは にほんの くるまです",
-      ["これ", "は", "にほん", "の", "くるま", "です", "わたし", "それ"],
-      ["これ", "は", "にほん", "の", "くるま", "です"],
+      "That is a Japanese bicycle.",
+      "それは にほんの じてんしゃです",
+      ["の", "それ", "です", "は", "にほん", "アメリカ", "じてんしゃ", "くるま"],
+      ["それ", "は", "にほん", "の", "じてんしゃ", "です"],
     ),
-    cloze(
-      "ja-m4-5-1-cloze-4",
-      "あれ",
-      " せんせいですか。",
-      "は",
-      ["は", "の", "が", "を"],
-      "Is that the teacher (over there)?",
-      "あれは せんせいですか。",
-      "Pointer (あれ) + topic は + question か.",
+    // Converted from review-は cloze: pointer + の question production.
+    build(
+      "ja-m4-5-1-build-isu-q",
+      "Ask: Is that (over there) the teacher's chair?",
+      "あれは せんせいの いすですか",
+      ["これ", "せんせい", "の", "あれ", "は", "いす", "か", "です"],
+      ["あれ", "は", "せんせい", "の", "いす", "です", "か"],
     ),
     speaking(
       "ja-m4-5-1-speak-sore",
-      "それは ともだちの かばんです",
-      "That's my friend's bag.",
+      "それは せんせいの じしょです",
+      "That is the teacher's dictionary.",
     ),
     listeningCompSentence({
       id: "ja-m4-5-1-lc-umbrella",
@@ -1492,20 +1468,20 @@ export const M4_5_1: LessonContent = {
       "ja-m4-5-1-build-are-kamera",
       "That over there is my camera.",
       "あれは わたしの カメラです",
-      ["あれ", "は", "わたし", "の", "カメラ", "です", "これ", "ともだち"],
+      ["カメラ", "これ", "わたし", "ともだち", "は", "あれ", "です", "の"],
       ["あれ", "は", "わたし", "の", "カメラ", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m4-5-1-lb-sensei-kaban",
       target: "せんせいの かばんです",
-      tiles: ["せんせい", "の", "かばん", "です", "わたし", "ペン"],
+      tiles: ["の", "ペン", "です", "わたし", "かばん", "せんせい"],
       correctOrder: ["せんせい", "の", "かばん", "です"],
       promptEn: "Hear it, build it: 'It's the teacher's bag.'",
     }),
     speaking(
       "ja-m4-5-1-speak-final",
-      "これは にほんの くるまです",
-      "This is a Japanese car.",
+      "あれは アメリカの くるまです",
+      "That over there is an American car.",
     ),
     cloze(
       "ja-m4-5-1-cloze-6",
@@ -1572,7 +1548,7 @@ export const M4_5_2: LessonContent = {
       "ja-m4-5-2-build-dare",
       "Pick the Japanese word for: Who",
       "だれ",
-      ["だれ", "どれ", "これ", "なん"],
+      ["なん", "どれ", "だれ", "これ"],
       ["だれ"],
     ),
     listeningCompSentence({
@@ -1620,7 +1596,7 @@ export const M4_5_2: LessonContent = {
       "ja-m4-5-2-build-dare-pen",
       "Ask: Whose pen is this?",
       "これは だれの ペンですか",
-      ["これ", "は", "だれ", "の", "ペン", "です", "か", "どれ", "が"],
+      ["です", "は", "だれ", "どれ", "か", "が", "これ", "ペン", "の"],
       ["これ", "は", "だれ", "の", "ペン", "です", "か"],
     ),
     speaking(
@@ -1642,15 +1618,13 @@ export const M4_5_2: LessonContent = {
       ruleExplanation:
         "の glues two nouns into a possessive (my bag). は would mark わたし as the TOPIC — grammatical but different meaning.",
     }),
-    cloze(
-      "ja-m4-5-2-cloze-ha",
-      "これ",
-      " にほんの くるまです。",
-      "は",
-      ["は", "の", "が", "を"],
-      "This is a Japanese car.",
-      "これは にほんの くるまです。",
-      "は marks topic; の links Japan + car.",
+    // Converted from review-は cloze: "kind-of" の production instead.
+    build(
+      "ja-m4-5-2-build-america-keitai",
+      "Say: This is an American mobile phone.",
+      "これは アメリカの けいたいです",
+      ["アメリカ", "けいたい", "これ", "は", "カメラ", "です", "の", "にほん"],
+      ["これ", "は", "アメリカ", "の", "けいたい", "です"],
     ),
     listeningCompSentence({
       id: "ja-m4-5-2-lc-friend-dict",
@@ -1666,18 +1640,18 @@ export const M4_5_2: LessonContent = {
       "ja-m4-5-2-build-nihon-kamera",
       "This is a Japanese camera.",
       "これは にほんの カメラです",
-      ["これ", "は", "にほん", "の", "カメラ", "です", "アメリカ", "くるま"],
+      ["の", "は", "カメラ", "アメリカ", "これ", "くるま", "にほん", "です"],
       ["これ", "は", "にほん", "の", "カメラ", "です"],
     ),
     cloze(
       "ja-m4-5-2-cloze-no-2",
-      "これは にほん",
-      " くるまです。",
+      "あれは アメリカ",
+      " じてんしゃです。",
       "の",
       ["の", "は", "が", "を"],
-      "This is a Japanese car.",
-      "これは にほんの くるまです。",
-      "'Kind-of' reading: にほん-kind-of car.",
+      "That over there is an American bicycle.",
+      "あれは アメリカの じてんしゃです。",
+      "'Kind-of' reading: アメリカ-kind-of bicycle.",
     ),
     speaking(
       "ja-m4-5-2-speak-final",
@@ -1761,7 +1735,7 @@ export const M4_STORY: LessonContent = {
       "ja-m4-story-build-no",
       "Say: That is my pen.",
       "それは わたしの ペンです",
-      ["それ", "は", "わたし", "の", "ペン", "です", "だれ"],
+      ["は", "ペン", "です", "わたし", "だれ", "それ", "の"],
       ["それ", "は", "わたし", "の", "ペン", "です"],
     ),
     sentenceMcq({
@@ -1813,7 +1787,7 @@ export const M4_STORY: LessonContent = {
     listeningBuildSentence({
       id: "ja-m4-story-lb-dore",
       target: "かばんは どれですか",
-      tiles: ["かばん", "は", "どれ", "です", "か", "だれ", "の"],
+      tiles: ["か", "どれ", "かばん", "だれ", "の", "は", "です"],
       correctOrder: ["かばん", "は", "どれ", "です", "か"],
       promptEn: "Hear it, build it: 'Which one is your bag?'",
     }),
@@ -1829,8 +1803,8 @@ export const M4_STORY: LessonContent = {
     }),
     speaking(
       "ja-m4-story-speak-dare",
-      "これは だれの ペンですか",
-      "Whose pen is this?",
+      "あれは だれの かばんですか",
+      "Whose bag is that over there?",
     ),
     sentenceMcq({
       id: "ja-m4-story-mcq-summary",
@@ -1880,21 +1854,19 @@ export const M4_6_1: LessonContent = {
       "Production time",
       "Sentences across build, listen-build, and speaking. Each one combines M4 pointers and possessives.",
     ),
-    cloze(
-      "ja-m4-6-1-warmup-cloze",
-      "これ",
-      " ともだちの カメラです。",
-      "は",
-      ["は", "の", "が", "を"],
-      "This is my friend's camera.",
-      "これは ともだちの カメラです。",
-      "Topic は + possessive の in one sentence.",
+    // Converted from review-は cloze: warm up with a full production build.
+    build(
+      "ja-m4-6-1-warmup-build",
+      "Say: This is my friend's camera.",
+      "これは ともだちの カメラです",
+      ["ともだち", "の", "です", "カメラ", "それ", "は", "わたし", "これ"],
+      ["これ", "は", "ともだち", "の", "カメラ", "です"],
     ),
     build(
       "ja-m4-6-1-build-s1",
       "Say: This is my umbrella.",
       "これは わたしの かさです",
-      ["これ", "は", "わたし", "の", "かさ", "です", "それ", "ともだち"],
+      ["ともだち", "それ", "です", "は", "の", "わたし", "かさ", "これ"],
       ["これ", "は", "わたし", "の", "かさ", "です"],
     ),
     speaking(
@@ -1906,7 +1878,7 @@ export const M4_6_1: LessonContent = {
       "ja-m4-6-1-build-s2",
       "Is that your bag?",
       "それは あなたの かばんですか",
-      ["それ", "は", "あなた", "の", "かばん", "です", "か", "これ", "わたし"],
+      ["です", "の", "かばん", "それ", "は", "わたし", "あなた", "これ", "か"],
       ["それ", "は", "あなた", "の", "かばん", "です", "か"],
     ),
     listeningCompSentence({
@@ -1923,26 +1895,26 @@ export const M4_6_1: LessonContent = {
       "ja-m4-6-1-build-s3",
       "That over there is the teacher's car.",
       "あれは せんせいの くるまです",
-      ["あれ", "は", "せんせい", "の", "くるま", "です", "ともだち", "これ"],
+      ["の", "せんせい", "くるま", "これ", "です", "ともだち", "は", "あれ"],
       ["あれ", "は", "せんせい", "の", "くるま", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m4-6-1-lb-s4",
       target: "にほんの カメラです",
-      tiles: ["にほん", "の", "カメラ", "です", "わたし", "ペン"],
+      tiles: ["ペン", "です", "の", "にほん", "カメラ", "わたし"],
       correctOrder: ["にほん", "の", "カメラ", "です"],
       promptEn: "Hear it, build it: 'It's a Japanese camera.'",
     }),
     speaking(
       "ja-m4-6-1-speak-s4",
-      "にほんの カメラです",
-      "It's a Japanese camera.",
+      "にほんの けいたいです",
+      "It's a Japanese mobile phone.",
     ),
     build(
       "ja-m4-6-1-build-s5",
       "Ask: Which is your dictionary?",
       "どれが あなたの じしょですか",
-      ["どれ", "が", "あなた", "の", "じしょ", "です", "か", "は", "わたし"],
+      ["あなた", "どれ", "わたし", "は", "か", "が", "です", "の", "じしょ"],
       ["どれ", "が", "あなた", "の", "じしょ", "です", "か"],
     ),
     cloze(
@@ -1968,14 +1940,14 @@ export const M4_6_1: LessonContent = {
     }),
     speaking(
       "ja-m4-6-1-speak-dare",
-      "これ��� だれの ペンですか",
-      "Whose pen is this?",
+      "これは だれの じしょですか",
+      "Whose dictionary is this?",
     ),
     build(
       "ja-m4-6-1-build-s6",
       "That over there is the teacher's bag.",
       "あれは せんせいの かばんです",
-      ["あれ", "は", "せんせい", "の", "かばん", "です", "それ", "ともだち"],
+      ["それ", "です", "の", "せんせい", "ともだち", "あれ", "かばん", "は"],
       ["あれ", "は", "せんせい", "の", "かばん", "です"],
     ),
     listeningCompSentence({
@@ -2040,10 +2012,10 @@ export const M4_6_2: LessonContent = {
     ),
     build(
       "ja-m4-6-2-build-s1",
-      "That over there is the teacher's bag.",
-      "あれは せんせいの かばんです",
-      ["あれ", "は", "せんせい", "の", "かばん", "です", "それ", "ともだち"],
-      ["あれ", "は", "せんせい", "の", "かばん", "です"],
+      "That is my older brother's mobile phone.",
+      "それは あにの けいたいです",
+      ["あに", "です", "あれ", "それ", "けいたい", "は", "ともだち", "の"],
+      ["それ", "は", "あに", "の", "けいたい", "です"],
     ),
     cloze(
       "ja-m4-6-2-cloze-ha",
@@ -2057,14 +2029,14 @@ export const M4_6_2: LessonContent = {
     ),
     speaking(
       "ja-m4-6-2-speak-s1",
-      "あれは せんせいの かばんです",
-      "That over there is the teacher's bag.",
+      "あれは せんせいの ぼうしです",
+      "That over there is the teacher's hat.",
     ),
     build(
       "ja-m4-6-2-build-s2",
       "Ask: Whose bicycle is that?",
       "それは だれの じてんしゃですか",
-      ["それ", "は", "だれ", "の", "じてんしゃ", "です", "か", "これ", "どれ"],
+      ["どれ", "は", "これ", "か", "じてんしゃ", "の", "だれ", "それ", "です"],
       ["それ", "は", "だれ", "の", "じてんしゃ", "です", "か"],
     ),
     listeningCompSentence({
@@ -2081,13 +2053,13 @@ export const M4_6_2: LessonContent = {
       "ja-m4-6-2-build-s3",
       "This is an American camera.",
       "これは アメリカの カメラです",
-      ["これ", "は", "アメリカ", "の", "カメラ", "です", "にほん", "ペン"],
+      ["にほん", "の", "です", "カメラ", "これ", "ペン", "アメリカ", "は"],
       ["これ", "は", "アメリカ", "の", "カメラ", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m4-6-2-lb-dare-kasa",
       target: "これは だれの かさですか",
-      tiles: ["これ", "は", "だれ", "の", "かさ", "です", "か", "どれ"],
+      tiles: ["だれ", "の", "は", "か", "これ", "かさ", "です", "どれ"],
       correctOrder: ["これ", "は", "だれ", "の", "かさ", "です", "か"],
       promptEn: "Hear it, build it: 'Whose umbrella is this?'",
     }),
@@ -2121,7 +2093,7 @@ export const M4_6_2: LessonContent = {
       "ja-m4-6-2-build-s4",
       "Is that your friend's mobile phone?",
       "それは ともだちの けいたいですか",
-      ["それ", "は", "ともだち", "の", "けいたい", "です", "か", "わたし", "あれ"],
+      ["は", "です", "けいたい", "ともだち", "わたし", "あれ", "それ", "か", "の"],
       ["それ", "は", "ともだち", "の", "けいたい", "です", "か"],
     ),
     speaking(
@@ -2208,10 +2180,10 @@ export const M4_7_1: LessonContent = {
     ),
     build(
       "ja-m4-7-1-build-warmup",
-      "Is that (near you) your bag?",
-      "それは あなたの かばんですか",
-      ["それ", "は", "あなた", "の", "かばん", "です", "か", "あれ", "せんせい"],
-      ["それ", "は", "あなた", "の", "かばん", "です", "か"],
+      "Is that (near you) your umbrella?",
+      "それは あなたの かさですか",
+      ["か", "せんせい", "あれ", "かさ", "の", "は", "です", "あなた", "それ"],
+      ["それ", "は", "あなた", "の", "かさ", "です", "か"],
     ),
     // ── Dialogue listen ──
     dialogueListen({
@@ -2277,18 +2249,18 @@ export const M4_7_1: LessonContent = {
         },
       ],
     }),
-    // Post-dialogue production
+    // Post-dialogue production — fresh sentences, same grammar as the dialogue.
     build(
       "ja-m4-7-1-build-post",
-      "Say: That's my friend's bag.",
-      "それは ともだちの かばんです",
-      ["それ", "は", "ともだち", "の", "かばん", "です", "これ", "わたし"],
-      ["それ", "は", "ともだち", "の", "かばん", "です"],
+      "Say: That's the teacher's bicycle.",
+      "それは せんせいの じてんしゃです",
+      ["じてんしゃ", "それ", "の", "です", "せんせい", "は", "わたし", "かばん"],
+      ["それ", "は", "せんせい", "の", "じてんしゃ", "です"],
     ),
     speaking(
       "ja-m4-7-1-speak-post",
-      "あれは にほんの カメラですか",
-      "Is that a Japanese camera?",
+      "それは アメリカの けいたいですか",
+      "Is that an American mobile phone?",
     ),
     sentenceMcq({
       id: "ja-m4-7-1-mcq-recap",
@@ -2302,22 +2274,21 @@ export const M4_7_1: LessonContent = {
       explanation:
         "それ = near you; の glues friend + camera.",
     }),
-    cloze(
-      "ja-m4-7-1-cloze-ka",
-      "あれは にほんの カメラです",
-      "。",
-      "か",
-      ["か", "は", "の", "を"],
-      "Is that a Japanese camera?",
-      "あれは にほんの カメラですか。",
-      "か turns the statement into a question.",
-    ),
+    // Converted from review-か cloze: replay the dialogue line as a
+    // listening production beat instead.
+    listeningBuildSentence({
+      id: "ja-m4-7-1-lb-nihon-kamera-q",
+      target: "あれは にほんの カメラですか",
+      tiles: ["にほん", "カメラ", "アメリカ", "あれ", "です", "の", "は", "か"],
+      correctOrder: ["あれ", "は", "にほん", "の", "カメラ", "です", "か"],
+      promptEn: "Hear it, build it: 'Is that a Japanese camera?'",
+    }),
     listeningBuildSentence({
       id: "ja-m4-7-1-lb-post",
-      target: "あれは あにの カメラです",
-      tiles: ["あれ", "は", "あに", "の", "カメラ", "です", "ともだち", "かばん"],
-      correctOrder: ["あれ", "は", "あに", "の", "カメラ", "です"],
-      promptEn: "Hear it, build it: 'That over there is big brother's camera.'",
+      target: "あれは あにの くるまです",
+      tiles: ["くるま", "あれ", "の", "あに", "です", "は", "ともだち", "カメラ"],
+      correctOrder: ["あれ", "は", "あに", "の", "くるま", "です"],
+      promptEn: "Hear it, build it: 'That over there is big brother's car.'",
     }),
     cloze(
       "ja-m4-7-1-cloze-no",
@@ -2333,7 +2304,7 @@ export const M4_7_1: LessonContent = {
       "ja-m4-7-1-build-final",
       "Ask: Whose camera is that over there?",
       "あれは だれの カメラですか",
-      ["あれ", "は", "だれ", "の", "カメラ", "です", "か", "これ", "ともだち"],
+      ["です", "だれ", "の", "これ", "ともだち", "は", "か", "カメラ", "あれ"],
       ["あれ", "は", "だれ", "の", "カメラ", "です", "か"],
     ),
     listeningCompSentence({
@@ -2414,14 +2385,14 @@ export const M4_7_2: LessonContent = {
     ),
     sentenceMcq({
       id: "ja-m4-7-2-mcq-recap",
-      prompt: "Which sentence says 'That's my friend's camera.'?",
-      correctKana: "それは ともだちの カメラです。",
+      prompt: "Which sentence says 'This is my older brother's camera.'?",
+      correctKana: "これは あにの カメラです。",
       distractorsKana: [
-        "これは ともだちの カメラです。",
-        "それは ともだちは カメラです。",
-        "それは ともだちの カメラですか。",
+        "あれは あにの カメラです。",
+        "これは あには カメラです。",
+        "これは あにの カメラですか。",
       ],
-      explanation: "それ = near you; の glues friend + camera.",
+      explanation: "これ = near me; の glues older brother + camera. あには would make him the topic instead.",
     }),
     cloze(
       "ja-m4-7-2-cloze-2",
@@ -2434,31 +2405,28 @@ export const M4_7_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m4-7-2-lc-nihon-kamera",
-      audioText: "にほんの カメラです",
-      correctMeaningEn: "It's a Japanese camera.",
+      audioText: "アメリカの くるまです",
+      correctMeaningEn: "It's an American car.",
       distractorsEn: [
-        "It's my camera.",
-        "It's a Japanese car.",
-        "Is it a Japanese camera?",
+        "It's my car.",
+        "It's an American camera.",
+        "Is it an American car?",
       ],
     }),
-    // Rotating answer — か
-    cloze(
-      "ja-m4-7-2-cloze-3",
-      "これは あなたの かさです",
-      "。",
-      "か",
-      ["か", "は", "の", "を"],
-      "Is this your umbrella?",
-      "これは あなたの かさですか。",
-      "か at the end turns a statement into a question.",
+    // Converted from review-か cloze: question production over の.
+    build(
+      "ja-m4-7-2-build-keitai-q",
+      "Ask: Is that (near you) your mobile phone?",
+      "それは あなたの けいたいですか",
+      ["です", "か", "それ", "あなた", "けいたい", "わたし", "の", "は"],
+      ["それ", "は", "あなた", "の", "けいたい", "です", "か"],
     ),
     // Production
     build(
       "ja-m4-7-2-build-1",
       "This is my friend's pen.",
       "これは ともだちの ペンです",
-      ["これ", "は", "ともだち", "の", "ペン", "です", "それ", "わたし"],
+      ["です", "の", "これ", "わたし", "ともだち", "ペン", "それ", "は"],
       ["これ", "は", "ともだち", "の", "ペン", "です"],
     ),
     speaking(
@@ -2468,10 +2436,10 @@ export const M4_7_2: LessonContent = {
     ),
     build(
       "ja-m4-7-2-build-2",
-      "Say: That's my friend's bag.",
-      "それは ともだちの かばんです",
-      ["それ", "は", "ともだち", "の", "かばん", "です", "これ", "わたし"],
-      ["それ", "は", "ともだち", "の", "かばん", "です"],
+      "Say: That over there is my older brother's bicycle.",
+      "あれは あにの じてんしゃです",
+      ["これ", "は", "わたし", "あに", "です", "じてんしゃ", "あれ", "の"],
+      ["あれ", "は", "あに", "の", "じてんしゃ", "です"],
     ),
     cloze(
       "ja-m4-7-2-cloze-final",
@@ -2486,7 +2454,7 @@ export const M4_7_2: LessonContent = {
     listeningBuildSentence({
       id: "ja-m4-7-2-lb-final",
       target: "これは わたしの くるまです",
-      tiles: ["これ", "は", "わたし", "の", "くるま", "です", "それ", "ともだち"],
+      tiles: ["の", "です", "これ", "わたし", "ともだち", "くるま", "は", "それ"],
       correctOrder: ["これ", "は", "わたし", "の", "くるま", "です"],
       promptEn: "Hear it, build it: 'This is my car.'",
     }),

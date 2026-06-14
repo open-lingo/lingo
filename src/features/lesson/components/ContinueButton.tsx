@@ -28,7 +28,7 @@ export function ContinueButton({ onClick, label, disabled, variant: _variant = "
       variant="primary-3d"
       onClick={onClick}
       disabled={disabled}
-      className="w-full"
+      className="w-full sm:min-h-14 sm:text-lg"
     >
       {label ?? t("lesson.continue", "Continue")}
     </Button>

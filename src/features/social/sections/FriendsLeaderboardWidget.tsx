@@ -57,25 +57,29 @@ export function FriendsLeaderboardWidget() {
       </div>
 
       <ul className="divide-y divide-border">
-        {/* Top friend */}
-        <li className="flex items-center gap-2.5 bg-surface px-3 py-2.5">
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 text-yellow-900 shadow-sm">
-            <Icon name="crown" size={12} aria-hidden />
-          </span>
-          <div className="min-w-0 flex-1">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-              {t("social.friendsLb.leader", "Friend leader")}
+        {/* Top friend — suppressed when the leader IS the current user
+            (friendless boards would otherwise show the same person twice:
+            "Friend leader" chip above "#1 You"). */}
+        {!top.isMe && (
+          <li className="flex items-center gap-2.5 bg-surface px-3 py-2.5">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 text-yellow-900 shadow-sm">
+              <Icon name="crown" size={12} aria-hidden />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+                {t("social.friendsLb.leader", "Friend leader")}
+              </p>
+              <UsernameDisplay
+                name={top.user.name}
+                cosmetic={top.user.cosmetic}
+                className="truncate text-sm"
+              />
+            </div>
+            <p className="text-sm font-bold text-text-primary">
+              {top.xp.toLocaleString()} XP
             </p>
-            <UsernameDisplay
-              name={top.user.name}
-              cosmetic={top.user.cosmetic}
-              className="truncate text-sm"
-            />
-          </div>
-          <p className="text-sm font-bold text-text-primary">
-            {top.xp.toLocaleString()} XP
-          </p>
-        </li>
+          </li>
+        )}
 
         {/* Me */}
         {myRow ? (

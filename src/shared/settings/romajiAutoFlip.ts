@@ -7,6 +7,35 @@ import type { UserSettings } from "./types";
  */
 export const ROMAJI_AUTO_OFF_MODULE = 15;
 
+/**
+ * The module at which character-build tile banks stop showing per-kana
+ * romaji by default and switch to tap/hover-to-reveal. Earlier than the
+ * full romaji auto-off (Module 15): by ~10h of study a learner can read
+ * kana, so the spelling tiles shouldn't keep handing them the answer,
+ * even while romaji still aids elsewhere. (Spencer 2026-06-13.)
+ */
+export const BUILD_TILE_ROMAJI_FADE_MODULE = 10;
+
+/**
+ * Decide whether the character-build romaji should auto-fade for this
+ * learner. Mirrors `shouldAutoFlipRomaji` but keyed on its own one-shot
+ * guard (`buildTileRomajiAutoFlipped`) and earlier module threshold, and
+ * INDEPENDENT of `showRomaji` — build tiles fade first while romaji can
+ * stay on everywhere else.
+ *
+ * Pure decision function — callers handle the `updateSetting` writes.
+ */
+export function shouldAutoFadeBuildTileRomaji(opts: {
+  settings: UserSettings;
+  reachedModuleIndex: number;
+}): boolean {
+  const { hideBuildTileRomaji, buildTileRomajiAutoFlipped } =
+    opts.settings.learning;
+  // Already faded, or the auto-flip already fired once → user-controlled.
+  if (hideBuildTileRomaji || buildTileRomajiAutoFlipped) return false;
+  return opts.reachedModuleIndex >= BUILD_TILE_ROMAJI_FADE_MODULE;
+}
+
 export type RomajiAutoFlipReason = "module-reached" | "alphabet-mastered";
 
 export type RomajiAutoFlipResult = {

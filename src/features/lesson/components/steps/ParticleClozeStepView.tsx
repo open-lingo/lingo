@@ -37,8 +37,8 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
 
   const handleEnter = useCallback(() => {
     if (!submitted && selected) handleSubmit();
-    else if (submitted && !celebrating) onContinue();
-  }, [submitted, selected, celebrating]);
+    else if (submitted) onContinue();
+  }, [submitted, selected]);
 
   useLessonKeyboard({
     onEnter: handleEnter,
@@ -47,7 +47,6 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
         setSelected(step.options[n - 1]);
       }
     },
-    enabled: !celebrating,
   });
 
   const fullAudio = step.audioText ?? null;
@@ -89,7 +88,9 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
         {t("lesson.pickParticle", "Pick the particle that fits")}
       </p>
 
-      <div className="rounded-2xl border-2 border-info/40 bg-info/5 px-5 py-6 text-center">
+      {/* mt-auto/mb-auto pair centers sentence + particle bank in leftover
+          column height; CTA pins to the bottom. */}
+      <div className="mt-auto rounded-2xl border-2 border-info/40 bg-info/5 px-5 py-6 text-center">
         <div className="font-japanese text-2xl leading-relaxed text-text-primary sm:text-3xl">
           <AnnotatedJa text={step.prompt.before} />
           <span
@@ -130,7 +131,7 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
         ) : null}
       </div>
 
-      <div className="grid grid-cols-4 gap-3">
+      <div className="mb-auto grid grid-cols-4 gap-3">
         {step.options.map((p) => {
           const picked = selected === p;
           let style =
@@ -153,7 +154,7 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
               disabled={submitted}
               aria-pressed={picked}
               onClick={() => setSelected(p)}
-              className={`flex h-14 items-center justify-center rounded-xl border-2 font-japanese text-2xl font-bold transition-colors ${style}`}
+              className={`flex h-[clamp(3.5rem,8dvh,4.5rem)] items-center justify-center rounded-xl border-2 font-japanese text-2xl font-bold transition-colors sm:text-3xl ${style}`}
             >
               {p}
             </button>
@@ -161,26 +162,28 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
         })}
       </div>
 
-      {submitted && step.explanation ? (
-        <p className="rounded-2xl border border-border bg-surface px-4 py-3 text-sm leading-relaxed text-text-secondary">
-          {step.explanation}
-        </p>
-      ) : null}
-
-      {!submitted ? (
-        <ContinueButton
-          onClick={handleSubmit}
-          disabled={!selected}
-          label={t("lesson.check", "Check")}
-        />
-      ) : (
-        <>
-          <Feedback correct={isCorrect} explanation={step.explanation} />
+      {/* Single bottom block: explanation + banner + CTA together so the
+          button never moves on submit. Banner only on wrong — correct
+          celebrates via toast; the explanation still teaches on both. */}
+      <div className="relative flex flex-col gap-4">
+        {celebrating ? <CelebrationToast text={celebrationText} /> : null}
+        {submitted && step.explanation ? (
+          <p className="rounded-2xl border border-border bg-surface px-4 py-3 text-sm leading-relaxed text-text-secondary">
+            {step.explanation}
+          </p>
+        ) : null}
+        {submitted && !isCorrect && <Feedback correct={false} />}
+        {!submitted ? (
+          <ContinueButton
+            onClick={handleSubmit}
+            disabled={!selected}
+            label={t("lesson.check", "Check")}
+          />
+        ) : (
           <ContinueButton onClick={onContinue} />
-        </>
-      )}
+        )}
+      </div>
 
-      {celebrating ? <CelebrationToast text={celebrationText} /> : null}
     </div>
   );
 }

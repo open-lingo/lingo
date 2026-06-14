@@ -147,11 +147,6 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     if (!sel) return;
     const correct = sel === q.correctOptionId;
     setCommittedByQ((prev) => ({ ...prev, [q.id]: true }));
-    if (correct) {
-      setCelebrationText(pickCelebrationText(t));
-      setCelebrating(true);
-      window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
-    }
     // Fire overall completion only after the LAST commit. Done-guard so a
     // remount mid-celebration doesn't re-fire.
     if (q.id === lastQuestion?.id && !completedRef.current) {
@@ -163,6 +158,11 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
             : selectionByQ[qq.id] === qq.correctOptionId,
       );
       onComplete(step.id, overall);
+    }
+    if (correct) {
+      setCelebrationText(pickCelebrationText(t));
+      setCelebrating(true);
+      window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
     }
   }
 
@@ -198,8 +198,8 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
   const handleEnter = useCallback(() => {
     if (!currentCommitted && currentSelection) commitCurrent();
     else if (currentCommitted && !allCommitted) advanceToNext();
-    else if (allCommitted && !celebrating) onContinue();
-  }, [currentCommitted, currentSelection, allCommitted, celebrating]);
+    else if (allCommitted) onContinue();
+  }, [currentCommitted, currentSelection, allCommitted]);
 
   useLessonKeyboard({
     onEnter: handleEnter,
@@ -211,7 +211,6 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         }));
       }
     },
-    enabled: !celebrating,
   });
 
   // Sentence-level explain affordance — surfaces after any wrong commit on
@@ -350,6 +349,12 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         </div>
       )}
 
+      {/* Spacer drops the banner + CTA to the standard bottom anchor (y≈749,
+       *  shared with every other graded step) instead of floating mid-card,
+       *  and keeps the CTA put when the feedback banner appears on commit
+       *  (Spencer 2026-06-13 CTA-harmony pass). */}
+      <div className="flex-1" />
+
       {currentCommitted && currentQ && (
         <Feedback
           correct={!!currentCorrect}
@@ -370,10 +375,6 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
           label={t("lesson.dialogueListen.nextQuestion", "Next question")}
           variant={currentCorrect ? "correct" : "incorrect"}
         />
-      ) : celebrating ? (
-        <div className="invisible" aria-hidden>
-          <ContinueButton onClick={() => {}} />
-        </div>
       ) : (
         <div className="motion-safe:animate-fade-up">
           <ContinueButton

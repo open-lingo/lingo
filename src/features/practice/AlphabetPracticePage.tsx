@@ -177,7 +177,7 @@ export function AlphabetPracticePage() {
                     // eslint-disable-next-line no-console
                     console.log("[alphabetDev] seeded FRESH for", language.id, resolvedId);
                   }}
-                  className="rounded-lg border border-gray-300 bg-surface px-3 py-1.5 text-xs font-medium text-text-primary hover:bg-surface-muted"
+                  className="rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text-primary hover:bg-surface-muted"
                 >
                   Seed: fresh learner
                 </button>

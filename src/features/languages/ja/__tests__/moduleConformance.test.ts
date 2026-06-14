@@ -1,0 +1,159 @@
+/**
+ * JA-specific conformance checks — modeled on
+ * `features/languages/ko/__tests__/moduleConformance.test.ts`. The generic
+ * conformance test at `shared/language/__tests__/moduleConformance.test.ts`
+ * covers the ADR-001 contract; this file covers the JA attribution
+ * invariants introduced by the 2026-06-12 M8-M27 `fromModule` backfill:
+ *
+ *   - Every content module m3-m27 has ≥1 atom attributed via `fromModule`.
+ *   - Every atom attributed to m3-m27 actually APPEARS in that module's
+ *     lesson content (string containment over the module's steps) —
+ *     Spencer's invariant: an atom may only enter SRS review if the
+ *     learner has actually been introduced to it.
+ *   - Every id in n5-module-vocab-map.json resolves to a courseAtoms id.
+ *   - No n5-grammar-points.json entry whose module is ≤ m27 is still
+ *     "planned" (explicit exemption list below for the two kanji sets).
+ *   - getAtomsUpToModule("m27") includes every attributed SRS-eligible atom.
+ */
+import { describe, it, expect } from "vitest";
+import { jaModule } from "../module";
+import { JA_COURSE_ATOMS, isSrsEligibleAtom } from "../courseAtoms";
+import {
+  getAvailableMockLessonIds,
+  getMockLessonContent,
+} from "@/features/lesson/data/mockLessons";
+import { getAtomsUpToModule } from "@/features/lesson/data/lessonAtomIndex";
+import vocabMap from "@/features/lesson/data/n5-module-vocab-map.json";
+import grammarPoints from "@/features/lesson/data/n5-grammar-points.json";
+
+/** Content modules — m1/m2 are the kana modules (no SRS, per Spencer). */
+const CONTENT_MODULE_IDS: string[] = [];
+for (let n = 3; n <= 27; n++) CONTENT_MODULE_IDS.push(`m${n}`);
+
+/**
+ * Grammar points whose module is ≤ m27 but whose pattern could NOT be
+ * confirmed in any authored curriculum file (2026-06-12 audit). Each entry
+ * stays "planned" in n5-grammar-points.json until the content ships.
+ */
+const GRAMMAR_PLANNED_EXEMPTIONS = new Set<string>([
+  // No kanji-recognition step content exists in m14 (or any module) yet —
+  // the kanji parallel track ships kanji glosses inline, not as sets.
+  "kanji-set-1",
+  // Same: no kanji-recognition set in m23.
+  "kanji-set-2",
+]);
+
+/** moduleId → concatenated JSON of every JA lesson's steps in that module. */
+function buildModuleContentIndex(): Map<string, string> {
+  const byModule = new Map<string, string[]>();
+  for (const lessonId of getAvailableMockLessonIds()) {
+    const lesson = getMockLessonContent(lessonId);
+    if (!lesson || lesson.languageId !== "ja") continue;
+    const list = byModule.get(lesson.moduleId) ?? [];
+    list.push(JSON.stringify(lesson.steps));
+    byModule.set(lesson.moduleId, list);
+  }
+  const out = new Map<string, string>();
+  for (const [moduleId, chunks] of byModule) out.set(moduleId, chunks.join("\n"));
+  return out;
+}
+
+/**
+ * kana/kanji fields may carry variants ("いい / よい", "川 / 河") or
+ * compound surfaces ("より、ほう" — paired function words taught together);
+ * any single variant/part appearing in the module's steps counts.
+ */
+function surfaceVariants(atom: { kana: string; kanji?: string }): string[] {
+  const out = atom.kana.split(/[/、]/).map((s) => s.trim());
+  if (atom.kanji) out.push(...atom.kanji.split(/[/、]/).map((s) => s.trim()));
+  return out.filter(Boolean);
+}
+
+describe("JA module conformance — attribution invariants", () => {
+  const moduleContent = buildModuleContentIndex();
+
+  it("has Japanese identity", () => {
+    expect(jaModule.id).toBe("ja");
+    expect(jaModule.displayName.native).toBe("日本語");
+  });
+
+  it("curriculum surfaces every content module m3-m27", () => {
+    const moduleIds = jaModule.curriculum.map((m) => m.id);
+    for (const id of CONTENT_MODULE_IDS) {
+      expect(moduleIds, `curriculum missing ${id}`).toContain(id);
+    }
+  });
+
+  it("every content module m3-m27 has ≥1 atom attributed via fromModule", () => {
+    const counts = new Map<string, number>();
+    for (const atom of JA_COURSE_ATOMS) {
+      counts.set(atom.fromModule, (counts.get(atom.fromModule) ?? 0) + 1);
+    }
+    const empty = CONTENT_MODULE_IDS.filter((id) => (counts.get(id) ?? 0) === 0);
+    expect(
+      empty,
+      `modules with zero attributed atoms: ${empty.join(", ")}`,
+    ).toEqual([]);
+  });
+
+  it("every atom attributed to m3-m27 appears in that module's lesson content", () => {
+    const checked = new Set(CONTENT_MODULE_IDS);
+    const missing: string[] = [];
+    for (const atom of JA_COURSE_ATOMS) {
+      if (!checked.has(atom.fromModule)) continue;
+      const content = moduleContent.get(atom.fromModule) ?? "";
+      const found = surfaceVariants(atom).some((s) => content.includes(s));
+      if (!found) {
+        missing.push(`${atom.id} (${atom.kana}) → ${atom.fromModule}`);
+      }
+    }
+    expect(
+      missing,
+      `atoms attributed to a module whose lessons never surface them:\n  ${missing.join("\n  ")}`,
+    ).toEqual([]);
+  });
+
+  it("every id in n5-module-vocab-map.json resolves to a courseAtoms id", () => {
+    const atomIds = new Set(JA_COURSE_ATOMS.map((a) => a.id));
+    const unresolved: string[] = [];
+    for (const [key, ids] of Object.entries(vocabMap)) {
+      for (const id of ids) {
+        if (!atomIds.has(id)) unresolved.push(`${key}: ${id}`);
+      }
+    }
+    expect(
+      unresolved,
+      `vocab-map ids with no matching courseAtom:\n  ${unresolved.join("\n  ")}`,
+    ).toEqual([]);
+  });
+
+  it("no grammar point with module ≤ m27 is still 'planned' (minus exemptions)", () => {
+    const stale = grammarPoints.filter((p) => {
+      const n = parseInt(p.module.replace("m", ""), 10);
+      return (
+        Number.isFinite(n) &&
+        n <= 27 &&
+        p.status === "planned" &&
+        !GRAMMAR_PLANNED_EXEMPTIONS.has(p.id)
+      );
+    });
+    expect(
+      stale.map((p) => `${p.id} (${p.module})`),
+      "grammar points marked 'planned' whose module already shipped",
+    ).toEqual([]);
+  });
+
+  it("getAtomsUpToModule('m27') includes every attributed SRS-eligible atom", () => {
+    const upTo = new Set(getAtomsUpToModule("m27", "ja").map((a) => a.id));
+    const missing: string[] = [];
+    for (const atom of JA_COURSE_ATOMS) {
+      if (!isSrsEligibleAtom(atom)) continue;
+      if (!/^m\d+$/.test(atom.fromModule)) continue; // future / sidequest
+      if (!upTo.has(atom.id)) missing.push(`${atom.id} (${atom.fromModule})`);
+    }
+    expect(
+      missing,
+      `attributed atoms not returned by getAtomsUpToModule("m27"):\n  ${missing.join("\n  ")}`,
+    ).toEqual([]);
+  });
+});

@@ -7,6 +7,8 @@ import { getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
 import { reviewCard, setCardState, getEffectiveState, shouldRepeatInSession, getDueModalities } from "./engine";
 import { useSRSyncSession } from "./useSRSyncSession";
 import { useSubscriptionQueue } from "./useSubscriptionQueue";
+import { useFlashcardDueSummary } from "./useFlashcardDueSummary";
+import { useQuests } from "@/features/quests/useQuests";
 import { useReviewQueueFilter } from "./useReviewQueueFilter";
 import { useImagePreload } from "./useImagePreload";
 import { getModalityTheme } from "./modalityTheme";
@@ -205,6 +207,36 @@ export function FlashcardTester() {
 
   const card: Flashcard | undefined = allCards[index];
   const isSessionDone = !card;
+
+  // ── Daily "Review N cards" quest (retention 1b) ──
+  // Report this session's reviews to the server quest ONCE when the session
+  // ends (batched — not per card). If the learner is now caught up (nothing
+  // left due), complete the quest even if under target, so a learner with
+  // few due cards isn't stuck at e.g. 8/20. The "swap when nothing is due at
+  // day start" generation logic is a backend concern (handoff to Trevor —
+  // see docs/followups.md).
+  const quests = useQuests();
+  const { dueCount: cardsStillDue } = useFlashcardDueSummary(
+    language?.id ?? "ko",
+  );
+  const reviewsQuestReportedRef = useRef(false);
+  useEffect(() => {
+    if (!isSessionDone || sessionStats.reviewed === 0) return;
+    if (reviewsQuestReportedRef.current) return;
+    const q = quests.quests.find(
+      (x) =>
+        x.type === "daily" &&
+        x.progress.unit === "reviews" &&
+        x.status === "active",
+    );
+    if (!q) return;
+    reviewsQuestReportedRef.current = true;
+    if (cardsStillDue === 0) {
+      quests.complete(q.id); // caught up — finish it regardless of target
+    } else {
+      quests.addProgress(q.id, sessionStats.reviewed);
+    }
+  }, [isSessionDone, sessionStats.reviewed, cardsStillDue, quests]);
 
   // Warm the next few cards' artwork so images don't pop in after flip.
   useImagePreload(allCards, index, 3);

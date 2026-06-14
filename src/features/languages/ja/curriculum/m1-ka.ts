@@ -85,6 +85,13 @@ export const MOCK_LESSON_JA_M1_KA_1: LessonContent = {
     symbolToSound(ctx, "ja-ka1-sts-ka", "か", "ka", "like 'ka'"),
     symbolToSound(ctx, "ja-ka1-sts-ki", "き", "ki", "like 'kee'"),
 
+    // Review tail — two retrieval reps from the vowels row (kana has no
+    // SRS; in-lesson interleave is its only look-back channel). Mirrors
+    // the generated rows' tails in lessonBuilder.
+    recognition(ctx, "ja-ka1-rev-a", "あ", "a", "like 'a' in 'father'"),
+    recognition(ctx, "ja-ka1-rev-i", "い", "i", "like 'ee' in 'see'"),
+    recognition(ctx, "ja-ka1-rev-e", "え", "e", "like 'e' in 'egg'"),
+
     { id: "ja-ka1-info-end", type: "info", title: "Two down",
       body: "か and き — and you've built your first non-vowel word. Next: く and け.",
       variant: "default" },
@@ -115,15 +122,23 @@ export const MOCK_LESSON_JA_M1_KA_2: LessonContent = {
     traceTwice("ja-ka2-trace-ke", "け", "ke", "like 'ke' in 'kept'"),
     recognition(ctx, "ja-ka2-recog-ke", "け", "ke", "like 'ke' in 'kept'"),
 
+    // いけ has no usable image (BUG-C) — introduce via listening-comp
+    // primer (audio → meaning, same pattern as こえ in sub-3) BEFORE the
+    // build so the learner never spells an unintroduced word.
+    listeningComp("ja-ka2-lc-ike", "いけ", "ike", "pond",
+      ["shell", "station", "face"]),
     listeningBuild(ctx, "ja-ka2-build-ike", "いけ", "pond"),
 
     listeningComp("ja-ka2-lc-kai", "かい", "kai", "shell",
       ["pond", "face", "voice"]),
-    listeningComp("ja-ka2-lc-ike", "いけ", "ike", "pond",
-      ["shell", "station", "face"]),
 
     symbolToSound(ctx, "ja-ka2-sts-ku", "く", "ku", "like 'koo'"),
     symbolToSound(ctx, "ja-ka2-sts-ke", "け", "ke", "like 'kept'"),
+
+    // Review tail — vowels + earlier ka kana (see ka-1 note).
+    recognition(ctx, "ja-ka2-rev-u", "う", "u", "like 'oo' in 'food'"),
+    symbolToSound(ctx, "ja-ka2-rev-ka", "か", "ka", "like 'ka'"),
+    symbolToSound(ctx, "ja-ka2-rev-ki", "き", "ki", "like 'kee'"),
 
     { id: "ja-ka2-info-end", type: "info", title: "Four down",
       body: "Just こ left — and a full-row review with mic practice.", variant: "default" },

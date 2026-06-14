@@ -115,7 +115,7 @@ export function LearningTab({ userId }: Props) {
     <div className="space-y-6 max-w-4xl">
       {/* Toast */}
       {toastMsg && (
-        <div className="px-4 py-2 rounded-lg bg-green-50 dark:bg-green-950/40 border border-green-200 dark:border-green-800 text-sm text-green-800 dark:text-green-300">
+        <div className="px-4 py-2 rounded-lg bg-success/10 border border-success/30 text-sm text-success">
           {toastMsg}
         </div>
       )}

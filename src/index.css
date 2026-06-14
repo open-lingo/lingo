@@ -7,7 +7,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:focus-visible {
+/* :where() keeps specificity at zero so utilities like .outline-none can opt out */
+:where(:focus-visible) {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
@@ -15,6 +16,13 @@
 /* Theme font — applied globally */
 body {
   font-family: var(--font-family);
+}
+
+/* Reserve scrollbar width even when content fits — content growing or
+   shrinking on answer submit (feedback banners, hint removal) otherwise
+   toggles the scrollbar and shifts every centered column horizontally. */
+html {
+  scrollbar-gutter: stable;
 }
 
 /* ── Cute scrollbar — pill-in-pill, no arrows ──────────────────────────

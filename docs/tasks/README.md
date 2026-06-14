@@ -6,7 +6,7 @@ Each `.md` file here is a self-contained work item. **Closed** = done.
 
 ## AI delegation
 
-For AI agents: read [PROJECT_STATE.md](../PROJECT_STATE.md) first. **Do not start net-new features** that conflict with launch scope unless the roadmap explicitly allows it.
+For AI agents: read [PROJECT_STATE.md](../PROJECT_STATE.md) first, then the most recent handoff doc in `docs/`. **Do not start net-new features** that conflict with launch scope unless the roadmap explicitly allows it.
 
 **Post-launch / parallel (when infra is ready):**
 
