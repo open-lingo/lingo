@@ -179,7 +179,20 @@
       "streakSublabel": "일 연속",
       "alphabetDescription": "읽기·쓰기·듣기 드릴",
       "recentActivity": "최근 활동",
-      "lastReviewed": "{{hours}}시간 전 복습"
+      "lastReviewed": "{{hours}}시간 전 복습",
+      "statDueLabel": "복습 카드",
+      "statDueCaption": "복습 준비됨",
+      "statRetentionLabel": "기억 유지율",
+      "statRetentionCaption": "회상 정확도",
+      "statRetentionEmpty": "—",
+      "statRetentionEmptyCaption": "복습하면 표시",
+      "statStreakLabel": "연속 학습일",
+      "statStreakCaption": "최고 {{best}}일",
+      "statStreakCaptionEmpty": "오늘 시작하세요",
+      "statReviewsLabel": "복습 수",
+      "statReviewsCaption": "이번 주 {{count}}회 · {{days}}/7일 활동",
+      "weekReviewsAria": "이번 주 일별 복습 수",
+      "masteredCaption": "{{mastered}}개 숙달 · {{learning}}개 학습 중"
     },
     "hub": {
       "dueSummary": "복습 예정 카드 {{count}}장",
@@ -272,6 +285,24 @@
         "other": "기타",
         "all": "조사"
       }
+    },
+    "hub2": {
+      "continueKicker": "계속하기",
+      "continueTitle": "학습 이어가기",
+      "reviewNowTitle": "복습 카드 풀기",
+      "reviewNowDesc": "대기열에 카드 {{count}}장 준비됨",
+      "reviewNoneTitle": "플래시카드",
+      "reviewNoneDesc": "모두 완료 — 미리 학습하기",
+      "modulesTitle": "모듈 복습",
+      "modulesDueDesc": "복습할 모듈 {{count}}개",
+      "modulesNoneDesc": "모두 완료",
+      "grammarTitle": "문법 연습",
+      "grammarDesc": "레슨과 연계된 집중 드릴",
+      "moreTitle": "다른 연습 방법",
+      "coursesTitle": "준비된 코스",
+      "skillsTitle": "스킬 드릴",
+      "alphabetTitle": "문자 & 스크립트",
+      "trainersTitle": "트레이너"
     }
   },
   "flashcards": {
@@ -307,7 +338,7 @@
     "duePeek": "복습을 기다리는 카드",
     "noDueTitle": "지금 복습할 카드가 없습니다",
     "noDueDescription": "아래 덱을 선택해 공부하세요.",
-    "startFreeReview": "자유 복습 시작",
+    "startFreeReview": "무료 복습 시작",
     "yourDecksKicker": "라이브러리",
     "noDecksTitle": "구독한 덱이 아직 없습니다",
     "noDecksDescription": "커뮤니티 덱을 구독해 복습 큐를 만들어 보세요.",
@@ -452,8 +483,20 @@
       "nextDue": "다음 복습일",
       "lastReviewed": "마지막 복습일",
       "save": "저장",
-      "cancel": "취소"
-    }
+      "cancel": "취소",
+      "colDifficulty": "난이도",
+      "vocabComingTitle": "아직 구현되지 않음",
+      "vocabComingDesc": "스토리에서 저장한 개인 어휘가 곧 여기에 표시됩니다. 지금은 모든 카드에서 구독 및 레슨 덱을 관리하세요.",
+      "noMatchTitle": "일치하는 카드 없음",
+      "noMatchDesc": "필터를 지우거나 검색어를 조정해 보세요.",
+      "pagination": "카드 페이지"
+    },
+    "modeRecognition": "인식",
+    "modeProduction": "생성",
+    "tapToReveal": "탭하여 확인",
+    "extraCount": "추가",
+    "freeReviewNote": "무료 복습은 예정일 전에 카드를 보여줍니다. 일정에는 큰 영향이 없습니다.",
+    "ratingShortcut": "단축키: {{key}}"
   },
   "home": {
     "welcomeBack": "{{name}}님, 다시 오신 걸 환영해요",
@@ -1413,7 +1456,9 @@
       "title": "친구 최근 활동",
       "seeAll": "모두 보기",
       "empty": "아직 친구 활동이 없어요 — 친구를 추가하면 여기에 표시돼요.",
-      "cheerOn": "{{name}} 응원하기"
+      "cheerOn": "{{name}} 응원하기",
+      "showMine": "내 활동 표시",
+      "hideMine": "내 활동 숨기기"
     },
     "friends": {
       "title": "내 친구",
@@ -1433,7 +1478,8 @@
       "unfriendConfirmTitle": "{{name}}님과 친구를 끊겠습니까?",
       "unfriendConfirmBody": "서로의 리더보드와 활동 피드에서 더 이상 표시되지 않습니다.",
       "blockConfirmTitle": "{{name}}님을 차단하시겠습니까?",
-      "blockConfirmBody": "차단된 사용자는 메시지를 보내거나 프로필을 보거나 리더보드에 표시될 수 없습니다."
+      "blockConfirmBody": "차단된 사용자는 메시지를 보내거나 프로필을 보거나 리더보드에 표시될 수 없습니다.",
+      "viewProfile": "프로필 보기"
     },
     "requests": {
       "title": "요청",
@@ -1539,6 +1585,27 @@
       "emptyWeekly": "아직 주간 순위가 없습니다 — XP를 쌓아 합류하세요.",
       "emptyMonthly": "아직 월간 순위가 없습니다 — 첫 번째가 되어 보세요.",
       "emptyFriends": "친구를 추가하고 친구 전용 리더보드를 시작하세요."
+    },
+    "title": "소셜",
+    "tabs": {
+      "overview": "개요",
+      "friends": "친구",
+      "league": "리그",
+      "messages": "메시지"
+    },
+    "leagues": {
+      "viewAll": "모든 리그 보기"
+    },
+    "findFriend": {
+      "title": "친구 추가",
+      "subtitle": "사용자 이름 또는 표시 이름으로 검색하세요. 친구 요청을 보내면 상대방이 수락해야 서로의 목록에 표시됩니다.",
+      "searchPlaceholder": "학습자 검색…",
+      "hint": "추가할 사람을 검색하려면 입력하세요.",
+      "noResultsTitle": "검색 결과 없음",
+      "noResultsDesc": "검색과 일치하는 학습자가 없습니다. 다른 사용자 이름을 사용해 보세요.",
+      "respond": "응답",
+      "blocked": "차단됨",
+      "xpWk": "주간 XP"
     }
   },
   "legal": {

@@ -94,6 +94,8 @@ import {
   Upload,
   User,
   UserPlus,
+  UserMinus,
+  Ban,
   Users,
   Video,
   Volume2,
@@ -205,6 +207,8 @@ export const iconRegistry = {
   messageCircle: MessageCircle,
   users: Users,
   userPlus: UserPlus,
+  userMinus: UserMinus,
+  ban: Ban,
   moreHorizontal: MoreHorizontal,
   /** BarChart2 — data/stats indicator */
   barChart: BarChart2,

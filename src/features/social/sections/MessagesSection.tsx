@@ -396,13 +396,6 @@ export function MessagesSection({ initialFriendId, heightClassName }: Props = {}
                   : active.user.lastActiveLabel}
               </p>
             </Link>
-            <button
-              type="button"
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
-              aria-label={t("social.messages.moreAria", "More options")}
-            >
-              <Icon name="moreHorizontal" size={16} aria-hidden />
-            </button>
           </div>
 
           {/* Messages */}

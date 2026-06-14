@@ -256,7 +256,20 @@
       "streakSublabel": "day streak",
       "alphabetDescription": "Reading, writing, and listening drills",
       "recentActivity": "Recent activity",
-      "lastReviewed": "Last reviewed {{hours}}h ago"
+      "lastReviewed": "Last reviewed {{hours}}h ago",
+      "statDueLabel": "Cards due",
+      "statDueCaption": "ready to review",
+      "statRetentionLabel": "Retention",
+      "statRetentionCaption": "recall accuracy",
+      "statRetentionEmpty": "—",
+      "statRetentionEmptyCaption": "review to build",
+      "statStreakLabel": "Day streak",
+      "statStreakCaption": "best {{best}}",
+      "statStreakCaptionEmpty": "start today",
+      "statReviewsLabel": "Reviews",
+      "statReviewsCaption": "{{count}} this week · {{days}}/7 active",
+      "weekReviewsAria": "Reviews per day this week",
+      "masteredCaption": "{{mastered}} mastered · {{learning}} learning"
     },
     "hub": {
       "dueSummary": "{{count}} cards due for review",
@@ -360,6 +373,24 @@
         "other": "Other",
         "all": "Particles"
       }
+    },
+    "hub2": {
+      "continueKicker": "Keep going",
+      "continueTitle": "Continue learning",
+      "reviewNowTitle": "Review due cards",
+      "reviewNowDesc": "{{count}} cards ready in your queue",
+      "reviewNoneTitle": "Flashcards",
+      "reviewNoneDesc": "All caught up — get ahead",
+      "modulesTitle": "Module reviews",
+      "modulesDueDesc": "{{count}} modules need review",
+      "modulesNoneDesc": "All caught up",
+      "grammarTitle": "Grammar practice",
+      "grammarDesc": "Targeted drills tied to lessons",
+      "moreTitle": "More ways to practice",
+      "coursesTitle": "Pre-made courses",
+      "skillsTitle": "Skill drills",
+      "alphabetTitle": "Alphabet & scripts",
+      "trainersTitle": "Trainers"
     }
   },
   "flashcards": {
@@ -395,7 +426,7 @@
     "duePeek": "Cards waiting for a review",
     "noDueTitle": "No cards due right now",
     "noDueDescription": "Pick a deck below to study.",
-    "startFreeReview": "Start free review",
+    "startFreeReview": "Start a free review",
     "yourDecksKicker": "Library",
     "noDecksTitle": "No subscribed decks yet",
     "noDecksDescription": "Subscribe to community decks to start building your review queue.",
@@ -572,8 +603,20 @@
       "nextDue": "Next due",
       "lastReviewed": "Last reviewed",
       "save": "Save",
-      "cancel": "Cancel"
-    }
+      "cancel": "Cancel",
+      "colDifficulty": "Difficulty",
+      "vocabComingTitle": "Not yet implemented",
+      "vocabComingDesc": "Personal vocabulary saved from stories will live here soon. For now, manage your subscribed and lesson decks under All cards.",
+      "noMatchTitle": "No cards match",
+      "noMatchDesc": "Try clearing a filter or adjusting your search.",
+      "pagination": "Card pages"
+    },
+    "modeRecognition": "Recognition",
+    "modeProduction": "Production",
+    "tapToReveal": "Tap to reveal",
+    "extraCount": "Extra",
+    "freeReviewNote": "Free review shows cards before they're due. It won't change your schedule much — Good/Easy just nudge intervals.",
+    "ratingShortcut": "Shortcut: {{key}}"
   },
   "home": {
     "welcomeBack": "Welcome back, {{name}}",
@@ -1784,7 +1827,9 @@
       "title": "Friends recently",
       "seeAll": "See all",
       "empty": "No friend activity yet — add friends to start seeing wins here.",
-      "cheerOn": "Cheer on {{name}}"
+      "cheerOn": "Cheer on {{name}}",
+      "showMine": "Show mine",
+      "hideMine": "Hide mine"
     },
     "friends": {
       "title": "Your friends",
@@ -1804,7 +1849,8 @@
       "unfriendConfirmTitle": "Unfriend {{name}}?",
       "unfriendConfirmBody": "You'll stop seeing each other on leaderboards and the activity feed.",
       "blockConfirmTitle": "Block {{name}}?",
-      "blockConfirmBody": "Blocked users can't message you, see your profile, or appear in your leaderboards."
+      "blockConfirmBody": "Blocked users can't message you, see your profile, or appear in your leaderboards.",
+      "viewProfile": "View profile"
     },
     "requests": {
       "title": "Requests",
@@ -1912,6 +1958,27 @@
       "emptyWeekly": "No weekly rankings yet — earn XP to join the sprint.",
       "emptyMonthly": "No monthly rankings yet — be the first.",
       "emptyFriends": "Add friends to start a friends-only leaderboard."
+    },
+    "title": "Social",
+    "tabs": {
+      "overview": "Overview",
+      "friends": "Friends",
+      "league": "League",
+      "messages": "Messages"
+    },
+    "leagues": {
+      "viewAll": "View all leagues"
+    },
+    "findFriend": {
+      "title": "Add a friend",
+      "subtitle": "Search by username or display name. We'll send a friend request — they have to accept before you appear in each other's lists.",
+      "searchPlaceholder": "Search learners…",
+      "hint": "Start typing to search for people to add.",
+      "noResultsTitle": "No matches",
+      "noResultsDesc": "No learners match that search. Try a different username.",
+      "respond": "Respond",
+      "blocked": "Blocked",
+      "xpWk": "XP/wk"
     }
   },
   "placement": {
@@ -1936,8 +2003,7 @@
     "resultFailedBody": "No worries — you'll start with the fundamentals. The course will build your skills step by step.",
     "startLearning": "Start learning",
     "noBankTitle": "No test-out questions yet",
-    "noBankBodyBefore": "The placement engine doesn't have any items for",
-    "noBankBodyAfter": "on this language yet. The Japanese course covers M3–M27; other modules + other languages need their own bank before test-out can probe them.",
+    "noBankDesc": "The placement engine doesn't have any items for {{module}} on this language yet. The Japanese course covers M3–M27; other modules and languages need their own bank before test-out can probe them.",
     "backToLearn": "Back to Learn"
   }
 }

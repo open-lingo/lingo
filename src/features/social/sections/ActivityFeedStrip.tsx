@@ -6,11 +6,14 @@
  * Reads from `useActivityFeed` so the eventual `SocialApi` swaps in
  * without component change. Skeleton + empty states are handled here.
  */
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { userSlug } from "@/features/social/userSlug";
 import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
+import { useMe } from "@/shared/hooks/useMe";
+import { cn } from "@/shared/components/ui/cn";
 import { UserAvatar } from "../components/UserAvatar";
 import { UsernameDisplay } from "../components/UsernameDisplay";
 import { ReactionRow } from "../components/ReactionRow";
@@ -32,6 +35,22 @@ const KIND_ICON: Record<
 export function ActivityFeedStrip() {
   const { t } = useTranslation();
   const { data, isLoading, isEmpty } = useActivityFeed();
+  const { me } = useMe();
+  // Default to friends-only: hide the viewer's own accomplishments so the
+  // feed reads as "what my friends are up to". A toggle lets you fold your
+  // own wins back in.
+  const [showMine, setShowMine] = useState(false);
+
+  const myId = me?.id ?? null;
+  const hasMine = useMemo(
+    () => (data ?? []).some((a) => myId !== null && a.user.id === myId),
+    [data, myId],
+  );
+  const visible = useMemo(() => {
+    if (!data) return [];
+    if (showMine || myId === null) return data;
+    return data.filter((a) => a.user.id !== myId);
+  }, [data, showMine, myId]);
 
   return (
     <Card padding="none" className="overflow-hidden">
@@ -42,10 +61,27 @@ export function ActivityFeedStrip() {
         <h3 className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
           {t("social.activity.title", "Friends recently")}
         </h3>
+        {hasMine ? (
+          <button
+            type="button"
+            onClick={() => setShowMine((v) => !v)}
+            aria-pressed={showMine}
+            className={cn(
+              "ml-auto rounded-full border px-2 py-0.5 text-[10px] font-semibold transition",
+              showMine
+                ? "border-accent bg-accent-muted text-accent"
+                : "border-border text-text-secondary hover:text-text-primary",
+            )}
+          >
+            {showMine
+              ? t("social.activity.hideMine", "Hide mine")
+              : t("social.activity.showMine", "Show mine")}
+          </button>
+        ) : null}
       </div>
       {isLoading ? (
         <ActivitySkeleton />
-      ) : isEmpty || !data ? (
+      ) : isEmpty || !data || visible.length === 0 ? (
         <p className="px-4 py-6 text-center text-xs text-text-muted">
           {t(
             "social.activity.empty",
@@ -54,7 +90,7 @@ export function ActivityFeedStrip() {
         </p>
       ) : (
         <ul className="flex gap-2 overflow-x-auto px-3 py-2.5">
-          {data.map((a) => (
+          {visible.map((a) => (
             <ActivityCard key={a.id} item={a} />
           ))}
         </ul>

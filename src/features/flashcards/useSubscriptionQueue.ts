@@ -21,7 +21,8 @@ export type SubscriptionQueueFilter =
 export function useSubscriptionQueue(
   languageId: string,
   queueVersion: number,
-  filter: SubscriptionQueueFilter = { kind: "all" }
+  filter: SubscriptionQueueFilter = { kind: "all" },
+  options: { free?: boolean } = {},
 ): {
   queue: ReviewQueue | null;
   decks: DeckWithCards[];
@@ -65,12 +66,13 @@ export function useSubscriptionQueue(
     return subscriptions.filter((s) => deckIdSet.has(s.contentId));
   }, [subscriptions, decks]);
 
+  const free = options.free ?? false;
   const srsRevision = useSRSStoreRevision();
   const queue = useMemo((): ReviewQueue | null => {
     if (activeSubs.length === 0 || decks.length === 0) return null;
     const srsStore = getSRSStore();
-    return buildQueueFromSubscriptions(activeSubs, decks, srsStore);
-  }, [activeSubs, decks, queueVersion, srsRevision]);
+    return buildQueueFromSubscriptions(activeSubs, decks, srsStore, { free });
+  }, [activeSubs, decks, queueVersion, srsRevision, free]);
 
   return {
     queue,

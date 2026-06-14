@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
 import { PlainText } from "@/shared/components/PlainText";
@@ -84,40 +84,24 @@ function ExamplesList({ examples }: { examples: Example[] }) {
   );
 }
 
-type Layout = "sidebar" | "stacked";
+type Layout = "sidebar" | "stacked" | "overlay";
 
 /**
- * Detail panel for a flashcard: breakdown / note / definition / context /
- * reasoning. Rendered only after the user reveals the answer.
- *
- * Two layout modes:
- *   - `sidebar`: ~300px off-center column on `lg:`+ viewports
- *   - `stacked`: full-width block underneath the card on small screens
- *
- * Returns `null` if the card has no extra info.
+ * The detail body itself (segment breakdown / note / definition / context /
+ * reasoning / examples). Shared by every layout variant.
  */
-export function FlashcardDetailSidebar({
+function DetailBody({
   card,
   particles,
-  layout,
 }: {
   card: Flashcard;
   particles: ParticleDef[] | null;
-  layout: Layout;
 }) {
   const { t } = useTranslation();
-  if (!hasSidebarContent(card)) return null;
   const segments = getSegments(card);
-
-  const containerClass =
-    layout === "sidebar"
-      ? "hidden lg:block lg:w-[300px] lg:shrink-0"
-      : "lg:hidden";
-
   return (
-    <aside className={containerClass} aria-label={t("flashcards.detailsLabel", "Card details")}>
-      <div className="space-y-3 rounded-lg border border-border bg-surface-muted p-4 text-sm">
-        {segments && segments.length > 0 && (
+    <div className="space-y-3 text-sm">
+      {segments && segments.length > 0 && (
           <section>
             <span className="text-xs font-medium text-text-muted">
               {t("flashcards.segmentBreakdown", "Segment breakdown")}
@@ -177,9 +161,73 @@ export function FlashcardDetailSidebar({
           </section>
         )}
 
-        {card.examples && card.examples.length > 0 && (
-          <ExamplesList examples={card.examples} />
-        )}
+      {card.examples && card.examples.length > 0 && (
+        <ExamplesList examples={card.examples} />
+      )}
+    </div>
+  );
+}
+
+/**
+ * Detail panel for a flashcard. Rendered only after the user reveals the
+ * answer. Returns `null` if the card has no extra info.
+ *
+ * Layout modes:
+ *   - `sidebar`: ~300px off-center column on `lg:`+ viewports. NOTE: this is
+ *     a sibling of the centered card column, so on its own it would shove the
+ *     card off-center. The tester renders it inside a fixed-width spacer slot
+ *     so the card stays put (see FlashcardTester).
+ *   - `overlay`: absolutely-positioned panel that floats beside the card and
+ *     does NOT participate in flow — zero layout shift. Used on `lg:`+.
+ *   - `stacked`: full-width block underneath the card on small screens.
+ */
+export function FlashcardDetailSidebar({
+  card,
+  particles,
+  layout,
+  toolbar,
+}: {
+  card: Flashcard;
+  particles: ParticleDef[] | null;
+  layout: Layout;
+  /** Optional toolbar rendered above the detail body (overlay variant only). */
+  toolbar?: ReactNode;
+}) {
+  const { t } = useTranslation();
+  if (!hasSidebarContent(card)) return null;
+
+  if (layout === "overlay") {
+    return (
+      <aside
+        aria-label={t("flashcards.detailsLabel", "Card details")}
+        className="absolute left-full top-0 z-10 ml-6 hidden w-[300px] lg:block"
+      >
+        <div className="overflow-hidden rounded-lg border border-border bg-surface-muted shadow-card">
+          {toolbar && (
+            <div className="flex items-center justify-between gap-2 border-b border-border bg-surface px-3 py-2">
+              <span className="text-xs font-semibold uppercase tracking-wide text-text-muted">
+                {t("flashcards.detailsLabel", "Card details")}
+              </span>
+              <div className="flex items-center gap-1">{toolbar}</div>
+            </div>
+          )}
+          <div className="p-4">
+            <DetailBody card={card} particles={particles} />
+          </div>
+        </div>
+      </aside>
+    );
+  }
+
+  const containerClass =
+    layout === "sidebar"
+      ? "hidden lg:block lg:w-[300px] lg:shrink-0"
+      : "lg:hidden";
+
+  return (
+    <aside className={containerClass} aria-label={t("flashcards.detailsLabel", "Card details")}>
+      <div className="rounded-lg border border-border bg-surface-muted p-4">
+        <DetailBody card={card} particles={particles} />
       </div>
     </aside>
   );

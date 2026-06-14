@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Button } from "@/shared/components/ui";
 import { StepRenderer } from "@/features/lesson/components/StepRenderer";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useApi } from "@/shared/api/provider";
@@ -102,24 +103,26 @@ export function PlacementTestPage() {
   if (!hasBank) {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 p-8 text-center">
-        <h2 className="text-lg font-semibold">
-          {t("placement.noBankTitle", "No test-out questions yet")}
+        <h2 className="text-lg font-semibold text-text-primary">
+          {t("placement.noBankTitle", {
+            defaultValue: "No test-out questions yet",
+          })}
         </h2>
-        <p className="text-sm text-text-secondary max-w-md">
-          {t("placement.noBankBodyBefore", "The placement engine doesn't have any items for")}{" "}
-          <span className="font-mono">{moduleId}</span>{" "}
-          {t(
-            "placement.noBankBodyAfter",
-            "on this language yet. The Japanese course covers M3–M27; other modules + other languages need their own bank before test-out can probe them.",
-          )}
+        <p className="max-w-md text-sm text-text-secondary">
+          {t("placement.noBankDesc", {
+            defaultValue:
+              "The placement engine doesn't have any items for {{module}} on this language yet. The Japanese course covers M3–M27; other modules and languages need their own bank before test-out can probe them.",
+            module: moduleId,
+          })}
         </p>
-        <button
+        <Button
           type="button"
+          variant="primary"
+          size="sm"
           onClick={() => navigate(langPath("learn"))}
-          className="px-4 py-2 rounded bg-accent text-white text-sm hover:bg-accent-hover"
         >
-          {t("placement.backToLearn", "Back to Learn")}
-        </button>
+          {t("placement.backToLearn", { defaultValue: "Back to Learn" })}
+        </Button>
       </div>
     );
   }
