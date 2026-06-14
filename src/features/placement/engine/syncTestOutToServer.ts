@@ -16,9 +16,12 @@
 import type { BatchAttempt, ProgressApi } from "@/shared/api/progress";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 
-export function buildTestOutAttempts(passedModules: string[]): BatchAttempt[] {
+export function buildTestOutAttempts(
+  passedModules: string[],
+  languageId: string = "ja",
+): BatchAttempt[] {
   if (passedModules.length === 0) return [];
-  const course = getMockCourse("ja");
+  const course = getMockCourse(languageId);
   const passedSet = new Set(passedModules);
   const now = new Date().toISOString();
   const stamp = Date.now();
@@ -49,8 +52,9 @@ export function buildTestOutAttempts(passedModules: string[]): BatchAttempt[] {
 export async function syncTestOutToServer(
   progress: ProgressApi,
   passedModules: string[],
+  languageId: string = "ja",
 ): Promise<{ submitted: number }> {
-  const attempts = buildTestOutAttempts(passedModules);
+  const attempts = buildTestOutAttempts(passedModules, languageId);
   if (attempts.length === 0) return { submitted: 0 };
   try {
     await progress.batchAttempts({ attempts });

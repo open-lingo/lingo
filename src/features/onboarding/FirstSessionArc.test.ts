@@ -29,6 +29,17 @@ describe("FirstSessionArc gate", () => {
       shouldShowFirstSessionArc({ completedCount: 0, ftueArcSeen: true }),
     ).toBe(false);
   });
+
+  it("is language-agnostic — same gate for a new KO learner as a JA one", () => {
+    // The arc (and its optional-placement offer) is offered to a brand-new
+    // learner in ANY course; nothing in the gate is keyed to a language id.
+    // The placement route itself is built from the active lang via langPath,
+    // and applyPlacementResult levels against that course (covered in
+    // applyPlacement.test.ts).
+    expect(
+      shouldShowFirstSessionArc({ completedCount: 0, ftueArcSeen: undefined }),
+    ).toBe(true);
+  });
 });
 
 describe("self-chosen daily goal persistence", () => {

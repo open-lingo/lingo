@@ -6,7 +6,12 @@ import {
   recordAnswer,
   type AdaptiveState,
 } from "./adaptiveEngine";
-import { SKILL_TIERS, ALL_TESTABLE_MODULES } from "../tiers";
+import {
+  SKILL_TIERS,
+  ALL_TESTABLE_MODULES,
+  getSkillTiers,
+  getAllTestableModules,
+} from "../tiers";
 import type { PlacementItemConfig } from "../questionBank";
 
 function makeItem(id: string, moduleId: string): PlacementItemConfig {
@@ -217,6 +222,66 @@ describe("adaptiveEngine", () => {
 
       expect(state.stage).toBe("done");
       expect(state.passedModules).not.toContain("m10");
+    });
+  });
+
+  // ── Language-aware auto-leveling (KO) ────────────────────────────────
+  describe("language-aware leveling (ko)", () => {
+    // A KO mock bank spanning every KO testable module.
+    const KO_BANK: Record<string, PlacementItemConfig[]> = {};
+    for (const mod of getAllTestableModules("ko")) {
+      KO_BANK[mod] = [
+        makeItem(`ko-${mod}-1`, mod),
+        makeItem(`ko-${mod}-2`, mod),
+        makeItem(`ko-${mod}-3`, mod),
+      ];
+    }
+    const getKoItems = (m: string) => KO_BANK[m] ?? [];
+
+    it("createInitialState records the language and uses KO tiers", () => {
+      const state = createInitialState("ko");
+      expect(state.languageId).toBe("ko");
+      // KO screening serves one item per KO tier (9 tiers, m1..m27).
+      const seen: string[] = [];
+      let s = state;
+      for (let i = 0; i < getSkillTiers("ko").length; i++) {
+        const item = selectNextItem(s, getKoItems)!;
+        seen.push(item.moduleId);
+        s = recordAnswer(s, item.id, true, getKoItems);
+      }
+      // First screening item is KO tier 0's screening module (m1), proving
+      // the engine is NOT using the JA tier set (which starts at m3).
+      expect(seen[0]).toBe("m1");
+      expect(s.stage).toBe("probing");
+    });
+
+    it("all-correct KO screening passes the whole KO course", () => {
+      let s = createInitialState("ko");
+      // Drive the entire test all-correct.
+      for (let guard = 0; guard < 60; guard++) {
+        const item = selectNextItem(s, getKoItems);
+        if (!item) break;
+        s = recordAnswer(s, item.id, true, getKoItems);
+        if (s.stage === "done") break;
+      }
+      expect(s.stage).toBe("done");
+      // Auto-level reached the top KO module.
+      expect(s.passedModules).toContain("m27");
+      expect(s.passedModules).toContain("m1");
+    });
+
+    it("KO test-out probes only the target module", () => {
+      let s = createTestOutState("m7", "ko");
+      expect(s.languageId).toBe("ko");
+      for (let guard = 0; guard < 6; guard++) {
+        const item = selectNextItem(s, getKoItems);
+        if (!item) break;
+        expect(item.moduleId).toBe("m7");
+        s = recordAnswer(s, item.id, true, getKoItems);
+        if (s.stage === "done") break;
+      }
+      expect(s.stage).toBe("done");
+      expect(s.passedModules).toEqual(["m7"]);
     });
   });
 });
