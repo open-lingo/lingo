@@ -997,6 +997,43 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m3-8", title: "M3 Mastery Test",                  status: "available" as const },
     ];
 
+    // M4-M6 (2026-06-13): the N5 spine after first-phrases. Mirrors the JA
+    // M4-M6 grammar arc (の/possessive + demonstratives → numbers/counters/
+    // ください → に/で/が + existence) using Korean's own grammar. 8 lessons
+    // each, matching M3's shape. Content lives in curriculum/m4.ts ... m6.ts.
+    const m4Lessons = [
+      { id: "ko-m4-1", title: "Everyday objects — 책, 펜, 가방",    status: "available" as const },
+      { id: "ko-m4-2", title: "의 — possessive 's",                status: "available" as const },
+      { id: "ko-m4-3", title: "이거 / 그거 / 저거 — this & that",   status: "available" as const },
+      { id: "ko-m4-4", title: "이게 뭐예요? — what is this?",       status: "available" as const },
+      { id: "ko-m4-5", title: "누구 거예요? — whose is it?",        status: "available" as const },
+      { id: "ko-m4-6", title: "Building it together",              status: "available" as const },
+      { id: "ko-m4-7", title: "Mini-dialogue — at a shop",         status: "available" as const },
+      { id: "ko-m4-8", title: "M4 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m5Lessons = [
+      { id: "ko-m5-1", title: "Native numbers 1–5",               status: "available" as const },
+      { id: "ko-m5-2", title: "Native numbers 6–10",              status: "available" as const },
+      { id: "ko-m5-3", title: "주세요 — please give me",           status: "available" as const },
+      { id: "ko-m5-4", title: "Counters — 개 / 명 / 잔",           status: "available" as const },
+      { id: "ko-m5-5", title: "이거 한 개 주세요 — ordering",       status: "available" as const },
+      { id: "ko-m5-6", title: "얼마예요? — how much?",             status: "available" as const },
+      { id: "ko-m5-7", title: "Mini-dialogue — at a cafe",         status: "available" as const },
+      { id: "ko-m5-8", title: "M5 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m6Lessons = [
+      { id: "ko-m6-1", title: "Places — 집, 학교, 가게",           status: "available" as const },
+      { id: "ko-m6-2", title: "있어요 / 없어요 — there is / isn't", status: "available" as const },
+      { id: "ko-m6-3", title: "에 — at / in (a place)",            status: "available" as const },
+      { id: "ko-m6-4", title: "에 vs 에서 — being vs doing",       status: "available" as const },
+      { id: "ko-m6-5", title: "이/가 + 있어요 — the subject",       status: "available" as const },
+      { id: "ko-m6-6", title: "어디에 있어요? — where is it?",      status: "available" as const },
+      { id: "ko-m6-7", title: "Mini-dialogue — finding your way",  status: "available" as const },
+      { id: "ko-m6-8", title: "M6 Mastery Test",                  status: "available" as const },
+    ];
+
     const sideQuests: SideQuest[] = [
       {
         id: "ko-survival-phrasebook",
@@ -1061,6 +1098,30 @@ export function getMockCourse(languageId: string): Course {
           summary: "Greetings, introductions, 이에요/예요. Real vocabulary on top of a real reading foundation.",
           lessons: m3Lessons,
           accent: { from: "#ec4899", to: "#db2777" },
+        },
+        {
+          id: "m4",
+          title: "Things & possession",
+          eyebrow: "Module 4 · Describe",
+          summary: "Everyday objects, the possessive 의 (and 제 = my), and the 이거/그거/저거 'this & that' system.",
+          lessons: m4Lessons,
+          accent: { from: "#f97316", to: "#ea580c" },
+        },
+        {
+          id: "m5",
+          title: "Numbers & counting",
+          eyebrow: "Module 5 · Order",
+          summary: "Native numbers, counters (개/명/잔), and 주세요 — everything you need to count and order.",
+          lessons: m5Lessons,
+          accent: { from: "#14b8a6", to: "#0d9488" },
+        },
+        {
+          id: "m6",
+          title: "Places & existence",
+          eyebrow: "Module 6 · Locate",
+          summary: "Places, 있어요/없어요 (there is/isn't), the 에 vs 에서 contrast, and asking 어디에 있어요?",
+          lessons: m6Lessons,
+          accent: { from: "#8b5cf6", to: "#7c3aed" },
         },
       ],
       sideQuests,
