@@ -12,7 +12,7 @@ import { SRSPendingSync } from "@/features/flashcards/SRSPendingSync";
 import { LessonProgressHydrate } from "@/features/lesson/LessonProgressHydrate";
 import { SyncManagerTrigger } from "@/features/sync/SyncManagerTrigger";
 import { ThemeEditorPanel } from "@/shared/components/ThemeEditorPanel";
-import { LanguageSelector } from "@/shared/components/LanguageSelector";
+import { FloatingLanguagePill } from "@/shared/components/FloatingLanguagePill";
 import { AuthMenu } from "@/shared/components/AuthMenu";
 import { ModalRoot } from "@/shared/components/ModalRoot";
 import { ToastContainer } from "@/shared/components/ToastContainer";
@@ -233,7 +233,6 @@ export function Layout() {
               </span>
             )}
             {isAuthenticated && <LingotBalance />}
-            {isAuthenticated && <LanguageSelector />}
             {isAuthenticated ? (
               <AuthMenu />
             ) : (
@@ -372,6 +371,19 @@ export function Layout() {
       </main>
       <SiteFooter />
       {showAppAds ? <CollapsibleAdBanner /> : null}
+      {isAuthenticated && (
+        <FloatingLanguagePill className={sidebarMode ? "lg:hidden" : ""} />
+      )}
+      {/* Sidebar layout has no top bar on desktop, so the utility controls
+          (cloud/sync, lingots, profile) float top-right where their menus
+          have room to open downward. Mobile sidebar mode still uses the top bar. */}
+      {sidebarMode && (
+        <div className="fixed right-3 top-3 z-40 hidden items-center gap-1.5 rounded-full border border-border bg-surface px-2 py-1 shadow-popover lg:flex">
+          <SyncManagerTrigger />
+          <LingotBalance />
+          <AuthMenu />
+        </div>
+      )}
       <CookieConsent />
       <FundingMeter />
       <ModalRoot />

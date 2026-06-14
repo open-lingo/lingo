@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { AVAILABLE_LEARNING_LANGUAGE_IDS } from "@/shared/domain/languageConfig";
 
-export function LanguageSelector() {
+export function LanguageSelector({ dropUp = false }: { dropUp?: boolean } = {}) {
   const { language, languages, setLanguage, isLoading } = useLanguage();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -46,7 +46,9 @@ export function LanguageSelector() {
 
       {open && (
         <ul
-          className="absolute right-0 top-full z-50 mt-2 max-h-64 w-56 overflow-auto rounded-lg border border-border bg-surface py-1 shadow-popover"
+          className={`absolute left-0 z-50 max-h-64 w-56 overflow-auto rounded-lg border border-border bg-surface py-1 shadow-popover ${
+            dropUp ? "bottom-full mb-2" : "right-0 left-auto top-full mt-2"
+          }`}
           role="listbox"
         >
           {languages.map((lang) => (

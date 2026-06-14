@@ -4,9 +4,6 @@ import { Icon } from "@/shared/components/Icon";
 import { useNavDestinations } from "@/shared/nav/useNavDestinations";
 import { makePrefetchHandlers } from "@/shared/utils/routePrefetch";
 import { LanguageSelector } from "@/shared/components/LanguageSelector";
-import { AuthMenu } from "@/shared/components/AuthMenu";
-import { LingotBalance } from "@/shared/components/LingotBalance";
-import { SyncManagerTrigger } from "@/features/sync/SyncManagerTrigger";
 import { useAuth } from "@/shared/auth/useAuth";
 
 /**
@@ -73,17 +70,11 @@ export function SidebarNav() {
       </nav>
 
       {isAuthenticated ? (
-        <div className="shrink-0 space-y-2 border-t border-border px-3 py-3">
-          <div className="flex items-center gap-2">
-            <LingotBalance />
-            <LanguageSelector />
-          </div>
-          <div className="flex items-center gap-2">
-            <SyncManagerTrigger />
-            <span className="ml-auto">
-              <AuthMenu />
-            </span>
-          </div>
+        <div className="shrink-0 border-t border-border px-3 py-3">
+          {/* Drop-up so the menu opens above the footer instead of off-screen.
+              Lingots / sync / profile live in the floating top-right cluster
+              (see Layout) since their menus need room below. */}
+          <LanguageSelector dropUp />
         </div>
       ) : null}
     </aside>
