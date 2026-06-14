@@ -1,11 +1,17 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import {
   getSRSStore,
   setCardState,
+  setSRSStore,
   getCardState,
   clearSRSStore,
 } from "./srsStorage";
 import { createInitialState } from "./srs";
+import {
+  STORAGE_QUOTA_EVENT,
+  __resetStorageQuotaThrottle,
+  type StorageQuotaDetail,
+} from "@/shared/utils/storageQuota";
 
 const STORAGE_KEY = "open-lingo-srs:v2";
 
@@ -88,5 +94,46 @@ describe("srsStorage", () => {
     setCardState("c", createInitialState());
     clearSRSStore();
     expect(getSRSStore()).toEqual({});
+  });
+
+  describe("quota guard", () => {
+    beforeEach(() => {
+      __resetStorageQuotaThrottle();
+      vi.spyOn(console, "warn").mockImplementation(() => {});
+    });
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    it("setSRSStore warns instead of silently dropping on QuotaExceededError", () => {
+      const events: StorageQuotaDetail[] = [];
+      const handler = (e: Event) =>
+        events.push((e as CustomEvent<StorageQuotaDetail>).detail);
+      window.addEventListener(STORAGE_QUOTA_EVENT, handler);
+
+      const original = localStorage.setItem.bind(localStorage);
+      Object.defineProperty(localStorage, "setItem", {
+        configurable: true,
+        writable: true,
+        value: () => {
+          throw new DOMException("quota", "QuotaExceededError");
+        },
+      });
+
+      // Previously this swallowed the error with no signal.
+      expect(() =>
+        setSRSStore({ "ja:c": createInitialState() }),
+      ).not.toThrow();
+
+      Object.defineProperty(localStorage, "setItem", {
+        configurable: true,
+        writable: true,
+        value: original,
+      });
+      window.removeEventListener(STORAGE_QUOTA_EVENT, handler);
+
+      expect(events).toHaveLength(1);
+      expect(events[0].reason).toBe("exceeded");
+    });
   });
 });

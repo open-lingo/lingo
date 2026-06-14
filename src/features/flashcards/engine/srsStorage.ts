@@ -1,5 +1,6 @@
 import type { SRSCardState, SRSModalityState, SRSPhase } from "../data/types";
 import { isLegacyFlatFsrsState, migrateFlatToModal } from "./srsMigration";
+import { safeLocalStorageWrite } from "@/shared/utils/storageQuota";
 
 // Bumped storage namespace for the FSRS-6 migration (2026-05-20). The
 // schema changed (stability + difficulty replaced easeFactor) and we
@@ -112,11 +113,9 @@ export function getSRSStore(): SRSStore {
       valid[canonical] = loaded;
     }
     if (migrated) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(valid));
-      } catch {
-        // ignore quota errors — next write will re-attempt.
-      }
+      // Best-effort rewrite of canonicalized keys. If quota blocks it the
+      // warning surfaces via safeLocalStorageWrite; the next write re-attempts.
+      safeLocalStorageWrite(STORAGE_KEY, JSON.stringify(valid));
     }
     return valid;
   } catch {
@@ -126,11 +125,10 @@ export function getSRSStore(): SRSStore {
 
 export function setSRSStore(store: SRSStore): void {
   if (typeof window === "undefined") return;
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
-  } catch {
-    // ignore quota errors
-  }
+  // Quota errors no longer drop silently — safeLocalStorageWrite warns the
+  // user (toast + log) at/near the ceiling. The in-memory `store` the caller
+  // holds is preserved; the next mutation re-attempts the write.
+  safeLocalStorageWrite(STORAGE_KEY, JSON.stringify(store));
 }
 
 export function getCardState(cardId: string): SRSCardState | undefined {

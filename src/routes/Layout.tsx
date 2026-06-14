@@ -17,6 +17,7 @@ import { AuthMenu } from "@/shared/components/AuthMenu";
 import { ModalRoot } from "@/shared/components/ModalRoot";
 import { CommandPalette } from "@/shared/components/CommandPalette/CommandPalette";
 import { ToastContainer } from "@/shared/components/ToastContainer";
+import { StorageQuotaWatcher } from "@/shared/components/StorageQuotaWatcher";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTouchOnSession } from "@/shared/hooks/useTouchOnSession";
 import { ImpersonationBanner } from "@/features/admin/impersonation/ImpersonationBanner";
@@ -418,6 +419,7 @@ export function Layout() {
       {isAuthenticated && <CommandPalette />}
       {isThemeEditorOpen && <ThemeEditorPanel />}
       <ToastContainer />
+      <StorageQuotaWatcher />
     </div>
   );
 }
