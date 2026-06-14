@@ -1034,6 +1034,76 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m6-8", title: "M6 Mastery Test",                  status: "available" as const },
     ];
 
+    // M7-M12 (2026-06-13): the N5→N4 grammar spine after existence. Mirrors
+    // the JA M7-M12 grammar arc (verbs + を → adjectives → connectors → past
+    // → negation → time) using Korean's own grammar. 8 lessons each, matching
+    // M3-M6's shape. Content lives in curriculum/m7.ts ... m12.ts.
+    const m7Lessons = [
+      { id: "ko-m7-1", title: "Action verbs — 가다, 먹다, 보다",    status: "available" as const },
+      { id: "ko-m7-2", title: "The 해요 present — 가요, 먹어요",     status: "available" as const },
+      { id: "ko-m7-3", title: "하다 verbs — 해요, 공부해요",        status: "available" as const },
+      { id: "ko-m7-4", title: "Things to eat, drink & watch",      status: "available" as const },
+      { id: "ko-m7-5", title: "을 / 를 — the object marker",        status: "available" as const },
+      { id: "ko-m7-6", title: "Building full sentences",           status: "available" as const },
+      { id: "ko-m7-7", title: "Mini-dialogue — what are you doing?", status: "available" as const },
+      { id: "ko-m7-8", title: "M7 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m8Lessons = [
+      { id: "ko-m8-1", title: "Describing words — 좋다, 크다",      status: "available" as const },
+      { id: "ko-m8-2", title: "좋아요 / 작아요 — adjectives conjugate", status: "available" as const },
+      { id: "ko-m8-3", title: "크다 → 커요 — the ㅡ drop",          status: "available" as const },
+      { id: "ko-m8-4", title: "맛있어요 / 비싸요 — food & price",   status: "available" as const },
+      { id: "ko-m8-5", title: "좋은 책 — describing a noun",        status: "available" as const },
+      { id: "ko-m8-6", title: "Building descriptions",             status: "available" as const },
+      { id: "ko-m8-7", title: "Mini-dialogue — at a shop",         status: "available" as const },
+      { id: "ko-m8-8", title: "M8 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m9Lessons = [
+      { id: "ko-m9-1", title: "하고 — and",                        status: "available" as const },
+      { id: "ko-m9-2", title: "하고 — with (someone)",             status: "available" as const },
+      { id: "ko-m9-3", title: "와 / 과 — the formal 'and'",        status: "available" as const },
+      { id: "ko-m9-4", title: "도 — too / also",                   status: "available" as const },
+      { id: "ko-m9-5", title: "Connectors together",              status: "available" as const },
+      { id: "ko-m9-6", title: "Lists & company",                  status: "available" as const },
+      { id: "ko-m9-7", title: "Mini-dialogue — ordering together", status: "available" as const },
+      { id: "ko-m9-8", title: "M9 Mastery Test",                  status: "available" as const },
+    ];
+
+    const m10Lessons = [
+      { id: "ko-m10-1", title: "어제 / 오늘 — yesterday & today",   status: "available" as const },
+      { id: "ko-m10-2", title: "Past tense — 먹었어요",            status: "available" as const },
+      { id: "ko-m10-3", title: "갔어요 / 왔어요 / 했어요",          status: "available" as const },
+      { id: "ko-m10-4", title: "좋았어요 / 맛있었어요",            status: "available" as const },
+      { id: "ko-m10-5", title: "였어요 / 이었어요 — was",           status: "available" as const },
+      { id: "ko-m10-6", title: "Narrating a day",                 status: "available" as const },
+      { id: "ko-m10-7", title: "Mini-dialogue — how was it?",      status: "available" as const },
+      { id: "ko-m10-8", title: "M10 Mastery Test",                status: "available" as const },
+    ];
+
+    const m11Lessons = [
+      { id: "ko-m11-1", title: "안 — don't / not",                 status: "available" as const },
+      { id: "ko-m11-2", title: "공부 안 해요 — the 하다 split",     status: "available" as const },
+      { id: "ko-m11-3", title: "못 — can't",                       status: "available" as const },
+      { id: "ko-m11-4", title: "안 vs 못 — which 'no'?",           status: "available" as const },
+      { id: "ko-m11-5", title: "Negation in the past",            status: "available" as const },
+      { id: "ko-m11-6", title: "고 싶어요 — want to",              status: "available" as const },
+      { id: "ko-m11-7", title: "Mini-dialogue — declining politely", status: "available" as const },
+      { id: "ko-m11-8", title: "M11 Mastery Test",                status: "available" as const },
+    ];
+
+    const m12Lessons = [
+      { id: "ko-m12-1", title: "시 — o'clock",                     status: "available" as const },
+      { id: "ko-m12-2", title: "분 / 반 — minutes & half past",    status: "available" as const },
+      { id: "ko-m12-3", title: "몇 시예요? — what time is it?",     status: "available" as const },
+      { id: "ko-m12-4", title: "Days of the week — 요일",          status: "available" as const },
+      { id: "ko-m12-5", title: "에 — 'at' (a time)",               status: "available" as const },
+      { id: "ko-m12-6", title: "Scheduling — day + time + action", status: "available" as const },
+      { id: "ko-m12-7", title: "Mini-dialogue — making plans",     status: "available" as const },
+      { id: "ko-m12-8", title: "M12 Mastery Test",                status: "available" as const },
+    ];
+
     const sideQuests: SideQuest[] = [
       {
         id: "ko-survival-phrasebook",
@@ -1122,6 +1192,54 @@ export function getMockCourse(languageId: string): Course {
           summary: "Places, 있어요/없어요 (there is/isn't), the 에 vs 에서 contrast, and asking 어디에 있어요?",
           lessons: m6Lessons,
           accent: { from: "#8b5cf6", to: "#7c3aed" },
+        },
+        {
+          id: "m7",
+          title: "Verbs & the 해요 present",
+          eyebrow: "Module 7 · Act",
+          summary: "Action verbs in the polite 해요 present (가요/먹어요/해요) and the object particle 을/를.",
+          lessons: m7Lessons,
+          accent: { from: "#ef4444", to: "#dc2626" },
+        },
+        {
+          id: "m8",
+          title: "Describing things",
+          eyebrow: "Module 8 · Describe",
+          summary: "Korean adjectives are verbs: 좋아요/커요/예뻐요, the ㅡ-drop, and the attributive 좋은 책.",
+          lessons: m8Lessons,
+          accent: { from: "#f59e0b", to: "#d97706" },
+        },
+        {
+          id: "m9",
+          title: "Connecting things",
+          eyebrow: "Module 9 · Connect",
+          summary: "Join nouns and add 'also': 하고 (and/with), the formal 와/과, and the particle-replacing 도.",
+          lessons: m9Lessons,
+          accent: { from: "#10b981", to: "#059669" },
+        },
+        {
+          id: "m10",
+          title: "The past tense",
+          eyebrow: "Module 10 · Recall",
+          summary: "Polite past for verbs and adjectives (먹었어요/좋았어요), the past copula, and 어제/오늘.",
+          lessons: m10Lessons,
+          accent: { from: "#3b82f6", to: "#2563eb" },
+        },
+        {
+          id: "m11",
+          title: "Saying no & saying can't",
+          eyebrow: "Module 11 · Negate",
+          summary: "안 (don't) vs 못 (can't), the 공부 안 해요 split, past negation, and 고 싶어요 (want to).",
+          lessons: m11Lessons,
+          accent: { from: "#a855f7", to: "#9333ea" },
+        },
+        {
+          id: "m12",
+          title: "Time & the week",
+          eyebrow: "Module 12 · Schedule",
+          summary: "The clock (native-number hours + Sino-number minutes), days of the week, and the time particle 에.",
+          lessons: m12Lessons,
+          accent: { from: "#06b6d4", to: "#0891b2" },
         },
       ],
       sideQuests,

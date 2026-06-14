@@ -1,0 +1,44 @@
+/**
+ * KO M12 curriculum guard.
+ *
+ * Headline guard: every M12 pathway node declared in the course mock
+ * (`ko-m12-1` … `ko-m12-8`) must resolve to real lesson content. If a future
+ * edit declares them in the pathway without content (or vice versa) this
+ * test fails loud.
+ */
+import { describe, it, expect } from "vitest";
+import { KO_M12_LESSONS } from "./m12";
+import { getMockCourse } from "@/shared/domain/mockCourse";
+import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
+
+describe("KO M12 curriculum", () => {
+  it("ships 8 lessons, all tagged ko / m12", () => {
+    expect(KO_M12_LESSONS.length).toBe(8);
+    expect(KO_M12_LESSONS.every((l) => l.moduleId === "m12")).toBe(true);
+    expect(KO_M12_LESSONS.every((l) => l.languageId === "ko")).toBe(true);
+  });
+
+  it("lesson ids are unique", () => {
+    const ids = new Set(KO_M12_LESSONS.map((l) => l.id));
+    expect(ids.size).toBe(KO_M12_LESSONS.length);
+  });
+
+  it("every M12 pathway node resolves to lesson content", () => {
+    const course = getMockCourse("ko");
+    const m12 = course.modules.find((m) => m.id === "m12");
+    expect(m12).toBeDefined();
+    expect(m12?.lessons.length ?? 0).toBe(8);
+    for (const lesson of m12!.lessons) {
+      const content = getMockLessonContent(lesson.id);
+      expect(content, `M12 pathway node '${lesson.id}' has no content`).not.toBeNull();
+      expect(content?.steps.length ?? 0).toBeGreaterThan(0);
+    }
+  });
+
+  it("every step id within a lesson is unique", () => {
+    for (const lesson of KO_M12_LESSONS) {
+      const ids = lesson.steps.map((s) => s.id);
+      expect(new Set(ids).size, `dup step id in ${lesson.id}`).toBe(ids.length);
+    }
+  });
+});

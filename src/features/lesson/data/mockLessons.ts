@@ -10,6 +10,12 @@ import { KO_M3_LESSONS } from "@/features/languages/ko/curriculum/m3";
 import { KO_M4_LESSONS } from "@/features/languages/ko/curriculum/m4";
 import { KO_M5_LESSONS } from "@/features/languages/ko/curriculum/m5";
 import { KO_M6_LESSONS } from "@/features/languages/ko/curriculum/m6";
+import { KO_M7_LESSONS } from "@/features/languages/ko/curriculum/m7";
+import { KO_M8_LESSONS } from "@/features/languages/ko/curriculum/m8";
+import { KO_M9_LESSONS } from "@/features/languages/ko/curriculum/m9";
+import { KO_M10_LESSONS } from "@/features/languages/ko/curriculum/m10";
+import { KO_M11_LESSONS } from "@/features/languages/ko/curriculum/m11";
+import { KO_M12_LESSONS } from "@/features/languages/ko/curriculum/m12";
 import { MOCK_LESSON_KO_SIDEQUEST_SURVIVAL } from "@/features/languages/ko/curriculum/sidequest-survival";
 import {
   MOCK_LESSON_JA_M1_L1A,
@@ -329,6 +335,24 @@ const KOREAN_M5_LESSONS: Record<string, LessonContent> = Object.fromEntries(
 const KOREAN_M6_LESSONS: Record<string, LessonContent> = Object.fromEntries(
   KO_M6_LESSONS.map((l) => [l.id, l]),
 );
+const KOREAN_M7_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M7_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M8_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M8_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M9_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M9_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M10_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M10_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M11_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M11_LESSONS.map((l) => [l.id, l]),
+);
+const KOREAN_M12_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  KO_M12_LESSONS.map((l) => [l.id, l]),
+);
 
 const LESSONS: Record<string, LessonContent> = {
   // ─── Korean — Module 1 (Hangul foundation, 2026-05-19) ───────────────
@@ -354,6 +378,19 @@ const LESSONS: Record<string, LessonContent> = {
   ...KOREAN_M4_LESSONS,
   ...KOREAN_M5_LESSONS,
   ...KOREAN_M6_LESSONS,
+  // ─── Korean — Modules 7-12 (2026-06-13) ──────────────────────────────
+  // The N5→N4 grammar spine continuing KO→JA parity. M7 verbs + 해요 present
+  // + 을/를, M8 descriptive verbs (adjectives) + attributive, M9 connectors
+  // (하고/와/과/도), M10 past tense (았/었/했어요 + copula past), M11 negation
+  // (안/못 + 고 싶어요), M12 time & days (native-hour/Sino-minute clock + 요일
+  // + time 에). Mirrors the JA M7-M12 arc in Korean's own grammar. Backs the
+  // M7-M12 pathway nodes added to the KO course in mockCourse.ts.
+  ...KOREAN_M7_LESSONS,
+  ...KOREAN_M8_LESSONS,
+  ...KOREAN_M9_LESSONS,
+  ...KOREAN_M10_LESSONS,
+  ...KOREAN_M11_LESSONS,
+  ...KOREAN_M12_LESSONS,
   "ko-sidequest-survival-phrases": MOCK_LESSON_KO_SIDEQUEST_SURVIVAL,
   // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,
