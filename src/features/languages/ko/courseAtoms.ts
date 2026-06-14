@@ -36,6 +36,12 @@ export type KoAtomSource =
   | "m16"
   | "m17"
   | "m18"
+  | "m19"
+  | "m20"
+  | "m21"
+  | "m22"
+  | "m23"
+  | "m24"
   | "sidequest-survival"
   | "future";
 
@@ -759,6 +765,124 @@ const M18_VOCAB: KoAtom[] = [
   atom({ surface: "것 같아요", meaningEn: "I think / it seems (that)", romanization: "geot gatayo", partOfSpeech: "grammar", fromModule: "m18", kind: "vocab", srsEligible: false }),
 ];
 
+/**
+ * M19 — Family & people. Kinship terms, the in-group 우리, and the 명 / 살
+ * counters. Mirrors JA M19 (family register + age counter + counting people).
+ * Surfaces already registered earlier (아빠 M2, 오빠 M2, 우리 M1, 명 M5) are
+ * re-listed here as srsEligible:false so the lookup keeps one canonical card.
+ */
+const M19_VOCAB: KoAtom[] = [
+  atom({ surface: "가족", meaningEn: "family", romanization: "gajok", emoji: "👪", partOfSpeech: "noun", fromModule: "m19", kind: "vocab" }),
+  atom({ surface: "엄마", meaningEn: "mom", romanization: "eomma", emoji: "👩", partOfSpeech: "noun", fromModule: "m19", kind: "vocab" }),
+  atom({ surface: "아빠", meaningEn: "dad", romanization: "appa", emoji: "👨", partOfSpeech: "noun", fromModule: "m19", kind: "vocab", srsEligible: false }),
+  atom({ surface: "부모님", meaningEn: "parents", romanization: "bumonim", emoji: "👫", partOfSpeech: "noun", fromModule: "m19", kind: "vocab" }),
+  atom({ surface: "형", meaningEn: "older brother (male speaker)", romanization: "hyeong", emoji: "👦", partOfSpeech: "noun", fromModule: "m19", kind: "vocab" }),
+  atom({ surface: "오빠", meaningEn: "older brother (female speaker)", romanization: "oppa", emoji: "👦", partOfSpeech: "noun", fromModule: "m19", kind: "vocab", srsEligible: false }),
+  atom({ surface: "누나", meaningEn: "older sister (male speaker)", romanization: "nuna", emoji: "👧", partOfSpeech: "noun", fromModule: "m19", kind: "vocab" }),
+  atom({ surface: "언니", meaningEn: "older sister (female speaker)", romanization: "eonni", emoji: "👧", partOfSpeech: "noun", fromModule: "m19", kind: "vocab" }),
+  atom({ surface: "동생", meaningEn: "younger sibling", romanization: "dongsaeng", emoji: "🧒", partOfSpeech: "noun", fromModule: "m19", kind: "vocab" }),
+  // 우리 ('we/us', M1) — reused here as the in-group 'my'; keep one canonical card.
+  atom({ surface: "우리", meaningEn: "our / my (in-group)", romanization: "uri", emoji: "🤝", partOfSpeech: "pronoun", fromModule: "m19", kind: "vocab", srsEligible: false }),
+  // 명 ('people counter', M5) — reinforced here; keep one canonical card.
+  atom({ surface: "명", meaningEn: "counter: people", romanization: "myeong", partOfSpeech: "noun", fromModule: "m19", kind: "vocab", srsEligible: false }),
+  atom({ surface: "살", meaningEn: "counter: years of age", romanization: "sal", partOfSpeech: "noun", fromModule: "m19", kind: "vocab" }),
+  atom({ surface: "스무", meaningEn: "twenty (before a counter)", romanization: "seumu", partOfSpeech: "noun", fromModule: "m19", kind: "vocab", srsEligible: false }),
+  atom({ surface: "서른", meaningEn: "thirty (native)", romanization: "seoreun", partOfSpeech: "noun", fromModule: "m19", kind: "vocab" }),
+];
+
+/**
+ * M20 — Body, health & 아파요 + 으니까 (reason). Body parts, 아프다 (ㅡ-irreg),
+ * health vocab, and the reason connector (으)니까. Mirrors JA M20 (body/health
+ * + 〜がいたい + ので). Homographs: 눈 ('eye') collides with 눈 ('snow', M18)
+ * and 열 ('fever') with 열 ('ten', M5); the lookup keeps the earlier card, so
+ * we do NOT re-register those two surfaces (flagged in WORKTREE_REPORT.md).
+ * 머리 (M1), 코 (M2), 병원 (M6) already exist → srsEligible:false.
+ */
+const M20_VOCAB: KoAtom[] = [
+  // Body — face
+  atom({ surface: "머리", meaningEn: "head / hair", romanization: "meori", emoji: "🧠", partOfSpeech: "noun", fromModule: "m20", kind: "vocab", srsEligible: false }),
+  atom({ surface: "코", meaningEn: "nose", romanization: "ko", emoji: "👃", partOfSpeech: "noun", fromModule: "m20", kind: "vocab", srsEligible: false }),
+  atom({ surface: "입", meaningEn: "mouth", romanization: "ip", emoji: "👄", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
+  atom({ surface: "귀", meaningEn: "ear", romanization: "gwi", emoji: "👂", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
+  // Body — more
+  atom({ surface: "손", meaningEn: "hand", romanization: "son", emoji: "✋", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
+  atom({ surface: "발", meaningEn: "foot", romanization: "bal", emoji: "🦶", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
+  atom({ surface: "배", meaningEn: "stomach / belly", romanization: "bae", emoji: "🫃", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
+  atom({ surface: "목", meaningEn: "neck / throat", romanization: "mok", emoji: "🧣", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
+  // Health
+  atom({ surface: "아파요", meaningEn: "hurts / is sick (ㅡ-irregular)", romanization: "apayo", partOfSpeech: "adjective", fromModule: "m20", kind: "vocab" }),
+  atom({ surface: "병원", meaningEn: "hospital / clinic", romanization: "byeongwon", emoji: "🏥", partOfSpeech: "noun", fromModule: "m20", kind: "vocab", srsEligible: false }),
+  atom({ surface: "약", meaningEn: "medicine", romanization: "yak", emoji: "💊", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
+  atom({ surface: "감기", meaningEn: "a cold (illness)", romanization: "gamgi", emoji: "🤧", partOfSpeech: "noun", fromModule: "m20", kind: "vocab" }),
+];
+
+/**
+ * M21 — Food, restaurants, quotation & listing. Food vocab, the listing
+ * connectors 하고/(이)랑, the 잔 cup counter, and (이)라고 하다 (naming/quote).
+ * Mirrors JA M21 (food + と quotation + や list + cup counter). 고기 (M1),
+ * 빵 (M5), 하고 (M9), 잔 (M5) already exist → srsEligible:false.
+ */
+const M21_VOCAB: KoAtom[] = [
+  atom({ surface: "고기", meaningEn: "meat", romanization: "gogi", emoji: "🥩", partOfSpeech: "noun", fromModule: "m21", kind: "vocab", srsEligible: false }),
+  atom({ surface: "생선", meaningEn: "fish (food)", romanization: "saengseon", emoji: "🐟", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
+  atom({ surface: "채소", meaningEn: "vegetables", romanization: "chaeso", emoji: "🥬", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
+  atom({ surface: "과일", meaningEn: "fruit", romanization: "gwail", emoji: "🍎", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
+  atom({ surface: "빵", meaningEn: "bread", romanization: "ppang", emoji: "🍞", partOfSpeech: "noun", fromModule: "m21", kind: "vocab", srsEligible: false }),
+  atom({ surface: "김치", meaningEn: "kimchi", romanization: "gimchi", emoji: "🥬", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
+  atom({ surface: "비빔밥", meaningEn: "bibimbap", romanization: "bibimbap", emoji: "🍲", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
+  atom({ surface: "불고기", meaningEn: "bulgogi (grilled beef)", romanization: "bulgogi", emoji: "🥩", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
+  atom({ surface: "라면", meaningEn: "ramyeon (noodles)", romanization: "ramyeon", emoji: "🍜", partOfSpeech: "noun", fromModule: "m21", kind: "vocab" }),
+  atom({ surface: "하고", meaningEn: "and / with (nouns)", romanization: "hago", partOfSpeech: "particle", fromModule: "m21", kind: "particle", srsEligible: false }),
+  atom({ surface: "랑", meaningEn: "and / with (casual, after vowel)", romanization: "rang", partOfSpeech: "particle", fromModule: "m21", kind: "particle" }),
+  atom({ surface: "잔", meaningEn: "counter: cups / glasses", romanization: "jan", partOfSpeech: "noun", fromModule: "m21", kind: "vocab", srsEligible: false }),
+];
+
+/**
+ * M22 — Comparison. 보다 (than), 더/덜 (more/less), 제일/가장 (most), 중에서
+ * (among). Mirrors JA M22 (のほうが/より + いちばん + なかで). Homograph: 보다
+ * ('than', particle) collides with 보다 ('to see', verb, M7); the lookup keeps
+ * the verb card, so we do NOT re-register 보다 (flagged in WORKTREE_REPORT.md).
+ */
+const M22_VOCAB: KoAtom[] = [
+  atom({ surface: "더", meaningEn: "more", romanization: "deo", partOfSpeech: "adverb", fromModule: "m22", kind: "vocab" }),
+  atom({ surface: "덜", meaningEn: "less", romanization: "deol", partOfSpeech: "adverb", fromModule: "m22", kind: "vocab" }),
+  atom({ surface: "제일", meaningEn: "most / -est", romanization: "jeil", partOfSpeech: "adverb", fromModule: "m22", kind: "vocab" }),
+  atom({ surface: "가장", meaningEn: "most (formal)", romanization: "gajang", partOfSpeech: "adverb", fromModule: "m22", kind: "vocab" }),
+  atom({ surface: "중에서", meaningEn: "among / out of", romanization: "jungeseo", partOfSpeech: "particle", fromModule: "m22", kind: "particle" }),
+  atom({ surface: "어느 게", meaningEn: "which one", romanization: "eoneu ge", partOfSpeech: "pronoun", fromModule: "m22", kind: "phrase", srsEligible: false }),
+];
+
+/**
+ * M23 — Ability & suggestions. Activity 하다-verbs, (으)ㄹ 수 있다/없다
+ * (can/cannot), 잘하다/못하다 (good/bad at), (으)ㄹ까요? (shall we), (으)ㅂ시다
+ * (let's). Mirrors JA M23 (じょうず/へた + ましょう/ませんか).
+ */
+const M23_VOCAB: KoAtom[] = [
+  atom({ surface: "수영", meaningEn: "swimming", romanization: "suyeong", emoji: "🏊", partOfSpeech: "noun", fromModule: "m23", kind: "vocab" }),
+  atom({ surface: "운전", meaningEn: "driving", romanization: "unjeon", emoji: "🚗", partOfSpeech: "noun", fromModule: "m23", kind: "vocab" }),
+  atom({ surface: "노래", meaningEn: "a song / singing", romanization: "norae", emoji: "🎤", partOfSpeech: "noun", fromModule: "m23", kind: "vocab" }),
+  atom({ surface: "요리", meaningEn: "cooking", romanization: "yori", emoji: "🍳", partOfSpeech: "noun", fromModule: "m23", kind: "vocab" }),
+  atom({ surface: "춤추다", meaningEn: "to dance", romanization: "chumchuda", emoji: "💃", partOfSpeech: "verb", fromModule: "m23", kind: "vocab", srsEligible: false }),
+  atom({ surface: "잘해요", meaningEn: "is good at / does well", romanization: "jalhaeyo", partOfSpeech: "verb", fromModule: "m23", kind: "vocab" }),
+  atom({ surface: "못해요", meaningEn: "is bad at / can't do well", romanization: "mothaeyo", partOfSpeech: "verb", fromModule: "m23", kind: "vocab" }),
+];
+
+/**
+ * M24 — Hobbies & activities. Hobby vocab, (으)ㄹ 줄 알다/모르다 (know how to),
+ * 거나 (or), the 번 counter (times) + frequency. Mirrors JA M24 (hobbies +
+ * のがすきです + たり…たり + 回 counter). FINAL authored KO module in this batch.
+ */
+const M24_VOCAB: KoAtom[] = [
+  atom({ surface: "취미", meaningEn: "hobby", romanization: "chwimi", emoji: "🎨", partOfSpeech: "noun", fromModule: "m24", kind: "vocab" }),
+  atom({ surface: "그림", meaningEn: "drawing / picture", romanization: "geurim", emoji: "🖼️", partOfSpeech: "noun", fromModule: "m24", kind: "vocab" }),
+  atom({ surface: "사진", meaningEn: "photo", romanization: "sajin", emoji: "📷", partOfSpeech: "noun", fromModule: "m24", kind: "vocab" }),
+  atom({ surface: "음악", meaningEn: "music", romanization: "eumak", emoji: "🎵", partOfSpeech: "noun", fromModule: "m24", kind: "vocab" }),
+  atom({ surface: "게임", meaningEn: "game", romanization: "geim", emoji: "🎮", partOfSpeech: "noun", fromModule: "m24", kind: "vocab" }),
+  atom({ surface: "거나", meaningEn: "or (joining verbs)", romanization: "geona", partOfSpeech: "particle", fromModule: "m24", kind: "particle", srsEligible: false }),
+  atom({ surface: "번", meaningEn: "counter: times / occurrences", romanization: "beon", partOfSpeech: "noun", fromModule: "m24", kind: "vocab" }),
+  atom({ surface: "일주일", meaningEn: "one week", romanization: "iljuil", emoji: "📅", partOfSpeech: "noun", fromModule: "m24", kind: "vocab" }),
+];
+
 // ─── Aggregate + lookup map ──────────────────────────────────────────────
 
 /**
@@ -790,6 +914,12 @@ export const KO_COURSE_ATOMS: ReadonlyArray<KoAtom> = [
   ...M16_VOCAB,
   ...M17_VOCAB,
   ...M18_VOCAB,
+  ...M19_VOCAB,
+  ...M20_VOCAB,
+  ...M21_VOCAB,
+  ...M22_VOCAB,
+  ...M23_VOCAB,
+  ...M24_VOCAB,
   ...JAMO_ATOMS,
   ...PARTICLE_ATOMS,
   ...SURVIVAL_ATOMS,
