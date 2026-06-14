@@ -10,6 +10,14 @@ export type StudyOption = {
 
 export type FlashcardsSettings = {
   studyOptions: StudyOption[];
+  /**
+   * Super-user opt-out: when true, the auto-included course deck is hidden
+   * from the reviewer queue (power users who bring their own Anki/community
+   * decks). Default off/undefined — the course deck is "subscribed by
+   * default" so learners can review the words their lessons unlock. See
+   * `useSubscriptionQueue`.
+   */
+  hideCourseDeck?: boolean;
 };
 
 export type UserSettings = {
