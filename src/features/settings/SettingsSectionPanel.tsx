@@ -16,8 +16,16 @@ import { utcToLocalHHmm, localToUtcHHmm } from "@/shared/utils/reminderTime";
 import { resetLearnProgress } from "@/features/learn/resetLearnProgress";
 import { tryGetLanguageModule } from "@/shared/language/registry";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
+import { Switch } from "@/shared/components/ui/Switch";
+import { Select } from "@/shared/components/ui/Select";
+import { Slider } from "@/shared/components/ui/Slider";
 import { AccountPrivacySection } from "./AccountPrivacySection";
-import { ChoiceChip, inputClassName } from "@/shared/components/ui/formStyles";
+import { ChoiceChip } from "@/shared/components/ui/formStyles";
+import {
+  SectionHeader,
+  SettingsGroup,
+  SettingRow,
+} from "./SettingsPrimitives";
 import {
   isLanguageSectionId,
   languageIdFromSection,
@@ -57,19 +65,9 @@ export function SettingsSectionPanel({ section }: SettingsSectionPanelProps) {
   }
 }
 
-function SectionIntro({
-  title,
-  help,
-}: {
-  title: string;
-  help?: string;
-}) {
-  return (
-    <header className="mb-4 space-y-1">
-      <h3 className="text-base font-semibold text-text-primary">{title}</h3>
-      {help ? <p className="text-sm text-text-muted">{help}</p> : null}
-    </header>
-  );
+/** Consistent outer wrapper so every panel shares the same header→body rhythm. */
+function Panel({ children }: { children: React.ReactNode }) {
+  return <div className="space-y-6">{children}</div>;
 }
 
 function GeneralPanel() {
@@ -97,47 +95,60 @@ function GeneralPanel() {
     user?.email?.split("@")[0]?.trim() ||
     "";
 
-  const uiLocaleValue = supportedLngs.find((lng) =>
-    settings.learning.uiLocale.startsWith(lng),
-  ) ?? supportedLngs[0];
+  const uiLocaleValue =
+    supportedLngs.find((lng) => settings.learning.uiLocale.startsWith(lng)) ??
+    supportedLngs[0];
 
   return (
-    <div>
-      {isAuthenticated && profileUsername && (
-        <div className="mb-5">
-          <Link
-            to={`/u/${encodeURIComponent(profileUsername)}`}
-            onClick={closeAll}
-            className="text-sm font-medium text-accent hover:text-accent-hover"
-          >
-            {t("profile.editProfile")}{" "}
-            <Icon name="arrowBigRight" size={14} className="inline" />
-          </Link>
-        </div>
-      )}
+    <Panel>
+      <SectionHeader
+        title={t("settings.nav.general")}
+        description={t("settings.generalHelp")}
+      />
 
-      <div className="space-y-2">
-        <label
+      <SettingsGroup>
+        <SettingRow
           htmlFor="settings-ui-locale"
-          className="text-sm font-semibold text-text-primary"
-        >
-          {t("settings.uiLocale")}
-        </label>
-        <p className="text-xs text-text-muted">{t("settings.uiLocaleHelp")}</p>
-        <select
-          id="settings-ui-locale"
-          value={uiLocaleValue}
-          onChange={(e) => updateSetting("learning.uiLocale", e.target.value)}
-          className={inputClassName}
-        >
-          {supportedLngs.map((lng) => (
-            <option key={lng} value={lng}>
-              {UI_LOCALE_LABELS[lng] ?? lng}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
+          label={t("settings.uiLocale")}
+          help={t("settings.uiLocaleHelp")}
+          stacked
+          control={
+            <Select
+              id="settings-ui-locale"
+              value={uiLocaleValue}
+              onChange={(e) =>
+                updateSetting("learning.uiLocale", e.target.value)
+              }
+            >
+              {supportedLngs.map((lng) => (
+                <option key={lng} value={lng}>
+                  {UI_LOCALE_LABELS[lng] ?? lng}
+                </option>
+              ))}
+            </Select>
+          }
+        />
+        {isAuthenticated && profileUsername ? (
+          <SettingRow
+            label={t("profile.editProfile")}
+            help={t(
+              "settings.editProfileHelp",
+              "Update your display name, bio, and avatar.",
+            )}
+            control={
+              <Link
+                to={`/u/${encodeURIComponent(profileUsername)}`}
+                onClick={closeAll}
+                className="inline-flex items-center gap-1 text-sm font-medium text-accent transition hover:text-accent-hover"
+              >
+                {t("settings.open", "Open")}
+                <Icon name="arrowBigRight" size={14} aria-hidden />
+              </Link>
+            }
+          />
+        ) : null}
+      </SettingsGroup>
+    </Panel>
   );
 }
 
@@ -147,6 +158,7 @@ function AppearancePanel() {
   const { settings, updateSetting } = useSettings();
   const { close } = useModal();
   const navLayout = settings.appearance.navLayout ?? "topbar";
+  const isCustom = activeThemeId.startsWith("custom-");
 
   const themePresets = [
     { id: "auto", labelKey: "settings.themeAuto" },
@@ -157,61 +169,79 @@ function AppearancePanel() {
   ];
 
   return (
-    <div>
-      <div className="flex flex-wrap gap-2">
-        {themePresets.map((p) => (
-          <ChoiceChip
-            key={p.id}
-            selected={activeThemeId === p.id}
-            onClick={() => setTheme(p.id)}
-          >
-            {t(p.labelKey)}
-          </ChoiceChip>
-        ))}
-        {activeThemeId.startsWith("custom-") && (
-          <span className="rounded-lg border border-accent bg-accent-muted px-3 py-1.5 text-sm font-medium text-accent">
-            {t("settings.themeCustom", "Custom")}
-          </span>
-        )}
-      </div>
-      <button
-        type="button"
-        onClick={() => {
-          close();
-          openThemeEditor();
-        }}
-        className="mt-3 text-sm font-medium text-accent hover:text-accent-hover"
-      >
-        {t("settings.customizeTheme", "Customize theme")}{" "}
-        <Icon name="arrowBigRight" size={14} className="inline" />
-      </button>
+    <Panel>
+      <SectionHeader
+        title={t("settings.nav.appearance")}
+        description={t("settings.appearanceHelp")}
+      />
 
-      <div className="mt-6">
-        <p className="mb-2 text-sm font-medium text-text-primary">
-          {t("settings.navLayout", "Navigation layout")}
-        </p>
-        <div className="flex flex-wrap gap-2">
-          <ChoiceChip
-            selected={navLayout === "topbar"}
-            onClick={() => updateSetting("appearance.navLayout", "topbar")}
-          >
-            {t("settings.navLayoutTopbar", "Top bar")}
-          </ChoiceChip>
-          <ChoiceChip
-            selected={navLayout === "sidebar"}
-            onClick={() => updateSetting("appearance.navLayout", "sidebar")}
-          >
-            {t("settings.navLayoutSidebar", "Sidebar")}
-          </ChoiceChip>
-        </div>
-        <p className="mt-2 text-xs text-text-muted">
-          {t(
+      <SettingsGroup>
+        <SettingRow
+          label={t("settings.theme")}
+          help={t(
+            "settings.themeHelp",
+            "Pick a preset or build your own color scheme.",
+          )}
+          stacked
+          control={
+            <div className="space-y-3">
+              <div className="flex flex-wrap gap-2">
+                {themePresets.map((p) => (
+                  <ChoiceChip
+                    key={p.id}
+                    selected={activeThemeId === p.id}
+                    onClick={() => setTheme(p.id)}
+                  >
+                    {t(p.labelKey)}
+                  </ChoiceChip>
+                ))}
+                {isCustom ? (
+                  <span className="rounded-lg border border-accent bg-accent-muted px-3 py-1.5 text-sm font-medium text-accent">
+                    {t("settings.themeCustom", "Custom")}
+                  </span>
+                ) : null}
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  close();
+                  openThemeEditor();
+                }}
+                className="inline-flex items-center gap-1 text-sm font-medium text-accent transition hover:text-accent-hover"
+              >
+                {t("settings.customizeTheme", "Customize theme")}
+                <Icon name="arrowBigRight" size={14} aria-hidden />
+              </button>
+            </div>
+          }
+        />
+
+        <SettingRow
+          label={t("settings.navLayout", "Navigation layout")}
+          help={t(
             "settings.navLayoutHint",
             "Sidebar shows on larger screens; mobile always uses the top bar.",
           )}
-        </p>
-      </div>
-    </div>
+          stacked
+          control={
+            <div className="flex flex-wrap gap-2">
+              <ChoiceChip
+                selected={navLayout === "topbar"}
+                onClick={() => updateSetting("appearance.navLayout", "topbar")}
+              >
+                {t("settings.navLayoutTopbar", "Top bar")}
+              </ChoiceChip>
+              <ChoiceChip
+                selected={navLayout === "sidebar"}
+                onClick={() => updateSetting("appearance.navLayout", "sidebar")}
+              >
+                {t("settings.navLayoutSidebar", "Sidebar")}
+              </ChoiceChip>
+            </div>
+          }
+        />
+      </SettingsGroup>
+    </Panel>
   );
 }
 
@@ -222,190 +252,217 @@ function AudioPanel() {
   const volume = settings.audio.volume ?? 1;
 
   return (
-    <div>
-      <div className="space-y-4">
-        <div>
-          <div className="mb-1 flex items-center justify-between">
-            <label
-              htmlFor="settings-audio-volume"
-              className="text-sm font-medium text-text-primary"
-            >
-              {t("settings.audioVolume", "App volume")}
-            </label>
-            <span className="text-xs tabular-nums text-text-muted">
-              {Math.round(volume * 100)}%
-            </span>
-          </div>
-          <input
-            id="settings-audio-volume"
-            type="range"
-            min={0}
-            max={1}
-            step={0.05}
-            value={volume}
-            onChange={(e) =>
-              updateSetting("audio.volume", Number(e.target.value))
-            }
-            className="w-full accent-accent"
-          />
-          <p className="mt-1 text-xs text-text-muted">
-            {t(
-              "settings.audioVolumeHelp",
-              "Adjust Lingo's audio without touching your device volume.",
-            )}
-          </p>
-        </div>
-        <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-surface p-3">
-          <input
-            type="checkbox"
-            checked={silentMode}
-            onChange={(e) =>
-              updateSetting("audio.silentMode", e.target.checked)
-            }
-            className="mt-0.5 h-4 w-4 shrink-0 accent-accent"
-          />
-          <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-            <span className="text-sm font-medium text-text-primary">
-              {t(
-                "settings.silentMode",
-                "Silent mode — never auto-play audio",
-              )}
-            </span>
-            <span className="text-xs text-text-muted">
-              {t(
-                "settings.silentModeHelp",
-                "You can still tap audio buttons to hear sounds.",
-              )}
-            </span>
-          </span>
-        </label>
-      </div>
-    </div>
+    <Panel>
+      <SectionHeader
+        title={t("settings.nav.audio")}
+        description={t("settings.audioHelp")}
+      />
+
+      <SettingsGroup>
+        <SettingRow
+          htmlFor="settings-audio-volume"
+          label={t("settings.audioVolume", "App volume")}
+          help={t(
+            "settings.audioVolumeHelp",
+            "Adjust Lingo's audio without touching your device volume.",
+          )}
+          stacked
+          control={
+            <Slider
+              id="settings-audio-volume"
+              min={0}
+              max={1}
+              step={0.05}
+              value={volume}
+              onChange={(e) =>
+                updateSetting("audio.volume", Number(e.target.value))
+              }
+              showValue
+              formatValue={(v) => `${Math.round(v * 100)}%`}
+            />
+          }
+        />
+        <SettingRow
+          asLabel
+          label={t("settings.silentModeLabel", "Silent mode")}
+          help={t(
+            "settings.silentModeHelp",
+            "Never auto-play audio. You can still tap audio buttons to hear sounds.",
+          )}
+          control={
+            <Switch
+              checked={silentMode}
+              onCheckedChange={(next) =>
+                updateSetting("audio.silentMode", next)
+              }
+              ariaLabel={t("settings.silentModeLabel", "Silent mode")}
+            />
+          }
+        />
+      </SettingsGroup>
+    </Panel>
   );
 }
 
 function AccessibilityPanel() {
   const { t } = useTranslation();
   const { settings, updateSetting } = useSettings();
+  const fontSize = settings.accessibility.fontSize ?? 1;
 
   return (
-    <div>
-      <div className="space-y-3">
-        <label className="flex cursor-pointer items-center gap-2">
-          <input
-            type="checkbox"
-            checked={settings.accessibility.reducedMotion}
-            onChange={(e) =>
-              updateSetting("accessibility.reducedMotion", e.target.checked)
-            }
-            className="rounded border-border text-accent focus:ring-accent"
-          />
-          <span className="text-sm text-text-primary">
-            {t("settings.reducedMotion")}
-          </span>
-        </label>
-        <label className="flex cursor-pointer items-center gap-2">
-          <input
-            type="checkbox"
-            checked={settings.accessibility.dyslexiaFont ?? false}
-            onChange={(e) =>
-              updateSetting("accessibility.dyslexiaFont", e.target.checked)
-            }
-            className="rounded border-border text-accent focus:ring-accent"
-          />
-          <span className="text-sm text-text-primary">
-            {t(
-              "settings.dyslexiaFont",
-              "Dyslexia-friendly font (Atkinson Hyperlegible)",
-            )}
-          </span>
-        </label>
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-text-primary">
-              {t("settings.fontSize", "Font size")}
-            </span>
-            <span className="text-xs font-medium text-text-muted">
-              {Math.round((settings.accessibility.fontSize ?? 1) * 100)}%
-            </span>
-          </div>
-          <input
-            type="range"
-            min={0.85}
-            max={1.4}
-            step={0.05}
-            value={settings.accessibility.fontSize ?? 1}
-            onChange={(e) =>
-              updateSetting("accessibility.fontSize", parseFloat(e.target.value))
-            }
-            className="w-full accent-accent"
-          />
-          <div className="flex justify-between text-[10px] text-text-muted">
-            <span>85%</span>
-            <span>100%</span>
-            <span>140%</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Panel>
+      <SectionHeader
+        title={t("settings.accessibility")}
+        description={t("settings.accessibilityHelp")}
+      />
+
+      <SettingsGroup>
+        <SettingRow
+          asLabel
+          label={t("settings.reducedMotion")}
+          help={t(
+            "settings.reducedMotionHelp",
+            "Minimize animations and transitions across the app.",
+          )}
+          control={
+            <Switch
+              checked={settings.accessibility.reducedMotion}
+              onCheckedChange={(next) =>
+                updateSetting("accessibility.reducedMotion", next)
+              }
+              ariaLabel={t("settings.reducedMotion")}
+            />
+          }
+        />
+        <SettingRow
+          asLabel
+          label={t("settings.dyslexiaFontLabel", "Dyslexia-friendly font")}
+          help={t(
+            "settings.dyslexiaFontHelp",
+            "Switches the app typeface to Atkinson Hyperlegible.",
+          )}
+          control={
+            <Switch
+              checked={settings.accessibility.dyslexiaFont ?? false}
+              onCheckedChange={(next) =>
+                updateSetting("accessibility.dyslexiaFont", next)
+              }
+              ariaLabel={t("settings.dyslexiaFontLabel", "Dyslexia-friendly font")}
+            />
+          }
+        />
+        <SettingRow
+          label={t("settings.fontSize", "Font size")}
+          help={t(
+            "settings.fontSizeHelp",
+            "Scale text size across the whole app.",
+          )}
+          stacked
+          control={
+            <div className="space-y-1">
+              <Slider
+                min={0.85}
+                max={1.4}
+                step={0.05}
+                value={fontSize}
+                onChange={(e) =>
+                  updateSetting(
+                    "accessibility.fontSize",
+                    parseFloat(e.target.value),
+                  )
+                }
+                showValue
+                formatValue={(v) => `${Math.round(v * 100)}%`}
+              />
+              <div className="flex justify-between text-[10px] text-text-muted">
+                <span>85%</span>
+                <span>100%</span>
+                <span>140%</span>
+              </div>
+            </div>
+          }
+        />
+      </SettingsGroup>
+    </Panel>
   );
 }
 
 function NotificationsPanel() {
   const { t } = useTranslation();
   const { settings, updateSetting } = useSettings();
+  const reminderEnabled = settings.notifications.reminderEnabled;
 
   return (
-    <div>
-      <label className="flex cursor-pointer items-center gap-2">
-        <input
-          type="checkbox"
-          checked={settings.notifications.reminderEnabled}
-          onChange={(e) =>
-            updateSetting("notifications.reminderEnabled", e.target.checked)
+    <Panel>
+      <SectionHeader
+        title={t("settings.notifications")}
+        description={t("settings.notificationsHelp")}
+      />
+
+      <SettingsGroup>
+        <SettingRow
+          asLabel
+          label={t("settings.dailyReminder")}
+          help={t(
+            "settings.dailyReminderHelp",
+            "A nudge to keep your streak going.",
+          )}
+          control={
+            <Switch
+              checked={reminderEnabled}
+              onCheckedChange={(next) =>
+                updateSetting("notifications.reminderEnabled", next)
+              }
+              ariaLabel={t("settings.dailyReminder")}
+            />
           }
-          className="rounded border-border text-accent focus:ring-accent"
         />
-        <span className="text-sm text-text-primary">
-          {t("settings.dailyReminder")}
-        </span>
-      </label>
-      {settings.notifications.reminderEnabled && (
-        <div className="mt-3 flex items-center gap-2">
-          <label htmlFor="reminder-time" className="text-sm text-text-primary">
-            {t("settings.reminderTime")}
-          </label>
-          <input
-            id="reminder-time"
-            type="time"
-            value={
-              settings.notifications.dailyReminderTime
-                ? utcToLocalHHmm(settings.notifications.dailyReminderTime)
-                : "09:00"
+        {reminderEnabled ? (
+          <SettingRow
+            htmlFor="reminder-time"
+            label={t("settings.reminderTime")}
+            help={t(
+              "settings.reminderTimeHelp",
+              "When to send your daily reminder.",
+            )}
+            control={
+              <input
+                id="reminder-time"
+                type="time"
+                value={
+                  settings.notifications.dailyReminderTime
+                    ? utcToLocalHHmm(settings.notifications.dailyReminderTime)
+                    : "09:00"
+                }
+                onChange={(e) =>
+                  updateSetting(
+                    "notifications.dailyReminderTime",
+                    localToUtcHHmm(e.target.value),
+                  )
+                }
+                className="rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-text-primary focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+              />
             }
-            onChange={(e) => {
-              const local = e.target.value;
-              updateSetting(
-                "notifications.dailyReminderTime",
-                localToUtcHHmm(local),
-              );
-            }}
-            className={inputClassName}
           />
-        </div>
-      )}
-    </div>
+        ) : null}
+      </SettingsGroup>
+    </Panel>
   );
 }
 
 function PrivacyPanel() {
+  const { t } = useTranslation();
   return (
-    <div>
-      {/* AccountPrivacySection owns its own heading + blurb. The
-          settings modal's left nav already labels the section, so we
-          drop the duplicate SectionIntro wrapper. */}
-      <AccountPrivacySection />
-    </div>
+    <Panel>
+      <SectionHeader
+        title={t("legal.settings.privacyTitle", "Privacy & data")}
+        description={t(
+          "legal.settings.privacyBlurb",
+          "We store your learning progress and profile to run the app. We do not sell your personal information.",
+        )}
+      />
+      <AccountPrivacySection embedded />
+    </Panel>
   );
 }
 
@@ -416,97 +473,103 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
 
   if (!lang) {
     return (
-      <p className="text-sm text-text-muted">
-        {t("settings.languageNotFound", "Language not available.")}
-      </p>
+      <Panel>
+        <p className="text-sm text-text-muted">
+          {t("settings.languageNotFound", "Language not available.")}
+        </p>
+      </Panel>
     );
   }
 
   if (languageId === "ja") {
     return (
-      <div>
-        <SectionIntro
-          title={`${lang.flag} ${lang.name}`}
-          help={t(
+      <Panel>
+        <SectionHeader
+          title={
+            <span className="inline-flex items-center gap-2">
+              <span aria-hidden>{lang.flag}</span>
+              {lang.name}
+            </span>
+          }
+          description={t(
             "settings.languageJaHelp",
             "Reading aids and alphabet practice options for Japanese.",
           )}
         />
 
-        <div className="space-y-3">
-          <h4 className="text-sm font-semibold text-text-primary">
-            {t("settings.alphabetDisplay", "Alphabet display")}
-          </h4>
-          <p className="text-xs text-text-muted">
-            {t("settings.alphabetDisplayHelp")}
-          </p>
-          <label className="flex cursor-pointer items-center gap-2">
-            <input
-              type="checkbox"
-              checked={settings.learning.showAlphabetRomanization ?? true}
-              onChange={(e) =>
-                updateSetting(
-                  "learning.showAlphabetRomanization",
-                  e.target.checked,
-                )
-              }
-              className="rounded border-border text-accent focus:ring-accent"
-            />
-            <span className="text-sm text-text-primary">
-              {t(
-                "settings.showAlphabetRomanization",
-                "Show romanization under alphabet characters",
-              )}
-            </span>
-          </label>
-          <label className="flex cursor-pointer items-center gap-2">
-            <input
-              type="checkbox"
-              checked={settings.learning.showAlphabetFurigana ?? true}
-              onChange={(e) =>
-                updateSetting("learning.showAlphabetFurigana", e.target.checked)
-              }
-              className="rounded border-border text-accent focus:ring-accent"
-            />
-            <span className="text-sm text-text-primary">
-              {t(
-                "settings.showAlphabetFurigana",
-                "Show furigana above Japanese text (where available)",
-              )}
-            </span>
-          </label>
-          <label className="flex cursor-pointer items-start gap-2">
-            <input
-              type="checkbox"
-              checked={settings.learning.showRomaji ?? true}
-              onChange={(e) =>
-                updateSetting("learning.showRomaji", e.target.checked)
-              }
-              className="mt-0.5 rounded border-border text-accent focus:ring-accent"
-            />
-            <span>
-              <span className="block text-sm text-text-primary">
-                {t("settings.showRomaji", "Show romaji as a reading aid")}
-              </span>
-              <span className="block text-xs text-text-muted">
-                {t(
-                  "settings.showRomajiHelp",
-                  "Shows romaji above kana across the app. Turns off automatically once you pass the alphabet test or reach Module 15 — turn it back on any time.",
+        <SettingsGroup label={t("settings.alphabetDisplay", "Alphabet display")}>
+          <SettingRow
+            asLabel
+            label={t(
+              "settings.showAlphabetRomanization",
+              "Show romanization under alphabet characters",
+            )}
+            control={
+              <Switch
+                checked={settings.learning.showAlphabetRomanization ?? true}
+                onCheckedChange={(next) =>
+                  updateSetting("learning.showAlphabetRomanization", next)
+                }
+                ariaLabel={t(
+                  "settings.showAlphabetRomanization",
+                  "Show romanization under alphabet characters",
                 )}
-              </span>
-            </span>
-          </label>
-        </div>
+              />
+            }
+          />
+          <SettingRow
+            asLabel
+            label={t(
+              "settings.showAlphabetFurigana",
+              "Show furigana above Japanese text (where available)",
+            )}
+            control={
+              <Switch
+                checked={settings.learning.showAlphabetFurigana ?? true}
+                onCheckedChange={(next) =>
+                  updateSetting("learning.showAlphabetFurigana", next)
+                }
+                ariaLabel={t(
+                  "settings.showAlphabetFurigana",
+                  "Show furigana above Japanese text (where available)",
+                )}
+              />
+            }
+          />
+          <SettingRow
+            asLabel
+            label={t("settings.showRomaji", "Show romaji as a reading aid")}
+            help={t(
+              "settings.showRomajiHelp",
+              "Shows romaji above kana across the app. Turns off automatically once you pass the alphabet test or reach Module 15 — turn it back on any time.",
+            )}
+            control={
+              <Switch
+                checked={settings.learning.showRomaji ?? true}
+                onCheckedChange={(next) =>
+                  updateSetting("learning.showRomaji", next)
+                }
+                ariaLabel={t("settings.showRomaji", "Show romaji as a reading aid")}
+              />
+            }
+          />
+        </SettingsGroup>
+
         <LanguageDangerZone languageId={languageId} />
-      </div>
+      </Panel>
     );
   }
 
   return (
-    <div>
-      <SectionIntro
-        title={`${lang.flag} ${lang.name}`}
-        help={t(
+    <Panel>
+      <SectionHeader
+        title={
+          <span className="inline-flex items-center gap-2">
+            <span aria-hidden>{lang.flag}</span>
+            {lang.name}
+          </span>
+        }
+        description={t(
           "settings.languageKoHelp",
           "Course and practice options for Korean.",
         )}
@@ -518,7 +581,7 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
         )}
       </p>
       <LanguageDangerZone languageId={languageId} />
-    </div>
+    </Panel>
   );
 }
 
@@ -560,23 +623,26 @@ function LanguageDangerZone({ languageId }: { languageId: string }) {
   };
 
   return (
-    <section className="mt-8 border-t border-border pt-6">
-      <h4 className="text-sm font-semibold text-text-primary">
-        {t("settings.languageDangerZone", { defaultValue: "Reset progress" })}
-      </h4>
-      <p className="mt-1 text-xs text-text-muted max-w-md">
-        {t("settings.languageResetHint", {
-          defaultValue:
-            "Wipes lessons, SRS, and rollups for this language across your whole account. Other languages are not affected.",
-        })}
-      </p>
+    <section className="space-y-3 rounded-xl border border-error/40 bg-error/5 p-4">
+      <div className="space-y-1">
+        <h4 className="flex items-center gap-1.5 text-sm font-semibold text-error">
+          <Icon name="alertTriangle" size={14} aria-hidden />
+          {t("settings.languageDangerZone", { defaultValue: "Reset progress" })}
+        </h4>
+        <p className="max-w-md text-sm text-text-muted">
+          {t("settings.languageResetHint", {
+            defaultValue:
+              "Wipes lessons, SRS, and rollups for this language across your whole account. Other languages are not affected.",
+          })}
+        </p>
+      </div>
       <button
         type="button"
         onClick={() => setConfirmOpen(true)}
         disabled={pending}
-        className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-error/40 px-3 py-1.5 text-xs font-semibold text-error transition hover:bg-error/10 disabled:opacity-50"
+        className="inline-flex items-center gap-1.5 rounded-lg border border-error/40 bg-surface px-3 py-1.5 text-sm font-semibold text-error transition hover:bg-error/10 disabled:opacity-50"
       >
-        <Icon name="trash" size={12} aria-hidden />
+        <Icon name="trash" size={14} aria-hidden />
         {pending
           ? t("settings.languageResetWorking", { defaultValue: "Resetting…" })
           : t("settings.languageResetCta", {

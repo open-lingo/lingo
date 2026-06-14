@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api/provider";
 import { useToast } from "@/shared/contexts/ToastContext";
+import { Icon } from "@/shared/components/Icon";
+import { Switch } from "@/shared/components/ui/Switch";
 import { clearAllLocalAppData } from "@/features/settings/storage";
 import {
   getCookieConsent,
@@ -14,6 +16,7 @@ import {
 import { privacyContactHref, privacyContactLabel } from "@/features/legal/legalConfig";
 import { useUnblockUser } from "@/features/social/hooks/useSocialMutations";
 import { SOCIAL_QUERY_KEYS } from "@/features/social/hooks/useSocial";
+import { SettingsGroup, SettingRow } from "./SettingsPrimitives";
 
 type AccountPrivacySectionProps = {
   /** When true, omit the section heading (parent panel already has a title). */
@@ -28,7 +31,9 @@ export function AccountPrivacySection({ embedded = false }: AccountPrivacySectio
   const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
   const [confirmText, setConfirmText] = useState("");
-  const consent = getCookieConsent();
+  const [adsAllowed, setAdsAllowed] = useState(
+    () => getCookieConsent()?.advertising ?? false,
+  );
 
   // Blocked users — only loaded when authed. The unblock mutation invalidates
   // this query on success so the row disappears immediately.
@@ -53,6 +58,11 @@ export function AccountPrivacySection({ embedded = false }: AccountPrivacySectio
 
   const canDelete = confirmText.trim().toUpperCase() === "DELETE";
 
+  const setAds = (next: boolean) => {
+    setAdsAllowed(next);
+    saveCookieConsent(next);
+  };
+
   const handleDeleteAccount = async () => {
     if (!canDelete || deleting) return;
     setDeleting(true);
@@ -73,112 +83,101 @@ export function AccountPrivacySection({ embedded = false }: AccountPrivacySectio
     }
   };
 
+  const blocks = blocksQuery.data ?? [];
+
   return (
-    <section className="space-y-4">
-      {!embedded && (
-        <>
-          <h3 className="text-sm font-semibold text-text-primary">
+    <div className="space-y-6">
+      {!embedded ? (
+        <div className="space-y-1">
+          <h3 className="text-base font-semibold text-text-primary">
             {t("legal.settings.privacyTitle", "Privacy & data")}
           </h3>
-          <p className="text-xs text-text-secondary">
+          <p className="text-sm leading-relaxed text-text-secondary">
             {t(
               "legal.settings.privacyBlurb",
               "We store your learning progress and profile to run the app. We do not sell your personal information.",
             )}
           </p>
-        </>
-      )}
-
-      <div className="space-y-2">
-        <p className="text-xs font-medium text-text-primary">
-          {t("legal.cookies.settingsTitle", "Advertising cookies")}
-        </p>
-        <p className="text-xs text-text-muted">
-          {consent?.advertising
-            ? t("legal.cookies.statusAdsOn", "Advertising cookies: allowed")
-            : t("legal.cookies.statusAdsOff", "Advertising cookies: off")}
-        </p>
-        <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => saveCookieConsent(true)}
-            className="rounded-lg border border-border px-2 py-1 text-xs font-medium hover:bg-surface-muted"
-          >
-            {t("legal.cookies.allowAds", "Allow ads cookies")}
-          </button>
-          <button
-            type="button"
-            onClick={() => saveCookieConsent(false)}
-            className="rounded-lg border border-border px-2 py-1 text-xs font-medium hover:bg-surface-muted"
-          >
-            {t("legal.cookies.rejectAds", "Turn off ads cookies")}
-          </button>
         </div>
-      </div>
+      ) : null}
 
-      <div className="space-y-2">
-        <p className="text-xs font-medium text-text-primary">
-          {t("legal.settings.blockedTitle", "Blocked users")}
-        </p>
+      <SettingsGroup label={t("legal.cookies.cookiesGroup", "Cookies")}>
+        <SettingRow
+          asLabel
+          label={t("legal.cookies.settingsTitle", "Advertising cookies")}
+          help={t(
+            "legal.cookies.settingsHelp",
+            "Allow cookies that personalize the ads you see.",
+          )}
+          control={
+            <Switch
+              checked={adsAllowed}
+              onCheckedChange={setAds}
+              ariaLabel={t("legal.cookies.settingsTitle", "Advertising cookies")}
+            />
+          }
+        />
+      </SettingsGroup>
+
+      <SettingsGroup label={t("legal.settings.blockedTitle", "Blocked users")}>
         {blocksQuery.isLoading ? (
-          <p className="text-xs text-text-muted">
+          <p className="px-4 py-3.5 text-sm text-text-muted">
             {t("common.loading", "Loading…")}
           </p>
-        ) : (blocksQuery.data?.length ?? 0) === 0 ? (
-          <p className="text-xs text-text-muted">
+        ) : blocks.length === 0 ? (
+          <p className="px-4 py-3.5 text-sm text-text-muted">
             {t(
               "legal.settings.blockedEmpty",
               "You haven't blocked anyone. Block someone from their profile to silence them everywhere.",
             )}
           </p>
         ) : (
-          <ul className="divide-y divide-border rounded-lg border border-border bg-surface">
-            {(blocksQuery.data ?? []).map((b) => (
-              <li
-                key={b.user_id}
-                className="flex items-center gap-2 px-3 py-2 text-xs"
+          blocks.map((b) => (
+            <div
+              key={b.user_id}
+              className="flex items-center gap-3 px-4 py-3"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium text-text-primary">
+                  {b.display_name || b.username}
+                </p>
+                <p className="truncate text-xs text-text-muted">@{b.username}</p>
+              </div>
+              <button
+                type="button"
+                disabled={unblock.isPending}
+                onClick={() => unblock.mutate(b.user_id)}
+                className="shrink-0 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text-secondary transition hover:bg-surface-muted hover:text-text-primary disabled:opacity-50"
               >
-                <div className="min-w-0 flex-1">
-                  <p className="truncate font-semibold text-text-primary">
-                    {b.display_name || b.username}
-                  </p>
-                  <p className="truncate text-[10px] text-text-muted">
-                    @{b.username}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  disabled={unblock.isPending}
-                  onClick={() => unblock.mutate(b.user_id)}
-                  className="rounded-md border border-border bg-surface px-2 py-1 text-[11px] font-medium text-text-secondary transition hover:bg-surface-muted hover:text-text-primary disabled:opacity-50"
-                >
-                  {unblock.isPending && unblock.variables === b.user_id
-                    ? "…"
-                    : t("legal.settings.unblock", "Unblock")}
-                </button>
-              </li>
-            ))}
-          </ul>
+                {unblock.isPending && unblock.variables === b.user_id
+                  ? "…"
+                  : t("legal.settings.unblock", "Unblock")}
+              </button>
+            </div>
+          ))
         )}
-      </div>
+      </SettingsGroup>
 
-      <div className="space-y-2 rounded-lg border border-error/40 bg-error/5 p-3">
-        <p className="text-xs font-medium text-text-primary">
-          {t("legal.settings.deleteTitle", "Delete account")}
-        </p>
-        <p className="text-xs text-text-muted">
-          {t(
-            "legal.settings.deleteWarning",
-            "Removes your profile and settings from our servers and clears local progress on this device. This cannot be undone. Your Auth0 login may still exist until you remove it there."
-          )}
-        </p>
-        <label className="block text-xs text-text-secondary">
-          {t("legal.settings.deleteConfirmLabel", 'Type DELETE to confirm')}
+      <section className="space-y-3 rounded-xl border border-error/40 bg-error/5 p-4">
+        <div className="space-y-1">
+          <h4 className="flex items-center gap-1.5 text-sm font-semibold text-error">
+            <Icon name="alertTriangle" size={14} aria-hidden />
+            {t("legal.settings.deleteTitle", "Delete account")}
+          </h4>
+          <p className="max-w-md text-sm text-text-muted">
+            {t(
+              "legal.settings.deleteWarning",
+              "Removes your profile and settings from our servers and clears local progress on this device. This cannot be undone. Your Auth0 login may still exist until you remove it there.",
+            )}
+          </p>
+        </div>
+        <label className="block space-y-1 text-sm text-text-secondary">
+          <span>{t("legal.settings.deleteConfirmLabel", "Type DELETE to confirm")}</span>
           <input
             type="text"
             value={confirmText}
             onChange={(e) => setConfirmText(e.target.value)}
-            className="mt-1 w-full rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-text-primary focus:border-error focus:outline-none focus:ring-1 focus:ring-error"
             autoComplete="off"
           />
         </label>
@@ -186,20 +185,20 @@ export function AccountPrivacySection({ embedded = false }: AccountPrivacySectio
           type="button"
           disabled={!canDelete || deleting}
           onClick={handleDeleteAccount}
-          className="rounded-lg bg-error px-3 py-1.5 text-xs font-semibold text-white hover:bg-error/90 disabled:opacity-50"
+          className="rounded-lg bg-error px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-error/90 disabled:opacity-50"
         >
           {deleting
             ? t("common.loading", "Loading…")
             : t("legal.settings.deleteButton", "Delete my account")}
         </button>
-      </div>
+      </section>
 
-      <p className="text-xs text-text-muted">
+      <p className="text-sm text-text-muted">
         {t("legal.contactLabel", "Contact")}:{" "}
         <a href={privacyContactHref()} className="text-accent hover:underline">
           {privacyContactLabel()}
         </a>
       </p>
-    </section>
+    </div>
   );
 }
