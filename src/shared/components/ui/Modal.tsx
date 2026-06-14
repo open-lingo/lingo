@@ -28,10 +28,18 @@ export type ModalProps = {
   onClose: () => void;
   /** Header title (also used as aria-label fallback). */
   title?: string;
+  /** Optional secondary line under the title — context without crowding the title. */
+  subtitle?: ReactNode;
   /** Optional left adornment in the header (e.g. back button). */
   headerLeft?: ReactNode;
   /** Optional right adornment in the header (rendered before the close button). */
   headerRight?: ReactNode;
+  /**
+   * Contextual actions rendered in the header (between title and close), e.g.
+   * a refresh or "edit" control. Distinct from `headerRight` only in intent —
+   * harvested from the dashboard BaseModal's header-actions slot.
+   */
+  headerActions?: ReactNode;
   /** Show the header divider. Default true when `title` or footer present. */
   showHeaderDivider?: boolean;
   /** Show the footer divider. Default true when `footer` present. */
@@ -52,6 +60,12 @@ export type ModalProps = {
   className?: string;
   /** Remove default body padding (useful for media that bleeds edge-to-edge). Default false. */
   unpadded?: boolean;
+  /**
+   * Match the page background instead of the elevated surface, so the modal
+   * reads as a "drill-in" rather than a floating popup (dashboard BaseModal
+   * pattern). Default false (classic elevated card).
+   */
+  matchBackground?: boolean;
 };
 
 /**
@@ -71,8 +85,10 @@ export function Modal({
   open,
   onClose,
   title,
+  subtitle,
   headerLeft,
   headerRight,
+  headerActions,
   showHeaderDivider,
   showFooterDivider,
   footer,
@@ -83,6 +99,7 @@ export function Modal({
   showCloseButton = true,
   className,
   unpadded = false,
+  matchBackground = false,
 }: ModalProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   useEscapeKey(open && closeOnEscape, onClose);
@@ -100,7 +117,9 @@ export function Modal({
 
   if (!open) return null;
 
-  const hasHeader = Boolean(title || headerLeft || headerRight || showCloseButton);
+  const hasHeader = Boolean(
+    title || subtitle || headerLeft || headerRight || headerActions || showCloseButton,
+  );
   const headerDivider = showHeaderDivider ?? hasHeader;
   const footerDivider = showFooterDivider ?? Boolean(footer);
 
@@ -123,7 +142,8 @@ export function Modal({
           tabIndex={-1}
           className={cn(
             // Mobile: bottom sheet, full width, rounded top, slide-up animation.
-            "relative w-full max-h-[90vh] overflow-hidden rounded-t-2xl border border-border bg-surface shadow-popover",
+            "relative w-full max-h-[90vh] overflow-hidden rounded-t-2xl border border-border shadow-popover",
+            matchBackground ? "bg-background" : "bg-surface",
             // Tablet+: centered card, rounded all corners, fits to size.
             "sm:mx-4 sm:w-full sm:rounded-2xl sm:max-h-[85vh]",
             "flex flex-col",
@@ -140,12 +160,21 @@ export function Modal({
               )}
             >
               {headerLeft}
-              {title && (
-                <h2 className="min-w-0 flex-1 truncate text-base font-semibold text-text-primary sm:text-lg">
-                  {title}
-                </h2>
+              {title || subtitle ? (
+                <div className="min-w-0 flex-1">
+                  {title && (
+                    <h2 className="truncate text-base font-semibold text-text-primary sm:text-lg">
+                      {title}
+                    </h2>
+                  )}
+                  {subtitle && (
+                    <p className="mt-0.5 truncate text-xs text-text-muted sm:text-sm">{subtitle}</p>
+                  )}
+                </div>
+              ) : (
+                <div className="flex-1" />
               )}
-              {!title && <div className="flex-1" />}
+              {headerActions}
               {headerRight}
               {showCloseButton && (
                 <button

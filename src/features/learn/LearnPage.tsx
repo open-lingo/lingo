@@ -239,7 +239,7 @@ export function LearnPage() {
         </p>
         <button
           type="button"
-          onClick={openSettings}
+          onClick={() => openSettings()}
           className="inline-flex items-center gap-1 text-sm font-medium text-accent"
         >
           <Icon name="settings" size={16} aria-hidden />

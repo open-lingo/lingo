@@ -16,13 +16,16 @@ export function ModalRoot() {
   const top = stack[stack.length - 1];
   if (!top || top.id !== "settings") return null;
 
+  const initialSection =
+    typeof top.props?.initialSection === "string" ? top.props.initialSection : undefined;
+
   return (
     <ModalBase
       onClose={close}
       title={t("settings.title")}
       maxWidth="max-w-4xl"
     >
-      <SettingsContent />
+      <SettingsContent initialSection={initialSection} />
     </ModalBase>
   );
 }

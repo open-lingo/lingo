@@ -47,7 +47,7 @@ export function LearnCoursesPage() {
         <p className="text-text-muted">
           Select a learning language in Settings to see your courses.
         </p>
-        <button type="button" onClick={openSettings} className="text-sm text-link">
+        <button type="button" onClick={() => openSettings()} className="text-sm text-link">
           <Icon name="arrowBigRight" size={14} className="inline" /> Settings
         </button>
       </div>

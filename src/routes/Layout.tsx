@@ -15,6 +15,7 @@ import { ThemeEditorPanel } from "@/shared/components/ThemeEditorPanel";
 import { FloatingLanguagePill } from "@/shared/components/FloatingLanguagePill";
 import { AuthMenu } from "@/shared/components/AuthMenu";
 import { ModalRoot } from "@/shared/components/ModalRoot";
+import { CommandPalette } from "@/shared/components/CommandPalette/CommandPalette";
 import { ToastContainer } from "@/shared/components/ToastContainer";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTouchOnSession } from "@/shared/hooks/useTouchOnSession";
@@ -414,6 +415,7 @@ export function Layout() {
       )}
       <CookieConsent />
       <ModalRoot />
+      {isAuthenticated && <CommandPalette />}
       {isThemeEditorOpen && <ThemeEditorPanel />}
       <ToastContainer />
     </div>

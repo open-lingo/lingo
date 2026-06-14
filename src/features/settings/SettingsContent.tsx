@@ -4,10 +4,11 @@ import { SettingsNav } from "./SettingsNav";
 import { SettingsSectionPanel } from "./SettingsSectionPanel";
 import type { SettingsSectionId } from "./settingsSections";
 
-export function SettingsContent() {
+export function SettingsContent({ initialSection }: { initialSection?: string } = {}) {
   const { languages } = useLanguage();
-  const [activeSection, setActiveSection] =
-    useState<SettingsSectionId>("general");
+  const [activeSection, setActiveSection] = useState<SettingsSectionId>(
+    (initialSection as SettingsSectionId) ?? "general",
+  );
 
   return (
     <div className="flex min-h-0 flex-col sm:min-h-[min(28rem,60vh)] sm:flex-row">
