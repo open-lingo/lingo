@@ -108,8 +108,9 @@ Two items from the M9–M15 review discussion, both deferred for a dedicated pas
    NOTE: lessons are correctly sized per CLT (2–4 atoms) — do NOT fatten them;
    "more depth" = more spacing + more generative processing, not more atoms.
 
-## Daily-review quest (retention 1b) — DONE + Trevor handoff (2026-06-14)
-SHIPPED: lingo-core `daily-reviews` quest (unit "reviews", target 20, `app/quests/logic.py`); frontend `FlashcardTester` reports the session's review count to it ONCE on session-end (batched), and auto-completes it when the learner is caught up (`useFlashcardDueSummary().dueCount === 0`) so few-card days aren't stuck at 8/20.
+## Daily-review quest (retention 1b) — frontend DONE + Trevor handoff (2026-06-14)
+FRONTEND (committed, lingo): `FlashcardTester` reports the session's review count to the daily-reviews quest ONCE on session-end (batched), and auto-completes it when the learner is caught up (`useFlashcardDueSummary().dueCount === 0`) so few-card days aren't stuck at 8/20.
+LINGO-CORE (UNCOMMITTED — left in Trevor's working tree, NOT pushed): added the `daily-reviews` quest (unit "reviews", target 20) to `app/quests/logic.py` + updated `tests/test_quests.py` (62 pass). ⚠ `app/quests/` is entirely untracked in lingo-core (Trevor's WIP), so I left my edit in the working tree rather than split the module across commits — **Trevor: commit my logic.py + test change with the rest of the quest module.**
 TREVOR / remaining backend coordination:
 - **Swap when nothing's due at day start:** the quest generator can't see the client-side SRS due-count, so the reviews quest always generates. A learner with 0 due cards who never opens flashcards sees 0/20 all day. Options: client reports due-count when fetching quests (so the server can swap/skip), or accept the auto-complete-on-open behavior.
 - **Trust:** the bump endpoint trusts the client `delta` (a client could over-report reviews). Add server-side sanity bounds if it matters.
