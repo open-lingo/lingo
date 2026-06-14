@@ -1236,6 +1236,39 @@ export function getMockCourse(languageId: string): Course {
       { id: "ko-m24-8", title: "M24 Mastery Test",                  status: "available" as const },
     ];
 
+    const m25Lessons = [
+      { id: "ko-m25-1", title: "Travel — 여행, 계획, 출발, 도착",       status: "available" as const },
+      { id: "ko-m25-2", title: "Events — 온천, 축제, 결혼, 졸업",       status: "available" as const },
+      { id: "ko-m25-3", title: "(으)려고 하다 — intend to",            status: "available" as const },
+      { id: "ko-m25-4", title: "(으)러 가다 — go to do",              status: "available" as const },
+      { id: "ko-m25-5", title: "(으)ㄴ 적이 있다 — have you ever",      status: "available" as const },
+      { id: "ko-m25-6", title: "(으)ㄹ 때 — when",                    status: "available" as const },
+      { id: "ko-m25-7", title: "Mini-dialogue — planning a trip",     status: "available" as const },
+      { id: "ko-m25-8", title: "M25 Mastery Test",                   status: "available" as const },
+    ];
+
+    const m26Lessons = [
+      { id: "ko-m26-1", title: "Trouble — 피곤하다, 늦다, 잊어버리다",   status: "available" as const },
+      { id: "ko-m26-2", title: "Connectives — 그래서, 하지만, 그리고",  status: "available" as const },
+      { id: "ko-m26-3", title: "거든요 — explaining a reason",         status: "available" as const },
+      { id: "ko-m26-4", title: "너무 — too / too much",               status: "available" as const },
+      { id: "ko-m26-5", title: "아/어서 — so / because",              status: "available" as const },
+      { id: "ko-m26-6", title: "Explaining why",                      status: "available" as const },
+      { id: "ko-m26-7", title: "Mini-dialogue — why are you late?",   status: "available" as const },
+      { id: "ko-m26-8", title: "M26 Mastery Test",                   status: "available" as const },
+    ];
+
+    const m27Lessons = [
+      { id: "ko-m27-1", title: "Goals — 결정하다, 약속, 준비, 연습",     status: "available" as const },
+      { id: "ko-m27-2", title: "Health — 건강, 조심하다",              status: "available" as const },
+      { id: "ko-m27-3", title: "아/어야 되다 — must / have to",        status: "available" as const },
+      { id: "ko-m27-4", title: "는 게 좋다 — should / better to",      status: "available" as const },
+      { id: "ko-m27-5", title: "아/어지다 — become",                  status: "available" as const },
+      { id: "ko-m27-6", title: "이/가 되다 — become (a …)",           status: "available" as const },
+      { id: "ko-m27-7", title: "Mini-dialogue — giving advice",       status: "available" as const },
+      { id: "ko-m27-8", title: "M27 Mastery Test",                   status: "available" as const },
+    ];
+
     const sideQuests: SideQuest[] = [
       {
         id: "ko-survival-phrasebook",
@@ -1468,6 +1501,30 @@ export function getMockCourse(languageId: string): Course {
           summary: "Hobby vocab, knowing how with (으)ㄹ 줄 알다/모르다, alternatives with 거나, and counting times with 번.",
           lessons: m24Lessons,
           accent: { from: "#a855f7", to: "#9333ea" },
+        },
+        {
+          id: "m25",
+          title: "Plans & intentions",
+          eyebrow: "Module 25 · Plan",
+          summary: "Intentions with (으)려고 하다, purpose with (으)러 가다, experience with (으)ㄴ 적이 있다, and 'when' with (으)ㄹ 때.",
+          lessons: m25Lessons,
+          accent: { from: "#0ea5e9", to: "#0284c7" },
+        },
+        {
+          id: "m26",
+          title: "Explaining & excess",
+          eyebrow: "Module 26 · Explain",
+          summary: "Explaining reasons with 거든요, excess with 너무, cause→result with 아/어서, and connectives 그래서/하지만/그리고/그런데.",
+          lessons: m26Lessons,
+          accent: { from: "#f43f5e", to: "#e11d48" },
+        },
+        {
+          id: "m27",
+          title: "Modal grammar",
+          eyebrow: "Module 27 · Advise",
+          summary: "Obligation with 아/어야 되다, advice with 는 게 좋다, and change of state with 아/어지다 and 이/가 되다.",
+          lessons: m27Lessons,
+          accent: { from: "#10b981", to: "#059669" },
         },
       ],
       sideQuests,

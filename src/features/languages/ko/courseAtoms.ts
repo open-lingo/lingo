@@ -42,6 +42,9 @@ export type KoAtomSource =
   | "m22"
   | "m23"
   | "m24"
+  | "m25"
+  | "m26"
+  | "m27"
   | "sidequest-survival"
   | "future";
 
@@ -883,6 +886,55 @@ const M24_VOCAB: KoAtom[] = [
   atom({ surface: "일주일", meaningEn: "one week", romanization: "iljuil", emoji: "📅", partOfSpeech: "noun", fromModule: "m24", kind: "vocab" }),
 ];
 
+/**
+ * M25 — Plans & intentions. Travel/event vocab + (으)려고 하다 (intend),
+ * (으)러 가다 (go to do), (으)ㄴ 적이 있다 (experience), (으)ㄹ 때 (when).
+ * Mirrors JA M25 (つもり + にいく + ことがある + とき).
+ */
+const M25_VOCAB: KoAtom[] = [
+  atom({ surface: "여행", meaningEn: "travel / trip", romanization: "yeohaeng", emoji: "✈️", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
+  atom({ surface: "계획", meaningEn: "plan", romanization: "gyehoek", emoji: "📋", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
+  atom({ surface: "출발", meaningEn: "departure", romanization: "chulbal", emoji: "🛫", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
+  atom({ surface: "도착", meaningEn: "arrival", romanization: "dochak", emoji: "🛬", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
+  atom({ surface: "외국", meaningEn: "foreign country", romanization: "oeguk", emoji: "🌏", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
+  atom({ surface: "온천", meaningEn: "hot spring", romanization: "oncheon", emoji: "♨️", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
+  atom({ surface: "축제", meaningEn: "festival", romanization: "chukje", emoji: "🎆", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
+  atom({ surface: "결혼", meaningEn: "marriage", romanization: "gyeolhon", emoji: "💍", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
+  atom({ surface: "졸업", meaningEn: "graduation", romanization: "joreop", emoji: "🎓", partOfSpeech: "noun", fromModule: "m25", kind: "vocab" }),
+];
+
+/**
+ * M26 — Explaining & excess. Trouble/feeling verbs + connectives + 거든요
+ * (explaining), 너무 (too/excess), 아/어서 (so/because). Mirrors JA M26
+ * (んです + すぎる + connective set).
+ */
+const M26_VOCAB: KoAtom[] = [
+  atom({ surface: "피곤하다", meaningEn: "be tired", romanization: "pigonhada", emoji: "😫", partOfSpeech: "adjective", fromModule: "m26", kind: "vocab" }),
+  atom({ surface: "늦다", meaningEn: "be late", romanization: "neutda", emoji: "⏰", partOfSpeech: "verb", fromModule: "m26", kind: "vocab" }),
+  atom({ surface: "잊어버리다", meaningEn: "forget", romanization: "ijeobeorida", emoji: "🤦", partOfSpeech: "verb", fromModule: "m26", kind: "vocab" }),
+  atom({ surface: "실수", meaningEn: "mistake", romanization: "silsu", emoji: "❌", partOfSpeech: "noun", fromModule: "m26", kind: "vocab" }),
+  atom({ surface: "하지만", meaningEn: "but / however", romanization: "hajiman", partOfSpeech: "adverb", fromModule: "m26", kind: "vocab" }),
+  atom({ surface: "그리고", meaningEn: "and", romanization: "geurigo", partOfSpeech: "adverb", fromModule: "m26", kind: "vocab" }),
+  atom({ surface: "그런데", meaningEn: "but / by the way", romanization: "geureonde", partOfSpeech: "adverb", fromModule: "m26", kind: "vocab" }),
+  atom({ surface: "너무", meaningEn: "too / excessively", romanization: "neomu", partOfSpeech: "adverb", fromModule: "m26", kind: "vocab" }),
+];
+
+/**
+ * M27 — Modal grammar. Goal/health vocab + 아/어야 되다 (must), 는 게 좋다
+ * (should/better to), 아/어지다 (become — adjective), 이/가 되다 (become —
+ * noun). Mirrors JA M27 (なければならない + ほうがいい + く/になる). FINAL
+ * authored KO module — completes KO module parity (M1-M27).
+ */
+const M27_VOCAB: KoAtom[] = [
+  atom({ surface: "결정하다", meaningEn: "decide", romanization: "gyeoljeonghada", emoji: "✅", partOfSpeech: "verb", fromModule: "m27", kind: "vocab" }),
+  atom({ surface: "약속", meaningEn: "promise / appointment", romanization: "yaksok", emoji: "🤝", partOfSpeech: "noun", fromModule: "m27", kind: "vocab" }),
+  atom({ surface: "준비", meaningEn: "preparation", romanization: "junbi", emoji: "🎒", partOfSpeech: "noun", fromModule: "m27", kind: "vocab" }),
+  atom({ surface: "연습", meaningEn: "practice", romanization: "yeonseup", emoji: "🔁", partOfSpeech: "noun", fromModule: "m27", kind: "vocab" }),
+  atom({ surface: "시험", meaningEn: "exam", romanization: "siheom", emoji: "📝", partOfSpeech: "noun", fromModule: "m27", kind: "vocab" }),
+  atom({ surface: "건강", meaningEn: "health", romanization: "geongang", emoji: "💪", partOfSpeech: "noun", fromModule: "m27", kind: "vocab" }),
+  atom({ surface: "조심하다", meaningEn: "be careful", romanization: "josimhada", emoji: "⚠️", partOfSpeech: "verb", fromModule: "m27", kind: "vocab" }),
+];
+
 // ─── Aggregate + lookup map ──────────────────────────────────────────────
 
 /**
@@ -920,6 +972,9 @@ export const KO_COURSE_ATOMS: ReadonlyArray<KoAtom> = [
   ...M22_VOCAB,
   ...M23_VOCAB,
   ...M24_VOCAB,
+  ...M25_VOCAB,
+  ...M26_VOCAB,
+  ...M27_VOCAB,
   ...JAMO_ATOMS,
   ...PARTICLE_ATOMS,
   ...SURVIVAL_ATOMS,
