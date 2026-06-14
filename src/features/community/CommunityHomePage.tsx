@@ -108,10 +108,6 @@ export function CommunityHomePage() {
     return { decks: items.length, creators: creators.size };
   }, [items]);
 
-  const catalogLanguageIds = useMemo(
-    () => Array.from(new Set(items.map((i) => i.languageId))).sort(),
-    [items],
-  );
 
   if (isLoading) {
     return (
@@ -148,7 +144,7 @@ export function CommunityHomePage() {
   return (
     <CommunityDiscoveryLayout>
       <div className="space-y-10">
-        <MarketplaceHero metrics={metrics} languageIds={catalogLanguageIds} />
+        <MarketplaceHero metrics={metrics} />
 
         {/* Featured spotlight + secondary featured rail */}
         {heroItem ? (
