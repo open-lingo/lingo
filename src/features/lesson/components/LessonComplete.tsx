@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { Icon } from "@/shared/components/Icon";
 import { Button } from "@/shared/components/ui";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 import type { LessonContent } from "../types";
 
 /**
@@ -61,6 +63,8 @@ export function LessonComplete({
   onSaveAndExit,
 }: Props) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const langPath = useLangPath();
   const percent = totalGraded > 0 ? Math.round((correctCount / totalGraded) * 100) : 100;
   const baseXp = lesson.xpReward ?? 10;
   const xp = Math.max(1, Math.round(baseXp * xpMultiplier));
@@ -170,6 +174,16 @@ export function LessonComplete({
               defaultValue: "Drill what you missed ({{n}})",
               n: missedCount,
             })}
+          </Button>
+        )}
+
+        {!isReview && (
+          <Button
+            variant="outline"
+            onClick={() => navigate(langPath("practice/flashcards/review"))}
+            className="w-full"
+          >
+            {t("lesson.reviewWords", "Review your words →")}
           </Button>
         )}
 
