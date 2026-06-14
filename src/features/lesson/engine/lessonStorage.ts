@@ -1,5 +1,6 @@
 import type { BatchAttempt } from "@/shared/api/progress";
 import { getActiveUserStorageId } from "@/features/settings/storage";
+import { safeLocalStorageWrite } from "@/shared/utils/storageQuota";
 
 const BUFFER_PREFIX = "open-lingo-lesson-attempts:v1:";
 const STEP_EVENTS_PREFIX = "open-lingo-lesson-step-events:v1:";
@@ -88,11 +89,9 @@ export function getStepEvents(): StepEvent[] {
 export function setStepEvents(events: StepEvent[]): void {
   if (typeof window === "undefined") return;
   migrateLegacyLessonKeys();
-  try {
-    localStorage.setItem(stepEventsKey(), JSON.stringify(events));
-  } catch {
-    /* ignore quota */
-  }
+  // Quota errors warn (toast + log) via safeLocalStorageWrite rather than
+  // silently dropping the buffered step events.
+  safeLocalStorageWrite(stepEventsKey(), JSON.stringify(events));
 }
 
 export function appendStepEvent(event: StepEvent): void {
@@ -166,11 +165,9 @@ export function getPendingAttempts(): PendingAttempt[] {
 export function setPendingAttempts(attempts: PendingAttempt[]): void {
   if (typeof window === "undefined") return;
   migrateLegacyLessonKeys();
-  try {
-    localStorage.setItem(bufferKey(), JSON.stringify(attempts));
-  } catch {
-    // ignore quota errors
-  }
+  // Quota errors warn (toast + log) via safeLocalStorageWrite rather than
+  // silently dropping the buffered lesson attempts.
+  safeLocalStorageWrite(bufferKey(), JSON.stringify(attempts));
 }
 
 export function appendPendingAttempt(attempt: PendingAttempt): void {

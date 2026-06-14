@@ -13,6 +13,10 @@
     "syncing": "Sincronizando…",
     "moreComing": "Próximamente: progreso de lecciones e historias"
   },
+  "storage": {
+    "quotaNear": "El almacenamiento de tu dispositivo está casi lleno. Sincroniza tu progreso pronto para no perder nada.",
+    "quotaExceeded": "El almacenamiento de tu dispositivo está lleno: es posible que el progreso reciente no se guarde localmente. Sincroniza o libera espacio para proteger tu progreso."
+  },
   "common": {
     "loading": "Cargando...",
     "back": "Atrás",
