@@ -39,6 +39,12 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
+  // Art-resolution fallback: notoEmojiUrl returns a URL even when the SVG
+  // isn't in the bundled subset (it 404s at fetch time). Without this the
+  // tile shows a broken-image icon. Track failed loads and fall back to the
+  // native-font emoji glyph. Helps any language whose art subset is partial
+  // (KO M2 야구/우유 today; future content too).
+  const [imgFailed, setImgFailed] = useState<Record<string, boolean>>({});
 
   const isCorrect = selected === step.correctOptionId;
 
@@ -103,7 +109,9 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           } else if (isSelected) {
             stateClasses = "border-accent bg-accent/5";
           }
-          const emojiSrc = lingoArtUrl(opt.word) ?? notoEmojiUrl(opt.emoji);
+          const emojiSrc = imgFailed[opt.id]
+            ? null
+            : lingoArtUrl(opt.word) ?? notoEmojiUrl(opt.emoji);
           return (
             <button
               key={opt.id}
@@ -137,6 +145,11 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
                   loading="eager"
                   className="h-[60%] w-[60%] max-h-44 max-w-44 select-none object-contain"
                   draggable={false}
+                  onError={() =>
+                    setImgFailed((prev) =>
+                      prev[opt.id] ? prev : { ...prev, [opt.id]: true },
+                    )
+                  }
                 />
               ) : (
                 <span aria-hidden className="text-8xl">
