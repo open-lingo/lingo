@@ -72,7 +72,7 @@ export function FundingMeter() {
 
   return (
     <div
-      className="pointer-events-none fixed right-0 top-[var(--header-height,3.5rem)] z-30 flex justify-end px-3 pt-3 sm:px-4"
+      className="pointer-events-none fixed right-0 top-[var(--header-height,3rem)] z-30 flex justify-end px-3 pt-3 sm:px-4"
       role="status"
       aria-label={ariaLabel}
     >

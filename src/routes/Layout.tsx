@@ -115,7 +115,7 @@ export function Layout() {
           sidebarMode ? "lg:hidden" : ""
         }`}
       >
-        <div className="mx-auto flex h-12 min-h-12 max-w-7xl items-center justify-between gap-2 px-3 sm:h-14 sm:px-4 sm:gap-4 lg:px-8">
+        <div className="mx-auto flex h-11 min-h-11 max-w-7xl items-center justify-between gap-2 px-3 sm:h-12 sm:px-4 sm:gap-4 lg:px-8">
           <div className="flex shrink-0 items-center gap-2">
             <span
               className="inline-block h-6 w-6 shrink-0 bg-current sm:h-7 sm:w-7"
@@ -279,7 +279,7 @@ export function Layout() {
               type="button"
               aria-label={t("nav.closeMenu", "Close menu")}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-x-0 bottom-0 top-12 z-30 bg-overlay/40 md:hidden"
+              className="fixed inset-x-0 bottom-0 top-11 z-30 bg-overlay/40 md:hidden"
             />
             <div
               id="mobile-nav"
@@ -364,7 +364,7 @@ export function Layout() {
           header on ≥lg, so go full-viewport there. */}
       <main
         id="main-content"
-        className={`mx-auto w-full max-w-screen-2xl flex-1 px-4 py-8 sm:px-6 lg:px-8 min-h-[calc(100svh_-_3rem)] sm:min-h-[calc(100svh_-_3.5rem)] ${
+        className={`mx-auto w-full max-w-screen-2xl flex-1 px-4 py-8 sm:px-6 lg:px-8 min-h-[calc(100svh_-_2.75rem)] sm:min-h-[calc(100svh_-_3rem)] ${
           sidebarMode ? "lg:min-h-[100svh]" : ""
         }`}
       >
