@@ -15,6 +15,7 @@ import { ThemeEditorPanel } from "@/shared/components/ThemeEditorPanel";
 import { FloatingLanguagePill } from "@/shared/components/FloatingLanguagePill";
 import { AuthMenu } from "@/shared/components/AuthMenu";
 import { ModalRoot } from "@/shared/components/ModalRoot";
+import { CommandPalette } from "@/shared/components/CommandPalette/CommandPalette";
 import { ToastContainer } from "@/shared/components/ToastContainer";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTouchOnSession } from "@/shared/hooks/useTouchOnSession";
@@ -60,6 +61,7 @@ export function Layout() {
   // usable) the footer alone pushed every lesson step below the fold.
   const focusedFlow = /\/lessons\/|\/test-out\/|\/placement-test/.test(pathname);
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
+  const journeyActive = /^\/[^/]+\/progress/.test(pathname);
   const communityActive = /\/community/.test(pathname);
   const socialActive = /^\/[^/]+\/social/.test(pathname);
   const leaderboardActive =
@@ -178,6 +180,16 @@ export function Layout() {
                 }`}
               >
                 {t("nav.practice")}
+              </Link>
+              <Link
+                to={langPath("progress")}
+                className={`rounded-md px-2 py-1.5 text-sm ${
+                  journeyActive
+                    ? "font-medium text-text-primary"
+                    : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                }`}
+              >
+                {t("nav.journey", "Journey")}
               </Link>
               <Link
                 to={langPath("social")}
@@ -313,6 +325,12 @@ export function Layout() {
                   label={t("nav.practice")}
                 />
                 <MobileNavLink
+                  to={langPath("progress")}
+                  active={journeyActive}
+                  onClick={() => setMobileMenuOpen(false)}
+                  label={t("nav.journey", "Journey")}
+                />
+                <MobileNavLink
                   to={langPath("social")}
                   active={socialActive}
                   onClick={() => setMobileMenuOpen(false)}
@@ -397,6 +415,7 @@ export function Layout() {
       )}
       <CookieConsent />
       <ModalRoot />
+      {isAuthenticated && <CommandPalette />}
       {isThemeEditorOpen && <ThemeEditorPanel />}
       <ToastContainer />
     </div>

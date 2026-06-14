@@ -20,8 +20,8 @@ type ModalContextValue = {
   open: (id: ModalId, props?: Record<string, unknown>) => void;
   close: () => void;
   closeAll: () => void;
-  /** Convenience: open settings. */
-  openSettings: () => void;
+  /** Convenience: open settings, optionally deep-linked to a section. */
+  openSettings: (section?: string) => void;
 };
 
 const ModalContext = createContext<ModalContextValue | null>(null);
@@ -39,7 +39,10 @@ export function ModalProvider({ children }: { children: ReactNode }) {
 
   const closeAll = useCallback(() => setStack([]), []);
 
-  const openSettings = useCallback(() => open("settings"), [open]);
+  const openSettings = useCallback(
+    (section?: string) => open("settings", section ? { initialSection: section } : undefined),
+    [open],
+  );
 
   const isOpen = stack.length > 0;
 
