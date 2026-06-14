@@ -519,25 +519,6 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
           />
           <SettingRow
             asLabel
-            label={t(
-              "settings.showAlphabetFurigana",
-              "Show furigana above Japanese text (where available)",
-            )}
-            control={
-              <Switch
-                checked={settings.learning.showAlphabetFurigana ?? true}
-                onCheckedChange={(next) =>
-                  updateSetting("learning.showAlphabetFurigana", next)
-                }
-                ariaLabel={t(
-                  "settings.showAlphabetFurigana",
-                  "Show furigana above Japanese text (where available)",
-                )}
-              />
-            }
-          />
-          <SettingRow
-            asLabel
             label={t("settings.showRomaji", "Show romaji as a reading aid")}
             help={t(
               "settings.showRomajiHelp",

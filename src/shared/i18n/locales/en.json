@@ -1717,8 +1717,7 @@
     "uiLocaleHelp": "Language for menus and buttons.",
     "alphabetDisplay": "Alphabet display",
     "alphabetDisplayHelp": "Control how romanization and reading aids are shown for alphabets.",
-    "showAlphabetRomanization": "Show romanization under alphabet characters",
-    "showAlphabetFurigana": "Show furigana above Japanese text (where available)"
+    "showAlphabetRomanization": "Show romanization under alphabet characters"
   },
   "adFree": {
     "pill": {
