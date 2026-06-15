@@ -142,7 +142,7 @@
   align-items: center;
   gap: 4px;
   white-space: nowrap;
-  margin-top: 4px;
+  margin-top: 0;
   padding: 2px 9px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.2);
@@ -156,21 +156,22 @@
   color: var(--color-accent);
 }
 
-/* Mastery pill — sits next to the complete pill when the module's row
- * tests are all passed un-skipped. Gold-leaning warning color so it
- * reads as a "tier above complete" award. Stacks below on narrow
- * viewports to avoid overflowing the module header. */
+/* Status pill + mastery chip group — right-aligned in the module header
+ * row, vertically centered with the chevron. Wraps as a group (right-
+ * justified) only when a long title crowds it out on narrow viewports;
+ * the title column gives up space first (flex-1 min-w-0). */
 .lingo-module-pills {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   gap: 6px;
   margin-top: 0;
 }
 .lingo-mastery-pill {
   display: inline-flex;
   align-items: center;
-  margin-top: 4px;
+  margin-top: 0;
   padding: 2px 9px;
   border-radius: 999px;
   background: var(--color-warning, #f59e0b);
