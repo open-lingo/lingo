@@ -60,6 +60,18 @@ export function ModuleCard({
 
   const pill = statusPill ?? pillFallback;
 
+  const statusPillNode = (
+    <span className="lingo-status-pill">
+      {pill.variant === "locked" ? (
+        <Icon name="lock" size={12} className="opacity-90" aria-hidden />
+      ) : null}
+      {pill.variant === "complete" ? (
+        <Icon name="check" size={12} className="opacity-90" aria-hidden />
+      ) : null}
+      {pill.text}
+    </span>
+  );
+
   return (
     <article
       id={`learn-module-${module.id}`}
@@ -88,26 +100,25 @@ export function ModuleCard({
             </div>
           ) : null}
           <h2 className="m-0 mt-0.5 text-lg font-bold">{module.title}</h2>
-          <div className="lingo-module-pills">
-            <span className="lingo-status-pill inline-flex items-center gap-1">
-              {pill.variant === "locked" ? (
-                <Icon name="lock" size={12} className="opacity-90" aria-hidden />
+          {/* Locked modules render their "After X" pill right-aligned in the
+           * header row (see below) — keep the column pills for non-locked
+           * states (in-progress / complete + optional mastery pill). */}
+          {status !== "locked" ? (
+            <div className="lingo-module-pills">
+              {statusPillNode}
+              {masteryPill ? (
+                <span className="lingo-mastery-pill" title={masteryPill.text}>
+                  {masteryPill.text}
+                </span>
               ) : null}
-              {pill.variant === "complete" ? (
-                <Icon name="check" size={12} className="opacity-90" aria-hidden />
-              ) : null}
-              {pill.text}
-            </span>
-            {masteryPill ? (
-              <span
-                className="lingo-mastery-pill"
-                title={masteryPill.text}
-              >
-                {masteryPill.text}
-              </span>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
         </div>
+        {status === "locked" ? (
+          <div className="ml-auto flex-shrink-0 [&>.lingo-status-pill]:mt-0">
+            {statusPillNode}
+          </div>
+        ) : null}
         <div
           className={`lingo-mchev${isOpen ? " lingo-mchev-open" : ""}`}
           aria-hidden

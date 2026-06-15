@@ -134,7 +134,14 @@
 }
 
 .lingo-status-pill {
-  display: inline-block;
+  /* inline-flex (not inline-block) so the lock/check lucide icon sits
+   * BESIDE the text on one centered row. Self-sufficient here — don't
+   * rely on the Tailwind .inline-flex utility winning the cascade
+   * (pathway.css is unlayered and beats Tailwind's @layer utilities). */
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
   margin-top: 4px;
   padding: 2px 9px;
   border-radius: 999px;
