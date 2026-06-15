@@ -65,7 +65,7 @@ export function PracticeLayout() {
   const isPracticeHub = norm === practiceHubPath;
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6">
+    <div className="mx-auto max-w-screen-2xl space-y-6">
       {!isPracticeHub && <PracticeBreadcrumbs />}
       <Outlet />
     </div>
