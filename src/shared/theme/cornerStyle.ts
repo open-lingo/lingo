@@ -10,7 +10,7 @@ import type { CornerStyle } from "@/shared/settings/types";
  */
 export const CORNER_STYLE_RADIUS: Record<CornerStyle, string> = {
   sharp: "0.25rem",
-  default: "0.75rem",
+  default: "0.625rem",
   rounded: "1.5rem",
   pill: "2rem",
 };

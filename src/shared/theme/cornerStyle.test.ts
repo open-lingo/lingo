@@ -9,7 +9,7 @@ describe("cornerStyle", () => {
   it("maps each preset to its spec radius", () => {
     expect(CORNER_STYLE_RADIUS).toEqual({
       sharp: "0.25rem",
-      default: "0.75rem",
+      default: "0.625rem",
       rounded: "1.5rem",
       pill: "2rem",
     });
@@ -27,7 +27,7 @@ describe("cornerStyle", () => {
     });
 
     it("falls back to the default preset when undefined", () => {
-      expect(cardRadius(undefined)).toBe("0.75rem");
+      expect(cardRadius(undefined)).toBe("0.625rem");
     });
 
     it("uses the theme default when the preset is 'default'", () => {
@@ -39,7 +39,7 @@ describe("cornerStyle", () => {
     });
 
     it("uses the shared default when no theme default is given", () => {
-      expect(cardRadius("default")).toBe("0.75rem");
+      expect(cardRadius("default")).toBe("0.625rem");
     });
   });
 });
