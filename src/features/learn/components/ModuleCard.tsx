@@ -100,25 +100,20 @@ export function ModuleCard({
             </div>
           ) : null}
           <h2 className="m-0 mt-0.5 text-lg font-bold">{module.title}</h2>
-          {/* Locked modules render their "After X" pill right-aligned in the
-           * header row (see below) — keep the column pills for non-locked
-           * states (in-progress / complete + optional mastery pill). */}
-          {status !== "locked" ? (
-            <div className="lingo-module-pills">
-              {statusPillNode}
-              {masteryPill ? (
-                <span className="lingo-mastery-pill" title={masteryPill.text}>
-                  {masteryPill.text}
-                </span>
-              ) : null}
-            </div>
+        </div>
+        {/* Status pill + optional mastery chip live in a right-aligned,
+         * vertically-centered slot for ALL states — keeps the title alone
+         * on the left and the card header short. Pills hug the right edge
+         * (ml-auto) and wrap as a group only if a long title truly crowds
+         * them out. */}
+        <div className="lingo-module-pills ml-auto flex-shrink-0">
+          {statusPillNode}
+          {masteryPill ? (
+            <span className="lingo-mastery-pill" title={masteryPill.text}>
+              {masteryPill.text}
+            </span>
           ) : null}
         </div>
-        {status === "locked" ? (
-          <div className="ml-auto flex-shrink-0 [&>.lingo-status-pill]:mt-0">
-            {statusPillNode}
-          </div>
-        ) : null}
         <div
           className={`lingo-mchev${isOpen ? " lingo-mchev-open" : ""}`}
           aria-hidden
