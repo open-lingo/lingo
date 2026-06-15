@@ -211,7 +211,50 @@
       "moduleProgress": "{{module}} · {{done}}/{{total}} lessons"
     },
     "backToCurrent": "Back to your current lesson",
-    "backToCurrentShort": "Back to current"
+    "backToCurrentShort": "Back to current",
+    "tools": {
+      "progress": {
+        "title": "Your progress",
+        "tabsAria": "Progress view",
+        "tabAll": "All",
+        "tabPractice": "Practice",
+        "tabCourse": "Course",
+        "completion": "Course complete",
+        "streak": "Day streak",
+        "xp": "Total XP",
+        "dueNow": "Cards due now",
+        "lessons": "Lessons completed",
+        "modulesMastered": "Modules mastered",
+        "modules": "Modules",
+        "cta": "Track my journey"
+      },
+      "explore": {
+        "title": "Explore the course",
+        "pitch": "See everything you'll learn — modules, vocabulary, and concepts.",
+        "moduleCount": "{{count}} modules to discover",
+        "cta": "Explore the full course"
+      },
+      "depth": {
+        "title": "Explore the full course",
+        "subtitle": "{{count}} modules · everything you'll learn",
+        "statusMastered": "Mastered",
+        "statusLocked": "Coming soon",
+        "statusInProgress": "In progress",
+        "lessons": "{{done}}/{{total}} lessons",
+        "words": "{{count}} words",
+        "moreWords": "+{{count}} more"
+      },
+      "review": {
+        "title": "Review & practice",
+        "caughtUpTitle": "All caught up!",
+        "caughtUpSub": "No cards due — keep the streak going.",
+        "checking": "Checking your reviews…",
+        "dueTitle": "{{count}} cards due",
+        "dueSub": "Lock in what you've learned.",
+        "reviewCta": "Review due cards",
+        "practiceCta": "Practice"
+      }
+    }
   },
   "alphabet": {
     "saySoundAloud": "Say the sound aloud while you write.",
