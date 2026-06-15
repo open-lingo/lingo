@@ -25,7 +25,22 @@ export type QuestsCardProps = {
  * standalone side-quests section in LearnSidebar — they all describe
  * the same surface from the user's POV.
  */
-export function QuestsCard({
+export function QuestsCard(props: QuestsCardProps) {
+  return (
+    <Card as="section" padding="md" className="shadow-card">
+      <QuestsCardBody {...props} />
+    </Card>
+  );
+}
+
+/**
+ * Chrome-less body of the unified quests card (header + daily/weekly/side
+ * sections + the QuestsPanel modal). Split out so it can be embedded as a
+ * section inside the merged "You today" sidebar card without a nested
+ * Card border. QuestsCard keeps the standalone Card wrapper for any
+ * non-merged consumer.
+ */
+export function QuestsCardBody({
   sideQuests,
   isSideQuestUnlocked,
   onSideQuestClick,
@@ -62,7 +77,7 @@ export function QuestsCard({
 
   return (
     <>
-      <Card as="section" padding="md" className="shadow-card">
+      <div>
         {/* Header */}
         <div className="mb-3 flex items-center justify-between gap-2">
           <h3 className="m-0 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-text-muted">
@@ -133,7 +148,7 @@ export function QuestsCard({
             })}
           </p>
         ) : null}
-      </Card>
+      </div>
       <QuestsPanel isOpen={isOpen} onClose={close} />
     </>
   );

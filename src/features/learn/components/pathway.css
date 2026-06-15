@@ -70,14 +70,42 @@
 }
 
 .lingo-module-card[data-state="locked"] .lingo-module-head {
-  /* Strongly desaturate + dim so locked modules clearly recede and only the
-   * active ("current") module reads as bright. */
-  filter: grayscale(0.92) brightness(0.8);
-  opacity: 0.9;
+  /* Neutral, not just dimmed: drop the per-module accent gradient entirely
+   * for a flat muted surface so locked modules read as inactive rather than
+   * "colorful but faded". Only the current module keeps a vibrant accent.
+   * A whisper-faint module-color hint (6%) survives for wayfinding without
+   * reading as color. */
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--m-c1, var(--color-accent)) 6%, var(--color-surface-muted))
+      0%,
+    var(--color-surface-muted) 100%
+  );
+  color: var(--color-text-secondary);
+  filter: none;
+  opacity: 1;
 }
+/* Kill the decorative white bubbles — they only make sense over a vibrant
+ * fill. On the neutral locked surface they'd read as smudges. */
 .lingo-module-card[data-state="locked"] .lingo-module-head::before,
 .lingo-module-card[data-state="locked"] .lingo-module-head::after {
-  opacity: 0.35;
+  display: none;
+}
+.lingo-module-card[data-state="locked"] .lingo-mnum {
+  /* Neutral badge chip — muted surface + secondary text, no white-on-color. */
+  background: color-mix(in srgb, var(--color-text-muted) 14%, transparent);
+  color: var(--color-text-secondary);
+}
+.lingo-module-card[data-state="locked"] .lingo-mchev {
+  background: color-mix(in srgb, var(--color-text-muted) 12%, transparent);
+  color: var(--color-text-muted);
+}
+.lingo-module-card[data-state="locked"] .lingo-status-pill {
+  background: color-mix(in srgb, var(--color-text-muted) 12%, transparent);
+  color: var(--color-text-muted);
+}
+.lingo-module-card[data-state="locked"] .lingo-module-head:hover {
+  filter: none;
 }
 
 .lingo-module-card[data-state="completed"] .lingo-module-head {

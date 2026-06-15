@@ -61,6 +61,11 @@ export function LearnPage() {
   const completedIds = useCompletedLessonIds();
   const [devUnlock, setDevUnlockState] = useState(() => isDevUnlockOn());
   const [placementDismissedByUser, setPlacementDismissedByUser] = useState(false);
+  // Wrapped in an object so re-jumping to the same module id still
+  // produces a fresh reference and re-triggers the reveal effect.
+  const [revealModuleId, setRevealModuleId] = useState<{ id: string } | null>(
+    null,
+  );
   const showPlacement =
     !placementDismissedByUser &&
     language?.id === "ja" &&
@@ -307,10 +312,19 @@ export function LearnPage() {
 
   const handleJumpToModule = (moduleId: string) => {
     accordion.expand(moduleId);
+    // Force-reveal the target in case it lives inside the collapsed
+    // "Upcoming modules" group; LearnCourseMap expands the group on this.
+    // Re-set even for a repeat jump to the same id so the reveal effect
+    // re-fires (object identity guarantees a fresh value).
+    setRevealModuleId({ id: moduleId });
+    // Two RAFs: first lets the accordion/group expansion commit + the
+    // module node mount, second runs the scroll once it's painted.
     requestAnimationFrame(() => {
-      document.getElementById(`learn-module-${moduleId}`)?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+      requestAnimationFrame(() => {
+        document.getElementById(`learn-module-${moduleId}`)?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
       });
     });
   };
@@ -371,6 +385,7 @@ export function LearnPage() {
               isModuleOpen={accordion.isOpen}
               onToggleModule={accordion.toggle}
               onLessonClick={goToLesson}
+              revealModuleId={revealModuleId?.id ?? null}
             />
           </Card>
         </div>

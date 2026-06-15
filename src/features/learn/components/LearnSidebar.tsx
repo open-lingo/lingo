@@ -1,8 +1,9 @@
 import type { Course, SideQuest } from "@/shared/domain/course";
 import type { LearnProfile } from "../hooks/useLearnProfile";
-import { ProfileCard } from "./ProfileCard";
-import { FlashcardsReviewStrip } from "./FlashcardsReviewStrip";
-import { QuestsCard } from "@/features/quests";
+import { Card } from "@/shared/components/ui";
+import { ProfileCardBody } from "./ProfileCard";
+import { FlashcardsReviewBody } from "./FlashcardsReviewStrip";
+import { QuestsCardBody } from "@/features/quests";
 
 export type LearnSidebarProps = {
   profile: LearnProfile;
@@ -17,15 +18,15 @@ export type LearnSidebarProps = {
 /**
  * Desktop-only right rail. Mobile uses `LearnTopBar` above the pathway.
  *
- * Layout:
- *   1. ProfileCard          — identity + level + XP
- *   2. QuestsCard           — unified daily + side-quests + see-all
- *   3. FlashcardsReviewStrip — due-cards module strip
+ * One cohesive "You today" card — three sections separated by hairline
+ * dividers (no nested borders):
+ *   1. identity + level + XP   (ProfileCardBody)
+ *   2. today's quests          (QuestsCardBody — daily / weekly / side)
+ *   3. due-review strip        (FlashcardsReviewBody)
  *
- * The standalone course-progress card was removed — it's now part of
- * the YourPathCard hero on the main column. QuestsPill + QuestSpotlightCard
- * + the standalone side-quests section were folded into the single
- * QuestsCard so the same conceptual surface lives in one slot.
+ * The standalone course-progress card was removed earlier — it's now part
+ * of YourPathCard in the main column. Folding profile + quests + reviews
+ * into one card trades three competing borders for a single quiet block.
  */
 export function LearnSidebar({
   profile,
@@ -37,14 +38,22 @@ export function LearnSidebar({
   onSideQuestClick,
 }: LearnSidebarProps) {
   return (
-    <aside className="space-y-6 lg:sticky lg:top-4 lg:self-start lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">
-      <ProfileCard profile={profile} />
-      <QuestsCard
-        sideQuests={sideQuests}
-        isSideQuestUnlocked={isSideQuestUnlocked}
-        onSideQuestClick={onSideQuestClick}
-      />
-      <FlashcardsReviewStrip />
+    <aside className="lg:sticky lg:top-4 lg:self-start lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">
+      <Card as="section" padding="md" className="shadow-card">
+        <ProfileCardBody profile={profile} />
+
+        <div aria-hidden className="my-4 h-px bg-border" />
+
+        <QuestsCardBody
+          sideQuests={sideQuests}
+          isSideQuestUnlocked={isSideQuestUnlocked}
+          onSideQuestClick={onSideQuestClick}
+        />
+
+        <div aria-hidden className="my-4 h-px bg-border" />
+
+        <FlashcardsReviewBody />
+      </Card>
     </aside>
   );
 }

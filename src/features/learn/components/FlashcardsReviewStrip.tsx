@@ -9,6 +9,19 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 const StudyScopeShortcuts = lazy(() => import("@/features/flashcards/StudyScopeShortcuts"));
 
 export function FlashcardsReviewStrip() {
+  return (
+    <div className="mb-6 rounded-xl border border-border bg-surface-muted p-3">
+      <FlashcardsReviewBody />
+    </div>
+  );
+}
+
+/**
+ * Chrome-less body of the due-review strip (title + caught-up state or
+ * study-scope shortcuts). Split out so it can be embedded as a section
+ * inside the merged "You today" sidebar card without its own border.
+ */
+export function FlashcardsReviewBody() {
   const { t } = useTranslation();
   const { language } = useLanguage();
   const langId = language?.id ?? "";
@@ -16,7 +29,7 @@ export function FlashcardsReviewStrip() {
   const langPath = useLangPath();
 
   return (
-    <div className="mb-6 rounded-xl border border-border bg-surface-muted p-3">
+    <>
       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
         {t("learn.flashcardsReviewStripTitle")}
       </p>
@@ -46,6 +59,6 @@ export function FlashcardsReviewStrip() {
           <StudyScopeShortcuts compact />
         </Suspense>
       )}
-    </div>
+    </>
   );
 }

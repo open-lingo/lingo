@@ -16,6 +16,20 @@ export type ProfileCardProps = {
 };
 
 export function ProfileCard({ profile }: ProfileCardProps) {
+  return (
+    <Card as="section" padding="md" className="h-full shadow-card">
+      <ProfileCardBody profile={profile} />
+    </Card>
+  );
+}
+
+/**
+ * Chrome-less body of the profile summary (identity + level + XP + stat
+ * tiles). Split out so it can be embedded as a section inside the merged
+ * "You today" sidebar card without a nested Card border. ProfileCard
+ * keeps the standalone Card wrapper for the mobile top bar.
+ */
+export function ProfileCardBody({ profile }: ProfileCardProps) {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { language } = useLanguage();
@@ -26,7 +40,7 @@ export function ProfileCard({ profile }: ProfileCardProps) {
   const levelProgress = xpProgressToNextLevel(stats.xp);
 
   return (
-    <Card as="section" padding="md" className="h-full shadow-card">
+    <>
       <div className="mb-3 flex items-center gap-3">
         <UserAvatar
           name={profile.displayName}
@@ -85,7 +99,7 @@ export function ProfileCard({ profile }: ProfileCardProps) {
           />
         </div>
       )}
-    </Card>
+    </>
   );
 }
 

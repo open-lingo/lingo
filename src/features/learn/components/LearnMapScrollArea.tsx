@@ -11,6 +11,9 @@ export type LearnMapScrollAreaProps = {
   isModuleOpen: (moduleId: string) => boolean;
   onToggleModule: (moduleId: string) => void;
   onLessonClick: (lesson: Lesson) => void;
+  /** Module id to force-reveal inside the collapsed "Upcoming" group
+   *  (e.g. a jump-to-module target). Forwarded to LearnCourseMap. */
+  revealModuleId?: string | null;
 };
 
 /**
