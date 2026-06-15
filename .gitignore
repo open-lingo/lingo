@@ -164,3 +164,7 @@ src/pub/dict/
 .claude/*
 !.claude/skills/
 .superpowers/
+
+# Agent/worktree screenshot artifacts (never commit)
+.screenshots/
+.worktree-shots/
