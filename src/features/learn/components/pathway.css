@@ -30,7 +30,7 @@
 
 .lingo-module-head {
   position: relative;
-  padding: 18px 20px;
+  padding: 12px 18px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -70,11 +70,14 @@
 }
 
 .lingo-module-card[data-state="locked"] .lingo-module-head {
-  filter: grayscale(0.6) brightness(0.85);
+  /* Strongly desaturate + dim so locked modules clearly recede and only the
+   * active ("current") module reads as bright. */
+  filter: grayscale(0.92) brightness(0.8);
+  opacity: 0.9;
 }
 .lingo-module-card[data-state="locked"] .lingo-module-head::before,
 .lingo-module-card[data-state="locked"] .lingo-module-head::after {
-  opacity: 0.5;
+  opacity: 0.35;
 }
 
 .lingo-module-card[data-state="completed"] .lingo-module-head {
@@ -216,28 +219,30 @@
   z-index: 1;
   display: flex;
   justify-content: center;
-  padding: 22px 0;
+  /* Tighter vertical rhythm so the map needs less scrolling; the wider
+   * horizontal swings below keep it from reading as a straight column. */
+  padding: 13px 0;
 }
 .lingo-path-row[data-pos="0"] {
   transform: translateX(0);
 }
 .lingo-path-row[data-pos="1"] {
-  transform: translateX(70px);
+  transform: translateX(100px);
 }
 .lingo-path-row[data-pos="2"] {
-  transform: translateX(120px);
+  transform: translateX(180px);
 }
 .lingo-path-row[data-pos="3"] {
-  transform: translateX(140px);
+  transform: translateX(220px);
 }
 .lingo-path-row[data-pos="-1"] {
-  transform: translateX(-70px);
+  transform: translateX(-100px);
 }
 .lingo-path-row[data-pos="-2"] {
-  transform: translateX(-120px);
+  transform: translateX(-180px);
 }
 .lingo-path-row[data-pos="-3"] {
-  transform: translateX(-140px);
+  transform: translateX(-220px);
 }
 @media (max-width: 520px) {
   .lingo-path-row[data-pos="3"],
@@ -277,7 +282,7 @@
   height: 68px;
 }
 .lingo-path-row[data-cluster="true"] {
-  padding: 12px 0;
+  padding: 7px 0;
 }
 .lingo-node[data-cluster="true"] .lingo-node-disc {
   width: 60px;
