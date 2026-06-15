@@ -40,6 +40,46 @@ function saveUnlockedSet(set: Set<string>): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
 }
 
+/**
+ * Server-backup channel (M1, 2026-06-13). The unlock ladder used to be
+ * localStorage-only, so a storage clear / device switch lost progression.
+ * On every local unlock we dispatch the NEWLY-added ids; `useUnlockMapSync`
+ * listens and fire-and-forget pushes them to `POST /progress/me/unlocks`
+ * (server unions, never drops). Kept as a window event — same decoupling as
+ * `lingo:vocab-graduated` — so this sync utility stays React-free.
+ */
+export const ATOMS_UNLOCKED_EVENT = "lingo:atoms-unlocked";
+
+export interface AtomsUnlockedDetail {
+  atomIds: string[];
+}
+
+function notifyAtomsUnlocked(atomIds: string[]): void {
+  if (typeof window === "undefined") return;
+  if (atomIds.length === 0) return;
+  const detail: AtomsUnlockedDetail = { atomIds };
+  window.dispatchEvent(new CustomEvent(ATOMS_UNLOCKED_EVENT, { detail }));
+}
+
+/**
+ * Merge a server-provided set into the local store WITHOUT dispatching a
+ * push event (these ids already live on the server). Used by the hydrate
+ * union path. Returns the count of ids that were new locally.
+ */
+export function mergeServerUnlockedAtomIds(atomIds: Iterable<string>): number {
+  const set = getUnlockedSet();
+  let added = 0;
+  for (const atomId of atomIds) {
+    const id = canonicalize(atomId);
+    if (!set.has(id)) {
+      set.add(id);
+      added++;
+    }
+  }
+  if (added > 0) saveUnlockedSet(set);
+  return added;
+}
+
 export function unlockLessonAtoms(lessonId: string): number {
   const atoms = getAtomsForLesson(lessonId);
   if (atoms.length === 0) return 0;
@@ -53,16 +93,20 @@ export function unlockLessonAtoms(lessonId: string): number {
  */
 export function unlockAtomIds(atomIds: Iterable<string>): number {
   const set = getUnlockedSet();
-  let added = 0;
+  const newlyAdded: string[] = [];
   for (const atomId of atomIds) {
     const id = canonicalize(atomId);
     if (!set.has(id)) {
       set.add(id);
-      added++;
+      newlyAdded.push(id);
     }
   }
-  if (added > 0) saveUnlockedSet(set);
-  return added;
+  if (newlyAdded.length > 0) {
+    saveUnlockedSet(set);
+    // Fire-and-forget server backup of just the new ids.
+    notifyAtomsUnlocked(newlyAdded);
+  }
+  return newlyAdded.length;
 }
 
 export function isAtomUnlocked(atomId: string): boolean {
