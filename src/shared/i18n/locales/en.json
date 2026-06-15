@@ -195,6 +195,7 @@
     "testOutModule": "Test out of Module {{n}}",
     "testOutNote": "Testing out marks every lesson up to here as complete and jumps you to the next module.",
     "sideQuestsTitle": "Side quests",
+    "upcomingModules": "Upcoming modules",
     "courseOverviewTitle": "Course progress",
     "courseOverviewLessons": "{{done}} of {{total}} lessons",
     "courseOverviewModulesAria": "Modules in this course",
