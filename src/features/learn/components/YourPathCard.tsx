@@ -12,6 +12,10 @@ export type YourPathCardProps = {
   course: Course;
   completedSet: ReadonlySet<string>;
   streakDays: number;
+  /** Count of modules with reviews due — renders a chip in the header. */
+  dueReviews?: number;
+  /** Click the reviews-due chip — jumps into the first due review. */
+  onReviewsClick?: () => void;
   /** Active module (the one currently in focus on the map). */
   onResume: () => void;
   /** Click a module row to jump the map to it. */
@@ -43,6 +47,8 @@ export function YourPathCard({
   course,
   completedSet,
   streakDays,
+  dueReviews = 0,
+  onReviewsClick,
   onResume,
   onJumpToModule: _onJumpToModule,
   onStartOver: _onStartOver,
@@ -97,6 +103,26 @@ export function YourPathCard({
               </p>
             ) : null}
           </div>
+          {dueReviews > 0 ? (
+            <button
+              type="button"
+              onClick={onReviewsClick}
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-xs font-semibold text-warning transition hover:bg-warning/20"
+              aria-label={t("learn.reviewsDueAria", {
+                defaultValue: "{{count}} module reviews due",
+                count: dueReviews,
+              })}
+            >
+              <Icon name="refresh" size={14} aria-hidden />
+              {t("learn.reviewsDue", {
+                defaultValue:
+                  dueReviews === 1
+                    ? "{{count}} review due"
+                    : "{{count}} reviews due",
+                count: dueReviews,
+              })}
+            </button>
+          ) : null}
         </div>
 
         {/* Course-wide progress bar. The streak chip rides the row so the

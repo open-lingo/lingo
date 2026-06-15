@@ -328,34 +328,6 @@ export function LearnPage() {
 
   return (
     <>
-      <header className="mb-5">
-        <h1 className="text-2xl font-bold tracking-tight text-text-primary sm:text-3xl">
-          {course.title}
-        </h1>
-        <p className="mt-1 text-sm text-text-secondary">
-          {t("learn.pathHint", "Tap a module to expand. The pulsing node is what we suggest — you choose.")}
-        </p>
-        {dueReviews.length > 0 ? (
-          <button
-            type="button"
-            onClick={handleReviewChipClick}
-            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-xs font-semibold text-warning transition hover:bg-warning/20"
-            aria-label={t("learn.reviewsDueAria", {
-              defaultValue: "{{count}} module reviews due",
-              count: dueReviews.length,
-            })}
-          >
-            <Icon name="refresh" size={14} aria-hidden />
-            {t("learn.reviewsDue", {
-              defaultValue:
-                dueReviews.length === 1
-                  ? "{{count}} review due"
-                  : "{{count}} reviews due",
-              count: dueReviews.length,
-            })}
-          </button>
-        ) : null}
-      </header>
       <LearnTopBar
         profile={profile}
         course={course}
@@ -376,6 +348,8 @@ export function LearnPage() {
               course={course}
               completedSet={completedSet}
               streakDays={userStats.streak}
+              dueReviews={dueReviews.length}
+              onReviewsClick={handleReviewChipClick}
               onResume={() => {
                 const currentModule = course.modules[currentModuleIdx];
                 if (!currentModule) return;
