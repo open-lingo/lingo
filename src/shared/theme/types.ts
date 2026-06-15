@@ -30,6 +30,14 @@ export type ThemeTokens = {
     sm: number;
     md: number;
     lg: number;
+    /**
+     * Optional per-theme default for the card/modal corner radius, as a CSS
+     * length string (e.g. "0.75rem"). Drives `--radius-card` when the user
+     * keeps the "default" corner-style preset; user-chosen presets override
+     * it. Themes that omit this fall back to the shared "default" value in
+     * `cornerStyle.ts`.
+     */
+    card?: string;
   };
   shadow: {
     card: string;

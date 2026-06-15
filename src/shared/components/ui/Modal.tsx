@@ -146,10 +146,10 @@ export function Modal({
           tabIndex={-1}
           className={cn(
             // Mobile: bottom sheet, full width, rounded top, slide-up animation.
-            "relative w-full max-h-[90vh] overflow-hidden rounded-t-2xl border border-border shadow-popover",
+            "relative w-full max-h-[90vh] overflow-hidden rounded-t-card border border-border shadow-popover",
             matchBackground ? "bg-background" : "bg-surface",
             // Tablet+: centered card, rounded all corners, fits to size.
-            "sm:mx-4 sm:w-full sm:rounded-2xl sm:max-h-[85vh]",
+            "sm:mx-4 sm:w-full sm:rounded-card sm:max-h-[85vh]",
             "flex flex-col",
             sizeClasses[size],
             "animate-fade-up",

@@ -11,6 +11,11 @@ export function applyThemeToDOM(tokens: ThemeTokens): void {
   });
 
   Object.entries(tokens.radius).forEach(([key, value]) => {
+    // `--radius-card` is driven by the user's corner-style preset (with the
+    // theme's `radius.card` as the "default"-preset baseline) and is applied
+    // separately in ThemeContext — skip it here so the two don't fight, and
+    // skip any non-numeric entry which isn't a px-suffixed scalar.
+    if (key === "card" || typeof value !== "number") return;
     root.style.setProperty(`--radius-${key}`, `${value}px`);
   });
 

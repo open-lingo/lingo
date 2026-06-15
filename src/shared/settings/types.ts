@@ -1,5 +1,8 @@
 export const SETTINGS_VERSION = 1;
 
+/** Card/modal corner-rounding presets (see `shared/theme/cornerStyle.ts`). */
+export type CornerStyle = "sharp" | "default" | "rounded" | "pill";
+
 /** Named SRS study buckets; decks may appear in several options. */
 export type StudyOption = {
   id: string;
@@ -34,6 +37,13 @@ export type UserSettings = {
     themeId: string;
     /** App chrome layout: "topbar" = horizontal nav (default), "sidebar" = left rail (desktop ≥lg). */
     navLayout: "topbar" | "sidebar";
+    /**
+     * Corner-rounding preset for cards and modals. Drives the
+     * `--radius-card` CSS variable at runtime (see `cornerStyle.ts` for the
+     * preset→radius mapping and ThemeContext for where it's applied).
+     * Default "default" = the current card feel.
+     */
+    cornerStyle: CornerStyle;
   };
   accessibility: {
     reducedMotion: boolean;
@@ -150,6 +160,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
   appearance: {
     themeId: "auto",
     navLayout: "topbar",
+    cornerStyle: "default",
   },
   accessibility: {
     reducedMotion: false,
