@@ -14,11 +14,11 @@ type CardProps = React.HTMLAttributes<HTMLDivElement> & {
 
 const variantClasses: Record<CardVariant, string> = {
   default:
-    "rounded-xl border border-border bg-surface shadow-card",
+    "rounded-card border border-border bg-surface shadow-card",
   muted:
-    "rounded-xl border border-border bg-surface-muted",
+    "rounded-card border border-border bg-surface-muted",
   elevated:
-    "rounded-xl border border-border bg-surface-elevated shadow-popover",
+    "rounded-card border border-border bg-surface-elevated shadow-popover",
 };
 
 /** Reuse card shell styling on `<button>` and other primitives (InteractiveCard shells). */

@@ -158,7 +158,19 @@ function AppearancePanel() {
   const { settings, updateSetting } = useSettings();
   const { close } = useModal();
   const navLayout = settings.appearance.navLayout ?? "topbar";
+  const cornerStyle = settings.appearance.cornerStyle ?? "default";
   const isCustom = activeThemeId.startsWith("custom-");
+
+  const cornerStylePresets: {
+    id: "sharp" | "default" | "rounded" | "pill";
+    labelKey: string;
+    fallback: string;
+  }[] = [
+    { id: "sharp", labelKey: "settings.cornerStyleSharp", fallback: "Sharp" },
+    { id: "default", labelKey: "settings.cornerStyleDefault", fallback: "Default" },
+    { id: "rounded", labelKey: "settings.cornerStyleRounded", fallback: "Rounded" },
+    { id: "pill", labelKey: "settings.cornerStylePill", fallback: "Pill" },
+  ];
 
   const themePresets = [
     { id: "auto", labelKey: "settings.themeAuto" },
@@ -237,6 +249,28 @@ function AppearancePanel() {
               >
                 {t("settings.navLayoutSidebar", "Sidebar")}
               </ChoiceChip>
+            </div>
+          }
+        />
+
+        <SettingRow
+          label={t("settings.cornerStyle", "Corner style")}
+          help={t(
+            "settings.cornerStyleHint",
+            "How rounded cards and dialogs look across the app.",
+          )}
+          stacked
+          control={
+            <div className="flex flex-wrap gap-2">
+              {cornerStylePresets.map((p) => (
+                <ChoiceChip
+                  key={p.id}
+                  selected={cornerStyle === p.id}
+                  onClick={() => updateSetting("appearance.cornerStyle", p.id)}
+                >
+                  {t(p.labelKey, p.fallback)}
+                </ChoiceChip>
+              ))}
             </div>
           }
         />

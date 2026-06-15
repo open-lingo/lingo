@@ -22,6 +22,7 @@ import {
   loadStarredThemeIds,
   saveStarredThemeIds,
 } from "@/shared/theme/storage";
+import { cardRadius } from "@/shared/theme/cornerStyle";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 
 type ThemeId = string;
@@ -227,6 +228,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     const scale = settings.accessibility?.fontSize ?? 1;
     root.style.fontSize = scale === 1 ? "" : `${scale * 100}%`;
+    // Card/modal corner rounding: user preset overrides, with the active
+    // theme's own `radius.card` as the "default"-preset baseline.
+    root.style.setProperty(
+      "--radius-card",
+      cardRadius(settings.appearance?.cornerStyle, domTokens.radius.card),
+    );
     // Ensure light/dark class is set correctly — remove both and add current mode
     const existing = root.getAttribute("class") ?? "";
     const without = existing.replace(/\b(light|dark)\b/g, "").trim();
@@ -234,7 +241,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       "class",
       without ? `${without} ${domThemeMode}` : domThemeMode,
     );
-  }, [domTokens, domThemeMode, mounted, settings.accessibility?.fontSize]);
+  }, [
+    domTokens,
+    domThemeMode,
+    mounted,
+    settings.accessibility?.fontSize,
+    settings.appearance?.cornerStyle,
+  ]);
 
   const setTheme = useCallback(
     (id: ThemeId) => {

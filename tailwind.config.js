@@ -36,6 +36,10 @@ export default {
         sm: "var(--radius-sm)",
         md: "var(--radius-md)",
         lg: "var(--radius-lg)",
+        // User-adjustable card/modal corners (Appearance → corner style).
+        // Falls back to 0.75rem so utilities resolve before the runtime var
+        // is set (SSR / first paint).
+        card: "var(--radius-card, 0.75rem)",
       },
       fontFamily: {
         japanese: ['"Noto Sans JP"', "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
