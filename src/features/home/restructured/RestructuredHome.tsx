@@ -1,11 +1,14 @@
 /**
- * Returning-user home — bento dashboard (no-scroll on desktop).
+ * Returning-user home — bento dashboard.
  *
- * Layout is a tight bento grid built around motivation loops, NOT a vertical
- * widget feed:
+ * A dense, viewport-filling bento built around motivation loops, NOT a
+ * vertical widget feed. Mild scroll on tall content is fine:
  *   Row 1  Hero "Continue learning" + reward strip (streak / level / XP)
- *   Row 2  Today's Plan · Flashcards due · Friend leaderboard  (3 cols)
- *   Row 3  Trending community strip (4 compact tiles)
+ *   Row 2  Motivation core (lg: a 12-col stretch grid)
+ *            · Today's Plan        (daily checklist — "what should I do?")
+ *            · Quests / Goals      (weekly + bonus progress — "what's worth grinding?")
+ *            · Right rail (stacked): Flashcards due + Friend leaderboard
+ *   Row 3  Trending community strip (taller 4-up — "what's cool out there?")
  *
  * Each block answers one question: what should I do? / how am I doing? /
  * what are my friends doing? / what's cool in the community? / what reward
@@ -23,6 +26,7 @@ import { findInProgressLessonId } from "@/features/lesson/data/lessonProgress";
 import type { NextLessonInfo } from "./types";
 import { HeroContinue } from "./HeroContinue";
 import { TodaysPlan } from "./TodaysPlan";
+import { QuestsTile } from "./QuestsTile";
 import { FlashcardsTile } from "./FlashcardsTile";
 import { LeaderboardCard } from "./LeaderboardCard";
 import { TrendingRow } from "./TrendingRow";
@@ -132,13 +136,26 @@ export function RestructuredHome({ greetingName }: Props) {
         levelPct={levelPct}
       />
 
-      {/* Row 2 — the motivation core: plan, flashcards, leaderboard.
-          Below lg stacks single column; at lg+ it's a 3-up row of equal
-          height cards. */}
-      <div className="grid items-stretch gap-4 lg:grid-cols-3">
-        <TodaysPlan />
-        <FlashcardsTile />
-        <LeaderboardCard />
+      {/* Row 2 — the motivation core. Single column on mobile; at lg+ it's a
+          12-col stretch grid so every cell shares the tallest column's height
+          and the band fills the viewport instead of leaving a thin strip:
+            · Today's Plan   (4 cols)
+            · Quests/Goals   (4 cols)
+            · Right rail     (4 cols) — Flashcards stacked over Leaderboard,
+              the leaderboard flexing to absorb the remaining height. */}
+      <div className="grid items-stretch gap-4 lg:grid-cols-12">
+        <div className="lg:col-span-4">
+          <TodaysPlan />
+        </div>
+        <div className="lg:col-span-4">
+          <QuestsTile />
+        </div>
+        <div className="flex flex-col gap-4 lg:col-span-4">
+          <FlashcardsTile />
+          <div className="flex-1">
+            <LeaderboardCard />
+          </div>
+        </div>
       </div>
 
       {/* Row 3 — community discovery strip. */}

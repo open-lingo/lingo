@@ -15,6 +15,8 @@ type Tile = {
   id: string;
   kind: "deck" | "thread";
   title: string;
+  /** One-line body — deck description / thread excerpt — for visual weight. */
+  blurb: string;
   meta: string;
   iconName: IconName;
   href: string;
@@ -61,13 +63,15 @@ export function TrendingRow() {
 
   const tiles = useMemo((): Tile[] => {
     const now = Date.now();
-    const items: Tile[] = [];
+    const deckTiles: Tile[] = [];
+    const threadTiles: Tile[] = [];
 
-    for (const d of (decksQuery.data ?? []).slice(0, 3)) {
-      items.push({
+    for (const d of decksQuery.data ?? []) {
+      deckTiles.push({
         id: `deck-${d.id}`,
         kind: "deck",
         title: d.name,
+        blurb: d.description?.trim() || "",
         meta:
           d.itemCount != null
             ? t("home.restructured.trending.deckMeta", {
@@ -85,16 +89,16 @@ export function TrendingRow() {
       });
     }
 
-    for (const th of (threadsQuery.data ?? [])
-      .filter((x) => !x.isPinned)
-      .slice(0, 2)) {
-      items.push({
+    for (const th of (threadsQuery.data ?? []).filter((x) => !x.isPinned)) {
+      threadTiles.push({
         id: `thread-${th.id}`,
         kind: "thread",
         title: th.title,
+        blurb: th.excerpt?.trim() || "",
         meta: t("home.restructured.trending.threadMeta", {
-          defaultValue: "{{count}} replies",
+          defaultValue: "{{count}} replies · {{up}} upvotes",
           count: th.replyCount,
+          up: th.upvoteCount,
         }),
         iconName: "fileText",
         href: langPath(`community/discuss/thread/${th.id}`),
@@ -102,7 +106,16 @@ export function TrendingRow() {
       });
     }
 
-    return items.slice(0, TILE_LIMIT);
+    // Aim for a balanced 4-up: two decks + two threads when both exist, then
+    // backfill from whichever source has more so the strip always fills.
+    const interleaved: Tile[] = [];
+    const maxLen = Math.max(deckTiles.length, threadTiles.length);
+    for (let i = 0; i < maxLen && interleaved.length < TILE_LIMIT; i++) {
+      if (deckTiles[i]) interleaved.push(deckTiles[i]);
+      if (threadTiles[i] && interleaved.length < TILE_LIMIT)
+        interleaved.push(threadTiles[i]);
+    }
+    return interleaved.slice(0, TILE_LIMIT);
   }, [decksQuery.data, threadsQuery.data, langPath, t]);
 
   return (
@@ -126,32 +139,34 @@ export function TrendingRow() {
       </div>
 
       {isLoading ? (
-        <ul className="grid grid-cols-2 gap-px bg-border md:grid-cols-4">
+        <ul className="grid grid-cols-1 gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
           {[0, 1, 2, 3].map((i) => (
-            <li key={i} className="bg-surface p-3" aria-hidden>
-              <div className="h-9 w-9 animate-pulse rounded-lg bg-border" />
-              <div className="mt-2 h-3.5 w-4/5 animate-pulse rounded bg-border" />
-              <div className="mt-1.5 h-3 w-1/2 animate-pulse rounded bg-border" />
+            <li key={i} className="min-h-[10rem] bg-surface p-4" aria-hidden>
+              <div className="h-10 w-10 animate-pulse rounded-lg bg-border" />
+              <div className="mt-3 h-4 w-4/5 animate-pulse rounded bg-border" />
+              <div className="mt-2 h-3 w-full animate-pulse rounded bg-border" />
+              <div className="mt-1.5 h-3 w-2/3 animate-pulse rounded bg-border" />
+              <div className="mt-3 h-3 w-1/2 animate-pulse rounded bg-border" />
             </li>
           ))}
         </ul>
       ) : tiles.length === 0 ? (
-        <div className="px-4 py-5 text-center text-sm text-text-muted">
+        <div className="px-4 py-10 text-center text-sm text-text-muted">
           {t("home.restructured.trending.empty", {
             defaultValue: "No community content yet — be the first to publish a deck.",
           })}
         </div>
       ) : (
-        <ul className="grid grid-cols-2 divide-x divide-y divide-border md:grid-cols-4 md:divide-y-0">
+        <ul className="grid grid-cols-1 gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
           {tiles.map((tile) => (
-            <li key={tile.id}>
+            <li key={tile.id} className="bg-surface">
               <Link
                 to={tile.href}
-                className="group flex h-full flex-col gap-2 p-3 transition hover:bg-surface-muted"
+                className="group flex h-full min-h-[10rem] flex-col gap-2 p-4 transition hover:bg-surface-muted"
               >
                 <div className="flex items-center justify-between">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-muted text-text-secondary transition group-hover:bg-accent-muted group-hover:text-accent">
-                    <Icon name={tile.iconName} size={18} aria-hidden />
+                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-muted text-text-secondary transition group-hover:bg-accent-muted group-hover:text-accent">
+                    <Icon name={tile.iconName} size={20} aria-hidden />
                   </span>
                   {tile.isNew ? (
                     <span className="rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-on-accent">
@@ -168,7 +183,14 @@ export function TrendingRow() {
                 <p className="line-clamp-2 text-sm font-semibold leading-snug text-text-primary">
                   {tile.title}
                 </p>
-                <p className="mt-auto truncate text-xs text-text-muted">{tile.meta}</p>
+                {tile.blurb ? (
+                  <p className="line-clamp-2 text-xs leading-snug text-text-secondary">
+                    {tile.blurb}
+                  </p>
+                ) : null}
+                <p className="mt-auto flex items-center gap-1 truncate pt-1 text-xs text-text-muted">
+                  {tile.meta}
+                </p>
               </Link>
             </li>
           ))}
