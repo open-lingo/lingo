@@ -42,73 +42,83 @@ export function MarketplaceHero({ metrics }: MarketplaceHeroProps) {
   ];
 
   return (
-    <section className="overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-accent-muted/50 via-surface to-surface p-5 sm:p-6">
-      <div className="max-w-2xl space-y-3">
-        <h1 className="font-display text-2xl font-bold text-text-primary sm:text-3xl">
-          {t("community.homeHeroTitle", "Discover community content")}
-        </h1>
-        <p className="text-sm text-text-secondary sm:text-base">
-          {t(
-            "community.homeHeroSubtitle",
-            "Decks, stories, and resources created by learners — free forever.",
-          )}
-        </p>
+    <section className="overflow-hidden rounded-card border border-border bg-gradient-to-br from-accent-muted/50 via-surface to-surface p-4 sm:p-5">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-stretch sm:gap-6">
+        {/* Main column — title, search, quick pills (~4/5 width). */}
+        <div className="min-w-0 flex-1 space-y-3">
+          <div className="space-y-1">
+            <h1 className="text-xl font-bold text-text-primary sm:text-2xl">
+              {t("community.homeHeroTitle", "Discover community content")}
+            </h1>
+            <p className="text-sm text-text-secondary">
+              {t(
+                "community.homeHeroSubtitle",
+                "Decks, stories, and resources created by learners — free forever.",
+              )}
+            </p>
+          </div>
 
-        <form onSubmit={onSearch} className="relative">
-          <Icon
-            name="search"
-            size={18}
-            aria-hidden
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
-          />
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder={t("community.homeSearchPlaceholder", "Search decks, creators, topics…")}
-            className="w-full rounded-xl border border-border bg-surface py-3 pl-10 pr-24 text-sm text-text-primary shadow-sm placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent"
-          />
-          <button
-            type="submit"
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-lg bg-accent px-4 py-1.5 text-sm font-semibold text-on-accent transition hover:bg-accent-hover"
-          >
-            {t("community.navBrowse", "Browse")}
-          </button>
-        </form>
-
-        <div className="flex flex-wrap gap-2">
-          {pills.map((p) => (
-            <Link
-              key={p.label}
-              to={p.to}
-              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text-secondary transition hover:border-accent hover:text-accent"
+          <form onSubmit={onSearch} className="relative">
+            <Icon
+              name="search"
+              size={18}
+              aria-hidden
+              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
+            />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={t("community.homeSearchPlaceholder", "Search decks, creators, topics…")}
+              className="w-full rounded-xl border border-border bg-surface py-2.5 pl-10 pr-24 text-sm text-text-primary shadow-sm placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+            <button
+              type="submit"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-lg bg-accent px-4 py-1.5 text-sm font-semibold text-on-accent transition hover:bg-accent-hover"
             >
-              <Icon name={p.icon} size={13} aria-hidden />
-              {p.label}
-            </Link>
-          ))}
-        </div>
-      </div>
+              {t("community.navBrowse", "Browse")}
+            </button>
+          </form>
 
-      {/* Metrics strip — real catalog counts. Compact: language browsing lives
-          in the "by language" rails + Browse filters below, so the hero stays
-          short and isn't dominated by a language picker. */}
-      <dl className="mt-4 flex flex-wrap gap-x-8 gap-y-2 border-t border-border/60 pt-3">
-        <Metric value={metrics.decks} label={t("community.homeStatDecks", "decks")} />
-        <Metric value={metrics.creators} label={t("community.homeStatCreators", "creators")} />
-      </dl>
+          <div className="flex flex-wrap gap-2">
+            {pills.map((p) => (
+              <Link
+                key={p.label}
+                to={p.to}
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text-secondary transition hover:border-accent hover:text-accent"
+              >
+                <Icon name={p.icon} size={13} aria-hidden />
+                {p.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Stats column — real catalog counts as a compact vertical stack
+            (~1/5 width). Stacks below the main column on mobile, divided by a
+            top border there and a left border at sm+. */}
+        <dl className="flex shrink-0 gap-6 border-t border-border/60 pt-3 sm:w-32 sm:flex-col sm:gap-4 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0 lg:w-36">
+          <Metric value={metrics.decks} label={t("community.homeStatDecks", "decks")} />
+          <Metric value={metrics.creators} label={t("community.homeStatCreators", "creators")} />
+          {typeof metrics.learners === "number" ? (
+            <Metric value={metrics.learners} label={t("community.homeStatLearners", "learners")} />
+          ) : null}
+        </dl>
+      </div>
     </section>
   );
 }
 
 function Metric({ value, label }: { value: number; label: string }) {
   return (
-    <div className="flex items-baseline gap-1.5">
+    <div>
       <dt className="sr-only">{label}</dt>
-      <dd className="text-xl font-bold tabular-nums text-text-primary">
+      <dd className="text-2xl font-bold leading-none tabular-nums text-text-primary">
         {value.toLocaleString()}
       </dd>
-      <span className="text-sm text-text-secondary">{label}</span>
+      <span className="mt-0.5 block text-xs uppercase tracking-wide text-text-secondary">
+        {label}
+      </span>
     </div>
   );
 }
