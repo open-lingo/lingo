@@ -27,7 +27,7 @@ export function useCommands(): Command[] {
       { id: "nav-home", label: t("nav.home", "Home"), group: t("cmd.group.nav", "Navigation"), icon: "layoutDashboard", perform: go("/home"), showWhenEmpty: true },
       { id: "nav-learn", label: t("nav.learn", "Learn"), group: t("cmd.group.nav", "Navigation"), icon: "graduationCap", perform: go(langPath("learn")), showWhenEmpty: true },
       { id: "nav-practice", label: t("nav.practice", "Practice"), group: t("cmd.group.nav", "Navigation"), icon: "dumbbell", perform: go(langPath("practice")), showWhenEmpty: true },
-      { id: "nav-journey", label: t("nav.journey", "Journey"), group: t("cmd.group.nav", "Navigation"), icon: "trendingUp", keywords: "progress stats streak xp mastery", perform: go(langPath("progress")), showWhenEmpty: true },
+      { id: "nav-journey", label: t("nav.journey", "Journey"), group: t("cmd.group.nav", "Navigation"), icon: "trendingUp", keywords: "progress stats streak xp mastery", perform: go(langPath("practice/journey")), showWhenEmpty: true },
       { id: "nav-vocab", label: t("nav.vocab", "Vocab"), group: t("cmd.group.nav", "Navigation"), icon: "library", perform: go(langPath("vocab")), showWhenEmpty: true },
       { id: "nav-flashcards", label: t("nav.flashcards", "Flashcards"), group: t("cmd.group.nav", "Navigation"), icon: "layers", keywords: "srs review cards", perform: go(langPath("practice/flashcards")), showWhenEmpty: true },
       { id: "nav-shop", label: t("nav.shop", "Shop"), group: t("cmd.group.nav", "Navigation"), icon: "gem", keywords: "lingots cosmetics", perform: go(langPath("shop")), showWhenEmpty: true },

@@ -235,6 +235,14 @@ export function PracticePage() {
               defaultValue: "Targeted drills tied to lessons",
             })}
           />
+          <PracticeActionCard
+            to={langPath("practice/journey")}
+            icon="trendingUp"
+            title={t("practice.hub2.journeyTitle", { defaultValue: "Your journey" })}
+            description={t("practice.hub2.journeyDesc", {
+              defaultValue: "Streak, XP, and concept mastery over time",
+            })}
+          />
         </div>
       </section>
 

@@ -344,6 +344,7 @@ const router = createBrowserRouter([
                 element: <PracticeLayout />,
                 children: [
                   { index: true, element: <PracticePage /> },
+                  { path: "journey", element: <ProgressPage /> },
                   { path: "grammar", element: <PracticeGrammarPage /> },
                   { path: "flashcards/review", element: <FlashcardTester /> },
                   { path: "flashcards/cards", element: <CardManagerPage /> },
@@ -366,7 +367,6 @@ const router = createBrowserRouter([
                 ],
               },
               { path: "vocab", element: <VocabPage /> },
-              { path: "progress", element: <ProgressPage /> },
               { path: "shop", element: <ShopPage /> },
               { path: "grammar", element: <GrammarRedirect /> },
               { path: "speech-tune", element: <SpeechTunePage /> },
