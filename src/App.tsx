@@ -133,6 +133,9 @@ const PlacementTestPage = lazyRetry(() =>
   import("@/features/placement/PlacementTestPage").then((m) => ({ default: m.PlacementTestPage })),
 );
 const TravelSprintPage = lazyRetry(() => import("@/features/learn/TravelSprintPage"));
+const CourseMapPage = lazyRetry(() =>
+  import("@/features/learn/CourseMapPage").then((m) => ({ default: m.CourseMapPage })),
+);
 const AssetTestPage = lazyRetry(() => import("@/features/asset-test/AssetTestPage"));
 const PickerTestPage = lazyRetry(() => import("@/features/picker-test/PickerTestPage"));
 const GetStartedPage = lazyRetry(() => import("@/features/landing/GetStartedPage"));
@@ -334,6 +337,7 @@ const router = createBrowserRouter([
                   { index: true, element: <LearnPage /> },
                   { path: "courses", element: <Navigate to=".." replace /> },
                   { path: "travel-sprint", element: <TravelSprintPage /> },
+                  { path: "course", element: <CourseMapPage /> },
                   { path: "lessons/:lessonId", element: <KeyedLessonPage /> },
                   { path: "placement-test", element: <PlacementTestPage /> },
                   { path: "test-out/:moduleId", element: <PlacementTestPage /> },
