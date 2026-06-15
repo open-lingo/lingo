@@ -118,31 +118,29 @@ export function YourPathCard({
           ) : null}
         </div>
 
-        {/* Course-wide progress bar. */}
-        <div className="space-y-1.5">
+        {/* Course-wide progress bar. Lesson count rides next to the label so
+            the block stays to two tight rows. */}
+        <div className="space-y-1">
           <div className="flex items-center justify-between gap-3 text-xs text-text-muted">
-            <span className="font-semibold uppercase tracking-wider">
+            <span className="min-w-0 truncate font-semibold uppercase tracking-wider">
               {t("learn.progressCard.overallLabel", {
                 defaultValue: "Course progress",
               })}
+              <span className="ml-2 font-medium normal-case tracking-normal text-text-muted">
+                {stats.done}/{stats.total}{" "}
+                {t("learn.progressCard.lessonsWord", { defaultValue: "lessons" })}
+              </span>
             </span>
-            <span className="tabular-nums font-bold text-accent">
+            <span className="shrink-0 tabular-nums font-bold text-accent">
               {stats.pct}%
             </span>
           </div>
-          <div className="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
             <div
               className="h-full rounded-full bg-accent transition-[width] duration-500"
               style={{ width: `${stats.pct}%` }}
             />
           </div>
-          <p className="text-[0.7rem] font-medium text-text-muted">
-            {t("learn.progressCard.overallSub", {
-              defaultValue: "{{done}} of {{total}} lessons across the course",
-              done: stats.done,
-              total: stats.total,
-            })}
-          </p>
         </div>
 
         {nextLesson ? (

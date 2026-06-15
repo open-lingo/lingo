@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@/shared/components/Icon";
@@ -16,7 +15,6 @@ import { getModuleMastery } from "../moduleMastery";
 import { ModuleCard } from "./ModuleCard";
 import { ModulePathway } from "./ModulePathway";
 import { ModulePreview } from "./ModulePreview";
-import { ResumeBar } from "./ResumeBar";
 import { Button } from "@/shared/components/ui";
 import { getItemsForModule } from "@/features/placement/questionBank";
 
@@ -92,7 +90,6 @@ export function LearnCourseMap({
   isModuleOpen,
   onToggleModule,
   onLessonClick,
-  revealModuleId,
 }: LearnCourseMapProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -105,23 +102,10 @@ export function LearnCourseMap({
   const currentLesson: Lesson | undefined = currentModule.lessons[nextIdx];
   const hasProgress = completedSet.size > 0;
 
-  const { visible, collapsed, splitIndex } = splitUpcomingModules(
+  const { visible, collapsed } = splitUpcomingModules(
     course.modules,
     currentIdx,
   );
-
-  // Far-group expansion is ephemeral UI — local state, not persisted. The
-  // group defaults collapsed so the far curriculum stays out of the way.
-  const [upcomingOpen, setUpcomingOpen] = useState(false);
-
-  // If a jump targets a module inside the collapsed group, expand it so
-  // the scroll-into-view has a mounted node to land on.
-  useEffect(() => {
-    if (!revealModuleId) return;
-    if (collapsed.some((m) => m.id === revealModuleId)) {
-      setUpcomingOpen(true);
-    }
-  }, [revealModuleId, collapsed]);
 
   const resumeCurrent = () => {
     if (currentLesson) onLessonClick(currentLesson);
@@ -245,46 +229,21 @@ export function LearnCourseMap({
         {visible.map((mod, i) => renderModule(mod, i))}
 
         {collapsed.length > 0 ? (
-          <div className="mt-2">
-            <button
-              type="button"
-              onClick={() => setUpcomingOpen((v) => !v)}
-              aria-expanded={upcomingOpen}
-              className="flex w-full items-center gap-2 rounded-xl border border-dashed border-border bg-surface-muted/40 px-4 py-2.5 text-left text-sm font-semibold text-text-secondary transition hover:border-accent/40 hover:bg-surface-muted/70"
-            >
-              <Icon
-                name="chevronDown"
-                size={16}
-                className={`shrink-0 text-text-muted transition-transform ${
-                  upcomingOpen ? "rotate-180" : ""
-                }`}
-                aria-hidden
-              />
-              <span className="flex-1">
-                {t("learn.upcomingModules", {
-                  defaultValue: "Upcoming modules",
-                })}
-              </span>
-              <span className="rounded-full bg-surface px-2 py-0.5 text-xs font-bold tabular-nums text-text-muted">
-                {collapsed.length}
-              </span>
-            </button>
-            {upcomingOpen ? (
-              <div className="mt-3 space-y-0">
-                {collapsed.map((mod, j) => renderModule(mod, splitIndex + j))}
-              </div>
-            ) : null}
-          </div>
+          <Link
+            to={langPath("learn/course")}
+            className="mt-3 flex items-center gap-2 rounded-card border border-dashed border-border bg-surface-muted/40 px-4 py-2.5 text-sm font-semibold text-text-secondary transition hover:border-accent/40 hover:bg-surface-muted/70 hover:text-text-primary"
+          >
+            <Icon name="mapPin" size={16} className="shrink-0 text-text-muted" aria-hidden />
+            <span className="flex-1">
+              {t("learn.upcomingModules", { defaultValue: "Upcoming modules" })}
+            </span>
+            <span className="rounded-full bg-surface px-2 py-0.5 text-xs font-bold tabular-nums text-text-muted">
+              {collapsed.length}
+            </span>
+            <Icon name="chevronRight" size={16} className="shrink-0 text-text-muted" aria-hidden />
+          </Link>
         ) : null}
       </div>
-
-      {currentLesson ? (
-        <ResumeBar
-          currentLessonTitle={currentLesson.title}
-          currentModuleTitle={currentModule.title}
-          onResume={resumeCurrent}
-        />
-      ) : null}
     </section>
   );
 }

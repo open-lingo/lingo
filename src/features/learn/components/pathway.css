@@ -221,7 +221,7 @@
 
 .lingo-module-body {
   display: none;
-  padding: 18px 16px 20px;
+  padding: 10px 16px 14px;
 }
 .lingo-module-card[data-open="true"] .lingo-module-body {
   display: block;
@@ -231,7 +231,7 @@
 
 .lingo-path {
   position: relative;
-  padding: 14px 0 8px;
+  padding: 6px 0 2px;
 }
 .lingo-path-svg {
   position: absolute;
@@ -257,7 +257,7 @@
   justify-content: center;
   /* Tighter vertical rhythm so the map needs less scrolling; the wider
    * horizontal swings below keep it from reading as a straight column. */
-  padding: 13px 0;
+  padding: 8px 0;
 }
 .lingo-path-row[data-pos="0"] {
   transform: translateX(0);
