@@ -59,10 +59,10 @@ export function CommunityDiscoveryLayout({
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <nav
           aria-label={t("community.discoveryNavLabel", "Community sections")}
-          className="flex flex-wrap items-center gap-1"
+          className="flex flex-wrap items-center gap-1 rounded-card border border-border bg-surface-muted p-1 shadow-sm"
         >
           {nav.map((item) => (
             <Link
@@ -70,10 +70,10 @@ export function CommunityDiscoveryLayout({
               to={item.to}
               aria-current={item.isActive ? "page" : undefined}
               className={cn(
-                "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition",
+                "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-semibold transition",
                 item.isActive
-                  ? "bg-accent-muted text-accent"
-                  : "text-text-secondary hover:bg-surface-muted hover:text-text-primary",
+                  ? "bg-accent text-white shadow-sm"
+                  : "text-text-secondary hover:bg-surface hover:text-text-primary",
               )}
             >
               <Icon name={item.icon} size={15} aria-hidden />

@@ -153,7 +153,7 @@ export function CommunityHomePage() {
 
   return (
     <CommunityDiscoveryLayout>
-      <div className="space-y-10">
+      <div className="space-y-8">
         <MarketplaceHero metrics={metrics} />
 
         {/* Featured spotlight + secondary featured rail */}
@@ -250,12 +250,13 @@ export function CommunityHomePage() {
 
 function HomeSkeleton() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
+      <Skeleton height="h-28" className="rounded-card" />
       <div className="grid gap-4 lg:grid-cols-[1.6fr_1fr]">
-        <Skeleton height="h-64" className="rounded-xl" />
+        <Skeleton height="h-52 sm:h-56" className="rounded-xl" />
         <div className="grid grid-rows-2 gap-4">
-          <Skeleton height="h-[7.5rem]" className="rounded-xl" />
-          <Skeleton height="h-[7.5rem]" className="rounded-xl" />
+          <Skeleton height="h-[6.25rem]" className="rounded-xl" />
+          <Skeleton height="h-[6.25rem]" className="rounded-xl" />
         </div>
       </div>
       {[0, 1].map((row) => (

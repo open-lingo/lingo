@@ -87,7 +87,7 @@ export function MarketplaceCard({
           disabled={!onPreview}
           className="text-left focus:outline-none"
         >
-          <h3 className="line-clamp-1 font-display text-[15px] font-semibold text-text-primary transition-colors group-hover/card:text-accent">
+          <h3 className="line-clamp-1 text-[15px] font-semibold text-text-primary transition-colors group-hover/card:text-accent">
             {item.name}
           </h3>
         </button>

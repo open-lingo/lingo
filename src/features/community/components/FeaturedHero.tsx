@@ -34,7 +34,7 @@ export function FeaturedHero({ item, onPreview }: FeaturedHeroProps) {
       type="button"
       onClick={onPreview}
       disabled={!onPreview}
-      className="group relative flex h-64 w-full flex-col justify-end overflow-hidden rounded-xl border border-border text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      className="group relative flex h-52 w-full flex-col justify-end overflow-hidden rounded-xl border border-border text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:h-56"
     >
       <img
         src={coverUrl}
@@ -60,7 +60,7 @@ export function FeaturedHero({ item, onPreview }: FeaturedHeroProps) {
             {t(KIND_KEYS[item.kind])}
           </span>
         </div>
-        <h2 className="font-display text-2xl font-bold leading-tight drop-shadow-sm line-clamp-2">
+        <h2 className="text-2xl font-bold leading-tight drop-shadow-sm line-clamp-2">
           {item.name}
         </h2>
         {item.description ? (

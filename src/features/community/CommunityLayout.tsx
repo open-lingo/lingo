@@ -64,31 +64,31 @@ export function CommunityLayout() {
   const isExploreLanding =
     pathname.endsWith("/community") || pathname.endsWith("/community/explore");
 
-  // Tabs render on every community sub-page. The page header (title +
-  // search + CTA) lives in each sub-page's own layout (CommunityDecksLayout)
-  // — no banner / breadcrumbs / hero card up top anymore.
+  // No page header — the user is already in Community per the nav + URL
+  // (mirrors the Learn page). Content starts at the section tabs so the page
+  // reads higher. The page CTA + search live in each sub-page's own layout.
   return (
     <div className="mx-auto max-w-screen-2xl space-y-4">
-      <div>
-        <h1 className="text-2xl font-bold text-text-primary">
-          {t("community.title")}
-        </h1>
-        <p className="mt-0.5 text-sm text-text-secondary">
-          {t("community.learnTogether")}
-        </p>
-      </div>
-
       {isExploreLanding && visibleTabs.length > 1 && (
-        <TabList aria-label={t("community.tabsLabel")}>
+        <TabList
+          aria-label={t("community.tabsLabel")}
+          variant="pill"
+          className="gap-1 rounded-card border border-border bg-surface-muted p-1 shadow-sm"
+        >
           {visibleTabs.map(({ path, key, flag }) => {
             const to = langPath(path);
             const showSoonBadge = flag === "leaderboard";
             return (
-              <TabLink key={path} to={to} isActive={isTabActive(path, pathname, to)}>
+              <TabLink
+                key={path}
+                to={to}
+                isActive={isTabActive(path, pathname, to)}
+                variant="pill"
+              >
                 <span className="inline-flex items-center gap-1.5">
                   {t(key)}
                   {showSoonBadge ? (
-                    <span className="rounded-full bg-surface-muted px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-text-muted">
+                    <span className="rounded-full bg-surface px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-text-muted">
                       {t("nav.leaderboardSoonBadge", "Soon")}
                     </span>
                   ) : null}

@@ -185,9 +185,8 @@ export function CommunityItemCard({
           )}
         </div>
 
-        {/* Title — bold sans, 2 lines max. Body font; themes can override
-            via `font-display` if a theme provides one. */}
-        <h3 className="font-display text-[17px] font-semibold leading-snug text-text-primary line-clamp-2 transition-colors group-hover/card:text-accent">
+        {/* Title — bold sans, 2 lines max. Body font for app-wide consistency. */}
+        <h3 className="text-[17px] font-semibold leading-snug text-text-primary line-clamp-2 transition-colors group-hover/card:text-accent">
           {item.name}
         </h3>
 
