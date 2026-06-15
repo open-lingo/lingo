@@ -116,6 +116,10 @@ export interface AttemptList {
   nextCursor: string | null;
 }
 
+export interface UnlockMapResponse {
+  unlockedAtoms: string[];
+}
+
 export interface ShopPurchaseResponse {
   itemId: string;
   price: number;
@@ -210,6 +214,47 @@ export class ProgressApi extends ApiClient {
           : 0;
       if (status === 404 || status === 501) return { items: [], nextCursor: null };
       throw err;
+    }
+  }
+
+  /**
+   * Read the server-side unlocked-atom set. Called on hydrate so the unlock
+   * ladder survives a localStorage clear / device switch. Returns null when
+   * the backend isn't wired (404/501) so the caller keeps its local set.
+   */
+  async getUnlocks(signal?: AbortSignal): Promise<string[] | null> {
+    try {
+      const res = await this.get<UnlockMapResponse>(`${PREFIX}/me/unlocks`, {
+        signal,
+        tag: "progress:unlocks-get",
+      });
+      return res?.unlockedAtoms ?? [];
+    } catch (err: unknown) {
+      const status =
+        err && typeof err === "object" && "status" in err
+          ? (err as { status: number }).status
+          : 0;
+      if (status === 404 || status === 501) return null;
+      throw err;
+    }
+  }
+
+  /**
+   * Push newly-unlocked atom ids. Server UNIONs them into the stored set —
+   * never drops, so this is safe to fire-and-forget. Swallows errors: a lost
+   * push just means the next push (or hydrate union) reconciles. Never blocks
+   * the lesson flow.
+   */
+  async addUnlocks(atomIds: string[]): Promise<void> {
+    if (atomIds.length === 0) return;
+    try {
+      await this.post<UnlockMapResponse>(
+        `${PREFIX}/me/unlocks`,
+        { atomIds },
+        { tag: "progress:unlocks-add" },
+      );
+    } catch {
+      // Fire-and-forget: the union on next push / hydrate reconciles a drop.
     }
   }
 

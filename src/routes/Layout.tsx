@@ -20,6 +20,7 @@ import { ToastContainer } from "@/shared/components/ToastContainer";
 import { StorageQuotaWatcher } from "@/shared/components/StorageQuotaWatcher";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTouchOnSession } from "@/shared/hooks/useTouchOnSession";
+import { useUnlockMapSync } from "@/shared/hooks/useUnlockMapSync";
 import { ImpersonationBanner } from "@/features/admin/impersonation/ImpersonationBanner";
 import { LingotBalance } from "@/shared/components/LingotBalance";
 import { AdFreePill } from "@/features/adFree";
@@ -49,6 +50,10 @@ export function Layout() {
   const sidebarMode = isAuthenticated && settings.appearance.navLayout === "sidebar";
   // Fires POST /progress/me/touch once per session after auth.
   useTouchOnSession();
+  // Reconciles the atom unlock ladder with the server (union both ways) and
+  // pushes new unlocks as they happen, so progression survives a storage
+  // clear / device switch.
+  useUnlockMapSync();
   const flags = useFeatureFlags();
   const leaderboardOn = isLeaderboardEnabled(flags);
   const pathname = location.pathname;

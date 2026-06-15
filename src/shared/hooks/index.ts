@@ -2,6 +2,7 @@
 export { useUserStats } from "./useUserStats";
 export type { UserStats } from "./useUserStats";
 export { useTouchOnSession } from "./useTouchOnSession";
+export { useUnlockMapSync } from "./useUnlockMapSync";
 
 // Viewport / responsive
 export { useMediaQuery } from "./useMediaQuery";
