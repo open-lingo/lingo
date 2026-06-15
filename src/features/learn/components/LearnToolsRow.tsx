@@ -11,7 +11,6 @@ import { useUserStats } from "@/shared/hooks/useUserStats";
 import { useCardsDueCount } from "@/features/flashcards/useCardsDueCount";
 import type { Course } from "@/shared/domain/course";
 import { getModuleMastery } from "../moduleMastery";
-import { CourseDepthModal } from "./CourseDepthModal";
 
 export type LearnToolsRowProps = {
   course: Course;
@@ -31,7 +30,7 @@ export function LearnToolsRow({ course, completedSet }: LearnToolsRowProps) {
   return (
     <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <ProgressCard course={course} completedSet={completedSet} />
-      <ExploreCard course={course} completedSet={completedSet} />
+      <ExploreCard course={course} />
       <ReviewCard />
     </div>
   );
@@ -248,62 +247,47 @@ function ProgressCard({
 
 /* ── card 2: explore the course ── */
 
-function ExploreCard({
-  course,
-  completedSet,
-}: {
-  course: Course;
-  completedSet: ReadonlySet<string>;
-}) {
+function ExploreCard({ course }: { course: Course }) {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
+  const langPath = useLangPath();
   const moduleCount = course.modules.filter((m) => !m.comingSoon).length;
 
   return (
-    <>
-      <Card padding="md" className="flex flex-col">
-        <CardHeader
-          icon="compass"
-          title={t("learn.tools.explore.title", {
-            defaultValue: "Explore the course",
-          })}
-        />
-        <p className="flex-1 text-sm text-text-muted">
-          {t("learn.tools.explore.pitch", {
-            defaultValue:
-              "See everything you'll learn — modules, vocabulary, and concepts.",
-          })}
-        </p>
-        <p className="mt-3 text-xs font-medium text-text-muted">
-          {t("learn.tools.explore.moduleCount", {
-            defaultValue: "{{count}} modules to discover",
-            count: moduleCount,
-          })}
-        </p>
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className={composeButtonClasses({
-            variant: "secondary",
-            size: "sm",
-            className: "mt-4 w-full",
-          })}
-        >
-          <span className="inline-flex items-center gap-1.5">
-            <Icon name="layers" size={14} aria-hidden />
-            {t("learn.tools.explore.cta", {
-              defaultValue: "Explore the full course",
-            })}
-          </span>
-        </button>
-      </Card>
-      <CourseDepthModal
-        open={open}
-        onClose={() => setOpen(false)}
-        course={course}
-        completedSet={completedSet}
+    <Card padding="md" className="flex flex-col">
+      <CardHeader
+        icon="compass"
+        title={t("learn.tools.explore.title", {
+          defaultValue: "Explore the course",
+        })}
       />
-    </>
+      <p className="flex-1 text-sm text-text-muted">
+        {t("learn.tools.explore.pitch", {
+          defaultValue:
+            "See everything you'll learn — modules, vocabulary, and concepts.",
+        })}
+      </p>
+      <p className="mt-3 text-xs font-medium text-text-muted">
+        {t("learn.tools.explore.moduleCount", {
+          defaultValue: "{{count}} modules to discover",
+          count: moduleCount,
+        })}
+      </p>
+      <Link
+        to={langPath("learn/course")}
+        className={composeButtonClasses({
+          variant: "secondary",
+          size: "sm",
+          className: "mt-4 w-full",
+        })}
+      >
+        <span className="inline-flex items-center gap-1.5">
+          <Icon name="mapPin" size={14} aria-hidden />
+          {t("learn.tools.explore.cta", {
+            defaultValue: "Explore the full course",
+          })}
+        </span>
+      </Link>
+    </Card>
   );
 }
 

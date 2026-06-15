@@ -9,7 +9,6 @@ import {
   screen,
   fireEvent,
   cleanup,
-  within,
 } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type { Course } from "@/shared/domain/course";
@@ -109,14 +108,11 @@ describe("LearnToolsRow", () => {
     expect(cta).toHaveAttribute("href", "/ja/practice/journey");
   });
 
-  it("explore card opens the course-depth modal with module rows", () => {
+  it("explore card links to the course map page", () => {
     renderRow();
-    fireEvent.click(
-      screen.getByRole("button", { name: /Explore the full course/i }),
-    );
-    const dialog = screen.getByRole("dialog");
-    expect(within(dialog).getByText("Hiragana")).toBeInTheDocument();
-    expect(within(dialog).getByText("Dakuten")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Explore the full course/i }),
+    ).toHaveAttribute("href", "/ja/learn/course");
   });
 
   it("review card links to due-cards review and practice", () => {
