@@ -127,7 +127,7 @@ export function LanguagePickerGrid({
                 onClick={() => isAvailable && onSelect(lang)}
                 style={{ background: bgLayers.join(", ") }}
                 className={
-                  "relative flex aspect-square flex-col items-center justify-center rounded-2xl border-2 p-4 transition-all duration-150 " +
+                  "relative flex aspect-square flex-col items-center justify-center rounded-card border-2 p-4 transition-all duration-150 " +
                   stateClasses
                 }
                 aria-label={`Learn ${lang.name}${isAvailable ? "" : " (coming soon)"}`}

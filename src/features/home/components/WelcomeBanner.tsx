@@ -25,7 +25,7 @@ export function WelcomeBanner({
 
   return (
     <section
-      className="relative overflow-hidden rounded-2xl border border-border shadow-card"
+      className="relative overflow-hidden rounded-card border border-border shadow-card"
       style={
         language?.backgroundImage
           ? {

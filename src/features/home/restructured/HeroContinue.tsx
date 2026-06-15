@@ -54,7 +54,7 @@ export function HeroContinue({
 
   return (
     <section
-      className="relative overflow-hidden rounded-2xl border border-border shadow-card"
+      className="relative overflow-hidden rounded-card border border-border shadow-card"
       style={
         language?.backgroundImage
           ? {
@@ -187,7 +187,7 @@ export function HeroContinue({
         {/* Right: reward strip — streak + level/XP-to-next (Duolingo-style) */}
         <div
           className={cn(
-            "relative grid grid-cols-2 gap-3 rounded-2xl border p-4 backdrop-blur-md",
+            "relative grid grid-cols-2 gap-3 rounded-card border p-4 backdrop-blur-md",
             hasBg
               ? "border-white/20 bg-white/10 text-white"
               : "border-border bg-surface-elevated/80",
