@@ -8,6 +8,7 @@ import {
 } from "@/shared/domain/mockProgress";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
+import { useUserStats } from "@/shared/hooks/useUserStats";
 
 export type LearnProfile = {
   displayName: string;
@@ -31,6 +32,10 @@ export function useLearnProfile(): LearnProfile {
   const { users } = useApi();
   const { language } = useLanguage();
   const progress = getMockProgressSummary();
+  // Streak comes from the server+local merged source (useUserStats), the same
+  // one the path/profile elsewhere trusts. The local-only `progress.streakDays`
+  // ignores the server value and drifted out of sync with the rest of the page.
+  const { stats: userStats } = useUserStats();
   const hasNoProgress = getMockCompletedLessonIds().length === 0;
 
   // Fix M8 — user-scoped key so a logout/login switch doesn't surface the
@@ -66,7 +71,7 @@ export function useLearnProfile(): LearnProfile {
     displayName,
     avatarUrl: resolveUserAvatarUrl(me, user),
     levelLabel,
-    streakDays: progress.streakDays,
+    streakDays: userStats.streak,
     xpEarnedToday: progress.xpEarnedToday ?? 0,
     hasNoProgress,
     isLoading: isAuthenticated && meLoading,

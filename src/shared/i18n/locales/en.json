@@ -207,7 +207,7 @@
       "kicker": "Your path",
       "lessonsSub": "lessons",
       "modulesKicker": "Modules",
-      "streakChip": "{{count}}-day streak"
+      "moduleProgress": "{{module}} · {{done}}/{{total}} lessons"
     },
     "backToCurrent": "Back to your current lesson",
     "backToCurrentShort": "Back to current"

@@ -161,7 +161,7 @@
       "kicker": "내 학습 경로",
       "lessonsSub": "레슨",
       "modulesKicker": "모듈",
-      "streakChip": "{{count}}일 연속"
+      "moduleProgress": "{{module}} · 레슨 {{done}}/{{total}}"
     },
     "backToCurrent": "현재 레슨으로 돌아가기",
     "backToCurrentShort": "현재 위치로"

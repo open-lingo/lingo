@@ -11,7 +11,6 @@ import {
 export type YourPathCardProps = {
   course: Course;
   completedSet: ReadonlySet<string>;
-  streakDays: number;
   /** Count of modules with reviews due — renders a chip in the header. */
   dueReviews?: number;
   /** Click the reviews-due chip — jumps into the first due review. */
@@ -32,9 +31,9 @@ export type YourPathCardProps = {
  * progress card *and* the old plain "Your path" card in LearnPage.
  *
  * Layout:
- *   [emoji ring]  Title + meta              [streak chip]
- *                 Progress bar (course)
- *   [Resume current lesson]    [more options]
+ *   Course title
+ *   Progress bar (course)
+ *   [Up next: active module + next lesson]    [Resume]
  *
  *   ---------------------- divider ----------------------
  *   "All modules" strip — every non-coming-soon module as a row:
@@ -46,7 +45,6 @@ export type YourPathCardProps = {
 export function YourPathCard({
   course,
   completedSet,
-  streakDays,
   dueReviews = 0,
   onReviewsClick,
   onResume,
@@ -95,13 +93,8 @@ export function YourPathCard({
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
             <h2 className="text-lg font-semibold text-text-primary sm:text-xl">
-              {currentModule ? currentModule.title : course.title}
+              {course.title}
             </h2>
-            {currentModule?.summary ? (
-              <p className="mt-0.5 text-sm text-text-secondary">
-                {currentModule.summary}
-              </p>
-            ) : null}
           </div>
           {dueReviews > 0 ? (
             <button
@@ -125,8 +118,7 @@ export function YourPathCard({
           ) : null}
         </div>
 
-        {/* Course-wide progress bar. The streak chip rides the row so the
-            hero doesn't burn a whole line on a single metric. */}
+        {/* Course-wide progress bar. */}
         <div className="space-y-1.5">
           <div className="flex items-center justify-between gap-3 text-xs text-text-muted">
             <span className="font-semibold uppercase tracking-wider">
@@ -134,20 +126,9 @@ export function YourPathCard({
                 defaultValue: "Course progress",
               })}
             </span>
-            <div className="flex items-center gap-2">
-              {streakDays > 0 ? (
-                <span className="inline-flex items-center gap-1 rounded-full bg-warning/10 px-2 py-0.5 text-[0.7rem] font-bold text-warning">
-                  <Icon name="flame" size={12} aria-hidden />
-                  {t("learn.progressCard.streakChip", {
-                    defaultValue: "{{count}}-day streak",
-                    count: streakDays,
-                  })}
-                </span>
-              ) : null}
-              <span className="tabular-nums font-bold text-accent">
-                {stats.pct}%
-              </span>
-            </div>
+            <span className="tabular-nums font-bold text-accent">
+              {stats.pct}%
+            </span>
           </div>
           <div className="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
             <div
@@ -181,7 +162,8 @@ export function YourPathCard({
               </p>
               <p className="mt-0.5 text-xs text-text-muted">
                 {t("learn.progressCard.moduleProgress", {
-                  defaultValue: "Module · {{done}}/{{total}} lessons",
+                  defaultValue: "{{module}} · {{done}}/{{total}} lessons",
+                  module: currentModule?.title ?? "",
                   done: currentModuleStats.done,
                   total: currentModuleStats.total,
                 })}

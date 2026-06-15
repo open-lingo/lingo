@@ -15,7 +15,6 @@ const MASTERY_TOAST_KEY_PREFIX = "lingo_mastery_toasted_v1_";
 import { Icon } from "@/shared/components/Icon";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
-import { useUserStats } from "@/shared/hooks/useUserStats";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { logSessionEvent } from "@/shared/telemetry/sessionLog";
 import { getMockCourse, ALPHABET_LESSON_ID } from "@/shared/domain/mockCourse";
@@ -58,7 +57,6 @@ export function LearnPage() {
   const { language } = useLanguage();
   const course = language ? getMockCourse(language.id) : null;
   const profile = useLearnProfile();
-  const { stats: userStats } = useUserStats();
 
   const completedIds = useCompletedLessonIds();
   const [devUnlock, setDevUnlockState] = useState(() => isDevUnlockOn());
@@ -347,7 +345,6 @@ export function LearnPage() {
             <YourPathCard
               course={course}
               completedSet={completedSet}
-              streakDays={userStats.streak}
               dueReviews={dueReviews.length}
               onReviewsClick={handleReviewChipClick}
               onResume={() => {
