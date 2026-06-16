@@ -224,7 +224,7 @@ export function LearnCourseMap({
   };
 
   return (
-    <section className="min-w-0 pb-4">
+    <section className="min-w-0">
       <div className="space-y-2">
         {visible.map((mod, i) => renderModule(mod, i))}
 

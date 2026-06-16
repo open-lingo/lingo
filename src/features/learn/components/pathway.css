@@ -80,9 +80,10 @@
    * reading as color. */
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--m-c1, var(--color-accent)) 6%, var(--color-surface-muted))
+    color-mix(in srgb, var(--m-c1, var(--color-accent)) 22%, var(--color-surface-muted))
       0%,
-    var(--color-surface-muted) 100%
+    color-mix(in srgb, var(--m-c2, var(--color-accent-hover)) 12%, var(--color-surface-muted))
+      100%
   );
   color: var(--color-text-secondary);
   filter: none;

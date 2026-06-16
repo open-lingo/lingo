@@ -28,7 +28,7 @@ export type LearnToolsRowProps = {
  */
 export function LearnToolsRow({ course, completedSet }: LearnToolsRowProps) {
   return (
-    <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <ProgressCard course={course} completedSet={completedSet} />
       <ExploreCard course={course} />
       <ReviewCard />
@@ -51,8 +51,8 @@ function lessonTotals(course: Course, completedSet: ReadonlySet<string>) {
 
 function CardHeader({ icon, title }: { icon: IconName; title: string }) {
   return (
-    <div className="mb-3 flex items-center gap-2">
-      <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
+    <div className="mb-2 flex items-center gap-2">
+      <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
         <Icon name={icon} size={16} aria-hidden />
       </span>
       <h3 className="text-sm font-semibold text-text-primary">{title}</h3>
@@ -117,7 +117,7 @@ function ProgressCard({
   const moduleCount = course.modules.filter((m) => !m.comingSoon).length;
 
   return (
-    <Card padding="md" className="flex flex-col">
+    <Card padding="sm" className="flex flex-col">
       <CardHeader
         icon="trendingUp"
         title={t("learn.tools.progress.title", { defaultValue: "Your progress" })}
@@ -162,13 +162,6 @@ function ProgressCard({
               })}
             />
             <Stat
-              icon="flame"
-              value={stats.streak}
-              label={t("learn.tools.progress.streak", {
-                defaultValue: "Day streak",
-              })}
-            />
-            <Stat
               icon="zap"
               value={stats.xp.toLocaleString()}
               label={t("learn.tools.progress.xp", { defaultValue: "Total XP" })}
@@ -190,13 +183,6 @@ function ProgressCard({
               value={stats.xp.toLocaleString()}
               label={t("learn.tools.progress.xp", { defaultValue: "Total XP" })}
             />
-            <Stat
-              icon="flame"
-              value={stats.streak}
-              label={t("learn.tools.progress.streak", {
-                defaultValue: "Day streak",
-              })}
-            />
           </>
         ) : null}
 
@@ -214,13 +200,6 @@ function ProgressCard({
               value={`${masteredModules}/${moduleCount}`}
               label={t("learn.tools.progress.modulesMastered", {
                 defaultValue: "Modules mastered",
-              })}
-            />
-            <Stat
-              icon="layers"
-              value={moduleCount}
-              label={t("learn.tools.progress.modules", {
-                defaultValue: "Modules",
               })}
             />
           </>
@@ -253,7 +232,7 @@ function ExploreCard({ course }: { course: Course }) {
   const moduleCount = course.modules.filter((m) => !m.comingSoon).length;
 
   return (
-    <Card padding="md" className="flex flex-col">
+    <Card padding="sm" className="flex flex-col">
       <CardHeader
         icon="compass"
         title={t("learn.tools.explore.title", {
@@ -301,7 +280,7 @@ function ReviewCard() {
   const caughtUp = !isLoading && cardsDue === 0;
 
   return (
-    <Card padding="md" className="flex flex-col">
+    <Card padding="sm" className="flex flex-col">
       <CardHeader
         icon="refresh"
         title={t("learn.tools.review.title", {
