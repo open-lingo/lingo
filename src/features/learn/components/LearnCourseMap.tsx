@@ -225,7 +225,7 @@ export function LearnCourseMap({
 
   return (
     <section className="min-w-0 pb-4">
-      <div className="space-y-6">
+      <div className="space-y-4">
         {visible.map((mod, i) => renderModule(mod, i))}
 
         {collapsed.length > 0 ? (
