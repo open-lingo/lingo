@@ -51,8 +51,8 @@ Backlog phases: vocab-graduation receiver (`lingo:vocab-graduated` event → unl
 
 ## Gamification (cross-repo invariants)
 
-- **XP rules live in two mirrors**: `src/features/progress/xpRules.ts` ↔ `lingo-core/app/progress/xp.py` (base 10, perfect +5, test/recap +10 via lesson-id suffix, 500/level linear). Change BOTH or levels/awards diverge again. `lesson.xpReward` is cosmetic.
-- **Quests**: backend at `lingo-core/app/quests/`; per-user state in the user-settings blob (like `shop`); progress advances synchronously in the lesson batch handler — there is no async pipeline.
+- **XP is server-authoritative; the client mirrors the defaults.** The server's live source is `XpEconomyConfig` (`lingo-core/app/platform_settings/schemas.py`, applied in `app/progress/router.py`) — admin-tunable; `app/progress/xp.py` holds only legacy defaults now. `src/features/progress/xpRules.ts` mirrors those defaults for the pre-sync estimate (base 10, perfect +5, test/recap +10 via lesson-id suffix, 500/level linear). Keep it in sync with the `XpEconomyConfig` defaults or the lesson-complete estimate diverges from what the server awards. `lesson.xpReward` is cosmetic.
+- **Quests**: backend at `lingo-core/app/quests/`; per-user state in the user-settings blob (like `shop`); progress advances via an **async event pipeline** — the lesson batch handler publishes `lesson_completed` / `xp_awarded`, consumed by the **lingo-async** service, which calls back `POST /quests/_internal/{id}/progress`. Not synchronous in the request, so don't add inline quest writes to the progress handler.
 - Lesson juice (combo/sfx) call sites: `features/lesson/juice.ts` via `LessonPage.handleStepComplete`; row tests run their own per-item juice in `TestRunner`.
 
 ## JA curriculum authoring

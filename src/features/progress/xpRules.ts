@@ -1,8 +1,10 @@
 /**
- * Client mirror of the server's XP rules — lingo-core/app/progress/xp.py
- * is AUTHORITATIVE; these constants exist only so pre-sync UI (the
- * lesson-complete screen, header chips) estimates the same number the
- * server will award. If you change one side, change both.
+ * Client mirror of the server's XP rules. The server is AUTHORITATIVE and
+ * admin-tunable via XpEconomyConfig (lingo-core/app/platform_settings/schemas.py,
+ * applied in app/progress/router.py); these constants mirror its DEFAULTS so
+ * pre-sync UI (the lesson-complete screen, header chips) estimates the same
+ * number the server will award. Keep them in sync with those defaults — post-sync
+ * the server's awarded value always wins.
  */
 export const XP_LESSON_COMPLETE = 10;
 export const XP_PERFECT_BONUS = 5;
