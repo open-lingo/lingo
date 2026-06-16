@@ -12,7 +12,10 @@
 
 .lingo-module-card {
   position: relative;
-  margin-bottom: 28px;
+  /* Inter-module gap comes from the list container's `space-y-*`
+   * (Tailwind space utilities zero out child margin-bottom, so setting it
+   * here had no effect). Keep 0 to avoid a misleading override. */
+  margin-bottom: 0;
   border-radius: 16px;
   overflow: hidden;
   background: var(--color-surface);
