@@ -17,6 +17,7 @@ import {
 } from "@/features/settings/storage";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api/provider";
+import { useUserSettings } from "@/shared/hooks/useUserSettings";
 import { setAudioVolume } from "@/shared/audio/volume";
 import { setSfxEnabled } from "@/shared/audio/sfx";
 
@@ -267,73 +268,86 @@ function migrateFromLegacy(): Partial<UserSettings> {
 }
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
-  const { isAuthenticated, user, isLoading: authLoading } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const { users } = useApi();
   const [settings, setSettingsState] = useState<UserSettings>(DEFAULT_SETTINGS);
   const [isLoading, setIsLoading] = useState(true);
 
   const userId = user?.sub ?? null;
 
+  // The locally-cached settings (localStorage), captured at hydrate time so the
+  // server-merge effect can layer the backend blob on top with "server wins".
+  const [storedSnapshot, setStoredSnapshot] = useState<Partial<UserSettings> | null>(
+    null,
+  );
+
+  // Share the ONE GET /users/me/settings fetch with the shop + cosmetic slots.
+  // SettingsContext consumes the same RQ cache entry instead of issuing its own
+  // imperative read.
+  const settingsQuery = useUserSettings();
+
+  // Phase 1 — instant local hydration from localStorage (runs before any
+  // network). Mirrors the previous local-first behavior so the UI paints with
+  // the user's last-known prefs immediately.
   useEffect(() => {
-    let cancelled = false;
+    ensureUserConsistency(userId);
+    migrateToSingleKey(userId);
+    let stored = getStoredSettings();
+    const legacy = migrateFromLegacy();
+    if (legacy.appearance || legacy.learning) {
+      stored = { ...legacy, ...stored };
+      setStoredSettings(stored);
+    }
+    if (typeof window !== "undefined" && stored?.accessibility?.reducedMotion === undefined) {
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      stored = { ...stored, accessibility: { ...DEFAULT_SETTINGS.accessibility, ...stored?.accessibility, reducedMotion: prefersReduced } };
+    }
+    setStoredSnapshot(stored ?? {});
+    setSettingsState(mergeWithDefaults(stored ?? {}));
+    // For signed-out users there's no server read to wait on.
+    if (!isAuthenticated || !userId) setIsLoading(false);
+  }, [userId, isAuthenticated]);
 
-    const load = async () => {
-      ensureUserConsistency(userId);
-      migrateToSingleKey(userId);
-      let stored = getStoredSettings();
-      const legacy = migrateFromLegacy();
-      if (legacy.appearance || legacy.learning) {
-        stored = { ...legacy, ...stored };
-        setStoredSettings(stored);
-      }
-      if (typeof window !== "undefined" && stored?.accessibility?.reducedMotion === undefined) {
-        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        stored = { ...stored, accessibility: { ...DEFAULT_SETTINGS.accessibility, ...stored?.accessibility, reducedMotion: prefersReduced } };
-      }
-      const merged = mergeWithDefaults(stored ?? {});
-      if (!cancelled) {
-        setSettingsState(merged);
-      }
+  // Phase 2 — once the shared settings query resolves, layer the backend blob
+  // over the local snapshot ("server wins" so clearing site data never replays
+  // onboarding or drops the saved learning language).
+  useEffect(() => {
+    if (!isAuthenticated || !userId || storedSnapshot == null) return;
+    if (settingsQuery.isLoading) return;
 
-      if (isAuthenticated && userId) {
-        try {
-          const backend = await users.getSettings();
-          const fromApi = fromBackendResponse(backend as Record<string, unknown>);
-          // Server wins over local for signed-in users so clearing site data
-          // does not replay onboarding or drop the saved learning language.
-          const combined = mergeWithDefaults({ ...stored, ...fromApi });
-          if (!cancelled) {
-            setSettingsState(combined);
-            setStoredSettings(combined);
-          }
-          if (
-            combined.learning.learningLanguageId &&
-            !combined.learning.onboardingCompleted
-          ) {
-            users
-              .updateSettings({
-                learning: {
-                  learningLanguageId: combined.learning.learningLanguageId,
-                  onboardingCompleted: true,
-                },
-                learningLanguage: combined.learning.learningLanguageId,
-              })
-              .catch(() => {});
-          }
-        } catch {
-          if (!cancelled) {
-            setSettingsState(mergeWithDefaults(stored ?? {}));
-          }
-        }
+    if (settingsQuery.data) {
+      const fromApi = fromBackendResponse(settingsQuery.data);
+      const combined = mergeWithDefaults({ ...storedSnapshot, ...fromApi });
+      setSettingsState(combined);
+      setStoredSettings(combined);
+      if (
+        combined.learning.learningLanguageId &&
+        !combined.learning.onboardingCompleted
+      ) {
+        users
+          .updateSettings({
+            learning: {
+              learningLanguageId: combined.learning.learningLanguageId,
+              onboardingCompleted: true,
+            },
+            learningLanguage: combined.learning.learningLanguageId,
+          })
+          .catch(() => {});
       }
-      if (!cancelled) setIsLoading(false);
-    };
-
-    load();
-    return () => {
-      cancelled = true;
-    };
-  }, [isAuthenticated, userId, users, authLoading]);
+    } else if (settingsQuery.isError) {
+      // Read failed — keep the local-first merge.
+      setSettingsState(mergeWithDefaults(storedSnapshot));
+    }
+    setIsLoading(false);
+  }, [
+    isAuthenticated,
+    userId,
+    users,
+    storedSnapshot,
+    settingsQuery.data,
+    settingsQuery.isLoading,
+    settingsQuery.isError,
+  ]);
 
   const updateSetting = useCallback(
     (path: string, value: unknown) => {
