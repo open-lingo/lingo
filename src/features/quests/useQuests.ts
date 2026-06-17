@@ -11,19 +11,18 @@ import type { Quest, QuestStatus } from "./types";
  * advances SYNCHRONOUSLY inside the lesson batch handler
  * (lingo-core/app/progress/router.py → app/quests/logic.py) — the
  * "lingo-async" pipeline an older draft referenced never existed. The
- * hook reads server state, refetching on mount + a 60s backstop, and
- * invalidates after client-side mutations (batch sync, claim, refresh).
+ * hook reads server state on mount and invalidates after client-side
+ * mutations (batch sync, claim, refresh).
  */
 
 export const QUESTS_QUERY_KEY = ["core", "quests", "list"] as const;
 
-// Quest progress lives in the async pipeline — it advances after XP/lesson/review
-// events fire on the server, so the FE doesn't need second-by-second polling.
-// We already invalidate on mutations (claim/bump/refresh) and after
-// LessonProgressHydrate syncs buffered attempts, so the refetch interval is just
-// a long backstop to catch progress that arrived via another tab/session.
-// 60s × 2 panels open ≈ 120 req/hr per learner; 10s was 720 req/hr.
-const LIVE_REFETCH_MS = 60_000;
+// Quest progress advances server-side after XP/lesson/review events. The only
+// refresh paths that matter are explicit: the claim/bump/refresh mutations below
+// invalidate this key, and a lesson sync invalidates it from LessonProgressHydrate
+// + useLessonSyncSource. So there's no need to poll or refetch on window focus —
+// the hook inherits the app's no-poll/no-focus-refetch policy (main.tsx).
+const QUESTS_STALE_MS = 60_000;
 
 function fromServer(q: ServerQuest): Quest {
   return {
@@ -104,14 +103,12 @@ export function useQuests(): UseQuestsResult {
   const query = useQuery({
     queryKey: QUESTS_QUERY_KEY,
     queryFn: () => questsApi!.list(),
-    refetchInterval: LIVE_REFETCH_MS,
-    refetchOnWindowFocus: true,
-    // staleTime matches the refetch interval — within a 60s window any in-flight
-    // mount of useQuests on another component (LearnTopBar + LearnSidebar share
-    // the key, so the cache dedupes) reads the cache instead of refetching.
+    refetchOnWindowFocus: false,
+    // Within this window any other mount of useQuests (LearnTopBar + LearnSidebar
+    // share the key, so the cache dedupes) reads the cache instead of refetching.
     // Mutations explicitly invalidate, so the user-perceived freshness for
-    // claim / bump / refresh is unchanged.
-    staleTime: LIVE_REFETCH_MS,
+    // claim / bump / refresh — and post-lesson-sync — is unchanged.
+    staleTime: QUESTS_STALE_MS,
     enabled: !!questsApi,
   });
 

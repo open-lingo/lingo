@@ -1,14 +1,13 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "@/shared/auth/useAuth";
-import { useApi } from "@/shared/api";
+import { useQueryClient } from "@tanstack/react-query";
 import { useUserStats } from "@/shared/hooks/useUserStats";
+import { useUserSettings, type RawUserSettings } from "@/shared/hooks/useUserSettings";
 
 export type ShopState = {
   purchases: string[];
   inventory: Record<string, number>;
 };
 
-function parseShopState(raw: Record<string, unknown> | undefined): ShopState {
+function parseShopState(raw: RawUserSettings | undefined): ShopState {
   const shop = raw?.shop;
   if (!shop || typeof shop !== "object") {
     return { purchases: [], inventory: {} };
@@ -27,25 +26,13 @@ function parseShopState(raw: Record<string, unknown> | undefined): ShopState {
 }
 
 export function useShopState() {
-  const { isAuthenticated, user } = useAuth();
-  const { users } = useApi();
   const { stats, isReady: statsReady, refetch: refetchStats } = useUserStats();
-  // Fix M8 — user-scoped key so the shop state from a previous account
-  // doesn't briefly surface during a login switch.
-  const userId = user?.sub ?? "anon";
 
-  const settingsQuery = useQuery({
-    queryKey: ["users", userId, "settings", "shop"],
-    queryFn: async () => {
-      const data = await users.getSettings();
-      return parseShopState(data as Record<string, unknown>);
-    },
-    enabled: isAuthenticated,
-    // Shop inventory + purchases only change on a shop mutation, which
-    // already calls useInvalidateShopQueries(). 30s was wastefully short —
-    // bumped to 5 min, mutation path keeps the user-perceived freshness.
-    staleTime: 5 * 60_000,
-  });
+  // Shares the one ``GET /users/me/settings`` fetch with SettingsContext and
+  // the cosmetic slots — derives the shop slice via ``select``. Shop inventory
+  // + purchases only change on a shop mutation, which already calls
+  // useInvalidateShopQueries(); the 5 min staleTime lives on the shared query.
+  const settingsQuery = useUserSettings({ select: parseShopState });
 
   const shop = settingsQuery.data ?? { purchases: [], inventory: {} };
 
@@ -72,18 +59,13 @@ export function useInvalidateShopQueries() {
   const queryClient = useQueryClient();
   return () => {
     void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
-    // Match the user-scoped shop key. invalidateQueries with a prefix
-    // matches any extra segments, so ["users"] is sufficient — but be
-    // narrower than that or we'll invalidate the entire users namespace.
+    // Shop state now lives on the unified user-settings query (shared with
+    // SettingsContext + the cosmetic slots), so invalidate any settings key
+    // under the users namespace rather than a shop-suffixed one.
     void queryClient.invalidateQueries({
       predicate: (q) => {
         const k = q.queryKey;
-        return (
-          Array.isArray(k) &&
-          k[0] === "users" &&
-          k.includes("settings") &&
-          k.includes("shop")
-        );
+        return Array.isArray(k) && k[0] === "users" && k.includes("settings");
       },
     });
   };

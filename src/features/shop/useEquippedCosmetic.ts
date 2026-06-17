@@ -1,7 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "@/shared/auth/useAuth";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useApi } from "@/shared/api";
-import { useImpersonation } from "@/features/admin/impersonation/ImpersonationContext";
+import { useUserSettings, type RawUserSettings } from "@/shared/hooks/useUserSettings";
 
 /**
  * Shared read/write hook for any single-slot cosmetic stored under
@@ -17,35 +16,26 @@ import { useImpersonation } from "@/features/admin/impersonation/ImpersonationCo
  * explicit value the merge will overwrite — empty string does the job
  * and the read side treats "" as null.
  */
+function selectEquipped(settingsKey: string) {
+  return (data: RawUserSettings): string | null => {
+    const shop = data?.shop;
+    if (!shop || typeof shop !== "object") return null;
+    const eq = (shop as Record<string, unknown>)[settingsKey];
+    if (typeof eq !== "string" || eq === "") return null;
+    return eq;
+  };
+}
+
 export function useEquippedCosmetic(settingsKey: string) {
-  const { isAuthenticated, user } = useAuth();
   const { users } = useApi();
   const queryClient = useQueryClient();
-  const impersonation = useImpersonation();
-  // Bake the impersonation target into the cache key so the admin's
-  // own equipped state and the impersonated user's don't share a slot.
-  // The broad invalidate-on-toggle in ImpersonationProvider catches
-  // staleness; this avoids cross-identity reads during the swap.
-  const userId = user?.sub ?? "anon";
-  const actingAs = impersonation?.targetUserId ?? "self";
 
-  const query = useQuery({
-    queryKey: ["users", userId, "acting", actingAs, "settings", settingsKey],
-    queryFn: async () => {
-      const data = await users.getSettings();
-      const shop = (data as Record<string, unknown>)?.shop;
-      if (!shop || typeof shop !== "object") return null;
-      const eq = (shop as Record<string, unknown>)[settingsKey];
-      if (typeof eq !== "string" || eq === "") return null;
-      return eq;
-    },
-    enabled: isAuthenticated,
-    // Equipped cosmetic changes only via the equip mutation below, which
-    // invalidates this key explicitly. 5 min cache instead of 1 min so the
-    // nav-avatar ring (which mounts this on every page) doesn't refetch
-    // settings JSON every navigation past the 60s mark.
-    staleTime: 5 * 60_000,
-  });
+  // Reads the equipped slot off the shared user-settings query (one fetch
+  // shared with SettingsContext + the shop). The nav-avatar ring mounts the
+  // decorator slot on every page, so deduping onto one cache entry — keyed by
+  // identity in useUserSettings, 5 min staleTime — avoids a settings refetch
+  // per navigation. The equip mutation below invalidates the settings key.
+  const query = useUserSettings({ select: selectEquipped(settingsKey) });
 
   const mutation = useMutation({
     mutationFn: async (itemId: string | null) => {
