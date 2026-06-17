@@ -1016,6 +1016,135 @@
     "xp": "XP",
     "xpEarnedToday": "earned today"
   },
+  "journey": {
+    "title": "Journey",
+    "subtitle": "Your streak, climb, and what's worth reviewing.",
+    "loading": "Loading your journey…",
+    "error": {
+      "title": "Couldn't load your progress",
+      "body": "Give it another try in a moment.",
+      "retry": "Retry"
+    },
+    "empty": {
+      "title": "Your journey starts here",
+      "body": "Finish a lesson and your streak, XP, and mastery will start charting."
+    },
+    "tabs": {
+      "aria": "Journey view",
+      "overview": "Overview",
+      "lessons": "Lessons",
+      "practice": "Practice"
+    },
+    "stats": {
+      "title": "Stats",
+      "streak": "day streak",
+      "best": "best {{n}}",
+      "level": "level",
+      "xpToNext": "{{n}} XP to next",
+      "lessons": "lessons done",
+      "totalXp": "{{n}} XP",
+      "cardsMastered": "cards mastered",
+      "cardsSeen": "of {{n}} seen"
+    },
+    "activity": {
+      "title": "Activity",
+      "activeDays": "{{count}} active days",
+      "empty": "Complete a lesson to start your calendar.",
+      "gridLabel": "Daily activity heatmap",
+      "hint": "Hover a day for details",
+      "detail": "{{xp}} XP · {{lessons}} lessons · {{min}} min",
+      "less": "Less",
+      "more": "More",
+      "rangeAria": "Activity range",
+      "range": {
+        "3m": "3m",
+        "6m": "6m",
+        "1y": "1y",
+        "all": "All"
+      }
+    },
+    "snapshot": {
+      "title": "Snapshot",
+      "deckMastered": "Deck mastered",
+      "inProgress": "Cards in progress",
+      "deckSize": "Cards in deck"
+    },
+    "lessons": {
+      "title": "Lessons",
+      "complete": "complete",
+      "lessonsDone": "lessons completed",
+      "keepGoing": "keep climbing",
+      "modulesMastered": "modules mastered",
+      "modulesSub": "full clears"
+    },
+    "xp": {
+      "title": "XP over time",
+      "window": "+{{xp}} XP in 30 days",
+      "empty": "Earn XP to chart your climb."
+    },
+    "mastery": {
+      "title": "Mastery",
+      "count": "{{count}} concepts",
+      "empty": "Practice concepts to map your strengths.",
+      "less": "Show less",
+      "more": "Show all {{count}}",
+      "tier": {
+        "weak": "Needs work",
+        "fading": "Fading",
+        "solid": "Solid",
+        "strong": "Strong"
+      }
+    },
+    "practice": {
+      "cards": {
+        "title": "Your cards",
+        "deck": "{{count}} in deck",
+        "meterAria": "{{review}} review, {{learning}} learning, {{new}} new, {{yet}} yet to learn"
+      },
+      "state": {
+        "review": "Review",
+        "learning": "Learning",
+        "new": "New",
+        "yetToLearn": "Yet to learn"
+      },
+      "retention": {
+        "title": "Recall",
+        "label": "retention"
+      },
+      "rating": {
+        "title": "Rating mix",
+        "again": "Again",
+        "hard": "Hard",
+        "good": "Good",
+        "easy": "Easy"
+      },
+      "estimated": "Estimated",
+      "dueNow": "Cards due now",
+      "totalInDeck": "Total in deck"
+    },
+    "side": {
+      "week": {
+        "title": "This week",
+        "xp": "XP",
+        "lessons": "Lessons",
+        "days": "Active days"
+      },
+      "next": {
+        "title": "Up next",
+        "due": "Cards due now",
+        "milestone": "to level {{n}}"
+      },
+      "quick": {
+        "title": "Quick start",
+        "review": "Review due cards",
+        "continue": "Continue learning"
+      },
+      "streak": {
+        "title": "Streak",
+        "count": "{{n}} days"
+      }
+    }
+  },
   "leaderboard": {
     "title": "Leaderboard",
     "back": "Back",

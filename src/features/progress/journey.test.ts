@@ -1,5 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { buildHeatmap, buildXpSeries, buildMastery } from "./journey";
+import {
+  buildHeatmap,
+  buildXpSeries,
+  buildMastery,
+  rangeDays,
+  sliceHeatmapDays,
+  extendActivityToYear,
+} from "./journey";
 import type { DayActivity, ConceptRollup } from "@/shared/api/progress";
 
 function day(date: string, xp: number, lessons = 0, minutes = 0): DayActivity {
@@ -8,7 +15,7 @@ function day(date: string, xp: number, lessons = 0, minutes = 0): DayActivity {
 
 describe("buildHeatmap", () => {
   it("returns empty for no days", () => {
-    expect(buildHeatmap([])).toEqual({ cells: [], weeks: 0 });
+    expect(buildHeatmap([])).toEqual({ cells: [], weeks: 0, monthLabels: [] });
   });
 
   it("pads to whole weeks and aligns first cell to its weekday", () => {
@@ -95,5 +102,58 @@ describe("buildMastery", () => {
     );
     expect(sorted[0].conceptId).toBe("weak");
     expect(sorted[1].conceptId).toBe("strong");
+  });
+});
+
+describe("rangeDays", () => {
+  it("maps presets to day spans and 'all' to Infinity", () => {
+    expect(rangeDays("3m")).toBe(91);
+    expect(rangeDays("6m")).toBe(182);
+    expect(rangeDays("1y")).toBe(365);
+    expect(rangeDays("all")).toBe(Number.POSITIVE_INFINITY);
+  });
+});
+
+describe("sliceHeatmapDays", () => {
+  // A 10-day window ending 2026-06-10.
+  const days: DayActivity[] = Array.from({ length: 10 }, (_, i) => {
+    const d = new Date("2026-06-10T00:00:00Z");
+    d.setUTCDate(d.getUTCDate() - i);
+    return day(d.toISOString().slice(0, 10), 5);
+  });
+
+  it("keeps every day inside a finite span and orders by date", () => {
+    // Use a tiny custom span via the public preset boundaries: 91 days keeps all 10.
+    const kept = sliceHeatmapDays(days, "3m", "2026-06-10");
+    expect(kept).toHaveLength(10);
+    expect(kept[0].date).toBe("2026-06-01");
+    expect(kept[kept.length - 1].date).toBe("2026-06-10");
+  });
+
+  it("returns every day for the 'all' range", () => {
+    expect(sliceHeatmapDays(days, "all", "2026-06-10")).toHaveLength(10);
+  });
+
+  it("respects the anchor when slicing (future days past the anchor are dropped)", () => {
+    const withFuture = [...days, day("2026-12-31", 5)];
+    const kept = sliceHeatmapDays(withFuture, "3m", "2026-06-10");
+    expect(kept.some((d) => d.date === "2026-12-31")).toBe(false);
+  });
+});
+
+describe("extendActivityToYear", () => {
+  it("preserves real days verbatim and back-fills to the requested span", () => {
+    const real = [day("2026-06-10", 42, 3, 18)];
+    const out = extendActivityToYear(real, "2026-06-10", 30);
+    expect(out).toHaveLength(30);
+    const last = out[out.length - 1];
+    expect(last.date).toBe("2026-06-10");
+    expect(last.xpEarned).toBe(42); // real day untouched
+  });
+
+  it("is deterministic for the same date inputs", () => {
+    const a = extendActivityToYear([], "2026-06-10", 60);
+    const b = extendActivityToYear([], "2026-06-10", 60);
+    expect(a).toEqual(b);
   });
 });

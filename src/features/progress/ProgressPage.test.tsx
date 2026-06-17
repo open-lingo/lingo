@@ -7,7 +7,10 @@ import type { ProgressSummary } from "@/shared/api/progress";
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
     t: (_key: string, fallback?: string | Record<string, unknown>, opts?: Record<string, unknown>) => {
-      const fb = typeof fallback === "string" ? fallback : _key;
+      const fb =
+        typeof fallback === "string"
+          ? fallback
+          : (fallback as { defaultValue?: string })?.defaultValue ?? _key;
       const vars = (typeof fallback === "object" ? fallback : opts) ?? {};
       return fb.replace(/\{\{(\w+)\}\}/g, (_, k) => String((vars as Record<string, unknown>)[k] ?? ""));
     },
@@ -16,6 +19,53 @@ vi.mock("react-i18next", () => ({
 
 vi.mock("@/shared/hooks/useLangPath", () => ({
   useLangPath: () => (p: string) => `/ja/${p}`,
+}));
+
+vi.mock("@/shared/contexts/LanguageContext", () => ({
+  useLanguage: () => ({ language: { id: "ja" } }),
+}));
+
+const mockCompletedIds = vi.fn(() => ["m1-l1", "m1-l2"] as string[]);
+vi.mock("@/features/learn/hooks/useCompletedLessonIds", () => ({
+  useCompletedLessonIds: () => mockCompletedIds(),
+}));
+
+vi.mock("@/features/flashcards/useCardsDueCount", () => ({
+  useCardsDueCount: () => ({ count: 3, isLoading: false }),
+}));
+
+vi.mock("@/features/flashcards/SRSStoreRevisionContext", () => ({
+  useSRSStoreRevision: () => 0,
+}));
+
+vi.mock("@/features/flashcards/engine", () => ({
+  getSRSStore: () => ({}),
+  isNew: () => false,
+  isLearning: () => false,
+  isMastered: () => false,
+}));
+
+vi.mock("@/features/flashcards/data/courseDeck", () => ({
+  buildEnrichedJaCourseDeck: () => ({
+    cards: [{ id: "ja:biiru" }, { id: "ja:mizu" }, { id: "ja:neko" }],
+  }),
+}));
+
+vi.mock("@/shared/domain/mockCourse", () => ({
+  getMockCourse: () => ({
+    id: "mock-ja",
+    modules: [
+      {
+        id: "m1",
+        comingSoon: false,
+        lessons: [{ id: "m1-l1" }, { id: "m1-l2" }, { id: "m1-l3" }],
+      },
+    ],
+  }),
+}));
+
+vi.mock("@/features/learn/moduleMastery", () => ({
+  getModuleMastery: () => ({ passed: 0, total: 1, mastered: false }),
 }));
 
 const mockUseProgressMe = vi.fn();
@@ -62,7 +112,7 @@ describe("ProgressPage", () => {
     mockUseProgressMe.mockReset();
   });
 
-  it("renders hero stats, panels, and mastery from the progress summary", () => {
+  it("renders the header, tab switcher, and Overview hero stats by default", () => {
     mockUseProgressMe.mockReturnValue({
       summary: summary(),
       isLoading: false,
@@ -73,11 +123,34 @@ describe("ProgressPage", () => {
     renderPage();
 
     expect(screen.getByRole("heading", { name: "Journey", level: 1 })).toBeInTheDocument();
+    // Tabs present.
+    expect(screen.getByRole("radio", { name: /Overview/ })).toBeInTheDocument();
+    expect(screen.getByRole("radio", { name: /Lessons/ })).toBeInTheDocument();
+    expect(screen.getByRole("radio", { name: /Practice/ })).toBeInTheDocument();
+    // Overview hero + heatmap.
     expect(screen.getByText("5")).toBeInTheDocument(); // streak
     expect(screen.getByText("L4")).toBeInTheDocument(); // level ring
     expect(screen.getByText("Activity")).toBeInTheDocument();
-    expect(screen.getByText("XP over time")).toBeInTheDocument();
+    // Sidebar widgets are always present.
+    expect(screen.getByText("This week")).toBeInTheDocument();
+    expect(screen.getByText("Quick start")).toBeInTheDocument();
+  });
+
+  it("switches to the Lessons tab and renders mastery + XP chart", () => {
+    mockUseProgressMe.mockReturnValue({
+      summary: summary(),
+      isLoading: false,
+      isError: false,
+      refetch: vi.fn(),
+    });
+
+    renderPage();
+    fireEvent.click(screen.getByRole("radio", { name: /Lessons/ }));
+
     expect(screen.getByText("Mastery")).toBeInTheDocument();
+    expect(screen.getByText("XP over time")).toBeInTheDocument();
+    // Lessons completed reflects the mocked completion set (2 of 3).
+    expect(screen.getByText("2/3")).toBeInTheDocument();
   });
 
   it("opens the concept drill-in sheet when a mastery tile is clicked", () => {
@@ -89,6 +162,7 @@ describe("ProgressPage", () => {
     });
 
     renderPage();
+    fireEvent.click(screen.getByRole("radio", { name: /Lessons/ }));
 
     // Mastery tile carries the resolved kana label for ja:biiru → "ビール".
     const tile = screen.getByRole("button", { name: /percent recent strength/i });
@@ -98,7 +172,8 @@ describe("ProgressPage", () => {
     expect(screen.getByText("Practice this")).toBeInTheDocument();
   });
 
-  it("shows the empty state when there is no activity or concepts", () => {
+  it("shows the empty state when there is no activity, concepts, or lessons", () => {
+    mockCompletedIds.mockReturnValueOnce([]);
     mockUseProgressMe.mockReturnValue({
       summary: summary({
         concepts: [],
