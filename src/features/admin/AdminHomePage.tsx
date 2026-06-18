@@ -32,6 +32,8 @@ import { NavCard } from "@/shared/components/ui/NavCard";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 import { SystemHealthPanel } from "@/features/admin/SystemHealthPanel";
+import { ADMIN_NAV_GROUPS } from "@/features/admin/adminNavConfig";
+import { usePendingReviewCount } from "@/features/admin/usePendingReviewCount";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -171,7 +173,7 @@ function EventsBarChart({ events }: { events: EventListResponse | undefined }) {
 export function AdminHomePage() {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const { admin, ops, decks: decksApi } = useApi();
+  const { admin, ops } = useApi();
 
   // ── Data fetching ────────────────────────────────────────────────────────
   const userStats = useQuery<AdminUserStats>({
@@ -217,28 +219,8 @@ export function AdminHomePage() {
   }, [recentEvents.data]);
 
   // Pending moderation items — draft decks (non-vocab) + draft stories
-  const pendingDecksQuery = useQuery({
-    queryKey: ["admin", "dashboard", "pendingDecks"],
-    queryFn: async () => {
-      const items = await decksApi.listAdminDecks({ status: "draft" });
-      return items.filter((d) => !d.id.startsWith("vocab-")).length;
-    },
-    staleTime: 60_000,
-  });
-
-  const pendingStoriesQuery = useQuery({
-    queryKey: ["admin", "dashboard", "pendingStories"],
-    queryFn: async () => {
-      const items = await admin.listStories({ status: "draft" });
-      return items.length;
-    },
-    staleTime: 60_000,
-  });
-
-  const pendingTotal =
-    pendingDecksQuery.data !== undefined && pendingStoriesQuery.data !== undefined
-      ? pendingDecksQuery.data + pendingStoriesQuery.data
-      : null;
+  const pendingReview = usePendingReviewCount();
+  const pendingTotal = pendingReview ?? null;
 
   const failed24h = jobsSummary.data?.last24h.failed ?? 0;
   const adminDisplayName = user?.name ?? user?.email ?? "Admin";
@@ -289,55 +271,40 @@ export function AdminHomePage() {
         />
       </div>
 
-      {/* Navigation cards — one card per top-level surface. Each card is
-          the entry point for its area; tabs/sub-pages live inside. */}
-      <section aria-labelledby="nav-cards-heading">
-        <h2
-          id="nav-cards-heading"
-          className="mb-3 text-xs font-semibold uppercase tracking-wide text-text-muted"
-        >
-          Admin sections
-        </h2>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          <NavCard
-            to="/admin/users"
-            title="Users"
-            description="Browse, search, and manage user accounts."
-            icon={<Icon name="users" size={20} aria-hidden />}
-          />
-          <NavCard
-            to="/admin/moderation"
-            title="Moderation"
-            description="Review pending decks, stories, reports, and bans."
-            icon={<Icon name="shieldCheck" size={20} aria-hidden />}
-            count={pendingTotal ?? undefined}
-          />
-          <NavCard
-            to="/admin/ops"
-            title="Operations"
-            description="Costs, revenue, subscriptions, ads, jobs, and the audit log."
-            icon={<Icon name="wrench" size={20} aria-hidden />}
-          />
-          <NavCard
-            to="/admin/events"
-            title="Events"
-            description="Inspect the real-time event stream and handler outcomes."
-            icon={<Icon name="activity" size={20} aria-hidden />}
-          />
-          <NavCard
-            to="/admin/content/lessons"
-            title="Content"
-            description="Author lessons; review and manage decks and stories."
-            icon={<Icon name="bookOpen" size={20} aria-hidden />}
-          />
-          <NavCard
-            to="/admin/lms"
-            title="Learning config"
-            description="Platform XP rate tuning and per-student learning lookups."
-            icon={<Icon name="bookOpen" size={20} aria-hidden />}
-          />
-        </div>
-      </section>
+      {/* Navigation — grouped by what the surfaces actually are. Each group
+          is a labelled section; cards are the entry points for their area
+          (tabs/sub-pages live inside). Mirrors the inner-page sidebar IA. */}
+      {ADMIN_NAV_GROUPS.map((group) => (
+        <section key={group.id} aria-labelledby={`nav-group-${group.id}`}>
+          <div className="mb-3 flex items-center gap-2">
+            <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-surface-muted text-text-muted">
+              <Icon name={group.icon} size={14} aria-hidden />
+            </span>
+            <h2
+              id={`nav-group-${group.id}`}
+              className="text-xs font-semibold uppercase tracking-wide text-text-muted"
+            >
+              {group.label}
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            {group.items.map((item) => (
+              <NavCard
+                key={item.to}
+                to={item.to}
+                title={item.title}
+                description={item.description}
+                icon={<Icon name={item.icon} size={20} aria-hidden />}
+                count={
+                  item.pendingKey === "pendingReview" && pendingTotal
+                    ? pendingTotal
+                    : undefined
+                }
+              />
+            ))}
+          </div>
+        </section>
+      ))}
 
       <div className="grid gap-4 lg:grid-cols-2">
         {/* Recent events strip */}

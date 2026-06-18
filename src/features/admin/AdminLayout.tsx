@@ -4,20 +4,20 @@
  * Two exported layout components:
  *
  *   AdminShell      — auth check + bare Outlet. Used by /admin/home (dashboard hub).
- *   AdminInnerShell — auth check + back-to-dashboard link + bare Outlet.
- *                     Used by every /admin/* inner page (no sidebar — the
- *                     dashboard at /admin/home is the only navigation surface).
+ *   AdminInnerShell — auth check + persistent grouped sidebar + Outlet.
+ *                     Used by every /admin/* inner page. The sidebar is the
+ *                     console navigation surface (driven by adminNavConfig);
+ *                     the dashboard hub at /admin/home is the home tab.
  *
- * No sidebar anywhere. Inner pages are leaves; they're reached either from
- * the dashboard's nav-cards grid or via content cross-links (e.g. an event
- * row linking to /admin/users/:id). Each inner page gets a "← Dashboard"
- * link rendered above its content automatically.
+ * Inner pages are leaves: they're reached from the sidebar groups or via
+ * content cross-links (e.g. an event row linking to /admin/users/:id).
  */
 import { Navigate, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { useAuth } from "@/shared/auth/useAuth";
-import { AdminBackButton } from "./AdminBackButton";
+import { AdminSidebar } from "./AdminSidebar";
+import { usePendingReviewCount } from "./usePendingReviewCount";
 
 // ── Auth guard ────────────────────────────────────────────────────────────────
 
@@ -53,18 +53,25 @@ export function AdminShell() {
   );
 }
 
-// ── AdminInnerShell — auth wrapper + back link (used by inner pages) ──────────
+// ── AdminInnerShell — auth wrapper + console sidebar (used by inner pages) ─────
 
-/** Auth guard + "← Dashboard" link + Outlet. Used for every /admin/* inner page. */
+function AdminInnerShellBody() {
+  const pendingReview = usePendingReviewCount();
+  return (
+    <div className="mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col gap-4 px-4 py-6 sm:px-6 lg:flex-row lg:gap-8">
+      <AdminSidebar pendingReview={pendingReview} />
+      <div className="min-h-0 min-w-0 flex-1">
+        <Outlet />
+      </div>
+    </div>
+  );
+}
+
+/** Auth guard + grouped console sidebar + Outlet. Used for every /admin/* inner page. */
 export function AdminInnerShell() {
   return (
     <AuthGuard>
-      <div className="mx-auto flex min-h-0 max-w-6xl flex-1 flex-col gap-4 px-4 py-6 sm:px-6">
-        <AdminBackButton />
-        <div className="min-h-0 flex-1">
-          <Outlet />
-        </div>
-      </div>
+      <AdminInnerShellBody />
     </AuthGuard>
   );
 }
