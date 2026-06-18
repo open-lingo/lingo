@@ -1,5 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { splitUpcomingModules } from "./LearnCourseMap";
+import { splitUpcomingModules, moduleGroup } from "./LearnCourseMap";
+
+describe("moduleGroup", () => {
+  it("labels modules before / at / after the current index", () => {
+    expect(moduleGroup(0, 2)).toBe("completed");
+    expect(moduleGroup(1, 2)).toBe("completed");
+    expect(moduleGroup(2, 2)).toBe("current");
+    expect(moduleGroup(3, 2)).toBe("upcoming");
+  });
+
+  it("treats the first module as current when nothing is done", () => {
+    expect(moduleGroup(0, 0)).toBe("current");
+    expect(moduleGroup(1, 0)).toBe("upcoming");
+  });
+});
 
 const mods = (n: number) =>
   Array.from({ length: n }, (_, i) => ({ id: `m${i}` }));

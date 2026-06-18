@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import { playSfx } from "@/shared/audio/sfx";
 import type { Quest } from "../types";
+import { questIcon } from "../questIcon";
 import { QuestProgressBar } from "./QuestProgressBar";
 
 /** Per-type tile tint — fixed hues with alpha so all four themes keep
@@ -17,28 +16,14 @@ const TYPE_TINT: Record<Quest["type"], string> = {
   friend: "bg-pink-500/15 text-pink-500",
 };
 
-/** Crisp Noto SVG with raw-glyph fallback (same pattern as vocab cards). */
-function QuestIcon({ emoji, tint }: { emoji: string; tint: string }) {
-  const [failed, setFailed] = useState(false);
-  const src = notoEmojiUrl(emoji);
+/** Lucide quest glyph (gamification UI — never the raw emoji field). */
+function QuestIcon({ quest, tint }: { quest: Quest; tint: string }) {
   return (
     <div
       className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl ${tint}`}
       aria-hidden
     >
-      {src && !failed ? (
-        <img
-          src={src}
-          alt=""
-          width={28}
-          height={28}
-          onError={() => setFailed(true)}
-          className="h-7 w-7 select-none"
-          draggable={false}
-        />
-      ) : (
-        <span className="text-2xl">{emoji}</span>
-      )}
+      <Icon name={questIcon(quest)} size={24} />
     </div>
   );
 }
@@ -101,7 +86,7 @@ export function QuestRow({ quest, onClaim }: QuestRowProps) {
   return (
     <div className={containerCls}>
       <div className="flex items-start gap-3">
-        <QuestIcon emoji={quest.emoji} tint={TYPE_TINT[quest.type] ?? TYPE_TINT.daily} />
+        <QuestIcon quest={quest} tint={TYPE_TINT[quest.type] ?? TYPE_TINT.daily} />
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
             <p className="truncate text-sm font-semibold text-text-primary">

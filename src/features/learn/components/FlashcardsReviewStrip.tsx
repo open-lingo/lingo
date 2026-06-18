@@ -28,37 +28,43 @@ export function FlashcardsReviewBody() {
   const { count: cardsDue, isLoading } = useCardsDueCount(langId);
   const langPath = useLangPath();
 
+  const caughtUp = !isLoading && cardsDue === 0;
+
   return (
     <>
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
-        {t("learn.flashcardsReviewStripTitle")}
+      <p className="mb-1 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-text-muted">
+        <Icon name="layers" size={13} className="text-accent" aria-hidden />
+        {t("learn.flashcardsReviewStripTitle", {
+          defaultValue: "Review your decks",
+        })}
+      </p>
+      <p className="mb-2 text-[0.7rem] text-text-muted">
+        {caughtUp
+          ? t("learn.flashcardsAllCaughtUp", "All caught up!")
+          : isLoading
+            ? t("learn.flashcardsChecking", {
+                defaultValue: "Checking your decks…",
+              })
+            : t("learn.flashcardsDueCount", {
+                defaultValue: "{{count}} cards due — pick a deck to review",
+                count: cardsDue,
+              })}
       </p>
 
-      {!isLoading && cardsDue === 0 ? (
-        <Link
-          to={langPath("practice/flashcards")}
-          className="flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2.5 transition hover:border-accent hover:bg-surface-muted"
-        >
-          <Icon
-            name="sparkles"
-            size={16}
-            className="shrink-0 text-accent"
-            aria-hidden
-          />
-          <div className="min-w-0">
-            <p className="text-sm font-semibold text-text-primary">
-              {t("learn.flashcardsAllCaughtUp", "All caught up!")}
-            </p>
-            <p className="text-xs text-text-muted">
-              {t("learn.flashcardsZeroDue", "0 cards due today")}
-            </p>
-          </div>
-        </Link>
-      ) : (
-        <Suspense fallback={null}>
-          <StudyScopeShortcuts compact />
-        </Suspense>
-      )}
+      {/* Targeted review scopes — lesson decks vs vocabulary, not a generic
+          "study now" CTA. Always shown so the learner can drill a specific
+          deck even when nothing is strictly due. */}
+      <Suspense fallback={null}>
+        <StudyScopeShortcuts compact />
+      </Suspense>
+
+      <Link
+        to={langPath("practice/flashcards")}
+        className="mt-2 inline-flex items-center gap-1 text-[0.7rem] font-medium text-text-muted transition hover:text-accent"
+      >
+        {t("learn.flashcardsManageDecks", { defaultValue: "Manage decks" })}
+        <Icon name="chevronRight" size={12} aria-hidden />
+      </Link>
     </>
   );
 }

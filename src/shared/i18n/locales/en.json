@@ -185,10 +185,25 @@
     "lessonsBelow": "lessons below",
     "showAllLessons": "Show all {{count}} lessons",
     "showLess": "Show less",
-    "flashcardsReviewStripTitle": "Spaced repetition",
+    "flashcardsReviewStripTitle": "Review your decks",
     "flashcardsAllCaughtUp": "All caught up!",
     "flashcardsZeroDue": "0 cards due today",
+    "flashcardsChecking": "Checking your decks…",
+    "flashcardsDueCount": "{{count}} cards due — pick a deck to review",
+    "flashcardsManageDecks": "Manage decks",
     "flashcardsLessonDecksButton": "Study lesson deck cards",
+    "group": {
+      "completed": "Completed",
+      "inProgress": "In progress",
+      "upcoming": "Upcoming"
+    },
+    "upNext": {
+      "label": "Up next",
+      "startHere": "Start here",
+      "resume": "Resume",
+      "start": "Start",
+      "moduleProgress": "{{done}}/{{total}} lessons in this module"
+    },
     "pathHint": "Tap a module to expand. The pulsing node is what we suggest — you choose.",
     "pickLanguage": "Select a learning language in Settings to see your course path.",
     "resumeLesson": "Resume {{title}}",
@@ -251,6 +266,10 @@
         "checking": "Checking your reviews…",
         "dueTitle": "{{count}} cards due",
         "dueSub": "Lock in what you've learned.",
+        "cardsDueLine": "Flashcards due",
+        "moduleReviewsLine": "Module reviews",
+        "weakPointsLine": "Weak points",
+        "soon": "Soon",
         "reviewCta": "Review due cards",
         "practiceCta": "Practice"
       }

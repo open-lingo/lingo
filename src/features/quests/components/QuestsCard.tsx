@@ -4,6 +4,7 @@ import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import type { SideQuest } from "@/shared/domain/course";
 import { useQuests } from "../useQuests";
+import { questIcon } from "../questIcon";
 import { useQuestsModalUrl } from "../useQuestsModalUrl";
 import { QuestsPanel } from "./QuestsPanel";
 import { QuestProgressBar } from "./QuestProgressBar";
@@ -189,10 +190,10 @@ function BucketSpotlight({
       </p>
       <div className="flex items-start gap-3">
         <div
-          className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-surface-muted text-xl"
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-surface-muted text-text-secondary"
           aria-hidden
         >
-          {quest.emoji}
+          <Icon name={questIcon(quest)} size={20} />
         </div>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold text-text-primary">
