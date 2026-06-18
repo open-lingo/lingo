@@ -258,7 +258,7 @@ export function MyContentTab() {
           {t("common.loading")}
         </p>
       ) : filteredItems.length === 0 ? (
-        <div className="rounded-xl border-2 border-dashed border-border py-6 text-center">
+        <div className="rounded-card border-2 border-dashed border-border py-6 text-center">
           <p className="text-text-muted">
             {t("community.studioNoContent")}
           </p>
@@ -291,7 +291,7 @@ export function MyContentTab() {
             return (
               <li
                 key={`${item.kind}-${item.id}`}
-                className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-3 rounded-card border border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className="flex min-w-0 flex-1 items-start gap-4">
                   {coverUrl ? (

@@ -115,7 +115,7 @@ function RailCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-border bg-surface p-4">
+    <div className="rounded-card border border-border bg-surface p-4">
       <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-text-muted">
         {heading}
       </p>

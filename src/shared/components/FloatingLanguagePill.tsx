@@ -35,7 +35,7 @@ export function FloatingLanguagePill({ className = "" }: { className?: string })
     >
       {open && (
         <ul
-          className="absolute bottom-full left-0 mb-2 max-h-72 w-56 overflow-auto rounded-xl border border-border bg-surface py-1 shadow-popover"
+          className="absolute bottom-full left-0 mb-2 max-h-72 w-56 overflow-auto rounded-card border border-border bg-surface py-1 shadow-popover"
           role="listbox"
         >
           {languages.map((lang) => (

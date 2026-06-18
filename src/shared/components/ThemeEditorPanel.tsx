@@ -258,7 +258,7 @@ export function ThemeEditorPanel() {
         aria-hidden
       />
       <aside
-        className="fixed right-4 top-4 bottom-14 z-50 flex w-full max-w-sm flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-2xl"
+        className="fixed right-4 top-4 bottom-14 z-50 flex w-full max-w-sm flex-col overflow-hidden rounded-card border border-border bg-surface shadow-2xl"
         role="dialog"
         aria-modal="true"
         aria-label={t("settings.themeEditor", "Theme editor")}

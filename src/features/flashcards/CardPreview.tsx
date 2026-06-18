@@ -138,7 +138,7 @@ export function CardPreview({
     <button
       type="button"
       onClick={() => setFlipped((f) => !f)}
-      className={`flex w-full flex-col items-center justify-center rounded-xl border-2 border-border bg-surface py-8 shadow-sm transition hover:border-accent ${
+      className={`flex w-full flex-col items-center justify-center rounded-card border-2 border-border bg-surface py-8 shadow-sm transition hover:border-accent ${
         compact ? "min-h-[120px] py-4" : "min-h-[180px]"
       }`}
     >

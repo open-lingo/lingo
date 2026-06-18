@@ -47,7 +47,7 @@ export function StudyOptionsEditor({ decks }: { decks: ManagedDeck[] }) {
   const reviewBase = langPath("practice/flashcards/review");
 
   return (
-    <section className="rounded-xl border border-border bg-surface-muted/50 p-4">
+    <section className="rounded-card border border-border bg-surface-muted/50 p-4">
       <h2 className="mb-1 text-lg font-semibold text-text-primary">
         {t("flashcards.studyOptions.title", "Study options")}
       </h2>

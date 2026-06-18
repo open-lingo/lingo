@@ -56,7 +56,7 @@ export function LeaderboardCard() {
           ))}
         </ul>
       ) : visible.length === 0 ? (
-        <div className="mt-3 flex flex-1 flex-col items-center justify-center rounded-xl border border-dashed border-border bg-surface-muted p-4 text-center">
+        <div className="mt-3 flex flex-1 flex-col items-center justify-center rounded-card border border-dashed border-border bg-surface-muted p-4 text-center">
           <p className="text-sm font-medium text-text-primary">
             {t("home.restructured.leaderboard.emptyTitle", { defaultValue: "No friends yet" })}
           </p>

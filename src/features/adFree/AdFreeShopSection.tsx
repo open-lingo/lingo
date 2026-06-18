@@ -82,7 +82,7 @@ export function AdFreeShopSection({ lingots, statsReady }: Props) {
       </p>
 
       <div
-        className="mb-3 rounded-xl border border-border bg-surface-muted px-3 py-2 text-sm"
+        className="mb-3 rounded-card border border-border bg-surface-muted px-3 py-2 text-sm"
         role="status"
         aria-live="polite"
       >

@@ -27,7 +27,7 @@ type NavCardButton = NavCardBase & {
 type NavCardProps = NavCardLink | NavCardButton;
 
 const heroBase =
-  "group relative flex flex-col gap-2 rounded-xl border p-5 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent";
+  "group relative flex flex-col gap-2 rounded-card border p-5 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent";
 
 const pillBase =
   "group relative inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent";

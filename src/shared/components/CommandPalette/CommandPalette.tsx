@@ -122,7 +122,7 @@ export function CommandPalette() {
           role="dialog"
           aria-modal="true"
           aria-label={t("cmd.title", "Command palette")}
-          className="w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-surface shadow-popover animate-fade-up"
+          className="w-full max-w-xl overflow-hidden rounded-card border border-border bg-surface shadow-popover animate-fade-up"
         >
           {/* Search row */}
           <div className="flex items-center gap-2 border-b border-border px-4">

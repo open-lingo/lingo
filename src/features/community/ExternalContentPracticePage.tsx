@@ -38,7 +38,7 @@ function PracticeCard({
 
   return (
     <div
-      className={`flex flex-col gap-3 rounded-xl border p-4 transition ${
+      className={`flex flex-col gap-3 rounded-card border p-4 transition ${
         isDone
           ? "border-green-200 bg-green-50/50"
           : "border-border bg-surface"
@@ -175,7 +175,7 @@ export function ExternalContentPracticePage() {
       </div>
 
       {subscribedItems.length === 0 ? (
-        <div className="rounded-xl border border-border bg-surface-muted p-8 text-center">
+        <div className="rounded-card border border-border bg-surface-muted p-8 text-center">
           <p className="text-text-muted">
             {t("externalContent.practice.noSubscriptions")}
           </p>

@@ -93,7 +93,7 @@ export default function TravelSprintPage() {
               onClick={() =>
                 navigate(langPath(`learn/lessons/${lesson.lessonId}`))
               }
-              className={`w-full rounded-2xl border-2 px-5 py-4 text-left transition-colors ${
+              className={`w-full rounded-card border-2 px-5 py-4 text-left transition-colors ${
                 done
                   ? "border-accent/40 bg-accent-muted/40"
                   : "border-border bg-surface hover:border-accent"

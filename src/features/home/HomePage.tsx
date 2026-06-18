@@ -101,7 +101,7 @@ export function HomePage() {
         <Skeleton shape="text" width="w-56" height="h-8" />
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="rounded-xl border border-border bg-surface p-5">
+            <div key={i} className="rounded-card border border-border bg-surface p-5">
               <Skeleton shape="circle" width="w-10" height="h-10" />
               <Skeleton shape="text" width="w-32" height="h-5" className="mt-3" />
               <Skeleton shape="text" lines={2} className="mt-2" />

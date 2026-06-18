@@ -203,7 +203,7 @@ export function CardManagerPage() {
             <Icon name="arrowBigLeft" size={16} className="mr-1 inline" /> {t("flashcards.backToHub")}
           </Link>
         </div>
-        <div className="rounded-xl border border-border bg-surface-muted p-12 text-center">
+        <div className="rounded-card border border-border bg-surface-muted p-12 text-center">
           <p className="text-text-secondary">
             {t("flashcards.cardManager.noCards", "No cards to manage. Subscribe to a deck to get started.")}
           </p>

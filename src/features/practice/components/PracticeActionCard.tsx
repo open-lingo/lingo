@@ -29,7 +29,7 @@ export function PracticeActionCard({
     <Link
       to={to}
       className={cn(
-        "group flex min-w-0 flex-col gap-2 rounded-xl border p-3.5 transition sm:p-4",
+        "group flex min-w-0 flex-col gap-2 rounded-card border p-3.5 transition sm:p-4",
         isAccent
           ? "border-accent bg-accent-muted hover:border-accent hover:bg-accent hover:text-accent-foreground"
           : "border-border bg-surface hover:border-accent hover:bg-surface-muted",

@@ -120,7 +120,7 @@ export function StoryDetailPage() {
         </Link>
       </div>
 
-      <article className="rounded-xl border border-border bg-surface p-6">
+      <article className="rounded-card border border-border bg-surface p-6">
         <header className="mb-4">
           <h1 className="text-2xl font-bold text-text-primary">
             {story.title}

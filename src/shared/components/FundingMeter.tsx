@@ -96,7 +96,7 @@ export function FundingMeter() {
           <Icon name="chevronLeft" size={14} aria-hidden />
         </button>
       ) : (
-        <div className="pointer-events-auto w-72 max-w-[calc(100vw-1.5rem)] origin-top-right animate-[funding-slide-in_220ms_ease-out] rounded-xl border border-border bg-surface p-4 shadow-popover">
+        <div className="pointer-events-auto w-72 max-w-[calc(100vw-1.5rem)] origin-top-right animate-[funding-slide-in_220ms_ease-out] rounded-card border border-border bg-surface p-4 shadow-popover">
           <div className="flex items-start justify-between gap-2">
             <h2 className="text-sm font-semibold text-text-primary">
               {t("funding.panelTitle", "How Open Lingo stays free")}

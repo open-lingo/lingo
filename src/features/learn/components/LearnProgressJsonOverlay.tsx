@@ -30,7 +30,7 @@ export function LearnProgressJsonOverlay({ onClose }: { onClose: () => void }) {
 
   return (
     <ModalBackdrop onClose={onClose} ariaLabelledBy="progress-json-title">
-      <div className="max-h-[85vh] w-full max-w-2xl overflow-hidden rounded-2xl border border-border bg-surface shadow-popover">
+      <div className="max-h-[85vh] w-full max-w-2xl overflow-hidden rounded-card border border-border bg-surface shadow-popover">
         <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
           <h2
             id="progress-json-title"

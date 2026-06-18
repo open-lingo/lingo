@@ -56,7 +56,7 @@ export function DataTable<T>({
 
   return (
     <div
-      className={`overflow-x-auto rounded-lg border border-border ${className}`}
+      className={`overflow-x-auto rounded-card border border-border ${className}`}
     >
       {rows.length === 0 ? (
         <div className="px-4 py-8 text-center text-sm text-text-muted">

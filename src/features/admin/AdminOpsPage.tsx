@@ -65,7 +65,7 @@ export function AdminOpsPage() {
 function SettingsPlaceholder() {
   const { t } = useTranslation();
   return (
-    <div className="rounded-xl border border-dashed border-border bg-surface p-10 text-center">
+    <div className="rounded-card border border-dashed border-border bg-surface p-10 text-center">
       <p className="text-sm font-medium text-text-primary">
         {t("admin.ops.settingsTitle", "Settings — coming soon")}
       </p>
