@@ -52,6 +52,11 @@ export type FacetSidebarProps = {
   searchWithinPlaceholder?: string;
   onlyLabel?: string;
   className?: string;
+  /**
+   * Compact density — tighter padding + smaller option rows so the sidebar
+   * takes far less vertical/horizontal space. Use on dense browse surfaces.
+   */
+  compact?: boolean;
 };
 
 // Lower threshold than the previous 8 — most facets are ≤10 options and the
@@ -112,7 +117,14 @@ export function FacetSidebar({
   searchWithinPlaceholder = "filter…",
   onlyLabel = "Only",
   className,
+  compact = false,
 }: FacetSidebarProps) {
+  // Density tokens — `compact` shrinks every gutter + row so the finding aid
+  // reads as a tight index rather than a roomy SaaS panel.
+  const headerPad = compact ? "px-3 pb-2 pt-2.5" : "px-5 pb-3 pt-4";
+  const searchPad = compact ? "px-3 py-2" : "px-5 py-4";
+  const sectionPad = compact ? "px-3 py-2" : "px-5 py-3.5";
+  const optionRow = compact ? "py-0.5 pl-2.5 pr-1.5" : "py-1.5 pl-3 pr-2";
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>(() => {
     const out: Record<string, boolean> = {};
     facets.forEach((f, i) => {
@@ -131,13 +143,13 @@ export function FacetSidebar({
   return (
     <aside
       className={cn(
-        "w-full shrink-0 rounded-2xl border border-border bg-surface lg:w-72 lg:sticky lg:top-4 lg:self-start",
+        "w-full shrink-0 rounded-card border border-border bg-surface lg:w-72 lg:sticky lg:top-4 lg:self-start",
         // Subtle inner edge for depth without a heavy shadow.
         "shadow-[inset_0_1px_0_0_rgb(255_255_255/0.04)]",
         className,
       )}
     >
-      <header className="flex items-baseline justify-between border-b border-border/70 px-5 pb-3 pt-4">
+      <header className={cn("flex items-baseline justify-between border-b border-border/70", headerPad)}>
         <div className="flex items-baseline gap-2">
           <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-text-muted">
             Refine
@@ -160,7 +172,7 @@ export function FacetSidebar({
       </header>
 
       {onSearchChange && (
-        <div className="border-b border-border/70 px-5 py-4">
+        <div className={cn("border-b border-border/70", searchPad)}>
           <label htmlFor="facet-search" className="sr-only">
             {searchPlaceholder ?? "Search"}
           </label>
@@ -193,7 +205,7 @@ export function FacetSidebar({
           const hasSelection = selected.length > 0;
 
           return (
-            <section key={facet.id} className="px-5 py-3.5">
+            <section key={facet.id} className={sectionPad}>
               <div className="flex items-center justify-between gap-2">
                 <button
                   type="button"
@@ -233,7 +245,7 @@ export function FacetSidebar({
               </div>
 
               {!isCollapsed && (
-                <div className="mt-3 space-y-1">
+                <div className={cn(compact ? "mt-1.5" : "mt-3", "space-y-1")}>
                   {showWithinSearch && (
                     <input
                       type="search"
@@ -255,7 +267,9 @@ export function FacetSidebar({
                         <li key={opt.value}>
                           <label
                             className={cn(
-                              "group/option relative flex cursor-pointer items-center gap-2.5 rounded-md py-1.5 pl-3 pr-2 text-sm transition-colors",
+                              "group/option relative flex cursor-pointer items-center rounded-md text-sm transition-colors",
+                              compact ? "gap-2" : "gap-2.5",
+                              optionRow,
                               "hover:bg-accent/[0.04]",
                               isChecked && "text-accent",
                             )}

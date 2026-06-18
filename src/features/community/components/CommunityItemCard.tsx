@@ -34,6 +34,14 @@ export type CommunityItemCardItem = {
   image?: string | null;
   deckId?: string;
   storyId?: string;
+  /**
+   * A few sample entries (deck card fronts, or a story excerpt) surfaced on
+   * hover so the card is skimmable before opening the full preview modal.
+   * Loaded up-front with the list — no extra fetch on hover.
+   */
+  previewSamples?: string[];
+  /** Relative "updated N ago" string shown in the hover preview. */
+  updatedLabel?: string;
 };
 
 export type CommunityItemCardProps = {
@@ -84,6 +92,9 @@ export function CommunityItemCard({
   const isDeck = item.kind === "flashcard-pack";
   const isStory = item.kind === "story" || !!storyId;
   const showSubscribe = (deckId || storyId || canSubscribe) && isSubscribed !== undefined;
+  // Unified preview opener — deck preview or story preview, whichever applies.
+  const openPreview = isDeck ? onPreview : isStory ? onStoryPreview : undefined;
+  const samples = item.previewSamples?.filter(Boolean) ?? [];
 
   if (variant === "minimal") {
     return (
@@ -185,10 +196,22 @@ export function CommunityItemCard({
           )}
         </div>
 
-        {/* Title — bold sans, 2 lines max. Body font for app-wide consistency. */}
-        <h3 className="text-[17px] font-semibold leading-snug text-text-primary line-clamp-2 transition-colors group-hover/card:text-accent">
-          {item.name}
-        </h3>
+        {/* Title — bold sans, 2 lines max. Body font for app-wide consistency.
+            When a preview handler exists, the title is a button that opens the
+            full modal (the hover preview teases it). */}
+        {openPreview ? (
+          <button
+            type="button"
+            onClick={openPreview}
+            className="text-left text-[17px] font-semibold leading-snug text-text-primary line-clamp-2 transition-colors hover:text-accent group-hover/card:text-accent focus:outline-none focus-visible:underline"
+          >
+            {item.name}
+          </button>
+        ) : (
+          <h3 className="text-[17px] font-semibold leading-snug text-text-primary line-clamp-2 transition-colors group-hover/card:text-accent">
+            {item.name}
+          </h3>
+        )}
 
         {/* Description — 2 lines max, takes available vertical space so the
             footer stays bottom-aligned across cards of varying length */}
@@ -197,6 +220,44 @@ export function CommunityItemCard({
             <span className="italic text-text-muted">No description yet.</span>
           )}
         </p>
+
+        {/* Hover preview — richer skim strip revealed on hover. Sample entries
+            are loaded up-front with the list (no fetch on hover). Clicking
+            anywhere on it opens the full preview modal. */}
+        {(samples.length > 0 || item.updatedLabel) && (
+          <div
+            className={cn(
+              "overflow-hidden text-[12px] text-text-secondary transition-all duration-200",
+              "max-h-0 opacity-0 group-hover/card:max-h-32 group-hover/card:opacity-100",
+            )}
+          >
+            <div className="rounded-md border border-border/60 bg-surface-muted/60 px-2.5 py-2">
+              {samples.length > 0 && (
+                <button
+                  type="button"
+                  onClick={openPreview}
+                  className="flex w-full flex-wrap gap-1.5 text-left"
+                  aria-label={t("community.contentBrowserPreview")}
+                >
+                  {samples.slice(0, 4).map((s, i) => (
+                    <span
+                      key={i}
+                      className="inline-flex max-w-[10rem] truncate rounded bg-surface px-1.5 py-0.5 text-text-secondary"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </button>
+              )}
+              {item.updatedLabel && (
+                <p className="mt-1.5 flex items-center gap-1 text-[11px] text-text-muted">
+                  <Icon name="clock" size={11} aria-hidden />
+                  {item.updatedLabel}
+                </p>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Footer: maintainer (left) + counts + actions (right) */}
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-3 text-xs">

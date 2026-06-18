@@ -1339,6 +1339,7 @@
     "contentBrowserResultsLabel": "Results",
     "contentBrowserFacetType": "Type",
     "contentBrowserFacetLanguage": "Language",
+    "contentBrowserFloatingFilters": "Filters",
     "contentBrowserClearAll": "Clear all",
     "communityPackBadge": "Community deck",
     "companionDeckFor": "Companion deck for:",

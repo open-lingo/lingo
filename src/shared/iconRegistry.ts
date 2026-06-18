@@ -89,6 +89,7 @@ import {
   Settings,
   Shield,
   ShieldCheck,
+  SlidersHorizontal,
   SkipForward,
   Smartphone,
   Square,
@@ -243,6 +244,8 @@ export const iconRegistry = {
   zap: Zap,
   /** Clock — time / duration (e.g. ad-free 30m window) */
   clock: Clock,
+  /** SlidersHorizontal — filters / refine affordance */
+  slidersHorizontal: SlidersHorizontal,
   // Placeholder – replace with correct icon if needed
   placeholder: Square,
 } as const satisfies Record<string, LucideIcon>;
