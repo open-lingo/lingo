@@ -1569,7 +1569,19 @@
     "libraryBackToDiscover": "Back to discover",
     "libraryTabsLabel": "Library views",
     "contributorContent": "Content",
-    "contributorSortContent": "Most content"
+    "contributorSortContent": "Most content",
+    "contributorUpvotesCol": "Upvotes",
+    "contributorSortUpvotes": "Most upvotes",
+    "contributorMoreAria": "More actions for {{name}}",
+    "contributorSeeDecks": "See their decks",
+    "contributorMessage": "Message",
+    "contributorSearchPlaceholder": "Search contributors…",
+    "contributorSearchAria": "Search contributors",
+    "contributorsNoMatchTitle": "No contributors match",
+    "contributorsNoMatchDescription": "Try a different name or @username.",
+    "contributorView": "View profile",
+    "contributorThreads": "Threads",
+    "contributorName": "Contributor"
   },
   "externalContent": {
     "title": "External Content",
@@ -1769,7 +1781,15 @@
     "avatarModalUploadSection": "Upload from your device",
     "avatarModalUploadDesc": "Custom uploads aren't supported yet — coming soon.",
     "avatarModalUploadComingSoon": "Coming soon",
-    "avatarModalUploadDisabledTitle": "Coming soon — we'll support custom uploads once storage is cheaper"
+    "avatarModalUploadDisabledTitle": "Coming soon — we'll support custom uploads once storage is cheaper",
+    "publicQuickChat": "Quick chat",
+    "publicActAsUser": "Act as user",
+    "publicAdminActions": "Admin",
+    "publicTotalUpvotes": "Total upvotes",
+    "publicAuthoredColName": "Deck",
+    "publicAuthoredColLanguage": "Language",
+    "publicAuthoredColUpvotes": "Upvotes",
+    "publicAuthoredEmpty": "No published decks yet."
   },
   "admin": {
     "title": "Admin",
@@ -2309,6 +2329,13 @@
       "respond": "Respond",
       "blocked": "Blocked",
       "xpWk": "XP/wk"
+    },
+    "friendsPage": {
+      "statFriends": "Friends",
+      "statActive": "Active now",
+      "statTopStreak": "Top streak",
+      "statTotalXp": "Combined XP",
+      "menuView": "View profile"
     }
   },
   "ftue": {

@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { EmptyState } from "@/shared/components/ui/EmptyState";
+import { OverflowMenu } from "@/shared/components/ui/OverflowMenu";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { cn } from "@/shared/components/ui/cn";
@@ -88,6 +89,16 @@ export function FriendsPage() {
     (requests.data?.incoming.length ?? 0) + (requests.data?.outgoing.length ?? 0);
   const blockedCount = blocks.data?.length ?? 0;
 
+  // Richer header: derive a few at-a-glance stats from the friend list. All
+  // real data already on the wire (no extra fetch).
+  const overview = useMemo(() => {
+    const list = friends.data ?? [];
+    const activeNow = list.filter((f) => f.status === "active").length;
+    const topStreak = list.reduce((m, f) => Math.max(m, f.streakDays), 0);
+    const totalXp = list.reduce((sum, f) => sum + f.totalXp, 0);
+    return { activeNow, topStreak, totalXp };
+  }, [friends.data]);
+
   return (
     <div className="space-y-4">
       {/* Back link — sub-route, primary egress is the social page above. */}
@@ -127,8 +138,34 @@ export function FriendsPage() {
         </Link>
       </header>
 
+      {friendsCount > 0 ? (
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <OverviewStat
+            icon="users"
+            label={t("social.friendsPage.statFriends", "Friends")}
+            value={friendsCount.toLocaleString()}
+          />
+          <OverviewStat
+            icon="circle"
+            label={t("social.friendsPage.statActive", "Active now")}
+            value={overview.activeNow.toLocaleString()}
+            accent={overview.activeNow > 0}
+          />
+          <OverviewStat
+            icon="flame"
+            label={t("social.friendsPage.statTopStreak", "Top streak")}
+            value={overview.topStreak.toLocaleString()}
+          />
+          <OverviewStat
+            icon="sparkles"
+            label={t("social.friendsPage.statTotalXp", "Combined XP")}
+            value={overview.totalXp.toLocaleString()}
+          />
+        </div>
+      ) : null}
+
       <nav
-        className="flex gap-1 rounded-xl border border-border bg-surface p-1"
+        className="flex gap-1 rounded-card border border-border bg-surface p-1"
         role="tablist"
         aria-label={t("social.friendsPage.tabsAria", "Friend-management sections")}
       >
@@ -163,6 +200,37 @@ export function FriendsPage() {
 }
 
 export default FriendsPage;
+
+function OverviewStat({
+  icon,
+  label,
+  value,
+  accent,
+}: {
+  icon: "users" | "circle" | "flame" | "sparkles";
+  label: string;
+  value: string;
+  accent?: boolean;
+}) {
+  return (
+    <div className="rounded-card border border-border bg-surface px-3 py-2.5">
+      <div className="flex items-center gap-1.5 text-text-muted">
+        <Icon name={icon} size={13} aria-hidden />
+        <span className="text-[11px] font-semibold uppercase tracking-wide">
+          {label}
+        </span>
+      </div>
+      <p
+        className={cn(
+          "mt-1 text-xl font-bold tabular-nums",
+          accent ? "text-accent" : "text-text-primary",
+        )}
+      >
+        {value}
+      </p>
+    </div>
+  );
+}
 
 function TabButton({
   tab,
@@ -358,8 +426,8 @@ function AllFriendsTab() {
 
 function FriendRow({ user }: { user: SocialUser }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const langPath = useLangPath();
-  const [menuOpen, setMenuOpen] = useState(false);
   const [confirm, setConfirm] = useState<null | "unfriend" | "block">(null);
   const unfriend = useUnfriend();
   const block = useBlockUser();
@@ -429,58 +497,39 @@ function FriendRow({ user }: { user: SocialUser }) {
       >
         <Icon name="messageCircle" size={15} aria-hidden />
       </Link>
-      <div className="relative">
-        <button
-          type="button"
-          onClick={() => setMenuOpen((o) => !o)}
-          aria-haspopup="menu"
-          aria-expanded={menuOpen}
-          aria-label={t("social.friendsPage.moreAria", "More actions for {{name}}", {
-            name: user.name,
-          })}
-          className="flex h-8 w-8 items-center justify-center rounded-md text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
-        >
-          <Icon name="moreHorizontal" size={15} aria-hidden />
-        </button>
-        {menuOpen ? (
-          <div
-            role="menu"
-            className="absolute right-0 top-full z-20 mt-1 w-44 rounded-md border border-border bg-surface py-1 shadow-popover"
-            onMouseLeave={() => setMenuOpen(false)}
-          >
-            <Link
-              to={langPath(`messenger/${user.id}`)}
-              role="menuitem"
-              className="block px-3 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
-              onClick={() => setMenuOpen(false)}
-            >
-              {t("social.friendsPage.menuMessage", "Message")}
-            </Link>
-            <button
-              role="menuitem"
-              type="button"
-              className="block w-full px-3 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
-              onClick={() => {
-                setMenuOpen(false);
-                setConfirm("unfriend");
-              }}
-            >
-              {t("social.friendsPage.unfriend", "Unfriend")}
-            </button>
-            <button
-              role="menuitem"
-              type="button"
-              className="block w-full px-3 py-2 text-left text-sm text-error hover:bg-error/10"
-              onClick={() => {
-                setMenuOpen(false);
-                setConfirm("block");
-              }}
-            >
-              {t("social.friendsPage.block", "Block")}
-            </button>
-          </div>
-        ) : null}
-      </div>
+      <OverflowMenu
+        orientation="horizontal"
+        ariaLabel={t("social.friendsPage.moreAria", "More actions for {{name}}", {
+          name: user.name,
+        })}
+        items={[
+          {
+            key: "message",
+            label: t("social.friendsPage.menuMessage", "Message"),
+            leading: <Icon name="messageCircle" size={14} aria-hidden />,
+            onSelect: () => navigate(langPath(`messenger/${user.id}`)),
+          },
+          {
+            key: "view",
+            label: t("social.friendsPage.menuView", "View profile"),
+            leading: <Icon name="user" size={14} aria-hidden />,
+            onSelect: () => navigate(`/u/${userSlug(user)}`),
+          },
+          {
+            key: "unfriend",
+            label: t("social.friendsPage.unfriend", "Unfriend"),
+            leading: <Icon name="userMinus" size={14} aria-hidden />,
+            onSelect: () => setConfirm("unfriend"),
+          },
+          {
+            key: "block",
+            label: t("social.friendsPage.block", "Block"),
+            leading: <Icon name="shield" size={14} aria-hidden />,
+            danger: true,
+            onSelect: () => setConfirm("block"),
+          },
+        ]}
+      />
       {confirm === "unfriend" ? (
         <ConfirmModal
           title={t("social.friendsPage.unfriendConfirmTitle", "Unfriend {{name}}?", {
