@@ -26,6 +26,7 @@ import { findInProgressLessonId } from "@/features/lesson/data/lessonProgress";
 import type { NextLessonInfo } from "./types";
 import { HeroContinue } from "./HeroContinue";
 import { TodaysPlan } from "./TodaysPlan";
+import { MemoryStrengthTile } from "./MemoryStrengthTile";
 import { QuestsTile } from "./QuestsTile";
 import { FlashcardsTile } from "./FlashcardsTile";
 import { LeaderboardCard } from "./LeaderboardCard";
@@ -138,14 +139,19 @@ export function RestructuredHome({ greetingName }: Props) {
 
       {/* Row 2 — the motivation core. Single column on mobile; at lg+ it's a
           12-col stretch grid so every cell shares the tallest column's height
-          and the band fills the viewport instead of leaving a thin strip:
-            · Today's Plan   (4 cols)
-            · Quests/Goals   (4 cols)
-            · Right rail     (4 cols) — Flashcards stacked over Leaderboard,
-              the leaderboard flexing to absorb the remaining height. */}
+          and the band fills the viewport instead of leaving a thin strip.
+          Symmetric stacked rails flank the tall Quests centre:
+            · Left rail  (4 cols) — Today's Plan (now a half-card) stacked over
+              Memory Strength, which flexes to absorb the remaining height.
+            · Quests/Goals (4 cols) — the tall centre column.
+            · Right rail (4 cols) — Flashcards stacked over Leaderboard, the
+              leaderboard flexing to absorb the remaining height. */}
       <div className="grid items-stretch gap-4 lg:grid-cols-12">
-        <div className="lg:col-span-4">
+        <div className="flex flex-col gap-4 lg:col-span-4">
           <TodaysPlan />
+          <div className="flex-1">
+            <MemoryStrengthTile />
+          </div>
         </div>
         <div className="lg:col-span-4">
           <QuestsTile />

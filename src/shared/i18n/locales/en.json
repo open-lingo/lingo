@@ -760,8 +760,22 @@
         "headline": "Build your momentum",
         "count": "{{done}}/{{total}} done",
         "empty": "No quests right now — check back tomorrow.",
+        "allDoneNote": "Daily plan complete — nice work.",
         "cta": "Knock one out",
         "allDoneCta": "All done — keep practising"
+      },
+      "memory": {
+        "kicker": "Memory",
+        "headline": "Knowledge strength",
+        "masteredPct": "{{pct}}% mastered",
+        "empty": "Review a few cards and your memory strength shows up here.",
+        "masteryAria": "{{mastered}} of {{started}} started cards mastered",
+        "mastered": "{{n}} mastered",
+        "learning": "{{n}} learning",
+        "reviewsLabel": "Reviews this week",
+        "activeDays": "{{days}}/7 days",
+        "sparklineAria": "Reviews per day this week",
+        "cta": "Train your memory"
       },
       "flashcards": {
         "duePill": "Due",

@@ -8,9 +8,11 @@ import { useQuests } from "@/features/quests/useQuests";
 import { isQuestDone, summarizeDailyPlan } from "./planHelpers";
 
 /**
- * Today's Plan — the momentum checklist. Reads real daily quests from the
- * server-authoritative quest engine. Answers "what should I do today?" and
- * creates a small completion loop ("2/3 done").
+ * Today's Plan — the momentum checklist, compacted into a half-card to match
+ * its bento neighbours. Reads real daily quests from the server-authoritative
+ * quest engine and answers "what should I do today?" via a slim progress
+ * meter + a single spotlight quest (the next one to knock out), instead of the
+ * old full three-row checklist.
  */
 export function TodaysPlan() {
   const { t } = useTranslation();
@@ -21,6 +23,12 @@ export function TodaysPlan() {
     () => summarizeDailyPlan(quests, 3),
     [quests],
   );
+  const total = daily.length || 3;
+  // Spotlight the next un-done quest — the one tap that moves the needle.
+  const spotlight = useMemo(
+    () => daily.find((q) => !isQuestDone(q)) ?? null,
+    [daily],
+  );
 
   return (
     <Card padding="md" className="flex h-full flex-col">
@@ -29,87 +37,77 @@ export function TodaysPlan() {
           <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
             {t("home.restructured.plan.kicker", { defaultValue: "Today's plan" })}
           </p>
-          <h2 className="mt-0.5 text-base font-semibold text-text-primary sm:text-lg">
+          <h2 className="mt-0.5 flex items-center gap-1.5 text-base font-semibold text-text-primary sm:text-lg">
+            <Icon name="target" size={18} className="text-accent" aria-hidden />
             {t("home.restructured.plan.headline", { defaultValue: "Build your momentum" })}
           </h2>
         </div>
         <span
-          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold ${
+          className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold ${
             allDone ? "bg-success/15 text-success" : "bg-accent-muted text-accent"
           }`}
         >
-          {allDone ? (
-            <Icon name="checkCircle" size={14} aria-hidden />
-          ) : (
-            <Icon name="target" size={14} aria-hidden />
-          )}
+          {allDone ? <Icon name="checkCircle" size={14} aria-hidden /> : null}
           {t("home.restructured.plan.count", {
             defaultValue: "{{done}}/{{total}} done",
             done: doneCount,
-            total: daily.length || 3,
+            total,
           })}
         </span>
       </div>
 
+      {/* Slim segmented meter — one tick per daily quest, filled as they
+          complete. Replaces the tall three-row checklist. */}
+      <div className="mt-3 flex items-center gap-1.5" aria-hidden>
+        {Array.from({ length: total }).map((_, i) => (
+          <span
+            key={i}
+            className={`h-1.5 flex-1 rounded-full ${
+              i < doneCount ? "bg-success" : "bg-border"
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* A smidgen of detail: the next quest to knock out (or an all-done
+          note), with its live progress. */}
       {isLoading ? (
-        <ul className="mt-4 space-y-2.5" aria-hidden>
-          {[0, 1, 2].map((i) => (
-            <li key={i} className="flex animate-pulse items-center gap-3">
-              <div className="h-5 w-5 rounded-full bg-border" />
-              <div className="h-3.5 flex-1 rounded bg-border" />
-              <div className="h-4 w-10 rounded-full bg-border" />
-            </li>
-          ))}
-        </ul>
+        <div className="mt-3 h-9 animate-pulse rounded-lg bg-border" aria-hidden />
       ) : daily.length === 0 ? (
-        <p className="mt-4 text-sm text-text-muted">
+        <p className="mt-3 text-sm text-text-muted">
           {t("home.restructured.plan.empty", {
             defaultValue: "No quests right now — check back tomorrow.",
           })}
         </p>
+      ) : spotlight ? (
+        <div className="mt-3 flex items-center gap-2.5">
+          <Icon name="circle" size={18} className="shrink-0 text-text-muted" aria-hidden />
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-medium text-text-primary">
+              {t(spotlight.title, { defaultValue: spotlight.title })}
+            </p>
+            <p className="text-xs text-text-muted">
+              {spotlight.progress.current}/{spotlight.progress.target} {spotlight.progress.unit}
+            </p>
+          </div>
+          {spotlight.rewards.xp ? (
+            <span className="shrink-0 rounded-full bg-accent-muted px-2 py-0.5 text-[11px] font-bold text-accent">
+              +{spotlight.rewards.xp} XP
+            </span>
+          ) : null}
+        </div>
       ) : (
-        <ul className="mt-3 space-y-1">
-          {daily.map((q) => {
-            const done = isQuestDone(q);
-            return (
-              <li
-                key={q.id}
-                className="flex items-center gap-3 rounded-lg px-1.5 py-1.5"
-              >
-                <Icon
-                  name={done ? "checkCircle" : "circle"}
-                  size={20}
-                  className={done ? "shrink-0 text-success" : "shrink-0 text-text-muted"}
-                  aria-hidden
-                />
-                <div className="min-w-0 flex-1">
-                  <p
-                    className={`truncate text-sm font-medium ${
-                      done ? "text-text-muted line-through" : "text-text-primary"
-                    }`}
-                  >
-                    {t(q.title, { defaultValue: q.title })}
-                  </p>
-                  {!done ? (
-                    <p className="text-xs text-text-muted">
-                      {q.progress.current}/{q.progress.target} {q.progress.unit}
-                    </p>
-                  ) : null}
-                </div>
-                {q.rewards.xp ? (
-                  <span className="shrink-0 rounded-full bg-accent-muted px-2 py-0.5 text-[11px] font-bold text-accent">
-                    +{q.rewards.xp} XP
-                  </span>
-                ) : null}
-              </li>
-            );
+        <p className="mt-3 flex items-center gap-1.5 text-sm font-medium text-success">
+          <Icon name="checkCircle" size={16} aria-hidden />
+          {t("home.restructured.plan.allDoneNote", {
+            defaultValue: "Daily plan complete — nice work.",
           })}
-        </ul>
+        </p>
       )}
 
       <Link
         to={langPath("learn")}
-        className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-1.5 pt-1.5 text-sm font-medium text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
+        className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
       >
         {allDone
           ? t("home.restructured.plan.allDoneCta", { defaultValue: "All done — keep practising" })
