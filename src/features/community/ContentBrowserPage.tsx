@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, useCallback } from "react";
+import { useMemo, useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
@@ -15,10 +15,9 @@ import {
 } from "./components/CommunityContentTable";
 import { CommunityItemCard } from "./components/CommunityItemCard";
 import { Icon } from "@/shared/components/Icon";
-import {
-  CommunitySelectedChips,
-  type ChipDescriptor,
-} from "./components/CommunitySelectedChips";
+import type { ChipDescriptor } from "./components/CommunitySelectedChips";
+import { BrowseSearchBar, type BrowseTypeOption } from "./components/BrowseSearchBar";
+import { BrowseFloatingFilterBar } from "./components/BrowseFloatingFilterBar";
 import { CommunityDiscoveryLayout } from "./CommunityDiscoveryLayout";
 import { useBrowseSubscribedContent } from "./useBrowseSubscribedContent";
 import { useCreatorDirectory } from "./hooks/useCreatorDirectory";
@@ -26,10 +25,10 @@ import { useCommunityContent } from "./CommunityContentContext";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { FacetSidebar, type Facet } from "@/shared/components/ui/FacetSidebar";
-import { cn } from "@/shared/components/ui/cn";
 import { useApi } from "@/shared/api/provider";
 import type { DeckResponse } from "@/shared/api/decks";
 import { sortByUpdatedAtDesc } from "@/shared/utils/dateUtils";
+import { formatTimeAgo } from "@/shared/utils/formatDate";
 import type { StoryResponse } from "@/shared/api/stories";
 import type { FlashcardDeck } from "@/features/flashcards/data/types";
 import type { CommunityAddon } from "./types";
@@ -42,6 +41,7 @@ type SortOption = "newest" | "trending" | "upvotes" | "name";
 const TRENDING_MIN_UPVOTES = 5;
 
 const FACET_TYPE = "type";
+const FACET_SORT = "sort";
 const FACET_LANGUAGE = "language";
 const FACET_LEVEL = "level";
 const FACET_OTHER = "other";
@@ -134,8 +134,11 @@ export function ContentBrowserPage() {
   // matching tag exists.
   const langParam = searchParams.get("lang");
 
-  const [languageFilter, setLanguageFilter] = useState<string | "all" | null>(
-    () => (langParam ? langParam : null),
+  // Language is multi-select: each piece of content carries exactly ONE
+  // language (DB column `language_id TEXT NOT NULL`), so selecting multiple
+  // languages is an OR-union over that single field. Empty set = all languages.
+  const [languageFilters, setLanguageFilters] = useState<Set<string>>(() =>
+    langParam ? new Set([langParam]) : new Set(),
   );
   // Default to the first enabled content type — no "All" view since
   // story/deck/course cards diverge fundamentally and will eventually grow
@@ -146,19 +149,29 @@ export function ContentBrowserPage() {
       ? "course"
       : "story";
   const [typeFilter, setTypeFilter] = useState<ContentType | "all">(firstEnabledType);
-  const [sortBy, setSortBy] = useState<SortOption>("newest");
+  // Default to "most popular" (votes) per the feedback — surfaces the
+  // highest-voted decks first instead of an editorial "featured" flag.
+  const [sortBy, setSortBy] = useState<SortOption>("upvotes");
   const [levelFilters, setLevelFilters] = useState<Set<string>>(new Set());
   const [otherFilters, setOtherFilters] = useState<Set<string>>(new Set());
 
   // Sync language filter when ?lang= changes from outside (back/forward nav).
   useEffect(() => {
     if (langParam) {
-      setLanguageFilter(langParam);
+      setLanguageFilters(new Set([langParam]));
     }
   }, [langParam]);
 
+  // Seed the type filter from `?type=` ONLY when that param actually changes.
+  // The segmented control owns the live value afterwards — re-running this on
+  // every render (langPath/navigate identities aren't stable) would clobber the
+  // user's selection. Tracked via a ref keyed on the last-applied param.
+  const lastTypeParamRef = useRef<string | null>(null);
   useEffect(() => {
-    let resolvedType: ContentType | "all" = TYPE_FROM_PARAM[typeParam ?? ""] ?? "all";
+    const key = typeParam ?? "";
+    if (lastTypeParamRef.current === key) return;
+    lastTypeParamRef.current = key;
+    let resolvedType: ContentType | "all" = TYPE_FROM_PARAM[key] ?? "all";
     if (resolvedType === "story" && !explore.stories) resolvedType = "all";
     if (resolvedType === "course" && !explore.courses) resolvedType = "all";
     if (resolvedType === "flashcard-pack" && !explore.flashcardDecks) resolvedType = "all";
@@ -167,7 +180,7 @@ export function ContentBrowserPage() {
     if (resolvedType === "all") {
       resolvedType = firstEnabledType;
       if (typeParam && TYPE_FROM_PARAM[typeParam] !== undefined) {
-        navigate(langPath("community/explore"), { replace: true });
+        navigate(langPath("community/browse"), { replace: true });
       }
     }
     setTypeFilter(resolvedType);
@@ -184,10 +197,12 @@ export function ContentBrowserPage() {
   const { resolveCreator } = useCreatorDirectory();
 
   const langId = language?.id ?? "ko";
-  // Default: no language filter (all languages). The learner's current language
-  // gets a "Suggested" star in the facet list but is NOT auto-applied.
-  const effectiveLanguage =
-    languageFilter && languageFilter !== "all" ? languageFilter : undefined;
+  // Fetch ALL languages from the API, then filter client-side. The backend
+  // list endpoints only accept a single `language_id`, but the facet is now
+  // multi-select (OR-union over the single-language field), so we can't push
+  // the filter down. The admin/browse lists are small enough to filter locally.
+  // The learner's current language gets a "Suggested" star but isn't applied.
+  const selectedLanguages = languageFilters;
 
   useEffect(() => {
     if (!explore.flashcardDecks) {
@@ -198,7 +213,7 @@ export function ContentBrowserPage() {
     let ok = true;
     setApiDecksLoading(true);
     decksApi
-      .listAdminDecks({ status: "published", language_id: effectiveLanguage })
+      .listAdminDecks({ status: "published" })
       .then((decks) => {
         if (ok) setApiDecks(decks);
       })
@@ -211,7 +226,7 @@ export function ContentBrowserPage() {
     return () => {
       ok = false;
     };
-  }, [decksApi, effectiveLanguage, explore.flashcardDecks]);
+  }, [decksApi, explore.flashcardDecks]);
 
   // Subscribed sets — used to mark cards as subscribed in the browse grid.
   const refreshSubscribedSets = useCallback(() => {
@@ -264,7 +279,7 @@ export function ContentBrowserPage() {
     let ok = true;
     setApiStoriesLoading(true);
     storiesApi
-      .listBrowseStories({ language_id: effectiveLanguage })
+      .listBrowseStories({})
       .then((list) => {
         if (ok) setApiStories(list);
       })
@@ -277,7 +292,7 @@ export function ContentBrowserPage() {
     return () => {
       ok = false;
     };
-  }, [storiesApi, effectiveLanguage, explore.stories]);
+  }, [storiesApi, explore.stories]);
 
   const { search, setSearch, subscribeLoading, handleSubscribe, handleUnsubscribe } =
     useBrowseSubscribedContent({ onRefresh: refreshSubscribedSets });
@@ -315,9 +330,8 @@ export function ContentBrowserPage() {
   // Why: backend AddonResponse has no maintainerIds/discussionCount/userUpvoted —
   // we map to a best-effort CommunityAddon shape; missing fields stay undefined.
   const addonsQuery = useQuery<ApiCommunityAddon[]>({
-    queryKey: ["community", "addons", { languageId: effectiveLanguage }],
-    queryFn: ({ signal }) =>
-      communityApi.listAddons({ languageId: effectiveLanguage }, signal),
+    queryKey: ["community", "addons", "all-languages"],
+    queryFn: ({ signal }) => communityApi.listAddons({}, signal),
     staleTime: 60_000,
   });
 
@@ -365,7 +379,9 @@ export function ContentBrowserPage() {
     const tagToken = tagParam?.trim().toLowerCase() ?? "";
     let list = browseContent.filter((a) => {
       if (!matchesSearch(a, search)) return false;
-      if (effectiveLanguage && a.languageId !== effectiveLanguage) return false;
+      // Multi-select language: OR-union over each item's single language.
+      if (selectedLanguages.size > 0 && !selectedLanguages.has(a.languageId))
+        return false;
       if (typeFilter !== "all" && a.kind !== typeFilter) return false;
       // Tags are not yet a first-class field on decks/addons — match the
       // canonicalised tag against name + description as a substring.
@@ -388,7 +404,7 @@ export function ContentBrowserPage() {
       list = [...list].sort((a, b) => a.name.localeCompare(b.name));
     }
     return list;
-  }, [browseContent, search, effectiveLanguage, typeFilter, sortBy, tagParam]);
+  }, [browseContent, search, selectedLanguages, typeFilter, sortBy, tagParam]);
 
   const apiDecksById = useMemo(() => new Map(apiDecks.map((d) => [d.id, d])), [apiDecks]);
   const apiStoriesById = useMemo(
@@ -439,17 +455,36 @@ export function ContentBrowserPage() {
     });
   }, [facetLanguageIds, langId, t]);
 
+  // Quick sort lives at the top of the sidebar as a single-select facet so it
+  // doesn't read as discordant chrome elsewhere on the page. "Most popular"
+  // (by votes) is the lead option per the feedback.
+  const sortFacetOptions = useMemo(
+    () => [
+      { value: "upvotes", label: t("community.contentBrowserSortUpvotes") },
+      { value: "trending", label: t("community.contentBrowserSortTrending", "Trending") },
+      { value: "newest", label: t("community.contentBrowserSortNewest") },
+      { value: "name", label: t("community.contentBrowserSortName") },
+    ],
+    [t],
+  );
+
   const facets: Facet[] = useMemo(() => {
-    // NB: type filter intentionally NOT in the sidebar — it's promoted to a
-    // top-level tab strip above the result grid because different content
-    // types render fundamentally different cards (story vs deck vs course)
-    // and the page-level layout should reflect that.
+    // NB: content-TYPE filter is NOT in the sidebar — it's a segmented control
+    // in the BrowseSearchBar header because the content types render
+    // fundamentally different cards (story vs deck vs course).
     const out: Facet[] = [];
+    out.push({
+      id: FACET_SORT,
+      label: t("community.contentBrowserSortBy"),
+      options: sortFacetOptions,
+      multiSelect: false,
+      searchableAfter: 0,
+    });
     out.push({
       id: FACET_LANGUAGE,
       label: t("community.contentBrowserFacetLanguage"),
       options: languageFacetOptions,
-      multiSelect: false,
+      multiSelect: true,
     });
     out.push({
       id: FACET_LEVEL,
@@ -464,19 +499,19 @@ export function ContentBrowserPage() {
       multiSelect: true,
     });
     return out;
-  }, [languageFacetOptions, t]);
+  }, [languageFacetOptions, sortFacetOptions, t]);
 
   const selections: Record<string, string[]> = useMemo(() => {
     const out: Record<string, string[]> = {};
-    // FACET_TYPE intentionally not included — the type facet was promoted to
-    // a top-level tab strip and is no longer a sidebar facet, so the
-    // FacetSidebar never reads its selection.
-    if (languageFilter && languageFilter !== "all")
-      out[FACET_LANGUAGE] = [languageFilter];
+    // FACET_TYPE intentionally not included — content type is a segmented
+    // control in the BrowseSearchBar header, not a sidebar facet.
+    out[FACET_SORT] = [sortBy];
+    if (selectedLanguages.size > 0)
+      out[FACET_LANGUAGE] = Array.from(selectedLanguages);
     if (levelFilters.size > 0) out[FACET_LEVEL] = Array.from(levelFilters);
     if (otherFilters.size > 0) out[FACET_OTHER] = Array.from(otherFilters);
     return out;
-  }, [languageFilter, levelFilters, otherFilters]);
+  }, [sortBy, selectedLanguages, levelFilters, otherFilters]);
 
   const handleFacetToggle = useCallback(
     (facetId: string, value: string) => {
@@ -486,25 +521,18 @@ export function ContentBrowserPage() {
         return;
       }
       if (facetId === FACET_TYPE) {
-        const next = typeFilter === value ? "all" : (value as ContentType);
-        setTypeFilter(next);
-        const paramKey =
-          next === "flashcard-pack"
-            ? "flashcards"
-            : next === "course"
-              ? "courses"
-              : next === "story"
-                ? "stories"
-                : null;
-        if (paramKey) {
-          navigate(`${langPath("community/explore")}?type=${paramKey}`, {
-            replace: true,
-          });
-        } else {
-          navigate(langPath("community/explore"), { replace: true });
-        }
+        // Type chip remove → clear type filter back to the first enabled type.
+        setTypeFilter(typeFilter === value ? firstEnabledType : (value as ContentType));
+      } else if (facetId === FACET_SORT) {
+        // Sort is single-select; clicking the active option is a no-op.
+        setSortBy(value as SortOption);
       } else if (facetId === FACET_LANGUAGE) {
-        setLanguageFilter((prev) => (prev === value ? null : value));
+        setLanguageFilters((prev) => {
+          const next = new Set(prev);
+          if (next.has(value)) next.delete(value);
+          else next.add(value);
+          return next;
+        });
       } else if (facetId === FACET_LEVEL) {
         setLevelFilters((prev) => {
           const next = new Set(prev);
@@ -521,16 +549,19 @@ export function ContentBrowserPage() {
         });
       }
     },
-    [typeFilter, navigate, langPath],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [typeFilter, firstEnabledType],
   );
 
-  // FACET_TYPE is not in the sidebar facets (it's a top-level tab strip), so
-  // the clear-facet button never fires for it. Type is cleared via the chip
-  // strip's X handler, which routes through `handleFacetToggle`.
+  // FACET_TYPE is not in the sidebar facets (it's a segmented control in the
+  // header), so the clear-facet button never fires for it. Type is cleared via
+  // the chip strip's X handler, which routes through `handleFacetToggle`.
   const handleClearFacet = useCallback(
     (facetId: string) => {
-      if (facetId === FACET_LANGUAGE) {
-        setLanguageFilter(null);
+      if (facetId === FACET_SORT) {
+        setSortBy("upvotes");
+      } else if (facetId === FACET_LANGUAGE) {
+        setLanguageFilters(new Set());
       } else if (facetId === FACET_LEVEL) {
         setLevelFilters(new Set());
       } else if (facetId === FACET_OTHER) {
@@ -541,16 +572,17 @@ export function ContentBrowserPage() {
   );
 
   const handleClearAll = useCallback(() => {
-    setLanguageFilter(null);
-    setTypeFilter("all");
+    setLanguageFilters(new Set());
+    setTypeFilter(firstEnabledType);
     setLevelFilters(new Set());
     setOtherFilters(new Set());
     setSearch("");
-    setSortBy("newest");
+    setSortBy("upvotes");
     if (typeParam || tagParam || langParam) {
-      navigate(langPath("community/explore"), { replace: true });
+      // Stay on Browse — strip the seed params from the URL.
+      navigate(langPath("community/browse"), { replace: true });
     }
-  }, [setSearch, typeParam, tagParam, langParam, navigate, langPath]);
+  }, [setSearch, typeParam, tagParam, langParam, navigate, langPath, firstEnabledType]);
 
   const showSearchResults = search.trim().length > 0;
 
@@ -563,6 +595,8 @@ export function ContentBrowserPage() {
       let onRowClick: (() => void) | undefined;
       let isSubscribed = false;
       let actionLoading = false;
+      // Skim samples loaded up-front with the list — no fetch on hover.
+      let previewSamples: string[] | undefined;
 
       if (addon.kind === "flashcard-pack") {
         const deckId = "deckId" in addon ? addon.deckId ?? id : id;
@@ -580,6 +614,11 @@ export function ContentBrowserPage() {
         if (deck) {
           onRowClick = () =>
             openDeckPreview(deckResponseToFlashcardDeck(deck), null);
+          // A few card fronts make the deck skimmable on hover.
+          previewSamples = (deck.cards ?? [])
+            .slice(0, 4)
+            .map((c) => c.front)
+            .filter(Boolean);
         }
       } else if (addon.kind === "story" && "storyId" in addon) {
         const sid = String((addon as StoryCardItem).storyId ?? id);
@@ -593,6 +632,7 @@ export function ContentBrowserPage() {
         const story = apiStoriesById.get(sid);
         if (story) {
           onRowClick = () => openStoryPreview(story);
+          if (story.description) previewSamples = [story.description];
         }
       } else if (addon.kind === "course") {
         to = langPath(`learn`);
@@ -622,6 +662,7 @@ export function ContentBrowserPage() {
         isSubscribed,
         onAction,
         actionLoading,
+        previewSamples,
       };
     });
   }, [
@@ -641,16 +682,6 @@ export function ContentBrowserPage() {
   // Preview-on-name-click now lives in ``onRowClick`` above — these are
   // referenced inside the rows useMemo so no void-shims required.
   void refreshSubscribedSets;
-
-  const searchSlot = (
-    <input
-      type="search"
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-      placeholder={t("community.contentBrowserSearchPlaceholder")}
-      className="w-44 rounded-md border border-border bg-surface px-3 py-1.5 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent sm:w-56"
-    />
-  );
 
   // Cards vs. detailed list view — persisted to localStorage.
   const VIEW_KEY = "lingo:community-explore-view";
@@ -675,7 +706,7 @@ export function ContentBrowserPage() {
   const [page, setPage] = useState(0);
   useEffect(() => {
     setPage(0);
-  }, [search, languageFilter, typeFilter, sortBy, levelFilters, otherFilters, tagParam]);
+  }, [search, selectedLanguages, typeFilter, sortBy, levelFilters, otherFilters, tagParam]);
   const pageCount = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
   const pagedRows = useMemo(
     () => rows.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE),
@@ -685,17 +716,15 @@ export function ContentBrowserPage() {
   // Filter chips — pull labels from facet option lists so the chip reads the
   // same as the sidebar checkbox.
   const chips: ChipDescriptor[] = useMemo(() => {
+    // NB: content type is NOT a chip — it's the always-present segmented
+    // control in the header, so a redundant chip would be confusing.
     const out: ChipDescriptor[] = [];
-    if (typeFilter !== "all") {
-      const opt = typeFacetOptions.find((o) => o.value === typeFilter);
-      if (opt) out.push({ facetId: FACET_TYPE, value: typeFilter, label: opt.label });
-    }
-    if (languageFilter && languageFilter !== "all") {
-      const cfg = getLanguageConfig(languageFilter);
+    for (const lId of selectedLanguages) {
+      const cfg = getLanguageConfig(lId);
       out.push({
         facetId: FACET_LANGUAGE,
-        value: languageFilter,
-        label: `${cfg?.flag ?? "🌐"} ${cfg?.name ?? languageFilter}`,
+        value: lId,
+        label: `${cfg?.flag ?? "🌐"} ${cfg?.name ?? lId}`,
       });
     }
     if (tagParam) {
@@ -714,7 +743,45 @@ export function ContentBrowserPage() {
       if (opt) out.push({ facetId: FACET_OTHER, value: flag, label: opt.label });
     }
     return out;
-  }, [typeFilter, languageFilter, levelFilters, otherFilters, typeFacetOptions, tagParam]);
+  }, [selectedLanguages, levelFilters, otherFilters, tagParam]);
+
+  // Active filter count for the floating bar (filters only, not sort/type).
+  const activeFilterCount = chips.length;
+
+  // Build the content-type options for the segmented control.
+  const browseTypeOptions: BrowseTypeOption[] = useMemo(() => {
+    const iconFor: Record<string, BrowseTypeOption["icon"]> = {
+      "flashcard-pack": "layers",
+      course: "graduationCap",
+      story: "bookOpen",
+    };
+    return typeFacetOptions.map((o) => ({
+      value: o.value,
+      label: o.label,
+      icon: iconFor[o.value],
+    }));
+  }, [typeFacetOptions]);
+
+  // Sort label + cycle for the floating bar quick-toggle.
+  const sortLabelMap: Record<SortOption, string> = useMemo(
+    () => ({
+      upvotes: t("community.contentBrowserSortUpvotes"),
+      trending: t("community.contentBrowserSortTrending", "Trending"),
+      newest: t("community.contentBrowserSortNewest"),
+      name: t("community.contentBrowserSortName"),
+    }),
+    [t],
+  );
+  const cycleSort = useCallback(() => {
+    const order: SortOption[] = ["upvotes", "trending", "newest", "name"];
+    setSortBy((prev) => order[(order.indexOf(prev) + 1) % order.length]);
+  }, []);
+
+  // Scroll back to the sidebar when the floating "Filters" button is tapped.
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const scrollToFilters = useCallback(() => {
+    sidebarRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
 
   const clearTag = useCallback(() => {
     setSearchParams(
@@ -727,134 +794,91 @@ export function ContentBrowserPage() {
     );
   }, [setSearchParams]);
 
+  const resultSummary = (
+    <span>
+      <span className="font-semibold text-text-primary">{browseCount}</span>{" "}
+      {t("community.contentBrowserResultsLabel").toLowerCase()}
+      {showSearchResults && ` · "${search}"`}
+    </span>
+  );
+
   return (
-    <CommunityDiscoveryLayout searchSlot={searchSlot}>
-      <div className="flex flex-col gap-6 lg:flex-row lg:gap-6">
-        <FacetSidebar
-          facets={facets}
-          selections={selections}
-          onToggle={handleFacetToggle}
-          onClear={handleClearFacet}
-          onClearAll={handleClearAll}
-          clearAllLabel={t("community.contentBrowserClearAll")}
-          resetLabel={t("community.contentBrowserReset", "Reset")}
-          searchWithinPlaceholder={t(
-            "community.contentBrowserFacetSearchPlaceholder",
-            "Filter…",
-          )}
-        />
+    <CommunityDiscoveryLayout>
+      <BrowseSearchBar
+        search={search}
+        onSearchChange={setSearch}
+        searchPlaceholder={t("community.contentBrowserSearchPlaceholder")}
+        typeOptions={browseTypeOptions}
+        typeValue={typeFilter === "all" ? firstEnabledType : typeFilter}
+        onTypeChange={(v) => setTypeFilter(v as ContentType)}
+        typeAriaLabel={t("community.contentBrowserFacetType")}
+        chips={chips}
+        onRemoveChip={handleFacetToggle}
+        onClearAll={handleClearAll}
+        clearAllLabel={t("community.contentBrowserClearAll")}
+        resultSummary={resultSummary}
+      />
+
+      <div className="mt-4 flex flex-col gap-6 lg:flex-row lg:gap-6">
+        <div ref={sidebarRef} className="w-full shrink-0 lg:w-64">
+          <FacetSidebar
+            compact
+            facets={facets}
+            selections={selections}
+            onToggle={handleFacetToggle}
+            onClear={handleClearFacet}
+            onClearAll={handleClearAll}
+            clearAllLabel={t("community.contentBrowserClearAll")}
+            resetLabel={t("community.contentBrowserReset", "Reset")}
+            searchWithinPlaceholder={t(
+              "community.contentBrowserFacetSearchPlaceholder",
+              "Filter…",
+            )}
+            className="lg:w-64"
+          />
+        </div>
 
         <section className="min-w-0 flex-1 space-y-4">
-          {chips.length > 0 && (
-            <CommunitySelectedChips
-              chips={chips}
-              onRemove={handleFacetToggle}
-              onClearAll={handleClearAll}
-              clearAllLabel={t("community.contentBrowserClearAll")}
-            />
-          )}
-
-          {/* Content-type tab strip — no "All" because the content types
-              are fundamentally different (story vs deck vs course) and will
-              eventually grow their own filter bars + card shapes. Tab labels
-              come from `typeFacetOptions` so feature-flag gating still
-              applies. Default is the first enabled type. */}
-          {typeFacetOptions.length > 0 && (
+          <div className="flex items-center justify-end gap-2">
             <div
               role="tablist"
-              aria-label={t("community.contentBrowserFacetType")}
-              className="-mb-2 flex flex-wrap gap-1 border-b border-border"
+              aria-label={t("community.exploreViewToggleLabel", "View")}
+              className="inline-flex overflow-hidden rounded-md border border-border bg-surface"
             >
-              {typeFacetOptions.map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  role="tab"
-                  aria-selected={typeFilter === opt.value}
-                  onClick={() => setTypeFilter(opt.value as ContentType)}
-                  className={cn(
-                    "relative -mb-px px-3 py-2 text-sm font-medium transition",
-                    typeFilter === opt.value
-                      ? "border-b-2 border-accent text-accent"
-                      : "border-b-2 border-transparent text-text-secondary hover:text-text-primary",
-                  )}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          )}
-
-          <div className="flex items-center justify-between gap-3">
-            <p className="text-sm text-text-secondary">
-              <span className="font-semibold text-text-primary">{browseCount}</span>{" "}
-              {t("community.contentBrowserResultsLabel").toLowerCase()}
-              {showSearchResults && ` · "${search}"`}
-            </p>
-            <div className="flex items-center gap-2">
-              <div
-                role="tablist"
-                aria-label={t("community.exploreViewToggleLabel", "View")}
-                className="inline-flex overflow-hidden rounded-md border border-border bg-surface"
+              <button
+                type="button"
+                role="tab"
+                aria-selected={view === "cards"}
+                onClick={() => setView("cards")}
+                className={
+                  view === "cards"
+                    ? "inline-flex items-center gap-1 bg-accent-muted px-2 py-1 text-xs font-medium text-accent"
+                    : "inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
+                }
+                title={t("community.exploreViewCards", "Cards")}
               >
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={view === "cards"}
-                  onClick={() => setView("cards")}
-                  className={
-                    view === "cards"
-                      ? "inline-flex items-center gap-1 bg-accent-muted px-2 py-1 text-xs font-medium text-accent"
-                      : "inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
-                  }
-                  title={t("community.exploreViewCards", "Cards")}
-                >
-                  <Icon name="layoutGrid" size={14} aria-hidden />
-                  <span className="hidden sm:inline">
-                    {t("community.exploreViewCards", "Cards")}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={view === "list"}
-                  onClick={() => setView("list")}
-                  className={
-                    view === "list"
-                      ? "inline-flex items-center gap-1 bg-accent-muted px-2 py-1 text-xs font-medium text-accent"
-                      : "inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
-                  }
-                  title={t("community.exploreViewList", "List")}
-                >
-                  <Icon name="list" size={14} aria-hidden />
-                  <span className="hidden sm:inline">
-                    {t("community.exploreViewList", "List")}
-                  </span>
-                </button>
-              </div>
-              <label className="flex items-center gap-2 text-sm text-text-secondary">
+                <Icon name="layoutGrid" size={14} aria-hidden />
                 <span className="hidden sm:inline">
-                  {t("community.contentBrowserSortBy")}
+                  {t("community.exploreViewCards", "Cards")}
                 </span>
-                <select
-                  value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="rounded-md border border-border bg-surface px-2 py-1.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={view === "list"}
+                onClick={() => setView("list")}
+                className={
+                  view === "list"
+                    ? "inline-flex items-center gap-1 bg-accent-muted px-2 py-1 text-xs font-medium text-accent"
+                    : "inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted"
+                }
+                title={t("community.exploreViewList", "List")}
               >
-                <option value="newest">
-                  {t("community.contentBrowserSortNewest")}
-                </option>
-                <option value="trending">
-                  {t("community.contentBrowserSortTrending", "Trending")}
-                </option>
-                <option value="upvotes">
-                  {t("community.contentBrowserSortUpvotes")}
-                </option>
-                  <option value="name">
-                    {t("community.contentBrowserSortName")}
-                  </option>
-                </select>
-              </label>
+                <Icon name="list" size={14} aria-hidden />
+                <span className="hidden sm:inline">
+                  {t("community.exploreViewList", "List")}
+                </span>
+              </button>
             </div>
           </div>
 
@@ -899,6 +923,10 @@ export function ContentBrowserPage() {
                       maintainerUsername: row.authorUsername,
                       maintainerAvatarUrl: row.authorAvatarUrl,
                       image: row.image ?? null,
+                      previewSamples: row.previewSamples,
+                      updatedLabel: row.updatedAt
+                        ? formatTimeAgo(row.updatedAt)
+                        : undefined,
                     }}
                     variant="full"
                     t={t}
@@ -921,6 +949,17 @@ export function ContentBrowserPage() {
           )}
         </section>
       </div>
+
+      <BrowseFloatingFilterBar
+        activeCount={activeFilterCount}
+        resultCount={browseCount}
+        sortLabel={sortLabelMap[sortBy]}
+        onCycleSort={cycleSort}
+        onOpenFilters={scrollToFilters}
+        filtersLabel={t("community.contentBrowserFloatingFilters", "Filters")}
+        sortByLabel={t("community.contentBrowserSortBy")}
+        resultsLabel={t("community.contentBrowserResultsLabel").toLowerCase()}
+      />
     </CommunityDiscoveryLayout>
   );
 }

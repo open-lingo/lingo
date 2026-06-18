@@ -38,6 +38,8 @@ export type CommunityContentRow = {
   isOwned?: boolean;
   onAction?: () => void;
   actionLoading?: boolean;
+  /** Skimmable sample entries surfaced on hover (loaded with the list). */
+  previewSamples?: string[];
 };
 
 type CommunityContentTableProps = {

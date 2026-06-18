@@ -873,6 +873,7 @@
     "contentBrowserResultsLabel": "결과",
     "contentBrowserFacetType": "유형",
     "contentBrowserFacetLanguage": "언어",
+    "contentBrowserFloatingFilters": "필터",
     "contentBrowserClearAll": "모두 지우기",
     "communityPackBadge": "커뮤니티 덱",
     "companionDeckFor": "스토리 동반 덱:",
