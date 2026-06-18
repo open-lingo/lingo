@@ -34,6 +34,10 @@ export type AddFriendButtonProps = {
   targetUserId?: string;
   /** Compact vs default sizing. */
   size?: "sm" | "md";
+  /** Render the actionable "Add" CTA as an icon-only button (label moves to
+   *  `aria-label` + `title`). Resolved/disabled states still render their
+   *  short text so the relationship stays legible. */
+  iconOnly?: boolean;
   /** Extra classes to merge with the base styling. */
   className?: string;
 };
@@ -56,6 +60,7 @@ export function AddFriendButton({
   targetUsername,
   targetUserId,
   size = "sm",
+  iconOnly = false,
   className,
 }: AddFriendButtonProps) {
   const { t } = useTranslation();
@@ -160,6 +165,29 @@ export function AddFriendButton({
   }
 
   const busy = send.isPending;
+  const addLabel = busy
+    ? t("social.addFriend.sending", "Sending…")
+    : t("social.addFriend.add", "Add friend");
+
+  if (iconOnly) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        disabled={busy || state === "anon" || state === "loading"}
+        aria-label={addLabel}
+        title={addLabel}
+        className={cn(
+          "inline-flex items-center justify-center rounded-md bg-accent text-on-accent shadow-sm transition hover:bg-accent-hover disabled:opacity-50 disabled:hover:bg-accent",
+          size === "md" ? "h-8 w-8" : "h-7 w-7",
+          className,
+        )}
+      >
+        <Icon name="userPlus" size={size === "md" ? 15 : 13} aria-hidden />
+      </button>
+    );
+  }
+
   return (
     <button
       type="button"
@@ -172,9 +200,7 @@ export function AddFriendButton({
       )}
     >
       <Icon name="userPlus" size={size === "md" ? 14 : 12} aria-hidden />
-      {busy
-        ? t("social.addFriend.sending", "Sending…")
-        : t("social.addFriend.add", "Add friend")}
+      {addLabel}
     </button>
   );
 }

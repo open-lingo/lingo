@@ -25,7 +25,7 @@
  */
 
 import { useEffect, useState, type CSSProperties } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 import { useApi } from "@/shared/api/provider";
@@ -34,8 +34,15 @@ import { Button } from "@/shared/components/ui/Button";
 import { Input } from "@/shared/components/ui/Input";
 import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
+import { DataTable, type DataTableColumn } from "@/shared/components/data";
 import { ApiError } from "@/shared/api/client";
-import type { AuthoredDeckSample, FriendshipStatus } from "@/shared/api/social";
+import type { FriendshipStatus } from "@/shared/api/social";
+import { useMe } from "@/shared/hooks/useMe";
+import { useLangPath } from "@/shared/hooks/useLangPath";
+import { canAccessSiteAdmin } from "@/shared/auth/roles";
+import { useStartImpersonation } from "@/features/admin/impersonation/useStartImpersonation";
+import { ImpersonateConfirmModal } from "@/features/admin/impersonation/ImpersonateConfirmModal";
+import { useAuthoredDecks, type AuthoredDeck } from "./useAuthoredDecks";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { DecoratedAvatar } from "@/shared/components/DecoratedAvatar";
 import { getDecoratorStyle } from "@/features/shop/decoratorStyles";
@@ -122,8 +129,12 @@ export function PublicProfilePage() {
   const { username } = useParams<{ username: string }>();
   const [searchParams] = useSearchParams();
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const langPath = useLangPath();
   const { social } = useApi();
   const { login, isAuthenticated } = useAuth();
+  const { me } = useMe();
+  const viewerIsAdmin = canAccessSiteAdmin(me?.role);
 
   const { user, social: socialProfile, isPrivate, notFound, isLoading, isError, refetch } =
     usePublicProfile(username);
@@ -132,6 +143,14 @@ export function PublicProfilePage() {
   const [actionError, setActionError] = useState<string | null>(null);
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [avatarModalOpen, setAvatarModalOpen] = useState(false);
+  const [impersonateOpen, setImpersonateOpen] = useState(false);
+  const { start: startImpersonation, pending: impersonating } =
+    useStartImpersonation();
+
+  // Per-deck upvotes + total, derived from the marketplace feed (the only
+  // wire signal carrying voteCount). Used for the authored-decks table and
+  // the "total upvotes" community-standing chip.
+  const authored = useAuthoredDecks(socialProfile?.user_id);
 
   const friendship: FriendshipStatus | null | undefined = socialProfile?.friendship_status;
 
@@ -284,9 +303,10 @@ export function PublicProfilePage() {
     t,
   );
   const lang = formatLearningLanguage(learningLanguage);
-  const authoredCount = socialProfile?.authored_deck_count ?? 0;
-  const authoredSample: AuthoredDeckSample[] =
-    socialProfile?.authored_decks_sample ?? [];
+  // Prefer the live marketplace-derived deck count (carries upvotes); fall
+  // back to the profile's authored_deck_count when the owner isn't in the
+  // marketplace feed (e.g. unpublished-only authors).
+  const authoredCount = authored.decks.length || (socialProfile?.authored_deck_count ?? 0);
   const xpRemaining = xpToNextLevel(level, xp);
   const progress = levelProgress(level, xp);
   const league = socialProfile?.league ?? null;
@@ -338,6 +358,10 @@ export function PublicProfilePage() {
   function handleBlock() {
     if (!socialProfile) return;
     void runAction(social.blockUser(socialProfile.user_id));
+  }
+  function handleQuickChat() {
+    if (!socialProfile) return;
+    navigate(langPath(`messenger/${socialProfile.user_id}`));
   }
 
   // Banner-as-header mode: the equipped banner becomes a backdrop the
@@ -657,16 +681,34 @@ export function PublicProfilePage() {
                 )}
               </div>
               {!isSelf && (
-                <PrimaryAction
-                  status={friendship ?? null}
-                  actionState={actionState}
-                  onAddFriend={handleAddFriend}
-                  onAccept={handleAccept}
-                  onUnblock={handleUnblock}
-                  onUnfriend={handleUnfriend}
-                  onBlock={handleBlock}
-                  t={t}
-                />
+                <div className="flex items-center gap-2">
+                  {/* Quick chat — open the messenger thread with this user.
+                      Visible to any signed-in viewer who isn't the owner. */}
+                  {isAuthenticated && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleQuickChat}
+                      className={`!gap-1.5 ${hasBanner ? ownerPillOverBanner : ""}`}
+                    >
+                      <Icon name="messageCircle" size={14} strokeWidth={2.25} aria-hidden />
+                      {t("profile.publicQuickChat", "Quick chat")}
+                    </Button>
+                  )}
+                  <PrimaryAction
+                    status={friendship ?? null}
+                    actionState={actionState}
+                    onAddFriend={handleAddFriend}
+                    onAccept={handleAccept}
+                    onUnblock={handleUnblock}
+                    onUnfriend={handleUnfriend}
+                    onBlock={handleBlock}
+                    canImpersonate={viewerIsAdmin}
+                    onImpersonate={() => setImpersonateOpen(true)}
+                    t={t}
+                  />
+                </div>
               )}
             </div>
           </div>
@@ -740,6 +782,19 @@ export function PublicProfilePage() {
           />
         )}
 
+        {/* ── Admin: act-as-user confirmation ─────────────────────── */}
+        {viewerIsAdmin && impersonateOpen && socialProfile && (
+          <ImpersonateConfirmModal
+            targetUsername={socialProfile.username}
+            targetDisplayName={socialProfile.display_name ?? ""}
+            busy={impersonating}
+            onCancel={() => setImpersonateOpen(false)}
+            onConfirm={() => {
+              void startImpersonation(socialProfile.user_id);
+            }}
+          />
+        )}
+
         {/* ── Secondary context strip: learning language ──────────── */}
         {lang && (
           <section className="mt-10 flex items-center gap-3">
@@ -757,40 +812,42 @@ export function PublicProfilePage() {
           </section>
         )}
 
-        {/* ── Authored decks ──────────────────────────────────────── */}
+        {/* ── Authored decks ───────────────────────────────────────
+              Deliberately narrower than the masthead/stats (max-w-2xl) so
+              the creator section reads as a focused sub-panel rather than a
+              full-width feature. The learner-profile portion above stays
+              full width. */}
         {authoredCount > 0 && (
           <section
-            className="mt-10"
+            className="mt-10 max-w-2xl"
             data-testid="public-profile-authored"
             aria-labelledby="authored-heading"
           >
-            <div className="flex items-baseline justify-between gap-4 border-b border-border pb-2">
+            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-border pb-2">
               <h2
                 id="authored-heading"
                 className="text-lg font-semibold text-text-primary"
               >
                 {t("profile.publicAuthoredHeading", "Authored decks")}
               </h2>
-              <span className="text-xs font-medium uppercase tracking-wide text-text-muted">
-                {authoredCount.toLocaleString()} {t("profile.publicAuthoredCount", "total")}
-              </span>
+              <div className="flex items-center gap-3 text-xs font-medium text-text-muted">
+                <span className="uppercase tracking-wide">
+                  {authoredCount.toLocaleString()} {t("profile.publicAuthoredCount", "total")}
+                </span>
+                {/* Total upvotes across this creator's decks — a quick read
+                    on their community standing. */}
+                <span
+                  className="inline-flex items-center gap-1 tabular-nums text-accent"
+                  title={t("profile.publicTotalUpvotes", "Total upvotes")}
+                >
+                  <Icon name="chevronUp" size={13} strokeWidth={2.5} aria-hidden />
+                  {authored.totalUpvotes.toLocaleString()}
+                </span>
+              </div>
             </div>
-            <ul className="mt-2 divide-y divide-border-muted">
-              {authoredSample.map((d) => (
-                <DeckRow
-                  key={d.id}
-                  deck={d}
-                  unnamedFallback={t("profile.publicUnnamedDeck", "(unnamed deck)")}
-                />
-              ))}
-            </ul>
-            {authoredCount > authoredSample.length && (
-              <p className="mt-4 text-xs text-text-muted">
-                {t("profile.publicAuthoredMore", "and")}{" "}
-                {(authoredCount - authoredSample.length).toLocaleString()}{" "}
-                {t("profile.publicAuthoredMoreSuffix", "more")}
-              </p>
-            )}
+            <div className="mt-3">
+              <AuthoredDecksTable decks={authored.decks} t={t} />
+            </div>
           </section>
         )}
 
@@ -896,40 +953,61 @@ function LeagueEmblem({
 }
 
 /**
- * One authored-deck row. Standard list item with arrow affordance on
- * hover — matches the rest of the app's list patterns.
+ * Authored decks as a DataTable — name (linked) / language / per-deck
+ * upvotes. Uses the shared DataTable so the creator surface matches the
+ * rest of the app's tabular data instead of bespoke list rows.
  */
-function DeckRow({
-  deck,
-  unnamedFallback,
+function AuthoredDecksTable({
+  decks,
+  t,
 }: {
-  deck: AuthoredDeckSample;
-  unnamedFallback: string;
+  decks: AuthoredDeck[];
+  t: TFunction;
 }) {
-  return (
-    <li>
-      <Link
-        to={`/decks/${deck.id}`}
-        className="group grid grid-cols-[1fr_auto] items-center gap-4 py-3 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-      >
-        <div className="min-w-0">
-          <h3 className="truncate text-base font-medium text-text-primary group-hover:text-accent">
-            {deck.name || unnamedFallback}
-          </h3>
-          {deck.language && (
-            <p className="mt-0.5 text-xs text-text-muted">
-              {deck.language}
-            </p>
-          )}
-        </div>
-        <span
-          aria-hidden
-          className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border text-text-muted transition-all duration-200 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-foreground group-hover:translate-x-0.5"
+  const columns: DataTableColumn<AuthoredDeck>[] = [
+    {
+      key: "name",
+      label: t("profile.publicAuthoredColName", "Deck"),
+      render: (d) => (
+        <Link
+          to={`/decks/${d.id}`}
+          className="font-medium text-text-primary hover:text-accent"
         >
-          <Icon name="arrowRight" size={14} strokeWidth={2.25} />
+          {d.name || t("profile.publicUnnamedDeck", "(unnamed deck)")}
+        </Link>
+      ),
+    },
+    {
+      key: "language",
+      label: t("profile.publicAuthoredColLanguage", "Language"),
+      className: "hidden sm:table-cell",
+      render: (d) => (
+        <span className="text-text-secondary">{d.language ?? "—"}</span>
+      ),
+    },
+    {
+      key: "upvotes",
+      label: t("profile.publicAuthoredColUpvotes", "Upvotes"),
+      className: "text-right",
+      render: (d) => (
+        <span className="inline-flex items-center gap-1 tabular-nums text-text-secondary">
+          <Icon name="chevronUp" size={12} aria-hidden />
+          {d.upvotes.toLocaleString()}
         </span>
-      </Link>
-    </li>
+      ),
+    },
+  ];
+
+  return (
+    <DataTable<AuthoredDeck>
+      columns={columns}
+      rows={decks}
+      getRowKey={(d) => d.id}
+      emptyMessage={t(
+        "profile.publicAuthoredEmpty",
+        "No published decks yet.",
+      )}
+    />
   );
 }
 
@@ -1011,6 +1089,8 @@ function PrimaryAction({
   onUnblock,
   onUnfriend,
   onBlock,
+  canImpersonate,
+  onImpersonate,
   t,
 }: {
   status: FriendshipStatus | null;
@@ -1020,6 +1100,9 @@ function PrimaryAction({
   onUnblock: () => void;
   onUnfriend: () => void;
   onBlock: () => void;
+  /** Viewer is a site admin → expose "Act as user" in the dropdown. */
+  canImpersonate: boolean;
+  onImpersonate: () => void;
   t: TFunction;
 }) {
   const busy = actionState === "pending";
@@ -1027,54 +1110,110 @@ function PrimaryAction({
   // status === "self" is handled by the top-right action bar; the right
   // column never renders a self action here.
   if (status === "self") return null;
-  if (status === "request_out") {
-    return (
-      <Button type="button" disabled variant="ghost" size="sm">
-        {t("profile.publicRequestSent", "Request sent")}
-      </Button>
-    );
-  }
-  if (status === "request_in") {
-    return (
-      <Button type="button" onClick={onAccept} disabled={busy} variant="primary" size="sm">
-        {busy ? "…" : t("profile.publicAcceptRequest", "Accept request")}
-      </Button>
-    );
-  }
+
+  // Friends get a dropdown (Unfriend / Block). When the viewer is an admin we
+  // fold "Act as user" into that same dropdown — and, for non-friend statuses
+  // that otherwise have no menu, render a standalone admin dropdown beside the
+  // primary button so impersonation is always reachable.
+  const adminItem: ProfileMenuItem | null = canImpersonate
+    ? {
+        key: "impersonate",
+        label: t("profile.publicActAsUser", "Act as user"),
+        icon: "venetianMask",
+        onSelect: onImpersonate,
+      }
+    : null;
+
   if (status === "friend") {
     return (
       <FriendDropdown
-        onUnfriend={onUnfriend}
-        onBlock={onBlock}
+        items={[
+          {
+            key: "unfriend",
+            label: t("profile.publicUnfriend", "Unfriend"),
+            icon: "userMinus",
+            onSelect: onUnfriend,
+          },
+          {
+            key: "block",
+            label: t("profile.publicBlock", "Block"),
+            icon: "shield",
+            danger: true,
+            onSelect: onBlock,
+          },
+          ...(adminItem ? [adminItem] : []),
+        ]}
         busy={busy}
         t={t}
       />
     );
   }
-  if (status === "blocked") {
-    return (
+
+  let primary: React.ReactNode;
+  if (status === "request_out") {
+    primary = (
+      <Button type="button" disabled variant="ghost" size="sm">
+        {t("profile.publicRequestSent", "Request sent")}
+      </Button>
+    );
+  } else if (status === "request_in") {
+    primary = (
+      <Button type="button" onClick={onAccept} disabled={busy} variant="primary" size="sm">
+        {busy ? "…" : t("profile.publicAcceptRequest", "Accept request")}
+      </Button>
+    );
+  } else if (status === "blocked") {
+    primary = (
       <Button type="button" onClick={onUnblock} disabled={busy} variant="ghost" size="sm">
         {busy ? "…" : t("profile.publicUnblock", "Unblock")}
       </Button>
     );
+  } else {
+    // status === "none" or null (logged-out viewer)
+    primary = (
+      <Button type="button" onClick={onAddFriend} disabled={busy} variant="primary" size="sm">
+        {busy ? "…" : t("profile.publicAddFriend", "Add friend")}
+      </Button>
+    );
   }
-  // status === "none" or null (logged-out viewer)
-  return (
-    <Button type="button" onClick={onAddFriend} disabled={busy} variant="primary" size="sm">
-      {busy ? "…" : t("profile.publicAddFriend", "Add friend")}
-    </Button>
-  );
+
+  // For non-friend statuses, attach the admin dropdown alongside the primary
+  // button (the dropdown holds only the admin action here).
+  if (adminItem) {
+    return (
+      <div className="flex items-center gap-2">
+        {primary}
+        <FriendDropdown
+          items={[adminItem]}
+          busy={busy}
+          label={t("profile.publicAdminActions", "Admin")}
+          t={t}
+        />
+      </div>
+    );
+  }
+
+  return <>{primary}</>;
 }
 
+type ProfileMenuItem = {
+  key: string;
+  label: string;
+  icon: IconName;
+  danger?: boolean;
+  onSelect: () => void;
+};
+
 function FriendDropdown({
-  onUnfriend,
-  onBlock,
+  items,
   busy,
+  label,
   t,
 }: {
-  onUnfriend: () => void;
-  onBlock: () => void;
+  items: ProfileMenuItem[];
   busy: boolean;
+  /** Trigger label. Defaults to "Friends". */
+  label?: string;
   t: TFunction;
 }) {
   const [open, setOpen] = useState(false);
@@ -1090,36 +1229,34 @@ function FriendDropdown({
         aria-haspopup="menu"
         className="!gap-1.5"
       >
-        {busy ? "…" : t("profile.publicFriends", "Friends")}
+        {busy ? "…" : (label ?? t("profile.publicFriends", "Friends"))}
         <Icon name="chevronDown" size={13} strokeWidth={2.25} aria-hidden />
       </Button>
       {open && (
         <div
           role="menu"
-          className="absolute right-0 top-full z-10 mt-1 w-44 rounded-md border border-border bg-surface py-1 shadow-popover"
+          className="absolute right-0 top-full z-10 mt-1 w-48 rounded-md border border-border bg-surface py-1 shadow-popover"
         >
-          <button
-            role="menuitem"
-            type="button"
-            className="block w-full px-3 py-2 text-left text-sm text-text-primary hover:bg-surface-muted"
-            onClick={() => {
-              setOpen(false);
-              onUnfriend();
-            }}
-          >
-            {t("profile.publicUnfriend", "Unfriend")}
-          </button>
-          <button
-            role="menuitem"
-            type="button"
-            className="block w-full px-3 py-2 text-left text-sm text-error hover:bg-error/10"
-            onClick={() => {
-              setOpen(false);
-              onBlock();
-            }}
-          >
-            {t("profile.publicBlock", "Block")}
-          </button>
+          {items.map((item) => (
+            <button
+              key={item.key}
+              role="menuitem"
+              type="button"
+              className={
+                "flex w-full items-center gap-2 px-3 py-2 text-left text-sm " +
+                (item.danger
+                  ? "text-error hover:bg-error/10"
+                  : "text-text-primary hover:bg-surface-muted")
+              }
+              onClick={() => {
+                setOpen(false);
+                item.onSelect();
+              }}
+            >
+              <Icon name={item.icon} size={14} strokeWidth={2.25} aria-hidden />
+              {item.label}
+            </button>
+          ))}
         </div>
       )}
     </div>

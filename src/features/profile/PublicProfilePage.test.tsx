@@ -50,6 +50,36 @@ vi.mock("@/shared/auth/useAuth", () => ({
   }),
 }));
 
+// Viewer identity / role. Default = non-admin; individual tests override.
+const mockUseMe = vi.fn(() => ({ me: { role: "user" }, isLoading: false }));
+vi.mock("@/shared/hooks/useMe", () => ({ useMe: () => mockUseMe() }));
+
+// Lang-path helper depends on LanguageProvider in real life; stub it so the
+// page can build messenger/learn links without wrapping the full context.
+vi.mock("@/shared/hooks/useLangPath", () => ({
+  useLangPath: () => (p: string) => `/ja/${p.replace(/^\//, "")}`,
+  useLang: () => "ja",
+}));
+
+// Toast + impersonation start are exercised via the admin act-as flow.
+const mockStartImpersonation = vi.fn().mockResolvedValue(true);
+vi.mock("@/features/admin/impersonation/useStartImpersonation", () => ({
+  useStartImpersonation: () => ({ start: mockStartImpersonation, pending: false }),
+}));
+
+// Authored decks derive from the marketplace feed in real life; stub to a
+// fixed set so the table + total-upvotes chip render deterministically.
+vi.mock("@/features/profile/useAuthoredDecks", () => ({
+  useAuthoredDecks: () => ({
+    decks: [
+      { id: "deck-1", name: "JLPT N5 Kanji", language: "ja", upvotes: 12, updatedAt: "2025-02-01T00:00:00Z" },
+      { id: "deck-2", name: "Hiragana Basics", language: "ja", upvotes: 5, updatedAt: "2025-01-20T00:00:00Z" },
+    ],
+    totalUpvotes: 17,
+    isLoading: false,
+  }),
+}));
+
 // Stub shop state so InventorySection doesn't blow up in self-profile tests.
 vi.mock("@/features/shop/useShopState", () => ({
   useShopState: () => ({
@@ -130,6 +160,8 @@ describe("PublicProfilePage", () => {
     mockGetByUsername.mockResolvedValue(baseUser);
     mockGetSettings.mockResolvedValue({});
     mockUpdateMe.mockResolvedValue(baseUser);
+    mockUseMe.mockReturnValue({ me: { role: "user" }, isLoading: false });
+    mockStartImpersonation.mockClear();
   });
 
   const cases: Array<{ status: FriendshipStatus; expect: string }> = [
@@ -205,10 +237,38 @@ describe("PublicProfilePage", () => {
     // combined string.
     expect(screen.getAllByText(/level/i).length).toBeGreaterThan(0);
     expect(screen.getByText("4")).toBeInTheDocument();
-    // Authored deck list
-    expect(screen.getByText(/Hiragana basics/i)).toBeInTheDocument();
-    expect(screen.getByText(/Katakana basics/i)).toBeInTheDocument();
+    // Authored decks render as a table (names sourced from useAuthoredDecks).
+    expect(screen.getByText(/JLPT N5 Kanji/i)).toBeInTheDocument();
+    expect(screen.getByText(/Hiragana Basics/i)).toBeInTheDocument();
+    // Per-deck + total upvotes derived from the deck vote counts.
+    expect(screen.getByText("12")).toBeInTheDocument();
+    expect(screen.getByText("17")).toBeInTheDocument();
     // Last-active is rendered relative (≈2h ago) for a recent timestamp.
     expect(screen.getByText(/active 2h ago/i)).toBeInTheDocument();
+  });
+
+  it("admin viewer sees 'Act as user'; non-admin does not", async () => {
+    // Non-admin: no impersonation affordance.
+    mockGetPublicProfile.mockResolvedValue(baseSocial({ friendship_status: "friend" }));
+    const { unmount } = renderPage();
+    await screen.findAllByText(/Friends/i, undefined, { timeout: 3000 });
+    expect(screen.queryByText(/act as user/i)).toBeNull();
+    unmount();
+
+    // Admin: "Act as user" appears inside the friend-status dropdown.
+    mockUseMe.mockReturnValue({ me: { role: "admin" }, isLoading: false });
+    mockGetPublicProfile.mockResolvedValue(baseSocial({ friendship_status: "friend" }));
+    renderPage();
+    const userEvent = (await import("@testing-library/user-event")).default;
+    const friendsBtn = await screen.findByRole("button", { name: /friends/i });
+    await userEvent.click(friendsBtn);
+    expect(await screen.findByText(/act as user/i)).toBeInTheDocument();
+  });
+
+  it("shows a Quick chat button for non-self viewers and routes to the messenger", async () => {
+    mockGetPublicProfile.mockResolvedValue(baseSocial({ friendship_status: "friend" }));
+    renderPage();
+    const chat = await screen.findByRole("button", { name: /quick chat/i });
+    expect(chat).toBeInTheDocument();
   });
 });
