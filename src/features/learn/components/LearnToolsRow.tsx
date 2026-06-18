@@ -11,6 +11,7 @@ import { useUserStats } from "@/shared/hooks/useUserStats";
 import { useCardsDueCount } from "@/features/flashcards/useCardsDueCount";
 import type { Course } from "@/shared/domain/course";
 import { getModuleMastery } from "../moduleMastery";
+import { getDerivedDueReviews } from "@/features/lesson/data/derivedReviews";
 
 export type LearnToolsRowProps = {
   course: Course;
@@ -31,7 +32,7 @@ export function LearnToolsRow({ course, completedSet }: LearnToolsRowProps) {
     <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <ProgressCard course={course} completedSet={completedSet} />
       <ExploreCard course={course} />
-      <ReviewCard />
+      <ReviewCard course={course} completedSet={completedSet} />
     </div>
   );
 }
@@ -272,12 +273,75 @@ function ExploreCard({ course }: { course: Course }) {
 
 /* ── card 3: review & practice ── */
 
-function ReviewCard() {
+/** One scannable "what's due" row: icon + count + label, or a muted
+ *  placeholder when the data source doesn't exist yet (weak points). */
+function ReviewLine({
+  icon,
+  iconClass,
+  value,
+  label,
+  to,
+  placeholder = false,
+}: {
+  icon: IconName;
+  iconClass: string;
+  value: string | number;
+  label: string;
+  to?: string;
+  placeholder?: boolean;
+}) {
+  const body = (
+    <>
+      <Icon name={icon} size={16} className={`shrink-0 ${iconClass}`} aria-hidden />
+      <span className="min-w-0 flex-1 truncate text-xs text-text-secondary">
+        {label}
+      </span>
+      <span
+        className={`shrink-0 text-xs font-bold tabular-nums ${
+          placeholder ? "text-text-muted" : "text-text-primary"
+        }`}
+      >
+        {value}
+      </span>
+    </>
+  );
+  if (to) {
+    return (
+      <Link
+        to={to}
+        className="-mx-1 flex items-center gap-2 rounded-md px-1 py-1 transition hover:bg-surface-muted"
+      >
+        {body}
+      </Link>
+    );
+  }
+  return (
+    <div className="flex items-center gap-2 px-1 py-1" aria-hidden={placeholder}>
+      {body}
+    </div>
+  );
+}
+
+function ReviewCard({
+  course,
+  completedSet,
+}: {
+  course: Course;
+  completedSet: ReadonlySet<string>;
+}) {
   const { t } = useTranslation();
   const { language } = useLanguage();
   const langPath = useLangPath();
   const { count: cardsDue, isLoading } = useCardsDueCount(language?.id ?? "");
-  const caughtUp = !isLoading && cardsDue === 0;
+
+  // Module-level reviews due (real FSRS-derived state) — re-derives when
+  // completion changes (a finished lesson schedules a first review).
+  const moduleReviewsDue = useMemo(() => {
+    const rows = getDerivedDueReviews(course);
+    return rows.length;
+  }, [course, completedSet]);
+
+  const caughtUp = !isLoading && cardsDue === 0 && moduleReviewsDue === 0;
 
   return (
     <Card padding="sm" className="flex flex-col">
@@ -310,30 +374,41 @@ function ReviewCard() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-1 items-start gap-2.5">
-          <Icon
-            name="refresh"
-            size={18}
-            className="mt-0.5 shrink-0 text-warning"
-            aria-hidden
+        <div className="flex-1 space-y-0.5">
+          <ReviewLine
+            icon="layers"
+            iconClass="text-warning"
+            value={isLoading ? "—" : cardsDue}
+            label={t("learn.tools.review.cardsDueLine", {
+              defaultValue: "Flashcards due",
+            })}
+            to={langPath("practice/flashcards/review")}
           />
-          <div className="min-w-0">
-            <p className="text-sm font-semibold text-text-primary">
-              {isLoading
-                ? t("learn.tools.review.checking", {
-                    defaultValue: "Checking your reviews…",
-                  })
-                : t("learn.tools.review.dueTitle", {
-                    defaultValue: "{{count}} cards due",
-                    count: cardsDue,
-                  })}
-            </p>
-            <p className="text-xs text-text-muted">
-              {t("learn.tools.review.dueSub", {
-                defaultValue: "Lock in what you've learned.",
-              })}
-            </p>
-          </div>
+          <ReviewLine
+            icon="bookOpen"
+            iconClass="text-accent"
+            value={moduleReviewsDue}
+            label={t("learn.tools.review.moduleReviewsLine", {
+              defaultValue: "Module reviews",
+            })}
+            to={
+              moduleReviewsDue > 0
+                ? langPath("practice/flashcards/review?scope=lessons")
+                : undefined
+            }
+          />
+          {/* Weak points has no data source yet — laid out as a disabled
+              placeholder so the surface is ready when the analysis ships.
+              Intentionally NOT fabricating a count. */}
+          <ReviewLine
+            icon="target"
+            iconClass="text-text-muted"
+            value={t("learn.tools.review.soon", { defaultValue: "Soon" })}
+            label={t("learn.tools.review.weakPointsLine", {
+              defaultValue: "Weak points",
+            })}
+            placeholder
+          />
         </div>
       )}
 
