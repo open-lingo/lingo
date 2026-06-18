@@ -1,7 +1,9 @@
 /**
- * CommunityHomePage tests — the marketplace home renders its sectioned rails
- * (featured / contributors / new / by-language) from real content + the
- * discover-backed creator directory, and resolves creator names onto cards.
+ * CommunityHomePage tests — the marketplace home leads with "Most popular"
+ * (ranked by upvotes), renders New content before Top contributors, exposes a
+ * single "More to explore" rail (no per-language rails) and a Stories teaser,
+ * all from real content + the discover-backed creator directory, resolving
+ * creator names onto cards.
  */
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import type { ReactNode } from "react";
@@ -98,20 +100,54 @@ describe("CommunityHomePage", () => {
     await screen.findByText(/Nothing here yet/i);
   });
 
-  it("renders rails and resolves the creator name onto content", async () => {
+  it("leads with Most popular, then New content before Top contributors, plus a Stories teaser", async () => {
     mockDecks.listAdminDecks.mockResolvedValue([
-      DECK({ id: "d1", name: "K-Drama Phrases", authorId: "u-noor" }),
+      DECK({ id: "d1", name: "K-Drama Phrases", authorId: "u-noor", voteCount: 7 }),
       DECK({ id: "d2", name: "Hangul Basics", authorId: "u-noor", voteCount: 3 }),
     ]);
     wrap(<CommunityHomePage />);
 
-    // Featured badge/section + the resolved creator name appear once loaded.
-    await screen.findAllByText(/Featured/i);
+    // "Most popular" leads (no editorial "Featured" lead anymore).
+    await screen.findAllByText(/Most popular/i);
     await waitFor(() =>
       expect(screen.getAllByText("Noor Khan").length).toBeGreaterThan(0),
     );
-    expect(screen.getByText(/Top contributors/i)).toBeInTheDocument();
+
+    // All reordered sections render. ("More to explore" is conditional on
+    // there being leftover content beyond the popular/new sets, so it's not
+    // asserted here.)
     expect(screen.getByText(/New content/i)).toBeInTheDocument();
+    expect(screen.getByText(/Top contributors/i)).toBeInTheDocument();
+    expect(screen.getByText(/Stories — coming soon/i)).toBeInTheDocument();
+
+    // New content appears in the DOM before Top contributors (reorder check).
+    const newHeading = screen.getByText(/New content/i);
+    const contributorsHeading = screen.getByText(/Top contributors/i);
+    expect(
+      newHeading.compareDocumentPosition(contributorsHeading) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it("ranks the most-upvoted deck as the popular spotlight regardless of recency", async () => {
+    mockDecks.listAdminDecks.mockResolvedValue([
+      // Newer but fewer votes — must NOT win the spotlight.
+      DECK({ id: "d-new", name: "Fresh Deck", authorId: "u-noor", voteCount: 1, updatedAt: "2026-06-16T00:00:00Z" }),
+      // Older but most-upvoted — the genuine "most popular".
+      DECK({ id: "d-core", name: "Core 2k Deck", authorId: "u-noor", voteCount: 99, updatedAt: "2026-01-01T00:00:00Z" }),
+    ]);
+    wrap(<CommunityHomePage />);
+
+    // The spotlight hero carries the "Most popular" badge; assert the high-vote
+    // deck — not the newer low-vote one — is the deck rendered inside it.
+    await waitFor(() => screen.getAllByText(/Most popular/i));
+    const badge = screen
+      .getAllByText(/Most popular/i)
+      .map((el) => el.closest("button"))
+      .find(Boolean);
+    expect(badge).toBeTruthy();
+    expect(badge!).toHaveTextContent("Core 2k Deck");
+    expect(badge!).not.toHaveTextContent("Fresh Deck");
   });
 
   it("excludes companion decks from the marketplace", async () => {

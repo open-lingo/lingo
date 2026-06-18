@@ -7,7 +7,7 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { Skeleton } from "@/shared/components/ui/Skeleton";
 import { EmptyState } from "@/shared/components/ui/EmptyState";
 import { ContentRail } from "@/shared/components/ui/ContentRail";
-import { getLanguageConfig } from "@/shared/domain/languageConfig";
+import { cn } from "@/shared/components/ui/cn";
 import { sortByUpdatedAtDesc } from "@/shared/utils/dateUtils";
 import type { FlashcardDeck } from "@/features/flashcards/data/types";
 import type { DeckResponse } from "@/shared/api/decks";
@@ -15,15 +15,15 @@ import { CommunityDiscoveryLayout } from "./CommunityDiscoveryLayout";
 import { useCommunityContent } from "./CommunityContentContext";
 import { useMarketplaceContent, type MarketplaceItem } from "./hooks/useMarketplaceContent";
 import { useTopContributors } from "./hooks/useTopContributors";
+import { STORIES_TEASER_ITEMS } from "./hooks/storiesTeaser";
 import { MarketplaceCard } from "./components/MarketplaceCard";
 import { ContributorCard } from "./components/ContributorCard";
 import { FeaturedHero } from "./components/FeaturedHero";
 import { MarketplaceHero } from "./components/MarketplaceHero";
 
-const FEATURED_COUNT = 5;
+const POPULAR_COUNT = 7;
 const NEW_COUNT = 10;
-const PER_LANGUAGE = 8;
-const LANGUAGE_RAILS = 3;
+const EXPLORE_COUNT = 12;
 
 function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
   return {
@@ -66,49 +66,47 @@ export function CommunityHomePage() {
 
   const suggestedLangId = language?.id;
 
-  // Featured: highest-voted content, suggested language nudged to the top so a
-  // learner sees relevant content first. Falls back to newest when no votes.
-  const featured = useMemo(() => {
-    const byVotes = [...items].sort((a, b) => {
-      const langA = a.languageId === suggestedLangId ? 1 : 0;
-      const langB = b.languageId === suggestedLangId ? 1 : 0;
-      if (langA !== langB) return langB - langA;
-      if (b.upvoteCount !== a.upvoteCount) return b.upvoteCount - a.upvoteCount;
-      return (b.updatedAt ?? "").localeCompare(a.updatedAt ?? "");
-    });
-    return byVotes.slice(0, FEATURED_COUNT);
-  }, [items, suggestedLangId]);
+  // Lead rail = MOST POPULAR. Pure popularity ranking by upvotes (newest breaks
+  // ties) so the genuinely most-loved content — e.g. a big Core deck — surfaces
+  // first, regardless of any editorial "featured" flag (the backend has none).
+  const popular = useMemo(() => {
+    return [...items]
+      .sort((a, b) => {
+        if (b.upvoteCount !== a.upvoteCount) return b.upvoteCount - a.upvoteCount;
+        return (b.updatedAt ?? "").localeCompare(a.updatedAt ?? "");
+      })
+      .slice(0, POPULAR_COUNT);
+  }, [items]);
 
   const newest = useMemo(
     () => sortByUpdatedAtDesc(items).slice(0, NEW_COUNT),
     [items],
   );
 
-  // Group remaining content by language for "browse by language" rails. Order
-  // languages by content volume, suggested language first.
-  const languageRails = useMemo(() => {
-    const groups = new Map<string, MarketplaceItem[]>();
-    for (const it of items) {
-      const arr = groups.get(it.languageId) ?? [];
-      arr.push(it);
-      groups.set(it.languageId, arr);
-    }
-    return Array.from(groups.entries())
+  // "More to explore" — a single rail replacing the old per-language rails.
+  // Surfaces content the learner is less likely to have already seen on this
+  // page: everything that didn't make the popular/new sets, with content in a
+  // language other than the one they're studying nudged first (genuinely "other
+  // languages / stuff you haven't seen"). Honest proxy — we have no per-user
+  // viewed-content signal yet.
+  const explore = useMemo(() => {
+    const seen = new Set<string>([
+      ...popular.map((i) => i.id),
+      ...newest.map((i) => i.id),
+    ]);
+    const rest = items.filter((i) => !seen.has(i.id));
+    return rest
       .sort((a, b) => {
-        const sa = a[0] === suggestedLangId ? 1 : 0;
-        const sb = b[0] === suggestedLangId ? 1 : 0;
-        if (sa !== sb) return sb - sa;
-        return b[1].length - a[1].length;
+        const otherA = a.languageId !== suggestedLangId ? 1 : 0;
+        const otherB = b.languageId !== suggestedLangId ? 1 : 0;
+        if (otherA !== otherB) return otherB - otherA;
+        return b.upvoteCount - a.upvoteCount;
       })
-      .slice(0, LANGUAGE_RAILS)
-      .map(([languageId, list]) => ({
-        languageId,
-        items: sortByUpdatedAtDesc(list).slice(0, PER_LANGUAGE),
-      }));
-  }, [items, suggestedLangId]);
+      .slice(0, EXPLORE_COUNT);
+  }, [items, popular, newest, suggestedLangId]);
 
-  const heroItem = featured[0];
-  const featuredRest = featured.slice(1);
+  const heroItem = popular[0];
+  const popularRest = popular.slice(1);
 
   // Real catalog metrics for the hero strip — never fabricated.
   const metrics = useMemo(() => {
@@ -117,7 +115,6 @@ export function CommunityHomePage() {
     );
     return { decks: items.length, creators: creators.size };
   }, [items]);
-
 
   if (isLoading) {
     return (
@@ -156,30 +153,38 @@ export function CommunityHomePage() {
       <div className="space-y-8">
         <MarketplaceHero metrics={metrics} />
 
-        {/* Featured spotlight + secondary featured rail */}
+        {/* Most popular — Fortnite-shop-style mosaic: a tall spotlight tile next
+            to a grid of varied-size tiles so the rows don't read flat. */}
         {heroItem ? (
           <section className="space-y-3">
             <h2 className="flex items-center gap-2 text-lg font-semibold text-text-primary">
-              <Icon name="sparkles" size={18} aria-hidden />
-              {t("community.homeFeaturedBadge", "Featured")}
+              <Icon name="flame" size={18} aria-hidden />
+              {t("community.homePopularBadge", "Most popular")}
             </h2>
-            <div className="grid gap-4 lg:grid-cols-[1.6fr_1fr]">
-              <FeaturedHero item={heroItem} onPreview={previewFor(heroItem)} />
-              <div className="grid grid-rows-2 gap-4">
-                {featuredRest.slice(0, 2).map((item) => (
-                  <MarketplaceCard
-                    key={item.id}
-                    item={item}
-                    variant="grid"
-                    onPreview={previewFor(item)}
-                  />
-                ))}
-              </div>
-            </div>
+            <PopularMosaic
+              hero={heroItem}
+              rest={popularRest}
+              previewFor={previewFor}
+            />
           </section>
         ) : null}
 
-        {/* Top contributors */}
+        {/* New content — moved ABOVE Top contributors. */}
+        {newest.length > 0 ? (
+          <ContentRail
+            title={t("community.homeNewTitle", "New content")}
+            subtitle={t("community.homeNewSubtitle", "Freshly published by the community")}
+            icon="sparkles"
+            seeAllTo={langPath("community/browse?sort=newest")}
+            seeAllLabel={t("community.homeSeeAll", "See all")}
+          >
+            {newest.map((item) => (
+              <MarketplaceCard key={item.id} item={item} onPreview={previewFor(item)} />
+            ))}
+          </ContentRail>
+        ) : null}
+
+        {/* Top contributors — kept, now below New content. */}
         {contributorsLoading ? (
           <ContributorRailSkeleton title={t("community.homeContributorsTitle", "Top contributors")} />
         ) : contributors.length > 0 ? (
@@ -199,39 +204,37 @@ export function CommunityHomePage() {
           </ContentRail>
         ) : null}
 
-        {/* New content */}
-        {newest.length > 0 ? (
+        {/* More to explore — single rail replacing the per-language rails. */}
+        {explore.length > 0 ? (
           <ContentRail
-            title={t("community.homeNewTitle", "New content")}
-            subtitle={t("community.homeNewSubtitle", "Freshly published by the community")}
-            icon="sparkles"
-            seeAllTo={langPath("community/browse?sort=newest")}
+            title={t("community.homeExploreTitle", "More to explore")}
+            subtitle={t(
+              "community.homeExploreSubtitle",
+              "Other languages and content you haven't seen yet",
+            )}
+            icon="compass"
+            seeAllTo={langPath("community/browse")}
             seeAllLabel={t("community.homeSeeAll", "See all")}
           >
-            {newest.map((item) => (
+            {explore.map((item) => (
               <MarketplaceCard key={item.id} item={item} onPreview={previewFor(item)} />
             ))}
           </ContentRail>
         ) : null}
 
-        {/* Browse by language */}
-        {languageRails.map(({ languageId, items: langItems }) => {
-          const cfg = getLanguageConfig(languageId);
-          const label = `${cfg?.flag ?? "🌐"} ${cfg?.name ?? languageId}`;
-          return (
-            <ContentRail
-              key={languageId}
-              title={label}
-              subtitle={t("community.homeByLanguageSubtitle", "Community content in this language")}
-              seeAllTo={langPath(`community/browse?lang=${languageId}`)}
-              seeAllLabel={t("community.homeSeeAll", "See all")}
-            >
-              {langItems.map((item) => (
-                <MarketplaceCard key={item.id} item={item} onPreview={previewFor(item)} />
-              ))}
-            </ContentRail>
-          );
-        })}
+        {/* Stories — coming soon (MOCK teaser tiles, non-interactive). */}
+        <ContentRail
+          title={t("community.homeStoriesTitle", "Stories — coming soon")}
+          subtitle={t(
+            "community.homeStoriesSubtitle",
+            "Interactive, scenario-based reading is in the works",
+          )}
+          icon="stories"
+        >
+          {STORIES_TEASER_ITEMS.map((item) => (
+            <MarketplaceCard key={item.id} item={item} comingSoon />
+          ))}
+        </ContentRail>
 
         {/* Browse-all entry */}
         <div className="flex justify-center pt-2">
@@ -248,15 +251,55 @@ export function CommunityHomePage() {
   );
 }
 
+/**
+ * PopularMosaic — the lead "shop window". A tall spotlight tile sits beside a
+ * dense grid whose first tile spans two columns, so tile sizes vary and rows
+ * break up instead of marching in a flat line. Tiles fall back to grid/compact
+ * cards so the layout stays full even with mixed content.
+ */
+function PopularMosaic({
+  hero,
+  rest,
+  previewFor,
+}: {
+  hero: MarketplaceItem;
+  rest: MarketplaceItem[];
+  previewFor: (item: MarketplaceItem) => (() => void) | undefined;
+}) {
+  return (
+    <div className="grid gap-4 lg:grid-cols-[1.5fr_2fr]">
+      <FeaturedHero item={hero} onPreview={previewFor(hero)} />
+      <div className="grid auto-rows-fr grid-cols-2 gap-4 sm:grid-cols-3">
+        {rest.map((item, i) => (
+          <MarketplaceCard
+            key={item.id}
+            item={item}
+            variant="grid"
+            compact
+            // First tile takes a wider span to break the row rhythm.
+            className={cn(i === 0 && "col-span-2 sm:col-span-2")}
+            onPreview={previewFor(item)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function HomeSkeleton() {
   return (
     <div className="space-y-8">
       <Skeleton height="h-28" className="rounded-card" />
-      <div className="grid gap-4 lg:grid-cols-[1.6fr_1fr]">
-        <Skeleton height="h-52 sm:h-56" className="rounded-xl" />
-        <div className="grid grid-rows-2 gap-4">
-          <Skeleton height="h-[6.25rem]" className="rounded-xl" />
-          <Skeleton height="h-[6.25rem]" className="rounded-xl" />
+      <div className="grid gap-4 lg:grid-cols-[1.5fr_2fr]">
+        <Skeleton height="h-72" className="rounded-card" />
+        <div className="grid auto-rows-fr grid-cols-2 gap-4 sm:grid-cols-3">
+          {[0, 1, 2, 3, 4].map((i) => (
+            <Skeleton
+              key={i}
+              height="h-32"
+              className={cn("rounded-card", i === 0 && "col-span-2")}
+            />
+          ))}
         </div>
       </div>
       {[0, 1].map((row) => (
@@ -264,7 +307,7 @@ function HomeSkeleton() {
           <Skeleton width="w-40" height="h-6" />
           <div className="flex gap-4 overflow-hidden">
             {[0, 1, 2, 3].map((i) => (
-              <Skeleton key={i} width="w-64" height="h-52" className="shrink-0 rounded-xl" />
+              <Skeleton key={i} width="w-64" height="h-52" className="shrink-0 rounded-card" />
             ))}
           </div>
         </div>
@@ -279,7 +322,7 @@ function ContributorRailSkeleton({ title }: { title: string }) {
       <h2 className="text-lg font-semibold text-text-primary">{title}</h2>
       <div className="flex gap-4 overflow-hidden">
         {[0, 1, 2, 3, 4].map((i) => (
-          <Skeleton key={i} width="w-44" height="h-40" className="shrink-0 rounded-xl" />
+          <Skeleton key={i} width="w-44" height="h-40" className="shrink-0 rounded-card" />
         ))}
       </div>
     </div>
