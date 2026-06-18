@@ -26,6 +26,15 @@ import {
 
 type ViewMode = "detailed" | "simple";
 
+/** Course-level rollup shown in the map header strip. */
+type CourseRollup = {
+  total: number;
+  completed: number;
+  percent: number;
+  vocabSeen: number;
+  vocabTotal: number;
+};
+
 /** Per-module derived view-model the map + panel both read from. */
 type ModuleNode = {
   index: number;
@@ -104,6 +113,26 @@ export function CourseMapPage() {
     nodes.find((n) => n.index === currentIndex) ??
     nodes[0];
 
+  // Course-level rollup — real data, drives the informative header strip.
+  const rollup: CourseRollup = useMemo(() => {
+    const total = nodes.length;
+    const completed = nodes.filter((n) => n.status === "completed").length;
+    const vocabTotal = nodes.reduce((sum, n) => sum + n.vocabCount, 0);
+    const vocabSeen = nodes
+      .filter((n) => n.status === "completed" || n.isCurrent)
+      .reduce(
+        (sum, n) => sum + (n.status === "completed" ? n.vocabCount : 0),
+        0,
+      );
+    return {
+      total,
+      completed,
+      percent: total ? Math.round((completed / total) * 100) : 0,
+      vocabSeen,
+      vocabTotal,
+    };
+  }, [nodes]);
+
   if (!course) {
     return (
       <PageShell variant="wide" spaceY="md">
@@ -128,19 +157,30 @@ export function CourseMapPage() {
     );
   }
 
+  const learnHref = langPath("learn");
+
   return (
     <PageShell variant="wide" spaceY="md">
       <header className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-text-muted">
-          {t("courseMap.eyebrow", { defaultValue: "Course map" })}
-        </p>
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1 className="text-2xl font-bold text-text-primary">
-            {t("courseMap.title", {
-              defaultValue: "{{course}} — the whole journey",
-              course: course.title,
-            })}
-          </h1>
+        <Link
+          to={learnHref}
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-text-muted transition hover:text-text-primary"
+        >
+          <Icon name="arrowLeft" size={16} aria-hidden />
+          {t("courseMap.backToLearn", { defaultValue: "Back to Learn" })}
+        </Link>
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div className="space-y-1">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-text-muted">
+              {t("courseMap.eyebrow", { defaultValue: "Course map" })}
+            </p>
+            <h1 className="text-2xl font-bold text-text-primary">
+              {t("courseMap.title", {
+                defaultValue: "{{course}} — the whole journey",
+                course: course.title,
+              })}
+            </h1>
+          </div>
           <SegmentedControl<ViewMode>
             ariaLabel={t("courseMap.view.label", {
               defaultValue: "Map detail level",
@@ -162,28 +202,139 @@ export function CourseMapPage() {
             ]}
           />
         </div>
-        <p className="max-w-2xl text-sm text-text-secondary">
-          {t("courseMap.subtitle", {
-            defaultValue:
-              "Every module from your first sounds to holding a conversation. Follow the arrow — pick a module to see what it teaches.",
-          })}
-        </p>
       </header>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
-        <CourseMapTrail
-          nodes={nodes}
-          view={view}
-          selectedIndex={selected?.index ?? -1}
-          onSelect={setSelectedIndex}
-        />
+      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_21rem]">
+        {/* The map card: selected-module summary pinned on TOP, then the
+            flowing node grid below it on the same surface. */}
+        <Card padding="none" className="overflow-hidden">
+          {selected && (
+            <SelectedModuleSummary node={selected} rollup={rollup} view={view} />
+          )}
+          <CourseMapTrail
+            nodes={nodes}
+            view={view}
+            selectedIndex={selected?.index ?? -1}
+            onSelect={setSelectedIndex}
+          />
+        </Card>
+
         <div className="lg:sticky lg:top-4 lg:self-start">
           {selected && (
-            <ModuleDetailPanel node={selected} learnHref={langPath("learn")} />
+            <ModuleDetailPanel node={selected} learnHref={learnHref} />
           )}
         </div>
       </div>
     </PageShell>
+  );
+}
+
+/* ----------------------------------------- selected-module summary (on top) */
+
+/**
+ * Pinned summary at the TOP of the map card — reflects the currently selected
+ * node so the map and the detail clearly read as one connected surface (the
+ * 2026-06-17 feedback: the detail panel read as a disconnected sidebar card).
+ * Also carries the course-level rollup so the page is informative at a glance.
+ */
+function SelectedModuleSummary({
+  node,
+  rollup,
+  view,
+}: {
+  node: ModuleNode;
+  rollup: CourseRollup;
+  view: ViewMode;
+}) {
+  const { t } = useTranslation();
+  const { module, status } = node;
+  return (
+    <div className="border-b border-border bg-surface-muted/60 p-4 sm:p-5">
+      <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
+        <div className="min-w-0 space-y-1.5">
+          <div className="flex items-center gap-2">
+            <span
+              className={[
+                "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 text-xs font-extrabold",
+                STATUS_DISC[status],
+              ].join(" ")}
+            >
+              {node.badgeLabel}
+            </span>
+            <div className="min-w-0">
+              <p className="text-[0.6875rem] font-semibold uppercase tracking-wide text-accent">
+                {t("courseMap.selected", { defaultValue: "Selected module" })}
+              </p>
+              <h2 className="truncate text-lg font-bold leading-tight text-text-primary">
+                {module.title}
+              </h2>
+            </div>
+          </div>
+          {module.summary && (
+            <p className="max-w-prose text-sm leading-snug text-text-secondary">
+              {module.summary}
+            </p>
+          )}
+          <div className="flex flex-wrap items-center gap-3 pt-0.5 text-xs text-text-muted">
+            <StatusLine status={status} mastered={node.mastered} />
+            <span className="inline-flex items-center gap-1">
+              <Icon name="bookOpen" size={13} aria-hidden />
+              {t("courseMap.lessonCount", {
+                defaultValue: "{{count}} lessons",
+                count: node.lessonCount,
+              })}
+            </span>
+            {node.vocabCount > 0 && (
+              <span className="inline-flex items-center gap-1">
+                <Icon name="sparkles" size={13} aria-hidden />
+                {t("courseMap.vocabCount", {
+                  defaultValue: "{{count}} words",
+                  count: node.vocabCount,
+                })}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Course-level rollup — the informative header. */}
+        <dl className="flex shrink-0 items-center gap-4 sm:gap-5">
+          <div className="text-right">
+            <dd className="text-2xl font-extrabold leading-none text-text-primary">
+              {rollup.percent}
+              <span className="text-base font-bold text-text-muted">%</span>
+            </dd>
+            <dt className="mt-0.5 text-[0.625rem] font-semibold uppercase tracking-wide text-text-muted">
+              {t("courseMap.rollup.complete", { defaultValue: "Complete" })}
+            </dt>
+          </div>
+          <div className="h-9 w-px bg-border" aria-hidden />
+          <div className="text-right">
+            <dd className="text-2xl font-extrabold leading-none text-text-primary">
+              {rollup.completed}
+              <span className="text-base font-bold text-text-muted">
+                /{rollup.total}
+              </span>
+            </dd>
+            <dt className="mt-0.5 text-[0.625rem] font-semibold uppercase tracking-wide text-text-muted">
+              {t("courseMap.rollup.modules", { defaultValue: "Modules" })}
+            </dt>
+          </div>
+          {view === "detailed" && rollup.vocabTotal > 0 && (
+            <>
+              <div className="hidden h-9 w-px bg-border sm:block" aria-hidden />
+              <div className="hidden text-right sm:block">
+                <dd className="text-2xl font-extrabold leading-none text-text-primary">
+                  {rollup.vocabTotal}
+                </dd>
+                <dt className="mt-0.5 text-[0.625rem] font-semibold uppercase tracking-wide text-text-muted">
+                  {t("courseMap.rollup.words", { defaultValue: "Words" })}
+                </dt>
+              </div>
+            </>
+          )}
+        </dl>
+      </div>
+    </div>
   );
 }
 
@@ -200,140 +351,230 @@ function CourseMapTrail({
   selectedIndex: number;
   onSelect: (index: number) => void;
 }) {
+  return view === "simple" ? (
+    <SimpleMap
+      nodes={nodes}
+      selectedIndex={selectedIndex}
+      onSelect={onSelect}
+    />
+  ) : (
+    <DetailedMap
+      nodes={nodes}
+      selectedIndex={selectedIndex}
+      onSelect={onSelect}
+    />
+  );
+}
+
+/* --------------------------------------------------------- detailed map */
+
+/**
+ * Detailed map: a flowing multi-column grid of rich node cards. Flowing the
+ * nodes into columns (vs one tall stacked list) is what makes the surface
+ * "less tall / more map-like" — the whole journey reads as a board at a
+ * glance instead of an endless scroll.
+ */
+function DetailedMap({
+  nodes,
+  selectedIndex,
+  onSelect,
+}: {
+  nodes: ModuleNode[];
+  selectedIndex: number;
+  onSelect: (index: number) => void;
+}) {
   const { t } = useTranslation();
   return (
-    <Card padding="lg" className="overflow-hidden">
-      <ol className="relative space-y-3">
-        {/* The fluency arrow — a continuous vertical line behind the nodes. */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute bottom-6 left-[1.4375rem] top-3 w-0.5 bg-gradient-to-b from-accent/60 via-border to-border"
-        />
+    <div className="p-4 sm:p-5">
+      <ol className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
         {nodes.map((node) => (
           <CourseMapNode
             key={node.module.id}
             node={node}
-            view={view}
             selected={node.index === selectedIndex}
             onSelect={() => onSelect(node.index)}
           />
         ))}
-        {/* Fluency arrowhead — terminus of the line. */}
-        <li className="relative flex items-center gap-3 pl-1 pt-1 text-sm font-medium text-text-muted">
-          <span className="flex h-12 w-12 items-center justify-center">
-            <Icon name="flag" size={18} aria-hidden />
+        {/* Fluency goal — terminus of the journey. */}
+        <li className="flex items-center gap-2.5 rounded-card border border-dashed border-border p-3 text-sm font-semibold text-text-muted">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-border text-accent">
+            <Icon name="flag" size={16} aria-hidden />
           </span>
           {t("courseMap.fluencyGoal", {
             defaultValue: "Conversational fluency",
           })}
         </li>
       </ol>
-    </Card>
+    </div>
+  );
+}
+
+/* ----------------------------------------------------------- simple map */
+
+/**
+ * Simple map: a true minimap. Just numbered discs in a dense wrapped grid —
+ * no summaries, no meta badges, no inline milestones. Reads the whole course
+ * shape in a few rows. Distinct from Detailed (feedback: "Simple isn't
+ * simple"). Milestones collapse to a single dot marker on the disc.
+ */
+function SimpleMap({
+  nodes,
+  selectedIndex,
+  onSelect,
+}: {
+  nodes: ModuleNode[];
+  selectedIndex: number;
+  onSelect: (index: number) => void;
+}) {
+  const { t } = useTranslation();
+  return (
+    <div className="p-4 sm:p-5">
+      <ol className="flex flex-wrap gap-2">
+        {nodes.map((node) => {
+          const selected = node.index === selectedIndex;
+          return (
+            <li key={node.module.id}>
+              <button
+                type="button"
+                onClick={() => onSelect(node.index)}
+                aria-pressed={selected}
+                aria-current={selected ? "true" : undefined}
+                title={node.module.title}
+                className={[
+                  "relative flex h-11 w-11 items-center justify-center rounded-full border-2 text-sm font-extrabold transition",
+                  STATUS_DISC[node.status],
+                  selected
+                    ? "ring-2 ring-accent ring-offset-2 ring-offset-surface"
+                    : "hover:brightness-105",
+                ].join(" ")}
+              >
+                {node.badgeLabel}
+                {node.milestone && (
+                  <span
+                    aria-hidden
+                    className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border border-surface bg-accent"
+                  />
+                )}
+                {node.mastered && (
+                  <span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border border-surface bg-surface text-warning">
+                    <Icon name="star" size={9} fill="currentColor" aria-hidden />
+                  </span>
+                )}
+              </button>
+            </li>
+          );
+        })}
+        <li className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-dashed border-border text-accent">
+          <Icon name="flag" size={16} aria-hidden />
+        </li>
+      </ol>
+      <p className="mt-3 flex items-center gap-1.5 text-xs text-text-muted">
+        <span className="inline-block h-2.5 w-2.5 rounded-full bg-accent" aria-hidden />
+        {t("courseMap.simpleMilestoneHint", {
+          defaultValue: "Dot marks a milestone module",
+        })}
+      </p>
+    </div>
   );
 }
 
 function CourseMapNode({
   node,
-  view,
   selected,
   onSelect,
 }: {
   node: ModuleNode;
-  view: ViewMode;
   selected: boolean;
   onSelect: () => void;
 }) {
   const { t } = useTranslation();
   const { module, status, milestone } = node;
-  const detailed = view === "detailed";
 
   return (
-    <li className="relative">
-      {milestone && (
-        <div className="mb-2 flex items-center gap-2 pl-[3.75rem] text-xs font-semibold text-accent">
-          <Icon name="mapPin" size={13} aria-hidden />
-          <span>{milestone}</span>
-        </div>
-      )}
+    <li>
       <button
         type="button"
         onClick={onSelect}
         aria-pressed={selected}
+        aria-current={selected ? "true" : undefined}
         className={[
-          "group flex w-full items-start gap-3 rounded-card border p-3 text-left transition",
+          "group flex h-full w-full flex-col gap-2 rounded-card border p-3 text-left transition",
           selected
-            ? "border-accent bg-[color-mix(in_srgb,var(--color-accent)_8%,var(--color-surface))]"
-            : "border-transparent hover:border-border hover:bg-surface-muted",
+            ? "border-accent bg-[color-mix(in_srgb,var(--color-accent)_8%,var(--color-surface))] ring-2 ring-accent/40"
+            : "border-border hover:border-accent/50 hover:bg-surface-muted",
         ].join(" ")}
       >
-        {/* Disc badge */}
-        <span
-          className={[
-            "relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 text-sm font-extrabold",
-            STATUS_DISC[status],
-            node.isCurrent && status !== "completed" ? "animate-pulse" : "",
-          ].join(" ")}
-        >
-          {node.badgeLabel}
+        {milestone && (
+          <span className="-mt-0.5 flex items-center gap-1 text-[0.625rem] font-bold uppercase tracking-wide text-accent">
+            <Icon name="mapPin" size={11} aria-hidden />
+            <span className="truncate">{milestone}</span>
+          </span>
+        )}
+        <span className="flex items-start gap-2.5">
+          {/* Disc badge */}
           <span
             className={[
-              "absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-surface bg-surface",
-              status === "completed" ? "text-accent" : "text-text-muted",
+              "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 text-sm font-extrabold",
+              STATUS_DISC[status],
+              node.isCurrent && status !== "completed" ? "animate-pulse" : "",
             ].join(" ")}
           >
-            <StatusBadge status={status} />
+            {node.badgeLabel}
+            <span
+              className={[
+                "absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-surface bg-surface",
+                status === "completed" ? "text-accent" : "text-text-muted",
+              ].join(" ")}
+            >
+              <StatusBadge status={status} />
+            </span>
+          </span>
+
+          <span className="min-w-0 flex-1">
+            <span className="flex flex-wrap items-center gap-1.5">
+              {node.isCurrent ? (
+                <span className="rounded-full bg-accent/15 px-1.5 py-0.5 text-[0.5625rem] font-bold uppercase tracking-wide text-accent">
+                  {t("courseMap.current", { defaultValue: "You are here" })}
+                </span>
+              ) : (
+                module.eyebrow && (
+                  <span className="text-[0.625rem] font-semibold uppercase tracking-wide text-text-muted">
+                    {module.eyebrow}
+                  </span>
+                )
+              )}
+              {node.mastered && (
+                <Icon
+                  name="star"
+                  size={11}
+                  fill="currentColor"
+                  className="text-warning"
+                  aria-hidden
+                />
+              )}
+            </span>
+            <span className="mt-0.5 block truncate text-sm font-semibold text-text-primary">
+              {module.title}
+            </span>
           </span>
         </span>
 
-        {/* Title + (detailed) annotations */}
-        <span className="min-w-0 flex-1 pt-0.5">
-          <span className="flex flex-wrap items-center gap-2">
-            {module.eyebrow && (
-              <span className="text-[0.6875rem] font-semibold uppercase tracking-wide text-text-muted">
-                {module.eyebrow}
-              </span>
-            )}
-            {node.isCurrent && (
-              <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-wide text-accent">
-                {t("courseMap.current", { defaultValue: "You are here" })}
-              </span>
-            )}
-            {node.mastered && (
-              <span className="inline-flex items-center gap-1 text-[0.625rem] font-bold uppercase tracking-wide text-warning">
-                <Icon name="star" size={11} fill="currentColor" aria-hidden />
-                {t("courseMap.mastered", { defaultValue: "Mastered" })}
-              </span>
-            )}
-          </span>
-          <span className="mt-0.5 block truncate font-semibold text-text-primary">
-            {module.title}
-          </span>
-          {detailed && (
-            <>
-              {module.summary && (
-                <span className="mt-1 block text-xs leading-snug text-text-secondary">
-                  {module.summary}
-                </span>
-              )}
-              <span className="mt-1.5 flex flex-wrap gap-1.5">
-                <MetaBadge
-                  icon="bookOpen"
-                  label={t("courseMap.lessonCount", {
-                    defaultValue: "{{count}} lessons",
-                    count: node.lessonCount,
-                  })}
-                />
-                {node.vocabCount > 0 && (
-                  <MetaBadge
-                    icon="sparkles"
-                    label={t("courseMap.vocabCount", {
-                      defaultValue: "{{count}} words",
-                      count: node.vocabCount,
-                    })}
-                  />
-                )}
-              </span>
-            </>
+        <span className="mt-auto flex flex-wrap gap-1.5">
+          <MetaBadge
+            icon="bookOpen"
+            label={t("courseMap.lessonCount", {
+              defaultValue: "{{count}} lessons",
+              count: node.lessonCount,
+            })}
+          />
+          {node.vocabCount > 0 && (
+            <MetaBadge
+              icon="sparkles"
+              label={t("courseMap.vocabCount", {
+                defaultValue: "{{count}} words",
+                count: node.vocabCount,
+              })}
+            />
           )}
         </span>
       </button>
@@ -370,31 +611,25 @@ function ModuleDetailPanel({
 
   return (
     <Card padding="lg" className="space-y-4">
-      <div className="space-y-1">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold uppercase tracking-wide text-accent">
-            {node.badgeLabel}
-          </span>
-          {module.eyebrow && (
-            <span className="text-xs font-semibold uppercase tracking-wide text-text-muted">
-              {module.eyebrow}
-            </span>
-          )}
-        </div>
-        <h2 className="text-lg font-bold text-text-primary">{module.title}</h2>
-        <StatusLine status={status} mastered={node.mastered} />
-      </div>
-
-      {module.summary && (
-        <div>
-          <h3 className="mb-1 text-xs font-semibold uppercase tracking-wide text-text-muted">
-            {t("courseMap.whatYouLearn", { defaultValue: "What you learn" })}
-          </h3>
-          <p className="text-sm leading-relaxed text-text-secondary">
-            {module.summary}
+      {/* Echoes the selected node so panel ↔ map read as one selection. */}
+      <div className="flex items-center gap-2.5 border-b border-border pb-3">
+        <span
+          className={[
+            "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 text-xs font-extrabold",
+            STATUS_DISC[status],
+          ].join(" ")}
+        >
+          {node.badgeLabel}
+        </span>
+        <div className="min-w-0">
+          <p className="text-[0.625rem] font-semibold uppercase tracking-wide text-text-muted">
+            {t("courseMap.detailFor", { defaultValue: "Module detail" })}
           </p>
+          <h2 className="truncate text-base font-bold leading-tight text-text-primary">
+            {module.title}
+          </h2>
         </div>
-      )}
+      </div>
 
       <dl className="grid grid-cols-2 gap-2">
         <Stat

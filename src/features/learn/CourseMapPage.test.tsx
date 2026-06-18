@@ -53,21 +53,27 @@ describe("CourseMapPage", () => {
     expect(screen.getAllByText("M2").length).toBeGreaterThan(0);
   });
 
-  it("defaults the detail panel to the current module", () => {
+  it("defaults the selection to the current module", () => {
     renderPage();
-    // Current module (m1) title surfaced in the detail panel heading.
-    const panelHeading = screen.getByRole("heading", { level: 2 });
-    expect(panelHeading).toHaveTextContent("The first 46 sounds");
+    // Current module (m1) title surfaced in both the top summary and the
+    // detail panel headings (both are level-2).
+    const headings = screen.getAllByRole("heading", { level: 2 });
+    expect(headings.length).toBeGreaterThan(0);
+    expect(
+      headings.some((h) => h.textContent?.includes("The first 46 sounds")),
+    ).toBe(true);
   });
 
-  it("updates the detail panel when a different module is selected", () => {
+  it("updates the selection summary when a different module is selected", () => {
     renderPage();
     // Click the M3 node (button containing the M3 disc label).
     const m3Disc = screen.getAllByText("M3")[0];
     const button = m3Disc.closest("button")!;
     fireEvent.click(button);
-    const panelHeading = screen.getByRole("heading", { level: 2 });
-    expect(panelHeading).toHaveTextContent("First sentences");
+    const headings = screen.getAllByRole("heading", { level: 2 });
+    expect(
+      headings.every((h) => h.textContent?.includes("First sentences")),
+    ).toBe(true);
   });
 
   it("toggles between detailed and simple views", () => {
@@ -87,5 +93,26 @@ describe("CourseMapPage", () => {
   it("shows a Go to module CTA in the detail panel", () => {
     renderPage();
     expect(screen.getByText("Go to module")).toBeInTheDocument();
+  });
+
+  it("offers a back-to-Learn link", () => {
+    renderPage();
+    const back = screen.getByRole("link", { name: /back to learn/i });
+    expect(back).toHaveAttribute("href", "/ja/learn");
+  });
+
+  it("simple view collapses node detail (distinct from detailed)", () => {
+    renderPage();
+    // Detailed view renders the module title in the top summary, the side
+    // detail panel, AND the node card → 3 occurrences.
+    const detailedCount = screen.getAllByText("The first 46 sounds").length;
+    fireEvent.click(screen.getByRole("radio", { name: "Simple" }));
+    // Simple view is a minimap: node titles collapse to disc-only, so the
+    // node-card occurrence drops away — strictly fewer than detailed.
+    const simpleCount = screen.getAllByText("The first 46 sounds").length;
+    expect(simpleCount).toBeLessThan(detailedCount);
+    expect(
+      screen.getByText("Dot marks a milestone module"),
+    ).toBeInTheDocument();
   });
 });
