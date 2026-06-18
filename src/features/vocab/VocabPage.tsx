@@ -193,7 +193,7 @@ export function VocabPage() {
                   key={row.id}
                   type="button"
                   onClick={() => setOpenId(row.id)}
-                  className="flex items-center gap-3 rounded-xl border border-border bg-surface p-3 text-left transition hover:border-accent hover:shadow-card"
+                  className="flex items-center gap-3 rounded-card border border-border bg-surface p-3 text-left transition hover:border-accent hover:shadow-card"
                 >
                   <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-surface-muted">
                     <VocabArt row={row} size={32} />

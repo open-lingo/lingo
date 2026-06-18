@@ -35,7 +35,7 @@ export function EmptyState({
   return (
     <Component
       className={cn(
-        "flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-border bg-surface-muted px-4 py-10 text-center sm:px-8 sm:py-14",
+        "flex flex-col items-center justify-center gap-3 rounded-card border border-dashed border-border bg-surface-muted px-4 py-10 text-center sm:px-8 sm:py-14",
         className,
       )}
     >

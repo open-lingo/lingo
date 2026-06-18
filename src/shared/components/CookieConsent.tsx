@@ -38,7 +38,7 @@ export function CookieConsent() {
         role="dialog"
         aria-labelledby="cookie-consent-title"
         aria-describedby="cookie-consent-desc"
-        className="pointer-events-auto mx-auto flex max-w-2xl items-center gap-3 rounded-xl border border-border bg-surface p-3 shadow-popover sm:items-start sm:justify-between sm:gap-6 sm:rounded-2xl sm:p-6"
+        className="pointer-events-auto mx-auto flex max-w-2xl items-center gap-3 rounded-card border border-border bg-surface p-3 shadow-popover sm:items-start sm:justify-between sm:gap-6 sm:rounded-card sm:p-6"
       >
         <div className="min-w-0 flex-1">
           <p

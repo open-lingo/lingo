@@ -192,7 +192,7 @@ export function DeckCreatePage() {
         </div>
       </div>
 
-      <div className="rounded-xl border border-border bg-surface-muted p-4">
+      <div className="rounded-card border border-border bg-surface-muted p-4">
         <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
           {t("community.deckCreateTipsKicker", "Tips for a good deck")}
         </p>
@@ -227,7 +227,7 @@ export function DeckCreatePage() {
         </ul>
       </div>
 
-      <div className="rounded-xl border border-border bg-surface p-4">
+      <div className="rounded-card border border-border bg-surface p-4">
         <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
           {t("community.deckCreateNextKicker", "What happens next")}
         </p>
@@ -279,7 +279,7 @@ export function DeckCreatePage() {
         {isImporting && (
           <div
             data-testid="deck-create-import-panel"
-            className="mb-6 rounded-xl border border-border bg-surface p-6 shadow-sm"
+            className="mb-6 rounded-card border border-border bg-surface p-6 shadow-sm"
           >
             <p className="rounded-lg border border-info/30 bg-info/10 px-3 py-2 text-xs text-info">
               {t(
@@ -392,7 +392,7 @@ export function DeckCreatePage() {
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-6 rounded-xl border border-border bg-surface p-6 shadow-sm"
+          className="space-y-6 rounded-card border border-border bg-surface p-6 shadow-sm"
         >
           <div>
             <label

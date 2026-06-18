@@ -158,7 +158,7 @@ export function AccountPrivacySection({ embedded = false }: AccountPrivacySectio
         )}
       </SettingsGroup>
 
-      <section className="space-y-3 rounded-xl border border-error/40 bg-error/5 p-4">
+      <section className="space-y-3 rounded-card border border-error/40 bg-error/5 p-4">
         <div className="space-y-1">
           <h4 className="flex items-center gap-1.5 text-sm font-semibold text-error">
             <Icon name="alertTriangle" size={14} aria-hidden />

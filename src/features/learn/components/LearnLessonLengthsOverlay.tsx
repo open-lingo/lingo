@@ -15,7 +15,7 @@ export function LearnLessonLengthsOverlay({ onClose }: Props) {
 
   return (
     <ModalBackdrop onClose={onClose} ariaLabelledBy="lesson-lengths-title">
-      <div className="my-8 w-full max-w-3xl rounded-2xl border border-warning/40 bg-surface text-text-primary shadow-popover">
+      <div className="my-8 w-full max-w-3xl rounded-card border border-warning/40 bg-surface text-text-primary shadow-popover">
         <div className="flex items-center justify-between border-b border-border px-5 py-3">
           <div className="flex items-baseline gap-3">
             <div

@@ -341,7 +341,7 @@ function FeaturedBanner({
   const busy = pendingId === item.id;
   return (
     <section
-      className="relative overflow-hidden rounded-2xl border border-border shadow-[var(--shadow-card)]"
+      className="relative overflow-hidden rounded-card border border-border shadow-[var(--shadow-card)]"
       aria-label={t("shop.featured", { defaultValue: "Featured banner" })}
     >
       <Svg

@@ -68,7 +68,7 @@ export function SocialSidebar({
 
   return (
     <aside className="flex w-full flex-col gap-3">
-      <div className="rounded-xl border border-border bg-gradient-to-br from-accent/10 via-surface to-surface p-3">
+      <div className="rounded-card border border-border bg-gradient-to-br from-accent/10 via-surface to-surface p-3">
         <div className="flex items-center gap-2.5">
           <UserAvatar
             name={displayName || "?"}

@@ -472,7 +472,7 @@ export function PublicProfilePage() {
           className={
             "relative " +
             (hasBanner
-              ? "overflow-hidden rounded-xl p-4 sm:p-5"
+              ? "overflow-hidden rounded-card p-4 sm:p-5"
               : "")
           }
         >
@@ -1476,7 +1476,7 @@ function RegisterForm({
 }) {
   return (
     <form
-      className="space-y-5 rounded-xl border border-border bg-surface p-6"
+      className="space-y-5 rounded-card border border-border bg-surface p-6"
       onSubmit={(e) => {
         e.preventDefault();
         save();

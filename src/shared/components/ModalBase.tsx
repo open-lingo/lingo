@@ -66,7 +66,7 @@ export function ModalBase({
       >
         <div
           ref={panelRef}
-          className={`relative mx-4 w-full ${maxWidth} overflow-y-auto rounded-xl border border-border bg-surface shadow-2xl`}
+          className={`relative mx-4 w-full ${maxWidth} overflow-y-auto rounded-card border border-border bg-surface shadow-2xl`}
           style={{ maxHeight: "85vh" }}
           role="dialog"
           aria-modal="true"

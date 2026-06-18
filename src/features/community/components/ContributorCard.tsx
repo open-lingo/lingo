@@ -24,7 +24,7 @@ export function ContributorCard({ contributor, className }: ContributorCardProps
   return (
     <div
       className={cn(
-        "flex w-44 shrink-0 snap-start flex-col items-center gap-2 rounded-xl border border-border bg-surface p-4 text-center transition hover:border-accent/40 hover:shadow-card",
+        "flex w-44 shrink-0 snap-start flex-col items-center gap-2 rounded-card border border-border bg-surface p-4 text-center transition hover:border-accent/40 hover:shadow-card",
         className,
       )}
     >

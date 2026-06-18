@@ -86,7 +86,7 @@ export function UserPicker({
         <p className="text-sm text-text-muted">No users found for &ldquo;{debouncedQuery}&rdquo;.</p>
       )}
       {result.data && result.data.items.length > 0 && (
-        <div className="rounded-xl border border-border overflow-hidden">
+        <div className="rounded-card border border-border overflow-hidden">
           {result.data.items.map((user) => (
             <button
               key={user.id}

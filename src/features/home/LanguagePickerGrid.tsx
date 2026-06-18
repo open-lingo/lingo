@@ -76,7 +76,7 @@ export function LanguagePickerGrid({
   const available = new Set<string>(AVAILABLE_LEARNING_LANGUAGE_IDS);
 
   return (
-    <div className={className ?? "rounded-xl border border-border bg-surface p-6"}>
+    <div className={className ?? "rounded-card border border-border bg-surface p-6"}>
       {headline && (
         <h3 className="text-xl font-bold text-text-primary">{headline}</h3>
       )}

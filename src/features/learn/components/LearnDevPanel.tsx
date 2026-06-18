@@ -145,7 +145,7 @@ function SessionLogOverlay({ onClose }: { onClose: () => void }) {
 
   return (
     <ModalBackdrop onClose={onClose} ariaLabelledBy="session-log-title">
-      <div className="max-h-[80vh] w-full max-w-xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-popover">
+      <div className="max-h-[80vh] w-full max-w-xl overflow-y-auto rounded-card border border-border bg-surface p-5 shadow-popover">
         <div className="mb-3 flex items-center justify-between">
           <h2 id="session-log-title" className="flex items-center gap-1.5 text-lg font-bold text-text-primary">
             <Icon name="barChart" size={16} aria-hidden /> Tester log
@@ -277,7 +277,7 @@ function SpeechLogOverlay({ onClose }: { onClose: () => void }) {
 
   return (
     <ModalBackdrop onClose={onClose} ariaLabelledBy="speech-log-title">
-      <div className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border bg-surface p-5 shadow-popover">
+      <div className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-card border border-border bg-surface p-5 shadow-popover">
         <div className="mb-3 flex items-center justify-between">
           <h2 id="speech-log-title" className="flex items-center gap-1.5 text-lg font-bold text-text-primary">
             <Icon name="megaphone" size={16} aria-hidden /> Speech log (last {entries.length}/20)

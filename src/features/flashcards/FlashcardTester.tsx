@@ -575,7 +575,7 @@ export function FlashcardTester() {
       <button
         type="button"
         onClick={() => setFlipped((f) => !f)}
-        className={`flex min-h-[220px] w-full flex-col items-center justify-center rounded-xl border-2 border-t-4 border-border bg-surface py-12 shadow-sm transition hover:border-accent ${modalityTheme.rail}`}
+        className={`flex min-h-[220px] w-full flex-col items-center justify-center rounded-card border-2 border-t-4 border-border bg-surface py-12 shadow-sm transition hover:border-accent ${modalityTheme.rail}`}
       >
         {showImage(reviewMode, flipped) && currentCard.image && (
           <CardImage

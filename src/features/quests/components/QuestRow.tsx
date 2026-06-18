@@ -68,7 +68,7 @@ export function QuestRow({ quest, onClaim }: QuestRowProps) {
   const isExpired = status === "expired";
 
   const containerCls = [
-    "flex flex-col gap-3 rounded-xl border p-4 transition-colors",
+    "flex flex-col gap-3 rounded-card border p-4 transition-colors",
     isClaimable
       ? "border-accent bg-accent/5 shadow-sm"
       : isCompleted

@@ -54,7 +54,7 @@ export function ProfilePreviewPopover({ user, children }: Props) {
           <div
             role="dialog"
             className={cn(
-              "absolute left-0 top-full z-40 mt-2 w-72 rounded-xl border border-border bg-surface shadow-card",
+              "absolute left-0 top-full z-40 mt-2 w-72 rounded-card border border-border bg-surface shadow-card",
             )}
           >
             <div className="flex items-start gap-3 p-4">

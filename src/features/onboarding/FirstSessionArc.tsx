@@ -67,7 +67,7 @@ export function FirstSessionArc() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-surface/95 px-4 backdrop-blur-sm">
-      <div className="w-full max-w-md rounded-2xl border border-border bg-surface p-7 shadow-[var(--shadow-card)]">
+      <div className="w-full max-w-md rounded-card border border-border bg-surface p-7 shadow-[var(--shadow-card)]">
         {/* Step dots */}
         <div className="mb-6 flex items-center gap-1.5" aria-hidden>
           {[0, 1, 2].map((i) => (

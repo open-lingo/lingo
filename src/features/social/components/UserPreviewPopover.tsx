@@ -117,7 +117,7 @@ export function UserPreviewPopover({
               <div
                 role="dialog"
                 aria-label={t("social.preview.dialogLabel", "Profile preview")}
-                className="fixed z-[101] w-72 rounded-xl border border-border bg-surface shadow-card"
+                className="fixed z-[101] w-72 rounded-card border border-border bg-surface shadow-card"
                 style={{ top: pos.top, left: pos.left }}
               >
             <div className="flex items-start gap-3 p-4">

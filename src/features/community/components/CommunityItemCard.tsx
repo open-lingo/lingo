@@ -98,7 +98,7 @@ export function CommunityItemCard({
 
   if (variant === "minimal") {
     return (
-      <li className="flex items-start gap-3 rounded-xl border border-border bg-surface p-4 transition hover:border-accent">
+      <li className="flex items-start gap-3 rounded-card border border-border bg-surface p-4 transition hover:border-accent">
         <Link to={langPath(`practice/stories/${storyId ?? item.id}`)} className="min-w-0 flex-1">
           <span className="font-medium text-text-primary">{item.name}</span>
           {item.description && (
@@ -161,7 +161,7 @@ export function CommunityItemCard({
   // share equal heights in a grid (use `auto-rows-fr` on the parent).
   // Cover art will land later; until then the cards stay calm.
   return (
-    <article className="group/card relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-card">
+    <article className="group/card relative flex h-full flex-col overflow-hidden rounded-card border border-border bg-surface transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-card">
       <div className="flex flex-1 flex-col gap-3 p-5">
         {/* Top: language chip + kind + community badge + owner-status */}
         <div className="flex flex-wrap items-center gap-2 text-[11px]">

@@ -52,7 +52,7 @@ export function SettingsGroup({
           {label}
         </h4>
       ) : null}
-      <div className="divide-y divide-border/70 overflow-hidden rounded-xl border border-border bg-surface">
+      <div className="divide-y divide-border/70 overflow-hidden rounded-card border border-border bg-surface">
         {children}
       </div>
     </section>

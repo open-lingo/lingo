@@ -142,7 +142,7 @@ export function AdminTab() {
           {t("common.loading")}
         </p>
       ) : filteredDecks.length === 0 ? (
-        <div className="rounded-xl border-2 border-dashed border-border py-6 text-center">
+        <div className="rounded-card border-2 border-dashed border-border py-6 text-center">
           <p className="text-text-muted">
             {t("community.adminNoDecks")}
           </p>
@@ -161,7 +161,7 @@ export function AdminTab() {
             return (
               <li
                 key={deck.id}
-                className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-3 rounded-card border border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className="flex min-w-0 flex-1 items-start gap-4">
                   <img

@@ -64,7 +64,7 @@ export function CourseMapPage() {
         Your path. Completed lessons are filled; tap a lesson to practice.
       </p>
 
-      <div className="overflow-x-auto rounded-xl border border-border bg-surface p-6">
+      <div className="overflow-x-auto rounded-card border border-border bg-surface p-6">
         <svg
           viewBox={`0 0 ${totalWidth} ${totalHeight}`}
           className="mx-auto block w-full max-w-md"

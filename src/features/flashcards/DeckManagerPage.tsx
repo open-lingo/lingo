@@ -318,7 +318,7 @@ export function DeckManagerPage() {
       <StudyOptionsEditor decks={decks} />
 
       {decks.length === 0 ? (
-        <div className="rounded-xl border border-border bg-surface-muted p-8 text-center">
+        <div className="rounded-card border border-border bg-surface-muted p-8 text-center">
           <p className="text-text-muted">
             {t("flashcards.deckManager.noDecks", "No decks yet. Subscribe to a deck to manage settings.")}
           </p>

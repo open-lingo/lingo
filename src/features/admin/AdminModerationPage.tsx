@@ -676,7 +676,7 @@ function ModerationTable({
   rows: { key: string; cells: React.ReactNode[] }[];
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-border bg-surface">
+    <div className="overflow-hidden rounded-card border border-border bg-surface">
       <table className="w-full text-sm">
         <thead className="bg-surface-muted text-left text-xs uppercase text-text-muted">
           <tr>

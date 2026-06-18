@@ -18,7 +18,7 @@ export function ModuleCard({
   const completed = module.lessons.filter((l) => completedLessonIds.includes(l.id)).length;
 
   return (
-    <div className="overflow-hidden rounded-xl border border-border bg-surface">
+    <div className="overflow-hidden rounded-card border border-border bg-surface">
       <button
         type="button"
         onClick={() => setExpanded((e) => !e)}

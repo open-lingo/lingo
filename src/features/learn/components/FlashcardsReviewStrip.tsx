@@ -10,7 +10,7 @@ const StudyScopeShortcuts = lazy(() => import("@/features/flashcards/StudyScopeS
 
 export function FlashcardsReviewStrip() {
   return (
-    <div className="mb-6 rounded-xl border border-border bg-surface-muted p-3">
+    <div className="mb-6 rounded-card border border-border bg-surface-muted p-3">
       <FlashcardsReviewBody />
     </div>
   );

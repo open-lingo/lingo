@@ -34,7 +34,7 @@ function ScriptCard({
     <div
       className={cn(
         CARD_SURFACE_CLASSES.default,
-        "flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-stretch sm:justify-between sm:gap-4 sm:p-5",
+        "flex flex-col gap-3 rounded-card border p-4 sm:flex-row sm:items-stretch sm:justify-between sm:gap-4 sm:p-5",
         "min-w-0 [overflow-wrap:anywhere]",
       )}
     >
@@ -94,7 +94,7 @@ function TrainerShortcutCard({
       to={item.to}
       className={cn(
         CARD_SURFACE_CLASSES.muted,
-        "flex items-center gap-3 rounded-xl border border-border p-4 transition hover:border-border-muted hover:bg-surface sm:p-5",
+        "flex items-center gap-3 rounded-card border border-border p-4 transition hover:border-border-muted hover:bg-surface sm:p-5",
         "min-w-0 [overflow-wrap:anywhere]",
       )}
     >
@@ -146,7 +146,7 @@ export function PracticeAlphabetHubPage() {
       </header>
 
       {!hasScripts ? (
-        <p className="rounded-xl border border-border bg-surface-muted px-4 py-6 text-center text-sm text-text-secondary">
+        <p className="rounded-card border border-border bg-surface-muted px-4 py-6 text-center text-sm text-text-secondary">
           {t("practice.alphabetHub.empty")}
         </p>
       ) : (
