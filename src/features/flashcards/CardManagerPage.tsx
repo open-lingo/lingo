@@ -316,6 +316,7 @@ export function CardManagerPage() {
 
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
         <FacetSidebar
+          className="lg:w-72"
           facets={facets}
           selections={facetSelections}
           onToggle={toggleFacet}

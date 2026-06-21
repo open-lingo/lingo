@@ -816,11 +816,10 @@ export function ContentBrowserPage() {
         onRemoveChip={handleFacetToggle}
         onClearAll={handleClearAll}
         clearAllLabel={t("community.contentBrowserClearAll")}
-        resultSummary={resultSummary}
       />
 
       <div className="mt-4 flex flex-col gap-6 lg:flex-row lg:gap-6">
-        <div ref={sidebarRef} className="w-full shrink-0 lg:w-64">
+        <div ref={sidebarRef} className="w-full shrink-0 lg:w-56">
           <FacetSidebar
             compact
             facets={facets}
@@ -834,12 +833,12 @@ export function ContentBrowserPage() {
               "community.contentBrowserFacetSearchPlaceholder",
               "Filter…",
             )}
-            className="lg:w-64"
           />
         </div>
 
         <section className="min-w-0 flex-1 space-y-4">
-          <div className="flex items-center justify-end gap-2">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-xs text-text-muted">{resultSummary}</p>
             <div
               role="tablist"
               aria-label={t("community.exploreViewToggleLabel", "View")}

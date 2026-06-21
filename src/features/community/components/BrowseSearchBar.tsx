@@ -1,9 +1,7 @@
-import { type ReactNode } from "react";
 import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
 import { SearchInput } from "@/shared/components/ui/SearchInput";
 import { SegmentedControl } from "@/shared/components/ui/SegmentedControl";
-import { cn } from "@/shared/components/ui/cn";
 import {
   CommunitySelectedChips,
   type ChipDescriptor,
@@ -30,8 +28,6 @@ export type BrowseSearchBarProps = {
   onRemoveChip: (facetId: string, value: string) => void;
   onClearAll: () => void;
   clearAllLabel: string;
-  /** Result count summary rendered at the trailing edge of the type row. */
-  resultSummary?: ReactNode;
 };
 
 /**
@@ -53,7 +49,6 @@ export function BrowseSearchBar({
   onRemoveChip,
   onClearAll,
   clearAllLabel,
-  resultSummary,
 }: BrowseSearchBarProps) {
   return (
     <div className="space-y-3 rounded-card border border-border bg-surface p-3 sm:p-4">
@@ -84,26 +79,14 @@ export function BrowseSearchBar({
         )}
       </div>
 
-      {(chips.length > 0 || resultSummary) && (
-        <div
-          className={cn(
-            "flex flex-wrap items-center gap-x-3 gap-y-2",
-            chips.length > 0 && "border-t border-border/60 pt-3",
-          )}
-        >
-          {chips.length > 0 && (
-            <CommunitySelectedChips
-              chips={chips}
-              onRemove={onRemoveChip}
-              onClearAll={onClearAll}
-              clearAllLabel={clearAllLabel}
-            />
-          )}
-          {resultSummary && (
-            <div className="ml-auto text-sm text-text-secondary">
-              {resultSummary}
-            </div>
-          )}
+      {chips.length > 0 && (
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border/60 pt-3">
+          <CommunitySelectedChips
+            chips={chips}
+            onRemove={onRemoveChip}
+            onClearAll={onClearAll}
+            clearAllLabel={clearAllLabel}
+          />
         </div>
       )}
     </div>

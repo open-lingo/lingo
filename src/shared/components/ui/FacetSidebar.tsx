@@ -143,7 +143,10 @@ export function FacetSidebar({
   return (
     <aside
       className={cn(
-        "w-full shrink-0 rounded-card border border-border bg-surface lg:w-72 lg:sticky lg:top-4 lg:self-start",
+        // Width is owned by the consumer (wrapper or `className`) so it always
+        // matches its column — a hardcoded width here fought the caller's width
+        // (cn() doesn't dedupe Tailwind conflicts) and overflowed the column.
+        "w-full shrink-0 rounded-card border border-border bg-surface lg:sticky lg:top-4 lg:self-start",
         // Subtle inner edge for depth without a heavy shadow.
         "shadow-[inset_0_1px_0_0_rgb(255_255_255/0.04)]",
         className,
