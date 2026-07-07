@@ -84,3 +84,8 @@ parse (valid/invalid/version), matcher (kana/kanji/conjugated forms incl. 食べ
 
 ## Non-goals v1
 Duolingo data import (no export exists — placement covers it); in-browser .apkg parsing (CLI first; schema is the seam); importing non-atom vocabulary as reviewable cards (unmatched list is preserved in the report for a future custom-deck/content-authoring pass); symbol-mastery/kana seeding (cheap follow-up once shape validated); non-JA key expanders.
+
+## Status addendum (2026-07-07, end of day)
+Executed on Spencer's real account, server-verified: 1,077 items → 394 seeded (376 recognition-review on server, ~199 vocab due); 18 cards kept fresher real reviews via server-side LWW; 0 new unlocks (already unlocked). Beyond-course ledger archived at `research/anki/` (local-only). Two findings from the run:
+1. **Sync-race bug (fixed, `fa66452`):** concurrent sync POSTs aborted each other via the ApiClient tag dedup — migration-sized payloads always collided. All syncs now serialize through `enqueueSyncOp` (`srsSync.ts`). Future importers inherit this for free.
+2. **Open:** the preview's "already tracked" count read 0 despite hydrated reps>0 server cards in local store (harmless here — idempotent re-seed + LWW — but audit `computeImportPreview`/no-clobber input timing before promoting the import surface beyond dev).
