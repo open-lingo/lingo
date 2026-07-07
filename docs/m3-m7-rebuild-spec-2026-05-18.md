@@ -1,6 +1,6 @@
 # M3-M7 Rebuild Spec (2026-05-18)
 
-Agent-facing brief for rebuilding `mock-ja-m3-v2.ts` through `mock-ja-m7.ts` to the M1/M2 density bar + the 2026-05-18 resolutions in `curriculum-roadmap-n5-2026-05-18.md`.
+Agent-facing brief for rebuilding `mock-ja-m3-v2.ts` through `mock-ja-m7.ts` to the M1/M2 density bar + the 2026-05-18 resolutions in `docs/n5-content-spec-2026-05-25.md`.
 
 **This is a contract for the rebuild agents.** Read it; don't drift from it.
 
@@ -39,7 +39,7 @@ Every sub-lesson must meet **all** of these:
 
 ## 3. Compounding-review rule (first-class)
 
-From `curriculum-roadmap-n5-2026-05-18.md` §10.4:
+From `docs/n5-content-spec-2026-05-25.md` §10.4:
 
 > Review-to-new ratio per sub-lesson **≥ 0.25** (1 review step per 4 new-content steps), once a module has 2+ prior modules to draw from.
 
@@ -115,7 +115,7 @@ Total: 20-22 steps. **Aim for 21.** *(Updated 2026-05-18 — was "14-20, aim 18"
 
 ## 6. Anti-patterns to remove (current M3-M7 failures)
 
-The following anti-patterns from `docs/curriculum-roadmap-n5-2026-05-18.md` §3 **must be killed** in the rebuild:
+The following anti-patterns from `docs/n5-content-spec-2026-05-25.md` §3 **must be killed** in the rebuild:
 
 1. **Same-answer cloze clusters.** M3-5 (`は か は か は か`), M6-6 (6× `が`), M7-5 (6× `を`). Replace with answer-rotating drills.
 2. **Vocab-only lessons with zero retrieval.** M5-1 (5 phrase_cards back to back). Every vocab introduction must be followed by retrieval in the same sub-lesson.

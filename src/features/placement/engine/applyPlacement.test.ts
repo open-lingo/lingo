@@ -1,6 +1,12 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { applyPlacementResult } from "./applyPlacement";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
+import { getCourseAtoms } from "@/shared/language/registry";
+import {
+  getCardState,
+  setCardState,
+} from "@/features/flashcards/engine/srsStorage";
+import { createInitialState, reviewCard } from "@/features/flashcards/engine/srs";
 
 describe("applyPlacementResult — language-aware leveling", () => {
   beforeEach(() => {
@@ -42,5 +48,27 @@ describe("applyPlacementResult — language-aware leveling", () => {
     const r = applyPlacementResult(["m3"], "zz");
     expect(r.skippedLessonCount).toBe(0);
     expect(r.seededAtomCount).toBe(0);
+  });
+
+  it("does not clobber existing SRS progress on an atom that's already learned (Bug 2 regression)", () => {
+    // Pick a real m3 atom and give it real learned progress BEFORE running
+    // placement over m3 — this mirrors re-running placement (or placement
+    // landing on an atom test-out/review lessons already advanced).
+    const atoms = getCourseAtoms("ja").filter((a) => a.fromModule === "m3");
+    expect(atoms.length).toBeGreaterThan(0);
+    const target = atoms[0];
+
+    const learned = reviewCard(createInitialState(), "recognition", "good");
+    setCardState(target.id, learned);
+
+    applyPlacementResult(["m3"], "ja");
+
+    const after = getCardState(target.id);
+    expect(after).toEqual(learned);
+    // Sanity: placement still seeds atoms that had no prior state.
+    const untouched = atoms.find((a) => a.id !== target.id);
+    if (untouched) {
+      expect(getCardState(untouched.id)).toBeDefined();
+    }
   });
 });

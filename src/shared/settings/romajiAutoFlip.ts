@@ -1,11 +1,13 @@
 import type { UserSettings } from "./types";
 
 /**
- * The module number at which the romaji reading aid auto-disables. By
- * Module 15 the learner has demonstrated enough kana fluency through the
- * grammar spine that the crutch becomes counterproductive.
+ * Per-script modules at which the romaji reading aid auto-disables. By
+ * Module 10 the learner reads hiragana fluently through the grammar spine;
+ * katakana is taught gradually (M3→~M12) so its aid retires later, at
+ * Module 17. Two thresholds, one user-facing `showRomaji` toggle.
  */
-export const ROMAJI_AUTO_OFF_MODULE = 15;
+export const HIRAGANA_ROMAJI_OFF_MODULE = 10;
+export const KATAKANA_ROMAJI_OFF_MODULE = 17;
 
 /**
  * The module at which character-build tile banks stop showing per-kana
@@ -18,7 +20,7 @@ export const BUILD_TILE_ROMAJI_FADE_MODULE = 10;
 
 /**
  * Decide whether the character-build romaji should auto-fade for this
- * learner. Mirrors `shouldAutoFlipRomaji` but keyed on its own one-shot
+ * learner. Mirrors the per-script romaji auto-off but keyed on its own one-shot
  * guard (`buildTileRomajiAutoFlipped`) and earlier module threshold, and
  * INDEPENDENT of `showRomaji` — build tiles fade first while romaji can
  * stay on everywhere else.
@@ -36,59 +38,59 @@ export function shouldAutoFadeBuildTileRomaji(opts: {
   return opts.reachedModuleIndex >= BUILD_TILE_ROMAJI_FADE_MODULE;
 }
 
-export type RomajiAutoFlipReason = "module-reached" | "alphabet-mastered";
-
-export type RomajiAutoFlipResult = {
-  /** True when the helper actually flipped the setting. False = no-op. */
-  flipped: boolean;
-  /** Reason the flip fired (or would have fired). Undefined when no-op. */
-  reason?: RomajiAutoFlipReason;
-};
+export type KanaScript = "hiragana" | "katakana";
 
 /**
- * Decide whether the romaji reading aid should auto-disable for this
- * learner. Returns `flipped: true` only when:
- *   1. `showRomaji` is currently on, AND
- *   2. `romajiAutoFlipped` has not yet fired, AND
- *   3. The trigger condition (Module 15+ reached OR alphabet mastered)
- *      is now satisfied.
+ * Decide whether to flip a given script's one-time romaji auto-off guard.
+ * True only when that guard isn't already set AND the learner has reached
+ * the script's off-module. Pure — the caller writes the setting + toast.
  *
- * Pure decision function — callers handle the actual `updateSetting`
- * writes + any toast UX.
+ * There is no longer an "alphabet-mastered" global kill: the per-script
+ * module thresholds are the single source of truth, so passing the
+ * katakana trainer test can't silently kill hiragana romaji.
  */
-export function shouldAutoFlipRomaji(opts: {
+export function shouldAutoOffScriptRomaji(opts: {
   settings: UserSettings;
-  trigger: RomajiAutoFlipReason;
-  /** Reached module index (1-based). Only consulted for "module-reached". */
-  reachedModuleIndex?: number;
-  /** Has the learner passed the full alphabet test for hiragana or
-   *  katakana? Only consulted for "alphabet-mastered". */
-  alphabetFullTestPassed?: boolean;
-}): RomajiAutoFlipResult {
-  const { showRomaji, romajiAutoFlipped } = opts.settings.learning;
-
-  // If the learner has already had the flip happen once, or romaji is
-  // already off, there's nothing to do — they're in user-controlled
-  // territory now.
-  if (!showRomaji || romajiAutoFlipped) {
-    return { flipped: false };
+  reachedModuleIndex: number;
+  script: KanaScript;
+}): boolean {
+  const { hiraganaRomajiAutoOff, katakanaRomajiAutoOff } =
+    opts.settings.learning;
+  if (opts.script === "hiragana") {
+    if (hiraganaRomajiAutoOff) return false;
+    return opts.reachedModuleIndex >= HIRAGANA_ROMAJI_OFF_MODULE;
   }
+  if (katakanaRomajiAutoOff) return false;
+  return opts.reachedModuleIndex >= KATAKANA_ROMAJI_OFF_MODULE;
+}
 
-  if (opts.trigger === "module-reached") {
-    if ((opts.reachedModuleIndex ?? 0) >= ROMAJI_AUTO_OFF_MODULE) {
-      return { flipped: true, reason: "module-reached" };
-    }
-    return { flipped: false };
-  }
+/**
+ * Pure render-gate decision: should romaji show for a kana of `script`?
+ * The `showRomaji` master toggle gates both scripts; the per-script
+ * auto-off guard hides that script once crossed; `romajiOnForDay === today`
+ * forces romaji back on for every script (the "for today" escape hatch).
+ */
+export function romajiVisibleForScript(opts: {
+  settings: UserSettings;
+  script: KanaScript;
+  today: string;
+}): boolean {
+  const l = opts.settings.learning;
+  if (l.romajiOnForDay && l.romajiOnForDay === opts.today) return true;
+  if (!(l.showRomaji ?? true)) return false;
+  const off =
+    opts.script === "katakana"
+      ? l.katakanaRomajiAutoOff
+      : l.hiraganaRomajiAutoOff;
+  return !off;
+}
 
-  if (opts.trigger === "alphabet-mastered") {
-    if (opts.alphabetFullTestPassed) {
-      return { flipped: true, reason: "alphabet-mastered" };
-    }
-    return { flipped: false };
-  }
-
-  return { flipped: false };
+/** Local calendar date (YYYY-MM-DD) for the "romaji for today" escape hatch. */
+export function todayLocalDate(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
+    d.getDate(),
+  ).padStart(2, "0")}`;
 }
 
 /**

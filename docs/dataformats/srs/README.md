@@ -2,122 +2,109 @@
 
 Storage schema for SRS (spaced repetition) card state. Per-card rows enable efficient "cards due" queries without scanning. Designed for affordability on DynamoDB.
 
-See [flashcards/](../flashcards/) for the client-side SRS state format and deck integration.
+The engine is **FSRS-6** (via `ts-fsrs` on the client), with a **recognition / production modality split** — each card carries *two* independent FSRS states. **Hard is a success** rating (not a failure); target retention is 0.95. See [flashcards/](../flashcards/) for the client-side format and deck integration, and `lingo/CLAUDE.md` → "SRS engine (invariants)" for the authoritative model. Backend Pydantic schema: `lingo-core/app/srs/schemas.py`.
 
-**Anki migration (planned):** When users import `.apkg` with scheduling included, map Anki `cards` fields to `SRSCardState` (ease permille → `easeFactor`, `ivl` → `interval`, `due` + collection `crt` → `dueDate`). FSRS-exported state may not match SM-2 intervals after import. Details: [flashcards/anki-import.md](../flashcards/anki-import.md).
+**Anki migration (planned):** importing `.apkg` scheduling is non-trivial because Anki cards use SM-2 (`ease` permille, `ivl`, `due`) while our store is FSRS-6 (stability/difficulty). There is no lossless SM-2→FSRS map; the realistic options are (a) import cards as **new** (drop scheduling) or (b) approximate an initial FSRS state from the Anki interval. Details: [flashcards/anki-import.md](../flashcards/anki-import.md).
 
 ---
 
 ## Data model
 
-**SRSCardState** (per card, per user):
+**SRSCardState** (per card, per user) — nested, one FSRS state per modality:
 
-| Field           | Type   | Description                              |
-|-----------------|--------|------------------------------------------|
-| easeFactor      | number | SM-2 ease factor (e.g. 2.5)              |
-| interval        | number | Days until next review                   |
-| dueDate         | string | YYYY-MM-DD when card is next due         |
-| repetitions     | number | Number of successful reviews             |
-| lastReviewDate  | string | YYYY-MM-DD of last review                |
-| lastSyncedAt    | string | ISO timestamp of last backend sync (optional) |
+| Field           | Type              | Description                                              |
+|-----------------|-------------------|----------------------------------------------------------|
+| recognition     | SRSModalityState  | FSRS state for shown-stimulus → identify-meaning         |
+| production      | SRSModalityState  | FSRS state for cued-meaning → produce-target-form        |
+| lastSyncedAt    | string?           | ISO timestamp of last backend sync                       |
+| buriedUntil     | string?           | `YYYY-MM-DD`; if set and > today, card excluded from queue |
+| lastReviewedAt  | string?           | Top-level ISO timestamp of the most-recent review across modalities — used for last-write-wins merge (date-only `lastReviewDate` couldn't disambiguate two same-day reviews) |
 
-**SRSStore** = `Record<cardId, SRSCardState>` — one state object per card per user.
+**SRSModalityState** (FSRS-6 state for one direction):
+
+| Field           | Type   | Description                                              |
+|-----------------|--------|----------------------------------------------------------|
+| stability       | number | FSRS stability (S): predicted retention interval, days   |
+| difficulty      | number | FSRS difficulty (D), in [1, 10]                          |
+| state           | string | `new` \| `learning` \| `review` \| `relearning`          |
+| interval        | number | Scheduled days until next review (derived from S + target retention) |
+| dueDate         | string | `YYYY-MM-DD` when this modality is next due               |
+| lastReviewDate  | string | `YYYY-MM-DD` of last review of this modality              |
+| reps            | number | Total reviews of this modality                           |
+| lapses          | number | Total Again ratings across the card's lifetime           |
+| learningSteps   | number?| Position within the learning/relearning step ladder      |
+
+**SRSStore** (client) = `Record<cardId, SRSCardState>`. Card ids are atom-derived and `<lang>:`-prefixed (e.g. `ja:ai`). A card is **due** when *either* modality's `dueDate <= today`.
+
+> ⚠️ There is **no** `easeFactor` / `repetitions` / SM-2 interval. Pre-FSRS-6 (SM-2) entries are intentionally *dropped* on read, not migrated (they lack `stability`).
 
 ---
 
 ## Access patterns
 
-1. **Full sync load** — "All SRS state for this user" (session start, hydrate from server)
-2. **Cards due** — "Cards where dueDate <= today" (build review queue, counts)
-3. **Update cards** — Upsert one or more card states (on sync, after rating)
-4. **Get single card** — Fetch state for a specific card by ID
+1. **Full sync load** — all SRS state for a user (session start, hydrate from server)
+2. **Cards due** — cards where `due_date <= today` (build review queue, counts)
+3. **Update cards** — upsert one or more card states (on sync, after rating)
+4. **Get single card** — fetch state for a specific card by id
 
 ---
 
-## SQLite schema
+## SQLite schema (dev)
 
-One row per (user, card). Index on `(auth0_id, due_date)` for efficient due-date queries.
+The full FSRS-6 state is stored as **JSON** (`state_json`); a denormalized `due_date` column holds `min(recognition.dueDate, production.dueDate)` for the due-date index. One row per (user, card). (See `lingo-core/app/db/sqlite/srs.py`.)
 
 ```sql
-CREATE TABLE srs_cards (
-    auth0_id        TEXT    NOT NULL,
-    card_id         TEXT    NOT NULL,
-    ease_factor     REAL    NOT NULL DEFAULT 2.5,
-    interval_days   INTEGER NOT NULL DEFAULT 0,
-    due_date        TEXT    NOT NULL,
-    repetitions     INTEGER NOT NULL DEFAULT 0,
-    last_review     TEXT    NOT NULL,
-    extra           TEXT    NOT NULL DEFAULT '{}',
-    PRIMARY KEY (auth0_id, card_id)
+CREATE TABLE IF NOT EXISTS srs_cards_v2 (
+    user_id    TEXT NOT NULL,
+    card_id    TEXT NOT NULL,
+    due_date   TEXT NOT NULL,   -- min(recognition.dueDate, production.dueDate)
+    state_json TEXT NOT NULL,   -- full SRSCardState (both modalities) as JSON
+    PRIMARY KEY (user_id, card_id)
 );
 
-CREATE INDEX idx_srs_due ON srs_cards (auth0_id, due_date);
+CREATE INDEX IF NOT EXISTS idx_srs_v2_due ON srs_cards_v2 (user_id, due_date);
 ```
 
-**`extra`** stores optional fields (e.g. `lastSyncedAt`) as JSON.
-
-**Due cards query:**
+**Due cards query** (uses `idx_srs_v2_due`, no full scan):
 
 ```sql
-SELECT * FROM srs_cards
-WHERE auth0_id = ? AND due_date <= ?
+SELECT card_id, state_json FROM srs_cards_v2
+WHERE user_id = ? AND due_date <= ?
 ORDER BY due_date;
 ```
 
-Uses `idx_srs_due` — no full table scan. Efficient even with 10k+ cards; typical "due today" result is hundreds of rows.
-
 ---
 
-## DynamoDB schema
+## DynamoDB schema (prod)
 
-### Base table
+Store the full state blob per item; index on the min-due date for the due query.
 
-| PK                | SK        | easeFactor | interval | dueDate   | repetitions | lastReviewDate | lastSyncedAt |
-|-------------------|-----------|------------|----------|-----------|-------------|----------------|--------------|
-| `USER#auth0\|xxx` | `SRS#ko-1`| 2.5        | 1        | 2025-02-19| 2           | 2025-02-18     | …            |
-| `USER#auth0\|xxx` | `SRS#ko-2`| 2.36       | 3        | 2025-02-21| 3           | 2025-02-18     | …            |
+| PK                | SK          | dueDate (min) | state (JSON: recognition + production + meta) |
+|-------------------|-------------|---------------|-----------------------------------------------|
+| `USER#auth0\|xxx` | `SRS#ja:ai` | 2026-02-19    | `{ "recognition": {…}, "production": {…}, … }` |
 
 - **PK** = `USER#auth0|xxx` (partition by user)
-- **SK** = `SRS#cardId` (sort by card)
-- One item per card; attributes match SRSCardState
+- **SK** = `SRS#<cardId>` (sort by card)
+- **GSI (cards due):** `GSI1PK = USER#auth0|xxx`, `GSI1SK = DUE#<min-dueDate>#<cardId>`
 
-**Full sync load:** `Query PK = USER#xxx, SK begins_with "SRS#"`  
-**Get single card:** `GetItem(PK, SK)`  
-**Update:** `PutItem` or `BatchWriteItem`
+**Full sync load:** `Query PK = USER#xxx, SK begins_with "SRS#"`
+**Cards due:** `Query GSI1 where GSI1PK = USER#xxx AND GSI1SK <= "DUE#<today>#~"`
+**Update:** `PutItem` / `BatchWriteItem` (dirty cards only)
 
-### GSI: cards due
-
-- **GSI1PK** = `USER#auth0|xxx` (same as base PK)
-- **GSI1SK** = `DUE#YYYY-MM-DD#cardId` (dueDate + cardId for uniqueness)
-
-**Cards due query:**
-
-```
-Query GSI1 where
-  GSI1PK = USER#auth0|xxx
-  GSI1SK between "DUE#0000-01-01" and "DUE#2025-02-18"
-```
-
-Returns only overdue cards. No scan. ~1 RCU per 4 KB read; even 500 due cards ≈ 50 KB ≈ 13 RCU per query.
+Avoid `PK = userId:cardId` (each card its own partition) — that breaks "get all for user".
 
 ---
 
-## Cost notes
+## Sync / merge
 
-- **SQLite:** Free; local dev only.
-- **DynamoDB:** Pay per request + storage. Per-card design keeps reads minimal:
-  - Full load: 1 Query (base table)
-  - Due cards: 1 Query (GSI), returns only due items
-  - Sync: BatchWriteItem for dirty cards only
-
-Avoid PK = `userId:cardId` (each card its own partition) — that breaks "get all for user" and would require many GetItems or a Scan.
+Delta sync pushes only dirty cards. The server merge is **last-write-wins by `lastReviewedAt`** (max across the two states) — comparing date-only `lastReviewDate` made same-day re-reviews look equal and silently rejected the client's newer state. Don't bypass the client's dirty-card detection.
 
 ---
 
 ## API contract
 
-- `GET /api/core/srs/v1/state` — Full SRS map for current user
-- `GET /api/core/srs/v1/due?onOrBefore=YYYY-MM-DD` — Cards due on or before date (optional)
-- `POST /api/core/srs/v1/sync` — Push dirty cards, receive merged state
-- `DELETE /api/core/srs/v1/cards` — Remove state for specific cards
-- `DELETE /api/core/srs/v1/all` — Wipe all SRS state for user
+- `GET /api/core/v1/srs/state` — full SRS map for current user
+- `GET /api/core/v1/srs/due?onOrBefore=YYYY-MM-DD` — cards due on or before date
+- `POST /api/core/v1/srs/sync` — push dirty cards, receive merged state
+- `DELETE /api/core/v1/srs/cards` — remove state for specific cards
+- `DELETE /api/core/v1/srs/all` — wipe all SRS state for user

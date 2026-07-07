@@ -56,7 +56,7 @@ Recent work that's not MVP-required:
 | **Ad-free time module** (`features/adFree/`, `AdFreeShopSection`, lingot purchase, grind detector) | Built + tests pass | **Hide** — nothing to skip without ads |
 | **Ad provider DI + DailyWelcomeAd** (`features/ads/providers/`, `FakeAdProvider`, `AdSenseAdProvider`, banner) | Wired + tests | **Hide** (no ads) — keep code, render nothing |
 | **Social: reactions / league / friend LB / invites / threads / messenger** | UI + `SocialApi` E2E through `ApiProvider`, mutation tests pass | **Mixed** — friends + reactions backend-real; leaderboards + threads + activity still read `MOCK_FRIENDS_LB`/`MOCK_WEEKLY_LB`/`MOCK_THREADS`. **Hide leaderboards** or label preview. Backend `tests/test_social.py` 5 failing — fix first. |
-| **51 new shared UI primitives** in `shared/components/ui/` | Modal/EmptyState/CenteredLoader/Dialog/FilterBar/Pagination/Popover/etc. | **Ship** — fills `ARCHITECTURE_REVIEW.md` §3 gap |
+| **51 new shared UI primitives** in `shared/components/ui/` | Modal/EmptyState/CenteredLoader/Dialog/FilterBar/Pagination/Popover/etc. | **Ship** — fills `ARCHITECTURE_REVIEW_2026-06-14.md` §3 gap |
 | **Spanish locale** (`shared/i18n/locales/es.json`) loaded | `AVAILABLE_LEARNING_LANGUAGE_IDS = ["ko","ja"]` excludes ES (`languageConfig.ts:1019`) | **Half-done** — decide: launch UI-only or hide entirely |
 | **Practice mocks unified via `usePracticeData`** | — | **Ship** |
 | **Learn revamp** (YourPathCard, map scroll, quests sidebar) | — | **Ship** |

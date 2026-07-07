@@ -171,11 +171,26 @@ export function fromBackendResponse(backend: Record<string, unknown>): Partial<U
     partial.display = { ...backend.display } as UserSettings["display"];
   }
 
-  // flashcards
+  // flashcards — round-trip every known field so cross-device sync preserves
+  // the reviewer prefs (grading layout, scheduling-preview toggle, …).
   if (isObj(backend.flashcards)) {
-    partial.flashcards = {
-      studyOptions: parseStudyOptions(backend.flashcards.studyOptions),
+    const fc = backend.flashcards;
+    const flashcards: FlashcardsSettings = {
+      studyOptions: parseStudyOptions(fc.studyOptions),
     };
+    if (typeof fc.hideCourseDeck === "boolean") {
+      flashcards.hideCourseDeck = fc.hideCourseDeck;
+    }
+    if (typeof fc.maxNewCardsPerDay === "number") {
+      flashcards.maxNewCardsPerDay = fc.maxNewCardsPerDay;
+    }
+    if (fc.gradingLayout === "simple" || fc.gradingLayout === "full") {
+      flashcards.gradingLayout = fc.gradingLayout;
+    }
+    if (typeof fc.showIntervalPreviews === "boolean") {
+      flashcards.showIntervalPreviews = fc.showIntervalPreviews;
+    }
+    partial.flashcards = flashcards;
   }
 
   // learning — nested wins; flat `learningLanguage` / `uiLocale` are fallbacks.
@@ -207,6 +222,11 @@ function mergeWithDefaults(partial: Partial<UserSettings>): UserSettings {
   if (partial.display) merged.display = { ...merged.display, ...partial.display };
   if (partial.flashcards) {
     merged.flashcards = {
+      // Preserve every persisted flashcards field (hideCourseDeck,
+      // maxNewCardsPerDay, gradingLayout, showIntervalPreviews, …) across
+      // hydration; only studyOptions has an enforced fallback.
+      ...merged.flashcards,
+      ...partial.flashcards,
       studyOptions:
         partial.flashcards.studyOptions ?? merged.flashcards?.studyOptions ?? DEFAULT_SETTINGS.flashcards!.studyOptions,
     };
@@ -375,6 +395,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         ) as Partial<FlashcardsSettings>;
         const prevFc = next.flashcards;
         const merged: FlashcardsSettings = {
+          // Preserve every existing flashcards field (hideCourseDeck,
+          // maxNewCardsPerDay, gradingLayout, showIntervalPreviews, …); the
+          // patch only overrides the keys it carries.
+          ...prevFc,
+          ...fcPatch,
           studyOptions:
             fcPatch.studyOptions ??
             prevFc?.studyOptions ??

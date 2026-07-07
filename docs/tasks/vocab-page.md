@@ -4,7 +4,7 @@
 **Route:** `/vocab`
 **Current state:** Stub — "coming soon"
 
-**See also:** `doc/FLASHCARD-DATA.md` (course vocab manifest; lessons introduce vocab; user learned-words).
+**See also:** `docs/dataformats/flashcards/README.md` (course vocab manifest; lessons introduce vocab; user learned-words).
 
 ## Goal
 
@@ -13,7 +13,7 @@ Build a vocabulary lists page where users can browse, search, and study themed w
 ## Requirements
 
 - Show vocab lists grouped by theme (greetings, food, travel, numbers, etc.)
-- **Course vocab**: Can be driven by module vocab manifests (see FLASHCARD-DATA.md). Progress = learned words from completed lessons.
+- **Course vocab**: Can be driven by module vocab manifests (see `docs/dataformats/flashcards/README.md`). Progress = learned words from completed lessons.
 - **Themed lists**: Standalone themed lists (community-style or supplemental)
 - Each list shows: name, word count, progress (0/N learned)
 - Click a list → expand or navigate to a drill/review view
@@ -24,7 +24,7 @@ Build a vocabulary lists page where users can browse, search, and study themed w
 ## Data
 
 - Create `src/features/vocab/data/` with mock JSON files per language (e.g. `ko-vocab.json`, `ja-vocab.json`)
-- Type: `{ id, languageId, theme, words: [{ word, meaning, reading? }] }` — align with `VocabEntry` in FLASHCARD-DATA.md where course vocab is used
+- Type: `{ id, languageId, theme, words: [{ word, meaning, reading? }] }` — align with `VocabEntry` in `docs/dataformats/flashcards/README.md` where course vocab is used
 - Loader in `src/features/vocab/data/loadVocab.ts`
 
 ## UI reference

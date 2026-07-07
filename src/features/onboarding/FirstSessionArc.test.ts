@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { shouldShowFirstSessionArc } from "./FirstSessionArc";
+import { shouldShowFirstSessionArc, shouldSkipMotivationStep } from "./FirstSessionArc";
 import { setStoredSettings } from "@/features/settings/storage";
 import { getMockProgressSummary } from "@/shared/domain/mockProgress";
 
@@ -39,6 +39,44 @@ describe("FirstSessionArc gate", () => {
     expect(
       shouldShowFirstSessionArc({ completedCount: 0, ftueArcSeen: undefined }),
     ).toBe(true);
+  });
+});
+
+describe("skip-motivation-after-preview", () => {
+  it("skips the motivation step when the learner completed a preview for this language", () => {
+    expect(
+      shouldSkipMotivationStep({
+        currentLanguageId: "ja",
+        previewCompletedLanguageId: "ja",
+      }),
+    ).toBe(true);
+  });
+
+  it("does NOT skip when no preview was completed", () => {
+    expect(
+      shouldSkipMotivationStep({
+        currentLanguageId: "ja",
+        previewCompletedLanguageId: null,
+      }),
+    ).toBe(false);
+  });
+
+  it("does NOT skip when the preview was for a different language", () => {
+    expect(
+      shouldSkipMotivationStep({
+        currentLanguageId: "ko",
+        previewCompletedLanguageId: "ja",
+      }),
+    ).toBe(false);
+  });
+
+  it("does NOT skip when there is no active language yet", () => {
+    expect(
+      shouldSkipMotivationStep({
+        currentLanguageId: null,
+        previewCompletedLanguageId: null,
+      }),
+    ).toBe(false);
   });
 });
 

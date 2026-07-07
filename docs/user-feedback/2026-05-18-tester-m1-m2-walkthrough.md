@@ -57,7 +57,7 @@ Ranked by leverage × confidence:
 
 ### Soon-ish
 5. **T7** Tracing aim-assist variant — "draw it" mode for tremors. Per-user accessibility profile (#R1-defer-E) is the wrapper.
-6. **T10** Katakana spread plan — exposure across M3-M10 with romaji ruby + dedicated module ~M10. Touches katakana strategy in `curriculum-roadmap-n5-2026-05-18.md` — add a §10.11 framework note when authored.
+6. **T10** Katakana spread plan — exposure across M3-M10 with romaji ruby + dedicated module ~M10. Touches katakana strategy in `docs/n5-content-spec-2026-05-25.md` — add a §10.11 framework note when authored.
 7. **T2** "More sound cues" — audit non-emoji surfaces that should chirp on tap (option commits, correct verdicts, sub-lesson completes).
 8. **T3** Romaji on-tap extension — beyond per-glyph; reveal romaji under cloze pill options on long-press, etc.
 

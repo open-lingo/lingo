@@ -3,7 +3,7 @@
 **Date:** 2026-05-21
 **Scope:** Japanese N5 curriculum (M1–M7 shipped + sidequests). Korean course not audited.
 **Method:** Parallel dual-agent — one agent researched textbook/app/research consensus for L2 Japanese sequencing; second agent mapped the live Lingo curriculum order from source files. Gap analysis synthesized from both.
-**Companion docs:** `curriculum-design-v2.md`, `curriculum-roadmap-n5-2026-05-18.md`.
+**Companion docs:** `curriculum-design-v2.md`, `docs/n5-content-spec-2026-05-25.md`.
 
 ---
 
@@ -198,5 +198,5 @@ Research clearly separates these. CLAUDE.md notes it is in-progress; until it la
 - `lingo/src/shared/domain/mockCourse.ts`
 - `lingo/src/features/flashcards/data/ja-course-atoms.ts`
 - `lingo/src/features/flashcards/engine/srs.ts`
-- `lingo/docs/curriculum-roadmap-n5-2026-05-18.md`
+- `lingo/docs/n5-content-spec-2026-05-25.md`
 - `lingo/docs/curriculum-design-v2.md`

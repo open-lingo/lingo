@@ -4,7 +4,10 @@ import {
   unlockLessonAtoms,
   unlockAtomIds,
 } from "@/features/lesson/data/unlockLessonAtoms";
-import { setCardState } from "@/features/flashcards/engine/srsStorage";
+import {
+  getCardState,
+  setCardState,
+} from "@/features/flashcards/engine/srsStorage";
 import {
   getCourseAtoms,
   isLanguageRegistered,
@@ -105,6 +108,11 @@ export function applyPlacementResult(
     if (!atom.srsEligible) continue;
     if (atom.fromModule === undefined) continue;
     if (!passedSet.has(atom.fromModule)) continue;
+    // Don't clobber a real schedule — mirrors seedSchedule.ts's
+    // seed-on-unlock guard. Without this, re-running placement (or
+    // placement over an atom the learner already has SRS progress on)
+    // silently wipes that progress back to a fresh "learning" seed.
+    if (getCardState(atom.id)) continue;
     setCardState(atom.id, seedState);
     seededIds.push(atom.id);
   }

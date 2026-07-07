@@ -54,7 +54,7 @@ Ideas and future work. **Epic list:** [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md)
 
 ## Product & sustainability
 
-- **MVP: ads only, no billing** — expect costs > ad revenue early
+- **MVP: ad-free, no billing** — ads (AdSense) are deferred to post-MVP; the trial runs at a loss by design
 - **Funding meter (live)** — AdSense Management API; Stripe **post-MVP** ([ADS_AND_FINANCE_ARCHITECTURE.md](./ADS_AND_FINANCE_ARCHITECTURE.md))
 - **Ad placements** — [ADS_PLACEMENT.md](./ADS_PLACEMENT.md)
 - **TTS** — [TTS_PLANNING.md](./TTS_PLANNING.md)

@@ -93,7 +93,10 @@ export function HeroContinue({
           </p>
           <h1
             className={cn(
-              "mt-1 truncate text-2xl font-extrabold leading-tight sm:text-3xl",
+              // line-clamp-2 (not truncate): module titles like "The first
+              // 46 sounds" don't fit one line at 390px — cutting the hero
+              // headline mid-word is worse than a second line.
+              "mt-1 line-clamp-2 text-2xl font-extrabold leading-tight sm:text-3xl",
               hasBg ? "text-white" : "text-text-primary",
             )}
           >

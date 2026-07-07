@@ -2,7 +2,7 @@
 
 How to author a Lingo JA sub-lesson that passes every standard we've accumulated. Living doc — refine as new findings land.
 
-**Read this before authoring any new JA lesson.** Read `docs/curriculum-roadmap-n5-2026-05-18.md` (curriculum-level scope) + `docs/m3-m7-rebuild-spec-2026-05-18.md` (M3-M7 contract) + `docs/user-feedback/` (real-user evidence) for context.
+**Read this before authoring any new JA lesson.** Read `docs/n5-content-spec-2026-05-25.md` (curriculum-level scope) + `docs/m3-m7-rebuild-spec-2026-05-18.md` (M3-M7 contract) + `docs/user-feedback/` (real-user evidence) for context. **Also read `docs/pedagogy-principles-2026-07-05.md`** — the binding rules for what explanations may claim about Japanese (が/は model, helpers-not-conjugation, structure-true glosses); this guide covers lesson mechanics, that one covers linguistic framing.
 
 ---
 
@@ -16,20 +16,25 @@ A Lingo JA sub-lesson is **20-22 retrieval-heavy steps** that introduce 2-4 new 
 
 | Dimension | Floor | Aim | Ceiling |
 |---|---|---|---|
-| Step count | 20 | 21 | 22 (hard 25) |
+| Step count | 20 (aim, **not** the hard floor) | 21 | 22 (hard 25) |
 | Distinct step types | 5 | 7-8 | — |
-| Adjacent same-type | — | — | 1 (R3 rule) |
+| Adjacent same-type | — | — | 0 (no two same-`type` steps in a row) |
+| Consecutive selection-MCQs | — | — | 2 (never 3+ in a row, even if types differ) |
 | Review-to-new ratio | 0.25 | 0.3 | — |
 | Generation steps per sub-lesson | 1 | 2 (translate + speaking) | — |
 | selfExplain per grammar-drill sub-lesson | 1 | 1 (at N-1) | 2 |
 | Hard direction (translate / speaking) position | step 12+ | end | — |
 
+> **Enforced band vs aim:** the only *hard* step-count gate is **12–25** (`sub-lesson-density.test.ts`); 20–22 is the density *aim*, not a floor. **Do not pad with filler (extra `phrase_card`s, re-read beats) to reach 20** — a tight 14-step lesson where every step earns its place beats a padded 21. (`n5-content-spec-2026-05-25.md` is aligned to this 20–22 aim as of 2026-06-30.)
+
+> **Variety (two rules):** (1) **No two adjacent steps of the same `type`** — machine-enforced (`previewLessons.test.ts`). (2) **No more than two selection-MCQ steps in a row**, *even when their `type` differs*. Many types are the same interaction under the hood — `vocabMcq`, `sentenceMcq`, `particle_cloze`, `listeningCompSentence`, `self_explanation_mcq` are all "tap one of N." Rule (1) stops the identical repeat; this cap stops an MCQ marathon (three+ taps in a row reads as the same drill even with different type strings). Break a run with a generation step (`build`, `translateStep`, `speaking`) or a teach/`info` beat. *(Guidance, not yet a test — added 2026-06-30.)*
+
 Hard guards (vitest):
 - `src/features/lesson/data/sub-lesson-density.test.ts` — fails if any sub-lesson < 12 or > 25 steps.
 - `src/features/lesson/data/atom-coverage.test.ts` — fails if any introduced atom has < 3 occurrences across the corpus.
 - `src/features/lesson/data/mcq-position-distribution.test.ts` — fails if any MCQ-type's correct slot has > 55% concentration.
-- `_jaGrammarHelpers.ts:assertNoSameAnswerCluster` — throws at import if a sub-lesson's cloze block has ≥3 consecutive same-particle answers.
-- `_jaGrammarHelpers.ts:assertAnswerRotation(steps, minDistinct=2)` — throws at import if a sub-lesson's cloze block has < 2 distinct correct particles (3 for drill-only sub-lessons).
+- `grammarHelpers.ts:assertNoSameAnswerCluster` — throws at import if a sub-lesson's cloze block has ≥3 consecutive same-particle answers.
+- `grammarHelpers.ts:assertAnswerRotation(steps, minDistinct=2)` — throws at import if a sub-lesson's cloze block has < 2 distinct correct particles (3 for drill-only sub-lessons).
 
 ---
 
@@ -80,7 +85,7 @@ Variations:
 
 ## 4. Step-type cheat sheet
 
-Use the M3-M7 helpers in `_jaGrammarHelpers.ts`. Inline literals are a last resort (no slot rotation, no atom-coverage tracking).
+Use the M3-M7 helpers in `grammarHelpers.ts`. Inline literals are a last resort (no slot rotation, no atom-coverage tracking).
 
 | Goal | Use | Notes |
 |---|---|---|
@@ -104,7 +109,7 @@ Use the M3-M7 helpers in `_jaGrammarHelpers.ts`. Inline literals are a last reso
 ## 5. The five things authors get wrong (audit + tester pattern)
 
 ### 5.1 Hardcoding the correct MCQ slot
-**Don't** ship an MCQ-type step with `correctOptionId: "correct"` in position 0 unless the factory handles rotation. Authors using `cloze` / `vocabMcq` / `sentenceMcq` / `selfExplain` / `listeningCompSentence` get rotation automatically. Inline literals (e.g., the per-module `particleMc` row-test helpers) must rotate using `slotFor(id, 4)` (exported from `_jaGrammarHelpers.ts`).
+**Don't** ship an MCQ-type step with `correctOptionId: "correct"` in position 0 unless the factory handles rotation. Authors using `cloze` / `vocabMcq` / `sentenceMcq` / `selfExplain` / `listeningCompSentence` get rotation automatically. Inline literals (e.g., the per-module `particleMc` row-test helpers) must rotate using `slotFor(id, 4)` (exported from `grammarHelpers.ts`).
 
 Regression guard: `mcq-position-distribution.test.ts` fails if any step type's correct slot concentration exceeds 55% across the corpus.
 
@@ -133,9 +138,9 @@ Every introduced atom **must re-surface ≥3 times** across the M3-M7 corpus. At
 - **M4** atoms (の, demonstratives, objects) should appear in M5-M7. Question word `だれ` is high-value — re-surface.
 - **M5** atoms (numbers, counters, ください) have the **heaviest leakage** in the original M3-M7 — counter forms and `X です` duplicates often appeared once and never again. Collapse duplicates: teach bare counters once, use them in carrier sentences without re-introducing.
 - **M6** atoms (locations, に/で/が) should appear in M7 verb-of-motion sentences (every motion verb takes a location particle — natural compounding).
-- **M7** atoms have **no downstream module** in the current 30-module spine — every M7 atom must re-surface ≥3× WITHIN M7's own 8 sub-lessons. Be aggressive about internal review tails.
+- **M7** atoms: this note dates from when M7 was the last authored module. The shipped spine is now **M1–M27** (`curriculum/m1*.ts … m27.ts`), so M7 *does* have downstream modules — the review pool (still named `M3_M7_REVIEW_POOL` for historical reasons) is imported by m8…m27, so M7 atoms can compound forward. Still author strong internal review tails, but the "must re-surface entirely within M7" constraint no longer holds.
 
-**Cross-module compounding rule** (in the test): atoms introduced in M3-M5 must appear in at least one later-numbered module's review tail. M6+M7 atoms exempted (M6 may compound in M7 only; M7 has no successor).
+**Cross-module compounding rule** (in the test): atoms introduced in an early module must appear in at least one later-numbered module's review tail. (Historically framed as "M3–M5 must compound in M6/M7"; with M8–M27 shipped, the same forward-compounding rule applies across the full spine — verify against `atom-coverage.test.ts` for the current enforced check.)
 
 ---
 
@@ -190,10 +195,10 @@ Pair with the upcoming wave's CelebrationToast wiring (audit §2.1) — when the
 ## 11. The fastest way to author a new sub-lesson
 
 1. Pick a target slot (`ja-m{N}-{n}`). Read the surrounding sub-lessons to know the curriculum context.
-2. Open `mock-ja-m{N}.ts` near the relevant `export const M{N}_{n}` block.
+2. Open `curriculum/m{N}.ts` near the relevant `export const M{N}_{n}` block.
 3. Copy the template in §3 above; fill in the atom-introduction section with your 2-4 new atoms.
 4. Pull review-tail atoms from `pickReviewAtoms(\`ja-m{N}-{n}-rev\`, PRIOR_POOL, 5)`.
-5. Wire each step using factories from `_jaGrammarHelpers.ts` — never inline literals.
+5. Wire each step using factories from `grammarHelpers.ts` — never inline literals.
 6. Add the import-time guards: `assertNoSameAnswerCluster(M{N}_{n}.steps)` + `assertAnswerRotation(M{N}_{n}.steps, 2)` (or 3 for drill sub-lessons).
 7. Run `npx tsc --noEmit` + the four relevant vitest files (density, atom-coverage, mcq-position, ja-m3-m7-coverage). All green = ship.
 8. If your atoms aren't in `M3_M7_REVIEW_POOL`, add them with `fromModule: "m{N}"` so future modules can compound.
@@ -217,8 +222,8 @@ Pair with the upcoming wave's CelebrationToast wiring (audit §2.1) — when the
 | 2026-05-21 | Just-in-time grammar teach (RULE_MO in M3-7 inline) | this guide §13.3 |
 | 2026-05-21 | Forced sentence_build replacing copula-cloze | this guide §13.4 |
 | 2026-05-21 | Close-on-confidence step (matchPairs after dialogue peak) | this guide §13.5 |
-| 2026-05-21 | Grading = review-only (teach steps never write SRS) | this guide §13.6 |
-| 2026-05-21 | `excludeFromSrs` + `isSrsEligibleAtom` filter on deck builder | ja-course-atoms.ts |
+| 2026-05-21 | Grading = review-only (teach steps never write SRS) — mechanism updated 2026-07-01 by D2 | this guide §13.6 |
+| 2026-05-21 | `excludeFromSrs` + `isSrsEligibleAtom` filter on deck builder | courseAtoms.ts |
 | 2026-05-21 | Particle-tile separation in build tile banks (open work) | this guide §13.10 |
 
 ---
@@ -237,7 +242,7 @@ Map atom lexical category to the dominant retrieval step type. Author the FIRST 
 | Compound noun without single-glyph emoji (にほんじん, アメリカじん) | `listeningCompSentence` (audio→meaning) + `speaking` | Composite — no clean image cue; audio carries the load. |
 | Verb (たべる, のむ, みる) | `build` (forced single-answer tile bank) | Action images are ambiguous; tile-bank production drills the form. |
 | Adjective (あおい, おおきい) | `build` (forced) OR `phrase_card` exposure + `sentenceMcq` recognition | Color emoji exist (🟦) but the kana ↔ image mapping is weaker than nouns. Production-direction build is the safer choice. |
-| Pronoun (わたし, あなた, これ/それ/あれ, なん) | `build` (forced) — never image_mcq | Rubric block: `WORD_IMAGE_MCQ_BLOCKLIST` in `_jaGrammarHelpers.ts`. Demonstrative-image cues are deeply context-dependent. |
+| Pronoun (わたし, あなた, これ/それ/あれ, なん) | `build` (forced) — never image_mcq | Rubric block: `WORD_IMAGE_MCQ_BLOCKLIST` in `grammarHelpers.ts`. Demonstrative-image cues are deeply context-dependent. |
 | Function-phrase / greeting (すみません, こんにちは, おねがいします) | `phrase_card` + `listeningCompSentence` | No image; oral function carries the meaning. |
 | Particle (は, か, を, に, で, も) | `particle_cloze` | Form-focused practice in carrier sentences. Don't drill in a `particle_cloze` slot if the answer would be `です` — see §13.4. |
 | Kanji-word (when productive — M10+) | `audio_spelling_mcq` (factory to be built) on top of recognition | Tests sound→kanji-spelling; spelling-MCQ assumes sound↔meaning already bound. |
@@ -249,7 +254,7 @@ Map atom lexical category to the dominant retrieval step type. Author the FIRST 
 For concrete-noun atoms, lead with `vocabMcq` BEFORE the bare `vocab` card. The image IS the introduction.
 
 ```ts
-// PATTERN (M3-3 ねこ at mock-ja-m3-v2.ts:525):
+// PATTERN (M3-3 ねこ at curriculum/m3-v2.ts:525):
 vocabMcq(
   "ja-m{N}-{n}-mcq-{atom}",
   { kana: "ねこ", meaningEn: "cat", emoji: "🐱", fromModule: "m{N}" },
@@ -272,7 +277,7 @@ When NOT to use it (keep the traditional `vocab → vocabMcq` pair):
 
 When a new particle / grammar piece is needed in lesson X, formally teach it in lesson X — not in a future lesson. Then M(X+1)+ can weave it into example sentences without re-teaching.
 
-Concrete: `RULE_MO` in M3-7 (`mock-ja-m3-v2.ts:1331`). Pattern:
+Concrete: `RULE_MO` in M3-7 (`curriculum/m3-v2.ts:1331`). Pattern:
 
 1. Lesson opens with warm-up and cumulative review on already-taught content.
 2. Right before the construct is needed (the dialogue, the production block), ship `grammarRule({...})` with one `antiPattern` showing the broken form.
@@ -321,9 +326,19 @@ Recommended closing tail order:
 3. **`reviewMatchPairs` as the closer** — 4-6 pairs, recognition-easy, almost-always-right.
 4. `infoStep` (win variant) — identity-anchored "you can now…" close.
 
-The rewrite's M3-7 follows this exactly (`mock-ja-m3-v2.ts:1477` dialogue → `:1539` mcq retrieval → `:1554` speaking → `:1561` matchPairs → `:1564` info-end).
+The rewrite's M3-7 follows this exactly (`curriculum/m3-v2.ts:1477` dialogue → `:1539` mcq retrieval → `:1554` speaking → `:1561` matchPairs → `:1564` info-end).
 
 ### 13.6 Grading = review-only (the flip-side invariant)
+
+> **2026-07-01 update (D2 shipped, vocab-only):** the ENFORCEMENT moved from
+> lesson-scoped ("only ja-mN-review-1/2 write SRS") to atom-scoped: content
+> sub-lesson steps now DO write Track A, but only for atoms whose
+> `fromModule` is strictly earlier than the lesson's module and that aren't
+> introduced by the lesson itself (`lesson/data/reviewTailSrs.ts`,
+> `shouldWriteContentReviewAtom`). The invariant below — teach steps never
+> grade, no same-day grading of just-introduced words — is unchanged; it is
+> exactly what the new gate enforces. Track B grammar remains
+> review-lesson-only.
 
 Teach steps never write to SRS. The rule:
 
@@ -351,7 +366,7 @@ The 2026-05-21 audit found "MCQ ordering is off" was actually about **distractor
 
 ### 13.8 Atom registry discipline
 
-Every atom used in lesson content must have its `introducedByLessonId` set in `src/features/flashcards/data/ja-course-atoms.ts` pointing to its FIRST formal teach lesson. Two failure modes to avoid:
+Every atom used in lesson content must have its `introducedByLessonId` set in `src/features/languages/ja/courseAtoms.ts` pointing to its FIRST formal teach lesson. Two failure modes to avoid:
 
 1. **Forward-leak**: atom is `fromModule: "m4"` (or no `introducedByLessonId`) but is used in M3 carrier sentences without formal teach. → Either backfill (atom moves to M3) or scrub from M3 (defer use to M4).
 2. **Drift**: lesson code formally teaches an atom (adds a `grammar_rule` or `vocab` card) but the registry still tags it under the old module. → Always update both: lesson code + atom registry.
@@ -361,11 +376,11 @@ When you change a lesson to add a formal teach for a previously-forward-leaked a
 - Add `introducedByLessonId: "ja-m{N}-{n}"` pointing at the formal teach.
 - Add a `note:` documenting the move so future auditors don't think it's an error.
 
-**Two-stage attribution (kana introduced in one module, vocab introduced in another):** When an atom's kana shape is taught in module N but the word as a vocab unit lands in module M (M > N), set `fromModule: "m{N}"` AND `introducedByLessonId: "ja-m{M}-{n}"`. Example: `inu` (`いぬ`) and `neko` (`ねこ`) in `ja-course-atoms.ts:82-83` carry `fromModule: "m1"` (where the kana shapes ship) but `introducedByLessonId: "ja-m3-3"` (where they become drillable vocab). The compounding-review pool keys off `fromModule`; the curriculum-coverage tests key off `introducedByLessonId`. Both fields are load-bearing.
+**Two-stage attribution (kana introduced in one module, vocab introduced in another):** When an atom's kana shape is taught in module N but the word as a vocab unit lands in module M (M > N), set `fromModule: "m{N}"` AND `introducedByLessonId: "ja-m{M}-{n}"`. Example: `inu` (`いぬ`) and `neko` (`ねこ`) in `courseAtoms.ts:82-83` carry `fromModule: "m1"` (where the kana shapes ship) but `introducedByLessonId: "ja-m3-3"` (where they become drillable vocab). The compounding-review pool keys off `fromModule`; the curriculum-coverage tests key off `introducedByLessonId`. Both fields are load-bearing.
 
 ### 13.9 SRS pool filter (`isSrsEligibleAtom`)
 
-`buildJaCourseDeck()` in `ja-course-atoms.ts` filters via `isSrsEligibleAtom`. Rules:
+`buildJaCourseDeck()` in `courseAtoms.ts` filters via `isSrsEligibleAtom`. Rules:
 
 - `excludeFromSrs: true` → excluded (explicit opt-out for alphabet-trainer atoms).
 - `kind: "particle"` → included (particles are single-kana but grammatically essential).
@@ -403,7 +418,7 @@ Single-kana atoms (え, き, つ as standalone "words") belong in the alphabet t
 
 ### 13.12 The cloze rotation gold standard (M3-5)
 
-Perfect rotation of particle answers across a cloze block. Pattern from M3-5 (`mock-ja-m3-v2.ts:947-1067`):
+Perfect rotation of particle answers across a cloze block. Pattern from M3-5 (`curriculum/m3-v2.ts:947-1067`):
 
 - 6 clozes, answers alternate `は / か / は / か / は / か` — no two adjacent same.
 - Each cloze surface position (beginning, middle, end of sentence) varies so the learner can't pattern-match on slot.
@@ -441,7 +456,7 @@ Mix freely across the course. Both write SRS the same way (recognition modality 
 
 #### Tagging atoms for FSRS grading (Spencer's invariant)
 
-Every graded step factory in `_jaGrammarHelpers.ts` accepts an `exercisedAtomKanas?: string[]` argument (or auto-resolves from `target.kana` for atom-keyed factories). When set, the step's `exercisedAtoms` populates and `LessonPage.handleStepComplete` advances FSRS state for those atoms. **Teach steps** (`phrase_card`, `info`, `grammar_rule`, `symbol_intro`, `teach`) NEVER write SRS — the `shouldWriteSrs(step)` gate in `_stepPredicates.ts` blocks them even if they accidentally carry `exercisedAtoms`. Sentence-level factories (`build`, `speaking`, `listeningBuildSentence`, `listeningCompSentence`, `sentenceMcq`, `translateStep`) require the author to pass the kana list. Atom-keyed factories (`vocabMcq`, `audioImageMcq`, `audioMeaningMcq`, `translationMcq`, `reviewMatchPairs`, `dialogueListen` via the `exercisedAtomKanas` option, `cloze` from `correctParticle`) auto-tag.
+Every graded step factory in `grammarHelpers.ts` accepts an `exercisedAtomKanas?: string[]` argument (or auto-resolves from `target.kana` for atom-keyed factories). When set, the step's `exercisedAtoms` populates and `LessonPage.handleStepComplete` advances FSRS state for those atoms. **Teach steps** (`phrase_card`, `info`, `grammar_rule`, `symbol_intro`, `teach`) NEVER write SRS — the `shouldWriteSrs(step)` gate in `_stepPredicates.ts` blocks them even if they accidentally carry `exercisedAtoms`. Sentence-level factories (`build`, `speaking`, `listeningBuildSentence`, `listeningCompSentence`, `sentenceMcq`, `translateStep`) require the author to pass the kana list. Atom-keyed factories (`vocabMcq`, `audioImageMcq`, `audioMeaningMcq`, `translationMcq`, `reviewMatchPairs`, `dialogueListen` via the `exercisedAtomKanas` option, `cloze` from `correctParticle`) auto-tag.
 
 ---
 
@@ -561,11 +576,11 @@ They are **excluded** from `assertNoSameAnswerCluster` and `assertAnswerRotation
 ### 14.8 Export and registration
 
 ```typescript
-// In mock-ja-mN.ts:
+// In curriculum/mN.ts:
 export const MN_STORY: LessonContent = { id: "ja-mN-story", moduleId: "mN", ... };
 
 // In mockLessons.ts — import + register:
-import { ..., MN_STORY } from "./mock-ja-mN";
+import { ..., MN_STORY } from "./mN";
 // In LESSONS record:
 "ja-mN-story": MN_STORY,
 ```
@@ -579,8 +594,8 @@ The current 12-step / 2-scene template suits M3-M7 where grammar is still simple
 - 3 scenes (3 `dialogue_listen` chunks)
 - 16-18 steps total
 - `build_sentence` responses where the learner "replies" to the story characters
-- The existing `storyComprehension()` factory in `_jaGrammarHelpers.ts` composes `[dialogueListen(narrative), build_sentence]` — use it for narrative-format (non-dialogue) stories where speaker labels are suppressed.
+- The existing `storyComprehension()` factory in `grammarHelpers.ts` composes `[dialogueListen(narrative), build_sentence]` — use it for narrative-format (non-dialogue) stories where speaker labels are suppressed.
 
 ---
 
-*This guide is the condensed output of the M3-M7 rebuild waves (per `curriculum-roadmap-n5-2026-05-18.md` Q8 resolution) plus the 2026-05-21 M3 rewrite retrospective and the 2026-05-23 SRS modality / canonical template lock. Refine as new findings land.*
+*This guide is the condensed output of the M3-M7 rebuild waves (per `docs/n5-content-spec-2026-05-25.md` Q8 resolution) plus the 2026-05-21 M3 rewrite retrospective and the 2026-05-23 SRS modality / canonical template lock. Refine as new findings land.*

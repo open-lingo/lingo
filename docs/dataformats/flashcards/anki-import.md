@@ -55,16 +55,21 @@ When scheduling is included, live state is in SQLite **`cards`** (`ivl`, `factor
 
 ### Mapping Anki → Open Lingo `SRSCardState`
 
-See [srs/README.md](../srs/README.md) and `src/features/flashcards/data/types.ts`.
+See [srs/README.md](../srs/README.md) and `src/features/flashcards/data/types.ts`. **Our engine is FSRS-6** (stability + difficulty, per-card, with a recognition/production modality split) — there is **no** `easeFactor`/`repetitions` field to map into. Anki's SM-2 `factor`/`ivl` do **not** convert losslessly to FSRS stability/difficulty, so scheduling import is best-effort.
 
-| Anki (`cards`) | Open Lingo | Notes |
-|----------------|------------|--------|
-| `factor` (permille, e.g. 2500) | `easeFactor` | Divide by 1000 → 2.5 |
-| `ivl` (days, graduated) | `interval` | Learning/relearning cards are more nuanced |
-| `due` + `col.crt` | `dueDate` | Review `due` is **days since collection creation**, not a calendar date — convert using collection `crt` and user timezone |
-| `reps` | `repetitions` | Align with our SM-2 implementation; verify lapse edge cases |
+Two viable strategies (pick per product call — this is unresolved):
 
-**FSRS caveat:** Many Anki users run **FSRS**. Columns still encode “where the card sits,” but ease/interval semantics differ from classic SM-2. Product expectation: import **current due + interval + best-effort ease**; document that **future intervals may differ** after the first review in Open Lingo.
+1. **Import as new (simplest, recommended default):** drop Anki scheduling entirely; every imported card starts as a `new` FSRS card. Loses the user's prior progress but is correct and trivial.
+2. **Approximate initial FSRS state:** seed each modality from the Anki interval — set `state`/`interval`/`dueDate` from `ivl` + `due` + collection `crt` (Anki `due` for review cards is **days since collection creation**, convert via `crt` + user timezone), and let FSRS re-fit `stability`/`difficulty` on the first real review. Document that **future intervals will differ**. Anki `factor` (SM-2 ease) has no FSRS equivalent and is discarded.
+
+| Anki (`cards`) | Open Lingo (FSRS-6) | Notes |
+|----------------|---------------------|--------|
+| `ivl` (days) | `interval` + seeds `dueDate` | Only used in strategy 2; learning/relearning cards are more nuanced |
+| `due` + `col.crt` | `dueDate` | Anki review `due` is days-since-collection-creation, not a calendar date — convert via `crt` + timezone |
+| `reps` / `lapses` | `reps` / `lapses` | Carry over as counters only; they don't drive FSRS scheduling |
+| `factor` (SM-2 ease) | — | No FSRS equivalent; discard |
+
+**FSRS-native Anki users:** many Anki collections already run FSRS, but the exported `cards` columns still only expose SM-2-shaped fields, so the caveats above apply either way.
 
 ---
 

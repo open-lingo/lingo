@@ -1,6 +1,6 @@
 # Product backlog (ideas)
 
-Living list of **planned work**, not launch blockers. MVP is **ad-supported only** (no Stripe billing); premium and live finance sync come later. SRS state is in good shape; **content progress** and **rewards** need design time.
+Living list of **planned work**, not launch blockers. MVP is **ad-free** (no ads, no Stripe billing) — the initial trial runs at a loss; **ad-supported** monetization, premium, and live finance sync come later. SRS state is in good shape; **content progress** and **rewards** need design time.
 
 **Also see:** [TODO.md](./TODO.md) · [FEATURES.md](./FEATURES.md) · [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · [MVP_PAGES_PLAN.md](./MVP_PAGES_PLAN.md) · [ECONOMICS.md](./ECONOMICS.md) · [tasks/backend-progress-api.md](./tasks/backend-progress-api.md)
 

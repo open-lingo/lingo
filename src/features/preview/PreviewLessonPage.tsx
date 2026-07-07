@@ -36,6 +36,9 @@ import { getPreviewLesson, type PreviewLesson } from "./data/previewLessons";
  * sessionStorage key.
  */
 const PENDING_LANGUAGE_STORAGE_KEY = "lingo_pending_language_id";
+/** Set when a visitor reaches the signup CTA from a preview, so the choice
+ *  survives the Auth0 round-trip and LanguageContext can persist it. */
+export const PREVIEW_COMPLETED_STORAGE_KEY = "lingo_preview_completed_lang";
 
 export default function PreviewLessonPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -64,7 +67,7 @@ function PreviewLanguagePicker({
 }) {
   const { t } = useTranslation();
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 sm:py-16">
+    <div className="mx-auto max-w-4xl px-4 pb-40 pt-12 sm:pt-16">
       <header className="text-center">
         <span className="inline-flex items-center gap-2 rounded-full bg-accent-muted px-3 py-1 text-[11px] font-bold uppercase tracking-[0.05em] text-accent">
           <Icon name="play" size={12} className="shrink-0" />
@@ -308,6 +311,9 @@ function SignupCta({ languageId }: { languageId: string }) {
   function handleStash() {
     try {
       sessionStorage.setItem(PENDING_LANGUAGE_STORAGE_KEY, languageId);
+      // Mark that this signup is coming off a completed preview so the
+      // post-auth experience doesn't treat the learner as cold.
+      sessionStorage.setItem(PREVIEW_COMPLETED_STORAGE_KEY, languageId);
     } catch {
       // Private mode / disabled storage — /get-started will fall back
       // to its own picker.

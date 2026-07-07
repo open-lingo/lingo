@@ -2,7 +2,7 @@
 
 The deck manifest is metadata about a flashcard deck. It is stored separately from deck content (cards) so we can list decks and check versions without loading card data.
 
-**Canonical planning:** [docs/dev/planning/DECK_CONTENT_STORAGE.md](../../../../docs/dev/planning/DECK_CONTENT_STORAGE.md) (implementation status, large-deck tiers).
+**Canonical planning:** [ADR 0002 — deck content storage & versioning](../../../../lingo-core/docs/adr/0002-deck-content-storage-and-versioning.md) (implementation status, large-deck tiers).
 
 **Implementation status (2026-05-25):** Card bodies are a **single JSON array** per deck. **Sharding and S3 tiers are planned, not built.**
 
@@ -26,7 +26,7 @@ The deck manifest is metadata about a flashcard deck. It is stored separately fr
 | version   | string | yes      | Cache-sync label (e.g. `"1.0"`). **Not** a multi-snapshot version index; not auto-bumped on every edit today. |
 | cardCount | number | yes      | Number of cards (denormalized for listing)       |
 | image     | string | no       | Cover/thumbnail URL; use placeholder if omitted  |
-| defaultEase| number | no       | Initial ease for new cards (SM-2, 1.3–3.0). Omit = 2.5. Affects interval growth when the user first reviews a card. |
+| ~~defaultEase~~| number | no       | **Deprecated / ignored.** Legacy SM-2 field; the FSRS-6 engine derives scheduling from per-card stability/difficulty and has no deck-level ease. Do not author. |
 | locale    | string | no       | UI locale for names/descriptions (e.g. `en`, `ko`). Filter content by user's selected locale. |
 | createdAt | string | no       | ISO timestamp                                    |
 | updatedAt | string | no       | ISO timestamp                                    |
@@ -62,7 +62,7 @@ CREATE TABLE deck_manifests (
     version     TEXT NOT NULL DEFAULT '1.0',
     card_count  INTEGER NOT NULL DEFAULT 0,
     image       TEXT,
-    default_ease REAL,
+    default_ease REAL,   -- deprecated (legacy SM-2; ignored by FSRS-6 engine)
     locale      TEXT,
     created_at  TEXT,
     updated_at  TEXT
@@ -85,7 +85,7 @@ CREATE TABLE deck_content (
 
 ## DynamoDB schema (implemented)
 
-Table: `lingo_decks`. Per deck: `PK = DECK#<id>`, `SK = META` with manifest + `cards` JSON on one item. GSIs: `StatusLanguage-Index`, `AuthorUpdated-Index`. Planned S3 tiers: see [DECK_CONTENT_STORAGE.md](../../../../docs/dev/planning/DECK_CONTENT_STORAGE.md).
+Table: `lingo_decks`. Per deck: `PK = DECK#<id>`, `SK = META` with manifest + `cards` JSON on one item. GSIs: `StatusLanguage-Index`, `AuthorUpdated-Index`. Planned S3 tiers: see [ADR 0002 — deck content storage & versioning](../../../../lingo-core/docs/adr/0002-deck-content-storage-and-versioning.md).
 
 ---
 

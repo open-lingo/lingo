@@ -168,3 +168,7 @@ src/pub/dict/
 # Agent/worktree screenshot artifacts (never commit)
 .screenshots/
 .worktree-shots/
+
+# YouTube transcript working material (pedagogy recon) — internal study only, not shipped
+research/
+scripts/__pycache__/

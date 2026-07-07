@@ -65,6 +65,13 @@ try {
             uiLocale: parsed.learning?.uiLocale ?? "en",
             showAlphabetRomanization: parsed.learning?.showAlphabetRomanization ?? true,
             showAlphabetFurigana: parsed.learning?.showAlphabetFurigana ?? true,
+            // Preserve showRomaji (defaults on, per settings/types.ts) — the
+            // prior wholesale replace dropped it, silently forcing romaji OFF
+            // in every screenshot and misrepresenting the real default.
+            showRomaji: parsed.learning?.showRomaji ?? true,
+            // Screenshots are never a brand-new user's first session — keep
+            // the FirstSessionArc survey modal from covering the page.
+            ftueArcSeen: true,
           };
           window.localStorage.setItem(key, JSON.stringify(parsed));
         } catch {

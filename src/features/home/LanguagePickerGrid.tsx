@@ -33,17 +33,18 @@ const FLAG_CODES: Record<string, string> = {
   en: "GB",
 };
 
-// Subtle 135° diagonal tint per language, mirroring the Learn page
-// module-head gradient pattern at ~5–10% opacity. Tints evoke the
-// country, not the literal flag.
+// Solid per-language card color, rendered as a light 135° diagonal gradient
+// (country color, not the literal flag). Bumped from the old ~5–10% wash —
+// which barely registered — to a present-but-soft fill so each card reads as
+// a real color while the gradient keeps it gentle.
 const LANG_TINT: Record<string, { from: string; to: string }> = {
-  ja: { from: "rgba(220, 38, 38, 0.10)",  to: "rgba(248, 113, 113, 0.04)" },
-  ko: { from: "rgba(37, 99, 235, 0.09)",  to: "rgba(220, 38, 38, 0.04)"  },
-  zh: { from: "rgba(220, 38, 38, 0.09)",  to: "rgba(250, 204, 21, 0.05)" },
-  es: { from: "rgba(234, 88, 12, 0.09)",  to: "rgba(250, 204, 21, 0.05)" },
-  de: { from: "rgba(250, 204, 21, 0.10)", to: "rgba(180, 83, 9, 0.05)"   },
-  fr: { from: "rgba(37, 99, 235, 0.09)",  to: "rgba(244, 114, 182, 0.04)"},
-  en: { from: "rgba(30, 64, 175, 0.09)",  to: "rgba(220, 38, 38, 0.04)"  },
+  ja: { from: "rgba(220, 38, 38, 0.20)",  to: "rgba(248, 113, 113, 0.10)" },
+  ko: { from: "rgba(37, 99, 235, 0.18)",  to: "rgba(220, 38, 38, 0.10)"  },
+  zh: { from: "rgba(220, 38, 38, 0.18)",  to: "rgba(250, 204, 21, 0.12)" },
+  es: { from: "rgba(234, 88, 12, 0.18)",  to: "rgba(250, 204, 21, 0.12)" },
+  de: { from: "rgba(250, 204, 21, 0.22)", to: "rgba(180, 83, 9, 0.11)"   },
+  fr: { from: "rgba(37, 99, 235, 0.18)",  to: "rgba(244, 114, 182, 0.11)"},
+  en: { from: "rgba(30, 64, 175, 0.18)",  to: "rgba(220, 38, 38, 0.10)"  },
 };
 
 // Honest display order: shipped first (ja), then ko (limited stub),

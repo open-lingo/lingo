@@ -47,7 +47,8 @@ Design philosophy for course content, community content, and language handling.
 
 - **Course-linked videos:** Unlock based on lesson/module completion. Same language-agnostic, versioned model as other course content.
 - **Community video addons:** Language-specific (e.g. K-drama pack for Korean). No cutover on language switch — video addons stay in the user's library. Creators can submit video packs (drama clips, music video segments).
-- **Video steps in lessons:** Lessons can include a `video` step type for embedded clips (K-drama, J-drama, music video). See `dataformats/lessons/README.md`.
+
+Note: video is a standalone **Practice** feature (`/:lang/practice/videos`), *not* a lesson step type (there is no `video` step in `src/features/lesson/types.ts`).
 
 ---
 

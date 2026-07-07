@@ -1,5 +1,9 @@
 # Learning Science Foundation — Lingo's "Learn" as a Teacher
 
+> ⚠️ **FROZEN SNAPSHOT (2026-05-17).** Kept for pedagogical *rationale* (the "why"). Two caveats before you rely on it:
+> 1. **The §5–6 step-type census is historical.** It predates the M3–M27 build — e.g. it calls `translate` "UNUSED" (it's now used ~184× across m11–m27) and lists `self_explanation`/`dialogue_listen` as "to build" (both shipped). For the real step set, see `src/features/lesson/types.ts`; for current authoring rules, `docs/lesson-authoring-guide.md`.
+> 2. **Numeric thresholds here are house heuristics, not direct research findings.** Where a specific number appears ("≥4–6 intervening steps", "selfExplain at N-1", etc.), the cited research supports the *direction*, not that exact figure — treat them as conventions, and note the enforced invariants live in the tests, not here.
+
 Written 2026-05-17. The audit lens for M2 (dakuten + yōon) hand-design and
 the load-bearing reference for the forthcoming `docs/lesson-authoring-guide.md`.
 Audience: app builders and lesson authors (not researchers). Every research
@@ -7,7 +11,7 @@ claim ends with an operational consequence — what to do or stop doing in a
 lesson file.
 
 Companion to `docs/curriculum-design-v2.md` (the *what to teach* spine) and
-`docs/m1-density-restructure-plan-2026-05-17.md` (the *how dense* structural
+`docs/archive/m1-density-restructure-plan-2026-05-17.md` (the *how dense* structural
 contract). This doc is the *why it works* layer underneath both.
 
 ---
@@ -502,6 +506,8 @@ two near-identical sentences, picks which means what, finds out they were
 wrong, then gets the rule that explains why. For kana, dakuten, and
 vocabulary, do NOT use productive failure — there's no productive
 generation possible from "guess the new kana."
+
+> ⚠️ **Does NOT override teach-before-test.** A productive-failure / confrontation step is not a licence to quiz un-introduced material. Every *atom* the learner is asked to work with (the vocab in those two sentences, the particles, the kana) must already have been introduced earlier in the lesson — only the **grammar rule being discovered** is new. Springing a "guess" on words/kana the learner has never seen is the exact forward-leak the conformance tests (`moduleConformance.test.ts`, `previewLessons.test.ts`) reject. When in doubt: introduce the pieces, then let them guess the *relationship*.
 
 ### 3.3 Schema construction
 
@@ -1006,5 +1012,5 @@ If a lesson fails ≥3 of these, do not ship — restructure first.
 
 *Doc last verified against `src/features/lesson/types.ts` 2026-05-17.
 When step types are added or removed, update §5 + §6. When the M3-M7
-rebuild lands per `m1-density-restructure-plan-2026-05-17.md`, revisit
+rebuild lands per `archive/m1-density-restructure-plan-2026-05-17.md`, revisit
 §5 "current Lingo usage" notes — most will change.*

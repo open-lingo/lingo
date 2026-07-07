@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
-  ROMAJI_AUTO_OFF_MODULE,
+  HIRAGANA_ROMAJI_OFF_MODULE,
+  KATAKANA_ROMAJI_OFF_MODULE,
   BUILD_TILE_ROMAJI_FADE_MODULE,
   parseModuleIndex,
-  shouldAutoFlipRomaji,
+  shouldAutoOffScriptRomaji,
+  romajiVisibleForScript,
+  todayLocalDate,
   shouldAutoFadeBuildTileRomaji,
 } from "./romajiAutoFlip";
 import { DEFAULT_SETTINGS, type UserSettings } from "./types";
@@ -31,85 +34,111 @@ describe("parseModuleIndex", () => {
   });
 });
 
-describe("shouldAutoFlipRomaji", () => {
-  it("does not flip when showRomaji is already off", () => {
-    const result = shouldAutoFlipRomaji({
-      settings: settingsWith({ showRomaji: false }),
-      trigger: "module-reached",
-      reachedModuleIndex: ROMAJI_AUTO_OFF_MODULE,
-    });
-    expect(result.flipped).toBe(false);
-  });
-
-  it("does not flip if the auto-off has already fired", () => {
-    const result = shouldAutoFlipRomaji({
-      settings: settingsWith({
-        showRomaji: true,
-        romajiAutoFlipped: true,
+describe("shouldAutoOffScriptRomaji", () => {
+  it("flips hiragana at M10, not before", () => {
+    const base = { settings: settingsWith({}), script: "hiragana" as const };
+    expect(
+      shouldAutoOffScriptRomaji({
+        ...base,
+        reachedModuleIndex: HIRAGANA_ROMAJI_OFF_MODULE - 1,
       }),
-      trigger: "module-reached",
-      reachedModuleIndex: ROMAJI_AUTO_OFF_MODULE,
-    });
-    expect(result.flipped).toBe(false);
-  });
-
-  it("flips when module-reached AND learner is on M15+", () => {
-    const result = shouldAutoFlipRomaji({
-      settings: settingsWith({ showRomaji: true, romajiAutoFlipped: false }),
-      trigger: "module-reached",
-      reachedModuleIndex: ROMAJI_AUTO_OFF_MODULE,
-    });
-    expect(result.flipped).toBe(true);
-    expect(result.reason).toBe("module-reached");
-  });
-
-  it("does NOT flip on M14 (below threshold)", () => {
-    const result = shouldAutoFlipRomaji({
-      settings: settingsWith({ showRomaji: true, romajiAutoFlipped: false }),
-      trigger: "module-reached",
-      reachedModuleIndex: ROMAJI_AUTO_OFF_MODULE - 1,
-    });
-    expect(result.flipped).toBe(false);
-  });
-
-  it("flips on alphabet-mastered when full test passed", () => {
-    const result = shouldAutoFlipRomaji({
-      settings: settingsWith({ showRomaji: true, romajiAutoFlipped: false }),
-      trigger: "alphabet-mastered",
-      alphabetFullTestPassed: true,
-    });
-    expect(result.flipped).toBe(true);
-    expect(result.reason).toBe("alphabet-mastered");
-  });
-
-  it("does not flip on alphabet trigger when full test not yet passed", () => {
-    const result = shouldAutoFlipRomaji({
-      settings: settingsWith({ showRomaji: true, romajiAutoFlipped: false }),
-      trigger: "alphabet-mastered",
-      alphabetFullTestPassed: false,
-    });
-    expect(result.flipped).toBe(false);
-  });
-
-  it("a learner who already turned romaji back on after auto-flip never re-flips", () => {
-    // Scenario: user reaches M15, auto-flip fires, user turns romaji back
-    // on. romajiAutoFlipped stays true. Next time they finish an M15+
-    // lesson the helper must NOT re-flip them off.
-    const result = shouldAutoFlipRomaji({
-      settings: settingsWith({
-        showRomaji: true,
-        romajiAutoFlipped: true,
+    ).toBe(false);
+    expect(
+      shouldAutoOffScriptRomaji({
+        ...base,
+        reachedModuleIndex: HIRAGANA_ROMAJI_OFF_MODULE,
       }),
-      trigger: "module-reached",
-      reachedModuleIndex: ROMAJI_AUTO_OFF_MODULE + 2,
+    ).toBe(true);
+  });
+
+  it("flips katakana at M17 — hiragana's M10 does not trip katakana", () => {
+    const kata = { settings: settingsWith({}), script: "katakana" as const };
+    expect(
+      shouldAutoOffScriptRomaji({
+        ...kata,
+        reachedModuleIndex: HIRAGANA_ROMAJI_OFF_MODULE,
+      }),
+    ).toBe(false);
+    expect(
+      shouldAutoOffScriptRomaji({
+        ...kata,
+        reachedModuleIndex: KATAKANA_ROMAJI_OFF_MODULE,
+      }),
+    ).toBe(true);
+  });
+
+  it("does not re-flip once that script's guard is already set", () => {
+    expect(
+      shouldAutoOffScriptRomaji({
+        settings: settingsWith({ hiraganaRomajiAutoOff: true }),
+        reachedModuleIndex: HIRAGANA_ROMAJI_OFF_MODULE + 5,
+        script: "hiragana",
+      }),
+    ).toBe(false);
+  });
+});
+
+describe("romajiVisibleForScript", () => {
+  const today = "2026-06-30";
+
+  it("shows romaji by default (master on, no guard)", () => {
+    expect(
+      romajiVisibleForScript({
+        settings: settingsWith({}),
+        script: "hiragana",
+        today,
+      }),
+    ).toBe(true);
+  });
+
+  it("hides a script once its guard is set, leaving the other on", () => {
+    const s = settingsWith({ hiraganaRomajiAutoOff: true });
+    expect(romajiVisibleForScript({ settings: s, script: "hiragana", today })).toBe(
+      false,
+    );
+    expect(romajiVisibleForScript({ settings: s, script: "katakana", today })).toBe(
+      true,
+    );
+  });
+
+  it("master showRomaji=false hides both scripts", () => {
+    const s = settingsWith({ showRomaji: false });
+    expect(romajiVisibleForScript({ settings: s, script: "hiragana", today })).toBe(
+      false,
+    );
+    expect(romajiVisibleForScript({ settings: s, script: "katakana", today })).toBe(
+      false,
+    );
+  });
+
+  it("romajiOnForDay===today forces romaji on despite a guard", () => {
+    const s = settingsWith({ katakanaRomajiAutoOff: true, romajiOnForDay: today });
+    expect(romajiVisibleForScript({ settings: s, script: "katakana", today })).toBe(
+      true,
+    );
+  });
+
+  it("a stale romajiOnForDay (not today) does not force it on", () => {
+    const s = settingsWith({
+      hiraganaRomajiAutoOff: true,
+      romajiOnForDay: "2020-01-01",
     });
-    expect(result.flipped).toBe(false);
+    expect(romajiVisibleForScript({ settings: s, script: "hiragana", today })).toBe(
+      false,
+    );
+  });
+
+  it("todayLocalDate returns a YYYY-MM-DD string", () => {
+    expect(todayLocalDate()).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
 });
 
 describe("shouldAutoFadeBuildTileRomaji", () => {
-  it("fades at the build-tile threshold (M10), earlier than the global M15", () => {
-    expect(BUILD_TILE_ROMAJI_FADE_MODULE).toBeLessThan(ROMAJI_AUTO_OFF_MODULE);
+  it("fades at the build-tile threshold (M10), no later than romaji auto-off", () => {
+    expect(BUILD_TILE_ROMAJI_FADE_MODULE).toBeLessThanOrEqual(
+      HIRAGANA_ROMAJI_OFF_MODULE,
+    );
+    expect(BUILD_TILE_ROMAJI_FADE_MODULE).toBeLessThan(KATAKANA_ROMAJI_OFF_MODULE);
     expect(
       shouldAutoFadeBuildTileRomaji({
         settings: settingsWith({}),

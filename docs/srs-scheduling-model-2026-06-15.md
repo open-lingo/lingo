@@ -38,7 +38,15 @@ after** it's unlocked, never same-day.
   **ages out ~M3** (katakana later) once exposure is sufficient.
 
 - **D2 — Prior-atom review woven into content sub-lessons is the primary
-  FSRS write.** ⚠️ **REVISED after ralph — the tails this assumed don't
+  FSRS write.** ✅ **SHIPPED 2026-07-01, vocab-only** — implemented as a
+  per-ATOM gate rather than a step marker: `shouldWriteContentReviewAtom`
+  (`lesson/data/reviewTailSrs.ts`) writes Track A iff the atom's
+  `fromModule` is strictly earlier than the lesson's module AND the atom
+  isn't introduced by this lesson/cluster (probe over all 78 M3–M7
+  sub-lessons: zero bad writes, 71 write ≥1 prior-atom review). Track B
+  grammar stays review-lesson-gated (grammar review is getting a separate
+  flashcard deck — open task). Pre-ship analysis below kept for the
+  record. ⚠️ **REVISED after ralph — the tails this assumed don't
   exist for vocab.** `augmentWithReviewTail` (`mockLessons.ts:709-718`) and
   `withKanaReviewTail` (`kanaReviewTails.ts`) are **kana-only** (both bail
   unless the lesson's `rowId` is a real hiragana row in `ALL_ROWS`), emit
@@ -219,4 +227,4 @@ UX hard vs soft (§7.8); Listening modality (§7.7).
   default no-cap + `flashcards.maxNewCardsPerDay`. tsc + 599 tests + live
   Playwright (store stays empty on reviewer load; New:8/Due:0 vs old Due:8).
   Remaining: **D3** (needs hard-vs-soft call), **D2** (vocab tail generator),
-  **D1** (store unify), **D7** (FTUE). See `docs/handoff-2026-06-15.md`.
+  **D1** (store unify), **D7** (FTUE). See `docs/archive/handoff-2026-06-15.md`.

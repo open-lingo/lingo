@@ -10,7 +10,7 @@ Real-user observations + Spencer's product notes. This is the **product input** 
 - Synthesized cohort feedback once enough sessions accumulate.
 
 **What does NOT go here:**
-- Architecture critique → `ARCHITECTURE_REVIEW.md`.
+- Architecture critique → `ARCHITECTURE_REVIEW_2026-06-14.md`.
 - Multi-agent persona audits → live alongside the spec they audited (e.g. `m3-m7-audit-synthesis-2026-05-18.md`). Those are *simulated* personas, not real users.
 - Bug reports tied to a specific test failure → CLAUDE.md `## 🐛 Active bugs` section or the issue tracker.
 

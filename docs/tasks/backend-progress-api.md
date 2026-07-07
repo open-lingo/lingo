@@ -26,7 +26,7 @@
 **References:**
 - Progress format: `docs/dataformats/progress/README.md` (schema, XP sources, streak logic)
 - Lesson-card mapping: `docs/dataformats/flashcards/lesson-card-map.example.json`
-- Flashcard data: `docs/FLASHCARD-DATA.md` (lesson completion → card unlock, learned vocab)
+- Flashcard data: `docs/dataformats/flashcards/README.md` (lesson completion → card unlock, learned vocab)
 - Content format: `docs/dataformats/lessons/README.md` (lesson `introduces_vocab_ids`, `introduces_card_ids`)
 
 ---

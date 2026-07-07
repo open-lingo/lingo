@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conjugation Trainer — 3 design directions</title>
+<style>
+/* ————— App tokens, verbatim from src/shared/theme/presets.ts ————— */
+:root {
+  --bg: #f3f4f6; --surface: #ffffff; --surface-muted: #f9fafb; --surface-elev: #ffffff;
+  --border: #e5e7eb; --border-muted: #f3f4f6;
+  --text-1: #111827; --text-2: #4b5563; --text-3: #636b77;
+  --accent: #047857; --accent-hover: #065f46; --accent-muted: #d1fae5; --on-accent: #fff;
+  --error: #dc2626; --success: #16a34a; --warning: #d97706; --info: #2563eb;
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  --shadow-pop: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --r-sm: 6px; --r-md: 12px; --r-lg: 20px;
+  /* Proposed NEW theme tokens: one owned color per trainer type (P10 —
+     color as primary channel). Themes restyle these six like any token. */
+  --type-te: #047857; --type-ta: #b45309; --type-nai: #b91c1c;
+  --type-masu: #1d4ed8; --type-tai: #be185d; --type-iadj: #0e7490;
+}
+body.dark {
+  --bg: #111827; --surface: #1f2937; --surface-muted: #1f2937; --surface-elev: #374151;
+  --border: #374151; --border-muted: #4b5563;
+  --text-1: #f9fafb; --text-2: #d1d5db; --text-3: #b0b8c4;
+  --accent: #059669; --accent-hover: #34d399; --accent-muted: #064e3b; --on-accent: #fff;
+  --error: #ef4444; --success: #22c55e; --warning: #f59e0b; --info: #60a5fa;
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.3);
+  --shadow-pop: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+  --type-te: #34d399; --type-ta: #fbbf24; --type-nai: #f87171;
+  --type-masu: #60a5fa; --type-tai: #f472b6; --type-iadj: #22d3ee;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text-1);
+  font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  transition: background 200ms, color 200ms;
+}
+.ja { font-family: "Noto Sans JP", ui-sans-serif, system-ui, sans-serif; }
+
+/* ————— page chrome ————— */
+.topbar {
+  position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 16px;
+  padding: 12px 24px; background: var(--bg); border-bottom: 2px solid var(--text-1);
+}
+.topbar h1 { font-size: 17px; margin: 0; letter-spacing: -0.01em; }
+.topbar .spacer { flex: 1; }
+.themebtn {
+  border: 1.5px solid var(--border); background: var(--surface); color: var(--text-2);
+  border-radius: 999px; padding: 5px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.themebtn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-muted); }
+main { max-width: 1200px; margin: 0 auto; padding: 28px 24px 90px; }
+.lede { max-width: 74ch; color: var(--text-2); }
+.lede b { color: var(--text-1); }
+.fixes { margin: 14px 0 0; padding-left: 20px; color: var(--text-2); font-size: 14px; }
+.fixes li { margin: 3px 0; }
+
+section.direction { margin-top: 64px; border-top: 2px solid var(--text-1); padding-top: 20px; }
+.dhead { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.dhead .letter {
+  font-size: 40px; font-weight: 800; color: var(--accent); line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.dhead h2 { font-size: 26px; margin: 0; letter-spacing: -0.01em; }
+.dhead .tagline { color: var(--text-3); font-size: 14px; }
+.dbody { display: grid; grid-template-columns: 400px 1fr; gap: 36px; margin-top: 22px; align-items: start; }
+@media (max-width: 900px) { .dbody { grid-template-columns: 1fr; } }
+.rationale h3 { font-size: 15px; margin: 20px 0 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+.rationale h3:first-child { margin-top: 0; }
+.rationale p, .rationale li { color: var(--text-2); font-size: 14.5px; }
+.rationale ul { padding-left: 20px; margin: 6px 0; }
+.rationale .p { display: inline-block; font-size: 11px; font-weight: 700; color: var(--accent);
+  background: var(--accent-muted); border-radius: 4px; padding: 0 5px; margin-left: 4px; vertical-align: 1px; }
+
+/* ————— phone frame ————— */
+.phone {
+  width: 390px; max-width: 100%; border: 1.5px solid var(--border); border-radius: 28px;
+  background: var(--bg); overflow: hidden; box-shadow: var(--shadow-pop);
+}
+.phone .screen { padding: 18px 16px 22px; }
+.phone .apphead { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.phone .apphead .back { color: var(--text-3); font-size: 20px; line-height: 1; }
+.phone .apphead .title { font-size: 19px; font-weight: 800; letter-spacing: -0.01em; }
+.phone .apphead .sub { font-size: 11.5px; color: var(--text-3); margin-top: -1px; }
+.minilabel {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--text-3); margin: 18px 0 8px;
+}
+
+/* ══════════ DIRECTION A — practice path ══════════ */
+.dojo { position: relative; padding: 6px 0 4px; }
+.dojo svg.trail { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.dojo .stop {
+  position: relative; z-index: 1; display: flex; align-items: center; gap: 14px;
+  width: 62%; margin: 0 0 18px;
+}
+.dojo .stop.right { margin-left: 38%; flex-direction: row-reverse; text-align: right; }
+.medal {
+  position: relative; width: 76px; height: 76px; border-radius: 50%; flex-shrink: 0;
+  display: grid; place-items: center; cursor: pointer;
+  background:
+    radial-gradient(closest-side, var(--surface) 79%, transparent 80% 100%),
+    conic-gradient(var(--tc) calc(var(--mastery) * 1%), var(--border) 0);
+  transition: transform 120ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.medal:hover { transform: scale(1.06); }
+.medal:active { transform: scale(0.94); }
+.medal .glyph { font-size: 30px; font-weight: 800; color: var(--tc); line-height: 1; }
+.medal .duepips { position: absolute; bottom: -3px; display: flex; gap: 3px; }
+.medal .duepips i {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--tc);
+  border: 1.5px solid var(--surface); display: block;
+}
+.dojo .stopinfo .name { font-weight: 700; font-size: 14.5px; }
+.dojo .stopinfo .meta { font-size: 11.5px; color: var(--text-3); }
+.nextchip {
+  display: inline-block; margin-top: 3px; font-size: 10px; font-weight: 800;
+  letter-spacing: 0.08em; color: var(--on-accent); background: var(--accent);
+  border-radius: 999px; padding: 2px 9px; text-transform: uppercase;
+  animation: breathe 2.6s ease-in-out infinite;
+}
+@keyframes breathe { 50% { transform: scale(1.07); } }
+.dojo .stop.locked .medal { background:
+    radial-gradient(closest-side, var(--surface) 79%, transparent 80% 100%),
+    conic-gradient(var(--border) 100%, var(--border) 0); }
+.dojo .stop.locked .glyph { color: var(--text-3); opacity: 0.45; }
+.dojo .stop.locked .name { color: var(--text-3); }
+.sparring {
+  position: relative; z-index: 1; margin-top: 4px; border: 2px dashed var(--border);
+  border-radius: var(--r-lg); padding: 12px 16px; display: flex; gap: 12px; align-items: center;
+  cursor: pointer; background: var(--surface-muted);
+}
+.sparring:hover { border-color: var(--accent); }
+.sparring .icon { font-size: 24px; }
+.sparring .name { font-weight: 800; font-size: 14.5px; }
+.sparring .meta { font-size: 11.5px; color: var(--text-3); }
+/* sparring config sheet */
+.sheet {
+  margin-top: 10px; border: 1.5px solid var(--border); border-radius: var(--r-md);
+  background: var(--surface); padding: 12px 14px; box-shadow: var(--shadow-card);
+}
+.sheet .row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 10px; }
+.fam {
+  border: 1.5px solid var(--border); background: var(--surface); color: var(--text-2);
+  padding: 6px 13px; border-radius: 999px; font-size: 13px; font-weight: 700; cursor: pointer;
+}
+.fam.on { border-color: var(--fc, var(--accent)); color: var(--fc, var(--accent));
+  background: color-mix(in srgb, var(--fc, var(--accent)) 12%, transparent); }
+.depth { display: flex; border: 1.5px solid var(--border); border-radius: 999px; overflow: hidden; width: fit-content; }
+.depth b { padding: 6px 14px; font-size: 12.5px; font-weight: 700; color: var(--text-3); cursor: pointer; }
+.depth b.on { background: var(--accent); color: var(--on-accent); }
+
+/* ══════════ DIRECTION B — transit map ══════════ */
+.metro { position: relative; }
+.metro svg { display: block; width: 100%; height: auto; }
+.metro text { font: 700 11px ui-sans-serif, system-ui, sans-serif; fill: var(--text-1); }
+.metro text.ja { font-size: 13px; font-weight: 800; }
+.metro text.sub { font-weight: 600; font-size: 9px; fill: var(--text-3); letter-spacing: 0.04em; }
+.metro .station { cursor: pointer; }
+.metro .station:active circle.dot { transform: scale(0.9); transform-origin: center; transform-box: fill-box; }
+.metro circle.dot { fill: var(--surface); stroke-width: 4.5; transition: transform 100ms; }
+.metro circle.here {
+  fill: none; stroke-width: 2;
+  animation: halo 2.2s ease-out infinite;
+}
+@keyframes halo { 0% { opacity: 0.9; r: 12; } 100% { opacity: 0; r: 22; } }
+.metro .duedot { stroke: none; }
+.legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+.legend span { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700; color: var(--text-2); }
+.legend i { width: 14px; height: 4px; border-radius: 2px; display: inline-block; }
+
+/* ══════════ DIRECTION C — playroom grid ══════════ */
+.playgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.tile {
+  position: relative; border: 1.5px solid var(--border); border-radius: var(--r-lg);
+  background: var(--surface); aspect-ratio: 1 / 0.92; overflow: hidden; cursor: pointer;
+  display: grid; place-items: center;
+  transition: transform 130ms cubic-bezier(0.34, 1.56, 0.64, 1), border-color 130ms;
+  box-shadow: 0 3px 0 0 var(--border);
+}
+.tile:hover { border-color: var(--tc); }
+.tile:active { transform: translateY(3px) scale(0.98); box-shadow: none; }
+.tile .ink {
+  position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--mastery) * 1%);
+  background: color-mix(in srgb, var(--tc) 16%, transparent);
+  border-top: 2px solid color-mix(in srgb, var(--tc) 45%, transparent);
+}
+.tile .glyph { font-size: 44px; font-weight: 800; color: var(--tc); z-index: 1; line-height: 1; }
+.tile .tname {
+  position: absolute; bottom: 9px; left: 0; right: 0; text-align: center;
+  font-size: 11px; font-weight: 700; color: var(--text-2); z-index: 1;
+}
+.tile .cards { position: absolute; top: -4px; right: 10px; z-index: 2; display: flex; }
+.tile .cards i {
+  width: 14px; height: 20px; border-radius: 3px; background: var(--tc); display: block;
+  border: 1.5px solid var(--surface); margin-left: -7px;
+  box-shadow: var(--shadow-card);
+}
+.tile .cards i:nth-child(2) { transform: rotate(6deg) translateY(1px); }
+.tile .cards i:nth-child(3) { transform: rotate(12deg) translateY(3px); }
+.tile.suggest { animation: wobble 4s ease-in-out infinite; }
+@keyframes wobble { 2% { transform: rotate(1.1deg); } 4% { transform: rotate(-1.1deg); } 6% { transform: rotate(0); } }
+.mixer {
+  grid-column: 1 / -1; aspect-ratio: auto; min-height: 74px;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: repeating-linear-gradient(-45deg, var(--surface), var(--surface) 12px,
+    var(--surface-muted) 12px, var(--surface-muted) 24px);
+}
+.mixer .glyphs { font-size: 20px; font-weight: 800; letter-spacing: 2px; }
+.mixer .glyphs b:nth-child(1) { color: var(--type-te); } .mixer .glyphs b:nth-child(2) { color: var(--type-ta); }
+.mixer .glyphs b:nth-child(3) { color: var(--type-nai); } .mixer .glyphs b:nth-child(4) { color: var(--type-masu); }
+.mixer .glyphs b:nth-child(5) { color: var(--type-tai); } .mixer .glyphs b:nth-child(6) { color: var(--type-iadj); }
+.mixer .tname { position: static; font-size: 13px; font-weight: 800; color: var(--text-1); }
+
+/* ————— shared drill mini ————— */
+.drillmini {
+  margin-top: 14px; border: 1.5px solid var(--border); border-radius: var(--r-lg);
+  background: var(--surface); padding: 16px; position: relative; overflow: hidden;
+}
+.drillmini .qword { text-align: center; font-size: 34px; font-weight: 800; margin: 10px 0 0; }
+.drillmini .qmeaning { text-align: center; color: var(--text-3); font-size: 12.5px; }
+.drillmini .qtarget {
+  text-align: center; margin: 8px 0 14px; font-size: 13px; font-weight: 800; color: var(--tc);
+}
+.drillmini .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.drillmini .opt {
+  border: 1.5px solid var(--border); border-radius: var(--r-md); background: var(--surface);
+  padding: 11px 8px; text-align: center; font-size: 16px; font-weight: 700; cursor: pointer;
+  box-shadow: 0 2.5px 0 0 var(--border);
+  transition: transform 100ms, box-shadow 100ms, border-color 100ms;
+}
+.drillmini .opt:hover { border-color: var(--tc); }
+.drillmini .opt:active { transform: translateY(2.5px); box-shadow: none; }
+.combo {
+  position: absolute; top: 10px; right: 12px; font-size: 11px; font-weight: 800;
+  color: var(--tc); background: color-mix(in srgb, var(--tc) 12%, transparent);
+  padding: 2px 9px; border-radius: 999px;
+}
+/* A: trail progress */
+.trailbar { display: flex; align-items: center; gap: 4px; }
+.trailbar i { height: 6px; flex: 1; border-radius: 3px; background: var(--border); }
+.trailbar i.done { background: var(--tc); }
+/* B: station-strip progress */
+.ridestrip { display: flex; align-items: center; }
+.ridestrip .seg { flex: 1; height: 4px; background: var(--tc); opacity: 0.25; }
+.ridestrip .st { width: 11px; height: 11px; border-radius: 50%; border: 3px solid var(--tc);
+  background: var(--surface); opacity: 0.35; }
+.ridestrip .st.done { opacity: 1; background: var(--tc); }
+.ridestrip .seg.done { opacity: 1; }
+.ridestrip .train { width: 15px; height: 15px; border-radius: 4px; background: var(--tc);
+  margin: 0 -2px; box-shadow: var(--shadow-card); }
+
+/* comparison */
+table.compare { border-collapse: collapse; width: 100%; margin-top: 16px; font-size: 14px; }
+.compare th { text-align: left; border-bottom: 2px solid var(--text-1); padding: 6px 12px 6px 0;
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+.compare td { border-bottom: 1px solid var(--border); padding: 9px 12px 9px 0; vertical-align: top; color: var(--text-2); }
+.compare td:first-child { font-weight: 700; color: var(--text-1); white-space: nowrap; }
+
+.switcher { display: flex; gap: 4px; margin-right: 12px; }
+body[data-view="a"] section.direction:not([data-dir="a"]),
+body[data-view="b"] section.direction:not([data-dir="b"]),
+body[data-view="c"] section.direction:not([data-dir="c"]) { display: none; }
+body[data-view="a"] .lede, body[data-view="a"] .fixes,
+body[data-view="b"] .lede, body[data-view="b"] .fixes,
+body[data-view="c"] .lede, body[data-view="c"] .fixes { display: none; }
+body[data-view="a"] section.direction, body[data-view="b"] section.direction,
+body[data-view="c"] section.direction { margin-top: 12px; border-top: none; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body class="dark" data-view="all">
+
+<div class="topbar">
+  <h1>Conjugation Trainer — three directions</h1>
+  <div class="spacer"></div>
+  <span class="switcher">
+    <button class="themebtn dirbtn active" data-dir="all" onclick="setDir('all')">All</button>
+    <button class="themebtn dirbtn" data-dir="a" onclick="setDir('a')">A · Path</button>
+    <button class="themebtn dirbtn" data-dir="b" onclick="setDir('b')">B · Transit</button>
+    <button class="themebtn dirbtn" data-dir="c" onclick="setDir('c')">C · Tiles</button>
+  </span>
+  <button class="themebtn" data-theme="light" onclick="setTheme('light')">Light</button>
+  <button class="themebtn active" data-theme="dark" onclick="setTheme('dark')">Dark</button>
+</div>
+
+<main>
+<p class="lede"><b>The brief:</b> make the trainer feel like a game — menu friendly for all ages,
+due markers that don't outweigh the content, no bloated form-toggle row. Grounded in two research
+traditions: kids' game menu psychology (Mario/Candy Crush saga maps, Toca Boca icon-first menus,
+Duolingo's single-path rationale) and airport/transit wayfinding (AIGA/DOT, Otl Aicher, Beck's Tube
+map, Tokyo Metro). All three directions share five fixes:</p>
+<ul class="fixes">
+  <li><b>Progress lives ON the selector</b> — each type shows its mastery as a fill, due as small pips; the menu is the dashboard (P2).</li>
+  <li><b>Each type owns a color + glyph + fixed position</b> — identifiable without reading; six new theme tokens (<code>--type-*</code>) so themes restyle them (P4/P10). The kana glyph IS the icon: て・た・ない・ま・たい・い are already language-honest pictograms for this content.</li>
+  <li><b>The 12-checkbox row dies</b> — free-drill config moves behind the free-drill entry (progressive disclosure, P11) and becomes <b>family chips + a stack-depth switch</b>, not per-form checkboxes.</li>
+  <li><b>One clear "next"</b> — the highest-due type carries the single recommendation marker (P1).</li>
+  <li><b>Locked = visible carrot</b> — the upcoming て-compounds type shows dimmed with its unlock condition, never hidden (P8). No streaks, no guilt.</li>
+</ul>
+
+<!-- ═══════════════════════ DIRECTION A ═══════════════════════ -->
+<section class="direction" data-dir="a">
+  <div class="dhead"><span class="letter">A</span><h2>Practice Path</h2>
+  <span class="tagline">saga-map lineage — the trainer as a winding practice trail, like the lesson pathway</span></div>
+  <div class="dbody">
+    <div class="phone"><div class="screen">
+      <div class="apphead"><span class="back">←</span><div><div class="title">Conjugation</div>
+      <div class="sub">Six forms on the trail · 9 reviews waiting</div></div></div>
+
+      <div class="dojo">
+        <svg class="trail" viewBox="0 0 358 560" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M60 40 C 200 60, 260 90, 280 130 C 300 170, 140 180, 90 225 C 40 270, 240 275, 275 320 C 310 365, 130 370, 85 415 C 40 460, 230 465, 270 505"
+            fill="none" stroke="var(--border)" stroke-width="3.5" stroke-dasharray="1 9" stroke-linecap="round"/>
+        </svg>
+        <div class="stop" style="--tc: var(--type-iadj); --mastery: 20">
+          <div class="medal"><span class="glyph ja">い</span>
+            <span class="duepips"><i></i><i></i><i></i></span></div>
+          <div class="stopinfo"><div class="name">い-adjectives</div>
+            <div class="meta">3 waiting</div><span class="nextchip">next</span></div>
+        </div>
+        <div class="stop right" style="--tc: var(--type-masu); --mastery: 35">
+          <div class="medal"><span class="glyph ja">ま</span>
+            <span class="duepips"><i></i><i></i></span></div>
+          <div class="stopinfo"><div class="name">Polite negatives</div><div class="meta">2 waiting</div></div>
+        </div>
+        <div class="stop" style="--tc: var(--type-te); --mastery: 55">
+          <div class="medal"><span class="glyph ja">て</span>
+            <span class="duepips"><i></i></span></div>
+          <div class="stopinfo"><div class="name">て-form</div><div class="meta">1 waiting</div></div>
+        </div>
+        <div class="stop right" style="--tc: var(--type-ta); --mastery: 70">
+          <div class="medal"><span class="glyph ja">た</span>
+            <span class="duepips"><i></i></span></div>
+          <div class="stopinfo"><div class="name">Plain past</div><div class="meta">1 waiting</div></div>
+        </div>
+        <div class="stop" style="--tc: var(--type-nai); --mastery: 85">
+          <div class="medal"><span class="glyph ja">ない</span>
+            <span class="duepips"><i></i></span></div>
+          <div class="stopinfo"><div class="name">Plain negative</div><div class="meta">1 waiting</div></div>
+        </div>
+        <div class="stop right locked" style="--tc: var(--type-tai); --mastery: 0">
+          <div class="medal"><span class="glyph ja">〜て＋</span></div>
+          <div class="stopinfo"><div class="name">て-compounds</div><div class="meta">Opens with Module 16</div></div>
+        </div>
+        <div class="sparring">
+          <span class="icon" aria-hidden="true">⛩</span>
+          <div><div class="name">Sparring — free drill</div>
+          <div class="meta">Any forms, any mix. Doesn't touch your reviews.</div></div>
+        </div>
+        <div class="sheet">
+          <div class="minilabel" style="margin-top:0">Sparring setup</div>
+          <div class="row">
+            <button class="fam on" style="--fc: var(--type-te)">て・た family</button>
+            <button class="fam on" style="--fc: var(--type-nai)">ない family</button>
+            <button class="fam" style="--fc: var(--type-masu)">ます family</button>
+            <button class="fam" style="--fc: var(--type-tai)">たい family</button>
+          </div>
+          <div class="depth"><b>Base</b><b class="on">+ Stacked</b><b>Everything</b></div>
+        </div>
+      </div>
+
+      <div class="minilabel">In the drill</div>
+      <div class="drillmini" style="--tc: var(--type-te)">
+        <div class="trailbar"><i class="done"></i><i class="done"></i><i class="done"></i><i></i><i></i><i></i><i></i><i></i></div>
+        <span class="combo">◆ 3 in a row</span>
+        <div class="qword ja">はしる</div>
+        <div class="qmeaning">to run</div>
+        <div class="qtarget">→ て form</div>
+        <div class="opts ja">
+          <button class="opt">はしって</button><button class="opt">はしいて</button>
+          <button class="opt">はしんで</button><button class="opt">はしいで</button>
+        </div>
+      </div>
+    </div></div>
+
+    <div class="rationale">
+      <h3>What it is</h3>
+      <p>The six types become <b>medallion stops on a winding trail</b>, ordered by unlock module —
+      the same journey grammar as the Learn pathway, so the trainer immediately reads as "one of our
+      games." The mastery ring around each medallion is the progress bar; due items are at most three
+      small pips hanging off the medallion <span class="p">P2</span>. The trail gives the six types a
+      permanent geography — "past is the one down-left after the bend" <span class="p">P3</span>.</p>
+      <h3>The details that carry it</h3>
+      <ul>
+        <li>The recommendation chip breathes on exactly one stop <span class="p">P1</span>; the locked て-compounds stop is a dimmed medallion with a factual unlock line <span class="p">P8</span>.</li>
+        <li>Free drill is "Sparring" — a landmark <em>off</em> the trail (different shape: dashed pavilion). Its setup replaces 12 checkboxes with <b>4 family chips + a 3-position depth switch</b> (Base / + Stacked / Everything) <span class="p">P5, P11</span>.</li>
+        <li>Drill screen inherits the type's owned color: the progress bar is trail segments, the combo chip ticks quietly (in-session feedback survives the gamification backlash; streaks-across-days don't).</li>
+      </ul>
+      <h3>Trade-offs</h3>
+      <p>Warmest and most kid-friendly of the three; strongest sense of journey. Costs vertical space
+      (one screen ≈ 6 stops), and the trail implies sequence more strongly than conjugation strictly has.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DIRECTION B ═══════════════════════ -->
+<section class="direction" data-dir="b">
+  <div class="dhead"><span class="letter">B</span><h2>Transit Map</h2>
+  <span class="tagline">wayfinding lineage — forms as stations, stacked conjugation as the line extending</span></div>
+  <div class="dbody">
+    <div class="phone"><div class="screen">
+      <div class="apphead"><span class="back">←</span><div><div class="title">Conjugation lines</div>
+      <div class="sub">Ride a line to review it · 9 stops flagged</div></div></div>
+
+      <div class="metro">
+        <svg viewBox="0 0 358 470">
+          <!-- lines -->
+          <path d="M40 60 H 318" stroke="var(--type-te)" stroke-width="7" stroke-linecap="round" fill="none"/>
+          <path d="M40 140 H 318" stroke="var(--type-ta)" stroke-width="7" stroke-linecap="round" fill="none"/>
+          <path d="M40 220 H 200 L 240 260 H 318" stroke="var(--type-nai)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M40 320 H 318" stroke="var(--type-masu)" stroke-width="7" stroke-linecap="round" fill="none"/>
+          <path d="M40 400 H 140 L 180 440 H 318" stroke="var(--type-tai)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <!-- TE line -->
+          <g class="station"><circle class="here" cx="40" cy="60" r="14" stroke="var(--type-te)"/>
+            <circle class="dot" cx="40" cy="60" r="10" stroke="var(--type-te)"/>
+            <circle class="duedot" cx="40" cy="60" r="4" fill="var(--type-te)"/>
+            <text class="ja" x="62" y="48">て form</text><text class="sub" x="62" y="76">T1 · 1 flagged · connective</text></g>
+          <g class="station" opacity="0.45"><circle class="dot" cx="230" cy="60" r="8" stroke="var(--type-te)"/>
+            <text class="sub" x="222" y="42">ている</text></g>
+          <g class="station" opacity="0.45"><circle class="dot" cx="295" cy="60" r="8" stroke="var(--type-te)"/>
+            <text class="sub" x="280" y="42">てください</text></g>
+          <!-- TA line -->
+          <g class="station"><circle class="dot" cx="40" cy="140" r="10" stroke="var(--type-ta)"/>
+            <circle class="duedot" cx="40" cy="140" r="4" fill="var(--type-ta)"/>
+            <text class="ja" x="62" y="128">た form</text><text class="sub" x="62" y="156">T2 · 1 flagged · plain past</text></g>
+          <g class="station" opacity="0.45"><circle class="dot" cx="260" cy="140" r="8" stroke="var(--type-ta)"/>
+            <text class="sub" x="240" y="122">たことがある</text></g>
+          <!-- NAI line with branch -->
+          <g class="station"><circle class="dot" cx="40" cy="220" r="10" stroke="var(--type-nai)"/>
+            <circle class="duedot" cx="40" cy="220" r="4" fill="var(--type-nai)"/>
+            <text class="ja" x="62" y="208">ない form</text><text class="sub" x="62" y="236">T3 · 1 flagged · plain negative</text></g>
+          <g class="station"><circle class="dot" cx="290" cy="260" r="8" stroke="var(--type-nai)"/>
+            <text class="sub" x="258" y="284">なかった · past</text></g>
+          <!-- MASU line -->
+          <g class="station"><circle class="dot" cx="40" cy="320" r="10" stroke="var(--type-masu)"/>
+            <circle class="duedot" cx="40" cy="320" r="4" fill="var(--type-masu)"/>
+            <text class="ja" x="62" y="308">ません</text><text class="sub" x="62" y="336">T4 · 2 flagged · polite negatives</text></g>
+          <g class="station"><circle class="dot" cx="250" cy="320" r="8" stroke="var(--type-masu)"/>
+            <text class="sub" x="212" y="302">ませんでした</text></g>
+          <!-- TAI line with branch -->
+          <g class="station"><circle class="dot" cx="40" cy="400" r="10" stroke="var(--type-tai)"/>
+            <circle class="duedot" cx="40" cy="400" r="4" fill="var(--type-tai)"/>
+            <text class="ja" x="62" y="388">たい form</text><text class="sub" x="62" y="416">T5 · 1 flagged · want to</text></g>
+          <g class="station"><circle class="dot" cx="240" cy="440" r="8" stroke="var(--type-tai)"/>
+            <text class="sub" x="205" y="464">たくなかった</text></g>
+        </svg>
+        <div class="legend">
+          <span><i style="background: var(--type-te)"></i>て line</span>
+          <span><i style="background: var(--type-ta)"></i>た line</span>
+          <span><i style="background: var(--type-nai)"></i>ない line</span>
+          <span><i style="background: var(--type-masu)"></i>ます line</span>
+          <span><i style="background: var(--type-tai)"></i>たい line</span>
+        </div>
+      </div>
+
+      <div class="sparring" style="margin-top: 14px">
+        <span class="icon" aria-hidden="true">◎</span>
+        <div><div class="name">Interchange — ride every line</div>
+        <div class="meta">Free drill across any lines you pick. No review writes.</div></div>
+      </div>
+
+      <div class="minilabel">In the drill — riding the ない line</div>
+      <div class="drillmini" style="--tc: var(--type-nai)">
+        <div class="ridestrip">
+          <span class="st done"></span><span class="seg done"></span><span class="st done"></span>
+          <span class="seg done"></span><span class="train"></span><span class="seg"></span>
+          <span class="st"></span><span class="seg"></span><span class="st"></span>
+          <span class="seg"></span><span class="st"></span>
+        </div>
+        <div class="qword ja">まつ</div>
+        <div class="qmeaning">to wait</div>
+        <div class="qtarget">→ ない form (past)</div>
+        <div class="opts ja">
+          <button class="opt">またなかった</button><button class="opt">まちなかった</button>
+          <button class="opt">まってなかった</button><button class="opt">まつなかった</button>
+        </div>
+      </div>
+    </div></div>
+
+    <div class="rationale">
+      <h3>What it is</h3>
+      <p>The wayfinding metaphor, taken literally because it happens to be <b>true of the content</b>:
+      a conjugation chain IS a route. Each form family is a colored line; the base form is the first
+      station; <b>stacked conjugations are the next stops down the same line</b> (ない → なかった;
+      たい → たくなかった; て → ている, てください… shown as future stops). Due items are the small
+      filled core of a station; the "you are here" halo pulses on the recommended line <span class="p">P13, P1</span>.</p>
+      <h3>The details that carry it</h3>
+      <ul>
+        <li>Every station has a language-free address (T1–T5) and its line color follows into the drill, the results, and the cheat sheet <span class="p">P10</span>.</li>
+        <li>The v2 te-compounds are <em>already on the map</em> as dimmed future stops — the roadmap is the UI, the carrot is built in <span class="p">P8</span>.</li>
+        <li>Drill progress = a train moving stop-to-stop along the line strip. Finishing a ride "arrives"; no score anxiety, just arrival.</li>
+        <li>Free drill = the interchange station — semantically the place all lines meet; its config asks which <em>lines</em> to ride (5 chips), not which of 12 forms.</li>
+      </ul>
+      <h3>Trade-offs</h3>
+      <p>Smartest and most language-agnostic; scales beautifully as stacked forms arrive (they're just
+      new stops — no new UI). Reads slightly more "clever adult" than "kid game," though color+glyph
+      keeps it pre-reader navigable. The map needs care at 320px widths.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DIRECTION C ═══════════════════════ -->
+<section class="direction" data-dir="c">
+  <div class="dhead"><span class="letter">C</span><h2>Ink Tiles</h2>
+  <span class="tagline">playroom lineage — six big glyph tiles that fill with ink as you master them</span></div>
+  <div class="dbody">
+    <div class="phone"><div class="screen">
+      <div class="apphead"><span class="back">←</span><div><div class="title">Conjugation</div>
+      <div class="sub">Tap a form to play · 9 waiting</div></div></div>
+
+      <div class="playgrid ja">
+        <div class="tile suggest" style="--tc: var(--type-iadj); --mastery: 20">
+          <span class="cards"><i></i><i></i><i></i></span>
+          <span class="glyph">い</span><span class="tname">i-adjectives</span>
+          <span class="ink"></span>
+        </div>
+        <div class="tile" style="--tc: var(--type-masu); --mastery: 35">
+          <span class="cards"><i></i><i></i></span>
+          <span class="glyph">ま</span><span class="tname">polite negatives</span>
+          <span class="ink"></span>
+        </div>
+        <div class="tile" style="--tc: var(--type-te); --mastery: 55">
+          <span class="cards"><i></i></span>
+          <span class="glyph">て</span><span class="tname">te-form</span>
+          <span class="ink"></span>
+        </div>
+        <div class="tile" style="--tc: var(--type-ta); --mastery: 70">
+          <span class="cards"><i></i></span>
+          <span class="glyph">た</span><span class="tname">plain past</span>
+          <span class="ink"></span>
+        </div>
+        <div class="tile" style="--tc: var(--type-nai); --mastery: 85">
+          <span class="cards"><i></i></span>
+          <span class="glyph">ない</span><span class="tname">plain negative</span>
+          <span class="ink"></span>
+        </div>
+        <div class="tile" style="--tc: var(--type-tai); --mastery: 45">
+          <span class="cards"><i></i></span>
+          <span class="glyph">たい</span><span class="tname">want to</span>
+          <span class="ink"></span>
+        </div>
+        <div class="tile mixer" style="--tc: var(--accent)">
+          <span class="glyphs"><b>て</b><b>た</b><b>な</b><b>ま</b><b>たい</b><b>い</b></span>
+          <span class="tname">Mix — free drill</span>
+        </div>
+      </div>
+
+      <div class="minilabel">In the drill</div>
+      <div class="drillmini" style="--tc: var(--type-iadj)">
+        <div class="trailbar"><i class="done"></i><i class="done"></i><i></i><i></i><i></i><i></i></div>
+        <span class="combo">◆ 2 in a row</span>
+        <div class="qword ja">たかい</div>
+        <div class="qmeaning">expensive, tall</div>
+        <div class="qtarget">→ negative past</div>
+        <div class="opts ja">
+          <button class="opt">たかくなかった</button><button class="opt">たかいくなかった</button>
+          <button class="opt">たかくないかった</button><button class="opt">たかかった</button>
+        </div>
+      </div>
+    </div></div>
+
+    <div class="rationale">
+      <h3>What it is</h3>
+      <p>The Toca-Boca answer: <b>six chunky tiles, glyph-first, no reading required to navigate</b>
+      <span class="p">P4, P9</span>. Mastery is ink filling the tile from the bottom — the sumi-ink
+      conceit grounds it in the subject. Due items are little cards physically peeking over the tile's
+      top edge ("things waiting for you"), capped at three — a 3-due type and a 9-due type look almost
+      the same, which is exactly the point: no wall of red numbers <span class="p">P2, P8</span>.</p>
+      <h3>The details that carry it</h3>
+      <ul>
+        <li>Whole tile is the target; squash-press physics on tap (the app's existing 3D-button feel, turned up one notch) <span class="p">P6, P7</span>.</li>
+        <li>The suggested tile wobbles once every few seconds — a nudge you notice, not a nag <span class="p">P1</span>.</li>
+        <li>Mix tile spans the bottom in a washi-stripe pattern; its config sheet is the same family-chips + depth switch as Direction A <span class="p">P11</span>.</li>
+        <li>Fixed grid positions forever — spatial memory does the navigation on the second visit <span class="p">P3</span>.</li>
+      </ul>
+      <h3>Trade-offs</h3>
+      <p>Lowest-anxiety, most toy-like, fastest to build (it's a grid). Weakest at conveying sequence
+      and the stacked-form roadmap — the chains live inside the drill and cheat sheet rather than on
+      the menu. Locked types are just a dimmed tile with an unlock line.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ COMPARISON ═══════════════════════ -->
+<section class="direction" data-dir="compare">
+  <div class="dhead"><span class="letter">⇄</span><h2>Picking between them</h2></div>
+  <table class="compare">
+    <tr><th></th><th>A · Practice Path</th><th>B · Transit Map</th><th>C · Ink Tiles</th></tr>
+    <tr><td>Feels like</td><td>an adventure trail</td><td>a system you're mastering</td><td>a toy box</td></tr>
+    <tr><td>Strongest for</td><td>continuity with the lesson pathway; warmth</td><td>stacked conjugation — chains are literally the map; scales to v2 free</td><td>youngest users; speed to build; calm</td></tr>
+    <tr><td>Stacked forms</td><td>inside drill + cheat sheet</td><td><b>on the menu itself</b> (next stops)</td><td>inside drill + cheat sheet</td></tr>
+    <tr><td>Build cost</td><td>medium (trail layout + medallions)</td><td>medium-high (SVG map, small-screen care)</td><td>low (grid + fills)</td></tr>
+    <tr><td>Risk</td><td>implies more sequence than exists</td><td>reads adult-clever</td><td>menu carries least information</td></tr>
+  </table>
+  <div class="rationale" style="margin-top: 18px">
+    <h3>My take</h3>
+    <p><b>B (Transit Map)</b> is the one with a real idea in it — the metaphor isn't decoration, it's
+    the actual structure of conjugation chains, and every v2 form we add becomes a new stop instead of
+    new UI. If the goal weights "all ages + fastest ship" higher, <b>C</b> wins. <b>A</b> is the safe
+    crowd-pleaser that matches the existing lesson pathway most closely. All three share the same
+    fixes (due pips, owned colors, family-chip free drill, one "next" marker), so whichever you pick,
+    the checkbox row and badge-wall die today. Mix-and-match notes welcome — e.g. B's map with C's
+    press physics is a natural pairing.</p>
+  </div>
+</section>
+
+</main>
+<script>
+function setDir(d) {
+  document.body.dataset.view = d;
+  document.querySelectorAll(".dirbtn").forEach(b =>
+    b.classList.toggle("active", b.dataset.dir === d));
+  window.scrollTo({ top: 0 });
+}
+function setTheme(t) {
+  document.body.classList.toggle("dark", t === "dark");
+  document.querySelectorAll(".themebtn").forEach(b =>
+    b.classList.toggle("active", b.dataset.theme === t));
+}
+</script>
+</body>
+</html>

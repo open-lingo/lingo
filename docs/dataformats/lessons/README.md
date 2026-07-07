@@ -201,34 +201,18 @@ Play an audio clip, then reconstruct what was heard from tiles. Combines listeni
 
 ---
 
-### 10. `speaking` -- Speak a phrase (stubbed)
+### 10. `speaking` -- Speak a phrase
 
-The learner is prompted to speak a phrase. Currently stubbed -- always auto-passes.
+The learner is prompted to speak a phrase. **Production path** (`stubbed: false`, default for hand-authored rows since 2026-05-17): a Whisper-backed scorer runs, with a 2-attempt + reward-the-try flow and mora-tier scoring. When `stubbed: true` it is an ungraded "I said it!" placeholder (legacy).
 
 | Field        | Type   | Required | Description                         |
 |--------------|--------|----------|-------------------------------------|
 | targetPhrase | string | yes      | Phrase to say in the target language |
 | translation  | string | yes      | Meaning in the instruction language  |
 | audioKey     | string | no       | Reference audio for the phrase       |
-| stubbed      | bool   | yes      | Always `true` for now               |
+| stubbed      | bool   | yes      | `false` = graded (Whisper scorer); `true` = ungraded placeholder |
 
----
-
-### 11. `video` -- Video clip (K-drama, J-drama, music video, etc.)
-
-A short video clip embedded in the lesson. Used for drama scenes, music video segments, or other authentic media. The learner watches the clip, optionally with interactive elements (captions, vocabulary highlights, comprehension questions).
-
-| Field           | Type     | Required | Description                                              |
-|-----------------|----------|----------|----------------------------------------------------------|
-| videoKey        | string   | yes      | Asset key for the video file or stream URL               |
-| title           | string   | no       | Optional heading for the clip                            |
-| transcript      | string   | no       | Full transcript; can be shown alongside or after viewing  |
-| captionsKey     | string   | no       | Asset key for VTT/SRT subtitles                          |
-| vocabHighlights | string[] | no       | Vocab IDs or terms to highlight in transcript            |
-| prompt          | string   | no       | Instruction (e.g. "Watch and listen for the greeting")   |
-| comprehension   | object   | no       | Optional comprehension question (same shape as `multiple_choice`) |
-
-**Use cases:** K-drama greeting scenes, J-drama dialogue clips, K-pop/J-pop music video segments with lyrics focus, authentic conversation snippets.
+> There is **no `video` lesson step type.** (An earlier draft documented one; it was never implemented — see `src/features/lesson/types.ts` for the real union.) Video is a standalone **Practice** feature (`/:lang/practice/videos`), not a lesson step.
 
 ---
 

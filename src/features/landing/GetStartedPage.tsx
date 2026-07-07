@@ -36,7 +36,7 @@ export default function GetStartedPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 sm:py-20">
+    <div className="mx-auto max-w-4xl px-4 pb-40 pt-12 sm:pt-20">
       <header className="text-center">
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
           {t("getStarted.title", "What do you want to learn?")}

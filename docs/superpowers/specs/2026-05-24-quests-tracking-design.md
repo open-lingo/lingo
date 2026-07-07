@@ -1,7 +1,7 @@
 # Quests & daily XP tracking — design notes (2026-05-24)
 
 **Status:** Planning / frontend mock partial  
-**Related:** [backend-progress-api.md](../../tasks/backend-progress-api.md), [dataformats/progress/README.md](../../dataformats/progress/README.md), [handoff-2026-05-24-home-sync-ux.md](../../handoff-2026-05-24-home-sync-ux.md)
+**Related:** [backend-progress-api.md](../../tasks/backend-progress-api.md), [dataformats/progress/README.md](../../dataformats/progress/README.md), [handoff-2026-05-24-home-sync-ux.md](../../archive/handoff-2026-05-24-home-sync-ux.md)
 
 ---
 

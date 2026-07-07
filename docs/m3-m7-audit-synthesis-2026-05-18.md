@@ -162,7 +162,7 @@ Lesson title promises compound sentences (multiple particles per sentence), but 
 Q3 resolution said Path A (MCQ-only); implementation actually ships **typed free-text input** (Path B). This is the **single highest testing-effect lever in the codebase** (Roediger & Karpicke 2006b: production retrieval = 1.5× durability of recognition on 7-day delayed test).
 
 **Fix:**
-- Update Q3 resolution in `curriculum-roadmap-n5-2026-05-18.md` to reflect ground truth.
+- Update Q3 resolution in `docs/n5-content-spec-2026-05-25.md` to reflect ground truth.
 - Add a code comment on `translateStep()` factory + `TranslateStepView` warning future maintainers NOT to "fix" by adding word-bank.
 - Optional `optionsKana?: string[]` opt-in word-bank fallback for high-friction cases; default stays typed.
 

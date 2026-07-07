@@ -2,7 +2,7 @@
 
 **Target:** Soft launch to real users with the **core learn + flashcards + settings** loop stable.
 
-**MVP money:** **Ad-supported only** — no Stripe/billing. Expect hosting and API costs to exceed AdSense revenue at first. Live AdSense fills and real funding % are post-launch. See [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md) for admin, moderation, and progress epics.
+**MVP money:** **Ad-free trial** — no ads and no Stripe/billing at MVP. The ads framework is built but its UI is deferred; **ad-supported** revenue (AdSense) and live funding % are **post-MVP**. Expect hosting and API costs to run at a loss during the trial. See [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md) for admin, moderation, and progress epics.
 
 **Last updated:** 2026-05-16
 

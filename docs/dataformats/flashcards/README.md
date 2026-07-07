@@ -84,11 +84,11 @@ See `lesson-card-map.example.json`. Maps which lessons unlock which cards.
 
 ## SRS state (per user, per card)
 
-See `srs-state.example.json`. Stored in localStorage or backend; not in deck JSON.
+See `srs-state.example.json` and [srs/](../srs/README.md) for the full schema. Stored in localStorage or backend; **not** in deck JSON. The engine is **FSRS-6**: each card holds *two* independent states (`recognition` + `production`); **Hard is a success** rating; there is no SM-2 `easeFactor`/`repetitions`.
 
 - Cards with no state = new cards (due when introduced).
-- `dueDate` (YYYY-MM-DD): when the card is next due.
-- SRS only applies to **unlocked** cards for course decks.
+- A card is due when *either* modality's `dueDate` (YYYY-MM-DD) `<= today`.
+- SRS only applies to **unlocked** cards for course decks. Course-deck card ids are atom-derived and `<lang>:`-prefixed (e.g. `ja:ai`); community decks use their own ids (e.g. `ko-1`).
 
 ---
 

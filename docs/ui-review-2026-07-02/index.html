@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lingo UI Review — 2026-07-02</title>
+<style>
+  :root {
+    --ink: #1c1917;
+    --ink-2: #57534e;
+    --ink-3: #a8a29e;
+    --paper: #fafaf9;
+    --card: #ffffff;
+    --line: #e7e5e4;
+    --green: #059669;
+    --green-dark: #047857;
+    --red: #b91c1c;
+    --amber: #b45309;
+    --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  header.masthead {
+    border-bottom: 3px solid var(--ink);
+    padding: 40px 24px 28px; max-width: 1240px; margin: 0 auto;
+  }
+  .masthead h1 { font-size: 42px; line-height: 1.1; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .masthead p.dek { font-size: 18px; color: var(--ink-2); max-width: 68ch; margin: 0; }
+  .masthead .meta { margin-top: 14px; font-family: var(--mono); font-size: 12.5px; color: var(--ink-3); }
+  nav.toc {
+    position: sticky; top: 0; z-index: 5; background: var(--paper);
+    border-bottom: 1px solid var(--line); padding: 10px 24px;
+    max-width: 1240px; margin: 0 auto; display: flex; gap: 18px; flex-wrap: wrap;
+    font-size: 14px; font-weight: 600;
+  }
+  nav.toc a { color: var(--ink-2); text-decoration: none; }
+  nav.toc a:hover { color: var(--green-dark); }
+  main { max-width: 1240px; margin: 0 auto; padding: 12px 24px 80px; }
+  section { margin-top: 56px; }
+  h2 {
+    font-size: 28px; margin: 0 0 6px; padding-top: 18px;
+    border-top: 2px solid var(--ink); letter-spacing: -0.01em;
+  }
+  h2 .no { font-family: var(--mono); font-size: 15px; color: var(--ink-3); margin-right: 10px; }
+  .sectionlede { color: var(--ink-2); max-width: 78ch; margin: 4px 0 24px; }
+  h3 { font-size: 19px; margin: 34px 0 10px; }
+  /* before/after pairs */
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; margin: 14px 0 8px; }
+  .pair figure { margin: 0; }
+  .pair figcaption {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .pair .b figcaption { color: var(--red); }
+  .pair .a figcaption { color: var(--green-dark); }
+  .pair img {
+    width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06); background: #fff;
+  }
+  .pair.phones img { max-width: 340px; display: block; margin: 0 auto; }
+  .notes { margin: 10px 0 0; padding-left: 20px; color: var(--ink-2); font-size: 15px; }
+  .notes li { margin: 4px 0; }
+  .notes b { color: var(--ink); }
+  .tag { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em;
+    padding: 1px 7px; border-radius: 4px; vertical-align: 1px; margin-right: 6px; }
+  .tag.shipped { background: #d1fae5; color: var(--green-dark); }
+  .tag.proposal { background: #fef3c7; color: var(--amber); }
+  .tag.bug { background: #fee2e2; color: var(--red); }
+  .tag.note { background: #e7e5e4; color: var(--ink-2); }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; margin: 12px 0; }
+  th { text-align: left; border-bottom: 2px solid var(--ink); padding: 6px 10px 6px 0; font-size: 13px;
+       text-transform: uppercase; letter-spacing: 0.05em; }
+  td { border-bottom: 1px solid var(--line); padding: 8px 10px 8px 0; vertical-align: top; }
+  td:first-child { white-space: nowrap; font-family: var(--mono); font-size: 12.5px; }
+  .rule-list { columns: 2; column-gap: 40px; font-size: 15px; color: var(--ink-2); padding-left: 20px; }
+  .rule-list li { margin: 5px 0; break-inside: avoid; }
+  .callout {
+    border-left: 4px solid var(--green); background: #fff; border-radius: 0 10px 10px 0;
+    padding: 14px 18px; margin: 18px 0; color: var(--ink-2); font-size: 15px;
+  }
+  .callout b { color: var(--ink); }
+  code { font-family: var(--mono); font-size: 0.88em; background: #f5f5f4; padding: 1px 5px; border-radius: 4px; }
+  @media (max-width: 900px) { .pair { grid-template-columns: 1fr; } .rule-list { columns: 1; } }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <h1>Lingo UI Review</h1>
+  <p class="dek">Comprehensive pass over the lesson player, flashcard player, and every reachable page —
+  grounded in mobile-app research, learning-app teardowns (Duolingo, Anki, jpdb, Bunpro, WaniKani), and the
+  "how AI-built UIs go wrong" literature. Shipped changes are verified with before/after screenshots;
+  bigger moves are proposals for Spencer's call.</p>
+  <div class="meta">2026-07-02 · working tree only, nothing committed · shots at 390×844 &amp; 1440×900 ·
+  capture scripts: scripts/batch-shots.mjs, scripts/capture-states.mjs</div>
+</header>
+
+<nav class="toc">
+  <a href="#research">Research</a>
+  <a href="#lesson">Lesson player</a>
+  <a href="#flashcards">Flashcard player</a>
+  <a href="#grammar">Grammar review</a>
+  <a href="#home">Home &amp; hubs</a>
+  <a href="#proposals">Bigger proposals</a>
+  <a href="#bugs">Bugs &amp; suggestions</a>
+  <a href="#ralph">Ralph loop log</a>
+</nav>
+
+<main>
+
+<!-- ============================================================ -->
+<section id="research">
+  <h2><span class="no">01</span>What the research says</h2>
+  <p class="sectionlede">Three deep-dives (full briefs live with the session notes; the load-bearing findings are below).</p>
+
+  <h3>Simple mobile apps done well</h3>
+  <ul class="rule-list">
+    <li><b>Anchored bottom primary button</b>: 48–56px tall, 16px gutters, safe-area padding; bottom placement gets up to 40% more taps.</li>
+    <li>Same physical slot for CHECK→CONTINUE so advancing is muscle memory (spam-Enter works).</li>
+    <li>Duolingo press physics: <code>box-shadow: 0 4px 0 darker</code>, active → collapse + translateY. (Lingo's <code>primary-3d</code> already does this.)</li>
+    <li>Progress in fixed-arc flows: one thin bar, no numbers, ~300ms ease-out fill, never regresses.</li>
+    <li>Touch targets ≥44–48px; 8pt spacing grid; body text ≥16px (also stops iOS input zoom).</li>
+    <li>Feedback = color + icon + text (+ sound). Never color alone. Correct answer verbatim, prominent.</li>
+    <li>Explicit continue after wrong answers; optional auto-advance ~0.8s on correct only.</li>
+    <li><code>100dvh</code> shell, single internal scroller; overscroll-none; tap-highlight transparent; <code>touch-action: manipulation</code>.</li>
+    <li>Skeletons over spinners for content waits; nothing for &lt;200ms.</li>
+    <li>Contrast: white on #58cc02-style greens fails (2.2:1) — Lingo's darker #059669 on white passes.</li>
+  </ul>
+
+  <h3>Learning &amp; SRS apps</h3>
+  <ul class="rule-list">
+    <li>Lesson anatomy (Duolingo): X + bar header → instruction line → prompt → answers → anchored action bar → feedback sheet in the same slot.</li>
+    <li>Reviewers must show queue counts (Memrise hid them → refund threads). Lessons shouldn't (bar only).</li>
+    <li>Anki/FSRS: interval previews on grade buttons tempt "grading to schedule" — FSRS is more accurate for mostly Again/Good users. Default to hiding intervals; 2-button grading with descriptive labels ("Didn't know / Knew it") is the modern take (jpdb-style).</li>
+    <li>Undo + typo forgiveness are must-haves (WaniKani's biggest userscript category is literally "undo").</li>
+    <li>Answer reveal = append below (Anki/jpdb/Bunpro), not a literal 3D flip.</li>
+    <li>Cloze feedback gold standard (Bunpro): wrong-answer-specific hints, not generic "incorrect".</li>
+    <li>End-of-session: accuracy, counts, and a tappable miss list. No interstitial gauntlet.</li>
+    <li>JA text: <code>lang="ja"</code> everywhere, line-height ~1.8, never italic, display-size learning targets, ruby furigana with reserved space.</li>
+    <li>What survives the gamification backlash: correctness feedback, progress bars, mastery-stage changes. What doesn't: streak guilt, hearts, leagues. (Matches the house no-babying rule.)</li>
+  </ul>
+
+  <h3>The "Claude look" — and where agent-driven UI work fails</h3>
+  <p class="sectionlede">The convergent AI aesthetic ("distributional convergence" per Anthropic; Adam Wathan's indigo apology; Krebs' 1,590-site Show HN audit) has known tells: default-Tailwind indigo/purple, gray-50 + white cards + shadow-sm, rounded-2xl on everything, every block boxed in a card, badge pill over hero, identical icon-on-top feature cards, ALL-CAPS eyebrows everywhere, emoji as icons, no designed empty/error states. Lingo mostly dodges the palette tells (emerald token system, themed radius) but has the <b>carding + eyebrow density</b> tells on Home/Practice, and had undesigned empty states.</p>
+  <ul class="rule-list">
+    <li>Un-card: cards only for independently actionable content; never nested.</li>
+    <li>One accent as a page-level budget; structure (numbers/eyebrows/dividers) must encode something true.</li>
+    <li>Agent failure modes to guard against: declaring victory on unchanged screenshots; tiny text looking fine in full-page shots (crop!); adding decoration instead of fixing hierarchy; 2px-tweak timidity; never checking hover/error/empty states.</li>
+    <li>This review's mitigations: every claim is backed by a before/after capture at true viewport size; interactive states are click-scripted; each round names what the eye should see 1st/2nd/3rd before touching code.</li>
+  </ul>
+</section>
+
+<!-- ============================================================ -->
+<section id="lesson">
+  <h2><span class="no">02</span>Lesson player</h2>
+  <p class="sectionlede">The flagship surface. The shell was already app-like (fixed height, internal scroller, 3D buttons) —
+  the gaps were chrome noise, a wandering primary button, dead space, and feedback that whispered.</p>
+
+  <h3>Focused shell: chrome, dead space, anchored action <span class="tag shipped">SHIPPED</span></h3>
+  <div class="pair phones">
+    <figure class="b"><figcaption>Before</figcaption><img src="img/before/lesson-s1--mobile.png" alt="Lesson before: global header, dead space, unanchored CHECK"></figure>
+    <figure class="a"><figcaption>After</figcaption><img src="img/after/lesson-s1--mobile.png" alt="Lesson after: no global chrome, content top-aligned, CHECK anchored"></figure>
+  </div>
+  <ul class="notes">
+    <li><b>Global chrome removed in focused flows</b> (logo/gems/avatar/hamburger header, funding pill, floating language flag) — the session header (X + bar) is the only chrome, like every dedicated learning app. <code>Layout.tsx</code> focusedFlow now drops the header instead of just the footer.</li>
+    <li><b>Content starts at the top</b> — the prompt is the first thing the eye hits; previously the cluster floated mid-screen leaving ~150px of dead space under the header.</li>
+    <li><b>CHECK/CONTINUE anchored to the bottom slot in all 21 step views</b> (mt-auto action block; long content scrolls, button stays put) — same physical place on every step type, Duolingo's muscle-memory invariant.</li>
+    <li><b>Numberless progress bar</b> — the "0/19" readout duplicated the bar and read as work-remaining; screen readers still get exact position. Review or replay passes keep their explicit counts (that's a queue, not an arc).</li>
+    <li>Also shipped globally: <code>overscroll-behavior: none</code>, tap-highlight removal, <code>touch-action: manipulation</code> on buttons.</li>
+  </ul>
+
+  <h3>Wrong-answer feedback <span class="tag shipped">SHIPPED</span> <span class="tag bug">was a defect</span></h3>
+  <div class="pair phones">
+    <figure class="b"><figcaption>Before</figcaption><img src="img/before/lesson-feedback-wrong--mobile.png" alt="Wrong answer before: wrong tile still green, correct answer in tiny text"></figure>
+    <figure class="a"><figcaption>After</figcaption><img src="img/after/lesson-feedback-wrong--mobile.png" alt="Wrong answer after: wrong tile red, banner with icon and prominent correct answer"></figure>
+  </div>
+  <ul class="notes">
+    <li><b>Defect fixed:</b> the learner's wrong answer stayed <i>green-tinted</i> in the answer slot at the exact moment the verdict said "Not quite". Placed tiles now flip to the error palette on a wrong submit.</li>
+    <li><b>The correct answer moved into the verdict banner</b> at reading size with <code>lang="ja"</code> — it was a 12px muted footnote, the least visible thing on screen at the moment it matters most.</li>
+    <li><b>Icon + text verdict</b> (✗/✓ circle) so the state survives color-blindness; banner keeps <code>role="alert"</code>.</li>
+    <li>The soft-red palette stays deliberately calm — "teaching, never scolding" (existing retiree-audit P0) is preserved; the CTA stays neutral.</li>
+  </ul>
+
+  <h3>Info / teach steps <span class="tag shipped">SHIPPED</span></h3>
+  <div class="pair phones">
+    <figure class="b"><figcaption>Before</figcaption><img src="img/before/lesson-s0--mobile.png" alt="Info step before: CONTINUE mid-page"></figure>
+    <figure class="a"><figcaption>After</figcaption><img src="img/after/lesson-s0--mobile.png" alt="Info step after: CONTINUE in the bottom action slot"></figure>
+  </div>
+  <ul class="notes">
+    <li>CONTINUE no longer floats directly under the card mid-page — it lives in the same bottom slot as every exercise's CHECK.</li>
+  </ul>
+
+  <h3>Desktop</h3>
+  <div class="pair">
+    <figure class="b"><figcaption>Before</figcaption><img src="img/before/lesson-s1--desktop.png" alt="Desktop lesson before"></figure>
+    <figure class="a"><figcaption>After</figcaption><img src="img/after/lesson-s1--desktop.png" alt="Desktop lesson after"></figure>
+  </div>
+  <ul class="notes">
+    <li>Same shell, now without the site nav; the column breathes and the action bar is where the eye expects. Keyboard already works (Enter to check/continue via <code>useLessonKeyboard</code>).</li>
+    <li><span class="tag proposal">PROPOSAL</span> a slim keyboard-hint row on desktop ("Enter ↵ check · 1–9 pick tiles") — power users find these by accident today.</li>
+  </ul>
+</section>
+
+<!-- ============================================================ -->
+<section id="flashcards">
+  <h2><span class="no">03</span>Flashcard player</h2>
+  <p class="sectionlede">Audited with a seeded unlock set (24 course atoms). The bones are right — append-style reveal,
+  visible queue counts, 1–4 grade keys — and the research points at three sharpenings.</p>
+
+  <div class="pair phones">
+    <figure class="b"><figcaption>Front</figcaption><img src="img/before/fc-front--mobile.png" alt="Flashcard front"></figure>
+    <figure class="a"><figcaption>Back (revealed)</figcaption><img src="img/after/fc-back--mobile.png" alt="Flashcard back with grade buttons"></figure>
+  </div>
+  <ul class="notes">
+    <li><span class="tag note">GOOD</span> Queue counts always visible (Reviewed/New/Due/Again) — the thing Memrise died on. Reveal appends below (correct pattern). Number-key grading exists.</li>
+    <li><span class="tag proposal">PROPOSAL — interval previews off by default.</span> The "&lt;1d / 3d" chips on grade buttons invite grading-to-schedule, which corrupts FSRS (its maintainers' own guidance; FSRS is more accurate for mostly-Again/Good users). Suggest: hide by default, "show scheduling" toggle in the deck settings gear for the Anki crowd.</li>
+    <li><span class="tag proposal">PROPOSAL — two-button default grading.</span> "Didn't know" (red) / "Knew it" (green) with Hard/Easy behind the same toggle. jpdb-style experience-descriptive labels beat Anki jargon for non-veterans; keeps 1/Space keys.</li>
+    <li><span class="tag proposal">PROPOSAL — undo.</span> One-step "Oops" (Backspace / Ctrl+Z) to retract the last grade. WaniKani's missing undo is its single largest userscript category; misgrades are FSRS noise.</li>
+    <li><span class="tag proposal">PROPOSAL — focused chrome.</span> The reviewer keeps the full site header + breadcrumbs. Adding <code>/practice/flashcards/review</code> to focusedFlow + an X-out header would match the lesson player. (Held for Spencer's call since the hub link row also carries the info/settings triggers.)</li>
+    <li><span class="tag bug">COPY BUG (fixed)</span> The empty state told JA learners to "select Korean to try the sample deck" — stale copy from before JA lesson decks existed. Now explains cards unlock from lessons.</li>
+  </ul>
+</section>
+
+<!-- ============================================================ -->
+<section id="grammar">
+  <h2><span class="no">04</span>Grammar review session</h2>
+  <div class="pair phones">
+    <figure class="b"><figcaption>Empty state</figcaption><img src="img/before/grammar-review--mobile.png" alt="Grammar review empty state"></figure>
+    <figure class="a"><figcaption>After (chrome)</figcaption><img src="img/after/grammar-review--mobile.png" alt="Grammar review after focused chrome"></figure>
+  </div>
+  <ul class="notes">
+    <li><span class="tag shipped">SHIPPED</span> Session inherits the focused shell (no global header) via the same Layout change; shell height retuned.</li>
+    <li><span class="tag note">NOTE</span> Session-with-due-items states should be re-audited after Spencer's 2026-07-03 playtest — the step UI is shared with the lesson player, so the anchoring/feedback wins apply automatically.</li>
+    <li><span class="tag proposal">PROPOSAL</span> Empty state could show the next-due time ("3 points due tomorrow") instead of a bare "come back later" — an empty screen is an invitation to act.</li>
+  </ul>
+</section>
+
+<!-- ============================================================ -->
+<section id="home">
+  <h2><span class="no">05</span>Home, Practice hub, Learn</h2>
+
+  <h3>Home <span class="tag shipped">headline fix shipped</span></h3>
+  <div class="pair phones">
+    <figure class="b"><figcaption>Before</figcaption><img src="img/before/home--mobile.png" alt="Home before: truncated headline"></figure>
+    <figure class="a"><figcaption>After</figcaption><img src="img/after/home--mobile.png" alt="Home after: headline wraps two lines"></figure>
+  </div>
+  <ul class="notes">
+    <li><span class="tag shipped">SHIPPED</span> Hero headline truncated mid-word at 390px ("Up next: The first 4…") — now clamps to two lines.</li>
+    <li><span class="tag note">KEEP</span> The photo-background hero is genuinely distinctive — it's the page's signature element. Don't let future passes flatten it into a plain card.</li>
+    <li><span class="tag proposal">PILLAR TENSION</span> "0 day streak" flame front-and-center, "Build your momentum", "Earn 50 XP today", "Knock one out" — this is the babying/streak-guilt language the house rule bans, aimed at an adult who opened the app voluntarily. Proposal: replace the streak tile with <i>facts</i> (cards due, next lesson, knowledge strength) and let TODAY'S PLAN copy state what's there rather than nudge. Not changed unilaterally — it's a product-voice call.</li>
+    <li><span class="tag note">STYLE</span> Three ALL-CAPS eyebrows on one screen (TODAY'S PLAN / MEMORY / REVIEW) is the templated-UI tell; one per view is plenty.</li>
+  </ul>
+
+  <h3>Practice hub</h3>
+  <div class="pair phones">
+    <figure class="b"><figcaption>Current</figcaption><img src="img/before/practice-hub--mobile.png" alt="Practice hub"></figure>
+    <figure class="a"><figcaption>Vocab (for contrast — this page works)</figcaption><img src="img/before/vocab--mobile.png" alt="Vocab page"></figure>
+  </div>
+  <ul class="notes">
+    <li><span class="tag proposal">PROPOSAL — un-card the hub.</span> Every row (Flashcards, Module reviews, Grammar practice…) is a full bordered card with icon + arrow, visually identical whether it has work for you or not. Suggest: stat strip stays, then a flat list with dividers where the <i>due badge</i> is the loudest element — density where it serves the task.</li>
+    <li>The DAY STREAK stat tile has the same pillar tension as Home.</li>
+    <li>Vocab shown for contrast: filter rail + count badges + semantic emoji illustrations — information-dense and honest. It's the page closest to the bar already.</li>
+  </ul>
+
+  <h3>Learn / course map</h3>
+  <div class="pair phones">
+    <figure class="b"><figcaption>Before (FTUE arc over course map)</figcaption><img src="img/before/course-map--mobile.png" alt="FTUE modal covering course map"></figure>
+    <figure class="a"><figcaption>After</figcaption><img src="img/after/course-map--mobile.png" alt="Course map without modal"></figure>
+  </div>
+  <ul class="notes">
+    <li><span class="tag shipped">SHIPPED</span> The first-session survey modal used to float over <i>any</i> /learn route — including a deep-linked lesson a brand-new user was trying to take (it blocked their taps until answered). It now waits for the Learn overview.</li>
+  </ul>
+</section>
+
+<!-- ============================================================ -->
+<section id="proposals">
+  <h2><span class="no">06</span>Bigger proposals (not built — Spencer's call)</h2>
+  <table>
+    <tr><th>Where</th><th>Proposal</th><th>Why</th></tr>
+    <tr><td>lesson player</td><td>Bottom feedback <b>sheet</b> that replaces the action bar in place (green/red tinted band containing verdict + correct answer + CONTINUE), sliding up ~250ms.</td><td>The banner now sits above the button; the full Duolingo pattern puts CONTINUE <i>inside</i> the tinted band so the thumb never moves and the verdict is unmissable. Half a step further than what shipped.</td></tr>
+    <tr><td>lesson player</td><td>Auto-advance on correct (~800ms, cancellable) as a setting, default off.</td><td>Explicit continue is right for wrong answers; power users grinding reviews love the flow. LingoDeer ships it as a setting.</td></tr>
+    <tr><td>flashcards</td><td>2-button grading default + interval previews off + undo (details in §03).</td><td>FSRS accuracy + simpler choice; previews/4-button stay one toggle away.</td></tr>
+    <tr><td>home</td><td>Replace streak/XP framing with facts (due counts, next lesson, strength).</td><td>House pillar: capable adults, no manufactured obligation.</td></tr>
+    <tr><td>practice hub</td><td>Un-card into a dense list where due-badges carry the hierarchy.</td><td>De-AI checklist: cards only for independently actionable content; identical cards flatten priority.</td></tr>
+    <tr><td>mobile nav</td><td>Back-arrow + title instead of breadcrumbs on inner practice pages.</td><td>Breadcrumbs are a desktop-web idiom; apps use back+title. (Bigger refactor: PageHeader component.)</td></tr>
+    <tr><td>completion</td><td>Lesson-complete screen: add a tappable miss list (the items you got wrong, replayable).</td><td>Highest-value summary element per research; almost nobody does it well.</td></tr>
+  </table>
+</section>
+
+<!-- ============================================================ -->
+<section id="bugs">
+  <h2><span class="no">07</span>Bugs &amp; observations surfaced while auditing</h2>
+  <table>
+    <tr><th>Sev</th><th>What</th><th>Where / status</th></tr>
+    <tr><td>fixed</td><td>Wrong-answer tiles stayed success-green after an incorrect submit.</td><td>BuildSentenceStepView — fixed this pass.</td></tr>
+    <tr><td>fixed</td><td>FTUE survey modal blocked deep-linked lessons/course map for new users.</td><td>LearnLayout — gated to overview routes.</td></tr>
+    <tr><td>fixed</td><td>Flashcards empty state pointed JA learners to "select Korean".</td><td>FlashcardTester + en.json copy.</td></tr>
+    <tr><td>fixed</td><td>Home hero headline truncated mid-word on mobile.</td><td>HeroContinue — line-clamp-2.</td></tr>
+    <tr><td>fixed</td><td>"Resumed from step N of M" toast rendered over the bottom action bar / feedback banner.</td><td>ToastContainer — focused flows stack toasts above the action area (R3).</td></tr>
+    <tr><td>verify!</td><td><b>Flashcard modality mapping looks inverted.</b> <code>FlashcardTester.tsx:590</code>: "Recognition: front=English, reveal=Japanese" — but the engine defines recognition as <i>shown stimulus → identify meaning</i> (<code>types.ts:93</code>); EN→JA is production by that definition (and by jpdb/Anki convention). If so, grades are credited to the wrong FSRS sub-state per direction. Not changed here — it affects existing SRS data semantics; worth a deliberate call + migration thought.</td><td>FlashcardTester × SRS engine.</td></tr>
+    <tr><td>copy</td><td>Some build-step prompts carry the "Pick the Japanese word for:" frame, others are a bare word ("School", "Bag") — inconsistent instruction framing between modules.</td><td>Curriculum prompts (m4 vs m6 style drift).</td></tr>
+    <tr><td>copy</td><td>Lesson titles like "Object pool — part 1" read as authoring-internal jargon in the player header card.</td><td>m4 curriculum titles.</td></tr>
+    <tr><td>ux</td><td>Cookie-consent banner covers the anchored CHECK on a first mobile visit mid-lesson (legal necessity, but could stack above the action bar in focused flows).</td><td>CookieConsent × lesson shell.</td></tr>
+    <tr><td>ux</td><td>Loading states: home has skeletons (good); flashcards review shows bare "Loading…" text.</td><td>FlashcardTester.</td></tr>
+    <tr><td>env</td><td>lingo-core wouldn't boot on this machine (pyenv venv <code>lingo-core</code> missing; python-jose absent; system uvicorn is py3.10 but code needs ≥3.11 <code>datetime.UTC</code>). Rebuilt: <code>pyenv virtualenv 3.13.12 lingo-core</code> + <code>pip install -e .[dev]</code> + reseed. Backend now runs via the venv's uvicorn.</td><td>lingo-core dev env — worth a README note.</td></tr>
+    <tr><td>note</td><td>Settings sync means localStorage seeds (ftueArcSeen etc.) lose to server state for authed users — capture scripts now walk/dismiss the arc instead. The screenshot-auth memory needs updating accordingly.</td><td>tooling.</td></tr>
+  </table>
+</section>
+
+<!-- ============================================================ -->
+<section id="ralph">
+  <h2><span class="no">08</span>Ralph loop log</h2>
+  <p class="sectionlede">Fresh-eyes critique → change → recapture, until a round produces nothing meaningful.</p>
+  <table id="ralph-log">
+    <tr><th>Round</th><th>Focus</th><th>Outcome</th></tr>
+    <tr><td>R1</td><td>Lesson shell: chrome, anchoring, dead space, feedback, progress bar; home headline; FTUE gating; copy fixes.</td><td>Shipped (sections above). 189 files / 1459 tests green, tsc clean.</td></tr>
+    <tr><td>R2</td><td>Fresh-eyes on the new shell: keyboard shortcuts undiscoverable on desktop; "build the sentence" placeholder wrong for single-word answers; audited dormant-CHECK contrast (passes, left alone); fact-checked the flashcard "Recognition" chip (real finding — see §07).</td><td>Shipped: desktop kbd-hint row (Enter / 1–9), granularity-aware tray copy. Grammar-deck surfaces deliberately left untouched before the 07-03 playtest.</td></tr>
+    <tr><td>R3</td><td>Interactive-state recapture showed the "Resumed from step N" toast covering the verdict banner + CTA in any resumed lesson — upgraded from suggestion to fix.</td><td>Shipped: toasts stack above the action area in focused flows (ToastContainer bottomOffsetClass). Re-verified: toast, banner, correct answer, and CONTINUE all visible simultaneously. Round after this yielded no new small wins (remaining items are the §06 proposals) — loop closed. Final: 1459 tests green, tsc clean.</td></tr>
+  </table>
+</section>
+
+</main>
+</body>
+</html>

@@ -4,6 +4,16 @@ By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **
 
 ## Done (recently)
 
+### 2026-06-30 → 2026-07-05 katakana + trainer + grammar-deck wave
+
+- [x] **Katakana rollout + romaji fade** — base rows ア→ワ as first pathway nodes M3–M12; per-script flat romaji cutoffs (hira@M10, kata@M17) + "for today" hatch; D2 vocab-only content-step SRS writes. Spec: [katakana-rollout-romaji-fade-spec-2026-06-30.md](katakana-rollout-romaji-fade-spec-2026-06-30.md).
+- [x] **Conjugation Trainer v1→v1.4.1** — `/practice/conjugation` ink-tile hub, 6 types / 9 of 22 gated points, combine mode + "Combined forms" switch, shared drill card (build-stack order cue, class-chip popovers, kanji@M10+, cheat-sheet half-credit peek), anti-elimination distractor engine. Spec: [conjugation-trainer-v1-spec-2026-07-02.md](conjugation-trainer-v1-spec-2026-07-02.md).
+- [x] **Grammar review deck v1** — step-based session at `/practice/grammar/review` (never flip cards), pool-aware queue, machine-enforced comprehensibility gate. Spec: [grammar-deck-v1-spec-2026-07-02.md](grammar-deck-v1-spec-2026-07-02.md).
+- [x] **Track B sync parity + SRS sync hardening** — grammar rides `/srs/sync` with `grammar:` keys; merge/placement/batch-mark bugs fixed; FSRS interval snapshot pin.
+- [x] **Flashcards:** modality-inversion fix, one-step undo, 2-button history-aware grading defaults.
+- [x] **Lesson-shell UI overhaul** — anchored CTA in all 21 step views, wrong-tile feedback fix, focused chrome; [ui-review-2026-07-02/](ui-review-2026-07-02/index.html).
+- [x] **Overlay perf** — backdrop-blur removed from all 5 overlay primitives (measured modal scroll p95 33.4→16.7ms).
+
 ### 2026-06-13 engagement + kana-polish wave (Spencer + Claude)
 
 - [x] **Quests backend (real this time):** `lingo-core/app/quests/` — list/bump/claim/refresh to the FE contract; state in the user-settings blob; progress advances synchronously in the lesson batch handler; claim grants lingots/XP + streak-shield→freeze inventory; 2 pytests. `useQuests` lingo-async fiction excised.
@@ -33,7 +43,7 @@ By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **
 - [x] **Community deck preview regression fixed** — `ContentBrowserPage` now passes `onPreview` / `onStoryPreview` to `CommunityItemCard`.
 - [x] **WeekSparkline / PracticeHubSection visible** — Tailwind alpha-modifier silently dropped on CSS-var hex colors; patched two visible offenders, full tokens.css → channel-triple sweep is a follow-up.
 - [x] **In-app `/docs` route removed** — will live on a separate site.
-- [x] **Design docs:** `leagues-design-2026-05-25.md`, `xp-curve-design-2026-05-25.md`, `cosmetics-design-2026-05-25.md` (lingo-core); `mvp-alignment-review-2026-05-25.md` + `social-engagement-research-2026-05-25.md` (lingo).
+- [x] **Design docs:** `leagues-design-2026-05-25.md`, `xp-curve-design-2026-05-25.md`, `cosmetics-design-2026-05-25.md` (lingo-core); `archive/mvp-alignment-review-2026-05-25.md` + `social-engagement-research-2026-05-25.md` (lingo).
 - [x] **Expanded seed:** 20 users, 24 friendships, 5 requests, 1 block, 15 activity items, 21 reactions, 1 invite + 2 redemptions, 2 threads + 9 messages, 6 quests.
 
 ### Earlier 2026-05-25
@@ -50,7 +60,7 @@ By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **
 - [x] Auth0: env-based config (VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID), normalized callback
 - [x] Layout: Home, Practice, Flashcards, Stories, Leaderboard, Community in nav
 - [x] Home: course cards, continue learning, progress summary, quick links
-- [x] Flashcards: deck viewer, FlashcardTester with highlight mode + reasoning, ko + ja decks; course deck unlock by lesson completion (see FLASHCARD-DATA.md)
+- [x] Flashcards: deck viewer, FlashcardTester with highlight mode + reasoning, ko + ja decks; course deck unlock by lesson completion (see `docs/dataformats/flashcards/README.md`)
 - [x] Stories: hub page (sidebar, search, filter, course/community sections), detail page
 - [x] Community: official courses, addons, forum, suggestions, contribute
 - [x] Leaderboard: category cards, tabs (XP, language, flashcards, contributors)
@@ -59,7 +69,7 @@ By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **
 - [x] Language config: reduced to ko + ja only in learning selector; full config kept for future
 - [x] Japanese stub: flashcards (5 cards), particles (8), stories (6)
 - [x] Korean: flashcards (5 cards), particles (8), stories (6)
-- [x] Content design docs: CONTENT-DESIGN.md (course vs community, versioning), FLASHCARD-DATA.md (vocab manifest, lesson completion flow)
+- [x] Content design docs: CONTENT-DESIGN.md (course vs community, versioning), `docs/dataformats/flashcards/README.md` (vocab manifest, lesson completion flow)
 - [x] SRS engine: SM-2 (since migrated to FSRS-6, 2026-05-23/25), srsStorage, reviewQueue, FlashcardTester ratings, ProgressSummary cards due
 - [x] **Adaptive placement test** — 2-stage, 75-item question bank, 100% threshold, SRS seeding, onboarding prompt
 - [x] **Module test-out** — same placement engine, single-module mode via `/ja/learn/test-out/:moduleId`
@@ -143,7 +153,7 @@ Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status
 
 ### MVP scope reminders
 
-- [ ] **No billing at launch** — ad-supported only; accept negative margin until AdSense scales
+- [ ] **Ad-free + no billing at launch** — the ads framework is built but its UI is deferred for the MVP trial (see the Ad provider / Ad-free-time items above); ad-supported revenue (AdSense) comes post-MVP. Accept negative margin during the trial.
 - [ ] **Polish home + landing** — logged-in `/home`, guest `/landing`, CTAs, continue learning
 - [ ] **Product name** — decide branding (Open Lingo vs rename); meta, legal, Auth0 app name
 - [ ] **CI/CD pipelines** — PR checks, staging deploy, prod promote, env secrets for `VITE_*` + API
@@ -175,7 +185,7 @@ Each has a task doc in `docs/tasks/`. See `PROJECT_STATE.md` for verified status
 
 ## Docs and config
 
-- [x] CONTENT-DESIGN.md, FLASHCARD-DATA.md, LOCALIZATION.md
+- [x] CONTENT-DESIGN.md, `docs/dataformats/flashcards/README.md`, LOCALIZATION.md
 - [x] MVP_PRODUCTION_READINESS, ADS_*, PRODUCTION_ROADMAP, PROJECT_STATE (2026-05)
 - [ ] `lingo/.env.example` (vars documented in README; file optional)
 - [ ] Amplify / deploy env: all `VITE_*` + API URL for prod

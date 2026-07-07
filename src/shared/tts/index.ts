@@ -46,6 +46,22 @@ function pickPath(entry: string | string[] | undefined): string | null {
   return entry[Math.floor(Math.random() * entry.length)];
 }
 
+/**
+ * Single katakana glyph → its hiragana twin (ア→あ). The two scripts are
+ * sound-identical, and the pipeline has only ever generated per-glyph
+ * clips for hiragana — so a lone katakana lookup falls back to the
+ * hiragana recording rather than silence. Whole WORDS never take this
+ * path (loanwords get real katakana-keyed clips); the length===1 guard
+ * keeps it that way.
+ */
+function hiraganaTwin(text: string): string | null {
+  if (Array.from(text).length !== 1) return null;
+  const code = text.charCodeAt(0);
+  // ァ..ヶ (U+30A1–U+30F6) map onto ぁ..ゖ at a fixed −0x60 offset.
+  if (code < 0x30a1 || code > 0x30f6) return null;
+  return String.fromCharCode(code - 0x60);
+}
+
 export function getTtsUrl(text: string, lang: string = "ja"): string | null {
   if (!text) return null;
   const key = `${lang}:${text}`;
@@ -53,6 +69,10 @@ export function getTtsUrl(text: string, lang: string = "ja"): string | null {
   if (!relative) {
     const alt = text.endsWith("。") ? text.slice(0, -1) : `${text}。`;
     relative = pickPath(MANIFEST[`${lang}:${alt}`]);
+  }
+  if (!relative && lang === "ja") {
+    const twin = hiraganaTwin(text);
+    if (twin) relative = pickPath(MANIFEST[`${lang}:${twin}`]);
   }
   if (!relative) return null;
   return `/${relative}`;

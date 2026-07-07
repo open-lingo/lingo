@@ -35,4 +35,4 @@ All formats follow a discriminated-union approach where applicable (e.g. lesson 
 
 See also:
 - [CONTENT-DESIGN.md](../CONTENT-DESIGN.md) -- course vs community content, versioning, language handling
-- [FLASHCARD-DATA.md](../FLASHCARD-DATA.md) -- vocab manifest and lesson completion flow
+- [flashcards/README.md](./flashcards/README.md) -- flashcard + deck format, FSRS-6 SRS state, lesson→card unlock

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { CookieConsent } from "@/shared/components/CookieConsent";
+import { DevPanel } from "@/shared/components/DevPanel";
 import { SiteFooter } from "@/shared/components/SiteFooter";
 import { CollapsibleAdBanner } from "@/features/ads/CollapsibleAdBanner";
 import { DailyWelcomeAd } from "@/features/ads/DailyWelcomeAd";
@@ -65,7 +66,10 @@ export function Layout() {
   // Focused flows (inside a lesson / test) drop the marketing footer and
   // tighten main padding — on short laptop viewports (MacBook 14" ≈ 840px
   // usable) the footer alone pushed every lesson step below the fold.
-  const focusedFlow = /\/lessons\/|\/test-out\/|\/placement-test/.test(pathname);
+  const focusedFlow =
+    /\/lessons\/|\/test-out\/|\/placement-test|\/practice\/grammar\/review/.test(
+      pathname,
+    );
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
   const communityActive = /\/community/.test(pathname);
   const socialActive = /^\/[^/]+\/social/.test(pathname);
@@ -79,6 +83,10 @@ export function Layout() {
     pathname === "/about" ||
     pathname === "/login";
   const showAppAds = useAdsEnabled(false) && isAuthenticated && !isMarketingRoute;
+  // The onboarding language pickers are single-decision screens — keep the
+  // floating "% ad-funded" funding pill off them so it doesn't compete with
+  // the one choice we want the visitor making.
+  const isOnboardingPicker = pathname === "/get-started" || pathname === "/try";
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -121,10 +129,14 @@ export function Layout() {
       <SRSPendingSync />
       <LessonProgressHydrate />
       <ImpersonationBanner />
+      {/* Focused flows (lesson/test/review sessions) drop the global chrome
+          entirely — the session header (X + progress bar) is the only chrome,
+          so the learner's attention and the vertical budget both go to the
+          exercise (Duolingo-anatomy: no app nav inside a lesson). */}
       <header
         className={`sticky top-0 z-40 border-b border-border bg-surface ${
           sidebarMode ? "lg:hidden" : ""
-        }`}
+        } ${focusedFlow ? "hidden" : ""}`}
       >
         <div className="mx-auto flex h-11 min-h-11 max-w-7xl items-center justify-between gap-2 px-3 sm:h-12 sm:px-4 sm:gap-4 lg:px-8">
           <div className="flex shrink-0 items-center gap-2">
@@ -370,7 +382,7 @@ export function Layout() {
       {/* Mounted between header and main so on <sm it renders in-flow below
           the header (it used to float over page H1s on mobile); ≥sm it's the
           fixed top-right panel as before. */}
-      <FundingMeter />
+      {!isOnboardingPicker && !focusedFlow && <FundingMeter />}
       {/* Non-focused pages: content fills the viewport below the header so the
           footer sits just past the fold (present but out of the way). Focused
           flows (lessons/tests) drop the footer + tighten padding so steps
@@ -389,7 +401,7 @@ export function Layout() {
       </main>
       {!focusedFlow && <SiteFooter />}
       {showAppAds ? <CollapsibleAdBanner /> : null}
-      {isAuthenticated && (
+      {isAuthenticated && !focusedFlow && (
         <FloatingLanguagePill className={sidebarMode ? "lg:hidden" : ""} />
       )}
       {/* Sidebar layout has no top bar on desktop, so the utility controls
@@ -403,10 +415,15 @@ export function Layout() {
         </div>
       )}
       <CookieConsent />
+      {/* Dev builds only — ?dev=1 in prod is inert (bundle never includes an
+          active panel thanks to the env guard + tree-shaking of the branch). */}
+      {import.meta.env.DEV && <DevPanel />}
       <ModalRoot />
       {isAuthenticated && <CommandPalette />}
       {isThemeEditorOpen && <ThemeEditorPanel />}
-      <ToastContainer />
+      <ToastContainer
+        bottomOffsetClass={focusedFlow ? "bottom-52" : undefined}
+      />
       <StorageQuotaWatcher />
     </div>
   );

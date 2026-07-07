@@ -1,6 +1,6 @@
 # Open Lingo — project state
 
-**Last updated:** 2026-06-15  
+**Last updated:** 2026-07-07  
 **Purpose:** Accurate snapshot for humans and agents. For launch tasks see [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md).
 
 ---
@@ -9,13 +9,51 @@
 
 Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-core** (FastAPI). Core loop: **learn → lessons → flashcards (SRS) → settings**. Community deck browse/subscribe works; forum, contribute, and leaderboard are **feature-flagged off** for launch. Legal, landing/auth split, ads framework, and funding meter API exist; **live revenue** is post-launch.
 
+### Recent (2026-07-07 — Duolingo deep survey + Anki knowledge import)
+
+- **Duolingo deep survey** (internal notes: `docs/research/duolingo-deep-survey-2026-07-07.md` — `docs/research/` + `research/` are gitignored, local-only): full JA course mapped via logged-in browsing + the client's own course-tree fetch — 1,030 units/8 sections, curated content ends at S4 (A2.1, 60 units); S5–S8 = 900 AI-formula mini-units with no new explicit grammar and no stories (the strategic opening: hand-authored A2→B1 depth). Feature delta since 6-30: they shipped web kana **tracing** (`challenge-characterTrace`), per-section **grammar-concept** pages, and a web Practice Hub (Words/listening Super-gated; mistakes replay free). Still absent on their web: AI features, JA typing input, romaji fade, free spaced review. Spencer's position: Section 5 via jump tests. Future-sight note saved: **Duolingo-position remediation map** (position → never-taught/taught-poorly → targeted module routing).
+- **Anki → Lingo knowledge import shipped** (spec `docs/anki-import-spec-2026-07-07.md`; audit `docs/research/spencer-migration-audit-2026-07-07.md`, local-only): ships the scheduling-state import deferred by `flashcards-anki-scoping-2026-06-13.md`. Offline extractor `scripts/anki-export-known.py` (stdlib-only; iKnow/JouzuJuls/Migaku/Youtube-mined adapters; collection.anki2 + .apkg zips) → frozen known-items JSON v1 → in-app importer `src/features/flashcards/import/` (parse/match/seed/preview) + `importMatch` language-registry capability (JA match keys reuse the conjugation engine for inflected surface forms: 食べました→たべる) + dev-gated Settings card (preview → unlock toggle → report + unmatched download). Evidence-not-authority invariants: no-clobber (reps>0 skipped), never marks lessons complete, never moves course position; recognition seeded as review-state (stability=interval, overdue→due today), production enters as metered new; unlocks use the real server-push path. **Spencer's real collection dry-run**: 1,077 known items extracted → 394 atoms matched+seeded, 365 newly unlocked, 568 beyond-course preserved (N4-core content-demand signal for M18+). 203 files / 2,746 tests green, tsc clean, end-to-end screenshot-verified.
+
+### Recent (2026-07-06 — grammar deck caught-up affordances + dev-sim unlock fix + question-quality/parity round)
+
+- **Grammar deck playtest unblocked** (spec addendum in `docs/grammar-deck-v1-spec-2026-07-02.md` §v1.1): dev panel's "Mark complete (local)" now also unlocks the lessons' atoms locally (`devUnlockAtomsForLessons`, no server-push event) — completions alone never fed the atom-derived surfaces, so simulated profiles saw an empty grammar queue AND an empty course deck; new "Make all grammar due" dev button (`devForceAllGrammarDue`). Caught-up empty state now shows next-due timing (`nextGrammarDue`) + **Practice anyway** (`?practice=1`): widened not-due queue, zero Track B writes (learn-ahead parity), practice-only summary.
+- **Question-quality + player-parity round** (same day, after Spencer's playtest; spec §v1.2; 463-step audit): pre-answer English gloss in the deck (`StepRenderer surface="grammarReview"` — semantic clozes were guessing games), honest instruction labels (`PARTICLE_OPTIONS` check → "Complete the sentence" on ~95 non-particle steps), number/counter/family points evicted from Track B (`NON_REVIEWABLE_CATEGORIES`, 13 points → Counters-Trainer material), harvest attribution window (`HARVEST_WINDOW_MODULES=2`; pools 463→355, kara-origin 22→3, imasu re-authored, 110 stale GATE_EXEMPTIONS ratcheted out), twin-stem dedup, full lesson-player chrome parity (X-out, LessonProgressBar+count, juice, focus, kbd hints, replay count, no breadcrumbs, no-wrap option tiles), compact rule-refresher variant in deck, "N more new points waiting"+Keep-going summary. **Romaji word-grouping app-wide for M3+** (`romajiLexicon.ts` + `WordToken` — "gakusei" as one ruby, cost-based segmentation, kana-phase/particles stay per-kana). TTS emitted for 5 new sentences (manifest-verified). 198 files / 2704 tests green, tsc clean, screenshot-verified.
+
+### Recent (2026-07-02→05 — Conjugation Trainer v1 complete + flashcards/UI wave)
+
+- **Conjugation Trainer v1→v1.4.1 SHIPPED** (`/practice/conjugation`, spec `docs/conjugation-trainer-v1-spec-2026-07-02.md`) — ink-tile hub of 6 formation types (te/ta/nai/masu-neg/v-tai/i-adj) covering 9 of the 22 pool-less conjugation points; Track B `production` graded once per completed drill. Combine mode: COMBO_MAP stacked chains (ません/なかった/たくなかった, i-adj past pair) are combo-exclusive; pair-impossible tiles grey out; hub "Combined forms" switch (default ON) replaced the silent proficiency gate. Shared `DrillQuestionCard`: glyph-chip form equation + build-stack application-order cue, word-class popover chips (godan/ichidan/irregular/い-adj), kanji + furigana exposure at M10+ (`writtenForms.ts` prefix-substitution), in-drill cheat-sheet peek = half credit (caps session at FSRS hard — still a success), measured-centered header. Rule-based `conjugationEngine.ts` distractors defeat stem/ending elimination.
+- **Flashcards fixes** — modality-inversion fix (reviewer was crediting the wrong FSRS sub-state), one-step undo, 2-button history-aware grading defaults.
+- **Lesson-shell UI overhaul** (2026-07-02 review round) — focused chrome, anchored CTA across all 21 step views, wrong-tile feedback defect fixed, numberless progress bar; before/afters at `docs/ui-review-2026-07-02/index.html`.
+- **Overlay perf: backdrop-blur removed app-wide** — a full-viewport `backdrop-filter` re-evaluates on every scrolled/animated frame beneath it regardless of compositing (measured: modal-body scroll p95 33.4ms with blur, flat 16.7ms without; layer promotion changed nothing). Plain `bg-overlay` dim now on Modal/Sheet/ModalBase/ModalBackdrop/CommandPalette.
+- Verified: tsc clean, **2670 tests green**; spacing and perf claims measured (getBoundingClientRect / rAF-delta), not eyeballed.
+
+### Recent (2026-07-02 — SRS hardening + grammar review deck v1)
+
+- **SRS sync bugs fixed** — (1) unlock-seeded cards no longer masquerade as deliberate resets in cross-device merge (explicit `manualResetAt` marker; seeded-local now LOSES to server-learned state); (2) placement re-runs no longer clobber existing card state (`getCardState` guard); (3) `performSync` marks only server-echoed ids synced (was whole-batch). `srsSync.test.ts` created (was zero coverage) + FSRS config/interval snapshot pin so a `ts-fsrs` weight change fails CI.
+- **Track B grammar sync parity SHIPPED** — grammar cards ride the existing `/srs/sync` endpoint as `grammar:<pointId>` keys (`engine/grammarSync.ts`; server confirmed key-agnostic, zero server changes); read validation + quota-safe writes + "Start Over" grammar-store clear. Grammar progress now survives device switches.
+- **Grammar review deck v1 SHIPPED** (`docs/grammar-deck-v1-spec-2026-07-02.md`) — step-based (NEVER flip cards) review session at `/practice/grammar/review`: one FSRS item per grammar point, per-point step pools (`lesson/data/grammarReviewPools.ts` — 37 points × 3 authored steps + harvested clozes), reps-rotated examples, reached-module session filter, lesson-parity grading (again→hard replay). Practice grammar hub has a live due-badge row. **Comprehensibility gate** machine-enforces "would they know this word yet?" on all authored steps; 90 new TTS clips manifest-verified.
+- **Queue is pool-aware** — `buildGrammarReviewQueue` takes an optional `hasPool` predicate (session + hub badge pass `getGrammarPool(id).length > 0`), so the 22 pool-less conjugation points consume no due counts or new-card slots (final-review P1 fix; engine stays decoupled from lesson/data).
+- **Deliberate residue / fast-follows:** 22 conjugation-formation points remain pool-less (the comprehensibility gate can't decompose conjugated stems — future conjugation-aware gate or Conjugation Trainer unblocks them); lesson-attach grammar tails (`withGrammarReviewTail`) deferred by design.
+- Verified: tsc clean, **189 test files / 1459 tests green**; session + hub screenshotted at 800px and 680px heights; final whole-feature review = SHIP (P1 fixed).
+
+### Recent (2026-07-01 — katakana rollout + M1-M7 audit fixes)
+
+- **Katakana base-gojūon rollout SHIPPED** — one row per module M3→M12 (ア row = repurposed `ja-m3-1-1/1-2`; カ→ワ = `ja-m4-kata`…`ja-m12-kata` in `katakanaRows.ts`, each module's FIRST pathway node), authored M1-style via the script-parameterized `_consonantRowHelpers`. `kanaReviewTails` extended to katakana; glyph audio via katakana→hiragana twin fallback in `getTtsUrl`. ~23 loanword atoms re-attributed to rollout modules + 15 loanword sentences interleaved into M5-M12 grammar practice. Spec + status: `docs/katakana-rollout-romaji-fade-spec-2026-06-30.md` §9.
+- **Romaji fade = two flat per-script cutoffs** — hiragana off at M10, katakana at M17 (`shared/settings/romajiAutoFlip.ts`), single global toggle + "Show romaji for today" escape hatch (auto-resets). Removed the script-blind alphabet-mastered kill AND the inert per-glyph mastery term — the cutoffs are the first romaji-off mechanism that actually fires.
+- **D2 SHIPPED (vocab-only)** — content sub-lesson steps write Track A FSRS for prior-module atoms via the per-atom gate in `lesson/data/reviewTailSrs.ts`; no same-day grades for just-introduced words. Grammar stays review-lesson-gated pending a dedicated grammar flashcard deck (open task).
+- **Grammar review gap fixed** — `grammarReviewIndex` now synthesizes review steps for non-particle grammar: M7 dict↔ます conjugation + M5 人-counters enter Track B review in `ja-mN-review` lessons.
+- **M3-M7 story lessons wired** — the 5 orphaned story capstones (`ja-m3-9`, `ja-m{4-7}-story`) now sit before each module's review pair (M8+ pattern). One drift repaired (M7 story's なに introduced at point-of-use).
+- **Dead code removed** — `buildModuleReview.ts` + its green-but-meaningless test + orphaned `jaReviewPools.ts`.
+- **TTS emitter gaps fixed** — `emit-tts-deck.mjs` now scans `katakanaRows.ts` and captures keyed `target:` + positional `build()` sentences; ~740 clips backfilled for previously-silent shipped listening steps.
+- Verified: tsc clean, **185 test files / 1391 tests green**; katakana lessons eyeballed in Playwright.
+
 ### Recent (2026-06-15 — SRS scheduling model + course-deck reviewer)
 
 - **Reviewer plays the course deck** — the flashcard reviewer (`useSubscriptionQueue`) now injects the auto-subscribed client course deck (unlocked words), not just backend subscription decks. A course-only learner finally has a working reviewer. `flashcards.hideCourseDeck` opts super-users out.
 - **D4 — seed-on-unlock + bug fix** — `buildSrsReviewLesson` made **pure** (it was seeding every unlocked atom due-today at build time → flooded the reviewer). Content-lesson completion now schedules atoms **due next-day** (`seedUnlockedAtomsDueNextDay`), never same-day.
 - **D5 — reviewer shows every unlocked word** (no intake cap by default; `flashcards.maxNewCardsPerDay` to limit).
 - **SRS scheduling model spec** — `docs/srs-scheduling-model-2026-06-15.md` (D1–D8), ralph-hardened; **supersedes** the intake decisions in `retention-architecture-design-2026-06-13.md`.
-- **Remaining (Phase 2):** D3 review-lesson gating (needs hard-vs-soft call), D2 vocab prior-atom review-tail generator, D1 store unification, D7 FTUE. Full detail: **`docs/handoff-2026-06-15.md`**.
+- **Remaining (Phase 2):** D3 review-lesson gating (needs hard-vs-soft call), D1 store unification, D7 FTUE. (D2 shipped 2026-07-01, vocab-only — see above.) Full detail: **`docs/archive/handoff-2026-06-15.md`**.
 - 599 tests pass; verified live in Playwright.
 
 ### Recent (2026-05-25 final session)
@@ -96,15 +134,15 @@ Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-cor
 | **Funding %** | API + env override | Not live Google/Stripe data |
 | **User settings API** | Partial / local-first | `tasks/backend-user-api.md` |
 | **Progress API** | Partial | Lesson batch + `/progress/me`; home uses `useProgressMe` / `useUserStats` |
-| **Home (returning)** | Restructured | `RestructuredHome` grid; see [handoff-2026-05-24-home-sync-ux.md](./handoff-2026-05-24-home-sync-ux.md) |
+| **Home (returning)** | Restructured | `RestructuredHome` grid; see [handoff-2026-05-24-home-sync-ux.md](./archive/handoff-2026-05-24-home-sync-ux.md) |
 | **Sync UI** | Shipped | Cloud trigger + popover; lessons + SRS sources in `SyncManager` |
 | **Placement test** | Shipped | 2-stage adaptive, 75 items, onboarding prompt; `src/features/placement/` |
 | **Module test-out** | Shipped | Same engine, single-module; `/ja/learn/test-out/:moduleId` |
 | **Social (UI)** | Mock unified | `useSocial()` + `mockSocial.ts`; `/:lang/social` preview page |
-| **Quests API** | Shipped 2026-06-13 (`lingo-core/app/quests/` — state in user-settings blob, progress advances synchronously in the lesson batch handler) | [quests-tracking-design](./superpowers/specs/2026-05-24-quests-tracking-design.md) |
+| **Quests API** | Shipped 2026-06-13 (`lingo-core/app/quests/` — state in user-settings blob, progress advances via an **async event pipeline**: the lesson batch handler publishes `lesson_completed`/`xp_awarded`, consumed by the **lingo-async** service, which calls back `POST /quests/_internal/{id}/progress`. NOT synchronous — don't add inline quest writes to the progress handler.) | [quests-tracking-design](./superpowers/specs/2026-05-24-quests-tracking-design.md) |
 | **Auth 401 refresh** | Planned | `tasks/auth-session-strategy.md` |
 | **ja.json UI** | Not started | `LOCALIZATION.md` |
-| **`.env.example` in lingo/** | Missing | README documents vars; add file optional |
+| **`.env.example` in lingo/** | Present (added 2026-06-23) | documents required env vars |
 
 ---
 

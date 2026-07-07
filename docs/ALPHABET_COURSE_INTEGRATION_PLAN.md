@@ -2,7 +2,7 @@
 
 **Status:** Planning · **Owner:** Trevor · **Created:** 2026-05-19
 **Supersedes (partially):** `docs/ALPHABET_COURSE_PLANNING.md` (kept as the mastery-model spec; this doc layers course-integration on top)
-**Related:** `lingo-core/docs/adr/0001-progress-api-hybrid-rollup.md`, `docs/curriculum-design-v2.md`, `docs/m1-density-restructure-plan-2026-05-17.md`
+**Related:** `lingo-core/docs/adr/0001-progress-api-hybrid-rollup.md`, `docs/curriculum-design-v2.md`, `docs/archive/m1-density-restructure-plan-2026-05-17.md`
 
 Goal: make alphabet acquisition a **first-class part of the course track** so finishing a kana row / Hangul section advances the same progress bars as any other lesson — while the standalone `/practice/alphabet` page stays as an on-demand review surface that doesn't double-credit course progress.
 

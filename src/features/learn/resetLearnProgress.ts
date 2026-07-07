@@ -1,5 +1,6 @@
 import { notifySRSStoreChanged } from "@/features/flashcards/SRSStoreRevisionContext";
 import { clearSRSStore } from "@/features/flashcards/engine/srsStorage";
+import { clearGrammarStore } from "@/features/flashcards/engine/grammarSrs";
 import { clearAllAlphabetProgress } from "@/features/practice/alphabet/alphabetProgress";
 import { clearAllReviewSchedules } from "@/features/lesson/data/moduleReviewSchedule";
 import { clearAllLessonInProgress } from "@/features/lesson/data/lessonProgress";
@@ -52,6 +53,7 @@ export function resetLearnProgressLocal(
   clearPendingAttempts();
   clearAllStepEvents();
   clearSRSStore();
+  clearGrammarStore();
   notifySRSStoreChanged();
   clearGraduatedVocab(languageId, courseId);
   clearMasteryToastFlags();

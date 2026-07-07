@@ -33,9 +33,14 @@ const OUT = resolve(
 // row anchor words; the module files carry hand-authored vocab + words
 // referenced in helpers like wordImageMcq / listeningBuild / speaking /
 // listeningComp.
-const sources = [CURRICULUM];
+// Authored grammar-review pools (Track B) live outside the curriculum dir but
+// carry cloze audioText + sentenceMcq correctKana that need TTS clips too.
+const GRAMMAR_POOLS = resolve(DATA_DIR, "grammarReviewPools.ts");
+const sources = [CURRICULUM, GRAMMAR_POOLS];
 for (const f of readdirSync(JA_CURRICULUM_DIR)) {
-  if (/^(m\d+(-[\w-]+)?|sidequest(-[\w-]+)?)\.ts$/.test(f)) {
+  if (
+    /^(m\d+(-[\w-]+)?|sidequest(-[\w-]+)?|katakanaRows)\.ts$/.test(f)
+  ) {
     sources.push(join(JA_CURRICULUM_DIR, f));
   }
 }
@@ -54,6 +59,11 @@ for (const path of sources) {
     /correctKana:\s*"([^"]+)"/g,
     /targetSentence:\s*"([^"]+)"/g,
     /targetPhrase:\s*"([^"]+)"/g,
+    // listeningBuildSentence({ target: "…" }) — the factory maps `target`
+    // to the step's audioKey at runtime, so it needs a clip. (Gap found
+    // 2026-07-01: keyed `target:` was never captured; JA_ONLY filters out
+    // the English match_pairs `target:` values this also matches.)
+    /\btarget:\s*"([^"]+)"/g,
     /audioKey:\s*"([^"]+)"/g,
     /transcript:\s*"([^"]+)"/g,
     /promptAudioText:\s*"([^"]+)"/g,
@@ -61,7 +71,13 @@ for (const path of sources) {
     /ja:\s*"([^"]+)"/g,
     // Positional args: wordImageMcq("id", "あい"), listeningBuild("id", "あい", "love"),
     // speaking("id", "あい", "love"), listeningComp("id", "あい", "romaji", ...).
-    /\b(?:wordImageMcq|listeningBuild|speaking|listeningComp|phraseStep)\s*\(\s*(?:ctx,\s*)?"[^"]*",\s*"([^"]+)"/g,
+    // The optional leading arg is any RowContext identifier (ctx, saCtx,
+    // waCtx… — the katakana rows name theirs per-row).
+    /\b(?:wordImageMcq|listeningBuild|speaking|listeningComp|phraseStep)\s*\(\s*(?:\w+,\s*)?"[^"]*",\s*"([^"]+)"/g,
+    // build("id", "English prompt", "TARGET", tiles, correctOrder) — the
+    // grammar-spine build factory sets audioKey = target (arg 3). Same
+    // 2026-07-01 gap as keyed `target:` above.
+    /\bbuild\s*\(\s*"[^"]*"\s*,\s*"[^"]*"\s*,\s*"([^"]+)"/g,
     // phrase|vocab("id", meaningEn, romaji, "kana", ...) — slot-4 capture.
     // Used by sidequest survival + M3 vocab lessons (the latter uses a
     // `vocab` alias). Kana is positional, not keyed, so the kana: regex

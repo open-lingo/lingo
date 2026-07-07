@@ -6,7 +6,7 @@ Living document. Covers grammar, vocab, kanji, practice features, and module-by-
 - `src/features/lesson/data/n5-grammar-points.json` — all N5 grammar points with module assignments + status
 - `src/features/lesson/data/n5-module-vocab-map.json` — 553 future atoms mapped to target modules
 - `docs/practice-features-spec-2026-05-25.md` — implementation specs for 6 practice features
-- `docs/curriculum-roadmap-n5-2026-05-18.md` — original roadmap (this spec supersedes it)
+- `docs/n5-content-spec-2026-05-25.md` — original roadmap (this spec supersedes it)
 - `docs/n5-vocab-emoji-reference-2026-05-18.md` — emoji assignments for all 662 N5 words
 
 **Audit findings (2026-05-25) — sequencing fixes applied:**
@@ -65,7 +65,7 @@ The adnominal demonstratives ("this X / that X / which X") are the pre-noun cous
 
 ### Module structure conventions
 - **7-9 sub-lessons per module** (2 sub-lessons per topic cluster = intro + practice)
-- **10-15 steps per sub-lesson** (~4 min each)
+- **20-22 steps per sub-lesson** (matches shipped M1–M7; enforced band 12–25 per `sub-lesson-density.test.ts` — see `lesson-authoring-guide.md` §2). *(Was "10-15"; corrected 2026-06-30 to match the shipped density baseline.)*
 - **2 SRS review lessons** per module (recognition-heavy #1, production-heavy #2)
 - **1 story/dialogue lesson** per module
 - **~25-35 new vocab atoms per module**

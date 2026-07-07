@@ -12,6 +12,9 @@ import { useSettings } from "@/shared/contexts/SettingsContext";
 // Mirrors the constant in `features/landing/GetStartedPage.tsx`. Inlined
 // here (not imported) to avoid a feature → context import cycle.
 const PENDING_LANGUAGE_STORAGE_KEY = "lingo_pending_language_id";
+// Mirrors PREVIEW_COMPLETED_STORAGE_KEY in features/preview/PreviewLessonPage.
+// Inlined to avoid a feature → context import cycle.
+const PREVIEW_COMPLETED_STORAGE_KEY = "lingo_preview_completed_lang";
 
 type LanguageContextValue = {
   language: Language | null;
@@ -61,6 +64,30 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     updateSetting("learning.learningLanguageId", cfg.id);
     sessionStorage.removeItem(PENDING_LANGUAGE_STORAGE_KEY);
   }, [isLoading, language, updateSetting]);
+
+  // Carry a completed `/try` preview across the Auth0 round-trip. Persisted
+  // durably so the post-signup arc/home can acknowledge it (the preview is no
+  // longer thrown away). Runs once the flag is present, regardless of whether
+  // the language was already set.
+  const previewCompleted = settings.learning.previewCompletedLanguageId;
+  useEffect(() => {
+    if (isLoading) return;
+    let pendingPreview: string | null = null;
+    try {
+      pendingPreview = sessionStorage.getItem(PREVIEW_COMPLETED_STORAGE_KEY);
+    } catch {
+      return;
+    }
+    if (!pendingPreview) return;
+    if (previewCompleted !== pendingPreview) {
+      updateSetting("learning.previewCompletedLanguageId", pendingPreview);
+    }
+    try {
+      sessionStorage.removeItem(PREVIEW_COMPLETED_STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
+  }, [isLoading, previewCompleted, updateSetting]);
 
   const value = useMemo(
     () => ({

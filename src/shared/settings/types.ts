@@ -28,6 +28,20 @@ export type FlashcardsSettings = {
    * lighter daily load.
    */
   maxNewCardsPerDay?: number;
+  /**
+   * Grading button layout in the reviewer. `"simple"` = 2 buttons
+   * (Didn't know / Knew it), `"full"` = the 4-button Again/Hard/Good/Easy
+   * row. Undefined = history-aware default (see `resolveGradingLayout`):
+   * "full" once any card has been reviewed, "simple" for a fresh learner.
+   * Once the user touches the toggle their explicit choice wins forever.
+   */
+  gradingLayout?: "simple" | "full";
+  /**
+   * Show the interval-preview chips ("<1d"/"3d") on grade buttons. Hidden by
+   * default (previews tempt grading-to-schedule, which corrupts FSRS input);
+   * the "Show scheduling intervals" toggle re-enables them.
+   */
+  showIntervalPreviews?: boolean;
 };
 
 export type UserSettings = {
@@ -94,24 +108,35 @@ export type UserSettings = {
     uiLocale: string;
     showAlphabetRomanization?: boolean;
     /**
-     * Global "show romaji reading aid" toggle. When true (the default),
-     * every kana surface in the app renders romaji above un-mastered
-     * kana — speaking, MCQ options, build-sentence tiles, dialogue
-     * transcripts, etc.
+     * Global "show romaji reading aid" master toggle. When true (the
+     * default), kana surfaces render romaji above the kana — speaking,
+     * MCQ options, build-sentence tiles, dialogue transcripts, etc.
      *
-     * The default flips OFF automatically (one-time) when the learner
-     * reaches Module 15 OR passes the alphabet trainer's full test for
-     * hiragana/katakana — whichever fires first. After the auto-flip,
-     * `romajiAutoFlipped` is set so the auto-off won't fire again, and
-     * the learner can re-enable manually from Settings.
+     * Romaji retires per script on its own: the render gate hides a kana's
+     * romaji once that script's auto-off guard is set — hiragana at Module
+     * 10, katakana at Module 17 (see romajiAutoFlip.ts). This single toggle
+     * still masters both scripts (off here = no romaji anywhere); the
+     * `romajiOnForDay` escape hatch can force it back on for one day.
      */
     showRomaji?: boolean;
-    /**
-     * One-shot flag set when the auto-off rule (M15 reached OR alphabet
-     * mastered) has fired. Prevents re-flipping if the learner later
-     * turns romaji back on manually.
-     */
+    /** @deprecated Legacy single-flip guard (pre per-script model). Kept
+     *  only for settings-blob back-compat; no longer read. */
     romajiAutoFlipped?: boolean;
+    /**
+     * Per-script one-time auto-off guards for the romaji reading aid,
+     * flipped when the learner crosses that script's fluency milestone
+     * (hiragana M10 / katakana M17). The render gate hides that script's
+     * romaji once set — unless `showRomaji` is toggled back on or
+     * `romajiOnForDay` is today. Two guards, one user-facing toggle.
+     */
+    hiraganaRomajiAutoOff?: boolean;
+    katakanaRomajiAutoOff?: boolean;
+    /**
+     * Escape hatch: an ISO local date (YYYY-MM-DD). While it equals today,
+     * romaji is forced ON for every script regardless of the per-script
+     * auto-off guards — "show romaji for today", auto-expires at midnight.
+     */
+    romajiOnForDay?: string | null;
     /**
      * When true, character-build tile banks ("Build the word for X") hide
      * the per-kana romaji label until the learner taps a tile (also plays
@@ -146,6 +171,15 @@ export type UserSettings = {
     /** Optional motivation the learner picked in the arc (travel/culture/…).
      *  Recorded for later personalization; no behavior depends on it yet. */
     motivation?: string;
+    /**
+     * Language id of a `/try` preview lesson the visitor completed *before*
+     * signing up. Carried across the Auth0 round-trip (sessionStorage →
+     * persisted here in LanguageContext) so the post-signup experience can
+     * acknowledge the taste instead of treating them as cold — e.g. the
+     * first-session arc skips the redundant motivation step. null = no
+     * preview was completed pre-signup.
+     */
+    previewCompletedLanguageId?: string | null;
   };
   display?: {
     dateLocale?: string;
@@ -184,10 +218,14 @@ export const DEFAULT_SETTINGS: UserSettings = {
     showAlphabetRomanization: true,
     showRomaji: true,
     romajiAutoFlipped: false,
+    hiraganaRomajiAutoOff: false,
+    katakanaRomajiAutoOff: false,
+    romajiOnForDay: null,
     hideBuildTileRomaji: false,
     buildTileRomajiAutoFlipped: false,
     dailyGoalMinutes: 10,
     ftueArcSeen: false,
+    previewCompletedLanguageId: null,
   },
   display: {},
   flashcards: {

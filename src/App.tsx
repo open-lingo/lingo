@@ -99,6 +99,11 @@ const StoryDetailPage = lazyRetry(() =>
 const PracticeGrammarPage = lazyRetry(() =>
   import("@/features/practice/PracticeGrammarPage").then((m) => ({ default: m.PracticeGrammarPage })),
 );
+const GrammarReviewSessionPage = lazyRetry(() =>
+  import("@/features/practice/grammar/GrammarReviewSessionPage").then((m) => ({
+    default: m.GrammarReviewSessionPage,
+  })),
+);
 const PracticeAlphabetHubPage = lazyRetry(() =>
   import("@/features/practice/PracticeAlphabetHubPage").then((m) => ({ default: m.PracticeAlphabetHubPage })),
 );
@@ -119,6 +124,15 @@ const VideosPracticePage = lazyRetry(() =>
 );
 const ConjugationPracticePage = lazyRetry(() =>
   import("@/features/practice/ConjugationPracticePage").then((m) => ({ default: m.ConjugationPracticePage })),
+);
+const TrainerTypeSession = lazyRetry(() =>
+  import("@/features/practice/conjugation/TrainerTypeSession").then((m) => ({ default: m.TrainerTypeSession })),
+);
+const ConjugationFreeDrillPage = lazyRetry(() =>
+  import("@/features/practice/conjugation/FreeDrillPage").then((m) => ({ default: m.FreeDrillPage })),
+);
+const ConjugationCombinedSession = lazyRetry(() =>
+  import("@/features/practice/conjugation/CombinedSession").then((m) => ({ default: m.CombinedSession })),
 );
 const ReadingPracticePage = lazyRetry(() =>
   import("@/features/practice/ReadingPracticePage").then((m) => ({ default: m.ReadingPracticePage })),
@@ -350,6 +364,7 @@ const router = createBrowserRouter([
                   { index: true, element: <PracticePage /> },
                   { path: "journey", element: <ProgressPage /> },
                   { path: "grammar", element: <PracticeGrammarPage /> },
+                  { path: "grammar/review", element: <GrammarReviewSessionPage /> },
                   { path: "flashcards/review", element: <FlashcardTester /> },
                   { path: "flashcards/cards", element: <CardManagerPage /> },
                   { path: "flashcards/decks", element: <DeckManagerPage /> },
@@ -362,6 +377,9 @@ const router = createBrowserRouter([
                   { path: "alphabet", element: <PracticeAlphabetHubPage /> },
                   { path: "kanji", element: <KanjiPracticePage /> },
                   { path: "conjugation", element: <ConjugationPracticePage /> },
+                  { path: "conjugation/free", element: <ConjugationFreeDrillPage /> },
+                  { path: "conjugation/train", element: <ConjugationCombinedSession /> },
+                  { path: "conjugation/:typeId", element: <TrainerTypeSession /> },
                   { path: "reading", element: <ReadingPracticePage /> },
                   { path: "speaking", element: <SpeakingPracticePage /> },
                   { path: "counters", element: <CounterPracticePage /> },

@@ -93,7 +93,7 @@ Layout, Home (`RestructuredHome` for signed-in users), Community (ContentBrowser
 | `useLocalProgressSummary` | `src/shared/hooks/useLocalProgressSummary.ts` | Daily goal + week sparkline from completions |
 | `useSocial` | `src/features/social/hooks/useSocial.ts` | Friends, quests, activity — mock today |
 
-Handoff: `docs/handoff-2026-05-24-home-sync-ux.md`
+Handoff: `docs/archive/handoff-2026-05-24-home-sync-ux.md`
 
 ### Future
 

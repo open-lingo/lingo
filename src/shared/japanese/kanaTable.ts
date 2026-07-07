@@ -31,6 +31,14 @@ export function isKana(char: string): boolean {
   return char === KATAKANA_LONG_MARK || KANA_RANGE.test(char);
 }
 
+/** True for katakana-block chars (incl. the ー long mark, U+30FC). Drives
+ *  the per-script romaji fade — katakana romaji retires later than hiragana. */
+export function isKatakana(char: string): boolean {
+  if (char.length === 0) return false;
+  const code = char.charCodeAt(0);
+  return code >= 0x30a0 && code <= 0x30ff;
+}
+
 /**
  * Token returned from `tokenizeJapanese`. Each token represents one
  * "visual unit" rendered on the baseline of <AnnotatedJa>.

@@ -38,6 +38,19 @@ export function shouldShowFirstSessionArc(opts: {
   return opts.completedCount === 0 && !opts.ftueArcSeen;
 }
 
+/** A learner who completed a `/try` preview for the language they're now
+ *  learning has already engaged — skip the optional motivation step (start on
+ *  the goal step) rather than re-walking them through onboarding. */
+export function shouldSkipMotivationStep(opts: {
+  currentLanguageId: string | null | undefined;
+  previewCompletedLanguageId: string | null | undefined;
+}): boolean {
+  return (
+    !!opts.currentLanguageId &&
+    opts.previewCompletedLanguageId === opts.currentLanguageId
+  );
+}
+
 export function FirstSessionArc() {
   const { t } = useTranslation();
   const { settings, updateSetting } = useSettings();
@@ -45,7 +58,14 @@ export function FirstSessionArc() {
   const navigate = useNavigate();
   const langPath = useLangPath();
   const langName = language?.name ?? t("ftue.fallbackLanguage", "your new language");
-  const [step, setStep] = useState<0 | 1 | 2>(0);
+  // A learner who already completed a `/try` preview for this language has
+  // engaged — don't re-walk them through the optional motivation step. Start
+  // them on the goal step (house rule: don't make capable users redo onboarding).
+  const cameFromPreview = shouldSkipMotivationStep({
+    currentLanguageId: language?.id,
+    previewCompletedLanguageId: settings.learning.previewCompletedLanguageId,
+  });
+  const [step, setStep] = useState<0 | 1 | 2>(cameFromPreview ? 1 : 0);
   const [goal, setGoal] = useState<number>(
     settings.learning.dailyGoalMinutes ?? 10,
   );

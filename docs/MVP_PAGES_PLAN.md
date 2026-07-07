@@ -4,7 +4,7 @@
 
 **Last updated:** 2026-05-18
 
-**Companion docs:** [PROJECT_STATE.md](./PROJECT_STATE.md) (what exists today) · [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) (2-week schedule) · [MVP_PRODUCTION_READINESS.md](./MVP_PRODUCTION_READINESS.md) (P0/P1 checklists) · [ARCHITECTURE_REVIEW.md](./ARCHITECTURE_REVIEW.md)
+**Companion docs:** [PROJECT_STATE.md](./PROJECT_STATE.md) (what exists today) · [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) (2-week schedule) · [MVP_PRODUCTION_READINESS.md](./MVP_PRODUCTION_READINESS.md) (P0/P1 checklists) · [ARCHITECTURE_REVIEW_2026-06-14.md](./ARCHITECTURE_REVIEW_2026-06-14.md)
 
 ---
 
@@ -37,7 +37,7 @@ If a page isn't in this doc, it is either already launch-ready (per PROJECT_STAT
 
 ## 2. Home page
 
-**State today (2026-05-24):** `HomePage.tsx` — guest landing card + nav; **signed-in → `RestructuredHome`** (hero, account overview, flashcards tile, quests, social rail, community strip). See [handoff-2026-05-24-home-sync-ux.md](./handoff-2026-05-24-home-sync-ux.md).
+**State today (2026-05-24):** `HomePage.tsx` — guest landing card + nav; **signed-in → `RestructuredHome`** (hero, account overview, flashcards tile, quests, social rail, community strip). See [handoff-2026-05-24-home-sync-ux.md](./archive/handoff-2026-05-24-home-sync-ux.md).
 
 - Legacy `ProgressSummary` / `HomeActivityPanel` remain for imports; not used on returning path
 - FTUE (`WelcomeBanner` + empty state) branch disabled until follow-up
@@ -74,7 +74,7 @@ If a page isn't in this doc, it is either already launch-ready (per PROJECT_STAT
 
 **D. Shared primitives required**
 
-Build before this work, per [ARCHITECTURE_REVIEW.md](./ARCHITECTURE_REVIEW.md):
+Build before this work, per [ARCHITECTURE_REVIEW_2026-06-14.md](./ARCHITECTURE_REVIEW_2026-06-14.md):
 
 - [ ] `<Modal>` (header + close + dividers + backdrop control)
 - [ ] `<CenteredLoader>` (full-area Spinner, size/py props)

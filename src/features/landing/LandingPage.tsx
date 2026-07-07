@@ -122,12 +122,15 @@ export function LandingPage() {
         </p>
 
         <div className="mt-7 flex flex-wrap items-stretch justify-center gap-3.5">
-          <Link to="/get-started" className={composeButtonClasses({ variant: "primary-3d" })}>
-            {t("landing.getStarted", "Get started")}
-            <Icon name="arrowRight" size={18} className="shrink-0" aria-hidden />
+          {/* Lead with the no-signup taste — let visitors feel progress before
+              the account ask (the invest-first funnel). "Get started" (signup)
+              is the secondary door. */}
+          <Link to={tryHref} className={composeButtonClasses({ variant: "primary-3d" })}>
+            <Icon name="play" size={18} className="shrink-0" aria-hidden />
+            {t("landing.tryItFree", "Try it free")}
           </Link>
           <Link
-            to={tryHref}
+            to="/get-started"
             className={composeButtonClasses({
               variant: "outline",
               accent: true,
@@ -135,8 +138,8 @@ export function LandingPage() {
               className: "border-[1.5px]",
             })}
           >
-            <Icon name="play" size={16} className="shrink-0" aria-hidden />
-            {t("landing.tryItFree", "Try it free")}
+            {t("landing.getStarted", "Get started")}
+            <Icon name="arrowRight" size={16} className="shrink-0" aria-hidden />
           </Link>
         </div>
 
@@ -257,10 +260,22 @@ export function LandingPage() {
         <p className="mx-auto mt-2 max-w-md text-[15px] text-text-secondary">
           {t("landing.ctaSubtitle", "Five minutes a day. Real progress in three weeks.")}
         </p>
-        <div className="mt-6 flex justify-center">
-          <Link to="/get-started" className={composeButtonClasses({ variant: "primary-3d" })}>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3.5">
+          <Link to={tryHref} className={composeButtonClasses({ variant: "primary-3d" })}>
+            <Icon name="play" size={18} className="mr-2" aria-hidden />
+            {t("landing.tryItFree", "Try it free")}
+          </Link>
+          <Link
+            to="/get-started"
+            className={composeButtonClasses({
+              variant: "outline",
+              accent: true,
+              size: "hero",
+              className: "border-[1.5px]",
+            })}
+          >
             {t("landing.getStarted", "Get started")}
-            <Icon name="arrowRight" size={18} className="ml-2" />
+            <Icon name="arrowRight" size={16} className="ml-2" aria-hidden />
           </Link>
         </div>
         {availableCount < LANGUAGE_COUNT && (

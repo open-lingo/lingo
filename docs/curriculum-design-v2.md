@@ -1,8 +1,18 @@
-# Lingo Curriculum Design v2
+# Lingo Curriculum Design v2 — pedagogy & rationale
 
 Written 2026-05-16. Distills the multi-source research session that landed
-after #88–#95 + #84 shipped. Source of truth for M2+ scope, lesson type
-additions, and grammar order. Sources at the bottom.
+after #88–#95 + #84 shipped. This is the **"why our JA curriculum is shaped
+the way it is"** doc — pedagogy principles, the Duolingo-contrast, Tae Kim
+strategy, vocab strategy, anti-patterns. Sources at the bottom.
+
+> ⚠️ **NOT the module map or scope source-of-truth.** The 2026-05-16 draft
+> module spine (M3–M11) and the "lesson types to add" table below are
+> **superseded / historical** — the shipped curriculum is M1–M27 and the
+> current content/scope SoT is **`n5-content-spec-2026-05-25.md`** (map) +
+> **`curriculum-audit-vs-research-2026-05-21.md`** (grading rubric) + the
+> real step union in `src/features/lesson/types.ts`. This doc is kept for
+> its pedagogy rationale (the M2-compact pattern, M5 mastery gate, and
+> survival-phrase strategy here are cited by shipped code).
 
 ## North star
 
@@ -29,7 +39,7 @@ language pedagogy says works:
   baseline; plain form layered in M5+.
 - **Nonsense sentences** ("the cat drinks beer"). → We hand-author every
   sentence, run 4-persona audits, prefer Core 2k frequency.
-- **Stalls at A2/N4.** → Our M3–M10 spine targets full N5 + early N4.
+- **Stalls at A2/N4.** → Our full course spine (M1–M27) targets full N5 + early N4.
 - **No pitch accent, no contractions, no natural dialogue.** → Sentence-
   ending よ/ね taught early per Tae Kim; dialogue mini-scripts in M5+.
 
@@ -74,69 +84,14 @@ Plus **yōon** as a separate compressed module (4 sub-lessons + capstone):
 
 Each row-test still required for ★ mastery.
 
-### M3 — Foundation grammar + survival phrases + first 100 Core 2k
+### M3+ — see the shipped module map
 
-Front-load the 15 survival essentials before formal grammar:
-こんにちは, ありがとうございます, すみません, はい/いいえ, いくらですか,
-どこですか, なに, だれ, いつ, おねがいします, わかりました, ごめんなさい,
-ください, です, じゃないです.
-
-Then introduce **です + か** (the copula + question particle) as the first
-grammar concept. Explained Tae Kim–style: *what does です actually do?*
-Not just "it's the copula" — "it asserts the state of being and politely
-acknowledges the listener."
-
-Drill mix per lesson: 3 vocab cards, 1 Grammar Rule Card (when applicable),
-1 Particle Cloze, 1 Sentence Build, 1 Speaking target.
-
-### M4 — は vs が — the BIG one
-
-The single highest-leverage grammar concept for Japanese, and the one
-Duolingo skips. Frame from Tae Kim:
-- は brings something into focus as the *topic* (already-known information)
-- が marks *new* / *salient* information (often the subject)
-
-Whole module is devoted to building intuition: 3 vocab lessons →
-Rule Card → 5 cloze drills → mini-dialogue → review. Mastery test.
-
-### M5 — を + transitive verbs (early-introduce intransitive pairs)
-
-Pair transitive/intransitive early (Tae Kim move): 開ける/開く,
-止める/止まる, 始める/始まる. Western learners conflate these forever; we
-front-load the distinction with concrete examples + visual contrast.
-
-### M6 — に / で (location / time / means)
-
-Each particle has a *role*; each role is its own card. Cloze drills with
-real sentences ("学校 ___ 行く" — pick に because it's directional movement).
-
-### M7 — Verb forms: dictionary + ます stem
-
-Dictionary form first (per Tae Kim, more authentic), then derive ます from
-it. Avoid teaching ます as a magic ending.
-
-### M8 — Adjectives: い vs な + conjugation
-
-Conjugation patterns explained as a system. い-adjectives are verb-like;
-な-adjectives are noun-like. Drill negative + past forms.
-
-### M9 — て-form + compound sentences
-
-The most powerful single grammar concept after は/が. Explain the rule
-(don't memorize the table). Use for: requests, sequential actions,
-linking clauses.
-
-### M10 — Sentence-ending particles + module recap
-
-Front-loaded per Tae Kim: よ (assertion), ね (seeking agreement), な
-(reflection), わ (feminine assertion). Without these every learner's
-spoken Japanese sounds robotic.
-
-### M11+ (future)
-
-Past tense, negation, conditional (たら/ば), passive, causative, potential,
-keigo (sonkeigo/kenjougo). Each module = 10 lessons with the same
-vocab/grammar/speaking/test rhythm.
+The 2026-05-16 draft spine for M3–M11 (は/が, を+transitive, に/で, verb
+forms, adjectives, て-form, sentence-ending particles…) has been **superseded
+by the shipped M1–M27 curriculum**. For the current module themes, order, and
+kanji placement use **`n5-content-spec-2026-05-25.md`** and
+**`curriculum-audit-vs-research-2026-05-21.md`** — not this section. The
+pedagogy *principles* above still apply.
 
 ## Lesson types
 
@@ -145,7 +100,12 @@ vocab/grammar/speaking/test rhythm.
   `multiple_choice`, `listening_build`, `listening_comp`,
   `word_image_mcq`, `speaking`, `info`, `row_test`
 
-### To add for M3+
+### To add for M3+ — ✅ all shipped (historical)
+
+*This table is a 2026-05-16 plan; every type below shipped (some renamed —
+`sentence_build`→`build`, `dialogue_pick`→`dialogue_listen`,
+`translation_production`→`translate`). For the real step union see
+`src/features/lesson/types.ts`; for authoring, `lesson-authoring-guide.md`.*
 
 | Type | Purpose | Effort |
 |---|---|---|

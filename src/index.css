@@ -25,6 +25,23 @@ html {
   scrollbar-gutter: stable;
 }
 
+/* Native-app feel on mobile web:
+   - overscroll-behavior: none kills pull-to-refresh + rubber-band on the
+     page edges, so anchored lesson chrome feels solid.
+   - tap-highlight removal: controls provide their own pressed states; the
+     gray iOS flash on every tile tap reads as "web page".
+   - touch-action: manipulation on controls removes double-tap-zoom delay
+     on rapid tile tapping without disabling pinch zoom on content. */
+html,
+body {
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+[role="button"] {
+  touch-action: manipulation;
+}
+
 /* ── Cute scrollbar — pill-in-pill, no arrows ──────────────────────────
    Track is a rounded pill in the surface-muted tone; the thumb is a
    smaller, darker pill nested inside (achieved via transparent border +

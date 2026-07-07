@@ -3,7 +3,7 @@
 **Area:** `src/features/flashcards/data/`, `src/features/practice/data/`
 **Current state:** Partial — 5 flashcards, 8 particles, 6 stories
 
-**See also:** `doc/FLASHCARD-DATA.md` (vocab manifest, lesson→card mapping), `src/features/flashcards/data/lessonCardMap.ts` (lesson introduces cardIds).
+**See also:** `docs/dataformats/flashcards/README.md` (vocab manifest, lesson→card mapping), `src/features/flashcards/data/lessonCardMap.ts` (lesson introduces cardIds).
 
 ## Goal
 
@@ -13,7 +13,7 @@ Expand Korean content to be usable for actual learning.
 
 ### Flashcards (`src/features/flashcards/data/ko-beginner.json`)
 - Expand to 30-50 cards covering: greetings, self-intro, numbers (native + sino), colors, family, food
-- Draw from Korean Core 2k + survival phrases (see FLASHCARD-DATA.md vocab selection strategy)
+- Draw from Korean Core 2k + survival phrases (see `docs/dataformats/flashcards/README.md` vocab selection strategy)
 - Each card: front (Korean), back (English), type, reasoning, parts/words with particle IDs
 - Include Hangul reading notes where helpful
 - Update `lessonCardMap.ts` (LESSON_TO_CARDS.ko) so new lessons introduce the new cards
@@ -31,8 +31,8 @@ Expand Korean content to be usable for actual learning.
 ### Vocab lists
 - Create `src/features/vocab/data/ko-vocab.json` with themed lists
 - Themes: greetings, numbers (native + sino), family, food, travel, school, shopping
-- Consider module vocab manifests (see FLASHCARD-DATA.md) — modules own their vocab; lessons introduce subsets
-- **Selection strategy (FLASHCARD-DATA.md):** Use Korean Core 2k frequency list + everyday words + conversation/survival phrase frequency (greetings, directions, requests, emergencies, shopping, food ordering)
+- Consider module vocab manifests (see `docs/dataformats/flashcards/README.md`) — modules own their vocab; lessons introduce subsets
+- **Selection strategy (`docs/dataformats/flashcards/README.md`):** Use Korean Core 2k frequency list + everyday words + conversation/survival phrase frequency (greetings, directions, requests, emergencies, shopping, food ordering)
 
 ## Acceptance criteria
 

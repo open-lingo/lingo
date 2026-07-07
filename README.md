@@ -77,8 +77,8 @@ src/
 │   ├── auth/             # LoginPage, LogoutPage
 │   ├── home/             # HomePage, language picker
 │   ├── learn/            # LearnPage, course map
-│   ├── lesson/           # LessonPage + 8 step types (translate, fill-blank, multiple-choice, etc.)
-│   ├── flashcards/       # Flashcard hub, SM-2 SRS engine, FlashcardTester,
+│   ├── lesson/           # LessonPage + ~22 step types (translate, cloze, multiple-choice, build, etc.)
+│   ├── flashcards/       # Flashcard hub, FSRS-6 SRS engine, FlashcardTester,
 │   │                     #   CardManager, DeckManager, sync engine
 │   ├── practice/         # Particles, alphabet, kanji, components, videos
 │   ├── stories/          # Story browser + reader
@@ -148,16 +148,18 @@ All clients are available via `useApi()` from `ApiProvider`. Data fetching uses 
 
 ## Flashcard SRS
 
-The SM-2 algorithm lives in `src/features/flashcards/engine/`. Key modules:
+The **FSRS-6** engine (via `ts-fsrs`) lives in `src/features/flashcards/engine/`. Note **Hard is a success** rating (not a failure), and each card carries two sub-states — `recognition` + `production` — graded one modality at a time. Key modules:
 
 | Module | Responsibility |
 |---|---|
-| `srs.ts` | SM-2 algorithm, `reviewCard`, `createInitialState` |
+| `srs.ts` | FSRS-6 scheduling — `reviewCard`, `gradeFromLesson`, `createInitialState` |
+| `grammarSrs.ts` | Track B grammar scheduler (`open-lingo-srs-grammar:v1`) |
 | `srsStorage.ts` | localStorage read/write (`SRSStore`) |
-| `reviewQueue.ts` | Build session queue (due reviews + new cards/day cap) |
+| `reviewQueue.ts` | Build session queue (due reviews + optional new-cards/day cap) |
 | `srsSync.ts` | Dirty-card detection, delta sync, server-state merge |
+| `srsMigration.ts` / `srsAtomIdMigration.ts` | Store schema + atom-id migrations |
 
-State is **local-first** (localStorage). Sync is triggered manually or at the end of a review session.
+State is **local-first** (localStorage, atom-derived `ja:`-prefixed card ids); sync is a delta-merge to `lingo-core`. See `CLAUDE.md` "SRS engine (invariants)" and `docs/srs-scheduling-model-2026-06-15.md` for the authoritative model.
 
 ## i18n
 

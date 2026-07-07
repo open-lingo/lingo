@@ -43,9 +43,9 @@ Set `VITE_LEGAL_CONTACT_EMAIL` in production (or document GitHub Issues fallback
 
 ---
 
-## P1 — Revenue (post-MVP; ads only at launch)
+## P1 — Revenue (post-MVP; MVP is ad-free)
 
-**MVP:** Ad-supported only — no Stripe. Plan for costs to exceed ad revenue initially ([PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md)).
+**MVP:** Ad-free — no ads, no Stripe. **Ad-supported** revenue (AdSense) and billing are **post-MVP**; plan to run at a loss during the free trial ([PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md)).
 
 ### Stripe (premium) — not in MVP
 

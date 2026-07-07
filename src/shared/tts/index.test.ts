@@ -44,6 +44,26 @@ describe("getTtsUrl", () => {
   });
 });
 
+describe("katakana single-glyph fallback", () => {
+  it("resolves a lone katakana glyph via its hiragana twin", () => {
+    // The pipeline only generated per-glyph clips for hiragana; ア must
+    // resolve to the same recording as あ (sound-identical scripts).
+    expect(getTtsUrl("あ")).not.toBeNull();
+    expect(getTtsUrl("ア")).toBe(getTtsUrl("あ"));
+    expect(getTtsUrl("ン")).toBe(getTtsUrl("ん"));
+  });
+
+  it("does NOT fall back for multi-char katakana words", () => {
+    // A loanword missing from the manifest must miss loudly (so the TTS
+    // emit/generate pass catches it), not play a hiragana conversion.
+    expect(getTtsUrl("ネクタイタイプライター")).toBeNull();
+  });
+
+  it("does not apply the fallback outside ja", () => {
+    expect(getTtsUrl("ア", "ko")).toBeNull();
+  });
+});
+
 describe("hasTtsAudio", () => {
   it("is true iff getTtsUrl returns non-null", () => {
     expect(hasTtsAudio("こんにちは")).toBe(true);
