@@ -13,6 +13,7 @@ import { ApiError } from "@/shared/api/client";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { supportedLngs } from "@/shared/i18n/i18n";
 import { utcToLocalHHmm, localToUtcHHmm } from "@/shared/utils/reminderTime";
+import { todayLocalDate } from "@/shared/settings/romajiAutoFlip";
 import { resetLearnProgress } from "@/features/learn/resetLearnProgress";
 import { tryGetLanguageModule } from "@/shared/language/registry";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
@@ -20,6 +21,7 @@ import { Switch } from "@/shared/components/ui/Switch";
 import { Select } from "@/shared/components/ui/Select";
 import { Slider } from "@/shared/components/ui/Slider";
 import { AccountPrivacySection } from "./AccountPrivacySection";
+import { ImportStudyHistorySection } from "./ImportStudyHistorySection";
 import { ChoiceChip } from "@/shared/components/ui/formStyles";
 import {
   SectionHeader,
@@ -573,7 +575,7 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
             label={t("settings.showRomaji", "Show romaji as a reading aid")}
             help={t(
               "settings.showRomajiHelp",
-              "Shows romaji above kana across the app. Turns off automatically once you pass the alphabet test or reach Module 15 — turn it back on any time.",
+              "Shows romaji above kana across the app. It steps back on its own as you learn each script — hiragana around Module 10, katakana around Module 17. Turn it fully on or off here any time.",
             )}
             control={
               <Switch
@@ -582,6 +584,26 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
                   updateSetting("learning.showRomaji", next)
                 }
                 ariaLabel={t("settings.showRomaji", "Show romaji as a reading aid")}
+              />
+            }
+          />
+          <SettingRow
+            asLabel
+            label={t("settings.romajiForToday", "Show romaji for today")}
+            help={t(
+              "settings.romajiForTodayHelp",
+              "A temporary peek: bring romaji back for the rest of today — even for scripts you've moved past — then it resets tomorrow so you keep reading on your own.",
+            )}
+            control={
+              <Switch
+                checked={settings.learning.romajiOnForDay === todayLocalDate()}
+                onCheckedChange={(next) =>
+                  updateSetting(
+                    "learning.romajiOnForDay",
+                    next ? todayLocalDate() : null,
+                  )
+                }
+                ariaLabel={t("settings.romajiForToday", "Show romaji for today")}
               />
             }
           />
@@ -604,6 +626,8 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
           />
         </SettingsGroup>
 
+        {/* Dev-gated for v1 — same gate style as DevPanel visibility. */}
+        {import.meta.env.DEV ? <ImportStudyHistorySection /> : null}
 
         <LanguageDangerZone languageId={languageId} />
       </Panel>

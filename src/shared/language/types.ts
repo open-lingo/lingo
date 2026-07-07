@@ -99,6 +99,13 @@ export interface AnnotationFragment {
   reading?: string;
   /** Symbol id for mastery-driven helper visibility lookup. */
   symbolId?: SymbolId;
+  /**
+   * Present on word-grouped fragments: the individual symbols contained in
+   * `text` (e.g. ["が","く","せ","い"], yōon digraphs kept merged), so
+   * exposure tracking stays per-symbol while `reading` carries ONE authored
+   * word-level romanization rendered once above the whole word.
+   */
+  symbols?: string[];
 }
 
 export interface ReadingAnnotationCapability {
@@ -259,6 +266,47 @@ export interface VocabGraduationCapability {
    * matters only for stable display.
    */
   collectAnchorsForModule: (module: CourseModule) => GraduationAnchor[];
+}
+
+// ─── import match keys (external-study import → atom) ────────────────────
+
+/**
+ * Precedence-bucketed match keys for one atom, produced by the language
+ * module for the Anki-import matcher. Every string is an exact surface form
+ * the matcher compares by equality (no fuzzy matching). The buckets encode
+ * the matcher's precedence order: `kana` (reading==kana / expression==kana),
+ * `kanji` (expression==kanji), then `expanded` (inflected forms) last.
+ */
+export interface ImportMatchKeys {
+  /** The atom's phonetic (kana / hangul / …) surface form(s). */
+  kana: string[];
+  /** The atom's written (kanji / hanja) form(s), if any. */
+  kanji: string[];
+  /** Inflected surface forms derived FROM the atom (kana + written). */
+  expanded: string[];
+}
+
+/**
+ * One SRS-eligible atom exposed to the language-agnostic import matcher.
+ * `atom` is passed through opaquely by the core (typed `unknown`) so
+ * `match.ts` never depends on a language's concrete atom shape at runtime.
+ */
+export interface ImportMatchEntry {
+  /** Canonical card id (`<lang>:<atom>`) — the SRS/unlock store key. */
+  cardId: string;
+  /** The underlying language atom; the core forwards it without inspecting it. */
+  atom: unknown;
+  keys: ImportMatchKeys;
+}
+
+/**
+ * Optional capability (ADR-011): expose every SRS-eligible atom's import
+ * match keys. Mirrors the annotate/TTS registration pattern — the matcher
+ * core consumes this through `getLanguageModule(id).importMatch` and stays
+ * free of per-language files.
+ */
+export interface ImportMatchCapability {
+  getMatchEntries(): ImportMatchEntry[];
 }
 
 // ─── GrammarHelpers ──────────────────────────────────────────────────────

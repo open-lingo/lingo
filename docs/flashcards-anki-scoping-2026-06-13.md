@@ -62,6 +62,12 @@ step in deck create ("which Anki field is front/back?") + HTML stripping.
 3. **RFC 4180 CSV parser** — flagged in `parseDelimitedCards.ts` itself
    as a prerequisite for the apkg path. Small cleanup.
 
+> **2026-07-07 update:** the deferred "scheduling-state import" piece (gap 2
+> below) is now spec'd and built as knowledge-evidence import onto the
+> **course deck** (no media needed) — see `docs/anki-import-spec-2026-07-07.md`.
+> Workstream B below (deck-content .apkg import w/ media) remains open and
+> complementary; the import report's `unmatched` ledger feeds it.
+
 ## Open decisions
 
 - [ ] Run flashcard audit-only first, or commit to the full audit+fix wave?

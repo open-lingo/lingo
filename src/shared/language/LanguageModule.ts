@@ -18,6 +18,7 @@ import type {
   ConjugationCapability,
   CourseModule,
   GrammarHelpers,
+  ImportMatchCapability,
   LanguageId,
   ParticleSet,
   PlacementBank,
@@ -70,6 +71,8 @@ export interface LanguageModule {
   speaking?: SpeakingPrompt[];
   imageMcqBlocklist?: Set<string>;
   vocabGraduation?: VocabGraduationCapability;
+  /** External-study import (Anki → atom) match-key provider. */
+  importMatch?: ImportMatchCapability;
 }
 
 export type { Atom, AtomId, LanguageId };
