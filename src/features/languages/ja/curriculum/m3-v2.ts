@@ -40,7 +40,7 @@
  *     reference ja-m3-1..ja-m3-8 by id).
  *
  * Lesson list (8 lessons):
- *   M3-1  Katakana intro + 2 loanwords + sentence-pattern sprinkle + review
+ *   M3-1  Katakana ア row (intro/trace/recognition) + 2 hook loanwords + です
  *   M3-2  です + か (Grammar Rule) + people vocab + drills + selfExplain
  *   M3-3  More vocab + adjective EXPOSURE + listening
  *   M3-4  は as topic marker (Grammar Rule) + rotated-particle drills
@@ -83,6 +83,12 @@ import type {
   RowTestItem,
   RowTestStep,
 } from "@/features/lesson/types";
+import {
+  type RowContext,
+  matchKanaToRomaji,
+  symbolToSound,
+} from "./_consonantRowHelpers";
+import { KATAKANA_ROW_SCHEDULE, glyphBlock } from "./katakanaRows";
 
 const COURSE = "mock-1";
 const LANG = "ja";
@@ -106,14 +112,27 @@ const M3_REVIEW_M2_POOL = withoutMcqBlocked(
 
 const M3_1_REVIEW = pickReviewAtoms("ja-m3-1-rev", M3_REVIEW_M1_POOL, 8);
 // M3-1 has no prior-module-grammar to drill, so the review tail is pure
-// vocab MCQ + match_pairs on M1 atoms. Per Wave-4B brief (T10): the
-// previous 5-loanword load was demoted — only コーヒー + タクシー stay
-// inline; the rest of the density target is hit via prior-pool review +
-// a brief sentence-pattern sprinkle (X です) that re-uses the loanwords
-// without re-introducing them.
+// vocab MCQ on M1 atoms. 2026-07-01 katakana rollout (spec:
+// docs/katakana-rollout-romaji-fade-spec-2026-06-30.md D2/D3): these two
+// sub-lessons now TEACH the ア row properly (M1-style
+// intro/trace/recognition via the katakana-parameterized row helpers) —
+// one row per module from here through M12 (see katakanaRows.ts). The
+// コーヒー/タクシー hook words stay as the why-katakana beat and the
+// first X です sentences.
+
+// ア row glyph data + a katakana RowContext for the M1-style factories.
+// tileBankPool is empty — ア is the first katakana row, so recognition
+// distractors come from the row itself (same as M1's vowel row).
+const A_ROW = KATAKANA_ROW_SCHEDULE.find((r) => r.rowId === "a")!.glyphs;
+const aRowCtx: RowContext = {
+  scriptId: "katakana",
+  allKana: A_ROW.map((g) => ({ symbol: g.symbol, romaji: g.romaji })),
+  words: [],
+  tileBankPool: [],
+};
 
 /* ────────────────────────────────────────────────────────────────────────
- * Sub-lesson 1/2 — Meet katakana + two loanwords + first です pattern
+ * Sub-lesson 1/2 — Katakana system + ア イ ウ + コーヒー hook + first です
  * ──────────────────────────────────────────────────────────────────────── */
 
 export const M3_1_1: LessonContent = {
@@ -121,16 +140,16 @@ export const M3_1_1: LessonContent = {
   moduleId: "m3",
   courseId: COURSE,
   languageId: LANG,
-  title: "Katakana — Intro",
+  title: "Katakana — ア イ ウ",
   description:
-    "Meet katakana. Two loanwords (coffee, taxi) introduced via context, then your first X です sentence.",
+    "Meet katakana properly: ア, イ, ウ — plus コーヒー and your first X です sentence.",
   estimatedMinutes: 5,
   xpReward: 10,
   steps: [
     infoStep(
       "ja-m3-1-info-system",
       "Katakana — hiragana's twin",
-      "Katakana (カタカナ) has the same 46 sounds as hiragana — just different, more angular shapes. It's used for loanwords (コーヒー = coffee), foreign names, and emphasis. Romaji appears above new katakana so you can read by sound while the shapes sink in.",
+      "Katakana (カタカナ) has the same 46 sounds as hiragana — just sharper, more angular shapes. It's used for loanwords (コーヒー = coffee), foreign names, and emphasis. From now on you'll learn one katakana row per module, exactly like hiragana in Module 1 — and romaji rides along above new katakana while the shapes sink in.",
       "culture",
     ),
     infoStep(
@@ -139,6 +158,16 @@ export const M3_1_1: LessonContent = {
       "In katakana, ー stretches the vowel before it. コーヒー is 'koo-hii' (long o, long i) — not 'ko-hi.' You'll see ー constantly in loanwords. Think of it as 'hold that note.'",
       "grammar",
     ),
+
+    ...glyphBlock(aRowCtx, "ja-m3-1", A_ROW[0], "アメリカ (America)",
+      "A flat roof with a swoop underneath. Katakana is all straight lines and corners — no hiragana curves."),
+    ...glyphBlock(aRowCtx, "ja-m3-1", A_ROW[1], "イタリア (Italy)",
+      "A person leaning to the left — two strokes, done."),
+    ...glyphBlock(aRowCtx, "ja-m3-1", A_ROW[2], "ウーロン (oolong tea)",
+      "う's angular cousin — a roof with a tail, same sound."),
+
+    symbolToSound(aRowCtx, "ja-m3-1-sts-a", "ア", "a", "like 'a' in 'father'"),
+
     // First encounter: learner sees "Coffee" and picks the katakana from
     // tiles. Only one tile makes sense — figuroutable from the English.
     build(
@@ -169,7 +198,58 @@ export const M3_1_1: LessonContent = {
       ["タクシー", "です", "コーヒー", "か"],
       ["コーヒー", "です"],
     ),
-    // Second loanword — same pattern.
+    // Review tail — M1 atoms
+    speaking("ja-m3-1-rev-speak-a", M3_1_REVIEW[0].kana, M3_1_REVIEW[0].meaningEn),
+    vocabMcq("ja-m3-1-rev-mcq-b", M3_1_REVIEW[5], M3_REVIEW_M1_POOL),
+    infoStep(
+      "ja-m3-1-1-info-end",
+      "Three katakana down",
+      "ア, イ, ウ traced and recognized — plus コーヒー, the long-vowel mark ー, and your first X です polite statement. エ and オ finish the row next lesson.",
+      "win",
+    ),
+  ],
+};
+
+assertNoSameAnswerCluster(M3_1_1.steps);
+assertNoConsecutiveSame(M3_1_1.steps);
+
+/* ────────────────────────────────────────────────────────────────────────
+ * Sub-lesson 2/2 — エ + オ finish the row + タクシー hook + row sweep
+ * ──────────────────────────────────────────────────────────────────────── */
+
+export const M3_1_2: LessonContent = {
+  id: "ja-m3-1-2",
+  moduleId: "m3",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Katakana — エ オ + sweep",
+  description:
+    "Finish the ア row with エ and オ, sweep all five, and meet タクシー — plus X です practice and M1 review.",
+  estimatedMinutes: 6,
+  xpReward: 12,
+  steps: [
+    infoStep(
+      "ja-m3-1-2-info-0",
+      "Two more, then the sweep",
+      "エ and オ close out the katakana vowel row. After this you can hear any vowel sound and write it in either script.",
+      "default",
+    ),
+
+    ...glyphBlock(aRowCtx, "ja-m3-1", A_ROW[3], "エレベーター (elevator)",
+      "A steel I-beam: top bar, bottom bar, one pillar."),
+    ...glyphBlock(aRowCtx, "ja-m3-1", A_ROW[4], "オレンジ (orange)",
+      "A cross with a kicked-out leg — think 'O-riginal pose.'"),
+
+    symbolToSound(aRowCtx, "ja-m3-1-sts-i", "イ", "i", "like 'ee' in 'see'"),
+    symbolToSound(aRowCtx, "ja-m3-1-sts-o", "オ", "o", "like 'o' in 'more'"),
+    matchKanaToRomaji(
+      "ja-m3-1-match-a-row",
+      aRowCtx.allKana,
+      "Match the katakana vowels to their sounds",
+    ),
+
+    // Second hook loanword — same figuroutable-from-English pattern as
+    // コーヒー in sub-lesson 1.
     build(
       "ja-m3-1-intro-taxi",
       "Taxi",
@@ -189,7 +269,6 @@ export const M3_1_1: LessonContent = {
       M3_REVIEW_M1_POOL,
     ),
     speaking("ja-m3-1-speak-taxi", "タクシー", "Taxi"),
-    // Second です sentence — same skeleton, different noun.
     build(
       "ja-m3-1-intro-taxi-desu",
       "It's a taxi.",
@@ -197,114 +276,6 @@ export const M3_1_1: LessonContent = {
       ["です", "コーヒー", "か", "タクシー"],
       ["タクシー", "です"],
     ),
-    sentenceMcq({
-      id: "ja-m3-1-mcq-taxi-desu",
-      prompt: "Which sentence means 'It's a taxi.'?",
-      correctKana: "タクシー です。",
-      distractorsKana: [
-        "コーヒー です。",
-        "タクシー ですか。",
-        "これは タクシー です。",
-      ],
-      explanation:
-        "タクシー = taxi; です asserts politely. No か = statement, not question.",
-    }),
-    build(
-      "ja-m3-1-translate-coffee",
-      "It's sushi. (same X です pattern — M1 word)",
-      "すし です",
-      ["タクシー", "です", "コーヒー", "すし"],
-      ["すし", "です"],
-    ),
-    // Review tail — M1 atoms
-    speaking("ja-m3-1-rev-speak-a", M3_1_REVIEW[0].kana, M3_1_REVIEW[0].meaningEn),
-    listeningCompSentence({
-      id: "ja-m3-1-rev-lc-a",
-      audioText: M3_1_REVIEW[1].kana,
-      correctMeaningEn: M3_1_REVIEW[1].meaningEn,
-      distractorsEn: [
-        M3_1_REVIEW[2].meaningEn,
-        M3_1_REVIEW[3].meaningEn,
-        M3_1_REVIEW[4].meaningEn,
-      ],
-    }),
-    vocabMcq("ja-m3-1-rev-mcq-b", M3_1_REVIEW[5], M3_REVIEW_M1_POOL),
-    infoStep(
-      "ja-m3-1-1-info-end",
-      "You can now read two katakana loanwords",
-      "Katakana コーヒー (coffee) and タクシー (taxi), the long-vowel mark ー, and your first X です polite statement pattern.",
-      "win",
-    ),
-  ],
-};
-
-assertNoSameAnswerCluster(M3_1_1.steps);
-assertNoConsecutiveSame(M3_1_1.steps);
-
-/* ────────────────────────────────────────────────────────────────────────
- * Sub-lesson 2/2 — Practice katakana loanwords in varied contexts + review
- * ──────────────────────────────────────────────────────────────────────── */
-
-export const M3_1_2: LessonContent = {
-  id: "ja-m3-1-2",
-  moduleId: "m3",
-  courseId: COURSE,
-  languageId: LANG,
-  title: "Katakana — Practice",
-  description:
-    "Practice coffee + taxi in varied retrieval modes, plus X です sentences over M1 nouns. Review M1 kana.",
-  estimatedMinutes: 6,
-  xpReward: 12,
-  steps: [
-    listeningBuildSentence({
-      id: "ja-m3-1-lbs-coffee-desu",
-      target: "コーヒー です",
-      tiles: ["です", "タクシー", "コーヒー", "か"],
-      correctOrder: ["コーヒー", "です"],
-      promptEn: "It's coffee.",
-    }),
-    vocabMcq("ja-m3-1-rev-mcq-1", M3_1_REVIEW[0], M3_REVIEW_M1_POOL),
-    speaking("ja-m3-1-speak-taxi-desu", "タクシー です", "It's a taxi."),
-    listeningCompSentence({
-      id: "ja-m3-1-lc-coffee-desu",
-      audioText: "もも です",
-      correctMeaningEn: "It's a peach.",
-      distractorsEn: ["It's sushi.", "Is it a peach?", "It's a flower."],
-    }),
-    sentenceMcq({
-      id: "ja-m3-1-mcq-coffee-desu",
-      prompt: "Which sentence means 'It's a cat.'?",
-      correctKana: "ねこ です。",
-      distractorsKana: [
-        "いぬ です。",
-        "ねこ ですか。",
-        "つき です。",
-      ],
-      explanation:
-        "ねこ = cat; です makes it a polite statement. No か = not a question.",
-    }),
-    speaking("ja-m3-1-speak-coffee-desu", "ごはん です", "It's rice."),
-    build(
-      "ja-m3-1-translate-taxi",
-      "It's a mountain.",
-      "やま です",
-      ["うみ", "タクシー", "やま", "です"],
-      ["やま", "です"],
-    ),
-    listeningCompSentence({
-      id: "ja-m3-1-lc-taxi-desu",
-      audioText: "はな です",
-      correctMeaningEn: "It's a flower.",
-      distractorsEn: ["It's a peach.", "Is it a flower?", "It's the sea."],
-    }),
-    listeningBuildSentence({
-      id: "ja-m3-1-lbs-taxi-desu",
-      target: "すし です",
-      tiles: ["もも", "です", "か", "すし"],
-      correctOrder: ["すし", "です"],
-      promptEn: "It's sushi.",
-    }),
-    speaking("ja-m3-1-speak-taxi", "タクシー", "Taxi"),
     sentenceMcq({
       id: "ja-m3-1-mcq-which-taxi",
       prompt: "Which one means 'taxi'?",
@@ -315,6 +286,13 @@ export const M3_1_2: LessonContent = {
         "ホテル",
       ],
       explanation: "タクシー = taxi. コーヒー = coffee.",
+    }),
+    listeningBuildSentence({
+      id: "ja-m3-1-lbs-coffee-desu",
+      target: "コーヒー です",
+      tiles: ["です", "タクシー", "コーヒー", "か"],
+      correctOrder: ["コーヒー", "です"],
+      promptEn: "It's coffee.",
     }),
     // Review tail — M1 atoms
     speaking("ja-m3-1-rev-speak-2", M3_1_REVIEW[2].kana, M3_1_REVIEW[2].meaningEn),
@@ -329,19 +307,10 @@ export const M3_1_2: LessonContent = {
       ],
     }),
     vocabMcq("ja-m3-1-rev-mcq-3", M3_1_REVIEW[6], M3_REVIEW_M1_POOL),
-    vocabMcq("ja-m3-1-rev-mcq-4", M3_1_REVIEW[4], M3_REVIEW_M1_POOL),
-    reviewMatchPairs("ja-m3-1-rev", M3_1_REVIEW.slice(0, 5)),
-    build(
-      "ja-m3-1-final-coffee",
-      "It's the sea.",
-      "うみ です",
-      ["か", "やま", "です", "うみ"],
-      ["うみ", "です"],
-    ),
     infoStep(
       "ja-m3-1-2-info-end",
-      "You can now order a coffee in katakana",
-      "Two katakana loanwords — コーヒー and タクシー — plus the X です pattern for polite statements.",
+      "The ア row is yours",
+      "ア イ ウ エ オ — the first full katakana row, plus コーヒー, タクシー, ー, and the X です pattern. Next module: the カ row.",
       "win",
     ),
   ],
@@ -937,6 +906,7 @@ assertNoConsecutiveSame(M3_3_2.steps);
 
 const RULE_HA = grammarRule({
   id: "ja-m3-4-rule-ha",
+  grammarPointId: "wa-topic",
   title: "は — the topic marker",
   rule:
     "は marks the TOPIC of a sentence — 'as for X, …'. It frames what the rest of the sentence is about. In introductions, descriptions, and most early sentences, は attaches to the subject (me, this, the cat).",
@@ -1866,6 +1836,7 @@ const M3_7_REVIEW = pickReviewAtoms("ja-m3-7-rev", M3_M7_REVIEW_POOL, 6);
 
 const RULE_MO = grammarRule({
   id: "ja-m3-7-rule-mo",
+  grammarPointId: "mo-also",
   title: "も — 'X too' / 'X also'",
   rule:
     "も swaps in for は to mean 'X too' / 'X also'. Same sentence skeleton — just replace the topic particle. If Ken says 'I'm a student' (わたしは がくせいです) and you're also a student, you reply 'わたしも がくせいです.' Reach for も whenever you're agreeing-by-extension with what was just said.",

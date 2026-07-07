@@ -209,6 +209,9 @@ export function grammarRule(opts: {
   examples: GrammarExample[];
   antiPattern?: GrammarExample & { why: string };
   cultureNote?: string;
+  /** Track B grammar-point id this card teaches (see GrammarRuleStep). Passed
+   *  through verbatim; omit for cards that don't map cleanly to one point. */
+  grammarPointId?: string;
 }): GrammarRuleStep {
   return {
     id: opts.id,
@@ -218,6 +221,7 @@ export function grammarRule(opts: {
     examples: opts.examples,
     antiPattern: opts.antiPattern,
     cultureNote: opts.cultureNote,
+    ...(opts.grammarPointId ? { grammarPointId: opts.grammarPointId } : {}),
   };
 }
 

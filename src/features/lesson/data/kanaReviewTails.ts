@@ -12,9 +12,14 @@
  *
  * Lessons that already carry a hand-authored tail (`-rev-` step ids,
  * e.g. the ka row) are left untouched.
+ *
+ * 2026-07-01: extended to the katakana rollout — `ja-mN-kata` row
+ * lessons (M4-M12) get the same 3-step tail drawn from katakana rows
+ * taught in strictly-earlier modules (schedule: katakanaRows.ts).
  */
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { ALL_ROWS } from "./hiraganaCurriculum";
+import { KATAKANA_ROW_SCHEDULE } from "@/features/languages/ja/curriculum/katakanaRows";
 import type {
   LessonContent,
   LessonStep,
@@ -22,6 +27,7 @@ import type {
 } from "../types";
 
 type ReviewKana = { kana: string; romaji: string; hint: string };
+type KanaScript = "hiragana" | "katakana";
 
 /** Vowels are hand-authored (no RowDef) but are every row's oldest
  *  review material — they head the prior pool. */
@@ -46,11 +52,24 @@ function priorKanaPool(rowId: string): ReviewKana[] {
   return pool;
 }
 
+/** Katakana taught in rows STRICTLY BEFORE `moduleIndex` (katakana
+ *  rollout 2026-07-01, one row per module M3→M12 — see katakanaRows.ts).
+ *  Same look-back rationale as the hiragana pools: kana glyphs have no
+ *  SRS, so the in-lesson tail is their only spaced-review channel. */
+function priorKatakanaPool(moduleIndex: number): ReviewKana[] {
+  return KATAKANA_ROW_SCHEDULE.filter(
+    (r) => r.moduleIndex < moduleIndex,
+  ).flatMap((r) =>
+    r.glyphs.map((g) => ({ kana: g.symbol, romaji: g.romaji, hint: g.hint })),
+  );
+}
+
 function reviewRecognitionStep(
   lessonId: string,
   target: ReviewKana,
   pool: ReviewKana[],
   idx: number,
+  scriptId: KanaScript = "hiragana",
 ): SymbolRecognitionStep {
   const distractors = seededShuffle(
     pool.filter((k) => k.kana !== target.kana),
@@ -70,12 +89,31 @@ function reviewRecognitionStep(
       symbol: target.kana,
       romanization: target.romaji,
       ipa: `/${target.romaji}/`,
-      scriptId: "hiragana",
+      scriptId,
       hint: target.hint,
     },
     options,
     correctOptionId: "correct",
   };
+}
+
+/** Resolve which prior-kana pool (if any) a lesson's tail draws from. */
+function tailPoolFor(
+  lessonId: string,
+): { pool: ReviewKana[]; scriptId: KanaScript } | null {
+  const m1 = /^ja-m1-(.+)-(1|2)$/.exec(lessonId);
+  if (m1) return { pool: priorKanaPool(m1[1]), scriptId: "hiragana" };
+  // Katakana row lessons: ja-mN-kata (M4-M12). The M3 ア row lessons
+  // (ja-m3-1-1/1-2) have no prior katakana anyway and carry hand-authored
+  // `-rev-` steps, so they're intentionally not matched here.
+  const kata = /^ja-m(\d+)-kata$/.exec(lessonId);
+  if (kata) {
+    return {
+      pool: priorKatakanaPool(parseInt(kata[1], 10)),
+      scriptId: "katakana",
+    };
+  }
+  return null;
 }
 
 /**
@@ -84,16 +122,15 @@ function reviewRecognitionStep(
  * slide) so the lesson still closes on its authored beat.
  */
 export function withKanaReviewTail(lesson: LessonContent): LessonContent {
-  const m = /^ja-m1-(.+)-(1|2)$/.exec(lesson.id);
-  if (!m) return lesson;
-  const rowId = m[1];
-  const pool = priorKanaPool(rowId);
+  const resolved = tailPoolFor(lesson.id);
+  if (!resolved) return lesson;
+  const { pool, scriptId } = resolved;
   if (pool.length === 0) return lesson;
   if (lesson.steps.some((s) => /-rev(tail)?-/.test(s.id))) return lesson;
 
   const picks = seededShuffle(pool, `${lesson.id}-revtail`).slice(0, 3);
   const tail = picks.map((k, i) =>
-    reviewRecognitionStep(lesson.id, k, pool, i),
+    reviewRecognitionStep(lesson.id, k, pool, i, scriptId),
   );
 
   const steps: LessonStep[] = [...lesson.steps];

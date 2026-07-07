@@ -103,6 +103,7 @@ export const M9_1_1: LessonContent = {
     ),
     grammarRule({
       id: "ja-m9-1-1-rule-na-adj",
+      grammarPointId: "na-adj-present",
       title: "な-adjectives — the basics",
       rule: "な-adjectives use です for present ('きれいです') and add な before nouns ('きれいな はな'). They do NOT conjugate like い-adjectives.",
       examples: [
@@ -1188,6 +1189,7 @@ export const M9_4_1: LessonContent = {
     // ── よ (sentence-final emphasis) ── grammar rule ──
     grammarRule({
       id: "ja-m9-4-1-rule-yo",
+      grammarPointId: "yo-emphasis",
       title: "よ — telling someone something with conviction",
       rule: "よ goes at the very end of a sentence (after です/ます) to add emphasis — 'I'm telling you!' or 'Trust me!'. Use it when sharing information the listener might not know.",
       examples: [
@@ -1308,6 +1310,7 @@ export const M9_4_2: LessonContent = {
     ),
     grammarRule({
       id: "ja-m9-4-2-rule-ne",
+      grammarPointId: "ne-agreement",
       title: "ね — seeking agreement, inviting confirmation",
       rule: "ね goes at the end of a sentence to seek agreement or invite shared feeling — 'right?', 'isn't it?', 'don't you think?' Use it when you expect the listener to agree.",
       examples: [
@@ -1523,6 +1526,7 @@ export const M9_5_1: LessonContent = {
     // ── な-adjective negative: じゃないです ──
     grammarRule({
       id: "ja-m9-5-1-rule-neg",
+      grammarPointId: "na-adj-negative",
       title: "な-adjective negative: じゃないです",
       rule: "To negate a な-adjective, replace です with じゃないです. きれいです → きれいじゃないです. Do NOT use くないです — that's for い-adjectives only.",
       examples: [

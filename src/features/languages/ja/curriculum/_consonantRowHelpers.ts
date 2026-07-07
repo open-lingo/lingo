@@ -61,6 +61,52 @@ function moraTilesFor(word: string): string[] {
   return out;
 }
 
+export type KanaScriptId = "hiragana" | "katakana";
+
+/**
+ * Katakana-only confusable pairs (the hiragana CONFUSABLES map obviously
+ * has no katakana keys). シ/ツ and ソ/ン are THE classic adult-learner
+ * confusions — stroke direction is the only difference — so they must be
+ * co-presented once both are known, same rationale as the 2026-06-13 m1
+ * audit that added the hiragana map. Gated by the same `known` check in
+ * `pickThreeKanaDistractors`, so a pair only surfaces after both glyphs
+ * are taught.
+ */
+const KATAKANA_CONFUSABLES: Record<string, string[]> = {
+  "シ": ["ツ", "ソ"],
+  "ツ": ["シ", "ソ"],
+  "ソ": ["ン", "リ"],
+  "ン": ["ソ", "シ"],
+  "ウ": ["ワ", "フ"],
+  "ワ": ["ウ", "フ"],
+  "フ": ["ワ", "ラ"],
+  "ク": ["ケ", "タ"],
+  "ケ": ["ク", "テ"],
+  "タ": ["ク", "ナ"],
+  "コ": ["ユ", "ロ"],
+  "ユ": ["コ", "ヨ"],
+  "ヨ": ["ユ", "コ"],
+  "ロ": ["コ", "ル"],
+  "チ": ["テ", "セ"],
+  "テ": ["チ", "デ"],
+  "ナ": ["メ", "チ"],
+  "メ": ["ナ", "ヌ"],
+  "ヌ": ["ス", "メ"],
+  "ス": ["ヌ", "ノ"],
+  "マ": ["ム", "ア"],
+  "ム": ["マ", "ア"],
+  "ア": ["マ", "ヤ"],
+  "ル": ["レ", "ロ"],
+  "レ": ["ル", "ノ"],
+};
+
+function confusablesFor(scriptId: KanaScriptId, symbol: string): string[] {
+  return (
+    (scriptId === "katakana" ? KATAKANA_CONFUSABLES : CONFUSABLES)[symbol] ??
+    []
+  );
+}
+
 export type KanaEntry = { symbol: string; romaji: string };
 export type RowWord = {
   kana: string;
@@ -84,6 +130,11 @@ export type RowContext = {
    *  build word are merged in automatically; this just supplies the
    *  "random extras" per user direction (2026-05-16). */
   tileBankPool: string[];
+  /** Which syllabary this row teaches. Drives the `scriptId` stamped on
+   *  symbol-step payloads (glyph renderer + stroke data) and the
+   *  confusable-distractor map. Defaults to hiragana so the frozen M1/M2
+   *  call sites stay untouched (katakana rollout 2026-07-01). */
+  scriptId?: KanaScriptId;
 };
 
 /**
@@ -118,16 +169,17 @@ export function correctSlot(id: string, slots = 4): number {
 
 function pickThreeKanaDistractors(ctx: RowContext, symbol: string) {
   // Visually-confusable kana first (ね/れ/わ, ぬ/め, た/な — CONFUSABLES
-  // map) when already known (this row or the prior-kana pool). The
-  // hand-authored rows previously drew row-local only, so the classic
-  // confusion pairs were never co-presented (2026-06-13 m1 audit). Cap
-  // at 2 so at least one row-mate keeps the in-row contrast.
+  // map; シ/ツ, ソ/ン for katakana) when already known (this row or the
+  // prior-kana pool). The hand-authored rows previously drew row-local
+  // only, so the classic confusion pairs were never co-presented
+  // (2026-06-13 m1 audit). Cap at 2 so at least one row-mate keeps the
+  // in-row contrast.
   const known = new Set([
     ...ctx.allKana.map((v) => v.symbol),
     ...ctx.tileBankPool,
   ]);
   const out: { symbol: string; romaji: string }[] = [];
-  for (const c of CONFUSABLES[symbol] ?? []) {
+  for (const c of confusablesFor(ctx.scriptId ?? "hiragana", symbol)) {
     if (out.length >= 2) break;
     if (c !== symbol && known.has(c) && !out.some((o) => o.symbol === c)) {
       // romaji MUST be populated: `symbol_to_sound` renders it as the
@@ -177,6 +229,7 @@ export function symbolIntro(
   hint: string,
   example: string,
   note?: string,
+  scriptId: KanaScriptId = "hiragana",
 ): LessonStep {
   return {
     id,
@@ -188,7 +241,7 @@ export function symbolIntro(
       hint,
       example,
       note,
-      scriptId: "hiragana",
+      scriptId,
       hasStrokeOrder: true,
     },
   };
@@ -199,6 +252,7 @@ export function traceTwice(
   symbol: string,
   romanization: string,
   hint: string,
+  scriptId: KanaScriptId = "hiragana",
 ): LessonStep {
   return {
     id,
@@ -208,7 +262,7 @@ export function traceTwice(
       romanization,
       ipa: "",
       hint,
-      scriptId: "hiragana",
+      scriptId,
       hasStrokeOrder: true,
     },
     showGuide: true,
@@ -239,7 +293,7 @@ export function recognition(
       romanization,
       ipa: "",
       hint,
-      scriptId: "hiragana",
+      scriptId: ctx.scriptId ?? "hiragana",
       hasStrokeOrder: true,
       audioKey: getTtsUrl(symbol) ?? undefined,
     },
@@ -276,7 +330,7 @@ export function symbolToSound(
       romanization,
       ipa: "",
       hint,
-      scriptId: "hiragana",
+      scriptId: ctx.scriptId ?? "hiragana",
       hasStrokeOrder: true,
     },
     options,

@@ -655,6 +655,7 @@ assertNoConsecutiveSame(M7_2_2.steps);
 
 const RULE_WO = grammarRule({
   id: "ja-m7-3-1-rule-wo",
+  grammarPointId: "wo-object",
   title: "を — the direct-object particle",
   rule:
     "を marks the thing being acted on by a transitive verb. すしを たべます = 'eat sushi.' みずを のみます = 'drink water.' ほんを よみます = 'read a book.' The verb does something TO the を-marked noun.",
@@ -878,6 +879,16 @@ export const M7_3_2: LessonContent = {
         "I read a letter.",
       ],
     }),
+    // ── Katakana interleave (rollout M7 ナ row → ニュース is now
+    //    base-readable). を + みます on a fresh object. ──
+    build(
+      "ja-m7-3-2-build-nyuusu",
+      "I watch the news.",
+      "ニュースを みます",
+      ["みます", "ニュース", "を", "よみます", "は"],
+      ["ニュース", "を", "みます"],
+      ["ニュース"],
+    ),
     cloze(
       "ja-m7-3-2-cloze-4",
       "うち",
@@ -894,6 +905,14 @@ export const M7_3_2: LessonContent = {
       "しゃしんを みます",
       ["みます", "しゃしん", "を", "のみます", "に"],
       ["しゃしん", "を", "みます"],
+    ),
+    // ── Katakana interleave — ジュース (readable since the M5 サ row)
+    //    re-surfaces as a を + のみます object (D2 prior-module review). ──
+    speaking(
+      "ja-m7-3-2-speak-juusu",
+      "ジュースを のみます",
+      "I drink juice.",
+      ["ジュース"],
     ),
     sentenceMcq({
       id: "ja-m7-3-2-mcq-bicycle",
@@ -1843,7 +1862,7 @@ export const M7_STORY: LessonContent = {
     infoStep(
       "ja-m7-story-info-open",
       "Story time — What do you eat?",
-      "ゆき and たけし are talking about their daily habits — what they eat, drink, read, and watch.",
+      "ゆき and たけし are talking about their daily habits. To ask 'what?', use なに: なにを たべますか = 'What do you eat?' Listen for it before each answer.",
     ),
     dialogueListen({
       id: "ja-m7-story-scene-1",

@@ -69,6 +69,7 @@ const M15_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_TEIRU = grammarRule({
   id: "ja-m15-rule-teiru",
+  grammarPointId: "te-iru",
   title: "〜ている — progressive (is ~ing)",
   rule:
     "て-form + いる/います expresses an ongoing action: 'is doing [verb].' Use the て-form you already know, then add いる (casual) or います (polite). たべて + います = 'is eating.' べんきょうして + います = 'is studying.' The ている form also has a resultative meaning (e.g. しっている = knows), but start with the progressive.",
@@ -101,6 +102,7 @@ const RULE_TEIRU = grammarRule({
 
 const RULE_TEIRU_RESULTATIVE = grammarRule({
   id: "ja-m15-rule-teiru-result",
+  grammarPointId: "te-iru",
   title: "〜ている — resultative state (knows, lives, is married)",
   rule:
     "Some verbs use ている to describe a continuing state, not an ongoing action. しっている = 'knows' (the state of having learned). すんでいる = 'lives (in a place).' けっこんしている = 'is married.' These look the same as progressive but describe a result that persists.",
@@ -133,6 +135,7 @@ const RULE_TEIRU_RESULTATIVE = grammarRule({
 
 const RULE_TEMOII = grammarRule({
   id: "ja-m15-rule-temoii",
+  grammarPointId: "te-mo-ii",
   title: "〜てもいいですか — asking permission (May I?)",
   rule:
     "て-form + も + いいですか = 'Is it okay if I [verb]?' = 'May I [verb]?' Answer yes: いいですよ (Sure!). Soft no: ちょっと... (Hmm, that's a bit...). The も means 'even if' — literally 'even if I do X, is it okay?'",
@@ -165,6 +168,7 @@ const RULE_TEMOII = grammarRule({
 
 const RULE_TAI = grammarRule({
   id: "ja-m15-rule-tai",
+  grammarPointId: "v-tai",
   title: "V-stem + たい — I want to...",
   rule:
     "To say 'I want to [verb],' drop ます from the polite form and add たい. たべます → たべたい (want to eat). のみます → のみたい (want to drink). たい conjugates like an い-adjective: negative = たべたくない (don't want to eat). Past = たべたかった (wanted to eat).",
@@ -197,6 +201,7 @@ const RULE_TAI = grammarRule({
 
 const RULE_HOSHII = grammarRule({
   id: "ja-m15-rule-hoshii",
+  grammarPointId: "ga-hoshii",
   title: "がほしい — I want (a thing)",
   rule:
     "ほしい = 'want' for THINGS (not actions). The wanted thing takes が, not を: みずが ほしい (I want water). ほしい conjugates like an い-adjective: negative = ほしくない (don't want). Note: たい = want to DO. ほしい = want to HAVE.",
@@ -229,6 +234,7 @@ const RULE_HOSHII = grammarRule({
 
 const RULE_KEDO = grammarRule({
   id: "ja-m15-rule-kedo",
+  grammarPointId: "kedo",
   title: "けど — but (contrastive conjunction)",
   rule:
     "けど connects two clauses with a 'but' meaning: A けど B = 'A, but B.' Attach けど to the end of the first clause (after です/ます). More formal versions: けれど, けれども. Same meaning, increasing formality.",

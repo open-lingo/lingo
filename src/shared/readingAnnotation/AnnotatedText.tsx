@@ -17,13 +17,19 @@
  * (no helper, no ruby).
  */
 import { Fragment, useMemo, type ReactElement } from "react";
-import { isKana, KANA_ROMAJI, tokenizeJapanese } from "@/shared/japanese/kanaTable";
-import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import {
-  useSymbolHelperVisible,
-  useTrackExposure,
-} from "@/shared/symbolMastery";
+  isKana,
+  isKatakana,
+  KANA_ROMAJI,
+  tokenizeJapanese,
+} from "@/shared/japanese/kanaTable";
+import type { JapaneseAnnotation } from "@/shared/japanese/types";
+import { useTrackExposure } from "@/shared/symbolMastery";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import {
+  romajiVisibleForScript,
+  todayLocalDate,
+} from "@/shared/settings/romajiAutoFlip";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { tryGetLanguageModule } from "@/shared/language/registry";
 import type { AnnotationFragment } from "@/shared/language/types";
@@ -141,7 +147,16 @@ function BareRender({
   return (
     <>
       {fragments.map((frag, i) =>
-        frag.reading ? (
+        frag.symbols && frag.reading ? (
+          <WordToken
+            key={i}
+            word={frag.text}
+            romaji={frag.reading}
+            symbols={frag.symbols}
+            forceShowHelper={forceShowHelper}
+            hideHelper={hideHelper}
+          />
+        ) : frag.reading ? (
           <SymbolToken
             key={i}
             symbol={frag.text}
@@ -246,6 +261,100 @@ function KanaSegment({
   );
 }
 
+type KanaScript = "hiragana" | "katakana";
+
+/**
+ * Per-script romaji fade: the single `showRomaji` master toggle gates
+ * both scripts; each script's romaji auto-hides once the learner crosses
+ * its module milestone (hiragana M10 / katakana M17), unless the "show
+ * romaji for today" escape hatch is active. `hideHelper` is a hard OFF
+ * (answer-giveaway surfaces like build-tile banks). `forceShowHelper`
+ * (lookup-key surfaces like the M2 "how do you say X" MCQ) can still
+ * surface romaji when the master toggle is off, but never resurrects a
+ * script the learner has formally retired.
+ *
+ * Multi-script callers (word tokens over mixed surfaces like アメリカじん)
+ * pass every script present: the helper stays visible while ANY of them
+ * still shows romaji, and force-show is dead only once ALL are retired.
+ */
+function useRomajiHelperVisible({
+  scripts,
+  forceShowHelper,
+  hideHelper,
+}: {
+  scripts: readonly KanaScript[];
+  forceShowHelper?: boolean;
+  hideHelper?: boolean;
+}): boolean {
+  const { settings } = useSettings();
+  const today = todayLocalDate();
+  const romajiVisible = scripts.some((script) =>
+    romajiVisibleForScript({ settings, script, today }),
+  );
+  const allRetired = scripts.every((script) =>
+    script === "katakana"
+      ? (settings.learning.katakanaRomajiAutoOff ?? false)
+      : (settings.learning.hiraganaRomajiAutoOff ?? false),
+  );
+  return !hideHelper && (romajiVisible || (!!forceShowHelper && !allRetired));
+}
+
+/** Effect-only child: keeps hook usage legal while a word token tracks
+ *  exposure for EACH contained symbol (mastery counters stay per-kana). */
+function TrackExposure({ symbol }: { symbol: string }) {
+  useTrackExposure(symbol);
+  return null;
+}
+
+/**
+ * Word-grouped fragment (post-kana-phase bare mode): ONE ruby spanning the
+ * whole word with its authored romaji rendered once — "gakusei" over
+ * がくせい instead of per-glyph "ga ku se i". Visually equivalent to the
+ * segments-mode `KanaSegment`, but wired into mastery tracking and the
+ * per-script fade like `SymbolToken`.
+ */
+function WordToken({
+  word,
+  romaji,
+  symbols,
+  forceShowHelper,
+  hideHelper,
+}: {
+  word: string;
+  romaji: string;
+  symbols: string[];
+  forceShowHelper?: boolean;
+  hideHelper?: boolean;
+}) {
+  const scripts: KanaScript[] = [];
+  if (Array.from(word).some((ch) => isKatakana(ch))) scripts.push("katakana");
+  if (Array.from(word).some((ch) => isKana(ch) && !isKatakana(ch))) {
+    scripts.push("hiragana");
+  }
+  const helperVisible = useRomajiHelperVisible({
+    scripts: scripts.length > 0 ? scripts : ["hiragana"],
+    forceShowHelper,
+    hideHelper,
+  });
+  return (
+    <>
+      {symbols.map((s, i) => (
+        <TrackExposure key={i} symbol={s} />
+      ))}
+      <ruby data-word-romaji="true">
+        {word}
+        <rt
+          className="kana-helper"
+          data-visible={helperVisible ? "true" : "false"}
+          aria-hidden={!helperVisible}
+        >
+          {helperVisible ? romaji : "​"}
+        </rt>
+      </ruby>
+    </>
+  );
+}
+
 function SymbolToken({
   symbol,
   symbolId,
@@ -262,17 +371,11 @@ function SymbolToken({
   hideHelper?: boolean;
 }) {
   useTrackExposure(symbol);
-  const masteryVisible = useSymbolHelperVisible(symbol);
-  // Global "show romaji" setting (default ON until either: user turns
-  // it off, learner reaches M15, or alphabet trainer marks the script
-  // mastered). When ON, every kana on every surface shows its romaji
-  // helper. When OFF, falls back to per-kana mastery visibility +
-  // any caller's `forceShowHelper` override.
-  // `hideHelper` is a hard OFF that wins over everything (answer-giveaway
-  // surfaces like character-build tile banks).
-  const globalShowRomaji = useSettings().settings.learning.showRomaji ?? true;
-  const helperVisible =
-    !hideHelper && (globalShowRomaji || forceShowHelper || masteryVisible);
+  const helperVisible = useRomajiHelperVisible({
+    scripts: [isKatakana(symbol) ? "katakana" : "hiragana"],
+    forceShowHelper,
+    hideHelper,
+  });
   return (
     <ruby data-role={role} data-symbol-id={symbolId}>
       {symbol}

@@ -67,6 +67,7 @@ const M8_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_KONO_SONO = grammarRule({
   id: "ja-m8-rule-kono-sono",
+  grammarPointId: "kono-sono-ano-dono",
   title: "この / その / あの / どの — pointing at nouns",
   rule:
     "You already know これ/それ/あれ/どれ (standalone pointers). When you point at a specific NOUN, swap to この/その/あの/どの + noun. これ = 'this one' (standalone) → この + noun = 'this [noun].'",
@@ -99,6 +100,7 @@ const RULE_KONO_SONO = grammarRule({
 
 const RULE_I_ADJ = grammarRule({
   id: "ja-m8-rule-i-adj",
+  grammarPointId: "i-adj-present",
   title: "い-adjective conjugation",
   rule:
     "い-adjectives end in い and conjugate by replacing that い. Present affirmative: adjective + です (たかいです = 'is expensive'). Present negative: drop い, add くない (たかい → たかくない → たかくないです). Exception: いい ('good') → negative is よくない (not いくない).",
@@ -129,6 +131,7 @@ const RULE_I_ADJ = grammarRule({
 
 const RULE_TO = grammarRule({
   id: "ja-m8-rule-to",
+  grammarPointId: "to-and",
   title: "と — and / with (noun connector)",
   rule:
     "と connects two nouns: A と B = 'A and B.' Unlike English 'and,' と only links nouns — you can't use it to connect sentences or adjectives.",
@@ -253,6 +256,14 @@ export const M8_1_1: LessonContent = {
       "この はなは やすいです",
       ["やすい", "この", "は", "たかい", "はな", "です", "その"],
       ["この", "はな", "は", "やすい", "です"],
+    ),
+    // ── Katakana interleave (rollout M8 ハ row → バス is now base-readable).
+    //    Same adjective pattern on a fresh, readable noun. ──
+    speaking(
+      "ja-m8-1-1-speak-basu-yasui",
+      "バスは やすいです",
+      "The bus is cheap.",
+      ["バス"],
     ),
     listeningBuildSentence({
       id: "ja-m8-1-1-lb-chiisai",
@@ -529,6 +540,16 @@ export const M8_2_1: LessonContent = {
       ["おいしい"],
     ),
     speaking("ja-m8-2-1-speak-oishii", "おいしい", "Delicious"),
+    // ── Katakana interleave (rollout M8 ハ row → コーヒー finally fully
+    //    readable). い-adjective + the module's own adjective theme. ──
+    listeningBuildSentence({
+      id: "ja-m8-2-1-lb-koohii-oishii",
+      target: "コーヒーは おいしいです",
+      tiles: ["コーヒー", "は", "おいしい", "です", "まずい"],
+      correctOrder: ["コーヒー", "は", "おいしい", "です"],
+      promptEn: "Hear it, build it: 'The coffee is delicious.'",
+      exercisedAtomKanas: ["コーヒー"],
+    }),
     // ── まずい (bad-tasting) ──
     build(
       "ja-m8-2-1-build-mazui",

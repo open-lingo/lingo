@@ -1,12 +1,14 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import {
   ATOMS_UNLOCKED_EVENT,
+  devUnlockAtomsForLessons,
   getUnlockedAtomIds,
   isAtomUnlocked,
   mergeServerUnlockedAtomIds,
   unlockAtomIds,
   type AtomsUnlockedDetail,
 } from "./unlockLessonAtoms";
+import { JA_COURSE_ATOMS } from "@/features/languages/ja/courseAtoms";
 
 const STORAGE_KEY = "lingo:unlocked-atoms";
 
@@ -88,6 +90,24 @@ describe("unlock atom server-backup channel", () => {
       mergeServerUnlockedAtomIds(["ja:a"]);
 
       window.removeEventListener(ATOMS_UNLOCKED_EVENT, handler);
+      expect(handler).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("devUnlockAtomsForLessons — dev-panel simulation", () => {
+    it("unlocks the lessons' atoms locally WITHOUT the server-push event", () => {
+      // Any statically-attributed atom guarantees lesson→atom membership.
+      const atom = JA_COURSE_ATOMS.find((a) => a.introducedByLessonId);
+      expect(atom).toBeDefined();
+
+      const handler = vi.fn();
+      window.addEventListener(ATOMS_UNLOCKED_EVENT, handler);
+
+      const added = devUnlockAtomsForLessons([atom!.introducedByLessonId!]);
+
+      window.removeEventListener(ATOMS_UNLOCKED_EVENT, handler);
+      expect(added).toBeGreaterThanOrEqual(1);
+      expect(isAtomUnlocked(atom!.id)).toBe(true);
       expect(handler).not.toHaveBeenCalled();
     });
   });

@@ -8,10 +8,15 @@
  * sentence — but sourced from sentences the course already authored, so we
  * never drill a wrong form.
  *
- * Descriptive-token points (verb-form "じしょけい", adjective-form, counters)
- * have no clean literal to cloze; they're scheduled by `grammarSrs` but get
- * no auto-generated step here (logged via `getUncoveredGrammarPoints`) —
- * authored review items / the Conjugation Trainer (§10) cover them later.
+ * Descriptive points that ENCODE a mechanical transformation the curriculum
+ * already teaches — verb conjugation (じしょけい ↔ ます) and the 人 counter —
+ * ARE covered here, by regenerating that same known-correct transformation as
+ * a `sentenceMcq` (see `buildDescriptiveGrammarSteps`): a reused step type, a
+ * never-wrong form, drawing only on vocab introduced by the point's module.
+ * Points with neither a literal token nor a mechanical transform (adjective
+ * forms, demonstrative sets) stay uncovered (logged via
+ * `getUncoveredGrammarPoints`) — authored review items / the Conjugation
+ * Trainer (§10) cover them later.
  */
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockLessonContent } from "./mockLessons";
@@ -19,24 +24,156 @@ import type { LessonStep } from "../types";
 import grammarPointsJson from "./n5-grammar-points.json";
 import type { GrammarPoint } from "@/features/flashcards/engine/grammarSrs";
 import { JA_COURSE_ATOMS, isSrsEligibleAtom } from "@/features/languages/ja/courseAtoms";
+import { sentenceMcq } from "@/features/languages/ja/grammarHelpers";
 
 const GRAMMAR_POINTS = grammarPointsJson as GrammarPoint[];
 
 let index: Map<string, LessonStep[]> | null = null;
 
-/** Literal single-token grammar points (particles/markers/copula) → point id.
- *  Skips descriptive points ("じしょけい") and multi-token ones ("これ/それ/…"). */
-function buildTokenToPointId(): Map<string, string> {
-  const m = new Map<string, string>();
+/**
+ * Harvest attribution window (2026-07-06 mis-attribution fix). A literal
+ * token belongs to its point only NEAR the point's own module: the registry
+ * spells several LATER grammar senses with the same token (から: origin m5 /
+ * time m13 / because m13 / てから m16; に: location m6 / time m12 / purpose
+ * m25 / になる m27; が, と, います likewise), but those later senses are
+ * non-literal-token points (their `point` carries 〜 or /), so token-matching
+ * used to dump EVERY occurrence — all modules, all senses — into the one
+ * literal point's pool (audit: kara-origin held てから "after doing X"
+ * sentences; imasu's pool was 100% て-います progressive). A cloze is now
+ * attributed only when its source LESSON's module (from the course map — the
+ * m1-id-prefix landmine forbids parsing lesson ids) sits in
+ * [point.module, point.module + HARVEST_WINDOW_MODULES]: the intro module
+ * plus the horizon the curriculum actually re-drills a fresh particle in.
+ * Sentences outside the window are simply dropped — the later senses all have
+ * authored pools (`AUTHORED_GRAMMAR_POOLS`), so nothing needs re-attribution,
+ * and below-window occurrences (e.g. m4 が clozes predating ga-existence m6)
+ * were intro-before-review violations to begin with.
+ */
+const HARVEST_WINDOW_MODULES = 2;
+
+/** Literal single-token grammar points (particles/markers/copula) → point.
+ *  Skips descriptive points ("じしょけい") and multi-token ones ("これ/それ/…").
+ *  No two shipped points share a literal token (verified 2026-07-06) — later
+ *  same-token senses are all non-literal — so first-wins never fires. */
+function buildTokenToPoint(): Map<string, GrammarPoint> {
+  const m = new Map<string, GrammarPoint>();
   for (const p of GRAMMAR_POINTS) {
     if (p.status !== "shipped") continue;
     const tok = p.point;
     if (!tok || tok.includes("/") || tok.includes("〜") || Array.from(tok).length > 5) {
       continue;
     }
-    if (!m.has(tok)) m.set(tok, p.id);
+    if (!m.has(tok)) m.set(tok, p);
   }
   return m;
+}
+
+function moduleNum(m: string): number {
+  const x = /^m(\d+)$/.exec(m);
+  return x ? Number(x[1]) : NaN;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+ * Non-particle grammar review (verb conjugation + counters)
+ *
+ * These points have no literal token to cloze, but the curriculum DOES author
+ * the transformation itself (M7-2 dict↔ます, M5-4 people-counter). We
+ * regenerate that same, known-correct transformation as a `sentenceMcq` — an
+ * existing step type, never a fabricated/wrong form — so they enter Track B
+ * review through the identical builder path the particle clozes use. Every
+ * form referenced is introduced by the point's own module (see the atom
+ * registry: dict forms + counters are M5/M7 atoms), so the intro-before-review
+ * invariant holds inside the ja-mN-review lessons.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+// M7 dictionary/polite verb pairs — every dict form is introduced in M7-1,
+// every ます form in M7-2, so both are known by the M7 review lesson.
+const VERB_FORM_PAIRS: ReadonlyArray<{ dict: string; masu: string; en: string }> = [
+  { dict: "のむ", masu: "のみます", en: "drink" },
+  { dict: "たべる", masu: "たべます", en: "eat" },
+  { dict: "みる", masu: "みます", en: "watch" },
+  { dict: "よむ", masu: "よみます", en: "read" },
+  { dict: "かく", masu: "かきます", en: "write" },
+  { dict: "いく", masu: "いきます", en: "go" },
+];
+
+// M5 人-counter. ひとり/ふたり are native-reading irregulars; from 3 the Sino
+// number + にん pattern applies. All introduced in M5-4. `wrongNum` = the bare
+// Sino number, `wrongThing` = the generic object counter — the two authored
+// confusions (M5-4-1 distractors に / ふたつ).
+const PEOPLE_COUNTERS: ReadonlyArray<{
+  kana: string;
+  en: string;
+  wrongNum: string;
+  wrongThing: string;
+}> = [
+  { kana: "ふたり", en: "2 people", wrongNum: "に", wrongThing: "ふたつ" },
+  { kana: "ひとり", en: "1 person", wrongNum: "いち", wrongThing: "ひとつ" },
+  { kana: "さんにん", en: "3 people", wrongNum: "さん", wrongThing: "みっつ" },
+];
+
+/** dict → ます (produce the polite form). */
+function verbMasuSteps(): LessonStep[] {
+  return VERB_FORM_PAIRS.map(({ dict, masu, en }, i) =>
+    sentenceMcq({
+      id: `ja-grev-masu-${i}`,
+      prompt: `What is the polite (ます) form of ${dict} (to ${en})?`,
+      correctKana: masu,
+      distractorsKana: [
+        `${dict}ます`, // naive-append error
+        dict, // unconjugated plain form
+        VERB_FORM_PAIRS[(i + 1) % VERB_FORM_PAIRS.length].masu, // another verb's ます
+      ],
+      explanation: `${dict} → ${masu}. Change the verb ending to its ます-form; never just append ます to the dictionary form.`,
+      exercisedAtomKanas: [masu],
+    }),
+  );
+}
+
+/** ます → dict (recall the citation form). */
+function verbDictSteps(): LessonStep[] {
+  return VERB_FORM_PAIRS.map(({ dict, masu, en }, i) =>
+    sentenceMcq({
+      id: `ja-grev-dict-${i}`,
+      prompt: `What is the dictionary (plain) form of ${masu} (to ${en})?`,
+      correctKana: dict,
+      distractorsKana: [
+        masu, // the polite form itself
+        VERB_FORM_PAIRS[(i + 1) % VERB_FORM_PAIRS.length].dict, // another verb's plain form
+        VERB_FORM_PAIRS[(i + 2) % VERB_FORM_PAIRS.length].dict, // …and another
+      ],
+      explanation: `${masu} → ${dict}. The dictionary form is the -u ending citation form you'd look up.`,
+      exercisedAtomKanas: [dict],
+    }),
+  );
+}
+
+/** number → 人-counter reading (ひとり / ふたり / …にん). */
+function counterNinSteps(): LessonStep[] {
+  return PEOPLE_COUNTERS.map(({ kana, en, wrongNum, wrongThing }, i) =>
+    sentenceMcq({
+      id: `ja-grev-nin-${i}`,
+      prompt: `Which word counts '${en}'?`,
+      correctKana: kana,
+      distractorsKana: [
+        wrongNum, // bare Sino number
+        wrongThing, // generic object counter
+        PEOPLE_COUNTERS[(i + 1) % PEOPLE_COUNTERS.length].kana, // another people-count
+      ],
+      explanation: `${kana} = ${en}. The 人 counter uses native ひとり/ふたり for 1–2, then Sino number + にん.`,
+      exercisedAtomKanas: [kana],
+    }),
+  );
+}
+
+/** grammar-point id → synthesized transformation review steps. Merged into
+ *  the particle-cloze index by `getGrammarReviewIndex` (shipped points only). */
+function buildDescriptiveGrammarSteps(): Map<string, LessonStep[]> {
+  return new Map<string, LessonStep[]>([
+    ["masu-present", verbMasuSteps()],
+    ["dictionary-form", verbDictSteps()],
+    ["counter-nin", counterNinSteps()],
+  ]);
 }
 
 /** point id → authored particle_cloze steps that drill it. Memoized; walks
@@ -44,10 +181,11 @@ function buildTokenToPointId(): Map<string, string> {
  *  this is imported by the review builder). */
 export function getGrammarReviewIndex(): Map<string, LessonStep[]> {
   if (index) return index;
-  const tokenToPoint = buildTokenToPointId();
+  const tokenToPoint = buildTokenToPoint();
   const out = new Map<string, LessonStep[]>();
   const course = getMockCourse("ja");
   for (const mod of course.modules) {
+    const srcModule = moduleNum(mod.id);
     for (const l of mod.lessons) {
       if (/-review-[12]$/.test(l.id)) continue; // avoid recursion; reviews aren't sources
       const lesson = getMockLessonContent(l.id);
@@ -55,13 +193,35 @@ export function getGrammarReviewIndex(): Map<string, LessonStep[]> {
       for (const step of lesson.steps) {
         if (step.type !== "particle_cloze") continue;
         const cp = (step as unknown as { correctParticle?: string }).correctParticle;
-        const pid = cp ? tokenToPoint.get(cp) : undefined;
-        if (!pid) continue;
-        const list = out.get(pid) ?? [];
+        const point = cp ? tokenToPoint.get(cp) : undefined;
+        if (!point) continue;
+        // Attribution window — see HARVEST_WINDOW_MODULES above.
+        const pointModule = moduleNum(point.module);
+        if (
+          Number.isNaN(srcModule) ||
+          Number.isNaN(pointModule) ||
+          srcModule < pointModule ||
+          srcModule > pointModule + HARVEST_WINDOW_MODULES
+        ) {
+          continue;
+        }
+        const list = out.get(point.id) ?? [];
         list.push(step);
-        out.set(pid, list);
+        out.set(point.id, list);
       }
     }
+  }
+  // Merge synthesized transformation steps for non-particle points (verb
+  // conjugation + counters). Shipped-gated so a point can't surface a review
+  // before its module is authored.
+  const shipped = new Set(
+    GRAMMAR_POINTS.filter((p) => p.status === "shipped").map((p) => p.id),
+  );
+  for (const [pid, steps] of buildDescriptiveGrammarSteps()) {
+    if (!shipped.has(pid) || steps.length === 0) continue;
+    const list = out.get(pid) ?? [];
+    list.push(...steps);
+    out.set(pid, list);
   }
   index = out;
   return out;

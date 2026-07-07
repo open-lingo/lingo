@@ -85,6 +85,7 @@ const M11_REVIEW_M7_POOL = withoutMcqBlocked(
 
 const RULE_MASEN = grammarRule({
   id: "ja-m11-1-1-rule-masen",
+  grammarPointId: "masu-negative",
   title: "ません — polite negative present",
   rule:
     "To negate a ます-form verb, replace ます with ません. This is the polite present-tense negative: 'I don't [verb].'",
@@ -117,6 +118,7 @@ const RULE_MASEN = grammarRule({
 
 const RULE_MASEN_DESHITA = grammarRule({
   id: "ja-m11-2-1-rule-masen-deshita",
+  grammarPointId: "masu-past-negative",
   title: "ませんでした — polite negative past",
   rule:
     "To say 'didn't [verb]' in polite form, replace ます with ませんでした. This is the polite past-tense negative.",
@@ -171,6 +173,7 @@ const RULE_AMARI_ZENZEN = grammarRule({
 
 const RULE_NAI_FORM = grammarRule({
   id: "ja-m11-4-1-rule-nai",
+  grammarPointId: "nai-form",
   title: "ない-form — plain negative",
   rule:
     "The ない-form is the casual/plain negative. Rules: (1) Ichidan (ru-verbs): drop る, add ない → たべる→たべない. (2) Godan (u-verbs): change the u-row kana to its a-row counterpart, add ない → のむ→のまない, いく→いかない. (3) Irregular: する→しない, くる→こない. (4) Special: ある→ない (NOT あらない).",
@@ -203,6 +206,7 @@ const RULE_NAI_FORM = grammarRule({
 
 const RULE_MADA_MOU = grammarRule({
   id: "ja-m11-5-1-rule-mada-mou",
+  grammarPointId: "mada-mou",
   title: "まだ (still / not yet) + もう (already)",
   rule:
     "まだ means 'still' or 'not yet' — it pairs with negative verbs to express 'haven't done yet.' もう means 'already' — it pairs with past-tense verbs to express 'already did.' When answering もう questions negatively, say まだです (not yet).",
@@ -1781,6 +1785,16 @@ export const M11_5_1: LessonContent = {
       "もう たべました。",
       "もう + past affirmative = 'already did.'",
     ),
+    // ── Katakana interleave (rollout M11 ラ row → ビール is now
+    //    base-readable). まだ + negative with a real object. ──
+    build(
+      "ja-m11-5-1-build-mada-biiru",
+      "Say: I haven't drunk the beer yet.",
+      "まだ ビールを のんでいません",
+      ["まだ", "ビール", "を", "のんでいません", "もう"],
+      ["まだ", "ビール", "を", "のんでいません"],
+      ["ビール"],
+    ),
     listeningBuildSentence({
       id: "ja-m11-5-1-lb-1",
       target: "まだ のんでいません",
@@ -2178,6 +2192,16 @@ export const M11_6_1: LessonContent = {
       "まいとし にほんに いきます。",
       "まいとし = every year. The least frequent まい-word.",
     ),
+    // ── Katakana interleave (rollout M11 ラ row → テレビ is now
+    //    base-readable). Frequency word + readable loanword object. ──
+    build(
+      "ja-m11-6-1-build-terebi",
+      "Say: I watch TV every day.",
+      "まいにち テレビを みます",
+      ["まいにち", "テレビ", "を", "みます", "みません"],
+      ["まいにち", "テレビ", "を", "みます"],
+      ["テレビ"],
+    ),
     listeningBuildSentence({
       id: "ja-m11-6-1-lb-1",
       target: "まいにち しんぶんを よみます",
@@ -2211,6 +2235,16 @@ export const M11_6_1: LessonContent = {
         M11_6_1_REVIEW[3].meaningEn,
         M11_REVIEW_M6_POOL[0].meaningEn,
       ],
+    }),
+    // ── Katakana interleave (rollout M11 ラ row → ホテル + トイレ both
+    //    readable). M6 existence grammar as a review beat. ──
+    listeningBuildSentence({
+      id: "ja-m11-6-1-lb-hoteru",
+      target: "ホテルに トイレが あります",
+      tiles: ["ホテル", "に", "トイレ", "が", "あります", "います"],
+      correctOrder: ["ホテル", "に", "トイレ", "が", "あります"],
+      promptEn: "Hear it, build it: 'There's a toilet in the hotel.'",
+      exercisedAtomKanas: ["ホテル", "トイレ"],
     }),
     vocabMcq("ja-m11-6-1-rev-mcq-1", M11_6_1_REVIEW[2], M11_REVIEW_M6_POOL),
     reviewMatchPairs("ja-m11-6-1-rev", M11_6_1_REVIEW),

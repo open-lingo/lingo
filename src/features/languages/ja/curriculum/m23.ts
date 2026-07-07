@@ -115,6 +115,7 @@ const RULE_JOUZU = grammarRule({
 
 const RULE_MASHOU = grammarRule({
   id: "ja-m23-rule-mashou",
+  grammarPointId: "mashou",
   title: "〜ましょう — let's do",
   rule:
     "To suggest doing something together, replace ます with ましょう: いきます → いきましょう (let's go). This is a direct suggestion — the speaker assumes the listener will join.",
@@ -147,6 +148,7 @@ const RULE_MASHOU = grammarRule({
 
 const RULE_MASENKA = grammarRule({
   id: "ja-m23-rule-masenka",
+  grammarPointId: "masenka",
   title: "〜ませんか — shall we? / won't you?",
   rule:
     "To make a polite invitation, replace ます with ませんか: いきます → いきませんか (won't you go? / shall we go?). Softer than ましょう — it gives the listener room to decline.",

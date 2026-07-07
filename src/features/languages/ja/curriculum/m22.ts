@@ -79,6 +79,7 @@ const M22_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_HOU_GA_YORI = grammarRule({
   id: "ja-m22-rule-hou-ga-yori",
+  grammarPointId: "yori-comparison",
   title: "〜のほうが〜より — A is more than B",
   rule:
     "To compare two things, use: Aのほうが Bより [adjective]です. A is the 'winner' — the one that IS more [adj]. B is the baseline. Literally: 'the side of A, compared to B, is [adj].'",
@@ -111,6 +112,7 @@ const RULE_HOU_GA_YORI = grammarRule({
 
 const RULE_NAKA_DE_ICHIBAN = grammarRule({
   id: "ja-m22-rule-naka-de-ichiban",
+  grammarPointId: "ichiban-superlative",
   title: "〜のなかで〜がいちばん — most among",
   rule:
     "To express the superlative ('most/best among a group'), use: [group]のなかで [item]がいちばん [adjective]です. The group is the comparison set; いちばん means 'number one / most.'",

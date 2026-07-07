@@ -87,6 +87,21 @@ export function unlockLessonAtoms(lessonId: string): number {
 }
 
 /**
+ * Dev-panel simulation path: unlock the atoms of the given lessons locally
+ * WITHOUT the `ATOMS_UNLOCKED_EVENT` server-push (simulated unlocks must not
+ * pollute the account's server backup). Everything atom-derived — course
+ * deck, grammar review queue, reached modules — follows real completion the
+ * same way it would for a genuine learner. Returns newly-unlocked count.
+ */
+export function devUnlockAtomsForLessons(lessonIds: Iterable<string>): number {
+  const ids: string[] = [];
+  for (const lessonId of lessonIds) {
+    for (const atom of getAtomsForLesson(lessonId)) ids.push(atom.id);
+  }
+  return mergeServerUnlockedAtomIds(ids);
+}
+
+/**
  * Unlock atoms by id directly. Used by placement/test-out seeding
  * (2026-06-12): passed modules seed SRS state per `fromModule`, and those
  * same atoms must be unlocked or review lessons will skip them.

@@ -576,6 +576,7 @@ const M5_3_1_REVIEW = pickReviewAtoms("ja-m5-3-1-rev", PRIOR_POOL, 4);
 
 const RULE_KUDASAI = grammarRule({
   id: "ja-m5-3-1-rule-kudasai",
+  grammarPointId: "kudasai",
   title: "ください — 'please give me / I'll have'",
   rule:
     "ください comes at the END of a request after the thing you want. Pattern: [item] ください. Add a quantity in front for orders: [item] [number] ください — 'X of these, please.' Politer than the dictionary form, polite enough for shops, restaurants, taxis, anywhere.",
@@ -1227,6 +1228,16 @@ export const M5_5_1: LessonContent = {
       correctMeaningEn: "yen",
       distractorsEn: ["money", "how much", "from"],
     }),
+    // ── Katakana interleave (rollout M5 サ row → ジュース is now fully
+    //    base-readable). Order a juice with ください, then price it. ──
+    build(
+      "ja-m5-5-1-build-juice-kudasai",
+      "Juice, please.",
+      "ジュース ください",
+      ["ジュース", "ください", "コーヒー", "おちゃ"],
+      ["ジュース", "ください"],
+      ["ジュース"],
+    ),
     // Cloze — price question discrimination
     cloze(
       "ja-m5-5-1-cloze-1",
@@ -1248,6 +1259,17 @@ export const M5_5_1: LessonContent = {
         "いくら これは ですか。",
       ],
       explanation: "いくら = how much. Word order: topic は + question word + ですか.",
+    }),
+    // NOTE: the detached "は" spacing is deliberate — atom-coverage.test.ts
+    // strips the long-vowel mark ー when tokenizing, so an attached
+    // "ジュースは" would mint a junk "スは" atom. Keep the space.
+    listeningBuildSentence({
+      id: "ja-m5-5-1-lb-juice-price",
+      target: "ジュース は いくら ですか",
+      tiles: ["ジュース", "は", "いくら", "です", "か", "おかね"],
+      correctOrder: ["ジュース", "は", "いくら", "です", "か"],
+      promptEn: "Hear it, build it: 'How much is the juice?'",
+      exercisedAtomKanas: ["ジュース"],
     }),
     build(
       "ja-m5-5-1-build-price2",
@@ -1587,6 +1609,7 @@ const M5_6_1_REVIEW = pickReviewAtoms("ja-m5-6-1-rev", PRIOR_POOL, 4);
 
 const RULE_KARA = grammarRule({
   id: "ja-m5-6-1-rule-kara",
+  grammarPointId: "kara-origin",
   title: "から — 'from'",
   rule:
     "から marks origin — where someone or something comes FROM. Pattern: [place / time] から. Used for nationality ('I'm from America'), starting times ('open from 9'), and physical origin. Doesn't conflict with は — they stack: '[topic] は [origin] から です.'",

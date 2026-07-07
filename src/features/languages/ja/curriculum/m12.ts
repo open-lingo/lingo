@@ -72,6 +72,7 @@ const M12_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_CLOCK_HOURS = grammarRule({
   id: "ja-m12-rule-clock-hours",
+  grammarPointId: "counter-ji",
   title: "〜じ — telling the hour",
   rule:
     "Attach じ to a number to say the hour. いちじ = 1 o'clock, にじ = 2 o'clock, etc. Watch out for irregulars: よじ (4:00, not よんじ), しちじ (7:00, not ななじ), くじ (9:00, not きゅうじ).",
@@ -104,6 +105,7 @@ const RULE_CLOCK_HOURS = grammarRule({
 
 const RULE_MINUTES = grammarRule({
   id: "ja-m12-rule-minutes",
+  grammarPointId: "counter-fun",
   title: "〜ふん / 〜ぷん — telling minutes",
   rule:
     "Attach ふん or ぷん to a number for minutes. The consonant changes based on the preceding number: いっぷん (1), にふん (2), さんぷん (3), よんぷん (4), ごふん (5), ろっぷん (6), ななふん (7), はっぷん (8), きゅうふん (9), じゅっぷん (10). はん = half past (30 minutes).",
@@ -156,6 +158,7 @@ const RULE_DAYS_OF_WEEK = grammarRule({
 
 const RULE_NI_TIME = grammarRule({
   id: "ja-m12-rule-ni-time",
+  grammarPointId: "ni-time",
   title: "に — time marker particle",
   rule:
     "に marks a specific point in time: Xじに = 'at X o'clock,' Xようびに = 'on [day].' You already know に as a location/direction particle (がっこうに いきます). With time words, に works the same way — it pins the action to a specific moment.",
@@ -188,6 +191,7 @@ const RULE_NI_TIME = grammarRule({
 
 const RULE_NUMBERS_11_99 = grammarRule({
   id: "ja-m12-rule-numbers-11-99",
+  grammarPointId: "numbers-11-99",
   title: "Numbers 11-99 — compound counting",
   rule:
     "Numbers 11-99 combine the tens digit + ones digit: じゅういち (11), にじゅう (20), にじゅうさん (23), さんじゅう (30), etc. The tens multiplier uses the same number + じゅう: にじゅう = 2×10 = 20, さんじゅう = 3×10 = 30.",
@@ -1556,6 +1560,16 @@ export const M12_5_1: LessonContent = {
       "はちじに がっこうに いきます。",
       "に marks the time (at 8). The second に marks the destination (school).",
     ),
+    // ── Katakana interleave (rollout M12 ワ row → base set complete;
+    //    レストラン is finally fully readable). Time に + destination に. ──
+    build(
+      "ja-m12-5-1-build-resutoran",
+      "Say: I go to the restaurant at 7.",
+      "しちじに レストランに いきます",
+      ["しちじ", "に", "レストラン", "に", "いきます", "で"],
+      ["しちじ", "に", "レストラン", "に", "いきます"],
+      ["レストラン"],
+    ),
     listeningBuildSentence({
       id: "ja-m12-5-1-lb-rokuji-ni",
       target: "ろくじに おきます",
@@ -2381,6 +2395,16 @@ export const M12_7_1: LessonContent = {
         "I'll meet at 12 on Saturday.",
       ],
     }),
+    // ── Katakana interleave (rollout M12 ワ row → base set complete:
+    //    レストラン and ラーメン both fully readable at last). ──
+    listeningBuildSentence({
+      id: "ja-m12-7-1-lb-resutoran-ramen",
+      target: "ひる レストランで ラーメンを たべます",
+      tiles: ["ひる", "レストラン", "で", "ラーメン", "を", "たべます", "に"],
+      correctOrder: ["ひる", "レストラン", "で", "ラーメン", "を", "たべます"],
+      promptEn: "Hear it, build it: 'At noon I eat ramen at the restaurant.'",
+      exercisedAtomKanas: ["レストラン", "ラーメン"],
+    }),
     cloze(
       "ja-m12-7-1-cloze-ni-2",
       "あさって しちじ",
@@ -2409,6 +2433,14 @@ export const M12_7_1: LessonContent = {
       ],
       explanation: "あした doesn't take に (relative time word). はちじ takes に (specific clock time).",
     }),
+    // ── Katakana interleave — morning routine with コンビニ + パン
+    //    (both readable now that ン landed with the ワ row). ──
+    speaking(
+      "ja-m12-7-1-speak-konbini-pan",
+      "あさ コンビニで パンを たべます",
+      "In the morning I eat bread at the convenience store.",
+      ["コンビニ", "パン"],
+    ),
     selfExplain({
       id: "ja-m12-7-1-self-explain",
       anchorLabel: "You used: きんようびに ごじに かえります",

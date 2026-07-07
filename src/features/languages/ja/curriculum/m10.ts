@@ -85,6 +85,7 @@ const M10_REVIEW_M7_POOL = withoutMcqBlocked(
 
 const RULE_MASHITA = grammarRule({
   id: "ja-m10-1-1-rule-mashita",
+  grammarPointId: "masu-past",
   title: "ました — polite past tense for verbs",
   rule:
     "To say you DID something (past), swap ます → ました. That's it — no sound changes, no exceptions. たべます → たべました (ate). のみます → のみました (drank). ません → ませんでした for the negative past (didn't).",
@@ -845,6 +846,7 @@ assertNoConsecutiveSame(M10_2_2.steps);
 
 const RULE_DESHITA = grammarRule({
   id: "ja-m10-3-1-rule-deshita",
+  grammarPointId: "desu-past",
   title: "でした / じゃなかったです — past copula",
   rule:
     "です → でした (was). じゃないです → じゃなかったです (wasn't). Use these to say what something WAS or WASN'T. Same slot as です — sentence-final copula, just past tense.",
@@ -1217,6 +1219,7 @@ assertNoConsecutiveSame(M10_3_2.steps);
 
 const RULE_I_ADJ_PAST = grammarRule({
   id: "ja-m10-4-1-rule-i-adj-past",
+  grammarPointId: "i-adj-past",
   title: "い-adjective past tense",
   rule:
     "Drop the final い, add かった (was) or くなかった (wasn't). たかい → たかかった (was expensive) / たかくなかった (wasn't expensive). Add です at the end to keep it polite: たかかったです / たかくなかったです. EXCEPTION: いい → よかった (not いかった) — the same よ- root as the negative いい → よくない.",
@@ -1601,6 +1604,7 @@ assertNoConsecutiveSame(M10_4_2.steps);
 
 const RULE_NA_ADJ_PAST = grammarRule({
   id: "ja-m10-5-1-rule-na-adj-past",
+  grammarPointId: "na-adj-past",
   title: "な-adjective past tense",
   rule:
     "な-adjectives use the SAME past forms as nouns: stem + でした (was pretty) / stem + じゃなかったです (wasn't pretty). Because な-adjectives behave like nouns for conjugation, they never change their own form — only the copula after them changes. Contrast with い-adjectives which conjugate internally.",

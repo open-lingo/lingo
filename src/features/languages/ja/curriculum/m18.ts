@@ -76,6 +76,7 @@ const M18_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_DESHOU = grammarRule({
   id: "ja-m18-rule-deshou",
+  grammarPointId: "deshou",
   title: "でしょう — probably / I expect",
   rule:
     "でしょう expresses probability or an educated guess. Attach it after a plain form (adjective, noun, or verb): あめでしょう = 'it will probably rain.' With a rising tone (でしょう？) it seeks confirmation: 'right?'",
@@ -108,6 +109,7 @@ const RULE_DESHOU = grammarRule({
 
 const RULE_TO_OMOIMASU = grammarRule({
   id: "ja-m18-rule-to-omoimasu",
+  grammarPointId: "to-omoimasu",
   title: "〜とおもいます — I think that…",
   rule:
     "To express your opinion, put the plain form before と おもいます: あめだと おもいます = 'I think it will rain.' For い-adjectives, the plain form goes directly: さむいと おもいます. For nouns/な-adj, add だ: あめだと おもいます.",

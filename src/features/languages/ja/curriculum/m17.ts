@@ -110,6 +110,7 @@ const RULE_DE_TRANSPORT = grammarRule({
 
 const RULE_NI_DESTINATION = grammarRule({
   id: "ja-m17-rule-ni-destination",
+  grammarPointId: "ni-location",
   title: "に — destination (arriving at a specific place)",
   rule:
     "に marks the exact destination you arrive at: えきに いきます = 'I go to the station.' You already know に for location (いすに すわる) and time (さんじに). Now に also marks the point you reach.",
@@ -142,6 +143,7 @@ const RULE_NI_DESTINATION = grammarRule({
 
 const RULE_E_DIRECTION = grammarRule({
   id: "ja-m17-rule-e-direction",
+  grammarPointId: "e-direction",
   title: "へ — direction (toward a place)",
   rule:
     "へ (pronounced え) marks the direction of movement — softer and vaguer than に. くうこうへ いきます = 'I head toward the airport.' に and へ are often interchangeable with motion verbs, but へ emphasizes the journey, に the arrival.",
@@ -174,6 +176,7 @@ const RULE_E_DIRECTION = grammarRule({
 
 const RULE_MADE_NI = grammarRule({
   id: "ja-m17-rule-made-ni",
+  grammarPointId: "made-ni",
   title: "〜までに — by (deadline)",
   rule:
     "までに means 'by (a deadline)' — the action must be completed before that time. ごじまでに = 'by 5 o'clock.' Compare: まで = 'until' (duration), までに = 'by' (deadline).",
@@ -204,6 +207,7 @@ const RULE_MADE_NI = grammarRule({
 
 const RULE_MAE_NI = grammarRule({
   id: "ja-m17-rule-mae-ni",
+  grammarPointId: "mae-ni",
   title: "まえに — before",
   rule:
     "noun + の + まえに = 'before [noun].' Verb dictionary form + まえに = 'before doing.' Place まえに right before the main clause.",

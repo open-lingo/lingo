@@ -70,6 +70,7 @@ const M26_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_N_DESU = grammarRule({
   id: "ja-m26-rule-n-desu",
+  grammarPointId: "n-desu",
   title: "〜んです — explanatory tone (giving/seeking reasons)",
   rule:
     "んです (casual: んだ) adds an explanatory or emotional tone. It signals 'the reason is…' or 'the thing is…' Before んです: verbs/い-adjectives use plain form; な-adjectives add な; nouns add な. For questions: どうしたんですか = 'What happened?' (asking for explanation).",
@@ -102,6 +103,7 @@ const RULE_N_DESU = grammarRule({
 
 const RULE_SUGIRU = grammarRule({
   id: "ja-m26-rule-sugiru",
+  grammarPointId: "sugiru",
   title: "〜すぎる — too much / excessively",
   rule:
     "To express 'too much' or 'excessively,' add すぎる to the verb stem or adjective stem. Verbs: ます-stem + すぎる (たべ + すぎる = たべすぎる). い-adjectives: drop い, add すぎる (たかい → たかすぎる). な-adjectives: stem + すぎる (しずか → しずかすぎる). すぎる itself conjugates like a regular る-verb.",

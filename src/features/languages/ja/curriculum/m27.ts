@@ -75,6 +75,7 @@ const M27_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_NAKEREBA = grammarRule({
   id: "ja-m27-rule-nakereba",
+  grammarPointId: "nakereba-naranai",
   title: "〜なければならない / 〜なくちゃ — must do (obligation)",
   rule:
     "To express obligation ('must do'), use ない-form, drop the final い, and add ければならない (formal) or くちゃ (casual). たべる → たべない → たべなければならない (must eat). Casual: たべなくちゃ. Polite endings: なければなりません / なければいけません.",
@@ -107,6 +108,7 @@ const RULE_NAKEREBA = grammarRule({
 
 const RULE_HOU_GA_II = grammarRule({
   id: "ja-m27-rule-hou-ga-ii",
+  grammarPointId: "hou-ga-ii",
   title: "〜ほうがいい — should / better to (advice)",
   rule:
     "To give advice ('you should / it's better to'), use: た-form + ほうがいい (positive advice) or ない-form + ほうがいい (negative advice — 'you'd better not'). The た-form is more common for positive advice.",
@@ -139,6 +141,7 @@ const RULE_HOU_GA_II = grammarRule({
 
 const RULE_KU_NI_NARU = grammarRule({
   id: "ja-m27-rule-ku-ni-naru",
+  grammarPointId: "ku-ni-naru",
   title: "〜く/〜になる — become (change of state)",
   rule:
     "To express becoming or changing state, use なる (become). い-adjectives: drop い, add くなる (たかい → たかくなる = become expensive). な-adjectives / nouns: add になる (げんき → げんきになる = become healthy). なる conjugates normally: なります (polite), なった (past), etc.",

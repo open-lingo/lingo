@@ -352,6 +352,7 @@ assertNoConsecutiveSame(M4_1_2.steps);
 
 const RULE_NO = grammarRule({
   id: "ja-m4-2-1-rule-no",
+  grammarPointId: "no-possession",
   title: "の — the possession particle",
   rule:
     "の sits between two nouns and means 'the [LEFT] kind of [RIGHT].' Most often this maps to English possessive 's (わたしのほん = my book). But the deeper pattern is broader: にほんのくるま = a Japanese car (Japan-kind-of car).",
@@ -788,6 +789,7 @@ export const M4_3_1: LessonContent = {
     // ── も (also/too) — grammar rule + cloze drills ──
     grammarRule({
       id: "ja-m4-3-1-rule-mo",
+      grammarPointId: "mo-also",
       title: "も — also / too",
       rule: "も replaces は when you want to say 'also' or 'too.' It marks the topic as being the same as something mentioned before.",
       examples: [
@@ -1011,6 +1013,7 @@ assertNoConsecutiveSame(M4_3_2.steps);
 
 const RULE_KOSOADO = grammarRule({
   id: "ja-m4-4-1-rule-kosoado",
+  grammarPointId: "kore-sore-are-dore",
   title: "これ / それ / あれ / どれ — the pointer system",
   rule:
     "Four words for 'this/that.' これ = near me. それ = near you. あれ = far from both. どれ = which one (question).",

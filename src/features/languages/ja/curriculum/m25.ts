@@ -79,6 +79,7 @@ const M25_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_TSUMORI = grammarRule({
   id: "ja-m25-rule-tsumori",
+  grammarPointId: "tsumori-desu",
   title: "〜つもりです — intend to / plan to",
   rule:
     "To express an intention or plan, use: dictionary-form verb + つもりです. For the negative ('don't intend to'), use: ない-form + つもりです. つもり communicates a personal decision or intention — stronger than 'maybe,' weaker than a promise.",
@@ -111,6 +112,7 @@ const RULE_TSUMORI = grammarRule({
 
 const RULE_NI_IKU = grammarRule({
   id: "ja-m25-rule-ni-iku",
+  grammarPointId: "ni-iku",
   title: "〜にいく — go to do (purpose of movement)",
   rule:
     "To express the purpose of going somewhere, use: verb-stem (ます-form minus ます) + にいく. This pattern works with いく (go), くる (come), and かえる (return). The に marks the purpose.",
@@ -143,6 +145,7 @@ const RULE_NI_IKU = grammarRule({
 
 const RULE_KOTO_GA_ARU = grammarRule({
   id: "ja-m25-rule-koto-ga-aru",
+  grammarPointId: "koto-ga-aru",
   title: "〜ことがあります — have experienced",
   rule:
     "To say you've had an experience ('I have done X before'), use: た-form + ことがあります. The negative ('I have never done X') is: た-form + ことがありません. This is about lifetime experience, not recent past.",
@@ -175,6 +178,7 @@ const RULE_KOTO_GA_ARU = grammarRule({
 
 const RULE_TOKI = grammarRule({
   id: "ja-m25-rule-toki",
+  grammarPointId: "toki",
   title: "〜とき — when / at the time of",
   rule:
     "とき means 'when' or 'at the time of.' Before とき: verbs use plain form (dictionary or た-form), い-adjectives stay as-is, な-adjectives add な, nouns add の. Dictionary form + とき = 'when I do X.' た-form + とき = 'when I did X / after doing X.'",

@@ -80,6 +80,7 @@ const M13_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_KARA_TIME = grammarRule({
   id: "ja-m13-rule-kara-time",
+  grammarPointId: "kara-time",
   title: "から...まで — from...until (time ranges)",
   rule:
     "から after a time word means 'from (that time).' まで means 'until.' Together: Xから Yまで = 'from X to Y.' You already know から as origin (にほんから). Time-から works the same way — the starting point of a time span.",
@@ -112,6 +113,7 @@ const RULE_KARA_TIME = grammarRule({
 
 const RULE_KARA_BECAUSE = grammarRule({
   id: "ja-m13-rule-kara-because",
+  grammarPointId: "kara-because",
   title: "から — because (reason connector)",
   rule:
     "から after a sentence or noun+だ means 'because / so.' The reason comes FIRST, then から, then the result. With nouns/な-adjectives: 〜だから. With verbs/い-adjectives: plain form + から. At N5 level, we mostly use noun + だから in polite speech.",
@@ -144,6 +146,7 @@ const RULE_KARA_BECAUSE = grammarRule({
 
 const RULE_FREQUENCY = grammarRule({
   id: "ja-m13-rule-frequency",
+  grammarPointId: "frequency-adverbs",
   title: "Frequency spectrum — いつも → よく → ときどき → あまり → ぜんぜん",
   rule:
     "Five frequency adverbs from 'always' to 'never.' いつも (always, ~100%), よく (often, ~70%), ときどき (sometimes, ~40%). IMPORTANT: あまり and ぜんぜん REQUIRE a negative verb. あまり〜ません = not often. ぜんぜん〜ません = not at all.",

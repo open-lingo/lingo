@@ -72,6 +72,7 @@ const M19_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_FAMILY_REGISTER = grammarRule({
   id: "ja-m19-rule-family-register",
+  grammarPointId: "family-register",
   title: "うち vs よそ — Talking about family",
   rule:
     "Japanese has two sets of family words. When talking about YOUR family to outsiders, use humble/plain forms (ちち, はは, あに, あね). When talking about SOMEONE ELSE's family OR addressing your own family members directly, use honorific forms (おとうさん, おかあさん, おにいさん, おねえさん). This is the うち (in-group) vs よそ (out-group) distinction.",
@@ -104,6 +105,7 @@ const RULE_FAMILY_REGISTER = grammarRule({
 
 const RULE_SAI_COUNTER = grammarRule({
   id: "ja-m19-rule-sai-counter",
+  grammarPointId: "counter-sai",
   title: "〜さい / 歳 — counting age",
   rule:
     "To say someone's age, use the number + さい (歳). Most numbers follow regular counting: にさい (2), さんさい (3). Watch for sound changes: いっさい (1), はっさい (8), じゅっさい (10). To ask age: なんさいですか or おいくつですか (polite).",
@@ -136,6 +138,7 @@ const RULE_SAI_COUNTER = grammarRule({
 
 const RULE_NIN_KAZOKU = grammarRule({
   id: "ja-m19-rule-nin-kazoku",
+  grammarPointId: "counter-nin",
   title: "〜にんかぞく — X-person family",
   rule:
     "To describe family size, use number + にんかぞく: ごにんかぞく = 'a family of five.' For asking: なんにんかぞくですか. Remember ひとり (1 person) and ふたり (2 people) use native Japanese numbers; さんにん (3+) use Sino-Japanese.",

@@ -76,6 +76,7 @@ const M24_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_NO_GA_SUKI_REVIEW = grammarRule({
   id: "ja-m24-rule-noga-suki",
+  grammarPointId: "no-ga-suki",
   title: "〜のがすきです — like doing (review)",
   rule:
     "You learned this in M16: to say you like DOING something, nominalize the verb with の and mark it with が: [verb dictionary form] + のが + すき + です. Quick review before we build on it.",
@@ -108,6 +109,7 @@ const RULE_NO_GA_SUKI_REVIEW = grammarRule({
 
 const RULE_TARI_TARI = grammarRule({
   id: "ja-m24-rule-tari-tari",
+  grammarPointId: "tari-tari-suru",
   title: "〜たり〜たりする — doing things like X and Y",
   rule:
     "To list activities non-exhaustively ('I do things like X and Y'), use the た-form + り for each item, then close with する/します: [verb た-form]り [verb た-form]り + します. Unlike と (exhaustive list), たり〜たり implies 'among other things.'",

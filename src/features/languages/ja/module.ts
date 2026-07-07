@@ -46,14 +46,16 @@ import {
 } from "./courseAtoms";
 import * as grammarHelpers from "./grammarHelpers";
 import { WORD_IMAGE_MCQ_BLOCKLIST } from "./grammarHelpers";
+import { jaImportMatch } from "./importMatchKeys";
 import { VERB_ENTRIES, ADJ_ENTRIES } from "./conjugationTables";
 import { COUNTER_DEFS } from "./classifiers";
 import { N5_KANJI } from "./secondScript/n5Kanji";
 import { convertToHiragana } from "./readingAnnotation/kuroshiro";
+import { annotateJapaneseText, isPastKanaPhase } from "./romajiLexicon";
 
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
-import { isKana, tokenizeJapanese, KANA_ROMAJI } from "@/shared/japanese/kanaTable";
+import { isKana, KANA_ROMAJI } from "@/shared/japanese/kanaTable";
 import { lingoArtUrl, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import jaManifest from "../../../pub/tts/manifest.json";
 
@@ -173,18 +175,11 @@ const jaSecondScript: SecondScriptCapability = (() => {
 // ── readingAnnotation (kana-aware tokenizer with romaji helpers) ─────────
 
 const jaReadingAnnotation: ReadingAnnotationCapability = {
-  annotate: (token) => {
-    const tokens = tokenizeJapanese(token);
-    return tokens.map((tok) =>
-      tok.kana
-        ? {
-            text: tok.text,
-            reading: tok.romaji ?? KANA_ROMAJI[tok.text] ?? "",
-            symbolId: `ja:${tok.text}` as `${string}:${string}`,
-          }
-        : { text: tok.text },
-    );
-  },
+  // Past the M1–M2 kana phase, kana spans matching authored words group
+  // into ONE word-level romaji fragment ("gakusei" over がくせい instead of
+  // "ga ku se i" per glyph); during the kana phase — and for any span the
+  // lexicon can't segment — emission stays per-kana. See romajiLexicon.ts.
+  annotate: (token) => annotateJapaneseText(token, isPastKanaPhase()),
   fadeOnMastery: true,
 };
 
@@ -326,4 +321,5 @@ export const jaModule: LanguageModule = {
   symbolMastery: jaSymbolMastery,
   imageMcqBlocklist: new Set(WORD_IMAGE_MCQ_BLOCKLIST),
   vocabGraduation: jaVocabGraduation,
+  importMatch: jaImportMatch,
 };

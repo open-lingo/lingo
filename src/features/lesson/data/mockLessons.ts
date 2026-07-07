@@ -251,6 +251,20 @@ import {
   M3_7_2,
   M3_9,
 } from "@/features/languages/ja/curriculum/m3-v2";
+// Katakana base-gojūon rollout — one row lesson per module M4-M12 (the
+// ア row is the repurposed ja-m3-1-1/1-2 pair in m3-v2). Spec:
+// docs/katakana-rollout-romaji-fade-spec-2026-06-30.md
+import {
+  KATA_M4_KA,
+  KATA_M5_SA,
+  KATA_M6_TA,
+  KATA_M7_NA,
+  KATA_M8_HA,
+  KATA_M9_MA,
+  KATA_M10_YA,
+  KATA_M11_RA,
+  KATA_M12_WA,
+} from "@/features/languages/ja/curriculum/katakanaRows";
 import {
   M4_1_1,
   M4_1_2,
@@ -323,10 +337,10 @@ import {
   M7_8_2,
   M7_STORY,
 } from "@/features/languages/ja/curriculum/m7";
-// `buildModuleReviewLessons` + jaReviewPools intentionally not imported.
-// 2026-05-18: standalone inter-module Review pseudo-modules removed from
-// the pathway; the helpers stay alive in their own files for future FSRS
-// surfacing (Learn page / flashcards), but no longer wired here.
+// Standalone inter-module Review pseudo-modules were removed from the pathway
+// (2026-05-18); the live ja-mN-review-1/2 lessons are built by
+// buildSrsReviewLesson (imported below). The old buildModuleReviewLessons +
+// jaReviewPools builder was deleted as dead code (2026-07-01).
 import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
 import { withKanaReviewTail } from "./kanaReviewTails";
 import { padMatchPairsFloor, type MatchPadContext } from "./matchPairsFloor";
@@ -575,6 +589,18 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m3-7-1": M3_7_1,
   "ja-m3-7-2": M3_7_2,
   "ja-m3-9": M3_9,
+  // Katakana row lessons (M4-M12) — rendered as normal LessonPage rows,
+  // NOT the AlphabetLessonPage trainer (spec D3). Prior-row review tails
+  // are appended centrally by withKanaReviewTail.
+  "ja-m4-kata": KATA_M4_KA,
+  "ja-m5-kata": KATA_M5_SA,
+  "ja-m6-kata": KATA_M6_TA,
+  "ja-m7-kata": KATA_M7_NA,
+  "ja-m8-kata": KATA_M8_HA,
+  "ja-m9-kata": KATA_M9_MA,
+  "ja-m10-kata": KATA_M10_YA,
+  "ja-m11-kata": KATA_M11_RA,
+  "ja-m12-kata": KATA_M12_WA,
   "ja-m4-1-1": M4_1_1,
   "ja-m4-1-2": M4_1_2,
   "ja-m4-2-1": M4_2_1,
@@ -838,9 +864,9 @@ const LESSONS: Record<string, LessonContent> = {
 // density rebuild now bakes compounding review into every sub-lesson tail
 // (per docs/m3-m7-rebuild-spec-2026-05-18.md §3 — review-to-new ratio
 // ≥0.25), so the dedicated review-module entries became pathway weight
-// without pedagogical value. `buildModuleReviewLessons` +
-// `moduleReviewSchedule` infrastructure stays alive in their own files
-// for future FSRS-tier surfacing on the Learn / flashcards surfaces.
+// without pedagogical value. The `buildModuleReviewLessons` + jaReviewPools
+// builder they relied on was deleted as dead code (2026-07-01); the live
+// `moduleReviewSchedule` infrastructure remains in its own file.
 
 /**
  * Extract the row id from a JA sub-lesson id. Returns null for any id that

@@ -79,6 +79,7 @@ const M16_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_TE_WA_IKEMASEN = grammarRule({
   id: "ja-m16-rule-te-wa-ikemasen",
+  grammarPointId: "te-wa-ikemasen",
   title: "〜てはいけません — you must not",
   rule:
     "To express prohibition ('you must not'), take the て-form and add はいけません. This is the opposite of てもいいです (permission). てもいい = you may; てはいけません = you must not.",
@@ -111,6 +112,7 @@ const RULE_TE_WA_IKEMASEN = grammarRule({
 
 const RULE_NAIDE_KUDASAI = grammarRule({
   id: "ja-m16-rule-naide-kudasai",
+  grammarPointId: "naide-kudasai",
   title: "〜ないでください — please don't",
   rule:
     "To make a negative request ('please don't'), take the ない-form of the verb (M11) and add でください. This is softer than てはいけません — a polite request rather than a strict prohibition.",
@@ -143,6 +145,7 @@ const RULE_NAIDE_KUDASAI = grammarRule({
 
 const RULE_TE_KARA = grammarRule({
   id: "ja-m16-rule-te-kara",
+  grammarPointId: "te-kara",
   title: "〜てから — after doing",
   rule:
     "て-form + から establishes a time sequence: 'after doing A, do B.' The first action must be completed before the second begins.",
@@ -175,6 +178,7 @@ const RULE_TE_KARA = grammarRule({
 
 const RULE_NO_GA_SUKI = grammarRule({
   id: "ja-m16-rule-no-ga-suki",
+  grammarPointId: "suki-kirai-no",
   title: "〜のがすき / きらい — like/dislike doing",
   rule:
     "To say you like or dislike DOING something, nominalize the verb with の and mark it with が: [verb dictionary form] + のが + すき/きらい + です. The の turns the verb into a noun phrase ('the act of doing').",

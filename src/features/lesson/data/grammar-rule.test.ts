@@ -49,19 +49,27 @@ describe("M3 lesson registration", () => {
     });
   }
 
-  it("M3-1 contains a katakana SYSTEM info card (not per-row drill)", () => {
+  it("M3-1 opens with a katakana SYSTEM info card and teaches the ア row", () => {
+    // 2026-07-01 katakana rollout (spec D2/D3) reversed the 2026-05-18
+    // "no per-row drill in M3-1" de-scope: ja-m3-1-1/1-2 now ARE the
+    // ア-row lessons (M1-style intro/trace/recognition), kicking off the
+    // one-row-per-module schedule that runs through M12.
     const lesson = getMockLessonContent("ja-m3-1-1")!;
     const infoSteps = lesson.steps.filter((s) => s.type === "info");
     expect(infoSteps.length).toBeGreaterThan(0);
-    // First info step should explain katakana as a system.
+    // First info step should still explain katakana as a system.
     const sysCard = infoSteps[0];
     if (sysCard.type !== "info") return;
     expect(sysCard.body.toLowerCase()).toMatch(/katakana/);
     expect(sysCard.body.toLowerCase()).toMatch(/loanword|foreign/);
-    // No symbol_trace or symbol_intro steps anywhere in M3-1.
-    for (const step of lesson.steps) {
-      expect(step.type).not.toBe("symbol_trace");
-      expect(step.type).not.toBe("symbol_intro");
+    // ア-row glyph teaching present, stamped katakana.
+    const intros = lesson.steps.filter((s) => s.type === "symbol_intro");
+    expect(intros.map((s) => s.type === "symbol_intro" && s.payload.symbol))
+      .toEqual(["ア", "イ", "ウ"]);
+    for (const s of lesson.steps) {
+      if (s.type === "symbol_intro" || s.type === "symbol_trace") {
+        expect(s.payload.scriptId).toBe("katakana");
+      }
     }
   });
 

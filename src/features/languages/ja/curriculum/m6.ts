@@ -306,6 +306,7 @@ export const M6_1_2: LessonContent = {
     // ── ここ / そこ / あそこ — location pointers ──
     grammarRule({
       id: "ja-m6-1-2-rule-koko",
+      grammarPointId: "koko-soko-asoko",
       title: "ここ / そこ / あそこ — here / there / over there",
       rule: "Just like これ/それ/あれ for things, ここ/そこ/あそこ mark places. ここ = near you, そこ = near the listener, あそこ = far from both. You already know どこ (where) from Module 5.",
       examples: [
@@ -361,6 +362,7 @@ assertNoConsecutiveSame(M6_1_2.steps);
 
 const RULE_NI = grammarRule({
   id: "ja-m6-2-1-rule-ni",
+  grammarPointId: "ni-location",
   title: "に — destination point + existence",
   rule:
     "に marks a POINT — either a destination you're moving TOWARD (がっこうに いく = go TO school) or a point of existence (えきに います = I AM AT the station). Verbs of motion (いく/くる/かえる) and existence verbs (います/あります) both take に.",
@@ -705,6 +707,7 @@ assertNoConsecutiveSame(M6_2_2.steps);
 
 const RULE_DE = grammarRule({
   id: "ja-m6-3-1-rule-de",
+  grammarPointId: "de-action",
   title: "で — action setting + means",
   rule:
     "で marks the SETTING of an action — the place an action happens (がっこうで べんきょう = study AT school), or the MEANS you use to do it (でんしゃで いく = go BY train). The English 'at' collapses both with に; Japanese keeps them separate.",
@@ -964,6 +967,16 @@ export const M6_3_2: LessonContent = {
       explanation:
         "Means (bus) → で. Destination (school) → に. Roles aren't interchangeable.",
     }),
+    // ── Katakana interleave (rollout M6 タ row → タクシー comes full circle).
+    //    で marks the taxi as the means of travel. ──
+    build(
+      "ja-m6-3-2-build-takushii",
+      "I go by taxi.",
+      "タクシーで いきます",
+      ["タクシー", "で", "に", "いきます"],
+      ["タクシー", "で", "いきます"],
+      ["タクシー"],
+    ),
     // selfExplain — after multiple で commits
     selfExplain({
       id: "ja-m6-3-2-self-de",
@@ -1042,6 +1055,7 @@ assertNoConsecutiveSame(M6_3_2.steps);
 
 const RULE_GA_EXISTENCE = grammarRule({
   id: "ja-m6-4-1-rule-ga",
+  grammarPointId: "ga-existence",
   title: "が — the existence particle (___が あります / います)",
   rule:
     "が marks the subject — most commonly the thing being introduced as NEW information. The friendliest use: existence sentences. 'こうえんが あります' = 'there's a park.' あります for inanimate things, います for living things. Don't worry about は vs が contrast yet — that's a much later lesson.",
@@ -1158,6 +1172,16 @@ export const M6_4_1: LessonContent = {
       "I'm at school. (pure existence of speaker, not announcing 'there's a school')",
       "がっこうに います。",
       "Location of speaker → に. Compare to がっこうが あります = 'there's a school' (announcing it).",
+    ),
+    // ── Katakana interleave (rollout M6 タ row → テスト is now base-readable).
+    //    Same existence pattern, schoolday flavor. ──
+    build(
+      "ja-m6-4-1-build-tesuto",
+      "There's a test.",
+      "テストが あります",
+      ["テスト", "が", "あります", "います"],
+      ["テスト", "が", "あります"],
+      ["テスト"],
     ),
     // vocabMcq break — prior module
     vocabMcq("ja-m6-4-1-rev-mcq-mid", M6_4_1_REVIEW[0], PRIOR_POOL),
@@ -1307,6 +1331,16 @@ export const M6_4_2: LessonContent = {
       explanation:
         "Teachers are alive → います. に / で don't appear in pure existence sentences (those need が).",
     }),
+    // ── Katakana interleave (rollout M6 タ row → ドア is now base-readable).
+    //    A door is inanimate → あります, contrasting the います cases above. ──
+    build(
+      "ja-m6-4-2-build-doa",
+      "There's a door.",
+      "ドアが あります",
+      ["ドア", "が", "います", "あります"],
+      ["ドア", "が", "あります"],
+      ["ドア"],
+    ),
     // selfExplain — animacy split
     selfExplain({
       id: "ja-m6-4-2-self-animacy",

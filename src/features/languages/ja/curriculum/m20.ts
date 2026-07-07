@@ -78,6 +78,7 @@ const M20_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_GA_ITAI = grammarRule({
   id: "ja-m20-rule-ga-itai",
+  grammarPointId: "ga-itai",
   title: "〜がいたい — it hurts",
   rule:
     "To say a body part hurts, use [body part] + が + いたい(です). いたい is an い-adjective meaning 'painful/hurts.' が marks the body part as the subject of the pain. Example: あたまがいたいです = 'My head hurts.'",
@@ -110,6 +111,7 @@ const RULE_GA_ITAI = grammarRule({
 
 const RULE_NODE = grammarRule({
   id: "ja-m20-rule-node",
+  grammarPointId: "node-because",
   title: "ので — because (softer than から)",
   rule:
     "ので means 'because,' like から (M13), but softer and more formal. It implies a natural consequence rather than a personal reason. Before ので: い-adjective stays plain (いたいので), な-adjective adds な (しずかなので), noun adds な (びょうきなので), verb stays plain (のむので).",

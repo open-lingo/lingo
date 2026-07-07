@@ -79,6 +79,7 @@ const M21_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_YA = grammarRule({
   id: "ja-m21-rule-ya",
+  grammarPointId: "ya-incomplete-list",
   title: "や — incomplete list ('A and B, among other things')",
   rule:
     "や connects nouns to make an OPEN list: A や B = 'A and B (and other things).' Unlike と (exhaustive: A and B only), や implies there are more items not mentioned.",
@@ -111,6 +112,7 @@ const RULE_YA = grammarRule({
 
 const RULE_TO_QUOTATION = grammarRule({
   id: "ja-m21-rule-to-quotation",
+  grammarPointId: "to-quotation",
   title: "と (quotation) — 'they say...' / 'it is called...'",
   rule:
     "と after a quoted phrase marks what someone says or what something is called. 「X」と いいます = 'They say X' / 'X is said.' The quoted phrase goes before と; the verb of saying follows.",
@@ -143,6 +145,7 @@ const RULE_TO_QUOTATION = grammarRule({
 
 const RULE_HAI_COUNTER = grammarRule({
   id: "ja-m21-rule-hai-counter",
+  grammarPointId: "counter-hai",
   title: "〜はい/ぱい/ばい — counter for cups and glasses",
   rule:
     "The counter for cups, glasses, and bowls of liquid is 〜はい. It has irregular sound changes: いっぱい (1), にはい (2), さんばい (3), よんはい (4), ごはい (5), ろっぱい (6), ななはい (7), はっぱい (8), きゅうはい (9), じゅっぱい (10). Pattern: 1/6/8/10 → っぱい, 3 → ばい, rest → はい.",

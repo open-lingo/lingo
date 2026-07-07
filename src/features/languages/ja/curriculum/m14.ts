@@ -71,6 +71,7 @@ const M14_REVIEW_POOL = withoutMcqBlocked(
 
 const RULE_TE_GROUP2 = grammarRule({
   id: "ja-m14-rule-te-group2",
+  grammarPointId: "te-form",
   title: "て-form: Group 2 (ichidan/る-verbs)",
   rule:
     "Group 2 verbs (ichidan) end in -いる or -える. To make the て-form: drop る, add て. This is the easiest group. たべる → たべて, みる → みて, おしえる → おしえて.",
@@ -103,6 +104,7 @@ const RULE_TE_GROUP2 = grammarRule({
 
 const RULE_TE_GROUP1_TTE = grammarRule({
   id: "ja-m14-rule-te-group1-tte",
+  grammarPointId: "te-form",
   title: "て-form: Group 1 — う/つ/る → って",
   rule:
     "Group 1 verbs ending in う, つ, or る change to って. The consonant before the ending drops and doubles into っ. かう → かって, まつ → まって, かえる → かえって.",
@@ -135,6 +137,7 @@ const RULE_TE_GROUP1_TTE = grammarRule({
 
 const RULE_TE_GROUP1_NDE_ITE = grammarRule({
   id: "ja-m14-rule-te-group1-nde-ite",
+  grammarPointId: "te-form",
   title: "て-form: Group 1 — む/ぶ → んで, く → いて, ぐ → いで, す → して",
   rule:
     "The remaining Group 1 patterns: む/ぶ/ぬ → んで (nasalize + で). く → いて. ぐ → いで. す → して. MAJOR EXCEPTION: いく → いって (NOT いいて).",
@@ -172,6 +175,7 @@ const RULE_TE_GROUP1_NDE_ITE = grammarRule({
 
 const RULE_TE_IRREGULARS = grammarRule({
   id: "ja-m14-rule-te-irregulars",
+  grammarPointId: "te-form",
   title: "て-form: Irregulars + た-form",
   rule:
     "Two irregular verbs: する → して, くる → きて. The た-form (plain past) is a free derivative of て-form: swap て → た, で → だ. たべて → たべた, のんで → のんだ, して → した, きて → きた.",
@@ -204,6 +208,7 @@ const RULE_TE_IRREGULARS = grammarRule({
 
 const RULE_TE_KUDASAI = grammarRule({
   id: "ja-m14-rule-te-kudasai",
+  grammarPointId: "te-kudasai",
   title: "〜てください — polite requests",
   rule:
     "て-form + ください = 'please do ~.' This is the standard polite request. まって + ください = まってください (please wait). みせて + ください = みせてください (please show me).",

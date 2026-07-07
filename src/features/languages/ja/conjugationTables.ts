@@ -14,6 +14,15 @@ export type ConjugationForm =
 export type VerbEntry = {
   id: string;
   dictionary: string;
+  /**
+   * Standard written (kanji) dictionary form, e.g. たべる → 食べる. OMITTED for
+   * words conventionally written in kana (する、いる…). Structural contract
+   * (enforced by writtenForms.test.ts): a leading kanji block replacing a
+   * nonempty kana prefix + a kana tail identical to `dictionary`'s tail —
+   * conjugated written forms are derived by prefix substitution
+   * (`writtenForms.ts`), so mid-word kanji is not representable here.
+   */
+  kanji?: string;
   meaning: string;
   group: VerbGroup;
   forms: Record<ConjugationForm, string>;
@@ -25,6 +34,8 @@ export type AdjForm = "present" | "negative" | "past" | "past-negative";
 export type AdjEntry = {
   id: string;
   dictionary: string;
+  /** Standard written (kanji) dictionary form — same contract as VerbEntry.kanji. */
+  kanji?: string;
   meaning: string;
   type: "i-adj" | "na-adj";
   forms: Record<AdjForm, string>;
@@ -59,6 +70,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "taberu",
     dictionary: "たべる",
+    kanji: "食べる",
     meaning: "to eat",
     group: "ichidan",
     forms: {
@@ -77,6 +89,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "miru",
     dictionary: "みる",
+    kanji: "見る",
     meaning: "to see / watch",
     group: "ichidan",
     forms: {
@@ -97,6 +110,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "nomu",
     dictionary: "のむ",
+    kanji: "飲む",
     meaning: "to drink",
     group: "godan",
     forms: {
@@ -115,6 +129,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "iku",
     dictionary: "いく",
+    kanji: "行く",
     meaning: "to go",
     group: "godan",
     forms: {
@@ -133,6 +148,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "yomu",
     dictionary: "よむ",
+    kanji: "読む",
     meaning: "to read",
     group: "godan",
     forms: {
@@ -151,6 +167,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "kaku",
     dictionary: "かく",
+    kanji: "書く",
     meaning: "to write",
     group: "godan",
     forms: {
@@ -173,6 +190,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "okiru",
     dictionary: "おきる",
+    kanji: "起きる",
     meaning: "to wake up",
     group: "ichidan",
     forms: {
@@ -191,6 +209,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "neru",
     dictionary: "ねる",
+    kanji: "寝る",
     meaning: "to sleep",
     group: "ichidan",
     forms: {
@@ -209,6 +228,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "dekakeru",
     dictionary: "でかける",
+    kanji: "出かける",
     meaning: "to go out",
     group: "ichidan",
     forms: {
@@ -229,6 +249,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "aruku",
     dictionary: "あるく",
+    kanji: "歩く",
     meaning: "to walk",
     group: "godan",
     forms: {
@@ -247,6 +268,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "hashiru",
     dictionary: "はしる",
+    kanji: "走る",
     meaning: "to run",
     group: "godan",
     forms: {
@@ -265,6 +287,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "oyogu",
     dictionary: "およぐ",
+    kanji: "泳ぐ",
     meaning: "to swim",
     group: "godan",
     forms: {
@@ -283,6 +306,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "asobu",
     dictionary: "あそぶ",
+    kanji: "遊ぶ",
     meaning: "to play",
     group: "godan",
     forms: {
@@ -301,6 +325,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "hataraku",
     dictionary: "はたらく",
+    kanji: "働く",
     meaning: "to work",
     group: "godan",
     forms: {
@@ -339,6 +364,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "kuru",
     dictionary: "くる",
+    kanji: "来る",
     meaning: "to come",
     group: "irregular",
     forms: {
@@ -357,6 +383,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "benkyousuru",
     dictionary: "べんきょうする",
+    kanji: "勉強する",
     meaning: "to study",
     group: "irregular",
     forms: {
@@ -396,6 +423,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "shiru",
     dictionary: "しる",
+    kanji: "知る",
     meaning: "to know",
     group: "godan",
     forms: {
@@ -414,6 +442,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "motsu",
     dictionary: "もつ",
+    kanji: "持つ",
     meaning: "to have / hold",
     group: "godan",
     forms: {
@@ -472,6 +501,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "kiru-wear",
     dictionary: "きる",
+    kanji: "着る",
     meaning: "to wear (upper body)",
     group: "ichidan",
     forms: {
@@ -528,6 +558,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "arau",
     dictionary: "あらう",
+    kanji: "洗う",
     meaning: "to wash",
     group: "godan",
     forms: {
@@ -546,6 +577,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "kesu",
     dictionary: "けす",
+    kanji: "消す",
     meaning: "to turn off / erase",
     group: "godan",
     forms: {
@@ -568,6 +600,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "miseru",
     dictionary: "みせる",
+    kanji: "見せる",
     meaning: "to show",
     group: "ichidan",
     forms: {
@@ -586,6 +619,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "oshieru",
     dictionary: "おしえる",
+    kanji: "教える",
     meaning: "to teach / tell",
     group: "ichidan",
     forms: {
@@ -606,6 +640,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "matsu",
     dictionary: "まつ",
+    kanji: "待つ",
     meaning: "to wait",
     group: "godan",
     forms: {
@@ -624,6 +659,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "tetsudau",
     dictionary: "てつだう",
+    kanji: "手伝う",
     meaning: "to help",
     group: "godan",
     forms: {
@@ -642,6 +678,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "kasu",
     dictionary: "かす",
+    kanji: "貸す",
     meaning: "to lend",
     group: "godan",
     forms: {
@@ -660,6 +697,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "toru",
     dictionary: "とる",
+    kanji: "取る",
     meaning: "to take",
     group: "godan",
     forms: {
@@ -678,6 +716,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "kau",
     dictionary: "かう",
+    kanji: "買う",
     meaning: "to buy",
     group: "godan",
     forms: {
@@ -696,6 +735,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "kaeru",
     dictionary: "かえる",
+    kanji: "帰る",
     meaning: "to return (home)",
     group: "godan",
     forms: {
@@ -717,6 +757,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "sumu",
     dictionary: "すむ",
+    kanji: "住む",
     meaning: "to live (in a place)",
     group: "godan",
     forms: {
@@ -739,6 +780,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "deru",
     dictionary: "でる",
+    kanji: "出る",
     meaning: "to exit / leave",
     group: "ichidan",
     forms: {
@@ -759,6 +801,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "suwaru",
     dictionary: "すわる",
+    kanji: "座る",
     meaning: "to sit",
     group: "godan",
     forms: {
@@ -795,6 +838,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "hairu",
     dictionary: "はいる",
+    kanji: "入る",
     meaning: "to enter",
     group: "godan",
     forms: {
@@ -817,6 +861,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "oriru",
     dictionary: "おりる",
+    kanji: "降りる",
     meaning: "to get off / descend",
     group: "ichidan",
     forms: {
@@ -837,6 +882,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "noru",
     dictionary: "のる",
+    kanji: "乗る",
     meaning: "to ride / get on",
     group: "godan",
     forms: {
@@ -855,6 +901,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "wataru",
     dictionary: "わたる",
+    kanji: "渡る",
     meaning: "to cross",
     group: "godan",
     forms: {
@@ -873,6 +920,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "magaru",
     dictionary: "まがる",
+    kanji: "曲がる",
     meaning: "to turn (direction)",
     group: "godan",
     forms: {
@@ -891,6 +939,7 @@ export const VERB_ENTRIES: VerbEntry[] = [
   {
     id: "tomaru",
     dictionary: "とまる",
+    kanji: "止まる",
     meaning: "to stop",
     group: "godan",
     forms: {
@@ -916,6 +965,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "ookii",
     dictionary: "おおきい",
+    kanji: "大きい",
     meaning: "big",
     type: "i-adj",
     forms: {
@@ -929,6 +979,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "chiisai",
     dictionary: "ちいさい",
+    kanji: "小さい",
     meaning: "small",
     type: "i-adj",
     forms: {
@@ -942,6 +993,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "takai",
     dictionary: "たかい",
+    kanji: "高い",
     meaning: "tall / expensive",
     type: "i-adj",
     forms: {
@@ -955,6 +1007,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "yasui",
     dictionary: "やすい",
+    kanji: "安い",
     meaning: "cheap",
     type: "i-adj",
     forms: {
@@ -968,6 +1021,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "atarashii",
     dictionary: "あたらしい",
+    kanji: "新しい",
     meaning: "new",
     type: "i-adj",
     forms: {
@@ -981,6 +1035,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "furui",
     dictionary: "ふるい",
+    kanji: "古い",
     meaning: "old (things)",
     type: "i-adj",
     forms: {
@@ -1007,6 +1062,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "warui",
     dictionary: "わるい",
+    kanji: "悪い",
     meaning: "bad",
     type: "i-adj",
     forms: {
@@ -1046,6 +1102,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "atsui",
     dictionary: "あつい",
+    kanji: "暑い",
     meaning: "hot (weather)",
     type: "i-adj",
     forms: {
@@ -1059,6 +1116,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "samui",
     dictionary: "さむい",
+    kanji: "寒い",
     meaning: "cold (weather)",
     type: "i-adj",
     forms: {
@@ -1072,6 +1130,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "tsumetai",
     dictionary: "つめたい",
+    kanji: "冷たい",
     meaning: "cold (to touch)",
     type: "i-adj",
     forms: {
@@ -1085,6 +1144,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "atatakai",
     dictionary: "あたたかい",
+    kanji: "暖かい",
     meaning: "warm",
     type: "i-adj",
     forms: {
@@ -1098,6 +1158,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "nagai",
     dictionary: "ながい",
+    kanji: "長い",
     meaning: "long",
     type: "i-adj",
     forms: {
@@ -1111,6 +1172,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "mijikai",
     dictionary: "みじかい",
+    kanji: "短い",
     meaning: "short",
     type: "i-adj",
     forms: {
@@ -1150,6 +1212,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "muzukashii",
     dictionary: "むずかしい",
+    kanji: "難しい",
     meaning: "difficult",
     type: "i-adj",
     forms: {
@@ -1189,6 +1252,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "osoi",
     dictionary: "おそい",
+    kanji: "遅い",
     meaning: "slow / late",
     type: "i-adj",
     forms: {
@@ -1202,6 +1266,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "chikai",
     dictionary: "ちかい",
+    kanji: "近い",
     meaning: "near",
     type: "i-adj",
     forms: {
@@ -1215,6 +1280,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "tooi",
     dictionary: "とおい",
+    kanji: "遠い",
     meaning: "far",
     type: "i-adj",
     forms: {
@@ -1228,6 +1294,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "hiroi",
     dictionary: "ひろい",
+    kanji: "広い",
     meaning: "spacious / wide",
     type: "i-adj",
     forms: {
@@ -1241,6 +1308,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "semai",
     dictionary: "せまい",
+    kanji: "狭い",
     meaning: "narrow / cramped",
     type: "i-adj",
     forms: {
@@ -1270,6 +1338,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "shizuka",
     dictionary: "しずか",
+    kanji: "静か",
     meaning: "quiet",
     type: "na-adj",
     forms: {
@@ -1296,6 +1365,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "yuumei",
     dictionary: "ゆうめい",
+    kanji: "有名",
     meaning: "famous",
     type: "na-adj",
     forms: {
@@ -1309,6 +1379,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "suki",
     dictionary: "すき",
+    kanji: "好き",
     meaning: "likeable / to like",
     type: "na-adj",
     forms: {
@@ -1322,6 +1393,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "kirai",
     dictionary: "きらい",
+    kanji: "嫌い",
     meaning: "disliked / to dislike",
     type: "na-adj",
     forms: {
@@ -1335,6 +1407,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "jouzu",
     dictionary: "じょうず",
+    kanji: "上手",
     meaning: "skillful / good at",
     type: "na-adj",
     forms: {
@@ -1348,6 +1421,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "heta",
     dictionary: "へた",
+    kanji: "下手",
     meaning: "unskillful / bad at",
     type: "na-adj",
     forms: {
@@ -1361,6 +1435,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "genki",
     dictionary: "げんき",
+    kanji: "元気",
     meaning: "energetic / healthy",
     type: "na-adj",
     forms: {
@@ -1387,6 +1462,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "taihen",
     dictionary: "たいへん",
+    kanji: "大変",
     meaning: "tough / awful",
     type: "na-adj",
     forms: {
@@ -1400,6 +1476,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "benri",
     dictionary: "べんり",
+    kanji: "便利",
     meaning: "convenient",
     type: "na-adj",
     forms: {
@@ -1413,6 +1490,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "fubeni",
     dictionary: "ふべん",
+    kanji: "不便",
     meaning: "inconvenient",
     type: "na-adj",
     forms: {
@@ -1426,6 +1504,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "daijoubu",
     dictionary: "だいじょうぶ",
+    kanji: "大丈夫",
     meaning: "all right / OK",
     type: "na-adj",
     forms: {
@@ -1439,6 +1518,7 @@ export const ADJ_ENTRIES: AdjEntry[] = [
   {
     id: "kantan",
     dictionary: "かんたん",
+    kanji: "簡単",
     meaning: "simple / easy",
     type: "na-adj",
     forms: {
