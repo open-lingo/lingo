@@ -251,3 +251,55 @@ describe("srsSync", () => {
     });
   });
 });
+
+describe("enqueueSyncOp serialization (concurrent syncs must queue, not race)", () => {
+  beforeEach(() => localStorage.clear());
+
+  it("two concurrent performSync calls never overlap and both resolve", async () => {
+    // Regression: SRSPendingSync (boot push) and useSRSyncSession (reviewer
+    // mount push) both POST with tag "srs:sync"; the ApiClient aborts the
+    // previous in-flight request per tag, so overlapping syncs killed each
+    // other and NOTHING reached the server (observed with a 394-card
+    // Anki-import payload). The queue makes them take turns.
+    setCardState("ja:queue-a", {
+      recognition: learnedSub({ lastReviewDate: "2026-05-30" }),
+      production: newSub(),
+    } as SRSCardState);
+
+    let active = 0;
+    let maxActive = 0;
+    const slowSync = async (payload: { cards: Record<string, SRSCardState> }) => {
+      active++;
+      maxActive = Math.max(maxActive, active);
+      await new Promise((r) => setTimeout(r, 30));
+      active--;
+      return payload.cards;
+    };
+
+    const [a, b] = await Promise.all([
+      performSync(slowSync),
+      performSync(slowSync),
+    ]);
+
+    expect(maxActive).toBe(1); // strictly one POST in flight at a time
+    // First call pushes the dirty card; second finds nothing left dirty.
+    expect(a + b).toBeGreaterThanOrEqual(1);
+    expect(Object.keys(getDirtyCards())).toHaveLength(0);
+  });
+
+  it("a failing sync does not wedge the queue", async () => {
+    setCardState("ja:queue-b", {
+      recognition: learnedSub({ lastReviewDate: "2026-05-30" }),
+      production: newSub(),
+    } as SRSCardState);
+
+    const failing = async () => {
+      throw new Error("boom");
+    };
+    await expect(performSync(failing)).rejects.toThrow("boom");
+
+    // Queue must still run the next op.
+    const ok = await performSync(async (p) => p.cards);
+    expect(ok).toBeGreaterThanOrEqual(1);
+  });
+});

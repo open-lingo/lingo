@@ -35,7 +35,12 @@
  * only echoes back the keys it was sent.
  */
 import { notifySRSStoreChanged } from "../SRSStoreRevisionContext";
-import { computeDirtyCards, mergeStates, markSyncedIn } from "./srsSync";
+import {
+  computeDirtyCards,
+  mergeStates,
+  markSyncedIn,
+  enqueueSyncOp,
+} from "./srsSync";
 import type { SyncPayload } from "./srsSync";
 import type { SRSStore } from "./srsStorage";
 import { getGrammarStore, setGrammarStore } from "./grammarSrs";
@@ -134,6 +139,14 @@ function markGrammarSynced(pointIds: string[]): void {
  * returned are marked synced).
  */
 export async function performGrammarSync(
+  syncFn: (payload: SyncPayload) => Promise<SRSStore>,
+): Promise<number> {
+  // Same one-at-a-time queue as Track A — both tracks POST the same
+  // endpoint under the same abort-on-duplicate tag (see enqueueSyncOp).
+  return enqueueSyncOp(() => performGrammarSyncNow(syncFn));
+}
+
+async function performGrammarSyncNow(
   syncFn: (payload: SyncPayload) => Promise<SRSStore>,
 ): Promise<number> {
   const payload = buildGrammarSyncPayload();

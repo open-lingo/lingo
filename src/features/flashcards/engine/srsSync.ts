@@ -183,7 +183,34 @@ export async function hydrateFromServer(
  *     return res.json(); // server returns its full state
  *   });
  */
+/**
+ * Serialize every SRS sync POST through one chain. The ApiClient's
+ * `tag: "srs:sync"` dedup ABORTS the previous in-flight request when a new
+ * one starts — correct for reads, fatal for sync: `SRSPendingSync` (boot
+ * push) and `useSRSyncSession` (reviewer mount push) race whenever both see
+ * dirty cards, and the mutual aborts mean NOTHING lands (observed live with
+ * a 394-card Anki-import payload: two net::ERR_ABORTED, zero server writes;
+ * small payloads just lose the race less often). Queueing instead of
+ * cancelling makes concurrent callers take turns; each still builds its
+ * payload at run time, so a second caller pushes whatever is STILL dirty
+ * after the first finishes (usually nothing) rather than double-sending.
+ */
+let _syncChain: Promise<unknown> = Promise.resolve();
+
+export function enqueueSyncOp<T>(op: () => Promise<T>): Promise<T> {
+  const next = _syncChain.then(op, op);
+  // Chain advances regardless of op outcome; errors still reach the caller.
+  _syncChain = next.catch(() => {});
+  return next;
+}
+
 export async function performSync(
+  syncFn: (payload: SyncPayload) => Promise<SRSStore>,
+): Promise<number> {
+  return enqueueSyncOp(() => performSyncNow(syncFn));
+}
+
+async function performSyncNow(
   syncFn: (payload: SyncPayload) => Promise<SRSStore>,
 ): Promise<number> {
   const payload = buildSyncPayload();
