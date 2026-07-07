@@ -88,8 +88,9 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
           hasSubmittedWrong={hasSubmittedWrong}
         />
       )}
-      {/* Content cluster centers as one unit in leftover height. */}
-      <div className="my-auto flex flex-col gap-6">
+      {/* Content cluster starts at the top; the CTA block below carries
+          mt-auto so it pins to the shared bottom action slot. */}
+      <div className="flex flex-col gap-6">
       {step.audioOnlyPrompt ? (
         <div className="flex flex-col items-center gap-3 py-4">
           <button
@@ -220,7 +221,7 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
 
       {/* Single bottom-anchored block: wrong-answer banner + CTA together
           so the button never moves on submit. */}
-      <div className="relative flex flex-col gap-4">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && (
           <Feedback correct={false} explanation={step.explanation} />

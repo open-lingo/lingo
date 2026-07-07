@@ -90,7 +90,12 @@ export function InfoStepView({ step, onContinue }: Props) {
             {step.body}
           </p>
         </div>
-        <ContinueButton onClick={handleContinue} />
+        {/* mt-auto pins the CTA to the shell's bottom action slot — the
+            primary button lives in the same physical place on every step
+            type, so advancing is muscle memory (and Enter always works). */}
+        <div className="mt-auto pt-6">
+          <ContinueButton onClick={handleContinue} />
+        </div>
       </div>
     );
   }
@@ -112,7 +117,9 @@ export function InfoStepView({ step, onContinue }: Props) {
         </div>
       </div>
 
-      <ContinueButton onClick={handleContinue} />
+      <div className="mt-auto pt-6">
+        <ContinueButton onClick={handleContinue} />
+      </div>
     </div>
   );
 }

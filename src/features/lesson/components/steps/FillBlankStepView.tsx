@@ -122,24 +122,28 @@ export function FillBlankStepView({ step, onComplete, onContinue }: Props) {
         </div>
       )}
 
-      {submitted && (
-        <Feedback correct={isCorrect} />
-      )}
+      {/* Bottom-anchored block: feedback + CTA together so the button
+          sits in the shared bottom action slot on every step type. */}
+      <div className="mt-auto flex flex-col gap-4 pt-6">
+        {submitted && (
+          <Feedback correct={isCorrect} />
+        )}
 
-      {submitted && !isCorrect && (
-        <p className="text-sm text-text-secondary">
-          Correct: <span className="font-semibold text-text-primary">{step.blanks.map((b) => b.correctAnswer).join(", ")}</span>
-        </p>
-      )}
+        {submitted && !isCorrect && (
+          <p className="text-sm text-text-secondary">
+            Correct: <span className="font-semibold text-text-primary">{step.blanks.map((b) => b.correctAnswer).join(", ")}</span>
+          </p>
+        )}
 
-      {!submitted ? (
-        <ContinueButton onClick={handleSubmit} label="Check" disabled={!allFilled} />
-      ) : (
-        <ContinueButton
-          onClick={onContinue}
-          variant={isCorrect ? "correct" : "incorrect"}
-        />
-      )}
+        {!submitted ? (
+          <ContinueButton onClick={handleSubmit} label="Check" disabled={!allFilled} />
+        ) : (
+          <ContinueButton
+            onClick={onContinue}
+            variant={isCorrect ? "correct" : "incorrect"}
+          />
+        )}
+      </div>
     </div>
   );
 }

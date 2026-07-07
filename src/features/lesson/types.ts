@@ -172,6 +172,12 @@ export type MatchPairsStep = StepBase & {
    *  cue and audio is the secondary reinforcement channel. Default false
    *  keeps prior behavior on existing M1 match steps. */
   playAudioOnSelect?: boolean;
+  /** When true, show romaji above the kana source tiles even in
+   *  audio-on-select mode. For scaffolded first-taste surfaces (e.g. the
+   *  onboarding preview match) where the learner can't read kana yet and
+   *  needs the reading aid; normal lessons keep the default (hidden) so the
+   *  romaji doesn't give away the reading. */
+  showSourceRomaji?: boolean;
 };
 
 export type Blank = {
@@ -400,6 +406,15 @@ export type GrammarRuleStep = StepBase & {
   /** Course-atom ids this rule "teaches" — used by passive-follow-up lint
    *  to verify a same-atom retrieval lands within [i+2, i+3]. */
   exercisedAtomIds?: string[];
+  /**
+   * Track B grammar-point id this rule card teaches (e.g. "wa-topic",
+   * "te-form"). Set on the ~93 curriculum grammar_rule cards that map cleanly
+   * to exactly one point in `n5-grammar-points.json`. Consumed by
+   * `getGrammarRuleStepForPoint` (grammarReviewPools.ts) to show the rule
+   * card before a grammar point's FIRST scheduled review in the practice-page
+   * session. Cards that don't map cleanly to one point stay untagged.
+   */
+  grammarPointId?: string;
 };
 
 /**
@@ -472,7 +487,7 @@ export type SelfExplanationMcqStep = StepBase & {
  *
  * Pedagogy: forces audio-only retrieval on a multi-turn exchange. Replaces
  * the prior "phrase cards in sequence" dialogue closer with a real
- * retrieval moment. See docs/curriculum-roadmap-n5-2026-05-18.md §5.2 +
+ * retrieval moment. See docs/n5-content-spec-2026-05-25.md §5.2 +
  * docs/wave-4-m3-m7-reauthor-2026-05-18.md §3.
  */
 export type DialogueListenLine = {

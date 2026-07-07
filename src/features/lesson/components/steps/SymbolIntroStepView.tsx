@@ -164,11 +164,13 @@ export function SymbolIntroStepView({
        *  middle of the space above Continue instead of clinging to the top
        *  with a dead gap below (Spencer 2026-06-13 desktop dead-space fix).
        *  Continue stays bottom-anchored as the last flex child. */}
-      <ContinueButton
-        onClick={handleContinue}
-        disabled={!continueReady}
-        label={continueReady ? undefined : t("alphabet.watchStrokes", "Watch the strokes…")}
-      />
+      <div className="mt-auto pt-6">
+        <ContinueButton
+          onClick={handleContinue}
+          disabled={!continueReady}
+          label={continueReady ? undefined : t("alphabet.watchStrokes", "Watch the strokes…")}
+        />
+      </div>
     </div>
   );
 }

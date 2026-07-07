@@ -171,14 +171,24 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
 
   const hasSubmittedWrong = submitted && !isCorrect;
 
+  // Placed-tile state coloring. Pre-submit (and correct) tiles wear the
+  // accent "staged" tint; after a WRONG submit they must flip to the error
+  // palette — leaving the learner's wrong answer green-tinted reads as
+  // "this was right" at the exact moment the verdict says otherwise.
+  const placedStateClass = hasSubmittedWrong
+    ? "border-error bg-error/10 text-error"
+    : "border-accent bg-accent-muted text-accent hover:bg-accent hover:text-white";
+
   return (
     <div className="relative flex flex-1 flex-col gap-6">
       <ExplainButton
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
-      {/* Content cluster centers as one unit in leftover height. */}
-      <div className="my-auto flex flex-col gap-6">
+      {/* Content cluster starts at the top of the step area (prompt is the
+          first thing the eye should hit); the action block below carries
+          mt-auto so it pins to the bottom regardless of content height. */}
+      <div className="flex flex-col gap-6">
       <h2 className={`font-semibold text-text-primary ${bigTiles ? "text-xl sm:text-2xl" : "text-lg"} ${isWordBuild ? "text-center" : ""}`}>
         {step.prompt}
       </h2>
@@ -212,7 +222,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                 type="button"
                 disabled={submitted}
                 onClick={() => removeTile(i)}
-                className={`motion-safe:animate-tile-pop rounded-xl border-2 border-accent bg-accent-muted text-accent transition-colors duration-150 hover:bg-accent hover:text-white ${placedTileClass}`}
+                className={`motion-safe:animate-tile-pop rounded-xl border-2 transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
               >
                 <AnnotatedJa text={tile} />
               </button>
@@ -234,7 +244,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               type="button"
               disabled={submitted}
               onClick={() => removeTile(i)}
-              className={`motion-safe:animate-tile-pop rounded-xl border-[1.5px] border-accent bg-accent-muted text-accent transition-colors duration-150 hover:bg-accent hover:text-white ${placedTileClass}`}
+              className={`motion-safe:animate-tile-pop rounded-xl border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
             >
               <AnnotatedJa text={tile} />
             </button>
@@ -258,7 +268,9 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           <div className="absolute inset-0 flex flex-wrap content-start gap-2 px-4 py-3.5">
             {placed.length === 0 ? (
               <span className="self-center text-sm text-text-muted">
-                Tap tiles to build the sentence
+                {step.correctOrder.length === 1
+                  ? "Tap the right tile to answer"
+                  : "Tap tiles to build the sentence"}
               </span>
             ) : (
               placed.map((tile, i) => (
@@ -267,7 +279,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                   type="button"
                   disabled={submitted}
                   onClick={() => removeTile(i)}
-                  className={`rounded-xl border-[1.5px] border-accent bg-accent-muted text-accent transition-colors duration-150 hover:bg-accent hover:text-white ${placedTileClass}`}
+                  className={`rounded-xl border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
                 >
                   <AnnotatedJa text={tile} />
                 </button>
@@ -306,13 +318,17 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           together so the button NEVER moves on submit — the banner grows
           the block upward while the CTA stays pinned. Correct answers
           celebrate via toast only (no banner, no shift). */}
-      <div className="relative flex flex-col gap-4">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6">
         {celebrating && <CelebrationToast text={celebrationText} />}
-        {submitted && !isCorrect && <Feedback correct={false} />}
         {submitted && !isCorrect && (
-          <p className="text-sm text-text-secondary">
-            Correct answer: <span className="font-semibold text-text-primary">{step.correctOrder.join(step.granularity === "character" ? "" : " ")}</span>
-          </p>
+          <Feedback
+            correct={false}
+            correctAnswer={
+              <span lang="ja">
+                {step.correctOrder.join(step.granularity === "character" ? "" : " ")}
+              </span>
+            }
+          />
         )}
         {!submitted ? (
           <ContinueButton

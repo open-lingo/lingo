@@ -5,12 +5,15 @@ import { getSRSStore, setSRSStore, setLastSrsSyncAt } from "./srsStorage";
 import type { SRSStore } from "./srsStorage";
 
 /**
- * Collect all cards that have been reviewed since their last sync.
- * A card is "dirty" if the most-recent review across modalities is
+ * Collect all cards in `store` that have been reviewed since their last
+ * sync. A card is "dirty" if the most-recent review across modalities is
  * newer than the last sync (or it's never been synced).
+ *
+ * Store-agnostic — pulled out of `getDirtyCards` so Track B
+ * (`./grammarSync`) can reuse the exact same rule against the grammar
+ * store instead of re-implementing it.
  */
-export function getDirtyCards(): SRSStore {
-  const store = getSRSStore();
+export function computeDirtyCards(store: SRSStore): SRSStore {
   const dirty: SRSStore = {};
 
   for (const [cardId, state] of Object.entries(store)) {
@@ -30,30 +33,57 @@ export function getDirtyCards(): SRSStore {
 }
 
 /**
+ * Collect all cards that have been reviewed since their last sync.
+ * A card is "dirty" if the most-recent review across modalities is
+ * newer than the last sync (or it's never been synced).
+ */
+export function getDirtyCards(): SRSStore {
+  return computeDirtyCards(getSRSStore());
+}
+
+/**
+ * Stamp `lastSyncedAt = now` for the given ids in `store`, returning a new
+ * store object. Store-agnostic — see `computeDirtyCards`.
+ */
+export function markSyncedIn(store: SRSStore, cardIds: string[], now: string): SRSStore {
+  const next = { ...store };
+  for (const id of cardIds) {
+    if (next[id]) {
+      next[id] = { ...next[id], lastSyncedAt: now };
+    }
+  }
+  return next;
+}
+
+/**
  * Mark a set of cards as synced (sets lastSyncedAt to now).
  * Call after a successful backend sync.
  */
 export function markSynced(cardIds: string[]): void {
   const store = getSRSStore();
   const now = new Date().toISOString();
-
-  for (const id of cardIds) {
-    if (store[id]) {
-      store[id] = { ...store[id], lastSyncedAt: now };
-    }
-  }
-
-  setSRSStore(store);
+  setSRSStore(markSyncedIn(store, cardIds, now));
 }
 
 /**
- * True if state looks like an explicit reset (new/forgotten card) — BOTH
- * modalities at phase "new" with zero reps. An intentionally-reset card
- * matches; any partial progress on either modality means the card is
- * mid-learning and should NOT be treated as a reset.
+ * True if state is an explicit, DELIBERATE reset — the user hit "reset" in
+ * Card Manager (`useCardManagerData.handleReset`, which stamps
+ * `manualResetAt`). Requires the marker AND the reset shape (both
+ * modalities at phase "new" with zero reps).
+ *
+ * The shape alone is NOT sufficient: a card seeded by unlock
+ * (`seedSchedule.createSeededState`) or by placement
+ * (`applyPlacementResult`) is also `new`/`reps===0` but was never
+ * reviewed — it must NOT be treated as a reset, or it would silently beat
+ * genuine learned server state on hydrate (a seeded-but-untouched local
+ * card should always lose to server progress).
+ *
+ * Exported (with `isLearnedState`) so `./grammarSync` can share the exact
+ * reset-preservation rule via `mergeStates` below instead of copying it.
  */
-function isResetState(state: SRSCardState): boolean {
+export function isResetState(state: SRSCardState): boolean {
   return (
+    !!state.manualResetAt &&
     state.recognition.state === "new" &&
     state.recognition.reps === 0 &&
     state.production.state === "new" &&
@@ -61,7 +91,7 @@ function isResetState(state: SRSCardState): boolean {
   );
 }
 
-function isLearnedState(state: SRSCardState): boolean {
+export function isLearnedState(state: SRSCardState): boolean {
   return (
     state.recognition.state !== "new" ||
     state.recognition.reps > 0 ||
@@ -71,18 +101,19 @@ function isLearnedState(state: SRSCardState): boolean {
 }
 
 /**
- * Merge server state into local store.
+ * Merge `serverState` into `local`, returning a new store.
  * Server wins for cards where server's most-recent review across modalities
  * beats local's. Local wins otherwise (user reviewed while offline).
  * Local reset is never overwritten by server "learned" state so that resets
  * persist even with clock skew or failed sync.
+ *
+ * Store-agnostic — see `computeDirtyCards`.
  */
-export function mergeServerState(serverState: SRSStore): void {
-  const local = getSRSStore();
-  const now = new Date().toISOString();
+export function mergeStates(local: SRSStore, serverState: SRSStore, now: string): SRSStore {
+  const merged = { ...local };
 
   for (const [cardId, serverCard] of Object.entries(serverState)) {
-    const localCard = local[cardId];
+    const localCard = merged[cardId];
     const serverIsNewer =
       !localCard ||
       cardLastReviewedAt(serverCard) > cardLastReviewedAt(localCard);
@@ -91,14 +122,23 @@ export function mergeServerState(serverState: SRSStore): void {
     const keepLocalReset = localIsReset && serverIsLearned;
 
     if (serverIsNewer && !keepLocalReset) {
-      local[cardId] = { ...serverCard, lastSyncedAt: now };
+      merged[cardId] = { ...serverCard, lastSyncedAt: now };
     }
     // Why (M9): don't churn lastSyncedAt for unchanged cards. The previous
     // implementation only wrote when serverIsNewer, so that's already
     // correct — keep the no-op branch explicit for the next reader.
   }
 
-  setSRSStore(local);
+  return merged;
+}
+
+/**
+ * Merge server state into local store.
+ */
+export function mergeServerState(serverState: SRSStore): void {
+  const local = getSRSStore();
+  const now = new Date().toISOString();
+  setSRSStore(mergeStates(local, serverState, now));
 }
 
 export type SyncPayload = {
@@ -152,15 +192,25 @@ export async function performSync(
   if (dirtyIds.length === 0) return 0;
 
   const serverState = await syncFn(payload);
-  const mergedCount = Object.keys(serverState ?? {}).length;
+  const returnedIds = Object.keys(serverState ?? {});
 
-  // Only mark as synced when the server returned card state (404/501 → {}).
-  if (mergedCount > 0) {
-    markSynced(dirtyIds);
+  // Per-card guard (tightened 2026-07-01 — was payload-level): only mark ids
+  // the server actually echoed back in its response as synced. A card the
+  // server silently dropped from a partial response stays dirty so the next
+  // sync retries it, instead of being marked clean just because SOME card in
+  // the batch round-tripped. Verified against both backend repos
+  // (lingo-core `app/db/sqlite/srs.py` + `app/db/dynamo/srs.py`
+  // `upsert_cards`): every submitted card_id is always present in the
+  // result dict (barring a thrown exception, which propagates and never
+  // reaches here), so in practice `returnedIds` today always equals
+  // `dirtyIds` — this guard is defensive against a future/partial response
+  // shape, not a live gap.
+  if (returnedIds.length > 0) {
+    markSynced(returnedIds);
     setLastSrsSyncAt(new Date().toISOString());
     mergeServerState(serverState);
   }
 
   notifySRSStoreChanged();
-  return mergedCount > 0 ? dirtyIds.length : 0;
+  return returnedIds.length;
 }

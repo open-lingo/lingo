@@ -4,7 +4,20 @@ import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { getParticlesForLanguage } from "@/features/flashcards/data/loadDeck";
-import { reviewCard, setCardState, getEffectiveState, shouldRepeatInSession, getDueModalities } from "./engine";
+import {
+  reviewCard,
+  setCardState,
+  getEffectiveState,
+  shouldRepeatInSession,
+  getDueModalities,
+  rollbackStats,
+  rollbackRepeatQueue,
+  restoreStateForUndo,
+  resolveGradingLayout,
+  hasAnyReviewedCard,
+} from "./engine";
+import type { GradeSnapshot } from "./engine";
+import { useSettings } from "@/shared/contexts/SettingsContext";
 import { useSRSyncSession } from "./useSRSyncSession";
 import { useSubscriptionQueue } from "./useSubscriptionQueue";
 import { useFlashcardDueSummary } from "./useFlashcardDueSummary";
@@ -111,6 +124,29 @@ const RATING_BUTTONS: Array<{ rating: SRSRating; label: string; color: string }>
   { rating: "easy", label: "Easy", color: "bg-accent text-white hover:bg-accent-hover" },
 ];
 
+// Simple 2-button layout — "Didn't know" grades `again`, "Knew it" grades
+// `good`. Both go through the same `handleRate` path as the full row so undo,
+// requeue, and sync behave identically.
+const SIMPLE_BUTTONS: Array<{
+  rating: SRSRating;
+  labelKey: string;
+  labelDefault: string;
+  color: string;
+}> = [
+  {
+    rating: "again",
+    labelKey: "flashcards.simpleDidntKnow",
+    labelDefault: "Didn't know",
+    color: "bg-error text-white hover:bg-error/90",
+  },
+  {
+    rating: "good",
+    labelKey: "flashcards.simpleKnewIt",
+    labelDefault: "Knew it",
+    color: "bg-success text-white hover:bg-success/90",
+  },
+];
+
 function IntervalHint({
   cardId,
   rating,
@@ -147,6 +183,18 @@ export function FlashcardTester() {
   const [queueVersion, setQueueVersion] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
+
+  // Grading experience prefs (persisted via SettingsContext).
+  const { settings, updateFlashcards } = useSettings();
+  const explicitGradingLayout = settings.flashcards?.gradingLayout;
+  // History-aware default: snapshot "have they ever reviewed a card?" ONCE at
+  // mount so the layout can't flip mid-session as this session grades cards.
+  const [hadReviewedCardAtMount] = useState(() => hasAnyReviewedCard());
+  const gradingLayout = resolveGradingLayout(
+    explicitGradingLayout,
+    hadReviewedCardAtMount,
+  );
+  const showIntervalPreviews = settings.flashcards?.showIntervalPreviews ?? false;
 
   const handleResetOnboarding = useCallback(() => {
     try {
@@ -199,6 +247,10 @@ export function FlashcardTester() {
   // SM-2 step 7: cards scoring < 4 are appended for re-review within the session
   const [repeatCards, setRepeatCards] = useState<Flashcard[]>([]);
   const [testedModality, setTestedModality] = useState<SRSModality>("recognition");
+  // One-step UNDO — snapshot of the most recent grade (null before the first
+  // grade and after the session ends). Depth is exactly one; each grade
+  // overwrites it.
+  const [lastGrade, setLastGrade] = useState<GradeSnapshot | null>(null);
 
   const allCards = useMemo(() => {
     const base = queue?.queue ?? [];
@@ -262,13 +314,25 @@ export function FlashcardTester() {
       if (!card) return;
       const defaultEase = cardIdToDefaultEase?.[card.id];
       const current = getEffectiveState(card.id, defaultEase);
+      // Snapshot the PRE-grade state (deep copy) so undo can restore it
+      // verbatim without recomputing via FSRS.
+      const requeued = shouldRepeatInSession(rating);
+      setLastGrade({
+        cardId: card.id,
+        prevState: structuredClone(current),
+        index,
+        modality: testedModality,
+        rating,
+        requeued,
+      });
+
       // Grade ONLY the tested modality so recognition and production
       // advance independently based on actual performance.
       const next = reviewCard(current, testedModality, rating);
       setCardState(card.id, next);
 
       // SM-2 step 7: if quality < 4, re-show at end of session
-      if (shouldRepeatInSession(rating)) {
+      if (requeued) {
         setRepeatCards((prev) => [...prev, card]);
       }
 
@@ -280,18 +344,57 @@ export function FlashcardTester() {
       setFlipped(false);
       setIndex((i) => i + 1);
     },
-    [card, cardIdToDefaultEase, testedModality],
+    [card, cardIdToDefaultEase, testedModality, index],
   );
+
+  // One-step UNDO — revert the most recent grade. Restores the card's SRS
+  // state (verbatim snapshot, stamped as the newest local write so it wins
+  // LWW sync), rolls back the session counters, removes any in-session
+  // requeue the grade triggered, and returns the graded card as current in
+  // its revealed state. Cleared afterward — depth is one.
+  const handleUndo = useCallback(() => {
+    setLastGrade((snap) => {
+      if (!snap) return null;
+      setCardState(snap.cardId, restoreStateForUndo(snap.prevState));
+      setRepeatCards((prev) => rollbackRepeatQueue(prev, snap.requeued));
+      setSessionStats((s) => rollbackStats(s, snap.rating));
+      // Return to the graded card. The tested-modality effect re-derives the
+      // same modality from the restored due-set, so the graded side is
+      // re-shown; reveal it directly.
+      setIndex(snap.index);
+      setFlipped(true);
+      return null;
+    });
+  }, []);
 
   const handleRateRef = useRef(handleRate);
   handleRateRef.current = handleRate;
+  const handleUndoRef = useRef(handleUndo);
+  handleUndoRef.current = handleUndo;
+  const canUndoRef = useRef(false);
+  canUndoRef.current = lastGrade !== null;
   const flippedRef = useRef(flipped);
   flippedRef.current = flipped;
+  const gradingLayoutRef = useRef(gradingLayout);
+  gradingLayoutRef.current = gradingLayout;
 
   useEffect(() => {
     function handler(e: KeyboardEvent) {
       const tag = (e.target as HTMLElement)?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+
+      // Undo the last grade: Ctrl/⌘+Z, or a bare "z" (no modifier) since the
+      // reviewer isn't a text surface. Guarded by availability.
+      if (
+        (e.key === "z" || e.key === "Z") &&
+        !e.altKey &&
+        !e.shiftKey &&
+        canUndoRef.current
+      ) {
+        e.preventDefault();
+        handleUndoRef.current();
+        return;
+      }
 
       if (e.key === " " || e.key === "Enter") {
         e.preventDefault();
@@ -299,11 +402,22 @@ export function FlashcardTester() {
         return;
       }
       if (flippedRef.current) {
-        const ratings: SRSRating[] = ["again", "hard", "good", "easy"];
         const n = parseInt(e.key, 10);
-        if (n >= 1 && n <= 4) {
-          e.preventDefault();
-          handleRateRef.current(ratings[n - 1]);
+        if (gradingLayoutRef.current === "simple") {
+          // Simple mode: 1 = Didn't know (again), 2 = Knew it (good). 3/4 do nothing.
+          if (n === 1) {
+            e.preventDefault();
+            handleRateRef.current("again");
+          } else if (n === 2) {
+            e.preventDefault();
+            handleRateRef.current("good");
+          }
+        } else {
+          const ratings: SRSRating[] = ["again", "hard", "good", "easy"];
+          if (n >= 1 && n <= 4) {
+            e.preventDefault();
+            handleRateRef.current(ratings[n - 1]);
+          }
         }
       }
     }
@@ -316,8 +430,15 @@ export function FlashcardTester() {
     setFlipped(false);
     setRepeatCards([]);
     setSessionStats({ reviewed: 0, correct: 0 });
+    setLastGrade(null);
     setQueueVersion((v) => v + 1);
   }, []);
+
+  // No cross-session undo: clear the snapshot once the session ends (summary
+  // screen) so a stray "z" there can't resurrect the last card.
+  useEffect(() => {
+    if (isSessionDone) setLastGrade(null);
+  }, [isSessionDone]);
 
   const handleRestart = useCallback(() => {
     restartSession();
@@ -351,7 +472,7 @@ export function FlashcardTester() {
               )
             : t(
                 "flashcards.reviewNoQueue",
-                "No flashcard deck for this language yet. Subscribe to a deck from the community or select Korean in the language selector to try the sample deck."
+                "No cards to review yet. Cards unlock automatically as you finish lessons, or subscribe to a community deck to start reviewing right away."
               )}
         </p>
         <Link
@@ -533,6 +654,40 @@ export function FlashcardTester() {
                   />
                   Highlight particles
                 </label>
+                <div>
+                  <label className="mb-1 block text-xs font-medium text-text-muted">
+                    {t("flashcards.gradingLayoutLabel", "Grading buttons")}
+                  </label>
+                  <select
+                    value={gradingLayout}
+                    onChange={(e) =>
+                      updateFlashcards({
+                        gradingLayout: e.target.value as "simple" | "full",
+                      })
+                    }
+                    className="w-full rounded border border-border bg-surface-muted px-2 py-1.5 text-sm text-text-primary"
+                  >
+                    <option value="simple">
+                      {t("flashcards.gradingLayoutSimple", "Simple (2)")}
+                    </option>
+                    <option value="full">
+                      {t("flashcards.gradingLayoutFull", "Full (4)")}
+                    </option>
+                  </select>
+                </div>
+                <label className="flex items-center gap-2 text-sm text-text-secondary">
+                  <input
+                    type="checkbox"
+                    checked={showIntervalPreviews}
+                    onChange={(e) =>
+                      updateFlashcards({
+                        showIntervalPreviews: e.target.checked,
+                      })
+                    }
+                    className="rounded border-border accent-accent"
+                  />
+                  {t("flashcards.showIntervalPreviews", "Show scheduling intervals")}
+                </label>
               </div>
             </>
           )}
@@ -587,11 +742,16 @@ export function FlashcardTester() {
           <CardFace
             card={currentCard}
             side={
-              // Recognition: front=English (back), reveal=Japanese (front)
-              // Production:  front=Japanese (front), reveal=English (back)
+              // Recognition: shown Japanese (front) → recall meaning (back).
+              // Production:  cued English (back) → produce Japanese (front).
+              // This mapping was INVERTED until 2026-07-02 (EN→JA graded the
+              // recognition sub-state) — the engine definition (types.ts) and
+              // every lesson/grammar grading surface use the sense above, so
+              // the reviewer now matches. No data migration: sub-states share
+              // FSRS params and re-converge within a few reviews.
               testedModality === "recognition"
-                ? flipped ? "front" : "back"
-                : flipped ? "back" : "front"
+                ? flipped ? "back" : "front"
+                : flipped ? "front" : "back"
             }
             particles={particles}
             highlightMode={highlightMode}
@@ -600,40 +760,73 @@ export function FlashcardTester() {
         <p className="mt-3 text-sm text-text-muted">
           {flipped
             ? testedModality === "recognition"
-              ? t("flashcards.wordLabel", "Word")
-              : t("flashcards.answerLabel", "Answer")
+              ? t("flashcards.meaningLabel", "Meaning")
+              : t("flashcards.wordLabel", "Word")
             : t("flashcards.tapToReveal", "Tap to reveal")}
         </p>
       </button>
 
       {/* Rating buttons (only when flipped) – above detail so layout doesn't shift */}
       {flipped ? (
-        <div className="grid grid-cols-4 gap-2">
-          {RATING_BUTTONS.map(({ rating, label, color }, i) => (
-            <button
-              key={rating}
-              type="button"
-              onClick={() => handleRate(rating)}
-              className={`relative flex flex-col items-center gap-0.5 rounded-xl px-3 py-3 text-sm font-semibold transition ${color}`}
-              title={t("flashcards.ratingShortcut", "Shortcut: {{key}}", { key: i + 1 })}
-            >
-              {/* Keyboard shortcut keycap (lg:+ — keeps mobile clean). */}
-              <span
-                className="absolute right-1.5 top-1.5 hidden h-4 w-4 items-center justify-center rounded bg-black/15 text-[10px] font-bold leading-none lg:flex"
-                aria-hidden
+        gradingLayout === "simple" ? (
+          <div className="grid grid-cols-2 gap-2">
+            {SIMPLE_BUTTONS.map(({ rating, labelKey, labelDefault, color }, i) => (
+              <button
+                key={rating}
+                type="button"
+                onClick={() => handleRate(rating)}
+                className={`relative flex flex-col items-center gap-0.5 rounded-xl px-3 py-3 text-sm font-semibold transition ${color}`}
+                title={t("flashcards.ratingShortcut", "Shortcut: {{key}}", { key: i + 1 })}
               >
-                {i + 1}
-              </span>
-              {label}
-              <IntervalHint
-                cardId={currentCard.id}
-                rating={rating}
-                defaultEase={cardIdToDefaultEase?.[currentCard.id]}
-                modality={testedModality}
-              />
-            </button>
-          ))}
-        </div>
+                {/* Keyboard shortcut keycap (lg:+ — keeps mobile clean). */}
+                <span
+                  className="absolute right-1.5 top-1.5 hidden h-4 w-4 items-center justify-center rounded bg-black/15 text-[10px] font-bold leading-none lg:flex"
+                  aria-hidden
+                >
+                  {i + 1}
+                </span>
+                {t(labelKey, labelDefault)}
+                {showIntervalPreviews && (
+                  <IntervalHint
+                    cardId={currentCard.id}
+                    rating={rating}
+                    defaultEase={cardIdToDefaultEase?.[currentCard.id]}
+                    modality={testedModality}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-4 gap-2">
+            {RATING_BUTTONS.map(({ rating, label, color }, i) => (
+              <button
+                key={rating}
+                type="button"
+                onClick={() => handleRate(rating)}
+                className={`relative flex flex-col items-center gap-0.5 rounded-xl px-3 py-3 text-sm font-semibold transition ${color}`}
+                title={t("flashcards.ratingShortcut", "Shortcut: {{key}}", { key: i + 1 })}
+              >
+                {/* Keyboard shortcut keycap (lg:+ — keeps mobile clean). */}
+                <span
+                  className="absolute right-1.5 top-1.5 hidden h-4 w-4 items-center justify-center rounded bg-black/15 text-[10px] font-bold leading-none lg:flex"
+                  aria-hidden
+                >
+                  {i + 1}
+                </span>
+                {label}
+                {showIntervalPreviews && (
+                  <IntervalHint
+                    cardId={currentCard.id}
+                    rating={rating}
+                    defaultEase={cardIdToDefaultEase?.[currentCard.id]}
+                    modality={testedModality}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        )
       ) : (
         <button
           type="button"
@@ -695,6 +888,23 @@ export function FlashcardTester() {
             </>
           )}
         </div>
+
+        {/* Quiet one-step undo — only after a grade, clears at session end. */}
+        {lastGrade && (
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={handleUndo}
+              className="inline-flex items-center gap-1.5 text-xs text-text-muted transition hover:text-text-primary"
+            >
+              <Icon name="rotateCcw" size={12} aria-hidden />
+              {t("flashcards.undo", "Undo last grade")}
+              <kbd className="hidden rounded bg-surface-muted px-1 font-sans text-[10px] font-medium leading-4 lg:inline">
+                Z
+              </kbd>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* First-time onboarding (auto, once per versioned flag). */}

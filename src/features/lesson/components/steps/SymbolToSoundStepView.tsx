@@ -103,9 +103,9 @@ export function SymbolToSoundStepView({
           "Tap a sound to hear it. Pick the one that matches.",
         )}
       </p>
-      {/* mt-auto / mb-auto pair centers the glyph + options block in the
-          leftover column height; CTA stays pinned at the bottom. */}
-      <div className="mt-auto flex justify-center">
+      {/* Content starts at the top; the CTA block below carries mt-auto so
+          it pins to the shared bottom action slot. */}
+      <div className="flex justify-center">
         <span
           className="font-japanese text-[clamp(140px,22dvh,200px)] font-bold leading-none text-text-primary"
           aria-hidden
@@ -113,7 +113,7 @@ export function SymbolToSoundStepView({
           {step.payload.symbol}
         </span>
       </div>
-      <div className={`relative mb-auto grid gap-4 ${optionGridCols}`}>
+      <div className={`relative grid gap-4 ${optionGridCols}`}>
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
@@ -149,7 +149,7 @@ export function SymbolToSoundStepView({
       </div>
       {/* Single bottom block: banner + CTA together so the button never
           moves on submit. */}
-      <div className="relative flex flex-col gap-4">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && <Feedback correct={false} />}
         {!submitted ? (

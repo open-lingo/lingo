@@ -236,8 +236,8 @@ export function getMockCourse(languageId: string): Course {
           eyebrow: "Module 3 · Speak",
           summary: "です + か + は as topic. Adjective EXPOSURE in examples; no formal conjugation yet.",
           lessons: [
-            { id: "ja-m3-1-1", title: "Katakana — Intro", status: "available" as const },
-            { id: "ja-m3-1-2", title: "Katakana — Practice", status: "available" as const },
+            { id: "ja-m3-1-1", title: "Katakana — ア イ ウ", status: "available" as const },
+            { id: "ja-m3-1-2", title: "Katakana — エ オ + sweep", status: "available" as const },
             { id: "ja-m3-2-1", title: "です + か — Intro", status: "available" as const },
             { id: "ja-m3-2-2", title: "です + か — Practice", status: "available" as const },
             { id: "ja-m3-3-1", title: "Things + colors — Intro", status: "available" as const },
@@ -250,6 +250,7 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m3-6-2", title: "Sentence Build — Practice", status: "available" as const },
             { id: "ja-m3-7-1", title: "Mini-dialogue — Intro", status: "available" as const },
             { id: "ja-m3-7-2", title: "Mini-dialogue — Practice", status: "available" as const },
+            { id: "ja-m3-9", title: "Meeting someone new", status: "available" as const },
             { id: "ja-m3-review-1", title: "Module 3 — Review 1", status: "available" as const },
             { id: "ja-m3-review-2", title: "Module 3 — Review 2", status: "available" as const },
           ],
@@ -262,6 +263,7 @@ export function getMockCourse(languageId: string): Course {
           eyebrow: "Module 4 · Possessives + pointers",
           summary: "の (possession) + the four-way pointer system これ/それ/あれ/どれ.",
           lessons: [
+            { id: "ja-m4-kata", title: "Katakana — カ row", status: "available" as const },
             { id: "ja-m4-1-1", title: "Everyday objects — Intro", status: "available" as const },
             { id: "ja-m4-1-2", title: "Everyday objects — Practice", status: "available" as const },
             { id: "ja-m4-2-1", title: "の — Intro", status: "available" as const },
@@ -276,6 +278,7 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m4-6-2", title: "Sentence Build — Practice", status: "available" as const },
             { id: "ja-m4-7-1", title: "Mini-dialogue — Intro", status: "available" as const },
             { id: "ja-m4-7-2", title: "Mini-dialogue — Practice", status: "available" as const },
+            { id: "ja-m4-story", title: "Whose is this?", status: "available" as const },
             { id: "ja-m4-review-1", title: "Module 4 — Review 1", status: "available" as const },
             { id: "ja-m4-review-2", title: "Module 4 — Review 2", status: "available" as const },
           ],
@@ -288,6 +291,7 @@ export function getMockCourse(languageId: string): Course {
           eyebrow: "Module 5 · Counting",
           summary: "Numbers 1-10 + the 人 (people) counter. Café + transaction scenes.",
           lessons: [
+            { id: "ja-m5-kata", title: "Katakana — サ row", status: "available" as const },
             { id: "ja-m5-1-1", title: "Numbers 1–3", status: "available" as const },
             { id: "ja-m5-1-2", title: "Numbers 4–5 + consolidation", status: "available" as const },
             { id: "ja-m5-2-1", title: "Numbers 6–8", status: "available" as const },
@@ -302,6 +306,7 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m5-6-2", title: "Mixed drill — は / の / から / ください", status: "available" as const },
             { id: "ja-m5-7-1", title: "Sentence build — cafe production", status: "available" as const },
             { id: "ja-m5-7-2", title: "Mini-dialogue — ordering at a cafe", status: "available" as const },
+            { id: "ja-m5-story", title: "Ordering for the group", status: "available" as const },
             { id: "ja-m5-review-1", title: "Module 5 — Review 1", status: "available" as const },
             { id: "ja-m5-review-2", title: "Module 5 — Review 2", status: "available" as const },
           ],
@@ -314,6 +319,7 @@ export function getMockCourse(languageId: string): Course {
           eyebrow: "Module 6 · Locations",
           summary: "に + で + が introduced via existence (___ が あります / います).",
           lessons: [
+            { id: "ja-m6-kata", title: "Katakana — タ row", status: "available" as const },
             { id: "ja-m6-1-1", title: "Places — Intro", status: "available" as const },
             { id: "ja-m6-1-2", title: "Places — Practice", status: "available" as const },
             { id: "ja-m6-2-1", title: "に — Intro", status: "available" as const },
@@ -330,6 +336,7 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m6-7-2", title: "Sentence Build — Practice", status: "available" as const },
             { id: "ja-m6-8-1", title: "Mini-dialogue — Intro", status: "available" as const },
             { id: "ja-m6-8-2", title: "Mini-dialogue — Practice", status: "available" as const },
+            { id: "ja-m6-story", title: "After school", status: "available" as const },
             { id: "ja-m6-review-1", title: "Module 6 — Review 1", status: "available" as const },
             { id: "ja-m6-review-2", title: "Module 6 — Review 2", status: "available" as const },
           ],
@@ -340,15 +347,16 @@ export function getMockCourse(languageId: string): Course {
         // Compounding review is now baked into every M3-M7 sub-lesson per
         // m3-m7-rebuild-spec-2026-05-18.md §3 (review-to-new ratio ≥0.25),
         // so the separate R1-R4 pathway entries became dead pathway weight.
-        // `buildModuleReviewLessons` + `moduleReviewSchedule` infra kept
-        // alive for future FSRS-tier surfacing on the Learn / flashcards
-        // surfaces (per curriculum-roadmap §6 module-review subsection).
+        // `buildModuleReviewLessons` + jaReviewPools were deleted as dead
+        // code (2026-07-01); `moduleReviewSchedule` remains live in its
+        // own file.
         {
           id: "m7",
           title: "Verbs in motion",
           eyebrow: "Module 7 · Actions",
           summary: "Dictionary form + ます polite stem + を (direct object). Real sentences with action.",
           lessons: [
+            { id: "ja-m7-kata", title: "Katakana — ナ row", status: "available" as const },
             { id: "ja-m7-1-1", title: "Verbs — dictionary form (part 1)", status: "available" as const },
             { id: "ja-m7-1-2", title: "Verbs — dictionary form (part 2)", status: "available" as const },
             { id: "ja-m7-2-1", title: "Dictionary ↔ ます stem (part 1)", status: "available" as const },
@@ -365,6 +373,7 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m7-7-2", title: "Production — actions (part 2)", status: "available" as const },
             { id: "ja-m7-8-1", title: "Mini-dialogue — ramen shop (part 1)", status: "available" as const },
             { id: "ja-m7-8-2", title: "Cumulative review — M7 wrap-up", status: "available" as const },
+            { id: "ja-m7-story", title: "What do you eat?", status: "available" as const },
             { id: "ja-m7-review-1", title: "Module 7 — Review 1", status: "available" as const },
             { id: "ja-m7-review-2", title: "Module 7 — Review 2", status: "available" as const },
           ],
@@ -377,6 +386,7 @@ export function getMockCourse(languageId: string): Course {
           eyebrow: "Module 8 · Adjectives I",
           summary: "い-adjective conjugation (たかい → たかくない) + この/その/あの/どの + と (and).",
           lessons: [
+            { id: "ja-m8-kata", title: "Katakana — ハ row", status: "available" as const },
             { id: "ja-m8-1-1", title: "Describing things — Intro", status: "available" as const },
             { id: "ja-m8-1-2", title: "Describing things — Practice", status: "available" as const },
             { id: "ja-m8-2-1", title: "Good and bad — Intro", status: "available" as const },
@@ -406,6 +416,7 @@ export function getMockCourse(languageId: string): Course {
           eyebrow: "Module 9 · Adjectives II",
           summary: "な-adjective conjugation (きれい → きれいじゃない) + よ (emphasis) + ね (agreement).",
           lessons: [
+            { id: "ja-m9-kata", title: "Katakana — マ row", status: "available" as const },
             { id: "ja-m9-1-1", title: "Pretty and quiet — Intro", status: "available" as const },
             { id: "ja-m9-1-2", title: "Pretty and quiet — Practice", status: "available" as const },
             { id: "ja-m9-2-1", title: "Like and dislike — Intro", status: "available" as const },
@@ -433,6 +444,7 @@ export function getMockCourse(languageId: string): Course {
           eyebrow: "Module 10 · Past tense",
           summary: "ました + でした + adjective past forms. Polite past only — plain past comes with て-form.",
           lessons: [
+            { id: "ja-m10-kata", title: "Katakana — ヤ row", status: "available" as const },
             { id: "ja-m10-1-1", title: "What did you do? — Intro", status: "available" as const },
             { id: "ja-m10-1-2", title: "What did you do? — Practice", status: "available" as const },
             { id: "ja-m10-2-1", title: "Morning routine — Intro", status: "available" as const },
@@ -460,6 +472,7 @@ export function getMockCourse(languageId: string): Course {
           eyebrow: "Module 11 · Negation",
           summary: "ません + ませんでした + ない-form (casual negative) + まだ/もう (still/already).",
           lessons: [
+            { id: "ja-m11-kata", title: "Katakana — ラ row", status: "available" as const },
             { id: "ja-m11-1-1", title: "I don't... — Intro", status: "available" as const },
             { id: "ja-m11-1-2", title: "I don't... — Practice", status: "available" as const },
             { id: "ja-m11-2-1", title: "I didn't... — Intro", status: "available" as const },
@@ -487,6 +500,7 @@ export function getMockCourse(languageId: string): Course {
           eyebrow: "Module 12 · Time",
           summary: "Clock time (じ/ふん) + days of the week + に (time marker) + numbers 11-99.",
           lessons: [
+            { id: "ja-m12-kata", title: "Katakana — ワ ヲ ン", status: "available" as const },
             { id: "ja-m12-1-1", title: "What time? (1-6) — Intro", status: "available" as const },
             { id: "ja-m12-1-2", title: "What time? (1-6) — Practice", status: "available" as const },
             { id: "ja-m12-2-1", title: "Hours 7-12 — Intro", status: "available" as const },

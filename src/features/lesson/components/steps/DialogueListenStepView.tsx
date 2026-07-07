@@ -349,40 +349,40 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         </div>
       )}
 
-      {/* Spacer drops the banner + CTA to the standard bottom anchor (y≈749,
-       *  shared with every other graded step) instead of floating mid-card,
-       *  and keeps the CTA put when the feedback banner appears on commit
-       *  (Spencer 2026-06-13 CTA-harmony pass). */}
-      <div className="flex-1" />
-
-      {currentCommitted && currentQ && (
-        <Feedback
-          correct={!!currentCorrect}
-          explanation={currentQ.explanation}
-        />
-      )}
-
-      {/* ── CTA ───────────────────────────────────────────────────────── */}
-      {!currentCommitted ? (
-        <ContinueButton
-          onClick={commitCurrent}
-          label={t("lesson.check", "Check")}
-          disabled={!currentSelection}
-        />
-      ) : !allCommitted ? (
-        <ContinueButton
-          onClick={advanceToNext}
-          label={t("lesson.dialogueListen.nextQuestion", "Next question")}
-          variant={currentCorrect ? "correct" : "incorrect"}
-        />
-      ) : (
-        <div className="motion-safe:animate-fade-up">
-          <ContinueButton
-            onClick={onContinue}
-            variant={allCorrect ? "correct" : "incorrect"}
+      {/* Bottom-anchored block drops the banner + CTA to the standard
+       *  bottom anchor (shared with every other graded step) instead of
+       *  floating mid-card, and keeps the CTA put when the feedback banner
+       *  appears on commit (Spencer 2026-06-13 CTA-harmony pass). */}
+      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+        {currentCommitted && currentQ && (
+          <Feedback
+            correct={!!currentCorrect}
+            explanation={currentQ.explanation}
           />
-        </div>
-      )}
+        )}
+
+        {/* ── CTA ─────────────────────────────────────────────────────── */}
+        {!currentCommitted ? (
+          <ContinueButton
+            onClick={commitCurrent}
+            label={t("lesson.check", "Check")}
+            disabled={!currentSelection}
+          />
+        ) : !allCommitted ? (
+          <ContinueButton
+            onClick={advanceToNext}
+            label={t("lesson.dialogueListen.nextQuestion", "Next question")}
+            variant={currentCorrect ? "correct" : "incorrect"}
+          />
+        ) : (
+          <div className="motion-safe:animate-fade-up">
+            <ContinueButton
+              onClick={onContinue}
+              variant={allCorrect ? "correct" : "incorrect"}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

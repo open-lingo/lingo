@@ -113,7 +113,7 @@ export function CommandPalette() {
   return (
     <Portal>
       <div
-        className="fixed inset-0 z-[60] flex items-start justify-center bg-overlay/80 px-4 pt-[12vh] backdrop-blur-sm"
+        className="fixed inset-0 z-[60] flex items-start justify-center bg-overlay/80 px-4 pt-[12vh]"
         onMouseDown={(e) => {
           if (e.target === e.currentTarget) close();
         }}

@@ -9,14 +9,21 @@ const variantStyles: Record<AlertVariant, string> = {
   warning: "border-warning/40 bg-warning/15 text-warning",
 };
 
-export function ToastContainer() {
+export function ToastContainer({
+  bottomOffsetClass,
+}: {
+  /** Override the stacking baseline. Focused flows (lesson/review sessions)
+   *  pass a taller offset so toasts land ABOVE the bottom-anchored
+   *  CHECK/CONTINUE + feedback banner instead of covering them. */
+  bottomOffsetClass?: string;
+} = {}) {
   const { toasts, dismissToast } = useToast();
 
   if (toasts.length === 0) return null;
 
   return (
     <div
-      className="pointer-events-none fixed bottom-[var(--funding-meter-height,4.5rem)] left-4 right-4 z-[60] flex flex-col gap-2 sm:left-auto sm:right-4 sm:max-w-sm"
+      className={`pointer-events-none fixed ${bottomOffsetClass ?? "bottom-[var(--funding-meter-height,4.5rem)]"} left-4 right-4 z-[60] flex flex-col gap-2 sm:left-auto sm:right-4 sm:max-w-sm`}
       aria-live="polite"
       aria-atomic="true"
     >

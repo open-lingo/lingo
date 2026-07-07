@@ -12,10 +12,30 @@ import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const CELEBRATE_MS = 1100;
 
+/**
+ * Options the "Pick the particle that fits" instruction is honest about.
+ * Grammar pools reuse this step type for copula forms, verb endings,
+ * adverbs, demonstratives… (2026-07-06 audit: the hardcoded label lied on
+ * ~95 steps) — anything outside this set gets "Complete the sentence".
+ */
+const PARTICLE_OPTIONS = new Set([
+  "は", "が", "を", "に", "で", "と", "へ", "も", "の", "か", "ね", "よ",
+  "な", "わ", "や", "から", "まで", "までに", "より", "だけ", "しか",
+  "くらい", "ぐらい", "ほど", "など",
+]);
+
 type Props = {
   step: ParticleClozeStep;
   onComplete: (stepId: string, correct: boolean) => void;
   onContinue: () => void;
+  /**
+   * Grammar-deck rendering: show `meaningEn` BEFORE the answer. In a
+   * lesson the surrounding steps supply context, so the meaning stays a
+   * post-submit reveal; standalone, a semantic cloze without the gloss is
+   * a guessing game (です/でした/じゃないです are all grammatical).
+   * Audio stays post-submit either way — it speaks the answer.
+   */
+  showMeaningPreAnswer?: boolean;
 };
 
 /**
@@ -24,9 +44,16 @@ type Props = {
  * The blank renders as a pill shape between the `before` / `after` halves
  * of the sentence (with AnnotatedJa ruby on each half). After submit the
  * correct particle slots into the pill, the English meaning reveals
- * below, and (if `audioText` is set) the full sentence audio plays once.
+ * below (or sits above the sentence from the start — see
+ * `showMeaningPreAnswer`), and (if `audioText` is set) the full sentence
+ * audio plays once.
  */
-export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
+export function ParticleClozeStepView({
+  step,
+  onComplete,
+  onContinue,
+  showMeaningPreAnswer = false,
+}: Props) {
   const { t } = useTranslation();
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -78,6 +105,11 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
 
   const hasSubmittedWrong = submitted && !isCorrect;
 
+  const allOptionsAreParticles = step.options.every((o) =>
+    PARTICLE_OPTIONS.has(o),
+  );
+  const showMeaningUpFront = showMeaningPreAnswer && !!step.meaningEn;
+
   return (
     <div className="relative flex flex-1 flex-col gap-6">
       <ExplainButton
@@ -85,12 +117,19 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
         hasSubmittedWrong={hasSubmittedWrong}
       />
       <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
-        {t("lesson.pickParticle", "Pick the particle that fits")}
+        {allOptionsAreParticles
+          ? t("lesson.pickParticle", "Pick the particle that fits")
+          : t("lesson.completeSentence", "Complete the sentence")}
       </p>
 
-      {/* mt-auto/mb-auto pair centers sentence + particle bank in leftover
-          column height; CTA pins to the bottom. */}
-      <div className="mt-auto rounded-2xl border-2 border-info/40 bg-info/5 px-5 py-6 text-center">
+      {/* Content starts at the top; the CTA block below carries mt-auto so
+          it pins to the shared bottom action slot. */}
+      <div className="rounded-2xl border-2 border-info/40 bg-info/5 px-5 py-6 text-center">
+        {showMeaningUpFront ? (
+          <p className="mb-4 text-base text-text-secondary">
+            &ldquo;{step.meaningEn}&rdquo;
+          </p>
+        ) : null}
         <div className="font-japanese text-2xl leading-relaxed text-text-primary sm:text-3xl">
           <AnnotatedJa text={step.prompt.before} />
           <span
@@ -114,9 +153,11 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
           </p>
         ) : null}
 
-        {submitted ? (
+        {submitted && (!showMeaningUpFront || hasFullAudio) ? (
           <div className="mt-4 flex items-center justify-center gap-2 text-sm text-text-secondary">
-            <span>{step.meaningEn}</span>
+            {/* Meaning already sits above the sentence in pre-answer mode —
+                don't repeat it; the row then carries only the audio replay. */}
+            {!showMeaningUpFront ? <span>{step.meaningEn}</span> : null}
             {hasFullAudio ? (
               <button
                 type="button"
@@ -131,7 +172,11 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
         ) : null}
       </div>
 
-      <div className="mb-auto grid grid-cols-4 gap-3">
+      {/* flex-wrap, not a fixed grid: long options (じゃないです) must widen
+          their tile instead of wrapping mid-word; whitespace-nowrap +
+          min-w-fit guarantee it, equal flex-basis keeps short particle sets
+          evenly sized, and long options step the type down one size. */}
+      <div className="flex flex-wrap gap-3">
         {step.options.map((p) => {
           const picked = selected === p;
           let style =
@@ -147,6 +192,12 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
           } else if (picked) {
             style = "border-accent bg-accent/10 text-accent";
           }
+          const sizing =
+            p.length >= 5
+              ? "text-lg sm:text-xl"
+              : p.length >= 3
+                ? "text-xl sm:text-2xl"
+                : "text-2xl sm:text-3xl";
           return (
             <button
               key={p}
@@ -154,7 +205,7 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
               disabled={submitted}
               aria-pressed={picked}
               onClick={() => setSelected(p)}
-              className={`flex h-[clamp(3.5rem,8dvh,4.5rem)] items-center justify-center rounded-xl border-2 font-japanese text-2xl font-bold transition-colors sm:text-3xl ${style}`}
+              className={`flex h-[clamp(3.5rem,8dvh,4.5rem)] min-w-fit flex-1 basis-[calc(25%-0.75rem)] items-center justify-center whitespace-nowrap rounded-xl border-2 px-4 font-japanese font-bold transition-colors ${sizing} ${style}`}
             >
               {p}
             </button>
@@ -165,7 +216,7 @@ export function ParticleClozeStepView({ step, onComplete, onContinue }: Props) {
       {/* Single bottom block: explanation + banner + CTA together so the
           button never moves on submit. Banner only on wrong — correct
           celebrates via toast; the explanation still teaches on both. */}
-      <div className="relative flex flex-col gap-4">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6">
         {celebrating ? <CelebrationToast text={celebrationText} /> : null}
         {submitted && step.explanation ? (
           <p className="rounded-2xl border border-border bg-surface px-4 py-3 text-sm leading-relaxed text-text-secondary">

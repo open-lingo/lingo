@@ -314,5 +314,96 @@ describe("FSRS-6 engine — modal", () => {
     it("target retention is 95%", () => {
       expect(getTargetRetention()).toBe(0.95);
     });
+
+    it("fuzz is disabled — identical inputs always produce identical output", () => {
+      // Purpose: pin scheduler config. There's no public getter for
+      // `enable_fuzz`, so this verifies it indirectly — with fuzz ON,
+      // ts-fsrs perturbs the interval/due date randomly, so two runs of the
+      // exact same review sequence from the exact same clock would diverge.
+      const T = new Date("2026-05-20T12:00:00Z");
+      const run = () => reviewCard(createInitialState(), "recognition", "good", T);
+      const a = run();
+      const b = run();
+      expect(a).toEqual(b);
+    });
+
+    /**
+     * Purpose: pin FSRS-6 scheduler behavior end-to-end. ts-fsrs computes
+     * stability/difficulty/interval from its internal default weights;
+     * a future ts-fsrs version bump that changes those weights (or the
+     * FSRS-6 formula) must fail THIS test instead of silently rescheduling
+     * every user's review queue in production.
+     */
+    it("SNAPSHOT: a fixed review sequence produces exact expected stability/interval/due-date values", () => {
+      const T0 = new Date("2026-05-20T12:00:00Z");
+      const ratings: Array<"good" | "hard" | "easy"> = [
+        "good",
+        "good",
+        "hard",
+        "good",
+        "easy",
+      ];
+      let s = createInitialState();
+      let clock = T0;
+      const snapshots: Array<Pick<
+        SRSModalityState,
+        "stability" | "difficulty" | "state" | "interval" | "dueDate" | "reps" | "lapses"
+      >> = [];
+      for (const rating of ratings) {
+        s = reviewCard(s, "recognition", rating, clock);
+        const { stability, difficulty, state, interval, dueDate, reps, lapses } =
+          s.recognition;
+        snapshots.push({ stability, difficulty, state, interval, dueDate, reps, lapses });
+        clock = new Date(s.recognition.dueDate + "T12:00:00Z");
+      }
+
+      expect(snapshots).toEqual([
+        {
+          stability: 2.3065,
+          difficulty: 2.11810397,
+          state: "learning",
+          interval: 0,
+          dueDate: "2026-05-20",
+          reps: 1,
+          lapses: 0,
+        },
+        {
+          stability: 2.3065,
+          difficulty: 2.11121424,
+          state: "review",
+          interval: 1,
+          dueDate: "2026-05-21",
+          reps: 2,
+          lapses: 0,
+        },
+        {
+          stability: 5.32112938,
+          difficulty: 4.74828477,
+          state: "review",
+          interval: 2,
+          dueDate: "2026-05-23",
+          reps: 3,
+          lapses: 0,
+        },
+        {
+          stability: 11.59259274,
+          difficulty: 4.73876485,
+          state: "review",
+          interval: 5,
+          dueDate: "2026-05-28",
+          reps: 4,
+          lapses: 0,
+        },
+        {
+          stability: 36.88068075,
+          difficulty: 2.96593361,
+          state: "review",
+          interval: 15,
+          dueDate: "2026-06-12",
+          reps: 5,
+          lapses: 0,
+        },
+      ]);
+    });
   });
 });

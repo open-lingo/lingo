@@ -53,7 +53,7 @@ export function ModalBase({
   return (
     <Portal>
       <div
-        className="fixed inset-0 z-50 flex items-start justify-center bg-overlay pt-16 backdrop-blur-sm sm:items-center sm:pt-0"
+        className="fixed inset-0 z-50 flex items-start justify-center bg-overlay pt-16 sm:items-center sm:pt-0"
         onClick={(e) => {
           if (
             closeOnBackdrop &&

@@ -68,8 +68,9 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
-      {/* Content cluster centers as one unit in leftover height. */}
-      <div className="my-auto flex flex-col gap-6">
+      {/* Content cluster starts at the top; the CTA block below carries
+          mt-auto so it pins to the shared bottom action slot. */}
+      <div className="flex flex-col gap-6">
       <div className="flex items-center gap-4">
         <button
           type="button"
@@ -134,7 +135,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
           button never moves on submit. Banner only on wrong — correct
           celebrates via toast (a success banner shoved layout around for
           fast learners and read as a stranded island on tall windows). */}
-      <div className="relative flex flex-col gap-4">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && (
           <Feedback correct={false} explanation={step.explanation} />

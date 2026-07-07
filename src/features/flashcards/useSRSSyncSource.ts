@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api";
-import { performSync } from "./engine";
+import { performSync, performGrammarSync } from "./engine";
 import { useSRSSyncStatus } from "./useSRSSyncStatus";
 import type { SyncSource } from "@/shared/components/sync/types";
 
@@ -16,7 +16,10 @@ export function useSRSSyncSource(): SyncSource {
 
   const onSyncNow = useCallback(async () => {
     if (!srs) return;
+    // Same cadence for both tracks — grammar rides the same endpoint
+    // (`SrsApi.sync`), just namespaced (see `grammarSync.ts`).
     await performSync((payload) => srs.sync(payload));
+    await performGrammarSync((payload) => srs.sync(payload));
   }, [srs]);
 
   return {

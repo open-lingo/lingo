@@ -32,9 +32,23 @@ type Props = {
    *  first-view pacing gates (e.g. the symbol-intro stroke animation
    *  lock) are skipped on replays. */
   isReplayRun?: boolean;
+  /**
+   * Where the step is rendering. Inside a lesson (default), surrounding
+   * steps supply context; in the standalone grammar review deck they
+   * don't, so cloze views must show their English gloss BEFORE the answer
+   * (a semantic cloze with no pre-answer context is a guessing game —
+   * 2026-07-06 audit) and rule cards render as compact refreshers.
+   */
+  surface?: "lesson" | "grammarReview";
 };
 
-export function StepRenderer({ step, onComplete, onContinue, isReplayRun }: Props) {
+export function StepRenderer({
+  step,
+  onComplete,
+  onContinue,
+  isReplayRun,
+  surface = "lesson",
+}: Props) {
   switch (step.type) {
     case "info":
       return <InfoStepView step={step} onContinue={onContinue} />;
@@ -157,13 +171,20 @@ export function StepRenderer({ step, onComplete, onContinue, isReplayRun }: Prop
     case "phrase_card":
       return <PhraseCardStepView step={step} onContinue={onContinue} />;
     case "grammar_rule":
-      return <GrammarRuleStepView step={step} onContinue={onContinue} />;
+      return (
+        <GrammarRuleStepView
+          step={step}
+          onContinue={onContinue}
+          variant={surface === "grammarReview" ? "compact" : "full"}
+        />
+      );
     case "particle_cloze":
       return (
         <ParticleClozeStepView
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}
+          showMeaningPreAnswer={surface === "grammarReview"}
         />
       );
     case "self_explanation_mcq":

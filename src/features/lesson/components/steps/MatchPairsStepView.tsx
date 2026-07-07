@@ -218,6 +218,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
             onClick={() => handleClick("source", pair.id)}
             row={idx + 1}
             audioOnSelect={!!step.playAudioOnSelect}
+            showSourceRomaji={!!step.showSourceRomaji}
           />
         ))}
         {targetOrder.map((pair, idx) => (
@@ -243,7 +244,7 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
       {/* Slot is permanently reserved (min-h matches the CTA) so the
           Continue appearing on finish never grows the page — Spencer:
           "once the continue button shows up I have to scroll again". */}
-      <div className="relative flex min-h-14 flex-col justify-end gap-2">
+      <div className="relative mt-auto flex min-h-14 flex-col justify-end gap-2 pt-6">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {finished && (
           <div className="motion-safe:animate-fade-up">
@@ -295,9 +296,21 @@ type SourceTileProps = TileProps & {
    *  recall cue — render plain text in a larger font, no ruby (the
    *  audio is the romaji channel; on-tile ruby gives away the answer). */
   audioOnSelect: boolean;
+  /** Force romaji above the kana source tiles even in audioOnSelect mode —
+   *  for scaffolded first-taste surfaces (onboarding preview) where the
+   *  learner can't read kana yet. */
+  showSourceRomaji?: boolean;
 };
 
-function SourceTile({ pair, style, disabled, onClick, row, audioOnSelect }: SourceTileProps) {
+function SourceTile({
+  pair,
+  style,
+  disabled,
+  onClick,
+  row,
+  audioOnSelect,
+  showSourceRomaji,
+}: SourceTileProps) {
   // Fluid type; rows own the height (1fr) and tiles stretch to fill,
   // so vertical padding stays minimal — big static py inflated each
   // row's min-content floor and forced inner scroll on short windows.
@@ -312,14 +325,18 @@ function SourceTile({ pair, style, disabled, onClick, row, audioOnSelect }: Sour
       style={{ gridColumn: 1, gridRow: row }}
       className={`flex w-full items-center justify-center rounded-xl border-[1.5px] px-4 transition-colors duration-150 ${sizeClass} ${style}`}
     >
-      {audioOnSelect ? (
-        // Plain text — no ruby, no AnnotatedJa. Romaji on this side
-        // would defeat the recall (it IS the answer).
+      {audioOnSelect && !showSourceRomaji ? (
+        // Plain text — audio is the reading channel; on-tile romaji would
+        // give away the recall. Scaffolded surfaces (onboarding preview)
+        // opt in via showSourceRomaji.
         <span>{pair.source}</span>
       ) : pair.sourceAnnotation ? (
-        <AnnotatedJa segments={pair.sourceAnnotation} />
+        <AnnotatedJa
+          segments={pair.sourceAnnotation}
+          forceShowHelper={showSourceRomaji}
+        />
       ) : (
-        <AnnotatedJa text={pair.source} />
+        <AnnotatedJa text={pair.source} forceShowHelper={showSourceRomaji} />
       )}
     </button>
   );

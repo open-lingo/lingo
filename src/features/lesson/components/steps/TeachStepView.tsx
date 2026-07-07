@@ -4,6 +4,7 @@ import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/Annotat
 import { getTtsUrl, useAutoPlayJaAudio, playJaAudio } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { useSettings } from "@/shared/contexts/SettingsContext";
 
 type Props = {
   step: TeachStep;
@@ -14,6 +15,12 @@ export function TeachStepView({ step, onContinue }: Props) {
   useLessonKeyboard({ onEnter: onContinue });
   const { content } = step;
   const { vocab } = content;
+  // A teach step is the introduction of a term — honor the global show-romaji
+  // aid the same way SpeakingStepView does, instead of relying on per-kana
+  // mastery gating (which hides the helper for a never-learned user with no
+  // mastery record, e.g. the no-auth preview). Defaults on (settings types.ts);
+  // weans off when the learner / auto-flip turns showRomaji off.
+  const showRomaji = useSettings().settings.learning.showRomaji ?? false;
   const ttsUrl = vocab ? getTtsUrl(vocab.term) : null;
   useAutoPlayJaAudio(vocab?.term, `teach-${step.id}`);
 
@@ -33,9 +40,12 @@ export function TeachStepView({ step, onContinue }: Props) {
           <div className="flex items-center gap-3 px-5 py-5">
             <span className="text-3xl font-extrabold tracking-tight text-text-primary">
               {vocab.annotation ? (
-                <AnnotatedJa segments={vocab.annotation} />
+                <AnnotatedJa
+                  segments={vocab.annotation}
+                  forceShowHelper={showRomaji}
+                />
               ) : (
-                <AnnotatedJa text={vocab.term} />
+                <AnnotatedJa text={vocab.term} forceShowHelper={showRomaji} />
               )}
             </span>
             <span className="text-sm text-text-muted">
@@ -84,7 +94,9 @@ export function TeachStepView({ step, onContinue }: Props) {
         </div>
       )}
 
-      <ContinueButton onClick={onContinue} />
+      <div className="mt-auto pt-6">
+        <ContinueButton onClick={onContinue} />
+      </div>
     </div>
   );
 }

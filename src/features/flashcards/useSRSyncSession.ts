@@ -2,7 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useApi } from "@/shared/api";
 import { useToast } from "@/shared/contexts/ToastContext";
-import { getDirtyCards, performSync, setNextSrsSyncAt } from "./engine";
+import {
+  getDirtyCards,
+  performSync,
+  setNextSrsSyncAt,
+  getDirtyGrammarCards,
+  performGrammarSync,
+} from "./engine";
 
 export const SYNC_INTERVAL_MS = 30_000;
 const DIRTY_POLL_MS = 2_000;
@@ -26,7 +32,11 @@ export function useSRSyncSession(): { dirtyCount: number } {
 
   const runSync = async (): Promise<number> => {
     try {
-      return await performSync((payload) => srs.sync(payload));
+      // Both tracks ride the same endpoint on the same cadence — see
+      // grammarSync.ts.
+      const vocabCount = await performSync((payload) => srs.sync(payload));
+      const grammarCount = await performGrammarSync((payload) => srs.sync(payload));
+      return vocabCount + grammarCount;
     } catch {
       return 0;
     }
@@ -44,14 +54,18 @@ export function useSRSyncSession(): { dirtyCount: number } {
         );
       }
       if (isMountedRef.current) {
-        setDirtyCount(Object.keys(getDirtyCards()).length);
+        setDirtyCount(
+          Object.keys(getDirtyCards()).length + Object.keys(getDirtyGrammarCards()).length,
+        );
         setNextSrsSyncAt(new Date(Date.now() + SYNC_INTERVAL_MS).toISOString());
       }
     };
 
     const pollDirty = () => {
       if (isMountedRef.current) {
-        setDirtyCount(Object.keys(getDirtyCards()).length);
+        setDirtyCount(
+          Object.keys(getDirtyCards()).length + Object.keys(getDirtyGrammarCards()).length,
+        );
       }
     };
 
@@ -61,8 +75,10 @@ export function useSRSyncSession(): { dirtyCount: number } {
     const dirtyInterval = setInterval(pollDirty, DIRTY_POLL_MS);
 
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      const dirty = getDirtyCards();
-      if (Object.keys(dirty).length > 0) {
+      const hasDirty =
+        Object.keys(getDirtyCards()).length > 0 ||
+        Object.keys(getDirtyGrammarCards()).length > 0;
+      if (hasDirty) {
         e.preventDefault();
         e.returnValue = t("flashcards.syncUnsavedWarning", {
           defaultValue:
@@ -84,9 +100,11 @@ export function useSRSyncSession(): { dirtyCount: number } {
       window.removeEventListener("beforeunload", handleBeforeUnload);
 
       // Fire-and-forget sync on unmount – catches navigate-away before next interval
-      const dirty = getDirtyCards();
-      if (Object.keys(dirty).length > 0) {
+      if (Object.keys(getDirtyCards()).length > 0) {
         performSync((p) => srs.sync(p)).catch(() => {});
+      }
+      if (Object.keys(getDirtyGrammarCards()).length > 0) {
+        performGrammarSync((p) => srs.sync(p)).catch(() => {});
       }
     };
   }, [srs, showToast, t]);

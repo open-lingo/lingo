@@ -66,8 +66,12 @@ function isValidSubState(v: unknown): v is SRSModalityState {
   );
 }
 
-/** Type guard: matches the modal FSRS-6 schema. */
-function isModalFsrsState(v: unknown): v is SRSCardState {
+/**
+ * Type guard: matches the modal FSRS-6 schema. Exported so other stores
+ * (e.g. Track B grammar, `./grammarSrs`) can apply the same read-time
+ * validation instead of re-implementing it.
+ */
+export function isModalFsrsState(v: unknown): v is SRSCardState {
   if (!v || typeof v !== "object") return false;
   const obj = v as Record<string, unknown>;
   return isValidSubState(obj.recognition) && isValidSubState(obj.production);

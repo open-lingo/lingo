@@ -9,6 +9,13 @@ import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 type Props = {
   step: GrammarRuleStep;
   onContinue: () => void;
+  /**
+   * `full` (default) = the lesson hero treatment. `compact` = the grammar
+   * deck's one-time refresher preface: small pane, title + rule + first
+   * example only — a full hero card before a single drill question reads
+   * as long-winded (Spencer, 2026-07-06).
+   */
+  variant?: "full" | "compact";
 };
 
 /**
@@ -22,13 +29,51 @@ type Props = {
  * NOT a quiz. Exposure card. The drill follows in the next step (usually
  * `particle_cloze` or `multiple_choice`).
  */
-export function GrammarRuleStepView({ step, onContinue }: Props) {
+export function GrammarRuleStepView({
+  step,
+  onContinue,
+  variant = "full",
+}: Props) {
   useLessonKeyboard({
     onEnter: () => {
       playSfx("passive-advance");
       onContinue();
     },
   });
+
+  if (variant === "compact") {
+    return (
+      <div className="flex flex-1 flex-col gap-4">
+        <p className="text-xs font-bold uppercase tracking-[0.1em] text-text-muted">
+          Grammar refresher
+        </p>
+
+        <div className="rounded-2xl border-2 border-info/40 bg-gradient-to-br from-info/15 via-info/10 to-accent/10 px-5 py-5">
+          <div className="flex items-center gap-3">
+            <Icon name="fileText" size={24} aria-hidden className="shrink-0 text-info" />
+            <h2 className="text-xl font-bold tracking-tight text-text-primary sm:text-2xl">
+              {step.title}
+            </h2>
+          </div>
+          <p className="mt-3 text-base leading-relaxed text-text-secondary">
+            {step.rule}
+          </p>
+        </div>
+
+        {step.examples[0] ? <ExampleTile example={step.examples[0]} /> : null}
+
+        <div className="mt-auto pt-6">
+          <ContinueButton
+            onClick={() => {
+              playSfx("passive-advance");
+              onContinue();
+            }}
+            label="Got it"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-1 flex-col gap-6">
@@ -78,14 +123,16 @@ export function GrammarRuleStepView({ step, onContinue }: Props) {
         </p>
       ) : null}
 
-      <ContinueButton
-        onClick={() => {
-          // Passive — non-progress chirp + light haptic. See sfx.ts.
-          playSfx("passive-advance");
-          onContinue();
-        }}
-        label="Got it"
-      />
+      <div className="mt-auto pt-6">
+        <ContinueButton
+          onClick={() => {
+            // Passive — non-progress chirp + light haptic. See sfx.ts.
+            playSfx("passive-advance");
+            onContinue();
+          }}
+          label="Got it"
+        />
+      </div>
     </div>
   );
 }

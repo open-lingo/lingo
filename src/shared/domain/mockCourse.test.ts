@@ -82,11 +82,13 @@ describe("curriculum lesson counts", () => {
     }
   });
 
-  it("M3 has 16 sub-lessons (sub-lesson restructure 2026-05-24)", () => {
+  it("M3 has 17 sub-lessons (16 + story wired 2026-07-01)", () => {
     const m3 = course.modules.find((m) => m.id === "m3")!;
     expect(m3).toBeDefined();
     expect(m3.comingSoon).toBeFalsy();
-    expect(m3.lessons.length).toBe(16);
+    // 14 content + story (ja-m3-9) + 2 review = 17.
+    expect(m3.lessons.length).toBe(17);
+    expect(m3.lessons.some((l) => l.id === "ja-m3-9")).toBe(true);
   });
 
   it("M3 ends with review lessons", () => {
@@ -95,28 +97,44 @@ describe("curriculum lesson counts", () => {
     expect(last.title).toMatch(/Review/i);
   });
 
-  it("M4 has 16 sub-lessons (possessives + pointers)", () => {
+  it("M4 has 18 sub-lessons (possessives + pointers + story + katakana row)", () => {
     const m4 = course.modules.find((m) => m.id === "m4")!;
     expect(m4.comingSoon).toBeFalsy();
-    expect(m4.lessons.length).toBe(16);
+    expect(m4.lessons.length).toBe(18);
+    expect(m4.lessons.some((l) => l.id === "ja-m4-story")).toBe(true);
+    expect(m4.lessons[0].id).toBe("ja-m4-kata");
   });
 
-  it("M5 has 16 sub-lessons (numbers + counters)", () => {
+  it("M5 has 18 sub-lessons (numbers + counters + story + katakana row)", () => {
     const m5 = course.modules.find((m) => m.id === "m5")!;
     expect(m5.comingSoon).toBeFalsy();
-    expect(m5.lessons.length).toBe(16);
+    expect(m5.lessons.length).toBe(18);
+    expect(m5.lessons.some((l) => l.id === "ja-m5-story")).toBe(true);
+    expect(m5.lessons[0].id).toBe("ja-m5-kata");
   });
 
-  it("M6 has 18 sub-lessons (locations + に/で/が)", () => {
+  it("M6 has 20 sub-lessons (locations + に/で/が + story + katakana row)", () => {
     const m6 = course.modules.find((m) => m.id === "m6")!;
     expect(m6.comingSoon).toBeFalsy();
-    expect(m6.lessons.length).toBe(18);
+    expect(m6.lessons.length).toBe(20);
+    expect(m6.lessons.some((l) => l.id === "ja-m6-story")).toBe(true);
+    expect(m6.lessons[0].id).toBe("ja-m6-kata");
   });
 
-  it("M7 has 18 sub-lessons (verbs + を)", () => {
+  it("M7 has 20 sub-lessons (verbs + を + story + katakana row)", () => {
     const m7 = course.modules.find((m) => m.id === "m7")!;
     expect(m7.comingSoon).toBeFalsy();
-    expect(m7.lessons.length).toBe(18);
+    expect(m7.lessons.length).toBe(20);
+    expect(m7.lessons.some((l) => l.id === "ja-m7-story")).toBe(true);
+    expect(m7.lessons[0].id).toBe("ja-m7-kata");
+  });
+
+  it("every module M4-M12 leads with its katakana row lesson (rollout 2026-07-01)", () => {
+    for (let n = 4; n <= 12; n++) {
+      const mod = course.modules.find((m) => m.id === `m${n}`)!;
+      expect(mod, `m${n}`).toBeDefined();
+      expect(mod.lessons[0].id, `m${n}`).toBe(`ja-m${n}-kata`);
+    }
   });
 
   it("no standalone inter-module Review pseudo-modules exist (removed 2026-05-18)", () => {

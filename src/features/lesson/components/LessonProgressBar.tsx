@@ -6,6 +6,11 @@ type Props = {
 export function LessonProgressBar({ current, total }: Props) {
   const percent = total > 0 ? Math.round((current / total) * 100) : 0;
 
+  // Numberless by design: for a fixed-arc lesson the bar IS the count —
+  // a "3/19" readout duplicates it and reads as work remaining rather
+  // than progress made. (Review queues are the opposite case and keep
+  // their explicit counts.) Screen readers still get the exact position
+  // via the progressbar values.
   return (
     <div className="flex flex-1 items-center gap-4">
       <div
@@ -17,13 +22,10 @@ export function LessonProgressBar({ current, total }: Props) {
         className="h-4 flex-1 overflow-hidden rounded-full border-[1.5px] border-border bg-surface-muted"
       >
         <div
-          className="h-full rounded-full bg-accent transition-all duration-300"
+          className="h-full rounded-full bg-accent transition-[width] duration-300 ease-out"
           style={{ width: `${percent}%` }}
         />
       </div>
-      <span className="min-w-[4ch] text-right text-base font-bold tabular-nums text-text-secondary">
-        {current}/{total}
-      </span>
     </div>
   );
 }

@@ -327,13 +327,13 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
           </span>
         )}
       </p>
-      {/* Spacer drops Check/Skip to the standard bottom anchor (y≈749,
-       *  shared with every other graded step) so the button doesn't jump
-       *  when moving between a trace step and the next (Spencer 2026-06-13
-       *  CTA-harmony pass). Canvas + feedback stay read-where-expected up top. */}
-      <div className="flex-1" />
-      {/* Button slot: stays a constant height across both phases so the
-          lesson card doesn't shrink-then-grow. */}
+      {/* mt-auto drops Check/Skip to the standard bottom anchor (shared
+       *  with every other graded step) so the button doesn't jump when
+       *  moving between a trace step and the next (Spencer 2026-06-13
+       *  CTA-harmony pass). Canvas + feedback stay read-where-expected up
+       *  top. Button slot stays a constant height across both phases so
+       *  the lesson card doesn't shrink-then-grow. */}
+      <div className="mt-auto pt-6">
       {done ? (
         <div className="motion-safe:animate-fade-up">
           <ContinueButton onClick={handleContinue} />
@@ -367,6 +367,7 @@ export function SymbolTraceStepView({ step, onComplete, onContinue }: Props) {
           )}
         </div>
       )}
+      </div>
     </div>
   );
 }

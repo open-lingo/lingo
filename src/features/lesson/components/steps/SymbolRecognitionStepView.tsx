@@ -93,8 +93,9 @@ export function SymbolRecognitionStepView({
   const romanization = step.payload.romanization;
   return (
     <div className="flex flex-1 flex-col gap-4">
-      {/* Content cluster centers as one unit in leftover height. */}
-      <div className="my-auto flex flex-col gap-4">
+      {/* Content cluster starts at the top; the CTA block below carries
+          mt-auto so it pins to the shared bottom action slot. */}
+      <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-center gap-3">
         <h2 className="text-lg font-medium text-text-secondary">
           {t("alphabet.taskPickSymbol", "Pick the symbol for")}{" "}
@@ -159,7 +160,7 @@ export function SymbolRecognitionStepView({
       </div>
       {/* Single bottom-anchored block: banner + CTA together so the
           button never moves on submit. */}
-      <div className="relative flex flex-col gap-4">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && <Feedback correct={false} />}
         {!submitted ? (

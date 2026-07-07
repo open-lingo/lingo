@@ -98,6 +98,18 @@ export function Popover({
     computePosition();
   }, [open, computePosition]);
 
+  // Portal mounts its children one effect-tick AFTER this component's layout
+  // effect (Portal gates on a `mounted` state flip), so the effect above runs
+  // while panelRef is still null and the panel would stay parked at -9999.
+  // Positioning must therefore also fire when the panel node actually mounts.
+  const attachPanelRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      panelRef.current = node;
+      if (node) computePosition();
+    },
+    [computePosition],
+  );
+
   useEffect(() => {
     if (!open) return;
     const onResize = () => computePosition();
@@ -149,7 +161,7 @@ export function Popover({
       {open && (
         <Portal>
           <div
-            ref={panelRef}
+            ref={attachPanelRef}
             role="dialog"
             data-placement={actualPlacement}
             style={{

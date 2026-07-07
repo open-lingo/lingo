@@ -246,6 +246,33 @@ export function setDevUnlock(on: boolean): void {
   else localStorage.removeItem(DEV_UNLOCK_KEY);
 }
 
+/**
+ * Dev-panel bulk completion: mark a set of lessons complete locally in one
+ * write. Existing completions are preserved (their stats aren't clobbered);
+ * new entries get neutral stats. Local-only by design — no server rollup
+ * push, no XP — this simulates "a learner who got here", it doesn't replay
+ * the journey. Atom unlocks are the caller's job: DevPanel pairs this with
+ * `devUnlockAtomsForLessons` so atom-derived surfaces (course deck, grammar
+ * queues) follow the simulated progress.
+ */
+export function devMarkLessonsCompleted(lessonIds: string[]): void {
+  if (typeof window === "undefined" || lessonIds.length === 0) return;
+  const store = loadStore();
+  const now = new Date().toISOString();
+  for (const lessonId of lessonIds) {
+    if (store.completed[lessonId]) continue;
+    store.completed[lessonId] = {
+      lessonId,
+      firstCompletedAt: now,
+      lastCompletedAt: now,
+      bestAccuracy: 1,
+      lastXp: 0,
+      reviewCount: 0,
+    };
+  }
+  saveStore(store);
+}
+
 export type ProgressSummary = {
   streakDays: number;
   lessonsCompletedThisWeek: number;

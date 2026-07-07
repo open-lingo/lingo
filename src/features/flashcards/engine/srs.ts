@@ -318,6 +318,23 @@ export function getTargetRetention(): number {
 }
 
 /**
+ * FSRS default-initial difficulty (D0) under this engine's config — the
+ * difficulty the scheduler assigns after a first "Good" review of an empty
+ * card. DERIVED from the scheduler (not a hardcoded constant) so it tracks
+ * `request_retention` / weight changes automatically, per the ts-fsrs init
+ * for a first Good grade.
+ *
+ * Used by the external-study importer to stamp review-state seeded cards with
+ * a realistic difficulty instead of the `0` that `createInitialSubState`
+ * leaves on genuinely-new cards (those get their real D0 on first review).
+ */
+export function defaultInitialDifficulty(): number {
+  const now = new Date();
+  const { card } = SCHEDULER.next(createEmptyCard(now), now, Rating.Good);
+  return card.difficulty;
+}
+
+/**
  * Rollup helper for sort/display surfaces that want a single difficulty
  * number per card. Returns the harder of the two modalities so cards
  * surface for review while at least one direction is still struggling.

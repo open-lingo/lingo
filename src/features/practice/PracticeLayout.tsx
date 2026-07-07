@@ -63,10 +63,14 @@ export function PracticeLayout() {
 
   const norm = pathname.replace(/\/$/, "");
   const isPracticeHub = norm === practiceHubPath;
+  // The grammar review session is a focused flow (Layout hides header/footer
+  // for it) — breadcrumbs above it would be the one stray chrome the lesson
+  // player doesn't have. The session's X-out button is the way out.
+  const isFocusedSession = /\/practice\/grammar\/review$/.test(norm);
 
   return (
     <div className="mx-auto max-w-screen-2xl space-y-6">
-      {!isPracticeHub && <PracticeBreadcrumbs />}
+      {!isPracticeHub && !isFocusedSession && <PracticeBreadcrumbs />}
       <Outlet />
     </div>
   );

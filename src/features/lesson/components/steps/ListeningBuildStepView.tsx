@@ -118,8 +118,9 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
       />
-      {/* Content cluster centers as one unit in leftover height. */}
-      <div className="my-auto flex flex-col gap-7">
+      {/* Content cluster starts at the top; the CTA block below carries
+          mt-auto so it pins to the shared bottom action slot. */}
+      <div className="flex flex-col gap-7">
       {/* Prompt row — bigger play button + larger text. Quoted meanings
        *  get auto-bolded via PromptWithEmphasis. */}
       <div className="flex items-center gap-4">
@@ -204,7 +205,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           together so the button NEVER moves on submit — the banner grows
           the block upward while the CTA stays pinned. Correct answers
           celebrate via toast only (no banner, no shift). */}
-      <div className="relative flex flex-col gap-4">
+      <div className="relative mt-auto flex flex-col gap-4 pt-6">
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && <Feedback correct={false} />}
         {submitted && !isCorrect && (

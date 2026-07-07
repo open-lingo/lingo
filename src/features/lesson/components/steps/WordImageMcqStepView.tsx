@@ -5,8 +5,10 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { useTranslation } from "react-i18next";
 import { notoEmojiUrl, lingoArtUrl } from "@/shared/assets/notoEmoji";
+import { AnnotatedText } from "@/shared/readingAnnotation/AnnotatedText";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { useSettings } from "@/shared/contexts/SettingsContext";
 
 const CELEBRATE_MS = 1100;
 
@@ -56,7 +58,7 @@ function EmojiArt({ src, emoji }: { src: string | null; emoji: string }) {
       height={160}
       loading="eager"
       onError={() => setFailed(true)}
-      className="h-[58%] w-[58%] max-h-64 max-w-64 select-none object-contain"
+      className="h-[50%] w-[50%] max-h-52 max-w-52 select-none object-contain"
       draggable={false}
     />
   );
@@ -64,6 +66,11 @@ function EmojiArt({ src, emoji }: { src: string | null; emoji: string }) {
 
 export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   const { t } = useTranslation();
+  // The picture is the answer here, not the romaji, so the romaji helper is a
+  // pure reading aid — honor the global show-romaji setting (defaults on) so a
+  // never-learned learner can actually read each option. Weans off with the
+  // setting; mastery gating alone would hide it for users with no record.
+  const showRomaji = useSettings().settings.learning.showRomaji ?? false;
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
@@ -107,10 +114,20 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
     }
   }
 
+  // Adaptive grid: ≤3 options render as a single balanced row (no empty
+  // cell — 3-up was previously 2×2-with-a-hole); 4 stays a 2×2. Card edge is
+  // capped (~16rem) and height-budget-aware so big 4K screens don't balloon
+  // the picture and short laptop windows still fit the 2-row case.
+  const optCount = step.options.length;
+  const cols = optCount <= 3 ? optCount : 2;
+  const rows = Math.ceil(optCount / cols);
+  const gridWidth = `min(calc(100vw - 3rem), calc((100dvh - 20rem) * ${cols} / ${rows}), ${cols * 16}rem)`;
+
   return (
     <div className="flex flex-1 flex-col gap-6">
-      {/* Content cluster centers as one unit in leftover height. */}
-      <div className="my-auto flex flex-col gap-6">
+      {/* Content cluster starts at the top; the CTA block below carries
+          mt-auto so it pins to the shared bottom action slot. */}
+      <div className="flex flex-col gap-6">
       <h2 className="text-center text-xl font-medium leading-snug text-text-secondary sm:text-2xl">
         <PromptWithEmphasis meaning={step.meaningEn} />
       </h2>
@@ -121,7 +138,10 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           usable); on tall windows it grows past the 42rem text column
           (picture cards have no line-length constraint) via the
           left-1/2 translate breakout, up to 56rem. */}
-      <div className="relative left-1/2 grid w-[clamp(18rem,calc(100dvh-22rem),56rem)] max-w-[calc(100vw-3rem)] -translate-x-1/2 grid-cols-2 gap-4">
+      <div
+        className="relative left-1/2 grid -translate-x-1/2 gap-4"
+        style={{ width: gridWidth, gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+      >
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
@@ -148,19 +168,23 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
               aria-label={`Hear and pick ${opt.word}`}
             >
               {/* Kana stacked above the art (normal flow, not absolute) so
-               *  the card stays vertically balanced at any size. */}
-              <span
+               *  the card stays vertically balanced at any size. Rendered via
+               *  AnnotatedText with forceShowHelper bound to the global
+               *  show-romaji setting so the romaji helper shows above each kana
+               *  for a never-learned learner — the same spoon-feed every other
+               *  step gives — and weans off when that setting flips off. */}
+              <AnnotatedText
+                forceShowHelper={showRomaji}
+                text={opt.word}
                 className={
-                  "font-japanese text-center text-2xl font-bold tracking-wide sm:text-3xl " +
+                  "font-japanese text-center text-3xl font-bold tracking-wide sm:text-4xl " +
                   (submitted && isAnswer
                     ? "text-accent"
                     : submitted && isSelected && !isAnswer
                       ? "text-error"
                       : "text-text-primary")
                 }
-              >
-                {opt.word}
-              </span>
+              />
               {/* Emoji centered, sized to fill ~60–65% of the card.
                *  Noto Emoji SVG render — never device-dependent. */}
               <EmojiArt src={emojiSrc} emoji={opt.emoji} />
@@ -173,7 +197,10 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
       {/* Single bottom-anchored block (banner + CTA) so the button never
           moves on submit. Width mirrors the grid's breakout so the column
           reads as one shape when the grid exceeds 42rem. */}
-      <div className="relative left-1/2 flex w-[max(100%,min(calc(100dvh-22rem),56rem))] max-w-[calc(100vw-3rem)] -translate-x-1/2 flex-col gap-4">
+      <div
+        className="relative left-1/2 mt-auto flex -translate-x-1/2 flex-col gap-4 pt-6"
+        style={{ width: gridWidth }}
+      >
         {celebrating && <CelebrationToast text={celebrationText} />}
         {submitted && !isCorrect && <Feedback correct={false} />}
         {!submitted ? (

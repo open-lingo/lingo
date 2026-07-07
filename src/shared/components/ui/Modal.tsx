@@ -129,7 +129,13 @@ export function Modal({
   return (
     <Portal>
       <div
-        className="fixed inset-0 z-50 flex items-end justify-center bg-overlay backdrop-blur-sm sm:items-center"
+        // Plain dim overlay — no backdrop-blur. The blur was re-evaluated on
+        // EVERY scrolled frame of overflowing modal content regardless of
+        // compositing (measured 2026-07-05: scroll frame p95 33.4ms with blur
+        // vs a flat 16.7ms without; layer-promoting the panel changed
+        // nothing). Scroll jank inside modals on weaker GPUs was the
+        // user-visible symptom.
+        className="fixed inset-0 z-50 flex items-end justify-center bg-overlay sm:items-center"
         onMouseDown={(e) => {
           if (!closeOnBackdrop) return;
           if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
@@ -194,7 +200,7 @@ export function Modal({
           )}
           <div
             className={cn(
-              "min-h-0 flex-1 overflow-y-auto",
+              "min-h-0 flex-1 overflow-y-auto overscroll-contain",
               unpadded ? "" : "px-5 py-4 sm:px-6",
             )}
           >

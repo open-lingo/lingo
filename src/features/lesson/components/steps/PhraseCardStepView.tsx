@@ -106,15 +106,17 @@ export function PhraseCardStepView({ step, onContinue }: Props) {
         ) : null}
       </div>
 
-      <ContinueButton
-        onClick={() => {
-          // Passive cards don't tick the progress bar — emit a non-progress
-          // chirp + light haptic so the tap feels acknowledged.
-          playSfx("passive-advance");
-          onContinue();
-        }}
-        label="Got it"
-      />
+      <div className="mt-auto pt-6">
+        <ContinueButton
+          onClick={() => {
+            // Passive cards don't tick the progress bar — emit a non-progress
+            // chirp + light haptic so the tap feels acknowledged.
+            playSfx("passive-advance");
+            onContinue();
+          }}
+          label="Got it"
+        />
+      </div>
     </div>
   );
 }

@@ -175,34 +175,38 @@ export function SelfExplanationMcqStepView({ step, onComplete, onContinue }: Pro
         {celebrating && <CelebrationToast text={celebrationText} />}
       </div>
 
-      {/* Subtle reveal card on correct commit (the actual rule). */}
-      {submitted && isCorrect && step.ruleExplanation && (
-        <div className="rounded-2xl border-[1.5px] border-accent/40 bg-accent-muted/60 px-5 py-4 text-sm leading-relaxed text-text-primary">
-          <span className="block text-xs font-bold uppercase tracking-wider text-accent">
-            {t("lesson.selfExplain.ruleReveal", "The rule")}
-          </span>
-          <p className="mt-1.5">{step.ruleExplanation}</p>
-        </div>
-      )}
+      {/* Bottom-anchored block: reveal card / banner + CTA together so the
+          button sits in the shared bottom action slot and never moves. */}
+      <div className="relative mt-auto flex flex-col gap-4 pt-6">
+        {/* Subtle reveal card on correct commit (the actual rule). */}
+        {submitted && isCorrect && step.ruleExplanation && (
+          <div className="rounded-2xl border-[1.5px] border-accent/40 bg-accent-muted/60 px-5 py-4 text-sm leading-relaxed text-text-primary">
+            <span className="block text-xs font-bold uppercase tracking-wider text-accent">
+              {t("lesson.selfExplain.ruleReveal", "The rule")}
+            </span>
+            <p className="mt-1.5">{step.ruleExplanation}</p>
+          </div>
+        )}
 
-      {submitted && !isCorrect && (
-        <Feedback correct={false} explanation={wrongExplanation} />
-      )}
+        {submitted && !isCorrect && (
+          <Feedback correct={false} explanation={wrongExplanation} />
+        )}
 
-      {!submitted ? (
-        <ContinueButton
-          onClick={handleSubmit}
-          label={t("lesson.check", "Check")}
-          disabled={!selected}
-        />
-      ) : (
-        <div className="motion-safe:animate-fade-up">
+        {!submitted ? (
           <ContinueButton
-            onClick={onContinue}
-            variant={isCorrect ? "correct" : "incorrect"}
+            onClick={handleSubmit}
+            label={t("lesson.check", "Check")}
+            disabled={!selected}
           />
-        </div>
-      )}
+        ) : (
+          <div className="motion-safe:animate-fade-up">
+            <ContinueButton
+              onClick={onContinue}
+              variant={isCorrect ? "correct" : "incorrect"}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

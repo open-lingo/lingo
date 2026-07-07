@@ -148,6 +148,16 @@ export type SRSCardState = {
   lastReviewedAt?: string;
   /** If set and > today, card is buried (excluded from queue). YYYY-MM-DD. */
   buriedUntil?: string;
+  /**
+   * ISO timestamp set ONLY by the Card Manager's deliberate "reset" action
+   * (`useCardManagerData.handleReset`). Distinguishes an intentional reset
+   * from a card that merely looks reset-shaped (both modalities new/reps 0)
+   * — e.g. a seed-on-unlock or placement-seeded card that was never
+   * reviewed. `srsSync.ts`'s reset-preservation merge rule keys off this
+   * field, not the shape, so seeded cards can't silently beat real server
+   * progress on a second device.
+   */
+  manualResetAt?: string;
 };
 
 /** Rating after reviewing a card. Used by FSRS-6 scheduler. */

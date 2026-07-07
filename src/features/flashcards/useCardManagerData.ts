@@ -12,6 +12,7 @@ import {
   addDays,
   createInitialState,
   performSync,
+  performGrammarSync,
 } from "./engine";
 import { canonicalizeCardId } from "./engine/srsStorage";
 import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
@@ -150,14 +151,23 @@ export function useCardManagerData(languageId: string) {
   };
 
   const handleReset = (cardId: string) => {
-    setCardState(cardId, { ...createInitialState(), lastSyncedAt: undefined });
+    setCardState(cardId, {
+      ...createInitialState(),
+      lastSyncedAt: undefined,
+      // Why: marks this as a DELIBERATE reset so srsSync's reset-preservation
+      // rule can tell it apart from a merely-never-reviewed seeded card.
+      manualResetAt: new Date().toISOString(),
+    });
     notifySRSStoreChanged();
     refresh();
   };
 
   const syncNow = async () => {
     if (isAuthenticated) {
+      // Same cadence for both tracks — grammar rides the same endpoint
+      // (see grammarSync.ts).
       await performSync((p) => srs.sync(p));
+      await performGrammarSync((p) => srs.sync(p));
       refresh();
     }
   };

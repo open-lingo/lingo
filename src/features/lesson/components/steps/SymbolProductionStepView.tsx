@@ -229,23 +229,24 @@ export function SymbolProductionStepView({
           </span>
         )}
       </p>
-      {/* Spacer drops Check to the standard bottom anchor (y≈749, shared with
+      {/* mt-auto drops Check to the standard bottom anchor (shared with
        *  every other graded step) so the button doesn't jump between a
        *  production step and the next (Spencer 2026-06-13 CTA-harmony pass).
-       *  Canvas + feedback stay read-where-expected up top. */}
-      <div className="flex-1" />
-      {/* Button slot: stays a constant height across both phases so the
-          lesson card doesn't shrink-then-grow. */}
-      {done ? (
-        <div className="motion-safe:animate-fade-up">
-          <ContinueButton onClick={handleContinue} />
-        </div>
-      ) : (
-        <ContinueButton
-          onClick={handleCheck}
-          label={t("alphabet.check", "Check")}
-        />
-      )}
+       *  Canvas + feedback stay read-where-expected up top. Button slot
+       *  stays a constant height across both phases so the lesson card
+       *  doesn't shrink-then-grow. */}
+      <div className="mt-auto pt-6">
+        {done ? (
+          <div className="motion-safe:animate-fade-up">
+            <ContinueButton onClick={handleContinue} />
+          </div>
+        ) : (
+          <ContinueButton
+            onClick={handleCheck}
+            label={t("alphabet.check", "Check")}
+          />
+        )}
+      </div>
     </div>
   );
 }

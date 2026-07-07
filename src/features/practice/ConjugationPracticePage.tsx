@@ -1,366 +1,494 @@
-import { useState, useMemo, useCallback } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Card } from "@/shared/components/ui";
+import { useNavigate } from "react-router-dom";
 import { Icon } from "@/shared/components/Icon";
+import { Switch } from "@/shared/components/ui";
+import { useLangPath } from "@/shared/hooks/useLangPath";
+import { conjugateVerb, conjugateIAdj } from "@/features/languages/ja/conjugationEngine";
 import { useCourseLevel } from "./useCourseLevel";
 import {
-  CONJUGATION_FORM_LABELS,
-  ADJ_FORM_LABELS,
-  getVerbsUpToModule,
-  getAdjsUpToModule,
-  type VerbEntry,
-  type AdjEntry,
-  type ConjugationForm,
-  type AdjForm,
-} from "@/features/languages/ja/conjugationTables";
-import { recordPracticeResult, pickWeighted } from "./practiceStats";
+  getTrainerType,
+  isTypeUnlocked,
+  unlockModuleForType,
+  dueGrammarPointCount,
+  type ConjugationTrainerType,
+  type TrainerTypeId,
+} from "./conjugation/trainerRegistry";
+import { typeMasteryPercent } from "./conjugation/trainerSession";
+import { hasLearnAheadAck, setLearnAheadAck } from "./conjugation/learnAhead";
+import { LearnAheadDialog } from "./conjugation/LearnAheadDialog";
+import { COMBO_MAP, combosForSelection, canExtendSelection } from "./conjugation/comboForms";
+import {
+  TYPE_GLYPH,
+  TYPE_COLOR_VAR,
+  TILE_ORDER,
+  CONJ_TYPE_COLOR_CSS,
+} from "./conjugation/typeColors";
 
-type Category = "verbs" | "i-adj" | "na-adj";
-type Mode = "mcq" | "type";
+/** Demo verb for rendering "what a combo produces" in the action-bar sub-line
+ *  (みる is ichidan — the engine conjugates every combo chain form off it). */
+const COMBO_DEMO = { dictionary: "みる", group: "ichidan" as const };
+/** Demo i-adjective for the adjective stacks (かった/くなかった). */
+const COMBO_DEMO_ADJ = "たかい";
 
-type SessionStats = {
-  correct: number;
-  total: number;
-  streak: number;
+/** Persisted "Combined forms" hub mode (v1.4.1). ON: tile greying guides
+ *  pairable selections and sessions INCLUDE the stacked forms (no hidden
+ *  proficiency gate — the toggle IS the intent). OFF: mix any tiles freely,
+ *  individuals only. */
+const COMBINED_MODE_KEY = "lingo:conjugation-trainer:combined-mode:v1";
+
+function readCombinedMode(): boolean {
+  try {
+    return localStorage.getItem(COMBINED_MODE_KEY) !== "0";
+  } catch {
+    return true;
+  }
+}
+
+function writeCombinedMode(on: boolean): void {
+  try {
+    localStorage.setItem(COMBINED_MODE_KEY, on ? "1" : "0");
+  } catch {
+    // no localStorage
+  }
+}
+
+type Tile = {
+  type: ConjugationTrainerType;
+  unlocked: boolean;
+  mastery: number; // 0–100 ink fill
+  due: number; // capped display handled at render
+  unlockModule: number;
 };
 
-function shuffle<T>(arr: T[]): T[] {
-  const result = [...arr];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
-
-function generateVerbDistractors(
-  correct: string,
-  verb: VerbEntry,
-  targetForm: ConjugationForm,
-  pool: VerbEntry[],
-): string[] {
-  const distractors = new Set<string>();
-
-  // Same verb, wrong form
-  for (const [form, value] of Object.entries(verb.forms)) {
-    if (form !== targetForm && value !== correct) {
-      distractors.add(value);
-    }
-  }
-
-  // Same form, different verb
-  for (const other of pool) {
-    if (other.id !== verb.id) {
-      distractors.add(other.forms[targetForm]);
-    }
-  }
-
-  distractors.delete(correct);
-  return shuffle([...distractors]).slice(0, 3);
-}
-
-function generateAdjDistractors(
-  correct: string,
-  adj: AdjEntry,
-  targetForm: AdjForm,
-  pool: AdjEntry[],
-): string[] {
-  const distractors = new Set<string>();
-
-  for (const [form, value] of Object.entries(adj.forms)) {
-    if (form !== targetForm && value !== correct) {
-      distractors.add(value);
-    }
-  }
-
-  for (const other of pool) {
-    if (other.id !== adj.id) {
-      distractors.add(other.forms[targetForm]);
-    }
-  }
-
-  distractors.delete(correct);
-  return shuffle([...distractors]).slice(0, 3);
-}
-
+/**
+ * Conjugation trainer HUB — compact Ink Tiles selector (v1.2 Task 7). One
+ * viewport at 390×844: slim header, 2×3 glyph tiles (ink fill = mastery, ≤3 due
+ * pips), full-width Mix tile, sticky action bar. Selection drives the bar:
+ *   0 selected → the one recommendation; 1 → the type's page; 2+ → combined drill.
+ * NO form chips, NO question card here — the free drill lives at
+ * `practice/conjugation/free`, per-type pages at `practice/conjugation/:typeId`.
+ */
 export function ConjugationPracticePage() {
   const { t } = useTranslation();
-  const courseLevel = useCourseLevel();
+  const langPath = useLangPath();
+  const navigate = useNavigate();
+  const reachedModule = useCourseLevel();
 
-  const [category, setCategory] = useState<Category>("verbs");
-  const [_mode] = useState<Mode>("mcq");
-  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, 7));
-  const [selectedForms, setSelectedForms] = useState<Set<string>>(
-    () => new Set(["masu", "nai", "te", "ta"]),
-  );
-  const [stats, setStats] = useState<SessionStats>({ correct: 0, total: 0, streak: 0 });
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [showResult, setShowResult] = useState(false);
+  const [selected, setSelected] = useState<Set<TrainerTypeId>>(() => new Set());
+  const [combinedMode, setCombinedMode] = useState<boolean>(readCombinedMode);
+  // Learn-ahead (v1.5): locked tiles are selectable behind a one-time
+  // confirmation; "Don't ask again" persists and skips the dialog for good.
+  const [ackDone, setAckDone] = useState<boolean>(hasLearnAheadAck);
+  const [aheadPrompt, setAheadPrompt] = useState<Tile | null>(null);
 
-  const verbs = useMemo(() => getVerbsUpToModule(maxModule), [maxModule]);
-  const adjs = useMemo(() => getAdjsUpToModule(maxModule), [maxModule]);
-
-  const filteredAdjs = useMemo(
-    () => adjs.filter((a) => (category === "i-adj" ? a.type === "i-adj" : a.type === "na-adj")),
-    [adjs, category],
-  );
-
-  const [question, setQuestion] = useState<{
-    itemId: string;
-    prompt: string;
-    meaning: string;
-    formLabel: string;
-    correct: string;
-    options: string[];
-  } | null>(null);
-
-  const generateQuestion = useCallback(() => {
-    setSelectedAnswer(null);
-    setShowResult(false);
-
-    if (category === "verbs") {
-      if (verbs.length === 0) return;
-      const verb = pickWeighted(verbs, (v) => v.id, "conjugation");
-      const forms = [...selectedForms].filter(
-        (f) => f in verb.forms && f !== "dictionary",
-      ) as ConjugationForm[];
-      if (forms.length === 0) return;
-      const targetForm = forms[Math.floor(Math.random() * forms.length)];
-      const correct = verb.forms[targetForm];
-      const distractors = generateVerbDistractors(correct, verb, targetForm, verbs);
-      const options = shuffle([correct, ...distractors]);
-      setQuestion({
-        itemId: `${verb.id}:${targetForm}`,
-        prompt: verb.dictionary,
-        meaning: verb.meaning,
-        formLabel: CONJUGATION_FORM_LABELS[targetForm],
-        correct,
-        options,
-      });
-    } else {
-      const pool = filteredAdjs;
-      if (pool.length === 0) return;
-      const adj = pickWeighted(pool, (a) => a.id, "conjugation");
-      const adjForms = (["present", "negative", "past", "past-negative"] as AdjForm[]).filter(
-        (f) => selectedForms.has(f),
-      );
-      if (adjForms.length === 0) return;
-      const targetForm = adjForms[Math.floor(Math.random() * adjForms.length)];
-      const correct = adj.forms[targetForm];
-      const distractors = generateAdjDistractors(correct, adj, targetForm, pool);
-      const options = shuffle([correct, ...distractors]);
-      setQuestion({
-        itemId: `${adj.id}:${targetForm}`,
-        prompt: adj.dictionary,
-        meaning: adj.meaning,
-        formLabel: ADJ_FORM_LABELS[targetForm],
-        correct,
-        options,
-      });
-    }
-  }, [category, verbs, filteredAdjs, selectedForms]);
-
-  // Initialize first question
-  useMemo(() => {
-    if (!question) generateQuestion();
-  }, []);
-
-  const handleAnswer = (answer: string) => {
-    if (showResult || !question) return;
-    setSelectedAnswer(answer);
-    setShowResult(true);
-    const isCorrect = answer === question.correct;
-    setStats((prev) => ({
-      correct: prev.correct + (isCorrect ? 1 : 0),
-      total: prev.total + 1,
-      streak: isCorrect ? prev.streak + 1 : 0,
-    }));
-    recordPracticeResult("conjugation", question.itemId, isCorrect);
+  const toggleCombinedMode = (on: boolean) => {
+    setCombinedMode(on);
+    writeCombinedMode(on);
+    // Mode change resets the selection — an OFF-mode free-mix set (e.g. て+ます)
+    // can be invalid under ON-mode pairing rules.
+    setSelected(new Set());
   };
 
-  const handleNext = () => {
-    generateQuestion();
+  const tiles = useMemo<Tile[]>(
+    () =>
+      TILE_ORDER.map((id) => {
+        const type = getTrainerType(id)!;
+        const unlocked = isTypeUnlocked(type, reachedModule);
+        return {
+          type,
+          unlocked,
+          mastery: unlocked ? typeMasteryPercent(id) : 0,
+          due: unlocked ? dueGrammarPointCount(type) : 0,
+          unlockModule: unlockModuleForType(type),
+        };
+        // reachedModule + selection re-render; mastery/due read live Track B state.
+      }),
+    [reachedModule],
+  );
+
+  const toggle = (id: TrainerTypeId) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (!question) return;
-    if (showResult && e.key === "Enter") {
-      handleNext();
+  // Deselecting is always silent; the dialog interposes only on the first
+  // SELECTION of a locked tile without a persisted "don't ask again".
+  const handleTilePress = (tile: Tile) => {
+    if (!tile.unlocked && !selected.has(tile.type.id) && !ackDone) {
+      setAheadPrompt(tile);
       return;
     }
-    const num = parseInt(e.key, 10);
-    if (num >= 1 && num <= question.options.length && !showResult) {
-      handleAnswer(question.options[num - 1]);
-    }
+    toggle(tile.type.id);
   };
 
-  const verbFormKeys = Object.keys(CONJUGATION_FORM_LABELS).filter(
-    (k) => k !== "dictionary",
-  ) as ConjugationForm[];
-  const adjFormKeys = Object.keys(ADJ_FORM_LABELS) as AdjForm[];
-  const currentFormKeys = category === "verbs" ? verbFormKeys : adjFormKeys;
-  const currentFormLabels = category === "verbs" ? CONJUGATION_FORM_LABELS : ADJ_FORM_LABELS;
+  const confirmAhead = (dontAskAgain: boolean) => {
+    if (dontAskAgain) {
+      setLearnAheadAck();
+      setAckDone(true);
+    }
+    if (aheadPrompt) toggle(aheadPrompt.type.id);
+    setAheadPrompt(null);
+  };
+
+  // ── Recommendation (0 selected): the unlocked type with the most waiting. ──
+  const recommended = useMemo(() => {
+    const unlockedTiles = tiles.filter((tl) => tl.unlocked);
+    if (unlockedTiles.length === 0) return null;
+    return [...unlockedTiles].sort((a, b) => b.due - a.due)[0];
+  }, [tiles]);
+
+  const nextUnlockModule = useMemo(() => {
+    const locked = tiles.filter((tl) => !tl.unlocked);
+    if (locked.length === 0) return null;
+    return Math.min(...locked.map((tl) => tl.unlockModule));
+  }, [tiles]);
+
+  // ── Combined-selection derivation (2+ selected). ──
+  const selectedIds = useMemo(() => [...selected], [selected]);
+  const individualFormCount = useMemo(() => {
+    const forms = new Set<string>();
+    for (const id of selectedIds) {
+      const type = getTrainerType(id)!;
+      const list = type.category === "verb" ? type.verbForms ?? [] : type.adjForms ?? [];
+      for (const f of list) forms.add(f);
+    }
+    return forms.size;
+  }, [selectedIds]);
+
+  // Combos shown = combos INCLUDED: with the toggle on they're in the session
+  // unconditionally (v1.4.1 — the old proficiency gate silently produced
+  // all-base sessions that read as "no paired trainings here").
+  const potentialCombos = useMemo(() => combosForSelection(selected), [selected]);
+  const includedCombos = combinedMode ? potentialCombos : [];
+  const comboFormCount = individualFormCount + includedCombos.length;
+  const comboExamples = includedCombos.map((c) =>
+    c.category === "i-adj"
+      ? conjugateIAdj(COMBO_DEMO_ADJ, c.form)
+      : conjugateVerb(COMBO_DEMO.dictionary, COMBO_DEMO.group, c.form),
+  );
+
+  // ON-mode selections that are a proper subset of a combo (e.g. い+ない needs
+  // た): name the missing tile(s) so the path to stacked forms is visible.
+  const missingComboTiles = useMemo(() => {
+    if (!combinedMode || selectedIds.length < 2 || potentialCombos.length > 0) return null;
+    const supersets = COMBO_MAP.filter((e) => selectedIds.every((id) => e.tiles.includes(id)));
+    if (supersets.length === 0) return null;
+    const smallest = [...supersets].sort((a, b) => a.tiles.length - b.tiles.length)[0];
+    return smallest.tiles.filter((tid) => !selected.has(tid));
+  }, [combinedMode, selectedIds, potentialCombos, selected]);
+
+  const goType = (id: TrainerTypeId) => navigate(langPath(`practice/conjugation/${id}`));
+  const goCombined = () =>
+    navigate(
+      langPath(
+        `practice/conjugation/train?types=${selectedIds.join(",")}&combos=${combinedMode ? 1 : 0}`,
+      ),
+    );
 
   return (
-    <div className="space-y-4" onKeyDown={handleKeyDown} tabIndex={-1}>
-      <div>
-        <h1 className="text-2xl font-bold text-text-primary">
-          {t("practice.conjugation.title", { defaultValue: "Conjugation Practice" })}
-        </h1>
+    <div className="conj-scope mx-auto flex min-h-[calc(100dvh-8rem)] max-w-md flex-col">
+      <style>{CONJ_TYPE_COLOR_CSS}</style>
+
+      {/* Slim header + combined-forms mode toggle */}
+      <div className="mb-3">
+        <div className="flex items-start justify-between gap-3">
+          <h1 className="text-xl font-bold text-text-primary">
+            {t("practice.conjugation.title", { defaultValue: "Conjugation trainer" })}
+          </h1>
+          <Switch
+            checked={combinedMode}
+            onCheckedChange={toggleCombinedMode}
+            labelLeading
+            label={
+              <span className="text-xs font-semibold text-text-secondary">
+                {t("practice.conjugation.combinedToggle", { defaultValue: "Combined forms" })}
+              </span>
+            }
+          />
+        </div>
         <p className="text-sm text-text-secondary">
-          {t("practice.conjugation.subtitle", {
-            defaultValue: "Drill verb and adjective forms",
-          })}
+          {combinedMode
+            ? t("practice.conjugation.hubSub", {
+                defaultValue: "Tap a form to train — or combine tiles to drill stacked forms.",
+              })
+            : t("practice.conjugation.hubSubMixed", {
+                defaultValue: "Tap any forms to mix them into one drill.",
+              })}
         </p>
       </div>
 
-      {/* Controls */}
-      <Card padding="sm">
-        <div className="flex flex-wrap items-center gap-3">
-          <label className="flex items-center gap-1.5 text-xs font-medium text-text-secondary">
-            Mode
-            <select
-              value={category}
-              onChange={(e) => {
-                setCategory(e.target.value as Category);
-                setQuestion(null);
-                setTimeout(generateQuestion, 0);
-              }}
-              className="rounded-md border border-border bg-surface px-2 py-1 text-sm text-text-primary"
-            >
-              <option value="verbs">Verbs</option>
-              <option value="i-adj">i-Adjectives</option>
-              <option value="na-adj">na-Adjectives</option>
-            </select>
-          </label>
+      {/* 2×3 tile grid + full-width Mix tile */}
+      <div className="grid grid-cols-2 gap-3">
+        {tiles.map((tile) => (
+          <TileButton
+            key={tile.type.id}
+            tile={tile}
+            selected={selected.has(tile.type.id)}
+            recommended={recommended?.type.id === tile.type.id && selected.size === 0}
+            // Combined mode only: tiles that can't grow the selection toward
+            // ANY combo dim out (て pairs with nothing; い pairs with た・ない).
+            // Mixed mode (toggle off) allows any tiles together — individuals
+            // only. Deselecting stays possible in both. Applies to locked
+            // tiles too — once selectable (v1.5) they follow the same algebra.
+            unpairable={combinedMode && !canExtendSelection(selected, tile.type.id)}
+            onToggle={() => handleTilePress(tile)}
+          />
+        ))}
 
-          <label className="flex items-center gap-1.5 text-xs font-medium text-text-secondary">
-            Level
-            <select
-              value={maxModule}
-              onChange={(e) => {
-                setMaxModule(Number(e.target.value));
-                setQuestion(null);
-                setTimeout(generateQuestion, 0);
-              }}
-              className="rounded-md border border-border bg-surface px-2 py-1 text-sm text-text-primary"
-            >
-              {Array.from({ length: courseLevel - 6 }, (_, i) => i + 7).map((m) => (
-                <option key={m} value={m}>
-                  Up to M{m}
-                </option>
-              ))}
-              {courseLevel < 7 && <option value={7}>Up to M7</option>}
-            </select>
-          </label>
-        </div>
+        {/* Mix — free drill (its own view). */}
+        <button
+          type="button"
+          onClick={() => navigate(langPath("practice/conjugation/free"))}
+          className="col-span-2 flex items-center justify-center gap-3 rounded-xl border border-border bg-surface-muted px-4 py-3 text-sm font-bold text-text-primary transition active:translate-y-[2px]"
+        >
+          <span className="text-lg font-extrabold tracking-widest" lang="ja" aria-hidden>
+            <span style={{ color: "var(--type-te)" }}>て</span>
+            <span style={{ color: "var(--type-ta)" }}>た</span>
+            <span style={{ color: "var(--type-nai)" }}>な</span>
+            <span style={{ color: "var(--type-masu)" }}>ま</span>
+            <span style={{ color: "var(--type-iadj)" }}>い</span>
+          </span>
+          {t("practice.conjugation.mixTile", { defaultValue: "Mix — free drill" })}
+        </button>
+      </div>
 
-        {/* Form checkboxes */}
-        <div className="mt-2 flex flex-wrap gap-2">
-          {currentFormKeys.map((form) => (
-            <label
-              key={form}
-              className="flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs"
-            >
-              <input
-                type="checkbox"
-                checked={selectedForms.has(form)}
-                onChange={(e) => {
-                  const next = new Set(selectedForms);
-                  if (e.target.checked) next.add(form);
-                  else next.delete(form);
-                  setSelectedForms(next);
-                }}
-                className="accent-accent"
-              />
-              {(currentFormLabels as Record<string, string>)[form]}
-            </label>
-          ))}
-        </div>
-      </Card>
-
-      {/* Question card */}
-      {question && (
-        <Card padding="lg" className="text-center">
-          <p className="text-3xl font-bold text-text-primary">{question.prompt}</p>
-          <p className="mt-1 text-sm text-text-muted">{question.meaning}</p>
-          <p className="mt-3 text-sm font-medium text-accent">
-            → {question.formLabel}
-          </p>
-
-          <div className="mx-auto mt-5 grid max-w-md grid-cols-2 gap-2">
-            {question.options.map((opt, i) => {
-              const isCorrect = opt === question.correct;
-              const isSelected = opt === selectedAnswer;
-              let btnClass =
-                "rounded-lg border px-4 py-3 text-sm font-medium transition";
-              if (showResult) {
-                if (isCorrect) {
-                  btnClass += " border-green-500 bg-green-50 text-green-800";
-                } else if (isSelected && !isCorrect) {
-                  btnClass += " border-red-500 bg-red-50 text-red-800";
-                } else {
-                  btnClass += " border-border bg-surface text-text-secondary opacity-50";
-                }
-              } else {
-                btnClass +=
-                  " border-border bg-surface text-text-primary hover:border-accent hover:bg-surface-muted";
+      {/* Sticky action bar */}
+      <div className="sticky bottom-0 mt-auto -mx-4 border-t border-border bg-surface px-4 pb-3 pt-3">
+        {selected.size === 0 ? (
+          recommended ? (
+            <ActionButton
+              label={t("practice.conjugation.trainType", {
+                defaultValue: "Train {{title}}",
+                title: recommended.type.title,
+              })}
+              sub={
+                recommended.due > 0
+                  ? t("practice.conjugation.waiting", {
+                      defaultValue: "{{count}} waiting",
+                      count: recommended.due,
+                    })
+                  : undefined
               }
-              return (
-                <button
-                  key={opt + i}
-                  type="button"
-                  onClick={() => handleAnswer(opt)}
-                  disabled={showResult}
-                  className={btnClass}
-                >
-                  <span className="mr-1.5 text-xs text-text-muted">{i + 1}</span>
-                  {opt}
-                </button>
-              );
-            })}
-          </div>
-
-          {showResult && (
-            <div className="mt-4">
-              {selectedAnswer === question.correct ? (
-                <p className="text-sm font-semibold text-accent">
-                  <Icon name="check" size={16} className="mr-1 inline" />
-                  Correct!
-                </p>
-              ) : (
-                <p className="text-sm text-destructive">
-                  <Icon name="close" size={16} className="mr-1 inline" />
-                  Answer: {question.correct}
-                </p>
-              )}
-              <button
-                type="button"
-                onClick={handleNext}
-                className="mt-3 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
-              >
-                Next →
-              </button>
+              onClick={() => goType(recommended.type.id)}
+            />
+          ) : (
+            <div className="rounded-xl bg-surface-muted px-4 py-3 text-center text-sm text-text-secondary">
+              {t("practice.conjugation.allLocked", {
+                defaultValue: "Unlocks at Module {{module}}",
+                module: nextUnlockModule ?? "",
+              })}
             </div>
-          )}
-        </Card>
+          )
+        ) : selected.size === 1 ? (
+          <ActionButton
+            label={t("practice.conjugation.trainType", {
+              defaultValue: "Train {{title}}",
+              title: getTrainerType(selectedIds[0])!.title,
+            })}
+            onClick={() => goType(selectedIds[0])}
+          />
+        ) : (
+          <div className="space-y-1.5">
+            <ActionButton
+              label={t("practice.conjugation.trainTogether", {
+                defaultValue: "Train together · {{count}} forms",
+                count: comboFormCount,
+              })}
+              onClick={goCombined}
+            />
+            {comboExamples.length > 0 ? (
+              <p className="text-center text-xs text-text-muted">
+                +{" "}
+                <span lang="ja" className="font-medium text-text-secondary">
+                  {comboExamples.join("・")}
+                </span>{" "}
+                {t("practice.conjugation.combosIncluded", { defaultValue: "included" })}
+              </p>
+            ) : missingComboTiles && missingComboTiles.length > 0 ? (
+              <p className="text-center text-xs text-text-muted">
+                {t("practice.conjugation.comboAddHint", { defaultValue: "Add" })}{" "}
+                <span lang="ja" className="font-semibold text-text-secondary">
+                  {missingComboTiles.map((tid) => TYPE_GLYPH[tid]).join("・")}
+                </span>{" "}
+                {t("practice.conjugation.comboAddHintTail", {
+                  defaultValue: "for stacked forms",
+                })}
+              </p>
+            ) : null}
+          </div>
+        )}
+      </div>
+
+      {/* Learn-ahead confirmation — conditional mount resets its checkbox. */}
+      {aheadPrompt && (
+        <LearnAheadDialog
+          typeTitle={aheadPrompt.type.title}
+          unlockModule={aheadPrompt.unlockModule}
+          onConfirm={confirmAhead}
+          onClose={() => setAheadPrompt(null)}
+        />
+      )}
+    </div>
+  );
+}
+
+// ─── Tile ──────────────────────────────────────────────────────────────
+
+function TileButton({
+  tile,
+  selected,
+  recommended,
+  unpairable,
+  onToggle,
+}: {
+  tile: Tile;
+  selected: boolean;
+  recommended: boolean;
+  unpairable: boolean;
+  onToggle: () => void;
+}) {
+  const { t } = useTranslation();
+  const { type, unlocked, mastery, due } = tile;
+  const colorVar = TYPE_COLOR_VAR[type.id];
+  const glyph = TYPE_GLYPH[type.id];
+  const pips = Math.min(due, 3); // ≤3 peeking cards — a 3-due and a 9-due tile look alike
+
+  if (!unlocked) {
+    // Learn-ahead (v1.5): locked tiles are pressable — the hub interposes the
+    // "Looking ahead?" dialog on first selection. Interior stays muted (lock +
+    // Module N keep saying "ahead of your path"); the type-color ring appears
+    // only when deliberately selected. Same pairing greying as unlocked tiles.
+    return (
+      <button
+        type="button"
+        onClick={unpairable ? undefined : onToggle}
+        disabled={unpairable}
+        aria-pressed={selected}
+        style={
+          {
+            "--tc": `var(${colorVar})`,
+            borderColor: selected ? `var(${colorVar})` : undefined,
+            boxShadow: selected ? `0 0 0 2px var(${colorVar})` : undefined,
+          } as React.CSSProperties
+        }
+        className={
+          "relative flex h-[128px] flex-col items-center justify-center rounded-xl border bg-surface transition-all duration-150 " +
+          (unpairable
+            ? "border-border opacity-35 saturate-0"
+            : "active:translate-y-[3px] active:scale-[0.98] " +
+              (selected
+                ? "-translate-y-0.5 border-2 opacity-90"
+                : "border-border opacity-60 hover:border-[color:var(--tc)] hover:opacity-90"))
+        }
+      >
+        <Icon name="lock" size={22} className="text-text-muted" />
+        <span className="mt-1.5 text-3xl font-extrabold text-text-muted" lang="ja" aria-hidden>
+          {glyph}
+        </span>
+        <span className="absolute bottom-2 text-[11px] font-semibold text-text-muted">
+          {t("practice.conjugation.moduleN", {
+            defaultValue: "Module {{module}}",
+            module: tile.unlockModule,
+          })}
+        </span>
+      </button>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={unpairable ? undefined : onToggle}
+      disabled={unpairable}
+      aria-pressed={selected}
+      style={
+        {
+          "--tc": `var(${colorVar})`,
+          borderColor: selected ? `var(${colorVar})` : undefined,
+          boxShadow: selected ? `0 0 0 2px var(${colorVar})` : undefined,
+        } as React.CSSProperties
+      }
+      className={
+        "relative flex h-[128px] flex-col items-center justify-center overflow-hidden rounded-xl border bg-surface transition-all duration-150 " +
+        (unpairable
+          ? "border-border opacity-35 saturate-0"
+          : "active:translate-y-[3px] active:scale-[0.98] " +
+            (selected
+              ? "-translate-y-0.5 border-2"
+              : "border-border hover:border-[color:var(--tc)]")) +
+        (recommended ? " conj-tile-suggest" : "")
+      }
+    >
+      {/* Ink fill = mastery (from the bottom). */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0"
+        style={{
+          height: `${mastery}%`,
+          background: "color-mix(in srgb, var(--tc) 16%, transparent)",
+          borderTop: "2px solid color-mix(in srgb, var(--tc) 45%, transparent)",
+        }}
+      />
+
+      {/* Due pips — cards peeking over the top edge (≤3). */}
+      {pips > 0 && (
+        <span className="absolute -top-1 right-2.5 z-10 flex" aria-hidden>
+          {Array.from({ length: pips }, (_, i) => (
+            <span
+              key={i}
+              className="-ml-1.5 block h-5 w-3.5 rounded-[3px] border-[1.5px] border-surface"
+              style={{
+                background: "var(--tc)",
+                transform: `rotate(${i * 6}deg) translateY(${i}px)`,
+              }}
+            />
+          ))}
+        </span>
       )}
 
-      {/* Stats bar */}
-      <div className="flex items-center justify-between rounded-lg border border-border bg-surface px-4 py-2">
-        <span className="text-sm text-text-secondary">
-          Score: {stats.correct}/{stats.total}
-          {stats.total > 0 && (
-            <span className="ml-2 text-text-muted">
-              ({Math.round((stats.correct / stats.total) * 100)}%)
-            </span>
-          )}
+      <span
+        className="z-[1] text-3xl font-extrabold leading-none"
+        style={{ color: "var(--tc)" }}
+        lang="ja"
+      >
+        {glyph}
+      </span>
+      <span className="absolute bottom-2 z-[1] px-1 text-center text-[11px] font-bold text-text-secondary">
+        {type.title}
+      </span>
+    </button>
+  );
+}
+
+// ─── Action button ─────────────────────────────────────────────────────
+
+function ActionButton({
+  label,
+  sub,
+  onClick,
+}: {
+  label: string;
+  sub?: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3 text-sm font-bold text-on-accent transition active:translate-y-[2px] hover:bg-accent-hover"
+    >
+      <span>{label}</span>
+      {sub && (
+        <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs font-semibold">
+          {sub}
         </span>
-        <span className="text-sm text-text-secondary">
-          <Icon name="flame" size={14} className="mr-1 inline text-warning" />
-          Streak: {stats.streak}
-        </span>
-      </div>
-    </div>
+      )}
+      <Icon name="arrowRight" size={16} aria-hidden />
+    </button>
   );
 }

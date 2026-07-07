@@ -8,6 +8,10 @@ import { applyTraceGateQueryParam, applyTrayOverrideParam, consumeStepJumpParam 
 import { getMockLessonContent } from "./data/mockLessons";
 import { unlockLessonAtoms } from "./data/unlockLessonAtoms";
 import { seedUnlockedAtomsDueNextDay } from "./data/seedSchedule";
+import {
+  isDedicatedReviewLesson,
+  shouldWriteContentReviewAtom,
+} from "./data/reviewTailSrs";
 import { resetLessonJuice, reportGradedAnswer } from "./juice";
 import { expectedXp, isTestLessonId, XP_LESSON_COMPLETE, XP_TEST_BONUS } from "@/features/progress/xpRules";
 import {
@@ -61,7 +65,7 @@ import type { SRSModality, SRSRating } from "@/features/flashcards/data/types";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
   parseModuleIndex,
-  shouldAutoFlipRomaji,
+  shouldAutoOffScriptRomaji,
   shouldAutoFadeBuildTileRomaji,
 } from "@/shared/settings/romajiAutoFlip";
 
@@ -401,20 +405,25 @@ export function LessonPage() {
     }
     clearLessonInProgress(lesson.id);
 
-    // Auto-disable the romaji reading aid when the learner crosses the
-    // module threshold (default ON until M15 OR alphabet mastery — see
-    // src/shared/settings/romajiAutoFlip.ts). One-shot, idempotent.
+    // Auto-disable the romaji reading aid per script as the learner crosses
+    // that script's fluency milestone (hiragana M10, katakana M17 — see
+    // src/shared/settings/romajiAutoFlip.ts). One-shot per script, idempotent.
     const reachedModuleIndex = parseModuleIndex(lesson.moduleId);
-    const flip = shouldAutoFlipRomaji({
-      settings,
-      trigger: "module-reached",
-      reachedModuleIndex,
-    });
-    if (flip.flipped) {
-      updateSetting("learning.showRomaji", false);
-      updateSetting("learning.romajiAutoFlipped", true);
+    if (
+      shouldAutoOffScriptRomaji({ settings, reachedModuleIndex, script: "hiragana" })
+    ) {
+      updateSetting("learning.hiraganaRomajiAutoOff", true);
       showToast(
-        "Romaji reading aid turned off — you've outgrown the crutch. Re-enable any time in Settings.",
+        "You can read hiragana now — the romaji above it is off. Want it back? Settings › Show romaji for today.",
+        "info",
+      );
+    }
+    if (
+      shouldAutoOffScriptRomaji({ settings, reachedModuleIndex, script: "katakana" })
+    ) {
+      updateSetting("learning.katakanaRomajiAutoOff", true);
+      showToast(
+        "You've got katakana down — its romaji is off now. Need it back? Settings › Show romaji for today.",
         "info",
       );
     }
@@ -489,11 +498,14 @@ export function LessonPage() {
         correct,
         conceptIds: [],
       });
-      // FSRS grading — only fires in SRS review lessons (ja-mN-review-1/2).
-      // Content sub-lessons are pure introduction — they never write SRS
-      // state. Kana (M1/M2) has no SRS at all.
-      const isReviewLesson = /^ja-m\d+-review-[12]$/.test(lesson.id);
-      if (!isReviewLesson) return;
+      // FSRS grading. Two surfaces write here:
+      //   • Dedicated review lessons (ja-mN-review-1/2) grade EVERY exercised
+      //     atom + grammar point — everything they surface is prior material.
+      //   • Content sub-lessons grade ONLY their prior-atom review-tail
+      //     retrieval (D2, docs/srs-scheduling-model-2026-06-15.md) — never
+      //     the lesson's own just-introduced words (same-day grading, D6).
+      // Kana glyphs (M1/M2) are never SRS-eligible, so they never resolve here.
+      const isReviewLesson = isDedicatedReviewLesson(lesson.id);
       const step = lesson.steps[stepIdx >= 0 ? stepIdx : 0];
       if (!step || !shouldWriteSrs(step)) return;
       const exercised = step.exercisedAtoms ?? [];
@@ -503,17 +515,27 @@ export function LessonPage() {
       const modality = step.modality ?? "both";
       const modalities: SRSModality[] =
         modality === "both" ? ["recognition", "production"] : [modality];
-      // Track A — vocab atoms (D4: a grammar step's sentence vocab counts too).
+      let wroteSrs = false;
+      // Track A — vocab atoms. Review lessons write all; content sub-lessons
+      // filter to prior-atom review-tail retrieval only (D2). Per-atom so a
+      // mixed step still credits prior atoms while skipping current ones.
       for (const atomId of exercised) {
+        if (!isReviewLesson && !shouldWriteContentReviewAtom(atomId, lesson.id)) {
+          continue;
+        }
         let state = getCardState(atomId) ?? createInitialState();
         for (const m of modalities) {
           state = gradeFromLesson(state, m, { correct, retried });
         }
         setCardState(atomId, state);
+        wroteSrs = true;
       }
       // Track B — grammar points (separate store; mirrors gradeFromLesson's
-      // correct/retried → rating mapping).
-      if (exercisedGrammar.length > 0) {
+      // correct/retried → rating mapping). D2 ships VOCAB ONLY (Spencer,
+      // 2026-07-01): grammar writes stay confined to the dedicated review
+      // lessons. Grammar review tails don't exist in content sub-lessons, and
+      // grammar review is getting its own flashcard-deck feature later.
+      if (isReviewLesson && exercisedGrammar.length > 0) {
         const grammarRating: SRSRating = !correct
           ? "again"
           : retried
@@ -524,8 +546,9 @@ export function LessonPage() {
             reviewGrammarPoint(pointId, m, grammarRating);
           }
         }
+        wroteSrs = true;
       }
-      notifySRSStoreChanged();
+      if (wroteSrs) notifySRSStoreChanged();
     },
     [lesson, retryAttempted],
   );
@@ -733,7 +756,7 @@ export function LessonPage() {
         cards) scrolls inside with the styled scrollbar while the page
         chrome stays put. Full-width so the image-MCQ breakout fits the
         scroller without horizontal overflow. */}
-    <div className="mx-auto flex h-[calc(100dvh-6.5rem)] w-full flex-col">
+    <div className="mx-auto flex h-[calc(100dvh-1.5rem)] w-full flex-col">
       <div className="mx-auto flex w-full max-w-2xl items-center gap-4 py-3">
         <button
           type="button"
@@ -784,6 +807,20 @@ export function LessonPage() {
           />
         )}
         </div>
+      </div>
+
+      {/* Desktop-only keyboard hint. These shortcuts (useLessonKeyboard)
+          have always worked but were undiscoverable. Number keys only bind
+          on option-pick steps, so the hint stays generic about them. */}
+      <div className="hidden items-center justify-center gap-5 py-1.5 text-xs text-text-muted sm:flex">
+        <span>
+          <kbd className="rounded border border-border bg-surface px-1.5 py-0.5 font-sans">Enter</kbd>{" "}
+          {t("lesson.kbdHintEnter", "check / continue")}
+        </span>
+        <span>
+          <kbd className="rounded border border-border bg-surface px-1.5 py-0.5 font-sans">1–9</kbd>{" "}
+          {t("lesson.kbdHintNumbers", "choose an option")}
+        </span>
       </div>
     </div>
     </KanaMasteryProvider>

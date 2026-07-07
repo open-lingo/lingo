@@ -78,7 +78,7 @@ export function Sheet({
   return (
     <Portal>
       <div
-        className="fixed inset-0 z-50 bg-overlay backdrop-blur-sm"
+        className="fixed inset-0 z-50 bg-overlay"
         onMouseDown={(e) => {
           if (!closeOnBackdrop) return;
           if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
