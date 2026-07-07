@@ -23,7 +23,14 @@ function buildKanaRomaji(): Record<string, string> {
 
 export const KANA_ROMAJI: Record<string, string> = buildKanaRomaji();
 
-const SMALL_KANA = new Set(["ゃ", "ゅ", "ょ", "ャ", "ュ", "ョ"]);
+// Small kana that can form a digraph with the preceding kana: yōon ゃ/ゅ/ょ
+// plus the small vowels used by extended katakana loanword sounds (ティ,
+// ファ, ウィ…). Merging is still gated on the combo existing in KANA_ROMAJI,
+// so listing a small kana here never creates unmapped digraphs.
+const SMALL_KANA = new Set([
+  "ゃ", "ゅ", "ょ", "ャ", "ュ", "ョ",
+  "ァ", "ィ", "ゥ", "ェ", "ォ",
+]);
 const KANA_RANGE = /[぀-ゟ゠-ヿ]/;
 const KATAKANA_LONG_MARK = "ー";
 

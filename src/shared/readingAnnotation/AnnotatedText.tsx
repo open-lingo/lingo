@@ -16,13 +16,8 @@
  * `readingAnnotation` capability, the component renders plain text
  * (no helper, no ruby).
  */
-import { Fragment, useMemo, type ReactElement } from "react";
-import {
-  isKana,
-  isKatakana,
-  KANA_ROMAJI,
-  tokenizeJapanese,
-} from "@/shared/japanese/kanaTable";
+import { useMemo, type ReactElement } from "react";
+import { isKana, isKatakana } from "@/shared/japanese/kanaTable";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import { useTrackExposure } from "@/shared/symbolMastery";
 import { useSettings } from "@/shared/contexts/SettingsContext";
@@ -127,11 +122,13 @@ function BareRender({
   forceShowHelper,
   hideHelper,
   languageId,
+  role,
 }: {
   text: string;
   forceShowHelper: boolean;
   hideHelper?: boolean;
   languageId: string;
+  role?: JapaneseAnnotation["role"];
 }) {
   const fragments = useMemo<AnnotationFragment[]>(() => {
     const module = tryGetLanguageModule(languageId);
@@ -153,6 +150,7 @@ function BareRender({
             word={frag.text}
             romaji={frag.reading}
             symbols={frag.symbols}
+            role={role}
             forceShowHelper={forceShowHelper}
             hideHelper={hideHelper}
           />
@@ -162,11 +160,12 @@ function BareRender({
             symbol={frag.text}
             symbolId={frag.symbolId ?? `${languageId}:${frag.text}`}
             helper={frag.reading}
+            role={role}
             forceShowHelper={forceShowHelper}
             hideHelper={hideHelper}
           />
         ) : (
-          <span key={i}>{frag.text}</span>
+          <span key={i} data-role={role}>{frag.text}</span>
         ),
       )}
     </>
@@ -190,13 +189,12 @@ function SegmentRender({
   if (!hasAnyKana) {
     return <span data-role={role}>{surface}</span>;
   }
-  // If the segment is pure kana and surface===reading, render each kana
-  // with its own helper (consistent with the bare path).
+  // If the segment is pure kana and surface===reading, annotate it like a
+  // bare kana string (per-kana helpers pre-M3, word-grouped romaji after).
   const isPureKana = surface === reading && Array.from(surface).every(isKana);
   if (isPureKana) {
-    const tokens = tokenizeJapanese(surface);
     // If author supplied an explicit segment-level romaji, prefer it over
-    // per-token lookup for the *whole* segment as a single annotation.
+    // the annotator for the *whole* segment as a single annotation.
     if (romaji) {
       return (
         <KanaSegment
@@ -207,24 +205,20 @@ function SegmentRender({
         />
       );
     }
+    // No explicit override — same annotator as the bare path, so authored
+    // segments get word-level romaji grouping past the kana phase too (the
+    // M3+ invariant; pre-M3 the annotator emits per-kana fragments and this
+    // renders identically to the historical per-token loop). Regression:
+    // SpeakingStepView reference cards showed さん as "sa"+"n" forever
+    // because this branch bypassed the lexicon.
     return (
-      <Fragment>
-        {tokens.map((tok, i) =>
-          tok.kana ? (
-            <SymbolToken
-              key={i}
-              symbol={tok.text}
-              symbolId={`ja:${tok.text}`}
-              helper={tok.romaji ?? KANA_ROMAJI[tok.text] ?? ""}
-              role={role}
-              forceShowHelper={forceShowHelper}
-              hideHelper={hideHelper}
-            />
-          ) : (
-            <span key={i}>{tok.text}</span>
-          ),
-        )}
-      </Fragment>
+      <BareRender
+        text={surface}
+        forceShowHelper={forceShowHelper}
+        hideHelper={hideHelper}
+        languageId="ja"
+        role={role}
+      />
     );
   }
   // Kanji branch — render the surface with the reading floating above
@@ -317,12 +311,14 @@ function WordToken({
   word,
   romaji,
   symbols,
+  role,
   forceShowHelper,
   hideHelper,
 }: {
   word: string;
   romaji: string;
   symbols: string[];
+  role?: JapaneseAnnotation["role"];
   forceShowHelper?: boolean;
   hideHelper?: boolean;
 }) {
@@ -341,7 +337,7 @@ function WordToken({
       {symbols.map((s, i) => (
         <TrackExposure key={i} symbol={s} />
       ))}
-      <ruby data-word-romaji="true">
+      <ruby data-word-romaji="true" data-role={role}>
         {word}
         <rt
           className="kana-helper"

@@ -40,7 +40,14 @@ export function useModuleAccordion(
 } {
   const [state, setState] = useState<AccordionState>(() => {
     const stored = readState(courseId);
-    if (stored) return stored;
+    // Always open the CURRENT module on mount, merged over stored state.
+    // Stored-state-alone regressed for returning learners: a visit made at
+    // M1 persisted {m1: true}, and on a later visit at M13 the ref below
+    // already equals m13 so the change-effect never fires — the map opened
+    // to M1 forever instead of where the learner actually is. Within-session
+    // manual collapse of the current module still sticks (the merge only
+    // runs in this mount initializer).
+    if (stored) return { ...stored, [currentModuleId]: true };
     return { [currentModuleId]: true };
   });
 

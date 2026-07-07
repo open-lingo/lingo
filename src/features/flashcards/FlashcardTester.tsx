@@ -184,6 +184,17 @@ export function FlashcardTester() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
 
+  // Escape closes the review-settings popover. Document-level because the
+  // opener button keeps focus when the popover has no focused control.
+  useEffect(() => {
+    if (!settingsOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSettingsOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [settingsOpen]);
+
   // Grading experience prefs (persisted via SettingsContext).
   const { settings, updateFlashcards } = useSettings();
   const explicitGradingLayout = settings.flashcards?.gradingLayout;
@@ -688,6 +699,38 @@ export function FlashcardTester() {
                   />
                   {t("flashcards.showIntervalPreviews", "Show scheduling intervals")}
                 </label>
+                <div>
+                  <label className="mb-1 block text-xs font-medium text-text-muted">
+                    {t("flashcards.maxNewPerDayLabel", "New cards per session")}
+                  </label>
+                  <select
+                    value={String(settings.flashcards?.maxNewCardsPerDay ?? "")}
+                    onChange={(e) =>
+                      updateFlashcards({
+                        maxNewCardsPerDay:
+                          e.target.value === "" ? null : Number(e.target.value),
+                      })
+                    }
+                    className="w-full rounded border border-border bg-surface-muted px-2 py-1.5 text-sm text-text-primary"
+                  >
+                    <option value="">
+                      {t("flashcards.maxNewPerDayAll", "All unlocked (default)")}
+                    </option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="0">
+                      {t("flashcards.maxNewPerDayNone", "None — reviews only")}
+                    </option>
+                  </select>
+                  <p className="mt-1 text-[11px] leading-snug text-text-muted">
+                    {t(
+                      "flashcards.maxNewPerDayHelp",
+                      "Caps how many never-studied words each session introduces. Lessons stay the natural pace — set a cap if your queue feels too long.",
+                    )}
+                  </p>
+                </div>
               </div>
             </>
           )}

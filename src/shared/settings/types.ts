@@ -25,9 +25,13 @@ export type FlashcardsSettings = {
    * Optional user intake cap (D5, srs-scheduling-model-2026-06-15). Unset =
    * no cap: every unlocked word is available to review (lesson pace is the
    * throttle). Set a number to limit new cards/day if the learner wants a
-   * lighter daily load.
+   * lighter daily load (0 = pause new cards entirely). `null` = explicit
+   * reset to the uncapped default — `updateFlashcards` filters `undefined`
+   * out of patches, so null is the only way to UNSET the cap through the
+   * merge; readers use `??` (null and absent behave identically) and the
+   * hydrate validator drops null on reload.
    */
-  maxNewCardsPerDay?: number;
+  maxNewCardsPerDay?: number | null;
   /**
    * Grading button layout in the reviewer. `"simple"` = 2 buttons
    * (Didn't know / Knew it), `"full"` = the 4-button Again/Hard/Good/Easy

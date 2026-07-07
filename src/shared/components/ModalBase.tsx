@@ -75,7 +75,10 @@ export function ModalBase({
           <div className="flex items-center justify-between border-b border-border px-6 py-4">
             <div className="flex min-w-0 flex-1 items-center gap-3">
               {headerLeft}
-              <h2 className="truncate text-lg font-bold text-text-primary">
+              {/* Wrap, don't truncate: at 390px "Welcome to flashcard
+                  review" clipped to "…flashcard re…". Two lines beats an
+                  ellipsis on a heading the user is meant to read. */}
+              <h2 className="min-w-0 text-balance text-lg font-bold leading-snug text-text-primary">
                 {title}
               </h2>
             </div>

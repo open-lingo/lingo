@@ -598,9 +598,26 @@ const JA_KATAKANA: AlphabetDef = {
     プ: "pu",
     ペ: "pe",
     ポ: "po",
-    リャ: "rya",
-    リュ: "ryu",
-    リョ: "ryo",
+    // Yōon (combination kana) — full parity with the hiragana map above.
+    キャ: "kya", キュ: "kyu", キョ: "kyo",
+    シャ: "sha", シュ: "shu", ショ: "sho",
+    チャ: "cha", チュ: "chu", チョ: "cho",
+    ニャ: "nya", ニュ: "nyu", ニョ: "nyo",
+    ヒャ: "hya", ヒュ: "hyu", ヒョ: "hyo",
+    ミャ: "mya", ミュ: "myu", ミョ: "myo",
+    リャ: "rya", リュ: "ryu", リョ: "ryo",
+    ギャ: "gya", ギュ: "gyu", ギョ: "gyo",
+    ジャ: "ja", ジュ: "ju", ジョ: "jo",
+    ビャ: "bya", ビュ: "byu", ビョ: "byo",
+    ピャ: "pya", ピュ: "pyu", ピョ: "pyo",
+    // Extended katakana digraphs — loanword sounds with no hiragana
+    // counterpart (ティー, フォーク, カフェ…).
+    ティ: "ti", ディ: "di", デュ: "dyu", トゥ: "tu", ドゥ: "du",
+    ファ: "fa", フィ: "fi", フェ: "fe", フォ: "fo", フュ: "fyu",
+    ウィ: "wi", ウェ: "we", ウォ: "wo",
+    シェ: "she", ジェ: "je", チェ: "che",
+    ツァ: "tsa", ツェ: "tse", ツォ: "tso",
+    ヴァ: "va", ヴィ: "vi", ヴェ: "ve", ヴォ: "vo", ヴ: "vu",
   },
 };
 

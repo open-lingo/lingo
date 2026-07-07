@@ -22,6 +22,18 @@ type Props = {
 };
 
 /**
+ * Split a prompt on single-quoted spans for emphasis. Quote boundaries are
+ * position-aware: an opening `'` must follow start-of-string/whitespace and
+ * a closing `'` must NOT be followed by a word character — so apostrophes
+ * inside contractions ("'I'm studying right now.'") stay part of the quoted
+ * span instead of terminating it (the naive `'([^']+)'` split bolded "I"
+ * and ate both apostrophes). Odd indices are the emphasized spans.
+ */
+export function splitQuotedEmphasis(text: string): string[] {
+  return text.split(/(?<=^|\s)'(.+?)'(?!\w)/g);
+}
+
+/**
  * Render the prompt with any single-quoted span bolded — gives the
  * "the word for 'love'" pattern a clear emphasis without restructuring
  * the prop into separate fields. Falls back to the raw string when no
@@ -29,7 +41,7 @@ type Props = {
  * render cleanly.
  */
 function PromptWithEmphasis({ text }: { text: string }) {
-  const parts = text.split(/'([^']+)'/g);
+  const parts = splitQuotedEmphasis(text);
   if (parts.length === 1) return <>{text}</>;
   return (
     <>
