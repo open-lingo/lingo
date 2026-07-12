@@ -1,0 +1,40 @@
+import { describe, it, expect } from "vitest";
+import {
+  ALL_STEP_TYPES,
+  UNUSED_STEP_TYPES,
+  buildStepTypeCoverage,
+} from "./qaCatalog";
+import { getMockLessonContent } from "../data/mockLessons";
+
+describe("qaCatalog", () => {
+  const coverage = buildStepTypeCoverage("ja");
+
+  it("covers every step type with a playable lesson, except the pinned unused set", () => {
+    const missing = coverage
+      .filter((c) => c.picks.length === 0)
+      .map((c) => c.type);
+    expect(missing.sort()).toEqual([...UNUSED_STEP_TYPES].sort());
+    expect(coverage.map((c) => c.type)).toEqual(ALL_STEP_TYPES);
+  });
+
+  it("picks are loadable lessons whose step counts are accurate", () => {
+    for (const c of coverage) {
+      for (const pick of c.picks) {
+        const content = getMockLessonContent(pick.lessonId);
+        expect(content, `${pick.lessonId} should load`).toBeTruthy();
+        const actual = content!.steps.filter((s) => s.type === c.type).length;
+        expect(actual, `${pick.lessonId} count of ${c.type}`).toBe(pick.count);
+        expect(pick.count).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("offers two distinct lessons whenever more than one lesson uses the type", () => {
+    for (const c of coverage) {
+      if (c.totalLessons > 1) {
+        expect(c.picks.length, `${c.type} should have 2 picks`).toBe(2);
+        expect(c.picks[0].lessonId).not.toBe(c.picks[1].lessonId);
+      }
+    }
+  });
+});

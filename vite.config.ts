@@ -56,6 +56,42 @@ function devLogMiddleware(): Plugin {
 }
 
 /**
+ * Dev-only middleware that mirrors the QA test-drive page's notes
+ * (`/:lang/qa`) into /tmp/lingo-qa-notes.json on every save, so an agent
+ * can watch marks/critiques land in real time while the tester works —
+ * same idea as devLogMiddleware, but structured state instead of logs.
+ */
+function qaNotesMiddleware(): Plugin {
+  const notesFile = "/tmp/lingo-qa-notes.json";
+  return {
+    name: "qa-notes-middleware",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use("/__lingo-qa-notes", (req, res) => {
+        if (req.method !== "POST") {
+          res.statusCode = 405;
+          res.end();
+          return;
+        }
+        const chunks: Buffer[] = [];
+        req.on("data", (c: Buffer) => chunks.push(c));
+        req.on("end", () => {
+          try {
+            const body = Buffer.concat(chunks).toString("utf8");
+            JSON.parse(body); // validate before writing
+            fs.writeFileSync(notesFile, body);
+          } catch {
+            /* ignore malformed payloads */
+          }
+          res.statusCode = 204;
+          res.end();
+        });
+      });
+    },
+  };
+}
+
+/**
  * Vite's default static-file middleware sends `Content-Encoding: gzip`
  * for any file ending in `.gz`, which causes the browser to
  * auto-decompress before handing the bytes to JS. Kuromoji then tries
@@ -131,6 +167,7 @@ export default defineConfig({
     serveDictAsBinary(),
     copyKuromojiDict(),
     devLogMiddleware(),
+    qaNotesMiddleware(),
   ],
   publicDir: "src/pub",
   resolve: {
