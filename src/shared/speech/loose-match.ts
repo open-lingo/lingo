@@ -260,6 +260,26 @@ export function normalizeJa(s: string): string {
   return s.replace(PUNCT_RE, "").toLowerCase();
 }
 
+/**
+ * Normalize a typed translation/production answer for grading.
+ *
+ * Curriculum `acceptedAnswers` store Japanese space-separated for
+ * readability (e.g. "きょうは くもりです"), but Japanese is written
+ * without spaces — a learner typing natural spaceless kana
+ * ("きょうはくもりです") must still grade as correct. We therefore:
+ *   - fold trivial width/compatibility variants (NFKC): full-width ASCII
+ *     and half-width katakana canonicalize to their standard forms
+ *   - drop all whitespace (ASCII + ideographic)
+ *   - lowercase, so English/romaji answers stay case-insensitive
+ *
+ * Content is preserved — particles, kana vs kanji, and word choice all
+ * still matter — so genuinely wrong answers keep failing.
+ */
+export function normalizeTypedAnswer(s: string): string {
+  if (!s) return "";
+  return s.normalize("NFKC").replace(/\s+/g, "").toLowerCase();
+}
+
 /* -------------------------------------------------------------------------- */
 /*  Scoring                                                                   */
 /* -------------------------------------------------------------------------- */

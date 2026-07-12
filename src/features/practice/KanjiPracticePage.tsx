@@ -1,5 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { useLangPath } from "@/shared/hooks/useLangPath";
 import { Card, CenteredLoader } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useCourseLevel } from "./useCourseLevel";
@@ -89,6 +91,7 @@ function generateQuestion(
 
 export function KanjiPracticePage() {
   const { t } = useTranslation();
+  const langPath = useLangPath();
   const courseLevel = useCourseLevel();
 
   const [mode, setMode] = useState<KanjiMode>("kanji-meaning");
@@ -343,9 +346,28 @@ export function KanjiPracticePage() {
       ) : (
         <Card padding="lg" className="text-center">
           {pool.length === 0 ? (
-            <p className="text-text-muted">
-              No kanji available for this set at your current level.
-            </p>
+            <div className="space-y-3">
+              <p className="text-text-muted">
+                {t("practice.kanji.emptyTitle", {
+                  defaultValue:
+                    "No kanji here yet — the course introduces kanji from Module 8.",
+                })}
+              </p>
+              <p className="text-sm text-text-muted">
+                {t("practice.kanji.emptyHint", {
+                  defaultValue:
+                    "Keep going in the course (or test out of modules) and this drill fills up as characters are introduced.",
+                })}
+              </p>
+              <Link
+                to={langPath("learn")}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+              >
+                {t("practice.kanji.emptyCta", {
+                  defaultValue: "Back to the course",
+                })}
+              </Link>
+            </div>
           ) : (
             <CenteredLoader py="sm" label="Loading" />
           )}

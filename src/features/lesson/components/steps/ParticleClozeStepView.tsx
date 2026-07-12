@@ -108,7 +108,12 @@ export function ParticleClozeStepView({
   const allOptionsAreParticles = step.options.every((o) =>
     PARTICLE_OPTIONS.has(o),
   );
-  const showMeaningUpFront = showMeaningPreAnswer && !!step.meaningEn;
+  // QA 2026-07-12 (Spencer): the gloss is needed pre-answer in LESSONS
+  // too — "without the english phrase to translate off of, it's hard to
+  // know the intention; sometimes there is no right particle." The deck
+  // surface already showed it; now every surface does.
+  const showMeaningUpFront = !!step.meaningEn;
+  void showMeaningPreAnswer; // retained prop — all surfaces now show it
 
   return (
     <div className="relative flex flex-1 flex-col gap-6">

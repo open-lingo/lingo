@@ -1,6 +1,7 @@
 export {
   isUtteranceCorrect,
   normalizeJa,
+  normalizeTypedAnswer,
   normalizeForCompare,
   normalizeTarget,
   charOverlap,

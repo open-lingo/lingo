@@ -8,6 +8,7 @@ import { reportGradedAnswer, resetLessonJuice } from "@/features/lesson/juice";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import {
   buildGrammarReviewQueue,
+  getActiveGrammarPoints,
   nextGrammarDue,
   type NextGrammarDue,
 } from "@/features/flashcards/engine/grammarSrs";
@@ -98,7 +99,7 @@ function SessionRunner({
   }
 
   return (
-    <div className="mx-auto flex h-[calc(100dvh-1.5rem)] w-full max-w-2xl flex-col">
+    <div className="mx-auto flex h-[calc(100dvh-1.5rem-var(--cookie-consent-height,0px))] w-full max-w-2xl flex-col">
       <div className="flex w-full items-center gap-4 py-3">
         <button
           type="button"
@@ -220,6 +221,7 @@ function SummaryView({
   const caughtUp = useMemo<{
     nextDue: NextGrammarDue | null;
     practicable: boolean;
+    anyActive: boolean;
   } | null>(() => {
     if (!nothingDue && !(summary.practiceOnly && summary.reviewed === 0)) {
       return null;
@@ -232,6 +234,13 @@ function SummaryView({
     return {
       nextDue: nextGrammarDue(undefined, { hasPool }),
       practicable: free.queue.length > 0,
+      // "No grammar points unlocked yet" must be checked against the
+      // ACTIVE-POINTS list, not queue length — the widened queue can be
+      // legitimately empty for a learner with unlocked points (e.g. the
+      // daily new-intake cap is spent but nothing carries state yet), and
+      // the zero-state copy was lying in that window (QA 2026-07-11).
+      anyActive:
+        getActiveGrammarPoints().filter((p) => hasPool(p.id)).length > 0,
     };
   }, [nothingDue, summary.practiceOnly, summary.reviewed]);
 
@@ -280,10 +289,15 @@ function SummaryView({
                       defaultValue:
                         "Nothing to review right now. Come back after your next lesson.",
                     })
-                  : t("practice.grammarReview.noGrammarYet", {
-                      defaultValue:
-                        "No grammar points unlocked yet — complete a lesson first and they'll show up here.",
-                    })}
+                  : caughtUp?.anyActive
+                    ? t("practice.grammarReview.intakeDone", {
+                        defaultValue:
+                          "Nothing more to pull today — new grammar intake is paced daily. Check back tomorrow.",
+                      })
+                    : t("practice.grammarReview.noGrammarYet", {
+                        defaultValue:
+                          "No grammar points unlocked yet — complete a lesson first and they'll show up here.",
+                      })}
             </p>
             {caughtUp?.practicable && (
               <div className="flex flex-col items-center gap-1">

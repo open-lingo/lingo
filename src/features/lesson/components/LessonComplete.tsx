@@ -88,6 +88,13 @@ type Props = {
    *  When omitted, the tertiary is hidden (used by tests / previews that
    *  don't wire the side effect). */
   onSaveAndExit?: () => void;
+  /** Server-award mirror: a not-passed attempt (skipped row test or
+   *  sub-threshold accuracy) earns 0 XP server-side, so the screen must
+   *  show +0 and say why instead of promising a burst that never lands. */
+  passed?: boolean;
+  /** True when a row test was failed out ("Out of attempts" skip flow) —
+   *  swaps the celebratory header for honest retry copy. */
+  wasSkipped?: boolean;
 };
 
 export function LessonComplete({
@@ -102,6 +109,8 @@ export function LessonComplete({
   missedCount = 0,
   onDrillMissed,
   onSaveAndExit,
+  passed = true,
+  wasSkipped = false,
 }: Props) {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -110,12 +119,15 @@ export function LessonComplete({
   const perfect = correctCount === totalGraded;
   // Server-formula estimate (xpRules mirrors lingo-core/app/progress/xp.py)
   // — the displayed number now matches what the batch sync will award,
-  // instead of the cosmetic lesson.xpReward.
-  const xp = expectedXp({
-    lessonId: lesson.id,
-    perfect,
-    multiplier: xpMultiplier,
-  });
+  // instead of the cosmetic lesson.xpReward. Not-passed attempts award 0
+  // server-side, so show 0.
+  const xp = passed
+    ? expectedXp({
+        lessonId: lesson.id,
+        perfect,
+        multiplier: xpMultiplier,
+      })
+    : 0;
   const { stats, isReady: statsReady } = useUserStats();
 
   const xpShown = useCountUp(xp);
@@ -136,11 +148,29 @@ export function LessonComplete({
         )}
       </div>
       <h1 className="text-3xl font-extrabold tracking-tight text-text-primary">
-        {isReview
-          ? t("lesson.reviewComplete", "Review Complete!")
-          : t("lesson.complete", "Lesson Complete!")}
+        {wasSkipped
+          ? t("lesson.testNotPassed", "Not this time")
+          : isReview
+            ? t("lesson.reviewComplete", "Review Complete!")
+            : t("lesson.complete", "Lesson Complete!")}
       </h1>
       <p className="text-base text-text-secondary">{lesson.title}</p>
+      {wasSkipped && (
+        <span className="rounded-full border-[1.5px] border-warning/60 bg-warning/10 px-3 py-1 text-xs font-semibold text-warning">
+          {t(
+            "lesson.testRetryHint",
+            "Out of attempts — replay the test any time to master this row.",
+          )}
+        </span>
+      )}
+      {!passed && !wasSkipped && (
+        <span className="rounded-full border-[1.5px] border-warning/60 bg-warning/10 px-3 py-1 text-xs font-semibold text-warning">
+          {t(
+            "lesson.passForXpHint",
+            "Score 70%+ to earn XP — drill your misses and replay.",
+          )}
+        </span>
+      )}
       {isReview && (
         <span className="rounded-full border-[1.5px] border-accent bg-accent-muted px-3 py-1 text-xs font-semibold text-accent">
           Review run — reduced XP

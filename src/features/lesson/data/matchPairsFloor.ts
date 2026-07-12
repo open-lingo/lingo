@@ -36,7 +36,11 @@ import {
 import { getAtomsUpToModule } from "./lessonAtomIndex";
 import { KANA_ROMAJI } from "@/shared/japanese/kanaTable";
 import { CONFUSABLES } from "./hiraganaCurriculum";
-import { getCardState } from "@/features/flashcards/engine/srsStorage";
+import {
+  getSRSStore,
+  canonicalizeCardId,
+  type SRSStore,
+} from "@/features/flashcards/engine/srsStorage";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 
 export const MATCH_PAIRS_FLOOR = 6;
@@ -45,15 +49,27 @@ type GridShape = "romaji" | "meaning" | "other";
 
 /**
  * Infer a grid's relation from its existing pairs.
- *  - romaji: every target is the romaji of its kana source.
- *  - meaning: every target contains a latin letter (English gloss) and is
- *    NOT the source's romaji.
+ *  - romaji: every source is a single kana unit from the romanization
+ *    table AND every target is a short lowercase-latin sound. Structural,
+ *    not string-equal: authored romanization variants (ヲ→"wo" where the
+ *    table says "o") must still classify as a sound grid — the strict
+ *    equality check silently reclassified m12's ワ/ヲ/ン grid as "meaning"
+ *    and padded vocab sentences into a "match the sounds" prompt
+ *    (QA 2026-07-11). Vocab sources (うみ, multi-kana words) are never
+ *    KANA_ROMAJI keys, so meaning grids with short glosses stay "meaning".
+ *  - meaning: every target contains a latin letter (English gloss).
  *  - other: anything else (number grids いち→1, conjugation たべる→たべます,
  *    Korean blocks, …) — left untouched.
  */
 export function matchGridShape(pairs: readonly MatchPair[]): GridShape {
   if (pairs.length === 0) return "other";
-  if (pairs.every((p) => KANA_ROMAJI[p.source] === p.target)) return "romaji";
+  if (
+    pairs.every(
+      (p) =>
+        KANA_ROMAJI[p.source] !== undefined && /^[a-z]{1,4}$/.test(p.target),
+    )
+  )
+    return "romaji";
   if (pairs.every((p) => /[a-zA-Z]/.test(p.target))) return "meaning";
   return "other";
 }
@@ -138,8 +154,12 @@ const DAY_MS = 86_400_000;
  * then high difficulty. Atoms with no card state score 0 here (handled by
  * the frequency fallback so brand-new learners still get a full grid).
  */
-function weaknessScore(atomId: string, todayMs: number): number {
-  const state = getCardState(atomId);
+function weaknessScore(
+  atomId: string,
+  todayMs: number,
+  store: SRSStore,
+): number {
+  const state = store[canonicalizeCardId(atomId)];
   if (!state) return 0;
   let worst = 0;
   for (const m of ["recognition", "production"] as const) {
@@ -203,6 +223,35 @@ export function padMatchPairsFloor(
   return changed ? { ...lesson, steps } : lesson;
 }
 
+/**
+ * Pick up to `need` fill candidates whose source AND target text collide
+ * with nothing already in the grid or already picked. Two visually
+ * identical tiles turn a 3-strike match grid into a coin flip — found
+ * live with homophone atoms (花/鼻 both render はな), and latent on the
+ * romaji path (ず/づ both "zu"). Ranking upstream is SRS-state-dependent,
+ * so uniqueness must be enforced at pick time, not assumed from the pool.
+ */
+export function pickNonColliding<T>(
+  ranked: readonly T[],
+  need: number,
+  usedSources: Set<string>,
+  usedTargets: Set<string>,
+  getSource: (c: T) => string,
+  getTarget: (c: T) => string,
+): T[] {
+  const picked: T[] = [];
+  for (const c of ranked) {
+    if (picked.length >= need) break;
+    const s = getSource(c);
+    const t = getTarget(c).toLowerCase();
+    if (usedSources.has(s) || usedTargets.has(t)) continue;
+    usedSources.add(s);
+    usedTargets.add(t);
+    picked.push(c);
+  }
+  return picked;
+}
+
 /** Drop pairs whose source already appeared (keep first occurrence). */
 function dedupeBySource(pairs: readonly MatchPair[]): MatchPair[] {
   const seen = new Set<string>();
@@ -232,7 +281,15 @@ function buildRomajiFill(
     (k) => !present.has(k),
   );
   const ranked = confusableBias(pairs, pool);
-  return ranked.slice(0, need).map((kana, i) => ({
+  const usedTargets = new Set(pairs.map((p) => p.target.toLowerCase()));
+  return pickNonColliding(
+    ranked,
+    need,
+    present,
+    usedTargets,
+    (kana) => kana,
+    (kana) => KANA_ROMAJI[kana] ?? "",
+  ).map((kana, i) => ({
     id: `${step.id}-fill-${i}`,
     source: kana,
     target: KANA_ROMAJI[kana] ?? "",
@@ -256,16 +313,35 @@ function buildMeaningFill(
   const freq = getFrequencyIndex(ctx.rawLessons);
   const seed = step.id;
   const shuffled = seededShuffle(prior, seed);
+  // Read the SRS store ONCE and precompute each atom's weakness before
+  // sorting. Calling weaknessScore inside the comparator re-parsed the
+  // entire localStorage store on every comparison — O(P·logP) full-store
+  // JSON.parses — which pins the main thread once a real backlog exists
+  // (e.g. after an Anki import seeds hundreds of cards).
+  const store = getSRSStore();
+  const weakness = new Map<string, number>();
+  for (const atom of prior) {
+    weakness.set(atom.id, weaknessScore(atom.id, ctx.todayMs, store));
+  }
   const ranked = [...shuffled].sort((a, b) => {
-    const wa = weaknessScore(a.id, ctx.todayMs);
-    const wb = weaknessScore(b.id, ctx.todayMs);
+    const wa = weakness.get(a.id) ?? 0;
+    const wb = weakness.get(b.id) ?? 0;
     if (wa !== wb) return wb - wa; // weakest first
     // tie-break: rarer (less-reviewed) first
     const fa = freq.get(a.kana) ?? 0;
     const fb = freq.get(b.kana) ?? 0;
     return fa - fb;
   });
-  return ranked.slice(0, need).map((atom: CourseAtom, i) => ({
+  const usedSources = new Set(pairs.map((p) => p.source));
+  const usedTargets = new Set(pairs.map((p) => p.target.toLowerCase()));
+  return pickNonColliding(
+    ranked,
+    need,
+    usedSources,
+    usedTargets,
+    (atom) => atom.kana,
+    (atom) => atom.meaningEn,
+  ).map((atom: CourseAtom, i) => ({
     id: `${step.id}-fill-${i}`,
     source: atom.kana,
     target: atom.meaningEn,

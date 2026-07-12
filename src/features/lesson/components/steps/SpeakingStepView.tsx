@@ -448,6 +448,34 @@ function SpeakingStepRecognized({
     t,
   ]);
 
+  // QA 2026-07-12 (Spencer): surface the browser's mic-permission dialog
+  // at step MOUNT — not buried behind the first record tap — whenever
+  // permission hasn't been decided yet and this session isn't running the
+  // silent/no-mic bypass. Repeats naturally on later speaking steps until
+  // the learner decides; a denied state falls through to the existing
+  // helper copy + skip path.
+  useEffect(() => {
+    if (silentMode || !supported) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const status = await navigator.permissions?.query?.({
+          name: "microphone" as PermissionName,
+        });
+        if (cancelled || !status || status.state !== "prompt") return;
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
+        stream.getTracks().forEach((track) => track.stop());
+      } catch {
+        /* denied or unsupported — existing error copy handles it */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [silentMode, supported]);
+
   function handleRecord() {
     setVerdict("idle");
     setMatch(null);
@@ -614,14 +642,19 @@ function SpeakingStepRecognized({
             whisperTranscribing ||
             canContinue
           }
-          className={`flex h-20 w-20 items-center justify-center rounded-full border-[1.5px] text-white shadow-[0_4px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:shadow-[0_5px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_2px_0_0_var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-40 ${
+          className={`flex h-14 w-full max-w-md items-center justify-center gap-3 rounded-2xl border-[1.5px] text-white shadow-[0_4px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:shadow-[0_5px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_2px_0_0_var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-40 ${
             recog.listening
               ? "border-red-700 bg-red-500 motion-safe:animate-pulse"
               : "border-accent-hover bg-accent"
           }`}
           aria-label={recog.listening ? "Stop recording" : "Tap to speak"}
         >
-          <Icon name="mic" size={32} aria-hidden />
+          {/* QA 2026-07-12: full-width bar instead of the small circle —
+              "fill a little more space". */}
+          <Icon name="mic" size={24} aria-hidden />
+          <span className="text-base font-bold">
+            {recog.listening ? "Listening — tap to stop" : "Tap to speak"}
+          </span>
         </button>
 
         <p className={`min-h-[1.5rem] text-sm ${helperToneClass}`}>

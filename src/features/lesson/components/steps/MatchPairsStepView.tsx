@@ -205,6 +205,12 @@ export function MatchPairsStepView({ step, onComplete, onContinue, hideMistakeDo
         className="relative grid min-h-0 flex-1 grid-cols-2 gap-x-3 gap-y-2 sm:gap-x-4"
         style={{
           gridTemplateRows: `repeat(${rows}, minmax(min-content, 1fr))`,
+          // Cap the grid so 1fr rows resolve to card-sized tiles instead of
+          // stretching to fill the whole step area on tall viewports —
+          // Spencer QA 2026-07-12: "don't scale the cards too tall; they
+          // need to fit normally inside the lesson viewer." Short viewports
+          // still compress below the cap via min-h-0/flex-1.
+          maxHeight: `calc(${rows} * 4.75rem + ${rows - 1} * 0.5rem)`,
         }}
       >
         {/* Render row-by-row so the auto-rows lock both columns to the same

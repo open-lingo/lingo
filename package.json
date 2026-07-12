@@ -34,7 +34,8 @@
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.0.1",
     "recharts": "^3.8.1",
-    "ts-fsrs": "^5.4.0"
+    "ts-fsrs": "^5.4.0",
+    "wanakana": "^5.3.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",

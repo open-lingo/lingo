@@ -180,7 +180,10 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
     : "border-accent bg-accent-muted text-accent hover:bg-accent hover:text-white";
 
   return (
-    <div className="relative flex flex-1 flex-col gap-6">
+    // QA 2026-07-12 (workshop C): tightened stacked gaps — tiles stay at
+    // the 44px tap floor and the tray keeps its anti-jump reservation;
+    // the recoverable space was the spacing, not the tiles.
+    <div className="relative flex flex-1 flex-col gap-5">
       <ExplainButton
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}
@@ -188,7 +191,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
       {/* Content cluster starts at the top of the step area (prompt is the
           first thing the eye should hit); the action block below carries
           mt-auto so it pins to the bottom regardless of content height. */}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
       <h2 className={`font-semibold text-text-primary ${bigTiles ? "text-xl sm:text-2xl" : "text-lg"} ${isWordBuild ? "text-center" : ""}`}>
         {step.prompt}
       </h2>
@@ -254,7 +257,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
         /* SENTENCE TRAY: pre-sized by an invisible ghost of the FULL
            answer so placement never reflows; left-aligned (reading
            order). */
-        <div className="relative min-h-[64px] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-3.5">
+        <div className="relative min-h-[56px] rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2.5">
           <div aria-hidden className="invisible flex flex-wrap gap-2">
             {step.correctOrder.map((tile, i) => (
               <span
@@ -265,7 +268,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               </span>
             ))}
           </div>
-          <div className="absolute inset-0 flex flex-wrap content-start gap-2 px-4 py-3.5">
+          <div className="absolute inset-0 flex flex-wrap content-start gap-2 px-4 py-2.5">
             {placed.length === 0 ? (
               <span className="self-center text-sm text-text-muted">
                 {step.correctOrder.length === 1

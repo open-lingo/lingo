@@ -89,6 +89,18 @@ function loadOne(v: unknown): SRSCardState | null {
   return null;
 }
 
+// Parse cache. getSRSStore is called in tight loops during synchronous deck
+// builds (sentence miner, review-lesson construction, match-pad weakness
+// scoring). Re-parsing + re-validating the whole store on every call is
+// O(cards) per call → O(cards²) across those loops, which pins the main thread
+// once a real backlog exists (an Anki import seeds hundreds of cards). Cache
+// the parsed store keyed by the exact raw string in localStorage: any write —
+// this tab via setSRSStore, or another tab — changes the string, missing the
+// cache and forcing a fresh parse. See setSRSStore/clearSRSStore for eager
+// invalidation.
+let _srsCacheRaw: string | null = null;
+let _srsCacheStore: SRSStore | null = null;
+
 export function getSRSStore(): SRSStore {
   if (typeof window === "undefined") return {};
   try {
@@ -99,7 +111,12 @@ export function getSRSStore(): SRSStore {
       localStorage.removeItem(LEGACY_STORAGE_KEY);
     }
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return {};
+    if (!raw) {
+      _srsCacheRaw = null;
+      _srsCacheStore = null;
+      return {};
+    }
+    if (raw === _srsCacheRaw && _srsCacheStore) return _srsCacheStore;
     const parsed = JSON.parse(raw) as Record<string, unknown>;
     const valid: SRSStore = {};
     // Phase 2 atom-id namespace migration — bare keys (no `:`) are
@@ -121,6 +138,11 @@ export function getSRSStore(): SRSStore {
       // warning surfaces via safeLocalStorageWrite; the next write re-attempts.
       safeLocalStorageWrite(STORAGE_KEY, JSON.stringify(valid));
     }
+    // Cache against the string actually in storage now — migration may have
+    // rewritten it (or, if quota blocked the write, left the old string; a
+    // re-read keeps the cache key matched to whatever a later read will see).
+    _srsCacheRaw = migrated ? localStorage.getItem(STORAGE_KEY) : raw;
+    _srsCacheStore = valid;
     return valid;
   } catch {
     return {};
@@ -133,6 +155,10 @@ export function setSRSStore(store: SRSStore): void {
   // user (toast + log) at/near the ceiling. The in-memory `store` the caller
   // holds is preserved; the next mutation re-attempts the write.
   safeLocalStorageWrite(STORAGE_KEY, JSON.stringify(store));
+  // Invalidate the parse cache so the next read reflects this write. Cheap:
+  // writes are never in the hot read loops.
+  _srsCacheRaw = null;
+  _srsCacheStore = null;
 }
 
 export function getCardState(cardId: string): SRSCardState | undefined {
@@ -152,6 +178,8 @@ export function setCardState(cardId: string, state: SRSCardState): void {
 export function clearSRSStore(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem(STORAGE_KEY);
+  _srsCacheRaw = null;
+  _srsCacheStore = null;
 }
 
 /** ISO timestamp of last successful SRS sync to backend. */

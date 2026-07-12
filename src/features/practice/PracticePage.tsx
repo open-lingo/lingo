@@ -29,14 +29,14 @@ const PRE_MADE_COURSES: Record<
 > = {
   ko: [
     { id: "hangul", emoji: "한", title: "Hangul basics", subtitle: "Master the Korean alphabet", to: "practice/alphabet" },
-    { id: "ko-particles", emoji: "은/는", title: "Korean particles", subtitle: "은·는·이·가 and friends", to: "practice/particles" },
+    { id: "ko-particles", emoji: "은/는", title: "Korean particles", subtitle: "Reference guide — 은·는·이·가 and friends", to: "practice/particles" },
     { id: "ko-top100", emoji: "100", title: "Top 100 Korean words", subtitle: "Most common vocabulary", to: "vocab" },
   ],
   ja: [
     { id: "hiragana", emoji: "あ", title: "Hiragana", subtitle: "46 syllabary signs", to: "practice/alphabet/hiragana" },
     { id: "katakana", emoji: "ア", title: "Katakana", subtitle: "Loanword syllabary", to: "practice/alphabet/katakana" },
     { id: "n5-kanji", emoji: "漢", title: "JLPT N5 Kanji", subtitle: "First 100 characters", to: "practice/kanji" },
-    { id: "ja-particles", emoji: "は/が", title: "Particles", subtitle: "は·が·を·に·で foundations", to: "practice/particles" },
+    { id: "ja-particles", emoji: "は/が", title: "Particles", subtitle: "Reference guide — は·が·を·に·で meanings", to: "practice/particles" },
     { id: "ja-top100", emoji: "100", title: "Top 100 Japanese words", subtitle: "Most common vocabulary", to: "vocab" },
   ],
 };
@@ -333,35 +333,26 @@ export function PracticePage() {
               <ul className="space-y-1.5">
                 {skillFeatures.map((feat) => {
                   const unlocked = courseLevel >= feat.unlockAtModule;
-                  if (!unlocked) {
-                    return (
-                      <li
-                        key={feat.id}
-                        className="flex items-center gap-2.5 rounded-lg border border-border bg-surface-muted/50 p-2 opacity-60"
-                      >
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-surface-muted text-text-muted">
-                          <Icon name="lock" size={16} aria-hidden />
-                        </span>
-                        <div className="min-w-0">
-                          <p className="truncate text-xs font-semibold text-text-secondary">{feat.title}</p>
-                          <p className="truncate text-[11px] text-text-muted">
-                            {t("practice.skills.unlocksAt", {
-                              defaultValue: "Unlocks at Module {{module}}",
-                              module: feat.unlockAtModule,
-                            })}
-                          </p>
-                        </div>
-                      </li>
-                    );
-                  }
+                  // Pre-threshold drills are ADVISORY, not gated: the routes
+                  // have never enforced these locks, and hard-lock chrome on
+                  // clickable-by-URL surfaces was dishonest (QA 2026-07-11).
+                  // Adults may wander in early; the subtitle sets expectations.
                   return (
                     <CatalogRow
                       key={feat.id}
                       to={langPath(feat.route)}
                       emoji={feat.icon}
                       title={feat.title}
-                      subtitle={feat.description}
-                      accentEmoji
+                      subtitle={
+                        unlocked
+                          ? feat.description
+                          : t("practice.skills.recommendedFrom", {
+                              defaultValue:
+                                "Recommended from Module {{module}} — open anyway",
+                              module: feat.unlockAtModule,
+                            })
+                      }
+                      accentEmoji={unlocked}
                     />
                   );
                 })}

@@ -97,9 +97,11 @@ export function SymbolRecognitionStepView({
           mt-auto so it pins to the shared bottom action slot. */}
       <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-center gap-3">
-        <h2 className="text-lg font-medium text-text-secondary">
+        {/* QA 2026-07-12: prompt bumped a size — "make the sentence of
+            'pick the symbol' a little bigger". */}
+        <h2 className="text-xl font-medium text-text-secondary sm:text-2xl">
           {t("alphabet.taskPickSymbol", "Pick the symbol for")}{" "}
-          <span className="ml-1 text-2xl font-bold text-accent">
+          <span className="ml-1 text-3xl font-bold text-accent">
             {romanization}
           </span>
         </h2>

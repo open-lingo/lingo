@@ -24,6 +24,7 @@ import {
 } from "@/shared/domain/mockProgress";
 import { useCompletedLessonIds } from "./hooks/useCompletedLessonIds";
 import { resetLearnProgress } from "./resetLearnProgress";
+import { useApi } from "@/shared/api/provider";
 import { applySpeechQueryParams, setSpeechFlag } from "@/shared/speech";
 import { applyDensityQueryParams } from "@/features/lesson/data/lessonDensity";
 import { getAlphabetProgress } from "@/features/practice/alphabet/alphabetProgress";
@@ -60,6 +61,7 @@ export function LearnPage() {
   const profile = useLearnProfile();
 
   const completedIds = useCompletedLessonIds();
+  const { progress, srs } = useApi();
   const [devUnlock, setDevUnlockState] = useState(() => isDevUnlockOn());
   const [placementDismissedByUser, setPlacementDismissedByUser] = useState(false);
   // Wrapped in an object so re-jumping to the same module id still
@@ -408,7 +410,17 @@ export function LearnPage() {
         unlocked={devUnlock}
         onToggle={handleToggleDevUnlock}
         onClearProgress={() => {
-          if (course && language) resetLearnProgress(language.id, course.id);
+          // Full wipe — pass the api so the SERVER progress/SRS is cleared too,
+          // not just local caches. Local-only reset let the server re-hydrate
+          // the just-cleared lessons a beat later (count 0 → back to N), which
+          // collapsed the new-user FTUE/placement offer mid-interaction. Reload
+          // after so nothing derives from the pre-reset stores.
+          if (course && language) {
+            void resetLearnProgress(language.id, course.id, {
+              progress,
+              srs,
+            }).then(() => window.location.reload());
+          }
         }}
         onClearGraduatedVocab={() => {
           if (language) clearGraduatedVocab(language.id, course.id);

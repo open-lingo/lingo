@@ -146,17 +146,19 @@ export function getMockCourse(languageId: string): Course {
     }
 
     const sideQuests: SideQuest[] = [
-      {
-        // Survival Phrasebook — pinned first (day-1 unlock per
-        // curriculum-design-v2 §6). Audio-driven, romaji-first; solves
-        // the Priya persona: travelers who want functional Japanese
-        // before grinding the kana chart.
-        id: "ja-survival-phrasebook",
-        emoji: "🗺️",
-        title: "Survival Phrasebook",
-        meta: "15 essentials · ~5 min · travel-ready",
-        progress: 0,
-      },
+      // Survival Phrasebook — PULLED from the map 2026-07-12 (Spencer QA
+      // note: "I don't like the survival phrases quest for now"). Tile
+      // only: the lessons stay in LESSONS and deep-links still work, so
+      // restoring = uncommenting. Original rationale: pinned day-1 unlock
+      // per curriculum-design-v2 §6, audio-driven, romaji-first (the
+      // Priya traveler persona).
+      // {
+      //   id: "ja-survival-phrasebook",
+      //   emoji: "🗺️",
+      //   title: "Survival Phrasebook",
+      //   meta: "15 essentials · ~5 min · travel-ready",
+      //   progress: 0,
+      // },
       {
         id: "anime-vocab",
         emoji: "🌸",

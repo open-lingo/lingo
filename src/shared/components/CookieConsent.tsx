@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { hasCookieConsentDecision, saveCookieConsent } from "@/shared/legal/cookieConsent";
@@ -10,6 +10,7 @@ import { hasCookieConsentDecision, saveCookieConsent } from "@/shared/legal/cook
 export function CookieConsent() {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setVisible(!hasCookieConsentDecision());
@@ -17,6 +18,28 @@ export function CookieConsent() {
     window.addEventListener("open-lingo-cookie-consent", onChange);
     return () => window.removeEventListener("open-lingo-cookie-consent", onChange);
   }, []);
+
+  // Publish the banner's height as --cookie-consent-height so fixed-height
+  // shells (lesson player, grammar review) can reserve space for it —
+  // the fixed overlay was covering bottom-anchored CTAs on short pages
+  // (QA 2026-07-11). Mirrors the --funding-meter-height convention.
+  useEffect(() => {
+    const root = document.documentElement;
+    if (!visible) {
+      root.style.removeProperty("--cookie-consent-height");
+      return;
+    }
+    const update = () => {
+      const h = barRef.current?.getBoundingClientRect().height ?? 0;
+      root.style.setProperty("--cookie-consent-height", `${Math.ceil(h) + 12}px`);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("resize", update);
+      root.style.removeProperty("--cookie-consent-height");
+    };
+  }, [visible]);
 
   if (!visible) return null;
 
@@ -31,7 +54,10 @@ export function CookieConsent() {
   };
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-[var(--funding-meter-height,4.5rem)] z-50 px-3 sm:px-6">
+    <div
+      ref={barRef}
+      className="pointer-events-none fixed inset-x-0 bottom-[var(--funding-meter-height,4.5rem)] z-50 px-3 sm:px-6"
+    >
       {/* Slim single bar on mobile so it never buries the hero CTA; expands
           to the full card (title + detail) only at sm+. */}
       <div
