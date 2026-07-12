@@ -26,25 +26,6 @@ function fixtures(): Fixture[] {
       },
     },
     {
-      type: "teach",
-      title: "teach",
-      whenToUse:
-        "Single-vocab teach card: term + translation + breakdown. Lower density than phrase_card; mostly used by early m1-l1 / m1-l2 lessons.",
-      step: {
-        id: "preview-teach",
-        type: "teach",
-        content: {
-          text: "Let's learn the word for 'mountain'.",
-          vocab: {
-            term: "やま",
-            translation: "mountain",
-            audioKey: "やま",
-          },
-          note: "Common in place names: 富士山 (Fuji-yama).",
-        },
-      },
-    },
-    {
       type: "multiple_choice",
       title: "multiple_choice",
       whenToUse:
@@ -416,7 +397,7 @@ export default function LessonStepPreviewPage() {
         <div className="text-[11px] font-bold uppercase tracking-wider text-warning">
           DEV · Lesson step previewer
         </div>
-        <h1 className="m-0 mt-1 text-2xl font-bold">All 20 lesson step types</h1>
+        <h1 className="m-0 mt-1 text-2xl font-bold">All {all.length} lesson step types</h1>
         <p className="m-0 mt-2 text-sm text-text-secondary">
           One canonical example of every <code>LessonStep</code> type. Use this
           to hand-design new lessons by picking primitives. Each card renders

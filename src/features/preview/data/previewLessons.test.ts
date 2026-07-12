@@ -31,8 +31,8 @@ describe("preview lessons registry", () => {
   });
 
   // Design rule: teach before you test. Anything a graded step asks the learner
-  // to recall must already have been INTRODUCED with its meaning — by a teach
-  // step, the CORRECT option of an earlier picture-MCQ, or a speaking step.
+  // to recall must already have been INTRODUCED with its meaning — by a
+  // phrase_card, the CORRECT option of an earlier picture-MCQ, or a speaking step.
   // A match step is a TEST, not an introduction: pairing みず↔water only works
   // if みず's meaning was shown first (the old preview sprang みず/おちゃ that had
   // only flashed as distractor pictures, and こんにちは / 감사합니다 cold).
@@ -62,9 +62,9 @@ describe("preview lessons registry", () => {
             ).toBe(true);
           }
         }
-        // --- Record what this step INTRODUCES (teach / correct picture / say) ---
-        if (step.type === "teach" && step.content.vocab) {
-          introduced.add(step.content.vocab.term);
+        // --- Record what this step INTRODUCES (card / correct picture / say) ---
+        if (step.type === "phrase_card") {
+          introduced.add(step.kana);
         }
         if (step.type === "word_image_mcq") {
           const correct = step.options.find((o) => o.id === step.correctOptionId);

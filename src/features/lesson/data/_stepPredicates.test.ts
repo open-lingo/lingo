@@ -191,9 +191,6 @@ describe("shouldWriteSrs", () => {
   it("returns false for symbol_intro (writing-system teach)", () => {
     expect(shouldWriteSrs({ type: "symbol_intro", exercisedAtoms: ["k-a"] })).toBe(false);
   });
-  it("returns false for teach", () => {
-    expect(shouldWriteSrs({ type: "teach", exercisedAtoms: ["v-cat"] })).toBe(false);
-  });
   it("returns false for graded step missing exercisedAtoms", () => {
     expect(shouldWriteSrs({ type: "multiple_choice" })).toBe(false);
     expect(shouldWriteSrs({ type: "build_sentence", exercisedAtoms: [] })).toBe(false);

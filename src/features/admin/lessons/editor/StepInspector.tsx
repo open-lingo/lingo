@@ -8,7 +8,6 @@ import type {
   PhraseCardStep,
   GrammarRuleStep,
   InfoStep,
-  TeachStep,
   ParticleClozeStep,
   WordImageMcqStep,
 } from "@/features/lesson/types";
@@ -162,8 +161,6 @@ function PerKindForm({ step, onChange }: { step: LessonStep; onChange: (s: Lesso
   switch (step.type) {
     case "info":
       return <InfoForm step={step} onChange={onChange} />;
-    case "teach":
-      return <TeachForm step={step} onChange={onChange} />;
     case "multiple_choice":
       return <McqForm step={step} onChange={onChange} />;
     case "build_sentence":
@@ -286,73 +283,6 @@ function InfoForm({ step, onChange }: { step: InfoStep; onChange: (s: LessonStep
   );
 }
 
-function TeachForm({ step, onChange }: { step: TeachStep; onChange: (s: LessonStep) => void }) {
-  const c = step.content;
-  return (
-    <div className="space-y-3">
-      <Field label="Body text">
-        <textarea
-          value={c.text}
-          onChange={(e) =>
-            onChange({ ...step, content: { ...c, text: e.target.value } })
-          }
-          className="h-24 w-full rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
-        />
-      </Field>
-      <Field label="Vocab term">
-        <input
-          type="text"
-          value={c.vocab?.term ?? ""}
-          onChange={(e) =>
-            onChange({
-              ...step,
-              content: {
-                ...c,
-                vocab: {
-                  ...(c.vocab ?? { term: "", translation: "" }),
-                  term: e.target.value,
-                },
-              },
-            })
-          }
-          className="w-full rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
-        />
-      </Field>
-      <Field label="Vocab translation">
-        <input
-          type="text"
-          value={c.vocab?.translation ?? ""}
-          onChange={(e) =>
-            onChange({
-              ...step,
-              content: {
-                ...c,
-                vocab: {
-                  ...(c.vocab ?? { term: "", translation: "" }),
-                  translation: e.target.value,
-                },
-              },
-            })
-          }
-          className="w-full rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
-        />
-      </Field>
-      <Field label="Author note">
-        <input
-          type="text"
-          value={c.note ?? ""}
-          onChange={(e) =>
-            onChange({
-              ...step,
-              content: { ...c, note: e.target.value || undefined },
-            })
-          }
-          className="w-full rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
-        />
-      </Field>
-    </div>
-  );
-}
 
 function McqForm({ step, onChange }: { step: MultipleChoiceStep; onChange: (s: LessonStep) => void }) {
   return (

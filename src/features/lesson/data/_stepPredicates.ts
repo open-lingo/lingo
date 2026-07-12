@@ -20,7 +20,6 @@ const TEACH_STEP_KINDS: ReadonlySet<LessonStep["type"]> = new Set([
   "phrase_card",
   "info",
   "grammar_rule",
-  "teach",
   "symbol_intro",
 ]);
 

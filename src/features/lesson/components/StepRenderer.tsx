@@ -1,6 +1,5 @@
 import type { LessonStep } from "../types";
 import { InfoStepView } from "./steps/InfoStepView";
-import { TeachStepView } from "./steps/TeachStepView";
 import { MultipleChoiceStepView } from "./steps/MultipleChoiceStepView";
 import { BuildSentenceStepView } from "./steps/BuildSentenceStepView";
 import { MatchPairsStepView } from "./steps/MatchPairsStepView";
@@ -52,8 +51,6 @@ export function StepRenderer({
   switch (step.type) {
     case "info":
       return <InfoStepView step={step} onContinue={onContinue} />;
-    case "teach":
-      return <TeachStepView step={step} onContinue={onContinue} />;
     case "multiple_choice":
       return (
         <MultipleChoiceStepView
@@ -175,7 +172,11 @@ export function StepRenderer({
         <GrammarRuleStepView
           step={step}
           onContinue={onContinue}
-          variant={surface === "grammarReview" ? "compact" : "full"}
+          // Workshop A (2026-07-12): lessons render the COMPACT card too —
+          // rule + first example only. The monolith "full" treatment is
+          // retired from the learner path (anti-pattern + culture are
+          // delivered reactively / as flavor now).
+          variant="compact"
         />
       );
     case "particle_cloze":

@@ -70,9 +70,6 @@ describe("kana word intro ordering", () => {
           teach(correct?.word);
         }
         if (s.type === "listening_comprehension") teach(s.transcript);
-        if (s.type === "teach") {
-          teach(s.content?.vocab?.kana ?? s.content?.vocab?.word);
-        }
         if (s.type === "phrase_card") teach(s.kana ?? s.phrase);
         if (s.type === "build_sentence") {
           teach((s.correctOrder ?? []).join(""));

@@ -19,8 +19,9 @@ import {
   loadLessonInProgress,
   saveLessonInProgress,
 } from "./data/lessonProgress";
-import type { LessonContent, LessonStep } from "./types";
+import type { LessonContent, LessonStep, ReactiveGrammarTip } from "./types";
 import { StepRenderer } from "./components/StepRenderer";
+import { ReactiveGrammarTipCard } from "./components/ReactiveGrammarTipCard";
 import { LessonProgressBar } from "./components/LessonProgressBar";
 import { LessonComplete } from "./components/LessonComplete";
 import { LanguageSymbolMasteryProvider as KanaMasteryProvider } from "@/shared/symbolMastery/LanguageSymbolMasteryProvider";
@@ -142,6 +143,11 @@ export function LessonPage() {
   const [currentStepIdx, setCurrentStepIdx] = useState(
     () => hydrated?.stepIdx ?? 0,
   );
+  // Reactive grammar tip: one flash per grammar point per lesson session,
+  // fired from handleStepComplete when a tagged step is answered wrong.
+  const [activeGrammarTip, setActiveGrammarTip] =
+    useState<ReactiveGrammarTip | null>(null);
+  const shownGrammarTipsRef = useRef<Set<string>>(new Set());
   const [results, setResults] = useState<Record<string, boolean>>(
     () => hydrated?.results ?? {},
   );
@@ -329,13 +335,21 @@ export function LessonPage() {
       lessonId: lesson.id,
       perfect: accuracy >= 0.999,
     });
-    const xpEarned = isReview
-      ? Math.max(1, Math.round(baseXp * REVIEW_XP_MULTIPLIER))
-      : baseXp;
     const rowTestStep = lesson.steps.find((s) => s.type === "row_test");
     const wasSkipped = rowTestStep
       ? results[rowTestStep.id] === false
       : false;
+    // Mirror the server's award rule (app/progress/router.py): a
+    // not-passed attempt (skipped row test OR sub-threshold accuracy)
+    // earns ZERO XP server-side, so recording/displaying the full burst
+    // locally over-promises and desyncs on the next batch sync
+    // (QA 2026-07-11: failed row test showed "+14 XP" the server never paid).
+    const attemptPassed = !wasSkipped && accuracy >= LESSON_PASS_THRESHOLD;
+    const xpEarned = !attemptPassed
+      ? 0
+      : isReview
+        ? Math.max(1, Math.round(baseXp * REVIEW_XP_MULTIPLIER))
+        : baseXp;
     markLessonCompleted(lesson.id, {
       accuracy,
       xpEarned,
@@ -373,7 +387,7 @@ export function LessonPage() {
     recordAttempt({
       lessonId: lesson.id,
       durationSec,
-      passed: !wasSkipped && accuracy >= LESSON_PASS_THRESHOLD,
+      passed: attemptPassed,
       score: accuracy,
       stepResults,
     });
@@ -485,6 +499,17 @@ export function LessonPage() {
       // onComplete), but gate on isGradedStep as defense-in-depth so a
       // future passive step that does can't bump the combo.
       const gradedStep = lesson.steps[stepIdx >= 0 ? stepIdx : 0];
+      // Reactive grammar intervention: wrong answer on a step drilling a
+      // rule-card point → flash the ✗/✓ + rule reminder, once per point.
+      const grammarTip = gradedStep?.reactiveGrammarTip;
+      if (
+        !correct &&
+        grammarTip &&
+        !shownGrammarTipsRef.current.has(grammarTip.grammarPointId)
+      ) {
+        shownGrammarTipsRef.current.add(grammarTip.grammarPointId);
+        setActiveGrammarTip(grammarTip);
+      }
       // Row tests run their own per-item juice inside TestRunner (each
       // item chimes + ticks the combo); the step-level report here would
       // double-count.
@@ -726,6 +751,13 @@ export function LessonPage() {
     // false→true on retry pass; whatever's still false is the genuine
     // miss set the learner can drill.
     const missedCount = Object.values(results).filter((v) => v === false).length;
+    const summaryRowTest = lesson.steps.find((s) => s.type === "row_test");
+    const summaryWasSkipped = summaryRowTest
+      ? results[summaryRowTest.id] === false
+      : false;
+    const summaryAccuracy = gradedSteps > 0 ? correctCount / gradedSteps : 1;
+    const summaryPassed =
+      !summaryWasSkipped && summaryAccuracy >= LESSON_PASS_THRESHOLD;
     return (
       <LessonComplete
         lesson={lesson}
@@ -734,6 +766,8 @@ export function LessonPage() {
         onContinue={handleNextLesson}
         isReview={isReview}
         xpMultiplier={isReview ? REVIEW_XP_MULTIPLIER : 1}
+        passed={summaryPassed}
+        wasSkipped={summaryWasSkipped}
         mastery={mastery}
         primaryLabel={
           nextLessonId
@@ -749,6 +783,12 @@ export function LessonPage() {
 
   return (
     <KanaMasteryProvider>
+    {activeGrammarTip && (
+      <ReactiveGrammarTipCard
+        tip={activeGrammarTip}
+        onDismiss={() => setActiveGrammarTip(null)}
+      />
+    )}
     {/* Fixed app-like shell (Spencer 2026-06-13): the WINDOW never
         scrolls during a lesson. The shell is exactly viewport height
         (minus topbar + focus-mode main padding); the step area below the
@@ -756,7 +796,7 @@ export function LessonPage() {
         cards) scrolls inside with the styled scrollbar while the page
         chrome stays put. Full-width so the image-MCQ breakout fits the
         scroller without horizontal overflow. */}
-    <div className="mx-auto flex h-[calc(100dvh-1.5rem)] w-full flex-col">
+    <div className="mx-auto flex h-[calc(100dvh-1.5rem-var(--cookie-consent-height,0px))] w-full flex-col">
       <div className="mx-auto flex w-full max-w-2xl items-center gap-4 py-3">
         <button
           type="button"

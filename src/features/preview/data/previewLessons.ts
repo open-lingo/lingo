@@ -57,19 +57,17 @@ const japanesePreview: PreviewLesson = {
   estimatedMinutes: 2,
   steps: [
     {
-      // 1 — TEACH the greeting up front so the finale (step 8) is a real win,
-      // not a cold guess. Auto-plays audio; romaji renders above the kana.
+      // 1 — INTRODUCE the greeting up front so the finale (step 8) is a real
+      // win, not a cold guess. Auto-plays audio; romaji renders above the
+      // kana. (Was a `teach` step; that type retired 2026-07-11 in favor of
+      // phrase_card — same exposure semantics.)
       id: "preview-ja-1-teach-hello",
-      type: "teach",
-      content: {
-        text: "Let's start with a word you'll use every day.",
-        vocab: {
-          term: "こんにちは",
-          translation: "Hello / good afternoon",
-          audioKey: "こんにちは",
-        },
-        note: "Tap the word to hear it. The romaji above shows how it sounds.",
-      },
+      type: "phrase_card",
+      kana: "こんにちは",
+      romaji: "konnichiwa",
+      meaningEn: "Hello / good afternoon",
+      emoji: "👋",
+      cultureNote: "Tap the word to hear it. The romaji shows how it sounds.",
     },
     {
       // 2 — Cognate opener: "sushi" is a word they already own, so the only
@@ -195,19 +193,17 @@ const koreanPreview: PreviewLesson = {
   estimatedMinutes: 2,
   steps: [
     {
-      // 1 — TEACH the greeting first so the finale (step 8) is recall, not a
-      // cold guess. (The old preview sprang 감사합니다 cold — dropped.)
+      // 1 — INTRODUCE the greeting first so the finale (step 8) is recall,
+      // not a cold guess. (The old preview sprang 감사합니다 cold — dropped.
+      // Was a `teach` step; that type retired 2026-07-11 in favor of
+      // phrase_card — same exposure semantics.)
       id: "preview-ko-1-teach-hello",
-      type: "teach",
-      content: {
-        text: "Let's start with the greeting you'll use most.",
-        vocab: {
-          term: "안녕하세요",
-          translation: "Hello",
-          audioKey: "안녕하세요",
-        },
-        note: "Tap the word to hear it.",
-      },
+      type: "phrase_card",
+      kana: "안녕하세요",
+      romaji: "annyeonghaseyo",
+      meaningEn: "Hello",
+      emoji: "👋",
+      cultureNote: "Tap the word to hear it.",
     },
     {
       // 2 — Loanword opener: "coffee" is a free win by ear.

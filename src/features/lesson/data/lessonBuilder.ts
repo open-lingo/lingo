@@ -32,7 +32,7 @@ import type {
   ListeningComprehensionStep,
   FillBlankStep,
   SpeakingStep,
-  TeachStep,
+  PhraseCardStep,
   MatchPairsStep,
   BuildSentenceStep,
   MultipleChoiceStep,
@@ -642,22 +642,20 @@ function buildIntroStep(
   };
 }
 
+// `teach` retired 2026-07-11 (superseded by phrase_card) — the builder's
+// vocab-intro pass keeps its ids/positions but emits the successor type
+// with identical exposure semantics.
 function buildTeachStep(
   row: RowDef,
   w: RowDef["anchorWords"][number],
   idx: number,
-): TeachStep {
+): PhraseCardStep {
   return {
     id: `ja-${row.id}-teach-${idx}`,
-    type: "teach",
-    content: {
-      text: `${w.kana} means '${w.meaning}'.`,
-      vocab: {
-        term: w.kana,
-        translation: w.meaning,
-        annotation: [{ surface: w.kana, reading: w.kana }],
-      },
-    },
+    type: "phrase_card",
+    kana: w.kana,
+    romaji: w.romaji,
+    meaningEn: w.meaning,
   };
 }
 

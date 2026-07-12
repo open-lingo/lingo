@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { GrammarRuleStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
@@ -61,6 +62,10 @@ export function GrammarRuleStepView({
         </div>
 
         {step.examples[0] ? <ExampleTile example={step.examples[0]} /> : null}
+
+        {/* Workshop A (2026-07-12): culture is discoverable flavor, never
+            required reading — a tap-to-expand chip, one disclosure level. */}
+        {step.cultureNote ? <CultureChip note={step.cultureNote} /> : null}
 
         <div className="mt-auto pt-6">
           <ContinueButton
@@ -165,6 +170,29 @@ function ExampleTile({ example }: { example: { ja: string; romaji: string; en: s
       >
         <Icon name="play" size={14} />
       </button>
+    </div>
+  );
+}
+
+function CultureChip({ note }: { note: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold text-text-muted transition hover:bg-surface-muted"
+      >
+        <span aria-hidden>🌸</span>
+        Culture note
+        <span aria-hidden>{open ? "−" : "+"}</span>
+      </button>
+      {open ? (
+        <p className="mt-2 rounded-xl border border-border/60 bg-surface px-4 py-3 text-sm leading-relaxed text-text-secondary">
+          {note}
+        </p>
+      ) : null}
     </div>
   );
 }

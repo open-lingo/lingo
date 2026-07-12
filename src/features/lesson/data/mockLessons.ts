@@ -344,6 +344,7 @@ import {
 import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
 import { withKanaReviewTail } from "./kanaReviewTails";
 import { padMatchPairsFloor, type MatchPadContext } from "./matchPairsFloor";
+import { deriveGrammarMicroSteps } from "./deriveGrammarMicroSteps";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { ALL_ROWS } from "./hiraganaCurriculum";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
@@ -1020,7 +1021,9 @@ export function getMockLessonContent(
 ): LessonContent | null {
   const base = LESSONS[lessonId] ?? null;
   if (base) {
-    const augmented = withKanaReviewTail(augmentWithReviewTail(base));
+    const augmented = withKanaReviewTail(
+      augmentWithReviewTail(deriveGrammarMicroSteps(base)),
+    );
     const shaped = isSunsetModuleForBuildSentence(augmented.moduleId)
       ? stripBuildSentenceSteps(augmented)
       : augmented;

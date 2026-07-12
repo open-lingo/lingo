@@ -1,9 +1,7 @@
-import type { CardSegment } from "@/features/flashcards/data/types";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 
 export type StepType =
   | "info"
-  | "teach"
   | "multiple_choice"
   | "build_sentence"
   | "match_pairs"
@@ -33,7 +31,27 @@ export type StepType =
  */
 export type StepModality = "recognition" | "production" | "both";
 
+/**
+ * Reactive grammar intervention payload (deriveGrammarMicroSteps): when a
+ * step carrying this is answered WRONG, the lesson player flashes the
+ * point's ✗/✓ contrast plus a one-line rule reminder — once per grammar
+ * point per lesson session. Duolingo-Smart-Tips-shaped, but diagnosis
+ * comes from the authored anti-pattern, not a translation description.
+ */
+export type ReactiveGrammarTip = {
+  grammarPointId: string;
+  title: string;
+  ruleLine: string;
+  wrongJa: string;
+  wrongRomaji?: string;
+  rightJa: string;
+  rightRomaji?: string;
+  why: string;
+};
+
 export type StepBase = {
+  /** See ReactiveGrammarTip — attached by deriveGrammarMicroSteps. */
+  reactiveGrammarTip?: ReactiveGrammarTip;
   id: string;
   type: StepType;
   hint?: string;
@@ -80,24 +98,6 @@ export type InfoStep = StepBase & {
   /** Course-atom ids this info step "teaches" — used by passive-follow-up lint
    *  to verify a same-atom retrieval lands within [i+2, i+3]. */
   exercisedAtomIds?: string[];
-};
-
-export type TeachVocab = {
-  term: string;
-  translation: string;
-  audioKey?: string;
-  imageKey?: string;
-  breakdown?: CardSegment[];
-  annotation?: JapaneseAnnotation[];
-};
-
-export type TeachStep = StepBase & {
-  type: "teach";
-  content: {
-    text: string;
-    vocab?: TeachVocab;
-    note?: string;
-  };
 };
 
 export type Option = {
@@ -551,7 +551,6 @@ export type RowTestStep = StepBase & {
 
 export type LessonStep =
   | InfoStep
-  | TeachStep
   | MultipleChoiceStep
   | BuildSentenceStep
   | MatchPairsStep

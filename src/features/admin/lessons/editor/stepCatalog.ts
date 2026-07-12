@@ -4,7 +4,6 @@ export type StepKind = LessonStep["type"];
 
 export const STEP_KINDS: { value: StepKind; label: string; group: string }[] = [
   { value: "info", label: "Info", group: "Teach" },
-  { value: "teach", label: "Teach (vocab card)", group: "Teach" },
   { value: "phrase_card", label: "Phrase card", group: "Teach" },
   { value: "grammar_rule", label: "Grammar rule", group: "Teach" },
   { value: "multiple_choice", label: "Multiple choice", group: "Drill" },
@@ -33,12 +32,6 @@ export function newStepShell(kind: StepKind, id: string): LessonStep {
   switch (kind) {
     case "info":
       return { ...base, type: "info", body: "" };
-    case "teach":
-      return {
-        ...base,
-        type: "teach",
-        content: { text: "" },
-      };
     case "phrase_card":
       return { ...base, type: "phrase_card", kana: "", romaji: "", meaningEn: "" };
     case "grammar_rule":
@@ -190,8 +183,6 @@ export function summariseStep(step: LessonStep): string {
   switch (step.type) {
     case "info":
       return truncate(step.body);
-    case "teach":
-      return truncate(step.content.text);
     case "multiple_choice":
       return truncate(step.prompt);
     case "build_sentence":
