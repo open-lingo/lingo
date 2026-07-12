@@ -1,6 +1,6 @@
 # Open Lingo — project state
 
-**Last updated:** 2026-07-07  
+**Last updated:** 2026-07-12  
 **Purpose:** Accurate snapshot for humans and agents. For launch tasks see [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md).
 
 ---
@@ -8,6 +8,16 @@
 ## Executive summary
 
 Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-core** (FastAPI). Core loop: **learn → lessons → flashcards (SRS) → settings**. Community deck browse/subscribe works; forum, contribute, and leaderboard are **feature-flagged off** for launch. Legal, landing/auth split, ads framework, and funding meter API exist; **live revenue** is post-launch.
+
+### Recent (2026-07-11→12 — QA test-drive, live-fix round, grammar micro-teaching, listening wave)
+
+- **QA test-drive tooling:** dev page `/ja/qa` links every step type to real lessons + all surfaces, with per-row verdict/critique capture that streams LIVE to `/tmp/lingo-qa-notes.json` via a vite middleware (`/__lingo-qa-notes`, devLog pattern) — an agent watched and fixed while Spencer tested. Coverage scan exposed 3 engine-only step types; `teach` retired (superseded by phrase_card — /try preview converted), `fill_blank`/`symbol_production` kept for the multi-language roadmap.
+- **Live-fix round (all E2E-verified):** placement/test-out exit X; practice-hub locks → honest "Recommended from Module N" (routes were never enforced); romaji auto-off now POSITION-triggered (fires on placement application, not just lesson completion); failed attempts show honest 0 XP mirroring the server (skip-outs + sub-70%); match grid height capped; match-pairs classifier made structural (ヲ→"wo" grids no longer misclassify + pad vocab into sound grids); pick-time source/target dedupe kills 花/鼻 coin-flip tiles; particle tiles split from words (のが/シャワーを/はを) + `particleTileSeparation.test.ts` guard; translate accepts rule-safe variants (topic drop, pronoun swap, です drop, punctuation) AND live romaji→kana typing (wanakana, uncontrolled textarea + submit-time DOM grading); particle clozes show the English gloss pre-answer everywhere; grammar-review zero-state no longer lies when the daily intake cap empties the queue; consent banner publishes --cookie-consent-height so fixed shells reserve space; kanji empty state guides; Survival Phrasebook pulled from the map (tile only, Spencer).
+- **Placement round 2 (Spencer critique):** near-duplicate sentence MCQs auto-render as cloze-with-chips (shared-frame detection in `instantiateItem`); assumed modules are now MARKED COMPLETE ("credited from your level" — vocab still seeds SRS; no more "go do them now"); missed-skill labels resolve module ids to titles; chips sort.
+- **Grammar micro-teaching (workshop A, research-backed):** lessons render the COMPACT rule card (rule + example 1 + 🌸 tap-to-expand culture chip); `deriveGrammarMicroSteps` post-pass tags drills with a reactive ✗/✓ "Quick fix" card (fires on the learner's actual error, once per point per session, flashes the rule line) and injects a derived spot-the-mistake MCQ (guaranteed single labeled exposure, never voiced, slot-rotated) — all ~93 anti-patterned points inherit, zero re-authoring. Evidence base + phase-2 (knowledge pages, mastery fade, deck resurfacing) in `docs/workshop-agenda-2026-07-12.md`.
+- **Listening sentence-first wave (workshop B):** 381 word-level listening items converted to sentence-level by 5 parallel agents (M5-M27, zero skips); ratchet guard `listeningGranularity.test.ts` now a flat ban (kata rows exempt — script acquisition); 299 new TTS clips generated (manifest 4,590 keys). Particle-cloze placement policy (workshop D): intro+2 boundary, 82 late usages grandfathered shrink-only (`particleClozePlacement.test.ts`).
+- **Docs:** `qa-live-findings-2026-07-12.md` (every verdict + disposition), `workshop-agenda-2026-07-12.md` (A-E all closed; polish backlog), `convo-typing-scoping-ab-2026-07-11.md` (AI-convo v0 + typing ladder + 6 A/B designs), authoring guide §4b/§4b2/§4c. Multi-language scoping research (11-agent pass) in local-only `docs/research/multi-language-scoping-2026-07-11.md`.
+- Suite: **2,794 tests green**, tsc clean, throughout.
 
 ### Recent (2026-07-07, part 2 — main push, pre-handoff E2E, Spencer migration, sync-race fix)
 
