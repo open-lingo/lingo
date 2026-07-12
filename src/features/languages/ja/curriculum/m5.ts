@@ -106,9 +106,13 @@ export const M5_1_1: LessonContent = {
     vocabMcq("ja-m5-1-1-mcq-ichi", M5_NUMBER_ATOMS[0], M5_NUMBER_ATOMS),
     listeningCompSentence({
       id: "ja-m5-1-1-lc-ichi",
-      audioText: "いち",
-      correctMeaningEn: "1 (one)",
-      distractorsEn: ["2 (two)", "3 (three)", "5 (five)"],
+      audioText: "これは いち です",
+      correctMeaningEn: "This is (the number) 1.",
+      distractorsEn: [
+        "This is (the number) 2.",
+        "This is (the number) 3.",
+        "This is (the number) 5.",
+      ],
     }),
     // ── に (2) — single tile pick ──
     build(
@@ -163,22 +167,23 @@ export const M5_1_1: LessonContent = {
     }),
     listeningBuildSentence({
       id: "ja-m5-1-1-lb-ni",
-      target: "に",
-      tiles: ["さん", "に", "いち"],
-      correctOrder: ["に"],
-      promptEn: "Hear it, pick the tile: '2'",
+      target: "いち に さん",
+      tiles: ["さん", "に", "いち", "ねこ"],
+      correctOrder: ["いち", "に", "さん"],
+      promptEn: "Hear it, build it: '1, 2, 3'",
     }),
     speaking("ja-m5-1-1-speak-ichi", "いち", "1 (one)"),
     // ── Review tail ──
     speaking("ja-m5-1-1-rev-speak-1", M5_1_1_REVIEW[0].kana, M5_1_1_REVIEW[0].meaningEn),
+    // Sentence-level review of ぼうし (M2 hat) in an M3/M4 carrier.
     listeningCompSentence({
       id: "ja-m5-1-1-rev-lc-1",
-      audioText: M5_1_1_REVIEW[1].kana,
-      correctMeaningEn: M5_1_1_REVIEW[1].meaningEn,
+      audioText: "それは ぼうし です",
+      correctMeaningEn: "That's a hat.",
       distractorsEn: [
-        M5_1_1_REVIEW[2].meaningEn,
-        M5_1_1_REVIEW[3].meaningEn,
-        PRIOR_POOL[0].meaningEn,
+        "That's a bag.",
+        "That's an umbrella.",
+        "That's a dictionary.",
       ],
     }),
     vocabMcq("ja-m5-1-1-rev-mcq-2", M5_1_1_REVIEW[2], PRIOR_POOL),
@@ -223,9 +228,9 @@ export const M5_1_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m5-1-2-lc-yon",
-      audioText: "よん",
-      correctMeaningEn: "4 (four)",
-      distractorsEn: ["3 (three)", "5 (five)", "2 (two)"],
+      audioText: "に、さん、よん",
+      correctMeaningEn: "2, 3, 4",
+      distractorsEn: ["1, 2, 3", "3, 4, 5", "4, 3, 2"],
     }),
     infoStep(
       "ja-m5-1-2-info-yon",
@@ -267,9 +272,9 @@ export const M5_1_2: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m5-1-2-lc-go",
-      audioText: "ご",
-      correctMeaningEn: "5 (five)",
-      distractorsEn: ["4 (four)", "3 (three)", "1 (one)"],
+      audioText: "さん、よん、ご",
+      correctMeaningEn: "3, 4, 5",
+      distractorsEn: ["2, 3, 4", "5, 4, 3", "1, 2, 3"],
     }),
     sentenceMcq({
       id: "ja-m5-1-2-mcq-produce-5",
@@ -281,10 +286,10 @@ export const M5_1_2: LessonContent = {
     speaking("ja-m5-1-2-speak-yon", "よん", "4 (four)"),
     listeningBuildSentence({
       id: "ja-m5-1-2-lb-ichi",
-      target: "いち",
+      target: "さん に いち",
       tiles: ["よん", "さん", "に", "いち"],
-      correctOrder: ["いち"],
-      promptEn: "Hear it, pick the tile: '1'",
+      correctOrder: ["さん", "に", "いち"],
+      promptEn: "Hear it, build it: '3, 2, 1!'",
     }),
     sentenceMcq({
       id: "ja-m5-1-2-mcq-produce-2",
@@ -296,14 +301,15 @@ export const M5_1_2: LessonContent = {
     speaking("ja-m5-1-2-speak-ni", "に", "2 (two)"),
     // ── Review tail ──
     speaking("ja-m5-1-2-rev-speak-1", M5_1_2_REVIEW[0].kana, M5_1_2_REVIEW[0].meaningEn),
+    // Sentence-level review of いぬ (M1 dog) in an M3/M4 carrier.
     listeningCompSentence({
       id: "ja-m5-1-2-rev-lc-1",
-      audioText: M5_1_2_REVIEW[1].kana,
-      correctMeaningEn: M5_1_2_REVIEW[1].meaningEn,
+      audioText: "これは いぬ ですか",
+      correctMeaningEn: "Is this a dog?",
       distractorsEn: [
-        M5_1_2_REVIEW[2].meaningEn,
-        M5_1_2_REVIEW[3].meaningEn,
-        PRIOR_POOL[1].meaningEn,
+        "Is this a cat?",
+        "Is this a hat?",
+        "Is this a book?",
       ],
     }),
     vocabMcq("ja-m5-1-2-rev-mcq-2", M5_1_2_REVIEW[2], PRIOR_POOL),
@@ -348,9 +354,9 @@ export const M5_2_1: LessonContent = {
     vocabMcq("ja-m5-2-1-mcq-roku", M5_NUMBER_ATOMS[5], M5_NUMBER_ATOMS),
     listeningCompSentence({
       id: "ja-m5-2-1-lc-roku",
-      audioText: "ろく",
-      correctMeaningEn: "6 (six)",
-      distractorsEn: ["7 (seven)", "5 (five)", "8 (eight)"],
+      audioText: "よん、ご、ろく",
+      correctMeaningEn: "4, 5, 6",
+      distractorsEn: ["3, 4, 5", "5, 6, 7", "6, 5, 4"],
     }),
     // ── なな (7) — single tile ──
     build(
@@ -362,9 +368,9 @@ export const M5_2_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m5-2-1-lc-nana",
-      audioText: "なな",
-      correctMeaningEn: "7 (seven)",
-      distractorsEn: ["6 (six)", "8 (eight)", "9 (nine)"],
+      audioText: "ご、ろく、なな",
+      correctMeaningEn: "5, 6, 7",
+      distractorsEn: ["4, 5, 6", "6, 7, 8", "7, 6, 5"],
     }),
     sentenceMcq({
       id: "ja-m5-2-1-mcq-discrim-7",
@@ -411,22 +417,23 @@ export const M5_2_1: LessonContent = {
     }),
     listeningBuildSentence({
       id: "ja-m5-2-1-lb-nana",
-      target: "なな",
-      tiles: ["はち", "なな", "ろく"],
-      correctOrder: ["なな"],
-      promptEn: "Hear it, pick the tile: '7'",
+      target: "ろく なな はち",
+      tiles: ["はち", "なな", "ろく", "ご"],
+      correctOrder: ["ろく", "なな", "はち"],
+      promptEn: "Hear it, build it: '6, 7, 8'",
     }),
     speaking("ja-m5-2-1-speak-hachi", "はち", "8 (eight)"),
     // ── Review tail ──
     speaking("ja-m5-2-1-rev-speak-1", M5_2_1_REVIEW[0].kana, M5_2_1_REVIEW[0].meaningEn),
+    // Sentence-level review of じしょ (M4 dictionary) in an M4 carrier.
     listeningCompSentence({
       id: "ja-m5-2-1-rev-lc-1",
-      audioText: M5_2_1_REVIEW[1].kana,
-      correctMeaningEn: M5_2_1_REVIEW[1].meaningEn,
+      audioText: "あれは じしょ です",
+      correctMeaningEn: "That over there is a dictionary.",
       distractorsEn: [
-        M5_2_1_REVIEW[2].meaningEn,
-        M5_2_1_REVIEW[3].meaningEn,
-        PRIOR_POOL[2].meaningEn,
+        "That over there is a bag.",
+        "That over there is an umbrella.",
+        "That over there is a hat.",
       ],
     }),
     vocabMcq("ja-m5-2-1-rev-mcq-2", M5_2_1_REVIEW[2], PRIOR_POOL),
@@ -470,9 +477,9 @@ export const M5_2_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m5-2-2-lc-kyuu",
-      audioText: "きゅう",
-      correctMeaningEn: "9 (nine)",
-      distractorsEn: ["10 (ten)", "8 (eight)", "7 (seven)"],
+      audioText: "なな、はち、きゅう",
+      correctMeaningEn: "7, 8, 9",
+      distractorsEn: ["6, 7, 8", "8, 9, 10", "9, 8, 7"],
     }),
     infoStep(
       "ja-m5-2-2-info-kyuu",
@@ -514,9 +521,9 @@ export const M5_2_2: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m5-2-2-lc-juu",
-      audioText: "じゅう",
-      correctMeaningEn: "10 (ten)",
-      distractorsEn: ["9 (nine)", "8 (eight)", "6 (six)"],
+      audioText: "はち、きゅう、じゅう",
+      correctMeaningEn: "8, 9, 10",
+      distractorsEn: ["7, 8, 9", "10, 9, 8", "6, 7, 8"],
     }),
     sentenceMcq({
       id: "ja-m5-2-2-mcq-produce-6",
@@ -528,10 +535,10 @@ export const M5_2_2: LessonContent = {
     speaking("ja-m5-2-2-speak-kyuu", "きゅう", "9 (nine)"),
     listeningBuildSentence({
       id: "ja-m5-2-2-lb-juu",
-      target: "じゅう",
+      target: "じゅう きゅう はち",
       tiles: ["はち", "じゅう", "なな", "きゅう"],
-      correctOrder: ["じゅう"],
-      promptEn: "Hear it, pick the tile: '10'",
+      correctOrder: ["じゅう", "きゅう", "はち"],
+      promptEn: "Hear it, build it: '10, 9, 8!'",
     }),
     sentenceMcq({
       id: "ja-m5-2-2-mcq-produce-7",
@@ -543,14 +550,15 @@ export const M5_2_2: LessonContent = {
     speaking("ja-m5-2-2-speak-roku", "ろく", "6 (six)"),
     // ── Review tail ──
     speaking("ja-m5-2-2-rev-speak-1", M5_2_2_REVIEW[0].kana, M5_2_2_REVIEW[0].meaningEn),
+    // Sentence-level review of きっぷ (M2 ticket) in an M3/M4 carrier.
     listeningCompSentence({
       id: "ja-m5-2-2-rev-lc-1",
-      audioText: M5_2_2_REVIEW[1].kana,
-      correctMeaningEn: M5_2_2_REVIEW[1].meaningEn,
+      audioText: "これは わたしの きっぷ です",
+      correctMeaningEn: "This is my ticket.",
       distractorsEn: [
-        M5_2_2_REVIEW[2].meaningEn,
-        M5_2_2_REVIEW[3].meaningEn,
-        PRIOR_POOL[3].meaningEn,
+        "This is my bag.",
+        "This is my book.",
+        "This is my hat.",
       ],
     }),
     vocabMcq("ja-m5-2-2-rev-mcq-2", M5_2_2_REVIEW[2], PRIOR_POOL),
@@ -650,10 +658,10 @@ export const M5_3_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m5-3-1-lb-kasa",
-      target: "かさ ください",
-      tiles: ["ください", "かさ", "かばん", "です"],
-      correctOrder: ["かさ", "ください"],
-      promptEn: "Hear it, build it: 'An umbrella, please.'",
+      target: "すみません かさ ください",
+      tiles: ["ください", "かさ", "すみません", "かばん"],
+      correctOrder: ["すみません", "かさ", "ください"],
+      promptEn: "Hear it, build it: 'Excuse me — an umbrella, please.'",
     }),
     sentenceMcq({
       id: "ja-m5-3-1-mcq-order",
@@ -701,14 +709,15 @@ export const M5_3_1: LessonContent = {
     }),
     // ── Review tail ──
     speaking("ja-m5-3-1-rev-speak-1", M5_3_1_REVIEW[0].kana, M5_3_1_REVIEW[0].meaningEn),
+    // Sentence-level review of つき (M1 moon) in an M4 pointer carrier.
     listeningCompSentence({
       id: "ja-m5-3-1-rev-lc-1",
-      audioText: M5_3_1_REVIEW[1].kana,
-      correctMeaningEn: M5_3_1_REVIEW[1].meaningEn,
+      audioText: "あれは つき です",
+      correctMeaningEn: "That over there is the moon.",
       distractorsEn: [
-        M5_3_1_REVIEW[2].meaningEn,
-        M5_3_1_REVIEW[3].meaningEn,
-        PRIOR_POOL[4].meaningEn,
+        "That over there is the sun.",
+        "That over there is a star.",
+        "That over there is the sky.",
       ],
     }),
     vocabMcq("ja-m5-3-1-rev-mcq-2", M5_3_1_REVIEW[2], PRIOR_POOL),
@@ -854,14 +863,15 @@ export const M5_3_2: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m5-3-2-rev-speak-1", M5_3_2_REVIEW[0].kana, M5_3_2_REVIEW[0].meaningEn),
+    // Sentence-level review of じかん (M2 time) in an M4 の carrier.
     listeningCompSentence({
       id: "ja-m5-3-2-rev-lc-1",
-      audioText: M5_3_2_REVIEW[1].kana,
-      correctMeaningEn: M5_3_2_REVIEW[1].meaningEn,
+      audioText: "コーヒーの じかん です",
+      correctMeaningEn: "It's coffee time.",
       distractorsEn: [
-        M5_3_2_REVIEW[2].meaningEn,
-        M5_3_2_REVIEW[3].meaningEn,
-        PRIOR_POOL[5].meaningEn,
+        "It's tea time.",
+        "Coffee, please.",
+        "How much is the coffee?",
       ],
     }),
     vocabMcq("ja-m5-3-2-rev-mcq-2", M5_3_2_REVIEW[2], PRIOR_POOL),
@@ -996,14 +1006,15 @@ export const M5_4_1: LessonContent = {
     }),
     // ── Review tail ──
     speaking("ja-m5-4-1-rev-speak-1", M5_4_1_REVIEW[0].kana, M5_4_1_REVIEW[0].meaningEn),
+    // Sentence-level review of かぞく (M2 family) using this lesson's counter.
     listeningCompSentence({
       id: "ja-m5-4-1-rev-lc-1",
-      audioText: M5_4_1_REVIEW[1].kana,
-      correctMeaningEn: M5_4_1_REVIEW[1].meaningEn,
+      audioText: "かぞくは ふたり です",
+      correctMeaningEn: "There are two people in my family.",
       distractorsEn: [
-        M5_4_1_REVIEW[2].meaningEn,
-        M5_4_1_REVIEW[3].meaningEn,
-        PRIOR_POOL[6].meaningEn,
+        "There are two friends.",
+        "There are two students.",
+        "There are two teachers.",
       ],
     }),
     vocabMcq("ja-m5-4-1-rev-mcq-2", M5_4_1_REVIEW[2], PRIOR_POOL),
@@ -1188,9 +1199,13 @@ export const M5_5_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m5-5-1-lc-okane",
-      audioText: "おかね",
-      correctMeaningEn: "money",
-      distractorsEn: ["yen", "how much", "water"],
+      audioText: "それは わたしの おかね です",
+      correctMeaningEn: "That's my money.",
+      distractorsEn: [
+        "That's my ticket.",
+        "That's my bag.",
+        "That's my pen.",
+      ],
     }),
     sentenceMcq({
       id: "ja-m5-5-1-mcq-okane",
@@ -1224,9 +1239,13 @@ export const M5_5_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m5-5-1-lc-en",
-      audioText: "えん",
-      correctMeaningEn: "yen",
-      distractorsEn: ["money", "how much", "from"],
+      audioText: "じゅう えん です",
+      correctMeaningEn: "It's 10 yen.",
+      distractorsEn: [
+        "It's 100 yen.",
+        "It's 10 dollars.",
+        "How much is it?",
+      ],
     }),
     // ── Katakana interleave (rollout M5 サ row → ジュース is now fully
     //    base-readable). Order a juice with ください, then price it. ──
@@ -1295,14 +1314,15 @@ export const M5_5_1: LessonContent = {
     speaking("ja-m5-5-1-speak-okane", "おかね", "Money."),
     // ── Review tail ──
     speaking("ja-m5-5-1-rev-speak-1", M5_5_1_REVIEW[0].kana, M5_5_1_REVIEW[0].meaningEn),
+    // Sentence-level review of なまえ (M3 name) in the M4 なん question frame.
     listeningCompSentence({
       id: "ja-m5-5-1-rev-lc-1",
-      audioText: M5_5_1_REVIEW[1].kana,
-      correctMeaningEn: M5_5_1_REVIEW[1].meaningEn,
+      audioText: "なまえは なん ですか",
+      correctMeaningEn: "What's your name?",
       distractorsEn: [
-        M5_5_1_REVIEW[2].meaningEn,
-        M5_5_1_REVIEW[3].meaningEn,
-        PRIOR_POOL[8].meaningEn,
+        "What is this?",
+        "Who is it?",
+        "How much is it?",
       ],
     }),
     vocabMcq("ja-m5-5-1-rev-mcq-2", M5_5_1_REVIEW[2], PRIOR_POOL),
@@ -1433,14 +1453,15 @@ export const M5_5_2: LessonContent = {
     speaking("ja-m5-5-2-speak-price", "おちゃは いくら ですか", "How much is the green tea?"),
     // ── Review tail ──
     speaking("ja-m5-5-2-rev-speak-1", M5_5_2_REVIEW[0].kana, M5_5_2_REVIEW[0].meaningEn),
+    // Sentence-level review of アメリカ (M4) as a の attribute on lesson vocab.
     listeningCompSentence({
       id: "ja-m5-5-2-rev-lc-1",
-      audioText: M5_5_2_REVIEW[1].kana,
-      correctMeaningEn: M5_5_2_REVIEW[1].meaningEn,
+      audioText: "これは アメリカの コーヒー です",
+      correctMeaningEn: "This is American coffee.",
       distractorsEn: [
-        M5_5_2_REVIEW[2].meaningEn,
-        M5_5_2_REVIEW[3].meaningEn,
-        PRIOR_POOL[9].meaningEn,
+        "This is Japanese coffee.",
+        "This is my coffee.",
+        "How much is this coffee?",
       ],
     }),
     vocabMcq("ja-m5-5-2-rev-mcq-2", M5_5_2_REVIEW[2], PRIOR_POOL),
@@ -1738,14 +1759,15 @@ export const M5_6_1: LessonContent = {
     }),
     // ── Review tail ──
     speaking("ja-m5-6-1-rev-speak-1", M5_6_1_REVIEW[0].kana, M5_6_1_REVIEW[0].meaningEn),
+    // Sentence-level review of わたし (M4) in the classic M3 copula frame.
     listeningCompSentence({
       id: "ja-m5-6-1-rev-lc-1",
-      audioText: M5_6_1_REVIEW[1].kana,
-      correctMeaningEn: M5_6_1_REVIEW[1].meaningEn,
+      audioText: "わたしは がくせい です",
+      correctMeaningEn: "I am a student.",
       distractorsEn: [
-        M5_6_1_REVIEW[2].meaningEn,
-        M5_6_1_REVIEW[3].meaningEn,
-        PRIOR_POOL[10].meaningEn,
+        "You are a student.",
+        "I am a teacher.",
+        "Are you a student?",
       ],
     }),
     vocabMcq("ja-m5-6-1-rev-mcq-2", M5_6_1_REVIEW[2], PRIOR_POOL),
@@ -2026,14 +2048,15 @@ export const M5_7_1: LessonContent = {
     }),
     // ── Review tail ──
     speaking("ja-m5-7-1-rev-speak-1", M5_7_1_REVIEW[0].kana, M5_7_1_REVIEW[0].meaningEn),
+    // Sentence-level review of かい (M1 shell) in an M4 question carrier.
     listeningCompSentence({
       id: "ja-m5-7-1-rev-lc-1",
-      audioText: M5_7_1_REVIEW[1].kana,
-      correctMeaningEn: M5_7_1_REVIEW[1].meaningEn,
+      audioText: "あれは かい ですか",
+      correctMeaningEn: "Is that a shell (over there)?",
       distractorsEn: [
-        M5_7_1_REVIEW[2].meaningEn,
-        M5_7_1_REVIEW[3].meaningEn,
-        PRIOR_POOL[12].meaningEn,
+        "Is that a boat (over there)?",
+        "Is that a flower (over there)?",
+        "Is that a bird (over there)?",
       ],
     }),
     vocabMcq("ja-m5-7-1-rev-mcq-2", M5_7_1_REVIEW[2], PRIOR_POOL),
@@ -2205,14 +2228,15 @@ export const M5_7_2: LessonContent = {
     }),
     // ── Review tail ──
     speaking("ja-m5-7-2-rev-speak-1", M5_7_2_REVIEW[0].kana, M5_7_2_REVIEW[0].meaningEn),
+    // Sentence-level review of うみ (M1 sea) in an M4 pointer carrier.
     listeningCompSentence({
       id: "ja-m5-7-2-rev-lc-1",
-      audioText: M5_7_2_REVIEW[1].kana,
-      correctMeaningEn: M5_7_2_REVIEW[1].meaningEn,
+      audioText: "あれは うみ です",
+      correctMeaningEn: "That over there is the sea.",
       distractorsEn: [
-        M5_7_2_REVIEW[2].meaningEn,
-        M5_7_2_REVIEW[3].meaningEn,
-        M5_7_2_REVIEW[4].meaningEn,
+        "That over there is a river.",
+        "That over there is a mountain.",
+        "That over there is the sky.",
       ],
     }),
     vocabMcq(

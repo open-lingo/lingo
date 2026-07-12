@@ -212,9 +212,13 @@ export const M23_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m23-1-1-lc-unten",
-      audioText: "うんてん",
-      correctMeaningEn: "driving",
-      distractorsEn: ["dance", "piano", "swimming"],
+      audioText: "わたしは うんてんが すきです",
+      correctMeaningEn: "I like driving.",
+      distractorsEn: [
+        "I like swimming.",
+        "I dislike driving.",
+        "I'm good at driving.",
+      ],
     }),
     // ── ダンス (dance) ──
     build(
@@ -317,12 +321,12 @@ export const M23_1_1: LessonContent = {
     vocabMcq("ja-m23-1-1-rev-mcq-1", M23_1_1_REVIEW[0], M23_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m23-1-1-rev-lc-1",
-      audioText: M23_1_1_REVIEW[1].kana,
-      correctMeaningEn: M23_1_1_REVIEW[1].meaningEn,
+      audioText: "まいにち ほんを よみます",
+      correctMeaningEn: "I read a book every day.",
       distractorsEn: [
-        M23_1_1_REVIEW[2].meaningEn,
-        M23_1_1_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[0].meaningEn,
+        "I write a letter every day.",
+        "I watch TV every day.",
+        "I read a book sometimes.",
       ],
     }),
     speaking("ja-m23-1-1-rev-speak-1", M23_1_1_REVIEW[2].kana, M23_1_1_REVIEW[2].meaningEn),
@@ -373,9 +377,13 @@ export const M23_1_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m23-1-2-lc-utau",
-      audioText: "うたう",
-      correctMeaningEn: "sing",
-      distractorsEn: ["dance", "play", "swim"],
+      audioText: "ともだちと うたう",
+      correctMeaningEn: "sing with a friend",
+      distractorsEn: [
+        "dance with a friend",
+        "talk with a friend",
+        "sing at home",
+      ],
     }),
     // ── おどる (dance-verb) ──
     build(
@@ -406,8 +414,8 @@ export const M23_1_2: LessonContent = {
       "ja-m23-1-2-build-jouzu",
       "Say: She is good at singing.",
       "かのじょは うたうのが じょうずです",
-      ["うたう", "かのじょ", "じょうず", "は", "のが", "へた", "です"],
-      ["かのじょ", "は", "うたう", "のが", "じょうず", "です"],
+      ["うたう", "かのじょ", "じょうず", "は", "の", "が", "へた", "です"],
+      ["かのじょ", "は", "うたう", "の", "が", "じょうず", "です"],
     ),
     sentenceMcq({
       id: "ja-m23-1-2-mcq-heta",
@@ -633,12 +641,12 @@ export const M23_2_1: LessonContent = {
     vocabMcq("ja-m23-2-1-rev-mcq-1", M23_2_1_REVIEW[0], M23_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m23-2-1-rev-lc-1",
-      audioText: M23_2_1_REVIEW[1].kana,
-      correctMeaningEn: M23_2_1_REVIEW[1].meaningEn,
+      audioText: "トイレは どこですか",
+      correctMeaningEn: "Where is the toilet?",
       distractorsEn: [
-        M23_2_1_REVIEW[2].meaningEn,
-        M23_2_1_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[2].meaningEn,
+        "Where is the station?",
+        "There is a toilet over there.",
+        "Is this the toilet?",
       ],
     }),
     speaking("ja-m23-2-1-rev-speak-1", M23_2_1_REVIEW[2].kana, M23_2_1_REVIEW[2].meaningEn),
@@ -799,12 +807,12 @@ export const M23_2_2: LessonContent = {
     speaking("ja-m23-2-2-rev-speak-1", M23_2_2_REVIEW[0].kana, M23_2_2_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m23-2-2-rev-lc-1",
-      audioText: M23_2_2_REVIEW[1].kana,
-      correctMeaningEn: M23_2_2_REVIEW[1].meaningEn,
+      audioText: "じてんしゃで がっこうに いきます",
+      correctMeaningEn: "I go to school by bicycle.",
       distractorsEn: [
-        M23_2_2_REVIEW[2].meaningEn,
-        M23_2_2_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[3].meaningEn,
+        "I go to school by car.",
+        "I go to the park by bicycle.",
+        "I walk to school.",
       ],
     }),
     vocabMcq("ja-m23-2-2-rev-mcq-1", M23_2_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M23_REVIEW_POOL),
@@ -869,9 +877,13 @@ export const M23_3_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m23-3-1-lc-shuumatsu",
-      audioText: "しゅうまつ",
-      correctMeaningEn: "weekend",
-      distractorsEn: ["Sunday", "Saturday", "movie"],
+      audioText: "しゅうまつに かいものを します",
+      correctMeaningEn: "I go shopping on the weekend.",
+      distractorsEn: [
+        "I go shopping on Sunday.",
+        "I watch a movie on the weekend.",
+        "I take a walk on the weekend.",
+      ],
     }),
     // ── ひま (free time) ──
     build(
@@ -923,10 +935,10 @@ export const M23_3_1: LessonContent = {
     }),
     listeningBuildSentence({
       id: "ja-m23-3-1-lb-masenka",
-      target: "いっしょに さんぽしませんか",
-      tiles: ["さんぽしませんか", "いっしょに", "さんぽしましょう", "さんぽします"],
-      correctOrder: ["いっしょに", "さんぽしませんか"],
-      promptEn: "Hear it, build it: 'Shall we take a walk together?'",
+      target: "しゅうまつに いっしょに さんぽしませんか",
+      tiles: ["いっしょに", "さんぽしませんか", "しゅうまつ", "に", "さんぽしましょう"],
+      correctOrder: ["しゅうまつ", "に", "いっしょに", "さんぽしませんか"],
+      promptEn: "Hear it, build it: 'Won't you take a walk together on the weekend?'",
     }),
     build(
       "ja-m23-3-1-build-masenka-kaimono",
@@ -955,12 +967,12 @@ export const M23_3_1: LessonContent = {
     vocabMcq("ja-m23-3-1-rev-mcq-1", M23_3_1_REVIEW[0], M23_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m23-3-1-rev-lc-1",
-      audioText: M23_3_1_REVIEW[1].kana,
-      correctMeaningEn: M23_3_1_REVIEW[1].meaningEn,
+      audioText: "うちで テレビを みます",
+      correctMeaningEn: "I watch TV at home.",
       distractorsEn: [
-        M23_3_1_REVIEW[2].meaningEn,
-        M23_3_1_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[4].meaningEn,
+        "I watch TV at school.",
+        "I read a book at home.",
+        "I buy a TV at the store.",
       ],
     }),
     speaking("ja-m23-3-1-rev-speak-1", M23_3_1_REVIEW[2].kana, M23_3_1_REVIEW[2].meaningEn),
@@ -1124,12 +1136,12 @@ export const M23_3_2: LessonContent = {
     vocabMcq("ja-m23-3-2-rev-mcq-1", M23_3_2_REVIEW[0], M23_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m23-3-2-rev-lc-1",
-      audioText: M23_3_2_REVIEW[1].kana,
-      correctMeaningEn: M23_3_2_REVIEW[1].meaningEn,
+      audioText: "コーヒーを のみませんか",
+      correctMeaningEn: "Won't you have some coffee?",
       distractorsEn: [
-        M23_3_2_REVIEW[2].meaningEn,
-        M23_3_2_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[5].meaningEn,
+        "Let's drink some tea.",
+        "I drink coffee every day.",
+        "I don't drink coffee.",
       ],
     }),
     speaking("ja-m23-3-2-rev-speak-1", M23_3_2_REVIEW[2].kana, M23_3_2_REVIEW[2].meaningEn),
@@ -1295,12 +1307,12 @@ export const M23_4_1: LessonContent = {
     vocabMcq("ja-m23-4-1-rev-mcq-1", M23_4_1_REVIEW[0], M23_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m23-4-1-rev-lc-1",
-      audioText: M23_4_1_REVIEW[1].kana,
-      correctMeaningEn: M23_4_1_REVIEW[1].meaningEn,
+      audioText: "さんじに えきで あいましょう",
+      correctMeaningEn: "Let's meet at the station at 3 o'clock.",
       distractorsEn: [
-        M23_4_1_REVIEW[2].meaningEn,
-        M23_4_1_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[6].meaningEn,
+        "Let's meet at the station at 5 o'clock.",
+        "Let's meet at the school at 3 o'clock.",
+        "I went to the station at 3 o'clock.",
       ],
     }),
     speaking("ja-m23-4-1-rev-speak-1", M23_4_1_REVIEW[2].kana, M23_4_1_REVIEW[2].meaningEn),
@@ -1463,12 +1475,12 @@ export const M23_4_2: LessonContent = {
     speaking("ja-m23-4-2-rev-speak-1", M23_4_2_REVIEW[0].kana, M23_4_2_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m23-4-2-rev-lc-1",
-      audioText: M23_4_2_REVIEW[1].kana,
-      correctMeaningEn: M23_4_2_REVIEW[1].meaningEn,
+      audioText: "いすが みっつ あります",
+      correctMeaningEn: "There are three chairs.",
       distractorsEn: [
-        M23_4_2_REVIEW[2].meaningEn,
-        M23_4_2_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[7].meaningEn,
+        "There are three desks.",
+        "There are two chairs.",
+        "The chair is big.",
       ],
     }),
     vocabMcq("ja-m23-4-2-rev-mcq-1", M23_4_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M23_REVIEW_POOL),
@@ -1560,7 +1572,7 @@ export const M23_5_1: LessonContent = {
       "ja-m23-5-1-build-jouzu-suiei",
       "Say: He is good at swimming.",
       "かれは すいえいが じょうずです",
-      ["すいえい", "かれ", "が", "は", "じょうず", "のが", "です"],
+      ["すいえい", "かれ", "が", "は", "じょうず", "の", "が", "です"],
       ["かれ", "は", "すいえい", "が", "じょうず", "です"],
     ),
     listeningBuildSentence({
@@ -1806,12 +1818,12 @@ export const M23_5_2: LessonContent = {
     vocabMcq("ja-m23-5-2-rev-mcq-1", M23_5_2_REVIEW[0], M23_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m23-5-2-rev-lc-1",
-      audioText: M23_5_2_REVIEW[1].kana,
-      correctMeaningEn: M23_5_2_REVIEW[1].meaningEn,
+      audioText: "あさは パンを たべます",
+      correctMeaningEn: "In the morning I eat bread.",
       distractorsEn: [
-        M23_5_2_REVIEW[2].meaningEn,
-        M23_5_2_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[9].meaningEn,
+        "In the evening I eat bread.",
+        "In the morning I drink coffee.",
+        "I make bread every morning.",
       ],
     }),
     speaking("ja-m23-5-2-rev-speak-1", M23_5_2_REVIEW[2].kana, M23_5_2_REVIEW[2].meaningEn),
@@ -1855,7 +1867,7 @@ export const M23_6_1: LessonContent = {
       "ja-m23-6-1-build-1",
       "Say: She is good at swimming.",
       "かのじょは すいえいが じょうずです",
-      ["すいえい", "かのじょ", "じょうず", "は", "が", "のが", "へた", "です"],
+      ["すいえい", "かのじょ", "じょうず", "は", "が", "の", "が", "へた", "です"],
       ["かのじょ", "は", "すいえい", "が", "じょうず", "です"],
     ),
     speaking(
@@ -1873,8 +1885,8 @@ export const M23_6_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m23-6-1-lb-1",
       target: "うたうのが じょうずです",
-      tiles: ["じょうず", "うたう", "のが", "へた", "が", "です"],
-      correctOrder: ["うたう", "のが", "じょうず", "です"],
+      tiles: ["じょうず", "うたう", "の", "が", "へた", "が", "です"],
+      correctOrder: ["うたう", "の", "が", "じょうず", "です"],
       promptEn: "Hear it, build it: 'Good at singing.'",
     }),
     speaking(
@@ -1960,12 +1972,12 @@ export const M23_6_1: LessonContent = {
     vocabMcq("ja-m23-6-1-rev-mcq-1", M23_6_1_REVIEW[0], M23_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m23-6-1-rev-lc-1",
-      audioText: M23_6_1_REVIEW[1].kana,
-      correctMeaningEn: M23_6_1_REVIEW[1].meaningEn,
+      audioText: "これは わたしの けいたいです",
+      correctMeaningEn: "This is my mobile phone.",
       distractorsEn: [
-        M23_6_1_REVIEW[2].meaningEn,
-        M23_6_1_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[10].meaningEn,
+        "This is my friend's mobile phone.",
+        "That is my camera.",
+        "Where is my mobile phone?",
       ],
     }),
     speaking("ja-m23-6-1-rev-speak-1", M23_6_1_REVIEW[2].kana, M23_6_1_REVIEW[2].meaningEn),
@@ -2009,7 +2021,7 @@ export const M23_6_2: LessonContent = {
       "ja-m23-6-2-build-1",
       "Say: My older sister is good at dance.",
       "あねは ダンスが じょうずです",
-      ["ダンス", "あね", "じょうず", "は", "が", "のが", "です"],
+      ["ダンス", "あね", "じょうず", "は", "が", "の", "が", "です"],
       ["あね", "は", "ダンス", "が", "じょうず", "です"],
     ),
     speaking(
@@ -2113,12 +2125,12 @@ export const M23_6_2: LessonContent = {
     speaking("ja-m23-6-2-rev-speak-1", M23_6_2_REVIEW[0].kana, M23_6_2_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m23-6-2-rev-lc-1",
-      audioText: M23_6_2_REVIEW[1].kana,
-      correctMeaningEn: M23_6_2_REVIEW[1].meaningEn,
+      audioText: "これは ちちの カメラです",
+      correctMeaningEn: "This is my father's camera.",
       distractorsEn: [
-        M23_6_2_REVIEW[2].meaningEn,
-        M23_6_2_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[11].meaningEn,
+        "This is my father's mobile phone.",
+        "This is my mother's camera.",
+        "My father is taking a photo.",
       ],
     }),
     vocabMcq("ja-m23-6-2-rev-mcq-1", M23_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M23_REVIEW_POOL),
@@ -2246,7 +2258,7 @@ export const M23_STORY: LessonContent = {
     listeningBuildSentence({
       id: "ja-m23-story-lb-1",
       target: "ゆきさんは ダンスが じょうずです",
-      tiles: ["ダンス", "ゆきさん", "じょうず", "は", "が", "のが", "へた", "です"],
+      tiles: ["ダンス", "ゆきさん", "じょうず", "は", "が", "の", "が", "へた", "です"],
       correctOrder: ["ゆきさん", "は", "ダンス", "が", "じょうず", "です"],
       promptEn: "Hear it, build it: 'Yuki is good at dance.'",
     }),
@@ -2434,12 +2446,12 @@ export const M23_7_1: LessonContent = {
     vocabMcq("ja-m23-7-1-rev-mcq-1", M23_7_1_REVIEW[0], M23_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m23-7-1-rev-lc-1",
-      audioText: M23_7_1_REVIEW[1].kana,
-      correctMeaningEn: M23_7_1_REVIEW[1].meaningEn,
+      audioText: "あの みせで コーヒーを のみませんか",
+      correctMeaningEn: "Won't you have coffee at that shop?",
       distractorsEn: [
-        M23_7_1_REVIEW[2].meaningEn,
-        M23_7_1_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[12].meaningEn,
+        "Let's have tea at that shop.",
+        "I drink coffee at that shop every day.",
+        "That shop's coffee is delicious.",
       ],
     }),
     speaking("ja-m23-7-1-rev-speak-1", M23_7_1_REVIEW[2].kana, M23_7_1_REVIEW[2].meaningEn),
@@ -2483,7 +2495,7 @@ export const M23_7_2: LessonContent = {
       "ja-m23-7-2-build-1",
       "Say: Yuki is good at driving.",
       "ゆきさんは うんてんが じょうずです",
-      ["うんてん", "ゆきさん", "じょうず", "は", "が", "のが", "です"],
+      ["うんてん", "ゆきさん", "じょうず", "は", "が", "の", "が", "です"],
       ["ゆきさん", "は", "うんてん", "が", "じょうず", "です"],
     ),
     cloze(
@@ -2521,10 +2533,10 @@ export const M23_7_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m23-7-2-lb-1",
-      target: "ぜひ! たのしみです",
-      tiles: ["たのしみ", "きっと", "ぜひ", "です", "たのしい"],
-      correctOrder: ["ぜひ"],
-      promptEn: "Hear it, build the first word: 'By all means!'",
+      target: "ぜひ いっしょに うたいましょう",
+      tiles: ["いっしょに", "ぜひ", "うたいましょう", "うたいませんか", "きっと"],
+      correctOrder: ["ぜひ", "いっしょに", "うたいましょう"],
+      promptEn: "Hear it, build it: 'By all means — let's sing together!'",
     }),
     listeningCompSentence({
       id: "ja-m23-7-2-lc-1",
@@ -2933,12 +2945,12 @@ export const M23_8_2: LessonContent = {
     vocabMcq("ja-m23-8-2-rev-mcq-1", M23_8_2_REVIEW[0], M23_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m23-8-2-rev-lc-1",
-      audioText: M23_8_2_REVIEW[1].kana,
-      correctMeaningEn: M23_8_2_REVIEW[1].meaningEn,
+      audioText: "なまえは なんですか",
+      correctMeaningEn: "What is your name?",
       distractorsEn: [
-        M23_8_2_REVIEW[2].meaningEn,
-        M23_8_2_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[15].meaningEn,
+        "What is this?",
+        "How old are you?",
+        "Where are you from?",
       ],
     }),
     speaking("ja-m23-8-2-rev-speak-1", M23_8_2_REVIEW[2].kana, M23_8_2_REVIEW[2].meaningEn),

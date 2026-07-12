@@ -283,9 +283,13 @@ export const M17_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m17-1-1-lc-takushii",
-      audioText: "タクシー",
-      correctMeaningEn: "taxi",
-      distractorsEn: ["bus", "boat", "train"],
+      audioText: "タクシーで くうこうに いきます",
+      correctMeaningEn: "I go to the airport by taxi.",
+      distractorsEn: [
+        "I go to the airport by bus.",
+        "I go to the station by taxi.",
+        "I get in a taxi at the airport.",
+      ],
     }),
     // ── バスてい (bus stop) ──
     build(
@@ -319,9 +323,13 @@ export const M17_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m17-1-1-lc-kippu",
-      audioText: "きっぷ",
-      correctMeaningEn: "ticket",
-      distractorsEn: ["stamp", "money", "bag"],
+      audioText: "きっぷを にまい ください",
+      correctMeaningEn: "Two tickets, please.",
+      distractorsEn: [
+        "One ticket, please.",
+        "Two stamps, please.",
+        "Two photos, please.",
+      ],
     }),
     // ── のりもの (vehicle/ride) ──
     build(
@@ -371,12 +379,13 @@ export const M17_1_1: LessonContent = {
     vocabMcq("ja-m17-1-1-rev-mcq-1", M17_1_1_REVIEW[0], M17_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m17-1-1-rev-lc-1",
-      audioText: M17_1_1_REVIEW[1].kana,
-      correctMeaningEn: M17_1_1_REVIEW[1].meaningEn,
+      // Sentence-level review of いくら (M5) — 2026-07-12 listening backfill.
+      audioText: "きっぷは いくらですか",
+      correctMeaningEn: "How much is a ticket?",
       distractorsEn: [
-        M17_1_1_REVIEW[2].meaningEn,
-        M17_1_1_REVIEW[3].meaningEn,
-        M17_REVIEW_POOL[0].meaningEn,
+        "How much is a stamp?",
+        "Where is the ticket?",
+        "The ticket is 200 yen.",
       ],
     }),
     reviewMatchPairs("ja-m17-1-1-rev", M17_1_1_REVIEW),
@@ -598,9 +607,13 @@ export const M17_2_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m17-2-1-lc-noru",
-      audioText: "のる",
-      correctMeaningEn: "get on / ride",
-      distractorsEn: ["get off", "go", "come"],
+      audioText: "バスに のります",
+      correctMeaningEn: "I get on the bus.",
+      distractorsEn: [
+        "I get off the bus.",
+        "I get on the train.",
+        "I wait for the bus.",
+      ],
     }),
     // ── おりる (get off) ──
     build(
@@ -696,12 +709,13 @@ export const M17_2_1: LessonContent = {
     vocabMcq("ja-m17-2-1-rev-mcq-1", M17_2_1_REVIEW[0], M17_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m17-2-1-rev-lc-1",
-      audioText: M17_2_1_REVIEW[1].kana,
-      correctMeaningEn: M17_2_1_REVIEW[1].meaningEn,
+      // Sentence-level review of なな (M5) — 2026-07-12 listening backfill.
+      audioText: "きっぷは ななひゃくえんです",
+      correctMeaningEn: "The ticket is 700 yen.",
       distractorsEn: [
-        M17_2_1_REVIEW[2].meaningEn,
-        M17_2_1_REVIEW[3].meaningEn,
-        M17_REVIEW_POOL[2].meaningEn,
+        "The ticket is 100 yen.",
+        "The ticket is 7,000 yen.",
+        "The ticket is 70 yen.",
       ],
     }),
     speaking("ja-m17-2-1-rev-speak-1", M17_2_1_REVIEW[2].kana, M17_2_1_REVIEW[2].meaningEn),
@@ -919,9 +933,13 @@ export const M17_3_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m17-3-1-lc-massugu",
-      audioText: "まっすぐ",
-      correctMeaningEn: "straight ahead",
-      distractorsEn: ["right", "left", "behind"],
+      audioText: "まっすぐ いってください",
+      correctMeaningEn: "Please go straight.",
+      distractorsEn: [
+        "Please turn right.",
+        "Please stop here.",
+        "Please come here.",
+      ],
     }),
     // ── みぎ (right) ──
     build(
@@ -1030,12 +1048,13 @@ export const M17_3_1: LessonContent = {
     vocabMcq("ja-m17-3-1-rev-mcq-1", M17_3_1_REVIEW[0], M17_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m17-3-1-rev-lc-1",
-      audioText: M17_3_1_REVIEW[1].kana,
-      correctMeaningEn: M17_3_1_REVIEW[1].meaningEn,
+      // Sentence-level review of けいたい (M4) — 2026-07-12 listening backfill.
+      audioText: "けいたいを みせてください",
+      correctMeaningEn: "Please show me your mobile phone.",
       distractorsEn: [
-        M17_3_1_REVIEW[2].meaningEn,
-        M17_3_1_REVIEW[3].meaningEn,
-        M17_REVIEW_POOL[4].meaningEn,
+        "Please show me your camera.",
+        "Please buy a mobile phone.",
+        "I am looking at my mobile phone.",
       ],
     }),
     reviewMatchPairs("ja-m17-3-1-rev", M17_3_1_REVIEW),
@@ -1197,12 +1216,13 @@ export const M17_3_2: LessonContent = {
     vocabMcq("ja-m17-3-2-rev-mcq-1", M17_3_2_REVIEW[0], M17_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m17-3-2-rev-lc-1",
-      audioText: M17_3_2_REVIEW[1].kana,
-      correctMeaningEn: M17_3_2_REVIEW[1].meaningEn,
+      // Sentence-level review of ペン (M12) — 2026-07-12 listening backfill.
+      audioText: "ペンを かしてください",
+      correctMeaningEn: "Please lend me a pen.",
       distractorsEn: [
-        M17_3_2_REVIEW[2].meaningEn,
-        M17_3_2_REVIEW[3].meaningEn,
-        M17_REVIEW_POOL[5].meaningEn,
+        "Please lend me a book.",
+        "Please buy a pen.",
+        "I lent a pen.",
       ],
     }),
     speaking("ja-m17-3-2-rev-speak-1", M17_3_2_REVIEW[2].kana, M17_3_2_REVIEW[2].meaningEn),
@@ -1253,9 +1273,13 @@ export const M17_4_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m17-4-1-lc-mukou",
-      audioText: "むこう",
-      correctMeaningEn: "the other side / across",
-      distractorsEn: ["nearby", "next to", "between"],
+      audioText: "としょかんは えきの むこうです",
+      correctMeaningEn: "The library is on the other side of the station.",
+      distractorsEn: [
+        "The library is next to the station.",
+        "The library is near the station.",
+        "The station is on the other side of the library.",
+      ],
     }),
     // ── そば (beside / near) ──
     build(
@@ -1276,9 +1300,13 @@ export const M17_4_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m17-4-1-lc-chikaku",
-      audioText: "ちかく",
-      correctMeaningEn: "close / nearby",
-      distractorsEn: ["the other side", "beside", "between"],
+      audioText: "こうえんは うちの ちかくです",
+      correctMeaningEn: "The park is near my house.",
+      distractorsEn: [
+        "The park is far from my house.",
+        "The bank is near my house.",
+        "The park is behind my house.",
+      ],
     }),
     // ── となり (next to) ──
     build(
@@ -1299,9 +1327,13 @@ export const M17_4_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m17-4-1-lc-aida",
-      audioText: "あいだ",
-      correctMeaningEn: "between",
-      distractorsEn: ["next to", "close", "the other side"],
+      audioText: "ホテルは えきと ぎんこうの あいだです",
+      correctMeaningEn: "The hotel is between the station and the bank.",
+      distractorsEn: [
+        "The hotel is next to the station.",
+        "The bank is between the station and the hotel.",
+        "The hotel is in front of the bank.",
+      ],
     }),
     // ── Location sentence drills ──
     build(
@@ -1359,12 +1391,13 @@ export const M17_4_1: LessonContent = {
     vocabMcq("ja-m17-4-1-rev-mcq-1", M17_4_1_REVIEW[0], M17_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m17-4-1-rev-lc-1",
-      audioText: M17_4_1_REVIEW[1].kana,
-      correctMeaningEn: M17_4_1_REVIEW[1].meaningEn,
+      // Sentence-level review of ほん (M3) — 2026-07-12 listening backfill.
+      audioText: "としょかんで ほんを よみます",
+      correctMeaningEn: "I read books at the library.",
       distractorsEn: [
-        M17_4_1_REVIEW[2].meaningEn,
-        M17_4_1_REVIEW[3].meaningEn,
-        M17_REVIEW_POOL[6].meaningEn,
+        "I read books at school.",
+        "I buy books at the library.",
+        "I read newspapers at the library.",
       ],
     }),
     speaking("ja-m17-4-1-rev-speak-1", M17_4_1_REVIEW[2].kana, M17_4_1_REVIEW[2].meaningEn),
@@ -1521,12 +1554,13 @@ export const M17_4_2: LessonContent = {
     vocabMcq("ja-m17-4-2-rev-mcq-1", M17_4_2_REVIEW[0], M17_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m17-4-2-rev-lc-1",
-      audioText: M17_4_2_REVIEW[1].kana,
-      correctMeaningEn: M17_4_2_REVIEW[1].meaningEn,
+      // Sentence-level review of カメラ (M11) — 2026-07-12 listening backfill.
+      audioText: "カメラを かいたいです",
+      correctMeaningEn: "I want to buy a camera.",
       distractorsEn: [
-        M17_4_2_REVIEW[2].meaningEn,
-        M17_4_2_REVIEW[3].meaningEn,
-        M17_REVIEW_POOL[7].meaningEn,
+        "I want to buy a mobile phone.",
+        "I bought a camera.",
+        "I want to sell a camera.",
       ],
     }),
     speaking("ja-m17-4-2-rev-speak-1", M17_4_2_REVIEW[2].kana, M17_4_2_REVIEW[2].meaningEn),
@@ -1578,9 +1612,13 @@ export const M17_8_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m17-8-1-lc-mae",
-      audioText: "まえ",
-      correctMeaningEn: "front / in front",
-      distractorsEn: ["behind", "inside", "beside"],
+      audioText: "ぎんこうは えきの まえに あります",
+      correctMeaningEn: "The bank is in front of the station.",
+      distractorsEn: [
+        "The bank is behind the station.",
+        "The bank is next to the station.",
+        "The post office is in front of the station.",
+      ],
     }),
     // ── うしろ (behind) ──
     build(
@@ -1601,9 +1639,13 @@ export const M17_8_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m17-8-1-lc-naka",
-      audioText: "なか",
-      correctMeaningEn: "inside",
-      distractorsEn: ["under", "beside", "front"],
+      audioText: "かばんの なかに さいふが あります",
+      correctMeaningEn: "There's a wallet inside the bag.",
+      distractorsEn: [
+        "There's a wallet under the bag.",
+        "There's a ticket inside the bag.",
+        "There's a wallet inside the room.",
+      ],
     }),
     // ── した (under) ──
     build(
@@ -1624,9 +1666,13 @@ export const M17_8_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m17-8-1-lc-yoko",
-      audioText: "よこ",
-      correctMeaningEn: "beside / side",
-      distractorsEn: ["behind", "inside", "under"],
+      audioText: "ドアの よこに いすが あります",
+      correctMeaningEn: "There's a chair beside the door.",
+      distractorsEn: [
+        "There's a chair in front of the door.",
+        "There's a bag beside the door.",
+        "There's a chair behind the door.",
+      ],
     }),
     // ── Position sentence drills ──
     build(
@@ -1674,12 +1720,13 @@ export const M17_8_1: LessonContent = {
     vocabMcq("ja-m17-8-1-rev-mcq-1", M17_8_1_REVIEW[0], M17_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m17-8-1-rev-lc-1",
-      audioText: M17_8_1_REVIEW[1].kana,
-      correctMeaningEn: M17_8_1_REVIEW[1].meaningEn,
+      // Sentence-level review of バス (M8) — 2026-07-12 listening backfill.
+      audioText: "バスで びょういんに いきます",
+      correctMeaningEn: "I go to the hospital by bus.",
       distractorsEn: [
-        M17_8_1_REVIEW[2].meaningEn,
-        M17_8_1_REVIEW[3].meaningEn,
-        M17_REVIEW_POOL[0].meaningEn,
+        "I go to the hospital by taxi.",
+        "I go to the bank by bus.",
+        "I get off the bus at the hospital.",
       ],
     }),
     speaking("ja-m17-8-1-rev-speak-1", M17_8_1_REVIEW[2].kana, M17_8_1_REVIEW[2].meaningEn),
@@ -1882,12 +1929,13 @@ export const M17_8_2: LessonContent = {
     vocabMcq("ja-m17-8-2-rev-mcq-1", M17_8_2_REVIEW[0], M17_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m17-8-2-rev-lc-1",
-      audioText: M17_8_2_REVIEW[1].kana,
-      correctMeaningEn: M17_8_2_REVIEW[1].meaningEn,
+      // Sentence-level review of うち (M6) — 2026-07-12 listening backfill.
+      audioText: "うちは ぎんこうの よこに あります",
+      correctMeaningEn: "My house is beside the bank.",
       distractorsEn: [
-        M17_8_2_REVIEW[2].meaningEn,
-        M17_8_2_REVIEW[3].meaningEn,
-        M17_REVIEW_POOL[1].meaningEn,
+        "My house is behind the bank.",
+        "My house is beside the park.",
+        "The school is beside the bank.",
       ],
     }),
     speaking("ja-m17-8-2-rev-speak-1", M17_8_2_REVIEW[2].kana, M17_8_2_REVIEW[2].meaningEn),
@@ -2044,12 +2092,13 @@ export const M17_5_1: LessonContent = {
     vocabMcq("ja-m17-5-1-rev-mcq-1", M17_5_1_REVIEW[0], M17_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m17-5-1-rev-lc-1",
-      audioText: M17_5_1_REVIEW[1].kana,
-      correctMeaningEn: M17_5_1_REVIEW[1].meaningEn,
+      // Sentence-level review of じてんしゃ (M4) — 2026-07-12 listening backfill.
+      audioText: "じてんしゃで えきに いきます",
+      correctMeaningEn: "I go to the station by bicycle.",
       distractorsEn: [
-        M17_5_1_REVIEW[2].meaningEn,
-        M17_5_1_REVIEW[3].meaningEn,
-        M17_REVIEW_POOL[8].meaningEn,
+        "I go to the station by bus.",
+        "I go to school by bicycle.",
+        "I walk to the station.",
       ],
     }),
     speaking("ja-m17-5-1-rev-speak-1", M17_5_1_REVIEW[2].kana, M17_5_1_REVIEW[2].meaningEn),
@@ -2217,12 +2266,13 @@ export const M17_5_2: LessonContent = {
     vocabMcq("ja-m17-5-2-rev-mcq-1", M17_5_2_REVIEW[0], M17_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m17-5-2-rev-lc-1",
-      audioText: M17_5_2_REVIEW[1].kana,
-      correctMeaningEn: M17_5_2_REVIEW[1].meaningEn,
+      // Sentence-level review of せんせい (M3) — 2026-07-12 listening backfill.
+      audioText: "テストの まえに せんせいと はなします",
+      correctMeaningEn: "Before the test, I talk with the teacher.",
       distractorsEn: [
-        M17_5_2_REVIEW[2].meaningEn,
-        M17_5_2_REVIEW[3].meaningEn,
-        M17_REVIEW_POOL[9].meaningEn,
+        "After the test, I talk with the teacher.",
+        "Before the test, I talk with a friend.",
+        "Before the test, I study.",
       ],
     }),
     speaking("ja-m17-5-2-rev-speak-1", M17_5_2_REVIEW[2].kana, M17_5_2_REVIEW[2].meaningEn),
@@ -2396,12 +2446,13 @@ export const M17_6_1: LessonContent = {
     speaking("ja-m17-6-1-rev-speak-1", M17_6_1_REVIEW[0].kana, M17_6_1_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m17-6-1-rev-lc-1",
-      audioText: M17_6_1_REVIEW[1].kana,
-      correctMeaningEn: M17_6_1_REVIEW[1].meaningEn,
+      // Sentence-level review of アメリカ (M4) — 2026-07-12 listening backfill.
+      audioText: "アメリカから きました",
+      correctMeaningEn: "I came from America.",
       distractorsEn: [
-        M17_6_1_REVIEW[2].meaningEn,
-        M17_6_1_REVIEW[3].meaningEn,
-        M17_6_1_REVIEW[4].meaningEn,
+        "I came from Japan.",
+        "I'm going to America.",
+        "I live in America.",
       ],
     }),
     vocabMcq("ja-m17-6-1-rev-mcq-1", M17_6_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
@@ -2564,12 +2615,13 @@ export const M17_6_2: LessonContent = {
     speaking("ja-m17-6-2-rev-speak-1", M17_6_2_REVIEW[0].kana, M17_6_2_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m17-6-2-rev-lc-1",
-      audioText: M17_6_2_REVIEW[1].kana,
-      correctMeaningEn: M17_6_2_REVIEW[1].meaningEn,
+      // Sentence-level review of さん (M5) — 2026-07-12 listening backfill.
+      audioText: "きっぷを さんまい ください",
+      correctMeaningEn: "Three tickets, please.",
       distractorsEn: [
-        M17_6_2_REVIEW[2].meaningEn,
-        M17_6_2_REVIEW[3].meaningEn,
-        M17_6_2_REVIEW[4].meaningEn,
+        "Two tickets, please.",
+        "Three stamps, please.",
+        "Three postcards, please.",
       ],
     }),
     vocabMcq("ja-m17-6-2-rev-mcq-1", M17_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
@@ -2886,12 +2938,13 @@ export const M17_7_1: LessonContent = {
     speaking("ja-m17-7-1-rev-speak-1", M17_7_1_REVIEW[0].kana, M17_7_1_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m17-7-1-rev-lc-1",
-      audioText: M17_7_1_REVIEW[1].kana,
-      correctMeaningEn: M17_7_1_REVIEW[1].meaningEn,
+      // Sentence-level review of ろく (M5) — 2026-07-12 listening backfill.
+      audioText: "ろくじに うちに かえります",
+      correctMeaningEn: "I go home at 6.",
       distractorsEn: [
-        M17_7_1_REVIEW[2].meaningEn,
-        M17_7_1_REVIEW[3].meaningEn,
-        M17_7_1_REVIEW[4].meaningEn,
+        "I go home at 9.",
+        "I leave home at 6.",
+        "I went home at 6.",
       ],
     }),
     vocabMcq("ja-m17-7-1-rev-mcq-1", M17_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
@@ -3051,12 +3104,13 @@ export const M17_7_2: LessonContent = {
     speaking("ja-m17-7-2-rev-speak-1", M17_7_2_REVIEW[0].kana, M17_7_2_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m17-7-2-rev-lc-1",
-      audioText: M17_7_2_REVIEW[1].kana,
-      correctMeaningEn: M17_7_2_REVIEW[1].meaningEn,
+      // Sentence-level review of こうえん (M6) — 2026-07-12 listening backfill.
+      audioText: "バスで こうえんに いきます",
+      correctMeaningEn: "I go to the park by bus.",
       distractorsEn: [
-        M17_7_2_REVIEW[2].meaningEn,
-        M17_7_2_REVIEW[3].meaningEn,
-        M17_7_2_REVIEW[4].meaningEn,
+        "I go to the park by train.",
+        "I go to school by bus.",
+        "I walk to the park.",
       ],
     }),
     vocabMcq("ja-m17-7-2-rev-mcq-1", M17_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),

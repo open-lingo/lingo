@@ -131,11 +131,17 @@ export const M7_1_1: LessonContent = {
       ["たべる"],
     ),
     speaking("ja-m7-1-1-say-taberu", "たべる", "to eat"),
+    // Dictionary form in a casual clause — で (M6) is the only other grammar.
     listeningCompSentence({
       id: "ja-m7-1-1-lc-taberu",
-      audioText: "たべる",
-      correctMeaningEn: "to eat",
-      distractorsEn: ["to drink", "to go", "to read"],
+      audioText: "うちで たべる",
+      question: "What does this casual sentence mean?",
+      correctMeaningEn: "I'll eat at home.",
+      distractorsEn: [
+        "I'll drink at home.",
+        "I'll eat at school.",
+        "I'll eat at a restaurant.",
+      ],
     }),
     // ── のむ: single-tile build — "to drink" is unambiguous vs the other tiles. ──
     build(
@@ -145,11 +151,17 @@ export const M7_1_1: LessonContent = {
       ["かく", "のむ", "たべる"],
       ["のむ"],
     ),
+    // Casual topic-comment utterance — object + dictionary verb.
     listeningCompSentence({
       id: "ja-m7-1-1-lc-nomu",
-      audioText: "のむ",
-      correctMeaningEn: "to drink",
-      distractorsEn: ["to eat", "to read", "to go"],
+      audioText: "みず、のむ",
+      question: "What does this casual sentence mean?",
+      correctMeaningEn: "I'll drink water.",
+      distractorsEn: [
+        "I'll eat water.",
+        "I'll drink coffee.",
+        "I'll drink green tea.",
+      ],
     }),
     speaking("ja-m7-1-1-say-nomu", "のむ", "to drink"),
     // ── いく: single-tile build — "to go" unambiguous. ──
@@ -191,14 +203,15 @@ export const M7_1_1: LessonContent = {
     speaking("ja-m7-1-1-say-iku", "いく", "to go"),
     // ── Review tail (M3 anchors) ──
     speaking("ja-m7-1-1-rev-speak-m3-1", M7_1_1_REVIEW[0].kana, M7_1_1_REVIEW[0].meaningEn),
+    // Sentence-level review of ほん (M3 book) in the M6 compound pattern.
     listeningCompSentence({
       id: "ja-m7-1-1-rev-lc-m3",
-      audioText: M7_1_1_REVIEW[1].kana,
-      correctMeaningEn: M7_1_1_REVIEW[1].meaningEn,
+      audioText: "としょかんに ほんが あります",
+      correctMeaningEn: "There are books at the library.",
       distractorsEn: [
-        M7_1_1_REVIEW[2].meaningEn,
-        M7_1_1_REVIEW[3].meaningEn,
-        M7_REVIEW_M1[0].meaningEn,
+        "There are books at school.",
+        "There are dictionaries at the library.",
+        "I go to the library.",
       ],
     }),
     vocabMcq("ja-m7-1-1-rev-mcq-m3-2", M7_1_1_REVIEW[2], M7_REVIEW_M3),
@@ -240,11 +253,17 @@ export const M7_1_2: LessonContent = {
       ["よむ", "かく", "みる"],
       ["みる"],
     ),
+    // Casual topic-comment utterance — object + dictionary verb.
     listeningCompSentence({
       id: "ja-m7-1-2-lc-miru",
-      audioText: "みる",
-      correctMeaningEn: "to see / watch",
-      distractorsEn: ["to go", "to drink", "to write"],
+      audioText: "つき、みる",
+      question: "What does this casual sentence mean?",
+      correctMeaningEn: "I'll look at the moon.",
+      distractorsEn: [
+        "I'll look at the stars.",
+        "I'll look at the sea.",
+        "I'll read a book.",
+      ],
     }),
     speaking("ja-m7-1-2-say-miru", "みる", "to see / watch"),
     // ── よむ: single-tile build — "to read" unambiguous. ──
@@ -255,11 +274,17 @@ export const M7_1_2: LessonContent = {
       ["のむ", "よむ", "みる"],
       ["よむ"],
     ),
+    // Casual topic-comment utterance — object + dictionary verb.
     listeningCompSentence({
       id: "ja-m7-1-2-lc-yomu",
-      audioText: "よむ",
-      correctMeaningEn: "to read",
-      distractorsEn: ["to write", "to watch", "to eat"],
+      audioText: "ほん、よむ",
+      question: "What does this casual sentence mean?",
+      correctMeaningEn: "I'll read a book.",
+      distractorsEn: [
+        "I'll write a book.",
+        "I'll read a letter.",
+        "I'll eat bread.",
+      ],
     }),
     // ── かく: single-tile build — "to write" unambiguous. ──
     build(
@@ -295,11 +320,17 @@ export const M7_1_2: LessonContent = {
       explanation:
         "のむ = to drink. All four are dictionary-form verbs.",
     }),
+    // Casual topic-comment utterance — object + dictionary verb.
     listeningCompSentence({
       id: "ja-m7-1-2-lc-kaku",
-      audioText: "かく",
-      correctMeaningEn: "to write",
-      distractorsEn: ["to read", "to go", "to eat"],
+      audioText: "なまえ、かく",
+      question: "What does this casual sentence mean?",
+      correctMeaningEn: "I'll write my name.",
+      distractorsEn: [
+        "I'll read my name.",
+        "I'll write a letter.",
+        "I'll say my name.",
+      ],
     }),
     // Match all 6 verbs — the high-leverage retrieval exercise.
     {
@@ -319,14 +350,15 @@ export const M7_1_2: LessonContent = {
     speaking("ja-m7-1-2-say-kaku", "かく", "to write"),
     // ── Review tail (M4 anchors) ──
     speaking("ja-m7-1-2-rev-speak-m4-1", M7_1_2_REVIEW[0].kana, M7_1_2_REVIEW[0].meaningEn),
+    // Sentence-level review of だれ (M4 who) in its natural question frame.
     listeningCompSentence({
       id: "ja-m7-1-2-rev-lc-m4",
-      audioText: M7_1_2_REVIEW[1].kana,
-      correctMeaningEn: M7_1_2_REVIEW[1].meaningEn,
+      audioText: "せんせいは だれ ですか",
+      correctMeaningEn: "Who is the teacher?",
       distractorsEn: [
-        M7_1_2_REVIEW[2].meaningEn,
-        M7_1_2_REVIEW[3].meaningEn,
-        M7_REVIEW_M3[0].meaningEn,
+        "Who is the student?",
+        "Where is the teacher?",
+        "What is this?",
       ],
     }),
     vocabMcq("ja-m7-1-2-rev-mcq-m4-2", M7_1_2_REVIEW[2], M7_REVIEW_M4),
@@ -410,14 +442,16 @@ export const M7_2_1: LessonContent = {
       explanation:
         "かく ends in -ku → -ki + ます = かきます. たべる, みる, おきる are -る verbs (drop -る instead).",
     }),
+    // Dictionary form heard as a full casual clause (を from the rule card).
     listeningCompSentence({
       id: "ja-m7-2-1-lc-nomu-class",
-      audioText: "のむ",
-      correctMeaningEn: "to drink (dictionary form, -u verb)",
+      audioText: "おちゃを のむ",
+      question: "What does this casual sentence mean?",
+      correctMeaningEn: "I drink green tea.",
       distractorsEn: [
-        "to drink (polite form)",
-        "to eat (dictionary form)",
-        "to read (polite form)",
+        "I eat green tea.",
+        "I drink coffee.",
+        "I drink water.",
       ],
     }),
     // ── Dictionary ↔ ます match (the high-leverage mapping). ──
@@ -484,14 +518,15 @@ export const M7_2_1: LessonContent = {
     }),
     // ── Review tail (M4 anchors) ──
     speaking("ja-m7-2-1-rev-speak-m4", M7_2_1_REVIEW[0].kana, M7_2_1_REVIEW[0].meaningEn),
+    // Sentence-level review of コーヒー (M3) inside this lesson's ます pattern.
     listeningCompSentence({
       id: "ja-m7-2-1-rev-lc-m3",
-      audioText: M7_REVIEW_M3[0].kana,
-      correctMeaningEn: M7_REVIEW_M3[0].meaningEn,
+      audioText: "みせで コーヒーを のみます",
+      correctMeaningEn: "I drink coffee at the shop.",
       distractorsEn: [
-        M7_REVIEW_M3[1].meaningEn,
-        M7_REVIEW_M3[2].meaningEn,
-        M7_REVIEW_M3[3].meaningEn,
+        "I drink green tea at the shop.",
+        "I drink coffee at home.",
+        "I buy coffee at the shop.",
       ],
     }),
     vocabMcq("ja-m7-2-1-rev-mcq-m4-2", M7_2_1_REVIEW[1], M7_REVIEW_M4),
@@ -625,14 +660,15 @@ export const M7_2_2: LessonContent = {
     speaking("ja-m7-2-2-speak-kaki", "がっこうに いきます", "I go to school."),
     // ── Review tail (M6 atoms) ──
     speaking("ja-m7-2-2-rev-speak-m6", M7_2_2_REVIEW[0].kana, M7_2_2_REVIEW[0].meaningEn),
+    // Sentence-level review of えき (M6) as a polite question.
     listeningCompSentence({
       id: "ja-m7-2-2-rev-lc-m6",
-      audioText: M7_2_2_REVIEW[1].kana,
-      correctMeaningEn: M7_2_2_REVIEW[1].meaningEn,
+      audioText: "えきに いきますか",
+      correctMeaningEn: "Are you going to the station?",
       distractorsEn: [
-        M7_2_2_REVIEW[2].meaningEn,
-        M7_2_2_REVIEW[3].meaningEn,
-        M7_REVIEW_M3[1].meaningEn,
+        "I go to the station.",
+        "Are you going to school?",
+        "Are you at the station?",
       ],
     }),
     vocabMcq("ja-m7-2-2-rev-mcq-m6-2", M7_2_2_REVIEW[2], M7_REVIEW_M6),
@@ -1092,15 +1128,12 @@ export const M7_4_1: LessonContent = {
     speaking("ja-m7-4-1-speak-ramen", "レストランで ラーメンを たべます", "I eat ramen at a restaurant."),
     // ── Review tail (M5 atoms) ──
     speaking("ja-m7-4-1-rev-speak-m5", M7_4_1_REVIEW[0].kana, M7_4_1_REVIEW[0].meaningEn),
+    // Sentence-level review of じゅう (M5) — a skip-counting run.
     listeningCompSentence({
       id: "ja-m7-4-1-rev-lc-m5",
-      audioText: M7_4_1_REVIEW[1].kana,
-      correctMeaningEn: M7_4_1_REVIEW[1].meaningEn,
-      distractorsEn: [
-        M7_4_1_REVIEW[2].meaningEn,
-        M7_4_1_REVIEW[3].meaningEn,
-        M7_REVIEW_M6[0].meaningEn,
-      ],
+      audioText: "ろく、はち、じゅう",
+      correctMeaningEn: "6, 8, 10",
+      distractorsEn: ["6, 7, 8", "8, 9, 10", "10, 8, 6"],
     }),
     vocabMcq("ja-m7-4-1-rev-mcq-m5-2", M7_4_1_REVIEW[2], M7_REVIEW_M5),
     reviewMatchPairs("ja-m7-4-1-rev", M7_4_1_REVIEW),
@@ -1385,14 +1418,15 @@ export const M7_5_1: LessonContent = {
     }),
     // ── Review tail (M6 places) ──
     speaking("ja-m7-5-1-rev-speak-m6", M7_5_1_REVIEW[0].kana, M7_5_1_REVIEW[0].meaningEn),
+    // Sentence-level review of タクシー (M3) as means-で with a destination.
     listeningCompSentence({
       id: "ja-m7-5-1-rev-lc-m3",
-      audioText: M7_REVIEW_M3[1].kana,
-      correctMeaningEn: M7_REVIEW_M3[1].meaningEn,
+      audioText: "タクシーで うちに かえります",
+      correctMeaningEn: "I go home by taxi.",
       distractorsEn: [
-        M7_REVIEW_M3[2].meaningEn,
-        M7_REVIEW_M3[3].meaningEn,
-        M7_REVIEW_M3[4].meaningEn,
+        "I go home by bus.",
+        "I go to the hotel by taxi.",
+        "There's a taxi.",
       ],
     }),
     vocabMcq("ja-m7-5-1-rev-mcq-m4", M7_REVIEW_M4[0], M7_REVIEW_M4),
@@ -1524,15 +1558,12 @@ export const M7_5_2: LessonContent = {
     speaking("ja-m7-5-2-speak-uchi", "へやで てがみを かきます", "I write a letter in my room."),
     // ── Review tail (cumulative) ──
     speaking("ja-m7-5-2-rev-speak-cum", M7_5_2_REVIEW[0].kana, M7_5_2_REVIEW[0].meaningEn),
+    // Sentence-level review of ろく (M5) — an even-numbers counting run.
     listeningCompSentence({
       id: "ja-m7-5-2-rev-lc-cum",
-      audioText: M7_5_2_REVIEW[1].kana,
-      correctMeaningEn: M7_5_2_REVIEW[1].meaningEn,
-      distractorsEn: [
-        M7_5_2_REVIEW[2].meaningEn,
-        M7_5_2_REVIEW[3].meaningEn,
-        M7_REVIEW_M1[1].meaningEn,
-      ],
+      audioText: "に、よん、ろく",
+      correctMeaningEn: "2, 4, 6",
+      distractorsEn: ["4, 5, 6", "1, 3, 5", "6, 4, 2"],
     }),
     vocabMcq("ja-m7-5-2-rev-mcq-cum-2", M7_5_2_REVIEW[2], M7_REVIEW_POOL),
     reviewMatchPairs("ja-m7-5-2-rev", M7_5_2_REVIEW),
@@ -1669,14 +1700,15 @@ export const M7_6_1: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m7-6-1-rev-speak-cum", M7_6_1_REVIEW[0].kana, M7_6_1_REVIEW[0].meaningEn),
+    // Sentence-level review of これ (M4) in its canonical question frame.
     listeningCompSentence({
       id: "ja-m7-6-1-rev-lc-cum",
-      audioText: M7_6_1_REVIEW[1].kana,
-      correctMeaningEn: M7_6_1_REVIEW[1].meaningEn,
+      audioText: "これは なん ですか",
+      correctMeaningEn: "What is this?",
       distractorsEn: [
-        M7_6_1_REVIEW[2].meaningEn,
-        M7_6_1_REVIEW[3].meaningEn,
-        M7_REVIEW_M1[2].meaningEn,
+        "What is that (over there)?",
+        "How much is this?",
+        "Who is this?",
       ],
     }),
     vocabMcq("ja-m7-6-1-rev-mcq-cum-2", M7_6_1_REVIEW[2], M7_REVIEW_POOL),
@@ -2098,14 +2130,15 @@ export const M7_7_1: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m7-7-1-rev-speak-cum", M7_7_1_REVIEW[0].kana, M7_7_1_REVIEW[0].meaningEn),
+    // Sentence-level review of なまえ (M3) with means-で + を + かきます.
     listeningCompSentence({
       id: "ja-m7-7-1-rev-lc-cum",
-      audioText: M7_7_1_REVIEW[1].kana,
-      correctMeaningEn: M7_7_1_REVIEW[1].meaningEn,
+      audioText: "ペンで なまえを かきます",
+      correctMeaningEn: "I write my name with a pen.",
       distractorsEn: [
-        M7_7_1_REVIEW[2].meaningEn,
-        M7_7_1_REVIEW[3].meaningEn,
-        M7_REVIEW_M1[0].meaningEn,
+        "I write my name with a pencil.",
+        "I write a letter with a pen.",
+        "I read my name.",
       ],
     }),
     vocabMcq("ja-m7-7-1-rev-mcq-cum-2", M7_7_1_REVIEW[2], M7_REVIEW_POOL),
@@ -2536,14 +2569,15 @@ export const M7_8_2: LessonContent = {
     ),
     // ── Cumulative review tail (broadest — M1-M6). ──
     speaking("ja-m7-8-2-rev-speak-cum-1", M7_8_2_REVIEW[0].kana, M7_8_2_REVIEW[0].meaningEn),
+    // Sentence-level review of まど (M2 window) in the compound existence pattern.
     listeningCompSentence({
       id: "ja-m7-8-2-rev-lc-cum",
-      audioText: M7_8_2_REVIEW[1].kana,
-      correctMeaningEn: M7_8_2_REVIEW[1].meaningEn,
+      audioText: "へやに まどが あります",
+      correctMeaningEn: "There's a window in the room.",
       distractorsEn: [
-        M7_8_2_REVIEW[2].meaningEn,
-        M7_8_2_REVIEW[3].meaningEn,
-        M7_8_2_REVIEW[4].meaningEn,
+        "There's a door in the room.",
+        "There's a window in the shop.",
+        "I look at the window.",
       ],
     }),
     vocabMcq("ja-m7-8-2-rev-mcq-cum-2", M7_8_2_REVIEW[5], M7_REVIEW_POOL),

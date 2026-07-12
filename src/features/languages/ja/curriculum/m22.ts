@@ -208,9 +208,13 @@ export const M22_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m22-1-1-lc-onaji",
-      audioText: "おなじ",
-      correctMeaningEn: "same",
-      distractorsEn: ["different", "more", "most"],
+      audioText: "この かばんと その かばんは おなじです",
+      correctMeaningEn: "This bag and that bag are the same.",
+      distractorsEn: [
+        "This bag and that bag are different.",
+        "This bag is bigger.",
+        "That bag is mine.",
+      ],
     }),
     // ── ちがう (different) ──
     build(
@@ -378,9 +382,13 @@ export const M22_1_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m22-1-2-lc-raamen",
-      audioText: "ラーメン",
-      correctMeaningEn: "ramen",
-      distractorsEn: ["restaurant", "curry", "pasta"],
+      audioText: "この みせの ラーメンは おいしいです",
+      correctMeaningEn: "This shop's ramen is delicious.",
+      distractorsEn: [
+        "This shop's sushi is delicious.",
+        "That restaurant's ramen is expensive.",
+        "This shop is closed.",
+      ],
     }),
     // ── カレー (curry) ──
     build(
@@ -467,13 +475,14 @@ export const M22_1_2: LessonContent = {
     vocabMcq("ja-m22-1-2-rev-mcq-1", M22_1_2_REVIEW[0], M22_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m22-1-2-rev-lc-1",
-      audioText: M22_1_2_REVIEW[1].kana,
-      correctMeaningEn: M22_1_2_REVIEW[1].meaningEn,
+      audioText: "うちは さんにんかぞくです",
+      correctMeaningEn: "We are a family of three.",
       distractorsEn: [
-        M22_1_2_REVIEW[2].meaningEn,
-        M22_1_2_REVIEW[3].meaningEn,
-        M22_REVIEW_POOL[1].meaningEn,
+        "We are a family of four.",
+        "I have three cats.",
+        "My family is at home.",
       ],
+      exercisedAtomKanas: ["さん"],
     }),
     speaking("ja-m22-1-2-rev-speak-1", M22_1_2_REVIEW[2].kana, M22_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-1-2-rev", M22_1_2_REVIEW),
@@ -618,13 +627,14 @@ export const M22_2_1: LessonContent = {
     vocabMcq("ja-m22-2-1-rev-mcq-1", M22_2_1_REVIEW[0], M22_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m22-2-1-rev-lc-1",
-      audioText: M22_2_1_REVIEW[1].kana,
-      correctMeaningEn: M22_2_1_REVIEW[1].meaningEn,
+      audioText: "バスで えきに いきます",
+      correctMeaningEn: "I go to the station by bus.",
       distractorsEn: [
-        M22_2_1_REVIEW[2].meaningEn,
-        M22_2_1_REVIEW[3].meaningEn,
-        M22_REVIEW_POOL[2].meaningEn,
+        "I go to the station by taxi.",
+        "I go to school by bus.",
+        "I walk to the station.",
       ],
+      exercisedAtomKanas: ["バス"],
     }),
     speaking("ja-m22-2-1-rev-speak-1", M22_2_1_REVIEW[2].kana, M22_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-2-1-rev", M22_2_1_REVIEW),
@@ -687,9 +697,13 @@ export const M22_2_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m22-2-2-lc-ryouri",
-      audioText: "りょうり",
-      correctMeaningEn: "cooking / cuisine",
-      distractorsEn: ["fruit", "vegetables", "restaurant"],
+      audioText: "わたしは りょうりが すきです",
+      correctMeaningEn: "I like cooking.",
+      distractorsEn: [
+        "I like fruit.",
+        "I don't like cooking.",
+        "Cooking is difficult.",
+      ],
     }),
     // ── おおい (many) — backlog weave ──
     build(
@@ -798,13 +812,14 @@ export const M22_2_2: LessonContent = {
     vocabMcq("ja-m22-2-2-rev-mcq-1", M22_2_2_REVIEW[0], M22_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m22-2-2-rev-lc-1",
-      audioText: M22_2_2_REVIEW[1].kana,
-      correctMeaningEn: M22_2_2_REVIEW[1].meaningEn,
+      audioText: "この ほんは いくらですか",
+      correctMeaningEn: "How much is this book?",
       distractorsEn: [
-        M22_2_2_REVIEW[2].meaningEn,
-        M22_2_2_REVIEW[3].meaningEn,
-        M22_REVIEW_POOL[3].meaningEn,
+        "How much is that book?",
+        "Where is this book?",
+        "This book is 1,000 yen.",
       ],
+      exercisedAtomKanas: ["いくら"],
     }),
     speaking("ja-m22-2-2-rev-speak-1", M22_2_2_REVIEW[2].kana, M22_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-2-2-rev", M22_2_2_REVIEW),
@@ -855,9 +870,13 @@ export const M22_3_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m22-3-1-lc-oosaka",
-      audioText: "おおさか",
-      correctMeaningEn: "Osaka",
-      distractorsEn: ["Tokyo", "Kyoto", "Hiroshima"],
+      audioText: "おおさかに ともだちが います",
+      correctMeaningEn: "I have a friend in Osaka.",
+      distractorsEn: [
+        "I have a friend in Tokyo.",
+        "There is a bank in Osaka.",
+        "My friend is in America.",
+      ],
     }),
     // ── きょうと (Kyoto) ──
     build(
@@ -878,9 +897,13 @@ export const M22_3_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m22-3-1-lc-hiroshima",
-      audioText: "ひろしま",
-      correctMeaningEn: "Hiroshima",
-      distractorsEn: ["Kyoto", "Osaka", "Tokyo"],
+      audioText: "ひろしまに いきたいです",
+      correctMeaningEn: "I want to go to Hiroshima.",
+      distractorsEn: [
+        "I want to go to Kyoto.",
+        "I went to Hiroshima.",
+        "I live in Hiroshima.",
+      ],
     }),
     // ── のなかで〜がいちばん drills ──
     build(
@@ -951,13 +974,14 @@ export const M22_3_1: LessonContent = {
     vocabMcq("ja-m22-3-1-rev-mcq-1", M22_3_1_REVIEW[0], M22_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m22-3-1-rev-lc-1",
-      audioText: M22_3_1_REVIEW[1].kana,
-      correctMeaningEn: M22_3_1_REVIEW[1].meaningEn,
+      audioText: "この かばんのほうが やすいです",
+      correctMeaningEn: "This bag is cheaper.",
       distractorsEn: [
-        M22_3_1_REVIEW[2].meaningEn,
-        M22_3_1_REVIEW[3].meaningEn,
-        M22_REVIEW_POOL[4].meaningEn,
+        "That bag is cheaper.",
+        "This bag is the cheapest.",
+        "These bags are the same price.",
       ],
+      exercisedAtomKanas: ["かばん"],
     }),
     speaking("ja-m22-3-1-rev-speak-1", M22_3_1_REVIEW[2].kana, M22_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-3-1-rev", M22_3_1_REVIEW),
@@ -1007,9 +1031,13 @@ export const M22_3_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m22-3-2-lc-yuumei",
-      audioText: "ゆうめい",
-      correctMeaningEn: "famous",
-      distractorsEn: ["quiet", "lively", "convenient"],
+      audioText: "この レストランは ゆうめいです",
+      correctMeaningEn: "This restaurant is famous.",
+      distractorsEn: [
+        "This restaurant is quiet.",
+        "That restaurant is famous.",
+        "This restaurant is new.",
+      ],
     }),
     // ── しずか (quiet) ──
     build(
@@ -1124,13 +1152,14 @@ export const M22_3_2: LessonContent = {
     vocabMcq("ja-m22-3-2-rev-mcq-1", M22_3_2_REVIEW[0], M22_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m22-3-2-rev-lc-1",
-      audioText: M22_3_2_REVIEW[1].kana,
-      correctMeaningEn: M22_3_2_REVIEW[1].meaningEn,
+      audioText: "ここに なまえを かきます",
+      correctMeaningEn: "I write my name here.",
       distractorsEn: [
-        M22_3_2_REVIEW[2].meaningEn,
-        M22_3_2_REVIEW[3].meaningEn,
-        M22_REVIEW_POOL[5].meaningEn,
+        "I read a book here.",
+        "I write a letter at home.",
+        "My name is here.",
       ],
+      exercisedAtomKanas: ["かきます"],
     }),
     speaking("ja-m22-3-2-rev-speak-1", M22_3_2_REVIEW[2].kana, M22_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-3-2-rev", M22_3_2_REVIEW),
@@ -1181,9 +1210,13 @@ export const M22_4_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m22-4-1-lc-benri",
-      audioText: "べんり",
-      correctMeaningEn: "convenient",
-      distractorsEn: ["inconvenient", "beautiful", "famous"],
+      audioText: "でんしゃは べんりです",
+      correctMeaningEn: "Trains are convenient.",
+      distractorsEn: [
+        "Trains are inconvenient.",
+        "Buses are convenient.",
+        "Trains are fast.",
+      ],
     }),
     // ── ふべん (inconvenient) ──
     build(
@@ -1204,9 +1237,13 @@ export const M22_4_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m22-4-1-lc-kirei",
-      audioText: "きれい",
-      correctMeaningEn: "beautiful / clean",
-      distractorsEn: ["famous", "quiet", "lively"],
+      audioText: "きょうとは とても きれいです",
+      correctMeaningEn: "Kyoto is very beautiful.",
+      distractorsEn: [
+        "Kyoto is very lively.",
+        "Osaka is very beautiful.",
+        "Kyoto is a little quiet.",
+      ],
     }),
     // ── どちら drills ──
     build(
@@ -1274,13 +1311,14 @@ export const M22_4_1: LessonContent = {
     vocabMcq("ja-m22-4-1-rev-mcq-1", M22_4_1_REVIEW[0], M22_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m22-4-1-rev-lc-1",
-      audioText: M22_4_1_REVIEW[1].kana,
-      correctMeaningEn: M22_4_1_REVIEW[1].meaningEn,
+      audioText: "わたしの うちは ちいさいです",
+      correctMeaningEn: "My house is small.",
       distractorsEn: [
-        M22_4_1_REVIEW[2].meaningEn,
-        M22_4_1_REVIEW[3].meaningEn,
-        M22_REVIEW_POOL[6].meaningEn,
+        "My house is big.",
+        "My room is small.",
+        "I am at home now.",
       ],
+      exercisedAtomKanas: ["うち"],
     }),
     speaking("ja-m22-4-1-rev-speak-1", M22_4_1_REVIEW[2].kana, M22_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-4-1-rev", M22_4_1_REVIEW),
@@ -1330,9 +1368,13 @@ export const M22_4_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m22-4-2-lc-pasuta",
-      audioText: "パスタ",
-      correctMeaningEn: "pasta",
-      distractorsEn: ["ramen", "curry", "restaurant"],
+      audioText: "きょうは パスタを たべます",
+      correctMeaningEn: "Today I'll eat pasta.",
+      distractorsEn: [
+        "Today I'll eat ramen.",
+        "Yesterday I ate pasta.",
+        "I like pasta.",
+      ],
     }),
     // ── まち (town) ──
     build(
@@ -1459,13 +1501,14 @@ export const M22_4_2: LessonContent = {
     speaking("ja-m22-4-2-rev-speak-1", M22_4_2_REVIEW[0].kana, M22_4_2_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m22-4-2-rev-lc-1",
-      audioText: M22_4_2_REVIEW[1].kana,
-      correctMeaningEn: M22_4_2_REVIEW[1].meaningEn,
+      audioText: "すしが いちばん すきです",
+      correctMeaningEn: "I like sushi the best.",
       distractorsEn: [
-        M22_4_2_REVIEW[2].meaningEn,
-        M22_4_2_REVIEW[3].meaningEn,
-        M22_REVIEW_POOL[7].meaningEn,
+        "I like ramen the best.",
+        "I like sushi a little.",
+        "Sushi is the most expensive.",
       ],
+      exercisedAtomKanas: ["すし"],
     }),
     vocabMcq("ja-m22-4-2-rev-mcq-1", M22_4_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M22_REVIEW_POOL),
     reviewMatchPairs("ja-m22-4-2-rev", M22_4_2_REVIEW),
@@ -1627,13 +1670,14 @@ export const M22_5_1: LessonContent = {
     vocabMcq("ja-m22-5-1-rev-mcq-1", M22_5_1_REVIEW[0], M22_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m22-5-1-rev-lc-1",
-      audioText: M22_5_1_REVIEW[1].kana,
-      correctMeaningEn: M22_5_1_REVIEW[1].meaningEn,
+      audioText: "パンのほうが すきです",
+      correctMeaningEn: "I like bread more.",
       distractorsEn: [
-        M22_5_1_REVIEW[2].meaningEn,
-        M22_5_1_REVIEW[3].meaningEn,
-        M22_REVIEW_POOL[8].meaningEn,
+        "I like rice more.",
+        "I like bread the best.",
+        "I don't like bread.",
       ],
+      exercisedAtomKanas: ["パン"],
     }),
     speaking("ja-m22-5-1-rev-speak-1", M22_5_1_REVIEW[2].kana, M22_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-5-1-rev", M22_5_1_REVIEW),
@@ -1955,13 +1999,14 @@ export const M22_6_1: LessonContent = {
     vocabMcq("ja-m22-6-1-rev-mcq-1", M22_6_1_REVIEW[0], M22_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m22-6-1-rev-lc-1",
-      audioText: M22_6_1_REVIEW[1].kana,
-      correctMeaningEn: M22_6_1_REVIEW[1].meaningEn,
+      audioText: "この ホテルが いちばん たかいです",
+      correctMeaningEn: "This hotel is the most expensive.",
       distractorsEn: [
-        M22_6_1_REVIEW[2].meaningEn,
-        M22_6_1_REVIEW[3].meaningEn,
-        M22_REVIEW_POOL[10].meaningEn,
+        "This hotel is the cheapest.",
+        "That restaurant is the most expensive.",
+        "This hotel is famous.",
       ],
+      exercisedAtomKanas: ["ホテル"],
     }),
     speaking("ja-m22-6-1-rev-speak-1", M22_6_1_REVIEW[2].kana, M22_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-6-1-rev", M22_6_1_REVIEW),
@@ -2443,13 +2488,14 @@ export const M22_7_1: LessonContent = {
     vocabMcq("ja-m22-7-1-rev-mcq-1", M22_7_1_REVIEW[0], M22_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m22-7-1-rev-lc-1",
-      audioText: M22_7_1_REVIEW[1].kana,
-      correctMeaningEn: M22_7_1_REVIEW[1].meaningEn,
+      audioText: "これは きゅうひゃくえんです",
+      correctMeaningEn: "This is 900 yen.",
       distractorsEn: [
-        M22_7_1_REVIEW[2].meaningEn,
-        M22_7_1_REVIEW[3].meaningEn,
-        M22_REVIEW_POOL[12].meaningEn,
+        "This is 600 yen.",
+        "This is 9,000 yen.",
+        "How much is this?",
       ],
+      exercisedAtomKanas: ["きゅう"],
     }),
     speaking("ja-m22-7-1-rev-speak-1", M22_7_1_REVIEW[2].kana, M22_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-7-1-rev", M22_7_1_REVIEW),
@@ -2607,13 +2653,14 @@ export const M22_7_2: LessonContent = {
     vocabMcq("ja-m22-7-2-rev-mcq-1", M22_7_2_REVIEW[0], M22_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m22-7-2-rev-lc-1",
-      audioText: M22_7_2_REVIEW[1].kana,
-      correctMeaningEn: M22_7_2_REVIEW[1].meaningEn,
+      audioText: "いもうとは ななさいです",
+      correctMeaningEn: "My little sister is seven years old.",
       distractorsEn: [
-        M22_7_2_REVIEW[2].meaningEn,
-        M22_7_2_REVIEW[3].meaningEn,
-        M22_REVIEW_POOL[13].meaningEn,
+        "My little sister is nine years old.",
+        "My little brother is seven years old.",
+        "My little sister likes apples.",
       ],
+      exercisedAtomKanas: ["なな"],
     }),
     speaking("ja-m22-7-2-rev-speak-1", M22_7_2_REVIEW[2].kana, M22_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-7-2-rev", M22_7_2_REVIEW),

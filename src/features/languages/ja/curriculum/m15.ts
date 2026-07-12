@@ -400,12 +400,13 @@ export const M15_1_1: LessonContent = {
     vocabMcq("ja-m15-1-1-rev-mcq-1", M15_1_1_REVIEW[0], M15_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m15-1-1-rev-lc-1",
-      audioText: M15_1_1_REVIEW[1].kana,
-      correctMeaningEn: M15_1_1_REVIEW[1].meaningEn,
+      // Sentence-level review of みず (M3) — 2026-07-12 listening backfill.
+      audioText: "みずを のんでいます",
+      correctMeaningEn: "I am drinking water.",
       distractorsEn: [
-        M15_1_1_REVIEW[2].meaningEn,
-        M15_1_1_REVIEW[3].meaningEn,
-        M15_REVIEW_POOL[0].meaningEn,
+        "I am drinking tea.",
+        "I drink water every day.",
+        "I am buying water.",
       ],
     }),
     speaking("ja-m15-1-1-rev-speak-1", M15_1_1_REVIEW[2].kana, M15_1_1_REVIEW[2].meaningEn),
@@ -570,12 +571,13 @@ export const M15_1_2: LessonContent = {
     vocabMcq("ja-m15-1-2-rev-mcq-1", M15_1_2_REVIEW[0], M15_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m15-1-2-rev-lc-1",
-      audioText: M15_1_2_REVIEW[1].kana,
-      correctMeaningEn: M15_1_2_REVIEW[1].meaningEn,
+      // Sentence-level review of かきます (M7) — 2026-07-12 listening backfill.
+      audioText: "まいしゅう てがみを かきます",
+      correctMeaningEn: "I write a letter every week.",
       distractorsEn: [
-        M15_1_2_REVIEW[2].meaningEn,
-        M15_1_2_REVIEW[3].meaningEn,
-        M15_REVIEW_POOL[1].meaningEn,
+        "I write a letter every day.",
+        "I read a letter every week.",
+        "I am writing a letter now.",
       ],
     }),
     speaking("ja-m15-1-2-rev-speak-1", M15_1_2_REVIEW[2].kana, M15_1_2_REVIEW[2].meaningEn),
@@ -740,12 +742,13 @@ export const M15_2_1: LessonContent = {
     vocabMcq("ja-m15-2-1-rev-mcq-1", M15_2_1_REVIEW[0], M15_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m15-2-1-rev-lc-1",
-      audioText: M15_2_1_REVIEW[1].kana,
-      correctMeaningEn: M15_2_1_REVIEW[1].meaningEn,
+      // Sentence-level review of かばん (M4) — 2026-07-12 listening backfill.
+      audioText: "ともだちは かばんを かっています",
+      correctMeaningEn: "My friend is buying a bag.",
       distractorsEn: [
-        M15_2_1_REVIEW[2].meaningEn,
-        M15_2_1_REVIEW[3].meaningEn,
-        M15_REVIEW_POOL[2].meaningEn,
+        "My friend is buying shoes.",
+        "My friend bought a bag.",
+        "I am buying a bag.",
       ],
     }),
     reviewMatchPairs("ja-m15-2-1-rev", M15_2_1_REVIEW),
@@ -1943,12 +1946,13 @@ export const M15_5_2: LessonContent = {
     vocabMcq("ja-m15-5-2-rev-mcq-1", M15_5_2_REVIEW[0], M15_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m15-5-2-rev-lc-1",
-      audioText: M15_5_2_REVIEW[1].kana,
-      correctMeaningEn: M15_5_2_REVIEW[1].meaningEn,
+      // Sentence-level review of いくら (M5) — 2026-07-12 listening backfill.
+      audioText: "この くつは いくらですか",
+      correctMeaningEn: "How much are these shoes?",
       distractorsEn: [
-        M15_5_2_REVIEW[2].meaningEn,
-        M15_5_2_REVIEW[3].meaningEn,
-        M15_REVIEW_POOL[3].meaningEn,
+        "How much is this bag?",
+        "I want these shoes.",
+        "Where are these shoes?",
       ],
     }),
     reviewMatchPairs("ja-m15-5-2-rev", M15_5_2_REVIEW),
@@ -2614,12 +2618,13 @@ export const M15_7_1: LessonContent = {
     vocabMcq("ja-m15-7-1-rev-mcq-1", M15_7_1_REVIEW[0], M15_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m15-7-1-rev-lc-1",
-      audioText: M15_7_1_REVIEW[1].kana,
-      correctMeaningEn: M15_7_1_REVIEW[1].meaningEn,
+      // Sentence-level review of みず (M3) — 2026-07-12 listening backfill.
+      audioText: "みずが のみたいです",
+      correctMeaningEn: "I want to drink water.",
       distractorsEn: [
-        M15_7_1_REVIEW[2].meaningEn,
-        M15_7_1_REVIEW[3].meaningEn,
-        M15_7_1_REVIEW[4].meaningEn,
+        "I want to drink tea.",
+        "I am drinking water.",
+        "I want to buy water.",
       ],
     }),
     speaking("ja-m15-7-1-rev-speak-1", M15_7_1_REVIEW[2].kana, M15_7_1_REVIEW[2].meaningEn),
@@ -2763,12 +2768,13 @@ export const M15_7_2: LessonContent = {
     speaking("ja-m15-7-2-rev-speak-1", M15_7_2_REVIEW[0].kana, M15_7_2_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m15-7-2-rev-lc-1",
-      audioText: M15_7_2_REVIEW[1].kana,
-      correctMeaningEn: M15_7_2_REVIEW[1].meaningEn,
+      // Sentence-level review of アメリカ (M4) — 2026-07-12 listening backfill.
+      audioText: "アメリカに いきたいです",
+      correctMeaningEn: "I want to go to America.",
       distractorsEn: [
-        M15_7_2_REVIEW[2].meaningEn,
-        M15_7_2_REVIEW[3].meaningEn,
-        M15_7_2_REVIEW[4].meaningEn,
+        "I want to go to Japan.",
+        "I went to America.",
+        "I live in America.",
       ],
     }),
     vocabMcq("ja-m15-7-2-rev-mcq-1", M15_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M15_REVIEW_POOL),

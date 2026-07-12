@@ -240,9 +240,13 @@ export const M24_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m24-1-1-lc-haikingu",
-      audioText: "ハイキング",
-      correctMeaningEn: "hiking",
-      distractorsEn: ["camping", "jogging", "fishing"],
+      audioText: "いっしょに ハイキングに いきませんか",
+      correctMeaningEn: "Won't you go hiking together?",
+      distractorsEn: [
+        "Won't you go camping together?",
+        "Let's go hiking.",
+        "I went hiking with a friend.",
+      ],
     }),
     // ── キャンプ (camping) ──
     build(
@@ -254,9 +258,13 @@ export const M24_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m24-1-1-lc-kyanpu",
-      audioText: "キャンプ",
-      correctMeaningEn: "camping",
-      distractorsEn: ["hiking", "jogging", "fishing"],
+      audioText: "しゅうまつに キャンプに いきます",
+      correctMeaningEn: "I'm going camping on the weekend.",
+      distractorsEn: [
+        "I'm going hiking on the weekend.",
+        "I went camping on the weekend.",
+        "I'm going shopping on the weekend.",
+      ],
     }),
     // ── ジョギング (jogging) ──
     build(
@@ -299,12 +307,12 @@ export const M24_1_1: LessonContent = {
     vocabMcq("ja-m24-1-1-rev-mcq-1", M24_1_1_REVIEW[0], M24_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m24-1-1-rev-lc-1",
-      audioText: M24_1_1_REVIEW[1].kana,
-      correctMeaningEn: M24_1_1_REVIEW[1].meaningEn,
+      audioText: "その かばんは いくらですか",
+      correctMeaningEn: "How much is that bag?",
       distractorsEn: [
-        M24_1_1_REVIEW[2].meaningEn,
-        M24_1_1_REVIEW[3].meaningEn,
-        M24_REVIEW_POOL[0].meaningEn,
+        "How much is that umbrella?",
+        "Whose bag is this?",
+        "That bag is big.",
       ],
     }),
     speaking("ja-m24-1-1-rev-speak-1", M24_1_1_REVIEW[2].kana, M24_1_1_REVIEW[2].meaningEn),
@@ -368,9 +376,13 @@ export const M24_1_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m24-1-2-lc-rajio",
-      audioText: "ラジオ",
-      correctMeaningEn: "radio",
-      distractorsEn: ["TV", "magazine", "manga"],
+      audioText: "まいにち ラジオを ききます",
+      correctMeaningEn: "I listen to the radio every day.",
+      distractorsEn: [
+        "I watch TV every day.",
+        "I listen to the radio sometimes.",
+        "I listen to music at night.",
+      ],
     }),
     // ── ざっし (magazine) ──
     build(
@@ -404,9 +416,13 @@ export const M24_1_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m24-1-2-lc-anime",
-      audioText: "アニメ",
-      correctMeaningEn: "anime",
-      distractorsEn: ["manga", "TV", "radio"],
+      audioText: "アニメを みるのが すきです",
+      correctMeaningEn: "I like watching anime.",
+      distractorsEn: [
+        "I like reading manga.",
+        "I watch anime sometimes.",
+        "I don't like anime.",
+      ],
     }),
     // ── しゅみ (hobby) ──
     build(
@@ -454,12 +470,12 @@ export const M24_1_2: LessonContent = {
     vocabMcq("ja-m24-1-2-rev-mcq-1", M24_1_2_REVIEW[0], M24_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m24-1-2-rev-lc-1",
-      audioText: M24_1_2_REVIEW[1].kana,
-      correctMeaningEn: M24_1_2_REVIEW[1].meaningEn,
+      audioText: "ここに なまえを かきます",
+      correctMeaningEn: "I write my name here.",
       distractorsEn: [
-        M24_1_2_REVIEW[2].meaningEn,
-        M24_1_2_REVIEW[3].meaningEn,
-        M24_REVIEW_POOL[1].meaningEn,
+        "I write a letter here.",
+        "I read my book here.",
+        "I say my name here.",
       ],
     }),
     speaking("ja-m24-1-2-rev-speak-1", M24_1_2_REVIEW[2].kana, M24_1_2_REVIEW[2].meaningEn),
@@ -511,9 +527,13 @@ export const M24_2_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m24-2-1-lc-atsumeru",
-      audioText: "あつめる",
-      correctMeaningEn: "collect",
-      distractorsEn: ["make", "draw", "read"],
+      audioText: "しゃしんを あつめるのが すきです",
+      correctMeaningEn: "I like collecting photos.",
+      distractorsEn: [
+        "I like taking photos.",
+        "I like making things.",
+        "I collect photos sometimes.",
+      ],
     }),
     // ── つくる (make/create) ──
     build(
@@ -621,12 +641,12 @@ export const M24_2_1: LessonContent = {
     vocabMcq("ja-m24-2-1-rev-mcq-1", M24_2_1_REVIEW[0], M24_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m24-2-1-rev-lc-1",
-      audioText: M24_2_1_REVIEW[1].kana,
-      correctMeaningEn: M24_2_1_REVIEW[1].meaningEn,
+      audioText: "これは せんせいの かばんです",
+      correctMeaningEn: "This is the teacher's bag.",
       distractorsEn: [
-        M24_2_1_REVIEW[2].meaningEn,
-        M24_2_1_REVIEW[3].meaningEn,
-        M24_REVIEW_POOL[2].meaningEn,
+        "This is my friend's bag.",
+        "This is the teacher's book.",
+        "The teacher is here.",
       ],
     }),
     speaking("ja-m24-2-1-rev-speak-1", M24_2_1_REVIEW[2].kana, M24_2_1_REVIEW[2].meaningEn),
@@ -928,12 +948,12 @@ export const M24_3_1: LessonContent = {
     vocabMcq("ja-m24-3-1-rev-mcq-1", M24_3_1_REVIEW[0], M24_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m24-3-1-rev-lc-1",
-      audioText: M24_3_1_REVIEW[1].kana,
-      correctMeaningEn: M24_3_1_REVIEW[1].meaningEn,
+      audioText: "しゅみは なんですか",
+      correctMeaningEn: "What is your hobby?",
       distractorsEn: [
-        M24_3_1_REVIEW[2].meaningEn,
-        M24_3_1_REVIEW[3].meaningEn,
-        M24_REVIEW_POOL[4].meaningEn,
+        "What is your name?",
+        "My hobby is manga.",
+        "What time is it?",
       ],
     }),
     speaking("ja-m24-3-1-rev-speak-1", M24_3_1_REVIEW[2].kana, M24_3_1_REVIEW[2].meaningEn),
@@ -1144,9 +1164,13 @@ export const M24_4_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m24-4-1-lc-ikkai",
-      audioText: "いっかい",
-      correctMeaningEn: "once (1 time)",
-      distractorsEn: ["twice", "three times", "sometimes"],
+      audioText: "にほんに いっかい いきました",
+      correctMeaningEn: "I went to Japan once.",
+      distractorsEn: [
+        "I went to Japan three times.",
+        "I go to Japan every year.",
+        "I want to go to Japan.",
+      ],
     }),
     // ── にかい (2 times) ──
     build(
@@ -1167,9 +1191,13 @@ export const M24_4_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m24-4-1-lc-sankai",
-      audioText: "さんかい",
-      correctMeaningEn: "three times",
-      distractorsEn: ["once", "twice", "every day"],
+      audioText: "その えいがを さんかい みました",
+      correctMeaningEn: "I watched that movie three times.",
+      distractorsEn: [
+        "I watched that movie once.",
+        "I watch that movie every week.",
+        "I read that book three times.",
+      ],
     }),
     // ── まいにち / まいしゅう ──
     build(
@@ -1245,12 +1273,12 @@ export const M24_4_1: LessonContent = {
     vocabMcq("ja-m24-4-1-rev-mcq-1", M24_4_1_REVIEW[0], M24_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m24-4-1-rev-lc-1",
-      audioText: M24_4_1_REVIEW[1].kana,
-      correctMeaningEn: M24_4_1_REVIEW[1].meaningEn,
+      audioText: "ラーメンを たべませんか",
+      correctMeaningEn: "Won't you have some ramen?",
       distractorsEn: [
-        M24_4_1_REVIEW[2].meaningEn,
-        M24_4_1_REVIEW[3].meaningEn,
-        M24_REVIEW_POOL[6].meaningEn,
+        "Let's make ramen.",
+        "I ate ramen yesterday.",
+        "This ramen is delicious.",
       ],
     }),
     speaking("ja-m24-4-1-rev-speak-1", M24_4_1_REVIEW[2].kana, M24_4_1_REVIEW[2].meaningEn),
@@ -1411,12 +1439,12 @@ export const M24_4_2: LessonContent = {
     vocabMcq("ja-m24-4-2-rev-mcq-1", M24_4_2_REVIEW[0], M24_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m24-4-2-rev-lc-1",
-      audioText: M24_4_2_REVIEW[1].kana,
-      correctMeaningEn: M24_4_2_REVIEW[1].meaningEn,
+      audioText: "じてんしゃで こうえんに いきます",
+      correctMeaningEn: "I go to the park by bicycle.",
       distractorsEn: [
-        M24_4_2_REVIEW[2].meaningEn,
-        M24_4_2_REVIEW[3].meaningEn,
-        M24_REVIEW_POOL[7].meaningEn,
+        "I go to the park by bus.",
+        "I go to school by bicycle.",
+        "I walk in the park.",
       ],
     }),
     speaking("ja-m24-4-2-rev-speak-1", M24_4_2_REVIEW[2].kana, M24_4_2_REVIEW[2].meaningEn),
@@ -1570,12 +1598,12 @@ export const M24_5_1: LessonContent = {
     vocabMcq("ja-m24-5-1-rev-mcq-1", M24_5_1_REVIEW[0], M24_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m24-5-1-rev-lc-1",
-      audioText: M24_5_1_REVIEW[1].kana,
-      correctMeaningEn: M24_5_1_REVIEW[1].meaningEn,
+      audioText: "ときどき ざっしを よみます",
+      correctMeaningEn: "I sometimes read magazines.",
       distractorsEn: [
-        M24_5_1_REVIEW[2].meaningEn,
-        M24_5_1_REVIEW[3].meaningEn,
-        M24_REVIEW_POOL[8].meaningEn,
+        "I read magazines every day.",
+        "I sometimes read newspapers.",
+        "I sometimes watch TV.",
       ],
     }),
     speaking("ja-m24-5-1-rev-speak-1", M24_5_1_REVIEW[2].kana, M24_5_1_REVIEW[2].meaningEn),
@@ -1734,12 +1762,12 @@ export const M24_5_2: LessonContent = {
     vocabMcq("ja-m24-5-2-rev-mcq-1", M24_5_2_REVIEW[0], M24_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m24-5-2-rev-lc-1",
-      audioText: M24_5_2_REVIEW[1].kana,
-      correctMeaningEn: M24_5_2_REVIEW[1].meaningEn,
+      audioText: "ろくじに ばんごはんを たべます",
+      correctMeaningEn: "I eat dinner at 6 o'clock.",
       distractorsEn: [
-        M24_5_2_REVIEW[2].meaningEn,
-        M24_5_2_REVIEW[3].meaningEn,
-        M24_REVIEW_POOL[9].meaningEn,
+        "I eat dinner at 9 o'clock.",
+        "I eat breakfast at 6 o'clock.",
+        "I make dinner at 6 o'clock.",
       ],
     }),
     speaking("ja-m24-5-2-rev-speak-1", M24_5_2_REVIEW[2].kana, M24_5_2_REVIEW[2].meaningEn),
@@ -1791,7 +1819,7 @@ export const M24_6_1: LessonContent = {
     speaking("ja-m24-6-1-speak-4", "しゅみは まんがです", "My hobby is manga."),
     // ── Review tail ──
     vocabMcq("ja-m24-6-1-rev-mcq-1", M24_6_1_REVIEW[0], M24_REVIEW_POOL),
-    listeningCompSentence({ id: "ja-m24-6-1-rev-lc-1", audioText: M24_6_1_REVIEW[1].kana, correctMeaningEn: M24_6_1_REVIEW[1].meaningEn, distractorsEn: [M24_6_1_REVIEW[2].meaningEn, M24_6_1_REVIEW[3].meaningEn, M24_REVIEW_POOL[10].meaningEn] }),
+    listeningCompSentence({ id: "ja-m24-6-1-rev-lc-1", audioText: "よく アニメを みます", correctMeaningEn: "I often watch anime.", distractorsEn: ["I rarely watch anime.", "I often read manga.", "I often listen to the radio."] }),
     speaking("ja-m24-6-1-rev-speak-1", M24_6_1_REVIEW[2].kana, M24_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-6-1-rev", M24_6_1_REVIEW),
     infoStep("ja-m24-6-1-info-end", "You can produce all M24 patterns from English prompts", "Preferences, casual lists, and frequency — all in production.", "win"),
@@ -1835,7 +1863,7 @@ export const M24_6_2: LessonContent = {
     speaking("ja-m24-6-2-speak-3", "しゅみは しゃしんです", "My hobby is photography."),
     // ── Review tail ──
     speaking("ja-m24-6-2-rev-speak-1", M24_6_2_REVIEW[0].kana, M24_6_2_REVIEW[0].meaningEn),
-    listeningCompSentence({ id: "ja-m24-6-2-rev-lc-1", audioText: M24_6_2_REVIEW[1].kana, correctMeaningEn: M24_6_2_REVIEW[1].meaningEn, distractorsEn: [M24_6_2_REVIEW[2].meaningEn, M24_6_2_REVIEW[3].meaningEn, M24_REVIEW_POOL[11].meaningEn] }),
+    listeningCompSentence({ id: "ja-m24-6-2-rev-lc-1", audioText: "すみません、みずを ください", correctMeaningEn: "Excuse me, water please.", distractorsEn: ["Excuse me, tea please.", "Excuse me, where is the water?", "The water is cold."] }),
     vocabMcq("ja-m24-6-2-rev-mcq-1", M24_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M24_REVIEW_POOL),
     reviewMatchPairs("ja-m24-6-2-rev", M24_6_2_REVIEW),
     infoStep("ja-m24-6-2-info-end", "You can describe your hobbies, how often, and in casual lists", "All M24 patterns in production — preferences, たり lists, and frequency counts.", "win"),
@@ -2030,7 +2058,7 @@ export const M24_7_1: LessonContent = {
     speaking("ja-m24-7-1-speak-2", "しゅうまつに しゃしんを とったり ジョギングを したりします", "On weekends, I do things like taking photos and jogging."),
     // ── Review tail ──
     vocabMcq("ja-m24-7-1-rev-mcq-1", M24_7_1_REVIEW[0], M24_REVIEW_POOL),
-    listeningCompSentence({ id: "ja-m24-7-1-rev-lc-1", audioText: M24_7_1_REVIEW[1].kana, correctMeaningEn: M24_7_1_REVIEW[1].meaningEn, distractorsEn: [M24_7_1_REVIEW[2].meaningEn, M24_7_1_REVIEW[3].meaningEn, M24_REVIEW_POOL[12].meaningEn] }),
+    listeningCompSentence({ id: "ja-m24-7-1-rev-lc-1", audioText: "あの じてんしゃは ともだちのです", correctMeaningEn: "That bicycle is my friend's.", distractorsEn: ["That bicycle is mine.", "That car is my friend's.", "My friend rides a bicycle."] }),
     speaking("ja-m24-7-1-rev-speak-1", M24_7_1_REVIEW[2].kana, M24_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-7-1-rev", M24_7_1_REVIEW),
     infoStep("ja-m24-7-1-info-end", "You can now have a full hobby conversation in Japanese", "Hobbies, preferences, frequency, casual listing — all in natural dialogue.", "win"),
@@ -2075,7 +2103,7 @@ export const M24_7_2: LessonContent = {
     speaking("ja-m24-7-2-speak-3", "しゅみは つりです。まいしゅう にかい いきます", "My hobby is fishing. I go twice a week."),
     // ── Review tail ──
     vocabMcq("ja-m24-7-2-rev-mcq-1", M24_7_2_REVIEW[0], M24_REVIEW_POOL),
-    listeningCompSentence({ id: "ja-m24-7-2-rev-lc-1", audioText: M24_7_2_REVIEW[1].kana, correctMeaningEn: M24_7_2_REVIEW[1].meaningEn, distractorsEn: [M24_7_2_REVIEW[2].meaningEn, M24_7_2_REVIEW[3].meaningEn, M24_REVIEW_POOL[13].meaningEn] }),
+    listeningCompSentence({ id: "ja-m24-7-2-rev-lc-1", audioText: "ごじに うちに かえります", correctMeaningEn: "I go home at 5 o'clock.", distractorsEn: ["I go home at 9 o'clock.", "I leave home at 5 o'clock.", "I go to school at 5 o'clock."] }),
     speaking("ja-m24-7-2-rev-speak-1", M24_7_2_REVIEW[2].kana, M24_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-7-2-rev", M24_7_2_REVIEW),
     infoStep("ja-m24-7-2-info-end", "You can now talk about hobbies like a natural Japanese speaker", "All M24 grammar mastered: のがすき, たり〜たりする, and かい counter — in full production.", "win"),

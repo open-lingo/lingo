@@ -106,6 +106,38 @@ Use the M3-M7 helpers in `grammarHelpers.ts`. Inline literals are a last resort 
 
 ---
 
+## 4b. Listening is sentence-first from M5 (Spencer, 2026-07-12)
+
+Single-word "make what you hear" is the WEAKER form of both listening
+types — from M5 onward, author `listening_build` with ≥ 3 tiles (a real
+sentence, particle tiles separate per the particle-separation guard) and
+prefer sentence transcripts for `listening_comprehension` ("hear the
+sentence, pick what it means" — effectively a listening cloze for the
+word in context). Word-level items stay legitimate in M1-M4 (kana
+acquisition) and as occasional vocab-recognition drills, but they must
+never grow a module's word-level count: `listeningGranularity.test.ts`
+ratchets each M5+ module's count downward — lower the baseline when a
+backfill wave lands, never raise it. New sentences need TTS emission
+(`emit-tts-deck.mjs`) and must pass the comprehensibility gate.
+
+## 4b2. phrase_card is shelved (Spencer, 2026-07-12)
+
+Do not author new phrase_card steps. The type stays in the engine; its one
+sanctioned home is the pre-auth /try preview opener (a cold visitor has
+nothing to retrieve yet, so introduce-then-recall is legitimate THERE).
+In-course vocabulary introduction happens through drills + the compact
+grammar card, never passive phrase cards.
+
+## 4c. Particle clozes are an introduction device (Spencer, 2026-07-12)
+
+A TRUE particle cloze (all options are particles) may only be authored
+within 2 modules of the drilled particle's introduction. Beyond that,
+contrast work (は vs が…) belongs to review lessons and the grammar deck —
+interleaving surfaces — not teaching lessons. Every cloze must show its
+English gloss pre-answer (now automatic) and carry enough context to force
+exactly one particle. `particleClozePlacement.test.ts` grandfathers the 82
+existing late usages as a shrink-only list; new late usages hard-fail.
+
 ## 5. The five things authors get wrong (audit + tester pattern)
 
 ### 5.1 Hardcoding the correct MCQ slot

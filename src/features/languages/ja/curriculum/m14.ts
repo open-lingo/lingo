@@ -303,9 +303,13 @@ export const M14_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m14-1-1-lc-tabete",
-      audioText: "たべて",
-      correctMeaningEn: "eat (te-form)",
-      distractorsEn: ["ate", "will eat", "eating (polite)"],
+      audioText: "すしを たべてください",
+      correctMeaningEn: "Please eat the sushi.",
+      distractorsEn: [
+        "Please drink the tea.",
+        "I eat sushi.",
+        "Please buy sushi.",
+      ],
     }),
     // ── みて (watch → te-form) ──
     build(
@@ -369,10 +373,10 @@ export const M14_1_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m14-1-1-lb-oshiete",
-      target: "おしえてください",
-      tiles: ["ください", "おしえて", "たべて", "みせて"],
-      correctOrder: ["おしえて", "ください"],
-      promptEn: "Hear it, build it: 'Please teach me.'",
+      target: "なまえを おしえてください",
+      tiles: ["なまえ", "を", "おしえて", "ください", "たべて", "みせて"],
+      correctOrder: ["なまえ", "を", "おしえて", "ください"],
+      promptEn: "Hear it, build it: 'Please tell me your name.'",
     }),
     selfExplain({
       id: "ja-m14-1-1-self-explain",
@@ -394,12 +398,13 @@ export const M14_1_1: LessonContent = {
     vocabMcq("ja-m14-1-1-rev-mcq-1", M14_1_1_REVIEW[0], M14_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m14-1-1-rev-lc-1",
-      audioText: M14_1_1_REVIEW[1].kana,
-      correctMeaningEn: M14_1_1_REVIEW[1].meaningEn,
+      // Sentence-level review of ほん (M3) — 2026-07-12 listening backfill.
+      audioText: "この ほんは おもしろいです",
+      correctMeaningEn: "This book is interesting.",
       distractorsEn: [
-        M14_1_1_REVIEW[2].meaningEn,
-        M14_1_1_REVIEW[3].meaningEn,
-        M14_REVIEW_POOL[0].meaningEn,
+        "This book is boring.",
+        "This movie is interesting.",
+        "That book is old.",
       ],
     }),
     speaking("ja-m14-1-1-rev-speak-1", M14_1_1_REVIEW[2].kana, M14_1_1_REVIEW[2].meaningEn),
@@ -555,12 +560,13 @@ export const M14_1_2: LessonContent = {
     vocabMcq("ja-m14-1-2-rev-mcq-1", M14_1_2_REVIEW[0], M14_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m14-1-2-rev-lc-1",
-      audioText: M14_1_2_REVIEW[1].kana,
-      correctMeaningEn: M14_1_2_REVIEW[1].meaningEn,
+      // Sentence-level review of きゅう (M5) — 2026-07-12 listening backfill.
+      audioText: "これは きゅうじゅうえんです",
+      correctMeaningEn: "It's 90 yen.",
       distractorsEn: [
-        M14_1_2_REVIEW[2].meaningEn,
-        M14_1_2_REVIEW[3].meaningEn,
-        M14_REVIEW_POOL[1].meaningEn,
+        "It's 19 yen.",
+        "It's 60 yen.",
+        "It's 9 yen.",
       ],
     }),
     reviewMatchPairs("ja-m14-1-2-rev", M14_1_2_REVIEW),
@@ -631,9 +637,13 @@ export const M14_2_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m14-2-1-lc-katte",
-      audioText: "かって",
-      correctMeaningEn: "buy (te-form)",
-      distractorsEn: ["write (te-form)", "return (te-form)", "wait (te-form)"],
+      audioText: "パンを かってください",
+      correctMeaningEn: "Please buy bread.",
+      distractorsEn: [
+        "Please wait a moment.",
+        "Please return home.",
+        "I bought bread.",
+      ],
     }),
     // ── かえる (return — Group 1 trap!) ──
     build(
@@ -873,12 +883,13 @@ export const M14_2_2: LessonContent = {
     vocabMcq("ja-m14-2-2-rev-mcq-1", M14_2_2_REVIEW[0], M14_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m14-2-2-rev-lc-1",
-      audioText: M14_2_2_REVIEW[1].kana,
-      correctMeaningEn: M14_2_2_REVIEW[1].meaningEn,
+      // Sentence-level review of うち (M6) — 2026-07-12 listening backfill.
+      audioText: "うちに かえってください",
+      correctMeaningEn: "Please go home.",
       distractorsEn: [
-        M14_2_2_REVIEW[2].meaningEn,
-        M14_2_2_REVIEW[3].meaningEn,
-        M14_REVIEW_POOL[3].meaningEn,
+        "Please come to my house.",
+        "Please wait at home.",
+        "I went home.",
       ],
     }),
     reviewMatchPairs("ja-m14-2-2-rev", M14_2_2_REVIEW),
@@ -1016,12 +1027,13 @@ export const M14_3_1: LessonContent = {
     vocabMcq("ja-m14-3-1-rev-mcq-1", M14_3_1_REVIEW[0], M14_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m14-3-1-rev-lc-1",
-      audioText: M14_3_1_REVIEW[1].kana,
-      correctMeaningEn: M14_3_1_REVIEW[1].meaningEn,
+      // Sentence-level review of みます (M7) — 2026-07-12 listening backfill.
+      audioText: "よる テレビを みます",
+      correctMeaningEn: "I watch TV at night.",
       distractorsEn: [
-        M14_3_1_REVIEW[2].meaningEn,
-        M14_3_1_REVIEW[3].meaningEn,
-        M14_REVIEW_POOL[4].meaningEn,
+        "I watch TV in the morning.",
+        "I read books at night.",
+        "I listen to music at night.",
       ],
     }),
     reviewMatchPairs("ja-m14-3-1-rev", M14_3_1_REVIEW),
@@ -1172,12 +1184,13 @@ export const M14_3_2: LessonContent = {
     vocabMcq("ja-m14-3-2-rev-mcq-1", M14_3_2_REVIEW[0], M14_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m14-3-2-rev-lc-1",
-      audioText: M14_3_2_REVIEW[1].kana,
-      correctMeaningEn: M14_3_2_REVIEW[1].meaningEn,
+      // Sentence-level review of いくら (M5) — 2026-07-12 listening backfill.
+      audioText: "この かばんは いくらですか",
+      correctMeaningEn: "How much is this bag?",
       distractorsEn: [
-        M14_3_2_REVIEW[2].meaningEn,
-        M14_3_2_REVIEW[3].meaningEn,
-        M14_REVIEW_POOL[5].meaningEn,
+        "How much is this umbrella?",
+        "Where is this bag?",
+        "This bag is 1,000 yen.",
       ],
     }),
     speaking("ja-m14-3-2-rev-speak-1", M14_3_2_REVIEW[2].kana, M14_3_2_REVIEW[2].meaningEn),
@@ -1337,12 +1350,13 @@ export const M14_4_1: LessonContent = {
     vocabMcq("ja-m14-4-1-rev-mcq-1", M14_4_1_REVIEW[0], M14_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m14-4-1-rev-lc-1",
-      audioText: M14_4_1_REVIEW[1].kana,
-      correctMeaningEn: M14_4_1_REVIEW[1].meaningEn,
+      // Sentence-level review of ご (M5) — 2026-07-12 listening backfill.
+      audioText: "ごじに きっさてんに いきます",
+      correctMeaningEn: "I go to the cafe at 5.",
       distractorsEn: [
-        M14_4_1_REVIEW[2].meaningEn,
-        M14_4_1_REVIEW[3].meaningEn,
-        M14_REVIEW_POOL[6].meaningEn,
+        "I go to the cafe at 9.",
+        "I go to the office at 5.",
+        "I went to the cafe at 5.",
       ],
     }),
     speaking("ja-m14-4-1-rev-speak-1", M14_4_1_REVIEW[2].kana, M14_4_1_REVIEW[2].meaningEn),
@@ -1497,12 +1511,13 @@ export const M14_4_2: LessonContent = {
     vocabMcq("ja-m14-4-2-rev-mcq-1", M14_4_2_REVIEW[0], M14_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m14-4-2-rev-lc-1",
-      audioText: M14_4_2_REVIEW[1].kana,
-      correctMeaningEn: M14_4_2_REVIEW[1].meaningEn,
+      // Sentence-level review of いち (M5) — 2026-07-12 listening backfill.
+      audioText: "いちがつに にほんに いきます",
+      correctMeaningEn: "I'm going to Japan in January.",
       distractorsEn: [
-        M14_4_2_REVIEW[2].meaningEn,
-        M14_4_2_REVIEW[3].meaningEn,
-        M14_REVIEW_POOL[7].meaningEn,
+        "I'm going to Japan in February.",
+        "I'm going to America in January.",
+        "I went to Japan in January.",
       ],
     }),
     reviewMatchPairs("ja-m14-4-2-rev", M14_4_2_REVIEW),
@@ -1819,12 +1834,13 @@ export const M14_5_2: LessonContent = {
     vocabMcq("ja-m14-5-2-rev-mcq-1", M14_5_2_REVIEW[0], M14_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m14-5-2-rev-lc-1",
-      audioText: M14_5_2_REVIEW[1].kana,
-      correctMeaningEn: M14_5_2_REVIEW[1].meaningEn,
+      // Sentence-level review of どれ (M4) — 2026-07-12 listening backfill.
+      audioText: "わたしの コーヒーは どれですか",
+      correctMeaningEn: "Which one is my coffee?",
       distractorsEn: [
-        M14_5_2_REVIEW[2].meaningEn,
-        M14_5_2_REVIEW[3].meaningEn,
-        M14_REVIEW_POOL[9].meaningEn,
+        "Which one is my tea?",
+        "Where is my coffee?",
+        "This is my coffee.",
       ],
     }),
     reviewMatchPairs("ja-m14-5-2-rev", M14_5_2_REVIEW),
@@ -1875,9 +1891,13 @@ export const M14_6_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m14-6-1-lc-hyaku",
-      audioText: "ひゃく",
-      correctMeaningEn: "100",
-      distractorsEn: ["1,000", "10,000", "10"],
+      audioText: "これは ひゃくえんです",
+      correctMeaningEn: "It's 100 yen.",
+      distractorsEn: [
+        "It's 1,000 yen.",
+        "It's 10,000 yen.",
+        "It's 10 yen.",
+      ],
     }),
     // ── にひゃく (200), さんびゃく (300 — sound change!) ──
     sentenceMcq({
@@ -2204,12 +2224,13 @@ export const M14_6_2: LessonContent = {
     vocabMcq("ja-m14-6-2-rev-mcq-1", M14_6_2_REVIEW[0], M14_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m14-6-2-rev-lc-1",
-      audioText: M14_6_2_REVIEW[1].kana,
-      correctMeaningEn: M14_6_2_REVIEW[1].meaningEn,
+      // Sentence-level review of いきます (M7) — 2026-07-12 listening backfill.
+      audioText: "どようびに としょかんに いきます",
+      correctMeaningEn: "I go to the library on Saturday.",
       distractorsEn: [
-        M14_6_2_REVIEW[2].meaningEn,
-        M14_6_2_REVIEW[3].meaningEn,
-        M14_REVIEW_POOL[11].meaningEn,
+        "I go to the library on Sunday.",
+        "I go to the bank on Saturday.",
+        "I went to the library on Saturday.",
       ],
     }),
     reviewMatchPairs("ja-m14-6-2-rev", M14_6_2_REVIEW),
@@ -2551,12 +2572,13 @@ export const M14_7_1: LessonContent = {
     vocabMcq("ja-m14-7-1-rev-mcq-1", M14_7_1_REVIEW[0], M14_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m14-7-1-rev-lc-1",
-      audioText: M14_7_1_REVIEW[1].kana,
-      correctMeaningEn: M14_7_1_REVIEW[1].meaningEn,
+      // Sentence-level review of だれ (M4) — 2026-07-12 listening backfill.
+      audioText: "これは だれの けいたいですか",
+      correctMeaningEn: "Whose mobile phone is this?",
       distractorsEn: [
-        M14_7_1_REVIEW[2].meaningEn,
-        M14_7_1_REVIEW[3].meaningEn,
-        M14_REVIEW_POOL[12].meaningEn,
+        "Whose camera is this?",
+        "Where is my mobile phone?",
+        "This is my mobile phone.",
       ],
     }),
     speaking("ja-m14-7-1-rev-speak-1", M14_7_1_REVIEW[2].kana, M14_7_1_REVIEW[2].meaningEn),
@@ -2718,12 +2740,13 @@ export const M14_7_2: LessonContent = {
     vocabMcq("ja-m14-7-2-rev-mcq-1", M14_7_2_REVIEW[0], M14_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m14-7-2-rev-lc-1",
-      audioText: M14_7_2_REVIEW[1].kana,
-      correctMeaningEn: M14_7_2_REVIEW[1].meaningEn,
+      // Sentence-level review of さん (M5) — 2026-07-12 listening backfill.
+      audioText: "しゃしんを さんまい ください",
+      correctMeaningEn: "Three photos, please.",
       distractorsEn: [
-        M14_7_2_REVIEW[2].meaningEn,
-        M14_7_2_REVIEW[3].meaningEn,
-        M14_REVIEW_POOL[13].meaningEn,
+        "Two photos, please.",
+        "Three tickets, please.",
+        "Three pens, please.",
       ],
     }),
     reviewMatchPairs("ja-m14-7-2-rev", M14_7_2_REVIEW),

@@ -158,12 +158,16 @@ export const M6_1_1: LessonContent = {
       ["うち", "がっこう", "えき", "こうえん"],
       ["えき"],
     ),
-    // listening retrieval on えき
+    // listening retrieval on えき — in an M4 pointer carrier
     listeningCompSentence({
       id: "ja-m6-1-1-lc-eki",
-      audioText: "えき",
-      correctMeaningEn: "train station",
-      distractorsEn: ["school", "park", "home"],
+      audioText: "あれは えき です",
+      correctMeaningEn: "That over there is the train station.",
+      distractorsEn: [
+        "That over there is a school.",
+        "That over there is a park.",
+        "That over there is my home.",
+      ],
     }),
     // prior-module review break — bumps ratio
     vocabMcq("ja-m6-1-1-rev-mcq-mid", M6_1_1_REVIEW[0], PRIOR_POOL),
@@ -178,12 +182,16 @@ export const M6_1_1: LessonContent = {
     }),
     // speaking — production on another atom
     speaking("ja-m6-1-1-speak-gakkou", "がっこう", "School"),
-    // listening on こうえん
+    // listening on こうえん — question carrier for variety
     listeningCompSentence({
       id: "ja-m6-1-1-lc-koen",
-      audioText: "こうえん",
-      correctMeaningEn: "park",
-      distractorsEn: ["home", "train station", "school"],
+      audioText: "あれは こうえん ですか",
+      correctMeaningEn: "Is that a park (over there)?",
+      distractorsEn: [
+        "Is that a school (over there)?",
+        "Is that a train station (over there)?",
+        "Is that a shop (over there)?",
+      ],
     }),
     // ── Review tail ──
     speaking("ja-m6-1-1-rev-speak-1", M6_1_1_REVIEW[1].kana, M6_1_1_REVIEW[1].meaningEn),
@@ -240,12 +248,16 @@ export const M6_1_2: LessonContent = {
       ["コンビニ", "トイレ", "へや", "みせ"],
       ["トイレ"],
     ),
-    // listening retrieval
+    // listening retrieval — pointing at a door near the listener
     listeningCompSentence({
       id: "ja-m6-1-2-lc-toire",
-      audioText: "トイレ",
-      correctMeaningEn: "toilet",
-      distractorsEn: ["convenience store", "park", "shop"],
+      audioText: "それは トイレ ですか",
+      correctMeaningEn: "Is that the toilet?",
+      distractorsEn: [
+        "Is that a shop?",
+        "Is that a room?",
+        "Is that a convenience store?",
+      ],
     }),
     // ── Atom 6: コンビニ (convenience store) — single-tile build
     build(
@@ -509,14 +521,15 @@ export const M6_2_1: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m6-2-1-rev-speak-1", M6_2_1_REVIEW[1].kana, M6_2_1_REVIEW[1].meaningEn),
+    // Sentence-level review of けいたい (M4 mobile phone) in a の carrier.
     listeningCompSentence({
       id: "ja-m6-2-1-rev-lc",
-      audioText: M6_2_1_REVIEW[2].kana,
-      correctMeaningEn: M6_2_1_REVIEW[2].meaningEn,
+      audioText: "これは わたしの けいたい です",
+      correctMeaningEn: "This is my mobile phone.",
       distractorsEn: [
-        M6_2_1_REVIEW[3].meaningEn,
-        M6_2_1_REVIEW[4].meaningEn,
-        M6_2_1_REVIEW[5].meaningEn,
+        "This is my camera.",
+        "This is my dictionary.",
+        "This is my bag.",
       ],
     }),
     reviewMatchPairs("ja-m6-2-1-rev", M6_2_1_REVIEW.slice(0, 5)),
@@ -678,14 +691,15 @@ export const M6_2_2: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m6-2-2-rev-speak-1", M6_2_2_REVIEW[0].kana, M6_2_2_REVIEW[0].meaningEn),
+    // Sentence-level review of げんき (M2 well/energy) in the M3 copula frame.
     listeningCompSentence({
       id: "ja-m6-2-2-rev-lc",
-      audioText: M6_2_2_REVIEW[1].kana,
-      correctMeaningEn: M6_2_2_REVIEW[1].meaningEn,
+      audioText: "わたしは げんき です",
+      correctMeaningEn: "I'm doing well.",
       distractorsEn: [
-        M6_2_2_REVIEW[2].meaningEn,
-        M6_2_2_REVIEW[3].meaningEn,
-        M6_2_2_REVIEW[4].meaningEn,
+        "I'm a student.",
+        "I'm at home.",
+        "I'm from Japan.",
       ],
     }),
     reviewMatchPairs("ja-m6-2-2-rev", M6_2_2_REVIEW.slice(0, 5)),
@@ -854,14 +868,15 @@ export const M6_3_1: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m6-3-1-rev-speak-1", M6_3_1_REVIEW[1].kana, M6_3_1_REVIEW[1].meaningEn),
+    // Sentence-level review of さんぽ (M2 walk/stroll) in a の carrier.
     listeningCompSentence({
       id: "ja-m6-3-1-rev-lc",
-      audioText: M6_3_1_REVIEW[2].kana,
-      correctMeaningEn: M6_3_1_REVIEW[2].meaningEn,
+      audioText: "あさの さんぽ です",
+      correctMeaningEn: "It's a morning walk.",
       distractorsEn: [
-        M6_3_1_REVIEW[3].meaningEn,
-        M6_3_1_REVIEW[4].meaningEn,
-        M6_3_1_REVIEW[5].meaningEn,
+        "It's a morning meal.",
+        "It's morning coffee.",
+        "It's a morning test.",
       ],
     }),
     reviewMatchPairs("ja-m6-3-1-rev", M6_3_1_REVIEW.slice(0, 5)),
@@ -1026,14 +1041,15 @@ export const M6_3_2: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m6-3-2-rev-speak-1", M6_3_2_REVIEW[0].kana, M6_3_2_REVIEW[0].meaningEn),
+    // Sentence-level review of わたし (M4) inside this lesson's means-で pattern.
     listeningCompSentence({
       id: "ja-m6-3-2-rev-lc",
-      audioText: M6_3_2_REVIEW[1].kana,
-      correctMeaningEn: M6_3_2_REVIEW[1].meaningEn,
+      audioText: "わたしは バスで うちに かえります",
+      correctMeaningEn: "I go home by bus.",
       distractorsEn: [
-        M6_3_2_REVIEW[2].meaningEn,
-        M6_3_2_REVIEW[3].meaningEn,
-        M6_3_2_REVIEW[4].meaningEn,
+        "I go home by train.",
+        "I go to school by bus.",
+        "You go home by bus.",
       ],
     }),
     reviewMatchPairs("ja-m6-3-2-rev", M6_3_2_REVIEW.slice(0, 5)),
@@ -1212,14 +1228,15 @@ export const M6_4_1: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m6-4-1-rev-speak-1", M6_4_1_REVIEW[1].kana, M6_4_1_REVIEW[1].meaningEn),
+    // Sentence-level review of わたし (M4) in the M6-2 existence pattern.
     listeningCompSentence({
       id: "ja-m6-4-1-rev-lc",
-      audioText: M6_4_1_REVIEW[2].kana,
-      correctMeaningEn: M6_4_1_REVIEW[2].meaningEn,
+      audioText: "わたしは えきに います",
+      correctMeaningEn: "I'm at the station.",
       distractorsEn: [
-        M6_4_1_REVIEW[3].meaningEn,
-        M6_4_1_REVIEW[4].meaningEn,
-        M6_4_1_REVIEW[5].meaningEn,
+        "I go to the station.",
+        "There's a station.",
+        "I'm at school.",
       ],
     }),
     reviewMatchPairs("ja-m6-4-1-rev", M6_4_1_REVIEW.slice(0, 5)),
@@ -1390,14 +1407,15 @@ export const M6_4_2: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m6-4-2-rev-speak-1", M6_4_2_REVIEW[0].kana, M6_4_2_REVIEW[0].meaningEn),
+    // Sentence-level review of コーヒー (M3) in this lesson's existence question.
     listeningCompSentence({
       id: "ja-m6-4-2-rev-lc",
-      audioText: M6_4_2_REVIEW[1].kana,
-      correctMeaningEn: M6_4_2_REVIEW[1].meaningEn,
+      audioText: "コーヒーが ありますか",
+      correctMeaningEn: "Is there coffee?",
       distractorsEn: [
-        M6_4_2_REVIEW[2].meaningEn,
-        M6_4_2_REVIEW[3].meaningEn,
-        M6_4_2_REVIEW[4].meaningEn,
+        "There's coffee.",
+        "Is there green tea?",
+        "Coffee, please.",
       ],
     }),
     reviewMatchPairs("ja-m6-4-2-rev", M6_4_2_REVIEW.slice(0, 5)),
@@ -1547,14 +1565,15 @@ export const M6_5_1: LessonContent = {
     }),
     // ── Review tail ──
     speaking("ja-m6-5-1-rev-speak-1", M6_5_1_REVIEW[1].kana, M6_5_1_REVIEW[1].meaningEn),
+    // Sentence-level review of ねこ (M1) in the M6-4 existence pattern.
     listeningCompSentence({
       id: "ja-m6-5-1-rev-lc",
-      audioText: M6_5_1_REVIEW[2].kana,
-      correctMeaningEn: M6_5_1_REVIEW[2].meaningEn,
+      audioText: "ねこが います",
+      correctMeaningEn: "There's a cat.",
       distractorsEn: [
-        M6_5_1_REVIEW[3].meaningEn,
-        M6_5_1_REVIEW[4].meaningEn,
-        M6_5_1_REVIEW[5].meaningEn,
+        "There's a dog.",
+        "I like cats.",
+        "I'm with a cat.",
       ],
     }),
     reviewMatchPairs("ja-m6-5-1-rev", M6_5_1_REVIEW.slice(0, 5)),
@@ -1717,14 +1736,15 @@ export const M6_5_2: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m6-5-2-rev-speak-1", M6_5_2_REVIEW[0].kana, M6_5_2_REVIEW[0].meaningEn),
+    // Sentence-level review of ねこ (M1) — existence question this time.
     listeningCompSentence({
       id: "ja-m6-5-2-rev-lc",
-      audioText: M6_5_2_REVIEW[1].kana,
-      correctMeaningEn: M6_5_2_REVIEW[1].meaningEn,
+      audioText: "ねこが いますか",
+      correctMeaningEn: "Is there a cat?",
       distractorsEn: [
-        M6_5_2_REVIEW[2].meaningEn,
-        M6_5_2_REVIEW[3].meaningEn,
-        M6_5_2_REVIEW[4].meaningEn,
+        "There's a cat.",
+        "Is there a dog?",
+        "Is there a teacher?",
       ],
     }),
     vocabMcq("ja-m6-5-2-rev-mcq-2", M6_5_2_REVIEW[3], PRIOR_POOL),
@@ -1880,14 +1900,15 @@ export const M6_6_1: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m6-6-1-rev-speak-1", M6_6_1_REVIEW[1].kana, M6_6_1_REVIEW[1].meaningEn),
+    // Sentence-level review of えき (M6) with the means-で + destination pattern.
     listeningCompSentence({
       id: "ja-m6-6-1-rev-lc",
-      audioText: M6_6_1_REVIEW[2].kana,
-      correctMeaningEn: M6_6_1_REVIEW[2].meaningEn,
+      audioText: "でんしゃで えきに いきます",
+      correctMeaningEn: "I go to the station by train.",
       distractorsEn: [
-        M6_6_1_REVIEW[3].meaningEn,
-        M6_6_1_REVIEW[4].meaningEn,
-        M6_6_1_REVIEW[5].meaningEn,
+        "I go to school by train.",
+        "I go to the station by bus.",
+        "I'm at the station.",
       ],
     }),
     reviewMatchPairs("ja-m6-6-1-rev", M6_6_1_REVIEW.slice(0, 5)),
@@ -2041,14 +2062,15 @@ export const M6_6_2: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m6-6-2-rev-speak-1", M6_6_2_REVIEW[0].kana, M6_6_2_REVIEW[0].meaningEn),
+    // Sentence-level review of ふね (M1 boat) as a means-で carrier.
     listeningCompSentence({
       id: "ja-m6-6-2-rev-lc",
-      audioText: M6_6_2_REVIEW[1].kana,
-      correctMeaningEn: M6_6_2_REVIEW[1].meaningEn,
+      audioText: "ふねで いきます",
+      correctMeaningEn: "I go by boat.",
       distractorsEn: [
-        M6_6_2_REVIEW[2].meaningEn,
-        M6_6_2_REVIEW[3].meaningEn,
-        M6_6_2_REVIEW[4].meaningEn,
+        "I go by bus.",
+        "I go by train.",
+        "There's a boat.",
       ],
     }),
     vocabMcq("ja-m6-6-2-rev-mcq-2", M6_6_2_REVIEW[3], PRIOR_POOL),
@@ -2328,14 +2350,15 @@ export const M6_7_1: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m6-7-1-rev-speak-1", M6_7_1_REVIEW[1].kana, M6_7_1_REVIEW[1].meaningEn),
+    // Sentence-level review of いす (M4 chair) in the compound existence pattern.
     listeningCompSentence({
       id: "ja-m6-7-1-rev-lc",
-      audioText: M6_7_1_REVIEW[2].kana,
-      correctMeaningEn: M6_7_1_REVIEW[2].meaningEn,
+      audioText: "へやに いすが あります",
+      correctMeaningEn: "There's a chair in the room.",
       distractorsEn: [
-        M6_7_1_REVIEW[3].meaningEn,
-        M6_7_1_REVIEW[4].meaningEn,
-        M6_7_1_REVIEW[5].meaningEn,
+        "There's a door in the room.",
+        "There's a cat in the room.",
+        "There's a chair at the station.",
       ],
     }),
     reviewMatchPairs("ja-m6-7-1-rev", M6_7_1_REVIEW.slice(0, 5)),
@@ -2472,14 +2495,15 @@ export const M6_7_2: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m6-7-2-rev-speak-1", M6_7_2_REVIEW[0].kana, M6_7_2_REVIEW[0].meaningEn),
+    // Sentence-level review of かぞく (M2 family) with the M5 people counter.
     listeningCompSentence({
       id: "ja-m6-7-2-rev-lc",
-      audioText: M6_7_2_REVIEW[1].kana,
-      correctMeaningEn: M6_7_2_REVIEW[1].meaningEn,
+      audioText: "かぞくは よにん です",
+      correctMeaningEn: "There are four people in my family.",
       distractorsEn: [
-        M6_7_2_REVIEW[2].meaningEn,
-        M6_7_2_REVIEW[3].meaningEn,
-        M6_7_2_REVIEW[4].meaningEn,
+        "There are four students.",
+        "There are four friends.",
+        "There are two people in my family.",
       ],
     }),
     reviewMatchPairs("ja-m6-7-2-rev", M6_7_2_REVIEW.slice(0, 5)),
@@ -2792,14 +2816,15 @@ export const M6_8_2: LessonContent = {
     ),
     // ── Review tail ──
     speaking("ja-m6-8-2-rev-speak-1", M6_8_2_REVIEW[0].kana, M6_8_2_REVIEW[0].meaningEn),
+    // Sentence-level review of いくら (M5) in its natural price question.
     listeningCompSentence({
       id: "ja-m6-8-2-rev-lc",
-      audioText: M6_8_2_REVIEW[1].kana,
-      correctMeaningEn: M6_8_2_REVIEW[1].meaningEn,
+      audioText: "これは いくら ですか",
+      correctMeaningEn: "How much is this?",
       distractorsEn: [
-        M6_8_2_REVIEW[2].meaningEn,
-        M6_8_2_REVIEW[3].meaningEn,
-        M6_8_2_REVIEW[4].meaningEn,
+        "What is this?",
+        "Who is this?",
+        "This is 100 yen.",
       ],
     }),
     vocabMcq("ja-m6-8-2-rev-mcq-2", M6_8_2_REVIEW[3], PRIOR_POOL),

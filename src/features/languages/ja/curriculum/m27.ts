@@ -204,9 +204,13 @@ export const M27_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m27-1-1-lc-kimeru",
-      audioText: "きめる",
-      correctMeaningEn: "decide",
-      distractorsEn: ["protect", "promise", "prepare"],
+      audioText: "ばんごはんを きめる",
+      correctMeaningEn: "decide on dinner",
+      distractorsEn: [
+        "make dinner",
+        "eat dinner",
+        "decide on breakfast",
+      ],
     }),
     // ── まもる (protect / follow rules) ──
     build(
@@ -240,9 +244,13 @@ export const M27_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m27-1-1-lc-junbi",
-      audioText: "じゅんび",
-      correctMeaningEn: "preparation",
-      distractorsEn: ["practice", "exam", "promise"],
+      audioText: "りょこうの じゅんびを します",
+      correctMeaningEn: "I get ready for the trip.",
+      distractorsEn: [
+        "I decide on the trip.",
+        "I get ready for the exam.",
+        "I came back from the trip.",
+      ],
     }),
     // ── れんしゅう (practice) ──
     build(
@@ -312,12 +320,12 @@ export const M27_1_1: LessonContent = {
     vocabMcq("ja-m27-1-1-rev-mcq-1", M27_1_1_REVIEW[0], M27_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m27-1-1-rev-lc-1",
-      audioText: M27_1_1_REVIEW[1].kana,
-      correctMeaningEn: M27_1_1_REVIEW[1].meaningEn,
+      audioText: "まいしゅう てがみを かきます",
+      correctMeaningEn: "I write a letter every week.",
       distractorsEn: [
-        M27_1_1_REVIEW[2].meaningEn,
-        M27_1_1_REVIEW[3].meaningEn,
-        M27_REVIEW_POOL[0].meaningEn,
+        "I write a letter every day.",
+        "I read a letter every week.",
+        "I wrote a letter yesterday.",
       ],
     }),
     speaking("ja-m27-1-1-rev-speak-1", M27_1_1_REVIEW[2].kana, M27_1_1_REVIEW[2].meaningEn),
@@ -367,9 +375,13 @@ export const M27_1_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m27-1-2-lc-kenkou",
-      audioText: "けんこう",
-      correctMeaningEn: "health",
-      distractorsEn: ["hospital", "medicine", "exercise"],
+      audioText: "わたしは けんこうです",
+      correctMeaningEn: "I am healthy.",
+      distractorsEn: [
+        "I am busy.",
+        "I am sick.",
+        "I am safe.",
+      ],
     }),
     // ── びょういん (hospital) ──
     build(
@@ -416,9 +428,13 @@ export const M27_1_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m27-1-2-lc-anzen",
-      audioText: "あんぜん",
-      correctMeaningEn: "safety / safe",
-      distractorsEn: ["danger", "important", "necessary"],
+      audioText: "ここは あんぜんです",
+      correctMeaningEn: "This place is safe.",
+      distractorsEn: [
+        "This place is dangerous.",
+        "This place is quiet.",
+        "That place is safe.",
+      ],
     }),
     // ── きけん (danger) ──
     build(
@@ -475,12 +491,12 @@ export const M27_1_2: LessonContent = {
     vocabMcq("ja-m27-1-2-rev-mcq-1", M27_1_2_REVIEW[0], M27_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m27-1-2-rev-lc-1",
-      audioText: M27_1_2_REVIEW[1].kana,
-      correctMeaningEn: M27_1_2_REVIEW[1].meaningEn,
+      audioText: "トイレは あそこに あります",
+      correctMeaningEn: "The toilet is over there.",
       distractorsEn: [
-        M27_1_2_REVIEW[2].meaningEn,
-        M27_1_2_REVIEW[3].meaningEn,
-        M27_REVIEW_POOL[1].meaningEn,
+        "The bank is over there.",
+        "Where is the toilet?",
+        "There is no toilet here.",
       ],
     }),
     speaking("ja-m27-1-2-rev-speak-1", M27_1_2_REVIEW[2].kana, M27_1_2_REVIEW[2].meaningEn),
@@ -527,7 +543,11 @@ export const M27_2_1: LessonContent = {
       "くすりを のま",
       "なりません。",
       "なければ",
-      ["なければ", "なくちゃ", "ないで", "なくて"],
+      // Distractor QA 2026-07-12: なくちゃ removed — the SAME lesson teaches
+      // なくちゃ as a valid casual "must", and のまなくちゃ(は)なりません reads
+      // as defensibly correct (なくては contraction), making the item feel
+      // unanswerable. Distractors must be cleanly wrong.
+      ["なければ", "ない", "ないで", "なくて"],
       "I must take medicine.",
       "くすりを のまなければなりません。",
       "ない-form base (のまな-) + ければなりません = must.",
@@ -565,7 +585,8 @@ export const M27_2_1: LessonContent = {
       "やくそくを まもら",
       "なりません。",
       "なければ",
-      ["なければ", "ないで", "なくて", "なくちゃ"],
+      // Same distractor rule as cloze-1: なくちゃ is quasi-correct here.
+      ["なければ", "ないで", "なくて", "ない"],
       "I must keep my promise.",
       "やくそくを まもらなければなりません。",
       "まもる → まもらない → まもらなければ.",
@@ -803,12 +824,12 @@ export const M27_2_2: LessonContent = {
     vocabMcq("ja-m27-2-2-rev-mcq-1", M27_2_2_REVIEW[0], M27_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m27-2-2-rev-lc-1",
-      audioText: M27_2_2_REVIEW[1].kana,
-      correctMeaningEn: M27_2_2_REVIEW[1].meaningEn,
+      audioText: "バスで びょういんに いきます",
+      correctMeaningEn: "I go to the hospital by bus.",
       distractorsEn: [
-        M27_2_2_REVIEW[2].meaningEn,
-        M27_2_2_REVIEW[3].meaningEn,
-        M27_REVIEW_POOL[3].meaningEn,
+        "I go to the hospital by train.",
+        "I go to school by bus.",
+        "I walk to the hospital.",
       ],
     }),
     speaking("ja-m27-2-2-rev-speak-1", M27_2_2_REVIEW[2].kana, M27_2_2_REVIEW[2].meaningEn),
@@ -967,12 +988,12 @@ export const M27_3_1: LessonContent = {
     vocabMcq("ja-m27-3-1-rev-mcq-1", M27_3_1_REVIEW[0], M27_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m27-3-1-rev-lc-1",
-      audioText: M27_3_1_REVIEW[1].kana,
-      correctMeaningEn: M27_3_1_REVIEW[1].meaningEn,
+      audioText: "あさごはんを たべましたか",
+      correctMeaningEn: "Did you eat breakfast?",
       distractorsEn: [
-        M27_3_1_REVIEW[2].meaningEn,
-        M27_3_1_REVIEW[3].meaningEn,
-        M27_REVIEW_POOL[4].meaningEn,
+        "Did you make breakfast?",
+        "What did you eat for breakfast?",
+        "I eat breakfast every day.",
       ],
     }),
     speaking("ja-m27-3-1-rev-speak-1", M27_3_1_REVIEW[2].kana, M27_3_1_REVIEW[2].meaningEn),
@@ -1130,12 +1151,12 @@ export const M27_3_2: LessonContent = {
     vocabMcq("ja-m27-3-2-rev-mcq-1", M27_3_2_REVIEW[0], M27_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m27-3-2-rev-lc-1",
-      audioText: M27_3_2_REVIEW[1].kana,
-      correctMeaningEn: M27_3_2_REVIEW[1].meaningEn,
+      audioText: "ぎんこうに いかなければなりません",
+      correctMeaningEn: "I have to go to the bank.",
       distractorsEn: [
-        M27_3_2_REVIEW[2].meaningEn,
-        M27_3_2_REVIEW[3].meaningEn,
-        M27_REVIEW_POOL[5].meaningEn,
+        "I want to go to the bank.",
+        "I should go to the hospital.",
+        "I went to the bank yesterday.",
       ],
     }),
     speaking("ja-m27-3-2-rev-speak-1", M27_3_2_REVIEW[2].kana, M27_3_2_REVIEW[2].meaningEn),
@@ -1336,12 +1357,12 @@ export const M27_4_1: LessonContent = {
     vocabMcq("ja-m27-4-1-rev-mcq-1", M27_4_1_REVIEW[0], M27_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m27-4-1-rev-lc-1",
-      audioText: M27_4_1_REVIEW[1].kana,
-      correctMeaningEn: M27_4_1_REVIEW[1].meaningEn,
+      audioText: "この いすは わたしのです",
+      correctMeaningEn: "This chair is mine.",
       distractorsEn: [
-        M27_4_1_REVIEW[2].meaningEn,
-        M27_4_1_REVIEW[3].meaningEn,
-        M27_REVIEW_POOL[6].meaningEn,
+        "This desk is mine.",
+        "This chair is my friend's.",
+        "That chair is small.",
       ],
     }),
     speaking("ja-m27-4-1-rev-speak-1", M27_4_1_REVIEW[2].kana, M27_4_1_REVIEW[2].meaningEn),
@@ -1498,12 +1519,12 @@ export const M27_4_2: LessonContent = {
     vocabMcq("ja-m27-4-2-rev-mcq-1", M27_4_2_REVIEW[0], M27_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m27-4-2-rev-lc-1",
-      audioText: M27_4_2_REVIEW[1].kana,
-      correctMeaningEn: M27_4_2_REVIEW[1].meaningEn,
+      audioText: "あなたの けいたいは どれですか",
+      correctMeaningEn: "Which one is your mobile phone?",
       distractorsEn: [
-        M27_4_2_REVIEW[2].meaningEn,
-        M27_4_2_REVIEW[3].meaningEn,
-        M27_REVIEW_POOL[7].meaningEn,
+        "Where is your mobile phone?",
+        "Is this your mobile phone?",
+        "Whose mobile phone is this?",
       ],
     }),
     speaking("ja-m27-4-2-rev-speak-1", M27_4_2_REVIEW[2].kana, M27_4_2_REVIEW[2].meaningEn),
@@ -1671,12 +1692,12 @@ export const M27_5_1: LessonContent = {
     vocabMcq("ja-m27-5-1-rev-mcq-1", M27_5_1_REVIEW[0], M27_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m27-5-1-rev-lc-1",
-      audioText: M27_5_1_REVIEW[1].kana,
-      correctMeaningEn: M27_5_1_REVIEW[1].meaningEn,
+      audioText: "アメリカに いきたいです",
+      correctMeaningEn: "I want to go to America.",
       distractorsEn: [
-        M27_5_1_REVIEW[2].meaningEn,
-        M27_5_1_REVIEW[3].meaningEn,
-        M27_REVIEW_POOL[8].meaningEn,
+        "I want to go to Japan.",
+        "I have been to America.",
+        "I live in America.",
       ],
     }),
     speaking("ja-m27-5-1-rev-speak-1", M27_5_1_REVIEW[2].kana, M27_5_1_REVIEW[2].meaningEn),
@@ -1837,12 +1858,12 @@ export const M27_5_2: LessonContent = {
     vocabMcq("ja-m27-5-2-rev-mcq-1", M27_5_2_REVIEW[0], M27_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m27-5-2-rev-lc-1",
-      audioText: M27_5_2_REVIEW[1].kana,
-      correctMeaningEn: M27_5_2_REVIEW[1].meaningEn,
+      audioText: "じてんしゃで いったほうがいいです",
+      correctMeaningEn: "You should go by bicycle.",
       distractorsEn: [
-        M27_5_2_REVIEW[2].meaningEn,
-        M27_5_2_REVIEW[3].meaningEn,
-        M27_REVIEW_POOL[9].meaningEn,
+        "You should go by bus.",
+        "You must go by bicycle.",
+        "I like riding bicycles.",
       ],
     }),
     speaking("ja-m27-5-2-rev-speak-1", M27_5_2_REVIEW[2].kana, M27_5_2_REVIEW[2].meaningEn),
@@ -1999,12 +2020,12 @@ export const M27_6_1: LessonContent = {
     vocabMcq("ja-m27-6-1-rev-mcq-1", M27_6_1_REVIEW[0], M27_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m27-6-1-rev-lc-1",
-      audioText: M27_6_1_REVIEW[1].kana,
-      correctMeaningEn: M27_6_1_REVIEW[1].meaningEn,
+      audioText: "えきに トイレが あります",
+      correctMeaningEn: "There is a toilet in the station.",
       distractorsEn: [
-        M27_6_1_REVIEW[2].meaningEn,
-        M27_6_1_REVIEW[3].meaningEn,
-        M27_REVIEW_POOL[10].meaningEn,
+        "There is a bank in the station.",
+        "There is no toilet in the station.",
+        "Where is the station toilet?",
       ],
     }),
     speaking("ja-m27-6-1-rev-speak-1", M27_6_1_REVIEW[2].kana, M27_6_1_REVIEW[2].meaningEn),
@@ -2498,12 +2519,12 @@ export const M27_7_1: LessonContent = {
     vocabMcq("ja-m27-7-1-rev-mcq-1", M27_7_1_REVIEW[0], M27_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m27-7-1-rev-lc-1",
-      audioText: M27_7_1_REVIEW[1].kana,
-      correctMeaningEn: M27_7_1_REVIEW[1].meaningEn,
+      audioText: "この くすりを のんで ください",
+      correctMeaningEn: "Please take this medicine.",
       distractorsEn: [
-        M27_7_1_REVIEW[2].meaningEn,
-        M27_7_1_REVIEW[3].meaningEn,
-        M27_REVIEW_POOL[12].meaningEn,
+        "Please buy this medicine.",
+        "Don't take this medicine.",
+        "Please drink some water.",
       ],
     }),
     speaking("ja-m27-7-1-rev-speak-1", M27_7_1_REVIEW[2].kana, M27_7_1_REVIEW[2].meaningEn),
@@ -2674,12 +2695,12 @@ export const M27_7_2: LessonContent = {
     vocabMcq("ja-m27-7-2-rev-mcq-1", M27_7_2_REVIEW[0], M27_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m27-7-2-rev-lc-1",
-      audioText: M27_7_2_REVIEW[1].kana,
-      correctMeaningEn: M27_7_2_REVIEW[1].meaningEn,
+      audioText: "まいにち くすりを のみます",
+      correctMeaningEn: "I take medicine every day.",
       distractorsEn: [
-        M27_7_2_REVIEW[2].meaningEn,
-        M27_7_2_REVIEW[3].meaningEn,
-        M27_REVIEW_POOL[13].meaningEn,
+        "I take medicine sometimes.",
+        "I drink coffee every day.",
+        "I must take medicine.",
       ],
     }),
     speaking("ja-m27-7-2-rev-speak-1", M27_7_2_REVIEW[2].kana, M27_7_2_REVIEW[2].meaningEn),

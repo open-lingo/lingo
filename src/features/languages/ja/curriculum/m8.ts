@@ -191,9 +191,13 @@ export const M8_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m8-1-1-lc-ookii",
-      audioText: "おおきい",
-      correctMeaningEn: "big",
-      distractorsEn: ["small", "expensive", "cheap"],
+      audioText: "この いぬは おおきいです",
+      correctMeaningEn: "This dog is big.",
+      distractorsEn: [
+        "This dog is small.",
+        "This cat is big.",
+        "That dog (over there) is big.",
+      ],
     }),
     // ── ちいさい (small) ──
     build(
@@ -290,14 +294,15 @@ export const M8_1_1: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-1-1-rev-mcq-1", M8_1_1_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of さんぽ (M2 walk/stroll) in a の carrier.
     listeningCompSentence({
       id: "ja-m8-1-1-rev-lc-1",
-      audioText: M8_1_1_REVIEW[1].kana,
-      correctMeaningEn: M8_1_1_REVIEW[1].meaningEn,
+      audioText: "こうえんの さんぽです",
+      correctMeaningEn: "It's a walk in the park.",
       distractorsEn: [
-        M8_1_1_REVIEW[2].meaningEn,
-        M8_1_1_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[0].meaningEn,
+        "It's a walk in the mountains.",
+        "It's a meal in the park.",
+        "It's a photo of the park.",
       ],
     }),
     speaking("ja-m8-1-1-rev-speak-1", M8_1_1_REVIEW[2].kana, M8_1_1_REVIEW[2].meaningEn),
@@ -451,14 +456,15 @@ export const M8_1_2: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-1-2-rev-mcq-1", M8_1_2_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of みず (M3 water) with this lesson's adjective.
     listeningCompSentence({
       id: "ja-m8-1-2-rev-lc-1",
-      audioText: M8_1_2_REVIEW[1].kana,
-      correctMeaningEn: M8_1_2_REVIEW[1].meaningEn,
+      audioText: "この みずは やすいです",
+      correctMeaningEn: "This water is cheap.",
       distractorsEn: [
-        M8_1_2_REVIEW[2].meaningEn,
-        M8_1_2_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[1].meaningEn,
+        "This water is expensive.",
+        "This juice is cheap.",
+        "That water (over there) is cheap.",
       ],
     }),
     speaking("ja-m8-1-2-rev-speak-1", M8_1_2_REVIEW[2].kana, M8_1_2_REVIEW[2].meaningEn),
@@ -560,9 +566,13 @@ export const M8_2_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m8-2-1-lc-mazui",
-      audioText: "まずい",
-      correctMeaningEn: "bad-tasting",
-      distractorsEn: ["delicious", "bad", "cheap"],
+      audioText: "この コーヒーは まずいです",
+      correctMeaningEn: "This coffee is bad-tasting.",
+      distractorsEn: [
+        "This coffee is delicious.",
+        "This ramen is bad-tasting.",
+        "That coffee (over there) is bad-tasting.",
+      ],
     }),
     // ── い-adj negative drills ──
     sentenceMcq({
@@ -782,15 +792,12 @@ export const M8_2_2: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-2-2-rev-mcq-1", M8_2_2_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of じゅう (M5) — countdown run.
     listeningCompSentence({
       id: "ja-m8-2-2-rev-lc-1",
-      audioText: M8_2_2_REVIEW[1].kana,
-      correctMeaningEn: M8_2_2_REVIEW[1].meaningEn,
-      distractorsEn: [
-        M8_2_2_REVIEW[2].meaningEn,
-        M8_2_2_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[3].meaningEn,
-      ],
+      audioText: "じゅう、きゅう、はち",
+      correctMeaningEn: "10, 9, 8",
+      distractorsEn: ["8, 9, 10", "10, 8, 6", "9, 8, 7"],
     }),
     speaking("ja-m8-2-2-rev-speak-1", M8_2_2_REVIEW[2].kana, M8_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-2-2-rev", M8_2_2_REVIEW),
@@ -841,9 +848,13 @@ export const M8_3_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m8-3-1-lc-atsui",
-      audioText: "あつい",
-      correctMeaningEn: "hot",
-      distractorsEn: ["cold (weather)", "cold (touch)", "warm"],
+      audioText: "この ごはんは あついです",
+      correctMeaningEn: "This rice is hot.",
+      distractorsEn: [
+        "This rice is cold.",
+        "This bread is hot.",
+        "This rice is delicious.",
+      ],
     }),
     // ── さむい (cold-weather) ──
     build(
@@ -877,9 +888,13 @@ export const M8_3_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m8-3-1-lc-atatakai",
-      audioText: "あたたかい",
-      correctMeaningEn: "warm",
-      distractorsEn: ["hot", "cold (weather)", "cold (touch)"],
+      audioText: "この へやは あたたかいです",
+      correctMeaningEn: "This room is warm.",
+      distractorsEn: [
+        "This room is hot.",
+        "This room is cold.",
+        "That room (over there) is warm.",
+      ],
     }),
     // ── と particle drills ──
     cloze(
@@ -935,14 +950,15 @@ export const M8_3_1: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-3-1-rev-mcq-1", M8_3_1_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of ねこ (M1) with an M8-1 adjective.
     listeningCompSentence({
       id: "ja-m8-3-1-rev-lc-1",
-      audioText: M8_3_1_REVIEW[1].kana,
-      correctMeaningEn: M8_3_1_REVIEW[1].meaningEn,
+      audioText: "この ねこは おおきいです",
+      correctMeaningEn: "This cat is big.",
       distractorsEn: [
-        M8_3_1_REVIEW[2].meaningEn,
-        M8_3_1_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[4].meaningEn,
+        "This cat is small.",
+        "This dog is big.",
+        "That cat (over there) is big.",
       ],
     }),
     speaking("ja-m8-3-1-rev-speak-1", M8_3_1_REVIEW[2].kana, M8_3_1_REVIEW[2].meaningEn),
@@ -1103,14 +1119,15 @@ export const M8_3_2: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-3-2-rev-mcq-1", M8_3_2_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of じてんしゃ (M4) with an M8-1 adjective.
     listeningCompSentence({
       id: "ja-m8-3-2-rev-lc-1",
-      audioText: M8_3_2_REVIEW[1].kana,
-      correctMeaningEn: M8_3_2_REVIEW[1].meaningEn,
+      audioText: "この じてんしゃは たかいです",
+      correctMeaningEn: "This bicycle is expensive.",
       distractorsEn: [
-        M8_3_2_REVIEW[2].meaningEn,
-        M8_3_2_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[5].meaningEn,
+        "This bicycle is cheap.",
+        "This car is expensive.",
+        "That bicycle (over there) is expensive.",
       ],
     }),
     speaking("ja-m8-3-2-rev-speak-1", M8_3_2_REVIEW[2].kana, M8_3_2_REVIEW[2].meaningEn),
@@ -1197,9 +1214,13 @@ export const M8_4_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m8-4-1-lc-tsumaranai",
-      audioText: "つまらない",
-      correctMeaningEn: "boring",
-      distractorsEn: ["interesting", "long", "short"],
+      audioText: "この ほんは つまらないです",
+      correctMeaningEn: "This book is boring.",
+      distractorsEn: [
+        "This book is interesting.",
+        "This book is long.",
+        "That book is boring.",
+      ],
     }),
     // ── Sentence drills ──
     build(
@@ -1260,14 +1281,15 @@ export const M8_4_1: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-4-1-rev-mcq-1", M8_4_1_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of うた (M1 song) with an M8-2 adjective.
     listeningCompSentence({
       id: "ja-m8-4-1-rev-lc-1",
-      audioText: M8_4_1_REVIEW[1].kana,
-      correctMeaningEn: M8_4_1_REVIEW[1].meaningEn,
+      audioText: "この うたは いいです",
+      correctMeaningEn: "This song is good.",
       distractorsEn: [
-        M8_4_1_REVIEW[2].meaningEn,
-        M8_4_1_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[6].meaningEn,
+        "This song isn't good.",
+        "This movie is good.",
+        "That song is good.",
       ],
     }),
     speaking("ja-m8-4-1-rev-speak-1", M8_4_1_REVIEW[2].kana, M8_4_1_REVIEW[2].meaningEn),
@@ -1428,14 +1450,15 @@ export const M8_4_2: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-4-2-rev-mcq-1", M8_4_2_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of たべます (M7) combined with this module's と.
     listeningCompSentence({
       id: "ja-m8-4-2-rev-lc-1",
-      audioText: M8_4_2_REVIEW[1].kana,
-      correctMeaningEn: M8_4_2_REVIEW[1].meaningEn,
+      audioText: "パンと ごはんを たべます",
+      correctMeaningEn: "I eat bread and rice.",
       distractorsEn: [
-        M8_4_2_REVIEW[2].meaningEn,
-        M8_4_2_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[7].meaningEn,
+        "I eat bread and sushi.",
+        "I drink bread and rice.",
+        "Bread and rice, please.",
       ],
     }),
     speaking("ja-m8-4-2-rev-speak-1", M8_4_2_REVIEW[2].kana, M8_4_2_REVIEW[2].meaningEn),
@@ -1486,9 +1509,13 @@ export const M8_5_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m8-5-1-lc-muzukashii",
-      audioText: "むずかしい",
-      correctMeaningEn: "difficult",
-      distractorsEn: ["easy", "fast", "slow"],
+      audioText: "この ほんは むずかしいです",
+      correctMeaningEn: "This book is difficult.",
+      distractorsEn: [
+        "This book is easy.",
+        "That book is difficult.",
+        "This book is interesting.",
+      ],
     }),
     // ── やさしい (easy/kind) ──
     build(
@@ -1522,9 +1549,13 @@ export const M8_5_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m8-5-1-lc-osoi",
-      audioText: "おそい",
-      correctMeaningEn: "slow / late",
-      distractorsEn: ["fast / early", "difficult", "easy"],
+      audioText: "この でんしゃは おそいです",
+      correctMeaningEn: "This train is slow.",
+      distractorsEn: [
+        "This train is fast.",
+        "This bus is slow.",
+        "That train (over there) is slow.",
+      ],
     }),
     // ── Sentence drills ──
     build(
@@ -1587,14 +1618,15 @@ export const M8_5_1: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-5-1-rev-mcq-1", M8_5_1_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of ラーメン (M7) with an M8-1 adjective.
     listeningCompSentence({
       id: "ja-m8-5-1-rev-lc-1",
-      audioText: M8_5_1_REVIEW[1].kana,
-      correctMeaningEn: M8_5_1_REVIEW[1].meaningEn,
+      audioText: "この ラーメンは やすいです",
+      correctMeaningEn: "This ramen is cheap.",
       distractorsEn: [
-        M8_5_1_REVIEW[2].meaningEn,
-        M8_5_1_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[8].meaningEn,
+        "This ramen is expensive.",
+        "This sushi is cheap.",
+        "That ramen (over there) is cheap.",
       ],
     }),
     speaking("ja-m8-5-1-rev-speak-1", M8_5_1_REVIEW[2].kana, M8_5_1_REVIEW[2].meaningEn),
@@ -1814,9 +1846,13 @@ export const M8_6_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m8-6-1-lc-chikai",
-      audioText: "ちかい",
-      correctMeaningEn: "near",
-      distractorsEn: ["far", "wide", "narrow"],
+      audioText: "がっこうは ちかいです",
+      correctMeaningEn: "The school is near.",
+      distractorsEn: [
+        "The school is far.",
+        "The station is near.",
+        "The school is big.",
+      ],
     }),
     // ── とおい (far) ──
     build(
@@ -1850,9 +1886,13 @@ export const M8_6_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m8-6-1-lc-semai",
-      audioText: "せまい",
-      correctMeaningEn: "narrow / cramped",
-      distractorsEn: ["wide / spacious", "near", "far"],
+      audioText: "わたしの へやは せまいです",
+      correctMeaningEn: "My room is cramped.",
+      distractorsEn: [
+        "My room is spacious.",
+        "My house is cramped.",
+        "My room is new.",
+      ],
     }),
     // ── Sentence drills ──
     build(
@@ -1915,15 +1955,12 @@ export const M8_6_1: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-6-1-rev-mcq-1", M8_6_1_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of なな (M5) — odd-numbers counting run.
     listeningCompSentence({
       id: "ja-m8-6-1-rev-lc-1",
-      audioText: M8_6_1_REVIEW[1].kana,
-      correctMeaningEn: M8_6_1_REVIEW[1].meaningEn,
-      distractorsEn: [
-        M8_6_1_REVIEW[2].meaningEn,
-        M8_6_1_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[10].meaningEn,
-      ],
+      audioText: "いち、さん、ご、なな",
+      correctMeaningEn: "1, 3, 5, 7",
+      distractorsEn: ["1, 2, 3, 4", "2, 4, 6, 8", "7, 5, 3, 1"],
     }),
     speaking("ja-m8-6-1-rev-speak-1", M8_6_1_REVIEW[2].kana, M8_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-6-1-rev", M8_6_1_REVIEW),
@@ -2078,14 +2115,15 @@ export const M8_6_2: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-6-2-rev-mcq-1", M8_6_2_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of コンビニ (M6) with this lesson's adjective.
     listeningCompSentence({
       id: "ja-m8-6-2-rev-lc-1",
-      audioText: M8_6_2_REVIEW[1].kana,
-      correctMeaningEn: M8_6_2_REVIEW[1].meaningEn,
+      audioText: "あの コンビニは ちかいです",
+      correctMeaningEn: "That convenience store (over there) is near.",
       distractorsEn: [
-        M8_6_2_REVIEW[2].meaningEn,
-        M8_6_2_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[11].meaningEn,
+        "That convenience store (over there) is far.",
+        "This convenience store is near.",
+        "That shop (over there) is near.",
       ],
     }),
     speaking("ja-m8-6-2-rev-speak-1", M8_6_2_REVIEW[2].kana, M8_6_2_REVIEW[2].meaningEn),
@@ -2204,12 +2242,12 @@ export const M8_8_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m8-8-1-lc-achira",
-      audioText: "あちら",
-      correctMeaningEn: "over there (far from both — polite)",
+      audioText: "こうえんは あちらです",
+      correctMeaningEn: "The park is over there.",
       distractorsEn: [
-        "this way (polite)",
-        "that way, near you (polite)",
-        "which way? (polite)",
+        "The park is this way.",
+        "The park is that way (near you).",
+        "The station is over there.",
       ],
     }),
     // ── どちら (which way?) ──
@@ -2273,15 +2311,12 @@ export const M8_8_1: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-8-1-rev-mcq-1", M8_8_1_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of さん (M5) — the classic counting run.
     listeningCompSentence({
       id: "ja-m8-8-1-rev-lc-1",
-      audioText: M8_8_1_REVIEW[1].kana,
-      correctMeaningEn: M8_8_1_REVIEW[1].meaningEn,
-      distractorsEn: [
-        M8_8_1_REVIEW[2].meaningEn,
-        M8_8_1_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[14].meaningEn,
-      ],
+      audioText: "いち、に、さん",
+      correctMeaningEn: "1, 2, 3",
+      distractorsEn: ["3, 2, 1", "2, 3, 4", "1, 3, 5"],
     }),
     speaking("ja-m8-8-1-rev-speak-1", M8_8_1_REVIEW[2].kana, M8_8_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-8-1-rev", M8_8_1_REVIEW),
@@ -2429,14 +2464,15 @@ export const M8_8_2: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-8-2-rev-mcq-1", M8_8_2_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of みせ (M6) with this lesson's どちら question.
     listeningCompSentence({
       id: "ja-m8-8-2-rev-lc-1",
-      audioText: M8_8_2_REVIEW[1].kana,
-      correctMeaningEn: M8_8_2_REVIEW[1].meaningEn,
+      audioText: "みせは どちらですか",
+      correctMeaningEn: "Which way is the shop?",
       distractorsEn: [
-        M8_8_2_REVIEW[2].meaningEn,
-        M8_8_2_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[15].meaningEn,
+        "Which way is the station?",
+        "The shop is this way.",
+        "How is the shop?",
       ],
     }),
     speaking("ja-m8-8-2-rev-speak-1", M8_8_2_REVIEW[2].kana, M8_8_2_REVIEW[2].meaningEn),
@@ -2759,14 +2795,15 @@ export const M8_7_1: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-7-1-rev-mcq-1", M8_7_1_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of コンビニ (M6) with an M8 carrier adjective.
     listeningCompSentence({
       id: "ja-m8-7-1-rev-lc-1",
-      audioText: M8_7_1_REVIEW[1].kana,
-      correctMeaningEn: M8_7_1_REVIEW[1].meaningEn,
+      audioText: "この コンビニは あたらしいです",
+      correctMeaningEn: "This convenience store is new.",
       distractorsEn: [
-        M8_7_1_REVIEW[2].meaningEn,
-        M8_7_1_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[12].meaningEn,
+        "This convenience store is old.",
+        "This shop is new.",
+        "That convenience store (over there) is new.",
       ],
     }),
     speaking("ja-m8-7-1-rev-speak-1", M8_7_1_REVIEW[2].kana, M8_7_1_REVIEW[2].meaningEn),
@@ -2923,14 +2960,15 @@ export const M8_7_2: LessonContent = {
     ),
     // ── Review tail ──
     vocabMcq("ja-m8-7-2-rev-mcq-1", M8_7_2_REVIEW[0], M8_REVIEW_POOL),
+    // Sentence-level review of ください (M5) with a prenominal M8 adjective.
     listeningCompSentence({
       id: "ja-m8-7-2-rev-lc-1",
-      audioText: M8_7_2_REVIEW[1].kana,
-      correctMeaningEn: M8_7_2_REVIEW[1].meaningEn,
+      audioText: "つめたい みずを ください",
+      correctMeaningEn: "Cold water, please.",
       distractorsEn: [
-        M8_7_2_REVIEW[2].meaningEn,
-        M8_7_2_REVIEW[3].meaningEn,
-        M8_REVIEW_POOL[13].meaningEn,
+        "Hot water, please.",
+        "Cold juice, please.",
+        "I drink cold water.",
       ],
     }),
     speaking("ja-m8-7-2-rev-speak-1", M8_7_2_REVIEW[2].kana, M8_7_2_REVIEW[2].meaningEn),

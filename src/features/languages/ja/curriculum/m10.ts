@@ -145,9 +145,13 @@ export const M10_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m10-1-1-lc-kinou",
-      audioText: "きのう",
-      correctMeaningEn: "yesterday",
-      distractorsEn: ["today", "tomorrow", "day before yesterday"],
+      audioText: "きのう ほんを よみました",
+      correctMeaningEn: "I read a book yesterday.",
+      distractorsEn: [
+        "I read a book today.",
+        "I will read a book tomorrow.",
+        "I wrote a letter yesterday.",
+      ],
     }),
     // ── おととい (day before yesterday) ──
     build(
@@ -256,12 +260,12 @@ export const M10_1_1: LessonContent = {
     speaking("ja-m10-1-1-rev-speak-1", M10_1_1_REVIEW[1].kana, M10_1_1_REVIEW[1].meaningEn),
     listeningCompSentence({
       id: "ja-m10-1-1-rev-lc-1",
-      audioText: M10_1_1_REVIEW[2].kana,
-      correctMeaningEn: M10_1_1_REVIEW[2].meaningEn,
+      audioText: "すしを たべました",
+      correctMeaningEn: "I ate sushi.",
       distractorsEn: [
-        M10_1_1_REVIEW[3].meaningEn,
-        M10_1_1_REVIEW[0].meaningEn,
-        M10_REVIEW_M7_POOL[0].meaningEn,
+        "I eat sushi.",
+        "I ate bread.",
+        "I drank tea.",
       ],
     }),
     reviewMatchPairs("ja-m10-1-1-rev", M10_1_1_REVIEW),
@@ -463,12 +467,12 @@ export const M10_1_2: LessonContent = {
     speaking("ja-m10-1-2-rev-speak-1", M10_1_2_REVIEW[1].kana, M10_1_2_REVIEW[1].meaningEn),
     listeningCompSentence({
       id: "ja-m10-1-2-rev-lc-1",
-      audioText: M10_1_2_REVIEW[2].kana,
-      correctMeaningEn: M10_1_2_REVIEW[2].meaningEn,
+      audioText: "バスで がっこうに いきました",
+      correctMeaningEn: "I went to school by bus.",
       distractorsEn: [
-        M10_1_2_REVIEW[3].meaningEn,
-        M10_1_2_REVIEW[0].meaningEn,
-        M10_REVIEW_M6_POOL[0].meaningEn,
+        "I went to school by train.",
+        "I go to school by bus.",
+        "I went to the bank by bus.",
       ],
     }),
     reviewMatchPairs("ja-m10-1-2-rev", M10_1_2_REVIEW),
@@ -517,9 +521,13 @@ export const M10_2_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m10-2-1-lc-kesa",
-      audioText: "けさ",
-      correctMeaningEn: "this morning",
-      distractorsEn: ["last night", "yesterday", "tomorrow"],
+      audioText: "けさ コーヒーを のみました",
+      correctMeaningEn: "I drank coffee this morning.",
+      distractorsEn: [
+        "I drank coffee last night.",
+        "I drank coffee yesterday.",
+        "I drank tea this morning.",
+      ],
     }),
     // ── ゆうべ (last night) ──
     build(
@@ -601,10 +609,10 @@ export const M10_2_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m10-2-1-lb-aruki",
-      target: "けさ あるきました",
-      tiles: ["ゆうべ", "あるきました", "ねました", "けさ", "おきました"],
-      correctOrder: ["けさ", "あるきました"],
-      promptEn: "Hear it, build it: 'I walked this morning.'",
+      target: "けさ こうえんで あるきました",
+      tiles: ["こうえん", "で", "あるきました", "けさ", "ゆうべ", "ねました"],
+      correctOrder: ["けさ", "こうえん", "で", "あるきました"],
+      promptEn: "Hear it, build it: 'I walked in the park this morning.'",
     }),
     speaking(
       "ja-m10-2-1-speak-nemashita",
@@ -744,10 +752,10 @@ export const M10_2_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m10-2-2-lb-oyogi",
-      target: "おととい およぎました",
-      tiles: ["きのう", "あそびました", "およぎました", "はしりました", "おととい"],
-      correctOrder: ["おととい", "およぎました"],
-      promptEn: "Hear it, build it: 'I swam the day before yesterday.'",
+      target: "おととい うみで およぎました",
+      tiles: ["うみ", "で", "およぎました", "おととい", "きのう", "はしりました"],
+      correctOrder: ["おととい", "うみ", "で", "およぎました"],
+      promptEn: "Hear it, build it: 'I swam in the sea the day before yesterday.'",
     }),
     // ── ニュース (the news) — image intro + sentence build ──
     vocabMcq(
@@ -818,12 +826,12 @@ export const M10_2_2: LessonContent = {
     speaking("ja-m10-2-2-rev-speak-1", M10_2_2_REVIEW[1].kana, M10_2_2_REVIEW[1].meaningEn),
     listeningCompSentence({
       id: "ja-m10-2-2-rev-lc-1",
-      audioText: M10_2_2_REVIEW[2].kana,
-      correctMeaningEn: M10_2_2_REVIEW[2].meaningEn,
+      audioText: "きのう じてんしゃで えきに いきました",
+      correctMeaningEn: "I went to the station by bicycle yesterday.",
       distractorsEn: [
-        M10_2_2_REVIEW[3].meaningEn,
-        M10_2_2_REVIEW[0].meaningEn,
-        M10_REVIEW_M4_POOL[0].meaningEn,
+        "I went to the station by bus yesterday.",
+        "I go to the station by bicycle every day.",
+        "I walked to the station yesterday.",
       ],
     }),
     reviewMatchPairs("ja-m10-2-2-rev", M10_2_2_REVIEW),
@@ -979,10 +987,10 @@ export const M10_3_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m10-3-1-lb-janakatta",
-      target: "ともだちじゃなかったです",
-      tiles: ["がくせい", "ともだち", "じゃなかったです", "でした", "です"],
-      correctOrder: ["ともだち", "じゃなかったです"],
-      promptEn: "Hear it, build it: 'She wasn't a friend.'",
+      target: "あの ひとは ともだちじゃなかったです",
+      tiles: ["ひと", "は", "ともだち", "じゃなかったです", "あの", "でした", "がくせい"],
+      correctOrder: ["あの", "ひと", "は", "ともだち", "じゃなかったです"],
+      promptEn: "Hear it, build it: 'That person wasn't a friend.'",
     }),
     speaking(
       "ja-m10-3-1-speak-deshita",
@@ -1011,12 +1019,12 @@ export const M10_3_1: LessonContent = {
     speaking("ja-m10-3-1-rev-speak-1", M10_3_1_REVIEW[1].kana, M10_3_1_REVIEW[1].meaningEn),
     listeningCompSentence({
       id: "ja-m10-3-1-rev-lc-1",
-      audioText: M10_3_1_REVIEW[2].kana,
-      correctMeaningEn: M10_3_1_REVIEW[2].meaningEn,
+      audioText: "せんせいは がっこうに います",
+      correctMeaningEn: "The teacher is at school.",
       distractorsEn: [
-        M10_3_1_REVIEW[3].meaningEn,
-        M10_3_1_REVIEW[0].meaningEn,
-        M10_REVIEW_M3_POOL[0].meaningEn,
+        "The teacher is at the station.",
+        "The student is at school.",
+        "The teacher was a student.",
       ],
     }),
     reviewMatchPairs("ja-m10-3-1-rev", M10_3_1_REVIEW),
@@ -1191,12 +1199,12 @@ export const M10_3_2: LessonContent = {
     speaking("ja-m10-3-2-rev-speak-1", M10_3_2_REVIEW[1].kana, M10_3_2_REVIEW[1].meaningEn),
     listeningCompSentence({
       id: "ja-m10-3-2-rev-lc-1",
-      audioText: M10_3_2_REVIEW[2].kana,
-      correctMeaningEn: M10_3_2_REVIEW[2].meaningEn,
+      audioText: "ゆうべ えいがを みました",
+      correctMeaningEn: "I watched a movie last night.",
       distractorsEn: [
-        M10_3_2_REVIEW[3].meaningEn,
-        M10_3_2_REVIEW[0].meaningEn,
-        M10_REVIEW_M7_POOL[0].meaningEn,
+        "I watched TV last night.",
+        "I watch a movie every night.",
+        "I read a book last night.",
       ],
     }),
     reviewMatchPairs("ja-m10-3-2-rev", M10_3_2_REVIEW),
@@ -1354,10 +1362,10 @@ export const M10_4_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m10-4-1-lb-takakatta",
-      target: "おいしかったです",
-      tiles: ["おいしくなかった", "よかった", "です", "おいしかった", "たかかった"],
-      correctOrder: ["おいしかった", "です"],
-      promptEn: "Hear it, build it: 'It was delicious.'",
+      target: "すしは おいしかったです",
+      tiles: ["すし", "は", "おいしかった", "です", "おいしくなかった", "たかかった"],
+      correctOrder: ["すし", "は", "おいしかった", "です"],
+      promptEn: "Hear it, build it: 'The sushi was delicious.'",
     }),
     sentenceMcq({
       id: "ja-m10-4-1-mcq-yokatta",
@@ -1397,12 +1405,12 @@ export const M10_4_1: LessonContent = {
     speaking("ja-m10-4-1-rev-speak-1", M10_4_1_REVIEW[1].kana, M10_4_1_REVIEW[1].meaningEn),
     listeningCompSentence({
       id: "ja-m10-4-1-rev-lc-1",
-      audioText: M10_4_1_REVIEW[2].kana,
-      correctMeaningEn: M10_4_1_REVIEW[2].meaningEn,
+      audioText: "あの みせは たかかったです",
+      correctMeaningEn: "That shop was expensive.",
       distractorsEn: [
-        M10_4_1_REVIEW[3].meaningEn,
-        M10_4_1_REVIEW[0].meaningEn,
-        M10_REVIEW_M6_POOL[0].meaningEn,
+        "That shop was cheap.",
+        "That shop is expensive.",
+        "That restaurant was expensive.",
       ],
     }),
     reviewMatchPairs("ja-m10-4-1-rev", M10_4_1_REVIEW),
@@ -1576,12 +1584,12 @@ export const M10_4_2: LessonContent = {
     speaking("ja-m10-4-2-rev-speak-1", M10_4_2_REVIEW[1].kana, M10_4_2_REVIEW[1].meaningEn),
     listeningCompSentence({
       id: "ja-m10-4-2-rev-lc-1",
-      audioText: M10_4_2_REVIEW[2].kana,
-      correctMeaningEn: M10_4_2_REVIEW[2].meaningEn,
+      audioText: "ともだちは ろくにんです",
+      correctMeaningEn: "There are six friends.",
       distractorsEn: [
-        M10_4_2_REVIEW[3].meaningEn,
-        M10_4_2_REVIEW[0].meaningEn,
-        M10_REVIEW_M5_POOL[0].meaningEn,
+        "There are five friends.",
+        "There are six students.",
+        "There are ten friends.",
       ],
     }),
     reviewMatchPairs("ja-m10-4-2-rev", M10_4_2_REVIEW),
@@ -1782,12 +1790,12 @@ export const M10_5_1: LessonContent = {
     speaking("ja-m10-5-1-rev-speak-1", M10_5_1_REVIEW[1].kana, M10_5_1_REVIEW[1].meaningEn),
     listeningCompSentence({
       id: "ja-m10-5-1-rev-lc-1",
-      audioText: M10_5_1_REVIEW[2].kana,
-      correctMeaningEn: M10_5_1_REVIEW[2].meaningEn,
+      audioText: "アメリカに いきました",
+      correctMeaningEn: "I went to America.",
       distractorsEn: [
-        M10_5_1_REVIEW[3].meaningEn,
-        M10_5_1_REVIEW[0].meaningEn,
-        M10_REVIEW_M4_POOL[0].meaningEn,
+        "I went to Japan.",
+        "I go to America.",
+        "I came back from America.",
       ],
     }),
     reviewMatchPairs("ja-m10-5-1-rev", M10_5_1_REVIEW),
@@ -2007,9 +2015,13 @@ export const M10_6_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m10-6-1-lc-senshuu",
-      audioText: "せんしゅう",
-      correctMeaningEn: "last week",
-      distractorsEn: ["last month", "last year", "yesterday"],
+      audioText: "せんしゅう えいがを みました",
+      correctMeaningEn: "I watched a movie last week.",
+      distractorsEn: [
+        "I watched a movie last month.",
+        "I watched a movie yesterday.",
+        "I will watch a movie next week.",
+      ],
     }),
     // ── せんげつ (last month) ──
     build(
@@ -2090,10 +2102,10 @@ export const M10_6_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m10-6-1-lb-senshuu",
-      target: "せんしゅう およぎました",
-      tiles: ["きょねん", "はしりました", "せんげつ", "せんしゅう", "およぎました"],
-      correctOrder: ["せんしゅう", "およぎました"],
-      promptEn: "Hear it, build it: 'I swam last week.'",
+      target: "せんしゅう ともだちと およぎました",
+      tiles: ["ともだち", "と", "およぎました", "せんしゅう", "せんげつ", "はしりました"],
+      correctOrder: ["せんしゅう", "ともだち", "と", "およぎました"],
+      promptEn: "Hear it, build it: 'I swam with a friend last week.'",
     }),
     speaking(
       "ja-m10-6-1-speak-kyonen",
@@ -2122,12 +2134,12 @@ export const M10_6_1: LessonContent = {
     speaking("ja-m10-6-1-rev-speak-1", M10_6_1_REVIEW[1].kana, M10_6_1_REVIEW[1].meaningEn),
     listeningCompSentence({
       id: "ja-m10-6-1-rev-lc-1",
-      audioText: M10_6_1_REVIEW[2].kana,
-      correctMeaningEn: M10_6_1_REVIEW[2].meaningEn,
+      audioText: "せんしゅう すしを たべました",
+      correctMeaningEn: "I ate sushi last week.",
       distractorsEn: [
-        M10_6_1_REVIEW[3].meaningEn,
-        M10_6_1_REVIEW[0].meaningEn,
-        M10_REVIEW_M7_POOL[0].meaningEn,
+        "I ate sushi yesterday.",
+        "I ate bread last week.",
+        "I didn't eat sushi last week.",
       ],
     }),
     reviewMatchPairs("ja-m10-6-1-rev", M10_6_1_REVIEW),
@@ -2259,10 +2271,10 @@ export const M10_6_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m10-6-2-lb-hataraki",
-      target: "きょねん はたらきました",
-      tiles: ["べんきょうしました", "きょねん", "はたらきました", "でかけました", "せんげつ"],
-      correctOrder: ["きょねん", "はたらきました"],
-      promptEn: "Hear it, build it: 'I worked last year.'",
+      target: "きょねん ぎんこうで はたらきました",
+      tiles: ["ぎんこう", "で", "はたらきました", "きょねん", "せんげつ", "べんきょうしました"],
+      correctOrder: ["きょねん", "ぎんこう", "で", "はたらきました"],
+      promptEn: "Hear it, build it: 'I worked at a bank last year.'",
     }),
     sentenceMcq({
       id: "ja-m10-6-2-mcq-neg-hataraki",

@@ -355,12 +355,12 @@ export const M12_1_1: LessonContent = {
     vocabMcq("ja-m12-1-1-rev-mcq-1", M12_1_1_REVIEW[0], M12_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m12-1-1-rev-lc-1",
-      audioText: M12_1_1_REVIEW[1].kana,
-      correctMeaningEn: M12_1_1_REVIEW[1].meaningEn,
+      audioText: "がくせいは さんにんです",
+      correctMeaningEn: "There are three students.",
       distractorsEn: [
-        M12_1_1_REVIEW[2].meaningEn,
-        M12_1_1_REVIEW[3].meaningEn,
-        M12_REVIEW_POOL[0].meaningEn,
+        "There are four students.",
+        "There are three teachers.",
+        "There are five students.",
       ],
     }),
     speaking("ja-m12-1-1-rev-speak-1", M12_1_1_REVIEW[2].kana, M12_1_1_REVIEW[2].meaningEn),
@@ -658,12 +658,12 @@ export const M12_2_1: LessonContent = {
     vocabMcq("ja-m12-2-1-rev-mcq-1", M12_2_1_REVIEW[0], M12_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m12-2-1-rev-lc-1",
-      audioText: M12_2_1_REVIEW[1].kana,
-      correctMeaningEn: M12_2_1_REVIEW[1].meaningEn,
+      audioText: "いま いちじです",
+      correctMeaningEn: "It's 1 o'clock now.",
       distractorsEn: [
-        M12_2_1_REVIEW[2].meaningEn,
-        M12_2_1_REVIEW[3].meaningEn,
-        M12_REVIEW_POOL[2].meaningEn,
+        "It's 7 o'clock now.",
+        "It's 11 o'clock now.",
+        "It's 1:30 now.",
       ],
     }),
     speaking("ja-m12-2-1-rev-speak-1", M12_2_1_REVIEW[2].kana, M12_2_1_REVIEW[2].meaningEn),
@@ -963,12 +963,12 @@ export const M12_3_1: LessonContent = {
     vocabMcq("ja-m12-3-1-rev-mcq-1", M12_3_1_REVIEW[0], M12_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m12-3-1-rev-lc-1",
-      audioText: M12_3_1_REVIEW[1].kana,
-      correctMeaningEn: M12_3_1_REVIEW[1].meaningEn,
+      audioText: "ごじ きゅうふんです",
+      correctMeaningEn: "It's 5:09.",
       distractorsEn: [
-        M12_3_1_REVIEW[2].meaningEn,
-        M12_3_1_REVIEW[3].meaningEn,
-        M12_REVIEW_POOL[4].meaningEn,
+        "It's 9:05.",
+        "It's 5:19.",
+        "It's 9 o'clock.",
       ],
     }),
     speaking("ja-m12-3-1-rev-speak-1", M12_3_1_REVIEW[2].kana, M12_3_1_REVIEW[2].meaningEn),
@@ -1025,12 +1025,12 @@ export const M12_3_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m12-3-2-lc-roppun",
-      audioText: "ろっぷん",
-      correctMeaningEn: "6 minutes",
+      audioText: "にじ ろっぷんです",
+      correctMeaningEn: "It's 2:06.",
       distractorsEn: [
-        "6 o'clock",
-        "3 minutes",
-        "10 minutes",
+        "It's 6:02.",
+        "It's 2:30.",
+        "It's 2:10.",
       ],
     }),
     build(
@@ -1176,9 +1176,13 @@ export const M12_4_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m12-4-1-lc-getsu",
-      audioText: "げつようび",
-      correctMeaningEn: "Monday",
-      distractorsEn: ["Tuesday", "Sunday", "Friday"],
+      audioText: "きょうは げつようびです",
+      correctMeaningEn: "Today is Monday.",
+      distractorsEn: [
+        "Today is Tuesday.",
+        "Today is Sunday.",
+        "Tomorrow is Monday.",
+      ],
     }),
     // ── かようび (Tuesday) ──
     build(
@@ -1199,9 +1203,13 @@ export const M12_4_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m12-4-1-lc-sui",
-      audioText: "すいようび",
-      correctMeaningEn: "Wednesday",
-      distractorsEn: ["Thursday", "Tuesday", "Saturday"],
+      audioText: "きょうは すいようびです",
+      correctMeaningEn: "Today is Wednesday.",
+      distractorsEn: [
+        "Today is Thursday.",
+        "Today is Tuesday.",
+        "Today is Saturday.",
+      ],
     }),
     // ── もくようび (Thursday) ──
     build(
@@ -1278,12 +1286,12 @@ export const M12_4_1: LessonContent = {
     vocabMcq("ja-m12-4-1-rev-mcq-1", M12_4_1_REVIEW[0], M12_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m12-4-1-rev-lc-1",
-      audioText: M12_4_1_REVIEW[1].kana,
-      correctMeaningEn: M12_4_1_REVIEW[1].meaningEn,
+      audioText: "まいにち おちゃを のみます",
+      correctMeaningEn: "I drink green tea every day.",
       distractorsEn: [
-        M12_4_1_REVIEW[2].meaningEn,
-        M12_4_1_REVIEW[3].meaningEn,
-        M12_REVIEW_POOL[6].meaningEn,
+        "I drink coffee every day.",
+        "I drank green tea yesterday.",
+        "I sometimes drink green tea.",
       ],
     }),
     speaking("ja-m12-4-1-rev-speak-1", M12_4_1_REVIEW[2].kana, M12_4_1_REVIEW[2].meaningEn),
@@ -1399,9 +1407,13 @@ export const M12_4_2: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m12-4-2-lc-kayoubi",
-      audioText: "かようび",
-      correctMeaningEn: "Tuesday",
-      distractorsEn: ["Thursday", "Friday", "Monday"],
+      audioText: "あしたは かようびです",
+      correctMeaningEn: "Tomorrow is Tuesday.",
+      distractorsEn: [
+        "Today is Tuesday.",
+        "Tomorrow is Thursday.",
+        "Tomorrow is Monday.",
+      ],
     }),
     build(
       "ja-m12-4-2-build-ashita-kin",
@@ -1782,12 +1794,12 @@ export const M12_5_2: LessonContent = {
     vocabMcq("ja-m12-5-2-rev-mcq-1", M12_5_2_REVIEW[0], M12_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m12-5-2-rev-lc-1",
-      audioText: M12_5_2_REVIEW[1].kana,
-      correctMeaningEn: M12_5_2_REVIEW[1].meaningEn,
+      audioText: "かばんに じしょが あります",
+      correctMeaningEn: "There's a dictionary in the bag.",
       distractorsEn: [
-        M12_5_2_REVIEW[2].meaningEn,
-        M12_5_2_REVIEW[3].meaningEn,
-        M12_REVIEW_POOL[9].meaningEn,
+        "There's a book in the bag.",
+        "There's a dictionary on the desk.",
+        "The dictionary isn't in the bag.",
       ],
     }),
     speaking("ja-m12-5-2-rev-speak-1", M12_5_2_REVIEW[2].kana, M12_5_2_REVIEW[2].meaningEn),
@@ -1838,9 +1850,13 @@ export const M12_6_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m12-6-1-lc-juuichi",
-      audioText: "じゅういち",
-      correctMeaningEn: "11 (eleven)",
-      distractorsEn: ["12 (twelve)", "21 (twenty-one)", "10 (ten)"],
+      audioText: "じゅういちじに ねます",
+      correctMeaningEn: "I go to bed at 11.",
+      distractorsEn: [
+        "I go to bed at 1.",
+        "I wake up at 11.",
+        "I go to bed at 12.",
+      ],
     }),
     // ── にじゅう (20) ──
     build(
@@ -1861,9 +1877,13 @@ export const M12_6_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m12-6-1-lc-sanjuu",
-      audioText: "さんじゅう",
-      correctMeaningEn: "30 (thirty)",
-      distractorsEn: ["13 (thirteen)", "3 (three)", "40 (forty)"],
+      audioText: "がくせいは さんじゅうにんです",
+      correctMeaningEn: "There are thirty students.",
+      distractorsEn: [
+        "There are thirteen students.",
+        "There are three students.",
+        "There are twenty students.",
+      ],
     }),
     // ── よんじゅう (40) ──
     build(
@@ -1899,9 +1919,9 @@ export const M12_6_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m12-6-1-lb-sanjuugo",
       target: "さんじゅうご",
-      tiles: ["にじゅう", "ろく", "さん", "ご", "さんじゅう"],
-      correctOrder: ["さんじゅう", "ご"],
-      promptEn: "Hear it, build it: '35'",
+      tiles: ["さん", "じゅう", "ご", "に", "ろく"],
+      correctOrder: ["さん", "じゅう", "ご"],
+      promptEn: "Hear it, build it: '35' — tens multiplier, じゅう, then the ones digit.",
     }),
     selfExplain({
       id: "ja-m12-6-1-self-explain",
@@ -1923,12 +1943,12 @@ export const M12_6_1: LessonContent = {
     vocabMcq("ja-m12-6-1-rev-mcq-1", M12_6_1_REVIEW[0], M12_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m12-6-1-rev-lc-1",
-      audioText: M12_6_1_REVIEW[1].kana,
-      correctMeaningEn: M12_6_1_REVIEW[1].meaningEn,
+      audioText: "ともだちが きゅうにん います",
+      correctMeaningEn: "There are nine friends.",
       distractorsEn: [
-        M12_6_1_REVIEW[2].meaningEn,
-        M12_6_1_REVIEW[3].meaningEn,
-        M12_REVIEW_POOL[10].meaningEn,
+        "There are six friends.",
+        "There are nine students.",
+        "There are twenty friends.",
       ],
     }),
     speaking("ja-m12-6-1-rev-speak-1", M12_6_1_REVIEW[2].kana, M12_6_1_REVIEW[2].meaningEn),
@@ -2461,12 +2481,12 @@ export const M12_7_1: LessonContent = {
     vocabMcq("ja-m12-7-1-rev-mcq-1", M12_7_1_REVIEW[0], M12_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m12-7-1-rev-lc-1",
-      audioText: M12_7_1_REVIEW[1].kana,
-      correctMeaningEn: M12_7_1_REVIEW[1].meaningEn,
+      audioText: "いちじに あいます",
+      correctMeaningEn: "I'll meet (you) at 1 o'clock.",
       distractorsEn: [
-        M12_7_1_REVIEW[2].meaningEn,
-        M12_7_1_REVIEW[3].meaningEn,
-        M12_REVIEW_POOL[12].meaningEn,
+        "I'll meet (you) at 7 o'clock.",
+        "I'll meet (you) at 11 o'clock.",
+        "I met (you) at 1 o'clock.",
       ],
     }),
     speaking("ja-m12-7-1-rev-speak-1", M12_7_1_REVIEW[2].kana, M12_7_1_REVIEW[2].meaningEn),
@@ -2620,12 +2640,12 @@ export const M12_7_2: LessonContent = {
     vocabMcq("ja-m12-7-2-rev-mcq-1", M12_7_2_REVIEW[0], M12_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m12-7-2-rev-lc-1",
-      audioText: M12_7_2_REVIEW[1].kana,
-      correctMeaningEn: M12_7_2_REVIEW[1].meaningEn,
+      audioText: "どようびに ほんを よみます",
+      correctMeaningEn: "I read books on Saturday.",
       distractorsEn: [
-        M12_7_2_REVIEW[2].meaningEn,
-        M12_7_2_REVIEW[3].meaningEn,
-        M12_REVIEW_POOL[13].meaningEn,
+        "I read books on Sunday.",
+        "I read the newspaper on Saturday.",
+        "I write books on Saturday.",
       ],
     }),
     speaking("ja-m12-7-2-rev-speak-1", M12_7_2_REVIEW[2].kana, M12_7_2_REVIEW[2].meaningEn),

@@ -242,9 +242,13 @@ export const M16_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m16-1-1-lc-suwaru",
-      audioText: "すわる",
-      correctMeaningEn: "sit",
-      distractorsEn: ["touch", "smoke", "stop"],
+      audioText: "そこに すわってはいけません",
+      correctMeaningEn: "You must not sit there.",
+      distractorsEn: [
+        "You may sit there.",
+        "Please sit there.",
+        "You must not smoke there.",
+      ],
     }),
     // ── さわる (touch) ──
     build(
@@ -265,9 +269,13 @@ export const M16_1_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m16-1-1-lc-suu",
-      audioText: "すう",
-      correctMeaningEn: "smoke / inhale",
-      distractorsEn: ["sit", "touch", "wash"],
+      audioText: "でんしゃで たばこを すってはいけません",
+      correctMeaningEn: "You must not smoke on the train.",
+      distractorsEn: [
+        "You may smoke on the train.",
+        "You must not eat on the train.",
+        "Please smoke outside.",
+      ],
     }),
     // ── てはいけません drills ──
     build(
@@ -337,12 +345,13 @@ export const M16_1_1: LessonContent = {
     vocabMcq("ja-m16-1-1-rev-mcq-1", M16_1_1_REVIEW[0], M16_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m16-1-1-rev-lc-1",
-      audioText: M16_1_1_REVIEW[1].kana,
-      correctMeaningEn: M16_1_1_REVIEW[1].meaningEn,
+      // Sentence-level review of たべます (M7) — 2026-07-12 listening backfill.
+      audioText: "レストランで すしを たべます",
+      correctMeaningEn: "I eat sushi at a restaurant.",
       distractorsEn: [
-        M16_1_1_REVIEW[2].meaningEn,
-        M16_1_1_REVIEW[3].meaningEn,
-        M16_REVIEW_POOL[0].meaningEn,
+        "I make sushi at a restaurant.",
+        "I eat ramen at a restaurant.",
+        "I ate sushi at a restaurant.",
       ],
     }),
     speaking("ja-m16-1-1-rev-speak-1", M16_1_1_REVIEW[2].kana, M16_1_1_REVIEW[2].meaningEn),
@@ -508,12 +517,13 @@ export const M16_1_2: LessonContent = {
     speaking("ja-m16-1-2-rev-speak-1", M16_1_2_REVIEW[0].kana, M16_1_2_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m16-1-2-rev-lc-1",
-      audioText: M16_1_2_REVIEW[1].kana,
-      correctMeaningEn: M16_1_2_REVIEW[1].meaningEn,
+      // Sentence-level review of みます (M7) — 2026-07-12 listening backfill.
+      audioText: "ともだちと えいがを みます",
+      correctMeaningEn: "I watch a movie with a friend.",
       distractorsEn: [
-        M16_1_2_REVIEW[2].meaningEn,
-        M16_1_2_REVIEW[3].meaningEn,
-        M16_REVIEW_POOL[0].meaningEn,
+        "I watch a movie with my father.",
+        "I watch TV with a friend.",
+        "I watched a movie with a friend.",
       ],
     }),
     vocabMcq("ja-m16-1-2-rev-mcq-1", M16_1_2_REVIEW[2], M16_REVIEW_POOL),
@@ -674,12 +684,13 @@ export const M16_2_1: LessonContent = {
     vocabMcq("ja-m16-2-1-rev-mcq-1", M16_2_1_REVIEW[0], M16_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m16-2-1-rev-lc-1",
-      audioText: M16_2_1_REVIEW[1].kana,
-      correctMeaningEn: M16_2_1_REVIEW[1].meaningEn,
+      // Sentence-level review of じてんしゃ (M4) — 2026-07-12 listening backfill.
+      audioText: "じてんしゃが ほしいです",
+      correctMeaningEn: "I want a bicycle.",
       distractorsEn: [
-        M16_2_1_REVIEW[2].meaningEn,
-        M16_2_1_REVIEW[3].meaningEn,
-        M16_REVIEW_POOL[0].meaningEn,
+        "I want a car.",
+        "I have a bicycle.",
+        "I bought a bicycle.",
       ],
     }),
     speaking("ja-m16-2-1-rev-speak-1", M16_2_1_REVIEW[2].kana, M16_2_1_REVIEW[2].meaningEn),
@@ -848,12 +859,13 @@ export const M16_2_2: LessonContent = {
     speaking("ja-m16-2-2-rev-speak-1", M16_2_2_REVIEW[0].kana, M16_2_2_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m16-2-2-rev-lc-1",
-      audioText: M16_2_2_REVIEW[1].kana,
-      correctMeaningEn: M16_2_2_REVIEW[1].meaningEn,
+      // Sentence-level review of みず (M3) — 2026-07-12 listening backfill.
+      audioText: "つめたい みずを のみます",
+      correctMeaningEn: "I drink cold water.",
       distractorsEn: [
-        M16_2_2_REVIEW[2].meaningEn,
-        M16_2_2_REVIEW[3].meaningEn,
-        M16_REVIEW_POOL[0].meaningEn,
+        "I drink hot water.",
+        "I drink cold tea.",
+        "Please don't drink the water.",
       ],
     }),
     vocabMcq("ja-m16-2-2-rev-mcq-1", M16_2_2_REVIEW[2], M16_REVIEW_POOL),
@@ -999,12 +1011,13 @@ export const M16_3_1: LessonContent = {
     vocabMcq("ja-m16-3-1-rev-mcq-1", M16_3_1_REVIEW[0], M16_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m16-3-1-rev-lc-1",
-      audioText: M16_3_1_REVIEW[1].kana,
-      correctMeaningEn: M16_3_1_REVIEW[1].meaningEn,
+      // Sentence-level review of おかね (M5) — 2026-07-12 listening backfill.
+      audioText: "かばんに おかねが あります",
+      correctMeaningEn: "There is money in my bag.",
       distractorsEn: [
-        M16_3_1_REVIEW[2].meaningEn,
-        M16_3_1_REVIEW[3].meaningEn,
-        M16_REVIEW_POOL[0].meaningEn,
+        "There is money in my room.",
+        "There is a ticket in my bag.",
+        "There is no money in my bag.",
       ],
     }),
     speaking("ja-m16-3-1-rev-speak-1", M16_3_1_REVIEW[2].kana, M16_3_1_REVIEW[2].meaningEn),
@@ -1054,9 +1067,13 @@ export const M16_3_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m16-3-2-lc-shukudai",
-      audioText: "しゅくだい",
-      correctMeaningEn: "homework",
-      distractorsEn: ["classroom", "office", "elevator"],
+      audioText: "しゅくだいを してから テレビを みます",
+      correctMeaningEn: "After doing my homework, I watch TV.",
+      distractorsEn: [
+        "Before doing my homework, I watch TV.",
+        "After watching TV, I do my homework.",
+        "I do my homework while watching TV.",
+      ],
     }),
     // ── きょうしつ (classroom) ──
     build(
@@ -1216,9 +1233,13 @@ export const M16_4_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m16-4-1-lc-suki",
-      audioText: "すき",
-      correctMeaningEn: "like",
-      distractorsEn: ["dislike", "sit", "touch"],
+      audioText: "コーヒーが すきです",
+      correctMeaningEn: "I like coffee.",
+      distractorsEn: [
+        "I dislike coffee.",
+        "I like tea.",
+        "I drink coffee every day.",
+      ],
     }),
     build(
       "ja-m16-4-1-build-kirai",
@@ -1370,8 +1391,8 @@ export const M16_4_2: LessonContent = {
       "ja-m16-4-2-build-1",
       "Say: I dislike running.",
       "はしるのが きらいです",
-      ["きらい", "はしる", "です", "のが", "すき"],
-      ["はしる", "のが", "きらい", "です"],
+      ["きらい", "はしる", "です", "の", "が", "すき"],
+      ["はしる", "の", "が", "きらい", "です"],
     ),
     sentenceMcq({
       id: "ja-m16-4-2-mcq-1",
@@ -1443,8 +1464,8 @@ export const M16_4_2: LessonContent = {
       "ja-m16-4-2-build-3",
       "Say: I dislike waking up early.",
       "はやく おきるのが きらいです",
-      ["おきる", "きらい", "はやく", "です", "のが", "すき"],
-      ["はやく", "おきる", "のが", "きらい", "です"],
+      ["おきる", "きらい", "はやく", "です", "の", "が", "すき"],
+      ["はやく", "おきる", "の", "が", "きらい", "です"],
     ),
     listeningCompSentence({
       id: "ja-m16-4-2-lc-2",
@@ -1486,12 +1507,13 @@ export const M16_4_2: LessonContent = {
     speaking("ja-m16-4-2-rev-speak-1", M16_4_2_REVIEW[0].kana, M16_4_2_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m16-4-2-rev-lc-1",
-      audioText: M16_4_2_REVIEW[1].kana,
-      correctMeaningEn: M16_4_2_REVIEW[1].meaningEn,
+      // Sentence-level review of いくら (M5) — 2026-07-12 listening backfill.
+      audioText: "この カメラは いくらですか",
+      correctMeaningEn: "How much is this camera?",
       distractorsEn: [
-        M16_4_2_REVIEW[2].meaningEn,
-        M16_4_2_REVIEW[3].meaningEn,
-        M16_REVIEW_POOL[0].meaningEn,
+        "How much is this mobile phone?",
+        "Where is this camera?",
+        "This camera is 10,000 yen.",
       ],
     }),
     vocabMcq("ja-m16-4-2-rev-mcq-1", M16_4_2_REVIEW[2], M16_REVIEW_POOL),
@@ -1541,9 +1563,13 @@ export const M16_5_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m16-5-1-lc-jimusho",
-      audioText: "じむしょ",
-      correctMeaningEn: "office",
-      distractorsEn: ["classroom", "elevator", "stairs"],
+      audioText: "じむしょに はいってもいいですか",
+      correctMeaningEn: "May I enter the office?",
+      distractorsEn: [
+        "You must not enter the office.",
+        "May I use the elevator?",
+        "Please enter the office.",
+      ],
     }),
     // ── エレベーター (elevator) ──
     build(
@@ -1564,9 +1590,13 @@ export const M16_5_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m16-5-1-lc-kaidan",
-      audioText: "かいだん",
-      correctMeaningEn: "stairs",
-      distractorsEn: ["elevator", "office", "classroom"],
+      audioText: "かいだんは あそこに あります",
+      correctMeaningEn: "The stairs are over there.",
+      distractorsEn: [
+        "The elevator is over there.",
+        "The stairs are here.",
+        "The office is over there.",
+      ],
     }),
     // ── Permission vs prohibition drills ──
     cloze(
@@ -1835,12 +1865,13 @@ export const M16_5_2: LessonContent = {
     speaking("ja-m16-5-2-rev-speak-1", M16_5_2_REVIEW[0].kana, M16_5_2_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m16-5-2-rev-lc-1",
-      audioText: M16_5_2_REVIEW[1].kana,
-      correctMeaningEn: M16_5_2_REVIEW[1].meaningEn,
+      // Sentence-level review of ホテル (M11) — 2026-07-12 listening backfill.
+      audioText: "ホテルで たばこを すってはいけません",
+      correctMeaningEn: "You must not smoke in the hotel.",
       distractorsEn: [
-        M16_5_2_REVIEW[2].meaningEn,
-        M16_5_2_REVIEW[3].meaningEn,
-        M16_REVIEW_POOL[0].meaningEn,
+        "You may smoke in the hotel.",
+        "You must not smoke in the office.",
+        "You must not eat in the hotel.",
       ],
     }),
     vocabMcq("ja-m16-5-2-rev-mcq-1", M16_5_2_REVIEW[2], M16_REVIEW_POOL),
@@ -1933,8 +1964,8 @@ export const M16_6_1: LessonContent = {
       "ja-m16-6-1-build-2",
       "Say: I like running.",
       "はしるのが すきです",
-      ["すき", "はしる", "です", "のが", "きらい"],
-      ["はしる", "のが", "すき", "です"],
+      ["すき", "はしる", "です", "の", "が", "きらい"],
+      ["はしる", "の", "が", "すき", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m16-6-1-lb-1",
@@ -2003,8 +2034,8 @@ export const M16_6_1: LessonContent = {
       "ja-m16-6-1-build-jibun-2",
       "Say: I like cooking by myself.",
       "じぶんで りょうりを するのが すきです",
-      ["する", "りょうり", "じぶん", "すき", "のが", "で", "を", "です", "きらい"],
-      ["じぶん", "で", "りょうり", "を", "する", "のが", "すき", "です"],
+      ["する", "りょうり", "じぶん", "すき", "の", "が", "で", "を", "です", "きらい"],
+      ["じぶん", "で", "りょうり", "を", "する", "の", "が", "すき", "です"],
     ),
     translateStep({
       id: "ja-m16-6-1-translate",
@@ -2036,12 +2067,13 @@ export const M16_6_1: LessonContent = {
     vocabMcq("ja-m16-6-1-rev-mcq-1", M16_6_1_REVIEW[0], M16_REVIEW_POOL),
     listeningCompSentence({
       id: "ja-m16-6-1-rev-lc-1",
-      audioText: M16_6_1_REVIEW[1].kana,
-      correctMeaningEn: M16_6_1_REVIEW[1].meaningEn,
+      // Sentence-level review of コーヒー (M8) — 2026-07-12 listening backfill.
+      audioText: "コーヒーを のんでから しごとを します",
+      correctMeaningEn: "After drinking coffee, I work.",
       distractorsEn: [
-        M16_6_1_REVIEW[2].meaningEn,
-        M16_6_1_REVIEW[3].meaningEn,
-        M16_REVIEW_POOL[0].meaningEn,
+        "Before drinking coffee, I work.",
+        "After drinking tea, I work.",
+        "After working, I drink coffee.",
       ],
     }),
     speaking("ja-m16-6-1-rev-speak-1", M16_6_1_REVIEW[2].kana, M16_6_1_REVIEW[2].meaningEn),
@@ -2160,7 +2192,7 @@ export const M16_6_2: LessonContent = {
       "この へんで たばこを すって",
       "。",
       "はいけません",
-      ["はいけません", "もいいです", "から", "のが"],
+      ["はいけません", "もいいです", "から", "の", "が"],
       "You must not smoke around here.",
       "この へんで たばこを すってはいけません。",
       "て + はいけません = prohibition. この へん = this area.",
@@ -2179,8 +2211,8 @@ export const M16_6_2: LessonContent = {
       "ja-m16-6-2-build-3",
       "Say: I like swimming.",
       "およぐのが すきです",
-      ["すき", "およぐ", "です", "のが", "きらい"],
-      ["およぐ", "のが", "すき", "です"],
+      ["すき", "およぐ", "です", "の", "が", "きらい"],
+      ["およぐ", "の", "が", "すき", "です"],
     ),
     cloze(
       "ja-m16-6-2-cloze-4",
@@ -2211,12 +2243,13 @@ export const M16_6_2: LessonContent = {
     speaking("ja-m16-6-2-rev-speak-1", M16_6_2_REVIEW[0].kana, M16_6_2_REVIEW[0].meaningEn),
     listeningCompSentence({
       id: "ja-m16-6-2-rev-lc-1",
-      audioText: M16_6_2_REVIEW[1].kana,
-      correctMeaningEn: M16_6_2_REVIEW[1].meaningEn,
+      // Sentence-level review of わたし (M4) — 2026-07-12 listening backfill.
+      audioText: "わたしは よる シャワーを あびます",
+      correctMeaningEn: "I take a shower at night.",
       distractorsEn: [
-        M16_6_2_REVIEW[2].meaningEn,
-        M16_6_2_REVIEW[3].meaningEn,
-        M16_REVIEW_POOL[0].meaningEn,
+        "I take a shower in the morning.",
+        "I take a bath at night.",
+        "My friend takes a shower at night.",
       ],
     }),
     vocabMcq("ja-m16-6-2-rev-mcq-1", M16_6_2_REVIEW[2], M16_REVIEW_POOL),
@@ -2433,7 +2466,7 @@ export const M16_7_1: LessonContent = {
       "シャワーを あびて",
       "、ねます。",
       "から",
-      ["から", "はいけません", "もいいです", "のが"],
+      ["から", "はいけません", "もいいです", "の", "が"],
       "After taking a shower, I go to bed.",
       "シャワーを あびてから、ねます。",
       "て + から = time sequence.",
@@ -2442,8 +2475,8 @@ export const M16_7_1: LessonContent = {
       "ja-m16-7-1-build-1",
       "Say: I like reading books.",
       "ほんを よむのが すきです",
-      ["よむ", "すき", "ほん", "のが", "を", "です", "きらい"],
-      ["ほん", "を", "よむ", "のが", "すき", "です"],
+      ["よむ", "すき", "ほん", "の", "が", "を", "です", "きらい"],
+      ["ほん", "を", "よむ", "の", "が", "すき", "です"],
     ),
     listeningCompSentence({
       id: "ja-m16-7-1-lc-1",
@@ -2471,7 +2504,7 @@ export const M16_7_1: LessonContent = {
       "でんしゃで たべて",
       "。",
       "はいけません",
-      ["はいけません", "もいいです", "から", "のが"],
+      ["はいけません", "もいいです", "から", "の", "が"],
       "You must not eat on the train.",
       "でんしゃで たべてはいけません。",
       "て + はいけません = prohibition.",
@@ -2652,8 +2685,8 @@ export const M16_7_2: LessonContent = {
       "ja-m16-7-2-build-3",
       "Say: I dislike running.",
       "はしるのが きらいです",
-      ["きらい", "はしる", "です", "のが", "すき"],
-      ["はしる", "のが", "きらい", "です"],
+      ["きらい", "はしる", "です", "の", "が", "すき"],
+      ["はしる", "の", "が", "きらい", "です"],
     ),
     listeningBuildSentence({
       id: "ja-m16-7-2-lb-1",
@@ -2707,7 +2740,7 @@ export const M16_7_2: LessonContent = {
       "かいだんで はしって",
       "。",
       "はいけません",
-      ["はいけません", "もいいです", "から", "のが"],
+      ["はいけません", "もいいです", "から", "の", "が"],
       "You must not run on the stairs.",
       "かいだんで はしってはいけません。",
       "て + はいけません = prohibition on running on stairs.",
