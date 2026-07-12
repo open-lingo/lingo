@@ -14,10 +14,21 @@ import {
 } from "@/shared/language/registry";
 import type { SRSCardState } from "@/features/flashcards/data/types";
 
+import type { MissedSkill } from "./adaptiveEngine";
+
 export type PlacementResult = {
+  /** Modules the learner PROVED — their lessons were completed. */
   passedModules: string[];
+  /** Modules assumed from the floor estimate. Policy change (Spencer QA
+   *  2026-07-12): assumed modules are ALSO marked complete — a learner who
+   *  placed above them shouldn't be told "we didn't test you, go do them
+   *  now." Their vocab is seeded into SRS review, which is where any real
+   *  gaps will surface and get drilled. */
+  assumedModules: string[];
   skippedLessonCount: number;
   seededAtomCount: number;
+  /** Grammar points the learner missed, grouped for the gap report. */
+  missedSkills: MissedSkill[];
 };
 
 function createPlacementSeedState(): SRSCardState {
@@ -56,12 +67,22 @@ const LANGUAGE_PLACEMENT_CONFIG: Record<
 export function applyPlacementResult(
   passedModules: string[],
   languageId: string = "ja",
+  opts?: { assumedModules?: string[]; missedSkills?: MissedSkill[] },
 ): PlacementResult {
-  if (passedModules.length === 0) {
-    return { passedModules, skippedLessonCount: 0, seededAtomCount: 0 };
+  const assumedModules = opts?.assumedModules ?? [];
+  const missedSkills = opts?.missedSkills ?? [];
+  const empty: PlacementResult = {
+    passedModules,
+    assumedModules,
+    skippedLessonCount: 0,
+    seededAtomCount: 0,
+    missedSkills,
+  };
+  if (passedModules.length === 0 && assumedModules.length === 0) {
+    return empty;
   }
   if (!isLanguageRegistered(languageId)) {
-    return { passedModules, skippedLessonCount: 0, seededAtomCount: 0 };
+    return empty;
   }
 
   const cfg = LANGUAGE_PLACEMENT_CONFIG[languageId] ?? {
@@ -71,6 +92,8 @@ export function applyPlacementResult(
 
   const course = getMockCourse(languageId);
   const passedSet = new Set(passedModules);
+  const assumedSet = new Set(assumedModules);
+  const seedModuleSet = new Set([...passedModules, ...assumedModules]);
 
   // If any grammar module passed, the learner clearly knows the script —
   // auto-complete the script/alphabet modules so the linear unlock chain
@@ -83,11 +106,16 @@ export function applyPlacementResult(
       if (!passedSet.has(script)) passedSet.add(script);
     }
   }
+  // Seed vocab for every verified (incl. auto-completed script) + assumed
+  // module; only verified modules get their lessons completed below.
+  for (const m of passedSet) seedModuleSet.add(m);
 
   let lessonCount = 0;
 
   for (const mod of course.modules) {
-    if (!passedSet.has(mod.id)) continue;
+    // Proved AND assumed modules complete — assumed vocab lives in SRS
+    // review where real gaps surface; the course map shouldn't nag.
+    if (!passedSet.has(mod.id) && !assumedSet.has(mod.id)) continue;
     for (const lesson of mod.lessons) {
       // Don't pre-complete review lessons — they're the learner's first SRS
       // review opportunity and should remain available.
@@ -107,7 +135,7 @@ export function applyPlacementResult(
   for (const atom of getCourseAtoms(languageId)) {
     if (!atom.srsEligible) continue;
     if (atom.fromModule === undefined) continue;
-    if (!passedSet.has(atom.fromModule)) continue;
+    if (!seedModuleSet.has(atom.fromModule)) continue;
     // Don't clobber a real schedule — mirrors seedSchedule.ts's
     // seed-on-unlock guard. Without this, re-running placement (or
     // placement over an atom the learner already has SRS progress on)
@@ -123,5 +151,13 @@ export function applyPlacementResult(
   const atomCount = seededIds.length;
 
   const allPassed = [...passedSet];
-  return { passedModules: allPassed, skippedLessonCount: lessonCount, seededAtomCount: atomCount };
+  // Assumed modules are those that weren't promoted to verified/script-passed.
+  const finalAssumed = assumedModules.filter((m) => !passedSet.has(m));
+  return {
+    passedModules: allPassed,
+    assumedModules: finalAssumed,
+    skippedLessonCount: lessonCount,
+    seededAtomCount: atomCount,
+    missedSkills,
+  };
 }

@@ -2440,7 +2440,7 @@
     "testOutPassedTitle": "Module cleared!",
     "testOutFailedTitle": "Not quite yet",
     "testOutPassedBody": "You tested out of {{module}}. {{atomCount}} vocab items are now in your review queue for a quick refresher.",
-    "testOutFailedBody": "You need 100% to test out. Keep practicing and try again when you're ready.",
+    "testOutFailedBody": "A near-miss doesn't clear a module. Here's what tripped you up — keep practicing and try again when you're ready.",
     "continue": "Continue",
     "resultPassedTitle": "Placement complete!",
     "resultFailedTitle": "Starting from the top",

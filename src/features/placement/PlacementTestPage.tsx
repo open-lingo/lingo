@@ -14,11 +14,17 @@ import {
   finalizeState,
 } from "./engine/adaptiveEngine";
 import type { AdaptiveState } from "./engine/adaptiveEngine";
-import { applyPlacementResult } from "./engine/applyPlacement";
+import { applyPlacementResult, type PlacementResult } from "./engine/applyPlacement";
 import { syncTestOutToServer } from "./engine/syncTestOutToServer";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getItemsForModule, instantiateItem } from "./questionBank";
 import { dismissPlacement } from "./hooks/usePlacementDismissed";
+import { useSettings } from "@/shared/contexts/SettingsContext";
+import {
+  parseModuleIndex,
+  shouldAutoOffScriptRomaji,
+  shouldAutoFadeBuildTileRomaji,
+} from "@/shared/settings/romajiAutoFlip";
 import { PlacementProgressBar } from "./components/PlacementProgressBar";
 import { PlacementResultScreen } from "./components/PlacementResultScreen";
 import type { LessonStep } from "@/features/lesson/types";
@@ -33,6 +39,7 @@ export function PlacementTestPage() {
 
   const { language } = useLanguage();
   const langId = language?.id ?? "ja";
+  const { settings, updateSetting } = useSettings();
 
   // The placement bank covers JA m3-m27 and KO m3. Other modules /
   // languages without items render an honest "no test-out questions
@@ -55,11 +62,9 @@ export function PlacementTestPage() {
 
   const [currentStep, setCurrentStep] = useState<LessonStep | null>(null);
   const [resultApplied, setResultApplied] = useState(false);
-  const [appliedResult, setAppliedResult] = useState<{
-    passedModules: string[];
-    skippedLessonCount: number;
-    seededAtomCount: number;
-  } | null>(null);
+  const [appliedResult, setAppliedResult] = useState<PlacementResult | null>(
+    null,
+  );
 
   const moduleLabel = useMemo(() => {
     if (!moduleId) return undefined;
@@ -71,10 +76,54 @@ export function PlacementTestPage() {
   useEffect(() => {
     if (state.stage === "done") {
       if (!resultApplied) {
-        const result = applyPlacementResult(state.passedModules, langId);
+        const result = applyPlacementResult(state.passedModules, langId, {
+          assumedModules: state.assumedModules,
+          missedSkills: state.missedSkills,
+        });
         if (!isTestOut) dismissPlacement();
         setAppliedResult(result);
         setResultApplied(true);
+        // Romaji auto-off is position-triggered, not completion-triggered:
+        // a learner who tests OUT of m3-m9 has reached m10 without ever
+        // completing an m10+ lesson, and would otherwise keep the beginner
+        // romaji scaffold deep into the course (QA 2026-07-11). Position
+        // after placement = highest passed module + 1. Same one-shot
+        // guards as the LessonPage trigger, so this is idempotent.
+        const placedIndex =
+          state.passedModules.length > 0
+            ? Math.max(
+                ...state.passedModules.map((m) =>
+                  parseModuleIndex(`${langId}-${m}`),
+                ),
+              ) + 1
+            : 0;
+        if (
+          shouldAutoOffScriptRomaji({
+            settings,
+            reachedModuleIndex: placedIndex,
+            script: "hiragana",
+          })
+        ) {
+          updateSetting("learning.hiraganaRomajiAutoOff", true);
+        }
+        if (
+          shouldAutoOffScriptRomaji({
+            settings,
+            reachedModuleIndex: placedIndex,
+            script: "katakana",
+          })
+        ) {
+          updateSetting("learning.katakanaRomajiAutoOff", true);
+        }
+        if (
+          shouldAutoFadeBuildTileRomaji({
+            settings,
+            reachedModuleIndex: placedIndex,
+          })
+        ) {
+          updateSetting("learning.hideBuildTileRomaji", true);
+          updateSetting("learning.buildTileRomajiAutoFlipped", true);
+        }
         // Mirror the local mockProgress writes to the server so a device
         // switch / fresh login carries the test-out completions over.
         // Fire-and-forget: local apply already persisted.
@@ -88,7 +137,16 @@ export function PlacementTestPage() {
       return;
     }
     setCurrentStep(instantiateItem(nextItem));
-  }, [state, resultApplied, isTestOut, langId, itemsLookup, progress]);
+  }, [
+    state,
+    resultApplied,
+    isTestOut,
+    langId,
+    itemsLookup,
+    progress,
+    settings,
+    updateSetting,
+  ]);
 
   const handleStepComplete = useCallback(
     (stepId: string, correct: boolean) => {
@@ -133,6 +191,8 @@ export function PlacementTestPage() {
     return (
       <PlacementResultScreen
         passedModules={appliedResult.passedModules}
+        assumedModules={appliedResult.assumedModules}
+        missedSkills={appliedResult.missedSkills}
         skippedLessonCount={appliedResult.skippedLessonCount}
         seededAtomCount={appliedResult.seededAtomCount}
         isTestOut={isTestOut}
@@ -144,11 +204,37 @@ export function PlacementTestPage() {
 
   return (
     <div className="flex min-h-[100dvh] flex-col bg-background">
-      <PlacementProgressBar
-        state={state}
-        isTestOut={isTestOut}
-        testOutModuleLabel={moduleLabel}
-      />
+      <div className="flex items-center">
+        <button
+          type="button"
+          onClick={() => navigate(langPath("learn"))}
+          className="ml-2 rounded-xl p-2.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+          aria-label={t("placement.exit", {
+            defaultValue: isTestOut ? "Exit test-out" : "Exit placement test",
+          })}
+        >
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2.25}
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <div className="min-w-0 flex-1">
+          <PlacementProgressBar
+            state={state}
+            isTestOut={isTestOut}
+            testOutModuleLabel={moduleLabel}
+          />
+        </div>
+      </div>
       <div className="flex flex-1 flex-col">
         {currentStep && (
           <StepRenderer

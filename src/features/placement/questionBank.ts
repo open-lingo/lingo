@@ -15,6 +15,17 @@ export type PlacementItemConfig = {
   /** Which language course this item belongs to. Defaults to "ja" for
    *  back-compat with the JA-only initial bank. */
   languageId?: string;
+  /**
+   * The grammar point / sub-skill this item probes (e.g. "te-form",
+   * "i-adj-past", "kudasai"). Modules bundle 4-6 of these, so the placement
+   * engine serves one item per point to actually cover the module, and the
+   * gap report names the specific point a learner missed. Optional for
+   * back-compat; unlabeled items fall back to the module id as their skill.
+   */
+  grammarPointId?: string;
+  /** Short human label for the grammar point, shown in the gap report
+   *  (e.g. "past tense of い-adjectives"). Falls back to grammarPointId. */
+  skill?: string;
 } & (ClozeConfig | SentenceMcqConfig);
 
 type ClozeConfig = {
@@ -38,6 +49,54 @@ type SentenceMcqConfig = {
 // Instantiation
 // ---------------------------------------------------------------------------
 
+/**
+ * Near-duplicate MCQ → cloze presentation (Spencer QA 2026-07-12): "shoving
+ * 4 of the same sentence in one spot isn't great where the only
+ * differentiator is a particle." When every option shares a substantial
+ * common frame and differs only in one short span, render the sentence
+ * ONCE with a blank and offer the differing spans as chips — the existing
+ * particle-cloze UI. Same discrimination test, none of the wall-of-
+ * near-identical-text. Items whose options genuinely differ stay MCQs.
+ */
+function asClozeIfNearDuplicate(
+  config: PlacementItemConfig & SentenceMcqLike,
+  clozeFn: typeof cloze,
+): LessonStep | null {
+  const all = [config.correctKana, ...config.distractorsKana];
+  let p = 0;
+  while (all.every((x) => x.length > p && x[p] === all[0][p])) p++;
+  let q = 0;
+  while (
+    all.every(
+      (x) => x.length - q > p && x[x.length - 1 - q] === all[0][all[0].length - 1 - q],
+    )
+  )
+    q++;
+  const middles = all.map((x) => x.slice(p, x.length - q));
+  const frameLen = p + q;
+  if (frameLen < 6) return null; // options genuinely differ — keep the MCQ
+  if (middles.some((m) => m.length === 0 || m.length > 6)) return null;
+  if (new Set(middles).size !== middles.length) return null;
+  // The prompt usually embeds the English target in quotes — that becomes
+  // the pre-answer gloss the cloze UI already shows.
+  const quoted = config.prompt.match(/['‘’「]([^'‘’」]+)['‘’」]/);
+  return clozeFn(
+    config.id,
+    all[0].slice(0, p),
+    all[0].slice(all[0].length - q),
+    middles[0],
+    middles,
+    quoted?.[1] ?? config.prompt,
+    config.correctKana,
+  );
+}
+
+type SentenceMcqLike = {
+  prompt: string;
+  correctKana: string;
+  distractorsKana: [string, string, string];
+};
+
 export function instantiateItem(config: PlacementItemConfig): LessonStep {
   // Dispatch to the target language's grammar helpers so atom resolution,
   // script handling, and romaji/romanization suppression match the course
@@ -58,6 +117,8 @@ export function instantiateItem(config: PlacementItemConfig): LessonStep {
       config.audioText,
     );
   }
+  const asCloze = asClozeIfNearDuplicate(config, lang === "ko" ? koCloze : cloze);
+  if (asCloze) return asCloze;
   if (lang === "ko") {
     return koSentenceMcq({
       id: config.id,
@@ -93,304 +154,478 @@ export function getItemsForModule(
 // ---------------------------------------------------------------------------
 
 export const PLACEMENT_QUESTION_BANK: readonly PlacementItemConfig[] = [
-  // ── M3: は/か, です ──────────────────────────────────────────────────
+  // ── M3: は / か / です / も ──
   {
-    id: "pt-m3-1", moduleId: "m3", type: "cloze",
-    before: "わたし", after: "がくせい です",
-    correctParticle: "は", options: ["は", "か", "の", "を"],
-    meaningEn: "I am a student.", audioText: "わたしは がくせい です",
+    id: "pt-m3-wa", moduleId: "m3", grammarPointId: "wa-topic", skill: "は topic marker",
+    type: "cloze",
+    before: "わたし", after: "がくせいです",
+    correctParticle: "は", options: ["は", "の", "を", "か"],
+    meaningEn: "I am a student.", audioText: "わたしは がくせいです",
   },
   {
-    id: "pt-m3-2", moduleId: "m3", type: "cloze",
-    before: "これは なん です", after: "",
-    correctParticle: "か", options: ["か", "は", "も", "の"],
-    meaningEn: "What is this?", audioText: "これは なん ですか",
+    id: "pt-m3-ka", moduleId: "m3", grammarPointId: "ka-question", skill: "か question particle",
+    type: "cloze",
+    before: "がくせいです", after: "",
+    correctParticle: "か", options: ["か", "は", "の", "を"],
+    meaningEn: "Are you a student?", audioText: "がくせいですか",
   },
   {
-    id: "pt-m3-3", moduleId: "m3", type: "sentenceMcq",
-    prompt: "How do you say 'I am also a teacher' in Japanese?",
-    correctKana: "わたしも せんせい です",
-    distractorsKana: ["わたしは せんせい です", "わたしの せんせい です", "わたしか せんせい です"],
+    id: "pt-m3-desu", moduleId: "m3", grammarPointId: "desu-copula", skill: "です (polite copula)",
+    type: "sentenceMcq",
+    prompt: "'I am a teacher.' (polite) — which is correct?",
+    correctKana: "わたしは せんせいです",
+    distractorsKana: ["わたしは せんせいか", "わたしは せんせいの", "わたしは せんせいを"],
+  },
+  {
+    id: "pt-m3-mo", moduleId: "m3", grammarPointId: "mo-also", skill: "も (also / too)",
+    type: "sentenceMcq",
+    prompt: "'I am also a teacher.' — which is correct?",
+    correctKana: "わたしも せんせいです",
+    distractorsKana: ["わたしは せんせいです", "わたしの せんせいです", "わたしと せんせいです"],
   },
 
-  // ── M4: の, これ/それ/あれ ───────────────────────────────────────────
+  // ── M4: の (possession + "kind of") / これ・それ・あれ ──
   {
-    id: "pt-m4-1", moduleId: "m4", type: "cloze",
-    before: "わたし", after: "ほん",
+    id: "pt-m4-no", moduleId: "m4", grammarPointId: "no-possession", skill: "の (possession)",
+    type: "cloze",
+    before: "わたし", after: "ほんです",
     correctParticle: "の", options: ["の", "は", "を", "が"],
-    meaningEn: "My book.", audioText: "わたしの ほん",
+    meaningEn: "It's my book.", audioText: "わたしの ほんです",
   },
   {
-    id: "pt-m4-2", moduleId: "m4", type: "sentenceMcq",
+    id: "pt-m4-nokind", moduleId: "m4", grammarPointId: "no-kind", skill: "の for 'kind of' (nationality)",
+    type: "sentenceMcq",
+    prompt: "'It's a Japanese car.' — which is correct?",
+    correctKana: "にほんの くるまです",
+    distractorsKana: ["にほんは くるまです", "にほんが くるまです", "にほんで くるまです"],
+  },
+  {
+    id: "pt-m4-kosoado", moduleId: "m4", grammarPointId: "kore-sore-are-dore", skill: "これ / それ / あれ demonstratives",
+    type: "sentenceMcq",
     prompt: "'That (near you) is a pen.' — which is correct?",
-    correctKana: "それは ペン です",
-    distractorsKana: ["これは ペン です", "あれは ペン です", "どれは ペン です"],
-  },
-  {
-    id: "pt-m4-3", moduleId: "m4", type: "sentenceMcq",
-    prompt: "Whose bag is this? 'It is Tanaka's bag.'",
-    correctKana: "たなかさんの かばん です",
-    distractorsKana: ["たなかさんは かばん です", "たなかさんも かばん です", "たなかさんを かばん です"],
+    correctKana: "それは ペンです",
+    distractorsKana: ["これは ペンです", "あれは ペンです", "どれは ペンです"],
   },
 
-  // ── M5: Numbers, ください, counters ──────────────────────────────────
+  // ── M5: numbers / ください / 人 counter / から ──
   {
-    id: "pt-m5-1", moduleId: "m5", type: "sentenceMcq",
+    id: "pt-m5-num", moduleId: "m5", grammarPointId: "numbers-1-10", skill: "numbers 1–10",
+    type: "sentenceMcq",
+    prompt: "How do you say '5' in Japanese?",
+    correctKana: "ご",
+    distractorsKana: ["さん", "よん", "ろく"],
+  },
+  {
+    id: "pt-m5-kudasai", moduleId: "m5", grammarPointId: "kudasai", skill: "ください (ordering)",
+    type: "sentenceMcq",
     prompt: "'Two waters, please.' — which is correct?",
-    correctKana: "みずを ふたつ ください",
-    distractorsKana: ["みずを にこ ください", "みずの ふたつ ください", "みずを ふたり ください"],
+    correctKana: "みず ふたつ ください",
+    distractorsKana: ["みず ふたり ください", "みずの ふたつ ください", "みず にこ ください"],
   },
   {
-    id: "pt-m5-2", moduleId: "m5", type: "sentenceMcq",
-    prompt: "How many people? 'There are three people.'",
-    correctKana: "さんにん います",
-    distractorsKana: ["みっつ います", "さんこ います", "さんつ います"],
+    id: "pt-m5-nin", moduleId: "m5", grammarPointId: "counter-nin", skill: "counter 人 (にん; irregular ひとり / ふたり)",
+    type: "sentenceMcq",
+    prompt: "'There are two people.' — which counter is correct?",
+    correctKana: "ふたり います",
+    distractorsKana: ["ににん います", "ふたつ います", "にじん います"],
   },
   {
-    id: "pt-m5-3", moduleId: "m5", type: "cloze",
-    before: "とうきょう", after: "きました",
+    id: "pt-m5-kara", moduleId: "m5", grammarPointId: "kara-origin", skill: "から (origin / 'from')",
+    type: "cloze",
+    before: "わたしは アメリカ", after: "です",
     correctParticle: "から", options: ["から", "まで", "に", "で"],
-    meaningEn: "I came from Tokyo.", audioText: "とうきょうから きました",
+    meaningEn: "I'm from America.", audioText: "わたしは アメリカから です",
   },
 
-  // ── M6: に/で/が (location, existence) ───────────────────────────────
+  // ── M6: location particles に / で / が + ここ・そこ・あそこ ──
   {
-    id: "pt-m6-1", moduleId: "m6", type: "cloze",
-    before: "がっこう", after: "べんきょうします",
+    id: "pt-m6-ni", moduleId: "m6", grammarPointId: "ni-location", skill: "に for destination / location",
+    type: "cloze",
+    before: "がっこう", after: "いきます",
+    correctParticle: "に", options: ["に", "で", "を", "は"],
+    meaningEn: "I go to school.", audioText: "がっこうに いきます",
+  },
+  {
+    id: "pt-m6-de", moduleId: "m6", grammarPointId: "de-action", skill: "で for action setting",
+    type: "cloze",
+    before: "コンビニ", after: "はたらきます",
     correctParticle: "で", options: ["で", "に", "を", "は"],
-    meaningEn: "I study at school.", audioText: "がっこうで べんきょうします",
+    meaningEn: "I work at a convenience store.", audioText: "コンビニで はたらきます",
   },
   {
-    id: "pt-m6-2", moduleId: "m6", type: "cloze",
-    before: "つくえのうえ", after: "ほんが あります",
-    correctParticle: "に", options: ["に", "で", "は", "が"],
-    meaningEn: "There is a book on the desk.", audioText: "つくえのうえに ほんが あります",
-  },
-  {
-    id: "pt-m6-3", moduleId: "m6", type: "sentenceMcq",
+    id: "pt-m6-ga", moduleId: "m6", grammarPointId: "ga-existence", skill: "が existence (あります / います)",
+    type: "sentenceMcq",
     prompt: "'There is a cat.' — which uses the correct verb for living things?",
     correctKana: "ねこが います",
     distractorsKana: ["ねこが あります", "ねこを います", "ねこに います"],
   },
-
-  // ── M7: ます-form verbs, を ──────────────────────────────────────────
   {
-    id: "pt-m7-1", moduleId: "m7", type: "cloze",
+    id: "pt-m6-koko", moduleId: "m6", grammarPointId: "koko-soko-asoko", skill: "ここ / そこ / あそこ location pointers",
+    type: "cloze",
+    before: "", after: "は こうえんです",
+    correctParticle: "ここ", options: ["ここ", "そこ", "あそこ", "どこ"],
+    meaningEn: "Here is a park.", audioText: "ここは こうえんです",
+  },
+
+  // ── M7: verbs + ます + を ──
+  {
+    id: "pt-m7-wo", moduleId: "m7", grammarPointId: "wo-object", skill: "を direct object",
+    type: "cloze",
     before: "みず", after: "のみます",
     correctParticle: "を", options: ["を", "は", "が", "に"],
     meaningEn: "I drink water.", audioText: "みずを のみます",
   },
   {
-    id: "pt-m7-2", moduleId: "m7", type: "sentenceMcq",
-    prompt: "'I read a book.' — which is correct?",
+    id: "pt-m7-masu-conj", moduleId: "m7", grammarPointId: "masu-form", skill: "dictionary → polite ます conjugation",
+    type: "sentenceMcq",
+    prompt: "What is the polite (ます) form of のむ (to drink)?",
+    correctKana: "のみます",
+    distractorsKana: ["のむます", "のみるます", "のまます"],
+  },
+  {
+    id: "pt-m7-masu-sentence", moduleId: "m7", grammarPointId: "masu-polite", skill: "polite ます-form in a sentence",
+    type: "sentenceMcq",
+    prompt: "'I read a book.' (polite) — which is correct?",
     correctKana: "ほんを よみます",
-    distractorsKana: ["ほんが よみます", "ほんに よみます", "ほんで よみます"],
-  },
-  {
-    id: "pt-m7-3", moduleId: "m7", type: "sentenceMcq",
-    prompt: "'I go to the park.' — which is correct?",
-    correctKana: "こうえんに いきます",
-    distractorsKana: ["こうえんを いきます", "こうえんで いきます", "こうえんは いきます"],
+    distractorsKana: ["ほんを よむ", "ほんを よむです", "ほんが よみます"],
   },
 
-  // ── M8: い-adjectives, この/その ─────────────────────────────────────
+  // ── M8: い-adjectives + この/その + と ──
   {
-    id: "pt-m8-1", moduleId: "m8", type: "sentenceMcq",
-    prompt: "'This book is expensive.' — which is correct?",
-    correctKana: "このほんは たかいです",
-    distractorsKana: ["このほんは たかです", "これほんは たかいです", "このほんは たかなです"],
+    id: "pt-m8-kono-sono", moduleId: "m8", grammarPointId: "kono-sono-ano-dono", skill: "この/その/あの adnominal demonstratives",
+    type: "sentenceMcq",
+    prompt: "'That camera (near you) is expensive.' — which is correct?",
+    correctKana: "その カメラは たかいです",
+    distractorsKana: ["これ カメラは たかいです", "この カメラは たかいです", "あの カメラは たかいです"],
   },
   {
-    id: "pt-m8-2", moduleId: "m8", type: "sentenceMcq",
-    prompt: "Negate: 'It is not cold.'",
-    correctKana: "さむくないです",
-    distractorsKana: ["さむいじゃないです", "さむないです", "さむいくないです"],
+    id: "pt-m8-i-adj-present", moduleId: "m8", grammarPointId: "i-adj-present", skill: "い-adjective present affirmative",
+    type: "sentenceMcq",
+    prompt: "'This coffee is hot.' — which is correct?",
+    correctKana: "この コーヒーは あついです",
+    distractorsKana: ["この コーヒーは あついます", "この コーヒーは あつです", "この コーヒーは あついだ"],
   },
   {
-    id: "pt-m8-3", moduleId: "m8", type: "cloze",
-    before: "りんご", after: "みかんを たべます",
-    correctParticle: "と", options: ["と", "や", "も", "の"],
-    meaningEn: "I eat apples and oranges.", audioText: "りんごと みかんを たべます",
-  },
-
-  // ── M9: な-adjectives, よ/ね ─────────────────────────────────────────
-  {
-    id: "pt-m9-1", moduleId: "m9", type: "sentenceMcq",
-    prompt: "'This town is quiet.' — which is correct?",
-    correctKana: "このまちは しずかです",
-    distractorsKana: ["このまちは しずかいです", "このまちは しずくです", "このまちは しずかなです"],
+    id: "pt-m8-i-adj-neg", moduleId: "m8", grammarPointId: "i-adj-negative", skill: "い-adjective negative 〜くない",
+    type: "sentenceMcq",
+    prompt: "'This car isn't expensive.' — which is correct?",
+    correctKana: "この くるまは たかくないです",
+    distractorsKana: ["この くるまは たかいくないです", "この くるまは たかいじゃないです", "この くるまは たかいです"],
   },
   {
-    id: "pt-m9-2", moduleId: "m9", type: "sentenceMcq",
-    prompt: "Negate: 'It is not convenient.'",
-    correctKana: "べんりじゃないです",
-    distractorsKana: ["べんりくないです", "べんりないです", "べんりではです"],
+    id: "pt-m8-ii-yokunai", moduleId: "m8", grammarPointId: "i-adj-negative-ii", skill: "irregular いい → よくない",
+    type: "sentenceMcq",
+    prompt: "'This book isn't good.' — which is correct?",
+    correctKana: "この ほんは よくないです",
+    distractorsKana: ["この ほんは いくないです", "この ほんは いいくないです", "この ほんは いいじゃないです"],
   },
   {
-    id: "pt-m9-3", moduleId: "m9", type: "sentenceMcq",
-    prompt: "'This is delicious, isn't it!' — add the right particle.",
-    correctKana: "おいしいですね",
-    distractorsKana: ["おいしいですよ", "おいしいですか", "おいしいですの"],
+    id: "pt-m8-to", moduleId: "m8", grammarPointId: "to-and", skill: "と connecting nouns (and)",
+    type: "cloze",
+    before: "コーヒー", after: "パンを ください",
+    correctParticle: "と", options: ["と", "は", "が", "の"],
+    meaningEn: "Coffee and bread, please.", audioText: "コーヒーと パンを ください",
   },
 
-  // ── M10: ました, でした (past tense) ─────────────────────────────────
+  // ── M9: な-adjectives + よ/ね + が すき ──
   {
-    id: "pt-m10-1", moduleId: "m10", type: "sentenceMcq",
-    prompt: "'I ate sushi.' — which is correct?",
-    correctKana: "すしを たべました",
-    distractorsKana: ["すしを たべます", "すしは たべました", "すしを たべています"],
+    id: "pt-m9-na-adj-present", moduleId: "m9", grammarPointId: "na-adj-present", skill: "な-adjective + な before a noun",
+    type: "sentenceMcq",
+    prompt: "'a pretty flower' — which is correct?",
+    correctKana: "きれいな はな",
+    distractorsKana: ["きれいの はな", "きれい はな", "きれいい はな"],
   },
   {
-    id: "pt-m10-2", moduleId: "m10", type: "sentenceMcq",
-    prompt: "'Yesterday was fun.' — which is correct?",
-    correctKana: "きのうは たのしかったです",
-    distractorsKana: ["きのうは たのしいでした", "きのうは たのしかったでした", "きのうは たのしいです"],
+    id: "pt-m9-na-adj-neg", moduleId: "m9", grammarPointId: "na-adj-negative", skill: "な-adjective negative じゃないです",
+    type: "sentenceMcq",
+    prompt: "'This room isn't quiet.' — which is correct?",
+    correctKana: "この へやは しずかじゃないです",
+    distractorsKana: ["この へやは しずかくないです", "この へやは しずかいです", "この へやは しずかです"],
   },
   {
-    id: "pt-m10-3", moduleId: "m10", type: "sentenceMcq",
-    prompt: "'The park was quiet.' — which is correct?",
-    correctKana: "こうえんは しずかでした",
-    distractorsKana: ["こうえんは しずかかったです", "こうえんは しずかました", "こうえんは しずかだったです"],
-  },
-
-  // ── M11: ません, ない-form, まだ/もう ────────────────────────────────
-  {
-    id: "pt-m11-1", moduleId: "m11", type: "sentenceMcq",
-    prompt: "'I don't drink coffee.' — which is correct?",
-    correctKana: "コーヒーを のみません",
-    distractorsKana: ["コーヒーを のまないです", "コーヒーを のみないです", "コーヒーは のみます"],
+    id: "pt-m9-ga-suki", moduleId: "m9", grammarPointId: "ga-suki", skill: "Xが すきです (like)",
+    type: "cloze",
+    before: "コーヒー", after: "すきです",
+    correctParticle: "が", options: ["が", "を", "は", "に"],
+    meaningEn: "I like coffee.", audioText: "コーヒーが すきです",
   },
   {
-    id: "pt-m11-2", moduleId: "m11", type: "sentenceMcq",
-    prompt: "'I haven't eaten yet.' — which is correct?",
-    correctKana: "まだ たべていません",
-    distractorsKana: ["もう たべていません", "まだ たべました", "もう たべません"],
+    id: "pt-m9-yo", moduleId: "m9", grammarPointId: "yo-emphasis", skill: "sentence-final よ (emphasis)",
+    type: "cloze",
+    before: "この おちゃは あついです", after: "",
+    correctParticle: "よ", options: ["よ", "ね", "か", "な"],
+    meaningEn: "This tea is hot, I tell you!", audioText: "この おちゃは あついですよ",
   },
   {
-    id: "pt-m11-3", moduleId: "m11", type: "sentenceMcq",
-    prompt: "'I already finished.' — which is correct?",
-    correctKana: "もう おわりました",
-    distractorsKana: ["まだ おわりました", "もう おわります", "まだ おわっていません"],
+    id: "pt-m9-ne", moduleId: "m9", grammarPointId: "ne-agreement", skill: "sentence-final ね (seeking agreement)",
+    type: "sentenceMcq",
+    prompt: "You and a friend both look at a clean station. 'It's clean, isn't it?' — which is correct?",
+    correctKana: "この えきは きれいですね",
+    distractorsKana: ["この えきは きれいですよ", "この えきは きれいですか", "この えきは きれいです"],
   },
 
-  // ── M12: Time, に (time marker) ──────────────────────────────────────
+  // ── M10: past tense (polite) — four parallel conjugations ──
   {
-    id: "pt-m12-1", moduleId: "m12", type: "sentenceMcq",
-    prompt: "'I wake up at 7 o'clock.' — which is correct?",
-    correctKana: "しちじに おきます",
-    distractorsKana: ["ななじに おきます", "しちじで おきます", "しちじは おきます"],
+    id: "pt-m10-masu-past", moduleId: "m10", grammarPointId: "masu-past", skill: "verb polite past ました",
+    type: "sentenceMcq",
+    prompt: "'I ate sushi yesterday.' — which is correct?",
+    correctKana: "きのう すしを たべました",
+    distractorsKana: ["きのう すしを たべます", "きのう すしを たべでした", "きのう すしを たべませんでした"],
   },
   {
-    id: "pt-m12-2", moduleId: "m12", type: "cloze",
-    before: "さんじ", after: "おきます",
-    correctParticle: "に", options: ["に", "で", "を", "は"],
-    meaningEn: "I wake up at 3 o'clock.", audioText: "さんじに おきます",
+    id: "pt-m10-desu-past", moduleId: "m10", grammarPointId: "desu-past", skill: "copula past でした",
+    type: "sentenceMcq",
+    prompt: "'I was a student.' — which is correct?",
+    correctKana: "がくせいでした",
+    distractorsKana: ["がくせいです", "がくせいました", "がくせいじゃなかったです"],
   },
   {
-    id: "pt-m12-3", moduleId: "m12", type: "sentenceMcq",
-    prompt: "'What time is it now?' — which is correct?",
-    correctKana: "いま なんじですか",
-    distractorsKana: ["いま なんですか", "いま なにじですか", "いま どのじですか"],
+    id: "pt-m10-i-adj-past", moduleId: "m10", grammarPointId: "i-adj-past", skill: "past tense of い-adjectives 〜かった",
+    type: "sentenceMcq",
+    prompt: "'The sushi was delicious.' — which is correct?",
+    correctKana: "すしは おいしかったです",
+    distractorsKana: ["すしは おいしいでした", "すしは おいしいです", "すしは おいしくなかったです"],
+  },
+  {
+    id: "pt-m10-na-adj-past", moduleId: "m10", grammarPointId: "na-adj-past", skill: "past tense of な-adjectives 〜でした",
+    type: "sentenceMcq",
+    prompt: "'The park was pretty.' — which is correct?",
+    correctKana: "こうえんは きれいでした",
+    distractorsKana: ["こうえんは きれいかったです", "こうえんは きれいです", "こうえんは きれいじゃなかったです"],
   },
 
-  // ── M13: から...まで, から (because), months ─────────────────────────
+  // ── M11: negation ──
   {
-    id: "pt-m13-1", moduleId: "m13", type: "cloze",
-    before: "くじ", after: "ごじまで はたらきます",
-    correctParticle: "から", options: ["から", "まで", "に", "で"],
+    id: "pt-m11-masen", moduleId: "m11", grammarPointId: "masu-negative", skill: "polite negative ません",
+    type: "sentenceMcq",
+    prompt: "'I don't eat bread.' — which is correct?",
+    correctKana: "パンを たべません",
+    distractorsKana: ["パンを たべます", "パンを たべました", "パンを たべませんでした"],
+  },
+  {
+    id: "pt-m11-masen-deshita", moduleId: "m11", grammarPointId: "masu-past-negative", skill: "polite past negative ませんでした",
+    type: "sentenceMcq",
+    prompt: "'I didn't drink coffee yesterday.' — which is correct?",
+    correctKana: "きのう コーヒーを のみませんでした",
+    distractorsKana: ["きのう コーヒーを のみません", "きのう コーヒーを のみました", "きのう コーヒーを のみませんです"],
+  },
+  {
+    id: "pt-m11-nai-form", moduleId: "m11", grammarPointId: "nai-form", skill: "plain ない-form (casual negative)",
+    type: "sentenceMcq",
+    prompt: "What is the plain (casual) negative of のむ (to drink)?",
+    correctKana: "のまない",
+    distractorsKana: ["のみない", "のむない", "のみません"],
+  },
+  {
+    id: "pt-m11-mada-mou", moduleId: "m11", grammarPointId: "mada-mou", skill: "もう (already) vs まだ (not yet)",
+    type: "sentenceMcq",
+    prompt: "'I already ate.' — which is correct?",
+    correctKana: "もう たべました",
+    distractorsKana: ["まだ たべました", "もう たべません", "まだ たべません"],
+  },
+
+  // ── M12: time & calendar ──
+  {
+    id: "pt-m12-counter-ji", moduleId: "m12", grammarPointId: "counter-ji", skill: "〜じ hours (irregular よじ)",
+    type: "sentenceMcq",
+    prompt: "Which is the correct way to say 4 o'clock?",
+    correctKana: "よじ",
+    distractorsKana: ["よんじ", "しじ", "しちじ"],
+  },
+  {
+    id: "pt-m12-counter-fun", moduleId: "m12", grammarPointId: "counter-fun", skill: "〜ふん/ぷん minutes (voicing)",
+    type: "sentenceMcq",
+    prompt: "Which is the correct way to say 3 minutes?",
+    correctKana: "さんぷん",
+    distractorsKana: ["さんふん", "さんぶん", "さんぽん"],
+  },
+  {
+    id: "pt-m12-days-of-week", moduleId: "m12", grammarPointId: "days-of-week", skill: "Days of the week (〜ようび)",
+    type: "sentenceMcq",
+    prompt: "Which is the correct word for Wednesday?",
+    correctKana: "すいようび",
+    distractorsKana: ["すいよう", "みずようび", "すいび"],
+  },
+  {
+    id: "pt-m12-ni-time", moduleId: "m12", grammarPointId: "ni-time", skill: "に time marker",
+    type: "cloze",
+    before: "さんじ", after: "あいます",
+    correctParticle: "に", options: ["に", "を", "で", "へ"],
+    meaningEn: "I'll meet (you) at 3 o'clock.", audioText: "さんじに あいます",
+  },
+
+  // ── M13: months / frequency / reason ──
+  {
+    id: "pt-m13-months-gatsu", moduleId: "m13", grammarPointId: "months-gatsu", skill: "〜がつ months (irregular しがつ)",
+    type: "sentenceMcq",
+    prompt: "Which is the correct word for April?",
+    correctKana: "しがつ",
+    distractorsKana: ["よんがつ", "しちがつ", "よがつ"],
+  },
+  {
+    id: "pt-m13-frequency-adverbs", moduleId: "m13", grammarPointId: "frequency-adverbs", skill: "あまり〜ない frequency adverb",
+    type: "sentenceMcq",
+    prompt: "Which sentence means 'I don't watch TV very often.'?",
+    correctKana: "あまり テレビを みません",
+    distractorsKana: ["あまり テレビを みます", "いつも テレビを みません", "よく テレビを みません"],
+  },
+  {
+    id: "pt-m13-kara-because", moduleId: "m13", grammarPointId: "kara-because", skill: "から 'because'",
+    type: "cloze",
+    before: "あめ", after: "、いきません。",
+    correctParticle: "だから", options: ["だから", "から", "まで", "では"],
+    meaningEn: "Because it's raining, I won't go.", audioText: "あめだから、いきません",
+  },
+  {
+    id: "pt-m13-kara-time", moduleId: "m13", grammarPointId: "kara-time", skill: "まで 'until' (time range)",
+    type: "cloze",
+    before: "くじから ごじ", after: " はたらきます。",
+    correctParticle: "まで", options: ["まで", "から", "に", "は"],
     meaningEn: "I work from 9 to 5.", audioText: "くじから ごじまで はたらきます",
   },
-  {
-    id: "pt-m13-2", moduleId: "m13", type: "sentenceMcq",
-    prompt: "'Because it's hot, I drink water.' — which is correct?",
-    correctKana: "あついですから みずを のみます",
-    distractorsKana: ["あついですので みずを のみます", "あついですまで みずを のみます", "あついですけど みずを のみます"],
-  },
-  {
-    id: "pt-m13-3", moduleId: "m13", type: "sentenceMcq",
-    prompt: "How do you say 'March' in Japanese?",
-    correctKana: "さんがつ",
-    distractorsKana: ["みつき", "さんつき", "みっかげつ"],
-  },
 
-  // ── M14: て-form ─────────────────────────────────────────────────────
+  // ── M14: て-form keystone + counters ──
   {
-    id: "pt-m14-1", moduleId: "m14", type: "sentenceMcq",
-    prompt: "What is the て-form of たべる (to eat)?",
+    id: "pt-m14-te-form-g2", moduleId: "m14", grammarPointId: "te-form", skill: "て-form (Group 2 verbs)",
+    type: "sentenceMcq",
+    prompt: "て-form of たべる (to eat)?",
     correctKana: "たべて",
-    distractorsKana: ["たべって", "たべんで", "たべいて"],
+    distractorsKana: ["たべって", "たべた", "たべんで"],
   },
   {
-    id: "pt-m14-2", moduleId: "m14", type: "sentenceMcq",
-    prompt: "What is the て-form of のむ (to drink)?",
+    id: "pt-m14-te-form-g1-nde", moduleId: "m14", grammarPointId: "te-form", skill: "て-form (Group 1: む→んで)",
+    type: "sentenceMcq",
+    prompt: "て-form of のむ (to drink)?",
     correctKana: "のんで",
-    distractorsKana: ["のみて", "のって", "のいで"],
+    distractorsKana: ["のみて", "のんて", "のって"],
   },
   {
-    id: "pt-m14-3", moduleId: "m14", type: "sentenceMcq",
-    prompt: "'Please wait.' — which is correct?",
-    correctKana: "まってください",
-    distractorsKana: ["まちてください", "まつてください", "まいてください"],
-  },
-
-  // ── M15: ている, たい, てもいい ──────────────────────────────────────
-  {
-    id: "pt-m15-1", moduleId: "m15", type: "sentenceMcq",
-    prompt: "'I am reading a book.' (progressive) — which is correct?",
-    correctKana: "ほんを よんでいます",
-    distractorsKana: ["ほんを よみています", "ほんを よみます", "ほんを よんでありです"],
+    id: "pt-m14-te-form-g1-iku", moduleId: "m14", grammarPointId: "te-form", skill: "て-form (Group 1: いく exception)",
+    type: "sentenceMcq",
+    prompt: "て-form of いく (to go)?",
+    correctKana: "いって",
+    distractorsKana: ["いいて", "いきて", "いんで"],
   },
   {
-    id: "pt-m15-2", moduleId: "m15", type: "sentenceMcq",
-    prompt: "'I want to eat ramen.' — which is correct?",
-    correctKana: "ラーメンを たべたいです",
-    distractorsKana: ["ラーメンが たべますたい", "ラーメンを たべほしいです", "ラーメンは たべたいです"],
+    id: "pt-m14-ta-form", moduleId: "m14", grammarPointId: "ta-form", skill: "た-form (plain past)",
+    type: "sentenceMcq",
+    prompt: "Plain past (た-form) of のむ (to drink)?",
+    correctKana: "のんだ",
+    distractorsKana: ["のんで", "のみた", "のった"],
   },
   {
-    id: "pt-m15-3", moduleId: "m15", type: "sentenceMcq",
-    prompt: "'May I sit here?' — which is correct?",
-    correctKana: "ここに すわってもいいですか",
-    distractorsKana: ["ここに すわるもいいですか", "ここで すわってもいいですか", "ここに すわってはいいですか"],
-  },
-
-  // ── M16: てはいけません, ないでください, てから ───────────────────────
-  {
-    id: "pt-m16-1", moduleId: "m16", type: "sentenceMcq",
-    prompt: "'You must not smoke here.' — which is correct?",
-    correctKana: "ここで タバコを すってはいけません",
-    distractorsKana: ["ここで タバコを すわないでください", "ここで タバコを すってもいいません", "ここで タバコを すらないでください"],
+    id: "pt-m14-te-kudasai", moduleId: "m14", grammarPointId: "te-kudasai", skill: "〜てください (polite request)",
+    type: "sentenceMcq",
+    prompt: "'Please show me.' — which is correct?",
+    correctKana: "みせてください",
+    distractorsKana: ["みせるください", "みせました", "みせています"],
   },
   {
-    id: "pt-m16-2", moduleId: "m16", type: "sentenceMcq",
-    prompt: "'Please don't touch.' — which is correct?",
-    correctKana: "さわらないでください",
-    distractorsKana: ["さわってはいけません", "さわらないください", "さわりないでください"],
-  },
-  {
-    id: "pt-m16-3", moduleId: "m16", type: "sentenceMcq",
-    prompt: "'After eating, I brush my teeth.' — which is correct?",
-    correctKana: "たべてから はを みがきます",
-    distractorsKana: ["たべたから はを みがきます", "たべるから はを みがきます", "たべてまで はを みがきます"],
+    id: "pt-m14-counter-hon", moduleId: "m14", grammarPointId: "counter-hon", skill: "counter 〜ほん (voicing さんぼん)",
+    type: "sentenceMcq",
+    prompt: "'Three (long, cylindrical things), please.' — which is correct?",
+    correctKana: "さんぼん ください",
+    distractorsKana: ["さんほん ください", "さんぽん ください", "さんまい ください"],
   },
 
-  // ── M17: で (means), に/へ (direction) ───────────────────────────────
+  // ── M15: て-form apps + wants ──
   {
-    id: "pt-m17-1", moduleId: "m17", type: "cloze",
-    before: "バス", after: "がっこうに いきます",
-    correctParticle: "で", options: ["で", "に", "を", "は"],
-    meaningEn: "I go to school by bus.", audioText: "バスで がっこうに いきます",
+    id: "pt-m15-te-iru", moduleId: "m15", grammarPointId: "te-iru", skill: "〜ている progressive",
+    type: "cloze",
+    before: "いま コーヒーを のんで", after: "。",
+    correctParticle: "います", options: ["います", "ます", "いません", "ました"],
+    meaningEn: "I'm drinking coffee right now.", audioText: "いま コーヒーを のんでいます",
   },
   {
-    id: "pt-m17-2", moduleId: "m17", type: "sentenceMcq",
-    prompt: "'I walk to the station.' — which is correct?",
-    correctKana: "えきまで あるきます",
-    distractorsKana: ["えきに あるきます", "えきで あるきます", "えきを あるきます"],
+    id: "pt-m15-te-mo-ii", moduleId: "m15", grammarPointId: "te-mo-ii", skill: "〜てもいいですか permission",
+    type: "cloze",
+    before: "ここで たべて", after: "いいですか。",
+    correctParticle: "も", options: ["も", "は", "が", "を"],
+    meaningEn: "May I eat here?", audioText: "ここで たべてもいいですか",
   },
   {
-    id: "pt-m17-3", moduleId: "m17", type: "sentenceMcq",
-    prompt: "'Please come by 3 o'clock.' — which is correct?",
-    correctKana: "さんじまでに きてください",
-    distractorsKana: ["さんじまで きてください", "さんじに きてください", "さんじからに きてください"],
+    id: "pt-m15-v-tai", moduleId: "m15", grammarPointId: "v-tai", skill: "V-stem + たい (want to do)",
+    type: "sentenceMcq",
+    prompt: "'I want to eat sushi.' — which is correct?",
+    correctKana: "すしを たべたいです",
+    distractorsKana: ["すしを たべますたい", "すしを たべるたい", "すしを たべたです"],
+  },
+  {
+    id: "pt-m15-ga-hoshii", moduleId: "m15", grammarPointId: "ga-hoshii", skill: "〜がほしい (want a thing)",
+    type: "cloze",
+    before: "みず", after: " ほしいです。",
+    correctParticle: "が", options: ["が", "を", "に", "は"],
+    meaningEn: "I want water.", audioText: "みずが ほしいです",
+  },
+  {
+    id: "pt-m15-kedo", moduleId: "m15", grammarPointId: "kedo", skill: "けど 'but'",
+    type: "cloze",
+    before: "たべたいです", after: "、じかんが ないです。",
+    // が is deliberately NOT an option: 〜ですが is an equally-valid "but" here,
+    // so it would be a second correct answer. ので (because) reads plausibly
+    // but has the wrong meaning — a clean single-answer distractor.
+    correctParticle: "けど", options: ["けど", "から", "まで", "ので"],
+    meaningEn: "I want to eat, but I don't have time.", audioText: "たべたいですけど じかんが ないです",
+  },
+
+  // ── M16: prohibition / sequence / likes ──
+  {
+    id: "pt-m16-te-wa-ikemasen", moduleId: "m16", grammarPointId: "te-wa-ikemasen", skill: "〜てはいけません prohibition",
+    type: "cloze",
+    before: "たばこを すって", after: "。",
+    correctParticle: "はいけません", options: ["はいけません", "もいいです", "ください", "から"],
+    meaningEn: "You must not smoke.", audioText: "たばこを すってはいけません",
+  },
+  {
+    id: "pt-m16-naide-kudasai", moduleId: "m16", grammarPointId: "naide-kudasai", skill: "〜ないでください negative request",
+    type: "sentenceMcq",
+    prompt: "Which sentence means 'Please don't eat.'?",
+    correctKana: "たべないでください",
+    distractorsKana: ["たべてはいけません", "たべてください", "たべません"],
+  },
+  {
+    id: "pt-m16-te-kara", moduleId: "m16", grammarPointId: "te-kara", skill: "〜てから (after doing)",
+    type: "cloze",
+    before: "しゅくだいを して", after: "、テレビを みます。",
+    correctParticle: "から", options: ["から", "はいけません", "もいいです", "ないで"],
+    meaningEn: "After doing homework, I watch TV.", audioText: "しゅくだいを してから、テレビを みます",
+  },
+  {
+    id: "pt-m16-suki-kirai-no", moduleId: "m16", grammarPointId: "suki-kirai-no", skill: "〜のがすき (nominalized like)",
+    type: "cloze",
+    before: "おんがくを きく", after: " すきです。",
+    correctParticle: "のが", options: ["のが", "のを", "のに", "のは"],
+    meaningEn: "I like listening to music.", audioText: "おんがくを きくのが すきです",
+  },
+
+  // ── M17: transport / directions ──
+  {
+    id: "pt-m17-de", moduleId: "m17", grammarPointId: "de-transport", skill: "で for means of transport",
+    type: "cloze",
+    before: "でんしゃ", after: "いきます",
+    correctParticle: "で", options: ["で", "に", "を", "へ"],
+    meaningEn: "I go by train.", audioText: "でんしゃで いきます",
+  },
+  {
+    id: "pt-m17-e-direction", moduleId: "m17", grammarPointId: "e-direction", skill: "へ direction",
+    type: "cloze",
+    before: "えき", after: " いきます。",
+    correctParticle: "へ", options: ["へ", "で", "を", "が"],
+    meaningEn: "I head toward the station.", audioText: "えきへ いきます",
+  },
+  {
+    id: "pt-m17-made-ni", moduleId: "m17", grammarPointId: "made-ni", skill: "までに (by deadline)",
+    type: "cloze",
+    before: "ごじ", after: " かえります。",
+    correctParticle: "までに", options: ["までに", "まで", "から", "に"],
+    meaningEn: "I'll be back by 5 o'clock.", audioText: "ごじまでに かえります",
+  },
+  {
+    id: "pt-m17-mae-ni", moduleId: "m17", grammarPointId: "mae-ni", skill: "まえに (before)",
+    type: "cloze",
+    before: "ごはんの", after: " てを あらいます。",
+    correctParticle: "まえに", options: ["まえに", "あとで", "から", "まで"],
+    meaningEn: "I wash my hands before the meal.", audioText: "ごはんの まえに てを あらいます",
   },
 
   // ── M18: でしょう, とおもいます ──────────────────────────────────────

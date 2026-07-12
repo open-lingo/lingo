@@ -7,6 +7,13 @@ import type { PlacementItemConfig } from "../questionBank";
 
 export type PlacementStage = "screening" | "probing" | "done";
 
+/** A grammar point the learner got wrong — feeds the placement gap report. */
+export type MissedSkill = {
+  moduleId: string;
+  grammarPointId?: string;
+  skill?: string;
+};
+
 export type AdaptiveState = {
   /** Course the placement is leveling. Drives the tier set (which modules
    *  group together + which is the screening rep). */
@@ -20,12 +27,38 @@ export type AdaptiveState = {
   consecutiveWrong: number;
   servedItemIds: string[];
   totalServed: number;
+  /** Modules the learner actually PROVED (probed to threshold). These get
+   *  their lessons completed. */
   passedModules: string[];
+  /** Modules assumed known from the floor estimate but NOT tested. Atoms get
+   *  seeded into review, but lessons are NOT auto-completed — the learner can
+   *  test out of each or walk it. Surfaced in the gap report so a skip is
+   *  never silent. */
+  assumedModules: string[];
+  /** Grammar points answered wrong — named in the gap report and queued into
+   *  review. */
+  missedSkills: MissedSkill[];
 };
 
-const MAX_TOTAL_ITEMS = 25;
+const MAX_TOTAL_ITEMS = 40;
 const CONSECUTIVE_WRONG_CUTOFF = 2;
 const DEFAULT_LANGUAGE = "ja";
+
+/**
+ * A module is PASSED (verified) only if the learner met the bar on its probe
+ * set. Short sets demand a clean sweep; longer coverage-scaled sets (one item
+ * per grammar point) allow a single slip so one careless miss doesn't sink a
+ * module the learner clearly knows. Never lenient enough to pass on guesses.
+ */
+export function moduleMaxMisses(itemCount: number): number {
+  return itemCount >= 5 ? 1 : 0;
+}
+
+export function modulePassed(results: readonly boolean[]): boolean {
+  if (results.length === 0) return false;
+  const wrong = results.filter((r) => !r).length;
+  return wrong <= moduleMaxMisses(results.length);
+}
 
 export function createInitialState(
   languageId: string = DEFAULT_LANGUAGE,
@@ -42,6 +75,8 @@ export function createInitialState(
     servedItemIds: [],
     totalServed: 0,
     passedModules: [],
+    assumedModules: [],
+    missedSkills: [],
   };
 }
 
@@ -61,6 +96,8 @@ export function createTestOutState(
     servedItemIds: [],
     totalServed: 0,
     passedModules: [],
+    assumedModules: [],
+    missedSkills: [],
   };
 }
 
@@ -105,7 +142,17 @@ export function selectNextItem(
 
 export function finalizeState(state: AdaptiveState): AdaptiveState {
   if (state.stage === "done") return state;
-  return { ...state, stage: "done", passedModules: computePassedModules(state) };
+  const done: AdaptiveState = { ...state, stage: "done" };
+  markDone(done);
+  return done;
+}
+
+/** Set the terminal outcome on a state being transitioned to "done". */
+function markDone(next: AdaptiveState): void {
+  next.stage = "done";
+  const { verified, assumed } = computeOutcome(next);
+  next.passedModules = verified;
+  next.assumedModules = assumed;
 }
 
 function computeFloorTier(results: Record<number, boolean>): number {
@@ -147,6 +194,27 @@ export function recordAnswer(
     totalServed: state.totalServed + 1,
   };
 
+  // Record the specific grammar point behind any wrong answer, for the gap
+  // report. The module is the current probe module, or (in screening) the
+  // tier's screening module.
+  if (!correct) {
+    const missModId =
+      state.stage === "screening"
+        ? tiers[Object.keys(state.screeningResults).length]?.screeningModuleId
+        : state.currentProbeModule;
+    if (missModId) {
+      const item = getItemsForModule(missModId).find((i) => i.id === itemId);
+      next.missedSkills = [
+        ...state.missedSkills,
+        {
+          moduleId: missModId,
+          grammarPointId: item?.grammarPointId,
+          skill: item?.skill,
+        },
+      ];
+    }
+  }
+
   if (state.stage === "screening") {
     const tierIdx = Object.keys(state.screeningResults).length;
     next.screeningResults = { ...state.screeningResults, [tierIdx]: correct };
@@ -159,8 +227,7 @@ export function recordAnswer(
       next.currentProbeModule = next.probeQueue[0] ?? null;
 
       if (next.probeQueue.length === 0) {
-        next.stage = "done";
-        next.passedModules = computePassedModules(next);
+        markDone(next);
       }
     }
     return next;
@@ -177,8 +244,7 @@ export function recordAnswer(
     next.consecutiveWrong = correct ? 0 : state.consecutiveWrong + 1;
 
     if (next.consecutiveWrong >= CONSECUTIVE_WRONG_CUTOFF || next.totalServed >= MAX_TOTAL_ITEMS) {
-      next.stage = "done";
-      next.passedModules = computePassedModules(next);
+      markDone(next);
       return next;
     }
 
@@ -198,8 +264,7 @@ export function recordAnswer(
         }
       }
       if (!advanced) {
-        next.stage = "done";
-        next.passedModules = computePassedModules(next);
+        markDone(next);
       }
     }
 
@@ -209,37 +274,44 @@ export function recordAnswer(
   return next;
 }
 
-function computePassedModules(state: AdaptiveState): string[] {
-  const isTestOut = state.estimatedFloorTier === null &&
+/**
+ * Split the run into VERIFIED (proved by probing to threshold — get their
+ * lessons completed) and ASSUMED (below the estimated floor but never tested —
+ * seeded into review, NOT auto-completed, surfaced in the gap report). This is
+ * the anti-leniency rule: a module is only "passed" if the learner actually
+ * demonstrated it; the floor estimate can *assume* lower modules but never
+ * silently completes them.
+ */
+export type PlacementOutcome = { verified: string[]; assumed: string[] };
+
+export function computeOutcome(state: AdaptiveState): PlacementOutcome {
+  const isTestOut =
+    state.estimatedFloorTier === null &&
     Object.keys(state.screeningResults).length === 0;
 
   if (isTestOut) {
-    const passed: string[] = [];
+    const verified: string[] = [];
     for (const [modId, results] of Object.entries(state.probeResults)) {
-      if (results.every((r) => r)) passed.push(modId);
+      if (modulePassed(results)) verified.push(modId);
     }
-    return passed;
+    return { verified, assumed: [] };
   }
 
-  const passed: string[] = [];
+  const verified: string[] = [];
+  const assumed: string[] = [];
   for (const modId of getAllTestableModules(state.languageId)) {
     const probed = state.probeResults[modId];
-
     if (probed) {
-      if (probed.every((r) => r)) {
-        passed.push(modId);
-      } else {
-        break;
-      }
+      // Probed: pass only on a real result. A probed-but-failed module is
+      // neither verified nor assumed — the learner studies it.
+      if (modulePassed(probed)) verified.push(modId);
     } else {
       const modTier = getTierForModule(modId, state.languageId);
       if (modTier !== null && modTier < (state.estimatedFloorTier ?? 0)) {
-        passed.push(modId);
-      } else {
-        break;
+        assumed.push(modId);
       }
     }
   }
 
-  return passed;
+  return { verified, assumed };
 }

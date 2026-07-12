@@ -7,14 +7,23 @@ import {
 import { ALL_TESTABLE_MODULES, getAllTestableModules } from "./tiers";
 
 describe("questionBank", () => {
-  it("has 75 JA items (3 per module × 25 modules)", () => {
-    // The bank is language-aware: JA is the complete spine (3 × 25); other
-    // languages (KO, etc.) are their own complete banks layered on top, so
-    // the total bank size grows as new languages get placement content.
+  it("JA bank is coverage-scaled: m3-m17 carry per-grammar-point coverage", () => {
+    // The bank is language-aware. m3-m17 (the shipped course) are
+    // coverage-scaled — one item per grammar point, each tagged with
+    // grammarPointId + skill so a test-out actually covers the module and the
+    // gap report can name what was missed. m18-m27 remain 3-item stubs.
     const jaItems = PLACEMENT_QUESTION_BANK.filter(
       (i) => (i.languageId ?? "ja") === "ja",
     );
-    expect(jaItems.length).toBe(75);
+    expect(jaItems.length).toBe(93);
+    const shipped = jaItems.filter((i) => {
+      const n = Number(i.moduleId.replace("m", ""));
+      return n >= 3 && n <= 17;
+    });
+    for (const i of shipped) {
+      expect(i.grammarPointId, `${i.id} needs a grammarPointId`).toBeTruthy();
+      expect(i.skill, `${i.id} needs a skill label`).toBeTruthy();
+    }
   });
 
   it("has 81 KO items (3 per module × 27 modules)", () => {
@@ -33,11 +42,16 @@ describe("questionBank", () => {
     }
   });
 
-  it("has exactly 3 JA items for every JA testable module", () => {
+  it("every JA testable module has >= 3 items; broad modules scale up", () => {
     for (const mod of getAllTestableModules("ja")) {
       const items = getItemsForModule(mod, "ja");
-      expect(items.length, `ja ${mod} should have 3 items`).toBe(3);
+      expect(
+        items.length,
+        `ja ${mod} should have at least 3 items`,
+      ).toBeGreaterThanOrEqual(3);
     }
+    // m14 (te-form + ta-form + counters — the widest module) gets the most.
+    expect(getItemsForModule("m14", "ja").length).toBeGreaterThanOrEqual(6);
   });
 
   it("has exactly 3 KO items for every KO testable module", () => {
@@ -49,7 +63,7 @@ describe("questionBank", () => {
 
   it("getItemsForModule defaults to JA for back-compat", () => {
     // No languageId arg → JA spine (existing call-site contract).
-    expect(getItemsForModule("m3").length).toBe(3);
+    expect(getItemsForModule("m3").length).toBeGreaterThanOrEqual(3);
     expect(getItemsForModule("m3").every((i) => (i.languageId ?? "ja") === "ja")).toBe(
       true,
     );
@@ -90,5 +104,53 @@ describe("questionBank", () => {
         `${item.id} has a duplicated option`,
       ).toBe(all.length);
     }
+  });
+});
+
+describe("near-duplicate MCQ → cloze presentation (QA 2026-07-12)", () => {
+  it("renders a shared-frame particle MCQ as a cloze with chips", () => {
+    const step = instantiateItem({
+      id: "t-neardup",
+      moduleId: "m3",
+      type: "sentenceMcq",
+      prompt: "Which sentence means 'I drink water.'?",
+      correctKana: "みずを のみます",
+      distractorsKana: ["みずは のみます", "みずに のみます", "みずで のみます"],
+    });
+    expect(step.type).toBe("particle_cloze");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const s = step as any;
+    expect(s.prompt.before).toBe("みず");
+    expect(s.prompt.after).toBe(" のみます");
+    expect(s.options.sort()).toEqual(["で", "に", "は", "を"]);
+    expect(s.meaningEn).toBe("I drink water.");
+  });
+
+  it("keeps genuinely different sentences as an MCQ", () => {
+    const step = instantiateItem({
+      id: "t-distinct",
+      moduleId: "m3",
+      type: "sentenceMcq",
+      prompt: "Which sentence means 'Good morning'?",
+      correctKana: "おはようございます",
+      distractorsKana: ["こんばんは", "さようなら", "いただきます"],
+    });
+    expect(step.type).toBe("multiple_choice");
+  });
+
+  it("reports how much of the live bank converts", () => {
+    let mcq = 0;
+    let converted = 0;
+    for (const item of PLACEMENT_QUESTION_BANK) {
+      if (item.type !== "sentenceMcq") continue;
+      mcq++;
+      if (instantiateItem(item).type === "particle_cloze") converted++;
+    }
+    // Informational floor: the transform must fire on a meaningful share
+    // of the bank (the "4 same sentences" items Spencer flagged) without
+    // converting everything.
+    expect(mcq).toBeGreaterThan(0);
+    expect(converted).toBeGreaterThan(0);
+    expect(converted).toBeLessThan(mcq);
   });
 });

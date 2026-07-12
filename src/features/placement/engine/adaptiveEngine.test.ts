@@ -4,6 +4,7 @@ import {
   createTestOutState,
   selectNextItem,
   recordAnswer,
+  modulePassed,
   type AdaptiveState,
 } from "./adaptiveEngine";
 import {
@@ -11,6 +12,7 @@ import {
   ALL_TESTABLE_MODULES,
   getSkillTiers,
   getAllTestableModules,
+  getTierForModule,
 } from "../tiers";
 import type { PlacementItemConfig } from "../questionBank";
 
@@ -18,6 +20,8 @@ function makeItem(id: string, moduleId: string): PlacementItemConfig {
   return {
     id,
     moduleId,
+    grammarPointId: `${moduleId}-gp`,
+    skill: `${moduleId} skill`,
     type: "sentenceMcq",
     prompt: "test",
     correctKana: "テスト",
@@ -124,7 +128,7 @@ describe("adaptiveEngine", () => {
     expect(state.consecutiveWrong).toBe(0);
   });
 
-  it("all correct → all modules passed", () => {
+  it("all correct → probed modules VERIFIED, lower modules ASSUMED (never silently completed)", () => {
     let state = runScreening(Array(8).fill(true));
 
     while (state.stage !== "done") {
@@ -133,10 +137,16 @@ describe("adaptiveEngine", () => {
       state = recordAnswer(state, item.id, true, getItems);
     }
 
-    expect(state.passedModules.length).toBe(ALL_TESTABLE_MODULES.length);
+    // Verified = actually probed to threshold.
+    expect(state.passedModules.length).toBeGreaterThan(0);
+    expect(state.passedModules.every((m) => state.probeResults[m])).toBe(true);
+    // The floor estimate no longer silently completes lower modules — they are
+    // ASSUMED (seeded/queued) and never appear in the verified/passed list.
+    expect(state.assumedModules).toContain("m3");
+    expect(state.passedModules).not.toContain("m3");
   });
 
-  it("all wrong → no modules passed", () => {
+  it("all wrong → nothing verified, nothing assumed", () => {
     let state = runScreening(Array(8).fill(false));
 
     while (state.stage !== "done") {
@@ -146,9 +156,10 @@ describe("adaptiveEngine", () => {
     }
 
     expect(state.passedModules).toEqual([]);
+    expect(state.assumedModules).toEqual([]);
   });
 
-  it("passed modules are contiguous from m3", () => {
+  it("verified modules were probed; assumed modules sit strictly below the floor", () => {
     let state = runScreening([true, true, true, false, false, false, false, false]);
 
     while (state.stage !== "done") {
@@ -157,23 +168,55 @@ describe("adaptiveEngine", () => {
       state = recordAnswer(state, item.id, true, getItems);
     }
 
-    for (let i = 0; i < state.passedModules.length; i++) {
-      expect(state.passedModules[i]).toBe(ALL_TESTABLE_MODULES[i]);
+    for (const m of state.passedModules) {
+      expect(state.probeResults[m]).toBeDefined();
+    }
+    for (const m of state.assumedModules) {
+      expect(state.probeResults[m]).toBeUndefined();
+      const tier = getTierForModule(m, "ja");
+      expect(tier).not.toBeNull();
+      expect(tier! < (state.estimatedFloorTier ?? 0)).toBe(true);
     }
   });
 
-  it("respects max 25 items total", () => {
+  it("modulePassed: short sets need a clean sweep; sets of 5+ allow one slip", () => {
+    expect(modulePassed([true, true, true])).toBe(true);
+    expect(modulePassed([true, true, false])).toBe(false); // 3 items, 0 allowed
+    expect(modulePassed(Array(8).fill(true))).toBe(true);
+    expect(modulePassed([...Array(7).fill(true), false])).toBe(true); // 7/8 ok
+    expect(modulePassed([...Array(6).fill(true), false, false])).toBe(false); // 2 misses
+    expect(modulePassed([])).toBe(false);
+  });
+
+  it("records the grammar point behind every wrong answer for the gap report", () => {
+    let state = createTestOutState("m10");
+    // 3 items, answer the 2nd wrong.
+    const i1 = selectNextItem(state, getItems)!;
+    state = recordAnswer(state, i1.id, true, getItems);
+    const i2 = selectNextItem(state, getItems)!;
+    state = recordAnswer(state, i2.id, false, getItems);
+    const i3 = selectNextItem(state, getItems)!;
+    state = recordAnswer(state, i3.id, true, getItems);
+
+    expect(state.missedSkills).toHaveLength(1);
+    expect(state.missedSkills[0]).toMatchObject({
+      moduleId: "m10",
+      grammarPointId: "m10-gp",
+    });
+  });
+
+  it("respects the max-items cap (40) so coverage-scaled tests still terminate", () => {
     let state = runScreening(Array(8).fill(true));
     let count = 8;
 
-    while (state.stage !== "done" && count < 30) {
+    while (state.stage !== "done" && count < 60) {
       const item = selectNextItem(state, getItems);
       if (!item) break;
       state = recordAnswer(state, item.id, true, getItems);
       count++;
     }
 
-    expect(state.totalServed).toBeLessThanOrEqual(25);
+    expect(state.totalServed).toBeLessThanOrEqual(40);
   });
 
   describe("test-out mode", () => {
@@ -255,7 +298,7 @@ describe("adaptiveEngine", () => {
       expect(s.stage).toBe("probing");
     });
 
-    it("all-correct KO screening passes the whole KO course", () => {
+    it("all-correct KO screening verifies probed KO modules and assumes lower ones", () => {
       let s = createInitialState("ko");
       // Drive the entire test all-correct.
       for (let guard = 0; guard < 60; guard++) {
@@ -265,9 +308,12 @@ describe("adaptiveEngine", () => {
         if (s.stage === "done") break;
       }
       expect(s.stage).toBe("done");
-      // Auto-level reached the top KO module.
-      expect(s.passedModules).toContain("m27");
-      expect(s.passedModules).toContain("m1");
+      // No silent whole-course pass anymore: split into verified + assumed,
+      // and every KO module is accounted for in one bucket or the other.
+      const covered = new Set([...s.passedModules, ...s.assumedModules]);
+      expect(covered.has("m1")).toBe(true);
+      expect(s.passedModules.length).toBeGreaterThan(0);
+      expect(s.passedModules.every((m) => s.probeResults[m])).toBe(true);
     });
 
     it("KO test-out probes only the target module", () => {
