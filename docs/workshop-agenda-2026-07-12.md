@@ -116,3 +116,117 @@ Survival sidequest (the other user) is already off the map.
 3. Every cloze carries enough context to force exactly one answer.
 4. Particles are always their own tiles (machine-enforced).
 5. Content fits the viewer; inner-scroll only; CTA stays anchored.
+
+## POST-PUSH REVIEW FINDINGS (2026-07-12 evening, 3 review agents over 13a7f22..4aeada9)
+
+Fixed same evening (in working tree):
+- Quick Fix modal keyboard leak: Enter advanced the lesson BEHIND the open
+  modal and could never dismiss it (useLessonKeyboard preventDefault).
+  Capture-phase swallow added; Enter/Esc/Space now dismiss.
+- Placement cloze gloss truncated at apostrophes ("I don", "Let") on 9
+  live items — greedy quote match now.
+- Typed trailing 。/. failed correct translate answers — typed side now
+  strips terminal punctuation like the authored side.
+- placedIndex (romaji auto-off) now counts assumed modules, matching the
+  assume-complete policy.
+- m22 このまちのなかで×Kyoto/Hiroshima semantics fixed (みっつのまち);
+  m13 かおを glue split; 294 missing TTS clips generated (courseAtoms now
+  a scanned TTS source — review-tail draws can no longer go silent).
+- Silent spot-drop now warns in dev (deriveGrammarMicroSteps).
+
+### Grammar micro-teaching phase-2 additions (design work, not quick fixes)
+- BACK-TO-BACK RULE CARDS (ja-m17-2-1 に/へ): first point's spot + tip
+  vanish; its drills get the SECOND point's tip. Needs span markers or
+  merged two-point handling. Highest-value fix of the batch.
+- OVER-TAGGING: the tip span runs to end-of-lesson, so prior-vocab recap
+  steps carry the grammar tip — a wrong recap match pops a non-sequitur
+  Quick Fix AND burns the once-per-point budget. Needs a span boundary
+  (stop at recap block) or exercisedGrammar tags on drills.
+- SPOT PLACEMENT: 73/89 spots land after the recap block (end of lesson)
+  instead of capping the drill span. Same root cause as over-tagging.
+- Lessons at/over density 25 (ja-m19-5-2, ja-m27-4-1) silently get no
+  spot; m17-2-1 loses one to the empty span. Now logged in dev; needs a
+  per-anti-rule test assertion once placement is redesigned.
+- "Got it — try again" copy lies: the wrong verdict is already committed;
+  the retry actually comes in the replay tail. Reword or wire a real
+  immediate retry.
+
+### Placement phase-2
+- Assumed-module completions are LOCAL-ONLY: server sync sends
+  passedModules only, so a device switch resurrects the "go do them"
+  state the policy was built to kill. Decide: sync assumed set (server
+  schema change) or derive assumed on hydrate.
+- Edge state passed=[] + assumed≠[] is inconsistently handled (script
+  modules not auto-completed, result headline says "starting from the
+  top" while the map shows credited modules).
+- Cloze chip cosmetics: leading-space chips (pt-m5-kudasai), unnatural
+  splits (そ/こ/あ/ど; 그+리고). Gradable but ugly — polish pass.
+
+### Listening follow-up wave (small)
+- ~31 literal word-level LCs the ratchet regex can't see (がつ months,
+  はち, に, はな, もの, とうちゃく, まちがえる…) + 67 dynamic
+  review-tail LCs. Convert + tighten heuristic to token-boundary.
+- Tile-spacing style is inconsistent across bands (「ジュース は」 vs
+  「せんせいは」) — cosmetic, wave-band artifact.
+- m22 のほうが glued vs m27 ほう|が split — pick one policy.
+
+### QA-page ralph audit (fixed same evening)
+Dark-mode/token fixes, ?step=<type> deep links, fixture hash-scroll +
+lazy-mount + per-Reset fresh ids, 2 missing fixtures (self_explanation_mcq,
+dialogue_listen) + coverage test, named play tab, section progress counts,
+jump-to-first-unmarked, per-language note storage, sendBeacon flush,
+orphan-note export, middleware hardening, sidequest early-pick bug,
+symbol_production mislabel (ships via kana learn flow), stories-flag dead
+link, conjugation /train needs ?types=. Remaining page idea (unbuilt):
+auto-mark rows visited when the play tab returns.
+
+## DRIVE 2 RESULTS (2026-07-13 evening — full checklist walked, live-fixed)
+
+All five re-verify rows + all four mechanics rows signed GOOD. Fixed
+during the drive (each test-verified, hot-reloaded into the session):
+1. build_sentence AUDIO LEAK — word builds auto-played the target
+   sentence, turning production into transcription. Silent pre-answer
+   now; model plays after submit; kana char-builds keep mount audio.
+2. dialogue_listen turns OVERLAPPED (70ms/char estimate ≈ half Nanami's
+   pace) — sequencer now chains on real clip end (playJaAudioToEnd).
+3. Match grids drew SENTENCES via padMatchPairsFloor (phrase-kind atoms)
+   — words-only filter + matchPairsWordOnly.test.ts flat guard.
+4. Vocab page listed the same 24 phrase atoms as word tiles — filtered
+   (kind facet now vocab|particle).
+5. Review-lesson MCQs: word-only grids now center EVERY tile at one
+   uniform size (≤2-char cutoff left とけい tiny next to blown-up に).
+6. Test-outs WIRED TO DERIVED SETS (Spencer sign-off): 12 real lesson
+   steps per module (was 3 bank items), miss budget 2 at ≥10 items,
+   consecutive-wrong cutoff 3 for test-outs (2 would pass on partial
+   evidence). deriveModuleTestOut TESTOUT_SIZE 10→12.
+7. fc-review grade buttons shifted when the async image grew the card —
+   image cards reserve height on both faces.
+8. Conjugation hub: one click-through now flips ALL locked tiles to
+   advisory (M-chip, fully usable); lock label restyled as pill.
+9. Learn map now auto-centers the CONTINUATION POINT on load (scoped to
+   the map scroll region; mobile falls back to scrollIntoView).
+10. Story/dialogue voices: per-speaker detune/rate coloring + bold
+    "X is speaking…" banner. Quick Fix modal type bumped per note.
+11. Placement "falsely awarding" = progress pollution from earlier QA
+    rows (placement only ADDS credit) — clean-slate recipe pinned on the
+    row. RE-VERIFY on a cleared account.
+
+### New backlog from drive 2
+- Counters trainer: visual pass to conjugation-tile feel; typed
+  PRODUCTION mode (pairs with typing-ladder rung 2).
+- Reading/speaking: visual refresh; kanji-where-applicable display
+  option; longer stories. Concept graded "amazing".
+- Speaking step: replace circular mic button with a fill bar; prompt mic
+  permission per occurrence when not bypassed (stale note, still open).
+- Travel sprints: MORE of them; add a knows-the-words-already check
+  (sidequests do teach in-lesson — verified).
+- Story dialogue phase 2: REAL second TTS voice per speaker
+  (lingo-core scripts/tts/add_alt_voice.py; manifest needs voice keys).
+- Learn map: spacing rhythm between node types still inconsistent
+  (continuation point fixed; spacing needs a design pass).
+- SURFACE CULL (Spencer lean): /practice/particles reference +
+  /practice/kanji page both "potential deprecate". fill_blank "good
+  lesson but doesn't feel like it belongs anywhere" — retire lean.
+- fc-manage: show a "no subscriptions yet — browse Community decks"
+  empty state; verify the subscribe→manage flow end-to-end.
+- Settings surfaces: untested ("too lazy, will surface later").
