@@ -6,6 +6,7 @@ import {
   useMemo,
 } from "react";
 import type { Language } from "@/shared/domain/languages";
+import { setDefaultTtsLang } from "@/shared/tts";
 import { AVAILABLE_LEARNING_LANGUAGES, getLanguageConfig } from "@/shared/domain/languageConfig";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 
@@ -32,6 +33,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   // on first launch. Pre-Task-#88 there was a silent fallback to the first
   // available language which made the picker dead code.
   const language = learningId ? getLanguageConfig(learningId) ?? null : null;
+
+  // Step views call the TTS layer without a `lang` argument; keep the
+  // resolver's default in lockstep with the active course language so
+  // non-ja lessons resolve their own manifest keys.
+  useEffect(() => {
+    if (language) setDefaultTtsLang(language.id);
+  }, [language]);
 
   const setLanguage = useCallback(
     (lang: Language) => {

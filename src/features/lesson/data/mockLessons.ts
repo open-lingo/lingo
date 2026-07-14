@@ -32,6 +32,7 @@ import { KO_M25_LESSONS } from "@/features/languages/ko/curriculum/m25";
 import { KO_M26_LESSONS } from "@/features/languages/ko/curriculum/m26";
 import { KO_M27_LESSONS } from "@/features/languages/ko/curriculum/m27";
 import { MOCK_LESSON_KO_SIDEQUEST_SURVIVAL } from "@/features/languages/ko/curriculum/sidequest-survival";
+import { ES_ALL_LESSONS } from "@/features/languages/es/curriculum";
 import {
   MOCK_LESSON_JA_M1_L1A,
   MOCK_LESSON_JA_M1_L1B,
@@ -433,6 +434,9 @@ const KOREAN_M26_LESSONS: Record<string, LessonContent> = Object.fromEntries(
 const KOREAN_M27_LESSONS: Record<string, LessonContent> = Object.fromEntries(
   KO_M27_LESSONS.map((l) => [l.id, l]),
 );
+const SPANISH_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  ES_ALL_LESSONS.map((l) => [l.id, l]),
+);
 
 const LESSONS: Record<string, LessonContent> = {
   // ─── Korean — Module 1 (Hangul foundation, 2026-05-19) ───────────────
@@ -502,6 +506,9 @@ const LESSONS: Record<string, LessonContent> = {
   ...KOREAN_M26_LESSONS,
   ...KOREAN_M27_LESSONS,
   "ko-sidequest-survival-phrases": MOCK_LESSON_KO_SIDEQUEST_SURVIVAL,
+  // ─── Spanish — authored modules (assembled in es/curriculum/index.ts;
+  // stub modules contribute nothing until their authoring wave lands) ───
+  ...SPANISH_LESSONS,
   // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,
   "ja-m1-l1-2": MOCK_LESSON_JA_M1_L1B,

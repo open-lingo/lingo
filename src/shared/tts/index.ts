@@ -39,6 +39,20 @@ import { getAudioVolume, subscribeAudioVolume } from "@/shared/audio/volume";
 
 const MANIFEST = manifest as Record<string, string | string[]>;
 
+/**
+ * Manifest-lookup language used when a caller doesn't pass `lang`.
+ * Step views never pass one (they predate multi-language), so without
+ * this every non-ja lesson would look up `ja:<text>` and stay silent.
+ * LanguageContext stamps the active course language here on mount/switch;
+ * default parameters are evaluated per call, so the ja default holds
+ * until a non-ja course actually mounts.
+ */
+let defaultTtsLang = "ja";
+
+export function setDefaultTtsLang(lang: string): void {
+  defaultTtsLang = lang;
+}
+
 function pickPath(entry: string | string[] | undefined): string | null {
   if (!entry) return null;
   if (typeof entry === "string") return entry;
@@ -62,7 +76,7 @@ function hiraganaTwin(text: string): string | null {
   return String.fromCharCode(code - 0x60);
 }
 
-export function getTtsUrl(text: string, lang: string = "ja"): string | null {
+export function getTtsUrl(text: string, lang: string = defaultTtsLang): string | null {
   if (!text) return null;
   const key = `${lang}:${text}`;
   let relative = pickPath(MANIFEST[key]);
@@ -78,7 +92,7 @@ export function getTtsUrl(text: string, lang: string = "ja"): string | null {
   return `/${relative}`;
 }
 
-export function hasTtsAudio(text: string, lang: string = "ja"): boolean {
+export function hasTtsAudio(text: string, lang: string = defaultTtsLang): boolean {
   return getTtsUrl(text, lang) !== null;
 }
 
@@ -218,7 +232,7 @@ function playBuffer(buffer: AudioBuffer): void {
 // Public play API.
 // ---------------------------------------------------------------------------
 
-export async function playJaAudio(text: string, lang: string = "ja"): Promise<void> {
+export async function playJaAudio(text: string, lang: string = defaultTtsLang): Promise<void> {
   const url = getTtsUrl(text, lang);
   if (!url) return;
   const buf = await loadBuffer(url);
@@ -243,7 +257,7 @@ export type VoiceColor = { detuneCents?: number; playbackRate?: number };
 
 export async function playJaAudioToEnd(
   text: string,
-  lang: string = "ja",
+  lang: string = defaultTtsLang,
   voice: VoiceColor = {},
 ): Promise<void> {
   const url = getTtsUrl(text, lang);
@@ -281,7 +295,7 @@ const playedAutoKeys = new Set<string>();
 export async function autoPlayJaAudio(
   text: string | undefined,
   playbackKey: string,
-  lang: string = "ja",
+  lang: string = defaultTtsLang,
 ): Promise<void> {
   if (!text) return;
   const url = getTtsUrl(text, lang);

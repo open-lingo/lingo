@@ -956,16 +956,9 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
     id: "es",
     name: "Spanish",
     flag: "🇪🇸",
-    practiceTypes: ["general", "alphabet"],
-    practiceOptions: [
-      { type: "general", label: "General practice" },
-      {
-        type: "alphabet",
-        id: "spanish-alphabet",
-        label: "Spanish (Alphabet)",
-        sampleCharacter: "ñ",
-      },
-    ],
+    // "alphabet" trimmed: esModule ships no alphabetConfig (Latin script; m1 teaches pronunciation in-lesson) so the tile would route to an empty trainer.
+    practiceTypes: ["general"],
+    practiceOptions: [{ type: "general", label: "General practice" }],
     alphabet: {
       id: "spanish-alphabet",
       name: "Spanish alphabet",
@@ -1035,7 +1028,7 @@ export function getLanguageConfig(
 export const LANGUAGES = Object.values(LANGUAGE_CONFIGS);
 
 /** Languages that currently have content (flashcards, stories, etc). Only these appear in the learning language selector. */
-export const AVAILABLE_LEARNING_LANGUAGE_IDS = ["ko", "ja"] as const;
+export const AVAILABLE_LEARNING_LANGUAGE_IDS = ["ko", "ja", "es"] as const;
 export const AVAILABLE_LEARNING_LANGUAGES = LANGUAGES.filter((l) =>
   (AVAILABLE_LEARNING_LANGUAGE_IDS as readonly string[]).includes(l.id),
 );

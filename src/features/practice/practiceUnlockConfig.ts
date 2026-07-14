@@ -84,8 +84,36 @@ const KO_FEATURES: PracticeFeatureConfig[] = [
   },
 ];
 
+const ES_FEATURES: PracticeFeatureConfig[] = [
+  {
+    id: "conjugation",
+    unlockAtModule: 8, // the -ar paradigm lands in M8 (Rutinas I)
+    title: "Conjugation",
+    description: "Verb form drills",
+    icon: "ar",
+    route: "practice/conjugation",
+  },
+  {
+    id: "reading",
+    unlockAtModule: 3,
+    title: "Reading",
+    description: "Short passage comprehension",
+    icon: "¿",
+    route: "practice/reading",
+  },
+  {
+    id: "speaking",
+    unlockAtModule: 1,
+    title: "Speaking",
+    description: "Pronunciation and response drills",
+    icon: "¡",
+    route: "practice/speaking",
+  },
+];
+
 export function getPracticeFeatures(langId: string): PracticeFeatureConfig[] {
   if (langId === "ko") return KO_FEATURES;
+  if (langId === "es") return ES_FEATURES;
   return JA_FEATURES;
 }
 
