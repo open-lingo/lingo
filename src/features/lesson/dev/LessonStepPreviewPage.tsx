@@ -1,7 +1,30 @@
-import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useState, useMemo, useEffect, useRef, type ReactNode } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { StepRenderer } from "../components/StepRenderer";
 import type { LessonStep } from "../types";
+
+/**
+ * Mount children only once scrolled near the viewport. Without this every
+ * fixture mounts at page load and ~5 step views autoplay TTS on top of
+ * each other — a cacophony that reads as "audio is broken".
+ */
+function LazyStage({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || inView) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) setInView(true);
+      },
+      { rootMargin: "200px" },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [inView]);
+  return <div ref={ref}>{inView ? children : <div className="h-24" />}</div>;
+}
 
 type Fixture = {
   type: LessonStep["type"];
@@ -10,7 +33,9 @@ type Fixture = {
   step: LessonStep;
 };
 
-function fixtures(): Fixture[] {
+// Exported for the coverage test: every StepType must have a fixture or
+// the QA page's "fixture" links become silent dead anchors.
+export function fixtures(): Fixture[] {
   return [
     {
       type: "info",
@@ -94,7 +119,7 @@ function fixtures(): Fixture[] {
       type: "translate",
       title: "translate",
       whenToUse:
-        "Free-form input. Unused in JA today; needs IME-grading consideration before adoption in M3+. acceptedAnswers handles small variant set.",
+        "Free-form production. Ships from M11 (negation) through M27. Live romaji→kana IME typing (wanakana) with submit-time grading; acceptedAnswers + rule-safe variant expansion (topic drop, pronoun swap, です drop, punctuation).",
       step: {
         id: "preview-translate",
         type: "translate",
@@ -336,6 +361,68 @@ function fixtures(): Fixture[] {
       },
     },
     {
+      type: "self_explanation_mcq",
+      title: "self_explanation_mcq",
+      whenToUse:
+        "Post-answer reflection: 'why was that right?'. Anchors on the fact just answered; options are typed rule/surface/distractor so wrong picks get differentiated feedback. Use sparingly after high-value grammar drills.",
+      step: {
+        id: "preview-sem",
+        type: "self_explanation_mcq",
+        anchor: {
+          label: "You picked は in: わたし＿ がくせいです",
+          audioText: "わたしは がくせいです",
+        },
+        question: "Why is は correct here?",
+        options: [
+          {
+            id: "a",
+            text: "It marks わたし as the topic — 'as for me'.",
+            reasonType: "rule",
+          },
+          {
+            id: "b",
+            text: "It always comes after the first word.",
+            reasonType: "surface",
+          },
+          {
+            id: "c",
+            text: "It makes the sentence past tense.",
+            reasonType: "distractor",
+          },
+        ],
+        correctOptionId: "a",
+        ruleExplanation:
+          "は marks the topic of the sentence — what we're talking about.",
+      },
+    },
+    {
+      type: "dialogue_listen",
+      title: "dialogue_listen",
+      whenToUse:
+        "Audio-only multi-turn retrieval (M3+ dialogue closer). Plays 2-4 turns with gaps, then comprehension MCQs; transcript reveals after the first answer by default.",
+      step: {
+        id: "preview-dl",
+        type: "dialogue_listen",
+        lines: [
+          { speaker: "Stranger", kana: "おげんきですか" },
+          { speaker: "You", kana: "はい、げんきです" },
+        ],
+        questions: [
+          {
+            id: "q1",
+            prompt: "What did the stranger ask?",
+            options: [
+              { id: "a", text: "How you are" },
+              { id: "b", text: "Where you live" },
+              { id: "c", text: "What your name is" },
+            ],
+            correctOptionId: "a",
+          },
+        ],
+        transcriptRevealAfter: "first-answer",
+      },
+    },
+    {
       type: "row_test",
       title: "row_test",
       whenToUse:
@@ -388,11 +475,39 @@ export default function LessonStepPreviewPage() {
   // (clears any post-Check state without contaminating siblings).
   const [keys, setKeys] = useState<Record<string, number>>({});
 
+  // Scroll to `#step-<type>` ourselves: the page is a lazy route chunk, so
+  // the browser's native anchor jump fires before the target exists. The
+  // QA test-drive "fixture" links depend on this landing on the card.
+  const { hash } = useLocation();
+  const [highlighted, setHighlighted] = useState<string | null>(null);
+  useEffect(() => {
+    if (!hash) return;
+    const id = hash.slice(1);
+    if (!document.getElementById(id)) return;
+    const scroll = () =>
+      document.getElementById(id)?.scrollIntoView({ block: "start" });
+    scroll();
+    // Lazy stages above the target mount + expand during the scroll and
+    // shove it down — re-pin after layout settles.
+    const t1 = setTimeout(scroll, 350);
+    const t2 = setTimeout(scroll, 900);
+    setHighlighted(id);
+    const t3 = setTimeout(() => setHighlighted(null), 2500);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  }, [hash]);
+
   const bump = (id: string) =>
     setKeys((k) => ({ ...k, [id]: (k[id] ?? 0) + 1 }));
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-6 text-text-primary">
+    // Same LangLayout gap as the QA page: dev routes get no app shell, so
+    // paint the themed background here or dark themes are unreadable.
+    <div className="min-h-screen bg-background text-text-primary">
+    <div className="mx-auto max-w-5xl px-4 py-6">
       <header className="mb-6 border-b border-border pb-4">
         <div className="text-[11px] font-bold uppercase tracking-wider text-warning">
           DEV · Lesson step previewer
@@ -427,7 +542,11 @@ export default function LessonStepPreviewPage() {
           <section
             key={f.type}
             id={`step-${f.type}`}
-            className="rounded-xl border border-border bg-surface p-4 shadow-sm scroll-mt-24"
+            className={`rounded-xl border bg-surface p-4 shadow-sm scroll-mt-24 ${
+              highlighted === `step-${f.type}`
+                ? "border-accent ring-2 ring-accent/40"
+                : "border-border"
+            }`}
           >
             <div className="mb-3 flex items-baseline justify-between gap-3 border-b border-border/60 pb-2">
               <div>
@@ -449,17 +568,28 @@ export default function LessonStepPreviewPage() {
             </p>
             <div
               key={keys[f.type] ?? 0}
-              className="rounded-lg border border-dashed border-border/60 bg-bg-base px-3 py-4"
+              className="rounded-lg border border-dashed border-border/60 bg-background px-3 py-4"
             >
-              <StepRenderer
-                step={f.step}
-                onComplete={() => {}}
-                onContinue={() => bump(f.type)}
-              />
+              <LazyStage>
+                <StepRenderer
+                  // Fresh id per Reset: audio autoplay + match shuffles
+                  // dedupe on step id, so a fixed id makes Reset look
+                  // like "audio broke" (once-per-session autoplay guard).
+                  step={
+                    {
+                      ...f.step,
+                      id: `${f.step.id}-r${keys[f.type] ?? 0}`,
+                    } as LessonStep
+                  }
+                  onComplete={() => {}}
+                  onContinue={() => bump(f.type)}
+                />
+              </LazyStage>
             </div>
           </section>
         ))}
       </div>
+    </div>
     </div>
   );
 }

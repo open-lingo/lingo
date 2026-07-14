@@ -38,11 +38,15 @@ export const ALL_STEP_TYPES = (
 ).sort((a, b) => STEP_TYPE_ORDER[a] - STEP_TYPE_ORDER[b]);
 
 /**
- * Step types that exist in the engine (and the fixture previewer) but are
- * not used by any shipped static lesson as of 2026-07-11. Discovered by the
- * qaCatalog coverage scan; pinned here so the coverage test fails loudly
- * when content starts (or stops) using one of these, instead of the QA
- * page silently linking nothing.
+ * Step types with zero usage in shipped STATIC lessons as of 2026-07-11.
+ * Pinned so the coverage test fails loudly when content starts (or stops)
+ * using one, instead of the QA page silently linking nothing.
+ *
+ * CAVEAT (2026-07-12 audit): "no static lesson" ≠ "unused". The scan only
+ * sees the LESSONS index — symbol_production SHIPS via the kana learn flow
+ * (alphabetSession generates it for /practice/alphabet/:id/learn). The QA
+ * page special-cases it with links to that surface; fill_blank remains
+ * genuinely unused everywhere.
  */
 export const UNUSED_STEP_TYPES: StepType[] = [
   "fill_blank",
@@ -68,9 +72,16 @@ export type StepTypeCoverage = {
   picks: QaLessonPick[];
 };
 
-function moduleNum(moduleId: string): number {
+/**
+ * null for off-spine moduleIds (sidequests). They must rank LAST in both
+ * the early and late orderings — returning 0 made every sidequest sort as
+ * "module 0" and hijack the early pick for six step types (2026-07-12
+ * audit). They stay eligible as a last resort: phrase_card ships only in
+ * the survival-phrases sidequest today.
+ */
+function moduleNum(moduleId: string): number | null {
   const m = /^m(\d+)$/.exec(moduleId);
-  return m ? parseInt(m[1], 10) : 0;
+  return m ? parseInt(m[1], 10) : null;
 }
 
 /**
@@ -107,13 +118,15 @@ export function buildStepTypeCoverage(languageId: string): StepTypeCoverage[] {
     const candidates = byType.get(type) ?? [];
     const earlyFirst = [...candidates].sort(
       (a, b) =>
-        moduleNum(a.moduleId) - moduleNum(b.moduleId) ||
+        (moduleNum(a.moduleId) ?? Infinity) -
+          (moduleNum(b.moduleId) ?? Infinity) ||
         b.count - a.count ||
         a.lessonId.localeCompare(b.lessonId),
     );
     const lateFirst = [...candidates].sort(
       (a, b) =>
-        moduleNum(b.moduleId) - moduleNum(a.moduleId) ||
+        (moduleNum(b.moduleId) ?? -Infinity) -
+          (moduleNum(a.moduleId) ?? -Infinity) ||
         b.count - a.count ||
         a.lessonId.localeCompare(b.lessonId),
     );

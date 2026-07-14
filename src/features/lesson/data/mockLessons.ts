@@ -937,11 +937,11 @@ function augmentWithReviewTail(lesson: LessonContent): LessonContent {
  * Review pseudo-modules inherit their source module's status — a
  * `m5-review` lesson reviews M5 content, so it sunsets too.
  */
-// 2026-05-18 rebuild: M5-M7 sunset removed. Rebuilt M5-M7 substitute
-// build_sentence with translateStep + listeningBuildSentence + speaking
-// per docs/m3-m7-rebuild-spec-2026-05-18.md §4, so the runtime strip is
-// no longer needed. Empty set kept as a future safety net — re-populate
-// if a downstream module legitimately needs the strip path.
+// 2026-05-18 rebuild: M5-M7 sunset removed — the rebuild made the runtime
+// strip unnecessary. (Earlier note claimed M5-M7 use translateStep; as of
+// 2026-07-12 the earliest translate is M11 — content drifted since.)
+// Empty set kept as a future safety net — re-populate if a downstream
+// module legitimately needs the strip path.
 const BUILD_SENTENCE_SUNSET_MODULES = new Set<string>();
 
 export function isSunsetModuleForBuildSentence(moduleId: string): boolean {

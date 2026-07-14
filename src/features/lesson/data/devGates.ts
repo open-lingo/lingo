@@ -35,12 +35,22 @@ export function applyTraceGateQueryParam(params: URLSearchParams): boolean {
  * match-overflow regression shipped unverified when the driver couldn't
  * REACH a match step: every step type must be directly addressable or it
  * silently drops out of layout verification.
+ *
+ * `?step=<type>` / `?step=<type>.<n>` — jump to the nth step of that TYPE
+ * (1-based, default first). The QA test-drive page links this form: a
+ * type survives re-derivation (spot injection, tails) where a raw index
+ * drifts.
  */
-export function consumeStepJumpParam(params: URLSearchParams): number | null {
+export type StepJump = { index: number } | { type: string; nth: number };
+
+export function consumeStepJumpParam(params: URLSearchParams): StepJump | null {
   if (!params.has("step")) return null;
-  const raw = Number(params.get("step"));
+  const raw = (params.get("step") ?? "").trim();
   params.delete("step");
-  return Number.isInteger(raw) && raw >= 0 ? raw : null;
+  if (/^\d+$/.test(raw)) return { index: Number(raw) };
+  const m = /^([a-z_]+?)(?:\.(\d+))?$/.exec(raw);
+  if (!m) return null;
+  return { type: m[1], nth: m[2] ? Math.max(1, Number(m[2])) : 1 };
 }
 
 const TRAY_OVERRIDE_KEY = "lingo_tray_override";

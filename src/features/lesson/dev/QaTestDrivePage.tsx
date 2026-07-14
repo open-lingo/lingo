@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import {
   ALL_STEP_TYPES,
@@ -20,12 +20,27 @@ type MarkStatus = "" | "good" | "issue" | "broken";
 type ItemMark = { status: MarkStatus; note: string };
 type QaNotes = { general: string; items: Record<string, ItemMark> };
 
-const STORAGE_KEY = "lingo:qa-notes:v1";
+// v2: notes are namespaced per language — row ids are language-agnostic
+// (`step:<type>`), so one shared key would bleed ja verdicts onto the ko
+// page. v1 (the 2026-07-12 ja drive) migrates in on first ja load.
+const STORAGE_KEY_BASE = "lingo:qa-notes:v2";
+const LEGACY_STORAGE_KEY = "lingo:qa-notes:v1";
+const storageKeyFor = (lang: string) => `${STORAGE_KEY_BASE}:${lang}`;
 
-function loadNotes(): QaNotes {
+function loadNotes(lang: string): QaNotes {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw) as QaNotes;
+    const raw =
+      localStorage.getItem(storageKeyFor(lang)) ??
+      (lang === "ja" ? localStorage.getItem(LEGACY_STORAGE_KEY) : null);
+    if (raw) {
+      const parsed = JSON.parse(raw) as QaNotes;
+      // Harden against schema drift — export/textarea assume strings.
+      const items: QaNotes["items"] = {};
+      for (const [id, m] of Object.entries(parsed.items ?? {})) {
+        items[id] = { status: m?.status ?? "", note: m?.note ?? "" };
+      }
+      return { general: parsed.general ?? "", items };
+    }
   } catch {
     /* corrupt state falls through to fresh */
   }
@@ -44,6 +59,27 @@ type QaSection = { id: string; title: string; blurb?: string; items: QaItem[] };
 const VERIFIED_NOTES: Record<string, string> = {
   "step:info":
     "Verified 2026-07-12: long info bodies scroll INSIDE the step scroller (overflow-y-auto) — the window never scrolls, even at 480px viewport height. Constraint lives in LessonPage's fixed shell.",
+  "route:particles":
+    "Spencer 2026-07-13: POTENTIAL DEPRECATE — simple particles get enough through-exposure in lessons; the reference page is a weak trainer. Revisit at the next surface cull.",
+  "route:kanji":
+    "Spencer 2026-07-13: empty today; individual kanji practice likely DEPRECATES too — kanji exposure should ride the course, not a standalone drill page. Same surface cull as particles.",
+  "route:reading-speaking":
+    "Spencer 2026-07-13: reading/speaking concepts AMAZING, content great — needs a visual refresh, kanji-where-applicable options, maybe longer stories (backlogged). speech-tune verified already dev-only: no user surface links it, URL access only.",
+};
+
+/**
+ * Test recipes — how to reach states a plain link can't (failure paths,
+ * reactive UI). Rendered in the row hint like VERIFIED_NOTES.
+ */
+const STEP_RECIPES: Record<string, string> = {
+  "step:phrase_card":
+    "⚠ Ships ONLY in the survival-phrases sidequest now — mainline vocab teaching moved to word_image_mcq. One wave from zero usage; decide keep-as-sidequest-flavor vs reintroduce.",
+  "step:row_test":
+    "Recipe: to see the “Not this time” completion, fail items until retries run out, then take the Skip path.",
+  "step:listening_build":
+    "A silent play button = TTS manifest miss — mark broken and note the lesson id.",
+  "step:listening_comprehension":
+    "A silent play button = TTS manifest miss — mark broken and note the lesson id. KNOWN (queued, don't re-file): ~31 single-word LCs survive the sentence-first wave (がつ months, はち, に…) — the ratchet regex can't see them yet.",
 };
 
 const TESTOUT_MODULES = [
@@ -60,37 +96,175 @@ function buildSections(lang: string): QaSection[] {
     .map((c) => ({
       id: `step:${c.type}`,
       title: c.type,
-      hint: [
-        `${c.totalLessons} lesson${c.totalLessons === 1 ? "" : "s"} use this type`,
-        VERIFIED_NOTES[`step:${c.type}`],
-      ]
-        .filter(Boolean)
-        .join(" · "),
+      hint: `${c.totalLessons} lesson${c.totalLessons === 1 ? "" : "s"} use this type`,
       links: [
+        // ?step=<type> drops the tester on the FIRST step of this type —
+        // no clicking through the lesson to reach the row being judged.
         ...c.picks.map((pick) => ({
           label: `${pick.moduleId} · ${pick.lessonId} (${pick.count}×)`,
-          href: p(`/learn/lessons/${pick.lessonId}`),
+          href: p(`/learn/lessons/${pick.lessonId}?step=${c.type}`),
         })),
         { label: "fixture", href: p(`/lesson-preview#step-${c.type}`) },
       ],
     }));
 
+  // Types with zero STATIC lesson usage. Two different stories:
+  //  - symbol_production SHIPS via the kana learn flow (alphabetSession
+  //    generates it) — the static-lesson scan just can't see it. Link the
+  //    real surface, don't call it unused.
+  //  - fill_blank is genuinely unused anywhere. Decide: adopt or retire.
   const unusedItems: QaItem[] = ALL_STEP_TYPES.filter((t) =>
     UNUSED_STEP_TYPES.includes(t),
-  ).map((t) => ({
-    id: `step:${t}`,
-    title: `${t} — unused in shipped content`,
-    hint: "Engine + fixture exist but no static lesson uses it. Decide: adopt or retire.",
-    links: [{ label: "fixture", href: p(`/lesson-preview#step-${t}`) }],
-  }));
+  ).map((t) =>
+    t === "symbol_production"
+      ? {
+          id: `step:${t}`,
+          title: `${t} — ships via kana learn flow`,
+          hint: "Not in any static lesson, but alphabetSession generates it in /practice/alphabet/:id/learn (invisible to the catalog scan). Judge it there.",
+          links: [
+            { label: "hiragana learn", href: p("/practice/alphabet/hiragana/learn") },
+            { label: "katakana learn", href: p("/practice/alphabet/katakana/learn") },
+            { label: "fixture", href: p(`/lesson-preview#step-${t}`) },
+          ],
+        }
+      : {
+          id: `step:${t}`,
+          title: `${t} — unused in shipped content`,
+          hint: "Engine + fixture exist but no static lesson uses it. Decide: adopt or retire.",
+          links: [{ label: "fixture", href: p(`/lesson-preview#step-${t}`) }],
+        },
+  );
 
-  return [
+  // Append recipe + verified-finding hints to ANY row by id (step rows,
+  // unused rows, and route rows all get the same treatment).
+  const decorate = (items: QaItem[]): QaItem[] =>
+    items.map((i) => {
+      const extra = [STEP_RECIPES[i.id], VERIFIED_NOTES[i.id]].filter(Boolean);
+      return extra.length
+        ? { ...i, hint: [i.hint, ...extra].filter(Boolean).join(" · ") }
+        : i;
+    });
+
+  const sections: QaSection[] = [
+    {
+      id: "fixes",
+      title: "Tonight's fixes — re-verify (2026-07-12 evening)",
+      blurb:
+        "Everything the audit/review round changed since your last drive. Judge these first — each row says exactly what changed and what correct looks like.",
+      items: [
+        {
+          id: "fix:quickfix-keyboard",
+          title: "Quick Fix modal — keyboard now trapped",
+          links: [
+            {
+              label: "m27 · ja-m27-2-1",
+              href: p("/learn/lessons/ja-m27-2-1?step=grammar_rule"),
+            },
+          ],
+          hint: "Was: Enter advanced the lesson BEHIND the open modal and could never dismiss it. Now: miss the drill after the rule card → modal opens; Enter/Esc/Space must CLOSE it, step stays put, nothing advances behind the overlay.",
+        },
+        {
+          id: "fix:placement-gloss",
+          title: "Placement/test-out cloze glosses with apostrophes",
+          links: [
+            { label: "test-out m11", href: p("/learn/test-out/m11") },
+            { label: "placement", href: p("/learn/placement-test") },
+          ],
+          hint: "Was: 9 items truncated at the apostrophe (“I don”, “Let”). Now the full quoted English must show — “I don't eat bread”. (Known cosmetic leftover, don't re-file: occasional leading-space or unnatural-split chips.)",
+        },
+        {
+          id: "fix:translate-punct",
+          title: "Translate — trailing period no longer fails",
+          links: [
+            {
+              label: "m11 · ja-m11-7-2",
+              href: p("/learn/lessons/ja-m11-7-2?step=translate"),
+            },
+          ],
+          hint: "Type a correct answer ending with “.” — the IME turns it into 。 and it previously graded WRONG. Must grade correct now.",
+        },
+        {
+          id: "fix:romaji-assumed",
+          title: "Romaji auto-off now counts ASSUMED modules",
+          links: [
+            { label: "placement", href: p("/learn/placement-test") },
+            { label: "m10 · ja-m10-1-1", href: p("/learn/lessons/ja-m10-1-1") },
+          ],
+          hint: "Place so m10+ is credited (passed OR “credited from your level”) → open the m10 lesson: hiragana romaji scaffold should be gone. Previously only PASSED modules triggered the fade.",
+        },
+        {
+          id: "fix:content-items",
+          title: "Fixed content: m22 いちばん semantics, m13 かおを split, 294 TTS clips",
+          links: [
+            {
+              label: "m22 · ja-m22-5-2",
+              href: p("/learn/lessons/ja-m22-5-2?step=listening_comprehension"),
+            },
+            {
+              label: "m22 · ja-m22-7-2",
+              href: p("/learn/lessons/ja-m22-7-2?step=listening_comprehension"),
+            },
+            {
+              label: "m13 · ja-m13-5-1",
+              href: p("/learn/lessons/ja-m13-5-1?step=listening_build"),
+            },
+          ],
+          hint: "m22: the いちばん items now say みっつの まちのなかで (audio + gloss must match — was “inside this town” × Kyoto). m13: かお|を are separate tiles like シャワー|を. And review-tail audio got a 294-clip backfill — ANY silent play button anywhere is a bug now.",
+        },
+      ],
+    },
     {
       id: "steps",
       title: "Step types in real lessons",
       blurb:
-        "Every step type the engine ships, linked to 1-2 real lessons that use it (early + late module). Play at least one lesson per row.",
+        "Every step type the engine ships, linked to 1-2 real lessons that use it (early + late module). Links land ON the first step of that type. Play at least one lesson per row.",
       items: [...stepItems, ...unusedItems],
+    },
+    {
+      id: "mechanics",
+      title: "New mechanics & failure states",
+      blurb:
+        "States a plain link can't reach — each row says how to trigger it. These are the newest moving parts; judge them hardest.",
+      items: [
+        {
+          id: "mech:microteach",
+          title: "Grammar micro-teaching (Quick Fix + spot MCQ)",
+          links: [
+            {
+              label: "m27 · ja-m27-2-1 (verified in tests)",
+              href: p("/learn/lessons/ja-m27-2-1?step=grammar_rule"),
+            },
+            {
+              label: "m3 · ja-m3-2-1 (earliest)",
+              href: p("/learn/lessons/ja-m3-2-1?step=grammar_rule"),
+            },
+          ],
+          hint: "Read the rule card, then miss the NEXT drill on purpose → the Quick Fix modal (✗ struck wrong / ✓ right / rule again) should flash ONCE per grammar point. At the end of the drill span expect the 2-option spot-the-mistake MCQ — no audio, romaji hidden. KNOWN (agenda §POST-PUSH, don't re-file): a wrong answer on the end-of-lesson recap steps can pop the tip as a non-sequitur; the spot lands at lesson end rather than capping the drills; ja-m17-2-1's first rule (に) loses its spot to the back-to-back card.",
+        },
+        {
+          id: "mech:complete-fail",
+          title: "Lesson complete — failed run (+0 XP advisory)",
+          links: [
+            { label: "short graded lesson", href: p("/learn/lessons/ja-m3-2-1") },
+          ],
+          hint: "Miss ≥30% of graded steps on purpose. Completion must show +0 XP with the “Score 70%+ to earn XP” advisory — and the server XP total must agree (no phantom XP on refresh).",
+        },
+        {
+          id: "mech:romaji-fade",
+          title: "Romaji fade inside lessons (hiragana ≥m10, katakana ≥m17)",
+          links: [
+            { label: "m10 lesson", href: p("/learn/lessons/ja-m10-1-1?step=build_sentence") },
+            { label: "m17 lesson", href: p("/learn/lessons/ja-m17-1-1") },
+          ],
+          hint: "Requires your placement/progress to have reached the module (romaji auto-off fires on placement). Check: no romaji under tiles/prompts at m10+, katakana romaji also gone at m17+.",
+        },
+        {
+          id: "mech:consent-squeeze",
+          title: "Cookie-consent banner + lesson shell squeeze",
+          links: [{ label: "any lesson", href: p("/learn/lessons/ja-m3-2-1") }],
+          hint: "Run localStorage.removeItem(\"open-lingo-cookie-consent\") in the console, reload a lesson: the banner must SQUEEZE the lesson shell (Continue button stays visible), not overlap it.",
+        },
+      ],
     },
     {
       id: "testout",
@@ -100,7 +274,7 @@ function buildSections(lang: string): QaSection[] {
           id: "route:placement",
           title: "Adaptive placement test",
           links: [{ label: "placement-test", href: p("/learn/placement-test") }],
-          hint: "FTUE offer appears on Learn at 0 progress (dev panel → Clear progress).",
+          hint: "JUDGE ON A CLEAN SLATE: dev panel → Clear progress FIRST. Placement only ADDS credit — it never revokes prior completions, so earlier QA rows (romaji-assumed run, test-outs) leave credits that read as false awards on the result screen. FTUE offer appears on Learn at 0 progress.",
         },
         {
           id: "route:testout",
@@ -167,7 +341,12 @@ function buildSections(lang: string): QaSection[] {
           links: [
             { label: "hub", href: p("/practice/conjugation") },
             { label: "free drill", href: p("/practice/conjugation/free") },
-            { label: "combined", href: p("/practice/conjugation/train") },
+            {
+              // /train redirects to the hub without 2+ valid type ids —
+              // preselect a sane pair so the link demos the session.
+              label: "combined (masu+te)",
+              href: p("/practice/conjugation/train?types=masu,te-form"),
+            },
           ],
         },
         {
@@ -224,14 +403,36 @@ function buildSections(lang: string): QaSection[] {
           links: [
             { label: "m4 story", href: p("/learn/lessons/ja-m4-story") },
             { label: "m10 story", href: p("/learn/lessons/ja-m10-story") },
-            { label: "stories page", href: p("/practice/stories") },
           ],
+          hint: "The /practice/stories browse page is behind the `stories` feature flag (ships OFF; only /feature-flags.json flips it) — it bounces to the hub, so it's not linked. Capstone lessons above are the shipped surface.",
         },
         {
           id: "route:ftue",
           title: "FTUE → placement offer",
           links: [{ label: "learn (after reset)", href: p("/learn") }],
           hint: "Dev panel → Clear progress (now wipes server too) → FTUE should survive hydration and reach the placement offer.",
+        },
+        {
+          id: "route:journey",
+          title: "Progress / journey page",
+          links: [{ label: "journey", href: p("/practice/journey") }],
+        },
+        {
+          id: "route:travel-sprint",
+          title: "Travel sprint",
+          links: [{ label: "travel-sprint", href: p("/learn/travel-sprint") }],
+        },
+        {
+          id: "route:try",
+          title: "/try preview funnel (prospective-learner first lesson)",
+          links: [{ label: "/try", href: "/try" }],
+          hint: "Top-level route, no language prefix. Ends in the signup CTA — judge it as a stranger's first 3 minutes.",
+        },
+        {
+          id: "route:settings",
+          title: "Settings that change lessons (romaji master toggle, theme/font)",
+          links: [{ label: "settings", href: "/settings" }],
+          hint: "Opens the settings modal over /home. Flip Appearance (theme, dyslexia font) and the romaji toggle, then re-open a lesson to verify they land.",
         },
         {
           id: "route:misc",
@@ -245,6 +446,7 @@ function buildSections(lang: string): QaSection[] {
       ],
     },
   ];
+  return sections.map((s) => ({ ...s, items: decorate(s.items) }));
 }
 
 const STATUS_META: {
@@ -254,38 +456,71 @@ const STATUS_META: {
 }[] = [
   { value: "good", label: "✓ good", active: "border-success text-success" },
   { value: "issue", label: "⚠ issue", active: "border-warning text-warning" },
-  { value: "broken", label: "✗ broken", active: "border-danger text-danger" },
+  { value: "broken", label: "✗ broken", active: "border-error text-error" },
 ];
 
 export default function QaTestDrivePage() {
   const { language } = useLanguage();
   const langId = language?.id ?? "ja";
   const sections = useMemo(() => buildSections(langId), [langId]);
-  const [notes, setNotes] = useState<QaNotes>(loadNotes);
-  const [copied, setCopied] = useState(false);
+  const [notes, setNotes] = useState<QaNotes>(() => loadNotes(langId));
+  const [exportState, setExportState] = useState<
+    "idle" | "copied" | "downloaded"
+  >("idle");
+  // True after the FIRST user edit this session (mark, note, or reset) —
+  // gates the mirror POST so passive opens never clobber the shared file.
+  const dirtyRef = useRef(false);
+
+  // Language switch mid-session: swap to that language's note set.
+  useEffect(() => {
+    setNotes(loadNotes(langId));
+  }, [langId]);
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+      localStorage.setItem(storageKeyFor(langId), JSON.stringify(notes));
     } catch {
       /* storage full/unavailable — notes stay in memory */
     }
-  }, [notes]);
+  }, [notes, langId]);
 
   // Mirror notes to the dev server so an agent can watch critiques land
   // live while the tester works (vite middleware /__lingo-qa-notes →
   // /tmp/lingo-qa-notes.json — same pattern as the devLog console pipe).
   // Debounced fire-and-forget; failures are irrelevant in prod builds
-  // where the middleware doesn't exist.
+  // where the middleware doesn't exist. Two guards:
+  //  - a session that never EDITED never POSTs (a second browser/incognito
+  //    opening the page must not clobber the shared mirror with empties) —
+  //    but an explicit Reset counts as an edit, so clearing notes DOES
+  //    reach the mirror instead of leaving stale verdicts;
+  //  - pagehide flushes via sendBeacon, closing the "typed a verdict and
+  //    closed the tab inside the debounce window" loss hole.
   useEffect(() => {
+    if (!dirtyRef.current) return;
+    const payload = () =>
+      JSON.stringify({ savedAt: new Date().toISOString(), ...notes });
     const handle = setTimeout(() => {
       void fetch("/__lingo-qa-notes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ savedAt: new Date().toISOString(), ...notes }),
+        body: payload(),
       }).catch(() => undefined);
     }, 1000);
-    return () => clearTimeout(handle);
+    const flush = () => {
+      try {
+        navigator.sendBeacon?.(
+          "/__lingo-qa-notes",
+          new Blob([payload()], { type: "application/json" }),
+        );
+      } catch {
+        /* no beacon (old browser) — debounced POST already covered most */
+      }
+    };
+    window.addEventListener("pagehide", flush);
+    return () => {
+      clearTimeout(handle);
+      window.removeEventListener("pagehide", flush);
+    };
   }, [notes]);
 
   const allItems = useMemo(
@@ -296,16 +531,18 @@ export default function QaTestDrivePage() {
     (i) => notes.items[i.id]?.status || notes.items[i.id]?.note?.trim(),
   ).length;
 
-  const setMark = (id: string, patch: Partial<ItemMark>) =>
+  const setMark = (id: string, patch: Partial<ItemMark>) => {
+    dirtyRef.current = true;
     setNotes((n) => {
       const prev: ItemMark = n.items[id] ?? { status: "", note: "" };
       return { ...n, items: { ...n.items, [id]: { ...prev, ...patch } } };
     });
+  };
 
   const exportMarkdown = () => {
     const lines: string[] = [
       `# Lingo QA test-drive notes`,
-      `_Exported ${new Date().toISOString().slice(0, 16).replace("T", " ")} · ${markedCount}/${allItems.length} items marked_`,
+      `_Exported ${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC · ${markedCount}/${allItems.length} items marked_`,
       "",
     ];
     if (notes.general.trim()) {
@@ -322,8 +559,26 @@ export default function QaTestDrivePage() {
         lines.push(
           `- **${item.title}** — ${mark.status ? mark.status.toUpperCase() : "(no verdict)"}`,
         );
-        if (mark.note.trim()) {
+        if ((mark.note ?? "").trim()) {
           for (const noteLine of mark.note.trim().split("\n")) {
+            lines.push(`  - ${noteLine}`);
+          }
+        }
+      }
+      lines.push("");
+    }
+    // Notes whose row left the catalog (type renamed, pick reshuffled)
+    // must not silently vanish from the handoff.
+    const knownIds = new Set(allItems.map((i) => i.id));
+    const orphans = Object.entries(notes.items).filter(
+      ([id, m]) => !knownIds.has(id) && (m.status || (m.note ?? "").trim()),
+    );
+    if (orphans.length > 0) {
+      lines.push("## Orphaned notes (row no longer on page)");
+      for (const [id, m] of orphans) {
+        lines.push(`- **${id}** — ${m.status ? m.status.toUpperCase() : "(no verdict)"}`);
+        if ((m.note ?? "").trim()) {
+          for (const noteLine of m.note.trim().split("\n")) {
             lines.push(`  - ${noteLine}`);
           }
         }
@@ -333,11 +588,17 @@ export default function QaTestDrivePage() {
     const md = lines.join("\n");
     void navigator.clipboard?.writeText(md).then(
       () => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        setExportState("copied");
+        setTimeout(() => setExportState("idle"), 2000);
       },
       () => undefined,
     );
+    if (!navigator.clipboard) {
+      // http-over-LAN (phone testing) has no clipboard API — say so
+      // instead of silently only downloading.
+      setExportState("downloaded");
+      setTimeout(() => setExportState("idle"), 3000);
+    }
     const blob = new Blob([md], { type: "text/markdown" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
@@ -346,14 +607,29 @@ export default function QaTestDrivePage() {
     URL.revokeObjectURL(a.href);
   };
 
+  const jumpToFirstUnmarked = () => {
+    const first = allItems.find(
+      (i) => !notes.items[i.id]?.status && !(notes.items[i.id]?.note ?? "").trim(),
+    );
+    if (!first) return;
+    document
+      .getElementById(`row-${first.id}`)
+      ?.scrollIntoView({ block: "center" });
+  };
+
   const resetNotes = () => {
     if (window.confirm("Clear all QA notes and verdicts?")) {
+      dirtyRef.current = true; // reset must reach the mirror too
       setNotes({ general: "", items: {} });
     }
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-6 text-text-primary">
+    // Dev routes hang directly off LangLayout (no app shell), so this page
+    // must paint its own themed background — without it, dark themes render
+    // light text on the default white body.
+    <div className="min-h-screen bg-background text-text-primary">
+    <div className="mx-auto max-w-5xl px-4 py-6">
       <header className="mb-6 border-b border-border pb-4">
         <div className="text-[11px] font-bold uppercase tracking-wider text-warning">
           DEV · QA test-drive
@@ -362,11 +638,12 @@ export default function QaTestDrivePage() {
           Learning-path test drive
         </h1>
         <p className="m-0 mt-2 text-sm text-text-secondary">
-          Work top to bottom: open each link (they open in a new tab), play
-          it, then mark the row and drop critiques in the box. Notes persist
-          in this browser AND stream live to the dev workshop — marks land
-          instantly, note text after you pause typing. “Export” still works
-          as the offline fallback.
+          Work top to bottom: every link opens in ONE shared play tab (no
+          tab pile-up), lesson links land on the exact step, then mark the
+          row and drop critiques in the box. Notes persist in this browser
+          AND mirror to the dev workshop ~1s after you pause; closing or
+          hiding this tab flushes immediately. “Export” still works as the
+          offline fallback.
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <span className="rounded border border-border bg-surface-muted px-2 py-1 text-xs font-semibold">
@@ -374,10 +651,21 @@ export default function QaTestDrivePage() {
           </span>
           <button
             type="button"
+            onClick={jumpToFirstUnmarked}
+            className="rounded border border-accent px-2 py-1 text-xs font-semibold text-accent hover:bg-surface-muted"
+          >
+            Jump to first unmarked
+          </button>
+          <button
+            type="button"
             onClick={exportMarkdown}
             className="rounded border border-accent px-2 py-1 text-xs font-semibold text-accent hover:bg-surface-muted"
           >
-            {copied ? "Copied!" : "Export notes (copy + download)"}
+            {exportState === "copied"
+              ? "Copied!"
+              : exportState === "downloaded"
+                ? "Downloaded (no clipboard)"
+                : "Export notes (copy + download)"}
           </button>
           <button
             type="button"
@@ -388,15 +676,31 @@ export default function QaTestDrivePage() {
           </button>
         </div>
         <nav className="mt-3 flex flex-wrap gap-2 text-xs">
-          {sections.map((s) => (
-            <a
-              key={s.id}
-              href={`#qa-${s.id}`}
-              className="rounded border border-border bg-surface px-2 py-0.5 hover:bg-surface-muted"
-            >
-              {s.title}
-            </a>
-          ))}
+          {sections.map((s) => {
+            const done = s.items.filter(
+              (i) =>
+                notes.items[i.id]?.status ||
+                (notes.items[i.id]?.note ?? "").trim(),
+            ).length;
+            return (
+              <a
+                key={s.id}
+                href={`#qa-${s.id}`}
+                className="rounded border border-border bg-surface px-2 py-0.5 hover:bg-surface-muted"
+              >
+                {s.title}
+                <span
+                  className={
+                    done === s.items.length
+                      ? "ml-1 font-semibold text-success"
+                      : "ml-1 text-text-muted"
+                  }
+                >
+                  {done}/{s.items.length}
+                </span>
+              </a>
+            );
+          })}
         </nav>
       </header>
 
@@ -406,12 +710,13 @@ export default function QaTestDrivePage() {
         </h2>
         <textarea
           value={notes.general}
-          onChange={(e) =>
-            setNotes((n) => ({ ...n, general: e.target.value }))
-          }
+          onChange={(e) => {
+            dirtyRef.current = true;
+            setNotes((n) => ({ ...n, general: e.target.value }));
+          }}
           rows={3}
           placeholder="Anything cross-cutting: pacing, monotony, juice, difficulty curve…"
-          className="mt-2 w-full rounded border border-border bg-bg-base px-2 py-1.5 text-sm"
+          className="mt-2 w-full rounded border border-border bg-background px-2 py-1.5 text-sm"
         />
       </section>
 
@@ -430,7 +735,8 @@ export default function QaTestDrivePage() {
                 return (
                   <div
                     key={item.id}
-                    className="rounded-xl border border-border bg-surface p-3"
+                    id={`row-${item.id}`}
+                    className="scroll-mt-24 rounded-xl border border-border bg-surface p-3"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div className="min-w-0">
@@ -467,25 +773,27 @@ export default function QaTestDrivePage() {
                     </div>
                     <div className="mt-2 flex flex-wrap gap-1.5">
                       {item.links.map((link) => (
+                        // Named target: every play link reuses ONE tab
+                        // instead of piling up dozens. (No rel=noopener —
+                        // it would sever the name link and re-spawn tabs.)
                         <a
                           key={link.href + link.label}
                           href={link.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="rounded border border-border bg-bg-base px-2 py-0.5 text-xs text-accent underline-offset-2 hover:underline"
+                          target="lingo-qa-play"
+                          className="rounded border border-border bg-background px-2 py-0.5 text-xs text-accent underline-offset-2 hover:underline"
                         >
                           {link.label}
                         </a>
                       ))}
                     </div>
                     <textarea
-                      value={mark.note}
+                      value={mark.note ?? ""}
                       onChange={(e) =>
                         setMark(item.id, { note: e.target.value })
                       }
-                      rows={mark.note ? 3 : 1}
+                      rows={2}
                       placeholder="Critiques…"
-                      className="mt-2 w-full rounded border border-border/60 bg-bg-base px-2 py-1 text-xs"
+                      className="mt-2 w-full rounded border border-border/60 bg-background px-2 py-1 text-xs"
                     />
                   </div>
                 );
@@ -494,6 +802,7 @@ export default function QaTestDrivePage() {
           </section>
         ))}
       </div>
+    </div>
     </div>
   );
 }

@@ -74,16 +74,30 @@ function qaNotesMiddleware(): Plugin {
           return;
         }
         const chunks: Buffer[] = [];
-        req.on("data", (c: Buffer) => chunks.push(c));
+        let size = 0;
+        req.on("data", (c: Buffer) => {
+          size += c.length;
+          if (size > 1_000_000) {
+            // A notes blob is a few KB — near-1MB means a bug; don't buffer.
+            res.statusCode = 413;
+            res.end();
+            req.destroy();
+            return;
+          }
+          chunks.push(c);
+        });
         req.on("end", () => {
           try {
             const body = Buffer.concat(chunks).toString("utf8");
             JSON.parse(body); // validate before writing
-            fs.writeFileSync(notesFile, body);
+            // tmp+rename: a watcher reading the file mid-write must never
+            // see torn JSON (rename is atomic on the same filesystem).
+            fs.writeFileSync(`${notesFile}.tmp`, body);
+            fs.renameSync(`${notesFile}.tmp`, notesFile);
+            res.statusCode = 204;
           } catch {
-            /* ignore malformed payloads */
+            res.statusCode = 400;
           }
-          res.statusCode = 204;
           res.end();
         });
       });

@@ -176,6 +176,9 @@ export function LessonPage() {
   const stepContainerRef = useRef<HTMLDivElement>(null);
   const wasResumed = hydrated !== null;
   const completionRecordedRef = useRef(false);
+  // True once a `?step=` jump was consumed: this session is a QA/dev PEEK
+  // and must leave no in-progress record behind.
+  const stepJumpPeekRef = useRef(false);
 
   useEffect(() => {
     completionRecordedRef.current = false;
@@ -209,10 +212,27 @@ export function LessonPage() {
     const gateChanged = applyTraceGateQueryParam(next);
     // `?tray=slots|pill` — dev override for the word-build tray variant.
     const trayChanged = applyTrayOverrideParam(next);
-    // `?step=N` — dev jump to a step index (layout verification reach).
+    // `?step=N` or `?step=<type>[.<n>]` — dev jump to a step (layout
+    // verification + QA page deep links). A jump is a PEEK: it clears any
+    // saved in-progress record, resets hydrated results, and disables
+    // persistence for this session — otherwise every QA-page click leaves
+    // a mid-lesson resume record (and stale results) that poisons the
+    // next real run of that lesson.
     const jump = consumeStepJumpParam(next);
-    if (jump !== null && lesson) {
-      setCurrentStepIdx(Math.min(jump, lesson.steps.length - 1));
+    if (jump !== null && lesson && lessonId) {
+      stepJumpPeekRef.current = true;
+      clearLessonInProgress(lessonId);
+      setResults({});
+      resultsRef.current = {};
+      if ("index" in jump) {
+        setCurrentStepIdx(Math.min(jump.index, lesson.steps.length - 1));
+      } else {
+        let seen = 0;
+        const idx = lesson.steps.findIndex(
+          (s) => s.type === jump.type && ++seen === jump.nth,
+        );
+        if (idx >= 0) setCurrentStepIdx(idx);
+      }
     }
     if (speechChanged || dialsChanged || densityChanged || gateChanged || trayChanged || jump !== null) {
       setSearchParams(next, { replace: true });
@@ -233,6 +253,7 @@ export function LessonPage() {
   useEffect(() => {
     if (!lesson || !lessonId) return;
     if (finished) return;
+    if (stepJumpPeekRef.current) return; // ?step peeks never persist
     saveLessonInProgress(lessonId, {
       stepIdx: currentStepIdx,
       results,
