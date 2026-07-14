@@ -73,7 +73,13 @@ export function buildVocabRows(
   if (languageId !== "ja") return [];
   const byId = new Map(concepts.map((c) => [c.conceptId, c]));
 
-  return JA_COURSE_ATOMS.filter(isSrsEligibleAtom).map((atom) => {
+  // Words + particles only: phrase-kind atoms (full example sentences)
+  // exist for SRS/listening exposure, but a sentence tile in the WORD
+  // vocab grid reads as mislabeled data and its kana breaks the tile
+  // layout (Spencer QA 2026-07-13).
+  return JA_COURSE_ATOMS.filter(
+    (a) => isSrsEligibleAtom(a) && a.kind !== "phrase",
+  ).map((atom) => {
     const id = canonicalAtomId(atom);
     const { tier, recentStrength } = tierFor(byId.get(id));
     const imageUrl = lingoArtUrl(atom.kana) ?? (atom.emoji ? notoEmojiUrl(atom.emoji) : null);

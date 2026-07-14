@@ -77,6 +77,16 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
     ? "relative grid grid-cols-2 grid-rows-2 auto-rows-fr gap-3 sm:gap-4"
     : "relative grid gap-3";
 
+  // Word-only grid detection (single tokens, no sentences): these render
+  // as centered word cards at ONE shared size tier — mixing a 5xl kana
+  // with a tiny left-aligned 3-mora word in the same grid read as broken.
+  const allSingleWords = step.options.every(
+    (o) => o.text.trim().length <= 8 && !/\s/.test(o.text.trim()),
+  );
+  const singleWordSize = step.options.some((o) => o.text.trim().length > 2)
+    ? "py-8 text-3xl sm:text-4xl"
+    : "py-9 text-5xl sm:text-6xl";
+
   const hasSubmittedWrong = submitted && !isCorrect;
   const showExplain = stepHasSentenceContent(step);
 
@@ -177,15 +187,23 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue }: Props) 
           //   tiles looked broken. Spencer 2026-05-17: "set height and
           //   width limits and then fill text". Now uniform mid-size +
           //   min-height; grid auto-rows-fr keeps rows equal.
-          // - Regular MC short glyph (≤2 chars, single kana): big-glyph
+          // - Word-only grids: EVERY tile centers at one uniform display
+          //   size — the longest option picks the tier. Pre-fix the ≤2
+          //   cutoff left とけい/きゅうり tiny and left-aligned next to a
+          //   blown-up centered に (Spencer QA 2026-07-13, ja-m5-review-1:
+          //   "bigger and take the center of the card if it is a single
+          //   word").
+          // - Regular MC short glyph (≤2 chars) in MIXED grids: big-glyph
           //   center layout, classic alphabet drill.
-          // - Long text (sentences, English): left-aligned text-xl.
+          // - Long text (sentences): left-aligned text-xl.
           const isShortGlyph = opt.text.length <= 2;
           const layout = step.optionsRevealRomajiOnSelect
             ? "flex items-center justify-center py-8 px-4 text-3xl sm:text-4xl font-bold min-h-[120px]"
-            : isShortGlyph
-              ? "flex items-center justify-center py-9 text-5xl sm:text-6xl font-bold"
-              : "px-4 py-6 text-left text-xl font-medium leading-snug";
+            : allSingleWords
+              ? `flex items-center justify-center px-4 font-bold ${singleWordSize}`
+              : isShortGlyph
+                ? "flex items-center justify-center py-9 text-5xl sm:text-6xl font-bold"
+                : "px-4 py-6 text-left text-xl font-medium leading-snug";
 
           return (
             <button

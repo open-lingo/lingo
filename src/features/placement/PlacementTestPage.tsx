@@ -18,6 +18,7 @@ import { applyPlacementResult, type PlacementResult } from "./engine/applyPlacem
 import { syncTestOutToServer } from "./engine/syncTestOutToServer";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getItemsForModule, instantiateItem } from "./questionBank";
+import { getDerivedTestOutItems } from "./engine/deriveModuleTestOut";
 import { dismissPlacement } from "./hooks/usePlacementDismissed";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
@@ -41,18 +42,24 @@ export function PlacementTestPage() {
   const langId = language?.id ?? "ja";
   const { settings, updateSetting } = useSettings();
 
-  // The placement bank covers JA m3-m27 and KO m3. Other modules /
-  // languages without items render an honest "no test-out questions
-  // yet" message instead of running through an empty engine cycle and
-  // showing a misleading "Not quite yet, you need 100%".
-  const hasBank =
-    !isTestOut ||
-    (moduleId != null && getItemsForModule(moduleId, langId).length > 0);
-
+  // JA test-outs serve the DERIVED sets — ~12 real lesson steps sampled
+  // for section coverage (deriveModuleTestOut) — instead of the legacy
+  // 3-per-module bank (Spencer sign-off 2026-07-13). Full placement and
+  // KO keep the authored bank: placement's screening/probing needs the
+  // curated per-skill items, and KO has no derived corpus yet.
   const itemsLookup = useMemo(
-    () => (mod: string) => getItemsForModule(mod, langId),
-    [langId],
+    () => (mod: string) =>
+      isTestOut && langId === "ja"
+        ? getDerivedTestOutItems(mod)
+        : getItemsForModule(mod, langId),
+    [isTestOut, langId],
   );
+
+  // Modules / languages without items render an honest "no test-out
+  // questions yet" message instead of running through an empty engine
+  // cycle and showing a misleading "Not quite yet, you need 100%".
+  const hasBank =
+    !isTestOut || (moduleId != null && itemsLookup(moduleId).length > 0);
 
   const [state, setState] = useState<AdaptiveState>(() =>
     isTestOut
@@ -87,12 +94,18 @@ export function PlacementTestPage() {
         // a learner who tests OUT of m3-m9 has reached m10 without ever
         // completing an m10+ lesson, and would otherwise keep the beginner
         // romaji scaffold deep into the course (QA 2026-07-11). Position
-        // after placement = highest passed module + 1. Same one-shot
+        // after placement = highest CREDITED module + 1 — assumed modules
+        // count too (assume-complete policy: they're treated as known, so
+        // they place the learner just like passed ones). Same one-shot
         // guards as the LessonPage trigger, so this is idempotent.
+        const creditedModules = [
+          ...state.passedModules,
+          ...state.assumedModules,
+        ];
         const placedIndex =
-          state.passedModules.length > 0
+          creditedModules.length > 0
             ? Math.max(
-                ...state.passedModules.map((m) =>
+                ...creditedModules.map((m) =>
                   parseModuleIndex(`${langId}-${m}`),
                 ),
               ) + 1

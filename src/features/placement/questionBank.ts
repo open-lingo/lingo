@@ -26,7 +26,20 @@ export type PlacementItemConfig = {
   /** Short human label for the grammar point, shown in the gap report
    *  (e.g. "past tense of い-adjectives"). Falls back to grammarPointId. */
   skill?: string;
-} & (ClozeConfig | SentenceMcqConfig);
+} & (ClozeConfig | SentenceMcqConfig | DerivedStepConfig);
+
+/**
+ * A real, already-vetted lesson step served verbatim — the derived
+ * test-out path (deriveModuleTestOut samples ~12 gradable steps from the
+ * module's own lessons). `id` MUST equal `step.id`: the page records
+ * answers by the rendered step's id, and the engine dedupes served items
+ * by config id — the cloze/sentenceMcq factories keep that invariant by
+ * construction, this variant keeps it by contract.
+ */
+type DerivedStepConfig = {
+  type: "derivedStep";
+  step: LessonStep;
+};
 
 type ClozeConfig = {
   type: "cloze";
@@ -78,8 +91,10 @@ function asClozeIfNearDuplicate(
   if (middles.some((m) => m.length === 0 || m.length > 6)) return null;
   if (new Set(middles).size !== middles.length) return null;
   // The prompt usually embeds the English target in quotes — that becomes
-  // the pre-answer gloss the cloze UI already shows.
-  const quoted = config.prompt.match(/['‘’「]([^'‘’」]+)['‘’」]/);
+  // the pre-answer gloss the cloze UI already shows. Greedy to the LAST
+  // quote char: apostrophes inside the English ("don't", "It's") would
+  // otherwise close the match early and ship truncated glosses ("I don").
+  const quoted = config.prompt.match(/['‘’「](.+)['‘’」]/);
   return clozeFn(
     config.id,
     all[0].slice(0, p),
@@ -105,6 +120,7 @@ export function instantiateItem(config: PlacementItemConfig): LessonStep {
   // differ), so the placement config is language-agnostic; the language id
   // just picks which factory materializes the step.
   const lang = config.languageId ?? "ja";
+  if (config.type === "derivedStep") return config.step;
   if (config.type === "cloze") {
     const fn = lang === "ko" ? koCloze : cloze;
     return fn(

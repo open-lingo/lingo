@@ -305,9 +305,18 @@ function buildMeaningFill(
 ): MatchPair[] {
   const present = new Set(pairs.map((p) => p.source));
   // Prior-only via module cutoff (lesson.moduleId, NOT parsed from the
-  // step id — ja-m1-* landmine).
+  // step id — ja-m1-* landmine). WORDS ONLY: phrase-kind atoms (full
+  // example sentences like これは あおいです) wrap to two-line cards and
+  // don't belong in a word↔meaning grid (Spencer QA 2026-07-13, found
+  // padded into ja-m3-2-1's review match). The whitespace check backstops
+  // atoms whose kind is missing or mislabeled.
   const prior = getAtomsUpToModule(moduleId).filter(
-    (a) => isSrsEligibleAtom(a) && !present.has(a.kana) && /[a-zA-Z]/.test(a.meaningEn),
+    (a) =>
+      isSrsEligibleAtom(a) &&
+      !present.has(a.kana) &&
+      /[a-zA-Z]/.test(a.meaningEn) &&
+      a.kind !== "phrase" &&
+      !/\s/.test(a.kana),
   );
   if (prior.length === 0) return [];
   const freq = getFrequencyIndex(ctx.rawLessons);

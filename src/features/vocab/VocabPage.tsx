@@ -31,7 +31,9 @@ const TIER_DOT: Record<VocabTier, string> = {
 };
 
 const TIER_ORDER: VocabTier[] = ["weak", "fading", "solid", "strong", "new"];
-const KIND_ORDER = ["vocab", "particle", "phrase"] as const;
+// "phrase" removed 2026-07-13 — sentence atoms no longer surface here
+// (vocabData filters them), so the facet would always count 0.
+const KIND_ORDER = ["vocab", "particle"] as const;
 
 export function VocabPage() {
   const { t } = useTranslation();

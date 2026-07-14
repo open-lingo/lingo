@@ -65,9 +65,18 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
   function handleSubmit() {
     const raw = textareaRef.current?.value ?? answer;
     const composed = intoJapanese ? wanakana.toKana(raw) : raw;
-    const normalizedNow = normalizeTypedAnswer(composed);
+    // Strip trailing sentence punctuation from the TYPED side too:
+    // toKana turns a natural final "." into 。, and normalizeTypedAnswer
+    // keeps it — so "gakuseidesu." failed against answers authored
+    // without 。 (the authored side is already punctuation-expanded).
+    const normalizedNow = normalizeTypedAnswer(composed).replace(
+      /[。．.、,!?！？\s]+$/u,
+      "",
+    );
     const correct = accepted.some(
-      (a) => normalizeTypedAnswer(a) === normalizedNow,
+      (a) =>
+        normalizeTypedAnswer(a).replace(/[。．.、,!?！？\s]+$/u, "") ===
+        normalizedNow,
     );
     setIsCorrect(correct);
     setSubmitted(true);

@@ -127,10 +127,14 @@ export function ConjugationPracticePage() {
   };
 
   const confirmAhead = (dontAskAgain: boolean) => {
-    if (dontAskAgain) {
-      setLearnAheadAck();
-      setAckDone(true);
-    }
+    if (dontAskAgain) setLearnAheadAck();
+    // Clicking through ONCE flips the whole hub to advisory for this
+    // visit: every tile renders unlocked with a "from Module N" chip
+    // instead of lock chrome (Spencer QA 2026-07-13: "they should be
+    // unlocked but have a suggested module instead after you click
+    // through"). The checkbox only controls whether the dialog ever
+    // comes back.
+    setAckDone(true);
     if (aheadPrompt) toggle(aheadPrompt.type.id);
     setAheadPrompt(null);
   };
@@ -229,6 +233,7 @@ export function ConjugationPracticePage() {
             key={tile.type.id}
             tile={tile}
             selected={selected.has(tile.type.id)}
+            ahead={!tile.unlocked && ackDone}
             recommended={recommended?.type.id === tile.type.id && selected.size === 0}
             // Combined mode only: tiles that can't grow the selection toward
             // ANY combo dim out (て pairs with nothing; い pairs with た・ない).
@@ -342,12 +347,16 @@ export function ConjugationPracticePage() {
 function TileButton({
   tile,
   selected,
+  ahead,
   recommended,
   unpairable,
   onToggle,
 }: {
   tile: Tile;
   selected: boolean;
+  /** Locked-by-level but the learner clicked through the learn-ahead
+   *  dialog: render as a NORMAL tile with an advisory module chip. */
+  ahead: boolean;
   recommended: boolean;
   unpairable: boolean;
   onToggle: () => void;
@@ -358,7 +367,7 @@ function TileButton({
   const glyph = TYPE_GLYPH[type.id];
   const pips = Math.min(due, 3); // ≤3 peeking cards — a 3-due and a 9-due tile look alike
 
-  if (!unlocked) {
+  if (!unlocked && !ahead) {
     // Learn-ahead (v1.5): locked tiles are pressable — the hub interposes the
     // "Looking ahead?" dialog on first selection. Interior stays muted (lock +
     // Module N keep saying "ahead of your path"); the type-color ring appears
@@ -390,7 +399,9 @@ function TileButton({
         <span className="mt-1.5 text-3xl font-extrabold text-text-muted" lang="ja" aria-hidden>
           {glyph}
         </span>
-        <span className="absolute bottom-2 text-[11px] font-semibold text-text-muted">
+        {/* Pill, not floating text — the bare label sat awkwardly against
+            the glyph at some widths (Spencer QA 2026-07-13). */}
+        <span className="absolute bottom-1.5 whitespace-nowrap rounded-full bg-surface-muted px-2 py-0.5 text-[10px] font-semibold text-text-muted">
           {t("practice.conjugation.moduleN", {
             defaultValue: "Module {{module}}",
             module: tile.unlockModule,
@@ -451,6 +462,16 @@ function TileButton({
         </span>
       )}
 
+      {/* Learn-ahead advisory — tile is fully usable, the chip just says
+          where the course would introduce it. */}
+      {!unlocked && (
+        <span className="absolute left-2 top-2 z-[1] whitespace-nowrap rounded-full bg-surface-muted px-2 py-0.5 text-[10px] font-semibold text-text-muted">
+          {t("practice.conjugation.aheadChip", {
+            defaultValue: "M{{module}}",
+            module: tile.unlockModule,
+          })}
+        </span>
+      )}
       <span
         className="z-[1] text-3xl font-extrabold leading-none"
         style={{ color: "var(--tc)" }}

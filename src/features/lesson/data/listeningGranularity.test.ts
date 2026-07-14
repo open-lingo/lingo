@@ -13,10 +13,17 @@ import { getAvailableMockLessonIds, getMockLessonContent } from "./mockLessons";
  * lb = listening_build with < 3 tiles; lc = listening_comprehension whose
  * transcript is a bare word (no particle/space, < 6 chars).
  *
- * 2026-07-12 wave COMPLETE: all 381 word-level items converted; every
- * baseline is now 0 — the ratchet is a flat ban. Katakana-row lessons
- * (id ends in "-kata") are exempt: they are SCRIPT acquisition, the same
- * carve-out as M1-M4 (decoding the loanword is the drill).
+ * 2026-07-12 wave: all 381 items THIS HEURISTIC SEES converted; every
+ * baseline is now 0. Katakana-row lessons (id ends in "-kata") are
+ * exempt: they are SCRIPT acquisition, the same carve-out as M1-M4
+ * (decoding the loanword is the drill).
+ *
+ * KNOWN GAP (post-wave review, 2026-07-12): the lc char-class heuristic
+ * false-negatives on words CONTAINING particle kana (がつ months, はち,
+ * に, はな, もの…) — ~31 literal word-level LCs survive uncounted, plus
+ * ~67 review-tail LCs that draw single pool words dynamically. A
+ * follow-up wave should convert those and tighten this heuristic to a
+ * token-boundary check; until then "0" means "0 the regex can see".
  */
 const WORD_LEVEL_BASELINE: Record<string, { lb: number; lc: number }> = {
   m5: { lb: 0, lc: 0 },

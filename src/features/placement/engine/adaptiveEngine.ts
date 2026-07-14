@@ -44,6 +44,25 @@ const MAX_TOTAL_ITEMS = 40;
 const CONSECUTIVE_WRONG_CUTOFF = 2;
 const DEFAULT_LANGUAGE = "ja";
 
+/** True for single-module test-out runs (no screening phase). */
+function isTestOutRun(state: AdaptiveState): boolean {
+  return (
+    state.estimatedFloorTier === null &&
+    Object.keys(state.screeningResults).length === 0
+  );
+}
+
+/**
+ * Early-exit threshold for consecutive wrong answers. Test-outs allow 2
+ * misses on their ~12-item sets, so their cutoff must sit ABOVE the miss
+ * budget: cutting at 2 would end the run with results that still satisfy
+ * modulePassed (2 wrong ≤ 2 allowed) — a pass on partial evidence. At 3,
+ * a cutoff exit always carries 3 wrongs and fails honestly.
+ */
+function wrongCutoff(state: AdaptiveState): number {
+  return isTestOutRun(state) ? 3 : CONSECUTIVE_WRONG_CUTOFF;
+}
+
 /**
  * A module is PASSED (verified) only if the learner met the bar on its probe
  * set. Short sets demand a clean sweep; longer coverage-scaled sets (one item
@@ -51,6 +70,10 @@ const DEFAULT_LANGUAGE = "ja";
  * module the learner clearly knows. Never lenient enough to pass on guesses.
  */
 export function moduleMaxMisses(itemCount: number): number {
+  // Derived test-outs run ~12 items; demanding 11/12 (one miss) tested
+  // like a memory exam, not a placement check. Placement probes stay at
+  // 3 items → 0 misses, unchanged.
+  if (itemCount >= 10) return 2;
   return itemCount >= 5 ? 1 : 0;
 }
 
@@ -120,7 +143,7 @@ export function selectNextItem(
   }
 
   if (state.stage === "probing") {
-    if (state.consecutiveWrong >= CONSECUTIVE_WRONG_CUTOFF) return null;
+    if (state.consecutiveWrong >= wrongCutoff(state)) return null;
 
     const modId = state.currentProbeModule ?? state.probeQueue[0];
     if (!modId) return null;
@@ -243,7 +266,7 @@ export function recordAnswer(
 
     next.consecutiveWrong = correct ? 0 : state.consecutiveWrong + 1;
 
-    if (next.consecutiveWrong >= CONSECUTIVE_WRONG_CUTOFF || next.totalServed >= MAX_TOTAL_ITEMS) {
+    if (next.consecutiveWrong >= wrongCutoff(next) || next.totalServed >= MAX_TOTAL_ITEMS) {
       markDone(next);
       return next;
     }

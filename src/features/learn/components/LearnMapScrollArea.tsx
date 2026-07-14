@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { Course, Lesson } from "@/shared/domain/course";
 import { LearnCourseMap } from "./LearnCourseMap";
 import { BackToCurrentButton } from "./BackToCurrentButton";
@@ -41,6 +41,41 @@ export function LearnMapScrollArea(props: LearnMapScrollAreaProps) {
   // whenever the active node identity changes (e.g. user completes a
   // lesson and the next lesson becomes the new "current").
   const refreshKey = `${props.completedSet.size}|${props.course.id}`;
+
+  // Position the CONTINUATION POINT on load: the map always opened at M1
+  // and the learner scrolled to find their place every visit (Spencer QA
+  // 2026-07-13 — "positioning and continuation point of the pathway is
+  // bad"). Instant, once per mount, scoped to the map's own scroll region
+  // so the page hero doesn't get yanked; falls back to scrollIntoView on
+  // mobile where the page is the scroll container. Retries briefly —
+  // the current node mounts after progress hydration.
+  const didAutoScroll = useRef(false);
+  useEffect(() => {
+    let timer: number | undefined;
+    let tries = 0;
+    const tick = () => {
+      if (didAutoScroll.current) return;
+      const container = containerRef.current;
+      const target = container?.querySelector<HTMLElement>(
+        '[data-current="true"]',
+      );
+      if (container && target) {
+        didAutoScroll.current = true;
+        if (container.scrollHeight > container.clientHeight + 16) {
+          const cRect = container.getBoundingClientRect();
+          const tRect = target.getBoundingClientRect();
+          container.scrollTop +=
+            tRect.top - cRect.top - (container.clientHeight - tRect.height) / 2;
+        } else {
+          target.scrollIntoView({ block: "center" });
+        }
+      } else if (++tries < 20) {
+        timer = window.setTimeout(tick, 150);
+      }
+    };
+    timer = window.setTimeout(tick, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   return (
     <div className="relative">

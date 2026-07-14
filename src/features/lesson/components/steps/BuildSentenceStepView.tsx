@@ -48,12 +48,16 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   );
   const hoverTimer = useRef<number | null>(null);
 
-  // Tester observation 2026-05-17 (#R1-defer-G): the prompt was silent
-  // until tap. Speak the target on mount so the learner gets an audio
-  // cue alongside the tile bank. `targetSentence` is the canonical
-  // full-form text (kana for char-granularity rows, full sentence for
-  // word-granularity); the TTS manifest is keyed on it directly.
-  useAutoPlayJaAudio(step.targetSentence, `build-${step.id}`);
+  // CHARACTER builds (kana decoding) speak the target on mount — mapping
+  // sound↔script is the drill (tester #R1-defer-G, 2026-05-17). WORD
+  // builds must stay SILENT pre-answer: they are translation production
+  // (EN prompt → assemble JA), and auto-playing the target sentence turns
+  // them into transcription — the learner writes what they hear instead
+  // of producing (Spencer QA 2026-07-13). The model plays after submit.
+  useAutoPlayJaAudio(
+    step.granularity === "character" ? step.targetSentence : undefined,
+    `build-${step.id}`,
+  );
 
   // Kana-module build banks predate the m8+ data scramble and are mostly
   // authored answer-first; shuffle at render (seeded on step id, so the
@@ -162,6 +166,11 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   function handleSubmit() {
     setSubmitted(true);
     onComplete(step.id, isCorrect);
+    // Word builds held the audio back pre-answer (production, not
+    // transcription) — model the full sentence now that they've produced.
+    if (step.granularity !== "character" && getTtsUrl(step.targetSentence)) {
+      void playJaAudio(step.targetSentence);
+    }
     if (isCorrect) {
       setCelebrationText(pickCelebrationText(t));
       setCelebrating(true);

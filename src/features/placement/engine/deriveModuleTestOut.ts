@@ -1,6 +1,7 @@
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
 import type { LessonStep } from "@/features/lesson/types";
+import type { PlacementItemConfig } from "../questionBank";
 
 /**
  * Test-out authoring by DERIVATION, not hand-curation.
@@ -31,7 +32,9 @@ export const TESTOUT_FORMATS: ReadonlySet<string> = new Set([
   "listening_build",
 ]);
 
-export const TESTOUT_SIZE = 10;
+// 12 per Spencer QA 2026-07-13: "aiming for like 12-15 pulled from the
+// lesson highlighting the vocab and/or grammar" (was 10).
+export const TESTOUT_SIZE = 12;
 
 export type DerivedItem = {
   step: LessonStep;
@@ -137,7 +140,36 @@ export type DerivedTestOut = {
   formats: string[];
 };
 
-/** Derive a module's ~10-question test-out from its own lessons. */
+/**
+ * Live-route adapter: the derived set wrapped as PlacementItemConfigs so
+ * the adaptive engine's test-out flow serves REAL lesson steps instead of
+ * the legacy 3-per-module bank (Spencer QA 2026-07-13: "needed more than
+ * 3 questions, we were aiming for like 12-15 pulled from the lesson").
+ * Memoized — derivation walks every lesson in the module. Config id ===
+ * step.id (grading + served-dedupe contract, see DerivedStepConfig).
+ */
+const testOutConfigCache = new Map<string, PlacementItemConfig[]>();
+
+export function getDerivedTestOutItems(
+  moduleId: string,
+): PlacementItemConfig[] {
+  const cached = testOutConfigCache.get(moduleId);
+  if (cached) return cached;
+  const derived = deriveModuleTestOut(moduleId);
+  const configs: PlacementItemConfig[] = derived.items.map((it) => ({
+    id: it.step.id,
+    moduleId,
+    languageId: "ja",
+    grammarPointId: it.grammarPointId ?? it.section,
+    skill: it.grammarPointId ?? it.section,
+    type: "derivedStep",
+    step: it.step,
+  }));
+  testOutConfigCache.set(moduleId, configs);
+  return configs;
+}
+
+/** Derive a module's test-out from its own lessons (~TESTOUT_SIZE steps). */
 export function deriveModuleTestOut(
   moduleId: string,
   opts: { size?: number; formats?: ReadonlySet<string> } = {},

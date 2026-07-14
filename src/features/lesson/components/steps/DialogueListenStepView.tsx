@@ -5,7 +5,11 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
-import { getTtsUrl, playJaAudio } from "@/shared/tts";
+import {
+  getTtsUrl,
+  playJaAudioToEnd,
+  type VoiceColor,
+} from "@/shared/tts";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
@@ -51,6 +55,28 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     timeoutsRef.current = [];
   }, []);
 
+  // Per-speaker voice coloring: the whole corpus is one voice (Nanami),
+  // so a two-person exchange was audibly one person talking to herself
+  // (Spencer QA 2026-07-13). Distinct speakers get a small detune/rate
+  // shift in order of first appearance — line 1's speaker stays neutral.
+  // Real second-voice clips are the phase-2 fix.
+  const voiceBySpeaker = useMemo(() => {
+    const COLORS: VoiceColor[] = [
+      {},
+      { detuneCents: -300, playbackRate: 0.96 },
+      { detuneCents: 250, playbackRate: 1.04 },
+      { detuneCents: -150, playbackRate: 1.0 },
+    ];
+    const map = new Map<string, VoiceColor>();
+    for (const line of step.lines) {
+      const key = line.speaker ?? "";
+      if (!map.has(key)) map.set(key, COLORS[map.size % COLORS.length]);
+    }
+    return map;
+  }, [step.lines]);
+  const voiceFor = (line: (typeof step.lines)[number]): VoiceColor =>
+    voiceBySpeaker.get(line.speaker ?? "") ?? {};
+
   const playSequence = useCallback(() => {
     sessionRef.current += 1;
     const mySession = sessionRef.current;
@@ -58,35 +84,24 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     setIsPlaying(true);
     setActiveLineIdx(null);
 
-    let cumulativeMs = 0;
-    for (let i = 0; i < step.lines.length; i++) {
-      const line = step.lines[i];
-      const audioText = line.audioText ?? line.kana;
-      // Each turn fires after the previous turn's start + a 400ms gap.
-      // We can't await actual playback end cheaply via the existing TTS
-      // helper, so we use a fixed gap. Per HOL convention, this is good
-      // enough for 1-2s lines and stays predictable when re-played.
-      const fireAtMs = cumulativeMs;
-      const tid = setTimeout(() => {
+    // Chain on REAL playback end (playJaAudioToEnd resolves when the clip
+    // finishes), then breathe TURN_GAP_MS before the next turn. The old
+    // 70ms/char estimate ran ~half of Nanami's actual pace, so turns
+    // played over each other (QA 2026-07-13). A stale session id aborts
+    // between awaits — Replay/unmount cancels cleanly.
+    void (async () => {
+      for (let i = 0; i < step.lines.length; i++) {
         if (sessionRef.current !== mySession) return;
+        const line = step.lines[i];
         setActiveLineIdx(i);
-        void playJaAudio(audioText);
-      }, fireAtMs);
-      timeoutsRef.current.push(tid);
-      // Rough per-line budget — 1200ms baseline + 70ms/char heuristic so
-      // longer lines don't trample the next turn. Tunable; tight enough
-      // not to drag, loose enough that 3-mora lines don't overlap.
-      const lineBudgetMs = Math.max(1200, 70 * audioText.length) + TURN_GAP_MS;
-      cumulativeMs += lineBudgetMs;
-    }
-    // Final timeout flips isPlaying off + clears the active highlight so
-    // the Replay button restores to idle.
-    const endTid = setTimeout(() => {
+        await playJaAudioToEnd(line.audioText ?? line.kana, "ja", voiceFor(line));
+        if (sessionRef.current !== mySession) return;
+        await new Promise((r) => setTimeout(r, TURN_GAP_MS));
+      }
       if (sessionRef.current !== mySession) return;
       setIsPlaying(false);
       setActiveLineIdx(null);
-    }, cumulativeMs);
-    timeoutsRef.current.push(endTid);
+    })();
   }, [step.lines, clearPendingTimeouts]);
 
   // Auto-play on mount — silentMode honored. The dependency on step.id
@@ -178,7 +193,9 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
   function playLine(idx: number) {
     const line = step.lines[idx];
     if (!line) return;
-    void playJaAudio(line.audioText ?? line.kana);
+    // Same voice color as the sequence — a replay must sound like the
+    // same "person" the learner just heard.
+    void playJaAudioToEnd(line.audioText ?? line.kana, "ja", voiceFor(line));
   }
 
   // Pre-compute whether each line has TTS available — bubbles without
@@ -294,10 +311,19 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         </div>
       )}
 
-      {/* ── Live-active indicator (when transcript hidden) ─────────────── */}
+      {/* ── Live-active indicator (when transcript hidden) — the ONLY
+          who-is-talking cue during audio-only playback, so it leads with
+          the speaker name, bold (Spencer QA 2026-07-13: "we hear watashi
+          no pen but we dont have context on who that is"). ─────────── */}
       {!showTranscript && activeLineIdx !== null && (
-        <div className="rounded-xl border-[1.5px] border-accent/40 bg-accent-muted/40 px-4 py-2 text-sm font-medium text-text-secondary">
-          {step.lines[activeLineIdx].speaker}…
+        <div className="flex items-center gap-2 rounded-xl border-[1.5px] border-accent/40 bg-accent-muted/40 px-4 py-2.5">
+          <Icon name="volume" size={16} className="shrink-0 text-accent" aria-hidden />
+          <span className="text-sm font-bold text-text-primary">
+            {step.lines[activeLineIdx].speaker}
+          </span>
+          <span className="text-sm text-text-muted">
+            {t("lesson.dialogueListen.speaking", "is speaking…")}
+          </span>
         </div>
       )}
 

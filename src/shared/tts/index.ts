@@ -226,6 +226,55 @@ export async function playJaAudio(text: string, lang: string = "ja"): Promise<vo
   playBuffer(buf);
 }
 
+/**
+ * Play `text` and resolve when the clip FINISHES (manifest miss resolves
+ * immediately). Sequencers chain on this — dialogue_listen previously
+ * scheduled turns off a 70ms/char estimate, roughly half Nanami's real
+ * pace, so turns played over each other (QA 2026-07-13). The
+ * duration-based fallback keeps a suspended AudioContext (no user
+ * gesture yet) from hanging a sequence forever.
+ */
+/** Local voice coloring for dialogue speakers: one corpus voice (Nanami)
+ *  plays every line, so multi-speaker exchanges were indistinguishable by
+ *  ear (Spencer QA 2026-07-13). detune (cents) + playbackRate resample
+ *  the clip — small values read as "another person" without chipmunk
+ *  artifacts. Real second-voice clips are the phase-2 fix. */
+export type VoiceColor = { detuneCents?: number; playbackRate?: number };
+
+export async function playJaAudioToEnd(
+  text: string,
+  lang: string = "ja",
+  voice: VoiceColor = {},
+): Promise<void> {
+  const url = getTtsUrl(text, lang);
+  if (!url) return;
+  const buf = await loadBuffer(url);
+  if (!buf) return;
+  const c = getContext();
+  if (!c) return;
+  if (c.state === "suspended") {
+    void c.resume();
+  }
+  const src = c.createBufferSource();
+  src.buffer = buf;
+  if (voice.playbackRate) src.playbackRate.value = voice.playbackRate;
+  if (voice.detuneCents && src.detune) src.detune.value = voice.detuneCents;
+  src.connect(getGain() ?? c.destination);
+  const rate = voice.playbackRate ?? 1;
+  await new Promise<void>((resolve) => {
+    let done = false;
+    const finish = () => {
+      if (!done) {
+        done = true;
+        resolve();
+      }
+    };
+    src.onended = finish;
+    setTimeout(finish, Math.ceil((buf.duration / rate) * 1000) + 1500);
+    src.start();
+  });
+}
+
 /** StrictMode-safe dedupe: one play per (text, key) pair per session. */
 const playedAutoKeys = new Set<string>();
 

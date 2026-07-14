@@ -1798,12 +1798,14 @@ export const M22_5_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m22-5-2-lc-ichiban-shizuka",
-      audioText: "この まちのなかで きょうとが いちばん しずかです",
-      correctMeaningEn: "Among these cities, Kyoto is the quietest.",
+      // みっつの まち = a real comparison group. (Was このまちのなかで —
+      // "inside this town" — which Kyoto can't be.)
+      audioText: "みっつの まちのなかで きょうとが いちばん しずかです",
+      correctMeaningEn: "Among the three cities, Kyoto is the quietest.",
       distractorsEn: [
         "Kyoto is quieter than this city.",
-        "This city and Kyoto are the same.",
-        "Among these cities, Kyoto is the liveliest.",
+        "The three cities are all the same.",
+        "Among the three cities, Kyoto is the liveliest.",
       ],
     }),
     cloze(
@@ -2583,11 +2585,12 @@ export const M22_7_2: LessonContent = {
     }),
     listeningCompSentence({
       id: "ja-m22-7-2-lc-1",
-      audioText: "この まちのなかで ひろしまが いちばん しずかです",
-      correctMeaningEn: "Among these cities, Hiroshima is the quietest.",
+      // Same fix as m22-5-2-lc: a named group, not このまちのなかで.
+      audioText: "みっつの まちのなかで ひろしまが いちばん しずかです",
+      correctMeaningEn: "Among the three cities, Hiroshima is the quietest.",
       distractorsEn: [
         "Hiroshima is livelier than other cities.",
-        "Hiroshima and the city are the same.",
+        "The three cities are all the same.",
         "Hiroshima is the most famous.",
       ],
     }),

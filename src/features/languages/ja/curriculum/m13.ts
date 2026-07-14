@@ -1600,14 +1600,16 @@ export const M13_5_1: LessonContent = {
       "ja-m13-5-1-build-yoku",
       "Say: I often wash my face in the morning.",
       "よく あさ かおを あらいます",
-      ["みがきます", "あらいます", "よく", "あさ", "かおを", "いつも"],
-      ["よく", "あさ", "かおを", "あらいます"],
+      ["みがきます", "あらいます", "よく", "あさ", "かお", "を", "いつも"],
+      ["よく", "あさ", "かお", "を", "あらいます"],
     ),
     listeningBuildSentence({
       id: "ja-m13-5-1-lb-kao",
       target: "いつも あさ かおを あらいます",
-      tiles: ["あさ", "みがきます", "かおを", "いつも", "は", "を", "あらいます"],
-      correctOrder: ["いつも", "あさ", "かおを", "あらいます"],
+      // かお|を split like シャワー|を below — object + を are separate
+      // tiles per the particle-separation policy (was glued かおを).
+      tiles: ["あさ", "みがきます", "かお", "を", "いつも", "は", "あらいます"],
+      correctOrder: ["いつも", "あさ", "かお", "を", "あらいます"],
       promptEn: "Hear it, build it: 'I always wash my face in the morning.'",
     }),
     build(

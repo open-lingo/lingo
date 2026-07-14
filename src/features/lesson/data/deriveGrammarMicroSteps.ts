@@ -91,6 +91,16 @@ export function deriveGrammarMicroSteps(lesson: LessonContent): LessonContent {
       out.splice(lastTaggedIdx + 1, 0, pendingSpot);
       spotBudget--;
       changed = true;
+    } else if (pendingSpot && import.meta.env?.DEV) {
+      // Dropped spot = the learner never gets the labeled-✗ exposure for
+      // this point. Audible in dev (same pattern as lessonDensity's cap
+      // logs): either the lesson is over the density budget or two rule
+      // cards sit back-to-back (empty drill span — see ja-m17-2-1).
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[grammar-micro] ${lesson.id}: spot for "${pendingSpot.id}" dropped ` +
+          (lastTaggedIdx < 0 ? "(empty drill span)" : "(density budget)"),
+      );
     }
     pendingSpot = null;
     lastTaggedIdx = -1;

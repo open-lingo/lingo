@@ -769,11 +769,17 @@ export function FlashcardTester() {
         </span>
       </div>
 
-      {/* Card — top rail color signals the active modality. */}
+      {/* Card — top rail color signals the active modality. Image cards
+          reserve their artwork's height on BOTH faces: the image only
+          renders after flip (and loads async), so a plain min-h card grew
+          right as the grade buttons appeared — shoving them down under
+          the cursor mid-grade (Spencer QA 2026-07-13). */}
       <button
         type="button"
         onClick={() => setFlipped((f) => !f)}
-        className={`flex min-h-[220px] w-full flex-col items-center justify-center rounded-card border-2 border-t-4 border-border bg-surface py-12 shadow-sm transition hover:border-accent ${modalityTheme.rail}`}
+        className={`flex ${
+          currentCard.image ? "min-h-[360px]" : "min-h-[220px]"
+        } w-full flex-col items-center justify-center rounded-card border-2 border-t-4 border-border bg-surface py-12 shadow-sm transition hover:border-accent ${modalityTheme.rail}`}
       >
         {showImage(reviewMode, flipped) && currentCard.image && (
           <CardImage
