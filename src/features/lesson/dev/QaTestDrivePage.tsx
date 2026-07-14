@@ -446,7 +446,14 @@ function buildSections(lang: string): QaSection[] {
       ],
     },
   ];
-  return sections.map((s) => ({ ...s, items: decorate(s.items) }));
+  // "fixes" + "mechanics" carry hardcoded ja lesson links from the 2026-07-12
+  // ja drive; under another language prefix they'd mint cross-language URLs
+  // (/es/learn/lessons/ja-…). Language-specific drive sections stay ja-only.
+  const forLang =
+    lang === "ja"
+      ? sections
+      : sections.filter((s) => s.id !== "fixes" && s.id !== "mechanics");
+  return forLang.map((s) => ({ ...s, items: decorate(s.items) }));
 }
 
 const STATUS_META: {

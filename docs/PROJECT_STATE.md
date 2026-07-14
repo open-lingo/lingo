@@ -1,6 +1,6 @@
 # Open Lingo — project state
 
-**Last updated:** 2026-07-12  
+**Last updated:** 2026-07-13  
 **Purpose:** Accurate snapshot for humans and agents. For launch tasks see [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md).
 
 ---
@@ -8,6 +8,12 @@
 ## Executive summary
 
 Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-core** (FastAPI). Core loop: **learn → lessons → flashcards (SRS) → settings**. Community deck browse/subscribe works; forum, contribute, and leaderboard are **feature-flagged off** for launch. Legal, landing/auth split, ads framework, and funding meter API exist; **live revenue** is post-launch.
+
+### Recent (2026-07-13 — Spanish A1 course mass-authored)
+
+- **Third language shipped: Spanish (es), full CEFR A1 arc** — 16 modules × 8 lessons (128 lessons, ~1,100 steps), 434 atoms (gendered nouns), placement bank (16 screeners + 64 items), 10-verb × 18-form conjugation tables, 8 reading passages, 24 speaking prompts, ~1,200 es-MX TTS clips (Dalia voice). LatAm-neutral (ustedes; vosotros culture-noted). Authored by 8 parallel agents against `docs/es-course-spine-2026-07-13.md` (pre-allocated vocab per module = zero merge conflicts); ko house style (base Atom, infoStep grammar, no grammar_rule yet).
+- **Multilang plumbing:** shared TTS resolver default now follows the active course language (`setDefaultTtsLang`, stamped by LanguageContext); es voices in lingo-core pipeline; runtime-walking TTS deck emitter for Latin-script languages (`es/__tests__/emitTtsDeck.test.ts`, env-gated). NOTE: the browser-speechSynthesis fallback the ko module comment mentions does **not exist** — ko remains silent; es ships real clips.
+- **Known gaps** (authored around, ranked): ConjugationGrid person×tense trainer (data already shipped), AgreementCloze, accent-aware grading (interim: diacritic-stripped acceptedAnswers incl. ñ→n), es match_pairs factory (pad pool is ja-keyed), dialogue_listen factory, cloze `exercisedAtomSurfaces`. See `docs/es-course-gaps-2026-07-13.md`.
 
 ### Recent (2026-07-12 evening — QA page ralph audit + post-push review round)
 
