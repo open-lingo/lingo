@@ -5,6 +5,8 @@ import type { EsVerbEntry } from "@/features/languages/es/conjugationTables";
 
 import { READING_PASSAGES as JA_READING } from "./ja-reading-passages";
 import { SPEAKING_PROMPTS as JA_SPEAKING } from "./ja-speaking-prompts";
+import { ES_READING_PASSAGES } from "./es-reading-passages";
+import { ES_SPEAKING_PROMPTS } from "./es-speaking-prompts";
 import { COUNTER_DEFS as JA_COUNTERS } from "@/features/languages/ja/classifiers";
 import { KO_READING_PASSAGES } from "@/features/languages/ko/readingPassages";
 import { KO_SPEAKING_PROMPTS } from "@/features/languages/ko/speakingPrompts";
@@ -13,13 +15,13 @@ import { ES_VERB_ENTRIES } from "@/features/languages/es/conjugationTables";
 
 export function getReadingPassages(langId: string): ReadingPassage[] {
   if (langId === "ko") return KO_READING_PASSAGES;
-  if (langId === "es") return []; // ES passages land in a later wave
+  if (langId === "es") return ES_READING_PASSAGES;
   return JA_READING;
 }
 
 export function getSpeakingPrompts(langId: string): SpeakingPrompt[] {
   if (langId === "ko") return KO_SPEAKING_PROMPTS;
-  if (langId === "es") return []; // ES prompts land in a later wave
+  if (langId === "es") return ES_SPEAKING_PROMPTS;
   return JA_SPEAKING;
 }
 
