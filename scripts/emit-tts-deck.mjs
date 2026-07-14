@@ -36,7 +36,15 @@ const OUT = resolve(
 // Authored grammar-review pools (Track B) live outside the curriculum dir but
 // carry cloze audioText + sentenceMcq correctKana that need TTS clips too.
 const GRAMMAR_POOLS = resolve(DATA_DIR, "grammarReviewPools.ts");
-const sources = [CURRICULUM, GRAMMAR_POOLS];
+// courseAtoms is the review-tail draw pool: buildReviewTailSteps picks
+// atoms struggle-weighted at RUNTIME, so any atom kana can end up in a
+// listening step. 2026-07-12 audit found 7 atom words with no clip →
+// silent listening steps. Scanning the atom table closes the class.
+const COURSE_ATOMS = resolve(
+  __dirname,
+  "../src/features/languages/ja/courseAtoms.ts",
+);
+const sources = [CURRICULUM, GRAMMAR_POOLS, COURSE_ATOMS];
 for (const f of readdirSync(JA_CURRICULUM_DIR)) {
   if (
     /^(m\d+(-[\w-]+)?|sidequest(-[\w-]+)?|katakanaRows)\.ts$/.test(f)

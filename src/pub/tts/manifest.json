@@ -20,38 +20,41 @@
   "ja:あ": "tts/ja/cc0414683fcad294.mp3",
   "ja:あい": "tts/ja/bbb61e22a67034f6.mp3",
   "ja:あいだ": "tts/ja/37566ec352257759.mp3",
+  "ja:あう": "tts/ja/c3a7657408ca2ec6.mp3",
+  "ja:あお": "tts/ja/ee0ee6f4f29a9b4a.mp3",
   "ja:あおい": "tts/ja/7c1c8cd24445fb04.mp3",
+  "ja:あか": "tts/ja/dd49ede8f8b3796d.mp3",
+  "ja:あかい": "tts/ja/7877b4ed8ad0a14e.mp3",
   "ja:あかちゃん": "tts/ja/86efc66883af8d2d.mp3",
   "ja:あかちゃんが ないています": "tts/ja/8365a519dbb1d96f.mp3",
   "ja:あかちゃんは いっさいです": "tts/ja/e55da3c94fdd2b8d.mp3",
   "ja:あかちゃんは かわいいです": "tts/ja/f735f5c4f32126f9.mp3",
   "ja:あかちゃんは ねています": "tts/ja/cfa70b62ffb6b9db.mp3",
+  "ja:あかるい": "tts/ja/6328a93731bb71d9.mp3",
   "ja:あき": "tts/ja/a3d07fe871d15b87.mp3",
   "ja:あきは きれいな やまが あると おもいます": "tts/ja/81d8112d330243c1.mp3",
   "ja:あきは すずしいでしょう": "tts/ja/219a8a97f8016965.mp3",
   "ja:あきは すずしいと おもいます": "tts/ja/77fd9a0271e9a855.mp3",
+  "ja:あく": "tts/ja/f274fe5bf642e0d0.mp3",
   "ja:あけて": "tts/ja/c48169b9194e0fac.mp3",
   "ja:あけてください": "tts/ja/3dd5d6b9a6c61a77.mp3",
+  "ja:あける": "tts/ja/252fd64f87032f3e.mp3",
+  "ja:あげる": "tts/ja/66245dd7a69af719.mp3",
   "ja:あさ": "tts/ja/42932e1253ae273a.mp3",
-  "ja:あさ おちゃを のみます": [
-    "tts/ja/5c4913dc83fe0c0d.mp3"
-  ],
+  "ja:あさ おちゃを のみます": "tts/ja/5c4913dc83fe0c0d.mp3",
   "ja:あさ くじに おきます": "tts/ja/4779434fbf14678b.mp3",
   "ja:あさ ろくじに おきます": "tts/ja/efc5b61e5562f904.mp3",
   "ja:あさ コンビニで パンを たべます": "tts/ja/eda318e4a1077f1e.mp3",
-  "ja:あさ パンを たべます": [
-    "tts/ja/178d387ed4577a79.mp3"
-  ],
+  "ja:あさ パンを たべます": "tts/ja/178d387ed4577a79.mp3",
   "ja:あさからほんをよみます": "tts/ja/f9c4c88094567afa.mp3",
   "ja:あさが きらいです": "tts/ja/fa3a66806e0c2c58.mp3",
   "ja:あさが すきじゃないです": "tts/ja/faf4050d3ed6efc1.mp3",
+  "ja:あさごはん": "tts/ja/6cf538dc9cded79a.mp3",
   "ja:あさごはんの まえに かおを あらいます": "tts/ja/fa0cbc30043150c1.mp3",
   "ja:あさごはんの まえに シャワーを あびます": "tts/ja/9da88768236711ad.mp3",
   "ja:あさごはんを たべてから がっこうに いきます": "tts/ja/1859e854b54b8fe1.mp3",
   "ja:あさごはんを たべてから、がっこうに いきます": "tts/ja/f87b26c14126cd21.mp3",
-  "ja:あさごはんを たべましたか": [
-    "tts/ja/09b4e803f65e251b.mp3"
-  ],
+  "ja:あさごはんを たべましたか": "tts/ja/09b4e803f65e251b.mp3",
   "ja:あさって": "tts/ja/ff2074ed42d00628.mp3",
   "ja:あさって くじに あいます": "tts/ja/2dd1f1c374995df6.mp3",
   "ja:あさって しちじに おきます": "tts/ja/3606e2ed583e3e49.mp3",
@@ -60,12 +63,8 @@
   "ja:あさっては くもりでしょう": "tts/ja/e6f6202405ebebe8.mp3",
   "ja:あさっては くもりでしょう。かぜも つよいと おもいます": "tts/ja/460915c07b46279c.mp3",
   "ja:あさっては どようびです": "tts/ja/184474959e4d6759.mp3",
-  "ja:あさの さんぽ です": [
-    "tts/ja/b57e927b21999308.mp3"
-  ],
-  "ja:あさは パンを たべます": [
-    "tts/ja/ba2dcc58e6a0a816.mp3"
-  ],
+  "ja:あさの さんぽ です": "tts/ja/b57e927b21999308.mp3",
+  "ja:あさは パンを たべます": "tts/ja/ba2dcc58e6a0a816.mp3",
   "ja:あさまで ねます": "tts/ja/28377d1e692d2fb2.mp3",
   "ja:あし": "tts/ja/3a4fd7bf3bdbbedb.mp3",
   "ja:あしが いたいです": "tts/ja/5c0e39d2286b7deb.mp3",
@@ -78,18 +77,12 @@
   "ja:あしが ながいです": "tts/ja/0d2fa21493865406.mp3",
   "ja:あした": "tts/ja/cf8cd9a46dd97ed2.mp3",
   "ja:あした うんどうしてから べんきょうします": "tts/ja/20f56f7953a401a5.mp3",
-  "ja:あした えいがを みます": [
-    "tts/ja/2312322901dd86a6.mp3"
-  ],
+  "ja:あした えいがを みます": "tts/ja/2312322901dd86a6.mp3",
   "ja:あした がっこうに いかなければなりません": "tts/ja/ab55e12640ad761b.mp3",
   "ja:あした がっこうに いきます": "tts/ja/7ddab1419a45f96c.mp3",
   "ja:あした きてください": "tts/ja/a7f922c3f2017af2.mp3",
-  "ja:あした ぎんこうに いきます": [
-    "tts/ja/4df42b7419fd648c.mp3"
-  ],
-  "ja:あした こうえんに いきます": [
-    "tts/ja/ec549bb7c871e16b.mp3"
-  ],
+  "ja:あした ぎんこうに いきます": "tts/ja/4df42b7419fd648c.mp3",
+  "ja:あした こうえんに いきます": "tts/ja/ec549bb7c871e16b.mp3",
   "ja:あした ごご さんじに こうえんに いきます": "tts/ja/9f1ce8b0f34773fe.mp3",
   "ja:あした ごじに かえります": "tts/ja/076fa9cbcaa82e03.mp3",
   "ja:あした さんじに あいます": "tts/ja/85bd85709c886543.mp3",
@@ -147,11 +140,13 @@
   "ja:あしたまでに しゅくだいを だします": "tts/ja/c5870fe9721dee29.mp3",
   "ja:あしたまでに だしてください": "tts/ja/02bea4cdc3cd8a65.mp3",
   "ja:あしたも うんどうします": "tts/ja/02d672a5cbe45832.mp3",
+  "ja:あそこ": "tts/ja/49eeb16b91d39f76.mp3",
   "ja:あそこに えきが あります": "tts/ja/3eb8d3b9b7e72f5a.mp3",
   "ja:あそこにぎんこうがあります": "tts/ja/0f039f60bf8a3366.mp3",
   "ja:あそばない": "tts/ja/af6bf0450d76a4df.mp3",
   "ja:あそびすぎたんです。それで しゅくだいを わすれました": "tts/ja/eba86802d95a20f3.mp3",
   "ja:あそびすぎました。でも たのしかったです": "tts/ja/76e3c477f6fbbb48.mp3",
+  "ja:あそぶ": "tts/ja/3b71379d21b682c2.mp3",
   "ja:あそんで": "tts/ja/ec42956c9f508497.mp3",
   "ja:あたたかい": "tts/ja/d5e64dff2e0c6aa5.mp3",
   "ja:あたたかい ひ": "tts/ja/63c6fd984f6d8c44.mp3",
@@ -177,21 +172,19 @@
   "ja:あたまと おなかが いたいです": "tts/ja/78e8b44d7711fe23.mp3",
   "ja:あたまは いたいです": "tts/ja/86a0f3891f3d8baa.mp3",
   "ja:あたまも いたくて、なにも たべませんでした": "tts/ja/d5ed4f73c21d6dfb.mp3",
+  "ja:あたらしい": "tts/ja/1eafe5607ff7d6a8.mp3",
   "ja:あたらしい かばんが ほしいです": "tts/ja/fa968073a92f0ba1.mp3",
   "ja:あたらしい くつが ほしいです": "tts/ja/8addfa701d96ae34.mp3",
   "ja:あたらしい くるまが ほしいです": "tts/ja/6c7de0b08d60dc90.mp3",
   "ja:あたらしい でんわを かいたいです": "tts/ja/932203e0af3e638c.mp3",
   "ja:あたらしい ほんが ほしいです": "tts/ja/eacb9d7441aed948.mp3",
-  "ja:あたらしい カメラが ほしいです": [
-    "tts/ja/27504b9b9c6d2845.mp3"
-  ],
+  "ja:あたらしい カメラが ほしいです": "tts/ja/27504b9b9c6d2845.mp3",
   "ja:あたらしい カメラは たかいです": "tts/ja/1b34a2783565d4dd.mp3",
   "ja:あたらしい パソコンが ほしいです": "tts/ja/c567e64aa240a72c.mp3",
   "ja:あちら": "tts/ja/267573335c5e51ed.mp3",
+  "ja:あっち": "tts/ja/d25f3fe6c5db9f1f.mp3",
   "ja:あつい": "tts/ja/64a98a80455fb613.mp3",
-  "ja:あつい おちゃが すきです": [
-    "tts/ja/a2502816997f0ef5.mp3"
-  ],
+  "ja:あつい おちゃが すきです": "tts/ja/a2502816997f0ef5.mp3",
   "ja:あつい てんきが きらいです": "tts/ja/6a1a7492ce2af9cb.mp3",
   "ja:あつい コーヒーを のみます": "tts/ja/f33661cd0f2afba0.mp3",
   "ja:あついから、いつも ジュースを のみます": "tts/ja/f43ce950a7022aee.mp3",
@@ -206,16 +199,11 @@
   "ja:あと": "tts/ja/b0fedab7808cf6ed.mp3",
   "ja:あとで ごはんを たべます": "tts/ja/2b4e91aad14eda27.mp3",
   "ja:あとで べんきょうします": "tts/ja/1c93479ab7544cfd.mp3",
+  "ja:あなた": "tts/ja/1dd3f631ddfe83af.mp3",
   "ja:あなたの かさですか": "tts/ja/ba68715eb4627ea9.mp3",
-  "ja:あなたの かさは どれですか": [
-    "tts/ja/21a81d437906d9d5.mp3"
-  ],
-  "ja:あなたの かばんは どれですか": [
-    "tts/ja/a5230d868d1ade04.mp3"
-  ],
-  "ja:あなたの けいたいは どれですか": [
-    "tts/ja/567354b0158e42d9.mp3"
-  ],
+  "ja:あなたの かさは どれですか": "tts/ja/21a81d437906d9d5.mp3",
+  "ja:あなたの かばんは どれですか": "tts/ja/a5230d868d1ade04.mp3",
+  "ja:あなたの けいたいは どれですか": "tts/ja/567354b0158e42d9.mp3",
   "ja:あなたの なまえは なんですか": "tts/ja/24372d6d78484fbe.mp3",
   "ja:あなたの カメラは いいです": "tts/ja/40c964d4b9c71197.mp3",
   "ja:あなたは せんせいですか。": "tts/ja/449ecd88319922a4.mp3",
@@ -255,6 +243,7 @@
   "ja:あねは りょうりが すきです": "tts/ja/16c517c4dfbb4046.mp3",
   "ja:あねは ゲームを やっています": "tts/ja/00d16bc15ac7c3b4.mp3",
   "ja:あねは ダンスが じょうずです": "tts/ja/692bfa45a69d2df6.mp3",
+  "ja:あの": "tts/ja/c045efa0bff07f2b.mp3",
   "ja:あの えいがは つまらないです": "tts/ja/fb9a61568767ca84.mp3",
   "ja:あの かたは どなたですか": "tts/ja/3c9aeb7157ae36f4.mp3",
   "ja:あの かたは ゆきさんの おかあさんです": "tts/ja/34b639d6f44e1ab0.mp3",
@@ -264,34 +253,22 @@
   "ja:あの きけんな ところに いかないほうがいいです": "tts/ja/1034968f2355eede.mp3",
   "ja:あの くるまは たかいです": "tts/ja/971c84a9e507c9b4.mp3",
   "ja:あの くるまは ふるいです": "tts/ja/b5d5d2c9d4c2b0e3.mp3",
-  "ja:あの じてんしゃは ともだちのです": [
-    "tts/ja/1b13cc5c9bcc0c92.mp3"
-  ],
+  "ja:あの じてんしゃは ともだちのです": "tts/ja/1b13cc5c9bcc0c92.mp3",
   "ja:あの でんしゃは おそくないです": "tts/ja/56d8d7f86b53e8ef.mp3",
   "ja:あの でんしゃは はやいです": "tts/ja/913a99a6ebf5b425.mp3",
   "ja:あの とけいは やすいです": "tts/ja/9aa9e9e7be096ec8.mp3",
-  "ja:あの ひとは だれですか": [
-    "tts/ja/1eacb60fb77051c2.mp3"
-  ],
-  "ja:あの ひとは ともだちじゃなかったです": [
-    "tts/ja/db3956e45b681716.mp3"
-  ],
+  "ja:あの ひとは だれですか": "tts/ja/1eacb60fb77051c2.mp3",
+  "ja:あの ひとは ともだちじゃなかったです": "tts/ja/db3956e45b681716.mp3",
   "ja:あの びょういんは おおきいです": "tts/ja/268619a92dd296c9.mp3",
   "ja:あの へやは せまいです": "tts/ja/d3bb1ea28db5ead5.mp3",
   "ja:あの ほんは むずかしいです": "tts/ja/d10246e721cfa843.mp3",
   "ja:あの まちは おおきいです": "tts/ja/b4fe142bacf0977d.mp3",
-  "ja:あの みせで コーヒーを のみませんか": [
-    "tts/ja/a4bf072baa2c8775.mp3"
-  ],
+  "ja:あの みせで コーヒーを のみませんか": "tts/ja/a4bf072baa2c8775.mp3",
   "ja:あの みせは せまいです": "tts/ja/879d89c5fd18442d.mp3",
-  "ja:あの みせは たかかったです": [
-    "tts/ja/b0c266724fb49330.mp3"
-  ],
+  "ja:あの みせは たかかったです": "tts/ja/b0c266724fb49330.mp3",
   "ja:あの みせは たかくないです": "tts/ja/9b490f1acadea6b7.mp3",
   "ja:あの みせは どうですか": "tts/ja/adfe77a3c6811700.mp3",
-  "ja:あの みせは やすいです": [
-    "tts/ja/d47eb863c3845375.mp3"
-  ],
+  "ja:あの みせは やすいです": "tts/ja/d47eb863c3845375.mp3",
   "ja:あの みせは よくないです": "tts/ja/df4d71dda6fa83a5.mp3",
   "ja:あの みせは わるいです": "tts/ja/024af32d091c00c5.mp3",
   "ja:あの やまは おおきいです": "tts/ja/162814ca3da57c86.mp3",
@@ -300,18 +277,17 @@
   "ja:あの カメラは おおきくないです": "tts/ja/0b6d066de74de6dc.mp3",
   "ja:あの カメラは やすいです": "tts/ja/3d7483e583964734.mp3",
   "ja:あの カメラは やすいですよ": "tts/ja/46f82c2bbdd81d37.mp3",
-  "ja:あの コンビニは ちかいです": [
-    "tts/ja/2c84d733a6a761fb.mp3"
-  ],
-  "ja:あの バスは あたらしいです": [
-    "tts/ja/39725b8526685046.mp3"
-  ],
+  "ja:あの コンビニは ちかいです": "tts/ja/2c84d733a6a761fb.mp3",
+  "ja:あの バスは あたらしいです": "tts/ja/39725b8526685046.mp3",
   "ja:あの バスは おそいです": "tts/ja/36f1793ba6fbe5d1.mp3",
   "ja:あの ホテルは おおきいです": "tts/ja/81f000480b7fd455.mp3",
   "ja:あの ホテルは たかいです": "tts/ja/257e6deebea4eae3.mp3",
   "ja:あの ホテルは よくないです": "tts/ja/c1a377153f8052de.mp3",
   "ja:あの ホテルは わるくないです": "tts/ja/58f576ef303ef786.mp3",
   "ja:あのみせはとおいです": "tts/ja/a21ac728bc492fef.mp3",
+  "ja:あびる": "tts/ja/805bfa3c198599d6.mp3",
+  "ja:あぶない": "tts/ja/539f261fb0399345.mp3",
+  "ja:あまい": "tts/ja/f06e76031d1cd4db.mp3",
   "ja:あまり": "tts/ja/91f772b06c0eb569.mp3",
   "ja:あまり おふろに はいりません": "tts/ja/1b27744840f3dc72.mp3",
   "ja:あまり かいしゃに いきません": "tts/ja/0e05aef7981c133e.mp3",
@@ -348,7 +324,10 @@
   "ja:ありがとうございます。でも、おどるのは へたです": "tts/ja/442404d9de20accf.mp3",
   "ja:ありがとうございます。とおいですか": "tts/ja/a19ace52d12a86f0.mp3",
   "ja:ありがとうございます。のみすぎないように します": "tts/ja/479e8f693b312879.mp3",
+  "ja:あります": "tts/ja/8b7e55d7f599084b.mp3",
+  "ja:ある": "tts/ja/eb36077e4961bebf.mp3",
   "ja:あるいて いきます": "tts/ja/78d09dc484a49197.mp3",
+  "ja:あるく": "tts/ja/98790bb9d5e0c43e.mp3",
   "ja:あれ": "tts/ja/50275415fbd14a8c.mp3",
   "ja:あれは あにの くるまです": "tts/ja/57aadbf5e209894b.mp3",
   "ja:あれは あにの じてんしゃです": "tts/ja/d6c28b2dbcbf91b2.mp3",
@@ -357,24 +336,14 @@
   "ja:あれは いぬです": "tts/ja/b709a706124a05ce.mp3",
   "ja:あれは いぬですか": "tts/ja/19a40d6b03f5ad85.mp3",
   "ja:あれは いぬですか。": "tts/ja/990045441ac20953.mp3",
-  "ja:あれは うみ です": [
-    "tts/ja/cbba8b488cfcb0a1.mp3"
-  ],
-  "ja:あれは えき です": [
-    "tts/ja/384be964f190207e.mp3"
-  ],
+  "ja:あれは うみ です": "tts/ja/cbba8b488cfcb0a1.mp3",
+  "ja:あれは えき です": "tts/ja/384be964f190207e.mp3",
   "ja:あれは おおきいです": "tts/ja/f7afccc7a3a04ef9.mp3",
   "ja:あれは おおきいです。": "tts/ja/241d3f185207d24d.mp3",
-  "ja:あれは かい ですか": [
-    "tts/ja/98409b2d187a67c7.mp3"
-  ],
-  "ja:あれは こうえん ですか": [
-    "tts/ja/6f0a10eb0bf9e60e.mp3"
-  ],
+  "ja:あれは かい ですか": "tts/ja/98409b2d187a67c7.mp3",
+  "ja:あれは こうえん ですか": "tts/ja/6f0a10eb0bf9e60e.mp3",
   "ja:あれは ごはんですか": "tts/ja/cc4a07a47af45b99.mp3",
-  "ja:あれは じしょ です": [
-    "tts/ja/1e89e6b7fb5aea15.mp3"
-  ],
+  "ja:あれは じしょ です": "tts/ja/1e89e6b7fb5aea15.mp3",
   "ja:あれは せんせいですか": "tts/ja/da949626a6a22d4c.mp3",
   "ja:あれは せんせいの いすですか": "tts/ja/ec31fc5f165e8ce6.mp3",
   "ja:あれは せんせいの かばんです": "tts/ja/94aa4ce6ab73c8ea.mp3",
@@ -384,9 +353,7 @@
   "ja:あれは だれの かさですか": "tts/ja/1aa6ac4117cf17f7.mp3",
   "ja:あれは だれの かばんですか": "tts/ja/8cda8ccb7afb93e1.mp3",
   "ja:あれは だれの カメラですか": "tts/ja/0bfa0dd4e9448d7f.mp3",
-  "ja:あれは つき です": [
-    "tts/ja/64952b6c4204f8ab.mp3"
-  ],
+  "ja:あれは つき です": "tts/ja/64952b6c4204f8ab.mp3",
   "ja:あれは ともだちですか": "tts/ja/9e07eec9d7239064.mp3",
   "ja:あれは ともだちですか。": "tts/ja/9179d2a01d0f943b.mp3",
   "ja:あれは ともだちの かばんです": "tts/ja/17e1cd356179712c.mp3",
@@ -460,6 +427,7 @@
   "ja:いく": "tts/ja/dbe69876da183b9c.mp3",
   "ja:いくつ": "tts/ja/08fbf762e7b0a478.mp3",
   "ja:いくないです": "tts/ja/37a14b5c8415b3f0.mp3",
+  "ja:いくら": "tts/ja/3290fc9f0d174814.mp3",
   "ja:いくら ですか": "tts/ja/fe01c5472f4b095b.mp3",
   "ja:いくらですか": "tts/ja/2bdd429f9ce5a803.mp3",
   "ja:いけ": "tts/ja/a9683239b7bf4200.mp3",
@@ -471,27 +439,18 @@
     "tts/ja/184318a581c1f615.mp3"
   ],
   "ja:いす": "tts/ja/7d387dbb61ecb955.mp3",
-  "ja:いすが みっつ あります": [
-    "tts/ja/46c5724580f9cff5.mp3"
-  ],
+  "ja:いすが みっつ あります": "tts/ja/46c5724580f9cff5.mp3",
   "ja:いすの したに ねこが います": "tts/ja/1d0df8d2173598db.mp3",
   "ja:いそがしい": "tts/ja/91938f79feae142a.mp3",
+  "ja:いたい": "tts/ja/002c599c9052a656.mp3",
   "ja:いただきます": "tts/ja/b3e20e3031e86956.mp3",
   "ja:いち": "tts/ja/37c3542384a715d8.mp3",
-  "ja:いち に さん": [
-    "tts/ja/61e09b580ec52fcb.mp3"
-  ],
-  "ja:いち、さん、ご、なな": [
-    "tts/ja/3c8b1ba3af12571c.mp3"
-  ],
-  "ja:いち、に、さん": [
-    "tts/ja/519b2ff916d068b4.mp3"
-  ],
+  "ja:いち に さん": "tts/ja/61e09b580ec52fcb.mp3",
+  "ja:いち、さん、ご、なな": "tts/ja/3c8b1ba3af12571c.mp3",
+  "ja:いち、に、さん": "tts/ja/519b2ff916d068b4.mp3",
   "ja:いちがつ": "tts/ja/7cd67f8fcd1384f3.mp3",
   "ja:いちがつに おしょうがつが あります": "tts/ja/8d3553e04c0609c0.mp3",
-  "ja:いちがつに にほんに いきます": [
-    "tts/ja/d60745a5032ad52c.mp3"
-  ],
+  "ja:いちがつに にほんに いきます": "tts/ja/d60745a5032ad52c.mp3",
   "ja:いちがつは さむいです": "tts/ja/e31698ef79eb51c5.mp3",
   "ja:いちご": [
     "tts/ja/4e98d9c2560d114d.mp3",
@@ -500,9 +459,8 @@
   "ja:いちさいです": "tts/ja/989ab56013b98443.mp3",
   "ja:いちじ": "tts/ja/92c7b70d2fc0c7bb.mp3",
   "ja:いちじです": "tts/ja/8ba5ba57003bb79d.mp3",
-  "ja:いちじに あいます": [
-    "tts/ja/c8a84230735f64ef.mp3"
-  ],
+  "ja:いちじに あいます": "tts/ja/c8a84230735f64ef.mp3",
+  "ja:いちにち": "tts/ja/f2ed727c25f3f0b5.mp3",
   "ja:いちにち さんかい のんでください": "tts/ja/b42d3dce595528b2.mp3",
   "ja:いちにんかぞくです": "tts/ja/576893754ab86df8.mp3",
   "ja:いちばん": "tts/ja/3933dee48db413ed.mp3",
@@ -517,6 +475,7 @@
   ],
   "ja:いっさい": "tts/ja/03b7afedec09af19.mp3",
   "ja:いっしゅうかんに にかい ジョギングします": "tts/ja/2f2b1dce2e9ecfc6.mp3",
+  "ja:いっしょ": "tts/ja/45e2240802941b50.mp3",
   "ja:いっしょに": "tts/ja/e74c7601564b4789.mp3",
   "ja:いっしょに いきましょう": "tts/ja/b3aea55029146c84.mp3",
   "ja:いっしょに いきませんか": "tts/ja/f3167680a20e64c1.mp3",
@@ -541,9 +500,7 @@
   "ja:いっしょに まつりに いきましょう": "tts/ja/77686228509b9753.mp3",
   "ja:いっしょに キャンプに いきましょう": "tts/ja/e44ff7317ee15b4e.mp3",
   "ja:いっしょに コーヒーを のみませんか": "tts/ja/2648d46e7d099d12.mp3",
-  "ja:いっしょに ハイキングに いきませんか": [
-    "tts/ja/cf5e502fa416ff34.mp3"
-  ],
+  "ja:いっしょに ハイキングに いきませんか": "tts/ja/cf5e502fa416ff34.mp3",
   "ja:いっしょに パーティーに いきましょう": "tts/ja/6f9038a9860b6f7c.mp3",
   "ja:いっしょに パーティーを しましょう": "tts/ja/91e2999b56e30d14.mp3",
   "ja:いった": "tts/ja/95a29671bcb9d636.mp3",
@@ -553,7 +510,9 @@
   "ja:いっぷん": "tts/ja/6936afc3bd45c656.mp3",
   "ja:いっぽん": "tts/ja/85d518a41b474a88.mp3",
   "ja:いつ": "tts/ja/d1ceaa74d6054622.mp3",
+  "ja:いつか": "tts/ja/1e9d9019bed65953.mp3",
   "ja:いつからですか": "tts/ja/7f888ce2fcf8f50f.mp3",
+  "ja:いつつ": "tts/ja/d0ecbc122973688b.mp3",
   "ja:いつも": "tts/ja/321a9efd8a7279b6.mp3",
   "ja:いつも あさ かおを あらいます": "tts/ja/e31b11cad59970b6.mp3",
   "ja:いつも あさ はを みがきます": "tts/ja/b823b12c14e979d3.mp3",
@@ -565,9 +524,7 @@
   "ja:いつも みずを のみます": "tts/ja/dd18868bc4e82f27.mp3",
   "ja:いつも コーヒーを のみます": "tts/ja/36aae2d915f92d05.mp3",
   "ja:いつも コーヒーを のみません": "tts/ja/d17917547b1ea20a.mp3",
-  "ja:いつも バスで いきます": [
-    "tts/ja/a7f68582889201f0.mp3"
-  ],
+  "ja:いつも バスで いきます": "tts/ja/a7f68582889201f0.mp3",
   "ja:いつも パンを たべません": "tts/ja/f63ed767dae8da00.mp3",
   "ja:いつもみずをのみます": "tts/ja/c91ef9b1589d25aa.mp3",
   "ja:いない": "tts/ja/778123a053178f22.mp3",
@@ -579,13 +536,10 @@
   "ja:いぬですか。": "tts/ja/300552beb96fd4fc.mp3",
   "ja:いぬと さんぽするのが すきです": "tts/ja/ebff9ff4554106ef.mp3",
   "ja:いぬに さわらないでください": "tts/ja/15000f1d5a007db4.mp3",
-  "ja:いぬの あしは みじかいです": [
-    "tts/ja/2170078e95e51265.mp3"
-  ],
+  "ja:いぬの あしは みじかいです": "tts/ja/2170078e95e51265.mp3",
   "ja:いぬの しゃしんを とるのが すきです": "tts/ja/92264a891cfd1cea.mp3",
-  "ja:いぬの なまえは ハチです": [
-    "tts/ja/ecfd87c514459c73.mp3"
-  ],
+  "ja:いぬの なまえは ハチです": "tts/ja/ecfd87c514459c73.mp3",
+  "ja:いま": "tts/ja/0d1b07b23b2d22b3.mp3",
   "ja:いま いちじです": "tts/ja/c4a31c864baf044d.mp3",
   "ja:いま えいがを みています": "tts/ja/10a564266cd12d4e.mp3",
   "ja:いま かいものを しています": "tts/ja/bfe1149118d3e8ee.mp3",
@@ -615,6 +569,7 @@
   "ja:いま ろくじです": "tts/ja/cafa5ac71eff3370.mp3",
   "ja:いま コーヒーを のんでいます": "tts/ja/1ad65f27a2367d19.mp3",
   "ja:いま スポーツを したくないです": "tts/ja/878cec420a3814d1.mp3",
+  "ja:います": "tts/ja/8d3c6b18d9d7a203.mp3",
   "ja:いみ": "tts/ja/fbf599b3e2d1698d.mp3",
   "ja:いみが わからないんです。おしえてください": "tts/ja/fcae6eb7350d3eb0.mp3",
   "ja:いもうと": "tts/ja/b94f8e5d0aa34861.mp3",
@@ -625,22 +580,24 @@
   "ja:いもうとは ごさいです": "tts/ja/05497d8a38692ba2.mp3",
   "ja:いもうとは しょうがくせいです": "tts/ja/839ce749dd055c3a.mp3",
   "ja:いもうとは ちゅうがくせいです": "tts/ja/388a39d911926cbd.mp3",
-  "ja:いもうとは ななさいです": [
-    "tts/ja/b6aca90f2165e8c3.mp3"
-  ],
+  "ja:いもうとは ななさいです": "tts/ja/b6aca90f2165e8c3.mp3",
   "ja:いもうとは ねこが すきです": "tts/ja/edfc211424bf0a50.mp3",
   "ja:いもうとは はっさいです": "tts/ja/1450355eb2b9e628.mp3",
   "ja:いもうとは はっさいです。しょうがくせいです": "tts/ja/37a5551a412fa06f.mp3",
+  "ja:いや": "tts/ja/85c6bb0a214bc24c.mp3",
   "ja:いらっしゃいませ": "tts/ja/f9546a6289d4bc58.mp3",
   "ja:いらっしゃいませ。なにを たべますか": "tts/ja/0f3321d00f9bc72a.mp3",
   "ja:いらっしゃいませ。なんめいさまですか": "tts/ja/3ede5916709dde40.mp3",
+  "ja:いりぐち": "tts/ja/53b067434bd9c7ee.mp3",
   "ja:いる": "tts/ja/59e97b932c6744d3.mp3",
+  "ja:いれる": "tts/ja/6ed3eebc486e5df6.mp3",
   "ja:いろ": "tts/ja/76553685275d0fc5.mp3",
   "ja:いろいろ": "tts/ja/478fe9e2bc2a059e.mp3",
   "ja:いろいろな りょうりが あります": "tts/ja/9bc9f82bb27d1b92.mp3",
   "ja:う": "tts/ja/a2c917ed47976070.mp3",
   "ja:うえ": "tts/ja/4e46e33e0a5acbae.mp3",
   "ja:うしろ": "tts/ja/c74c1c1d077668df.mp3",
+  "ja:うすい": "tts/ja/ed67d1f58c8a5625.mp3",
   "ja:うそ": [
     "tts/ja/3b42c36b6e5493f5.mp3",
     "tts/ja/fa67e75021694ec2.mp3"
@@ -653,9 +610,7 @@
   "ja:うたが へたです": "tts/ja/6bd1b9c282525836.mp3",
   "ja:うち": "tts/ja/e9e50d04dc67ccca.mp3",
   "ja:うちで ごはんを たべます": "tts/ja/fb07336c531af4ab.mp3",
-  "ja:うちで たべる": [
-    "tts/ja/f8c9c6354e9b493b.mp3"
-  ],
+  "ja:うちで たべる": "tts/ja/f8c9c6354e9b493b.mp3",
   "ja:うちで ねます": "tts/ja/e487562c265fcaff.mp3",
   "ja:うちで べんきょうしてください": "tts/ja/c5ec76c12bad89fc.mp3",
   "ja:うちで べんきょうします": "tts/ja/993cf0fa70637400.mp3",
@@ -680,9 +635,7 @@
   "ja:うちに かえってから、りょうりを します": "tts/ja/728a72b63980bbf2.mp3",
   "ja:うちに かえってから、シャワーを あびます": "tts/ja/ce1964d4a9af286b.mp3",
   "ja:うちに かえってください": "tts/ja/f3cf59f074b53877.mp3",
-  "ja:うちに かえりたいです": [
-    "tts/ja/9c51d6a0b0cc95e4.mp3"
-  ],
+  "ja:うちに かえりたいです": "tts/ja/9c51d6a0b0cc95e4.mp3",
   "ja:うちに かえります": "tts/ja/16a7fce6830d3c6a.mp3",
   "ja:うちに かえります。": [
     "tts/ja/abbb0da9f1da45ed.mp3",
@@ -691,14 +644,11 @@
   "ja:うちに かえる": "tts/ja/12c0874be747c9e4.mp3",
   "ja:うちに かえる まえに ぎんこうに いきます": "tts/ja/cbf418daab5e4b0a.mp3",
   "ja:うちに ねこが います": "tts/ja/c4b304494d91c5b7.mp3",
-  "ja:うちは ぎんこうの よこに あります": [
-    "tts/ja/dc1ca90556e3adbd.mp3"
-  ],
-  "ja:うちは さんにんかぞくです": [
-    "tts/ja/969ce01dfba07b06.mp3"
-  ],
+  "ja:うちは ぎんこうの よこに あります": "tts/ja/dc1ca90556e3adbd.mp3",
+  "ja:うちは さんにんかぞくです": "tts/ja/969ce01dfba07b06.mp3",
   "ja:うま": "tts/ja/7af55561580071ef.mp3",
   "ja:うま ですか": "tts/ja/a67a9b67f2db0efb.mp3",
+  "ja:うまれる": "tts/ja/33e1d6c315442b26.mp3",
   "ja:うみ": "tts/ja/ed7daf5417e88803.mp3",
   "ja:うみで しゃしんを とるのが すきです": "tts/ja/9cd4f652fa3429e4.mp3",
   "ja:うみに およぎに いく つもりです": "tts/ja/7a1f5ff2df14aa33.mp3",
@@ -707,7 +657,10 @@
   "ja:うみは おおきいです": "tts/ja/8aad92510b0a8028.mp3",
   "ja:うみは きれいだと おもいます": "tts/ja/c505801498c9405a.mp3",
   "ja:うみを みます": "tts/ja/33120c37871f9881.mp3",
+  "ja:うる": "tts/ja/8edb28bd4094558b.mp3",
+  "ja:うるさい": "tts/ja/e254bc83050a5d9e.mp3",
   "ja:うれしい": "tts/ja/321fe1ae862fc9fc.mp3",
+  "ja:うわぎ": "tts/ja/2a26bff741e2c7f7.mp3",
   "ja:うん、しけんが ちかくなって、まいにち べんきょうしなければなりません": "tts/ja/7f7179372f505a9e.mp3",
   "ja:うん、とても しずかですよ。でも ちょっと ふべんです": "tts/ja/8cdb9d098febf243.mp3",
   "ja:うん。わたしは おべんとうを たべるのが すきです": "tts/ja/94b88600b4a498d2.mp3",
@@ -722,6 +675,7 @@
   "ja:うんどうしたほうがいいですよ。うんどうしたら、げんきになりますよ": "tts/ja/af777dd7668c8eb3.mp3",
   "ja:え": "tts/ja/eecec31a107a7ebe.mp3",
   "ja:えいが": "tts/ja/e0e47494cb898de7.mp3",
+  "ja:えいがかん": "tts/ja/1da8609aa16c3c73.mp3",
   "ja:えいがの まえに ひるごはんを たべます": "tts/ja/edab68daff06fa1c.mp3",
   "ja:えいがは おもしろかったです": "tts/ja/67643d334199084c.mp3",
   "ja:えいがは よかったです": "tts/ja/e4f62ec26c93a506.mp3",
@@ -742,6 +696,7 @@
   "ja:えいがを みませんでした": "tts/ja/1f32b3e546089faa.mp3",
   "ja:えいがを みるに いきます": "tts/ja/f1f905c3de7007a2.mp3",
   "ja:えいがを みるのが すきです": "tts/ja/bbb3553a8aac492c.mp3",
+  "ja:えいご": "tts/ja/e88e8413a10e82ed.mp3",
   "ja:えいごが じょうずです": "tts/ja/e27f4872b2f17399.mp3",
   "ja:えいごが へたです": "tts/ja/ca05f21b2f7f75ac.mp3",
   "ja:えいごをはなせますか": "tts/ja/ecabf8c956ab2027.mp3",
@@ -760,9 +715,7 @@
   "ja:えきで まってください": "tts/ja/0e687c7e5f1bc317.mp3",
   "ja:えきと ゆうびんきょくの あいだに ぎんこうが あります": "tts/ja/c1c8cb01500d6bd1.mp3",
   "ja:えきに いきます": "tts/ja/dd6f23030a85917a.mp3",
-  "ja:えきに いきますか": [
-    "tts/ja/8ae8a396275a500c.mp3"
-  ],
+  "ja:えきに いきますか": "tts/ja/8ae8a396275a500c.mp3",
   "ja:えきに いってください": "tts/ja/2f96fd9425a99694.mp3",
   "ja:えきに います": "tts/ja/0c7e7dd876ef27ff.mp3",
   "ja:えきに います。": [
@@ -778,9 +731,7 @@
   "ja:えきに トイレが あります": "tts/ja/76a489dfa65efbeb.mp3",
   "ja:えきにともだちがいます": "tts/ja/38821636a607670c.mp3",
   "ja:えきの そばに レストランが あります": "tts/ja/ef5c50c697f49582.mp3",
-  "ja:えきの ちかくに みせが あります": [
-    "tts/ja/0e8ac2ed610f56a0.mp3"
-  ],
+  "ja:えきの ちかくに みせが あります": "tts/ja/0e8ac2ed610f56a0.mp3",
   "ja:えきの ちかくに コンビニが あります": "tts/ja/ae19cb63fea600a9.mp3",
   "ja:えきの ちかくに レストランが あります": "tts/ja/15624266ea7d8cbe.mp3",
   "ja:えきの まえで けいかんに ききます": "tts/ja/eea025439d0e0f26.mp3",
@@ -806,10 +757,7 @@
   "ja:えを かくのが すきです": "tts/ja/26d2dc511e2a8e56.mp3",
   "ja:えを かくのが すきです。まいしゅう にかい かきます": "tts/ja/1cfcab30f7658d4b.mp3",
   "ja:えん": "tts/ja/c7e2d7a4d9a8c528.mp3",
-  "ja:えんぴつ": [
-    "tts/ja/567f3cb53acaa76b.mp3",
-    "tts/ja/977969c8cc48e895.mp3"
-  ],
+  "ja:えんぴつ": "tts/ja/567f3cb53acaa76b.mp3",
   "ja:えんぴつで なまえを かきます": "tts/ja/d21d54dd33174f0d.mp3",
   "ja:お": "tts/ja/742a9775f938ecb8.mp3",
   "ja:おいくつですか": "tts/ja/16f1d6a6275c056c.mp3",
@@ -831,6 +779,7 @@
   "ja:おおきくないです": "tts/ja/58ee4eae34d68d37.mp3",
   "ja:おおきくなったら いしゃに なりたいです": "tts/ja/f189832f99454ae8.mp3",
   "ja:おおきくなりたいです": "tts/ja/2e51f06a33d5b96e.mp3",
+  "ja:おおきな": "tts/ja/d5f093c83575ef7f.mp3",
   "ja:おおさか": "tts/ja/869bb1c896b64cd6.mp3",
   "ja:おおさかが いちばん にぎやかです": "tts/ja/65d3070ef6d0c910.mp3",
   "ja:おおさかが いちばん べんりです": "tts/ja/33254c8878f7dc23.mp3",
@@ -838,13 +787,12 @@
   "ja:おおさかと とうきょうと どちらが べんりですか": "tts/ja/7aa5ad8f69034222.mp3",
   "ja:おおさかに いきたいです": "tts/ja/89a55ed77cee68e5.mp3",
   "ja:おおさかに すんでいます": "tts/ja/208f2e6e72e13415.mp3",
-  "ja:おおさかに ともだちが います": [
-    "tts/ja/b589b10d94863339.mp3"
-  ],
+  "ja:おおさかに ともだちが います": "tts/ja/b589b10d94863339.mp3",
   "ja:おおさかのほうが きょうとより にぎやかです": "tts/ja/36f0820d776b0303.mp3",
   "ja:おおさかのほうが とうきょうより にぎやかです": "tts/ja/9c2ae0653d85608b.mp3",
   "ja:おおさかのほうが にぎやかです。でも、とうきょうのほうが おおきいです": "tts/ja/81b5360dac2a9013.mp3",
   "ja:おおさかのほうが ひろしまより おおきいです": "tts/ja/082265fedf599d8e.mp3",
+  "ja:おおぜい": "tts/ja/17b539dd80b3cbe6.mp3",
   "ja:おかあさん": "tts/ja/b0b6c5898590242e.mp3",
   "ja:おかあさんの おしごとは なんですか": "tts/ja/b6fa66fbaaf1bf89.mp3",
   "ja:おかあさんは おいくつですか": "tts/ja/496861c87ce8ed38.mp3",
@@ -853,14 +801,16 @@
   "ja:おかあさんは ねこが すきですか": "tts/ja/0969f3d026de1f99.mp3",
   "ja:おかあさんは りょうりが じょうずです": "tts/ja/6f92f3f314888c41.mp3",
   "ja:おかいけいをおねがいします": "tts/ja/bec34b11d4c6ccc9.mp3",
+  "ja:おかし": "tts/ja/8ff4a87d6bbcf407.mp3",
   "ja:おかね": "tts/ja/f356bb51847d1f66.mp3",
-  "ja:おかねが ありません。だから、こまります": [
-    "tts/ja/a4083fe92bd81dd2.mp3"
-  ],
+  "ja:おかねが ありません。だから、こまります": "tts/ja/a4083fe92bd81dd2.mp3",
   "ja:おかねが ほしいです": "tts/ja/0a135dc7ae7300c3.mp3",
   "ja:おかねが ほしいですけど はたらきたくないです": "tts/ja/a9a362f9d6bd75bd.mp3",
   "ja:おきない": "tts/ja/85af21746424b4f9.mp3",
   "ja:おきられなかったんです": "tts/ja/8aa5b30fa476355b.mp3",
+  "ja:おきる": "tts/ja/a30bf710cf963ef1.mp3",
+  "ja:おく": "tts/ja/06a99f187a4f7c53.mp3",
+  "ja:おくさん": "tts/ja/aa4033588f685719.mp3",
   "ja:おくれたんです。しかし かいぎは はじまっていませんでした": "tts/ja/07461ae3b11a913d.mp3",
   "ja:おくれたんです。しかし せんせいは やさしかったです": "tts/ja/92b7b0abcd46f93f.mp3",
   "ja:おくれたんです。すみません": "tts/ja/c06a55705b7498f1.mp3",
@@ -885,6 +835,7 @@
   "ja:おじいさんは おいくつですか": "tts/ja/39bedc1334b99ad3.mp3",
   "ja:おじいさんは おげんきですか": "tts/ja/f9391dae6a9e980a.mp3",
   "ja:おじいさんは にほんに すんでいますか": "tts/ja/3fd382cbb46274f2.mp3",
+  "ja:おす": "tts/ja/16ffa67b1c3dffd7.mp3",
   "ja:おそい": "tts/ja/13ef6813d997ede9.mp3",
   "ja:おちゃ": "tts/ja/683f377fdcacf955.mp3",
   "ja:おちゃ ください": "tts/ja/5446d3c925b4ece9.mp3",
@@ -908,18 +859,15 @@
   "ja:おちゃを にはい のみました": "tts/ja/3debc80b2c7d581a.mp3",
   "ja:おちゃを のみます": "tts/ja/f0e01d5c8597eba5.mp3",
   "ja:おちゃを のみませんか": "tts/ja/58870abb4259f933.mp3",
-  "ja:おちゃを のむ": [
-    "tts/ja/963168a2841a9172.mp3"
-  ],
+  "ja:おちゃを のむ": "tts/ja/963168a2841a9172.mp3",
   "ja:おちゃを のんでください": "tts/ja/bfbae8fa1d060114.mp3",
   "ja:おちゃを よんはい ください": "tts/ja/853b207e447074f2.mp3",
   "ja:おちゃを よんはい のみました": "tts/ja/2c413695b6544d94.mp3",
+  "ja:おてあらい": "tts/ja/6ebef3605b045ec5.mp3",
   "ja:おてらを みたいです": "tts/ja/353077de3c675de1.mp3",
   "ja:おでこが あついです": "tts/ja/556325671b0a2b36.mp3",
   "ja:おとうさん": "tts/ja/0ec79547b81cdd34.mp3",
-  "ja:おとうさんの なまえは なんですか": [
-    "tts/ja/eeda336f65eb75e6.mp3"
-  ],
+  "ja:おとうさんの なまえは なんですか": "tts/ja/eeda336f65eb75e6.mp3",
   "ja:おとうさんは いしゃですか": "tts/ja/d93f4fc8e17693e5.mp3",
   "ja:おとうさんは えいがが すきですか": "tts/ja/ae37323cecab9649.mp3",
   "ja:おとうさんは おげんきですか": "tts/ja/9a9929c46793caca.mp3",
@@ -937,15 +885,14 @@
   "ja:おとうとは じゅっさいです": "tts/ja/95d0abffee628408.mp3",
   "ja:おとうとは はっさいです": "tts/ja/1d98795c63ac83f5.mp3",
   "ja:おとうとは サッカーが すきです": "tts/ja/0c6770f5bfb9ccee.mp3",
+  "ja:おとこ": "tts/ja/b494e8b2f7173fc7.mp3",
   "ja:おとこのこ": "tts/ja/dd8c48f1ffb6380a.mp3",
   "ja:おとこのこが さんにん います": "tts/ja/ed21a951aea7993d.mp3",
   "ja:おとこのこが ふたり います": "tts/ja/fda203c0b36ecb72.mp3",
   "ja:おとこのこが ふたりと おんなのこが さんにん います": "tts/ja/5d432c97e0b7817d.mp3",
   "ja:おととい": "tts/ja/137f9bd38e2a3749.mp3",
   "ja:おととい いきませんでした": "tts/ja/059df780c67b4865.mp3",
-  "ja:おととい うみで およぎました": [
-    "tts/ja/c284702ed7235194.mp3"
-  ],
+  "ja:おととい うみで およぎました": "tts/ja/c284702ed7235194.mp3",
   "ja:おととい えいがを みました": "tts/ja/41722ab5899084d2.mp3",
   "ja:おととい えきに いきました": "tts/ja/e0cadef738ed7393.mp3",
   "ja:おととい およぎました": "tts/ja/a54ee25a0b8c5412.mp3",
@@ -991,12 +938,15 @@
   "ja:おばあさん": "tts/ja/7e2e41274a3ad967.mp3",
   "ja:おばあさんは おいくつですか": "tts/ja/b1e1ab8cc186918d.mp3",
   "ja:おばあさんは おげんきですか": "tts/ja/41d4a8cec6e92639.mp3",
+  "ja:おばさん": "tts/ja/9862d2ce652ec097.mp3",
+  "ja:おふろ": "tts/ja/8bc7d42d77d904db.mp3",
   "ja:おふろに はいります": "tts/ja/636e39bafeaa9313.mp3",
   "ja:おべんとう": "tts/ja/5c2ff18a722ffcad.mp3",
   "ja:おべんとうや パンを かいます": "tts/ja/622a729aaf99a169.mp3",
   "ja:おべんとうを たべてもいいですか": "tts/ja/4ce82ce0da6b56fe.mp3",
   "ja:おべんとうを たべます": "tts/ja/de6119cd26cd2728.mp3",
   "ja:おべんとうを たべるのが すきです": "tts/ja/a0b663371bfce0ed.mp3",
+  "ja:おぼえる": "tts/ja/a9b74dc6776c0d59.mp3",
   "ja:おまわりさん": "tts/ja/4148b863bdcbcb9e.mp3",
   "ja:おまわりさん、ぎんこうは どこですか": "tts/ja/3107257ee0841089.mp3",
   "ja:おまわりさんに ききましょう": "tts/ja/1e68ba7bf8b80f1c.mp3",
@@ -1005,15 +955,18 @@
   "ja:おみやげを かいに いく つもりです": "tts/ja/dac15e982f3d2b90.mp3",
   "ja:おむすこさんは おいくつですか": "tts/ja/176348475cc36872.mp3",
   "ja:おむすめさんは なんさいですか": "tts/ja/ed51340ddfce8932.mp3",
+  "ja:おもい": "tts/ja/18a6acbe9bdd4d58.mp3",
   "ja:おもしろい": "tts/ja/2dff567ab173cbe9.mp3",
   "ja:およいだ": "tts/ja/e4c4a6c1003b660e.mp3",
   "ja:およいで": "tts/ja/508c7a9efe6bfdbb.mp3",
   "ja:およぎに いきましょう": "tts/ja/09739baaba5a329a.mp3",
+  "ja:およぐ": "tts/ja/82c320bd9cf4140d.mp3",
   "ja:およぐのが すきです": "tts/ja/95aee85fb1a5140e.mp3",
   "ja:およぐのがじょうずです": "tts/ja/7f34b79ff9760760.mp3",
   "ja:およぐのがすきです": "tts/ja/fa77c97c6e4b0f0c.mp3",
   "ja:およぐのがへたです": "tts/ja/b350cac8965cab90.mp3",
   "ja:おりる": "tts/ja/3719fce7d4e65841.mp3",
+  "ja:おわる": "tts/ja/7590bfa438cf19b2.mp3",
   "ja:おんがく": "tts/ja/890b8df4dda81896.mp3",
   "ja:おんがくが すきです": "tts/ja/486130f5d530bd44.mp3",
   "ja:おんがくを きいたり えを かいたりします": "tts/ja/a4bd72e90232b8d4.mp3",
@@ -1032,6 +985,7 @@
   "ja:おんせんに はいりに いきたいです": "tts/ja/becd941bf7035192.mp3",
   "ja:おんせんに はいりに いく つもりです": "tts/ja/a889d930acfee8f4.mp3",
   "ja:おんせんに はいる つもりです": "tts/ja/1cd263325427117e.mp3",
+  "ja:おんな": "tts/ja/ba3d564da0421df0.mp3",
   "ja:おんなのこ": "tts/ja/f283c3c81da0e7a6.mp3",
   "ja:おんなのこが います": "tts/ja/c0b5c104b4978c5c.mp3",
   "ja:おんなのこが さんにん います": "tts/ja/e8a01a324022f820.mp3",
@@ -1047,9 +1001,7 @@
   "ja:かいだん": "tts/ja/4e44e0ab36171a80.mp3",
   "ja:かいだんで はしってはいけません": "tts/ja/7923d86f0de0ef3b.mp3",
   "ja:かいだんで はしらないでください": "tts/ja/abc920612ff7c08a.mp3",
-  "ja:かいだんは あそこに あります": [
-    "tts/ja/996ed32ecc40b771.mp3"
-  ],
+  "ja:かいだんは あそこに あります": "tts/ja/996ed32ecc40b771.mp3",
   "ja:かいもの": "tts/ja/000936dcfd3e9609.mp3",
   "ja:かいものしすぎたんです。だから おかねが ありません": "tts/ja/3d9b2bce0dd1738b.mp3",
   "ja:かいものしすぎて、おかねが ありません": "tts/ja/02b57e74bfbd1aa1.mp3",
@@ -1058,6 +1010,8 @@
   "ja:かいものも します": "tts/ja/7835adf2d77a4dc6.mp3",
   "ja:かいものを したいですけど おかねが ないです": "tts/ja/df64bc3533909f2c.mp3",
   "ja:かいものを しています": "tts/ja/a12298d4aac91d1c.mp3",
+  "ja:かう": "tts/ja/3ad77c3889e5271d.mp3",
+  "ja:かえす": "tts/ja/5929d6b27fe0546f.mp3",
   "ja:かえって": "tts/ja/66d4afa02dd04798.mp3",
   "ja:かえってもいいですか": "tts/ja/db8975397a74b9e9.mp3",
   "ja:かえりたくないです": "tts/ja/1fa3b04dddea2cdb.mp3",
@@ -1069,6 +1023,7 @@
   "ja:かおを あらいました": "tts/ja/77221535614ca102.mp3",
   "ja:かおを あらいます": "tts/ja/93b13cb070973797.mp3",
   "ja:かかない": "tts/ja/9522ae4aecb9d377.mp3",
+  "ja:かかる": "tts/ja/e6a6b2da9720c035.mp3",
   "ja:かきます": "tts/ja/8e6d1e4535f5c209.mp3",
   "ja:かぎ": "tts/ja/98dd1c0cee0a8c43.mp3",
   "ja:かぎが ないんです。だから はいれません": "tts/ja/4e60bcf877be2472.mp3",
@@ -1080,17 +1035,14 @@
   "ja:かくのがじょうずです": "tts/ja/f9009fc410a405f9.mp3",
   "ja:かくのがすきです": "tts/ja/255dc3f0ff1476e1.mp3",
   "ja:かぐ": "tts/ja/76cbb31ebfbb133e.mp3",
+  "ja:かける": "tts/ja/f1dfa0f49742e623.mp3",
   "ja:かさ": "tts/ja/5019a816fe94f712.mp3",
   "ja:かさ ください": "tts/ja/bc1d6ad441976425.mp3",
   "ja:かさ ふたつ ください": "tts/ja/bed491bbe043e626.mp3",
   "ja:かさ みっつ ください": "tts/ja/fc84324f65661dd4.mp3",
   "ja:かさは いくつ ありますか": "tts/ja/a6fffd116431968a.mp3",
-  "ja:かさは どこですか": [
-    "tts/ja/538e65fb7b80c630.mp3"
-  ],
-  "ja:かさは どこに ありますか": [
-    "tts/ja/b007e143d9f2c9f3.mp3"
-  ],
+  "ja:かさは どこですか": "tts/ja/538e65fb7b80c630.mp3",
+  "ja:かさは どこに ありますか": "tts/ja/b007e143d9f2c9f3.mp3",
   "ja:かさを かしてください": "tts/ja/a8cf2e70ee5083b1.mp3",
   "ja:かさを とってください": "tts/ja/ab719f4459cdc787.mp3",
   "ja:かさを もっています": "tts/ja/ed3cbe2a06bd5df5.mp3",
@@ -1120,18 +1072,17 @@
   "ja:かぜを ひきました": "tts/ja/5021ddf93e43fd83.mp3",
   "ja:かぜを ひきました ねつが あります": "tts/ja/e7a15dad568a6cc5.mp3",
   "ja:かぜを ひきましたか": "tts/ja/6d18f0f27cd25b1a.mp3",
+  "ja:かぞく": "tts/ja/e0db8983db649ea4.mp3",
   "ja:かぞくと ごはんを たべます": "tts/ja/bf339c47370b8ebf.mp3",
-  "ja:かぞくは ふたり です": [
-    "tts/ja/8493470b6f85a499.mp3"
-  ],
+  "ja:かぞくは ふたり です": "tts/ja/8493470b6f85a499.mp3",
   "ja:かぞくは みんな げんきです": "tts/ja/926894a2b5d5663b.mp3",
-  "ja:かぞくは よにん です": [
-    "tts/ja/d8331eec303389c2.mp3"
-  ],
+  "ja:かぞくは よにん です": "tts/ja/d8331eec303389c2.mp3",
   "ja:かぞくを まもらなければなりません": "tts/ja/1467ede7eaecdc44.mp3",
   "ja:かた": "tts/ja/b114eb46a0fd3fc0.mp3",
   "ja:かった": "tts/ja/76944121a3b3eac6.mp3",
   "ja:かって": "tts/ja/98ed809fb931fc8f.mp3",
+  "ja:かてい": "tts/ja/730d3542100b4d4c.mp3",
+  "ja:かど": "tts/ja/0222a4b232885fed.mp3",
   "ja:かなしい": "tts/ja/ae7df825cf4422e6.mp3",
   "ja:かなしい とき おんがくを ききます": "tts/ja/e6db4051aa7e3142.mp3",
   "ja:かなしいです": "tts/ja/d85ec0b61fd393fa.mp3",
@@ -1143,22 +1094,17 @@
   "ja:かばん ふたつ ください": "tts/ja/4b61118428dcbb1b.mp3",
   "ja:かばん みっつ ください": "tts/ja/5e32416546e18424.mp3",
   "ja:かばんがほしいです": "tts/ja/74bc6377539e511f.mp3",
-  "ja:かばんに おかねが あります": [
-    "tts/ja/a5c14de4fd13e3f3.mp3"
-  ],
-  "ja:かばんに じしょが あります": [
-    "tts/ja/53bccb897eff1a4d.mp3"
-  ],
+  "ja:かばんに おかねが あります": "tts/ja/a5c14de4fd13e3f3.mp3",
+  "ja:かばんに じしょが あります": "tts/ja/53bccb897eff1a4d.mp3",
   "ja:かばんの なかに きっぷが あります": "tts/ja/c1a280fad4e3ec8a.mp3",
-  "ja:かばんの なかに さいふが あります": [
-    "tts/ja/df1ccde85e2845af.mp3"
-  ],
+  "ja:かばんの なかに さいふが あります": "tts/ja/df1ccde85e2845af.mp3",
   "ja:かばんは いくつ ありますか": "tts/ja/70cd2bc6e823db4e.mp3",
   "ja:かばんは いくら ですか": "tts/ja/e384e146094dbdc2.mp3",
   "ja:かばんは どれですか": "tts/ja/fe8f41f272f4eae2.mp3",
   "ja:かばんを あけてください": "tts/ja/2406deeee7874562.mp3",
   "ja:かばんを でんしゃに わすれたんです": "tts/ja/2483ff4f9604b0b4.mp3",
   "ja:かばんを わすれたんですか": "tts/ja/b60bdf8c6a2a5702.mp3",
+  "ja:かびん": "tts/ja/427bc0f951cdf759.mp3",
   "ja:かみ": "tts/ja/3a17d23fa78a527b.mp3",
   "ja:かみが ながいです": "tts/ja/ba0ee3f9774637b4.mp3",
   "ja:かみが ながいので きります": "tts/ja/c906544cc4be4b6d.mp3",
@@ -1172,16 +1118,23 @@
   "ja:かようびに くじに にほんごを べんきょうします": "tts/ja/865d0eca06a9c572.mp3",
   "ja:かようびに ごじに かえります": "tts/ja/ba0b47b7fb159a72.mp3",
   "ja:かようびに としょかんに いきます": "tts/ja/485b6163feee6c89.mp3",
+  "ja:から": "tts/ja/1aaed88f80cd4c8c.mp3",
+  "ja:からい": "tts/ja/47602cf767bdda41.mp3",
   "ja:からすぎます。こまっています": "tts/ja/f300cd078a28a4eb.mp3",
   "ja:からだ": "tts/ja/2d77177b168c0ee5.mp3",
+  "ja:かりる": "tts/ja/e3aa1d6885182633.mp3",
+  "ja:かるい": "tts/ja/391f373670c5c892.mp3",
   "ja:かれは すいえいが じょうずです": "tts/ja/de19236492708e05.mp3",
   "ja:かれは すいえいのが じょうずです": "tts/ja/fc790576cfb77fe7.mp3",
   "ja:かわ": "tts/ja/51a231b9739ec461.mp3",
+  "ja:かわいい": "tts/ja/d0993807814c4baf.mp3",
   "ja:かわを みます": "tts/ja/919b983028eaaea6.mp3",
+  "ja:かんじ": "tts/ja/bb3c7b8377baa3c3.mp3",
   "ja:かんたん": "tts/ja/3780bea6c32a17d8.mp3",
   "ja:かんたんじゃないです": "tts/ja/3adda23c3307dca2.mp3",
   "ja:が": "tts/ja/a6fdf6561ea5660d.mp3",
   "ja:がいこく": "tts/ja/d584f4256652026f.mp3",
+  "ja:がいこくじん": "tts/ja/86981115e3a4ed33.mp3",
   "ja:がいこくで まつりを みた ことが あります": "tts/ja/db680ba416fcf4cd.mp3",
   "ja:がいこくに いきたいです": "tts/ja/ef4ace8d5518cc57.mp3",
   "ja:がいこくに いく つもりです": "tts/ja/82ec4b8617317b3d.mp3",
@@ -1201,18 +1154,12 @@
   "ja:がくせいですか。": "tts/ja/b5901fbff3ed77c2.mp3",
   "ja:がくせいの とき、まつりに いきました": "tts/ja/614d763798bb924e.mp3",
   "ja:がくせいの とき、よく べんきょうしました": "tts/ja/1e5bea6d30bd6dd4.mp3",
-  "ja:がくせいは きゅうにんです": [
-    "tts/ja/565c77528b65914b.mp3"
-  ],
+  "ja:がくせいは きゅうにんです": "tts/ja/565c77528b65914b.mp3",
   "ja:がくせいは ごにんです": "tts/ja/e80eba921a1c9f10.mp3",
-  "ja:がくせいは さんじゅうにんです": [
-    "tts/ja/d94bc7002a4f76dd.mp3"
-  ],
+  "ja:がくせいは さんじゅうにんです": "tts/ja/d94bc7002a4f76dd.mp3",
   "ja:がくせいは さんにんです": "tts/ja/19e2100ec8d5845a.mp3",
   "ja:がくせいは にほんから です": "tts/ja/f8f8b9eed866120b.mp3",
-  "ja:がくせいは ろくにんです": [
-    "tts/ja/28bc6a926bd2f94c.mp3"
-  ],
+  "ja:がくせいは ろくにんです": "tts/ja/28bc6a926bd2f94c.mp3",
   "ja:がくせいは アメリカ から です": "tts/ja/772e7b22a26ba612.mp3",
   "ja:がくせいは アメリカから です": "tts/ja/aa902b1e736539fe.mp3",
   "ja:がっこう": "tts/ja/a6468a711f97621e.mp3",
@@ -1228,9 +1175,7 @@
     "tts/ja/cc8ea8db140faaaf.mp3",
     "tts/ja/60c0ef3abc757800.mp3"
   ],
-  "ja:がっこうに いかない": [
-    "tts/ja/8e2315d7c0e34ff9.mp3"
-  ],
+  "ja:がっこうに いかない": "tts/ja/8e2315d7c0e34ff9.mp3",
   "ja:がっこうに いきます": "tts/ja/759ba03eaa25db65.mp3",
   "ja:がっこうに いきます。": [
     "tts/ja/653adfbdb19d371c.mp3",
@@ -1247,9 +1192,7 @@
   "ja:がっこうにせんせいがいます": "tts/ja/4fcee770c07bfafd.mp3",
   "ja:がっこうにとしょかんがあります": "tts/ja/4641c11b0d04dbcb.mp3",
   "ja:がっこうの そばに こうえんが あります": "tts/ja/37f2284c06207d2c.mp3",
-  "ja:がっこうは ちかいです": [
-    "tts/ja/497210185762502d.mp3"
-  ],
+  "ja:がっこうは ちかいです": "tts/ja/497210185762502d.mp3",
   "ja:がっこうは とおくないです": "tts/ja/83601b4baea34b2f.mp3",
   "ja:がっこうは どうですか": "tts/ja/ee9a85150fd4cead.mp3",
   "ja:がっこうは にぎやかでした": "tts/ja/d0cb16a9b3e4af73.mp3",
@@ -1257,19 +1200,20 @@
   "ja:がんばったほうがいいです": "tts/ja/08818b2a52ab4c14.mp3",
   "ja:がんばったほうがいいですよ": "tts/ja/32deb77b0eaac462.mp3",
   "ja:き": "tts/ja/ccfd059637c51571.mp3",
+  "ja:きいろ": "tts/ja/623d0782034cf8f6.mp3",
+  "ja:きいろい": "tts/ja/3d3cf158e338c2b3.mp3",
+  "ja:きえる": "tts/ja/897edf98da660816.mp3",
   "ja:きがえてから あさごはんを たべます": "tts/ja/f264ed5ec5b2e899.mp3",
   "ja:きがえてから、あさごはんを たべます": "tts/ja/ea573810a0b973cf.mp3",
   "ja:きがえる": "tts/ja/0a28af29f607fff2.mp3",
-  "ja:きく": [
-    "tts/ja/d905040dbb2610e9.mp3",
-    "tts/ja/66a928a93a38b1a9.mp3"
-  ],
+  "ja:きく": "tts/ja/d905040dbb2610e9.mp3",
   "ja:きけん": "tts/ja/7612c89f3f8d58ed.mp3",
   "ja:きけんな ところに いかないほうがいいです": "tts/ja/61f52831441bf35b.mp3",
   "ja:きけんに ならないように きをつけなければなりません": "tts/ja/59aa60f7e351272e.mp3",
   "ja:きけんになりました": "tts/ja/e579fa6dc41c7d8d.mp3",
   "ja:きけんになりました。きをつけなければなりません": "tts/ja/6070583de864e95b.mp3",
   "ja:きた": "tts/ja/4ce8f878e910a6bd.mp3",
+  "ja:きたない": "tts/ja/0905c2880e262ca0.mp3",
   "ja:きっさてん": "tts/ja/05432ec8d3502f2c.mp3",
   "ja:きって": "tts/ja/d24862c9b585266c.mp3",
   "ja:きってと はがきと ふうとう": "tts/ja/4799428e1fd22813.mp3",
@@ -1282,16 +1226,10 @@
   "ja:きっと たのしいですよ": "tts/ja/630345fa8bb33212.mp3",
   "ja:きっと だいじょうぶです": "tts/ja/3ffc4e2702ba2478.mp3",
   "ja:きっぷ": "tts/ja/df1c350274cff037.mp3",
-  "ja:きっぷは いくらですか": [
-    "tts/ja/4b0225c79887f465.mp3"
-  ],
-  "ja:きっぷは ななひゃくえんです": [
-    "tts/ja/77d6d9ba3b469a0d.mp3"
-  ],
+  "ja:きっぷは いくらですか": "tts/ja/4b0225c79887f465.mp3",
+  "ja:きっぷは ななひゃくえんです": "tts/ja/77d6d9ba3b469a0d.mp3",
   "ja:きっぷを かってから でんしゃに のります": "tts/ja/3a5ea1bfe20e0976.mp3",
-  "ja:きっぷを さんまい ください": [
-    "tts/ja/20b3a6e39f035bf1.mp3"
-  ],
+  "ja:きっぷを さんまい ください": "tts/ja/20b3a6e39f035bf1.mp3",
   "ja:きっぷを なくしました": "tts/ja/34a35bf41c9855cf.mp3",
   "ja:きっぷを にまい ください": "tts/ja/84efd55d405abc36.mp3",
   "ja:きて": "tts/ja/c7797539d3989b72.mp3",
@@ -1304,20 +1242,14 @@
   "ja:きのう えいがを みませんでした": "tts/ja/baaf7e29a77eda71.mp3",
   "ja:きのう およぎました": "tts/ja/d46453dac5a7e7f8.mp3",
   "ja:きのう かきませんでした": "tts/ja/ef6f6da1dcf8f1a8.mp3",
-  "ja:きのう かさを かいました": [
-    "tts/ja/d6e6a2054a4f4630.mp3"
-  ],
+  "ja:きのう かさを かいました": "tts/ja/d6e6a2054a4f4630.mp3",
   "ja:きのう がっこうに いきました": "tts/ja/69d30b937d64aa89.mp3",
-  "ja:きのう がっこうに いきませんでした": [
-    "tts/ja/2013ffc7b21a2ef2.mp3"
-  ],
+  "ja:きのう がっこうに いきませんでした": "tts/ja/2013ffc7b21a2ef2.mp3",
   "ja:きのう ぎんこうに いきました": "tts/ja/0c90aa795b279878.mp3",
   "ja:きのう こうえんで はしりました": "tts/ja/accca48316da1a94.mp3",
   "ja:きのう こうえんに いきました": "tts/ja/2a1b2fa79e8d4804.mp3",
   "ja:きのう しんぶんを よみました": "tts/ja/6ae55f27fbb7cda3.mp3",
-  "ja:きのう じてんしゃで えきに いきました": [
-    "tts/ja/431b8674c64f3bd3.mp3"
-  ],
+  "ja:きのう じてんしゃで えきに いきました": "tts/ja/431b8674c64f3bd3.mp3",
   "ja:きのう すしを たべました": "tts/ja/1797ef87a31719c8.mp3",
   "ja:きのう すしを たべます": "tts/ja/53ae5178661d0d18.mp3",
   "ja:きのう すしを たべませんでした": "tts/ja/e60c95ecc7ce19ea.mp3",
@@ -1337,9 +1269,7 @@
   "ja:きのう やすみじゃなかったです": "tts/ja/280582fd2ecdb2aa.mp3",
   "ja:きのう やすみでした": "tts/ja/54cf2aca3d2a3091.mp3",
   "ja:きのう やすみです": "tts/ja/7c44ae8354e75bdb.mp3",
-  "ja:きのう コーヒーを のみすぎました": [
-    "tts/ja/a3c62540c21cd52e.mp3"
-  ],
+  "ja:きのう コーヒーを のみすぎました": "tts/ja/a3c62540c21cd52e.mp3",
   "ja:きのう コーヒーを のみました": "tts/ja/ea3cf7beb2fd3e03.mp3",
   "ja:きのう コーヒーを のみませんでした": "tts/ja/924ce0b044aff5bb.mp3",
   "ja:きのう ジュースを のみました": "tts/ja/ebf81bbd8a0c14b5.mp3",
@@ -1382,6 +1312,7 @@
   "ja:きょうしつで のんではいけません": "tts/ja/967036b4b749fb74.mp3",
   "ja:きょうしつで のんでもいいです": "tts/ja/a513ec79b90fa04b.mp3",
   "ja:きょうしつに はいってはいけません": "tts/ja/6426bdcc5438bb09.mp3",
+  "ja:きょうだい": "tts/ja/5e60032de88fbd14.mp3",
   "ja:きょうと": "tts/ja/9ae1986b905b6484.mp3",
   "ja:きょうとが いちばん きれいです": "tts/ja/c979c0a3e1370715.mp3",
   "ja:きょうとが いちばん しずかです": "tts/ja/389b7cbc44feed1c.mp3",
@@ -1397,19 +1328,13 @@
   "ja:きょうとのほうが おおさかより しずかです": "tts/ja/bbd4c04c9512c7ee.mp3",
   "ja:きょうとのほうが きれいです": "tts/ja/f9b65836f1f9745e.mp3",
   "ja:きょうとのほうが ひろしまより きれいです": "tts/ja/2b6cfdc88995aa84.mp3",
-  "ja:きょうとは とても きれいです": [
-    "tts/ja/8b455a5d9934db15.mp3"
-  ],
+  "ja:きょうとは とても きれいです": "tts/ja/8b455a5d9934db15.mp3",
   "ja:きょうの てんきは どうですか": "tts/ja/784015120df5ca1d.mp3",
   "ja:きょうは あたたかいです": "tts/ja/dbf73b5a202b3944.mp3",
   "ja:きょうは あついですね": "tts/ja/25d1ca21ede6d197.mp3",
   "ja:きょうは あめです": "tts/ja/bec7e4769a8f502e.mp3",
-  "ja:きょうは いい てんきですね": [
-    "tts/ja/2dd76cfb9a5caed5.mp3"
-  ],
-  "ja:きょうは おかねが ありません": [
-    "tts/ja/c0194a83a44bda8c.mp3"
-  ],
+  "ja:きょうは いい てんきですね": "tts/ja/2dd76cfb9a5caed5.mp3",
+  "ja:きょうは おかねが ありません": "tts/ja/c0194a83a44bda8c.mp3",
   "ja:きょうは かぜが つよいです": "tts/ja/a77fcf52539eb9db.mp3",
   "ja:きょうは かようびです": "tts/ja/eba44768dff5d4d4.mp3",
   "ja:きょうは きんです": "tts/ja/1f2c136565d249eb.mp3",
@@ -1420,44 +1345,30 @@
   "ja:きょうは げんきです": "tts/ja/4f19bf2b5d54ad61.mp3",
   "ja:きょうは さむいです": "tts/ja/d82feb5aa2615271.mp3",
   "ja:きょうは さむくないです": "tts/ja/f1d4d86102f6d693.mp3",
-  "ja:きょうは さんじに かえります": [
-    "tts/ja/3226c7ed6e51982c.mp3"
-  ],
+  "ja:きょうは さんじに かえります": "tts/ja/3226c7ed6e51982c.mp3",
   "ja:きょうは すいようびです": "tts/ja/19d9aa8adc636016.mp3",
   "ja:きょうは そらが はれています": "tts/ja/c387a23760ce17c6.mp3",
   "ja:きょうは つかれました": "tts/ja/fabe642d604ca758.mp3",
   "ja:きょうは てんきが いいです": "tts/ja/9111d5f7d2de7a16.mp3",
   "ja:きょうは てんきが わるいです": "tts/ja/37a799252a62ce82.mp3",
-  "ja:きょうは とても あたたかいです": [
-    "tts/ja/08aa00942edf73d7.mp3"
-  ],
+  "ja:きょうは とても あたたかいです": "tts/ja/08aa00942edf73d7.mp3",
   "ja:きょうは とても つかれているんです": "tts/ja/f9c444b2d5526339.mp3",
-  "ja:きょうは とても つかれました": [
-    "tts/ja/2e7e6c5055dc8622.mp3"
-  ],
+  "ja:きょうは とても つかれました": "tts/ja/2e7e6c5055dc8622.mp3",
   "ja:きょうは ともだちと としょかんに いきます": "tts/ja/e4fb68129a9276e8.mp3",
   "ja:きょうは どようびです": "tts/ja/236cfbcdb6ddfe2b.mp3",
   "ja:きょうは にちようびです": "tts/ja/20068d67159ac9d3.mp3",
   "ja:きょうは はれです": "tts/ja/74609d54e7b39f4b.mp3",
   "ja:きょうは ひまじゃないです": "tts/ja/31974dfbdcde91cb.mp3",
   "ja:きょうは ひまです": "tts/ja/cf1c6a989df46647.mp3",
-  "ja:きょうは べんきょうしない": [
-    "tts/ja/607e1ab3c160cd15.mp3"
-  ],
+  "ja:きょうは べんきょうしない": "tts/ja/607e1ab3c160cd15.mp3",
   "ja:きょうは まだ ひるごはんを たべていません": "tts/ja/26cb32d61fe7db44.mp3",
-  "ja:きょうは むしあついですね": [
-    "tts/ja/ce02536f2875df93.mp3"
-  ],
+  "ja:きょうは むしあついですね": "tts/ja/ce02536f2875df93.mp3",
   "ja:きょうは もくようびです": "tts/ja/e18509a4c10c5f0f.mp3",
   "ja:きょうは ゆきです": "tts/ja/29c48a23f365d702.mp3",
-  "ja:きょうは パスタを たべます": [
-    "tts/ja/0eacdb0ff993c6c7.mp3"
-  ],
+  "ja:きょうは パスタを たべます": "tts/ja/0eacdb0ff993c6c7.mp3",
   "ja:きょねん": "tts/ja/9edc918d968d30a7.mp3",
   "ja:きょねん がくせいでした": "tts/ja/e02a8a38c65b3d1b.mp3",
-  "ja:きょねん ぎんこうで はたらきました": [
-    "tts/ja/cd1532d8c5d76b32.mp3"
-  ],
+  "ja:きょねん ぎんこうで はたらきました": "tts/ja/cd1532d8c5d76b32.mp3",
   "ja:きょねん にほんごを べんきょうしました": "tts/ja/9e6da869d46dcbb4.mp3",
   "ja:きょねん にほんに いきました": "tts/ja/cf705cc45b6a3137.mp3",
   "ja:きょねん はたらきました": "tts/ja/22d4756821284af7.mp3",
@@ -1467,6 +1378,7 @@
   "ja:きらいじゃないです": "tts/ja/56e0c32bedda9e78.mp3",
   "ja:きらいです": "tts/ja/6177c91f1fe064fb.mp3",
   "ja:きらいな たべもの": "tts/ja/b741956afef4041f.mp3",
+  "ja:きる": "tts/ja/bfcd800c8024d483.mp3",
   "ja:きれい": "tts/ja/0130accc447d1882.mp3",
   "ja:きれいかったです": "tts/ja/873a6f1a8fc8810a.mp3",
   "ja:きれいくないです": "tts/ja/a5d50f7fcf677b76.mp3",
@@ -1503,6 +1415,7 @@
     "tts/ja/e51d6077998275fd.mp3"
   ],
   "ja:ぎゅ": "tts/ja/f4c8496c1fbfd4e6.mp3",
+  "ja:ぎゅうにく": "tts/ja/1dd75df1b37276ab.mp3",
   "ja:ぎゅうにゅう": "tts/ja/16e7a8e27a646312.mp3",
   "ja:ぎゅうにゅうと パンを ください": "tts/ja/6ca78772621d3aeb.mp3",
   "ja:ぎゅうにゅうや ジュースを のみます": "tts/ja/166e53344fbe6cca.mp3",
@@ -1514,6 +1427,7 @@
     "tts/ja/f994861a123e7e4d.mp3",
     "tts/ja/b8bc7cd99c20cc0a.mp3"
   ],
+  "ja:ぎんこう": "tts/ja/cee10d0834462ecc.mp3",
   "ja:ぎんこうで なまえを かきます": "tts/ja/e181b20b8125a332.mp3",
   "ja:ぎんこうに いかなければなりません": "tts/ja/613068bdcbbcb84e.mp3",
   "ja:ぎんこうに いきます": "tts/ja/b7757408f542c721.mp3",
@@ -1521,17 +1435,11 @@
   "ja:ぎんこうの ちかくに ゆうびんきょくが あります": "tts/ja/cafbc1a66064ad7d.mp3",
   "ja:ぎんこうは えきと ゆうびんきょくの あいだです": "tts/ja/9c52e57e03970f3d.mp3",
   "ja:ぎんこうは えきの となりです": "tts/ja/8fff7958ec844414.mp3",
-  "ja:ぎんこうは えきの まえに あります": [
-    "tts/ja/0853484ddfb499a4.mp3"
-  ],
+  "ja:ぎんこうは えきの まえに あります": "tts/ja/0853484ddfb499a4.mp3",
   "ja:ぎんこうは こちらです": "tts/ja/02808c5f39e015cc.mp3",
   "ja:ぎんこうは ちかいです": "tts/ja/5d7f2e70bf5a7b21.mp3",
-  "ja:ぎんこうは どこですか": [
-    "tts/ja/661aa6e2a98ba4dd.mp3"
-  ],
-  "ja:ぎんこうは どこに ありますか": [
-    "tts/ja/8397ae293c36bb28.mp3"
-  ],
+  "ja:ぎんこうは どこですか": "tts/ja/661aa6e2a98ba4dd.mp3",
+  "ja:ぎんこうは どこに ありますか": "tts/ja/8397ae293c36bb28.mp3",
   "ja:く": "tts/ja/04e90214eb604b8b.mp3",
   "ja:くうこう": "tts/ja/d36c351e2cabd49b.mp3",
   "ja:くうこうで いきます": "tts/ja/49cfc37bdbae510e.mp3",
@@ -1591,21 +1499,22 @@
   "ja:くだものを たべすぎたんです。でも げんきです": "tts/ja/ca77267f2fd3e5f1.mp3",
   "ja:くち": "tts/ja/50970103f4ec435c.mp3",
   "ja:くちが ちいさいです": "tts/ja/930dffcd78385295.mp3",
+  "ja:くつ": "tts/ja/3588e07592dd4daf.mp3",
+  "ja:くつした": "tts/ja/a88e322c7fd555e1.mp3",
+  "ja:くに": "tts/ja/9071aa6aef1f93c0.mp3",
   "ja:くもり": "tts/ja/7340ade3adc05ed7.mp3",
   "ja:くもりだと おもいます": "tts/ja/1e7248fb42bb4d5b.mp3",
+  "ja:くもる": "tts/ja/5e55345786ee2e6c.mp3",
+  "ja:くらい": "tts/ja/f10587da1a3ca8eb.mp3",
   "ja:くる": "tts/ja/df8dd202cc8ca6fe.mp3",
   "ja:くるま": "tts/ja/2cc9291c16e5865c.mp3",
   "ja:くるまが ほしいです": "tts/ja/26b61a7fb6f36161.mp3",
   "ja:くるまが ほしいですけど おかねが ないです": "tts/ja/1d8971b6829d5e1f.mp3",
   "ja:くるまがほしいです": "tts/ja/0f71b8adc21636f8.mp3",
-  "ja:くるまで うちに かえります": [
-    "tts/ja/9881d35144a3ccd5.mp3"
-  ],
+  "ja:くるまで うちに かえります": "tts/ja/9881d35144a3ccd5.mp3",
   "ja:くるまを とめる": "tts/ja/ed60c5674ac450cb.mp3",
-  "ja:くろ": [
-    "tts/ja/ebd7370febfc352c.mp3",
-    "tts/ja/117daab99e8acc03.mp3"
-  ],
+  "ja:くろ": "tts/ja/ebd7370febfc352c.mp3",
+  "ja:くろい": "tts/ja/f3719bf222c1a3c0.mp3",
   "ja:ぐ": "tts/ja/45fafeaedb4a60ed.mp3",
   "ja:ぐあい": [
     "tts/ja/765d4d78c29a472c.mp3",
@@ -1617,9 +1526,7 @@
   "ja:けいかんに ききます": "tts/ja/1b13dca15f715040.mp3",
   "ja:けいかんは ゆうびんきょくの うしろに います": "tts/ja/8723593067a36abf.mp3",
   "ja:けいたい": "tts/ja/92b7ebf0aec1b8b3.mp3",
-  "ja:けいたいを みせてください": [
-    "tts/ja/e7480a01db0cc008.mp3"
-  ],
+  "ja:けいたいを みせてください": "tts/ja/e7480a01db0cc008.mp3",
   "ja:けさ": "tts/ja/c50b1149f6f09ab6.mp3",
   "ja:けさ あるきました": "tts/ja/088778f32d029601.mp3",
   "ja:けさ おきました": "tts/ja/369e3828f4c71842.mp3",
@@ -1627,18 +1534,16 @@
   "ja:けさ こうえんで あるきました": "tts/ja/9ab1c83d08bc02ec.mp3",
   "ja:けさ ごはんを たべました": "tts/ja/c93566fee008ab92.mp3",
   "ja:けさ はしりました": "tts/ja/afb85a4077b6aa07.mp3",
-  "ja:けさ コーヒーを のみました": [
-    "tts/ja/94fc6127d8ec58d2.mp3"
-  ],
+  "ja:けさ コーヒーを のみました": "tts/ja/94fc6127d8ec58d2.mp3",
+  "ja:けす": "tts/ja/f91b880127f21bfa.mp3",
+  "ja:けっこう": "tts/ja/9308810b788d1bb4.mp3",
   "ja:けっこうです": "tts/ja/1ae25be5b1c45556.mp3",
   "ja:けっこん": "tts/ja/8f14f01a0a304312.mp3",
   "ja:けっこんしきに いった ことが あります": "tts/ja/67e0fa49e5ce3512.mp3",
   "ja:けっこんしきに いった ことが ありません": "tts/ja/4279c9be3cb2386b.mp3",
   "ja:けっこんした ことが ありますか": "tts/ja/5ea2c980b454dfd0.mp3",
   "ja:けっこんする つもりです": "tts/ja/b6574af8a9fe3d81.mp3",
-  "ja:けっこんの よていが あります": [
-    "tts/ja/e31a3379911abc31.mp3"
-  ],
+  "ja:けっこんの よていが あります": "tts/ja/e31a3379911abc31.mp3",
   "ja:けんこう": "tts/ja/b33719255a6164ba.mp3",
   "ja:けんこうが たいせつになりました": "tts/ja/c18bf84a06b8fa9d.mp3",
   "ja:けんこうに なりたいです": "tts/ja/9e2bcfe1111aa1e2.mp3",
@@ -1655,6 +1560,7 @@
   "ja:げつようびに がっこうに いきます": "tts/ja/9c4576850f31efd1.mp3",
   "ja:げつようびに にほんごを べんきょうします": "tts/ja/2e37d490ca57050d.mp3",
   "ja:げつようびにがっこうにいきます": "tts/ja/b05f102021a711b7.mp3",
+  "ja:げんかん": "tts/ja/c541d8ce805fb1e1.mp3",
   "ja:げんき": "tts/ja/4a9fef1f41bf899a.mp3",
   "ja:げんき です": [
     "tts/ja/432bee261809bb85.mp3",
@@ -1688,26 +1594,22 @@
   "ja:こうえんに ともだちが います": "tts/ja/9cfe115a586fa724.mp3",
   "ja:こうえんに ねこが います": "tts/ja/f043cc0be0b8a5db.mp3",
   "ja:こうえんに ねこが いますか": "tts/ja/6f2de8ac2de29bc9.mp3",
-  "ja:こうえんに ふたり います": [
-    "tts/ja/d50f7a0d55442651.mp3"
-  ],
+  "ja:こうえんに ふたり います": "tts/ja/d50f7a0d55442651.mp3",
   "ja:こうえんにねこがいます": "tts/ja/60e650dab0372720.mp3",
-  "ja:こうえんの さんぽです": [
-    "tts/ja/8b816bea572246af.mp3"
-  ],
-  "ja:こうえんは あちらです": [
-    "tts/ja/20d3d004c8f1077b.mp3"
-  ],
-  "ja:こうえんは うちの ちかくです": [
-    "tts/ja/de904b2744045980.mp3"
-  ],
+  "ja:こうえんの さんぽです": "tts/ja/8b816bea572246af.mp3",
+  "ja:こうえんは あちらです": "tts/ja/20d3d004c8f1077b.mp3",
+  "ja:こうえんは うちの ちかくです": "tts/ja/de904b2744045980.mp3",
   "ja:こうえんは がっこうと びょういんの あいだです": "tts/ja/155fe67dd09238cc.mp3",
   "ja:こうえんは きれいでした": "tts/ja/f3f79ba0bad30dda.mp3",
   "ja:こうえんは きれいです": "tts/ja/411391e8bbcecc0e.mp3",
   "ja:こうえんは しずかじゃなかったです": "tts/ja/aa983fe87f7a41f8.mp3",
   "ja:こうえんは しずかでした": "tts/ja/6d60e94c152628c7.mp3",
   "ja:こうえんを さんぽするのが すきです": "tts/ja/b71e45b5a22b73f5.mp3",
+  "ja:こうさてん": "tts/ja/74b5619cbbaeba79.mp3",
+  "ja:こうちゃ": "tts/ja/5cc52a31a8c9843f.mp3",
+  "ja:こうばん": "tts/ja/c05b5dc2cc1afc9d.mp3",
   "ja:こえ": "tts/ja/a4f3b3dd3eaf9c26.mp3",
+  "ja:ここ": "tts/ja/60ee39485af444c4.mp3",
   "ja:ここで あそばないでください": "tts/ja/f125c79fa26b83eb.mp3",
   "ja:ここで およがないでください": "tts/ja/13ee8399ff1ecbc0.mp3",
   "ja:ここで しゃしんを とってもいいです": "tts/ja/0169b28345275245.mp3",
@@ -1735,23 +1637,25 @@
   "ja:ここに とめてもいいですか": "tts/ja/01fd5f191efd68e2.mp3",
   "ja:ここに とめないでください": "tts/ja/cecfa23cbff88d2e.mp3",
   "ja:ここに なまえを かいてください": "tts/ja/a9ed992155942bd1.mp3",
-  "ja:ここに なまえを かきます": [
-    "tts/ja/ec726c3dc466ea4d.mp3"
-  ],
+  "ja:ここに なまえを かきます": "tts/ja/ec726c3dc466ea4d.mp3",
   "ja:ここに はいってはいけません": "tts/ja/e324f76c7d2ae477.mp3",
   "ja:ここにえきがあります": "tts/ja/6275e0ffb14bcef7.mp3",
-  "ja:ここは あんぜんです": [
-    "tts/ja/efeb2a10ea794688.mp3"
-  ],
+  "ja:ここのか": "tts/ja/ad3410fdc8d49112.mp3",
+  "ja:ここのつ": "tts/ja/a7dd24b932fdf0ae.mp3",
+  "ja:ここは あんぜんです": "tts/ja/efeb2a10ea794688.mp3",
   "ja:ここは きけんです。きをつけなければなりません": "tts/ja/25f8c06885076200.mp3",
   "ja:ここは きれいな ところです": "tts/ja/25a38cdff3ce99eb.mp3",
   "ja:ここは こうえんです": "tts/ja/4e90aa0c12753aa1.mp3",
   "ja:ここは ゆうめいな こうえんですよ": "tts/ja/6fcbeaf98e7a67f7.mp3",
+  "ja:こたえる": "tts/ja/756a90b55140affc.mp3",
   "ja:こちら": "tts/ja/515f12d0ce9cc083.mp3",
   "ja:こちら ほんは おもしろいです": "tts/ja/c6d8e902c16c76f3.mp3",
+  "ja:こっち": "tts/ja/88f7abf8c2119272.mp3",
   "ja:こっちへ どうぞ": "tts/ja/2c2c97fdb6c070bd.mp3",
+  "ja:ことし": "tts/ja/7143ed0b05ccc77a.mp3",
   "ja:ことし りょこうしない つもりです": "tts/ja/ae54c64c7fe3ea04.mp3",
   "ja:ことしの なつは むしあついでしょう": "tts/ja/2f4990a011eac360.mp3",
+  "ja:ことば": "tts/ja/fc4e77d42c478253.mp3",
   "ja:こども": "tts/ja/ed07aecb457a8904.mp3",
   "ja:こどもが ごにん います": "tts/ja/9762d8455fb65f5b.mp3",
   "ja:こどもが よにん います": "tts/ja/bdc3f0252b73bffb.mp3",
@@ -1765,26 +1669,17 @@
   "ja:こどもの とき、よく あそびました": "tts/ja/3df80a277f9836aa.mp3",
   "ja:こどもは あそんでいます": "tts/ja/c8647e0e9534eb15.mp3",
   "ja:こない": "tts/ja/84156f3a60af6ec9.mp3",
+  "ja:この": "tts/ja/6b778abfd828190a.mp3",
   "ja:この いえは せまいです": "tts/ja/1cafe4c90a6a463b.mp3",
-  "ja:この いすは おおきいです": [
-    "tts/ja/b81e95463cec483b.mp3"
-  ],
-  "ja:この いすは わたしのです": [
-    "tts/ja/297b57ef9557a19d.mp3"
-  ],
-  "ja:この いぬは おおきいです": [
-    "tts/ja/363438c856a295c6.mp3"
-  ],
-  "ja:この うたは いいです": [
-    "tts/ja/2906d4b34878be5f.mp3"
-  ],
+  "ja:この いすは おおきいです": "tts/ja/b81e95463cec483b.mp3",
+  "ja:この いすは わたしのです": "tts/ja/297b57ef9557a19d.mp3",
+  "ja:この いぬは おおきいです": "tts/ja/363438c856a295c6.mp3",
+  "ja:この うたは いいです": "tts/ja/2906d4b34878be5f.mp3",
   "ja:この うみは きれいだと おもいます": "tts/ja/ba5746423b29748b.mp3",
   "ja:この えいがは おもしろいでしょう": "tts/ja/503a5016495012d6.mp3",
   "ja:この えいがは ながいです": "tts/ja/ba5866e6b416aca1.mp3",
   "ja:この えいがは ながくないです": "tts/ja/9abccdd037756dd0.mp3",
-  "ja:この えいごの いみは なんですか": [
-    "tts/ja/a1ec3a06bd9f86d8.mp3"
-  ],
+  "ja:この えいごの いみは なんですか": "tts/ja/a1ec3a06bd9f86d8.mp3",
   "ja:この えきは きれいですね": "tts/ja/976592e633a494c2.mp3",
   "ja:この えきは ちかいです": "tts/ja/8fcc828a0d7e8c4e.mp3",
   "ja:この えきは べんりですよ": "tts/ja/3a7ace79fc327dd5.mp3",
@@ -1794,72 +1689,44 @@
   "ja:この おちゃは おいしいです": "tts/ja/95d1e249d642eabe.mp3",
   "ja:この おてらは とても ゆうめいです": "tts/ja/4a57faf1a294e79c.mp3",
   "ja:この かばんと あの かばん、どちらが いいですか": "tts/ja/a69a0b6ce5b78dbf.mp3",
-  "ja:この かばんと その かばんは おなじです": [
-    "tts/ja/43123cb8aad90de9.mp3"
-  ],
-  "ja:この かばんのほうが やすいです": [
-    "tts/ja/10bbafc71b0e3b22.mp3"
-  ],
-  "ja:この かばんは いくらですか": [
-    "tts/ja/a989efe78ac84761.mp3"
-  ],
+  "ja:この かばんと その かばんは おなじです": "tts/ja/43123cb8aad90de9.mp3",
+  "ja:この かばんのほうが やすいです": "tts/ja/10bbafc71b0e3b22.mp3",
+  "ja:この かばんは いくらですか": "tts/ja/a989efe78ac84761.mp3",
   "ja:この かばんは おおきいですが、あの かばんは ちいさいです": "tts/ja/7bc2fdd68d17cf8f.mp3",
   "ja:この かばんは おもすぎます": "tts/ja/04dc28b0c32d9281.mp3",
   "ja:この かばんは たかすぎるんです": "tts/ja/4c2aebc8450e3a69.mp3",
   "ja:この かばんは ちいさいです": "tts/ja/5e6fca71604eb9d3.mp3",
-  "ja:この かばんは わたしのです": [
-    "tts/ja/4f6c4ccb2058f8c8.mp3"
-  ],
+  "ja:この かばんは わたしのです": "tts/ja/4f6c4ccb2058f8c8.mp3",
   "ja:この かわは きれいだと おもいます": "tts/ja/3970710aaff102db.mp3",
-  "ja:この かわは きれいです": [
-    "tts/ja/d868d3069430fd8e.mp3"
-  ],
+  "ja:この かわは きれいです": "tts/ja/d868d3069430fd8e.mp3",
   "ja:この くすりが いいです。いちにち さんかい のんでください": "tts/ja/3c448aa7a59022a0.mp3",
-  "ja:この くすりを のんで ください": [
-    "tts/ja/bc7d7cda1a32e505.mp3"
-  ],
-  "ja:この くつは いくらですか": [
-    "tts/ja/2530efec402cc29f.mp3"
-  ],
+  "ja:この くすりを のんで ください": "tts/ja/bc7d7cda1a32e505.mp3",
+  "ja:この くつは いくらですか": "tts/ja/2530efec402cc29f.mp3",
   "ja:この くるまは おおきいです": "tts/ja/71e3b3de5770e1e0.mp3",
   "ja:この くるまは たかくないです": "tts/ja/893aee9daab7140e.mp3",
   "ja:この くるまは ちいさいです": "tts/ja/e7711b3d828cbb4e.mp3",
-  "ja:この こうえんは きれいじゃないです": [
-    "tts/ja/7ede6348c1c56e70.mp3"
-  ],
+  "ja:この こうえんは きれいじゃないです": "tts/ja/7ede6348c1c56e70.mp3",
   "ja:この こうえんは きれいです": "tts/ja/dc4e6b43ae3255f4.mp3",
   "ja:この こうえんは とても きれいです": "tts/ja/686edc3bfb6d5b1c.mp3",
   "ja:この こうえんは ひろいです": "tts/ja/a6bba6a0bbee9a96.mp3",
-  "ja:この ごはんは あついです": [
-    "tts/ja/192e46a04f35dc90.mp3"
-  ],
+  "ja:この ごはんは あついです": "tts/ja/192e46a04f35dc90.mp3",
   "ja:この しんぶんは ながいです": "tts/ja/831a1ec97e31a4b4.mp3",
   "ja:この しんぶんは みじかいです": "tts/ja/fdce66013f577081.mp3",
   "ja:この じしょは むずかしいです": "tts/ja/035a5e6997c1ef31.mp3",
-  "ja:この じてんしゃは たかいです": [
-    "tts/ja/3589ec70a80532f4.mp3"
-  ],
+  "ja:この じてんしゃは たかいです": "tts/ja/3589ec70a80532f4.mp3",
   "ja:この すしは おいしいです": "tts/ja/44f9b10692b1900e.mp3",
   "ja:この たべものは にほんごで なんと いいますか": "tts/ja/0c33dd207c89739f.mp3",
-  "ja:この でんしゃは おそいです": [
-    "tts/ja/95e397d222f8f445.mp3"
-  ],
+  "ja:この でんしゃは おそいです": "tts/ja/95e397d222f8f445.mp3",
   "ja:この でんしゃは はやいです": "tts/ja/fa2bfcb059238f96.mp3",
   "ja:この でんしゃは はやくないです": "tts/ja/b1c4bffc7340acb0.mp3",
   "ja:この とけいと あの カメラを ください": "tts/ja/dc31716cf9aad273.mp3",
-  "ja:この とけいは いくらですか": [
-    "tts/ja/0369120dadb1b815.mp3"
-  ],
-  "ja:この ねこは おおきいです": [
-    "tts/ja/017c783b77115b35.mp3"
-  ],
+  "ja:この とけいは いくらですか": "tts/ja/0369120dadb1b815.mp3",
+  "ja:この ねこは おおきいです": "tts/ja/017c783b77115b35.mp3",
   "ja:この はなは きれいです": "tts/ja/becdfc446675edae.mp3",
   "ja:この はなは とても きれいですね": "tts/ja/3fa2ed275b048bd0.mp3",
   "ja:この はなは やすいです": "tts/ja/07cb564325876dae.mp3",
   "ja:この ふたつは ちがいます": "tts/ja/924e13c227f13590.mp3",
-  "ja:この へやは あたたかいです": [
-    "tts/ja/31f40bc1aab94395.mp3"
-  ],
+  "ja:この へやは あたたかいです": "tts/ja/31f40bc1aab94395.mp3",
   "ja:この へやは しずかです": "tts/ja/0063872ac87268ee.mp3",
   "ja:この へやは せまいです": "tts/ja/ac9f910e0e89edf0.mp3",
   "ja:この へやは せますぎます": "tts/ja/9e524a32e2befbfe.mp3",
@@ -1870,18 +1737,12 @@
   "ja:この へんに えきが ありますか": "tts/ja/8e27e7fe938689ef.mp3",
   "ja:この へんに とめてはいけません": "tts/ja/ef03782aa799c075.mp3",
   "ja:この ほんは いいです": "tts/ja/0316d6594ef4e86e.mp3",
-  "ja:この ほんは いくらですか": [
-    "tts/ja/bc739876ba0e3396.mp3"
-  ],
+  "ja:この ほんは いくらですか": "tts/ja/bc739876ba0e3396.mp3",
   "ja:この ほんは おもしろいです": "tts/ja/13386be19ca9e8cb.mp3",
-  "ja:この ほんは つまらないです": [
-    "tts/ja/b23accb80d43c1a6.mp3"
-  ],
+  "ja:この ほんは つまらないです": "tts/ja/b23accb80d43c1a6.mp3",
   "ja:この ほんは どうですか": "tts/ja/e3ef5ae7be6fd7f9.mp3",
   "ja:この ほんは ながくないです": "tts/ja/4c9a909afeb8c0d8.mp3",
-  "ja:この ほんは むずかしいです": [
-    "tts/ja/cceca41a6ed3e298.mp3"
-  ],
+  "ja:この ほんは むずかしいです": "tts/ja/cceca41a6ed3e298.mp3",
   "ja:この ほんは よくないです": "tts/ja/211faefeea0f6245.mp3",
   "ja:この ほんを よんでください": "tts/ja/0e6e9bd07e20a708.mp3",
   "ja:この ほんを よんでもいいですか": "tts/ja/efc532543fa37177.mp3",
@@ -1900,12 +1761,8 @@
   "ja:この まちは レストランが おおいです": "tts/ja/825e8edb407275f7.mp3",
   "ja:この みずは つめたいです": "tts/ja/06a52b3061c2d545.mp3",
   "ja:この みずは つめたくないです": "tts/ja/f07966d794c7660f.mp3",
-  "ja:この みずは やすいです": [
-    "tts/ja/956e480db111164e.mp3"
-  ],
-  "ja:この みせの ラーメンは おいしいです": [
-    "tts/ja/547d9297c9ebe650.mp3"
-  ],
+  "ja:この みずは やすいです": "tts/ja/956e480db111164e.mp3",
+  "ja:この みせの ラーメンは おいしいです": "tts/ja/547d9297c9ebe650.mp3",
   "ja:この みせは とても ゆうめいですね": "tts/ja/7b982e6176f5c44f.mp3",
   "ja:この みせは ゆうめいじゃないです": "tts/ja/6cd6467af6c19ec6.mp3",
   "ja:この もりは おおきいと おもいます": "tts/ja/d8c90ba9c4ae5010.mp3",
@@ -1916,25 +1773,19 @@
   "ja:この りょうりのなかで ラーメンが いちばん おいしいです": "tts/ja/418226808cdaa628.mp3",
   "ja:この りんごは おいしいです": "tts/ja/ee1bf7115f198f15.mp3",
   "ja:この カメラと あの かばんを ください": "tts/ja/01e3b7d75b5fac91.mp3",
-  "ja:この カメラは いくらですか": [
-    "tts/ja/c17cca345930ccb2.mp3"
-  ],
+  "ja:この カメラは いくらですか": "tts/ja/c17cca345930ccb2.mp3",
   "ja:この カメラは たかいです": "tts/ja/eb541a25085c1c42.mp3",
   "ja:この カメラは たかいですね": "tts/ja/aaee1bd718bacf5c.mp3",
   "ja:この カメラは よくないです": "tts/ja/6e9235df5213ceea.mp3",
   "ja:この カレーのほうが あの ラーメンより おいしいです": "tts/ja/460803d7c4a2c7fa.mp3",
   "ja:この カレーのほうが おいしいです": "tts/ja/edad7d61132416d0.mp3",
-  "ja:この コンビニは あたらしいです": [
-    "tts/ja/583646c40571f831.mp3"
-  ],
+  "ja:この コンビニは あたらしいです": "tts/ja/583646c40571f831.mp3",
   "ja:この コーヒーは あついです": "tts/ja/d2065534213d25c1.mp3",
   "ja:この コーヒーは あつくないです": "tts/ja/d0427ecaa49e26f3.mp3",
   "ja:この コーヒーは あつすぎます": "tts/ja/657c216eb4d4d784.mp3",
   "ja:この コーヒーは いいです": "tts/ja/7f45f092820be0f4.mp3",
   "ja:この コーヒーは おいしいです": "tts/ja/ec14d52ecb0c258f.mp3",
-  "ja:この コーヒーは まずいです": [
-    "tts/ja/cf6b4b5f08c124c7.mp3"
-  ],
+  "ja:この コーヒーは まずいです": "tts/ja/cf6b4b5f08c124c7.mp3",
   "ja:この テストは むずかしいです": "tts/ja/288fd21decefd39b.mp3",
   "ja:この テストは むずかしくないです": "tts/ja/9ee533aa50012142.mp3",
   "ja:この テストは むずかしすぎます": "tts/ja/910e614f051f9475.mp3",
@@ -1948,15 +1799,11 @@
   "ja:この パンは おいしくないです": "tts/ja/d91a133bba944136.mp3",
   "ja:この ペンは やすいです": "tts/ja/ab2371c38cb879e8.mp3",
   "ja:この ペンを つかってもいいですか": "tts/ja/7bcab4c900127ba7.mp3",
-  "ja:この ホテルが いちばん たかいです": [
-    "tts/ja/218978657846b5a4.mp3"
-  ],
+  "ja:この ホテルが いちばん たかいです": "tts/ja/218978657846b5a4.mp3",
   "ja:この ラーメンは あついです": "tts/ja/c1331df15b19baa5.mp3",
   "ja:この ラーメンは おいしいです": "tts/ja/6ac62a1ee7f867c5.mp3",
   "ja:この ラーメンは からすぎます": "tts/ja/f35ac6de7e5cb9eb.mp3",
-  "ja:この ラーメンは やすいです": [
-    "tts/ja/a57401d60dc11080.mp3"
-  ],
+  "ja:この ラーメンは やすいです": "tts/ja/a57401d60dc11080.mp3",
   "ja:この レストランが いちばんです": "tts/ja/7a912efec6151a59.mp3",
   "ja:この レストランと あの レストランは おなじです": "tts/ja/d2f921f36340b0a2.mp3",
   "ja:この レストランの りょうりのなかで なにが いちばん おいしいですか": "tts/ja/d0ee451cfbde8a73.mp3",
@@ -1969,9 +1816,7 @@
   "ja:この レストランのほうが あの レストランより やすいです": "tts/ja/947e057a7b59b1f6.mp3",
   "ja:この レストランのほうが べんりです": "tts/ja/5e31e74ae25e87b8.mp3",
   "ja:この レストランのほうが やすいです": "tts/ja/e85175b97eea61e7.mp3",
-  "ja:この レストランは ゆうめいです": [
-    "tts/ja/b606d6f939190e07.mp3"
-  ],
+  "ja:この レストランは ゆうめいです": "tts/ja/b606d6f939190e07.mp3",
   "ja:この レストランは りょうりが おおいです": "tts/ja/148bbd39c4fcd092.mp3",
   "ja:このかばんは たかすぎます": "tts/ja/89bdbb8ea7c891c2.mp3",
   "ja:このくるまがいちばんはやいです": "tts/ja/b63b96edf359ec14.mp3",
@@ -2006,38 +1851,24 @@
   "ja:これは あにの ほんです": "tts/ja/023a6b42aad02d4d.mp3",
   "ja:これは あにの カメラです": "tts/ja/16df6536dd6977ee.mp3",
   "ja:これは いくら ですか": "tts/ja/6d8872f285f6c777.mp3",
-  "ja:これは いくらですか": [
-    "tts/ja/77e58b823de78185.mp3"
-  ],
-  "ja:これは いち です": [
-    "tts/ja/2828e57a248264a1.mp3"
-  ],
-  "ja:これは いぬ ですか": [
-    "tts/ja/807b271168ff28fd.mp3"
-  ],
+  "ja:これは いくらですか": "tts/ja/77e58b823de78185.mp3",
+  "ja:これは いち です": "tts/ja/2828e57a248264a1.mp3",
+  "ja:これは いぬ ですか": "tts/ja/807b271168ff28fd.mp3",
   "ja:これは いぬです": "tts/ja/3b2e2c0ce665fe15.mp3",
   "ja:これは おいしくないです": "tts/ja/d1978046aa57c6a0.mp3",
   "ja:これは おおきすぎます。こまっています": "tts/ja/09c85abd68111e29.mp3",
   "ja:これは かばんです": "tts/ja/245b6da51a80b2ae.mp3",
   "ja:これは かばんですか": "tts/ja/617bf07ac588d148.mp3",
-  "ja:これは きゅうじゅうえんです": [
-    "tts/ja/1ce3155ccd7ef28d.mp3"
-  ],
-  "ja:これは きゅうひゃくえんです": [
-    "tts/ja/c2d0a32003413c75.mp3"
-  ],
+  "ja:これは きゅうじゅうえんです": "tts/ja/1ce3155ccd7ef28d.mp3",
+  "ja:これは きゅうひゃくえんです": "tts/ja/c2d0a32003413c75.mp3",
   "ja:これは くるまです": "tts/ja/ddaa75756375224a.mp3",
   "ja:これは くるまですか": "tts/ja/bd6d8ae137d0033c.mp3",
   "ja:これは けいたいです": "tts/ja/17fa2e1262952778.mp3",
   "ja:これは こうえんです": "tts/ja/2347edc993f9fd19.mp3",
   "ja:これは ごはんです": "tts/ja/627d6690f7d3cd1c.mp3",
-  "ja:これは ごひゃくえんです": [
-    "tts/ja/17c53c2e82a3872c.mp3"
-  ],
+  "ja:これは ごひゃくえんです": "tts/ja/17c53c2e82a3872c.mp3",
   "ja:これは せんせいの かさです": "tts/ja/179c29d12c6ba7e9.mp3",
-  "ja:これは せんせいの かばんです": [
-    "tts/ja/8335f3c95a238f79.mp3"
-  ],
+  "ja:これは せんせいの かばんです": "tts/ja/8335f3c95a238f79.mp3",
   "ja:これは せんせいの ほんです。": [
     "tts/ja/f3fd3c2d163320fb.mp3",
     "tts/ja/3e5611ded7a773ea.mp3"
@@ -2045,32 +1876,24 @@
   "ja:これは たかすぎます": "tts/ja/dff15324fafe9d37.mp3",
   "ja:これは だれの かさですか": "tts/ja/4c2aa9b1a354e4f4.mp3",
   "ja:これは だれの かばんですか": "tts/ja/d9c7f9280ae03098.mp3",
-  "ja:これは だれの けいたいですか": [
-    "tts/ja/d499447066597d0c.mp3"
-  ],
+  "ja:これは だれの けいたいですか": "tts/ja/d499447066597d0c.mp3",
   "ja:これは だれの じしょですか": "tts/ja/0077bb1e0c126761.mp3",
   "ja:これは だれの カメラですか": "tts/ja/ad5a76c5fa53874c.mp3",
   "ja:これは だれの ペンですか": "tts/ja/353e9ecc6c080930.mp3",
-  "ja:これは ちちの カメラです": [
-    "tts/ja/898d6f57b79d5d79.mp3"
-  ],
+  "ja:これは ちちの カメラです": "tts/ja/898d6f57b79d5d79.mp3",
   "ja:これは ともだちの かばんです": "tts/ja/ad57ec3306a9c503.mp3",
   "ja:これは ともだちの てがみです": "tts/ja/0aa246910eb4d7ae.mp3",
   "ja:これは ともだちの カメラです": "tts/ja/9180c4bc3388da7c.mp3",
   "ja:これは ともだちの ペンです": "tts/ja/4e88a9d357d62b0a.mp3",
   "ja:これは どれですか": "tts/ja/d63fb052a666fac9.mp3",
-  "ja:これは なん ですか": [
-    "tts/ja/d7ecaadc44425f39.mp3"
-  ],
+  "ja:これは なん ですか": "tts/ja/d7ecaadc44425f39.mp3",
   "ja:これは なんですか": "tts/ja/1b288e69dc1cec78.mp3",
   "ja:これは なんと いいますか": "tts/ja/dc1ab2d700e2de0d.mp3",
   "ja:これは にほんごで なんと いいますか": "tts/ja/3da293eb445e055f.mp3",
   "ja:これは にほんの くるまです": "tts/ja/4f8ebd206a62f895.mp3",
   "ja:これは にほんの カメラです": "tts/ja/578d02bf911aaed3.mp3",
   "ja:これは ねこです": "tts/ja/e61fec4a1e8efff1.mp3",
-  "ja:これは ひゃくえんです": [
-    "tts/ja/cdead42d4669eef1.mp3"
-  ],
+  "ja:これは ひゃくえんです": "tts/ja/cdead42d4669eef1.mp3",
   "ja:これは ほんです": "tts/ja/eb5db27b9536a015.mp3",
   "ja:これは ほんです。": "tts/ja/4bf6e4fdf18ccb6e.mp3",
   "ja:これは ほんですか": "tts/ja/bcd3857b10bd7fdc.mp3",
@@ -2078,37 +1901,23 @@
   "ja:これは みずです": "tts/ja/b2884646bc670142.mp3",
   "ja:これは みずです。": "tts/ja/fcd15db52ad4dfad.mp3",
   "ja:これは ゆきの かさですか": "tts/ja/169e35f69b5b8dfc.mp3",
-  "ja:これは よんじゅうえんです": [
-    "tts/ja/ef27e2441c7e6e74.mp3"
-  ],
+  "ja:これは よんじゅうえんです": "tts/ja/ef27e2441c7e6e74.mp3",
   "ja:これは わたしの かさです": "tts/ja/c3d9a2e71bad092f.mp3",
   "ja:これは わたしの かばんです": "tts/ja/e9dc51a87d50efa1.mp3",
   "ja:これは わたしの かばんです。": [
     "tts/ja/f1847e622f3eb104.mp3",
     "tts/ja/2886aa6345d7c7d3.mp3"
   ],
-  "ja:これは わたしの きっぷ です": [
-    "tts/ja/c8429510828d05b3.mp3"
-  ],
+  "ja:これは わたしの きっぷ です": "tts/ja/c8429510828d05b3.mp3",
   "ja:これは わたしの くるまです": "tts/ja/835411f990706e93.mp3",
-  "ja:これは わたしの けいたい です": [
-    "tts/ja/4ee0316d2925eb31.mp3"
-  ],
-  "ja:これは わたしの けいたいです": [
-    "tts/ja/907eb9d7fc6a7180.mp3"
-  ],
-  "ja:これは わたしの じしょです": [
-    "tts/ja/236bf4349da3a38e.mp3"
-  ],
+  "ja:これは わたしの けいたい です": "tts/ja/4ee0316d2925eb31.mp3",
+  "ja:これは わたしの けいたいです": "tts/ja/907eb9d7fc6a7180.mp3",
+  "ja:これは わたしの じしょです": "tts/ja/236bf4349da3a38e.mp3",
   "ja:これは わたしの ほんです": "tts/ja/93e10fce5d7ad25a.mp3",
-  "ja:これは わたしの カメラです": [
-    "tts/ja/5359651ad654449a.mp3"
-  ],
+  "ja:これは わたしの カメラです": "tts/ja/5359651ad654449a.mp3",
   "ja:これは アメリカの けいたいです": "tts/ja/96676b22d4a494de.mp3",
   "ja:これは アメリカの カメラです": "tts/ja/e004723372866db5.mp3",
-  "ja:これは アメリカの コーヒー です": [
-    "tts/ja/5ebc7fe3a8d4bb6c.mp3"
-  ],
+  "ja:これは アメリカの コーヒー です": "tts/ja/5ebc7fe3a8d4bb6c.mp3",
   "ja:これは カメラです": "tts/ja/d723bf9e71507976.mp3",
   "ja:これは カメラですか": "tts/ja/7573620ba04a6a40.mp3",
   "ja:これは コーヒーですか": "tts/ja/3d8af4601b5be4dc.mp3",
@@ -2121,6 +1930,7 @@
   "ja:これを のんでもいいですか": "tts/ja/5fcdf384cfa7b593.mp3",
   "ja:これを みてください": "tts/ja/28223a2f0e839635.mp3",
   "ja:これをください": "tts/ja/6fc585d05797f92a.mp3",
+  "ja:こんげつ": "tts/ja/b07f1d14f2e0a66d.mp3",
   "ja:こんしゅう": "tts/ja/e0d68a94d380e4de.mp3",
   "ja:こんしゅうの どようびは やすみです": "tts/ja/54dcc630e6c2120c.mp3",
   "ja:こんど まつりを みに いく つもりです": "tts/ja/910b2c713069152a.mp3",
@@ -2129,10 +1939,9 @@
   "ja:こんな まちが すきです": "tts/ja/d63121150eefe545.mp3",
   "ja:こんな みせは べんりですね": "tts/ja/cf8d143bdfdc329d.mp3",
   "ja:こんにちは": "tts/ja/c34e1a1b60652761.mp3",
+  "ja:こんばん": "tts/ja/9de5635c99616505.mp3",
   "ja:ご": "tts/ja/0de6ac05494981a1.mp3",
-  "ja:ご、ろく、なな": [
-    "tts/ja/d873b7e954a1f156.mp3"
-  ],
+  "ja:ご、ろく、なな": "tts/ja/d873b7e954a1f156.mp3",
   "ja:ごがつ": "tts/ja/4eff66ce77611db0.mp3",
   "ja:ごがつは あたたかいです": "tts/ja/f4639b817b4661f4.mp3",
   "ja:ごこ": "tts/ja/80e329ef114c0b4b.mp3",
@@ -2153,21 +1962,13 @@
   "ja:ごごからがっこうにいきます": "tts/ja/7034748be447d0a2.mp3",
   "ja:ごさい": "tts/ja/362dddbfa8b60d5c.mp3",
   "ja:ごじ": "tts/ja/26e3aa2c576fc164.mp3",
-  "ja:ごじ きゅうふんです": [
-    "tts/ja/c63ec12625af5f3b.mp3"
-  ],
+  "ja:ごじ きゅうふんです": "tts/ja/c63ec12625af5f3b.mp3",
   "ja:ごじ にじゅっぷんです": "tts/ja/50a832e36802800d.mp3",
-  "ja:ごじから ろくじまで べんきょうします": [
-    "tts/ja/0efc1ee0e51d677f.mp3"
-  ],
+  "ja:ごじから ろくじまで べんきょうします": "tts/ja/0efc1ee0e51d677f.mp3",
   "ja:ごじです": "tts/ja/c686db091b8edea8.mp3",
-  "ja:ごじに うちに かえります": [
-    "tts/ja/883f85c57de4b52e.mp3"
-  ],
+  "ja:ごじに うちに かえります": "tts/ja/883f85c57de4b52e.mp3",
   "ja:ごじに かえります": "tts/ja/8587d36e55b8426b.mp3",
-  "ja:ごじに きっさてんに いきます": [
-    "tts/ja/02db9a6f1dcfe879.mp3"
-  ],
+  "ja:ごじに きっさてんに いきます": "tts/ja/02db9a6f1dcfe879.mp3",
   "ja:ごじはんに かえります": "tts/ja/270d7b0ed04db2e5.mp3",
   "ja:ごじまで かえります": "tts/ja/97e0c913f6f73884.mp3",
   "ja:ごじまでに うちに かえります": "tts/ja/6c9f8d890e410ec2.mp3",
@@ -2187,6 +1988,7 @@
   "ja:ごぜんからみずをのみます": "tts/ja/6797fe9557c3619d.mp3",
   "ja:ごちそうさまでした": "tts/ja/cc75526fa1b82766.mp3",
   "ja:ごちゅうもんは": "tts/ja/de03c06083f051ad.mp3",
+  "ja:ごにん": "tts/ja/bb2fba830adba4fc.mp3",
   "ja:ごにん です": "tts/ja/cb0fb2f1a5f68ab4.mp3",
   "ja:ごにんかぞく": "tts/ja/075c7c59cdc94cc1.mp3",
   "ja:ごにんかぞくです": "tts/ja/58e6c6e3a678747b.mp3",
@@ -2217,9 +2019,7 @@
   "ja:さいふを わすれたんです。だから かえません": "tts/ja/2a19fbdb8c664da7.mp3",
   "ja:さかな": "tts/ja/aebdc0c4f2b04d82.mp3",
   "ja:さかなが きらいです": "tts/ja/b1ff55a00ae976fa.mp3",
-  "ja:さかなが すきじゃないです": [
-    "tts/ja/c2ac5e9cea2e2747.mp3"
-  ],
+  "ja:さかなが すきじゃないです": "tts/ja/c2ac5e9cea2e2747.mp3",
   "ja:さかなと やさいを ください": "tts/ja/02193e054f1df8e3.mp3",
   "ja:さかなのほうが おいしいです": "tts/ja/8a380cdc90ab9075.mp3",
   "ja:さかなのほうが にくより おいしいです": "tts/ja/a603d3568ea8db05.mp3",
@@ -2232,13 +2032,18 @@
   "ja:さかなや やさいを かいます": "tts/ja/a6c08e8cacb099f0.mp3",
   "ja:さかなや やさいを たべました": "tts/ja/a55795d5ebddb794.mp3",
   "ja:さかなを たべます": "tts/ja/26a4ac22f5218cbb.mp3",
+  "ja:さき": "tts/ja/ccbb6c2335d19e8a.mp3",
   "ja:さきに しゅくだいを してから あそびます": "tts/ja/db7a485cb01f804f.mp3",
   "ja:さきに しゅくだいを します": "tts/ja/3bbd73b8392ce7f9.mp3",
+  "ja:さく": "tts/ja/bcf1bd83d04719ce.mp3",
+  "ja:さくぶん": "tts/ja/38ff8b7fb9c0c79e.mp3",
   "ja:さくら": "tts/ja/4014ba3d0abc2574.mp3",
   "ja:さくらが きれいだから": "tts/ja/c53f74a4b0c97034.mp3",
   "ja:さくらが きれいだから、さんがつが いいです": "tts/ja/1d4360921021169c.mp3",
   "ja:さけ": "tts/ja/06392536c33d65ec.mp3",
   "ja:さけを のみます": "tts/ja/9058a689c653cb91.mp3",
+  "ja:さす": "tts/ja/6007fc1a90f19fb5.mp3",
+  "ja:さとう": "tts/ja/5e0687bfd3ca3139.mp3",
   "ja:さびしい": "tts/ja/3ded9653c228086e.mp3",
   "ja:さびしいです": "tts/ja/ddd78af39b2a294e.mp3",
   "ja:さむい": "tts/ja/04d418fd9b5958a6.mp3",
@@ -2254,17 +2059,14 @@
   "ja:さむくなりました。ジャケットを きなくちゃ": "tts/ja/4d984789477afc87.mp3",
   "ja:さむくなりましたね": "tts/ja/a9e48a925f3c3264.mp3",
   "ja:さむくなりましたね。ジャケットを きたほうがいいですよ": "tts/ja/1d80fc4a57c577ce.mp3",
+  "ja:さらいねん": "tts/ja/89cd3449310dad50.mp3",
   "ja:さわってはいけません": "tts/ja/24f9e52b593590fd.mp3",
   "ja:さわらないください": "tts/ja/9f01aa018685a65d.mp3",
   "ja:さわらないでください": "tts/ja/53531fe7be5ea4dc.mp3",
   "ja:さわる": "tts/ja/ed95c37b92df6b70.mp3",
   "ja:さん": "tts/ja/b11251a30fa4f225.mp3",
-  "ja:さん に いち": [
-    "tts/ja/e59ddefebd2f2d4c.mp3"
-  ],
-  "ja:さん、よん、ご": [
-    "tts/ja/b79e746d55054b52.mp3"
-  ],
+  "ja:さん に いち": "tts/ja/e59ddefebd2f2d4c.mp3",
+  "ja:さん、よん、ご": "tts/ja/b79e746d55054b52.mp3",
   "ja:さんかい": "tts/ja/ea5d24c13d468de4.mp3",
   "ja:さんがつ": "tts/ja/8d2787f648dd6023.mp3",
   "ja:さんがつから ごがつまで あたたかいです": "tts/ja/2431c0c89d87ac1f.mp3",
@@ -2286,9 +2088,7 @@
   "ja:さんじから ごじまで きっさてんに います": "tts/ja/46233ef2bf743ab1.mp3",
   "ja:さんじです": "tts/ja/faec9d8b6c8db7b7.mp3",
   "ja:さんじに あいます": "tts/ja/8b3546e79e16d4a9.mp3",
-  "ja:さんじに えきで あいましょう": [
-    "tts/ja/ff7aa6693623f8fd.mp3"
-  ],
+  "ja:さんじに えきで あいましょう": "tts/ja/ff7aa6693623f8fd.mp3",
   "ja:さんじはんです": "tts/ja/7676d3aa7ad9b854.mp3",
   "ja:さんじまで べんきょうします": "tts/ja/3f662d15d871b2b2.mp3",
   "ja:さんじまでに うちに かえります": "tts/ja/29cc6fb2ccd211e6.mp3",
@@ -2311,6 +2111,7 @@
   "ja:さんぼん ください": "tts/ja/e2779d853ead3594.mp3",
   "ja:さんぽ": "tts/ja/08afcffbd3a97c61.mp3",
   "ja:さんぽしませんか": "tts/ja/8a834b96579a9348.mp3",
+  "ja:さんぽする": "tts/ja/ca67b6a69d83332c.mp3",
   "ja:さんぽを したいですけど あめです": "tts/ja/d396bb695b1a41f6.mp3",
   "ja:さんぽを しています": "tts/ja/94e4dbb4f7de81ec.mp3",
   "ja:さんまい": "tts/ja/874f5fdcedabc26c.mp3",
@@ -2325,10 +2126,7 @@
     "tts/ja/448b5030eba023db.mp3"
   ],
   "ja:し": "tts/ja/b88b295dd12faf96.mp3",
-  "ja:しお": [
-    "tts/ja/a42a81ecae6c1d9f.mp3",
-    "tts/ja/d02aca5d3f4f8e8d.mp3"
-  ],
+  "ja:しお": "tts/ja/a42a81ecae6c1d9f.mp3",
   "ja:しかし": "tts/ja/c1f43c1a91642cb8.mp3",
   "ja:しがつ": "tts/ja/004d22d129351f73.mp3",
   "ja:しがつから ろくがつまで あたたかいです": "tts/ja/3d337915817f90d6.mp3",
@@ -2356,6 +2154,7 @@
   "ja:しずかな まちです": "tts/ja/c525eac862fbf0b9.mp3",
   "ja:しずかなので、よく ねむれます": "tts/ja/eae5cc63b0b927f1.mp3",
   "ja:した": "tts/ja/762e816e4eb18493.mp3",
+  "ja:しち": "tts/ja/389a8f57f0434df4.mp3",
   "ja:しちがつ": "tts/ja/86b9c740fb4ab6e0.mp3",
   "ja:しちがつから くがつまで あついです": "tts/ja/9fa09f19788b385b.mp3",
   "ja:しちがつから はちがつまで なつやすみです": "tts/ja/301a4d195fa9c7d3.mp3",
@@ -2368,15 +2167,17 @@
   "ja:しちじまでに うちに かえります": "tts/ja/12e033e3c86df19a.mp3",
   "ja:しちじまでに えきに いきます": "tts/ja/eb44f3e308c1a4f2.mp3",
   "ja:しっています": "tts/ja/4822721812919461.mp3",
+  "ja:しつもん": "tts/ja/9ba16f4249cb4eb5.mp3",
   "ja:して": "tts/ja/00c2dcdca5a299c9.mp3",
   "ja:しない": "tts/ja/fbc7f730630508f6.mp3",
+  "ja:しぬ": "tts/ja/c5013da075c18d01.mp3",
+  "ja:しまる": "tts/ja/13e81c709f6f4fa3.mp3",
+  "ja:しめる": "tts/ja/46212b1e9d336e4c.mp3",
   "ja:しゃ": "tts/ja/cb604e4ebf74d304.mp3",
   "ja:しゃしん": "tts/ja/a73d1faa43eb7531.mp3",
   "ja:しゃしんを あつめるのが すきです": "tts/ja/2550278013122e86.mp3",
   "ja:しゃしんを ごまい とってください": "tts/ja/7ba94ba2b111c4f3.mp3",
-  "ja:しゃしんを さんまい ください": [
-    "tts/ja/d6ead2c4f72f5e3e.mp3"
-  ],
+  "ja:しゃしんを さんまい ください": "tts/ja/d6ead2c4f72f5e3e.mp3",
   "ja:しゃしんを とったり えを かいたりします": "tts/ja/2be9bfa7627262bc.mp3",
   "ja:しゃしんを とったり つりを したりします": "tts/ja/dd24d437bdf669b8.mp3",
   "ja:しゃしんを とったり ハイキングを したりします": "tts/ja/4b79d6990fb49e4c.mp3",
@@ -2392,17 +2193,13 @@
   "ja:しゅ": "tts/ja/dab4a4fdb2f7b232.mp3",
   "ja:しゅうまつ": "tts/ja/ab2045d334ef85b9.mp3",
   "ja:しゅうまつが たのしみです": "tts/ja/1557a54050a2809d.mp3",
-  "ja:しゅうまつに いっしょに さんぽしませんか": [
-    "tts/ja/a5fad47bd13938aa.mp3"
-  ],
+  "ja:しゅうまつに いっしょに さんぽしませんか": "tts/ja/a5fad47bd13938aa.mp3",
   "ja:しゅうまつに えいがを みませんか": "tts/ja/ca8186a87bcfc385.mp3",
   "ja:しゅうまつに えを かいたり しゃしんを とったりします": "tts/ja/6407f4d590212113.mp3",
   "ja:しゅうまつに えを かいたり ジョギングを したりします": "tts/ja/69bc7ba421c87112.mp3",
   "ja:しゅうまつに えを かいたり、しゃしんを とったりします": "tts/ja/87be909038239bf1.mp3",
   "ja:しゅうまつに かいものしませんか": "tts/ja/1a4ce407f410ced0.mp3",
-  "ja:しゅうまつに かいものを します": [
-    "tts/ja/63b620d45c597426.mp3"
-  ],
+  "ja:しゅうまつに かいものを します": "tts/ja/63b620d45c597426.mp3",
   "ja:しゅうまつに さんぽしませんか": "tts/ja/975b64cb9c4a63ee.mp3",
   "ja:しゅうまつに しゃしんを とったり ジョギングを したりします": "tts/ja/1d918a54477c19e0.mp3",
   "ja:しゅうまつに しゃしんを とったり ハイキングを したりします": "tts/ja/15007e60c107763e.mp3",
@@ -2411,9 +2208,7 @@
   "ja:しゅうまつに なにを しますか": "tts/ja/fb64d1f9b7713229.mp3",
   "ja:しゅうまつに まんがを よんだり アニメを みたりします": "tts/ja/e9bcfea32391e9e8.mp3",
   "ja:しゅうまつに よく つりを したり キャンプを したりします": "tts/ja/9d55a6d666b5e327.mp3",
-  "ja:しゅうまつに キャンプに いきます": [
-    "tts/ja/728ba5ffd6aa1639.mp3"
-  ],
+  "ja:しゅうまつに キャンプに いきます": "tts/ja/728ba5ffd6aa1639.mp3",
   "ja:しゅうまつに キャンプを したり つりを したりします": "tts/ja/964f7b38ef05a797.mp3",
   "ja:しゅうまつに キャンプを したり ジョギングを したりします": "tts/ja/cd5c556286108b6f.mp3",
   "ja:しゅうまつに ハイキングを したり えを かいたりします": "tts/ja/04bcd07383d4d1ee.mp3",
@@ -2448,12 +2243,13 @@
   "ja:しゅみは ジョギングです": "tts/ja/26290cc3cadf9b02.mp3",
   "ja:しゅみは ハイキングです": "tts/ja/4f54e6f5b23681c6.mp3",
   "ja:しょ": "tts/ja/585135b6bc262857.mp3",
-  "ja:しょうゆ": [
-    "tts/ja/adf2d1542f7e4b95.mp3",
-    "tts/ja/95cd5e153c129382.mp3"
-  ],
+  "ja:しょうゆ": "tts/ja/adf2d1542f7e4b95.mp3",
+  "ja:しょくどう": "tts/ja/bdd428abfcc1042e.mp3",
   "ja:しりません": "tts/ja/1ca96fd41afd3b67.mp3",
   "ja:しる": "tts/ja/afeb78ff3c2df4cb.mp3",
+  "ja:しろ": "tts/ja/61842f9e700997c8.mp3",
+  "ja:しろい": "tts/ja/f5aa45b2d853b823.mp3",
+  "ja:しんぶん": "tts/ja/6051409143eee204.mp3",
   "ja:じ": "tts/ja/c3d0636c03373333.mp3",
   "ja:じかん": "tts/ja/dab975cb358e6f6f.mp3",
   "ja:じかんが ほしいです": "tts/ja/cc7e5ef6d5fdd6dd.mp3",
@@ -2471,29 +2267,23 @@
   "ja:じしょを かしてください": "tts/ja/8a75a6a9899ac0e0.mp3",
   "ja:じしょを よみます": "tts/ja/7d7996b027bd65de.mp3",
   "ja:じてんしゃ": "tts/ja/b62f4c622551b612.mp3",
-  "ja:じてんしゃが ほしいです": [
-    "tts/ja/cac701a2cc65a928.mp3"
-  ],
+  "ja:じてんしゃが ほしいです": "tts/ja/cac701a2cc65a928.mp3",
   "ja:じてんしゃで いきます": "tts/ja/589002457a3407a8.mp3",
-  "ja:じてんしゃで いったほうがいいです": [
-    "tts/ja/6f4ce909cf444395.mp3"
-  ],
+  "ja:じてんしゃで いったほうがいいです": "tts/ja/6f4ce909cf444395.mp3",
   "ja:じてんしゃで うちに かえります": "tts/ja/b4a6f80743b38850.mp3",
-  "ja:じてんしゃで えきに いきます": [
-    "tts/ja/ee0129e04a91b990.mp3"
-  ],
+  "ja:じてんしゃで えきに いきます": "tts/ja/ee0129e04a91b990.mp3",
   "ja:じてんしゃで がっこうに いきます": "tts/ja/a2a40bbfa529c32f.mp3",
   "ja:じてんしゃで こうえんに いきます": "tts/ja/f42e937b1d917d3b.mp3",
   "ja:じてんしゃで としょかんに いきます": "tts/ja/4bcfd2e88c3dd34e.mp3",
+  "ja:じどうしゃ": "tts/ja/1df4d9d78c509642.mp3",
+  "ja:じびき": "tts/ja/14052bf33a0aaa7f.mp3",
   "ja:じぶん": "tts/ja/faf651c969b98511.mp3",
   "ja:じぶんで りょうりを します": "tts/ja/1f6a24420d1260ae.mp3",
   "ja:じぶんで りょうりを するのが すきです": "tts/ja/3c04f0852c606104.mp3",
   "ja:じむしょ": "tts/ja/e822abe654365253.mp3",
   "ja:じむしょで たべてはいけません": "tts/ja/3289ebd5d8966dd9.mp3",
   "ja:じむしょに はいってはいけません": "tts/ja/d90af78d20aeafce.mp3",
-  "ja:じむしょに はいってもいいですか": [
-    "tts/ja/d49ae0ff0a380af6.mp3"
-  ],
+  "ja:じむしょに はいってもいいですか": "tts/ja/d49ae0ff0a380af6.mp3",
   "ja:じむしょに はいらないでください": "tts/ja/4bd26614cf8eff25.mp3",
   "ja:じゃ": "tts/ja/e65ec13054bdc7fd.mp3",
   "ja:じゃあ": "tts/ja/cc7341e7618ee036.mp3",
@@ -2512,19 +2302,13 @@
   ],
   "ja:じゅ": "tts/ja/0243d0980cf1b252.mp3",
   "ja:じゅう": "tts/ja/5b950b6562145944.mp3",
-  "ja:じゅう えん です": [
-    "tts/ja/2e48f411096987ae.mp3"
-  ],
-  "ja:じゅう きゅう はち": [
-    "tts/ja/cee250f33b3e43b0.mp3"
-  ],
+  "ja:じゅう えん です": "tts/ja/2e48f411096987ae.mp3",
+  "ja:じゅう きゅう はち": "tts/ja/cee250f33b3e43b0.mp3",
   "ja:じゅう です": [
     "tts/ja/448807a2650ef8c6.mp3",
     "tts/ja/575446f830524c13.mp3"
   ],
-  "ja:じゅう、きゅう、はち": [
-    "tts/ja/1ed02faebfffd01e.mp3"
-  ],
+  "ja:じゅう、きゅう、はち": "tts/ja/1ed02faebfffd01e.mp3",
   "ja:じゅういち": "tts/ja/26a8b5504485347f.mp3",
   "ja:じゅういちがつ": "tts/ja/21c26ce541baf905.mp3",
   "ja:じゅういちがつから にがつまで さむいです": "tts/ja/f8a222276babb276.mp3",
@@ -2532,9 +2316,7 @@
   "ja:じゅういちじ": "tts/ja/04e32e204ea2110a.mp3",
   "ja:じゅういちじです": "tts/ja/c1362fbd16a40571.mp3",
   "ja:じゅういちじに えきで あいましょう": "tts/ja/d30a689ca174735f.mp3",
-  "ja:じゅういちじに ねます": [
-    "tts/ja/d11379809111e526.mp3"
-  ],
+  "ja:じゅういちじに ねます": "tts/ja/d11379809111e526.mp3",
   "ja:じゅうがつ": "tts/ja/3b3747ffb4151220.mp3",
   "ja:じゅうがつは すずしいです": "tts/ja/f8ebdc8164fed121.mp3",
   "ja:じゅうごふん": "tts/ja/b70850292add8c00.mp3",
@@ -2555,6 +2337,7 @@
   "ja:じゅうにじです": "tts/ja/aaf63677094cdce6.mp3",
   "ja:じゅうまい": "tts/ja/cb9ca4d586fff9cf.mp3",
   "ja:じゅうよんじです": "tts/ja/b2139f6ce95b1447.mp3",
+  "ja:じゅぎょう": "tts/ja/50b5c7dd004b301c.mp3",
   "ja:じゅぎょうは くじから さんじまでです": "tts/ja/52e6c13007eaa602.mp3",
   "ja:じゅぎょうは じゅうじからです": "tts/ja/1058e2a404d4b00e.mp3",
   "ja:じゅっさい": "tts/ja/b6429afda5dcf214.mp3",
@@ -2566,6 +2349,7 @@
   "ja:じょうず": "tts/ja/c3ec6c7dbf82d301.mp3",
   "ja:じょうずです": "tts/ja/053cee7a9564ac1a.mp3",
   "ja:じょうずな ひと": "tts/ja/25adb27f11960879.mp3",
+  "ja:じょうぶ": "tts/ja/65c8c5395a3a6a3a.mp3",
   "ja:す": "tts/ja/203cbd3fa42b372e.mp3",
   "ja:すいえい": "tts/ja/09de1b5c749ad08b.mp3",
   "ja:すいえいが じょうずです": "tts/ja/1ee09e2897bae6ec.mp3",
@@ -2595,9 +2379,7 @@
   "ja:すこしだけ": "tts/ja/3717fa7eacc620c1.mp3",
   "ja:すし": "tts/ja/a3a8ae220a563ce9.mp3",
   "ja:すし です": "tts/ja/e7ee659c40cb3a43.mp3",
-  "ja:すしが いちばん すきです": [
-    "tts/ja/90153186a897a695.mp3"
-  ],
+  "ja:すしが いちばん すきです": "tts/ja/90153186a897a695.mp3",
   "ja:すしが すきです": "tts/ja/c8147ba847f4f80e.mp3",
   "ja:すしと ラーメンと どちらが すきですか": "tts/ja/791306265e2dd44c.mp3",
   "ja:すしと ラーメンは おいしいです": "tts/ja/fd61b8f946f62df3.mp3",
@@ -2611,16 +2393,12 @@
   "ja:すしを たべに いきました": "tts/ja/085c9d3738798510.mp3",
   "ja:すしを たべに いきます": "tts/ja/cd2c413bb16ae688.mp3",
   "ja:すしを たべに いく つもりです": "tts/ja/e1fabea37b396a87.mp3",
-  "ja:すしを たべました": [
-    "tts/ja/8f2c8c361144076c.mp3"
-  ],
+  "ja:すしを たべました": "tts/ja/8f2c8c361144076c.mp3",
   "ja:すしを たべます": "tts/ja/d81bf37e02080934.mp3",
   "ja:すずしい": "tts/ja/29252461df6c5cfd.mp3",
   "ja:すずしい かぜが ふいています": "tts/ja/2c314540682802e1.mp3",
   "ja:すみません": "tts/ja/1704868e91120990.mp3",
-  "ja:すみません かさ ください": [
-    "tts/ja/42c00d7d7d1ff605.mp3"
-  ],
+  "ja:すみません かさ ください": "tts/ja/42c00d7d7d1ff605.mp3",
   "ja:すみません、えいごをはなせますか": "tts/ja/1b1f5e85e06f8bf1.mp3",
   "ja:すみません、えきはどこですか": "tts/ja/75f960e0d2a35b86.mp3",
   "ja:すみません、どようびは いそがしいです": "tts/ja/67308e75b4421341.mp3",
@@ -2629,13 +2407,9 @@
   "ja:すみません、なまえは なんですか": "tts/ja/ecccb3499c08a1de.mp3",
   "ja:すみません、なまえは なんですか。": "tts/ja/55a2c97a1a5b24b3.mp3",
   "ja:すみません、にちようびは いそがしいです": "tts/ja/48bb6ddc162d3011.mp3",
-  "ja:すみません、みずを ください": [
-    "tts/ja/226b4c4ff94b12ae.mp3"
-  ],
+  "ja:すみません、みずを ください": "tts/ja/226b4c4ff94b12ae.mp3",
   "ja:すみません、みせてください": "tts/ja/dc4346c7da239692.mp3",
-  "ja:すみません、ビールを ください": [
-    "tts/ja/984486258b337b54.mp3"
-  ],
+  "ja:すみません、ビールを ください": "tts/ja/984486258b337b54.mp3",
   "ja:すみません、ポストは どこですか": "tts/ja/c1073578af07ca24.mp3",
   "ja:すみません。あの カメラを みせてください": "tts/ja/4b039762f5914861.mp3",
   "ja:すみません。えきは どこですか": "tts/ja/3a95924229ece452.mp3",
@@ -2671,6 +2445,7 @@
   "ja:せなかが いたいです": "tts/ja/d91c49140d638e16.mp3",
   "ja:せなかが いたいです くすりを ください": "tts/ja/a391e54f41f96966.mp3",
   "ja:せなかが いたいので、うんどうできません": "tts/ja/fc0b2ca53d6d7045.mp3",
+  "ja:せびろ": "tts/ja/9aa8bd8897972610.mp3",
   "ja:せまい": "tts/ja/a4fa9f031598f894.mp3",
   "ja:せん": "tts/ja/124998777216d3e9.mp3",
   "ja:せんげつ": "tts/ja/7fa0cc7d0028b7b0.mp3",
@@ -2681,19 +2456,13 @@
   "ja:せんげつ アメリカに いきました": "tts/ja/df17e0e49213358f.mp3",
   "ja:せんごひゃくえんです": "tts/ja/5829762fc4d75647.mp3",
   "ja:せんしゅう": "tts/ja/6e67e38a3098bbaa.mp3",
-  "ja:せんしゅう えいがを みました": [
-    "tts/ja/9527e023112bfac1.mp3"
-  ],
+  "ja:せんしゅう えいがを みました": "tts/ja/9527e023112bfac1.mp3",
   "ja:せんしゅう およぎました": "tts/ja/44fe07cb1d709f0d.mp3",
   "ja:せんしゅう こうえんで はしりました": "tts/ja/081044803babad4d.mp3",
-  "ja:せんしゅう すしを たべました": [
-    "tts/ja/c06c73e30822a9e3.mp3"
-  ],
+  "ja:せんしゅう すしを たべました": "tts/ja/c06c73e30822a9e3.mp3",
   "ja:せんしゅう でかけませんでした": "tts/ja/7619890f8ea1ea4d.mp3",
   "ja:せんしゅう としょかんに いきました": "tts/ja/fb33c4f43120e5e0.mp3",
-  "ja:せんしゅう ともだちと およぎました": [
-    "tts/ja/a7208091a4e8f120.mp3"
-  ],
+  "ja:せんしゅう ともだちと およぎました": "tts/ja/a7208091a4e8f120.mp3",
   "ja:せんしゅう ともだちと でかけました": "tts/ja/4ba19e27ed214072.mp3",
   "ja:せんしゅう べんきょうしました": "tts/ja/05408aa86b4ca617.mp3",
   "ja:せんしゅう べんきょうしませんでした": "tts/ja/aaa59405f648d1db.mp3",
@@ -2714,13 +2483,9 @@
   "ja:せんせいの テストは むずかしくないです": "tts/ja/d5f4749cbab09fcd.mp3",
   "ja:せんせいの テストは やさしいです": "tts/ja/0bb4ec6db83a6886.mp3",
   "ja:せんせいの ペンですか": "tts/ja/d03eb1c88bf71909.mp3",
-  "ja:せんせいは がっこうに います": [
-    "tts/ja/f6034798993ee30a.mp3"
-  ],
+  "ja:せんせいは がっこうに います": "tts/ja/f6034798993ee30a.mp3",
   "ja:せんせいは げんきです": "tts/ja/73cd02ec2bc2ebaa.mp3",
-  "ja:せんせいは だれ ですか": [
-    "tts/ja/f88d71d2fc944d15.mp3"
-  ],
+  "ja:せんせいは だれ ですか": "tts/ja/f88d71d2fc944d15.mp3",
   "ja:せんせいは にほんから です": "tts/ja/0a5a49a2707767a6.mp3",
   "ja:せんせいは にほんじんです": "tts/ja/35d6c7c1e94fdeeb.mp3",
   "ja:せんせいは にほんじんです。": "tts/ja/0d417ebd26417d88.mp3",
@@ -2729,18 +2494,15 @@
   "ja:せんせいは アメリカから です": "tts/ja/8f2bca751c3fc8c1.mp3",
   "ja:せんせいは アメリカじんです": "tts/ja/c415e18998658b07.mp3",
   "ja:せんせいは アメリカじんですか": "tts/ja/a5ee4580a03a4c98.mp3",
+  "ja:せんたく": "tts/ja/2f0c686608d92438.mp3",
   "ja:ぜ": "tts/ja/74e5be0e35548ccf.mp3",
   "ja:ぜひ": "tts/ja/305c49062f74bb64.mp3",
   "ja:ぜひ いきましょう": "tts/ja/cda9823f444f8d4f.mp3",
-  "ja:ぜひ いっしょに うたいましょう": [
-    "tts/ja/b9f25e71b145a27e.mp3"
-  ],
+  "ja:ぜひ いっしょに うたいましょう": "tts/ja/b9f25e71b145a27e.mp3",
   "ja:ぜひ、いきましょう": "tts/ja/ca62dc0bde666368.mp3",
   "ja:ぜんぜん": "tts/ja/06ddf5fde615b757.mp3",
   "ja:ぜんぜん いきません": "tts/ja/acabc03294576838.mp3",
-  "ja:ぜんぜん おちゃを のみません": [
-    "tts/ja/54bc4cce61d6ad53.mp3"
-  ],
+  "ja:ぜんぜん おちゃを のみません": "tts/ja/54bc4cce61d6ad53.mp3",
   "ja:ぜんぜん おふろに はいりません": "tts/ja/0860726216f32f81.mp3",
   "ja:ぜんぜん かきませんでした": "tts/ja/e182541ad75f98a5.mp3",
   "ja:ぜんぜん しない": "tts/ja/0b7512f050ec73c8.mp3",
@@ -2756,7 +2518,9 @@
   "ja:ぜんぜん コーヒーを のみません": "tts/ja/85e662bb9329f3f3.mp3",
   "ja:ぜんぜん シャワーを あびません": "tts/ja/0e382f875e9c4987.mp3",
   "ja:ぜんぜん テレビを みません": "tts/ja/48a1ef46eca74246.mp3",
+  "ja:ぜんぶ": "tts/ja/f70f058d37d354a6.mp3",
   "ja:そ": "tts/ja/2d545f275700384d.mp3",
+  "ja:そうじする": "tts/ja/89523d71e9d11f54.mp3",
   "ja:そうじを してから せんたくを します": "tts/ja/37de84bf7b753bce.mp3",
   "ja:そうじを してから、せんたくを します": "tts/ja/d5d5942c275822f9.mp3",
   "ja:そうじを するのが きらいです": "tts/ja/0eba879bb00262ed.mp3",
@@ -2771,10 +2535,12 @@
   "ja:そうですね。でも、あの カメラは やすいですよ": "tts/ja/49551f5fbeab95fc.mp3",
   "ja:そうですね。にわで はなを みましょう": "tts/ja/2fb7e8bf6e20b51d.mp3",
   "ja:そうですね。はやく ねてください": "tts/ja/c22a80944e019ee7.mp3",
+  "ja:そこ": "tts/ja/9b7ee11391ba3ad4.mp3",
   "ja:そこに すわってはいけません": "tts/ja/0c84c54e3d1d64d8.mp3",
   "ja:そこに トイレが あります": "tts/ja/ee0128a3db52b0b4.mp3",
   "ja:そして": "tts/ja/1847d3170b386c75.mp3",
   "ja:そちら": "tts/ja/892a3a4fedc4d03a.mp3",
+  "ja:そっち": "tts/ja/6b56ec97f4a2b841.mp3",
   "ja:そつぎょう": "tts/ja/b8119b41f9e62e16.mp3",
   "ja:そつぎょうしきに いった ことが あります": "tts/ja/704a57b835953376.mp3",
   "ja:そつぎょうしきを みに いきたいです": "tts/ja/2f4c1cb6e563f9b8.mp3",
@@ -2783,19 +2549,15 @@
   "ja:そつぎょうしたら がいこくに いく つもりです": "tts/ja/f223df2aa84c6f6f.mp3",
   "ja:そつぎょうしてから がいこくに いく つもりです": "tts/ja/165aa98c9d82596d.mp3",
   "ja:そつぎょうしてから りょこうする つもりです": "tts/ja/b329b7d7febe03bd.mp3",
+  "ja:そと": "tts/ja/753d080f7a393898.mp3",
   "ja:そとに でてから たべましょう": "tts/ja/a2ab640a547b2d0f.mp3",
   "ja:そとに でてから、たべましょう": "tts/ja/4a4c543869f4947a.mp3",
+  "ja:その": "tts/ja/ce4633d7de4c74f9.mp3",
   "ja:その えいがは みじかいです": "tts/ja/01ebe31221266b50.mp3",
-  "ja:その えいがを さんかい みました": [
-    "tts/ja/90b63907ce9b0c24.mp3"
-  ],
+  "ja:その えいがを さんかい みました": "tts/ja/90b63907ce9b0c24.mp3",
   "ja:その えきは ちかくないです": "tts/ja/4e04ccb4cd9ba7f6.mp3",
-  "ja:その かばんは いくらですか": [
-    "tts/ja/94fb258fcc07c67f.mp3"
-  ],
-  "ja:その かばんは たかいですね": [
-    "tts/ja/e6a75cf22b2e6e4c.mp3"
-  ],
+  "ja:その かばんは いくらですか": "tts/ja/94fb258fcc07c67f.mp3",
+  "ja:その かばんは たかいですね": "tts/ja/e6a75cf22b2e6e4c.mp3",
   "ja:その かばんは ちいさいです": "tts/ja/9c58f529963690e5.mp3",
   "ja:その かばんは やすいです": "tts/ja/a617bf142be98c92.mp3",
   "ja:その がっこうは とおいです": "tts/ja/7ec164f9ee0fae4c.mp3",
@@ -2805,9 +2567,7 @@
   "ja:その しんぶんは おもしろいです": "tts/ja/129c909fbc762a4b.mp3",
   "ja:その しんぶんは ながいです": "tts/ja/ea624e66482b2331.mp3",
   "ja:その じしょは たかいです": "tts/ja/842ef79482c74710.mp3",
-  "ja:その じしょは だれのですか": [
-    "tts/ja/bfea3afa7118b4d8.mp3"
-  ],
+  "ja:その じしょは だれのですか": "tts/ja/bfea3afa7118b4d8.mp3",
   "ja:その せんせいは いいです": "tts/ja/f25422dfc39c43f4.mp3",
   "ja:その せんせいは やさしいです": "tts/ja/a478a417a3765737.mp3",
   "ja:その ちいさい とけいは あたらしいです": "tts/ja/a42a828b489bc3e9.mp3",
@@ -2821,9 +2581,7 @@
   "ja:その カメラは どうですか": "tts/ja/c32163b8daca9f13.mp3",
   "ja:その シャツは ちいさいです": "tts/ja/253bef6e182953d6.mp3",
   "ja:その テストは むずかしくないです": "tts/ja/6a8b51aa8fec69e8.mp3",
-  "ja:その ペンは だれのですか": [
-    "tts/ja/0c579a91227842d5.mp3"
-  ],
+  "ja:その ペンは だれのですか": "tts/ja/0c579a91227842d5.mp3",
   "ja:そのくるまはあたらしいです": "tts/ja/3affafcfb9c6ca27.mp3",
   "ja:そば": "tts/ja/6c1b47b9599b1356.mp3",
   "ja:そふ": "tts/ja/4e359a1ee643eed4.mp3",
@@ -2850,6 +2608,7 @@
   "ja:それから としょかんに いきました": "tts/ja/e7f40e715b495461.mp3",
   "ja:それから レストランで ラーメンを たべました": "tts/ja/2cb82667aac84741.mp3",
   "ja:それで": "tts/ja/361119adb77451e4.mp3",
+  "ja:それでは": "tts/ja/819bfa119dcba8bd.mp3",
   "ja:それに さわらないでください": "tts/ja/db0277fb54acde25.mp3",
   "ja:それは あかいです": "tts/ja/ee6e5b3b38888dab.mp3",
   "ja:それは あかいですか": "tts/ja/4d033275133d2e5a.mp3",
@@ -2880,27 +2639,23 @@
   "ja:それは にほんの じてんしゃです": "tts/ja/f4e9097980028e97.mp3",
   "ja:それは ねこですか": "tts/ja/0c89655f2d55e2c1.mp3",
   "ja:それは ねこの ほんです": "tts/ja/272f5fa10b5956fa.mp3",
-  "ja:それは ぼうし です": [
-    "tts/ja/0893f4c06bc85164.mp3"
-  ],
+  "ja:それは ぼうし です": "tts/ja/0893f4c06bc85164.mp3",
   "ja:それは みずです": "tts/ja/a3401d842f32cb5e.mp3",
   "ja:それは みずですか": "tts/ja/d159d0c5b62dd6ba.mp3",
-  "ja:それは わたしの おかね です": [
-    "tts/ja/4b6cbd317b2cc743.mp3"
-  ],
+  "ja:それは わたしの おかね です": "tts/ja/4b6cbd317b2cc743.mp3",
   "ja:それは わたしの ペンです": "tts/ja/9ded50385783ffdc.mp3",
   "ja:それは わるくないです": "tts/ja/561c702f4a5157b2.mp3",
   "ja:それは アメリカの くるまです": "tts/ja/f5bb6cb29d4542a5.mp3",
   "ja:それは アメリカの けいたいですか": "tts/ja/3056cd61461f7749.mp3",
   "ja:それは カメラです": "tts/ja/db3bb9fe695daffd.mp3",
-  "ja:それは トイレ ですか": [
-    "tts/ja/3568211521d14dab.mp3"
-  ],
+  "ja:それは トイレ ですか": "tts/ja/3568211521d14dab.mp3",
   "ja:それはかさです": "tts/ja/8ca25f882920cf24.mp3",
   "ja:それを みせてください": "tts/ja/fe4a5dec42f76f63.mp3",
   "ja:ぞ": "tts/ja/620555a166b4e450.mp3",
   "ja:ぞう": "tts/ja/aea173a209b3c8bb.mp3",
   "ja:た": "tts/ja/e63b99ab88ba55f7.mp3",
+  "ja:たいしかん": "tts/ja/4071813b0dcbc618.mp3",
+  "ja:たいせつ": "tts/ja/82ad1f98f7707b80.mp3",
   "ja:たいせつになりました": "tts/ja/56fc0ff52a9fab04.mp3",
   "ja:たいせつになりました。きめなければなりません": "tts/ja/985a47ab5d51a6fc.mp3",
   "ja:たいてい": "tts/ja/45187366d47602c0.mp3",
@@ -2954,9 +2709,14 @@
     "tts/ja/fef4949ab152009e.mp3"
   ],
   "ja:たすけてください": "tts/ja/7ef40a079b872228.mp3",
+  "ja:たつ": "tts/ja/25f6147071387cef.mp3",
+  "ja:たて": "tts/ja/7fc06c6737d5dd75.mp3",
+  "ja:たてもの": "tts/ja/89198116a9d1518f.mp3",
   "ja:たのしい": "tts/ja/3cebcd06916e6c65.mp3",
   "ja:たのしみ": "tts/ja/0e399f28f2a1e502.mp3",
   "ja:たのしみです": "tts/ja/2b0fddaec8cea684.mp3",
+  "ja:たのむ": "tts/ja/9b2c1e44fc9ab265.mp3",
+  "ja:たばこ": "tts/ja/36735ed0c0b822b8.mp3",
   "ja:たばこを すってはいけません": "tts/ja/4ef70f232f87b719.mp3",
   "ja:たばこを すわないでください": "tts/ja/2cc14eb0cb177228.mp3",
   "ja:たぶん": "tts/ja/e76bb518259f544e.mp3",
@@ -2984,6 +2744,7 @@
   "ja:たべますない": "tts/ja/8d1b92c80eb39514.mp3",
   "ja:たべません": "tts/ja/5cf941c60ce66cf1.mp3",
   "ja:たべませんでした": "tts/ja/a54cc474905c6681.mp3",
+  "ja:たべもの": "tts/ja/2dd54a6dc9049411.mp3",
   "ja:たべる": "tts/ja/95f864dbe9a59ba2.mp3",
   "ja:たべる まえに てを あらいます": "tts/ja/a56a3e228b2ff155.mp3",
   "ja:たべるすぎました": "tts/ja/cbcb7e20e691b120.mp3",
@@ -2998,15 +2759,19 @@
   "ja:たんじょうびは さんがつです": "tts/ja/72a775f7c3db1f04.mp3",
   "ja:たんじょうびは ろくがつです": "tts/ja/f07a7562508cfe4b.mp3",
   "ja:だ": "tts/ja/833f47c6c67de443.mp3",
+  "ja:だいがく": "tts/ja/ff111aea7ef0a48a.mp3",
   "ja:だいじょうぶ": "tts/ja/0b3b6bdfb81fd1ce.mp3",
   "ja:だいじょうぶじゃないです": "tts/ja/96b6ab54ce88bb6b.mp3",
   "ja:だいじょうぶです": "tts/ja/23cf98383579ff29.mp3",
   "ja:だいじょうぶですか。きぶんは わるくないですか": "tts/ja/df7253e80b98e7a5.mp3",
   "ja:だいじょうぶですよ": "tts/ja/53b1dbfaf01ba23d.mp3",
+  "ja:だいすき": "tts/ja/b82b1b770738e23f.mp3",
+  "ja:だいどころ": "tts/ja/481b8f1759d5e3b3.mp3",
   "ja:だから": "tts/ja/2478128584d25672.mp3",
   "ja:だから がっこうに おくれました": "tts/ja/1a39fe9bf3f89c22.mp3",
   "ja:だから はやく ねます": "tts/ja/a583fd786aec8b07.mp3",
   "ja:だから まいにち べんきょうしなければなりません": "tts/ja/c2bee2c8581df774.mp3",
+  "ja:だす": "tts/ja/eb41d790386d87a8.mp3",
   "ja:だれ": "tts/ja/410fc2b0821b7fbb.mp3",
   "ja:だれが がくせいですか": "tts/ja/f4fe67a37f804d7d.mp3",
   "ja:だれが がくせいですか。": [
@@ -3032,14 +2797,13 @@
   "ja:ちいさい かばんは やすいですか": "tts/ja/00c181efb77d76bc.mp3",
   "ja:ちいさい とけい": "tts/ja/beaed919ca353187.mp3",
   "ja:ちいさい とけいも やすいです": "tts/ja/e480e66f4a1eeab5.mp3",
+  "ja:ちいさな": "tts/ja/b6785331e320cc01.mp3",
   "ja:ちかい": "tts/ja/b0e60cda7b4c1170.mp3",
   "ja:ちかいです": "tts/ja/544075367ffbbddb.mp3",
   "ja:ちかく": "tts/ja/1caaeaf693c30e74.mp3",
+  "ja:ちかてつ": "tts/ja/0333c2acc9f7e8fb.mp3",
   "ja:ちがう": "tts/ja/dfc4008d1a98a6a4.mp3",
-  "ja:ちず": [
-    "tts/ja/9a140d604a22f561.mp3",
-    "tts/ja/762d4519a280db5a.mp3"
-  ],
+  "ja:ちず": "tts/ja/9a140d604a22f561.mp3",
   "ja:ちち": "tts/ja/c854f550e8d9eb65.mp3",
   "ja:ちちです": "tts/ja/a21e62384a854779.mp3",
   "ja:ちちと ははと あにと いもうとと わたしです": "tts/ja/60076d1d02d0f987.mp3",
@@ -3051,9 +2815,7 @@
   "ja:ちちは いしゃです": "tts/ja/1bc099e02f5543fe.mp3",
   "ja:ちちは うんてんが じょうずです": "tts/ja/022621c723f1c460.mp3",
   "ja:ちちは かいしゃいんです": "tts/ja/5c7b05d0a967ffcd.mp3",
-  "ja:ちちは かいしゃに います": [
-    "tts/ja/ca578b1ef94cdf9a.mp3"
-  ],
+  "ja:ちちは かいしゃに います": "tts/ja/ca578b1ef94cdf9a.mp3",
   "ja:ちちは ぎんこうで はたらいています": "tts/ja/4cdc760676e8f881.mp3",
   "ja:ちちは くるまが すきです": "tts/ja/c1f955867ae9a0e2.mp3",
   "ja:ちちは げんきです": "tts/ja/ebb2e18a997f357d.mp3",
@@ -3061,6 +2823,7 @@
   "ja:ちちは りょうりを しています": "tts/ja/765c38459281480d.mp3",
   "ja:ちちは コーヒーが すきです": "tts/ja/37f7308531e5e8c1.mp3",
   "ja:ちゃ": "tts/ja/ffcfce1b16f542fb.mp3",
+  "ja:ちゃいろ": "tts/ja/52e10982212c73b0.mp3",
   "ja:ちゃわん": "tts/ja/297c200256dd9acb.mp3",
   "ja:ちゃわんと おさらを ください": "tts/ja/9187934a4cbfe268.mp3",
   "ja:ちゃわんを ください": "tts/ja/59b5ca4e608fa6c4.mp3",
@@ -3084,6 +2847,7 @@
   "ja:ちょっとまってください": "tts/ja/cd2b6e3aac46b273.mp3",
   "ja:ぢ": "tts/ja/8fb9199ec2f5ed95.mp3",
   "ja:つ": "tts/ja/330cc7cd72b22e56.mp3",
+  "ja:つかう": "tts/ja/64f41660ef73daa0.mp3",
   "ja:つかれたから やすみます": "tts/ja/b9c3a858274ac754.mp3",
   "ja:つかれたから コーヒーを のみます": "tts/ja/ac2ce35fb6ac73af.mp3",
   "ja:つかれたから、やすみます": "tts/ja/10cd5e3311ea7c6a.mp3",
@@ -3094,33 +2858,31 @@
   "ja:つかれました。しかし はたらきます": "tts/ja/4a4bd50126f5ff80.mp3",
   "ja:つかれました。だから やすみたいです": "tts/ja/0359d7febdefefdd.mp3",
   "ja:つかれました。だから やすみます": "tts/ja/5aae51ee9fafe6bb.mp3",
-  "ja:つかれました。だから、うちに かえります": [
-    "tts/ja/969172c2a18fcf69.mp3"
-  ],
+  "ja:つかれました。だから、うちに かえります": "tts/ja/969172c2a18fcf69.mp3",
   "ja:つかれる": "tts/ja/9c049b0b3b2bd77c.mp3",
   "ja:つき": "tts/ja/864e368ca502a824.mp3",
   "ja:つき です": "tts/ja/85b323e28ab34e12.mp3",
-  "ja:つき、みる": [
-    "tts/ja/a0339db14775ae78.mp3"
-  ],
+  "ja:つき、みる": "tts/ja/a0339db14775ae78.mp3",
   "ja:つきは おおきいです": "tts/ja/b0a186e6c27d8d90.mp3",
   "ja:つきを みます": "tts/ja/bcb006cd865f33ec.mp3",
+  "ja:つぎ": "tts/ja/f01be09c4ed7497f.mp3",
   "ja:つぎの じゅぎょうは さんじからです": "tts/ja/ededeba085c5a6f7.mp3",
   "ja:つぎの やすみに きょうとに いきたいです": "tts/ja/375a93677e5909f0.mp3",
   "ja:つぎの やすみに どこに いきたいですか": "tts/ja/b8465a884fb2ce68.mp3",
   "ja:つぎの クラスは にじからです": "tts/ja/c56d323c660f582d.mp3",
   "ja:つぎのかどをみぎにまがってください": "tts/ja/6bc0da9cae662b61.mp3",
+  "ja:つく": "tts/ja/7ee89ee42e2629bb.mp3",
+  "ja:つくえ": "tts/ja/d90426ef351c23ef.mp3",
   "ja:つくる": "tts/ja/b46a7b7a9b9c9523.mp3",
+  "ja:つける": "tts/ja/86a082cd3a7b01f5.mp3",
+  "ja:つとめる": "tts/ja/5b596b0a00381f0b.mp3",
   "ja:つまらない": "tts/ja/f9fb4dc9d5ae2602.mp3",
   "ja:つめたい": "tts/ja/45347b6e09c89fea.mp3",
   "ja:つめたい かぜが ふいています": "tts/ja/051d978c17c41a49.mp3",
-  "ja:つめたい みずが のみたいです": [
-    "tts/ja/f2605657a2cde382.mp3"
-  ],
-  "ja:つめたい みずを ください": [
-    "tts/ja/45b898019e337912.mp3"
-  ],
+  "ja:つめたい みずが のみたいです": "tts/ja/f2605657a2cde382.mp3",
+  "ja:つめたい みずを ください": "tts/ja/45b898019e337912.mp3",
   "ja:つめたい みずを のみます": "tts/ja/94b942b8be5c94fa.mp3",
+  "ja:つよい": "tts/ja/dedb454e5d7d9649.mp3",
   "ja:つよい かぜが ふいています": "tts/ja/f15ed391fd09a591.mp3",
   "ja:つよくなりたいです": "tts/ja/4c546d4513827246.mp3",
   "ja:つり": "tts/ja/d83963a4e4d0c3d0.mp3",
@@ -3162,9 +2924,11 @@
     "tts/ja/03ae725e9811536d.mp3"
   ],
   "ja:で": "tts/ja/e8a1f34a906b1840.mp3",
+  "ja:でかける": "tts/ja/abdfe6aae5ce962e.mp3",
   "ja:でかける まえに きっぷを かいます": "tts/ja/5ea24b6538a28414.mp3",
   "ja:でかける まえに でんきを けします": "tts/ja/ffbc41c577544a0f.mp3",
   "ja:できる": "tts/ja/c687fc082f5d96d4.mp3",
+  "ja:でぐち": "tts/ja/4929347b8cac5715.mp3",
   "ja:です": "tts/ja/1d33b31ff97150d6.mp3",
   "ja:では": "tts/ja/4090d3c24951a218.mp3",
   "ja:では、つぎに いきましょう": "tts/ja/0fc4c1415b4d3d8a.mp3",
@@ -3183,12 +2947,11 @@
   "ja:でも、ひとが おおいです": "tts/ja/14f44282d80dd136.mp3",
   "ja:でも、べんきょうしなくちゃ": "tts/ja/fca722c39c5233ce.mp3",
   "ja:でも、わたしは カレーのほうが すきです": "tts/ja/4b62a250fc164617.mp3",
+  "ja:でる": "tts/ja/8fb2159379966b37.mp3",
+  "ja:でんき": "tts/ja/b6b78a6b8511b703.mp3",
   "ja:でんきを けします": "tts/ja/79d0595c14fa01d1.mp3",
   "ja:でんきを つけます": "tts/ja/7320e0a29e0c4d8d.mp3",
-  "ja:でんしゃ": [
-    "tts/ja/daea6197f7b32bca.mp3",
-    "tts/ja/de775e640000c3c8.mp3"
-  ],
+  "ja:でんしゃ": "tts/ja/daea6197f7b32bca.mp3",
   "ja:でんしゃが おくれたんです": "tts/ja/8e19763270efd579.mp3",
   "ja:でんしゃが おくれたんです。だから おくれました": "tts/ja/09737e36de6ad93f.mp3",
   "ja:でんしゃで いきます": "tts/ja/9a31766977e16819.mp3",
@@ -3202,9 +2965,7 @@
   "ja:でんしゃで かえりますか": "tts/ja/eab840011aa738e5.mp3",
   "ja:でんしゃで がっこうに いきます": "tts/ja/6fedc6d59e3328e2.mp3",
   "ja:でんしゃで くうこうに いきます": "tts/ja/5a291a433d8e149c.mp3",
-  "ja:でんしゃで たばこを すってはいけません": [
-    "tts/ja/538570d7e60b575e.mp3"
-  ],
+  "ja:でんしゃで たばこを すってはいけません": "tts/ja/538570d7e60b575e.mp3",
   "ja:でんしゃで たべてはいけません": "tts/ja/281e9eb35d45536c.mp3",
   "ja:でんしゃと バスと どちらが べんりですか": "tts/ja/ba8b7d037cb85ee7.mp3",
   "ja:でんしゃに のります": "tts/ja/57403151c5a7953b.mp3",
@@ -3213,9 +2974,7 @@
   "ja:でんしゃのほうが べんりです": "tts/ja/d6dce3c1e3d84531.mp3",
   "ja:でんしゃのほうが バスより べんりです": "tts/ja/f2049d2fe110c0e6.mp3",
   "ja:でんしゃは おそいですから、タクシーで いきます": "tts/ja/bb7e9d23b56e9128.mp3",
-  "ja:でんしゃは べんりです": [
-    "tts/ja/0a38d14690c740aa.mp3"
-  ],
+  "ja:でんしゃは べんりです": "tts/ja/0a38d14690c740aa.mp3",
   "ja:でんしゃを おりてから ぎんこうに いきます": "tts/ja/e5004e6db3f07791.mp3",
   "ja:でんしゃを おります": "tts/ja/cb7a3584e44e7ef2.mp3",
   "ja:でんしゃを がっこうに いきます": "tts/ja/a52e2fe18f0ccb39.mp3",
@@ -3234,9 +2993,11 @@
   "ja:とうきょうのほうが おおさかより おおきいです": "tts/ja/021a1783709ed860.mp3",
   "ja:とうきょうのほうが ひろしまより おおきいです": "tts/ja/91c06ac5151abd1f.mp3",
   "ja:とうちゃく": "tts/ja/5f23dd9af65c594f.mp3",
+  "ja:とお": "tts/ja/da5b8562fc32e2b6.mp3",
   "ja:とおい": "tts/ja/b10d23dd5e303916.mp3",
   "ja:とおいからじてんしゃでいきます": "tts/ja/ffb5641b4c5bf1a7.mp3",
   "ja:とおいです": "tts/ja/03006e788be67825.mp3",
+  "ja:とおか": "tts/ja/4d189238aaaa8370.mp3",
   "ja:ときどき": "tts/ja/dfe10b2fff2d87c2.mp3",
   "ja:ときどき あさ シャワーを あびます": "tts/ja/921e4825539ad29c.mp3",
   "ja:ときどき いきません": "tts/ja/53ebd14f9224cea2.mp3",
@@ -3247,9 +3008,7 @@
   "ja:ときどき きっさてんに いきます": "tts/ja/281da0d1bd227e85.mp3",
   "ja:ときどき さむい": "tts/ja/fe178bb7a5042bcf.mp3",
   "ja:ときどき さむいですが、いいですよ": "tts/ja/5cb150d15eb1337b.mp3",
-  "ja:ときどき ざっしを よみます": [
-    "tts/ja/813a458cd5353e17.mp3"
-  ],
+  "ja:ときどき ざっしを よみます": "tts/ja/813a458cd5353e17.mp3",
   "ja:ときどき ざっしを よんだり ラジオを きいたりします": "tts/ja/a54dd84769916dc2.mp3",
   "ja:ときどき すしを たべます": "tts/ja/a0ce2dbcee1ee3ce.mp3",
   "ja:ときどき つりを したり キャンプを したりします": "tts/ja/5cb40b7a84f97c2e.mp3",
@@ -3261,13 +3020,13 @@
   "ja:ときどき キャンプを したり つりを したりします": "tts/ja/d9ca7a455a4e1e03.mp3",
   "ja:ときどき コーヒーを のみます": "tts/ja/23ba77b789cd12f1.mp3",
   "ja:ときどき ジュースを のみます": "tts/ja/95186068839ff5ef.mp3",
-  "ja:ときどき ビールを のみます": [
-    "tts/ja/c5728ed8b3e49a30.mp3"
-  ],
+  "ja:ときどき ビールを のみます": "tts/ja/c5728ed8b3e49a30.mp3",
   "ja:ときどき ラーメンを たべません": "tts/ja/0b6e4251bebe18df.mp3",
   "ja:ときどきてがみをかきます": "tts/ja/414c42c9739f886f.mp3",
   "ja:とけい": "tts/ja/a736c861c5ebc016.mp3",
   "ja:ところ": "tts/ja/334e3f09df981826.mp3",
+  "ja:とし": "tts/ja/a5ce01691bcf9210.mp3",
+  "ja:としょかん": "tts/ja/a0d8e1c920217284.mp3",
   "ja:としょかんが ありますか": "tts/ja/9a187f7a69b22ee7.mp3",
   "ja:としょかんで じしょを よみます": "tts/ja/a22e133726ed1da2.mp3",
   "ja:としょかんで たべてはいけません": "tts/ja/a29e8ea3f3f75a2c.mp3",
@@ -3283,9 +3042,7 @@
   "ja:としょかんに ほんが あります": "tts/ja/5953e1e59d53f3e7.mp3",
   "ja:としょかんの ほんは おもしろいです": "tts/ja/cb820ccc147c4bc8.mp3",
   "ja:としょかんは ありますか": "tts/ja/3759c0f37f089c33.mp3",
-  "ja:としょかんは えきの むこうです": [
-    "tts/ja/43c67faeab02ddf6.mp3"
-  ],
+  "ja:としょかんは えきの むこうです": "tts/ja/43c67faeab02ddf6.mp3",
   "ja:としょかんは しずかでした": "tts/ja/7d0c83e630a7aaaa.mp3",
   "ja:としょかんは しずかです": "tts/ja/28fa77ddacf86e57.mp3",
   "ja:としょかんは どちらですか": "tts/ja/5dc7c53e167d6534.mp3",
@@ -3299,6 +3056,7 @@
   "ja:とても にぎやかですね": "tts/ja/a79b6532f7dab397.mp3",
   "ja:とても よかったです": "tts/ja/28fb77ad0b45cf5d.mp3",
   "ja:となり": "tts/ja/aff50689ddfe123b.mp3",
+  "ja:とぶ": "tts/ja/f63e4d5595078efe.mp3",
   "ja:とまる": "tts/ja/9302e7098e54880a.mp3",
   "ja:とめる": "tts/ja/11ce261bb3bcb7be.mp3",
   "ja:ともだち": "tts/ja/b95edd8a7846c641.mp3",
@@ -3307,15 +3065,9 @@
     "tts/ja/c88829e5eaa8d25d.mp3"
   ],
   "ja:ともだちが います": "tts/ja/29c4b138e53c625c.mp3",
-  "ja:ともだちが きゅうにん います": [
-    "tts/ja/677181676f816f97.mp3"
-  ],
-  "ja:ともだちが ななにん います": [
-    "tts/ja/640edb3f27dfecce.mp3"
-  ],
-  "ja:ともだちが ふたり います": [
-    "tts/ja/42c425dee1b3a794.mp3"
-  ],
+  "ja:ともだちが きゅうにん います": "tts/ja/677181676f816f97.mp3",
+  "ja:ともだちが ななにん います": "tts/ja/640edb3f27dfecce.mp3",
+  "ja:ともだちが ふたり います": "tts/ja/42c425dee1b3a794.mp3",
   "ja:ともだちが ほしいです": "tts/ja/fd7031a91595e0db.mp3",
   "ja:ともだちじゃないです": "tts/ja/656affe207822976.mp3",
   "ja:ともだちじゃなかったです": "tts/ja/8322bd0dfe8299e1.mp3",
@@ -3325,14 +3077,10 @@
   "ja:ともだちと あそんでから うちに かえります": "tts/ja/1cbfc4fdf6e6c7ab.mp3",
   "ja:ともだちと いっしょに がいこくに いく つもりです": "tts/ja/591106314a9c04fb.mp3",
   "ja:ともだちと いっしょに ハイキングを します": "tts/ja/b68b9f72c2e8cb8d.mp3",
-  "ja:ともだちと うたう": [
-    "tts/ja/df28e675ad8ef25b.mp3"
-  ],
+  "ja:ともだちと うたう": "tts/ja/df28e675ad8ef25b.mp3",
   "ja:ともだちと えいがを みに いきました": "tts/ja/6cbde4240ad6a017.mp3",
   "ja:ともだちと えいがを みました": "tts/ja/3ae5e5c4468b943e.mp3",
-  "ja:ともだちと えいがを みます": [
-    "tts/ja/99860a4132f64d29.mp3"
-  ],
+  "ja:ともだちと えいがを みます": "tts/ja/99860a4132f64d29.mp3",
   "ja:ともだちと こうえんに いきましょう": "tts/ja/504b709d489e1555.mp3",
   "ja:ともだちと こうえんに いきます": "tts/ja/e12d20f038afaa7a.mp3",
   "ja:ともだちと のみすぎたんです。だから あたまも いたいです": "tts/ja/cc25276f99f0603c.mp3",
@@ -3365,9 +3113,7 @@
   "ja:ともだちの ゆきさんは ダンスが じょうずです": "tts/ja/ba5c6fdcb350d716.mp3",
   "ja:ともだちの ペンです": "tts/ja/5dfaf397baafa52a.mp3",
   "ja:ともだちは いま おんがくを きいています": "tts/ja/20741f9bfce924cc.mp3",
-  "ja:ともだちは かばんを かっています": [
-    "tts/ja/31d2dde056968484.mp3"
-  ],
+  "ja:ともだちは かばんを かっています": "tts/ja/31d2dde056968484.mp3",
   "ja:ともだちは がくせいです": "tts/ja/9e1f283a5e40b308.mp3",
   "ja:ともだちは がくせいです。": "tts/ja/050e85515bf4ce1e.mp3",
   "ja:ともだちは げんきです": "tts/ja/d985b7c87bd916c9.mp3",
@@ -3388,9 +3134,7 @@
   "ja:ともだちは べんきょうしています": "tts/ja/44f73f94e792ffae.mp3",
   "ja:ともだちは よにんです": "tts/ja/87182330f143de0b.mp3",
   "ja:ともだちは りょうりが じょうずです": "tts/ja/45e2beccf49bafc6.mp3",
-  "ja:ともだちは ろくにんです": [
-    "tts/ja/7db6984121decb50.mp3"
-  ],
+  "ja:ともだちは ろくにんです": "tts/ja/7db6984121decb50.mp3",
   "ja:ともだちは アメリカ から です": "tts/ja/0227d91564d98f54.mp3",
   "ja:ともだちは アメリカから です": "tts/ja/b58ba9909117adbe.mp3",
   "ja:ともだちは アメリカじんです": "tts/ja/83cc230dd68b13bc.mp3",
@@ -3405,10 +3149,7 @@
   "ja:ともだちも せんせいです。": "tts/ja/69b7f28c1196cfe7.mp3",
   "ja:ともだちも アメリカじんです": "tts/ja/11054ccf6c9a8805.mp3",
   "ja:ともだちを まってください": "tts/ja/a53200af214ec376.mp3",
-  "ja:とり": [
-    "tts/ja/9ec045893de23fcf.mp3",
-    "tts/ja/b8c750df28100d2e.mp3"
-  ],
+  "ja:とり": "tts/ja/9ec045893de23fcf.mp3",
   "ja:とり です": [
     "tts/ja/b272167b81e28ca4.mp3",
     "tts/ja/be76b217da7db6ea.mp3"
@@ -3419,17 +3160,21 @@
   "ja:とる": "tts/ja/6543a1a125f1f0ab.mp3",
   "ja:ど": "tts/ja/16869425ede4cba3.mp3",
   "ja:どあ": "tts/ja/e02897e8b1ff8947.mp3",
+  "ja:どう": "tts/ja/7e96e957c88c787c.mp3",
   "ja:どうしたんですか": "tts/ja/5c15710a5307db41.mp3",
   "ja:どうしたんですか。こまっているんですか": "tts/ja/980d6121d66f4870.mp3",
   "ja:どうしたんですか。たべすぎたんですか": "tts/ja/97f776fe6ec8944d.mp3",
   "ja:どうしたんですか。だいじょうぶですか": "tts/ja/8272781ac5d23fa4.mp3",
   "ja:どうしたんですか。つかれたんですか": "tts/ja/876834ba1899b94a.mp3",
+  "ja:どうして": "tts/ja/149a13533e9db986.mp3",
   "ja:どうして きっさてんに いきますか": "tts/ja/69a3f65f99efde5a.mp3",
   "ja:どうして にほんごを べんきょうしますか": "tts/ja/8378f3c40b4882df.mp3",
   "ja:どうしましたか": "tts/ja/4044ae46e5494e75.mp3",
   "ja:どうぞ": "tts/ja/b9f90ea7bb6d7a7a.mp3",
   "ja:どうでしたか": "tts/ja/b53bcf994627df52.mp3",
+  "ja:どうぶつ": "tts/ja/d0367523cba6d0e6.mp3",
   "ja:どうも": "tts/ja/d482adf94e6f354c.mp3",
+  "ja:どこ": "tts/ja/b3ce411ef80827d9.mp3",
   "ja:どこで たべたいですか": "tts/ja/28a72e01eb323407.mp3",
   "ja:どこですか": "tts/ja/f314786f2fad3b48.mp3",
   "ja:どこに いきたいですか": "tts/ja/0f89b8fde54a6d51.mp3",
@@ -3445,6 +3190,7 @@
   "ja:どっちが べんりですか": "tts/ja/97edd684afd0ea61.mp3",
   "ja:どなた": "tts/ja/0536521cc82ab899.mp3",
   "ja:どなたですか": "tts/ja/3f97991227b2ed17.mp3",
+  "ja:どの": "tts/ja/570900b93e776d01.mp3",
   "ja:どの えいがが つまらないですか": "tts/ja/5bebdd083a4c2afa.mp3",
   "ja:どの かばんが やすいですか": "tts/ja/5d5fdf7c397bbf62.mp3",
   "ja:どの とけいが やすいですか": "tts/ja/b921ace848c3fe8a.mp3",
@@ -3470,12 +3216,8 @@
   "ja:どようびに ごご よじに あいます": "tts/ja/744e566731ec0cf2.mp3",
   "ja:どようびに さんぽしませんか": "tts/ja/6d88e61b7bdeac06.mp3",
   "ja:どようびに じゅうじに あいます": "tts/ja/e98a7a9fbd0f384f.mp3",
-  "ja:どようびに としょかんに いきます": [
-    "tts/ja/2841588e88f1de96.mp3"
-  ],
-  "ja:どようびに ほんを よみます": [
-    "tts/ja/0f21151fe535e8b7.mp3"
-  ],
+  "ja:どようびに としょかんに いきます": "tts/ja/2841588e88f1de96.mp3",
+  "ja:どようびに ほんを よみます": "tts/ja/0f21151fe535e8b7.mp3",
   "ja:どようびに やすみます": "tts/ja/82769048ab740f03.mp3",
   "ja:どようびに わたしの いえに きませんか": "tts/ja/6d917732827f3fff.mp3",
   "ja:どようびに パーティーが あります": "tts/ja/03aebf2d2f322e68.mp3",
@@ -3499,7 +3241,9 @@
   "ja:ない": "tts/ja/ab573ab1aa70a1e8.mp3",
   "ja:なか": "tts/ja/7a302fcfaf200908.mp3",
   "ja:ながい": "tts/ja/220a3a7cce7f93f0.mp3",
+  "ja:なく": "tts/ja/b6ec8cffaf84f9eb.mp3",
   "ja:なくす": "tts/ja/1b92be5f8873a940.mp3",
+  "ja:なぜ": "tts/ja/c6910e2e242eb21e.mp3",
   "ja:なぜ いきませんか": "tts/ja/4f556925e19cc7d5.mp3",
   "ja:なぜ のみませんか": "tts/ja/dc0a62af233bf37f.mp3",
   "ja:なっとうを たべた ことが あります": "tts/ja/8c4f03642b1a2b7a.mp3",
@@ -3509,19 +3253,19 @@
   "ja:なつは むしあついでしょう": "tts/ja/59f2adb77cb4132d.mp3",
   "ja:なつは むしあついと おもいます": "tts/ja/3033546108ade47c.mp3",
   "ja:なつまつりの とき いきましょう": "tts/ja/1e57dad6ebabbc5f.mp3",
+  "ja:なつやすみ": "tts/ja/152c82e81319e0e0.mp3",
   "ja:なつやすみに がいこくに いく つもりです": "tts/ja/662879feca41725b.mp3",
   "ja:なつやすみに りょこうする つもりです": "tts/ja/ffface7e927d9e43.mp3",
   "ja:なつやすみは しちがつです": "tts/ja/74f289c8555d87e4.mp3",
   "ja:なつやすみは はちがつです": "tts/ja/13225a38304d70b2.mp3",
   "ja:など": "tts/ja/f1ebd755b0f41f25.mp3",
   "ja:なな": "tts/ja/72bfb1b3bb67f9b5.mp3",
-  "ja:なな、はち、きゅう": [
-    "tts/ja/a088582ee3798fd5.mp3"
-  ],
+  "ja:なな、はち、きゅう": "tts/ja/a088582ee3798fd5.mp3",
   "ja:なながつ": "tts/ja/9f3ca8d423f883f6.mp3",
   "ja:ななこ": "tts/ja/a5397e9bd786ba61.mp3",
   "ja:ななさい": "tts/ja/1e38a31c4e3ac76b.mp3",
   "ja:ななじゅう": "tts/ja/30696e9ebcf1ec5e.mp3",
+  "ja:ななつ": "tts/ja/fb2a332c115e82d5.mp3",
   "ja:なに": "tts/ja/1a3bbcdb26d4de70.mp3",
   "ja:なにか わすれたんですか": "tts/ja/9ac9b5c877ac7a6e.mp3",
   "ja:なにも たべたくないです": "tts/ja/8bdbe89cc01059fe.mp3",
@@ -3529,39 +3273,32 @@
   "ja:なにを したいですか": "tts/ja/234b22c4b2dfa66e.mp3",
   "ja:なにを たべたいですか": "tts/ja/6734bfcf58b9eaae.mp3",
   "ja:なにを よみますか": "tts/ja/44cdbe4b72706898.mp3",
+  "ja:なのか": "tts/ja/459cbd88e1517e48.mp3",
   "ja:なまえ": "tts/ja/beb0a83cad77295a.mp3",
-  "ja:なまえ、かく": [
-    "tts/ja/cf2f0486a399abe6.mp3"
-  ],
+  "ja:なまえ、かく": "tts/ja/cf2f0486a399abe6.mp3",
   "ja:なまえです": "tts/ja/dce891cddc017392.mp3",
   "ja:なまえです。": "tts/ja/cda1504d68a2a614.mp3",
-  "ja:なまえは なん ですか": [
-    "tts/ja/41fee6eadbe1a1fb.mp3"
-  ],
+  "ja:なまえは なん ですか": "tts/ja/41fee6eadbe1a1fb.mp3",
   "ja:なまえは なんですか": "tts/ja/e9492d5c98c91ece.mp3",
   "ja:なまえは なんですか。": "tts/ja/260d72136ccdc56c.mp3",
-  "ja:なまえを おしえてください": [
-    "tts/ja/f149dd5fe03f2b18.mp3"
-  ],
+  "ja:なまえを おしえてください": "tts/ja/f149dd5fe03f2b18.mp3",
   "ja:なまえを かいてください": "tts/ja/dbbd99d7052d637e.mp3",
   "ja:なまえを かきました": "tts/ja/65206e62e560c0a8.mp3",
   "ja:なまえを かきます": "tts/ja/38a54ee3ab4af2c4.mp3",
+  "ja:ならう": "tts/ja/366a6b8594284f25.mp3",
+  "ja:ならぶ": "tts/ja/c8c330eb9019a0b3.mp3",
+  "ja:ならべる": "tts/ja/2dce953f3307ac9a.mp3",
   "ja:なる": "tts/ja/d85c5a547ea1dd06.mp3",
+  "ja:なん": "tts/ja/5687fff72f738e31.mp3",
   "ja:なんがつに にほんに いきますか": "tts/ja/1d82e47dbd71d33d.mp3",
   "ja:なんさいですか": "tts/ja/3d7dbfbf735a6919.mp3",
   "ja:なんじに あいますか": "tts/ja/5d633f8f328df6c7.mp3",
-  "ja:なんじに うちに かえりますか": [
-    "tts/ja/db55f71ea08f7f0d.mp3"
-  ],
+  "ja:なんじに うちに かえりますか": "tts/ja/db55f71ea08f7f0d.mp3",
   "ja:なんにんかぞくですか": "tts/ja/3ce733dd3d6c20f9.mp3",
   "ja:なんめいさまですか": "tts/ja/b4c00b079cb11bc6.mp3",
   "ja:に": "tts/ja/1048957f687ee3dc.mp3",
-  "ja:に、さん、よん": [
-    "tts/ja/23a057f0fcab9944.mp3"
-  ],
-  "ja:に、よん、ろく": [
-    "tts/ja/ecff655ffea7841d.mp3"
-  ],
+  "ja:に、さん、よん": "tts/ja/23a057f0fcab9944.mp3",
+  "ja:に、よん、ろく": "tts/ja/ecff655ffea7841d.mp3",
   "ja:にかい": "tts/ja/ccbc094566e71517.mp3",
   "ja:にがつ": "tts/ja/35810fec63847b38.mp3",
   "ja:にがつに にほんに いきます": "tts/ja/542a26e4268db6cc.mp3",
@@ -3585,11 +3322,10 @@
     "tts/ja/965b0aeaaf0ce912.mp3",
     "tts/ja/18e8633321c6627d.mp3"
   ],
+  "ja:にし": "tts/ja/9845ad928aa7c8c5.mp3",
   "ja:にじ": "tts/ja/b1df623a7e9eec42.mp3",
   "ja:にじ さんじゅっぷんです": "tts/ja/a160cea32786790f.mp3",
-  "ja:にじ ろっぷんです": [
-    "tts/ja/3bcae42c19a24cf4.mp3"
-  ],
+  "ja:にじ ろっぷんです": "tts/ja/3bcae42c19a24cf4.mp3",
   "ja:にじから よじまで としょかんに います": "tts/ja/2c18597bbc33380f.mp3",
   "ja:にじです": "tts/ja/08931fa528d629e0.mp3",
   "ja:にじゅう": "tts/ja/e65fa9e3dede68f2.mp3",
@@ -3622,9 +3358,7 @@
   "ja:にほん": "tts/ja/4036a2915803ade4.mp3",
   "ja:にほんから です": "tts/ja/c07522ab3d7a362b.mp3",
   "ja:にほんが すきです": "tts/ja/4c60b5c7c3b26165.mp3",
-  "ja:にほんごが あまり わかりません": [
-    "tts/ja/342e908de568acb0.mp3"
-  ],
+  "ja:にほんごが あまり わかりません": "tts/ja/342e908de568acb0.mp3",
   "ja:にほんごが じょうずじゃないです": "tts/ja/e041fa7a3e35283f.mp3",
   "ja:にほんごが じょうずです": "tts/ja/29fbf19747902a38.mp3",
   "ja:にほんごが じょうずですね": "tts/ja/a6e5ddfc32f21033.mp3",
@@ -3670,9 +3404,7 @@
   "ja:にほんに いく とき パスポートが いります": "tts/ja/ade13a6a05b1e40a.mp3",
   "ja:にほんに いく とき、なにを する つもりですか": "tts/ja/3948f2cc23ad7884.mp3",
   "ja:にほんに いく とき、パスポートが いります": "tts/ja/d4c51d49509cfb74.mp3",
-  "ja:にほんに いっかい いきました": [
-    "tts/ja/596a2c92ddb37356.mp3"
-  ],
+  "ja:にほんに いっかい いきました": "tts/ja/596a2c92ddb37356.mp3",
   "ja:にほんに いった ことが あります": "tts/ja/d14623999aa486ef.mp3",
   "ja:にほんに いった ことが ありますか": "tts/ja/571fb977f9708e82.mp3",
   "ja:にほんに いった とき すしを たべました": "tts/ja/1ca117c2dabc29d0.mp3",
@@ -3703,6 +3435,7 @@
   "ja:にほんのまちのなかで どこが いちばん しずかですか": "tts/ja/7a5e41350cc26f51.mp3",
   "ja:にほんりょうりのなかで すしが いちばん ゆうめいです": "tts/ja/7b20ca8db4575c8e.mp3",
   "ja:にほんりょうりのほうが おいしいです": "tts/ja/661ba4fa6b2a8a89.mp3",
+  "ja:にもつ": "tts/ja/d241a52a8a7bc29a.mp3",
   "ja:にゃ": "tts/ja/b3c4cc75a7df002d.mp3",
   "ja:にゃんこ": [
     "tts/ja/cda3e7bb2d443818.mp3",
@@ -3725,6 +3458,8 @@
   "ja:にわに きれいな はなが あると おもいます": "tts/ja/e3b40d30b45241aa.mp3",
   "ja:にわに きれいな はなが さいています": "tts/ja/6d3128ccc6386574.mp3",
   "ja:ぬ": "tts/ja/fb9c85ae9dc7510d.mp3",
+  "ja:ぬぐ": "tts/ja/d3212215e5e8b394.mp3",
+  "ja:ぬるい": "tts/ja/20e2c8e2d00c70e6.mp3",
   "ja:ね": "tts/ja/160380aa745abfd6.mp3",
   "ja:ねこ": "tts/ja/c0195a97542ecdc1.mp3",
   "ja:ねこ です": "tts/ja/06d3c2750a319c31.mp3",
@@ -3735,18 +3470,14 @@
     "tts/ja/ed27064f39aeafe8.mp3",
     "tts/ja/f8b6a1e9daf5a2ca.mp3"
   ],
-  "ja:ねこが いますか": [
-    "tts/ja/cbacaf40bd234219.mp3"
-  ],
+  "ja:ねこが いますか": "tts/ja/cbacaf40bd234219.mp3",
   "ja:ねこが すきです": "tts/ja/b6f5329b574f822f.mp3",
   "ja:ねこじゃないです": "tts/ja/20634370bb4986b5.mp3",
   "ja:ねこですか。": [
     "tts/ja/a0f05d9605959f67.mp3",
     "tts/ja/892d0e328ed65f56.mp3"
   ],
-  "ja:ねこの あたまは ちいさいです": [
-    "tts/ja/0c2941c1a5356e38.mp3"
-  ],
+  "ja:ねこの あたまは ちいさいです": "tts/ja/0c2941c1a5356e38.mp3",
   "ja:ねこの えを かくのが すきです": "tts/ja/c95e9cd5908b15e4.mp3",
   "ja:ねこは あおいです。": "tts/ja/40c22b406131a804.mp3",
   "ja:ねこは あおいですか": "tts/ja/974a90f3869f08e8.mp3",
@@ -3774,6 +3505,7 @@
   "ja:ねつが あるので、やすみます": "tts/ja/a683fe97effa1769.mp3",
   "ja:ねない": "tts/ja/b1a6c233294c7090.mp3",
   "ja:ねむれなかったんです": "tts/ja/2c16673db8a7a337.mp3",
+  "ja:ねる": "tts/ja/3c82b6ce7236b1fd.mp3",
   "ja:ねる まえに にほんごを べんきょうします": "tts/ja/1be2059b946082ef.mp3",
   "ja:ねる まえに ほんを よみます": "tts/ja/b625b4a7fc3ebb38.mp3",
   "ja:ねる まえに シャワーを あびます": "tts/ja/9b27a70d990a2275.mp3",
@@ -3783,6 +3515,7 @@
     "tts/ja/5e958ba2485b3c45.mp3"
   ],
   "ja:のどは いたいですか": "tts/ja/608329c3dc591cc6.mp3",
+  "ja:のぼる": "tts/ja/02aacf23cc9e37df.mp3",
   "ja:のまない": "tts/ja/0f096df5bda7ef11.mp3",
   "ja:のみすぎたんです": "tts/ja/7079a3acb0e5871b.mp3",
   "ja:のみすぎたんです。だから あたまが いたいです": "tts/ja/ac0a648a07727002.mp3",
@@ -3798,6 +3531,7 @@
   "ja:のみます": "tts/ja/480b69ede6b4b7f3.mp3",
   "ja:のみません": "tts/ja/b68dd2580e833c5e.mp3",
   "ja:のみませんでした": "tts/ja/d359d7a697111a20.mp3",
+  "ja:のみもの": "tts/ja/b6c83a14f7443777.mp3",
   "ja:のみものは なにが いいですか": "tts/ja/5d70b4c4e8cdde4f.mp3",
   "ja:のむ": "tts/ja/438b328b14664b7d.mp3",
   "ja:のりもの": "tts/ja/6612d1de6660fe75.mp3",
@@ -3842,6 +3576,7 @@
   "ja:はい。わたしは アメリカじんです": "tts/ja/a73225450371bc4a.mp3",
   "ja:はい。わたしは アメリカじんです。": "tts/ja/6cd9f38906e69231.mp3",
   "ja:はい。カメラと ペンで さんぜんごひゃくえんです": "tts/ja/cad3d887f54eba9c.mp3",
+  "ja:はいざら": "tts/ja/1d6f1b47b63d5913.mp3",
   "ja:はいってはいけません": "tts/ja/17d2edfb2e08c45a.mp3",
   "ja:はいってもいいですか": "tts/ja/d0bb2cfbc50db5bd.mp3",
   "ja:はいらないでください": "tts/ja/58732531c956f727.mp3",
@@ -3854,18 +3589,23 @@
   "ja:はがきを いちまい ください": "tts/ja/c8c238f9256681df.mp3",
   "ja:はがきを ごまい ください": "tts/ja/df11986e4b3f97f6.mp3",
   "ja:はがきを にまい ください": "tts/ja/5c73b3e677294498.mp3",
+  "ja:はく": "tts/ja/61340ccb7e37c3e4.mp3",
+  "ja:はこ": "tts/ja/b67b0ae30a76a1cc.mp3",
   "ja:はし": "tts/ja/7d9d47d68906587d.mp3",
   "ja:はしと フォークを ください": "tts/ja/7c70bbf45b882692.mp3",
   "ja:はしや スプーンを ください": "tts/ja/3325252c774e85b3.mp3",
   "ja:はしや フォークを ください": "tts/ja/b069af820d1db861.mp3",
   "ja:はしらない": "tts/ja/6ddba5843f8bce08.mp3",
   "ja:はしらないでください": "tts/ja/cdf9acffadd88a8f.mp3",
+  "ja:はしる": "tts/ja/f649994ba8c7e8b1.mp3",
   "ja:はしるのが きらいです": "tts/ja/7baedbdeaf07f5e4.mp3",
   "ja:はしるのが すきです": "tts/ja/1ea9881f607d0a6a.mp3",
   "ja:はしるのがきらいです": "tts/ja/3e385c69d5ede62e.mp3",
   "ja:はしるのがへたです": "tts/ja/ee507a4f9e9383dd.mp3",
   "ja:はしを ください": "tts/ja/f490c89b9b6c42ea.mp3",
   "ja:はしを わたってください": "tts/ja/388f9b7351505fb9.mp3",
+  "ja:はじまる": "tts/ja/fb63eb9582900f4b.mp3",
+  "ja:はじめ": "tts/ja/97ab451126ed4cc2.mp3",
   "ja:はじめて": "tts/ja/8e3489d89e126bbe.mp3",
   "ja:はじめて いった とき、おんせんに はいりました": "tts/ja/67b815bada172ad9.mp3",
   "ja:はじめて おんせんに はいりました": "tts/ja/80c5b0b914ada74c.mp3",
@@ -3873,15 +3613,15 @@
   "ja:はじめて すしを たべました": "tts/ja/630417cded102e89.mp3",
   "ja:はじめて にほんに いきます": "tts/ja/c5c68987e3a887c3.mp3",
   "ja:はじめまして。やまだです。なんにんかぞくですか": "tts/ja/4cbcfbbc60a6adf3.mp3",
+  "ja:はたち": "tts/ja/0bc2528f4aa1ead3.mp3",
   "ja:はたらきすぎたんです": "tts/ja/ccc02637ce125c4f.mp3",
   "ja:はたらきすぎたんです。だから つかれました": "tts/ja/d52e73467987d455.mp3",
   "ja:はたらきすぎて、つかれました": "tts/ja/ec2552a827b088f0.mp3",
   "ja:はたらきすぎて、びょうきに なりました": "tts/ja/754e728e198446cc.mp3",
   "ja:はたらきすぎました。しかし たのしかったです": "tts/ja/952c373ac4ba96d8.mp3",
+  "ja:はたらく": "tts/ja/ebe48aaa5c659325.mp3",
   "ja:はち": "tts/ja/d7a680e109d6709e.mp3",
-  "ja:はち、きゅう、じゅう": [
-    "tts/ja/07c7db247da62558.mp3"
-  ],
+  "ja:はち、きゅう、じゅう": "tts/ja/07c7db247da62558.mp3",
   "ja:はちがつ": "tts/ja/2dd92ebe276e0d0c.mp3",
   "ja:はちがつの よていです。なつまつりの とき いきましょう": "tts/ja/d76108d7a41e10d4.mp3",
   "ja:はちがつは あついです": "tts/ja/543808d12a5889de.mp3",
@@ -3900,10 +3640,13 @@
     "tts/ja/736f4383ab59af76.mp3"
   ],
   "ja:はっぷん": "tts/ja/68daae7822077123.mp3",
+  "ja:はつか": "tts/ja/16a115b97bd772b0.mp3",
   "ja:はな": "tts/ja/06cf6df6b53c07a0.mp3",
   "ja:はな です": "tts/ja/215387b986864172.mp3",
   "ja:はなが いたいです": "tts/ja/a028b446d45e6d29.mp3",
   "ja:はなが たかいです": "tts/ja/ac2fc0a1294ee404.mp3",
+  "ja:はなし": "tts/ja/0ede7f6066162354.mp3",
+  "ja:はなす": "tts/ja/d6e3fb2509581ac3.mp3",
   "ja:はなすのがじょうずです": "tts/ja/d375bf912181bef0.mp3",
   "ja:はなすのがすきです": "tts/ja/3386d5455e50ac29.mp3",
   "ja:はなは あかいです": "tts/ja/a6759658355d10f7.mp3",
@@ -3945,9 +3688,11 @@
   "ja:はるは てんきが いいと おもいます": "tts/ja/6cd8948b0d31bbad.mp3",
   "ja:はれ": "tts/ja/4b51cedf7ed788a9.mp3",
   "ja:はれだと おもいます": "tts/ja/d758afd78753c1d6.mp3",
+  "ja:はれる": "tts/ja/7a73690384245d2c.mp3",
   "ja:はを みがいてください": "tts/ja/48547f46c26f6eeb.mp3",
   "ja:はを みがきます": "tts/ja/6662638fded5615b.mp3",
   "ja:はん": "tts/ja/7b1d680925df3e51.mp3",
+  "ja:はんぶん": "tts/ja/c7d84f8f92e55e2b.mp3",
   "ja:ば": "tts/ja/5ff591e99e088372.mp3",
   "ja:ばら": [
     "tts/ja/4cf3c0ae61f26c12.mp3",
@@ -3955,9 +3700,9 @@
   ],
   "ja:ばん": "tts/ja/5fc57126ddd77f88.mp3",
   "ja:ばん ごはんを たべます": "tts/ja/3300b2f84704ac74.mp3",
-  "ja:ばんごはんを きめる": [
-    "tts/ja/5f561e20f71a56e9.mp3"
-  ],
+  "ja:ばんごう": "tts/ja/f016e06e26f4ec74.mp3",
+  "ja:ばんごはん": "tts/ja/c6dba170040d2d21.mp3",
+  "ja:ばんごはんを きめる": "tts/ja/5f561e20f71a56e9.mp3",
   "ja:ばんごはんを たべに いきましょう": "tts/ja/d004d9fd1739c81d.mp3",
   "ja:ばんごはんを たべました。そして ねました": "tts/ja/11dd7d7f34b41e18.mp3",
   "ja:ぱ": "tts/ja/b12aa4959f9e6eac.mp3",
@@ -3967,7 +3712,10 @@
     "tts/ja/4bc77bb6f78a8328.mp3"
   ],
   "ja:ひ": "tts/ja/db8a1fde78f7c14f.mp3",
+  "ja:ひがし": "tts/ja/adcd929776f72177.mp3",
   "ja:ひく": "tts/ja/8a26a2b9d987284e.mp3",
+  "ja:ひくい": "tts/ja/e11fb32961788cf7.mp3",
+  "ja:ひこうき": "tts/ja/d94942ada689159e.mp3",
   "ja:ひだり": "tts/ja/e55aa7070a2c30ab.mp3",
   "ja:ひだりへ まがってから まっすぐ いってください": "tts/ja/cacd0c300b30743b.mp3",
   "ja:ひだりへ まがってから、はしを わたってください": "tts/ja/f5059af6dfa78035.mp3",
@@ -4010,9 +3758,7 @@
   "ja:ひろい": "tts/ja/5c231454018891a3.mp3",
   "ja:ひろしま": "tts/ja/7cc65f86c1eda89d.mp3",
   "ja:ひろしまと きょうとと どちらが しずかですか": "tts/ja/dcf72c6f2c00831d.mp3",
-  "ja:ひろしまに いきたいです": [
-    "tts/ja/6363675923bfcf5e.mp3"
-  ],
+  "ja:ひろしまに いきたいです": "tts/ja/6363675923bfcf5e.mp3",
   "ja:ひろしまのほうが とうきょうより しずかです": "tts/ja/0893e9c7a158631b.mp3",
   "ja:び": "tts/ja/c0e85206ef82033a.mp3",
   "ja:びゃ": "tts/ja/e6f7f6f6cb54bef5.mp3",
@@ -4057,14 +3803,15 @@
   "ja:ふうとう": "tts/ja/89f0c013f2efe768.mp3",
   "ja:ふうとうも いちまい ください": "tts/ja/1e7c64aaf610d6ea.mp3",
   "ja:ふうとうを にまい ください": "tts/ja/7aac1312940cf7ee.mp3",
+  "ja:ふく": "tts/ja/ce12c350e4c492b6.mp3",
   "ja:ふくろをください": "tts/ja/f266e650ed0de186.mp3",
   "ja:ふくを きます": "tts/ja/91f0f1d8d89e4810.mp3",
-  "ja:ふたり": [
-    "tts/ja/e5b89f802ba0cb2c.mp3",
-    "tts/ja/1d0bfe0394f0349b.mp3"
-  ],
+  "ja:ふたつ": "tts/ja/18a4604d4b22f825.mp3",
+  "ja:ふたり": "tts/ja/e5b89f802ba0cb2c.mp3",
   "ja:ふたり です": "tts/ja/5755e3900f6bc9ea.mp3",
   "ja:ふたりです": "tts/ja/5194b5a65607c5ed.mp3",
+  "ja:ふつか": "tts/ja/a15fc239bfa9d3e4.mp3",
+  "ja:ふとい": "tts/ja/dc0929a422b7b9aa.mp3",
   "ja:ふね": "tts/ja/a5042b08d486cef9.mp3",
   "ja:ふねで いきます": "tts/ja/5a5dfb719f3b5a24.mp3",
   "ja:ふねで うみに いきます": "tts/ja/34958dad59d4b81d.mp3",
@@ -4079,10 +3826,15 @@
   "ja:ふゆは さむいと おもいます": "tts/ja/a3e762dbf954e78e.mp3",
   "ja:ふゆは ゆきが おおいでしょう": "tts/ja/83332e189273956f.mp3",
   "ja:ふゆは ゆきが おおいと おもいます": "tts/ja/0503a78af28e3d20.mp3",
+  "ja:ふる": "tts/ja/befbbd7b4fb4f81a.mp3",
+  "ja:ふるい": "tts/ja/bc444104e3cf2bbf.mp3",
   "ja:ふるい まんがを あつめるのが すきです": "tts/ja/cfd7e006b79227db.mp3",
   "ja:ふるい カメラは やすいです": "tts/ja/817d9896840b2b5c.mp3",
+  "ja:ふろ": "tts/ja/51a522a15643f799.mp3",
   "ja:ぶ": "tts/ja/555ab3475f8471a9.mp3",
   "ja:ぶた": "tts/ja/517c0ef6efb4be74.mp3",
+  "ja:ぶたにく": "tts/ja/bc76db1d018752e8.mp3",
+  "ja:ぶんしょう": "tts/ja/5f348b5d28edf48b.mp3",
   "ja:ぷ": "tts/ja/d84cbcd6e41c8bee.mp3",
   "ja:ぷりん": "tts/ja/38cf451fa01658f7.mp3",
   "ja:へ": "tts/ja/242d5f4e5a66e999.mp3",
@@ -4101,20 +3853,17 @@
   "ja:へやで ねます": "tts/ja/83c220c4dcc67e9d.mp3",
   "ja:へやで べんきょうします": "tts/ja/a3880be8e4f2fa32.mp3",
   "ja:へやで ほんを よみます": "tts/ja/32dc1f1a6c32a0d6.mp3",
-  "ja:へやに いすが あります": [
-    "tts/ja/63433abd47a93fe7.mp3"
-  ],
+  "ja:へやに いすが あります": "tts/ja/63433abd47a93fe7.mp3",
   "ja:へやに います": "tts/ja/fd630d81afb2d29c.mp3",
   "ja:へやに かえります": "tts/ja/d66b2afac6872de3.mp3",
-  "ja:へやに まどが あります": [
-    "tts/ja/ffc334c6273cd477.mp3"
-  ],
+  "ja:へやに まどが あります": "tts/ja/ffc334c6273cd477.mp3",
   "ja:へやは おおきかったです": "tts/ja/7116e279f0fa08ae.mp3",
   "ja:へやは きれいでした": "tts/ja/0a6711b41bd81cc7.mp3",
   "ja:へやは さむくなかったです": "tts/ja/75ec66fd4f014154.mp3",
   "ja:へやは しずかじゃなかったです": "tts/ja/6077ce763f8d629e.mp3",
   "ja:へやは ちいさくなかったです": "tts/ja/455eb1ece4174eff.mp3",
   "ja:へやはしずかでした": "tts/ja/9457793d3ed8801a.mp3",
+  "ja:へん": "tts/ja/f8b3956d04b55539.mp3",
   "ja:べ": "tts/ja/e3b2810cd234821e.mp3",
   "ja:べんきょうしすぎたんですか。すこし やすみましょう": "tts/ja/c42ce56592b8bbd5.mp3",
   "ja:べんきょうしすぎて、あたまが いたいです": "tts/ja/cde6e1e8223adf4a.mp3",
@@ -4130,6 +3879,7 @@
   "ja:べんきょうしない": "tts/ja/f6a797d230861d27.mp3",
   "ja:べんきょうしなくちゃ": "tts/ja/d3ed2ddfd1a115e2.mp3",
   "ja:べんきょうしなければなりません": "tts/ja/4a008d1cef5819b0.mp3",
+  "ja:べんきょうする": "tts/ja/b7a4a6326a5ae887.mp3",
   "ja:べんきょうする まえに おちゃを のみます": "tts/ja/86cf6fa4ec63a7a7.mp3",
   "ja:べんきょうするのが きらいです": "tts/ja/01759e02f4d759d4.mp3",
   "ja:べんきょうを つづけなければなりません": "tts/ja/2078c88ab41e1745.mp3",
@@ -4148,17 +3898,18 @@
   "ja:ほかに のみものは ありますか": "tts/ja/075aa3ffea26ac5b.mp3",
   "ja:ほし": "tts/ja/32c323ce5a1fc8f4.mp3",
   "ja:ほし です": "tts/ja/8767ad7fd3cdff00.mp3",
+  "ja:ほしい": "tts/ja/9eb153dad5b4be1d.mp3",
   "ja:ほしいものは なんですか": "tts/ja/6177b5fe5bcccd8d.mp3",
+  "ja:ほそい": "tts/ja/ffd206bcdf739bee.mp3",
   "ja:ほん": "tts/ja/59a613f3e068707c.mp3",
   "ja:ほん ください": "tts/ja/7c4f99b6c64b2ee4.mp3",
   "ja:ほん ひとつ ください": "tts/ja/d8eb587a46981376.mp3",
   "ja:ほん ふたつ ください": "tts/ja/17a9c7eaec8a7156.mp3",
   "ja:ほん みっつ ください": "tts/ja/edfe421072adb174.mp3",
-  "ja:ほん、よむ": [
-    "tts/ja/166e90f7a694266a.mp3"
-  ],
+  "ja:ほん、よむ": "tts/ja/166e90f7a694266a.mp3",
   "ja:ほんが すきです": "tts/ja/4d9c9c3f38f3ff9d.mp3",
   "ja:ほんじゃないです": "tts/ja/b4ef407baad636d6.mp3",
+  "ja:ほんだな": "tts/ja/6dbf7ac240a224fe.mp3",
   "ja:ほんと しんぶんが あります": "tts/ja/223c81994ea53047.mp3",
   "ja:ほんと ペンが あります": "tts/ja/54de160c53a0c941.mp3",
   "ja:ほんとう": "tts/ja/6d108737326de512.mp3",
@@ -4179,8 +3930,10 @@
   ],
   "ja:ぽ": "tts/ja/751aa5da4516ecb8.mp3",
   "ja:ま": "tts/ja/ef2ab4710f0d685f.mp3",
+  "ja:まいあさ": "tts/ja/65708c94c1f539a4.mp3",
   "ja:まいあさ かおを あらって はを みがきます": "tts/ja/3fdc733eb9ad1971.mp3",
   "ja:まいあさ はを みがきます": "tts/ja/5d432a7d8c7ee020.mp3",
+  "ja:まいげつ": "tts/ja/be597bf760a5ee72.mp3",
   "ja:まいしゅう": "tts/ja/f2236aa3fe81918e.mp3",
   "ja:まいしゅう あまり いきません": "tts/ja/48aaff11f4e6200f.mp3",
   "ja:まいしゅう あまり たべません": "tts/ja/31b1a584b5efc858.mp3",
@@ -4193,9 +3946,7 @@
   "ja:まいしゅう さんかい アニメを みます": "tts/ja/b81b0bf2ee1ac4e4.mp3",
   "ja:まいしゅう さんかい ジョギングします": "tts/ja/a849a5d15f22b8bb.mp3",
   "ja:まいしゅう ぜんぜん いきません": "tts/ja/416fbd19d4de3c25.mp3",
-  "ja:まいしゅう てがみを かきます": [
-    "tts/ja/bdd1d43a83448d2c.mp3"
-  ],
+  "ja:まいしゅう てがみを かきます": "tts/ja/bdd1d43a83448d2c.mp3",
   "ja:まいしゅう としょかんに いきます": "tts/ja/f42287060b4a4b3d.mp3",
   "ja:まいしゅう としょかんに いきません": "tts/ja/61fd9ae6434829ea.mp3",
   "ja:まいしゅう なんかい いきますか": "tts/ja/31c9ef2e4f7c8028.mp3",
@@ -4222,9 +3973,7 @@
   "ja:まいにち うんどうしなければなりません": "tts/ja/6e9222fa62185d5d.mp3",
   "ja:まいにち おちゃを のみます": "tts/ja/bc20a12d22cd045b.mp3",
   "ja:まいにち くじに しごとに いきます": "tts/ja/e5bcda72d754cd0d.mp3",
-  "ja:まいにち くすりを のみます": [
-    "tts/ja/fba6f33cb2283910.mp3"
-  ],
+  "ja:まいにち くすりを のみます": "tts/ja/fba6f33cb2283910.mp3",
   "ja:まいにち さんかい コーヒーを のみます": "tts/ja/f7299185f4b8275a.mp3",
   "ja:まいにち しんぶんを よみます": "tts/ja/9ff6e19c9024c5a0.mp3",
   "ja:まいにち せっけんで てを あらいます": "tts/ja/bc107692da91a822.mp3",
@@ -4236,9 +3985,7 @@
   "ja:まいにち ほんを よみません": "tts/ja/ea758dae7b68b9d2.mp3",
   "ja:まいにち れんしゅうしなければなりません": "tts/ja/16ef3ae201e41dca.mp3",
   "ja:まいにち れんしゅうします": "tts/ja/00345b73cf729fd6.mp3",
-  "ja:まいにち ろくじに おきます": [
-    "tts/ja/db045e535867346b.mp3"
-  ],
+  "ja:まいにち ろくじに おきます": "tts/ja/db045e535867346b.mp3",
   "ja:まいにち コーヒーを のみます": "tts/ja/d968e4f810d27fab.mp3",
   "ja:まいにち コーヒーを のみますか": "tts/ja/511d780a4c47dc90.mp3",
   "ja:まいにち コーヒーを のみません": "tts/ja/ae11aadcbf0043c5.mp3",
@@ -4247,9 +3994,9 @@
   "ja:まいにち テレビを みません": "tts/ja/db2f6c9b86dabbcc.mp3",
   "ja:まいにち パンを たべません": "tts/ja/ee7fe17c749ae7ef.mp3",
   "ja:まいにち ビールを のみません": "tts/ja/7adb3b6522d07703.mp3",
-  "ja:まいにち ラジオを ききます": [
-    "tts/ja/2134e3611f780de0.mp3"
-  ],
+  "ja:まいにち ラジオを ききます": "tts/ja/2134e3611f780de0.mp3",
+  "ja:まいねん": "tts/ja/e640f94fa73605dc.mp3",
+  "ja:まいばん": "tts/ja/ff46e74e05f5a522.mp3",
   "ja:まいばん かみを あらいます": "tts/ja/83a10e24c5d44df1.mp3",
   "ja:まいばん はを みがいて ねます": "tts/ja/55527173fba9223c.mp3",
   "ja:まいばん はを みがきます": "tts/ja/930f2664d86a73fb.mp3",
@@ -4264,14 +4011,10 @@
   "ja:まだ かいていません": "tts/ja/beb90c0f6e7b8f4f.mp3",
   "ja:まだ けっこんしない つもりです": "tts/ja/ef3c46f10868f171.mp3",
   "ja:まだ たべていません": "tts/ja/608cbeed2c9ffb5c.mp3",
-  "ja:まだ てがみを かいていません": [
-    "tts/ja/cc7dee62de60833b.mp3"
-  ],
+  "ja:まだ てがみを かいていません": "tts/ja/cc7dee62de60833b.mp3",
   "ja:まだ のんでいません": "tts/ja/e8edf4a9164d3de5.mp3",
   "ja:まだ よんでいません": "tts/ja/ee5de124370f6b18.mp3",
-  "ja:まだ コーヒーを のんでいません": [
-    "tts/ja/175621183c156e17.mp3"
-  ],
+  "ja:まだ コーヒーを のんでいません": "tts/ja/175621183c156e17.mp3",
   "ja:まだ ビールを のんでいません": "tts/ja/6c399d095a8ea3f1.mp3",
   "ja:まだです": "tts/ja/f9dd78f4c331eb4e.mp3",
   "ja:まだはやいです": "tts/ja/119279de1e12870e.mp3",
@@ -4312,10 +4055,7 @@
   "ja:まつりを みに いきましょう": "tts/ja/f96f3f43d5924de7.mp3",
   "ja:まつりを みに いく つもりです": "tts/ja/3875aa3f782cd298.mp3",
   "ja:まつりを みに いく つもりです。はなびも みたいです": "tts/ja/4bcf70c6c1f21a99.mp3",
-  "ja:まど": [
-    "tts/ja/c2ca3228dd1ad280.mp3",
-    "tts/ja/bd7fbf013fec8f00.mp3"
-  ],
+  "ja:まど": "tts/ja/c2ca3228dd1ad280.mp3",
   "ja:まどを あけてください": "tts/ja/ca95a8cf95a5c5ee.mp3",
   "ja:まどを あけてもいいですか": "tts/ja/af3903c4ddf0fc4d.mp3",
   "ja:まどを しめてください": "tts/ja/1cf56e733e7a4b17.mp3",
@@ -4324,15 +4064,19 @@
     "tts/ja/efa9ac41f9dc4a34.mp3"
   ],
   "ja:まもる": "tts/ja/5bef4d6327e545f0.mp3",
+  "ja:まるい": "tts/ja/87ee0ba7007254f0.mp3",
+  "ja:まん": "tts/ja/a8f4dbc1046a6605.mp3",
   "ja:まんが": "tts/ja/e8d52403b447f111.mp3",
   "ja:まんがは よく よみます": "tts/ja/0fe3e42d06297967.mp3",
   "ja:まんがを あつめるのが すきです": "tts/ja/db9e97d9415b5bec.mp3",
   "ja:まんがを かくのが すきです": "tts/ja/baf55d65ccea7b1d.mp3",
   "ja:まんがを よむのが すきです": "tts/ja/6c4ad1f258148b15.mp3",
   "ja:まんがを よんだり アニメを みたりします": "tts/ja/d6eb2b00f6a1e6d6.mp3",
+  "ja:まんねんひつ": "tts/ja/5f19f04ba689c5f0.mp3",
   "ja:み": "tts/ja/d38e8b96388c54de.mp3",
   "ja:みかん": "tts/ja/ae994827a3ed4fe2.mp3",
   "ja:みかんを たべます": "tts/ja/451905435770ee72.mp3",
+  "ja:みがく": "tts/ja/3465496ba153eefd.mp3",
   "ja:みぎ": "tts/ja/13524a0e2e455eaf.mp3",
   "ja:みぎへ まがってから みちを わたってください": "tts/ja/86c58c0beab0704c.mp3",
   "ja:みぎへ まがってください": "tts/ja/2e807db24ed5c1c7.mp3",
@@ -4347,15 +4091,9 @@
   "ja:みず ひとつ ください": "tts/ja/b22edcc00bf14df4.mp3",
   "ja:みず ふたつ ください": "tts/ja/c86d1d6a6997ed70.mp3",
   "ja:みず みっつ ください": "tts/ja/d3a4c207882aa153.mp3",
-  "ja:みず、のむ": [
-    "tts/ja/6435faa8bf5c9cab.mp3"
-  ],
-  "ja:みずが ありますか": [
-    "tts/ja/c5f04f26169fbe5d.mp3"
-  ],
-  "ja:みずが のみたいです": [
-    "tts/ja/798b104126425b77.mp3"
-  ],
+  "ja:みず、のむ": "tts/ja/6435faa8bf5c9cab.mp3",
+  "ja:みずが ありますか": "tts/ja/c5f04f26169fbe5d.mp3",
+  "ja:みずが のみたいです": "tts/ja/798b104126425b77.mp3",
   "ja:みずが ほしいです": "tts/ja/f5023c1cf699a728.mp3",
   "ja:みずがほしいです": "tts/ja/8be7cb4d596844bc.mp3",
   "ja:みずじゃないです": "tts/ja/634c242a4c95ce40.mp3",
@@ -4366,14 +4104,10 @@
   "ja:みずを たくさん のみます": "tts/ja/36738ded3343b356.mp3",
   "ja:みずを たくさん のんでください": "tts/ja/70f908660de327e9.mp3",
   "ja:みずを のまないでください": "tts/ja/07c4489e6bebf605.mp3",
-  "ja:みずを のみたいです": [
-    "tts/ja/a98bc12d3a8ddbfb.mp3"
-  ],
+  "ja:みずを のみたいです": "tts/ja/a98bc12d3a8ddbfb.mp3",
   "ja:みずを のみます": "tts/ja/bdc14e2e8d055b21.mp3",
   "ja:みずを のんだほうがいいですよ": "tts/ja/11821d94abc1fb03.mp3",
-  "ja:みずを のんでいます": [
-    "tts/ja/f86d9842a0f79173.mp3"
-  ],
+  "ja:みずを のんでいます": "tts/ja/f86d9842a0f79173.mp3",
   "ja:みずを のんでください": "tts/ja/1c8242fdc54a2f15.mp3",
   "ja:みずを のんでもいいですか": "tts/ja/dee55b6e9dfb86e8.mp3",
   "ja:みずを ほしいです": "tts/ja/232c2830214c9034.mp3",
@@ -4387,36 +4121,34 @@
   "ja:みせで はたらきます": "tts/ja/cd47a2614f151420.mp3",
   "ja:みせで みずを かいましょう": "tts/ja/bdb4c22ae487e30f.mp3",
   "ja:みせで みずを かってから、ともだちを まちます": "tts/ja/6a90209f938e1213.mp3",
-  "ja:みせで コーヒーを のみます": [
-    "tts/ja/d9d44b2bbc6472cb.mp3"
-  ],
+  "ja:みせで コーヒーを のみます": "tts/ja/d9d44b2bbc6472cb.mp3",
   "ja:みせに いきます": "tts/ja/85a97eb2e2ec3bad.mp3",
   "ja:みせに います": "tts/ja/afe1c2f8e95f4a38.mp3",
-  "ja:みせに ふたり います": [
-    "tts/ja/79300b6e511deeaa.mp3"
-  ],
+  "ja:みせに ふたり います": "tts/ja/79300b6e511deeaa.mp3",
   "ja:みせに カメラと とけいが あります": "tts/ja/c2734e66ba311090.mp3",
   "ja:みせは あちらです": "tts/ja/24360d4923e67fb3.mp3",
   "ja:みせは しずかでした": "tts/ja/ab7cd8c08e1e291e.mp3",
-  "ja:みせは じゅうじからです": [
-    "tts/ja/410621bf822cbc82.mp3"
-  ],
-  "ja:みせは どちらですか": [
-    "tts/ja/193dd8df1af0deaf.mp3"
-  ],
+  "ja:みせは じゅうじからです": "tts/ja/410621bf822cbc82.mp3",
+  "ja:みせは どちらですか": "tts/ja/193dd8df1af0deaf.mp3",
   "ja:みせは みちの むこうです": "tts/ja/bab15d460c819e6a.mp3",
   "ja:みせる": "tts/ja/748a6b24e4e51e08.mp3",
+  "ja:みち": "tts/ja/fc69d65ec0223277.mp3",
   "ja:みちが わからないんです。えきは どこですか": "tts/ja/6fbfaf79257865d2.mp3",
   "ja:みちを まちがえたんです。でも だいじょうぶでした": "tts/ja/9284aad4583f3e3b.mp3",
   "ja:みちを わたってから、みぎへ まがってください": "tts/ja/699026189f811726.mp3",
   "ja:みちを わたってください": "tts/ja/7d46e154808696e2.mp3",
+  "ja:みっか": "tts/ja/1a13c69325436f59.mp3",
   "ja:みっつ": "tts/ja/51f5ede5eafe644f.mp3",
+  "ja:みっつの まちのなかで きょうとが いちばん しずかです": "tts/ja/9bcd8d88048d1245.mp3",
+  "ja:みっつの まちのなかで ひろしまが いちばん しずかです": "tts/ja/e526b67abe7efde0.mp3",
   "ja:みっつのなかで ラーメンが いちばん おいしいです": "tts/ja/61c3190d68b64c7f.mp3",
   "ja:みて": "tts/ja/a21b029635b1069d.mp3",
   "ja:みてもいいですか": "tts/ja/3718cb8d1f97ae09.mp3",
+  "ja:みどり": "tts/ja/429c3915a035e6dd.mp3",
   "ja:みない": "tts/ja/edfad2ec91a3ff9e.mp3",
   "ja:みなさん": "tts/ja/50db2d4c925ecfab.mp3",
   "ja:みなさん、おげんきですか": "tts/ja/47cbb0bc05235b34.mp3",
+  "ja:みなみ": "tts/ja/99fdadacf7e44917.mp3",
   "ja:みます": "tts/ja/16a6e1e9aed852c1.mp3",
   "ja:みみ": "tts/ja/527e0e2565f36448.mp3",
   "ja:みみ です": [
@@ -4444,6 +4176,7 @@
   "ja:みるのがすきです": "tts/ja/d652ff33afd3c3ad.mp3",
   "ja:みんな": "tts/ja/85f5667fbab9fe8b.mp3",
   "ja:む": "tts/ja/f732f18140444887.mp3",
+  "ja:むいか": "tts/ja/4c898a6ee3226108.mp3",
   "ja:むこう": "tts/ja/260a50fa41cd48fc.mp3",
   "ja:むし": [
     "tts/ja/18a3099e7a8bb32d.mp3",
@@ -4455,10 +4188,10 @@
   "ja:むすめは じゅうにさいです。ちゅうがくせいです": "tts/ja/9189c0ad1e850f7a.mp3",
   "ja:むすめは ほんが すきです": "tts/ja/9d3342a53dd4331d.mp3",
   "ja:むずかしい": "tts/ja/3fac281bc7c92994.mp3",
+  "ja:むっつ": "tts/ja/a0dda2d3287dcaac.mp3",
+  "ja:むら": "tts/ja/f5d3c4ac14570c7f.mp3",
   "ja:め": "tts/ja/7439f6ea0e0993fc.mp3",
-  "ja:めが あおいです": [
-    "tts/ja/c195ea22c62bbf08.mp3"
-  ],
+  "ja:めが あおいです": "tts/ja/c195ea22c62bbf08.mp3",
   "ja:めが いたいです": "tts/ja/793b76ece9a78305.mp3",
   "ja:めが いたいので ほんを よめません": "tts/ja/e576bfb9e0bb68dd.mp3",
   "ja:めが いたいので めがねを かけません": "tts/ja/b56fbef28326f3e6.mp3",
@@ -4474,9 +4207,7 @@
   "ja:もう いきました": "tts/ja/965153d6c854aad9.mp3",
   "ja:もう おちゃを のみました": "tts/ja/8810d57063d50291.mp3",
   "ja:もう かきました": "tts/ja/159fb13352564717.mp3",
-  "ja:もう ごはんを たべました": [
-    "tts/ja/1b259e5d3d3767c5.mp3"
-  ],
+  "ja:もう ごはんを たべました": "tts/ja/1b259e5d3d3767c5.mp3",
   "ja:もう たべました": "tts/ja/6ec145ca0ac7cf2d.mp3",
   "ja:もう たべましたか": "tts/ja/a79d2a7384007998.mp3",
   "ja:もう たべません": "tts/ja/aa32cc40b4aa545b.mp3",
@@ -4515,7 +4246,10 @@
   "ja:ももを たべます": "tts/ja/9d8cb93b4093a5c6.mp3",
   "ja:もり": "tts/ja/0378c8e7f3877af6.mp3",
   "ja:もりの ちかくに おおきい かわが あります": "tts/ja/e03cc570fc42c96a.mp3",
+  "ja:もん": "tts/ja/bead7f8c19e96766.mp3",
+  "ja:もんだい": "tts/ja/f6ff96dfd8850e59.mp3",
   "ja:や": "tts/ja/6427c9ec21edc6c1.mp3",
+  "ja:やおや": "tts/ja/7bb816a46790551a.mp3",
   "ja:やくそく": "tts/ja/ae852478559e6aab.mp3",
   "ja:やくそくを まもらなければいけません": "tts/ja/38bbbef5fbefebd0.mp3",
   "ja:やくそくを まもらなければなりません": "tts/ja/94469ad11cdfe8ad.mp3",
@@ -4535,6 +4269,7 @@
   "ja:やさしい": "tts/ja/aaf1c7ded22e60b0.mp3",
   "ja:やすい": "tts/ja/54696787d68e5373.mp3",
   "ja:やすいから、かいます": "tts/ja/ffad95e43db0faa3.mp3",
+  "ja:やすみ": "tts/ja/eb74394c2478ca83.mp3",
   "ja:やすみが ほしいです": "tts/ja/710145aa81676a91.mp3",
   "ja:やすみだから、あまり かいしゃに いきません": "tts/ja/28ebedfdb2854f44.mp3",
   "ja:やすみだから、いつも おふろに はいります": "tts/ja/60c25195a8a3a8b8.mp3",
@@ -4543,9 +4278,11 @@
   "ja:やすみだから、がっこうに いきません": "tts/ja/f954ca1117884139.mp3",
   "ja:やすみだから、こうえんに いきます": "tts/ja/07d4e28e69fb99f5.mp3",
   "ja:やすみだから、ぜんぜん かいしゃに いきません": "tts/ja/17d9cdacb64a74b0.mp3",
+  "ja:やすむ": "tts/ja/85fad151ff08589e.mp3",
   "ja:やすんだほうがいいです": "tts/ja/c541e5bb83a7606c.mp3",
   "ja:やすんだほうがいいですよ": "tts/ja/0b2d11072291e19d.mp3",
   "ja:やすんで くすりを のんだほうがいいです": "tts/ja/2b8df02c9bb7060c.mp3",
+  "ja:やっつ": "tts/ja/2fe88fcd1d19389b.mp3",
   "ja:やね": [
     "tts/ja/049c33f0ee694a91.mp3",
     "tts/ja/e6a5ceaf18fe5c9e.mp3"
@@ -4569,15 +4306,15 @@
   "ja:やる": "tts/ja/9e1c1931feb94079.mp3",
   "ja:ゆ": "tts/ja/4b16a80a29790ee1.mp3",
   "ja:ゆうがた": "tts/ja/820f1e4b146eaa7b.mp3",
+  "ja:ゆうはん": "tts/ja/6f052665a95e72f2.mp3",
+  "ja:ゆうびんきょく": "tts/ja/73e03d467a3ba02e.mp3",
   "ja:ゆうびんきょくで てがみを かきます": "tts/ja/ef1bae4589937579.mp3",
   "ja:ゆうびんきょくに いきます": "tts/ja/d223d9d6ca2c98b5.mp3",
   "ja:ゆうびんきょくは えきの となりです": "tts/ja/20e3966b716341df.mp3",
   "ja:ゆうびんきょくへ いきます": "tts/ja/dba46a7f77c4b364.mp3",
   "ja:ゆうべ": "tts/ja/27cebaa7dd5cabc7.mp3",
   "ja:ゆうべ あそびました": "tts/ja/51d93cedff4ab749.mp3",
-  "ja:ゆうべ えいがを みました": [
-    "tts/ja/419fa4cdcab31631.mp3"
-  ],
+  "ja:ゆうべ えいがを みました": "tts/ja/419fa4cdcab31631.mp3",
   "ja:ゆうべ でかけました": "tts/ja/e625735264fe3308.mp3",
   "ja:ゆうべ ねました": "tts/ja/8e170422771035cb.mp3",
   "ja:ゆうべ ねむれなかったんです": "tts/ja/9c038b7c2850f320.mp3",
@@ -4613,20 +4350,21 @@
   "ja:ゆっくり": "tts/ja/82d54df25eddda39.mp3",
   "ja:ゆっくり はなしてください": "tts/ja/7d2f844c22fec28a.mp3",
   "ja:ゆっくり やすんでください": "tts/ja/ae4f5d87d49a21ce.mp3",
+  "ja:ゆっくりと": "tts/ja/3b907f4c49407858.mp3",
   "ja:ゆっくりと あるきます": "tts/ja/420151e5c239d023.mp3",
   "ja:ゆび": "tts/ja/2cd0b72f8912bc45.mp3",
   "ja:ゆびが いたいです": "tts/ja/c6d0770949554afc.mp3",
   "ja:ゆびが いたいので てがみを かきません": "tts/ja/acb32d0373367f61.mp3",
   "ja:ゆびが いたいので、ピアノを ひけません": "tts/ja/a6706fd675554359.mp3",
   "ja:ゆびが ながいです": "tts/ja/36460249da834c24.mp3",
-  "ja:ゆびが みじかいです": [
-    "tts/ja/1716fb82eff82906.mp3"
-  ],
+  "ja:ゆびが みじかいです": "tts/ja/1716fb82eff82906.mp3",
   "ja:ゆめ": [
     "tts/ja/14ff15f8b132d039.mp3",
     "tts/ja/04323cf2214cdb42.mp3"
   ],
   "ja:よ": "tts/ja/f65ffc43be2c8917.mp3",
+  "ja:ようか": "tts/ja/b97c2c52efb8eaf8.mp3",
+  "ja:ようふく": "tts/ja/2000c757c9318b2b.mp3",
   "ja:よかったです": "tts/ja/071ff45a0b85cc7b.mp3",
   "ja:よく": "tts/ja/68b0a3c8b2d54c92.mp3",
   "ja:よく あさ かおを あらいます": "tts/ja/7895a5b4e019878b.mp3",
@@ -4637,14 +4375,10 @@
   "ja:よく さんがつに にほんに いきます": "tts/ja/18efc00f606fb822.mp3",
   "ja:よく たべません": "tts/ja/50bcd6e297b2a2f8.mp3",
   "ja:よく のみません": "tts/ja/fc515adf4d2e4b21.mp3",
-  "ja:よく みずを のみます": [
-    "tts/ja/7df2156fbdd7d50f.mp3"
-  ],
+  "ja:よく みずを のみます": "tts/ja/7df2156fbdd7d50f.mp3",
   "ja:よく みません": "tts/ja/bb888bf702a6a354.mp3",
   "ja:よく ろくがつに にほんに いきます": "tts/ja/b16e542273cbdfce.mp3",
-  "ja:よく アニメを みます": [
-    "tts/ja/882868b318d37a28.mp3"
-  ],
+  "ja:よく アニメを みます": "tts/ja/882868b318d37a28.mp3",
   "ja:よく ジョギングを したり ハイキングを したりします": "tts/ja/cc2549a3720e1d3f.mp3",
   "ja:よく テレビを みません": "tts/ja/5807b0321edf3d63.mp3",
   "ja:よく ラジオを ききます": "tts/ja/8fe6190c9f66a393.mp3",
@@ -4661,6 +4395,8 @@
   "ja:よじですね。どこで あいますか": "tts/ja/2da66f8da85c09e0.mp3",
   "ja:よじに おきます": "tts/ja/9a4c53a2c73dfa62.mp3",
   "ja:よじまでに ぎんこうに いきます": "tts/ja/60b4cf2233ba3544.mp3",
+  "ja:よっか": "tts/ja/5f0844fee4c2bbb0.mp3",
+  "ja:よっつ": "tts/ja/47a0cc8977e8bbd3.mp3",
   "ja:よてい": "tts/ja/ca7cff57528f3b61.mp3",
   "ja:よにん": "tts/ja/9740904df3943d19.mp3",
   "ja:よにん です": "tts/ja/7854fc49b9687c78.mp3",
@@ -4669,45 +4405,46 @@
   "ja:よにんかぞくです ちちと ははと あねと わたしです": "tts/ja/236bba27ed6d53dd.mp3",
   "ja:よにんかぞくです ははと あにと いもうとと わたしです": "tts/ja/7477ff791fa2a9ce.mp3",
   "ja:よにんかぞくです。しゅじんと むすめと むすこと わたしです": "tts/ja/d138093306051aeb.mp3",
+  "ja:よぶ": "tts/ja/a668c8d5b8be7786.mp3",
   "ja:よまない": "tts/ja/d56c06e2802c589a.mp3",
   "ja:よみます": "tts/ja/9b2613595556fd2a.mp3",
   "ja:よみません": "tts/ja/52bc75f7d2ea8342.mp3",
   "ja:よむ": "tts/ja/2e87b6992c00aee8.mp3",
   "ja:よむのがへたです": "tts/ja/dcf662e3e12d9b97.mp3",
+  "ja:より、ほう": "tts/ja/14b1d76ee89e3ea8.mp3",
   "ja:よる": "tts/ja/145f2faf8c22dc50.mp3",
   "ja:よる くじに ねます": "tts/ja/96e63d126c80cdc8.mp3",
   "ja:よる じゅういちじに ねます": "tts/ja/259883d99f29c506.mp3",
   "ja:よる じゅうじに ねます": "tts/ja/d4ce2cefe280a34f.mp3",
-  "ja:よる ほんを よみます": [
-    "tts/ja/697370d3321292b5.mp3"
-  ],
-  "ja:よる テレビを みます": [
-    "tts/ja/849adcfc2460e358.mp3"
-  ],
+  "ja:よる ほんを よみます": "tts/ja/697370d3321292b5.mp3",
+  "ja:よる テレビを みます": "tts/ja/849adcfc2460e358.mp3",
   "ja:よるは まんがを よんだり おんがくを きいたりします": "tts/ja/9d6b1679c758171d.mp3",
+  "ja:よわい": "tts/ja/6eeea3aa97c0c25b.mp3",
   "ja:よん": "tts/ja/807bb5a06a65ac2a.mp3",
-  "ja:よん、ご、ろく": [
-    "tts/ja/d2de2000dc927c83.mp3"
-  ],
+  "ja:よん、ご、ろく": "tts/ja/d2de2000dc927c83.mp3",
   "ja:よんじに おきます": "tts/ja/d3e5f5e23e1ade2a.mp3",
   "ja:よんじゅう": "tts/ja/91869281082ced23.mp3",
   "ja:よんじゅうはち": "tts/ja/d9d311acd5b3a037.mp3",
   "ja:よんはい": "tts/ja/ac269bda91ac86b5.mp3",
   "ja:ら": "tts/ja/0b9f5346bb00d6dd.mp3",
+  "ja:らいげつ": "tts/ja/03a22c7bb7f3ac83.mp3",
   "ja:らいげつ おんせんに いく つもりです": "tts/ja/adc85e66479fdb59.mp3",
   "ja:らいげつ がいこくに いく つもりです": "tts/ja/416d3e415e627468.mp3",
+  "ja:らいしゅう": "tts/ja/78c5d36203d86970.mp3",
   "ja:らいしゅう しけんが あります": "tts/ja/dd29b00384ecd4e8.mp3",
   "ja:らいしゅうは あついでしょう": "tts/ja/9472853e048c85f1.mp3",
   "ja:らいしゅうは あめでしょう": "tts/ja/87ece1ba0cdaf98e.mp3",
   "ja:らいしゅうは さむいでしょう": "tts/ja/82f345bed89c8f97.mp3",
   "ja:らいしゅうは はれでしょう": "tts/ja/d72a8be5600090b3.mp3",
   "ja:らいしゅうは ゆきでしょう": "tts/ja/86a5dd751a928314.mp3",
+  "ja:らいねん": "tts/ja/38c3ab99c3355b24.mp3",
   "ja:らいねん がいこくに いく つもりです": "tts/ja/b38c75101fb65cb9.mp3",
   "ja:らいねん にほんに いく つもりです": "tts/ja/9ebeead774384972.mp3",
   "ja:らいねん りょこうする つもりです": "tts/ja/8adf6c492ed6c54d.mp3",
   "ja:らいねんの なつは ともだちと いく よていです": "tts/ja/130626fb880b7cda.mp3",
   "ja:らいねんも にほんに いく つもりです": "tts/ja/ffefa3563e6656dd.mp3",
   "ja:り": "tts/ja/b9b855591d39a29d.mp3",
+  "ja:りっぱ": "tts/ja/87834d8bb2fb944e.mp3",
   "ja:りゃ": "tts/ja/607281d9dd74348d.mp3",
   "ja:りゅ": "tts/ja/00107f373d26e58d.mp3",
   "ja:りゅう": [
@@ -4719,6 +4456,7 @@
   "ja:りゅうがくせいの とき はじめて おんせんに はいりました": "tts/ja/ab79d9b75fada747.mp3",
   "ja:りゅうがくせいの とき まつりに いきました": "tts/ja/e01f87b4761457f7.mp3",
   "ja:りょ": "tts/ja/f244212833b90e9d.mp3",
+  "ja:りょうしん": "tts/ja/26ee80ee8756d5e2.mp3",
   "ja:りょうり": "tts/ja/037727bfcfb751f5.mp3",
   "ja:りょうりが じょうずです": "tts/ja/3cbb2ec5e8e10cd1.mp3",
   "ja:りょうりが じょうずな ひと": "tts/ja/56055aa3f0015623.mp3",
@@ -4746,9 +4484,7 @@
   "ja:りょこうする とき しゃしんを とります": "tts/ja/0d9edfa54bf6d3d0.mp3",
   "ja:りょこうする とき カメラを もっていきます": "tts/ja/fb6323f8c5e2045f.mp3",
   "ja:りょこうする とき、カメラを もっていきます": "tts/ja/343256785c6451c3.mp3",
-  "ja:りょこうの じゅんびを します": [
-    "tts/ja/0e9c408a8622dd34.mp3"
-  ],
+  "ja:りょこうの じゅんびを します": "tts/ja/0e9c408a8622dd34.mp3",
   "ja:りょこうの ほんを よんでいます": "tts/ja/1072c98738d82b57.mp3",
   "ja:りょこうは たのしいです": "tts/ja/7d49ad2f1d732979.mp3",
   "ja:りんご": "tts/ja/b211c12d6fb39fea.mp3",
@@ -4768,18 +4504,18 @@
   "ja:りんごを食べます": "tts/ja/3fdab9f990655942.mp3",
   "ja:る": "tts/ja/10230c78567d386d.mp3",
   "ja:れ": "tts/ja/b7137290082d9ab3.mp3",
+  "ja:れい": "tts/ja/b4aa0b8f862d5f37.mp3",
+  "ja:れいぞうこ": "tts/ja/1afa7c91080814e4.mp3",
   "ja:れんしゅう": "tts/ja/5bd2021f35820ada.mp3",
   "ja:れんしゅうしなければなりません": "tts/ja/d19b45bae46c76b7.mp3",
+  "ja:れんしゅうする": "tts/ja/ccdbcc66f784da6e.mp3",
   "ja:れんしゅうを つづけなければなりません": "tts/ja/14f3060396a2e616.mp3",
   "ja:ろ": "tts/ja/4cfbe7407babedff.mp3",
+  "ja:ろうか": "tts/ja/b75189fe06d51f0a.mp3",
   "ja:ろうかで はしってはいけません": "tts/ja/a08908316a8416fc.mp3",
   "ja:ろく": "tts/ja/a585e39926f77b88.mp3",
-  "ja:ろく なな はち": [
-    "tts/ja/343073235472e592.mp3"
-  ],
-  "ja:ろく、はち、じゅう": [
-    "tts/ja/01c3d68afe25185c.mp3"
-  ],
+  "ja:ろく なな はち": "tts/ja/343073235472e592.mp3",
+  "ja:ろく、はち、じゅう": "tts/ja/01c3d68afe25185c.mp3",
   "ja:ろくがつ": "tts/ja/b52f59d3469c2969.mp3",
   "ja:ろくがつから くがつまで あついです": "tts/ja/e13c3e42e8e97c3d.mp3",
   "ja:ろくがつから しちがつまで あめが おおいです": "tts/ja/3f2d845e0f1e58ed.mp3",
@@ -4787,17 +4523,11 @@
   "ja:ろくじ": "tts/ja/607a7ef22f784337.mp3",
   "ja:ろくじです": "tts/ja/df0704caec235966.mp3",
   "ja:ろくじですか": "tts/ja/9d387cbccbed31d9.mp3",
-  "ja:ろくじに うちに かえります": [
-    "tts/ja/5ea8770dc6170293.mp3"
-  ],
+  "ja:ろくじに うちに かえります": "tts/ja/5ea8770dc6170293.mp3",
   "ja:ろくじに おきます": "tts/ja/28673ef10bdcf8ff.mp3",
-  "ja:ろくじに ばんごはんを たべます": [
-    "tts/ja/1b60bef3574df118.mp3"
-  ],
+  "ja:ろくじに ばんごはんを たべます": "tts/ja/1b60bef3574df118.mp3",
   "ja:ろくじは はやいです": "tts/ja/bbaf9969b904df6e.mp3",
-  "ja:ろくじまで うちに います": [
-    "tts/ja/d0248677304b08cb.mp3"
-  ],
+  "ja:ろくじまで うちに います": "tts/ja/d0248677304b08cb.mp3",
   "ja:ろくじまでに うちに かえります": "tts/ja/693bad2cfb30a0ae.mp3",
   "ja:ろくじまでに でんしゃで うちに かえります": "tts/ja/7ef79f9c47750f0c.mp3",
   "ja:ろくじゅう": "tts/ja/8f4533d52241fcc4.mp3",
@@ -4805,10 +4535,12 @@
   "ja:ろっぷん": "tts/ja/20ed7d9221d08d5a.mp3",
   "ja:ろっぽん": "tts/ja/524b2fb9e7ecf9bd.mp3",
   "ja:わ": "tts/ja/7c4c3ad8faa1cf12.mp3",
+  "ja:わかい": "tts/ja/6b628083eb9bd8e0.mp3",
   "ja:わかりました": "tts/ja/f42a0a859ed0f016.mp3",
   "ja:わかりました。ありがとうございます": "tts/ja/6b40e8635a4df2d8.mp3",
   "ja:わかりません": "tts/ja/4317bcc01d06b15e.mp3",
   "ja:わかりません。もういちどおねがいします": "tts/ja/6da35932b232ae7f.mp3",
+  "ja:わかる": "tts/ja/ebc431f2575dcb1f.mp3",
   "ja:わすれたんです。しかし せんせいは おこりませんでした": "tts/ja/e32864eeb41a6bc8.mp3",
   "ja:わすれたんです。すみません": "tts/ja/f31d9a6e53015655.mp3",
   "ja:わすれたんです。だから こまっています": "tts/ja/e8fe7c2229b12f08.mp3",
@@ -4830,9 +4562,7 @@
   "ja:わたし ほんです": "tts/ja/d5a613a1154ed2ee.mp3",
   "ja:わたし アメリカじんです": "tts/ja/60b75812c1772854.mp3",
   "ja:わたし アメリカじんです。": "tts/ja/753fd2c819260002.mp3",
-  "ja:わたしの うちは ちいさいです": [
-    "tts/ja/410d2a26416f83ce.mp3"
-  ],
+  "ja:わたしの うちは ちいさいです": "tts/ja/410d2a26416f83ce.mp3",
   "ja:わたしの かさです": "tts/ja/d7d08b4887a2e2e0.mp3",
   "ja:わたしの かばんです": "tts/ja/01fade95bfb6e33c.mp3",
   "ja:わたしの かばんです。": [
@@ -4846,9 +4576,7 @@
   "ja:わたしの しゅみは えを かくことです": "tts/ja/5c48a2abce6e48fb.mp3",
   "ja:わたしの じてんしゃです": "tts/ja/1d3cbb3aa26989af.mp3",
   "ja:わたしの せんせいは やさしいです": "tts/ja/08db116c63773e1b.mp3",
-  "ja:わたしの へやは せまいです": [
-    "tts/ja/dae5eabe47ba05f4.mp3"
-  ],
+  "ja:わたしの へやは せまいです": "tts/ja/dae5eabe47ba05f4.mp3",
   "ja:わたしの ほんです": "tts/ja/1b12f7c4f1c839c3.mp3",
   "ja:わたしの ほんです。": [
     "tts/ja/168b468ec044e3e0.mp3",
@@ -4856,38 +4584,26 @@
   ],
   "ja:わたしの まちは レストランが すくないです": "tts/ja/7fd2eb716282f0d2.mp3",
   "ja:わたしの まちも レストランが すくないです": "tts/ja/2d5e883a59e59d03.mp3",
-  "ja:わたしの コーヒーは どれですか": [
-    "tts/ja/f27b621e603b9206.mp3"
-  ],
+  "ja:わたしの コーヒーは どれですか": "tts/ja/f27b621e603b9206.mp3",
   "ja:わたしの コーヒーを のまないでください": "tts/ja/6cfd96dacc102fb7.mp3",
   "ja:わたしの ペンです": "tts/ja/6a190b7924f1b78e.mp3",
   "ja:わたしの ペンですか": "tts/ja/902daace5395e1b0.mp3",
   "ja:わたしは いま りょこうの ほんを よんでいます": "tts/ja/24319f013087a134.mp3",
   "ja:わたしは うたうのが すきです": "tts/ja/4f069aafed78e303.mp3",
   "ja:わたしは うたうのが へたです": "tts/ja/11dacb317c1a9ed1.mp3",
-  "ja:わたしは うんてんが すきです": [
-    "tts/ja/15df0559f4f2f9a0.mp3"
-  ],
+  "ja:わたしは うんてんが すきです": "tts/ja/15df0559f4f2f9a0.mp3",
   "ja:わたしは うんてんが へたです": "tts/ja/9d284da4013e512f.mp3",
-  "ja:わたしは えきに います": [
-    "tts/ja/32de36a4eac39444.mp3"
-  ],
+  "ja:わたしは えきに います": "tts/ja/32de36a4eac39444.mp3",
   "ja:わたしは おちゃを のみます": "tts/ja/c663fda582104645.mp3",
   "ja:わたしは おどるのが へたです": "tts/ja/24e57b332dfff4b4.mp3",
   "ja:わたしは がくせい": "tts/ja/7a7f6421b0d21337.mp3",
-  "ja:わたしは がくせい です": [
-    "tts/ja/9f707c13158c44d4.mp3"
-  ],
+  "ja:わたしは がくせい です": "tts/ja/9f707c13158c44d4.mp3",
   "ja:わたしは がくせい。": "tts/ja/f030122b11fc3ceb.mp3",
   "ja:わたしは がくせいです": "tts/ja/010a5de95e8d0b3b.mp3",
   "ja:わたしは がくせいです。": "tts/ja/dba5ba69377f092f.mp3",
-  "ja:わたしは けんこうです": [
-    "tts/ja/cfd5792c1776085a.mp3"
-  ],
+  "ja:わたしは けんこうです": "tts/ja/cfd5792c1776085a.mp3",
   "ja:わたしは げつようびから きんようびまで はたらきます": "tts/ja/bbce98de8bfaeae4.mp3",
-  "ja:わたしは げんき です": [
-    "tts/ja/ca6ff3284291c9c5.mp3"
-  ],
+  "ja:わたしは げんき です": "tts/ja/ca6ff3284291c9c5.mp3",
   "ja:わたしは げんきです": "tts/ja/bf8d236341b15d17.mp3",
   "ja:わたしは こんな まちが すきです": "tts/ja/03384b5b5d68df53.mp3",
   "ja:わたしは ごにんかぞくです": "tts/ja/1890b65be274644c.mp3",
@@ -4910,23 +4626,18 @@
   "ja:わたしは にほんじんです": "tts/ja/c94d2951e91bd7cc.mp3",
   "ja:わたしは にほんに いった ことが ありません": "tts/ja/526e7a0105ed361d.mp3",
   "ja:わたしは にほんに にかい いった ことが あります": "tts/ja/66ea903e5b920919.mp3",
+  "ja:わたしは ほんを よみます": "tts/ja/7c09b065ba3271d2.mp3",
   "ja:わたしは ほんを よむのが すきです": "tts/ja/efdc244b1b48c6e9.mp3",
   "ja:わたしは ゆきです": "tts/ja/f55a36aa808bef85.mp3",
   "ja:わたしは ゆきです。にほんじんです": "tts/ja/d29df4b8343e1998.mp3",
   "ja:わたしは よにんかぞくです": "tts/ja/f9310ad474c33ea8.mp3",
-  "ja:わたしは よる シャワーを あびます": [
-    "tts/ja/2f498d09d50ce8ad.mp3"
-  ],
-  "ja:わたしは りょうりが すきです": [
-    "tts/ja/8a0b632eebd27671.mp3"
-  ],
+  "ja:わたしは よる シャワーを あびます": "tts/ja/2f498d09d50ce8ad.mp3",
+  "ja:わたしは りょうりが すきです": "tts/ja/8a0b632eebd27671.mp3",
   "ja:わたしは りょうりが へたです": "tts/ja/fff4a4b132cba9bb.mp3",
   "ja:わたしは りょうりのが へたです": "tts/ja/b17e4f9838f91c8d.mp3",
   "ja:わたしは ろくにんかぞくです": "tts/ja/f0ed587764a50743.mp3",
   "ja:わたしは アメリカ から です": "tts/ja/d36b0a6154e3a850.mp3",
-  "ja:わたしは アメリカから きました": [
-    "tts/ja/89dfc6a6080d13c4.mp3"
-  ],
+  "ja:わたしは アメリカから きました": "tts/ja/89dfc6a6080d13c4.mp3",
   "ja:わたしは アメリカから です": "tts/ja/652d3c9de1d00a54.mp3",
   "ja:わたしは アメリカじんです": "tts/ja/3f8d69ff11586cfe.mp3",
   "ja:わたしは アメリカじんです。": "tts/ja/a924bffda639c9f7.mp3",
@@ -4934,13 +4645,9 @@
   "ja:わたしは ケン です": "tts/ja/2f486ab6a670d902.mp3",
   "ja:わたしは ケン です。": "tts/ja/91bb2c653ac13ae6.mp3",
   "ja:わたしは コーヒー ひとつ ください": "tts/ja/476c0f952fe4060e.mp3",
-  "ja:わたしは コーヒーを のみません": [
-    "tts/ja/5a23c20c027953db.mp3"
-  ],
+  "ja:わたしは コーヒーを のみません": "tts/ja/5a23c20c027953db.mp3",
   "ja:わたしは ジュースを のみます": "tts/ja/7f9b95cc7c6e727f.mp3",
-  "ja:わたしは バスで うちに かえります": [
-    "tts/ja/13c38d50aaff445a.mp3"
-  ],
+  "ja:わたしは バスで うちに かえります": "tts/ja/13c38d50aaff445a.mp3",
   "ja:わたしは パンを たべます": "tts/ja/9c77628ac6ab8716.mp3",
   "ja:わたしは ビール ひとつ ください": "tts/ja/1b3e71bf66b2ad7e.mp3",
   "ja:わたしは ピアノを ひくのが へたです": "tts/ja/6727724dae0c1015.mp3",
@@ -4963,6 +4670,7 @@
   "ja:わたしも ケンです。": "tts/ja/7b8e8f8e9018a0f9.mp3",
   "ja:わたしも ケンです。アメリカじんですか": "tts/ja/77209597ff3a83de.mp3",
   "ja:わたしも ケンです。アメリカじんですか。": "tts/ja/aee0a59ede8f42c5.mp3",
+  "ja:わたす": "tts/ja/8bc40f7f9e620c1a.mp3",
   "ja:わたる": "tts/ja/374f5a85dbad47be.mp3",
   "ja:わるい": "tts/ja/6f8dc2f789f6db40.mp3",
   "ja:を": "tts/ja/51eeb7e487054b1b.mp3",
@@ -4972,31 +4680,19 @@
   "ja:アニメを みたり まんがを あつめたりします": "tts/ja/759a8b0b85cc5859.mp3",
   "ja:アニメを みたり まんがを よんだりします": "tts/ja/f25caae5abc643ea.mp3",
   "ja:アニメを みるのが すきです": "tts/ja/a8d51acd047faeb2.mp3",
-  "ja:アメリカ": [
-    "tts/ja/ca33a905db79c0e8.mp3",
-    "tts/ja/7349782c23ba9927.mp3"
-  ],
+  "ja:アパート": "tts/ja/092146f779910259.mp3",
+  "ja:アメリカ": "tts/ja/ca33a905db79c0e8.mp3",
   "ja:アメリカ わたし から です": "tts/ja/13e1f8f0f0f60500.mp3",
-  "ja:アメリカから きました": [
-    "tts/ja/c396ab84a6fe7a8f.mp3"
-  ],
+  "ja:アメリカから きました": "tts/ja/c396ab84a6fe7a8f.mp3",
   "ja:アメリカから です": "tts/ja/3e2761acf9f3db91.mp3",
   "ja:アメリカじん": "tts/ja/7f1bdb49c9a3656b.mp3",
   "ja:アメリカじんです": "tts/ja/cf71faaaeab42dfa.mp3",
   "ja:アメリカじんですか": "tts/ja/6c2ddedc0174e066.mp3",
-  "ja:アメリカに いきたいです": [
-    "tts/ja/ad969f48e8f2a655.mp3"
-  ],
-  "ja:アメリカに いきました": [
-    "tts/ja/8a4ceaf054e46b3e.mp3"
-  ],
+  "ja:アメリカに いきたいです": "tts/ja/ad969f48e8f2a655.mp3",
+  "ja:アメリカに いきました": "tts/ja/8a4ceaf054e46b3e.mp3",
   "ja:アメリカに いきます": "tts/ja/56377e5b2e25e31e.mp3",
-  "ja:アメリカに いった ことが ありますか": [
-    "tts/ja/0448ef4aa54b192d.mp3"
-  ],
-  "ja:アメリカに よんかい いきました": [
-    "tts/ja/39d96dbed62a41ad.mp3"
-  ],
+  "ja:アメリカに いった ことが ありますか": "tts/ja/0448ef4aa54b192d.mp3",
+  "ja:アメリカに よんかい いきました": "tts/ja/39d96dbed62a41ad.mp3",
   "ja:アメリカの くるまです": "tts/ja/29af03a3a1bc2d8f.mp3",
   "ja:アメリカの カメラです": "tts/ja/72e563e585677e6d.mp3",
   "ja:アメリカの コーヒーです": "tts/ja/89af6d04a4a42d6c.mp3",
@@ -5014,10 +4710,9 @@
   "ja:カメラ": "tts/ja/2399f1ad85025429.mp3",
   "ja:カメラと ペン": "tts/ja/be1ab36297a7af36.mp3",
   "ja:カメラは たかかったです": "tts/ja/2ef25eccb7120006.mp3",
-  "ja:カメラを かいたいです": [
-    "tts/ja/927f4998f49afeff.mp3"
-  ],
+  "ja:カメラを かいたいです": "tts/ja/927f4998f49afeff.mp3",
   "ja:カメラを かった": "tts/ja/8ff8985124882c3d.mp3",
+  "ja:カレンダー": "tts/ja/3a9ce77440ce286b.mp3",
   "ja:カレー": "tts/ja/dff14ef7661ee303.mp3",
   "ja:カレーと ラーメンは ちがいます": "tts/ja/945cd5a47cc20932.mp3",
   "ja:カレーのほうが パスタより おいしいです": "tts/ja/16bcf1a3cd822ba4.mp3",
@@ -5028,11 +4723,12 @@
   "ja:キャンプ": "tts/ja/073cac1d700e12b0.mp3",
   "ja:キャンプを したり しゃしんを とったりします": "tts/ja/62c47c99e1c61c48.mp3",
   "ja:キャンプをするのが すきです": "tts/ja/9a3b481fb8c900f1.mp3",
+  "ja:ギター": "tts/ja/c46e9d39d4fc254f.mp3",
+  "ja:クラス": "tts/ja/741ebaf6655306e0.mp3",
   "ja:クラスは いちじから さんじまでです": "tts/ja/f51baf44f52a4593.mp3",
   "ja:クラスは いちじからです": "tts/ja/27dbbe9be26985db.mp3",
-  "ja:クラスは よんじゅうにんです": [
-    "tts/ja/e67f521a57cab3f9.mp3"
-  ],
+  "ja:クラスは よんじゅうにんです": "tts/ja/e67f521a57cab3f9.mp3",
+  "ja:グラム": "tts/ja/72d900cbc3cfd726.mp3",
   "ja:ゲーム": "tts/ja/86e328c1e4f0c8b7.mp3",
   "ja:ゲームを かいたいですけど おかねが ないです": "tts/ja/4243fecd4c6ff55f.mp3",
   "ja:ゲームを したいですけど じかんが ないです": "tts/ja/ea5eb3e3a356e827.mp3",
@@ -5041,6 +4737,7 @@
   "ja:ゲームを やりたいです": "tts/ja/40fee8c9eedda14b.mp3",
   "ja:コップ": "tts/ja/0b24acbd9054b8ce.mp3",
   "ja:コップを ください": "tts/ja/47fdd0d6c51a1f5a.mp3",
+  "ja:コピーする": "tts/ja/fb550ab24f994cd8.mp3",
   "ja:コンビニ": "tts/ja/43b75c09df431659.mp3",
   "ja:コンビニが あります": "tts/ja/febc77b28b9ac5e7.mp3",
   "ja:コンビニが ありますか": "tts/ja/7e7747a173fdf1b8.mp3",
@@ -5050,9 +4747,7 @@
     "tts/ja/c5537e3f26614f5b.mp3"
   ],
   "ja:コンビニで ジュースを のみます": "tts/ja/4f2776c58667339f.mp3",
-  "ja:コンビニで パンを かいます": [
-    "tts/ja/07d7b4e279201cb0.mp3"
-  ],
+  "ja:コンビニで パンを かいます": "tts/ja/07d7b4e279201cb0.mp3",
   "ja:コンビニに いきます": "tts/ja/f7ca451cc1185707.mp3",
   "ja:コンビニに います": "tts/ja/152132629ff4e028.mp3",
   "ja:コンビニに トイレが あります": "tts/ja/e89200b76c4715d6.mp3",
@@ -5076,9 +4771,7 @@
   "ja:コーヒー ひとつ ください": "tts/ja/6635db0d381eff84.mp3",
   "ja:コーヒー ふたつ ください": "tts/ja/ead5eaf74916459a.mp3",
   "ja:コーヒー みっつ ください": "tts/ja/218d61fd3c24d5d5.mp3",
-  "ja:コーヒーが ありますか": [
-    "tts/ja/6eb729a8cab85ca1.mp3"
-  ],
+  "ja:コーヒーが ありますか": "tts/ja/6eb729a8cab85ca1.mp3",
   "ja:コーヒーが すきです": "tts/ja/6472fb40536cba40.mp3",
   "ja:コーヒーが ほしいです": "tts/ja/b6bc22eb0767d194.mp3",
   "ja:コーヒーですか": "tts/ja/8517fcf6d1caf3ce.mp3",
@@ -5088,9 +4781,7 @@
   "ja:コーヒーと ジュース": "tts/ja/ed3c3a94df27d439.mp3",
   "ja:コーヒーと ジュースを ください": "tts/ja/d0ac40df90c8bc5d.mp3",
   "ja:コーヒーと パンを ください": "tts/ja/86214ac64abaf3f6.mp3",
-  "ja:コーヒーの じかん です": [
-    "tts/ja/5de3687eaa2d355a.mp3"
-  ],
+  "ja:コーヒーの じかん です": "tts/ja/5de3687eaa2d355a.mp3",
   "ja:コーヒーのほうが おちゃより たかいです": "tts/ja/0461a808d91153e1.mp3",
   "ja:コーヒーは あつかったです": "tts/ja/cff45d435247daff.mp3",
   "ja:コーヒーは いかがですか": "tts/ja/bbf0f294d529fb47.mp3",
@@ -5102,14 +4793,10 @@
   "ja:コーヒーより おちゃのほうが たかいです": "tts/ja/545db5fcfeab8fc5.mp3",
   "ja:コーヒーを いちはい ください": "tts/ja/905a2727d5afe3fe.mp3",
   "ja:コーヒーを いっぱい ください": "tts/ja/e9223a8cb189a278.mp3",
-  "ja:コーヒーを さんばい のみました": [
-    "tts/ja/849aef51c457e1a0.mp3"
-  ],
+  "ja:コーヒーを さんばい のみました": "tts/ja/849aef51c457e1a0.mp3",
   "ja:コーヒーを すきです": "tts/ja/5aaf3b6000d663dc.mp3",
   "ja:コーヒーを にはい ください": "tts/ja/1bf7d3d8a035726d.mp3",
-  "ja:コーヒーを のまない": [
-    "tts/ja/d66d4b428a239a44.mp3"
-  ],
+  "ja:コーヒーを のまない": "tts/ja/d66d4b428a239a44.mp3",
   "ja:コーヒーを のみすぎて、ねむれないんです": "tts/ja/d2af8c7107a8d4f1.mp3",
   "ja:コーヒーを のみたいです": "tts/ja/6fe843f2f9e0991f.mp3",
   "ja:コーヒーを のみに いきましょう": "tts/ja/4f6b344f1b2509a2.mp3",
@@ -5117,15 +4804,13 @@
   "ja:コーヒーを のみましょう": "tts/ja/4539dc85d463d52a.mp3",
   "ja:コーヒーを のみます": "tts/ja/1bfafde5499e416c.mp3",
   "ja:コーヒーを のみますか": "tts/ja/051e8ab84d5bea86.mp3",
-  "ja:コーヒーを のみませんか": [
-    "tts/ja/a55c66d9e0af6822.mp3"
-  ],
+  "ja:コーヒーを のみませんか": "tts/ja/a55c66d9e0af6822.mp3",
   "ja:コーヒーを のむのが すきです": "tts/ja/044cf19431712a15.mp3",
-  "ja:コーヒーを のんでから しごとを します": [
-    "tts/ja/c8f96a8688efe214.mp3"
-  ],
+  "ja:コーヒーを のんでから しごとを します": "tts/ja/c8f96a8688efe214.mp3",
   "ja:コーヒーを のんでください": "tts/ja/cbe5d931581dbac4.mp3",
   "ja:コーヒーを ひとつ ください": "tts/ja/49f21c771ee0eaae.mp3",
+  "ja:シャツ": "tts/ja/5b07338e15de5718.mp3",
+  "ja:シャワー": "tts/ja/e18d99ff518a54db.mp3",
   "ja:シャワーを あびてから きがえます": "tts/ja/432012fa126081b3.mp3",
   "ja:シャワーを あびてから ねます": "tts/ja/995d62c5d3d57d0b.mp3",
   "ja:シャワーを あびてから、きがえます": "tts/ja/b7175e5a15cbf265.mp3",
@@ -5139,21 +4824,19 @@
   "ja:ジュースを ください": "tts/ja/78ea96db78a654f2.mp3",
   "ja:ジュースを さんばい のみます": "tts/ja/f25a916235029af9.mp3",
   "ja:ジュースを にはい ください": "tts/ja/a1e0577860ab8928.mp3",
-  "ja:ジュースを のみすぎたんです": [
-    "tts/ja/bfaf49096b13e5c2.mp3"
-  ],
+  "ja:ジュースを のみすぎたんです": "tts/ja/bfaf49096b13e5c2.mp3",
   "ja:ジュースを のみます": "tts/ja/aa3bc50bf0323145.mp3",
   "ja:ジュースを のみませんでした": "tts/ja/17e375d77b269e3e.mp3",
   "ja:ジュースを ひとつ ください": "tts/ja/94af465e3a22ad6b.mp3",
-  "ja:ジュースを ふたつ ください": [
-    "tts/ja/fd129acb93e082d1.mp3"
-  ],
+  "ja:ジュースを ふたつ ください": "tts/ja/fd129acb93e082d1.mp3",
   "ja:ジュースを みっつ ください": "tts/ja/04f063c7c4183439.mp3",
   "ja:ジュースを ろっぱい ください": "tts/ja/e25555c52655d04b.mp3",
   "ja:ジュースを ろっぱい のみました": "tts/ja/91894f5ea297b6b3.mp3",
   "ja:ジョギング": "tts/ja/30de9eaa76e99a5f.mp3",
   "ja:ジョギングするのが きらいです": "tts/ja/aa97ae2e8d531115.mp3",
   "ja:ジョギングのが きらいです": "tts/ja/71071cd730681573.mp3",
+  "ja:スカート": "tts/ja/26128be49c59eebd.mp3",
+  "ja:ストーブ": "tts/ja/e9ead3cf00fbc418.mp3",
   "ja:スプーン": "tts/ja/dc5cf15b9698a5f1.mp3",
   "ja:スプーンと はしを ください": "tts/ja/da28a09ddd430e79.mp3",
   "ja:スプーンを ください": "tts/ja/8cf1974d5e450dc1.mp3",
@@ -5162,10 +4845,12 @@
   "ja:スポーツが へたな ひと": "tts/ja/02eb94b0500af896.mp3",
   "ja:スポーツを したいです": "tts/ja/5db8c9454bf79107.mp3",
   "ja:スポーツを しています": "tts/ja/36b43c87c73f9a50.mp3",
+  "ja:スリッパ": "tts/ja/18451e72a3b14981.mp3",
+  "ja:ズボン": "tts/ja/27ee5e832b2afaee.mp3",
+  "ja:セーター": "tts/ja/7cd8bc22459646f2.mp3",
+  "ja:ゼロ": "tts/ja/aeb82e06c818695c.mp3",
   "ja:タオル": "tts/ja/f5863653bd90d3aa.mp3",
-  "ja:タオルが ありますか": [
-    "tts/ja/2da89cb8d8a1cb3e.mp3"
-  ],
+  "ja:タオルが ありますか": "tts/ja/2da89cb8d8a1cb3e.mp3",
   "ja:タオルで かおを ふきます": "tts/ja/8b426ae2bbf5f3ba.mp3",
   "ja:タオルで てを ふきます": "tts/ja/060a2f5a5309361f.mp3",
   "ja:タオルと せっけんを かいます": "tts/ja/0cf1f4d7466edc44.mp3",
@@ -5179,9 +4864,7 @@
   "ja:タクシーで くうこうに いきます": "tts/ja/d7722316821cb9dd.mp3",
   "ja:タクシーで くうこうへ いきます": "tts/ja/65584a6b66f36a05.mp3",
   "ja:タクシーで びょういんに いきます": "tts/ja/e055baf7166670b7.mp3",
-  "ja:タクシーで ホテルに いきました": [
-    "tts/ja/48772b6d55a3ba8f.mp3"
-  ],
+  "ja:タクシーで ホテルに いきました": "tts/ja/48772b6d55a3ba8f.mp3",
   "ja:タクシーで ホテルに いきます": "tts/ja/76e5c0f04b5c2f75.mp3",
   "ja:タクシーに のります": "tts/ja/d4d435b8a437af80.mp3",
   "ja:タクシーをおねがいします": "tts/ja/79de82c53c1ebc22.mp3",
@@ -5192,12 +4875,12 @@
   "ja:ダンスが できません": "tts/ja/1f64a3a171b9c3a0.mp3",
   "ja:ダンスが できる": "tts/ja/13c6204a9222f5ca.mp3",
   "ja:ダンスが できるです": "tts/ja/a55f00564e30da2f.mp3",
+  "ja:ティーシャツ": "tts/ja/f91054bdbf6c1016.mp3",
+  "ja:テスト": "tts/ja/13be8d96600b7670.mp3",
   "ja:テストが あります": "tts/ja/428df5f142fceb40.mp3",
   "ja:テストだから、べんきょうします": "tts/ja/ac967da46eae4737.mp3",
   "ja:テストと しんぶんが あります": "tts/ja/586ba1fa967ecd9c.mp3",
-  "ja:テストの まえに せんせいと はなします": [
-    "tts/ja/b8037e1cff6e1109.mp3"
-  ],
+  "ja:テストの まえに せんせいと はなします": "tts/ja/b8037e1cff6e1109.mp3",
   "ja:テストの まえに べんきょうします": "tts/ja/7323288ac3a4e679.mp3",
   "ja:テストは よくなかったです": "tts/ja/433bc2c792f85769.mp3",
   "ja:テストはたいへんでした": "tts/ja/5d472d392c919c8b.mp3",
@@ -5210,28 +4893,26 @@
   "ja:テレビを みていますけど、つまらないです": "tts/ja/485d5f3a58ba3039.mp3",
   "ja:テレビを みてください": "tts/ja/006306f96644aa81.mp3",
   "ja:テレビを みてもいいですか": "tts/ja/4c79c8251140b77c.mp3",
-  "ja:テレビを みない": [
-    "tts/ja/67f88de53523cc17.mp3"
-  ],
+  "ja:テレビを みない": "tts/ja/67f88de53523cc17.mp3",
   "ja:テレビを みないでください": "tts/ja/787e722d5be56408.mp3",
   "ja:テレビを みます": "tts/ja/dadd3f584a5a64ab.mp3",
   "ja:テレビを みる まえに しゅくだいを します": "tts/ja/c54148f1b39b65d5.mp3",
   "ja:テレビを みるのが きらいです": "tts/ja/be777f198105339c.mp3",
   "ja:テレビを みるのが すきです": "tts/ja/6a657821bdac32e6.mp3",
+  "ja:テーブル": "tts/ja/c53d8bd4c987341d.mp3",
+  "ja:テープ": "tts/ja/ee2e78caaf01cb84.mp3",
+  "ja:テープレコーダー": "tts/ja/677f0407c99aa660.mp3",
+  "ja:デパート": "tts/ja/e1f227c0cdbadaf4.mp3",
   "ja:トイレ": "tts/ja/f9a6cce35fbbc88d.mp3",
   "ja:トイレが ありますか": "tts/ja/a89e343781d79dfc.mp3",
-  "ja:トイレは あそこに あります": [
-    "tts/ja/804692ea3a59592f.mp3"
-  ],
+  "ja:トイレは あそこに あります": "tts/ja/804692ea3a59592f.mp3",
   "ja:トイレは こちらです": "tts/ja/96f3a843982e4bac.mp3",
   "ja:トイレは どうですか": "tts/ja/a3f7a2bd1254747d.mp3",
   "ja:トイレは どこですか": "tts/ja/3cc55cc6bd14ede0.mp3",
   "ja:トイレは どちらですか": "tts/ja/2e219e1e17514760.mp3",
   "ja:ドア": "tts/ja/d04283127b433f04.mp3",
   "ja:ドアが あります": "tts/ja/16488ddf8b3e5900.mp3",
-  "ja:ドアの よこに いすが あります": [
-    "tts/ja/25fcd188551212bf.mp3"
-  ],
+  "ja:ドアの よこに いすが あります": "tts/ja/25fcd188551212bf.mp3",
   "ja:ナイフ": "tts/ja/3e57349a13d64215.mp3",
   "ja:ナイフと フォークを ください": "tts/ja/27f9354bbabcf18f.mp3",
   "ja:ニュース": "tts/ja/dc0c5ebcf2530c3c.mp3",
@@ -5241,6 +4922,7 @@
   "ja:ハイキング": "tts/ja/6b2481618d6ec4df.mp3",
   "ja:ハイキングが すきです": "tts/ja/09315791206fa001.mp3",
   "ja:ハイキングを したり キャンプを したりします": "tts/ja/ae8a3bb99c713a35.mp3",
+  "ja:ハンカチ": "tts/ja/4adc5a6acbbbb0ed.mp3",
   "ja:バス": "tts/ja/76e8a3d591fe740e.mp3",
   "ja:バスが おくれたんです": "tts/ja/b229b928b298ea19.mp3",
   "ja:バスが こなかったんです。だから タクシーに のりました": "tts/ja/1687341f2822ef27.mp3",
@@ -5259,23 +4941,20 @@
   "ja:バスで いきます": "tts/ja/e7ecbc6238f76ef7.mp3",
   "ja:バスで うちに かえります": "tts/ja/b5c2792c685eaa4e.mp3",
   "ja:バスで えきに いきます": "tts/ja/4f07732657f23adb.mp3",
-  "ja:バスで がっこうに いきました": [
-    "tts/ja/8b22b5fa673b493b.mp3"
-  ],
+  "ja:バスで がっこうに いきました": "tts/ja/8b22b5fa673b493b.mp3",
   "ja:バスで がっこうに いきます": "tts/ja/1b7d23d0635cf235.mp3",
   "ja:バスで くうこうに いきます": "tts/ja/2070c5ab68ac14e1.mp3",
   "ja:バスで こうえんに いきます": "tts/ja/377da27fd4fa4e9f.mp3",
   "ja:バスで びょういんに いきます": "tts/ja/1ad2020cdb21bdd1.mp3",
   "ja:バスで ゆうびんきょくに いきます": "tts/ja/9976c9d669afd03e.mp3",
-  "ja:バスに のります": [
-    "tts/ja/ea454ee5daae7b11.mp3"
-  ],
+  "ja:バスに のります": "tts/ja/ea454ee5daae7b11.mp3",
   "ja:バスに のる まえに きっぷを かいます": "tts/ja/2fc336800d32ce4f.mp3",
   "ja:バスは ここで とまります": "tts/ja/b2054d9db42918e1.mp3",
   "ja:バスは やすいです": "tts/ja/650646ea5ce3c4f2.mp3",
   "ja:バスも こなかったんです": "tts/ja/0bfe856ecc4523ed.mp3",
   "ja:バスを おりてから みちを わたります": "tts/ja/9102c013a3d003b8.mp3",
   "ja:バスを おります": "tts/ja/b8bf925468ae7d66.mp3",
+  "ja:バター": "tts/ja/fe29ff9f3a247f73.mp3",
   "ja:バナナ": "tts/ja/8dd9ba9bb63ee64a.mp3",
   "ja:バナナのほうが りんごより やすいです": "tts/ja/7422c156a20957a4.mp3",
   "ja:パスタ": "tts/ja/107183872023218f.mp3",
@@ -5289,28 +4968,18 @@
     "tts/ja/aeed13eabe0d8ae1.mp3",
     "tts/ja/ac59c30567acdadd.mp3"
   ],
-  "ja:パンと ごはんを たべます": [
-    "tts/ja/89d8cbf2847ed81b.mp3"
-  ],
+  "ja:パンと ごはんを たべます": "tts/ja/89d8cbf2847ed81b.mp3",
   "ja:パンと たまごを かいます": "tts/ja/d4f0d5df1b6acae4.mp3",
-  "ja:パンのほうが すきです": [
-    "tts/ja/4788d0d2dfe67e88.mp3"
-  ],
+  "ja:パンのほうが すきです": "tts/ja/4788d0d2dfe67e88.mp3",
   "ja:パンや ぎゅうにゅうを かいます": "tts/ja/121a21f004433754.mp3",
   "ja:パンや くだものを かいます": "tts/ja/fa5581c00ab33af9.mp3",
   "ja:パンや たまごなどを かいます": "tts/ja/dd4a3a93ff16fd95.mp3",
   "ja:パンや たまごを かいます": "tts/ja/2f6b7cf9154362d1.mp3",
   "ja:パンや たまごを ください": "tts/ja/69afe378296409c7.mp3",
   "ja:パンを かいに いきます": "tts/ja/f79f97ac80859d95.mp3",
-  "ja:パンを かってください": [
-    "tts/ja/2c966a991cccf2a1.mp3"
-  ],
-  "ja:パンを さんこ ください": [
-    "tts/ja/c84e7c0c24ede50d.mp3"
-  ],
-  "ja:パンを たべない": [
-    "tts/ja/b014646a2d03fd48.mp3"
-  ],
+  "ja:パンを かってください": "tts/ja/2c966a991cccf2a1.mp3",
+  "ja:パンを さんこ ください": "tts/ja/c84e7c0c24ede50d.mp3",
+  "ja:パンを たべない": "tts/ja/b014646a2d03fd48.mp3",
   "ja:パンを たべます": "tts/ja/ddf328113f223f0b.mp3",
   "ja:パーティー": "tts/ja/c5272ac0ff82109d.mp3",
   "ja:パーティーが たのしみです": "tts/ja/268a299f465d08bf.mp3",
@@ -5326,9 +4995,7 @@
   "ja:ビールですか": "tts/ja/7c510433494c2a71.mp3",
   "ja:ビールは いくら ですか": "tts/ja/975a1f13e143f70a.mp3",
   "ja:ビールは ぜんぜん のみません": "tts/ja/6b4123a9424a2684.mp3",
-  "ja:ビールを のまない": [
-    "tts/ja/bf063cffc9cb0819.mp3"
-  ],
+  "ja:ビールを のまない": "tts/ja/bf063cffc9cb0819.mp3",
   "ja:ビールを のみます": "tts/ja/7f923d17a0981ffb.mp3",
   "ja:ピアノ": "tts/ja/4453260dd7f0aca5.mp3",
   "ja:ピアノが じょうずです": "tts/ja/0533c858bd328fb6.mp3",
@@ -5336,8 +5003,12 @@
   "ja:ピアノも できます": "tts/ja/cff6f02dee753d9f.mp3",
   "ja:ピアノを ひく": "tts/ja/1093bee4c905bd85.mp3",
   "ja:ピアノを ひくのが じょうずです": "tts/ja/58511d850e70b150.mp3",
+  "ja:フィルム": "tts/ja/c7f327d5da5e074a.mp3",
   "ja:フォーク": "tts/ja/ca492a60c53c8b6b.mp3",
   "ja:フォークを ください": "tts/ja/04256c8919d639e8.mp3",
+  "ja:プール": "tts/ja/b6ed7ecad49ae85e.mp3",
+  "ja:ベッド": "tts/ja/7f5cccba9a09861f.mp3",
+  "ja:ペット": "tts/ja/83765f40c42326b8.mp3",
   "ja:ペン": "tts/ja/a1498bccec1b9a10.mp3",
   "ja:ペン ください": "tts/ja/e4504a86a127154f.mp3",
   "ja:ペン ふたつ ください": "tts/ja/a6eb926ce626564f.mp3",
@@ -5348,38 +5019,34 @@
   "ja:ペンを かしてください": "tts/ja/974a2b9cbc4e8102.mp3",
   "ja:ペンを さんぼん ください": "tts/ja/b17eb0edf47cb446.mp3",
   "ja:ペンを にほん かしてください": "tts/ja/dc1d834c25d994ab.mp3",
-  "ja:ペンを わすれたんです": [
-    "tts/ja/84cdd13fa66728f9.mp3"
-  ],
+  "ja:ペンを わすれたんです": "tts/ja/84cdd13fa66728f9.mp3",
+  "ja:ページ": "tts/ja/e10443cc8066e064.mp3",
   "ja:ホテル": "tts/ja/9272497f8f39dcf1.mp3",
   "ja:ホテルが ありますか": "tts/ja/8553ed955e76eeae.mp3",
   "ja:ホテルで ごはんを たべます": "tts/ja/11657cc1a4a79239.mp3",
-  "ja:ホテルで たばこを すってはいけません": [
-    "tts/ja/8e5c04dea1518e4b.mp3"
-  ],
+  "ja:ホテルで たばこを すってはいけません": "tts/ja/8e5c04dea1518e4b.mp3",
   "ja:ホテルで はたらきます": "tts/ja/9bbd86a13f380400.mp3",
   "ja:ホテルで コーヒーを のみます": "tts/ja/a2ad752b12111f59.mp3",
   "ja:ホテルに います": "tts/ja/d34998af8a5e72a2.mp3",
   "ja:ホテルに かえります": "tts/ja/dced43e510d3b720.mp3",
   "ja:ホテルに トイレが あります": "tts/ja/6f362363889aac55.mp3",
-  "ja:ホテルは あそこです": [
-    "tts/ja/3ce4312d55834324.mp3"
-  ],
-  "ja:ホテルは えきから ちかいです": [
-    "tts/ja/7321c6e040491aa3.mp3"
-  ],
-  "ja:ホテルは えきと ぎんこうの あいだです": [
-    "tts/ja/9d6e2fa9cd586f11.mp3"
-  ],
+  "ja:ホテルは あそこです": "tts/ja/3ce4312d55834324.mp3",
+  "ja:ホテルは えきから ちかいです": "tts/ja/7321c6e040491aa3.mp3",
+  "ja:ホテルは えきと ぎんこうの あいだです": "tts/ja/9d6e2fa9cd586f11.mp3",
   "ja:ホテルは きれいでした": "tts/ja/7fd221898eec1ddc.mp3",
   "ja:ホテルは しずかでした": "tts/ja/b5a60f866021fb2e.mp3",
   "ja:ホテルは そちらです": "tts/ja/57c67aa806a481f4.mp3",
+  "ja:ボタン": "tts/ja/6a16518392779f3d.mp3",
+  "ja:ボールペン": "tts/ja/7e2b209689c4bfed.mp3",
+  "ja:ポケット": "tts/ja/02b43991a3484a8e.mp3",
   "ja:ポスト": "tts/ja/9d1c1ffa7f98e5dd.mp3",
   "ja:ポストは えきの まえに あります": "tts/ja/0345a788c57b4b28.mp3",
   "ja:ポストは えきの よこに あります": "tts/ja/ebe72f047def4667.mp3",
   "ja:ポストは ぎんこうの まえに あります": "tts/ja/129c4832b2a6a269.mp3",
   "ja:ポストは どこですか": "tts/ja/58adf72d2342c682.mp3",
+  "ja:マッチ": "tts/ja/c3e39ee71dc83563.mp3",
   "ja:メニューをください": "tts/ja/afd078291b01b3b4.mp3",
+  "ja:メートル": "tts/ja/eb0473c7d95fc0f3.mp3",
   "ja:ラジオ": "tts/ja/5da446724c23cb9c.mp3",
   "ja:ラジオを きいたり ざっしを よんだりします": "tts/ja/cd3c56f8a0f66f78.mp3",
   "ja:ラジオを きいたり ジョギングを したりします": "tts/ja/2d2f77c9c1b98a69.mp3",
@@ -5388,13 +5055,9 @@
   "ja:ラーメン": "tts/ja/5faa1bcb3e3437d4.mp3",
   "ja:ラーメンが いちばん おいしいです": "tts/ja/53e2c8857a236444.mp3",
   "ja:ラーメンが いちばん おいしいです。ゆうめいですよ": "tts/ja/7b072a098785f23f.mp3",
-  "ja:ラーメンが すきだから、よく たべます": [
-    "tts/ja/36cda108761fef7e.mp3"
-  ],
+  "ja:ラーメンが すきだから、よく たべます": "tts/ja/36cda108761fef7e.mp3",
   "ja:ラーメンが すきです": "tts/ja/ea46ac07f76a1f79.mp3",
-  "ja:ラーメンが たべたいです": [
-    "tts/ja/7dbc04ac7160c4f9.mp3"
-  ],
+  "ja:ラーメンが たべたいです": "tts/ja/7dbc04ac7160c4f9.mp3",
   "ja:ラーメンと カレーと どちらが おいしいですか": "tts/ja/fe8d50551a195e84.mp3",
   "ja:ラーメンと カレーと どちらが すきですか": "tts/ja/024c5c5cca605fd5.mp3",
   "ja:ラーメンと カレーと どっちが おいしいですか": "tts/ja/69da67159f261480.mp3",
@@ -5414,11 +5077,10 @@
   "ja:ラーメンを たべました。そして おちゃも のみました": "tts/ja/b2b88e0d3d7e261f.mp3",
   "ja:ラーメンを たべました。そして デザートも たべました": "tts/ja/4c8dfc7d7db5c657.mp3",
   "ja:ラーメンを たべます": "tts/ja/d2188c0ba69df73e.mp3",
-  "ja:ラーメンを たべませんか": [
-    "tts/ja/bfc3f062593d9f98.mp3"
-  ],
+  "ja:ラーメンを たべませんか": "tts/ja/bfc3f062593d9f98.mp3",
   "ja:ラーメンを ふたつ ください": "tts/ja/0066e4ef37a4825b.mp3",
   "ja:ラーメンを ふたつ と ジュースを ひとつ ください": "tts/ja/58576600f0bf8792.mp3",
+  "ja:レコード": "tts/ja/6d272f991b695360.mp3",
   "ja:レストラン": "tts/ja/a0c134003eedccb2.mp3",
   "ja:レストランで さけを のみます": "tts/ja/ed547215bfd38113.mp3",
   "ja:レストランで すしを たべます": "tts/ja/fb50332729f9dae2.mp3",
@@ -5426,6 +5088,7 @@
   "ja:レストランに いきます": "tts/ja/e972f2da51fcc6f3.mp3",
   "ja:レストランのなかで これが いちばん おいしいです": "tts/ja/07474102cfa74e2e.mp3",
   "ja:レストランは にぎやかでした": "tts/ja/25fb44e795be2782.mp3",
+  "ja:ワイシャツ": "tts/ja/7d8a1e1ab151ba11.mp3",
   "ja:人": "tts/ja/52e4ddd73419f769.mp3",
   "ja:大きい": "tts/ja/c2a41c23a952ac0d.mp3",
   "ja:学校に行きます": "tts/ja/73dc8e9b31389f22.mp3",
