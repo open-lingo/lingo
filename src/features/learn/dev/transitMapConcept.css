@@ -1,0 +1,239 @@
+/**
+ * Transit-map learn-page concept (dev preview, 2026-07-15).
+ * Scoped .tmc- namespace; palette rides the theme tokens so every built-in
+ * and custom theme keeps working — only the line hues are local, with
+ * explicit dark-mode variants.
+ */
+.tmc-root {
+  --tmc-ink: var(--color-text-primary);
+  --tmc-panel: var(--color-surface);
+  --tmc-muted: var(--color-text-muted);
+  --tmc-border: var(--color-border);
+  --tmc-line-main: #e5493a;
+  --tmc-q0: #0aa3c2;
+  --tmc-q1: #f09a00;
+  --tmc-q2: #8e77d2;
+  --tmc-locked: color-mix(in srgb, var(--color-text-muted) 40%, var(--color-surface));
+  --tmc-halo: rgba(229, 73, 58, 0.22);
+  --tmc-done: var(--tmc-line-main);
+}
+.dark .tmc-root {
+  --tmc-line-main: #ff6a5b;
+  --tmc-q0: #2cc3e0;
+  --tmc-q1: #ffb01f;
+  --tmc-q2: #a794ea;
+  --tmc-halo: rgba(255, 106, 91, 0.28);
+}
+
+/* ── network map panel ─────────────────────────────────────────────── */
+.tmc-map-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  cursor: grab;
+  scrollbar-width: thin;
+}
+.tmc-map-scroll.tmc-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+.tmc-map-inner {
+  position: relative;
+}
+.tmc-map-inner svg {
+  display: block;
+}
+.tmc-map-inner svg text {
+  font-family: var(--font-family);
+}
+
+/* line-draw on load */
+.tmc-rail-main {
+  transition: stroke-dashoffset 1100ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* station pop-in */
+@keyframes tmc-pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.tmc-station {
+  cursor: pointer;
+  outline: none;
+}
+.tmc-station .tmc-station-glyph {
+  animation: tmc-pop 480ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.tmc-station:hover .tmc-station-glyph,
+.tmc-station:focus-visible .tmc-station-glyph {
+  transform: scale(1.28);
+}
+.tmc-station:focus-visible .tmc-hit {
+  stroke: var(--tmc-ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
+}
+
+/* current-station pulse */
+@keyframes tmc-pulse {
+  0% {
+    r: 13;
+    opacity: 0.75;
+  }
+  100% {
+    r: 32;
+    opacity: 0;
+  }
+}
+.tmc-pulse {
+  animation: tmc-pulse 1.9s ease-out infinite;
+}
+
+/* mascot */
+@keyframes tmc-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2.5px);
+  }
+}
+@keyframes tmc-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.08);
+  }
+}
+.tmc-mascot {
+  animation: tmc-bob 2.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.tmc-mascot-eye {
+  animation: tmc-blink 4.2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* tooltip */
+.tmc-tip {
+  position: absolute;
+  z-index: 6;
+  width: 232px;
+  pointer-events: none;
+  transition: opacity 120ms ease;
+}
+
+/* ── district overlay ──────────────────────────────────────────────── */
+@keyframes tmc-district-in {
+  0% {
+    transform: scale(0.55);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.tmc-district-panel {
+  animation: tmc-district-in 300ms cubic-bezier(0.2, 0.9, 0.3, 1.05) both;
+}
+.tmc-d-stop {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 150ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+a:hover .tmc-d-stop,
+a:focus-visible .tmc-d-stop {
+  transform: scale(1.3);
+}
+
+/* ── mobile line diagram ───────────────────────────────────────────── */
+.tmc-row-rail {
+  position: relative;
+}
+.tmc-row-rail::before {
+  content: "";
+  position: absolute;
+  left: 25px;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: var(--tmc-line-main);
+}
+.tmc-row-future .tmc-row-rail::before {
+  background: repeating-linear-gradient(
+    180deg,
+    var(--tmc-locked) 0 6px,
+    transparent 6px 11px
+  );
+}
+.tmc-row-first .tmc-row-rail::before {
+  top: 50%;
+}
+.tmc-row-last .tmc-row-rail::before {
+  bottom: 50%;
+}
+.tmc-row-dot {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--tmc-panel);
+  border: 3.5px solid var(--tmc-line-main);
+}
+.tmc-row-done .tmc-row-dot {
+  background: var(--tmc-line-main);
+  box-shadow: inset 0 0 0 2.5px var(--tmc-panel);
+}
+.tmc-row-future .tmc-row-dot {
+  border-color: var(--tmc-locked);
+}
+.tmc-row-now .tmc-row-dot {
+  width: 20px;
+  height: 20px;
+  left: 18px;
+  box-shadow: 0 0 0 5px var(--tmc-halo);
+}
+
+/* reduced motion: render final states, kill loops */
+@media (prefers-reduced-motion: reduce) {
+  .tmc-rail-main {
+    transition: none;
+  }
+  .tmc-station .tmc-station-glyph {
+    animation: none;
+  }
+  .tmc-pulse {
+    animation: none;
+    opacity: 0.3;
+  }
+  .tmc-mascot,
+  .tmc-mascot-eye {
+    animation: none;
+  }
+  .tmc-district-panel {
+    animation: none;
+  }
+}

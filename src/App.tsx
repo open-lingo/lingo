@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import { createBrowserRouter, Navigate, RouterProvider, useParams } from "react-router-dom";
 
 import { lazyRetry } from "@/shared/utils/lazyRetry";
+import { useLang } from "@/shared/hooks/useLangPath";
+import { getConjugationVerbEntries } from "@/features/practice/data/practiceDataLoader";
 import { NotFoundPage } from "@/shared/components/NotFoundPage";
 import { RouteErrorBoundary } from "@/shared/components/RouteErrorBoundary";
 import { Layout } from "@/routes/Layout";
@@ -79,6 +81,9 @@ const QaTestDrivePage = lazyRetry(
 const HomeRestructureMockup = lazyRetry(
   () => import("@/features/home/dev/HomeRestructureMockup"),
 );
+const TransitMapConceptPage = lazyRetry(
+  () => import("@/features/learn/dev/TransitMapConceptPage"),
+);
 const SocialPage = lazyRetry(
   () => import("@/features/social/SocialPage"),
 );
@@ -137,6 +142,26 @@ const ConjugationFreeDrillPage = lazyRetry(() =>
 const ConjugationCombinedSession = lazyRetry(() =>
   import("@/features/practice/conjugation/CombinedSession").then((m) => ({ default: m.CombinedSession })),
 );
+const ConjugationGridPage = lazyRetry(() =>
+  import("@/features/practice/conjugation-grid/ConjugationGridPage").then((m) => ({
+    default: m.ConjugationGridPage,
+  })),
+);
+
+/**
+ * `practice/conjugation` dispatcher: ja keeps its engine-backed trainer hub
+ * (glyph tiles + conjugationEngine); languages that ship person×tense verb
+ * tables (currently es) get the ConjugationGridPage. Data presence decides,
+ * so a language with a conjugation tile but no entries still falls back to
+ * a working page instead of a dead end. The ja-only sub-routes
+ * (conjugation/free|train|:typeId) are untouched — the grid page never
+ * links to them.
+ */
+function ConjugationHubRoute() {
+  const lang = useLang();
+  const hasGridData = lang !== "ja" && getConjugationVerbEntries(lang).length > 0;
+  return hasGridData ? <ConjugationGridPage /> : <ConjugationPracticePage />;
+}
 const ReadingPracticePage = lazyRetry(() =>
   import("@/features/practice/ReadingPracticePage").then((m) => ({ default: m.ReadingPracticePage })),
 );
@@ -379,7 +404,7 @@ const router = createBrowserRouter([
                   { path: "alphabet/:alphabetId", element: <AlphabetPracticePage /> },
                   { path: "alphabet", element: <PracticeAlphabetHubPage /> },
                   { path: "kanji", element: <KanjiPracticePage /> },
-                  { path: "conjugation", element: <ConjugationPracticePage /> },
+                  { path: "conjugation", element: <ConjugationHubRoute /> },
                   { path: "conjugation/free", element: <ConjugationFreeDrillPage /> },
                   { path: "conjugation/train", element: <ConjugationCombinedSession /> },
                   { path: "conjugation/:typeId", element: <TrainerTypeSession /> },
@@ -398,6 +423,7 @@ const router = createBrowserRouter([
               { path: "lesson-preview", element: <LessonStepPreviewPage /> },
               { path: "qa", element: <QaTestDrivePage /> },
               { path: "home-preview", element: <HomeRestructureMockup /> },
+              { path: "transit-preview", element: <TransitMapConceptPage /> },
               { path: "social", element: <SocialPage /> },
               { path: "social/friends", element: <FriendsPage /> },
               { path: "messenger", element: <MessengerPage /> },

@@ -52,6 +52,27 @@ const deepBody = await page.textContent("body");
 ok("es-m10-6 ?step=listening_comprehension deep-links", /listen|escucha|audio|hear/i.test(deepBody),
   "listening surface visible");
 
+// ── 5. ConjugationGrid trainer serves es (not the ja kana hub) ────────
+await page.goto(`${BASE}/es/practice/conjugation`, { waitUntil: "networkidle" });
+await page.waitForTimeout(1200);
+const conjBody = await page.textContent("body");
+ok("es conjugation grid renders", /presente|pret[eé]rito|imperfecto/i.test(conjBody) && !/て形|た形/.test(conjBody),
+  "tense tabs visible, no kana tiles");
+
+// ── 6. agreement_cloze step deep-links (wave-2 content) ───────────────
+await page.goto(`${BASE}/es/learn/lessons/es-m4-2?step=agreement_cloze`, { waitUntil: "networkidle" });
+await page.waitForTimeout(1200);
+const agrBody = await page.textContent("body");
+ok("es-m4-2 ?step=agreement_cloze deep-links", /bonit|viej|cas/i.test(agrBody) && !/unknown step/i.test(agrBody),
+  "agreement surface visible");
+
+// ── 7. dialogue_listen step deep-links (two-voice-ready dialogues) ────
+await page.goto(`${BASE}/es/learn/lessons/es-m5-7?step=dialogue_listen`, { waitUntil: "networkidle" });
+await page.waitForTimeout(1200);
+const dlgBody = await page.textContent("body");
+ok("es-m5-7 ?step=dialogue_listen deep-links", /escucha|listen|dialog|audio/i.test(dlgBody) && !/unknown step/i.test(dlgBody),
+  "dialogue surface visible");
+
 await browser.close();
 const pass = results.filter(Boolean).length;
 console.log(`\n${pass}/${results.length} checks passed`);
