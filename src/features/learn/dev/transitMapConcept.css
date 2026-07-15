@@ -217,6 +217,123 @@ a:focus-visible .tmc-d-stop {
   box-shadow: 0 0 0 5px var(--tmc-halo);
 }
 
+/* ── ambient sky: clouds by day, moon + stars by night ─────────────── */
+.tmc-root {
+  --tmc-seal: #b93a2b;
+  --tmc-river: #7fb8d9;
+}
+.dark .tmc-root {
+  --tmc-seal: #e05545;
+  --tmc-river: #3d6f8e;
+}
+.tmc-night {
+  display: none;
+}
+.dark .tmc-night {
+  display: initial;
+}
+.dark .tmc-day {
+  display: none;
+}
+@keyframes tmc-drift-a {
+  from {
+    transform: translateX(-240px);
+  }
+  to {
+    transform: translateX(2400px);
+  }
+}
+@keyframes tmc-drift-b {
+  from {
+    transform: translateX(-360px);
+  }
+  to {
+    transform: translateX(2600px);
+  }
+}
+.tmc-cloud {
+  animation: tmc-drift-a 150s linear infinite;
+}
+.tmc-cloud.b {
+  animation: tmc-drift-b 210s linear infinite;
+}
+@keyframes tmc-twinkle {
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+.tmc-star {
+  animation: tmc-twinkle 3.4s ease-in-out infinite;
+}
+
+/* press squash (ticket-machine tactility) */
+.tmc-station:active .tmc-station-glyph {
+  transform: scale(0.88);
+}
+
+/* ghost train ambling the line */
+.tmc-ghost {
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+/* header title letter-boarding */
+@keyframes tmc-slot {
+  from {
+    transform: translateY(0.65em);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.tmc-title-ch {
+  display: inline-block;
+  animation: tmc-slot 420ms cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
+  animation-delay: calc(var(--i) * 26ms);
+}
+
+/* departure board rows flap in */
+@keyframes tmc-flap {
+  from {
+    transform: rotateX(84deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+.tmc-board-row {
+  animation: tmc-flap 460ms cubic-bezier(0.3, 0.9, 0.4, 1.05) both;
+  animation-delay: calc(var(--i) * 140ms);
+  transform-origin: top center;
+}
+
+/* demo-state toggle chip */
+.tmc-toggle {
+  display: inline-flex;
+  border: 1.5px solid var(--tmc-border);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--tmc-panel);
+}
+.tmc-toggle button {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 11px;
+  color: var(--tmc-muted);
+}
+.tmc-toggle button.on {
+  background: var(--tmc-ink);
+  color: var(--tmc-panel);
+}
+
 /* reduced motion: render final states, kill loops */
 @media (prefers-reduced-motion: reduce) {
   .tmc-rail-main {
@@ -234,6 +351,18 @@ a:focus-visible .tmc-d-stop {
     animation: none;
   }
   .tmc-district-panel {
+    animation: none;
+  }
+  .tmc-cloud,
+  .tmc-cloud.b,
+  .tmc-star {
+    animation: none;
+  }
+  .tmc-ghost {
+    display: none;
+  }
+  .tmc-title-ch,
+  .tmc-board-row {
     animation: none;
   }
 }
