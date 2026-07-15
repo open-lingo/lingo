@@ -1,5 +1,13 @@
 # ES course — missing pieces & wanted changes (2026-07-13)
 
+> **STATUS 2026-07-15: §"New trainers/steps" items 1–7 ALL SHIPPED** (ConjugationGrid,
+> agreement_cloze, accent accept-but-flag + AccentBar, es match_pairs +
+> language-keyed pad pool, es dialogue_listen, cloze exercisedAtomSurfaces,
+> vocabTextMcq), plus most of the ja-hardcode burn-down (vocab browser,
+> lessonAtomIndex/SRS loop, derived test-outs, course deck, milestones,
+> command palette — for es AND ko). Current state + remaining deltas:
+> `docs/es-ja-parity-2026-07-15.md`. Kept below for provenance.
+
 Notes from the Spanish A1 mass-authoring session. Nothing here blocks the shipped
 course; these are the gaps we authored AROUND, ranked by learner impact. See
 `docs/es-course-spine-2026-07-13.md` for the course itself and

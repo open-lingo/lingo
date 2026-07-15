@@ -1,6 +1,6 @@
 # Open Lingo — project state
 
-**Last updated:** 2026-07-13  
+**Last updated:** 2026-07-15  
 **Purpose:** Accurate snapshot for humans and agents. For launch tasks see [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md).
 
 ---
@@ -8,6 +8,13 @@
 ## Executive summary
 
 Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-core** (FastAPI). Core loop: **learn → lessons → flashcards (SRS) → settings**. Community deck browse/subscribe works; forum, contribute, and leaderboard are **feature-flagged off** for launch. Legal, landing/auth split, ads framework, and funding meter API exist; **live revenue** is post-launch.
+
+### Recent (2026-07-15 — es feature wave + ja↔es parity + transit-map concept)
+
+- **Every gap the es course authored around is now shipped** (6 engine agents + 4 content agents): NEW `agreement_cloze` step type (multi-blank gender/number sets, graded together); **ConjugationGrid** person×tense trainer at `practice/conjugation` for es (`ConjugationHubRoute` dispatches by language — the es tile previously landed on the ja kana trainer, i.e. wrong data); accent **accept-but-flag** grading ("Correct — watch the accents: años") + AccentBar (á é í ó ú ü ñ ¿ ¡); es `matchPairs`/`dialogueListen`/`vocabTextMcq`/`capstoneMatchPairs` factories + language-keyed match pad pool (es grids no longer risk Japanese fills); cloze `exercisedAtomSurfaces`. Content wave: **15 match grids, 12 dialogues (m5+), ~20 agreement drills, ~24 text-front MCQs** across m2–m16; TTS topped up **+61 clips → 1,255 es keys, 100% deck coverage** (emitter now walks dialogue lines + match pair sources).
+- **ja-gate burn-down (es AND ko benefit)**: `normalizedAtoms` adapter behind `lessonAtomIndex` un-gated the whole dead column — vocab browser, in-lesson SRS review, enriched course decks + due summaries, subscription queue, module-vocab preview, course-map samples + `COURSE_MILESTONES.es`, command-palette vocab. Derived module test-outs parametrized (es derives full 12-item sets; authored bank fallback; `TESTOUT_DERIVED_FLOOR=8`). Audit + remaining deltas: `docs/es-ja-parity-2026-07-15.md` (top leftovers: es/ko review-lesson routing, ko TTS still zero clips, two-voice dialogues, ProgressPage ja-deck call).
+- **Transit-map learn concept (dev preview)** at `/:lang/transit-preview` (`features/learn/dev/TransitMapConceptPage.tsx`): the course as a Tokyo-Metro network — modules as stations (spacing scales with lesson count), real sideQuests as branch spurs, progress as line fill, dashed locked track, animated line-draw + train mascot ride (reduced-motion safe), click-through district view per module (lessons as local stops, all real links), mobile = transit-app line diagram. Measured clean at 390/1080p/4K × light/dark (`scripts/transit-measure.mjs`, 34/34). Animation research catalog in the session log; standalone HTML mockup preceded it (artifact).
+- Verified: full suite **3,029 passed / 1 skipped**, tsc clean, prod build clean, `es-smoke.mjs` 7/7 (3 new checks: grid trainer, agreement deep-link, dialogue deep-link).
 
 ### Recent (2026-07-13 — Spanish A1 course mass-authored)
 
