@@ -124,7 +124,7 @@ export function buildSrsReviewLesson(opts: {
 }): LessonContent {
   const { moduleId, position, courseId, languageId } = opts;
   const allAtoms = getAtomsUpToModule(moduleId, languageId);
-  const id = `ja-${moduleId}-review-${position}`;
+  const id = `${languageId}-${moduleId}-review-${position}`;
   const isRecognitionHeavy = position === 1;
 
   const unlockedIds = getUnlockedAtomIds();

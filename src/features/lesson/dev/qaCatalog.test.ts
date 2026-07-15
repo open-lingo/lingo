@@ -29,6 +29,12 @@ describe("qaCatalog", () => {
     }
   });
 
+  it("agreement_cloze is pinned for ja but covered by the es course", () => {
+    const es = buildStepTypeCoverage("es");
+    const ac = es.find((c) => c.type === "agreement_cloze");
+    expect(ac?.picks.length ?? 0).toBeGreaterThan(0);
+  });
+
   it("offers two distinct lessons whenever more than one lesson uses the type", () => {
     for (const c of coverage) {
       if (c.totalLessons > 1) {

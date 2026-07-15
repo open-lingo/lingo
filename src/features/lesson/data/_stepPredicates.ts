@@ -65,6 +65,7 @@ const ALWAYS_SENTENCE: ReadonlySet<LessonStep["type"]> = new Set([
   "listening_build",
   "listening_comprehension",
   "particle_cloze",
+  "agreement_cloze",
   "dialogue_listen",
   "speaking",
 ]);

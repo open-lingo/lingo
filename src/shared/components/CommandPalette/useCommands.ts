@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { getMockCourse } from "@/shared/domain/mockCourse";
-import { JA_COURSE_ATOMS, canonicalAtomId } from "@/features/languages/ja/courseAtoms";
+import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms";
 import type { Command } from "./types";
 
 /**
@@ -66,18 +66,23 @@ export function useCommands(): Command[] {
       // Course map can throw mid-HMR on yōon row transitions — skip lessons.
     }
 
-    const vocab: Command[] =
-      lang === "ja"
-        ? JA_COURSE_ATOMS.filter((a) => !a.excludeFromSrs).map((atom) => ({
-            id: `vocab-${atom.id}`,
-            label: atom.kanji ? `${atom.kanji}（${atom.kana}）` : atom.kana,
-            hint: atom.meaningEn,
-            group: t("cmd.group.vocab", "Vocab"),
-            icon: "bookText",
-            keywords: `${atom.romaji} ${atom.meaningEn} ${atom.kana}`,
-            perform: go(langPath(`vocab?card=${encodeURIComponent(canonicalAtomId(atom))}`)),
-          }))
-        : [];
+    // Active language's normalized atom catalog; SRS-eligible only so each
+    // entry deep-links to a card the vocab page actually renders.
+    const vocab: Command[] = getNormalizedCourseAtoms(lang)
+      .filter((a) => a.srsEligible)
+      .map((atom) => ({
+        id: `vocab-${atom.id}`,
+        label: atom.secondary
+          ? `${atom.secondary}（${atom.display}）`
+          : atom.display,
+        hint: atom.gloss,
+        group: t("cmd.group.vocab", "Vocab"),
+        icon: "bookText",
+        keywords: [atom.romanization, atom.gloss, atom.display]
+          .filter(Boolean)
+          .join(" "),
+        perform: go(langPath(`vocab?card=${encodeURIComponent(atom.id)}`)),
+      }));
 
     return [...nav, ...settings, ...lessons, ...vocab];
   }, [t, navigate, langPath, lang, openSettings]);

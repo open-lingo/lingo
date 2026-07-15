@@ -9,7 +9,7 @@ import {
 import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { useDeckSubscriptions } from "./useDeckSubscriptions";
 import { useSettings } from "@/shared/contexts/SettingsContext";
-import { buildEnrichedJaCourseDeck } from "./data/courseDeck";
+import { buildEnrichedCourseDeck } from "./data/courseDeck";
 import type { DeckResponse } from "@/shared/api/decks";
 import type { DeckStudyPreset } from "./deckScope";
 import { deckMatchesPreset } from "./deckScope";
@@ -29,13 +29,20 @@ export type SubscriptionQueueFilter =
  * course deck carries a `courseId`, so `deckScope` treats it as a *lesson*
  * deck — it participates in the "all" and "lessons" scopes, not "vocab".
  */
-const JA_COURSE_DECK_ID = "ja-course";
+
+/** Deck id of a language's client-generated course deck (`ja-course`). */
+export function courseDeckIdFor(languageId: string): string {
+  return `${languageId}-course`;
+}
 
 /** Whether the auto course deck should appear under the active review scope. */
-export function courseDeckPassesFilter(filter: SubscriptionQueueFilter): boolean {
+export function courseDeckPassesFilter(
+  filter: SubscriptionQueueFilter,
+  courseDeckId: string,
+): boolean {
   if (filter.kind === "all") return true;
   if (filter.kind === "preset") return filter.preset === "lessons";
-  return filter.deckIds.has(JA_COURSE_DECK_ID);
+  return filter.deckIds.has(courseDeckId);
 }
 
 /** Load subscription-based queue for practice. Uses batch deck fetch. */
@@ -93,10 +100,11 @@ export function useSubscriptionQueue(
     deck: DeckWithCards;
     sub: DeckSubscription;
   } | null => {
-    if (languageId !== "ja") return null;
     if (settings.flashcards?.hideCourseDeck) return null;
-    if (!courseDeckPassesFilter(filter)) return null;
-    const courseDeck = buildEnrichedJaCourseDeck();
+    if (!courseDeckPassesFilter(filter, courseDeckIdFor(languageId)))
+      return null;
+    const courseDeck = buildEnrichedCourseDeck(languageId);
+    if (!courseDeck) return null;
     const unlocked = (courseDeck.cards ?? []).filter((c) => c.unlocked);
     if (unlocked.length === 0) return null;
     return {

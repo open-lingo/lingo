@@ -11,23 +11,45 @@ type Props = {
    * language attributes (lang="ja") and formatting stay theirs.
    */
   correctAnswer?: ReactNode;
+  /**
+   * Third tone: correct-but-nudge (e.g. the learner dropped the accents).
+   * Renders the warning (amber) palette with the success check + "Correct!"
+   * headline — it must still read as a win. Ignored when `correct` is false.
+   */
+  flagged?: boolean;
+  /**
+   * Ready-to-render nudge line for the flagged tone, e.g.
+   * "Watch the accents: <b>años</b>". Callers own formatting/lang attrs,
+   * same contract as `correctAnswer`. Only rendered when flagged.
+   */
+  flaggedNote?: ReactNode;
 };
 
 /**
  * Soft post-submit banner. Uses the accent token for correct (matching the
  * "tinted selected" treatment on option pills) and a muted error palette for
- * incorrect — never blaring red. Icon + text verdict together (never color
- * alone) so the state survives color-blindness and screenshots.
+ * incorrect — never blaring red. The flagged tone swaps in the warning
+ * palette but keeps the success iconography. Icon + text verdict together
+ * (never color alone) so the state survives color-blindness and screenshots.
  */
-export function Feedback({ correct, explanation, correctAnswer }: Props) {
+export function Feedback({
+  correct,
+  explanation,
+  correctAnswer,
+  flagged = false,
+  flaggedNote,
+}: Props) {
+  const isFlagged = correct && flagged;
   return (
     <div
       role="alert"
       aria-live="assertive"
       className={`mt-4 rounded-2xl border-[1.5px] px-5 py-4 text-sm ${
-        correct
-          ? "border-accent bg-accent-muted text-accent"
-          : "border-error bg-error/10 text-error"
+        isFlagged
+          ? "border-warning bg-warning/10 text-warning"
+          : correct
+            ? "border-accent bg-accent-muted text-accent"
+            : "border-error bg-error/10 text-error"
       }`}
     >
       <div className="flex items-center gap-2">
@@ -53,6 +75,9 @@ export function Feedback({ correct, explanation, correctAnswer }: Props) {
         </svg>
         <span className="text-base font-bold">{correct ? "Correct!" : "Not quite"}</span>
       </div>
+      {isFlagged && flaggedNote !== undefined && (
+        <p className="mt-2 text-base leading-relaxed">{flaggedNote}</p>
+      )}
       {!correct && correctAnswer !== undefined && (
         <p className="mt-2 text-base leading-relaxed">
           <span className="opacity-80">Correct answer: </span>

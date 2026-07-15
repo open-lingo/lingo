@@ -18,7 +18,11 @@ import type { PlacementItemConfig } from "../questionBank";
  */
 
 /** Formats allowed in a test-out. "Add listening" = tap/type + listening,
- *  but NOT speaking/dialogue (mic) or symbol/kana drills. */
+ *  but NOT speaking/dialogue (mic) or symbol/kana drills. Cross-language:
+ *  the ES course's graded step types (sentence/word-image MCQ, cloze,
+ *  build, translate, listening variants) are all already listed here; its
+ *  remaining types (speaking, info, phrase_card) are mic-gated or passive
+ *  and stay excluded. */
 export const TESTOUT_FORMATS: ReadonlySet<string> = new Set([
   "multiple_choice",
   "particle_cloze",
@@ -36,6 +40,17 @@ export const TESTOUT_FORMATS: ReadonlySet<string> = new Set([
 // lesson highlighting the vocab and/or grammar" (was 10).
 export const TESTOUT_SIZE = 12;
 
+/**
+ * Minimum derived-set size for a module's test-out to be served from the
+ * derived path. Below this the course is too thin to sample from (stub
+ * modules, or lessons whose steps fall outside TESTOUT_FORMATS) and a
+ * "test-out" of a handful of questions can't honestly credit a module —
+ * callers fall back to the authored placement bank instead. 8 keeps the
+ * 100%-pass bar meaningful while sitting under TESTOUT_SIZE (12), so a
+ * near-full derivation still qualifies.
+ */
+export const TESTOUT_DERIVED_FLOOR = 8;
+
 export type DerivedItem = {
   step: LessonStep;
   lessonId: string;
@@ -46,18 +61,23 @@ export type DerivedItem = {
   format: string;
 };
 
-/** Section key from a lesson id: `ja-m14-5-1-...` → `m14-5`; katakana/other
- *  lessons (`ja-m10kata-...`) fall back to the whole lesson id. */
-function sectionOf(lessonId: string): string {
-  const m = /^ja-(m\d+)-(\d+)/.exec(lessonId);
-  return m ? `${m[1]}-${m[2]}` : lessonId.replace(/^ja-/, "");
+/** Section key from a lesson id: `ja-m14-5-1-...` → `m14-5`, `es-m10-6` →
+ *  `m10-6`; katakana/other lessons (`ja-m10kata-...`) fall back to the
+ *  lesson id minus the language prefix. */
+function sectionOf(lessonId: string, languageId: string): string {
+  const bare = lessonId.startsWith(`${languageId}-`)
+    ? lessonId.slice(languageId.length + 1)
+    : lessonId;
+  const m = /^(m\d+)-(\d+)/.exec(bare);
+  return m ? `${m[1]}-${m[2]}` : bare;
 }
 
 export function collectGradable(
   moduleId: string,
   formats: ReadonlySet<string> = TESTOUT_FORMATS,
+  languageId: string = "ja",
 ): DerivedItem[] {
-  const course = getMockCourse("ja");
+  const course = getMockCourse(languageId);
   const mod = course.modules.find((m) => m.id === moduleId);
   if (!mod) return [];
   const out: DerivedItem[] = [];
@@ -74,7 +94,7 @@ export function collectGradable(
         out.push({
           step: s,
           lessonId: lesson.id,
-          section: sectionOf(lesson.id),
+          section: sectionOf(lesson.id, languageId),
           grammarPointId,
           format: st.type,
         });
@@ -152,29 +172,41 @@ const testOutConfigCache = new Map<string, PlacementItemConfig[]>();
 
 export function getDerivedTestOutItems(
   moduleId: string,
+  languageId: string = "ja",
 ): PlacementItemConfig[] {
-  const cached = testOutConfigCache.get(moduleId);
+  // Courses share module ids ("m5" exists in JA and ES), so the cache is
+  // keyed per language.
+  const cacheKey = `${languageId}:${moduleId}`;
+  const cached = testOutConfigCache.get(cacheKey);
   if (cached) return cached;
-  const derived = deriveModuleTestOut(moduleId);
+  const derived = deriveModuleTestOut(moduleId, { languageId });
   const configs: PlacementItemConfig[] = derived.items.map((it) => ({
     id: it.step.id,
     moduleId,
-    languageId: "ja",
+    languageId,
     grammarPointId: it.grammarPointId ?? it.section,
     skill: it.grammarPointId ?? it.section,
     type: "derivedStep",
     step: it.step,
   }));
-  testOutConfigCache.set(moduleId, configs);
+  testOutConfigCache.set(cacheKey, configs);
   return configs;
 }
 
 /** Derive a module's test-out from its own lessons (~TESTOUT_SIZE steps). */
 export function deriveModuleTestOut(
   moduleId: string,
-  opts: { size?: number; formats?: ReadonlySet<string> } = {},
+  opts: {
+    size?: number;
+    formats?: ReadonlySet<string>;
+    languageId?: string;
+  } = {},
 ): DerivedTestOut {
-  const all = collectGradable(moduleId, opts.formats ?? TESTOUT_FORMATS);
+  const all = collectGradable(
+    moduleId,
+    opts.formats ?? TESTOUT_FORMATS,
+    opts.languageId ?? "ja",
+  );
   const picked = pickCovering(all, opts.size ?? TESTOUT_SIZE);
   const sectionsTotal = new Set(all.map((i) => i.section)).size;
   return {

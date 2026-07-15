@@ -1,15 +1,12 @@
 /**
  * Vocab browser data layer.
  *
- * Joins the JA course-atom registry (the authored vocabulary) with the
- * learner's concept rollups (GET /progress/me) to tag each word with a
- * mastery tier. Pure + language-gated so the page stays a thin renderer.
+ * Joins the normalized course-atom view (the authored vocabulary for every
+ * language with a catalog — JA/KO/ES today) with the learner's concept
+ * rollups (GET /progress/me) to tag each word with a mastery tier. Pure +
+ * registry-gated so the page stays a thin renderer.
  */
-import {
-  JA_COURSE_ATOMS,
-  canonicalAtomId,
-  isSrsEligibleAtom,
-} from "@/features/languages/ja/courseAtoms";
+import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms";
 import { lingoArtUrl, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import type { ConceptRollup } from "@/shared/api/progress";
 
@@ -17,10 +14,13 @@ export type VocabTier = "new" | "weak" | "fading" | "solid" | "strong";
 export type VocabKind = "vocab" | "particle" | "phrase";
 
 export type VocabRow = {
-  /** Canonical SRS id (`ja:biiru`). */
+  /** Canonical SRS id (`ja:biiru`, `es:cerveza`). */
   id: string;
+  /** Display surface (kana for JA, surface form for KO/ES). */
   kana: string;
+  /** Secondary written form (kanji for JA), when the atom has one. */
   kanji?: string;
+  /** Romanization; falls back to the surface for Latin-script languages. */
   romaji: string;
   meaning: string;
   emoji?: string;
@@ -70,34 +70,39 @@ export function buildVocabRows(
   languageId: string,
   concepts: ConceptRollup[],
 ): VocabRow[] {
-  if (languageId !== "ja") return [];
   const byId = new Map(concepts.map((c) => [c.conceptId, c]));
 
   // Words + particles only: phrase-kind atoms (full example sentences)
   // exist for SRS/listening exposure, but a sentence tile in the WORD
-  // vocab grid reads as mislabeled data and its kana breaks the tile
-  // layout (Spencer QA 2026-07-13).
-  return JA_COURSE_ATOMS.filter(
-    (a) => isSrsEligibleAtom(a) && a.kind !== "phrase",
-  ).map((atom) => {
-    const id = canonicalAtomId(atom);
-    const { tier, recentStrength } = tierFor(byId.get(id));
-    const imageUrl = lingoArtUrl(atom.kana) ?? (atom.emoji ? notoEmojiUrl(atom.emoji) : null);
-    return {
-      id,
-      kana: atom.kana,
-      kanji: atom.kanji,
-      romaji: atom.romaji,
-      meaning: atom.meaningEn,
-      emoji: atom.emoji,
-      imageUrl,
-      module: atom.fromModule,
-      kind: atom.kind,
-      tier,
-      recentStrength,
-      encounters: byId.get(id)?.encounters ?? 0,
-    };
-  });
+  // vocab grid reads as mislabeled data and its surface breaks the tile
+  // layout (Spencer QA 2026-07-13). "other"-kind atoms (KO jamo /
+  // syllables) are alphabet-trainer territory, not vocabulary.
+  return getNormalizedCourseAtoms(languageId)
+    .filter(
+      (a) => a.srsEligible && (a.kind === "vocab" || a.kind === "particle"),
+    )
+    .map((atom) => {
+      const { tier, recentStrength } = tierFor(byId.get(atom.id));
+      const imageUrl =
+        lingoArtUrl(atom.display) ??
+        (atom.emoji ? notoEmojiUrl(atom.emoji) : null);
+      return {
+        id: atom.id,
+        kana: atom.display,
+        kanji: atom.secondary,
+        romaji: atom.romanization ?? atom.display,
+        // ES nouns carry grammatical gender — folded into the free-text
+        // meaning ("beer (f.)") rather than a new column (no page redesign).
+        meaning: atom.gender ? `${atom.gloss} (${atom.gender}.)` : atom.gloss,
+        emoji: atom.emoji,
+        imageUrl,
+        module: atom.module,
+        kind: atom.kind as VocabKind,
+        tier,
+        recentStrength,
+        encounters: byId.get(atom.id)?.encounters ?? 0,
+      };
+    });
 }
 
 const TIER_RANK: Record<VocabTier, number> = { weak: 0, fading: 1, new: 2, solid: 3, strong: 4 };

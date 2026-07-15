@@ -19,10 +19,12 @@ import {
   JA_COURSE_ATOMS,
   isSrsEligibleAtom,
 } from "@/features/languages/ja/courseAtoms";
-import type { Example, FlashcardDeck } from "./types";
+import type { Example, Flashcard, FlashcardDeck } from "./types";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
 import { getUnlockedAtomIds } from "@/features/lesson/data/unlockLessonAtoms";
+import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms";
+import { tryGetLanguageModule } from "@/shared/language/registry";
 import { notoEmojiUrl } from "@/shared/assets/notoEmoji";
 
 /* ── sentence mining ── */
@@ -130,6 +132,50 @@ export function buildEnrichedJaCourseDeck(
     examplesByCardId: getMinedSentences() as ReadonlyMap<string, Example>,
     imagesByCardId: getCardImages(),
   });
+}
+
+/* ── generic course deck (any language with an atom catalog) ── */
+
+/**
+ * Build the course flashcard deck for a language.
+ *
+ * JA keeps its enriched builder (kanji fronts + mined example sentences).
+ * Other languages derive cards straight from the normalized atom view:
+ * front = display surface, back = gloss, emoji art when authored. Card ids
+ * are the canonical atom ids so a card, its FSRS state, and its unlock
+ * flag share one key — same invariant as the JA deck. TTS is keyed off the
+ * active language (deck `languageId`), so no per-card audio wiring is
+ * needed. Returns null when the language has no atom catalog, letting deck
+ * consumers keep their empty-state.
+ */
+export function buildEnrichedCourseDeck(
+  languageId: string,
+  unlockedIds: ReadonlySet<string> = getUnlockedAtomIds(),
+): FlashcardDeck | null {
+  if (languageId === "ja") return buildEnrichedJaCourseDeck(unlockedIds);
+  const module = tryGetLanguageModule(languageId);
+  if (!module) return null;
+  const atoms = getNormalizedCourseAtoms(languageId).filter(
+    (a) => a.srsEligible,
+  );
+  if (atoms.length === 0) return null;
+  const cards: Flashcard[] = atoms.map((atom) => ({
+    id: atom.id,
+    front: atom.display,
+    back: atom.gloss,
+    type: "word",
+    image: atom.emoji ? (notoEmojiUrl(atom.emoji) ?? undefined) : undefined,
+    unlocked: unlockedIds.has(atom.id),
+    parts: undefined,
+  }));
+  return {
+    id: `${languageId}-course`,
+    languageId,
+    name: `${module.displayName.en} — full course`,
+    cards,
+    courseId: module.courseId,
+    locale: "en",
+  };
 }
 
 /** Test hook: drop the memoized indexes. */

@@ -14,7 +14,9 @@
  */
 import { describe, it, expect } from "vitest";
 import { normalizeTypedAnswer } from "@/shared/speech";
+import { accentFold, gradeTypedAnswer } from "@/shared/speech/loose-match";
 import { M18_1_2, M18_2_2 } from "@/features/languages/ja/curriculum/m18";
+import { ES_M5_LESSONS } from "@/features/languages/es/curriculum/m5";
 import type { LessonContent, TranslateStep } from "@/features/lesson/types";
 
 function translateStepById(lesson: LessonContent, id: string): TranslateStep {
@@ -83,6 +85,100 @@ describe("translate grading against real curriculum steps", () => {
     expect(accepts(step, "らいしゅうはゆきでしょう")).toBe(true);
     // Rain, not snow — still wrong.
     expect(accepts(step, "らいしゅうはあめでしょう")).toBe(false);
+  });
+});
+
+describe("accentFold", () => {
+  it("folds Latin diacritics via NFD decomposition", () => {
+    expect(accentFold("años")).toBe("anos");
+    expect(accentFold("pingüino")).toBe("pinguino");
+    expect(accentFold("está")).toBe("esta");
+    expect(accentFold("ÁÉÍÓÚÜÑ")).toBe("AEIOUUN");
+  });
+
+  it("is idempotent on already-folded input", () => {
+    expect(accentFold("anos")).toBe("anos");
+    expect(accentFold(accentFold("años"))).toBe(accentFold("años"));
+  });
+
+  it("preserves kana voicing marks — です must NOT fold to てす", () => {
+    // U+3099/U+309A distinguish real words (かき persimmon vs かぎ key);
+    // folding them would silently weaken JA typed grading.
+    expect(accentFold("です")).toBe("です");
+    expect(accentFold("がっこう")).toBe("がっこう");
+  });
+});
+
+describe("gradeTypedAnswer accent accept-but-flag (es)", () => {
+  // Real curriculum step: "I am nine years old" with the spine's authored
+  // diacritic-stripped variants ("tengo nueve anos") alongside the real
+  // orthography ("tengo nueve años").
+  function anosStep(): TranslateStep {
+    const lesson = ES_M5_LESSONS.find((l) =>
+      l.steps.some((s) => s.id === "es-m5-8-tr-anos"),
+    );
+    if (!lesson) throw new Error("es-m5-8-tr-anos lesson not found");
+    return translateStepById(lesson, "es-m5-8-tr-anos");
+  }
+
+  it("accepts a de-accented answer but flags it, surfacing the accents", () => {
+    const step = anosStep();
+    // The stripped variant is AUTHORED into acceptedAnswers, so this is an
+    // EXACT match — the flag must still fire off the accented sibling.
+    expect(step.acceptedAnswers).toContain("tengo nueve anos");
+    const grade = gradeTypedAnswer(step.acceptedAnswers, "tengo nueve anos");
+    expect(grade.correct).toBe(true);
+    expect(grade.accentFlagged).toBe(true);
+    expect(grade.accentDisplay).toBe("tengo nueve años");
+  });
+
+  it("does not flag a fully-accented answer", () => {
+    const step = anosStep();
+    for (const good of ["tengo nueve años", "Tengo nueve años.", "yo tengo nueve años"]) {
+      const grade = gradeTypedAnswer(step.acceptedAnswers, good);
+      expect(grade.correct, good).toBe(true);
+      expect(grade.accentFlagged, good).toBe(false);
+      expect(grade.accentDisplay, good).toBeNull();
+    }
+  });
+
+  it("still fails genuinely wrong answers", () => {
+    const step = anosStep();
+    for (const bad of ["tengo diez anos", "tienes nueve años", "nueve"]) {
+      const grade = gradeTypedAnswer(step.acceptedAnswers, bad);
+      expect(grade.correct, bad).toBe(false);
+      expect(grade.accentFlagged, bad).toBe(false);
+      expect(grade.accentDisplay, bad).toBeNull();
+    }
+  });
+
+  it("fold-fallback: passes+flags even when no stripped variant is authored", () => {
+    // Future-proofs removing the authored stripped variants: the input
+    // matches nothing exactly, but accent-folds onto a real answer.
+    const grade = gradeTypedAnswer(["El niño está aquí"], "el nino esta aqui");
+    expect(grade.correct).toBe(true);
+    expect(grade.accentFlagged).toBe(true);
+    expect(grade.accentDisplay).toBe("El niño está aquí");
+  });
+
+  it("prefers the most-accented display form, first authored winning ties", () => {
+    const grade = gradeTypedAnswer(
+      ["esta aqui", "está aqui", "está aquí"],
+      "esta aqui",
+    );
+    expect(grade.correct).toBe(true);
+    expect(grade.accentFlagged).toBe(true);
+    expect(grade.accentDisplay).toBe("está aquí");
+  });
+
+  it("matches the legacy predicate on real JA steps — and never flags kana", () => {
+    const step = translateStepById(M18_1_2, "ja-m18-1-2-translate-1");
+    const good = gradeTypedAnswer(step.acceptedAnswers, "きょうはくもりです。");
+    expect(good.correct).toBe(true);
+    expect(good.accentFlagged).toBe(false);
+    // Dakuten omission is a real error, not an accent slip.
+    expect(gradeTypedAnswer(step.acceptedAnswers, "きょうはくもりてす").correct).toBe(false);
+    expect(gradeTypedAnswer(step.acceptedAnswers, "きょうがくもりです").correct).toBe(false);
   });
 });
 

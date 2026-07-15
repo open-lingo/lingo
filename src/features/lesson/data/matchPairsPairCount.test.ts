@@ -99,6 +99,71 @@ describe("match_pairs floor of 6", () => {
   });
 });
 
+describe("match_pairs floor of 6 — es (language-keyed pool)", () => {
+  // es ships ZERO match grids as of 2026-07-15 (the step factory landed
+  // ahead of content), so these sweeps hold vacuously today — and start
+  // enforcing the floor + same-language-fill invariants the moment the
+  // first authored grid lands. Guard chars: any kana/kanji/hangul in an
+  // es grid means a cross-language fill leaked in (the pre-dispatch
+  // padder drew every language's meaning fills from the JA pool).
+  const NON_LATIN = /[\u3040-\u30ff\u31f0-\u31ff\u3400-\u9fff\uac00-\ud7af]/;
+
+  function esLessonIds(): string[] {
+    const course = getMockCourse("es");
+    const ids: string[] = [];
+    type LessonRef = { id: string };
+    type ModuleShape = {
+      lessons?: LessonRef[];
+      lessonGroups?: { lessons?: LessonRef[] }[];
+    };
+    for (const mod of course.modules as unknown as ModuleShape[]) {
+      for (const l of mod.lessons ?? []) ids.push(l.id);
+      for (const g of mod.lessonGroups ?? []) {
+        for (const l of g.lessons ?? []) ids.push(l.id);
+      }
+    }
+    return ids;
+  }
+
+  it("every paddable es grid offers at least 6 pairs", () => {
+    const violations: string[] = [];
+    for (const id of esLessonIds()) {
+      const lesson = getMockLessonContent(id);
+      if (!lesson) continue;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      for (const s of lesson.steps as any[]) {
+        if (s.type !== "match_pairs") continue;
+        const shape = matchGridShape(s.pairs);
+        if (shape === "other") continue; // exempt
+        if (s.pairs.length < MATCH_PAIRS_FLOOR) {
+          violations.push(
+            `${id}/${s.id}: ${s.pairs.length} pairs (${shape})`,
+          );
+        }
+      }
+    }
+    expect(violations, violations.join("\n")).toEqual([]);
+  });
+
+  it("no es grid carries a cross-language (kana/kanji/hangul) pair", () => {
+    const leaks: string[] = [];
+    for (const id of esLessonIds()) {
+      const lesson = getMockLessonContent(id);
+      if (!lesson) continue;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      for (const s of lesson.steps as any[]) {
+        if (s.type !== "match_pairs") continue;
+        for (const p of s.pairs as { source: string; target: string }[]) {
+          if (NON_LATIN.test(p.source + p.target)) {
+            leaks.push(`${id}/${s.id}: "${p.source}" => "${p.target}"`);
+          }
+        }
+      }
+    }
+    expect(leaks, leaks.join("\n")).toEqual([]);
+  });
+});
+
 describe("matchGridShape (structural, romanization-variant tolerant)", () => {
   it("classifies kana→sound grids as romaji even when the authored romanization differs from the table", () => {
     // m12's authored grid: KANA_ROMAJI says ヲ→"o" but the lesson writes

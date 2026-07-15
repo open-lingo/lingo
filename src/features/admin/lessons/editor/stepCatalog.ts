@@ -12,6 +12,7 @@ export const STEP_KINDS: { value: StepKind; label: string; group: string }[] = [
   { value: "fill_blank", label: "Fill blank", group: "Drill" },
   { value: "translate", label: "Translate", group: "Drill" },
   { value: "particle_cloze", label: "Particle cloze", group: "Drill" },
+  { value: "agreement_cloze", label: "Agreement cloze", group: "Drill" },
   { value: "self_explanation_mcq", label: "Self-explanation MCQ", group: "Drill" },
   { value: "word_image_mcq", label: "Word ↔ image MCQ", group: "Drill" },
   { value: "dialogue_listen", label: "Dialogue (listen)", group: "Listening" },
@@ -76,6 +77,13 @@ export function newStepShell(kind: StepKind, id: string): LessonStep {
         prompt: { before: "", after: "" },
         correctParticle: "",
         options: [],
+        meaningEn: "",
+      };
+    case "agreement_cloze":
+      return {
+        ...base,
+        type: "agreement_cloze",
+        segments: [],
         meaningEn: "",
       };
     case "self_explanation_mcq":
@@ -197,6 +205,12 @@ export function summariseStep(step: LessonStep): string {
       return truncate(step.title);
     case "particle_cloze":
       return truncate(`${step.prompt.before} __ ${step.prompt.after}`);
+    case "agreement_cloze":
+      return truncate(
+        step.segments
+          .map((s) => ("text" in s ? s.text : "__"))
+          .join(""),
+      );
     case "match_pairs":
       return `${step.pairs.length} pair${step.pairs.length === 1 ? "" : "s"}`;
     case "dialogue_listen":

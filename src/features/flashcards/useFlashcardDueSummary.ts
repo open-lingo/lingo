@@ -14,7 +14,7 @@ import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { useSubscribedDecks } from "./useSubscribedDecks";
 import type { Flashcard, FlashcardDeck } from "@/features/flashcards/data/types";
 import type { DeckResponse } from "@/shared/api/decks";
-import { buildEnrichedJaCourseDeck } from "./data/courseDeck";
+import { buildEnrichedCourseDeck } from "./data/courseDeck";
 
 function deckResponseToFlashcardDeck(d: DeckResponse): FlashcardDeck {
   return {
@@ -101,9 +101,9 @@ export function useFlashcardDueSummary(langId: string) {
     // Client-generated course deck (from curriculum atoms), unlocked per
     // the lesson-progress store. This is what makes flashcards actually
     // populate — the old course-deck wiring was a 5-card stub keyed off a
-    // stale lesson→card map. Only unlocked cards enter the queue.
-    const courseDeck =
-      langId === "ja" ? buildEnrichedJaCourseDeck() : null;
+    // stale lesson→card map. Only unlocked cards enter the queue. Null for
+    // languages without an atom catalog.
+    const courseDeck = buildEnrichedCourseDeck(langId);
     const courseUnlocked = (courseDeck?.cards ?? []).filter(
       (c) => c.unlocked,
     );

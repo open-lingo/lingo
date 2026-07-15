@@ -2,8 +2,10 @@ import { describe, it, expect } from "vitest";
 import {
   deriveModuleTestOut,
   collectGradable,
+  getDerivedTestOutItems,
   TESTOUT_FORMATS,
   TESTOUT_SIZE,
+  TESTOUT_DERIVED_FLOOR,
 } from "./deriveModuleTestOut";
 
 const SHIPPED = ["m3","m4","m5","m6","m7","m8","m9","m10","m11","m12","m13","m14","m15","m16","m17"];
@@ -42,5 +44,36 @@ describe("deriveModuleTestOut", () => {
     const a = deriveModuleTestOut("m14").items.map((i) => (i.step as { id: string }).id);
     const b = deriveModuleTestOut("m14").items.map((i) => (i.step as { id: string }).id);
     expect(a).toEqual(b);
+  });
+});
+
+describe("derived es test-out (parametrized language)", () => {
+  it.each(["m5", "m10"])(
+    "es %s derives a workable, format-legal, in-module set",
+    (mid) => {
+      const d = deriveModuleTestOut(mid, { languageId: "es" });
+      // Workable = clears the derived-path floor the page gates on.
+      expect(d.items.length).toBeGreaterThanOrEqual(TESTOUT_DERIVED_FLOOR);
+      for (const it of d.items) {
+        expect(TESTOUT_FORMATS.has(it.format), `${mid} bad format ${it.format}`).toBe(true);
+        expect(it.lessonId.startsWith(`es-${mid}-`), `${mid} foreign lesson ${it.lessonId}`).toBe(true);
+      }
+      // Sections come from the es lesson ids ("es-m10-6" → "m10-6").
+      for (const it of d.items) {
+        expect(it.section, `${mid} unparsed section ${it.section}`).toMatch(/^m\d+-\d+$/);
+      }
+    },
+  );
+
+  it("getDerivedTestOutItems stamps languageId 'es' and doesn't collide with ja's cache", () => {
+    const es = getDerivedTestOutItems("m10", "es");
+    const ja = getDerivedTestOutItems("m10");
+    expect(es.length).toBeGreaterThanOrEqual(TESTOUT_DERIVED_FLOOR);
+    expect(es.every((c) => c.languageId === "es")).toBe(true);
+    // Same moduleId, different course — the per-language cache keys must
+    // keep the sets distinct.
+    expect(ja.every((c) => c.languageId === "ja")).toBe(true);
+    expect(es.every((c) => c.id.startsWith("es-"))).toBe(true);
+    expect(ja.map((c) => c.id)).not.toEqual(es.map((c) => c.id));
   });
 });

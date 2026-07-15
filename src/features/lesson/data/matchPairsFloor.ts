@@ -20,6 +20,12 @@
  *    weakness (overdue / low stability / high difficulty, read-only) and
  *    falling back to corpus rarity then a deterministic seeded order.
  *
+ * Pools are LANGUAGE-KEYED (2026-07-15): ja grids fill from the ja pools
+ * above, es meaning grids fill from the ES atom registry (same ordering
+ * discipline), and any other language's lesson is returned UNTOUCHED —
+ * before the dispatch this pass ran for every language and would have
+ * backfilled a short es/ko meaning grid with JAPANESE pairs.
+ *
  * Invariants:
  *  - READ-ONLY against the SRS store. This pass NEVER writes card state —
  *    content-lesson SRS writes are forbidden (only review lessons write).
@@ -34,6 +40,13 @@ import {
   isSrsEligibleAtom,
 } from "@/features/languages/ja/courseAtoms";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
+// ES pool: the aggregate registry is a LAZY getter (it breaks the
+// courseAtoms ↔ curriculum/m{n} import cycle) — call getEsCourseAtoms()
+// at fill time only, never snapshot it at module scope.
+import {
+  getEsCourseAtoms,
+  type EsAtom,
+} from "@/features/languages/es/courseAtoms";
 import { KANA_ROMAJI } from "@/shared/japanese/kanaTable";
 import { CONFUSABLES } from "./hiraganaCurriculum";
 import {
@@ -99,6 +112,41 @@ function getFrequencyIndex(
   }
   frequencyIndex = counts;
   return counts;
+}
+
+let esFrequencyIndex: Map<string, number> | null = null;
+
+/**
+ * ES analog of getFrequencyIndex: how often each atom surface appears
+ * across the raw ES lessons. Latin script needs word-boundary matching —
+ * bare .includes() counts "el" inside "hello", and \b misfires on
+ * accented letters (í/ñ sit outside \w) — so match on \p{L} edges.
+ */
+function getEsFrequencyIndex(
+  rawLessons: readonly LessonContent[],
+): Map<string, number> {
+  if (esFrequencyIndex) return esFrequencyIndex;
+  const counts = new Map<string, number>();
+  const surfaces = [...new Set(getEsCourseAtoms().map((a) => a.surface))];
+  const matchers = surfaces.map((surface) => ({
+    surface,
+    re: new RegExp(`(?<![\\p{L}])${escapeRegex(surface)}(?![\\p{L}])`, "iu"),
+  }));
+  for (const lesson of rawLessons) {
+    if (lesson.languageId !== "es") continue;
+    const blob = JSON.stringify(lesson.steps);
+    for (const m of matchers) {
+      if (m.re.test(blob)) {
+        counts.set(m.surface, (counts.get(m.surface) ?? 0) + 1);
+      }
+    }
+  }
+  esFrequencyIndex = counts;
+  return counts;
+}
+
+function escapeRegex(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 /* ── course-order prior-kana index (for romaji grids) ── */
@@ -186,6 +234,12 @@ export type MatchPadContext = {
   /** Course-ordered lesson ids + raw lookup, for the prior-kana index. */
   orderedLessonIds: readonly string[];
   rawById: ReadonlyMap<string, LessonContent>;
+  /** Course-ordered module ids for the context's language — the es
+   *  meaning-fill module cutoff. Derived from the live course, which
+   *  skips unauthored stub modules, so a stub module's atoms (registered
+   *  but never taught) never enter the pool. The ja path derives its
+   *  cutoff via getAtomsUpToModule instead and ignores this. */
+  moduleOrder: readonly string[];
   /** Today's epoch ms (injected so the pass stays pure/testable). */
   todayMs: number;
 };
@@ -198,6 +252,11 @@ export function padMatchPairsFloor(
   lesson: LessonContent,
   ctx: MatchPadContext,
 ): LessonContent {
+  // Language dispatch: fill pools are language-keyed, and only ja and es
+  // have one. Any other language returns UNCHANGED — a short grid beats
+  // one "fixed" with another language's vocabulary. `ctx` must be built
+  // for `lesson.languageId` (getMatchPadContext caches one per language).
+  if (lesson.languageId !== "ja" && lesson.languageId !== "es") return lesson;
   let changed = false;
   const steps = lesson.steps.map((step) => {
     if (step.type !== "match_pairs") return step;
@@ -210,10 +269,7 @@ export function padMatchPairsFloor(
     let next = pairs;
     if (shape !== "other" && pairs.length < MATCH_PAIRS_FLOOR) {
       const need = MATCH_PAIRS_FLOOR - pairs.length;
-      const extra =
-        shape === "romaji"
-          ? buildRomajiFill(step, pairs, need, ctx, lesson.id)
-          : buildMeaningFill(step, pairs, need, ctx, lesson.moduleId);
+      const extra = buildFill(step, pairs, need, ctx, lesson, shape);
       if (extra.length > 0) next = [...pairs, ...extra];
     }
     if (!deduped && next === pairs) return step;
@@ -221,6 +277,27 @@ export function padMatchPairsFloor(
     return { ...step, pairs: next };
   });
   return changed ? { ...lesson, steps } : lesson;
+}
+
+/** Route a short grid to its language's fill pool (see header). */
+function buildFill(
+  step: LessonStep & { type: "match_pairs" },
+  pairs: readonly MatchPair[],
+  need: number,
+  ctx: MatchPadContext,
+  lesson: LessonContent,
+  shape: Exclude<GridShape, "other">,
+): MatchPair[] {
+  if (lesson.languageId === "es") {
+    // A "romaji" classification on Latin-script es can only mean
+    // mis-authored kana sources — never pad those from the ja pool.
+    return shape === "meaning"
+      ? buildEsMeaningFill(step, pairs, need, ctx, lesson.moduleId)
+      : [];
+  }
+  return shape === "romaji"
+    ? buildRomajiFill(step, pairs, need, ctx, lesson.id)
+    : buildMeaningFill(step, pairs, need, ctx, lesson.moduleId);
 }
 
 /**
@@ -359,6 +436,69 @@ function buildMeaningFill(
   }));
 }
 
+/**
+ * ES meaning backfill — buildMeaningFill's ordering discipline (seeded
+ * shuffle → FSRS weakness → corpus rarity) over the live ES atom
+ * registry. Prior-only via the es course module order carried on the
+ * context (`ctx.moduleOrder`, at-or-before this lesson's module). Phrase
+ * atoms are excluded for the same reason as ja: full sentences wrap to
+ * two-line cards and don't belong in a word↔meaning grid.
+ */
+function buildEsMeaningFill(
+  step: LessonStep & { type: "match_pairs" },
+  pairs: readonly MatchPair[],
+  need: number,
+  ctx: MatchPadContext,
+  moduleId: string,
+): MatchPair[] {
+  const present = new Set(pairs.map((p) => p.source));
+  const cutoff = ctx.moduleOrder.indexOf(moduleId);
+  if (cutoff === -1) return [];
+  const taught = new Set(ctx.moduleOrder.slice(0, cutoff + 1));
+  const prior = getEsCourseAtoms().filter(
+    (a) =>
+      a.srsEligible &&
+      a.fromModule !== undefined &&
+      taught.has(a.fromModule) &&
+      !present.has(a.surface) &&
+      /[a-zA-Z]/.test(a.gloss) &&
+      a.kind !== "phrase",
+  );
+  if (prior.length === 0) return [];
+  const freq = getEsFrequencyIndex(ctx.rawLessons);
+  const shuffled = seededShuffle(prior, step.id);
+  // One store read + precomputed weakness — same O(P) discipline as the
+  // ja path (see the comparator note in buildMeaningFill).
+  const store = getSRSStore();
+  const weakness = new Map<string, number>();
+  for (const atom of prior) {
+    weakness.set(atom.id, weaknessScore(atom.id, ctx.todayMs, store));
+  }
+  const ranked = [...shuffled].sort((a, b) => {
+    const wa = weakness.get(a.id) ?? 0;
+    const wb = weakness.get(b.id) ?? 0;
+    if (wa !== wb) return wb - wa; // weakest first
+    // tie-break: rarer (less-reviewed) first
+    const fa = freq.get(a.surface) ?? 0;
+    const fb = freq.get(b.surface) ?? 0;
+    return fa - fb;
+  });
+  const usedSources = new Set(pairs.map((p) => p.source));
+  const usedTargets = new Set(pairs.map((p) => p.target.toLowerCase()));
+  return pickNonColliding(
+    ranked,
+    need,
+    usedSources,
+    usedTargets,
+    (atom) => atom.surface,
+    (atom) => atom.gloss,
+  ).map((atom: EsAtom, i) => ({
+    id: `${step.id}-fill-${i}`,
+    source: atom.surface,
+    target: atom.gloss,
+  }));
+}
+
 /** Confusable-biased ordering for romaji fill: confusables of present kana
  *  first (harder distractors), then the rest in deterministic seeded order. */
 function confusableBias(
@@ -386,5 +526,6 @@ function allPriorKana(ctx: MatchPadContext): Set<string> {
 /** Test hook: reset memoized indexes (call when curriculum data is mocked). */
 export function __resetMatchPadIndexes(): void {
   frequencyIndex = null;
+  esFrequencyIndex = null;
   priorKanaByLesson = null;
 }

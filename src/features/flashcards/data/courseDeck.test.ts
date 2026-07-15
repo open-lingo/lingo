@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildEnrichedJaCourseDeck } from "./courseDeck";
+import { buildEnrichedCourseDeck, buildEnrichedJaCourseDeck } from "./courseDeck";
 import {
   JA_COURSE_ATOMS,
   JA_COURSE_ATOMS_BY_ID,
@@ -56,5 +56,40 @@ describe("JA course deck (from atoms)", () => {
       const sentence = card.examples![0].text;
       expect(sentence.includes(atom!.kana)).toBe(true);
     }
+  });
+});
+
+describe("generic course deck (normalized atoms)", () => {
+  it("builds an ES course deck with canonical ids, surfaces and glosses", () => {
+    const deck = buildEnrichedCourseDeck("es", new Set())!;
+    expect(deck).not.toBeNull();
+    expect(deck.id).toBe("es-course");
+    expect(deck.languageId).toBe("es");
+    expect(deck.courseId).toBeTruthy();
+    expect(deck.cards.length).toBeGreaterThan(0);
+    for (const card of deck.cards) {
+      expect(card.id.startsWith("es:")).toBe(true);
+      expect(card.front.length).toBeGreaterThan(0); // Spanish surface
+      expect(card.back.length).toBeGreaterThan(0); // English gloss
+      expect(card.unlocked).toBe(false);
+    }
+    // Spot-check a known m1 atom: front is the target-language surface.
+    const hola = deck.cards.find((c) => c.id === "es:hola")!;
+    expect(hola.front).toBe("hola");
+    expect(hola.back).toBe("hello");
+  });
+
+  it("marks exactly the unlocked ES atoms as unlocked", () => {
+    const all = buildEnrichedCourseDeck("es", new Set())!;
+    const sample = all.cards.slice(0, 5).map((c) => c.id);
+    const deck = buildEnrichedCourseDeck("es", new Set(sample))!;
+    const unlockedCards = deck.cards.filter((c) => c.unlocked);
+    expect(unlockedCards.map((c) => c.id).sort()).toEqual([...sample].sort());
+  });
+
+  it("delegates JA to the enriched builder and returns null for no-catalog languages", () => {
+    const ja = buildEnrichedCourseDeck("ja", new Set())!;
+    expect(ja.id).toBe("ja-course");
+    expect(buildEnrichedCourseDeck("fr", new Set())).toBeNull();
   });
 });
