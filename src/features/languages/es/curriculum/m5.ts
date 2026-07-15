@@ -31,15 +31,18 @@ import { atom, type EsAtom } from "../courseAtoms";
 import {
   build,
   cloze,
+  dialogueListen,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
   vocabMcq,
+  vocabTextMcq,
 } from "../grammarHelpers";
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
 import "./m4";
@@ -159,6 +162,10 @@ const M5_2: LessonContent = {
     ),
     phrase("es-m5-2-p-hermano", "the brother", "el hermano"),
     phrase("es-m5-2-p-hermana", "the sister", "la hermana"),
+    // Text-front recognition rung — hermano carries no emoji (the fitting
+    // glyphs would collide with madre/padre/niño/niña), so it skipped the
+    // image-MCQ rung.
+    vocabTextMcq("es-m5-2-tmcq-hermano", "hermano", ["hermana", "padre", "madre"]),
     sentenceMcq({
       id: "es-m5-2-q-tengo",
       prompt: "'I have a brother.' — which is correct?",
@@ -329,6 +336,17 @@ const M5_4: LessonContent = {
     phrase("es-m5-4-p-abuela", "the grandmother", "la abuela", undefined, { emoji: "👵" }),
     vocabMcq("es-m5-4-mcq-abuelo", { surface: "abuelo", meaningEn: "grandfather", emoji: "👴" }, [ABUELA, PADRE, NINO]),
     vocabMcq("es-m5-4-mcq-abuela", { surface: "abuela", meaningEn: "grandmother", emoji: "👵" }, [ABUELO, MADRE, NINA]),
+    // Review rung: three generations of family words in one grid.
+    matchPairs("es-m5-4", [
+      "madre",
+      "padre",
+      "hermano",
+      "hermana",
+      "hijo",
+      "hija",
+      "abuelo",
+      "abuela",
+    ]),
   ],
 };
 
@@ -511,6 +529,34 @@ const M5_7: LessonContent = {
       "I have a brother and also a sister",
       ["tengo", "también", "hermano", "hermana"],
     ),
+    // Text-front recognition rung — también has no emoji, so it skipped
+    // the image-MCQ rung.
+    vocabTextMcq("es-m5-7-tmcq-tambien", "también", ["muy", "pero", "y"]),
+    // Integration finale: everything from m2–m5 by ear — quién, family,
+    // tener + age, and an m4 adjective agreeing with its subject.
+    dialogueListen({
+      id: "es-m5-7-dlg-hermana",
+      lines: [
+        { speaker: "Ana", text: "¿Quién es ella, Luis?" },
+        { speaker: "Luis", text: "Es mi hermana. Tiene diez años." },
+        { speaker: "Ana", text: "¡Tu hermana es muy alta!" },
+      ],
+      questions: [
+        {
+          id: "q1",
+          prompt: "Who is the girl?",
+          correctText: "Luis's sister",
+          distractors: ["Luis's daughter", "Ana's sister", "Luis's grandmother"],
+        },
+        {
+          id: "q2",
+          prompt: "How old is she?",
+          correctText: "ten years old",
+          distractors: ["eight years old", "nine years old", "two years old"],
+        },
+      ],
+      exercisedAtomSurfaces: ["quién", "hermana", "tiene", "años"],
+    }),
   ],
 };
 

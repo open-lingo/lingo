@@ -28,17 +28,21 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
   cloze,
+  dialogueListen,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
   vocabMcq,
+  vocabTextMcq,
 } from "../grammarHelpers";
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
 import "./m14";
@@ -144,6 +148,7 @@ const M15_1: LessonContent = {
       ],
       exercisedAtomSurfaces: ["se levanta"],
     }),
+    vocabTextMcq("es-m15-1-tmcq-rutina", "rutina", ["trabajo", "escuela", "fiesta"]),
   ],
 };
 
@@ -190,6 +195,14 @@ const M15_2: LessonContent = {
       explanation: "An e→i stem changer, like pedir — the e of the stem flips.",
       exercisedAtomSurfaces: ["vestirse"],
     }),
+    matchPairs("es-m15-2-rev", [
+      "levantarse",
+      "despertarse",
+      "ducharse",
+      "bañarse",
+      "vestirse",
+      "rutina",
+    ]),
   ],
 };
 
@@ -247,6 +260,19 @@ const M15_3: LessonContent = {
       audioText: "Me lavo el pelo.",
       exercisedAtomSurfaces: ["lavarse", "pelo"],
     }),
+    agreementCloze(
+      "es-m15-3-agree-dientes",
+      [
+        { text: "Yo " },
+        { blank: { id: "b1", correctAnswer: "me", options: ["me", "te", "se", "nos"] } },
+        { text: " cepillo " },
+        { blank: { id: "b2", correctAnswer: "los", options: ["los", "las", "el", "la"] } },
+        { text: " dientes por la mañana." },
+      ],
+      "I brush my teeth in the morning.",
+      "Yo me cepillo los dientes por la mañana.",
+      ["cepillarse", "diente", "por la mañana"],
+    ),
   ],
 };
 
@@ -312,6 +338,7 @@ const M15_4: LessonContent = {
       "Primero me ducho y luego me visto.",
       "Chains the second action after the first.",
     ),
+    vocabTextMcq("es-m15-4-tmcq-luego", "luego", ["primero", "temprano", "tarde"]),
   ],
 };
 
@@ -471,6 +498,43 @@ const M15_7: LessonContent = {
       "Por la mañana me despierto temprano. Primero me ducho, luego me visto y desayuno. Salgo de mi casa a las ocho. Por la tarde estudio y trabajo. Por la noche me cepillo los dientes y me acuesto.\nRead it out loud — every line is yours now.",
       "default",
     ),
+    dialogueListen({
+      id: "es-m15-7-dl-rutina",
+      lines: [
+        { speaker: "Diego", text: "Rosa, ¿a qué hora te levantas?" },
+        { speaker: "Rosa", text: "Me levanto a las seis. Primero me ducho y luego desayuno." },
+        { speaker: "Diego", text: "¿Y por la noche?" },
+        { speaker: "Rosa", text: "Me cepillo los dientes y me acuesto a las diez." },
+      ],
+      questions: [
+        {
+          id: "q1",
+          prompt: "What does Rosa do first after getting up?",
+          correctText: "She showers.",
+          distractors: [
+            "She has breakfast.",
+            "She brushes her teeth.",
+            "She gets dressed.",
+          ],
+        },
+        {
+          id: "q2",
+          prompt: "When does Rosa go to bed?",
+          correctText: "At ten.",
+          distractors: ["At six.", "At eight.", "At nine."],
+        },
+      ],
+      exercisedAtomSurfaces: [
+        "me levanto",
+        "ducharse",
+        "primero",
+        "luego",
+        "desayunar",
+        "cepillarse",
+        "acostarse",
+        "por la noche",
+      ],
+    }),
     sentenceMcq({
       id: "es-m15-7-q-story",
       prompt: "In the story, what happens first in the morning?",

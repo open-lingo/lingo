@@ -9,6 +9,11 @@
  * passive steps, answer-leak lint, full atom-surface coverage).
  */
 import { describe, it, expect } from "vitest";
+// Side-effect import FIRST: evaluates m1…m16 in clean course order. With
+// "./m11" as the entry, m11 would sit suspended mid-import-cycle while
+// later modules (whose match grids reference m11 surfaces) evaluate —
+// and matchPairs throws on unregistered surfaces.
+import "./index";
 import { ES_M11_ATOMS, ES_M11_LESSONS } from "./m11";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockLessonContent } from "@/features/lesson/data/mockLessons";

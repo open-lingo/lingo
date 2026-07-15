@@ -11,6 +11,11 @@
  * listening_comprehension transcripts are full sentences).
  */
 import { describe, it, expect } from "vitest";
+// Evaluate the full atom registry before ./m5: with ./m5 as the module-graph
+// entry point it sits mid-cycle (unregistered) while courseAtoms pulls in the
+// later modules, and any later-module factory that resolves an m5 surface
+// (e.g. m16's capstone match grid) would throw before this suite runs.
+import "../courseAtoms";
 import { ES_M5_ATOMS, ES_M5_LESSONS } from "./m5";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockLessonContent } from "@/features/lesson/data/mockLessons";

@@ -8,6 +8,11 @@
  * authored steps (passive-card follow-up spacing, no `explanation` on
  * passive steps, answer-leak lint, full atom-surface coverage).
  */
+// Side-effect: register the full es curriculum in canonical order first — m16's
+// capstone match grid resolves cross-module surfaces at import time and throws
+// when this file is the vitest entry with those modules mid-import-cycle.
+import "./index";
+
 import { describe, it, expect } from "vitest";
 import { ES_M4_ATOMS, ES_M4_LESSONS } from "./m4";
 import { getMockCourse } from "@/shared/domain/mockCourse";

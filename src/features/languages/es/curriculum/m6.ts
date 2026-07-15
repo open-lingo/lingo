@@ -27,16 +27,20 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
   cloze,
+  dialogueListen,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
+  vocabTextMcq,
 } from "../grammarHelpers";
 
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
@@ -206,6 +210,17 @@ const M6_2: LessonContent = {
       ["sesenta", "y", "siete"],
       ["sesenta"],
     ),
+    // Review grid — the whole decade row in one recognition sweep.
+    matchPairs("es-m6-2", [
+      "treinta",
+      "cuarenta",
+      "cincuenta",
+      "sesenta",
+      "setenta",
+      "ochenta",
+      "noventa",
+      "cien",
+    ]),
   ],
 };
 
@@ -412,6 +427,19 @@ const M6_5: LessonContent = {
       distractorsText: ["jueves", "martes", "viernes"],
       exercisedAtomSurfaces: ["miércoles"],
     }),
+    // Article agreement — días is masculine plural, semana feminine singular.
+    agreementCloze(
+      "es-m6-5-agr-semana",
+      [
+        { blank: { id: "b1", correctAnswer: "los", options: ["el", "la", "los", "las"] } },
+        { text: " días de " },
+        { blank: { id: "b2", correctAnswer: "la", options: ["el", "la", "los", "las"] } },
+        { text: " semana" },
+      ],
+      "the days of the week",
+      "los días de la semana",
+      ["día", "semana"],
+    ),
   ],
 };
 
@@ -547,6 +575,34 @@ const M6_7: LessonContent = {
       ["hoy", "es", "el", "quince", "de", "enero"],
       ["enero", "quince", "hoy"],
     ),
+    // Text-front recognition for the no-emoji calendar nouns.
+    vocabTextMcq("es-m6-7-vm-mes", "mes", ["semana", "día", "año"]),
+    vocabTextMcq("es-m6-7-vm-enero", "enero", ["lunes", "mes", "mañana"]),
+    // The street exchange from the info card, now as real audio.
+    dialogueListen({
+      id: "es-m6-7-dlg-hora",
+      lines: [
+        { speaker: "Luis", text: "Perdón, ¿qué hora es?" },
+        { speaker: "Ana", text: "Son las diez y media." },
+        { speaker: "Luis", text: "Gracias. ¿Hoy es martes?" },
+        { speaker: "Ana", text: "No, hoy es miércoles." },
+      ],
+      questions: [
+        {
+          id: "q1",
+          prompt: "What time is it?",
+          correctText: "Ten thirty",
+          distractors: ["Ten fifteen", "Nine thirty", "Two o'clock"],
+        },
+        {
+          id: "q2",
+          prompt: "What day is today?",
+          correctText: "Wednesday",
+          distractors: ["Tuesday", "Thursday", "Saturday"],
+        },
+      ],
+      exercisedAtomSurfaces: ["¿qué hora es?", "media", "hoy", "miércoles"],
+    }),
     speaking("es-m6-7-speak-hora", "¿Qué hora es?", "What time is it?", ["¿qué hora es?"]),
     translateStep({
       id: "es-m6-7-tr-lunes",

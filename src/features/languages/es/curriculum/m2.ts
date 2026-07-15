@@ -32,11 +32,13 @@ import {
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocabMcq,
+  vocabTextMcq,
 } from "../grammarHelpers";
 
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
@@ -135,6 +137,9 @@ const M2_1: LessonContent = {
     }),
     phrase("es-m2-1-p-amigo", "friend (m)", "amigo"),
     phrase("es-m2-1-p-amiga", "friend (f)", "amiga"),
+    // Text-front recognition rung — amigo has no emoji, so the image MCQ
+    // rung skipped it; the -o/-a contrast is the real discriminator here.
+    vocabTextMcq("es-m2-1-tmcq-amigo", "amigo", ["amiga", "hola", "gracias"]),
     build(
       "es-m2-1-b-amigo",
       "Greet a (male) friend: 'Hello, friend!'",
@@ -342,6 +347,19 @@ const M2_4: LessonContent = {
       "she is a doctor",
       "ella es doctora",
     ),
+    // Review rung: every person word met so far, in one grid.
+    matchPairs("es-m2-4", [
+      "señor",
+      "señora",
+      "maestro",
+      "maestra",
+      "estudiante",
+      "doctor",
+      "doctora",
+    ]),
+    // Text-front recognition rung — doctora ships without emoji (no Noto
+    // art for 👩‍⚕️ in the subset), so it skipped the image-MCQ rung.
+    vocabTextMcq("es-m2-4-tmcq-doctora", "doctora", ["doctor", "señora", "maestra"]),
   ],
 };
 

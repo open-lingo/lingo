@@ -9,6 +9,12 @@
  * passive steps, answer-leak lint, full atom-surface coverage).
  */
 import { describe, it, expect } from "vitest";
+// Register the full course in canonical index order BEFORE touching m7.
+// With m7.ts itself as the vitest entry point, m7's atoms sit mid-cycle
+// (unregistered) while courseAtoms evaluates m8–m16 — and the m16 capstone
+// match grid resolves an m7 surface at import time. Entering via the index
+// leaves only m1 mid-cycle, which no later-module grid references.
+import "./index";
 import { ES_M7_ATOMS, ES_M7_LESSONS } from "./m7";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockLessonContent } from "@/features/lesson/data/mockLessons";

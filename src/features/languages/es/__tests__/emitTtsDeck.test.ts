@@ -53,6 +53,21 @@ function collectFromStep(step: Record<string, unknown>, into: Set<string>): void
     const a = step.acceptedAnswers[0].trim();
     if (a) into.add(a);
   }
+  // dialogue_listen: runtime plays line.audioText ?? line.kana per line.
+  if (Array.isArray(step.lines)) {
+    for (const line of step.lines as Array<Record<string, unknown>>) {
+      const v = line?.audioText ?? line?.kana;
+      if (typeof v === "string" && v.trim()) into.add(v.trim());
+    }
+  }
+  // match_pairs: playAudioOnSelect plays the bare source word on tap.
+  if (Array.isArray(step.pairs)) {
+    for (const pair of step.pairs as Array<Record<string, unknown>>) {
+      if (typeof pair?.source === "string" && pair.source.trim()) {
+        into.add(pair.source.trim());
+      }
+    }
+  }
 }
 
 describe("emit es tts deck", () => {

@@ -10,6 +10,11 @@
  * coverage), plus M16-specific invariants: the mastery test is graded
  * only, and the review lessons (L5–L7) register no new atoms.
  */
+// Side-effect: register the full es curriculum in canonical order first — m16's
+// capstone match grid resolves cross-module surfaces at import time and throws
+// when this file is the vitest entry with those modules mid-import-cycle.
+import "./index";
+
 import { describe, it, expect } from "vitest";
 import { ES_M16_ATOMS, ES_M16_LESSONS } from "./m16";
 import { getMockCourse } from "@/shared/domain/mockCourse";

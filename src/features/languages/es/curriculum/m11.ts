@@ -27,17 +27,21 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
   cloze,
+  dialogueListen,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
   vocabMcq,
+  vocabTextMcq,
 } from "../grammarHelpers";
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
 import "./m10";
@@ -199,6 +203,19 @@ const M11_2: LessonContent = {
       audioText: "voy al mercado",
       exercisedAtomSurfaces: ["voy", "mercado"],
     }),
+    agreementCloze(
+      "es-m11-2-ac-destinos",
+      [
+        { text: "Voy a " },
+        { blank: { id: "b1", correctAnswer: "la", options: ["el", "la", "los", "las"] } },
+        { text: " playa y ella va " },
+        { blank: { id: "b2", correctAnswer: "al", options: ["al", "a la", "a el", "a los"] } },
+        { text: " museo" },
+      ],
+      "I'm going to the beach and she is going to the museum",
+      "Voy a la playa y ella va al museo",
+      ["voy", "playa", "va", "museo"],
+    ),
   ],
 };
 
@@ -304,6 +321,17 @@ const M11_4: LessonContent = {
       { surface: "bicicleta", meaningEn: "bicycle", emoji: "🚲" },
       [TREN, AVION, TAXI],
     ),
+    // Review grid over the module's transport nouns (a pie stays out —
+    // match grids are single words).
+    matchPairs("es-m11-4-review", [
+      "autobús",
+      "metro",
+      "taxi",
+      "tren",
+      "avión",
+      "bicicleta",
+      "boleto",
+    ]),
   ],
 };
 
@@ -420,6 +448,8 @@ const M11_6: LessonContent = {
       distractorsEn: ["They're going downtown by train", "We're going downtown by bus", "They're going to the beach by bus"],
       exercisedAtomSurfaces: ["van", "autobús", "centro"],
     }),
+    // ahora has no emoji (abstract time word) — text-front MCQ instead.
+    vocabTextMcq("es-m11-6-tmcq-ahora", "ahora", ["después", "esta noche", "este fin de semana"]),
   ],
 };
 
@@ -456,6 +486,8 @@ const M11_7: LessonContent = {
       distractorsText: ["Ella va al iglesia.", "Ella vas a la iglesia.", "Ella va a la playa."],
       exercisedAtomSurfaces: ["va", "iglesia"],
     }),
+    // iglesia has no emoji glyph in the bundled subset — text-front MCQ instead.
+    vocabTextMcq("es-m11-7-tmcq-iglesia", "iglesia", ["museo", "mercado", "cine"]),
     translateStep({
       id: "es-m11-7-tr-fiesta",
       promptEn: "We're going to the party tonight",
@@ -478,6 +510,32 @@ const M11_7: LessonContent = {
       acceptedAnswers: ["voy a la playa este fin de semana", "Voy a la playa este fin de semana", "Voy a la playa este fin de semana."],
       audioText: "voy a la playa este fin de semana",
       exercisedAtomSurfaces: ["voy", "playa", "este fin de semana"],
+    }),
+    dialogueListen({
+      id: "es-m11-7-dl-planes",
+      lines: [
+        { speaker: "Luis", text: "¡Hola, Marta! ¿A dónde vas?" },
+        { speaker: "Marta", text: "Voy al mercado. ¿Y tú?" },
+        { speaker: "Luis", text: "Voy al cine. ¿Vamos a la playa este fin de semana?" },
+        { speaker: "Marta", text: "¡Sí! Vamos en autobús." },
+      ],
+      questions: [
+        {
+          id: "q1",
+          prompt: "Where is Marta going now?",
+          correctText: "To the market",
+          distractors: ["To the movies", "To the beach", "To church"],
+          explanation: "Marta answers: Voy al mercado.",
+        },
+        {
+          id: "q2",
+          prompt: "How will they get to the beach?",
+          correctText: "By bus",
+          distractors: ["By train", "By taxi", "On foot"],
+          explanation: "Marta says: Vamos en autobús.",
+        },
+      ],
+      exercisedAtomSurfaces: ["vas", "voy", "mercado", "cine", "vamos", "playa", "este fin de semana", "autobús"],
     }),
     speaking(
       "es-m11-7-speak-vamos",

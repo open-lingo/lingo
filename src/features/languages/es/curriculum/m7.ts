@@ -28,17 +28,21 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
   cloze,
+  dialogueListen,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
   vocabMcq,
+  vocabTextMcq,
 } from "../grammarHelpers";
 
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
@@ -303,6 +307,19 @@ const M7_4: LessonContent = {
       ["el", "restaurante", "está", "al", "lado", "del", "hotel"],
       ["al lado de", "restaurante", "hotel"],
     ),
+    // Text-front recognition — the position adverbs carry no emoji.
+    vocabTextMcq("es-m7-4-vm-lejos", "lejos", ["cerca", "bien", "mal"]),
+    // Review grid — the whole town map in one recognition sweep.
+    matchPairs("es-m7-4", [
+      "tienda",
+      "banco",
+      "parque",
+      "escuela",
+      "restaurante",
+      "baño",
+      "hotel",
+      "aeropuerto",
+    ]),
   ],
 };
 
@@ -370,6 +387,20 @@ const M7_5: LessonContent = {
       ],
       exercisedAtomSurfaces: ["están", "restaurante"],
     }),
+    // Feeling adjectives agree with the person — -a for her, -o for him.
+    agreementCloze(
+      "es-m7-5-agr-cansada",
+      [
+        { text: "mi hermana está cansad" },
+        { blank: { id: "b1", correctAnswer: "a", options: ["o", "a", "os", "as"] } },
+        { text: " y mi hermano está content" },
+        { blank: { id: "b2", correctAnswer: "o", options: ["o", "a", "os", "as"] } },
+      ],
+      "my sister is tired and my brother is happy",
+      "mi hermana está cansada y mi hermano está contento",
+      ["cansado", "contento", "hermana", "hermano"],
+    ),
+    vocabTextMcq("es-m7-5-vm-mal", "mal", ["bien", "cansado", "enfermo"]),
   ],
 };
 
@@ -479,6 +510,31 @@ const M7_7: LessonContent = {
         "Eres al lado de la puerta.",
       ],
       exercisedAtomSurfaces: ["está", "al lado de"],
+    }),
+    // The lobby exchange for real — same shape as the info card, new details.
+    dialogueListen({
+      id: "es-m7-7-dlg-hotel",
+      lines: [
+        { speaker: "Diego", text: "Perdón, ¿dónde está el banco?" },
+        { speaker: "Ana", text: "Está cerca del parque, señor." },
+        { speaker: "Diego", text: "Gracias. ¿Y el restaurante del hotel?" },
+        { speaker: "Ana", text: "Está al lado de la tienda." },
+      ],
+      questions: [
+        {
+          id: "q1",
+          prompt: "Where is the bank?",
+          correctText: "Near the park",
+          distractors: ["Next to the store", "Far from the park", "Near the school"],
+        },
+        {
+          id: "q2",
+          prompt: "Where is the hotel restaurant?",
+          correctText: "Next to the store",
+          distractors: ["Near the park", "Next to the bathroom", "Far from the hotel"],
+        },
+      ],
+      exercisedAtomSurfaces: ["dónde", "está", "banco", "cerca", "del", "al lado de", "tienda"],
     }),
     cloze(
       "es-m7-7-cloze-a",

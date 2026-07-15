@@ -10,6 +10,11 @@
  * M3-specific invariant that every noun atom carries a gender.
  */
 import { describe, it, expect } from "vitest";
+// Evaluate the full atom registry before ./m3: with ./m3 as the module-graph
+// entry point it sits mid-cycle (unregistered) while courseAtoms pulls in the
+// later modules, and any later-module factory that resolves an m3 surface
+// (e.g. m16's capstone match grid) would throw before this suite runs.
+import "../courseAtoms";
 import { ES_M3_ATOMS, ES_M3_LESSONS } from "./m3";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockLessonContent } from "@/features/lesson/data/mockLessons";

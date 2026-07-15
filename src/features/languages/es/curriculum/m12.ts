@@ -23,17 +23,21 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
   cloze,
+  dialogueListen,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
   vocabMcq,
+  vocabTextMcq,
 } from "../grammarHelpers";
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
 import "./m11";
@@ -263,6 +267,19 @@ const M12_3: LessonContent = {
       "ese sombrero es grande",
       "Masculine noun, over there by the other person — far pointer, masculine form.",
     ),
+    // falda has no emoji glyph in the bundled subset — text-front MCQ instead.
+    vocabTextMcq("es-m12-3-tmcq-falda", "falda", ["vestido", "camisa", "chaqueta"]),
+    // Review grid over the module's wardrobe (L1–L3 clothing nouns).
+    matchPairs("es-m12-3-review", [
+      "camisa",
+      "camiseta",
+      "pantalones",
+      "zapatos",
+      "vestido",
+      "falda",
+      "chaqueta",
+      "sombrero",
+    ]),
   ],
 };
 
@@ -421,6 +438,20 @@ const M12_5: LessonContent = {
       ],
       exercisedAtomSurfaces: ["buscar", "precio", "más", "barato"],
     }),
+    agreementCloze(
+      "es-m12-5-ac-caro",
+      [
+        { blank: { id: "b1", correctAnswer: "Esta", options: ["Este", "Esta", "Ese", "Esa"] } },
+        { text: " falda es muy barat" },
+        { blank: { id: "b2", correctAnswer: "a", options: ["o", "a", "os", "as"] } },
+        { text: " y " },
+        { blank: { id: "b3", correctAnswer: "ese", options: ["este", "esta", "ese", "esa"] } },
+        { text: " sombrero es muy caro" },
+      ],
+      "This skirt is very cheap and that hat is very expensive",
+      "Esta falda es muy barata y ese sombrero es muy caro",
+      ["esta", "falda", "barato", "ese", "sombrero", "caro"],
+    ),
   ],
 };
 
@@ -560,6 +591,8 @@ const M12_7: LessonContent = {
       ],
       exercisedAtomSurfaces: ["pagar", "efectivo"],
     }),
+    // tarjeta has no emoji glyph in the bundled subset — text-front MCQ instead.
+    vocabTextMcq("es-m12-7-tmcq-tarjeta", "tarjeta", ["efectivo", "boleto", "precio"]),
     build(
       "es-m12-7-build-cuesta",
       "Build the clerk's reply: 'This shirt costs two hundred pesos.'",
@@ -584,6 +617,32 @@ const M12_7: LessonContent = {
       ],
       audioText: "¿cuánto cuesta?",
       exercisedAtomSurfaces: ["¿cuánto cuesta?"],
+    }),
+    dialogueListen({
+      id: "es-m12-7-dl-tienda",
+      lines: [
+        { speaker: "Vendedora", text: "Buenas tardes. ¿Le gusta esta chaqueta?" },
+        { speaker: "Sara", text: "Sí, pero ¿cuánto cuesta?" },
+        { speaker: "Vendedora", text: "Cuesta doscientos pesos." },
+        { speaker: "Sara", text: "¡Qué barato! Voy a pagar con tarjeta." },
+      ],
+      questions: [
+        {
+          id: "q1",
+          prompt: "How much does the jacket cost?",
+          correctText: "Two hundred pesos",
+          distractors: ["One hundred pesos", "Two hundred dollars", "One thousand pesos"],
+          explanation: "The clerk answers: Cuesta doscientos pesos.",
+        },
+        {
+          id: "q2",
+          prompt: "How does Sara pay?",
+          correctText: "With a card",
+          distractors: ["In cash", "With dollars", "She doesn't buy it"],
+          explanation: "Sara says: Voy a pagar con tarjeta.",
+        },
+      ],
+      exercisedAtomSurfaces: ["le gusta", "esta", "chaqueta", "cuesta", "doscientos", "peso", "pagar", "tarjeta"],
     }),
     speaking("es-m12-7-speak-pagar", "quiero pagar con tarjeta", "I want to pay with card", ["pagar", "tarjeta"]),
     speaking("es-m12-7-speak-cuanto", "¿cuánto cuesta este vestido?", "How much does this dress cost?", ["cuesta", "este", "vestido"]),

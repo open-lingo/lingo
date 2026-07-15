@@ -28,8 +28,11 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
+  capstoneMatchPairs,
   cloze,
+  dialogueListen,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
@@ -39,6 +42,7 @@ import {
   translateStep,
   vocab,
   vocabMcq,
+  vocabTextMcq,
 } from "../grammarHelpers";
 
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
@@ -142,6 +146,7 @@ const M16_1: LessonContent = {
       ["mi", "pasaporte", "está", "en", "la", "mochila"],
       ["pasaporte"],
     ),
+    vocabTextMcq("es-m16-1-tmcq-pasaporte", "pasaporte", ["maleta", "mapa", "boleto"]),
   ],
 };
 
@@ -356,6 +361,22 @@ const M16_4: LessonContent = {
       explanation: "The fixed phrase for continuing without turning — no article before it.",
       exercisedAtomSurfaces: ["derecho"],
     }),
+    agreementCloze(
+      "es-m16-4-agree-reservacion",
+      [
+        { text: "tengo " },
+        { blank: { id: "b1", correctAnswer: "una", options: ["una", "un", "unas", "unos"] } },
+        { text: " reservación y " },
+        { blank: { id: "b2", correctAnswer: "la", options: ["la", "el", "las", "los"] } },
+        { text: " habitación está a " },
+        { blank: { id: "b3", correctAnswer: "la", options: ["la", "el", "las", "los"] } },
+        { text: " izquierda." },
+      ],
+      "I have a reservation and the room is to the left.",
+      "tengo una reservación y la habitación está a la izquierda",
+      ["reservación", "habitación", "izquierda"],
+    ),
+    vocabTextMcq("es-m16-4-tmcq-esquina", "esquina", ["derecha", "izquierda", "mapa"]),
   ],
 };
 
@@ -462,6 +483,21 @@ const M16_5: LessonContent = {
       "my father's car is new",
       "el carro de mi padre es nuevo",
     ),
+    // Capstone grid — one word from each stretch of the course (m3–m16).
+    // Uses the registry-free variant with inline glosses: the registry
+    // resolver throws whenever a referenced module sits mid-import-cycle
+    // (any test entry that imports a curriculum module directly). Glosses
+    // must stay byte-identical to each atom's meaningEn.
+    capstoneMatchPairs("es-m16-5-rev", [
+      { surface: "casa", gloss: "house" },
+      { surface: "hermana", gloss: "sister" },
+      { surface: "escuela", gloss: "school" },
+      { surface: "café", gloss: "coffee" },
+      { surface: "playa", gloss: "beach" },
+      { surface: "sombrero", gloss: "hat" },
+      { surface: "película", gloss: "movie" },
+      { surface: "maleta", gloss: "suitcase" },
+    ]),
   ],
 };
 
@@ -583,6 +619,38 @@ const M16_7: LessonContent = {
       "—Buenos días. Tengo una reservación. Me llamo Ana.\n—Mucho gusto, señora. Su habitación está a la izquierda.\n—Gracias. ¿Hay un restaurante cerca?\n—Sí, en la esquina.\nA whole hotel check-in, from module 1 greetings to module 16 directions — read it out loud before you go on.",
       "default",
     ),
+    dialogueListen({
+      id: "es-m16-7-dl-hotel",
+      lines: [
+        { speaker: "Ana", text: "Perdón, señor. ¿Me puede ayudar? No sé dónde está el hotel." },
+        { speaker: "Carlos", text: "Sí, claro. El hotel está a la derecha, en la esquina." },
+        { speaker: "Ana", text: "Gracias. ¿Hay un restaurante cerca?" },
+        { speaker: "Carlos", text: "Sí, hay un restaurante muy bueno al lado del hotel." },
+      ],
+      questions: [
+        {
+          id: "q1",
+          prompt: "Where is the hotel?",
+          correctText: "To the right, on the corner.",
+          distractors: [
+            "To the left, on the corner.",
+            "Straight ahead, near the bank.",
+            "Behind the restaurant.",
+          ],
+        },
+        {
+          id: "q2",
+          prompt: "What does Ana ask about at the end?",
+          correctText: "Whether there is a restaurant nearby.",
+          distractors: [
+            "Whether there is a bank nearby.",
+            "Where the train station is.",
+            "What time breakfast is.",
+          ],
+        },
+      ],
+      exercisedAtomSurfaces: ["¿me puede ayudar?", "sé", "hotel", "derecha", "esquina"],
+    }),
     sentenceMcq({
       id: "es-m16-7-r-vamos",
       prompt: "'We're going to the beach tomorrow' — pick the Spanish.",

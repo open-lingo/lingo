@@ -27,17 +27,21 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
   cloze,
+  dialogueListen,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
   vocabMcq,
+  vocabTextMcq,
 } from "../grammarHelpers";
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
 import "./m9";
@@ -259,6 +263,8 @@ const M10_3: LessonContent = {
       distractorsEn: ["She likes chicken", "He likes cheese", "He wants bread"],
       exercisedAtomSurfaces: ["pollo", "le gusta"],
     }),
+    // queso has no emoji glyph in the bundled subset — text-front MCQ instead.
+    vocabTextMcq("es-m10-3-tmcq-queso", "queso", ["pan", "pollo", "leche"]),
   ],
 };
 
@@ -318,6 +324,21 @@ const M10_4: LessonContent = {
       distractorsText: ["Me gustan la fruta.", "Me gusta las frutas.", "Te gustan la fruta."],
       exercisedAtomSurfaces: ["fruta"],
     }),
+    // naranja has no emoji glyph in the bundled subset — text-front MCQ instead.
+    vocabTextMcq("es-m10-4-tmcq-naranja", "naranja", ["manzana", "fruta", "huevo"]),
+    agreementCloze(
+      "es-m10-4-ac-naranjas",
+      [
+        { text: "Me " },
+        { blank: { id: "b1", correctAnswer: "gustan", options: ["gusta", "gustan", "gusto", "gustas"] } },
+        { text: " " },
+        { blank: { id: "b2", correctAnswer: "las", options: ["el", "la", "los", "las"] } },
+        { text: " naranjas" },
+      ],
+      "I like oranges",
+      "Me gustan las naranjas",
+      ["naranja"],
+    ),
   ],
 };
 
@@ -372,6 +393,17 @@ const M10_5: LessonContent = {
       audioText: "quiero pescado",
       exercisedAtomSurfaces: ["quiero", "pescado"],
     }),
+    // Review grid over the module's pantry so far (L3–L5 food nouns).
+    matchPairs("es-m10-5-review", [
+      "pan",
+      "queso",
+      "pollo",
+      "carne",
+      "pescado",
+      "manzana",
+      "naranja",
+      "huevo",
+    ]),
   ],
 };
 
@@ -484,6 +516,32 @@ const M10_7: LessonContent = {
       correctText: "¡El pollo está muy rico!",
       distractorsText: ["¡El pollo está muy malo!", "¿Te gusta el pollo?", "¡Tengo hambre!"],
       exercisedAtomSurfaces: ["rico", "pollo"],
+    }),
+    dialogueListen({
+      id: "es-m10-7-dl-restaurante",
+      lines: [
+        { speaker: "Mesero", text: "Buenas tardes. ¿Qué quisiera comer?" },
+        { speaker: "Ana", text: "Quisiera pollo con arroz, por favor." },
+        { speaker: "Mesero", text: "¿Y para beber?" },
+        { speaker: "Ana", text: "Un jugo, por favor." },
+      ],
+      questions: [
+        {
+          id: "q1",
+          prompt: "What does Ana order to eat?",
+          correctText: "Chicken with rice",
+          distractors: ["Fish with rice", "Soup and bread", "Chicken with eggs"],
+          explanation: "Ana orders: Quisiera pollo con arroz, por favor.",
+        },
+        {
+          id: "q2",
+          prompt: "What does Ana order to drink?",
+          correctText: "A juice",
+          distractors: ["A coffee", "A beer", "Milk"],
+          explanation: "Her drink order is: Un jugo, por favor.",
+        },
+      ],
+      exercisedAtomSurfaces: ["quisiera", "pollo", "arroz", "jugo"],
     }),
     speaking(
       "es-m10-7-speak-quisiera",

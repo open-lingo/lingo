@@ -26,17 +26,21 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
   cloze,
+  dialogueListen,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
   vocabMcq,
+  vocabTextMcq,
 } from "../grammarHelpers";
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
 import "./m7";
@@ -203,6 +207,9 @@ const M8_2: LessonContent = {
       audioText: "Ella usa la computadora.",
       exercisedAtomSurfaces: ["usar"],
     }),
+    // Text-front recognition — the work-day verbs carry no emoji.
+    vocabTextMcq("es-m8-2-vm-llegar", "llegar", ["trabajar", "estudiar", "hablar"]),
+    vocabTextMcq("es-m8-2-vm-usar", "usar", ["necesitar", "llegar", "trabajar"]),
   ],
 };
 
@@ -276,6 +283,20 @@ const M8_3: LessonContent = {
       audioText: "Caminamos a la escuela.",
       exercisedAtomSurfaces: ["caminar", "nosotros"],
     }),
+    // Plural shopping list — the m4 adjective agrees with each noun it follows.
+    agreementCloze(
+      "es-m8-3-agr-nuevas",
+      [
+        { text: "Ellas compran mochilas nuev" },
+        { blank: { id: "b1", correctAnswer: "as", options: ["o", "a", "os", "as"] } },
+        { text: " y libros nuev" },
+        { blank: { id: "b2", correctAnswer: "os", options: ["o", "a", "os", "as"] } },
+        { text: "." },
+      ],
+      "they buy new backpacks and new books",
+      "Ellas compran mochilas nuevas y libros nuevos.",
+      ["comprar", "ellas", "mochila", "libro", "nuevo"],
+    ),
   ],
 };
 
@@ -416,6 +437,17 @@ const M8_5: LessonContent = {
       audioText: "Trabajas mucho.",
       exercisedAtomSurfaces: ["trabajar", "mucho"],
     }),
+    // Review grid — the -ar verb set taught so far in one recognition sweep.
+    matchPairs("es-m8-5", [
+      "hablar",
+      "trabajar",
+      "estudiar",
+      "comprar",
+      "escuchar",
+      "cantar",
+      "bailar",
+      "cocinar",
+    ]),
   ],
 };
 
@@ -538,6 +570,38 @@ const M8_7: LessonContent = {
         "Trabaja en una escuela.",
       ],
       exercisedAtomSurfaces: ["trabajar"],
+    }),
+    // Ana tells her day herself — the info card's routine as real audio.
+    dialogueListen({
+      id: "es-m8-7-dlg-ana",
+      lines: [
+        { speaker: "Luis", text: "Ana, ¿dónde trabajas?" },
+        { speaker: "Ana", text: "Trabajo en una tienda. Llego a las nueve." },
+        { speaker: "Luis", text: "¿Y estudias inglés?" },
+        { speaker: "Ana", text: "Sí, estudio en casa todos los días." },
+      ],
+      questions: [
+        {
+          id: "q1",
+          prompt: "Where does Ana work?",
+          correctText: "In a store",
+          distractors: ["In a bank", "In a school", "In a restaurant"],
+        },
+        {
+          id: "q2",
+          prompt: "When does Ana arrive at the store?",
+          correctText: "At nine",
+          distractors: ["At ten", "At two", "At seven"],
+        },
+      ],
+      exercisedAtomSurfaces: [
+        "trabajar",
+        "llegar",
+        "estudiar",
+        "inglés",
+        "todos los días",
+        "tienda",
+      ],
     }),
     build(
       "es-m8-7-build-estudio",

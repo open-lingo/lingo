@@ -24,17 +24,20 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
   cloze,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
   vocabMcq,
+  vocabTextMcq,
 } from "../grammarHelpers";
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
 import "./m3";
@@ -201,6 +204,34 @@ const M4_2: LessonContent = {
       distractorsText: ["bonito", "bajo", "malo"],
       exercisedAtomSurfaces: ["feo"],
     }),
+    // The full agreement chain in one graded set: article, noun ending,
+    // adjective ending — all three must match.
+    agreementCloze(
+      "es-m4-2-agr-bonita",
+      [
+        { blank: { id: "b1", correctAnswer: "la", options: ["el", "la", "los", "las"] } },
+        { text: " cas" },
+        { blank: { id: "b2", correctAnswer: "a", options: ["o", "a", "os", "as"] } },
+        { text: " es bonit" },
+        { blank: { id: "b3", correctAnswer: "a", options: ["o", "a", "os", "as"] } },
+      ],
+      "the house is pretty",
+      "la casa es bonita",
+      ["casa", "bonito"],
+    ),
+    agreementCloze(
+      "es-m4-2-agr-viejos",
+      [
+        { blank: { id: "b1", correctAnswer: "los", options: ["el", "la", "los", "las"] } },
+        { text: " libr" },
+        { blank: { id: "b2", correctAnswer: "os", options: ["o", "a", "os", "as"] } },
+        { text: " viej" },
+        { blank: { id: "b3", correctAnswer: "os", options: ["o", "a", "os", "as"] } },
+      ],
+      "the old books",
+      "los libros viejos",
+      ["libro", "viejo"],
+    ),
   ],
 };
 
@@ -230,6 +261,8 @@ const M4_3: LessonContent = {
     vocabMcq("es-m4-3-mcq-amarillo", { surface: "amarillo", meaningEn: "yellow", emoji: "🟡" }, [VERDE, ROJO, AZUL]),
     vocabMcq("es-m4-3-mcq-negro", { surface: "negro", meaningEn: "black", emoji: "⚫" }, [BLANCO, AZUL, ROJO]),
     vocabMcq("es-m4-3-mcq-blanco", { surface: "blanco", meaningEn: "white", emoji: "⚪" }, [NEGRO, AMARILLO, VERDE]),
+    // Review rung: all six core colors in one grid.
+    matchPairs("es-m4-3", ["rojo", "azul", "verde", "amarillo", "negro", "blanco"]),
   ],
 };
 
@@ -266,6 +299,20 @@ const M4_4: LessonContent = {
       ["el", "carro", "rojo", "azul"],
       ["el", "carro", "rojo"],
       ["carro", "rojo"],
+    ),
+    // Colors put to work: feminine plural runs through all three slots.
+    agreementCloze(
+      "es-m4-4-agr-blancas",
+      [
+        { blank: { id: "b1", correctAnswer: "las", options: ["el", "la", "los", "las"] } },
+        { text: " sill" },
+        { blank: { id: "b2", correctAnswer: "as", options: ["o", "a", "os", "as"] } },
+        { text: " blanc" },
+        { blank: { id: "b3", correctAnswer: "as", options: ["o", "a", "os", "as"] } },
+      ],
+      "the white chairs",
+      "las sillas blancas",
+      ["silla", "blanco"],
     ),
   ],
 };
@@ -344,6 +391,9 @@ const M4_5: LessonContent = {
       audioText: "el carro es muy grande",
       exercisedAtomSurfaces: ["carro", "muy", "grande"],
     }),
+    // Text-front recognition rung — muy has no emoji, so it skipped the
+    // image-MCQ rung; distractors mirror the cloze option set.
+    vocabTextMcq("es-m4-5-tmcq-muy", "muy", ["pero", "y", "o"]),
   ],
 };
 
@@ -368,6 +418,9 @@ const M4_6: LessonContent = {
       distractorsText: ["difícil", "feo", "malo"],
       exercisedAtomSurfaces: ["fácil"],
     }),
+    // Text-front recognition rung — difícil has no emoji, so it skipped
+    // the image-MCQ rung.
+    vocabTextMcq("es-m4-6-tmcq-dificil", "difícil", ["fácil", "feo", "malo"]),
     listeningCompSentence({
       id: "es-m4-6-lc-dificil",
       audioText: "el libro es muy difícil",

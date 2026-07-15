@@ -26,17 +26,21 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
   cloze,
+  dialogueListen,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
   vocabMcq,
+  vocabTextMcq,
 } from "../grammarHelpers";
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
 import "./m13";
@@ -147,6 +151,18 @@ const M14_1: LessonContent = {
       distractorsText: ["el dormitorio", "la sala", "el baño"],
       exercisedAtomSurfaces: ["comedor"],
     }),
+    agreementCloze(
+      "es-m14-1-agree-sala",
+      [
+        { blank: { id: "b1", correctAnswer: "La", options: ["La", "El", "Los", "Las"] } },
+        { text: " sala es grande y " },
+        { blank: { id: "b2", correctAnswer: "el", options: ["el", "la", "los", "las"] } },
+        { text: " dormitorio es pequeño." },
+      ],
+      "The living room is big and the bedroom is small.",
+      "La sala es grande y el dormitorio es pequeño.",
+      ["sala", "dormitorio"],
+    ),
   ],
 };
 
@@ -234,6 +250,17 @@ const M14_3: LessonContent = {
       ["hay", "un", "jardín", "al", "lado", "de", "la", "casa"],
       ["jardín", "hay", "al lado de"],
     ),
+    vocabTextMcq("es-m14-3-tmcq-estufa", "estufa", ["refrigerador", "lámpara", "cama"]),
+    matchPairs("es-m14-3-rev", [
+      "cocina",
+      "sala",
+      "dormitorio",
+      "comedor",
+      "cama",
+      "sofá",
+      "lámpara",
+      "televisión",
+    ]),
   ],
 };
 
@@ -281,6 +308,7 @@ const M14_4: LessonContent = {
       distractorsText: ["¡Hace calor!", "Hace sol.", "Llueve."],
       exercisedAtomSurfaces: ["hace frío", "frío"],
     }),
+    vocabTextMcq("es-m14-4-tmcq-clima", "clima", ["lluvia", "viento", "sol"]),
   ],
 };
 
@@ -406,6 +434,34 @@ const M14_7: LessonContent = {
       "Mi casa es pequeña pero bonita. Hay tres dormitorios, una sala y un jardín. La televisión está en la sala. Hoy llueve y hace frío, pero en mi casa no hace frío.\nEvery sentence is this module at work — read it out loud, then answer.",
       "default",
     ),
+    dialogueListen({
+      id: "es-m14-7-dl-clima",
+      lines: [
+        { speaker: "Lucía", text: "Hola, Marco. ¿Cómo está el clima hoy?" },
+        { speaker: "Marco", text: "Hace frío y llueve mucho." },
+        { speaker: "Lucía", text: "¿Dónde estás?" },
+        { speaker: "Marco", text: "Estoy en la sala con mi familia." },
+      ],
+      questions: [
+        {
+          id: "q1",
+          prompt: "How is the weather today?",
+          correctText: "It's cold and raining a lot.",
+          distractors: [
+            "It's hot and sunny.",
+            "It's snowing a lot.",
+            "It's windy and cool.",
+          ],
+        },
+        {
+          id: "q2",
+          prompt: "Where is Marco?",
+          correctText: "In the living room.",
+          distractors: ["In the kitchen.", "In the garden.", "In the bedroom."],
+        },
+      ],
+      exercisedAtomSurfaces: ["clima", "hace frío", "llueve", "sala"],
+    }),
     sentenceMcq({
       id: "es-m14-7-q-story-jardin",
       prompt: "In the story, what is there outside the house?",

@@ -27,16 +27,19 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
   cloze,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocabMcq,
+  vocabTextMcq,
 } from "../grammarHelpers";
 
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
@@ -201,6 +204,9 @@ const M3_2: LessonContent = {
       { surface: "silla", meaningEn: "chair", emoji: "🪑" },
       [PUERTA, VENTANA, LLAVE],
     ),
+    // Text-front recognition rung — mesa has no faithful Noto glyph, so
+    // it skipped the image-MCQ rung.
+    vocabTextMcq("es-m3-2-tmcq-mesa", "mesa", ["silla", "puerta", "ventana"]),
     phrase("es-m3-2-p-puerta", "the door", "la puerta", undefined, { atomId: "es:puerta", emoji: "🚪" }),
     phrase("es-m3-2-p-ventana", "the window", "la ventana", undefined, { atomId: "es:ventana", emoji: "🪟" }),
     vocabMcq(
@@ -213,6 +219,9 @@ const M3_2: LessonContent = {
       { surface: "ventana", meaningEn: "window", emoji: "🪟" },
       [PUERTA, MOCHILA, LIBRO],
     ),
+    // Review rung: the whole room so far — atoms stay bare (single-word
+    // grid rule); the article habit lives in the phrase cards.
+    matchPairs("es-m3-2", ["casa", "libro", "mesa", "silla", "puerta", "ventana"]),
   ],
 };
 
@@ -248,6 +257,13 @@ const M3_3: LessonContent = {
       distractorsText: ["un computadora", "una teléfono", "un celular"],
       exercisedAtomSurfaces: ["una", "computadora"],
     }),
+    // Text-front recognition rung — computadora ships without emoji (💻
+    // not in the Noto subset), so it skipped the image-MCQ rung.
+    vocabTextMcq("es-m3-3-tmcq-computadora", "computadora", [
+      "teléfono",
+      "celular",
+      "pluma",
+    ]),
     phrase("es-m3-3-p-lapiz", "a pencil", "un lápiz", undefined, { atomId: "es:lápiz", emoji: "✏️" }),
     cloze(
       "es-m3-3-cz-una",
@@ -271,6 +287,19 @@ const M3_3: LessonContent = {
       ["un", "una", "el", "los"],
       "a cell phone",
       "un celular",
+    ),
+    // Both indefinite articles in one graded set — the m/f pair side by side.
+    agreementCloze(
+      "es-m3-3-agr-ununa",
+      [
+        { blank: { id: "b1", correctAnswer: "un", options: ["un", "una", "el", "la"] } },
+        { text: " lápiz y " },
+        { blank: { id: "b2", correctAnswer: "una", options: ["un", "una", "el", "la"] } },
+        { text: " pluma" },
+      ],
+      "a pencil and a pen",
+      "un lápiz y una pluma",
+      ["lápiz", "pluma"],
     ),
   ],
 };
@@ -338,6 +367,29 @@ const M3_4: LessonContent = {
       explanation: "Feminine plural: both words show it.",
       exercisedAtomSurfaces: ["las", "cosa"],
     }),
+    // Article and noun move together — both endings graded as one set.
+    agreementCloze(
+      "es-m3-4-agr-sillas",
+      [
+        { blank: { id: "b1", correctAnswer: "las", options: ["el", "la", "los", "las"] } },
+        { text: " sill" },
+        { blank: { id: "b2", correctAnswer: "as", options: ["o", "a", "os", "as"] } },
+      ],
+      "the chairs",
+      "las sillas",
+      ["silla"],
+    ),
+    agreementCloze(
+      "es-m3-4-agr-libros",
+      [
+        { blank: { id: "b1", correctAnswer: "los", options: ["el", "la", "los", "las"] } },
+        { text: " libr" },
+        { blank: { id: "b2", correctAnswer: "os", options: ["o", "a", "os", "as"] } },
+      ],
+      "the books",
+      "los libros",
+      ["libro"],
+    ),
   ],
 };
 

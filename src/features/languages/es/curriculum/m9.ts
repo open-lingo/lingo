@@ -23,16 +23,20 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
   cloze,
+  dialogueListen,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
+  vocabTextMcq,
 } from "../grammarHelpers";
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
 import "./m8";
@@ -139,6 +143,8 @@ const M9_1: LessonContent = {
       audioText: "La comida es buena.",
       exercisedAtomSurfaces: ["comida"],
     }),
+    // Text-front recognition — comida carries no emoji.
+    vocabTextMcq("es-m9-1-vm-comida", "comida", ["agua", "casa", "mesa"]),
   ],
 };
 
@@ -265,6 +271,19 @@ const M9_3: LessonContent = {
       explanation: "The -imos ending is the one place -ir verbs break from -er.",
       exercisedAtomSurfaces: ["recibir", "carta"],
     }),
+    // Text-front recognition — recibir carries no emoji.
+    vocabTextMcq("es-m9-3-vm-recibir", "recibir", ["escribir", "abrir", "leer"]),
+    // Review grid — the -er/-ir set taught so far in one recognition sweep.
+    matchPairs("es-m9-3", [
+      "comer",
+      "beber",
+      "leer",
+      "aprender",
+      "vivir",
+      "escribir",
+      "abrir",
+      "correr",
+    ]),
   ],
 };
 
@@ -421,6 +440,20 @@ const M9_5: LessonContent = {
       audioText: "Estudio español porque vivo en México.",
       exercisedAtomSurfaces: ["porque", "vivir", "estudiar"],
     }),
+    // For-sale listing — each m4 adjective agrees with its own noun.
+    agreementCloze(
+      "es-m9-5-agr-vende",
+      [
+        { text: "Ellos venden una casa viej" },
+        { blank: { id: "b1", correctAnswer: "a", options: ["o", "a", "os", "as"] } },
+        { text: " y un carro nuev" },
+        { blank: { id: "b2", correctAnswer: "o", options: ["o", "a", "os", "as"] } },
+        { text: "." },
+      ],
+      "they sell an old house and a new car",
+      "Ellos venden una casa vieja y un carro nuevo.",
+      ["vender", "casa", "carro", "viejo", "nuevo"],
+    ),
   ],
 };
 
@@ -554,6 +587,31 @@ const M9_7: LessonContent = {
       correctText: "Porque trabajo en México.",
       distractorsText: ["Con mi familia.", "Los martes.", "En el banco."],
       exercisedAtomSurfaces: ["porque", "por qué"],
+    }),
+    // The interview continues — new questions, by ear this time.
+    dialogueListen({
+      id: "es-m9-7-dlg-entrevista",
+      lines: [
+        { speaker: "María", text: "¿Qué comes todos los días, Diego?" },
+        { speaker: "Diego", text: "Como con mi familia en casa." },
+        { speaker: "María", text: "¿Y qué bebes?" },
+        { speaker: "Diego", text: "Bebo agua con la comida." },
+      ],
+      questions: [
+        {
+          id: "q1",
+          prompt: "Where does Diego eat every day?",
+          correctText: "At home with his family",
+          distractors: ["At a restaurant with friends", "At school", "At his grandmother's house"],
+        },
+        {
+          id: "q2",
+          prompt: "What does Diego drink with his food?",
+          correctText: "Water",
+          distractors: ["Coffee", "Milk", "Juice"],
+        },
+      ],
+      exercisedAtomSurfaces: ["comer", "beber", "agua", "comida", "con", "qué"],
     }),
     translateStep({
       id: "es-m9-7-tr-lees",

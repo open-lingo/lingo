@@ -25,16 +25,20 @@ import type { LessonContent } from "@/features/lesson/types";
 import type { PlacementItem } from "@/shared/language/types";
 import { atom, type EsAtom } from "../courseAtoms";
 import {
+  agreementCloze,
   build,
   cloze,
+  dialogueListen,
   infoStep,
   listeningBuildSentence,
   listeningCompSentence,
+  matchPairs,
   phrase,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
+  vocabTextMcq,
 } from "../grammarHelpers";
 // Register earlier-module atoms before this file's factory calls resolve surfaces.
 import "./m12";
@@ -206,6 +210,19 @@ const M13_2: LessonContent = {
       distractorsText: ["¿qué preferes?", "¿qué prefiero?", "¿qué prefieren?"],
       exercisedAtomSurfaces: ["preferir"],
     }),
+    agreementCloze(
+      "es-m13-2-ac-favorito",
+      [
+        { text: "Mi libro favorit" },
+        { blank: { id: "b1", correctAnswer: "o", options: ["o", "a", "os", "as"] } },
+        { text: " es este y mi película favorit" },
+        { blank: { id: "b2", correctAnswer: "a", options: ["o", "a", "os", "as"] } },
+        { text: " es esa" },
+      ],
+      "My favorite book is this one and my favorite movie is that one",
+      "Mi libro favorito es este y mi película favorita es esa",
+      ["favorito", "libro favorito", "película"],
+    ),
     speaking("es-m13-2-speak-prefiero", "prefiero esta película", "I prefer this movie", ["preferir", "película"]),
   ],
 };
@@ -342,6 +359,8 @@ const M13_4: LessonContent = {
       distractorsText: ["vuelvemos tarde", "volvemos tardes", "vuelven tarde"],
       exercisedAtomSurfaces: ["volver", "tarde"],
     }),
+    // temprano has no emoji (abstract time word) — text-front MCQ instead.
+    vocabTextMcq("es-m13-4-tmcq-temprano", "temprano", ["tarde", "después", "ahora"]),
   ],
 };
 
@@ -420,6 +439,19 @@ const M13_5: LessonContent = {
       ],
       exercisedAtomSurfaces: ["servir"],
     }),
+    // pedir has no emoji (abstract verb) — text-front MCQ instead.
+    vocabTextMcq("es-m13-5-tmcq-pedir", "pedir", ["servir", "pensar", "jugar"]),
+    // Review grid over the module's boot-verb infinitives (L2–L5).
+    matchPairs("es-m13-5-review", [
+      "preferir",
+      "empezar",
+      "cerrar",
+      "dormir",
+      "volver",
+      "almorzar",
+      "pedir",
+      "jugar",
+    ]),
   ],
 };
 
@@ -592,6 +624,32 @@ const M13_7: LessonContent = {
       ],
       audioText: "vuelvo a casa temprano",
       exercisedAtomSurfaces: ["volver", "temprano"],
+    }),
+    dialogueListen({
+      id: "es-m13-7-dl-plan",
+      lines: [
+        { speaker: "Diego", text: "¿Quieres almorzar con nosotros?" },
+        { speaker: "Rosa", text: "No puedo. Juego un partido de fútbol a la una." },
+        { speaker: "Diego", text: "¿A qué hora vuelves?" },
+        { speaker: "Rosa", text: "Vuelvo a las tres." },
+      ],
+      questions: [
+        {
+          id: "q1",
+          prompt: "Why can't Rosa have lunch with them?",
+          correctText: "She plays a soccer game at one",
+          distractors: ["She works at one", "She returns home at one", "She prefers to eat at home"],
+          explanation: "Rosa says: Juego un partido de fútbol a la una.",
+        },
+        {
+          id: "q2",
+          prompt: "When does Rosa return?",
+          correctText: "At three",
+          distractors: ["At one", "Tonight", "Tomorrow"],
+          explanation: "Rosa answers: Vuelvo a las tres.",
+        },
+      ],
+      exercisedAtomSurfaces: ["almorzar", "puedo", "jugar", "partido", "fútbol", "volver"],
     }),
     speaking("es-m13-7-speak-prefiero", "prefiero ir al cine", "I prefer to go to the movies", ["preferir"]),
   ],
