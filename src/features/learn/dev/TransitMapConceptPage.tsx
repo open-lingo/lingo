@@ -8,17 +8,21 @@
  * furniture (LearnSidebar side-quest rail + profile, LearnToolsRow) and a
  * split-flap "departure board" that doubles as the Continue CTA.
  *
- * Because a fresh dev profile renders an all-grey map, the preview defaults
- * to a synthesized DEMO progress state (toggle top-left of the panel swaps
- * in your real progress). Ambient layer: drifting clouds by day, moon +
- * stars in dark themes, a ghost train ambling the line, hanko seals on
- * completed stations. All motion respects prefers-reduced-motion.
+ * Scaling: the map panel flexes with the viewport (clamp(480px,62vh,980px))
+ * and the SVG scales uniformly to fill it — 4k renders a genuinely bigger
+ * map, not a fixed-pixel band. The ambient sky (clouds / moon+stars) lives
+ * on a panel-pinned parallax layer, not inside the scrolling map.
+ *
+ * Demo state is on by default (a fresh profile renders an all-grey map);
+ * the toggle swaps in real progress. All motion respects
+ * prefers-reduced-motion.
  *
  * Route: /:lang/transit-preview
  */
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -51,10 +55,12 @@ import "./transitMapConcept.css";
 
 type Pt = readonly [number, number];
 
-const LEVELS = [356, 274, 192] as const;
+const LEVELS = [344, 266, 188] as const;
 const LEVEL_SEQ = [0, 1, 2, 1] as const;
 const RUNS = [5, 4, 5, 3, 6, 4] as const;
-const MAP_H = 620;
+const MAP_H = 524;
+const LOOP_DOWN_Y = 420;
+const LOOP_UP_Y = 96;
 const QUEST_COLORS = ["var(--tmc-q0)", "var(--tmc-q1)", "var(--tmc-q2)"];
 
 type StationL = {
@@ -82,6 +88,7 @@ type SpurL = {
   labelX: number;
   labelY: number;
   up: boolean;
+  cap: Pt | null;
 };
 
 type DepotL = { d: string; tracks: Pt[][]; labelX: number; labelY: number };
@@ -179,7 +186,7 @@ function buildLayout(
   zoneNumerals: string[],
 ): Layout {
   const stations: StationL[] = [];
-  let x = 116;
+  let x = 150;
   modules.forEach((m, i) => {
     const level = levelOf(i);
     const y = LEVELS[level];
@@ -207,7 +214,7 @@ function buildLayout(
     });
   });
 
-  const mainPts: Pt[] = [[stations[0].x - 60, stations[0].y]];
+  const mainPts: Pt[] = [[stations[0].x - 64, stations[0].y]];
   for (let i = 1; i < stations.length; i++) {
     const prev = stations[i - 1];
     const cur = stations[i];
@@ -220,13 +227,13 @@ function buildLayout(
   mainPts.push([last.x + 62, last.y]);
 
   /* quest branch lines — loops that rejoin when geometry allows, spurs
-     otherwise; direction away from the track band */
+     with terminus caps otherwise; direction away from the track band */
   const spurs: SpurL[] = [];
   let colorIdx = 0;
   for (const [anchor, quests] of questsByAnchor) {
     const a = stations[anchor];
     const up = a.y === LEVELS[2];
-    const loopY = up ? 116 : 474;
+    const loopY = up ? LOOP_UP_Y : LOOP_DOWN_Y;
     const dx = Math.abs(loopY - a.y);
     const shown = quests.slice(0, 3);
     const color = QUEST_COLORS[colorIdx % QUEST_COLORS.length];
@@ -250,6 +257,7 @@ function buildLayout(
     let d: string;
     let stops: QuestStop[];
     let labelX: number;
+    let cap: Pt | null = null;
     if (rejoin) {
       const from = a.x + dx;
       const to = rejoin.x - dx;
@@ -278,6 +286,7 @@ function buildLayout(
         quest,
       }));
       labelX = a.x + dx + (end - a.x - dx) / 2;
+      cap = [end, loopY];
     }
     spurs.push({
       color,
@@ -289,24 +298,27 @@ function buildLayout(
       labelX,
       // line name sits OUTSIDE the stop-label band: below everything on
       // down-loops, in the sky above the emoji row on up-loops
-      labelY: up ? loopY - 42 : loopY + 44,
+      labelY: up ? loopY - 42 : loopY + 58,
       up,
+      cap,
     });
   }
 
-  /* practice depot: first low-level station after the midpoint without a
-     branch — the rail yard is the practice hub */
+  /* practice depot: a low-level station past the first third — the rail
+     yard links to the practice hub */
   let depot: DepotL | null = null;
+  const anchors = [...questsByAnchor.keys()];
   for (let i = Math.floor(stations.length * 0.35); i < stations.length - 1; i++) {
     const s = stations[i];
-    if (s.y >= LEVELS[1] && !s.interchange) {
-      // drop the yard well below the station-label band (labels end ~y+45)
-      const yardY = s.y + 74;
-      if (Math.abs(yardY - 474) < 44) continue; // keep clear of down-loops
+    // keep the yard clear of branch-line horizontals (they extend a few
+    // stations past their anchor at the same depth)
+    const nearBranch = anchors.some((a) => i >= a - 1 && i <= a + 3);
+    if (s.y === LEVELS[0] && !s.interchange && !nearBranch) {
+      const yardY = s.y + 60;
       depot = {
         d: dOf([
           [s.x, s.y],
-          [s.x + 52, yardY - 22],
+          [s.x + 52, yardY - 18],
           [s.x + 52, yardY],
         ]),
         tracks: [
@@ -315,7 +327,7 @@ function buildLayout(
           [[s.x + 52, yardY + 8], [s.x + 118, yardY + 8]],
         ],
         labelX: s.x + 52,
-        labelY: yardY + 26,
+        labelY: yardY + 24,
       };
       break;
     }
@@ -428,48 +440,60 @@ function GhostTrain() {
   );
 }
 
-/** Deterministic pseudo-random star field (Math.random is banned in tests
- *  and stars must not reshuffle on re-render). */
-const STARS = Array.from({ length: 18 }, (_, i) => ({
-  x: 90 + ((i * 419) % 1901),
-  y: 14 + ((i * 137) % 82),
+/** Deterministic star field (Math.random would reshuffle every render). */
+const STARS = Array.from({ length: 16 }, (_, i) => ({
+  x: 4 + ((i * 6.3) % 92), // percent
+  y: 10 + ((i * 23) % 78),
   r: 0.9 + (i % 3) * 0.5,
   delay: (i % 7) * 0.5,
 }));
 
-function SkyLayer({ width }: { width: number }) {
+/** Panel-pinned ambient layer: gradient + clouds by day, moon + stars in
+ *  dark themes. Positioned with percentages so it fills any panel size;
+ *  the scroll handler nudges it for parallax. */
+function FixedSky({ skyRef }: { skyRef: React.RefObject<HTMLDivElement | null> }) {
   return (
-    <g pointerEvents="none" aria-hidden>
-      {/* day */}
-      <g className="tmc-day">
-        <rect x={0} y={0} width={width} height={112} fill="url(#tmc-sky-day)" />
-        {[0, 1, 2].map((i) => (
-          <g key={i} className={cn("tmc-cloud", i === 1 && "b")} style={{ animationDelay: `${-i * 55}s` }}>
-            <g transform={`translate(${120 + i * 340} ${38 + i * 18})`} opacity={0.55}>
-              <ellipse cx={0} cy={0} rx={34} ry={12} style={{ fill: "var(--tmc-panel)" }} />
-              <ellipse cx={22} cy={-6} rx={22} ry={10} style={{ fill: "var(--tmc-panel)" }} />
-              <ellipse cx={-20} cy={-4} rx={18} ry={8} style={{ fill: "var(--tmc-panel)" }} />
-            </g>
-          </g>
-        ))}
-      </g>
-      {/* night */}
-      <g className="tmc-night">
-        <rect x={0} y={0} width={width} height={112} fill="url(#tmc-sky-night)" />
-        <circle cx={210} cy={44} r={16} style={{ fill: "#F5EDCf", opacity: 0.9 }} />
-        <circle cx={203} cy={38} r={14} fill="url(#tmc-sky-night)" />
-        {STARS.filter((s) => s.x < width - 60).map((s, i) => (
-          <circle
-            key={i}
-            className="tmc-star"
-            cx={s.x}
-            cy={s.y}
-            r={s.r}
-            style={{ fill: "#EDE8D8", animationDelay: `${s.delay}s` }}
-          />
-        ))}
-      </g>
-    </g>
+    <div ref={skyRef} className="tmc-sky-layer" aria-hidden>
+      <svg width="100%" height="100%">
+        <defs>
+          <linearGradient id="tmc-sky-day" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#BEE0F2" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#BEE0F2" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="tmc-sky-night" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#141B33" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#141B33" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <g className="tmc-day">
+          <rect x="0" y="0" width="100%" height="150" fill="url(#tmc-sky-day)" />
+          {[0, 1, 2].map((i) => (
+            <svg key={i} x={`${8 + i * 26}%`} y={26 + i * 20} width="120" height="60" overflow="visible">
+              <g className={cn("tmc-cloud", i === 1 && "b")} style={{ animationDelay: `${-i * 55}s` }} opacity={0.55}>
+                <ellipse cx={0} cy={0} rx={34} ry={12} style={{ fill: "var(--tmc-panel)" }} />
+                <ellipse cx={22} cy={-6} rx={22} ry={10} style={{ fill: "var(--tmc-panel)" }} />
+                <ellipse cx={-20} cy={-4} rx={18} ry={8} style={{ fill: "var(--tmc-panel)" }} />
+              </g>
+            </svg>
+          ))}
+        </g>
+        <g className="tmc-night">
+          <rect x="0" y="0" width="100%" height="150" fill="url(#tmc-sky-night)" />
+          {/* crescent as a single path — cutting a circle with a gradient-
+              filled circle rendered as a mismatched blob (bbox-relative
+              gradient), which is exactly the bug this replaces */}
+          <svg x="56%" y="22" width="40" height="40" overflow="visible">
+            <path
+              d="M 14 0 A 14 14 0 1 0 14 28 A 17 17 0 0 1 14 0 Z"
+              style={{ fill: "#F0E8CC", opacity: 0.92 }}
+            />
+          </svg>
+          {STARS.map((s, i) => (
+            <circle key={i} className="tmc-star" cx={`${s.x}%`} cy={s.y} r={s.r} style={{ fill: "#EDE8D8", animationDelay: `${s.delay}s` }} />
+          ))}
+        </g>
+      </svg>
+    </div>
   );
 }
 
@@ -493,11 +517,26 @@ function NetworkMap({
   langPath: (p: string) => string;
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const skyRef = useRef<HTMLDivElement>(null);
   const railRef = useRef<SVGPathElement>(null);
   const trainRef = useRef<SVGGElement>(null);
   const ghostRef = useRef<SVGGElement>(null);
+  const userTookOver = useRef(false);
   const [tip, setTip] = useState<StationL | null>(null);
+  const [scale, setScale] = useState<number | null>(null);
   const strings = stringsFor(lang);
+
+  /* uniform scale: fill the flexed panel height */
+  useLayoutEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const measure = () => setScale(Math.max(0.8, el.clientHeight / MAP_H));
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  const s = scale ?? 1;
 
   const { segs, total } = useMemo(() => polySegs(layout.mainPts), [layout]);
   const current = layout.stations[currentIdx];
@@ -510,18 +549,24 @@ function NetworkMap({
     [layout, segs, lenCurrent],
   );
 
-  /* line-draw + mascot ride on mount / state change */
+  /* intro: line draws, then the mascot rides M1 → current with the camera
+     following (until the user grabs the map) */
   useEffect(() => {
+    if (scale === null) return;
     const rail = railRef.current;
     const train = trainRef.current;
-    if (!rail || !train) return;
+    const scroller = scrollerRef.current;
+    if (!rail || !train || !scroller) return;
+    userTookOver.current = false;
     const startLen = lenAtStation(layout.mainPts, segs, layout.stations[0].x, layout.stations[0].y);
-    const place = (len: number) => {
+    const place = (len: number): number => {
       const [px, py] = pointAt(layout.mainPts, segs, len);
       train.setAttribute("transform", `translate(${px} ${py})`);
+      return px;
     };
     if (prefersReducedMotion()) {
       place(lenCurrent);
+      scroller.scrollLeft = Math.max(0, current.x * s - scroller.clientWidth * 0.45);
       return;
     }
     const drawLen = rail.getTotalLength();
@@ -529,22 +574,26 @@ function NetworkMap({
     rail.style.strokeDasharray = `${drawLen}`;
     rail.style.strokeDashoffset = `${drawLen}`;
     place(startLen);
+    scroller.scrollLeft = 0;
     void rail.getBoundingClientRect();
     rail.style.transition = "";
     rail.style.strokeDashoffset = "0";
 
     let raf = 0;
-    const rideMs = 1500;
-    const t0 = performance.now() + 650;
+    const rideMs = Math.min(4200, Math.max(1200, (lenCurrent - startLen) * 0.9));
+    const t0 = performance.now() + 700;
     const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
     const tick = (now: number) => {
       const t = Math.min(1, Math.max(0, (now - t0) / rideMs));
-      place(startLen + (lenCurrent - startLen) * ease(t));
+      const px = place(startLen + (lenCurrent - startLen) * ease(t));
+      if (!userTookOver.current) {
+        scroller.scrollLeft = Math.max(0, px * s - scroller.clientWidth * 0.45);
+      }
       if (t < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [layout, segs, lenCurrent]);
+  }, [layout, segs, lenCurrent, scale, s, current.x]);
 
   /* ghost train ambling the whole line on a slow loop */
   useEffect(() => {
@@ -561,12 +610,13 @@ function NetworkMap({
     return () => cancelAnimationFrame(raf);
   }, [layout, segs, total]);
 
-  /* drag + wheel panning */
+  /* drag + wheel panning, sky parallax */
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
     let drag: { x: number; left: number } | null = null;
     const down = (e: PointerEvent) => {
+      userTookOver.current = true;
       drag = { x: e.clientX, left: el.scrollLeft };
       el.classList.add("tmc-dragging");
     };
@@ -579,31 +629,41 @@ function NetworkMap({
     };
     const wheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        userTookOver.current = true;
         el.scrollLeft += e.deltaY;
         e.preventDefault();
       }
+    };
+    const onScroll = () => {
+      const sky = skyRef.current;
+      if (!sky) return;
+      const slack = el.clientWidth * 0.45;
+      sky.style.transform = `translateX(${-Math.min(el.scrollLeft * 0.12, slack)}px)`;
     };
     el.addEventListener("pointerdown", down);
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", up);
     el.addEventListener("wheel", wheel, { passive: false });
-    el.scrollLeft = Math.max(0, current.x - el.clientWidth * 0.4);
+    el.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       el.removeEventListener("pointerdown", down);
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", up);
       el.removeEventListener("wheel", wheel);
+      el.removeEventListener("scroll", onScroll);
     };
-  }, [current.x]);
+  }, []);
 
-  const stationFill = (s: StationL): { fill: string; stroke: string } => {
-    if (s.status === "completed") return { fill: "var(--tmc-done)", stroke: "var(--tmc-panel)" };
-    if (s.status === "current") return { fill: "var(--tmc-panel)", stroke: "var(--tmc-line-main)" };
+  const stationFill = (st: StationL): { fill: string; stroke: string } => {
+    if (st.status === "completed") return { fill: "var(--tmc-done)", stroke: "var(--tmc-panel)" };
+    if (st.status === "current") return { fill: "var(--tmc-panel)", stroke: "var(--tmc-line-main)" };
     return { fill: "var(--tmc-panel)", stroke: "var(--tmc-locked)" };
   };
 
   return (
     <div className="relative rounded-md border-2 border-text-primary bg-surface shadow-card overflow-hidden">
+      <FixedSky skyRef={skyRef} />
+
       {/* demo/real toggle */}
       <div className="absolute left-3 top-3 z-[5] flex items-center gap-2">
         <div className="tmc-toggle" role="group" aria-label="Progress data source">
@@ -619,7 +679,7 @@ function NetworkMap({
       {/* legend */}
       <div
         data-tm="legend"
-        className="absolute right-3 top-3 z-[5] grid gap-1.5 rounded-sm border border-border bg-surface px-3.5 py-2.5 text-[11px] shadow-card min-w-[184px]"
+        className="absolute right-3 top-3 z-[5] grid gap-1.5 rounded-sm border border-border bg-surface px-3.5 py-2.5 text-[11px] shadow-card min-w-[184px] 2xl:text-[12.5px] 2xl:min-w-[212px]"
       >
         <div className="flex items-center gap-2">
           <span className="h-[5px] w-[22px] rounded-full" style={{ background: "var(--tmc-line-main)" }} />
@@ -651,37 +711,24 @@ function NetworkMap({
       </div>
 
       <div ref={scrollerRef} className="tmc-map-scroll">
-        <div className="tmc-map-inner" style={{ width: layout.width }}>
+        <div className="tmc-map-inner" style={{ width: Math.round(layout.width * s) }}>
           <svg
             viewBox={`0 0 ${layout.width} ${MAP_H}`}
-            width={layout.width}
-            height={MAP_H}
+            width={Math.round(layout.width * s)}
+            height={Math.round(MAP_H * s)}
             role="img"
             aria-label="Course transit map"
           >
-            <defs>
-              <linearGradient id="tmc-sky-day" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#BEE0F2" stopOpacity="0.65" />
-                <stop offset="100%" stopColor="#BEE0F2" stopOpacity="0" />
-              </linearGradient>
-              <linearGradient id="tmc-sky-night" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#141B33" stopOpacity="0.95" />
-                <stop offset="100%" stopColor="#141B33" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-
-            <SkyLayer width={layout.width} />
-
             {/* river — soft geography behind everything */}
             <g pointerEvents="none" aria-hidden>
               <path
-                d={`M ${layout.riverX} 92 C ${layout.riverX - 40} 220, ${layout.riverX + 70} 330, ${layout.riverX + 10} 440 S ${layout.riverX - 60} 570, ${layout.riverX - 30} 618`}
+                d={`M ${layout.riverX} 40 C ${layout.riverX - 40} 180, ${layout.riverX + 70} 300, ${layout.riverX + 10} 410 S ${layout.riverX - 60} 520, ${layout.riverX - 30} 560`}
                 fill="none"
                 strokeWidth={16}
                 strokeLinecap="round"
                 style={{ stroke: "var(--tmc-river)", opacity: 0.28 }}
               />
-              <text x={layout.riverX + 18} y={150} style={{ fill: "var(--tmc-river)", fontSize: 13, fontWeight: 700, opacity: 0.75 }}>
+              <text x={layout.riverX + 18} y={120} style={{ fill: "var(--tmc-river)", fontSize: 13, fontWeight: 700, opacity: 0.75 }}>
                 {strings.river}
               </text>
             </g>
@@ -689,23 +736,12 @@ function NetworkMap({
             {/* zones */}
             {layout.zones.map((z, i) => (
               <g key={z.label}>
-                <rect
-                  x={z.x0}
-                  y={124}
-                  width={z.x1 - z.x0}
-                  height={392}
-                  fill="currentColor"
-                  opacity={i % 2 === 1 ? 0.03 : 0.012}
-                />
-                {i > 0 && (
-                  <line x1={z.x0} y1={124} x2={z.x0} y2={516} style={{ stroke: "var(--tmc-border)" }} strokeDasharray="2 6" />
-                )}
-                {/* zone label rides the bottom edge — the top band belongs
-                    to level-2 station labels and the sky */}
-                <text x={z.x0 + 18} y={550} data-tm="zone" style={{ fill: "var(--tmc-muted)", fontSize: 10.5, letterSpacing: "0.17em", fontWeight: 600 }}>
+                <rect x={z.x0} y={70} width={z.x1 - z.x0} height={410} fill="currentColor" opacity={i % 2 === 1 ? 0.03 : 0.012} />
+                {i > 0 && <line x1={z.x0} y1={70} x2={z.x0} y2={480} style={{ stroke: "var(--tmc-border)" }} strokeDasharray="2 6" />}
+                <text x={z.x0 + 18} y={508} data-tm="zone" style={{ fill: "var(--tmc-muted)", fontSize: 10.5, letterSpacing: "0.17em", fontWeight: 600 }}>
                   {z.label}
                 </text>
-                <text x={z.x0 + 22} y={226} aria-hidden style={{ fill: "currentColor", opacity: 0.055, fontSize: 64, fontWeight: 800 }}>
+                <text x={z.x0 + 22} y={160} aria-hidden style={{ fill: "var(--tmc-muted)", opacity: 0.09, fontSize: 64, fontWeight: 800 }}>
                   {z.numeral}
                 </text>
               </g>
@@ -723,6 +759,17 @@ function NetworkMap({
                   style={{ stroke: spur.dashed ? "var(--tmc-locked)" : spur.color }}
                   strokeDasharray={spur.dashed ? "6 8" : undefined}
                 />
+                {spur.cap && (
+                  <line
+                    x1={spur.cap[0]}
+                    y1={spur.cap[1] - 8}
+                    x2={spur.cap[0]}
+                    y2={spur.cap[1] + 8}
+                    strokeWidth={5}
+                    strokeLinecap="round"
+                    style={{ stroke: spur.dashed ? "var(--tmc-locked)" : spur.color }}
+                  />
+                )}
                 {spur.label && (
                   <text
                     x={spur.labelX}
@@ -754,13 +801,7 @@ function NetworkMap({
                       <text x={x} y={spur.up ? y + 28 : y - 16} textAnchor="middle" style={{ fontSize: 13 }}>
                         {quest.emoji}
                       </text>
-                      <text
-                        x={x}
-                        y={spur.up ? y - 18 : y + 27}
-                        textAnchor="middle"
-                        data-tm="label"
-                        style={{ fill: "var(--tmc-muted)", fontSize: 9.5 }}
-                      >
+                      <text x={x} y={spur.up ? y - 18 : y + 27} textAnchor="middle" data-tm="label" style={{ fill: "var(--tmc-muted)", fontSize: 9.5 }}>
                         {quest.title.length > 14 ? `${quest.title.slice(0, 13)}…` : quest.title}
                         {quest.progress > 0 && quest.progress < 100 ? ` · ${quest.progress}%` : ""}
                       </text>
@@ -785,7 +826,16 @@ function NetworkMap({
               </Link>
             )}
 
-            {/* main line: ahead dashed under the drawn done-section */}
+            {/* main line: origin cap, ahead dashed, drawn done-section */}
+            <line
+              x1={layout.mainPts[0][0]}
+              y1={layout.mainPts[0][1] - 9}
+              x2={layout.mainPts[0][0]}
+              y2={layout.mainPts[0][1] + 9}
+              strokeWidth={6}
+              strokeLinecap="round"
+              style={{ stroke: "var(--tmc-line-main)" }}
+            />
             <path
               d={dOf(aheadPts)}
               fill="none"
@@ -815,77 +865,78 @@ function NetworkMap({
             </g>
 
             {/* stations */}
-            {layout.stations.map((s) => {
-              const dir = s.labelSide === "top" ? -1 : 1;
-              const baseOffset = s.interchange || s.terminal ? 36 : 30;
-              const titleY = s.y + dir * baseOffset + (dir < 0 ? 0 : 8);
+            {layout.stations.map((st) => {
+              // the mascot parks above the current station — flip its labels
+              // below so they stay readable when the station is on the top row
+              const dir = st.labelSide === "top" && st.status !== "current" ? -1 : 1;
+              const baseOffset = st.interchange || st.terminal ? 36 : 30;
+              const titleY = st.y + dir * baseOffset + (dir < 0 ? 0 : 8);
               const badgeY = titleY + dir * 15;
-              const short = s.module.title.length > 18 ? `${s.module.title.slice(0, 17)}…` : s.module.title;
-              const paint = stationFill(s);
+              const short = st.module.title.length > 18 ? `${st.module.title.slice(0, 17)}…` : st.module.title;
+              const paint = stationFill(st);
               return (
                 <g
-                  key={s.module.id}
+                  key={st.module.id}
                   className="tmc-station"
                   data-tm="station"
                   tabIndex={0}
                   role="button"
-                  aria-label={`${s.badge} ${s.module.title}, ${s.done} of ${s.total} lessons`}
-                  onMouseEnter={() => setTip(s)}
+                  aria-label={`${st.badge} ${st.module.title}, ${st.done} of ${st.total} lessons`}
+                  onMouseEnter={() => setTip(st)}
                   onMouseLeave={() => setTip(null)}
-                  onFocus={() => setTip(s)}
+                  onFocus={() => setTip(st)}
                   onBlur={() => setTip(null)}
-                  onClick={() => onOpen(s.index)}
+                  onClick={() => onOpen(st.index)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
-                      onOpen(s.index);
+                      onOpen(st.index);
                     }
                   }}
                 >
-                  <circle className="tmc-hit" cx={s.x} cy={s.y} r={22} fill="transparent" stroke="none" />
-                  {s.status === "current" && (
-                    <circle className="tmc-pulse" cx={s.x} cy={s.y} r={13} fill="none" strokeWidth={3} style={{ stroke: "var(--tmc-line-main)" }} />
+                  <circle className="tmc-hit" cx={st.x} cy={st.y} r={22} fill="transparent" stroke="none" />
+                  {st.status === "current" && (
+                    <circle className="tmc-pulse" cx={st.x} cy={st.y} r={13} fill="none" strokeWidth={3} style={{ stroke: "var(--tmc-line-main)" }} />
                   )}
-                  <g className="tmc-station-glyph" style={{ animationDelay: `${s.index * 45}ms` }}>
-                    {s.terminal ? (
+                  <g className="tmc-station-glyph" style={{ animationDelay: `${st.index * 45}ms` }}>
+                    {st.terminal ? (
                       <>
-                        <rect x={s.x - 13} y={s.y - 13} width={26} height={26} rx={5} strokeWidth={4} style={{ fill: "var(--tmc-panel)", stroke: s.status === "completed" ? "var(--tmc-done)" : "var(--tmc-locked)" }} />
-                        <rect x={s.x - 30} y={s.y - 58} width={60} height={20} rx={3} style={{ fill: "var(--tmc-ink)" }} />
-                        <text x={s.x} y={s.y - 44} textAnchor="middle" style={{ fill: "var(--tmc-panel)", fontSize: 10, fontWeight: 800 }}>
+                        <rect x={st.x - 13} y={st.y - 13} width={26} height={26} rx={5} strokeWidth={4} style={{ fill: "var(--tmc-panel)", stroke: st.status === "completed" ? "var(--tmc-done)" : "var(--tmc-locked)" }} />
+                        <rect x={st.x - 30} y={st.y - 58} width={60} height={20} rx={3} style={{ fill: "var(--tmc-ink)" }} />
+                        <text x={st.x} y={st.y - 44} textAnchor="middle" style={{ fill: "var(--tmc-panel)", fontSize: 10, fontWeight: 800 }}>
                           GOAL
                         </text>
-                        <line x1={s.x} y1={s.y - 38} x2={s.x} y2={s.y - 15} style={{ stroke: "var(--tmc-ink)" }} strokeWidth={1.5} />
+                        <line x1={st.x} y1={st.y - 38} x2={st.x} y2={st.y - 15} style={{ stroke: "var(--tmc-ink)" }} strokeWidth={1.5} />
                       </>
-                    ) : s.isReview ? (
-                      <rect x={s.x - 7} y={s.y - 7} width={14} height={14} rx={3} strokeWidth={3} style={{ fill: paint.fill, stroke: s.status === "completed" ? "var(--tmc-panel)" : paint.stroke }} />
-                    ) : s.interchange ? (
+                    ) : st.isReview ? (
+                      <rect x={st.x - 7} y={st.y - 7} width={14} height={14} rx={3} strokeWidth={3} style={{ fill: paint.fill, stroke: st.status === "completed" ? "var(--tmc-panel)" : paint.stroke }} />
+                    ) : st.interchange ? (
                       <>
-                        <circle cx={s.x} cy={s.y} r={11.5} strokeWidth={3.5} style={{ fill: "var(--tmc-panel)", stroke: "var(--tmc-ink)" }} />
-                        <circle cx={s.x} cy={s.y} r={4.5} style={{ fill: s.status === "locked" ? "var(--tmc-locked)" : "var(--tmc-line-main)" }} />
+                        <circle cx={st.x} cy={st.y} r={11.5} strokeWidth={3.5} style={{ fill: "var(--tmc-panel)", stroke: "var(--tmc-ink)" }} />
+                        <circle cx={st.x} cy={st.y} r={4.5} style={{ fill: st.status === "locked" ? "var(--tmc-locked)" : "var(--tmc-line-main)" }} />
                       </>
                     ) : (
                       <circle
-                        cx={s.x}
-                        cy={s.y}
-                        r={s.status === "current" ? 9.5 : 8}
-                        strokeWidth={s.status === "current" ? 4.5 : 3.5}
+                        cx={st.x}
+                        cy={st.y}
+                        r={st.status === "current" ? 9.5 : 8}
+                        strokeWidth={st.status === "current" ? 4.5 : 3.5}
                         style={paint}
                       />
                     )}
-                    {/* hanko seal on completed stations */}
-                    {s.status === "completed" && !s.terminal && (
-                      <g transform={`rotate(-14 ${s.x + 13} ${s.y - 13})`} aria-hidden>
-                        <circle cx={s.x + 13} cy={s.y - 13} r={7.5} style={{ fill: "var(--tmc-seal)", opacity: 0.94 }} />
-                        <text x={s.x + 13} y={s.y - 10.5} textAnchor="middle" style={{ fill: "#fff", fontSize: 7.5, fontWeight: 800 }}>
+                    {st.status === "completed" && !st.terminal && (
+                      <g transform={`rotate(-14 ${st.x + 13} ${st.y - 13})`} aria-hidden>
+                        <circle cx={st.x + 13} cy={st.y - 13} r={7.5} style={{ fill: "var(--tmc-seal)", opacity: 0.94 }} />
+                        <text x={st.x + 13} y={st.y - 10.5} textAnchor="middle" style={{ fill: "#fff", fontSize: 7.5, fontWeight: 800 }}>
                           {strings.seal}
                         </text>
                       </g>
                     )}
                   </g>
-                  <text x={s.x} y={dir < 0 ? badgeY : titleY} textAnchor="middle" data-tm="label" style={{ fill: "var(--tmc-ink)", fontSize: 12, fontWeight: 800 }}>
-                    {s.badge}
+                  <text x={st.x} y={dir < 0 ? badgeY : titleY} textAnchor="middle" data-tm="label" style={{ fill: "var(--tmc-ink)", fontSize: 12, fontWeight: 800 }}>
+                    {st.badge}
                   </text>
-                  <text x={s.x} y={dir < 0 ? titleY : badgeY} textAnchor="middle" data-tm="label" style={{ fill: "var(--tmc-muted)", fontSize: 9.5 }}>
+                  <text x={st.x} y={dir < 0 ? titleY : badgeY} textAnchor="middle" data-tm="label" style={{ fill: "var(--tmc-muted)", fontSize: 9.5 }}>
                     {short}
                   </text>
                 </g>
@@ -903,8 +954,8 @@ function NetworkMap({
               data-tm="tip"
               className="tmc-tip rounded-sm border-2 border-text-primary bg-surface px-3.5 py-3 shadow-popover"
               style={{
-                left: Math.max(8, Math.min(tip.x - 116, layout.width - 244)),
-                top: tip.labelSide === "top" ? tip.y + 40 : tip.y - 148,
+                left: Math.max(8, Math.min(tip.x * s - 116, layout.width * s - 244)),
+                top: tip.labelSide === "top" ? tip.y * s + 34 * s : tip.y * s - 150,
               }}
             >
               <div className="text-[10px] tracking-[0.12em] text-text-muted uppercase">
@@ -922,7 +973,7 @@ function NetworkMap({
           )}
         </div>
       </div>
-      <div className="pointer-events-none absolute bottom-2.5 left-3.5 z-[5] rounded-full border border-border bg-surface px-3 py-0.5 text-[11px] text-text-muted">
+      <div className="pointer-events-none absolute bottom-2.5 left-3.5 z-[5] rounded-full border border-border bg-surface px-3 py-0.5 text-[11px] text-text-muted 2xl:text-[12px]">
         drag or scroll sideways · click a station
       </div>
     </div>
@@ -938,18 +989,18 @@ function DepartureBoard({
 }) {
   return (
     <div className="mt-3 overflow-hidden rounded-md border-2 border-text-primary shadow-card" style={{ background: "var(--color-text-primary)", color: "var(--color-surface)" }}>
-      <div className="flex items-center justify-between px-4 pt-2.5 pb-1.5 text-[10px] uppercase tracking-[0.22em] opacity-60">
+      <div className="flex items-center justify-between px-4 pt-2.5 pb-1.5 text-[10px] uppercase tracking-[0.22em] opacity-60 2xl:text-[11px]">
         <span>Departures · 発車標</span>
         <span>{rows.length} services</span>
       </div>
       {rows.map((r, i) => (
         <div
           key={r.key}
-          className="tmc-board-row flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-white/10 px-4 py-2.5"
+          className="tmc-board-row flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-white/10 px-4 py-2.5 2xl:px-5 2xl:py-3"
           style={{ "--i": i } as CSSProperties}
         >
-          <span className="w-[118px] flex-none text-[10.5px] font-bold tracking-[0.14em] opacity-70">{r.tag}</span>
-          <span className="min-w-0 flex-1 text-[13.5px] font-bold">{r.body}</span>
+          <span className="w-[118px] flex-none text-[10.5px] font-bold tracking-[0.14em] opacity-70 2xl:w-[150px] 2xl:text-[12px]">{r.tag}</span>
+          <span className="min-w-0 flex-1 text-[13.5px] font-bold 2xl:text-[15.5px]">{r.body}</span>
           {r.action}
         </div>
       ))}
@@ -1256,7 +1307,7 @@ export default function TransitMapConceptPage() {
   const navigate = useNavigate();
   const realIds = useCompletedLessonIds();
   const realSet = useMemo(() => new Set(realIds), [realIds]);
-  const profile = useLearnProfile();
+  const realProfile = useLearnProfile();
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   const [showMapMobile, setShowMapMobile] = useState(false);
   const [demo, setDemo] = useState(true);
@@ -1267,7 +1318,8 @@ export default function TransitMapConceptPage() {
   const viewCourse = useMemo(() => ({ ...course, modules }), [course, modules]);
 
   /* demo progress: a flattering mid-course state so the concept reads even
-     on a fresh profile — first ~42% of stations sealed, current mid-map */
+     on a fresh profile — first ~42% of stations sealed, current mid-map.
+     The demo profile keeps the sidebar/fare card telling the SAME story. */
   const demoSet = useMemo(() => {
     const s = new Set<string>();
     const cut = Math.max(1, Math.floor(modules.length * 0.42));
@@ -1277,6 +1329,10 @@ export default function TransitMapConceptPage() {
     return s;
   }, [modules]);
   const completedSet = demo ? demoSet : realSet;
+  const profile = useMemo(
+    () => (demo ? { ...realProfile, streakDays: 12, xpEarnedToday: 85, levelLabel: "Level 7" } : realProfile),
+    [demo, realProfile],
+  );
 
   const statuses = useMemo(() => modules.map((_, i) => getModuleStatus(i, completedSet, modules)), [modules, completedSet]);
   const doneCounts = useMemo(() => modules.map((m) => m.lessons.filter((l) => completedSet.has(l.id)).length), [modules, completedSet]);
@@ -1397,7 +1453,7 @@ export default function TransitMapConceptPage() {
         "All stations cleared"
       ),
       action: (
-        <Link to={nextHref} className="rounded-sm bg-accent px-4 py-1 text-[12px] font-bold text-accent-foreground hover:bg-accent-hover">
+        <Link to={nextHref} className="rounded-sm bg-accent px-4 py-1 text-[12px] font-bold text-accent-foreground hover:bg-accent-hover 2xl:text-[13px]">
           Continue →
         </Link>
       ),
@@ -1414,7 +1470,7 @@ export default function TransitMapConceptPage() {
               </>
             ),
             action: transferQuest.comingSoon ? undefined : (
-              <button onClick={() => onSideQuestClick(transferQuest)} className="rounded-sm border border-white/40 px-3 py-1 text-[12px] font-bold hover:bg-white/10">
+              <button onClick={() => onSideQuestClick(transferQuest)} className="rounded-sm border border-white/40 px-3 py-1 text-[12px] font-bold hover:bg-white/10 2xl:text-[13px]">
                 Board →
               </button>
             ),
@@ -1427,7 +1483,6 @@ export default function TransitMapConceptPage() {
       body: (
         <>
           {profile.xpEarnedToday} XP today · {profile.streakDays}🔥 streak
-          <span className="ml-2 text-[11px] font-semibold opacity-60">{profile.levelLabel}</span>
         </>
       ),
     },
@@ -1436,28 +1491,29 @@ export default function TransitMapConceptPage() {
   const titleText = `${strings.mapTitle} — ${course.title}`;
 
   return (
-    <div className="tmc-root mx-auto max-w-[1480px] px-3 pb-24 pt-4 sm:px-5">
+    <div className="tmc-root mx-auto max-w-[min(2100px,94vw)] px-3 pb-24 pt-4 sm:px-5">
       {/* signage board header */}
       <div className="mb-5 flex flex-wrap items-center gap-4 rounded-md px-5 py-4" style={{ background: "var(--color-text-primary)", color: "var(--color-surface)" }}>
         <div className="grid h-11 w-11 flex-none place-items-center rounded-full border-[3px] text-[18px] font-extrabold" style={{ borderColor: "var(--color-surface)", background: "var(--tmc-line-main)", color: "#fff" }}>
           M
         </div>
         <div className="min-w-0 flex-1">
-          <h1 className="text-[19px] font-extrabold leading-tight sm:text-[24px]" aria-label={titleText}>
+          <h1 className="text-[19px] font-extrabold leading-tight sm:text-[24px] 2xl:text-[28px]" aria-label={titleText}>
             {titleText.split("").map((ch, i) => (
               <span key={i} className="tmc-title-ch" style={{ "--i": i } as CSSProperties} aria-hidden>
+                {/* inline-block spans collapse plain spaces — keep them */}
                 {ch === " " ? " " : ch}
               </span>
             ))}
           </h1>
-          <div className="text-[12px] opacity-75">Transit-map concept · dev preview · click stations, board quests, visit the depot</div>
+          <div className="text-[12px] opacity-75 2xl:text-[13px]">Transit-map concept · dev preview · click stations, board quests, visit the depot</div>
         </div>
         <Link to={p("learn")} className="rounded-sm px-3 py-1.5 text-[12.5px] font-bold hover:opacity-75" style={{ border: "2px solid var(--color-surface)" }}>
           ← Classic view
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start 2xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0">
           {/* desktop: network map / mobile: line diagram */}
           <div className="hidden md:block">
@@ -1477,7 +1533,7 @@ export default function TransitMapConceptPage() {
 
           <DepartureBoard rows={boardRows} />
           <LearnToolsRow course={viewCourse} completedSet={completedSet} />
-          <p className="mt-3 max-w-[72ch] text-[13px] text-text-muted">
+          <p className="mt-3 max-w-[72ch] text-[13px] text-text-muted 2xl:text-[14px]">
             Stations = modules (spacing scales with lesson count) · branch lines = the real side quests · dashed track = honest roadmap. Click a station for its district; the depot links to practice. Demo state is on by default — flip the toggle for your real progress.
           </p>
         </div>

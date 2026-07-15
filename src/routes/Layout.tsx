@@ -70,6 +70,9 @@ export function Layout() {
     /\/lessons\/|\/test-out\/|\/placement-test|\/practice\/grammar\/review/.test(
       pathname,
     );
+  // Map-style pages own their width — the 2xl cap wastes a 4k viewport on
+  // a page whose whole point is a wide panning canvas (transit-map preview).
+  const wideCanvas = /\/transit-preview/.test(pathname);
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
   const communityActive = /\/community/.test(pathname);
   const socialActive = /^\/[^/]+\/social/.test(pathname);
@@ -389,7 +392,7 @@ export function Layout() {
           aren't pushed below the fold. */}
       <main
         id="main-content"
-        className={`mx-auto w-full max-w-screen-2xl flex-1 px-4 sm:px-6 lg:px-8 ${
+        className={`mx-auto w-full ${wideCanvas ? "max-w-none" : "max-w-screen-2xl"} flex-1 px-4 sm:px-6 lg:px-8 ${
           focusedFlow
             ? "py-3"
             : `py-8 min-h-[calc(100svh_-_2.75rem)] sm:min-h-[calc(100svh_-_3rem)] ${
