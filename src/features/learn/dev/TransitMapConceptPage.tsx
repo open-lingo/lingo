@@ -388,7 +388,7 @@ function buildLayout(
   stations.forEach((st) => {
     const isCurrent = st.status === "current";
     minC = Math.min(minC, st.y - (isCurrent ? 96 : st.labelSide === "top" ? 66 : 28));
-    const labelsBelow = st.labelSide === "bottom" || isCurrent;
+    const labelsBelow = st.labelSide === "bottom" || isCurrent || st.terminal;
     maxC = Math.max(maxC, st.y + (labelsBelow ? 74 : 28));
     if (st.terminal) minC = Math.min(minC, st.y - 62);
   });
@@ -411,12 +411,12 @@ function buildLayout(
   if (stations.length >= 9 && zoneLabels.length === 3) {
     const third = Math.ceil(stations.length / 3);
     const bounds = [
-      48,
+      0,
       (stations[third - 1].x + stations[third].x) / 2,
       (stations[Math.min(2 * third - 1, stations.length - 2)].x +
         stations[Math.min(2 * third, stations.length - 1)].x) /
         2,
-      width - 30,
+      width,
     ];
     for (let z = 0; z < 3; z++) {
       zones.push({
@@ -452,9 +452,9 @@ type Skyline = {
   farStrip: { x: number; w: number; h: number }[];
   mid: { x: number; w: number; h: number; windows: number[] }[];
   near: { x: number; w: number; h: number; windows: number[] }[];
-  fujiX: number;
+  mountains: { x: number; baseY: number; w: number; h: number; cap: boolean }[];
   toriiX: number;
-  towerX: number;
+  pagodaX: number;
   stars: { x: number; y: number; r: number; delay: number; bright: boolean }[];
   moon: { x: number; y: number } | null;
   clouds: { x: number; y: number; blobs: { dx: number; rx: number; ry: number }[] }[];
@@ -470,7 +470,6 @@ function makeSkyline(layout: Layout): Skyline {
   const bottom = layout.vbY + layout.vbH + 6;
   const H = layout.vbH;
   const skyTop = layout.vbY + 12;
-  const skyH = Math.max(40, g - skyTop - 30);
   const zoneAt = (x: number) =>
     layout.zones.length ? layout.zones.findIndex((z) => x >= z.x0 && x < z.x1) : 1;
 
@@ -538,10 +537,29 @@ function makeSkyline(layout: Layout): Skyline {
     ni++;
   }
 
+  // mountains sit IN the far hills (bases at the hill baseline) so they
+  // rise from the landscape instead of floating on the old horizon line
+  const mountains: Skyline["mountains"] = [
+    {
+      x: layout.zones.length ? layout.zones[0].x1 - 80 : layout.width * 0.3,
+      baseY: layout.vbY + H * 0.68,
+      w: Math.min(640, layout.width * 0.2),
+      h: H * 0.44,
+      cap: true,
+    },
+    {
+      x: layout.zones.length ? layout.zones[2].x0 + 220 : layout.width * 0.74,
+      baseY: layout.vbY + H * 0.72,
+      w: Math.min(430, layout.width * 0.14),
+      h: H * 0.3,
+      cap: false,
+    },
+  ];
+
   // celestial: blue-noise star field (deterministic best-candidate sampling
   // — each star takes the candidate farthest from all placed stars, which
-  // spreads points evenly with no lattice artifacts), moon + clouds in the
-  // horizon-strip gaps
+  // spreads points evenly with no lattice artifacts), moon + clouds spread
+  // through the whole open sky, not a thin top band
   const hash = (n: number) => {
     let h = (n ^ 0x9e3779b9) >>> 0;
     h = Math.imul(h ^ (h >>> 16), 0x21f0aaad) >>> 0;
@@ -550,21 +568,24 @@ function makeSkyline(layout: Layout): Skyline {
   };
   const byWidth = [...gaps].sort((a, b) => b[1] - b[0] - (a[1] - a[0]));
   const moonGap = byWidth[0];
-  const moon = moonGap ? { x: (moonGap[0] + moonGap[1]) / 2, y: skyTop + 34 } : null;
+  const moon = moonGap ? { x: (moonGap[0] + moonGap[1]) / 2, y: skyTop + 40 } : null;
   const stars: Skyline["stars"] = [];
+  const skyDeep = H * 0.5; // stars fill the open sky, not just the top strip
   const inStrip = (px: number, py: number) =>
-    farStrip.some((b) => px > b.x - 8 && px < b.x + b.w + 8 && py > g - b.h - 10);
+    farStrip.some((b) => px > b.x - 8 && px < b.x + b.w + 8 && py > g - b.h - 10 && py < g + 4);
+  const inMountain = (px: number, py: number) =>
+    mountains.some((m) => py > m.baseY - m.h - 24 && Math.abs(px - m.x) < m.w / 2 + 16);
   const nearMoon = (px: number, py: number) =>
-    moon !== null && (px - moon.x) ** 2 + (py - moon.y) ** 2 < 48 ** 2;
+    moon !== null && (px - moon.x) ** 2 + (py - moon.y) ** 2 < 64 ** 2;
   let seed = 1;
-  const starCount = Math.round(layout.width / 105);
+  const starCount = Math.round(layout.width / 55);
   for (let sIdx = 0; sIdx < starCount; sIdx++) {
     let best: [number, number] | null = null;
     let bestD = -1;
     for (let c = 0; c < 12; c++) {
-      const px = 30 + hash(seed++) * (layout.width - 60);
-      const py = skyTop + hash(seed++) * skyH;
-      if (inStrip(px, py) || nearMoon(px, py)) continue;
+      const px = 24 + hash(seed++) * (layout.width - 48);
+      const py = layout.vbY + 12 + hash(seed++) * skyDeep;
+      if (inStrip(px, py) || inMountain(px, py) || nearMoon(px, py)) continue;
       let d = Infinity;
       for (const st of stars) d = Math.min(d, (st.x - px) ** 2 + (st.y - py) ** 2);
       if (stars.length === 0) d = 1e9;
@@ -586,20 +607,21 @@ function makeSkyline(layout: Layout): Skyline {
   // flat-bottomed cartoon clouds: overlapping circles of varied sizes with
   // bottoms on a shared baseline, every instance seeded differently
   const clouds: Skyline["clouds"] = [];
-  byWidth.slice(1, 6).forEach(([g0, g1], gi) => {
-    if (gi % 2 === 0) return;
-    const cx = (g0 + g1) / 2;
-    const cy = skyTop + 34 + hash(seed++) * 26;
+  const cloudCount = Math.max(3, Math.round(layout.width / 460));
+  for (let ci2 = 0; ci2 < cloudCount; ci2++) {
+    const cx = 80 + hash(seed++) * (layout.width - 160);
+    const cy = layout.vbY + 30 + hash(seed++) * (H * 0.36);
+    if (moon && Math.abs(cx - moon.x) < 110 && Math.abs(cy - moon.y) < 60) continue;
     const blobCount = 4 + (hash(seed++) > 0.5 ? 1 : 0);
     let dx = -34;
     const blobs: Skyline["clouds"][number]["blobs"] = [];
     for (let b = 0; b < blobCount; b++) {
-      const rx = 12 + hash(seed++) * 24;
+      const rx = 13 + hash(seed++) * 26;
       blobs.push({ dx: dx + rx, rx, ry: rx * (0.55 + hash(seed++) * 0.2) });
       dx += rx * 1.35;
     }
     clouds.push({ x: cx, y: cy, blobs });
-  });
+  }
 
   const z = layout.zones;
   return {
@@ -608,9 +630,9 @@ function makeSkyline(layout: Layout): Skyline {
     farStrip,
     mid,
     near,
-    fujiX: z.length ? z[0].x1 - 120 : layout.width * 0.3,
+    mountains,
     toriiX: z.length ? (z[0].x1 + z[1].x0) / 2 + 140 : layout.width * 0.4,
-    towerX: z.length ? (z[1].x0 + z[1].x1) / 2 : layout.width * 0.55,
+    pagodaX: z.length ? (z[1].x0 + z[1].x1) / 2 : layout.width * 0.55,
     stars,
     moon,
     clouds,
@@ -635,7 +657,7 @@ function SkylineArt({
   cityRef: React.RefObject<SVGGElement | null>;
 }) {
   const toriiH = Math.min(200, vbH * 0.4);
-  const towerH = Math.min(260, vbH * 0.5);
+  const towerH = Math.min(230, vbH * 0.34);
   return (
     <>
       {/* FAR (slowest): horizon strip, Fuji, hill waves, celestial */}
@@ -643,15 +665,21 @@ function SkylineArt({
         {sky.farStrip.map((b, i) => (
           <rect key={i} x={b.x} y={groundY - b.h} width={b.w} height={b.h} rx={1.5} style={{ fill: "var(--tmc-scene-strip)" }} />
         ))}
-        <path
-          d={`M ${sky.fujiX - 190} ${groundY + 6} L ${sky.fujiX - 40} ${groundY - 128} L ${sky.fujiX + 4} ${groundY - 106} L ${sky.fujiX + 44} ${groundY - 128} L ${sky.fujiX + 194} ${groundY + 6} Z`}
-          style={{ fill: "var(--tmc-scene-far2)" }}
-        />
-        <path
-          d={`M ${sky.fujiX - 56} ${groundY - 112} L ${sky.fujiX - 40} ${groundY - 128} L ${sky.fujiX + 4} ${groundY - 106} L ${sky.fujiX + 44} ${groundY - 128} L ${sky.fujiX + 60} ${groundY - 112} L ${sky.fujiX + 30} ${groundY - 96} L ${sky.fujiX - 26} ${groundY - 96} Z`}
-          style={{ fill: "var(--tmc-panel)" }}
-          opacity={0.55}
-        />
+        {sky.mountains.map((m, i) => (
+          <g key={i}>
+            <path
+              d={`M ${m.x - m.w / 2} ${m.baseY} L ${m.x - m.w * 0.07} ${m.baseY - m.h} L ${m.x + m.w * 0.005} ${m.baseY - m.h * 0.86} L ${m.x + m.w * 0.08} ${m.baseY - m.h} L ${m.x + m.w / 2} ${m.baseY} Z`}
+              style={{ fill: "var(--tmc-scene-far2)" }}
+            />
+            {m.cap && (
+              <path
+                d={`M ${m.x - m.w * 0.115} ${m.baseY - m.h * 0.85} L ${m.x - m.w * 0.07} ${m.baseY - m.h} L ${m.x + m.w * 0.005} ${m.baseY - m.h * 0.86} L ${m.x + m.w * 0.08} ${m.baseY - m.h} L ${m.x + m.w * 0.125} ${m.baseY - m.h * 0.85} L ${m.x + m.w * 0.06} ${m.baseY - m.h * 0.78} L ${m.x - m.w * 0.05} ${m.baseY - m.h * 0.78} Z`}
+                style={{ fill: "var(--tmc-panel)" }}
+                opacity={0.55}
+              />
+            )}
+          </g>
+        ))}
         <path d={sky.farHillsD} style={{ fill: "var(--tmc-scene-far)" }} />
         <path d={sky.farHills2D} style={{ fill: "var(--tmc-scene-far2)" }} />
         <g className="tmc-night">
@@ -660,7 +688,7 @@ function SkylineArt({
           ))}
           {sky.moon && (
             <path
-              d={`M ${sky.moon.x} ${sky.moon.y - 14} A 14 14 0 1 0 ${sky.moon.x} ${sky.moon.y + 14} A 17 17 0 0 1 ${sky.moon.x} ${sky.moon.y - 14} Z`}
+              d={`M ${sky.moon.x} ${sky.moon.y - 19} A 19 19 0 1 0 ${sky.moon.x} ${sky.moon.y + 19} A 23 23 0 0 1 ${sky.moon.x} ${sky.moon.y - 19} Z`}
               style={{ fill: "#F0E8CC", opacity: 0.9 }}
             />
           )}
@@ -707,12 +735,20 @@ function SkylineArt({
           <path d={`M ${sky.toriiX - toriiH * 0.5} ${bottomY - toriiH * 0.98} Q ${sky.toriiX} ${bottomY - toriiH * 1.12} ${sky.toriiX + toriiH * 0.5} ${bottomY - toriiH * 0.98} L ${sky.toriiX + toriiH * 0.5} ${bottomY - toriiH * 0.88} Q ${sky.toriiX} ${bottomY - toriiH * 1.0} ${sky.toriiX - toriiH * 0.5} ${bottomY - toriiH * 0.88} Z`} />
           <rect x={sky.toriiX - toriiH * 0.38} y={bottomY - toriiH * 0.78} width={toriiH * 0.76} height={toriiH * 0.05} />
         </g>
-        {/* big tower */}
+        {/* pagoda silhouette (the bare triangle tower read as a weird cone) */}
         <g style={{ fill: "var(--tmc-scene-accent2)" }}>
-          <path d={`M ${sky.towerX - towerH * 0.3} ${bottomY} L ${sky.towerX} ${bottomY - towerH} L ${sky.towerX + towerH * 0.3} ${bottomY} Z`} />
-          <rect x={sky.towerX - 2} y={bottomY - towerH - 22} width={4} height={22} />
-          <rect x={sky.towerX - towerH * 0.19} y={bottomY - towerH * 0.62} width={towerH * 0.38} height={towerH * 0.035} />
-          <rect x={sky.towerX - towerH * 0.11} y={bottomY - towerH * 0.82} width={towerH * 0.22} height={towerH * 0.03} />
+          <rect x={sky.pagodaX - 3} y={bottomY - towerH} width={6} height={towerH} />
+          {[0.28, 0.52, 0.76].map((t, i) => {
+            const w = towerH * (0.62 - i * 0.14);
+            return (
+              <g key={i}>
+                <rect x={sky.pagodaX - w / 2} y={bottomY - towerH * t - towerH * 0.05} width={w} height={towerH * 0.05} rx={4} />
+                <rect x={sky.pagodaX - w / 2.6} y={bottomY - towerH * t - towerH * 0.115} width={w / 1.3} height={towerH * 0.075} rx={2} />
+              </g>
+            );
+          })}
+          <rect x={sky.pagodaX - towerH * 0.1} y={bottomY - towerH * 1.0} width={towerH * 0.2} height={towerH * 0.05} rx={4} />
+          <rect x={sky.pagodaX - 1.5} y={bottomY - towerH - 18} width={3} height={18} />
         </g>
       </g>
     </>
@@ -1093,17 +1129,15 @@ function NetworkMap({
             {/* fare zones — tint bands + inset horizon chips */}
             {layout.zones.map((z, i) => (
               <g key={z.label}>
-                <rect x={z.x0} y={layout.vbY + 8} width={z.x1 - z.x0} height={layout.vbH - 16} fill="currentColor" opacity={i % 2 === 1 ? 0.03 : 0.012} />
-                {i > 0 && <line x1={z.x0} y1={layout.vbY + 10} x2={z.x0} y2={layout.vbY + layout.vbH - 10} style={{ stroke: "var(--tmc-border)" }} strokeDasharray="2 6" />}
+                {/* tint bleeds to the frame edges — no untinted gutters */}
+                <rect x={z.x0} y={layout.vbY} width={z.x1 - z.x0} height={layout.vbH} fill="currentColor" opacity={i % 2 === 1 ? 0.03 : 0.012} />
+                {i > 0 && <line x1={z.x0} y1={layout.vbY} x2={z.x0} y2={layout.vbY + layout.vbH} style={{ stroke: "var(--tmc-border)" }} strokeDasharray="2 6" />}
                 <g>
-                  <rect x={z.x0 + 16} y={layout.zoneChipY - 11} width={plateW(z.label) + 6} height={22} rx={4} style={{ fill: "var(--tmc-panel)", stroke: "var(--tmc-border)" }} strokeWidth={1} opacity={0.85} />
-                  <text x={z.x0 + 16 + (plateW(z.label) + 6) / 2} y={layout.zoneChipY + 3.5} textAnchor="middle" data-tm="zone" style={{ fill: "var(--tmc-muted)", fontSize: 11, letterSpacing: "0.14em", fontWeight: 700 }}>
+                  <rect x={z.x0 + 20} y={layout.zoneChipY - 15} width={plateW(z.label) * 1.35 + 10} height={30} rx={5} style={{ fill: "var(--tmc-panel)", stroke: "var(--tmc-border)" }} strokeWidth={1} opacity={0.85} />
+                  <text x={z.x0 + 20 + (plateW(z.label) * 1.35 + 10) / 2} y={layout.zoneChipY + 5} textAnchor="middle" data-tm="zone" style={{ fill: "var(--tmc-muted)", fontSize: 15, letterSpacing: "0.12em", fontWeight: 700 }}>
                     {z.label}
                   </text>
                 </g>
-                <text x={z.x0 + 24} y={layout.numeralY} aria-hidden style={{ fill: "var(--tmc-muted)", opacity: 0.09, fontSize: 58, fontWeight: 800 }}>
-                  {z.numeral}
-                </text>
               </g>
             ))}
 
@@ -1225,7 +1259,7 @@ function NetworkMap({
             {layout.stations.map((st) => {
               // the mascot parks above the current station — flip its labels
               // below so they stay readable when the station is on the top row
-              const dir = st.labelSide === "top" && st.status !== "current" ? -1 : 1;
+              const dir = st.terminal || st.status === "current" || st.labelSide !== "top" ? 1 : -1;
               const baseOffset = st.interchange || st.terminal ? 36 : 30;
               const titleY = st.y + dir * baseOffset + (dir < 0 ? 0 : 8);
               const badgeY = titleY + dir * 15;
