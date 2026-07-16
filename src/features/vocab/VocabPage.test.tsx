@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
@@ -21,11 +21,8 @@ vi.mock("@/shared/hooks/useLangPath", () => ({
   useLang: () => "ja",
 }));
 
-vi.mock("@/shared/hooks/useProgressMe", () => ({
-  useProgressMe: () => ({ summary: { concepts: [] }, isLoading: false, isError: false, refetch: vi.fn() }),
-}));
-
 import { VocabPage } from "./VocabPage";
+import { buildVocabRows } from "./vocabData";
 
 function renderPage(initialEntry = "/ja/vocab") {
   return render(
@@ -36,14 +33,30 @@ function renderPage(initialEntry = "/ja/vocab") {
 }
 
 describe("VocabPage", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
   it("renders the faceted browser with words from the JA course", () => {
     renderPage();
     expect(screen.getByRole("heading", { name: "Vocab", level: 1 })).toBeInTheDocument();
     // Facet headings
+    expect(screen.getByText("Progress")).toBeInTheDocument();
     expect(screen.getByText("Mastery")).toBeInTheDocument();
     expect(screen.getByText("Module")).toBeInTheDocument();
     // At least one word card rendered (grid buttons)
     expect(screen.getByText(/Showing \d+ of \d+ words/)).toBeInTheDocument();
+    // Unlock-aware header count (empty stores → 0 learned).
+    expect(screen.getByText(/0 of \d+ words learned/)).toBeInTheDocument();
+  });
+
+  it("counts learned words from the unlock store", () => {
+    const id = buildVocabRows("ja", {
+      srsStore: {},
+      unlockedIds: new Set(),
+    })[0].id;
+    localStorage.setItem("lingo:unlocked-atoms", JSON.stringify([id]));
+    renderPage();
+    expect(screen.getByText(/1 of \d+ words learned/)).toBeInTheDocument();
   });
 
   it("filters by free-text search", () => {

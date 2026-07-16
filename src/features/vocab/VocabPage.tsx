@@ -5,8 +5,8 @@ import { FacetSidebar, type Facet } from "@/shared/components/ui/FacetSidebar";
 import { EmptyState } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { useProgressMe } from "@/shared/hooks/useProgressMe";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useSRSStoreRevision } from "@/features/flashcards/SRSStoreRevisionContext";
 import {
   buildVocabRows,
   filterVocab,
@@ -24,34 +24,44 @@ const VISIBLE_CAP = 150;
 
 const TIER_DOT: Record<VocabTier, string> = {
   new: "var(--color-border)",
-  weak: "var(--color-error)",
-  fading: "var(--color-warning)",
-  solid: "var(--color-accent)",
-  strong: "var(--color-success)",
+  learning: "var(--color-warning)",
+  reviewing: "var(--color-accent)",
+  mastered: "var(--color-success)",
 };
 
-const TIER_ORDER: VocabTier[] = ["weak", "fading", "solid", "strong", "new"];
+const TIER_ORDER: VocabTier[] = ["learning", "reviewing", "mastered", "new"];
+const TIER_FALLBACK: Record<VocabTier, string> = {
+  new: "Not started",
+  learning: "Learning",
+  reviewing: "Reviewing",
+  mastered: "Mastered",
+};
 // "phrase" removed 2026-07-13 — sentence atoms no longer surface here
 // (vocabData filters them), so the facet would always count 0.
 const KIND_ORDER = ["vocab", "particle"] as const;
+const LEARNED_ORDER = ["learned", "locked"] as const;
 
 export function VocabPage() {
   const { t } = useTranslation();
   const { language } = useLanguage();
   const langId = language?.id ?? "ja";
   const langPath = useLangPath();
-  const { summary } = useProgressMe();
   const [searchParams, setSearchParams] = useSearchParams();
+  // Re-derive rows when the SRS store changes (reviews, sync, unlocks).
+  const srsRevision = useSRSStoreRevision();
 
   const rows = useMemo(
-    () => buildVocabRows(langId, summary?.concepts ?? []),
-    [langId, summary],
+    () => buildVocabRows(langId),
+    // srsRevision: tier + unlock badges track the live local stores.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [langId, srsRevision],
   );
 
   const [selections, setSelections] = useState<Record<string, string[]>>({
     module: [],
     kind: [],
     mastery: [],
+    learned: [],
   });
   const [search, setSearch] = useState("");
   const [openId, setOpenId] = useState<string | null>(null);
@@ -71,11 +81,23 @@ export function VocabPage() {
 
     return [
       {
+        id: "learned",
+        label: t("vocab.facet.learned", "Progress"),
+        options: LEARNED_ORDER.map((bucket) => ({
+          value: bucket,
+          label:
+            bucket === "learned"
+              ? t("vocab.learnedFacet.learned", "Learned")
+              : t("vocab.learnedFacet.locked", "Not yet taught"),
+          count: count((r) => (r.unlocked ? "learned" : "locked") === bucket),
+        })),
+      },
+      {
         id: "mastery",
         label: t("vocab.facet.mastery", "Mastery"),
         options: TIER_ORDER.map((tier) => ({
           value: tier,
-          label: t(`vocab.tier.${tier}`, tier),
+          label: t(`vocab.tier.${tier}`, TIER_FALLBACK[tier]),
           count: count((r) => r.tier === tier),
         })).filter((o) => o.count > 0),
       },
@@ -109,6 +131,7 @@ export function VocabPage() {
             module: selections.module ?? [],
             kind: selections.kind ?? [],
             mastery: selections.mastery ?? [],
+            learned: selections.learned ?? [],
           },
           search,
         ),
@@ -148,6 +171,7 @@ export function VocabPage() {
   }
 
   const visible = filtered.slice(0, VISIBLE_CAP);
+  const learnedCount = rows.filter((r) => r.unlocked).length;
 
   return (
     <div>
@@ -155,6 +179,12 @@ export function VocabPage() {
         <h1 className="text-2xl font-bold text-text-primary">{t("vocab.title", "Vocab")}</h1>
         <p className="mt-1 text-sm text-text-muted">
           {t("vocab.subtitle", "Every word in your course — filter by mastery to find what to review.")}
+        </p>
+        <p className="mt-1 text-sm font-medium text-text-secondary">
+          {t("vocab.learnedCount", "{{learned}} of {{total}} words learned", {
+            learned: learnedCount,
+            total: rows.length,
+          })}
         </p>
       </header>
 
@@ -165,7 +195,9 @@ export function VocabPage() {
             selections={selections}
             onToggle={toggle}
             onClear={(facetId) => setSelections((s) => ({ ...s, [facetId]: [] }))}
-            onClearAll={() => setSelections({ module: [], kind: [], mastery: [] })}
+            onClearAll={() =>
+              setSelections({ module: [], kind: [], mastery: [], learned: [] })
+            }
             onOnly={(facetId, value) => setSelections((s) => ({ ...s, [facetId]: [value] }))}
             search={search}
             onSearchChange={setSearch}
@@ -208,6 +240,15 @@ export function VocabPage() {
                   <div className="min-w-0">
                     <p className="truncate font-semibold text-text-primary">{row.kanji ?? row.kana}</p>
                     <p className="truncate text-xs text-text-muted">{row.meaning}</p>
+                    <p
+                      className={`truncate text-[10px] font-medium ${
+                        row.unlocked ? "text-success" : "text-text-muted"
+                      }`}
+                    >
+                      {row.unlocked
+                        ? t("vocab.learnedBadge", "Learned")
+                        : t("vocab.lockedBadge", "Not yet taught")}
+                    </p>
                   </div>
                 </button>
               ))}

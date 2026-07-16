@@ -306,11 +306,37 @@
         "other": "Otros",
         "all": "Partículas"
       }
+    },
+    "pillars": {
+      "vocabulary": {
+        "vocabBrowser": "Tu vocabulario",
+        "vocabBrowserDesc": "Todas las palabras del curso, con tu progreso"
+      }
+    }
+  },
+  "vocab": {
+    "facet": {
+      "learned": "Progreso"
+    },
+    "learnedFacet": {
+      "learned": "Aprendidas",
+      "locked": "Aún no enseñadas"
+    },
+    "learnedBadge": "Aprendida",
+    "lockedBadge": "Aún no enseñada",
+    "learnedCount": "{{learned}} de {{total}} palabras aprendidas",
+    "retention": "Retención",
+    "tier": {
+      "new": "Sin empezar",
+      "learning": "Aprendiendo",
+      "reviewing": "Repasando",
+      "mastered": "Dominada"
     }
   },
   "flashcards": {
     "title": "Tarjetas",
     "subtitle": "Repasa vocabulario y frases de {{language}}. Elige un mazo para empezar.",
+    "vocabBrowserLink": "Explora tu vocabulario",
     "dueToday": "Tarjetas pendientes para hoy",
     "review": "Repasar",
     "cards": "tarjetas",
@@ -382,6 +408,7 @@
       "colEnabled": "Activo",
       "orderOrdered": "En orden",
       "orderShuffled": "Aleatorio",
+      "courseDeckManaged": "Gestionado por el progreso de las lecciones",
       "settingsLabel": "Ajustes del mazo"
     },
     "cardManager": {

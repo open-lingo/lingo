@@ -2,15 +2,22 @@
  * Vocab browser data layer.
  *
  * Joins the normalized course-atom view (the authored vocabulary for every
- * language with a catalog — JA/KO/ES today) with the learner's concept
- * rollups (GET /progress/me) to tag each word with a mastery tier. Pure +
- * registry-gated so the page stays a thin renderer.
+ * language with a catalog — JA/KO/ES today) with the learner's REAL local
+ * study state: the lesson unlock store (has this word been taught yet?) and
+ * the FSRS-6 SRS store (how well is it known?). Pure + registry-gated so
+ * the page stays a thin renderer; stores are injectable for tests.
  */
 import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms";
+import { getUnlockedAtomIds } from "@/features/lesson/data/unlockLessonAtoms";
 import { lingoArtUrl, notoEmojiUrl } from "@/shared/assets/notoEmoji";
-import type { ConceptRollup } from "@/shared/api/progress";
+import { getSRSStore, isMastered, isNew } from "@/features/flashcards/engine";
+import type { SRSStore } from "@/features/flashcards/engine";
+import type {
+  SRSCardState,
+  SRSModalityState,
+} from "@/features/flashcards/data/types";
 
-export type VocabTier = "new" | "weak" | "fading" | "solid" | "strong";
+export type VocabTier = "new" | "learning" | "reviewing" | "mastered";
 export type VocabKind = "vocab" | "particle" | "phrase";
 
 export type VocabRow = {
@@ -28,26 +35,51 @@ export type VocabRow = {
   /** Source module key (`m3`, `sidequest-survival`, `future`). */
   module: string;
   kind: VocabKind;
+  /** SRS-derived mastery bucket (same FSRS helpers as the flashcards hub). */
   tier: VocabTier;
-  /** 0–100 recent strength, 0 when never seen. */
-  recentStrength: number;
+  /** Taught by a completed lesson (or placement seed) — the unlock store. */
+  unlocked: boolean;
+  /** 0–100 lifetime retention (reps / (reps + lapses)), 0 when never seen. */
+  retention: number;
+  /** Total FSRS reviews across both modalities. */
   encounters: number;
 };
 
-function tierFor(roll: ConceptRollup | undefined): { tier: VocabTier; recentStrength: number } {
-  if (!roll || roll.encounters === 0) return { tier: "new", recentStrength: 0 };
-  const recent = roll.recentResults ?? [];
-  const total = roll.correctCount + roll.incorrectCount;
-  const strength =
-    recent.length > 0
-      ? Math.round((recent.filter(Boolean).length / recent.length) * 100)
-      : total > 0
-        ? Math.round((roll.correctCount / total) * 100)
-        : 0;
-  if (roll.encounters < 2) return { tier: "weak", recentStrength: strength };
-  const tier: VocabTier =
-    strength >= 85 ? "strong" : strength >= 60 ? "solid" : strength >= 35 ? "fading" : "weak";
-  return { tier, recentStrength: strength };
+/**
+ * Bucket a card's FSRS state. Mirrors the flashcards-hub buckets
+ * (`isNew`/`isLearning`/`isMastered`), splitting the middle by FSRS phase:
+ * "reviewing" once every graded modality has graduated to the review
+ * phase, "learning" while any graded side is still in (re)learning steps.
+ */
+function tierFor(state: SRSCardState | undefined): VocabTier {
+  if (isNew(state)) return "new";
+  if (isMastered(state)) return "mastered";
+  const graduated = (sub: SRSModalityState) =>
+    sub.reps === 0 || sub.state === "review";
+  return graduated(state!.recognition) && graduated(state!.production)
+    ? "reviewing"
+    : "learning";
+}
+
+function retentionFor(state: SRSCardState | undefined): {
+  retention: number;
+  encounters: number;
+} {
+  if (!state) return { retention: 0, encounters: 0 };
+  let reps = 0;
+  let lapses = 0;
+  for (const modality of ["recognition", "production"] as const) {
+    const sub = state[modality];
+    if (sub.reps > 0) {
+      reps += sub.reps;
+      lapses += sub.lapses;
+    }
+  }
+  if (reps === 0) return { retention: 0, encounters: 0 };
+  return {
+    retention: Math.round((reps / (reps + lapses)) * 100),
+    encounters: reps,
+  };
 }
 
 /** Human label for a `fromModule` key. */
@@ -68,9 +100,15 @@ export function moduleOrder(key: string): number {
 
 export function buildVocabRows(
   languageId: string,
-  concepts: ConceptRollup[],
+  opts: {
+    /** Injectable for tests; defaults to the live localStorage store. */
+    srsStore?: SRSStore;
+    /** Injectable for tests; defaults to the live unlock store. */
+    unlockedIds?: ReadonlySet<string>;
+  } = {},
 ): VocabRow[] {
-  const byId = new Map(concepts.map((c) => [c.conceptId, c]));
+  const srsStore = opts.srsStore ?? getSRSStore();
+  const unlockedIds = opts.unlockedIds ?? getUnlockedAtomIds();
 
   // Words + particles only: phrase-kind atoms (full example sentences)
   // exist for SRS/listening exposure, but a sentence tile in the WORD
@@ -82,7 +120,8 @@ export function buildVocabRows(
       (a) => a.srsEligible && (a.kind === "vocab" || a.kind === "particle"),
     )
     .map((atom) => {
-      const { tier, recentStrength } = tierFor(byId.get(atom.id));
+      const state = srsStore[atom.id];
+      const { retention, encounters } = retentionFor(state);
       const imageUrl =
         lingoArtUrl(atom.display) ??
         (atom.emoji ? notoEmojiUrl(atom.emoji) : null);
@@ -98,19 +137,33 @@ export function buildVocabRows(
         imageUrl,
         module: atom.module,
         kind: atom.kind as VocabKind,
-        tier,
-        recentStrength,
-        encounters: byId.get(atom.id)?.encounters ?? 0,
+        tier: tierFor(state),
+        unlocked: unlockedIds.has(atom.id),
+        retention,
+        encounters,
       };
     });
 }
 
-const TIER_RANK: Record<VocabTier, number> = { weak: 0, fading: 1, new: 2, solid: 3, strong: 4 };
+const TIER_RANK: Record<VocabTier, number> = {
+  learning: 0,
+  reviewing: 1,
+  new: 2,
+  mastered: 3,
+};
+
+export type VocabSelections = {
+  module: string[];
+  kind: string[];
+  mastery: string[];
+  /** "learned" | "locked" — unlock-store facet. Empty = all. */
+  learned: string[];
+};
 
 /** Filter rows by facet selections + free-text search. */
 export function filterVocab(
   rows: VocabRow[],
-  selections: { module: string[]; kind: string[]; mastery: string[] },
+  selections: VocabSelections,
   search: string,
 ): VocabRow[] {
   const q = search.trim().toLowerCase();
@@ -118,6 +171,10 @@ export function filterVocab(
     if (selections.module.length && !selections.module.includes(r.module)) return false;
     if (selections.kind.length && !selections.kind.includes(r.kind)) return false;
     if (selections.mastery.length && !selections.mastery.includes(r.tier)) return false;
+    if (selections.learned.length) {
+      const bucket = r.unlocked ? "learned" : "locked";
+      if (!selections.learned.includes(bucket)) return false;
+    }
     if (q) {
       const hay = `${r.kana} ${r.kanji ?? ""} ${r.romaji} ${r.meaning}`.toLowerCase();
       if (!hay.includes(q)) return false;
@@ -126,7 +183,7 @@ export function filterVocab(
   });
 }
 
-/** Default sort: weakest-mastery first (review focus), then by module. */
+/** Default sort: in-progress first (review focus), then by module. */
 export function sortVocab(rows: VocabRow[]): VocabRow[] {
   return [...rows].sort(
     (a, b) =>

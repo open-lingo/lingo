@@ -557,6 +557,31 @@
       "skillsTitle": "Skill drills",
       "alphabetTitle": "Alphabet & scripts",
       "trainersTitle": "Trainers"
+    },
+    "pillars": {
+      "vocabulary": {
+        "vocabBrowser": "Your vocabulary",
+        "vocabBrowserDesc": "Every word in your course, with your progress"
+      }
+    }
+  },
+  "vocab": {
+    "facet": {
+      "learned": "Progress"
+    },
+    "learnedFacet": {
+      "learned": "Learned",
+      "locked": "Not yet taught"
+    },
+    "learnedBadge": "Learned",
+    "lockedBadge": "Not yet taught",
+    "learnedCount": "{{learned}} of {{total}} words learned",
+    "retention": "Retention",
+    "tier": {
+      "new": "Not started",
+      "learning": "Learning",
+      "reviewing": "Reviewing",
+      "mastered": "Mastered"
     }
   },
   "flashcards": {
@@ -594,6 +619,7 @@
     "noDueDescription": "Pick a deck below to study.",
     "startFreeReview": "Start a free review",
     "yourDecksKicker": "Library",
+    "vocabBrowserLink": "Browse your vocabulary",
     "noDecksTitle": "No subscribed decks yet",
     "noDecksDescription": "Subscribe to community decks to start building your review queue.",
     "browseCommunityDecks": "Browse community decks",
@@ -722,6 +748,7 @@
       "colEnabled": "Active",
       "orderOrdered": "Ordered",
       "orderShuffled": "Shuffled",
+      "courseDeckManaged": "Managed by lesson progress",
       "settingsLabel": "Deck settings",
       "sectionVocab": "My vocabulary",
       "sectionVocabDesc": "Words you save (personal vocab deck).",

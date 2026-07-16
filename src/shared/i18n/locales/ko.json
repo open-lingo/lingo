@@ -402,6 +402,31 @@
       "skillsTitle": "스킬 드릴",
       "alphabetTitle": "문자 & 스크립트",
       "trainersTitle": "트레이너"
+    },
+    "pillars": {
+      "vocabulary": {
+        "vocabBrowser": "내 어휘",
+        "vocabBrowserDesc": "코스의 모든 단어를 내 진도와 함께"
+      }
+    }
+  },
+  "vocab": {
+    "facet": {
+      "learned": "학습 여부"
+    },
+    "learnedFacet": {
+      "learned": "배운 단어",
+      "locked": "아직 안 배움"
+    },
+    "learnedBadge": "학습함",
+    "lockedBadge": "아직 안 배움",
+    "learnedCount": "단어 {{total}}개 중 {{learned}}개 학습",
+    "retention": "기억률",
+    "tier": {
+      "new": "시작 전",
+      "learning": "학습 중",
+      "reviewing": "복습 중",
+      "mastered": "마스터"
     }
   },
   "flashcards": {
@@ -439,6 +464,7 @@
     "noDueDescription": "아래 덱을 선택해 공부하세요.",
     "startFreeReview": "무료 복습 시작",
     "yourDecksKicker": "라이브러리",
+    "vocabBrowserLink": "내 어휘 둘러보기",
     "noDecksTitle": "구독한 덱이 아직 없습니다",
     "noDecksDescription": "커뮤니티 덱을 구독해 복습 큐를 만들어 보세요.",
     "browseCommunityDecks": "커뮤니티 덱 둘러보기",
@@ -529,6 +555,7 @@
       "colEnabled": "활성",
       "orderOrdered": "순서대로",
       "orderShuffled": "섞기",
+      "courseDeckManaged": "레슨 진도에 따라 자동 관리됩니다",
       "settingsLabel": "덱 설정",
       "sectionVocab": "내 어휘",
       "sectionVocabDesc": "저장한 단어(개인 어휘 덱).",

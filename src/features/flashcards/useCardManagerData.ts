@@ -18,6 +18,8 @@ import { canonicalizeCardId } from "./engine/srsStorage";
 import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { notifySRSStoreChanged } from "./SRSStoreRevisionContext";
 import { useDeckSubscriptions } from "./useDeckSubscriptions";
+import { useSettings } from "@/shared/contexts/SettingsContext";
+import { buildEnrichedCourseDeck } from "./data/courseDeck";
 import type { Flashcard, SRSCardState } from "./data/types";
 
 export type ManagedCard = {
@@ -26,12 +28,28 @@ export type ManagedCard = {
   deckName: string;
   state: SRSCardState | undefined;
   status: "new" | "due" | "learning" | "buried";
+  /**
+   * Client-generated course deck card (curriculum atom). No backend deck
+   * exists for these — deck-level actions (edit in the community editor,
+   * unsubscribe) don't apply, but local SRS actions (bury/reset/date
+   * edits) work: the card id IS the canonical SRS store key.
+   */
+  isCourseCard?: boolean;
 };
 
-/** Load all cards for Card Manager (subscribed decks + mock fallback), with SRS state. */
+function statusFor(state: SRSCardState | undefined): ManagedCard["status"] {
+  if (!state) return "new";
+  if (isBuried(state)) return "buried";
+  if (isDue(state)) return "due";
+  return "learning";
+}
+
+/** Load all cards for Card Manager (subscribed decks + course deck), with SRS state. */
 export function useCardManagerData(languageId: string) {
   const { srs } = useApi();
   const { deckResponses, isLoading, isAuthenticated } = useDeckSubscriptions();
+  const { settings } = useSettings();
+  const hideCourseDeck = settings.flashcards?.hideCourseDeck ?? false;
 
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const srsRevision = useSRSStoreRevision();
@@ -41,6 +59,27 @@ export function useCardManagerData(languageId: string) {
     const result: ManagedCard[] = [];
     const deckList: { id: string; name: string }[] = [];
 
+    // Auto-subscribed course deck (unlocked cards only) — same injection as
+    // the review queue (`useSubscriptionQueue`), gated by the same setting.
+    if (!hideCourseDeck) {
+      const courseDeck = buildEnrichedCourseDeck(languageId);
+      const unlocked = (courseDeck?.cards ?? []).filter((c) => c.unlocked);
+      if (courseDeck && unlocked.length > 0) {
+        deckList.push({ id: courseDeck.id, name: courseDeck.name });
+        for (const card of unlocked) {
+          const state = srsStore[canonicalizeCardId(card.id)];
+          result.push({
+            card,
+            deckId: courseDeck.id,
+            deckName: courseDeck.name,
+            state,
+            status: statusFor(state),
+            isCourseCard: true,
+          });
+        }
+      }
+    }
+
     if (isAuthenticated && deckResponses.length > 0) {
       const byLang = deckResponses.filter((d) => d.languageId === languageId);
       for (const deck of byLang) {
@@ -48,18 +87,12 @@ export function useCardManagerData(languageId: string) {
         for (const card of deck.cards ?? []) {
           // canonicalize: deck `card.id` is bare, store keys are `ja:<bare>`.
           const state = srsStore[canonicalizeCardId(card.id)];
-          let status: ManagedCard["status"] = "new";
-          if (state) {
-            if (isBuried(state)) status = "buried";
-            else if (isDue(state)) status = "due";
-            else status = "learning";
-          }
           result.push({
             card,
             deckId: deck.id,
             deckName: deck.name,
             state,
-            status,
+            status: statusFor(state),
           });
         }
       }
@@ -70,6 +103,7 @@ export function useCardManagerData(languageId: string) {
     isAuthenticated,
     deckResponses,
     languageId,
+    hideCourseDeck,
     refreshTrigger,
     srsRevision,
   ]);
