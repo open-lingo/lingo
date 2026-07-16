@@ -6,6 +6,10 @@ import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import {
+  isCommunityEnabled,
+  isLeaderboardEnabled,
+} from "@/shared/config/featureFlags";
 import { Card } from "@/shared/components/ui";
 import { useApi } from "@/shared/api/provider";
 import type { CommunityThread } from "@/shared/api/community";
@@ -23,6 +27,7 @@ export function HomeActivityPanel() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const flags = useFeatureFlags();
+  const communityOn = isCommunityEnabled(flags);
   const { community } = useApi();
 
   const threadsQuery = useQuery<CommunityThread[]>({
@@ -30,13 +35,13 @@ export function HomeActivityPanel() {
     queryFn: ({ signal }) =>
       community.listThreads({ sort: "new", limit: 10 }, signal),
     staleTime: 60_000,
-    enabled: flags.community.tabs.discuss,
+    enabled: communityOn && flags.community.tabs.discuss,
   });
 
   const rows = useMemo((): ActivityRow[] => {
     const items: ActivityRow[] = [];
 
-    if (flags.community.tabs.discuss) {
+    if (communityOn && flags.community.tabs.discuss) {
       const recent = [...(threadsQuery.data ?? [])]
         .filter((thread) => !thread.isPinned)
         .sort(
@@ -61,7 +66,7 @@ export function HomeActivityPanel() {
       }
     }
 
-    if (flags.community.tabs.explore) {
+    if (communityOn && flags.community.tabs.explore) {
       items.push({
         id: "decks-new",
         iconName: "decks",
@@ -72,7 +77,7 @@ export function HomeActivityPanel() {
       });
     }
 
-    if (flags.community.tabs.leaderboard) {
+    if (isLeaderboardEnabled(flags)) {
       items.push({
         id: "leaderboard",
         iconName: "flame",
@@ -83,7 +88,7 @@ export function HomeActivityPanel() {
     }
 
     return items.slice(0, 4);
-  }, [flags.community.tabs, langPath, t, threadsQuery.data]);
+  }, [communityOn, flags, langPath, t, threadsQuery.data]);
 
   if (rows.length === 0) {
     return (
@@ -111,7 +116,7 @@ export function HomeActivityPanel() {
         <h2 className="m-0 text-base font-semibold text-text-primary sm:text-lg">
           {t("home.activity.title")}
         </h2>
-        {flags.community.tabs.discuss ? (
+        {communityOn && flags.community.tabs.discuss ? (
           <Link
             to={langPath("community/discuss")}
             className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-hover"

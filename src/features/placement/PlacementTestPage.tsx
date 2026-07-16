@@ -18,7 +18,10 @@ import { applyPlacementResult, type PlacementResult } from "./engine/applyPlacem
 import { syncTestOutToServer } from "./engine/syncTestOutToServer";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getItemsForModule, instantiateItem } from "./questionBank";
-import { getDerivedTestOutItems } from "./engine/deriveModuleTestOut";
+import {
+  getDerivedTestOutItems,
+  TESTOUT_DERIVED_FLOOR,
+} from "./engine/deriveModuleTestOut";
 import { dismissPlacement } from "./hooks/usePlacementDismissed";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
@@ -42,16 +45,23 @@ export function PlacementTestPage() {
   const langId = language?.id ?? "ja";
   const { settings, updateSetting } = useSettings();
 
-  // JA test-outs serve the DERIVED sets — ~12 real lesson steps sampled
-  // for section coverage (deriveModuleTestOut) — instead of the legacy
-  // 3-per-module bank (Spencer sign-off 2026-07-13). Full placement and
-  // KO keep the authored bank: placement's screening/probing needs the
-  // curated per-skill items, and KO has no derived corpus yet.
+  // Test-outs serve the DERIVED sets — ~12 real lesson steps sampled for
+  // section coverage (deriveModuleTestOut) — instead of the legacy
+  // thin-per-module bank (Spencer sign-off 2026-07-13), for ANY language
+  // whose module derives a workable set: at least TESTOUT_DERIVED_FLOOR
+  // items. Modules under the floor (stub courses, or lessons whose steps
+  // all fall outside TESTOUT_FORMATS) fall back to the authored bank —
+  // e.g. ES's 4-per-module placementBank pool. JA always clears the floor
+  // (~12 derived), so its behavior is unchanged. Full placement keeps the
+  // authored bank: screening/probing needs the curated per-skill items.
   const itemsLookup = useMemo(
-    () => (mod: string) =>
-      isTestOut && langId === "ja"
-        ? getDerivedTestOutItems(mod)
-        : getItemsForModule(mod, langId),
+    () => (mod: string) => {
+      if (isTestOut) {
+        const derived = getDerivedTestOutItems(mod, langId);
+        if (derived.length >= TESTOUT_DERIVED_FLOOR) return derived;
+      }
+      return getItemsForModule(mod, langId);
+    },
     [isTestOut, langId],
   );
 

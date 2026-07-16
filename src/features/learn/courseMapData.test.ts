@@ -41,21 +41,35 @@ describe("courseMapData", () => {
     }
   });
 
-  it("gracefully returns a count with no samples for languages without an atom catalog", () => {
-    const course = getMockCourse("ko");
-    const someModule = course.modules[2];
-    const vocab = getModuleVocab(someModule, "ko");
-    expect(vocab.count).toBeGreaterThanOrEqual(0);
-    expect(Array.isArray(vocab.samples)).toBe(true);
+  it("derives KO and ES vocab via the normalized atom view with resolvable samples", () => {
+    for (const lang of ["ko", "es"] as const) {
+      const course = getMockCourse(lang);
+      // KO m1/m2 are alphabet modules (jamo aren't vocab) — find a module
+      // that actually attributes vocabulary.
+      const withVocab = course.modules.find(
+        (m) => getModuleVocab(m, lang).count > 0,
+      );
+      expect(withVocab, `${lang}: no module resolved any vocab`).toBeDefined();
+      const vocab = getModuleVocab(withVocab!, lang);
+      expect(vocab.samples.length).toBeGreaterThan(0);
+      expect(vocab.samples.length).toBeLessThanOrEqual(vocab.count);
+      for (const s of vocab.samples) {
+        expect(s.id.startsWith(`${lang}:`)).toBe(true);
+        expect(s.surface.length).toBeGreaterThan(0);
+        expect(s.meaning.length).toBeGreaterThan(0);
+      }
+    }
   });
 
   it("exposes authored milestones keyed by module index", () => {
     expect(getMilestoneForModule("ko", 1)).toBe("Read all of Hangul");
     expect(getMilestoneForModule("ja", 1)).toBe("Read all of Hiragana");
+    expect(getMilestoneForModule("es", 15)).toBe("Hold a basic conversation");
     // Unanchored index returns null.
     expect(getMilestoneForModule("ko", 0)).toBeNull();
     // Unknown language has no milestones.
     expect(getMilestoneForModule("xx", 1)).toBeNull();
     expect(Object.keys(COURSE_MILESTONES)).toContain("ko");
+    expect(Object.keys(COURSE_MILESTONES)).toContain("es");
   });
 });

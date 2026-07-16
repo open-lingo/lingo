@@ -31,9 +31,8 @@ import { useSettings } from "@/shared/contexts/SettingsContext";
 import { SidebarNav } from "@/routes/SidebarNav";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import {
-  isCommunityEnabled,
   isLeaderboardEnabled,
-  isSocialEnabled,
+  isTransitLearnHome,
 } from "@/shared/config/featureFlags";
 import { Icon } from "@/shared/components/Icon";
 import {
@@ -61,8 +60,6 @@ export function Layout() {
   useUnlockMapSync();
   const flags = useFeatureFlags();
   const leaderboardOn = isLeaderboardEnabled(flags);
-  const socialOn = isSocialEnabled(flags);
-  const communityOn = isCommunityEnabled(flags);
   const pathname = location.pathname;
   const langPath = useLangPath();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -76,6 +73,13 @@ export function Layout() {
     /\/lessons\/|\/test-out\/|\/placement-test|\/practice\/grammar\/review/.test(
       pathname,
     );
+  // Map-style pages own their width — the 2xl cap wastes a 4k viewport on
+  // a page whose whole point is a wide panning canvas: the transit-map
+  // preview, and the learn homepage itself where the map is live (ja).
+  const learnIndexLang = /^\/([^/]+)\/learn\/?$/.exec(pathname)?.[1];
+  const wideCanvas =
+    /\/transit-preview/.test(pathname) ||
+    isTransitLearnHome(flags, learnIndexLang);
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
   const communityActive = /\/community/.test(pathname);
   const socialActive = /^\/[^/]+\/social/.test(pathname);
@@ -204,7 +208,7 @@ export function Layout() {
               >
                 {t("nav.practice")}
               </Link>
-              {socialOn ? (
+              {flags.social.enabled ? (
                 <Link
                   to={langPath("social")}
                   {...makePrefetchHandlers(prefetchSocial)}
@@ -217,7 +221,7 @@ export function Layout() {
                   {t("nav.social", "Social")}
                 </Link>
               ) : null}
-              {communityOn ? (
+              {flags.community.enabled ? (
                 <Link
                   to={langPath("community")}
                   {...makePrefetchHandlers(prefetchCommunity)}
@@ -341,7 +345,7 @@ export function Layout() {
                   onPrefetch={prefetchPractice}
                   label={t("nav.practice")}
                 />
-                {socialOn ? (
+                {flags.social.enabled ? (
                   <MobileNavLink
                     to={langPath("social")}
                     active={socialActive}
@@ -350,7 +354,7 @@ export function Layout() {
                     label={t("nav.social", "Social")}
                   />
                 ) : null}
-                {communityOn ? (
+                {flags.community.enabled ? (
                   <MobileNavLink
                     to={langPath("community")}
                     active={communityActive}
@@ -403,7 +407,7 @@ export function Layout() {
           aren't pushed below the fold. */}
       <main
         id="main-content"
-        className={`mx-auto w-full max-w-screen-2xl flex-1 px-4 sm:px-6 lg:px-8 ${
+        className={`mx-auto w-full ${wideCanvas ? "max-w-none" : "max-w-screen-2xl"} flex-1 px-4 sm:px-6 lg:px-8 ${
           focusedFlow
             ? "py-3"
             : `py-8 min-h-[calc(100svh_-_2.75rem)] sm:min-h-[calc(100svh_-_3rem)] ${
@@ -413,10 +417,7 @@ export function Layout() {
       >
         <Outlet />
       </main>
-      {/* Full-screen platform feel: the marketing footer lives only on the
-          public landing page. Everywhere else its links + open-source
-          attributions are reachable from Settings → More info. */}
-      {pathname === "/landing" && <SiteFooter />}
+      {!focusedFlow && <SiteFooter />}
       {showAppAds ? <CollapsibleAdBanner /> : null}
       {isAuthenticated && !focusedFlow && (
         <FloatingLanguagePill className={sidebarMode ? "lg:hidden" : ""} />

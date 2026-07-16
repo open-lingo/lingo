@@ -9,6 +9,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { DEFAULT_FEATURE_FLAGS } from "@/shared/config/featureFlags";
 import type { ManagedCard } from "./useCardManagerData";
 
 vi.mock("react-i18next", () => ({
@@ -37,6 +38,10 @@ vi.mock("react-router-dom", () => ({
 
 vi.mock("@/shared/hooks/useLangPath", () => ({
   useLangPath: () => (p: string) => `/ja/${p}`,
+}));
+
+vi.mock("@/shared/contexts/FeatureFlagsContext", () => ({
+  useFeatureFlags: () => DEFAULT_FEATURE_FLAGS,
 }));
 
 vi.mock("@/shared/contexts/LanguageContext", () => ({

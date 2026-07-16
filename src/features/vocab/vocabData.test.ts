@@ -3,8 +3,8 @@ import { buildVocabRows, filterVocab, sortVocab, moduleLabel, moduleOrder } from
 import type { ConceptRollup } from "@/shared/api/progress";
 
 describe("buildVocabRows", () => {
-  it("returns nothing for non-JA languages", () => {
-    expect(buildVocabRows("ko", [])).toEqual([]);
+  it("returns nothing for languages without an atom catalog", () => {
+    expect(buildVocabRows("fr", [])).toEqual([]);
   });
 
   it("builds JA rows and tags untouched words as new", () => {
@@ -12,6 +12,31 @@ describe("buildVocabRows", () => {
     expect(rows.length).toBeGreaterThan(0);
     expect(rows.every((r) => r.id.startsWith("ja:"))).toBe(true);
     expect(rows.every((r) => r.tier === "new")).toBe(true);
+  });
+
+  it("builds ES rows with surface, meaning and inline gender", () => {
+    const rows = buildVocabRows("es", []);
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows.every((r) => r.id.startsWith("es:"))).toBe(true);
+    // Latin script: romaji falls back to the surface so search/sort work.
+    expect(rows.every((r) => r.romaji.length > 0)).toBe(true);
+    // No sentence tiles in the word grid.
+    expect(rows.every((r) => r.kind !== "phrase")).toBe(true);
+    const hola = rows.find((r) => r.id === "es:hola")!;
+    expect(hola.kana).toBe("hola");
+    expect(hola.meaning).toBe("hello");
+    expect(hola.romaji).toBe("hola");
+    // Gendered nouns surface their gender in the free-text meaning.
+    const gendered = rows.filter((r) => /\((m|f)\.\)$/.test(r.meaning));
+    expect(gendered.length).toBeGreaterThan(0);
+  });
+
+  it("builds KO rows without alphabet material", () => {
+    const rows = buildVocabRows("ko", []);
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows.every((r) => r.id.startsWith("ko:"))).toBe(true);
+    // Jamo are alphabet-trainer territory, never vocab rows.
+    expect(rows.some((r) => r.kana === "ㄱ")).toBe(false);
   });
 
   it("merges mastery from concept rollups", () => {

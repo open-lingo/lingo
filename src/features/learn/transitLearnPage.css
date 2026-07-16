@@ -1,0 +1,456 @@
+/**
+ * Transit-map learn-page concept (dev preview, 2026-07-15).
+ * Scoped .tmc- namespace; palette rides the theme tokens so every built-in
+ * and custom theme keeps working — only the line hues are local, with
+ * explicit dark-mode variants.
+ */
+.tmc-root {
+  /* signage boards are FIXED dark in both themes — inverting ink made every
+     board a glaring white slab in dark mode */
+  --tmc-signage-bg: #1a1c1f;
+  --tmc-signage-fg: #f5f4f0;
+  --tmc-ink: var(--color-text-primary);
+  --tmc-panel: var(--color-surface);
+  --tmc-muted: var(--color-text-muted);
+  --tmc-border: var(--color-border);
+  --tmc-line-main: #e5493a;
+  --tmc-q0: #0aa3c2;
+  --tmc-q1: #f09a00;
+  --tmc-q2: #8e77d2;
+  --tmc-locked: color-mix(in srgb, var(--color-text-muted) 40%, var(--color-surface));
+  --tmc-halo: rgba(229, 73, 58, 0.22);
+  --tmc-done: var(--tmc-line-main);
+  /* OPAQUE scenery steps (atmospheric perspective): far layers sit close to
+     the surface color, near layers gain contrast — solid fills occlude each
+     other so the parallax reads as real depth instead of blended washes */
+  --tmc-scene-far: color-mix(in srgb, var(--color-text-muted) 7%, var(--color-surface));
+  --tmc-scene-far2: color-mix(in srgb, var(--color-text-muted) 10%, var(--color-surface));
+  /* hills carry a soft green so the landscape reads as landscape — deep and
+     desaturated in dark themes, fresh in light */
+  --tmc-scene-hill: color-mix(in srgb, #5b8f68 16%, var(--color-surface));
+  --tmc-scene-hill2: color-mix(in srgb, #5b8f68 11%, var(--color-surface));
+  --tmc-scene-strip: color-mix(in srgb, var(--color-text-muted) 14%, var(--color-surface));
+  --tmc-scene-mid: color-mix(in srgb, var(--color-text-muted) 18%, var(--color-surface));
+  --tmc-scene-near: color-mix(in srgb, var(--color-text-muted) 26%, var(--color-surface));
+  --tmc-scene-accent: color-mix(in srgb, var(--tmc-line-main) 24%, var(--color-surface));
+  --tmc-scene-accent2: color-mix(in srgb, var(--tmc-line-main) 18%, var(--color-surface));
+  --tmc-scene-cloud: #e3ecf4;
+}
+.dark .tmc-root {
+  --tmc-line-main: #ff6a5b;
+  --tmc-q0: #2cc3e0;
+  --tmc-q1: #ffb01f;
+  --tmc-q2: #a794ea;
+  --tmc-halo: rgba(255, 106, 91, 0.28);
+}
+
+/* ── network map panel ─────────────────────────────────────────────── */
+.tmc-map-scroll {
+  overflow-x: auto;
+  /* never a vertical bar — when the readability floor oversizes the
+     drawing, the inner div center-clips it (scenery trims, content stays) */
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  cursor: grab;
+  scrollbar-width: thin;
+  scrollbar-color: var(--tmc-locked) transparent;
+  /* the panel flexes with the viewport; the SVG scales to fill it, so 4k
+     gets a genuinely bigger map instead of a small fixed-pixel band */
+  height: clamp(500px, 74vh, 1040px);
+  position: relative;
+  z-index: 1;
+}
+/* quiet floating-pill scrollbar — no track casing, never touches content */
+.tmc-map-scroll::-webkit-scrollbar {
+  height: 11px;
+  width: 0;
+}
+.tmc-map-scroll::-webkit-scrollbar-track,
+.tmc-map-scroll::-webkit-scrollbar-corner {
+  background: transparent;
+  border: none;
+}
+.tmc-map-scroll::-webkit-scrollbar-thumb {
+  background: var(--tmc-locked);
+  background-clip: content-box;
+  border: 3px solid transparent;
+  border-radius: 6px;
+}
+.tmc-map-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--tmc-muted);
+  background-clip: content-box;
+}
+
+/* fixed ambient layer — pinned to the panel, NOT the scrolling map;
+   slow parallax translate is applied inline from the scroll handler */
+.tmc-sky-layer {
+  position: absolute;
+  inset: 0;
+  width: 150%;
+  pointer-events: none;
+  z-index: 0;
+}
+.tmc-map-scroll.tmc-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+.tmc-map-inner {
+  position: relative;
+}
+.tmc-map-inner svg {
+  display: block;
+}
+.tmc-map-inner svg text {
+  font-family: var(--font-family);
+}
+/* cartographic label halo — keeps text readable over the opaque scenery */
+.tmc-halo-text {
+  paint-order: stroke;
+  stroke: var(--tmc-panel);
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
+}
+
+/* line-draw on load */
+.tmc-rail-main {
+  transition: stroke-dashoffset 1100ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* station pop-in */
+@keyframes tmc-pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.tmc-station {
+  cursor: pointer;
+  outline: none;
+}
+.tmc-station .tmc-station-glyph {
+  animation: tmc-pop 480ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.tmc-station:hover .tmc-station-glyph,
+.tmc-station:focus-visible .tmc-station-glyph {
+  transform: scale(1.28);
+}
+.tmc-station:focus-visible .tmc-hit {
+  stroke: var(--tmc-ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
+}
+
+/* current-station pulse */
+@keyframes tmc-pulse {
+  0% {
+    r: 13;
+    opacity: 0.75;
+  }
+  100% {
+    r: 32;
+    opacity: 0;
+  }
+}
+.tmc-pulse {
+  animation: tmc-pulse 1.9s ease-out infinite;
+}
+
+/* mascot */
+@keyframes tmc-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2.5px);
+  }
+}
+@keyframes tmc-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.08);
+  }
+}
+.tmc-mascot {
+  animation: tmc-bob 2.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.tmc-mascot-eye {
+  animation: tmc-blink 4.2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* tooltip */
+.tmc-tip {
+  position: absolute;
+  z-index: 6;
+  width: 232px;
+  pointer-events: none;
+  transition: opacity 120ms ease;
+}
+
+/* ── district overlay ──────────────────────────────────────────────── */
+@keyframes tmc-district-in {
+  0% {
+    transform: scale(0.55);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.tmc-district-panel {
+  animation: tmc-district-in 300ms cubic-bezier(0.2, 0.9, 0.3, 1.05) both;
+}
+.tmc-d-stop {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 150ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+a:hover .tmc-d-stop,
+a:focus-visible .tmc-d-stop {
+  transform: scale(1.3);
+}
+
+/* ── mobile line diagram ───────────────────────────────────────────── */
+.tmc-row-rail {
+  position: relative;
+}
+.tmc-row-rail::before {
+  content: "";
+  position: absolute;
+  left: 25px;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: var(--tmc-line-main);
+}
+.tmc-row-future .tmc-row-rail::before {
+  background: repeating-linear-gradient(
+    180deg,
+    var(--tmc-locked) 0 6px,
+    transparent 6px 11px
+  );
+}
+.tmc-row-first .tmc-row-rail::before {
+  top: 50%;
+}
+.tmc-row-last .tmc-row-rail::before {
+  bottom: 50%;
+}
+.tmc-row-dot {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--tmc-panel);
+  border: 3.5px solid var(--tmc-line-main);
+}
+.tmc-row-done .tmc-row-dot {
+  background: var(--tmc-line-main);
+  box-shadow: inset 0 0 0 2.5px var(--tmc-panel);
+}
+.tmc-row-future .tmc-row-dot {
+  border-color: var(--tmc-locked);
+}
+.tmc-row-now .tmc-row-dot {
+  width: 20px;
+  height: 20px;
+  left: 18px;
+  box-shadow: 0 0 0 5px var(--tmc-halo);
+}
+
+/* ── ambient sky: clouds by day, moon + stars by night ─────────────── */
+.tmc-root {
+  --tmc-seal: #b93a2b;
+  --tmc-river: #7fb8d9;
+}
+.dark .tmc-root {
+  --tmc-seal: #e05545;
+  --tmc-river: #3d6f8e;
+  --tmc-scene-hill: color-mix(in srgb, #4f8a5f 14%, var(--color-surface));
+  --tmc-scene-hill2: color-mix(in srgb, #4f8a5f 9%, var(--color-surface));
+  /* night clouds: a shade lighter than the sky, not paper-white */
+  --tmc-scene-cloud: color-mix(in srgb, var(--color-text-muted) 16%, var(--color-surface));
+}
+.tmc-night {
+  display: none;
+}
+.dark .tmc-night {
+  display: initial;
+}
+.dark .tmc-day {
+  display: none;
+}
+@keyframes tmc-drift-a {
+  from {
+    transform: translateX(-240px);
+  }
+  to {
+    transform: translateX(2400px);
+  }
+}
+@keyframes tmc-drift-b {
+  from {
+    transform: translateX(-360px);
+  }
+  to {
+    transform: translateX(2600px);
+  }
+}
+.tmc-cloud {
+  animation: tmc-drift-a 150s linear infinite;
+}
+.tmc-cloud.b {
+  animation: tmc-drift-b 210s linear infinite;
+}
+@keyframes tmc-twinkle {
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+.tmc-star {
+  animation: tmc-twinkle 3.4s ease-in-out infinite;
+}
+
+/* press squash (ticket-machine tactility) */
+.tmc-station:active .tmc-station-glyph {
+  transform: scale(0.88);
+}
+
+/* ghost train ambling the line */
+.tmc-ghost {
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+/* header title letter-boarding */
+@keyframes tmc-slot {
+  from {
+    transform: translateY(0.65em);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.tmc-title-ch {
+  display: inline-block;
+  animation: tmc-slot 420ms cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
+  animation-delay: calc(var(--i) * 26ms);
+}
+
+/* departure board rows flap in */
+@keyframes tmc-flap {
+  from {
+    transform: rotateX(84deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+.tmc-board-row {
+  animation: tmc-flap 460ms cubic-bezier(0.3, 0.9, 0.4, 1.05) both;
+  animation-delay: calc(var(--i) * 140ms);
+  transform-origin: top center;
+}
+
+/* demo-state toggle chip */
+.tmc-toggle {
+  display: inline-flex;
+  border: 1.5px solid var(--tmc-border);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--tmc-panel);
+}
+.tmc-toggle button {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 11px;
+  color: var(--tmc-muted);
+}
+.tmc-toggle button.on {
+  /* line color, not inverted ink — ink is near-white in dark themes and
+     read as a glaring white box on the map */
+  background: var(--tmc-line-main);
+  color: #fff;
+}
+
+/* district stamp card */
+@keyframes tmc-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px var(--tmc-halo);
+  }
+  50% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+.tmc-stamp-now {
+  animation: tmc-glow 1.7s ease-in-out infinite;
+}
+
+/* reduced motion: render final states, kill loops */
+@media (prefers-reduced-motion: reduce) {
+  .tmc-rail-main {
+    transition: none;
+  }
+  .tmc-station .tmc-station-glyph {
+    animation: none;
+  }
+  .tmc-pulse {
+    animation: none;
+    opacity: 0.3;
+  }
+  .tmc-mascot,
+  .tmc-mascot-eye {
+    animation: none;
+  }
+  .tmc-district-panel {
+    animation: none;
+  }
+  .tmc-cloud,
+  .tmc-cloud.b,
+  .tmc-star {
+    animation: none;
+  }
+  .tmc-ghost {
+    display: none;
+  }
+  .tmc-title-ch,
+  .tmc-board-row {
+    animation: none;
+  }
+  .tmc-stamp-now {
+    animation: none;
+    box-shadow: 0 0 0 3px var(--tmc-halo);
+  }
+}

@@ -36,9 +36,9 @@ export function useNavDestinations(): NavDestination[] {
   const { pathname } = useLocation();
   const langPath = useLangPath();
   const flags = useFeatureFlags();
-  const leaderboardOn = isLeaderboardEnabled(flags);
   const socialOn = isSocialEnabled(flags);
   const communityOn = isCommunityEnabled(flags);
+  const leaderboardOn = isLeaderboardEnabled(flags);
 
   const dests: NavDestination[] = [
     {
@@ -64,31 +64,29 @@ export function useNavDestinations(): NavDestination[] {
       active: /^\/[^/]+\/practice/.test(pathname),
       prefetch: prefetchPractice,
     },
-    ...(socialOn
-      ? [
-          {
-            key: "social",
-            to: langPath("social"),
-            label: t("nav.social", "Social"),
-            icon: "users" as IconName,
-            active: /^\/[^/]+\/social/.test(pathname),
-            prefetch: prefetchSocial,
-          },
-        ]
-      : []),
-    ...(communityOn
-      ? [
-          {
-            key: "community",
-            to: langPath("community"),
-            label: t("nav.community"),
-            icon: "globe" as IconName,
-            active: /\/community/.test(pathname) && !/\/leaderboard/.test(pathname),
-            prefetch: prefetchCommunity,
-          },
-        ]
-      : []),
   ];
+
+  if (socialOn) {
+    dests.push({
+      key: "social",
+      to: langPath("social"),
+      label: t("nav.social", "Social"),
+      icon: "users",
+      active: /^\/[^/]+\/social/.test(pathname),
+      prefetch: prefetchSocial,
+    });
+  }
+
+  if (communityOn) {
+    dests.push({
+      key: "community",
+      to: langPath("community"),
+      label: t("nav.community"),
+      icon: "globe",
+      active: /\/community/.test(pathname) && !/\/leaderboard/.test(pathname),
+      prefetch: prefetchCommunity,
+    });
+  }
 
   if (leaderboardOn) {
     dests.push({

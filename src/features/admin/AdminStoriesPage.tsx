@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useApi } from "@/shared/api/provider";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { FilterBar, DataTable } from "@/shared/components/data";
@@ -14,6 +16,7 @@ type StatusFilter = "all" | "draft" | "published";
 export function AdminStoriesPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
+  const flags = useFeatureFlags();
   const { admin } = useApi();
   const showToast = useToast().showToast;
   const [stories, setStories] = useState<StoryResponse[]>([]);
@@ -152,12 +155,16 @@ export function AdminStoriesPage() {
           const busy = updating === story.id;
           return (
             <div className="flex flex-wrap gap-2">
-              <Link
-                to={langPath(`community/contribute/create/story/${story.id}`)}
-                className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-secondary hover:bg-surface-muted"
-              >
-                {t("community.studioEdit")}
-              </Link>
+              {/* Story editor lives under /community — dead route with the
+                  community flag off, so the action hides with it. */}
+              {isCommunityEnabled(flags) ? (
+                <Link
+                  to={langPath(`community/contribute/create/story/${story.id}`)}
+                  className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-secondary hover:bg-surface-muted"
+                >
+                  {t("community.studioEdit")}
+                </Link>
+              ) : null}
               <Link
                 to={langPath(`practice/stories/${story.id}`)}
                 className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-secondary hover:bg-surface-muted"

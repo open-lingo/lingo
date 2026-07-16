@@ -94,7 +94,13 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         if (sessionRef.current !== mySession) return;
         const line = step.lines[i];
         setActiveLineIdx(i);
-        await playJaAudioToEnd(line.audioText ?? line.kana, "ja", voiceFor(line));
+        // lang stays undefined so the shared default (stamped per-course by
+        // LanguageContext via setDefaultTtsLang) resolves the manifest key.
+        await playJaAudioToEnd(
+          line.audioText ?? line.kana,
+          undefined,
+          voiceFor(line),
+        );
         if (sessionRef.current !== mySession) return;
         await new Promise((r) => setTimeout(r, TURN_GAP_MS));
       }
@@ -194,8 +200,9 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     const line = step.lines[idx];
     if (!line) return;
     // Same voice color as the sequence — a replay must sound like the
-    // same "person" the learner just heard.
-    void playJaAudioToEnd(line.audioText ?? line.kana, "ja", voiceFor(line));
+    // same "person" the learner just heard. lang undefined → per-course
+    // default, same as the sequence above.
+    void playJaAudioToEnd(line.audioText ?? line.kana, undefined, voiceFor(line));
   }
 
   // Pre-compute whether each line has TTS available — bubbles without

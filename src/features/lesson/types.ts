@@ -19,6 +19,7 @@ export type StepType =
   | "phrase_card"
   | "grammar_rule"
   | "particle_cloze"
+  | "agreement_cloze"
   | "self_explanation_mcq"
   | "dialogue_listen"
   | "row_test";
@@ -438,6 +439,29 @@ export type ParticleClozeStep = StepBase & {
 };
 
 /**
+ * Agreement Cloze (ES). Sentence with MULTIPLE blanks whose fillers must
+ * agree in gender/number — "L__ cas__ blanc__s". Each blank carries a
+ * small closed option set (agreement endings: o/a/os/as, articles:
+ * el/la/los/las); the learner fills every blank, then ONE Check grades
+ * the whole set. All-or-nothing by design: agreement is a property of
+ * the sentence, not of any single blank.
+ *
+ * Segments render in order; `text` segments are literal (may end
+ * mid-word — blanks are usually endings), `blank` segments render as
+ * tappable chip-groups inline.
+ */
+export type AgreementClozeSegment =
+  | { text: string }
+  | { blank: { id: string; correctAnswer: string; options: string[] } };
+
+export type AgreementClozeStep = StepBase & {
+  type: "agreement_cloze";
+  segments: AgreementClozeSegment[];
+  meaningEn: string;
+  audioText?: string;
+};
+
+/**
  * Self-explanation MCQ (M3+ metacognitive follow-up). After a learner
  * commits an answer in an upstream step (typically `particle_cloze` or
  * `multiple_choice`), this step asks "Why is that answer correct?" with
@@ -568,6 +592,7 @@ export type LessonStep =
   | PhraseCardStep
   | GrammarRuleStep
   | ParticleClozeStep
+  | AgreementClozeStep
   | SelfExplanationMcqStep
   | DialogueListenStep
   | RowTestStep;

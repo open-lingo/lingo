@@ -1,9 +1,15 @@
 {
   "version": 1,
+  "learn": {
+    "transitMapHome": true
+  },
   "practice": {
     "stories": false,
     "videoTrainers": false,
     "externalContent": false
+  },
+  "social": {
+    "enabled": false
   },
   "community": {
     "enabled": false,

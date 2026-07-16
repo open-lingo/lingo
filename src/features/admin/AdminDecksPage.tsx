@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useApi } from "@/shared/api/provider";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
@@ -15,6 +17,7 @@ type StatusFilter = "all" | "draft" | "published";
 export function AdminDecksPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
+  const flags = useFeatureFlags();
   const { decks: decksApi, admin } = useApi();
   const showToast = useToast().showToast;
   const [decks, setDecks] = useState<DeckResponse[]>([]);
@@ -195,14 +198,18 @@ export function AdminDecksPage() {
                 const busy = updating === deck.id;
                 return (
                   <div className="flex flex-wrap gap-2">
-                    <Link
-                      to={langPath(`community/decks/${deck.id}`)}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-secondary hover:bg-surface-muted"
-                    >
-                      {t("community.studioEdit")}
-                    </Link>
+                    {/* Deck editor lives under /community — dead route with
+                        the community flag off, so the action hides with it. */}
+                    {isCommunityEnabled(flags) ? (
+                      <Link
+                        to={langPath(`community/decks/${deck.id}`)}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-secondary hover:bg-surface-muted"
+                      >
+                        {t("community.studioEdit")}
+                      </Link>
+                    ) : null}
                     {!isPublished && (
                       <Button
                         type="button"

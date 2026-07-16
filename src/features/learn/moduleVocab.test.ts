@@ -21,6 +21,16 @@ describe("moduleVocab", () => {
     expect(m1.some((e) => e.meaning === "house")).toBe(true);
   });
 
+  it("returns real ES vocab attributed to a module with label + meaning", () => {
+    const m1 = getModuleVocab("es", "m1");
+    expect(m1.length).toBeGreaterThan(0);
+    // M1 (sounds & greetings) introduces e.g. "hola".
+    expect(m1.some((e) => e.label === "hola" && e.meaning === "hello")).toBe(
+      true,
+    );
+    expect(getCourseVocabCount("es")).toBeGreaterThan(m1.length);
+  });
+
   it("returns an empty list for unattributed / unknown modules", () => {
     expect(getModuleVocab("ja", "does-not-exist")).toEqual([]);
   });

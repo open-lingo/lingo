@@ -137,8 +137,10 @@ const koVocabArt: VocabArtResolver = {
   },
 };
 
-// ── ttsManifest (Phase 4 fills; empty until then — runtime falls back to
-//      browser TTS via the speech-synthesis API path) ────────────────────
+// ── ttsManifest (empty — KO ships no TTS clips, and the app has NO
+//      browser speechSynthesis fallback, so KO audio is currently silent.
+//      The fix is a real clip corpus, per the ES precedent of a generated
+//      mp3 corpus — not a runtime fallback.) ─────────────────────────────
 
 const koTtsManifest: TtsManifest = {};
 

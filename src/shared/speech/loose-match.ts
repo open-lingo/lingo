@@ -280,6 +280,101 @@ export function normalizeTypedAnswer(s: string): string {
   return s.normalize("NFKC").replace(/\s+/g, "").toLowerCase();
 }
 
+/**
+ * Diacritics that `accentFold` strips: everything Unicode calls a
+ * diacritic EXCEPT the kana voicing marks (U+3099 dakuten / U+309A
+ * handakuten). Those distinguish real Japanese words (かき persimmon vs
+ * かぎ key), so folding them would silently weaken JA typed grading —
+ * this fold exists for Latin accent leniency (á é í ó ú ü ñ …).
+ */
+const FOLDABLE_DIACRITIC_RE = /(?![\u3099\u309a])\p{Diacritic}/gu;
+
+/** Trailing sentence punctuation ignored on BOTH sides of a typed-answer
+ *  compare — toKana turns a natural final "." into 。, and authored
+ *  answers vary in whether they carry one. */
+const TYPED_TRAILING_PUNCT_RE = /[。．.、,!?！？\s]+$/u;
+
+/**
+ * Fold accents/diacritics: NFD-decompose, strip combining diacritics
+ * (except kana voicing — see FOLDABLE_DIACRITIC_RE), recompose. The
+ * decomposition step is what folds ñ→n and ü→u alongside á→a.
+ * Idempotent: already-folded input passes through unchanged.
+ */
+export function accentFold(s: string): string {
+  if (!s) return "";
+  return s.normalize("NFD").replace(FOLDABLE_DIACRITIC_RE, "").normalize("NFC");
+}
+
+export type TypedAnswerGrade = {
+  correct: boolean;
+  /**
+   * Correct, but the learner typed a de-accented rendering of a real
+   * answer ("anos" for "años") — worth a nudge, never a fail. SRS/XP
+   * treat this as plain correct.
+   */
+  accentFlagged: boolean;
+  /** Properly-accented accepted answer to surface in the nudge (raw
+   *  authored form), or null when not flagged. */
+  accentDisplay: string | null;
+};
+
+/**
+ * Grade a typed translation/production answer against `acceptedAnswers`.
+ *
+ * Match = exact on `normalizeTypedAnswer` (trailing punctuation ignored),
+ * with an accent-fold fallback: input that differs from an accepted
+ * answer only by missing/garbled diacritics still grades correct.
+ *
+ * Flag rule: the grade is accent-flagged when the input matched (exactly
+ * or by fold) AND some accepted answer A still carrying diacritics folds
+ * to the same string as the input while differing from it un-folded —
+ * i.e. the learner typed a de-accented version of a real answer. This
+ * deliberately catches curricula that author diacritic-stripped variants
+ * into acceptedAnswers (the stripped variant matches EXACTLY, but the
+ * accented sibling still triggers the nudge). The display form prefers
+ * the most-accented candidate, first-authored winning ties.
+ */
+export function gradeTypedAnswer(
+  acceptedAnswers: readonly string[],
+  input: string,
+): TypedAnswerGrade {
+  const inputNorm = normalizeTypedAnswer(input).replace(
+    TYPED_TRAILING_PUNCT_RE,
+    "",
+  );
+  const inputFold = accentFold(inputNorm);
+
+  let exact = false;
+  let foldMatch = false;
+  let display: string | null = null;
+  let displayMarks = 0;
+
+  for (const a of acceptedAnswers) {
+    const aNorm = normalizeTypedAnswer(a).replace(TYPED_TRAILING_PUNCT_RE, "");
+    if (aNorm === inputNorm) {
+      exact = true;
+      continue; // the learner typed this one — never a nudge source
+    }
+    const aFold = accentFold(aNorm);
+    if (aFold !== inputFold) continue;
+    foldMatch = true;
+    if (aFold === aNorm) continue; // carries no diacritics itself
+    const marks = [...aNorm.normalize("NFD").matchAll(FOLDABLE_DIACRITIC_RE)]
+      .length;
+    if (display === null || marks > displayMarks) {
+      display = a.trim();
+      displayMarks = marks;
+    }
+  }
+
+  const correct = exact || foldMatch;
+  return {
+    correct,
+    accentFlagged: correct && display !== null,
+    accentDisplay: correct ? display : null,
+  };
+}
+
 /* -------------------------------------------------------------------------- */
 /*  Scoring                                                                   */
 /* -------------------------------------------------------------------------- */

@@ -7,31 +7,34 @@ import {
   isLanguageRegistered,
   tryGetLanguageModule,
 } from "@/shared/language/registry";
+import {
+  getNormalizedAtomIndex,
+  getNormalizedCourseAtoms,
+  type NormalizedAtom,
+} from "./normalizedAtoms";
 
 /**
  * Lesson → atoms index. Routes through the central language registry
  * per ADR-005.
  *
  * This file still hands callers (`buildSrsReviewLesson`,
- * `unlockLessonAtoms`) the JA-internal `CourseAtom` shape — they read
- * kana / kanji / emoji / introducedByLessonId, which the contract-level
- * `Atom` doesn't carry. The registry-gated `courseAtomsFor` ensures
- * non-JA languages return an empty list rather than silently falling
- * back to JA data.
+ * `unlockLessonAtoms`, `seedSchedule`) the JA-internal `CourseAtom`
+ * shape — they read kana / kanji / emoji / fromModule. Non-JA languages
+ * are served through the normalized atom view (`normalizedAtoms.ts`)
+ * adapted into that same field layout (`kana` = display surface,
+ * `meaningEn` = gloss), with CANONICAL ids (`es:hola`) so the SRS and
+ * unlock stores key correctly without the legacy `ja:` default prefix.
  *
- * Phase 4+ (when KO lesson content lands) the JA-CourseAtom dependency
- * here can be replaced by a JA-specific Atom subtype consumed via a
- * per-language consumer surface.
+ * Attribution sources differ per language:
+ *   - JA: per-atom `introducedByLessonId` (static index) with the M8+
+ *     surface-mining fallback below.
+ *   - ES/KO: lesson steps carry `exercisedAtoms` (canonical atom ids,
+ *     resolved at authoring time by the language grammar helpers); a
+ *     lesson introduces the exercised atoms attributed to its own module.
  */
-function courseAtomsFor(languageId: string): ReadonlyArray<CourseAtom> {
-  if (!isLanguageRegistered(languageId)) return [];
-  if (languageId !== "ja") return [];
-  return JA_COURSE_ATOMS;
-}
-
 const lessonToAtoms = new Map<string, CourseAtom[]>();
 
-for (const atom of courseAtomsFor("ja")) {
+for (const atom of JA_COURSE_ATOMS) {
   if (!isSrsEligibleAtom(atom)) continue;
   const lid = atom.introducedByLessonId;
   if (!lid) continue;
@@ -41,14 +44,27 @@ for (const atom of courseAtomsFor("ja")) {
 }
 
 /**
- * M8+ fallback (2026-06-12 attribution backfill): content sub-lessons in
+ * Lesson content is resolved through the `__lingo_get_lesson_content__`
+ * global registered by mockLessons — same cycle-avoidance pattern as
+ * `__lingo_row_sub_lesson_ids__`.
+ */
+type LessonContentLookup = (
+  id: string,
+) => { steps: unknown[]; moduleId?: string } | null;
+
+function getLessonContentLookup(): LessonContentLookup | undefined {
+  const lookup = (
+    globalThis as { __lingo_get_lesson_content__?: LessonContentLookup }
+  ).__lingo_get_lesson_content__;
+  return typeof lookup === "function" ? lookup : undefined;
+}
+
+/**
+ * M8+ fallback (2026-06-12 attribution backfill): JA content sub-lessons in
  * m8..m27 carry module-level attribution (`fromModule`) but no per-atom
  * `introducedByLessonId`. For a lesson absent from the static index,
  * derive its atoms as "the lesson's module's attributed atoms whose
- * surface form (kana or kanji) appears in the lesson's steps". Lesson
- * content is resolved through the `__lingo_get_lesson_content__` global
- * registered by mockLessons — same cycle-avoidance pattern as
- * `__lingo_row_sub_lesson_ids__`.
+ * surface form (kana or kanji) appears in the lesson's steps".
  */
 const fallbackAtomsCache = new Map<string, CourseAtom[]>();
 
@@ -64,19 +80,13 @@ function fallbackAtomsForLesson(lessonId: string): CourseAtom[] {
   // SRS review lessons re-surface already-unlocked atoms — never a source
   // of new introductions.
   const moduleId = /^ja-(m\d+)-(?!review-)/.exec(lessonId)?.[1] ?? null;
-  const getContent = (
-    globalThis as {
-      __lingo_get_lesson_content__?: (
-        id: string,
-      ) => { steps: unknown[] } | null;
-    }
-  ).__lingo_get_lesson_content__;
+  const getContent = getLessonContentLookup();
   let atoms: CourseAtom[] = [];
-  if (moduleId && typeof getContent === "function") {
+  if (moduleId && getContent) {
     const lesson = getContent(lessonId);
     if (lesson) {
       const haystack = JSON.stringify(lesson.steps);
-      atoms = courseAtomsFor("ja").filter(
+      atoms = JA_COURSE_ATOMS.filter(
         (a) =>
           isSrsEligibleAtom(a) &&
           a.fromModule === moduleId &&
@@ -89,12 +99,76 @@ function fallbackAtomsForLesson(lessonId: string): CourseAtom[] {
   return atoms;
 }
 
+/**
+ * Adapt a normalized atom into the `CourseAtom` field layout the index's
+ * callers read. Ids stay canonical; `excludeFromSrs` inverts `srsEligible`
+ * so `isSrsEligibleAtom`-filtering callers (seedSchedule) stay honest.
+ */
+function toCourseAtomView(atom: NormalizedAtom): CourseAtom {
+  return {
+    id: atom.id,
+    kana: atom.display,
+    kanji: atom.secondary,
+    romaji: atom.romanization ?? atom.display,
+    meaningEn: atom.gloss,
+    emoji: atom.emoji,
+    fromModule: atom.module as CourseAtom["fromModule"],
+    kind: atom.kind === "other" ? "vocab" : atom.kind,
+    excludeFromSrs: atom.srsEligible ? undefined : true,
+  };
+}
+
+const nonJaLessonAtomsCache = new Map<string, CourseAtom[]>();
+
+function nonJaAtomsForLesson(
+  lessonId: string,
+  languageId: string,
+): CourseAtom[] {
+  const cacheKey = `${languageId}:${lessonId}`;
+  const cached = nonJaLessonAtomsCache.get(cacheKey);
+  if (cached) return cached;
+  const atoms: CourseAtom[] = [];
+  const lesson = getLessonContentLookup()?.(lessonId);
+  if (lesson) {
+    const index = getNormalizedAtomIndex(languageId);
+    const seen = new Set<string>();
+    for (const step of lesson.steps as Array<{ exercisedAtoms?: string[] }>) {
+      for (const id of step?.exercisedAtoms ?? []) {
+        if (seen.has(id)) continue;
+        seen.add(id);
+        const atom = index.get(id);
+        // Introduction semantics mirror the JA fallback: a lesson only
+        // introduces atoms attributed to its own module — earlier-module
+        // vocab re-drilled here must not re-claim introduction.
+        if (atom && atom.srsEligible && atom.module === lesson.moduleId) {
+          atoms.push(toCourseAtomView(atom));
+        }
+      }
+    }
+  }
+  nonJaLessonAtomsCache.set(cacheKey, atoms);
+  return atoms;
+}
+
+/**
+ * Callers that predate multi-language (LessonPage's unlock + seed path)
+ * pass only the lesson id. Lesson ids are language-prefixed (`ja-m1-l1`,
+ * `es-m1-3`, `ko-m3-1`), so infer the language rather than defaulting
+ * non-JA lessons into the JA index (where they'd silently resolve to
+ * zero atoms). An explicit `languageId` always wins.
+ */
+function languageForLessonId(lessonId: string): string {
+  const prefix = /^([a-z]+)-/.exec(lessonId)?.[1];
+  return prefix && isLanguageRegistered(prefix) ? prefix : "ja";
+}
+
 export function getAtomsForLesson(
   lessonId: string,
-  languageId: string = "ja",
+  languageId?: string,
 ): CourseAtom[] {
-  if (!isLanguageRegistered(languageId)) return [];
-  if (languageId !== "ja") return [];
+  const lang = languageId ?? languageForLessonId(lessonId);
+  if (!isLanguageRegistered(lang)) return [];
+  if (lang !== "ja") return nonJaAtomsForLesson(lessonId, lang);
   return lessonToAtoms.get(lessonId) ?? fallbackAtomsForLesson(lessonId);
 }
 
@@ -110,7 +184,12 @@ export function getAtomsUpToModule(
   const cutoff = order.indexOf(moduleId);
   if (cutoff === -1) return [];
   const set = new Set(order.slice(0, cutoff + 1));
-  return courseAtomsFor(languageId).filter(
-    (a) => isSrsEligibleAtom(a) && set.has(a.fromModule),
-  );
+  if (languageId === "ja") {
+    return JA_COURSE_ATOMS.filter(
+      (a) => isSrsEligibleAtom(a) && set.has(a.fromModule),
+    );
+  }
+  return getNormalizedCourseAtoms(languageId)
+    .filter((a) => a.srsEligible && set.has(a.module))
+    .map(toCourseAtomView);
 }

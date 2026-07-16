@@ -8,6 +8,7 @@ import type { IconName } from "@/shared/iconRegistry";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { useApi } from "@/shared/api/provider";
 import type { CommunityThread, CommunityAddon } from "@/shared/api/community";
 
@@ -38,6 +39,7 @@ export function TrendingRow() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const flags = useFeatureFlags();
+  const communityOn = isCommunityEnabled(flags);
   const { language } = useLanguage();
   const { community } = useApi();
   const langId = language?.id ?? "ko";
@@ -47,14 +49,14 @@ export function TrendingRow() {
     queryFn: ({ signal }) =>
       community.listAddons({ languageId: langId, limit: 6 }, signal),
     staleTime: 60_000,
-    enabled: flags.community.tabs.explore,
+    enabled: communityOn && flags.community.tabs.explore,
   });
 
   const threadsQuery = useQuery<CommunityThread[]>({
     queryKey: ["community", "threads", "home-trending"],
     queryFn: ({ signal }) => community.listThreads({ sort: "new", limit: 6 }, signal),
     staleTime: 60_000,
-    enabled: flags.community.tabs.discuss,
+    enabled: communityOn && flags.community.tabs.discuss,
   });
 
   const isLoading =
@@ -117,6 +119,10 @@ export function TrendingRow() {
     }
     return interleaved.slice(0, TILE_LIMIT);
   }, [decksQuery.data, threadsQuery.data, langPath, t]);
+
+  // The whole strip exists to funnel into community surfaces — with the
+  // community flag off (MVP) it would only lead to dead routes, so hide it.
+  if (!communityOn) return null;
 
   return (
     <Card padding="none" className="overflow-hidden">

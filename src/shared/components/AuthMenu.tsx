@@ -7,6 +7,10 @@ import { canModerateCommunityContent, canAccessSiteAdmin } from "@/shared/auth/r
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useApi } from "@/shared/api/provider";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import {
+  isCommunityEnabled,
+  isSocialEnabled,
+} from "@/shared/config/featureFlags";
 import { resolveUserAvatarUrl } from "@/shared/auth/resolveUserAvatarUrl";
 import { getStoredProfile } from "@/features/settings/profileStorage";
 import { ApiError } from "@/shared/api/client";
@@ -125,7 +129,9 @@ export function AuthMenu() {
             <Icon name="settings" size={18} className="shrink-0 text-text-muted" />
             {t("nav.settings")}
           </Button>
-          {isAuthenticated && (() => {
+          {/* Public profile lives behind the social gate (/u/* bounces with
+              social off), so the entry hides with it. */}
+          {isAuthenticated && isSocialEnabled(flags) && (() => {
             // Public profile URL — prefer the backend ``me.username`` (Auth0
             // sub maps to this in the seed). Fall back to the Auth0
             // ``nickname`` claim or the email local-part so the link still
@@ -150,7 +156,7 @@ export function AuthMenu() {
               </Link>
             );
           })()}
-          {showModeration && flags.community.tabs.contribute && (
+          {showModeration && isCommunityEnabled(flags) && flags.community.tabs.contribute && (
             <Link
               to={langPath("community/contribute/admin")}
               className={menuLinkClass}

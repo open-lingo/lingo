@@ -9,6 +9,7 @@ import {
 import { MODULE_RECAP_LESSON_IDS } from "@/features/lesson/data/generatedHiraganaLessons";
 import { KO_M1_ROWS } from "@/features/languages/ko/curriculum/m1-rows";
 import { KO_M2_ROWS } from "@/features/languages/ko/curriculum/m2";
+import { buildSpanishCourse } from "@/features/languages/es/curriculum";
 export const ALPHABET_LESSON_ID = "m1-l0-alphabet";
 
 // `reviewModuleEntry` helper removed 2026-05-18 alongside the standalone
@@ -1550,6 +1551,20 @@ export function getMockCourse(languageId: string): Course {
         },
       ],
       sideQuests,
+    };
+  }
+
+  const isSpanish = languageId === "es";
+
+  if (isSpanish) {
+    // ES pathway is assembled from the per-module curriculum files — see
+    // es/curriculum/index.ts. Modules whose lesson arrays are still empty
+    // stubs are skipped there, so the learn map only shows authored content.
+    return {
+      id: "mock-1",
+      title: `${langName} for Beginners`,
+      languageId,
+      modules: buildSpanishCourse(),
     };
   }
 

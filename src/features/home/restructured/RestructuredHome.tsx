@@ -44,6 +44,7 @@ type Props = {
 export function RestructuredHome({ greetingName }: Props) {
   const { language } = useLanguage();
   const langPath = useLangPath();
+  const flags = useFeatureFlags();
   const course = language ? getMockCourse(language.id) : null;
   const completedIds = useCompletedLessonIds();
   const langConfig = language ? getLanguageConfig(language.id) : null;
@@ -163,6 +164,9 @@ export function RestructuredHome({ greetingName }: Props) {
         </div>
         <div className="flex flex-col gap-4 lg:col-span-4">
           <FlashcardsTile />
+          {/* Friend leaderboard is a social surface (friends API + social/
+              profile links) — don't mount it with social off so its query
+              never fires against a dark surface. */}
           {socialOn ? (
             <div className="flex-1">
               <LeaderboardCard />

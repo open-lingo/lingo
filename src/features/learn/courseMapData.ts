@@ -5,8 +5,9 @@
  *   - lesson count (content lessons, review lessons split out)
  *   - vocabulary introduced — collected from each lesson's
  *     `introducesCardIds` / `introducesVocabIds` (resolved via lesson
- *     content) and, for Japanese, enriched from the authored course-atom
- *     catalog (`JA_COURSE_ATOMS`, which carries a `fromModule` tag).
+ *     content) and enriched from the authored course-atom catalogs
+ *     (`JA_COURSE_ATOMS` for Japanese; the normalized atom view for
+ *     KO/ES — both carry a per-atom module attribution).
  *
  * NOTE: this file deliberately does NOT define a `moduleVocab.ts` — vocab
  * resolution lives here, scoped to the course-map surface.
@@ -18,6 +19,11 @@ import {
   JA_COURSE_ATOMS_BY_ID,
   type CourseAtom,
 } from "@/features/languages/ja/courseAtoms";
+import {
+  getNormalizedAtomIndex,
+  getNormalizedCourseAtoms,
+  type NormalizedAtom,
+} from "@/features/lesson/data/normalizedAtoms";
 
 /** A displayable vocab sample (kana/hangul surface + english gloss). */
 export type VocabSample = {
@@ -84,6 +90,18 @@ function atomToSample(atom: CourseAtom): VocabSample {
   return { id: atom.id, surface: atom.kana, meaning: atom.meaningEn };
 }
 
+function normalizedToSample(atom: NormalizedAtom): VocabSample {
+  return { id: atom.id, surface: atom.display, meaning: atom.gloss };
+}
+
+/**
+ * Vocab eligibility for the normalized (non-JA) path: real words only —
+ * KO alphabet atoms (jamo / syllables, kind "other") aren't vocabulary.
+ */
+function isDisplayableVocab(atom: NormalizedAtom): boolean {
+  return atom.srsEligible && atom.kind !== "other";
+}
+
 const SAMPLE_CAP = 6;
 
 /**
@@ -93,6 +111,9 @@ const SAMPLE_CAP = 6;
  * `fromModule` (real curriculum data, includes kana + meaning), which is the
  * most complete signal. We also fold in any ids declared on lesson content so
  * the count never undercounts authored decks.
+ *
+ * KO/ES: same shape via the normalized atom view — module-attributed atoms
+ * plus resolvable declared ids, with surfaces + glosses for samples.
  *
  * Other languages: fall back to lesson-content declared ids. When those ids
  * can't be resolved to a display surface, the count still reflects the number
@@ -122,6 +143,29 @@ export function getModuleVocab(
     };
   }
 
+  const catalog = getNormalizedCourseAtoms(languageId);
+  if (catalog.length > 0) {
+    const byId = new Map<string, NormalizedAtom>();
+    // Atoms attributed to this module.
+    for (const atom of catalog) {
+      if (atom.module === module.id && isDisplayableVocab(atom)) {
+        byId.set(atom.id, atom);
+      }
+    }
+    // Fold in any explicitly-declared ids that resolve to a known atom.
+    const index = getNormalizedAtomIndex(languageId);
+    for (const id of declaredIds) {
+      const canonical = id.includes(":") ? id : `${languageId}:${id}`;
+      const atom = index.get(canonical);
+      if (atom && isDisplayableVocab(atom)) byId.set(atom.id, atom);
+    }
+    const atoms = [...byId.values()];
+    return {
+      count: atoms.length,
+      samples: atoms.slice(0, SAMPLE_CAP).map(normalizedToSample),
+    };
+  }
+
   // Generic path: count distinct declared ids; no surface resolver available.
   return { count: declaredIds.length, samples: [] };
 }
@@ -135,7 +179,9 @@ export function getModuleVocab(
  * list. Only languages with an entry render milestones; others render none.
  *
  * Korean course is authored first (its M1/M2 are Hangul, M3+ are grammar/
- * vocab modules — see mockCourse.ts).
+ * vocab modules — see mockCourse.ts). Spanish is Latin-script, so its
+ * milestones are conversational from module one (spine: m1 sounds &
+ * greetings … m16 travel & review).
  */
 export const COURSE_MILESTONES: Record<string, Record<number, string>> = {
   ko: {
@@ -154,6 +200,15 @@ export const COURSE_MILESTONES: Record<string, Record<number, string>> = {
     9: "Describe qualities & feelings",
     13: "Talk about times & schedules",
     16: "Handle requests & routines",
+  },
+  es: {
+    0: "Greet people & count to 10",
+    1: "Introduce yourself",
+    3: "Describe people and things",
+    5: "Count higher & tell the time",
+    9: "Order food & say what you like",
+    11: "Shop & talk prices",
+    15: "Hold a basic conversation",
   },
 };
 

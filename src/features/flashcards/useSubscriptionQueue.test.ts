@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { courseDeckPassesFilter } from "./useSubscriptionQueue";
-import { buildEnrichedJaCourseDeck } from "./data/courseDeck";
+import { courseDeckIdFor, courseDeckPassesFilter } from "./useSubscriptionQueue";
+import {
+  buildEnrichedCourseDeck,
+  buildEnrichedJaCourseDeck,
+} from "./data/courseDeck";
 import {
   buildQueueFromSubscriptions,
   type DeckSubscription,
@@ -21,23 +24,43 @@ import {
  * the reviewer previously only played backend subscription decks.
  */
 describe("course deck scope filter", () => {
-  it("appears in 'all' and 'lessons' scopes, not 'vocab'", () => {
-    expect(courseDeckPassesFilter({ kind: "all" })).toBe(true);
-    expect(courseDeckPassesFilter({ kind: "preset", preset: "lessons" })).toBe(
-      true,
-    );
-    expect(courseDeckPassesFilter({ kind: "preset", preset: "vocab" })).toBe(
-      false,
-    );
+  const jaCourse = courseDeckIdFor("ja");
+
+  it("derives the course deck id from the language", () => {
+    expect(courseDeckIdFor("ja")).toBe("ja-course");
+    expect(courseDeckIdFor("es")).toBe("es-course");
   });
 
-  it("appears under a deckIds scope only when ja-course is selected", () => {
+  it("appears in 'all' and 'lessons' scopes, not 'vocab'", () => {
+    expect(courseDeckPassesFilter({ kind: "all" }, jaCourse)).toBe(true);
     expect(
-      courseDeckPassesFilter({ kind: "deckIds", deckIds: new Set(["ja-course"]) }),
+      courseDeckPassesFilter({ kind: "preset", preset: "lessons" }, jaCourse),
     ).toBe(true);
     expect(
-      courseDeckPassesFilter({ kind: "deckIds", deckIds: new Set(["vocab-1"]) }),
+      courseDeckPassesFilter({ kind: "preset", preset: "vocab" }, jaCourse),
     ).toBe(false);
+  });
+
+  it("appears under a deckIds scope only when its own deck is selected", () => {
+    expect(
+      courseDeckPassesFilter(
+        { kind: "deckIds", deckIds: new Set(["ja-course"]) },
+        jaCourse,
+      ),
+    ).toBe(true);
+    expect(
+      courseDeckPassesFilter(
+        { kind: "deckIds", deckIds: new Set(["vocab-1"]) },
+        jaCourse,
+      ),
+    ).toBe(false);
+    // Per-language: an es learner's deckIds scope keys on es-course.
+    expect(
+      courseDeckPassesFilter(
+        { kind: "deckIds", deckIds: new Set(["es-course"]) },
+        courseDeckIdFor("es"),
+      ),
+    ).toBe(true);
   });
 });
 
@@ -104,5 +127,36 @@ describe("course deck → reviewer queue composition", () => {
     // Throttled: never floods the learner with the whole backlog at once.
     expect(queue.newCount).toBe(cap);
     expect(queue.newCount).toBeLessThan(unlockedCards.length);
+  });
+
+  it("turns unlocked ES words into playable new cards (generic course deck)", () => {
+    // Same composition as the JA case, through the language-generic builder.
+    const catalog = buildEnrichedCourseDeck("es", new Set())!;
+    expect(catalog).not.toBeNull();
+    const unlocked = new Set(catalog.cards.slice(0, 5).map((c) => c.id));
+
+    const courseDeck = buildEnrichedCourseDeck("es", unlocked)!;
+    const unlockedCards = courseDeck.cards.filter((c) => c.unlocked);
+    expect(unlockedCards.length).toBe(5);
+
+    const emptyStore: SRSStore = {};
+    const sub: DeckSubscription = {
+      contentId: courseDeck.id,
+      newCardsPerDay: adaptiveNewCardsPerDay(unlockedCards.length),
+      newCardOrder: "ordered",
+    };
+
+    const queue = buildQueueFromSubscriptions(
+      [sub],
+      [{ id: courseDeck.id, cards: unlockedCards }],
+      emptyStore,
+      {},
+    );
+
+    expect(queue.newCount).toBe(5);
+    for (const card of queue.queue) {
+      expect(unlocked.has(card.id)).toBe(true);
+      expect(card.id.startsWith("es:")).toBe(true);
+    }
   });
 });

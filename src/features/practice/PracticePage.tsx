@@ -7,6 +7,7 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { getPracticeItemsForLanguage } from "@/features/practice/practiceNavItems";
 import type { PracticeNavItem } from "@/features/practice/practiceNavItems";
 import { getMockCourse } from "@/shared/domain/mockCourse";
@@ -371,7 +372,9 @@ export function PracticePage() {
             <ul className="flex flex-wrap gap-1.5">
               <ToolChip to={langPath("practice/flashcards/decks")} label={t("flashcards.deckManager.title")} />
               <ToolChip to={langPath("practice/flashcards/cards")} label={t("flashcards.cardManager.title")} />
-              <ToolChip to={langPath("community/explore")} label={t("flashcards.browseDecks")} />
+              {isCommunityEnabled(flags) ? (
+                <ToolChip to={langPath("community/explore")} label={t("flashcards.browseDecks")} />
+              ) : null}
               {trainerStrip.map((item) => (
                 <ToolChip
                   key={item.to + (item.label ?? "")}

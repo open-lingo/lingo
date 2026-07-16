@@ -361,6 +361,43 @@ export function fixtures(): Fixture[] {
       },
     },
     {
+      type: "agreement_cloze",
+      title: "agreement_cloze",
+      whenToUse:
+        "Multi-blank gender/number agreement (ES). Each blank is a small closed chip-set (o/a/os/as, el/la/los/las); the learner fills every blank and one Check grades the whole set — agreement is a sentence property, so no partial credit.",
+      step: {
+        id: "preview-ac",
+        type: "agreement_cloze",
+        segments: [
+          {
+            blank: {
+              id: "b1",
+              correctAnswer: "Las",
+              options: ["El", "La", "Los", "Las"],
+            },
+          },
+          { text: " cas" },
+          {
+            blank: {
+              id: "b2",
+              correctAnswer: "as",
+              options: ["o", "a", "os", "as"],
+            },
+          },
+          { text: " son blanc" },
+          {
+            blank: {
+              id: "b3",
+              correctAnswer: "as",
+              options: ["o", "a", "os", "as"],
+            },
+          },
+          { text: "." },
+        ],
+        meaningEn: "The houses are white.",
+      },
+    },
+    {
       type: "self_explanation_mcq",
       title: "self_explanation_mcq",
       whenToUse:

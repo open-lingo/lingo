@@ -28,9 +28,10 @@ const STEP_TYPE_ORDER: Record<StepType, number> = {
   phrase_card: 16,
   grammar_rule: 17,
   particle_cloze: 18,
-  self_explanation_mcq: 19,
-  dialogue_listen: 20,
-  row_test: 21,
+  agreement_cloze: 19,
+  self_explanation_mcq: 20,
+  dialogue_listen: 21,
+  row_test: 22,
 };
 
 export const ALL_STEP_TYPES = (
@@ -51,6 +52,10 @@ export const ALL_STEP_TYPES = (
 export const UNUSED_STEP_TYPES: StepType[] = [
   "fill_blank",
   "symbol_production",
+  // Ships only in the es course (agreement drills, m3+). No ja lesson uses
+  // it, so it is "unused" from this ja-scoped pin's perspective — the es QA
+  // page covers it via buildStepTypeCoverage("es") (guarded in the test).
+  "agreement_cloze",
 ];
 
 export type QaLessonPick = {

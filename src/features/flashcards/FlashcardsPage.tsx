@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { Card, WeekSparkline, CollapsibleSection } from "@/shared/components/ui";
 import { EmptyState } from "@/shared/components/ui/EmptyState";
 import type { Flashcard } from "@/features/flashcards/data/types";
@@ -213,6 +215,8 @@ export function FlashcardsPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { language } = useLanguage();
+  const flags = useFeatureFlags();
+  const communityOn = isCommunityEnabled(flags);
   const langId = language?.id ?? "ko";
 
   const { invalidate } = useSubscribedDecks();
@@ -547,12 +551,14 @@ export function FlashcardsPage() {
               "Subscribe to community decks to start building your review queue.",
             )}
             action={
-              <Link
-                to={langPath("community/explore")}
-                className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
-              >
-                {t("flashcards.browseCommunityDecks", "Browse community decks")}
-              </Link>
+              communityOn ? (
+                <Link
+                  to={langPath("community/explore")}
+                  className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+                >
+                  {t("flashcards.browseCommunityDecks", "Browse community decks")}
+                </Link>
+              ) : undefined
             }
           />
         ) : (
@@ -574,7 +580,10 @@ export function FlashcardsPage() {
         )}
       </section>
 
-      {/* Zone 7 — Community card packs */}
+      {/* Zone 7 — Community card packs. With the community flag off the empty
+          state is a pure funnel into community/explore, so the whole section
+          hides; already-subscribed packs stay (they still review locally). */}
+      {!communityOn && communityPacksWithDecks.length === 0 ? null : (
       <section className="space-y-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
@@ -593,12 +602,14 @@ export function FlashcardsPage() {
               "Browse community decks to find packs maintained by other learners.",
             )}
             action={
-              <Link
-                to={langPath("community/explore")}
-                className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
-              >
-                {t("flashcards.browseToSubscribe", "Browse decks to subscribe")}
-              </Link>
+              communityOn ? (
+                <Link
+                  to={langPath("community/explore")}
+                  className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+                >
+                  {t("flashcards.browseToSubscribe", "Browse decks to subscribe")}
+                </Link>
+              ) : undefined
             }
           />
         ) : (
@@ -622,6 +633,7 @@ export function FlashcardsPage() {
           </ul>
         )}
       </section>
+      )}
     </div>
   );
 }

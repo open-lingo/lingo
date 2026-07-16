@@ -32,6 +32,7 @@ import { KO_M25_LESSONS } from "@/features/languages/ko/curriculum/m25";
 import { KO_M26_LESSONS } from "@/features/languages/ko/curriculum/m26";
 import { KO_M27_LESSONS } from "@/features/languages/ko/curriculum/m27";
 import { MOCK_LESSON_KO_SIDEQUEST_SURVIVAL } from "@/features/languages/ko/curriculum/sidequest-survival";
+import { ES_ALL_LESSONS } from "@/features/languages/es/curriculum";
 import {
   MOCK_LESSON_JA_M1_L1A,
   MOCK_LESSON_JA_M1_L1B,
@@ -433,6 +434,9 @@ const KOREAN_M26_LESSONS: Record<string, LessonContent> = Object.fromEntries(
 const KOREAN_M27_LESSONS: Record<string, LessonContent> = Object.fromEntries(
   KO_M27_LESSONS.map((l) => [l.id, l]),
 );
+const SPANISH_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  ES_ALL_LESSONS.map((l) => [l.id, l]),
+);
 
 const LESSONS: Record<string, LessonContent> = {
   // ─── Korean — Module 1 (Hangul foundation, 2026-05-19) ───────────────
@@ -502,6 +506,9 @@ const LESSONS: Record<string, LessonContent> = {
   ...KOREAN_M26_LESSONS,
   ...KOREAN_M27_LESSONS,
   "ko-sidequest-survival-phrases": MOCK_LESSON_KO_SIDEQUEST_SURVIVAL,
+  // ─── Spanish — authored modules (assembled in es/curriculum/index.ts;
+  // stub modules contribute nothing until their authoring wave lands) ───
+  ...SPANISH_LESSONS,
   // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,
   "ja-m1-l1-2": MOCK_LESSON_JA_M1_L1B,
@@ -992,17 +999,23 @@ function stripBuildSentenceSteps(lesson: LessonContent): LessonContent {
 
 /**
  * Heavy, curriculum-wide indexes for the match-pairs floor pass, built
- * once from the RAW LESSONS map (no post-passes → no recursion). `todayMs`
- * is refreshed per call so FSRS overdue scoring stays current.
+ * once PER LANGUAGE from the RAW LESSONS map (no post-passes → no
+ * recursion) and the language's own course order — fill pools are
+ * language-keyed, so an es lesson must never pad from ja indexes. Cached
+ * per language (the ja fast path stays a single build); `todayMs` is
+ * refreshed per call so FSRS overdue scoring stays current.
  */
-let matchPadHeavyBits: Omit<MatchPadContext, "todayMs"> | null = null;
-function getMatchPadContext(): MatchPadContext {
-  if (!matchPadHeavyBits) {
+const matchPadHeavyBits = new Map<string, Omit<MatchPadContext, "todayMs">>();
+function getMatchPadContext(languageId: string): MatchPadContext {
+  let bits = matchPadHeavyBits.get(languageId);
+  if (!bits) {
     const rawLessons = Object.values(LESSONS);
     const rawById = new Map(rawLessons.map((l) => [l.id, l]));
     const orderedLessonIds: string[] = [];
-    const course = getMockCourse("ja");
+    const moduleOrder: string[] = [];
+    const course = getMockCourse(languageId);
     for (const mod of course.modules) {
+      moduleOrder.push(mod.id);
       const m = mod as unknown as {
         lessons?: { id: string }[];
         lessonGroups?: { lessons?: { id: string }[] }[];
@@ -1011,9 +1024,10 @@ function getMatchPadContext(): MatchPadContext {
       for (const g of m.lessonGroups ?? [])
         for (const l of g.lessons ?? []) orderedLessonIds.push(l.id);
     }
-    matchPadHeavyBits = { rawLessons, rawById, orderedLessonIds };
+    bits = { rawLessons, rawById, orderedLessonIds, moduleOrder };
+    matchPadHeavyBits.set(languageId, bits);
   }
-  return { ...matchPadHeavyBits, todayMs: Date.now() };
+  return { ...bits, todayMs: Date.now() };
 }
 
 export function getMockLessonContent(
@@ -1027,7 +1041,7 @@ export function getMockLessonContent(
     const shaped = isSunsetModuleForBuildSentence(augmented.moduleId)
       ? stripBuildSentenceSteps(augmented)
       : augmented;
-    return padMatchPairsFloor(shaped, getMatchPadContext());
+    return padMatchPairsFloor(shaped, getMatchPadContext(shaped.languageId));
   }
 
   const reviewMatch = /^ja-(m\d+)-review-([12])$/.exec(lessonId);
@@ -1039,7 +1053,7 @@ export function getMockLessonContent(
         courseId: "mock-1",
         languageId: "ja",
       }),
-      getMatchPadContext(),
+      getMatchPadContext("ja"),
     );
   }
 

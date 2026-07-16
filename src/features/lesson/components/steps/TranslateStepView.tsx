@@ -7,7 +7,9 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { ExplainButton } from "../ExplainButton";
+import { AccentBar } from "../AccentBar";
 import { normalizeTypedAnswer } from "@/shared/speech";
+import { gradeTypedAnswer } from "@/shared/speech/loose-match";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { expandAcceptedAnswers } from "./translateVariants";
 
@@ -30,6 +32,11 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
 
   const intoJapanese =
     (language?.id ?? "ja") === "ja" && step.sourceLanguage === "native";
+  // Accent chip row for learners typing INTO Spanish without an OS layout
+  // for it. es only — the JA path has wanakana; other courses opt in as
+  // they land.
+  const showAccentBar =
+    language?.id === "es" && step.sourceLanguage === "native";
 
   // Romaji→kana live compose (rung 1 of the production typing ladder;
   // Spencer QA 2026-07-12: learners without an OS IME must be able to
@@ -61,27 +68,25 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
   // correctness during render graded the stale value. toKana also resolves
   // a pending trailing consonant (the classic word-final "n").
   const [isCorrect, setIsCorrect] = useState(false);
+  // Accent nudge: set to the properly-accented accepted answer when the
+  // learner's submission was correct only modulo diacritics ("anos" for
+  // "años"). Correct for SRS/XP purposes — the banner just nudges.
+  const [accentNudge, setAccentNudge] = useState<string | null>(null);
 
   function handleSubmit() {
     const raw = textareaRef.current?.value ?? answer;
     const composed = intoJapanese ? wanakana.toKana(raw) : raw;
-    // Strip trailing sentence punctuation from the TYPED side too:
-    // toKana turns a natural final "." into 。, and normalizeTypedAnswer
-    // keeps it — so "gakuseidesu." failed against answers authored
-    // without 。 (the authored side is already punctuation-expanded).
-    const normalizedNow = normalizeTypedAnswer(composed).replace(
-      /[。．.、,!?！？\s]+$/u,
-      "",
-    );
-    const correct = accepted.some(
-      (a) =>
-        normalizeTypedAnswer(a).replace(/[。．.、,!?！？\s]+$/u, "") ===
-        normalizedNow,
-    );
-    setIsCorrect(correct);
+    // gradeTypedAnswer normalizes both sides (NFKC + whitespace + case),
+    // strips trailing sentence punctuation (toKana turns a natural final
+    // "." into 。, and answers authored without 。 must still match), and
+    // accent-folds as a fallback: a de-accented rendering of a real
+    // answer grades correct but surfaces the accented form as a nudge.
+    const grade = gradeTypedAnswer(accepted, composed);
+    setIsCorrect(grade.correct);
+    setAccentNudge(grade.accentFlagged ? grade.accentDisplay : null);
     setSubmitted(true);
-    onComplete(step.id, correct);
-    if (correct) {
+    onComplete(step.id, grade.correct);
+    if (grade.correct) {
       setCelebrationText(pickCelebrationText(t));
       setCelebrating(true);
       window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
@@ -139,12 +144,36 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
           className="w-full resize-none rounded-xl border-[1.5px] border-border bg-surface px-4 py-3 text-base text-text-primary outline-none transition-colors focus:border-accent disabled:opacity-60"
         />
         {celebrating && <CelebrationToast text={celebrationText} />}
+        {showAccentBar && (
+          <div className="mt-2">
+            <AccentBar
+              inputRef={textareaRef}
+              disabled={submitted}
+              // setRangeText bypasses onChange — mirror the DOM into
+              // `answer` so the Check button's disabled check stays live.
+              onInsert={setAnswer}
+            />
+          </div>
+        )}
       </div>
 
       {/* Bottom-anchored block: feedback + CTA together so the button
           sits in the shared bottom action slot on every step type. */}
       <div className="mt-auto flex flex-col gap-4 pt-6">
-        {submitted && <Feedback correct={isCorrect} />}
+        {submitted && (
+          <Feedback
+            correct={isCorrect}
+            flagged={accentNudge !== null}
+            flaggedNote={
+              accentNudge !== null ? (
+                <>
+                  Watch the accents:{" "}
+                  <span className="font-semibold">{accentNudge}</span>
+                </>
+              ) : undefined
+            }
+          />
+        )}
 
         {submitted && !isCorrect && (
           <p className="text-sm text-text-secondary">
