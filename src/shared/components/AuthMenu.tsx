@@ -21,7 +21,7 @@ import { useTheme } from "@/shared/contexts/ThemeContext";
 import { DecoratedAvatar } from "@/shared/components/DecoratedAvatar";
 import { useEquippedDecorator } from "@/features/shop/useEquippedDecorator";
 
-export function AuthMenu() {
+export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { isAuthenticated, isLoading, user } = useAuth();
@@ -113,7 +113,11 @@ export function AuthMenu() {
       </Button>
 
       {open && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-lg border border-border bg-surface py-1 shadow-popover">
+        <div
+          className={`absolute right-0 z-50 w-56 rounded-lg border border-border bg-surface py-1 shadow-popover ${
+            dropUp ? "bottom-full mb-2" : "top-full mt-2"
+          }`}
+        >
           {isAuthenticated && user && (
             <div className="border-b border-border px-4 py-2">
               <p className="truncate text-sm font-medium text-text-primary">{displayName}</p>

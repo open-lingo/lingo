@@ -11,11 +11,16 @@ const variantStyles: Record<AlertVariant, string> = {
 
 export function ToastContainer({
   bottomOffsetClass,
+  topRightOnLg = false,
 }: {
   /** Override the stacking baseline. Focused flows (lesson/review sessions)
    *  pass a taller offset so toasts land ABOVE the bottom-anchored
    *  CHECK/CONTINUE + feedback banner instead of covering them. */
   bottomOffsetClass?: string;
+  /** Sidebar nav mode: on ≥lg the utility pill docks bottom-right, so toasts
+   *  stack from the top-right instead of covering it. Mobile keeps the
+   *  bottom stack. */
+  topRightOnLg?: boolean;
 } = {}) {
   const { toasts, dismissToast } = useToast();
 
@@ -23,7 +28,9 @@ export function ToastContainer({
 
   return (
     <div
-      className={`pointer-events-none fixed ${bottomOffsetClass ?? "bottom-[var(--funding-meter-height,4.5rem)]"} left-4 right-4 z-[60] flex flex-col gap-2 sm:left-auto sm:right-4 sm:max-w-sm`}
+      className={`pointer-events-none fixed ${bottomOffsetClass ?? "bottom-[var(--funding-meter-height,4.5rem)]"} left-4 right-4 z-[60] flex flex-col gap-2 sm:left-auto sm:right-4 sm:max-w-sm ${
+        topRightOnLg ? "lg:bottom-auto lg:top-4" : ""
+      }`}
       aria-live="polite"
       aria-atomic="true"
     >
