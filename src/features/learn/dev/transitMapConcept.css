@@ -346,8 +346,10 @@ a:focus-visible .tmc-d-stop {
   color: var(--tmc-muted);
 }
 .tmc-toggle button.on {
-  background: var(--tmc-ink);
-  color: var(--tmc-panel);
+  /* line color, not inverted ink — ink is near-white in dark themes and
+     read as a glaring white box on the map */
+  background: var(--tmc-line-main);
+  color: #fff;
 }
 
 /* reduced motion: render final states, kill loops */

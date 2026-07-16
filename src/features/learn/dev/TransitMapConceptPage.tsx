@@ -66,7 +66,7 @@ const RUNS = [5, 4, 5, 3, 6, 4] as const;
 const LOOP_DOWN_Y = 420;
 const LOOP_UP_Y = 96;
 const DEPTH_STEP = 46;
-const ART_BAND = 118; // reserved above the content for the skyline
+const ART_BAND = 150; // reserved above the content for the skyline
 const QUEST_COLORS = ["var(--tmc-q0)", "var(--tmc-q1)", "var(--tmc-q2)"];
 
 /** Rough text width for plates/chips (JP glyphs ~10.5px, latin ~6.2px @10px). */
@@ -116,6 +116,8 @@ type Layout = {
   zoneChipY: number;
   numeralY: number;
   riverX: number;
+  /** stations where a branch vertical enters/leaves — labels shift aside */
+  branchTouched: ReadonlySet<number>;
 };
 
 function levelOf(index: number): number {
@@ -197,6 +199,7 @@ function buildLayout(
   statuses: ModuleStatus[],
   doneCounts: number[],
   questsByAnchor: Map<number, SideQuest[]>,
+  softAnchors: ReadonlySet<number>,
   zoneLabels: string[],
   zoneNumerals: string[],
 ): Layout {
@@ -258,28 +261,32 @@ function buildLayout(
   const anchorEntries = [...questsByAnchor.entries()].sort(
     (a, b) => stations[a[0]].x - stations[b[0]].x,
   );
+  const branchTouched = new Set<number>();
   let colorIdx = 0;
-  for (const [anchor, quests] of anchorEntries) {
+  for (const [rawAnchor, quests] of anchorEntries) {
+    // soft (auto-spread) anchors slide off stations another branch already
+    // touches — two verticals at one station read as a single smeared rail
+    let anchor = rawAnchor;
+    if (softAnchors.has(rawAnchor)) {
+      let tries = 0;
+      while (branchTouched.has(anchor) && anchor < stations.length - 2 && tries < 4) {
+        anchor++;
+        tries++;
+      }
+    }
     const a = stations[anchor];
     const up = a.y === LEVELS[2];
     const shown = quests.slice(0, 3);
     const color = QUEST_COLORS[colorIdx % QUEST_COLORS.length];
     colorIdx++;
 
-    // estimate the x-range at depth 0, claim a depth, then build for real
-    const dx0 = Math.abs((up ? LOOP_UP_Y : LOOP_DOWN_Y) - a.y);
-    const estEnd = a.x + dx0 + shown.length * 96 + 50;
-    const depth = packDepth(up ? upIntervals : downIntervals, a.x, estEnd);
-    const loopY = up ? LOOP_UP_Y - depth * 40 : LOOP_DOWN_Y + depth * DEPTH_STEP;
-    if (!up) maxDownY = Math.max(maxDownY, loopY);
-    const dx = Math.abs(loopY - a.y);
-
+    // rejoin BEFORE depth packing so the claimed interval is the real span
     let rejoin: StationL | null = null;
     if (shown.length >= 2) {
       for (let j = anchor + 1; j <= Math.min(anchor + 4, stations.length - 1); j++) {
-        if (stations[j].y === a.y) {
-          const span = stations[j].x - a.x - 2 * dx;
-          if (span >= shown.length * 100 + 40) {
+        if (stations[j].y === a.y && !branchTouched.has(j)) {
+          const span = stations[j].x - a.x;
+          if (span >= shown.length * 100 + 60) {
             rejoin = stations[j];
             break;
           }
@@ -287,38 +294,45 @@ function buildLayout(
       }
     }
 
+    // Branches drop VERTICALLY from their anchor (and climb vertically into
+    // rejoins), so the only possible crossings are clean 90-degree ones.
+    const intervalEnd = rejoin ? rejoin.x + 12 : a.x + shown.length * 96 + 56;
+    const depth = packDepth(up ? upIntervals : downIntervals, a.x - 12, intervalEnd);
+    const loopY = up ? LOOP_UP_Y - depth * 40 : LOOP_DOWN_Y + depth * DEPTH_STEP;
+    if (!up) maxDownY = Math.max(maxDownY, loopY);
+    branchTouched.add(anchor);
+    if (rejoin) branchTouched.add(rejoin.index);
+
     let d: string;
     let stops: QuestStop[];
     let labelX: number;
     let cap: Pt | null = null;
     if (rejoin) {
-      const from = a.x + dx;
-      const to = rejoin.x - dx;
       d = dOf([
         [a.x, a.y],
-        [from, loopY],
-        [to, loopY],
+        [a.x, loopY],
+        [rejoin.x, loopY],
         [rejoin.x, rejoin.y],
       ]);
       stops = shown.map((quest, k) => ({
-        x: from + ((to - from) / (shown.length + 1)) * (k + 1),
+        x: a.x + ((rejoin.x - a.x) / (shown.length + 1)) * (k + 1),
         y: loopY,
         quest,
       }));
-      labelX = (from + to) / 2;
+      labelX = (a.x + rejoin.x) / 2;
     } else {
-      const end = a.x + dx + shown.length * 96 + 50;
+      const end = a.x + shown.length * 96 + 56;
       d = dOf([
         [a.x, a.y],
-        [a.x + dx, loopY],
+        [a.x, loopY],
         [end, loopY],
       ]);
       stops = shown.map((quest, k) => ({
-        x: a.x + dx + 70 + k * 96,
+        x: a.x + 62 + k * 96,
         y: loopY,
         quest,
       }));
-      labelX = a.x + dx + (end - a.x - dx) / 2;
+      labelX = a.x + (end - a.x) / 2;
       cap = [end, loopY];
     }
     spurs.push({
@@ -334,6 +348,12 @@ function buildLayout(
       cap,
     });
   }
+
+  // junction rings follow the FINAL branch endpoints (soft anchors may have
+  // slid; rejoins are junctions too)
+  stations.forEach((st) => {
+    st.interchange = branchTouched.has(st.index);
+  });
 
   /* practice depot: a low-level station past the first third, clear of
      branch horizontals — the rail yard links to the practice hub */
@@ -414,9 +434,10 @@ function buildLayout(
     spurs,
     depot,
     zones,
-    zoneChipY: vbY + 30,
+    zoneChipY: vbY + 58,
     numeralY: vbY + ART_BAND - 20,
     riverX: width * 0.55,
+    branchTouched,
   };
 }
 
@@ -428,33 +449,46 @@ type Skyline = {
   fujiX: number;
   toriiX: number;
   towerX: number;
+  stars: { x: number; y: number; r: number; delay: number }[];
+  moon: { x: number; y: number } | null;
+  wisps: { x: number; y: number }[];
+  cityFill: { x: number; w: number; h: number }[];
 };
 
 function makeSkyline(layout: Layout): Skyline {
+  // Composition: the horizon sits ~one third down the drawing (ART_BAND vs
+  // content height), building clusters alternate with deliberate gaps, and
+  // the celestial pieces fill THOSE gaps (odd-count clusters, golden-ratio
+  // jitter) instead of scattering uniformly.
   const g = layout.skyGroundY;
+  const skyTop = layout.vbY + 12;
+  const skyH = Math.max(40, g - skyTop - 30);
   const zoneAt = (x: number) =>
     layout.zones.length ? layout.zones.findIndex((z) => x >= z.x0 && x < z.x1) : 1;
   const buildings: Skyline["buildings"] = [];
+  const gaps: Array<[number, number]> = [];
   let x = 40;
+  let lastRight = 40;
   let i = 0;
-  while (x < layout.width - 70) {
+  while (x < layout.width - 90) {
     const zi = zoneAt(x);
     const r = (((i + 3) * 2654435761) >>> 7) % 1000 / 1000;
     const dense = zi === 1;
     const coast = zi === 2;
-    const w = 26 + ((i * 97) % 5) * 9;
-    const hMax = dense ? 92 : coast ? 42 : 58;
-    const h = Math.round(16 + r * (hMax - 16));
-    // rural zone 1 and the zone-3 coastline breathe — skip some slots
-    const skip = (zi === 0 && r > 0.6) || (coast && r > 0.5);
+    const w = 32 + ((i * 97) % 5) * 12;
+    const hMax = dense ? 126 : coast ? 56 : 78;
+    const h = Math.round(24 + r * (hMax - 24));
+    const skip = (zi === 0 && r > 0.58) || (coast && r > 0.5);
     if (!skip) {
-      const windows = Array.from({ length: Math.min(3, Math.floor(h / 26)) }, (_, k) => k);
+      if (x - lastRight >= 80) gaps.push([lastRight + 10, x - 10]);
+      const windows = Array.from({ length: Math.min(4, Math.floor(h / 24)) }, (_, k) => k);
       buildings.push({ x, w, h, windows });
+      lastRight = x + w;
     }
-    x += w + 8 + ((i * 53) % 4) * 10;
+    x += w + 10 + ((i * 53) % 4) * 12;
     i++;
   }
-  // rolling hills across the whole width
+  if (layout.width - 60 - lastRight >= 80) gaps.push([lastRight + 10, layout.width - 60]);
   let hillsD = `M 0 ${g}`;
   for (let hx = 0; hx <= layout.width; hx += 210) {
     const amp = 14 + ((hx / 210) % 3) * 8;
@@ -463,6 +497,39 @@ function makeSkyline(layout: Layout): Skyline {
   }
   hillsD += ` L ${layout.width} ${g + 4} L 0 ${g + 4} Z`;
 
+  // celestial content lives in the skyline gaps (the "yellow boxes")
+  const byWidth = [...gaps].sort((a, b) => b[1] - b[0] - (a[1] - a[0]));
+  const moonGap = byWidth[0];
+  const moon = moonGap ? { x: (moonGap[0] + moonGap[1]) / 2, y: skyTop + 34 } : null;
+  const stars: Skyline["stars"] = [];
+  const wisps: Skyline["wisps"] = [];
+  byWidth.slice(0, 7).forEach(([g0, g1], gi) => {
+    const count = 3 + (gi % 3) * 2; // odd clusters read better than even
+    for (let k = 0; k < count; k++) {
+      stars.push({
+        x: g0 + (g1 - g0) * (((k + 1) * 0.618) % 1),
+        y: skyTop + 6 + ((k * 37 + gi * 29) % skyH),
+        r: 0.9 + ((k + gi) % 3) * 0.5,
+        delay: ((k + gi) % 7) * 0.5,
+      });
+    }
+    if (gi % 2 === 1) wisps.push({ x: (g0 + g1) / 2, y: skyTop + 30 + (gi % 3) * 14 });
+  });
+
+  // full-height city fill BEHIND the pathways (the railway threads through
+  // the city): sparse, faint towers rising from the bottom edge
+  const cityFill: Skyline["cityFill"] = [];
+  let cx2 = 90;
+  let ci = 0;
+  while (cx2 < layout.width - 120) {
+    const r2 = (((ci + 11) * 40503) >>> 3) % 1000 / 1000;
+    const w2 = 44 + ((ci * 71) % 4) * 18;
+    const h2 = Math.round(70 + r2 * (layout.vbH * 0.46));
+    if (r2 > 0.25) cityFill.push({ x: cx2, w: w2, h: h2 });
+    cx2 += w2 + 90 + ((ci * 37) % 5) * 44;
+    ci++;
+  }
+
   const z = layout.zones;
   return {
     hillsD,
@@ -470,19 +537,27 @@ function makeSkyline(layout: Layout): Skyline {
     fujiX: z.length ? z[0].x1 - 60 : layout.width * 0.3,
     toriiX: z.length ? (z[0].x0 + z[0].x1) / 2 : layout.width * 0.15,
     towerX: z.length ? (z[1].x0 + z[1].x1) / 2 : layout.width * 0.55,
+    stars,
+    moon,
+    wisps,
+    cityFill,
   };
 }
 
 function SkylineArt({
   sky,
   groundY,
+  bottomY,
   hillsRef,
   bldgRef,
+  cityRef,
 }: {
   sky: Skyline;
   groundY: number;
+  bottomY: number;
   hillsRef: React.RefObject<SVGGElement | null>;
   bldgRef: React.RefObject<SVGGElement | null>;
+  cityRef: React.RefObject<SVGGElement | null>;
 }) {
   return (
     <>
@@ -499,6 +574,27 @@ function SkylineArt({
           style={{ fill: "var(--tmc-panel)" }}
           opacity={0.55}
         />
+        {/* celestial pieces fill the skyline gaps — slowest parallax layer */}
+        <g className="tmc-night">
+          {sky.stars.map((st, i) => (
+            <circle key={i} className="tmc-star" cx={st.x} cy={st.y} r={st.r} style={{ fill: "#EDE8D8", animationDelay: `${st.delay}s` }} />
+          ))}
+          {sky.moon && (
+            <path
+              d={`M ${sky.moon.x} ${sky.moon.y - 14} A 14 14 0 1 0 ${sky.moon.x} ${sky.moon.y + 14} A 17 17 0 0 1 ${sky.moon.x} ${sky.moon.y - 14} Z`}
+              style={{ fill: "#F0E8CC", opacity: 0.9 }}
+            />
+          )}
+        </g>
+        <g className="tmc-day">
+          {sky.wisps.map((wp, i) => (
+            <g key={i} opacity={0.4}>
+              <ellipse cx={wp.x} cy={wp.y} rx={34} ry={11} style={{ fill: "var(--tmc-panel)" }} />
+              <ellipse cx={wp.x + 22} cy={wp.y - 6} rx={22} ry={9} style={{ fill: "var(--tmc-panel)" }} />
+              <ellipse cx={wp.x - 20} cy={wp.y - 4} rx={17} ry={7} style={{ fill: "var(--tmc-panel)" }} />
+            </g>
+          ))}
+        </g>
       </g>
       {/* near layer: buildings + landmarks (faster parallax) */}
       <g ref={bldgRef} pointerEvents="none" aria-hidden>
@@ -524,6 +620,12 @@ function SkylineArt({
           <path d={`M ${sky.towerX - 34} ${groundY} L ${sky.towerX} ${groundY - 108} L ${sky.towerX + 34} ${groundY} Z`} />
           <rect x={sky.towerX - 1.5} y={groundY - 124} width={3} height={16} />
         </g>
+      </g>
+      {/* nearest layer: faint full-height city behind the pathways */}
+      <g ref={cityRef} pointerEvents="none" aria-hidden>
+        {sky.cityFill.map((b, i) => (
+          <rect key={i} x={b.x} y={bottomY - b.h} width={b.w} height={b.h} rx={2} style={{ fill: "var(--tmc-muted)" }} opacity={0.055} />
+        ))}
       </g>
     </>
   );
@@ -624,16 +726,8 @@ function GhostTrain() {
   );
 }
 
-/** Deterministic star field spread across the panel (not a top strip). */
-const STARS = Array.from({ length: 22 }, (_, i) => ({
-  x: 3 + ((i * 6.1) % 94), // percent
-  y: 5 + ((i * 17.3) % 52), // percent — inset into the panel
-  r: 0.9 + (i % 3) * 0.5,
-  delay: (i % 7) * 0.5,
-}));
-
-/** Panel-pinned ambient layer: soft gradient + clouds by day, moon + stars
- *  in dark themes — spread INSIDE the panel rather than framing its edge. */
+/** Panel-pinned ambient layer: just the soft sky gradient — stars, moon
+ *  and cloud wisps live INSIDE the map now, placed in the skyline gaps. */
 function FixedSky({ skyRef }: { skyRef: React.RefObject<HTMLDivElement | null> }) {
   return (
     <div ref={skyRef} className="tmc-sky-layer" aria-hidden>
@@ -650,24 +744,9 @@ function FixedSky({ skyRef }: { skyRef: React.RefObject<HTMLDivElement | null> }
         </defs>
         <g className="tmc-day">
           <rect x="0" y="0" width="100%" height="45%" fill="url(#tmc-sky-day)" />
-          {[0, 1, 2].map((i) => (
-            <svg key={i} x={`${7 + i * 27}%`} y={`${8 + i * 11}%`} width="120" height="60" overflow="visible">
-              <g className={cn("tmc-cloud", i === 1 && "b")} style={{ animationDelay: `${-i * 55}s` }} opacity={0.5}>
-                <ellipse cx={0} cy={0} rx={34} ry={12} style={{ fill: "var(--tmc-panel)" }} />
-                <ellipse cx={22} cy={-6} rx={22} ry={10} style={{ fill: "var(--tmc-panel)" }} />
-                <ellipse cx={-20} cy={-4} rx={18} ry={8} style={{ fill: "var(--tmc-panel)" }} />
-              </g>
-            </svg>
-          ))}
         </g>
         <g className="tmc-night">
           <rect x="0" y="0" width="100%" height="45%" fill="url(#tmc-sky-night)" />
-          <svg x="63%" y="13%" width="40" height="40" overflow="visible">
-            <path d="M 14 0 A 14 14 0 1 0 14 28 A 17 17 0 0 1 14 0 Z" style={{ fill: "#F0E8CC", opacity: 0.9 }} />
-          </svg>
-          {STARS.map((s, i) => (
-            <circle key={i} className="tmc-star" cx={`${s.x}%`} cy={`${s.y}%`} r={s.r} style={{ fill: "#EDE8D8", animationDelay: `${s.delay}s` }} />
-          ))}
         </g>
       </svg>
     </div>
@@ -697,6 +776,7 @@ function NetworkMap({
   const skyRef = useRef<HTMLDivElement>(null);
   const hillsRef = useRef<SVGGElement>(null);
   const bldgRef = useRef<SVGGElement>(null);
+  const cityRef = useRef<SVGGElement>(null);
   const railRef = useRef<SVGPathElement>(null);
   const trainRef = useRef<SVGGElement>(null);
   const ghostRef = useRef<SVGGElement>(null);
@@ -823,6 +903,7 @@ function NetworkMap({
       // skyline layers counter-translate in map units → slower apparent speed
       hillsRef.current?.setAttribute("transform", `translate(${(el.scrollLeft * (1 - 0.22)) / s} 0)`);
       bldgRef.current?.setAttribute("transform", `translate(${(el.scrollLeft * (1 - 0.45)) / s} 0)`);
+      cityRef.current?.setAttribute("transform", `translate(${(el.scrollLeft * (1 - 0.62)) / s} 0)`);
     };
     el.addEventListener("pointerdown", down);
     window.addEventListener("pointermove", move);
@@ -905,7 +986,7 @@ function NetworkMap({
             aria-label="Course transit map"
           >
             {/* geography: hills/Fuji far, buildings/landmarks near */}
-            <SkylineArt sky={sky} groundY={layout.skyGroundY} hillsRef={hillsRef} bldgRef={bldgRef} />
+            <SkylineArt sky={sky} groundY={layout.skyGroundY} bottomY={layout.vbY + layout.vbH + 6} hillsRef={hillsRef} bldgRef={bldgRef} cityRef={cityRef} />
 
             {/* river */}
             <g pointerEvents="none" aria-hidden>
@@ -1060,7 +1141,14 @@ function NetworkMap({
               const baseOffset = st.interchange || st.terminal ? 36 : 30;
               const titleY = st.y + dir * baseOffset + (dir < 0 ? 0 : 8);
               const badgeY = titleY + dir * 15;
-              const short = st.module.title.length > 18 ? `${st.module.title.slice(0, 17)}…` : st.module.title;
+              // a down-branch vertical passes through the label column —
+              // side-anchor the labels so the rail doesn't pierce the text
+              // (and truncate harder so they clear the left neighbor's title)
+              const sideShift = layout.branchTouched.has(st.index) && st.y !== LEVELS[2] && dir > 0;
+              const maxCh = sideShift ? 12 : 18;
+              const short = st.module.title.length > maxCh ? `${st.module.title.slice(0, maxCh - 1)}…` : st.module.title;
+              const labelX = sideShift ? st.x - 22 : st.x;
+              const anchor = sideShift ? "end" : "middle";
               const paint = stationFill(st);
               return (
                 <g
@@ -1121,10 +1209,10 @@ function NetworkMap({
                       </g>
                     )}
                   </g>
-                  <text x={st.x} y={dir < 0 ? badgeY : titleY} textAnchor="middle" data-tm="label" style={{ fill: "var(--tmc-ink)", fontSize: 12, fontWeight: 800 }}>
+                  <text x={labelX} y={dir < 0 ? badgeY : titleY} textAnchor={anchor} data-tm="label" style={{ fill: "var(--tmc-ink)", fontSize: 12, fontWeight: 800 }}>
                     {st.badge}
                   </text>
-                  <text x={st.x} y={dir < 0 ? titleY : badgeY} textAnchor="middle" data-tm="label" style={{ fill: "var(--tmc-muted)", fontSize: 9.5 }}>
+                  <text x={labelX} y={dir < 0 ? titleY : badgeY} textAnchor={anchor} data-tm="label" style={{ fill: "var(--tmc-muted)", fontSize: 9.5 }}>
                     {short}
                   </text>
                 </g>
@@ -1572,8 +1660,9 @@ export default function TransitMapConceptPage() {
     return target.lessons.every((l) => completedSet.has(l.id));
   };
 
-  const questsByAnchor = useMemo(() => {
+  const { questsByAnchor, softAnchors } = useMemo(() => {
     const map = new Map<number, SideQuest[]>();
+    const soft = new Set<number>();
     const spread = [0.14, 0.4, 0.62];
     let unanchored = 0;
     for (const q of sideQuests) {
@@ -1588,16 +1677,17 @@ export default function TransitMapConceptPage() {
       }
       if (anchor === null) {
         anchor = Math.min(modules.length - 2, Math.max(0, Math.floor(modules.length * spread[unanchored % spread.length])));
+        soft.add(anchor);
         unanchored++;
       }
       map.set(anchor, [...(map.get(anchor) ?? []), q]);
     }
-    return map;
+    return { questsByAnchor: map, softAnchors: soft };
   }, [sideQuests, modules]);
 
   const layout = useMemo(
-    () => buildLayout(modules, statuses, doneCounts, questsByAnchor, strings.zones, strings.numerals),
-    [modules, statuses, doneCounts, questsByAnchor, strings.zones, strings.numerals],
+    () => buildLayout(modules, statuses, doneCounts, questsByAnchor, softAnchors, strings.zones, strings.numerals),
+    [modules, statuses, doneCounts, questsByAnchor, softAnchors, strings.zones, strings.numerals],
   );
 
   const open = useCallback((i: number) => setOpenIdx(i), []);
