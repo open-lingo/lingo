@@ -36,6 +36,7 @@ import { KO_COUNTER_DEFS } from "./classifiers";
 import { buildKoConjugationTables } from "./conjugationTables";
 import { getRegisteredTrainer } from "@/shared/conjugation/registry";
 import { KO_PLACEMENT_BANK } from "./placementBank";
+import { annotateKorean, romanizeKorean } from "./romanization/hangulRomanize";
 
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
@@ -186,7 +187,15 @@ export const koModule: LanguageModule = {
 
   alphabetConfig: koAlphabetConfig,
   // secondScript: omitted — Hanja deferred (open-items.md #7)
-  // readingAnnotation: omitted — Hangul is phonetic (open-items.md #7)
+  // Hangul is phonetic, so the reading aid is computed (Revised Romanization),
+  // not authored per-word. `annotateKorean` produces one ruby fragment per
+  // Hangul word with pronunciation-based RR above it; the shared AnnotatedText
+  // renderer + the `showRomanization` setting gate visibility.
+  readingAnnotation: { annotate: annotateKorean, fadeOnMastery: false },
+  romanizer: {
+    romanize: (token: string) => Promise.resolve(romanizeKorean(token)),
+    style: "RR",
+  },
   conjugation: koConjugation,
   classifiers: koClassifiers,
   particles: koParticles,

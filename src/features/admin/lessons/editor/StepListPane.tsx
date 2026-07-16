@@ -60,7 +60,7 @@ export function StepListPane({ steps, selectedIndex, onSelect, onChange }: Props
   };
 
   return (
-    <aside className="flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface">
+    <aside className="flex h-full flex-col overflow-hidden rounded-card border border-border bg-surface">
       <header className="flex items-center justify-between border-b border-border bg-surface-muted px-3 py-2">
         <h3 className="font-mono text-[11px] uppercase tracking-wider text-text-muted">
           Steps · {steps.length}

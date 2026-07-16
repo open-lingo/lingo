@@ -153,6 +153,7 @@ function BareRender({
             role={role}
             forceShowHelper={forceShowHelper}
             hideHelper={hideHelper}
+            languageId={languageId}
           />
         ) : frag.reading ? (
           <SymbolToken
@@ -163,6 +164,7 @@ function BareRender({
             role={role}
             forceShowHelper={forceShowHelper}
             hideHelper={hideHelper}
+            languageId={languageId}
           />
         ) : (
           <span key={i} data-role={role}>{frag.text}</span>
@@ -275,13 +277,22 @@ function useRomajiHelperVisible({
   scripts,
   forceShowHelper,
   hideHelper,
+  languageId,
 }: {
   scripts: readonly KanaScript[];
   forceShowHelper?: boolean;
   hideHelper?: boolean;
+  languageId?: string;
 }): boolean {
   const { settings } = useSettings();
   const today = todayLocalDate();
+  // Non-JA phonetic scripts (e.g. Korean Revised Romanization above Hangul)
+  // use one language-neutral "show romanization" toggle — no per-script fade
+  // model. The kana-script logic below is JA-specific.
+  if (languageId && languageId !== "ja") {
+    if (hideHelper) return false;
+    return !!forceShowHelper || (settings.learning.showRomanization ?? true);
+  }
   const romajiVisible = scripts.some((script) =>
     romajiVisibleForScript({ settings, script, today }),
   );
@@ -314,6 +325,7 @@ function WordToken({
   role,
   forceShowHelper,
   hideHelper,
+  languageId,
 }: {
   word: string;
   romaji: string;
@@ -321,6 +333,7 @@ function WordToken({
   role?: JapaneseAnnotation["role"];
   forceShowHelper?: boolean;
   hideHelper?: boolean;
+  languageId?: string;
 }) {
   const scripts: KanaScript[] = [];
   if (Array.from(word).some((ch) => isKatakana(ch))) scripts.push("katakana");
@@ -331,6 +344,7 @@ function WordToken({
     scripts: scripts.length > 0 ? scripts : ["hiragana"],
     forceShowHelper,
     hideHelper,
+    languageId,
   });
   return (
     <>
@@ -358,6 +372,7 @@ function SymbolToken({
   role,
   forceShowHelper,
   hideHelper,
+  languageId,
 }: {
   symbol: string;
   symbolId: string;
@@ -365,12 +380,14 @@ function SymbolToken({
   role?: JapaneseAnnotation["role"];
   forceShowHelper?: boolean;
   hideHelper?: boolean;
+  languageId?: string;
 }) {
   useTrackExposure(symbol);
   const helperVisible = useRomajiHelperVisible({
     scripts: [isKatakana(symbol) ? "katakana" : "hiragana"],
     forceShowHelper,
     hideHelper,
+    languageId,
   });
   return (
     <ruby data-role={role} data-symbol-id={symbolId}>

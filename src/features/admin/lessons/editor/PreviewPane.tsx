@@ -16,7 +16,7 @@ export function PreviewPane({ step }: Props) {
   const [resetKey, setResetKey] = useState(0);
 
   return (
-    <section className="flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface">
+    <section className="flex h-full flex-col overflow-hidden rounded-card border border-border bg-surface">
       <header className="flex items-center justify-between border-b border-border bg-surface-muted px-3 py-2">
         <span className="font-mono text-[11px] uppercase tracking-wider text-text-muted">
           Preview

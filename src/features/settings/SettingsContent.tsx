@@ -11,7 +11,7 @@ export function SettingsContent({ initialSection }: { initialSection?: string } 
   );
 
   return (
-    <div className="flex min-h-0 flex-col sm:min-h-[min(28rem,60vh)] sm:flex-row">
+    <div className="flex h-full min-h-0 flex-col sm:flex-row">
       <SettingsNav
         activeSection={activeSection}
         onSectionChange={setActiveSection}

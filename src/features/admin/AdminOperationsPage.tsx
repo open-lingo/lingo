@@ -206,7 +206,7 @@ export function CostRevenueTab() {
   return (
     <div className="space-y-6">
       {/* Sync controls */}
-      <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-surface-muted px-4 py-3">
+      <div className="flex items-center justify-between gap-3 rounded-card border border-border bg-surface-muted px-4 py-3">
         <div>
           <p className="text-sm font-medium text-text-primary">AWS cost sync</p>
           <p className="text-xs text-text-muted">
@@ -536,7 +536,7 @@ export function SubscriptionsTab() {
         {s ? (
           <ul className="mt-3 grid gap-3 sm:grid-cols-4">
             {(["free", "supporter", "patron", "lifetime"] as const).map((tier) => (
-              <li key={tier} className="rounded-md border border-border p-3">
+              <li key={tier} className="rounded-card border border-border p-3">
                 <p className="text-xs uppercase text-text-muted">{tier}</p>
                 <p className="mt-1 text-2xl font-semibold text-text-primary">
                   {s.byTier[tier]}

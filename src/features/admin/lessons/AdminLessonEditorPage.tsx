@@ -108,7 +108,7 @@ export function AdminLessonEditorPage() {
 
   return (
     <div className="flex flex-col gap-3">
-      <header className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-surface px-4 py-3">
+      <header className="flex flex-wrap items-center justify-between gap-3 rounded-card border border-border bg-surface px-4 py-3">
         <div className="flex min-w-0 items-center gap-3">
           <button
             onClick={() => navigate("/admin/content/lessons")}
@@ -172,7 +172,7 @@ export function AdminLessonEditorPage() {
               onChange={onStepChange}
             />
           ) : (
-            <div className="flex h-full items-center justify-center rounded-lg border border-dashed border-border bg-surface text-sm text-text-muted">
+            <div className="flex h-full items-center justify-center rounded-card border border-dashed border-border bg-surface text-sm text-text-muted">
               No steps. Add one from the left panel.
             </div>
           )}
@@ -222,7 +222,7 @@ function ExportModal({ source, onClose }: { source: string; onClose: () => void 
       onClick={onClose}
     >
       <div
-        className="flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-lg border border-border bg-surface shadow-xl"
+        className="flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-card border border-border bg-surface shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <header className="flex items-center justify-between border-b border-border bg-surface-muted px-4 py-3">

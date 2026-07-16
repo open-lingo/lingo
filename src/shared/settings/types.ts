@@ -1,8 +1,5 @@
 export const SETTINGS_VERSION = 1;
 
-/** Card/modal corner-rounding presets (see `shared/theme/cornerStyle.ts`). */
-export type CornerStyle = "sharp" | "default" | "rounded" | "pill";
-
 /** Named SRS study buckets; decks may appear in several options. */
 export type StudyOption = {
   id: string;
@@ -55,13 +52,6 @@ export type UserSettings = {
     themeId: string;
     /** App chrome layout: "topbar" = horizontal nav (default), "sidebar" = left rail (desktop ≥lg). */
     navLayout: "topbar" | "sidebar";
-    /**
-     * Corner-rounding preset for cards and modals. Drives the
-     * `--radius-card` CSS variable at runtime (see `cornerStyle.ts` for the
-     * preset→radius mapping and ThemeContext for where it's applied).
-     * Default "default" = the current card feel.
-     */
-    cornerStyle: CornerStyle;
   };
   accessibility: {
     reducedMotion: boolean;
@@ -123,6 +113,14 @@ export type UserSettings = {
      * `romajiOnForDay` escape hatch can force it back on for one day.
      */
     showRomaji?: boolean;
+    /**
+     * Show romanization as a reading aid for phonetic scripts (Korean Revised
+     * Romanization above Hangul). Language-neutral counterpart to the JA
+     * `showRomaji` reading aid — consumed by the shared reading-annotation
+     * renderer for any non-JA language that ships a `readingAnnotation`
+     * capability. Default on.
+     */
+    showRomanization?: boolean;
     /** @deprecated Legacy single-flip guard (pre per-script model). Kept
      *  only for settings-blob back-compat; no longer read. */
     romajiAutoFlipped?: boolean;
@@ -184,6 +182,12 @@ export type UserSettings = {
      * preview was completed pre-signup.
      */
     previewCompletedLanguageId?: string | null;
+    /**
+     * Layout the learner prefers for the Learn course map: "card" (the rich
+     * accordion cards, default) or "list" (a compact per-module row). Synced
+     * cross-device via the settings blob. Absent = "card".
+     */
+    courseMapView?: "card" | "list";
   };
   display?: {
     dateLocale?: string;
@@ -198,7 +202,6 @@ export const DEFAULT_SETTINGS: UserSettings = {
   appearance: {
     themeId: "auto",
     navLayout: "topbar",
-    cornerStyle: "default",
   },
   accessibility: {
     reducedMotion: false,
@@ -221,6 +224,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
     uiLocale: "en",
     showAlphabetRomanization: true,
     showRomaji: true,
+    showRomanization: true,
     romajiAutoFlipped: false,
     hiraganaRomajiAutoOff: false,
     katakanaRomajiAutoOff: false,

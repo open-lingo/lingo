@@ -13,7 +13,7 @@ import { DEFAULT_SETTINGS, type UserSettings } from "@/shared/settings/types";
 describe("settings backend persistence", () => {
   const customized: UserSettings = {
     ...DEFAULT_SETTINGS,
-    appearance: { themeId: "dark", navLayout: "sidebar", cornerStyle: "rounded" },
+    appearance: { themeId: "dark", navLayout: "sidebar" },
     accessibility: { reducedMotion: true, dyslexiaFont: true, fontSize: 1.25 },
     audio: { silentMode: true, volume: 0.4 },
     notifications: { reminderEnabled: true, dailyReminderTime: "13:30" },
@@ -30,13 +30,6 @@ describe("settings backend persistence", () => {
     const patch = toBackendPatch(customized);
     expect((patch.appearance as Record<string, unknown>).navLayout).toBe(
       "sidebar",
-    );
-  });
-
-  it("sends cornerStyle to the backend", () => {
-    const patch = toBackendPatch(customized);
-    expect((patch.appearance as Record<string, unknown>).cornerStyle).toBe(
-      "rounded",
     );
   });
 
@@ -67,7 +60,6 @@ describe("settings backend persistence", () => {
     const hydrated = fromBackendResponse(stored);
 
     expect(hydrated.appearance?.navLayout).toBe("sidebar");
-    expect(hydrated.appearance?.cornerStyle).toBe("rounded");
     expect(hydrated.appearance?.themeId).toBe("dark");
     expect(hydrated.accessibility?.reducedMotion).toBe(true);
     expect(hydrated.accessibility?.dyslexiaFont).toBe(true);
@@ -90,9 +82,6 @@ describe("settings backend persistence", () => {
     expect(hydrated.appearance?.themeId).toBe("sepia");
     expect(hydrated.appearance?.navLayout).toBe(
       DEFAULT_SETTINGS.appearance.navLayout,
-    );
-    expect(hydrated.appearance?.cornerStyle).toBe(
-      DEFAULT_SETTINGS.appearance.cornerStyle,
     );
     expect(hydrated.learning?.learningLanguageId).toBe("ja");
     expect(hydrated.learning?.onboardingCompleted).toBe(true);

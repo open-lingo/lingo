@@ -13,6 +13,12 @@ import {
 } from "@/shared/theme";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
+import {
+  CORNER_STYLE_RADIUS,
+  CORNER_STYLES,
+  cornerStyleFromRadius,
+  type CornerStyle,
+} from "@/shared/theme/cornerStyle";
 
 const COLOR_KEYS: (keyof ThemeTokens["colors"])[] = [
   "background",
@@ -190,6 +196,15 @@ export function ThemeEditorPanel() {
     }));
   }, []);
 
+  const handleCornerChange = useCallback((style: CornerStyle) => {
+    setDraft((prev) => ({
+      ...prev,
+      radius: { ...prev.radius, card: CORNER_STYLE_RADIUS[style] },
+    }));
+  }, []);
+
+  const currentCorner = cornerStyleFromRadius(draft.radius?.card);
+
   const handleFontChange = useCallback((fontId: string) => {
     // Kick the lazy fetch first so the file is in flight (or cached) by the
     // time React re-renders with the new family. font-display:swap handles
@@ -245,8 +260,12 @@ export function ThemeEditorPanel() {
       vars[varName] = value;
     });
     Object.entries(draft.radius).forEach(([key, value]) => {
+      // `radius.card` is a CSS length string (e.g. "1.5rem"), not a px number —
+      // set it verbatim so the preview's `rounded-card` surfaces reflect it.
+      if (key === "card") return;
       vars[`--radius-${key}`] = `${value}px`;
     });
+    if (draft.radius.card) vars["--radius-card"] = draft.radius.card;
     return vars;
   }, [draft]);
 
@@ -297,7 +316,7 @@ export function ThemeEditorPanel() {
                 .theme-editor-preview .preview-btn-secondary:hover { background-color: var(--color-surface-muted) !important; }
               `}</style>
               <div
-                className="mb-3 rounded-lg border p-3"
+                className="mb-3 rounded-card border p-3"
                 style={{
                   backgroundColor: "var(--color-surface)",
                   borderColor: "var(--color-border)",
@@ -554,6 +573,27 @@ export function ThemeEditorPanel() {
                     {FONT_PRESETS.map((f) => (
                       <option key={f.id} value={f.id}>
                         {f.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-sm text-text-secondary">
+                    {t("settings.themeCorners", "Corners")}
+                  </label>
+                  <select
+                    value={currentCorner}
+                    onChange={(e) =>
+                      handleCornerChange(e.target.value as CornerStyle)
+                    }
+                    className="rounded border border-border bg-surface px-2 py-1 text-sm text-text-primary"
+                  >
+                    {CORNER_STYLES.map((s) => (
+                      <option key={s} value={s}>
+                        {t(
+                          `settings.cornerStyle${s.charAt(0).toUpperCase()}${s.slice(1)}`,
+                          s.charAt(0).toUpperCase() + s.slice(1),
+                        )}
                       </option>
                     ))}
                   </select>

@@ -23,7 +23,8 @@ export function ModalRoot() {
     <ModalBase
       onClose={close}
       title={t("settings.title")}
-      maxWidth="max-w-4xl"
+      maxWidth="max-w-6xl"
+      fullHeight
     >
       <SettingsContent initialSection={initialSection} />
     </ModalBase>

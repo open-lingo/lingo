@@ -41,7 +41,7 @@ export function StepInspector({ step, allSteps, onChange }: Props) {
   };
 
   return (
-    <section className="flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface">
+    <section className="flex h-full flex-col overflow-hidden rounded-card border border-border bg-surface">
       <header className="flex items-center justify-between border-b border-border bg-surface-muted px-3 py-2">
         <div className="flex items-center gap-2">
           <span className="font-mono text-[11px] uppercase tracking-wider text-text-muted">
@@ -77,7 +77,7 @@ export function StepInspector({ step, allSteps, onChange }: Props) {
 
       <div className="flex-1 overflow-y-auto p-4">
         {lintFailure && (
-          <div className="mb-3 rounded-md border border-warning/40 bg-warning/10 px-3 py-2 text-xs text-warning">
+          <div className="mb-3 rounded-card border border-warning/40 bg-warning/10 px-3 py-2 text-xs text-warning">
             <strong>Lint:</strong> {lintFailure.reason}
           </div>
         )}

@@ -33,8 +33,9 @@ export function SectionHeader({
 }
 
 /**
- * A grouped block of settings under an optional sub-label. Provides the
- * consistent vertical rhythm + a hairline divider between rows.
+ * A grouped block of settings under an optional sub-label. Rows sit flat on the
+ * surrounding surface (the modal is the only "box") separated by hairline
+ * dividers — no nested card frame, so panels don't read as boxes-in-boxes.
  */
 export function SettingsGroup({
   label,
@@ -46,15 +47,13 @@ export function SettingsGroup({
   className?: string;
 }) {
   return (
-    <section className={cn("space-y-3", className)}>
+    <section className={cn("space-y-1", className)}>
       {label ? (
-        <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted">
+        <h4 className="mb-1 text-xs font-semibold uppercase tracking-wide text-text-muted">
           {label}
         </h4>
       ) : null}
-      <div className="divide-y divide-border/70 overflow-hidden rounded-card border border-border bg-surface">
-        {children}
-      </div>
+      <div className="divide-y divide-border/60">{children}</div>
     </section>
   );
 }
@@ -105,7 +104,7 @@ export function SettingRow({
       <Wrapper
         htmlFor={asLabel ? undefined : htmlFor}
         className={cn(
-          "block space-y-3 px-4 py-3.5",
+          "block space-y-3 py-3.5",
           asLabel && "cursor-pointer",
           className,
         )}
@@ -120,7 +119,7 @@ export function SettingRow({
     <Wrapper
       htmlFor={asLabel ? undefined : htmlFor}
       className={cn(
-        "flex items-center justify-between gap-4 px-4 py-3.5",
+        "flex items-center justify-between gap-4 py-3.5",
         asLabel && "cursor-pointer",
         className,
       )}

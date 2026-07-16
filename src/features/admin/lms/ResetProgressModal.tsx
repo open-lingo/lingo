@@ -47,7 +47,7 @@ export function ResetProgressModal({ open, username, onClose, onConfirm, isPendi
       }
     >
       <div className="space-y-4">
-        <div className="p-3 rounded-lg bg-error/10 border border-error/30">
+        <div className="p-3 rounded-card bg-error/10 border border-error/30">
           <p className="text-sm text-error font-medium">
             This will permanently:
           </p>

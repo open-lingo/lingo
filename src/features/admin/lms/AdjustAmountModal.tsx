@@ -70,7 +70,7 @@ export function AdjustAmountModal({
       }
     >
       <div className="space-y-4">
-        <div className="flex items-center gap-3 p-3 rounded-lg bg-surface-muted">
+        <div className="flex items-center gap-3 p-3 rounded-card bg-surface-muted">
           <span className="text-sm text-text-muted">{currentLabel}</span>
           <span className="font-mono font-semibold">{currentValue.toLocaleString()}</span>
         </div>
