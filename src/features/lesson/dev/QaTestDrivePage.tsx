@@ -73,7 +73,7 @@ const VERIFIED_NOTES: Record<string, string> = {
  */
 const STEP_RECIPES: Record<string, string> = {
   "step:phrase_card":
-    "⚠ Ships ONLY in the survival-phrases sidequest now — mainline vocab teaching moved to word_image_mcq. One wave from zero usage; decide keep-as-sidequest-flavor vs reintroduce.",
+    "⚠ Zero shipped usage since 2026-07-16 — its only host (survival-phrases sidequest) was deleted with the side-lesson content purge. Decide reintroduce-in-remade-sidequests vs delete the step type.",
   "step:row_test":
     "Recipe: to see the “Not this time” completion, fail items until retries run out, then take the Skip path.",
   "step:listening_build":
@@ -417,11 +417,8 @@ function buildSections(lang: string): QaSection[] {
           title: "Progress / journey page",
           links: [{ label: "journey", href: p("/practice/journey") }],
         },
-        {
-          id: "route:travel-sprint",
-          title: "Travel sprint",
-          links: [{ label: "travel-sprint", href: p("/learn/travel-sprint") }],
-        },
+        // route:travel-sprint removed 2026-07-16 — sprint lessons deleted
+        // pending content remake; re-add when the hub route returns.
         {
           id: "route:try",
           title: "/try preview funnel (prospective-learner first lesson)",

@@ -148,11 +148,12 @@ export function getMockCourse(languageId: string): Course {
 
     const sideQuests: SideQuest[] = [
       // Survival Phrasebook — PULLED from the map 2026-07-12 (Spencer QA
-      // note: "I don't like the survival phrases quest for now"). Tile
-      // only: the lessons stay in LESSONS and deep-links still work, so
-      // restoring = uncommenting. Original rationale: pinned day-1 unlock
-      // per curriculum-design-v2 §6, audio-driven, romaji-first (the
-      // Priya traveler persona).
+      // note: "I don't like the survival phrases quest for now"). Its
+      // lessons were then DELETED 2026-07-16 with the rest of the
+      // side-lesson content (all to be remade), so restoring this tile
+      // now also needs a new ja-sidequest-survival-phrases lesson.
+      // Original rationale: pinned day-1 unlock per curriculum-design-v2
+      // §6, audio-driven, romaji-first (the Priya traveler persona).
       // {
       //   id: "ja-survival-phrasebook",
       //   emoji: "🗺️",
@@ -168,13 +169,16 @@ export function getMockCourse(languageId: string): Course {
         progress: 0,
         comingSoon: true,
       },
+      // Travel Sprint — lesson content DELETED 2026-07-16 (Spencer: side
+      // lessons will be remade). comingSoon keeps the loop + 4 stop dots
+      // on the transit map but makes every entry point inert.
       {
         id: "ja-travel-sprint",
         emoji: "✈️",
         title: "Travel Sprint",
         meta: "4 lessons · listen & speak · Pimsleur-style",
         progress: 0,
-        featured: true,
+        comingSoon: true,
       },
       {
         id: "festivals-culture",
@@ -1299,6 +1303,9 @@ export function getMockCourse(languageId: string): Course {
         title: "Survival Phrasebook",
         meta: "15 essentials · ~5 min · travel-ready",
         progress: 0,
+        // Lesson content DELETED 2026-07-16 (side lessons to be remade);
+        // tile stays visible but inert until the remake lands.
+        comingSoon: true,
       },
       {
         id: "kdrama-vocab",
