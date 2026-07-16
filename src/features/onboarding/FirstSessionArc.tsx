@@ -81,7 +81,7 @@ export function FirstSessionArc() {
     // The arc owns the new-user placement decision — record it on the shared
     // placement-dismissed flag so the standalone PlacementPrompt never
     // double-fires (whichever path the learner took, they've decided).
-    dismissPlacement();
+    dismissPlacement(language?.id ?? "ja");
     next?.();
   }
 

@@ -159,7 +159,7 @@ export function PlacementTestPage() {
           assumedModules: state.assumedModules,
           missedSkills: state.missedSkills,
         });
-        if (!isTestOut) dismissPlacement();
+        if (!isTestOut) dismissPlacement(langId);
         setAppliedResult(result);
         setResultApplied(true);
         // Romaji auto-off is position-triggered, not completion-triggered:

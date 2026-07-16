@@ -72,7 +72,7 @@ export function LearnPage() {
   const showPlacement =
     !placementDismissedByUser &&
     language?.id === "ja" &&
-    !isPlacementDismissed() &&
+    !isPlacementDismissed(language.id) &&
     completedIds.length === 0 &&
     // The first-session arc (FirstSessionArc) owns the new-user placement
     // offer; only fall back to this standalone prompt once the arc has run
@@ -433,7 +433,7 @@ export function LearnPage() {
             navigate(langPath("learn/placement-test"));
           }}
           onSkip={() => {
-            dismissPlacement();
+            dismissPlacement(language?.id ?? "ja");
             setPlacementDismissedByUser(true);
           }}
         />

@@ -1773,7 +1773,7 @@ export default function TransitLearnPage({
     !preview &&
     !placementDismissedByUser &&
     (lang === "ja" || lang === "ko") &&
-    !isPlacementDismissed() &&
+    !isPlacementDismissed(lang) &&
     realIds.length === 0 &&
     getStoredSettings()?.learning?.ftueArcSeen === true;
 
@@ -2008,7 +2008,7 @@ export default function TransitLearnPage({
             navigate(p("learn/placement-test"));
           }}
           onSkip={() => {
-            dismissPlacement();
+            dismissPlacement(lang ?? "ja");
             setPlacementDismissedByUser(true);
           }}
         />
