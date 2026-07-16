@@ -11,7 +11,7 @@ import {
   type ThemeTokens,
   type ThemeDefinition,
 } from "@/shared/theme";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import {
   CORNER_STYLE_RADIUS,
@@ -104,6 +104,10 @@ export function ThemeEditorPanel() {
   const [draftName, setDraftName] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isCustomizing, setIsCustomizing] = useState(false);
+  // Pre-edit inline CSS-var values, captured before live preview overwrites
+  // them so ending an unsaved edit can put the active theme back. Null when
+  // no live preview is in flight (see the live-preview effects below).
+  const liveVarSnapshot = useRef<Map<string, string> | null>(null);
 
   const isEditingCustom = editingId !== null && editingId.startsWith("custom-");
 
@@ -156,14 +160,6 @@ export function ThemeEditorPanel() {
     [setTheme],
   );
 
-  // Live preview: while the customizer is open the whole app wears the draft —
-  // every color/font/corner change applies immediately instead of waiting for
-  // Save. Cleared when customizing ends; closeThemeEditor clears it too.
-  useEffect(() => {
-    if (!isCustomizing) return;
-    setPreviewTokens(draft);
-    return () => setPreviewTokens(null);
-  }, [isCustomizing, draft, setPreviewTokens]);
 
   const handleAddNew = useCallback(() => {
     const newTheme = addTheme({ name: t("settings.newTheme", "New theme"), tokens: { ...BUILT_IN_THEMES.dark.tokens } });
@@ -175,6 +171,10 @@ export function ThemeEditorPanel() {
   }, [addTheme, setTheme, t]);
 
   const handleSaveDraft = useCallback(() => {
+    // The draft is now the persisted active theme — the live-preview vars on
+    // the root ARE the correct values, so there's nothing to restore when
+    // customizing ends. Drop the pre-edit snapshot.
+    liveVarSnapshot.current = null;
     if (editingId && isEditingCustom) {
       updateTheme(editingId, { tokens: draft, name: draftName.trim() || "Unnamed" });
       setDraftName(draftName.trim() || "Unnamed");
@@ -283,6 +283,50 @@ export function ThemeEditorPanel() {
     if (draft.radius.card) vars["--radius-card"] = draft.radius.card;
     return vars;
   }, [draft]);
+
+  // ── Live preview: direct CSS-var writes, NOT context state ──────────────
+  // The whole app consumes theme values via CSS variables, so live preview
+  // writes the draft's vars straight onto <html>. Routing this through
+  // setPreviewTokens (context state) re-rendered every theme consumer in the
+  // app on each keystroke; imperative writes repaint with zero React work.
+  const liveVars = useMemo(
+    () => ({
+      ...previewVars,
+      ...(draft.font?.family ? { "--font-family": draft.font.family } : {}),
+    }),
+    [previewVars, draft.font?.family],
+  );
+
+  useEffect(() => {
+    if (!isCustomizing) return;
+    const root = document.documentElement;
+    const snap = (liveVarSnapshot.current ??= new Map<string, string>());
+    for (const [k, v] of Object.entries(liveVars)) {
+      // First touch of each var: remember the active theme's inline value so
+      // an unsaved edit can be rolled back.
+      if (!snap.has(k)) snap.set(k, root.style.getPropertyValue(k));
+      root.style.setProperty(k, v);
+    }
+  }, [isCustomizing, liveVars]);
+
+  const restoreLiveVars = useCallback(() => {
+    const snap = liveVarSnapshot.current;
+    if (!snap) return; // nothing in flight, or the draft was saved
+    liveVarSnapshot.current = null;
+    const root = document.documentElement;
+    for (const [k, v] of snap) {
+      if (v) root.style.setProperty(k, v);
+      else root.style.removeProperty(k);
+    }
+  }, []);
+
+  // Roll back when the customizer collapses without a save, and when the
+  // editor unmounts entirely (ThemeProvider's own effect re-applies the real
+  // theme after preset/theme switches, so it always wins on ordering).
+  useEffect(() => {
+    if (!isCustomizing) restoreLiveVars();
+  }, [isCustomizing, restoreLiveVars]);
+  useEffect(() => restoreLiveVars, [restoreLiveVars]);
 
   return (
     <>
