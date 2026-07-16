@@ -25,6 +25,32 @@ html {
   scrollbar-gutter: stable;
 }
 
+/* ── Fluid interface scale ─────────────────────────────────────────────
+   Tailwind sizes text, padding, gaps, and rem max-widths in rem, so scaling
+   the ROOT font-size scales the whole interface proportionally with the
+   viewport — no per-component clamp() needed.
+
+   - ≤1440px wide: exactly 16px — today's look; mobile + laptops unchanged.
+   - Wider: grows linearly (~17.1px @ 1920, capped 18.5px @ ~2560) so big
+     monitors don't render a tiny, spread-out UI.
+   - Short desktop viewports (≤820px tall): trimmed to 15px so lesson steps
+     and full-height surfaces fit without scrolling on 13" laptops.
+
+   The accessibility font-size setting multiplies ON TOP of this base —
+   ThemeContext sets `font-size: calc(var(--font-base) * scale)` — so a
+   user-chosen 125% stays 125% of the fluid base, not of a fixed 16px.
+   Fixed-px things (icons, borders, arbitrary text-[13px]) deliberately do
+   not scale. */
+:root {
+  --font-base: clamp(16px, 12.8px + 0.223vw, 18.5px);
+  font-size: var(--font-base);
+}
+@media (min-width: 1024px) and (max-height: 820px) {
+  :root {
+    --font-base: 15px;
+  }
+}
+
 /* Native-app feel on mobile web:
    - overscroll-behavior: none kills pull-to-refresh + rubber-band on the
      page edges, so anchored lesson chrome feels solid.

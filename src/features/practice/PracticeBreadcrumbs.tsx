@@ -26,6 +26,13 @@ const SEGMENT_LABEL_KEY: Record<string, string> = {
   "external-content": "externalContent.practice.tabLabel",
 };
 
+const PILLAR_CRUMB_DEFAULT: Record<string, string> = {
+  reading: "Reading",
+  listening: "Listening",
+  speaking: "Speaking",
+  writing: "Writing",
+};
+
 export function PracticeBreadcrumbs() {
   const { t } = useTranslation();
   const location = useLocation();
@@ -55,8 +62,20 @@ export function PracticeBreadcrumbs() {
     const prev = i > 0 ? segments[i - 1] : undefined;
     const twoBack = i >= 2 ? segments[i - 2] : undefined;
 
+    // "pillar" is a structural path segment (practice/pillar/:pillarId),
+    // not a navigable page — skip the crumb but keep accumulating the path.
+    if (seg === "pillar") continue;
+
     let label: string;
-    if (seg === "learn" && twoBack === "alphabet") {
+    if (prev === "pillar") {
+      label = t(`practice.pillars.${seg}.title`, {
+        defaultValue: PILLAR_CRUMB_DEFAULT[seg] ?? seg,
+      });
+    } else if (seg === "listening") {
+      label = t("practice.listenChoose.title", { defaultValue: "Listen & Choose" });
+    } else if (seg === "writing") {
+      label = t("practice.typeIt.title", { defaultValue: "Type It" });
+    } else if (seg === "learn" && twoBack === "alphabet") {
       label = t("practice.hub.breadcrumbAlphabetLesson");
     } else if (prev === "alphabet" && seg !== "learn") {
       label = alphabetIdToName(langId, seg) ?? seg;

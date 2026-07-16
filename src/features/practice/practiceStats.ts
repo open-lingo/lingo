@@ -8,7 +8,9 @@ export type PracticeFeatureKey =
   | "kanji"
   | "reading"
   | "speaking"
-  | "counters";
+  | "counters"
+  | "listening"
+  | "writing";
 
 export type ItemStats = {
   correct: number;

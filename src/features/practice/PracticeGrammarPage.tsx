@@ -144,6 +144,17 @@ export function PracticeGrammarPage() {
         />
         {/* The "Verb conjugation — Soon" placeholder retired 2026-07-02:
             the Conjugation trainer row above IS that feature now. */}
+        {langId === "ja" && (
+          <ProgressRow
+            icon={<Icon name="list" size={18} />}
+            label={t("practice.pillars.grammar.counters", { defaultValue: "Counters" })}
+            sublabel={t("practice.pillars.grammar.countersDesc", {
+              defaultValue: "Irregular counter word readings",
+            })}
+            rightChip={startChip}
+            to={langPath("practice/counters")}
+          />
+        )}
         <ProgressRow
           icon={<Icon name="fileText" size={18} />}
           label={t("practice.hub.grammarSentence")}
