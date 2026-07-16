@@ -16,6 +16,8 @@
  */
 import { useMemo } from "react";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isSocialEnabled } from "@/shared/config/featureFlags";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getMockCourse } from "@/shared/domain/mockCourse";
@@ -46,6 +48,7 @@ export function RestructuredHome({ greetingName }: Props) {
   const completedIds = useCompletedLessonIds();
   const langConfig = language ? getLanguageConfig(language.id) : null;
   const { stats } = useUserStats();
+  const socialOn = isSocialEnabled(useFeatureFlags());
 
   // Resume an in-progress lesson when one exists for this course; otherwise
   // fall through to the next non-completed lesson. The allow-list of lesson
@@ -158,9 +161,11 @@ export function RestructuredHome({ greetingName }: Props) {
         </div>
         <div className="flex flex-col gap-4 lg:col-span-4">
           <FlashcardsTile />
-          <div className="flex-1">
-            <LeaderboardCard />
-          </div>
+          {socialOn ? (
+            <div className="flex-1">
+              <LeaderboardCard />
+            </div>
+          ) : null}
         </div>
       </div>
 
