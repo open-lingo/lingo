@@ -213,6 +213,15 @@ const ReadingPracticePage = lazyRetry(() =>
 const SpeakingPracticePage = lazyRetry(() =>
   import("@/features/practice/SpeakingPracticePage").then((m) => ({ default: m.SpeakingPracticePage })),
 );
+const ListeningPracticePage = lazyRetry(() =>
+  import("@/features/practice/ListeningPracticePage").then((m) => ({ default: m.ListeningPracticePage })),
+);
+const WritingPracticePage = lazyRetry(() =>
+  import("@/features/practice/WritingPracticePage").then((m) => ({ default: m.WritingPracticePage })),
+);
+const PillarHubPage = lazyRetry(() =>
+  import("@/features/practice/PillarHubPage").then((m) => ({ default: m.PillarHubPage })),
+);
 const CounterPracticePage = lazyRetry(() =>
   import("@/features/practice/CounterPracticePage").then((m) => ({ default: m.CounterPracticePage })),
 );
@@ -454,6 +463,9 @@ const router = createBrowserRouter([
                   { path: "conjugation/:typeId", element: <TrainerTypeSession /> },
                   { path: "reading", element: <ReadingPracticePage /> },
                   { path: "speaking", element: <SpeakingPracticePage /> },
+                  { path: "listening", element: <ListeningPracticePage /> },
+                  { path: "writing", element: <WritingPracticePage /> },
+                  { path: "pillar/:pillarId", element: <PillarHubPage /> },
                   { path: "counters", element: <CounterPracticePage /> },
                   { path: "components", element: <ComponentsPracticePage /> },
                   { path: "external-content", element: <ExternalContentPracticePage /> },
