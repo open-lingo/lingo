@@ -210,7 +210,7 @@ function buildLayout(
     const y = LEVELS[level];
     if (i > 0) {
       const prevY = LEVELS[levelOf(i - 1)];
-      const gap = Math.min(148, Math.max(92, 78 + m.lessons.length * 5));
+      const gap = Math.min(170, Math.max(108, 92 + m.lessons.length * 6));
       x += prevY !== y ? Math.abs(y - prevY) + 78 : gap;
     }
     const display = getModuleDisplay(modules, i);
@@ -444,29 +444,35 @@ function buildLayout(
 /* ── skyline geography (seeded, zone-themed, parallax) ───────────────── */
 
 type Skyline = {
-  hillsD: string;
-  hills2D: string;
-  buildings: { x: number; w: number; h: number; windows: number[] }[];
+  farHillsD: string;
+  farHills2D: string;
+  farStrip: { x: number; w: number; h: number }[];
+  mid: { x: number; w: number; h: number; windows: number[] }[];
+  near: { x: number; w: number; h: number; windows: number[] }[];
   fujiX: number;
   toriiX: number;
   towerX: number;
   stars: { x: number; y: number; r: number; delay: number }[];
   moon: { x: number; y: number } | null;
   wisps: { x: number; y: number }[];
-  cityFill: { x: number; w: number; h: number }[];
 };
 
 function makeSkyline(layout: Layout): Skyline {
-  // Composition: the horizon sits ~one third down the drawing (ART_BAND vs
-  // content height), building clusters alternate with deliberate gaps, and
-  // the celestial pieces fill THOSE gaps (odd-count clusters, golden-ratio
-  // jitter) instead of scattering uniformly.
+  // Full-scene scenery per Spencer's paint mockup: the railway threads
+  // THROUGH the city — towers rise from the canvas bottom past the rails,
+  // hills wave through the middle, landmarks are big. Composition: horizon
+  // strip on the top third, celestial in its gaps; layer opacity/parallax
+  // encode depth (far faint/slow → near bolder/fast).
   const g = layout.skyGroundY;
+  const bottom = layout.vbY + layout.vbH + 6;
+  const H = layout.vbH;
   const skyTop = layout.vbY + 12;
   const skyH = Math.max(40, g - skyTop - 30);
   const zoneAt = (x: number) =>
     layout.zones.length ? layout.zones.findIndex((z) => x >= z.x0 && x < z.x1) : 1;
-  const buildings: Skyline["buildings"] = [];
+
+  // distant skyline strip on the horizon (kept small — depth cue)
+  const farStrip: Skyline["farStrip"] = [];
   const gaps: Array<[number, number]> = [];
   let x = 40;
   let lastRight = 40;
@@ -474,47 +480,69 @@ function makeSkyline(layout: Layout): Skyline {
   while (x < layout.width - 90) {
     const zi = zoneAt(x);
     const r = (((i + 3) * 2654435761) >>> 7) % 1000 / 1000;
-    const dense = zi === 1;
-    const coast = zi === 2;
-    const w = 32 + ((i * 97) % 5) * 12;
-    const hMax = dense ? 126 : coast ? 56 : 78;
-    const h = Math.round(24 + r * (hMax - 24));
-    const skip = (zi === 0 && r > 0.58) || (coast && r > 0.5);
+    const w = 30 + ((i * 97) % 5) * 10;
+    const h = Math.round(16 + r * ((zi === 1 ? 64 : 40) - 16));
+    const skip = (zi === 0 && r > 0.55) || (zi === 2 && r > 0.5);
     if (!skip) {
       if (x - lastRight >= 80) gaps.push([lastRight + 10, x - 10]);
-      const windows = Array.from({ length: Math.min(4, Math.floor(h / 24)) }, (_, k) => k);
-      buildings.push({ x, w, h, windows });
+      farStrip.push({ x, w, h });
       lastRight = x + w;
     }
-    x += w + 10 + ((i * 53) % 4) * 12;
+    x += w + 12 + ((i * 53) % 4) * 14;
     i++;
   }
   if (layout.width - 60 - lastRight >= 80) gaps.push([lastRight + 10, layout.width - 60]);
-  let hillsD = `M 0 ${g}`;
-  for (let hx = 0; hx <= layout.width; hx += 210) {
-    const amp = 14 + ((hx / 210) % 3) * 8;
-    hillsD += ` Q ${hx + 52} ${g - amp - 16} ${hx + 105} ${g - amp}`;
-    hillsD += ` Q ${hx + 158} ${g - amp + 10} ${hx + 210} ${g - 6}`;
-  }
-  hillsD += ` L ${layout.width} ${g + 4} L 0 ${g + 4} Z`;
-  // second, lower ridge fills the band between horizon and track
-  const g2 = g + 52;
-  let hills2D = `M 0 ${g2}`;
-  for (let hx = 0; hx <= layout.width; hx += 300) {
-    const amp = 22 + ((hx / 300) % 3) * 12;
-    hills2D += ` Q ${hx + 75} ${g2 - amp - 20} ${hx + 150} ${g2 - amp}`;
-    hills2D += ` Q ${hx + 225} ${g2 - amp + 14} ${hx + 300} ${g2 - 8}`;
-  }
-  hills2D += ` L ${layout.width} ${g2 + 4} L 0 ${g2 + 4} Z`;
 
-  // celestial content lives in the skyline gaps (the "yellow boxes")
+  // hill waves flowing through the MIDDLE of the scene
+  const mk = (base: number, amp0: number, wl: number) => {
+    let d = `M 0 ${base}`;
+    for (let hx = 0; hx <= layout.width; hx += wl) {
+      const amp = amp0 + ((hx / wl) % 3) * (amp0 * 0.45);
+      d += ` Q ${hx + wl * 0.25} ${base - amp - amp0 * 0.4} ${hx + wl * 0.5} ${base - amp}`;
+      d += ` Q ${hx + wl * 0.75} ${base - amp + amp0 * 0.5} ${hx + wl} ${base - 8}`;
+    }
+    d += ` L ${layout.width} ${bottom} L 0 ${bottom} Z`;
+    return d;
+  };
+  const farHillsD = mk(layout.vbY + H * 0.6, 46, 560);
+  const farHills2D = mk(layout.vbY + H * 0.78, 34, 380);
+
+  // mid + near towers, bottom-anchored, rising past the rails
+  const mid: Skyline["mid"] = [];
+  let mx = 70;
+  let mi = 0;
+  while (mx < layout.width - 100) {
+    const r = (((mi + 7) * 69069) >>> 5) % 1000 / 1000;
+    const w = 42 + ((mi * 61) % 4) * 16;
+    const h = Math.round(H * 0.18 + r * H * 0.42);
+    if (r > 0.22) {
+      mid.push({ x: mx, w, h, windows: Array.from({ length: Math.min(5, Math.floor(h / 46)) }, (_, k) => k) });
+    }
+    mx += w + 46 + ((mi * 37) % 5) * 30;
+    mi++;
+  }
+  const near: Skyline["near"] = [];
+  let nx = 150;
+  let ni = 0;
+  while (nx < layout.width - 140) {
+    const r = (((ni + 13) * 40503) >>> 3) % 1000 / 1000;
+    const w = 58 + ((ni * 71) % 4) * 20;
+    const h = Math.round(H * 0.3 + r * H * 0.55);
+    if (r > 0.42) {
+      near.push({ x: nx, w, h, windows: Array.from({ length: Math.min(7, Math.floor(h / 52)) }, (_, k) => k) });
+    }
+    nx += w + 210 + ((ni * 43) % 5) * 70;
+    ni++;
+  }
+
+  // celestial fills the horizon-strip gaps
   const byWidth = [...gaps].sort((a, b) => b[1] - b[0] - (a[1] - a[0]));
   const moonGap = byWidth[0];
   const moon = moonGap ? { x: (moonGap[0] + moonGap[1]) / 2, y: skyTop + 34 } : null;
   const stars: Skyline["stars"] = [];
   const wisps: Skyline["wisps"] = [];
   byWidth.slice(0, 7).forEach(([g0, g1], gi) => {
-    const count = 3 + (gi % 3) * 2; // odd clusters read better than even
+    const count = 3 + (gi % 3) * 2;
     for (let k = 0; k < count; k++) {
       stars.push({
         x: g0 + (g1 - g0) * (((k + 1) * 0.618) % 1),
@@ -526,32 +554,19 @@ function makeSkyline(layout: Layout): Skyline {
     if (gi % 2 === 1) wisps.push({ x: (g0 + g1) / 2, y: skyTop + 30 + (gi % 3) * 14 });
   });
 
-  // full-height city fill BEHIND the pathways (the railway threads through
-  // the city): sparse, faint towers rising from the bottom edge
-  const cityFill: Skyline["cityFill"] = [];
-  let cx2 = 90;
-  let ci = 0;
-  while (cx2 < layout.width - 120) {
-    const r2 = (((ci + 11) * 40503) >>> 3) % 1000 / 1000;
-    const w2 = 44 + ((ci * 71) % 4) * 18;
-    const h2 = Math.round(80 + r2 * (layout.vbH * 0.54));
-    if (r2 > 0.18) cityFill.push({ x: cx2, w: w2, h: h2 });
-    cx2 += w2 + 70 + ((ci * 37) % 5) * 36;
-    ci++;
-  }
-
   const z = layout.zones;
   return {
-    hillsD,
-    hills2D,
-    buildings,
-    fujiX: z.length ? z[0].x1 - 60 : layout.width * 0.3,
-    toriiX: z.length ? (z[0].x0 + z[0].x1) / 2 : layout.width * 0.15,
+    farHillsD,
+    farHills2D,
+    farStrip,
+    mid,
+    near,
+    fujiX: z.length ? z[0].x1 - 120 : layout.width * 0.3,
+    toriiX: z.length ? (z[0].x1 + z[1].x0) / 2 + 140 : layout.width * 0.4,
     towerX: z.length ? (z[1].x0 + z[1].x1) / 2 : layout.width * 0.55,
     stars,
     moon,
     wisps,
-    cityFill,
   };
 }
 
@@ -559,6 +574,7 @@ function SkylineArt({
   sky,
   groundY,
   bottomY,
+  vbH,
   hillsRef,
   bldgRef,
   cityRef,
@@ -566,27 +582,32 @@ function SkylineArt({
   sky: Skyline;
   groundY: number;
   bottomY: number;
+  vbH: number;
   hillsRef: React.RefObject<SVGGElement | null>;
   bldgRef: React.RefObject<SVGGElement | null>;
   cityRef: React.RefObject<SVGGElement | null>;
 }) {
+  const toriiH = Math.min(200, vbH * 0.4);
+  const towerH = Math.min(260, vbH * 0.5);
   return (
     <>
-      {/* far layer: hills + Fuji (slow parallax) */}
+      {/* FAR (slowest): horizon strip, Fuji, hill waves, celestial */}
       <g ref={hillsRef} pointerEvents="none" aria-hidden>
-        <path d={sky.hillsD} fill="currentColor" opacity={0.05} />
-        <path d={sky.hills2D} fill="currentColor" opacity={0.035} />
+        {sky.farStrip.map((b, i) => (
+          <rect key={i} x={b.x} y={groundY - b.h} width={b.w} height={b.h} rx={1.5} style={{ fill: "var(--tmc-muted)" }} opacity={0.1} />
+        ))}
         <path
-          d={`M ${sky.fujiX - 120} ${groundY} L ${sky.fujiX - 24} ${groundY - 92} L ${sky.fujiX + 2} ${groundY - 78} L ${sky.fujiX + 26} ${groundY - 92} L ${sky.fujiX + 122} ${groundY} Z`}
+          d={`M ${sky.fujiX - 190} ${groundY + 6} L ${sky.fujiX - 40} ${groundY - 128} L ${sky.fujiX + 4} ${groundY - 106} L ${sky.fujiX + 44} ${groundY - 128} L ${sky.fujiX + 194} ${groundY + 6} Z`}
           fill="currentColor"
           opacity={0.07}
         />
         <path
-          d={`M ${sky.fujiX - 34} ${groundY - 82} L ${sky.fujiX - 24} ${groundY - 92} L ${sky.fujiX + 2} ${groundY - 78} L ${sky.fujiX + 26} ${groundY - 92} L ${sky.fujiX + 36} ${groundY - 82} L ${sky.fujiX + 18} ${groundY - 72} L ${sky.fujiX - 16} ${groundY - 72} Z`}
+          d={`M ${sky.fujiX - 56} ${groundY - 112} L ${sky.fujiX - 40} ${groundY - 128} L ${sky.fujiX + 4} ${groundY - 106} L ${sky.fujiX + 44} ${groundY - 128} L ${sky.fujiX + 60} ${groundY - 112} L ${sky.fujiX + 30} ${groundY - 96} L ${sky.fujiX - 26} ${groundY - 96} Z`}
           style={{ fill: "var(--tmc-panel)" }}
           opacity={0.55}
         />
-        {/* celestial pieces fill the skyline gaps — slowest parallax layer */}
+        <path d={sky.farHillsD} fill="currentColor" opacity={0.045} />
+        <path d={sky.farHills2D} fill="currentColor" opacity={0.035} />
         <g className="tmc-night">
           {sky.stars.map((st, i) => (
             <circle key={i} className="tmc-star" cx={st.x} cy={st.y} r={st.r} style={{ fill: "#EDE8D8", animationDelay: `${st.delay}s` }} />
@@ -608,36 +629,45 @@ function SkylineArt({
           ))}
         </g>
       </g>
-      {/* near layer: buildings + landmarks (faster parallax) */}
+      {/* MID: city rising from the bottom, behind the rails */}
       <g ref={bldgRef} pointerEvents="none" aria-hidden>
-        {sky.buildings.map((b, i) => (
+        {sky.mid.map((b, i) => (
           <g key={i}>
-            <rect x={b.x} y={groundY - b.h} width={b.w} height={b.h} rx={1.5} style={{ fill: "var(--tmc-muted)" }} opacity={0.13} />
+            <rect x={b.x} y={bottomY - b.h} width={b.w} height={b.h} rx={2} style={{ fill: "var(--tmc-muted)" }} opacity={0.09} />
             <g className="tmc-night">
               {b.windows.map((k) => (
-                <rect key={k} x={b.x + 5 + (k % 2) * (b.w / 2)} y={groundY - b.h + 8 + k * 18} width={5} height={7} rx={1} fill="#F2CE6B" opacity={0.4} />
+                <rect key={k} x={b.x + 8 + (k % 2) * (b.w / 2)} y={bottomY - b.h + 14 + k * 40} width={6} height={9} rx={1} fill="#F2CE6B" opacity={0.3} />
               ))}
             </g>
           </g>
         ))}
-        {/* torii (zone 1) */}
-        <g opacity={0.3} style={{ fill: "var(--tmc-line-main)" }}>
-          <rect x={sky.toriiX - 16} y={groundY - 34} width={5} height={34} />
-          <rect x={sky.toriiX + 11} y={groundY - 34} width={5} height={34} />
-          <rect x={sky.toriiX - 24} y={groundY - 40} width={48} height={6} rx={2} />
-          <rect x={sky.toriiX - 18} y={groundY - 28} width={36} height={4} />
-        </g>
-        {/* tower (zone 2) */}
-        <g opacity={0.22} style={{ fill: "var(--tmc-line-main)" }}>
-          <path d={`M ${sky.towerX - 34} ${groundY} L ${sky.towerX} ${groundY - 108} L ${sky.towerX + 34} ${groundY} Z`} />
-          <rect x={sky.towerX - 1.5} y={groundY - 124} width={3} height={16} />
-        </g>
       </g>
-      {/* nearest layer: faint full-height city behind the pathways */}
+      {/* NEAR (fastest): tallest towers + big landmarks */}
       <g ref={cityRef} pointerEvents="none" aria-hidden>
-        {sky.cityFill.map((b, i) => (
-          <rect key={i} x={b.x} y={bottomY - b.h} width={b.w} height={b.h} rx={2} style={{ fill: "var(--tmc-muted)" }} opacity={0.055} />
+        {sky.near.map((b, i) => (
+          <g key={i}>
+            <rect x={b.x} y={bottomY - b.h} width={b.w} height={b.h} rx={2.5} style={{ fill: "var(--tmc-muted)" }} opacity={0.12} />
+            <g className="tmc-night">
+              {b.windows.map((k) => (
+                <rect key={k} x={b.x + 10 + (k % 3) * (b.w / 3.4)} y={bottomY - b.h + 18 + k * 46} width={7} height={10} rx={1} fill="#F2CE6B" opacity={0.35} />
+              ))}
+            </g>
+          </g>
         ))}
+        {/* big torii behind the climb */}
+        <g opacity={0.18} style={{ fill: "var(--tmc-line-main)" }}>
+          <rect x={sky.toriiX - toriiH * 0.34} y={bottomY - toriiH} width={toriiH * 0.075} height={toriiH} />
+          <rect x={sky.toriiX + toriiH * 0.34 - toriiH * 0.075} y={bottomY - toriiH} width={toriiH * 0.075} height={toriiH} />
+          <path d={`M ${sky.toriiX - toriiH * 0.5} ${bottomY - toriiH * 0.98} Q ${sky.toriiX} ${bottomY - toriiH * 1.12} ${sky.toriiX + toriiH * 0.5} ${bottomY - toriiH * 0.98} L ${sky.toriiX + toriiH * 0.5} ${bottomY - toriiH * 0.88} Q ${sky.toriiX} ${bottomY - toriiH * 1.0} ${sky.toriiX - toriiH * 0.5} ${bottomY - toriiH * 0.88} Z`} />
+          <rect x={sky.toriiX - toriiH * 0.38} y={bottomY - toriiH * 0.78} width={toriiH * 0.76} height={toriiH * 0.05} />
+        </g>
+        {/* big tower */}
+        <g opacity={0.15} style={{ fill: "var(--tmc-line-main)" }}>
+          <path d={`M ${sky.towerX - towerH * 0.3} ${bottomY} L ${sky.towerX} ${bottomY - towerH} L ${sky.towerX + towerH * 0.3} ${bottomY} Z`} />
+          <rect x={sky.towerX - 2} y={bottomY - towerH - 22} width={4} height={22} />
+          <rect x={sky.towerX - towerH * 0.19} y={bottomY - towerH * 0.62} width={towerH * 0.38} height={towerH * 0.035} />
+          <rect x={sky.towerX - towerH * 0.11} y={bottomY - towerH * 0.82} width={towerH * 0.22} height={towerH * 0.03} />
+        </g>
       </g>
     </>
   );
@@ -913,9 +943,9 @@ function NetworkMap({
         skyEl.style.transform = `translateX(${-Math.min(el.scrollLeft * 0.1, slack)}px)`;
       }
       // skyline layers counter-translate in map units → slower apparent speed
-      hillsRef.current?.setAttribute("transform", `translate(${(el.scrollLeft * (1 - 0.22)) / s} 0)`);
+      hillsRef.current?.setAttribute("transform", `translate(${(el.scrollLeft * (1 - 0.18)) / s} 0)`);
       bldgRef.current?.setAttribute("transform", `translate(${(el.scrollLeft * (1 - 0.45)) / s} 0)`);
-      cityRef.current?.setAttribute("transform", `translate(${(el.scrollLeft * (1 - 0.62)) / s} 0)`);
+      cityRef.current?.setAttribute("transform", `translate(${(el.scrollLeft * (1 - 0.68)) / s} 0)`);
     };
     el.addEventListener("pointerdown", down);
     window.addEventListener("pointermove", move);
@@ -998,7 +1028,7 @@ function NetworkMap({
             aria-label="Course transit map"
           >
             {/* geography: hills/Fuji far, buildings/landmarks near */}
-            <SkylineArt sky={sky} groundY={layout.skyGroundY} bottomY={layout.vbY + layout.vbH + 6} hillsRef={hillsRef} bldgRef={bldgRef} cityRef={cityRef} />
+            <SkylineArt sky={sky} groundY={layout.skyGroundY} bottomY={layout.vbY + layout.vbH + 6} vbH={layout.vbH} hillsRef={hillsRef} bldgRef={bldgRef} cityRef={cityRef} />
 
             {/* river */}
             <g pointerEvents="none" aria-hidden>
@@ -1221,10 +1251,10 @@ function NetworkMap({
                       </g>
                     )}
                   </g>
-                  <text x={labelX} y={dir < 0 ? badgeY : titleY} textAnchor={anchor} data-tm="label" style={{ fill: "var(--tmc-ink)", fontSize: 12, fontWeight: 800 }}>
+                  <text x={labelX} y={dir < 0 ? badgeY : titleY} textAnchor={anchor} data-tm="label" style={{ fill: "var(--tmc-ink)", fontSize: 13, fontWeight: 800 }}>
                     {st.badge}
                   </text>
-                  <text x={labelX} y={dir < 0 ? titleY : badgeY} textAnchor={anchor} data-tm="label" style={{ fill: "var(--tmc-muted)", fontSize: 9.5 }}>
+                  <text x={labelX} y={dir < 0 ? titleY : badgeY} textAnchor={anchor} data-tm="label" style={{ fill: "var(--tmc-muted)", fontSize: 10.5 }}>
                     {short}
                   </text>
                 </g>
