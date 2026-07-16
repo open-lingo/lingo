@@ -30,7 +30,7 @@ import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { SidebarNav } from "@/routes/SidebarNav";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
-import { isLeaderboardEnabled } from "@/shared/config/featureFlags";
+import { isLeaderboardEnabled, isSocialEnabled } from "@/shared/config/featureFlags";
 import { Icon } from "@/shared/components/Icon";
 import {
   makePrefetchHandlers,
@@ -57,6 +57,7 @@ export function Layout() {
   useUnlockMapSync();
   const flags = useFeatureFlags();
   const leaderboardOn = isLeaderboardEnabled(flags);
+  const socialOn = isSocialEnabled(flags);
   const pathname = location.pathname;
   const langPath = useLangPath();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -198,17 +199,19 @@ export function Layout() {
               >
                 {t("nav.practice")}
               </Link>
-              <Link
-                to={langPath("social")}
-                {...makePrefetchHandlers(prefetchSocial)}
-                className={`rounded-md px-2 py-1.5 text-sm ${
-                  socialActive
-                    ? "font-medium text-text-primary"
-                    : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
-                }`}
-              >
-                {t("nav.social", "Social")}
-              </Link>
+              {socialOn ? (
+                <Link
+                  to={langPath("social")}
+                  {...makePrefetchHandlers(prefetchSocial)}
+                  className={`rounded-md px-2 py-1.5 text-sm ${
+                    socialActive
+                      ? "font-medium text-text-primary"
+                      : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                  }`}
+                >
+                  {t("nav.social", "Social")}
+                </Link>
+              ) : null}
               <Link
                 to={langPath("community")}
                 {...makePrefetchHandlers(prefetchCommunity)}
@@ -331,13 +334,15 @@ export function Layout() {
                   onPrefetch={prefetchPractice}
                   label={t("nav.practice")}
                 />
-                <MobileNavLink
-                  to={langPath("social")}
-                  active={socialActive}
-                  onClick={() => setMobileMenuOpen(false)}
-                  onPrefetch={prefetchSocial}
-                  label={t("nav.social", "Social")}
-                />
+                {socialOn ? (
+                  <MobileNavLink
+                    to={langPath("social")}
+                    active={socialActive}
+                    onClick={() => setMobileMenuOpen(false)}
+                    onPrefetch={prefetchSocial}
+                    label={t("nav.social", "Social")}
+                  />
+                ) : null}
                 <MobileNavLink
                   to={langPath("community")}
                   active={communityActive}
@@ -399,7 +404,10 @@ export function Layout() {
       >
         <Outlet />
       </main>
-      {!focusedFlow && <SiteFooter />}
+      {/* Full-screen platform feel: the marketing footer lives only on the
+          public landing page. Everywhere else its links + open-source
+          attributions are reachable from Settings → More info. */}
+      {pathname === "/landing" && <SiteFooter />}
       {showAppAds ? <CollapsibleAdBanner /> : null}
       {isAuthenticated && !focusedFlow && (
         <FloatingLanguagePill className={sidebarMode ? "lg:hidden" : ""} />

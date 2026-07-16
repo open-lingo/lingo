@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import { useModal } from "@/shared/contexts/ModalContext";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isSocialEnabled } from "@/shared/config/featureFlags";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { JA_COURSE_ATOMS, canonicalAtomId } from "@/features/languages/ja/courseAtoms";
 import type { Command } from "./types";
@@ -19,11 +21,12 @@ export function useCommands(): Command[] {
   const langPath = useLangPath();
   const lang = useLang();
   const { openSettings } = useModal();
+  const socialOn = isSocialEnabled(useFeatureFlags());
 
   return useMemo(() => {
     const go = (path: string) => () => navigate(path);
 
-    const nav: Command[] = [
+    const nav: Command[] = ([
       { id: "nav-home", label: t("nav.home", "Home"), group: t("cmd.group.nav", "Navigation"), icon: "layoutDashboard", perform: go("/home"), showWhenEmpty: true },
       { id: "nav-learn", label: t("nav.learn", "Learn"), group: t("cmd.group.nav", "Navigation"), icon: "graduationCap", perform: go(langPath("learn")), showWhenEmpty: true },
       { id: "nav-practice", label: t("nav.practice", "Practice"), group: t("cmd.group.nav", "Navigation"), icon: "dumbbell", perform: go(langPath("practice")), showWhenEmpty: true },
@@ -34,7 +37,7 @@ export function useCommands(): Command[] {
       { id: "nav-social", label: t("nav.social", "Social"), group: t("cmd.group.nav", "Navigation"), icon: "users", keywords: "friends leaderboard", perform: go(langPath("social")), showWhenEmpty: true },
       { id: "nav-community", label: t("nav.community", "Community"), group: t("cmd.group.nav", "Navigation"), icon: "globe", keywords: "decks stories forum", perform: go(langPath("community")), showWhenEmpty: true },
       { id: "nav-leaderboard", label: t("nav.leaderboard", "Leaderboard"), group: t("cmd.group.nav", "Navigation"), icon: "trophy", perform: go(langPath("community/leaderboard")), showWhenEmpty: true },
-    ];
+    ] as Command[]).filter((c) => socialOn || c.id !== "nav-social");
 
     const settings: Command[] = [
       { id: "set-general", label: t("settings.nav.general", "General"), group: t("cmd.group.settings", "Settings"), icon: "settings", keywords: "settings preferences", perform: () => openSettings("general"), showWhenEmpty: true },
@@ -80,5 +83,5 @@ export function useCommands(): Command[] {
         : [];
 
     return [...nav, ...settings, ...lessons, ...vocab];
-  }, [t, navigate, langPath, lang, openSettings]);
+  }, [t, navigate, langPath, lang, openSettings, socialOn]);
 }
