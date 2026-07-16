@@ -25,6 +25,10 @@
      other so the parallax reads as real depth instead of blended washes */
   --tmc-scene-far: color-mix(in srgb, var(--color-text-muted) 7%, var(--color-surface));
   --tmc-scene-far2: color-mix(in srgb, var(--color-text-muted) 10%, var(--color-surface));
+  /* hills carry a soft green so the landscape reads as landscape — deep and
+     desaturated in dark themes, fresh in light */
+  --tmc-scene-hill: color-mix(in srgb, #5b8f68 16%, var(--color-surface));
+  --tmc-scene-hill2: color-mix(in srgb, #5b8f68 11%, var(--color-surface));
   --tmc-scene-strip: color-mix(in srgb, var(--color-text-muted) 14%, var(--color-surface));
   --tmc-scene-mid: color-mix(in srgb, var(--color-text-muted) 18%, var(--color-surface));
   --tmc-scene-near: color-mix(in srgb, var(--color-text-muted) 26%, var(--color-surface));
@@ -274,6 +278,8 @@ a:focus-visible .tmc-d-stop {
 .dark .tmc-root {
   --tmc-seal: #e05545;
   --tmc-river: #3d6f8e;
+  --tmc-scene-hill: color-mix(in srgb, #4f8a5f 14%, var(--color-surface));
+  --tmc-scene-hill2: color-mix(in srgb, #4f8a5f 9%, var(--color-surface));
 }
 .tmc-night {
   display: none;

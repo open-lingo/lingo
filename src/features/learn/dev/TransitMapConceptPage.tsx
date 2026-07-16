@@ -88,7 +88,8 @@ type StationL = {
   terminal: boolean;
 };
 
-type QuestStop = { x: number; y: number; quest: SideQuest };
+type QuestLeg = { title: string; lessonId: string; done: boolean };
+type QuestStop = { x: number; y: number; quest: SideQuest; leg?: QuestLeg };
 type SpurL = {
   color: string;
   d: string;
@@ -99,6 +100,7 @@ type SpurL = {
   labelY: number; // plate center
   up: boolean;
   cap: Pt | null;
+  capDir: "v" | "h";
 };
 
 type DepotL = { d: string; tracks: Pt[][]; labelX: number; labelY: number };
@@ -114,8 +116,6 @@ type Layout = {
   depot: DepotL | null;
   zones: { x0: number; x1: number; label: string; numeral: string }[];
   zoneChipY: number;
-  numeralY: number;
-  riverX: number;
   /** stations where a branch vertical enters/leaves — labels shift aside */
   branchTouched: ReadonlySet<number>;
 };
@@ -200,6 +200,7 @@ function buildLayout(
   doneCounts: number[],
   questsByAnchor: Map<number, SideQuest[]>,
   softAnchors: ReadonlySet<number>,
+  legsFor: (q: SideQuest) => QuestLeg[] | null,
   zoneLabels: string[],
   zoneNumerals: string[],
 ): Layout {
@@ -275,14 +276,17 @@ function buildLayout(
       }
     }
     const a = stations[anchor];
-    const up = a.y === LEVELS[2];
     const shown = quests.slice(0, 3);
+    // a quest with sub-lessons renders as a rectangular down-loop carrying
+    // one stop per lesson (Travel Sprint's 4 legs)
+    const legs = shown.length === 1 ? legsFor(shown[0]) : null;
+    const up = legs ? false : a.y === LEVELS[2];
     const color = QUEST_COLORS[colorIdx % QUEST_COLORS.length];
     colorIdx++;
 
     // rejoin BEFORE depth packing so the claimed interval is the real span
     let rejoin: StationL | null = null;
-    if (shown.length >= 2) {
+    if (!legs && shown.length >= 2) {
       for (let j = anchor + 1; j <= Math.min(anchor + 4, stations.length - 1); j++) {
         if (stations[j].y === a.y && !branchTouched.has(j)) {
           const span = stations[j].x - a.x;
@@ -296,7 +300,11 @@ function buildLayout(
 
     // Branches drop VERTICALLY from their anchor (and climb vertically into
     // rejoins), so the only possible crossings are clean 90-degree ones.
-    const intervalEnd = rejoin ? rejoin.x + 12 : a.x + shown.length * 96 + 56;
+    const intervalEnd = legs
+      ? a.x + legs.length * 92 + 46
+      : rejoin
+        ? rejoin.x + 12
+        : a.x + shown.length * 96 + 56;
     const depth = packDepth(up ? upIntervals : downIntervals, a.x - 12, intervalEnd);
     const loopY = up ? LOOP_UP_Y - depth * 40 : LOOP_DOWN_Y + depth * DEPTH_STEP;
     if (!up) maxDownY = Math.max(maxDownY, loopY);
@@ -307,7 +315,27 @@ function buildLayout(
     let stops: QuestStop[];
     let labelX: number;
     let cap: Pt | null = null;
-    if (rejoin) {
+    let capDir: "v" | "h" = "v";
+    if (legs) {
+      // rectangular hook: down, across the lesson stops, back up to a
+      // capped riser just under the main line
+      const end = a.x + legs.length * 92 + 46;
+      d = dOf([
+        [a.x, a.y],
+        [a.x, loopY],
+        [end, loopY],
+        [end, a.y + 30],
+      ]);
+      stops = legs.map((leg, k) => ({
+        x: a.x + 66 + k * 92,
+        y: loopY,
+        quest: shown[0],
+        leg,
+      }));
+      labelX = a.x + (end - a.x) / 2;
+      cap = [end, a.y + 30];
+      capDir = "h";
+    } else if (rejoin) {
       d = dOf([
         [a.x, a.y],
         [a.x, loopY],
@@ -340,12 +368,13 @@ function buildLayout(
       d,
       dashed: a.status === "locked",
       stops,
-      label: shown.length > 1 ? `${shown[0].title} Line` : "",
+      label: legs ? shown[0].title : shown.length > 1 ? `${shown[0].title} Line` : "",
       labelX,
       // plate center OUTSIDE the stop-label band
       labelY: up ? loopY - 48 : loopY + 62,
       up,
       cap,
+      capDir,
     });
   }
 
@@ -363,11 +392,12 @@ function buildLayout(
     const s = stations[i];
     const nearBranch = anchors.some((a) => i >= a - 1 && i <= a + 3);
     if (s.y === LEVELS[0] && !s.interchange && !nearBranch) {
-      const yardY = s.y + 60;
+      // yard sits BELOW the station-label band (labels end ~y+74)
+      const yardY = s.y + 100;
       depot = {
         d: dOf([
           [s.x, s.y],
-          [s.x + 52, yardY - 18],
+          [s.x + 52, yardY - 40],
           [s.x + 52, yardY],
         ]),
         tracks: [
@@ -438,8 +468,6 @@ function buildLayout(
     depot,
     zones,
     zoneChipY: vbY + 58,
-    numeralY: vbY + ART_BAND - 20,
-    riverX: width * 0.55,
     branchTouched,
   };
 }
@@ -606,21 +634,37 @@ function makeSkyline(layout: Layout): Skyline {
   }
   // flat-bottomed cartoon clouds: overlapping circles of varied sizes with
   // bottoms on a shared baseline, every instance seeded differently
+  // clouds get the same best-candidate spread as the stars — x AND y — plus
+  // a per-cloud scale so altitudes and sizes genuinely vary
   const clouds: Skyline["clouds"] = [];
-  const cloudCount = Math.max(3, Math.round(layout.width / 460));
+  const cloudCount = Math.max(3, Math.round(layout.width / 420));
   for (let ci2 = 0; ci2 < cloudCount; ci2++) {
-    const cx = 80 + hash(seed++) * (layout.width - 160);
-    const cy = layout.vbY + 30 + hash(seed++) * (H * 0.36);
-    if (moon && Math.abs(cx - moon.x) < 110 && Math.abs(cy - moon.y) < 60) continue;
+    let best: [number, number] | null = null;
+    let bestD = -1;
+    for (let c = 0; c < 10; c++) {
+      const px = 80 + hash(seed++) * (layout.width - 160);
+      const py = layout.vbY + 26 + hash(seed++) * (H * 0.42);
+      if (moon && Math.abs(px - moon.x) < 120 && Math.abs(py - moon.y) < 70) continue;
+      if (inMountain(px, py)) continue;
+      let d = Infinity;
+      for (const cl of clouds) d = Math.min(d, (cl.x - px) ** 2 + (cl.y - py) ** 2);
+      if (clouds.length === 0) d = 1e9;
+      if (d > bestD) {
+        bestD = d;
+        best = [px, py];
+      }
+    }
+    if (!best) continue;
+    const scale2 = 0.7 + hash(seed++) * 0.8;
     const blobCount = 4 + (hash(seed++) > 0.5 ? 1 : 0);
-    let dx = -34;
+    let dx = -34 * scale2;
     const blobs: Skyline["clouds"][number]["blobs"] = [];
     for (let b = 0; b < blobCount; b++) {
-      const rx = 13 + hash(seed++) * 26;
+      const rx = (13 + hash(seed++) * 26) * scale2;
       blobs.push({ dx: dx + rx, rx, ry: rx * (0.55 + hash(seed++) * 0.2) });
       dx += rx * 1.35;
     }
-    clouds.push({ x: cx, y: cy, blobs });
+    clouds.push({ x: best[0], y: best[1], blobs });
   }
 
   const z = layout.zones;
@@ -680,8 +724,8 @@ function SkylineArt({
             )}
           </g>
         ))}
-        <path d={sky.farHillsD} style={{ fill: "var(--tmc-scene-far)" }} />
-        <path d={sky.farHills2D} style={{ fill: "var(--tmc-scene-far2)" }} />
+        <path d={sky.farHillsD} style={{ fill: "var(--tmc-scene-hill2)" }} />
+        <path d={sky.farHills2D} style={{ fill: "var(--tmc-scene-hill)" }} />
         <g className="tmc-night">
           {sky.stars.map((st, i) => (
             <circle key={i} className="tmc-star" cx={st.x} cy={st.y} r={st.r} opacity={st.bright ? 0.95 : 0.5} style={{ fill: "#EDE8D8", animationDelay: `${st.delay}s` }} />
@@ -766,7 +810,6 @@ const STRINGS: Record<
     numerals: string[];
     mapTitle: string;
     seal: string;
-    river: string;
     depot: string;
     boardNext: string;
     boardTransfer: string;
@@ -780,7 +823,6 @@ const STRINGS: Record<
     numerals: ["一", "二", "三"],
     mapTitle: "学習路線図",
     seal: "済",
-    river: "川",
     depot: "車両基地 Practice Depot →",
     boardNext: "つぎ NEXT",
     boardTransfer: "のりかえ TRANSFER",
@@ -793,7 +835,6 @@ const STRINGS: Record<
     numerals: ["1", "2", "3"],
     mapTitle: "Mapa de la línea",
     seal: "✓",
-    river: "río",
     depot: "Depósito · Práctica →",
     boardNext: "PRÓXIMA",
     boardTransfer: "TRANSBORDO",
@@ -886,6 +927,7 @@ function NetworkMap({
   demo,
   onDemoChange,
   onOpen,
+  onQuest,
   langPath,
 }: {
   layout: Layout;
@@ -894,6 +936,7 @@ function NetworkMap({
   demo: boolean;
   onDemoChange: (v: boolean) => void;
   onOpen: (index: number) => void;
+  onQuest: (quest: SideQuest) => void;
   langPath: (p: string) => string;
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -1112,20 +1155,6 @@ function NetworkMap({
             {/* geography: hills/Fuji far, buildings/landmarks near */}
             <SkylineArt sky={sky} groundY={layout.skyGroundY} bottomY={layout.vbY + layout.vbH + 6} vbH={layout.vbH} hillsRef={hillsRef} bldgRef={bldgRef} cityRef={cityRef} />
 
-            {/* river */}
-            <g pointerEvents="none" aria-hidden>
-              <path
-                d={`M ${layout.riverX} ${layout.vbY + 20} C ${layout.riverX - 40} ${layout.vbY + 150}, ${layout.riverX + 70} ${layout.vbY + 260}, ${layout.riverX + 10} ${layout.vbY + 370} S ${layout.riverX - 60} ${layout.vbY + 480}, ${layout.riverX - 30} ${layout.vbY + layout.vbH}`}
-                fill="none"
-                strokeWidth={16}
-                strokeLinecap="round"
-                style={{ stroke: "var(--tmc-river)", opacity: 0.24 }}
-              />
-              <text x={layout.riverX + 18} y={layout.vbY + ART_BAND + 34} style={{ fill: "var(--tmc-river)", fontSize: 13, fontWeight: 700, opacity: 0.7 }}>
-                {strings.river}
-              </text>
-            </g>
-
             {/* fare zones — tint bands + inset horizon chips */}
             {layout.zones.map((z, i) => (
               <g key={z.label}>
@@ -1155,10 +1184,10 @@ function NetworkMap({
                 />
                 {spur.cap && (
                   <line
-                    x1={spur.cap[0]}
-                    y1={spur.cap[1] - 8}
-                    x2={spur.cap[0]}
-                    y2={spur.cap[1] + 8}
+                    x1={spur.cap[0] - (spur.capDir === "h" ? 8 : 0)}
+                    y1={spur.cap[1] - (spur.capDir === "v" ? 8 : 0)}
+                    x2={spur.cap[0] + (spur.capDir === "h" ? 8 : 0)}
+                    y2={spur.cap[1] + (spur.capDir === "v" ? 8 : 0)}
                     strokeWidth={5}
                     strokeLinecap="round"
                     style={{ stroke: spur.dashed ? "var(--tmc-locked)" : spur.color }}
@@ -1167,10 +1196,45 @@ function NetworkMap({
                 {spur.label && (
                   <LinePlate x={spur.labelX} y={spur.labelY} text={spur.label} color={spur.dashed ? "var(--tmc-locked)" : spur.color} />
                 )}
-                {spur.stops.map(({ x, y, quest }) => {
-                  const questDone = quest.progress >= 100;
-                  return (
-                    <g key={quest.id} data-tm="quest">
+                {spur.stops.map(({ x, y, quest, leg }, si) =>
+                  leg ? (
+                    /* lesson stop on a sprint loop — a real link into the lesson */
+                    <Link key={leg.lessonId} to={langPath(`learn/lessons/${leg.lessonId}`)} aria-label={`${quest.title}: ${leg.title}${leg.done ? ", completed" : ""}`}>
+                      <g data-tm="quest" className="tmc-station">
+                        <circle className="tmc-hit" cx={x} cy={y} r={18} fill="transparent" stroke="none" />
+                        <circle
+                          cx={x}
+                          cy={y}
+                          r={7}
+                          strokeWidth={3}
+                          className="tmc-station-glyph"
+                          style={{
+                            fill: leg.done ? spur.color : "var(--tmc-panel)",
+                            stroke: spur.dashed ? "var(--tmc-locked)" : spur.color,
+                          }}
+                        />
+                        <text x={x} y={y + 27} textAnchor="middle" data-tm="label" className="tmc-halo-text" style={{ fill: "var(--tmc-muted)", fontSize: 11 }}>
+                          {leg.title}
+                        </text>
+                      </g>
+                    </Link>
+                  ) : (
+                    <g
+                      key={`${quest.id}-${si}`}
+                      data-tm="quest"
+                      className="tmc-station"
+                      role="button"
+                      tabIndex={0}
+                      aria-label={quest.title}
+                      onClick={() => onQuest(quest)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          onQuest(quest);
+                        }
+                      }}
+                    >
+                      <circle className="tmc-hit" cx={x} cy={y} r={18} fill="transparent" stroke="none" />
                       <rect
                         x={x - 8}
                         y={y - 8}
@@ -1179,8 +1243,9 @@ function NetworkMap({
                         rx={3}
                         transform={`rotate(45 ${x} ${y})`}
                         strokeWidth={3}
+                        className="tmc-station-glyph"
                         style={{
-                          fill: questDone ? spur.color : "var(--tmc-panel)",
+                          fill: quest.progress >= 100 ? spur.color : "var(--tmc-panel)",
                           stroke: spur.dashed ? "var(--tmc-locked)" : spur.color,
                         }}
                       />
@@ -1194,8 +1259,8 @@ function NetworkMap({
                         {quest.progress > 0 && quest.progress < 100 ? ` · ${quest.progress}%` : ""}
                       </text>
                     </g>
-                  );
-                })}
+                  ),
+                )}
               </g>
             ))}
 
@@ -1807,9 +1872,24 @@ export default function TransitMapConceptPage() {
     return { questsByAnchor: map, softAnchors: soft };
   }, [sideQuests, modules]);
 
+  const legsFor = useCallback(
+    (q: SideQuest): QuestLeg[] | null => {
+      if (q.id !== "ja-travel-sprint") return null;
+      const titles = ["Navigation", "Ordering", "Help", "Shopping"];
+      return TRAVEL_SPRINT_LESSONS.map((id, i) => ({
+        title: titles[i],
+        lessonId: id,
+        // demo paints the first two legs done to match the 55% line state
+        done: demo ? i < 2 : completedSet.has(id),
+      }));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [completedSet, demo],
+  );
+
   const layout = useMemo(
-    () => buildLayout(modules, statuses, doneCounts, questsByAnchor, softAnchors, strings.zones, strings.numerals),
-    [modules, statuses, doneCounts, questsByAnchor, softAnchors, strings.zones, strings.numerals],
+    () => buildLayout(modules, statuses, doneCounts, questsByAnchor, softAnchors, legsFor, strings.zones, strings.numerals),
+    [modules, statuses, doneCounts, questsByAnchor, softAnchors, legsFor, strings.zones, strings.numerals],
   );
 
   const open = useCallback((i: number) => setOpenIdx(i), []);
@@ -1908,7 +1988,7 @@ export default function TransitMapConceptPage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start 2xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0">
           <div className="hidden md:block">
-            <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} onOpen={open} langPath={p} />
+            <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
           </div>
           <div className="md:hidden">
             <LineDiagram layout={layout} currentIdx={currentIdx} lang={lang} onOpen={open} />
@@ -1917,7 +1997,7 @@ export default function TransitMapConceptPage() {
             </button>
             {showMapMobile && (
               <div className="mt-3">
-                <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} onOpen={open} langPath={p} />
+                <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
               </div>
             )}
           </div>
