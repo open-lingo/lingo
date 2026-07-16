@@ -445,6 +445,7 @@ function buildLayout(
 
 type Skyline = {
   hillsD: string;
+  hills2D: string;
   buildings: { x: number; w: number; h: number; windows: number[] }[];
   fujiX: number;
   toriiX: number;
@@ -496,6 +497,15 @@ function makeSkyline(layout: Layout): Skyline {
     hillsD += ` Q ${hx + 158} ${g - amp + 10} ${hx + 210} ${g - 6}`;
   }
   hillsD += ` L ${layout.width} ${g + 4} L 0 ${g + 4} Z`;
+  // second, lower ridge fills the band between horizon and track
+  const g2 = g + 52;
+  let hills2D = `M 0 ${g2}`;
+  for (let hx = 0; hx <= layout.width; hx += 300) {
+    const amp = 22 + ((hx / 300) % 3) * 12;
+    hills2D += ` Q ${hx + 75} ${g2 - amp - 20} ${hx + 150} ${g2 - amp}`;
+    hills2D += ` Q ${hx + 225} ${g2 - amp + 14} ${hx + 300} ${g2 - 8}`;
+  }
+  hills2D += ` L ${layout.width} ${g2 + 4} L 0 ${g2 + 4} Z`;
 
   // celestial content lives in the skyline gaps (the "yellow boxes")
   const byWidth = [...gaps].sort((a, b) => b[1] - b[0] - (a[1] - a[0]));
@@ -524,15 +534,16 @@ function makeSkyline(layout: Layout): Skyline {
   while (cx2 < layout.width - 120) {
     const r2 = (((ci + 11) * 40503) >>> 3) % 1000 / 1000;
     const w2 = 44 + ((ci * 71) % 4) * 18;
-    const h2 = Math.round(70 + r2 * (layout.vbH * 0.46));
-    if (r2 > 0.25) cityFill.push({ x: cx2, w: w2, h: h2 });
-    cx2 += w2 + 90 + ((ci * 37) % 5) * 44;
+    const h2 = Math.round(80 + r2 * (layout.vbH * 0.54));
+    if (r2 > 0.18) cityFill.push({ x: cx2, w: w2, h: h2 });
+    cx2 += w2 + 70 + ((ci * 37) % 5) * 36;
     ci++;
   }
 
   const z = layout.zones;
   return {
     hillsD,
+    hills2D,
     buildings,
     fujiX: z.length ? z[0].x1 - 60 : layout.width * 0.3,
     toriiX: z.length ? (z[0].x0 + z[0].x1) / 2 : layout.width * 0.15,
@@ -564,6 +575,7 @@ function SkylineArt({
       {/* far layer: hills + Fuji (slow parallax) */}
       <g ref={hillsRef} pointerEvents="none" aria-hidden>
         <path d={sky.hillsD} fill="currentColor" opacity={0.05} />
+        <path d={sky.hills2D} fill="currentColor" opacity={0.035} />
         <path
           d={`M ${sky.fujiX - 120} ${groundY} L ${sky.fujiX - 24} ${groundY - 92} L ${sky.fujiX + 2} ${groundY - 78} L ${sky.fujiX + 26} ${groundY - 92} L ${sky.fujiX + 122} ${groundY} Z`}
           fill="currentColor"
@@ -699,8 +711,8 @@ function LinePlate({ x, y, text, color }: { x: number; y: number; text: string; 
 function TrainMascot({ label }: { label: string }) {
   return (
     <g className="tmc-mascot" aria-hidden>
-      <rect x={-58} y={-82} width={116} height={20} rx={10} style={{ fill: "var(--tmc-ink)" }} />
-      <text x={0} y={-68} textAnchor="middle" style={{ fill: "var(--tmc-panel)", fontSize: 9.5, fontWeight: 800 }}>
+      <rect x={-58} y={-82} width={116} height={20} rx={10} style={{ fill: "var(--tmc-signage-bg)" }} />
+      <text x={0} y={-68} textAnchor="middle" style={{ fill: "var(--tmc-signage-fg)", fontSize: 9.5, fontWeight: 800 }}>
         {label}
       </text>
       <rect x={-18} y={-58} width={36} height={20} rx={6} style={{ fill: "var(--tmc-line-main)" }} />
@@ -1178,8 +1190,8 @@ function NetworkMap({
                     {st.terminal ? (
                       <>
                         <rect x={st.x - 13} y={st.y - 13} width={26} height={26} rx={5} strokeWidth={4} style={{ fill: "var(--tmc-panel)", stroke: st.status === "completed" ? "var(--tmc-done)" : "var(--tmc-locked)" }} />
-                        <rect x={st.x - 30} y={st.y - 58} width={60} height={20} rx={3} style={{ fill: "var(--tmc-ink)" }} />
-                        <text x={st.x} y={st.y - 44} textAnchor="middle" style={{ fill: "var(--tmc-panel)", fontSize: 10, fontWeight: 800 }}>
+                        <rect x={st.x - 30} y={st.y - 58} width={60} height={20} rx={3} style={{ fill: "var(--tmc-signage-bg)" }} />
+                        <text x={st.x} y={st.y - 44} textAnchor="middle" style={{ fill: "var(--tmc-signage-fg)", fontSize: 10, fontWeight: 800 }}>
                           GOAL
                         </text>
                         <line x1={st.x} y1={st.y - 38} x2={st.x} y2={st.y - 15} style={{ stroke: "var(--tmc-ink)" }} strokeWidth={1.5} />
@@ -1264,7 +1276,7 @@ function DepartureBoard({
   rows: Array<{ key: string; tag: string; body: React.ReactNode; action?: React.ReactNode }>;
 }) {
   return (
-    <div className="mt-3 overflow-hidden rounded-md border-2 border-text-primary shadow-card" style={{ background: "var(--color-text-primary)", color: "var(--color-surface)" }}>
+    <div className="mt-3 overflow-hidden rounded-md border-2 border-text-primary shadow-card" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
       <div className="flex items-center justify-between px-4 pt-2.5 pb-1.5 text-[10px] uppercase tracking-[0.22em] opacity-60 2xl:text-[11px]">
         <span>Departures · 発車標</span>
         <span>{rows.length} services</span>
@@ -1304,8 +1316,8 @@ function LineDiagram({
   });
   return (
     <div className="overflow-hidden rounded-md border-2 border-text-primary bg-surface shadow-card">
-      <div className="flex items-center gap-3 px-4 py-3" style={{ background: "var(--color-text-primary)", color: "var(--color-surface)" }}>
-        <div className="grid h-8 w-8 flex-none place-items-center rounded-full border-2 text-[13px] font-extrabold" style={{ borderColor: "var(--color-surface)", background: "var(--tmc-line-main)", color: "#fff" }}>
+      <div className="flex items-center gap-3 px-4 py-3" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
+        <div className="grid h-8 w-8 flex-none place-items-center rounded-full border-2 text-[13px] font-extrabold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "#fff" }}>
           M
         </div>
         <div className="min-w-0">
@@ -1455,8 +1467,8 @@ function DistrictView({
       aria-label={`${mod.title} district`}
     >
       <div className="tmc-district-panel w-full max-w-[900px] overflow-hidden rounded-md border-2 border-text-primary bg-surface shadow-popover" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center gap-4 px-5 py-4" style={{ background: "var(--color-text-primary)", color: "var(--color-surface)" }}>
-          <div className="grid h-11 w-11 flex-none place-items-center rounded-full border-[3px] text-[15px] font-extrabold" style={{ borderColor: "var(--color-surface)", background: "var(--tmc-line-main)", color: "#fff" }}>
+        <div className="flex items-center gap-4 px-5 py-4" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
+          <div className="grid h-11 w-11 flex-none place-items-center rounded-full border-[3px] text-[15px] font-extrabold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "#fff" }}>
             {badge}
           </div>
           <div className="min-w-0 flex-1">
@@ -1467,7 +1479,7 @@ function DistrictView({
               {status === "locked" ? " · locked — complete the previous station" : ""}
             </div>
           </div>
-          <button onClick={onClose} aria-label="Close district view" className="grid h-9 w-9 flex-none place-items-center rounded-full text-[16px] font-bold hover:opacity-75" style={{ border: "2px solid var(--color-surface)" }}>
+          <button onClick={onClose} aria-label="Close district view" className="grid h-9 w-9 flex-none place-items-center rounded-full text-[16px] font-bold hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
             ✕
           </button>
         </div>
@@ -1763,8 +1775,8 @@ export default function TransitMapConceptPage() {
   return (
     <div className="tmc-root mx-auto max-w-[min(2100px,94vw)] px-3 pb-24 pt-4 sm:px-5">
       {/* signage board header */}
-      <div className="mb-5 flex flex-wrap items-center gap-4 rounded-md px-5 py-4" style={{ background: "var(--color-text-primary)", color: "var(--color-surface)" }}>
-        <div className="grid h-11 w-11 flex-none place-items-center rounded-full border-[3px] text-[18px] font-extrabold" style={{ borderColor: "var(--color-surface)", background: "var(--tmc-line-main)", color: "#fff" }}>
+      <div className="mb-5 flex flex-wrap items-center gap-4 rounded-md px-5 py-4" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
+        <div className="grid h-11 w-11 flex-none place-items-center rounded-full border-[3px] text-[18px] font-extrabold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "#fff" }}>
           M
         </div>
         <div className="min-w-0 flex-1">
@@ -1778,7 +1790,7 @@ export default function TransitMapConceptPage() {
           </h1>
           <div className="text-[12px] opacity-75 2xl:text-[13px]">Transit-map concept · dev preview · click stations, board quests, visit the depot</div>
         </div>
-        <Link to={p("learn")} className="rounded-sm px-3 py-1.5 text-[12.5px] font-bold hover:opacity-75" style={{ border: "2px solid var(--color-surface)" }}>
+        <Link to={p("learn")} className="rounded-sm px-3 py-1.5 text-[12.5px] font-bold hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
           ← Classic view
         </Link>
       </div>

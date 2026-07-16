@@ -5,6 +5,10 @@
  * explicit dark-mode variants.
  */
 .tmc-root {
+  /* signage boards are FIXED dark in both themes — inverting ink made every
+     board a glaring white slab in dark mode */
+  --tmc-signage-bg: #1a1c1f;
+  --tmc-signage-fg: #f5f4f0;
   --tmc-ink: var(--color-text-primary);
   --tmc-panel: var(--color-surface);
   --tmc-muted: var(--color-text-muted);
