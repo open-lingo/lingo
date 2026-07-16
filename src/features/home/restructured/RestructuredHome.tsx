@@ -17,7 +17,7 @@
 import { useMemo } from "react";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
-import { isSocialEnabled } from "@/shared/config/featureFlags";
+import { isCommunityEnabled, isSocialEnabled } from "@/shared/config/featureFlags";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getMockCourse } from "@/shared/domain/mockCourse";
@@ -48,7 +48,9 @@ export function RestructuredHome({ greetingName }: Props) {
   const completedIds = useCompletedLessonIds();
   const langConfig = language ? getLanguageConfig(language.id) : null;
   const { stats } = useUserStats();
-  const socialOn = isSocialEnabled(useFeatureFlags());
+  const flags = useFeatureFlags();
+  const socialOn = isSocialEnabled(flags);
+  const communityOn = isCommunityEnabled(flags);
 
   // Resume an in-progress lesson when one exists for this course; otherwise
   // fall through to the next non-completed lesson. The allow-list of lesson
@@ -169,8 +171,8 @@ export function RestructuredHome({ greetingName }: Props) {
         </div>
       </div>
 
-      {/* Row 3 — community discovery strip. */}
-      <TrendingRow />
+      {/* Row 3 — community discovery strip (hidden when community is off). */}
+      {communityOn ? <TrendingRow /> : null}
     </div>
   );
 }
