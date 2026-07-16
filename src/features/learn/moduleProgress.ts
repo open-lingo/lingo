@@ -50,7 +50,7 @@ export function getModuleDisplay(
   };
 }
 
-const REVIEW_LESSON_RE = /^ja-m\d+-review-[12]$/;
+const REVIEW_LESSON_RE = /^(?:ja|ko)-m\d+-review(?:-\d+)?$/;
 
 function isContentLesson(lesson: { id: string }): boolean {
   return !REVIEW_LESSON_RE.test(lesson.id);
