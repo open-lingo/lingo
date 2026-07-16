@@ -31,8 +31,6 @@ type Props = {
   activeTab: SocialTab;
   onSelect: (tab: SocialTab) => void;
   onAddFriend: () => void;
-  /** Unread message count, surfaced as a badge on the Messages tab. */
-  unreadCount: number;
   /** Pending incoming friend requests, surfaced on the Friends tab. */
   requestCount: number;
 };
@@ -41,14 +39,12 @@ const TAB_ICON: Record<SocialTab, IconName> = {
   overview: "sparkles",
   friends: "users",
   league: "trophy",
-  messages: "messageCircle",
 };
 
 export function SocialSidebar({
   activeTab,
   onSelect,
   onAddFriend,
-  unreadCount,
   requestCount,
 }: Props) {
   const { t } = useTranslation();
@@ -118,8 +114,7 @@ export function SocialSidebar({
       >
         {SOCIAL_TABS.map((tab) => {
           const isActive = tab === activeTab;
-          const badge =
-            tab === "messages" ? unreadCount : tab === "friends" ? requestCount : 0;
+          const badge = tab === "friends" ? requestCount : 0;
           return (
             <button
               key={tab}
@@ -159,8 +154,6 @@ export function tabLabel(
       return t("social.tabs.friends", "Friends");
     case "league":
       return t("social.tabs.league", "League");
-    case "messages":
-      return t("social.tabs.messages", "Messages");
   }
 }
 

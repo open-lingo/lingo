@@ -2,10 +2,10 @@
 export type SettingsGlobalSectionId =
   | "general"
   | "appearance"
-  | "audio"
   | "accessibility"
   | "notifications"
-  | "privacy";
+  | "privacy"
+  | "more-info";
 
 export type SettingsLanguageSectionId = `lang-${string}`;
 
@@ -14,10 +14,10 @@ export type SettingsSectionId = SettingsGlobalSectionId | SettingsLanguageSectio
 export const SETTINGS_GLOBAL_SECTIONS: SettingsGlobalSectionId[] = [
   "general",
   "appearance",
-  "audio",
   "accessibility",
   "notifications",
   "privacy",
+  "more-info",
 ];
 
 export function isLanguageSectionId(

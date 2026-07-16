@@ -1,4 +1,5 @@
 import MDEditor from "@uiw/react-md-editor";
+import rehypeSanitize from "rehype-sanitize";
 import { useTheme } from "@/shared/contexts/ThemeContext";
 
 type RichMarkdownEditorProps = {
@@ -31,6 +32,14 @@ export function RichMarkdownEditor({
           placeholder,
         }}
         preview="live"
+        // The live preview runs @uiw/react-markdown-preview, which ships
+        // rehype-raw (raw HTML passthrough) unsanitized. rehypeSanitize
+        // strips scripts/event handlers so the preview can't execute
+        // author-supplied HTML. The read-only viewer path (react-markdown)
+        // is already safe and is untouched.
+        previewOptions={{
+          rehypePlugins: [[rehypeSanitize]],
+        }}
       />
     </div>
   );

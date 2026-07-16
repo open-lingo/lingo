@@ -333,7 +333,6 @@ function lastActiveScore(label: string): number {
 
 function FriendRow({ user }: { user: SocialUser }) {
   const { t } = useTranslation();
-  const langPath = useLangPath();
   const navigate = useNavigate();
   const [confirm, setConfirm] = useState<null | "unfriend" | "block">(null);
   const unfriend = useUnfriend();
@@ -361,13 +360,6 @@ function FriendRow({ user }: { user: SocialUser }) {
         <Icon name="flame" size={10} aria-hidden />
         {user.streakDays}
       </span>
-      <Link
-        to={langPath(`messenger/${user.id}`)}
-        className="flex h-8 w-8 items-center justify-center rounded-md text-text-muted transition hover:bg-accent-muted hover:text-accent"
-        aria-label={t("social.friends.messageAria", "Message {{name}}", { name: user.name })}
-      >
-        <Icon name="messageCircle" size={14} aria-hidden />
-      </Link>
       {/* Portal-based dropdown — renders above the scrolling friends list
        *  (the old inline `absolute` menu was clipped by the list's
        *  `overflow-y-auto`) and the menu items close over THIS row's `user`

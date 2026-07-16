@@ -22,7 +22,6 @@ const social = {
   getFriendRequests: vi.fn(),
   getSuggestions: vi.fn(),
   getActivity: vi.fn(),
-  getThreads: vi.fn(),
   getInviteOffer: vi.fn(),
   getLeagueSpotlight: vi.fn(),
   getLeaderboardBundle: vi.fn(),
@@ -172,7 +171,6 @@ describe("useSocial bundle", () => {
     social.getFriendRequests.mockResolvedValue({ incoming: [], outgoing: [] });
     social.getSuggestions.mockResolvedValue({ items: [] });
     social.getActivity.mockResolvedValue({ items: [], cursor: null });
-    social.getThreads.mockResolvedValue([]);
     social.getLeaderboardBundle.mockResolvedValue({
       weekly: { bucket: "weekly", entries: [], total: 0, my_rank: null },
       monthly: { bucket: "monthly", entries: [], total: 0, my_rank: null },

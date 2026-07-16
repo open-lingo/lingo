@@ -18,8 +18,50 @@ type Props = {
   seededAtomCount: number;
   isTestOut: boolean;
   testOutModuleLabel?: string;
+  /** Ordered per-question correctness for the tested module (test-out only).
+   *  Drives the ✓/✗ strip — no prompts, no answers, just right/wrong. */
+  itemResults?: boolean[];
   onContinue: () => void;
 };
+
+/**
+ * Compact per-question correctness strip: a green ✓ / red ✗ pip per item plus
+ * "You got N of M correct." Deliberately shows NO prompt and NO correct answer
+ * (Spencer 2026-07-15: "just show that the answer was incorrect") — so a retry
+ * can't be memorized off the result screen.
+ */
+function ItemResultStrip({ results }: { results: boolean[] }) {
+  const { t } = useTranslation();
+  const correct = results.filter(Boolean).length;
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-wrap justify-center gap-1.5">
+        {results.map((ok, i) => (
+          <span
+            key={i}
+            className={`flex h-7 w-7 items-center justify-center rounded-full ${
+              ok ? "bg-accent/10 text-accent" : "bg-error/10 text-error"
+            }`}
+            aria-label={
+              ok
+                ? t("placement.itemCorrect", "Correct")
+                : t("placement.itemIncorrect", "Incorrect")
+            }
+          >
+            <Icon name={ok ? "check" : "close"} size={16} aria-hidden />
+          </span>
+        ))}
+      </div>
+      <p className="text-sm font-medium text-text-secondary">
+        {t("placement.itemScore", {
+          defaultValue: "You got {{correct}} of {{total}} correct.",
+          correct,
+          total: results.length,
+        })}
+      </p>
+    </div>
+  );
+}
 
 /**
  * De-duplicated human labels for the grammar points a learner missed.
@@ -65,6 +107,7 @@ export function PlacementResultScreen({
   seededAtomCount,
   isTestOut,
   testOutModuleLabel,
+  itemResults,
   onContinue,
 }: Props) {
   const { t } = useTranslation();
@@ -102,19 +145,26 @@ export function PlacementResultScreen({
               })
             : t(
                 "placement.testOutFailedBody",
-                "A near-miss doesn't clear a module — you can miss at most one. Here's what tripped you up; keep practicing and try again.",
+                "A near-miss doesn't clear a module — keep practicing and try again. The next attempt draws a fresh set of questions.",
               )}
         </p>
-        {!passed && missedLabels.length > 0 && (
-          <div className="max-w-md rounded-xl border border-border bg-surface-2 p-4 text-left">
-            <p className="mb-2 text-sm font-semibold text-text-primary">
-              {t("placement.missedHeading", "What to focus on")}
+
+        {/* ✓/✗ strip — shown on pass AND fail. No prompts, no answers. */}
+        {itemResults && itemResults.length > 0 && (
+          <ItemResultStrip results={itemResults} />
+        )}
+
+        {/* On pass, the modules BEFORE the tested one are auto-completed with
+            no XP — surface them so the credit isn't silent. */}
+        {passed && assumedModules.length > 0 && (
+          <div className="flex w-full max-w-md flex-col items-center gap-2">
+            <p className="text-sm font-medium text-text-secondary">
+              {t(
+                "placement.testOutAlsoComplete",
+                "Also marked complete (no XP):",
+              )}
             </p>
-            <ul className="list-inside list-disc space-y-1 text-sm text-text-secondary">
-              {missedLabels.map((s) => (
-                <li key={s}>{s}</li>
-              ))}
-            </ul>
+            <ModuleChips modules={sortModuleIds(assumedModules)} />
           </div>
         )}
         <button

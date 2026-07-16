@@ -3,10 +3,12 @@ import {
   deriveModuleTestOut,
   collectGradable,
   getDerivedTestOutItems,
+  pickCovering,
   TESTOUT_FORMATS,
   TESTOUT_SIZE,
   TESTOUT_DERIVED_FLOOR,
 } from "./deriveModuleTestOut";
+import { mulberry32 } from "@/shared/utils/seededRng";
 
 const SHIPPED = ["m3","m4","m5","m6","m7","m8","m9","m10","m11","m12","m13","m14","m15","m16","m17"];
 
@@ -40,10 +42,77 @@ describe("deriveModuleTestOut", () => {
     expect(legal.every((i) => i.format !== "dialogue_listen")).toBe(true);
   });
 
-  it("is deterministic — same module yields the same picks", () => {
+  it("is deterministic (no rng) — same module yields the same picks", () => {
     const a = deriveModuleTestOut("m14").items.map((i) => (i.step as { id: string }).id);
     const b = deriveModuleTestOut("m14").items.map((i) => (i.step as { id: string }).id);
     expect(a).toEqual(b);
+  });
+
+  it("seeded rng — two different seeds draw different subsets, both size-legal & covering", () => {
+    const drawA = deriveModuleTestOut("m14", { rng: mulberry32(1) });
+    const drawB = deriveModuleTestOut("m14", { rng: mulberry32(999) });
+
+    const idsA = drawA.items.map((i) => (i.step as { id: string }).id);
+    const idsB = drawB.items.map((i) => (i.step as { id: string }).id);
+
+    // Both honor size + formats (m14 has hundreds of gradable steps).
+    expect(idsA.length).toBe(TESTOUT_SIZE);
+    expect(idsB.length).toBe(TESTOUT_SIZE);
+    for (const it of [...drawA.items, ...drawB.items]) {
+      expect(TESTOUT_FORMATS.has(it.format)).toBe(true);
+    }
+    // No dupes within a draw.
+    expect(new Set(idsA).size).toBe(idsA.length);
+    expect(new Set(idsB).size).toBe(idsB.length);
+    // Different seeds => different subsets (anti-memorization). A big pool
+    // makes an accidental full overlap astronomically unlikely.
+    expect(idsA).not.toEqual(idsB);
+  });
+
+  it("seeded rng is stable within a seed (same seed → same draw)", () => {
+    const a = deriveModuleTestOut("m14", { rng: mulberry32(42) }).items.map(
+      (i) => (i.step as { id: string }).id,
+    );
+    const b = deriveModuleTestOut("m14", { rng: mulberry32(42) }).items.map(
+      (i) => (i.step as { id: string }).id,
+    );
+    expect(a).toEqual(b);
+  });
+
+  it("pickCovering with rng still covers sections and honors size", () => {
+    const all = collectGradable("m14");
+    const picked = pickCovering(all, TESTOUT_SIZE, mulberry32(7));
+    expect(picked.length).toBe(TESTOUT_SIZE);
+    const sectionsTotal = new Set(all.map((i) => i.section)).size;
+    const covered = new Set(picked.map((p) => p.section)).size;
+    expect(covered).toBeGreaterThanOrEqual(Math.min(sectionsTotal, TESTOUT_SIZE));
+  });
+
+  // ── Korean derivation (change 2 — KO test-outs now derive real steps) ──
+  describe("KO derivation", () => {
+    it("collectGradable returns real KO steps for a KO grammar module", () => {
+      const ko = collectGradable("m3", TESTOUT_FORMATS, "ko");
+      expect(ko.length).toBeGreaterThan(0);
+      // Every collected step came from a ko-* lesson.
+      expect(ko.every((i) => i.lessonId.startsWith("ko-"))).toBe(true);
+    });
+
+    it("yields a full-size derived test-out for KO grammar modules", () => {
+      for (const mid of ["m3", "m7", "m10"]) {
+        const d = deriveModuleTestOut(mid, { languageId: "ko" });
+        expect(d.steps.length, `ko ${mid} size`).toBe(TESTOUT_SIZE);
+        for (const it of d.items) {
+          expect(TESTOUT_FORMATS.has(it.format), `ko ${mid} format`).toBe(true);
+        }
+      }
+    });
+
+    it("getDerivedTestOutItems tags configs with languageId ko", () => {
+      const configs = getDerivedTestOutItems("m7", "ko");
+      expect(configs.length).toBe(TESTOUT_SIZE);
+      expect(configs.every((c) => c.languageId === "ko")).toBe(true);
+      expect(configs.every((c) => c.type === "derivedStep")).toBe(true);
+    });
   });
 });
 

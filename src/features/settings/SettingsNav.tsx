@@ -30,10 +30,10 @@ function Chevron({ collapsed }: { collapsed: boolean }) {
 const GLOBAL_LABEL_KEYS: Record<SettingsGlobalSectionId, string> = {
   general: "settings.nav.general",
   appearance: "settings.nav.appearance",
-  audio: "settings.nav.audio",
   accessibility: "settings.accessibility",
   notifications: "settings.notifications",
   privacy: "legal.settings.privacyTitle",
+  "more-info": "settings.nav.moreInfo",
 };
 
 type SettingsNavProps = {
@@ -54,7 +54,7 @@ export function SettingsNav({
 
   return (
     <nav
-      className="flex shrink-0 flex-col gap-0.5 border-b border-border px-3 py-3 sm:w-52 sm:border-b-0 sm:border-r sm:py-4"
+      className="flex min-h-0 shrink-0 flex-col gap-0.5 overflow-y-auto border-b border-border px-3 py-3 sm:w-52 sm:border-b-0 sm:border-r sm:py-4"
       aria-label={t("settings.nav.label", "Settings sections")}
     >
       {SETTINGS_GLOBAL_SECTIONS.map((id) => (

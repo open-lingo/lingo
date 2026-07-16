@@ -115,7 +115,7 @@ export function LearningTab({ userId }: Props) {
     <div className="space-y-6 max-w-4xl">
       {/* Toast */}
       {toastMsg && (
-        <div className="px-4 py-2 rounded-lg bg-success/10 border border-success/30 text-sm text-success">
+        <div className="px-4 py-2 rounded-card bg-success/10 border border-success/30 text-sm text-success">
           {toastMsg}
         </div>
       )}
@@ -203,7 +203,7 @@ export function LearningTab({ userId }: Props) {
           ].map(({ label, value, sub, onEdit, editLabel }) => (
             <div
               key={label}
-              className="relative rounded-lg border border-border p-3 text-center"
+              className="relative rounded-card border border-border p-3 text-center"
             >
               {onEdit && (
                 <button

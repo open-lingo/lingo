@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { Portal } from "@/shared/components/ui/Portal";
+import { cn } from "@/shared/components/ui/cn";
 
 export type ModalBaseMaxWidth =
   | "max-w-sm"
@@ -10,7 +11,9 @@ export type ModalBaseMaxWidth =
   | "max-w-2xl"
   | "max-w-3xl"
   | "max-w-4xl"
-  | "max-w-6xl";
+  | "max-w-5xl"
+  | "max-w-6xl"
+  | "max-w-7xl";
 
 type ModalBaseProps = {
   /** Called when user closes via Escape, backdrop click (if enabled), close button (if visible), etc. */
@@ -27,6 +30,12 @@ type ModalBaseProps = {
   closeOnEscape?: boolean;
   /** Header close button visibility. Default true. */
   showCloseButton?: boolean;
+  /**
+   * Fill the viewport height (capped) instead of sizing to content. Turns the
+   * panel into a fixed-height flex column: header pinned, body flexes + owns its
+   * own scroll. Use for full-surface modals like Settings.
+   */
+  fullHeight?: boolean;
 };
 
 export function ModalBase({
@@ -38,6 +47,7 @@ export function ModalBase({
   closeOnBackdrop = true,
   closeOnEscape = true,
   showCloseButton = true,
+  fullHeight = false,
 }: ModalBaseProps) {
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -66,13 +76,20 @@ export function ModalBase({
       >
         <div
           ref={panelRef}
-          className={`relative mx-4 w-full ${maxWidth} overflow-y-auto rounded-card border border-border bg-surface shadow-2xl`}
-          style={{ maxHeight: "85vh" }}
+          className={cn(
+            "relative mx-4 flex w-full flex-col rounded-card border border-border bg-surface shadow-2xl",
+            maxWidth,
+            fullHeight
+              ? // Mobile: backdrop offsets the panel 4rem from the top (pt-16),
+                // so cap height to fit under that with a little bottom gap.
+                "h-[calc(100dvh-6rem)] sm:h-[85vh]"
+              : "max-h-[85vh] overflow-y-auto",
+          )}
           role="dialog"
           aria-modal="true"
           aria-label={title}
         >
-          <div className="flex items-center justify-between border-b border-border px-6 py-4">
+          <div className="flex shrink-0 items-center justify-between border-b border-border px-6 py-4">
             <div className="flex min-w-0 flex-1 items-center gap-3">
               {headerLeft}
               {/* Wrap, don't truncate: at 390px "Welcome to flashcard
@@ -93,7 +110,11 @@ export function ModalBase({
               </button>
             ) : null}
           </div>
-          {children}
+          {fullHeight ? (
+            <div className="flex min-h-0 flex-1 flex-col">{children}</div>
+          ) : (
+            children
+          )}
         </div>
       </div>
     </Portal>

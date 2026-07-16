@@ -53,8 +53,14 @@ export async function syncTestOutToServer(
   progress: ProgressApi,
   passedModules: string[],
   languageId: string = "ja",
+  assumedModules: string[] = [],
 ): Promise<{ submitted: number }> {
-  const attempts = buildTestOutAttempts(passedModules, languageId);
+  // Assumed = modules auto-completed because they sit BEFORE the tested one
+  // (test-out of N ⇒ credit m(<N), no XP). They must sync too, or a device
+  // switch loses those completions. All go up as isTestOut:true, so the
+  // server gates XP/lingots for every one.
+  const modules = [...new Set([...passedModules, ...assumedModules])];
+  const attempts = buildTestOutAttempts(modules, languageId);
   if (attempts.length === 0) return { submitted: 0 };
   try {
     await progress.batchAttempts({ attempts });

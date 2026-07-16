@@ -55,7 +55,10 @@ const OPS_API_BASE_URL =
 const AUTH0_AUDIENCE =
   (import.meta.env.VITE_AUTH0_AUDIENCE as string | undefined) ?? "";
 
-const DEV_AUTH_BYPASS = import.meta.env.VITE_DEV_AUTH_BYPASS === "true";
+// Gated on import.meta.env.DEV so the dev token shim is stripped from prod
+// builds even if VITE_DEV_AUTH_BYPASS is somehow set (mirrors useAuth.ts).
+const DEV_AUTH_BYPASS =
+  import.meta.env.DEV && import.meta.env.VITE_DEV_AUTH_BYPASS === "true";
 
 export function ApiProvider({ children }: { children: ReactNode }) {
   const { getAccessTokenSilently } = useAuth0();

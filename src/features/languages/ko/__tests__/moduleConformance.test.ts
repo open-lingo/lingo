@@ -89,9 +89,17 @@ describe("KO module", () => {
     expect(moduleIds).toContain("m2");
   });
 
-  it("omits secondScript / readingAnnotation / symbolMastery (per ADR-011)", () => {
+  it("omits secondScript / symbolMastery (per ADR-011)", () => {
     expect(koModule.secondScript).toBeUndefined();
-    expect(koModule.readingAnnotation).toBeUndefined();
     expect(koModule.symbolMastery).toBeUndefined();
+  });
+
+  it("provides a readingAnnotation capability (Revised Romanization)", () => {
+    expect(koModule.readingAnnotation).toBeDefined();
+    expect(koModule.readingAnnotation?.fadeOnMastery).toBe(false);
+    // Pronunciation-based RR: liaison + nasalization applied.
+    expect(koModule.readingAnnotation?.annotate("학년")).toEqual([
+      { text: "학년", reading: "hangnyeon" },
+    ]);
   });
 });

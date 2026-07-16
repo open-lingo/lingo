@@ -1,17 +1,13 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { Icon } from "@/shared/components/Icon";
+import { cn } from "@/shared/components/ui/cn";
 import { useApi } from "@/shared/api/provider";
-import { useAuth } from "@/shared/auth/useAuth";
 import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useSettings } from "@/shared/contexts/SettingsContext";
-import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
-import { isSocialEnabled } from "@/shared/config/featureFlags";
-import { ApiError } from "@/shared/api/client";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { supportedLngs } from "@/shared/i18n/i18n";
 import { utcToLocalHHmm, localToUtcHHmm } from "@/shared/utils/reminderTime";
@@ -24,7 +20,6 @@ import { Select } from "@/shared/components/ui/Select";
 import { Slider } from "@/shared/components/ui/Slider";
 import { AccountPrivacySection } from "./AccountPrivacySection";
 import { ImportStudyHistorySection } from "./ImportStudyHistorySection";
-import { ChoiceChip } from "@/shared/components/ui/formStyles";
 import {
   SectionHeader,
   SettingsGroup,
@@ -56,14 +51,14 @@ export function SettingsSectionPanel({ section }: SettingsSectionPanelProps) {
       return <GeneralPanel />;
     case "appearance":
       return <AppearancePanel />;
-    case "audio":
-      return <AudioPanel />;
     case "accessibility":
       return <AccessibilityPanel />;
     case "notifications":
       return <NotificationsPanel />;
     case "privacy":
       return <PrivacyPanel />;
+    case "more-info":
+      return <MoreInfoPanel />;
     default:
       return <GeneralPanel />;
   }
@@ -76,29 +71,13 @@ function Panel({ children }: { children: React.ReactNode }) {
 
 function GeneralPanel() {
   const { t } = useTranslation();
-  const { isAuthenticated, user } = useAuth();
   const { settings, updateSetting } = useSettings();
-  const { users } = useApi();
-  const { closeAll } = useModal();
-  const flags = useFeatureFlags();
-
-  // Resolve the viewer's username so the profile link can deep-link to
-  // ``/u/<username>``. Falls back to Auth0 claims when the backend record
-  // hasn't been created yet.
-  const { data: me } = useQuery({
-    queryKey: ["users", user?.sub ?? "anon", "me"],
-    queryFn: () => users.getMe(),
-    enabled: isAuthenticated,
-    retry: (_, err) => !(err instanceof ApiError && err.status === 404),
-    // Shared key with HomePage / AuthMenu — 5 min so opening Settings doesn't
-    // round-trip /users/me when the cache already has fresh data.
-    staleTime: 5 * 60_000,
-  });
-  const profileUsername =
-    me?.username?.trim() ||
-    user?.nickname?.trim() ||
-    user?.email?.split("@")[0]?.trim() ||
-    "";
+  // Sound controls live here since the Audio section merged into General
+  // (2026-07-15). The edit-profile row was removed the same day — the profile
+  // page owns inline editing, so the concurrent branch's social-flag gate on
+  // that row is subsumed by its removal.
+  const silentMode = settings.audio.silentMode;
+  const volume = settings.audio.volume ?? 1;
 
   const uiLocaleValue =
     supportedLngs.find((lng) => settings.learning.uiLocale.startsWith(lng)) ??
@@ -133,173 +112,9 @@ function GeneralPanel() {
             </Select>
           }
         />
-        {/* Public profile page (/u/*) is behind the social gate — hide the
-            edit-profile deep link with it. */}
-        {isAuthenticated && profileUsername && isSocialEnabled(flags) ? (
-          <SettingRow
-            label={t("profile.editProfile")}
-            help={t(
-              "settings.editProfileHelp",
-              "Update your display name, bio, and avatar.",
-            )}
-            control={
-              <Link
-                to={`/u/${encodeURIComponent(profileUsername)}`}
-                onClick={closeAll}
-                className="inline-flex items-center gap-1 text-sm font-medium text-accent transition hover:text-accent-hover"
-              >
-                {t("settings.open", "Open")}
-                <Icon name="arrowBigRight" size={14} aria-hidden />
-              </Link>
-            }
-          />
-        ) : null}
       </SettingsGroup>
-    </Panel>
-  );
-}
 
-function AppearancePanel() {
-  const { t } = useTranslation();
-  const { activeThemeId, setTheme, openThemeEditor } = useTheme();
-  const { settings, updateSetting } = useSettings();
-  const { close } = useModal();
-  const navLayout = settings.appearance.navLayout ?? "topbar";
-  const cornerStyle = settings.appearance.cornerStyle ?? "default";
-  const isCustom = activeThemeId.startsWith("custom-");
-
-  const cornerStylePresets: {
-    id: "sharp" | "default" | "rounded" | "pill";
-    labelKey: string;
-    fallback: string;
-  }[] = [
-    { id: "sharp", labelKey: "settings.cornerStyleSharp", fallback: "Sharp" },
-    { id: "default", labelKey: "settings.cornerStyleDefault", fallback: "Default" },
-    { id: "rounded", labelKey: "settings.cornerStyleRounded", fallback: "Rounded" },
-    { id: "pill", labelKey: "settings.cornerStylePill", fallback: "Pill" },
-  ];
-
-  const themePresets = [
-    { id: "auto", labelKey: "settings.themeAuto" },
-    { id: "light", labelKey: "settings.themeLight" },
-    { id: "dark", labelKey: "settings.themeDark" },
-    { id: "sepia", labelKey: "settings.themeSepia" },
-    { id: "amoled", labelKey: "settings.themeAmoled" },
-  ];
-
-  return (
-    <Panel>
-      <SectionHeader
-        title={t("settings.nav.appearance")}
-        description={t("settings.appearanceHelp")}
-      />
-
-      <SettingsGroup>
-        <SettingRow
-          label={t("settings.theme")}
-          help={t(
-            "settings.themeHelp",
-            "Pick a preset or build your own color scheme.",
-          )}
-          stacked
-          control={
-            <div className="space-y-3">
-              <div className="flex flex-wrap gap-2">
-                {themePresets.map((p) => (
-                  <ChoiceChip
-                    key={p.id}
-                    selected={activeThemeId === p.id}
-                    onClick={() => setTheme(p.id)}
-                  >
-                    {t(p.labelKey)}
-                  </ChoiceChip>
-                ))}
-                {isCustom ? (
-                  <span className="rounded-lg border border-accent bg-accent-muted px-3 py-1.5 text-sm font-medium text-accent">
-                    {t("settings.themeCustom", "Custom")}
-                  </span>
-                ) : null}
-              </div>
-              <button
-                type="button"
-                onClick={() => {
-                  close();
-                  openThemeEditor();
-                }}
-                className="inline-flex items-center gap-1 text-sm font-medium text-accent transition hover:text-accent-hover"
-              >
-                {t("settings.customizeTheme", "Customize theme")}
-                <Icon name="arrowBigRight" size={14} aria-hidden />
-              </button>
-            </div>
-          }
-        />
-
-        <SettingRow
-          label={t("settings.navLayout", "Navigation layout")}
-          help={t(
-            "settings.navLayoutHint",
-            "Sidebar shows on larger screens; mobile always uses the top bar.",
-          )}
-          stacked
-          control={
-            <div className="flex flex-wrap gap-2">
-              <ChoiceChip
-                selected={navLayout === "topbar"}
-                onClick={() => updateSetting("appearance.navLayout", "topbar")}
-              >
-                {t("settings.navLayoutTopbar", "Top bar")}
-              </ChoiceChip>
-              <ChoiceChip
-                selected={navLayout === "sidebar"}
-                onClick={() => updateSetting("appearance.navLayout", "sidebar")}
-              >
-                {t("settings.navLayoutSidebar", "Sidebar")}
-              </ChoiceChip>
-            </div>
-          }
-        />
-
-        <SettingRow
-          label={t("settings.cornerStyle", "Corner style")}
-          help={t(
-            "settings.cornerStyleHint",
-            "How rounded cards and dialogs look across the app.",
-          )}
-          stacked
-          control={
-            <div className="flex flex-wrap gap-2">
-              {cornerStylePresets.map((p) => (
-                <ChoiceChip
-                  key={p.id}
-                  selected={cornerStyle === p.id}
-                  onClick={() => updateSetting("appearance.cornerStyle", p.id)}
-                >
-                  {t(p.labelKey, p.fallback)}
-                </ChoiceChip>
-              ))}
-            </div>
-          }
-        />
-      </SettingsGroup>
-    </Panel>
-  );
-}
-
-function AudioPanel() {
-  const { t } = useTranslation();
-  const { settings, updateSetting } = useSettings();
-  const silentMode = settings.audio.silentMode;
-  const volume = settings.audio.volume ?? 1;
-
-  return (
-    <Panel>
-      <SectionHeader
-        title={t("settings.nav.audio")}
-        description={t("settings.audioHelp")}
-      />
-
-      <SettingsGroup>
+      <SettingsGroup label={t("settings.soundGroup", "Sound")}>
         <SettingRow
           htmlFor="settings-audio-volume"
           label={t("settings.audioVolume", "App volume")}
@@ -333,9 +148,7 @@ function AudioPanel() {
           control={
             <Switch
               checked={silentMode}
-              onCheckedChange={(next) =>
-                updateSetting("audio.silentMode", next)
-              }
+              onCheckedChange={(next) => updateSetting("audio.silentMode", next)}
               ariaLabel={t("settings.silentModeLabel", "Silent mode")}
             />
           }
@@ -355,6 +168,137 @@ function AudioPanel() {
               }
               ariaLabel={t("settings.soundEffects", "Sound effects")}
             />
+          }
+        />
+      </SettingsGroup>
+    </Panel>
+  );
+}
+
+function AppearancePanel() {
+  const { t } = useTranslation();
+  const { activeThemeId, setTheme, openThemeEditor, customThemes } = useTheme();
+  const { settings, updateSetting } = useSettings();
+  const { close } = useModal();
+  const navLayout = settings.appearance.navLayout ?? "topbar";
+
+  const themeOptions = [
+    { id: "auto", labelKey: "settings.themeAuto" },
+    { id: "light", labelKey: "settings.themeLight" },
+    { id: "dark", labelKey: "settings.themeDark" },
+    { id: "sepia", labelKey: "settings.themeSepia" },
+    { id: "amoled", labelKey: "settings.themeAmoled" },
+  ];
+
+  return (
+    <Panel>
+      <SectionHeader
+        title={t("settings.nav.appearance")}
+        description={t("settings.appearanceHelp")}
+      />
+
+      <SettingsGroup>
+        <SettingRow
+          label={t("settings.theme")}
+          help={t(
+            "settings.themeHelp",
+            "Pick a preset or build your own color scheme.",
+          )}
+          stacked
+          control={
+            <div className="space-y-3">
+              <Select
+                id="settings-theme"
+                aria-label={t("settings.theme")}
+                value={activeThemeId}
+                onChange={(e) => setTheme(e.target.value)}
+              >
+                {themeOptions.map((o) => (
+                  <option key={o.id} value={o.id}>
+                    {t(o.labelKey)}
+                  </option>
+                ))}
+                {customThemes.length > 0 ? (
+                  <optgroup label={t("settings.yourThemes", "Your themes")}>
+                    {customThemes.map((th) => (
+                      <option key={th.id} value={th.id}>
+                        {th.name}
+                      </option>
+                    ))}
+                  </optgroup>
+                ) : null}
+              </Select>
+              <button
+                type="button"
+                onClick={() => {
+                  close();
+                  openThemeEditor();
+                }}
+                className="inline-flex items-center gap-1 text-sm font-medium text-accent transition hover:text-accent-hover"
+              >
+                {t("settings.customizeTheme", "Open theme editor")}
+                <Icon name="arrowBigRight" size={14} aria-hidden />
+              </button>
+            </div>
+          }
+        />
+
+        <SettingRow
+          label={t("settings.navLayout", "Navigation layout")}
+          help={t(
+            "settings.navLayoutHint",
+            "Sidebar shows on larger screens; mobile always uses the top bar.",
+          )}
+          stacked
+          control={
+            <div className="grid grid-cols-2 gap-3">
+              {(
+                [
+                  {
+                    id: "topbar",
+                    icon: "panelTop",
+                    label: t("settings.navLayoutTopbar", "Top bar"),
+                    desc: t(
+                      "settings.navLayoutTopbarDesc",
+                      "A bar across the top of every page.",
+                    ),
+                  },
+                  {
+                    id: "sidebar",
+                    icon: "panelLeft",
+                    label: t("settings.navLayoutSidebar", "Sidebar"),
+                    desc: t(
+                      "settings.navLayoutSidebarDesc",
+                      "A rail beside the page on larger screens.",
+                    ),
+                  },
+                ] as const
+              ).map((o) => {
+                const selected = navLayout === o.id;
+                return (
+                  <button
+                    key={o.id}
+                    type="button"
+                    onClick={() => updateSetting("appearance.navLayout", o.id)}
+                    aria-pressed={selected}
+                    className={cn(
+                      "flex flex-col items-center gap-2 rounded-card border p-4 text-center transition",
+                      selected
+                        ? "border-accent bg-accent-muted text-accent ring-1 ring-accent"
+                        : "border-border bg-surface text-text-secondary hover:border-text-muted hover:bg-surface-muted",
+                    )}
+                  >
+                    <Icon name={o.icon} size={30} aria-hidden />
+                    <span className="text-sm font-semibold text-text-primary">
+                      {o.label}
+                    </span>
+                    <span className="text-xs leading-snug text-text-muted">
+                      {o.desc}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           }
         />
       </SettingsGroup>
@@ -524,6 +468,105 @@ function PrivacyPanel() {
   );
 }
 
+/**
+ * "More info" — the navigable links + open-source attributions that used to
+ * live in the site footer. The footer now only renders on the public landing
+ * page, so this section is where the rest of the app surfaces them.
+ */
+function MoreInfoPanel() {
+  const { t } = useTranslation();
+  const { closeAll } = useModal();
+  const year = new Date().getFullYear();
+
+  const internalLinks: { to: string; label: string }[] = [
+    { to: "/about", label: t("landing.footerAbout", "About") },
+    { to: "/privacy", label: t("landing.footerPrivacy", "Privacy") },
+    { to: "/terms", label: t("landing.footerTerms", "Terms") },
+  ];
+
+  return (
+    <Panel>
+      <SectionHeader
+        title={t("settings.moreInfo.title", "More info")}
+        description={t(
+          "settings.moreInfo.blurb",
+          "Free, open-source language learning. MIT-licensed — no paywalls.",
+        )}
+      />
+
+      <SettingsGroup label={t("settings.moreInfo.linksLabel", "Links")}>
+        {internalLinks.map((l) => (
+          <SettingRow
+            key={l.to}
+            label={l.label}
+            control={
+              <Link
+                to={l.to}
+                onClick={closeAll}
+                className="inline-flex items-center gap-1 text-sm font-medium text-accent transition hover:text-accent-hover"
+              >
+                {t("settings.open", "Open")}
+                <Icon name="arrowBigRight" size={14} aria-hidden />
+              </Link>
+            }
+          />
+        ))}
+        <SettingRow
+          label={t("landing.footerOpenSource", "Open source")}
+          help={t(
+            "settings.moreInfo.openSourceHelp",
+            "Browse the code on GitHub.",
+          )}
+          control={
+            <a
+              href="https://github.com/open-lingo/lingo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-sm font-medium text-accent transition hover:text-accent-hover"
+            >
+              GitHub
+              <Icon name="github" size={14} aria-hidden />
+            </a>
+          }
+        />
+      </SettingsGroup>
+
+      <SettingsGroup
+        label={t("settings.moreInfo.attributionsLabel", "Attributions")}
+      >
+        <div className="space-y-2 px-4 py-3.5 text-sm leading-relaxed text-text-muted">
+          <p>
+            {t("landing.footerCopyright", "© {{year}} Open Lingo · MIT License", {
+              year,
+            })}
+          </p>
+          <p>
+            {t("landing.footerStrokeOrder", "Stroke order: ")}
+            <a
+              href="http://kanjivg.tagaini.net"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-text-secondary hover:text-text-primary"
+            >
+              KanjiVG
+            </a>{" "}
+            ·{" "}
+            <a
+              href="https://creativecommons.org/licenses/by-sa/3.0/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-text-secondary hover:text-text-primary"
+            >
+              CC BY-SA 3.0
+            </a>{" "}
+            · {t("landing.footerStrokeOrderHangul", "Hangul stroke data © Open Lingo")}
+          </p>
+        </div>
+      </SettingsGroup>
+    </Panel>
+  );
+}
+
 function LanguageSettingsPanel({ languageId }: { languageId: string }) {
   const { t } = useTranslation();
   const { settings, updateSetting } = useSettings();
@@ -653,12 +696,25 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
           "Course and practice options for Korean.",
         )}
       />
-      <p className="text-sm text-text-muted">
-        {t(
-          "settings.languageKoEmpty",
-          "No language-specific display options for Korean yet.",
-        )}
-      </p>
+      <SettingsGroup label={t("settings.alphabetDisplay", "Alphabet display")}>
+        <SettingRow
+          asLabel
+          label={t("settings.showRomanization", "Show romanization")}
+          help={t(
+            "settings.showRomanizationHelp",
+            "Show Revised Romanization above Hangul as a reading aid.",
+          )}
+          control={
+            <Switch
+              checked={settings.learning.showRomanization ?? true}
+              onCheckedChange={(next) =>
+                updateSetting("learning.showRomanization", next)
+              }
+              ariaLabel={t("settings.showRomanization", "Show romanization")}
+            />
+          }
+        />
+      </SettingsGroup>
       <LanguageDangerZone languageId={languageId} />
     </Panel>
   );

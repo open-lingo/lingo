@@ -238,41 +238,6 @@ export interface InviteRedeemResult {
   ad_free_minutes: number;
 }
 
-// ─── Threads + messages ─────────────────────────────────────────────────────
-// Shape matches `lingo-core/app/social/schemas.py` exactly (flat fields, no
-// nested `other_user`/`thread`). Earlier iterations of this file had a
-// nested shape that didn't match the backend — the adapter would silently
-// crash with "Cannot read properties of undefined (reading 'user_id')" when
-// rendering the messages list. Keep the field names flat + snake_case.
-
-export interface ThreadItem {
-  id: string;
-  other_user_id: string;
-  other_username: string;
-  other_display_name: string;
-  other_avatar_key: string | null;
-  last_message_preview: string;
-  last_message_at: string;
-  unread_count: number;
-}
-
-export interface Message {
-  id: string;
-  thread_id: string;
-  sender_id: string;
-  body: string;
-  sent_at: string;
-}
-
-export interface ThreadDetail {
-  id: string;
-  other_user_id: string;
-  other_username: string;
-  other_display_name: string;
-  other_avatar_key: string | null;
-  messages: Message[];
-}
-
 // ─── Friend suggestions ─────────────────────────────────────────────────────
 
 export interface FriendSuggestionItem {
@@ -512,51 +477,6 @@ export class SocialApi extends ApiClient {
       `${PREFIX}/invites/redeem/${encodeURIComponent(code)}`,
       undefined,
       { signal, tag: `social:invite-redeem:${code}` },
-    );
-  }
-
-  // ── Threads ────────────────────────────────────────────────
-
-  getThreads(signal?: AbortSignal): Promise<ThreadItem[]> {
-    return this.get<ThreadItem[]>(`${PREFIX}/threads`, {
-      signal,
-      tag: "social:threads",
-    });
-  }
-
-  getThread(threadId: string, signal?: AbortSignal): Promise<ThreadDetail> {
-    return this.get<ThreadDetail>(
-      `${PREFIX}/threads/${encodeURIComponent(threadId)}`,
-      { signal, tag: `social:thread:${threadId}` },
-    );
-  }
-
-  /** Open (or create) a 1:1 thread with the given user. Returns the existing
-   *  thread item when one already exists between the caller and `userId`;
-   *  otherwise the backend creates one and returns it. */
-  getOrCreateThreadWith(
-    userId: string,
-    signal?: AbortSignal,
-  ): Promise<ThreadItem> {
-    return this.post<ThreadItem>(
-      `${PREFIX}/threads/with/${encodeURIComponent(userId)}`,
-      undefined,
-      { signal, tag: `social:thread-with:${userId}` },
-    );
-  }
-
-  /** Send a new message in a thread the caller participates in. Returns the
-   *  persisted message so the UI can append it after the optimistic update
-   *  resolves (or roll back on error). */
-  sendThreadMessage(
-    threadId: string,
-    body: string,
-    signal?: AbortSignal,
-  ): Promise<Message> {
-    return this.post<Message>(
-      `${PREFIX}/threads/${encodeURIComponent(threadId)}/messages`,
-      { body },
-      { signal, tag: `social:thread-send:${threadId}` },
     );
   }
 

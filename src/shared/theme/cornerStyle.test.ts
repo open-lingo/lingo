@@ -2,7 +2,8 @@ import { describe, it, expect } from "vitest";
 import {
   CORNER_STYLE_RADIUS,
   CORNER_STYLES,
-  cardRadius,
+  resolveCardRadius,
+  cornerStyleFromRadius,
 } from "./cornerStyle";
 
 describe("cornerStyle", () => {
@@ -19,27 +20,26 @@ describe("cornerStyle", () => {
     expect(CORNER_STYLES).toEqual(["sharp", "default", "rounded", "pill"]);
   });
 
-  describe("cardRadius", () => {
-    it("returns the preset value for a non-default preset", () => {
-      expect(cardRadius("sharp")).toBe("0.25rem");
-      expect(cardRadius("rounded")).toBe("1.5rem");
-      expect(cardRadius("pill")).toBe("2rem");
+  describe("resolveCardRadius", () => {
+    it("uses the theme's radius.card when provided", () => {
+      expect(resolveCardRadius("1.5rem")).toBe("1.5rem");
     });
 
-    it("falls back to the default preset when undefined", () => {
-      expect(cardRadius(undefined)).toBe("0.625rem");
+    it("falls back to the shared default when unset", () => {
+      expect(resolveCardRadius(undefined)).toBe("0.625rem");
+    });
+  });
+
+  describe("cornerStyleFromRadius", () => {
+    it("reverse-maps a known length to its preset", () => {
+      expect(cornerStyleFromRadius("0.25rem")).toBe("sharp");
+      expect(cornerStyleFromRadius("1.5rem")).toBe("rounded");
+      expect(cornerStyleFromRadius("2rem")).toBe("pill");
     });
 
-    it("uses the theme default when the preset is 'default'", () => {
-      expect(cardRadius("default", "1rem")).toBe("1rem");
-    });
-
-    it("ignores the theme default for explicit non-default presets", () => {
-      expect(cardRadius("pill", "1rem")).toBe("2rem");
-    });
-
-    it("uses the shared default when no theme default is given", () => {
-      expect(cardRadius("default")).toBe("0.625rem");
+    it("reads unset or unknown lengths as 'default'", () => {
+      expect(cornerStyleFromRadius(undefined)).toBe("default");
+      expect(cornerStyleFromRadius("0.9rem")).toBe("default");
     });
   });
 });

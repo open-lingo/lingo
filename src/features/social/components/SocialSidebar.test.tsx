@@ -48,7 +48,6 @@ describe("SocialSidebar avatar", () => {
         activeTab="overview"
         onSelect={() => {}}
         onAddFriend={() => {}}
-        unreadCount={0}
         requestCount={0}
       />,
     );

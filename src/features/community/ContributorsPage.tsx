@@ -236,12 +236,6 @@ export function ContributorsPage() {
         onSelect: () =>
           navigate(langPath(browseCreatorPath(c.id, c.displayName))),
       },
-      {
-        key: "message",
-        label: t("community.contributorMessage", "Message"),
-        leading: <Icon name="messageCircle" size={14} aria-hidden />,
-        onSelect: () => navigate(langPath(`messenger/${c.id}`)),
-      },
     ];
   }
 

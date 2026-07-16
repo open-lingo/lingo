@@ -102,9 +102,6 @@ const SocialPage = lazyRetry(
 const FriendsPage = lazyRetry(
   () => import("@/features/social/FriendsPage"),
 );
-const MessengerPage = lazyRetry(
-  () => import("@/features/messenger/MessengerPage"),
-);
 const ShopPage = lazyRetry(() => import("@/features/shop/ShopPage"));
 const LearnPage = lazyRetry(() => import("@/features/learn/LearnPage"));
 // Practice subroutes + placement + stories — reached only via the
@@ -337,6 +334,11 @@ const AdminEventsPage = lazyRetry(
 const AdminLmsPage = lazyRetry(() =>
   import("@/features/admin/AdminLmsPage").then((m) => ({ default: m.AdminLmsPage })),
 );
+const AdminInfraHealthPage = lazyRetry(() =>
+  import("@/features/admin/AdminInfraHealthPage").then((m) => ({
+    default: m.AdminInfraHealthPage,
+  })),
+);
 const PublicProfilePage = lazyRetry(() =>
   import("@/features/profile/PublicProfilePage").then((m) => ({
     default: m.PublicProfilePage,
@@ -387,6 +389,7 @@ const router = createBrowserRouter([
               { path: "ops", element: <AdminOpsPage /> },
               { path: "ops/audit", element: <AdminAuditPage /> },
               { path: "events", element: <AdminEventsPage /> },
+              { path: "infra", element: <AdminInfraHealthPage /> },
               { path: "lms", element: <AdminLmsPage /> },
               // Deep-link compatibility — preserve old URLs during the migration.
               { path: "operations", element: <Navigate to="/admin/ops" replace /> },
@@ -466,8 +469,9 @@ const router = createBrowserRouter([
               { path: "transit-preview", element: <TransitLearnPage preview /> },
               { path: "social", element: <RequireSocial><SocialPage /></RequireSocial> },
               { path: "social/friends", element: <RequireSocial><FriendsPage /></RequireSocial> },
-              { path: "messenger", element: <RequireSocial><MessengerPage /></RequireSocial> },
-              { path: "messenger/:friendId", element: <RequireSocial><MessengerPage /></RequireSocial> },
+              // messenger routes removed 2026-07-15 — MessengerPage deleted
+              // with the messages feature; the concurrent branch's
+              // RequireSocial gate on them is subsumed by the removal.
               { path: "asset-test", element: <AssetTestPage /> },
               { path: "picker-test", element: <PickerTestPage /> },
               {

@@ -1,6 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
 
-const DEV_AUTH_BYPASS = import.meta.env.VITE_DEV_AUTH_BYPASS === "true";
+// Also gated on import.meta.env.DEV so a stray VITE_DEV_AUTH_BYPASS=true can
+// never activate the bypass in a production build — Vite hard-codes DEV=false
+// for `vite build`, so this branch is dead-code-eliminated from prod bundles.
+const DEV_AUTH_BYPASS =
+  import.meta.env.DEV && import.meta.env.VITE_DEV_AUTH_BYPASS === "true";
 
 const DEV_USER = {
   sub: "dev|user-1",

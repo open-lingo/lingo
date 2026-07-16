@@ -25,7 +25,7 @@
  */
 
 import { useEffect, useState, type CSSProperties } from "react";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 import { useApi } from "@/shared/api/provider";
@@ -38,7 +38,6 @@ import { DataTable, type DataTableColumn } from "@/shared/components/data";
 import { ApiError } from "@/shared/api/client";
 import type { FriendshipStatus } from "@/shared/api/social";
 import { useMe } from "@/shared/hooks/useMe";
-import { useLangPath } from "@/shared/hooks/useLangPath";
 import { canAccessSiteAdmin } from "@/shared/auth/roles";
 import { useStartImpersonation } from "@/features/admin/impersonation/useStartImpersonation";
 import { ImpersonateConfirmModal } from "@/features/admin/impersonation/ImpersonateConfirmModal";
@@ -129,8 +128,6 @@ export function PublicProfilePage() {
   const { username } = useParams<{ username: string }>();
   const [searchParams] = useSearchParams();
   const { t, i18n } = useTranslation();
-  const navigate = useNavigate();
-  const langPath = useLangPath();
   const { social } = useApi();
   const { login, isAuthenticated } = useAuth();
   const { me } = useMe();
@@ -359,11 +356,6 @@ export function PublicProfilePage() {
     if (!socialProfile) return;
     void runAction(social.blockUser(socialProfile.user_id));
   }
-  function handleQuickChat() {
-    if (!socialProfile) return;
-    navigate(langPath(`messenger/${socialProfile.user_id}`));
-  }
-
   // Banner-as-header mode: the equipped banner becomes a backdrop the
   // masthead sits ON TOP of (Twitter/Discord profile-header pattern).
   // We reserve vertical space on the article via top padding so the
@@ -682,20 +674,6 @@ export function PublicProfilePage() {
               </div>
               {!isSelf && (
                 <div className="flex items-center gap-2">
-                  {/* Quick chat — open the messenger thread with this user.
-                      Visible to any signed-in viewer who isn't the owner. */}
-                  {isAuthenticated && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={handleQuickChat}
-                      className={`!gap-1.5 ${hasBanner ? ownerPillOverBanner : ""}`}
-                    >
-                      <Icon name="messageCircle" size={14} strokeWidth={2.25} aria-hidden />
-                      {t("profile.publicQuickChat", "Quick chat")}
-                    </Button>
-                  )}
                   <PrimaryAction
                     status={friendship ?? null}
                     actionState={actionState}

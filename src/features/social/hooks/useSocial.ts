@@ -9,7 +9,6 @@ import type {
 } from "@/shared/api/social";
 import type {
   ActivityItem,
-  ChatThread,
   FriendQuest,
   HomeFriendPreview,
   InviteOffer,
@@ -28,7 +27,6 @@ import {
   adaptLeaderboardEntry,
   adaptSpotlight,
   adaptStreakSnapshot,
-  adaptThread,
 } from "./socialAdapters";
 import type { LeagueSpotlight } from "./useSocial.types";
 
@@ -39,7 +37,6 @@ const SOCIAL_QUERY_KEYS = {
   friendRequests: ["social", "friend-requests"] as const,
   blocks: ["social", "blocks"] as const,
   activity: ["social", "activity"] as const,
-  threads: ["social", "threads"] as const,
   weeklyLb: (lang: string) => ["social", "leaderboard", "weekly", lang] as const,
   monthlyLb: (lang: string) => ["social", "leaderboard", "monthly", lang] as const,
   friendsLb: (lang: string | undefined) =>
@@ -119,7 +116,6 @@ export type UseSocialResult = {
   primarySuggestion: { user: SocialUser; reason: string } | null;
   friendQuest: FriendQuest | null;
   activity: ActivityItem[];
-  threads: ChatThread[];
   weeklyLeaderboard: LeaderboardRow[];
   monthlyLeaderboard: LeaderboardRow[];
   friendsLeaderboard: LeaderboardRow[];
@@ -132,7 +128,6 @@ export function useSocial(options?: { homeFriendsLimit?: number }): UseSocialRes
   const friendRequests = useFriendRequests();
   const friendSuggestions = useFriendSuggestions();
   const activity = useActivityFeed();
-  const threads = useThreads();
   const bundle = useLeaderboardBundle();
 
   return useMemo(() => {
@@ -152,14 +147,12 @@ export function useSocial(options?: { homeFriendsLimit?: number }): UseSocialRes
         friendRequests.isLoading ||
         friendSuggestions.isLoading ||
         activity.isLoading ||
-        threads.isLoading ||
         bundle.isLoading,
       isError:
         Boolean(friends.isError) ||
         Boolean(friendRequests.isError) ||
         Boolean(friendSuggestions.isError) ||
         Boolean(activity.isError) ||
-        Boolean(threads.isError) ||
         Boolean(bundle.isError),
       me: null,
       friends: friendsData,
@@ -169,7 +162,6 @@ export function useSocial(options?: { homeFriendsLimit?: number }): UseSocialRes
       primarySuggestion: suggestionsData[0] ?? null,
       friendQuest: null,
       activity: activity.data ?? [],
-      threads: threads.data ?? [],
       weeklyLeaderboard: bundle.data?.weekly ?? [],
       monthlyLeaderboard: bundle.data?.monthly ?? [],
       friendsLeaderboard: bundle.data?.friends ?? [],
@@ -189,9 +181,6 @@ export function useSocial(options?: { homeFriendsLimit?: number }): UseSocialRes
     activity.data,
     activity.isLoading,
     activity.isError,
-    threads.data,
-    threads.isLoading,
-    threads.isError,
     bundle.data,
     bundle.isLoading,
     bundle.isError,
@@ -262,18 +251,6 @@ export function useActivityFeed(options?: HookOptions): Result<ActivityItem[]> {
     queryFn: social ? (signal) => social.getActivity(undefined, signal) : null,
     select: (resp) => resp.items.map(adaptActivity),
     override: options?.override as ActivityItem[] | undefined,
-    staleTime: 30_000,
-  });
-}
-
-export function useThreads(options?: HookOptions): Result<ChatThread[]> {
-  const api = useApiOptional();
-  const social: SocialApi | null = api?.social ?? null;
-  return useApiResource({
-    queryKey: SOCIAL_QUERY_KEYS.threads,
-    queryFn: social ? (signal) => social.getThreads(signal) : null,
-    select: (data) => data.map(adaptThread),
-    override: options?.override as ChatThread[] | undefined,
     staleTime: 30_000,
   });
 }

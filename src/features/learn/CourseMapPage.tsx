@@ -23,6 +23,8 @@ import {
   getMilestoneForModule,
   type VocabSample,
 } from "./courseMapData";
+import { groupModulesByLevel, type FluencyLevel } from "./courseLevels";
+import { getItemsForModule } from "@/features/placement/questionBank";
 
 type ViewMode = "detailed" | "simple";
 
@@ -42,12 +44,16 @@ type ModuleNode = {
   status: ModuleStatus;
   badgeLabel: string;
   isReview: boolean;
+  /** 1-indexed content-module number (null for review modules). */
+  contentNumber: number | null;
   isCurrent: boolean;
   mastered: boolean;
   lessonCount: number;
   vocabCount: number;
   vocabSamples: VocabSample[];
   milestone: string | null;
+  /** Whether the learner can "test out" of this ahead-of module. */
+  canTestOut: boolean;
 };
 
 const STATUS_DISC: Record<ModuleStatus, string> = {
@@ -87,18 +93,30 @@ export function CourseMapPage() {
       const mastery = getModuleMastery(module, completedSet);
       const counts = getModuleLessonCounts(module);
       const vocab = getModuleVocab(module, course.languageId);
+      const isCurrent = index === currentIndex;
+      // A learner can test out of a module that's ahead of them (not the
+      // current module, not already cleared) as long as a placement bank
+      // exists for it. The bank existence naturally excludes far-future
+      // modules with no authored items.
+      const canTestOut =
+        status !== "completed" &&
+        !isCurrent &&
+        !display.isReview &&
+        getItemsForModule(module.id, course.languageId).length > 0;
       return {
         index,
         module,
         status,
         badgeLabel: display.badgeLabel,
         isReview: display.isReview,
-        isCurrent: index === currentIndex,
+        contentNumber: display.contentNumber,
+        isCurrent,
         mastered: mastery.mastered,
         lessonCount: counts.content,
         vocabCount: vocab.count,
         vocabSamples: vocab.samples,
         milestone: getMilestoneForModule(course.languageId, index),
+        canTestOut,
       };
     });
   }, [course, completedSet, currentIndex]);
@@ -181,26 +199,36 @@ export function CourseMapPage() {
               })}
             </h1>
           </div>
-          <SegmentedControl<ViewMode>
-            ariaLabel={t("courseMap.view.label", {
-              defaultValue: "Map detail level",
-            })}
-            value={view}
-            onChange={setView}
-            size="sm"
-            options={[
-              {
-                value: "detailed",
-                label: t("courseMap.view.detailed", {
-                  defaultValue: "Detailed",
-                }),
-              },
-              {
-                value: "simple",
-                label: t("courseMap.view.simple", { defaultValue: "Simple" }),
-              },
-            ]}
-          />
+          <div className="flex flex-wrap items-center gap-2">
+            <Link to={langPath("learn/placement-test")}>
+              <Button variant="ghost" size="sm">
+                <Icon name="compass" size={15} aria-hidden />
+                {t("courseMap.retakePlacement", {
+                  defaultValue: "Retake placement",
+                })}
+              </Button>
+            </Link>
+            <SegmentedControl<ViewMode>
+              ariaLabel={t("courseMap.view.label", {
+                defaultValue: "Map detail level",
+              })}
+              value={view}
+              onChange={setView}
+              size="sm"
+              options={[
+                {
+                  value: "detailed",
+                  label: t("courseMap.view.detailed", {
+                    defaultValue: "Detailed",
+                  }),
+                },
+                {
+                  value: "simple",
+                  label: t("courseMap.view.simple", { defaultValue: "Simple" }),
+                },
+              ]}
+            />
+          </div>
         </div>
       </header>
 
@@ -216,12 +244,17 @@ export function CourseMapPage() {
             view={view}
             selectedIndex={selected?.index ?? -1}
             onSelect={setSelectedIndex}
+            languageId={course.languageId}
           />
         </Card>
 
         <div className="lg:sticky lg:top-4 lg:self-start">
           {selected && (
-            <ModuleDetailPanel node={selected} learnHref={learnHref} />
+            <ModuleDetailPanel
+              node={selected}
+              learnHref={learnHref}
+              testOutHref={langPath("learn/test-out/" + selected.module.id)}
+            />
           )}
         </div>
       </div>
@@ -345,11 +378,13 @@ function CourseMapTrail({
   view,
   selectedIndex,
   onSelect,
+  languageId,
 }: {
   nodes: ModuleNode[];
   view: ViewMode;
   selectedIndex: number;
   onSelect: (index: number) => void;
+  languageId: string;
 }) {
   return view === "simple" ? (
     <SimpleMap
@@ -362,6 +397,7 @@ function CourseMapTrail({
       nodes={nodes}
       selectedIndex={selectedIndex}
       onSelect={onSelect}
+      languageId={languageId}
     />
   );
 }
@@ -369,43 +405,81 @@ function CourseMapTrail({
 /* --------------------------------------------------------- detailed map */
 
 /**
- * Detailed map: a flowing multi-column grid of rich node cards. Flowing the
- * nodes into columns (vs one tall stacked list) is what makes the surface
- * "less tall / more map-like" — the whole journey reads as a board at a
- * glance instead of an endless scroll.
+ * Detailed map: nodes grouped under fluency-level section headers (A1, A2…),
+ * each carrying a "By the end" outcome so the page answers "where will I be by
+ * module X?". Within a level, node cards still flow into a multi-column grid so
+ * the whole journey reads as a board at a glance rather than an endless scroll.
  */
 function DetailedMap({
   nodes,
   selectedIndex,
   onSelect,
+  languageId,
 }: {
   nodes: ModuleNode[];
   selectedIndex: number;
   onSelect: (index: number) => void;
+  languageId: string;
 }) {
   const { t } = useTranslation();
+  const groups = useMemo(
+    () => groupModulesByLevel(languageId, nodes, (n) => n.contentNumber),
+    [languageId, nodes],
+  );
   return (
-    <div className="p-4 sm:p-5">
-      <ol className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
-        {nodes.map((node) => (
-          <CourseMapNode
-            key={node.module.id}
-            node={node}
-            selected={node.index === selectedIndex}
-            onSelect={() => onSelect(node.index)}
-          />
-        ))}
-        {/* Fluency goal — terminus of the journey. */}
-        <li className="flex items-center gap-2.5 rounded-card border border-dashed border-border p-3 text-sm font-semibold text-text-muted">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-border text-accent">
-            <Icon name="flag" size={16} aria-hidden />
-          </span>
-          {t("courseMap.fluencyGoal", {
-            defaultValue: "Conversational fluency",
-          })}
-        </li>
-      </ol>
+    <div className="space-y-6 p-4 sm:p-5">
+      {groups.map((group) => (
+        <section key={group.level.id} className="space-y-2.5">
+          <LevelSectionHeader level={group.level} />
+          <ol className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
+            {group.items.map((node) => (
+              <CourseMapNode
+                key={node.module.id}
+                node={node}
+                selected={node.index === selectedIndex}
+                onSelect={() => onSelect(node.index)}
+              />
+            ))}
+          </ol>
+        </section>
+      ))}
+      {/* Fluency goal — terminus of the journey. */}
+      <div className="flex items-center gap-2.5 rounded-card border border-dashed border-border p-3 text-sm font-semibold text-text-muted">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-border text-accent">
+          <Icon name="flag" size={16} aria-hidden />
+        </span>
+        {t("courseMap.fluencyGoal", {
+          defaultValue: "Conversational fluency",
+        })}
+      </div>
     </div>
+  );
+}
+
+/**
+ * Fluency-level section header — CEFR badge + human title + a "By the end"
+ * outcome line. This is the answer to "what will I be able to do by the end of
+ * this level?" and is the anchor that makes the whole map scannable.
+ */
+function LevelSectionHeader({ level }: { level: FluencyLevel }) {
+  const { t } = useTranslation();
+  return (
+    <header className="flex items-start gap-3">
+      <span className="mt-0.5 inline-flex shrink-0 items-center rounded-md bg-[color-mix(in_srgb,var(--color-accent)_14%,var(--color-surface))] px-2 py-0.5 text-xs font-extrabold uppercase tracking-wide text-accent">
+        {level.cefr}
+      </span>
+      <div className="min-w-0">
+        <h3 className="text-sm font-bold leading-tight text-text-primary">
+          {level.title}
+        </h3>
+        <p className="mt-0.5 text-xs leading-snug text-text-secondary">
+          <span className="font-semibold text-text-muted">
+            {t("courseMap.byTheEnd", { defaultValue: "By the end:" })}{" "}
+          </span>
+          {level.outcome}
+        </p>
+      </div>
+    </header>
   );
 }
 
@@ -602,9 +676,11 @@ function MetaBadge({
 function ModuleDetailPanel({
   node,
   learnHref,
+  testOutHref,
 }: {
   node: ModuleNode;
   learnHref: string;
+  testOutHref: string;
 }) {
   const { t } = useTranslation();
   const { module, status } = node;
@@ -674,15 +750,27 @@ function ModuleDetailPanel({
         </div>
       )}
 
-      <Link to={learnHref} className="block">
-        <Button
-          variant={status === "locked" ? "outline" : "primary"}
-          className="w-full"
-        >
-          {t("courseMap.goToModule", { defaultValue: "Go to module" })}
-          <Icon name="arrowRight" size={16} aria-hidden />
-        </Button>
-      </Link>
+      <div className="space-y-2">
+        <Link to={learnHref} className="block">
+          <Button
+            variant={status === "locked" ? "outline" : "primary"}
+            className="w-full"
+          >
+            {t("courseMap.goToModule", { defaultValue: "Go to module" })}
+            <Icon name="arrowRight" size={16} aria-hidden />
+          </Button>
+        </Link>
+        {node.canTestOut && (
+          <Link to={testOutHref} className="block">
+            <Button variant="ghost" className="w-full">
+              <Icon name="compass" size={16} aria-hidden />
+              {t("courseMap.testOut", {
+                defaultValue: "Test out of this module",
+              })}
+            </Button>
+          </Link>
+        )}
+      </div>
     </Card>
   );
 }

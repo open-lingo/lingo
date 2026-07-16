@@ -102,6 +102,12 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
         description: "Inspect the real-time event stream and handler outcomes.",
         icon: "activity",
       },
+      {
+        to: "/admin/infra",
+        title: "Infrastructure",
+        description: "AWS budget usage and CloudWatch alarm state.",
+        icon: "gauge",
+      },
     ],
   },
 ];

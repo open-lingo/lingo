@@ -52,7 +52,7 @@ export function useCommands(): Command[] {
     const settings: Command[] = [
       { id: "set-general", label: t("settings.nav.general", "General"), group: t("cmd.group.settings", "Settings"), icon: "settings", keywords: "settings preferences", perform: () => openSettings("general"), showWhenEmpty: true },
       { id: "set-appearance", label: t("settings.nav.appearance", "Appearance"), group: t("cmd.group.settings", "Settings"), icon: "palette", keywords: "theme dark light color font", perform: () => openSettings("appearance"), showWhenEmpty: true },
-      { id: "set-audio", label: t("settings.nav.audio", "Audio"), group: t("cmd.group.settings", "Settings"), icon: "headphones", keywords: "sound volume tts speech", perform: () => openSettings("audio"), showWhenEmpty: true },
+      { id: "set-audio", label: t("settings.soundGroup", "Sound"), group: t("cmd.group.settings", "Settings"), icon: "headphones", keywords: "sound volume tts speech audio", perform: () => openSettings("general"), showWhenEmpty: true },
       { id: "set-accessibility", label: t("settings.accessibility", "Accessibility"), group: t("cmd.group.settings", "Settings"), icon: "eye", keywords: "dyslexia font size motion", perform: () => openSettings("accessibility"), showWhenEmpty: true },
       { id: "set-notifications", label: t("settings.notifications", "Notifications"), group: t("cmd.group.settings", "Settings"), icon: "megaphone", perform: () => openSettings("notifications"), showWhenEmpty: true },
       { id: "set-privacy", label: t("legal.settings.privacyTitle", "Privacy"), group: t("cmd.group.settings", "Settings"), icon: "shield", keywords: "account data privacy", perform: () => openSettings("privacy"), showWhenEmpty: true },

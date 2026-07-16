@@ -30,6 +30,7 @@ import {
   Clock,
   Compass,
   Flag,
+  Gauge,
   MapPin,
   Library,
   Cloud,
@@ -238,6 +239,8 @@ export const iconRegistry = {
   moreHorizontal: MoreHorizontal,
   /** BarChart2 — data/stats indicator */
   barChart: BarChart2,
+  /** Gauge — budget / infrastructure-health meter affordance */
+  gauge: Gauge,
   /** Camera — change profile picture affordance */
   camera: Camera,
   /** Lightbulb — tip / hint affordance */

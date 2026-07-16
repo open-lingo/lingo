@@ -55,7 +55,7 @@ const mockUseMe = vi.fn(() => ({ me: { role: "user" }, isLoading: false }));
 vi.mock("@/shared/hooks/useMe", () => ({ useMe: () => mockUseMe() }));
 
 // Lang-path helper depends on LanguageProvider in real life; stub it so the
-// page can build messenger/learn links without wrapping the full context.
+// page can build learn links without wrapping the full context.
 vi.mock("@/shared/hooks/useLangPath", () => ({
   useLangPath: () => (p: string) => `/ja/${p.replace(/^\//, "")}`,
   useLang: () => "ja",
@@ -263,12 +263,5 @@ describe("PublicProfilePage", () => {
     const friendsBtn = await screen.findByRole("button", { name: /friends/i });
     await userEvent.click(friendsBtn);
     expect(await screen.findByText(/act as user/i)).toBeInTheDocument();
-  });
-
-  it("shows a Quick chat button for non-self viewers and routes to the messenger", async () => {
-    mockGetPublicProfile.mockResolvedValue(baseSocial({ friendship_status: "friend" }));
-    renderPage();
-    const chat = await screen.findByRole("button", { name: /quick chat/i });
-    expect(chat).toBeInTheDocument();
   });
 });

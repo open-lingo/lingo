@@ -59,6 +59,14 @@ const JA_FEATURES: PracticeFeatureConfig[] = [
 
 const KO_FEATURES: PracticeFeatureConfig[] = [
   {
+    id: "conjugation",
+    unlockAtModule: 2,
+    title: "Conjugation",
+    description: "Verb and adjective form drills",
+    icon: "활",
+    route: "practice/conjugation",
+  },
+  {
     id: "reading",
     unlockAtModule: 3,
     title: "Reading",
