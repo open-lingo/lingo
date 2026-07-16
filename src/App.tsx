@@ -16,6 +16,7 @@ import { LandingRoute } from "@/routes/LandingRoute";
 import { ProtectedHome } from "@/routes/ProtectedHome";
 import { RequireAuth } from "@/routes/RequireAuth";
 import { SettingsOpenRoute } from "@/features/settings/SettingsOpenRoute";
+import { SocialGate } from "@/features/social/SocialGate";
 
 // Lazy-loaded routes: anything heavy, role-restricted (admin/studio), or rarely-hit
 // on first paint. Split here keeps the main bundle focused on the learner happy path.
@@ -386,8 +387,8 @@ const router = createBrowserRouter([
               { path: "lesson-preview", element: <LessonStepPreviewPage /> },
               { path: "qa", element: <QaTestDrivePage /> },
               { path: "home-preview", element: <HomeRestructureMockup /> },
-              { path: "social", element: <SocialPage /> },
-              { path: "social/friends", element: <FriendsPage /> },
+              { path: "social", element: <SocialGate><SocialPage /></SocialGate> },
+              { path: "social/friends", element: <SocialGate><FriendsPage /></SocialGate> },
               { path: "asset-test", element: <AssetTestPage /> },
               { path: "picker-test", element: <PickerTestPage /> },
               {
