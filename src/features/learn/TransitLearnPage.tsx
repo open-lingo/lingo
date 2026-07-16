@@ -59,6 +59,7 @@ import {
   getNextLessonIndex,
   type ModuleStatus,
 } from "@/features/learn/moduleProgress";
+import { stringsFor } from "@/features/learn/transitStrings";
 import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
 import { useLearnProfile } from "@/features/learn/hooks/useLearnProfile";
 import { LearnSidebar } from "@/features/learn/components/LearnSidebar";
@@ -804,41 +805,6 @@ function SkylineArt({
   );
 }
 
-/* ── per-language strings ────────────────────────────────────────────── */
-
-const STRINGS: Record<
-  string,
-  {
-    lineName: string;
-    youAreHere: string;
-    zones: string[];
-    numerals: string[];
-    mapTitle: string;
-    seal: string;
-    depot: string;
-  }
-> = {
-  ja: {
-    lineName: "本線 Main Line",
-    youAreHere: "現在地 YOU ARE HERE",
-    zones: ["ZONE 1 · はじまり", "ZONE 2 · 日常", "ZONE 3 · 出発"],
-    numerals: ["一", "二", "三"],
-    mapTitle: "学習路線図",
-    seal: "済",
-    depot: "車両基地 Practice Depot →",
-  },
-  es: {
-    lineName: "Línea principal",
-    youAreHere: "¡ESTÁS AQUÍ!",
-    zones: ["ZONA 1 · Fundamentos", "ZONA 2 · Vida diaria", "ZONA 3 · De viaje"],
-    numerals: ["1", "2", "3"],
-    mapTitle: "Mapa de la línea",
-    seal: "✓",
-    depot: "Depósito · Práctica →",
-  },
-};
-const stringsFor = (lang: string) => STRINGS[lang] ?? STRINGS.es;
-
 const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1568,6 +1534,8 @@ function DistrictView({
   onNav: (index: number) => void;
 }) {
   const p = useLangPath();
+  const lang = useLang();
+  const strings = stringsFor(lang ?? "ja");
   const mod = course.modules[index];
   const status = statuses[index];
   const nextIdx = getNextLessonIndex(mod.lessons, completedSet);
@@ -1626,9 +1594,9 @@ function DistrictView({
         {/* ── ARRIVALS BOARD: every lesson is a departure row ── */}
         <div className="max-h-[54vh] overflow-y-auto" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
             <div className="flex items-center justify-between px-4 pt-2.5 pb-1.5 text-[10px] uppercase tracking-[0.22em] opacity-60">
-              <span>Lessons · 発車標</span>
+              <span>{strings.departuresBoard}</span>
               <span>
-                {done}/{mod.lessons.length} 済
+                {done}/{mod.lessons.length} {strings.doneStamp}
               </span>
             </div>
             {stops.map((s, i) => {
@@ -1645,7 +1613,7 @@ function DistrictView({
                     className="grid h-[24px] w-[34px] flex-none place-items-center rounded-[5px] text-[11px] font-extrabold text-white"
                     style={{ background: s.lesson.kind === "recap" ? "var(--tmc-q1)" : "var(--tmc-line-main)", opacity: s.isDone || s.isCurrent || status !== "locked" ? 1 : 0.45 }}
                   >
-                    {s.lesson.kind === "recap" ? "復" : `L${s.k + 1}`}
+                    {s.lesson.kind === "recap" ? strings.recapBadge : `L${s.k + 1}`}
                   </span>
                   <span className={cn("min-w-0 flex-1 truncate text-[13px] font-bold", !s.isDone && !s.isCurrent && "opacity-60")}>
                     {s.lesson.title}
@@ -1653,7 +1621,7 @@ function DistrictView({
                   </span>
                   {s.isDone ? (
                     <span className="grid h-[22px] w-[22px] flex-none -rotate-12 place-items-center rounded-full text-[10px] font-bold text-white" style={{ background: "var(--tmc-seal)" }}>
-                      済
+                      {strings.doneStamp}
                     </span>
                   ) : s.isCurrent ? (
                     <span className="flex-none rounded-sm bg-accent px-2.5 py-0.5 text-[10.5px] font-extrabold text-accent-foreground">NEXT ▶</span>
@@ -1676,7 +1644,7 @@ function DistrictView({
         {quests.length > 0 && (
           <div className="border-t border-border bg-surface-muted px-4 py-3">
             <div className="mb-2.5 flex items-baseline justify-between">
-              <span className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-text-muted">スタンプラリー · Side quests</span>
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-text-muted">{strings.stampRally}</span>
             </div>
             <div className="flex flex-wrap items-start gap-x-5 gap-y-3">
               {quests.flatMap((q) => {
@@ -1687,7 +1655,7 @@ function DistrictView({
                       <span className="flex w-[68px] flex-col items-center gap-1">
                         {leg.done ? (
                           <span className="grid h-10 w-10 place-items-center rounded-full text-[13px] font-extrabold text-white shadow-card" style={{ background: "var(--tmc-seal)", transform: `rotate(${-14 + (li % 5) * 7}deg)`, border: "2.5px solid color-mix(in srgb, #fff 25%, var(--tmc-seal))" }}>
-                            済
+                            {strings.doneStamp}
                           </span>
                         ) : (
                           <span className="grid h-10 w-10 place-items-center rounded-full border-2 border-dashed border-border text-[13px]">{q.emoji}</span>
@@ -1945,7 +1913,7 @@ export default function TransitLearnPage({ preview = false }: { preview?: boolea
           <div className="md:hidden">
             <LineDiagram layout={layout} currentIdx={currentIdx} lang={lang} onOpen={open} />
             <button className="mt-3 w-full rounded-sm border-2 border-text-primary px-3 py-2 text-[13px] font-bold text-text-primary" onClick={() => setShowMapMobile((v) => !v)}>
-              {showMapMobile ? "Hide network map" : "全体図 · View network map"}
+              {showMapMobile ? strings.hideNetworkMap : strings.viewNetworkMap}
             </button>
             {showMapMobile && (
               <div className="mt-3">
