@@ -1730,7 +1730,7 @@ export default function TransitLearnPage({ preview = false }: { preview?: boolea
   const showPlacement =
     !preview &&
     !placementDismissedByUser &&
-    lang === "ja" &&
+    (lang === "ja" || lang === "ko") &&
     !isPlacementDismissed() &&
     realIds.length === 0 &&
     getStoredSettings()?.learning?.ftueArcSeen === true;
