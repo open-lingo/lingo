@@ -31,7 +31,6 @@ import { KO_M24_LESSONS } from "@/features/languages/ko/curriculum/m24";
 import { KO_M25_LESSONS } from "@/features/languages/ko/curriculum/m25";
 import { KO_M26_LESSONS } from "@/features/languages/ko/curriculum/m26";
 import { KO_M27_LESSONS } from "@/features/languages/ko/curriculum/m27";
-import { MOCK_LESSON_KO_SIDEQUEST_SURVIVAL } from "@/features/languages/ko/curriculum/sidequest-survival";
 import { ES_ALL_LESSONS } from "@/features/languages/es/curriculum";
 import {
   MOCK_LESSON_JA_M1_L1A,
@@ -128,11 +127,6 @@ import {
   MOCK_LESSON_JA_M2_YOON_RARE_2,
   MOCK_LESSON_JA_M2_YOON_RARE_3,
 } from "@/features/languages/ja/curriculum/m2-yoon-rare";
-import { MOCK_LESSON_JA_SIDEQUEST_SURVIVAL } from "@/features/languages/ja/curriculum/sidequest-survival";
-import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_NAVIGATION } from "@/features/languages/ja/curriculum/sidequest-travel-navigation";
-import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_ORDERING } from "@/features/languages/ja/curriculum/sidequest-travel-ordering";
-import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_HELP } from "@/features/languages/ja/curriculum/sidequest-travel-help";
-import { MOCK_LESSON_JA_SIDEQUEST_TRAVEL_SHOPPING } from "@/features/languages/ja/curriculum/sidequest-travel-shopping";
 import {
   M8_1_1, M8_1_2, M8_2_1, M8_2_2, M8_3_1, M8_3_2,
   M8_4_1, M8_4_2, M8_5_1, M8_5_2, M8_6_1, M8_6_2,
@@ -505,7 +499,6 @@ const LESSONS: Record<string, LessonContent> = {
   ...KOREAN_M25_LESSONS,
   ...KOREAN_M26_LESSONS,
   ...KOREAN_M27_LESSONS,
-  "ko-sidequest-survival-phrases": MOCK_LESSON_KO_SIDEQUEST_SURVIVAL,
   // ─── Spanish — authored modules (assembled in es/curriculum/index.ts;
   // stub modules contribute nothing until their authoring wave lands) ───
   ...SPANISH_LESSONS,
@@ -573,12 +566,9 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m1-yoon-rare-1": MOCK_LESSON_JA_M2_YOON_RARE_1,
   "ja-m1-yoon-rare-2": MOCK_LESSON_JA_M2_YOON_RARE_2,
   "ja-m1-yoon-rare-3": MOCK_LESSON_JA_M2_YOON_RARE_3,
-  // Sidequest lessons — day-1 unlocks, no row/module attachment.
-  "ja-sidequest-survival-phrases": MOCK_LESSON_JA_SIDEQUEST_SURVIVAL,
-  "ja-sidequest-travel-navigation": MOCK_LESSON_JA_SIDEQUEST_TRAVEL_NAVIGATION,
-  "ja-sidequest-travel-ordering": MOCK_LESSON_JA_SIDEQUEST_TRAVEL_ORDERING,
-  "ja-sidequest-travel-help": MOCK_LESSON_JA_SIDEQUEST_TRAVEL_HELP,
-  "ja-sidequest-travel-shopping": MOCK_LESSON_JA_SIDEQUEST_TRAVEL_SHOPPING,
+  // Sidequest lessons — DELETED 2026-07-16 (Spencer: content to be remade
+  // from scratch). The quest tiles + map stops stay (comingSoon) so the
+  // transit-map dots keep rendering; re-register remade lessons here.
   // M3-M7 — grammar-spine modules (restructure 2026-05-16). Hand-authored
   // and registered explicitly. The augmentWithReviewTail helper skips them
   // because their ids don't match `ja-mN-{rowId}-{suffix}`.

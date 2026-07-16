@@ -1213,11 +1213,14 @@ function NetworkMap({
                 {spur.label && (
                   <LinePlate x={spur.labelX} y={spur.labelY} text={spur.label} color={spur.dashed ? "var(--tmc-locked)" : spur.color} />
                 )}
-                {spur.stops.map(({ x, y, quest, leg, labelDy }, si) =>
-                  leg ? (
-                    /* lesson stop on a sprint loop — a real link into the lesson */
-                    <Link key={leg.lessonId} to={langPath(`learn/lessons/${leg.lessonId}`)} aria-label={`${quest.title}: ${leg.title}${leg.done ? ", completed" : ""}`}>
-                      <g data-tm="quest" className="tmc-station">
+                {spur.stops.map(({ x, y, quest, leg, labelDy }, si) => {
+                  if (leg) {
+                    /* lesson stop on a sprint loop — while the quest is
+                     * comingSoon (content deleted, remake pending) the dot
+                     * renders but is inert; once live it links into the
+                     * lesson. */
+                    const stop = (
+                      <g data-tm="quest" className={quest.comingSoon ? undefined : "tmc-station"}>
                         <circle className="tmc-hit" cx={x} cy={y} r={18} fill="transparent" stroke="none" />
                         <circle
                           cx={x}
@@ -1234,8 +1237,16 @@ function NetworkMap({
                           {leg.title}
                         </text>
                       </g>
-                    </Link>
-                  ) : (
+                    );
+                    return quest.comingSoon ? (
+                      <g key={leg.lessonId} aria-label={`${quest.title}: ${leg.title}, coming soon`}>{stop}</g>
+                    ) : (
+                      <Link key={leg.lessonId} to={langPath(`learn/lessons/${leg.lessonId}`)} aria-label={`${quest.title}: ${leg.title}${leg.done ? ", completed" : ""}`}>
+                        {stop}
+                      </Link>
+                    );
+                  }
+                  return (
                     <g
                       key={`${quest.id}-${si}`}
                       data-tm="quest"
@@ -1276,8 +1287,8 @@ function NetworkMap({
                         {quest.progress > 0 && quest.progress < 100 ? ` · ${quest.progress}%` : ""}
                       </text>
                     </g>
-                  ),
-                )}
+                  );
+                })}
               </g>
             ))}
 
@@ -1682,8 +1693,8 @@ function DistrictView({
               {quests.flatMap((q) => {
                 const legs = legsFor(q);
                 if (legs) {
-                  return legs.map((leg, li) => (
-                    <Link key={leg.lessonId} to={lessonHref({ id: leg.lessonId, title: leg.title })} className="transition-transform hover:scale-105" aria-label={`${q.title}: ${leg.title}${leg.done ? ", stamped" : ""}`}>
+                  return legs.map((leg, li) => {
+                    const stamp = (
                       <span className="flex w-[68px] flex-col items-center gap-1">
                         {leg.done ? (
                           <span className="grid h-10 w-10 place-items-center rounded-full text-[13px] font-extrabold text-white shadow-card" style={{ background: "var(--tmc-seal)", transform: `rotate(${-14 + (li % 5) * 7}deg)`, border: "2.5px solid color-mix(in srgb, #fff 25%, var(--tmc-seal))" }}>
@@ -1694,8 +1705,17 @@ function DistrictView({
                         )}
                         <span className="max-w-[68px] truncate text-center text-[9.5px] leading-tight text-text-muted">{leg.title}</span>
                       </span>
-                    </Link>
-                  ));
+                    );
+                    // comingSoon sprint (content deleted, remake pending):
+                    // stamps render but don't link anywhere.
+                    return q.comingSoon ? (
+                      <span key={leg.lessonId} className="opacity-50" aria-label={`${q.title}: ${leg.title}, coming soon`}>{stamp}</span>
+                    ) : (
+                      <Link key={leg.lessonId} to={lessonHref({ id: leg.lessonId, title: leg.title })} className="transition-transform hover:scale-105" aria-label={`${q.title}: ${leg.title}${leg.done ? ", stamped" : ""}`}>
+                        {stamp}
+                      </Link>
+                    );
+                  });
                 }
                 const stamped = q.progress >= 100;
                 return (
@@ -1805,14 +1825,14 @@ export default function TransitLearnPage({ preview = false }: { preview?: boolea
   const doneCounts = useMemo(() => modules.map((m) => m.lessons.filter((l) => completedSet.has(l.id)).length), [modules, completedSet]);
   const currentIdx = useMemo(() => getCurrentModuleIndex(viewCourse, completedSet), [viewCourse, completedSet]);
 
-  /* side quests — same wiring as LearnPage (progress patch + click routes) */
-  const SIDEQUEST_TO_LESSON: Record<string, string> = {
-    "ja-survival-phrasebook": "ja-sidequest-survival-phrases",
-    "ko-survival-phrasebook": "ko-sidequest-survival-phrases",
-  };
-  const SIDEQUEST_TO_ROUTE: Record<string, string> = {
-    "ja-travel-sprint": "learn/travel-sprint",
-  };
+  /* side quests — same wiring as LearnPage (progress patch + click routes).
+   * All side-quest lesson content was DELETED 2026-07-16 pending a full
+   * content remake, so both maps are empty and every quest ships
+   * comingSoon. Re-add entries here as remade lessons land. */
+  const SIDEQUEST_TO_LESSON: Record<string, string> = {};
+  const SIDEQUEST_TO_ROUTE: Record<string, string> = {};
+  // Placeholder stop ids only — they keep the 4 Travel Sprint dots on the
+  // map (legsFor) but no longer resolve to lessons in LESSONS.
   const TRAVEL_SPRINT_LESSONS = [
     "ja-sidequest-travel-navigation",
     "ja-sidequest-travel-ordering",

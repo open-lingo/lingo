@@ -219,7 +219,6 @@ const CounterPracticePage = lazyRetry(() =>
 const PlacementTestPage = lazyRetry(() =>
   import("@/features/placement/PlacementTestPage").then((m) => ({ default: m.PlacementTestPage })),
 );
-const TravelSprintPage = lazyRetry(() => import("@/features/learn/TravelSprintPage"));
 const CourseMapPage = lazyRetry(() =>
   import("@/features/learn/CourseMapPage").then((m) => ({ default: m.CourseMapPage })),
 );
@@ -422,7 +421,9 @@ const router = createBrowserRouter([
                   { index: true, element: <LearnHomeRoute /> },
                   { path: "classic", element: <LearnPage /> },
                   { path: "courses", element: <Navigate to=".." replace /> },
-                  { path: "travel-sprint", element: <TravelSprintPage /> },
+                  // travel-sprint route removed 2026-07-16 — the sprint's
+                  // lesson content was deleted pending remake; the map dots
+                  // remain (comingSoon) and this hub returns with them.
                   { path: "course", element: <CourseMapPage /> },
                   { path: "lessons/:lessonId", element: <KeyedLessonPage /> },
                   { path: "placement-test", element: <PlacementTestPage /> },

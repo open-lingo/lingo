@@ -265,13 +265,10 @@ export function LearnPage() {
 
   // Sidequest id → lesson id. Map only the wired quests; unmapped ones
   // stay click-no-op (existing behavior) until their lessons land.
-  const SIDEQUEST_TO_LESSON: Record<string, string> = {
-    "ja-survival-phrasebook": "ja-sidequest-survival-phrases",
-    "ko-survival-phrasebook": "ko-sidequest-survival-phrases",
-  };
-  const SIDEQUEST_TO_ROUTE: Record<string, string> = {
-    "ja-travel-sprint": "learn/travel-sprint",
-  };
+  // All side-quest lesson content was DELETED 2026-07-16 pending a full
+  // remake, so both maps are empty and every quest tile is comingSoon.
+  const SIDEQUEST_TO_LESSON: Record<string, string> = {};
+  const SIDEQUEST_TO_ROUTE: Record<string, string> = {};
   const TRAVEL_SPRINT_LESSONS = [
     "ja-sidequest-travel-navigation",
     "ja-sidequest-travel-ordering",
