@@ -1,9 +1,7 @@
 import { useMemo } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Card, WeekSparkline } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useFlashcardDueSummary } from "@/features/flashcards/useFlashcardDueSummary";
 import { buildMemoryStrengthView } from "./memoryStrengthHelpers";
@@ -20,7 +18,6 @@ import { buildMemoryStrengthView } from "./memoryStrengthHelpers";
  */
 export function MemoryStrengthTile() {
   const { t } = useTranslation();
-  const langPath = useLangPath();
   const { language } = useLanguage();
   const langId = language?.id ?? "ko";
   const { learningCount, masteredCount, totalCount, weekReviews, isLoading } =
@@ -132,14 +129,8 @@ export function MemoryStrengthTile() {
           </div>
         </>
       )}
-
-      <Link
-        to={langPath("practice/flashcards")}
-        className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
-      >
-        {t("home.restructured.memory.cta", { defaultValue: "Train your memory" })}
-        <Icon name="chevronRight" size={16} aria-hidden />
-      </Link>
+      {/* Bottom "Train your memory" CTA removed 2026-07-16 — flashcards are a
+          tap away in Practice; a better home for this affordance is TBD. */}
     </Card>
   );
 }

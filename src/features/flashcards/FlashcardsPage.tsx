@@ -534,13 +534,21 @@ export function FlashcardsPage() {
 
       {/* Zone 6 — Your decks */}
       <section className="space-y-3">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
-            {t("flashcards.yourDecksKicker", "Library")}
-          </p>
-          <h2 className="mt-1 text-lg font-semibold text-text-primary">
-            {t("flashcards.yourDecks", "Your decks")}
-          </h2>
+        <div className="flex flex-wrap items-end justify-between gap-2">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+              {t("flashcards.yourDecksKicker", "Library")}
+            </p>
+            <h2 className="mt-1 text-lg font-semibold text-text-primary">
+              {t("flashcards.yourDecks", "Your decks")}
+            </h2>
+          </div>
+          <Link
+            to={langPath("vocab")}
+            className="text-sm font-medium text-accent hover:underline"
+          >
+            {t("flashcards.vocabBrowserLink", "Browse your vocabulary")}
+          </Link>
         </div>
         {courseDecks.length === 0 ? (
           <EmptyState

@@ -200,7 +200,17 @@ export function DeckManagerPage() {
         label: t("flashcards.deckManager.colNewPerDay", "New/day"),
         sortable: true,
         render: (d: ManagedDeck) =>
-          editingNewPerDay === d.id ? (
+          d.isCourseDeck ? (
+            <span
+              className="text-text-muted"
+              title={t(
+                "flashcards.deckManager.courseDeckManaged",
+                "Managed by lesson progress",
+              )}
+            >
+              —
+            </span>
+          ) : editingNewPerDay === d.id ? (
             <div className="flex items-center gap-1">
               <input
                 type="number"
@@ -241,6 +251,19 @@ export function DeckManagerPage() {
         label: t("flashcards.deckManager.colOrder", "Order"),
         sortable: true,
         render: (d: ManagedDeck) => {
+          if (d.isCourseDeck) {
+            return (
+              <span
+                className="text-text-muted"
+                title={t(
+                  "flashcards.deckManager.courseDeckManaged",
+                  "Managed by lesson progress",
+                )}
+              >
+                {t("flashcards.deckManager.orderOrdered", "Ordered")}
+              </span>
+            );
+          }
           const order = d.subscription?.newCardOrder ?? "ordered";
           return (
             <select
@@ -266,18 +289,29 @@ export function DeckManagerPage() {
         key: "enabled",
         label: t("flashcards.deckManager.colEnabled", "Active"),
         sortable: false,
-        render: (d: ManagedDeck) => (
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={d.subscription?.enabled !== false}
-              onChange={(e) =>
-                updateSubscription(d.id, { enabled: e.target.checked })
-              }
-              className="rounded border-border"
+        render: (d: ManagedDeck) =>
+          d.isCourseDeck ? (
+            <Icon
+              name="check"
+              size={16}
+              className="text-text-muted"
+              aria-label={t(
+                "flashcards.deckManager.courseDeckManaged",
+                "Managed by lesson progress",
+              )}
             />
-          </label>
-        ),
+          ) : (
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={d.subscription?.enabled !== false}
+                onChange={(e) =>
+                  updateSubscription(d.id, { enabled: e.target.checked })
+                }
+                className="rounded border-border"
+              />
+            </label>
+          ),
       },
     ];
 

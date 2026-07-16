@@ -8,7 +8,6 @@ import { loadAdSenseScript } from "@/features/ads/adsense";
 import { useAdsEnabled } from "@/features/ads/useAdsEnabled";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FundingMeter } from "@/shared/components/FundingMeter";
 import { SRSPendingSync } from "@/features/flashcards/SRSPendingSync";
 import { LessonProgressHydrate } from "@/features/lesson/LessonProgressHydrate";
 import { SyncManagerTrigger } from "@/features/sync/SyncManagerTrigger";
@@ -97,10 +96,6 @@ export function Layout() {
     pathname === "/about" ||
     pathname === "/login";
   const showAppAds = useAdsEnabled(false) && isAuthenticated && !isMarketingRoute;
-  // The onboarding language pickers are single-decision screens — keep the
-  // floating "% ad-funded" funding pill off them so it doesn't compete with
-  // the one choice we want the visitor making.
-  const isOnboardingPicker = pathname === "/get-started" || pathname === "/try";
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -401,10 +396,6 @@ export function Layout() {
         )}
       </header>
       {showAppAds ? <DailyWelcomeAd /> : null}
-      {/* Mounted between header and main so on <sm it renders in-flow below
-          the header (it used to float over page H1s on mobile); ≥sm it's the
-          fixed top-right panel as before. */}
-      {!isOnboardingPicker && !focusedFlow && <FundingMeter />}
       {/* Non-focused pages: content fills the viewport below the header.
           Focused flows (lessons/tests) tighten padding so steps aren't
           pushed below the fold. The marketing footer renders on /landing
@@ -426,14 +417,19 @@ export function Layout() {
       {isAuthenticated && !focusedFlow && (
         <FloatingLanguagePill className={sidebarMode ? "lg:hidden" : ""} />
       )}
-      {/* Sidebar layout has no top bar on desktop, so the utility controls
-          (cloud/sync, lingots, profile) float top-right where their menus
-          have room to open downward. Mobile sidebar mode still uses the top bar. */}
+      {/* Sidebar layout has no top bar on desktop, so the utility cluster
+          docks bottom-right as a hover-expanding pill: collapsed it shows only
+          the cloud sync status; hovering (or keyboard focus) reveals lingots +
+          the account menu, whose panels open upward. Toasts shift to the
+          top-right in this mode so they never cover it (see ToastContainer).
+          Mobile sidebar mode still uses the top bar. */}
       {sidebarMode && (
-        <div className="fixed right-3 top-3 z-40 hidden items-center gap-1.5 rounded-full border border-border bg-surface px-2 py-1 shadow-popover lg:flex">
-          <SyncManagerTrigger />
-          <LingotBalance />
-          <AuthMenu />
+        <div className="group fixed bottom-3 right-3 z-40 hidden items-center rounded-full border border-border bg-surface px-2 py-1 shadow-popover lg:flex">
+          <SyncManagerTrigger dropUp />
+          <div className="flex max-w-0 items-center gap-1.5 overflow-hidden opacity-0 transition-[max-width,opacity,margin] duration-200 group-focus-within:ml-1.5 group-focus-within:max-w-[16rem] group-focus-within:overflow-visible group-focus-within:opacity-100 group-hover:ml-1.5 group-hover:max-w-[16rem] group-hover:overflow-visible group-hover:opacity-100">
+            <LingotBalance />
+            <AuthMenu dropUp />
+          </div>
         </div>
       )}
       <CookieConsent />
@@ -445,6 +441,7 @@ export function Layout() {
       {isThemeEditorOpen && <ThemeEditorPanel />}
       <ToastContainer
         bottomOffsetClass={focusedFlow ? "bottom-52" : undefined}
+        topRightOnLg={sidebarMode}
       />
       <StorageQuotaWatcher />
     </div>

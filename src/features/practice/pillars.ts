@@ -67,6 +67,16 @@ const PILLARS: Pillar[] = [
         route: "practice/flashcards/review",
       },
       {
+        // Second slot on purpose: PillarTile previews the first 3
+        // activities, and this is the discoverable "your words" surface.
+        id: "vocab-browser",
+        titleKey: "practice.pillars.vocabulary.vocabBrowser",
+        titleDefault: "Your vocabulary",
+        descKey: "practice.pillars.vocabulary.vocabBrowserDesc",
+        descDefault: "Every word in your course, with your progress",
+        route: "vocab",
+      },
+      {
         id: "deck-manager",
         titleKey: "flashcards.deckManager.title",
         titleDefault: "Deck manager",
@@ -81,14 +91,6 @@ const PILLARS: Pillar[] = [
         descKey: "practice.pillars.vocabulary.cardsDesc",
         descDefault: "Browse and edit cards",
         route: "practice/flashcards/cards",
-      },
-      {
-        id: "top-vocab",
-        titleKey: "practice.pillars.vocabulary.top100",
-        titleDefault: "Top 100 words",
-        descKey: "practice.pillars.vocabulary.top100Desc",
-        descDefault: "Most common vocabulary",
-        route: "vocab",
       },
       {
         id: "browse-decks",

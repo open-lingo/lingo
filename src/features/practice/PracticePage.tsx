@@ -41,86 +41,43 @@ export function PracticePage() {
 
   return (
     <div className="space-y-4">
-      {/* Compact header — no contained hero box. */}
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-          {t("practice.overview.kicker", { defaultValue: "Practice" })}
-        </p>
-        <div className="mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h1 className="text-xl font-extrabold leading-tight text-text-primary sm:text-2xl">
-            {t("nav.practice")}
-          </h1>
-          {stats.total > 0 ? (
-            <p className="inline-flex items-center gap-1.5 text-xs font-medium text-text-muted">
-              <Icon name="graduationCap" size={14} aria-hidden />
-              {t("practice.overview.masteredCaption", {
-                defaultValue: "{{mastered}} mastered · {{learning}} learning",
-                mastered: stats.mastered,
-                learning: stats.learning,
-              })}
-            </p>
-          ) : null}
-        </div>
-        <p className="mt-1 max-w-md text-sm leading-snug text-text-secondary">
-          {t("practice.intro")}
-        </p>
+      {/* Single-line header — this page is a jumping-off point, so the
+          pillars get the vertical room, not the title. */}
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <h1 className="text-xl font-extrabold leading-tight text-text-primary sm:text-2xl">
+          {t("nav.practice")}
+        </h1>
+        {stats.total > 0 ? (
+          <p className="inline-flex items-center gap-1.5 text-xs font-medium text-text-muted">
+            <Icon name="graduationCap" size={14} aria-hidden />
+            {t("practice.overview.masteredCaption", {
+              defaultValue: "{{mastered}} mastered · {{learning}} learning",
+              mastered: stats.mastered,
+              learning: stats.learning,
+            })}
+          </p>
+        ) : null}
       </div>
 
-      {/* FSRS stat tiles — individual floating cards. */}
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:gap-2.5">
-        <PracticeStatTile
-          icon="refresh"
-          tone="accent"
-          value={stats.dueCount}
-          label={t("practice.overview.statDueLabel", { defaultValue: "Cards due" })}
-          caption={t("practice.overview.statDueCaption", { defaultValue: "ready to review" })}
-        />
-        <PracticeStatTile
-          icon="target"
-          value={
-            stats.hasRetention
-              ? `${stats.retention}%`
-              : t("practice.overview.statRetentionEmpty", { defaultValue: "—" })
-          }
-          label={t("practice.overview.statRetentionLabel", { defaultValue: "Retention" })}
-          caption={
-            stats.hasRetention
-              ? t("practice.overview.statRetentionCaption", { defaultValue: "recall accuracy" })
-              : t("practice.overview.statRetentionEmptyCaption", { defaultValue: "review to build" })
-          }
-        />
-        <PracticeStatTile
-          icon="flame"
-          value={stats.streak}
-          label={t("practice.overview.statStreakLabel", { defaultValue: "Day streak" })}
-          caption={
-            stats.bestStreak > 0
-              ? t("practice.overview.statStreakCaption", { defaultValue: "best {{best}}", best: stats.bestStreak })
-              : t("practice.overview.statStreakCaptionEmpty", { defaultValue: "start today" })
-          }
-        />
-        <PracticeStatTile
-          icon="barChart"
-          value={stats.weekTotalReviews}
-          label={t("practice.overview.statReviewsLabel", { defaultValue: "Reviews" })}
-          caption={t("practice.overview.statReviewsCaption", {
-            defaultValue: "{{count}} this week · {{days}}/7 active",
-            count: stats.weekTotalReviews,
-            days: stats.daysActiveThisWeek,
-          })}
-        >
-          <div className="py-0.5">
-            <WeekSparkline
-              data={stats.weekReviews}
-              ariaLabel={t("practice.overview.weekReviewsAria", {
-                defaultValue: "Reviews per day this week",
-              })}
+      {/* Practice pillars — the six avenues of language learning. First
+          thing on the page: this is the jumping-off point. */}
+      {/* No section heading — the page h1 directly above already says
+          "Practice"; a repeated label just costs fold height. */}
+      <section aria-label={t("practice.pillars.sectionTitle", { defaultValue: "Practice" })}>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {pillars.map((pillar) => (
+            <PillarTile
+              key={pillar.id}
+              pillar={pillar}
+              to={langPath(pillar.route)}
+              badge={pillar.id === "vocabulary" && hasDue ? stats.dueCount : undefined}
             />
-          </div>
-        </PracticeStatTile>
-      </div>
+          ))}
+        </div>
+      </section>
 
-      {/* Continue learning — one row of the four learning-driving actions. */}
+      {/* Continue learning — the three learning-driving actions. Grammar
+          practice lives inside the Grammar pillar above, not here. */}
       <section aria-labelledby="practice-continue-heading">
         <div className="mb-2 flex items-center gap-2">
           <h2
@@ -130,7 +87,7 @@ export function PracticePage() {
             {t("practice.hub2.continueTitle", { defaultValue: "Continue learning" })}
           </h2>
         </div>
-        <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-4">
+        <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
           <PracticeActionCard
             to={hasDue ? langPath("practice/flashcards/review") : langPath("practice/flashcards")}
             icon="graduationCap"
@@ -165,14 +122,6 @@ export function PracticePage() {
             }
           />
           <PracticeActionCard
-            to={langPath("practice/grammar")}
-            icon="bookOpen"
-            title={t("practice.hub2.grammarTitle", { defaultValue: "Grammar practice" })}
-            description={t("practice.hub2.grammarDesc", {
-              defaultValue: "Targeted drills tied to lessons",
-            })}
-          />
-          <PracticeActionCard
             to={langPath("practice/journey")}
             icon="trendingUp"
             title={t("practice.hub2.journeyTitle", { defaultValue: "Your journey" })}
@@ -183,27 +132,50 @@ export function PracticePage() {
         </div>
       </section>
 
-      {/* Practice pillars — the six avenues of language learning. */}
-      <section aria-labelledby="practice-pillars-heading">
-        <div className="mb-2 flex items-center gap-2">
-          <h2
-            id="practice-pillars-heading"
-            className="text-sm font-semibold text-text-primary"
-          >
-            {t("practice.pillars.sectionTitle", { defaultValue: "Practice" })}
-          </h2>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {pillars.map((pillar) => (
-            <PillarTile
-              key={pillar.id}
-              pillar={pillar}
-              to={langPath(pillar.route)}
-              badge={pillar.id === "vocabulary" && hasDue ? stats.dueCount : undefined}
+      {/* FSRS stat strip — footnote of the page, not its opener. Streak
+          already lives on Home + Your journey, so it's dropped here. */}
+      <div className="grid grid-cols-3 gap-2 lg:gap-2.5">
+        <PracticeStatTile
+          icon="refresh"
+          tone="accent"
+          value={stats.dueCount}
+          label={t("practice.overview.statDueLabel", { defaultValue: "Cards due" })}
+          caption={t("practice.overview.statDueCaption", { defaultValue: "ready to review" })}
+        />
+        <PracticeStatTile
+          icon="target"
+          value={
+            stats.hasRetention
+              ? `${stats.retention}%`
+              : t("practice.overview.statRetentionEmpty", { defaultValue: "—" })
+          }
+          label={t("practice.overview.statRetentionLabel", { defaultValue: "Retention" })}
+          caption={
+            stats.hasRetention
+              ? t("practice.overview.statRetentionCaption", { defaultValue: "recall accuracy" })
+              : t("practice.overview.statRetentionEmptyCaption", { defaultValue: "review to build" })
+          }
+        />
+        <PracticeStatTile
+          icon="barChart"
+          value={stats.weekTotalReviews}
+          label={t("practice.overview.statReviewsLabel", { defaultValue: "Reviews" })}
+          caption={t("practice.overview.statReviewsCaption", {
+            defaultValue: "{{count}} this week · {{days}}/7 active",
+            count: stats.weekTotalReviews,
+            days: stats.daysActiveThisWeek,
+          })}
+        >
+          <div className="py-0.5">
+            <WeekSparkline
+              data={stats.weekReviews}
+              ariaLabel={t("practice.overview.weekReviewsAria", {
+                defaultValue: "Reviews per day this week",
+              })}
             />
-          ))}
-        </div>
-      </section>
+          </div>
+        </PracticeStatTile>
+      </div>
     </div>
   );
 }

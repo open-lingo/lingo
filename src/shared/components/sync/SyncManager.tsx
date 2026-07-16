@@ -26,11 +26,13 @@ function latestLastSyncAt(sources: SyncSource[]): string | null {
 export type SyncManagerProps = {
   sources: SyncSource[];
   onOpen?: () => void;
+  /** Open the status panel above the trigger — for bottom-anchored clusters. */
+  dropUp?: boolean;
 };
 
 const HOVER_LEAVE_DELAY_MS = 150;
 
-export function SyncManager({ sources, onOpen }: SyncManagerProps) {
+export function SyncManager({ sources, onOpen, dropUp = false }: SyncManagerProps) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [syncingIds, setSyncingIds] = useState<Set<string>>(new Set());
@@ -179,7 +181,10 @@ export function SyncManager({ sources, onOpen }: SyncManagerProps) {
 
       {open && (
         <div
-          className="absolute right-0 top-full z-50 -mt-1 w-[210px] rounded-lg border border-border bg-surface py-2 shadow-popover"
+          className={cn(
+            "absolute right-0 z-50 w-[210px] rounded-lg border border-border bg-surface py-2 shadow-popover",
+            dropUp ? "bottom-full mb-1" : "top-full -mt-1",
+          )}
           role="menu"
         >
           <div className="flex items-center justify-between gap-2 border-b border-border px-2.5 pb-1.5">

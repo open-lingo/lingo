@@ -11,7 +11,7 @@ import {
   type ThemeTokens,
   type ThemeDefinition,
 } from "@/shared/theme";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import {
   CORNER_STYLE_RADIUS,
@@ -104,6 +104,10 @@ export function ThemeEditorPanel() {
   const [draftName, setDraftName] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isCustomizing, setIsCustomizing] = useState(false);
+  // Pre-edit inline CSS-var values, captured before live preview overwrites
+  // them so ending an unsaved edit can put the active theme back. Null when
+  // no live preview is in flight (see the live-preview effects below).
+  const liveVarSnapshot = useRef<Map<string, string> | null>(null);
 
   const isEditingCustom = editingId !== null && editingId.startsWith("custom-");
 
@@ -145,10 +149,17 @@ export function ThemeEditorPanel() {
     [setTheme, customThemes]
   );
 
-  const handleEditTheme = useCallback((id: string) => {
-    setEditingId(id);
-    setIsCustomizing(true);
-  }, []);
+  const handleEditTheme = useCallback(
+    (id: string) => {
+      // Editing a theme makes it the active one — you're changing what you're
+      // looking at, not blind-editing a background theme.
+      setTheme(id);
+      setEditingId(id);
+      setIsCustomizing(true);
+    },
+    [setTheme],
+  );
+
 
   const handleAddNew = useCallback(() => {
     const newTheme = addTheme({ name: t("settings.newTheme", "New theme"), tokens: { ...BUILT_IN_THEMES.dark.tokens } });
@@ -160,6 +171,10 @@ export function ThemeEditorPanel() {
   }, [addTheme, setTheme, t]);
 
   const handleSaveDraft = useCallback(() => {
+    // The draft is now the persisted active theme — the live-preview vars on
+    // the root ARE the correct values, so there's nothing to restore when
+    // customizing ends. Drop the pre-edit snapshot.
+    liveVarSnapshot.current = null;
     if (editingId && isEditingCustom) {
       updateTheme(editingId, { tokens: draft, name: draftName.trim() || "Unnamed" });
       setDraftName(draftName.trim() || "Unnamed");
@@ -269,6 +284,50 @@ export function ThemeEditorPanel() {
     return vars;
   }, [draft]);
 
+  // ── Live preview: direct CSS-var writes, NOT context state ──────────────
+  // The whole app consumes theme values via CSS variables, so live preview
+  // writes the draft's vars straight onto <html>. Routing this through
+  // setPreviewTokens (context state) re-rendered every theme consumer in the
+  // app on each keystroke; imperative writes repaint with zero React work.
+  const liveVars = useMemo(
+    () => ({
+      ...previewVars,
+      ...(draft.font?.family ? { "--font-family": draft.font.family } : {}),
+    }),
+    [previewVars, draft.font?.family],
+  );
+
+  useEffect(() => {
+    if (!isCustomizing) return;
+    const root = document.documentElement;
+    const snap = (liveVarSnapshot.current ??= new Map<string, string>());
+    for (const [k, v] of Object.entries(liveVars)) {
+      // First touch of each var: remember the active theme's inline value so
+      // an unsaved edit can be rolled back.
+      if (!snap.has(k)) snap.set(k, root.style.getPropertyValue(k));
+      root.style.setProperty(k, v);
+    }
+  }, [isCustomizing, liveVars]);
+
+  const restoreLiveVars = useCallback(() => {
+    const snap = liveVarSnapshot.current;
+    if (!snap) return; // nothing in flight, or the draft was saved
+    liveVarSnapshot.current = null;
+    const root = document.documentElement;
+    for (const [k, v] of snap) {
+      if (v) root.style.setProperty(k, v);
+      else root.style.removeProperty(k);
+    }
+  }, []);
+
+  // Roll back when the customizer collapses without a save, and when the
+  // editor unmounts entirely (ThemeProvider's own effect re-applies the real
+  // theme after preset/theme switches, so it always wins on ordering).
+  useEffect(() => {
+    if (!isCustomizing) restoreLiveVars();
+  }, [isCustomizing, restoreLiveVars]);
+  useEffect(() => restoreLiveVars, [restoreLiveVars]);
+
   return (
     <>
       <div
@@ -297,9 +356,9 @@ export function ThemeEditorPanel() {
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 py-4">
-          {/* Live preview */}
-          <section className="mb-6">
+        {/* Live preview — pinned between the header and the scroll area so it
+            stays visible while the presets/colors below scroll. */}
+        <section className="shrink-0 border-b border-border px-4 pb-4 pt-3">
             <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
               {t("settings.themePreview", "Preview")}
             </h3>
@@ -381,8 +440,9 @@ export function ThemeEditorPanel() {
                 Colors update as you edit
               </p>
             </div>
-          </section>
+        </section>
 
+        <div className="flex-1 overflow-y-auto px-4 py-4">
           {/* Presets */}
           <section className="mb-6">
             <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">

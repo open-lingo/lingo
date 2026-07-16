@@ -1,9 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
-import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useQuests } from "@/features/quests/useQuests";
 import { isQuestDone, summarizeDailyPlan } from "./planHelpers";
 
@@ -16,7 +14,6 @@ import { isQuestDone, summarizeDailyPlan } from "./planHelpers";
  */
 export function TodaysPlan() {
   const { t } = useTranslation();
-  const langPath = useLangPath();
   const { quests, isLoading } = useQuests();
 
   const { daily, doneCount, allDone } = useMemo(
@@ -104,16 +101,8 @@ export function TodaysPlan() {
           })}
         </p>
       )}
-
-      <Link
-        to={langPath("learn")}
-        className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text-secondary transition hover:bg-surface-muted hover:text-text-primary"
-      >
-        {allDone
-          ? t("home.restructured.plan.allDoneCta", { defaultValue: "All done — keep practising" })
-          : t("home.restructured.plan.cta", { defaultValue: "Knock one out" })}
-        <Icon name="chevronRight" size={16} aria-hidden />
-      </Link>
+      {/* Bottom "Knock one out" CTA removed 2026-07-16 — the Learn tab is the
+          action surface; a better home for this affordance is TBD. */}
     </Card>
   );
 }

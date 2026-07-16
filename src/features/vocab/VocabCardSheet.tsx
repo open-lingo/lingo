@@ -7,18 +7,16 @@ import type { VocabRow, VocabTier } from "./vocabData";
 
 const TIER_LABEL: Record<VocabTier, string> = {
   new: "Not started",
-  weak: "Needs work",
-  fading: "Fading",
-  solid: "Solid",
-  strong: "Strong",
+  learning: "Learning",
+  reviewing: "Reviewing",
+  mastered: "Mastered",
 };
 
 const TIER_VARIANT: Record<VocabTier, "neutral" | "error" | "warning" | "accent" | "success"> = {
   new: "neutral",
-  weak: "error",
-  fading: "warning",
-  solid: "accent",
-  strong: "success",
+  learning: "warning",
+  reviewing: "accent",
+  mastered: "success",
 };
 
 type Props = {
@@ -55,6 +53,11 @@ export function VocabCardSheet({ open, onClose, row, practiceTo }: Props) {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
+            <Badge variant={row.unlocked ? "success" : "neutral"} pill>
+              {row.unlocked
+                ? t("vocab.learnedBadge", "Learned")
+                : t("vocab.lockedBadge", "Not yet taught")}
+            </Badge>
             <Badge variant={TIER_VARIANT[row.tier]} pill>
               {t(`vocab.tier.${row.tier}`, TIER_LABEL[row.tier])}
             </Badge>
@@ -68,13 +71,13 @@ export function VocabCardSheet({ open, onClose, row, practiceTo }: Props) {
           {row.encounters > 0 && (
             <div>
               <p className="text-xs uppercase tracking-wider text-text-muted">
-                {t("vocab.recentStrength", "Recent strength")}
+                {t("vocab.retention", "Retention")}
               </p>
               <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-surface-muted">
                 <div
                   className="h-full rounded-full"
                   style={{
-                    width: `${row.recentStrength}%`,
+                    width: `${row.retention}%`,
                     backgroundColor: "var(--color-accent)",
                   }}
                 />
