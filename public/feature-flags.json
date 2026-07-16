@@ -19,5 +19,8 @@
       "stories": false,
       "activeDiscussions": false
     }
+  },
+  "social": {
+    "enabled": false
   }
 }

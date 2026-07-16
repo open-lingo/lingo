@@ -29,6 +29,10 @@ export type FeatureFlags = {
       activeDiscussions: boolean;
     };
   };
+  social: {
+    /** Whole social surface: friends, activity feed, leagues/leaderboards, invites, spotlight. */
+    enabled: boolean;
+  };
 };
 
 /** MVP defaults when fetch fails or before merge. Keep in sync with `public/feature-flags.json`. */
@@ -53,6 +57,9 @@ export const DEFAULT_FEATURE_FLAGS: FeatureFlags = {
       stories: false,
       activeDiscussions: false,
     },
+  },
+  social: {
+    enabled: false,
   },
 };
 
@@ -101,12 +108,21 @@ export function mergeFeatureFlags(
         out.community.explore.activeDiscussions = e.activeDiscussions;
     }
   }
+  if (isPlainObject(override.social)) {
+    const s = override.social;
+    if (typeof s.enabled === "boolean") out.social.enabled = s.enabled;
+  }
   return out;
 }
 
 /** Leaderboard in main nav, community tab, and /:lang/leaderboard routes. */
 export function isLeaderboardEnabled(flags: FeatureFlags): boolean {
   return flags.community.tabs.leaderboard;
+}
+
+/** Whole social surface (friends, activity, leaderboards, invites). Default off. */
+export function isSocialEnabled(flags: FeatureFlags): boolean {
+  return flags.social.enabled;
 }
 
 export async function fetchFeatureFlags(): Promise<FeatureFlags> {
