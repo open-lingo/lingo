@@ -1,20 +1,15 @@
 /**
- * AdminHomePage — full-width dashboard hub at /admin/home.
+ * AdminHomePage — dashboard hub at /admin/home.
  *
- * No sidebar — this IS the landing for all admin work and the only
- * navigation surface for the admin area. Every inner /admin/* route is a
- * leaf; reach them via the nav-cards grid below or content cross-links
- * (e.g. an event row linking to /admin/users/:id).
+ * Renders inside AdminInnerShell, so the persistent console sidebar handles
+ * navigation; this page is a content-only dashboard (no on-page nav).
  *
- * Sections:
- *   1. Header — "Admin" heading + current admin's display name
- *   2. Metrics strip — user count, events last 24h, pending moderation,
- *      failed jobs (24h)
- *   3. Navigation cards — one card per top-level surface. We don't have
- *      sub-tab cards: if it's a tab inside a page, the page-level card
- *      covers it.
- *   4. Recent events strip — last 5 events + "See all" link
- *   5. 7-day events chart — vanilla SVG bar chart from events data
+ * Sections (compact — health + metrics share one row):
+ *   1. Header — "Admin" heading
+ *   2. Health + metrics row — SystemHealthPanel (1/3) beside the four metric
+ *      cards as a 2×2 grid (2/3): user count, events last 24h, pending
+ *      moderation, failed jobs (24h)
+ *   3. Recent events strip + 7-day events chart — side by side
  */
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
@@ -22,17 +17,14 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 
 import { useApi } from "@/shared/api/provider";
-import { useAuth } from "@/shared/auth/useAuth";
 import type { AdminUserStats } from "@/shared/api/admin";
 import type { JobsSummaryResponse } from "@/shared/api/ops";
 import type { EventListResponse } from "@/features/admin/events/types";
 import { Badge } from "@/shared/components/ui/Badge";
 import { Card } from "@/shared/components/ui/Card";
-import { NavCard } from "@/shared/components/ui/NavCard";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
 import { SystemHealthPanel } from "@/features/admin/SystemHealthPanel";
-import { ADMIN_NAV_GROUPS } from "@/features/admin/adminNavConfig";
 import { usePendingReviewCount } from "@/features/admin/usePendingReviewCount";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -172,7 +164,6 @@ function EventsBarChart({ events }: { events: EventListResponse | undefined }) {
 
 export function AdminHomePage() {
   const { t } = useTranslation();
-  const { user } = useAuth();
   const { admin, ops } = useApi();
 
   // ── Data fetching ────────────────────────────────────────────────────────
@@ -223,88 +214,50 @@ export function AdminHomePage() {
   const pendingTotal = pendingReview ?? null;
 
   const failed24h = jobsSummary.data?.last24h.failed ?? 0;
-  const adminDisplayName = user?.name ?? user?.email ?? "Admin";
 
   // ── Render ───────────────────────────────────────────────────────────────
   return (
-    <div className="mx-auto max-w-6xl space-y-8 px-4 py-6 sm:px-6">
+    <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-text-primary">Admin</h1>
-        <p className="mt-1 text-text-muted">
-          Welcome back, {adminDisplayName}
-        </p>
+      <h1 className="text-3xl font-bold text-text-primary">Admin</h1>
+
+      {/* Health + metrics — health in a 1/3 column, the four metric cards fill
+          the remaining 2/3 as a 2×2 grid. Two former full-width rows in one. */}
+      <div className="grid gap-4 lg:grid-cols-3">
+        <div className="lg:col-span-1">
+          <SystemHealthPanel />
+        </div>
+        <div className="grid grid-cols-2 gap-3 lg:col-span-2">
+          <MetricCard
+            label="Total users"
+            value={userStats.isLoading ? "—" : (userStats.data?.total ?? "—").toLocaleString()}
+            sub={
+              userStats.data
+                ? `${userStats.data.new_since} new last 7d`
+                : undefined
+            }
+            icon={<Icon name="users" size={20} aria-hidden />}
+          />
+          <MetricCard
+            label="Events (24h)"
+            value={recentEvents.isLoading ? "—" : events24h.toLocaleString()}
+            icon={<Icon name="activity" size={20} aria-hidden />}
+          />
+          <MetricCard
+            label="Pending review"
+            value={pendingTotal === null ? "—" : pendingTotal.toLocaleString()}
+            sub="decks + stories"
+            icon={<Icon name="shieldCheck" size={20} aria-hidden />}
+            variant={pendingTotal !== null && pendingTotal > 0 ? "warning" : "default"}
+          />
+          <MetricCard
+            label="Failed jobs (24h)"
+            value={jobsSummary.isLoading ? "—" : failed24h.toLocaleString()}
+            icon={failed24h > 0 ? <Icon name="alertTriangle" size={20} aria-hidden /> : <Icon name="checkCircle" size={20} aria-hidden />}
+            variant={failed24h > 0 ? "error" : "success"}
+          />
+        </div>
       </div>
-
-      {/* System health */}
-      <SystemHealthPanel />
-
-      {/* Metrics strip */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <MetricCard
-          label="Total users"
-          value={userStats.isLoading ? "—" : (userStats.data?.total ?? "—").toLocaleString()}
-          sub={
-            userStats.data
-              ? `${userStats.data.new_since} new last 7d`
-              : undefined
-          }
-          icon={<Icon name="users" size={20} aria-hidden />}
-        />
-        <MetricCard
-          label="Events (24h)"
-          value={recentEvents.isLoading ? "—" : events24h.toLocaleString()}
-          icon={<Icon name="activity" size={20} aria-hidden />}
-        />
-        <MetricCard
-          label="Pending review"
-          value={pendingTotal === null ? "—" : pendingTotal.toLocaleString()}
-          sub="decks + stories"
-          icon={<Icon name="shieldCheck" size={20} aria-hidden />}
-          variant={pendingTotal !== null && pendingTotal > 0 ? "warning" : "default"}
-        />
-        <MetricCard
-          label="Failed jobs (24h)"
-          value={jobsSummary.isLoading ? "—" : failed24h.toLocaleString()}
-          icon={failed24h > 0 ? <Icon name="alertTriangle" size={20} aria-hidden /> : <Icon name="checkCircle" size={20} aria-hidden />}
-          variant={failed24h > 0 ? "error" : "success"}
-        />
-      </div>
-
-      {/* Navigation — grouped by what the surfaces actually are. Each group
-          is a labelled section; cards are the entry points for their area
-          (tabs/sub-pages live inside). Mirrors the inner-page sidebar IA. */}
-      {ADMIN_NAV_GROUPS.map((group) => (
-        <section key={group.id} aria-labelledby={`nav-group-${group.id}`}>
-          <div className="mb-3 flex items-center gap-2">
-            <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-surface-muted text-text-muted">
-              <Icon name={group.icon} size={14} aria-hidden />
-            </span>
-            <h2
-              id={`nav-group-${group.id}`}
-              className="text-xs font-semibold uppercase tracking-wide text-text-muted"
-            >
-              {group.label}
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {group.items.map((item) => (
-              <NavCard
-                key={item.to}
-                to={item.to}
-                title={item.title}
-                description={item.description}
-                icon={<Icon name={item.icon} size={20} aria-hidden />}
-                count={
-                  item.pendingKey === "pendingReview" && pendingTotal
-                    ? pendingTotal
-                    : undefined
-                }
-              />
-            ))}
-          </div>
-        </section>
-      ))}
 
       <div className="grid gap-4 lg:grid-cols-2">
         {/* Recent events strip */}

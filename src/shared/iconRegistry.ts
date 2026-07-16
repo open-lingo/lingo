@@ -60,11 +60,14 @@ import {
   Music,
   Newspaper,
   Package,
+  PanelLeft,
+  PanelTop,
   GripVertical,
   Info,
   Layers2,
   LayoutGrid,
   Link2,
+  ExternalLink,
   List,
   Lock,
   LayoutDashboard,
@@ -180,6 +183,7 @@ export const iconRegistry = {
   arrowBigRight: ArrowBigRight,
   avatarFallback: User,
   link: Link2,
+  externalLink: ExternalLink,
   video: Video,
   play: Play,
   /** Speaker icon for "play audio" buttons — distinct from `play` (▶
@@ -202,6 +206,10 @@ export const iconRegistry = {
   newspaper: Newspaper,
   /** Package — inventory / shop items affordance */
   package: Package,
+  /** Sidebar nav-layout affordance (settings appearance toggle). */
+  panelLeft: PanelLeft,
+  /** Top-bar nav-layout affordance (settings appearance toggle). */
+  panelTop: PanelTop,
   fileText: FileText,
   smartphone: Smartphone,
   search: Search,

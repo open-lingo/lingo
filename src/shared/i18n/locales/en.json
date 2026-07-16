@@ -1643,7 +1643,6 @@
     "contributorSortUpvotes": "Most upvotes",
     "contributorMoreAria": "More actions for {{name}}",
     "contributorSeeDecks": "See their decks",
-    "contributorMessage": "Message",
     "contributorSearchPlaceholder": "Search contributors…",
     "contributorSearchAria": "Search contributors",
     "contributorsNoMatchTitle": "No contributors match",
@@ -1851,7 +1850,6 @@
     "avatarModalUploadDesc": "Custom uploads aren't supported yet — coming soon.",
     "avatarModalUploadComingSoon": "Coming soon",
     "avatarModalUploadDisabledTitle": "Coming soon — we'll support custom uploads once storage is cheaper",
-    "publicQuickChat": "Quick chat",
     "publicActAsUser": "Act as user",
     "publicAdminActions": "Admin",
     "publicTotalUpvotes": "Total upvotes",
@@ -2029,7 +2027,15 @@
     "srsEase": "Ease",
     "srsReps": "Reps",
     "srsBuried": "Buried",
-    "srsResetConfirm": "Reset this card's SRS state?"
+    "srsResetConfirm": "Reset this card's SRS state?",
+    "openProfile": "Open public profile",
+    "ban": {
+      "title": "Manage ban / status",
+      "subtitle": "Set account and community status. Leave an expiration empty for a permanent ban.",
+      "manage": "Manage ban",
+      "saved": "Status updated",
+      "error": "Failed to update status"
+    }
   },
   "settings": {
     "title": "Settings",
@@ -2038,7 +2044,8 @@
       "general": "General",
       "appearance": "Appearance",
       "audio": "Audio",
-      "languages": "Languages"
+      "languages": "Languages",
+      "moreInfo": "More info"
     },
     "generalHelp": "App-wide preferences. Change your study language from the flag menu in the header.",
     "appearanceHelp": "Colors and contrast for the whole app.",
@@ -2118,7 +2125,16 @@
     "uiLocaleHelp": "Language for menus and buttons.",
     "alphabetDisplay": "Alphabet display",
     "alphabetDisplayHelp": "Control how romanization and reading aids are shown for alphabets.",
-    "showAlphabetRomanization": "Show romanization under alphabet characters"
+    "showAlphabetRomanization": "Show romanization under alphabet characters",
+    "moreInfo": {
+      "title": "More info",
+      "blurb": "Free, open-source language learning. MIT-licensed — no paywalls.",
+      "linksLabel": "Links",
+      "attributionsLabel": "Attributions",
+      "openSourceHelp": "Browse the code on GitHub."
+    },
+    "navLayoutTopbarDesc": "A bar across the top of every page.",
+    "navLayoutSidebarDesc": "A rail beside the page on larger screens."
   },
   "adFree": {
     "pill": {
@@ -2239,8 +2255,7 @@
     "mobileNav": {
       "aria": "Social sections",
       "spotlight": "Spotlight",
-      "friends": "Friends",
-      "messages": "Messages"
+      "friends": "Friends"
     },
     "activity": {
       "title": "Friends recently",
@@ -2263,7 +2278,6 @@
       "block": "Block",
       "cancel": "Cancel",
       "openProfileAria": "Open {{name}}'s profile",
-      "messageAria": "Message {{name}}",
       "moreAria": "More actions for {{name}}",
       "unfriendConfirmTitle": "Unfriend {{name}}?",
       "unfriendConfirmBody": "You'll stop seeing each other on leaderboards and the activity feed.",
@@ -2284,23 +2298,6 @@
       "follow": "Follow",
       "add": "Add",
       "pending": "Pending"
-    },
-    "messages": {
-      "title": "Messages",
-      "newAria": "New message",
-      "searchPlaceholder": "Search messages…",
-      "backAria": "Back to thread list",
-      "activeNow": "Active now",
-      "moreAria": "More options",
-      "today": "Today",
-      "addEmojiAria": "Add emoji",
-      "composerPlaceholder": "Message {{name}}…",
-      "sendAria": "Send message",
-      "sayHi": "Say hi to {{name}}",
-      "iceBreaker": "Send a wave to break the ice — they'll see it pop in your activity feed too.",
-      "emptyTitle": "No messages yet",
-      "emptyDesc": "Once you add friends, your conversations will show up here.",
-      "sendsLocalOnly": "Drafts stay on this device — server-side delivery is rolling out."
     },
     "spotlight": {
       "currentLeague": "Current league",
@@ -2382,8 +2379,7 @@
     "tabs": {
       "overview": "Overview",
       "friends": "Friends",
-      "league": "League",
-      "messages": "Messages"
+      "league": "League"
     },
     "leagues": {
       "viewAll": "View all leagues"

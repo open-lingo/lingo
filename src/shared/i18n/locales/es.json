@@ -876,7 +876,15 @@
     "srsEase": "Facilidad",
     "srsReps": "Repeticiones",
     "srsBuried": "Aplazada",
-    "srsResetConfirm": "¿Restablecer el estado de SRS de esta tarjeta?"
+    "srsResetConfirm": "¿Restablecer el estado de SRS de esta tarjeta?",
+    "openProfile": "Abrir perfil público",
+    "ban": {
+      "title": "Gestionar bloqueo / estado",
+      "subtitle": "Configura el estado de la cuenta y de la comunidad. Deja la expiración vacía para un bloqueo permanente.",
+      "manage": "Gestionar bloqueo",
+      "saved": "Estado actualizado",
+      "error": "No se pudo actualizar el estado"
+    }
   },
   "settings": {
     "title": "Configuración",
@@ -923,7 +931,19 @@
     "uiLocaleHelp": "Idioma para menús y botones.",
     "alphabetDisplay": "Visualización del alfabeto",
     "alphabetDisplayHelp": "Controla cómo se muestran la romanización y las ayudas de lectura de los alfabetos.",
-    "showAlphabetRomanization": "Mostrar romanización debajo de los caracteres del alfabeto"
+    "showAlphabetRomanization": "Mostrar romanización debajo de los caracteres del alfabeto",
+    "nav": {
+      "moreInfo": "Más información"
+    },
+    "moreInfo": {
+      "title": "Más información",
+      "blurb": "Aprendizaje de idiomas libre y de código abierto. Licencia MIT, sin muros de pago.",
+      "linksLabel": "Enlaces",
+      "attributionsLabel": "Atribuciones",
+      "openSourceHelp": "Explora el código en GitHub."
+    },
+    "navLayoutTopbarDesc": "Una barra en la parte superior de cada página.",
+    "navLayoutSidebarDesc": "Un panel lateral junto a la página en pantallas grandes."
   },
   "ads": {
     "label": "Anuncio",

@@ -85,9 +85,6 @@ const SocialPage = lazyRetry(
 const FriendsPage = lazyRetry(
   () => import("@/features/social/FriendsPage"),
 );
-const MessengerPage = lazyRetry(
-  () => import("@/features/messenger/MessengerPage"),
-);
 const ShopPage = lazyRetry(() => import("@/features/shop/ShopPage"));
 const LearnPage = lazyRetry(() => import("@/features/learn/LearnPage"));
 // Practice subroutes + placement + stories — reached only via the
@@ -221,9 +218,6 @@ const ThreadPage = lazyRetry(() =>
 const NewThreadPage = lazyRetry(() =>
   import("@/features/community/forum/NewThreadPage").then((m) => ({ default: m.NewThreadPage })),
 );
-const AdminShell = lazyRetry(() =>
-  import("@/features/admin/AdminLayout").then((m) => ({ default: m.AdminShell })),
-);
 const AdminInnerShell = lazyRetry(() =>
   import("@/features/admin/AdminLayout").then((m) => ({ default: m.AdminInnerShell })),
 );
@@ -302,20 +296,14 @@ const router = createBrowserRouter([
       {
         path: "admin",
         children: [
-          // Dashboard hub — no sidebar, full-width layout
-          {
-            element: <AdminShell />,
-            children: [
-              { index: true, element: <Navigate to="/admin/home" replace /> },
-              { path: "home", element: <AdminHomePage /> },
-            ],
-          },
-          // Inner admin pages — no sidebar; just a back-to-dashboard link.
-          // Navigation lives on /admin/home; pages are reachable via the
-          // dashboard's nav-cards grid or in-content cross-links.
+          // Every admin page — including the dashboard hub — renders inside the
+          // persistent grouped sidebar. The sidebar is the console's navigation
+          // surface; /admin/home is its Dashboard tab.
           {
             element: <AdminInnerShell />,
             children: [
+              { index: true, element: <Navigate to="/admin/home" replace /> },
+              { path: "home", element: <AdminHomePage /> },
               { path: "users", element: <AdminUsersListPage /> },
               { path: "users/:userId", element: <AdminUserDetailPage /> },
               { path: "moderation", element: <AdminModerationPage /> },
@@ -400,8 +388,6 @@ const router = createBrowserRouter([
               { path: "home-preview", element: <HomeRestructureMockup /> },
               { path: "social", element: <SocialPage /> },
               { path: "social/friends", element: <FriendsPage /> },
-              { path: "messenger", element: <MessengerPage /> },
-              { path: "messenger/:friendId", element: <MessengerPage /> },
               { path: "asset-test", element: <AssetTestPage /> },
               { path: "picker-test", element: <PickerTestPage /> },
               {

@@ -20,6 +20,8 @@ import { Icon } from "@/shared/components/Icon";
 import { TabList, TabButton } from "@/shared/components/ui/Tabs";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
 import { Button } from "@/shared/components/ui/Button";
+import { Badge } from "@/shared/components/ui/Badge";
+import { Modal } from "@/shared/components/ui/Modal";
 import { AlertBanner } from "@/shared/components/ui/AlertBanner";
 import { inputClassName } from "@/shared/components/ui/formStyles";
 import { cn } from "@/shared/components/ui/cn";
@@ -82,6 +84,40 @@ function normalizeAdminSrsCard(raw: unknown): SRSCardState {
   return { recognition: { ...EMPTY_MODALITY }, production: { ...EMPTY_MODALITY } };
 }
 
+/** ISO string → `datetime-local` input value (local wall-clock). */
+function toLocalDatetimeValue(iso: string): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+/** Compact Active/Banned status pill with an optional "until <date>" tail. */
+function StatusPill({
+  label,
+  status,
+  untilLabel,
+}: {
+  label: string;
+  status: string | null | undefined;
+  untilLabel: string | null;
+}) {
+  const banned = status === "banned";
+  const active = status === "active";
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <span className="text-xs text-text-muted">{label}</span>
+      <Badge size="sm" variant={banned ? "error" : active ? "success" : "neutral"}>
+        {banned ? "Banned" : active ? "Active" : "—"}
+      </Badge>
+      {banned && untilLabel ? (
+        <span className="text-xs text-text-muted">until {untilLabel}</span>
+      ) : null}
+    </span>
+  );
+}
+
 export function AdminUserDetailPage() {
   const { t } = useTranslation();
   const { formatDate } = useDateFormat();
@@ -124,6 +160,8 @@ export function AdminUserDetailPage() {
   const [editRole, setEditRole] = useState<string>("user");
   const [profileSaving, setProfileSaving] = useState(false);
   const [profileError, setProfileError] = useState<string | null>(null);
+  const [banModalOpen, setBanModalOpen] = useState(false);
+  const [statusSaving, setStatusSaving] = useState(false);
   const [srsState, setSrsState] = useState<Record<string, import("@/features/flashcards/data/types").SRSCardState>>({});
   const [srsLoading, setSrsLoading] = useState(false);
   const [editingCard, setEditingCard] = useState<string | null>(null);
@@ -387,6 +425,49 @@ export function AdminUserDetailPage() {
     }
   };
 
+  const syncStatusEditState = (u: UserListItem) => {
+    setEditStatus((u.status === "banned" ? "banned" : "active") as "active" | "banned");
+    setEditStatusExpiration(u.status_expiration ?? "");
+    setEditCommunityStatus(
+      (u.community_status === "banned"
+        ? "banned"
+        : u.community_status === "active"
+          ? "active"
+          : "") as "active" | "banned" | "",
+    );
+    setEditCommunityStatusExpiration(u.community_status_expiration ?? "");
+  };
+
+  // Ban modal owns only the status fields; it PATCHes them independently of
+  // the main profile form so an admin can ban without saving unrelated edits.
+  const handleSaveStatus = async () => {
+    if (!userId) return;
+    setStatusSaving(true);
+    try {
+      const updated = await admin.updateUser(userId, {
+        status: editStatus,
+        status_expiration: editStatusExpiration.trim() || null,
+        community_status: editCommunityStatus || undefined,
+        community_status_expiration: editCommunityStatusExpiration.trim() || null,
+      });
+      setUser(updated);
+      syncStatusEditState(updated);
+      setBanModalOpen(false);
+      showToast(t("admin.ban.saved", "Status updated"), "success");
+    } catch {
+      showToast(t("admin.ban.error", "Failed to update status"), "error");
+    } finally {
+      setStatusSaving(false);
+    }
+  };
+
+  // Revert in-modal edits to the saved user so a later profile save doesn't
+  // persist abandoned status changes.
+  const handleBanCancel = () => {
+    if (user) syncStatusEditState(user);
+    setBanModalOpen(false);
+  };
+
   const loadSrsState = useCallback(async () => {
     if (!userId) return;
     setSrsLoading(true);
@@ -531,15 +612,27 @@ export function AdminUserDetailPage() {
   return (
     <div className="space-y-6 p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-text-primary">
-            @{user.username}
-          </h1>
+        <div className="min-w-0">
+          <div className="flex items-center gap-1.5">
+            <h1 className="truncate text-2xl font-bold text-text-primary">
+              @{user.username}
+            </h1>
+            <a
+              href={`/u/${user.username}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={t("admin.openProfile", "Open public profile")}
+              aria-label={t("admin.openProfile", "Open public profile")}
+              className="shrink-0 rounded-lg p-1.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+            >
+              <Icon name="externalLink" size={18} aria-hidden />
+            </a>
+          </div>
           <p className="text-sm text-text-muted">
             {user.display_name} · {user.id}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           <Button
             type="button"
             variant="secondary"
@@ -551,8 +644,15 @@ export function AdminUserDetailPage() {
           <Button type="button" variant="secondary" onClick={() => setAwardXpOpen(true)}>
             {t("admin.awardXp.button", "Award XP")}
           </Button>
-          <Button type="button" variant="danger" onClick={() => setShowDeleteConfirm(true)}>
-            {t("admin.deleteUser")}
+          <Button
+            type="button"
+            variant="danger"
+            size="icon"
+            onClick={() => setShowDeleteConfirm(true)}
+            title={t("admin.deleteUser")}
+            aria-label={t("admin.deleteUser")}
+          >
+            <Icon name="trash" size={18} aria-hidden />
           </Button>
         </div>
       </div>
@@ -573,7 +673,7 @@ export function AdminUserDetailPage() {
               void handleAwardXp();
             }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-md rounded-lg border border-border bg-surface p-5 shadow-xl"
+            className="w-full max-w-md rounded-card border border-border bg-surface p-5 shadow-xl"
           >
             <h2 id="award-xp-title" className="text-base font-semibold text-text-primary">
               {t("admin.awardXp.title", "Award XP")}
@@ -653,6 +753,82 @@ export function AdminUserDetailPage() {
         />
       ) : null}
 
+      <Modal
+        open={banModalOpen}
+        onClose={handleBanCancel}
+        title={t("admin.ban.title", "Manage ban / status")}
+        subtitle={t(
+          "admin.ban.subtitle",
+          "Set account and community status. Leave an expiration empty for a permanent ban.",
+        )}
+        size="md"
+        footer={
+          <>
+            <Button type="button" variant="ghost" onClick={handleBanCancel} disabled={statusSaving}>
+              {t("forum.cancel")}
+            </Button>
+            <Button type="button" variant="primary" onClick={handleSaveStatus} disabled={statusSaving}>
+              {statusSaving ? t("common.loading") : t("profile.save")}
+            </Button>
+          </>
+        }
+      >
+        <div className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="block text-xs font-medium uppercase text-text-muted">
+              {t("admin.accountStatus")}
+              <select
+                value={editStatus}
+                onChange={(e) => setEditStatus(e.target.value as "active" | "banned")}
+                className={cn("mt-1 w-full", inputClassName)}
+              >
+                <option value="active">{t("admin.statusActive")}</option>
+                <option value="banned">{t("admin.statusBanned")}</option>
+              </select>
+            </label>
+            <label className="block text-xs font-medium uppercase text-text-muted">
+              {t("admin.statusExpiration")}
+              <input
+                type="datetime-local"
+                value={toLocalDatetimeValue(editStatusExpiration)}
+                onChange={(e) =>
+                  setEditStatusExpiration(
+                    e.target.value ? new Date(e.target.value).toISOString() : "",
+                  )
+                }
+                className={cn("mt-1 w-full", inputClassName)}
+              />
+            </label>
+            <label className="block text-xs font-medium uppercase text-text-muted">
+              {t("admin.communityStatus")}
+              <select
+                value={editCommunityStatus}
+                onChange={(e) => setEditCommunityStatus(e.target.value as "active" | "banned" | "")}
+                className={cn("mt-1 w-full", inputClassName)}
+              >
+                <option value="">—</option>
+                <option value="active">{t("admin.statusActive")}</option>
+                <option value="banned">{t("admin.statusBanned")}</option>
+              </select>
+            </label>
+            <label className="block text-xs font-medium uppercase text-text-muted">
+              {t("admin.communityStatusExpiration")}
+              <input
+                type="datetime-local"
+                value={toLocalDatetimeValue(editCommunityStatusExpiration)}
+                onChange={(e) =>
+                  setEditCommunityStatusExpiration(
+                    e.target.value ? new Date(e.target.value).toISOString() : "",
+                  )
+                }
+                className={cn("mt-1 w-full", inputClassName)}
+              />
+            </label>
+          </div>
+          <p className="text-xs text-text-muted">{t("admin.statusExpirationHelp")}</p>
+        </div>
+      </Modal>
+
       <TabList className="gap-6">
         {tabs.map((tab) => (
           <TabButton
@@ -665,11 +841,11 @@ export function AdminUserDetailPage() {
         ))}
       </TabList>
 
-      <div className="rounded-lg border border-border bg-surface p-6">
+      <div className="rounded-card border border-border bg-surface p-6">
         {activeTab === "profile" && (
-          <div className="space-y-6">
+          <div className="space-y-5">
             {profileError ? <AlertBanner>{profileError}</AlertBanner> : null}
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
                   {t("profile.avatarUrl")}
@@ -725,59 +901,6 @@ export function AdminUserDetailPage() {
               </div>
               <div>
                 <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
-                  {t("admin.accountStatus")}
-                </label>
-                <select
-                  value={editStatus}
-                  onChange={(e) => setEditStatus(e.target.value as "active" | "banned")}
-                  className={cn("mt-1 w-full", inputClassName)}
-                >
-                  <option value="active">{t("admin.statusActive")}</option>
-                  <option value="banned">{t("admin.statusBanned")}</option>
-                </select>
-              </div>
-              <div>
-                <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
-                  {t("admin.statusExpiration")}
-                </label>
-                <input
-                  type="datetime-local"
-                  value={
-                    editStatusExpiration
-                      ? (() => {
-                          const d = new Date(editStatusExpiration);
-                          const pad = (n: number) => n.toString().padStart(2, "0");
-                          return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-                        })()
-                      : ""
-                  }
-                  onChange={(e) =>
-                    setEditStatusExpiration(
-                      e.target.value ? new Date(e.target.value).toISOString() : ""
-                    )
-                  }
-                  className={cn("mt-1 w-full", inputClassName)}
-                />
-                <p className="mt-0.5 text-xs text-text-muted">
-                  {t("admin.statusExpirationHelp")}
-                </p>
-              </div>
-              <div>
-                <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
-                  {t("admin.communityStatus")}
-                </label>
-                <select
-                  value={editCommunityStatus}
-                  onChange={(e) => setEditCommunityStatus(e.target.value as "active" | "banned" | "")}
-                  className={cn("mt-1 w-full", inputClassName)}
-                >
-                  <option value="">—</option>
-                  <option value="active">{t("admin.statusActive")}</option>
-                  <option value="banned">{t("admin.statusBanned")}</option>
-                </select>
-              </div>
-              <div>
-                <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
                   {t("admin.role")}
                 </label>
                 <select
@@ -792,28 +915,39 @@ export function AdminUserDetailPage() {
                   <option value="super_admin">{t("admin.roleSuperAdmin")}</option>
                 </select>
               </div>
-              <div>
+              <div className="sm:col-span-2">
                 <label className="mb-1 block text-xs font-medium uppercase text-text-muted">
-                  {t("admin.communityStatusExpiration")}
+                  {t("admin.status", "Status")}
                 </label>
-                <input
-                  type="datetime-local"
-                  value={
-                    editCommunityStatusExpiration
-                      ? (() => {
-                          const d = new Date(editCommunityStatusExpiration);
-                          const pad = (n: number) => n.toString().padStart(2, "0");
-                          return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-                        })()
-                      : ""
-                  }
-                  onChange={(e) =>
-                    setEditCommunityStatusExpiration(
-                      e.target.value ? new Date(e.target.value).toISOString() : ""
-                    )
-                  }
-                  className={cn("mt-1 w-full", inputClassName)}
-                />
+                <div className="flex flex-wrap items-center gap-3">
+                  <StatusPill
+                    label={t("admin.accountStatus")}
+                    status={user.status}
+                    untilLabel={
+                      user.status === "banned" && user.status_expiration
+                        ? formatDate(user.status_expiration, { dateStyle: "medium" })
+                        : null
+                    }
+                  />
+                  <StatusPill
+                    label={t("admin.communityStatus")}
+                    status={user.community_status}
+                    untilLabel={
+                      user.community_status === "banned" && user.community_status_expiration
+                        ? formatDate(user.community_status_expiration, { dateStyle: "medium" })
+                        : null
+                    }
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setBanModalOpen(true)}
+                  >
+                    <Icon name="ban" size={14} aria-hidden className="mr-1" />
+                    {t("admin.ban.manage", "Manage ban")}
+                  </Button>
+                </div>
               </div>
             </div>
             <button
@@ -831,14 +965,6 @@ export function AdminUserDetailPage() {
                 </dt>
                 <dd className="mt-1 font-mono text-sm text-text-secondary">
                   {user.auth0_id}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-xs font-medium uppercase text-text-muted">
-                  {t("admin.status")}
-                </dt>
-                <dd className="mt-1 text-sm text-text-primary">
-                  {user.status}
                 </dd>
               </div>
               <div>
@@ -927,7 +1053,7 @@ export function AdminUserDetailPage() {
                 {t("admin.noContent")}
               </p>
             ) : (
-              <ul className="space-y-4">
+              <ul className="divide-y divide-border">
                 {content.filter((d) => !d.id.startsWith("vocab-")).map((deck) => {
                   const coverUrl = getDeckImageUrl(deck.id, deck.image, "64/48");
                   const isPublished = deck.status === "published";
@@ -938,7 +1064,7 @@ export function AdminUserDetailPage() {
                   return (
                     <li
                       key={deck.id}
-                      className="rounded-lg border border-border p-3"
+                      className="py-3"
                     >
                       <div className="flex flex-wrap items-center gap-4">
                         <img
@@ -1059,11 +1185,11 @@ export function AdminUserDetailPage() {
                   {t("admin.social.noIncoming", "No incoming requests.")}
                 </p>
               ) : (
-                <ul className="mt-2 divide-y divide-border rounded-lg border border-border">
+                <ul className="mt-2 divide-y divide-border border-t border-border">
                   {socialRequests.incoming.map((r) => (
                     <li
                       key={r.user_id}
-                      className="flex items-center justify-between px-3 py-2"
+                      className="flex items-center justify-between py-2.5"
                     >
                       <div className="min-w-0">
                         <p className="truncate text-sm font-medium text-text-primary">
@@ -1111,11 +1237,11 @@ export function AdminUserDetailPage() {
                   {t("admin.social.noOutgoing", "No outgoing requests.")}
                 </p>
               ) : (
-                <ul className="mt-2 divide-y divide-border rounded-lg border border-border">
+                <ul className="mt-2 divide-y divide-border border-t border-border">
                   {socialRequests.outgoing.map((r) => (
                     <li
                       key={r.user_id}
-                      className="flex items-center justify-between px-3 py-2"
+                      className="flex items-center justify-between py-2.5"
                     >
                       <div className="min-w-0">
                         <p className="truncate text-sm font-medium text-text-primary">
@@ -1167,7 +1293,7 @@ export function AdminUserDetailPage() {
                 {t("admin.srsEmpty", "No SRS data for this user.")}
               </p>
             ) : (
-              <div className="overflow-x-auto rounded-lg border border-border">
+              <div className="overflow-x-auto rounded-card border border-border">
                 <table className="min-w-full divide-y divide-border">
                   <thead className="bg-surface-muted">
                     <tr>

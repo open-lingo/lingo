@@ -1,13 +1,10 @@
 /**
- * AdminLayout — shells for /admin/* routes.
+ * AdminLayout — shell for /admin/* routes.
  *
- * Two exported layout components:
- *
- *   AdminShell      — auth check + bare Outlet. Used by /admin/home (dashboard hub).
  *   AdminInnerShell — auth check + persistent grouped sidebar + Outlet.
- *                     Used by every /admin/* inner page. The sidebar is the
- *                     console navigation surface (driven by adminNavConfig);
- *                     the dashboard hub at /admin/home is the home tab.
+ *                     Used by every /admin/* route, including the dashboard hub
+ *                     at /admin/home (the sidebar's Dashboard tab). The sidebar
+ *                     is the console navigation surface (driven by adminNavConfig).
  *
  * Inner pages are leaves: they're reached from the sidebar groups or via
  * content cross-links (e.g. an event row linking to /admin/users/:id).
@@ -40,20 +37,7 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-// ── AdminShell — bare auth wrapper (used by dashboard /admin/home) ─────────────
-
-/** Auth guard + bare Outlet. No sidebar, no back link. Used for /admin/home. */
-export function AdminShell() {
-  return (
-    <AuthGuard>
-      <div className="min-h-0 flex-1">
-        <Outlet />
-      </div>
-    </AuthGuard>
-  );
-}
-
-// ── AdminInnerShell — auth wrapper + console sidebar (used by inner pages) ─────
+// ── AdminInnerShell — auth wrapper + console sidebar (used by all admin pages) ─
 
 function AdminInnerShellBody() {
   const pendingReview = usePendingReviewCount();

@@ -1327,7 +1327,15 @@
     "srsEase": "난이도",
     "srsReps": "반복",
     "srsBuried": "숨김",
-    "srsResetConfirm": "이 카드의 SRS 상태를 초기화하시겠습니까?"
+    "srsResetConfirm": "이 카드의 SRS 상태를 초기화하시겠습니까?",
+    "openProfile": "공개 프로필 열기",
+    "ban": {
+      "title": "차단/상태 관리",
+      "subtitle": "계정 및 커뮤니티 상태를 설정합니다. 영구 차단은 만료일을 비워 두세요.",
+      "manage": "차단 관리",
+      "saved": "상태가 업데이트되었습니다",
+      "error": "상태를 업데이트하지 못했습니다"
+    }
   },
   "settings": {
     "title": "설정",
@@ -1336,7 +1344,8 @@
       "general": "일반",
       "appearance": "모양",
       "audio": "오디오",
-      "languages": "언어"
+      "languages": "언어",
+      "moreInfo": "추가 정보"
     },
     "generalHelp": "앱 전체 설정입니다. 학습 언어는 상단 헤더의 국기 메뉴에서 바꿀 수 있습니다.",
     "appearanceHelp": "앱 전체 색상과 대비입니다.",
@@ -1407,7 +1416,16 @@
     "unstarTheme": "즐겨찾기 해제",
     "installTheme": "추가",
     "uiLocale": "화면 언어",
-    "uiLocaleHelp": "메뉴와 버튼에 쓰이는 언어입니다."
+    "uiLocaleHelp": "메뉴와 버튼에 쓰이는 언어입니다.",
+    "moreInfo": {
+      "title": "추가 정보",
+      "blurb": "무료 오픈소스 언어 학습. MIT 라이선스 — 유료 장벽 없음.",
+      "linksLabel": "링크",
+      "attributionsLabel": "저작자 표시",
+      "openSourceHelp": "GitHub에서 코드를 확인하세요."
+    },
+    "navLayoutTopbarDesc": "모든 페이지 상단에 표시되는 막대.",
+    "navLayoutSidebarDesc": "큰 화면에서 페이지 옆에 표시되는 레일."
   },
   "stories": {
     "title": "스토리",
@@ -1578,8 +1596,7 @@
     "mobileNav": {
       "aria": "소셜 섹션",
       "spotlight": "스포트라이트",
-      "friends": "친구",
-      "messages": "메시지"
+      "friends": "친구"
     },
     "activity": {
       "title": "친구 최근 활동",
@@ -1602,7 +1619,6 @@
       "block": "차단",
       "cancel": "취소",
       "openProfileAria": "{{name}}님의 프로필 열기",
-      "messageAria": "{{name}}님에게 메시지 보내기",
       "moreAria": "{{name}}님의 추가 작업",
       "unfriendConfirmTitle": "{{name}}님과 친구를 끊겠습니까?",
       "unfriendConfirmBody": "서로의 리더보드와 활동 피드에서 더 이상 표시되지 않습니다.",
@@ -1623,23 +1639,6 @@
       "follow": "팔로우",
       "add": "추가",
       "pending": "대기 중"
-    },
-    "messages": {
-      "title": "메시지",
-      "newAria": "새 메시지",
-      "searchPlaceholder": "메시지 검색…",
-      "backAria": "스레드 목록으로 돌아가기",
-      "activeNow": "지금 활동 중",
-      "moreAria": "더보기",
-      "today": "오늘",
-      "addEmojiAria": "이모지 추가",
-      "composerPlaceholder": "{{name}}님에게 메시지…",
-      "sendAria": "메시지 보내기",
-      "sayHi": "{{name}}님에게 인사하기",
-      "iceBreaker": "👋 손 흔들기로 대화를 시작해 보세요 — 활동 피드에도 표시돼요.",
-      "emptyTitle": "아직 메시지가 없어요",
-      "emptyDesc": "친구를 추가하면 대화가 여기에 표시돼요.",
-      "sendsLocalOnly": "메시지는 현재 기기에만 저장됩니다 — 서버 동기화는 출시 예정입니다."
     },
     "spotlight": {
       "currentLeague": "현재 리그",
@@ -1719,8 +1718,7 @@
     "tabs": {
       "overview": "개요",
       "friends": "친구",
-      "league": "리그",
-      "messages": "메시지"
+      "league": "리그"
     },
     "leagues": {
       "viewAll": "모든 리그 보기"
