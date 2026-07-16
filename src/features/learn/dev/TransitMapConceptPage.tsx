@@ -1161,7 +1161,7 @@ function NetworkMap({
 
             {/* fare zones — tint bands + inset horizon chips */}
             {layout.zones.map((z, i) => (
-              <g key={z.label}>
+              <g key={z.label} pointerEvents="none">
                 {/* tint bleeds to the frame edges — no untinted gutters */}
                 <rect x={z.x0} y={layout.vbY} width={z.x1 - z.x0} height={layout.vbH} fill="currentColor" opacity={i % 2 === 1 ? 0.03 : 0.012} />
                 {i > 0 && <line x1={z.x0} y1={layout.vbY} x2={z.x0} y2={layout.vbY + layout.vbH} style={{ stroke: "var(--tmc-border)" }} strokeDasharray="2 6" />}
@@ -1584,6 +1584,7 @@ function DistrictView({
   const nextIdx = getNextLessonIndex(mod.lessons, completedSet);
   const done = mod.lessons.filter((l) => completedSet.has(l.id)).length;
   const badge = getModuleDisplay(course.modules, index).badgeLabel;
+  const [view, setView] = useState<"board" | "stamps" | "rail">("board");
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -1660,11 +1661,124 @@ function DistrictView({
               {status === "locked" ? " · locked — complete the previous station" : ""}
             </div>
           </div>
+          <div className="tmc-toggle flex-none" role="group" aria-label="District layout">
+            <button className={cn(view === "board" && "on")} onClick={() => setView("board")}>
+              発車標 Board
+            </button>
+            <button className={cn(view === "stamps" && "on")} onClick={() => setView("stamps")}>
+              スタンプ Stamps
+            </button>
+            <button className={cn(view === "rail" && "on")} onClick={() => setView("rail")}>
+              路線 Rail
+            </button>
+          </div>
           <button onClick={onClose} aria-label="Close district view" className="grid h-9 w-9 flex-none place-items-center rounded-full text-[16px] font-bold hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
             ✕
           </button>
         </div>
 
+        {/* ── ARRIVALS BOARD: every lesson is a departure row ── */}
+        {view === "board" && (
+          <div className="max-h-[46vh] overflow-y-auto" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
+            <div className="flex items-center justify-between px-4 pt-2.5 pb-1.5 text-[10px] uppercase tracking-[0.22em] opacity-60">
+              <span>Lessons · 発車標</span>
+              <span>
+                {done}/{mod.lessons.length} 済
+              </span>
+            </div>
+            {stops.map((s, i) => {
+              const row = (
+                <div
+                  className={cn(
+                    "tmc-board-row flex items-center gap-3 border-t border-white/10 px-4 py-2",
+                    s.isCurrent && "bg-white/5",
+                    status !== "locked" && "hover:bg-white/10",
+                  )}
+                  style={{ "--i": Math.min(i, 10) } as CSSProperties}
+                >
+                  <span
+                    className="grid h-[24px] w-[34px] flex-none place-items-center rounded-[5px] text-[11px] font-extrabold text-white"
+                    style={{ background: s.lesson.kind === "recap" ? "var(--tmc-q1)" : "var(--tmc-line-main)", opacity: s.isDone || s.isCurrent || status !== "locked" ? 1 : 0.45 }}
+                  >
+                    {s.lesson.kind === "recap" ? "復" : `L${s.k + 1}`}
+                  </span>
+                  <span className={cn("min-w-0 flex-1 truncate text-[13px] font-bold", !s.isDone && !s.isCurrent && "opacity-60")}>
+                    {s.lesson.title}
+                    {s.k === stops.length - 1 && <span className="ml-2 text-[10px] font-extrabold tracking-[0.14em] opacity-70">★ MASTERY</span>}
+                  </span>
+                  {s.isDone ? (
+                    <span className="grid h-[22px] w-[22px] flex-none -rotate-12 place-items-center rounded-full text-[10px] font-bold text-white" style={{ background: "var(--tmc-seal)" }}>
+                      済
+                    </span>
+                  ) : s.isCurrent ? (
+                    <span className="flex-none rounded-sm bg-accent px-2.5 py-0.5 text-[10.5px] font-extrabold text-accent-foreground">NEXT ▶</span>
+                  ) : (
+                    <span className="flex-none text-[11px] opacity-40">·····</span>
+                  )}
+                </div>
+              );
+              return status === "locked" ? (
+                <div key={s.lesson.id}>{row}</div>
+              ) : (
+                <Link key={s.lesson.id} to={lessonHref(s.lesson)} className="block" aria-label={`${s.lesson.title}${s.isDone ? ", completed" : s.isCurrent ? ", up next" : ""}`}>
+                  {row}
+                </Link>
+              );
+            })}
+          </div>
+        )}
+
+        {/* ── STAMP RALLY CARD: one hanko slot per lesson ── */}
+        {view === "stamps" && (
+          <div className="max-h-[46vh] overflow-y-auto bg-surface-muted px-5 py-4">
+            <div className="mb-3 flex items-baseline justify-between rounded-sm border border-dashed border-border px-3 py-1.5">
+              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-text-muted">スタンプラリー · Stamp rally</span>
+              <span className="text-[12px] font-extrabold text-text-primary">
+                {done}/{mod.lessons.length}
+              </span>
+            </div>
+            <div className="grid grid-cols-4 gap-x-2 gap-y-4 sm:grid-cols-6 md:grid-cols-8">
+              {stops.map((s) => {
+                const isLast = s.k === stops.length - 1;
+                const slot = (
+                  <span className="flex flex-col items-center gap-1">
+                    {s.isDone ? (
+                      <span
+                        className="grid h-12 w-12 place-items-center rounded-full text-[15px] font-extrabold text-white shadow-card"
+                        style={{ background: "var(--tmc-seal)", transform: `rotate(${-14 + (s.k % 5) * 7}deg)`, border: "2.5px solid color-mix(in srgb, #fff 25%, var(--tmc-seal))" }}
+                      >
+                        {isLast ? "★" : "済"}
+                      </span>
+                    ) : (
+                      <span
+                        className={cn(
+                          "grid h-12 w-12 place-items-center rounded-full border-2 border-dashed text-[12px] font-bold",
+                          s.isCurrent ? "tmc-stamp-now border-accent text-accent" : isLast ? "border-[var(--tmc-q1)] text-[var(--tmc-q1)]" : "border-border text-text-muted",
+                        )}
+                      >
+                        {isLast ? "★" : s.isCurrent ? "▶" : s.k + 1}
+                      </span>
+                    )}
+                    <span className={cn("max-w-[76px] truncate text-center text-[10px] leading-tight", s.isDone || s.isCurrent ? "text-text-primary font-semibold" : "text-text-muted")}>
+                      {s.lesson.kind === "recap" ? "復習 Recap" : isLast ? "Mastery" : s.lesson.title}
+                    </span>
+                  </span>
+                );
+                return status === "locked" ? (
+                  <span key={s.lesson.id} className="opacity-60">
+                    {slot}
+                  </span>
+                ) : (
+                  <Link key={s.lesson.id} to={lessonHref(s.lesson)} className="transition-transform hover:scale-105" aria-label={`${s.lesson.title}${s.isDone ? ", stamped" : ""}`}>
+                    {slot}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {view === "rail" && (
         <div className="overflow-x-auto">
           <svg viewBox={`0 0 ${svgW} 260`} width={svgW} height={260} className="block" role="img" aria-label={`${mod.title} lessons`}>
             <text x={20} y={40} style={{ fill: "var(--tmc-muted)", fontSize: 10, letterSpacing: "0.16em", fontWeight: 600 }}>
@@ -1748,6 +1862,7 @@ function DistrictView({
             })}
           </svg>
         </div>
+        )}
 
         <div className="flex flex-wrap items-center gap-2 border-t border-border px-4 py-3">
           <button className="rounded-sm border border-border px-3 py-1.5 text-[12.5px] font-semibold text-text-secondary hover:bg-surface-muted disabled:opacity-40" disabled={index === 0} onClick={() => onNav(index - 1)}>

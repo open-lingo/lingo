@@ -404,6 +404,20 @@ a:focus-visible .tmc-d-stop {
   color: #fff;
 }
 
+/* district stamp card */
+@keyframes tmc-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px var(--tmc-halo);
+  }
+  50% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+.tmc-stamp-now {
+  animation: tmc-glow 1.7s ease-in-out infinite;
+}
+
 /* reduced motion: render final states, kill loops */
 @media (prefers-reduced-motion: reduce) {
   .tmc-rail-main {
@@ -434,5 +448,9 @@ a:focus-visible .tmc-d-stop {
   .tmc-title-ch,
   .tmc-board-row {
     animation: none;
+  }
+  .tmc-stamp-now {
+    animation: none;
+    box-shadow: 0 0 0 3px var(--tmc-halo);
   }
 }
