@@ -12,6 +12,8 @@ export type FeatureFlags = {
     externalContent: boolean;
   };
   community: {
+    /** Whole community surface: explore, browse, library, decks, discuss, contribute. */
+    enabled: boolean;
     tabs: {
       explore: boolean;
       externalContent: boolean;
@@ -41,6 +43,7 @@ export const DEFAULT_FEATURE_FLAGS: FeatureFlags = {
     externalContent: false,
   },
   community: {
+    enabled: false,
     tabs: {
       explore: true,
       externalContent: false,
@@ -80,6 +83,7 @@ export function mergeFeatureFlags(
   }
   if (isPlainObject(override.community)) {
     const c = override.community;
+    if (typeof c.enabled === "boolean") out.community.enabled = c.enabled;
     if (isPlainObject(c.tabs)) {
       const t = c.tabs;
       if (typeof t.explore === "boolean") out.community.tabs.explore = t.explore;
@@ -118,6 +122,11 @@ export function isLeaderboardEnabled(flags: FeatureFlags): boolean {
 /** Whole social surface (friends, activity, leaderboards, invites). Default off. */
 export function isSocialEnabled(flags: FeatureFlags): boolean {
   return flags.social.enabled;
+}
+
+/** Whole community surface (explore, browse, decks, discuss, contribute). Default off. */
+export function isCommunityEnabled(flags: FeatureFlags): boolean {
+  return flags.community.enabled;
 }
 
 export async function fetchFeatureFlags(): Promise<FeatureFlags> {

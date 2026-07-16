@@ -6,6 +6,7 @@
     "externalContent": false
   },
   "community": {
+    "enabled": false,
     "tabs": {
       "explore": true,
       "externalContent": false,
