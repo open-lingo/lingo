@@ -825,6 +825,10 @@
   },
   "community": {
     "title": "커뮤니티",
+    "comingSoon": {
+      "title": "커뮤니티가 곧 출시됩니다",
+      "body": "덱, 스토리, 토론, 리더보드가 준비 중이에요 — 곧 다시 확인해 주세요!"
+    },
     "breadcrumbCommunity": "커뮤니티",
     "breadcrumbExplore": "탐색",
     "breadcrumbSubscribed": "구독",
@@ -1519,7 +1523,9 @@
     "navLayoutTopbarDesc": "모든 페이지 상단에 표시되는 막대.",
     "navLayoutSidebarDesc": "큰 화면에서 페이지 옆에 표시되는 레일.",
     "themeCorners": "모서리",
-    "soundGroup": "소리"
+    "soundGroup": "소리",
+    "showRomanization": "로마자 표기 보기",
+    "showRomanizationHelp": "한글 위에 로마자 표기(개정 로마자)를 읽기 보조로 표시합니다."
   },
   "stories": {
     "title": "스토리",

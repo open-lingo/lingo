@@ -535,6 +535,10 @@
   },
   "community": {
     "title": "Comunidad",
+    "comingSoon": {
+      "title": "La comunidad llegará pronto",
+      "body": "Mazos, historias, debates y clasificaciones están en camino — ¡vuelve pronto!"
+    },
     "intro": "Open Lingo es de código abierto. El contenido, los cursos y la propia aplicación están pensados para mejorarse con la comunidad.",
     "learnTogether": "Aprende en grupo. Comparte contenido. Ayuda a otros.",
     "banner": "Contenido creado por la comunidad. Código abierto y gratuito para siempre.",
@@ -1050,7 +1054,9 @@
     "navLayoutTopbarDesc": "Una barra en la parte superior de cada página.",
     "navLayoutSidebarDesc": "Un panel lateral junto a la página en pantallas grandes.",
     "themeCorners": "Esquinas",
-    "soundGroup": "Sonido"
+    "soundGroup": "Sonido",
+    "showRomanization": "Mostrar romanización",
+    "showRomanizationHelp": "Muestra la romanización revisada sobre el Hangul como ayuda de lectura."
   },
   "ads": {
     "label": "Anuncio",

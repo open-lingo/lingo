@@ -4,7 +4,9 @@ import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { TabList, TabLink } from "@/shared/components/ui/Tabs";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { getVisibleCommunityTabs } from "./communityTabs";
+import { CommunityComingSoon } from "./CommunityComingSoon";
 
 function isTabActive(path: string, pathname: string, to: string): boolean {
   if (pathname === to) return true;
@@ -22,9 +24,11 @@ export function CommunityLayout() {
   const navigate = useNavigate();
   const langPath = useLangPath();
   const flags = useFeatureFlags();
+  const communityEnabled = isCommunityEnabled(flags);
   const visibleTabs = getVisibleCommunityTabs(flags);
 
   useEffect(() => {
+    if (!communityEnabled) return;
     if (visibleTabs.length === 0) return;
     const first = visibleTabs[0].path;
     const goFirst = () => navigate(langPath(first), { replace: true });
@@ -55,7 +59,12 @@ export function CommunityLayout() {
     ) {
       goFirst();
     }
-  }, [pathname, flags.community.tabs, visibleTabs, navigate, langPath]);
+  }, [communityEnabled, pathname, flags.community.tabs, visibleTabs, navigate, langPath]);
+
+  // Whole community surface gated off — show a graceful "coming soon" landing
+  // for any /community/* URL (nav entry is hidden, so this is reached only by
+  // direct navigation or a stale link).
+  if (!communityEnabled) return <CommunityComingSoon />;
 
   // Banner + top-level tabs render only on the explore landing — every
   // other sub-page (subscribed, my decks, new, editor) gets just the

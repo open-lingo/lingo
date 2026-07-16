@@ -1318,6 +1318,10 @@
   },
   "community": {
     "title": "Community",
+    "comingSoon": {
+      "title": "Community is coming soon",
+      "body": "Decks, stories, discussions and leaderboards are on the way — check back soon!"
+    },
     "breadcrumbCommunity": "Community",
     "breadcrumbExplore": "Explore",
     "breadcrumbSubscribed": "Subscribed",
@@ -2225,7 +2229,9 @@
     "navLayoutTopbarDesc": "A bar across the top of every page.",
     "navLayoutSidebarDesc": "A rail beside the page on larger screens.",
     "themeCorners": "Corners",
-    "soundGroup": "Sound"
+    "soundGroup": "Sound",
+    "showRomanization": "Show romanization",
+    "showRomanizationHelp": "Show Revised Romanization above Hangul as a reading aid."
   },
   "adFree": {
     "pill": {
