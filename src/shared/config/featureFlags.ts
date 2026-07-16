@@ -8,8 +8,6 @@ export type FeatureFlags = {
   practice: {
     /** /practice/stories and story reader under practice */
     stories: boolean;
-    /** Language-config "videos" trainer (e.g. /practice/videos) */
-    videoTrainers: boolean;
     /** /practice/external-content */
     externalContent: boolean;
   };
@@ -40,7 +38,6 @@ export const DEFAULT_FEATURE_FLAGS: FeatureFlags = {
   version: 1,
   practice: {
     stories: false,
-    videoTrainers: false,
     externalContent: false,
   },
   community: {
@@ -78,8 +75,6 @@ export function mergeFeatureFlags(
   if (isPlainObject(override.practice)) {
     const p = override.practice;
     if (typeof p.stories === "boolean") out.practice.stories = p.stories;
-    if (typeof p.videoTrainers === "boolean")
-      out.practice.videoTrainers = p.videoTrainers;
     if (typeof p.externalContent === "boolean")
       out.practice.externalContent = p.externalContent;
   }

@@ -18,7 +18,6 @@ const SEGMENT_LABEL_KEY: Record<string, string> = {
   alphabet: "practice.alphabetHub.breadcrumb",
   kanji: "practice.kanji",
   components: "practice.components",
-  videos: "practice.videos",
   stories: "nav.stories",
   review: "flashcards.review",
   cards: "flashcards.cardManager.title",

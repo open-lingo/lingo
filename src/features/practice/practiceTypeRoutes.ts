@@ -6,7 +6,6 @@ export const PRACTICE_TYPE_LABELS: Record<PracticeType, string> = {
   kanji: "Kanji",
   alphabet: "Alphabet",
   components: "Character components",
-  videos: "Videos",
 };
 
 /** Base route for each practice type. Alphabet uses path param: /:lang/practice/alphabet/:id */
@@ -24,5 +23,4 @@ export const PRACTICE_TYPE_ROUTES: Record<PracticeType, string> = {
   kanji: "/practice/kanji",
   alphabet: "/practice/alphabet",
   components: "/practice/components",
-  videos: "/practice/videos",
 };

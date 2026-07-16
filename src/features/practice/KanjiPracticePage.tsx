@@ -1,7 +1,8 @@
 import { useState, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { Card, CenteredLoader } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useCourseLevel } from "./useCourseLevel";
@@ -93,6 +94,10 @@ export function KanjiPracticePage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const courseLevel = useCourseLevel();
+  const { language } = useLanguage();
+  // Kanji practice is Japanese-only (JLPT N5 content). Non-JA learners who
+  // deep-link here are bounced back to their own practice hub.
+  const langId = language?.id ?? "ja";
 
   const [mode, setMode] = useState<KanjiMode>("kanji-meaning");
   const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, 3));
@@ -147,6 +152,8 @@ export function KanjiPracticePage() {
     "meaning-kanji": "Meaning → Kanji",
     "kanji-reading": "Kanji → Reading",
   };
+
+  if (langId !== "ja") return <Navigate to={langPath("practice")} replace />;
 
   return (
     <div className="space-y-4" onKeyDown={handleKeyDown} tabIndex={-1}>

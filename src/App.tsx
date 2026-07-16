@@ -120,9 +120,6 @@ const AlphabetPracticePage = lazyRetry(() =>
 const ComponentsPracticePage = lazyRetry(() =>
   import("@/features/practice/ComponentsPracticePage").then((m) => ({ default: m.ComponentsPracticePage })),
 );
-const VideosPracticePage = lazyRetry(() =>
-  import("@/features/practice/VideosPracticePage").then((m) => ({ default: m.VideosPracticePage })),
-);
 const ConjugationPracticePage = lazyRetry(() =>
   import("@/features/practice/ConjugationPracticePage").then((m) => ({ default: m.ConjugationPracticePage })),
 );
@@ -376,7 +373,6 @@ const router = createBrowserRouter([
                   { path: "speaking", element: <SpeakingPracticePage /> },
                   { path: "counters", element: <CounterPracticePage /> },
                   { path: "components", element: <ComponentsPracticePage /> },
-                  { path: "videos", element: <VideosPracticePage /> },
                   { path: "external-content", element: <ExternalContentPracticePage /> },
                 ],
               },

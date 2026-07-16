@@ -9,8 +9,7 @@ export type PracticeType =
   | "particles"
   | "kanji"
   | "alphabet"
-  | "components"
-  | "videos";
+  | "components";
 
 /** One row in the practice dropdown: label + optional sample character. */
 export type PracticeOption = {
@@ -638,7 +637,6 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
         label: "Hangul (Alphabet)",
         sampleCharacter: "한",
       },
-      { type: "videos", label: "Videos", sampleCharacter: "🎬" },
     ],
     alphabet: {
       id: "hangul",
@@ -921,7 +919,6 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
         sampleCharacter: "シ",
       },
       { type: "components", label: "Character components" },
-      { type: "videos", label: "Videos", sampleCharacter: "🎬" },
     ],
     alphabets: [JA_HIRAGANA, JA_KATAKANA],
     alphabet: JA_HIRAGANA,

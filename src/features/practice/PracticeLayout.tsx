@@ -32,9 +32,6 @@ export function PracticeLayout() {
       navigate(practiceHubPath, { replace: true });
       return;
     }
-    if (!flags.practice.videoTrainers && /\/practice\/videos(\/|$)/.test(pathname)) {
-      navigate(practiceHubPath, { replace: true });
-    }
   }, [flags.practice, pathname, navigate, practiceHubPath]);
 
   // Anon users hitting a /practice/* deep link land on the guided Learn hub
