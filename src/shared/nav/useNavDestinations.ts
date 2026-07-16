@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
-import { isLeaderboardEnabled } from "@/shared/config/featureFlags";
+import { isLeaderboardEnabled, isSocialEnabled } from "@/shared/config/featureFlags";
 import type { IconName } from "@/shared/iconRegistry";
 import {
   prefetchCommunity,
@@ -33,6 +33,7 @@ export function useNavDestinations(): NavDestination[] {
   const langPath = useLangPath();
   const flags = useFeatureFlags();
   const leaderboardOn = isLeaderboardEnabled(flags);
+  const socialOn = isSocialEnabled(flags);
 
   const dests: NavDestination[] = [
     {
@@ -58,14 +59,18 @@ export function useNavDestinations(): NavDestination[] {
       active: /^\/[^/]+\/practice/.test(pathname),
       prefetch: prefetchPractice,
     },
-    {
-      key: "social",
-      to: langPath("social"),
-      label: t("nav.social", "Social"),
-      icon: "users",
-      active: /^\/[^/]+\/social/.test(pathname),
-      prefetch: prefetchSocial,
-    },
+    ...(socialOn
+      ? [
+          {
+            key: "social",
+            to: langPath("social"),
+            label: t("nav.social", "Social"),
+            icon: "users" as IconName,
+            active: /^\/[^/]+\/social/.test(pathname),
+            prefetch: prefetchSocial,
+          },
+        ]
+      : []),
     {
       key: "community",
       to: langPath("community"),
