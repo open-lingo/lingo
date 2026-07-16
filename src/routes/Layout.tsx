@@ -66,6 +66,10 @@ export function Layout() {
 
   const homeActive = pathname === "/home";
   const learnActive = /^\/[^/]+\/learn/.test(pathname);
+  // Marketing footer is landing-only — inside the app it's just scroll
+  // noise; the same links live in Settings. (`/` always redirects, so
+  // /landing is the only landing surface.)
+  const isLanding = pathname === "/landing";
   // Focused flows (inside a lesson / test) drop the marketing footer and
   // tighten main padding — on short laptop viewports (MacBook 14" ≈ 840px
   // usable) the footer alone pushed every lesson step below the fold.
@@ -401,10 +405,10 @@ export function Layout() {
           the header (it used to float over page H1s on mobile); ≥sm it's the
           fixed top-right panel as before. */}
       {!isOnboardingPicker && !focusedFlow && <FundingMeter />}
-      {/* Non-focused pages: content fills the viewport below the header so the
-          footer sits just past the fold (present but out of the way). Focused
-          flows (lessons/tests) drop the footer + tighten padding so steps
-          aren't pushed below the fold. */}
+      {/* Non-focused pages: content fills the viewport below the header.
+          Focused flows (lessons/tests) tighten padding so steps aren't
+          pushed below the fold. The marketing footer renders on /landing
+          only (see isLanding above). */}
       <main
         id="main-content"
         className={`mx-auto w-full ${wideCanvas ? "max-w-none" : "max-w-screen-2xl"} flex-1 px-4 sm:px-6 lg:px-8 ${
@@ -417,7 +421,7 @@ export function Layout() {
       >
         <Outlet />
       </main>
-      {!focusedFlow && <SiteFooter />}
+      {isLanding && <SiteFooter />}
       {showAppAds ? <CollapsibleAdBanner /> : null}
       {isAuthenticated && !focusedFlow && (
         <FloatingLanguagePill className={sidebarMode ? "lg:hidden" : ""} />
