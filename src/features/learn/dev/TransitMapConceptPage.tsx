@@ -63,7 +63,7 @@ type Pt = readonly [number, number];
 const LEVELS = [344, 266, 188] as const;
 const LEVEL_SEQ = [0, 1, 2, 1] as const;
 const RUNS = [5, 4, 5, 3, 6, 4] as const;
-const LOOP_DOWN_Y = 420;
+const LOOP_DOWN_Y = 452;
 const LOOP_UP_Y = 96;
 const DEPTH_STEP = 46;
 const ART_BAND = 150; // reserved above the content for the skyline
@@ -291,7 +291,7 @@ function buildLayout(
       for (let j = anchor + 1; j <= Math.min(anchor + 4, stations.length - 1); j++) {
         if (stations[j].y === a.y && !branchTouched.has(j)) {
           const span = stations[j].x - a.x;
-          if (span >= shown.length * 100 + 60) {
+          if (span >= shown.length * 116 + 60) {
             rejoin = stations[j];
             break;
           }
@@ -307,7 +307,7 @@ function buildLayout(
       ? a.x + CIRCUIT_W / 2 + 12
       : rejoin
         ? rejoin.x + 12
-        : a.x + shown.length * 96 + 56;
+        : a.x + shown.length * 112 + 62;
     const depth = packDepth(up ? upIntervals : downIntervals, intervalStart, intervalEnd);
     const loopY = up ? LOOP_UP_Y - depth * 40 : LOOP_DOWN_Y + depth * DEPTH_STEP;
     if (!up) maxDownY = Math.max(maxDownY, loopY);
@@ -324,12 +324,12 @@ function buildLayout(
       // self-contained rounded circuit under the station: drop from the
       // line into a closed rounded rectangle, one lesson stop per side-half
       const W = CIRCUIT_W;
-      const Hh = 176;
+      const Hh = 172;
       const r = 26;
       const left = a.x - W / 2;
       const right = a.x + W / 2;
-      const top = loopY;
-      const bot = loopY + Hh;
+      const top = loopY - 56; // circuit rides a bit higher than plain loops
+      const bot = top + Hh;
       if (!up) maxDownY = Math.max(maxDownY, bot);
       d =
         `M ${a.x} ${a.y} V ${top}` +
@@ -372,14 +372,14 @@ function buildLayout(
       }));
       labelX = (a.x + rejoin.x) / 2;
     } else {
-      const end = a.x + shown.length * 96 + 56;
+      const end = a.x + shown.length * 112 + 62;
       d = dOf([
         [a.x, a.y],
         [a.x, loopY],
         [end, loopY],
       ]);
       stops = shown.map((quest, k) => ({
-        x: a.x + 62 + k * 96,
+        x: a.x + 72 + k * 112,
         y: loopY,
         quest,
       }));
@@ -394,7 +394,7 @@ function buildLayout(
       label: legs ? shown[0].title : shown.length > 1 ? `${shown[0].title} Line` : "",
       labelX,
       // plate center OUTSIDE the stop-label band
-      labelY: labelY ?? (up ? loopY - 48 : loopY + 62),
+      labelY: labelY ?? (up ? loopY - 52 : loopY + 70),
       up,
       cap,
       capDir,
@@ -448,7 +448,7 @@ function buildLayout(
   minC = Math.min(minC, stations[0].y - 74); // main-line plate
   for (const sp of spurs) {
     if (sp.up) minC = Math.min(minC, (sp.stops[0]?.y ?? LOOP_UP_Y) - 60);
-    else maxC = Math.max(maxC, Math.max(...sp.stops.map((q) => q.y), maxDownY) + 74);
+    else maxC = Math.max(maxC, Math.max(...sp.stops.map((q) => q.y), maxDownY) + 84);
   }
   if (depot) maxC = Math.max(maxC, depot.labelY + 12);
 
@@ -591,7 +591,14 @@ function makeSkyline(layout: Layout): Skyline {
     h = Math.imul(h ^ (h >>> 15), 0x735a2d97) >>> 0;
     return ((h ^ (h >>> 15)) >>> 0) / 4294967296;
   };
-  const moon = { x: layout.width * 0.62, y: skyTop + 40 };
+  // moon takes the first slot that no mountain silhouette can occlude
+  const moonSlots = [0.55, 0.36, 0.74, 0.18, 0.88];
+  const moonX =
+    moonSlots
+      .map((f) => layout.width * f)
+      .find((mx) => mountains.every((m) => Math.abs(mx - m.x) > m.w / 2 + 90)) ??
+    layout.width * 0.5;
+  const moon = { x: moonX, y: skyTop + 44 };
   const stars: Skyline["stars"] = [];
   const skyDeep = H * 0.5; // stars fill the open sky (painted BEHIND the land)
   const inMountain = (px: number, py: number) =>
@@ -708,15 +715,13 @@ function SkylineArt({
             />
           )}
         </g>
-        <g className="tmc-day">
-          {sky.clouds.map((c, i) => (
-            <g key={i} style={{ fill: "var(--tmc-scene-cloud)" }}>
-              {c.blobs.map((b, k) => (
-                <ellipse key={k} cx={c.x + b.dx} cy={c.y - b.ry} rx={b.rx} ry={b.ry} />
-              ))}
-            </g>
-          ))}
-        </g>
+        {sky.clouds.map((c, i) => (
+          <g key={i} style={{ fill: "var(--tmc-scene-cloud)" }}>
+            {c.blobs.map((b, k) => (
+              <ellipse key={k} cx={c.x + b.dx} cy={c.y - b.ry} rx={b.rx} ry={b.ry} />
+            ))}
+          </g>
+        ))}
         {sky.mountains.map((m, i) => (
           <g key={i}>
             <path
@@ -1136,7 +1141,7 @@ function NetworkMap({
           <svg
             viewBox={`0 ${layout.vbY} ${layout.width} ${layout.vbH}`}
             width={Math.round(layout.width * s)}
-            height={Math.round(layout.vbH * s)}
+            height={Math.floor(layout.vbH * s)}
             role="img"
             aria-label="Course transit map"
           >
@@ -1193,8 +1198,8 @@ function NetworkMap({
                         <circle
                           cx={x}
                           cy={y}
-                          r={7}
-                          strokeWidth={3}
+                          r={8.5}
+                          strokeWidth={3.5}
                           className="tmc-station-glyph"
                           style={{
                             fill: leg.done ? spur.color : "var(--tmc-panel)",
@@ -1224,11 +1229,11 @@ function NetworkMap({
                     >
                       <circle className="tmc-hit" cx={x} cy={y} r={18} fill="transparent" stroke="none" />
                       <rect
-                        x={x - 8}
-                        y={y - 8}
-                        width={16}
-                        height={16}
-                        rx={3}
+                        x={x - 10}
+                        y={y - 10}
+                        width={20}
+                        height={20}
+                        rx={3.5}
                         transform={`rotate(45 ${x} ${y})`}
                         strokeWidth={3}
                         className="tmc-station-glyph"
@@ -1239,10 +1244,10 @@ function NetworkMap({
                       />
                       {/* emoji + title grouped on the OUTSIDE of the loop so
                           they never share a band with station labels */}
-                      <text x={x} y={spur.up ? y - 34 : y + 27} textAnchor="middle" data-tm="label" style={{ fontSize: 13 }}>
+                      <text x={x} y={spur.up ? y - 38 : y + 31} textAnchor="middle" data-tm="label" style={{ fontSize: 15 }}>
                         {quest.emoji}
                       </text>
-                      <text x={x} y={spur.up ? y - 18 : y + 43} textAnchor="middle" data-tm="label" className="tmc-halo-text" style={{ fill: "var(--tmc-muted)", fontSize: 11 }}>
+                      <text x={x} y={spur.up ? y - 20 : y + 49} textAnchor="middle" data-tm="label" className="tmc-halo-text" style={{ fill: "var(--tmc-muted)", fontSize: 11.5 }}>
                         {quest.title.length > 14 ? `${quest.title.slice(0, 13)}…` : quest.title}
                         {quest.progress > 0 && quest.progress < 100 ? ` · ${quest.progress}%` : ""}
                       </text>
@@ -1426,7 +1431,7 @@ function NetworkMap({
           )}
         </div>
       </div>
-      <div className="pointer-events-none absolute bottom-2.5 left-3.5 z-[5] rounded-full border border-border bg-surface px-3 py-0.5 text-[11px] text-text-muted 2xl:text-[12px]">
+      <div className="pointer-events-none absolute bottom-[18px] left-3.5 z-[5] rounded-full border border-border bg-surface px-3 py-0.5 text-[11px] text-text-muted 2xl:text-[12px]">
         drag or scroll sideways · click a station
       </div>
     </div>
