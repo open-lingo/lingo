@@ -506,7 +506,6 @@ type Skyline = {
   toriiX: number;
   pagodaX: number;
   stars: { x: number; y: number; r: number; delay: number; bright: boolean }[];
-  moon: { x: number; y: number } | null;
   clouds: { x: number; y: number; blobs: { dx: number; rx: number; ry: number }[] }[];
 };
 
@@ -518,7 +517,6 @@ function makeSkyline(layout: Layout): Skyline {
   // encode depth (far faint/slow → near bolder/fast).
   const bottom = layout.vbY + layout.vbH + 6;
   const H = layout.vbH;
-  const skyTop = layout.vbY + 12;
 
   // hill waves flowing through the MIDDLE of the scene
   const mk = (base: number, amp0: number, wl: number) => {
@@ -591,20 +589,10 @@ function makeSkyline(layout: Layout): Skyline {
     h = Math.imul(h ^ (h >>> 15), 0x735a2d97) >>> 0;
     return ((h ^ (h >>> 15)) >>> 0) / 4294967296;
   };
-  // moon takes the first slot that no mountain silhouette can occlude
-  const moonSlots = [0.55, 0.36, 0.74, 0.18, 0.88];
-  const moonX =
-    moonSlots
-      .map((f) => layout.width * f)
-      .find((mx) => mountains.every((m) => Math.abs(mx - m.x) > m.w / 2 + 90)) ??
-    layout.width * 0.5;
-  const moon = { x: moonX, y: skyTop + 44 };
   const stars: Skyline["stars"] = [];
   const skyDeep = H * 0.5; // stars fill the open sky (painted BEHIND the land)
   const inMountain = (px: number, py: number) =>
     mountains.some((m) => py > m.baseY - m.h - 24 && Math.abs(px - m.x) < m.w / 2 + 16);
-  const nearMoon = (px: number, py: number) =>
-    moon !== null && (px - moon.x) ** 2 + (py - moon.y) ** 2 < 64 ** 2;
   let seed = 1;
   const starCount = Math.round(layout.width / 55);
   for (let sIdx = 0; sIdx < starCount; sIdx++) {
@@ -613,7 +601,7 @@ function makeSkyline(layout: Layout): Skyline {
     for (let c = 0; c < 12; c++) {
       const px = 24 + hash(seed++) * (layout.width - 48);
       const py = layout.vbY + 12 + hash(seed++) * skyDeep;
-      if (inMountain(px, py) || nearMoon(px, py)) continue;
+      if (inMountain(px, py)) continue;
       let d = Infinity;
       for (const st of stars) d = Math.min(d, (st.x - px) ** 2 + (st.y - py) ** 2);
       if (stars.length === 0) d = 1e9;
@@ -637,14 +625,13 @@ function makeSkyline(layout: Layout): Skyline {
   // clouds get the same best-candidate spread as the stars — x AND y — plus
   // a per-cloud scale so altitudes and sizes genuinely vary
   const clouds: Skyline["clouds"] = [];
-  const cloudCount = Math.max(3, Math.round(layout.width / 420));
+  const cloudCount = Math.max(4, Math.round(layout.width / 350));
   for (let ci2 = 0; ci2 < cloudCount; ci2++) {
     let best: [number, number] | null = null;
     let bestD = -1;
     for (let c = 0; c < 10; c++) {
       const px = 80 + hash(seed++) * (layout.width - 160);
       const py = layout.vbY + 26 + hash(seed++) * (H * 0.42);
-      if (moon && Math.abs(px - moon.x) < 120 && Math.abs(py - moon.y) < 70) continue;
       if (inMountain(px, py)) continue;
       let d = Infinity;
       for (const cl of clouds) d = Math.min(d, (cl.x - px) ** 2 + (cl.y - py) ** 2);
@@ -656,14 +643,29 @@ function makeSkyline(layout: Layout): Skyline {
     }
     if (!best) continue;
     const scale2 = 0.7 + hash(seed++) * 0.8;
-    const blobCount = 4 + (hash(seed++) > 0.5 ? 1 : 0);
-    let dx = -34 * scale2;
+    const blobCount = 5 + (hash(seed++) > 0.5 ? 1 : 0);
+    // size hierarchy: biggest puff in the CENTER, smallest at the ends —
+    // a big blob on the outside reads as one lumpy mass
+    const radii = Array.from({ length: blobCount }, () => (12 + hash(seed++) * 26) * scale2).sort((q, w) => w - q);
     const blobs: Skyline["clouds"][number]["blobs"] = [];
-    for (let b = 0; b < blobCount; b++) {
-      const rx = (13 + hash(seed++) * 26) * scale2;
-      blobs.push({ dx: dx + rx, rx, ry: rx * (0.55 + hash(seed++) * 0.2) });
-      dx += rx * 1.35;
-    }
+    let leftEdge = 0;
+    let rightEdge = 0;
+    radii.forEach((rx, bi) => {
+      const ry = rx * (0.55 + hash(seed++) * 0.2);
+      if (bi === 0) {
+        blobs.push({ dx: 0, rx, ry });
+        leftEdge = -rx;
+        rightEdge = rx;
+      } else if (bi % 2 === 1) {
+        const dx = leftEdge - rx * 0.4;
+        blobs.push({ dx, rx, ry });
+        leftEdge = dx - rx;
+      } else {
+        const dx = rightEdge + rx * 0.4;
+        blobs.push({ dx, rx, ry });
+        rightEdge = dx + rx;
+      }
+    });
     clouds.push({ x: best[0], y: best[1], blobs });
   }
 
@@ -677,7 +679,6 @@ function makeSkyline(layout: Layout): Skyline {
     toriiX: z.length ? (z[0].x1 + z[1].x0) / 2 + 140 : layout.width * 0.4,
     pagodaX: z.length ? (z[1].x0 + z[1].x1) / 2 : layout.width * 0.55,
     stars,
-    moon,
     clouds,
   };
 }
@@ -708,12 +709,6 @@ function SkylineArt({
           {sky.stars.map((st, i) => (
             <circle key={i} className="tmc-star" cx={st.x} cy={st.y} r={st.r} opacity={st.bright ? 0.95 : 0.5} style={{ fill: "#EDE8D8", animationDelay: `${st.delay}s` }} />
           ))}
-          {sky.moon && (
-            <path
-              d={`M ${sky.moon.x} ${sky.moon.y - 19} A 19 19 0 1 0 ${sky.moon.x} ${sky.moon.y + 19} A 23 23 0 0 1 ${sky.moon.x} ${sky.moon.y - 19} Z`}
-              style={{ fill: "#F0E8CC", opacity: 0.9 }}
-            />
-          )}
         </g>
         {sky.clouds.map((c, i) => (
           <g key={i} style={{ fill: "var(--tmc-scene-cloud)" }}>
@@ -905,6 +900,11 @@ function FixedSky({ skyRef }: { skyRef: React.RefObject<HTMLDivElement | null> }
         </g>
         <g className="tmc-night">
           <rect x="0" y="0" width="100%" height="45%" fill="url(#tmc-sky-night)" />
+          {/* the moon is pinned to the panel — celestial bodies don't scroll */}
+          {/* NB: the layer is 150% panel width — 46% of it = ~69% of the panel */}
+          <svg x="46%" y="30" width="46" height="46" overflow="visible">
+            <path d="M 19 0 A 19 19 0 1 0 19 38 A 23 23 0 0 1 19 0 Z" style={{ fill: "#F0E8CC", opacity: 0.9 }} />
+          </svg>
         </g>
       </svg>
     </div>
@@ -943,6 +943,7 @@ function NetworkMap({
   const userTookOver = useRef(false);
   const [tip, setTip] = useState<StationL | null>(null);
   const [scale, setScale] = useState<number | null>(null);
+  const [panelH, setPanelH] = useState<number | null>(null);
   const strings = stringsFor(lang);
   const sky = useMemo(() => makeSkyline(layout), [layout]);
 
@@ -950,7 +951,10 @@ function NetworkMap({
   useLayoutEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
-    const measure = () => setScale(Math.max(0.85, el.clientHeight / layout.vbH));
+    const measure = () => {
+      setPanelH(el.clientHeight);
+      setScale(Math.max(0.85, el.clientHeight / layout.vbH));
+    };
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
@@ -1105,31 +1109,31 @@ function NetworkMap({
       {/* legend */}
       <div
         data-tm="legend"
-        className="absolute right-3 top-3 z-[5] grid gap-1.5 rounded-sm border border-border bg-surface px-3.5 py-2.5 text-[11px] shadow-card min-w-[184px] 2xl:text-[12.5px] 2xl:min-w-[212px]"
+        className="absolute right-3 top-3 z-[5] grid gap-2 rounded-sm border border-border bg-surface px-4 py-3 text-[13px] shadow-card min-w-[222px] 2xl:text-[15px] 2xl:min-w-[256px]"
       >
-        <div className="flex items-center gap-2">
-          <span className="h-[5px] w-[22px] rounded-full" style={{ background: "var(--tmc-line-main)" }} />
+        <div className="flex items-center gap-2.5">
+          <span className="h-[6px] w-[26px] rounded-full" style={{ background: "var(--tmc-line-main)" }} />
           <span>{strings.lineName}</span>
         </div>
         {layout.spurs.length > 0 && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <span className="flex gap-0.5">
               {QUEST_COLORS.map((c) => (
-                <span key={c} className="h-[5px] w-[7px] rounded-full" style={{ background: c }} />
+                <span key={c} className="h-[6px] w-[8px] rounded-full" style={{ background: c }} />
               ))}
             </span>
             <span>Side-quest lines</span>
           </div>
         )}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <span
-            className="h-[5px] w-[22px] rounded-full"
-            style={{ background: "repeating-linear-gradient(90deg, var(--tmc-locked) 0 5px, transparent 5px 9px)" }}
+            className="h-[6px] w-[26px] rounded-full"
+            style={{ background: "repeating-linear-gradient(90deg, var(--tmc-locked) 0 6px, transparent 6px 10px)" }}
           />
           <span>Locked / planned</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="grid h-[13px] w-[13px] place-items-center rounded-full text-[7px] font-bold text-white" style={{ background: "var(--tmc-seal)" }}>
+        <div className="flex items-center gap-2.5">
+          <span className="grid h-[16px] w-[16px] place-items-center rounded-full text-[8.5px] font-bold text-white" style={{ background: "var(--tmc-seal)" }}>
             {strings.seal}
           </span>
           <span>Station complete</span>
@@ -1137,7 +1141,14 @@ function NetworkMap({
       </div>
 
       <div ref={scrollerRef} className="tmc-map-scroll">
-        <div className="tmc-map-inner" style={{ width: Math.round(layout.width * s) }}>
+        <div
+          className="tmc-map-inner"
+          style={{
+            width: Math.round(layout.width * s),
+            // center-clip when the readability floor oversizes the drawing
+            marginTop: panelH !== null ? Math.min(0, Math.floor((panelH - layout.vbH * s) / 2)) : 0,
+          }}
+        >
           <svg
             viewBox={`0 ${layout.vbY} ${layout.width} ${layout.vbH}`}
             width={Math.round(layout.width * s)}

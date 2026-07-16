@@ -47,7 +47,9 @@
 /* ── network map panel ─────────────────────────────────────────────── */
 .tmc-map-scroll {
   overflow-x: auto;
-  overflow-y: auto;
+  /* never a vertical bar — when the readability floor oversizes the
+     drawing, the inner div center-clips it (scenery trims, content stays) */
+  overflow-y: hidden;
   overscroll-behavior-x: contain;
   cursor: grab;
   scrollbar-width: thin;
@@ -61,10 +63,7 @@
 /* quiet floating-pill scrollbar — no track casing, never touches content */
 .tmc-map-scroll::-webkit-scrollbar {
   height: 11px;
-  width: 0; /* no vertical bar unless the drawing is genuinely oversized */
-}
-.tmc-map-scroll::-webkit-scrollbar:vertical {
-  width: 11px;
+  width: 0;
 }
 .tmc-map-scroll::-webkit-scrollbar-track,
 .tmc-map-scroll::-webkit-scrollbar-corner {
