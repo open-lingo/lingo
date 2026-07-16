@@ -1,5 +1,11 @@
 # ja ↔ es feature parity audit (2026-07-15)
 
+> **⚠ CONTENT QUALITY WARNING (Spencer, 2026-07-15):** the Spanish LESSON
+> AUTHORING quality is poor — treat all authored es content (m1–m16 steps,
+> sentences, drills) as DRAFT pending a full editorial/QA drive (like the ja
+> live-fix rounds). The engine/parity work in this doc is solid; the words
+> in the lessons are not. Do not ship es to learners before that pass.
+
 Comparison audit after the es feature wave (this session): every gap from
 `docs/es-course-gaps-2026-07-13.md` §"New trainers/steps" is now shipped, plus
 the parity burn-down the gate-catalog recon surfaced. Matrix reflects the

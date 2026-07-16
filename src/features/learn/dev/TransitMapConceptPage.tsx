@@ -23,6 +23,11 @@
  * the toggle swaps in real progress. Motion respects prefers-reduced-motion.
  *
  * Route: /:lang/transit-preview
+ *
+ * TODO (Spencer 2026-07-15): full interaction QA pass before this leaves
+ * dev-preview status — verify EVERY button/link works: stations, quest
+ * diamonds, sprint-leg stops, depot link, board rows, stamp strip,
+ * prev/next station, demo toggle, mobile rows + map toggle.
  */
 import {
   useCallback,
