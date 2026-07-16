@@ -42,6 +42,7 @@ import {
   useRef,
   useState,
   type CSSProperties,
+  type ReactNode,
 } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
@@ -60,6 +61,7 @@ import {
   type ModuleStatus,
 } from "@/features/learn/moduleProgress";
 import { stringsFor } from "@/features/learn/transitStrings";
+import { TransitSignageHeader } from "@/features/learn/components/TransitSignageHeader";
 import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
 import { useLearnProfile } from "@/features/learn/hooks/useLearnProfile";
 import { LearnSidebar } from "@/features/learn/components/LearnSidebar";
@@ -1742,7 +1744,14 @@ function DistrictView({
 
 /* ── page ────────────────────────────────────────────────────────────── */
 
-export default function TransitLearnPage({ preview = false }: { preview?: boolean }) {
+export default function TransitLearnPage({
+  preview = false,
+  headerRight,
+}: {
+  preview?: boolean;
+  /** Right-side signage slot (view toggle). Absent → legacy classic-view link. */
+  headerRight?: ReactNode;
+}) {
   const lang = useLang();
   const p = useLangPath();
   const navigate = useNavigate();
@@ -1914,29 +1923,21 @@ export default function TransitLearnPage({ preview = false }: { preview?: boolea
   return (
     <div className="tmc-root mx-auto max-w-[min(2100px,94vw)] px-3 pb-24 pt-4 sm:px-5">
       {/* signage board header */}
-      <div className="mb-5 flex flex-wrap items-center gap-4 rounded-md px-5 py-4" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
-        <div className="grid h-11 w-11 flex-none place-items-center rounded-full border-[3px] text-[18px] font-extrabold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "#fff" }}>
-          M
-        </div>
-        <div className="min-w-0 flex-1">
-          <h1 className="text-[19px] font-extrabold leading-tight sm:text-[24px] 2xl:text-[28px]" aria-label={titleText}>
-            {titleText.split("").map((ch, i) => (
-              <span key={i} className="tmc-title-ch" style={{ "--i": i } as CSSProperties} aria-hidden>
-                {/* inline-block spans collapse plain spaces — use NBSP */}
-                {ch === " " ? " " : ch}
-              </span>
-            ))}
-          </h1>
-          <div className="text-[12px] opacity-75 2xl:text-[13px]">
-            {preview
-              ? "Transit-map concept · dev preview · click stations, board quests, visit the depot"
-              : "Click a station to open its district · quests branch off the main line · the depot links to practice"}
-          </div>
-        </div>
-        <Link to={p("learn/classic")} className="rounded-sm px-3 py-1.5 text-[12.5px] font-bold hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
-          ← Classic view
-        </Link>
-      </div>
+      <TransitSignageHeader
+        title={titleText}
+        subtitle={
+          preview
+            ? "Transit-map concept · dev preview · click stations, board quests, visit the depot"
+            : "Click a station to open its district · quests branch off the main line · the depot links to practice"
+        }
+        right={
+          headerRight ?? (
+            <Link to={p("learn/classic")} className="rounded-sm px-3 py-1.5 text-[12.5px] font-bold hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
+              ← Classic view
+            </Link>
+          )
+        }
+      />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start 2xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0">

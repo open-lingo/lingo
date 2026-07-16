@@ -13,7 +13,6 @@ import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import {
   isCommunityEnabled,
   isSocialEnabled,
-  isTransitLearnHome,
 } from "@/shared/config/featureFlags";
 import { getConjugationVerbEntries } from "@/features/practice/data/practiceDataLoader";
 import { NotFoundPage } from "@/shared/components/NotFoundPage";
@@ -96,6 +95,9 @@ const HomeRestructureMockup = lazyRetry(
 const TransitLearnPage = lazyRetry(
   () => import("@/features/learn/TransitLearnPage"),
 );
+const LearnHomeSwitch = lazyRetry(() =>
+  import("@/features/learn/LearnHomeSwitch").then((m) => ({ default: m.LearnHomeSwitch })),
+);
 const SocialPage = lazyRetry(
   () => import("@/features/social/SocialPage"),
 );
@@ -176,9 +178,7 @@ function ConjugationHubRoute() {
  * the permanent escape hatch (and keeps the LearnDevPanel tools).
  */
 function LearnHomeRoute() {
-  const lang = useLang();
-  const flags = useFeatureFlags();
-  return isTransitLearnHome(flags, lang) ? <TransitLearnPage /> : <LearnPage />;
+  return <LearnHomeSwitch />;
 }
 
 /**
