@@ -20,6 +20,17 @@
   --tmc-locked: color-mix(in srgb, var(--color-text-muted) 40%, var(--color-surface));
   --tmc-halo: rgba(229, 73, 58, 0.22);
   --tmc-done: var(--tmc-line-main);
+  /* OPAQUE scenery steps (atmospheric perspective): far layers sit close to
+     the surface color, near layers gain contrast — solid fills occlude each
+     other so the parallax reads as real depth instead of blended washes */
+  --tmc-scene-far: color-mix(in srgb, var(--color-text-muted) 7%, var(--color-surface));
+  --tmc-scene-far2: color-mix(in srgb, var(--color-text-muted) 10%, var(--color-surface));
+  --tmc-scene-strip: color-mix(in srgb, var(--color-text-muted) 14%, var(--color-surface));
+  --tmc-scene-mid: color-mix(in srgb, var(--color-text-muted) 18%, var(--color-surface));
+  --tmc-scene-near: color-mix(in srgb, var(--color-text-muted) 26%, var(--color-surface));
+  --tmc-scene-accent: color-mix(in srgb, var(--tmc-line-main) 24%, var(--color-surface));
+  --tmc-scene-accent2: color-mix(in srgb, var(--tmc-line-main) 18%, var(--color-surface));
+  --tmc-scene-cloud: #e3ecf4;
 }
 .dark .tmc-root {
   --tmc-line-main: #ff6a5b;
@@ -32,7 +43,7 @@
 /* ── network map panel ─────────────────────────────────────────────── */
 .tmc-map-scroll {
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
   overscroll-behavior-x: contain;
   cursor: grab;
   scrollbar-width: thin;
@@ -42,6 +53,17 @@
   height: clamp(460px, 64vh, 920px);
   position: relative;
   z-index: 1;
+}
+/* dark, quiet scrollbar — the default light track read as a panel gap */
+.tmc-map-scroll::-webkit-scrollbar {
+  height: 9px;
+}
+.tmc-map-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.tmc-map-scroll::-webkit-scrollbar-thumb {
+  background: var(--tmc-locked);
+  border-radius: 5px;
 }
 
 /* fixed ambient layer — pinned to the panel, NOT the scrolling map;
@@ -65,6 +87,13 @@
 }
 .tmc-map-inner svg text {
   font-family: var(--font-family);
+}
+/* cartographic label halo — keeps text readable over the opaque scenery */
+.tmc-halo-text {
+  paint-order: stroke;
+  stroke: var(--tmc-panel);
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
 }
 
 /* line-draw on load */

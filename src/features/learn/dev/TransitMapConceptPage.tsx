@@ -71,7 +71,7 @@ const QUEST_COLORS = ["var(--tmc-q0)", "var(--tmc-q1)", "var(--tmc-q2)"];
 
 /** Rough text width for plates/chips (JP glyphs ~10.5px, latin ~6.2px @10px). */
 const plateW = (t: string) =>
-  [...t].reduce((w, c) => w + (c.charCodeAt(0) > 0x2e80 ? 10.5 : 6.2), 0) + 18;
+  [...t].reduce((w, c) => w + (c.charCodeAt(0) > 0x2e80 ? 11.6 : 6.9), 0) + 18;
 
 type StationL = {
   x: number;
@@ -400,7 +400,10 @@ function buildLayout(
   if (depot) maxC = Math.max(maxC, depot.labelY + 12);
 
   const vbY = Math.floor(minC) - ART_BAND;
-  const vbH = Math.ceil(maxC) + 16 - vbY;
+  // balance bottom padding so the rail band sits at the vertical center
+  const bandCenter = (LEVELS[0] + LEVELS[2]) / 2;
+  const bottomEdge = Math.max(Math.ceil(maxC) + 16, 2 * bandCenter - vbY);
+  const vbH = bottomEdge - vbY;
   const skyGroundY = Math.floor(minC) - 12;
 
   const width = last.x + 190;
@@ -452,9 +455,9 @@ type Skyline = {
   fujiX: number;
   toriiX: number;
   towerX: number;
-  stars: { x: number; y: number; r: number; delay: number }[];
+  stars: { x: number; y: number; r: number; delay: number; bright: boolean }[];
   moon: { x: number; y: number } | null;
-  wisps: { x: number; y: number }[];
+  clouds: { x: number; y: number; blobs: { dx: number; rx: number; ry: number }[] }[];
 };
 
 function makeSkyline(layout: Layout): Skyline {
@@ -535,23 +538,67 @@ function makeSkyline(layout: Layout): Skyline {
     ni++;
   }
 
-  // celestial fills the horizon-strip gaps
+  // celestial: blue-noise star field (deterministic best-candidate sampling
+  // — each star takes the candidate farthest from all placed stars, which
+  // spreads points evenly with no lattice artifacts), moon + clouds in the
+  // horizon-strip gaps
+  const hash = (n: number) => {
+    let h = (n ^ 0x9e3779b9) >>> 0;
+    h = Math.imul(h ^ (h >>> 16), 0x21f0aaad) >>> 0;
+    h = Math.imul(h ^ (h >>> 15), 0x735a2d97) >>> 0;
+    return ((h ^ (h >>> 15)) >>> 0) / 4294967296;
+  };
   const byWidth = [...gaps].sort((a, b) => b[1] - b[0] - (a[1] - a[0]));
   const moonGap = byWidth[0];
   const moon = moonGap ? { x: (moonGap[0] + moonGap[1]) / 2, y: skyTop + 34 } : null;
   const stars: Skyline["stars"] = [];
-  const wisps: Skyline["wisps"] = [];
-  byWidth.slice(0, 7).forEach(([g0, g1], gi) => {
-    const count = 3 + (gi % 3) * 2;
-    for (let k = 0; k < count; k++) {
-      stars.push({
-        x: g0 + (g1 - g0) * (((k + 1) * 0.618) % 1),
-        y: skyTop + 6 + ((k * 37 + gi * 29) % skyH),
-        r: 0.9 + ((k + gi) % 3) * 0.5,
-        delay: ((k + gi) % 7) * 0.5,
-      });
+  const inStrip = (px: number, py: number) =>
+    farStrip.some((b) => px > b.x - 8 && px < b.x + b.w + 8 && py > g - b.h - 10);
+  const nearMoon = (px: number, py: number) =>
+    moon !== null && (px - moon.x) ** 2 + (py - moon.y) ** 2 < 48 ** 2;
+  let seed = 1;
+  const starCount = Math.round(layout.width / 105);
+  for (let sIdx = 0; sIdx < starCount; sIdx++) {
+    let best: [number, number] | null = null;
+    let bestD = -1;
+    for (let c = 0; c < 12; c++) {
+      const px = 30 + hash(seed++) * (layout.width - 60);
+      const py = skyTop + hash(seed++) * skyH;
+      if (inStrip(px, py) || nearMoon(px, py)) continue;
+      let d = Infinity;
+      for (const st of stars) d = Math.min(d, (st.x - px) ** 2 + (st.y - py) ** 2);
+      if (stars.length === 0) d = 1e9;
+      if (d > bestD) {
+        bestD = d;
+        best = [px, py];
+      }
     }
-    if (gi % 2 === 1) wisps.push({ x: (g0 + g1) / 2, y: skyTop + 30 + (gi % 3) * 14 });
+    if (!best) continue;
+    const cls = hash(seed++);
+    stars.push({
+      x: best[0],
+      y: best[1],
+      r: cls > 0.94 ? 2.1 : cls > 0.68 ? 1.5 : 1.0,
+      delay: hash(seed++) * 4.2,
+      bright: cls > 0.68,
+    });
+  }
+  // flat-bottomed cartoon clouds: overlapping circles of varied sizes with
+  // bottoms on a shared baseline, every instance seeded differently
+  const clouds: Skyline["clouds"] = [];
+  byWidth.slice(1, 6).forEach(([g0, g1], gi) => {
+    if (gi % 2 === 0) return;
+    const cx = (g0 + g1) / 2;
+    const cy = skyTop + 34 + hash(seed++) * 26;
+    const blobCount = 4 + (hash(seed++) > 0.5 ? 1 : 0);
+    let dx = -34;
+    const blobs: Skyline["clouds"][number]["blobs"] = [];
+    for (let b = 0; b < blobCount; b++) {
+      const rx = 12 + hash(seed++) * 24;
+      blobs.push({ dx: dx + rx, rx, ry: rx * (0.55 + hash(seed++) * 0.2) });
+      dx += rx * 1.35;
+    }
+    clouds.push({ x: cx, y: cy, blobs });
   });
 
   const z = layout.zones;
@@ -566,7 +613,7 @@ function makeSkyline(layout: Layout): Skyline {
     towerX: z.length ? (z[1].x0 + z[1].x1) / 2 : layout.width * 0.55,
     stars,
     moon,
-    wisps,
+    clouds,
   };
 }
 
@@ -594,23 +641,22 @@ function SkylineArt({
       {/* FAR (slowest): horizon strip, Fuji, hill waves, celestial */}
       <g ref={hillsRef} pointerEvents="none" aria-hidden>
         {sky.farStrip.map((b, i) => (
-          <rect key={i} x={b.x} y={groundY - b.h} width={b.w} height={b.h} rx={1.5} style={{ fill: "var(--tmc-muted)" }} opacity={0.1} />
+          <rect key={i} x={b.x} y={groundY - b.h} width={b.w} height={b.h} rx={1.5} style={{ fill: "var(--tmc-scene-strip)" }} />
         ))}
         <path
           d={`M ${sky.fujiX - 190} ${groundY + 6} L ${sky.fujiX - 40} ${groundY - 128} L ${sky.fujiX + 4} ${groundY - 106} L ${sky.fujiX + 44} ${groundY - 128} L ${sky.fujiX + 194} ${groundY + 6} Z`}
-          fill="currentColor"
-          opacity={0.07}
+          style={{ fill: "var(--tmc-scene-far2)" }}
         />
         <path
           d={`M ${sky.fujiX - 56} ${groundY - 112} L ${sky.fujiX - 40} ${groundY - 128} L ${sky.fujiX + 4} ${groundY - 106} L ${sky.fujiX + 44} ${groundY - 128} L ${sky.fujiX + 60} ${groundY - 112} L ${sky.fujiX + 30} ${groundY - 96} L ${sky.fujiX - 26} ${groundY - 96} Z`}
           style={{ fill: "var(--tmc-panel)" }}
           opacity={0.55}
         />
-        <path d={sky.farHillsD} fill="currentColor" opacity={0.045} />
-        <path d={sky.farHills2D} fill="currentColor" opacity={0.035} />
+        <path d={sky.farHillsD} style={{ fill: "var(--tmc-scene-far)" }} />
+        <path d={sky.farHills2D} style={{ fill: "var(--tmc-scene-far2)" }} />
         <g className="tmc-night">
           {sky.stars.map((st, i) => (
-            <circle key={i} className="tmc-star" cx={st.x} cy={st.y} r={st.r} style={{ fill: "#EDE8D8", animationDelay: `${st.delay}s` }} />
+            <circle key={i} className="tmc-star" cx={st.x} cy={st.y} r={st.r} opacity={st.bright ? 0.95 : 0.5} style={{ fill: "#EDE8D8", animationDelay: `${st.delay}s` }} />
           ))}
           {sky.moon && (
             <path
@@ -620,11 +666,11 @@ function SkylineArt({
           )}
         </g>
         <g className="tmc-day">
-          {sky.wisps.map((wp, i) => (
-            <g key={i} opacity={0.4}>
-              <ellipse cx={wp.x} cy={wp.y} rx={34} ry={11} style={{ fill: "var(--tmc-panel)" }} />
-              <ellipse cx={wp.x + 22} cy={wp.y - 6} rx={22} ry={9} style={{ fill: "var(--tmc-panel)" }} />
-              <ellipse cx={wp.x - 20} cy={wp.y - 4} rx={17} ry={7} style={{ fill: "var(--tmc-panel)" }} />
+          {sky.clouds.map((c, i) => (
+            <g key={i} style={{ fill: "var(--tmc-scene-cloud)" }}>
+              {c.blobs.map((b, k) => (
+                <ellipse key={k} cx={c.x + b.dx} cy={c.y - b.ry} rx={b.rx} ry={b.ry} />
+              ))}
             </g>
           ))}
         </g>
@@ -633,7 +679,7 @@ function SkylineArt({
       <g ref={bldgRef} pointerEvents="none" aria-hidden>
         {sky.mid.map((b, i) => (
           <g key={i}>
-            <rect x={b.x} y={bottomY - b.h} width={b.w} height={b.h} rx={2} style={{ fill: "var(--tmc-muted)" }} opacity={0.09} />
+            <rect x={b.x} y={bottomY - b.h} width={b.w} height={b.h} rx={2} style={{ fill: "var(--tmc-scene-mid)" }} />
             <g className="tmc-night">
               {b.windows.map((k) => (
                 <rect key={k} x={b.x + 8 + (k % 2) * (b.w / 2)} y={bottomY - b.h + 14 + k * 40} width={6} height={9} rx={1} fill="#F2CE6B" opacity={0.3} />
@@ -646,7 +692,7 @@ function SkylineArt({
       <g ref={cityRef} pointerEvents="none" aria-hidden>
         {sky.near.map((b, i) => (
           <g key={i}>
-            <rect x={b.x} y={bottomY - b.h} width={b.w} height={b.h} rx={2.5} style={{ fill: "var(--tmc-muted)" }} opacity={0.12} />
+            <rect x={b.x} y={bottomY - b.h} width={b.w} height={b.h} rx={2.5} style={{ fill: "var(--tmc-scene-near)" }} />
             <g className="tmc-night">
               {b.windows.map((k) => (
                 <rect key={k} x={b.x + 10 + (k % 3) * (b.w / 3.4)} y={bottomY - b.h + 18 + k * 46} width={7} height={10} rx={1} fill="#F2CE6B" opacity={0.35} />
@@ -655,14 +701,14 @@ function SkylineArt({
           </g>
         ))}
         {/* big torii behind the climb */}
-        <g opacity={0.18} style={{ fill: "var(--tmc-line-main)" }}>
+        <g style={{ fill: "var(--tmc-scene-accent)" }}>
           <rect x={sky.toriiX - toriiH * 0.34} y={bottomY - toriiH} width={toriiH * 0.075} height={toriiH} />
           <rect x={sky.toriiX + toriiH * 0.34 - toriiH * 0.075} y={bottomY - toriiH} width={toriiH * 0.075} height={toriiH} />
           <path d={`M ${sky.toriiX - toriiH * 0.5} ${bottomY - toriiH * 0.98} Q ${sky.toriiX} ${bottomY - toriiH * 1.12} ${sky.toriiX + toriiH * 0.5} ${bottomY - toriiH * 0.98} L ${sky.toriiX + toriiH * 0.5} ${bottomY - toriiH * 0.88} Q ${sky.toriiX} ${bottomY - toriiH * 1.0} ${sky.toriiX - toriiH * 0.5} ${bottomY - toriiH * 0.88} Z`} />
           <rect x={sky.toriiX - toriiH * 0.38} y={bottomY - toriiH * 0.78} width={toriiH * 0.76} height={toriiH * 0.05} />
         </g>
         {/* big tower */}
-        <g opacity={0.15} style={{ fill: "var(--tmc-line-main)" }}>
+        <g style={{ fill: "var(--tmc-scene-accent2)" }}>
           <path d={`M ${sky.towerX - towerH * 0.3} ${bottomY} L ${sky.towerX} ${bottomY - towerH} L ${sky.towerX + towerH * 0.3} ${bottomY} Z`} />
           <rect x={sky.towerX - 2} y={bottomY - towerH - 22} width={4} height={22} />
           <rect x={sky.towerX - towerH * 0.19} y={bottomY - towerH * 0.62} width={towerH * 0.38} height={towerH * 0.035} />
@@ -731,7 +777,7 @@ function LinePlate({ x, y, text, color }: { x: number; y: number; text: string; 
   return (
     <g>
       <rect x={x - w / 2} y={y - 10} width={w} height={20} rx={10} style={{ fill: color }} />
-      <text x={x} y={y + 3.5} textAnchor="middle" data-tm="label" style={{ fill: "#fff", fontSize: 10, fontWeight: 800 }}>
+      <text x={x} y={y + 3.5} textAnchor="middle" data-tm="label" style={{ fill: "#fff", fontSize: 11, fontWeight: 800 }}>
         {text}
       </text>
     </g>
@@ -832,7 +878,7 @@ function NetworkMap({
   useLayoutEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
-    const measure = () => setScale(Math.max(0.8, el.clientHeight / layout.vbH));
+    const measure = () => setScale(Math.max(0.85, el.clientHeight / layout.vbH));
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
@@ -1051,7 +1097,7 @@ function NetworkMap({
                 {i > 0 && <line x1={z.x0} y1={layout.vbY + 10} x2={z.x0} y2={layout.vbY + layout.vbH - 10} style={{ stroke: "var(--tmc-border)" }} strokeDasharray="2 6" />}
                 <g>
                   <rect x={z.x0 + 16} y={layout.zoneChipY - 11} width={plateW(z.label) + 6} height={22} rx={4} style={{ fill: "var(--tmc-panel)", stroke: "var(--tmc-border)" }} strokeWidth={1} opacity={0.85} />
-                  <text x={z.x0 + 16 + (plateW(z.label) + 6) / 2} y={layout.zoneChipY + 3.5} textAnchor="middle" data-tm="zone" style={{ fill: "var(--tmc-muted)", fontSize: 10, letterSpacing: "0.14em", fontWeight: 700 }}>
+                  <text x={z.x0 + 16 + (plateW(z.label) + 6) / 2} y={layout.zoneChipY + 3.5} textAnchor="middle" data-tm="zone" style={{ fill: "var(--tmc-muted)", fontSize: 11, letterSpacing: "0.14em", fontWeight: 700 }}>
                     {z.label}
                   </text>
                 </g>
@@ -1109,7 +1155,7 @@ function NetworkMap({
                       <text x={x} y={spur.up ? y - 34 : y + 27} textAnchor="middle" data-tm="label" style={{ fontSize: 13 }}>
                         {quest.emoji}
                       </text>
-                      <text x={x} y={spur.up ? y - 18 : y + 43} textAnchor="middle" data-tm="label" style={{ fill: "var(--tmc-muted)", fontSize: 9.5 }}>
+                      <text x={x} y={spur.up ? y - 18 : y + 43} textAnchor="middle" data-tm="label" className="tmc-halo-text" style={{ fill: "var(--tmc-muted)", fontSize: 11 }}>
                         {quest.title.length > 14 ? `${quest.title.slice(0, 13)}…` : quest.title}
                         {quest.progress > 0 && quest.progress < 100 ? ` · ${quest.progress}%` : ""}
                       </text>
@@ -1127,7 +1173,7 @@ function NetworkMap({
                   {layout.depot.tracks.map((t, i) => (
                     <line key={i} x1={t[0][0]} y1={t[0][1]} x2={t[1][0]} y2={t[1][1]} strokeWidth={3} strokeLinecap="round" style={{ stroke: "var(--tmc-muted)" }} />
                   ))}
-                  <text x={layout.depot.labelX} y={layout.depot.labelY} data-tm="label" style={{ fill: "var(--tmc-muted)", fontSize: 10, fontWeight: 700 }}>
+                  <text x={layout.depot.labelX} y={layout.depot.labelY} data-tm="label" className="tmc-halo-text" style={{ fill: "var(--tmc-muted)", fontSize: 11, fontWeight: 700 }}>
                     {strings.depot}
                   </text>
                 </g>
@@ -1221,7 +1267,7 @@ function NetworkMap({
                       <>
                         <rect x={st.x - 13} y={st.y - 13} width={26} height={26} rx={5} strokeWidth={4} style={{ fill: "var(--tmc-panel)", stroke: st.status === "completed" ? "var(--tmc-done)" : "var(--tmc-locked)" }} />
                         <rect x={st.x - 30} y={st.y - 58} width={60} height={20} rx={3} style={{ fill: "var(--tmc-signage-bg)" }} />
-                        <text x={st.x} y={st.y - 44} textAnchor="middle" style={{ fill: "var(--tmc-signage-fg)", fontSize: 10, fontWeight: 800 }}>
+                        <text x={st.x} y={st.y - 44} textAnchor="middle" style={{ fill: "var(--tmc-signage-fg)", fontSize: 11, fontWeight: 800 }}>
                           GOAL
                         </text>
                         <line x1={st.x} y1={st.y - 38} x2={st.x} y2={st.y - 15} style={{ stroke: "var(--tmc-ink)" }} strokeWidth={1.5} />
@@ -1251,10 +1297,10 @@ function NetworkMap({
                       </g>
                     )}
                   </g>
-                  <text x={labelX} y={dir < 0 ? badgeY : titleY} textAnchor={anchor} data-tm="label" style={{ fill: "var(--tmc-ink)", fontSize: 13, fontWeight: 800 }}>
+                  <text x={labelX} y={dir < 0 ? badgeY : titleY} textAnchor={anchor} data-tm="label" className="tmc-halo-text" style={{ fill: "var(--tmc-ink)", fontSize: 14, fontWeight: 800 }}>
                     {st.badge}
                   </text>
-                  <text x={labelX} y={dir < 0 ? titleY : badgeY} textAnchor={anchor} data-tm="label" style={{ fill: "var(--tmc-muted)", fontSize: 10.5 }}>
+                  <text x={labelX} y={dir < 0 ? titleY : badgeY} textAnchor={anchor} data-tm="label" className="tmc-halo-text" style={{ fill: "var(--tmc-muted)", fontSize: 12 }}>
                     {short}
                   </text>
                 </g>

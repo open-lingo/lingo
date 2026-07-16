@@ -14,6 +14,7 @@ mkdirSync(OUT, { recursive: true });
 
 const VIEWPORTS = [
   { name: "mobile", width: 390, height: 844 },
+  { name: "laptop", width: 1366, height: 768 },
   { name: "1080p", width: 1920, height: 1080 },
   { name: "4k", width: 3840, height: 2160 },
 ];
@@ -86,6 +87,15 @@ for (const vp of VIEWPORTS) {
     // 2. network-map label overlaps
     const overlaps = await labelOverlaps(page, '[data-tm="label"], [data-tm="zone"]');
     report(overlaps.length === 0, `[${tag}] map labels collision-free`, overlaps.slice(0, 4).join(" · ") || "clean");
+
+    // 2b. readability: rendered label glyph boxes must stay >= ~10px
+    const minLabel = await page.evaluate(() => {
+      const hs = [...document.querySelectorAll('[data-tm="label"], [data-tm="zone"]')]
+        .map((el) => el.getBoundingClientRect().height)
+        .filter((h) => h > 0);
+      return hs.length ? Math.min(...hs) : 0;
+    });
+    report(minLabel >= 9.5, `[${tag}] smallest label readable`, `${minLabel.toFixed(1)}px`);
 
     await page.screenshot({ path: `${OUT}/map-${tag}.png`, fullPage: false });
 
