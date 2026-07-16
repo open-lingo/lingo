@@ -753,7 +753,7 @@ export const M9_2_2: LessonContent = {
       anchorLabel: "You used が with すき, but を with たべます.",
       anchorAudioText: "おんがくが すきです",
       question: "Why does すき use が while たべます uses を?",
-      rule: { text: "すき is an adjective (describes a state), so the 'liked thing' is the subject (が). たべます is a verb (describes an action), so the eaten thing is the object (を)." },
+      rule: { text: "すき is an adjective (a state) → liked thing is the subject (が). たべます is a verb (an action) → eaten thing is the object (を)." },
       surface: { text: "が and を are interchangeable in all sentences." },
       distractor: { text: "が is used because すき originally comes from a verb meaning 'to prefer.'" },
       ruleExplanation:
@@ -1081,11 +1081,11 @@ export const M9_3_2: LessonContent = {
       anchorLabel: "きれい ends in い but takes な before nouns, not い.",
       anchorAudioText: "きれいな みせ",
       question: "Why isn't きれい an い-adjective even though it ends in い?",
-      rule: { text: "The い in きれい is part of the word's stem (from kanji 綺麗), not the adjective-class い ending. True い-adjectives have い as a removable suffix." },
+      rule: { text: "きれい's い is part of its stem (from kanji 綺麗), not a conjugatable い-adjective ending — true い-adjectives can drop the い." },
       surface: { text: "Words ending in い are always い-adjectives." },
       distractor: { text: "きれい was originally a な-adjective but recently became an い-adjective." },
       ruleExplanation:
-        "The test: can you remove the い and still have a real stem? おおきい → おおき (valid stem for conjugation). きれい → きれ (not how it conjugates). That's why きれい is na-class.",
+        "Test: remove the い — is the stem real? おおきい → おおき works; きれい → きれ doesn't. That's why きれい is な-class.",
     }),
     // ── Review tail ──
     vocabMcq("ja-m9-3-2-rev-mcq-1", M9_3_2_REVIEW[0], M9_REVIEW_POOL),
@@ -1957,7 +1957,7 @@ export const M9_6_1: LessonContent = {
       surface: { text: "Any word ending in い is an い-adjective." },
       distractor: { text: "ゆうめい is both an い-adjective and a な-adjective." },
       ruleExplanation:
-        "Like きれい and きらい, ゆうめい has an い that comes from the Chinese-derived reading, not from the Japanese adjective system. Test: can you drop the い and conjugate? No → な-adjective.",
+        "Like きれい/きらい, ゆうめい's い comes from the kanji reading, not the adjective system. Can you drop い and conjugate? No → な-adjective.",
     }),
     // ── Review tail ──
     vocabMcq("ja-m9-6-1-rev-mcq-1", M9_6_1_REVIEW[0], M9_REVIEW_POOL),
@@ -2488,7 +2488,7 @@ export const M9_7_1: LessonContent = {
       anchorLabel: "きれいな はな (な-adj) vs おおきい ねこ (い-adj) — both end in い.",
       anchorAudioText: "きれいな はな",
       question: "What's the fastest way to check if an い-ending word is い-adj or な-adj?",
-      rule: { text: "Try removing the final い and conjugating. If the remaining stem conjugates (おおき → おおきくない), it's an い-adj. If not (きれ doesn't work), it's a な-adj." },
+      rule: { text: "Remove the final い and try conjugating. Stem conjugates (おおき → おおきくない)? い-adj. Doesn't (きれ)? な-adj." },
       surface: { text: "If it ends in い, it's always an い-adjective." },
       distractor: { text: "Count the syllables — short words are い-adj, long words are な-adj." },
       ruleExplanation:

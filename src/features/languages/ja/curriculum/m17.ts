@@ -862,7 +862,7 @@ export const M17_2_2: LessonContent = {
       anchorLabel: "でんしゃに のります / バスを おります",
       anchorAudioText: "バスを おります",
       question: "You learned のる takes に and おりる takes を. Why the difference?",
-      rule: { text: "のる (board) uses に because you're entering INTO something. おりる (alight) uses を because you're exiting FROM something. The particle reflects the direction of the action." },
+      rule: { text: "のる (board) uses に — entering INTO something. おりる (alight) uses を — exiting FROM something. The particle reflects the direction." },
       surface: { text: "There's no real reason — you just have to memorize which verb takes which particle." },
       distractor: { text: "のる actually takes を too — both are correct with を." },
       ruleExplanation:
@@ -1033,7 +1033,7 @@ export const M17_3_1: LessonContent = {
       anchorLabel: "みぎへ まがってください",
       anchorAudioText: "みぎへ まがってください",
       question: "Why へ instead of に here?",
-      rule: { text: "へ marks the DIRECTION you turn toward. に would also work (meaning you arrive at the right), but へ is more natural for giving directional instructions." },
+      rule: { text: "へ marks the DIRECTION you turn toward. に also works (arriving at the right), but へ is more natural for directions." },
       surface: { text: "へ is only for directions on a map — に is for all other movement." },
       distractor: { text: "へ is used because まがる is a special verb that only takes へ." },
       ruleExplanation:
@@ -1376,7 +1376,7 @@ export const M17_4_1: LessonContent = {
       anchorLabel: "えきの ちかくに コンビニが あります",
       anchorAudioText: "えきの ちかくに コンビニが あります",
       question: "Why の between えき and ちかく?",
-      rule: { text: "の connects the noun (えき) to the relative location word (ちかく) — 'the station's nearby area.' All location words (ちかく, そば, となり, あいだ, むこう) connect to their reference noun with の." },
+      rule: { text: "の connects the noun (えき) to the location word (ちかく) — 'the station's nearby area.' All location words connect this way: ちかく, そば, となり, あいだ, むこう." },
       surface: { text: "の means 'of' — えきの ちかく literally means 'close of station,' which doesn't need の." },
       distractor: { text: "の is only needed for ちかく — other location words attach directly." },
       ruleExplanation:
@@ -1539,7 +1539,7 @@ export const M17_4_2: LessonContent = {
       anchorLabel: "All location words use Noun + の + Location",
       anchorAudioText: "えきの となりです",
       question: "What's the pattern for placing things relative to a reference point?",
-      rule: { text: "[Reference noun] + の + [location word] + に/です. えきの となり = next to the station. The の always connects the reference to the location word." },
+      rule: { text: "[Reference noun] + の + [location word] + に/です. えきの となり = next to the station. の always connects them." },
       surface: { text: "You put the location word first, then の, then the reference noun." },
       distractor: { text: "Only となり and そば use の. ちかく and あいだ connect directly." },
       ruleExplanation:
@@ -1705,7 +1705,7 @@ export const M17_8_1: LessonContent = {
       anchorLabel: "えきの まえに あります",
       anchorAudioText: "バスていは えきの まえに あります",
       question: "Do the new position words use the same pattern as となり and ちかく?",
-      rule: { text: "Yes — Reference Noun + の + position word + に. えきの まえ, かばんの なか, いすの した all follow the pattern you learned with となり and ちかく." },
+      rule: { text: "Yes — Reference Noun + の + position word + に. えきの まえ, かばんの なか, いすの した all follow the same pattern." },
       surface: { text: "No — まえ and うしろ attach directly to the noun without の." },
       distractor: { text: "Position words come BEFORE the reference noun: まえの えき." },
       ruleExplanation:
@@ -3089,7 +3089,7 @@ export const M17_7_2: LessonContent = {
       anchorLabel: "Full M17 production",
       anchorAudioText: "バスを おりてから みちを わたります",
       question: "In this sentence, why を twice?",
-      rule: { text: "First を marks the bus you exit from (おりる takes を). Second を marks the street you cross (わたる takes を). Two different verbs, each with their own を-marked object." },
+      rule: { text: "First を marks the bus you exit (おりる takes を). Second を marks the street you cross (わたる takes を). Two verbs, two objects." },
       surface: { text: "You can only use を once per sentence — the second を is wrong." },
       distractor: { text: "The first を means 'from' and the second を means 'through' — different particles with the same shape." },
       ruleExplanation:

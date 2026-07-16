@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ParticleClozeStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -79,6 +79,19 @@ export function ParticleClozeStepView({
   const fullAudio = step.audioText ?? null;
   const hasFullAudio = !!fullAudio && !!getTtsUrl(fullAudio);
 
+  // Pending correct-answer play, held in a ref so it's cancelled if the
+  // step unmounts before it fires — advancing must not let this step's
+  // audio play over the next one (Spencer QA 2026-07-16).
+  const optionAudioTimer = useRef<number | null>(null);
+  useEffect(
+    () => () => {
+      if (optionAudioTimer.current !== null) {
+        window.clearTimeout(optionAudioTimer.current);
+      }
+    },
+    [],
+  );
+
   function handleSubmit() {
     if (!selected) return;
     const correct = selected === step.correctParticle;
@@ -88,8 +101,16 @@ export function ParticleClozeStepView({
       setCelebrationText(pickCelebrationText(t));
       setCelebrating(true);
       window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
-      if (hasFullAudio && fullAudio) {
-        window.setTimeout(() => playJaAudio(fullAudio), 320);
+      // Reinforce the CHOSEN option, not the whole sentence: the full
+      // sentence used to keep playing and bleed into the next step
+      // (Spencer QA 2026-07-16). The post-submit speaker button below
+      // still replays the full sentence on explicit request.
+      const pick = selected;
+      if (getTtsUrl(pick)) {
+        optionAudioTimer.current = window.setTimeout(
+          () => playJaAudio(pick),
+          320,
+        );
       }
     }
   }

@@ -514,7 +514,7 @@ export const M7_2_1: LessonContent = {
       surface: { text: "all verbs add -ます to the end" },
       distractor: { text: "ます means 'I do' on its own" },
       ruleExplanation:
-        "たべる is a -る verb: drop -る → たべ, add -ます → たべます. のむ is a -u verb: -u → -i, add -ます → のみます. The pattern is mechanical once you spot the verb type.",
+        "たべる (-る verb): drop る, add ます → たべます. のむ (-u verb): -u → -i, add ます → のみます. Mechanical once you know the verb type.",
     }),
     // ── Review tail (M4 anchors) ──
     speaking("ja-m7-2-1-rev-speak-m4", M7_2_1_REVIEW[0].kana, M7_2_1_REVIEW[0].meaningEn),
@@ -824,7 +824,7 @@ export const M7_3_1: LessonContent = {
       surface: { text: "を always comes after a drink word" },
       distractor: { text: "を introduces the answer to a wh-question" },
       ruleExplanation:
-        "を is the direct-object particle — it tags the noun the verb acts on. に would mark a destination (you don't drink a place); は would shift the topic ('as for water…').",
+        "を tags the noun the verb acts on. に would mark a destination — you don't drink a place. は would just shift the topic.",
     }),
     // ── Review tail (M1 atoms) ──
     speaking("ja-m7-3-1-rev-speak-m1", M7_3_1_REVIEW[0].kana, M7_3_1_REVIEW[0].meaningEn),
@@ -1538,7 +1538,7 @@ export const M7_5_2: LessonContent = {
       surface: { text: "に always comes after a place word" },
       distractor: { text: "に marks the subject of an existence sentence" },
       ruleExplanation:
-        "いく is a motion verb, not a transitive one — it doesn't have a 'thing being acted on'. The place you go TO is marked with に. を would be wrong: you don't 'do' the post office.",
+        "いく is intransitive — there's no 'thing acted on.' に marks the place you go TO; you don't 'do' the post office, so を is wrong.",
     }),
     build(
       "ja-m7-5-2-build-kuukou",
@@ -1815,7 +1815,7 @@ export const M7_6_2: LessonContent = {
       surface: { text: "Japanese sentences always use two particles" },
       distractor: { text: "で and を both mark the direct object" },
       ruleExplanation:
-        "で and を play different roles: で = the SETTING of the action; を = the THING being acted on. Verbs like たべる, よむ, かく, のむ are transitive — they need an object (を) AND can have a setting (で).",
+        "で = the SETTING of the action; を = the THING being acted on. Transitive verbs like たべる need both — an object (を) and a setting (で).",
     }),
     build(
       "ja-m7-6-2-build-restaurant",

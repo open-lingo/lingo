@@ -1002,7 +1002,7 @@ export const M5_4_1: LessonContent = {
       surface: { text: "ににん is a regional dialect form; ふたり is the Tokyo standard." },
       distractor: { text: "ふたり is the question form of に." },
       ruleExplanation:
-        "The counter for people swaps to native readings ONLY for 1 and 2 (ひとり, ふたり). From 3 onward the regular Sino + にん pattern kicks in. It's not regional — every speaker uses ふたり for 2 people; ににん is simply ungrammatical.",
+        "Only 1-2 people use native readings (ひとり, ふたり); from 3 it's Sino + にん. ににん isn't dialect — it's simply ungrammatical.",
     }),
     // ── Review tail ──
     speaking("ja-m5-4-1-rev-speak-1", M5_4_1_REVIEW[0].kana, M5_4_1_REVIEW[0].meaningEn),
@@ -1755,7 +1755,7 @@ export const M5_6_1: LessonContent = {
       surface: { text: "から is required after any noun ending in a vowel sound." },
       distractor: { text: "から is the polite 'please' word." },
       ruleExplanation:
-        "から marks origin (place OR time). It doesn't care about the ending sound of the noun — works for cities, schools, the office, opening times. Sentence shape: [topic] は [origin] から です.",
+        "から marks origin — place or time — no matter the noun's ending sound. Shape: [topic] は [origin] から です.",
     }),
     // ── Review tail ──
     speaking("ja-m5-6-1-rev-speak-1", M5_6_1_REVIEW[0].kana, M5_6_1_REVIEW[0].meaningEn),
@@ -2044,7 +2044,7 @@ export const M5_7_1: LessonContent = {
       surface: { text: "みっつ is required when the item starts with a consonant sound." },
       distractor: { text: "Sino numbers can only follow ください, not precede it." },
       ruleExplanation:
-        "ひとつ / ふたつ / みっつ are the native counter forms for unspecified-shape objects (coffees, dishes, items). Sino いち / に / さん are for math, money, and counters with explicit kanji (さんにん for people). Item-order is always item + quantity + ください.",
+        "ひとつ/ふたつ/みっつ are native counters for generic objects (coffees, dishes). Sino いち/に/さん are for math, money, and specific counters like にん. Order shape: item + quantity + ください.",
     }),
     // ── Review tail ──
     speaking("ja-m5-7-1-rev-speak-1", M5_7_1_REVIEW[0].kana, M5_7_1_REVIEW[0].meaningEn),
@@ -2224,7 +2224,7 @@ export const M5_7_2: LessonContent = {
       surface: { text: "ふたつ goes in the middle because it has two mora." },
       distractor: { text: "ふたつ is the topic marker for the order." },
       ruleExplanation:
-        "Every order follows item + quantity + ください. Quantity slots between the item and ください, not at the end. Mora count is irrelevant; ふたつ is a counter, not a topic marker.",
+        "Order shape is fixed: item + quantity + ください. Quantity always sits between item and ください — mora count and topic-marking are irrelevant.",
     }),
     // ── Review tail ──
     speaking("ja-m5-7-2-rev-speak-1", M5_7_2_REVIEW[0].kana, M5_7_2_REVIEW[0].meaningEn),

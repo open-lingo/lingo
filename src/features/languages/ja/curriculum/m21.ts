@@ -733,7 +733,7 @@ export const M21_2_2: LessonContent = {
       surface: { text: "Yes — を and は are interchangeable with food." },
       distractor: { text: "Yes — を is always correct with food words." },
       ruleExplanation:
-        "は marks the topic when describing something (おいしい = delicious). を marks what you DO something to (たべます = eat). りんごは おいしい = 'Apples ARE delicious.' りんごを たべます = 'I EAT apples.'",
+        "は marks the topic for descriptions (おいしい); を marks what you DO to something (たべます). りんごは おいしい = 'Apples ARE delicious'; りんごを たべます = 'I EAT apples.'",
     }),
     speaking(
       "ja-m21-2-2-speak-mikan",
@@ -896,7 +896,7 @@ export const M21_3_1: LessonContent = {
       surface: { text: "や sounds softer than と." },
       distractor: { text: "や is used with food; と is used with objects." },
       ruleExplanation:
-        "や = A and B (and possibly more). と = A and B (complete list, nothing else). In a grocery context, や is natural because you're probably buying more than two items.",
+        "や = A and B, possibly more. と = A and B, nothing else. Grocery lists favor や since you're likely buying more than two items.",
     }),
     speaking(
       "ja-m21-3-1-speak-ya-2",

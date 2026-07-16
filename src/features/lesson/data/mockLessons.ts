@@ -339,6 +339,7 @@ import {
 import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
 import { withKanaReviewTail } from "./kanaReviewTails";
 import { padMatchPairsFloor, type MatchPadContext } from "./matchPairsFloor";
+import { padBuildTileFloor } from "./buildTileFloor";
 import { deriveGrammarMicroSteps } from "./deriveGrammarMicroSteps";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { ALL_ROWS } from "./hiraganaCurriculum";
@@ -1031,19 +1032,23 @@ export function getMockLessonContent(
     const shaped = isSunsetModuleForBuildSentence(augmented.moduleId)
       ? stripBuildSentenceSteps(augmented)
       : augmented;
-    return padMatchPairsFloor(shaped, getMatchPadContext(shaped.languageId));
+    return padBuildTileFloor(
+      padMatchPairsFloor(shaped, getMatchPadContext(shaped.languageId)),
+    );
   }
 
   const reviewMatch = /^ja-(m\d+)-review-([12])$/.exec(lessonId);
   if (reviewMatch) {
-    return padMatchPairsFloor(
-      buildSrsReviewLesson({
-        moduleId: reviewMatch[1],
-        position: parseInt(reviewMatch[2]) as 1 | 2,
-        courseId: "mock-1",
-        languageId: "ja",
-      }),
-      getMatchPadContext("ja"),
+    return padBuildTileFloor(
+      padMatchPairsFloor(
+        buildSrsReviewLesson({
+          moduleId: reviewMatch[1],
+          position: parseInt(reviewMatch[2]) as 1 | 2,
+          courseId: "mock-1",
+          languageId: "ja",
+        }),
+        getMatchPadContext("ja"),
+      ),
     );
   }
 

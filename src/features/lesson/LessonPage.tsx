@@ -64,6 +64,7 @@ import { notifySRSStoreChanged } from "@/features/flashcards/SRSStoreRevisionCon
 import { reviewGrammarPoint } from "@/features/flashcards/engine/grammarSrs";
 import type { SRSModality, SRSRating } from "@/features/flashcards/data/types";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { stopAllAudio } from "@/shared/tts";
 import {
   parseModuleIndex,
   shouldAutoOffScriptRomaji,
@@ -184,6 +185,18 @@ export function LessonPage() {
     completionRecordedRef.current = false;
     resetLessonJuice();
   }, [lessonId]);
+
+  // Cut off any in-flight TTS when leaving the lesson or switching to a
+  // different lesson id — audio must never bleed across a lesson boundary
+  // (Spencer QA 2026-07-16). Step-to-step cutoff lives in handleContinue.
+  // The cleanup runs on unmount AND before this effect re-runs for a new
+  // lessonId (Next-lesson keeps LessonPage mounted, only the param changes).
+  useEffect(
+    () => () => {
+      stopAllAudio();
+    },
+    [lessonId],
+  );
 
   // `?speech=1` deep-links the speech-recognition feature flag on; the
   // same effect also consumes the matcher-tuning dials
@@ -617,6 +630,10 @@ export function LessonPage() {
         return;
       }
     }
+    // We're committed to advancing (or finishing) now — cut off any audio
+    // still playing from the current step so it can't bleed into the next
+    // one / the completion screen (Spencer QA 2026-07-16).
+    stopAllAudio();
     // Replay-mode advance: shift the queue; finish when empty.
     if (inReplay) {
       const remaining = replayQueue.slice(1);

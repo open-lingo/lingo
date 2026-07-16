@@ -1060,7 +1060,7 @@ export const M26_3_2: LessonContent = {
       anchorLabel: "たべすぎたんです vs たべすぎました",
       anchorAudioText: "たべすぎたんです",
       question: "What's the difference between たべすぎたんです and たべすぎました?",
-      rule: { text: "たべすぎました = plain past statement ('I ate too much'). たべすぎたんです = explanatory ('The thing is, I ate too much' — explaining why I feel sick, etc.)." },
+      rule: { text: "たべすぎました is a plain past statement. たべすぎたんです is explanatory — 'the thing is, I ate too much' (e.g. explaining why I feel sick)." },
       surface: { text: "たべすぎたんです is more casual than たべすぎました." },
       distractor: { text: "たべすぎたんです means 'I want to eat too much.'" },
       ruleExplanation:
@@ -2539,7 +2539,7 @@ export const M26_7_2: LessonContent = {
       anchorLabel: "Full M26 mastery",
       anchorAudioText: "のみすぎたんです",
       question: "What makes M26's patterns so useful for everyday conversation?",
-      rule: { text: "んです lets you explain WHY something happened (not just state it). すぎる lets you say something is TOO MUCH. Together with conjunctions, you can give complete explanations." },
+      rule: { text: "んです lets you explain WHY something happened, not just state it. すぎる says something is TOO MUCH. Together, complete explanations." },
       surface: { text: "They're only useful for formal situations like business meetings." },
       distractor: { text: "They're only for complaints — you can't use them for positive things." },
       ruleExplanation:

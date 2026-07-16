@@ -11,12 +11,60 @@ import {
   type VoiceColor,
 } from "@/shared/tts";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useReducedMotion } from "@/shared/hooks/useReducedMotion";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 
 const TURN_GAP_MS = 400;
 const CELEBRATE_MS = 1100;
+
+/**
+ * Global dialogue pacing. Nanami's natural TTS pace reads fast on a first
+ * listen; a modest slow-down helps comprehension without sounding drunk
+ * (Spencer QA 2026-07-16: "slowing the tts speed a bit might be helpful").
+ *
+ * Scoped to dialogue lines only (composed into `voiceFor` below) — NOT a
+ * change to the shared TTS module's defaults, so every other step's audio
+ * is untouched.
+ *
+ * Why not "compensate" the pitch drop with detune: a plain Web Audio
+ * `AudioBufferSourceNode` has no independent time/pitch controls. Per the
+ * spec, `computedPlaybackRate = playbackRate * 2^(detune/1200)` — detune
+ * and playbackRate both feed the SAME resampling rate, so nudging detune
+ * to cancel the pitch shift would cancel the slow-down too (they're one
+ * knob, not two). At 0.92x the pitch drops ~140 cents (a little over a
+ * semitone) — the same order of magnitude as the per-speaker VoiceColor
+ * shifts below, and a pitch DROP from slowing down reads as natural
+ * (only sped-up clips chipmunk).
+ */
+const DIALOGUE_PACE = 0.92;
+
+/** Compose the global dialogue pace onto a per-speaker VoiceColor's
+ *  playbackRate, leaving its detune (voice identity) untouched. Exported
+ *  for unit testing. */
+export function pacedVoice(base: VoiceColor, pace: number): VoiceColor {
+  return { ...base, playbackRate: (base.playbackRate ?? 1) * pace };
+}
+
+export type TranscriptLineStatus = "active" | "played" | "upcoming";
+
+/**
+ * Classify a transcript line for highlighting: the line currently playing
+ * is "active", a line that has started playing at least once (this session
+ * or a prior replay) but isn't playing right now is "played" (kept fully
+ * readable), and anything not yet heard is "upcoming" (dimmed so the
+ * learner can't read ahead of the audio). Exported for unit testing.
+ */
+export function lineStatus(
+  idx: number,
+  activeLineIdx: number | null,
+  playedLineIdxs: ReadonlySet<number>,
+): TranscriptLineStatus {
+  if (activeLineIdx === idx) return "active";
+  if (playedLineIdxs.has(idx)) return "played";
+  return "upcoming";
+}
 
 type Props = {
   step: DialogueListenStep;
@@ -39,6 +87,7 @@ type Props = {
 export function DialogueListenStepView({ step, onComplete, onContinue }: Props) {
   const { t } = useTranslation();
   const silentMode = useSettings().settings.audio.silentMode;
+  const reducedMotion = useReducedMotion();
 
   // ── Audio playback orchestration ────────────────────────────────────────
   // Track an incrementing "play session" id so that a Replay tap can cancel
@@ -49,6 +98,19 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeLineIdx, setActiveLineIdx] = useState<number | null>(null);
+  // Every line index that has started playing at least once (this mount) —
+  // drives the "previous line stays readable" transcript treatment. Reset
+  // whenever the step changes (see the reset effect below).
+  const [playedLineIdxs, setPlayedLineIdxs] = useState<Set<number>>(
+    () => new Set(),
+  );
+  // Scroll targets for the transcript rows, so the active line can be
+  // smoothed into view when a longer (narrative) transcript scrolls.
+  const lineRefs = useRef<Array<HTMLDivElement | null>>([]);
+  // Guards a single-line replay tap so a rapid second tap (or an in-flight
+  // full-sequence replay) can't have its stale `.then()` clear an active
+  // highlight that no longer belongs to it.
+  const lineTapTokenRef = useRef(0);
 
   const clearPendingTimeouts = useCallback(() => {
     for (const id of timeoutsRef.current) clearTimeout(id);
@@ -74,8 +136,15 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     }
     return map;
   }, [step.lines]);
+  // voiceFor composes the per-speaker color with the global dialogue pace
+  // (see DIALOGUE_PACE above) — every dialogue line plays a touch slower
+  // than the raw TTS clip, speaker identity untouched.
   const voiceFor = (line: (typeof step.lines)[number]): VoiceColor =>
-    voiceBySpeaker.get(line.speaker ?? "") ?? {};
+    pacedVoice(voiceBySpeaker.get(line.speaker ?? "") ?? {}, DIALOGUE_PACE);
+
+  const markPlayed = useCallback((idx: number) => {
+    setPlayedLineIdxs((prev) => (prev.has(idx) ? prev : new Set(prev).add(idx)));
+  }, []);
 
   const playSequence = useCallback(() => {
     sessionRef.current += 1;
@@ -94,6 +163,7 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         if (sessionRef.current !== mySession) return;
         const line = step.lines[i];
         setActiveLineIdx(i);
+        markPlayed(i);
         // lang stays undefined so the shared default (stamped per-course by
         // LanguageContext via setDefaultTtsLang) resolves the manifest key.
         await playJaAudioToEnd(
@@ -108,7 +178,7 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
       setIsPlaying(false);
       setActiveLineIdx(null);
     })();
-  }, [step.lines, clearPendingTimeouts]);
+  }, [step.lines, clearPendingTimeouts, markPlayed]);
 
   // Auto-play on mount — silentMode honored. The dependency on step.id
   // means a remount on the same step (StrictMode dev) only triggers once
@@ -127,9 +197,26 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step.id]);
 
+  // New dialogue → forget which lines were already heard.
+  useEffect(() => {
+    setPlayedLineIdxs(new Set());
+  }, [step.id]);
+
   useEffect(() => {
     return () => clearPendingTimeouts();
   }, [clearPendingTimeouts]);
+
+  // Smooth (or instant, per prefers-reduced-motion) scroll-into-view for
+  // the active transcript line — only matters once the transcript is tall
+  // enough to scroll (narrative-format steps can run up to 8 lines), a
+  // no-op otherwise since the row is already in view.
+  useEffect(() => {
+    if (activeLineIdx === null) return;
+    lineRefs.current[activeLineIdx]?.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "nearest",
+    });
+  }, [activeLineIdx, reducedMotion]);
 
   // ── Question state machine ──────────────────────────────────────────────
   // Questions reveal one at a time. Each question gets its own committed
@@ -199,10 +286,24 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
   function playLine(idx: number) {
     const line = step.lines[idx];
     if (!line) return;
+    // Mirror the sequence's active-line tracking so a tapped bubble
+    // highlights itself the same way an auto-played turn does (Spencer QA
+    // 2026-07-16: tracking "which line is playing" was the whole ask).
+    // The token guard means only the tap that's still current gets to
+    // clear the highlight when its clip ends — a rapid second tap, or the
+    // full-sequence Replay taking over, wins instead of racing back to null.
+    const token = ++lineTapTokenRef.current;
+    setActiveLineIdx(idx);
+    markPlayed(idx);
     // Same voice color as the sequence — a replay must sound like the
     // same "person" the learner just heard. lang undefined → per-course
     // default, same as the sequence above.
-    void playJaAudioToEnd(line.audioText ?? line.kana, undefined, voiceFor(line));
+    void playJaAudioToEnd(line.audioText ?? line.kana, undefined, voiceFor(line)).then(
+      () => {
+        if (lineTapTokenRef.current !== token) return;
+        setActiveLineIdx((cur) => (cur === idx ? null : cur));
+      },
+    );
   }
 
   // Pre-compute whether each line has TTS available — bubbles without
@@ -279,42 +380,67 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         </div>
       </div>
 
-      {/* ── Transcript reveal (gated) ──────────────────────────────────── */}
+      {/* ── Transcript reveal (gated) ─────────────────────────────────────
+          Three-tier treatment (Spencer QA 2026-07-16: "a better view of the
+          active and previous transcript line would help too") — the active
+          line pops (accent bg + bold), already-heard lines stay exactly as
+          readable as before, and not-yet-heard lines dim so a learner can't
+          read ahead of the audio. The row list scrolls independently of the
+          "Transcript" label so long (narrative, up to 8-line) transcripts
+          don't blow out the card, and the active row scrolls itself into
+          view — smoothly, unless prefers-reduced-motion asks otherwise. ── */}
       {showTranscript && (
         <div className="flex flex-col gap-2 rounded-2xl border-[1.5px] border-border bg-surface-muted/40 px-4 py-3">
           <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
             {t("lesson.dialogueListen.transcript", "Transcript")}
           </p>
-          {step.lines.map((line, i) => {
-            const audioOk = lineAudioAvailable[i];
-            const active = activeLineIdx === i;
-            return (
-              <div
-                key={`${step.id}-line-${i}`}
-                className={`flex items-start gap-3 rounded-xl border px-3 py-2 transition-colors ${
-                  active
-                    ? "border-accent bg-accent-muted"
-                    : "border-border/60 bg-surface"
-                }`}
-              >
-                <span className="shrink-0 text-xs font-bold uppercase tracking-wider text-text-muted pt-1">
-                  {line.speaker}
-                </span>
-                <p className="flex-1 font-japanese text-base font-medium text-text-primary">
-                  <AnnotatedJa text={line.kana} />
-                </p>
-                <button
-                  type="button"
-                  onClick={() => playLine(i)}
-                  disabled={!audioOk}
-                  className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
-                  aria-label={t("lesson.play", "Play audio")}
+          <div className="flex max-h-72 flex-col gap-2 overflow-y-auto pr-1">
+            {step.lines.map((line, i) => {
+              const audioOk = lineAudioAvailable[i];
+              const status = lineStatus(i, activeLineIdx, playedLineIdxs);
+              const isActive = status === "active";
+              const isUpcoming = status === "upcoming";
+              return (
+                <div
+                  key={`${step.id}-line-${i}`}
+                  ref={(el) => {
+                    lineRefs.current[i] = el;
+                  }}
+                  className={`flex items-start gap-3 rounded-xl border px-3 py-2 transition-all duration-200 ${
+                    isActive
+                      ? "border-accent bg-accent-muted shadow-sm"
+                      : isUpcoming
+                        ? "border-border/30 bg-surface/60 opacity-45"
+                        : "border-border/60 bg-surface"
+                  }`}
                 >
-                  <Icon name="play" size={12} />
-                </button>
-              </div>
-            );
-          })}
+                  <span
+                    className={`shrink-0 text-xs font-bold uppercase tracking-wider pt-1 ${
+                      isActive ? "text-accent" : "text-text-muted"
+                    }`}
+                  >
+                    {line.speaker}
+                  </span>
+                  <p
+                    className={`flex-1 font-japanese text-base text-text-primary ${
+                      isActive ? "font-semibold" : "font-medium"
+                    }`}
+                  >
+                    <AnnotatedJa text={line.kana} />
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => playLine(i)}
+                    disabled={!audioOk}
+                    className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_2px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
+                    aria-label={t("lesson.play", "Play audio")}
+                  >
+                    <Icon name="play" size={12} />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
 

@@ -487,7 +487,7 @@ export const M20_1_2: LessonContent = {
       anchorLabel: "は as 'teeth' vs は as topic marker",
       anchorAudioText: "はを みがきます",
       question: "How do you tell apart は (teeth) from は (topic marker)?",
-      rule: { text: "Context and position: は (teeth/歯) appears as a noun (はを みがく = brush teeth). は (topic marker) appears after a noun as a particle. In writing, kanji disambiguates: 歯 = teeth." },
+      rule: { text: "Context and position: teeth-は (歯) is the noun being acted on (はを みがく). Topic は follows a noun as a particle. Kanji disambiguates: 歯 = teeth." },
       surface: { text: "They are pronounced differently — teeth は is 'ha' and the particle is 'wa.'" },
       distractor: { text: "は always means teeth; the topic marker is spelled differently." },
       ruleExplanation:
@@ -628,7 +628,7 @@ export const M20_2_1: LessonContent = {
       anchorLabel: "が in pain expressions",
       anchorAudioText: "あたまが いたいです",
       question: "Why が instead of は for 'my head hurts'?",
-      rule: { text: "When reporting a symptom (new information), が identifies WHAT hurts. は would imply contrast ('my head, unlike other parts'). が is the default for pain reports." },
+      rule: { text: "Reporting a symptom is new information, so が identifies WHAT hurts. は would imply contrast ('unlike other parts'). が is the default." },
       surface: { text: "が sounds more polite than は when talking to a doctor." },
       distractor: { text: "が is used for pain but は is used for other sensations like cold or hot." },
       ruleExplanation:
@@ -812,11 +812,11 @@ export const M20_2_2: LessonContent = {
       anchorLabel: "Medical vocabulary patterns",
       anchorAudioText: "くすりを のみます",
       question: "Why を for くすり but が for ねつ?",
-      rule: { text: "くすりを のみます: medicine is what you actively take (direct object → を). ねつが あります: a fever exists/is present (subject of existence → が). Different verbs call for different particles." },
+      rule: { text: "くすりを のみます: medicine is taken (direct object → を). ねつが あります: a fever exists (subject → が). Different verbs, different particles." },
       surface: { text: "を is used for medicine because medicine is liquid (you 'drink' it)." },
       distractor: { text: "が is only for pain expressions; ねつ uses が because fever hurts." },
       ruleExplanation:
-        "The particle depends on the verb: のむ (take/drink) takes an object (を), あります (exists) takes a subject (が). This is a general Japanese grammar rule, not specific to medical vocab.",
+        "The particle depends on the verb: のむ (take/drink) takes an object (を); あります (exists) takes a subject (が). A general rule, not medical-specific.",
     }),
     speaking(
       "ja-m20-2-2-speak-sentence",
@@ -986,7 +986,7 @@ export const M20_3_1: LessonContent = {
       anchorLabel: "かぜをひく — a fixed phrase",
       anchorAudioText: "かぜを ひきました",
       question: "Why を with かぜ (a cold)?",
-      rule: { text: "かぜをひく is a set phrase — 'to catch a cold.' Even though a cold isn't something you physically grab, Japanese treats it as a direct object with を. You must memorize this as a fixed expression." },
+      rule: { text: "かぜをひく is a set phrase — 'to catch a cold.' You don't physically grab a cold, but Japanese treats it as を's direct object. Memorize it." },
       surface: { text: "を is used because かぜ is a thing you can touch." },
       distractor: { text: "が would also be correct — かぜがひく means the same thing." },
       ruleExplanation:
@@ -1494,7 +1494,7 @@ export const M20_4_2: LessonContent = {
       anchorLabel: "ので vs から in daily life",
       anchorAudioText: "ねつが あるので やすみます",
       question: "When should you choose ので over から?",
-      rule: { text: "Use ので in polite/formal situations (with bosses, doctors, strangers) and when the reason is an objective fact. Use から in casual speech and when stating personal desires or opinions." },
+      rule: { text: "Use ので in polite/formal situations (bosses, doctors, strangers) or for objective facts. Use から in casual speech or personal desires/opinions." },
       surface: { text: "ので and から are completely interchangeable — just pick your favorite." },
       distractor: { text: "ので is only for illness-related reasons; から is for everything else." },
       ruleExplanation:
@@ -1670,7 +1670,7 @@ export const M20_5_1: LessonContent = {
       anchorLabel: "ので connection review",
       anchorAudioText: "かぜなので せっけんで てを あらいます",
       question: "Why なので for かぜ but just ので for いたい?",
-      rule: { text: "かぜ is a noun → needs な before ので. いたい is an い-adjective → connects directly to ので. The な bridges nouns and な-adjectives to ので." },
+      rule: { text: "かぜ is a noun → needs な before ので. いたい is an い-adjective → connects directly. な bridges nouns/な-adjectives to ので." },
       surface: { text: "It depends on the length of the word — short words use なので." },
       distractor: { text: "なので is for medical nouns; ので is for everything else." },
       ruleExplanation:
@@ -2018,7 +2018,7 @@ export const M20_6_1: LessonContent = {
       anchorLabel: "Adjectives + body parts",
       anchorAudioText: "めが ちいさいです",
       question: "When describing body parts, why が and not は?",
-      rule: { text: "When describing a feature for the first time (new information), が identifies what has the quality. は would imply contrast or established topic. For simple descriptions, が is the neutral choice." },
+      rule: { text: "A feature described for the first time is new info, so が identifies what has it. は would imply contrast or an established topic." },
       surface: { text: "が is only for pain — for size/shape you should use は." },
       distractor: { text: "が is used because body parts are small words." },
       ruleExplanation:
@@ -2196,7 +2196,7 @@ export const M20_6_2: LessonContent = {
       anchorLabel: "M20 complete system",
       anchorAudioText: "あたまが いたいので くすりを のみます",
       question: "What does M20 teach?",
-      rule: { text: "1) Body part vocabulary (13+ words). 2) 〜がいたい for pain. 3) ので for giving softer reasons. 4) Health/medical vocab. 5) Adjective review with body context. All combine into clinic-ready sentences." },
+      rule: { text: "1) Body part vocabulary. 2) 〜がいたい for pain. 3) ので for softer reasons. 4) Medical vocab. 5) Adjective review. All combine into clinic-ready sentences." },
       surface: { text: "M20 only taught body vocabulary — no grammar." },
       distractor: { text: "M20 taught ので as a replacement for から — never use から again." },
       ruleExplanation:
@@ -2660,7 +2660,7 @@ export const M20_7_2: LessonContent = {
       anchorLabel: "M20 — the complete health toolkit",
       anchorAudioText: "あたまが いたいので くすりを のんで やすみます",
       question: "What can you do with M20's three core patterns?",
-      rule: { text: "1) Name any body part. 2) Report pain with がいたい. 3) Give soft reasons with ので. Combined: [body part]がいたいので、[action]. A complete pattern for clinic visits, calling in sick, and describing health." },
+      rule: { text: "1) Name a body part. 2) Report pain with がいたい. 3) Give reasons with ので. Combined: [part]がいたいので、[action] — for clinics, calling in sick, describing health." },
       surface: { text: "M20 only covers vocabulary — you need separate grammar modules for sentences." },
       distractor: { text: "ので replaces から completely — never use から again." },
       ruleExplanation:

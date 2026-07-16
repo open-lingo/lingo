@@ -2494,7 +2494,7 @@ export const M27_7_1: LessonContent = {
       anchorLabel: "M27 comprehension patterns",
       anchorAudioText: "くすりを のまなければなりません",
       question: "How can you tell the difference between なければなりません and くなりました when listening?",
-      rule: { text: "なければなりません starts with the ない-form base + ければ (obligation). くなりました starts with an adjective stem + く (change of state). Listen for ければ vs く before なり." },
+      rule: { text: "なければなりません = ない-form base + ければ (obligation). くなりました = adjective stem + く (change of state). Listen for ければ vs く before なり." },
       surface: { text: "You can't tell the difference — they sound the same." },
       distractor: { text: "なければなりません is always at the end; くなりました is always at the beginning." },
       ruleExplanation:

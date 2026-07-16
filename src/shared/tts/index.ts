@@ -35,7 +35,11 @@ import { useEffect } from "react";
 // any other unknown key.
 import manifest from "../../pub/tts/manifest.json";
 import { useSettings } from "@/shared/contexts/SettingsContext";
-import { getAudioVolume, subscribeAudioVolume } from "@/shared/audio/volume";
+import {
+  getAudioVolume,
+  subscribeAudioVolume,
+  stopLocalAudio,
+} from "@/shared/audio/volume";
 
 const MANIFEST = manifest as Record<string, string | string[]>;
 
@@ -208,10 +212,43 @@ async function loadBuffer(url: string): Promise<AudioBuffer | null> {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Active-source registry. Every AudioBufferSourceNode this module starts is
+// tracked here so the app can cut off ALL in-flight TTS at once — advancing
+// to the next lesson step (or leaving a lesson) must not let the previous
+// step's clip bleed into the next one (Spencer QA 2026-07-16). Sources
+// self-deregister when they end (natural finish OR an explicit stop()).
+// ---------------------------------------------------------------------------
+const activeSources = new Set<AudioBufferSourceNode>();
+
+function trackSource(src: AudioBufferSourceNode): void {
+  activeSources.add(src);
+  src.addEventListener("ended", () => activeSources.delete(src));
+}
+
+/**
+ * Stop every in-flight clip immediately — Web Audio TTS sources plus any
+ * HTMLAudio (per-word / alphabet) clips. Idempotent; safe to call when
+ * nothing is playing. Wired into the lesson step-advance path and lesson
+ * unmount so audio never spills across a step or lesson boundary.
+ */
+export function stopAllAudio(): void {
+  for (const src of activeSources) {
+    try {
+      src.stop();
+    } catch {
+      // Already stopped / never started — ignore.
+    }
+  }
+  activeSources.clear();
+  stopLocalAudio();
+}
+
 /**
  * Start a fresh AudioBufferSourceNode for `buffer` and start it. The node
- * is automatically eligible for GC once playback ends — no keep-alive Set
- * required (the Web Audio runtime owns the lifecycle).
+ * is automatically eligible for GC once playback ends — the Web Audio
+ * runtime owns the lifecycle; `trackSource` only keeps a weak-ish handle
+ * so `stopAllAudio` can cut it off early.
  */
 function playBuffer(buffer: AudioBuffer): void {
   const c = getContext();
@@ -225,6 +262,7 @@ function playBuffer(buffer: AudioBuffer): void {
   src.buffer = buffer;
   const out = getGain() ?? c.destination;
   src.connect(out);
+  trackSource(src);
   src.start();
 }
 
@@ -274,6 +312,7 @@ export async function playJaAudioToEnd(
   if (voice.playbackRate) src.playbackRate.value = voice.playbackRate;
   if (voice.detuneCents && src.detune) src.detune.value = voice.detuneCents;
   src.connect(getGain() ?? c.destination);
+  trackSource(src);
   const rate = voice.playbackRate ?? 1;
   await new Promise<void>((resolve) => {
     let done = false;

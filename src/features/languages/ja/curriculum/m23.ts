@@ -1572,7 +1572,7 @@ export const M23_5_1: LessonContent = {
       "ja-m23-5-1-build-jouzu-suiei",
       "Say: He is good at swimming.",
       "かれは すいえいが じょうずです",
-      ["すいえい", "かれ", "が", "は", "じょうず", "の", "が", "です"],
+      ["すいえい", "かれ", "を", "は", "じょうず", "の", "が", "です"],
       ["かれ", "は", "すいえい", "が", "じょうず", "です"],
     ),
     listeningBuildSentence({
@@ -1867,7 +1867,7 @@ export const M23_6_1: LessonContent = {
       "ja-m23-6-1-build-1",
       "Say: She is good at swimming.",
       "かのじょは すいえいが じょうずです",
-      ["すいえい", "かのじょ", "じょうず", "は", "が", "の", "が", "へた", "です"],
+      ["すいえい", "かのじょ", "じょうず", "は", "が", "の", "を", "へた", "です"],
       ["かのじょ", "は", "すいえい", "が", "じょうず", "です"],
     ),
     speaking(
@@ -1885,7 +1885,7 @@ export const M23_6_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m23-6-1-lb-1",
       target: "うたうのが じょうずです",
-      tiles: ["じょうず", "うたう", "の", "が", "へた", "が", "です"],
+      tiles: ["じょうず", "うたう", "の", "が", "へた", "を", "です"],
       correctOrder: ["うたう", "の", "が", "じょうず", "です"],
       promptEn: "Hear it, build it: 'Good at singing.'",
     }),
@@ -2021,7 +2021,7 @@ export const M23_6_2: LessonContent = {
       "ja-m23-6-2-build-1",
       "Say: My older sister is good at dance.",
       "あねは ダンスが じょうずです",
-      ["ダンス", "あね", "じょうず", "は", "が", "の", "が", "です"],
+      ["ダンス", "あね", "じょうず", "は", "が", "の", "を", "です"],
       ["あね", "は", "ダンス", "が", "じょうず", "です"],
     ),
     speaking(
@@ -2258,7 +2258,7 @@ export const M23_STORY: LessonContent = {
     listeningBuildSentence({
       id: "ja-m23-story-lb-1",
       target: "ゆきさんは ダンスが じょうずです",
-      tiles: ["ダンス", "ゆきさん", "じょうず", "は", "が", "の", "が", "へた", "です"],
+      tiles: ["ダンス", "ゆきさん", "じょうず", "は", "が", "の", "を", "へた", "です"],
       correctOrder: ["ゆきさん", "は", "ダンス", "が", "じょうず", "です"],
       promptEn: "Hear it, build it: 'Yuki is good at dance.'",
     }),
@@ -2495,7 +2495,7 @@ export const M23_7_2: LessonContent = {
       "ja-m23-7-2-build-1",
       "Say: Yuki is good at driving.",
       "ゆきさんは うんてんが じょうずです",
-      ["うんてん", "ゆきさん", "じょうず", "は", "が", "の", "が", "です"],
+      ["うんてん", "ゆきさん", "じょうず", "は", "が", "の", "を", "です"],
       ["ゆきさん", "は", "うんてん", "が", "じょうず", "です"],
     ),
     cloze(
@@ -2764,7 +2764,7 @@ export const M23_8_1: LessonContent = {
       anchorLabel: "うんてんが できます",
       anchorAudioText: "うんてんが できます",
       question: "What's the difference between できます and じょうずです?",
-      rule: { text: "できます = whether you CAN do it (yes/no ability). じょうずです = how WELL you do it (skill quality). You can do something without being good at it." },
+      rule: { text: "できます = CAN you do it (yes/no ability). じょうずです = how WELL you do it (skill). You can do something without being good at it." },
       surface: { text: "They mean the same — both say you're good at something." },
       distractor: { text: "できます is the past tense of じょうずです." },
       ruleExplanation:

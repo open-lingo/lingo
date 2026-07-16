@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { GrammarRuleStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
@@ -19,6 +19,194 @@ type Props = {
   variant?: "full" | "compact";
 };
 
+// ---------------------------------------------------------------------------
+// Read gate — QA critique (Spencer, 2026-07-11): nothing stopped a learner
+// from clicking Continue before reading the card at all. Lock the Continue
+// affordance for a duration scaled to how much there is to read, so the
+// card is "forced to [read or] listen" without turning into a hard wall on
+// the longer cards.
+// ---------------------------------------------------------------------------
+
+const READ_GATE_WPM = 238;
+const READ_GATE_MIN_MS = 1500;
+/** Owner's stated hard ceiling (QA 2026-07-11): "5 second timer max". */
+const READ_GATE_MAX_MS = 5000;
+
+function countWords(text: string): number {
+  const trimmed = text.trim();
+  return trimmed === "" ? 0 : trimmed.split(/\s+/).length;
+}
+
+/**
+ * Title + rule word count at a 238wpm reading pace, clamped to
+ * [1.5s, 5s]. Examples, the anti-pattern tile, and the culture note are
+ * deliberately excluded from the estimate — they're supplementary (their
+ * own play button / a tap-to-expand chip), not the mandatory-read core the
+ * gate protects. In practice most of the ~93 curriculum rule cards run
+ * 40-90 words of rule text alone, well past the 5s-equivalent (~20 words),
+ * so the ceiling — not the formula — is what most cards actually hit.
+ */
+function readGateDurationMs(step: GrammarRuleStep): number {
+  const words = countWords(step.title) + countWords(step.rule);
+  const estimateMs = (words / READ_GATE_WPM) * 60_000;
+  return Math.min(READ_GATE_MAX_MS, Math.max(READ_GATE_MIN_MS, estimateMs));
+}
+
+/**
+ * Honors reduced motion twice over, same as `Confetti`/`LessonComplete`:
+ * the OS-level `prefers-reduced-motion: reduce` query AND the in-app
+ * setting (`root.dataset.reducedMotion`, set by SettingsContext).
+ */
+function prefersReducedMotion(): boolean {
+  if (typeof window === "undefined") return true;
+  if (document.documentElement.dataset.reducedMotion === "true") return true;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/**
+ * Locks Continue for `readGateDurationMs(step)` after the card appears.
+ *
+ * Re-armed on `step.id` (not just on mount) so two grammar_rule cards in a
+ * row — anywhere they don't get a fresh component instance, e.g. a
+ * `key`-less dev preview — each get their own lock instead of inheriting a
+ * stale one. Because the effect's cleanup always clears the pending timer
+ * before a new one is set, this is StrictMode-double-mount safe: mount →
+ * cleanup → remount clears timer #1 before timer #2 is scheduled, so
+ * exactly one gate timer is ever pending. Same idiom as `ExplainButton`'s
+ * dwell timer.
+ */
+function useReadGate(step: GrammarRuleStep) {
+  const durationMs = useMemo(() => readGateDurationMs(step), [step]);
+  const [ready, setReady] = useState(false);
+  const [fillStarted, setFillStarted] = useState(false);
+
+  useEffect(() => {
+    setReady(false);
+    setFillStarted(false);
+    const timer = setTimeout(() => setReady(true), durationMs);
+    // Flips on the next paint so the browser commits the 0%-width frame
+    // before the CSS transition to 100% starts (otherwise the fill can
+    // render already-full instead of animating).
+    const raf = requestAnimationFrame(() => setFillStarted(true));
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(raf);
+    };
+  }, [step.id, durationMs]);
+
+  return { ready, fillStarted, durationMs };
+}
+
+/** Subtle fill bar above Continue while the read gate is locked. Purely
+ *  decorative (aria-hidden — the button's own label + disabled state is
+ *  the a11y-relevant signal), and skipped entirely under reduced motion
+ *  rather than jumping straight to a static partial fill. */
+function ReadGateBar({
+  ready,
+  fillStarted,
+  durationMs,
+}: {
+  ready: boolean;
+  fillStarted: boolean;
+  durationMs: number;
+}) {
+  if (ready || prefersReducedMotion()) return null;
+  return (
+    <div
+      aria-hidden
+      className="mb-2 h-1 w-full overflow-hidden rounded-full bg-info/20"
+    >
+      <div
+        className="h-full rounded-full bg-info"
+        style={{
+          width: fillStarted ? "100%" : "0%",
+          transitionProperty: "width",
+          transitionDuration: `${durationMs}ms`,
+          transitionTimingFunction: "linear",
+        }}
+      />
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// TTS read-aloud — feasibility note (2026-07-11 QA task):
+//
+// The app's real TTS (`shared/tts`) resolves `"<lang>:<text>"` against a
+// manifest of pre-generated JA clips (`src/pub/tts/manifest.json`). Grammar
+// card `title`/`rule` text is English prose written for the card, not a
+// curriculum JA phrase, so it will essentially never have a manifest
+// entry — `getTtsUrl` would just return null. That pipeline isn't usable
+// for this feature.
+//
+// `window.speechSynthesis` is the only remaining option and is NOT used
+// anywhere else in the app today (a comment in `languages/ko/module.ts`
+// claims a "browser speechSynthesis fallback" for KO audio — it doesn't
+// exist; that comment is stale/inaccurate). Voice quality/availability is
+// inherently platform-dependent, but for a short, user-triggered,
+// English-prose read-aloud button, "some robotic-but-intelligible voice on
+// most platforms, silently absent on the rest" is an acceptable bar — this
+// is a convenience affordance, not the graded content. Kept entirely local
+// to this file (capability-detected, self-contained state, cancels on
+// unmount) rather than folded into `shared/tts`, which another workshop is
+// actively reworking (stop/cancel behavior) — no call into or edit of that
+// module for this feature.
+// ---------------------------------------------------------------------------
+
+function useSpeechReadAloud(text: string) {
+  const supported =
+    typeof window !== "undefined" && "speechSynthesis" in window;
+  const [speaking, setSpeaking] = useState(false);
+
+  // Stop mid-read speech on unmount (step change / navigating away) so a
+  // card doesn't keep talking into the next step.
+  useEffect(() => {
+    return () => {
+      if (supported) window.speechSynthesis.cancel();
+    };
+  }, [supported]);
+
+  function toggle() {
+    if (!supported) return;
+    if (speaking) {
+      window.speechSynthesis.cancel();
+      setSpeaking(false);
+      return;
+    }
+    // Defensive: clears any stray queued utterance before starting a new
+    // one. This component only ever queues one at a time, but cancel-then-
+    // speak is cheap insurance against a stuck prior utterance.
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    utterance.onend = () => setSpeaking(false);
+    utterance.onerror = () => setSpeaking(false);
+    setSpeaking(true);
+    window.speechSynthesis.speak(utterance);
+  }
+
+  return { supported, speaking, toggle };
+}
+
+/** Small speaker button — reads `text` aloud via browser speechSynthesis.
+ *  Renders nothing when the capability isn't there (no dead button). */
+function ReadAloudButton({ text }: { text: string }) {
+  const { supported, speaking, toggle } = useSpeechReadAloud(text);
+  if (!supported) return null;
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-pressed={speaking}
+      aria-label={speaking ? "Stop reading aloud" : "Read this card aloud"}
+      title={speaking ? "Stop reading aloud" : "Read aloud"}
+      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-[1.5px] border-info/40 bg-surface text-info transition-colors hover:bg-info/10"
+    >
+      <Icon name={speaking ? "pause" : "volume"} size={14} />
+    </button>
+  );
+}
+
 /**
  * Grammar Rule Card — Tae Kim-style explicit teaching.
  *
@@ -35,11 +223,17 @@ export function GrammarRuleStepView({
   onContinue,
   variant = "full",
 }: Props) {
+  const { ready, fillStarted, durationMs } = useReadGate(step);
+  const readAloudText = `${step.title}. ${step.rule}`;
+
   useLessonKeyboard({
     onEnter: () => {
       playSfx("passive-advance");
       onContinue();
     },
+    // Enter must respect the same lock as the click affordance — otherwise
+    // the gate is a purely visual speed bump for keyboard users.
+    enabled: ready,
   });
 
   if (variant === "compact") {
@@ -52,9 +246,10 @@ export function GrammarRuleStepView({
         <div className="rounded-2xl border-2 border-info/40 bg-gradient-to-br from-info/15 via-info/10 to-accent/10 px-5 py-5">
           <div className="flex items-center gap-3">
             <Icon name="fileText" size={24} aria-hidden className="shrink-0 text-info" />
-            <h2 className="text-xl font-bold tracking-tight text-text-primary sm:text-2xl">
+            <h2 className="flex-1 text-xl font-bold tracking-tight text-text-primary sm:text-2xl">
               {step.title}
             </h2>
+            <ReadAloudButton text={readAloudText} />
           </div>
           <p className="mt-3 text-base leading-relaxed text-text-secondary">
             {step.rule}
@@ -68,12 +263,14 @@ export function GrammarRuleStepView({
         {step.cultureNote ? <CultureChip note={step.cultureNote} /> : null}
 
         <div className="mt-auto pt-6">
+          <ReadGateBar ready={ready} fillStarted={fillStarted} durationMs={durationMs} />
           <ContinueButton
             onClick={() => {
               playSfx("passive-advance");
               onContinue();
             }}
-            label="Got it"
+            disabled={!ready}
+            label={ready ? "Got it" : "Reading…"}
           />
         </div>
       </div>
@@ -87,7 +284,10 @@ export function GrammarRuleStepView({
       </p>
 
       <div className="relative overflow-hidden rounded-3xl border-2 border-info/40 bg-gradient-to-br from-info/15 via-info/10 to-accent/10 px-7 py-9 shadow-[var(--shadow-card)]">
-        <Icon name="fileText" size={48} aria-hidden className="text-info" />
+        <div className="flex items-start justify-between gap-3">
+          <Icon name="fileText" size={48} aria-hidden className="text-info" />
+          <ReadAloudButton text={readAloudText} />
+        </div>
         <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-text-primary sm:text-4xl">
           {step.title}
         </h2>
@@ -129,13 +329,15 @@ export function GrammarRuleStepView({
       ) : null}
 
       <div className="mt-auto pt-6">
+        <ReadGateBar ready={ready} fillStarted={fillStarted} durationMs={durationMs} />
         <ContinueButton
           onClick={() => {
             // Passive — non-progress chirp + light haptic. See sfx.ts.
             playSfx("passive-advance");
             onContinue();
           }}
-          label="Got it"
+          disabled={!ready}
+          label={ready ? "Got it" : "Reading…"}
         />
       </div>
     </div>

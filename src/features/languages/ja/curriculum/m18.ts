@@ -303,7 +303,7 @@ export const M18_1_1: LessonContent = {
       anchorLabel: "きょうは あめです / きょうは てんきが いいです",
       anchorAudioText: "きょうは てんきが いいです",
       question: "Why が after てんき but not after あめ?",
-      rule: { text: "てんきが いい is a set expression — 'the weather is good.' てんき is the subject (が) of the adjective いい. あめです is a copula sentence — 'it is rain.' Different structures." },
+      rule: { text: "てんきが いい is a set phrase — てんき is the subject (が) of いい. あめです is just a copula sentence — 'it is rain.' Different structures." },
       surface: { text: "You always use が with weather words and は with rain words." },
       distractor: { text: "Both sentences use は — the が in てんきが is actually optional." },
       ruleExplanation:
@@ -469,7 +469,7 @@ export const M18_1_2: LessonContent = {
       anchorLabel: "Weather patterns: copula vs adjective",
       anchorAudioText: "きょうは あめです",
       question: "Why きょうは あめです but きょうは てんきが いいです?",
-      rule: { text: "あめです is a copula — 'it IS rain.' てんきが いい is an adjective predicate — 'the weather IS GOOD.' Different sentence structures for different weather expressions." },
+      rule: { text: "あめです is a copula — 'it IS rain.' てんきが いい is an adjective predicate — 'the weather IS GOOD.' Different structures." },
       surface: { text: "あめ is a noun so it uses です. てんき is also a noun but it means something different." },
       distractor: { text: "You can say あめが いいです too — it means the same thing." },
       ruleExplanation:
@@ -986,7 +986,7 @@ export const M18_3_1: LessonContent = {
       anchorLabel: "さむいと おもいます vs あめだと おもいます",
       anchorAudioText: "さむいと おもいます",
       question: "Why さむいと (no だ) but あめだと (with だ)?",
-      rule: { text: "い-adjectives are already in plain form — さむい + と. Nouns need だ to make the plain form — あめ + だ + と. Different word types, different connectors." },
+      rule: { text: "い-adjectives are already plain — さむい + と. Nouns need だ for plain form — あめ + だ + と. Different word types, different connectors." },
       surface: { text: "You always add だ before と — さむいだと is the correct form." },
       distractor: { text: "だ is optional — both さむいと and さむいだと are correct." },
       ruleExplanation:
@@ -1482,7 +1482,7 @@ export const M18_4_2: LessonContent = {
       anchorLabel: "おおきい やま vs きれいな はな",
       anchorAudioText: "きれいな はな",
       question: "Why おおきい やま but きれいな はな?",
-      rule: { text: "おおきい is an い-adjective — it modifies nouns directly. きれい is a な-adjective — it needs な before the noun. The adjective type determines the connection." },
+      rule: { text: "おおきい (い-adj) modifies nouns directly. きれい (な-adj) needs な before the noun. The adjective type determines the connection." },
       surface: { text: "おおきい is short, so it doesn't need な. きれい is long, so it does." },
       distractor: { text: "Both types can use either form — おおきな やま and きれいい はな both work." },
       ruleExplanation:
@@ -2652,7 +2652,7 @@ export const M18_7_2: LessonContent = {
       anchorLabel: "Full M18 production mastery",
       anchorAudioText: "おおきい もりが あります",
       question: "In this sentence, why な after きれい but not い after おおきい?",
-      rule: { text: "きれい is a な-adjective — it needs な to modify a noun (きれいな はな). おおきい is an い-adjective — it modifies directly (おおきい もり). Check the adjective type to decide." },
+      rule: { text: "きれい (な-adj) needs な to modify a noun (きれいな はな). おおきい (い-adj) modifies directly (おおきい もり). Check the type first." },
       surface: { text: "おおきい ends in い, which is like な. So they both connect the same way." },
       distractor: { text: "おおきい can also use な — おおきな is an alternative form." },
       ruleExplanation:

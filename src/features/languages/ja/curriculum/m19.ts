@@ -1175,7 +1175,7 @@ export const M19_3_2: LessonContent = {
       anchorLabel: "Family register system overview",
       anchorAudioText: "あねは きょうしです",
       question: "Summarize the humble/honorific rule:",
-      rule: { text: "YOUR family → humble forms (ちち, はは, あに, あね, そふ, そぼ). THEIR family → honorific forms (おとうさん, おかあさん, おにいさん, おねえさん, おじいさん, おばあさん). Younger siblings add さん for theirs." },
+      rule: { text: "YOUR family: humble (ちち, はは, あに, あね, そふ, そぼ). THEIR family: honorific (おとうさん, おかあさん, おにいさん, おねえさん, おじいさん, おばあさん), + さん for younger siblings." },
       surface: { text: "Humble forms are casual and honorific forms are formal — use honorific at work." },
       distractor: { text: "Men use humble forms and women use honorific forms." },
       ruleExplanation:
@@ -2294,7 +2294,7 @@ export const M19_6_2: LessonContent = {
       anchorLabel: "Full family introduction pattern",
       anchorAudioText: "ごにんかぞくです",
       question: "What's the order for a family self-introduction?",
-      rule: { text: "1) State family size (〜にんかぞくです). 2) List members with と (ちちと ははと…). 3) Add details (age, job) per member. Always use humble forms for YOUR family." },
+      rule: { text: "1) State family size (〜にんかぞくです). 2) List members with と (ちちと ははと…). 3) Add details per member. Use humble forms for YOUR family." },
       surface: { text: "Start with the oldest member and work down by age." },
       distractor: { text: "Always use おとうさん/おかあさん in self-introductions to show respect." },
       ruleExplanation:

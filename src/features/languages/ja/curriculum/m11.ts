@@ -2924,7 +2924,7 @@ export const M11_7_2: LessonContent = {
       anchorLabel: "あまり/ぜんぜん require negative — but いつも/よく/ときどき don't",
       anchorAudioText: "あまり たべません",
       question: "Why can いつも work with positive verbs but ぜんぜん can't?",
-      rule: { text: "いつも/よく/ときどき are neutral frequency adverbs — they work with both positive and negative. あまり/ぜんぜん are negative-polarity items — they inherently express negation and require negative verb forms." },
+      rule: { text: "いつも/よく/ときどき are neutral — they work with positive or negative. あまり/ぜんぜん are negative-polarity — they require negative verb forms." },
       surface: { text: "All frequency adverbs work with both positive and negative — there is no restriction." },
       distractor: { text: "いつも is formally positive and ぜんぜん is formally negative — they are antonyms and can never appear in the same sentence." },
       ruleExplanation: "Neutral adverbs (いつも, よく, ときどき, たいてい) work with any polarity. Negative-polarity adverbs (あまり, ぜんぜん) require negative predicates.",

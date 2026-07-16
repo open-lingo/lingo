@@ -496,7 +496,7 @@ export const M25_1_2: LessonContent = {
       anchorLabel: "まつり and はなび",
       anchorAudioText: "まつりで はなびを みます",
       question: "What's the relationship between まつり and はなび?",
-      rule: { text: "まつり = festival (the event). はなび = fireworks (often part of a festival). They're different things — one is an event, the other is a spectacle." },
+      rule: { text: "まつり = festival (the event). はなび = fireworks (often part of one). Different things — one's an event, the other a spectacle." },
       surface: { text: "They mean the same thing — both refer to celebrations." },
       distractor: { text: "はなび is a type of まつり — all fireworks are festivals." },
       ruleExplanation:
@@ -1653,7 +1653,7 @@ export const M25_5_1: LessonContent = {
       anchorLabel: "ひまな とき vs こどもの とき",
       anchorAudioText: "ひまな とき えいがを みます",
       question: "Why ひまな とき (with な) but こどもの とき (with の)?",
-      rule: { text: "ひま is a な-adjective, so it takes な before とき. こども is a noun, so it takes の before とき. Each word class has its own connector." },
+      rule: { text: "ひま (な-adj) takes な before とき. こども (noun) takes の before とき. Each word class has its own connector." },
       surface: { text: "な and の are interchangeable — either works with any word." },
       distractor: { text: "な is for people and の is for things." },
       ruleExplanation:
@@ -1834,7 +1834,7 @@ export const M25_5_2: LessonContent = {
       anchorLabel: "いく とき vs いった とき",
       anchorAudioText: "にほんに いく とき",
       question: "What's the difference between いく とき and いった とき?",
-      rule: { text: "いく とき = when going (before you go — action hasn't happened). いった とき = when you went (after arriving — action completed). The tense before とき matters." },
+      rule: { text: "いく とき = when going (before you go). いった とき = when you went (after arriving). The tense before とき matters." },
       surface: { text: "They mean the same thing — both mean 'when going to Japan.'" },
       distractor: { text: "いく とき is casual, いった とき is formal." },
       ruleExplanation:

@@ -1683,7 +1683,7 @@ export const M6_5_2: LessonContent = {
         text: "が introduces the answer to an implied wh-question; は doesn't.",
       },
       ruleExplanation:
-        "The underlying split is information status: が = new info, は = known topic. 'こうえんが あります' announces a park you didn't know about; 'こうえんは どこですか' takes the park as known and asks WHERE.",
+        "The split is information status: が = new info, は = known topic. こうえんが あります announces the park; こうえんは どこですか assumes it and asks WHERE.",
     }),
     // production — tile-bank build
     build(

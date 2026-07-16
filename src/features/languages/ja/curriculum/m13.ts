@@ -1473,7 +1473,7 @@ export const M13_4_2: LessonContent = {
       surface: { text: "'From' — だ is just emphasis before the 'from' particle." },
       distractor: { text: "It depends on the verb that follows — から changes meaning based on the predicate." },
       ruleExplanation:
-        "だから is the clear marker: noun + だから = because. Time/place + から (no だ) = from. い-adjective + から = because (no だ needed because adjectives don't take だ).",
+        "だから is the marker: noun + だから = because. Time/place + から (no だ) = from. い-adjective + から = because — adjectives skip だ.",
     }),
     translateStep({
       id: "ja-m13-4-2-translate",

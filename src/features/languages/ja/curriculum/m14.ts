@@ -1819,7 +1819,7 @@ export const M14_5_2: LessonContent = {
       anchorLabel: "みてください (Group 2) vs かえってください (Group 1) vs きてください (irregular)",
       anchorAudioText: "きてください",
       question: "How do you decide between て, って, んで etc. before ください?",
-      rule: { text: "First identify the verb group, then apply the て-form rule: Group 2 drops る → て; Group 1 depends on the ending consonant; irregulars are memorized." },
+      rule: { text: "Identify the verb group first: Group 2 drops る → て; Group 1 depends on the ending consonant; irregulars are memorized." },
       surface: { text: "Just add ください to the dictionary form — the て is optional." },
       distractor: { text: "Use って for all Group 1 verbs and て for all Group 2 verbs — there are no other patterns." },
       ruleExplanation:
@@ -2176,7 +2176,7 @@ export const M14_6_2: LessonContent = {
       anchorLabel: "きって/はがき → まい (flat), ペン → ほん (cylindrical), りんご → こ (general)",
       anchorAudioText: "さんぼん ください",
       question: "How do you pick the right counter for an object?",
-      rule: { text: "Match the counter to the object's shape: 枚 (まい) for flat things (paper, tickets, photos), 本 (ほん) for long/cylindrical things (pens, bottles, trees), 個 (こ) for small round or general objects." },
+      rule: { text: "Match the counter to shape: 枚(まい) = flat (paper, tickets), 本(ほん) = cylindrical (pens, bottles), 個(こ) = round or general." },
       surface: { text: "All counters are interchangeable — just pick whichever one you remember." },
       distractor: { text: "Use 個 (こ) for everything — 枚 and 本 are formal alternatives." },
       ruleExplanation:
@@ -2725,7 +2725,7 @@ export const M14_7_2: LessonContent = {
       anchorLabel: "You translated 5 different てください requests from English",
       anchorAudioText: "はなしてください",
       question: "What is the most reliable way to determine a verb's て-form?",
-      rule: { text: "Step 1: identify the verb group (1/2/irregular). Step 2: for Group 1, check the final kana of dictionary form. Step 3: apply the matching pattern (って/んで/いて/いで/して). Check for いく exception." },
+      rule: { text: "1) Identify the verb group. 2) For Group 1, check the dictionary form's final kana. 3) Apply って/んで/いて/いで/して — watch for the いく exception." },
       surface: { text: "Just memorize every verb's て-form individually — there are no reliable patterns." },
       distractor: { text: "Count the number of kana in the verb — longer verbs are Group 2, shorter are Group 1." },
       ruleExplanation:
