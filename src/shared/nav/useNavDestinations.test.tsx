@@ -27,3 +27,25 @@ describe("useNavDestinations social gating", () => {
     expect(result.current.some((d) => d.key === "social")).toBe(true);
   });
 });
+
+describe("useNavDestinations community gating", () => {
+  beforeEach(() => vi.clearAllMocks());
+
+  it("omits community when the flag is off", () => {
+    mockFlags.mockReturnValue({
+      ...DEFAULT_FEATURE_FLAGS,
+      community: { ...DEFAULT_FEATURE_FLAGS.community, enabled: false },
+    });
+    const { result } = renderHook(() => useNavDestinations());
+    expect(result.current.some((d) => d.key === "community")).toBe(false);
+  });
+
+  it("includes community when the flag is on", () => {
+    mockFlags.mockReturnValue({
+      ...DEFAULT_FEATURE_FLAGS,
+      community: { ...DEFAULT_FEATURE_FLAGS.community, enabled: true },
+    });
+    const { result } = renderHook(() => useNavDestinations());
+    expect(result.current.some((d) => d.key === "community")).toBe(true);
+  });
+});

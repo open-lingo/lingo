@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
-import { isSocialEnabled } from "@/shared/config/featureFlags";
+import { isCommunityEnabled, isSocialEnabled } from "@/shared/config/featureFlags";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { JA_COURSE_ATOMS, canonicalAtomId } from "@/features/languages/ja/courseAtoms";
 import type { Command } from "./types";
@@ -21,7 +21,9 @@ export function useCommands(): Command[] {
   const langPath = useLangPath();
   const lang = useLang();
   const { openSettings } = useModal();
-  const socialOn = isSocialEnabled(useFeatureFlags());
+  const flags = useFeatureFlags();
+  const socialOn = isSocialEnabled(flags);
+  const communityOn = isCommunityEnabled(flags);
 
   return useMemo(() => {
     const go = (path: string) => () => navigate(path);
@@ -37,12 +39,16 @@ export function useCommands(): Command[] {
       { id: "nav-social", label: t("nav.social", "Social"), group: t("cmd.group.nav", "Navigation"), icon: "users", keywords: "friends leaderboard", perform: go(langPath("social")), showWhenEmpty: true },
       { id: "nav-community", label: t("nav.community", "Community"), group: t("cmd.group.nav", "Navigation"), icon: "globe", keywords: "decks stories forum", perform: go(langPath("community")), showWhenEmpty: true },
       { id: "nav-leaderboard", label: t("nav.leaderboard", "Leaderboard"), group: t("cmd.group.nav", "Navigation"), icon: "trophy", perform: go(langPath("community/leaderboard")), showWhenEmpty: true },
-    ] as Command[]).filter((c) => socialOn || c.id !== "nav-social");
+    ] as Command[]).filter(
+      (c) =>
+        (socialOn || c.id !== "nav-social") &&
+        (communityOn || c.id !== "nav-community"),
+    );
 
     const settings: Command[] = [
       { id: "set-general", label: t("settings.nav.general", "General"), group: t("cmd.group.settings", "Settings"), icon: "settings", keywords: "settings preferences", perform: () => openSettings("general"), showWhenEmpty: true },
       { id: "set-appearance", label: t("settings.nav.appearance", "Appearance"), group: t("cmd.group.settings", "Settings"), icon: "palette", keywords: "theme dark light color font", perform: () => openSettings("appearance"), showWhenEmpty: true },
-      { id: "set-audio", label: t("settings.nav.audio", "Audio"), group: t("cmd.group.settings", "Settings"), icon: "headphones", keywords: "sound volume tts speech", perform: () => openSettings("audio"), showWhenEmpty: true },
+      { id: "set-audio", label: t("settings.soundGroup", "Sound"), group: t("cmd.group.settings", "Settings"), icon: "headphones", keywords: "sound volume tts speech audio", perform: () => openSettings("general"), showWhenEmpty: true },
       { id: "set-accessibility", label: t("settings.accessibility", "Accessibility"), group: t("cmd.group.settings", "Settings"), icon: "eye", keywords: "dyslexia font size motion", perform: () => openSettings("accessibility"), showWhenEmpty: true },
       { id: "set-notifications", label: t("settings.notifications", "Notifications"), group: t("cmd.group.settings", "Settings"), icon: "megaphone", perform: () => openSettings("notifications"), showWhenEmpty: true },
       { id: "set-privacy", label: t("legal.settings.privacyTitle", "Privacy"), group: t("cmd.group.settings", "Settings"), icon: "shield", keywords: "account data privacy", perform: () => openSettings("privacy"), showWhenEmpty: true },
@@ -83,5 +89,5 @@ export function useCommands(): Command[] {
         : [];
 
     return [...nav, ...settings, ...lessons, ...vocab];
-  }, [t, navigate, langPath, lang, openSettings, socialOn]);
+  }, [t, navigate, langPath, lang, openSettings, socialOn, communityOn]);
 }

@@ -30,7 +30,11 @@ import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { SidebarNav } from "@/routes/SidebarNav";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
-import { isLeaderboardEnabled, isSocialEnabled } from "@/shared/config/featureFlags";
+import {
+  isCommunityEnabled,
+  isLeaderboardEnabled,
+  isSocialEnabled,
+} from "@/shared/config/featureFlags";
 import { Icon } from "@/shared/components/Icon";
 import {
   makePrefetchHandlers,
@@ -58,6 +62,7 @@ export function Layout() {
   const flags = useFeatureFlags();
   const leaderboardOn = isLeaderboardEnabled(flags);
   const socialOn = isSocialEnabled(flags);
+  const communityOn = isCommunityEnabled(flags);
   const pathname = location.pathname;
   const langPath = useLangPath();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -212,17 +217,19 @@ export function Layout() {
                   {t("nav.social", "Social")}
                 </Link>
               ) : null}
-              <Link
-                to={langPath("community")}
-                {...makePrefetchHandlers(prefetchCommunity)}
-                className={`rounded-md px-2 py-1.5 text-sm ${
-                  communityActive
-                    ? "font-medium text-text-primary"
-                    : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
-                }`}
-              >
-                {t("nav.community")}
-              </Link>
+              {communityOn ? (
+                <Link
+                  to={langPath("community")}
+                  {...makePrefetchHandlers(prefetchCommunity)}
+                  className={`rounded-md px-2 py-1.5 text-sm ${
+                    communityActive
+                      ? "font-medium text-text-primary"
+                      : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                  }`}
+                >
+                  {t("nav.community")}
+                </Link>
+              ) : null}
               {leaderboardOn ? (
                 <Link
                   to={langPath("community/leaderboard")}
@@ -343,13 +350,15 @@ export function Layout() {
                     label={t("nav.social", "Social")}
                   />
                 ) : null}
-                <MobileNavLink
-                  to={langPath("community")}
-                  active={communityActive}
-                  onClick={() => setMobileMenuOpen(false)}
-                  onPrefetch={prefetchCommunity}
-                  label={t("nav.community")}
-                />
+                {communityOn ? (
+                  <MobileNavLink
+                    to={langPath("community")}
+                    active={communityActive}
+                    onClick={() => setMobileMenuOpen(false)}
+                    onPrefetch={prefetchCommunity}
+                    label={t("nav.community")}
+                  />
+                ) : null}
                 {leaderboardOn ? (
                   <Link
                     to={langPath("community/leaderboard")}

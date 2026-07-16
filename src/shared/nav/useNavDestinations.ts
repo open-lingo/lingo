@@ -2,7 +2,11 @@ import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
-import { isLeaderboardEnabled, isSocialEnabled } from "@/shared/config/featureFlags";
+import {
+  isCommunityEnabled,
+  isLeaderboardEnabled,
+  isSocialEnabled,
+} from "@/shared/config/featureFlags";
 import type { IconName } from "@/shared/iconRegistry";
 import {
   prefetchCommunity,
@@ -34,6 +38,7 @@ export function useNavDestinations(): NavDestination[] {
   const flags = useFeatureFlags();
   const leaderboardOn = isLeaderboardEnabled(flags);
   const socialOn = isSocialEnabled(flags);
+  const communityOn = isCommunityEnabled(flags);
 
   const dests: NavDestination[] = [
     {
@@ -71,14 +76,18 @@ export function useNavDestinations(): NavDestination[] {
           },
         ]
       : []),
-    {
-      key: "community",
-      to: langPath("community"),
-      label: t("nav.community"),
-      icon: "globe",
-      active: /\/community/.test(pathname) && !/\/leaderboard/.test(pathname),
-      prefetch: prefetchCommunity,
-    },
+    ...(communityOn
+      ? [
+          {
+            key: "community",
+            to: langPath("community"),
+            label: t("nav.community"),
+            icon: "globe" as IconName,
+            active: /\/community/.test(pathname) && !/\/leaderboard/.test(pathname),
+            prefetch: prefetchCommunity,
+          },
+        ]
+      : []),
   ];
 
   if (leaderboardOn) {
