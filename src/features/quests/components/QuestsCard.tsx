@@ -67,6 +67,9 @@ export function QuestsCardBody({
   const dailySpotlight = useMemo(() => spotlightFor("daily"), [quests]);
   const weeklySpotlight = useMemo(() => spotlightFor("weekly"), [quests]);
 
+  const othersFor = (type: "daily" | "weekly", spotlight: { id: string } | null) =>
+    quests.filter((q) => q.type === type && q.id !== spotlight?.id);
+
   const dailyCount = quests.filter((q) => q.type === "daily").length;
   const weeklyCount = quests.filter((q) => q.type === "weekly").length;
   const moreDailies = Math.max(0, dailyCount - 1);
@@ -104,6 +107,7 @@ export function QuestsCardBody({
           <BucketSpotlight
             kicker={t("quests.daily.kicker", { defaultValue: "Daily" })}
             quest={dailySpotlight}
+            others={othersFor("daily", dailySpotlight)}
             onClaim={() => claim(dailySpotlight.id)}
             moreCount={moreDailies}
             onSeeMore={() => open("daily")}
@@ -117,9 +121,10 @@ export function QuestsCardBody({
         {/* Weekly section */}
         {weeklySpotlight ? (
           <BucketSpotlight
-            className="mt-4 border-t border-border pt-3"
+            className="mt-3 border-t border-border pt-2.5"
             kicker={t("quests.weekly.kicker", { defaultValue: "Weekly" })}
             quest={weeklySpotlight}
+            others={othersFor("weekly", weeklySpotlight)}
             onClaim={() => claim(weeklySpotlight.id)}
             moreCount={moreWeekly}
             onSeeMore={() => open("weekly")}
@@ -155,9 +160,13 @@ export function QuestsCardBody({
   );
 }
 
+type QuestItem = ReturnType<typeof useQuests>["quests"][number];
+
 type BucketProps = {
   kicker: string;
-  quest: ReturnType<typeof useQuests>["quests"][number];
+  quest: QuestItem;
+  /** Rest of the bucket (spotlight excluded) — listed in the "+N more" hover popover. */
+  others: QuestItem[];
   onClaim: () => void;
   moreCount: number;
   onSeeMore: () => void;
@@ -166,9 +175,13 @@ type BucketProps = {
   className?: string;
 };
 
+const fraction = (q: QuestItem) =>
+  `${Math.min(q.progress.current, q.progress.target)}/${q.progress.target} ${q.progress.unit}`;
+
 function BucketSpotlight({
   kicker,
   quest,
+  others,
   onClaim,
   moreCount,
   onSeeMore,
@@ -184,64 +197,97 @@ function BucketSpotlight({
       : 0;
   const isClaimable = quest.status === "claimable";
   return (
-    <section className={["space-y-2", className].filter(Boolean).join(" ")}>
+    <section className={["space-y-1.5", className].filter(Boolean).join(" ")}>
       <p className="text-[0.65rem] font-semibold uppercase tracking-wider text-text-muted">
         {kicker}
       </p>
-      <div className="flex items-start gap-3">
+      {/* One compact row: icon · title · short bar (fraction on hover) · rewards */}
+      <div className="group relative flex items-center gap-2">
         <div
-          className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-surface-muted text-text-secondary"
+          className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-surface-muted text-text-secondary"
           aria-hidden
         >
-          <Icon name={questIcon(quest)} size={20} />
+          <Icon name={questIcon(quest)} size={15} />
         </div>
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-text-primary">
-            {titleLabel}
-          </p>
-          <div className="mt-1.5">
-            <QuestProgressBar percent={percent} tone={tone} />
-            <p className="mt-1 flex items-center justify-between text-[0.65rem] font-medium text-text-muted">
-              <span className="tabular-nums">
-                {Math.min(quest.progress.current, quest.progress.target)}
-                /{quest.progress.target} {quest.progress.unit}
+        <p className="min-w-0 flex-1 truncate text-[13px] font-semibold text-text-primary">
+          {titleLabel}
+        </p>
+        {isClaimable ? (
+          <button
+            type="button"
+            onClick={onClaim}
+            className="inline-flex shrink-0 items-center gap-1 rounded-md bg-accent px-2 py-1 text-[11px] font-semibold text-white transition hover:bg-accent-hover"
+          >
+            <Icon name="sparkles" size={11} aria-hidden />
+            {t("quests.claim", { defaultValue: "Claim reward" })}
+          </button>
+        ) : (
+          <>
+            <div className="relative w-[72px] shrink-0">
+              <QuestProgressBar
+                percent={percent}
+                tone={tone}
+                ariaLabel={fraction(quest)}
+                className="h-1.5"
+              />
+              {/* Progress fraction — revealed on row hover, floats above the bar */}
+              <span
+                className="pointer-events-none absolute -top-6 right-0 z-10 hidden whitespace-nowrap rounded-md border border-border bg-surface px-1.5 py-0.5 text-[0.65rem] font-semibold tabular-nums text-text-primary shadow-card group-hover:block"
+                aria-hidden
+              >
+                {fraction(quest)}
               </span>
-              <span className="inline-flex items-center gap-1">
-                {quest.rewards.lingots ? (
-                  <span className="inline-flex items-center gap-0.5 font-semibold text-accent">
-                    <Icon name="gem" size={11} aria-hidden />
-                    {quest.rewards.lingots}
-                  </span>
-                ) : null}
-                {quest.rewards.xp ? (
-                  <span className="inline-flex items-center gap-0.5 font-semibold text-warning">
-                    <Icon name="star" size={11} aria-hidden />
-                    {quest.rewards.xp}
-                  </span>
-                ) : null}
-              </span>
-            </p>
-          </div>
-          {isClaimable ? (
-            <button
-              type="button"
-              onClick={onClaim}
-              className="mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-md bg-accent px-2.5 py-1.5 text-xs font-semibold text-white transition hover:bg-accent-hover"
-            >
-              <Icon name="sparkles" size={12} aria-hidden />
-              {t("quests.claim", { defaultValue: "Claim reward" })}
-            </button>
-          ) : null}
-        </div>
+            </div>
+            <span className="inline-flex shrink-0 items-center gap-1 text-[0.65rem] font-medium">
+              {quest.rewards.lingots ? (
+                <span className="inline-flex items-center gap-0.5 font-semibold text-accent">
+                  <Icon name="gem" size={11} aria-hidden />
+                  {quest.rewards.lingots}
+                </span>
+              ) : null}
+              {quest.rewards.xp ? (
+                <span className="inline-flex items-center gap-0.5 font-semibold text-warning">
+                  <Icon name="star" size={11} aria-hidden />
+                  {quest.rewards.xp}
+                </span>
+              ) : null}
+            </span>
+          </>
+        )}
       </div>
       {moreCount > 0 ? (
-        <button
-          type="button"
-          onClick={onSeeMore}
-          className="text-[0.7rem] font-medium text-text-muted hover:text-accent"
-        >
-          {moreLabel}
-        </button>
+        <div className="group/more relative">
+          <button
+            type="button"
+            onClick={onSeeMore}
+            className="text-[0.7rem] font-medium text-text-muted hover:text-accent"
+          >
+            {moreLabel}
+          </button>
+          {/* Hidden-quests preview — hover popover; click still opens the panel */}
+          {others.length > 0 ? (
+            <div className="pointer-events-none absolute bottom-full left-0 z-20 mb-1 hidden w-60 rounded-lg border border-border bg-surface p-2 shadow-card group-hover/more:block">
+              <ul className="space-y-1.5">
+                {others.map((q) => (
+                  <li key={q.id} className="flex items-center gap-2">
+                    <Icon
+                      name={questIcon(q)}
+                      size={13}
+                      className="shrink-0 text-text-secondary"
+                      aria-hidden
+                    />
+                    <span className="min-w-0 flex-1 truncate text-[0.7rem] font-medium text-text-primary">
+                      {t(q.title, { defaultValue: q.title })}
+                    </span>
+                    <span className="shrink-0 text-[0.65rem] font-semibold tabular-nums text-text-muted">
+                      {fraction(q)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </div>
       ) : null}
     </section>
   );

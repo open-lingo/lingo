@@ -9,6 +9,7 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useCardsDueCount } from "@/features/flashcards/useCardsDueCount";
 import { useUserStats } from "@/shared/hooks/useUserStats";
 import { xpProgressToNextLevel } from "@/features/progress/leveling";
+import { compactStreak } from "../streakDisplay";
 import type { LearnProfile } from "../hooks/useLearnProfile";
 
 export type ProfileCardProps = {
@@ -81,20 +82,25 @@ export function ProfileCardBody({ profile }: ProfileCardProps) {
           <StatTile
             iconName="flame"
             valueClassName="text-warning"
-            value={profile.streakDays}
-            label={t("progress.dayStreak")}
+            value={compactStreak(profile.streakDays).value}
+            unit={compactStreak(profile.streakDays).unit}
+            label={t("learn.stats.streak", { defaultValue: "Streak" })}
+            hoverTitle={t("learn.stats.streakFull", {
+              defaultValue: "{{count}} days",
+              count: profile.streakDays,
+            })}
           />
           <StatTile
             iconName="star"
             valueClassName="text-accent"
             value={profile.xpEarnedToday}
-            label={t("progress.xpEarnedToday")}
+            label={t("learn.stats.xpToday", { defaultValue: "XP today" })}
           />
           <StatTile
             iconName="layers"
             valueClassName="text-accent"
             value={cardsDueLoading ? "…" : cardsDue}
-            label={t("progress.cardsDueToday")}
+            label={t("learn.stats.cardsDue", { defaultValue: "Cards due" })}
             to={langPath("practice/flashcards/review")}
           />
         </div>
@@ -136,28 +142,37 @@ function StatTile({
   iconName,
   valueClassName,
   value,
+  unit,
   label,
+  hoverTitle,
   to,
 }: {
   iconName: IconName;
   valueClassName: string;
   value: number | string;
+  /** Small suffix letter rendered after the value (e.g. "d" / "m"). */
+  unit?: string;
   label: string;
+  /** Full-form value shown as a native tooltip on hover (e.g. "34 days"). */
+  hoverTitle?: string;
   to?: string;
 }) {
   const inner = (
     <>
-      <div className="flex items-center justify-center gap-1">
+      <div className="flex items-baseline justify-center gap-1">
         <Icon
           name={iconName}
-          size={14}
-          className={valueClassName}
+          size={12}
+          className={`self-center ${valueClassName}`}
           aria-hidden
         />
         <span
-          className={`text-lg font-extrabold tabular-nums ${valueClassName}`}
+          className={`text-base font-extrabold leading-tight tabular-nums ${valueClassName}`}
         >
           {value}
+          {unit ? (
+            <span className="ml-px text-[0.65rem] font-bold opacity-80">{unit}</span>
+          ) : null}
         </span>
       </div>
       <p className="mt-0.5 text-[0.625rem] font-bold uppercase tracking-wider text-text-muted">
@@ -165,16 +180,21 @@ function StatTile({
       </p>
     </>
   );
-  const base = "rounded-lg bg-surface-muted px-1.5 py-2 text-center";
+  const base = "rounded-lg bg-surface-muted px-1.5 py-1.5 text-center";
   if (to) {
     return (
       <Link
         to={to}
+        title={hoverTitle}
         className={`${base} transition hover:bg-surface-muted/70 hover:ring-1 hover:ring-accent/30`}
       >
         {inner}
       </Link>
     );
   }
-  return <div className={base}>{inner}</div>;
+  return (
+    <div className={base} title={hoverTitle}>
+      {inner}
+    </div>
+  );
 }
