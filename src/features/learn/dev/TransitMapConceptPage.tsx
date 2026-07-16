@@ -89,7 +89,7 @@ type StationL = {
 };
 
 type QuestLeg = { title: string; lessonId: string; done: boolean };
-type QuestStop = { x: number; y: number; quest: SideQuest; leg?: QuestLeg };
+type QuestStop = { x: number; y: number; quest: SideQuest; leg?: QuestLeg; labelDy?: number };
 type SpurL = {
   color: string;
   d: string;
@@ -116,8 +116,9 @@ type Layout = {
   depot: DepotL | null;
   zones: { x0: number; x1: number; label: string; numeral: string }[];
   zoneChipY: number;
-  /** stations where a branch vertical enters/leaves — labels shift aside */
-  branchTouched: ReadonlySet<number>;
+  /** stations where a branch vertical enters/leaves (and on which side) —
+   * labels shift aside when the vertical would pierce them */
+  branchTouched: ReadonlyMap<number, "up" | "down">;
 };
 
 function levelOf(index: number): number {
@@ -262,7 +263,7 @@ function buildLayout(
   const anchorEntries = [...questsByAnchor.entries()].sort(
     (a, b) => stations[a[0]].x - stations[b[0]].x,
   );
-  const branchTouched = new Set<number>();
+  const branchTouched = new Map<number, "up" | "down">();
   let colorIdx = 0;
   for (const [rawAnchor, quests] of anchorEntries) {
     // soft (auto-spread) anchors slide off stations another branch already
@@ -300,41 +301,63 @@ function buildLayout(
 
     // Branches drop VERTICALLY from their anchor (and climb vertically into
     // rejoins), so the only possible crossings are clean 90-degree ones.
+    const CIRCUIT_W = 460;
+    const intervalStart = legs ? a.x - CIRCUIT_W / 2 - 12 : a.x - 12;
     const intervalEnd = legs
-      ? a.x + legs.length * 92 + 46
+      ? a.x + CIRCUIT_W / 2 + 12
       : rejoin
         ? rejoin.x + 12
         : a.x + shown.length * 96 + 56;
-    const depth = packDepth(up ? upIntervals : downIntervals, a.x - 12, intervalEnd);
+    const depth = packDepth(up ? upIntervals : downIntervals, intervalStart, intervalEnd);
     const loopY = up ? LOOP_UP_Y - depth * 40 : LOOP_DOWN_Y + depth * DEPTH_STEP;
     if (!up) maxDownY = Math.max(maxDownY, loopY);
-    branchTouched.add(anchor);
-    if (rejoin) branchTouched.add(rejoin.index);
+    branchTouched.set(anchor, up ? "up" : "down");
+    if (rejoin) branchTouched.set(rejoin.index, up ? "up" : "down");
 
     let d: string;
     let stops: QuestStop[];
     let labelX: number;
+    let labelY: number | null = null;
     let cap: Pt | null = null;
     let capDir: "v" | "h" = "v";
     if (legs) {
-      // rectangular hook: down, across the lesson stops, back up to a
-      // capped riser just under the main line
-      const end = a.x + legs.length * 92 + 46;
-      d = dOf([
-        [a.x, a.y],
-        [a.x, loopY],
-        [end, loopY],
-        [end, a.y + 30],
-      ]);
-      stops = legs.map((leg, k) => ({
-        x: a.x + 66 + k * 92,
-        y: loopY,
+      // self-contained rounded circuit under the station: drop from the
+      // line into a closed rounded rectangle, one lesson stop per side-half
+      const W = CIRCUIT_W;
+      const Hh = 176;
+      const r = 26;
+      const left = a.x - W / 2;
+      const right = a.x + W / 2;
+      const top = loopY;
+      const bot = loopY + Hh;
+      if (!up) maxDownY = Math.max(maxDownY, bot);
+      d =
+        `M ${a.x} ${a.y} V ${top}` +
+        ` H ${left + r}` +
+        ` A ${r} ${r} 0 0 0 ${left} ${top + r}` +
+        ` V ${bot - r}` +
+        ` A ${r} ${r} 0 0 0 ${left + r} ${bot}` +
+        ` H ${right - r}` +
+        ` A ${r} ${r} 0 0 0 ${right} ${bot - r}` +
+        ` V ${top + r}` +
+        ` A ${r} ${r} 0 0 0 ${right - r} ${top}` +
+        ` H ${a.x}`;
+      const spots: Array<[number, number, number]> = [
+        [(left + a.x) / 2, top, 27],
+        [(a.x + right) / 2, top, 27],
+        [(left + a.x) / 2, bot, -17],
+        [(a.x + right) / 2, bot, -17],
+      ];
+      stops = legs.slice(0, 4).map((leg, k) => ({
+        x: spots[k][0],
+        y: spots[k][1],
         quest: shown[0],
         leg,
+        labelDy: spots[k][2],
       }));
-      labelX = a.x + (end - a.x) / 2;
-      cap = [end, a.y + 30];
-      capDir = "h";
+      labelX = a.x;
+      labelY = (top + bot) / 2 + 4;
+      cap = null;
     } else if (rejoin) {
       d = dOf([
         [a.x, a.y],
@@ -371,7 +394,7 @@ function buildLayout(
       label: legs ? shown[0].title : shown.length > 1 ? `${shown[0].title} Line` : "",
       labelX,
       // plate center OUTSIDE the stop-label band
-      labelY: up ? loopY - 48 : loopY + 62,
+      labelY: labelY ?? (up ? loopY - 48 : loopY + 62),
       up,
       cap,
       capDir,
@@ -425,7 +448,7 @@ function buildLayout(
   minC = Math.min(minC, stations[0].y - 74); // main-line plate
   for (const sp of spurs) {
     if (sp.up) minC = Math.min(minC, (sp.stops[0]?.y ?? LOOP_UP_Y) - 60);
-    else maxC = Math.max(maxC, (sp.stops[0]?.y ?? maxDownY) + 74);
+    else maxC = Math.max(maxC, Math.max(...sp.stops.map((q) => q.y), maxDownY) + 74);
   }
   if (depot) maxC = Math.max(maxC, depot.labelY + 12);
 
@@ -477,7 +500,6 @@ function buildLayout(
 type Skyline = {
   farHillsD: string;
   farHills2D: string;
-  farStrip: { x: number; w: number; h: number }[];
   mid: { x: number; w: number; h: number; windows: number[] }[];
   near: { x: number; w: number; h: number; windows: number[] }[];
   mountains: { x: number; baseY: number; w: number; h: number; cap: boolean }[];
@@ -494,34 +516,9 @@ function makeSkyline(layout: Layout): Skyline {
   // hills wave through the middle, landmarks are big. Composition: horizon
   // strip on the top third, celestial in its gaps; layer opacity/parallax
   // encode depth (far faint/slow → near bolder/fast).
-  const g = layout.skyGroundY;
   const bottom = layout.vbY + layout.vbH + 6;
   const H = layout.vbH;
   const skyTop = layout.vbY + 12;
-  const zoneAt = (x: number) =>
-    layout.zones.length ? layout.zones.findIndex((z) => x >= z.x0 && x < z.x1) : 1;
-
-  // distant skyline strip on the horizon (kept small — depth cue)
-  const farStrip: Skyline["farStrip"] = [];
-  const gaps: Array<[number, number]> = [];
-  let x = 40;
-  let lastRight = 40;
-  let i = 0;
-  while (x < layout.width - 90) {
-    const zi = zoneAt(x);
-    const r = (((i + 3) * 2654435761) >>> 7) % 1000 / 1000;
-    const w = 30 + ((i * 97) % 5) * 10;
-    const h = Math.round(16 + r * ((zi === 1 ? 64 : 40) - 16));
-    const skip = (zi === 0 && r > 0.55) || (zi === 2 && r > 0.5);
-    if (!skip) {
-      if (x - lastRight >= 80) gaps.push([lastRight + 10, x - 10]);
-      farStrip.push({ x, w, h });
-      lastRight = x + w;
-    }
-    x += w + 12 + ((i * 53) % 4) * 14;
-    i++;
-  }
-  if (layout.width - 60 - lastRight >= 80) gaps.push([lastRight + 10, layout.width - 60]);
 
   // hill waves flowing through the MIDDLE of the scene
   const mk = (base: number, amp0: number, wl: number) => {
@@ -594,13 +591,9 @@ function makeSkyline(layout: Layout): Skyline {
     h = Math.imul(h ^ (h >>> 15), 0x735a2d97) >>> 0;
     return ((h ^ (h >>> 15)) >>> 0) / 4294967296;
   };
-  const byWidth = [...gaps].sort((a, b) => b[1] - b[0] - (a[1] - a[0]));
-  const moonGap = byWidth[0];
-  const moon = moonGap ? { x: (moonGap[0] + moonGap[1]) / 2, y: skyTop + 40 } : null;
+  const moon = { x: layout.width * 0.62, y: skyTop + 40 };
   const stars: Skyline["stars"] = [];
-  const skyDeep = H * 0.5; // stars fill the open sky, not just the top strip
-  const inStrip = (px: number, py: number) =>
-    farStrip.some((b) => px > b.x - 8 && px < b.x + b.w + 8 && py > g - b.h - 10 && py < g + 4);
+  const skyDeep = H * 0.5; // stars fill the open sky (painted BEHIND the land)
   const inMountain = (px: number, py: number) =>
     mountains.some((m) => py > m.baseY - m.h - 24 && Math.abs(px - m.x) < m.w / 2 + 16);
   const nearMoon = (px: number, py: number) =>
@@ -613,7 +606,7 @@ function makeSkyline(layout: Layout): Skyline {
     for (let c = 0; c < 12; c++) {
       const px = 24 + hash(seed++) * (layout.width - 48);
       const py = layout.vbY + 12 + hash(seed++) * skyDeep;
-      if (inStrip(px, py) || inMountain(px, py) || nearMoon(px, py)) continue;
+      if (inMountain(px, py) || nearMoon(px, py)) continue;
       let d = Infinity;
       for (const st of stars) d = Math.min(d, (st.x - px) ** 2 + (st.y - py) ** 2);
       if (stars.length === 0) d = 1e9;
@@ -671,7 +664,6 @@ function makeSkyline(layout: Layout): Skyline {
   return {
     farHillsD,
     farHills2D,
-    farStrip,
     mid,
     near,
     mountains,
@@ -685,7 +677,6 @@ function makeSkyline(layout: Layout): Skyline {
 
 function SkylineArt({
   sky,
-  groundY,
   bottomY,
   vbH,
   hillsRef,
@@ -693,7 +684,6 @@ function SkylineArt({
   cityRef,
 }: {
   sky: Skyline;
-  groundY: number;
   bottomY: number;
   vbH: number;
   hillsRef: React.RefObject<SVGGElement | null>;
@@ -704,28 +694,9 @@ function SkylineArt({
   const towerH = Math.min(230, vbH * 0.34);
   return (
     <>
-      {/* FAR (slowest): horizon strip, Fuji, hill waves, celestial */}
+      {/* FAR (slowest): celestial painted FIRST so every landform occludes
+          it — a star can never sit in front of a hill */}
       <g ref={hillsRef} pointerEvents="none" aria-hidden>
-        {sky.farStrip.map((b, i) => (
-          <rect key={i} x={b.x} y={groundY - b.h} width={b.w} height={b.h} rx={1.5} style={{ fill: "var(--tmc-scene-strip)" }} />
-        ))}
-        {sky.mountains.map((m, i) => (
-          <g key={i}>
-            <path
-              d={`M ${m.x - m.w / 2} ${m.baseY} L ${m.x - m.w * 0.07} ${m.baseY - m.h} L ${m.x + m.w * 0.005} ${m.baseY - m.h * 0.86} L ${m.x + m.w * 0.08} ${m.baseY - m.h} L ${m.x + m.w / 2} ${m.baseY} Z`}
-              style={{ fill: "var(--tmc-scene-far2)" }}
-            />
-            {m.cap && (
-              <path
-                d={`M ${m.x - m.w * 0.115} ${m.baseY - m.h * 0.85} L ${m.x - m.w * 0.07} ${m.baseY - m.h} L ${m.x + m.w * 0.005} ${m.baseY - m.h * 0.86} L ${m.x + m.w * 0.08} ${m.baseY - m.h} L ${m.x + m.w * 0.125} ${m.baseY - m.h * 0.85} L ${m.x + m.w * 0.06} ${m.baseY - m.h * 0.78} L ${m.x - m.w * 0.05} ${m.baseY - m.h * 0.78} Z`}
-                style={{ fill: "var(--tmc-panel)" }}
-                opacity={0.55}
-              />
-            )}
-          </g>
-        ))}
-        <path d={sky.farHillsD} style={{ fill: "var(--tmc-scene-hill2)" }} />
-        <path d={sky.farHills2D} style={{ fill: "var(--tmc-scene-hill)" }} />
         <g className="tmc-night">
           {sky.stars.map((st, i) => (
             <circle key={i} className="tmc-star" cx={st.x} cy={st.y} r={st.r} opacity={st.bright ? 0.95 : 0.5} style={{ fill: "#EDE8D8", animationDelay: `${st.delay}s` }} />
@@ -746,6 +717,23 @@ function SkylineArt({
             </g>
           ))}
         </g>
+        {sky.mountains.map((m, i) => (
+          <g key={i}>
+            <path
+              d={`M ${m.x - m.w / 2} ${m.baseY} L ${m.x - m.w * 0.07} ${m.baseY - m.h} L ${m.x + m.w * 0.005} ${m.baseY - m.h * 0.86} L ${m.x + m.w * 0.08} ${m.baseY - m.h} L ${m.x + m.w / 2} ${m.baseY} Z`}
+              style={{ fill: "var(--tmc-scene-far2)" }}
+            />
+            {m.cap && (
+              <path
+                d={`M ${m.x - m.w * 0.115} ${m.baseY - m.h * 0.85} L ${m.x - m.w * 0.07} ${m.baseY - m.h} L ${m.x + m.w * 0.005} ${m.baseY - m.h * 0.86} L ${m.x + m.w * 0.08} ${m.baseY - m.h} L ${m.x + m.w * 0.125} ${m.baseY - m.h * 0.85} L ${m.x + m.w * 0.06} ${m.baseY - m.h * 0.78} L ${m.x - m.w * 0.05} ${m.baseY - m.h * 0.78} Z`}
+                style={{ fill: "var(--tmc-panel)" }}
+                opacity={0.55}
+              />
+            )}
+          </g>
+        ))}
+        <path d={sky.farHillsD} style={{ fill: "var(--tmc-scene-hill2)" }} />
+        <path d={sky.farHills2D} style={{ fill: "var(--tmc-scene-hill)" }} />
       </g>
       {/* MID: city rising from the bottom, behind the rails */}
       <g ref={bldgRef} pointerEvents="none" aria-hidden>
@@ -1153,7 +1141,7 @@ function NetworkMap({
             aria-label="Course transit map"
           >
             {/* geography: hills/Fuji far, buildings/landmarks near */}
-            <SkylineArt sky={sky} groundY={layout.skyGroundY} bottomY={layout.vbY + layout.vbH + 6} vbH={layout.vbH} hillsRef={hillsRef} bldgRef={bldgRef} cityRef={cityRef} />
+            <SkylineArt sky={sky} bottomY={layout.vbY + layout.vbH + 6} vbH={layout.vbH} hillsRef={hillsRef} bldgRef={bldgRef} cityRef={cityRef} />
 
             {/* fare zones — tint bands + inset horizon chips */}
             {layout.zones.map((z, i) => (
@@ -1196,7 +1184,7 @@ function NetworkMap({
                 {spur.label && (
                   <LinePlate x={spur.labelX} y={spur.labelY} text={spur.label} color={spur.dashed ? "var(--tmc-locked)" : spur.color} />
                 )}
-                {spur.stops.map(({ x, y, quest, leg }, si) =>
+                {spur.stops.map(({ x, y, quest, leg, labelDy }, si) =>
                   leg ? (
                     /* lesson stop on a sprint loop — a real link into the lesson */
                     <Link key={leg.lessonId} to={langPath(`learn/lessons/${leg.lessonId}`)} aria-label={`${quest.title}: ${leg.title}${leg.done ? ", completed" : ""}`}>
@@ -1213,7 +1201,7 @@ function NetworkMap({
                             stroke: spur.dashed ? "var(--tmc-locked)" : spur.color,
                           }}
                         />
-                        <text x={x} y={y + 27} textAnchor="middle" data-tm="label" className="tmc-halo-text" style={{ fill: "var(--tmc-muted)", fontSize: 11 }}>
+                        <text x={x} y={y + (labelDy ?? 27)} textAnchor="middle" data-tm="label" className="tmc-halo-text" style={{ fill: "var(--tmc-muted)", fontSize: 11 }}>
                           {leg.title}
                         </text>
                       </g>
@@ -1331,7 +1319,9 @@ function NetworkMap({
               // a down-branch vertical passes through the label column —
               // side-anchor the labels so the rail doesn't pierce the text
               // (and truncate harder so they clear the left neighbor's title)
-              const sideShift = layout.branchTouched.has(st.index) && st.y !== LEVELS[2] && dir > 0;
+              const branchSide = layout.branchTouched.get(st.index);
+              const sideShift =
+                (branchSide === "down" && dir > 0) || (branchSide === "up" && dir < 0);
               const maxCh = sideShift ? 12 : 18;
               const short = st.module.title.length > maxCh ? `${st.module.title.slice(0, maxCh - 1)}…` : st.module.title;
               const labelX = sideShift ? st.x - 22 : st.x;
