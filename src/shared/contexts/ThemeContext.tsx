@@ -227,7 +227,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     applyThemeToDOM(domTokens);
     const root = document.documentElement;
     const scale = settings.accessibility?.fontSize ?? 1;
-    root.style.fontSize = scale === 1 ? "" : `${scale * 100}%`;
+    // Multiply the user's font-size scale onto the fluid viewport base
+    // (--font-base, index.css) instead of a fixed 16px, so a chosen 125%
+    // stays 125% of whatever the viewport-scaled base is.
+    root.style.fontSize =
+      scale === 1 ? "" : `calc(var(--font-base, 1rem) * ${scale})`;
     // Card/modal corner rounding is theme-scoped: the active theme's own
     // `radius.card` drives it, falling back to the shared default. Users change
     // corners by duping a theme and editing it (Theme Editor → Corners).
