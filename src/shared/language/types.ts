@@ -23,6 +23,7 @@
 
 import type { LessonStep } from "@/features/lesson/types";
 import type { CourseModule } from "@/shared/domain/course";
+import type { ConjugationTrainerProvider } from "@/shared/conjugation/types";
 
 // ─── Identity ────────────────────────────────────────────────────────────
 
@@ -143,6 +144,14 @@ export interface InflectionAnalysis {
 export interface ConjugationCapability {
   tables: ConjugationTable[];
   analyze?: (surface: string) => InflectionAnalysis | null;
+  /**
+   * Rich trainer provider consumed by the conjugation-drill surface
+   * (`features/practice/conjugation/*`). A language populates this to light up
+   * the trainer; the generic UI reads it via
+   * `getLanguageModule(id).conjugation?.trainer`. See
+   * `shared/conjugation/types.ts` for the contract.
+   */
+  trainer?: ConjugationTrainerProvider;
 }
 
 // ─── classifiers (counters) ──────────────────────────────────────────────

@@ -3,38 +3,29 @@ import { useTranslation } from "react-i18next";
 import { Card, Modal, Popover } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLessonKeyboard } from "@/features/lesson/hooks/useLessonKeyboard";
-import { writtenSegments } from "@/features/languages/ja/writtenForms";
-import { getTrainerType, type TrainerTypeId } from "./trainerRegistry";
-import type { TrainerQuestion, WordClass } from "./trainerSession";
+import type { ConjugationTrainerProvider, ConjTrainerQuestion } from "@/shared/conjugation/types";
 import { CheatSheet } from "./CheatSheet";
-import { FORM_TO_TILES, TYPE_GLYPH, TYPE_COLOR_VAR } from "./typeColors";
-
-/**
- * Learners see kanji (with furigana) in the trainer from this module on —
- * pure exposure, the furigana always carries the reading (Spencer 2026-07-02:
- * "good practice to force kanji in the words here … at maybe module 10").
- */
-export const KANJI_EXPOSURE_MODULE = 10;
 
 /** After this long on one question the cheat-sheet button nudges (shake +
  *  amber) and the hint line appears. Peeking then costs half credit. */
 const STUCK_HINT_MS = 20_000;
 
-/** Kana word rendered in its written form (kanji + furigana) when enabled. */
-function WrittenJa({
-  kanaDict,
-  kanjiDict,
+/** A surface rendered through the provider (kanji + furigana for JA, plain for
+ *  phonetic-script languages like KO). */
+function Surface({
+  conj,
+  question,
   text,
-  show,
+  showSecondScript,
 }: {
-  kanaDict: string;
-  kanjiDict?: string;
+  conj: ConjugationTrainerProvider;
+  question: ConjTrainerQuestion;
   text: string;
-  show: boolean;
+  showSecondScript: boolean;
 }) {
-  const segments = show ? writtenSegments(kanaDict, kanjiDict, text) : [{ text }];
+  const segments = conj.renderSurface(question, text, showSecondScript);
   return (
-    <span lang="ja">
+    <span>
       {segments.map((seg, i) =>
         seg.ruby ? (
           <ruby key={i}>
@@ -49,45 +40,17 @@ function WrittenJa({
   );
 }
 
-/**
- * Conjugation-class chip: tap/click explains WHICH rule set applies — and,
- * over sessions, teaches which words are the irregulars (amber standout).
- */
-function WordClassChip({ wordClass }: { wordClass: WordClass }) {
+/** Conjugation-class chip: tap/click explains WHICH rule set applies. */
+function WordClassChip({
+  conj,
+  wordClassId,
+}: {
+  conj: ConjugationTrainerProvider;
+  wordClassId: string;
+}) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const LABELS: Record<WordClass, string> = {
-    godan: t("practice.conjugation.classGodan", { defaultValue: "Godan verb" }),
-    ichidan: t("practice.conjugation.classIchidan", { defaultValue: "Ichidan verb" }),
-    irregular: t("practice.conjugation.classIrregular", { defaultValue: "Irregular verb" }),
-    "i-adj": t("practice.conjugation.classIAdj", { defaultValue: "い-adjective" }),
-    "i-adj-irregular": t("practice.conjugation.classIAdjIrregular", {
-      defaultValue: "Irregular い-adjective",
-    }),
-  };
-  const EXPLAIN: Record<WordClass, string> = {
-    godan: t("practice.conjugation.classGodanExplain", {
-      defaultValue:
-        "Godan verbs conjugate by shifting the last kana along its row before the ending attaches — のむ → のみます・のまない.",
-    }),
-    ichidan: t("practice.conjugation.classIchidanExplain", {
-      defaultValue:
-        "Ichidan verbs drop る and attach the ending directly — たべる → たべます・たべない.",
-    }),
-    irregular: t("practice.conjugation.classIrregularExplain", {
-      defaultValue:
-        "する and くる follow neither pattern — the stem itself changes per form (くる → きます・こない). Worth memorizing.",
-    }),
-    "i-adj": t("practice.conjugation.classIAdjExplain", {
-      defaultValue:
-        "い-adjectives conjugate by replacing the final い — たかい → たかくない・たかかった.",
-    }),
-    "i-adj-irregular": t("practice.conjugation.classIAdjIrregularExplain", {
-      defaultValue:
-        "いい conjugates from its older form よい — よくない・よかった・よくなかった.",
-    }),
-  };
-  const irregular = wordClass === "irregular" || wordClass === "i-adj-irregular";
+  const info = conj.wordClass(wordClassId);
   return (
     <Popover
       open={open}
@@ -95,33 +58,41 @@ function WordClassChip({ wordClass }: { wordClass: WordClass }) {
       placement="bottom-start"
       width="w-64"
       trigger={
-        // No own onClick — Popover's trigger cloning owns the toggle.
         <button
           type="button"
           className={
             "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-semibold transition hover:brightness-110 " +
-            (irregular
+            (info.irregular
               ? "border-amber-500/60 bg-amber-500/10 text-amber-700 dark:text-amber-300"
               : "border-border bg-surface-muted text-text-secondary")
           }
         >
-          {irregular && <Icon name="sparkles" size={12} aria-hidden />}
-          {LABELS[wordClass]}
+          {info.irregular && <Icon name="sparkles" size={12} aria-hidden />}
+          {t(info.labelKey, { defaultValue: info.labelDefault })}
           <Icon name="info" size={11} className="opacity-60" aria-hidden />
         </button>
       }
     >
-      <p className="px-3 py-2 text-xs leading-relaxed text-text-secondary" lang="und">
-        {EXPLAIN[wordClass]}
+      <p className="px-3 py-2 text-xs leading-relaxed text-text-secondary">
+        {t(info.explainKey, { defaultValue: info.explainDefault })}
       </p>
     </Popover>
   );
 }
 
 /** One glyph chip in the build stack — tap/click names its form. */
-function GlyphChip({ tileId, sizeClass }: { tileId: TrainerTypeId; sizeClass: string }) {
+function GlyphChip({
+  conj,
+  tileId,
+  sizeClass,
+}: {
+  conj: ConjugationTrainerProvider;
+  tileId: string;
+  sizeClass: string;
+}) {
   const [open, setOpen] = useState(false);
-  const type = getTrainerType(tileId);
+  const type = conj.getType(tileId);
+  const colorVar = conj.colorVar(tileId);
   return (
     <Popover
       open={open}
@@ -129,18 +100,16 @@ function GlyphChip({ tileId, sizeClass }: { tileId: TrainerTypeId; sizeClass: st
       placement="bottom-end"
       width="w-56"
       trigger={
-        // No own onClick — Popover's trigger cloning owns the toggle.
         <button
           type="button"
-          lang="ja"
           className={`inline-flex items-center justify-center rounded-lg border-2 font-extrabold leading-none transition hover:brightness-110 ${sizeClass}`}
           style={{
-            color: `var(${TYPE_COLOR_VAR[tileId]})`,
-            borderColor: `color-mix(in srgb, var(${TYPE_COLOR_VAR[tileId]}) 55%, transparent)`,
-            background: `color-mix(in srgb, var(${TYPE_COLOR_VAR[tileId]}) 12%, transparent)`,
+            color: `var(${colorVar})`,
+            borderColor: `color-mix(in srgb, var(${colorVar}) 55%, transparent)`,
+            background: `color-mix(in srgb, var(${colorVar}) 12%, transparent)`,
           }}
         >
-          {TYPE_GLYPH[tileId]}
+          {conj.glyph(tileId)}
         </button>
       }
     >
@@ -154,15 +123,9 @@ function GlyphChip({ tileId, sizeClass }: { tileId: TrainerTypeId; sizeClass: st
   );
 }
 
-/**
- * The build stack: the tiles the target form is made of, stacked vertically in
- * APPLICATION ORDER (top = apply first) with ↓ connectors — the answer to
- * "do I do たい first or past tense?". Chip size adapts to count so a lone
- * chip doesn't float undersized next to the word: 1 → large, 2 → medium,
- * 3+ → compact (scales to 4). Forms with no tile mapping render nothing.
- */
-function BuildStack({ form }: { form: string }) {
-  const tiles = FORM_TO_TILES[form];
+/** The build stack: the tiles the target form is made of, stacked vertically. */
+function BuildStack({ conj, form }: { conj: ConjugationTrainerProvider; form: string }) {
+  const tiles = conj.formToTiles(form);
   if (!tiles) return null;
   const sizeClass =
     tiles.length === 1
@@ -176,14 +139,9 @@ function BuildStack({ form }: { form: string }) {
       {tiles.map((tileId, i) => (
         <span key={tileId} className="flex flex-col items-center gap-1">
           {i > 0 && (
-            <Icon
-              name="chevronDown"
-              size={arrowSize}
-              className="mt-1 text-text-muted"
-              aria-hidden
-            />
+            <Icon name="chevronDown" size={arrowSize} className="mt-1 text-text-muted" aria-hidden />
           )}
-          <GlyphChip tileId={tileId} sizeClass={sizeClass} />
+          <GlyphChip conj={conj} tileId={tileId} sizeClass={sizeClass} />
         </span>
       ))}
     </div>
@@ -193,28 +151,20 @@ function BuildStack({ form }: { form: string }) {
 /**
  * Shared MCQ card for every trainer drill (per-type, combined). Owns the full
  * per-question lifecycle — REMOUNT IT PER QUESTION (key={index}); internal
- * state resets by construction.
- *
- * Layout (Spencer 2026-07-05, eye-tracking-informed): the word is the true
- * center of a measured 1fr/auto/1fr grid — first fixation lands on the big
- * type, the build stack sits right (end of the horizontal scan, just before
- * the eyes drop to the options), the cheat-sheet button left (discoverable,
- * low-salience). Below: tall unnumbered centered answer tiles (keyboard 1–4
- * still answers), then the permanently-reserved feedback slot.
- *
- * Cheat sheet: opens the formation tables for exactly the tiles in the
- * current question. Peeking before answering marks the question half credit.
- * After STUCK_HINT_MS the button shakes and the hint line names the deal.
+ * state resets by construction. Language-agnostic: every linguistic decision
+ * (written-form rendering, word-class labels, form→tile mapping) routes through
+ * the injected provider.
  */
 export function DrillQuestionCard({
+  conj,
   question,
   reachedModule,
   onResult,
   onNext,
 }: {
-  question: TrainerQuestion;
+  conj: ConjugationTrainerProvider;
+  question: ConjTrainerQuestion;
   reachedModule: number;
-  /** Called once when the learner answers: 1, 0.5 (peeked), or 0. */
   onResult: (credit: number) => void;
   onNext: () => void;
 }) {
@@ -226,18 +176,17 @@ export function DrillQuestionCard({
   const [peeked, setPeeked] = useState(false);
   const [stuck, setStuck] = useState(false);
 
-  const showKanji = reachedModule >= KANJI_EXPOSURE_MODULE;
-  const tiles = FORM_TO_TILES[question.form];
-  const formColor = tiles ? `var(${TYPE_COLOR_VAR[tiles[0]]})` : "var(--color-accent)";
+  const showSecondScript =
+    conj.secondScriptExposureModule != null && reachedModule >= conj.secondScriptExposureModule;
+  const tiles = conj.formToTiles(question.form);
+  const formColor = tiles ? `var(${conj.colorVar(tiles[0])})` : "var(--color-accent)";
 
-  // The cheat sheet shows the formation tables for exactly this question's
-  // tiles (a combo like なかった surfaces BOTH the ない and た tables).
   const cheatTypes = useMemo(
     () =>
       (tiles ?? [])
-        .map((id) => getTrainerType(id))
+        .map((id) => conj.getType(id))
         .filter((x): x is NonNullable<typeof x> => !!x),
-    [tiles],
+    [conj, tiles],
   );
 
   useEffect(() => {
@@ -273,8 +222,6 @@ export function DrillQuestionCard({
 
   return (
     <Card padding="lg" className="flex flex-col">
-      {/* Measured header: 1fr/auto/1fr grid — equal side columns keep the
-          word block on the card's true centerline regardless of content. */}
       <div className="mx-auto grid w-full max-w-md grid-cols-[1fr_auto_1fr] items-center gap-3">
         {cheatTypes.length > 0 ? (
           <button
@@ -283,13 +230,7 @@ export function DrillQuestionCard({
             className={
               "flex max-w-[76px] flex-col items-center gap-1 justify-self-start rounded-xl border px-2.5 py-2 text-[10px] font-semibold leading-tight transition " +
               (stuck && !showResult && !peeked
-                ? // The nudge STOPS once they peek (or the modal opens): the
-                  // infinite wobble kept animating BEHIND the modal's
-                  // backdrop-blur overlay, invalidating the blur every frame —
-                  // a full-viewport repaint per frame (the "cheat sheet lags
-                  // my computer" report, 2026-07-05). Also: once they've taken
-                  // the hint, keeping it wobbling is just nagging.
-                  (cheatOpen ? "" : "conj-cheat-nudge ") +
+                ? (cheatOpen ? "" : "conj-cheat-nudge ") +
                   "border-amber-500/70 bg-amber-500/10 text-amber-700 dark:text-amber-300"
                 : "border-border bg-surface-muted text-text-secondary hover:border-[color:var(--color-accent)] hover:text-text-primary")
             }
@@ -302,24 +243,23 @@ export function DrillQuestionCard({
         )}
 
         <div className="flex min-w-0 flex-col items-center gap-1.5 text-center">
-          <WordClassChip wordClass={question.wordClass} />
+          <WordClassChip conj={conj} wordClassId={question.wordClassId} />
           <p className="break-words text-4xl font-bold leading-snug text-text-primary">
-            <WrittenJa
-              kanaDict={question.prompt}
-              kanjiDict={question.kanji}
+            <Surface
+              conj={conj}
+              question={question}
               text={question.prompt}
-              show={showKanji}
+              showSecondScript={showSecondScript}
             />
           </p>
           <p className="text-sm text-text-muted">{question.meaning}</p>
         </div>
 
         <div className="justify-self-end">
-          <BuildStack form={question.form} />
+          <BuildStack conj={conj} form={question.form} />
         </div>
       </div>
 
-      {/* Answer tiles — tall targets carry the card's height */}
       <div
         className="mx-auto mt-6 flex w-full max-w-sm flex-1 flex-col gap-3"
         style={{ "--fc": formColor } as React.CSSProperties}
@@ -339,8 +279,7 @@ export function DrillQuestionCard({
               stateClass = "border-border bg-surface text-text-secondary opacity-40";
             }
           } else {
-            stateClass =
-              "border-border bg-surface text-text-primary active:translate-y-[2px]";
+            stateClass = "border-border bg-surface text-text-primary active:translate-y-[2px]";
           }
           return (
             <button
@@ -351,11 +290,11 @@ export function DrillQuestionCard({
               className={`conj-opt flex min-h-[68px] flex-1 items-center justify-center rounded-xl border-2 px-4 py-3 text-center transition md:min-h-[76px] ${stateClass}`}
             >
               <span className="text-xl font-semibold leading-snug">
-                <WrittenJa
-                  kanaDict={question.prompt}
-                  kanjiDict={question.kanji}
+                <Surface
+                  conj={conj}
+                  question={question}
                   text={opt}
-                  show={showKanji}
+                  showSecondScript={showSecondScript}
                 />
               </span>
             </button>
@@ -363,9 +302,6 @@ export function DrillQuestionCard({
         })}
       </div>
 
-      {/* Feedback slot is permanently reserved (lesson UI stability rule:
-          options must not move on submit). Pre-answer it holds the keyboard
-          hint — or the stuck nudge once the timer fires. */}
       <div className="mx-auto mt-4 flex min-h-[104px] w-full max-w-sm flex-col justify-center">
         {!showResult &&
           (stuck && cheatTypes.length > 0 ? (
@@ -397,11 +333,11 @@ export function DrillQuestionCard({
                 <Icon name="close" size={16} className="mr-1 inline" />
                 {t("practice.conjugation.answerWas", { defaultValue: "Answer:" })}{" "}
                 <span className="font-semibold">
-                  <WrittenJa
-                    kanaDict={question.prompt}
-                    kanjiDict={question.kanji}
+                  <Surface
+                    conj={conj}
+                    question={question}
                     text={question.correct}
-                    show={showKanji}
+                    showSecondScript={showSecondScript}
                   />
                 </span>
               </p>
@@ -428,7 +364,7 @@ export function DrillQuestionCard({
               {cheatTypes.length > 1 && (
                 <h3 className="mb-2 text-sm font-bold text-text-primary">{type.title}</h3>
               )}
-              <CheatSheet type={type} reachedModule={reachedModule} />
+              <CheatSheet conj={conj} type={type} reachedModule={reachedModule} />
             </div>
           ))}
         </div>

@@ -48,6 +48,7 @@ import * as grammarHelpers from "./grammarHelpers";
 import { WORD_IMAGE_MCQ_BLOCKLIST } from "./grammarHelpers";
 import { jaImportMatch } from "./importMatchKeys";
 import { VERB_ENTRIES, ADJ_ENTRIES } from "./conjugationTables";
+import { getRegisteredTrainer } from "@/shared/conjugation/registry";
 import { COUNTER_DEFS } from "./classifiers";
 import { N5_KANJI } from "./secondScript/n5Kanji";
 import { convertToHiragana } from "./readingAnnotation/kuroshiro";
@@ -140,6 +141,11 @@ const jaConjugation: ConjugationCapability = {
       forms: a.forms as Record<string, string>,
     })),
   ],
+  // Lazy: the provider self-registers when the trainer surface loads it — keeps
+  // the heavy grammar/atom stack out of app-init (see shared/conjugation/registry).
+  get trainer() {
+    return getRegisteredTrainer("ja");
+  },
 };
 
 // ── secondScript (kanji glyph map from N5_KANJI) ─────────────────────────

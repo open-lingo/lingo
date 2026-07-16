@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
-import type { TrainerQuestion } from "./trainerSession";
+import type { ConjTrainerQuestion } from "@/shared/conjugation/types";
 
 /** 2.5 → "2½", 3 → "3" — halves come from cheat-sheet peeks. */
 function fmtCredit(n: number): string {
@@ -22,7 +22,7 @@ export function SessionSummary({
   againLabel,
   backTo,
 }: {
-  questions: TrainerQuestion[];
+  questions: ConjTrainerQuestion[];
   results: number[];
   /** v1.5 learn-ahead: the session drilled ahead of the learner's path and
    *  wrote no SRS — noted quietly under the score. */

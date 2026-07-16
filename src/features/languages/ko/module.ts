@@ -24,7 +24,6 @@ import type {
   ConjugationCapability,
   CourseModule,
   ParticleSet,
-  PartOfSpeech,
   PlacementBank,
   TtsManifest,
   VocabArtResolver,
@@ -34,7 +33,8 @@ import type {
 import { KO_COURSE_ATOMS, type KoAtom } from "./courseAtoms";
 import * as grammarHelpers from "./grammarHelpers";
 import { KO_COUNTER_DEFS } from "./classifiers";
-import { KO_VERB_ENTRIES } from "./conjugationTables";
+import { buildKoConjugationTables } from "./conjugationTables";
+import { getRegisteredTrainer } from "@/shared/conjugation/registry";
 import { KO_PLACEMENT_BANK } from "./placementBank";
 
 import { getMockCourse } from "@/shared/domain/mockCourse";
@@ -112,14 +112,16 @@ const koClassifiers: ClassifierSet = {
   ],
 };
 
-// ── Conjugation (from KO_VERB_ENTRIES — single starter verb 먹다) ────────
+// ── Conjugation (jamo engine + authored lemma list; full trainer provider) ─
 
 const koConjugation: ConjugationCapability = {
-  tables: KO_VERB_ENTRIES.map((v) => ({
-    lemmaAtomId: `ko:${v.lemma}` as AtomId,
-    partOfSpeech: "verb" as PartOfSpeech,
-    forms: v.forms as Record<string, string>,
-  })),
+  // Generated from the authored lemma list by the jamo engine — every drilled
+  // cell across all stem classes, verbs + adjectives (conjugationTables.ts).
+  tables: buildKoConjugationTables(),
+  // Lazy provider (self-registers via the trainer surface) — see JA module.
+  get trainer() {
+    return getRegisteredTrainer("ko");
+  },
   // analyze: omitted — populating it is content-design work. Stays null;
   // generic engine renders the table cells without an analyzer.
 };

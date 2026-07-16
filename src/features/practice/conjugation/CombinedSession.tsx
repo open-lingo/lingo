@@ -4,99 +4,75 @@ import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLangPath } from "@/shared/hooks/useLangPath";
-import type { ChainForm, IAdjForm } from "@/features/languages/ja/conjugationEngine";
+import type { ConjugationTrainerProvider, ConjTrainerQuestion } from "@/shared/conjugation/types";
 import { useCourseLevel } from "../useCourseLevel";
-import {
-  getTrainerType,
-  effectivePoolModule,
-  isSelectionAhead,
-  type TrainerTypeId,
-} from "./trainerRegistry";
-import {
-  buildCombinedSession,
-  gradeCombinedSessionIfOnPath,
-  type TrainerQuestion,
-} from "./trainerSession";
+import { useConjugation } from "./useConjugation";
 import { DrillQuestionCard } from "./DrillQuestionCard";
 import { SessionSummary } from "./SessionSummary";
-import { TYPE_GLYPH, TYPE_COLOR_VAR, CONJ_TYPE_COLOR_CSS } from "./typeColors";
 
 /**
- * Combined multi-tile drill route (`practice/conjugation/train?types=a,b,c`,
- * v1.2 Task 7). Same per-question card as TrainerTypeSession, driven by
- * buildCombinedSession + gradeCombinedSessionIfOnPath. Grading fires exactly ONCE per
- * completed session (gradedRef, mirroring the trainer).
+ * Combined multi-tile drill route (`practice/conjugation/train?types=a,b,c`).
+ * Provider-driven — the language decides whether combos exist; when they don't
+ * it degrades to a free-mix of the selected tiles' individual forms.
  */
 export function CombinedSession() {
   const [params] = useSearchParams();
   const reachedModule = useCourseLevel();
   const langPath = useLangPath();
+  const conj = useConjugation();
 
-  // Locked types pass the guard since v1.5 learn-ahead — the hub's dialog
-  // already interposed (or was "don't ask again"-ed); a selection containing
-  // ANY ahead type runs practice-only (no SRS, see Session below).
-  const selected = useMemo<TrainerTypeId[]>(() => {
+  const selected = useMemo<string[]>(() => {
+    if (!conj) return [];
     const raw = (params.get("types") ?? "").split(",").map((s) => s.trim());
-    const valid: TrainerTypeId[] = [];
+    const valid: string[] = [];
     for (const id of raw) {
-      const type = getTrainerType(id);
-      if (type) valid.push(type.id);
+      if (conj.getType(id)) valid.push(id);
     }
-    // Dedupe preserving order.
     return [...new Set(valid)];
-  }, [params]);
+  }, [conj, params]);
 
-  // Combos are explicit hub intent (v1.4.1): "&combos=0" = mixed drill
-  // (individuals only); anything else — including legacy links without the
-  // param — includes the selection's stacked forms unconditionally.
-  const withCombos = params.get("combos") !== "0";
+  const withCombos = (conj?.supportsCombos ?? false) && params.get("combos") !== "0";
 
-  // A combined session needs 2+ valid, unlocked tiles; otherwise fall back to hub.
-  if (selected.length < 2) {
+  if (!conj || selected.length < 2) {
     return <Navigate to={langPath("practice/conjugation")} replace />;
   }
   return (
-    <Session selected={selected} reachedModule={reachedModule} withCombos={withCombos} />
+    <Session conj={conj} selected={selected} reachedModule={reachedModule} withCombos={withCombos} />
   );
 }
 
 function Session({
+  conj,
   selected,
   reachedModule,
   withCombos,
 }: {
-  selected: TrainerTypeId[];
+  conj: ConjugationTrainerProvider;
+  selected: string[];
   reachedModule: number;
   withCombos: boolean;
 }) {
   const { t } = useTranslation();
   const langPath = useLangPath();
 
-  // Learn-ahead (v1.5): one ahead tile makes the whole session practice-only.
-  // The pool rises to the latest unlock module among the selection; kanji
-  // exposure stays on the REAL reachedModule (DrillQuestionCard prop below).
-  const ahead = isSelectionAhead(selected, reachedModule);
-  const poolModule = effectivePoolModule(selected, reachedModule);
+  const ahead = conj.isSelectionAhead(selected, reachedModule);
+  const poolModule = conj.effectivePoolModule(selected, reachedModule);
 
-  const [questions, setQuestions] = useState<TrainerQuestion[]>(() =>
-    buildCombinedSession(selected, poolModule, { combos: withCombos ? "on" : "off" }),
+  const [questions, setQuestions] = useState<ConjTrainerQuestion[]>(() =>
+    conj.buildCombinedSession(selected, poolModule, withCombos),
   );
   const [index, setIndex] = useState(0);
   const [results, setResults] = useState<number[]>([]);
   const [finished, setFinished] = useState(false);
 
-  // Once-per-completion grade guard (mirrors TrainerTypeSession's gradedRef):
-  // grading is a pure grade-now primitive with no double-fire protection, so
-  // the UI owns the guard. "Train again" resets it (restart()). Ahead sessions
-  // flip the ref too — the skip lives in gradeCombinedSessionIfOnPath.
   const gradedRef = useRef(false);
   useEffect(() => {
     if (finished && !gradedRef.current) {
-      const formsDrilled = questions.map((q) => q.form as ChainForm | IAdjForm);
-      gradeCombinedSessionIfOnPath(selected, reachedModule, formsDrilled, results);
+      const forms = questions.map((q) => q.form);
+      conj.gradeCombinedSessionIfOnPath(selected, reachedModule, forms, results);
       gradedRef.current = true;
     }
-  }, [finished, questions, results, selected, reachedModule]);
+  }, [finished, conj, questions, results, selected, reachedModule]);
 
   const advance = () => {
     if (index + 1 >= questions.length) {
@@ -108,7 +84,7 @@ function Session({
 
   const restart = () => {
     gradedRef.current = false;
-    setQuestions(buildCombinedSession(selected, poolModule, { combos: withCombos ? "on" : "off" }));
+    setQuestions(conj.buildCombinedSession(selected, poolModule, withCombos));
     setIndex(0);
     setResults([]);
     setFinished(false);
@@ -116,21 +92,17 @@ function Session({
 
   const header = (
     <div className="flex items-center gap-3">
-      <style>{CONJ_TYPE_COLOR_CSS}</style>
+      <style>{conj.scopeCss}</style>
       <Link
         to={langPath("practice/conjugation")}
         className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border text-text-secondary hover:bg-surface-muted"
-        aria-label={t("practice.conjugation.backToTrainer", {
-          defaultValue: "Back to trainer",
-        })}
+        aria-label={t("practice.conjugation.backToTrainer", { defaultValue: "Back to trainer" })}
       >
         <Icon name="arrowLeft" size={16} />
       </Link>
       <h1 className="flex items-center gap-2 text-xl font-bold text-text-primary">
         {t("practice.conjugation.combinedTitle", { defaultValue: "Train together" })}
-        {/* The selected tiles as their hub glyph chips — same visual language
-            as the drill card's build stack. */}
-        <span className="flex items-center gap-1" lang="ja">
+        <span className="flex items-center gap-1">
           {selected.map((id, i) => (
             <span key={id} className="flex items-center gap-1">
               {i > 0 && (
@@ -141,12 +113,12 @@ function Session({
               <span
                 className="inline-flex h-7 min-w-7 items-center justify-center rounded-md border px-1.5 text-sm font-extrabold leading-none"
                 style={{
-                  color: `var(${TYPE_COLOR_VAR[id]})`,
-                  borderColor: `color-mix(in srgb, var(${TYPE_COLOR_VAR[id]}) 55%, transparent)`,
-                  background: `color-mix(in srgb, var(${TYPE_COLOR_VAR[id]}) 12%, transparent)`,
+                  color: `var(${conj.colorVar(id)})`,
+                  borderColor: `color-mix(in srgb, var(${conj.colorVar(id)}) 55%, transparent)`,
+                  background: `color-mix(in srgb, var(${conj.colorVar(id)}) 12%, transparent)`,
                 }}
               >
-                {TYPE_GLYPH[id]}
+                {conj.glyph(id)}
               </span>
             </span>
           ))}
@@ -192,7 +164,6 @@ function Session({
     <div className="conj-scope mx-auto max-w-3xl space-y-5">
       {header}
 
-      {/* Numberless progress (lesson-style) */}
       <div className="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
         <div
           className="h-full rounded-full bg-accent transition-all"
@@ -201,10 +172,9 @@ function Session({
       </div>
 
       {current && (
-        // key remounts the card per question — internal answer/peek/stuck
-        // state resets by construction.
         <DrillQuestionCard
           key={index}
+          conj={conj}
           question={current}
           reachedModule={reachedModule}
           onResult={(credit) => setResults((prev) => [...prev, credit])}

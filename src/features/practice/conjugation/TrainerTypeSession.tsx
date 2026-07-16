@@ -5,77 +5,52 @@ import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { GrammarRuleStepView } from "@/features/lesson/components/steps/GrammarRuleStepView";
-import { getGrammarRuleStepForPoint } from "@/features/lesson/data/grammarReviewPools";
+import type { GrammarRuleStep } from "@/features/lesson/types";
+import type { ConjugationTrainerProvider, ConjTrainerTypeMeta, ConjTrainerQuestion } from "@/shared/conjugation/types";
 import { useCourseLevel } from "../useCourseLevel";
-import {
-  getTrainerType,
-  effectivePoolModule,
-  isSelectionAhead,
-  type ConjugationTrainerType,
-} from "./trainerRegistry";
-import {
-  buildTrainerSession,
-  gradeTrainerSessionIfOnPath,
-  typeMasteryPercent,
-  type TrainerQuestion,
-} from "./trainerSession";
+import { useConjugation } from "./useConjugation";
 import { DrillQuestionCard } from "./DrillQuestionCard";
 import { SessionSummary } from "./SessionSummary";
-import { CONJ_TYPE_COLOR_CSS } from "./typeColors";
 
-/** Route guard: unknown type → hub. Locked types are allowed through since
- *  v1.5 learn-ahead — the hub's dialog is the courtesy gate, not a permission;
- *  ahead sessions run practice-only (no SRS, see DrillSegment). */
+/** Route guard: unknown type / no provider → hub. Locked types pass (learn-ahead). */
 export function TrainerTypeSession() {
   const { typeId } = useParams<{ typeId: string }>();
   const reachedModule = useCourseLevel();
   const langPath = useLangPath();
+  const conj = useConjugation();
 
-  const type = typeId ? getTrainerType(typeId) : undefined;
-  if (!type) {
+  const type = conj && typeId ? conj.getType(typeId) : undefined;
+  if (!conj || !type || !typeId) {
     return <Navigate to={langPath("practice/conjugation")} replace />;
   }
-  return <TrainerSession type={type} reachedModule={reachedModule} />;
+  return <TrainerSession conj={conj} typeId={typeId} type={type} reachedModule={reachedModule} />;
 }
 
-/**
- * The type page IS the drill (tabs removed — Spencer 2026-07-05: "what is the
- * learn tab even for"). The curriculum's tagged rule card shows ONCE as a
- * first-run intro (zero mastery + a card exists) with "Got it" dropping into
- * the drill; the formation reference lives behind the drill card's cheat-sheet
- * button. Types without a tagged rule card go straight to the drill — the old
- * Learn tab only mirrored the cheat sheet for those anyway.
- */
 function TrainerSession({
+  conj,
+  typeId,
   type,
   reachedModule,
 }: {
-  type: ConjugationTrainerType;
+  conj: ConjugationTrainerProvider;
+  typeId: string;
+  type: ConjTrainerTypeMeta;
   reachedModule: number;
 }) {
   const { t } = useTranslation();
   const langPath = useLangPath();
 
-  const ruleStep = useMemo(
-    () => getGrammarRuleStepForPoint(type.grammarPointIds[0]),
-    [type],
-  );
-  // Decided once at mount — completing the intro mid-session must not resurface it.
-  const [intro, setIntro] = useState(
-    () => !!ruleStep && typeMasteryPercent(type.id) === 0,
-  );
+  const ruleStep = useMemo(() => conj.getIntroStep(typeId), [conj, typeId]);
+  const [intro, setIntro] = useState(() => !!ruleStep && conj.typeMasteryPercent(typeId) === 0);
 
   return (
     <div className="conj-scope mx-auto max-w-3xl space-y-5">
-      <style>{CONJ_TYPE_COLOR_CSS}</style>
-      {/* Slim header: back to hub + title */}
+      <style>{conj.scopeCss}</style>
       <div className="flex items-center gap-3">
         <Link
           to={langPath("practice/conjugation")}
           className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border text-text-secondary hover:bg-surface-muted"
-          aria-label={t("practice.conjugation.backToTrainer", {
-            defaultValue: "Back to trainer",
-          })}
+          aria-label={t("practice.conjugation.backToTrainer", { defaultValue: "Back to trainer" })}
         >
           <Icon name="arrowLeft" size={16} />
         </Link>
@@ -85,57 +60,48 @@ function TrainerSession({
       {intro && ruleStep ? (
         <Card padding="lg">
           <div className="flex flex-col">
-            {/* GrammarRuleStepView always renders a "Got it" CTA — wire it to
-                start the drill rather than leaving a dead button. */}
-            <GrammarRuleStepView step={ruleStep} onContinue={() => setIntro(false)} />
+            <GrammarRuleStepView
+              step={ruleStep as GrammarRuleStep}
+              onContinue={() => setIntro(false)}
+            />
           </div>
         </Card>
       ) : (
-        <DrillSegment type={type} reachedModule={reachedModule} />
+        <DrillSegment conj={conj} typeId={typeId} reachedModule={reachedModule} />
       )}
     </div>
   );
 }
 
-// ─── Drill ─────────────────────────────────────────────────────────────
-
 function DrillSegment({
-  type,
+  conj,
+  typeId,
   reachedModule,
 }: {
-  type: ConjugationTrainerType;
+  conj: ConjugationTrainerProvider;
+  typeId: string;
   reachedModule: number;
 }) {
   const { t } = useTranslation();
   const langPath = useLangPath();
 
-  // Learn-ahead (v1.5): an ahead session draws its pool from the type's
-  // unlock module (the reached-module pool can be empty — entries start at
-  // m7) and writes NO SRS. Kanji exposure stays on the REAL reachedModule
-  // (DrillQuestionCard prop below) — an early learner still sees kana.
-  const ahead = isSelectionAhead([type.id], reachedModule);
-  const poolModule = effectivePoolModule([type.id], reachedModule);
+  const ahead = conj.isSelectionAhead([typeId], reachedModule);
+  const poolModule = conj.effectivePoolModule([typeId], reachedModule);
 
-  const [questions, setQuestions] = useState<TrainerQuestion[]>(() =>
-    buildTrainerSession(type, poolModule),
+  const [questions, setQuestions] = useState<ConjTrainerQuestion[]>(() =>
+    conj.buildSession(typeId, poolModule),
   );
   const [index, setIndex] = useState(0);
   const [results, setResults] = useState<number[]>([]);
   const [finished, setFinished] = useState(false);
 
-  // The once-only grade guard: grading has NO internal double-fire
-  // protection, so the UI owns it. The ref flips the first time a finished
-  // session is graded and blocks the StrictMode double-effect; "Drill again"
-  // resets it (see restart()). Fires exactly once per completed drill.
-  // (Ahead sessions flip the ref too — the skip decision lives in
-  // gradeTrainerSessionIfOnPath, not here.)
   const gradedRef = useRef(false);
   useEffect(() => {
     if (finished && !gradedRef.current) {
-      gradeTrainerSessionIfOnPath(type, reachedModule, results);
+      conj.gradeSessionIfOnPath(typeId, reachedModule, results);
       gradedRef.current = true;
     }
-  }, [finished, type, reachedModule, results]);
+  }, [finished, conj, typeId, reachedModule, results]);
 
   const advance = () => {
     if (index + 1 >= questions.length) {
@@ -147,7 +113,7 @@ function DrillSegment({
 
   const restart = () => {
     gradedRef.current = false;
-    setQuestions(buildTrainerSession(type, poolModule));
+    setQuestions(conj.buildSession(typeId, poolModule));
     setIndex(0);
     setResults([]);
     setFinished(false);
@@ -182,7 +148,6 @@ function DrillSegment({
 
   return (
     <div className="space-y-4">
-      {/* Numberless progress (lesson-style) */}
       <div className="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
         <div
           className="h-full rounded-full bg-accent transition-all"
@@ -191,10 +156,9 @@ function DrillSegment({
       </div>
 
       {current && (
-        // key remounts the card per question — its internal answer/peek/stuck
-        // state resets by construction.
         <DrillQuestionCard
           key={index}
+          conj={conj}
           question={current}
           reachedModule={reachedModule}
           onResult={(credit) => setResults((prev) => [...prev, credit])}

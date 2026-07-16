@@ -13,14 +13,14 @@ import {
   type AdjEntry,
   type AdjForm,
   type VerbGroup,
-} from "@/features/languages/ja/conjugationTables";
+} from "../conjugationTables";
 import {
   conjugateVerb,
   conjugateIAdj,
   CHAIN_FORM_LABELS,
   type ChainForm,
   type IAdjForm,
-} from "@/features/languages/ja/conjugationEngine";
+} from "../conjugationEngine";
 import {
   reviewGrammarPoint,
   getGrammarCardState,

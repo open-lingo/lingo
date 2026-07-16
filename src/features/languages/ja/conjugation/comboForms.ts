@@ -7,7 +7,7 @@
  * already handle each one — so this file adds NO conjugation/distractor logic,
  * only the tile-set → form mapping.
  */
-import type { ChainForm, IAdjForm } from "@/features/languages/ja/conjugationEngine";
+import type { ChainForm, IAdjForm } from "../conjugationEngine";
 import type { TrainerTypeId } from "./trainerRegistry";
 
 /** Which pool + conjugator the combo drills. An entry never mixes categories —

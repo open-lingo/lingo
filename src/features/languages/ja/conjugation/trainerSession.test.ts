@@ -3,13 +3,13 @@ import {
   clearGrammarStore,
   getGrammarCardState,
 } from "@/features/flashcards/engine/grammarSrs";
-import { VERB_ENTRIES, ADJ_ENTRIES } from "@/features/languages/ja/conjugationTables";
+import { VERB_ENTRIES, ADJ_ENTRIES } from "../conjugationTables";
 import {
   conjugateVerb,
   conjugateIAdj,
   type ChainForm,
   type IAdjForm,
-} from "@/features/languages/ja/conjugationEngine";
+} from "../conjugationEngine";
 import {
   getTrainerType,
   unlockModuleForType,

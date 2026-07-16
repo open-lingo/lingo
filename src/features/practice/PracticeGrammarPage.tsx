@@ -10,11 +10,7 @@ import { getPracticeItemsForLanguage } from "@/features/practice/practiceNavItem
 import { buildGrammarReviewQueue } from "@/features/flashcards/engine/grammarSrs";
 import { getGrammarPool } from "@/features/lesson/data/grammarReviewPools";
 import { useCourseLevel } from "@/features/practice/useCourseLevel";
-import {
-  CONJUGATION_TRAINER_TYPES,
-  isTypeUnlocked,
-  dueGrammarPointCount,
-} from "@/features/practice/conjugation/trainerRegistry";
+import { useConjugation } from "@/features/practice/conjugation/useConjugation";
 
 export function PracticeGrammarPage() {
   const { t } = useTranslation();
@@ -42,17 +38,17 @@ export function PracticeGrammarPage() {
   const grammarReviewTotal = grammarReview.due + grammarReview.isNew;
 
   const reachedModule = useCourseLevel();
-  // Conjugation trainer due badge = sum of due points over UNLOCKED types.
-  // Same mount-recompute rationale as grammarReview above (writes happen on the
-  // session page, which navigates away and back).
+  const conj = useConjugation();
+  // Conjugation trainer due badge = sum of due points over UNLOCKED types
+  // (0 for languages without Track-B SRS, e.g. KO Phase 1). Same
+  // mount-recompute rationale as grammarReview above.
   const conjugationDue = useMemo(() => {
-    if (langId !== "ja") return 0;
-    return CONJUGATION_TRAINER_TYPES.reduce(
-      (sum, type) =>
-        sum + (isTypeUnlocked(type, reachedModule) ? dueGrammarPointCount(type) : 0),
+    if (!conj) return 0;
+    return conj.getTypes().reduce(
+      (sum, type) => sum + (conj.isTypeUnlocked(type.id, reachedModule) ? conj.dueCount(type.id) : 0),
       0,
     );
-  }, [langId, reachedModule]);
+  }, [conj, reachedModule]);
 
   const startChip = (
     <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-on-accent">
@@ -112,7 +108,7 @@ export function PracticeGrammarPage() {
             to={langPath("practice/grammar/review")}
           />
         )}
-        {langId === "ja" && (
+        {conj && (
           <ProgressRow
             icon={<Icon name="refresh" size={18} />}
             label={t("practice.conjugation.rowLabel", { defaultValue: "Conjugation trainer" })}

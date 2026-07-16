@@ -1,44 +1,28 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Card } from "@/shared/components/ui";
-import {
-  getVerbsUpToModule,
-  getAdjsUpToModule,
-} from "@/features/languages/ja/conjugationTables";
-import { conjugateVerb } from "@/features/languages/ja/conjugationEngine";
-import type { ConjugationTrainerType } from "./trainerRegistry";
+import type { ConjugationTrainerProvider, ConjTrainerTypeMeta } from "@/shared/conjugation/types";
 
 /**
- * The formation cheat sheet for one trainer type: authored FormationRow grid
- * (every row-ending / group difference) + a "your words" strip from the
- * reached-module pool. Extracted from TrainerTypeSession so the drill card's
- * cheat-sheet modal can render it too (the standalone Cheat-sheet tab was
- * folded into this button — Spencer 2026-07-05).
+ * The formation cheat sheet for one trainer type: the provider's authored
+ * FormationRow grid + a "your words" strip conjugated from the reached-module
+ * pool. Fully provider-driven — no per-language linguistics here.
  */
 export function CheatSheet({
+  conj,
   type,
   reachedModule,
 }: {
-  type: ConjugationTrainerType;
+  conj: ConjugationTrainerProvider;
+  type: ConjTrainerTypeMeta;
   reachedModule: number;
 }) {
   const { t } = useTranslation();
 
-  const yourItems = useMemo(() => {
-    if (type.category === "verb") {
-      const form = type.verbForms?.[0];
-      if (!form) return [];
-      return getVerbsUpToModule(reachedModule)
-        .slice(0, 8)
-        .map((v) => ({ dict: v.dictionary, form: conjugateVerb(v.dictionary, v.group, form) }));
-    }
-    const form = type.adjForms?.[0];
-    if (!form) return [];
-    return getAdjsUpToModule(reachedModule)
-      .filter((a) => a.type === "i-adj")
-      .slice(0, 8)
-      .map((a) => ({ dict: a.dictionary, form: a.forms[form] }));
-  }, [type, reachedModule]);
+  const yourItems = useMemo(
+    () => conj.cheatItems(type.id, reachedModule),
+    [conj, type.id, reachedModule],
+  );
 
   return (
     <div className="space-y-4">
@@ -61,10 +45,8 @@ export function CheatSheet({
             {type.formation.map((row, i) => (
               <tr key={i} className="border-b border-border last:border-0">
                 <td className="px-4 py-2.5 text-text-secondary">{row.groupLabel}</td>
-                <td className="px-4 py-2.5 font-medium text-text-primary" lang="ja">
-                  {row.pattern}
-                </td>
-                <td className="px-4 py-2.5 text-text-primary" lang="ja">
+                <td className="px-4 py-2.5 font-medium text-text-primary">{row.pattern}</td>
+                <td className="px-4 py-2.5 text-text-primary">
                   {row.exampleDict} → {row.exampleForm}
                 </td>
               </tr>
@@ -85,7 +67,6 @@ export function CheatSheet({
               <span
                 key={i}
                 className="rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-text-primary"
-                lang="ja"
               >
                 {it.dict} → {it.form}
               </span>

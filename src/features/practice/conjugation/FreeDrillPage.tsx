@@ -1,60 +1,36 @@
 import { useState, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Card } from "@/shared/components/ui";
 import { Icon } from "@/shared/components/Icon";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import type { ConjugationTrainerProvider, ConjFreeDrillQuestion } from "@/shared/conjugation/types";
 import { useCourseLevel } from "../useCourseLevel";
-import {
-  ADJ_FORM_LABELS,
-  getVerbsUpToModule,
-  getAdjsUpToModule,
-  type AdjForm,
-} from "@/features/languages/ja/conjugationTables";
-import {
-  conjugateVerb,
-  CHAIN_FORM_LABELS,
-  type ChainForm,
-  type IAdjForm,
-} from "@/features/languages/ja/conjugationEngine";
-import { recordPracticeResult, pickWeighted } from "../practiceStats";
-// Distractor + shuffle helpers are single-sourced in the trainer session module.
-import {
-  shuffle,
-  generateAdjDistractors,
-  generateFormationDistractors,
-  generateIAdjFormationDistractors,
-} from "./trainerSession";
+import { useConjugation } from "./useConjugation";
 
-type Category = "verbs" | "i-adj" | "na-adj";
-type Mode = "mcq" | "type";
-
-type SessionStats = {
-  correct: number;
-  total: number;
-  streak: number;
-};
+type SessionStats = { correct: number; total: number; streak: number };
 
 /**
- * Free drill — its OWN route (`practice/conjugation/free`, v1.2 Task 7). Moved
- * wholesale off the hub (the hub is now the compact Ink Tiles selector). The
- * original free-form MCQ conjugation drill: weighted by practiceStats, writes NO
- * FSRS state (deliberately — free play, off the review schedule).
+ * Free drill — its own route (`practice/conjugation/free`). Provider-driven:
+ * only languages that expose `provider.freeDrill` reach here (the hub hides the
+ * Mix tile otherwise). Free play, weighted by the provider; writes no SRS.
  */
 export function FreeDrillPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
+  const conj = useConjugation();
+
+  if (!conj?.freeDrill) {
+    return <Navigate to={langPath("practice/conjugation")} replace />;
+  }
 
   return (
     <div className="mx-auto max-w-3xl space-y-5">
-      {/* Slim header: back to hub + title */}
       <div className="flex items-center gap-3">
         <Link
           to={langPath("practice/conjugation")}
           className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border text-text-secondary hover:bg-surface-muted"
-          aria-label={t("practice.conjugation.backToTrainer", {
-            defaultValue: "Back to trainer",
-          })}
+          aria-label={t("practice.conjugation.backToTrainer", { defaultValue: "Back to trainer" })}
         >
           <Icon name="arrowLeft" size={16} />
         </Link>
@@ -70,100 +46,32 @@ export function FreeDrillPage() {
         </div>
       </div>
 
-      <FreeDrill />
+      <FreeDrill conj={conj} />
     </div>
   );
 }
 
-function FreeDrill() {
+function FreeDrill({ conj }: { conj: ConjugationTrainerProvider }) {
   const { t } = useTranslation();
+  const free = conj.freeDrill!;
   const courseLevel = useCourseLevel();
 
-  const [category, setCategory] = useState<Category>("verbs");
-  const [_mode] = useState<Mode>("mcq");
-  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, 7));
-  const [selectedForms, setSelectedForms] = useState<Set<string>>(
-    () => new Set(["masu", "nai", "te", "ta"]),
-  );
+  const [category, setCategory] = useState<string>(free.categories[0]?.id ?? "");
+  const [maxModule, setMaxModule] = useState<number>(Math.max(courseLevel, free.minModule));
+  const [selectedForms, setSelectedForms] = useState<Set<string>>(() => new Set(free.defaultForms));
   const [stats, setStats] = useState<SessionStats>({ correct: 0, total: 0, streak: 0 });
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [question, setQuestion] = useState<ConjFreeDrillQuestion | null>(null);
 
-  const verbs = useMemo(() => getVerbsUpToModule(maxModule), [maxModule]);
-  const adjs = useMemo(() => getAdjsUpToModule(maxModule), [maxModule]);
-
-  const filteredAdjs = useMemo(
-    () => adjs.filter((a) => (category === "i-adj" ? a.type === "i-adj" : a.type === "na-adj")),
-    [adjs, category],
-  );
-
-  const [question, setQuestion] = useState<{
-    itemId: string;
-    prompt: string;
-    meaning: string;
-    formLabel: string;
-    correct: string;
-    options: string[];
-  } | null>(null);
+  const formKeys = useMemo(() => free.formsFor(category), [free, category]);
 
   const generateQuestion = useCallback(() => {
     setSelectedAnswer(null);
     setShowResult(false);
+    setQuestion(free.buildQuestion(category, maxModule, selectedForms));
+  }, [free, category, maxModule, selectedForms]);
 
-    if (category === "verbs") {
-      if (verbs.length === 0) return;
-      const verb = pickWeighted(verbs, (v) => v.id, "conjugation");
-      const forms = (Object.keys(CHAIN_FORM_LABELS) as ChainForm[]).filter((f) =>
-        selectedForms.has(f),
-      );
-      if (forms.length === 0) return;
-      const targetForm = forms[Math.floor(Math.random() * forms.length)];
-      // Engine-generated correct + same-verb formation distractors (anti-elimination).
-      const correct = conjugateVerb(verb.dictionary, verb.group, targetForm);
-      const distractors = generateFormationDistractors(
-        verb.dictionary,
-        verb.group,
-        targetForm,
-        correct,
-      );
-      const options = shuffle([correct, ...distractors]);
-      setQuestion({
-        itemId: `${verb.id}:${targetForm}`,
-        prompt: verb.dictionary,
-        meaning: verb.meaning,
-        formLabel: CHAIN_FORM_LABELS[targetForm],
-        correct,
-        options,
-      });
-    } else {
-      const pool = filteredAdjs;
-      if (pool.length === 0) return;
-      const adj = pickWeighted(pool, (a) => a.id, "conjugation");
-      const adjForms = (["present", "negative", "past", "past-negative"] as AdjForm[]).filter(
-        (f) => selectedForms.has(f),
-      );
-      if (adjForms.length === 0) return;
-      const targetForm = adjForms[Math.floor(Math.random() * adjForms.length)];
-      const correct = adj.forms[targetForm];
-      // i-adjectives (except plain present) get same-adjective misapplied-rule
-      // distractors; na-adjectives + present keep the legacy generator.
-      const distractors =
-        category === "i-adj" && targetForm !== "present"
-          ? generateIAdjFormationDistractors(adj.dictionary, targetForm as IAdjForm, correct)
-          : generateAdjDistractors(correct, adj, targetForm, pool);
-      const options = shuffle([correct, ...distractors]);
-      setQuestion({
-        itemId: `${adj.id}:${targetForm}`,
-        prompt: adj.dictionary,
-        meaning: adj.meaning,
-        formLabel: ADJ_FORM_LABELS[targetForm],
-        correct,
-        options,
-      });
-    }
-  }, [category, verbs, filteredAdjs, selectedForms]);
-
-  // Initialize first question
   useMemo(() => {
     if (!question) generateQuestion();
   }, []);
@@ -178,17 +86,13 @@ function FreeDrill() {
       total: prev.total + 1,
       streak: isCorrect ? prev.streak + 1 : 0,
     }));
-    recordPracticeResult("conjugation", question.itemId, isCorrect);
-  };
-
-  const handleNext = () => {
-    generateQuestion();
+    free.recordResult(category, question.itemId, isCorrect);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (!question) return;
     if (showResult && e.key === "Enter") {
-      handleNext();
+      generateQuestion();
       return;
     }
     const num = parseInt(e.key, 10);
@@ -197,47 +101,31 @@ function FreeDrill() {
     }
   };
 
-  // Free-drill chips deliberately collapse the ます family to the ONE form
-  // that tests formation (dictionary → ます-stem). ません/ました/ませんでした
-  // are cookie-cutter suffix swaps on that stem (Spencer 2026-07-02) —
-  // drilling them separately tests rote endings, not conjugation. They stay
-  // in the engine/cheat sheets; they just aren't separate drill toggles.
-  const MASU_SUFFIX_FORMS: ReadonlySet<string> = new Set([
-    "masu-neg",
-    "masu-past",
-    "masu-past-neg",
-  ]);
-  const verbFormKeys = (Object.keys(CHAIN_FORM_LABELS) as ChainForm[]).filter(
-    (f) => !MASU_SUFFIX_FORMS.has(f),
-  );
-  const adjFormKeys = Object.keys(ADJ_FORM_LABELS) as AdjForm[];
-  const currentFormKeys = category === "verbs" ? verbFormKeys : adjFormKeys;
-  const currentFormLabels = category === "verbs" ? CHAIN_FORM_LABELS : ADJ_FORM_LABELS;
-
   return (
     <div className="space-y-4" onKeyDown={handleKeyDown} tabIndex={-1}>
-      {/* Controls */}
       <Card padding="sm">
         <div className="flex flex-wrap items-center gap-3">
           <label className="flex items-center gap-1.5 text-xs font-medium text-text-secondary">
-            Mode
+            {t("practice.conjugation.freeMode", { defaultValue: "Mode" })}
             <select
               value={category}
               onChange={(e) => {
-                setCategory(e.target.value as Category);
+                setCategory(e.target.value);
                 setQuestion(null);
                 setTimeout(generateQuestion, 0);
               }}
               className="rounded-md border border-border bg-surface px-2 py-1 text-sm text-text-primary"
             >
-              <option value="verbs">Verbs</option>
-              <option value="i-adj">i-Adjectives</option>
-              <option value="na-adj">na-Adjectives</option>
+              {free.categories.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.label}
+                </option>
+              ))}
             </select>
           </label>
 
           <label className="flex items-center gap-1.5 text-xs font-medium text-text-secondary">
-            Level
+            {t("practice.conjugation.freeLevel", { defaultValue: "Level" })}
             <select
               value={maxModule}
               onChange={(e) => {
@@ -247,46 +135,44 @@ function FreeDrill() {
               }}
               className="rounded-md border border-border bg-surface px-2 py-1 text-sm text-text-primary"
             >
-              {Array.from({ length: courseLevel - 6 }, (_, i) => i + 7).map((m) => (
+              {Array.from(
+                { length: Math.max(courseLevel - free.minModule + 1, 1) },
+                (_, i) => i + free.minModule,
+              ).map((m) => (
                 <option key={m} value={m}>
-                  Up to M{m}
+                  {t("practice.conjugation.freeUpTo", { defaultValue: "Up to M{{module}}", module: m })}
                 </option>
               ))}
-              {courseLevel < 7 && <option value={7}>Up to M7</option>}
             </select>
           </label>
         </div>
 
-        {/* Form checkboxes */}
         <div className="mt-2 flex flex-wrap gap-2">
-          {currentFormKeys.map((form) => (
+          {formKeys.map(({ key, label }) => (
             <label
-              key={form}
+              key={key}
               className="flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs"
             >
               <input
                 type="checkbox"
-                checked={selectedForms.has(form)}
+                checked={selectedForms.has(key)}
                 onChange={(e) => {
                   const next = new Set(selectedForms);
-                  if (e.target.checked) next.add(form);
-                  else next.delete(form);
+                  if (e.target.checked) next.add(key);
+                  else next.delete(key);
                   setSelectedForms(next);
                 }}
                 className="accent-accent"
               />
-              {(currentFormLabels as Record<string, string>)[form]}
+              {label}
             </label>
           ))}
         </div>
       </Card>
 
-      {/* Question card */}
       {question && (
         <Card padding="lg" className="text-center">
-          <p className="text-3xl font-bold text-text-primary" lang="ja">
-            {question.prompt}
-          </p>
+          <p className="text-3xl font-bold text-text-primary">{question.prompt}</p>
           <p className="mt-1 text-sm text-text-muted">{question.meaning}</p>
           <p className="mt-3 text-sm font-medium text-accent">→ {question.formLabel}</p>
 
@@ -316,7 +202,7 @@ function FreeDrill() {
                   className={btnClass}
                 >
                   <span className="mr-1.5 text-xs text-text-muted">{i + 1}</span>
-                  <span lang="ja">{opt}</span>
+                  <span>{opt}</span>
                 </button>
               );
             })}
@@ -333,12 +219,12 @@ function FreeDrill() {
                 <p className="text-sm text-destructive">
                   <Icon name="close" size={16} className="mr-1 inline" />
                   {t("practice.conjugation.answerWas", { defaultValue: "Answer:" })}{" "}
-                  <span lang="ja">{question.correct}</span>
+                  <span>{question.correct}</span>
                 </p>
               )}
               <button
                 type="button"
-                onClick={handleNext}
+                onClick={generateQuestion}
                 className="mt-3 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
               >
                 {t("practice.conjugation.next", { defaultValue: "Next →" })}
@@ -348,7 +234,6 @@ function FreeDrill() {
         </Card>
       )}
 
-      {/* Stats bar */}
       <div className="flex items-center justify-between rounded-lg border border-border bg-surface px-4 py-2">
         <span className="text-sm text-text-secondary">
           {t("practice.conjugation.freeScore", {
@@ -364,10 +249,7 @@ function FreeDrill() {
         </span>
         <span className="text-sm text-text-secondary">
           <Icon name="flame" size={14} className="mr-1 inline text-warning" />
-          {t("practice.conjugation.freeStreak", {
-            defaultValue: "Streak: {{count}}",
-            count: stats.streak,
-          })}
+          {t("practice.conjugation.freeStreak", { defaultValue: "Streak: {{count}}", count: stats.streak })}
         </span>
       </div>
     </div>

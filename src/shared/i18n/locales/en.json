@@ -204,6 +204,23 @@
       "start": "Start",
       "moduleProgress": "{{done}}/{{total}} lessons in this module"
     },
+    "view": {
+      "label": "Map layout",
+      "card": "Cards",
+      "list": "List"
+    },
+    "level": {
+      "outcomePrefix": "By the end: ",
+      "progress": "{{done}}/{{total}}"
+    },
+    "list": {
+      "comingSoon": "Coming soon",
+      "complete": "Complete",
+      "progress": "{{done}}/{{total}} lessons",
+      "resume": "Resume",
+      "testOut": "Test out"
+    },
+    "retakeAssessment": "Retake placement",
     "pathHint": "Tap a module to expand. The pulsing node is what we suggest — you choose.",
     "pickLanguage": "Select a learning language in Settings to see your course path.",
     "resumeLesson": "Resume {{title}}",
@@ -439,7 +456,41 @@
       "summaryTitle": "Session complete",
       "summaryScore": "{{correct}} / {{total}} correct",
       "perFormBreakdown": "By form",
-      "drillAgain": "Drill again"
+      "drillAgain": "Drill again",
+      "notAvailable": "The conjugation trainer isn't available for this language yet.",
+      "hubSubMixed": "Tap any forms to mix them into one drill.",
+      "combinedToggle": "Combined forms",
+      "combosIncluded": "included",
+      "comboAddHint": "Add",
+      "comboAddHintTail": "for stacked forms",
+      "aheadChip": "M{{module}}",
+      "correctHalf": "Correct — half credit (cheat sheet used)",
+      "stuckHint": "Stuck? Peek at the cheat sheet — half credit.",
+      "kbdHint": "Press 1–4 to answer · Enter to continue",
+      "cheatButton": "Cheat sheet",
+      "summaryHalves": "½ marks are cheat-sheet peeks",
+      "summaryPracticeOnly": "Practice only — ahead of your path, so nothing was scheduled for review.",
+      "freeMode": "Mode",
+      "freeLevel": "Level",
+      "freeUpTo": "Up to M{{module}}",
+      "koClassRegular": "Regular",
+      "koClassRegularExplain": "Regular stems take -아 (after ㅏ/ㅗ) or -어; vowel stems contract — 오다 → 와요, 주다 → 줘요.",
+      "koClassHada": "하다 verb",
+      "koClassHadaExplain": "하다 becomes 해 — 공부하다 → 공부해요, 공부했어요.",
+      "koClassP": "ㅂ irregular",
+      "koClassPExplain": "Final ㅂ turns into 우 before a vowel ending — 춥다 → 추워요 (돕다 → 도와요).",
+      "koClassT": "ㄷ irregular",
+      "koClassTExplain": "Final ㄷ turns into ㄹ before a vowel — 듣다 → 들어요, 걷다 → 걸어요.",
+      "koClassS": "ㅅ irregular",
+      "koClassSExplain": "Final ㅅ drops before a vowel (no contraction) — 짓다 → 지어요, 낫다 → 나아요.",
+      "koClassReu": "르 irregular",
+      "koClassReuExplain": "르 adds a ㄹ to the syllable before it — 모르다 → 몰라요, 부르다 → 불러요.",
+      "koClassH": "ㅎ irregular",
+      "koClassHExplain": "Final ㅎ drops and the vowel becomes ㅐ — 그렇다 → 그래요, 빨갛다 → 빨개요.",
+      "koClassL": "ㄹ stem",
+      "koClassLExplain": "The ㄹ drops before -ㅂ니다/-ㄴ — 살다 → 삽니다 — but stays elsewhere (살아요).",
+      "koClassEu": "으 irregular",
+      "koClassEuExplain": "The final ㅡ drops before a vowel — 쓰다 → 써요, 바쁘다 → 바빠요."
     },
     "alphabetHub": {
       "title": "Alphabet & scripts",
@@ -1965,6 +2016,44 @@
       "settingsTitle": "Settings — coming soon",
       "settingsDesc": "Future home of platform-level runtime config (CORS origins, feature flags, etc)."
     },
+    "infra": {
+      "title": "Infrastructure Health",
+      "subtitle": "AWS budget usage and CloudWatch alarm state.",
+      "generatedAt": "as of {{time}}",
+      "refresh": "Refresh",
+      "budget": {
+        "heading": "AWS budget",
+        "unavailable": "Budget data unavailable.",
+        "ofLimit": "of {{limit}}",
+        "percentUsed": "{{pct}}% of budget used",
+        "percentUsedLabel": "Used",
+        "forecast": "Forecast",
+        "status": {
+          "ok": "On track",
+          "warn": "Warning",
+          "exceeded": "Exceeded"
+        }
+      },
+      "alarms": {
+        "heading": "CloudWatch alarms",
+        "colName": "Alarm",
+        "colState": "State",
+        "colMetric": "Metric",
+        "colDescription": "Description",
+        "colUpdated": "Updated",
+        "emptyTitle": "No alarms configured",
+        "emptyDesc": "No CloudWatch alarms are reporting state yet.",
+        "state": {
+          "OK": "OK",
+          "ALARM": "In alarm",
+          "INSUFFICIENT_DATA": "No data"
+        }
+      },
+      "error": {
+        "title": "Infrastructure health unavailable",
+        "desc": "Could not reach the ops API. Confirm lingo-ops is running and VITE_OPS_API_BASE_URL is set."
+      }
+    },
     "users": "Users",
     "content": "Content",
     "decks": "Decks",
@@ -2090,7 +2179,7 @@
     "dyslexiaFontLabel": "Dyslexia-friendly font",
     "dyslexiaFontHelp": "Switches the app typeface to Atkinson Hyperlegible.",
     "fontSizeHelp": "Scale text size across the whole app.",
-    "customizeTheme": "Customize theme",
+    "customizeTheme": "Open theme editor",
     "navLayout": "Navigation layout",
     "navLayoutTopbar": "Top bar",
     "navLayoutSidebar": "Sidebar",
@@ -2134,7 +2223,9 @@
       "openSourceHelp": "Browse the code on GitHub."
     },
     "navLayoutTopbarDesc": "A bar across the top of every page.",
-    "navLayoutSidebarDesc": "A rail beside the page on larger screens."
+    "navLayoutSidebarDesc": "A rail beside the page on larger screens.",
+    "themeCorners": "Corners",
+    "soundGroup": "Sound"
   },
   "adFree": {
     "pill": {
@@ -2436,7 +2527,11 @@
     "testOutPassedTitle": "Module cleared!",
     "testOutFailedTitle": "Not quite yet",
     "testOutPassedBody": "You tested out of {{module}}. {{atomCount}} vocab items are now in your review queue for a quick refresher.",
-    "testOutFailedBody": "A near-miss doesn't clear a module. Here's what tripped you up — keep practicing and try again when you're ready.",
+    "testOutFailedBody": "A near-miss doesn't clear a module — keep practicing and try again. The next attempt draws a fresh set of questions.",
+    "testOutAlsoComplete": "Also marked complete (no XP):",
+    "itemCorrect": "Correct",
+    "itemIncorrect": "Incorrect",
+    "itemScore": "You got {{correct}} of {{total}} correct.",
     "continue": "Continue",
     "resultPassedTitle": "Placement complete!",
     "resultFailedTitle": "Starting from the top",

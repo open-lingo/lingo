@@ -3,7 +3,7 @@ import grammarPointsJson from "@/features/lesson/data/n5-grammar-points.json";
 import {
   VERB_ENTRIES,
   ADJ_ENTRIES,
-} from "@/features/languages/ja/conjugationTables";
+} from "../conjugationTables";
 import {
   clearGrammarStore,
   setGrammarCardState,

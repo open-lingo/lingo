@@ -12,7 +12,7 @@ import grammarPointsJson from "@/features/lesson/data/n5-grammar-points.json";
 import {
   type ChainForm,
   type IAdjForm,
-} from "@/features/languages/ja/conjugationEngine";
+} from "../conjugationEngine";
 import {
   getGrammarCardState,
   type GrammarPoint,
