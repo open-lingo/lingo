@@ -32,7 +32,7 @@ export function PracticePage() {
     ? reviewModuleIdFor(dueReviews[0].moduleId)
     : null;
   const topReviewLink = topReviewModuleId
-    ? langPath(`learn/lessons/ja-${topReviewModuleId}-1`)
+    ? langPath(`learn/lessons/${langId}-${topReviewModuleId}-1`)
     : langPath("learn");
 
   const pillars = getPillarsForLanguage(langId, flags);

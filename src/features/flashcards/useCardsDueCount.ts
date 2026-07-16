@@ -2,13 +2,23 @@ import { useMemo } from "react";
 import { countCardsDue } from "./engine";
 import { useSRSStoreRevision } from "./SRSStoreRevisionContext";
 import { useDeckSubscriptions } from "./useDeckSubscriptions";
+import { buildEnrichedCourseDeck } from "./data/courseDeck";
+import { useSettings } from "@/shared/contexts/SettingsContext";
 
 export type CardsDueResult = { count: number; isLoading: boolean };
 
-/** Returns the number of cards due for review and loading state. Only counts from enabled subscribed decks. */
+/**
+ * Cards due for review: enabled subscribed decks PLUS the auto-subscribed
+ * course deck (unlocked cards only, unless the user hid it). Mirrors the
+ * hub/queue scope (`useSubscriptionQueue` / `useFlashcardDueSummary`) so the
+ * entry-point badges (Home tile, Learn sidebar, Progress) match what a
+ * review session actually contains.
+ */
 export function useCardsDueCount(languageId: string): CardsDueResult {
-  useSRSStoreRevision(); // Re-compute count when SRS store updates (e.g. after sync)
+  // Re-compute when the SRS store updates (reviews, sync, new unlocks).
+  const srsRevision = useSRSStoreRevision();
   const { subscriptions, deckResponses, isLoading } = useDeckSubscriptions();
+  const { settings } = useSettings();
 
   const enabledDeckIds = useMemo(
     () =>
@@ -18,7 +28,7 @@ export function useCardsDueCount(languageId: string): CardsDueResult {
     [subscriptions]
   );
 
-  const cards = useMemo(
+  const subscribedCards = useMemo(
     () =>
       deckResponses
         .filter((d) => d.languageId === languageId && enabledDeckIds.has(d.id))
@@ -26,7 +36,15 @@ export function useCardsDueCount(languageId: string): CardsDueResult {
     [deckResponses, languageId, enabledDeckIds]
   );
 
-  const count = countCardsDue(cards);
+  const courseCards = useMemo(() => {
+    if (settings.flashcards?.hideCourseDeck) return [];
+    const courseDeck = buildEnrichedCourseDeck(languageId);
+    return (courseDeck?.cards ?? []).filter((c) => c.unlocked);
+    // srsRevision: newly-unlocked words re-derive the course deck.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [languageId, settings.flashcards?.hideCourseDeck, srsRevision]);
+
+  const count = countCardsDue([...subscribedCards, ...courseCards]);
 
   return { count, isLoading };
 }
