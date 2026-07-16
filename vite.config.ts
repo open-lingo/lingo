@@ -1,8 +1,84 @@
 /// <reference types="vitest" />
 import fs from "fs";
 import path from "path";
-import { defineConfig, type Plugin } from "vite";
+import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
+
+/**
+ * Inject a Content-Security-Policy `<meta>` tag into the built index.html.
+ *
+ * Build-only on purpose (`apply: "build"`): Vite's dev server injects an
+ * inline React-Refresh preamble script that a strict `script-src` would
+ * block, so enforcing the policy in `vite dev` would break HMR. The static
+ * S3+CloudFront/Amplify hosting can't set response headers from this repo,
+ * so a `<meta http-equiv>` tag is the in-repo mechanism.
+ *
+ * Origins for `connect-src` are read from the same env the bundle is built
+ * with (VITE_API_BASE_URL / VITE_OPS_API_BASE_URL / VITE_AUTH0_DOMAIN) so the
+ * policy tracks whatever backend the build targets, with a `*.lambda-url`
+ * wildcard fallback for the ops URL (unset in some prod envs).
+ */
+function originOf(url: string | undefined): string | null {
+  if (!url) return null;
+  try {
+    return new URL(url).origin;
+  } catch {
+    return null;
+  }
+}
+
+function cspMetaPlugin(env: Record<string, string>): Plugin {
+  const apiOrigin = originOf(env.VITE_API_BASE_URL);
+  const opsOrigin = originOf(env.VITE_OPS_API_BASE_URL);
+  const auth0Origin = env.VITE_AUTH0_DOMAIN ? `https://${env.VITE_AUTH0_DOMAIN}` : null;
+
+  // AdSense pulls scripts/iframes/pixels from a spread of Google ad hosts.
+  const adSense = [
+    "https://pagead2.googlesyndication.com",
+    "https://*.googlesyndication.com",
+    "https://*.google.com",
+    "https://*.doubleclick.net",
+    "https://*.adtrafficquality.google",
+  ];
+  const backends = [
+    apiOrigin,
+    opsOrigin,
+    // Covers core + ops Lambda Function URLs (ops URL is unset in some envs).
+    "https://*.lambda-url.us-west-1.on.aws",
+    auth0Origin,
+  ].filter(Boolean) as string[];
+
+  const policy = [
+    `default-src 'self'`,
+    `base-uri 'self'`,
+    `object-src 'none'`,
+    `frame-ancestors 'self'`,
+    // 'wasm-unsafe-eval': onnxruntime-web (Whisper STT) instantiates WASM.
+    `script-src 'self' 'wasm-unsafe-eval' ${adSense.join(" ")}`,
+    // 'unsafe-inline': React inline style attrs + libs (md-editor, charts);
+    // Google Fonts stylesheet is loaded from fonts.googleapis.com.
+    `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
+    `font-src 'self' data: https://fonts.gstatic.com`,
+    // data:/blob: for Noto emoji SVGs + generated art; https: for avatars + ad pixels.
+    `img-src 'self' data: blob: https:`,
+    `connect-src 'self' ${[...backends, ...adSense].join(" ")}`,
+    // AdSense renders creatives inside iframes.
+    `frame-src 'self' ${adSense.join(" ")}`,
+    // Whisper STT spins up a module worker from a blob URL.
+    `worker-src 'self' blob:`,
+  ].join("; ");
+
+  return {
+    name: "csp-meta",
+    apply: "build",
+    transformIndexHtml(html) {
+      return html.replace(
+        /<head>/i,
+        `<head>\n    <meta http-equiv="Content-Security-Policy" content="${policy}" />`,
+      );
+    },
+  };
+}
 
 /**
  * Dev-only middleware that catches POSTs from `src/shared/devlog/devLog.ts`
@@ -175,13 +251,16 @@ function copyKuromojiDict(): Plugin {
   };
 }
 
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, __dirname, "VITE_");
+  return {
   plugins: [
     react(),
     serveDictAsBinary(),
     copyKuromojiDict(),
     devLogMiddleware(),
     qaNotesMiddleware(),
+    cspMetaPlugin(env),
   ],
   publicDir: "src/pub",
   resolve: {
@@ -225,4 +304,5 @@ export default defineConfig({
     // only prevents slow-but-passing whole-course walks from timing out.
     testTimeout: 20000,
   },
+  };
 });

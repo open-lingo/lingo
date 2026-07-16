@@ -12,10 +12,7 @@ import type {
   LeaderboardBundle as ApiLeaderboardBundle,
   LeaderboardEntry,
   LeagueSpotlight as ApiLeagueSpotlight,
-  Message,
   StreakSnapshot as ApiStreakSnapshot,
-  ThreadDetail,
-  ThreadItem,
 } from "@/shared/api/social";
 
 export function makeTestQueryClient() {
@@ -142,38 +139,6 @@ export const FIXTURE_ACTIVITY: ActivityFeedResponse = {
     streakActivity("a-2", FIXTURE_FRIENDS[5], 60),
   ],
   cursor: null,
-};
-
-export const FIXTURE_THREADS: ThreadItem[] = [
-  {
-    id: "t-anna",
-    other_user_id: FIXTURE_FRIENDS[0].user_id,
-    other_username: FIXTURE_FRIENDS[0].username,
-    other_display_name: FIXTURE_FRIENDS[0].display_name,
-    other_avatar_key: null,
-    last_message_preview: "ありがとう! that build_sentence trick saved me",
-    last_message_at: minutesAgo(12),
-    unread_count: 2,
-  },
-];
-
-const annaMessages: Message[] = [
-  {
-    id: "m1",
-    thread_id: "t-anna",
-    sender_id: FIXTURE_FRIENDS[0].user_id,
-    body: "ありがとう! that build_sentence trick saved me",
-    sent_at: minutesAgo(12),
-  },
-];
-
-export const FIXTURE_THREAD_DETAIL: ThreadDetail = {
-  id: "t-anna",
-  other_user_id: FIXTURE_FRIENDS[0].user_id,
-  other_username: FIXTURE_FRIENDS[0].username,
-  other_display_name: FIXTURE_FRIENDS[0].display_name,
-  other_avatar_key: null,
-  messages: annaMessages,
 };
 
 export const FIXTURE_INVITE_OFFER: ApiInviteOffer = {
@@ -305,8 +270,6 @@ export function makeFixtureSocialApi() {
     getFriendRequests: vi.fn().mockResolvedValue(FIXTURE_FRIEND_REQUESTS),
     getSuggestions: vi.fn().mockResolvedValue(FIXTURE_SUGGESTIONS),
     getActivity: vi.fn().mockResolvedValue(FIXTURE_ACTIVITY),
-    getThreads: vi.fn().mockResolvedValue(FIXTURE_THREADS),
-    getThreadDetail: vi.fn().mockResolvedValue(FIXTURE_THREAD_DETAIL),
     getInviteOffer: vi.fn().mockResolvedValue(FIXTURE_INVITE_OFFER),
     getStreakSnapshot: vi.fn().mockResolvedValue(FIXTURE_STREAK_SNAPSHOT),
     getLeagueSpotlight: vi.fn().mockResolvedValue(FIXTURE_LEAGUE_SPOTLIGHT),
@@ -338,8 +301,6 @@ export function makeFixtureSocialApi() {
     unblockUser: vi.fn(),
     reactToActivity: vi.fn(),
     redeemInvite: vi.fn(),
-    sendMessage: vi.fn(),
-    markThreadRead: vi.fn(),
     getPublicProfile: vi.fn(),
     searchUsers: vi.fn(),
     getQuestTargets: vi.fn(),

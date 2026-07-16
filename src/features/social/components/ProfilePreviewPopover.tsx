@@ -81,13 +81,6 @@ export function ProfilePreviewPopover({ user, children }: Props) {
               <Stat label="Lessons" value={String(user.lessonsCompleted)} icon="graduationCap" />
             </div>
             <div className="flex gap-2 border-t border-border px-4 py-3">
-              <button
-                type="button"
-                className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-sm font-semibold text-on-accent transition hover:bg-accent-hover"
-              >
-                <Icon name="messageCircle" size={14} aria-hidden />
-                Message
-              </button>
               <Link
                 to={`/u/${encodeURIComponent(user.name)}`}
                 onClick={() => setOpen(false)}

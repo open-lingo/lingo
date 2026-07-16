@@ -58,23 +58,6 @@ export type ActivityItem = {
   reactions?: ActivityReaction[];
 };
 
-export type ChatMessage = {
-  id: string;
-  fromId: string;
-  text: string;
-  timeLabel: string;
-  reactions?: { emoji: string; count: number; mine?: boolean }[];
-};
-
-export type ChatThread = {
-  id: string;
-  user: SocialUser;
-  lastMessage: string;
-  lastTimeLabel: string;
-  unreadCount: number;
-  messages: ChatMessage[];
-};
-
 export type LeaderboardRow = {
   rank: number;
   user: SocialUser;

@@ -12,7 +12,6 @@
  *   - friends  : friends list (search/menu) + requests + suggestions.
  *   - league   : full league spotlight + unified leaderboards (weekly /
  *                monthly / friends) so you can see where you stand.
- *   - messages : the messenger surface.
  */
 import { useCallback, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -34,7 +33,6 @@ import { CompactUnifiedLeaderboardCard } from "./sections/LeaderboardsSection";
 import { LeagueSpotlightCard } from "./sections/LeagueSpotlightCard";
 import { FriendsLeaderboardWidget } from "./sections/FriendsLeaderboardWidget";
 import { InviteFriendsCard } from "./sections/InviteFriendsCard";
-import { MessagesSection } from "./sections/MessagesSection";
 import {
   DEFAULT_SOCIAL_TAB,
   SOCIAL_TABS,
@@ -46,7 +44,6 @@ const TAB_ICON: Record<SocialTab, IconName> = {
   overview: "sparkles",
   friends: "users",
   league: "trophy",
-  messages: "messageCircle",
 };
 
 export default function SocialPage() {
@@ -74,8 +71,7 @@ export default function SocialPage() {
 
   // Counts for nav badges. `useSocial` batches its queries so reading it here
   // doesn't add network round-trips beyond what the panes already fetch.
-  const { threads, friendRequests } = useSocial();
-  const unreadCount = threads.reduce((sum, th) => sum + th.unreadCount, 0);
+  const { friendRequests } = useSocial();
   const requestCount = friendRequests.length;
 
   return (
@@ -88,7 +84,6 @@ export default function SocialPage() {
           activeTab={activeTab}
           onSelect={setTab}
           onAddFriend={() => setFindFriendOpen(true)}
-          unreadCount={unreadCount}
           requestCount={requestCount}
         />
       </div>
@@ -101,8 +96,7 @@ export default function SocialPage() {
       >
         {SOCIAL_TABS.map((tab) => {
           const isActive = tab === activeTab;
-          const badge =
-            tab === "messages" ? unreadCount : tab === "friends" ? requestCount : 0;
+          const badge = tab === "friends" ? requestCount : 0;
           return (
             <button
               key={tab}
@@ -149,7 +143,6 @@ export default function SocialPage() {
         {activeTab === "overview" ? <OverviewTab /> : null}
         {activeTab === "friends" ? <FriendsTab /> : null}
         {activeTab === "league" ? <LeagueTab /> : null}
-        {activeTab === "messages" ? <MessagesSection /> : null}
       </div>
     </div>
   );

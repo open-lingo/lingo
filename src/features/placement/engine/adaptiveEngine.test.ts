@@ -1,19 +1,19 @@
 import { describe, it, expect } from "vitest";
 import {
-  createInitialState,
+  createBandedState,
   createTestOutState,
   selectNextItem,
   recordAnswer,
   modulePassed,
+  pickSampleModules,
+  computeOutcome,
   type AdaptiveState,
 } from "./adaptiveEngine";
 import {
-  SKILL_TIERS,
   ALL_TESTABLE_MODULES,
-  getSkillTiers,
   getAllTestableModules,
-  getTierForModule,
 } from "../tiers";
+import { getLevelBands, getLevelBand } from "../levelBands";
 import type { PlacementItemConfig } from "../questionBank";
 
 function makeItem(id: string, moduleId: string): PlacementItemConfig {
@@ -29,154 +29,160 @@ function makeItem(id: string, moduleId: string): PlacementItemConfig {
   };
 }
 
-const MOCK_BANK: Record<string, PlacementItemConfig[]> = {};
-for (const mod of ALL_TESTABLE_MODULES) {
-  MOCK_BANK[mod] = [
-    makeItem(`pt-${mod}-1`, mod),
-    makeItem(`pt-${mod}-2`, mod),
-    makeItem(`pt-${mod}-3`, mod),
-  ];
+function makeBank(modules: readonly string[]): Record<string, PlacementItemConfig[]> {
+  const bank: Record<string, PlacementItemConfig[]> = {};
+  for (const mod of modules) {
+    bank[mod] = [
+      makeItem(`pt-${mod}-1`, mod),
+      makeItem(`pt-${mod}-2`, mod),
+      makeItem(`pt-${mod}-3`, mod),
+    ];
+  }
+  return bank;
 }
 
-function getItems(moduleId: string): PlacementItemConfig[] {
-  return MOCK_BANK[moduleId] ?? [];
-}
+const MOCK_BANK = makeBank(ALL_TESTABLE_MODULES);
+const getItems = (moduleId: string): PlacementItemConfig[] =>
+  MOCK_BANK[moduleId] ?? [];
 
-function runScreening(answers: boolean[]): AdaptiveState {
-  let state = createInitialState();
-  for (let i = 0; i < SKILL_TIERS.length; i++) {
-    const item = selectNextItem(state, getItems);
-    expect(item).not.toBeNull();
-    state = recordAnswer(state, item!.id, answers[i] ?? false, getItems);
+/** Drive a banded run to completion, answering `answerFor(moduleId)` for each
+ *  item. Returns the terminal state. */
+function runBanded(
+  band: Parameters<typeof createBandedState>[0],
+  answerFor: (moduleId: string) => boolean,
+  langId = "ja",
+  lookup = getItems,
+): AdaptiveState {
+  let state = createBandedState(band, langId);
+  let guard = 0;
+  while (state.stage !== "done" && guard++ < 60) {
+    const item = selectNextItem(state, lookup);
+    if (!item) {
+      state = { ...state }; // finalize handled by page; here just break
+      break;
+    }
+    state = recordAnswer(state, item.id, answerFor(item.moduleId), lookup);
   }
   return state;
 }
 
-describe("adaptiveEngine", () => {
-  it("starts in screening stage", () => {
-    const state = createInitialState();
-    expect(state.stage).toBe("screening");
-    expect(state.totalServed).toBe(0);
+const JA = "ja";
+const jaBand = (id: string) => getLevelBand(JA, id)!;
+
+describe("adaptiveEngine — banded placement", () => {
+  it("pickSampleModules spreads across the band and always includes the top", () => {
+    const band = jaBand("basic-sentences"); // m7..m14
+    const sampled = pickSampleModules(band.bandModules);
+    expect(sampled.length).toBeLessThanOrEqual(2);
+    // Course order preserved.
+    expect(sampled).toEqual([...sampled].sort((a, b) =>
+      band.bandModules.indexOf(a) - band.bandModules.indexOf(b),
+    ));
+    // Band top is always sampled (the credit ceiling must be tested).
+    expect(sampled).toContain(band.bandModules[band.bandModules.length - 1]);
   });
 
-  it("screening serves one item per tier", () => {
-    let state = createInitialState();
-    const seenModules: string[] = [];
-    for (let i = 0; i < SKILL_TIERS.length; i++) {
-      const item = selectNextItem(state, getItems);
-      expect(item).not.toBeNull();
-      seenModules.push(item!.moduleId);
-      state = recordAnswer(state, item!.id, true, getItems);
-    }
-    for (let i = 0; i < SKILL_TIERS.length; i++) {
-      expect(seenModules[i]).toBe(SKILL_TIERS[i].screeningModuleId);
-    }
-  });
-
-  it("transitions to probing after 8 screening items", () => {
-    const state = runScreening([true, true, true, true, false, false, false, false]);
-    expect(state.stage).toBe("probing");
-    expect(state.estimatedFloorTier).toBe(4);
-    expect(state.probeQueue.length).toBeGreaterThan(0);
-  });
-
-  it("all screening correct → floor at max tier", () => {
-    const allCorrect = Array(SKILL_TIERS.length).fill(true);
-    const state = runScreening(allCorrect);
-    expect(state.stage).toBe("probing");
-    expect(state.estimatedFloorTier).toBe(SKILL_TIERS.length);
-  });
-
-  it("all screening wrong → floor at tier 0", () => {
-    const allWrong = Array(SKILL_TIERS.length).fill(false);
-    const state = runScreening(allWrong);
-    expect(state.stage).toBe("probing");
-    expect(state.estimatedFloorTier).toBe(0);
-  });
-
-  it("probing serves items from the probe window", () => {
-    let state = runScreening([true, true, true, false, false, false, false, false]);
-    expect(state.stage).toBe("probing");
-
-    const item = selectNextItem(state, getItems);
-    expect(item).not.toBeNull();
-    expect(state.probeQueue).toContain(item!.moduleId);
-  });
-
-  it("2 consecutive wrong terminates probing", () => {
-    let state = runScreening([true, true, false, false, false, false, false, false]);
-    expect(state.stage).toBe("probing");
-
-    const item1 = selectNextItem(state, getItems)!;
-    state = recordAnswer(state, item1.id, false, getItems);
-    expect(state.stage).toBe("probing");
-
-    const item2 = selectNextItem(state, getItems)!;
-    state = recordAnswer(state, item2.id, false, getItems);
-    expect(state.stage).toBe("done");
-  });
-
-  it("correct answer resets consecutive wrong counter", () => {
-    let state = runScreening([true, true, false, false, false, false, false, false]);
-
-    const item1 = selectNextItem(state, getItems)!;
-    state = recordAnswer(state, item1.id, false, getItems);
-    expect(state.consecutiveWrong).toBe(1);
-
-    const item2 = selectNextItem(state, getItems)!;
-    state = recordAnswer(state, item2.id, true, getItems);
-    expect(state.consecutiveWrong).toBe(0);
-  });
-
-  it("all correct → probed modules VERIFIED, lower modules ASSUMED (never silently completed)", () => {
-    let state = runScreening(Array(8).fill(true));
-
-    while (state.stage !== "done") {
+  it("a banded run serves at most ~8 items", () => {
+    const band = jaBand("n5"); // widest band
+    let state = createBandedState(band, JA);
+    let count = 0;
+    while (state.stage !== "done" && count < 40) {
       const item = selectNextItem(state, getItems);
       if (!item) break;
       state = recordAnswer(state, item.id, true, getItems);
+      count++;
     }
-
-    // Verified = actually probed to threshold.
-    expect(state.passedModules.length).toBeGreaterThan(0);
-    expect(state.passedModules.every((m) => state.probeResults[m])).toBe(true);
-    // The floor estimate no longer silently completes lower modules — they are
-    // ASSUMED (seeded/queued) and never appear in the verified/passed list.
-    expect(state.assumedModules).toContain("m3");
-    expect(state.passedModules).not.toContain("m3");
+    expect(count).toBeLessThanOrEqual(8);
   });
 
-  it("all wrong → nothing verified, nothing assumed", () => {
-    let state = runScreening(Array(8).fill(false));
-
-    while (state.stage !== "done") {
-      const item = selectNextItem(state, getItems);
-      if (!item) break;
-      state = recordAnswer(state, item.id, false, getItems);
-    }
-
+  it("complete-beginner band credits nothing and starts at M1", () => {
+    const state = createBandedState(jaBand("beginner"), JA);
+    expect(state.stage).toBe("done");
     expect(state.passedModules).toEqual([]);
     expect(state.assumedModules).toEqual([]);
   });
 
-  it("verified modules were probed; assumed modules sit strictly below the floor", () => {
-    let state = runScreening([true, true, true, false, false, false, false, false]);
-
-    while (state.stage !== "done") {
-      const item = selectNextItem(state, getItems);
-      if (!item) break;
-      state = recordAnswer(state, item.id, true, getItems);
-    }
-
+  it("passing everything places at the highest sampled module (capped at band top)", () => {
+    const band = jaBand("kana"); // m3..m6, top m6
+    const state = runBanded(band, () => true);
+    expect(state.stage).toBe("done");
+    // Verified = the sampled modules that passed.
     for (const m of state.passedModules) {
-      expect(state.probeResults[m]).toBeDefined();
+      expect(band.bandModules).toContain(m);
     }
+    // Floor never exceeds the band top: no credited module is above m6.
+    const order = getAllTestableModules(JA);
+    const topIdx = order.indexOf("m6");
+    for (const m of [...state.passedModules, ...state.assumedModules]) {
+      expect(order.indexOf(m)).toBeLessThanOrEqual(topIdx);
+    }
+  });
+
+  it("NEVER credits a module above the floor (reported-bug regression)", () => {
+    // One-correct-answer runaway is impossible: pass only the LOW sampled
+    // module, fail the top — floor must land at the low module, not the top.
+    const band = jaBand("basic-sentences"); // m7..m14
+    const sampled = pickSampleModules(band.bandModules);
+    const low = sampled[0];
+    const order = getAllTestableModules(JA);
+    const lowIdx = order.indexOf(low);
+
+    const state = runBanded(band, (mod) => mod === low);
+
+    const credited = [...state.passedModules, ...state.assumedModules];
+    for (const m of credited) {
+      expect(order.indexOf(m)).toBeLessThanOrEqual(lowIdx);
+    }
+    // The band top (m14) must NOT be credited when only the low module passed.
+    expect(credited).not.toContain("m14");
+  });
+
+  it("each band caps the max possible floor (anti-runaway)", () => {
+    for (const band of getLevelBands(JA)) {
+      if (band.bandModules.length === 0) continue;
+      const top = band.bandModules[band.bandModules.length - 1];
+      const order = getAllTestableModules(JA);
+      const topIdx = order.indexOf(top);
+      // Even all-correct never credits above the band top.
+      const state = runBanded(band, () => true);
+      for (const m of [...state.passedModules, ...state.assumedModules]) {
+        expect(order.indexOf(m)).toBeLessThanOrEqual(topIdx);
+      }
+    }
+  });
+
+  it("passing NOTHING in a band places at the band bottom, not the top", () => {
+    const band = jaBand("n5"); // m15..m27
+    const state = runBanded(band, () => false);
+    expect(state.passedModules).toEqual([]);
+    const order = getAllTestableModules(JA);
+    const bottomIdx = order.indexOf(band.bandModules[0]); // m15
+    // Nothing at or above the band bottom is credited (over-declared → land
+    // at the band bottom, study from there).
     for (const m of state.assumedModules) {
-      expect(state.probeResults[m]).toBeUndefined();
-      const tier = getTierForModule(m, "ja");
-      expect(tier).not.toBeNull();
-      expect(tier! < (state.estimatedFloorTier ?? 0)).toBe(true);
+      expect(order.indexOf(m)).toBeLessThan(bottomIdx);
     }
+    expect(state.assumedModules).not.toContain("m15");
+  });
+
+  it("the old runaway is impossible: no single-answer path completes the whole course", () => {
+    // Simulate the worst old case: kana band, pass the top module only.
+    const band = jaBand("kana"); // m3..m6
+    const state = runBanded(band, (mod) => mod === "m6");
+    const credited = new Set([...state.passedModules, ...state.assumedModules]);
+    // The 20+ higher modules are never credited from a kana-band placement.
+    for (const m of ["m10", "m15", "m20", "m27"]) {
+      expect(credited.has(m)).toBe(false);
+    }
+  });
+
+  it("records missed grammar points for the review queue", () => {
+    const band = jaBand("kana");
+    const state = runBanded(band, () => false);
+    expect(state.missedSkills.length).toBeGreaterThan(0);
+    expect(state.missedSkills[0]).toMatchObject({
+      grammarPointId: expect.any(String),
+    });
   });
 
   it("modulePassed: short sets need a clean sweep; sets of 5+ allow one slip", () => {
@@ -184,150 +190,174 @@ describe("adaptiveEngine", () => {
     expect(modulePassed([true, true, false])).toBe(false); // 3 items, 0 allowed
     expect(modulePassed(Array(8).fill(true))).toBe(true);
     expect(modulePassed([...Array(7).fill(true), false])).toBe(true); // 7/8 ok
-    expect(modulePassed([...Array(6).fill(true), false, false])).toBe(false); // 2 misses
+    expect(modulePassed([...Array(6).fill(true), false, false])).toBe(false);
     expect(modulePassed([])).toBe(false);
   });
 
-  it("records the grammar point behind every wrong answer for the gap report", () => {
+  describe("KO banded", () => {
+    const KO_BANK = makeBank(getAllTestableModules("ko"));
+    const getKo = (m: string) => KO_BANK[m] ?? [];
+    const koBand = (id: string) => getLevelBand("ko", id)!;
+
+    it("uses KO module order and never credits above the band top", () => {
+      const band = koBand("hangul"); // m3..m6
+      const state = runBanded(band, () => true, "ko", getKo);
+      const order = getAllTestableModules("ko");
+      const topIdx = order.indexOf("m6");
+      for (const m of [...state.passedModules, ...state.assumedModules]) {
+        expect(order.indexOf(m)).toBeLessThanOrEqual(topIdx);
+      }
+    });
+
+    it("KO complete-beginner credits nothing", () => {
+      const state = createBandedState(koBand("beginner"), "ko");
+      expect(state.passedModules).toEqual([]);
+      expect(state.assumedModules).toEqual([]);
+    });
+  });
+});
+
+describe("adaptiveEngine — test-out mode (unchanged)", () => {
+  it("starts in probing with single module", () => {
+    const state = createTestOutState("m10");
+    expect(state.stage).toBe("probing");
+    expect(state.probeQueue).toEqual(["m10"]);
+    expect(state.currentProbeModule).toBe("m10");
+  });
+
+  it("serves the target module's items", () => {
     let state = createTestOutState("m10");
-    // 3 items, answer the 2nd wrong.
+    const served: string[] = [];
+    while (state.stage !== "done") {
+      const item = selectNextItem(state, getItems);
+      if (!item) break;
+      served.push(item.id);
+      state = recordAnswer(state, item.id, true, getItems);
+    }
+    expect(served).toEqual(["pt-m10-1", "pt-m10-2", "pt-m10-3"]);
+  });
+
+  it("3/3 correct → module passed", () => {
+    let state = createTestOutState("m10");
+    for (let i = 0; i < 3; i++) {
+      const item = selectNextItem(state, getItems)!;
+      state = recordAnswer(state, item.id, true, getItems);
+    }
+    expect(state.stage).toBe("done");
+    expect(state.passedModules).toContain("m10");
+  });
+
+  it("1 wrong → module not passed", () => {
+    let state = createTestOutState("m10");
     const i1 = selectNextItem(state, getItems)!;
     state = recordAnswer(state, i1.id, true, getItems);
     const i2 = selectNextItem(state, getItems)!;
     state = recordAnswer(state, i2.id, false, getItems);
     const i3 = selectNextItem(state, getItems)!;
     state = recordAnswer(state, i3.id, true, getItems);
+    expect(state.stage).toBe("done");
+    expect(state.passedModules).not.toContain("m10");
+  });
 
+  it("PASS ⇒ every module ordered BEFORE the tested one is assumed (no credit)", () => {
+    let state = createTestOutState("m10");
+    for (let i = 0; i < 3; i++) {
+      const item = selectNextItem(state, getItems)!;
+      state = recordAnswer(state, item.id, true, getItems);
+    }
+    expect(state.passedModules).toEqual(["m10"]);
+    expect(state.assumedModules).toEqual([
+      "m3",
+      "m4",
+      "m5",
+      "m6",
+      "m7",
+      "m8",
+      "m9",
+    ]);
+    expect(state.assumedModules).not.toContain("m10");
+    expect(state.assumedModules).not.toContain("m11");
+  });
+
+  it("PASS of the first tested module ⇒ empty assumed", () => {
+    let state = createTestOutState("m3");
+    for (let i = 0; i < 3; i++) {
+      const item = selectNextItem(state, getItems)!;
+      state = recordAnswer(state, item.id, true, getItems);
+    }
+    expect(state.passedModules).toEqual(["m3"]);
+    expect(state.assumedModules).toEqual([]);
+  });
+
+  it("FAIL ⇒ nothing before it changes (empty assumed)", () => {
+    let state = createTestOutState("m10");
+    const i1 = selectNextItem(state, getItems)!;
+    state = recordAnswer(state, i1.id, true, getItems);
+    const i2 = selectNextItem(state, getItems)!;
+    state = recordAnswer(state, i2.id, false, getItems);
+    const i3 = selectNextItem(state, getItems)!;
+    state = recordAnswer(state, i3.id, true, getItems);
+    expect(state.passedModules).not.toContain("m10");
+    expect(state.assumedModules).toEqual([]);
+  });
+
+  it("KO PASS ⇒ before-modules assumed against KO order (m1..m6 before m7)", () => {
+    let state = createTestOutState("m7", "ko");
+    for (let i = 0; i < 3; i++) {
+      const item = selectNextItem(state, getItems)!;
+      state = recordAnswer(state, item.id, true, getItems);
+    }
+    expect(state.passedModules).toEqual(["m7"]);
+    expect(state.assumedModules).toEqual([
+      "m1",
+      "m2",
+      "m3",
+      "m4",
+      "m5",
+      "m6",
+    ]);
+  });
+
+  it("records the grammar point behind a wrong answer for the gap report", () => {
+    let state = createTestOutState("m10");
+    const i1 = selectNextItem(state, getItems)!;
+    state = recordAnswer(state, i1.id, true, getItems);
+    const i2 = selectNextItem(state, getItems)!;
+    state = recordAnswer(state, i2.id, false, getItems);
+    const i3 = selectNextItem(state, getItems)!;
+    state = recordAnswer(state, i3.id, true, getItems);
     expect(state.missedSkills).toHaveLength(1);
     expect(state.missedSkills[0]).toMatchObject({
       moduleId: "m10",
       grammarPointId: "m10-gp",
     });
   });
+});
 
-  it("respects the max-items cap (40) so coverage-scaled tests still terminate", () => {
-    let state = runScreening(Array(8).fill(true));
-    let count = 8;
-
-    while (state.stage !== "done" && count < 60) {
-      const item = selectNextItem(state, getItems);
-      if (!item) break;
-      state = recordAnswer(state, item.id, true, getItems);
-      count++;
+describe("computeOutcome — bounded invariant", () => {
+  it("never returns a module above the floor across every JA band + answer mix", () => {
+    const order = getAllTestableModules(JA);
+    for (const band of getLevelBands(JA)) {
+      if (band.bandModules.length === 0) continue;
+      const sampled = pickSampleModules(band.bandModules);
+      // Try every pass/fail subset of the sampled modules.
+      const combos = 1 << sampled.length;
+      for (let mask = 0; mask < combos; mask++) {
+        const passing = new Set(
+          sampled.filter((_, i) => (mask >> i) & 1),
+        );
+        const state = runBanded(band, (mod) => passing.has(mod));
+        const { verified, assumed } = computeOutcome(state);
+        // Floor = highest verified index (or band-bottom-1 if none).
+        const verifiedIdxs = verified.map((m) => order.indexOf(m));
+        const floorIdx =
+          verifiedIdxs.length > 0
+            ? Math.max(...verifiedIdxs)
+            : order.indexOf(band.bandModules[0]) - 1;
+        for (const m of [...verified, ...assumed]) {
+          expect(order.indexOf(m)).toBeLessThanOrEqual(floorIdx);
+        }
+      }
     }
-
-    expect(state.totalServed).toBeLessThanOrEqual(40);
-  });
-
-  describe("test-out mode", () => {
-    it("starts in probing with single module", () => {
-      const state = createTestOutState("m10");
-      expect(state.stage).toBe("probing");
-      expect(state.probeQueue).toEqual(["m10"]);
-      expect(state.currentProbeModule).toBe("m10");
-    });
-
-    it("serves 3 items for the target module", () => {
-      let state = createTestOutState("m10");
-      const served: string[] = [];
-
-      while (state.stage !== "done") {
-        const item = selectNextItem(state, getItems);
-        if (!item) break;
-        served.push(item.id);
-        state = recordAnswer(state, item.id, true, getItems);
-      }
-
-      expect(served).toEqual(["pt-m10-1", "pt-m10-2", "pt-m10-3"]);
-    });
-
-    it("3/3 correct → module passed", () => {
-      let state = createTestOutState("m10");
-
-      for (let i = 0; i < 3; i++) {
-        const item = selectNextItem(state, getItems)!;
-        state = recordAnswer(state, item.id, true, getItems);
-      }
-
-      expect(state.stage).toBe("done");
-      expect(state.passedModules).toContain("m10");
-    });
-
-    it("1 wrong → module not passed", () => {
-      let state = createTestOutState("m10");
-
-      const i1 = selectNextItem(state, getItems)!;
-      state = recordAnswer(state, i1.id, true, getItems);
-      const i2 = selectNextItem(state, getItems)!;
-      state = recordAnswer(state, i2.id, false, getItems);
-      const i3 = selectNextItem(state, getItems)!;
-      state = recordAnswer(state, i3.id, true, getItems);
-
-      expect(state.stage).toBe("done");
-      expect(state.passedModules).not.toContain("m10");
-    });
-  });
-
-  // ── Language-aware auto-leveling (KO) ────────────────────────────────
-  describe("language-aware leveling (ko)", () => {
-    // A KO mock bank spanning every KO testable module.
-    const KO_BANK: Record<string, PlacementItemConfig[]> = {};
-    for (const mod of getAllTestableModules("ko")) {
-      KO_BANK[mod] = [
-        makeItem(`ko-${mod}-1`, mod),
-        makeItem(`ko-${mod}-2`, mod),
-        makeItem(`ko-${mod}-3`, mod),
-      ];
-    }
-    const getKoItems = (m: string) => KO_BANK[m] ?? [];
-
-    it("createInitialState records the language and uses KO tiers", () => {
-      const state = createInitialState("ko");
-      expect(state.languageId).toBe("ko");
-      // KO screening serves one item per KO tier (9 tiers, m1..m27).
-      const seen: string[] = [];
-      let s = state;
-      for (let i = 0; i < getSkillTiers("ko").length; i++) {
-        const item = selectNextItem(s, getKoItems)!;
-        seen.push(item.moduleId);
-        s = recordAnswer(s, item.id, true, getKoItems);
-      }
-      // First screening item is KO tier 0's screening module (m1), proving
-      // the engine is NOT using the JA tier set (which starts at m3).
-      expect(seen[0]).toBe("m1");
-      expect(s.stage).toBe("probing");
-    });
-
-    it("all-correct KO screening verifies probed KO modules and assumes lower ones", () => {
-      let s = createInitialState("ko");
-      // Drive the entire test all-correct.
-      for (let guard = 0; guard < 60; guard++) {
-        const item = selectNextItem(s, getKoItems);
-        if (!item) break;
-        s = recordAnswer(s, item.id, true, getKoItems);
-        if (s.stage === "done") break;
-      }
-      expect(s.stage).toBe("done");
-      // No silent whole-course pass anymore: split into verified + assumed,
-      // and every KO module is accounted for in one bucket or the other.
-      const covered = new Set([...s.passedModules, ...s.assumedModules]);
-      expect(covered.has("m1")).toBe(true);
-      expect(s.passedModules.length).toBeGreaterThan(0);
-      expect(s.passedModules.every((m) => s.probeResults[m])).toBe(true);
-    });
-
-    it("KO test-out probes only the target module", () => {
-      let s = createTestOutState("m7", "ko");
-      expect(s.languageId).toBe("ko");
-      for (let guard = 0; guard < 6; guard++) {
-        const item = selectNextItem(s, getKoItems);
-        if (!item) break;
-        expect(item.moduleId).toBe("m7");
-        s = recordAnswer(s, item.id, true, getKoItems);
-        if (s.stage === "done") break;
-      }
-      expect(s.stage).toBe("done");
-      expect(s.passedModules).toEqual(["m7"]);
-    });
   });
 });

@@ -30,9 +30,6 @@ export type {
   StreakSnapshot,
   InviteOffer,
   InviteRedeemResult,
-  ThreadItem,
-  ThreadDetail,
-  Message,
   QuestTargetItem,
 } from "./social";
 export { CommunityApi } from "./community";

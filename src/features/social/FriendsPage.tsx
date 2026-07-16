@@ -427,7 +427,6 @@ function AllFriendsTab() {
 function FriendRow({ user }: { user: SocialUser }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const langPath = useLangPath();
   const [confirm, setConfirm] = useState<null | "unfriend" | "block">(null);
   const unfriend = useUnfriend();
   const block = useBlockUser();
@@ -488,27 +487,12 @@ function FriendRow({ user }: { user: SocialUser }) {
         {tier.name.replace(" League", "")}
       </span>
 
-      <Link
-        to={langPath(`messenger/${user.id}`)}
-        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-text-muted transition hover:bg-accent-muted hover:text-accent"
-        aria-label={t("social.friendsPage.messageAria", "Message {{name}}", {
-          name: user.name,
-        })}
-      >
-        <Icon name="messageCircle" size={15} aria-hidden />
-      </Link>
       <OverflowMenu
         orientation="horizontal"
         ariaLabel={t("social.friendsPage.moreAria", "More actions for {{name}}", {
           name: user.name,
         })}
         items={[
-          {
-            key: "message",
-            label: t("social.friendsPage.menuMessage", "Message"),
-            leading: <Icon name="messageCircle" size={14} aria-hidden />,
-            onSelect: () => navigate(langPath(`messenger/${user.id}`)),
-          },
           {
             key: "view",
             label: t("social.friendsPage.menuView", "View profile"),

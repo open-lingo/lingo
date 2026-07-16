@@ -165,6 +165,39 @@ export type JobsSummaryResponse = {
   >;
 };
 
+// ── Infrastructure health (AWS budget + alarms) ───────────────
+
+export type BudgetStatus = "ok" | "warn" | "exceeded";
+export type AlarmState = "OK" | "ALARM" | "INSUFFICIENT_DATA";
+
+/**
+ * Shapes mirror the lingo-ops `/observability/health` contract verbatim
+ * (snake_case as the backend serializes it — this endpoint does not use the
+ * camelCase convention the finance/jobs endpoints do).
+ */
+export type ObservabilityBudget = {
+  name: string;
+  limit_usd: number;
+  actual_usd: number;
+  forecast_usd: number | null;
+  percent_used: number;
+  status: BudgetStatus;
+};
+
+export type ObservabilityAlarm = {
+  name: string;
+  state: AlarmState;
+  metric: string;
+  description: string;
+  updated_at: string;
+};
+
+export type ObservabilityHealth = {
+  generated_at: string;
+  budget: ObservabilityBudget | null;
+  alarms: ObservabilityAlarm[];
+};
+
 // ── Client ────────────────────────────────────────────────────
 
 export class OpsApi extends ApiClient {
@@ -227,6 +260,11 @@ export class OpsApi extends ApiClient {
   }
   async getJobsSummary(): Promise<JobsSummaryResponse> {
     return this.get<JobsSummaryResponse>(`${PREFIX}/jobs/summary`);
+  }
+
+  // Infrastructure health — AWS budget + CloudWatch alarm state.
+  async getObservabilityHealth(): Promise<ObservabilityHealth> {
+    return this.get<ObservabilityHealth>(`${PREFIX}/observability/health`);
   }
 
   // Events

@@ -1,24 +1,28 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/components/ui";
 import { StepRenderer } from "@/features/lesson/components/StepRenderer";
-import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import { useApi } from "@/shared/api/provider";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import {
-  createInitialState,
+  createBandedState,
   createTestOutState,
   selectNextItem,
   recordAnswer,
   finalizeState,
 } from "./engine/adaptiveEngine";
 import type { AdaptiveState } from "./engine/adaptiveEngine";
+import { getLevelBands } from "./levelBands";
+import type { PlacementLevelBand } from "./levelBands";
+import { PlacementLevelSelect } from "./components/PlacementLevelSelect";
+import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { applyPlacementResult, type PlacementResult } from "./engine/applyPlacement";
 import { syncTestOutToServer } from "./engine/syncTestOutToServer";
-import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getItemsForModule, instantiateItem } from "./questionBank";
 import { getDerivedTestOutItems } from "./engine/deriveModuleTestOut";
+import { mulberry32 } from "@/shared/utils/seededRng";
 import { dismissPlacement } from "./hooks/usePlacementDismissed";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
@@ -38,22 +42,46 @@ export function PlacementTestPage() {
   const langPath = useLangPath();
   const { progress } = useApi();
 
-  const { language } = useLanguage();
-  const langId = language?.id ?? "ja";
+  // Resolve the course from the URL ``:lang`` segment, NOT the settings
+  // language. The two can diverge briefly on entry: the Learn map links to
+  // ``/ja/learn/placement-test`` (URL-authoritative via ``langPath``), but the
+  // account's ``learningLanguageId`` may still be hydrating to a different id
+  // (or genuinely be another course). LangLayout re-syncs settings → URL in an
+  // effect, but that lands AFTER this page's first render — long enough for the
+  // mount effect to select against the wrong language's (empty) question bank
+  // and instantly finalize to "Starting from the top". ``useLang`` reads the
+  // route param first and is stable from render one, so placement always runs
+  // for the language the user actually navigated to.
+  const langId = useLang();
   const { settings, updateSetting } = useSettings();
 
-  // JA test-outs serve the DERIVED sets — ~12 real lesson steps sampled
-  // for section coverage (deriveModuleTestOut) — instead of the legacy
-  // 3-per-module bank (Spencer sign-off 2026-07-13). Full placement and
-  // KO keep the authored bank: placement's screening/probing needs the
-  // curated per-skill items, and KO has no derived corpus yet.
-  const itemsLookup = useMemo(
-    () => (mod: string) =>
-      isTestOut && langId === "ja"
-        ? getDerivedTestOutItems(mod)
-        : getItemsForModule(mod, langId),
-    [isTestOut, langId],
-  );
+  // Per-attempt PRNG seed. Fixed once per mount (a fresh attempt = a fresh
+  // mount = a new seed = a different draw), so `itemsLookup` returns a
+  // stable-within-attempt but varied-across-attempts test-out. This is the
+  // anti-memorization mechanism: a retry can't re-serve the memorized set.
+  const rngSeed = useRef<number>(Math.floor(Math.random() * 0xffffffff));
+
+  // Test-outs (JA *and* KO) serve DERIVED sets — ~12 real lesson steps
+  // sampled from the module's own lessons for section coverage — instead of
+  // the legacy 3-per-module bank (Spencer 2026-07-13/07-15). Both languages
+  // ship authored M3+ lessons, so derivation yields real questions. Full
+  // placement keeps the authored bank: its screening/probing needs the
+  // curated per-skill items.
+  const itemsLookup = useMemo(() => {
+    const rng = mulberry32(rngSeed.current);
+    // The engine calls the lookup many times per module (selectNextItem,
+    // recordAnswer, …); the seeded draw must be computed ONCE per module per
+    // attempt, or the served set would reshuffle mid-run and break grading.
+    const attemptCache = new Map<string, ReturnType<typeof getItemsForModule>>();
+    return (mod: string) => {
+      if (!isTestOut) return getItemsForModule(mod, langId);
+      const cached = attemptCache.get(mod);
+      if (cached) return cached;
+      const drawn = getDerivedTestOutItems(mod, langId, rng);
+      attemptCache.set(mod, drawn);
+      return drawn;
+    };
+  }, [isTestOut, langId]);
 
   // Modules / languages without items render an honest "no test-out
   // questions yet" message instead of running through an empty engine
@@ -61,10 +89,24 @@ export function PlacementTestPage() {
   const hasBank =
     !isTestOut || (moduleId != null && itemsLookup(moduleId).length > 0);
 
-  const [state, setState] = useState<AdaptiveState>(() =>
-    isTestOut
-      ? createTestOutState(moduleId!, langId)
-      : createInitialState(langId),
+  // Test-out starts the engine immediately (single-module probe). Banded
+  // placement waits for the learner to self-declare a level first — `state`
+  // stays null until a band is chosen, and the level-select screen renders.
+  const [state, setState] = useState<AdaptiveState | null>(() =>
+    isTestOut ? createTestOutState(moduleId!, langId) : null,
+  );
+
+  const bands = useMemo(() => getLevelBands(langId), [langId]);
+  const languageName = useMemo(
+    () => getLanguageConfig(langId)?.name ?? langId.toUpperCase(),
+    [langId],
+  );
+
+  const handleSelectBand = useCallback(
+    (band: PlacementLevelBand) => {
+      setState(createBandedState(band, langId));
+    },
+    [langId],
   );
 
   const [currentStep, setCurrentStep] = useState<LessonStep | null>(null);
@@ -80,7 +122,26 @@ export function PlacementTestPage() {
     return mod?.title ?? moduleId.toUpperCase();
   }, [moduleId, langId]);
 
+  // Progress-bar denominator: the derived set's real size (~12), NOT the old
+  // hardcoded 3. itemsLookup is memoized + per-attempt cached, so this is cheap
+  // and stable within the attempt.
+  const testOutTotal = useMemo(
+    () => (isTestOut && moduleId ? itemsLookup(moduleId).length : undefined),
+    [isTestOut, moduleId, itemsLookup],
+  );
+
+  // Banded run denominator: sum the served-item budget across the sampled
+  // modules (each capped at ~3), so the progress bar fills honestly.
+  const samplingTotal = useMemo(() => {
+    if (!state || state.sampleModules.length === 0) return undefined;
+    return state.sampleModules.reduce(
+      (n, mod) => n + Math.min(3, itemsLookup(mod).length),
+      0,
+    );
+  }, [state, itemsLookup]);
+
   useEffect(() => {
+    if (!state) return; // banded run: waiting on the level-select step
     if (state.stage === "done") {
       if (!resultApplied) {
         const result = applyPlacementResult(state.passedModules, langId, {
@@ -138,15 +199,21 @@ export function PlacementTestPage() {
           updateSetting("learning.buildTileRomajiAutoFlipped", true);
         }
         // Mirror the local mockProgress writes to the server so a device
-        // switch / fresh login carries the test-out completions over.
+        // switch / fresh login carries the test-out completions over —
+        // including the assumed (before-the-tested-module) auto-completions.
         // Fire-and-forget: local apply already persisted.
-        void syncTestOutToServer(progress, state.passedModules, langId);
+        void syncTestOutToServer(
+          progress,
+          state.passedModules,
+          langId,
+          state.assumedModules,
+        );
       }
       return;
     }
     const nextItem = selectNextItem(state, itemsLookup);
     if (!nextItem) {
-      setState((prev) => finalizeState(prev));
+      setState((prev) => (prev ? finalizeState(prev) : prev));
       return;
     }
     setCurrentStep(instantiateItem(nextItem));
@@ -163,9 +230,11 @@ export function PlacementTestPage() {
 
   const handleStepComplete = useCallback(
     (stepId: string, correct: boolean) => {
-      setState((prev) => recordAnswer(prev, stepId, correct, itemsLookup));
+      setState((prev) =>
+        prev ? recordAnswer(prev, stepId, correct, itemsLookup) : prev,
+      );
     },
-    [],
+    [itemsLookup],
   );
 
   const handleContinue = useCallback(() => {
@@ -175,7 +244,10 @@ export function PlacementTestPage() {
 
   if (!hasBank) {
     return (
-      <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 p-8 text-center">
+      // LangLayout provides no themed shell, so this route paints its own
+      // ``bg-background`` — otherwise the screen renders on the browser default
+      // (light) while the app is in dark theme.
+      <div className="flex min-h-[100dvh] flex-col items-center justify-center gap-4 bg-background p-8 text-center">
         <h2 className="text-lg font-semibold text-text-primary">
           {t("placement.noBankTitle", {
             defaultValue: "No test-out questions yet",
@@ -202,15 +274,36 @@ export function PlacementTestPage() {
 
   if (appliedResult) {
     return (
-      <PlacementResultScreen
-        passedModules={appliedResult.passedModules}
-        assumedModules={appliedResult.assumedModules}
-        missedSkills={appliedResult.missedSkills}
-        skippedLessonCount={appliedResult.skippedLessonCount}
-        seededAtomCount={appliedResult.seededAtomCount}
-        isTestOut={isTestOut}
-        testOutModuleLabel={moduleLabel}
-        onContinue={() => navigate(langPath("learn"))}
+      // Themed shell around the result screen — the screen itself is a
+      // ``flex-1`` body that assumes a full-height ``bg-background`` parent
+      // (LangLayout doesn't provide one).
+      <div className="flex min-h-[100dvh] flex-col bg-background">
+        <PlacementResultScreen
+          passedModules={appliedResult.passedModules}
+          assumedModules={appliedResult.assumedModules}
+          missedSkills={appliedResult.missedSkills}
+          skippedLessonCount={appliedResult.skippedLessonCount}
+          seededAtomCount={appliedResult.seededAtomCount}
+          isTestOut={isTestOut}
+          testOutModuleLabel={moduleLabel}
+          itemResults={
+            moduleId && state ? state.probeResults[moduleId] : undefined
+          }
+          onContinue={() => navigate(langPath("learn"))}
+        />
+      </div>
+    );
+  }
+
+  // Banded placement step 0: self-declare a level before any sampling. Shown
+  // for onboarding AND retake (test-out skips straight to probing).
+  if (!isTestOut && !state) {
+    return (
+      <PlacementLevelSelect
+        languageName={languageName}
+        bands={bands}
+        onSelect={handleSelectBand}
+        onExit={() => navigate(langPath("learn"))}
       />
     );
   }
@@ -241,11 +334,15 @@ export function PlacementTestPage() {
           </svg>
         </button>
         <div className="min-w-0 flex-1">
-          <PlacementProgressBar
-            state={state}
-            isTestOut={isTestOut}
-            testOutModuleLabel={moduleLabel}
-          />
+          {state && (
+            <PlacementProgressBar
+              state={state}
+              isTestOut={isTestOut}
+              testOutModuleLabel={moduleLabel}
+              testOutTotal={testOutTotal}
+              samplingTotal={samplingTotal}
+            />
+          )}
         </div>
       </div>
       <div className="flex flex-1 flex-col">

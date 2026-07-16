@@ -38,8 +38,6 @@ export const prefetchCommunity = () =>
 // either way; left in so the wiring stays correct if we split it later.
 export const prefetchPractice = () =>
   ignore(import("@/features/practice/PracticePage").then(() => undefined));
-export const prefetchMessenger = () =>
-  ignore(import("@/features/messenger/MessengerPage"));
 
 /**
  * Returns hover/focus handlers tuned to the device:

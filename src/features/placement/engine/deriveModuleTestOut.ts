@@ -47,17 +47,19 @@ export type DerivedItem = {
 };
 
 /** Section key from a lesson id: `ja-m14-5-1-...` → `m14-5`; katakana/other
- *  lessons (`ja-m10kata-...`) fall back to the whole lesson id. */
-function sectionOf(lessonId: string): string {
-  const m = /^ja-(m\d+)-(\d+)/.exec(lessonId);
-  return m ? `${m[1]}-${m[2]}` : lessonId.replace(/^ja-/, "");
+ *  lessons (`ja-m10kata-...`) fall back to the whole lesson id (minus the
+ *  language prefix). Language-parametric so KO (`ko-m3-1`) derives too. */
+function sectionOf(lessonId: string, languageId: string): string {
+  const m = new RegExp(`^${languageId}-(m\\d+)-(\\d+)`).exec(lessonId);
+  return m ? `${m[1]}-${m[2]}` : lessonId.replace(new RegExp(`^${languageId}-`), "");
 }
 
 export function collectGradable(
   moduleId: string,
   formats: ReadonlySet<string> = TESTOUT_FORMATS,
+  languageId: string = "ja",
 ): DerivedItem[] {
-  const course = getMockCourse("ja");
+  const course = getMockCourse(languageId);
   const mod = course.modules.find((m) => m.id === moduleId);
   if (!mod) return [];
   const out: DerivedItem[] = [];
@@ -74,7 +76,7 @@ export function collectGradable(
         out.push({
           step: s,
           lessonId: lesson.id,
-          section: sectionOf(lesson.id),
+          section: sectionOf(lesson.id, languageId),
           grammarPointId,
           format: st.type,
         });
@@ -86,13 +88,24 @@ export function collectGradable(
 
 /**
  * Greedy coverage pick: guarantee one question per section first, then fill to
- * `size` preferring an unseen format and an under-represented section. Stable
- * (no RNG) so the same module always yields the same test-out until content
- * changes. Dupes only if the module has fewer than `size` questions.
+ * `size` preferring an unseen format and an under-represented section.
+ *
+ * **Without `rng`** the pick is stable (no RNG) — the same module always yields
+ * the same test-out until content changes (Round 1 takes each section's middle
+ * item; existing tests + the memoized live path rely on this).
+ *
+ * **With `rng`** each round samples randomly (a random representative per
+ * section, random unused fills still preferring an unseen format, final order
+ * shuffled), so each seeded attempt draws a different subset from the full
+ * gradable pool — the anti-memorization mechanism. `rng` is a `() => number`
+ * in [0, 1); seed it once per attempt for a stable-within-attempt draw.
+ *
+ * Dupes only if the module has fewer than `size` questions.
  */
 export function pickCovering(
   items: DerivedItem[],
   size: number = TESTOUT_SIZE,
+  rng?: () => number,
 ): DerivedItem[] {
   if (items.length === 0) return [];
   const sections = [...new Set(items.map((i) => i.section))];
@@ -103,12 +116,22 @@ export function pickCovering(
     chosen.push(it);
     usedIds.add((it.step as { id: string }).id);
   };
+  const pickFrom = (pool: DerivedItem[], preferMiddle: boolean): DerivedItem =>
+    rng
+      ? pool[Math.floor(rng() * pool.length)]
+      : preferMiddle
+        ? pool[Math.floor(pool.length / 2)]
+        : pool[0];
 
-  // Round 1: one representative per section (middle item = past the intro).
+  // Round 1: one representative per section (deterministic = middle item past
+  // the intro; seeded = a random item from the section).
   for (const sec of sections) {
     const pool = items.filter((i) => i.section === sec);
-    take(pool[Math.floor(pool.length / 2)]);
-    if (chosen.length >= size) return chosen.slice(0, size);
+    take(pickFrom(pool, true));
+    if (chosen.length >= size) break;
+  }
+  if (chosen.length >= size) {
+    return finishPick(chosen, size, rng);
   }
 
   // Rounds 2+: fill to size, cycling sections (cursor advances every step so
@@ -123,12 +146,32 @@ export function pickCovering(
       (i) => i.section === sec && !usedIds.has((i.step as { id: string }).id),
     );
     if (pool.length === 0) continue;
-    const fresh = pool.find((p) => !usedFormats.has(p.format)) ?? pool[0];
+    const unseenFormat = pool.filter((p) => !usedFormats.has(p.format));
+    const fresh =
+      unseenFormat.length > 0
+        ? pickFrom(unseenFormat, false)
+        : pickFrom(pool, false);
     take(fresh);
     usedFormats.add(fresh.format);
   }
 
-  return chosen.slice(0, size);
+  return finishPick(chosen, size, rng);
+}
+
+/** Trim to size, and (seeded only) shuffle the final order so a retry doesn't
+ *  re-serve the same section sequence. Deterministic path keeps its order. */
+function finishPick(
+  chosen: DerivedItem[],
+  size: number,
+  rng?: () => number,
+): DerivedItem[] {
+  const trimmed = chosen.slice(0, size);
+  if (!rng) return trimmed;
+  for (let i = trimmed.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [trimmed[i], trimmed[j]] = [trimmed[j], trimmed[i]];
+  }
+  return trimmed;
 }
 
 export type DerivedTestOut = {
@@ -150,32 +193,69 @@ export type DerivedTestOut = {
  */
 const testOutConfigCache = new Map<string, PlacementItemConfig[]>();
 
+/**
+ * Live-route adapter. With no `rng`, returns the memoized stable set (per
+ * language + module). With an `rng`, bypasses the cache and returns a fresh
+ * randomized draw from the full gradable pool — so each test-out ATTEMPT
+ * serves a different subset (anti-memorization; `PlacementTestPage` seeds one
+ * `rng` per attempt).
+ */
 export function getDerivedTestOutItems(
   moduleId: string,
+  languageId: string = "ja",
+  rng?: () => number,
 ): PlacementItemConfig[] {
-  const cached = testOutConfigCache.get(moduleId);
-  if (cached) return cached;
-  const derived = deriveModuleTestOut(moduleId);
+  const cacheKey = `${languageId}:${moduleId}`;
+  if (!rng) {
+    const cached = testOutConfigCache.get(cacheKey);
+    if (cached) return cached;
+  }
+  const derived = deriveModuleTestOut(moduleId, { languageId, rng });
   const configs: PlacementItemConfig[] = derived.items.map((it) => ({
     id: it.step.id,
     moduleId,
-    languageId: "ja",
+    languageId,
     grammarPointId: it.grammarPointId ?? it.section,
     skill: it.grammarPointId ?? it.section,
     type: "derivedStep",
     step: it.step,
   }));
-  testOutConfigCache.set(moduleId, configs);
+  if (!rng) testOutConfigCache.set(cacheKey, configs);
   return configs;
 }
 
 /** Derive a module's test-out from its own lessons (~TESTOUT_SIZE steps). */
 export function deriveModuleTestOut(
   moduleId: string,
-  opts: { size?: number; formats?: ReadonlySet<string> } = {},
+  opts: {
+    size?: number;
+    formats?: ReadonlySet<string>;
+    languageId?: string;
+    rng?: () => number;
+  } = {},
 ): DerivedTestOut {
-  const all = collectGradable(moduleId, opts.formats ?? TESTOUT_FORMATS);
-  const picked = pickCovering(all, opts.size ?? TESTOUT_SIZE);
+  const languageId = opts.languageId ?? "ja";
+  const size = opts.size ?? TESTOUT_SIZE;
+  const all = collectGradable(
+    moduleId,
+    opts.formats ?? TESTOUT_FORMATS,
+    languageId,
+  );
+  // Flag thin modules (e.g. KO script m1/m2) where the pool is too small for
+  // the varied-draw to actually vary — surfaces the gap instead of silently
+  // serving near-identical retries. Dev-only.
+  if (
+    import.meta.env?.DEV &&
+    all.length > 0 &&
+    all.length < 2 * size
+  ) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `[test-out] ${languageId} ${moduleId}: thin gradable pool ` +
+        `(${all.length} < ${2 * size}) — varied test-out retries will overlap heavily.`,
+    );
+  }
+  const picked = pickCovering(all, size, opts.rng);
   const sectionsTotal = new Set(all.map((i) => i.section)).size;
   return {
     moduleId,
