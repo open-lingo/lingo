@@ -5,7 +5,6 @@
   },
   "practice": {
     "stories": false,
-    "videoTrainers": false,
     "externalContent": false
   },
   "social": {
@@ -26,8 +25,5 @@
       "stories": false,
       "activeDiscussions": false
     }
-  },
-  "social": {
-    "enabled": false
   }
 }

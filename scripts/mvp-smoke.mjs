@@ -62,12 +62,20 @@ const navText = await page.evaluate(() =>
 report(!/Social|Community|Leaderboard/i.test(navText), "nav hides social/community/leaderboard", navText);
 
 // 6. gated routes bounce to home
-for (const path of ["/ja/social", "/ja/messenger", "/ja/community", "/ja/community/explore", "/u/somebody"]) {
+for (const path of ["/ja/social", "/ja/community", "/ja/community/explore", "/u/somebody"]) {
   await page.goto(`${BASE}${path}`, { waitUntil: "networkidle" });
   await page.waitForTimeout(800);
   const url = new URL(page.url());
   report(!url.pathname.startsWith(path), `${path} bounces (landed ${url.pathname})`);
 }
+
+// 6b. messenger routes were deleted outright (2026-07-15) — 404 in place, no chat UI
+await page.goto(`${BASE}/ja/messenger`, { waitUntil: "networkidle" });
+await page.waitForTimeout(800);
+report(
+  (await page.locator("text=Page not found").count()) === 1,
+  "/ja/messenger is a 404 (route deleted)",
+);
 
 // 7. register mode passes the social gate (must NOT bounce to /)
 await page.goto(`${BASE}/u/newuser?register=1`, { waitUntil: "networkidle" });
