@@ -8,14 +8,19 @@
  * furniture (LearnSidebar side-quest rail + profile, LearnToolsRow) and a
  * split-flap "departure board" that doubles as the Continue CTA.
  *
- * Scaling: the map panel flexes with the viewport (clamp(480px,62vh,980px))
- * and the SVG scales uniformly to fill it — 4k renders a genuinely bigger
- * map, not a fixed-pixel band. The ambient sky (clouds / moon+stars) lives
- * on a panel-pinned parallax layer, not inside the scrolling map.
+ * Layout notes:
+ * - The panel flexes with the viewport and the SVG scales uniformly to fill
+ *   it; the viewBox is CONTENT-FIT (computed from what the layout actually
+ *   used) with a fixed art band on top for the parallax skyline, so no
+ *   viewport wastes height on reserved-but-unused track levels.
+ * - Branch lines are DEPTH-NESTED: overlapping x-ranges on the same side
+ *   get pushed one notch deeper instead of sharing a rail.
+ * - Geography: seeded skyline (buildings/hills/Fuji/torii/tower) parallaxes
+ *   inside the map; stars/moon/clouds spread across the panel on a pinned
+ *   layer; fare-zone chips sit inset on the horizon, not on the frame.
  *
  * Demo state is on by default (a fresh profile renders an all-grey map);
- * the toggle swaps in real progress. All motion respects
- * prefers-reduced-motion.
+ * the toggle swaps in real progress. Motion respects prefers-reduced-motion.
  *
  * Route: /:lang/transit-preview
  */
@@ -58,10 +63,15 @@ type Pt = readonly [number, number];
 const LEVELS = [344, 266, 188] as const;
 const LEVEL_SEQ = [0, 1, 2, 1] as const;
 const RUNS = [5, 4, 5, 3, 6, 4] as const;
-const MAP_H = 524;
 const LOOP_DOWN_Y = 420;
 const LOOP_UP_Y = 96;
+const DEPTH_STEP = 46;
+const ART_BAND = 118; // reserved above the content for the skyline
 const QUEST_COLORS = ["var(--tmc-q0)", "var(--tmc-q1)", "var(--tmc-q2)"];
+
+/** Rough text width for plates/chips (JP glyphs ~10.5px, latin ~6.2px @10px). */
+const plateW = (t: string) =>
+  [...t].reduce((w, c) => w + (c.charCodeAt(0) > 0x2e80 ? 10.5 : 6.2), 0) + 18;
 
 type StationL = {
   x: number;
@@ -86,7 +96,7 @@ type SpurL = {
   stops: QuestStop[];
   label: string;
   labelX: number;
-  labelY: number;
+  labelY: number; // plate center
   up: boolean;
   cap: Pt | null;
 };
@@ -95,11 +105,16 @@ type DepotL = { d: string; tracks: Pt[][]; labelX: number; labelY: number };
 
 type Layout = {
   width: number;
+  vbY: number;
+  vbH: number;
+  skyGroundY: number;
   mainPts: Pt[];
   stations: StationL[];
   spurs: SpurL[];
   depot: DepotL | null;
   zones: { x0: number; x1: number; label: string; numeral: string }[];
+  zoneChipY: number;
+  numeralY: number;
   riverX: number;
 };
 
@@ -199,8 +214,6 @@ function buildLayout(
     stations.push({
       x,
       y,
-      // Lowest two levels label below the track, top level labels above —
-      // keeps label bands from colliding across adjacent runs.
       labelSide: level === 2 ? "top" : "bottom",
       index: i,
       module: m,
@@ -226,21 +239,41 @@ function buildLayout(
   const last = stations[stations.length - 1];
   mainPts.push([last.x + 62, last.y]);
 
-  /* quest branch lines — loops that rejoin when geometry allows, spurs
-     with terminus caps otherwise; direction away from the track band */
+  /* quest branch lines — depth-nested per side so overlapping x-ranges
+     never share a rail (the "blue overlap" fix); loops rejoin when the
+     span allows, spurs get terminus caps */
   const spurs: SpurL[] = [];
+  const downIntervals: Array<Array<[number, number]>> = [];
+  const upIntervals: Array<Array<[number, number]>> = [];
+  const packDepth = (rows: Array<Array<[number, number]>>, x0: number, x1: number) => {
+    for (let d = 0; ; d++) {
+      rows[d] ??= [];
+      if (rows[d].every(([a, b]) => x1 < a - 20 || x0 > b + 20)) {
+        rows[d].push([x0, x1]);
+        return d;
+      }
+    }
+  };
+  let maxDownY = LOOP_DOWN_Y;
+  const anchorEntries = [...questsByAnchor.entries()].sort(
+    (a, b) => stations[a[0]].x - stations[b[0]].x,
+  );
   let colorIdx = 0;
-  for (const [anchor, quests] of questsByAnchor) {
+  for (const [anchor, quests] of anchorEntries) {
     const a = stations[anchor];
     const up = a.y === LEVELS[2];
-    const loopY = up ? LOOP_UP_Y : LOOP_DOWN_Y;
-    const dx = Math.abs(loopY - a.y);
     const shown = quests.slice(0, 3);
     const color = QUEST_COLORS[colorIdx % QUEST_COLORS.length];
     colorIdx++;
 
-    // same-level rejoin candidate within the next 4 stations (span must fit
-    // the stop labels — ~80px wide each — without grazing)
+    // estimate the x-range at depth 0, claim a depth, then build for real
+    const dx0 = Math.abs((up ? LOOP_UP_Y : LOOP_DOWN_Y) - a.y);
+    const estEnd = a.x + dx0 + shown.length * 96 + 50;
+    const depth = packDepth(up ? upIntervals : downIntervals, a.x, estEnd);
+    const loopY = up ? LOOP_UP_Y - depth * 40 : LOOP_DOWN_Y + depth * DEPTH_STEP;
+    if (!up) maxDownY = Math.max(maxDownY, loopY);
+    const dx = Math.abs(loopY - a.y);
+
     let rejoin: StationL | null = null;
     if (shown.length >= 2) {
       for (let j = anchor + 1; j <= Math.min(anchor + 4, stations.length - 1); j++) {
@@ -293,25 +326,21 @@ function buildLayout(
       d,
       dashed: a.status === "locked",
       stops,
-      // single-quest lines skip the line name — the stop label carries it
       label: shown.length > 1 ? `${shown[0].title} Line` : "",
       labelX,
-      // line name sits OUTSIDE the stop-label band: below everything on
-      // down-loops, in the sky above the emoji row on up-loops
-      labelY: up ? loopY - 42 : loopY + 58,
+      // plate center OUTSIDE the stop-label band
+      labelY: up ? loopY - 48 : loopY + 62,
       up,
       cap,
     });
   }
 
-  /* practice depot: a low-level station past the first third — the rail
-     yard links to the practice hub */
+  /* practice depot: a low-level station past the first third, clear of
+     branch horizontals — the rail yard links to the practice hub */
   let depot: DepotL | null = null;
-  const anchors = [...questsByAnchor.keys()];
+  const anchors = anchorEntries.map(([a]) => a);
   for (let i = Math.floor(stations.length * 0.35); i < stations.length - 1; i++) {
     const s = stations[i];
-    // keep the yard clear of branch-line horizontals (they extend a few
-    // stations past their anchor at the same depth)
     const nearBranch = anchors.some((a) => i >= a - 1 && i <= a + 3);
     if (s.y === LEVELS[0] && !s.interchange && !nearBranch) {
       const yardY = s.y + 60;
@@ -332,6 +361,27 @@ function buildLayout(
       break;
     }
   }
+
+  /* content-fit extents — the viewBox hugs what was actually drawn */
+  let minC = Infinity;
+  let maxC = -Infinity;
+  stations.forEach((st) => {
+    const isCurrent = st.status === "current";
+    minC = Math.min(minC, st.y - (isCurrent ? 96 : st.labelSide === "top" ? 66 : 28));
+    const labelsBelow = st.labelSide === "bottom" || isCurrent;
+    maxC = Math.max(maxC, st.y + (labelsBelow ? 74 : 28));
+    if (st.terminal) minC = Math.min(minC, st.y - 62);
+  });
+  minC = Math.min(minC, stations[0].y - 74); // main-line plate
+  for (const sp of spurs) {
+    if (sp.up) minC = Math.min(minC, (sp.stops[0]?.y ?? LOOP_UP_Y) - 60);
+    else maxC = Math.max(maxC, (sp.stops[0]?.y ?? maxDownY) + 74);
+  }
+  if (depot) maxC = Math.max(maxC, depot.labelY + 12);
+
+  const vbY = Math.floor(minC) - ART_BAND;
+  const vbH = Math.ceil(maxC) + 16 - vbY;
+  const skyGroundY = Math.floor(minC) - 12;
 
   const width = last.x + 190;
   const zones: Layout["zones"] = [];
@@ -354,7 +404,129 @@ function buildLayout(
       });
     }
   }
-  return { width, mainPts, stations, spurs, depot, zones, riverX: width * 0.55 };
+  return {
+    width,
+    vbY,
+    vbH,
+    skyGroundY,
+    mainPts,
+    stations,
+    spurs,
+    depot,
+    zones,
+    zoneChipY: vbY + 30,
+    numeralY: vbY + ART_BAND - 20,
+    riverX: width * 0.55,
+  };
+}
+
+/* ── skyline geography (seeded, zone-themed, parallax) ───────────────── */
+
+type Skyline = {
+  hillsD: string;
+  buildings: { x: number; w: number; h: number; windows: number[] }[];
+  fujiX: number;
+  toriiX: number;
+  towerX: number;
+};
+
+function makeSkyline(layout: Layout): Skyline {
+  const g = layout.skyGroundY;
+  const zoneAt = (x: number) =>
+    layout.zones.length ? layout.zones.findIndex((z) => x >= z.x0 && x < z.x1) : 1;
+  const buildings: Skyline["buildings"] = [];
+  let x = 40;
+  let i = 0;
+  while (x < layout.width - 70) {
+    const zi = zoneAt(x);
+    const r = (((i + 3) * 2654435761) >>> 7) % 1000 / 1000;
+    const dense = zi === 1;
+    const coast = zi === 2;
+    const w = 26 + ((i * 97) % 5) * 9;
+    const hMax = dense ? 92 : coast ? 42 : 58;
+    const h = Math.round(16 + r * (hMax - 16));
+    // rural zone 1 and the zone-3 coastline breathe — skip some slots
+    const skip = (zi === 0 && r > 0.6) || (coast && r > 0.5);
+    if (!skip) {
+      const windows = Array.from({ length: Math.min(3, Math.floor(h / 26)) }, (_, k) => k);
+      buildings.push({ x, w, h, windows });
+    }
+    x += w + 8 + ((i * 53) % 4) * 10;
+    i++;
+  }
+  // rolling hills across the whole width
+  let hillsD = `M 0 ${g}`;
+  for (let hx = 0; hx <= layout.width; hx += 210) {
+    const amp = 14 + ((hx / 210) % 3) * 8;
+    hillsD += ` Q ${hx + 52} ${g - amp - 16} ${hx + 105} ${g - amp}`;
+    hillsD += ` Q ${hx + 158} ${g - amp + 10} ${hx + 210} ${g - 6}`;
+  }
+  hillsD += ` L ${layout.width} ${g + 4} L 0 ${g + 4} Z`;
+
+  const z = layout.zones;
+  return {
+    hillsD,
+    buildings,
+    fujiX: z.length ? z[0].x1 - 60 : layout.width * 0.3,
+    toriiX: z.length ? (z[0].x0 + z[0].x1) / 2 : layout.width * 0.15,
+    towerX: z.length ? (z[1].x0 + z[1].x1) / 2 : layout.width * 0.55,
+  };
+}
+
+function SkylineArt({
+  sky,
+  groundY,
+  hillsRef,
+  bldgRef,
+}: {
+  sky: Skyline;
+  groundY: number;
+  hillsRef: React.RefObject<SVGGElement | null>;
+  bldgRef: React.RefObject<SVGGElement | null>;
+}) {
+  return (
+    <>
+      {/* far layer: hills + Fuji (slow parallax) */}
+      <g ref={hillsRef} pointerEvents="none" aria-hidden>
+        <path d={sky.hillsD} fill="currentColor" opacity={0.05} />
+        <path
+          d={`M ${sky.fujiX - 120} ${groundY} L ${sky.fujiX - 24} ${groundY - 92} L ${sky.fujiX + 2} ${groundY - 78} L ${sky.fujiX + 26} ${groundY - 92} L ${sky.fujiX + 122} ${groundY} Z`}
+          fill="currentColor"
+          opacity={0.07}
+        />
+        <path
+          d={`M ${sky.fujiX - 34} ${groundY - 82} L ${sky.fujiX - 24} ${groundY - 92} L ${sky.fujiX + 2} ${groundY - 78} L ${sky.fujiX + 26} ${groundY - 92} L ${sky.fujiX + 36} ${groundY - 82} L ${sky.fujiX + 18} ${groundY - 72} L ${sky.fujiX - 16} ${groundY - 72} Z`}
+          style={{ fill: "var(--tmc-panel)" }}
+          opacity={0.55}
+        />
+      </g>
+      {/* near layer: buildings + landmarks (faster parallax) */}
+      <g ref={bldgRef} pointerEvents="none" aria-hidden>
+        {sky.buildings.map((b, i) => (
+          <g key={i}>
+            <rect x={b.x} y={groundY - b.h} width={b.w} height={b.h} rx={1.5} style={{ fill: "var(--tmc-muted)" }} opacity={0.13} />
+            <g className="tmc-night">
+              {b.windows.map((k) => (
+                <rect key={k} x={b.x + 5 + (k % 2) * (b.w / 2)} y={groundY - b.h + 8 + k * 18} width={5} height={7} rx={1} fill="#F2CE6B" opacity={0.4} />
+              ))}
+            </g>
+          </g>
+        ))}
+        {/* torii (zone 1) */}
+        <g opacity={0.3} style={{ fill: "var(--tmc-line-main)" }}>
+          <rect x={sky.toriiX - 16} y={groundY - 34} width={5} height={34} />
+          <rect x={sky.toriiX + 11} y={groundY - 34} width={5} height={34} />
+          <rect x={sky.toriiX - 24} y={groundY - 40} width={48} height={6} rx={2} />
+          <rect x={sky.toriiX - 18} y={groundY - 28} width={36} height={4} />
+        </g>
+        {/* tower (zone 2) */}
+        <g opacity={0.22} style={{ fill: "var(--tmc-line-main)" }}>
+          <path d={`M ${sky.towerX - 34} ${groundY} L ${sky.towerX} ${groundY - 108} L ${sky.towerX + 34} ${groundY} Z`} />
+          <rect x={sky.towerX - 1.5} y={groundY - 124} width={3} height={16} />
+        </g>
+      </g>
+    </>
+  );
 }
 
 /* ── per-language strings ────────────────────────────────────────────── */
@@ -410,6 +582,18 @@ const prefersReducedMotion = () =>
 
 /* ── small pieces ────────────────────────────────────────────────────── */
 
+function LinePlate({ x, y, text, color }: { x: number; y: number; text: string; color: string }) {
+  const w = plateW(text);
+  return (
+    <g>
+      <rect x={x - w / 2} y={y - 10} width={w} height={20} rx={10} style={{ fill: color }} />
+      <text x={x} y={y + 3.5} textAnchor="middle" data-tm="label" style={{ fill: "#fff", fontSize: 10, fontWeight: 800 }}>
+        {text}
+      </text>
+    </g>
+  );
+}
+
 function TrainMascot({ label }: { label: string }) {
   return (
     <g className="tmc-mascot" aria-hidden>
@@ -440,36 +624,35 @@ function GhostTrain() {
   );
 }
 
-/** Deterministic star field (Math.random would reshuffle every render). */
-const STARS = Array.from({ length: 16 }, (_, i) => ({
-  x: 4 + ((i * 6.3) % 92), // percent
-  y: 10 + ((i * 23) % 78),
+/** Deterministic star field spread across the panel (not a top strip). */
+const STARS = Array.from({ length: 22 }, (_, i) => ({
+  x: 3 + ((i * 6.1) % 94), // percent
+  y: 5 + ((i * 17.3) % 52), // percent — inset into the panel
   r: 0.9 + (i % 3) * 0.5,
   delay: (i % 7) * 0.5,
 }));
 
-/** Panel-pinned ambient layer: gradient + clouds by day, moon + stars in
- *  dark themes. Positioned with percentages so it fills any panel size;
- *  the scroll handler nudges it for parallax. */
+/** Panel-pinned ambient layer: soft gradient + clouds by day, moon + stars
+ *  in dark themes — spread INSIDE the panel rather than framing its edge. */
 function FixedSky({ skyRef }: { skyRef: React.RefObject<HTMLDivElement | null> }) {
   return (
     <div ref={skyRef} className="tmc-sky-layer" aria-hidden>
       <svg width="100%" height="100%">
         <defs>
           <linearGradient id="tmc-sky-day" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#BEE0F2" stopOpacity="0.6" />
+            <stop offset="0%" stopColor="#BEE0F2" stopOpacity="0.5" />
             <stop offset="100%" stopColor="#BEE0F2" stopOpacity="0" />
           </linearGradient>
           <linearGradient id="tmc-sky-night" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#141B33" stopOpacity="0.9" />
+            <stop offset="0%" stopColor="#141B33" stopOpacity="0.8" />
             <stop offset="100%" stopColor="#141B33" stopOpacity="0" />
           </linearGradient>
         </defs>
         <g className="tmc-day">
-          <rect x="0" y="0" width="100%" height="150" fill="url(#tmc-sky-day)" />
+          <rect x="0" y="0" width="100%" height="45%" fill="url(#tmc-sky-day)" />
           {[0, 1, 2].map((i) => (
-            <svg key={i} x={`${8 + i * 26}%`} y={26 + i * 20} width="120" height="60" overflow="visible">
-              <g className={cn("tmc-cloud", i === 1 && "b")} style={{ animationDelay: `${-i * 55}s` }} opacity={0.55}>
+            <svg key={i} x={`${7 + i * 27}%`} y={`${8 + i * 11}%`} width="120" height="60" overflow="visible">
+              <g className={cn("tmc-cloud", i === 1 && "b")} style={{ animationDelay: `${-i * 55}s` }} opacity={0.5}>
                 <ellipse cx={0} cy={0} rx={34} ry={12} style={{ fill: "var(--tmc-panel)" }} />
                 <ellipse cx={22} cy={-6} rx={22} ry={10} style={{ fill: "var(--tmc-panel)" }} />
                 <ellipse cx={-20} cy={-4} rx={18} ry={8} style={{ fill: "var(--tmc-panel)" }} />
@@ -478,18 +661,12 @@ function FixedSky({ skyRef }: { skyRef: React.RefObject<HTMLDivElement | null> }
           ))}
         </g>
         <g className="tmc-night">
-          <rect x="0" y="0" width="100%" height="150" fill="url(#tmc-sky-night)" />
-          {/* crescent as a single path — cutting a circle with a gradient-
-              filled circle rendered as a mismatched blob (bbox-relative
-              gradient), which is exactly the bug this replaces */}
-          <svg x="56%" y="22" width="40" height="40" overflow="visible">
-            <path
-              d="M 14 0 A 14 14 0 1 0 14 28 A 17 17 0 0 1 14 0 Z"
-              style={{ fill: "#F0E8CC", opacity: 0.92 }}
-            />
+          <rect x="0" y="0" width="100%" height="45%" fill="url(#tmc-sky-night)" />
+          <svg x="63%" y="13%" width="40" height="40" overflow="visible">
+            <path d="M 14 0 A 14 14 0 1 0 14 28 A 17 17 0 0 1 14 0 Z" style={{ fill: "#F0E8CC", opacity: 0.9 }} />
           </svg>
           {STARS.map((s, i) => (
-            <circle key={i} className="tmc-star" cx={`${s.x}%`} cy={s.y} r={s.r} style={{ fill: "#EDE8D8", animationDelay: `${s.delay}s` }} />
+            <circle key={i} className="tmc-star" cx={`${s.x}%`} cy={`${s.y}%`} r={s.r} style={{ fill: "#EDE8D8", animationDelay: `${s.delay}s` }} />
           ))}
         </g>
       </svg>
@@ -518,6 +695,8 @@ function NetworkMap({
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const skyRef = useRef<HTMLDivElement>(null);
+  const hillsRef = useRef<SVGGElement>(null);
+  const bldgRef = useRef<SVGGElement>(null);
   const railRef = useRef<SVGPathElement>(null);
   const trainRef = useRef<SVGGElement>(null);
   const ghostRef = useRef<SVGGElement>(null);
@@ -525,17 +704,18 @@ function NetworkMap({
   const [tip, setTip] = useState<StationL | null>(null);
   const [scale, setScale] = useState<number | null>(null);
   const strings = stringsFor(lang);
+  const sky = useMemo(() => makeSkyline(layout), [layout]);
 
-  /* uniform scale: fill the flexed panel height */
+  /* uniform scale: fill the flexed panel height (content-fit viewBox) */
   useLayoutEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
-    const measure = () => setScale(Math.max(0.8, el.clientHeight / MAP_H));
+    const measure = () => setScale(Math.max(0.8, el.clientHeight / layout.vbH));
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [layout.vbH]);
   const s = scale ?? 1;
 
   const { segs, total } = useMemo(() => polySegs(layout.mainPts), [layout]);
@@ -610,7 +790,7 @@ function NetworkMap({
     return () => cancelAnimationFrame(raf);
   }, [layout, segs, total]);
 
-  /* drag + wheel panning, sky parallax */
+  /* drag + wheel panning, sky + skyline parallax */
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
@@ -635,16 +815,21 @@ function NetworkMap({
       }
     };
     const onScroll = () => {
-      const sky = skyRef.current;
-      if (!sky) return;
-      const slack = el.clientWidth * 0.45;
-      sky.style.transform = `translateX(${-Math.min(el.scrollLeft * 0.12, slack)}px)`;
+      const skyEl = skyRef.current;
+      if (skyEl) {
+        const slack = el.clientWidth * 0.45;
+        skyEl.style.transform = `translateX(${-Math.min(el.scrollLeft * 0.1, slack)}px)`;
+      }
+      // skyline layers counter-translate in map units → slower apparent speed
+      hillsRef.current?.setAttribute("transform", `translate(${(el.scrollLeft * (1 - 0.22)) / s} 0)`);
+      bldgRef.current?.setAttribute("transform", `translate(${(el.scrollLeft * (1 - 0.45)) / s} 0)`);
     };
     el.addEventListener("pointerdown", down);
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", up);
     el.addEventListener("wheel", wheel, { passive: false });
     el.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => {
       el.removeEventListener("pointerdown", down);
       window.removeEventListener("pointermove", move);
@@ -652,7 +837,7 @@ function NetworkMap({
       el.removeEventListener("wheel", wheel);
       el.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [s]);
 
   const stationFill = (st: StationL): { fill: string; stroke: string } => {
     if (st.status === "completed") return { fill: "var(--tmc-done)", stroke: "var(--tmc-panel)" };
@@ -713,35 +898,41 @@ function NetworkMap({
       <div ref={scrollerRef} className="tmc-map-scroll">
         <div className="tmc-map-inner" style={{ width: Math.round(layout.width * s) }}>
           <svg
-            viewBox={`0 0 ${layout.width} ${MAP_H}`}
+            viewBox={`0 ${layout.vbY} ${layout.width} ${layout.vbH}`}
             width={Math.round(layout.width * s)}
-            height={Math.round(MAP_H * s)}
+            height={Math.round(layout.vbH * s)}
             role="img"
             aria-label="Course transit map"
           >
-            {/* river — soft geography behind everything */}
+            {/* geography: hills/Fuji far, buildings/landmarks near */}
+            <SkylineArt sky={sky} groundY={layout.skyGroundY} hillsRef={hillsRef} bldgRef={bldgRef} />
+
+            {/* river */}
             <g pointerEvents="none" aria-hidden>
               <path
-                d={`M ${layout.riverX} 40 C ${layout.riverX - 40} 180, ${layout.riverX + 70} 300, ${layout.riverX + 10} 410 S ${layout.riverX - 60} 520, ${layout.riverX - 30} 560`}
+                d={`M ${layout.riverX} ${layout.vbY + 20} C ${layout.riverX - 40} ${layout.vbY + 150}, ${layout.riverX + 70} ${layout.vbY + 260}, ${layout.riverX + 10} ${layout.vbY + 370} S ${layout.riverX - 60} ${layout.vbY + 480}, ${layout.riverX - 30} ${layout.vbY + layout.vbH}`}
                 fill="none"
                 strokeWidth={16}
                 strokeLinecap="round"
-                style={{ stroke: "var(--tmc-river)", opacity: 0.28 }}
+                style={{ stroke: "var(--tmc-river)", opacity: 0.24 }}
               />
-              <text x={layout.riverX + 18} y={120} style={{ fill: "var(--tmc-river)", fontSize: 13, fontWeight: 700, opacity: 0.75 }}>
+              <text x={layout.riverX + 18} y={layout.vbY + ART_BAND + 34} style={{ fill: "var(--tmc-river)", fontSize: 13, fontWeight: 700, opacity: 0.7 }}>
                 {strings.river}
               </text>
             </g>
 
-            {/* zones */}
+            {/* fare zones — tint bands + inset horizon chips */}
             {layout.zones.map((z, i) => (
               <g key={z.label}>
-                <rect x={z.x0} y={70} width={z.x1 - z.x0} height={410} fill="currentColor" opacity={i % 2 === 1 ? 0.03 : 0.012} />
-                {i > 0 && <line x1={z.x0} y1={70} x2={z.x0} y2={480} style={{ stroke: "var(--tmc-border)" }} strokeDasharray="2 6" />}
-                <text x={z.x0 + 18} y={508} data-tm="zone" style={{ fill: "var(--tmc-muted)", fontSize: 10.5, letterSpacing: "0.17em", fontWeight: 600 }}>
-                  {z.label}
-                </text>
-                <text x={z.x0 + 22} y={160} aria-hidden style={{ fill: "var(--tmc-muted)", opacity: 0.09, fontSize: 64, fontWeight: 800 }}>
+                <rect x={z.x0} y={layout.vbY + 8} width={z.x1 - z.x0} height={layout.vbH - 16} fill="currentColor" opacity={i % 2 === 1 ? 0.03 : 0.012} />
+                {i > 0 && <line x1={z.x0} y1={layout.vbY + 10} x2={z.x0} y2={layout.vbY + layout.vbH - 10} style={{ stroke: "var(--tmc-border)" }} strokeDasharray="2 6" />}
+                <g>
+                  <rect x={z.x0 + 16} y={layout.zoneChipY - 11} width={plateW(z.label) + 6} height={22} rx={4} style={{ fill: "var(--tmc-panel)", stroke: "var(--tmc-border)" }} strokeWidth={1} opacity={0.85} />
+                  <text x={z.x0 + 16 + (plateW(z.label) + 6) / 2} y={layout.zoneChipY + 3.5} textAnchor="middle" data-tm="zone" style={{ fill: "var(--tmc-muted)", fontSize: 10, letterSpacing: "0.14em", fontWeight: 700 }}>
+                    {z.label}
+                  </text>
+                </g>
+                <text x={z.x0 + 24} y={layout.numeralY} aria-hidden style={{ fill: "var(--tmc-muted)", opacity: 0.09, fontSize: 58, fontWeight: 800 }}>
                   {z.numeral}
                 </text>
               </g>
@@ -771,15 +962,7 @@ function NetworkMap({
                   />
                 )}
                 {spur.label && (
-                  <text
-                    x={spur.labelX}
-                    y={spur.labelY}
-                    textAnchor="middle"
-                    data-tm="label"
-                    style={{ fill: spur.dashed ? "var(--tmc-locked)" : spur.color, fontSize: 10.5, fontWeight: 800 }}
-                  >
-                    {spur.label}
-                  </text>
+                  <LinePlate x={spur.labelX} y={spur.labelY} text={spur.label} color={spur.dashed ? "var(--tmc-locked)" : spur.color} />
                 )}
                 {spur.stops.map(({ x, y, quest }) => {
                   const questDone = quest.progress >= 100;
@@ -798,10 +981,12 @@ function NetworkMap({
                           stroke: spur.dashed ? "var(--tmc-locked)" : spur.color,
                         }}
                       />
-                      <text x={x} y={spur.up ? y + 28 : y - 16} textAnchor="middle" style={{ fontSize: 13 }}>
+                      {/* emoji + title grouped on the OUTSIDE of the loop so
+                          they never share a band with station labels */}
+                      <text x={x} y={spur.up ? y - 34 : y + 27} textAnchor="middle" data-tm="label" style={{ fontSize: 13 }}>
                         {quest.emoji}
                       </text>
-                      <text x={x} y={spur.up ? y - 18 : y + 27} textAnchor="middle" data-tm="label" style={{ fill: "var(--tmc-muted)", fontSize: 9.5 }}>
+                      <text x={x} y={spur.up ? y - 18 : y + 43} textAnchor="middle" data-tm="label" style={{ fill: "var(--tmc-muted)", fontSize: 9.5 }}>
                         {quest.title.length > 14 ? `${quest.title.slice(0, 13)}…` : quest.title}
                         {quest.progress > 0 && quest.progress < 100 ? ` · ${quest.progress}%` : ""}
                       </text>
@@ -855,9 +1040,12 @@ function NetworkMap({
               strokeLinecap="round"
               style={{ stroke: "var(--tmc-line-main)" }}
             />
-            <text x={layout.stations[0].x - 8} y={layout.stations[0].y - 46} data-tm="label" style={{ fill: "var(--tmc-line-main)", fontSize: 11, fontWeight: 800 }}>
-              {strings.lineName}
-            </text>
+            <LinePlate
+              x={layout.stations[0].x + plateW(strings.lineName) / 2 - 14}
+              y={layout.stations[0].y - 60}
+              text={strings.lineName}
+              color="var(--tmc-line-main)"
+            />
 
             {/* ghost train (under stations) */}
             <g ref={ghostRef}>
@@ -955,7 +1143,7 @@ function NetworkMap({
               className="tmc-tip rounded-sm border-2 border-text-primary bg-surface px-3.5 py-3 shadow-popover"
               style={{
                 left: Math.max(8, Math.min(tip.x * s - 116, layout.width * s - 244)),
-                top: tip.labelSide === "top" ? tip.y * s + 34 * s : tip.y * s - 150,
+                top: tip.labelSide === "top" ? (tip.y - layout.vbY) * s + 34 * s : (tip.y - layout.vbY) * s - 150,
               }}
             >
               <div className="text-[10px] tracking-[0.12em] text-text-muted uppercase">
@@ -1317,9 +1505,6 @@ export default function TransitMapConceptPage() {
   const modules = useMemo(() => course.modules.filter((m) => !m.comingSoon && m.lessons.length > 0), [course]);
   const viewCourse = useMemo(() => ({ ...course, modules }), [course, modules]);
 
-  /* demo progress: a flattering mid-course state so the concept reads even
-     on a fresh profile — first ~42% of stations sealed, current mid-map.
-     The demo profile keeps the sidebar/fare card telling the SAME story. */
   const demoSet = useMemo(() => {
     const s = new Set<string>();
     const cut = Math.max(1, Math.floor(modules.length * 0.42));
@@ -1363,7 +1548,6 @@ export default function TransitMapConceptPage() {
       return q;
     });
     if (!demo) return base;
-    // demo paint: first line complete, second en route
     return base.map((q, i) => (i === 0 ? { ...q, progress: 100 } : i === 1 ? { ...q, progress: 55 } : q));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [course.sideQuests, completedSet, demo]);
@@ -1388,9 +1572,6 @@ export default function TransitMapConceptPage() {
     return target.lessons.every((l) => completedSet.has(l.id));
   };
 
-  /* quest → station anchors: parse the module number out of unlockAfter;
-     available-now quests spread along the first two-thirds of the line so
-     branches don't pile at the start; daily quests stay rail-only */
   const questsByAnchor = useMemo(() => {
     const map = new Map<number, SideQuest[]>();
     const spread = [0.14, 0.4, 0.62];
@@ -1428,7 +1609,6 @@ export default function TransitMapConceptPage() {
     [modules],
   );
 
-  /* departure board rows */
   const currentModule = modules[currentIdx];
   const nextLessonIdx = currentModule ? getNextLessonIndex(currentModule.lessons, completedSet) : 0;
   const nextLesson = currentModule?.lessons[nextLessonIdx];
@@ -1501,7 +1681,7 @@ export default function TransitMapConceptPage() {
           <h1 className="text-[19px] font-extrabold leading-tight sm:text-[24px] 2xl:text-[28px]" aria-label={titleText}>
             {titleText.split("").map((ch, i) => (
               <span key={i} className="tmc-title-ch" style={{ "--i": i } as CSSProperties} aria-hidden>
-                {/* inline-block spans collapse plain spaces — keep them */}
+                {/* inline-block spans collapse plain spaces — use NBSP */}
                 {ch === " " ? " " : ch}
               </span>
             ))}
@@ -1515,7 +1695,6 @@ export default function TransitMapConceptPage() {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start 2xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0">
-          {/* desktop: network map / mobile: line diagram */}
           <div className="hidden md:block">
             <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} onOpen={open} langPath={p} />
           </div>
@@ -1538,7 +1717,6 @@ export default function TransitMapConceptPage() {
           </p>
         </div>
 
-        {/* right rail: the classic learn-page furniture */}
         <div className="hidden lg:block">
           <LearnSidebar
             profile={profile}
