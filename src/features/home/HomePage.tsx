@@ -14,6 +14,7 @@ import { HomeNavCard } from "./HomeNavCard";
 import { RestructuredHome } from "./restructured/RestructuredHome";
 import { Card, Button, Skeleton } from "@/shared/components/ui";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { useProgressMe } from "@/shared/hooks/useProgressMe";
 import { useHomePrefetch } from "./useHomePrefetch";
 
@@ -132,17 +133,19 @@ export function HomePage() {
           description={t(storyCard.descKey)}
         />
       ) : null}
-      <HomeNavCard
-        to={langPath("community/explore")}
-        iconName="globe"
-        title={t("home.exploreDecks")}
-        description={
-          isAuthenticated
-            ? t("home.newDecksThisWeek", { count: 3 })
-            : t("home.discoverNewDecks")
-        }
-        iconTone="neutral"
-      />
+      {isCommunityEnabled(flags) ? (
+        <HomeNavCard
+          to={langPath("community/explore")}
+          iconName="globe"
+          title={t("home.exploreDecks")}
+          description={
+            isAuthenticated
+              ? t("home.newDecksThisWeek", { count: 3 })
+              : t("home.discoverNewDecks")
+          }
+          iconTone="neutral"
+        />
+      ) : null}
     </div>
   );
 
@@ -161,9 +164,11 @@ export function HomePage() {
                 <a href="/login">
                   <Button variant="primary">{t("home.getStarted")}</Button>
                 </a>
-                <Link to={langPath("community/explore")}>
-                  <Button variant="secondary">{t("home.browseDecks")}</Button>
-                </Link>
+                {isCommunityEnabled(flags) ? (
+                  <Link to={langPath("community/explore")}>
+                    <Button variant="secondary">{t("home.browseDecks")}</Button>
+                  </Link>
+                ) : null}
                 {language ? (
                   <Link to={langPath("learn")}>
                     <Button variant="outline" accent>

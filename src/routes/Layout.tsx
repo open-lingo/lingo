@@ -30,7 +30,10 @@ import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { SidebarNav } from "@/routes/SidebarNav";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
-import { isLeaderboardEnabled } from "@/shared/config/featureFlags";
+import {
+  isLeaderboardEnabled,
+  isTransitLearnHome,
+} from "@/shared/config/featureFlags";
 import { Icon } from "@/shared/components/Icon";
 import {
   makePrefetchHandlers,
@@ -71,8 +74,12 @@ export function Layout() {
       pathname,
     );
   // Map-style pages own their width — the 2xl cap wastes a 4k viewport on
-  // a page whose whole point is a wide panning canvas (transit-map preview).
-  const wideCanvas = /\/transit-preview/.test(pathname);
+  // a page whose whole point is a wide panning canvas: the transit-map
+  // preview, and the learn homepage itself where the map is live (ja).
+  const learnIndexLang = /^\/([^/]+)\/learn\/?$/.exec(pathname)?.[1];
+  const wideCanvas =
+    /\/transit-preview/.test(pathname) ||
+    isTransitLearnHome(flags, learnIndexLang);
   const practiceActive = /^\/[^/]+\/practice/.test(pathname);
   const communityActive = /\/community/.test(pathname);
   const socialActive = /^\/[^/]+\/social/.test(pathname);
@@ -201,28 +208,32 @@ export function Layout() {
               >
                 {t("nav.practice")}
               </Link>
-              <Link
-                to={langPath("social")}
-                {...makePrefetchHandlers(prefetchSocial)}
-                className={`rounded-md px-2 py-1.5 text-sm ${
-                  socialActive
-                    ? "font-medium text-text-primary"
-                    : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
-                }`}
-              >
-                {t("nav.social", "Social")}
-              </Link>
-              <Link
-                to={langPath("community")}
-                {...makePrefetchHandlers(prefetchCommunity)}
-                className={`rounded-md px-2 py-1.5 text-sm ${
-                  communityActive
-                    ? "font-medium text-text-primary"
-                    : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
-                }`}
-              >
-                {t("nav.community")}
-              </Link>
+              {flags.social.enabled ? (
+                <Link
+                  to={langPath("social")}
+                  {...makePrefetchHandlers(prefetchSocial)}
+                  className={`rounded-md px-2 py-1.5 text-sm ${
+                    socialActive
+                      ? "font-medium text-text-primary"
+                      : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                  }`}
+                >
+                  {t("nav.social", "Social")}
+                </Link>
+              ) : null}
+              {flags.community.enabled ? (
+                <Link
+                  to={langPath("community")}
+                  {...makePrefetchHandlers(prefetchCommunity)}
+                  className={`rounded-md px-2 py-1.5 text-sm ${
+                    communityActive
+                      ? "font-medium text-text-primary"
+                      : "text-text-secondary hover:bg-surface-muted hover:text-text-primary"
+                  }`}
+                >
+                  {t("nav.community")}
+                </Link>
+              ) : null}
               {leaderboardOn ? (
                 <Link
                   to={langPath("community/leaderboard")}
@@ -334,20 +345,24 @@ export function Layout() {
                   onPrefetch={prefetchPractice}
                   label={t("nav.practice")}
                 />
-                <MobileNavLink
-                  to={langPath("social")}
-                  active={socialActive}
-                  onClick={() => setMobileMenuOpen(false)}
-                  onPrefetch={prefetchSocial}
-                  label={t("nav.social", "Social")}
-                />
-                <MobileNavLink
-                  to={langPath("community")}
-                  active={communityActive}
-                  onClick={() => setMobileMenuOpen(false)}
-                  onPrefetch={prefetchCommunity}
-                  label={t("nav.community")}
-                />
+                {flags.social.enabled ? (
+                  <MobileNavLink
+                    to={langPath("social")}
+                    active={socialActive}
+                    onClick={() => setMobileMenuOpen(false)}
+                    onPrefetch={prefetchSocial}
+                    label={t("nav.social", "Social")}
+                  />
+                ) : null}
+                {flags.community.enabled ? (
+                  <MobileNavLink
+                    to={langPath("community")}
+                    active={communityActive}
+                    onClick={() => setMobileMenuOpen(false)}
+                    onPrefetch={prefetchCommunity}
+                    label={t("nav.community")}
+                  />
+                ) : null}
                 {leaderboardOn ? (
                   <Link
                     to={langPath("community/leaderboard")}

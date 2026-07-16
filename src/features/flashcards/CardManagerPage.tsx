@@ -3,6 +3,8 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { DataTable } from "@/shared/components/data";
 import { Icon } from "@/shared/components/Icon";
 import { Modal } from "@/shared/components/ui/Modal";
@@ -38,6 +40,8 @@ export function CardManagerPage() {
   const langPath = useLangPath();
   const navigate = useNavigate();
   const { language } = useLanguage();
+  const flags = useFeatureFlags();
+  const communityOn = isCommunityEnabled(flags);
   const languageId = language?.id ?? "ko";
   const [searchParams] = useSearchParams();
   const tab = searchParams.get(CARD_MANAGER_TAB) === TAB_MY_VOCAB ? TAB_MY_VOCAB : TAB_ALL;
@@ -207,12 +211,14 @@ export function CardManagerPage() {
           <p className="text-text-secondary">
             {t("flashcards.cardManager.noCards", "No cards to manage. Subscribe to a deck to get started.")}
           </p>
-          <Link
-            to={langPath("community/explore")}
-            className="mt-4 inline-block text-accent"
-          >
-            {t("flashcards.cardManager.browseDecks", "Browse community decks")}
-          </Link>
+          {communityOn ? (
+            <Link
+              to={langPath("community/explore")}
+              className="mt-4 inline-block text-accent"
+            >
+              {t("flashcards.cardManager.browseDecks", "Browse community decks")}
+            </Link>
+          ) : null}
         </div>
       </div>
     );
@@ -475,7 +481,9 @@ export function CardManagerPage() {
             className: "text-right",
             render: (mc) => (
               <div className="flex justify-end gap-1">
-                {isVocabDeck(mc.deckId) && (
+                {/* Edit opens the community deck editor — dead route with the
+                    community flag off, so the action hides with it. */}
+                {communityOn && isVocabDeck(mc.deckId) && (
                   <button
                     type="button"
                     onClick={() => handleEditCard(mc)}

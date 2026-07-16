@@ -10,6 +10,7 @@ import type { ReactNode } from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { DEFAULT_FEATURE_FLAGS } from "@/shared/config/featureFlags";
 
 const mockAdmin = {
   getUser: vi.fn(),
@@ -34,6 +35,10 @@ vi.mock("@/shared/utils/formatDate", () => ({
 
 vi.mock("@/shared/hooks/useLangPath", () => ({
   useLangPath: () => (p: string) => `/${p}`,
+}));
+
+vi.mock("@/shared/contexts/FeatureFlagsContext", () => ({
+  useFeatureFlags: () => DEFAULT_FEATURE_FLAGS,
 }));
 
 import { AdminUserDetailPage } from "./AdminUserDetailPage";

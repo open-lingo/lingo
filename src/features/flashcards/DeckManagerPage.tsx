@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { FilterBar, DataTable, type DataTableColumn } from "@/shared/components/data";
 import { Icon } from "@/shared/components/Icon";
 import { useDeckManagerData, type ManagedDeck } from "./useDeckManagerData";
@@ -73,6 +75,7 @@ export function DeckManagerPage() {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { language } = useLanguage();
+  const flags = useFeatureFlags();
   const languageId = language?.id ?? "ko";
 
   const {
@@ -322,12 +325,14 @@ export function DeckManagerPage() {
           <p className="text-text-muted">
             {t("flashcards.deckManager.noDecks", "No decks yet. Subscribe to a deck to manage settings.")}
           </p>
-          <Link
-            to={langPath("community/explore")}
-            className="mt-4 inline-block text-accent"
-          >
-            {t("flashcards.deckManager.browseDecks", "Browse community decks")}
-          </Link>
+          {isCommunityEnabled(flags) ? (
+            <Link
+              to={langPath("community/explore")}
+              className="mt-4 inline-block text-accent"
+            >
+              {t("flashcards.deckManager.browseDecks", "Browse community decks")}
+            </Link>
+          ) : null}
         </div>
       ) : (
         <>

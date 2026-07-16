@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
 import { useApi } from "@/shared/api/provider";
@@ -21,6 +23,8 @@ export function LearnCoursesPage() {
   const langPath = useLangPath();
   const { language } = useLanguage();
   const { community } = useApi();
+  const flags = useFeatureFlags();
+  const communityOn = isCommunityEnabled(flags);
   const course = language ? getMockCourse(language.id) : null;
   const completedIds = useCompletedLessonIds();
 
@@ -32,7 +36,7 @@ export function LearnCoursesPage() {
         signal,
       ),
     staleTime: 5 * 60_000,
-    enabled: Boolean(language?.id),
+    enabled: Boolean(language?.id) && communityOn,
   });
   const customCourses = useMemo(() => {
     const list = trendingQuery.data ?? [];
@@ -74,6 +78,9 @@ export function LearnCoursesPage() {
         </div>
       </section>
 
+      {/* Community course modules — the cards and browse link all funnel into
+          community/explore, so the whole section hides with the flag off. */}
+      {communityOn ? (
       <section>
         <h2 className="mb-2 text-lg font-semibold text-text-primary">
           {t("learn.customCourseModules")}
@@ -119,6 +126,7 @@ export function LearnCoursesPage() {
           {t("learn.browseAllCourses")} <Icon name="arrowBigRight" size={14} className="inline" />
         </Link>
       </section>
+      ) : null}
 
       <Link
         to={langPath("")}

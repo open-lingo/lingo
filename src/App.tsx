@@ -1,8 +1,20 @@
-import { Suspense } from "react";
-import { createBrowserRouter, Navigate, RouterProvider, useParams } from "react-router-dom";
+import { Suspense, type ReactNode } from "react";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 import { lazyRetry } from "@/shared/utils/lazyRetry";
 import { useLang } from "@/shared/hooks/useLangPath";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import {
+  isCommunityEnabled,
+  isSocialEnabled,
+  isTransitLearnHome,
+} from "@/shared/config/featureFlags";
 import { getConjugationVerbEntries } from "@/features/practice/data/practiceDataLoader";
 import { NotFoundPage } from "@/shared/components/NotFoundPage";
 import { RouteErrorBoundary } from "@/shared/components/RouteErrorBoundary";
@@ -81,8 +93,8 @@ const QaTestDrivePage = lazyRetry(
 const HomeRestructureMockup = lazyRetry(
   () => import("@/features/home/dev/HomeRestructureMockup"),
 );
-const TransitMapConceptPage = lazyRetry(
-  () => import("@/features/learn/dev/TransitMapConceptPage"),
+const TransitLearnPage = lazyRetry(
+  () => import("@/features/learn/TransitLearnPage"),
 );
 const SocialPage = lazyRetry(
   () => import("@/features/social/SocialPage"),
@@ -162,6 +174,45 @@ function ConjugationHubRoute() {
   const hasGridData = lang !== "ja" && getConjugationVerbEntries(lang).length > 0;
   return hasGridData ? <ConjugationGridPage /> : <ConjugationPracticePage />;
 }
+/**
+ * `learn` index dispatcher: ja gets the transit-map homepage while
+ * `learn.transitMapHome` is on (flip it in public/feature-flags.json to
+ * revert without a rebuild); other languages — and the flag-off state — get
+ * the classic pathway page, which also stays mounted at `learn/classic` as
+ * the permanent escape hatch (and keeps the LearnDevPanel tools).
+ */
+function LearnHomeRoute() {
+  const lang = useLang();
+  const flags = useFeatureFlags();
+  return isTransitLearnHome(flags, lang) ? <TransitLearnPage /> : <LearnPage />;
+}
+
+/**
+ * MVP gates (Spencer + Trevor, 2026-07-16): social + community ship dark but
+ * all code stays. A gated route bounces to home; flip `social.enabled` /
+ * `community.enabled` in public/feature-flags.json to bring them back.
+ */
+function RequireSocial({ children }: { children: ReactNode }) {
+  const flags = useFeatureFlags();
+  return isSocialEnabled(flags) ? <>{children}</> : <Navigate to="/" replace />;
+}
+function RequireCommunity({ children }: { children: ReactNode }) {
+  const flags = useFeatureFlags();
+  return isCommunityEnabled(flags) ? <>{children}</> : <Navigate to="/" replace />;
+}
+/**
+ * The public-profile route doubles as ACCOUNT PROVISIONING: HomePage sends
+ * fresh accounts (404 on /users/me) to `/u/<name>?register=1`, where the page
+ * renders only the pick-a-username form. That flow must survive social being
+ * dark, so register mode bypasses the gate.
+ */
+function RequireSocialProfile({ children }: { children: ReactNode }) {
+  const flags = useFeatureFlags();
+  const [searchParams] = useSearchParams();
+  if (searchParams.get("register") === "1") return <>{children}</>;
+  return isSocialEnabled(flags) ? <>{children}</> : <Navigate to="/" replace />;
+}
+
 const ReadingPracticePage = lazyRetry(() =>
   import("@/features/practice/ReadingPracticePage").then((m) => ({ default: m.ReadingPracticePage })),
 );
@@ -322,8 +373,9 @@ const router = createBrowserRouter([
       { path: "settings", element: <SettingsOpenRoute /> },
       // Global public profile route — not nested under `/:lang/*` because
       // social is per-user, not per-language. Auth-optional (logged-out
-      // viewers can see public profiles).
-      { path: "u/:username", element: <PublicProfilePage /> },
+      // viewers can see public profiles). Gated with the rest of social for
+      // the MVP: its add-friend/message flows dead-end with social off.
+      { path: "u/:username", element: <RequireSocialProfile><PublicProfilePage /></RequireSocialProfile> },
       {
         path: "admin",
         children: [
@@ -376,7 +428,8 @@ const router = createBrowserRouter([
                 path: "learn",
                 element: <LearnLayout />,
                 children: [
-                  { index: true, element: <LearnPage /> },
+                  { index: true, element: <LearnHomeRoute /> },
+                  { path: "classic", element: <LearnPage /> },
                   { path: "courses", element: <Navigate to=".." replace /> },
                   { path: "travel-sprint", element: <TravelSprintPage /> },
                   { path: "course", element: <CourseMapPage /> },
@@ -423,16 +476,16 @@ const router = createBrowserRouter([
               { path: "lesson-preview", element: <LessonStepPreviewPage /> },
               { path: "qa", element: <QaTestDrivePage /> },
               { path: "home-preview", element: <HomeRestructureMockup /> },
-              { path: "transit-preview", element: <TransitMapConceptPage /> },
-              { path: "social", element: <SocialPage /> },
-              { path: "social/friends", element: <FriendsPage /> },
-              { path: "messenger", element: <MessengerPage /> },
-              { path: "messenger/:friendId", element: <MessengerPage /> },
+              { path: "transit-preview", element: <TransitLearnPage preview /> },
+              { path: "social", element: <RequireSocial><SocialPage /></RequireSocial> },
+              { path: "social/friends", element: <RequireSocial><FriendsPage /></RequireSocial> },
+              { path: "messenger", element: <RequireSocial><MessengerPage /></RequireSocial> },
+              { path: "messenger/:friendId", element: <RequireSocial><MessengerPage /></RequireSocial> },
               { path: "asset-test", element: <AssetTestPage /> },
               { path: "picker-test", element: <PickerTestPage /> },
               {
                 path: "community",
-                element: <CommunityLayout />,
+                element: <RequireCommunity><CommunityLayout /></RequireCommunity>,
                 children: [
                   { index: true, element: <Navigate to="explore" replace /> },
                   { path: "explore", element: <CommunityHomePage /> },

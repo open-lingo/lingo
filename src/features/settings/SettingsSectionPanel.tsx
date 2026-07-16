@@ -9,6 +9,8 @@ import { useTheme } from "@/shared/contexts/ThemeContext";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { useModal } from "@/shared/contexts/ModalContext";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isSocialEnabled } from "@/shared/config/featureFlags";
 import { ApiError } from "@/shared/api/client";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { supportedLngs } from "@/shared/i18n/i18n";
@@ -78,6 +80,7 @@ function GeneralPanel() {
   const { settings, updateSetting } = useSettings();
   const { users } = useApi();
   const { closeAll } = useModal();
+  const flags = useFeatureFlags();
 
   // Resolve the viewer's username so the profile link can deep-link to
   // ``/u/<username>``. Falls back to Auth0 claims when the backend record
@@ -130,7 +133,9 @@ function GeneralPanel() {
             </Select>
           }
         />
-        {isAuthenticated && profileUsername ? (
+        {/* Public profile page (/u/*) is behind the social gate — hide the
+            edit-profile deep link with it. */}
+        {isAuthenticated && profileUsername && isSocialEnabled(flags) ? (
           <SettingRow
             label={t("profile.editProfile")}
             help={t(

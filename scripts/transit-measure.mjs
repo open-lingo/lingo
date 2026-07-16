@@ -1,14 +1,20 @@
-// Measurement pass for the transit-map concept page (dev preview).
+// Measurement pass for the transit-map learn page.
 // For each viewport (mobile / 1080p / 4K) × theme (light / dark):
 //   1. no page-level horizontal overflow (map scrolls inside its own panel)
 //   2. no overlapping text labels on the network map ([data-tm="label"], zones)
 //   3. touch targets ≥ 44px on mobile (line-diagram rows; station hit circles are r=22 by construction)
 //   4. district view opens, its labels don't collide, panel fits the viewport
-// Screenshots land in the scratchpad. Usage: node scripts/transit-measure.mjs [outDir]
+// Screenshots land in the scratchpad.
+// Usage: node scripts/transit-measure.mjs [outDir]
+//   TM_PATH=/ja/learn measures the LIVE homepage (real progress, so a fresh
+//   profile renders the all-grey new-user map); default is the demo-state
+//   preview route. The FTUE arc is pre-seeded as seen either way so the
+//   overlay never sits over what we're measuring.
 import { chromium } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 
 const BASE = "http://localhost:5173";
+const PATH = process.env.TM_PATH ?? "/ja/transit-preview";
 const OUT = process.argv[2] ?? "/tmp/transit-shots";
 mkdirSync(OUT, { recursive: true });
 
@@ -55,13 +61,31 @@ for (const vp of VIEWPORTS) {
       colorScheme: theme,
       deviceScaleFactor: 1,
     });
+    await ctx.addInitScript(() => {
+      try {
+        const k = "open-lingo-settings";
+        const cur = JSON.parse(localStorage.getItem(k) ?? "{}");
+        cur.learning = { ...(cur.learning ?? {}), ftueArcSeen: true };
+        localStorage.setItem(k, JSON.stringify(cur));
+      } catch {
+        /* fresh profile — arc will just render and get screenshotted */
+      }
+    });
     const page = await ctx.newPage();
     const tag = `${vp.name}-${theme}`;
-    await page.goto(`${BASE}/ja/transit-preview`, { waitUntil: "networkidle" });
+    await page.goto(`${BASE}${PATH}`, { waitUntil: "networkidle" });
     await page.click("text=Essential only", { timeout: 2500 }).catch(() => {});
     await page
       .click('[aria-label="Dismiss"], button:has-text("✕")', { timeout: 1200 })
       .catch(() => {});
+    // FTUE arc (learn routes, brand-new profiles): server-side settings replay
+    // over the local ftueArcSeen seed, so walk the arc like a real first visit.
+    // Its fixed inset-0 overlay otherwise intercepts every click we measure.
+    // (button-scoped: bare `text=Skip` matches the hidden skip-to-content a11y
+    // link first and waits on it forever)
+    await page.click('button:text-is("Skip")', { timeout: 1500 }).catch(() => {});
+    await page.click('button:has-text("Commit to my goal")', { timeout: 1500 }).catch(() => {});
+    await page.click('button:has-text("Start from the beginning")', { timeout: 1500 }).catch(() => {});
     await page.waitForTimeout(3000); // line draw + train ride settle
 
     // 1. page-level horizontal overflow

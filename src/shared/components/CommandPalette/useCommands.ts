@@ -3,6 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import { useModal } from "@/shared/contexts/ModalContext";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import {
+  isCommunityEnabled,
+  isLeaderboardEnabled,
+  isSocialEnabled,
+} from "@/shared/config/featureFlags";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms";
 import type { Command } from "./types";
@@ -19,6 +25,7 @@ export function useCommands(): Command[] {
   const langPath = useLangPath();
   const lang = useLang();
   const { openSettings } = useModal();
+  const flags = useFeatureFlags();
 
   return useMemo(() => {
     const go = (path: string) => () => navigate(path);
@@ -31,10 +38,16 @@ export function useCommands(): Command[] {
       { id: "nav-vocab", label: t("nav.vocab", "Vocab"), group: t("cmd.group.nav", "Navigation"), icon: "library", perform: go(langPath("vocab")), showWhenEmpty: true },
       { id: "nav-flashcards", label: t("nav.flashcards", "Flashcards"), group: t("cmd.group.nav", "Navigation"), icon: "layers", keywords: "srs review cards", perform: go(langPath("practice/flashcards")), showWhenEmpty: true },
       { id: "nav-shop", label: t("nav.shop", "Shop"), group: t("cmd.group.nav", "Navigation"), icon: "gem", keywords: "lingots cosmetics", perform: go(langPath("shop")), showWhenEmpty: true },
-      { id: "nav-social", label: t("nav.social", "Social"), group: t("cmd.group.nav", "Navigation"), icon: "users", keywords: "friends leaderboard", perform: go(langPath("social")), showWhenEmpty: true },
-      { id: "nav-community", label: t("nav.community", "Community"), group: t("cmd.group.nav", "Navigation"), icon: "globe", keywords: "decks stories forum", perform: go(langPath("community")), showWhenEmpty: true },
-      { id: "nav-leaderboard", label: t("nav.leaderboard", "Leaderboard"), group: t("cmd.group.nav", "Navigation"), icon: "trophy", perform: go(langPath("community/leaderboard")), showWhenEmpty: true },
     ];
+    if (isSocialEnabled(flags)) {
+      nav.push({ id: "nav-social", label: t("nav.social", "Social"), group: t("cmd.group.nav", "Navigation"), icon: "users", keywords: "friends leaderboard", perform: go(langPath("social")), showWhenEmpty: true });
+    }
+    if (isCommunityEnabled(flags)) {
+      nav.push({ id: "nav-community", label: t("nav.community", "Community"), group: t("cmd.group.nav", "Navigation"), icon: "globe", keywords: "decks stories forum", perform: go(langPath("community")), showWhenEmpty: true });
+    }
+    if (isLeaderboardEnabled(flags)) {
+      nav.push({ id: "nav-leaderboard", label: t("nav.leaderboard", "Leaderboard"), group: t("cmd.group.nav", "Navigation"), icon: "trophy", perform: go(langPath("community/leaderboard")), showWhenEmpty: true });
+    }
 
     const settings: Command[] = [
       { id: "set-general", label: t("settings.nav.general", "General"), group: t("cmd.group.settings", "Settings"), icon: "settings", keywords: "settings preferences", perform: () => openSettings("general"), showWhenEmpty: true },
@@ -85,5 +98,5 @@ export function useCommands(): Command[] {
       }));
 
     return [...nav, ...settings, ...lessons, ...vocab];
-  }, [t, navigate, langPath, lang, openSettings]);
+  }, [t, navigate, langPath, lang, openSettings, flags]);
 }

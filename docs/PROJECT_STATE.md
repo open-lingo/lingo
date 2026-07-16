@@ -1,13 +1,21 @@
 # Open Lingo — project state
 
-**Last updated:** 2026-07-15  
+**Last updated:** 2026-07-16  
 **Purpose:** Accurate snapshot for humans and agents. For launch tasks see [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md).
 
 ---
 
 ## Executive summary
 
-Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-core** (FastAPI). Core loop: **learn → lessons → flashcards (SRS) → settings**. Community deck browse/subscribe works; forum, contribute, and leaderboard are **feature-flagged off** for launch. Legal, landing/auth split, ads framework, and funding meter API exist; **live revenue** is post-launch.
+Open Lingo is a language-learning SPA (**lingo**, Vite + React) with **lingo-core** (FastAPI). Core loop: **learn → lessons → flashcards (SRS) → settings**. The ja learn homepage is the **transit map** (`learn.transitMapHome` flag; classic page saved at `learn/classic`). **Social + community ship dark for the MVP** (`social.enabled` / `community.enabled`, both false — code intact, flip `public/feature-flags.json` to restore; account registration on `/u/<name>?register=1` is exempt). Legal, landing/auth split, ads framework, and funding meter API exist; **live revenue** is post-launch.
+
+### Recent (2026-07-16 — transit map IS the ja learn page + MVP social/community dark)
+
+- **Transit map promoted to the ja learn homepage.** `features/learn/TransitLearnPage.tsx` (graduated out of `dev/`) renders at `/:lang/learn` for ja via the `LearnHomeRoute` dispatcher while `learn.transitMapHome` is on — flip it in `public/feature-flags.json` to revert instantly, no rebuild. The classic `LearnPage` is saved at **`/:lang/learn/classic`** (LearnDevPanel unlock/clear tools still live there); `/:lang/transit-preview` stays as design-review mode (`preview` prop → demo progress + demo/real toggle; live mode is real-progress only, no toggle). Live mode ports the PlacementPrompt FTUE fallback and fires `page_view` with `variant: "transit-map"`. Both width caps (Layout `wideCanvas`, LearnLayout 2xl) exempt the live map; `lazyRetry`'s constraint widened to `ComponentType<any>` (React.lazy parity) so lazy pages can take typed props.
+- **MVP decision (Spencer + Trevor): social + community hidden, NOT deleted**, behind new flags `social.enabled` / `community.enabled` (default **false**; `isLeaderboardEnabled` now also requires community). Gated everywhere: nav ×4 (sidebar rail, top bar, mobile drawer, command palette), routes (`RequireSocial`/`RequireCommunity` bounce to home — social, friends, messenger, the whole community tree, `u/:username`), and ~18 cross-page entry points (home cards + activity rows + trending strip + friends-leaderboard card, practice browse-decks chip, flashcards/deck-manager/card-manager browse links, studio header, auth menu, settings profile link, learn-courses community section, admin edit links). **Registration is exempt:** `/u/<name>?register=1` (account provisioning for fresh accounts, HomePage 404-redirect) bypasses the social gate via `RequireSocialProfile`.
+- **New guard script `scripts/mvp-smoke.mjs`** (15 checks): transit live at ja/learn (no demo toggle), classic saved, preview intact, es stays classic, nav hidden, 5 gated routes bounce, register survives, zero page errors. `transit-measure.mjs` gained `TM_PATH=/ja/learn` for measuring the live homepage and now walks the FTUE arc (server settings replay over local seeds; bare `text=Skip` matches the hidden skip-to-content link — button-scoped selectors).
+- Verified: tsc clean · **3,029 tests passed / 1 skipped** · mvp-smoke 15/15 · transit-measure **52/52 on BOTH** `/ja/transit-preview` and live `/ja/learn` · es-smoke 7/7 · prod build clean.
+- Spencer's every-button QA pass now targets the LIVE learn page (all interactive elements listed in the TransitLearnPage header TODO); es editorial drive still pending.
 
 ### Recent (2026-07-15 — es feature wave + ja↔es parity + transit-map concept)
 

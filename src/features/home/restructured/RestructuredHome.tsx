@@ -17,6 +17,8 @@
 import { useMemo } from "react";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isSocialEnabled } from "@/shared/config/featureFlags";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
@@ -42,6 +44,7 @@ type Props = {
 export function RestructuredHome({ greetingName }: Props) {
   const { language } = useLanguage();
   const langPath = useLangPath();
+  const flags = useFeatureFlags();
   const course = language ? getMockCourse(language.id) : null;
   const completedIds = useCompletedLessonIds();
   const langConfig = language ? getLanguageConfig(language.id) : null;
@@ -158,9 +161,14 @@ export function RestructuredHome({ greetingName }: Props) {
         </div>
         <div className="flex flex-col gap-4 lg:col-span-4">
           <FlashcardsTile />
-          <div className="flex-1">
-            <LeaderboardCard />
-          </div>
+          {/* Friend leaderboard is a social surface (friends API + social/
+              profile links) — don't mount it with social off so its query
+              never fires against a dark surface. */}
+          {isSocialEnabled(flags) ? (
+            <div className="flex-1">
+              <LeaderboardCard />
+            </div>
+          ) : null}
         </div>
       </div>
 

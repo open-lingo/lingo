@@ -1,12 +1,22 @@
 /**
- * Dev-only concept preview: the learn pathway as a transit map (2026-07-15).
+ * The learn pathway as a transit map (concept 2026-07-15, promoted to the
+ * ja learn homepage 2026-07-16 behind `learn.transitMapHome`).
  *
  * Concept A — the course as a metro network (modules = stations, side quests
  * = branch loops/spurs, progress = line fill) — with click-through into
- * Concept B (a per-module "district" view where lessons are local stops).
- * Driven by REAL course data; the page also carries the classic learn-page
- * furniture (LearnSidebar side-quest rail + profile, LearnToolsRow) and a
- * split-flap "departure board" that doubles as the Continue CTA.
+ * Concept B (a per-module "district" arrivals board where lessons are local
+ * stops). Driven by REAL course data; the page also carries the classic
+ * learn-page furniture (LearnSidebar side-quest rail + profile,
+ * LearnToolsRow) plus the PlacementPrompt FTUE fallback in live mode.
+ *
+ * Routes:
+ * - /:lang/learn          — live mode (real progress), ja only, via
+ *   LearnHomeRoute in App.tsx; flip `learn.transitMapHome` in
+ *   public/feature-flags.json to revert to the classic page without a build.
+ * - /:lang/learn/classic  — the previous LearnPage, kept as the escape hatch
+ *   (and where LearnDevPanel's unlock/clear-progress tools still live).
+ * - /:lang/transit-preview — this page in `preview` mode: demo progress on
+ *   by default + the demo/real toggle for design review.
  *
  * Layout notes:
  * - The panel flexes with the viewport and the SVG scales uniformly to fill
@@ -19,15 +29,10 @@
  *   inside the map; stars/moon/clouds spread across the panel on a pinned
  *   layer; fare-zone chips sit inset on the horizon, not on the frame.
  *
- * Demo state is on by default (a fresh profile renders an all-grey map);
- * the toggle swaps in real progress. Motion respects prefers-reduced-motion.
- *
- * Route: /:lang/transit-preview
- *
- * TODO (Spencer 2026-07-15): full interaction QA pass before this leaves
- * dev-preview status — verify EVERY button/link works: stations, quest
- * diamonds, sprint-leg stops, depot link, board rows, stamp strip,
- * prev/next station, demo toggle, mobile rows + map toggle.
+ * TODO (Spencer 2026-07-15): full interaction QA pass now that this IS the
+ * learn page — verify EVERY button/link works: stations, quest diamonds,
+ * sprint-leg stops, depot link, board rows, stamp strip, prev/next station,
+ * mobile rows + map toggle (+ demo toggle on the preview route).
  */
 import {
   useCallback,
@@ -59,7 +64,14 @@ import { useLearnProfile } from "@/features/learn/hooks/useLearnProfile";
 import { LearnSidebar } from "@/features/learn/components/LearnSidebar";
 import { LearnToolsRow } from "@/features/learn/components/LearnToolsRow";
 import { cn } from "@/shared/components/ui/cn";
-import "./transitMapConcept.css";
+import { PlacementPrompt } from "@/features/placement/components/PlacementPrompt";
+import {
+  isPlacementDismissed,
+  dismissPlacement,
+} from "@/features/placement/hooks/usePlacementDismissed";
+import { getStoredSettings } from "@/features/settings/storage";
+import { logSessionEvent } from "@/shared/telemetry/sessionLog";
+import "./transitLearnPage.css";
 
 /* ── layout ──────────────────────────────────────────────────────────── */
 
@@ -915,6 +927,7 @@ function NetworkMap({
   lang,
   demo,
   onDemoChange,
+  demoToggle,
   onOpen,
   onQuest,
   langPath,
@@ -924,6 +937,8 @@ function NetworkMap({
   lang: string;
   demo: boolean;
   onDemoChange: (v: boolean) => void;
+  /** show the demo/real switch (preview route only) */
+  demoToggle: boolean;
   onOpen: (index: number) => void;
   onQuest: (quest: SideQuest) => void;
   langPath: (p: string) => string;
@@ -1090,17 +1105,19 @@ function NetworkMap({
     <div className="relative rounded-md border-2 border-text-primary bg-surface shadow-card overflow-hidden">
       <FixedSky skyRef={skyRef} />
 
-      {/* demo/real toggle */}
-      <div className="absolute left-3 top-3 z-[5] flex items-center gap-2">
-        <div className="tmc-toggle" role="group" aria-label="Progress data source">
-          <button className={cn(demo && "on")} onClick={() => onDemoChange(true)}>
-            デモ demo state
-          </button>
-          <button className={cn(!demo && "on")} onClick={() => onDemoChange(false)}>
-            my progress
-          </button>
+      {/* demo/real toggle — design-review aid, preview route only */}
+      {demoToggle && (
+        <div className="absolute left-3 top-3 z-[5] flex items-center gap-2">
+          <div className="tmc-toggle" role="group" aria-label="Progress data source">
+            <button className={cn(demo && "on")} onClick={() => onDemoChange(true)}>
+              デモ demo state
+            </button>
+            <button className={cn(!demo && "on")} onClick={() => onDemoChange(false)}>
+              my progress
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* legend */}
       <div
@@ -1724,7 +1741,7 @@ function DistrictView({
 
 /* ── page ────────────────────────────────────────────────────────────── */
 
-export default function TransitMapConceptPage() {
+export default function TransitLearnPage({ preview = false }: { preview?: boolean }) {
   const lang = useLang();
   const p = useLangPath();
   const navigate = useNavigate();
@@ -1733,8 +1750,38 @@ export default function TransitMapConceptPage() {
   const realProfile = useLearnProfile();
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   const [showMapMobile, setShowMapMobile] = useState(false);
-  const [demo, setDemo] = useState(true);
+  // live mode always renders real progress; the demo overlay is a
+  // design-review aid on the /transit-preview route only
+  const [demo, setDemo] = useState(preview);
+  const [placementDismissedByUser, setPlacementDismissedByUser] = useState(false);
   const strings = stringsFor(lang);
+
+  // same FTUE fallback contract as the classic LearnPage: the first-session
+  // arc owns the placement offer; this standalone prompt only appears once
+  // the arc has run (it dismisses placement on finish)
+  const showPlacement =
+    !preview &&
+    !placementDismissedByUser &&
+    lang === "ja" &&
+    !isPlacementDismissed() &&
+    realIds.length === 0 &&
+    getStoredSettings()?.learning?.ftueArcSeen === true;
+
+  // one page_view per language visit, matching LearnPage's guard against
+  // StrictMode double-fires; the variant field separates map traffic from
+  // classic-page traffic in session logs
+  const learnViewFiredRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (preview) return;
+    if (learnViewFiredRef.current === lang) return;
+    learnViewFiredRef.current = lang;
+    logSessionEvent("page_view", {
+      page: "learn",
+      langId: lang,
+      variant: "transit-map",
+      completedCount: realIds.length,
+    });
+  }, [preview, lang, realIds.length]);
 
   const course = useMemo(() => getMockCourse(lang), [lang]);
   const modules = useMemo(() => course.modules.filter((m) => !m.comingSoon && m.lessons.length > 0), [course]);
@@ -1879,9 +1926,13 @@ export default function TransitMapConceptPage() {
               </span>
             ))}
           </h1>
-          <div className="text-[12px] opacity-75 2xl:text-[13px]">Transit-map concept · dev preview · click stations, board quests, visit the depot</div>
+          <div className="text-[12px] opacity-75 2xl:text-[13px]">
+            {preview
+              ? "Transit-map concept · dev preview · click stations, board quests, visit the depot"
+              : "Click a station to open its district · quests branch off the main line · the depot links to practice"}
+          </div>
         </div>
-        <Link to={p("learn")} className="rounded-sm px-3 py-1.5 text-[12.5px] font-bold hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
+        <Link to={p("learn/classic")} className="rounded-sm px-3 py-1.5 text-[12.5px] font-bold hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
           ← Classic view
         </Link>
       </div>
@@ -1889,7 +1940,7 @@ export default function TransitMapConceptPage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start 2xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0">
           <div className="hidden md:block">
-            <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
+            <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} demoToggle={preview} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
           </div>
           <div className="md:hidden">
             <LineDiagram layout={layout} currentIdx={currentIdx} lang={lang} onOpen={open} />
@@ -1898,14 +1949,15 @@ export default function TransitMapConceptPage() {
             </button>
             {showMapMobile && (
               <div className="mt-3">
-                <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
+                <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} demoToggle={preview} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
               </div>
             )}
           </div>
 
           <LearnToolsRow course={viewCourse} completedSet={completedSet} />
           <p className="mt-3 max-w-[72ch] text-[13px] text-text-muted 2xl:text-[14px]">
-            Stations = modules (spacing scales with lesson count) · branch lines = the real side quests · dashed track = honest roadmap. Click a station for its district; the depot links to practice. Demo state is on by default — flip the toggle for your real progress.
+            Stations = modules (spacing scales with lesson count) · branch lines = the real side quests · dashed track = honest roadmap. Click a station for its district; the depot links to practice.
+            {preview && " Demo state is on by default — flip the toggle for your real progress."}
           </p>
         </div>
 
@@ -1944,6 +1996,19 @@ export default function TransitMapConceptPage() {
           onQuest={onSideQuestClick}
           onClose={() => setOpenIdx(null)}
           onNav={setOpenIdx}
+        />
+      )}
+
+      {showPlacement && (
+        <PlacementPrompt
+          onStart={() => {
+            setPlacementDismissedByUser(true);
+            navigate(p("learn/placement-test"));
+          }}
+          onSkip={() => {
+            dismissPlacement();
+            setPlacementDismissedByUser(true);
+          }}
         />
       )}
     </div>

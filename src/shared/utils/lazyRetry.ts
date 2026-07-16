@@ -8,7 +8,10 @@ const BACKOFF_MS = 400;
  * the most likely failure mode; if all retries fail, reload the page
  * once so the user gets a fresh index.html with current chunk hashes.
  */
-export function lazyRetry<T extends ComponentType<unknown>>(
+// `any` matches React.lazy's own constraint — `unknown` rejects components
+// whose props are typed (contravariance), e.g. TransitLearnPage's `preview`.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function lazyRetry<T extends ComponentType<any>>(
   factory: () => Promise<{ default: T }>,
 ): ReturnType<typeof lazy<T>> {
   return lazy(async () => {

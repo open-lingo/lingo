@@ -5,6 +5,10 @@
 
 export type FeatureFlags = {
   version: number;
+  learn: {
+    /** Transit-map network as the ja learn homepage; classic page stays at learn/classic */
+    transitMapHome: boolean;
+  };
   practice: {
     /** /practice/stories and story reader under practice */
     stories: boolean;
@@ -13,7 +17,13 @@ export type FeatureFlags = {
     /** /practice/external-content */
     externalContent: boolean;
   };
+  social: {
+    /** Social hub + friends + messenger surfaces and every nav entry into them */
+    enabled: boolean;
+  };
   community: {
+    /** Master switch for the whole community surface (nav, routes, cross-page links) */
+    enabled: boolean;
     tabs: {
       explore: boolean;
       externalContent: boolean;
@@ -34,12 +44,21 @@ export type FeatureFlags = {
 /** MVP defaults when fetch fails or before merge. Keep in sync with `public/feature-flags.json`. */
 export const DEFAULT_FEATURE_FLAGS: FeatureFlags = {
   version: 1,
+  learn: {
+    transitMapHome: true,
+  },
   practice: {
     stories: false,
     videoTrainers: false,
     externalContent: false,
   },
+  // MVP (Spencer + Trevor, 2026-07-16): social + community ship dark. Code
+  // stays; flip these in feature-flags.json to bring them back post-MVP.
+  social: {
+    enabled: false,
+  },
   community: {
+    enabled: false,
     tabs: {
       explore: true,
       externalContent: false,
@@ -68,6 +87,15 @@ export function mergeFeatureFlags(
   if (!isPlainObject(override)) return base;
   const out = structuredClone(base) as FeatureFlags;
   if (typeof override.version === "number") out.version = override.version;
+  if (isPlainObject(override.learn)) {
+    const l = override.learn;
+    if (typeof l.transitMapHome === "boolean")
+      out.learn.transitMapHome = l.transitMapHome;
+  }
+  if (isPlainObject(override.social)) {
+    const s = override.social;
+    if (typeof s.enabled === "boolean") out.social.enabled = s.enabled;
+  }
   if (isPlainObject(override.practice)) {
     const p = override.practice;
     if (typeof p.stories === "boolean") out.practice.stories = p.stories;
@@ -78,6 +106,7 @@ export function mergeFeatureFlags(
   }
   if (isPlainObject(override.community)) {
     const c = override.community;
+    if (typeof c.enabled === "boolean") out.community.enabled = c.enabled;
     if (isPlainObject(c.tabs)) {
       const t = c.tabs;
       if (typeof t.explore === "boolean") out.community.tabs.explore = t.explore;
@@ -106,7 +135,29 @@ export function mergeFeatureFlags(
 
 /** Leaderboard in main nav, community tab, and /:lang/leaderboard routes. */
 export function isLeaderboardEnabled(flags: FeatureFlags): boolean {
-  return flags.community.tabs.leaderboard;
+  return flags.community.enabled && flags.community.tabs.leaderboard;
+}
+
+/** Social hub, friends list, messenger, public profiles + their entry points. */
+export function isSocialEnabled(flags: FeatureFlags): boolean {
+  return flags.social.enabled;
+}
+
+/** The whole community surface: nav entry, routes, cross-page deck/discuss links. */
+export function isCommunityEnabled(flags: FeatureFlags): boolean {
+  return flags.community.enabled;
+}
+
+/**
+ * Whether the learn homepage for `lang` is the transit map. ja-only for now
+ * (the map derives from the real course, but only ja's design is signed off).
+ * The classic pathway page stays mounted at learn/classic either way.
+ */
+export function isTransitLearnHome(
+  flags: FeatureFlags,
+  lang: string | undefined,
+): boolean {
+  return lang === "ja" && flags.learn.transitMapHome;
 }
 
 export async function fetchFeatureFlags(): Promise<FeatureFlags> {

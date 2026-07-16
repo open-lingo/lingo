@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isCommunityEnabled } from "@/shared/config/featureFlags";
 
 function ChevronLeftIcon({ className }: { className?: string }) {
   return (
@@ -47,21 +49,26 @@ export function StudioHeader({
 }: StudioHeaderProps) {
   const { t } = useTranslation();
   const langPath = useLangPath();
+  const flags = useFeatureFlags();
 
   return (
     <div className="flex flex-wrap items-center gap-3 border-b border-border bg-surface px-4 py-3">
       <div className="flex items-center gap-3">
-        <Link
-          to={langPath("community/library?tab=mine")}
-          className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-text-primary"
-          title={t("studio.headerBackToMyDecks", "Back to My Decks")}
-        >
-          <ChevronLeftIcon className="h-4 w-4" />
-          <span className="hidden sm:inline">
-            {t("studio.headerBackToMyDecks", "Back to My Decks")}
-          </span>
-        </Link>
-        <span className="text-border">|</span>
+        {isCommunityEnabled(flags) ? (
+          <>
+            <Link
+              to={langPath("community/library?tab=mine")}
+              className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-text-primary"
+              title={t("studio.headerBackToMyDecks", "Back to My Decks")}
+            >
+              <ChevronLeftIcon className="h-4 w-4" />
+              <span className="hidden sm:inline">
+                {t("studio.headerBackToMyDecks", "Back to My Decks")}
+              </span>
+            </Link>
+            <span className="text-border">|</span>
+          </>
+        ) : null}
         <div className="flex items-center gap-2">
           {nameInput ?? (
             <span className="text-base font-medium text-text-primary">

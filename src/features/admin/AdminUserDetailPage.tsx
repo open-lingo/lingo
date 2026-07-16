@@ -3,6 +3,8 @@ import { Link, useParams, useNavigate, useSearchParams } from "react-router-dom"
 import { useTranslation } from "react-i18next";
 import { useApi } from "@/shared/api/provider";
 import { useLangPath } from "@/shared/hooks/useLangPath";
+import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
+import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { useToast } from "@/shared/contexts/ToastContext";
 import { getDeckImageUrl } from "@/features/flashcards/data/loadDeck";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
@@ -89,6 +91,7 @@ export function AdminUserDetailPage() {
   const navigate = useNavigate();
   const { admin } = useApi();
   const langPath = useLangPath();
+  const flags = useFeatureFlags();
   const showToast = useToast().showToast;
   const [user, setUser] = useState<UserListItem | null>(null);
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
@@ -955,12 +958,16 @@ export function AdminUserDetailPage() {
                           </p>
                         </div>
                         <div className="flex flex-wrap items-center gap-2">
-                          <Link
-                            to={langPath(`community/decks/${deck.id}`)}
-                            className="text-sm font-medium text-accent hover:text-accent-hover"
-                          >
-                            View
-                          </Link>
+                          {/* Deck view lives under /community — dead route
+                              with the community flag off, hide with it. */}
+                          {isCommunityEnabled(flags) ? (
+                            <Link
+                              to={langPath(`community/decks/${deck.id}`)}
+                              className="text-sm font-medium text-accent hover:text-accent-hover"
+                            >
+                              View
+                            </Link>
+                          ) : null}
                           {isPublished ? (
                             <button
                               type="button"
