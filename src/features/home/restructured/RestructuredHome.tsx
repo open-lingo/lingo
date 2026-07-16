@@ -49,7 +49,6 @@ export function RestructuredHome({ greetingName }: Props) {
   const completedIds = useCompletedLessonIds();
   const langConfig = language ? getLanguageConfig(language.id) : null;
   const { stats } = useUserStats();
-  const flags = useFeatureFlags();
   const socialOn = isSocialEnabled(flags);
   const communityOn = isCommunityEnabled(flags);
 
