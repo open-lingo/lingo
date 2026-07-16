@@ -708,6 +708,7 @@ function SkylineArt({
   hillsRef,
   bldgRef,
   cityRef,
+  landmark,
 }: {
   sky: Skyline;
   bottomY: number;
@@ -715,9 +716,12 @@ function SkylineArt({
   hillsRef: React.RefObject<SVGGElement | null>;
   bldgRef: React.RefObject<SVGGElement | null>;
   cityRef: React.RefObject<SVGGElement | null>;
+  /** Per-language landmark set: ja = torii/pagoda/Fuji cap, ko = palace gate/Namsan tower. */
+  landmark: "ja" | "ko";
 }) {
   const toriiH = Math.min(200, vbH * 0.4);
   const towerH = Math.min(230, vbH * 0.34);
+  const gateH = toriiH;
   return (
     <>
       {/* FAR (slowest): celestial painted FIRST so every landform occludes
@@ -741,7 +745,7 @@ function SkylineArt({
               d={`M ${m.x - m.w / 2} ${m.baseY} L ${m.x - m.w * 0.07} ${m.baseY - m.h} L ${m.x + m.w * 0.005} ${m.baseY - m.h * 0.86} L ${m.x + m.w * 0.08} ${m.baseY - m.h} L ${m.x + m.w / 2} ${m.baseY} Z`}
               style={{ fill: "var(--tmc-scene-far2)" }}
             />
-            {m.cap && (
+            {m.cap && landmark === "ja" && (
               <path
                 d={`M ${m.x - m.w * 0.115} ${m.baseY - m.h * 0.85} L ${m.x - m.w * 0.07} ${m.baseY - m.h} L ${m.x + m.w * 0.005} ${m.baseY - m.h * 0.86} L ${m.x + m.w * 0.08} ${m.baseY - m.h} L ${m.x + m.w * 0.125} ${m.baseY - m.h * 0.85} L ${m.x + m.w * 0.06} ${m.baseY - m.h * 0.78} L ${m.x - m.w * 0.05} ${m.baseY - m.h * 0.78} Z`}
                 style={{ fill: "var(--tmc-panel)" }}
@@ -778,28 +782,57 @@ function SkylineArt({
             </g>
           </g>
         ))}
-        {/* big torii behind the climb */}
-        <g style={{ fill: "var(--tmc-scene-accent)" }}>
-          <rect x={sky.toriiX - toriiH * 0.34} y={bottomY - toriiH} width={toriiH * 0.075} height={toriiH} />
-          <rect x={sky.toriiX + toriiH * 0.34 - toriiH * 0.075} y={bottomY - toriiH} width={toriiH * 0.075} height={toriiH} />
-          <path d={`M ${sky.toriiX - toriiH * 0.5} ${bottomY - toriiH * 0.98} Q ${sky.toriiX} ${bottomY - toriiH * 1.12} ${sky.toriiX + toriiH * 0.5} ${bottomY - toriiH * 0.98} L ${sky.toriiX + toriiH * 0.5} ${bottomY - toriiH * 0.88} Q ${sky.toriiX} ${bottomY - toriiH * 1.0} ${sky.toriiX - toriiH * 0.5} ${bottomY - toriiH * 0.88} Z`} />
-          <rect x={sky.toriiX - toriiH * 0.38} y={bottomY - toriiH * 0.78} width={toriiH * 0.76} height={toriiH * 0.05} />
-        </g>
-        {/* pagoda silhouette (the bare triangle tower read as a weird cone) */}
-        <g style={{ fill: "var(--tmc-scene-accent2)" }}>
-          <rect x={sky.pagodaX - 3} y={bottomY - towerH} width={6} height={towerH} />
-          {[0.28, 0.52, 0.76].map((t, i) => {
-            const w = towerH * (0.62 - i * 0.14);
-            return (
-              <g key={i}>
-                <rect x={sky.pagodaX - w / 2} y={bottomY - towerH * t - towerH * 0.05} width={w} height={towerH * 0.05} rx={4} />
-                <rect x={sky.pagodaX - w / 2.6} y={bottomY - towerH * t - towerH * 0.115} width={w / 1.3} height={towerH * 0.075} rx={2} />
-              </g>
-            );
-          })}
-          <rect x={sky.pagodaX - towerH * 0.1} y={bottomY - towerH * 1.0} width={towerH * 0.2} height={towerH * 0.05} rx={4} />
-          <rect x={sky.pagodaX - 1.5} y={bottomY - towerH - 18} width={3} height={18} />
-        </g>
+        {landmark === "ja" ? (
+          <>
+            {/* big torii behind the climb */}
+            <g style={{ fill: "var(--tmc-scene-accent)" }}>
+              <rect x={sky.toriiX - toriiH * 0.34} y={bottomY - toriiH} width={toriiH * 0.075} height={toriiH} />
+              <rect x={sky.toriiX + toriiH * 0.34 - toriiH * 0.075} y={bottomY - toriiH} width={toriiH * 0.075} height={toriiH} />
+              <path d={`M ${sky.toriiX - toriiH * 0.5} ${bottomY - toriiH * 0.98} Q ${sky.toriiX} ${bottomY - toriiH * 1.12} ${sky.toriiX + toriiH * 0.5} ${bottomY - toriiH * 0.98} L ${sky.toriiX + toriiH * 0.5} ${bottomY - toriiH * 0.88} Q ${sky.toriiX} ${bottomY - toriiH * 1.0} ${sky.toriiX - toriiH * 0.5} ${bottomY - toriiH * 0.88} Z`} />
+              <rect x={sky.toriiX - toriiH * 0.38} y={bottomY - toriiH * 0.78} width={toriiH * 0.76} height={toriiH * 0.05} />
+            </g>
+            {/* pagoda silhouette (the bare triangle tower read as a weird cone) */}
+            <g style={{ fill: "var(--tmc-scene-accent2)" }}>
+              <rect x={sky.pagodaX - 3} y={bottomY - towerH} width={6} height={towerH} />
+              {[0.28, 0.52, 0.76].map((t, i) => {
+                const w = towerH * (0.62 - i * 0.14);
+                return (
+                  <g key={i}>
+                    <rect x={sky.pagodaX - w / 2} y={bottomY - towerH * t - towerH * 0.05} width={w} height={towerH * 0.05} rx={4} />
+                    <rect x={sky.pagodaX - w / 2.6} y={bottomY - towerH * t - towerH * 0.115} width={w / 1.3} height={towerH * 0.075} rx={2} />
+                  </g>
+                );
+              })}
+              <rect x={sky.pagodaX - towerH * 0.1} y={bottomY - towerH * 1.0} width={towerH * 0.2} height={towerH * 0.05} rx={4} />
+              <rect x={sky.pagodaX - 1.5} y={bottomY - towerH - 18} width={3} height={18} />
+            </g>
+          </>
+        ) : (
+          <>
+            {/* palace gate (Gwanghwamun silhouette) at the torii anchor */}
+            <g style={{ fill: "var(--tmc-scene-accent)" }}>
+              {/* stone base with arch cutout */}
+              <path d={`M ${sky.toriiX - gateH * 0.5} ${bottomY} L ${sky.toriiX - gateH * 0.5} ${bottomY - gateH * 0.55} L ${sky.toriiX + gateH * 0.5} ${bottomY - gateH * 0.55} L ${sky.toriiX + gateH * 0.5} ${bottomY} L ${sky.toriiX + gateH * 0.18} ${bottomY} A ${gateH * 0.18} ${gateH * 0.22} 0 0 0 ${sky.toriiX - gateH * 0.18} ${bottomY} Z`} />
+              {/* pavilion body between the roofs */}
+              <rect x={sky.toriiX - gateH * 0.42} y={bottomY - gateH * 0.76} width={gateH * 0.84} height={gateH * 0.16} />
+              {/* lower hip roof */}
+              <path d={`M ${sky.toriiX - gateH * 0.62} ${bottomY - gateH * 0.6} Q ${sky.toriiX} ${bottomY - gateH * 0.78} ${sky.toriiX + gateH * 0.62} ${bottomY - gateH * 0.6} L ${sky.toriiX + gateH * 0.5} ${bottomY - gateH * 0.55} L ${sky.toriiX - gateH * 0.5} ${bottomY - gateH * 0.55} Z`} />
+              {/* upper hip roof */}
+              <path d={`M ${sky.toriiX - gateH * 0.52} ${bottomY - gateH * 0.82} Q ${sky.toriiX} ${bottomY - gateH * 1.0} ${sky.toriiX + gateH * 0.52} ${bottomY - gateH * 0.82} L ${sky.toriiX + gateH * 0.4} ${bottomY - gateH * 0.76} L ${sky.toriiX - gateH * 0.4} ${bottomY - gateH * 0.76} Z`} />
+            </g>
+            {/* Namsan tower at the pagoda anchor */}
+            <g style={{ fill: "var(--tmc-scene-accent2)" }}>
+              {/* tapered shaft */}
+              <path d={`M ${sky.pagodaX - towerH * 0.06} ${bottomY} L ${sky.pagodaX - towerH * 0.025} ${bottomY - towerH * 0.72} L ${sky.pagodaX + towerH * 0.025} ${bottomY - towerH * 0.72} L ${sky.pagodaX + towerH * 0.06} ${bottomY} Z`} />
+              {/* observation pod */}
+              <ellipse cx={sky.pagodaX} cy={bottomY - towerH * 0.78} rx={towerH * 0.11} ry={towerH * 0.07} />
+              {/* deck ring under the pod */}
+              <rect x={sky.pagodaX - towerH * 0.08} y={bottomY - towerH * 0.72} width={towerH * 0.16} height={towerH * 0.03} rx={2} />
+              {/* antenna spire */}
+              <rect x={sky.pagodaX - 1.5} y={bottomY - towerH * 1.0} width={3} height={towerH * 0.16} />
+            </g>
+          </>
+        )}
       </g>
     </>
   );
@@ -1136,7 +1169,7 @@ function NetworkMap({
             aria-label="Course transit map"
           >
             {/* geography: hills/Fuji far, buildings/landmarks near */}
-            <SkylineArt sky={sky} bottomY={layout.vbY + layout.vbH + 6} vbH={layout.vbH} hillsRef={hillsRef} bldgRef={bldgRef} cityRef={cityRef} />
+            <SkylineArt sky={sky} bottomY={layout.vbY + layout.vbH + 6} vbH={layout.vbH} hillsRef={hillsRef} bldgRef={bldgRef} cityRef={cityRef} landmark={lang === "ko" ? "ko" : "ja"} />
 
             {/* fare zones — tint bands + inset horizon chips */}
             {layout.zones.map((z, i) => (
