@@ -56,7 +56,7 @@
   scrollbar-color: var(--tmc-locked) transparent;
   /* the panel flexes with the viewport; the SVG scales to fill it, so 4k
      gets a genuinely bigger map instead of a small fixed-pixel band */
-  height: clamp(460px, 64vh, 920px);
+  height: clamp(500px, 74vh, 1040px);
   position: relative;
   z-index: 1;
 }

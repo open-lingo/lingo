@@ -799,9 +799,6 @@ const STRINGS: Record<
     mapTitle: string;
     seal: string;
     depot: string;
-    boardNext: string;
-    boardTransfer: string;
-    boardFare: string;
   }
 > = {
   ja: {
@@ -812,9 +809,6 @@ const STRINGS: Record<
     mapTitle: "学習路線図",
     seal: "済",
     depot: "車両基地 Practice Depot →",
-    boardNext: "つぎ NEXT",
-    boardTransfer: "のりかえ TRANSFER",
-    boardFare: "ICカード FARE CARD",
   },
   es: {
     lineName: "Línea principal",
@@ -824,9 +818,6 @@ const STRINGS: Record<
     mapTitle: "Mapa de la línea",
     seal: "✓",
     depot: "Depósito · Práctica →",
-    boardNext: "PRÓXIMA",
-    boardTransfer: "TRANSBORDO",
-    boardFare: "TARJETA",
   },
 };
 const stringsFor = (lang: string) => STRINGS[lang] ?? STRINGS.es;
@@ -1449,34 +1440,6 @@ function NetworkMap({
   );
 }
 
-/* ── departure board ─────────────────────────────────────────────────── */
-
-function DepartureBoard({
-  rows,
-}: {
-  rows: Array<{ key: string; tag: string; body: React.ReactNode; action?: React.ReactNode }>;
-}) {
-  return (
-    <div className="mt-3 overflow-hidden rounded-md border-2 border-text-primary shadow-card" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
-      <div className="flex items-center justify-between px-4 pt-2.5 pb-1.5 text-[10px] uppercase tracking-[0.22em] opacity-60 2xl:text-[11px]">
-        <span>Departures · 発車標</span>
-        <span>{rows.length} services</span>
-      </div>
-      {rows.map((r, i) => (
-        <div
-          key={r.key}
-          className="tmc-board-row flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-white/10 px-4 py-2.5 2xl:px-5 2xl:py-3"
-          style={{ "--i": i } as CSSProperties}
-        >
-          <span className="w-[118px] flex-none text-[10.5px] font-bold tracking-[0.14em] opacity-70 2xl:w-[150px] 2xl:text-[12px]">{r.tag}</span>
-          <span className="min-w-0 flex-1 text-[13.5px] font-bold 2xl:text-[15.5px]">{r.body}</span>
-          {r.action}
-        </div>
-      ))}
-    </div>
-  );
-}
-
 /* ── mobile line diagram ─────────────────────────────────────────────── */
 
 function LineDiagram({
@@ -1567,6 +1530,8 @@ function DistrictView({
   statuses,
   completedSet,
   quests,
+  legsFor,
+  onQuest,
   onClose,
   onNav,
 }: {
@@ -1575,6 +1540,8 @@ function DistrictView({
   statuses: ModuleStatus[];
   completedSet: ReadonlySet<string>;
   quests: SideQuest[];
+  legsFor: (q: SideQuest) => QuestLeg[] | null;
+  onQuest: (q: SideQuest) => void;
   onClose: () => void;
   onNav: (index: number) => void;
 }) {
@@ -1584,7 +1551,6 @@ function DistrictView({
   const nextIdx = getNextLessonIndex(mod.lessons, completedSet);
   const done = mod.lessons.filter((l) => completedSet.has(l.id)).length;
   const badge = getModuleDisplay(course.modules, index).badgeLabel;
-  const [view, setView] = useState<"board" | "stamps" | "rail">("board");
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -1603,42 +1569,11 @@ function DistrictView({
       return { lesson, k, x, isDone, isCurrent };
     });
   }, [mod, completedSet, status, nextIdx]);
-  const lastX = stops.length ? stops[stops.length - 1].x : 76;
-  const svgW = lastX + 120;
-  const questY = 196;
 
   const lessonHref = (lesson: Lesson) =>
     lesson.kind === "alphabet" && lesson.alphabetId
       ? p(`practice/alphabet/${lesson.alphabetId}/learn`)
       : p(`learn/lessons/${lesson.id}`);
-
-  const stopGlyph = (s: (typeof stops)[number], isLast: boolean) => (
-    <g className="tmc-d-stop">
-      {isLast ? (
-        <>
-          <circle cx={s.x} cy={120} r={12} strokeWidth={3.5} style={{ fill: "var(--tmc-panel)", stroke: "var(--tmc-ink)" }} />
-          <circle cx={s.x} cy={120} r={4.5} style={{ fill: s.isDone ? "var(--tmc-done)" : "var(--tmc-locked)" }} />
-        </>
-      ) : (
-        <circle
-          cx={s.x}
-          cy={120}
-          r={s.isCurrent ? 10 : 7.5}
-          strokeWidth={s.isCurrent ? 4.5 : 3}
-          style={{
-            fill: s.isDone ? "var(--tmc-done)" : "var(--tmc-panel)",
-            stroke: s.isDone
-              ? "var(--tmc-panel)"
-              : s.isCurrent
-                ? "var(--tmc-line-main)"
-                : status === "locked"
-                  ? "var(--tmc-locked)"
-                  : "var(--tmc-line-main)",
-          }}
-        />
-      )}
-    </g>
-  );
 
   return (
     <div
@@ -1661,25 +1596,13 @@ function DistrictView({
               {status === "locked" ? " · locked — complete the previous station" : ""}
             </div>
           </div>
-          <div className="tmc-toggle flex-none" role="group" aria-label="District layout">
-            <button className={cn(view === "board" && "on")} onClick={() => setView("board")}>
-              発車標 Board
-            </button>
-            <button className={cn(view === "stamps" && "on")} onClick={() => setView("stamps")}>
-              スタンプ Stamps
-            </button>
-            <button className={cn(view === "rail" && "on")} onClick={() => setView("rail")}>
-              路線 Rail
-            </button>
-          </div>
           <button onClick={onClose} aria-label="Close district view" className="grid h-9 w-9 flex-none place-items-center rounded-full text-[16px] font-bold hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
             ✕
           </button>
         </div>
 
         {/* ── ARRIVALS BOARD: every lesson is a departure row ── */}
-        {view === "board" && (
-          <div className="max-h-[46vh] overflow-y-auto" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
+        <div className="max-h-[54vh] overflow-y-auto" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
             <div className="flex items-center justify-between px-4 pt-2.5 pb-1.5 text-[10px] uppercase tracking-[0.22em] opacity-60">
               <span>Lessons · 発車標</span>
               <span>
@@ -1725,143 +1648,54 @@ function DistrictView({
                 </Link>
               );
             })}
-          </div>
-        )}
+        </div>
 
-        {/* ── STAMP RALLY CARD: one hanko slot per lesson ── */}
-        {view === "stamps" && (
-          <div className="max-h-[46vh] overflow-y-auto bg-surface-muted px-5 py-4">
-            <div className="mb-3 flex items-baseline justify-between rounded-sm border border-dashed border-border px-3 py-1.5">
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-text-muted">スタンプラリー · Stamp rally</span>
-              <span className="text-[12px] font-extrabold text-text-primary">
-                {done}/{mod.lessons.length}
-              </span>
+        {/* ── SIDE QUESTS as a stamp rally strip ── */}
+        {quests.length > 0 && (
+          <div className="border-t border-border bg-surface-muted px-4 py-3">
+            <div className="mb-2.5 flex items-baseline justify-between">
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-text-muted">スタンプラリー · Side quests</span>
             </div>
-            <div className="grid grid-cols-4 gap-x-2 gap-y-4 sm:grid-cols-6 md:grid-cols-8">
-              {stops.map((s) => {
-                const isLast = s.k === stops.length - 1;
-                const slot = (
-                  <span className="flex flex-col items-center gap-1">
-                    {s.isDone ? (
-                      <span
-                        className="grid h-12 w-12 place-items-center rounded-full text-[15px] font-extrabold text-white shadow-card"
-                        style={{ background: "var(--tmc-seal)", transform: `rotate(${-14 + (s.k % 5) * 7}deg)`, border: "2.5px solid color-mix(in srgb, #fff 25%, var(--tmc-seal))" }}
-                      >
-                        {isLast ? "★" : "済"}
-                      </span>
-                    ) : (
-                      <span
-                        className={cn(
-                          "grid h-12 w-12 place-items-center rounded-full border-2 border-dashed text-[12px] font-bold",
-                          s.isCurrent ? "tmc-stamp-now border-accent text-accent" : isLast ? "border-[var(--tmc-q1)] text-[var(--tmc-q1)]" : "border-border text-text-muted",
+            <div className="flex flex-wrap items-start gap-x-5 gap-y-3">
+              {quests.flatMap((q) => {
+                const legs = legsFor(q);
+                if (legs) {
+                  return legs.map((leg, li) => (
+                    <Link key={leg.lessonId} to={lessonHref({ id: leg.lessonId, title: leg.title })} className="transition-transform hover:scale-105" aria-label={`${q.title}: ${leg.title}${leg.done ? ", stamped" : ""}`}>
+                      <span className="flex w-[68px] flex-col items-center gap-1">
+                        {leg.done ? (
+                          <span className="grid h-10 w-10 place-items-center rounded-full text-[13px] font-extrabold text-white shadow-card" style={{ background: "var(--tmc-seal)", transform: `rotate(${-14 + (li % 5) * 7}deg)`, border: "2.5px solid color-mix(in srgb, #fff 25%, var(--tmc-seal))" }}>
+                            済
+                          </span>
+                        ) : (
+                          <span className="grid h-10 w-10 place-items-center rounded-full border-2 border-dashed border-border text-[13px]">{q.emoji}</span>
                         )}
-                      >
-                        {isLast ? "★" : s.isCurrent ? "▶" : s.k + 1}
+                        <span className="max-w-[68px] truncate text-center text-[9.5px] leading-tight text-text-muted">{leg.title}</span>
                       </span>
-                    )}
-                    <span className={cn("max-w-[76px] truncate text-center text-[10px] leading-tight", s.isDone || s.isCurrent ? "text-text-primary font-semibold" : "text-text-muted")}>
-                      {s.lesson.kind === "recap" ? "復習 Recap" : isLast ? "Mastery" : s.lesson.title}
+                    </Link>
+                  ));
+                }
+                const stamped = q.progress >= 100;
+                return (
+                  <button key={q.id} onClick={() => onQuest(q)} disabled={q.comingSoon} className="transition-transform hover:scale-105 disabled:opacity-50" aria-label={`${q.title}${stamped ? ", stamped" : q.comingSoon ? ", coming soon" : ""}`}>
+                    <span className="flex w-[76px] flex-col items-center gap-1">
+                      {stamped ? (
+                        <span className="grid h-10 w-10 place-items-center rounded-full text-[15px] shadow-card" style={{ background: "var(--tmc-seal)", transform: "rotate(-11deg)", border: "2.5px solid color-mix(in srgb, #fff 25%, var(--tmc-seal))" }}>
+                          {q.emoji}
+                        </span>
+                      ) : (
+                        <span className={cn("grid h-10 w-10 place-items-center rounded-full border-2 border-dashed text-[15px]", q.progress > 0 ? "border-accent" : "border-border")}>{q.emoji}</span>
+                      )}
+                      <span className="max-w-[76px] truncate text-center text-[9.5px] leading-tight text-text-muted">
+                        {q.title}
+                        {q.progress > 0 && q.progress < 100 ? ` · ${q.progress}%` : ""}
+                      </span>
                     </span>
-                  </span>
-                );
-                return status === "locked" ? (
-                  <span key={s.lesson.id} className="opacity-60">
-                    {slot}
-                  </span>
-                ) : (
-                  <Link key={s.lesson.id} to={lessonHref(s.lesson)} className="transition-transform hover:scale-105" aria-label={`${s.lesson.title}${s.isDone ? ", stamped" : ""}`}>
-                    {slot}
-                  </Link>
+                  </button>
                 );
               })}
             </div>
           </div>
-        )}
-
-        {view === "rail" && (
-        <div className="overflow-x-auto">
-          <svg viewBox={`0 0 ${svgW} 260`} width={svgW} height={260} className="block" role="img" aria-label={`${mod.title} lessons`}>
-            <text x={20} y={40} style={{ fill: "var(--tmc-muted)", fontSize: 10, letterSpacing: "0.16em", fontWeight: 600 }}>
-              DISTRICT VIEW · LOCAL STOPS
-            </text>
-            {index > 0 && (
-              <text x={20} y={112} style={{ fill: "var(--tmc-muted)", fontSize: 10 }}>
-                ← {getModuleDisplay(course.modules, index - 1).badgeLabel}
-              </text>
-            )}
-            {index < course.modules.length - 1 && (
-              <text x={svgW - 20} y={112} textAnchor="end" style={{ fill: "var(--tmc-muted)", fontSize: 10 }}>
-                {getModuleDisplay(course.modules, index + 1).badgeLabel} →
-              </text>
-            )}
-            {quests.length > 0 && stops.length > 3 && (
-              <>
-                <path
-                  d={dOf([
-                    [stops[1].x, 120],
-                    [stops[1].x + 62, questY],
-                    [stops[stops.length - 2].x - 62, questY],
-                    [stops[stops.length - 2].x, 120],
-                  ])}
-                  fill="none"
-                  strokeWidth={4.5}
-                  strokeLinejoin="round"
-                  style={{ stroke: "var(--tmc-q1)" }}
-                />
-                {quests.slice(0, 3).map((q, k) => {
-                  const qx = stops[1].x + 100 + k * 110;
-                  return (
-                    <g key={q.id}>
-                      <rect x={qx - 7} y={questY - 7} width={14} height={14} rx={3} transform={`rotate(45 ${qx} ${questY})`} strokeWidth={3} style={{ fill: "var(--tmc-panel)", stroke: "var(--tmc-q1)" }} />
-                      <text x={qx} y={questY - 14} textAnchor="middle" style={{ fontSize: 12 }}>
-                        {q.emoji}
-                      </text>
-                      <text x={qx} y={questY + 26} textAnchor="middle" data-tm="d-label" style={{ fill: "var(--tmc-muted)", fontSize: 9.5 }}>
-                        {q.title.length > 18 ? `${q.title.slice(0, 17)}…` : q.title}
-                      </text>
-                    </g>
-                  );
-                })}
-              </>
-            )}
-            <path
-              d={dOf([[24, 120], [svgW - 24, 120]])}
-              fill="none"
-              strokeWidth={7}
-              strokeLinecap="round"
-              style={{ stroke: status === "locked" ? "var(--tmc-locked)" : "var(--tmc-line-main)" }}
-              strokeDasharray={status === "locked" ? "7 8" : undefined}
-            />
-            {stops.map((s) => {
-              const isLast = s.k === stops.length - 1;
-              const above = s.k % 2 === 0;
-              const short = s.lesson.title.length > 13 ? `${s.lesson.title.slice(0, 12)}…` : s.lesson.title;
-              const glyph = stopGlyph(s, isLast);
-              const label = (
-                <>
-                  <text x={s.x} y={above ? 88 : 152} textAnchor="middle" data-tm="d-label" style={{ fill: "var(--tmc-ink)", fontSize: 11, fontWeight: 700 }}>
-                    {s.lesson.kind === "recap" ? "Recap" : isLast ? "★" : `L${s.k + 1}`}
-                  </text>
-                  <text x={s.x} y={above ? 74 : 166} textAnchor="middle" data-tm="d-label" style={{ fill: "var(--tmc-muted)", fontSize: 9 }}>
-                    {short}
-                  </text>
-                </>
-              );
-              return status === "locked" ? (
-                <g key={s.lesson.id} opacity={0.75}>
-                  {glyph}
-                  {label}
-                </g>
-              ) : (
-                <Link key={s.lesson.id} to={lessonHref(s.lesson)} aria-label={`${s.lesson.title}${s.isDone ? ", completed" : ""}`}>
-                  {glyph}
-                  {label}
-                  {s.isCurrent && <circle className="tmc-pulse" cx={s.x} cy={120} r={12} fill="none" strokeWidth={2.5} style={{ stroke: "var(--tmc-line-main)" }} />}
-                </Link>
-              );
-            })}
-          </svg>
-        </div>
         )}
 
         <div className="flex flex-wrap items-center gap-2 border-t border-border px-4 py-3">
@@ -2022,65 +1856,6 @@ export default function TransitMapConceptPage() {
     [modules],
   );
 
-  const currentModule = modules[currentIdx];
-  const nextLessonIdx = currentModule ? getNextLessonIndex(currentModule.lessons, completedSet) : 0;
-  const nextLesson = currentModule?.lessons[nextLessonIdx];
-  const nextHref = nextLesson
-    ? nextLesson.kind === "alphabet" && nextLesson.alphabetId
-      ? p(`practice/alphabet/${nextLesson.alphabetId}/learn`)
-      : p(`learn/lessons/${nextLesson.id}`)
-    : p("learn");
-  const transferQuest = sideQuests.find((q) => !q.isDaily && isSideQuestUnlocked(q) && !q.comingSoon) ?? sideQuests.find((q) => !q.isDaily);
-  const boardRows = [
-    {
-      key: "next",
-      tag: strings.boardNext,
-      body: currentModule ? (
-        <>
-          <span className="mr-2 inline-grid h-[20px] min-w-[26px] place-items-center rounded-full px-1 text-[10px] font-extrabold text-white" style={{ background: "var(--tmc-line-main)" }}>
-            {getModuleDisplay(modules, currentIdx).badgeLabel}
-          </span>
-          {currentModule.title} · L{nextLessonIdx + 1} {nextLesson?.title ?? ""}
-        </>
-      ) : (
-        "All stations cleared"
-      ),
-      action: (
-        <Link to={nextHref} className="rounded-sm bg-accent px-4 py-1 text-[12px] font-bold text-accent-foreground hover:bg-accent-hover 2xl:text-[13px]">
-          Continue →
-        </Link>
-      ),
-    },
-    ...(transferQuest
-      ? [
-          {
-            key: "transfer",
-            tag: strings.boardTransfer,
-            body: (
-              <>
-                {transferQuest.emoji} {transferQuest.title}
-                <span className="ml-2 text-[11px] font-semibold opacity-60">{transferQuest.comingSoon ? "coming soon" : transferQuest.meta}</span>
-              </>
-            ),
-            action: transferQuest.comingSoon ? undefined : (
-              <button onClick={() => onSideQuestClick(transferQuest)} className="rounded-sm border border-white/40 px-3 py-1 text-[12px] font-bold hover:bg-white/10 2xl:text-[13px]">
-                Board →
-              </button>
-            ),
-          },
-        ]
-      : []),
-    {
-      key: "fare",
-      tag: strings.boardFare,
-      body: (
-        <>
-          {profile.xpEarnedToday} XP today · {profile.streakDays}🔥 streak
-        </>
-      ),
-    },
-  ];
-
   const titleText = `${strings.mapTitle} — ${course.title}`;
 
   return (
@@ -2123,7 +1898,6 @@ export default function TransitMapConceptPage() {
             )}
           </div>
 
-          <DepartureBoard rows={boardRows} />
           <LearnToolsRow course={viewCourse} completedSet={completedSet} />
           <p className="mt-3 max-w-[72ch] text-[13px] text-text-muted 2xl:text-[14px]">
             Stations = modules (spacing scales with lesson count) · branch lines = the real side quests · dashed track = honest roadmap. Click a station for its district; the depot links to practice. Demo state is on by default — flip the toggle for your real progress.
@@ -2161,6 +1935,8 @@ export default function TransitMapConceptPage() {
           statuses={statuses}
           completedSet={completedSet}
           quests={questsByAnchor.get(openIdx) ?? []}
+          legsFor={legsFor}
+          onQuest={onSideQuestClick}
           onClose={() => setOpenIdx(null)}
           onNav={setOpenIdx}
         />
