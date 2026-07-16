@@ -145,10 +145,25 @@ export function ThemeEditorPanel() {
     [setTheme, customThemes]
   );
 
-  const handleEditTheme = useCallback((id: string) => {
-    setEditingId(id);
-    setIsCustomizing(true);
-  }, []);
+  const handleEditTheme = useCallback(
+    (id: string) => {
+      // Editing a theme makes it the active one — you're changing what you're
+      // looking at, not blind-editing a background theme.
+      setTheme(id);
+      setEditingId(id);
+      setIsCustomizing(true);
+    },
+    [setTheme],
+  );
+
+  // Live preview: while the customizer is open the whole app wears the draft —
+  // every color/font/corner change applies immediately instead of waiting for
+  // Save. Cleared when customizing ends; closeThemeEditor clears it too.
+  useEffect(() => {
+    if (!isCustomizing) return;
+    setPreviewTokens(draft);
+    return () => setPreviewTokens(null);
+  }, [isCustomizing, draft, setPreviewTokens]);
 
   const handleAddNew = useCallback(() => {
     const newTheme = addTheme({ name: t("settings.newTheme", "New theme"), tokens: { ...BUILT_IN_THEMES.dark.tokens } });
@@ -297,9 +312,9 @@ export function ThemeEditorPanel() {
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 py-4">
-          {/* Live preview */}
-          <section className="mb-6">
+        {/* Live preview — pinned between the header and the scroll area so it
+            stays visible while the presets/colors below scroll. */}
+        <section className="shrink-0 border-b border-border px-4 pb-4 pt-3">
             <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
               {t("settings.themePreview", "Preview")}
             </h3>
@@ -381,8 +396,9 @@ export function ThemeEditorPanel() {
                 Colors update as you edit
               </p>
             </div>
-          </section>
+        </section>
 
+        <div className="flex-1 overflow-y-auto px-4 py-4">
           {/* Presets */}
           <section className="mb-6">
             <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
