@@ -244,7 +244,7 @@ ruby {
 .kana-helper {
   font-size: 0.65em;
   font-weight: 500;
-  color: #065f46; /* emerald-800 — ~5.5:1 contrast on white (WCAG AA) */
+  color: var(--color-accent); /* reading aid rides the theme accent (marginalia red) */
   letter-spacing: 0.02em;
   transition: opacity 200ms ease-out;
   opacity: 1;
@@ -253,7 +253,7 @@ ruby {
   opacity: 0;
 }
 .dark .kana-helper {
-  color: rgb(52 211 153); /* emerald-400 */
+  color: var(--color-accent-hover); /* lifted for dark surfaces */
 }
 
 /* Readable text shadow for content layered on top of profile banner art.
