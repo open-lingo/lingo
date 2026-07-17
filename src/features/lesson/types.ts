@@ -336,6 +336,15 @@ export type WordImageMcqStep = StepBase & {
     emoji: string;
   }[];
   correctOptionId: string;
+  /**
+   * Optional display annotation per option, parallel to `options`. Carries the
+   * single-atom `JapaneseAnnotation` for each option's kana word so the kanji
+   * post-pass (`applyKanjiSurfaces`, which only rewrites `*Annotation` fields)
+   * can substitute the kanji surface at/after the atom's unlock module. Only a
+   * display field — the option `id`/`word` (audio + answer matching) are
+   * untouched. Mirrors `MultipleChoiceStep.optionAnnotations`.
+   */
+  optionAnnotations?: (JapaneseAnnotation[] | undefined)[];
 };
 
 /**

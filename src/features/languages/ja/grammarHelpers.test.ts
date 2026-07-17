@@ -7,7 +7,14 @@ import {
   audioMeaningMcq,
   listeningBuildSentence,
   listeningCompSentence,
+  buildSentenceAnnotation,
+  resolveEligibleKanjiAtomId,
 } from "./grammarHelpers";
+
+const HAS_HAN = /\p{Script=Han}/u;
+/** Concatenated segment surfaces must reproduce the input sentence exactly. */
+const joinSurfaces = (segs: { surface: string }[]) =>
+  segs.map((s) => s.surface).join("");
 
 describe("resolveAtom", () => {
   it("returns atomId + gloss for a known reading (コーヒー → ja-m3-1-coffee)", () => {
@@ -86,5 +93,88 @@ describe("annotation builders carry atomId + gloss when reading matches an atom"
     expect(step.transcriptAnnotation).toEqual([
       { surface: "コーヒー", reading: "コーヒー", atomId: "ja-m3-1-coffee", gloss: "coffee" },
     ]);
+  });
+});
+
+// ────────────── sentence-level kanji: conservative atomId resolver ──────────
+
+describe("resolveEligibleKanjiAtomId — never returns an atomId for an ambiguous token", () => {
+  it("returns the atomId for a non-homographic, kanji-eligible word", () => {
+    // まいにち = 毎日 — exactly one atom carries this kana AND it is eligible.
+    expect(resolveEligibleKanjiAtomId("まいにち")).toBe("mainichi");
+  });
+
+  it("returns undefined for HOMOGRAPH kana (≥2 atoms share the surface)", () => {
+    // はな = 花 (flower) / 鼻 (nose); に = 二 (two) / particle に; はし = 橋 / 箸.
+    // Even though at least one branch is kanji-eligible, the kana→atom map is
+    // last-write-wins, so we refuse to guess — WRONG kanji is worse than kana.
+    expect(resolveEligibleKanjiAtomId("はな")).toBeUndefined();
+    expect(resolveEligibleKanjiAtomId("に")).toBeUndefined();
+    expect(resolveEligibleKanjiAtomId("はし")).toBeUndefined();
+  });
+
+  it("returns undefined for words with no eligible kanji, particles, and conjugated forms", () => {
+    expect(resolveEligibleKanjiAtomId("ともだち")).toBeUndefined(); // 友達: 達 not in catalog
+    expect(resolveEligibleKanjiAtomId("てつだう")).toBeUndefined(); // 手伝う: 伝 not in catalog
+    expect(resolveEligibleKanjiAtomId("を")).toBeUndefined(); // particle
+    expect(resolveEligibleKanjiAtomId("のまない")).toBeUndefined(); // conjugated, not an atom
+    expect(resolveEligibleKanjiAtomId("てつだった")).toBeUndefined(); // conjugated, not an atom
+  });
+});
+
+describe("buildSentenceAnnotation — multi-segment, atomIds only on unambiguous eligible words", () => {
+  const SENTENCE = "まいにち ともだちを てつだう";
+
+  it("emits a segment carrying an atomId ONLY for the eligible word; others stay bare", () => {
+    const segs = buildSentenceAnnotation(SENTENCE);
+    // Concatenation reproduces the sentence byte-for-byte.
+    expect(joinSurfaces(segs)).toBe(SENTENCE);
+    // Exactly one segment carries an atomId, and it is まいにち (毎日).
+    const withAtom = segs.filter((s) => s.atomId);
+    expect(withAtom).toHaveLength(1);
+    expect(withAtom[0]).toMatchObject({
+      surface: "まいにち",
+      reading: "まいにち",
+      atomId: "mainichi",
+    });
+    // ともだち / を / てつだう are all bare kana in some other segment (no atomId).
+    const rest = segs.filter((s) => !s.atomId).map((s) => s.surface).join("");
+    expect(rest).toContain("ともだち");
+    expect(rest).toContain("を");
+    expect(rest).toContain("てつだう");
+    // No segment carries kanji yet (that's the pass's job).
+    expect(segs.some((s) => HAS_HAN.test(s.surface))).toBe(false);
+  });
+
+  it("does NOT attach an atomId to a homograph token in a sentence (stays bare kana)", () => {
+    // はな (花/鼻) must never resolve — the whole sentence stays atom-less.
+    const segs = buildSentenceAnnotation("はなが すきです");
+    expect(joinSurfaces(segs)).toBe("はなが すきです");
+    expect(segs.some((s) => s.atomId === "hana" || s.atomId === "hana-nose")).toBe(false);
+  });
+
+  it("keeps a single-word target as the historical singleton shape (atomId + gloss)", () => {
+    // A whole-string single atom short-circuits — identical to the old
+    // buildSingletonAnnotation output (single-word factories rely on this).
+    expect(buildSentenceAnnotation("コーヒー")).toEqual([
+      { surface: "コーヒー", reading: "コーヒー", atomId: "ja-m3-1-coffee", gloss: "coffee" },
+    ]);
+  });
+});
+
+describe("sentence factories emit multi-segment annotations", () => {
+  const SENTENCE = "まいにち ともだちを てつだう";
+  it("build(): targetAnnotation is multi-segment with one eligible atomId; tiles/order stay kana", () => {
+    const tiles = ["まいにち", "ともだち", "を", "てつだう"];
+    const step = build("bs-multi", "Every day I help a friend", SENTENCE, tiles, tiles);
+    expect(joinSurfaces(step.targetAnnotation!)).toBe(SENTENCE);
+    expect(step.targetAnnotation!.filter((s) => s.atomId).map((s) => s.atomId)).toEqual([
+      "mainichi",
+    ]);
+    // Grading fields are untouched, pure kana.
+    expect(step.tiles).toEqual(tiles);
+    expect(step.correctOrder).toEqual(tiles);
+    expect(step.targetSentence).toBe(SENTENCE);
+    expect(step.audioKey).toBe(SENTENCE);
   });
 });

@@ -20,12 +20,17 @@
  *     "two" OR particle `p-ni`, whichever inserted last), so a kana-keyed pass
  *     would render the particle に as 二. atomId avoids that entirely.
  *
- * SCOPE (v1):
- *   - SINGLE-ATOM surfaces only. `buildSingletonAnnotation` attaches an
- *     `atomId` only when the whole annotation string equals one atom's kana,
- *     and wraps it as a one-element annotation array. A sentence target is a
- *     single annotation whose surface is the whole sentence with NO atomId, so
- *     it is skipped. We therefore only rewrite annotation arrays of length 1.
+ * SCOPE (v1 + sentence layer):
+ *   - PER-SEGMENT, atomId-gated. Historically single-atom only
+ *     (`buildSingletonAnnotation` wraps a one-element array). Sentence
+ *     factories now emit MULTI-segment annotations — one segment per token,
+ *     with an `atomId` attached only on unambiguously-resolvable eligible
+ *     words (grammarHelpers.buildSentenceAnnotation). This pass maps over
+ *     every segment and rewrites each independently; a segment with no
+ *     `atomId` (kana filler / particle / conjugated form / ambiguous
+ *     homograph) is left untouched, so a sentence kanji-fies only its safe,
+ *     eligible words and everything else stays kana. Adding atomIds happens in
+ *     the FACTORY (pre-pass), so the atomId multiset is identical pre/post here.
  *   - DICTIONARY-FORM only. The 6 polite `-ます` anchorVocab forms carry no
  *     stored kanji (their dictionary siblings do) → naturally skipped here.
  *     Routing them through `writtenForms.writtenSegments` is v1.1.
@@ -190,15 +195,27 @@ function rewriteSegment(
   };
 }
 
-/** Rewrite a single annotation array (JapaneseAnnotation[]). SINGLE-ATOM scope
- *  ⇒ only arrays of length 1 are eligible. Same reference when unchanged. */
+/** Rewrite a single annotation array (JapaneseAnnotation[]). Each segment is
+ *  rewritten INDEPENDENTLY: `rewriteSegment` gates every segment on its own
+ *  `atomId` + eligibility + furigana window, so this is safe for both the
+ *  historical single-atom arrays (length 1) AND the multi-segment sentence
+ *  annotations the sentence factories now emit (one segment per token, with an
+ *  atomId only on unambiguously-resolvable eligible words — see
+ *  grammarHelpers.buildSentenceAnnotation). Segments without an atomId (kana
+ *  fillers, particles, conjugated forms, ambiguous homographs) return
+ *  themselves from `rewriteSegment` and stay kana. Same reference when nothing
+ *  in the array changed. */
 function rewriteAnnotationArray(
   arr: JapaneseAnnotation[],
   learnerModule: number,
 ): JapaneseAnnotation[] {
-  if (arr.length !== 1) return arr;
-  const next = rewriteSegment(arr[0], learnerModule);
-  return next === arr[0] ? arr : [next];
+  let changed = false;
+  const next = arr.map((seg) => {
+    const r = rewriteSegment(seg, learnerModule);
+    if (r !== seg) changed = true;
+    return r;
+  });
+  return changed ? next : arr;
 }
 
 /**
@@ -223,12 +240,22 @@ function rewriteAnnotationValue(value: unknown, learnerModule: number): unknown 
   return rewriteAnnotationArray(value as JapaneseAnnotation[], learnerModule);
 }
 
+/** A key holds annotation display data iff it ends in "Annotation" (a single
+ *  array, e.g. promptAnnotation/sourceAnnotation) or its plural "Annotations"
+ *  (a list of arrays, e.g. optionAnnotations — the shape `rewriteAnnotationValue`'s
+ *  listOfArrays branch was written for). Both are display-only; audio/grading
+ *  keys match neither. The plural was previously missed, which left the
+ *  listOfArrays branch unreachable and MCQ option surfaces stuck as kana. */
+function isAnnotationKey(key: string): boolean {
+  return key.endsWith("Annotation") || key.endsWith("Annotations");
+}
+
 /**
- * Deep-walk a node, rewriting ONLY values under keys whose name ends in
- * "Annotation" (the spec's display-fields-only discipline — audio/grading keys
- * never match). Recurses into arrays + plain objects so nested step structures
- * (row_test items[].payload) are covered. Returns the SAME reference when
- * nothing beneath it changed, keeping every untouched field referentially
+ * Deep-walk a node, rewriting ONLY values under annotation keys (see
+ * `isAnnotationKey` — the spec's display-fields-only discipline; audio/grading
+ * keys never match). Recurses into arrays + plain objects so nested step
+ * structures (row_test items[].payload) are covered. Returns the SAME reference
+ * when nothing beneath it changed, keeping every untouched field referentially
  * identical (audio/grading immutability is then trivially deep-equal).
  */
 function processNode(node: unknown, learnerModule: number): unknown {
@@ -247,7 +274,7 @@ function processNode(node: unknown, learnerModule: number): unknown {
     const next: Record<string, unknown> = {};
     for (const key of Object.keys(obj)) {
       const val = obj[key];
-      const r = key.endsWith("Annotation")
+      const r = isAnnotationKey(key)
         ? rewriteAnnotationValue(val, learnerModule)
         : processNode(val, learnerModule);
       if (r !== val) changed = true;

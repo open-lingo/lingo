@@ -26,6 +26,14 @@ describe("parseModuleIndex", () => {
     expect(parseModuleIndex("ja-m15-1")).toBe(15);
     expect(parseModuleIndex("ko-m3-vowels")).toBe(3);
   });
+  it("extracts the module number from the BARE moduleId (LessonContent.moduleId)", () => {
+    // Regression: `LessonContent.moduleId` is "m29", not "ja-m29". The
+    // prefix-required regex returned 0, so the romaji-by-module ladder never
+    // fired from a lesson. The prefix is now optional.
+    expect(parseModuleIndex("m29")).toBe(29);
+    expect(parseModuleIndex("m7")).toBe(7);
+    expect(parseModuleIndex("m1")).toBe(1);
+  });
   it("returns 0 for sidequests / unrecognized IDs", () => {
     expect(parseModuleIndex("ja-sidequest-survival-phrases")).toBe(0);
     expect(parseModuleIndex(undefined)).toBe(0);
@@ -130,6 +138,56 @@ describe("romajiVisibleForScript", () => {
 
   it("todayLocalDate returns a YYYY-MM-DD string", () => {
     expect(todayLocalDate()).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
+
+  // moduleIndex: retire by POSITION even when the one-shot guard never flipped
+  // (QA jump / deep link into a late lesson), without touching the escape hatches.
+  it("moduleIndex >= threshold hides romaji even with the guard unset", () => {
+    const s = settingsWith({}); // hiraganaRomajiAutoOff stays false
+    expect(
+      romajiVisibleForScript({ settings: s, script: "hiragana", today, moduleIndex: 29 }),
+    ).toBe(false);
+    // katakana threshold is higher (17); m29 is past it too.
+    expect(
+      romajiVisibleForScript({ settings: s, script: "katakana", today, moduleIndex: 29 }),
+    ).toBe(false);
+  });
+
+  it("moduleIndex below the threshold still shows romaji", () => {
+    const s = settingsWith({});
+    expect(
+      romajiVisibleForScript({ settings: s, script: "hiragana", today, moduleIndex: 6 }),
+    ).toBe(true);
+    // katakana off-module is 17, so at m10 katakana romaji still shows...
+    expect(
+      romajiVisibleForScript({ settings: s, script: "katakana", today, moduleIndex: 10 }),
+    ).toBe(true);
+    // ...while hiragana (off at 7) is already hidden at m10 by position.
+    expect(
+      romajiVisibleForScript({ settings: s, script: "hiragana", today, moduleIndex: 10 }),
+    ).toBe(false);
+  });
+
+  it("omitting moduleIndex keeps the exact guard-only behavior", () => {
+    const s = settingsWith({}); // guard unset
+    expect(romajiVisibleForScript({ settings: s, script: "hiragana", today })).toBe(true);
+    expect(
+      romajiVisibleForScript({ settings: s, script: "hiragana", today, moduleIndex: null }),
+    ).toBe(true);
+  });
+
+  it("romajiOnForDay escape hatch STILL wins over a past-threshold module", () => {
+    const s = settingsWith({ romajiOnForDay: today });
+    expect(
+      romajiVisibleForScript({ settings: s, script: "hiragana", today, moduleIndex: 29 }),
+    ).toBe(true);
+  });
+
+  it("showRomaji=false still hard-hides regardless of module", () => {
+    const s = settingsWith({ showRomaji: false });
+    expect(
+      romajiVisibleForScript({ settings: s, script: "hiragana", today, moduleIndex: 3 }),
+    ).toBe(false);
   });
 });
 

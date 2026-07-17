@@ -1130,7 +1130,7 @@ export const M27_4_1: LessonContent = {
       "ja-m27-4-1-build-naru",
       "Pick the dictionary form of: to become",
       "なる",
-      ["なります", "なる", "なった", "する"],
+      ["はしる", "なる", "わすれる", "する"],
       ["なる"],
     ),
     listeningCompSentence({

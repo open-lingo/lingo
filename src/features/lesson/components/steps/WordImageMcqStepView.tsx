@@ -173,9 +173,15 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
         className="relative left-1/2 grid -translate-x-1/2 gap-4"
         style={{ width: gridWidth, gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
       >
-        {step.options.map((opt) => {
+        {step.options.map((opt, idx) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
+          // Kanji ladder: when the factory attached a display annotation for
+          // this option, render it via the segments path so the kanji-
+          // substituted surface (from applyKanjiSurfaces) shows. Otherwise
+          // fall back to the bare kana text path. Answer/audio still key off
+          // opt.id / opt.word — the annotation is display-only.
+          const optAnn = step.optionAnnotations?.[idx];
           // Square buttons. Same solid-accent selection pattern as the
           // other 2026-05-16 MCQ revamps — unmistakable in dark mode.
           let base =
@@ -204,18 +210,33 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
                *  show-romaji setting so the romaji helper shows above each kana
                *  for a never-learned learner — the same spoon-feed every other
                *  step gives — and weans off when that setting flips off. */}
-              <AnnotatedText
-                forceShowHelper={showRomaji}
-                text={opt.word}
-                className={
-                  "font-japanese text-center text-3xl font-bold tracking-wide sm:text-4xl " +
-                  (submitted && isAnswer
-                    ? "text-accent"
-                    : submitted && isSelected && !isAnswer
-                      ? "text-error"
-                      : "text-text-primary")
-                }
-              />
+              {optAnn ? (
+                <AnnotatedText
+                  forceShowHelper={showRomaji}
+                  segments={optAnn}
+                  className={
+                    "font-japanese text-center text-3xl font-bold tracking-wide sm:text-4xl " +
+                    (submitted && isAnswer
+                      ? "text-accent"
+                      : submitted && isSelected && !isAnswer
+                        ? "text-error"
+                        : "text-text-primary")
+                  }
+                />
+              ) : (
+                <AnnotatedText
+                  forceShowHelper={showRomaji}
+                  text={opt.word}
+                  className={
+                    "font-japanese text-center text-3xl font-bold tracking-wide sm:text-4xl " +
+                    (submitted && isAnswer
+                      ? "text-accent"
+                      : submitted && isSelected && !isAnswer
+                        ? "text-error"
+                        : "text-text-primary")
+                  }
+                />
+              )}
               {/* Emoji centered, sized to fill ~60–65% of the card.
                *  Noto Emoji SVG render — never device-dependent. */}
               <EmojiArt src={emojiSrc} emoji={opt.emoji} />

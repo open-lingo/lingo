@@ -16,6 +16,7 @@ import {
   getAvailableMockLessonIds,
   getMockLessonContent,
 } from "@/features/lesson/data/mockLessons";
+import { vocabMcq, build, type ReviewAtom } from "@/features/languages/ja/grammarHelpers";
 
 /**
  * KANJI SURFACE POST-PASS — the owner's "needs good checks to make sure it
@@ -77,9 +78,15 @@ function withoutAnnotations(lesson: LessonContent): unknown {
     if (v && typeof v === "object") {
       const out: Record<string, unknown> = {};
       for (const k of Object.keys(v as Record<string, unknown>)) {
-        out[k] = k.endsWith("Annotation")
-          ? null
-          : strip((v as Record<string, unknown>)[k]);
+        // Blank every annotation display field — both the singular
+        // "*Annotation" (a single array) and the plural "*Annotations"
+        // (a list of arrays, e.g. optionAnnotations). Mirrors the pass's
+        // isAnnotationKey so option-surface substitutions are excluded from
+        // the audio/grading equality check.
+        out[k] =
+          k.endsWith("Annotation") || k.endsWith("Annotations")
+            ? null
+            : strip((v as Record<string, unknown>)[k]);
       }
       return out;
     }
@@ -198,6 +205,55 @@ describe("furigana window arithmetic", () => {
     expect(furiganaVisibleAt(10, 8)).toBe(false); // unlock + 2 → off
     expect(furiganaVisibleAt(10, 9)).toBe(true); // m9 kanji still in window at m10
     expect(furiganaVisibleAt(11, 9)).toBe(false);
+  });
+});
+
+// ───────────── word_image_mcq option annotations feed the pass ─────────────
+
+describe("vocabMcq optionAnnotations route options through the kanji pass", () => {
+  const POOL: ReviewAtom[] = [
+    { kana: "がっこう", meaningEn: "school",   emoji: "🏫", fromModule: "m6" },
+    { kana: "ねこ",     meaningEn: "cat",      emoji: "🐱", fromModule: "m1" },
+    { kana: "いぬ",     meaningEn: "dog",      emoji: "🐕", fromModule: "m1" },
+    { kana: "やま",     meaningEn: "mountain", emoji: "⛰️", fromModule: "m1" },
+    { kana: "かわ",     meaningEn: "river",    emoji: "🏞️", fromModule: "m1" },
+  ];
+  const target = POOL[0]; // がっこう → atom ja-m6-1-gakkou, kanji 学校, unlock m22
+
+  it("attaches a single-atom annotation (with atomId) per option, parallel to options", () => {
+    const step = vocabMcq("mcq-gakkou", target, POOL);
+    expect(step.optionAnnotations).toBeDefined();
+    expect(step.optionAnnotations!).toHaveLength(step.options.length);
+    // The がっこう option's annotation carries the resolvable atomId — the hook
+    // the pass keys on. Option id/word (audio + grading) stay pure kana.
+    const gi = step.options.findIndex((o) => o.word === "がっこう");
+    const ann = step.optionAnnotations![gi]!;
+    expect(ann).toHaveLength(1);
+    expect(ann[0].surface).toBe("がっこう");
+    expect(ann[0].reading).toBe("がっこう");
+    expect(ann[0].atomId).toBe("ja-m6-1-gakkou");
+    expect(step.options[gi].word).toBe("がっこう"); // unchanged answer/audio key
+  });
+
+  it("after applyKanjiSurfaces at m24 (past unlock+2), the option surface is 学校 (bare, no furigana)", () => {
+    const step = vocabMcq("mcq-gakkou", target, POOL);
+    const out = applyKanjiSurfaces(synthLesson("m24", [step]));
+    const gi = step.options.findIndex((o) => o.word === "がっこう");
+    const wordStep = out.steps[0] as typeof step;
+    const ann = wordStep.optionAnnotations![gi]!;
+    expect(ann[0].surface).toBe("学校"); // kanji substituted
+    expect(ann[0].reading).toBe("学校"); // past window → no furigana to float
+    // Grading/audio untouched: the option word is still kana.
+    expect(wordStep.options[gi].word).toBe("がっこう");
+    expect(wordStep.correctOptionId).toBe(step.correctOptionId);
+  });
+
+  it("leaves options as kana below the unlock module", () => {
+    const step = vocabMcq("mcq-gakkou", target, POOL);
+    const out = applyKanjiSurfaces(synthLesson("m10", [step]));
+    const gi = step.options.findIndex((o) => o.word === "がっこう");
+    const ann = (out.steps[0] as typeof step).optionAnnotations![gi]!;
+    expect(ann[0].surface).toBe("がっこう"); // m10 < unlock 22 → stays kana
   });
 });
 
@@ -392,5 +448,67 @@ describe("reviews bake in m8 & m9 production (deliverable #3)", () => {
     // getMockLessonContent routes through applyKanjiSurfaces and never throws.
     expect(() => getMockLessonContent("ja-m10-review-1")).not.toThrow();
     expect(getMockLessonContent("ja-m10-review-1")?.languageId).toBe("ja");
+  });
+});
+
+// ───────── sentence-level kanji: multi-segment targets, per-word gating ──────
+
+describe("sentence-level kanji substitution (multi-segment annotations)", () => {
+  const SENTENCE = "まいにち ともだちを てつだう";
+  const TILES = ["まいにち", "ともだち", "を", "てつだう"];
+
+  it("m29: kanji-fies ONLY the eligible unambiguous word (毎日); ambiguous/particle/conjugated stay kana", () => {
+    const step = build("bs-m29", "Every day I help a friend", SENTENCE, TILES, TILES);
+    const out = applyKanjiSurfaces(synthLesson("m29", [step]));
+    const segs = collectSegments(out).map((s) => s.seg);
+
+    // まいにち → 毎日, bare (m29 is past the unlock+2 furigana window at m22).
+    const mainichi = segs.find((s) => s.atomId === "mainichi")!;
+    expect(mainichi.surface).toBe("毎日");
+    expect(mainichi.reading).toBe("毎日");
+
+    // Every OTHER sentence segment stays pure kana — ともだち (友達, catalog gap),
+    // を (particle), てつだう (手伝う, catalog gap) are NEVER substituted.
+    for (const s of segs) {
+      if (s.atomId === "mainichi") continue;
+      expect(HAS_HAN.test(s.surface)).toBe(false);
+    }
+    // Reference display reconstructs the sentence with only 毎日 in kanji.
+    expect(segs.map((s) => s.surface).join("")).toBe("毎日 ともだちを てつだう");
+
+    // Grading + audio fields byte-identical (KANA) — recognize-kanji /
+    // assemble-from-kana asymmetry is intended.
+    const bstep = out.steps[0] as typeof step;
+    expect(bstep.tiles).toEqual(TILES);
+    expect(bstep.correctOrder).toEqual(TILES);
+    expect(bstep.targetSentence).toBe(SENTENCE);
+    expect(bstep.audioKey).toBe(SENTENCE);
+  });
+
+  it("a conjugated form (のまない) in a sentence stays kana while its eligible neighbour kanji-fies", () => {
+    const step = build("bs-conj", "I don't drink every day", "まいにち のまない", ["まいにち", "のまない"], ["まいにち", "のまない"]);
+    const out = applyKanjiSurfaces(synthLesson("m29", [step]));
+    const joined = collectSegments(out).map((s) => s.seg.surface).join("");
+    expect(joined).toContain("毎日"); // eligible neighbour substituted
+    expect(joined).toContain("のまない"); // conjugated form untouched
+  });
+
+  it("a homograph (はな = 花/鼻) in a sentence is NEVER kanji-fied at any module", () => {
+    const step = build("bs-homo", "The flower is pretty", "はなが きれい", ["はな", "が", "きれい"], ["はな", "が", "きれい"]);
+    const out = applyKanjiSurfaces(synthLesson("m29", [step]));
+    for (const { seg } of collectSegments(out)) {
+      expect(HAS_HAN.test(seg.surface)).toBe(false);
+    }
+  });
+
+  it("§4a property holds for a synthetic multi-segment sentence step (audio/grading identical, atom multiset stable)", () => {
+    const step = build("bs-prop", "Every day I help a friend", SENTENCE, TILES, TILES);
+    const post = applyKanjiSurfaces(synthLesson("m29", [step])); // 毎日 substituted
+    const pre = revertToKana(post);
+    const post2 = applyKanjiSurfaces(pre);
+    expect(withoutAnnotations(post2)).toEqual(withoutAnnotations(pre));
+    expect(atomIdMultiset(post2)).toEqual(atomIdMultiset(pre));
+    // Non-vacuous: the substitution actually fired.
+    expect(collectSegments(post).some((s) => HAS_HAN.test(s.seg.surface))).toBe(true);
   });
 });

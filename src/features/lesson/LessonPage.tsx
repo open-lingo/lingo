@@ -21,6 +21,7 @@ import {
 } from "./data/lessonProgress";
 import type { LessonContent, LessonStep, ReactiveGrammarTip } from "./types";
 import { StepRenderer } from "./components/StepRenderer";
+import { LessonModuleProvider } from "@/shared/contexts/LessonModuleContext";
 import { ReactiveGrammarTipCard } from "./components/ReactiveGrammarTipCard";
 import { LessonIntro } from "./components/LessonIntro";
 import { LessonProgressBar } from "./components/LessonProgressBar";
@@ -876,15 +877,17 @@ export function LessonPage() {
       >
         <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col">
         {currentStep && (
-          <StepRenderer
-            // Force remount on retry so the step view starts from a clean
-            // state (no carry-over selection / submit flag from first attempt).
-            key={inReplay ? `${currentStep.id}-retry-${replayQueue.length}` : currentStep.id}
-            step={currentStep}
-            onComplete={handleStepComplete}
-            onContinue={handleContinue}
-            isReplayRun={isReview || /^ja-m\d+-review-/.test(lesson.id)}
-          />
+          <LessonModuleProvider moduleIndex={parseModuleIndex(lesson.moduleId)}>
+            <StepRenderer
+              // Force remount on retry so the step view starts from a clean
+              // state (no carry-over selection / submit flag from first attempt).
+              key={inReplay ? `${currentStep.id}-retry-${replayQueue.length}` : currentStep.id}
+              step={currentStep}
+              onComplete={handleStepComplete}
+              onContinue={handleContinue}
+              isReplayRun={isReview || /^ja-m\d+-review-/.test(lesson.id)}
+            />
+          </LessonModuleProvider>
         )}
         </div>
       </div>
