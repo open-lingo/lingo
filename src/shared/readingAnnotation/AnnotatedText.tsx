@@ -24,7 +24,10 @@ import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
   romajiVisibleForScript,
   todayLocalDate,
+  HIRAGANA_ROMAJI_OFF_MODULE,
+  KATAKANA_ROMAJI_OFF_MODULE,
 } from "@/shared/settings/romajiAutoFlip";
+import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { tryGetLanguageModule } from "@/shared/language/registry";
 import type { AnnotationFragment } from "@/shared/language/types";
@@ -316,6 +319,11 @@ function useRomajiHelperVisible({
   languageId?: string;
 }): boolean {
   const { settings } = useSettings();
+  // Where the learner is *right now*, so the ladder gates by position and not
+  // only by the one-shot `hiraganaRomajiAutoOff` flag (which is set on lesson
+  // completion, so QA jumps / deep links into a late lesson leak romaji).
+  // null outside a lesson → guard-only behavior, unchanged.
+  const moduleIndex = useLessonModuleIndex();
   const today = todayLocalDate();
   if (containsKanji(surface)) return false;
   // Non-JA phonetic scripts (e.g. Korean Revised Romanization above Hangul)
@@ -326,13 +334,21 @@ function useRomajiHelperVisible({
     return !!forceShowHelper || (settings.learning.showRomanization ?? true);
   }
   const romajiVisible = scripts.some((script) =>
-    romajiVisibleForScript({ settings, script, today }),
+    romajiVisibleForScript({ settings, script, today, moduleIndex }),
   );
-  const allRetired = scripts.every((script) =>
-    script === "katakana"
-      ? (settings.learning.katakanaRomajiAutoOff ?? false)
-      : (settings.learning.hiraganaRomajiAutoOff ?? false),
-  );
+  const allRetired = scripts.every((script) => {
+    const threshold =
+      script === "katakana"
+        ? KATAKANA_ROMAJI_OFF_MODULE
+        : HIRAGANA_ROMAJI_OFF_MODULE;
+    const guardOff =
+      script === "katakana"
+        ? (settings.learning.katakanaRomajiAutoOff ?? false)
+        : (settings.learning.hiraganaRomajiAutoOff ?? false);
+    // Position past the threshold retires the script even when the guard
+    // never flipped, so `forceShowHelper` can't resurrect romaji at m29+.
+    return guardOff || (moduleIndex != null && moduleIndex >= threshold);
+  });
   return !hideHelper && (romajiVisible || (!!forceShowHelper && !allRetired));
 }
 

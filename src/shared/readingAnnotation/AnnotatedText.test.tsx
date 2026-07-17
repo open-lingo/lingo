@@ -11,6 +11,7 @@ vi.mock("@/shared/contexts/SettingsContext", () => ({
 }));
 
 import { AnnotatedText } from "./AnnotatedText";
+import { LessonModuleProvider } from "@/shared/contexts/LessonModuleContext";
 import { __resetRomajiLexiconCachesForTest } from "@/features/languages/ja/romajiLexicon";
 import {
   JA_COURSE_ATOMS,
@@ -69,5 +70,48 @@ describe("AnnotatedText segments mode — word-level romaji grouping", () => {
       />,
     );
     expect(container.textContent).toContain("SAN-OVERRIDE");
+  });
+});
+
+describe("AnnotatedText — module-aware romaji retirement (QA-jump leak fix)", () => {
+  // The word ruby always renders past the kana phase; the romaji HELPER text
+  // inside its <rt> is what the gate controls (visible → "san", hidden →
+  // zero-width space + data-visible="false"). So assert on the helper, not the
+  // ruby element's existence.
+  const helperOf = (container: HTMLElement) =>
+    container.querySelector('ruby[data-word-romaji="true"] rt');
+
+  it("suppresses hiragana romaji at a module past the m7 threshold, even with forceShowHelper", () => {
+    unlockPastKanaPhase();
+    const { container } = render(
+      <LessonModuleProvider moduleIndex={29}>
+        <AnnotatedText segments={[{ surface: "さん", reading: "さん" }]} forceShowHelper />
+      </LessonModuleProvider>,
+    );
+    const rt = helperOf(container)!;
+    expect(rt.getAttribute("data-visible")).toBe("false");
+    expect(rt.textContent).not.toContain("san");
+  });
+
+  it("still shows hiragana romaji at an early module", () => {
+    unlockPastKanaPhase();
+    const { container } = render(
+      <LessonModuleProvider moduleIndex={3}>
+        <AnnotatedText segments={[{ surface: "さん", reading: "さん" }]} forceShowHelper />
+      </LessonModuleProvider>,
+    );
+    const rt = helperOf(container)!;
+    expect(rt.getAttribute("data-visible")).toBe("true");
+    expect(rt.textContent).toBe("san");
+  });
+
+  it("with no provider (outside a lesson) romaji is unchanged — still shows", () => {
+    unlockPastKanaPhase();
+    const { container } = render(
+      <AnnotatedText segments={[{ surface: "さん", reading: "さん" }]} forceShowHelper />,
+    );
+    const rt = helperOf(container)!;
+    expect(rt.getAttribute("data-visible")).toBe("true");
+    expect(rt.textContent).toBe("san");
   });
 });
