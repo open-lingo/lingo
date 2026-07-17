@@ -27,9 +27,19 @@ import { getAtomsUpToModule } from "@/features/lesson/data/lessonAtomIndex";
 import vocabMap from "@/features/lesson/data/n5-module-vocab-map.json";
 import grammarPoints from "@/features/lesson/data/n5-grammar-points.json";
 
-/** Content modules — m1/m2 are the kana modules (no SRS, per Spencer). */
-const CONTENT_MODULE_IDS: string[] = [];
-for (let n = 3; n <= 27; n++) CONTENT_MODULE_IDS.push(`m${n}`);
+/**
+ * Content modules — DERIVED from the live curriculum, not a hardcoded range
+ * (which silently excluded m28/m29 — the N4 tier — from every invariant here;
+ * see docs/retrospective-2026-07-17.md Gate 1). m1/m2 are the kana modules
+ * (no SRS, per Spencer). m28 is the review-only N5 capstone: it introduces no
+ * atoms of its own, so it is excluded from the attribution invariants below.
+ */
+const CAPSTONE_MODULE_IDS = new Set(["m28"]);
+const CONTENT_MODULE_IDS: string[] = jaModule.curriculum
+  .map((m) => m.id)
+  .filter((id) => /^m\d+$/.test(id))
+  .filter((id) => id !== "m1" && id !== "m2")
+  .filter((id) => !CAPSTONE_MODULE_IDS.has(id));
 
 /**
  * Grammar points whose module is ≤ m27 but whose pattern could NOT be
