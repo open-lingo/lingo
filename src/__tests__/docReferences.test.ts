@@ -54,6 +54,7 @@ const SCANNED_DOCS = [
   "docs/pedagogy-principles-2026-07-05.md",
   "CLAUDE.md",
   "docs/emoji-blocked-words-2026-05-18.md",
+  "docs/authoring-invariants-pinned.md",
 ] as const;
 
 interface ClaimMatcher {

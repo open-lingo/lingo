@@ -135,6 +135,34 @@ export function getRealFormLexicon(): Set<string> {
   return lex;
 }
 
+let inventedForms: Set<string> | null = null;
+
+/**
+ * Known INVENTED-form shapes, generated from the verb registry: for every
+ * verb, masu-stem + る (のみ→のみる) and dictionary + る (のむ→のむる) — the
+ * two mutation classes that actually shipped (QA fix 5910e13 / defect #7),
+ * minus anything that collides with a real lexicon surface (みる is real).
+ * Unlike a lexicon-membership check, this blocklist applies to EVERY option
+ * and tile bank (multi-tile sentence builds included — mutation-testing
+ * showed のみる passed the single-answer-only real-form rule as a build
+ * tile) with near-zero false-positive risk. Derivation drills (prompt cues
+ * a conversion with the JA form quoted) stay exempt: wrong-derivation
+ * non-words are their tested contrast.
+ */
+export function getInventedFormBlocklist(): Set<string> {
+  if (inventedForms) return inventedForms;
+  const lex = getRealFormLexicon();
+  const bad = new Set<string>();
+  for (const v of VERB_ENTRIES) {
+    const masu = conjugateVerb(v.dictionary, v.group, "masu");
+    if (masu.endsWith("ます")) bad.add(masu.slice(0, -2) + "る");
+    bad.add(v.dictionary + "る");
+  }
+  for (const s of [...bad]) if (lex.has(s) || s.length < 3) bad.delete(s);
+  inventedForms = bad;
+  return bad;
+}
+
 const JA_CHARS = /[぀-ヿ一-鿿]/;
 const JA_TOKEN = /[぀-ヿ一-鿿]+/g;
 
@@ -277,6 +305,42 @@ export function lintMcqDistractors(lesson: LessonContent): LintFailure[] {
             `meaning-cued form picker offers invented forms [${invented.join(", ")}] — ` +
               "distractors must be real forms of registry verbs (QA fix 5910e13)",
           );
+        }
+      }
+    }
+
+    // (f) invented-form blocklist — EVERY option and tile bank, including
+    // multi-tile sentence builds the single-answer rule above can't see
+    // (mutation-testing showed のみる passing as a build tile). Derivation
+    // drills (JA source form quoted in a conversion prompt) stay exempt.
+    {
+      const bad = getInventedFormBlocklist();
+      const prompt =
+        "prompt" in step && typeof step.prompt === "string"
+          ? step.prompt
+          : "prompt" in step && step.prompt && typeof step.prompt === "object"
+            ? Object.values(step.prompt).join(" ")
+            : "";
+      const derivationCued =
+        /\b(convert|form)\b/i.test(prompt) && JA_CHARS.test(prompt);
+      if (!derivationCued) {
+        const surfaces: string[] = [];
+        if ("tiles" in step && Array.isArray(step.tiles)) surfaces.push(...step.tiles);
+        if ("options" in step && Array.isArray(step.options)) {
+          for (const o of step.options) {
+            const t = typeof o === "string" ? o : (o as { text?: unknown }).text;
+            if (typeof t === "string") surfaces.push(t);
+          }
+        }
+        for (const s of surfaces) {
+          if (typeof s !== "string") continue;
+          if (bad.has(s.replace(/[。、]/g, "").trim())) {
+            fail(
+              ("id" in step ? (step.id as string) : lesson.id),
+              `invented verb form "${s}" offered outside a derivation drill ` +
+                "(masu-stem+る / dict+る mutation — QA fix 5910e13 class)",
+            );
+          }
         }
       }
     }
