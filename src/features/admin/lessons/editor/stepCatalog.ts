@@ -13,6 +13,7 @@ export const STEP_KINDS: { value: StepKind; label: string; group: string }[] = [
   { value: "translate", label: "Translate", group: "Drill" },
   { value: "particle_cloze", label: "Particle cloze", group: "Drill" },
   { value: "agreement_cloze", label: "Agreement cloze", group: "Drill" },
+  { value: "kanji_reading", label: "Kanji reading", group: "Drill" },
   { value: "self_explanation_mcq", label: "Self-explanation MCQ", group: "Drill" },
   { value: "word_image_mcq", label: "Word ↔ image MCQ", group: "Drill" },
   { value: "dialogue_listen", label: "Dialogue (listen)", group: "Listening" },
@@ -85,6 +86,20 @@ export function newStepShell(kind: StepKind, id: string): LessonStep {
         type: "agreement_cloze",
         segments: [],
         meaningEn: "",
+      };
+    case "kanji_reading":
+      // Empty shell: `promptAnnotation` still gets the furigana-OFF shape
+      // (surface === reading) so an author who fills `kanji` by hand can
+      // never accidentally float the answer. Prefer the `kanjiReading`
+      // factory, which derives all of this from the atom.
+      return {
+        ...base,
+        type: "kanji_reading",
+        kanji: "",
+        reading: "",
+        promptAnnotation: [{ surface: "", reading: "" }],
+        options: [],
+        correctOptionId: "",
       };
     case "self_explanation_mcq":
       return {
@@ -211,6 +226,8 @@ export function summariseStep(step: LessonStep): string {
           .map((s) => ("text" in s ? s.text : "__"))
           .join(""),
       );
+    case "kanji_reading":
+      return `${step.kanji} → ${step.reading}`;
     case "match_pairs":
       return `${step.pairs.length} pair${step.pairs.length === 1 ? "" : "s"}`;
     case "dialogue_listen":

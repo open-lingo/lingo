@@ -20,6 +20,7 @@ export type StepType =
   | "grammar_rule"
   | "particle_cloze"
   | "agreement_cloze"
+  | "kanji_reading"
   | "self_explanation_mcq"
   | "dialogue_listen"
   | "row_test";
@@ -462,6 +463,44 @@ export type AgreementClozeStep = StepBase & {
 };
 
 /**
+ * Kanji Reading (JA). Shows a kanji word and asks for its KANA READING —
+ * the retrieval beat the kanji ladder was missing (surfaces appeared with
+ * furigana but were never tested). Direction is strictly kanji → kana.
+ *
+ * NOT the inverse: sound → kanji-spelling is the separate, future
+ * `audio_spelling_mcq` (lesson-authoring-guide §13.1). Shipped policy is
+ * NO kanji production, ever — so every option here is a kana reading and
+ * the learner never types or picks a kanji.
+ *
+ * `promptAnnotation` MUST be authored in the furigana-OFF shape
+ * (`surface === reading === kanji`): AnnotatedText floats a reading only
+ * when `surface !== reading`, so this is what keeps the answer off the
+ * screen. It also makes the annotation invisible to `applyKanjiSurfaces`
+ * (whose `hasHan` guard skips already-substituted surfaces), so the rolling
+ * furigana window can never re-attach the reading to the tested word. The
+ * `kanjiReading` factory emits this shape; author it by hand at your peril.
+ *
+ * `audioText` is the KANA reading and is spoken ONLY after the learner
+ * commits — it is the answer.
+ */
+export type KanjiReadingStep = StepBase & {
+  type: "kanji_reading";
+  /** The kanji surface under test, e.g. 水 / 食べる / 電車. */
+  kanji: string;
+  /** Correct kana reading of `kanji` — the answer. */
+  reading: string;
+  /** Furigana-OFF ruby data for `kanji`. See the note above. */
+  promptAnnotation: JapaneseAnnotation[];
+  /** English gloss shown as a disambiguating cue (homographs). */
+  meaningEn?: string;
+  /** 4 kana readings; exactly one is `reading`. */
+  options: { id: string; text: string }[];
+  correctOptionId: string;
+  /** Kana TTS key. Played post-commit only. */
+  audioText?: string;
+};
+
+/**
  * Self-explanation MCQ (M3+ metacognitive follow-up). After a learner
  * commits an answer in an upstream step (typically `particle_cloze` or
  * `multiple_choice`), this step asks "Why is that answer correct?" with
@@ -593,6 +632,7 @@ export type LessonStep =
   | GrammarRuleStep
   | ParticleClozeStep
   | AgreementClozeStep
+  | KanjiReadingStep
   | SelfExplanationMcqStep
   | DialogueListenStep
   | RowTestStep;

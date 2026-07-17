@@ -2,6 +2,13 @@
 
 How to author a Lingo JA sub-lesson that passes every standard we've accumulated. Living doc — refine as new findings land.
 
+> **Start with §4d and §4e.** The 2026-07-16 script-ladder wave changed what a ja lesson may
+> contain: **ja ships ZERO `info` steps** and every lesson must **end on a gradeable step**.
+> Several older sections here (§3's template bookends, §9, §13.5 step 4, §14.4's template) still
+> describe the pre-purge shape and are marked stale inline — §4d wins where they conflict. The
+> script ladder (romaji off at m7, kanji recognition at m8, furigana unlock+2, never
+> romaji+kanji, no typed kanji) is in §4e, and the new `kanjiReading` step is in §4f.
+
 **Read this before authoring any new JA lesson.** Read `docs/n5-content-spec-2026-05-25.md` (curriculum-level scope) + `docs/m3-m7-rebuild-spec-2026-05-18.md` (M3-M7 contract) + `docs/user-feedback/` (real-user evidence) for context. **Also read `docs/pedagogy-principles-2026-07-05.md`** — the binding rules for what explanations may claim about Japanese (が/は model, helpers-not-conjugation, structure-true glosses); this guide covers lesson mechanics, that one covers linguistic framing.
 
 ---
@@ -42,14 +49,19 @@ Hard guards (vitest):
 
 This is the canonical shape. Adapt freely within the density bounds, but every section should be represented.
 
+> **ja: the `[info: ...]` bookends below are STALE (§4d).** ja ships zero info steps and every
+> lesson must end on a gradeable step. For ja, drop step 1 and open on the first teach/retrieval
+> beat; drop step 20 and let the `reviewMatchPairs` at 18 close the lesson. The template is
+> otherwise current, and stands whole for es/ko.
+
 ```
 Sub-lesson N — <name> (target: 20-22 steps)
 
-  1.  [info: open]      One-line propulsion + audio cue. NOT exposition.
-                        ("Three particles that put things AT, BY, and IN.")
+  1.  [info: open]      ja: OMIT (§4d). es/ko: one-line propulsion + audio cue.
+                        NOT exposition. ("Three particles that put things AT, BY, and IN.")
 
   ── Atom introductions + immediate retrieval (8-10 steps) ──
-  2.  grammar_rule    OR phrase_card trio
+  2.  grammar_rule      (ja: NOT a phrase_card trio — banned, §4b2)
   3.  vocabMcq         (target = atom-1, emoji from n5-vocab-emoji-reference)
   4.  listening_comp   (anchor word, EN distractors)
   5.  vocab            (atom-2)
@@ -72,7 +84,9 @@ Sub-lesson N — <name> (target: 20-22 steps)
   18. reviewMatchPairs  (4-6 pairs from prior pool — never < 4)
   19. particle_cloze   (prior-module grammar reuse — compounds across modules)
 
-  20. [info: close-win] Identity-anchored — "You can now ask where the train station is."
+  20. [info: close-win] ja: OMIT (§4d) — the reviewMatchPairs at 18 is the close, and it must
+                        be gradeable. es/ko: identity-anchored — "You can now ask where the
+                        train station is."
 ```
 
 Variations:
@@ -89,7 +103,7 @@ Use the M3-M7 helpers in `grammarHelpers.ts`. Inline literals are a last resort 
 
 | Goal | Use | Notes |
 |---|---|---|
-| Show a new vocab word | `vocab(...)` or `phrase(...)` | Same factory; both produce `phrase_card`. Always include emoji from n5-vocab-emoji-reference if available. |
+| Show a new vocab word | ~~`vocab(...)` / `phrase(...)`~~ | **BANNED in ja** — both produce `phrase_card`, which is shelved (§4b2). Zero call sites remain. Introduce via `vocabMcq` / `listeningCompSentence`+`speaking` / `build` instead. Still valid for es/ko. |
 | Introduce a grammar concept | `grammarRule(...)` | Include 2-3 examples + antiPattern + cultureNote. |
 | Cloze a particle answer | `cloze(...)` | Authors pass options in any order; the factory rotates the correct slot deterministically. Must hit `assertAnswerRotation(steps, 2+)` across the block. |
 | Visual MCQ on a vocab word | `vocabMcq(...)` | Distractors auto-drawn from the supplied pool. Throws if pool can't yield 3 emoji-bearing foils. Skips `WORD_IMAGE_MCQ_BLOCKLIST` kana. |
@@ -102,7 +116,8 @@ Use the M3-M7 helpers in `grammarHelpers.ts`. Inline literals are a last resort 
 | Match Japanese ↔ English | `reviewMatchPairs(...)` | Auto-padded to ≥4 pairs from `M1_REVIEW_POOL` if local pool is thin. |
 | Multi-turn dialogue + comprehension MCQs | `dialogueListen(...)` | NEW 2026-05-18. Replaces the legacy `dialogueLesson()` phrase-card chain. Use for every module's dialogue closer (M3-7, M4-7, M5-7, M6-8, M7-8). |
 | Metacognitive "why is X correct" | `selfExplain(...)` | Place at sub-lesson position N-1 — AFTER 2-3 commits, NOT immediate. Rule-citing-wrong distractor (not "obvious nonsense"). |
-| Chrome / framing card | `infoStep(...)` | Open = 1 sentence + propulsion. Close = identity-anchored win. NEVER use to pad a thin lesson. |
+| Read a kanji word (kanji → kana) | `kanjiReading(...)` | **NEW 2026-07-16.** MCQ over kana readings. Atom-keyed (auto-tags `exercisedAtoms`), slot-rotated. Kanji surface resolves from the shipped rollout catalog, so it can't test a word the ladder hasn't cleared — a throw means "pick another word," not "work around it." Distractors default to generated near-misses. See §4f. |
+| Chrome / framing card | `infoStep(...)` | **BANNED in ja** — see §4d. Still valid for es/ko. |
 
 ---
 
@@ -128,6 +143,23 @@ nothing to retrieve yet, so introduce-then-recall is legitimate THERE).
 In-course vocabulary introduction happens through drills + the compact
 grammar card, never passive phrase cards.
 
+> **`vocab()` and `phrase()` ARE the phrase_card constructors** (`grammarHelpers.ts` — both
+> return `type: "phrase_card"`). So this rule bans those two factories in ja, which is not
+> obvious from their names. **ja curriculum now contains zero phrase_card steps and zero
+> `vocab()`/`phrase()` call sites.** `phrase_card` is pinned in `UNUSED_STEP_TYPES`.
+>
+> **This makes the vocab-introduction rows of the older templates stale**: §3's
+> `2. grammar_rule OR phrase_card trio` and §13.13's L1 `vocab × 5–8`. Introduce vocabulary via:
+> - `vocabMcq(...)` — the image IS the introduction (§13.2; that pattern already says "NO bare
+>   vocab card").
+> - `listeningCompSentence(...)` + `speaking(...)` for atoms with no honest emoji (§13.1's rubric
+>   — compound nouns, blocked abstractions).
+> - `build(...)` for verbs/adjectives/pronouns per §13.1.
+> - `grammarRule(...)` where a concept genuinely needs a compact teach card.
+>
+> m23–m27 are all post-purge and phrase_card-free — **copy what they actually do**, not what the
+> templates below claim.
+
 ## 4c. Particle clozes are an introduction device (Spencer, 2026-07-12)
 
 A TRUE particle cloze (all options are particles) may only be authored
@@ -137,6 +169,87 @@ interleaving surfaces — not teaching lessons. Every cloze must show its
 English gloss pre-answer (now automatic) and carry enough context to force
 exactly one particle. `particleClozePlacement.test.ts` grandfathers the 82
 existing late usages as a shrink-only list; new late usages hard-fail.
+
+## 4d. ja ships ZERO `info` steps (2026-07-16 info-step purge)
+
+**Do not author `info` steps in ja.** The info-step audit removed all 842 recap/preview
+boilerplate cards and promoted the 20 genuine teaching cards to `grammar_rule`. ja now ships
+zero, and two conformance tests hold the line:
+
+- `ja/__tests__/moduleConformance.test.ts` — "no ja lesson contains an `info` step". Hard fail.
+- Same file — **"every ja lesson has ≥1 step and ends with a gradeable step."** No lesson may
+  terminate on a passive teach card (`info` / `grammar_rule` / `phrase_card` / `symbol_intro`).
+  The last thing a learner touches must be a retrieval, not an exposition slide.
+
+`info` is pinned in `UNUSED_STEP_TYPES` (`lesson/dev/qaCatalog.ts`) from the ja-scoped view. The
+type stays in the engine — **es and ko still ship it** and their QA pages cover it.
+
+> **This makes several older sections of this guide stale for ja.** §3's template opens on
+> `[info: open]` and closes on `[info: close-win]`; §9 is entirely about authoring info win
+> cards; §13.5 closes on an `infoStep`; §14.4's story template opens and closes on info. Those
+> are the pre-purge shape. **Where they conflict with this section, this section wins.** Open
+> with propulsion built into the first *retrieval*, and close on a gradeable step —
+> `reviewMatchPairs` is the canonical closer (recognition-easy, almost-always-right, and
+> gradeable, so it satisfies both §13.5's close-on-confidence instinct and the ends-gradeable
+> gate).
+
+## 4e. The script ladder — what authors must know (2026-07-16)
+
+Romaji, kana, and kanji are on a **module-indexed ladder**. It is enforced in the renderer, not
+by author discipline, but authoring against it wrongly produces steps that leak their own
+answers. Constants are live — read them, don't memorise them:
+
+| Constant | Value | File |
+|---|---|---|
+| `HIRAGANA_ROMAJI_OFF_MODULE` | **7** | `shared/settings/romajiAutoFlip.ts` |
+| `KATAKANA_ROMAJI_OFF_MODULE` | **17** | same |
+| `BUILD_TILE_ROMAJI_FADE_MODULE` | **5** | same |
+| `KANJI_RECOGNITION_MODULE` | **8** | `ja/secondScript/kanjiRollout.ts` |
+| `FURIGANA_WINDOW` | **2** | same (unlock+2 rolling window) |
+
+The rules that bind authors:
+
+- **Romaji dies entering m7** (katakana romaji persists to m17; build tiles fade romaji from m5).
+- **Kanji recognition starts at m8**, applied by the `applyKanjiSurfaces` post-pass
+  (`ja/secondScript/`). It is atom-id keyed and edits **only** `*Annotation` display fields —
+  audio and grading are structurally untouched, which is why the ladder is safe to move.
+- **Furigana rides a rolling unlock+2 window.** A kanji introduced at module N shows furigana
+  for modules N and N+1, then goes bare. "Production" (bare kanji) therefore begins ~m10.
+- **NO typed kanji, ever.** Kana input is always accepted. Never author a step that requires
+  producing kanji.
+- **NEVER romaji + kanji together.** The `containsKanji` gate in `AnnotatedText` beats all
+  settings. Furigana is **not** romaji and *does* float.
+
+## 4f. `kanji_reading` — closing the ladder (2026-07-16)
+
+The kanji ladder (§4e) was **display-only**: kanji appeared, but reading them was never tested.
+`kanjiReading(...)` closes that. Spencer's framing: reading gets tested *in the normal course as
+words are introduced* — this is not an N4-only feature.
+
+```ts
+kanjiReading(idPrefix: string, target: ReviewAtom,
+  opts?: { kanji?: string; distractors?: string[] }): KanjiReadingStep
+```
+
+**Direction is strictly kanji → kana.** The learner sees a kanji word and picks its reading.
+Options are always pure kana (a kanji option would make it a spelling test — the factory throws).
+
+Authoring rules:
+
+- **Sprinkle, don't saturate** — 2-3 per module.
+- **Review-tier, never on a just-introduced word.** Reading recall belongs on a surface the
+  learner has met; review-tail atoms are ideal. Same principle as §13.6 (teach steps never grade).
+- **Only on kanji the ladder has cleared.** The surface resolves from `KANJI_ELIGIBLE_ATOMS`;
+  if the factory throws, the word isn't eligible — choose another, don't force `opts.kanji`.
+- **Never put the reading in the prompt text.** The step guarantees the tested kanji renders
+  bare — `promptAnnotation` is emitted in the furigana-OFF shape (`surface === reading`), so
+  `AnnotatedText` floats no `<rt>` and `applyKanjiSurfaces` refuses to re-attach one. That
+  guarantee is structural, but an author can still defeat it by writing the answer into the copy.
+- Distractors default to generated near-misses (valid-but-wrong on/kun 水 みず→**すい**, wrong
+  okurigana stem, rendaku slips) per §13.7. Hand-authored `opts.distractors` win outright. If the
+  generator can't reach 3 plausible options it throws rather than ship filler.
+
+Currently pinned in `UNUSED_STEP_TYPES` — **unpin when the first m8+ content ships it.**
 
 ## 5. The five things authors get wrong (audit + tester pattern)
 
@@ -204,6 +317,12 @@ Every introduced atom **must re-surface ≥3 times** across the M3-M7 corpus. At
 
 ## 9. Win cards (the close)
 
+> **STALE FOR ja as of 2026-07-16 (§4d).** Win cards were `info` steps; ja ships zero, and every
+> ja lesson must now **end on a gradeable step**. Close on `reviewMatchPairs` instead — the
+> close-on-confidence intent (§13.5) survives, the exposition slide does not. The identity-anchored
+> framing below is still the house voice wherever copy is written (grammar_rule cards, module
+> summaries), and this section stands **as-is for es and ko**, which still ship `info`.
+
 **Don't:** "は as topic marker — unlocked."
 **Do:** "You can now point at things, name them, and ask whose they are."
 
@@ -215,6 +334,12 @@ Pair with the upcoming wave's CelebrationToast wiring (audit §2.1) — when the
 
 ## 10. Constraints (the "don't")
 
+- **Don't** author `info` steps in ja — zero ship, conformance-tested (§4d).
+- **Don't** end a ja lesson on a passive teach card — it must end on a **gradeable** step (§4d).
+- **Don't** call `vocab()` / `phrase()` in ja — they emit the shelved `phrase_card` (§4b2).
+- **Don't** author a particle cloze more than 2 modules after that particle's introduction (§4c).
+- **Don't** require typed kanji, or render romaji alongside kanji (§4e).
+- **Don't** put a kanji's reading in a `kanjiReading` prompt — the step exists to test it (§4f).
 - **Don't** add new step types without a written spec entry (see roadmap §5 for the design template).
 - **Don't** edit M1/M2 mock data unless a specific bug requires it. They're the density-bar reference + the kana-mastery on-ramp.
 - **Don't** rewrite the legacy `dialogueLesson()` factory — it's still used by older code. Add to it; don't break it.
@@ -257,6 +382,15 @@ Pair with the upcoming wave's CelebrationToast wiring (audit §2.1) — when the
 | 2026-05-21 | Grading = review-only (teach steps never write SRS) — mechanism updated 2026-07-01 by D2 | this guide §13.6 |
 | 2026-05-21 | `excludeFromSrs` + `isSrsEligibleAtom` filter on deck builder | courseAtoms.ts |
 | 2026-05-21 | Particle-tile separation in build tile banks (open work) | this guide §13.10 |
+| 2026-07-12 | Listening is sentence-first from M5 (ratchet, shrink-only) | this guide §4b |
+| 2026-07-12 | `phrase_card` shelved — no new ones (pinned in `UNUSED_STEP_TYPES`) | this guide §4b2 |
+| 2026-07-16 | ja hits **zero** phrase_cards — `vocab()`/`phrase()` are dead factories in ja | this guide §4b2 |
+| 2026-07-12 | Particle clozes legal only within 2 modules of introduction | this guide §4c |
+| 2026-07-16 | **ja ships ZERO `info` steps** (842 cut, 20 → `grammar_rule`) | this guide §4d |
+| 2026-07-16 | **Every ja lesson must end on a gradeable step** (no closing exposition) | this guide §4d |
+| 2026-07-16 | Script ladder: romaji off m7 / kanji recognition m8 / furigana unlock+2 | this guide §4e |
+| 2026-07-16 | Never romaji+kanji; no typed kanji (kana input always accepted) | this guide §4e |
+| 2026-07-16 | `kanji_reading` step shipped — kanji→kana reading recall | this guide §4f |
 
 ---
 
@@ -277,7 +411,8 @@ Map atom lexical category to the dominant retrieval step type. Author the FIRST 
 | Pronoun (わたし, あなた, これ/それ/あれ, なん) | `build` (forced) — never image_mcq | Rubric block: `WORD_IMAGE_MCQ_BLOCKLIST` in `grammarHelpers.ts`. Demonstrative-image cues are deeply context-dependent. |
 | Function-phrase / greeting (すみません, こんにちは, おねがいします) | `phrase_card` + `listeningCompSentence` | No image; oral function carries the meaning. |
 | Particle (は, か, を, に, で, も) | `particle_cloze` | Form-focused practice in carrier sentences. Don't drill in a `particle_cloze` slot if the answer would be `です` — see §13.4. |
-| Kanji-word (when productive — M10+) | `audio_spelling_mcq` (factory to be built) on top of recognition | Tests sound→kanji-spelling; spelling-MCQ assumes sound↔meaning already bound. |
+| Kanji-word — reading recall (M8+, once the atom's furigana window has closed) | `kanjiReading(...)` — **shipped 2026-07-16**, see §4f | Tests kanji→kana reading. Review-tier: only on a word the learner has already met. |
+| Kanji-word — spelling recall (when productive) | `audio_spelling_mcq` (factory still to be built) on top of recognition | Tests sound→kanji-spelling — the **inverse** of `kanjiReading`, and a different step. Spelling-MCQ assumes sound↔meaning already bound. Not built; do not conflate the two. |
 
 **Image-MCQ ceiling rule:** "bad image is worse than no image." If the kana ↔ image mapping is ambiguous (>1 valid interpretation), fall back to `listeningCompSentence` or `sentenceMcq`. Don't force image_mcq when the emoji doesn't disambiguate the meaning.
 
@@ -356,7 +491,10 @@ Recommended closing tail order:
 1. Peak: `dialogue_listen` / hardest `build` / `speaking` on a long target.
 2. One short retrieval beat on the peak's atoms.
 3. **`reviewMatchPairs` as the closer** — 4-6 pairs, recognition-easy, almost-always-right.
-4. `infoStep` (win variant) — identity-anchored "you can now…" close.
+4. ~~`infoStep` (win variant)~~ — **dropped for ja 2026-07-16 (§4d).** `info` is banned and
+   lessons must end gradeable, so `reviewMatchPairs` at step 3 **is** the close. This is
+   arguably the better shape anyway: the learner's last act is a win they *earned*, not a slide
+   telling them they won. es/ko still append the info win card.
 
 The rewrite's M3-7 follows this exactly (`curriculum/m3-v2.ts:1477` dialogue → `:1539` mcq retrieval → `:1554` speaking → `:1561` matchPairs → `:1564` info-end).
 
@@ -466,7 +604,7 @@ Per the 2026-05-23 re-audit (`docs/curriculum-audit-vs-research-2026-05-21.md` +
 
 | Pos | Role | Step factories |
 |---|---|---|
-| L1 | Vocab intro (≥5 new atoms) | `vocab` × 5–8, `vocabMcq`, `listeningComp`, `speaking`, `matchPairs` (review tail) |
+| L1 | Vocab intro (≥5 new atoms) | ja: `vocabMcq` × 5–8 as the introduction (§13.2), `listeningComp`, `speaking`, `matchPairs` (review tail). **Not `vocab` × 5–8** — that authors banned phrase_cards (§4b2). |
 | L2 | Grammar rule A + drill | `grammarRule` + `cloze` × 4–5 (rotating answers ≥2 distinct) + `sentenceMcq` × 1–2 + `listeningComp` + `selfExplain` at N-1 + 1 `build`/`speaking` + review tail |
 | L3 | More vocab in context | `vocab` × 5 inside L2 carriers + `vocabMcq`/`listeningComp` interleave + 2–3 `cloze` on new vocab + 1 `build` + review tail |
 | L4 | Grammar rule B + drill | Same shape as L2 |
@@ -527,11 +665,15 @@ One per module, placed **mid-module** after the main grammar drills but before p
 
 ### 14.4 Template (12 steps)
 
+> **ja: the info bookends are STALE (§4d)** — omit steps 1 and 12 and let step 11's `speaking`
+> close it (gradeable ✓). Set the scene in the first `dialogue_listen`'s own framing instead.
+> Stands whole for es/ko.
+
 ```
 Story lesson — <scenario name> (target: 12 steps, ~5 min)
 
-  1.  [info: open]           Set the scene. Name the characters, describe
-                             the situation. One sentence.
+  1.  [info: open]           ja: OMIT (§4d). es/ko: set the scene. Name the characters,
+                             describe the situation. One sentence.
 
   ── Scene 1 (3-4 dialogue lines, 2 MCQs) ──
   2.  dialogue_listen         First chunk of the conversation. 2 comprehension
@@ -565,9 +707,9 @@ Story lesson — <scenario name> (target: 12 steps, ~5 min)
 
   11. speaking                Say another key line aloud.
 
-  12. [info: win]             Celebrate. Reference what the learner just did
-                             in context ("You followed a real conversation
-                             about X"). Tease the next lesson.
+  12. [info: win]             ja: OMIT (§4d) — step 11 closes it. es/ko: celebrate. Reference
+                             what the learner just did in context ("You followed a real
+                             conversation about X"). Tease the next lesson.
 ```
 
 ### 14.5 Step variety
@@ -631,3 +773,5 @@ The current 12-step / 2-scene template suits M3-M7 where grammar is still simple
 ---
 
 *This guide is the condensed output of the M3-M7 rebuild waves (per `docs/n5-content-spec-2026-05-25.md` Q8 resolution) plus the 2026-05-21 M3 rewrite retrospective and the 2026-05-23 SRS modality / canonical template lock. Refine as new findings land.*
+
+*Updated 2026-07-16 for the script-ladder wave (§4d info purge + ends-gradeable, §4e the romaji/kanji/furigana ladder, §4f the `kanjiReading` step) and the phrase_card zero-out (§4b2). Those changes stranded several older sections — §3, §9, §13.5, §13.13 L1 and §14.4 describe the pre-purge shape and are marked stale inline rather than deleted, because **es and ko still ship `info` and `phrase_card`** and those sections remain correct for them. The next author to touch this guide should consider splitting it into a shared core + per-language annexes; the ja/es/ko rules have diverged far enough that inline "ja: OMIT" markers are near their limit.*

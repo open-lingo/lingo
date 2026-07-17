@@ -27,6 +27,7 @@ export type CourseAtomSource =
   | "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7"
   | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17"
   | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27"
+  | "m28" | "m29"
   | "sidequest-survival"
   | "future";
 
@@ -464,7 +465,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "sumu", kana: "すむ", kanji: "住む", romaji: "sumu", meaningEn: "to live in", emoji: "🏠", fromModule: "m15", kind: "vocab", note: "house as live-in cue" },
   { id: "tsukuru", kana: "つくる", kanji: "作る", romaji: "tsukuru", meaningEn: "to make", emoji: "🔨", fromModule: "m24", kind: "vocab", note: "hammer as making/building proxy" },
   { id: "sakubun", kana: "さくぶん", kanji: "作文", romaji: "sakubun", meaningEn: "composition, writing", emoji: "📝", fromModule: "future", kind: "vocab" },
-  { id: "tsukau", kana: "つかう", kanji: "使う", romaji: "tsukau", meaningEn: "to use", emoji: "🛠️", fromModule: "future", kind: "vocab", note: "tools — using" },
+  { id: "tsukau", kana: "つかう", kanji: "使う", romaji: "tsukau", meaningEn: "to use", emoji: "🔧", fromModule: "m29", introducedByLessonId: "ja-m29-1-1", kind: "vocab", note: "tools — using; upgraded from future 2026-07-16 (m29 plain-form pilot)" },
   { id: "benri", kana: "べんり", kanji: "便利", romaji: "benri", meaningEn: "useful, convenient", emoji: "🛠️", fromModule: "m9", kind: "vocab", note: "tools as useful proxy" },
   { id: "kariru", kana: "かりる", kanji: "借りる", romaji: "kariru", meaningEn: "to borrow", emoji: "🤝", fromModule: "future", kind: "vocab", note: "handshake as borrow/lend cue (weak but acceptable)" },
   { id: "hataraku", kana: "はたらく", kanji: "働く", romaji: "hataraku", meaningEn: "to work", emoji: "💼", fromModule: "future", kind: "vocab", note: "briefcase" },
@@ -475,7 +476,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "hairu", kana: "はいる", kanji: "入る", romaji: "hairu", meaningEn: "to enter, to contain", emoji: "🚪", fromModule: "m16", kind: "vocab", note: "door as entering cue" },
   { id: "ireru", kana: "いれる", kanji: "入れる", romaji: "ireru", meaningEn: "to put in", emoji: "📥", fromModule: "future", kind: "vocab", note: "inbox tray = put in" },
   { id: "iriguchi", kana: "いりぐち", kanji: "入口", romaji: "iriguchi", meaningEn: "entrance", emoji: "🚪", fromModule: "future", kind: "vocab", note: "door + kanji 入" },
-  { id: "zenbu", kana: "ぜんぶ", kanji: "全部", romaji: "zenbu", meaningEn: "all", fromModule: "future", kind: "vocab", blocked: true, note: "quantifier abstract" },
+  { id: "zenbu", kana: "ぜんぶ", kanji: "全部", romaji: "zenbu", meaningEn: "all, everything", fromModule: "m29", introducedByLessonId: "ja-m29-2-2", kind: "vocab", blocked: true, note: "quantifier abstract; upgraded from future 2026-07-16 (m29 plain-form pilot)" },
   { id: "yattsu", kana: "やっつ", kanji: "八つ", romaji: "yattsu", meaningEn: "eight", emoji: "8️⃣", fromModule: "future", kind: "vocab" },
   { id: "youka", kana: "ようか", kanji: "八日", romaji: "youka", meaningEn: "eight days, eighth day of the month", fromModule: "future", kind: "vocab", blocked: true, note: "no ordinal-day glyph" },
   { id: "yaoya", kana: "やおや", kanji: "八百屋", romaji: "yaoya", meaningEn: "greengrocer", emoji: "🥬", fromModule: "future", kind: "vocab", note: "leafy greens stand-in for greengrocer" },
@@ -746,7 +747,7 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "nishi", kana: "にし", kanji: "西", romaji: "nishi", meaningEn: "west", emoji: "🧭", fromModule: "future", kind: "vocab", note: "compass — west direction" },
   { id: "iru", kana: "いる", kanji: "要る", romaji: "iru", meaningEn: "to need", emoji: "❗", fromModule: "future", kind: "vocab", blocked: true, note: "exclamation reads as 'attention' not 'need'" },
   { id: "miseru", kana: "みせる", kanji: "見せる", romaji: "miseru", meaningEn: "to show", emoji: "👀", fromModule: "m14", kind: "vocab", note: "eyes — showing/look at this" },
-  { id: "oboeru", kana: "おぼえる", kanji: "覚える", romaji: "oboeru", meaningEn: "to remember", emoji: "🧠", fromModule: "future", kind: "vocab", note: "brain" },
+  { id: "oboeru", kana: "おぼえる", kanji: "覚える", romaji: "oboeru", meaningEn: "to memorise, to learn", emoji: "🧠", fromModule: "m29", introducedByLessonId: "ja-m29-2-1", kind: "vocab", note: "brain; upgraded from future 2026-07-16 (m29 plain-form pilot)" },
   { id: "kado", kana: "かど", kanji: "角", romaji: "kado", meaningEn: "a corner", emoji: "📐", fromModule: "future", kind: "vocab", note: "triangle ruler — corner/angle" },
   { id: "iu", kana: "いう", kanji: "言う", romaji: "iu", meaningEn: "to say", emoji: "💬", fromModule: "future", kind: "vocab", note: "speech bubble" },
   { id: "kotoba", kana: "ことば", kanji: "言葉", romaji: "kotoba", meaningEn: "word, language", emoji: "🔤", fromModule: "future", kind: "vocab", note: "ABC input symbol as language proxy" },
@@ -814,6 +815,22 @@ export const JA_COURSE_ATOMS: ReadonlyArray<CourseAtom> = [
   { id: "kiiroi", kana: "きいろい", kanji: "黄色い", romaji: "kiiroi", meaningEn: "yellow", emoji: "🟨", fromModule: "future", kind: "vocab", note: "yellow square" },
   { id: "kuro", kana: "くろ", kanji: "黒", romaji: "kuro", meaningEn: "black", emoji: "⬛", fromModule: "future", kind: "vocab", note: "black square" },
   { id: "kuroi", kana: "くろい", kanji: "黒い", romaji: "kuroi", meaningEn: "black", emoji: "⬛", fromModule: "future", kind: "vocab", note: "adjective form of 黒 — shares glyph" },
+  // ── M29 — Plain form (N4 pilot, 2026-07-16). Verb-heavy by design: plain
+  //    form is a verb-conjugation module, so new atoms are transformable
+  //    verbs. Most of the spine's original 21-atom list turned out to
+  //    already be claimed by earlier modules (あそぶ m2, ともだち m3, まつ/
+  //    はなす/および/しめる/あける m14, はしる/じぶん m16, うたう m23,
+  //    わすれる m26) — those are reused here as REVIEW content, not
+  //    re-taught (see m29.ts file header for the full reconciliation note).
+  //    Genuinely new atoms below; つかう/おぼえる/ぜんぶ upgraded from
+  //    "future" above rather than duplicated here.
+  { id: "tetsudau", kana: "てつだう", kanji: "手伝う", romaji: "tetsudau", meaningEn: "to help", emoji: "🤝", fromModule: "m29", introducedByLessonId: "ja-m29-1-1", kind: "vocab" },
+  { id: "isogu", kana: "いそぐ", kanji: "急ぐ", romaji: "isogu", meaningEn: "to hurry", emoji: "💨", fromModule: "m29", introducedByLessonId: "ja-m29-1-1", kind: "vocab" },
+  { id: "sagasu", kana: "さがす", kanji: "探す", romaji: "sagasu", meaningEn: "to look for", emoji: "🔍", fromModule: "m29", introducedByLessonId: "ja-m29-1-2", kind: "vocab" },
+  { id: "naosu", kana: "なおす", kanji: "直す", romaji: "naosu", meaningEn: "to fix, to repair", emoji: "🛠️", fromModule: "m29", introducedByLessonId: "ja-m29-1-2", kind: "vocab" },
+  { id: "hakobu", kana: "はこぶ", kanji: "運ぶ", romaji: "hakobu", meaningEn: "to carry", emoji: "📦", fromModule: "m29", introducedByLessonId: "ja-m29-1-2", kind: "vocab" },
+  { id: "erabu", kana: "えらぶ", kanji: "選ぶ", romaji: "erabu", meaningEn: "to choose", emoji: "✅", fromModule: "m29", introducedByLessonId: "ja-m29-1-2", kind: "vocab" },
+  { id: "katazukeru", kana: "かたづける", kanji: "片付ける", romaji: "katazukeru", meaningEn: "to tidy up", emoji: "🧹", fromModule: "m29", introducedByLessonId: "ja-m29-2-1", kind: "vocab" },
 ];
 
 /** Indexed by kana for fast lookup from lesson step commits. */

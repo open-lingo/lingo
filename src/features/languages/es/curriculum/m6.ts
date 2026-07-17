@@ -5,20 +5,28 @@
  * M6 gives them the clockwork: the teens (once–quince), the tens up to
  * cien with the y-connector of 31+, telling time (es la una / son las dos
  * y media / y cuarto), the seven lowercase days, and the date pattern
- * (el quince de enero). Heavy spaced recycling of m1 digits and m5 tener
- * (ages, "la semana tiene siete días").
+ * (el quince de enero). Heavy spaced recycling of m1 digits, m4 adjectives,
+ * and m5 tener/family (ages, "mi hermana tiene catorce años").
  *
  * Lesson arc (spine rhythm — L1 teach-intro · L2–L5 topics · L6 listening ·
  * L7 integration dialogue · L8 mastery test):
  *
- *   es-m6-1  Once a quince — the teens
+ *   es-m6-1  Once a quince — the teens, in real sentences (ages, phones)
  *   es-m6-2  Las decenas — 20 to 100, y in 31+
  *   es-m6-3  ¿Qué hora es? — es la una / son las dos
  *   es-m6-4  Y media, y cuarto — minutes past the hour
  *   es-m6-5  Los días de la semana
- *   es-m6-6  Listening focus — times, days, quantities
+ *   es-m6-6  Listening focus — times, days, quantities (now with production)
  *   es-m6-7  El calendario — months, dates + a street dialogue
  *   es-m6-8  M6 Mastery Test
+ *
+ * 2026-07-16 rewrite: m6-1/m6-3/m6-6 gained production (all three were
+ * zero-production number-MCQ churn before); carriers now put numbers into
+ * real sentences (ages, prices, phone numbers, times) instead of "which
+ * number is X" grids; every topic lesson closes on a compounding review
+ * tail drawing m1–m5 (digits, tener, family, ser, alto/bajo); one
+ * selfExplain lands on the singular/plural + y media clock mechanic (L4)
+ * and two more on the tens y-connector (L2) and el + weekday (L5).
  *
  * M5+ listening ratchet honored: every listening step here is
  * sentence-level (listening_build ≥3 tiles, full-sentence transcripts).
@@ -36,10 +44,13 @@ import {
   listeningCompSentence,
   matchPairs,
   phrase,
+  reviewMatchPairs,
+  selfExplain,
   sentenceMcq,
   speaking,
   translateStep,
   vocab,
+  vocabMcq,
   vocabTextMcq,
 } from "../grammarHelpers";
 
@@ -89,7 +100,15 @@ export const ES_M6_ATOMS: EsAtom[] = [
   atom({ surface: "¿qué hora es?", meaningEn: "what time is it?", partOfSpeech: "phrase", fromModule: "m6", kind: "phrase" }),
 ];
 
-// ─── es-m6-1 — The teens ────────────────────────────────────────────────────
+// Distractor pool for the two emoji-bearing m6 atoms (hora, semana) —
+// borrowed emoji atoms from m4/m5, already registered by the time this
+// file's factories run (import "./m5" pulls in m4 transitively).
+const CASA = { surface: "casa", emoji: "🏠" };
+const GATO = { surface: "gato", emoji: "🐱" };
+const CARRO = { surface: "carro", emoji: "🚗" };
+const FAMILIA = { surface: "familia", emoji: "👪" };
+
+// ─── es-m6-1 — The teens, in real sentences ─────────────────────────────────
 
 const M6_1: LessonContent = {
   id: "es-m6-1",
@@ -97,9 +116,9 @@ const M6_1: LessonContent = {
   courseId: COURSE_ID,
   languageId: "es",
   title: "Once a quince — 11 to 15",
-  description: "Five new numbers with personalities of their own.",
-  estimatedMinutes: 5,
-  xpReward: 11,
+  description: "Five new numbers, put to work on ages, phones, and prices.",
+  estimatedMinutes: 6,
+  xpReward: 12,
   steps: [
     infoStep(
       "es-m6-1-info-teens",
@@ -107,45 +126,105 @@ const M6_1: LessonContent = {
       "Eleven through fifteen are their own words: once (11), doce (12), trece (13), catorce (14), quince (15). From sixteen on, Spanish just glues numbers together — dieciséis is 'diez y seis' said fast — so these five are the last number words you memorize one by one.",
       "grammar",
     ),
-    vocab("es-m6-1-p-once", "eleven", "once"),
-    vocab("es-m6-1-p-doce", "twelve", "doce"),
+    build(
+      "es-m6-1-build-once",
+      "Build: 'I am eleven years old.'",
+      "tengo once años",
+      ["tengo", "once", "años", "doce", "tienes"],
+      ["tengo", "once", "años"],
+      ["once", "tengo"],
+    ),
     sentenceMcq({
-      id: "es-m6-1-q-once",
-      prompt: "Which number is 'eleven'?",
-      correctText: "once",
-      distractorsText: ["doce", "trece", "catorce"],
-      exercisedAtomSurfaces: ["once"],
-    }),
-    sentenceMcq({
-      id: "es-m6-1-q-doce",
-      prompt: "Which number is 'twelve'?",
-      correctText: "doce",
-      distractorsText: ["dos", "once", "quince"],
-      explanation: "Twelve is the teen that starts like 'dos' but keeps going.",
-      exercisedAtomSurfaces: ["doce"],
-    }),
-    vocab("es-m6-1-p-quince", "fifteen", "quince"),
-    sentenceMcq({
-      id: "es-m6-1-q-trece",
-      prompt: "Which number is 'thirteen'?",
-      correctText: "trece",
-      distractorsText: ["catorce", "doce", "tres"],
-      exercisedAtomSurfaces: ["trece"],
-    }),
-    sentenceMcq({
-      id: "es-m6-1-q-quince",
-      prompt: "Which number is 'fifteen'?",
-      correctText: "quince",
-      distractorsText: ["catorce", "cinco", "doce"],
-      exercisedAtomSurfaces: ["quince"],
-    }),
-    sentenceMcq({
-      id: "es-m6-1-q-catorce",
-      prompt: "Which number is 'fourteen'?",
-      correctText: "catorce",
-      distractorsText: ["cuatro", "quince", "trece"],
+      id: "es-m6-1-q-hermana",
+      prompt: "Mi hermana tiene catorce años. — how old is she?",
+      correctText: "fourteen",
+      distractorsText: ["four", "forty", "thirteen"],
       exercisedAtomSurfaces: ["catorce"],
     }),
+    cloze(
+      "es-m6-1-cloze-trece",
+      "mi hermano tiene",
+      "años",
+      "trece",
+      ["trece", "treinta", "tres", "catorce"],
+      "my brother is thirteen years old",
+      "mi hermano tiene trece años",
+    ),
+    speaking("es-m6-1-speak-doce", "tengo doce años", "I am twelve years old", ["doce"]),
+    build(
+      "es-m6-1-build-quince",
+      "Build: 'My grandmother has fifteen grandchildren.'",
+      "mi abuela tiene quince nietos",
+      ["mi", "abuela", "tiene", "quince", "nietos", "catorce"],
+      ["mi", "abuela", "tiene", "quince", "nietos"],
+      ["catorce"],
+    ),
+    sentenceMcq({
+      id: "es-m6-1-q-quince2",
+      prompt: "El libro cuesta quince dólares. — what does the book cost?",
+      correctText: "fifteen dollars",
+      distractorsText: ["five dollars", "fifty dollars", "twelve dollars"],
+      exercisedAtomSurfaces: ["quince"],
+    }),
+    translateStep({
+      id: "es-m6-1-tr-catorce",
+      promptEn: "I am fourteen years old",
+      acceptedAnswers: [
+        "tengo catorce años",
+        "Tengo catorce años",
+        "tengo catorce años.",
+        "Tengo catorce años.",
+        "yo tengo catorce años",
+      ],
+      audioText: "tengo catorce años",
+      exercisedAtomSurfaces: ["catorce"],
+    }),
+    cloze(
+      "es-m6-1-cloze-trece2",
+      "el carro cuesta",
+      "mil dólares",
+      "trece",
+      ["trece", "tres", "treinta", "catorce"],
+      "the car costs thirteen thousand dollars",
+      "el carro cuesta trece mil dólares",
+    ),
+    listeningCompSentence({
+      id: "es-m6-1-lc-numero",
+      audioText: "mi número es uno, uno, catorce",
+      correctMeaningEn: "my number is one, one, fourteen",
+      distractorsEn: ["my number is one, one, four", "my number is one, four, one", "my number is eleven, four"],
+      exercisedAtomSurfaces: ["catorce"],
+    }),
+    build(
+      "es-m6-1-build-doce",
+      "Build: 'My sister is twelve years old.'",
+      "mi hermana tiene doce años",
+      ["mi", "hermana", "tiene", "doce", "años", "trece"],
+      ["mi", "hermana", "tiene", "doce", "años"],
+      ["doce", "hermana"],
+    ),
+    sentenceMcq({
+      id: "es-m6-1-q-once",
+      prompt: "Vivo en el apartamento once. — which apartment number?",
+      correctText: "eleven",
+      distractorsText: ["one", "twelve", "twenty-one"],
+      exercisedAtomSurfaces: ["once"],
+    }),
+    listeningBuildSentence({
+      id: "es-m6-1-lb-trece",
+      target: "tengo trece años",
+      tiles: ["tengo", "trece", "años", "catorce"],
+      correctOrder: ["tengo", "trece", "años"],
+      promptEn: "Tap what you hear",
+      exercisedAtomSurfaces: ["trece"],
+    }),
+    speaking("es-m6-1-speak-once", "mi hermano tiene once años", "My brother is eleven years old", ["once"]),
+    infoStep(
+      "es-m6-1-info-win",
+      "Five numbers, endless uses",
+      "You can now give an age, a phone digit, or a price with once through quince — and you did it in real sentences, not a number chart.",
+      "win",
+    ),
   ],
 };
 
@@ -158,8 +237,8 @@ const M6_2: LessonContent = {
   languageId: "es",
   title: "Las decenas — 20 to 100",
   description: "Count by tens to one hundred, and glue numbers with y.",
-  estimatedMinutes: 6,
-  xpReward: 13,
+  estimatedMinutes: 7,
+  xpReward: 14,
   steps: [
     infoStep(
       "es-m6-2-info-tens",
@@ -167,24 +246,21 @@ const M6_2: LessonContent = {
       "veinte (20), treinta (30), cuarenta (40), cincuenta (50), sesenta (60), setenta (70), ochenta (80), noventa (90), cien (100). Twenty-something fuses into one word — veintiuno (21), veintidós (22). From 31 up, use y: treinta y uno, cuarenta y cinco, noventa y nueve.",
       "grammar",
     ),
-    vocab("es-m6-2-p-veinte", "twenty", "veinte"),
-    vocab("es-m6-2-p-cuarenta", "forty", "cuarenta"),
+    build(
+      "es-m6-2-build-veinte",
+      "Build: 'I have twenty dollars.'",
+      "tengo veinte dólares",
+      ["tengo", "veinte", "dólares", "treinta"],
+      ["tengo", "veinte", "dólares"],
+      ["treinta"],
+    ),
     sentenceMcq({
-      id: "es-m6-2-q-veinte",
-      prompt: "Which number is 'twenty'?",
-      correctText: "veinte",
-      distractorsText: ["treinta", "doce", "cincuenta"],
-      exercisedAtomSurfaces: ["veinte"],
+      id: "es-m6-2-q-abuelo",
+      prompt: "Mi abuelo tiene ochenta años. — how old is he?",
+      correctText: "eighty",
+      distractorsText: ["eight", "eighteen", "ninety"],
+      exercisedAtomSurfaces: ["ochenta"],
     }),
-    sentenceMcq({
-      id: "es-m6-2-q-cuarenta",
-      prompt: "Which number is 'forty'?",
-      correctText: "cuarenta",
-      distractorsText: ["catorce", "cincuenta", "sesenta"],
-      explanation: "Don't let the teen that sounds similar trick you — this is the ten.",
-      exercisedAtomSurfaces: ["cuarenta"],
-    }),
-    vocab("es-m6-2-p-cien", "one hundred", "cien"),
     cloze(
       "es-m6-2-cloze-y",
       "treinta",
@@ -195,13 +271,7 @@ const M6_2: LessonContent = {
       "treinta y cinco",
       "From 31 up, tens and units are joined by the connector.",
     ),
-    sentenceMcq({
-      id: "es-m6-2-q-cien",
-      prompt: "Which number is 'one hundred'?",
-      correctText: "cien",
-      distractorsText: ["sesenta", "setenta", "noventa"],
-      exercisedAtomSurfaces: ["cien"],
-    }),
+    speaking("es-m6-2-speak-cien", "el examen tiene cien preguntas", "the exam has a hundred questions", ["cien"]),
     build(
       "es-m6-2-build-sesenta",
       "Build: 'sixty-seven'",
@@ -210,6 +280,65 @@ const M6_2: LessonContent = {
       ["sesenta", "y", "siete"],
       ["sesenta"],
     ),
+    selfExplain({
+      id: "es-m6-2-se-y",
+      anchorLabel: "You just wrote: sesenta y siete (67).",
+      anchorAudioText: "sesenta y siete",
+      question: "Why does sesenta y siete need the word y, but veinte (20) alone doesn't?",
+      rule: {
+        text: "y only joins a ten to a unit (31 and up: treinta y uno). A bare multiple of ten — veinte, treinta, cien — needs no connector because there's nothing to join it to.",
+      },
+      surface: {
+        text: "y is required on every number that has more than one digit, including plain tens like veinte.",
+      },
+      distractor: {
+        text: "y is only used with numbers above cincuenta (50) — smaller tens like treinta y cuarenta never take it.",
+      },
+      ruleExplanation: "The connector y links a ten to the unit after it (treinta y cinco); a round ten by itself is already a complete word.",
+    }),
+    sentenceMcq({
+      id: "es-m6-2-q-precio",
+      prompt: "El carro cuesta cuarenta mil dólares. — what's the price, in thousands?",
+      correctText: "forty",
+      distractorsText: ["fourteen", "fifty", "sesenta"],
+      exercisedAtomSurfaces: ["cuarenta"],
+    }),
+    translateStep({
+      id: "es-m6-2-tr-noventa",
+      promptEn: "My grandmother is ninety years old",
+      acceptedAnswers: [
+        "mi abuela tiene noventa años",
+        "Mi abuela tiene noventa años",
+        "mi abuela tiene noventa años.",
+        "Mi abuela tiene noventa años.",
+      ],
+      audioText: "mi abuela tiene noventa años",
+      exercisedAtomSurfaces: ["noventa"],
+    }),
+    cloze(
+      "es-m6-2-cloze-cien",
+      "el examen tiene",
+      "preguntas",
+      "cien",
+      ["cien", "diez", "cincuenta", "cuarenta"],
+      "the exam has a hundred questions",
+      "el examen tiene cien preguntas",
+    ),
+    listeningCompSentence({
+      id: "es-m6-2-lc-setenta",
+      audioText: "mi número es setenta y dos",
+      correctMeaningEn: "my number is seventy-two",
+      distractorsEn: ["my number is seventeen", "my number is sixty-two", "my number is ninety-two"],
+      exercisedAtomSurfaces: ["setenta"],
+    }),
+    listeningBuildSentence({
+      id: "es-m6-2-lb-sesenta",
+      target: "mi número es sesenta y cuatro",
+      tiles: ["mi", "número", "es", "sesenta", "y", "cuatro", "setenta"],
+      correctOrder: ["mi", "número", "es", "sesenta", "y", "cuatro"],
+      promptEn: "Tap what you hear",
+      exercisedAtomSurfaces: ["sesenta"],
+    }),
     // Review grid — the whole decade row in one recognition sweep.
     matchPairs("es-m6-2", [
       "treinta",
@@ -221,6 +350,31 @@ const M6_2: LessonContent = {
       "noventa",
       "cien",
     ]),
+    speaking("es-m6-2-speak-cuarenta", "tengo cuarenta años", "I am forty years old", ["cuarenta"]),
+    // Review tail — earlier-module recall in a fresh number sentence.
+    reviewMatchPairs("es-m6-2-rev", "es-m6-2-rev-seed", "m6", 6),
+    sentenceMcq({
+      id: "es-m6-2-q-review",
+      prompt: "Mi perro tiene ocho años y es muy simpático. — pick the meaning.",
+      correctText: "my dog is eight years old and very friendly",
+      distractorsText: [
+        "my dog is eighteen years old and very friendly",
+        "my cat is eight years old and very friendly",
+        "my dog is eight years old and very tall",
+      ],
+      exercisedAtomSurfaces: ["ochenta"],
+    }),
+    translateStep({
+      id: "es-m6-2-tr-review",
+      promptEn: "My brother is tall and twenty years old",
+      acceptedAnswers: [
+        "mi hermano es alto y tiene veinte años",
+        "Mi hermano es alto y tiene veinte años",
+        "mi hermano es alto y tiene veinte años.",
+      ],
+      audioText: "mi hermano es alto y tiene veinte años",
+      exercisedAtomSurfaces: ["veinte"],
+    }),
   ],
 };
 
@@ -233,8 +387,8 @@ const M6_3: LessonContent = {
   languageId: "es",
   title: "¿Qué hora es?",
   description: "Ask the time and answer on the hour.",
-  estimatedMinutes: 6,
-  xpReward: 13,
+  estimatedMinutes: 7,
+  xpReward: 14,
   steps: [
     infoStep(
       "es-m6-3-info-hora",
@@ -243,14 +397,22 @@ const M6_3: LessonContent = {
       "grammar",
     ),
     phrase("es-m6-3-p-quehoraes", "what time is it?", "¿qué hora es?"),
-    vocab("es-m6-3-p-hora", "hour / time", "hora", undefined, { emoji: "⏰" }),
+    vocabMcq("es-m6-3-mcq-hora", { surface: "hora", meaningEn: "hour / time", emoji: "⏰" }, [CASA, GATO, FAMILIA]),
     sentenceMcq({
       id: "es-m6-3-q-ask",
-      prompt: "You want to ask the time. What do you say?",
-      correctText: "¿Qué hora es?",
-      distractorsText: ["¿Cuántos años tienes?", "¿De dónde eres?", "¿Cómo te llamas?"],
-      exercisedAtomSurfaces: ["¿qué hora es?"],
+      prompt: "Perdón, ¿qué hora es? — a stranger just asked you this. What did they want to know?",
+      correctText: "the time",
+      distractorsText: ["your name", "your age", "where you're from"],
+      exercisedAtomSurfaces: ["hora", "¿qué hora es?"],
     }),
+    build(
+      "es-m6-3-build-launa",
+      "Build: 'It's one o'clock.'",
+      "es la una",
+      ["es", "la", "una", "son", "las"],
+      ["es", "la", "una"],
+      ["son", "las"],
+    ),
     cloze(
       "es-m6-3-cloze-hora",
       "¿qué",
@@ -261,28 +423,52 @@ const M6_3: LessonContent = {
       "¿qué hora es?",
     ),
     sentenceMcq({
-      id: "es-m6-3-q-launa",
-      prompt: "It's 1 o'clock. How do you say it?",
-      correctText: "es la una",
-      distractorsText: ["son las una", "es las una", "son la una"],
-      explanation: "One o'clock is the only hour that takes the singular verb form.",
+      id: "es-m6-3-q-sonlas",
+      prompt: "Son las tres. Tengo hambre. — what time is it in the first sentence?",
+      correctText: "three o'clock",
+      distractorsText: ["one o'clock", "thirteen o'clock", "thirty o'clock"],
       exercisedAtomSurfaces: ["hora"],
     }),
-    sentenceMcq({
-      id: "es-m6-3-q-sonlas",
-      prompt: "It's 3 o'clock. How do you say it?",
-      correctText: "son las tres",
-      distractorsText: ["es la tres", "son la tres", "es las tres"],
-      explanation: "Two o'clock and beyond takes the plural verb and plural article.",
-      exercisedAtomSurfaces: ["tres"],
-    }),
+    speaking("es-m6-3-speak-launa", "es la una", "It's one o'clock", ["hora"]),
     listeningCompSentence({
       id: "es-m6-3-lc-cuatro",
       audioText: "son las cuatro",
       correctMeaningEn: "it's four o'clock",
-      distractorsEn: ["it's one o'clock", "it's ten o'clock", "it's four thirty"],
-      exercisedAtomSurfaces: ["cuatro"],
+      distractorsEn: ["it's one o'clock", "it's ten o'clock", "it's fourteen o'clock"],
+      exercisedAtomSurfaces: ["hora"],
     }),
+    translateStep({
+      id: "es-m6-3-tr-sonlasdiez",
+      promptEn: "It's ten o'clock",
+      acceptedAnswers: ["son las diez", "Son las diez", "son las diez.", "Son las diez."],
+      audioText: "son las diez",
+      exercisedAtomSurfaces: ["hora"],
+    }),
+    listeningBuildSentence({
+      id: "es-m6-3-lb-once",
+      target: "son las once",
+      tiles: ["son", "las", "once", "doce", "trece"],
+      correctOrder: ["son", "las", "once"],
+      promptEn: "Tap what you hear",
+      exercisedAtomSurfaces: ["once"],
+    }),
+    // Review tail — recall an earlier-module verb (ser/tener) inside a
+    // time-adjacent sentence.
+    reviewMatchPairs("es-m6-3-rev", "es-m6-3-rev-seed", "m6", 6),
+    sentenceMcq({
+      id: "es-m6-3-q-review",
+      prompt: "Son las nueve y mi hermano es alto y simpático. — what time does the sentence open with?",
+      correctText: "nine o'clock",
+      distractorsText: ["nineteen o'clock", "ninety o'clock", "one o'clock"],
+      exercisedAtomSurfaces: ["hora"],
+    }),
+    speaking("es-m6-3-speak-review", "mi hermana es muy inteligente", "My sister is very intelligent", ["hermana"]),
+    infoStep(
+      "es-m6-3-info-win",
+      "You can tell the time",
+      "Ask ¿qué hora es? and answer with es la una or son las... — the clock is yours from here.",
+      "win",
+    ),
   ],
 };
 
@@ -295,8 +481,8 @@ const M6_4: LessonContent = {
   languageId: "es",
   title: "Y media, y cuarto",
   description: "Half past, quarter past, and minutes with y.",
-  estimatedMinutes: 6,
-  xpReward: 13,
+  estimatedMinutes: 7,
+  xpReward: 14,
   steps: [
     infoStep(
       "es-m6-4-info-minutos",
@@ -305,7 +491,6 @@ const M6_4: LessonContent = {
       "grammar",
     ),
     vocab("es-m6-4-p-media", "half (past)", "media"),
-    vocab("es-m6-4-p-cuarto", "quarter", "cuarto"),
     cloze(
       "es-m6-4-cloze-media",
       "son las dos y",
@@ -315,31 +500,6 @@ const M6_4: LessonContent = {
       "it's two thirty",
       "son las dos y media",
     ),
-    cloze(
-      "es-m6-4-cloze-cuarto",
-      "son las cinco y",
-      "",
-      "cuarto",
-      ["cuarto", "media", "minuto", "hora"],
-      "it's five fifteen",
-      "son las cinco y cuarto",
-    ),
-    vocab("es-m6-4-p-minuto", "minute", "minuto"),
-    build(
-      "es-m6-4-build-diez",
-      "Build: 'It's ten thirty.'",
-      "son las diez y media",
-      ["son", "las", "diez", "y", "media", "cuarto"],
-      ["son", "las", "diez", "y", "media"],
-      ["media", "diez"],
-    ),
-    sentenceMcq({
-      id: "es-m6-4-q-minuto",
-      prompt: "Which word means 'minute'?",
-      correctText: "minuto",
-      distractorsText: ["hora", "media", "cuarto"],
-      exercisedAtomSurfaces: ["minuto"],
-    }),
     translateStep({
       id: "es-m6-4-tr-dosymedia",
       promptEn: "It's two thirty",
@@ -353,6 +513,77 @@ const M6_4: LessonContent = {
       audioText: "son las dos y media",
       exercisedAtomSurfaces: ["media"],
     }),
+    vocab("es-m6-4-p-cuarto", "quarter", "cuarto"),
+    build(
+      "es-m6-4-build-cuarto",
+      "Build: 'It's five fifteen.'",
+      "son las cinco y cuarto",
+      ["son", "las", "cinco", "y", "cuarto", "media"],
+      ["son", "las", "cinco", "y", "cuarto"],
+      ["media"],
+    ),
+    listeningCompSentence({
+      id: "es-m6-4-lc-diezmedia",
+      audioText: "son las diez y media",
+      correctMeaningEn: "it's ten thirty",
+      distractorsEn: ["it's ten fifteen", "it's ten o'clock", "it's eleven thirty"],
+      exercisedAtomSurfaces: ["cuarto", "media"],
+    }),
+    sentenceMcq({
+      id: "es-m6-4-q-minuto",
+      prompt: "Espera un minuto, por favor. — what is the speaker asking for?",
+      correctText: "a minute",
+      distractorsText: ["an hour", "a half hour", "a quarter hour"],
+      exercisedAtomSurfaces: ["minuto"],
+    }),
+    speaking("es-m6-4-speak-cuarto", "son las cinco y cuarto", "It's five fifteen", ["cuarto"]),
+    selfExplain({
+      id: "es-m6-4-se-clock",
+      anchorLabel: "You just said: son las cinco y cuarto — it's five fifteen.",
+      anchorAudioText: "son las cinco y cuarto",
+      question: "Why is it son (not es) las cinco, and why doesn't media change to medio?",
+      rule: {
+        text: "son/las agree with hora being plural (more than one o'clock — everything but 1:00 uses son las). media stays fixed because it silently agrees with the feminine hora ('half an hour'), not with the number of the hour.",
+      },
+      surface: {
+        text: "son is just the normal way Spanish says 'it's' for any time, and media is a fixed clock word with no agreement at all.",
+      },
+      distractor: {
+        text: "son las cinco is plural because cinco itself is a plural number — media would change to medio if the hour were masculine.",
+      },
+      ruleExplanation: "The verb and article agree with hora (feminine, and plural for every hour except one); media is a frozen feminine form tied to hora, not to the hour number.",
+    }),
+    listeningBuildSentence({
+      id: "es-m6-4-lb-siete",
+      target: "son las siete y cuarto",
+      tiles: ["son", "las", "siete", "y", "cuarto", "media"],
+      correctOrder: ["son", "las", "siete", "y", "cuarto"],
+      promptEn: "Tap what you hear",
+      exercisedAtomSurfaces: ["cuarto"],
+    }),
+    // Review tail.
+    reviewMatchPairs("es-m6-4-rev", "es-m6-4-rev-seed", "m6", 6),
+    sentenceMcq({
+      id: "es-m6-4-q-review",
+      prompt: "Son las ocho y media. Mi papá es alto y tiene un carro nuevo. — what time is it?",
+      correctText: "eight thirty",
+      distractorsText: ["eight fifteen", "eighteen o'clock", "eight o'clock"],
+      exercisedAtomSurfaces: ["media"],
+    }),
+    build(
+      "es-m6-4-build-review",
+      "Build: 'My grandfather is eighty years old.'",
+      "mi abuelo tiene ochenta años",
+      ["mi", "abuelo", "tiene", "ochenta", "años", "noventa"],
+      ["mi", "abuelo", "tiene", "ochenta", "años"],
+      ["noventa"],
+    ),
+    infoStep(
+      "es-m6-4-info-win",
+      "You can read any clock",
+      "Hour, half, and quarter — you can now say almost any time you'll actually need in conversation.",
+      "win",
+    ),
   ],
 };
 
@@ -365,8 +596,8 @@ const M6_5: LessonContent = {
   languageId: "es",
   title: "Los días de la semana",
   description: "Seven lowercase days, plus hoy and mañana.",
-  estimatedMinutes: 6,
-  xpReward: 13,
+  estimatedMinutes: 7,
+  xpReward: 14,
   steps: [
     infoStep(
       "es-m6-5-info-dias",
@@ -375,20 +606,22 @@ const M6_5: LessonContent = {
       "grammar",
     ),
     vocab("es-m6-5-p-lunes", "Monday", "lunes"),
-    vocab(
-      "es-m6-5-p-semana",
-      "week",
-      "semana",
-      "Calendars in the Spanish-speaking world usually start the week on lunes, not Sunday.",
-      { emoji: "📅" },
-    ),
+    vocabMcq("es-m6-5-mcq-semana", { surface: "semana", meaningEn: "week", emoji: "📅" }, [CASA, CARRO, FAMILIA]),
     sentenceMcq({
       id: "es-m6-5-q-lunes",
-      prompt: "Which day is 'Monday'?",
-      correctText: "lunes",
-      distractorsText: ["martes", "jueves", "domingo"],
+      prompt: "El lunes tengo clase. — what day does the speaker have class?",
+      correctText: "Monday",
+      distractorsText: ["Tuesday", "Thursday", "Sunday"],
       exercisedAtomSurfaces: ["lunes"],
     }),
+    build(
+      "es-m6-5-build-hoy",
+      "Build: 'Today is Tuesday.'",
+      "hoy es martes",
+      ["hoy", "es", "martes", "jueves"],
+      ["hoy", "es", "martes"],
+      ["jueves"],
+    ),
     cloze(
       "es-m6-5-cloze-semana",
       "los días de la",
@@ -398,34 +631,50 @@ const M6_5: LessonContent = {
       "the days of the week",
       "los días de la semana",
     ),
-    sentenceMcq({
-      id: "es-m6-5-q-hoy",
-      prompt: "Today is Tuesday. Which sentence says that?",
-      correctText: "hoy es martes",
-      distractorsText: ["mañana es martes", "hoy es jueves", "hoy es sábado"],
-      exercisedAtomSurfaces: ["hoy", "martes"],
-    }),
+    speaking("es-m6-5-speak-domingo", "hoy es domingo", "Today is Sunday", ["domingo"]),
     sentenceMcq({
       id: "es-m6-5-q-manana",
-      prompt: "Tomorrow is Saturday. Which sentence says that?",
-      correctText: "mañana es sábado",
-      distractorsText: ["hoy es sábado", "mañana es domingo", "mañana es lunes"],
+      prompt: "Mañana es sábado. — which day is tomorrow?",
+      correctText: "Saturday",
+      distractorsText: ["Sunday", "Monday", "Friday"],
       exercisedAtomSurfaces: ["mañana", "sábado"],
     }),
-    build(
-      "es-m6-5-build-viernes",
-      "Build: 'Today is Friday.'",
-      "hoy es viernes",
-      ["hoy", "es", "viernes", "miércoles"],
-      ["hoy", "es", "viernes"],
-      ["hoy", "viernes"],
-    ),
+    selfExplain({
+      id: "es-m6-5-se-dia",
+      anchorLabel: "You just read: el lunes tengo clase — on Monday I have class.",
+      anchorAudioText: "el lunes tengo clase",
+      question: "Why does el lunes mean 'on Monday' here, when el usually just means 'the'?",
+      rule: {
+        text: "Spanish drops any word for 'on' before a day — el/los + day already carries that meaning: el lunes = 'on Monday,' los lunes = 'on Mondays' (same spelling, no -s added to the day itself).",
+      },
+      surface: {
+        text: "el lunes and los lunes are two separate, unrelated words that both happen to mean Monday-related things.",
+      },
+      distractor: {
+        text: "el lunes means 'on Monday' only because tengo is a special verb that requires el before days; other verbs would need a different word for 'on'.",
+      },
+      ruleExplanation: "El/los + weekday IS the 'on' construction — no preposition needed, and the weekday noun itself stays unchanged between singular and plural.",
+    }),
+    vocab("es-m6-5-p-mañana", "tomorrow / morning", "mañana"),
     sentenceMcq({
       id: "es-m6-5-q-miercoles",
-      prompt: "Which day is 'Wednesday'?",
-      correctText: "miércoles",
-      distractorsText: ["jueves", "martes", "viernes"],
+      prompt: "La reunión es el miércoles, no el jueves. — which day is the meeting?",
+      correctText: "Wednesday",
+      distractorsText: ["Thursday", "Tuesday", "Friday"],
       exercisedAtomSurfaces: ["miércoles"],
+    }),
+    translateStep({
+      id: "es-m6-5-tr-viernes",
+      promptEn: "Tomorrow is Friday",
+      acceptedAnswers: [
+        "mañana es viernes",
+        "Mañana es viernes",
+        "manana es viernes",
+        "Manana es viernes",
+        "mañana es viernes.",
+      ],
+      audioText: "mañana es viernes",
+      exercisedAtomSurfaces: ["mañana", "viernes"],
     }),
     // Article agreement — días is masculine plural, semana feminine singular.
     agreementCloze(
@@ -440,10 +689,33 @@ const M6_5: LessonContent = {
       "los días de la semana",
       ["día", "semana"],
     ),
+    listeningBuildSentence({
+      id: "es-m6-5-lb-jueves",
+      target: "la reunión es el jueves",
+      tiles: ["la", "reunión", "es", "el", "jueves", "viernes"],
+      correctOrder: ["la", "reunión", "es", "el", "jueves"],
+      promptEn: "Tap what you hear",
+      exercisedAtomSurfaces: ["jueves"],
+    }),
+    // Review tail.
+    reviewMatchPairs("es-m6-5-rev", "es-m6-5-rev-seed", "m6", 6),
+    sentenceMcq({
+      id: "es-m6-5-q-review",
+      prompt: "Mi abuelo tiene ochenta años y hoy es su cumpleaños. — 'cumpleaños' means birthday. What word tells you it's today?",
+      correctText: "hoy",
+      distractorsText: ["mañana", "lunes", "hora"],
+      exercisedAtomSurfaces: ["hoy"],
+    }),
+    infoStep(
+      "es-m6-5-info-win",
+      "The week is yours",
+      "Seven days, hoy, and mañana — you can now say when anything happens.",
+      "win",
+    ),
   ],
 };
 
-// ─── es-m6-6 — Listening focus ──────────────────────────────────────────────
+// ─── es-m6-6 — Listening focus (with production) ────────────────────────────
 
 const M6_6: LessonContent = {
   id: "es-m6-6",
@@ -451,9 +723,9 @@ const M6_6: LessonContent = {
   courseId: COURSE_ID,
   languageId: "es",
   title: "Escucha — times and days",
-  description: "Train your ear on clock times, days, and bigger numbers.",
-  estimatedMinutes: 6,
-  xpReward: 14,
+  description: "Train your ear on clock times, days, and bigger numbers — then say them back.",
+  estimatedMinutes: 7,
+  xpReward: 15,
   steps: [
     listeningCompSentence({
       id: "es-m6-6-lc-tresymedia",
@@ -470,6 +742,7 @@ const M6_6: LessonContent = {
       promptEn: "Tap what you hear",
       exercisedAtomSurfaces: ["once"],
     }),
+    speaking("es-m6-6-speak-domingo", "hoy es domingo", "Today is Sunday", ["hoy", "domingo"]),
     listeningCompSentence({
       id: "es-m6-6-lc-domingo",
       audioText: "hoy es domingo",
@@ -484,6 +757,18 @@ const M6_6: LessonContent = {
       correctOrder: ["mañana", "es", "miércoles"],
       promptEn: "Tap what you hear",
       exercisedAtomSurfaces: ["mañana", "miércoles"],
+    }),
+    translateStep({
+      id: "es-m6-6-tr-ochenta",
+      promptEn: "My grandmother is eighty years old",
+      acceptedAnswers: [
+        "mi abuela tiene ochenta años",
+        "Mi abuela tiene ochenta años",
+        "mi abuela tiene ochenta años.",
+        "Mi abuela tiene ochenta años.",
+      ],
+      audioText: "mi abuela tiene ochenta años",
+      exercisedAtomSurfaces: ["ochenta"],
     }),
     listeningCompSentence({
       id: "es-m6-6-lc-ochenta",
@@ -511,6 +796,22 @@ const M6_6: LessonContent = {
       distractorsEn: ["it's two thirty", "it's four o'clock", "it's a quarter to two"],
       exercisedAtomSurfaces: ["cuarto"],
     }),
+    speaking("es-m6-6-speak-cuarenta", "tengo cuarenta y dos años", "I am forty-two years old", ["cuarenta"]),
+    listeningCompSentence({
+      id: "es-m6-6-lc-lunes",
+      audioText: "el lunes tengo clase",
+      correctMeaningEn: "on Monday I have class",
+      distractorsEn: ["on Tuesday I have class", "today I have class", "on Monday I have a car"],
+      exercisedAtomSurfaces: ["lunes"],
+    }),
+    build(
+      "es-m6-6-build-cincuenta",
+      "Build: 'There are fifty books here.'",
+      "hay cincuenta libros aquí",
+      ["hay", "cincuenta", "libros", "aquí", "sesenta"],
+      ["hay", "cincuenta", "libros", "aquí"],
+      ["sesenta"],
+    ),
     listeningCompSentence({
       id: "es-m6-6-lc-cincuenta",
       audioText: "hay cincuenta libros aquí",
@@ -522,6 +823,15 @@ const M6_6: LessonContent = {
       ],
       exercisedAtomSurfaces: ["cincuenta"],
     }),
+    // Review tail.
+    reviewMatchPairs("es-m6-6-rev", "es-m6-6-rev-seed", "m6", 6),
+    speaking("es-m6-6-speak-review", "mi hermano es alto y tiene veinte años", "My brother is tall and twenty years old", ["veinte"]),
+    infoStep(
+      "es-m6-6-info-win",
+      "Your ear is trained",
+      "Times, days, and numbers no longer need to be read — you can catch them by ear.",
+      "win",
+    ),
   ],
 };
 
@@ -534,8 +844,8 @@ const M6_7: LessonContent = {
   languageId: "es",
   title: "El calendario — dates & a dialogue",
   description: "Months, the date pattern, and everything in one conversation.",
-  estimatedMinutes: 6,
-  xpReward: 15,
+  estimatedMinutes: 7,
+  xpReward: 16,
   steps: [
     infoStep(
       "es-m6-7-info-dialogo",
@@ -557,7 +867,6 @@ const M6_7: LessonContent = {
       "grammar",
     ),
     vocab("es-m6-7-p-mes", "month", "mes"),
-    vocab("es-m6-7-p-enero", "January", "enero"),
     cloze(
       "es-m6-7-cloze-mes",
       "un",
@@ -575,8 +884,10 @@ const M6_7: LessonContent = {
       ["hoy", "es", "el", "quince", "de", "enero"],
       ["enero", "quince", "hoy"],
     ),
-    // Text-front recognition for the no-emoji calendar nouns.
+    // Text-front recognition for the no-emoji calendar nouns — spaced
+    // from mes's passive card (i+3) and from each other by a generation beat.
     vocabTextMcq("es-m6-7-vm-mes", "mes", ["semana", "día", "año"]),
+    speaking("es-m6-7-speak-hora", "¿Qué hora es?", "What time is it?", ["¿qué hora es?"]),
     vocabTextMcq("es-m6-7-vm-enero", "enero", ["lunes", "mes", "mañana"]),
     // The street exchange from the info card, now as real audio.
     dialogueListen({
@@ -603,7 +914,6 @@ const M6_7: LessonContent = {
       ],
       exercisedAtomSurfaces: ["¿qué hora es?", "media", "hoy", "miércoles"],
     }),
-    speaking("es-m6-7-speak-hora", "¿Qué hora es?", "What time is it?", ["¿qué hora es?"]),
     translateStep({
       id: "es-m6-7-tr-lunes",
       promptEn: "Today is Monday",
@@ -611,6 +921,33 @@ const M6_7: LessonContent = {
       audioText: "hoy es lunes",
       exercisedAtomSurfaces: ["hoy", "lunes"],
     }),
+    // Review tail — closes the integration lesson with prior-module recall.
+    reviewMatchPairs("es-m6-7-rev", "es-m6-7-rev-seed", "m6", 6),
+    sentenceMcq({
+      id: "es-m6-7-q-review",
+      prompt: "Mi papá también tiene cuarenta años. — pick the meaning.",
+      correctText: "my dad is also forty years old",
+      distractorsText: [
+        "my dad is also fourteen years old",
+        "my mom is also forty years old",
+        "my dad is also fifty years old",
+      ],
+      exercisedAtomSurfaces: ["cuarenta"],
+    }),
+    build(
+      "es-m6-7-build-review",
+      "Build: 'My grandmother's birthday is January 15th.'",
+      "el cumpleaños de mi abuela es el quince de enero",
+      ["el", "cumpleaños", "de", "mi", "abuela", "es", "el", "quince", "de", "enero"],
+      ["el", "cumpleaños", "de", "mi", "abuela", "es", "el", "quince", "de", "enero"],
+      ["quince", "enero", "abuela"],
+    ),
+    infoStep(
+      "es-m6-7-info-win",
+      "The whole calendar is yours",
+      "Time, day, and date, all in one conversation — you just handled it like a native speaker would.",
+      "win",
+    ),
   ],
 };
 
@@ -623,22 +960,15 @@ const M6_8: LessonContent = {
   languageId: "es",
   title: "M6 Mastery Test",
   description: "Numbers 11–100, clock time, days, and dates.",
-  estimatedMinutes: 6,
-  xpReward: 16,
+  estimatedMinutes: 7,
+  xpReward: 17,
   steps: [
     sentenceMcq({
       id: "es-m6-8-q-doce",
-      prompt: "Which number is 'twelve'?",
-      correctText: "doce",
-      distractorsText: ["dos", "trece", "veinte"],
+      prompt: "Mi hermano tiene doce años. — how old is he?",
+      correctText: "twelve",
+      distractorsText: ["two", "twenty", "thirteen"],
       exercisedAtomSurfaces: ["doce"],
-    }),
-    sentenceMcq({
-      id: "es-m6-8-q-ochenta",
-      prompt: "Which number is 'eighty'?",
-      correctText: "ochenta",
-      distractorsText: ["ocho", "noventa", "sesenta"],
-      exercisedAtomSurfaces: ["ochenta"],
     }),
     cloze(
       "es-m6-8-cloze-y",
@@ -649,20 +979,6 @@ const M6_8: LessonContent = {
       "forty-two",
       "cuarenta y dos",
     ),
-    sentenceMcq({
-      id: "es-m6-8-q-sietemedia",
-      prompt: "It's 7:30. What time is it in Spanish?",
-      correctText: "son las siete y media",
-      distractorsText: ["es la siete y media", "son las siete y cuarto", "son la siete media"],
-      exercisedAtomSurfaces: ["media", "siete"],
-    }),
-    listeningCompSentence({
-      id: "es-m6-8-lc-oncecuarto",
-      audioText: "son las once y cuarto",
-      correctMeaningEn: "it's eleven fifteen",
-      distractorsEn: ["it's eleven thirty", "it's twelve fifteen", "it's one o'clock"],
-      exercisedAtomSurfaces: ["once", "cuarto"],
-    }),
     listeningBuildSentence({
       id: "es-m6-8-lb-sabado",
       target: "hoy es sábado",
@@ -670,6 +986,20 @@ const M6_8: LessonContent = {
       correctOrder: ["hoy", "es", "sábado"],
       promptEn: "Tap what you hear",
       exercisedAtomSurfaces: ["hoy", "sábado"],
+    }),
+    sentenceMcq({
+      id: "es-m6-8-q-ochenta",
+      prompt: "Which number is 'eighty'?",
+      correctText: "ochenta",
+      distractorsText: ["ocho", "noventa", "sesenta"],
+      exercisedAtomSurfaces: ["ochenta"],
+    }),
+    listeningCompSentence({
+      id: "es-m6-8-lc-oncecuarto",
+      audioText: "son las once y cuarto",
+      correctMeaningEn: "it's eleven fifteen",
+      distractorsEn: ["it's eleven thirty", "it's twelve fifteen", "it's one o'clock"],
+      exercisedAtomSurfaces: ["once", "cuarto"],
     }),
     translateStep({
       id: "es-m6-8-tr-jueves",
@@ -685,6 +1015,26 @@ const M6_8: LessonContent = {
       audioText: "mañana es jueves",
       exercisedAtomSurfaces: ["mañana", "jueves"],
     }),
+    sentenceMcq({
+      id: "es-m6-8-q-sietemedia",
+      prompt: "It's 7:30. What time is it in Spanish?",
+      correctText: "son las siete y media",
+      distractorsText: ["es la siete y media", "son las siete y cuarto", "son la siete media"],
+      exercisedAtomSurfaces: ["media", "hora"],
+    }),
+    speaking("es-m6-8-speak-diez", "Son las diez y media.", "It's ten thirty.", ["media"]),
+    // Prior-module review items woven into the mastery sample.
+    sentenceMcq({
+      id: "es-m6-8-q-review1",
+      prompt: "Mi hermana es alta y tiene treinta años. — pick the meaning.",
+      correctText: "my sister is tall and thirty years old",
+      distractorsText: [
+        "my sister is short and thirty years old",
+        "my brother is tall and thirty years old",
+        "my sister is tall and thirteen years old",
+      ],
+      exercisedAtomSurfaces: ["treinta"],
+    }),
     translateStep({
       id: "es-m6-8-tr-enero",
       promptEn: "Today is January 15th",
@@ -698,7 +1048,14 @@ const M6_8: LessonContent = {
       audioText: "hoy es el quince de enero",
       exercisedAtomSurfaces: ["enero", "quince"],
     }),
-    speaking("es-m6-8-speak-diez", "Son las diez y media.", "It's ten thirty.", ["media"]),
+    build(
+      "es-m6-8-build-review2",
+      "Build: 'My grandfather has a red car.'",
+      "mi abuelo tiene un carro rojo",
+      ["mi", "abuelo", "tiene", "un", "carro", "rojo", "azul"],
+      ["mi", "abuelo", "tiene", "un", "carro", "rojo"],
+      ["azul"],
+    ),
   ],
 };
 

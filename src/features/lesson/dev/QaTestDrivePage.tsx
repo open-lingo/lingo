@@ -201,6 +201,101 @@ function buildSections(lang: string): QaSection[] {
       ],
     },
     {
+      id: "n4-pilot-m29",
+      title: "N4 pilot — m29 plain form (2026-07-16)",
+      blurb:
+        "First module of the N4 tier, authored as the exemplar every later N4 module copies. Grammar anchor: plain form (dictionary/ない/た/なかった) taught as the base ます is built from, not as 'casual ます.' NOT registered in mockCourse.ts (would rebalance the live N5 map's 3 geometric zones) — review these lessons directly, not via the learn map. Reviews ja-m29-review-1/2 are derived, not linked here.",
+      items: [
+        {
+          id: "n4:m29-1-1",
+          title: "1-1 — Dictionary form, う-verbs I (new: てつだう, いそぐ, つかう)",
+          links: [{ label: "ja-m29-1-1", href: p("/learn/lessons/ja-m29-1-1") }],
+        },
+        {
+          id: "n4:m29-1-2",
+          title: "1-2 — Dictionary form, う-verbs II (new: さがす, なおす, はこぶ, えらぶ)",
+          links: [{ label: "ja-m29-1-2", href: p("/learn/lessons/ja-m29-1-2") }],
+        },
+        {
+          id: "n4:m29-2-1",
+          title: "2-1 — Dictionary form, る-verbs + する (new: かたづける, おぼえる)",
+          links: [{ label: "ja-m29-2-1", href: p("/learn/lessons/ja-m29-2-1") }],
+        },
+        {
+          id: "n4:m29-2-2",
+          title: "2-2 — くる irregular + mixed practice (new: ぜんぶ, blocked)",
+          links: [{ label: "ja-m29-2-2", href: p("/learn/lessons/ja-m29-2-2") }],
+        },
+        {
+          id: "n4:m29-3-1",
+          title: "3-1 — ない form (plain negative), う-verbs",
+          links: [{ label: "ja-m29-3-1", href: p("/learn/lessons/ja-m29-3-1") }],
+        },
+        {
+          id: "n4:m29-3-2",
+          title: "3-2 — ない form, る-verbs + irregulars",
+          links: [{ label: "ja-m29-3-2", href: p("/learn/lessons/ja-m29-3-2") }],
+        },
+        {
+          id: "n4:m29-4-1",
+          title: "4-1 — た form (plain past), leverages known て-form",
+          hint: "Carries a kanji_reading spot check on たべる (食べる, unlocked m14).",
+          links: [
+            { label: "ja-m29-4-1", href: p("/learn/lessons/ja-m29-4-1") },
+            { label: "kanji_reading step", href: p("/learn/lessons/ja-m29-4-1?step=kanji_reading") },
+          ],
+        },
+        {
+          id: "n4:m29-4-2",
+          title: "4-2 — た form II: irregulars + mixed",
+          links: [{ label: "ja-m29-4-2", href: p("/learn/lessons/ja-m29-4-2") }],
+        },
+        {
+          id: "n4:m29-5-1",
+          title: "5-1 — なかった (plain past negative) I",
+          links: [{ label: "ja-m29-5-1", href: p("/learn/lessons/ja-m29-5-1") }],
+        },
+        {
+          id: "n4:m29-5-2",
+          title: "5-2 — なかった II + じぶん/ともだち review context",
+          links: [{ label: "ja-m29-5-2", href: p("/learn/lessons/ja-m29-5-2") }],
+        },
+        {
+          id: "n4:m29-6-1",
+          title: "6-1 — Mixed plain-form interleave I",
+          hint: "Carries a kanji_reading spot check on よむ (読む, unlocked m14).",
+          links: [
+            { label: "ja-m29-6-1", href: p("/learn/lessons/ja-m29-6-1") },
+            { label: "kanji_reading step", href: p("/learn/lessons/ja-m29-6-1?step=kanji_reading") },
+          ],
+        },
+        {
+          id: "n4:m29-6-2",
+          title: "6-2 — Mixed plain-form interleave II (heavier rotation)",
+          links: [{ label: "ja-m29-6-2", href: p("/learn/lessons/ja-m29-6-2") }],
+        },
+        {
+          id: "n4:m29-story",
+          title: "Story — ゆき and けん make plans (casual plain form in the wild)",
+          links: [{ label: "ja-m29-story", href: p("/learn/lessons/ja-m29-story") }],
+        },
+        {
+          id: "n4:m29-7-1",
+          title: "7-1 — Comprehension drill (mixed forms)",
+          hint: "Carries a kanji_reading spot check on いく (行く, unlocked m15).",
+          links: [
+            { label: "ja-m29-7-1", href: p("/learn/lessons/ja-m29-7-1") },
+            { label: "kanji_reading step", href: p("/learn/lessons/ja-m29-7-1?step=kanji_reading") },
+          ],
+        },
+        {
+          id: "n4:m29-7-2",
+          title: "7-2 — Final production",
+          links: [{ label: "ja-m29-7-2", href: p("/learn/lessons/ja-m29-7-2") }],
+        },
+      ],
+    },
+    {
       id: "fixes",
       title: "Tonight's fixes — re-verify (2026-07-12 evening)",
       blurb:
@@ -497,13 +592,15 @@ function buildSections(lang: string): QaSection[] {
       ],
     },
   ];
-  // "fixes" + "mechanics" carry hardcoded ja lesson links from the 2026-07-12
-  // ja drive; under another language prefix they'd mint cross-language URLs
+  // "fixes" + "mechanics" + "n4-pilot-m29" carry hardcoded ja lesson links;
+  // under another language prefix they'd mint cross-language URLs
   // (/es/learn/lessons/ja-…). Language-specific drive sections stay ja-only.
   const forLang =
     lang === "ja"
       ? sections
-      : sections.filter((s) => s.id !== "fixes" && s.id !== "mechanics");
+      : sections.filter(
+          (s) => s.id !== "fixes" && s.id !== "mechanics" && s.id !== "n4-pilot-m29",
+        );
   return forLang.map((s) => ({ ...s, items: decorate(s.items) }));
 }
 

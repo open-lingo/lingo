@@ -36,16 +36,32 @@ import type {
 } from "@/features/lesson/types";
 import {
   findEsAtomBySurface,
-  getRegisteredEsAtoms,
   type EsAtom,
   type EsAtomKind,
   type EsAtomSource,
 } from "./courseAtoms";
+import { ES_REVIEW_POOL } from "./esReviewPool";
 
 // ─── Atom resolution ─────────────────────────────────────────────────────
 
+// Static-pool fallback for the courseAtoms↔curriculum import cycle: when a
+// curriculum module builds a compounding-review step referencing a PRIOR
+// module's surface, that earlier module may not have registered its atoms in
+// the live registry yet (the later module's lessons can evaluate first). The
+// generated `ES_REVIEW_POOL` snapshot is import-order independent, so gloss /
+// id resolution falls back to it. Atom ids are deterministically `es:<surface>`.
+const POOL_BY_SURFACE = new Map(ES_REVIEW_POOL.map((e) => [e.surface, e] as const));
+
+/** Resolve a surface's English gloss from the live registry, else the static
+ *  review pool. Undefined only for surfaces that are not registered atoms. */
+function resolveSurfaceGloss(surface: string): string | undefined {
+  return findEsAtomBySurface(surface)?.gloss ?? POOL_BY_SURFACE.get(surface)?.gloss;
+}
+
 function resolveAtomId(surface: string): string | undefined {
-  return findEsAtomBySurface(surface)?.id;
+  const live = findEsAtomBySurface(surface);
+  if (live) return live.id;
+  return POOL_BY_SURFACE.has(surface) ? `es:${surface}` : undefined;
 }
 
 function resolveAtomIds(surfaces: ReadonlyArray<string> | undefined): string[] {
@@ -365,13 +381,13 @@ export function matchPairs(
     );
   }
   const pairs = surfaces.map((s, i) => {
-    const atom = findEsAtomBySurface(s);
-    if (!atom) {
+    const gloss = resolveSurfaceGloss(s);
+    if (!gloss) {
       throw new Error(
         `es matchPairs(${idPrefix}): surface '${s}' is not a registered atom`,
       );
     }
-    return { id: `p-${i}`, source: atom.surface, target: atom.gloss };
+    return { id: `p-${i}`, source: s, target: gloss };
   });
   return {
     id: `${idPrefix}-match`,
@@ -584,8 +600,8 @@ export function vocabTextMcq(
   distractorSurfaces: string[],
   promptOverride?: string,
 ): MultipleChoiceStep {
-  const target = findEsAtomBySurface(targetSurface);
-  if (!target) {
+  const gloss = resolveSurfaceGloss(targetSurface);
+  if (!gloss) {
     throw new Error(
       `es vocabTextMcq(${id}): target '${targetSurface}' is not a registered atom`,
     );
@@ -597,7 +613,7 @@ export function vocabTextMcq(
     );
   }
   const items = [
-    { id: "correct", text: target.surface },
+    { id: "correct", text: targetSurface },
     { id: "opt-1", text: distractors[0] },
     { id: "opt-2", text: distractors[1] },
     { id: "opt-3", text: distractors[2] },
@@ -608,7 +624,7 @@ export function vocabTextMcq(
   return {
     id,
     type: "multiple_choice",
-    prompt: promptOverride ?? `Which word means "${target.gloss}"?`,
+    prompt: promptOverride ?? `Which word means "${gloss}"?`,
     options: items,
     correctOptionId: "correct",
     optionsHideRomaji: true,
@@ -687,53 +703,66 @@ function hash32(str: string): number {
   return h >>> 0;
 }
 
+type ReviewEntry = { surface: string; gloss: string };
+
 /**
- * Deterministically pick `n` surfaces from atoms introduced in modules
+ * Deterministically pick `n` entries from atoms introduced in modules
  * STRICTLY EARLIER than `beforeModule` — the compounding-review draw JA
- * gets from `pickReviewAtoms` (guide §6, "the #1 differentiator"). Reads
- * the live registry (cycle-safe via `getRegisteredEsAtoms`), so it only
- * ever sees prior modules at authoring time — exactly what we want.
+ * gets from `pickReviewAtoms` (guide §6, "the #1 differentiator").
  *
- * Seed the picker with a per-lesson id so two lessons draw different
- * (stable) samples. Defaults: single-word, SRS-eligible vocab/particle
- * surfaces — safe to hand straight to `matchPairs`, `cloze` carriers, or
- * `sentenceMcq` review items.
+ * Reads the STATIC `ES_REVIEW_POOL` (a generated snapshot), NOT the live
+ * `courseAtoms` registry: the courseAtoms↔curriculum import cycle can build
+ * a later module's lessons before an earlier module has registered its
+ * atoms, so a registry read here returns an empty pool and throws (the same
+ * cycle `capstoneMatchPairs` sidesteps). The static table is import-order
+ * independent. Seed the picker with a per-lesson id so two lessons draw
+ * different (stable) samples. Default: single-word vocab/particle entries.
  */
-export function pickReviewSurfaces(
+function pickReviewEntries(
   seedId: string,
   beforeModule: EsAtomSource,
   n: number,
   opts?: { singleWord?: boolean; kinds?: EsAtomKind[]; includePhrases?: boolean },
-): string[] {
+): ReviewEntry[] {
   const cutoff = moduleIndex(beforeModule);
   const singleWord = opts?.singleWord ?? true;
   const kinds = opts?.kinds ?? (opts?.includePhrases ? undefined : (["vocab", "particle"] as EsAtomKind[]));
-  const pool = getRegisteredEsAtoms().filter((a) => {
+  const pool = ES_REVIEW_POOL.filter((a) => {
     if (moduleIndex(a.fromModule as EsAtomSource) >= cutoff) return false;
-    if (a.srsEligible === false) return false;
     if (singleWord && a.surface.includes(" ")) return false;
-    if (kinds && !kinds.includes(a.kind)) return false;
+    if (kinds && !kinds.includes(a.kind as EsAtomKind)) return false;
     return true;
   });
   // Stable shuffle keyed by (seed, surface) so the sample is deterministic
   // but varies lesson-to-lesson.
   pool.sort((a, b) => hash32(`${seedId}:${a.surface}`) - hash32(`${seedId}:${b.surface}`));
   const seen = new Set<string>();
-  const out: string[] = [];
+  const out: ReviewEntry[] = [];
   for (const a of pool) {
     if (seen.has(a.surface)) continue;
     seen.add(a.surface);
-    out.push(a.surface);
+    out.push({ surface: a.surface, gloss: a.gloss });
     if (out.length >= n) break;
   }
   return out;
 }
 
+/** Surfaces-only variant — for feeding prior-module words into `cloze` /
+ *  `sentenceMcq` / `build` review carriers. */
+export function pickReviewSurfaces(
+  seedId: string,
+  beforeModule: EsAtomSource,
+  n: number,
+  opts?: { singleWord?: boolean; kinds?: EsAtomKind[]; includePhrases?: boolean },
+): string[] {
+  return pickReviewEntries(seedId, beforeModule, n, opts).map((e) => e.surface);
+}
+
 /**
  * Convenience: a prior-module review `match_pairs` grid. Draws `n` (≥6)
- * earlier-module single-word surfaces and builds the grid. Throws (via
- * `matchPairs`) if fewer than 6 resolve — only call from m2+ where the
- * earlier pool is large enough.
+ * earlier-module single-word entries and builds the grid with INLINE glosses
+ * (via `capstoneMatchPairs`) so it never touches the live registry — safe at
+ * import time. Only call from m2+ where the earlier pool is large enough.
  */
 export function reviewMatchPairs(
   idPrefix: string,
@@ -741,7 +770,7 @@ export function reviewMatchPairs(
   beforeModule: EsAtomSource,
   n = 6,
 ): MatchPairsStep {
-  return matchPairs(idPrefix, pickReviewSurfaces(seedId, beforeModule, n));
+  return capstoneMatchPairs(idPrefix, pickReviewEntries(seedId, beforeModule, n));
 }
 
 // ─── Re-export atom shape for consumers ─────────────────────────────────

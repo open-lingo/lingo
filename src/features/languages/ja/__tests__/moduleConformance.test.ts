@@ -182,8 +182,16 @@ describe("JA module conformance — attribution invariants", () => {
     expect(badEnd, `ja lessons ending on a passive teach card:\n  ${badEnd.join("\n  ")}`).toEqual([]);
   });
 
-  it("getAtomsUpToModule('m27') includes every attributed SRS-eligible atom", () => {
-    const upTo = new Set(getAtomsUpToModule("m27", "ja").map((a) => a.id));
+  it("no attributed SRS-eligible atom is stranded past the end of the course", () => {
+    // The invariant is reachability: every attributed atom must be returned by
+    // the time the learner reaches the LAST module, or the SRS can never
+    // schedule it and the atom is dead weight. This used to hardcode "m27" as
+    // the end of the course, which silently became wrong the moment the course
+    // grew past it (m28 capstone, then the m29+ N4 tier). Derive the end
+    // instead — the assertion is about the end, not about m27.
+    const curriculum = jaModule.curriculum;
+    const lastModuleId = curriculum[curriculum.length - 1].id;
+    const upTo = new Set(getAtomsUpToModule(lastModuleId, "ja").map((a) => a.id));
     const missing: string[] = [];
     for (const atom of JA_COURSE_ATOMS) {
       if (!isSrsEligibleAtom(atom)) continue;
@@ -192,7 +200,7 @@ describe("JA module conformance — attribution invariants", () => {
     }
     expect(
       missing,
-      `attributed atoms not returned by getAtomsUpToModule("m27"):\n  ${missing.join("\n  ")}`,
+      `attributed atoms not returned by getAtomsUpToModule("${lastModuleId}") — these can never enter SRS:\n  ${missing.join("\n  ")}`,
     ).toEqual([]);
   });
 });
