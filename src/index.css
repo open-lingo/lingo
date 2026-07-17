@@ -233,16 +233,31 @@ html::-webkit-scrollbar-button,
   100% { opacity: 0; }
 }
 @keyframes lesson-intro-swirl {
-  0% { transform: scale(0.2) rotate(-140deg); opacity: 0; }
+  0% { transform: scale(0.18) rotate(-160deg); opacity: 0; }
   30% { opacity: 1; }
   60% { opacity: 1; }
-  100% { transform: scale(1.9) rotate(200deg); opacity: 0; }
+  100% { transform: scale(2.8) rotate(230deg); opacity: 0; }
+}
+/* Each arm rotates to its base angle then translates OUTWARD along that
+   rotated axis while the angle keeps turning — so it traces a spiral arc
+   (trajectory growth), not just a scale-up. `--arm-rot` is set per arm. */
+@keyframes lesson-intro-arm {
+  0% { transform: rotate(var(--arm-rot)) translateY(0) scaleY(0.25); opacity: 0; }
+  30% { opacity: 1; }
+  60% { opacity: 0.9; }
+  100% {
+    transform: rotate(calc(var(--arm-rot) + 110deg)) translateY(-150px) scaleY(1.5);
+    opacity: 0;
+  }
 }
 .lesson-intro-veil {
   animation: lesson-intro-veil 1250ms ease-in-out both;
 }
 .lesson-intro-swirl {
   animation: lesson-intro-swirl 1250ms cubic-bezier(.22,.61,.36,1) both;
+}
+.lesson-intro-arm {
+  animation: lesson-intro-arm 1250ms cubic-bezier(.22,.61,.36,1) both;
 }
 
 /* AnnotatedJa: ruby helpers for Japanese kana/kanji. Helper text fades in/out

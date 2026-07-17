@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 
 /**
  * One-shot lesson-start flourish: a swirl spins and scales out from the
@@ -35,10 +35,27 @@ export function LessonIntro() {
       className="pointer-events-none fixed inset-0 z-[60] grid place-items-center"
       aria-hidden
     >
-      {/* Themed backdrop veil — fades in then out */}
+      {/* Themed backdrop veil — fades in, holds over the page mount, fades out */}
       <div className="lesson-intro-veil absolute inset-0 bg-surface/80 backdrop-blur-sm" />
-      {/* Swirl — two counter-rotating conic rings scaling out from center */}
-      <div className="lesson-intro-swirl relative h-40 w-40">
+
+      {/* Spiral arms — each flings outward along its own rotating axis so the
+          spiral grows by trajectory, not just scale. */}
+      {ARMS.map((rot, i) => (
+        <div
+          key={i}
+          className="lesson-intro-arm absolute h-40 w-2 origin-bottom rounded-full"
+          style={
+            {
+              "--arm-rot": `${rot}deg`,
+              background:
+                "linear-gradient(to top, var(--color-accent), transparent)",
+            } as CSSProperties
+          }
+        />
+      ))}
+
+      {/* Core — two counter-rotating conic rings scaling out from center */}
+      <div className="lesson-intro-swirl relative h-80 w-80">
         <div
           className="absolute inset-0 rounded-full"
           style={{
@@ -51,7 +68,7 @@ export function LessonIntro() {
           }}
         />
         <div
-          className="absolute inset-6 rounded-full"
+          className="absolute inset-12 rounded-full"
           style={{
             background:
               "conic-gradient(from 180deg, transparent 0deg, var(--color-warning) 120deg, transparent 260deg)",
@@ -65,3 +82,6 @@ export function LessonIntro() {
     </div>
   );
 }
+
+/** Base angles for the six spiral arms, evenly spread around the circle. */
+const ARMS = [0, 60, 120, 180, 240, 300];
