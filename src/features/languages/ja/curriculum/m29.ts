@@ -277,9 +277,9 @@ export const M29_1_1: LessonContent = {
     }),
     build(
       "ja-m29-1-1-build-sentence-1",
-      "Say: I use a pen.",
+      "Say to a friend: I use a pen.",
       "ペンを つかう",
-      ["ペン", "を", "つかう", "つかいます", "は"],
+      ["ペン", "を", "つかう", "は"],
       ["ペン", "を", "つかう"],
       ["つかう"],
     ),
@@ -301,7 +301,7 @@ export const M29_1_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-1-1-translate",
-      promptEn: "I help my friend.",
+      promptEn: "Say to a friend: I help my friend.",
       acceptedAnswers: ["ともだちを てつだう", "ともだちを てつだう。"],
       audioText: "ともだちを てつだう",
       exercisedAtomKanas: ["てつだう"],
@@ -421,9 +421,9 @@ export const M29_1_2: LessonContent = {
     }),
     build(
       "ja-m29-1-2-build-sentence-1",
-      "Say: I look for my bag.",
+      "Say to a friend: I look for my bag.",
       "かばんを さがす",
-      ["かばん", "を", "さがす", "さがします", "は"],
+      ["かばん", "を", "さがす", "は"],
       ["かばん", "を", "さがす"],
       ["さがす"],
     ),
@@ -445,7 +445,7 @@ export const M29_1_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-1-2-translate",
-      promptEn: "I look for my pen.",
+      promptEn: "Say to a friend: I look for my pen.",
       acceptedAnswers: ["ペンを さがす", "ペンを さがす。"],
       audioText: "ペンを さがす",
       exercisedAtomKanas: ["さがす"],
@@ -548,9 +548,9 @@ export const M29_2_1: LessonContent = {
     }),
     build(
       "ja-m29-2-1-build-suru",
-      "Say: I study Japanese.",
+      "Say to a friend: I study Japanese.",
       "にほんごを べんきょうする",
-      ["にほんご", "を", "べんきょうする", "べんきょうします", "は"],
+      ["にほんご", "を", "べんきょうする", "は"],
       ["にほんご", "を", "べんきょうする"],
     ),
     listeningBuildSentence({
@@ -571,7 +571,7 @@ export const M29_2_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-2-1-translate",
-      promptEn: "I memorise kanji.",
+      promptEn: "Say to a friend: I memorise kanji.",
       acceptedAnswers: ["かんじを おぼえる", "かんじを おぼえる。"],
       audioText: "かんじを おぼえる",
       exercisedAtomKanas: ["おぼえる"],
@@ -634,9 +634,9 @@ export const M29_2_2: LessonContent = {
   steps: [
     build(
       "ja-m29-2-2-build-kuru",
-      "Say: My friend comes.",
+      "Say to a friend: My friend comes.",
       "ともだちが くる",
-      ["ともだち", "が", "くる", "きます", "は"],
+      ["ともだち", "が", "くる", "は"],
       ["ともだち", "が", "くる"],
     ),
     listeningCompSentence({
@@ -659,9 +659,9 @@ export const M29_2_2: LessonContent = {
     }),
     build(
       "ja-m29-2-2-build-2",
-      "Say: I'll carry everything.",
+      "Say to a friend: I'll carry everything.",
       "ぜんぶ はこぶ",
-      ["ぜんぶ", "はこぶ", "はこびます", "を"],
+      ["ぜんぶ", "はこぶ", "を", "も"],
       ["ぜんぶ", "はこぶ"],
       ["ぜんぶ", "はこぶ"],
     ),
@@ -683,7 +683,7 @@ export const M29_2_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-2-2-translate",
-      promptEn: "My friend comes.",
+      promptEn: "Say to a friend: My friend comes.",
       acceptedAnswers: ["ともだちが くる", "ともだちが くる。"],
       audioText: "ともだちが くる",
     }),
@@ -802,7 +802,7 @@ export const M29_3_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-3-1-translate",
-      promptEn: "I'm not helping my friend.",
+      promptEn: "Say to a friend: I'm not helping my friend.",
       acceptedAnswers: ["ともだちを てつだわない", "ともだちを てつだわない。"],
       audioText: "ともだちを てつだわない",
       exercisedAtomKanas: ["てつだう"],
@@ -922,7 +922,7 @@ export const M29_3_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-3-2-translate",
-      promptEn: "I'm not tidying up my room.",
+      promptEn: "Say to a friend: I'm not tidying up my room.",
       acceptedAnswers: ["へやを かたづけない", "へやを かたづけない。"],
       audioText: "へやを かたづけない",
       exercisedAtomKanas: ["かたづける"],
@@ -1042,7 +1042,7 @@ export const M29_4_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-4-1-translate",
-      promptEn: "I helped my friend.",
+      promptEn: "Say to a friend: I helped my friend.",
       acceptedAnswers: ["ともだちを てつだった", "ともだちを てつだった。"],
       audioText: "ともだちを てつだった",
       exercisedAtomKanas: ["てつだう"],
@@ -1163,7 +1163,7 @@ export const M29_4_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-4-2-translate",
-      promptEn: "I studied Japanese.",
+      promptEn: "Say to a friend: I studied Japanese.",
       acceptedAnswers: ["にほんごを べんきょうした", "にほんごを べんきょうした。"],
       audioText: "にほんごを べんきょうした",
     }),
@@ -1281,7 +1281,7 @@ export const M29_5_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-5-1-translate",
-      promptEn: "My friend didn't come.",
+      promptEn: "Say to a friend: My friend didn't come.",
       acceptedAnswers: ["ともだちは こなかった", "ともだちは こなかった。"],
       audioText: "ともだちは こなかった",
     }),
@@ -1402,7 +1402,7 @@ export const M29_5_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-5-2-translate",
-      promptEn: "My friend didn't help me.",
+      promptEn: "Say to a friend: My friend didn't help me.",
       acceptedAnswers: ["ともだちは てつだわなかった", "ともだちは てつだわなかった。"],
       audioText: "ともだちは てつだわなかった",
       exercisedAtomKanas: ["ともだち", "てつだう"],
@@ -1529,7 +1529,7 @@ export const M29_6_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-6-1-translate",
-      promptEn: "I didn't use a bicycle yesterday.",
+      promptEn: "Say to a friend: I didn't use a bicycle yesterday.",
       acceptedAnswers: ["きのう じてんしゃを つかわなかった", "きのう じてんしゃを つかわなかった。"],
       audioText: "きのう じてんしゃを つかわなかった",
       exercisedAtomKanas: ["つかう"],
@@ -1652,7 +1652,7 @@ export const M29_6_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-6-2-translate",
-      promptEn: "I carried the luggage.",
+      promptEn: "Say to a friend: I carried the luggage.",
       acceptedAnswers: ["にもつを はこんだ", "にもつを はこんだ。"],
       audioText: "にもつを はこんだ",
       exercisedAtomKanas: ["はこぶ"],
@@ -1873,9 +1873,9 @@ export const M29_7_1: LessonContent = {
     }),
     build(
       "ja-m29-7-1-build-1",
-      "Say: I'm not going to look for it today.",
+      "Say to a friend: I'm not going to look for it today.",
       "きょうは さがさない",
-      ["きょう", "は", "さがさない", "さがしません", "さがした"],
+      ["きょう", "は", "さがさない", "さがした"],
       ["きょう", "は", "さがさない"],
       ["さがす"],
     ),
@@ -1915,7 +1915,7 @@ export const M29_7_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-7-1-translate",
-      promptEn: "I chose everything by myself.",
+      promptEn: "Say to a friend: I chose everything by myself.",
       acceptedAnswers: ["じぶんで ぜんぶ えらんだ", "じぶんで ぜんぶ えらんだ。"],
       audioText: "じぶんで ぜんぶ えらんだ",
       exercisedAtomKanas: ["ぜんぶ", "えらぶ"],
@@ -2054,7 +2054,7 @@ export const M29_7_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-7-2-translate",
-      promptEn: "I tidied up everything before my friend came.",
+      promptEn: "Say to a friend: I tidied up everything before my friend came.",
       acceptedAnswers: [
         "ともだちが くるまえに ぜんぶ かたづけた",
         "ともだちが くるまえに ぜんぶ かたづけた。",
