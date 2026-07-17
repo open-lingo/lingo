@@ -44,6 +44,7 @@ import { PlacementPrompt } from "@/features/placement/components/PlacementPrompt
 import { isPlacementDismissed, dismissPlacement } from "@/features/placement/hooks/usePlacementDismissed";
 import { getStoredSettings } from "@/features/settings/storage";
 import { LearnSidebar } from "./components/LearnSidebar";
+import { LearnModuleList } from "./components/LearnModuleList";
 import { LearnTopBar } from "./components/LearnTopBar";
 import { LearnDevPanel } from "./components/LearnDevPanel";
 import { YourPathCard } from "./components/YourPathCard";
@@ -51,7 +52,14 @@ import { LearnToolsRow } from "./components/LearnToolsRow";
 import { PageShell } from "@/shared/components/PageShell";
 import { Card } from "@/shared/components/ui";
 
-export function LearnPage() {
+export function LearnPage({
+  variant = "classic",
+}: {
+  /** "list" is the compact module-list rendered inside LearnHomeSwitch's
+   *  shared header + height-locked container (Path⇄List toggle); "classic"
+   *  is the standalone pathway page (learn/classic, non-transit languages). */
+  variant?: "classic" | "list";
+} = {}) {
   const { t } = useTranslation();
   const { openSettings } = useModal();
   const langPath = useLangPath();
@@ -337,6 +345,87 @@ export function LearnPage() {
     // walk lessons 1 → 2 → 3 → test in order.
     navigate(langPath(`learn/lessons/ja-${reviewModuleId}-1`));
   };
+
+  const bottomChrome = (
+    <>
+      <LearnDevPanel
+        unlocked={devUnlock}
+        onToggle={handleToggleDevUnlock}
+        onClearProgress={() => {
+          if (course && language) {
+            void resetLearnProgress(language.id, course.id, {
+              progress,
+              srs,
+            }).then(() => window.location.reload());
+          }
+        }}
+        onClearGraduatedVocab={() => {
+          if (language) clearGraduatedVocab(language.id, course.id);
+        }}
+      />
+      {showPlacement && (
+        <PlacementPrompt
+          onStart={() => {
+            setPlacementDismissedByUser(true);
+            navigate(langPath("learn/placement-test"));
+          }}
+          onSkip={() => {
+            dismissPlacement(language?.id ?? "ja");
+            setPlacementDismissedByUser(true);
+          }}
+        />
+      )}
+    </>
+  );
+
+  // List view: compact module accordion inside the same height-locked
+  // container + sidebar layout the map uses (LearnHomeSwitch renders the
+  // shared header above). No pathway graphic, no YourPathCard/tools row.
+  if (variant === "list") {
+    return (
+      <>
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-stretch 2xl:grid-cols-[minmax(0,1fr)_360px]">
+          <div className="min-w-0">
+            <div className="flex flex-col overflow-hidden rounded-card border border-border bg-surface shadow-card lg:h-[clamp(420px,calc(100dvh-10.5rem-var(--cookie-consent-height,0px)),1040px)]">
+              <div className="min-h-0 flex-1 overflow-y-auto">
+                <LearnModuleList
+                  course={course}
+                  completedSet={completedSet}
+                  isOpen={accordion.isOpen}
+                  onToggle={accordion.toggle}
+                  onLessonClick={goToLesson}
+                  devUnlock={devUnlock}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="hidden lg:block lg:min-h-0">
+            <LearnSidebar
+              profile={profile}
+              course={course}
+              completedSet={completedSet}
+              onJumpToModule={handleJumpToModule}
+              sideQuests={sideQuests}
+              isSideQuestUnlocked={isSideQuestUnlocked}
+              onSideQuestClick={onSideQuestClick}
+            />
+          </div>
+          <div className="lg:hidden">
+            <LearnSidebar
+              profile={profile}
+              course={course}
+              completedSet={completedSet}
+              onJumpToModule={handleJumpToModule}
+              sideQuests={sideQuests}
+              isSideQuestUnlocked={isSideQuestUnlocked}
+              onSideQuestClick={onSideQuestClick}
+            />
+          </div>
+        </div>
+        {bottomChrome}
+      </>
+    );
+  }
 
   return (
     <>

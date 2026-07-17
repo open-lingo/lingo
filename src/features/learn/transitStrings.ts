@@ -69,3 +69,10 @@ const STRINGS: Record<string, TransitStrings> = {
 
 export const stringsFor = (lang: string): TransitStrings =>
   STRINGS[lang] ?? STRINGS.es;
+
+/**
+ * Shared learn-page header subtitle. Identical across the map (Path) and
+ * list views so the header never changes text when toggling between them.
+ */
+export const LEARN_HEADER_SUBTITLE =
+  "Modules, lessons, and side quests — pick up where you left off";

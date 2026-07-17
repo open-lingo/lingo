@@ -4,7 +4,7 @@ import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { isTransitLearnHome } from "@/shared/config/featureFlags";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { prefetchLesson } from "@/shared/utils/routePrefetch";
-import { stringsFor } from "./transitStrings";
+import { stringsFor, LEARN_HEADER_SUBTITLE } from "./transitStrings";
 import { useLearnViewMode, type LearnViewMode } from "./hooks/useLearnViewMode";
 import { TransitSignageHeader } from "./components/TransitSignageHeader";
 import TransitLearnPage from "./TransitLearnPage";
@@ -67,15 +67,13 @@ export function LearnHomeSwitch() {
 
   const strings = stringsFor(lang ?? "ko");
   return (
-    <div className="tmc-root">
-      <div className="mx-auto max-w-6xl px-2 pt-2.5 sm:px-3">
-        <TransitSignageHeader
-          title={`${strings.mapTitle} — ${course.title}`}
-          subtitle="Browse every module and lesson as a list"
-          right={<ViewToggle mode={mode} onChange={setMode} />}
-        />
-      </div>
-      <LearnPage />
+    <div className="tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3">
+      <TransitSignageHeader
+        title={`${strings.mapTitle} — ${course.title}`}
+        subtitle={LEARN_HEADER_SUBTITLE}
+        right={<ViewToggle mode={mode} onChange={setMode} />}
+      />
+      <LearnPage variant="list" />
     </div>
   );
 }

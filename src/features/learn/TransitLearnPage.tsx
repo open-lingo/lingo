@@ -60,7 +60,7 @@ import {
   getNextLessonIndex,
   type ModuleStatus,
 } from "@/features/learn/moduleProgress";
-import { stringsFor } from "@/features/learn/transitStrings";
+import { stringsFor, LEARN_HEADER_SUBTITLE } from "@/features/learn/transitStrings";
 import { TransitSignageHeader } from "@/features/learn/components/TransitSignageHeader";
 import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
 import { useLearnProfile } from "@/features/learn/hooks/useLearnProfile";
@@ -1976,7 +1976,7 @@ export default function TransitLearnPage({
         subtitle={
           preview
             ? "Transit-map concept · dev preview · click stations, board quests, visit the depot"
-            : "Click a station to open its district · quests branch off the main line · the depot links to practice"
+            : LEARN_HEADER_SUBTITLE
         }
         right={
           headerRight ?? (
