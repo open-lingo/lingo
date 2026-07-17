@@ -1,5 +1,7 @@
 # Todos and what's left
 
+**Status:** LIVE · **Last-verified:** 2026-07-17
+
 By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **Ideas / epics:** [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md) · **Checklists:** [MVP_PRODUCTION_READINESS.md](./MVP_PRODUCTION_READINESS.md) · **Code snapshot:** [PROJECT_STATE.md](./PROJECT_STATE.md).
 
 ## Done (recently)

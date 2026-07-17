@@ -1,5 +1,7 @@
 # Katakana rollout + romaji fade — spec (2026-06-30)
 
+**Status:** SHIPPED · **Last-verified:** 2026-07-17
+
 **Status:** SHIPPED (archival). Built and live. ⚠️ **One number here is superseded:** hiragana
 romaji-off moved **M10 → M7** in the 2026-07-16 script-ladder wave (so it retires one module
 before kanji recognition starts at M8). Katakana @ M17 and build-tile fade @ M5 are current.

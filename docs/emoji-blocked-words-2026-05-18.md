@@ -1,5 +1,7 @@
 # Image-Blocked Vocab — Authoring Guide (2026-05-18)
 
+**Status:** LIVE · **Last-verified:** 2026-07-17
+
 > **⚠️ PARTIALLY STALE for ja (2026-07-16 script-ladder wave). `Status: LIVE-with-corrections.`**
 > Every "`phrase_card`" recommendation below is **BANNED in ja** — `phrase_card` is shelved and
 > `vocab()`/`phrase()` silently emit it (authoring-guide §4b2; conformance-test-enforced). The

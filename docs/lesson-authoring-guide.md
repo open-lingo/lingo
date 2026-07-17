@@ -1,5 +1,7 @@
 # Lesson authoring guide
 
+**Status:** LIVE · **Last-verified:** 2026-07-17
+
 How to author a Lingo JA sub-lesson that passes every standard we've accumulated. Living doc — refine as new findings land.
 
 > **Start with §4d and §4e.** The 2026-07-16 script-ladder wave changed what a ja lesson may

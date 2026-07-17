@@ -1,5 +1,12 @@
 # Kanji + furigana — implementation spec (2026-07-16)
 
+**Status:** STALE · **Last-verified:** 2026-07-17
+
+> ⚠️ Superseded by what shipped: kanji recognition is LIVE from m8 with a rolling
+> furigana window (unlock+2) — see `src/features/languages/ja/secondScript/kanjiRollout.ts`,
+> which is the source of truth. This spec's `KANJI_START_MODULE = 99` OFF-sentinel /
+> "nothing wired yet" framing did not ship.
+
 Implementation-ready follow-through on `docs/kanji-furigana-plan-2026-07-16.md`.
 The plan established *why* (the whole JA course is kana-only by omission; the
 `<ruby>` furigana branch in `AnnotatedText` is reachable-but-dead because every
