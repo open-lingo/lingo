@@ -26,11 +26,16 @@ import type {
   WordImageMcqStep,
 } from "@/features/lesson/types";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
-import { JA_COURSE_ATOMS_BY_KANA } from "@/features/languages/ja/courseAtoms";
+import {
+  JA_COURSE_ATOMS,
+  JA_COURSE_ATOMS_BY_KANA,
+} from "@/features/languages/ja/courseAtoms";
 import { withoutMcqBlocked as sharedWithoutMcqBlocked } from "@/shared/lessonAuthoring/imageMcqBlocklist";
 import { isKana } from "@/shared/japanese/kanaTable";
 import { KANJI_ELIGIBLE_ATOMS } from "./secondScript/applyKanjiSurfaces";
 import { readingDistractors } from "./secondScript/readingDistractors";
+import { annotateJapaneseText } from "./romajiLexicon";
+import { VERB_ENTRIES, ADJ_ENTRIES } from "./conjugationTables";
 
 /**
  * Resolve a course atom ID from a phrase_card's kana. Used by the `phrase()`
@@ -85,6 +90,208 @@ function buildSingletonAnnotation(
   reading: string = surface,
 ): JapaneseAnnotation {
   return { surface, reading, ...resolveAtom(reading) };
+}
+
+/**
+ * How many course atoms share a given kana surface. Built once. A kana with a
+ * count > 1 is a HOMOGRAPH (はな = 花 flower / 鼻 nose; に = 二 two / particle
+ * に; はし = 橋 bridge / 箸 chopsticks) — its kana→atom collapse in
+ * `JA_COURSE_ATOMS_BY_KANA` is last-write-wins, so trusting it could attach the
+ * WRONG atom and render the WRONG kanji. We refuse to attach an atomId to any
+ * homograph token (see `resolveEligibleKanjiAtomId`).
+ */
+let _kanaAtomCount: Map<string, number> | null = null;
+function kanaAtomCount(): Map<string, number> {
+  if (_kanaAtomCount) return _kanaAtomCount;
+  const m = new Map<string, number>();
+  for (const a of JA_COURSE_ATOMS) m.set(a.kana, (m.get(a.kana) ?? 0) + 1);
+  _kanaAtomCount = m;
+  return m;
+}
+
+/**
+ * Every INFLECTED verb/adjective surface in the conjugation tables (た/て/ない/
+ * ます/たい forms + adjective negatives/pasts) — the dictionary form itself is
+ * excluded. A noun atom whose kana collides with one of these is a cross-class
+ * homograph the segmenter cannot resolve: した is both 下 ("below") and the past
+ * of する ("did"); きた is both 北 and the past of くる. Substituting the noun
+ * kanji onto the verb reading ships WRONG kanji, so any such atom is barred from
+ * sentence substitution (it still reaches kanji via single-atom steps). Derived
+ * from the tables so it stays correct as verbs/adjectives are added.
+ */
+let _reservedInflections: Set<string> | null = null;
+function reservedInflections(): Set<string> {
+  if (_reservedInflections) return _reservedInflections;
+  const s = new Set<string>();
+  for (const v of VERB_ENTRIES) {
+    for (const [form, surface] of Object.entries(v.forms)) {
+      if (form !== "dictionary" && surface) s.add(surface);
+    }
+  }
+  for (const a of ADJ_ENTRIES) {
+    for (const [form, surface] of Object.entries(a.forms)) {
+      if (form !== "present" && surface) s.add(surface); // present = dictionary
+    }
+  }
+  _reservedInflections = s;
+  return s;
+}
+
+/** Number kanji (一..十, 百/千/万, 〇/零). Their readings (に, し, よん, ろく, まん,
+ *  …) are extremely common substrings of OTHER words and of verb/adjective
+ *  inflections (読んで→"よん", ひろく→"ろく", まんが→"まん"), so number atoms are
+ *  too slice-prone to substitute inside free-running sentence text. They still
+ *  reach kanji via single-atom match / kanji_reading steps — just not here. */
+const NUMBER_KANJI_ONLY = /^[一二三四五六七八九十百千万〇零]+$/u;
+
+/**
+ * THE CONSERVATIVE ATOM-ID RESOLVER for sentence tokens. Returns an atomId for
+ * a token's kana ONLY when substituting its kanji in free sentence text is
+ * PROVABLY safe. Every gate below, failing which we return undefined (token
+ * stays bare kana; the pass can never put a wrong kanji on it):
+ *
+ *   1. Non-homographic: exactly ONE course atom carries this kana. A homograph
+ *      (はな = 花/鼻, に = 二/particle, はし = 橋/箸) collapses last-write-wins in
+ *      `JA_COURSE_ATOMS_BY_KANA` — guessing risks the WRONG kanji, so we refuse.
+ *   2. Actually taught: `fromModule !== "future"`. Backlog atoms (e.g. きた 北,
+ *      whose kana collides with the past tense 来た of くる) never substitute.
+ *   3. Kanji-eligible in the shipped rollout catalog (`KANJI_ELIGIBLE_ATOMS`).
+ *   4. Not a pure NUMBER kanji (see `NUMBER_KANJI_ONLY`) — number readings slice
+ *      out of inflections/compounds far too easily to trust in running text.
+ *   5. Not a verb/adjective inflection surface (`reservedInflections`) — した is
+ *      both 下 and する's past, きた both 北 and くる's past; we can't tell which,
+ *      so we don't substitute.
+ *
+ * When all gates pass, exactly one atom carries the kana and its kanji is that
+ * surface's unique reading, so the substitution is correct. Anything uncertain
+ * stays kana — partial coverage is the safe, intended outcome. Exported for
+ * direct testing of the ambiguity rule.
+ */
+export function resolveEligibleKanjiAtomId(kana: string): string | undefined {
+  if ((kanaAtomCount().get(kana) ?? 0) !== 1) return undefined; // homograph → never
+  const atom = JA_COURSE_ATOMS_BY_KANA.get(kana);
+  if (!atom) return undefined;
+  if (atom.fromModule === "future") return undefined; // not taught → don't
+  const entry = KANJI_ELIGIBLE_ATOMS.get(atom.id);
+  if (!entry) return undefined; // not kanji-eligible
+  if (NUMBER_KANJI_ONLY.test(entry.kanji)) return undefined; // slice-prone number
+  if (reservedInflections().has(kana)) return undefined; // collides with a verb/adj inflection (した=下/した)
+  return atom.id;
+}
+
+/**
+ * Single-kana particles that may trail a kanji-fied word inside its run WITHOUT
+ * risking a bad slice. `と` is deliberately EXCLUDED: it is frequently
+ * word-internal (きょうと 京都 → "きょう"+と would slice out 今日 "today"), so a
+ * word followed by と is treated as unclean and left bare. The remaining core
+ * particles (は/が/を/に/へ/も/の/で/…) attach to content words grammatically and
+ * do not create common-noun slices in this corpus.
+ */
+let _safeTrailingParticles: Set<string> | null = null;
+function safeTrailingParticles(): Set<string> {
+  if (_safeTrailingParticles) return _safeTrailingParticles;
+  _safeTrailingParticles = new Set(
+    JA_COURSE_ATOMS.filter(
+      (a) =>
+        a.kind === "particle" &&
+        Array.from(a.kana).length === 1 &&
+        a.kana !== "と",
+    ).map((a) => a.kana),
+  );
+  return _safeTrailingParticles;
+}
+
+/** A fragment carrying at least one kana (a grouped lexicon word OR a lone
+ *  kana). Non-kana fragments (spaces, punctuation, latin) are run separators. */
+function isKanaFragment(frag: { text: string }): boolean {
+  return Array.from(frag.text).some(isKana);
+}
+
+/** A grouped dictionary word: `annotateJapaneseText` only groups spans of ≥2
+ *  units, so a `symbols` array marks a real lexicon word (never a slice-orphan). */
+function isGroupedWord(frag: { symbols?: string[] }): boolean {
+  return frag.symbols !== undefined;
+}
+
+/**
+ * Build a MULTI-segment `JapaneseAnnotation[]` for a sentence: one segment per
+ * word/particle/filler run, carrying an `atomId` (+gloss) ONLY on
+ * unambiguously-resolvable, kanji-eligible word tokens (`resolveEligibleKanjiAtomId`).
+ * The kanji post-pass (`applyKanjiSurfaces`) then substitutes exactly those
+ * tokens once their module unlocks; every other run stays kana. Concatenating
+ * the segment surfaces reproduces the input sentence byte-for-byte, so the
+ * rendered sentence (and every non-display field, which this never touches) is
+ * unchanged below the unlock.
+ *
+ * Word boundaries come from `annotateJapaneseText` — the SAME kana-aware
+ * segmenter `AnnotatedText` already runs at render, so romaji grouping is
+ * identical to today's single whole-sentence segment; we only pull the eligible
+ * words out into their own segments so the pass has an atomId to key on.
+ *
+ * SLICE GUARD (critical): the segmenter will happily carve a valid atom out of
+ * the MIDDLE of an inflected form — ひろくない (not spacious) yields ろく (六,
+ * "six"); よんでいます (読んでいます, "is reading") yields よん (四, "four"). Any
+ * such slice ships WRONG kanji. So we work in maximal KANA RUNS (bounded by
+ * spaces / punctuation) and kanji-fy a run's word ONLY when the run is
+ * unambiguous: it contains EXACTLY ONE dictionary word and every other token in
+ * it is a single-kana particle (は/を/に/…). A run with two+ dictionary words
+ * (よん+います), or any leftover orphan kana (conjugation stems/okurigana),
+ * kanji-fies NOTHING — we can't tell a real word from a lucky slice. Very
+ * conservative on purpose: partial coverage (some words kanji, some kana) is the
+ * correct, safe outcome the spec mandates. Space-delimited phrases — the norm in
+ * these lessons — put each content word in its own run, so real words still land.
+ *
+ * A whole string that is itself a single atom (a single-word target like
+ * コーヒー / まいにち) short-circuits to the historical singleton shape, keeping
+ * its atomId + gloss exactly as `buildSingletonAnnotation` produced them.
+ */
+export function buildSentenceAnnotation(sentence: string): JapaneseAnnotation[] {
+  if ((kanaAtomCount().get(sentence) ?? 0) === 1) {
+    return [buildSingletonAnnotation(sentence)];
+  }
+  const fragments = annotateJapaneseText(sentence, true);
+  const segments: JapaneseAnnotation[] = [];
+  let filler = "";
+  const flushFiller = () => {
+    if (filler) {
+      segments.push({ surface: filler, reading: filler });
+      filler = "";
+    }
+  };
+  // Emit one kana run. It is "clean" (eligible to kanji-fy its word) iff it has
+  // EXACTLY ONE dictionary word and every other token is a single-kana particle.
+  const flushRun = (run: { text: string; symbols?: string[]; reading?: string }[]) => {
+    if (run.length === 0) return;
+    const parts = safeTrailingParticles();
+    const words = run.filter(isGroupedWord);
+    const clean =
+      words.length === 1 &&
+      run.every((f) => isGroupedWord(f) || parts.has(f.text));
+    for (const frag of run) {
+      if (clean && isGroupedWord(frag) && resolveEligibleKanjiAtomId(frag.text)) {
+        flushFiller();
+        // Safe: eligible ⇒ exactly one atom for this kana ⇒ resolveAtom is
+        // unambiguous. Carries atomId (pass keys on it) + gloss (word popover).
+        segments.push({ surface: frag.text, reading: frag.text, ...resolveAtom(frag.text) });
+      } else {
+        filler += frag.text;
+      }
+    }
+  };
+  let run: typeof fragments = [];
+  for (const frag of fragments) {
+    if (isKanaFragment(frag)) {
+      run.push(frag);
+    } else {
+      flushRun(run);
+      run = [];
+      filler += frag.text; // separator (space / punctuation) → bare filler
+    }
+  }
+  flushRun(run);
+  flushFiller();
+  if (segments.length === 0) segments.push(buildSingletonAnnotation(sentence));
+  return segments;
 }
 
 export function vocab(
@@ -191,7 +398,10 @@ export function build(
     correctOrder,
     granularity: "word",
     audioKey: target,
-    targetAnnotation: [buildSingletonAnnotation(target)],
+    // Multi-segment: kanji-fies only the sentence's unambiguous eligible words
+    // (post-pass); tiles + correctOrder stay KANA (separate fields, grading
+    // untouched). See buildSentenceAnnotation.
+    targetAnnotation: buildSentenceAnnotation(target),
     exercisedAtoms: resolveAtomIds(exercisedAtomKanas),
     modality: "production",
   };
@@ -248,7 +458,7 @@ export function speaking(
     // analogous flip on _consonantRowHelpers.speaking from 2026-05-17.
     stubbed: false,
     audioKey: targetPhrase,
-    targetAnnotation: [buildSingletonAnnotation(targetPhrase)],
+    targetAnnotation: buildSentenceAnnotation(targetPhrase),
     exercisedAtoms: resolveAtomIds(exercisedAtomKanas),
     modality: "production",
   };
@@ -1266,7 +1476,8 @@ export function listeningBuildSentence(opts: {
     tiles: opts.tiles,
     correctOrder: opts.correctOrder,
     granularity: "word",
-    targetAnnotation: [buildSingletonAnnotation(opts.target)],
+    // Multi-segment target (kanji reference); tiles + correctOrder stay KANA.
+    targetAnnotation: buildSentenceAnnotation(opts.target),
     exercisedAtoms: resolveAtomIds(opts.exercisedAtomKanas),
     modality: "production",
   };
@@ -1302,7 +1513,7 @@ export function listeningCompSentence(opts: {
     question: opts.question ?? "What does this sentence mean?",
     options: items,
     correctOptionId: "correct",
-    transcriptAnnotation: [buildSingletonAnnotation(opts.audioText)],
+    transcriptAnnotation: buildSentenceAnnotation(opts.audioText),
     exercisedAtoms: resolveAtomIds(opts.exercisedAtomKanas),
     modality: "recognition",
   };

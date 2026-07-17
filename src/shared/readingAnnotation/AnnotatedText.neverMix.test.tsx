@@ -121,6 +121,50 @@ describe("AnnotatedText — never-mix romaji/kanji gate (segments mode, Kanji br
     expect(container.textContent).toContain("一");
   });
 
+  it("a kanji word inside a multi-segment SENTENCE annotation shows NO romaji (never-mix), even beside kana neighbours", () => {
+    // Post-kanji-pass shape of a sentence like まいにち ともだちを てつだう at a
+    // high module: only the eligible word is kanji-fied (毎日, bare — past its
+    // furigana window), the rest stays kana. The kanji segment must never carry
+    // romaji, no matter that forceShowHelper is on and romaji shows over the
+    // kana run.
+    const { container } = render(
+      <AnnotatedText
+        segments={[
+          { surface: "毎日", reading: "毎日", atomId: "mainichi" },
+          { surface: " ともだちを てつだう", reading: " ともだちを てつだう" },
+        ]}
+        forceShowHelper
+      />,
+    );
+    const kanjiRuby = Array.from(container.querySelectorAll("ruby")).find(
+      (r) => r.childNodes[0]?.textContent === "毎日",
+    );
+    expect(kanjiRuby).toBeTruthy();
+    const rt = kanjiRuby!.querySelector("rt")!;
+    expect(rt.getAttribute("aria-hidden")).toBe("true"); // reading === surface → nothing floats
+    expect(rt.textContent ?? "").not.toMatch(/[a-z]/i); // never romaji over kanji
+    expect(container.textContent).toContain("毎日");
+  });
+
+  it("a kanji word still IN its furigana window floats the kana reading (not romaji) inside a sentence", () => {
+    const { container } = render(
+      <AnnotatedText
+        segments={[
+          { surface: "毎日", reading: "まいにち", atomId: "mainichi" },
+          { surface: " べんきょうする", reading: " べんきょうする" },
+        ]}
+        forceShowHelper
+      />,
+    );
+    const kanjiRuby = Array.from(container.querySelectorAll("ruby")).find(
+      (r) => r.childNodes[0]?.textContent === "毎日",
+    );
+    const rt = kanjiRuby!.querySelector("rt")!;
+    expect(rt.getAttribute("aria-hidden")).toBe("false");
+    expect(rt.textContent).toBe("まいにち"); // furigana kana, never romaji
+    expect(rt.textContent).not.toMatch(/[a-z]/i);
+  });
+
   it("leaves a non-kanji segment on this same (non-pure-kana) branch unaffected", () => {
     // "Hi ここ" has kana (so it isn't plain text) but isn't pure kana
     // either (Latin letters + a space) — it reaches the same Kanji-branch

@@ -20,12 +20,17 @@
  *     "two" OR particle `p-ni`, whichever inserted last), so a kana-keyed pass
  *     would render the particle に as 二. atomId avoids that entirely.
  *
- * SCOPE (v1):
- *   - SINGLE-ATOM surfaces only. `buildSingletonAnnotation` attaches an
- *     `atomId` only when the whole annotation string equals one atom's kana,
- *     and wraps it as a one-element annotation array. A sentence target is a
- *     single annotation whose surface is the whole sentence with NO atomId, so
- *     it is skipped. We therefore only rewrite annotation arrays of length 1.
+ * SCOPE (v1 + sentence layer):
+ *   - PER-SEGMENT, atomId-gated. Historically single-atom only
+ *     (`buildSingletonAnnotation` wraps a one-element array). Sentence
+ *     factories now emit MULTI-segment annotations — one segment per token,
+ *     with an `atomId` attached only on unambiguously-resolvable eligible
+ *     words (grammarHelpers.buildSentenceAnnotation). This pass maps over
+ *     every segment and rewrites each independently; a segment with no
+ *     `atomId` (kana filler / particle / conjugated form / ambiguous
+ *     homograph) is left untouched, so a sentence kanji-fies only its safe,
+ *     eligible words and everything else stays kana. Adding atomIds happens in
+ *     the FACTORY (pre-pass), so the atomId multiset is identical pre/post here.
  *   - DICTIONARY-FORM only. The 6 polite `-ます` anchorVocab forms carry no
  *     stored kanji (their dictionary siblings do) → naturally skipped here.
  *     Routing them through `writtenForms.writtenSegments` is v1.1.
@@ -190,15 +195,27 @@ function rewriteSegment(
   };
 }
 
-/** Rewrite a single annotation array (JapaneseAnnotation[]). SINGLE-ATOM scope
- *  ⇒ only arrays of length 1 are eligible. Same reference when unchanged. */
+/** Rewrite a single annotation array (JapaneseAnnotation[]). Each segment is
+ *  rewritten INDEPENDENTLY: `rewriteSegment` gates every segment on its own
+ *  `atomId` + eligibility + furigana window, so this is safe for both the
+ *  historical single-atom arrays (length 1) AND the multi-segment sentence
+ *  annotations the sentence factories now emit (one segment per token, with an
+ *  atomId only on unambiguously-resolvable eligible words — see
+ *  grammarHelpers.buildSentenceAnnotation). Segments without an atomId (kana
+ *  fillers, particles, conjugated forms, ambiguous homographs) return
+ *  themselves from `rewriteSegment` and stay kana. Same reference when nothing
+ *  in the array changed. */
 function rewriteAnnotationArray(
   arr: JapaneseAnnotation[],
   learnerModule: number,
 ): JapaneseAnnotation[] {
-  if (arr.length !== 1) return arr;
-  const next = rewriteSegment(arr[0], learnerModule);
-  return next === arr[0] ? arr : [next];
+  let changed = false;
+  const next = arr.map((seg) => {
+    const r = rewriteSegment(seg, learnerModule);
+    if (r !== seg) changed = true;
+    return r;
+  });
+  return changed ? next : arr;
 }
 
 /**

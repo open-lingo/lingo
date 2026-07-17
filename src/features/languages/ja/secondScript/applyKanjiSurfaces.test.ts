@@ -16,7 +16,7 @@ import {
   getAvailableMockLessonIds,
   getMockLessonContent,
 } from "@/features/lesson/data/mockLessons";
-import { vocabMcq, type ReviewAtom } from "@/features/languages/ja/grammarHelpers";
+import { vocabMcq, build, type ReviewAtom } from "@/features/languages/ja/grammarHelpers";
 
 /**
  * KANJI SURFACE POST-PASS — the owner's "needs good checks to make sure it
@@ -448,5 +448,67 @@ describe("reviews bake in m8 & m9 production (deliverable #3)", () => {
     // getMockLessonContent routes through applyKanjiSurfaces and never throws.
     expect(() => getMockLessonContent("ja-m10-review-1")).not.toThrow();
     expect(getMockLessonContent("ja-m10-review-1")?.languageId).toBe("ja");
+  });
+});
+
+// ───────── sentence-level kanji: multi-segment targets, per-word gating ──────
+
+describe("sentence-level kanji substitution (multi-segment annotations)", () => {
+  const SENTENCE = "まいにち ともだちを てつだう";
+  const TILES = ["まいにち", "ともだち", "を", "てつだう"];
+
+  it("m29: kanji-fies ONLY the eligible unambiguous word (毎日); ambiguous/particle/conjugated stay kana", () => {
+    const step = build("bs-m29", "Every day I help a friend", SENTENCE, TILES, TILES);
+    const out = applyKanjiSurfaces(synthLesson("m29", [step]));
+    const segs = collectSegments(out).map((s) => s.seg);
+
+    // まいにち → 毎日, bare (m29 is past the unlock+2 furigana window at m22).
+    const mainichi = segs.find((s) => s.atomId === "mainichi")!;
+    expect(mainichi.surface).toBe("毎日");
+    expect(mainichi.reading).toBe("毎日");
+
+    // Every OTHER sentence segment stays pure kana — ともだち (友達, catalog gap),
+    // を (particle), てつだう (手伝う, catalog gap) are NEVER substituted.
+    for (const s of segs) {
+      if (s.atomId === "mainichi") continue;
+      expect(HAS_HAN.test(s.surface)).toBe(false);
+    }
+    // Reference display reconstructs the sentence with only 毎日 in kanji.
+    expect(segs.map((s) => s.surface).join("")).toBe("毎日 ともだちを てつだう");
+
+    // Grading + audio fields byte-identical (KANA) — recognize-kanji /
+    // assemble-from-kana asymmetry is intended.
+    const bstep = out.steps[0] as typeof step;
+    expect(bstep.tiles).toEqual(TILES);
+    expect(bstep.correctOrder).toEqual(TILES);
+    expect(bstep.targetSentence).toBe(SENTENCE);
+    expect(bstep.audioKey).toBe(SENTENCE);
+  });
+
+  it("a conjugated form (のまない) in a sentence stays kana while its eligible neighbour kanji-fies", () => {
+    const step = build("bs-conj", "I don't drink every day", "まいにち のまない", ["まいにち", "のまない"], ["まいにち", "のまない"]);
+    const out = applyKanjiSurfaces(synthLesson("m29", [step]));
+    const joined = collectSegments(out).map((s) => s.seg.surface).join("");
+    expect(joined).toContain("毎日"); // eligible neighbour substituted
+    expect(joined).toContain("のまない"); // conjugated form untouched
+  });
+
+  it("a homograph (はな = 花/鼻) in a sentence is NEVER kanji-fied at any module", () => {
+    const step = build("bs-homo", "The flower is pretty", "はなが きれい", ["はな", "が", "きれい"], ["はな", "が", "きれい"]);
+    const out = applyKanjiSurfaces(synthLesson("m29", [step]));
+    for (const { seg } of collectSegments(out)) {
+      expect(HAS_HAN.test(seg.surface)).toBe(false);
+    }
+  });
+
+  it("§4a property holds for a synthetic multi-segment sentence step (audio/grading identical, atom multiset stable)", () => {
+    const step = build("bs-prop", "Every day I help a friend", SENTENCE, TILES, TILES);
+    const post = applyKanjiSurfaces(synthLesson("m29", [step])); // 毎日 substituted
+    const pre = revertToKana(post);
+    const post2 = applyKanjiSurfaces(pre);
+    expect(withoutAnnotations(post2)).toEqual(withoutAnnotations(pre));
+    expect(atomIdMultiset(post2)).toEqual(atomIdMultiset(pre));
+    // Non-vacuous: the substitution actually fired.
+    expect(collectSegments(post).some((s) => HAS_HAN.test(s.seg.surface))).toBe(true);
   });
 });
