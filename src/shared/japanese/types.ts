@@ -20,4 +20,15 @@ export type JapaneseAnnotation = {
   role?: "word" | "particle" | "punctuation";
   atomId?: string;
   gloss?: string;
+  /**
+   * Stamped ONLY by the kanji substitution pass (`applyKanjiSurfaces`) on
+   * segments it rewrote to a kanji surface: `true` while the lesson module
+   * sits inside the kanji's unlock+`FURIGANA_WINDOW` grace window, `false`
+   * past it. The renderer shows furigana when this is `true` OR the atom is
+   * not yet FSRS-mastered (Spencer 2026-07-17 — window floor OR unmastered).
+   * `undefined` (hand-authored kanji segments, kanji_reading prompts, all
+   * kana segments) keeps the legacy behavior: float the reading whenever
+   * `reading !== surface`.
+   */
+  furiganaWindowOpen?: boolean;
 };

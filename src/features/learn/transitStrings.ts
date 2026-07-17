@@ -5,6 +5,8 @@
  */
 export type TransitStrings = {
   lineName: string;
+  /** N4-tier line name (only meaningful for courses with n4 content). */
+  n4LineName: string;
   youAreHere: string;
   zones: string[];
   /** One short blurb per zone (thirds), shown on zone hover in the list. */
@@ -26,6 +28,7 @@ export type TransitStrings = {
 const STRINGS: Record<string, TransitStrings> = {
   ja: {
     lineName: "本線 Main Line",
+    n4LineName: "N4線 N4 Line",
     youAreHere: "現在地 YOU ARE HERE",
     zones: ["ZONE 1 · はじまり", "ZONE 2 · 日常", "ZONE 3 · 出発"],
     zoneDescriptions: [
@@ -48,6 +51,7 @@ const STRINGS: Record<string, TransitStrings> = {
   },
   ko: {
     lineName: "본선 Main Line",
+    n4LineName: "N4선 N4 Line",
     youAreHere: "현 위치 YOU ARE HERE",
     zones: ["ZONE 1 · 시작", "ZONE 2 · 일상", "ZONE 3 · 출발"],
     zoneDescriptions: [
@@ -70,6 +74,7 @@ const STRINGS: Record<string, TransitStrings> = {
   },
   es: {
     lineName: "Línea principal",
+    n4LineName: "Línea N4",
     youAreHere: "¡ESTÁS AQUÍ!",
     zones: ["ZONA 1 · Fundamentos", "ZONA 2 · Vida diaria", "ZONA 3 · De viaje"],
     zoneDescriptions: [

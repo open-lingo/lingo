@@ -16,6 +16,7 @@ import {
   normalizeForCompare,
   normalizeJa,
   normalizeTarget,
+  numbersToKana,
   scoreAlternatives,
 } from "./loose-match";
 
@@ -249,5 +250,47 @@ describe("scoreAlternatives", () => {
     const r = scoreAlternatives("あい", [], tiers);
     expect(r.verdict).toBe("try-again");
     expect(r.bestAlternative).toBeNull();
+  });
+});
+
+describe("numbersToKana — Whisper digit inverse-normalization (2026-07-17)", () => {
+  it("substitutes the reading the target uses (4 → よん)", () => {
+    expect(normalizeForCompare("4", "よん")).toBe("よん");
+    expect(normalizeForCompare("４", "よん")).toBe("よん");
+    expect(normalizeForCompare("四", "よん")).toBe("よん");
+  });
+
+  it("picks the alternate reading when the target uses it (4 → し, 7 → しち)", () => {
+    expect(normalizeForCompare("4", "し")).toBe("し");
+    expect(normalizeForCompare("7", "しち")).toBe("しち");
+    expect(normalizeForCompare("7", "なな")).toBe("なな");
+    expect(normalizeForCompare("9", "く")).toBe("く");
+  });
+
+  it("handles number sequences (counting drill transcripts)", () => {
+    expect(normalizeForCompare("1、3、5、7", "いち、さん、ご、なな")).toBe(
+      "いちさんごなな",
+    );
+  });
+
+  it("composes tens and handles kanji numerals", () => {
+    expect(normalizeForCompare("40", "よんじゅう")).toBe("よんじゅう");
+    expect(normalizeForCompare("十三", "じゅうさん")).toBe("じゅうさん");
+    expect(normalizeForCompare("百", "ひゃく")).toBe("ひゃく");
+  });
+
+  it("leaves non-number text and unknown magnitudes alone", () => {
+    expect(normalizeForCompare("すし", "すし")).toBe("すし");
+    expect(numbersToKana("2026", "にせん")).toBe("2026");
+  });
+
+  it("end-to-end: digit transcript scores perfect against kana target", () => {
+    const tiers = { perfect: 0.95, close: 0.8 };
+    const r = scoreAlternatives(
+      "よん",
+      [{ transcript: "4", confidence: 0.9 }],
+      tiers,
+    );
+    expect(r.verdict === "perfect" || r.verdict === "close").toBe(true);
   });
 });

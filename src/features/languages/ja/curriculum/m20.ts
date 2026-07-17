@@ -2051,7 +2051,9 @@ export const M20_6_2: LessonContent = {
     }),
     build(
       "ja-m20-6-2-build-5",
-      "Say: Because my ear hurt, I went to the hospital.",
+      // Gloss discipline (2026-07-17): みみがいたい is plain non-past (present) — "hurt" without
+      // -s misreads as past tense against the past-tense main clause; "hurts" matches the JA tense.
+      "Say: Because my ear hurts, I went to the hospital.",
       "みみが いたいので びょういんに いきました",
       ["びょういん", "みみ", "いたい", "が", "ので", "に", "いきました", "から"],
       ["みみ", "が", "いたい", "ので", "びょういん", "に", "いきました"],

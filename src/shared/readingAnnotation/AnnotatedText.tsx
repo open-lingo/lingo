@@ -28,9 +28,36 @@ import {
   KATAKANA_ROMAJI_OFF_MODULE,
 } from "@/shared/settings/romajiAutoFlip";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
+import { useSRSStoreRevision } from "@/features/flashcards/SRSStoreRevisionContext";
+import { getCardState, isMastered } from "@/features/flashcards/engine";
+import { KanjiRuby } from "./KanjiRuby";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { tryGetLanguageModule } from "@/shared/language/registry";
 import type { AnnotationFragment } from "@/shared/language/types";
+
+/**
+ * Furigana visibility for a kanji segment, SRS side (Spencer 2026-07-17 —
+ * window floor OR unmastered, uniform across sentence surfaces, build tiles,
+ * and match tiles): a segment the kanji substitution pass stamped
+ * (`furiganaWindowOpen` + `atomId`) shows furigana while the lesson module is
+ * inside the kanji's unlock+FURIGANA_WINDOW grace window (the floor — even
+ * for long-mastered atoms) OR until the atom is FSRS-mastered. Unstamped
+ * segments (hand-authored kanji, kanji_reading prompts, kana) return `true`:
+ * their visibility stays purely data-driven (`reading !== surface` floats;
+ * `reading === surface` has nothing to float — the kanji_reading
+ * suppression). Pure store read — callers wanting reactivity re-run it keyed
+ * on `useSRSStoreRevision()`.
+ */
+export function kanjiFuriganaSrsVisible(
+  segment: Pick<JapaneseAnnotation, "atomId" | "furiganaWindowOpen">,
+): boolean {
+  if (segment.furiganaWindowOpen === undefined || !segment.atomId) {
+    return true; // unstamped segment → legacy reading!==surface behavior
+  }
+  return (
+    segment.furiganaWindowOpen || !isMastered(getCardState(segment.atomId))
+  );
+}
 
 type CommonProps = {
   /** Inline className applied to the outer <span>. */
@@ -187,6 +214,28 @@ function SegmentRender({
   hideHelper?: boolean;
 }) {
   const { surface, reading, romaji, role } = segment;
+  // FURIGANA VISIBILITY, SRS side (Spencer 2026-07-17 — uniform with build
+  // tiles): for a kanji segment the substitution pass stamped
+  // (`furiganaWindowOpen` + `atomId`), furigana is visible while the module
+  // sits inside the kanji's unlock+FURIGANA_WINDOW grace window (the floor)
+  // OR until the atom is FSRS-mastered (the extension — past the window,
+  // furigana stays until the learner actually knows the word). Segments the
+  // pass did NOT stamp (no atomId / no flag — hand-authored kanji,
+  // kanji_reading prompts, every kana segment) keep the legacy rule: the
+  // reading floats whenever `reading !== surface`, and stays structurally
+  // suppressed when `reading === surface` (nothing to float — the
+  // kanji_reading "answer never prints" guarantee). The predicate is
+  // `kanjiFuriganaSrsVisible` (top of file, shared with the match-tile
+  // renderer). Mirrors `useBuildTileKanji`'s useMemo-on-revision pattern:
+  // reactive when the SRSStoreRevisionProvider is mounted, a plain
+  // read-at-mount otherwise (the context defaults to 0 with no provider —
+  // null-safe).
+  const revision = useSRSStoreRevision();
+  const furiganaMasteryVisible = useMemo(
+    () => kanjiFuriganaSrsVisible(segment),
+    // `revision` re-reads mastery after an SRS store change (sync/review).
+    [segment, revision],
+  );
   // Pure non-Japanese segments (English prose, punctuation, numbers) render
   // as plain text — no <ruby>, no helper. This keeps "What does あい mean?"
   // free of phantom romaji annotations above the English words. Kanji-only
@@ -242,21 +291,38 @@ function SegmentRender({
   // any kanji, ROMAJI is suppressed outright — no settings input can bring
   // it back, matching `useRomajiHelperVisible` below. FURIGANA (the kana
   // `reading`) is not romaji: it's how Japanese annotates kanji, and it's
-  // the whole point of the kanji substitution layer. The layer encodes the
-  // furigana window in data — reading ≠ surface means furigana is ON,
-  // reading === surface means the window has closed and there is nothing
-  // to float.
+  // the whole point of the kanji substitution layer. The layer always
+  // carries the kana reading on stamped segments — visibility is decided
+  // HERE by `furiganaMasteryVisible` (window floor OR unmastered, above).
+  // reading === surface still means "nothing to float" (the kanji_reading
+  // suppression shape and pre-2026-07-17 authored data).
   const kanjiSurface = containsKanji(surface);
   const helper = kanjiSurface
     ? reading !== surface
       ? reading
       : null
     : (romaji ?? reading);
+  if (kanjiSurface && helper != null) {
+    // Okurigana-aligned ruby (Spencer QA 2026-07-17): the <rt> covers only
+    // the kanji run — 飲(の)まない, never (のまない) over 飲まない.
+    return (
+      <KanjiRuby
+        surface={surface}
+        reading={helper}
+        show={!hideHelper && furiganaMasteryVisible}
+        data-role={role}
+      />
+    );
+  }
   const showHelper = !hideHelper && helper != null;
   return (
     <ruby data-role={role}>
       {surface}
-      <rt className="kana-helper" aria-hidden={!showHelper}>
+      <rt
+        className="kana-helper"
+        data-visible={showHelper ? "true" : "false"}
+        aria-hidden={!showHelper}
+      >
         {showHelper ? helper : "​"}
       </rt>
     </ruby>

@@ -38,13 +38,20 @@
  *     modules (電車 waits for BOTH 電 and 車), and are excluded entirely if any
  *     component kanji is absent from the `N5_KANJI` catalog (the m23‑27 gap).
  *
- * FURIGANA CONVENTION (data-only, renderer-agnostic):
- *   A substituted segment sets `surface = <kanji>`. Furigana ON keeps
- *   `reading = <kana>` (surface !== reading ⇒ the renderer floats the kana as
- *   <rt>). Furigana OFF sets `reading = surface` (=== the kanji), the
- *   "no reading to float" signal the ruby renderer treats as bare kanji. This
- *   matches the spec's "emit ruby when surface !== reading and the surface has
- *   kanji" contract and needs no renderer edit from this workstream.
+ * FURIGANA CONVENTION (Spencer 2026-07-17 — window floor OR unmastered):
+ *   A substituted segment sets `surface = <kanji>` and ALWAYS keeps
+ *   `reading = <kana>` (the furigana), plus `furiganaWindowOpen` — whether the
+ *   lesson module still sits inside the kanji's unlock+FURIGANA_WINDOW grace
+ *   window. The RENDERER (AnnotatedText's kanji branch) decides visibility:
+ *   in-window ⇒ furigana shows regardless of SRS state (the floor — newly
+ *   appeared kanji keep furigana even for long-mastered atoms), past the
+ *   window ⇒ furigana stays until the atom is FSRS-mastered. The historical
+ *   v1 convention encoded the window IN DATA (`reading = surface` past the
+ *   window ⇒ "nothing to float", permanently bare) — that shape is still
+ *   honored by the renderer for segments WITHOUT `furiganaWindowOpen`, which
+ *   is exactly how `kanji_reading` prompts keep suppressing their answer
+ *   (surface === reading === kanji, authored in the factory, never rewritten
+ *   here because the surface already carries Han).
  */
 import type { LessonContent, LessonStep } from "../../../lesson/types";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
@@ -180,18 +187,20 @@ function rewriteSegment(
   if (!entry) return seg;
   if (learnerModule < entry.unlockModule) return seg;
   // Only substitute a clean, un-substituted KANA surface: surface === reading
-  // AND still pure kana. This skips segments already carrying kanji — both the
-  // furigana-ON shape (surface !== reading) and the furigana-OFF shape
-  // (surface === reading === kanji, which has Han) — so the pass is idempotent
-  // (re-running never mutates already-substituted content).
+  // AND still pure kana. This skips segments already carrying kanji — both a
+  // substituted segment (surface !== reading, kana kept as furigana) and the
+  // kanji_reading suppression shape (surface === reading === kanji, which has
+  // Han — the factory's deliberate "answer never floats" prompt) — so the
+  // pass is idempotent and can never re-attach a reading to a tested kanji.
   if (seg.surface !== seg.reading || hasHan(seg.surface)) return seg;
-  const furiganaOn = furiganaVisibleAt(learnerModule, entry.unlockModule);
   return {
     ...seg,
     surface: entry.kanji,
-    // Furigana ON: keep the kana as the floating reading. OFF: reading ===
-    // surface (the kanji) is the "no reading to float" signal → bare kanji.
-    reading: furiganaOn ? seg.reading : entry.kanji,
+    // ALWAYS keep the kana as the reading — visibility is the renderer's
+    // call (window floor OR unmastered), so the data must never destroy the
+    // furigana. `furiganaWindowOpen` tells the renderer the window state.
+    reading: seg.reading,
+    furiganaWindowOpen: furiganaVisibleAt(learnerModule, entry.unlockModule),
   };
 }
 

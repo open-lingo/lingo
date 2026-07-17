@@ -8,6 +8,7 @@ import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/Annotat
 import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { formatPrompt } from "../formatPrompt";
 
 const CELEBRATE_MS = 1100;
 
@@ -137,7 +138,7 @@ export function SelfExplanationMcqStepView({ step, onComplete, onContinue }: Pro
       </div>
 
       <h2 className="text-xl font-semibold text-text-primary">
-        {step.question}
+        {formatPrompt(step.question)}
       </h2>
 
       {step.hint && !submitted && (
