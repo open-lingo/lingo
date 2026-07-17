@@ -115,25 +115,16 @@ button,
   background: transparent;
 }
 /* Hide the arrow buttons on every webkit/blink browser. The bare
-   ``::-webkit-scrollbar-button`` selector misses on some Chromium
-   builds — they reserve space for the button area unless you target the
-   explicit start/end/increment/decrement subtypes AND collapse the
-   dimensions. The root ``html`` scrollbar also needs its own rule
-   because the universal cascade can be overridden by the user-agent
-   stylesheet. We hit both surfaces and every subtype. */
+   ``::-webkit-scrollbar-button`` selector matches every button subtype
+   (vertical/horizontal, start/end, increment/decrement, single/double),
+   so we don't need to enumerate them. We collapse the box to zero rather
+   than ``display: none`` — on Linux Chromium ``display: none`` can leave
+   the button's reserved slot as an empty gap at the ends of the bar,
+   whereas a zero-sized block removes both the arrow and its space. The
+   ``html`` scrollbar gets its own rule because the user-agent stylesheet
+   can otherwise win over the universal cascade. */
 html::-webkit-scrollbar-button,
-*::-webkit-scrollbar-button,
-*::-webkit-scrollbar-button:start,
-*::-webkit-scrollbar-button:end,
-*::-webkit-scrollbar-button:vertical:start,
-*::-webkit-scrollbar-button:vertical:end,
-*::-webkit-scrollbar-button:vertical:start:decrement,
-*::-webkit-scrollbar-button:vertical:end:increment,
-*::-webkit-scrollbar-button:horizontal:start,
-*::-webkit-scrollbar-button:horizontal:end,
-*::-webkit-scrollbar-button:horizontal:start:decrement,
-*::-webkit-scrollbar-button:horizontal:end:increment {
-  display: none;
+*::-webkit-scrollbar-button {
   width: 0 !important;
   height: 0 !important;
   background: transparent;
@@ -252,8 +243,8 @@ html::-webkit-scrollbar-button,
 /* Resume button (docked inside the map): fades up after the path settles
    (delayed so it arrives after any lesson-wipe / page transition). */
 @keyframes resume-fab-in {
-  0% { opacity: 0; transform: translateY(14px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% { opacity: 0; transform: translate(-50%, 14px); }
+  100% { opacity: 1; transform: translate(-50%, 0); }
 }
 .resume-fab {
   animation: resume-fab-in 420ms ease-out 600ms both;

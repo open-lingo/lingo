@@ -67,8 +67,8 @@ import { useLearnProfile } from "@/features/learn/hooks/useLearnProfile";
 import { LearnSidebar } from "@/features/learn/components/LearnSidebar";
 import { ProgressFloatCard } from "@/features/learn/components/ProgressFloatCard";
 import { ResumeFab } from "@/features/learn/components/ResumeFab";
-import { MapHelpButton } from "@/features/learn/components/MapHelpButton";
 import { cn } from "@/shared/components/ui/cn";
+import { Icon } from "@/shared/components/Icon";
 import { PlacementPrompt } from "@/features/placement/components/PlacementPrompt";
 import {
   isPlacementDismissed,
@@ -958,6 +958,7 @@ function NetworkMap({
   const [tip, setTip] = useState<StationL | null>(null);
   const [scale, setScale] = useState<number | null>(null);
   const [panelH, setPanelH] = useState<number | null>(null);
+  const [helpOpen, setHelpOpen] = useState(false);
   const strings = stringsFor(lang);
   const sky = useMemo(() => makeSkyline(layout), [layout]);
 
@@ -1127,6 +1128,20 @@ function NetworkMap({
         data-tm="legend"
         className="absolute right-3 top-3 z-[5] grid gap-2 rounded-sm border border-border bg-surface px-4 py-3 text-[13px] shadow-card min-w-[222px] 2xl:text-[15px] 2xl:min-w-[256px]"
       >
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-text-muted">
+            Legend
+          </span>
+          <button
+            type="button"
+            onClick={() => setHelpOpen((v) => !v)}
+            aria-label="How to read the map"
+            aria-expanded={helpOpen}
+            className="-mr-1 grid size-6 place-items-center rounded-full text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+          >
+            <Icon name="help" size={15} aria-hidden />
+          </button>
+        </div>
         <div className="flex items-center gap-2.5">
           <span className="h-[6px] w-[26px] rounded-full" style={{ background: "var(--tmc-line-main)" }} />
           <span>{strings.lineName}</span>
@@ -1154,6 +1169,13 @@ function NetworkMap({
           </span>
           <span>Station complete</span>
         </div>
+        {helpOpen && (
+          <p className="mt-1 border-t border-border pt-2 text-[12px] leading-relaxed text-text-secondary">
+            Stations are modules — spacing scales with lesson count. Branch
+            lines are side quests, and dashed track is the roadmap ahead.
+            Click a station to open its district; the depot links to practice.
+          </p>
+        )}
       </div>
 
       <div ref={scrollerRef} className="tmc-map-scroll">
@@ -1972,7 +1994,6 @@ export default function TransitLearnPage({
         <div className="min-w-0">
           <div className="relative hidden md:block">
             <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} demoToggle={preview} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
-            <MapHelpButton />
             <ProgressFloatCard course={viewCourse} completedSet={completedSet} />
             {/* Resume button — docked inside the map boundary; fades in so
                 learners can jump straight back into their current lesson.
