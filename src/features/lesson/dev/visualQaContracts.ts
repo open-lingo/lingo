@@ -21,11 +21,25 @@ import { getMockLessonContent } from "../data/mockLessons";
 import type { LessonStep } from "../types";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import {
-  parseModuleIndex,
   HIRAGANA_ROMAJI_OFF_MODULE,
   KATAKANA_ROMAJI_OFF_MODULE,
 } from "@/shared/settings/romajiAutoFlip";
 import { KANJI_RECOGNITION_MODULE } from "@/features/languages/ja/secondScript/kanjiRollout";
+
+/**
+ * ORACLE INDEPENDENCE (validation finding, 2026-07-17): do NOT reuse the
+ * app's `parseModuleIndex` here. When its regex regressed (required the
+ * `ja-` prefix), contracts generated through it inherited moduleIndex=0 and
+ * declared "romaji expected" for an m8 lesson — the oracle self-corrupted
+ * into agreeing with the bug it existed to catch. The contract generator
+ * derives module position with its own trivial parse so a shared-code bug
+ * can never align the contract with the defect.
+ */
+function independentModuleIndex(moduleId: string): number {
+  const m = /(?:^|-)m(\d+)(?:-|$)/.exec(moduleId);
+  if (!m) throw new Error(`visualQaContracts: cannot parse module from '${moduleId}'`);
+  return Number(m[1]);
+}
 
 export type StepContract = {
   lessonId: string;
@@ -224,7 +238,7 @@ function contractForStep(
 export function buildLessonContracts(lessonId: string): LessonContractSet {
   const lesson = getMockLessonContent(lessonId);
   if (!lesson) throw new Error(`visualQaContracts: unknown lesson '${lessonId}'`);
-  const moduleIndex = parseModuleIndex(lesson.moduleId);
+  const moduleIndex = independentModuleIndex(lesson.moduleId);
   return {
     lessonId,
     moduleIndex,
