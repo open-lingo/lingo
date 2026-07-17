@@ -7,6 +7,8 @@ export type TransitStrings = {
   lineName: string;
   youAreHere: string;
   zones: string[];
+  /** One short blurb per zone (thirds), shown on zone hover in the list. */
+  zoneDescriptions: string[];
   numerals: string[];
   mapTitle: string;
   seal: string;
@@ -26,6 +28,11 @@ const STRINGS: Record<string, TransitStrings> = {
     lineName: "本線 Main Line",
     youAreHere: "現在地 YOU ARE HERE",
     zones: ["ZONE 1 · はじまり", "ZONE 2 · 日常", "ZONE 3 · 出発"],
+    zoneDescriptions: [
+      "Foundations — kana, first words, and how Japanese sentences fit together.",
+      "Everyday Japanese — daily-life vocabulary, particles, and practical grammar.",
+      "Setting off — past tense, conjugation, and everything that rounds out N5.",
+    ],
     numerals: ["一", "二", "三"],
     mapTitle: "学習路線図",
     seal: "済",
@@ -43,6 +50,11 @@ const STRINGS: Record<string, TransitStrings> = {
     lineName: "본선 Main Line",
     youAreHere: "현 위치 YOU ARE HERE",
     zones: ["ZONE 1 · 시작", "ZONE 2 · 일상", "ZONE 3 · 출발"],
+    zoneDescriptions: [
+      "Foundations — Hangul, first words, and the basic shape of a Korean sentence.",
+      "Everyday Korean — daily vocabulary, particles, and core grammar.",
+      "Setting off — tenses, conjugation, and rounding out the beginner course.",
+    ],
     numerals: ["일", "이", "삼"],
     mapTitle: "학습 노선도",
     seal: "완",
@@ -60,6 +72,11 @@ const STRINGS: Record<string, TransitStrings> = {
     lineName: "Línea principal",
     youAreHere: "¡ESTÁS AQUÍ!",
     zones: ["ZONA 1 · Fundamentos", "ZONA 2 · Vida diaria", "ZONA 3 · De viaje"],
+    zoneDescriptions: [
+      "Foundations — first words, greetings, and how a Spanish sentence works.",
+      "Everyday Spanish — daily vocabulary and practical grammar.",
+      "Setting off — tenses, conjugation, and travel-ready phrases.",
+    ],
     numerals: ["1", "2", "3"],
     mapTitle: "Mapa de la línea",
     seal: "✓",

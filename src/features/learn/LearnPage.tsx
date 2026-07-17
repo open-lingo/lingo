@@ -398,6 +398,7 @@ export function LearnPage({
                   course={course}
                   completedSet={completedSet}
                   zoneLabels={stringsFor(language?.id ?? "ko").zones}
+                  zoneDescriptions={stringsFor(language?.id ?? "ko").zoneDescriptions}
                   isOpen={accordion.isOpen}
                   onToggle={accordion.toggle}
                   onLessonClick={goToLesson}

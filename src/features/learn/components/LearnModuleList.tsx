@@ -11,6 +11,8 @@ import {
 
 /** How many lessons an expanded module shows inline before "view all". */
 const LESSON_PEEK = 5;
+/** How many modules a zone shows before "view all modules". */
+const MODULE_PEEK = 4;
 
 /** Rounded elbow branching a lesson off the module spine (at 2.875rem, the
  *  circle center) into its bullet. */
@@ -28,6 +30,8 @@ export type LearnModuleListProps = {
   completedSet: ReadonlySet<string>;
   /** Zone labels (thirds), from the transit strings; [] disables grouping. */
   zoneLabels: string[];
+  /** One blurb per zone, shown on hover. */
+  zoneDescriptions: string[];
   isOpen: (moduleId: string) => boolean;
   onToggle: (moduleId: string) => void;
   onLessonClick: (lesson: Lesson) => void;
@@ -64,6 +68,7 @@ export function LearnModuleList({
   course,
   completedSet,
   zoneLabels,
+  zoneDescriptions,
   isOpen,
   onToggle,
   onLessonClick,
@@ -75,46 +80,71 @@ export function LearnModuleList({
 }: LearnModuleListProps) {
   const groups = zoneGroups(course.modules.length, zoneLabels);
   const [collapsedZones, setCollapsedZones] = useState<Set<number>>(new Set());
+  // Zones whose full module list is shown (past the MODULE_PEEK cap).
+  const [expandedZones, setExpandedZones] = useState<Set<number>>(new Set());
 
-  const toggleZone = (z: number) =>
-    setCollapsedZones((prev) => {
-      const next = new Set(prev);
-      if (next.has(z)) next.delete(z);
-      else next.add(z);
-      return next;
-    });
+  const toggleSet =
+    (setter: typeof setCollapsedZones) => (z: number) =>
+      setter((prev) => {
+        const next = new Set(prev);
+        if (next.has(z)) next.delete(z);
+        else next.add(z);
+        return next;
+      });
+  const toggleZone = toggleSet(setCollapsedZones);
+  const showAllModules = toggleSet(setExpandedZones);
 
   return (
     <div>
       {groups.map((zone, zi) => {
         const zoneCollapsed = collapsedZones.has(zi);
         const zoneModules = course.modules.slice(zone.start, zone.start + zone.count);
+        const zoneAll = expandedZones.has(zi);
+        const visible = zoneAll ? zoneModules : zoneModules.slice(0, MODULE_PEEK);
+        const hiddenCount = zoneModules.length - visible.length;
+        const desc = zoneDescriptions[zi];
         return (
           <section key={zi}>
             {zone.label ? (
-              <button
-                type="button"
-                onClick={() => toggleZone(zi)}
-                aria-expanded={!zoneCollapsed}
-                className="sticky top-0 z-10 flex w-full items-center gap-2 border-b border-border bg-surface-muted px-3 py-2.5 text-left"
-              >
-                <Icon
-                  name={zoneCollapsed ? "chevronRight" : "chevronDown"}
-                  size={16}
-                  className="flex-none text-text-muted transition-transform"
-                  aria-hidden
-                />
-                <span className="flex-1 truncate text-[13px] font-bold uppercase tracking-wider text-text-secondary">
-                  {zone.label}
-                </span>
-                <span className="rounded-full bg-surface px-2 py-0.5 text-[11px] font-semibold tabular-nums text-text-muted">
-                  {zone.count}
-                </span>
-              </button>
+              <div className="group/zone sticky top-0 z-20">
+                <button
+                  type="button"
+                  onClick={() => toggleZone(zi)}
+                  aria-expanded={!zoneCollapsed}
+                  className="flex w-full items-center gap-2.5 border-b border-border bg-surface-muted px-3 py-3.5 text-left"
+                >
+                  <Icon
+                    name={zoneCollapsed ? "chevronRight" : "chevronDown"}
+                    size={17}
+                    className="flex-none text-text-muted transition-transform"
+                    aria-hidden
+                  />
+                  <span className="grid size-6 flex-none place-items-center rounded-md bg-accent/15 text-[12px] font-extrabold text-accent">
+                    {zi + 1}
+                  </span>
+                  <span className="flex-1 truncate text-[14px] font-bold uppercase tracking-wider text-text-secondary">
+                    {zone.label}
+                  </span>
+                  {desc ? (
+                    <Icon name="info" size={14} className="flex-none text-text-muted" aria-hidden />
+                  ) : null}
+                  <span className="rounded-full bg-surface px-2 py-0.5 text-[11.5px] font-semibold tabular-nums text-text-muted">
+                    {zone.count}
+                  </span>
+                </button>
+                {desc ? (
+                  <div className="pointer-events-none absolute left-3 top-full z-30 mt-1 hidden w-72 max-w-[calc(100%-1.5rem)] rounded-card border border-border bg-surface p-3 text-[12px] leading-relaxed text-text-secondary shadow-popover group-hover/zone:block">
+                    <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-text-muted">
+                      {zone.label}
+                    </p>
+                    {desc}
+                  </div>
+                ) : null}
+              </div>
             ) : null}
             {!zoneCollapsed ? (
               <ul className="list-expand">
-                {zoneModules.map((mod, li) => {
+                {visible.map((mod, li) => {
                   const globalIdx = zone.start + li;
                   return (
                     <ModuleRow
@@ -124,7 +154,7 @@ export function LearnModuleList({
                       modules={course.modules}
                       completedSet={completedSet}
                       open={isOpen(mod.id)}
-                      isLastInZone={li === zoneModules.length - 1}
+                      isLastInZone={li === visible.length - 1}
                       onToggle={() => onToggle(mod.id)}
                       onLessonClick={onLessonClick}
                       onViewAll={() => onViewAll(globalIdx)}
@@ -132,6 +162,18 @@ export function LearnModuleList({
                     />
                   );
                 })}
+                {hiddenCount > 0 ? (
+                  <li className="border-t border-border">
+                    <button
+                      type="button"
+                      onClick={() => showAllModules(zi)}
+                      className="flex w-full items-center gap-1.5 py-2 pl-[2.6rem] pr-3 text-left text-[11.5px] font-semibold text-accent transition hover:bg-surface-muted/50"
+                    >
+                      View all {zoneModules.length} modules
+                      <Icon name="chevronDown" size={13} aria-hidden />
+                    </button>
+                  </li>
+                ) : null}
               </ul>
             ) : null}
           </section>
