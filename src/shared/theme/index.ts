@@ -14,7 +14,15 @@ export function mergeTokensWithDefaults(
     colors,
     radius: { ...defaults.radius, ...partial.radius },
     shadow: { ...defaults.shadow, ...partial.shadow },
-    font: { ...defaults.font, ...(partial.font ?? {}) },
+    // Only `family` inherits from defaults — every theme needs a body font.
+    // `display` / `mono` must NOT be backfilled: BUILT_IN_THEMES.dark carries
+    // Fraunces as its display font, and inheriting it here would silently
+    // flip every custom/community theme's `font-display` surfaces to serif.
+    font: {
+      family: partial.font?.family ?? defaults.font.family,
+      display: partial.font?.display,
+      mono: partial.font?.mono,
+    },
   };
 }
 
