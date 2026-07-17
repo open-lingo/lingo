@@ -864,19 +864,19 @@ function SkylineArt({
         ) : (
           (() => {
             const cx = sky.toriiX;
-            const H = toriiH * 1.25;
-            const W = H * 1.55;
+            const H = toriiH * 1.55;
+            const W = H * 1.6;
             const tierH = H / 5;
             const topY = bottomY - 4 * tierH;
             const cW = H * 0.28;
             const palms = [
-              { dx: -towerH * 0.34, h: towerH * 0.6, lean: -towerH * 0.12 },
-              { dx: towerH * 0.2, h: towerH * 0.92, lean: towerH * 0.16 },
+              { dx: -towerH * 0.42, h: towerH * 0.74, lean: -towerH * 0.14 },
+              { dx: towerH * 0.24, h: towerH * 1.08, lean: towerH * 0.18 },
             ];
             return (
               <>
                 {/* Mayan step-pyramid (El Castillo) at the primary anchor */}
-                <g style={{ fill: "var(--tmc-scene-accent)" }}>
+                <g data-tm="es-landmark" style={{ fill: "var(--tmc-scene-accent)" }}>
                   {Array.from({ length: 4 }).map((_, i) => {
                     const baseW = W * (1 - i * 0.19);
                     const topW = W * (1 - (i + 1) * 0.19);
@@ -2086,7 +2086,13 @@ export default function TransitLearnPage({
   }
 
   return (
-    <div className={cn("tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3", effectiveTier === "n4" && "tmc-tier-n4")}>
+    <div
+      data-lang={lang}
+      className={cn(
+        "tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3",
+        effectiveTier === "n4" && "tmc-tier-n4",
+      )}
+    >
       {/* signage board header */}
       <TransitSignageHeader
         title={titleText}

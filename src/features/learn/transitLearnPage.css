@@ -42,6 +42,21 @@
   --tmc-sky-day: #bee0f2;
   --tmc-sky-night: #141b33;
 }
+/* Spanish course — a warmer tropical/Mayan scene. Buildings stay (they read as
+   a distant town), but the signature landmarks get their own, more legible
+   colours (pyramid = Mayan sandstone, palms = jungle green) and the hills +
+   sky carry a fresher tropical tint. es-only — ja/ko are untouched. */
+.tmc-root[data-lang="es"] {
+  --tmc-scene-hill: color-mix(in srgb, #3f9a5c 20%, var(--color-surface));
+  --tmc-scene-hill2: color-mix(in srgb, #3f9a5c 13%, var(--color-surface));
+  --tmc-scene-accent: color-mix(in srgb, #b5763b 54%, var(--color-surface));
+  --tmc-scene-accent2: color-mix(in srgb, #2f8a52 50%, var(--color-surface));
+  --tmc-sky-day: #cfe9d9;
+}
+.dark .tmc-root[data-lang="es"] {
+  --tmc-scene-accent: color-mix(in srgb, #cf9152 46%, var(--color-surface));
+  --tmc-scene-accent2: color-mix(in srgb, #46ac6d 40%, var(--color-surface));
+}
 .dark .tmc-root {
   --tmc-q0: #2cc3e0;
   --tmc-q1: #ffb01f;
