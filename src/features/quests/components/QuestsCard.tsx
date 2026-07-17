@@ -280,7 +280,7 @@ function SideSection({ quest, locked, onClick, moreCount, onSeeMore }: SideProps
   const effectiveDisabled = locked || isComingSoon;
   const ringPct = Math.max(0, Math.min(100, quest.progress));
   return (
-    <section className="mt-4 border-t border-border pt-3 space-y-2">
+    <section className="mt-4 space-y-2">
       <p className="text-[0.65rem] font-semibold uppercase tracking-wider text-text-muted">
         {t("quests.side.kicker", { defaultValue: "Side quests" })}
       </p>
