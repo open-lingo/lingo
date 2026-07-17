@@ -11,6 +11,7 @@ import {
 import { usePracticeStats } from "@/features/practice/hooks/usePracticeStats";
 import { PillarTile } from "@/features/practice/components/PillarTile";
 import { PracticeHero } from "@/features/practice/components/PracticeHero";
+import { PracticeHubShell } from "@/features/practice/components/PracticeHubShell";
 import {
   buildQuickStarts,
   pickSuggestion,
@@ -62,41 +63,34 @@ export function PracticePage() {
   );
 
   return (
-    // Fill the height below the app chrome (like the learn page), centering
-    // the panel when the viewport is taller than its cap. The hero keeps its
-    // natural height; the pillar grid grows to absorb the remaining space so
-    // there's no dead margin. `max-h` caps the panel so on very large screens
-    // it stays a tidy block instead of ballooning into oversized tiles.
-    <div className="flex min-h-[calc(100dvh-7.5rem)] flex-col justify-center">
-      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-4 [max-height:62rem]">
-        <PracticeHero
-          stats={stats}
-          suggestion={suggestion}
-          quickStarts={quickStarts}
-          langPath={langPath}
-        />
+    <PracticeHubShell>
+      <PracticeHero
+        stats={stats}
+        suggestion={suggestion}
+        quickStarts={quickStarts}
+        langPath={langPath}
+      />
 
-        <section
-          aria-label={t("practice.pillars.sectionTitle", { defaultValue: "Practice" })}
-          className="flex min-h-0 flex-1 flex-col"
-        >
-          <div className="grid flex-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
-            {pillars.map((pillar, i) => (
-              <div
-                key={pillar.id}
-                className="h-full animate-[practice-rise_0.5s_ease_both] motion-reduce:animate-none"
-                style={{ animationDelay: `${180 + i * 55}ms` }}
-              >
-                <PillarTile
-                  pillar={pillar}
-                  to={langPath(pillar.route)}
-                  badge={pillar.id === "vocabulary" && hasDue ? stats.dueCount : undefined}
-                />
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
-    </div>
+      <section
+        aria-label={t("practice.pillars.sectionTitle", { defaultValue: "Practice" })}
+        className="flex min-h-0 flex-1 flex-col"
+      >
+        <div className="grid flex-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
+          {pillars.map((pillar, i) => (
+            <div
+              key={pillar.id}
+              className="h-full animate-[practice-rise_0.5s_ease_both] motion-reduce:animate-none"
+              style={{ animationDelay: `${180 + i * 55}ms` }}
+            >
+              <PillarTile
+                pillar={pillar}
+                to={langPath(pillar.route)}
+                badge={pillar.id === "vocabulary" && hasDue ? stats.dueCount : undefined}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+    </PracticeHubShell>
   );
 }

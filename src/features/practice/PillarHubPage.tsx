@@ -5,6 +5,7 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { getPillar } from "@/features/practice/pillars";
+import { PracticeHubShell } from "@/features/practice/components/PracticeHubShell";
 
 /**
  * Generic hub for the four skill pillars (reading/listening/speaking/
@@ -23,10 +24,10 @@ export function PillarHubPage() {
   if (!pillar) return <Navigate to={langPath("practice")} replace />;
 
   return (
-    <div className="space-y-4">
+    <PracticeHubShell chromeOffsetRem={11} fill={false} maxWidthClass="max-w-5xl">
       <header className="flex items-center gap-3">
         <span
-          className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-muted text-accent"
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent-muted text-accent"
           aria-hidden
         >
           <Icon name={pillar.icon} size={26} />
@@ -41,29 +42,33 @@ export function PillarHubPage() {
         </div>
       </header>
 
+      {/* Pillar activities carry little content, so a comfortable card grid
+          centered as a group (with the header) reads better than stretching
+          them into hollow full-height cards. */}
       <div className="grid gap-3 sm:grid-cols-2">
-        {pillar.activities.map((a) => (
+        {pillar.activities.map((a, i) => (
           <Link
             key={a.id}
             to={langPath(a.route)}
-            className="group flex flex-col gap-1 rounded-card border border-border bg-surface p-4 transition hover:border-accent hover:bg-surface-muted"
+            className="group flex min-h-[8.5rem] flex-col justify-center gap-1.5 rounded-card border border-border bg-surface p-5 transition hover:-translate-y-0.5 hover:border-accent hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0 animate-[practice-rise_0.5s_ease_both] motion-reduce:animate-none"
+            style={{ animationDelay: `${120 + i * 55}ms` }}
           >
             <div className="flex items-center gap-2">
-              <p className="text-sm font-bold text-text-primary">
+              <p className="text-base font-bold text-text-primary">
                 {t(a.titleKey, { defaultValue: a.titleDefault })}
               </p>
               {a.isNew ? (
-                <span className="rounded-full bg-accent-muted px-1.5 py-px text-[10px] font-bold uppercase tracking-wide text-accent">
+                <span className="rounded-full bg-accent-muted px-1.5 py-px text-[0.625rem] font-bold uppercase tracking-wide text-accent">
                   {t("practice.pillars.newBadge", { defaultValue: "New" })}
                 </span>
               ) : null}
             </div>
-            <p className="text-xs text-text-secondary">
+            <p className="text-sm text-text-secondary">
               {t(a.descKey, { defaultValue: a.descDefault })}
             </p>
           </Link>
         ))}
       </div>
-    </div>
+    </PracticeHubShell>
   );
 }
