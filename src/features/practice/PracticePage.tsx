@@ -67,8 +67,8 @@ export function PracticePage() {
     // natural height; the pillar grid grows to absorb the remaining space so
     // there's no dead margin. `max-h` caps the panel so on very large screens
     // it stays a tidy block instead of ballooning into oversized tiles.
-    <div className="flex min-h-[calc(100dvh-6.75rem)] flex-col justify-center">
-      <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-4 [max-height:54rem]">
+    <div className="flex min-h-[calc(100dvh-7.5rem)] flex-col justify-center">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-4 [max-height:62rem]">
         <PracticeHero
           stats={stats}
           suggestion={suggestion}
