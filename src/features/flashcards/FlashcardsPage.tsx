@@ -75,7 +75,7 @@ function DueCarousel({
           {t("flashcards.review")} {dueCount} {t("flashcards.cards")}
         </Link>
       </div>
-      <div className="-mx-1 overflow-x-auto px-1">
+      <div className="scrollbar-pill -mx-1 overflow-x-auto px-1">
         <ul
           className="flex gap-3 pb-2"
           role="list"

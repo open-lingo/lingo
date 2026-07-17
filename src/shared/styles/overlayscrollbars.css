@@ -1,0 +1,39 @@
+/**
+ * OverlayScrollbars — "Academia" Lingo theme.
+ *
+ * A quiet, floating warm-brown pill (no track casing) that warms toward the
+ * brand red-clay while you actively drag it — the one small interactive
+ * moment tying the scrollbar to the identity. Everything else stays disciplined.
+ *
+ * Colours read the shared `--scrollbar-*` / `--color-accent` tokens, which
+ * ThemeContext re-resolves at runtime, so the sepia-paper light theme and the
+ * warm-charcoal dark theme both come for free with no per-theme rule.
+ */
+.os-theme-lingo {
+  --os-size: 12px;
+  --os-padding-perpendicular: 2px;
+  --os-padding-axis: 4px;
+
+  --os-track-bg: transparent;
+  --os-track-bg-hover: transparent;
+  --os-track-bg-active: transparent;
+  --os-track-border-radius: 999px;
+
+  --os-handle-border-radius: 999px;
+  --os-handle-bg: var(--scrollbar-thumb);
+  --os-handle-bg-hover: var(--scrollbar-thumb-hover);
+  --os-handle-bg-active: var(--color-accent);
+  --os-handle-min-size: 32px;
+  /* Widen the grab target past the visible pill so the thin bar stays easy
+     to catch without drawing a fatter rail. */
+  --os-handle-interactive-area-offset: 4px;
+}
+
+/**
+ * Preserve CSS scroll-snap on OverlayScrollbars-managed horizontal rails.
+ * The element that actually scrolls is OS's internal viewport, so the
+ * snap-type has to live there rather than on the host we style.
+ */
+.os-snap-x [data-overlayscrollbars-viewport] {
+  scroll-snap-type: x mandatory;
+}

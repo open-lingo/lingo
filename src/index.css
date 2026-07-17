@@ -2,6 +2,7 @@
 @import "@uiw/react-markdown-preview/markdown.css";
 
 @import "./shared/styles/tokens.css";
+@import "./shared/styles/overlayscrollbars.css";
 
 @tailwind base;
 @tailwind components;
@@ -18,12 +19,11 @@ body {
   font-family: var(--font-family);
 }
 
-/* Reserve scrollbar width even when content fits — content growing or
-   shrinking on answer submit (feedback banners, hint removal) otherwise
-   toggles the scrollbar and shifts every centered column horizontally. */
-html {
-  scrollbar-gutter: stable;
-}
+/* The body scrollbar is an OverlayScrollbars floating bar (see
+   BodyScrollbars) — it overlays content instead of occupying layout width, so
+   content no longer shifts when a scrollbar appears/disappears and we don't
+   need `scrollbar-gutter: stable` reserving an empty lane. The webkit rules
+   below stay as a fallback for any surface OverlayScrollbars doesn't manage. */
 
 /* ── Fluid interface scale ─────────────────────────────────────────────
    Tailwind sizes text, padding, gaps, and rem max-widths in rem, so scaling
@@ -151,6 +151,44 @@ html::-webkit-scrollbar-button,
 }
 .scrollbar-theme::-webkit-scrollbar-corner {
   background: transparent;
+}
+
+/* ``.scrollbar-pill`` — opt-in warm-brown pill matching the OverlayScrollbars
+   ``os-theme-lingo`` bars, for NATIVE scroll containers that can't use OS
+   (e.g. surfaces whose own JS drives scrollLeft). Chrome 121+ ignores
+   ``::-webkit-scrollbar`` whenever standard ``scrollbar-width``/``-color`` are
+   non-``auto`` — and our global ``*`` rule sets exactly that — so we reset
+   them to ``auto`` behind the webkit-selector feature gate to hand rendering
+   back to the pill on Chrome/Safari, while Firefox keeps the thin coloured
+   bar. See the same pattern on ``.tmc-map-scroll``. */
+.scrollbar-pill {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+@supports selector(::-webkit-scrollbar) {
+  .scrollbar-pill {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+}
+.scrollbar-pill::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+.scrollbar-pill::-webkit-scrollbar-track,
+.scrollbar-pill::-webkit-scrollbar-corner {
+  background: transparent;
+  border: none;
+}
+.scrollbar-pill::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  background-clip: content-box;
+  border: 3px solid transparent;
+  border-radius: 999px;
+}
+.scrollbar-pill::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+  background-clip: content-box;
 }
 
 /* Hero slogan: old cycles up + fades out, new comes from bottom + fades in */

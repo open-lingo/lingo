@@ -14,9 +14,11 @@ import { ImpersonationProvider } from "@/features/admin/impersonation/Impersonat
 import { FeatureFlagsProvider } from "@/shared/contexts/FeatureFlagsContext";
 import { SRSStoreRevisionProvider } from "@/features/flashcards/SRSStoreRevisionContext";
 import { AdProviderRoot } from "@/features/ads";
+import { BodyScrollbars } from "@/shared/components/BodyScrollbars";
 import App from "./App";
 import { installDevLog } from "@/shared/devlog/devLog";
 import { isTesterMode } from "@/shared/telemetry/sessionLog";
+import "overlayscrollbars/overlayscrollbars.css";
 import "./index.css";
 
 installDevLog();
@@ -61,6 +63,7 @@ createRoot(document.getElementById("root")!).render(
               <ToastProvider>
                 <ModalProvider>
                   <AdProviderRoot>
+                    <BodyScrollbars />
                     <App />
                   </AdProviderRoot>
                 </ModalProvider>

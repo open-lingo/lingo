@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
 import { cn } from "./cn";
@@ -79,9 +80,22 @@ export function ContentRail({
           {children}
         </div>
       ) : (
-        <div className="-mx-1 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-2 [scrollbar-width:thin]">
-          {children}
-        </div>
+        <OverlayScrollbarsComponent
+          element="div"
+          className="os-snap-x -mx-1 px-1 pb-2"
+          defer
+          options={{
+            overflow: { x: "scroll", y: "hidden" },
+            scrollbars: {
+              theme: "os-theme-lingo",
+              autoHide: "leave",
+              autoHideDelay: 500,
+              autoHideSuspend: true,
+            },
+          }}
+        >
+          <div className="flex gap-4">{children}</div>
+        </OverlayScrollbarsComponent>
       )}
     </section>
   );
