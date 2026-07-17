@@ -60,8 +60,15 @@
   scrollbar-width: thin;
   scrollbar-color: var(--tmc-locked) transparent;
   /* the panel flexes with the viewport; the SVG scales to fill it, so 4k
-     gets a genuinely bigger map instead of a small fixed-pixel band */
-  height: clamp(500px, 74vh, 1040px);
+     gets a genuinely bigger map instead of a small fixed-pixel band. Height
+     is bounded to what's left under the top bar + signage header (and the
+     cookie banner when present) so the learn page fits in one screen without
+     a body scroll. */
+  height: clamp(
+    420px,
+    calc(100dvh - 10.5rem - var(--cookie-consent-height, 0px)),
+    1040px
+  );
   position: relative;
   z-index: 1;
 }

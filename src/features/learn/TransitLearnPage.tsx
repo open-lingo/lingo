@@ -67,6 +67,7 @@ import { useLearnProfile } from "@/features/learn/hooks/useLearnProfile";
 import { LearnSidebar } from "@/features/learn/components/LearnSidebar";
 import { ProgressFloatCard } from "@/features/learn/components/ProgressFloatCard";
 import { ResumeFab } from "@/features/learn/components/ResumeFab";
+import { MapHelpButton } from "@/features/learn/components/MapHelpButton";
 import { cn } from "@/shared/components/ui/cn";
 import { PlacementPrompt } from "@/features/placement/components/PlacementPrompt";
 import {
@@ -1946,7 +1947,7 @@ export default function TransitLearnPage({
   const titleText = `${strings.mapTitle} — ${course.title}`;
 
   return (
-    <div className="tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-16 pt-2.5 sm:px-3">
+    <div className="tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3">
       {/* signage board header */}
       <TransitSignageHeader
         title={titleText}
@@ -1971,6 +1972,7 @@ export default function TransitLearnPage({
         <div className="min-w-0">
           <div className="relative hidden md:block">
             <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} demoToggle={preview} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
+            <MapHelpButton />
             <ProgressFloatCard course={viewCourse} completedSet={completedSet} />
           </div>
           <div className="md:hidden">
@@ -1985,10 +1987,11 @@ export default function TransitLearnPage({
             )}
           </div>
 
-          <p className="mt-3 max-w-[72ch] text-[13px] text-text-muted 2xl:text-[14px]">
-            Stations = modules (spacing scales with lesson count) · branch lines = the real side quests · dashed track = honest roadmap. Click a station for its district; the depot links to practice.
-            {preview && " Demo state is on by default — flip the toggle for your real progress."}
-          </p>
+          {preview && (
+            <p className="mt-3 max-w-[72ch] text-[13px] text-text-muted 2xl:text-[14px]">
+              Demo state is on by default — flip the toggle for your real progress.
+            </p>
+          )}
         </div>
 
         <div className="hidden lg:block">

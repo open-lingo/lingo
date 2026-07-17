@@ -38,7 +38,7 @@ export function LearnSidebar({
   onSideQuestClick,
 }: LearnSidebarProps) {
   return (
-    <aside className="lg:sticky lg:top-4 lg:self-start lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">
+    <aside className="lg:sticky lg:top-4 lg:self-start lg:max-h-[calc(100dvh-6rem-var(--cookie-consent-height,0px))] lg:overflow-y-auto">
       <Card as="section" padding="md" className="shadow-card">
         <div className="space-y-5">
           <ProfileCardBody profile={profile} />

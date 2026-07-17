@@ -352,29 +352,19 @@ export function ReviewPracticeBody({
                 : undefined
             }
           />
-          {/* Weak points has no data source yet — laid out as a disabled
-              placeholder so the surface is ready when the analysis ships.
-              Intentionally NOT fabricating a count. */}
-          <ReviewLine
-            icon="target"
-            iconClass="text-text-muted"
-            value={t("learn.tools.review.soon", { defaultValue: "Soon" })}
-            label={t("learn.tools.review.weakPointsLine", {
-              defaultValue: "Weak points",
-            })}
-            placeholder
-          />
         </div>
       )}
 
-      <div className="mt-3 flex flex-col gap-2">
+      {/* Review + Practice sit side by side. When caught up there's no due
+          queue, so Practice spans the row on its own. */}
+      <div className="mt-3 flex gap-2">
         {!caughtUp ? (
           <Link
             to={langPath("practice/flashcards/review")}
             className={composeButtonClasses({
               variant: "primary",
               size: "sm",
-              className: "w-full",
+              className: "flex-1",
             })}
           >
             <span className="inline-flex items-center gap-1.5">
@@ -390,7 +380,7 @@ export function ReviewPracticeBody({
           className={composeButtonClasses({
             variant: caughtUp ? "primary" : "secondary",
             size: "sm",
-            className: "w-full",
+            className: "flex-1",
           })}
         >
           <span className="inline-flex items-center gap-1.5">
