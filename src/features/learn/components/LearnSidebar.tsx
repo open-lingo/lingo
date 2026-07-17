@@ -2,7 +2,6 @@ import type { Course, SideQuest } from "@/shared/domain/course";
 import type { LearnProfile } from "../hooks/useLearnProfile";
 import { Card } from "@/shared/components/ui";
 import { ProfileCardBody } from "./ProfileCard";
-import { FlashcardsReviewBody } from "./FlashcardsReviewStrip";
 import { QuestsCardBody } from "@/features/quests";
 
 export type LearnSidebarProps = {
@@ -18,11 +17,12 @@ export type LearnSidebarProps = {
 /**
  * Desktop-only right rail. Mobile uses `LearnTopBar` above the pathway.
  *
- * One cohesive "You today" card — three sections separated by hairline
- * dividers (no nested borders):
+ * One cohesive "You today" card — two sections separated by a hairline
+ * divider (no nested borders):
  *   1. identity + level + XP   (ProfileCardBody)
- *   2. today's quests          (QuestsCardBody — daily / weekly / side)
- *   3. due-review strip        (FlashcardsReviewBody)
+ *   2. today's quests          (QuestsCardBody — daily/weekly + side)
+ * The due-review strip was dropped 2026-07-16 (cards-due stat tile +
+ * practice hub already cover that entry point).
  *
  * The standalone course-progress card was removed earlier — it's now part
  * of YourPathCard in the main column. Folding profile + quests + reviews
@@ -49,10 +49,6 @@ export function LearnSidebar({
           isSideQuestUnlocked={isSideQuestUnlocked}
           onSideQuestClick={onSideQuestClick}
         />
-
-        <div aria-hidden className="my-4 h-px bg-border" />
-
-        <FlashcardsReviewBody />
       </Card>
     </aside>
   );
