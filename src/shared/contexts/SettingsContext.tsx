@@ -229,9 +229,15 @@ export function fromBackendResponse(backend: Record<string, unknown>): Partial<U
   return partial;
 }
 
-function mergeWithDefaults(partial: Partial<UserSettings>): UserSettings {
+export function mergeWithDefaults(partial: Partial<UserSettings>): UserSettings {
   const merged = { ...DEFAULT_SETTINGS };
   if (partial.appearance) merged.appearance = { ...merged.appearance, ...partial.appearance };
+  // Every hydration path converges here (Phase-1 localStorage snapshot, the
+  // Phase-2 server-read error fallback) — normalize retired preset ids in
+  // ONE seam so a future preset retirement doesn't need a second call site.
+  if (typeof merged.appearance.themeId === "string") {
+    merged.appearance.themeId = normalizeThemeId(merged.appearance.themeId);
+  }
   if (partial.accessibility)
     merged.accessibility = { ...merged.accessibility, ...partial.accessibility };
   if (partial.audio) merged.audio = { ...merged.audio, ...partial.audio };

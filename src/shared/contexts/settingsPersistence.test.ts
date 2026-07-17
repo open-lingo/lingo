@@ -1,6 +1,7 @@
-import { describe, it, expect } from "vitest";
-import { toBackendPatch, fromBackendResponse } from "./SettingsContext";
+import { describe, it, expect, beforeEach } from "vitest";
+import { toBackendPatch, fromBackendResponse, mergeWithDefaults } from "./SettingsContext";
 import { DEFAULT_SETTINGS, type UserSettings } from "@/shared/settings/types";
+import { getStoredSettings } from "@/features/settings/storage";
 
 /**
  * Persistence contract: every settings namespace that maps to real runtime
@@ -105,5 +106,25 @@ describe("settings backend persistence", () => {
     expect(hydrated.appearance?.themeId).toBe(
       DEFAULT_SETTINGS.appearance.themeId,
     );
+  });
+
+  describe("localStorage hydration (signed-out / Phase-1 path)", () => {
+    beforeEach(() => {
+      localStorage.clear();
+    });
+
+    it("normalizes a retired themeId read from the current settings localStorage key", () => {
+      // This is the exact seam SettingsProvider's Phase-1 effect uses:
+      // getStoredSettings() (single-key localStorage blob) -> mergeWithDefaults().
+      // A signed-out ex-sepia user has this raw value sitting in
+      // "open-lingo-settings" from before the preset was retired.
+      localStorage.setItem(
+        "open-lingo-settings",
+        JSON.stringify({ appearance: { themeId: "sepia", navLayout: "topbar" } }),
+      );
+      const stored = getStoredSettings();
+      const merged = mergeWithDefaults(stored ?? {});
+      expect(merged.appearance.themeId).toBe("light");
+    });
   });
 });
