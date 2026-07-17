@@ -1775,6 +1775,12 @@ function DistrictView({
             Next station →
           </button>
           <div className="flex-1" />
+          {status !== "completed" && (
+            <Link to={p(`learn/test-out/${mod.id}`)} className="inline-flex items-center gap-1.5 rounded-sm border border-border px-3 py-1.5 text-[12.5px] font-semibold text-text-secondary hover:border-accent hover:text-text-primary">
+              <Icon name="zap" size={13} aria-hidden />
+              Test out
+            </Link>
+          )}
           {status !== "locked" && stops[nextIdx] && (
             <Link to={lessonHref(stops[nextIdx].lesson)} className="rounded-sm bg-accent px-4 py-1.5 text-[12.5px] font-bold text-accent-foreground hover:bg-accent-hover">
               Continue L{nextIdx + 1} →

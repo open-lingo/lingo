@@ -45,6 +45,8 @@ import { isPlacementDismissed, dismissPlacement } from "@/features/placement/hoo
 import { getStoredSettings } from "@/features/settings/storage";
 import { LearnSidebar } from "./components/LearnSidebar";
 import { LearnModuleList } from "./components/LearnModuleList";
+import { ModuleDetailModal } from "./components/ModuleDetailModal";
+import { stringsFor } from "./transitStrings";
 import { LearnTopBar } from "./components/LearnTopBar";
 import { LearnDevPanel } from "./components/LearnDevPanel";
 import { YourPathCard } from "./components/YourPathCard";
@@ -72,6 +74,8 @@ export function LearnPage({
   const { progress, srs } = useApi();
   const [devUnlock, setDevUnlockState] = useState(() => isDevUnlockOn());
   const [placementDismissedByUser, setPlacementDismissedByUser] = useState(false);
+  // List view: which module's full-outline modal is open (global index).
+  const [detailModuleIdx, setDetailModuleIdx] = useState<number | null>(null);
   // Wrapped in an object so re-jumping to the same module id still
   // produces a fresh reference and re-triggers the reveal effect.
   const [revealModuleId, setRevealModuleId] = useState<{ id: string } | null>(
@@ -391,9 +395,11 @@ export function LearnPage({
                 <LearnModuleList
                   course={course}
                   completedSet={completedSet}
+                  zoneLabels={stringsFor(language?.id ?? "ko").zones}
                   isOpen={accordion.isOpen}
                   onToggle={accordion.toggle}
                   onLessonClick={goToLesson}
+                  onViewAll={setDetailModuleIdx}
                   devUnlock={devUnlock}
                 />
               </div>
@@ -422,6 +428,16 @@ export function LearnPage({
             />
           </div>
         </div>
+        {detailModuleIdx !== null && course.modules[detailModuleIdx] ? (
+          <ModuleDetailModal
+            modules={course.modules}
+            index={detailModuleIdx}
+            completedSet={completedSet}
+            devUnlock={devUnlock}
+            onLessonClick={goToLesson}
+            onClose={() => setDetailModuleIdx(null)}
+          />
+        ) : null}
         {bottomChrome}
       </>
     );
