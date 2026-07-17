@@ -50,7 +50,7 @@ export function PillarTile({
         <p className="mt-0.5 line-clamp-2 text-xs leading-snug text-text-secondary">
           {t(pillar.taglineKey, { defaultValue: pillar.taglineDefault })}
         </p>
-        <p className="mt-1.5 truncate text-[11px] font-medium text-text-muted">
+        <p className="mt-1.5 truncate text-[0.6875rem] font-medium text-text-muted">
           {preview.join(" · ")}
         </p>
       </div>
