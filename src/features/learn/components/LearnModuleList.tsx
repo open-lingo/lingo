@@ -4,6 +4,7 @@ import { cn } from "@/shared/components/ui/cn";
 import { ProgressBar } from "@/shared/components/progress/ProgressBar";
 import type { Course, CourseModule, Lesson, SideQuest } from "@/shared/domain/course";
 import {
+  getCurrentModuleIndex,
   getModuleDisplay,
   getModuleStatus,
   getNextLessonIndex,
@@ -79,7 +80,18 @@ export function LearnModuleList({
   onSideQuestClick,
 }: LearnModuleListProps) {
   const groups = zoneGroups(course.modules.length, zoneLabels);
-  const [collapsedZones, setCollapsedZones] = useState<Set<number>>(new Set());
+  const currentZone = (() => {
+    const idx = getCurrentModuleIndex(course, completedSet);
+    return groups.findIndex((z) => idx >= z.start && idx < z.start + z.count);
+  })();
+  // Only the zone you're working on is open by default; the rest collapse.
+  const [collapsedZones, setCollapsedZones] = useState<Set<number>>(() => {
+    const s = new Set<number>();
+    groups.forEach((_, zi) => {
+      if (zi !== currentZone) s.add(zi);
+    });
+    return s;
+  });
   // Zones whose full module list is shown (past the MODULE_PEEK cap).
   const [expandedZones, setExpandedZones] = useState<Set<number>>(new Set());
 
@@ -154,7 +166,7 @@ export function LearnModuleList({
                       modules={course.modules}
                       completedSet={completedSet}
                       open={isOpen(mod.id)}
-                      isLastInZone={li === visible.length - 1}
+                      isLastInZone={li === visible.length - 1 && hiddenCount === 0}
                       onToggle={() => onToggle(mod.id)}
                       onLessonClick={onLessonClick}
                       onViewAll={() => onViewAll(globalIdx)}
@@ -163,16 +175,37 @@ export function LearnModuleList({
                   );
                 })}
                 {hiddenCount > 0 ? (
-                  <li className="border-t border-border">
-                    <button
-                      type="button"
-                      onClick={() => showAllModules(zi)}
-                      className="flex w-full items-center gap-1.5 py-2 pl-[2.6rem] pr-3 text-left text-[11.5px] font-semibold text-accent transition hover:bg-surface-muted/50"
-                    >
-                      View all {zoneModules.length} modules
-                      <Icon name="chevronDown" size={13} aria-hidden />
-                    </button>
-                  </li>
+                  <>
+                    {/* ghost module peek — faded so the zone visibly continues */}
+                    {zoneModules[MODULE_PEEK] ? (
+                      <li aria-hidden className="relative">
+                        <span className="pointer-events-none absolute left-[2.875rem] top-0 h-[1.375rem] w-px bg-border" />
+                        <div className="flex items-center gap-2.5 py-2 pl-8 pr-2.5 opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_85%)]">
+                          <span className="relative z-[1] size-7 flex-none rounded-full bg-surface-muted" />
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate text-[13px] font-semibold text-text-primary">
+                              {zoneModules[MODULE_PEEK].title}
+                            </span>
+                            {zoneModules[MODULE_PEEK].eyebrow ? (
+                              <span className="block truncate text-[10.5px] text-text-muted">
+                                {zoneModules[MODULE_PEEK].eyebrow}
+                              </span>
+                            ) : null}
+                          </span>
+                        </div>
+                      </li>
+                    ) : null}
+                    <li className="border-b border-border">
+                      <button
+                        type="button"
+                        onClick={() => showAllModules(zi)}
+                        className="flex w-full items-center gap-1.5 py-2 pl-[2.6rem] pr-3 text-left text-[11.5px] font-semibold text-accent transition hover:bg-surface-muted/50"
+                      >
+                        View all {zoneModules.length} modules
+                        <Icon name="chevronDown" size={13} aria-hidden />
+                      </button>
+                    </li>
+                  </>
                 ) : null}
               </ul>
             ) : null}
