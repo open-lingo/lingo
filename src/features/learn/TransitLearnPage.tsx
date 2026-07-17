@@ -1990,7 +1990,7 @@ export default function TransitLearnPage({
         }
       />
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start 2xl:grid-cols-[minmax(0,1fr)_360px]">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-stretch 2xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0">
           <div className="relative hidden md:block">
             <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} demoToggle={preview} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
@@ -2021,7 +2021,7 @@ export default function TransitLearnPage({
           )}
         </div>
 
-        <div className="hidden lg:block">
+        <div className="hidden lg:block lg:min-h-0">
           <LearnSidebar
             profile={profile}
             course={viewCourse}
