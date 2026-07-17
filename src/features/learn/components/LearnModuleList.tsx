@@ -123,7 +123,7 @@ export function LearnModuleList({
                   type="button"
                   onClick={() => toggleZone(zi)}
                   aria-expanded={!zoneCollapsed}
-                  className="flex w-full items-center gap-2.5 border-b border-border bg-surface-muted px-3 py-3.5 text-left"
+                  className="flex w-full items-center gap-2.5 border-b border-border bg-surface-muted py-3.5 pl-3 pr-5 text-left"
                 >
                   <Icon
                     name={zoneCollapsed ? "chevronRight" : "chevronDown"}
@@ -180,7 +180,7 @@ export function LearnModuleList({
                     {zoneModules[MODULE_PEEK] ? (
                       <li aria-hidden className="relative">
                         <span className="pointer-events-none absolute left-[2.875rem] top-0 h-[1.375rem] w-px bg-border" />
-                        <div className="flex items-center gap-2.5 py-2 pl-8 pr-2.5 opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_85%)]">
+                        <div className="flex items-center gap-2.5 py-2 pl-8 pr-5 opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_85%)]">
                           <span className="relative z-[1] size-7 flex-none rounded-full bg-surface-muted" />
                           <span className="min-w-0 flex-1">
                             <span className="block truncate text-[13px] font-semibold text-text-primary">
@@ -199,7 +199,7 @@ export function LearnModuleList({
                       <button
                         type="button"
                         onClick={() => showAllModules(zi)}
-                        className="flex w-full items-center gap-1.5 py-2 pl-[2.6rem] pr-3 text-left text-[11.5px] font-semibold text-accent transition hover:bg-surface-muted/50"
+                        className="flex w-full items-center gap-1.5 py-2 pl-[2.6rem] pr-5 text-left text-[11.5px] font-semibold text-accent transition hover:bg-surface-muted/50"
                       >
                         View all {zoneModules.length} modules
                         <Icon name="chevronDown" size={13} aria-hidden />
@@ -281,7 +281,7 @@ function ModuleRow({
         type="button"
         onClick={onToggle}
         aria-expanded={open}
-        className="relative flex w-full items-center gap-2.5 py-2 pl-8 pr-2.5 text-left transition hover:bg-surface-muted/50"
+        className="relative flex w-full items-center gap-2.5 py-2 pl-8 pr-5 text-left transition hover:bg-surface-muted/50"
       >
         <span
           className={cn(
@@ -369,7 +369,7 @@ function ModuleRow({
                     disabled={locked}
                     onClick={() => onLessonClick(lesson)}
                     className={cn(
-                      "flex w-full items-center gap-2.5 py-1.5 pl-14 pr-3 text-left text-[12.5px] transition",
+                      "flex w-full items-center gap-2.5 py-1.5 pl-14 pr-5 text-left text-[12.5px] transition",
                       locked
                         ? "cursor-not-allowed text-text-muted"
                         : "text-text-secondary hover:bg-surface-muted/50 hover:text-text-primary",
@@ -402,7 +402,7 @@ function ModuleRow({
             {overflow > 0 && mod.lessons[LESSON_PEEK] ? (
               <li aria-hidden className="relative">
                 <LessonElbow />
-                <div className="flex items-center gap-2.5 py-1.5 pl-14 pr-3 text-[12.5px] text-text-secondary opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_92%)]">
+                <div className="flex items-center gap-2.5 py-1.5 pl-14 pr-5 text-[12.5px] text-text-secondary opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_92%)]">
                   <span className="size-4 flex-none rounded-full border border-border bg-surface" />
                   <span className="min-w-0 flex-1 truncate">
                     {mod.lessons[LESSON_PEEK].title}
@@ -414,7 +414,7 @@ function ModuleRow({
           <button
             type="button"
             onClick={onViewAll}
-            className="ml-14 mt-0.5 inline-flex items-center gap-1 pr-3 text-[11.5px] font-semibold text-accent hover:text-accent-hover"
+            className="ml-14 mt-0.5 inline-flex items-center gap-1 pr-5 text-[11.5px] font-semibold text-accent hover:text-accent-hover"
           >
             {overflow > 0 ? `View all ${total} lessons` : "Open module"}
             <Icon name="arrowRight" size={13} aria-hidden />
