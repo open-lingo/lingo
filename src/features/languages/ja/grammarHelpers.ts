@@ -407,6 +407,32 @@ export function build(
   };
 }
 
+/**
+ * Transform build (n4-scoping "sentence_transform"): show a JA source
+ * sentence + a short operation chip ("→ casual"), learner assembles the
+ * transformed sentence from tiles. A parametrized `build_sentence` — same
+ * grading, same guards, same density slot. The prompt must still state the
+ * operation in English WITH the register cue (pinned invariant 7), e.g.
+ * "Rewrite for a friend:" — the chip is reinforcement, not the only cue.
+ */
+export function transformBuild(
+  id: string,
+  prompt: string,
+  sourceSentence: string,
+  transformLabel: string,
+  target: string,
+  tiles: string[],
+  correctOrder: string[],
+  exercisedAtomKanas?: string[],
+): BuildSentenceStep {
+  return {
+    ...build(id, prompt, target, tiles, correctOrder, exercisedAtomKanas),
+    sourceSentence,
+    sourceAnnotation: buildSentenceAnnotation(sourceSentence),
+    transformLabel,
+  };
+}
+
 export function infoStep(
   id: string,
   title: string,
@@ -593,7 +619,7 @@ export type ReviewAtom = {
   kana: string;
   meaningEn: string;
   emoji?: string;
-  fromModule: "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7" | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17" | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27" | "m28" | "m29";
+  fromModule: "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7" | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17" | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27" | "m28" | "m29" | "m30";
 };
 
 /**
@@ -937,6 +963,16 @@ export const WORD_IMAGE_MCQ_BLOCKLIST: ReadonlySet<string> = new Set([
   "ふたつ",   // 2 things (generic counter) — abstract grouping
   "みっつ",   // 3 things (generic counter) — abstract grouping
   "から",     // particle (from) — grammar marker, no visual
+  // 2026-07-17 m30 casual-register pilot: abstract adverbs/fillers with no
+  // honest visual referent (docs/n4-pilot-spine-2026-07-16.md m30 table).
+  "きになる",   // "on my mind" idiom (spine's bare き would collide with the
+                // existing tree き atom, m18 — see m30.ts file header) — abstract
+  "なんで",     // why (casual) — abstract interrogative
+  "どうしたの", // "what's up?" — function phrase, no visual
+  "べつに",     // not particularly — abstract adverb
+  "やっぱり",   // as expected, after all — abstract adverb
+  "もちろん",   // of course — abstract adverb
+  "ぜったい",   // absolutely — abstract adverb
 ]);
 
 /**

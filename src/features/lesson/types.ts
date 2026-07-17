@@ -156,6 +156,16 @@ export type BuildSentenceStep = StepBase & {
   audioKey?: string;
   granularity: "word" | "character";
   targetAnnotation?: JapaneseAnnotation[];
+  /**
+   * TRANSFORM MODE (n4-scoping §3 "sentence_transform" verdict: parametrize,
+   * don't fork the type). When set, the JA source sentence renders above the
+   * tile bank and the learner assembles its transformation (polite↔plain,
+   * etc.). `transformLabel` is the short operation chip ("→ casual").
+   * Grading, tiles, and audio behavior are unchanged.
+   */
+  sourceSentence?: string;
+  sourceAnnotation?: JapaneseAnnotation[];
+  transformLabel?: string;
 };
 
 export type MatchPair = {
