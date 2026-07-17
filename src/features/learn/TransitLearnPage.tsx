@@ -1147,7 +1147,7 @@ function NetworkMap({
           <span>Locked / planned</span>
         </div>
         <div className="flex items-center gap-2.5">
-          <span className="grid h-[16px] w-[16px] place-items-center rounded-full text-[8.5px] font-bold text-white" style={{ background: "var(--tmc-seal)" }}>
+          <span className="grid h-[16px] w-[16px] place-items-center rounded-full text-[8.5px] font-bold text-accent-foreground" style={{ background: "var(--tmc-seal)" }}>
             {strings.seal}
           </span>
           <span>Station complete</span>
@@ -1533,7 +1533,7 @@ function LineDiagram({
                     </span>
                   )}
                   {s.status === "completed" && (
-                    <span className="ml-1.5 inline-grid h-[15px] w-[15px] place-items-center rounded-full align-middle text-[8px] font-bold text-white" style={{ background: "var(--tmc-seal)" }}>
+                    <span className="ml-1.5 inline-grid h-[15px] w-[15px] place-items-center rounded-full align-middle text-[8px] font-bold text-accent-foreground" style={{ background: "var(--tmc-seal)" }}>
                       {strings.seal}
                     </span>
                   )}
@@ -1656,7 +1656,7 @@ function DistrictView({
                   style={{ "--i": Math.min(i, 10) } as CSSProperties}
                 >
                   <span
-                    className="grid h-[24px] w-[34px] flex-none place-items-center rounded-[5px] text-[11px] font-extrabold text-white"
+                    className="grid h-[24px] w-[34px] flex-none place-items-center rounded-[5px] text-[11px] font-extrabold text-accent-foreground"
                     style={{ background: s.lesson.kind === "recap" ? "var(--tmc-q1)" : "var(--tmc-line-main)", opacity: s.isDone || s.isCurrent || status !== "locked" ? 1 : 0.45 }}
                   >
                     {s.lesson.kind === "recap" ? strings.recapBadge : `L${s.k + 1}`}
@@ -1666,7 +1666,7 @@ function DistrictView({
                     {s.k === stops.length - 1 && <span className="ml-2 text-[10px] font-extrabold tracking-[0.14em] opacity-70">★ MASTERY</span>}
                   </span>
                   {s.isDone ? (
-                    <span className="grid h-[22px] w-[22px] flex-none -rotate-12 place-items-center rounded-full text-[10px] font-bold text-white" style={{ background: "var(--tmc-seal)" }}>
+                    <span className="grid h-[22px] w-[22px] flex-none -rotate-12 place-items-center rounded-full text-[10px] font-bold text-accent-foreground" style={{ background: "var(--tmc-seal)" }}>
                       {strings.doneStamp}
                     </span>
                   ) : s.isCurrent ? (
@@ -1700,7 +1700,7 @@ function DistrictView({
                     const stamp = (
                       <span className="flex w-[68px] flex-col items-center gap-1">
                         {leg.done ? (
-                          <span className="grid h-10 w-10 place-items-center rounded-full text-[13px] font-extrabold text-white shadow-card" style={{ background: "var(--tmc-seal)", transform: `rotate(${-14 + (li % 5) * 7}deg)`, border: "2.5px solid color-mix(in srgb, #fff 25%, var(--tmc-seal))" }}>
+                          <span className="grid h-10 w-10 place-items-center rounded-full text-[13px] font-extrabold text-accent-foreground shadow-card" style={{ background: "var(--tmc-seal)", transform: `rotate(${-14 + (li % 5) * 7}deg)`, border: "2.5px solid color-mix(in srgb, #fff 25%, var(--tmc-seal))" }}>
                             {strings.doneStamp}
                           </span>
                         ) : (

@@ -26,11 +26,12 @@ type Props = {
 };
 
 /**
- * Soft post-submit banner. Uses the accent token for correct (matching the
- * "tinted selected" treatment on option pills) and a muted error palette for
- * incorrect — never blaring red. The flagged tone swaps in the warning
- * palette but keeps the success iconography. Icon + text verdict together
- * (never color alone) so the state survives color-blindness and screenshots.
+ * Soft post-submit banner. Correct is always semantic success green — never
+ * the brand accent, which can itself be red/warm (see theme presets) and
+ * would then read as an error. Incorrect uses a muted error palette; never
+ * blaring red. The flagged tone swaps in the warning palette but keeps the
+ * success iconography. Icon + text verdict together (never color alone) so
+ * the state survives color-blindness and screenshots.
  */
 export function Feedback({
   correct,
@@ -48,7 +49,7 @@ export function Feedback({
         isFlagged
           ? "border-warning bg-warning/10 text-warning"
           : correct
-            ? "border-accent bg-accent-muted text-accent"
+            ? "border-success bg-success/15 text-success"
             : "border-error bg-error/10 text-error"
       }`}
     >

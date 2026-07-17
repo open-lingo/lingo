@@ -745,20 +745,20 @@
 .lingo-quest-card.featured {
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--color-accent, #059669) 12%, var(--color-surface))
+    color-mix(in srgb, var(--color-accent, #9c2c2c) 12%, var(--color-surface))
       0%,
     color-mix(in srgb, var(--color-info, #0ea5e9) 8%, var(--color-surface))
       100%
   );
-  border-color: var(--color-accent, #059669);
+  border-color: var(--color-accent, #9c2c2c);
   border-width: 0.125rem;
 }
 .lingo-quest-card.featured .lingo-quest-emoji {
-  background: var(--color-accent, #059669);
+  background: var(--color-accent, #9c2c2c);
   color: white;
 }
 .lingo-quest-card.featured .lingo-quest-title {
-  color: var(--color-accent, #059669);
+  color: var(--color-accent, #9c2c2c);
 }
 
 /* ---------------------------------------------------------------- row clusters */
