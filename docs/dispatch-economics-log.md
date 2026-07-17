@@ -39,5 +39,24 @@ the time save is good when we test").
 | Stage-1 dual judges dispatched (8× haiku + 8× sonnet) | 15:39 |
 | All 16 verdicts in (~2.5 min/judge, parallel) | 15:43 |
 | Fix round committed (3 render defects, 1 typo, capture guard) | 15:45 |
+| Stage 2 landed (25 min authoring, overlapped with judging) | 15:56 |
+| Stage 2 reviewed + committed; full recapture (15 lessons, 270 pngs, 0 blanks) | 16:02 |
+| Stage-2 dual judges + stage-1 fix-verify dispatched (15 agents) | 16:03 |
+| All verdicts in; fix-verify 28/28 fixed; artifact recaptures verified | 16:14 |
+| **WALK-READY** (stage-2 dispatch 15:31 → done: 43 min total) | 16:15 |
+
+**m30 judge rows:** 8× haiku stage-1 (~38k tok each), 8× sonnet stage-1 (~47k),
+7× haiku stage-2 (~37k), 7× sonnet stage-2 (~45k), 1× haiku fix-verify (67k).
+**Tier confusion matrix (m30, 270 steps × 2 tiers):**
+- Real defects found: 4 (match-tile kanji strip, grammarRule romaji, keigo
+  typo, + stage-1's blank-capture class exposing itself). Sonnet found
+  match-kanji + rule-romaji + toggle escalations; haiku found the keigo typo
+  + match-kanji; NEITHER tier false-passed a real defect.
+- False claims: haiku 3 (2 hallucinated violations on 5-2, 1 hallucinated
+  "学校 present" transcription); sonnet 0. Sonnet escalations were all
+  legitimate doubts (capture artifacts).
+- Verdict: haiku is fine as the screening tier IF every violation routes
+  through verification (it does); sonnet is the better single-tier judge.
+  Recommended steady-state: haiku screen + sonnet on flags only.
 <!-- append: capture done, stage-1 judges done, stage 2 landed, review+commit done, stage-2 capture+judge done, fixes done, WALK-READY -->
 
