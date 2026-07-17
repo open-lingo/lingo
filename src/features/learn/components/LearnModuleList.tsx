@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
+import { ProgressBar } from "@/shared/components/progress/ProgressBar";
 import type { Course, CourseModule, Lesson, SideQuest } from "@/shared/domain/course";
 import {
   getModuleDisplay,
@@ -179,24 +180,26 @@ function ModuleRow({
 
   return (
     <li className="group/mod relative border-t border-border first:border-t-0">
+      {/* module→module trunk: spans the whole row (incl. expanded lessons)
+          down to the next module; the last module stops at its circle. */}
+      <span
+        aria-hidden
+        className={cn(
+          "pointer-events-none absolute left-4 top-0 z-[1] w-px bg-border",
+          isLastInZone ? "h-[23px]" : "bottom-0",
+        )}
+      />
+      {/* rounded elbow from the trunk into the module circle */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute left-4 top-[11px] z-[1] h-3 w-3.5 rounded-bl-[10px] border-b border-l border-border"
+      />
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={open}
         className="relative flex w-full items-center gap-2.5 py-2 pl-8 pr-2.5 text-left transition hover:bg-surface-muted"
       >
-        {/* git-tree connector: trunk + rounded elbow into the circle */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute left-3.5 top-0 h-1/2 w-3 rounded-bl-[10px] border-b border-l border-border"
-        />
-        {!isLastInZone ? (
-          <span
-            aria-hidden
-            className="pointer-events-none absolute bottom-0 left-3.5 top-1/2 w-px bg-border"
-          />
-        ) : null}
-
         <span
           className={cn(
             "grid h-7 w-7 flex-none place-items-center rounded-full border-2 text-[11px] font-extrabold",
@@ -224,9 +227,12 @@ function ModuleRow({
           ) : null}
         </span>
         <span className="hidden flex-none items-center gap-2 sm:flex">
-          <span className="h-1.5 w-16 overflow-hidden rounded-full bg-border" aria-hidden>
-            <span className="block h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
-          </span>
+          <ProgressBar
+            percent={pct}
+            size="xs"
+            className="w-16"
+            ariaLabel={`${done} of ${total} lessons`}
+          />
           <span className="w-9 text-right text-[11px] font-semibold tabular-nums text-text-muted">
             {done}/{total}
           </span>
@@ -267,19 +273,30 @@ function ModuleRow({
       ) : null}
 
       {open ? (
-        <div className="list-expand bg-surface-muted/40 pb-1.5">
+        <div className="list-expand relative bg-surface-muted/40 pb-1.5">
+          {/* lesson sub-branch: a trunk descending from the module circle
+              (negative top closes the gap so it starts at the circle), with
+              a small elbow into each lesson bullet. */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute bottom-7 left-8 top-[-0.7rem] z-[1] w-px bg-border"
+          />
           <ul>
             {peek.map((lesson, li) => {
               const isDone = completedSet.has(lesson.id);
               const isCurrent = li === nextIdx && status === "current";
               return (
-                <li key={lesson.id}>
+                <li key={lesson.id} className="relative">
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute left-8 top-[15px] z-[1] h-px w-3 bg-border"
+                  />
                   <button
                     type="button"
                     disabled={locked}
                     onClick={() => onLessonClick(lesson)}
                     className={cn(
-                      "flex w-full items-center gap-2.5 py-1.5 pl-11 pr-3 text-left text-[12.5px] transition",
+                      "flex w-full items-center gap-2.5 py-1.5 pl-[3.25rem] pr-3 text-left text-[12.5px] transition",
                       locked
                         ? "cursor-not-allowed text-text-muted"
                         : "text-text-secondary hover:bg-surface-muted hover:text-text-primary",
@@ -292,7 +309,7 @@ function ModuleRow({
                           ? "bg-accent text-accent-foreground"
                           : isCurrent
                             ? "bg-warning text-white"
-                            : "border border-border text-transparent",
+                            : "border border-border bg-surface text-transparent",
                       )}
                     >
                       {isDone ? "✓" : isCurrent ? "▶" : ""}
@@ -311,10 +328,22 @@ function ModuleRow({
           <button
             type="button"
             onClick={onViewAll}
-            className="ml-11 mt-0.5 inline-flex items-center gap-1 pr-3 text-[11.5px] font-semibold text-accent hover:text-accent-hover"
+            className="group/more relative block w-full pl-[3.25rem] pr-3 pt-1.5 text-left"
           >
-            {overflow > 0 ? `View all ${total} lessons` : "Open module"}
-            <Icon name="arrowRight" size={13} aria-hidden />
+            {/* a ghosted next lesson bleeds through behind "view all" so it's
+                obvious the module continues past the peek. */}
+            {overflow > 0 && mod.lessons[LESSON_PEEK] ? (
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 truncate pl-[3.25rem] pr-3 text-[12.5px] text-text-secondary opacity-30 blur-[1.5px] [mask-image:linear-gradient(to_bottom,black,transparent_88%)]"
+              >
+                {mod.lessons[LESSON_PEEK].title}
+              </span>
+            ) : null}
+            <span className="relative inline-flex items-center gap-1 text-[11.5px] font-semibold text-accent group-hover/more:text-accent-hover">
+              {overflow > 0 ? `View all ${total} lessons` : "Open module"}
+              <Icon name="arrowRight" size={13} aria-hidden />
+            </span>
           </button>
         </div>
       ) : null}

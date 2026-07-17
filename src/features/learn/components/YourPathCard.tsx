@@ -101,7 +101,7 @@ export function YourPathCard({
               {stats.pct}%
             </span>
           </div>
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-border">
             <div
               className="h-full rounded-full bg-accent transition-[width] duration-500"
               style={{ width: `${stats.pct}%` }}
