@@ -34,7 +34,7 @@ export function ProgressFloatCard({
   }, [course, completedSet]);
 
   return (
-    <div className="pointer-events-auto absolute bottom-3 right-3 z-10 hidden w-[13.5rem] rounded-card border border-border bg-surface/90 p-3 shadow-card backdrop-blur-sm md:block">
+    <div className="pointer-events-auto absolute bottom-5 right-5 z-10 hidden w-[13.5rem] rounded-card border border-border bg-surface/90 p-3 shadow-card backdrop-blur-sm md:block">
       <div className="flex items-center justify-between gap-2">
         <p className="inline-flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-wider text-text-muted">
           <Icon name="trendingUp" size={13} className="text-accent" aria-hidden />

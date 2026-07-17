@@ -18,8 +18,8 @@ export type LearnSidebarProps = {
 /**
  * Desktop-only right rail. Mobile uses `LearnTopBar` above the pathway.
  *
- * One cohesive "You today" card — three sections separated by hairline
- * dividers (no nested borders):
+ * One cohesive "You today" card — three sections separated by whitespace
+ * alone (dividers dropped 2026-07-16; no nested borders):
  *   1. identity + level + XP   (ProfileCardBody)
  *   2. today's quests          (QuestsCardBody — daily/weekly + side)
  *   3. review & practice       (ReviewPracticeBody — moved from the
@@ -40,19 +40,15 @@ export function LearnSidebar({
   return (
     <aside className="lg:sticky lg:top-4 lg:self-start lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">
       <Card as="section" padding="md" className="shadow-card">
-        <ProfileCardBody profile={profile} />
-
-        <div aria-hidden className="my-4 h-px bg-border" />
-
-        <QuestsCardBody
-          sideQuests={sideQuests}
-          isSideQuestUnlocked={isSideQuestUnlocked}
-          onSideQuestClick={onSideQuestClick}
-        />
-
-        <div aria-hidden className="my-4 h-px bg-border" />
-
-        <ReviewPracticeBody course={course} completedSet={completedSet} />
+        <div className="space-y-5">
+          <ProfileCardBody profile={profile} />
+          <QuestsCardBody
+            sideQuests={sideQuests}
+            isSideQuestUnlocked={isSideQuestUnlocked}
+            onSideQuestClick={onSideQuestClick}
+          />
+          <ReviewPracticeBody course={course} completedSet={completedSet} />
+        </div>
       </Card>
     </aside>
   );
