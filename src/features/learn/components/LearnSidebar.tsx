@@ -38,9 +38,12 @@ export function LearnSidebar({
   onSideQuestClick,
 }: LearnSidebarProps) {
   return (
-    <aside className="lg:sticky lg:top-4 lg:self-start lg:max-h-[calc(100dvh-6rem-var(--cookie-consent-height,0px))] lg:overflow-y-auto">
-      <Card as="section" padding="md" className="shadow-card">
-        <div className="space-y-5">
+    <aside className="lg:h-full lg:overflow-y-auto">
+      <Card as="section" padding="md" className="shadow-card lg:flex lg:h-full lg:flex-col">
+        {/* On desktop the rail matches the map height: the three sections
+            spread apart (justify-between) to fill it. On mobile it's a plain
+            stacked card with even spacing. */}
+        <div className="space-y-5 lg:flex lg:h-full lg:flex-col lg:justify-between lg:space-y-0">
           <ProfileCardBody profile={profile} />
           <QuestsCardBody
             sideQuests={sideQuests}
