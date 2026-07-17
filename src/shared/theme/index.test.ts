@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { ensureThemeTokens } from "./index";
 import { BUILT_IN_THEMES } from "./presets";
+import type { ThemeTokens } from "./types";
 
 /**
  * ensureThemeTokens merges a partial theme against BUILT_IN_THEMES.dark as
@@ -11,9 +12,12 @@ import { BUILT_IN_THEMES } from "./presets";
  */
 describe("ensureThemeTokens font inheritance", () => {
   it("does not gift the default display font to a theme that omits one", () => {
+    // Stored/community themes don't always carry every color key (that's
+    // exactly what ensureThemeTokens backfills) — cast to mirror the real
+    // caller shape (ThemeContext passes possibly-stale stored tokens).
     const result = ensureThemeTokens({
       colors: { background: "#111111" },
-    });
+    } as Partial<ThemeTokens>);
     expect(result.font.display).toBeUndefined();
     expect(result.font.family).toBe(BUILT_IN_THEMES.dark.tokens.font.family);
   });
@@ -22,7 +26,7 @@ describe("ensureThemeTokens font inheritance", () => {
     const result = ensureThemeTokens({
       colors: { background: "#111111" },
       font: { family: "Inter, sans-serif", display: "Some Display Font" },
-    });
+    } as Partial<ThemeTokens>);
     expect(result.font.display).toBe("Some Display Font");
     expect(result.font.family).toBe("Inter, sans-serif");
   });
