@@ -1,5 +1,16 @@
 # Image-Blocked Vocab — Authoring Guide (2026-05-18)
 
+> **⚠️ PARTIALLY STALE for ja (2026-07-16 script-ladder wave). `Status: LIVE-with-corrections.`**
+> Every "`phrase_card`" recommendation below is **BANNED in ja** — `phrase_card` is shelved and
+> `vocab()`/`phrase()` silently emit it (authoring-guide §4b2; conformance-test-enforced). The
+> *blocklist itself* (which words have no honest image) is still correct and load-bearing; only
+> the prescribed teaching method changed. **For ja, teach a blocked word via `vocabMcq` is not an
+> option either — introduce it through `listeningCompSentence` + `speaking`, a `build` sentence,
+> or a `grammarRule` compact card** (never a passive card). `particle_cloze` is also limited to
+> within 2 modules of the particle's introduction (§4c). es/ko may still use `phrase_card`.
+> Kanji-as-glyph anchoring (row for 意味/理由/…) is fine and now automatic — kanji renders live
+> from M8. When reading a "phrase_card" cell below, mentally substitute the ja methods above.
+
 A short list of N5 vocab words where **no image (Noto, custom SVG, or any open-source asset) reliably carries the meaning**. The 4-persona audit (9yo / 16yo / 38yo / 67yo Opus subagents) flagged each below as scoring ≤3 across personas even after the custom-art pass — the concept itself is abstract grammar, not a visual referent.
 
 For these words, **don't ship a `wordImageMcq` card**. Use the alternative step types listed.

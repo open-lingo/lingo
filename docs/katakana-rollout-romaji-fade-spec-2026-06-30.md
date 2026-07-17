@@ -1,6 +1,11 @@
 # Katakana rollout + romaji fade — spec (2026-06-30)
 
-**Status:** DRAFT / spec-first (Spencer approving decisions across 2026-06-30). Build after sign-off.
+**Status:** SHIPPED (archival). Built and live. ⚠️ **One number here is superseded:** hiragana
+romaji-off moved **M10 → M7** in the 2026-07-16 script-ladder wave (so it retires one module
+before kanji recognition starts at M8). Katakana @ M17 and build-tile fade @ M5 are current.
+Source of truth = the exported constants in `shared/settings/romajiAutoFlip.ts`, not this spec.
+(This doc is the origin of the stale "hiragana @ M10" number that propagated into CLAUDE.md /
+PROJECT_STATE / pedagogy-principles — all now corrected.)
 **Owner:** Spencer (JA). **Scope:** Japanese course only — see "Relationship to Trevor's alphabet plan" below.
 **Supersedes for this feature:** the per-word/per-glyph "taught-glyph resolver" idea explored earlier (dropped in favor of flat module cutoffs).
 

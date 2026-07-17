@@ -1,5 +1,11 @@
 # Open Lingo — project state
 
+> **⚠️ STALE — did not absorb the 2026-07-16 script-ladder wave. `Status: NEEDS-UPDATE.`** This
+> snapshot predates: the info-step purge (ja ships 0), kanji recognition going LIVE at M8 (not
+> deferred/out-of-course), romaji-off moving to M7, and the N4 tier (m28 capstone + m29). For the
+> current picture of those, see `docs/retrospective-2026-07-17.md`, `CLAUDE.md`, and the
+> authoring guide §4d–§4g. Refresh this file before trusting it as the source of truth.
+
 **Last updated:** 2026-07-16  
 **Purpose:** Accurate snapshot for humans and agents. For launch tasks see [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md).
 
