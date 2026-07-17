@@ -65,4 +65,4 @@ export type ThemeDefinition = {
 };
 
 /** Built-in preset IDs. */
-export type BuiltInThemeId = "light" | "dark" | "sepia" | "amoled";
+export type BuiltInThemeId = "light" | "dark" | "amoled";
