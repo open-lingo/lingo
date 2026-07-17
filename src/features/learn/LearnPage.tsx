@@ -41,6 +41,7 @@ import {
 import { useModuleAccordion } from "./useModuleAccordion";
 import { useLearnProfile } from "./hooks/useLearnProfile";
 import { LearnMapScrollArea } from "./components/LearnMapScrollArea";
+import { ScrollArea } from "@/shared/components/ScrollArea";
 import { PlacementPrompt } from "@/features/placement/components/PlacementPrompt";
 import { isPlacementDismissed, dismissPlacement } from "@/features/placement/hooks/usePlacementDismissed";
 import { getStoredSettings } from "@/features/settings/storage";
@@ -392,7 +393,7 @@ export function LearnPage({
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-stretch 2xl:grid-cols-[minmax(0,1fr)_360px]">
           <div className="min-w-0">
             <div className="flex flex-col overflow-hidden rounded-card border border-border bg-surface shadow-card lg:h-[clamp(420px,calc(100dvh-10.5rem-var(--cookie-consent-height,0px)),1040px)]">
-              <div className="min-h-0 flex-1 overflow-y-auto">
+              <ScrollArea className="min-h-0 flex-1">
                 <LearnModuleList
                   course={course}
                   completedSet={completedSet}
@@ -406,7 +407,7 @@ export function LearnPage({
                   isSideQuestUnlocked={isSideQuestUnlocked}
                   onSideQuestClick={onSideQuestClick}
                 />
-              </div>
+              </ScrollArea>
             </div>
           </div>
           <div className="hidden lg:block lg:min-h-0">
