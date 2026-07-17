@@ -822,7 +822,7 @@ export function LessonPage() {
 
   return (
     <KanaMasteryProvider>
-    <LessonIntro />
+    <LessonIntro langId={language?.id} />
     {activeGrammarTip && (
       <ReactiveGrammarTipCard
         tip={activeGrammarTip}

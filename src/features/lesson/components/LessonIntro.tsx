@@ -1,15 +1,17 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState } from "react";
 
 /**
- * One-shot lesson-start flourish: a swirl spins and scales out from the
- * center over a themed backdrop that fades in then out, ~900ms, then the
- * overlay unmounts itself. Plays once per LessonPage mount (LessonPage is
- * remounted per lesson via KeyedLessonPage, so a fresh swirl fires on every
- * lesson start and Next-lesson navigation).
+ * One-shot lesson-start page wipe: a themed curtain masks the screen the
+ * instant the lesson mounts (so the route swap happens under cover), then a
+ * per-language vehicle sweeps across on a rail and drags the curtain off,
+ * revealing the lesson behind it. ~1.4s, then the overlay unmounts itself.
+ *
+ * Plays once per LessonPage mount (LessonPage is remounted per lesson via
+ * KeyedLessonPage, so a fresh wipe fires on every lesson start and
+ * Next-lesson navigation).
  *
  * Reduced motion is honored twice over — the OS media query AND the in-app
- * setting (`root.dataset.reducedMotion`, set by SettingsContext). Either one
- * renders nothing (no flash, no delay).
+ * setting (`root.dataset.reducedMotion`). Either one renders nothing.
  */
 function reducedMotion(): boolean {
   if (typeof window === "undefined") return true;
@@ -17,9 +19,27 @@ function reducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-const DURATION_MS = 1250;
+const DURATION_MS = 1400;
 
-export function LessonIntro() {
+/**
+ * The wipe vehicle per learning language — a bullet train for JA/KO (the
+ * bundled Noto set has no high-speed-train glyph, so this is one of the few
+ * places raw emoji beats the image path), a subway for EN, a tram for FR,
+ * a camel for AR because why not. Purely decorative, transient art.
+ */
+const VEHICLE: Record<string, string> = {
+  ja: "🚅",
+  ko: "🚄",
+  en: "🚇",
+  es: "🚈",
+  fr: "🚊",
+  de: "🚆",
+  zh: "🚄",
+  ar: "🐫",
+};
+const DEFAULT_VEHICLE = "🚆";
+
+export function LessonIntro({ langId }: { langId?: string }) {
   const [done, setDone] = useState(() => reducedMotion());
 
   useEffect(() => {
@@ -30,58 +50,28 @@ export function LessonIntro() {
 
   if (done) return null;
 
+  const vehicle = (langId && VEHICLE[langId]) || DEFAULT_VEHICLE;
+
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-[60] grid place-items-center"
+      className="pointer-events-none fixed inset-0 z-[60] overflow-hidden"
       aria-hidden
     >
-      {/* Themed backdrop veil — fades in, holds over the page mount, fades out */}
-      <div className="lesson-intro-veil absolute inset-0 bg-surface/80 backdrop-blur-sm" />
+      {/* Curtain — opaque from frame one (masks the mount), then wipes off
+          to the left, trailing the vehicle. */}
+      <div className="lesson-wipe-curtain absolute inset-0 bg-surface" />
 
-      {/* Spiral arms — each flings outward along its own rotating axis so the
-          spiral grows by trajectory, not just scale. */}
-      {ARMS.map((rot, i) => (
-        <div
-          key={i}
-          className="lesson-intro-arm absolute h-40 w-2 origin-bottom rounded-full"
-          style={
-            {
-              "--arm-rot": `${rot}deg`,
-              background:
-                "linear-gradient(to top, var(--color-accent), transparent)",
-            } as CSSProperties
-          }
-        />
-      ))}
-
-      {/* Core — two counter-rotating conic rings scaling out from center */}
-      <div className="lesson-intro-swirl relative h-80 w-80">
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{
-            background:
-              "conic-gradient(from 0deg, transparent 0deg, var(--color-accent) 90deg, transparent 200deg, var(--color-accent-hover) 300deg, transparent 360deg)",
-            maskImage:
-              "radial-gradient(closest-side, transparent 55%, #000 60%, #000 100%)",
-            WebkitMaskImage:
-              "radial-gradient(closest-side, transparent 55%, #000 60%, #000 100%)",
-          }}
-        />
-        <div
-          className="absolute inset-12 rounded-full"
-          style={{
-            background:
-              "conic-gradient(from 180deg, transparent 0deg, var(--color-warning) 120deg, transparent 260deg)",
-            maskImage:
-              "radial-gradient(closest-side, transparent 45%, #000 52%, #000 100%)",
-            WebkitMaskImage:
-              "radial-gradient(closest-side, transparent 45%, #000 52%, #000 100%)",
-          }}
-        />
+      {/* Vehicle rides across on a short rail, right → left, leading the
+          curtain's wipe edge. */}
+      <div className="lesson-wipe-vehicle absolute left-0 top-1/2">
+        <div className="flex flex-col items-center">
+          <span className="text-7xl leading-none drop-shadow-lg sm:text-8xl">
+            {vehicle}
+          </span>
+          {/* rail segment under the wheels */}
+          <div className="mt-1 h-[3px] w-44 rounded-full bg-accent/60" />
+        </div>
       </div>
     </div>
   );
 }
-
-/** Base angles for the six spiral arms, evenly spread around the circle. */
-const ARMS = [0, 60, 120, 180, 240, 300];
