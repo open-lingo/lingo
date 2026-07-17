@@ -272,7 +272,7 @@ export const M29_1_1: LessonContent = {
       id: "ja-m29-1-1-mcq-recognition",
       prompt: "Which is the PLAIN dictionary form of のみます (to drink)?",
       correctKana: "のむ",
-      distractorsKana: ["のみる", "のむます", "のみます"],
+      distractorsKana: ["のみる", "のみ", "のむる"],
       explanation: "のむ is a う-verb: swap the い-row stem のみ- back to the う-row のむ.",
     }),
     build(
@@ -543,7 +543,7 @@ export const M29_2_1: LessonContent = {
       id: "ja-m29-2-1-mcq-1",
       prompt: "Which is the dictionary form of たべます (to eat)?",
       correctKana: "たべる",
-      distractorsKana: ["たべう", "たべます", "たべた"],
+      distractorsKana: ["たべう", "たべ", "たべた"],
       explanation: "る-verbs: bare stem (たべ-) + る = たべる.",
     }),
     build(
@@ -654,7 +654,7 @@ export const M29_2_2: LessonContent = {
       id: "ja-m29-2-2-mcq-1",
       prompt: "Which is the dictionary form of みます (to watch)?",
       correctKana: "みる",
-      distractorsKana: ["みう", "みます", "みた"],
+      distractorsKana: ["みう", "み", "みた"],
       explanation: "る-verb: bare stem み- + る = みる.",
     }),
     build(
