@@ -55,7 +55,7 @@ export function Stepper({ steps, activeIndex, orientation = "horizontal", classN
               className={cn(
                 "inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-semibold",
                 isDone
-                  ? "border-accent bg-accent text-white"
+                  ? "border-accent bg-accent text-accent-foreground"
                   : isActive
                     ? "border-accent text-accent"
                     : "border-border text-text-muted",

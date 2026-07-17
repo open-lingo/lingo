@@ -76,7 +76,7 @@ export function MarketplaceCard({
             imgClassName={interactive ? "transition-transform duration-300 group-hover/card:scale-[1.03]" : undefined}
           />
           {comingSoon ? (
-            <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-accent/90 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm">
+            <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-accent/90 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent-foreground backdrop-blur-sm">
               <Icon name="clock" size={11} aria-hidden />
               {t("community.homeStoriesComingSoon", "Coming soon")}
             </span>

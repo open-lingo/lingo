@@ -108,7 +108,7 @@ export function FriendsSearchAndList() {
                 // browse and friend other learners. Keeps the empty-state
                 // CTA discoverable without a separate find-friends modal.
                 onClick={() => navigate(langPath("community/contributors"))}
-                className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+                className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
               >
                 {t("social.friends.emptyAction", "Find friends")}
               </button>
@@ -235,12 +235,12 @@ export function FriendRequestsPanel() {
   return (
     <Card padding="none" className="overflow-hidden">
       <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
-        <span className="flex h-5 w-5 items-center justify-center rounded-md bg-accent text-on-accent">
+        <span className="flex h-5 w-5 items-center justify-center rounded-md bg-accent text-accent-foreground">
           <Icon name="userPlus" size={11} aria-hidden />
         </span>
         <h3 className="text-[11px] font-semibold uppercase tracking-wider text-text-muted">
           {t("social.requests.title", "Requests")}
-          <span className="ml-1.5 inline-flex items-center justify-center rounded-full bg-accent px-1.5 py-px text-[10px] font-bold text-on-accent">
+          <span className="ml-1.5 inline-flex items-center justify-center rounded-full bg-accent px-1.5 py-px text-[10px] font-bold text-accent-foreground">
             {requests.length}
           </span>
         </h3>
@@ -306,7 +306,7 @@ function SuggestionRow({ user, reason }: { user: SocialUser; reason: string }) {
             { onSuccess: () => setPendingLocally(true) },
           );
         }}
-        className="rounded-md bg-accent px-2 py-0.5 text-[11px] font-semibold text-on-accent transition hover:bg-accent-hover disabled:opacity-50"
+        className="rounded-md bg-accent px-2 py-0.5 text-[11px] font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:opacity-50"
       >
         {pendingLocally
           ? t("social.suggested.pending", "Pending")
@@ -467,7 +467,7 @@ function FriendRequestRow({ user }: { user: SocialUser }) {
         type="button"
         disabled={isBusy}
         onClick={() => accept.mutate(user.id)}
-        className="rounded-md bg-accent px-2 py-0.5 text-[11px] font-semibold text-on-accent transition hover:bg-accent-hover disabled:opacity-50"
+        className="rounded-md bg-accent px-2 py-0.5 text-[11px] font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:opacity-50"
         aria-label={t("social.requests.acceptAria", "Accept request from {{name}}", {
           name: user.name,
         })}

@@ -175,7 +175,7 @@ export function TrendingRow() {
                     <Icon name={tile.iconName} size={20} aria-hidden />
                   </span>
                   {tile.isNew ? (
-                    <span className="rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-on-accent">
+                    <span className="rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-accent-foreground">
                       {t("home.restructured.trending.newBadge", { defaultValue: "New" })}
                     </span>
                   ) : (

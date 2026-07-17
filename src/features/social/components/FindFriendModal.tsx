@@ -207,7 +207,7 @@ function StatusAction({
       type="button"
       disabled={pending}
       onClick={onAdd}
-      className="inline-flex items-center gap-1 rounded-md bg-accent px-3 py-1 text-xs font-semibold text-on-accent shadow-sm transition hover:bg-accent-hover disabled:opacity-50"
+      className="inline-flex items-center gap-1 rounded-md bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground shadow-sm transition hover:bg-accent-hover disabled:opacity-50"
     >
       <Icon name="userPlus" size={13} aria-hidden />
       {pending

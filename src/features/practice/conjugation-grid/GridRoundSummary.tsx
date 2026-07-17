@@ -61,9 +61,7 @@ export function GridRoundSummary({
                 name={results[i] ? "check" : "close"}
                 size={14}
                 className={cn(
-                  results[i]
-                    ? "text-green-600 dark:text-green-400"
-                    : "text-red-600 dark:text-red-400",
+                  results[i] ? "text-success" : "text-error",
                 )}
                 aria-hidden
               />
@@ -76,7 +74,7 @@ export function GridRoundSummary({
         <button
           type="button"
           onClick={onRetry}
-          className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-on-accent hover:bg-accent-hover"
+          className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
         >
           {retryLabel}
         </button>

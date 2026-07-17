@@ -61,11 +61,11 @@ function deckToItem(deck: {
 
 const STATUS_STYLES: Record<ContentStatus, string> = {
   draft: "bg-surface-muted text-text-primary",
-  submitted: "bg-blue-100 text-blue-800",
-  review: "bg-amber-100 text-amber-800",
-  published: "bg-emerald-100 text-emerald-800",
-  changes_requested: "bg-orange-100 text-orange-800",
-  rejected: "bg-red-100 text-red-800",
+  submitted: "bg-info/15 text-info",
+  review: "bg-warning/15 text-warning",
+  published: "bg-success/15 text-success",
+  changes_requested: "bg-warning/15 text-warning",
+  rejected: "bg-error/15 text-error",
 };
 
 export function MyContentTab() {
@@ -205,7 +205,7 @@ export function MyContentTab() {
         </h2>
         <Link
           to={langPath("community/contribute/create")}
-          className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
+          className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
         >
           {t("community.studioCreateNew")}
         </Link>
@@ -227,7 +227,7 @@ export function MyContentTab() {
               onClick={() => setKindFilter(k)}
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                 kindFilter === k
-                  ? "bg-green-600 text-white"
+                  ? "bg-accent text-accent-foreground"
                   : "bg-surface-muted text-text-secondary hover:bg-surface-muted"
               }`}
             >
@@ -243,7 +243,7 @@ export function MyContentTab() {
               onClick={() => setStatusFilter(s)}
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                 statusFilter === s
-                  ? "bg-green-600 text-white"
+                  ? "bg-accent text-accent-foreground"
                   : "bg-surface-muted text-text-secondary hover:bg-surface-muted"
               }`}
             >
@@ -264,7 +264,7 @@ export function MyContentTab() {
           </p>
           <Link
             to={langPath("community/contribute/create")}
-            className="mt-4 inline-block rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
+            className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
           >
             {t("community.studioCreateFirst")}
           </Link>
@@ -331,7 +331,7 @@ export function MyContentTab() {
                           type="button"
                           onClick={() => handlePublishStory(item.id)}
                           disabled={busy}
-                          className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
+                          className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground hover:bg-accent-hover disabled:opacity-50"
                         >
                           {t("community.studioPublish")}
                         </button>
@@ -341,7 +341,7 @@ export function MyContentTab() {
                           type="button"
                           onClick={() => handleUnpublishStory(item.id)}
                           disabled={busy}
-                          className="rounded-lg border border-amber-500 px-3 py-1.5 text-sm font-medium text-amber-600 hover:bg-amber-50 disabled:opacity-50"
+                          className="rounded-lg border border-warning px-3 py-1.5 text-sm font-medium text-warning hover:bg-warning/10 disabled:opacity-50"
                         >
                           {t("community.studioUnpublish")}
                         </button>
@@ -355,7 +355,7 @@ export function MyContentTab() {
                           type="button"
                           onClick={() => handlePublish(item.id)}
                           disabled={busy}
-                          className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
+                          className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground hover:bg-accent-hover disabled:opacity-50"
                         >
                           {t("community.studioPublish")}
                         </button>
@@ -365,7 +365,7 @@ export function MyContentTab() {
                           type="button"
                           onClick={() => handleUnpublish(item.id)}
                           disabled={busy}
-                          className="rounded-lg border border-amber-500 px-3 py-1.5 text-sm font-medium text-amber-600 hover:bg-amber-50 disabled:opacity-50"
+                          className="rounded-lg border border-warning px-3 py-1.5 text-sm font-medium text-warning hover:bg-warning/10 disabled:opacity-50"
                         >
                           {t("community.studioUnpublish")}
                         </button>
@@ -384,7 +384,7 @@ export function MyContentTab() {
                         to={langPath(`community/decks/${item.id}`)}
                         target="_blank"
                         rel="noreferrer"
-                        className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700"
+                        className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
                       >
                         {t("community.studioEdit")}
                       </Link>
@@ -393,7 +393,7 @@ export function MyContentTab() {
                   {item.kind === "story" && (
                     <Link
                       to={langPath(`community/contribute/create/story/${item.id}`)}
-                      className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700"
+                      className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
                     >
                       {t("community.studioEdit")}
                     </Link>

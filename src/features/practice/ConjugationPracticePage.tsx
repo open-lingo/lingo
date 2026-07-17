@@ -432,11 +432,11 @@ function ActionButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3 text-sm font-bold text-on-accent transition active:translate-y-[2px] hover:bg-accent-hover"
+      className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3 text-sm font-bold text-accent-foreground transition active:translate-y-[2px] hover:bg-accent-hover"
     >
       <span>{label}</span>
       {sub && (
-        <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs font-semibold">{sub}</span>
+        <span className="rounded-full bg-accent-foreground/20 px-2 py-0.5 text-xs font-semibold">{sub}</span>
       )}
       <Icon name="arrowRight" size={16} aria-hidden />
     </button>

@@ -64,7 +64,7 @@ export function HeroContinue({
             }
           : {
               background:
-                "linear-gradient(135deg, rgb(var(--color-accent-rgb, 14 165 233) / 0.10), rgb(var(--color-accent-rgb, 14 165 233) / 0.02))",
+                "linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 10%, transparent), color-mix(in srgb, var(--color-accent) 2%, transparent))",
             }
       }
     >
@@ -158,7 +158,7 @@ export function HeroContinue({
                 "group inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-base font-semibold shadow-card transition",
                 hasBg
                   ? "bg-white text-accent hover:bg-white/95"
-                  : "bg-accent text-on-accent hover:bg-accent-hover",
+                  : "bg-accent text-accent-foreground hover:bg-accent-hover",
               )}
             >
               {ctaLabel}

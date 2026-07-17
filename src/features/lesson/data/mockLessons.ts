@@ -345,7 +345,6 @@ import { ALL_ROWS } from "./hiraganaCurriculum";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { buildReviewTailSteps } from "./buildReviewTailSteps";
 import { buildSrsReviewLesson } from "./buildSrsReviewLesson";
-import { buildPlacementTest } from "./buildPlacementTest";
 
 const KOREAN_ROW_LESSONS: Record<string, LessonContent> = Object.fromEntries(
   buildAllKoreanRowLessons().map((l) => [l.id, l]),
@@ -1045,11 +1044,6 @@ export function getMockLessonContent(
       }),
       getMatchPadContext("ja"),
     );
-  }
-
-  // Placement test — dynamically built, not in the static LESSONS map.
-  if (lessonId === "ja-placement") {
-    return buildPlacementTest();
   }
 
   return null;

@@ -252,7 +252,7 @@ function ActionCell({ row }: { row: CommunityContentRow }) {
         className={
           row.isSubscribed
             ? "inline-flex items-center rounded-md border border-border bg-surface px-2.5 py-1 text-xs font-medium text-text-secondary hover:bg-surface-muted disabled:opacity-50"
-            : "inline-flex items-center rounded-md bg-accent px-2.5 py-1 text-xs font-semibold text-white hover:bg-accent-hover disabled:opacity-50"
+            : "inline-flex items-center rounded-md bg-accent px-2.5 py-1 text-xs font-semibold text-accent-foreground hover:bg-accent-hover disabled:opacity-50"
         }
       >
         {row.isSubscribed ? "Subscribed" : "Subscribe"}

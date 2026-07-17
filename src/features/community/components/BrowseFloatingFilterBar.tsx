@@ -66,7 +66,7 @@ export function BrowseFloatingFilterBar({
           <Icon name="slidersHorizontal" size={15} aria-hidden />
           <span>{filtersLabel}</span>
           {activeCount > 0 && (
-            <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1.5 text-[11px] font-semibold tabular-nums text-on-accent">
+            <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1.5 text-[11px] font-semibold tabular-nums text-accent-foreground">
               {activeCount}
             </span>
           )}

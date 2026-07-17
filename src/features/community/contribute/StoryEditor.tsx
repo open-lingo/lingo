@@ -321,7 +321,7 @@ export function StoryEditor() {
         <p className="text-destructive">{loadError}</p>
         <a
           href={langPath("community/contribute")}
-          className="text-sm text-green-600 hover:underline"
+          className="text-sm text-accent hover:underline"
         >
           {t("community.contribute")}
         </a>
@@ -406,14 +406,14 @@ export function StoryEditor() {
                 <button
                   type="button"
                   onClick={handleCreateDeck}
-                  className="w-full rounded-lg border border-dashed border-border py-2 text-sm font-medium text-text-secondary hover:border-green-400 hover:text-green-700"
+                  className="w-full rounded-lg border border-dashed border-border py-2 text-sm font-medium text-text-secondary hover:border-accent hover:text-accent"
                 >
                   + {t("community.storyEditorCreateDeck", "Create deck")}
                 </button>
                 <button
                   type="button"
                   onClick={() => setLinkDeckOpen(true)}
-                  className="w-full rounded-lg border border-dashed border-border py-2 text-sm font-medium text-text-secondary hover:border-green-400 hover:text-green-700"
+                  className="w-full rounded-lg border border-dashed border-border py-2 text-sm font-medium text-text-secondary hover:border-accent hover:text-accent"
                 >
                   {t("community.storyEditorLinkDeck", "Link existing")}
                 </button>
@@ -512,7 +512,7 @@ export function StoryEditor() {
               setHasUnsavedChanges(true);
             }}
             placeholder={t("community.storyEditorBodyPlaceholder", "Write your story here…")}
-            className="min-h-[400px] w-full resize-y rounded-lg border border-border px-4 py-3 text-base leading-relaxed text-text-primary placeholder:text-text-muted focus:border-green-500 focus:ring-1 focus:ring-green-500"
+            className="min-h-[400px] w-full resize-y rounded-lg border border-border px-4 py-3 text-base leading-relaxed text-text-primary placeholder:text-text-muted focus:border-accent focus:ring-1 focus:ring-accent"
           />
         </main>
 

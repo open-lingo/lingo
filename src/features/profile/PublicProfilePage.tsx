@@ -666,7 +666,7 @@ export function PublicProfilePage() {
                       e.stopPropagation();
                       setAvatarModalOpen(true);
                     }}
-                    className="absolute -bottom-1 -right-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-accent text-white shadow-md ring-2 ring-surface transition hover:bg-accent-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+                    className="absolute -bottom-1 -right-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-md ring-2 ring-surface transition hover:bg-accent-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
                   >
                     <Icon name="camera" size={14} strokeWidth={2.25} aria-hidden />
                   </button>

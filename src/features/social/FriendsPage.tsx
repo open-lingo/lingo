@@ -255,7 +255,7 @@ function TabButton({
       className={cn(
         "flex min-h-[40px] flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition",
         isActive
-          ? "bg-accent text-on-accent shadow-sm"
+          ? "bg-accent text-accent-foreground shadow-sm"
           : "text-text-secondary hover:bg-surface-muted hover:text-text-primary",
       )}
     >
@@ -263,7 +263,7 @@ function TabButton({
       <span
         className={cn(
           "inline-flex items-center justify-center rounded-full px-1.5 text-[10px] font-bold",
-          isActive ? "bg-on-accent/20 text-on-accent" : "bg-surface-muted text-text-muted",
+          isActive ? "bg-accent-foreground/20 text-accent-foreground" : "bg-surface-muted text-text-muted",
         )}
       >
         {count}
@@ -340,7 +340,7 @@ function AllFriendsTab() {
             <button
               type="button"
               onClick={() => navigate(langPath("community/contributors"))}
-              className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+              className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
             >
               {t("social.friendsPage.emptyAction", "Browse community")}
             </button>
@@ -658,7 +658,7 @@ function SectionHeader({
       <span
         className={cn(
           "flex h-5 w-5 items-center justify-center rounded-md",
-          tone === "accent" ? "bg-accent text-on-accent" : "bg-surface-muted text-text-muted",
+          tone === "accent" ? "bg-accent text-accent-foreground" : "bg-surface-muted text-text-muted",
         )}
       >
         <Icon name="userPlus" size={11} aria-hidden />
@@ -668,7 +668,7 @@ function SectionHeader({
         <span
           className={cn(
             "ml-1.5 inline-flex items-center justify-center rounded-full px-1.5 py-px text-[10px] font-bold",
-            tone === "accent" ? "bg-accent text-on-accent" : "bg-surface-muted text-text-secondary",
+            tone === "accent" ? "bg-accent text-accent-foreground" : "bg-surface-muted text-text-secondary",
           )}
         >
           {count}
@@ -704,7 +704,7 @@ function IncomingRequestRow({ user }: { user: SocialUser }) {
         type="button"
         disabled={isBusy}
         onClick={() => accept.mutate(user.id)}
-        className="rounded-md bg-accent px-3 py-1 text-xs font-semibold text-on-accent transition hover:bg-accent-hover disabled:opacity-50"
+        className="rounded-md bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:opacity-50"
       >
         {accept.isPending
           ? t("social.friendsPage.accepting", "Accepting…")

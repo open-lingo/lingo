@@ -61,7 +61,7 @@ export function MasteryGrid({ cells, onSelect }: Props) {
               key={cell.conceptId}
               type="button"
               onClick={() => onSelect(cell.conceptId)}
-              className="flex h-10 min-w-10 items-center justify-center rounded-md px-2 text-sm font-medium text-on-accent transition-transform hover:scale-105 focus-visible:scale-105"
+              className="flex h-10 min-w-10 items-center justify-center rounded-md px-2 text-sm font-medium text-accent-foreground transition-transform hover:scale-105 focus-visible:scale-105"
               style={{ backgroundColor: style.bg }}
               title={`${cell.label} · ${cell.recentStrength}% · ${style.label}`}
               aria-label={`${cell.label}, ${style.label}, ${cell.recentStrength} percent recent strength`}

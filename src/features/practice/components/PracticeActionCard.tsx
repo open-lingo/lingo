@@ -40,7 +40,7 @@ export function PracticeActionCard({
           className={cn(
             "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg",
             isAccent
-              ? "bg-accent/15 text-accent group-hover:bg-white/20 group-hover:text-accent-foreground"
+              ? "bg-accent/15 text-accent group-hover:bg-accent-foreground/20 group-hover:text-accent-foreground"
               : "bg-surface-muted text-accent",
           )}
           aria-hidden
@@ -52,7 +52,7 @@ export function PracticeActionCard({
             className={cn(
               "rounded-full px-2 py-0.5 text-xs font-bold",
               isAccent
-                ? "bg-accent text-accent-foreground group-hover:bg-white/25"
+                ? "bg-accent text-accent-foreground group-hover:bg-accent-foreground/25"
                 : "bg-accent-muted text-accent",
             )}
           >

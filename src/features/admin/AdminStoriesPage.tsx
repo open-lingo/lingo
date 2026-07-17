@@ -138,8 +138,8 @@ export function AdminStoriesPage() {
             <span
               className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${
                 isPublished
-                  ? "bg-emerald-100 text-emerald-800"
-                  : "bg-amber-100 text-amber-800"
+                  ? "bg-success/15 text-success"
+                  : "bg-warning/15 text-warning"
               }`}
             >
               {t(`community.status.${story.status}`)}

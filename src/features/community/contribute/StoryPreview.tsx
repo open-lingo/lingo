@@ -40,8 +40,8 @@ export function StoryPreview({ body, cardsById = {}, brokenCardIds = [], onCardC
             }
             className={
               isBroken
-                ? "rounded bg-amber-100 px-0.5 font-medium text-amber-800"
-                : "cursor-pointer rounded bg-emerald-100 px-0.5 underline decoration-emerald-400 decoration-dotted hover:bg-emerald-200"
+                ? "rounded bg-warning/20 px-0.5 font-medium text-text-primary"
+                : "cursor-pointer rounded bg-success/15 px-0.5 underline decoration-success/50 decoration-dotted hover:bg-success/25"
             }
             title={isBroken ? "Card not found" : card?.back ? `Edit: ${card.back}` : undefined}
           >

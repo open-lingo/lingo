@@ -56,7 +56,7 @@ export function StepInspector({ step, allSteps, onChange }: Props) {
             onClick={() => setMode("form")}
             className={`rounded px-2 py-0.5 text-xs ${
               mode === "form"
-                ? "bg-accent text-on-accent"
+                ? "bg-accent text-accent-foreground"
                 : "text-text-muted hover:bg-surface"
             }`}
           >
@@ -66,7 +66,7 @@ export function StepInspector({ step, allSteps, onChange }: Props) {
             onClick={() => setMode("json")}
             className={`rounded px-2 py-0.5 text-xs ${
               mode === "json"
-                ? "bg-accent text-on-accent"
+                ? "bg-accent text-accent-foreground"
                 : "text-text-muted hover:bg-surface"
             }`}
           >
@@ -180,7 +180,7 @@ function PerKindForm({ step, onChange }: { step: LessonStep; onChange: (s: Lesso
     default:
       return (
         <div className="space-y-3">
-          <div className="rounded border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+          <div className="rounded border border-warning/40 bg-warning/10 px-3 py-2 text-xs text-warning">
             No structured form for <code>{step.type}</code> yet — use the JSON tab
             to edit this step. All other fields below are inherited from
             <code> LessonStep </code>.
@@ -208,7 +208,7 @@ function JsonEditor({ step, onChange }: { step: LessonStep; onChange: (s: Lesson
         className="h-72 w-full resize-y rounded border border-border bg-surface px-3 py-2 font-mono text-xs text-text-primary"
         spellCheck={false}
       />
-      {err && <p className="text-xs text-rose-600">{err}</p>}
+      {err && <p className="text-xs text-error">{err}</p>}
       <div className="flex items-center justify-end gap-2">
         <button
           onClick={() => {
@@ -224,7 +224,7 @@ function JsonEditor({ step, onChange }: { step: LessonStep; onChange: (s: Lesson
               setErr(e instanceof Error ? e.message : "Invalid JSON");
             }
           }}
-          className="rounded bg-accent px-2.5 py-1 text-xs font-medium text-on-accent hover:opacity-90"
+          className="rounded bg-accent px-2.5 py-1 text-xs font-medium text-accent-foreground hover:opacity-90"
         >
           <Icon name="check" className="inline h-3 w-3" /> apply json
         </button>
@@ -336,7 +336,7 @@ function McqForm({ step, onChange }: { step: MultipleChoiceStep; onChange: (s: L
                   const next = step.options.filter((_, j) => j !== i);
                   onChange({ ...step, options: next });
                 }}
-                className="rounded p-1 text-text-muted hover:text-rose-500"
+                className="rounded p-1 text-text-muted hover:text-error"
               >
                 <Icon name="trash" className="h-3 w-3" />
               </button>
@@ -497,7 +497,7 @@ function FillBlankForm({ step, onChange }: { step: FillBlankStep; onChange: (s: 
                   const next = step.blanks.filter((_, j) => j !== i);
                   onChange({ ...step, blanks: next });
                 }}
-                className="rounded p-1 text-text-muted hover:text-rose-500"
+                className="rounded p-1 text-text-muted hover:text-error"
               >
                 <Icon name="trash" className="h-3 w-3" />
               </button>
@@ -803,7 +803,7 @@ function WordImageMcqForm({ step, onChange }: { step: WordImageMcqStep; onChange
                   const next = step.options.filter((_, j) => j !== i);
                   onChange({ ...step, options: next });
                 }}
-                className="rounded p-1 text-text-muted hover:text-rose-500"
+                className="rounded p-1 text-text-muted hover:text-error"
               >
                 <Icon name="trash" className="h-3 w-3" />
               </button>

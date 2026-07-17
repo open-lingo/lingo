@@ -201,7 +201,7 @@ export function ThreadPage() {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             {thread.isPinned && (
-              <span className="rounded bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-800">
+              <span className="rounded bg-warning/15 px-1.5 py-0.5 text-xs font-medium text-warning">
                 {t("forum.pinned")}
               </span>
             )}
@@ -297,7 +297,7 @@ export function ThreadPage() {
                   replyMutation.mutate(replyBody);
                 }}
                 disabled={!replyBody.trim() || replyMutation.isPending}
-                className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
+                className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover disabled:opacity-50"
               >
                 {t("forum.postReply")}
               </button>

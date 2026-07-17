@@ -153,9 +153,9 @@ export function ReadingPracticePage() {
                   let cls = "w-full rounded-lg border px-4 py-3 text-left text-sm font-medium transition";
                   if (showResult) {
                     if (isCorrect) {
-                      cls += " border-green-500 bg-green-50 text-green-800";
+                      cls += " border-success bg-success/10 text-success";
                     } else if (isSelected) {
-                      cls += " border-red-500 bg-red-50 text-red-800";
+                      cls += " border-error bg-error/10 text-error";
                     } else {
                       cls += " border-border bg-surface text-text-secondary opacity-50";
                     }
@@ -193,7 +193,7 @@ export function ReadingPracticePage() {
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="mt-3 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+                    className="mt-3 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
                   >
                     {currentQuestionIdx < passage.questions.length - 1
                       ? "Next question →"

@@ -136,7 +136,7 @@ export function NewThreadPage() {
                 onClick={() => toggleTag(tag.id)}
                 className={`rounded-full px-3 py-1 text-sm font-medium transition ${
                   tagIds.includes(tag.id)
-                    ? "bg-accent text-white"
+                    ? "bg-accent text-accent-foreground"
                     : "bg-surface-muted text-text-secondary hover:bg-surface-muted"
                 }`}
               >
@@ -168,7 +168,7 @@ export function NewThreadPage() {
           <button
             type="submit"
             disabled={!title.trim() || !body.trim() || !categoryId || createMutation.isPending}
-            className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover disabled:opacity-50"
           >
             {t("forum.createThread")}
           </button>

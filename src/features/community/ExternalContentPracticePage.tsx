@@ -40,7 +40,7 @@ function PracticeCard({
     <div
       className={`flex flex-col gap-3 rounded-card border p-4 transition ${
         isDone
-          ? "border-green-200 bg-green-50/50"
+          ? "border-success/40 bg-success/10"
           : "border-border bg-surface"
       }`}
     >
@@ -62,7 +62,7 @@ function PracticeCard({
             title={isDone ? t("externalContent.practice.markNotDone") : t("externalContent.practice.markDone")}
             className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-2 transition ${
               isDone
-                ? "border-green-600 bg-green-600 text-white"
+                ? "border-accent bg-accent text-accent-foreground"
                 : "border-border text-text-muted hover:border-text-muted hover:text-text-secondary"
             }`}
             aria-label={isDone ? t("externalContent.practice.done") : t("externalContent.practice.notDone")}
@@ -72,7 +72,7 @@ function PracticeCard({
           <button
             type="button"
             onClick={onUnsubscribe}
-            className="rounded px-2 py-1 text-xs font-medium text-text-muted hover:bg-surface-muted hover:text-red-600"
+            className="rounded px-2 py-1 text-xs font-medium text-text-muted hover:bg-surface-muted hover:text-error"
           >
             {t("externalContent.practice.unsubscribe")}
           </button>
@@ -80,7 +80,7 @@ function PracticeCard({
       </div>
 
       <div className="flex flex-wrap gap-1.5">
-        <span className="inline-flex items-center gap-1 rounded bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700">
+        <span className="inline-flex items-center gap-1 rounded bg-success/15 px-2 py-0.5 text-xs font-medium text-success">
           <Icon name={CONTENT_TYPE_ICONS[item.contentType]} size={14} aria-hidden />
           {t(`externalContent.contentType.${item.contentType}`)}
         </span>
@@ -95,7 +95,7 @@ function PracticeCard({
           {contentLang?.flag ?? "🌐"}
         </span>
         {transLang && (
-          <span className="rounded bg-blue-50 px-2 py-0.5 text-xs text-blue-700">
+          <span className="rounded bg-info/10 px-2 py-0.5 text-xs text-info">
             {transLang.name} {t("externalContent.available")}
           </span>
         )}
@@ -181,7 +181,7 @@ export function ExternalContentPracticePage() {
           </p>
           <Link
             to={langPath("community/external-content")}
-            className="mt-4 inline-block rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-700"
+            className="mt-4 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover"
           >
             {t("externalContent.practice.browseToAdd")}
           </Link>
@@ -232,7 +232,7 @@ export function ExternalContentPracticePage() {
 
           <Link
             to={langPath("community/external-content")}
-            className="inline-block text-sm font-medium text-green-600 hover:underline"
+            className="inline-block text-sm font-medium text-accent hover:underline"
           >
             {t("externalContent.practice.browseMore")}
           </Link>

@@ -148,7 +148,7 @@ export function CardQuickEditor({
             type="button"
             onClick={handleSave}
             disabled={!canSave}
-            className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover disabled:opacity-50"
           >
             {t("community.storyEditorSaveCard", "Save card")}
           </button>

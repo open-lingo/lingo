@@ -32,7 +32,7 @@ export function InviteFriendsCard() {
         className="overflow-hidden border-accent/30 bg-gradient-to-br from-accent/15 via-accent-muted to-surface"
       >
         <div className="flex items-center gap-3 px-4 py-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-on-accent shadow-sm">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground shadow-sm">
             <Icon name="userPlus" size={18} aria-hidden />
           </div>
           <div className="min-w-0 flex-1">
@@ -53,7 +53,7 @@ export function InviteFriendsCard() {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="shrink-0 rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-on-accent shadow-sm transition hover:bg-accent-hover"
+            className="shrink-0 rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground shadow-sm transition hover:bg-accent-hover"
           >
             {t("social.invite.cta", "Get link")}
           </button>
@@ -144,7 +144,7 @@ function InviteModal({ open, onClose }: { open: boolean; onClose: () => void }) 
           <button
             type="button"
             onClick={handleCopy}
-            className="shrink-0 rounded-md bg-accent px-2.5 py-1 text-xs font-semibold text-on-accent shadow-sm transition hover:bg-accent-hover"
+            className="shrink-0 rounded-md bg-accent px-2.5 py-1 text-xs font-semibold text-accent-foreground shadow-sm transition hover:bg-accent-hover"
           >
             {copied
               ? t("social.invite.copied", "Copied!")
@@ -178,7 +178,7 @@ function InviteModal({ open, onClose }: { open: boolean; onClose: () => void }) 
               type="button"
               disabled={!redeemCode.trim() || redeem.isPending}
               onClick={() => redeem.mutate(redeemCode.trim())}
-              className="rounded-md bg-accent px-2.5 py-1 font-semibold text-on-accent shadow-sm transition hover:bg-accent-hover disabled:opacity-50"
+              className="rounded-md bg-accent px-2.5 py-1 font-semibold text-accent-foreground shadow-sm transition hover:bg-accent-hover disabled:opacity-50"
             >
               {redeem.isPending ? "…" : t("social.invite.redeem", "Redeem")}
             </button>
@@ -187,7 +187,7 @@ function InviteModal({ open, onClose }: { open: boolean; onClose: () => void }) 
 
         <ul className="space-y-2 rounded-lg border border-border bg-surface-muted px-4 py-3 text-xs">
           <li className="flex items-center gap-2 text-text-secondary">
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent text-on-accent">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent text-accent-foreground">
               <Icon name="gem" size={11} aria-hidden />
             </span>
             {t(

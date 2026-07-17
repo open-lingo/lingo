@@ -140,7 +140,7 @@ export function LanguagePickerGrid({ variant }: Props) {
           if (isSelected) {
             // Slight accent wash to signal "picked" without nuking the tint.
             bgLayers.push(
-              "linear-gradient(135deg, rgb(var(--color-accent-rgb, 14 165 233) / 0.12), rgb(var(--color-accent-rgb, 14 165 233) / 0.06))",
+              "linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 12%, transparent), color-mix(in srgb, var(--color-accent) 6%, transparent))",
             );
           }
           if (tint) {

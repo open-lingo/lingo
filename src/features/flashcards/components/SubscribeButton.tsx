@@ -67,7 +67,7 @@ export function SubscribeButton({
       onClick={onSubscribe}
       aria-pressed={false}
       className={cn(
-        "inline-flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent shadow-sm transition",
+        "inline-flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground shadow-sm transition",
         "hover:bg-accent-hover hover:shadow-md active:scale-[0.99] disabled:opacity-60",
         className,
       )}

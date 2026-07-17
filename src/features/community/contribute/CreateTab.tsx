@@ -116,7 +116,7 @@ export function CreateTab() {
               <button
                 type="button"
                 onClick={handleStartEditing}
-                className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
+                className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
               >
                 {t("community.studioStartEditing")}
               </button>
@@ -150,7 +150,7 @@ export function CreateTab() {
         <button
           type="button"
           onClick={handlePickDeck}
-          className="flex flex-col rounded-card border-2 border-border p-6 text-left transition hover:border-green-400 hover:bg-green-50/50"
+          className="flex flex-col rounded-card border-2 border-border p-6 text-left transition hover:border-accent hover:bg-accent-muted/40"
         >
           <Icon name="layers" size={36} className="shrink-0" />
           <h3 className="mt-3 font-semibold text-text-primary">
@@ -165,7 +165,7 @@ export function CreateTab() {
           type="button"
           onClick={handleUploadClick}
           disabled={uploading}
-          className="flex flex-col rounded-card border-2 border-border p-6 text-left transition hover:border-green-400 hover:bg-green-50/50 disabled:opacity-60"
+          className="flex flex-col rounded-card border-2 border-border p-6 text-left transition hover:border-accent hover:bg-accent-muted/40 disabled:opacity-60"
         >
           <Icon name="upload" size={36} className="shrink-0" />
           <h3 className="mt-3 font-semibold text-text-primary">
@@ -189,7 +189,7 @@ export function CreateTab() {
         <button
           type="button"
           onClick={() => navigate(langPath("community/contribute/create/story"))}
-          className="flex flex-col rounded-card border-2 border-border p-6 text-left transition hover:border-green-400 hover:bg-green-50/50"
+          className="flex flex-col rounded-card border-2 border-border p-6 text-left transition hover:border-accent hover:bg-accent-muted/40"
         >
           <Icon name="stories" size={36} className="shrink-0" />
           <h3 className="mt-3 font-semibold text-text-primary">

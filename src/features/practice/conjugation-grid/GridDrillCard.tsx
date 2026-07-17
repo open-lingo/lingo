@@ -82,10 +82,10 @@ export function GridDrillCard({
           if (showResult) {
             if (isCorrect) {
               stateClass =
-                "border-green-500 bg-green-50 text-green-800 dark:bg-green-500/15 dark:text-green-300";
+                "border-success bg-success/10 text-success";
             } else if (isSelected) {
               stateClass =
-                "border-red-500 bg-red-50 text-red-800 dark:bg-red-500/15 dark:text-red-300";
+                "border-error bg-error/10 text-error";
             } else {
               stateClass = "border-border bg-surface text-text-secondary opacity-40";
             }
@@ -141,7 +141,7 @@ export function GridDrillCard({
             <button
               type="button"
               onClick={onNext}
-              className="mt-3 w-full rounded-xl bg-accent px-4 py-2.5 text-sm font-bold text-on-accent transition hover:bg-accent-hover active:translate-y-[2px]"
+              className="mt-3 w-full rounded-xl bg-accent px-4 py-2.5 text-sm font-bold text-accent-foreground transition hover:bg-accent-hover active:translate-y-[2px]"
             >
               {t("practice.conjugationGrid.next", { defaultValue: "Next →" })}
             </button>
@@ -170,7 +170,7 @@ export function GroupChip({ group }: { group: EsVerbEntry["group"] }) {
       className={cn(
         "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-semibold",
         irregular
-          ? "border-amber-500/60 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+          ? "border-warning/60 bg-warning/10 text-warning"
           : "border-border bg-surface-muted text-text-secondary",
       )}
     >

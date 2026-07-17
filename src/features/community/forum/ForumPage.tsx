@@ -122,7 +122,7 @@ export function ForumPage() {
             <div className="mt-3 flex flex-wrap gap-2">
               <Link
                 to={langPath("community/discuss/new")}
-                className="rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700"
+                className="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
               >
                 {t("forum.newThread")}
               </Link>
@@ -132,7 +132,7 @@ export function ForumPage() {
                   onClick={() => setSort("hot")}
                   className={`rounded-md px-3 py-1.5 text-sm font-medium ${
                     sort === "hot"
-                      ? "bg-accent text-white"
+                      ? "bg-accent text-accent-foreground"
                       : "border border-border text-text-secondary hover:bg-surface-muted"
                   }`}
                 >
@@ -143,7 +143,7 @@ export function ForumPage() {
                   onClick={() => setSort("new")}
                   className={`rounded-md px-3 py-1.5 text-sm font-medium ${
                     sort === "new"
-                      ? "bg-accent text-white"
+                      ? "bg-accent text-accent-foreground"
                       : "border border-border text-text-secondary hover:bg-surface-muted"
                   }`}
                 >
@@ -172,7 +172,7 @@ export function ForumPage() {
                       className="flex items-center gap-2 font-medium text-text-primary hover:text-accent"
                     >
                       {thread.isPinned && (
-                        <span className="text-amber-500" aria-label={t("forum.pinned")}>
+                        <span className="text-warning" aria-label={t("forum.pinned")}>
                           •
                         </span>
                       )}
@@ -270,7 +270,7 @@ export function ForumPage() {
                   <li key={addon.id}>
                     <Link
                       to={langPath("community/explore")}
-                      className="block truncate text-sm text-text-secondary hover:text-green-600"
+                      className="block truncate text-sm text-text-secondary hover:text-accent"
                     >
                       {addon.name}
                     </Link>

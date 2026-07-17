@@ -112,7 +112,7 @@ function HeroSection({ langName, bgImage }: { langName: string | null; bgImage?:
             }
           : {
               background:
-                "linear-gradient(135deg, rgb(var(--color-accent-rgb, 14 165 233) / 0.10), rgb(var(--color-accent-rgb, 14 165 233) / 0.02))",
+                "linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 10%, transparent), color-mix(in srgb, var(--color-accent) 2%, transparent))",
             }
       }
     >
@@ -146,7 +146,7 @@ function HeroSection({ langName, bgImage }: { langName: string | null; bgImage?:
           <p
             className={cn(
               "mt-2 max-w-md text-base sm:text-lg",
-              hasBg ? "text-gray-100" : "text-text-secondary",
+              hasBg ? "text-white/90" : "text-text-secondary",
             )}
           >
             You're on a {MOCK.streakDays}-day streak. Five focused minutes will keep it alive.
@@ -159,7 +159,7 @@ function HeroSection({ langName, bgImage }: { langName: string | null; bgImage?:
                 "group inline-flex items-center gap-2.5 rounded-xl px-5 py-3 text-base font-semibold shadow-card transition",
                 hasBg
                   ? "bg-white text-accent hover:bg-white/95"
-                  : "bg-accent text-on-accent hover:bg-accent-hover",
+                  : "bg-accent text-accent-foreground hover:bg-accent-hover",
               )}
             >
               Continue lesson
@@ -170,7 +170,7 @@ function HeroSection({ langName, bgImage }: { langName: string | null; bgImage?:
                 aria-hidden
               />
             </Link>
-            <p className={cn("text-sm", hasBg ? "text-gray-200" : "text-text-muted")}>
+            <p className={cn("text-sm", hasBg ? "text-white/80" : "text-text-muted")}>
               Up next: <span className="font-medium">{MOCK.upNext.lessonTitle}</span>
             </p>
           </div>
@@ -198,7 +198,7 @@ function HeroSection({ langName, bgImage }: { langName: string | null; bgImage?:
               <p className={cn("mt-1 truncate font-semibold", hasBg ? "text-white" : "text-text-primary")}>
                 {MOCK.module.name}
               </p>
-              <p className={cn("mt-0.5 text-sm", hasBg ? "text-gray-200" : "text-text-secondary")}>
+              <p className={cn("mt-0.5 text-sm", hasBg ? "text-white/80" : "text-text-secondary")}>
                 {MOCK.upNext.lessonTitle}
               </p>
             </div>
@@ -450,7 +450,7 @@ function FlashcardsTile() {
       </div>
       <Link
         to={langPath("practice/flashcards/review")}
-        className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-on-accent transition hover:bg-accent-hover"
+        className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
       >
         Review now
         <Icon name="chevronRight" size={16} aria-hidden />
@@ -698,7 +698,7 @@ function SocialCard() {
             </div>
             <button
               type="button"
-              className="rounded-md bg-accent px-2.5 py-1 text-xs font-semibold text-on-accent transition hover:bg-accent-hover"
+              className="rounded-md bg-accent px-2.5 py-1 text-xs font-semibold text-accent-foreground transition hover:bg-accent-hover"
             >
               Follow
             </button>
@@ -765,7 +765,7 @@ function CommunityStrip() {
                     {row.kind}
                   </span>
                   {row.isNew ? (
-                    <span className="rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-on-accent">
+                    <span className="rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-accent-foreground">
                       New
                     </span>
                   ) : null}

@@ -131,7 +131,7 @@ export function FilterBar({
           {resolvedActive > 0 && (
             <span
               aria-hidden
-              className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-white"
+              className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-accent-foreground"
             >
               {resolvedActive}
             </span>
@@ -187,7 +187,7 @@ export function FilterBar({
               <button
                 type="button"
                 onClick={() => setSheetOpen(false)}
-                className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+                className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
               >
                 {doneButton}
               </button>

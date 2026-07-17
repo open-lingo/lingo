@@ -665,7 +665,7 @@ export function AdminUserDetailPage() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="award-xp-title"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4"
           onClick={() => {
             if (!awardingXp) setAwardXpOpen(false);
           }}
@@ -1099,7 +1099,7 @@ export function AdminUserDetailPage() {
                               type="button"
                               onClick={() => handleUnpublishDeck(deck.id)}
                               disabled={isBusy}
-                              className="rounded border border-amber-300 px-2 py-1 text-sm font-medium text-amber-700 hover:bg-amber-50 disabled:opacity-50"
+                              className="rounded border border-warning/40 px-2 py-1 text-sm font-medium text-warning hover:bg-warning/10 disabled:opacity-50"
                             >
                               {deckAction?.id === deck.id && deckAction?.action === "unpublish"
                                 ? t("common.loading")
@@ -1110,7 +1110,7 @@ export function AdminUserDetailPage() {
                               type="button"
                               onClick={() => handlePublishDeck(deck.id)}
                               disabled={isBusy}
-                              className="rounded border border-green-300 px-2 py-1 text-sm font-medium text-green-700 hover:bg-green-50 disabled:opacity-50"
+                              className="rounded border border-success/40 px-2 py-1 text-sm font-medium text-success hover:bg-success/10 disabled:opacity-50"
                             >
                               {deckAction?.id === deck.id && deckAction?.action === "publish"
                                 ? t("common.loading")
@@ -1126,7 +1126,7 @@ export function AdminUserDetailPage() {
                                 type="button"
                                 onClick={handleDeleteDeck}
                                 disabled={!!deckAction}
-                                className="rounded bg-red-600 px-2 py-1 text-xs font-medium text-white hover:bg-red-700 disabled:opacity-50"
+                                className="rounded border border-error bg-error/10 px-2 py-1 text-xs font-medium text-error hover:bg-error/20 disabled:opacity-50"
                               >
                                 {deckAction?.id === deck.id ? t("common.loading") : "Confirm"}
                               </button>
@@ -1144,7 +1144,7 @@ export function AdminUserDetailPage() {
                               type="button"
                               onClick={() => handleDeleteDeckClick(deck.id)}
                               disabled={isBusy}
-                              className="rounded border border-red-300 px-2 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50"
+                              className="rounded border border-error/40 px-2 py-1 text-sm font-medium text-error hover:bg-error/10 disabled:opacity-50"
                             >
                               {t("admin.deleteDeck")}
                             </button>
@@ -1211,7 +1211,7 @@ export function AdminUserDetailPage() {
                           type="button"
                           onClick={() => handleAcceptRequest(r)}
                           disabled={socialBusyId === r.user_id}
-                          className="rounded-md bg-accent px-3 py-1 text-xs font-semibold text-on-accent transition hover:bg-accent-hover disabled:opacity-50"
+                          className="rounded-md bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:opacity-50"
                         >
                           {socialBusyId === r.user_id
                             ? t("common.loading")

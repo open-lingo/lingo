@@ -313,7 +313,7 @@ export function FacetSidebar({
                                   fill="none"
                                   stroke="currentColor"
                                   strokeWidth="3.5"
-                                  className="text-on-accent"
+                                  className="text-accent-foreground"
                                 >
                                   <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>

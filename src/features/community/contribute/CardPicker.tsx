@@ -78,7 +78,7 @@ export function CardPicker({
         <button
           type="button"
           onClick={() => onCreateNew(selectedText)}
-          className="w-full rounded border border-dashed border-border py-2 text-sm font-medium text-green-600 hover:border-green-400 hover:bg-green-50"
+          className="w-full rounded border border-dashed border-border py-2 text-sm font-medium text-accent hover:border-accent hover:bg-accent-muted/40"
         >
           + {t("community.storyEditorCreateNewCard", "Create new card")}
         </button>

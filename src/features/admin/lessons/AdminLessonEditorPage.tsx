@@ -146,7 +146,7 @@ export function AdminLessonEditorPage() {
           <button
             onClick={handleSave}
             disabled={!dirty}
-            className="rounded bg-accent px-3 py-1.5 text-sm font-medium text-on-accent shadow-sm hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground shadow-sm hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Icon name="check" className="inline h-3.5 w-3.5" /> Save draft
           </button>
@@ -195,20 +195,20 @@ export function AdminLessonEditorPage() {
 function StatusPill({ dirty, hasDraft }: { dirty: boolean; hasDraft: boolean }) {
   if (dirty) {
     return (
-      <span className="rounded-full bg-rose-100 px-2 py-0.5 text-[11px] font-medium text-rose-900">
+      <span className="rounded-full bg-error/15 px-2 py-0.5 text-[11px] font-medium text-error">
         unsaved
       </span>
     );
   }
   if (hasDraft) {
     return (
-      <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-medium text-amber-900">
+      <span className="rounded-full bg-warning/15 px-2 py-0.5 text-[11px] font-medium text-warning">
         draft saved
       </span>
     );
   }
   return (
-    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-medium text-emerald-900">
+    <span className="rounded-full bg-success/15 px-2 py-0.5 text-[11px] font-medium text-success">
       source
     </span>
   );
@@ -218,7 +218,7 @@ function ExportModal({ source, onClose }: { source: string; onClose: () => void 
   const { showToast } = useToast();
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4"
       onClick={onClose}
     >
       <div
@@ -253,7 +253,7 @@ function ExportModal({ source, onClose }: { source: string; onClose: () => void 
                 .then(() => showToast("Copied to clipboard", "success"))
                 .catch(() => showToast("Copy failed", "error"));
             }}
-            className="rounded bg-accent px-3 py-1.5 text-sm font-medium text-on-accent hover:opacity-90"
+            className="rounded bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground hover:opacity-90"
           >
             <Icon name="copy" className="inline h-3.5 w-3.5" /> Copy
           </button>

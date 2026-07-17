@@ -101,7 +101,7 @@ export function SocialSidebar({
         <button
           type="button"
           onClick={onAddFriend}
-          className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-on-accent shadow-sm transition hover:bg-accent-hover"
+          className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground shadow-sm transition hover:bg-accent-hover"
         >
           <Icon name="userPlus" size={15} aria-hidden />
           {t("social.addFriend.add", "Add friend")}
@@ -131,7 +131,7 @@ export function SocialSidebar({
               <Icon name={TAB_ICON[tab]} size={16} aria-hidden />
               <span className="flex-1 text-left">{tabLabel(t, tab)}</span>
               {badge > 0 ? (
-                <span className="inline-flex h-4 min-w-[16px] items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-on-accent">
+                <span className="inline-flex h-4 min-w-[16px] items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-accent-foreground">
                   {badge}
                 </span>
               ) : null}

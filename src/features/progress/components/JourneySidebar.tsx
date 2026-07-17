@@ -154,7 +154,7 @@ function StreakStripCard({ days, streak }: { days: DayActivity[]; streak: number
                 }}
                 aria-hidden
               >
-                {hit ? <Icon name="flame" size={13} className="text-on-accent" /> : null}
+                {hit ? <Icon name="flame" size={13} className="text-accent-foreground" /> : null}
               </span>
               <span className="text-[9px] text-text-muted">{"SMTWTFS"[dow]}</span>
             </div>

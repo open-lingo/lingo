@@ -317,7 +317,7 @@ export function MyDecksBody() {
               action={
                 <Link
                   to={langPath("community/decks/new")}
-                  className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+                  className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
                 >
                   {t("community.myDecksEmptyAction", "+ Create your first deck")}
                 </Link>
@@ -538,7 +538,7 @@ function SegChip({
       onClick={onClick}
       className={
         active
-          ? "inline-flex min-h-8 items-center rounded-full bg-accent px-3 py-1 text-xs font-medium text-white shadow-sm"
+          ? "inline-flex min-h-8 items-center rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground shadow-sm"
           : "inline-flex min-h-8 items-center rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-text-secondary transition hover:border-accent hover:text-text-primary"
       }
     >

@@ -175,7 +175,7 @@ export function EventPublisher() {
           type="button"
           disabled={!userId || mutation.isPending}
           onClick={() => mutation.mutate()}
-          className="px-3 py-1.5 rounded bg-blue-600 text-white text-xs font-semibold disabled:opacity-50"
+          className="px-3 py-1.5 rounded bg-accent text-accent-foreground text-xs font-semibold hover:bg-accent-hover disabled:opacity-50"
         >
           {mutation.isPending ? "Publishing…" : "Publish event"}
         </button>
@@ -184,7 +184,7 @@ export function EventPublisher() {
             Published. Event should appear in the inspector within ~3s.
           </span>
         )}
-        {error && <span className="text-xs text-red-600">{error}</span>}
+        {error && <span className="text-xs text-error">{error}</span>}
       </div>
     </section>
   );

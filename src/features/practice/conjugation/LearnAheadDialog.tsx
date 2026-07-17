@@ -44,7 +44,7 @@ export function LearnAheadDialog({
           <button
             type="button"
             onClick={() => onConfirm(dontAsk)}
-            className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-on-accent hover:bg-accent-hover"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
           >
             {t("practice.conjugation.learnAhead.confirm", { defaultValue: "Continue anyway" })}
           </button>

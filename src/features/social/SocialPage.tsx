@@ -107,7 +107,7 @@ export default function SocialPage() {
               className={cn(
                 "relative flex min-h-[40px] flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-semibold transition",
                 isActive
-                  ? "bg-accent text-on-accent shadow-sm"
+                  ? "bg-accent text-accent-foreground shadow-sm"
                   : "text-text-secondary hover:bg-surface-muted hover:text-text-primary",
               )}
             >
@@ -117,7 +117,7 @@ export default function SocialPage() {
                 <span
                   className={cn(
                     "inline-flex h-4 min-w-[16px] items-center justify-center rounded-full px-1 text-[10px] font-bold",
-                    isActive ? "bg-on-accent text-accent" : "bg-accent text-on-accent",
+                    isActive ? "bg-accent-foreground text-accent" : "bg-accent text-accent-foreground",
                   )}
                 >
                   {badge}
@@ -132,7 +132,7 @@ export default function SocialPage() {
       <button
         type="button"
         onClick={() => setFindFriendOpen(true)}
-        className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-on-accent shadow-sm transition hover:bg-accent-hover lg:hidden"
+        className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground shadow-sm transition hover:bg-accent-hover lg:hidden"
       >
         <Icon name="userPlus" size={15} aria-hidden />
         {t("social.addFriend.add", "Add friend")}

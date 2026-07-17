@@ -119,7 +119,7 @@ export function ListeningPracticePage() {
             <button
               type="button"
               onClick={handlePlay}
-              className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-white transition hover:bg-accent-hover"
+              className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-foreground transition hover:bg-accent-hover"
               aria-label={t("practice.listenChoose.playAria", { defaultValue: "Play audio" })}
             >
               <Icon name="volume" size={24} />
@@ -143,9 +143,9 @@ export function ListeningPracticePage() {
                   disabled={revealed}
                   className={`rounded-lg border px-3 py-2.5 text-sm font-medium transition ${
                     revealed && isCorrect
-                      ? "border-green-500 bg-green-500/10 text-text-primary"
+                      ? "border-success bg-success/10 text-text-primary"
                       : revealed && isPicked
-                        ? "border-red-500 bg-red-500/10 text-text-primary"
+                        ? "border-error bg-error/10 text-text-primary"
                         : revealed
                           ? "border-border bg-surface text-text-muted"
                           : "border-border bg-surface text-text-primary hover:border-accent hover:bg-surface-muted"
@@ -162,7 +162,7 @@ export function ListeningPracticePage() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="rounded-lg bg-accent px-4 py-1.5 text-xs font-medium text-white hover:bg-accent-hover"
+                className="rounded-lg bg-accent px-4 py-1.5 text-xs font-medium text-accent-foreground hover:bg-accent-hover"
               >
                 {t("practice.listenChoose.next", { defaultValue: "Next →" })}
               </button>

@@ -105,7 +105,7 @@ export function CookieConsent() {
           <button
             type="button"
             onClick={acceptAll}
-            className="rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-on-accent transition hover:bg-accent-hover sm:px-4 sm:py-2"
+            className="rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground transition hover:bg-accent-hover sm:px-4 sm:py-2"
           >
             {t("legal.cookies.acceptAll", "Accept all")}
           </button>

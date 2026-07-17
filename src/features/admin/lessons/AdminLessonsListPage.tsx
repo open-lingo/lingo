@@ -134,7 +134,7 @@ export function AdminLessonsListPage() {
       sortable: true,
       render: (r) =>
         r.hasDraft ? (
-          <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-900">
+          <span className="inline-flex items-center gap-1 rounded-full bg-warning/15 px-2 py-0.5 text-xs font-medium text-warning">
             <Icon name="pencil" className="h-3 w-3" />
             draft
           </span>

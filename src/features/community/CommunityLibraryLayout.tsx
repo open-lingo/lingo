@@ -49,7 +49,7 @@ export function CommunityLibraryLayout({
         </div>
         <Link
           to={langPath("community/decks/new")}
-          className="inline-flex min-h-9 items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-accent-hover"
+          className="inline-flex min-h-9 items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-sm font-semibold text-accent-foreground shadow-sm transition hover:bg-accent-hover"
         >
           <Icon name="plus" size={16} aria-hidden />
           {t("community.contentBrowserNewDeck")}

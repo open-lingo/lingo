@@ -114,7 +114,7 @@ export function SubscribedRow({
         </button>
         <Link
           to={openTo}
-          className="rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-accent-hover"
+          className="rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground shadow-sm transition hover:bg-accent-hover"
         >
           {t("community.contentBrowserOpen", "Open")}
         </Link>

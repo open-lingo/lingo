@@ -35,7 +35,7 @@ export function WelcomeBanner({
             }
           : {
               background:
-                "linear-gradient(135deg, rgb(var(--color-accent-rgb, 14 165 233) / 0.10), rgb(var(--color-accent-rgb, 14 165 233) / 0.02))",
+                "linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 10%, transparent), color-mix(in srgb, var(--color-accent) 2%, transparent))",
             }
       }
     >
@@ -70,7 +70,7 @@ export function WelcomeBanner({
         <p
           className={cn(
             "mt-2 max-w-xl text-base sm:text-lg",
-            hasBgImage ? "text-gray-100" : "text-text-secondary",
+            hasBgImage ? "text-white/90" : "text-text-secondary",
           )}
         >
           {langName
@@ -92,7 +92,7 @@ export function WelcomeBanner({
               "group inline-flex items-center gap-3 rounded-xl px-5 py-3 text-base font-semibold shadow-card transition",
               hasBgImage
                 ? "bg-white text-accent hover:bg-white/90"
-                : "bg-accent text-on-accent hover:bg-accent-hover",
+                : "bg-accent text-accent-foreground hover:bg-accent-hover",
             )}
           >
             <span>
@@ -111,7 +111,7 @@ export function WelcomeBanner({
             <p
               className={cn(
                 "mt-2 text-sm",
-                hasBgImage ? "text-gray-200" : "text-text-muted",
+                hasBgImage ? "text-white/80" : "text-text-muted",
               )}
             >
               {t("home.welcome.firstLessonHint", {

@@ -183,9 +183,9 @@ function FreeDrill({ conj }: { conj: ConjugationTrainerProvider }) {
               let btnClass = "rounded-lg border px-4 py-3 text-sm font-medium transition";
               if (showResult) {
                 if (isCorrect) {
-                  btnClass += " border-green-500 bg-green-50 text-green-800";
+                  btnClass += " border-success bg-success/10 text-success";
                 } else if (isSelected && !isCorrect) {
-                  btnClass += " border-red-500 bg-red-50 text-red-800";
+                  btnClass += " border-error bg-error/10 text-error";
                 } else {
                   btnClass += " border-border bg-surface text-text-secondary opacity-50";
                 }
@@ -225,7 +225,7 @@ function FreeDrill({ conj }: { conj: ConjugationTrainerProvider }) {
               <button
                 type="button"
                 onClick={generateQuestion}
-                className="mt-3 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+                className="mt-3 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
               >
                 {t("practice.conjugation.next", { defaultValue: "Next →" })}
               </button>

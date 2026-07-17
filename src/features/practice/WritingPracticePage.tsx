@@ -141,7 +141,7 @@ export function WritingPracticePage() {
             <button
               type="submit"
               disabled={checked !== null || typed.trim() === ""}
-              className="rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-white transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-accent-foreground transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
             >
               {t("practice.typeIt.check", { defaultValue: "Check" })}
             </button>
@@ -151,8 +151,8 @@ export function WritingPracticePage() {
             <div
               className={`mx-auto mt-4 max-w-md rounded-lg border p-3 ${
                 checked
-                  ? "border-green-500 bg-green-500/10"
-                  : "border-red-500 bg-red-500/10"
+                  ? "border-success bg-success/10"
+                  : "border-error bg-error/10"
               }`}
             >
               <p className="text-xs text-text-muted">
@@ -179,7 +179,7 @@ export function WritingPracticePage() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="rounded-lg bg-accent px-4 py-1.5 text-xs font-medium text-white hover:bg-accent-hover"
+                className="rounded-lg bg-accent px-4 py-1.5 text-xs font-medium text-accent-foreground hover:bg-accent-hover"
               >
                 {t("practice.typeIt.next", { defaultValue: "Next →" })}
               </button>

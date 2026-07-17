@@ -103,7 +103,7 @@ export function AdminTab() {
               onClick={() => setKindFilter(k)}
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                 kindFilter === k
-                  ? "bg-green-600 text-white"
+                  ? "bg-accent text-accent-foreground"
                   : "bg-surface-muted text-text-secondary hover:bg-surface-muted"
               }`}
             >
@@ -127,7 +127,7 @@ export function AdminTab() {
               onClick={() => setStatusFilter(f)}
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
                 statusFilter === f
-                  ? "bg-green-600 text-white"
+                  ? "bg-accent text-accent-foreground"
                   : "bg-surface-muted text-text-secondary hover:bg-surface-muted"
               }`}
             >
@@ -183,8 +183,8 @@ export function AdminTab() {
                     <span
                       className={`mt-1 inline-block rounded px-2 py-0.5 text-xs font-medium ${
                         isPublished
-                          ? "bg-emerald-100 text-emerald-800"
-                          : "bg-amber-100 text-amber-800"
+                          ? "bg-success/15 text-success"
+                          : "bg-warning/15 text-warning"
                       }`}
                     >
                       {t(`community.status.${deck.status}`)}
@@ -205,7 +205,7 @@ export function AdminTab() {
                       type="button"
                       onClick={() => handleApprove(deck.id)}
                       disabled={busy}
-                      className="rounded-lg bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
+                      className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground hover:bg-accent-hover disabled:opacity-50"
                     >
                       {t("community.studioPublish")}
                     </button>
@@ -215,7 +215,7 @@ export function AdminTab() {
                       type="button"
                       onClick={() => handleReject(deck.id)}
                       disabled={busy}
-                      className="rounded-lg border border-amber-500 px-3 py-1.5 text-sm font-medium text-amber-600 hover:bg-amber-50"
+                      className="rounded-lg border border-warning px-3 py-1.5 text-sm font-medium text-warning hover:bg-warning/10"
                     >
                       {t("community.studioUnpublish")}
                     </button>

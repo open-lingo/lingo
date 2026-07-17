@@ -22,6 +22,7 @@ import {
   isSpeechRecognitionSupported,
 } from "@/shared/speech";
 import { getTtsUrl } from "@/shared/tts";
+import { Icon } from "@/shared/components/Icon";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { convertToHiragana } from "@/features/languages/ja/readingAnnotation/kuroshiro";
 
@@ -340,7 +341,7 @@ export function SpeechTunePage() {
           </div>
 
           {api.error && (
-            <div className="mb-3 rounded-lg border border-error bg-red-50 p-2 text-sm text-error">
+            <div className="mb-3 rounded-lg border border-error/40 bg-error/10 p-2 text-sm text-error">
               error: {api.error}
             </div>
           )}
@@ -543,7 +544,7 @@ function WordTile({
         title="Play reference"
         className="rounded-full border border-border bg-surface px-2 py-1 text-xs text-text-secondary hover:border-accent hover:text-text-primary"
       >
-        ▶
+        <Icon name="play" size={12} aria-hidden />
       </button>
       {recording ? (
         <button
@@ -558,13 +559,13 @@ function WordTile({
           type="button"
           onClick={onRecord}
           disabled={busy}
-          className={`rounded-full px-3 py-1 text-xs font-semibold text-white ${
+          className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold ${
             busy
-              ? "cursor-not-allowed bg-text-secondary opacity-60"
-              : "bg-accent hover:bg-accent-hover"
+              ? "cursor-not-allowed bg-surface-muted text-text-muted"
+              : "bg-accent text-accent-foreground hover:bg-accent-hover"
           }`}
         >
-          🎤 record
+          <Icon name="mic" size={12} aria-hidden /> record
         </button>
       )}
     </div>

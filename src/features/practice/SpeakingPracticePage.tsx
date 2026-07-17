@@ -178,8 +178,8 @@ export function SpeakingPracticePage() {
               disabled={isRecording}
               className={`flex h-14 w-14 items-center justify-center rounded-full transition ${
                 isRecording
-                  ? "animate-pulse bg-red-500 text-white"
-                  : "bg-accent text-white hover:bg-accent-hover"
+                  ? "animate-pulse bg-error text-accent-foreground"
+                  : "bg-accent text-accent-foreground hover:bg-accent-hover"
               }`}
               aria-label={isRecording ? "Recording..." : "Record"}
             >
@@ -206,7 +206,7 @@ export function SpeakingPracticePage() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="rounded-lg bg-accent px-4 py-1.5 text-xs font-medium text-white hover:bg-accent-hover"
+                className="rounded-lg bg-accent px-4 py-1.5 text-xs font-medium text-accent-foreground hover:bg-accent-hover"
               >
                 Next →
               </button>

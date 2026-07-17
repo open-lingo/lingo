@@ -514,7 +514,7 @@ export function AlphabetLessonPage() {
         <button
           type="button"
           onClick={() => navigate(langPath("practice"))}
-          className="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover"
+          className="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
         >
           {t("lesson.backToLearn", "Back")}
         </button>
@@ -536,7 +536,7 @@ export function AlphabetLessonPage() {
         <button
           type="button"
           onClick={handleExit}
-          className="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover"
+          className="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
         >
           {t("lesson.continue", "Continue")}
         </button>

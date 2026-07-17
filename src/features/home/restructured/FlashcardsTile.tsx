@@ -91,7 +91,7 @@ export function FlashcardsTile() {
         className={`mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-semibold transition ${
           allCaughtUp
             ? "border border-border bg-surface text-text-secondary hover:border-accent/40 hover:text-text-primary"
-            : "bg-accent text-on-accent hover:bg-accent-hover"
+            : "bg-accent text-accent-foreground hover:bg-accent-hover"
         }`}
       >
         {cardsDue > 0

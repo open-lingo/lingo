@@ -114,12 +114,12 @@ function ExternalContentCard({
           {contentLang?.flag ?? "🌐"}
         </span>
         {transLang && (
-          <span className="rounded bg-blue-50 px-2 py-0.5 text-xs text-blue-700">
+          <span className="rounded bg-info/10 px-2 py-0.5 text-xs text-info">
             {transLang.name} {t("externalContent.available")}
           </span>
         )}
         {item.skill && item.skill !== "other" && (
-          <span className="rounded bg-amber-50 px-2 py-0.5 text-xs text-amber-700">
+          <span className="rounded bg-warning/10 px-2 py-0.5 text-xs text-warning">
             {t(`externalContent.skill.${item.skill}`)}
           </span>
         )}

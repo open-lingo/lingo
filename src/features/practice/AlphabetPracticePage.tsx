@@ -136,7 +136,7 @@ export function AlphabetPracticePage() {
               onClick={() =>
                 navigate(langPath(`practice/alphabet/${resolvedId}/learn`))
               }
-              className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+              className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
             >
               {hasAnyProgress
                 ? t("practice.alphabetLearner.continueLearning")
@@ -166,7 +166,7 @@ export function AlphabetPracticePage() {
                     // eslint-disable-next-line no-console
                     console.log("[alphabetDev] cleared progress for", language.id, resolvedId);
                   }}
-                  className="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 hover:bg-red-100"
+                  className="rounded-lg border border-error/40 bg-error/10 px-3 py-1.5 text-xs font-medium text-error hover:bg-error/20"
                 >
                   Reset progress (this alphabet)
                 </button>
@@ -188,14 +188,14 @@ export function AlphabetPracticePage() {
                     // eslint-disable-next-line no-console
                     console.log("[alphabetDev] seeded MASTERED for", language.id, resolvedId);
                   }}
-                  className="rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-800 hover:bg-emerald-100"
+                  className="rounded-lg border border-success/40 bg-success/10 px-3 py-1.5 text-xs font-medium text-success hover:bg-success/20"
                 >
                   Seed: mastered alphabet
                 </button>
               </>
             )}
             {progress?.fullTestPassed && (
-              <span className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800">
+              <span className="inline-flex items-center rounded-full bg-success/15 px-3 py-1 text-xs font-medium text-success">
                 {t("practice.alphabetLearner.fullAlphabetPassed")}
               </span>
             )}
@@ -257,12 +257,12 @@ export function AlphabetPracticePage() {
                           ),
                         )
                       }
-                      className="rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-800 hover:bg-accent-muted"
+                      className="rounded-lg bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent hover:bg-accent-muted"
                     >
                       {t("practice.alphabetLearner.learnThisSection")}
                     </button>
                     {progress?.sectionTests[section.id] ? (
-                      <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800">
+                      <span className="rounded-full bg-success/15 px-3 py-1 text-xs font-medium text-success">
                         {t("practice.alphabetLearner.sectionPassed")}
                       </span>
                     ) : (

@@ -400,7 +400,7 @@ export function DeckCreatePage() {
               className="mb-1 block text-sm font-medium text-text-primary"
             >
               {t("community.deckCreateNameLabel")}
-              <span className="ml-1 text-red-500">*</span>
+              <span className="ml-1 text-error">*</span>
             </label>
             <input
               id="deck-name"
@@ -421,7 +421,7 @@ export function DeckCreatePage() {
               className="mb-1 block text-sm font-medium text-text-primary"
             >
               {t("community.deckCreateLanguageLabel")}
-              <span className="ml-1 text-red-500">*</span>
+              <span className="ml-1 text-error">*</span>
             </label>
             <select
               id="deck-language"
@@ -506,7 +506,7 @@ export function DeckCreatePage() {
               className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
             />
             {!easeValid && (
-              <p className="mt-1 text-xs text-red-500">1.3 – 3.0</p>
+              <p className="mt-1 text-xs text-error">1.3 – 3.0</p>
             )}
           </div>
 
@@ -598,7 +598,7 @@ export function DeckCreatePage() {
           </fieldset>
 
           {error && (
-            <div className="rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-700">
+            <div className="rounded-lg border border-error/40 bg-error/10 p-3 text-sm text-error">
               {error}
             </div>
           )}
@@ -615,7 +615,7 @@ export function DeckCreatePage() {
             <button
               type="submit"
               disabled={!canSubmit}
-              className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-accent-hover disabled:opacity-60"
+              className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground shadow-sm hover:bg-accent-hover disabled:opacity-60"
             >
               {submitting
                 ? t("community.editorSaving")

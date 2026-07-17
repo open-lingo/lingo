@@ -85,7 +85,7 @@ export function LeaderboardCard() {
                     isLeader
                       ? "bg-gradient-to-br from-yellow-300 to-yellow-500 text-yellow-900"
                       : row.isMe
-                        ? "bg-accent text-on-accent"
+                        ? "bg-accent text-accent-foreground"
                         : "bg-surface-muted text-text-secondary",
                   )}
                 >

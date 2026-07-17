@@ -139,7 +139,7 @@ export function QuestsTile() {
                   <button
                     type="button"
                     onClick={() => claim(quest.id)}
-                    className="mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-md bg-accent px-2.5 py-1.5 text-xs font-semibold text-on-accent transition hover:bg-accent-hover"
+                    className="mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-md bg-accent px-2.5 py-1.5 text-xs font-semibold text-accent-foreground transition hover:bg-accent-hover"
                   >
                     <Icon name="sparkles" size={12} aria-hidden />
                     {t("home.restructured.quests.claim", { defaultValue: "Claim reward" })}

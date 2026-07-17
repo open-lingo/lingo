@@ -257,7 +257,7 @@ export function SubscribedBody() {
             action={
               <Link
                 to={langPath("community/browse")}
-                className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover"
+                className="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
               >
                 {t("community.subscribedEmptyAction", "Browse community decks")}
               </Link>
@@ -304,14 +304,14 @@ function Chip({
       onClick={onClick}
       className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition ${
         active
-          ? "border-accent bg-accent text-white"
+          ? "border-accent bg-accent text-accent-foreground"
           : "border-border bg-surface text-text-secondary hover:border-accent/40 hover:text-text-primary"
       }`}
     >
       <span>{label}</span>
       <span
         className={`tabular-nums ${
-          active ? "text-white/80" : "text-text-muted"
+          active ? "text-accent-foreground/80" : "text-text-muted"
         }`}
       >
         {count}

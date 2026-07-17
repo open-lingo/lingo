@@ -64,7 +64,7 @@ function ScriptCard({
       <div className="flex shrink-0 flex-col gap-2 sm:w-44">
         <Link
           to={practiceHref}
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-3 py-2 text-center text-sm font-semibold text-white transition hover:bg-accent-hover"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-3 py-2 text-center text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
         >
           {t("practice.alphabetHub.openScript")}
           <Icon name="arrowBigRight" size={16} className="rtl:rotate-180" aria-hidden />

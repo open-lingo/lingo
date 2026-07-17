@@ -64,7 +64,7 @@ export default function GetStartedPage() {
           type="button"
           onClick={handleCta}
           disabled={!selected}
-          className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-base font-semibold text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-lg active:translate-y-0 active:shadow-md disabled:cursor-not-allowed disabled:bg-text-muted/40 disabled:shadow-none disabled:hover:translate-y-0"
+          className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-base font-semibold text-accent-foreground shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-lg active:translate-y-0 active:shadow-md disabled:cursor-not-allowed disabled:bg-text-muted/40 disabled:shadow-none disabled:hover:translate-y-0"
         >
           {selected
             ? t("getStarted.ctaWithLanguage", "Get started learning {{language}}", {

@@ -64,8 +64,6 @@ export type OfficialCourseInfo = {
   revisions?: CourseRevision[];
 };
 
-export type SuggestionType = "bug" | "feature" | "content" | "other";
-
 // --- External Content ---
 
 export type ExternalContentLink = {

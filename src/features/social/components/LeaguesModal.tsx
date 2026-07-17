@@ -61,7 +61,7 @@ export function LeaguesModal({ open, onClose, currentTierIndex }: Props) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="leagues-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4"
       onClick={onClose}
     >
       <div
@@ -127,7 +127,7 @@ export function LeaguesModal({ open, onClose, currentTierIndex }: Props) {
                   className={cn(
                     "z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xl shadow-sm",
                     isCurrent
-                      ? "bg-accent text-on-accent"
+                      ? "bg-accent text-accent-foreground"
                       : "bg-surface-muted",
                   )}
                   aria-hidden
@@ -140,7 +140,7 @@ export function LeaguesModal({ open, onClose, currentTierIndex }: Props) {
                       {tier.name}
                     </h3>
                     {isCurrent ? (
-                      <span className="inline-flex items-center rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-on-accent">
+                      <span className="inline-flex items-center rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent-foreground">
                         {t("social.leagues.youreHere", "You're here")}
                       </span>
                     ) : null}
@@ -177,7 +177,7 @@ export function LeaguesModal({ open, onClose, currentTierIndex }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md bg-accent px-4 py-1.5 text-xs font-semibold text-on-accent shadow-sm hover:bg-accent-hover"
+            className="rounded-md bg-accent px-4 py-1.5 text-xs font-semibold text-accent-foreground shadow-sm hover:bg-accent-hover"
           >
             {t("common.close", "Close")}
           </button>

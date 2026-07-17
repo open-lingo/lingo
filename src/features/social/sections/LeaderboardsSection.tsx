@@ -294,7 +294,7 @@ function CompactRows({
                   className="truncate text-xs"
                 />
                 {row.isMe ? (
-                  <span className="rounded-full bg-accent px-1 py-px text-[9px] font-bold uppercase text-on-accent">
+                  <span className="rounded-full bg-accent px-1 py-px text-[9px] font-bold uppercase text-accent-foreground">
                     {t("social.leaderboards.you", "You")}
                   </span>
                 ) : null}
@@ -465,7 +465,7 @@ function FlatBoard({
                   className="truncate text-sm"
                 />
                 {row.isMe ? (
-                  <span className="rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase text-on-accent">
+                  <span className="rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase text-accent-foreground">
                     {t("social.leaderboards.you", "You")}
                   </span>
                 ) : null}
@@ -667,7 +667,7 @@ function LeagueRow({
             className="truncate text-sm"
           />
           {row.isMe ? (
-            <span className="rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase text-on-accent">
+            <span className="rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold uppercase text-accent-foreground">
               {t("social.leaderboards.you", "You")}
             </span>
           ) : null}

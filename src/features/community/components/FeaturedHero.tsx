@@ -47,7 +47,7 @@ export function FeaturedHero({ item, onPreview }: FeaturedHeroProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/10" />
 
-        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-accent/90 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
+        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-accent/90 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-accent-foreground">
           <Icon name="flame" size={13} aria-hidden />
           {t("community.homePopularBadge", "Most popular")}
         </span>

@@ -43,7 +43,7 @@ export function UserAvatar({
   const avatar = (
     <div
       className={cn(
-        "flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-accent font-bold text-on-accent",
+        "flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-accent font-bold text-accent-foreground",
         sizeClasses[size],
         className,
       )}

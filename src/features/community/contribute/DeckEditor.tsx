@@ -154,7 +154,7 @@ function SortableCardItem({
         >
           {isSelected && hasUnsavedChanges && (
             <span
-              className="inline-block h-2 w-2 shrink-0 rounded-full bg-red-500"
+              className="inline-block h-2 w-2 shrink-0 rounded-full bg-error"
               title="Unsaved changes"
               aria-label="Unsaved changes"
             />
@@ -949,14 +949,14 @@ function ActiveCardEditor({
               placeholder={t("community.editorCardFrontPlaceholder")}
               className={
                 frontInvalid
-                  ? textareaClass.replace("border-border", "border-red-500")
+                  ? textareaClass.replace("border-border", "border-error")
                   : textareaClass
               }
               rows={2}
               aria-invalid={frontInvalid || undefined}
             />
             {frontInvalid && (
-              <p className="mt-1 text-xs text-red-500">
+              <p className="mt-1 text-xs text-error">
                 {t("community.editorRequiredField")}
               </p>
             )}
@@ -972,14 +972,14 @@ function ActiveCardEditor({
               placeholder={t("community.editorCardBackPlaceholder")}
               className={
                 backInvalid
-                  ? textareaClass.replace("border-border", "border-red-500")
+                  ? textareaClass.replace("border-border", "border-error")
                   : textareaClass
               }
               rows={2}
               aria-invalid={backInvalid || undefined}
             />
             {backInvalid && (
-              <p className="mt-1 text-xs text-red-500">
+              <p className="mt-1 text-xs text-error">
                 {t("community.editorRequiredField")}
               </p>
             )}
@@ -1020,14 +1020,14 @@ function ActiveCardEditor({
               placeholder={t("community.editorCardBackPlaceholder")}
               className={
                 backInvalid
-                  ? textareaClass.replace("border-border", "border-red-500")
+                  ? textareaClass.replace("border-border", "border-error")
                   : textareaClass
               }
               rows={2}
               aria-invalid={backInvalid || undefined}
             />
             {backInvalid && (
-              <p className="mt-1 text-xs text-red-500">
+              <p className="mt-1 text-xs text-error">
                 {t("community.editorRequiredField")}
               </p>
             )}

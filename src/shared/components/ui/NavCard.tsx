@@ -36,7 +36,7 @@ const defaultVariantClasses =
   "border-border bg-surface text-text-primary hover:border-accent hover:bg-surface-muted";
 
 const primaryVariantClasses =
-  "border-accent bg-accent text-white shadow-sm hover:bg-accent-hover";
+  "border-accent bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover";
 
 const heroActiveRing = "ring-2 ring-accent ring-offset-2 ring-offset-surface-muted";
 const pillActive =
@@ -69,7 +69,7 @@ export function NavCard(props: NavCardProps) {
       <span
         className={cn(
           "inline-flex h-5 w-5 shrink-0 items-center justify-center",
-          isPrimary ? "text-white" : "text-accent",
+          isPrimary ? "text-accent-foreground" : "text-accent",
           active && !isPrimary && "text-accent",
         )}
         aria-hidden
@@ -82,7 +82,7 @@ export function NavCard(props: NavCardProps) {
           className={cn(
             "ml-1 rounded-full px-1.5 py-0.5 text-[11px] font-semibold tabular-nums",
             isPrimary
-              ? "bg-white/20 text-white"
+              ? "bg-accent-foreground/20 text-accent-foreground"
               : active
                 ? "bg-accent/15 text-accent"
                 : "bg-surface-muted text-text-secondary",
@@ -101,7 +101,7 @@ export function NavCard(props: NavCardProps) {
           className={cn(
             "inline-flex h-9 w-9 items-center justify-center rounded-lg",
             isPrimary
-              ? "bg-white/15 text-white"
+              ? "bg-accent-foreground/15 text-accent-foreground"
               : "bg-accent-muted text-accent group-hover:bg-accent-muted",
           )}
           aria-hidden
@@ -113,7 +113,7 @@ export function NavCard(props: NavCardProps) {
             className={cn(
               "rounded-full px-2 py-0.5 text-xs font-semibold tabular-nums",
               isPrimary
-                ? "bg-white/20 text-white"
+                ? "bg-accent-foreground/20 text-accent-foreground"
                 : "bg-surface-muted text-text-secondary",
             )}
           >
@@ -125,7 +125,7 @@ export function NavCard(props: NavCardProps) {
         <h3
           className={cn(
             "truncate text-base font-semibold",
-            isPrimary ? "text-white" : "text-text-primary",
+            isPrimary ? "text-accent-foreground" : "text-text-primary",
           )}
         >
           {title}
@@ -134,7 +134,7 @@ export function NavCard(props: NavCardProps) {
           <p
             className={cn(
               "mt-0.5 line-clamp-2 text-sm",
-              isPrimary ? "text-white/85" : "text-text-secondary",
+              isPrimary ? "text-accent-foreground/85" : "text-text-secondary",
             )}
           >
             {description}

@@ -360,14 +360,14 @@ export function CommunityItemCard({
           {isDeck ? (
             <Link
               to={langPath("practice/flashcards")}
-              className="rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-on-accent shadow-sm hover:bg-accent-hover"
+              className="rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground shadow-sm hover:bg-accent-hover"
             >
               {t("community.contentBrowserOpen")}
             </Link>
           ) : isStory && storyId ? (
             <Link
               to={langPath(`practice/stories/${storyId}`)}
-              className="rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-on-accent shadow-sm hover:bg-accent-hover"
+              className="rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground shadow-sm hover:bg-accent-hover"
             >
               {t("community.contentBrowserOpen")}
             </Link>

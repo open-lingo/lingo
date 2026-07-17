@@ -146,7 +146,7 @@ export function HomeActivityPanel() {
                 </p>
               </div>
               {row.isNew ? (
-                <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-on-accent">
+                <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent-foreground">
                   {t("home.activity.badgeNew")}
                 </span>
               ) : (

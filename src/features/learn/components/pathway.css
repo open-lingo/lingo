@@ -917,9 +917,9 @@
 .lingo-node[data-recap="true"][data-state="done"] .lingo-node-disc {
   /* On done, keep the amber base but add a green ring outline (passed). */
   box-shadow:
-    0 5px 0 0 #b45309,
+    0 5px 0 0 color-mix(in srgb, var(--color-warning, #f59e0b) 70%, #000),
     0 0 0 4px color-mix(in srgb, var(--color-accent) 35%, transparent),
-    0 12px 22px -4px rgba(180, 83, 9, 0.35);
+    0 12px 22px -4px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent);
 }
 .lingo-node[data-recap="true"][data-state="current"] .lingo-node-disc {
   animation: lingo-node-pulse-recap 1.8s ease-in-out infinite;
@@ -928,15 +928,15 @@
   0%,
   100% {
     box-shadow:
-      0 5px 0 0 #b45309,
-      0 0 0 6px rgba(245, 158, 11, 0.2),
-      0 12px 22px -4px rgba(180, 83, 9, 0.35);
+      0 5px 0 0 color-mix(in srgb, var(--color-warning, #f59e0b) 70%, #000),
+      0 0 0 6px color-mix(in srgb, var(--color-warning, #f59e0b) 20%, transparent),
+      0 12px 22px -4px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent);
   }
   50% {
     box-shadow:
-      0 5px 0 0 #b45309,
-      0 0 0 12px rgba(245, 158, 11, 0.1),
-      0 12px 22px -4px rgba(180, 83, 9, 0.35);
+      0 5px 0 0 color-mix(in srgb, var(--color-warning, #f59e0b) 70%, #000),
+      0 0 0 12px color-mix(in srgb, var(--color-warning, #f59e0b) 10%, transparent),
+      0 12px 22px -4px color-mix(in srgb, var(--color-warning, #f59e0b) 35%, transparent);
   }
 }
 .lingo-recap-badge {
@@ -947,7 +947,7 @@
   height: 1.5rem;
   border-radius: 50%;
   background: var(--color-surface);
-  border: 1.5px solid #b45309;
+  border: 1.5px solid color-mix(in srgb, var(--color-warning, #f59e0b) 70%, #000);
   font-size: 0.813rem;
   line-height: 1;
   display: flex;

@@ -110,7 +110,7 @@ function tabBaseClass(variant: "underline" | "pill", isActive: boolean): string 
     return cn(
       "rounded-full px-3 py-1.5 text-sm font-medium transition",
       isActive
-        ? "bg-accent text-white"
+        ? "bg-accent text-accent-foreground"
         : "text-text-secondary hover:bg-surface-muted hover:text-text-primary",
     );
   }

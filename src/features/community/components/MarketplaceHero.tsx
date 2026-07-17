@@ -74,7 +74,7 @@ export function MarketplaceHero({ metrics }: MarketplaceHeroProps) {
             />
             <button
               type="submit"
-              className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-lg bg-accent px-4 py-1.5 text-sm font-semibold text-on-accent transition hover:bg-accent-hover"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-lg bg-accent px-4 py-1.5 text-sm font-semibold text-accent-foreground transition hover:bg-accent-hover"
             >
               {t("community.navBrowse", "Browse")}
             </button>

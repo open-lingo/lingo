@@ -137,7 +137,7 @@ export function CommunityHomePage() {
           action={
             <Link
               to={langPath("community/decks/new")}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-accent-hover"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent-hover"
             >
               <Icon name="plus" size={16} aria-hidden />
               {t("community.contentBrowserNewDeck")}

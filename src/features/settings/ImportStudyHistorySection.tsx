@@ -170,7 +170,7 @@ export function ImportStudyHistorySection() {
               <button
                 type="button"
                 onClick={onApply}
-                className={`${CTA} bg-accent text-white hover:bg-accent-hover`}
+                className={`${CTA} bg-accent text-accent-foreground hover:bg-accent-hover`}
               >
                 {t("settings.import.apply", "Import {{count}} words", {
                   count: preview.matchAtoms,

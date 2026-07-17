@@ -178,7 +178,7 @@ export function AddFriendButton({
         aria-label={addLabel}
         title={addLabel}
         className={cn(
-          "inline-flex items-center justify-center rounded-md bg-accent text-on-accent shadow-sm transition hover:bg-accent-hover disabled:opacity-50 disabled:hover:bg-accent",
+          "inline-flex items-center justify-center rounded-md bg-accent text-accent-foreground shadow-sm transition hover:bg-accent-hover disabled:opacity-50 disabled:hover:bg-accent",
           size === "md" ? "h-8 w-8" : "h-7 w-7",
           className,
         )}
@@ -194,7 +194,7 @@ export function AddFriendButton({
       onClick={onClick}
       disabled={busy || state === "anon" || state === "loading"}
       className={cn(
-        "inline-flex items-center rounded-md bg-accent text-on-accent font-semibold shadow-sm transition hover:bg-accent-hover disabled:opacity-50 disabled:hover:bg-accent",
+        "inline-flex items-center rounded-md bg-accent text-accent-foreground font-semibold shadow-sm transition hover:bg-accent-hover disabled:opacity-50 disabled:hover:bg-accent",
         sizeClasses,
         className,
       )}

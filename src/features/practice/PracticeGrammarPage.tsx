@@ -51,7 +51,7 @@ export function PracticeGrammarPage() {
   }, [conj, reachedModule]);
 
   const startChip = (
-    <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-on-accent">
+    <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-accent-foreground">
       {t("practice.grammarPage.startChip", { defaultValue: "Start" })}
       <Icon name="arrowRight" size={12} aria-hidden />
     </span>
@@ -94,7 +94,7 @@ export function PracticeGrammarPage() {
             })}
             rightChip={
               grammarReviewTotal > 0 ? (
-                <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-on-accent">
+                <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-accent-foreground">
                   {t("practice.grammarReview.dueBadge", {
                     defaultValue: "{{count}} due",
                     count: grammarReviewTotal,
@@ -117,7 +117,7 @@ export function PracticeGrammarPage() {
             })}
             rightChip={
               conjugationDue > 0 ? (
-                <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-on-accent">
+                <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-accent-foreground">
                   {t("practice.conjugation.dueBadge", {
                     defaultValue: "{{count}} due",
                     count: conjugationDue,

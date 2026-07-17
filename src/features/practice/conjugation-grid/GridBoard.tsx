@@ -45,8 +45,8 @@ export function GridBoard({
 const CELL_CLASS: Record<GridCellStatus, string> = {
   pending: "border-border bg-surface",
   current: "border-accent bg-surface shadow-card",
-  correct: "border-green-500/60 bg-green-50 dark:border-green-500/50 dark:bg-green-500/10",
-  wrong: "border-red-500/60 bg-red-50 dark:border-red-500/50 dark:bg-red-500/10",
+  correct: "border-success/60 bg-success/10",
+  wrong: "border-error/60 bg-error/10",
 };
 
 function BoardCell({ cell }: { cell: GridBoardCell }) {
@@ -69,7 +69,7 @@ function BoardCell({ cell }: { cell: GridBoardCell }) {
           <Icon
             name="check"
             size={12}
-            className="shrink-0 text-green-600 dark:text-green-400"
+            className="shrink-0 text-success"
             aria-hidden
           />
         )}
@@ -77,7 +77,7 @@ function BoardCell({ cell }: { cell: GridBoardCell }) {
           <Icon
             name="close"
             size={12}
-            className="shrink-0 text-red-600 dark:text-red-400"
+            className="shrink-0 text-error"
             aria-hidden
           />
         )}
@@ -87,8 +87,8 @@ function BoardCell({ cell }: { cell: GridBoardCell }) {
           lang={answered ? "es" : undefined}
           className={cn(
             "truncate text-sm font-semibold",
-            status === "correct" && "text-green-800 dark:text-green-300",
-            status === "wrong" && "text-red-800 dark:text-red-300",
+            status === "correct" && "text-success",
+            status === "wrong" && "text-error",
             status === "current" && "text-accent",
             status === "pending" && "text-text-muted/50",
           )}
@@ -98,7 +98,7 @@ function BoardCell({ cell }: { cell: GridBoardCell }) {
         {status === "wrong" && picked && picked !== value ? (
           <span
             lang="es"
-            className="truncate text-[10px] text-red-700/70 line-through dark:text-red-300/60"
+            className="truncate text-[10px] text-error/70 line-through"
           >
             {picked}
           </span>
