@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { cn } from "@/shared/components/ui/cn";
-import type { Course, CourseModule, Lesson } from "@/shared/domain/course";
+import type { Course, CourseModule, Lesson, SideQuest } from "@/shared/domain/course";
 import {
   getModuleDisplay,
   getModuleStatus,
@@ -22,6 +22,9 @@ export type LearnModuleListProps = {
   /** Open the full module outline modal (global module index). */
   onViewAll: (moduleIndex: number) => void;
   devUnlock: boolean;
+  sideQuests: SideQuest[];
+  isSideQuestUnlocked: (quest: SideQuest) => boolean;
+  onSideQuestClick?: (quest: SideQuest) => void;
 };
 
 type ZoneGroup = { label: string | null; start: number; count: number };
@@ -40,9 +43,10 @@ function zoneGroups(total: number, zoneLabels: string[]): ZoneGroup[] {
 
 /**
  * Compact module list for the learn "List" view — grouped into collapsible
- * zones, each module an accordion that peeks a handful of lessons before a
- * "view all" opens the full outline modal. Hover peeks lessons too. Text is
- * small so a full course fits the height-locked container.
+ * zones with a git-tree connector down each zone, colored status circles
+ * (like the pathway), and an accordion that peeks a handful of lessons
+ * before a "view all" opens the full DistrictView modal. Side quests get
+ * their own section at the end.
  */
 export function LearnModuleList({
   course,
@@ -53,6 +57,9 @@ export function LearnModuleList({
   onLessonClick,
   onViewAll,
   devUnlock,
+  sideQuests,
+  isSideQuestUnlocked,
+  onSideQuestClick,
 }: LearnModuleListProps) {
   const groups = zoneGroups(course.modules.length, zoneLabels);
   const [collapsedZones, setCollapsedZones] = useState<Set<number>>(new Set());
@@ -77,24 +84,24 @@ export function LearnModuleList({
                 type="button"
                 onClick={() => toggleZone(zi)}
                 aria-expanded={!zoneCollapsed}
-                className="sticky top-0 z-10 flex w-full items-center gap-2 border-b border-border bg-surface-muted px-2.5 py-1.5 text-left"
+                className="sticky top-0 z-10 flex w-full items-center gap-2 border-b border-border bg-surface-muted px-3 py-2.5 text-left"
               >
                 <Icon
                   name={zoneCollapsed ? "chevronRight" : "chevronDown"}
-                  size={14}
-                  className="flex-none text-text-muted"
+                  size={16}
+                  className="flex-none text-text-muted transition-transform"
                   aria-hidden
                 />
-                <span className="flex-1 truncate text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+                <span className="flex-1 truncate text-[13px] font-bold uppercase tracking-wider text-text-secondary">
                   {zone.label}
                 </span>
-                <span className="text-[11px] font-semibold tabular-nums text-text-muted">
+                <span className="rounded-full bg-surface px-2 py-0.5 text-[11px] font-semibold tabular-nums text-text-muted">
                   {zone.count}
                 </span>
               </button>
             ) : null}
             {!zoneCollapsed ? (
-              <ul className="divide-y divide-border">
+              <ul className="list-expand">
                 {zoneModules.map((mod, li) => {
                   const globalIdx = zone.start + li;
                   return (
@@ -105,6 +112,7 @@ export function LearnModuleList({
                       modules={course.modules}
                       completedSet={completedSet}
                       open={isOpen(mod.id)}
+                      isLastInZone={li === zoneModules.length - 1}
                       onToggle={() => onToggle(mod.id)}
                       onLessonClick={onLessonClick}
                       onViewAll={() => onViewAll(globalIdx)}
@@ -117,6 +125,14 @@ export function LearnModuleList({
           </section>
         );
       })}
+
+      {sideQuests.length > 0 ? (
+        <SideQuestSection
+          sideQuests={sideQuests}
+          isSideQuestUnlocked={isSideQuestUnlocked}
+          onSideQuestClick={onSideQuestClick}
+        />
+      ) : null}
     </div>
   );
 }
@@ -127,6 +143,7 @@ function ModuleRow({
   modules,
   completedSet,
   open,
+  isLastInZone,
   onToggle,
   onLessonClick,
   onViewAll,
@@ -137,6 +154,7 @@ function ModuleRow({
   modules: CourseModule[];
   completedSet: ReadonlySet<string>;
   open: boolean;
+  isLastInZone: boolean;
   onToggle: () => void;
   onLessonClick: (lesson: Lesson) => void;
   onViewAll: () => void;
@@ -152,25 +170,40 @@ function ModuleRow({
   const peek = mod.lessons.slice(0, LESSON_PEEK);
   const overflow = total - peek.length;
 
+  const circleClass =
+    status === "completed"
+      ? "border-accent bg-accent text-accent-foreground"
+      : status === "current"
+        ? "border-warning bg-surface text-warning"
+        : "border-border bg-surface-muted text-text-muted";
+
   return (
-    <li className="group/mod relative">
+    <li className="group/mod relative border-t border-border first:border-t-0">
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={open}
-        className="flex w-full items-center gap-2.5 px-2.5 py-2 text-left transition hover:bg-surface-muted"
+        className="relative flex w-full items-center gap-2.5 py-2 pl-8 pr-2.5 text-left transition hover:bg-surface-muted"
       >
+        {/* git-tree connector: trunk + rounded elbow into the circle */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute left-3.5 top-0 h-1/2 w-3 rounded-bl-[10px] border-b border-l border-border"
+        />
+        {!isLastInZone ? (
+          <span
+            aria-hidden
+            className="pointer-events-none absolute bottom-0 left-3.5 top-1/2 w-px bg-border"
+          />
+        ) : null}
+
         <span
           className={cn(
-            "grid h-6 w-9 flex-none place-items-center rounded-md text-[11px] font-extrabold",
-            status === "completed"
-              ? "bg-accent text-accent-foreground"
-              : status === "current"
-                ? "bg-warning/20 text-warning"
-                : "bg-surface-muted text-text-muted",
+            "grid h-7 w-7 flex-none place-items-center rounded-full border-2 text-[11px] font-extrabold",
+            circleClass,
           )}
         >
-          {display.badgeLabel}
+          {display.isReview ? "R" : display.contentNumber}
         </span>
         <span className="min-w-0 flex-1">
           <span className="flex items-center gap-1.5">
@@ -191,7 +224,7 @@ function ModuleRow({
           ) : null}
         </span>
         <span className="hidden flex-none items-center gap-2 sm:flex">
-          <span className="h-1.5 w-16 overflow-hidden rounded-full bg-surface-muted" aria-hidden>
+          <span className="h-1.5 w-16 overflow-hidden rounded-full bg-border" aria-hidden>
             <span className="block h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
           </span>
           <span className="w-9 text-right text-[11px] font-semibold tabular-nums text-text-muted">
@@ -234,7 +267,7 @@ function ModuleRow({
       ) : null}
 
       {open ? (
-        <div className="bg-surface-muted/40 pb-1.5">
+        <div className="list-expand bg-surface-muted/40 pb-1.5">
           <ul>
             {peek.map((lesson, li) => {
               const isDone = completedSet.has(lesson.id);
@@ -286,5 +319,75 @@ function ModuleRow({
         </div>
       ) : null}
     </li>
+  );
+}
+
+function SideQuestSection({
+  sideQuests,
+  isSideQuestUnlocked,
+  onSideQuestClick,
+}: {
+  sideQuests: SideQuest[];
+  isSideQuestUnlocked: (quest: SideQuest) => boolean;
+  onSideQuestClick?: (quest: SideQuest) => void;
+}) {
+  return (
+    <section>
+      <div className="sticky top-0 z-10 flex items-center gap-2 border-y border-border bg-surface-muted px-3 py-2.5">
+        <Icon name="sparkles" size={15} className="flex-none text-accent" aria-hidden />
+        <span className="flex-1 text-[13px] font-bold uppercase tracking-wider text-text-secondary">
+          Side quests
+        </span>
+        <span className="rounded-full bg-surface px-2 py-0.5 text-[11px] font-semibold tabular-nums text-text-muted">
+          {sideQuests.length}
+        </span>
+      </div>
+      <ul className="divide-y divide-border">
+        {sideQuests.map((quest) => {
+          const soon = quest.comingSoon === true;
+          const locked = !isSideQuestUnlocked(quest);
+          const disabled = soon || locked;
+          return (
+            <li key={quest.id}>
+              <button
+                type="button"
+                disabled={disabled}
+                onClick={() => onSideQuestClick?.(quest)}
+                className={cn(
+                  "flex w-full items-center gap-2.5 px-3 py-2 text-left transition",
+                  disabled
+                    ? "cursor-not-allowed opacity-70"
+                    : "hover:bg-surface-muted",
+                )}
+              >
+                <span className="grid h-7 w-7 flex-none place-items-center rounded-full bg-surface-muted text-sm">
+                  {quest.emoji}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="flex items-center gap-1.5">
+                    <span className="truncate text-[13px] font-semibold text-text-primary">
+                      {quest.title}
+                    </span>
+                    {soon ? (
+                      <span className="flex-none rounded-full bg-surface-muted px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-text-muted">
+                        Soon
+                      </span>
+                    ) : null}
+                  </span>
+                  {quest.meta ? (
+                    <span className="block truncate text-[10.5px] text-text-muted">{quest.meta}</span>
+                  ) : null}
+                </span>
+                {locked && !soon ? (
+                  <Icon name="lock" size={12} className="flex-none text-text-muted" aria-hidden />
+                ) : (
+                  <Icon name="chevronRight" size={15} className="flex-none text-text-muted" aria-hidden />
+                )}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
   );
 }

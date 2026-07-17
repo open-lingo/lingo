@@ -240,6 +240,16 @@ html::-webkit-scrollbar-button,
 }
 
 /* Match pairs: shake on incorrect attempt. */
+/* List view: module / zone expansion — fade + slide the revealed content
+   in when an accordion opens (collapse is instant). */
+@keyframes list-expand {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.list-expand {
+  animation: list-expand 180ms ease-out both;
+}
+
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   20% { transform: translateX(-6px); }
@@ -286,6 +296,20 @@ html::-webkit-scrollbar-button,
 }
 .resume-fab {
   animation: resume-fab-in 420ms ease-out 600ms both;
+}
+
+/* Practice hub entrance — staggered rise for the hero blocks + pillar tiles.
+   Elements carry no base opacity override, so `motion-reduce:animate-none`
+   leaves them fully visible with no motion. */
+@keyframes practice-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* AnnotatedJa: ruby helpers for Japanese kana/kanji. Helper text fades in/out
