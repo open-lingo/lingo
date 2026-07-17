@@ -15,7 +15,19 @@ For EVERY screenshot, judge it against BOTH its step contract and the
 universal expectations. You are looking for **contradictions with the
 contract**, not general aesthetic opinions.
 
-Per step, check in this order:
+Per step, work in TWO PHASES — do not fuse them:
+
+**Phase 1 — transcribe BEFORE you compare.** Looking only at the
+screenshot (do not re-read the contract yet), write down for yourself:
+every distinct text string on the card, which script each is
+(hiragana/katakana/kanji/Latin), and what floats above what (helper text
+and what sits under it). Commit to this description first. (Judges that
+compare while looking score what looks plausible, not what is there —
+solve-first cuts false passes by an order of magnitude in the judge
+literature.)
+
+**Phase 2 — compare your transcription against the contract**, in this
+order:
 
 1. **mustShow** — every listed string is legible somewhere on the card.
    (Kanji-bearing strings: the kanji form counts; its kana original does not
@@ -59,3 +71,17 @@ Per step, check in this order:
 
 `problems` must be empty for `ok`. Every `violation` must name the exact
 contract line contradicted and what the screenshot shows instead.
+
+## Calibration (for the pipeline operator, not the judge)
+
+- A labeled ground-truth set lives in the validation runs (2026-07-17:
+  3 × 19 step screenshots with known-good/known-bad labels). Re-run judges
+  against it and score them BEFORE trusting verdicts whenever (a) the judge
+  model changes, (b) the authoring model changes, or (c) a new step type /
+  script mix ships (judges degrade under distribution shift — near
+  coin-flip in the worst published cases).
+- The autonomous-fix loop must NEVER fix from a cheap-judge verdict alone:
+  `violation`/`escalate` always routes through a stronger model with the
+  step source before any change is made. Human spot-check: a few judged
+  steps per sweep, biased toward `ok` verdicts (false passes are the
+  failure mode that reaches Spencer).
