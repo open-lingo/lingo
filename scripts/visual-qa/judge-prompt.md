@@ -72,6 +72,35 @@ order:
 `problems` must be empty for `ok`. Every `violation` must name the exact
 contract line contradicted and what the screenshot shows instead.
 
+## Detail lenses (first-class checks — walk each one per screenshot)
+
+A/B-validated 2026-07-17: judges WITHOUT these lenses caught 0 of 5
+learner-reported defects on a labeled screenshot set; with them, 5-6 of 6.
+These are not optional color — walk them like the mustShow list.
+
+**L1 — Furigana alignment.** Furigana sits ONLY above kanji glyphs. Kana in
+the base text (okurigana, particles) never carry ruby. A reading spanning a
+word whose tail is kana (small のむ stretched across 飲む instead of の over
+飲 with む bare) is a violation. Check every ruby'd word glyph-by-glyph.
+
+**L2 — Within-screen lexical consistency.** If any surface shows a word in
+kanji, every other form of the SAME word (inflections included) on the same
+screen must also show its kanji. 飲む beside のまない is a violation — and
+if one is the expected answer, the inconsistency leaks it. (Exception: a
+phonetic ASR "you said" transcript may legitimately be kana — rate low
+confidence, don't hard-fail.)
+
+**L3 — Furigana presence.** Bare kanji without furigana on a learner-facing
+surface, outside a reading test (kanji_reading), is at minimum `escalate` —
+mastery can't be verified from a screenshot, so never silently pass it.
+
+**L4 — Prompt & polish.** English prompts must be framed, capitalized
+sentences/fragments — a bare lowercase word ("this") is a defect. Flag
+layout disproportion (a sentence-length tray holding one tile), truncation,
+dead or vestigial controls, and anything a picky paying learner would
+screenshot — use category `polish` when no other rule fits, rather than
+staying silent.
+
 ## Calibration (for the pipeline operator, not the judge)
 
 - A labeled ground-truth set lives in the validation runs (2026-07-17:
