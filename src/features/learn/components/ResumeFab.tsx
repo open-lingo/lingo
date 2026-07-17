@@ -44,7 +44,7 @@ export function ResumeFab({
   return (
     <Link
       to={target.href}
-      className="resume-fab fixed bottom-6 left-1/2 z-40 inline-flex max-w-[calc(100vw-2rem)] items-center gap-2 rounded-full bg-accent py-3 pl-4 pr-5 text-sm font-bold text-accent-foreground shadow-popover transition hover:bg-accent-hover"
+      className="resume-fab pointer-events-auto absolute bottom-4 left-4 z-[6] inline-flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-full bg-accent py-2.5 pl-3.5 pr-5 text-sm font-bold text-accent-foreground shadow-popover transition hover:bg-accent-hover"
       aria-label={t("learn.resumeFab.aria", {
         defaultValue: "Resume: {{lesson}}",
         lesson: target.title,

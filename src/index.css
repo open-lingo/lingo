@@ -133,7 +133,7 @@ html::-webkit-scrollbar-button,
 *::-webkit-scrollbar-button:horizontal:end,
 *::-webkit-scrollbar-button:horizontal:start:decrement,
 *::-webkit-scrollbar-button:horizontal:end:increment {
-  display: block;
+  display: none;
   width: 0 !important;
   height: 0 !important;
   background: transparent;
@@ -249,11 +249,11 @@ html::-webkit-scrollbar-button,
   animation: lesson-wipe-vehicle 1400ms cubic-bezier(.5,0,.2,1) both;
 }
 
-/* Floating resume button: fades up after the path settles (delayed so it
-   arrives after any lesson-wipe / page transition, not mid-swap). */
+/* Resume button (docked inside the map): fades up after the path settles
+   (delayed so it arrives after any lesson-wipe / page transition). */
 @keyframes resume-fab-in {
-  0% { opacity: 0; transform: translate(-50%, 14px); }
-  100% { opacity: 1; transform: translate(-50%, 0); }
+  0% { opacity: 0; transform: translateY(14px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 .resume-fab {
   animation: resume-fab-in 420ms ease-out 600ms both;

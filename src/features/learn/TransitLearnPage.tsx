@@ -1974,6 +1974,12 @@ export default function TransitLearnPage({
             <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} demoToggle={preview} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
             <MapHelpButton />
             <ProgressFloatCard course={viewCourse} completedSet={completedSet} />
+            {/* Resume button — docked inside the map boundary; fades in so
+                learners can jump straight back into their current lesson.
+                Hidden in preview + while the placement FTUE is up. */}
+            {!preview && !showPlacement && (
+              <ResumeFab course={viewCourse} completedSet={completedSet} />
+            )}
           </div>
           <div className="md:hidden">
             <LineDiagram layout={layout} currentIdx={currentIdx} lang={lang} onOpen={open} />
@@ -2045,12 +2051,6 @@ export default function TransitLearnPage({
         />
       )}
 
-      {/* Floating resume button — fades in on the path so learners can jump
-          straight back into their current lesson. Hidden in preview + while
-          the placement FTUE is up. */}
-      {!preview && !showPlacement && (
-        <ResumeFab course={viewCourse} completedSet={completedSet} />
-      )}
     </div>
   );
 }
