@@ -230,6 +230,11 @@ import {
   M27_STORY, M27_7_1, M27_7_2,
 } from "@/features/languages/ja/curriculum/m27";
 import {
+  M29_1_1, M29_1_2, M29_2_1, M29_2_2, M29_3_1, M29_3_2,
+  M29_4_1, M29_4_2, M29_5_1, M29_5_2, M29_6_1, M29_6_2,
+  M29_STORY, M29_7_1, M29_7_2,
+} from "@/features/languages/ja/curriculum/m29";
+import {
   M3_1_1,
   M3_1_2,
   M3_2_1,
@@ -855,6 +860,15 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m27-6-1": M27_6_1, "ja-m27-6-2": M27_6_2,
   "ja-m27-story": M27_STORY,
   "ja-m27-7-1": M27_7_1, "ja-m27-7-2": M27_7_2,
+  // M29 — Plain form (N4 pilot #1)
+  "ja-m29-1-1": M29_1_1, "ja-m29-1-2": M29_1_2,
+  "ja-m29-2-1": M29_2_1, "ja-m29-2-2": M29_2_2,
+  "ja-m29-3-1": M29_3_1, "ja-m29-3-2": M29_3_2,
+  "ja-m29-4-1": M29_4_1, "ja-m29-4-2": M29_4_2,
+  "ja-m29-5-1": M29_5_1, "ja-m29-5-2": M29_5_2,
+  "ja-m29-6-1": M29_6_1, "ja-m29-6-2": M29_6_2,
+  "ja-m29-story": M29_STORY,
+  "ja-m29-7-1": M29_7_1, "ja-m29-7-2": M29_7_2,
 };
 
 // ----- Inter-module review modules — REMOVED 2026-05-18 -------------------

@@ -29,6 +29,7 @@ const STEP_TYPE_ORDER: Record<StepType, number> = {
   grammar_rule: 17,
   particle_cloze: 18,
   agreement_cloze: 19,
+  kanji_reading: 23,
   self_explanation_mcq: 20,
   dialogue_listen: 21,
   row_test: 22,

@@ -947,6 +947,41 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#eab308", to: "#ca8a04" },
         },
+        // ── N4 tier (m29+) ────────────────────────────────────────────────
+        // m28 is the N5 capstone, so the N4 tier starts at m29 — and m28 is
+        // the graduation/transfer point onto the N4 map.
+        //
+        // These modules are `tier: "n4"`, which keeps them OFF the N5 transit
+        // map (TransitLearnPage filters to n5) while keeping them in the
+        // curriculum — `modules` is also the pedagogical order behind
+        // `getAtomsUpToModule`, so a module absent here has atoms the SRS can
+        // never schedule. Reviewed via /ja/qa until the N4 map ships.
+        // M29 — Plain form
+        {
+          id: "m29",
+          title: "Plain form",
+          eyebrow: "Module 29 · Plain",
+          summary: "Dictionary form, ない, た, and なかった — the base polite form is built from.",
+          tier: "n4",
+          lessons: [
+            { id: "ja-m29-1-1", title: "Dictionary form (う-verbs) — Intro", status: "available" as const },
+            { id: "ja-m29-1-2", title: "Dictionary form (う-verbs) — Practice", status: "available" as const },
+            { id: "ja-m29-2-1", title: "Dictionary form (る-verbs, する/くる) — Intro", status: "available" as const },
+            { id: "ja-m29-2-2", title: "Dictionary form (る-verbs, する/くる) — Practice", status: "available" as const },
+            { id: "ja-m29-3-1", title: "ない form — Intro", status: "available" as const },
+            { id: "ja-m29-3-2", title: "ない form — Practice", status: "available" as const },
+            { id: "ja-m29-4-1", title: "た form — Intro", status: "available" as const },
+            { id: "ja-m29-4-2", title: "た form — Practice", status: "available" as const },
+            { id: "ja-m29-5-1", title: "なかった — Intro", status: "available" as const },
+            { id: "ja-m29-5-2", title: "なかった — Practice", status: "available" as const },
+            { id: "ja-m29-6-1", title: "Mixed plain form — Intro", status: "available" as const },
+            { id: "ja-m29-6-2", title: "Mixed plain form — Practice", status: "available" as const },
+            { id: "ja-m29-story", title: "Two friends talking", status: "available" as const },
+            { id: "ja-m29-7-1", title: "Plain form mixed drill", status: "available" as const },
+            { id: "ja-m29-7-2", title: "Plain form production", status: "available" as const },
+          ],
+          accent: { from: "#0e7c8c", to: "#0b616e" },
+        },
       ],
       sideQuests,
     };
