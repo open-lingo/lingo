@@ -227,19 +227,22 @@ html::-webkit-scrollbar-button,
    overlay unmounts when it ends (see LessonIntro). */
 @keyframes lesson-intro-veil {
   0% { opacity: 0; }
-  30% { opacity: 1; }
+  20% { opacity: 1; }
+  /* hold fully opaque through the page mount, then fade out to reveal it */
+  55% { opacity: 1; }
   100% { opacity: 0; }
 }
 @keyframes lesson-intro-swirl {
   0% { transform: scale(0.2) rotate(-140deg); opacity: 0; }
-  35% { opacity: 1; }
+  30% { opacity: 1; }
+  60% { opacity: 1; }
   100% { transform: scale(1.9) rotate(200deg); opacity: 0; }
 }
 .lesson-intro-veil {
-  animation: lesson-intro-veil 900ms ease-in-out both;
+  animation: lesson-intro-veil 1250ms ease-in-out both;
 }
 .lesson-intro-swirl {
-  animation: lesson-intro-swirl 900ms cubic-bezier(.22,.61,.36,1) both;
+  animation: lesson-intro-swirl 1250ms cubic-bezier(.22,.61,.36,1) both;
 }
 
 /* AnnotatedJa: ruby helpers for Japanese kana/kanji. Helper text fades in/out

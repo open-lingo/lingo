@@ -17,7 +17,7 @@ function reducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-const DURATION_MS = 900;
+const DURATION_MS = 1250;
 
 export function LessonIntro() {
   const [done, setDone] = useState(() => reducedMotion());
