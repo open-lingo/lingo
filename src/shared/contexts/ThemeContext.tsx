@@ -217,6 +217,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     // swaps in the chosen face. This keeps theme application synchronous
     // for color/radius changes (which are the common case).
     void loadFontFamily(getFontIdFromFamily(domTokens.font?.family));
+    // The display font (Fraunces on the default themes) needs its own fetch —
+    // getFontIdFromFamily resolves the preset id from the family string.
+    if (domTokens.font?.display) {
+      void loadFontFamily(getFontIdFromFamily(domTokens.font.display));
+    }
     // Ensure Atkinson Hyperlegible is loaded when the dyslexia-friendly
     // font toggle is active (the getFontIdFromFamily lookup won't resolve
     // it when the family string has been prepended to a base theme font).
