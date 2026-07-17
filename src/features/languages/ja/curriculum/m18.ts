@@ -275,7 +275,9 @@ export const M18_1_1: LessonContent = {
       ["きょう", "は", "てんき", "が", "いい", "です"],
     ),
     sentenceMcq({
-      id: "ja-m18-1-1-mcq-ame",
+      // QA lint (Gate 2 unique-ids): was "ja-m18-1-1-mcq-ame", duplicating the
+      // vocabMcq's id earlier in this lesson.
+      id: "ja-m18-1-1-mcq-ame-sentence",
       prompt: "Which sentence means 'It's raining today.'?",
       correctKana: "きょうは あめです。",
       distractorsKana: [
@@ -1235,7 +1237,9 @@ export const M18_4_1: LessonContent = {
       ["やま", "は", "きれい", "です"],
     ),
     sentenceMcq({
-      id: "ja-m18-4-1-mcq-umi",
+      // QA lint (Gate 2 unique-ids): was "ja-m18-4-1-mcq-umi", duplicating the
+      // vocabMcq's id earlier in this lesson.
+      id: "ja-m18-4-1-mcq-umi-sentence",
       prompt: "Which sentence means 'The sea is big.'?",
       correctKana: "うみは おおきいです。",
       distractorsKana: [

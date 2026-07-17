@@ -909,8 +909,12 @@ export const M14_3_1: LessonContent = {
     listeningCompSentence({
       id: "ja-m14-3-1-lc-asonde",
       audioText: "あそんで",
-      correctMeaningEn: "play (te-form)",
-      distractorsEn: ["drink (te-form)", "write (te-form)", "wait (te-form)"],
+      // QA lint (Gate 5): every option carried an identical "(te-form)" tag —
+      // a shared tag discriminates nothing (same defect class as m29's
+      // "(plain)"-on-every-option, fix 81ce834). The audio あそんで carries
+      // the form; the options only need the meaning.
+      correctMeaningEn: "play",
+      distractorsEn: ["drink", "write", "wait"],
     }),
     // ── かく (write) → かいて ──
     cloze(

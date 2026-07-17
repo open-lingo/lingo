@@ -199,8 +199,12 @@ const RULE_TOKI = grammarRule({
     },
   ],
   antiPattern: {
-    ja: "にほんに いきます とき",
-    romaji: "nihon ni ikimasu toki",
+    // QA lint (Gate 6): was the bare clause "にほんに いきます とき" — a
+    // fragment paired against a full sentence in the derived
+    // spot-the-mistake step is a giveaway (same defect class as m29's bare
+    // のみる antiPatterns, fix ded0850). Full-sentence minimal pair now.
+    ja: "にほんに いきます とき、パスポートが いります。",
+    romaji: "nihon ni ikimasu toki, pasupooto ga irimasu.",
     en: "(broken — use plain form before とき, not ます-form)",
     why: "とき takes the plain form of the verb (いく / いった), not the polite form (いきます).",
   },

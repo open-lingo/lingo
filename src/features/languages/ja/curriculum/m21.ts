@@ -276,7 +276,9 @@ export const M21_1_1: LessonContent = {
         "を marks the direct object of the verb. にく (meat) is what you eat (たべます), so it takes を.",
     }),
     speaking(
-      "ja-m21-1-1-speak-sakana",
+      // QA lint (Gate 2 unique-ids): was "ja-m21-1-1-speak-sakana", duplicating
+      // the word-level speaking step's id earlier in this lesson.
+      "ja-m21-1-1-speak-sakana-sentence",
       "さかなを たべます",
       "I eat fish.",
     ),
@@ -1299,7 +1301,9 @@ export const M21_4_2: LessonContent = {
       "や = open list of utensils you need.",
     ),
     sentenceMcq({
-      id: "ja-m21-4-2-mcq-chawan",
+      // QA lint (Gate 2 unique-ids): was "ja-m21-4-2-mcq-chawan", duplicating
+      // the vocabMcq's id earlier in this lesson.
+      id: "ja-m21-4-2-mcq-chawan-sentence",
       prompt: "Which sentence means 'A rice bowl, please.'?",
       correctKana: "ちゃわんを ください。",
       distractorsKana: [
