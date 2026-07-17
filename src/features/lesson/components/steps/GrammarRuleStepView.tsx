@@ -6,6 +6,21 @@ import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { playSfx } from "@/shared/audio/sfx";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
+import { HIRAGANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romajiAutoFlip";
+
+/**
+ * Rule-card example romaji follows the same ladder as every other romaji
+ * surface: gone once the lesson's module is ≥ the hiragana cutoff. Was
+ * rendered unconditionally — m29/m30 rule cards printed "nani shiteru no?"
+ * under the kana (Gate 10 finding, 2026-07-17). Outside a lesson
+ * (moduleIndex null: previews, practice decks) romaji stays, matching
+ * AnnotatedText's no-provider behavior.
+ */
+function useShowExampleRomaji(): boolean {
+  const moduleIndex = useLessonModuleIndex();
+  return moduleIndex == null || moduleIndex < HIRAGANA_ROMAJI_OFF_MODULE;
+}
 
 type Props = {
   step: GrammarRuleStep;
@@ -223,6 +238,7 @@ export function GrammarRuleStepView({
   onContinue,
   variant = "full",
 }: Props) {
+  const showRomaji = useShowExampleRomaji();
   const { ready, fillStarted, durationMs } = useReadGate(step);
   const readAloudText = `${step.title}. ${step.rule}`;
 
@@ -310,9 +326,11 @@ export function GrammarRuleStepView({
           <p className="font-japanese text-lg text-text-primary line-through decoration-error/60 decoration-2">
             <AnnotatedJa text={step.antiPattern.ja} />
           </p>
-          <p className="mt-1 text-sm italic text-text-muted" lang="ja-Latn">
-            {step.antiPattern.romaji}
-          </p>
+          {showRomaji && (
+            <p className="mt-1 text-sm italic text-text-muted" lang="ja-Latn">
+              {step.antiPattern.romaji}
+            </p>
+          )}
           <p className="mt-1 text-sm text-text-secondary">
             {step.antiPattern.en}
           </p>
@@ -346,6 +364,7 @@ export function GrammarRuleStepView({
 
 function ExampleTile({ example }: { example: { ja: string; romaji: string; en: string } }) {
   const hasAudio = getTtsUrl(example.ja) !== null;
+  const showRomaji = useShowExampleRomaji();
 
   function handlePlay() {
     if (!hasAudio) return;
@@ -358,9 +377,11 @@ function ExampleTile({ example }: { example: { ja: string; romaji: string; en: s
         <p className="font-japanese text-xl text-text-primary">
           <AnnotatedJa text={example.ja} />
         </p>
-        <p className="mt-1 text-sm italic text-text-muted" lang="ja-Latn">
-          {example.romaji}
-        </p>
+        {showRomaji && (
+          <p className="mt-1 text-sm italic text-text-muted" lang="ja-Latn">
+            {example.romaji}
+          </p>
+        )}
         <p className="mt-1 text-sm text-text-secondary">{example.en}</p>
       </div>
       <button

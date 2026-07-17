@@ -10,6 +10,8 @@ import { getTtsUrl, playJaAudio, useAutoPlayJaAudio } from "@/shared/tts";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
+import { KATAKANA_ROMAJI_OFF_MODULE } from "@/shared/settings/romajiAutoFlip";
 import {
   getSpeechConfig,
   isSpeechFlagEnabled,
@@ -296,6 +298,7 @@ function SpeakingStepRecognized({
   const toggleRomaji = useCallback(() => {
     updateRomajiSetting("learning.showRomaji", !showRomaji);
   }, [showRomaji, updateRomajiSetting]);
+  const lessonModuleIndex = useLessonModuleIndex();
 
   // When recognition finishes, score all alternatives against the
   // target and surface a tiered verdict. The hook resets on the next
@@ -618,14 +621,21 @@ function SpeakingStepRecognized({
         <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
           Speaking practice
         </p>
-        <button
-          type="button"
-          onClick={toggleRomaji}
-          className="rounded-full border border-border bg-surface px-3 py-1 text-xs font-bold uppercase tracking-wider text-text-secondary transition hover:bg-surface-muted"
-          aria-pressed={showRomaji}
-        >
-          {showRomaji ? "Hide romaji" : "Show romaji"}
-        </button>
+        {/* Past the katakana cutoff the module-position gate suppresses
+            ALL romaji regardless of this toggle — a dead control that
+            reads as "romaji is available here" (Gate 10 escalation,
+            2026-07-17). Hide it; outside a lesson (null) keep it. */}
+        {(lessonModuleIndex == null ||
+          lessonModuleIndex < KATAKANA_ROMAJI_OFF_MODULE) && (
+          <button
+            type="button"
+            onClick={toggleRomaji}
+            className="rounded-full border border-border bg-surface px-3 py-1 text-xs font-bold uppercase tracking-wider text-text-secondary transition hover:bg-surface-muted"
+            aria-pressed={showRomaji}
+          >
+            {showRomaji ? "Hide romaji" : "Show romaji"}
+          </button>
+        )}
       </div>
 
       <ReferenceCard step={step} onPlay={handleListen} showRomaji={showRomaji} />

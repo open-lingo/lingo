@@ -476,6 +476,9 @@ export const COMPLEXITY_FLOORS: Record<string, number> = {
   m12: 0.12, m13: 0.60, m14: 0.15, m15: 0.37, m16: 0.60, m17: 0.60,
   m18: 0.57, m19: 0.49, m20: 0.53, m21: 0.40, m22: 0.56, m23: 0.44,
   m24: 0.58, m25: 0.71, m26: 0.63, m27: 0.60, m29: 0.39,
+  // m30: measured 44/103 = 0.427 at stage-2 authoring completion
+  // (2026-07-17). Floor set ~1.5 sentences below that measurement.
+  m30: 0.41,
 };
 
 const CONNECTIVES = /(から|ので|けど|たら|とき|まえに|あとで|ながら)/;

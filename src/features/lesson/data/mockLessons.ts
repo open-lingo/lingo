@@ -236,7 +236,8 @@ import {
 } from "@/features/languages/ja/curriculum/m29";
 import {
   M30_1_1, M30_1_2, M30_2_1, M30_2_2, M30_3_1, M30_3_2,
-  M30_4_1, M30_4_2,
+  M30_4_1, M30_4_2, M30_5_1, M30_5_2, M30_6_1, M30_6_2,
+  M30_STORY, M30_7_1, M30_7_2,
 } from "@/features/languages/ja/curriculum/m30";
 import {
   M3_1_1,
@@ -873,11 +874,15 @@ const LESSONS: Record<string, LessonContent> = {
   "ja-m29-6-1": M29_6_1, "ja-m29-6-2": M29_6_2,
   "ja-m29-story": M29_STORY,
   "ja-m29-7-1": M29_7_1, "ja-m29-7-2": M29_7_2,
-  // M30 — Casual register (N4 pilot #2). STAGE 1: pairs 1-4 only.
+  // M30 — Casual register (N4 pilot #2).
   "ja-m30-1-1": M30_1_1, "ja-m30-1-2": M30_1_2,
   "ja-m30-2-1": M30_2_1, "ja-m30-2-2": M30_2_2,
   "ja-m30-3-1": M30_3_1, "ja-m30-3-2": M30_3_2,
   "ja-m30-4-1": M30_4_1, "ja-m30-4-2": M30_4_2,
+  "ja-m30-5-1": M30_5_1, "ja-m30-5-2": M30_5_2,
+  "ja-m30-6-1": M30_6_1, "ja-m30-6-2": M30_6_2,
+  "ja-m30-story": M30_STORY,
+  "ja-m30-7-1": M30_7_1, "ja-m30-7-2": M30_7_2,
 };
 
 // ----- Inter-module review modules — REMOVED 2026-05-18 -------------------

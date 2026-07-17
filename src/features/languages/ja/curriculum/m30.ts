@@ -1,19 +1,27 @@
 /**
- * M30 — Casual register (N4 pilot #2, 2026-07-17). STAGE 1 of 2.
+ * M30 — Casual register (N4 pilot #2, 2026-07-16/17). Fully authored across
+ * two authoring sessions (stage 1 = pairs 1-4, committed 2026-07-17; stage 2
+ * = pairs 5-7 + story + this file's test file, appended same day).
  *
  * Second module of the JLPT N4 tier. Grammar anchor: casual↔polite
  * REGISTER SWITCHING — casual question intonation (dropped か), casual
- * sentence-enders (よ / ね / の), and register awareness (when casual
- * speech is socially wrong). m29 taught the plain forms; m30 teaches
- * USING them with people. m30 introduces NO new plain form — every verb/
- * adjective conjugation used here was taught in m29 (or earlier).
+ * sentence-enders (よ / ね / の), casual invitations (〜ない？), mixed-
+ * register rewrites, and register awareness (when casual speech is
+ * socially wrong). m29 taught the plain forms; m30 teaches USING them with
+ * people. m30 introduces NO new plain form — every verb/adjective
+ * conjugation used here was taught in m29 (or earlier).
  *
- * Grammar sequencing (docs/n4-pilot-spine-2026-07-16.md), STAGE 1 = pairs 1-4:
+ * Grammar sequencing (docs/n4-pilot-spine-2026-07-16.md):
  *   Pair 1 — Casual questions: drop か, rising intonation carries it
  *   Pair 2 — よ (assert new info) / ね (seek agreement) — one function each
  *   Pair 3 — Casual の question + してる (している contraction)
  *   Pair 4 — Register awareness — when casual speech is socially wrong
- * (Pairs 5-7 + story + reviews are STAGE 2 — not authored here.)
+ *   Pair 5 — Casual invitations (〜ない？, mirrors m23's ませんか) + accept/decline
+ *   Pair 6 — Mixed register interleave (transformBuild: casual ⇄ polite)
+ *   Story  — ゆき invites twice: once casual (friend), once polite (boss)
+ *   Pair 7 — Mixed drill + heavier production, register-switch speed drills
+ * No new grammar points are introduced in pairs 5-7 beyond pair 5's
+ * casual-invitation rule — the rest interleaves/drills pairs 1-4's forms.
  *
  * VOCAB RECONCILIATION (docs/n4-pilot-spine-2026-07-16.md's 20-atom table,
  * same discipline as m29's header — see courseAtoms.ts's M30 comment block
@@ -50,29 +58,34 @@
  *   Pair 4 (8): せんぱい, じょうし, どうりょう, やっぱり, こうはい, しりあい,
  *               おさななじみ, なかま
  *
- * kanji_reading (3, sprinkle-not-saturate, per spine + guide §4f): all land
- * on review-tier words whose kanji unlocked well before m30 and are
+ * kanji_reading (5 total, sprinkle-not-saturate, per spine + guide §4f): all
+ * land on review-tier words whose kanji unlocked well before m30 and are
  * KANJI_ELIGIBLE_ATOMS-eligible (secondScript/n5Kanji.ts anchorVocab — note
  * ともだち/友達 is NOT eligible despite being an anchorVocab entry: its second
  * kanji 達 has no N5_KANJI catalog entry, so the "every component kanji
  * known" gate skips it) — いく (行く, m7) in 1-1, なに (何, m1) in 3-1 (ties
  * to the なにしてるの？ pattern this pair teaches), せんせい (先生, m3) in 4-1
- * (an authority-figure review word fitting the register-awareness theme).
- * None are just-introduced m30 atoms.
+ * (an authority-figure review word fitting the register-awareness theme),
+ * plus stage 2's two: はいる (入る, m16) in 6-2, きく (聞く, m24) in 7-1. None
+ * are just-introduced m30 atoms.
  *
  * NO particle_cloze anywhere (guide §4c — m29/m30 are both far past every N5
  * particle's 2-module grandfather window). NO phrase_card / vocab() /
  * phrase() calls (guide §4b2). NO info steps. Every lesson ends on a
  * gradeable step (reviewMatchPairs).
  *
- * 8 hand-authored exports (pairs 1-4, 2 sub-lessons each). Pairs 5-7 + story
- * + ja-m30-review-1/2 are STAGE 2 — not authored here.
+ * 15 hand-authored exports (pairs 1-7, 2 sub-lessons each, + the story
+ * lesson). ja-m30-review-1/2 remain DERIVED, not authored here (same as m29).
+ * Stage 2 (pairs 5-7 + story) introduces NO new courseAtoms — all 19
+ * fromModule:"m30" atoms (+ たぶん, reused from m18) were registered in
+ * stage 1; see m30.test.ts's "introduces no new atoms in stage 2" pin.
  *
  * ID scheme: ja-m30-{n}-{sub}. Export names: M30_1_1, M30_1_2, etc.
  */
 import type { LessonContent } from "@/features/lesson/types";
 import {
   build,
+  dialogueListen,
   grammarRule,
   kanjiReading,
   listeningBuildSentence,
@@ -84,6 +97,7 @@ import {
   selfExplain,
   sentenceMcq,
   speaking,
+  transformBuild,
   translateStep,
   vocabMcq,
   assertNoSameAnswerCluster,
@@ -130,10 +144,10 @@ const RULE_CASUAL_Q = grammarRule({
     { ja: "きょう ひま？", romaji: "kyou hima?", en: "Are you free today?" },
   ],
   antiPattern: {
-    ja: "あした ひまか？",
-    romaji: "ashita hima ka?",
+    ja: "あした がっこうに くるか？",
+    romaji: "ashita gakkou ni kuru ka?",
     en: "(broken register — か tacked onto casual speech reads like an interrogation)",
-    why: "か marks a question in polite/formal registers (ひまですか). Adding it back onto a casual plain-form question among friends breaks the register this pair teaches — the rise alone (ひま？) is the natural casual pattern.",
+    why: "か marks a question in polite/formal registers (きますか). Adding it back onto a casual plain-form question among friends breaks the register this pair teaches — the rise alone (くる？) is the natural casual pattern.",
   },
   cultureNote:
     "This is the single most common casual-speech move: drop か, keep the ？. Almost every casual question you'll hear from friends follows this shape.",
@@ -151,10 +165,10 @@ const RULE_YO_NE = grammarRule({
     { ja: "かばん、わすれたよ！", romaji: "kaban, wasureta yo!", en: "You forgot your bag! (heads up)" },
   ],
   antiPattern: {
-    ja: "かばん、わすれたね。",
-    romaji: "kaban, wasureta ne.",
-    en: "(broken — ね wrongly assumes the listener already knows they forgot it)",
-    why: "Telling someone they forgot their own bag is NEW information to them — that calls for よ. ね would assume they already share that awareness, which undercuts the whole point of the warning.",
+    ja: "この みせは やすいね。",
+    romaji: "kono mise wa yasui ne.",
+    en: "(broken — ね wrongly assumes the listener already knows the shop is cheap)",
+    why: "The speaker is asserting NEW information the listener doesn't already know — that calls for よ. ね would wrongly assume the listener already shares that awareness, undercutting the whole point of telling them.",
   },
   cultureNote:
     "よ and ね stack onto almost every casual sentence-ender. Mixing up their function is a classic 'off' feeling even when every other part of the sentence is perfect.",
@@ -200,6 +214,27 @@ const RULE_REGISTER = grammarRule({
   },
   cultureNote:
     "Every sentence in this pair is grammatically correct either way. The mistake this pair teaches is entirely about WHO you're talking to, not how well-formed the sentence is.",
+});
+
+const RULE_INVITE_CASUAL = grammarRule({
+  id: "ja-m30-rule-invite",
+  grammarPointId: "casual-nai-invitation",
+  title: "〜ない？ — casual invitations (same logic as ませんか)",
+  rule:
+    "Casual invitations use the plain ない-form + rising intonation, dropping か exactly like pair 1's casual questions: いかない？ ('Wanna go?'). This mirrors the polite invitation pattern from m23 — ませんか (いきませんか, 'won't you go?') — both use a NEGATIVE question to soften a suggestion into an invitation, giving the listener room to decline. Casual just drops the か the same way every casual question does.",
+  examples: [
+    { ja: "いっしょに たべない？", romaji: "issho ni tabenai?", en: "Wanna eat together?" },
+    { ja: "えいが みない？", romaji: "eiga minai?", en: "Wanna watch a movie?" },
+    { ja: "しゅうまつ あそばない？", romaji: "shuumatsu asobanai?", en: "Wanna hang out this weekend?" },
+  ],
+  antiPattern: {
+    ja: "いっしょに たべないか？",
+    romaji: "issho ni tabenai ka?",
+    en: "(broken — か tacked onto a casual invitation reads blunt, like an interrogation)",
+    why: "Casual invitations rely on rising intonation alone, exactly like casual questions (pair 1) — adding か back breaks the register even though ない makes it an invitation rather than a plain question.",
+  },
+  cultureNote:
+    "This is invitation logic doubled: the negative form softens a suggestion into an invitation (as in ませんか), and casual speech drops か (as in pair 1). Put them together and you get いかない？ — the single most common way friends invite each other to do something.",
 });
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -687,7 +722,7 @@ export const M30_2_2: LessonContent = {
     speaking("ja-m30-2-2-speak-teinei", "ていねいな せんせい", "A polite teacher", ["ていねい"]),
     sentenceMcq({
       id: "ja-m30-2-2-mcq-1",
-      prompt: "Which describes け いご (polite language) itself?",
+      prompt: "Which describes けいご (polite language) itself?",
       correctKana: "けいごは ていねいだ。",
       distractorsKana: ["けいごは しつれいだ。", "ためぐちは ていねいだ。", "けいごは やすいだ。"],
       explanation:
@@ -1329,7 +1364,1014 @@ assertAnswerRotation(M30_4_2.steps, 1);
 assertNoConsecutiveSame(M30_4_2.steps);
 
 // ═══════════════════════════════════════════════════════════════════════
-// Module-level assertions (stage 1 lessons only — pairs 1-4)
+// M30-5-1 — Casual invitations I: 〜ない？
+// ═══════════════════════════════════════════════════════════════════════
+
+const M30_5_1_REVIEW = pickReviewAtoms("ja-m30-5-1-rev", M30_REVIEW_POOL, 4);
+
+export const M30_5_1: LessonContent = {
+  id: "ja-m30-5-1",
+  moduleId: "m30",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Casual invitations — 〜ない？",
+  description:
+    "Invite a friend the casual way: 〜ない？ softens a suggestion into an invitation, same logic as m23's ませんか but with か dropped.",
+  estimatedMinutes: 10,
+  xpReward: 26,
+  steps: [
+    RULE_INVITE_CASUAL,
+    build(
+      "ja-m30-5-1-build-tabenai",
+      "Say to a friend, casually, invite them: Wanna eat together?",
+      "いっしょに たべない",
+      ["いっしょに", "たべない", "たべます", "か"],
+      ["いっしょに", "たべない"],
+      ["たべる"],
+    ),
+    listeningCompSentence({
+      id: "ja-m30-5-1-lc-eiga",
+      audioText: "えいが みない？",
+      correctMeaningEn: "Wanna watch a movie?",
+      distractorsEn: [
+        "I already watched a movie.",
+        "I don't want to watch a movie.",
+        "Did you watch the movie?",
+      ],
+      exercisedAtomKanas: ["みる"],
+    }),
+    build(
+      "ja-m30-5-1-build-ikanai",
+      "Say to a friend, casually, invite them: Wanna go to the library?",
+      "としょかんに いかない",
+      ["としょかん", "に", "いかない", "いきます", "か"],
+      ["としょかん", "に", "いかない"],
+      ["いく"],
+    ),
+    speaking("ja-m30-5-1-speak-asobanai", "しゅうまつ あそばない？", "Wanna hang out this weekend?", ["あそぶ"]),
+    sentenceMcq({
+      id: "ja-m30-5-1-mcq-1",
+      prompt: "Which is the CASUAL way to invite a friend to drink coffee?",
+      correctKana: "コーヒー のまない？",
+      distractorsKana: ["コーヒーを のみませんか。", "コーヒーを のむか。", "コーヒーを のみました。"],
+      explanation:
+        "Casual invitations drop か and use ない + rising intonation; のみませんか is polite, のむか tacks か onto casual speech (blunt), のみました is past tense.",
+    }),
+    listeningCompSentence({
+      id: "ja-m30-5-1-lc-iiyo",
+      audioText: "いいよ！",
+      correctMeaningEn: "Sure!",
+      distractorsEn: ["Not particularly.", "Absolutely not!", "Maybe."],
+    }),
+    speaking("ja-m30-5-1-speak-chotto", "ちょっと…", "Hmm, that's a bit... (trailing off, soft decline)", ["ちょっと"]),
+    sentenceMcq({
+      id: "ja-m30-5-1-mcq-2",
+      prompt: "A friend invites you のみに いかない？ ('Wanna go for a drink?') and you don't want to go. Which is the natural casual decline?",
+      correctKana: "ちょっと…",
+      distractorsKana: ["もちろん！", "ぜったい いく！", "いいよ！"],
+      explanation:
+        "ちょっと… trails off as a soft decline; もちろん / ぜったい いく / いいよ are all enthusiastic yeses instead.",
+      exercisedAtomKanas: ["ちょっと"],
+    }),
+    build(
+      "ja-m30-5-1-build-boss",
+      "Say POLITELY to your boss, invite them: Won't you eat lunch (with me)?",
+      "ひるごはんを たべませんか",
+      ["ひるごはん", "を", "たべませんか", "たべない", "か"],
+      ["ひるごはん", "を", "たべませんか"],
+    ),
+    listeningBuildSentence({
+      id: "ja-m30-5-1-lb-senpai",
+      target: "せんぱいと いっしょに いきませんか",
+      tiles: ["せんぱい", "と", "いっしょに", "いきませんか", "いかない", "か"],
+      correctOrder: ["せんぱい", "と", "いっしょに", "いきませんか"],
+      promptEn: "Hear it, build it (polite invitation): 'Won't you go together with your senior?'",
+      exercisedAtomKanas: ["せんぱい"],
+    }),
+    sentenceMcq({
+      id: "ja-m30-5-1-mcq-3",
+      prompt: "Which is CORRECT to say to your じょうし (boss), inviting them to come tomorrow?",
+      correctKana: "あした きませんか。",
+      distractorsKana: ["あした こない？", "あした きたか。", "あした きます。"],
+      explanation:
+        "Bosses get the polite invitation ませんか, not the casual ない？ invitation — using casual speech with a じょうし is しつれい.",
+      exercisedAtomKanas: ["じょうし"],
+    }),
+    translateStep({
+      id: "ja-m30-5-1-translate",
+      promptEn: "Say to a friend, casually, invite them: Wanna go to the library?",
+      acceptedAnswers: ["としょかんに いかない", "としょかんに いかない？"],
+      audioText: "としょかんに いかない？",
+      exercisedAtomKanas: ["いく"],
+    }),
+    selfExplain({
+      id: "ja-m30-5-1-self-explain",
+      anchorLabel: "いっしょに たべない？ vs ひるごはんを たべませんか？",
+      anchorAudioText: "いっしょに たべない？",
+      question: "What's the relationship between these two invitations?",
+      rule: {
+        text: "Both invite with a NEGATIVE question — ない？ (casual, か dropped) and ませんか (polite, from m23, か kept). Same softening logic, different register.",
+      },
+      surface: {
+        text: "たべない？ asks about right now and たべませんか asks about the future — a tense difference.",
+      },
+      distractor: {
+        text: "ませんか only works with verbs that already end in ます — it can never pair with a plain-form verb.",
+      },
+      ruleExplanation:
+        "Register, not tense, is the only difference: both invite by asking a negative question, giving the listener room to decline. たべない？ is casual speech's version of the exact same softening move ませんか makes polite.",
+    }),
+    speaking("ja-m30-5-1-speak-close", "いっしょに あそばない？", "Wanna hang out together?", ["あそぶ"]),
+    // ── Review tail ──
+    vocabMcq("ja-m30-5-1-rev-mcq-1", M30_5_1_REVIEW[0], M30_REVIEW_POOL),
+    listeningCompSentence({
+      id: "ja-m30-5-1-rev-lc-1",
+      audioText: "まいあさ しんぶんを よみます",
+      correctMeaningEn: "I read the newspaper every morning.",
+      distractorsEn: [
+        "I read a book every morning.",
+        "I read the newspaper every night.",
+        "I don't read the newspaper.",
+      ],
+    }),
+    speaking("ja-m30-5-1-rev-speak-1", M30_5_1_REVIEW[2].kana, M30_5_1_REVIEW[2].meaningEn),
+    reviewMatchPairs("ja-m30-5-1-rev", M30_5_1_REVIEW),
+  ],
+};
+
+assertNoSameAnswerCluster(M30_5_1.steps);
+assertAnswerRotation(M30_5_1.steps, 1);
+assertNoConsecutiveSame(M30_5_1.steps);
+
+// ═══════════════════════════════════════════════════════════════════════
+// M30-5-2 — Casual invitations II: accept / decline + register-neutral ちょっと…
+// ═══════════════════════════════════════════════════════════════════════
+
+const M30_5_2_REVIEW = pickReviewAtoms("ja-m30-5-2-rev", M30_REVIEW_POOL, 4);
+
+export const M30_5_2: LessonContent = {
+  id: "ja-m30-5-2",
+  moduleId: "m30",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Invitations II — accept, decline, ちょっと…",
+  description:
+    "Accept (いいよ／いいね) and decline (ちょっと…) invitations — and discover ちょっと… softens a decline the same way in casual AND polite speech.",
+  estimatedMinutes: 10,
+  xpReward: 26,
+  steps: [
+    build(
+      "ja-m30-5-2-build-terebi",
+      "Say to a friend, casually, invite them: Wanna watch TV?",
+      "テレビを みない",
+      ["テレビ", "を", "みない", "みます", "か"],
+      ["テレビ", "を", "みない"],
+      ["テレビ"],
+    ),
+    listeningCompSentence({
+      id: "ja-m30-5-2-lc-iine",
+      audioText: "いいね！",
+      correctMeaningEn: "Sounds good!",
+      distractorsEn: ["Not interested.", "I already watched it.", "I don't have a TV."],
+    }),
+    build(
+      "ja-m30-5-2-build-decline",
+      "Say to a friend, casually, declining: I'm tired, so... (trailing off)",
+      "つかれてるから、ちょっと",
+      ["つかれてる", "から", "ちょっと", "もちろん", "ぜったい"],
+      ["つかれてる", "から", "ちょっと"],
+      ["ちょっと"],
+    ),
+    speaking("ja-m30-5-2-speak-iiyo", "いいよ、いく！", "Sure, I'll go!", ["いく"]),
+    listeningCompSentence({
+      id: "ja-m30-5-2-lc-shiriai",
+      audioText: "しりあいには、ちょっと けいごで はなす。",
+      correctMeaningEn: "With an acquaintance, I speak a little in keigo.",
+      distractorsEn: [
+        "With an acquaintance, I speak entirely in casual style.",
+        "With an acquaintance, I don't speak at all.",
+        "With an acquaintance, I speak a lot of keigo, more than anyone.",
+      ],
+      exercisedAtomKanas: ["しりあい", "けいご"],
+    }),
+    sentenceMcq({
+      id: "ja-m30-5-2-mcq-1",
+      prompt: "Which means 'Sounds good, I'll help!'?",
+      correctKana: "いいね、てつだうよ。",
+      distractorsKana: ["いいね、てつだわないよ。", "ちょっと、てつだうよ。", "もちろん、てつだわない。"],
+      explanation:
+        "いいね agrees, てつだうよ informs the listener you'll help; the others negate the help or mismatch the accept/decline cue.",
+      exercisedAtomKanas: ["てつだう"],
+    }),
+    build(
+      "ja-m30-5-2-build-douryou",
+      "Say politely to your colleague, invite them: Won't you eat lunch with me?",
+      "どうりょうと ひるごはんを たべませんか",
+      ["どうりょう", "と", "ひるごはん", "を", "たべませんか", "たべない"],
+      ["どうりょう", "と", "ひるごはん", "を", "たべませんか"],
+      ["どうりょう"],
+    ),
+    listeningBuildSentence({
+      id: "ja-m30-5-2-lb-isogashii",
+      target: "きょうは いそがしいから、ちょっと",
+      tiles: ["きょう", "は", "いそがしい", "から", "ちょっと", "ひま"],
+      correctOrder: ["きょう", "は", "いそがしい", "から", "ちょっと"],
+      promptEn: "Hear it, build it (polite decline): 'I'm busy today, so... (trailing off)'",
+      exercisedAtomKanas: ["いそがしい"],
+    }),
+    sentenceMcq({
+      id: "ja-m30-5-2-mcq-2",
+      prompt: "Which register-neutral word softly declines an invitation, casual OR polite, unchanged?",
+      correctKana: "ちょっと",
+      distractorsKana: ["べつに", "もちろん", "ぜったい"],
+      explanation:
+        "ちょっと trails off the same way in both registers; べつに deflects a different question (どうしたの？), もちろん/ぜったい assert certainty — the opposite function.",
+      exercisedAtomKanas: ["ちょっと"],
+    }),
+    translateStep({
+      id: "ja-m30-5-2-translate",
+      promptEn: "Say politely to your boss: I'm busy today, so... (trailing off)",
+      acceptedAnswers: ["きょうは いそがしいから、ちょっと", "きょうは いそがしいから、ちょっと…"],
+      audioText: "きょうは いそがしいから、ちょっと…",
+      exercisedAtomKanas: ["いそがしい"],
+    }),
+    selfExplain({
+      id: "ja-m30-5-2-self-explain",
+      anchorLabel: "ちょっと… as a universal decline",
+      anchorAudioText: "きょうは いそがしいから、ちょっと…",
+      question: "Why does ちょっと… work as a decline in both casual speech with friends AND polite keigo with your boss?",
+      rule: {
+        text: "ちょっと's softening/trailing-off function is register-neutral — unlike か or よ/ね, which DO change with register, ちょっと… as a conversational device stays the same across registers, letting the listener fill in the unsaid reason.",
+      },
+      surface: {
+        text: "ちょっと changes its meaning entirely between casual speech and polite keigo.",
+      },
+      distractor: {
+        text: "ちょっと can only be used to decline invitations — it has no other function in Japanese.",
+      },
+      ruleExplanation:
+        "ちょっと's core 'a little / somewhat' meaning stays constant; what changes around it is the surrounding register (casual ない-invite vs polite ですか/ませんか) — the decline device itself never needs translating across registers.",
+    }),
+    speaking("ja-m30-5-2-speak-close", "いそがしいから、ちょっと…", "I'm busy, so... (trailing off)", ["いそがしい"]),
+    // ── Review tail ──
+    vocabMcq("ja-m30-5-2-rev-mcq-1", M30_5_2_REVIEW[0], M30_REVIEW_POOL),
+    listeningCompSentence({
+      id: "ja-m30-5-2-rev-lc-1",
+      audioText: "としょかんで ざっしを よみます",
+      correctMeaningEn: "I read a magazine at the library.",
+      distractorsEn: [
+        "I read a magazine at school.",
+        "I bought a magazine at the library.",
+        "I don't read magazines.",
+      ],
+    }),
+    speaking("ja-m30-5-2-rev-speak-1", M30_5_2_REVIEW[2].kana, M30_5_2_REVIEW[2].meaningEn),
+    reviewMatchPairs("ja-m30-5-2-rev", M30_5_2_REVIEW),
+  ],
+};
+
+assertNoSameAnswerCluster(M30_5_2.steps);
+assertAnswerRotation(M30_5_2.steps, 1);
+assertNoConsecutiveSame(M30_5_2.steps);
+
+// ═══════════════════════════════════════════════════════════════════════
+// M30-6-1 — Mixed register interleave I (transformBuild: casual ⇄ polite)
+// ═══════════════════════════════════════════════════════════════════════
+
+const M30_6_1_REVIEW = pickReviewAtoms("ja-m30-6-1-rev", M30_REVIEW_POOL, 4);
+
+export const M30_6_1: LessonContent = {
+  id: "ja-m30-6-1",
+  moduleId: "m30",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Mixed register I — same content, both registers",
+  description:
+    "Rewrite the SAME sentence for a friend, then for your boss — the content never changes, only the register does.",
+  estimatedMinutes: 11,
+  xpReward: 28,
+  steps: [
+    build(
+      "ja-m30-6-1-build-shigoto",
+      "Say to a friend, casually: Are you going to work today?",
+      "きょう しごとに いく",
+      ["きょう", "しごと", "に", "いく", "いきます", "か"],
+      ["きょう", "しごと", "に", "いく"],
+      ["しごと"],
+    ),
+    listeningCompSentence({
+      id: "ja-m30-6-1-lc-keigo",
+      audioText: "けいごで はなす？",
+      correctMeaningEn: "Are you speaking in keigo?",
+      distractorsEn: [
+        "I don't speak in keigo.",
+        "I spoke in keigo yesterday.",
+        "Do you speak keigo well?",
+      ],
+      exercisedAtomKanas: ["けいご"],
+    }),
+    transformBuild(
+      "ja-m30-6-1-tb-1",
+      "Rewrite for your boss:",
+      "あした くる？",
+      "→ polite",
+      "あした きますか",
+      ["あした", "きますか", "くる", "？"],
+      ["あした", "きますか"],
+      ["くる"],
+    ),
+    speaking("ja-m30-6-1-speak-senpai", "せんぱいには ぜったい けいごで はなす。", "I absolutely speak in keigo with my senior.", ["せんぱい", "ぜったい", "けいご"]),
+    transformBuild(
+      "ja-m30-6-1-tb-2",
+      "Rewrite for a friend:",
+      "しゅくだいを しますか。",
+      "→ casual",
+      "しゅくだい する？",
+      ["しゅくだい", "する", "します", "か", "？"],
+      ["しゅくだい", "する", "？"],
+    ),
+    sentenceMcq({
+      id: "ja-m30-6-1-mcq-1",
+      prompt: "Which is CORRECT to say to your boss?",
+      correctKana: "あした きますか。",
+      distractorsKana: ["あした くる？", "あした きたの？", "あした こない？"],
+      explanation:
+        "Bosses get the polite ますか-question, not casual くる？/の-questions — using casual speech with a じょうし is しつれい.",
+    }),
+    transformBuild(
+      "ja-m30-6-1-tb-3",
+      "Rewrite for your senpai:",
+      "なにしてるの？",
+      "→ polite",
+      "なにを していますか",
+      ["なに", "を", "していますか", "してるの", "？"],
+      ["なに", "を", "していますか"],
+      ["なに"],
+    ),
+    listeningBuildSentence({
+      id: "ja-m30-6-1-lb-1",
+      target: "だれと はなしてるの",
+      tiles: ["だれ", "と", "はなしてる", "の", "はなしますか"],
+      correctOrder: ["だれ", "と", "はなしてる", "の"],
+      promptEn: "Hear it, build it (casual): 'Who are you talking with?'",
+      exercisedAtomKanas: ["はなす"],
+    }),
+    transformBuild(
+      "ja-m30-6-1-tb-4",
+      "Rewrite for a friend:",
+      "きょう ひまですか。",
+      "→ casual",
+      "きょう ひま？",
+      ["きょう", "ひま", "ひまです", "か", "？"],
+      ["きょう", "ひま", "？"],
+    ),
+    sentenceMcq({
+      id: "ja-m30-6-1-mcq-2",
+      prompt: "Which sentence would be しつれい (rude) to say to your じょうし?",
+      correctKana: "あした くる？",
+      distractorsKana: ["あした きますか。", "もちろん、きます。", "ぜったい きます。"],
+      explanation:
+        "あした くる？ is casual — dropped か, plain form. Aimed at a じょうし, that reads as rude regardless of how grammatically correct it is.",
+      exercisedAtomKanas: ["じょうし"],
+    }),
+    build(
+      "ja-m30-6-1-build-senpai-hima",
+      "Say politely to your senpai: Are you free today?",
+      "きょう ひまですか",
+      ["きょう", "ひまですか", "ひまだ", "ひま", "か"],
+      ["きょう", "ひまですか"],
+    ),
+    translateStep({
+      id: "ja-m30-6-1-translate",
+      promptEn: "Say to a friend, casually: Are you free today?",
+      acceptedAnswers: ["きょう ひま", "きょう ひま？"],
+      audioText: "きょう ひま？",
+    }),
+    selfExplain({
+      id: "ja-m30-6-1-self-explain",
+      anchorLabel: "あした くる？ ⇄ あした きますか？",
+      anchorAudioText: "あした きますか。",
+      question: "Why does REWRITING a sentence for a different listener never change WHAT'S being asked?",
+      rule: {
+        text: "Register swaps (drop/keep か, plain/ます form, dropped/kept よ・ね) carry social information only — the content, asking whether someone is coming tomorrow, is identical in both rewrites.",
+      },
+      surface: {
+        text: "あした くる？ and あした きますか ask about two different days — casual asks about 'now,' polite asks about 'tomorrow.'",
+      },
+      distractor: {
+        text: "Rewriting for a different listener always requires changing the verb itself, not just its ending.",
+      },
+      ruleExplanation:
+        "A transform swaps register markers (ない/ます, か dropped/kept, よ・ね dropped) around the SAME verb and the SAME content. Nothing about the meaning changes — only who it's safe to say it to.",
+    }),
+    speaking("ja-m30-6-1-speak-close", "しごとに いく？", "Are you going to work?", ["しごと", "いく"]),
+    // ── Review tail ──
+    vocabMcq("ja-m30-6-1-rev-mcq-1", M30_6_1_REVIEW[0], M30_REVIEW_POOL),
+    listeningCompSentence({
+      id: "ja-m30-6-1-rev-lc-1",
+      audioText: "きのう こうえんで はしりました",
+      correctMeaningEn: "I ran in the park yesterday.",
+      distractorsEn: [
+        "I run in the park every day.",
+        "I walked in the park yesterday.",
+        "I didn't run in the park yesterday.",
+      ],
+    }),
+    speaking("ja-m30-6-1-rev-speak-1", M30_6_1_REVIEW[2].kana, M30_6_1_REVIEW[2].meaningEn),
+    reviewMatchPairs("ja-m30-6-1-rev", M30_6_1_REVIEW),
+  ],
+};
+
+assertNoSameAnswerCluster(M30_6_1.steps);
+assertAnswerRotation(M30_6_1.steps, 1);
+assertNoConsecutiveSame(M30_6_1.steps);
+
+// ═══════════════════════════════════════════════════════════════════════
+// M30-6-2 — Mixed register interleave II (transformBuild speed drill)
+// ═══════════════════════════════════════════════════════════════════════
+
+const M30_6_2_REVIEW = pickReviewAtoms("ja-m30-6-2-rev", M30_REVIEW_POOL, 4);
+
+export const M30_6_2: LessonContent = {
+  id: "ja-m30-6-2",
+  moduleId: "m30",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Mixed register II — register-switch speed drill",
+  description:
+    "Faster interleave: casual ⇄ polite rewrites back to back, plus a kanji-reading review sprinkle.",
+  estimatedMinutes: 11,
+  xpReward: 28,
+  steps: [
+    build(
+      "ja-m30-6-2-build-tsukareteru",
+      "Say to a friend, casually: Are you tired today?",
+      "きょう つかれてる",
+      ["きょう", "つかれてる", "つかれています", "か"],
+      ["きょう", "つかれてる"],
+    ),
+    kanjiReading("ja-m30-6-2-kr-hairu", { kana: "はいる", meaningEn: "to enter, to join", fromModule: "m16" }),
+    transformBuild(
+      "ja-m30-6-2-tb-1",
+      "Rewrite for your boss:",
+      "つかれてる？",
+      "→ polite",
+      "つかれていますか",
+      ["つかれています", "か", "つかれてる", "？"],
+      ["つかれています", "か"],
+    ),
+    listeningCompSentence({
+      id: "ja-m30-6-2-lc-1",
+      audioText: "どうりょうは やっぱり ていねいに はなす。",
+      correctMeaningEn: "My colleague speaks politely after all.",
+      distractorsEn: [
+        "My colleague speaks casually after all.",
+        "My colleague doesn't speak at all.",
+        "My colleague spoke rudely.",
+      ],
+      exercisedAtomKanas: ["どうりょう", "やっぱり", "ていねい"],
+    }),
+    transformBuild(
+      "ja-m30-6-2-tb-2",
+      "Rewrite for a friend:",
+      "しごとが きになりますか。",
+      "→ casual",
+      "しごとが きになる？",
+      ["しごと", "が", "きになる", "きになります", "か", "？"],
+      ["しごと", "が", "きになる", "？"],
+      ["しごと", "きになる"],
+    ),
+    sentenceMcq({
+      id: "ja-m30-6-2-mcq-1",
+      prompt: "Which is the POLITE way to say 'I use casual speech with my mates'?",
+      correctKana: "なかまとは ためぐちを つかいます。",
+      distractorsKana: [
+        "なかまとは ためぐちを つかう。",
+        "なかまとは けいごを つかいます。",
+        "なかまとは ためぐちを つかいません でした。",
+      ],
+      explanation:
+        "つかいます is the polite form; つかう is plain (wrong register); けいご reverses the meaning; つかいません でした is past negative — wrong tense.",
+      exercisedAtomKanas: ["なかま", "ためぐち"],
+    }),
+    build(
+      "ja-m30-6-2-build-asobanai",
+      "Say to a friend, casually, invite them: Wanna hang out before work?",
+      "しごとの まえに、あそばない",
+      ["しごと", "の", "まえに", "あそばない", "あそびます", "か"],
+      ["しごと", "の", "まえに", "あそばない"],
+      ["しごと", "あそぶ"],
+    ),
+    listeningBuildSentence({
+      id: "ja-m30-6-2-lb-1",
+      target: "じょうしには けいごを つかいませんか",
+      tiles: ["じょうし", "には", "けいご", "を", "つかいませんか", "つかわない"],
+      correctOrder: ["じょうし", "には", "けいご", "を", "つかいませんか"],
+      promptEn: "Hear it, build it (polite): 'Won't you use polite language with your boss?'",
+      exercisedAtomKanas: ["じょうし", "けいご"],
+    }),
+    transformBuild(
+      "ja-m30-6-2-tb-3",
+      "Rewrite for your boss:",
+      "しごとを てつだうよ。",
+      "→ polite",
+      "しごとを てつだいます",
+      ["しごと", "を", "てつだいます", "てつだうよ", "よ"],
+      ["しごと", "を", "てつだいます"],
+      ["しごと", "てつだう"],
+    ),
+    sentenceMcq({
+      id: "ja-m30-6-2-mcq-2",
+      prompt: "Which is the CASUAL version of 'Are you talking with your colleague?'",
+      correctKana: "どうりょうと はなす？",
+      distractorsKana: ["どうりょうと はなしますか。", "どうりょうと はなした。", "どうりょうと はなしません。"],
+      explanation:
+        "はなす？ (casual, no か) vs はなしますか (polite) vs はなした (past) vs はなしません (polite negative) — different registers/tenses.",
+      exercisedAtomKanas: ["どうりょう"],
+    }),
+    transformBuild(
+      "ja-m30-6-2-tb-4",
+      "Rewrite for your senpai:",
+      "どうりょうと はなす？",
+      "→ polite",
+      "どうりょうと はなしますか",
+      ["どうりょう", "と", "はなしますか", "はなす", "？"],
+      ["どうりょう", "と", "はなしますか"],
+      ["どうりょう"],
+    ),
+    translateStep({
+      id: "ja-m30-6-2-translate",
+      promptEn: "Say to a friend, casually, invite them: Wanna hang out before work?",
+      acceptedAnswers: ["しごとの まえに、あそばない", "しごとの まえに、あそばない？"],
+      audioText: "しごとの まえに、あそばない？",
+      exercisedAtomKanas: ["しごと", "あそぶ"],
+    }),
+    selfExplain({
+      id: "ja-m30-6-2-self-explain",
+      anchorLabel: "つかれてる？ ⇄ つかれていますか？",
+      anchorAudioText: "つかれていますか。",
+      question: "When you rewrite a sentence from casual to polite, which THREE things typically change together?",
+      rule: {
+        text: "The verb ending (plain/contracted → ます-form), whether か is kept or dropped, and casual sentence-enders (よ/ね) — all three flip together as one register package, not independently.",
+      },
+      surface: {
+        text: "Only the verb ending changes between registers; か and よ/ね stay exactly the same either way.",
+      },
+      distractor: {
+        text: "Only the vocabulary changes between registers — the grammar (verb endings, か, よ/ね) stays identical.",
+      },
+      ruleExplanation:
+        "Register is a bundle, not a single swap: casual drops か and keeps よ/ね/contractions; polite adds ます/か back and drops よ/ね. Flip all three together, or the sentence reads as mixed register — its own kind of mistake.",
+    }),
+    speaking("ja-m30-6-2-speak-close", "しごとの まえに あそばない？", "Wanna hang out before work?", ["しごと", "あそぶ"]),
+    // ── Review tail ──
+    vocabMcq("ja-m30-6-2-rev-mcq-1", M30_6_2_REVIEW[0], M30_REVIEW_POOL),
+    listeningCompSentence({
+      id: "ja-m30-6-2-rev-lc-1",
+      audioText: "びょういんで くすりを もらいました",
+      correctMeaningEn: "I got medicine at the hospital.",
+      distractorsEn: [
+        "I bought medicine at the store.",
+        "I get medicine at the hospital every week.",
+        "I didn't get medicine at the hospital.",
+      ],
+    }),
+    speaking("ja-m30-6-2-rev-speak-1", M30_6_2_REVIEW[2].kana, M30_6_2_REVIEW[2].meaningEn),
+    reviewMatchPairs("ja-m30-6-2-rev", M30_6_2_REVIEW),
+  ],
+};
+
+assertNoSameAnswerCluster(M30_6_2.steps);
+assertAnswerRotation(M30_6_2.steps, 1);
+assertNoConsecutiveSame(M30_6_2.steps);
+
+// ═══════════════════════════════════════════════════════════════════════
+// M30-STORY — ゆき invites twice: once casual (けん), once polite (たなかさん)
+// ═══════════════════════════════════════════════════════════════════════
+
+export const M30_STORY: LessonContent = {
+  id: "ja-m30-story",
+  moduleId: "m30",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Story — ゆき invites twice",
+  description:
+    "The exact same lunch invitation, told twice — casual with her friend けん, polite with her boss たなかさん. Hear both, understand the register switch, and reply in kind.",
+  estimatedMinutes: 6,
+  xpReward: 16,
+  steps: [
+    dialogueListen({
+      id: "ja-m30-story-s1",
+      lines: [
+        { speaker: "ゆき", kana: "ひるごはん たべない？" },
+        { speaker: "けん", kana: "いいよ！ もちろん いく！" },
+        { speaker: "ゆき", kana: "としょかんの まえで まつよ。" },
+        { speaker: "けん", kana: "ありがとう！" },
+      ],
+      questions: [
+        {
+          id: "s1-q1",
+          prompt: "How does ゆき invite けん to lunch?",
+          correctText: "Casually — she drops か and uses the plain ない-form.",
+          distractors: [
+            "Politely — she uses ませんか.",
+            "She doesn't invite him, she orders him.",
+            "She asks using たら (if/when).",
+          ],
+          explanation: "ひるごはん たべない？ drops か and relies on rising intonation — this module's casual invitation.",
+        },
+        {
+          id: "s1-q2",
+          prompt: "Why is casual speech appropriate here?",
+          correctText: "ゆき and けん are close friends (したしい ともだち).",
+          distractors: [
+            "They just met for the first time.",
+            "けん is ゆき's boss.",
+            "Casual speech is always correct with everyone.",
+          ],
+          explanation: "Casual register fits close, equal-footing relationships — exactly what pair 4 taught.",
+        },
+      ],
+      exercisedAtomKanas: ["ひるごはん"],
+    }),
+    build(
+      "ja-m30-story-response-1",
+      "Reply as けん, casually: 'Of course I'll go!'",
+      "もちろん いく",
+      ["もちろん", "いく", "いきます", "いかない"],
+      ["もちろん", "いく"],
+      ["もちろん", "いく"],
+    ),
+    sentenceMcq({
+      id: "ja-m30-story-mcq-1",
+      prompt: "Which line from scene 1 is the CASUAL invitation?",
+      correctKana: "ひるごはん たべない？",
+      distractorsKana: ["ひるごはんを たべませんか。", "ひるごはんを たべました。", "ひるごはんを たべます。"],
+      explanation: "たべない？ drops か — the casual pattern; the others are polite, past, or plain-statement forms.",
+    }),
+    dialogueListen({
+      id: "ja-m30-story-s2",
+      lines: [
+        { speaker: "ゆき", kana: "ひるごはんを たべませんか。" },
+        { speaker: "たなかさん", kana: "もちろん、いきます。" },
+        { speaker: "ゆき", kana: "ありがとうございます。" },
+      ],
+      questions: [
+        {
+          id: "s2-q1",
+          prompt: "How does ゆき invite her boss to lunch?",
+          correctText: "Politely — she uses ませんか, keeping the question form fully polite.",
+          distractors: [
+            "Casually — she drops か.",
+            "She doesn't invite him, she asks permission.",
+            "She uses ましょう instead.",
+          ],
+          explanation: "たべませんか keeps か and ます — the polite invitation from m23, reused here for a じょうし.",
+        },
+        {
+          id: "s2-q2",
+          prompt: "Why does ゆき switch to polite speech here, even though it's the same invitation as scene 1?",
+          correctText: "Her boss (じょうし) gets keigo/polite speech, not casual, regardless of the content.",
+          distractors: [
+            "Polite speech is only for strangers, and her boss is a stranger.",
+            "She's asking a different question this time.",
+            "Casual speech would be grammatically wrong here.",
+          ],
+          explanation:
+            "Every sentence in both scenes is grammatically correct casual OR polite Japanese — the choice is entirely about WHO she's speaking to (pair 4's register-awareness rule).",
+        },
+      ],
+      exercisedAtomKanas: ["ひるごはん"],
+    }),
+    build(
+      "ja-m30-story-response-2",
+      "Reply politely as her boss: 'Of course, I'll go.'",
+      "もちろん、いきます",
+      ["もちろん", "いきます", "いく", "いきません"],
+      ["もちろん", "いきます"],
+      ["もちろん"],
+    ),
+    sentenceMcq({
+      id: "ja-m30-story-mcq-synthesis",
+      prompt: "Why does ゆき say almost completely different sentences for the exact same lunch invitation in scene 1 vs scene 2?",
+      correctKana: "Same content, different register — her boss gets polite speech, her friend gets casual.",
+      distractorsKana: [
+        "She's inviting them to two different meals.",
+        "Scene 2 is a repeat because scene 1 failed.",
+        "Only her boss understands Japanese fully.",
+      ],
+      explanation: "This whole module hammers this point: WHO you're talking to decides register, not what you're saying.",
+    }),
+    listeningBuildSentence({
+      id: "ja-m30-story-lb-1",
+      target: "ひるごはん たべない",
+      tiles: ["ひるごはん", "たべない", "たべます", "か"],
+      correctOrder: ["ひるごはん", "たべない"],
+      promptEn: "Hear it, build it (casual): 'Wanna eat lunch?'",
+    }),
+    speaking("ja-m30-story-speak-1", "ひるごはん たべない？", "Wanna eat lunch?"),
+    sentenceMcq({
+      id: "ja-m30-story-mcq-2",
+      prompt: "Which line from scene 2 shows the POLITE version of the SAME invitation?",
+      correctKana: "ひるごはんを たべませんか。",
+      distractorsKana: ["ひるごはん たべない？", "もちろん、いきます。", "ありがとうございます。"],
+      explanation: "たべませんか is scene 2's polite rewrite of scene 1's casual たべない？.",
+    }),
+    speaking("ja-m30-story-speak-2", "ひるごはんを たべませんか。", "Won't you eat lunch?"),
+    reviewMatchPairs("ja-m30-story-rev", pickReviewAtoms("ja-m30-story-rev", M30_REVIEW_POOL, 4)),
+  ],
+};
+
+assertNoConsecutiveSame(M30_STORY.steps);
+assertPassiveCardsHaveFollowup(M30_STORY.steps);
+assertNoExplanationOnPassive(M30_STORY.steps);
+assertExplanationDoesntLeakAnswer(M30_STORY.steps);
+
+// ═══════════════════════════════════════════════════════════════════════
+// M30-7-1 — Comprehension drill — register (mixed forms)
+// ═══════════════════════════════════════════════════════════════════════
+
+const M30_7_1_REVIEW = pickReviewAtoms("ja-m30-7-1-rev", M30_REVIEW_POOL, 4);
+
+export const M30_7_1: LessonContent = {
+  id: "ja-m30-7-1",
+  moduleId: "m30",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Comprehension drill — register",
+  description:
+    "Listening + reading comprehension across every register move taught in m30.",
+  estimatedMinutes: 10,
+  xpReward: 26,
+  steps: [
+    listeningCompSentence({
+      id: "ja-m30-7-1-lc-1",
+      audioText: "あした しごとに くる？",
+      correctMeaningEn: "Are you coming to work tomorrow? (casual)",
+      distractorsEn: [
+        "Are you coming to work tomorrow? (polite)",
+        "Did you come to work yesterday?",
+        "I'm not coming to work tomorrow.",
+      ],
+      exercisedAtomKanas: ["しごと"],
+    }),
+    kanjiReading("ja-m30-7-1-kr-kiku", { kana: "きく", meaningEn: "to listen, to ask", fromModule: "m24" }),
+    sentenceMcq({
+      id: "ja-m30-7-1-mcq-1",
+      prompt: "Which means the exact same thing as きますか but sounds casual?",
+      correctKana: "くる？",
+      distractorsKana: ["きたか。", "こないか。", "きましたか。"],
+      explanation: "くる？ drops か + rises in tone; the others tack か onto past/negative or stay fully polite.",
+    }),
+    build(
+      "ja-m30-7-1-build-1",
+      "Say politely to your boss: Are you coming to the company tomorrow?",
+      "あした かいしゃに きますか",
+      ["あした", "かいしゃ", "に", "きますか", "くる", "？"],
+      ["あした", "かいしゃ", "に", "きますか"],
+    ),
+    listeningCompSentence({
+      id: "ja-m30-7-1-lc-2",
+      audioText: "どうりょうには ちょっと けいごで はなす。",
+      correctMeaningEn: "I speak a little in keigo with my colleague.",
+      distractorsEn: [
+        "I speak entirely in casual style with my colleague.",
+        "I don't speak with my colleague.",
+        "I never use keigo with my colleague.",
+      ],
+      exercisedAtomKanas: ["どうりょう", "けいご"],
+    }),
+    build(
+      "ja-m30-7-1-build-2",
+      "Say to a friend, casually: Why are you tired?",
+      "なんで つかれてるの",
+      ["なんで", "つかれてるの", "つかれていますか", "です"],
+      ["なんで", "つかれてるの"],
+      ["なんで"],
+    ),
+    speaking("ja-m30-7-1-speak-1", "せんぱいには ぜったい しつれいな ことは しない。", "I absolutely won't be rude to my senior.", ["せんぱい", "ぜったい", "しつれい"]),
+    sentenceMcq({
+      id: "ja-m30-7-1-mcq-2",
+      prompt: "Which would be しつれい to say to a しりあい (someone you just met)?",
+      correctKana: "なにしてるの？",
+      distractorsKana: ["なにを していますか。", "げんきですか。", "けいごで はなしますか。"],
+      explanation: "The casual の-question fits a close friend, not a new しりあい — keigo/polite is the safe default there.",
+      exercisedAtomKanas: ["しりあい"],
+    }),
+    build(
+      "ja-m30-7-1-build-3",
+      "Say politely to an acquaintance: What are you doing?",
+      "なにを していますか",
+      ["なに", "を", "していますか", "してるの", "か"],
+      ["なに", "を", "していますか"],
+    ),
+    listeningBuildSentence({
+      id: "ja-m30-7-1-lb-1",
+      target: "どうしたの しごとが きになる",
+      tiles: ["どうしたの", "しごと", "が", "きになる", "です"],
+      correctOrder: ["どうしたの", "しごと", "が", "きになる"],
+      promptEn: "Hear it, build it (casual): 'What's up? I'm just worried about work.'",
+      exercisedAtomKanas: ["どうしたの", "しごと", "きになる"],
+    }),
+    sentenceMcq({
+      id: "ja-m30-7-1-mcq-3",
+      prompt: "Which softens どうしたの？ into fully polite speech?",
+      correctKana: "どうしましたか。",
+      distractorsKana: ["どうしたのか。", "どうしたですか。", "どうする？"],
+      explanation:
+        "Polite conversion reforms the whole verb (した → しました); tacking か onto の or です onto した just stacks registers.",
+      exercisedAtomKanas: ["どうしたの"],
+    }),
+    translateStep({
+      id: "ja-m30-7-1-translate",
+      promptEn: "Say to a friend, casually: Why are you tired?",
+      acceptedAnswers: ["なんで つかれてるの", "なんで つかれてるの？"],
+      audioText: "なんで つかれてるの？",
+      exercisedAtomKanas: ["なんで"],
+    }),
+    selfExplain({
+      id: "ja-m30-7-1-self-explain",
+      anchorLabel: "どうしたの vs どうしましたか",
+      anchorAudioText: "どうしましたか。",
+      question: "Why can't you just add ですか onto どうしたの to make it polite (どうしたのですか)?",
+      rule: {
+        text: "どうしたの is already a fixed casual collocation (どう + した + の); making it fully polite means swapping the whole verb to its ます-form (どうしました) rather than patching です onto the casual pattern.",
+      },
+      surface: {
+        text: "どうしたのですか is the standard polite form and is used constantly in real speech.",
+      },
+      distractor: {
+        text: "どうしたの is grammatically incomplete without ですか, so adding it on is always required.",
+      },
+      ruleExplanation:
+        "Stacking です onto a casual collocation is the same class of mistake pair 3's rule warned against (mixing した／ています／の／か registers) — polite conversion reforms the whole verb, it doesn't layer politeness markers onto a casual shape.",
+    }),
+    speaking("ja-m30-7-1-speak-close", "どうしたの？ かいしゃが きになる。", "What's up? I'm worried about the company.", ["どうしたの", "きになる", "かいしゃ"]),
+    // ── Review tail ──
+    vocabMcq("ja-m30-7-1-rev-mcq-1", M30_7_1_REVIEW[0], M30_REVIEW_POOL),
+    listeningCompSentence({
+      id: "ja-m30-7-1-rev-lc-1",
+      audioText: "こうえんで ばんごはんを たべました",
+      correctMeaningEn: "I ate dinner at the park.",
+      distractorsEn: [
+        "I ate breakfast at the park.",
+        "I eat dinner at the park every day.",
+        "I didn't eat dinner at the park.",
+      ],
+    }),
+    speaking("ja-m30-7-1-rev-speak-1", M30_7_1_REVIEW[2].kana, M30_7_1_REVIEW[2].meaningEn),
+    reviewMatchPairs("ja-m30-7-1-rev", M30_7_1_REVIEW),
+  ],
+};
+
+assertNoSameAnswerCluster(M30_7_1.steps);
+assertAnswerRotation(M30_7_1.steps, 1);
+assertNoConsecutiveSame(M30_7_1.steps);
+
+// ═══════════════════════════════════════════════════════════════════════
+// M30-7-2 — Final production — M30 (register-switch mastery)
+// ═══════════════════════════════════════════════════════════════════════
+
+const M30_7_2_REVIEW = pickReviewAtoms("ja-m30-7-2-rev", M30_REVIEW_POOL, 5);
+
+export const M30_7_2: LessonContent = {
+  id: "ja-m30-7-2",
+  moduleId: "m30",
+  courseId: COURSE,
+  languageId: LANG,
+  title: "Final production — M30",
+  description:
+    "Full production, both registers, at full speed. You can now read a relationship and pick the right register on the fly.",
+  estimatedMinutes: 10,
+  xpReward: 28,
+  steps: [
+    build(
+      "ja-m30-7-2-build-1",
+      "Say to a friend, casually: I absolutely won't use polite language with my mates.",
+      "なかまには ぜったい けいごを つかわない",
+      ["なかま", "には", "ぜったい", "けいご", "を", "つかわない", "つかいます"],
+      ["なかま", "には", "ぜったい", "けいご", "を", "つかわない"],
+      ["なかま", "ぜったい", "けいご"],
+    ),
+    speaking(
+      "ja-m30-7-2-speak-1",
+      "なかまには ぜったい けいごを つかわない。",
+      "I absolutely won't use polite language with my mates.",
+      ["なかま", "ぜったい", "けいご"],
+    ),
+    listeningCompSentence({
+      id: "ja-m30-7-2-lc-1",
+      audioText: "じょうしには もちろん ていねいに はなします。",
+      correctMeaningEn: "Of course I speak politely with my boss.",
+      distractorsEn: [
+        "Of course I speak casually with my boss.",
+        "I never speak with my boss.",
+        "I spoke rudely to my boss.",
+      ],
+      exercisedAtomKanas: ["じょうし", "もちろん", "ていねい"],
+    }),
+    build(
+      "ja-m30-7-2-build-2",
+      "Say politely to your senior: I absolutely helped my colleague.",
+      "どうりょうを ぜったい てつだいました",
+      ["どうりょう", "を", "ぜったい", "てつだいました", "てつだった", "てつだう"],
+      ["どうりょう", "を", "ぜったい", "てつだいました"],
+      ["どうりょう", "ぜったい", "てつだう"],
+    ),
+    sentenceMcq({
+      id: "ja-m30-7-2-mcq-1",
+      prompt: "Which correctly keeps BOTH the register and the meaning: 'As expected, my junior speaks casually'?",
+      correctKana: "やっぱり、こうはいは ためぐちで はなす。",
+      distractorsKana: [
+        "やっぱり、こうはいは けいごで はなす。",
+        "たぶん、こうはいは ためぐちで はなす。",
+        "やっぱり、じょうしは ためぐちで はなす。",
+      ],
+      explanation: "やっぱり confirms an assumption; swapping けいご or じょうし in reverses the register or the role.",
+      exercisedAtomKanas: ["やっぱり", "こうはい", "ためぐち"],
+    }),
+    speaking("ja-m30-7-2-speak-2", "どうしたの？ しごとが きになる。", "What's up? I'm worried about work.", ["どうしたの", "きになる", "しごと"]),
+    build(
+      "ja-m30-7-2-build-3",
+      "Say casually to your なかま: Are you absolutely free this weekend?",
+      "しゅうまつ ぜったい ひま",
+      ["しゅうまつ", "ぜったい", "ひま", "ひまですか", "か"],
+      ["しゅうまつ", "ぜったい", "ひま"],
+      ["ぜったい"],
+    ),
+    listeningBuildSentence({
+      id: "ja-m30-7-2-lb-1",
+      target: "しりあいには けいごで はなしませんか",
+      tiles: ["しりあい", "には", "けいご", "で", "はなしませんか", "はなさない"],
+      correctOrder: ["しりあい", "には", "けいご", "で", "はなしませんか"],
+      promptEn: "Hear it, build it (polite): 'Won't you speak in keigo with an acquaintance?'",
+      exercisedAtomKanas: ["しりあい", "けいご"],
+    }),
+    sentenceMcq({
+      id: "ja-m30-7-2-mcq-2",
+      prompt: "Which means 'Sure, I'm absolutely coming!' (casual)?",
+      correctKana: "いいよ、ぜったい くる！",
+      distractorsKana: ["いいですね、ぜったい きます。", "ちょっと、ぜったい くる。", "もちろん、ぜったい こない。"],
+      explanation: "いいよ + くる is casual accept + certainty; the others mix register, decline, or reverse polarity.",
+      exercisedAtomKanas: ["ぜったい"],
+    }),
+    speaking("ja-m30-7-2-speak-3", "いいよ、ぜったい くる！", "Sure, I'm absolutely coming!", ["ぜったい"]),
+    translateStep({
+      id: "ja-m30-7-2-translate",
+      promptEn: "Say politely to your boss: I absolutely helped my colleague.",
+      acceptedAnswers: ["どうりょうを ぜったい てつだいました", "どうりょうを ぜったい てつだいました。"],
+      audioText: "どうりょうを ぜったい てつだいました",
+      exercisedAtomKanas: ["どうりょう", "ぜったい", "てつだう"],
+    }),
+    build(
+      "ja-m30-7-2-build-4",
+      "Say to a friend, casually: What's up? I'm just curious about my colleague.",
+      "どうしたの？ どうりょうが きになる",
+      ["どうしたの", "どうりょう", "が", "きになる", "です"],
+      ["どうしたの", "どうりょう", "が", "きになる"],
+      ["どうしたの", "どうりょう", "きになる"],
+    ),
+    selfExplain({
+      id: "ja-m30-7-2-self-explain",
+      anchorLabel: "Full M30 mastery",
+      anchorAudioText: "なかまには ぜったい けいごを つかわない。",
+      question: "What's the actual payoff of everything this module drilled, beyond sounding more natural?",
+      rule: {
+        text: "You can now read a relationship — friend, senpai, boss, new acquaintance — and pick the RIGHT register on the fly without changing what you're actually saying. That social read is a skill native speakers use constantly and learners usually miss.",
+      },
+      surface: {
+        text: "This module was mostly about memorising a list of new adverbs and social-role nouns.",
+      },
+      distractor: {
+        text: "Register only matters in formal writing — it's not something you need to track in real spoken conversation.",
+      },
+      ruleExplanation:
+        "Every pair in this module pointed at the same skill: the same content — a question, an invitation, a comment — can be said in two totally different ways, and choosing the wrong one is a social mistake even when the grammar is flawless. That's the switch you can now make.",
+    }),
+    speaking("ja-m30-7-2-speak-close", "じょうしには もちろん ていねいに はなします。", "Of course I speak politely with my boss.", ["じょうし", "もちろん", "ていねい"]),
+    // ── Review tail ──
+    vocabMcq("ja-m30-7-2-rev-mcq-1", M30_7_2_REVIEW[0], M30_REVIEW_POOL),
+    listeningCompSentence({
+      id: "ja-m30-7-2-rev-lc-1",
+      audioText: "まいにち にほんごを れんしゅうします",
+      correctMeaningEn: "I practice Japanese every day.",
+      distractorsEn: [
+        "I practiced Japanese yesterday.",
+        "I practice English every day.",
+        "I don't practice Japanese.",
+      ],
+    }),
+    speaking("ja-m30-7-2-rev-speak-1", M30_7_2_REVIEW[2].kana, M30_7_2_REVIEW[2].meaningEn),
+    reviewMatchPairs("ja-m30-7-2-rev", M30_7_2_REVIEW.slice(0, 5)),
+  ],
+};
+
+assertNoSameAnswerCluster(M30_7_2.steps);
+assertAnswerRotation(M30_7_2.steps, 1);
+assertNoConsecutiveSame(M30_7_2.steps);
+
+// ═══════════════════════════════════════════════════════════════════════
+// Module-level assertions (full module — pairs 1-7 + story)
 // ═══════════════════════════════════════════════════════════════════════
 
 assertNoSameAnswerCluster([
@@ -1341,11 +2383,18 @@ assertNoSameAnswerCluster([
   ...M30_3_2.steps,
   ...M30_4_1.steps,
   ...M30_4_2.steps,
+  ...M30_5_1.steps,
+  ...M30_5_2.steps,
+  ...M30_6_1.steps,
+  ...M30_6_2.steps,
+  ...M30_7_1.steps,
+  ...M30_7_2.steps,
 ]);
 
 // Passive-card lint
 for (const lesson of [
   M30_1_1, M30_1_2, M30_2_1, M30_2_2, M30_3_1, M30_3_2, M30_4_1, M30_4_2,
+  M30_5_1, M30_5_2, M30_6_1, M30_6_2, M30_STORY, M30_7_1, M30_7_2,
 ]) {
   assertPassiveCardsHaveFollowup(lesson.steps);
   assertNoExplanationOnPassive(lesson.steps);

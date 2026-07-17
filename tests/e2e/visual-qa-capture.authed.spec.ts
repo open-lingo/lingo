@@ -74,7 +74,24 @@ test.describe("@visual-qa per-step capture", () => {
         // states is the #1 vision-judge failure mode.
         await page.waitForTimeout(700);
         const png = `step-${String(c.stepIndex).padStart(3, "0")}-${c.stepId}.png`;
-        await stage.screenshot({ path: path.join(dir, png) });
+        // Stability guard (2026-07-17, two iterations): under parallel
+        // workers the fixed settle wait raced BOTH the initial paint
+        // (~2.8KB all-white PNGs) and the entrance ANIMATION (content
+        // captured mid-slide → squeezed/clipped cards the judges then
+        // flag). Neither a size check alone nor a longer fixed wait is
+        // robust — so capture until two consecutive frames are IDENTICAL
+        // and non-blank, bounded at ~4s extra.
+        let shot = await stage.screenshot();
+        for (let retry = 0; retry < 8; retry++) {
+          await page.waitForTimeout(500);
+          const next = await stage.screenshot();
+          if (next.equals(shot) && next.byteLength >= 6_000) {
+            shot = next;
+            break;
+          }
+          shot = next;
+        }
+        fs.writeFileSync(path.join(dir, png), shot);
         manifest.push({
           stepIndex: c.stepIndex,
           stepId: c.stepId,
