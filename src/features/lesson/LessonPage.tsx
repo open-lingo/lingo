@@ -22,6 +22,7 @@ import {
 import type { LessonContent, LessonStep, ReactiveGrammarTip } from "./types";
 import { StepRenderer } from "./components/StepRenderer";
 import { ReactiveGrammarTipCard } from "./components/ReactiveGrammarTipCard";
+import { LessonIntro } from "./components/LessonIntro";
 import { LessonProgressBar } from "./components/LessonProgressBar";
 import { LessonComplete } from "./components/LessonComplete";
 import { LanguageSymbolMasteryProvider as KanaMasteryProvider } from "@/shared/symbolMastery/LanguageSymbolMasteryProvider";
@@ -821,6 +822,7 @@ export function LessonPage() {
 
   return (
     <KanaMasteryProvider>
+    <LessonIntro />
     {activeGrammarTip && (
       <ReactiveGrammarTipCard
         tip={activeGrammarTip}

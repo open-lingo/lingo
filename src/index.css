@@ -222,6 +222,26 @@ html::-webkit-scrollbar-button,
   animation: shake 480ms cubic-bezier(.36,.07,.19,.97) both;
 }
 
+/* Lesson-start flourish: a swirl spins + scales out from the center while a
+   themed backdrop fades in then out. One-shot on lesson mount; the whole
+   overlay unmounts when it ends (see LessonIntro). */
+@keyframes lesson-intro-veil {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes lesson-intro-swirl {
+  0% { transform: scale(0.2) rotate(-140deg); opacity: 0; }
+  35% { opacity: 1; }
+  100% { transform: scale(1.9) rotate(200deg); opacity: 0; }
+}
+.lesson-intro-veil {
+  animation: lesson-intro-veil 900ms ease-in-out both;
+}
+.lesson-intro-swirl {
+  animation: lesson-intro-swirl 900ms cubic-bezier(.22,.61,.36,1) both;
+}
+
 /* AnnotatedJa: ruby helpers for Japanese kana/kanji. Helper text fades in/out
    when a kana crosses the mastery threshold mid-session. */
 ruby {
