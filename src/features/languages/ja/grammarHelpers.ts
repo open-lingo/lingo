@@ -7,6 +7,7 @@
  */
 import type {
   BuildSentenceStep,
+  ConjugationClozeStep,
   DialogueListenStep,
   GrammarRuleStep,
   GrammarExample,
@@ -35,7 +36,15 @@ import { isKana } from "@/shared/japanese/kanaTable";
 import { KANJI_ELIGIBLE_ATOMS } from "./secondScript/applyKanjiSurfaces";
 import { readingDistractors } from "./secondScript/readingDistractors";
 import { annotateJapaneseText } from "./romajiLexicon";
-import { VERB_ENTRIES, ADJ_ENTRIES } from "./conjugationTables";
+import { VERB_ENTRIES, ADJ_ENTRIES, type VerbGroup } from "./conjugationTables";
+import {
+  conjugateVerb,
+  CHAIN_FORM_LABELS,
+  type ChainForm,
+} from "./conjugationEngine";
+// PURE leaf module (not trainerSession — its SRS chain closes an import
+// cycle back into the curriculum through the language registry).
+import { generateFormationDistractors } from "./conjugation/formationDistractors";
 
 /**
  * Resolve a course atom ID from a phrase_card's kana. Used by the `phrase()`
@@ -407,6 +416,32 @@ export function build(
   };
 }
 
+/**
+ * Transform build (n4-scoping "sentence_transform"): show a JA source
+ * sentence + a short operation chip ("→ casual"), learner assembles the
+ * transformed sentence from tiles. A parametrized `build_sentence` — same
+ * grading, same guards, same density slot. The prompt must still state the
+ * operation in English WITH the register cue (pinned invariant 7), e.g.
+ * "Rewrite for a friend:" — the chip is reinforcement, not the only cue.
+ */
+export function transformBuild(
+  id: string,
+  prompt: string,
+  sourceSentence: string,
+  transformLabel: string,
+  target: string,
+  tiles: string[],
+  correctOrder: string[],
+  exercisedAtomKanas?: string[],
+): BuildSentenceStep {
+  return {
+    ...build(id, prompt, target, tiles, correctOrder, exercisedAtomKanas),
+    sourceSentence,
+    sourceAnnotation: buildSentenceAnnotation(sourceSentence),
+    transformLabel,
+  };
+}
+
 export function infoStep(
   id: string,
   title: string,
@@ -593,7 +628,7 @@ export type ReviewAtom = {
   kana: string;
   meaningEn: string;
   emoji?: string;
-  fromModule: "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7" | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17" | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27" | "m28" | "m29";
+  fromModule: "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7" | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17" | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27" | "m28" | "m29" | "m30";
 };
 
 /**
@@ -937,6 +972,16 @@ export const WORD_IMAGE_MCQ_BLOCKLIST: ReadonlySet<string> = new Set([
   "ふたつ",   // 2 things (generic counter) — abstract grouping
   "みっつ",   // 3 things (generic counter) — abstract grouping
   "から",     // particle (from) — grammar marker, no visual
+  // 2026-07-17 m30 casual-register pilot: abstract adverbs/fillers with no
+  // honest visual referent (docs/n4-pilot-spine-2026-07-16.md m30 table).
+  "きになる",   // "on my mind" idiom (spine's bare き would collide with the
+                // existing tree き atom, m18 — see m30.ts file header) — abstract
+  "なんで",     // why (casual) — abstract interrogative
+  "どうしたの", // "what's up?" — function phrase, no visual
+  "べつに",     // not particularly — abstract adverb
+  "やっぱり",   // as expected, after all — abstract adverb
+  "もちろん",   // of course — abstract adverb
+  "ぜったい",   // absolutely — abstract adverb
 ]);
 
 /**
@@ -1306,6 +1351,112 @@ export function kanjiReading(
     audioText: target.kana,
     exercisedAtoms: resolveAtomIds([target.kana]),
     modality: "recognition",
+  };
+}
+
+/**
+ * `conjugation_cloze` factory (n4-scoping-2026-07-16 §3 ACCEPT): a sentence
+ * frame with a blank where a CONJUGATED verb form goes, cued by
+ * "dictionary form → target form" (+ optional English cue). The learner
+ * picks the correctly derived form from 4 options.
+ *
+ * ENGINE PROVENANCE (do not hand-author distractors): the correct surface
+ * comes from `conjugateVerb` and ALL 3 distractors from
+ * `generateFormationDistractors` (conjugation/trainerSession.ts) — the
+ * trainer's anti-elimination generator: same-verb wrong sound-change
+ * (のむ→のみて), wrong-class rule application, wrong tense/polarity within
+ * the ending family, attach-to-dictionary (のむます). Those are often
+ * NON-WORDS by design — this is a derivation drill, so engine-generated
+ * wrong-derivation shapes ARE the tested contrast (same pedagogy as the
+ * standalone trainer + QA fix 25b1f46). Gate 5's invented-form blocklist
+ * exempts `conjugation_cloze` for exactly this reason
+ * (moduleContentLints.ts).
+ *
+ * `group` resolves from `VERB_ENTRIES` by dictionary form; pass
+ * `opts.group` for verbs not (yet) in the tables or for ichidan/godan
+ * homographs (きる, かえる).
+ *
+ * Correct-slot rotation via `slotFor(id, 4)` like every MCQ factory here
+ * (mcq-position-distribution gate: no slot > 55%).
+ *
+ * `audioText` defaults to the assembled sentence
+ * `before + correct + after` (spaces collapsed the way TTS keys are
+ * authored); it plays post-commit only — it contains the answer.
+ */
+export function conjugationCloze(opts: {
+  id: string;
+  /** Sentence half before the blank, e.g. "わたしは にほんごを ". */
+  before: string;
+  /** Sentence half after the blank, e.g. "、テレビを みます。". */
+  after: string;
+  /** Dictionary form of the verb under derivation, e.g. はなす. */
+  verb: string;
+  /** Target chain form the learner must derive, e.g. "te" / "tai". */
+  form: ChainForm;
+  meaningEn: string;
+  /** Optional English cue for the blank itself, e.g. "want to speak". */
+  cueEn?: string;
+  /** Verb class override — required when `verb` is not in VERB_ENTRIES. */
+  group?: VerbGroup;
+  /** Override the assembled-sentence TTS key. */
+  audioText?: string;
+  explanation?: string;
+}): ConjugationClozeStep {
+  const group =
+    opts.group ??
+    VERB_ENTRIES.find((v) => v.dictionary === opts.verb)?.group;
+  if (!group) {
+    throw new Error(
+      `conjugationCloze(${opts.id}): '${opts.verb}' is not in VERB_ENTRIES — pass opts.group ("godan" | "ichidan" | "irregular")`,
+    );
+  }
+  // Engine-derived answer + distractors — the whole point of the type.
+  const correct = conjugateVerb(opts.verb, group, opts.form);
+  const distractors = generateFormationDistractors(
+    opts.verb,
+    group,
+    opts.form,
+    correct,
+  );
+  if (distractors.length < 3) {
+    throw new Error(
+      `conjugationCloze(${opts.id}): engine produced only ${distractors.length} distractor(s) for ${opts.verb} → ${opts.form} — pick a different form or verb`,
+    );
+  }
+
+  const slot = slotFor(opts.id, 4);
+  const options: { id: string; text: string }[] = [];
+  let di = 0;
+  for (let i = 0; i < 4; i++) {
+    if (i === slot) options.push({ id: "correct", text: correct });
+    else options.push({ id: `opt-${i}`, text: distractors[di++] });
+  }
+
+  return {
+    id: opts.id,
+    type: "conjugation_cloze",
+    prompt: { before: opts.before, after: opts.after },
+    verb: opts.verb,
+    form: opts.form,
+    formLabel: CHAIN_FORM_LABELS[opts.form],
+    ...(opts.cueEn ? { cueEn: opts.cueEn } : {}),
+    options,
+    correctOptionId: "correct",
+    meaningEn: opts.meaningEn,
+    // Full sentence with the CORRECT form — post-commit audio only.
+    audioText: opts.audioText ?? `${opts.before}${correct}${opts.after}`,
+    ...(opts.explanation ? { explanation: opts.explanation } : {}),
+    // Ruby data for the frame halves; `*Annotation` keys so the kanji
+    // post-pass (applyKanjiSurfaces) can rewrite eligible frame words.
+    // A half may be empty (blank at a sentence edge) — no annotation then.
+    ...(opts.before.trim()
+      ? { beforeAnnotation: buildSentenceAnnotation(opts.before) }
+      : {}),
+    ...(opts.after.trim()
+      ? { afterAnnotation: buildSentenceAnnotation(opts.after) }
+      : {}),
+    exercisedAtoms: resolveAtomIds([opts.verb]),
+    modality: "production",
   };
 }
 

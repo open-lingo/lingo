@@ -13,6 +13,7 @@ export const STEP_KINDS: { value: StepKind; label: string; group: string }[] = [
   { value: "translate", label: "Translate", group: "Drill" },
   { value: "particle_cloze", label: "Particle cloze", group: "Drill" },
   { value: "agreement_cloze", label: "Agreement cloze", group: "Drill" },
+  { value: "conjugation_cloze", label: "Conjugation cloze", group: "Drill" },
   { value: "kanji_reading", label: "Kanji reading", group: "Drill" },
   { value: "self_explanation_mcq", label: "Self-explanation MCQ", group: "Drill" },
   { value: "word_image_mcq", label: "Word ↔ image MCQ", group: "Drill" },
@@ -85,6 +86,21 @@ export function newStepShell(kind: StepKind, id: string): LessonStep {
         ...base,
         type: "agreement_cloze",
         segments: [],
+        meaningEn: "",
+      };
+    case "conjugation_cloze":
+      // Empty shell for shape only. Real steps must come from the
+      // `conjugationCloze` factory (grammarHelpers) — answer + distractors
+      // are engine-derived, never hand-authored.
+      return {
+        ...base,
+        type: "conjugation_cloze",
+        prompt: { before: "", after: "" },
+        verb: "",
+        form: "te",
+        formLabel: "て form",
+        options: [],
+        correctOptionId: "",
         meaningEn: "",
       };
     case "kanji_reading":
@@ -225,6 +241,10 @@ export function summariseStep(step: LessonStep): string {
         step.segments
           .map((s) => ("text" in s ? s.text : "__"))
           .join(""),
+      );
+    case "conjugation_cloze":
+      return truncate(
+        `${step.prompt.before}__${step.prompt.after} (${step.verb} → ${step.formLabel})`,
       );
     case "kanji_reading":
       return `${step.kanji} → ${step.reading}`;

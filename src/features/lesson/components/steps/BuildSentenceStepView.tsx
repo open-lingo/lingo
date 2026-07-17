@@ -209,6 +209,26 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
         <p className="text-sm text-text-muted">{step.hint}</p>
       )}
 
+      {step.sourceSentence && (
+        /* Transform mode: the source sentence the learner rewrites. Reads
+           as given-material (muted card), never as the answer — the target
+           is assembled from the tiles below. */
+        <div className="mx-auto flex w-fit items-center gap-3 rounded-xl border border-border bg-surface-muted px-4 py-3">
+          <span className="text-xl text-text-primary" data-testid="transform-source">
+            {step.sourceAnnotation ? (
+              <AnnotatedJa segments={step.sourceAnnotation} />
+            ) : (
+              <AnnotatedJa text={step.sourceSentence} />
+            )}
+          </span>
+          {step.transformLabel && (
+            <span className="whitespace-nowrap rounded-full bg-accent-muted px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-accent">
+              {step.transformLabel}
+            </span>
+          )}
+        </div>
+      )}
+
       {showSlots ? (
         /* WORD-BUILD SLOTS (first encounters): one outlined slot per
            answer kana — pre-sized by invisible copies of the answer

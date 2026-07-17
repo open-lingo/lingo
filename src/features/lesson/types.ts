@@ -20,6 +20,7 @@ export type StepType =
   | "grammar_rule"
   | "particle_cloze"
   | "agreement_cloze"
+  | "conjugation_cloze"
   | "kanji_reading"
   | "self_explanation_mcq"
   | "dialogue_listen"
@@ -156,6 +157,16 @@ export type BuildSentenceStep = StepBase & {
   audioKey?: string;
   granularity: "word" | "character";
   targetAnnotation?: JapaneseAnnotation[];
+  /**
+   * TRANSFORM MODE (n4-scoping §3 "sentence_transform" verdict: parametrize,
+   * don't fork the type). When set, the JA source sentence renders above the
+   * tile bank and the learner assembles its transformation (polite↔plain,
+   * etc.). `transformLabel` is the short operation chip ("→ casual").
+   * Grading, tiles, and audio behavior are unchanged.
+   */
+  sourceSentence?: string;
+  sourceAnnotation?: JapaneseAnnotation[];
+  transformLabel?: string;
 };
 
 export type MatchPair = {
@@ -472,6 +483,59 @@ export type AgreementClozeStep = StepBase & {
 };
 
 /**
+ * Conjugation Cloze (JA, N4 wave — n4-scoping-2026-07-16 §3 ACCEPT). A
+ * sentence with a blank where a CONJUGATED verb form goes, plus a cue
+ * naming the dictionary form and the target form ("はなす → て form",
+ * optionally an English cue). The learner picks the correctly derived
+ * form from 4 options. No other type drills a conjugated form in sentence
+ * context: `particle_cloze` is particles only; `fill_blank` is generic
+ * free-text with no form logic.
+ *
+ * ENGINE-BACKED, never hand-authored: the `conjugationCloze` factory
+ * (grammarHelpers.ts) derives the correct surface via `conjugateVerb`
+ * and the 3 distractors via `generateFormationDistractors` — real
+ * wrong-derivation shapes (wrong sound-change, wrong verb class,
+ * attach-to-dictionary). Engine-generated NON-WORDS are the sanctioned
+ * pedagogy here (this is a derivation drill), which is why Gate 5's
+ * invented-form blocklist explicitly exempts this step type.
+ *
+ * `beforeAnnotation` / `afterAnnotation` carry the sentence halves' ruby
+ * data and are named with the `*Annotation` suffix ON PURPOSE: that is
+ * the key shape `applyKanjiSurfaces.isAnnotationKey` matches, so the
+ * kanji post-pass can rewrite the frame's eligible words while the
+ * options / audio / grading fields stay untouched.
+ *
+ * `audioText` is the full assembled sentence (with the CORRECT form) and
+ * plays post-commit only, like `particle_cloze` — pre-commit it would
+ * speak the answer.
+ */
+export type ConjugationClozeStep = StepBase & {
+  type: "conjugation_cloze";
+  /** Sentence halves around the blank — same shape as ParticleClozeStep. */
+  prompt: { before: string; after: string };
+  /** Dictionary form of the verb under derivation, e.g. はなす. Shown in
+   *  the cue chip; never a valid answer itself. */
+  verb: string;
+  /** Human label of the target form, e.g. "て form" (CHAIN_FORM_LABELS). */
+  formLabel: string;
+  /** Machine id of the target form (ChainForm), kept as metadata for
+   *  analytics / future grammar-SRS mapping. */
+  form: string;
+  /** Optional English cue for the blank's meaning, e.g. "want to speak". */
+  cueEn?: string;
+  /** 4 conjugated surfaces; exactly one is the engine-derived answer. */
+  options: { id: string; text: string }[];
+  correctOptionId: string;
+  meaningEn: string;
+  /** Full assembled sentence TTS key. Played post-commit only. */
+  audioText?: string;
+  /** Ruby data for the sentence halves. `*Annotation`-suffixed so the
+   *  kanji post-pass (applyKanjiSurfaces) can rewrite them. */
+  beforeAnnotation?: JapaneseAnnotation[];
+  afterAnnotation?: JapaneseAnnotation[];
+};
+
+/**
  * Kanji Reading (JA). Shows a kanji word and asks for its KANA READING —
  * the retrieval beat the kanji ladder was missing (surfaces appeared with
  * furigana but were never tested). Direction is strictly kanji → kana.
@@ -641,6 +705,7 @@ export type LessonStep =
   | GrammarRuleStep
   | ParticleClozeStep
   | AgreementClozeStep
+  | ConjugationClozeStep
   | KanjiReadingStep
   | SelfExplanationMcqStep
   | DialogueListenStep
