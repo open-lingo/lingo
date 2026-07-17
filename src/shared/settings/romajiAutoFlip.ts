@@ -133,7 +133,11 @@ export function todayLocalDate(): string {
  */
 export function parseModuleIndex(id: string | undefined): number {
   if (!id) return 0;
-  const match = id.match(/^(?:ja|ko)-m(\d+)(?:[-]|$)/);
+  // Accepts a lesson id (`ja-m29-1-1`), a course/module id (`ja-m29`), and the
+  // BARE module id (`m29`) that `LessonContent.moduleId` actually carries — the
+  // prefix is optional. Missing this made `parseModuleIndex(lesson.moduleId)`
+  // return 0 for every module, silently breaking the romaji-by-module ladder.
+  const match = id.match(/^(?:(?:ja|ko)-)?m(\d+)(?:[-]|$)/);
   if (!match) return 0;
   const n = parseInt(match[1], 10);
   return Number.isFinite(n) ? n : 0;

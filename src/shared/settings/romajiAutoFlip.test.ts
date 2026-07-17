@@ -26,6 +26,14 @@ describe("parseModuleIndex", () => {
     expect(parseModuleIndex("ja-m15-1")).toBe(15);
     expect(parseModuleIndex("ko-m3-vowels")).toBe(3);
   });
+  it("extracts the module number from the BARE moduleId (LessonContent.moduleId)", () => {
+    // Regression: `LessonContent.moduleId` is "m29", not "ja-m29". The
+    // prefix-required regex returned 0, so the romaji-by-module ladder never
+    // fired from a lesson. The prefix is now optional.
+    expect(parseModuleIndex("m29")).toBe(29);
+    expect(parseModuleIndex("m7")).toBe(7);
+    expect(parseModuleIndex("m1")).toBe(1);
+  });
   it("returns 0 for sidequests / unrecognized IDs", () => {
     expect(parseModuleIndex("ja-sidequest-survival-phrases")).toBe(0);
     expect(parseModuleIndex(undefined)).toBe(0);
