@@ -44,9 +44,6 @@ export const MOCK_LESSON_JA_M1_HA_1: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["hito"],
   steps: [
-    { id: "ja-ha1-info-0", type: "info", title: "H-sounds, part 1",
-      body: "Two new kana: は and ひ. Heads-up: は has a second life as a grammar particle, where it's pronounced 'wa'. Outside of that special role, it's just 'ha'.",
-      variant: "culture" },
 
     symbolIntro("ja-ha1-intro-ha", "は", "ha", "/ha/", "like 'ha' in 'hot'", ""),
     traceTwice("ja-ha1-trace-ha", "は", "ha", "like 'ha' in 'hot'"),
@@ -62,8 +59,6 @@ export const MOCK_LESSON_JA_M1_HA_1: LessonContent = {
     symbolToSound(ctx, "ja-ha1-sts-ha", "は", "ha", "like 'ha'"),
     symbolToSound(ctx, "ja-ha1-sts-hi", "ひ", "hi", "like 'hee'"),
 
-    { id: "ja-ha1-info-end", type: "info", title: "Two down",
-      body: "は and ひ. Next: ふ and へ.", variant: "default" },
   ],
 };
 
@@ -75,9 +70,6 @@ export const MOCK_LESSON_JA_M1_HA_2: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["fune"],
   steps: [
-    { id: "ja-ha2-info-0", type: "info", title: "H-sounds, part 2",
-      body: "ふ is softer than English 'foo' — your lips barely touch. へ is a clean 'he'.",
-      variant: "default" },
 
     symbolIntro("ja-ha2-intro-fu", "ふ", "fu", "/ɸɯ/", "soft 'foo' — almost a whisper", "ふね (boat)",
       "Top teeth do NOT touch your bottom lip. It's a blown puff, not an English 'f'."),
@@ -99,8 +91,6 @@ export const MOCK_LESSON_JA_M1_HA_2: LessonContent = {
     symbolToSound(ctx, "ja-ha2-sts-fu", "ふ", "fu", "soft 'foo'"),
     symbolToSound(ctx, "ja-ha2-sts-he", "へ", "he", "like 'help'"),
 
-    { id: "ja-ha2-info-end", type: "info", title: "Four down",
-      body: "Just ほ left — and a full-row review with mic practice.", variant: "default" },
   ],
 };
 
@@ -112,8 +102,6 @@ export const MOCK_LESSON_JA_M1_HA_3: LessonContent = {
   estimatedMinutes: 5, xpReward: 12,
   introducesVocabIds: ["hoshi"],
   steps: [
-    { id: "ja-ha3-info-0", type: "info", title: "H-sounds, finale",
-      body: "Meet ほ, build a star, then check the whole row.", variant: "default" },
 
     symbolIntro("ja-ha3-intro-ho", "ほ", "ho", "/ho/", "like 'ho' in 'hope'", "ほし (star)"),
     traceTwice("ja-ha3-trace-ho", "ほ", "ho", "like 'ho' in 'hope'"),
@@ -128,8 +116,6 @@ export const MOCK_LESSON_JA_M1_HA_3: LessonContent = {
 
     wordImageMcq(ctx, "ja-ha3-mcq-rev-fune", "ふね"),
 
-    { id: "ja-ha3-info-speak", type: "info", title: "Your turn to speak",
-      body: "Tap the mic and say each word. Short words = lenient scoring.", variant: "tip" },
     speaking("ja-ha3-speak-hito",  "ひと", "person"),
     speaking("ja-ha3-speak-fune",  "ふね", "boat"),
     listeningComp("ja-ha3-lc-hito", "ひと", "hito", "person",
@@ -153,8 +139,5 @@ export const MOCK_LESSON_JA_M1_HA_3: LessonContent = {
     // R2-defer-F prior-row review tail — vowels + ka + sa + ta + na pool.
     ...priorRowReviewTail("ha"),
 
-    { id: "ja-ha3-info-end", type: "info", title: "Real-world win",
-      body: "You can now read ふね (boat), ほし (star) — and decode ハート ❤️ (heart) on every Valentine's chocolate wrapper in Japan. Up next — ma row.",
-      variant: "win" },
   ],
 };

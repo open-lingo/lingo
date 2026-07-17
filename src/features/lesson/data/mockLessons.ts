@@ -339,6 +339,8 @@ import {
 import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
 import { withKanaReviewTail } from "./kanaReviewTails";
 import { padMatchPairsFloor, type MatchPadContext } from "./matchPairsFloor";
+import { padBuildTileFloor } from "./buildTileFloor";
+import { applyKanjiSurfaces } from "@/features/languages/ja/secondScript/applyKanjiSurfaces";
 import { deriveGrammarMicroSteps } from "./deriveGrammarMicroSteps";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { ALL_ROWS } from "./hiraganaCurriculum";
@@ -1030,19 +1032,35 @@ export function getMockLessonContent(
     const shaped = isSunsetModuleForBuildSentence(augmented.moduleId)
       ? stripBuildSentenceSteps(augmented)
       : augmented;
-    return padMatchPairsFloor(shaped, getMatchPadContext(shaped.languageId));
+    // Kanji surface pass runs on the fully-shaped lesson (needs moduleId),
+    // beside the tile/pair pads. It edits ONLY *Annotation display fields, so
+    // it commutes with the pads (disjoint fields) — see applyKanjiSurfaces.
+    return applyKanjiSurfaces(
+      padBuildTileFloor(
+        padMatchPairsFloor(shaped, getMatchPadContext(shaped.languageId)),
+      ),
+    );
   }
 
   const reviewMatch = /^ja-(m\d+)-review-([12])$/.exec(lessonId);
   if (reviewMatch) {
-    return padMatchPairsFloor(
-      buildSrsReviewLesson({
-        moduleId: reviewMatch[1],
-        position: parseInt(reviewMatch[2]) as 1 | 2,
-        courseId: "mock-1",
-        languageId: "ja",
-      }),
-      getMatchPadContext("ja"),
+    // Reviews inherit the kanji surface layer via the SAME pass: the review
+    // lesson's moduleId is where the learner is, so an m10 review of m8 vocab
+    // shows kanji with furigana OFF (past the m8+2 window) while m9 vocab
+    // (window m9‑m10) still shows furigana — the owner's "reviews bake in m8 &
+    // m9 production systematically".
+    return applyKanjiSurfaces(
+      padBuildTileFloor(
+        padMatchPairsFloor(
+          buildSrsReviewLesson({
+            moduleId: reviewMatch[1],
+            position: parseInt(reviewMatch[2]) as 1 | 2,
+            courseId: "mock-1",
+            languageId: "ja",
+          }),
+          getMatchPadContext("ja"),
+        ),
+      ),
     );
   }
 

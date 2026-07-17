@@ -35,7 +35,19 @@ await page.click('button:has-text("Start from the beginning")', { timeout: 1500 
 await page.waitForTimeout(2500);
 report(await page.locator(".tmc-root").count() === 1, "ja/learn renders transit map");
 report(await page.locator(".tmc-toggle").count() === 0, "live mode hides demo toggle");
-report(await page.locator("text=← Classic view").count() === 1, "classic-view link present");
+// 2026-07-16 (a40c82d): the "← Classic view" link became a persisted
+// Path⇄List toggle in the signage header; List renders the classic page
+// inline and learn/classic stays as the bare deep link.
+report(
+  (await page.locator('button:text-is("Path")').count()) === 1 &&
+    (await page.locator('button:text-is("List")').count()) === 1,
+  "Path/List view toggle present",
+);
+await page.click('button:text-is("List")').catch(() => {});
+await page.waitForTimeout(1200);
+report(await page.locator('[data-tm="station"]').count() === 0, "List mode swaps out the map");
+await page.click('button:text-is("Path")').catch(() => {});
+await page.waitForTimeout(800);
 
 // 2. classic saved at /ja/learn/classic (no transit root)
 await page.goto(`${BASE}/ja/learn/classic`, { waitUntil: "networkidle" });

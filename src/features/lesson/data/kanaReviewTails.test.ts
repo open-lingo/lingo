@@ -50,11 +50,16 @@ describe("withKanaReviewTail — katakana row lessons", () => {
     }
   });
 
-  it("inserts the tail before a trailing info card", () => {
+  it("appends the tail at the very end (2026-07-16 info purge removed the trailing card)", () => {
+    // Katakana row lessons used to close on a "win" info card; the tail was
+    // spliced in just before it. After the info-step purge there is no
+    // trailing info card, so the tail now lands at the very end — its last
+    // recognition step is the lesson's final step.
     const lesson = ALL_KATAKANA_ROW_LESSONS[0];
     const augmented = withKanaReviewTail(lesson);
     const last = augmented.steps[augmented.steps.length - 1];
-    expect(last.type).toBe("info");
+    expect(last.type).toBe("symbol_recognition");
+    expect(last.id.startsWith(`${lesson.id}-revtail-`)).toBe(true);
     expect(augmented.steps.length).toBe(lesson.steps.length + 3);
   });
 

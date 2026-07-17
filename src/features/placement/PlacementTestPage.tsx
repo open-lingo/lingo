@@ -35,6 +35,7 @@ import {
 } from "@/shared/settings/romajiAutoFlip";
 import { PlacementProgressBar } from "./components/PlacementProgressBar";
 import { PlacementResultScreen } from "./components/PlacementResultScreen";
+import { stopAllAudio } from "@/shared/tts";
 import type { LessonStep } from "@/features/lesson/types";
 
 export function PlacementTestPage() {
@@ -163,8 +164,8 @@ export function PlacementTestPage() {
         setAppliedResult(result);
         setResultApplied(true);
         // Romaji auto-off is position-triggered, not completion-triggered:
-        // a learner who tests OUT of m3-m9 has reached m10 without ever
-        // completing an m10+ lesson, and would otherwise keep the beginner
+        // a learner who tests OUT of m3-m6 has reached m7 without ever
+        // completing an m7+ lesson, and would otherwise keep the beginner
         // romaji scaffold deep into the course (QA 2026-07-11). Position
         // after placement = highest CREDITED module + 1 — assumed modules
         // count too (assume-complete policy: they're treated as known, so
@@ -227,6 +228,10 @@ export function PlacementTestPage() {
       setState((prev) => (prev ? finalizeState(prev) : prev));
       return;
     }
+    // Placement auto-advances on submit, so a cloze's correct-answer clip
+    // could still be playing as the next item mounts. Cut it off so audio
+    // never bleeds into the next question (Spencer QA 2026-07-16).
+    stopAllAudio();
     setCurrentStep(instantiateItem(nextItem));
   }, [
     state,
@@ -252,6 +257,16 @@ export function PlacementTestPage() {
     // State already updated in handleStepComplete — the useEffect will
     // select the next item.
   }, []);
+
+  // Cut off any in-flight TTS when leaving placement / test-out so a
+  // clip can't play on after the learner has navigated away
+  // (Spencer QA 2026-07-16).
+  useEffect(
+    () => () => {
+      stopAllAudio();
+    },
+    [],
+  );
 
   if (!hasBank) {
     return (

@@ -26,7 +26,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -237,11 +236,6 @@ export const M12_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-1-1-info-open",
-      "Telling time",
-      "Numbers you already know + じ = clock time. いちじ, にじ, さんじ — you'll be reading clocks in Japanese by the end of this lesson.",
-    ),
     RULE_CLOCK_HOURS,
     // ── いちじ (1 o'clock) ──
     build(
@@ -365,12 +359,6 @@ export const M12_1_1: LessonContent = {
     }),
     speaking("ja-m12-1-1-rev-speak-1", M12_1_1_REVIEW[2].kana, M12_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-1-1-rev", M12_1_1_REVIEW),
-    infoStep(
-      "ja-m12-1-1-info-end",
-      "You can now tell time for hours 1-6 in Japanese",
-      "いちじ through ろくじ — plus the important irregular よじ (not よんじ).",
-      "win",
-    ),
   ],
 };
 
@@ -395,11 +383,6 @@ export const M12_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-1-2-info-open",
-      "Clock practice",
-      "Quick-fire drills on hours 1-6. Can you hear the difference between にじ, さんじ, and よじ?",
-    ),
     // ── Mixed hour drills ──
     build(
       "ja-m12-1-2-build-rokuji-desu",
@@ -515,12 +498,6 @@ export const M12_1_2: LessonContent = {
     }),
     speaking("ja-m12-1-2-rev-speak-1", M12_1_2_REVIEW[2].kana, M12_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-1-2-rev", M12_1_2_REVIEW),
-    infoStep(
-      "ja-m12-1-2-info-end",
-      "You can now say any hour from 1-6 on the clock",
-      "Hours 1-6 drilled — いちじ through ろくじ, with the irregular よじ locked in.",
-      "win",
-    ),
   ],
 };
 
@@ -545,11 +522,6 @@ export const M12_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-2-1-info-open",
-      "The rest of the clock",
-      "Hours 7-12 complete the clock face. Two more irregulars to watch: しちじ (7) and くじ (9).",
-    ),
     // ── しちじ (7 o'clock — IRREGULAR) ──
     build(
       "ja-m12-2-1-build-shichiji",
@@ -668,12 +640,6 @@ export const M12_2_1: LessonContent = {
     }),
     speaking("ja-m12-2-1-rev-speak-1", M12_2_1_REVIEW[2].kana, M12_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-2-1-rev", M12_2_1_REVIEW),
-    infoStep(
-      "ja-m12-2-1-info-end",
-      "You can now say every hour on the clock",
-      "しちじ (7), はちじ (8), くじ (9), じゅうじ (10), じゅういちじ (11), じゅうにじ (12) — the full clock face.",
-      "win",
-    ),
   ],
 };
 
@@ -698,11 +664,6 @@ export const M12_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-2-2-info-open",
-      "Full clock drill",
-      "All 12 hours, mixed up. Pay special attention to よじ, しちじ, and くじ — the three irregulars.",
-    ),
     // ── Mixed drills across all 12 hours ──
     listeningCompSentence({
       id: "ja-m12-2-2-lc-shichiji",
@@ -821,12 +782,6 @@ export const M12_2_2: LessonContent = {
     }),
     speaking("ja-m12-2-2-rev-speak-1", M12_2_2_REVIEW[2].kana, M12_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-2-2-rev", M12_2_2_REVIEW),
-    infoStep(
-      "ja-m12-2-2-info-end",
-      "You can now read any hour on a Japanese clock",
-      "All 12 hours mastered — including the three irregulars: よじ (4), しちじ (7), くじ (9).",
-      "win",
-    ),
   ],
 };
 
@@ -851,11 +806,6 @@ export const M12_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-3-1-info-open",
-      "Adding minutes to the clock",
-      "Hours alone are rough. Add ふん/ぷん for minutes, はん for :30, and ごぜん/ごご for AM/PM — now you can give exact times.",
-    ),
     RULE_MINUTES,
     // ── はん (half past / :30) ──
     build(
@@ -973,12 +923,6 @@ export const M12_3_1: LessonContent = {
     }),
     speaking("ja-m12-3-1-rev-speak-1", M12_3_1_REVIEW[2].kana, M12_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-3-1-rev", M12_3_1_REVIEW),
-    infoStep(
-      "ja-m12-3-1-info-end",
-      "You can now give exact times with minutes, AM, and PM",
-      "はん for :30, ふん/ぷん for minutes, ごぜん/ごご for AM/PM — the full time-telling toolkit.",
-      "win",
-    ),
   ],
 };
 
@@ -1003,11 +947,6 @@ export const M12_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-3-2-info-open",
-      "Minute drills",
-      "ふん or ぷん? The voicing change trips up everyone at first. Drill it until it's automatic.",
-    ),
     // ── ふん vs ぷん discrimination ──
     sentenceMcq({
       id: "ja-m12-3-2-mcq-ippun",
@@ -1130,12 +1069,6 @@ export const M12_3_2: LessonContent = {
     }),
     speaking("ja-m12-3-2-rev-speak-1", M12_3_2_REVIEW[2].kana, M12_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-3-2-rev", M12_3_2_REVIEW),
-    infoStep(
-      "ja-m12-3-2-info-end",
-      "You can now express exact times with minutes and AM/PM",
-      "ふん vs ぷん locked in. ごぜん/ごご + hours + minutes — full time expressions.",
-      "win",
-    ),
   ],
 };
 
@@ -1160,11 +1093,6 @@ export const M12_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-4-1-info-open",
-      "Seven days",
-      "Moon, fire, water, wood, gold, earth, sun — each element names a day. Seven words, one pattern: [element] + ようび.",
-    ),
     RULE_DAYS_OF_WEEK,
     // ── げつようび (Monday) ──
     build(
@@ -1296,12 +1224,6 @@ export const M12_4_1: LessonContent = {
     }),
     speaking("ja-m12-4-1-rev-speak-1", M12_4_1_REVIEW[2].kana, M12_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-4-1-rev", M12_4_1_REVIEW),
-    infoStep(
-      "ja-m12-4-1-info-end",
-      "You can now name every day of the week in Japanese",
-      "げつようび through にちようび — seven days, seven elements, one pattern.",
-      "win",
-    ),
   ],
 };
 
@@ -1326,11 +1248,6 @@ export const M12_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-4-2-info-open",
-      "Day drill",
-      "Can you hear the difference between もくようび and きんようび? Drill all seven days in context.",
-    ),
     // ── Mixed day drills ──
     listeningCompSentence({
       id: "ja-m12-4-2-lc-getsu",
@@ -1452,12 +1369,6 @@ export const M12_4_2: LessonContent = {
     }),
     speaking("ja-m12-4-2-rev-speak-1", M12_4_2_REVIEW[2].kana, M12_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-4-2-rev", M12_4_2_REVIEW),
-    infoStep(
-      "ja-m12-4-2-info-end",
-      "You can now talk about any day of the week in real sentences",
-      "All seven days drilled in context — きょうは / あしたは + day + です.",
-      "win",
-    ),
   ],
 };
 
@@ -1482,11 +1393,6 @@ export const M12_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-5-1-info-open",
-      "Scheduling with に",
-      "You already know に for locations. Now it marks TIME too: さんじに = 'at 3 o'clock.' Plus three time-of-day words: あさ, ひる, よる.",
-    ),
     RULE_NI_TIME,
     // ── あさ (morning) ──
     build(
@@ -1619,12 +1525,6 @@ export const M12_5_1: LessonContent = {
     }),
     speaking("ja-m12-5-1-rev-speak-1", M12_5_1_REVIEW[2].kana, M12_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-5-1-rev", M12_5_1_REVIEW),
-    infoStep(
-      "ja-m12-5-1-info-end",
-      "You can now pin actions to specific times with に",
-      "さんじに あいます, ろくじに おきます — the time + に + verb pattern for scheduling.",
-      "win",
-    ),
   ],
 };
 
@@ -1649,11 +1549,6 @@ export const M12_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-5-2-info-open",
-      "More time words",
-      "ばん (evening), ゆうがた (late afternoon), あした (tomorrow), あさって (day after tomorrow). Schedule your whole week.",
-    ),
     // ── ばん (evening) ──
     build(
       "ja-m12-5-2-build-ban",
@@ -1804,12 +1699,6 @@ export const M12_5_2: LessonContent = {
     }),
     speaking("ja-m12-5-2-rev-speak-1", M12_5_2_REVIEW[2].kana, M12_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-5-2-rev", M12_5_2_REVIEW),
-    infoStep(
-      "ja-m12-5-2-info-end",
-      "You can now schedule events across days and times",
-      "あした, あさって, ばん, ゆうがた — combined with じに for full scheduling sentences.",
-      "win",
-    ),
   ],
 };
 
@@ -1834,11 +1723,6 @@ export const M12_6_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-6-1-info-open",
-      "Counting past 10",
-      "You know 1-10. Now stack them: じゅういち = 10+1 = 11, にじゅう = 2×10 = 20. Simple math, big range.",
-    ),
     RULE_NUMBERS_11_99,
     // ── じゅういち (11) ──
     build(
@@ -1953,12 +1837,6 @@ export const M12_6_1: LessonContent = {
     }),
     speaking("ja-m12-6-1-rev-speak-1", M12_6_1_REVIEW[2].kana, M12_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-6-1-rev", M12_6_1_REVIEW),
-    infoStep(
-      "ja-m12-6-1-info-end",
-      "You can now count from 11 to 99 in Japanese",
-      "Compound numbers: tens multiplier + じゅう + ones digit. Simple stacking, unlimited range.",
-      "win",
-    ),
   ],
 };
 
@@ -1983,11 +1861,6 @@ export const M12_6_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-6-2-info-open",
-      "Numbers in action",
-      "Compound numbers meet clock time. じゅうごふん (15 min), にじゅっぷん (20 min), さんじ よんじゅうごふん (3:45).",
-    ),
     // ── Numbers in time context ──
     build(
       "ja-m12-6-2-build-juugofun",
@@ -2173,12 +2046,6 @@ export const M12_6_2: LessonContent = {
     }),
     speaking("ja-m12-6-2-rev-speak-1", M12_6_2_REVIEW[2].kana, M12_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-6-2-rev", M12_6_2_REVIEW),
-    infoStep(
-      "ja-m12-6-2-info-end",
-      "You can now use compound numbers for minutes, ages, and quantities",
-      "11-99 mastered. Combined with ふん/ぷん for precise clock times: さんじ よんじゅうごふん = 3:45.",
-      "win",
-    ),
   ],
 };
 
@@ -2203,11 +2070,6 @@ export const M12_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m12-story-info-open",
-      "Story time — ゆき's weekend",
-      "ゆき is telling you about her weekend plans. Listen for the days and clock times — then reply to her.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m12-story-s1",
       narrative: [
@@ -2312,12 +2174,6 @@ export const M12_STORY: LessonContent = {
       "どようびは やすみです",
       "Saturday is my day off.",
     ),
-    infoStep(
-      "ja-m12-story-info-end",
-      "You followed a real schedule in Japanese",
-      "Days, clock times, AM/PM, and the time-に particle — you understood ゆき's whole weekend and replied to her.",
-      "win",
-    ),
   ],
 };
 
@@ -2343,11 +2199,6 @@ export const M12_7_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-7-1-info-open",
-      "Everything together",
-      "Hours, minutes, days, AM/PM, and に — all in one lesson. Build full schedules in Japanese.",
-    ),
     // ── Mixed drills ──
     build(
       "ja-m12-7-1-build-suiyoubi-hon",
@@ -2491,12 +2342,6 @@ export const M12_7_1: LessonContent = {
     }),
     speaking("ja-m12-7-1-rev-speak-1", M12_7_1_REVIEW[2].kana, M12_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-7-1-rev", M12_7_1_REVIEW),
-    infoStep(
-      "ja-m12-7-1-info-end",
-      "You can now build full schedule sentences with day, time, and place",
-      "Day + clock time + に + verb — the complete scheduling pattern in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -2521,11 +2366,6 @@ export const M12_7_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m12-7-2-info-open",
-      "Production challenge",
-      "No more multiple choice — translate and speak full scheduling sentences from English to Japanese.",
-    ),
     // ── Production-heavy drills ──
     translateStep({
       id: "ja-m12-7-2-translate-1",
@@ -2650,12 +2490,6 @@ export const M12_7_2: LessonContent = {
     }),
     speaking("ja-m12-7-2-rev-speak-1", M12_7_2_REVIEW[2].kana, M12_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m12-7-2-rev", M12_7_2_REVIEW.slice(0, 4)),
-    infoStep(
-      "ja-m12-7-2-info-end",
-      "You can now tell time, name days, and schedule events in Japanese",
-      "All M12 grammar mastered: hours (including irregulars), minutes (ふん/ぷん), days of the week, に for time, and numbers 11-99.",
-      "win",
-    ),
   ],
 };
 

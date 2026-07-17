@@ -67,9 +67,6 @@ export const MOCK_LESSON_JA_M1_KA_1: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["kai"],
   steps: [
-    { id: "ja-ka1-info-0", type: "info", title: "The k-sounds, part 1",
-      body: "Two new kana: か and き. Each adds a 'k-' to a vowel you already know. You'll spot か everywhere in anime — it turns any sentence into a question (ですか). Listen for it at the end of every line that goes up in pitch.",
-      variant: "culture" },
 
     symbolIntro("ja-ka1-intro-ka", "か", "ka", "/ka/", "like 'ka' in 'car'", "かい (shell)"),
     traceTwice("ja-ka1-trace-ka", "か", "ka", "like 'ka' in 'car'"),
@@ -92,9 +89,6 @@ export const MOCK_LESSON_JA_M1_KA_1: LessonContent = {
     recognition(ctx, "ja-ka1-rev-i", "い", "i", "like 'ee' in 'see'"),
     recognition(ctx, "ja-ka1-rev-e", "え", "e", "like 'e' in 'egg'"),
 
-    { id: "ja-ka1-info-end", type: "info", title: "Two down",
-      body: "か and き — and you've built your first non-vowel word. Next: く and け.",
-      variant: "default" },
   ],
 };
 
@@ -110,9 +104,6 @@ export const MOCK_LESSON_JA_M1_KA_2: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["ike"],
   steps: [
-    { id: "ja-ka2-info-0", type: "info", title: "The k-sounds, part 2",
-      body: "く ('koo', slightly clipped) and け ('keh'). Build いけ — a pond.",
-      variant: "default" },
 
     symbolIntro("ja-ka2-intro-ku", "く", "ku", "/kɯ/", "like 'koo' in 'cuckoo'", "いけ (pond)"),
     traceTwice("ja-ka2-trace-ku", "く", "ku", "like 'koo' in 'cuckoo'"),
@@ -140,8 +131,6 @@ export const MOCK_LESSON_JA_M1_KA_2: LessonContent = {
     symbolToSound(ctx, "ja-ka2-rev-ka", "か", "ka", "like 'ka'"),
     symbolToSound(ctx, "ja-ka2-rev-ki", "き", "ki", "like 'kee'"),
 
-    { id: "ja-ka2-info-end", type: "info", title: "Four down",
-      body: "Just こ left — and a full-row review with mic practice.", variant: "default" },
   ],
 };
 
@@ -158,8 +147,6 @@ export const MOCK_LESSON_JA_M1_KA_3: LessonContent = {
   estimatedMinutes: 5, xpReward: 12,
   introducesVocabIds: ["koe"],
   steps: [
-    { id: "ja-ka3-info-0", type: "info", title: "The k-sounds, finale",
-      body: "Meet こ, build a word, then check the whole row.", variant: "default" },
 
     symbolIntro("ja-ka3-intro-ko", "こ", "ko", "/ko/", "like 'ko' in 'koala'", "こえ (voice)"),
     traceTwice("ja-ka3-trace-ko", "こ", "ko", "like 'ko' in 'koala'"),
@@ -190,9 +177,12 @@ export const MOCK_LESSON_JA_M1_KA_3: LessonContent = {
     // ─── First-of-type です + か info card (M1 sentence sprinkle, 2026-05-17).
     // Spencer: "introduce desu and ka in the plain hiragana module 1 …
     // dont explain desu and ka much but let them know its there".
-    { id: "ja-ka3-info-desu-ka", type: "info", title: "です + か — your first sentence",
-      body: "です means 'is' / 'am'. か at the end makes it a question. You'll see these in upcoming sentences — no need to memorize them yet, just notice. ('Y is X') = 'Y wa X です'.",
-      variant: "grammar" },
+    { id: "ja-ka3-info-desu-ka", type: "grammar_rule", title: "です + か — your first sentence",
+      rule: "です means 'is/am'. Adding か at the end turns a statement into a question. Just notice them for now — no need to memorize yet.",
+      examples: [
+        { ja: "かお です", romaji: "kao desu", en: "It's a face." },
+        { ja: "かお ですか", romaji: "kao desu ka", en: "Is it a face?" },
+      ] },
 
     // Build a sentence: かお です = "it's a face".
     {
@@ -214,8 +204,5 @@ export const MOCK_LESSON_JA_M1_KA_3: LessonContent = {
     // the learner's last working interaction is recall, not exposition.
     ...priorRowReviewTail("ka"),
 
-    { id: "ja-ka3-info-end", type: "info", title: "Real-world win",
-      body: "You can now read アカ (red), カイ (shell), カオ (face) — and any kana-only word built from あ/い/う/え/お + か/き/く/け/こ. Up next: sa row.",
-      variant: "win" },
   ],
 };

@@ -35,6 +35,14 @@ describe("qaCatalog", () => {
     expect(ac?.picks.length ?? 0).toBeGreaterThan(0);
   });
 
+  it("info is pinned for ja (removed 2026-07-16) but still covered by the es course", () => {
+    // ja purged all info steps; es/ko still ship them, so the es QA page
+    // exercises the info renderer. Same precedent as agreement_cloze.
+    const es = buildStepTypeCoverage("es");
+    const info = es.find((c) => c.type === "info");
+    expect(info?.picks.length ?? 0).toBeGreaterThan(0);
+  });
+
   it("offers two distinct lessons whenever more than one lesson uses the type", () => {
     for (const c of coverage) {
       if (c.totalLessons > 1) {

@@ -511,13 +511,19 @@ export const M3_M7_REVIEW_POOL: ReviewAtom[] = [
   { kana: "バス",         meaningEn: "bus",               emoji: "🚌", fromModule: "m6" },
   { kana: "あります",     meaningEn: "exists (thing)",    emoji: "📦", fromModule: "m6" },
   { kana: "います",       meaningEn: "exists (alive)",    emoji: "🧑", fromModule: "m6" },
-  // ── M7 anchors (verbs in ます-form + food/drink objects) ──
-  { kana: "たべます",   meaningEn: "eat (polite)",      emoji: "🍴", fromModule: "m7" },
-  { kana: "のみます",   meaningEn: "drink (polite)",    emoji: "🥤", fromModule: "m7" },
-  { kana: "いきます",   meaningEn: "go (polite)",       emoji: "🚶", fromModule: "m7" },
-  { kana: "みます",     meaningEn: "watch (polite)",    emoji: "👀", fromModule: "m7" },
-  { kana: "よみます",   meaningEn: "read (polite)",     emoji: "📚", fromModule: "m7" },
-  { kana: "かきます",   meaningEn: "write (polite)",    emoji: "✍️", fromModule: "m7" },
+  // ── M7 anchors (verbs — DICTIONARY form, not ます-form. Spencer QA
+  //    2026-07-16: review/match grids must build a strong association
+  //    with the plain form so learners can generalize to later
+  //    conjugations; ます is taught in ja-m7-2-1's dedicated dict↔ます
+  //    match step, which stays hand-authored and untouched by this pool.
+  //    Glosses match the ja-m7-1-2-match-verbs vocab-intro grid. + food/
+  //    drink objects) ──
+  { kana: "たべる",   meaningEn: "to eat",          emoji: "🍴", fromModule: "m7" },
+  { kana: "のむ",     meaningEn: "to drink",        emoji: "🥤", fromModule: "m7" },
+  { kana: "いく",     meaningEn: "to go",           emoji: "🚶", fromModule: "m7" },
+  { kana: "みる",     meaningEn: "to see / watch",  emoji: "👀", fromModule: "m7" },
+  { kana: "よむ",     meaningEn: "to read",         emoji: "📚", fromModule: "m7" },
+  { kana: "かく",     meaningEn: "to write",        emoji: "✍️", fromModule: "m7" },
   { kana: "すし",       meaningEn: "sushi",             emoji: "🍣", fromModule: "m7" },
   { kana: "ラーメン",   meaningEn: "ramen",             emoji: "🍜", fromModule: "m7" },
   { kana: "パン",       meaningEn: "bread",             emoji: "🍞", fromModule: "m7" },
@@ -867,9 +873,12 @@ export function audioImageMcq(
     id: idPrefix,
     type: "word_image_mcq",
     // Audio-prompt mode: the meaning is intentionally the kana itself — the
-    // learner hears it via TTS and matches to the emoji. The renderer's
-    // "What is the word for X?" prompt becomes "What is the word for
-    // <kana>?" which still reads correctly with audio playing.
+    // learner hears it via TTS and matches to the emoji. The renderer
+    // detects this (meaningEn equals an option word, impossible for real
+    // English meanings) and swaps the text prompt for a play button +
+    // "Which word do you hear?" — the old "What is the word for <kana>?"
+    // template printed the answer right above a tile captioned with the
+    // same kana (QA 2026-07-16, ja-m28-review-1).
     meaningEn: target.kana,
     options,
     correctOptionId: "correct",

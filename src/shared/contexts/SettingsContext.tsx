@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -67,6 +68,16 @@ function setByPath(obj: Record<string, unknown>, path: string, value: unknown): 
     current = current[key] as Record<string, unknown>;
   }
   current[parts[parts.length - 1]] = value;
+}
+
+function getByPath(obj: Record<string, unknown>, path: string): unknown {
+  const parts = path.split(".");
+  let current: unknown = obj;
+  for (const key of parts) {
+    if (current == null || typeof current !== "object") return undefined;
+    current = (current as Record<string, unknown>)[key];
+  }
+  return current;
 }
 
 /**
@@ -310,6 +321,36 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     null,
   );
 
+  // Freshest known local settings, kept in sync on every `updateSetting` /
+  // `updateFlashcards` call (unlike `storedSnapshot`, which is frozen at
+  // Phase-1 mount). The Phase-2 server merge below reads THIS so a local
+  // write that lands while the settings GET is still in flight (e.g.
+  // placement crediting an assumed module and flipping the romaji auto-off
+  // guard) isn't wholesale discarded once the GET resolves with server data
+  // that predates it — see the "fix:romaji-assumed" QA regression: the
+  // learner placed into m10+, the guard flipped locally, but a
+  // still-in-flight settings GET resolved afterward and clobbered it back
+  // to false, so the hiragana romaji scaffold reappeared on the m10 lesson.
+  const storedSnapshotRef = useRef<Partial<UserSettings> | null>(null);
+  // Phase 2 is a ONE-TIME "layer the server blob over the local snapshot"
+  // hydration by design (see the Phase 2 comment below) — not an ongoing
+  // sync. Guards against a later, unrelated refetch of the shared settings
+  // query (another consumer invalidates it, window refocus, etc.)
+  // re-running the merge and clobbering local edits made after the initial
+  // hydration completed. Reset on user switch alongside `storedSnapshot`.
+  const hydratedFromServerRef = useRef(false);
+  // Dot-paths written locally this session via `updateSetting` (plus the
+  // sentinel "flashcards" for `updateFlashcards`). `fromBackendResponse`
+  // always returns a FULLY DEFAULT-FILLED namespace object — even for
+  // fields the backend blob has no opinion on — so a plain
+  // `{...local, ...fromApi}` spread wholesale-replaces e.g. `learning` and
+  // silently resets any field the server hasn't caught up on yet back to
+  // its default. The Phase-2 merge below re-applies these exact paths from
+  // the local snapshot AFTER the server merge so a same-session write can
+  // never be reverted by a racing/stale GET, while every untouched field
+  // still gets the server's answer.
+  const locallyTouchedPathsRef = useRef<Set<string>>(new Set());
+
   // Share the ONE GET /users/me/settings fetch with the shop + cosmetic slots.
   // SettingsContext consumes the same RQ cache entry instead of issuing its own
   // imperative read.
@@ -332,6 +373,12 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       stored = { ...stored, accessibility: { ...DEFAULT_SETTINGS.accessibility, ...stored?.accessibility, reducedMotion: prefersReduced } };
     }
     setStoredSnapshot(stored ?? {});
+    storedSnapshotRef.current = stored ?? {};
+    // New user session (login/logout/switch) → the server merge below must
+    // run fresh for it, not stay skipped from a previous user's hydration,
+    // and must not carry over the PREVIOUS user's local-write set.
+    hydratedFromServerRef.current = false;
+    locallyTouchedPathsRef.current = new Set();
     setSettingsState(mergeWithDefaults(stored ?? {}));
     // For signed-out users there's no server read to wait on.
     if (!isAuthenticated || !userId) setIsLoading(false);
@@ -339,16 +386,36 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   // Phase 2 — once the shared settings query resolves, layer the backend blob
   // over the local snapshot ("server wins" so clearing site data never replays
-  // onboarding or drops the saved learning language).
+  // onboarding or drops the saved learning language). Runs ONCE per user
+  // session (guarded by `hydratedFromServerRef`) and merges onto the
+  // FRESHEST local snapshot (`storedSnapshotRef`, kept live by
+  // updateSetting/updateFlashcards) rather than the Phase-1-frozen
+  // `storedSnapshot` state, so a local write made while this GET was still
+  // in flight survives instead of being silently reverted.
   useEffect(() => {
     if (!isAuthenticated || !userId || storedSnapshot == null) return;
     if (settingsQuery.isLoading) return;
+    if (hydratedFromServerRef.current) return;
 
     if (settingsQuery.data) {
       const fromApi = fromBackendResponse(settingsQuery.data);
-      const combined = mergeWithDefaults({ ...storedSnapshot, ...fromApi });
+      const baseline = storedSnapshotRef.current ?? storedSnapshot;
+      const combined = mergeWithDefaults({ ...baseline, ...fromApi });
+      // Re-apply same-session local writes on top: `fromApi` namespaces are
+      // always fully default-filled, so the spread above can silently reset
+      // a field the server hasn't caught up on (e.g. a fire-and-forget PATCH
+      // still in flight) back to its default. Anything the user/system
+      // explicitly set locally this session wins over that.
+      for (const path of locallyTouchedPathsRef.current) {
+        setByPath(
+          combined as unknown as Record<string, unknown>,
+          path,
+          getByPath(baseline as Record<string, unknown>, path),
+        );
+      }
       setSettingsState(combined);
       setStoredSettings(combined);
+      storedSnapshotRef.current = combined;
       if (
         combined.learning.learningLanguageId &&
         !combined.learning.onboardingCompleted
@@ -363,9 +430,14 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
           })
           .catch(() => {});
       }
+      // Only latch the one-shot guard on a genuine successful merge — if the
+      // read errored (below) we want a LATER successful refetch to still be
+      // allowed to hydrate from the server rather than being skipped forever.
+      hydratedFromServerRef.current = true;
     } else if (settingsQuery.isError) {
-      // Read failed — keep the local-first merge.
-      setSettingsState(mergeWithDefaults(storedSnapshot));
+      // Read failed — keep the local-first merge (freshest known local
+      // state, not the Phase-1-frozen snapshot).
+      setSettingsState(mergeWithDefaults(storedSnapshotRef.current ?? storedSnapshot));
     }
     setIsLoading(false);
   }, [
@@ -385,6 +457,12 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         setByPath(next as unknown as Record<string, unknown>, path, value);
         const nextStored = { ...next, _version: DEFAULT_SETTINGS._version };
         setStoredSettings(nextStored);
+        // Keep the Phase-2 merge baseline current — otherwise a settings GET
+        // that resolves after this write (in flight, or simply racing the
+        // fire-and-forget PATCH below) would merge onto the stale Phase-1
+        // snapshot and silently revert this update.
+        storedSnapshotRef.current = nextStored;
+        locallyTouchedPathsRef.current.add(path);
         const patch = toBackendPatch(next);
         if (Object.keys(patch).length > 0) {
           users.updateSettings(patch).catch(() => {});
@@ -417,6 +495,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         next.flashcards = merged;
         const nextStored = { ...next, _version: DEFAULT_SETTINGS._version };
         setStoredSettings(nextStored);
+        storedSnapshotRef.current = nextStored;
+        locallyTouchedPathsRef.current.add("flashcards");
         const patch = toBackendPatch(next);
         if (Object.keys(patch).length > 0) {
           users.updateSettings(patch).catch(() => {});

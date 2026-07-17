@@ -27,7 +27,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -175,11 +174,6 @@ export const M8_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-1-1-info-open",
-      "Describing things",
-      "Four adjectives — big, small, expensive, cheap — plus この/その for 'this X / that X.' You'll be describing things around you in no time.",
-    ),
     RULE_KONO_SONO,
     // ── おおきい (big) — build intro ──
     build(
@@ -307,12 +301,6 @@ export const M8_1_1: LessonContent = {
     }),
     speaking("ja-m8-1-1-rev-speak-1", M8_1_1_REVIEW[2].kana, M8_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-1-1-rev", M8_1_1_REVIEW),
-    infoStep(
-      "ja-m8-1-1-info-end",
-      "You can now describe things as big, small, expensive, or cheap",
-      "Four adjectives + この/その to point at specific nouns — おおきい, ちいさい, たかい, やすい.",
-      "win",
-    ),
   ],
 };
 
@@ -338,11 +326,6 @@ export const M8_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-1-2-info-open",
-      "Practice round",
-      "Time to drill この/その/あの/どの with the four adjectives you just learned. Mix in some prior vocab for compounding.",
-    ),
     // ── あの + adj drills ──
     build(
       "ja-m8-1-2-build-ano-ookii",
@@ -469,12 +452,6 @@ export const M8_1_2: LessonContent = {
     }),
     speaking("ja-m8-1-2-rev-speak-1", M8_1_2_REVIEW[2].kana, M8_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-1-2-rev", M8_1_2_REVIEW),
-    infoStep(
-      "ja-m8-1-2-info-end",
-      "You can now point at things and describe their size and price",
-      "この/その/あの/どの + おおきい, ちいさい, たかい, やすい — combined in real sentences.",
-      "win",
-    ),
   ],
 };
 
@@ -500,11 +477,6 @@ export const M8_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-2-1-info-open",
-      "Good, bad, delicious, disgusting",
-      "Four adjectives for quality judgments. Plus: the rule for making any い-adjective negative — drop い, add くない.",
-    ),
     RULE_I_ADJ,
     // ── いい (good) ──
     build(
@@ -635,12 +607,6 @@ export const M8_2_1: LessonContent = {
     }),
     speaking("ja-m8-2-1-rev-speak-1", M8_2_1_REVIEW[2].kana, M8_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-2-1-rev", M8_2_1_REVIEW),
-    infoStep(
-      "ja-m8-2-1-info-end",
-      "You can now say whether things are good, bad, delicious, or disgusting",
-      "いい, わるい, おいしい, まずい — plus the い → くない negative pattern. Remember: いい → よくない!",
-      "win",
-    ),
   ],
 };
 
@@ -666,11 +632,6 @@ export const M8_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-2-2-info-open",
-      "Positive and negative drills",
-      "Time to lock in the い-adjective pattern. Positive: adjective + です. Negative: drop い, add くない. And that tricky exception: いい → よくない.",
-    ),
     // ── Mixed positive/negative drills ──
     sentenceMcq({
       id: "ja-m8-2-2-mcq-warui",
@@ -801,12 +762,6 @@ export const M8_2_2: LessonContent = {
     }),
     speaking("ja-m8-2-2-rev-speak-1", M8_2_2_REVIEW[2].kana, M8_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-2-2-rev", M8_2_2_REVIEW),
-    infoStep(
-      "ja-m8-2-2-info-end",
-      "You can now flip any い-adjective between positive and negative",
-      "おいしい → おいしくない, わるい → わるくない, and the big exception: いい → よくない.",
-      "win",
-    ),
   ],
 };
 
@@ -832,11 +787,6 @@ export const M8_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-3-1-info-open",
-      "Temperature words + a new particle",
-      "Hot, cold (weather), cold (touch), warm — plus と, the particle that connects nouns like 'and.'",
-    ),
     RULE_TO,
     // ── あつい (hot) ──
     build(
@@ -963,12 +913,6 @@ export const M8_3_1: LessonContent = {
     }),
     speaking("ja-m8-3-1-rev-speak-1", M8_3_1_REVIEW[2].kana, M8_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-3-1-rev", M8_3_1_REVIEW),
-    infoStep(
-      "ja-m8-3-1-info-end",
-      "You can now describe temperature and connect nouns with と",
-      "あつい, さむい, つめたい, あたたかい — plus と for 'A and B.'",
-      "win",
-    ),
   ],
 };
 
@@ -994,11 +938,6 @@ export const M8_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-3-2-info-open",
-      "Mix and match",
-      "と to connect nouns, temperature adjectives to describe them. Let's combine everything.",
-    ),
     build(
       "ja-m8-3-2-build-to-sushi",
       "Say: Sushi and ramen, please.",
@@ -1132,12 +1071,6 @@ export const M8_3_2: LessonContent = {
     }),
     speaking("ja-m8-3-2-rev-speak-1", M8_3_2_REVIEW[2].kana, M8_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-3-2-rev", M8_3_2_REVIEW),
-    infoStep(
-      "ja-m8-3-2-info-end",
-      "You can now talk about temperature and order multiple things with と",
-      "さむい vs つめたい, あつい vs あたたかい — and A と B for 'A and B.'",
-      "win",
-    ),
   ],
 };
 
@@ -1163,11 +1096,6 @@ export const M8_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-4-1-info-open",
-      "Length and interest",
-      "Two pairs of opposites: ながい/みじかい (long/short) and おもしろい/つまらない (interesting/boring).",
-    ),
     // ── ながい (long) ──
     build(
       "ja-m8-4-1-build-nagai",
@@ -1294,12 +1222,6 @@ export const M8_4_1: LessonContent = {
     }),
     speaking("ja-m8-4-1-rev-speak-1", M8_4_1_REVIEW[2].kana, M8_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-4-1-rev", M8_4_1_REVIEW),
-    infoStep(
-      "ja-m8-4-1-info-end",
-      "You can now describe length and how interesting things are",
-      "ながい, みじかい, おもしろい, つまらない — used with この/その in real sentences.",
-      "win",
-    ),
   ],
 };
 
@@ -1325,11 +1247,6 @@ export const M8_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-4-2-info-open",
-      "Mix it all together",
-      "Eight adjectives so far — let's interleave them with この/その/あの/どの. Can you keep them straight?",
-    ),
     sentenceMcq({
       id: "ja-m8-4-2-mcq-nagakunai",
       prompt: "Which sentence means 'This movie isn't long.'?",
@@ -1463,12 +1380,6 @@ export const M8_4_2: LessonContent = {
     }),
     speaking("ja-m8-4-2-rev-speak-1", M8_4_2_REVIEW[2].kana, M8_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-4-2-rev", M8_4_2_REVIEW),
-    infoStep(
-      "ja-m8-4-2-info-end",
-      "You can now mix eight adjectives with four demonstratives",
-      "Size, price, quality, temperature, length, interest — all working with この/その/あの/どの.",
-      "win",
-    ),
   ],
 };
 
@@ -1494,11 +1405,6 @@ export const M8_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-5-1-info-open",
-      "Difficulty and speed",
-      "むずかしい (difficult), やさしい (easy/kind), はやい (fast/early), おそい (slow/late). Two pairs of opposites.",
-    ),
     // ── むずかしい (difficult) ──
     build(
       "ja-m8-5-1-build-muzukashii",
@@ -1631,12 +1537,6 @@ export const M8_5_1: LessonContent = {
     }),
     speaking("ja-m8-5-1-rev-speak-1", M8_5_1_REVIEW[2].kana, M8_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-5-1-rev", M8_5_1_REVIEW),
-    infoStep(
-      "ja-m8-5-1-info-end",
-      "You can now describe difficulty and speed",
-      "むずかしい, やさしい, はやい, おそい — used naturally with この/その in context.",
-      "win",
-    ),
   ],
 };
 
@@ -1662,11 +1562,6 @@ export const M8_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-5-2-info-open",
-      "Negative forms + と combos",
-      "Make difficulty and speed adjectives negative, then mix in と for noun combinations.",
-    ),
     sentenceMcq({
       id: "ja-m8-5-2-mcq-muzukashikunai",
       prompt: "Which sentence means 'This test isn't difficult.'?",
@@ -1800,12 +1695,6 @@ export const M8_5_2: LessonContent = {
     }),
     speaking("ja-m8-5-2-rev-speak-1", M8_5_2_REVIEW[2].kana, M8_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-5-2-rev", M8_5_2_REVIEW),
-    infoStep(
-      "ja-m8-5-2-info-end",
-      "You can now negate difficulty and speed adjectives fluently",
-      "むずかしくない, やさしくない, はやくない, おそくない — and と for noun combos.",
-      "win",
-    ),
   ],
 };
 
@@ -1831,11 +1720,6 @@ export const M8_6_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-6-1-info-open",
-      "Space and distance",
-      "Last four adjectives: ちかい (near), とおい (far), ひろい (wide/spacious), せまい (narrow/cramped).",
-    ),
     // ── ちかい (near) ──
     build(
       "ja-m8-6-1-build-chikai",
@@ -1964,12 +1848,6 @@ export const M8_6_1: LessonContent = {
     }),
     speaking("ja-m8-6-1-rev-speak-1", M8_6_1_REVIEW[2].kana, M8_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-6-1-rev", M8_6_1_REVIEW),
-    infoStep(
-      "ja-m8-6-1-info-end",
-      "You can now describe distance and size of spaces",
-      "ちかい, とおい, ひろい, せまい — near, far, wide, narrow.",
-      "win",
-    ),
   ],
 };
 
@@ -1995,11 +1873,6 @@ export const M8_6_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-6-2-info-open",
-      "Full spatial drill",
-      "All four spatial adjectives + negatives. Mix in demonstratives and と for a comprehensive practice.",
-    ),
     sentenceMcq({
       id: "ja-m8-6-2-mcq-chikakunai",
       prompt: "Which sentence means 'That station isn't near.'?",
@@ -2128,12 +2001,6 @@ export const M8_6_2: LessonContent = {
     }),
     speaking("ja-m8-6-2-rev-speak-1", M8_6_2_REVIEW[2].kana, M8_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-6-2-rev", M8_6_2_REVIEW),
-    infoStep(
-      "ja-m8-6-2-info-end",
-      "You can now describe how near, far, wide, or narrow things are",
-      "ちかい, とおい, ひろい, せまい — plus negatives, demonstratives, and と. Full spatial toolkit.",
-      "win",
-    ),
   ],
 };
 
@@ -2199,11 +2066,6 @@ export const M8_8_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-8-1-info-open",
-      "Pointing the way, politely",
-      "You know この/その/あの for nouns and ここ/そこ/あそこ for places. The last set — こちら/そちら/あちら/どちら — points at directions, the polite way.",
-    ),
     RULE_KOCHIRA,
     // ── こちら (this way) ──
     build(
@@ -2320,12 +2182,6 @@ export const M8_8_1: LessonContent = {
     }),
     speaking("ja-m8-8-1-rev-speak-1", M8_8_1_REVIEW[2].kana, M8_8_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-8-1-rev", M8_8_1_REVIEW),
-    infoStep(
-      "ja-m8-8-1-info-end",
-      "You can now point the way like a local",
-      "こちら, そちら, あちら, どちら — the polite direction series, completing the こそあど system.",
-      "win",
-    ),
   ],
 };
 
@@ -2375,11 +2231,6 @@ export const M8_8_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-8-2-info-open",
-      "How is it?",
-      "Practice こちら/そちら/あちら/どちら — and meet どうですか, the 'how is it?' question that every adjective you've learned can answer.",
-    ),
     RULE_DOU,
     build(
       "ja-m8-8-2-build-dou-hon",
@@ -2477,12 +2328,6 @@ export const M8_8_2: LessonContent = {
     }),
     speaking("ja-m8-8-2-rev-speak-1", M8_8_2_REVIEW[2].kana, M8_8_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-8-2-rev", M8_8_2_REVIEW),
-    infoStep(
-      "ja-m8-8-2-info-end",
-      "You can now ask how things are — and point the way",
-      "どうですか + every adjective you know, plus こちら/そちら/あちら/どちら in real directions.",
-      "win",
-    ),
   ],
 };
 
@@ -2505,11 +2350,6 @@ export const M8_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m8-story-info-open",
-      "Story time — Shopping",
-      "Listen to a short story about a trip to a camera shop. Answer the questions between chunks, then reply to the shop staff yourself.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m8-story-s1",
       narrative: [
@@ -2634,12 +2474,6 @@ export const M8_STORY: LessonContent = {
       "この とけいと あの カメラを ください",
       "This watch and that camera (over there), please.",
     ),
-    infoStep(
-      "ja-m8-story-info-end",
-      "You can now follow a narrated shopping trip",
-      "You understood a real story — old and new, cheap and expensive — and replied to the staff with your own questions and requests.",
-      "win",
-    ),
   ],
 };
 
@@ -2666,11 +2500,6 @@ export const M8_7_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m8-7-1-info-open",
-      "Full system review",
-      "Every adjective, every demonstrative, and と. One big drill to tie it all together.",
-    ),
     sentenceMcq({
       id: "ja-m8-7-1-mcq-ookii-machi",
       prompt: "Which sentence means 'This town is big.'?",
@@ -2808,12 +2637,6 @@ export const M8_7_1: LessonContent = {
     }),
     speaking("ja-m8-7-1-rev-speak-1", M8_7_1_REVIEW[2].kana, M8_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-7-1-rev", M8_7_1_REVIEW),
-    infoStep(
-      "ja-m8-7-1-info-end",
-      "You can now describe almost anything with 20+ adjectives",
-      "Size, price, quality, taste, temperature, length, interest, difficulty, speed, distance, space — all in positive and negative forms.",
-      "win",
-    ),
   ],
 };
 
@@ -2839,11 +2662,6 @@ export const M8_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m8-7-2-info-open",
-      "Show what you know",
-      "Production round — you'll translate, build, and speak full sentences using everything from M8. Time to prove you own it.",
-    ),
     build(
       "ja-m8-7-2-build-1",
       "Say: This coffee is delicious.",
@@ -2973,12 +2791,6 @@ export const M8_7_2: LessonContent = {
     }),
     speaking("ja-m8-7-2-rev-speak-1", M8_7_2_REVIEW[2].kana, M8_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m8-7-2-rev", M8_7_2_REVIEW),
-    infoStep(
-      "ja-m8-7-2-info-end",
-      "You can now describe, compare, and negate adjectives across every category",
-      "All M8 grammar mastered: い-adjectives (positive + negative), この/その/あの/どの, and と — in full production.",
-      "win",
-    ),
   ],
 };
 

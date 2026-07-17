@@ -15,6 +15,12 @@ import { expandAcceptedAnswers } from "./translateVariants";
 
 const CELEBRATE_MS = 1100;
 
+/** Katakana block (incl. the ー prolonged-sound mark) — picks the nudge
+ *  wording so we say "katakana" for テレビ and "hiragana" for the reverse. */
+const KATAKANA_RE = /[ァ-ヺー]/;
+
+type Nudge = { tone: "accent" | "kana"; display: string };
+
 type Props = {
   step: TranslateStep;
   onComplete: (stepId: string, correct: boolean) => void;
@@ -68,10 +74,13 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
   // correctness during render graded the stale value. toKana also resolves
   // a pending trailing consonant (the classic word-final "n").
   const [isCorrect, setIsCorrect] = useState(false);
-  // Accent nudge: set to the properly-accented accepted answer when the
-  // learner's submission was correct only modulo diacritics ("anos" for
-  // "años"). Correct for SRS/XP purposes — the banner just nudges.
-  const [accentNudge, setAccentNudge] = useState<string | null>(null);
+  // Correct-but-nudge banner. Two tones, mutually exclusive per course:
+  //  - "accent": submission was right modulo Latin diacritics ("anos" for
+  //    "años") — es typing without an accent layout.
+  //  - "kana": submission was right modulo script — the romaji IME yields
+  //    hiragana, so テレビ typed as てれび passes but nudges the katakana.
+  // Both are fully correct for SRS/XP; only the banner changes.
+  const [nudge, setNudge] = useState<Nudge | null>(null);
 
   function handleSubmit() {
     const raw = textareaRef.current?.value ?? answer;
@@ -83,7 +92,13 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
     // answer grades correct but surfaces the accented form as a nudge.
     const grade = gradeTypedAnswer(accepted, composed);
     setIsCorrect(grade.correct);
-    setAccentNudge(grade.accentFlagged ? grade.accentDisplay : null);
+    if (grade.accentFlagged && grade.accentDisplay) {
+      setNudge({ tone: "accent", display: grade.accentDisplay });
+    } else if (grade.kanaFlagged && grade.kanaDisplay) {
+      setNudge({ tone: "kana", display: grade.kanaDisplay });
+    } else {
+      setNudge(null);
+    }
     setSubmitted(true);
     onComplete(step.id, grade.correct);
     if (grade.correct) {
@@ -163,14 +178,22 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
         {submitted && (
           <Feedback
             correct={isCorrect}
-            flagged={accentNudge !== null}
+            flagged={nudge !== null}
             flaggedNote={
-              accentNudge !== null ? (
+              nudge === null ? undefined : nudge.tone === "accent" ? (
                 <>
                   Watch the accents:{" "}
-                  <span className="font-semibold">{accentNudge}</span>
+                  <span className="font-semibold">{nudge.display}</span>
                 </>
-              ) : undefined
+              ) : (
+                <>
+                  Usually written in{" "}
+                  {KATAKANA_RE.test(nudge.display) ? "katakana" : "hiragana"}:{" "}
+                  <span className="font-semibold" lang="ja">
+                    {nudge.display}
+                  </span>
+                </>
+              )
             }
           />
         )}

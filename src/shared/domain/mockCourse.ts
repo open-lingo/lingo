@@ -209,11 +209,9 @@ export function getMockCourse(languageId: string): Course {
       },
     ];
 
-    // Placement test — disabled pending adaptive redesign (2026-05-25).
-    // The shallow kana-only test was too limited. Future version will
-    // adaptively test kana → grammar → vocab → kanji, walking up the
-    // module ladder until it finds the learner's frontier. Code lives
-    // in buildPlacementTest.ts + placementResult.ts, ready to re-enable.
+    // Placement test — the old shallow kana-only builder was removed;
+    // the adaptive 2-stage placement engine (src/features/placement/)
+    // superseded it.
 
     return {
       id: "mock-1",

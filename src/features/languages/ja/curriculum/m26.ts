@@ -24,7 +24,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -151,11 +150,6 @@ export const M26_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m26-1-1-info-open",
-      "When things go wrong",
-      "Five verbs for the rough days — tired, troubled, late, wrong, forgotten. You'll need these to explain yourself.",
-    ),
     // ── つかれる (get tired) ──
     build(
       "ja-m26-1-1-build-tsukareru",
@@ -279,12 +273,6 @@ export const M26_1_1: LessonContent = {
     }),
     speaking("ja-m26-1-1-rev-speak-1", M26_1_1_REVIEW[2].kana, M26_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-1-1-rev", M26_1_1_REVIEW),
-    infoStep(
-      "ja-m26-1-1-info-end",
-      "You can now describe everyday mishaps — tired, troubled, late, wrong, forgotten",
-      "Five trouble verbs: つかれる, こまる, おくれる, まちがえる, わすれる.",
-      "win",
-    ),
   ],
 };
 
@@ -309,11 +297,6 @@ export const M26_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m26-1-2-info-open",
-      "Connecting your thoughts",
-      "Five words to link sentences together — so, but, however, and then, and. Your Japanese gets longer and richer.",
-    ),
     // ── だから (so / therefore) ──
     build(
       "ja-m26-1-2-build-dakara",
@@ -433,12 +416,6 @@ export const M26_1_2: LessonContent = {
     }),
     speaking("ja-m26-1-2-rev-speak-1", M26_1_2_REVIEW[2].kana, M26_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-1-2-rev", M26_1_2_REVIEW),
-    infoStep(
-      "ja-m26-1-2-info-end",
-      "You can now connect sentences — cause, contrast, sequence, addition",
-      "Five conjunctions: だから, でも, しかし, それで, そして.",
-      "win",
-    ),
   ],
 };
 
@@ -463,11 +440,6 @@ export const M26_2_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m26-2-1-info-open",
-      "What happened?",
-      "One pattern — んです — turns a plain statement into an explanation. 'My head hurts' becomes 'The thing is, my head hurts.'",
-    ),
     RULE_N_DESU,
     // ── Drills: んです ──
     cloze(
@@ -597,12 +569,6 @@ export const M26_2_1: LessonContent = {
     }),
     speaking("ja-m26-2-1-rev-speak-1", M26_2_1_REVIEW[2].kana, M26_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-2-1-rev", M26_2_1_REVIEW),
-    infoStep(
-      "ja-m26-2-1-info-end",
-      "You can now explain why things happened — not just state facts",
-      "んです turns 'my head hurts' into 'the thing is, my head hurts.' Explanatory tone unlocked.",
-      "win",
-    ),
   ],
 };
 
@@ -627,11 +593,6 @@ export const M26_2_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m26-2-2-info-open",
-      "Explanations in context",
-      "Combine んです with だから, でも, and the trouble verbs — real excuse-making in Japanese.",
-    ),
     build(
       "ja-m26-2-2-build-1",
       "Say: The train was late. So I was also late.",
@@ -759,12 +720,6 @@ export const M26_2_2: LessonContent = {
     }),
     speaking("ja-m26-2-2-rev-speak-1", M26_2_2_REVIEW[2].kana, M26_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-2-2-rev", M26_2_2_REVIEW),
-    infoStep(
-      "ja-m26-2-2-info-end",
-      "You can now explain situations and link cause-and-effect naturally",
-      "んです + conjunctions = smooth Japanese explanations.",
-      "win",
-    ),
   ],
 };
 
@@ -789,11 +744,6 @@ export const M26_3_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m26-3-1-info-open",
-      "Too much of everything",
-      "One suffix — すぎる — turns any verb or adjective into 'too much.' Ate too much, too expensive, too tired.",
-    ),
     RULE_SUGIRU,
     // ── Drills: すぎる ──
     cloze(
@@ -923,12 +873,6 @@ export const M26_3_1: LessonContent = {
     }),
     speaking("ja-m26-3-1-rev-speak-1", M26_3_1_REVIEW[2].kana, M26_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-3-1-rev", M26_3_1_REVIEW),
-    infoStep(
-      "ja-m26-3-1-info-end",
-      "You can now complain about anything being too much — too expensive, too difficult, ate too much",
-      "Verb stem / adj stem + すぎる = too much. Universal complaint pattern.",
-      "win",
-    ),
   ],
 };
 
@@ -953,11 +897,6 @@ export const M26_3_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m26-3-2-info-open",
-      "Explaining excess",
-      "Combine すぎる and んです — 'The thing is, I drank too much. So my head hurts.'",
-    ),
     build(
       "ja-m26-3-2-build-1",
       "Say: The thing is, I ate too much.",
@@ -1060,7 +999,7 @@ export const M26_3_2: LessonContent = {
       anchorLabel: "たべすぎたんです vs たべすぎました",
       anchorAudioText: "たべすぎたんです",
       question: "What's the difference between たべすぎたんです and たべすぎました?",
-      rule: { text: "たべすぎました = plain past statement ('I ate too much'). たべすぎたんです = explanatory ('The thing is, I ate too much' — explaining why I feel sick, etc.)." },
+      rule: { text: "たべすぎました is a plain past statement. たべすぎたんです is explanatory — 'the thing is, I ate too much' (e.g. explaining why I feel sick)." },
       surface: { text: "たべすぎたんです is more casual than たべすぎました." },
       distractor: { text: "たべすぎたんです means 'I want to eat too much.'" },
       ruleExplanation:
@@ -1085,12 +1024,6 @@ export const M26_3_2: LessonContent = {
     }),
     speaking("ja-m26-3-2-rev-speak-1", M26_3_2_REVIEW[2].kana, M26_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-3-2-rev", M26_3_2_REVIEW),
-    infoStep(
-      "ja-m26-3-2-info-end",
-      "You can now explain excessive situations — complaints with context",
-      "すぎる + んです + conjunctions = natural Japanese grumbling.",
-      "win",
-    ),
   ],
 };
 
@@ -1115,11 +1048,6 @@ export const M26_4_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m26-4-1-info-open",
-      "Pattern discrimination",
-      "Every answer could be ん, すぎ, だから, or でも. Choose the right one.",
-    ),
     cloze(
       "ja-m26-4-1-cloze-1",
       "じかんを まちがえた",
@@ -1258,12 +1186,6 @@ export const M26_4_1: LessonContent = {
     }),
     speaking("ja-m26-4-1-rev-speak-1", M26_4_1_REVIEW[2].kana, M26_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-4-1-rev", M26_4_1_REVIEW),
-    infoStep(
-      "ja-m26-4-1-info-end",
-      "You can now discriminate between explanatory and excess patterns on the fly",
-      "んです for explanations. すぎる for excess. Conjunctions to link them.",
-      "win",
-    ),
   ],
 };
 
@@ -1288,11 +1210,6 @@ export const M26_4_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m26-4-2-info-open",
-      "Longer explanations",
-      "Time for multi-clause explanations. 'I worked too much, so I'm tired. That's why I want to rest.'",
-    ),
     build(
       "ja-m26-4-2-build-1",
       "Say: I made a mistake. I'm in trouble.",
@@ -1420,12 +1337,6 @@ export const M26_4_2: LessonContent = {
     }),
     speaking("ja-m26-4-2-rev-speak-1", M26_4_2_REVIEW[2].kana, M26_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-4-2-rev", M26_4_2_REVIEW),
-    infoStep(
-      "ja-m26-4-2-info-end",
-      "You can now build multi-clause explanations that sound natural",
-      "すぎる + んです + conjunctions stacking = real Japanese excuse-making.",
-      "win",
-    ),
   ],
 };
 
@@ -1450,11 +1361,6 @@ export const M26_5_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m26-5-1-info-open",
-      "Caring questions",
-      "んですか questions sound caring — 'What happened?' instead of just 'What did you do?'",
-    ),
     build(
       "ja-m26-5-1-build-1",
       "Say: Are you tired? (caring)",
@@ -1597,12 +1503,6 @@ export const M26_5_1: LessonContent = {
     }),
     speaking("ja-m26-5-1-rev-speak-1", M26_5_1_REVIEW[2].kana, M26_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-5-1-rev", M26_5_1_REVIEW),
-    infoStep(
-      "ja-m26-5-1-info-end",
-      "You can now ask caring questions and give explanations in return",
-      "んですか for caring questions. んです for caring answers.",
-      "win",
-    ),
   ],
 };
 
@@ -1627,11 +1527,6 @@ export const M26_5_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m26-5-2-info-open",
-      "All patterns at once",
-      "んです, すぎる, conjunctions, trouble verbs — everything mixed together.",
-    ),
     cloze(
       "ja-m26-5-2-cloze-1",
       "のみ",
@@ -1771,12 +1666,6 @@ export const M26_5_2: LessonContent = {
     }),
     speaking("ja-m26-5-2-rev-speak-1", M26_5_2_REVIEW[2].kana, M26_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-5-2-rev", M26_5_2_REVIEW),
-    infoStep(
-      "ja-m26-5-2-info-end",
-      "You can handle explanations, complaints, and linking — all in natural conversation",
-      "All M26 patterns working together.",
-      "win",
-    ),
   ],
 };
 
@@ -1801,11 +1690,6 @@ export const M26_6_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m26-6-1-info-open",
-      "Show what you know",
-      "Build, speak, and translate — produce M26 patterns from memory.",
-    ),
     build(
       "ja-m26-6-1-build-1",
       "Say: The bus didn't come. So I took a taxi.",
@@ -1928,12 +1812,6 @@ export const M26_6_1: LessonContent = {
     }),
     speaking("ja-m26-6-1-rev-speak-1", M26_6_1_REVIEW[2].kana, M26_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-6-1-rev", M26_6_1_REVIEW),
-    infoStep(
-      "ja-m26-6-1-info-end",
-      "You can now produce explanations and complaints from memory",
-      "All M26 patterns in production mode — explain, complain, connect.",
-      "win",
-    ),
   ],
 };
 
@@ -1958,11 +1836,6 @@ export const M26_6_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m26-6-2-info-open",
-      "Everything together",
-      "Multi-sentence production — explain, complain, link, and connect.",
-    ),
     build(
       "ja-m26-6-2-build-1",
       "Say: I studied too much. And I'm tired.",
@@ -2093,12 +1966,6 @@ export const M26_6_2: LessonContent = {
     }),
     speaking("ja-m26-6-2-rev-speak-1", M26_6_2_REVIEW[2].kana, M26_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-6-2-rev", M26_6_2_REVIEW.slice(0, 4)),
-    infoStep(
-      "ja-m26-6-2-info-end",
-      "You can produce multi-sentence explanations with the right conjunctions",
-      "だから, でも, しかし, それで, そして — each with its own job. M26 production mastered.",
-      "win",
-    ),
   ],
 };
 
@@ -2121,11 +1988,6 @@ export const M26_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m26-story-info-open",
-      "Story time — Takeshi's rough morning",
-      "たけし tells you about his terrible morning. Listen to the story and reply.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m26-story-1",
       narrative: [
@@ -2227,12 +2089,6 @@ export const M26_STORY: LessonContent = {
       "けさ おきられなかったんです",
       "The thing is, I couldn't get up this morning.",
     ),
-    infoStep(
-      "ja-m26-story-info-end",
-      "You followed a whole story told with んです, conjunctions, and explanations",
-      "Real narrative Japanese — causes, contrasts, and plans. You'd follow this on the street.",
-      "win",
-    ),
   ],
 };
 
@@ -2258,11 +2114,6 @@ export const M26_7_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m26-7-1-info-open",
-      "Listen and understand",
-      "Can you understand explanations and complaints when you hear them?",
-    ),
     listeningCompSentence({
       id: "ja-m26-7-1-lc-1",
       audioText: "たべすぎたんです。だから おなかが いたいです",
@@ -2408,12 +2259,6 @@ export const M26_7_1: LessonContent = {
     }),
     speaking("ja-m26-7-1-rev-speak-1", M26_7_1_REVIEW[2].kana, M26_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-7-1-rev", M26_7_1_REVIEW),
-    infoStep(
-      "ja-m26-7-1-info-end",
-      "You can understand explanations and complaints in natural Japanese",
-      "んです and すぎる comprehension — solid.",
-      "win",
-    ),
   ],
 };
 
@@ -2438,11 +2283,6 @@ export const M26_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m26-7-2-info-open",
-      "Final round",
-      "Everything from M26 in production — show you can explain, complain, and connect naturally.",
-    ),
     build(
       "ja-m26-7-2-build-1",
       "Say: What happened? Are you okay?",
@@ -2539,7 +2379,7 @@ export const M26_7_2: LessonContent = {
       anchorLabel: "Full M26 mastery",
       anchorAudioText: "のみすぎたんです",
       question: "What makes M26's patterns so useful for everyday conversation?",
-      rule: { text: "んです lets you explain WHY something happened (not just state it). すぎる lets you say something is TOO MUCH. Together with conjunctions, you can give complete explanations." },
+      rule: { text: "んです lets you explain WHY something happened, not just state it. すぎる says something is TOO MUCH. Together, complete explanations." },
       surface: { text: "They're only useful for formal situations like business meetings." },
       distractor: { text: "They're only for complaints — you can't use them for positive things." },
       ruleExplanation:
@@ -2574,12 +2414,6 @@ export const M26_7_2: LessonContent = {
     }),
     speaking("ja-m26-7-2-rev-speak-1", M26_7_2_REVIEW[2].kana, M26_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m26-7-2-rev", M26_7_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m26-7-2-info-end",
-      "You can now explain, complain, ask caring questions, and link sentences naturally",
-      "All M26 grammar mastered: んです, すぎる, and five conjunctions — in full production.",
-      "win",
-    ),
   ],
 };
 

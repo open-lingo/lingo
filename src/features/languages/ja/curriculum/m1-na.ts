@@ -40,9 +40,6 @@ export const MOCK_LESSON_JA_M1_NA_1: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["nani"],
   steps: [
-    { id: "ja-na1-info-0", type: "info", title: "N-sounds, part 1",
-      body: "Two kana that look related: な and に. Build なに (what?) — useful any time you don't catch something.",
-      variant: "culture" },
 
     symbolIntro("ja-na1-intro-na", "な", "na", "/na/", "like 'na' in 'nacho'", "なに (what)"),
     traceTwice("ja-na1-trace-na", "な", "na", "like 'na' in 'nacho'"),
@@ -58,9 +55,6 @@ export const MOCK_LESSON_JA_M1_NA_1: LessonContent = {
     symbolToSound(ctx, "ja-na1-sts-na", "な", "na", "like 'na'"),
     symbolToSound(ctx, "ja-na1-sts-ni", "に", "ni", "like 'nee'"),
 
-    { id: "ja-na1-info-end", type: "info", title: "Two down",
-      body: "な and に — and you can already ask a question with なに. Next: ぬ and ね.",
-      variant: "default" },
   ],
 };
 
@@ -72,9 +66,6 @@ export const MOCK_LESSON_JA_M1_NA_2: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["neko"],
   steps: [
-    { id: "ja-na2-info-0", type: "info", title: "N-sounds, part 2",
-      body: "ぬ (rare in modern usage but you'll see it) and ね. The cat is on its way.",
-      variant: "default" },
 
     symbolIntro("ja-na2-intro-nu", "ぬ", "nu", "/nɯ/", "like 'noo' (slightly clipped)", ""),
     traceTwice("ja-na2-trace-nu", "ぬ", "nu", "like 'noo'"),
@@ -95,8 +86,6 @@ export const MOCK_LESSON_JA_M1_NA_2: LessonContent = {
     symbolToSound(ctx, "ja-na2-sts-nu", "ぬ", "nu", "like 'noo'"),
     symbolToSound(ctx, "ja-na2-sts-ne", "ね", "ne", "like 'net'"),
 
-    { id: "ja-na2-info-end", type: "info", title: "Four down",
-      body: "Just の left — and a full-row review with mic practice.", variant: "default" },
   ],
 };
 
@@ -108,9 +97,6 @@ export const MOCK_LESSON_JA_M1_NA_3: LessonContent = {
   estimatedMinutes: 5, xpReward: 12,
   introducesVocabIds: ["kinoko"],
   steps: [
-    { id: "ja-na3-info-0", type: "info", title: "N-sounds, finale",
-      body: "Meet の (you'll see it everywhere — Japanese has a particle pronounced 'no' that owns half the language). Then sweep the row.",
-      variant: "default" },
 
     symbolIntro("ja-na3-intro-no", "の", "no", "/no/", "like 'no' in 'note'", "きのこ (mushroom)"),
     traceTwice("ja-na3-trace-no", "の", "no", "like 'no' in 'note'"),
@@ -125,8 +111,6 @@ export const MOCK_LESSON_JA_M1_NA_3: LessonContent = {
 
     wordImageMcq(ctx, "ja-na3-mcq-rev-neko", "ねこ"),
 
-    { id: "ja-na3-info-speak", type: "info", title: "Your turn to speak",
-      body: "Tap the mic and say each word. Short words = lenient scoring.", variant: "tip" },
     speaking("ja-na3-speak-nani",   "なに",   "what"),
     speaking("ja-na3-speak-neko",   "ねこ",   "cat"),
     listeningComp("ja-na3-lc-nani", "なに", "nani", "what",
@@ -151,8 +135,5 @@ export const MOCK_LESSON_JA_M1_NA_3: LessonContent = {
     // R2-defer-F prior-row review tail — vowels + ka + sa + ta pool.
     ...priorRowReviewTail("na"),
 
-    { id: "ja-na3-info-end", type: "info", title: "Real-world win",
-      body: "You can now read ねこ (cat), なに (what) — and spot ナマエ ('name') in the name-field on every Japanese form. Up next — ha row.",
-      variant: "win" },
   ],
 };

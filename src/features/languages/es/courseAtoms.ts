@@ -126,6 +126,19 @@ export function findEsAtomBySurface(surface: string): EsAtom | undefined {
   return surfaceRegistry().get(surface);
 }
 
+/**
+ * Cycle-safe snapshot of every atom registered SO FAR (a hoisted function,
+ * same reason as `findEsAtomBySurface`). Curriculum files import earlier
+ * modules before their own factory calls run, so at the moment module N is
+ * building its lessons every atom from m1…m(N-1) is already registered —
+ * exactly the pool the compounding-review picker (`pickReviewSurfaces`)
+ * draws from. Do NOT use this for a whole-course aggregate (use
+ * `getEsCourseAtoms()`); mid-import it only sees earlier modules.
+ */
+export function getRegisteredEsAtoms(): EsAtom[] {
+  return [...surfaceRegistry().values()];
+}
+
 // eslint-disable-next-line no-var
 var _esCourseAtoms: EsAtom[] | undefined;
 

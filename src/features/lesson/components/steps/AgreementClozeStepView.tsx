@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { AgreementClozeStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -58,6 +58,19 @@ export function AgreementClozeStepView({ step, onComplete, onContinue }: Props) 
   const fullAudio = step.audioText ?? null;
   const hasFullAudio = !!fullAudio && !!getTtsUrl(fullAudio);
 
+  // Pending correct-answer play, held in a ref so it's cancelled if the
+  // step unmounts before it fires — advancing must not let this step's
+  // sentence audio bleed into the next step (Spencer QA 2026-07-16).
+  const audioTimer = useRef<number | null>(null);
+  useEffect(
+    () => () => {
+      if (audioTimer.current !== null) {
+        window.clearTimeout(audioTimer.current);
+      }
+    },
+    [],
+  );
+
   function handleSubmit() {
     if (!allFilled || submitted) return;
     setSubmitted(true);
@@ -69,7 +82,10 @@ export function AgreementClozeStepView({ step, onComplete, onContinue }: Props) 
       setCelebrating(true);
       window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
       if (hasFullAudio && fullAudio) {
-        window.setTimeout(() => playJaAudio(fullAudio), 320);
+        audioTimer.current = window.setTimeout(
+          () => playJaAudio(fullAudio),
+          320,
+        );
       }
     }
   }

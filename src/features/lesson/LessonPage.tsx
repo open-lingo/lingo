@@ -64,6 +64,7 @@ import { notifySRSStoreChanged } from "@/features/flashcards/SRSStoreRevisionCon
 import { reviewGrammarPoint } from "@/features/flashcards/engine/grammarSrs";
 import type { SRSModality, SRSRating } from "@/features/flashcards/data/types";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { stopAllAudio } from "@/shared/tts";
 import {
   parseModuleIndex,
   shouldAutoOffScriptRomaji,
@@ -184,6 +185,18 @@ export function LessonPage() {
     completionRecordedRef.current = false;
     resetLessonJuice();
   }, [lessonId]);
+
+  // Cut off any in-flight TTS when leaving the lesson or switching to a
+  // different lesson id — audio must never bleed across a lesson boundary
+  // (Spencer QA 2026-07-16). Step-to-step cutoff lives in handleContinue.
+  // The cleanup runs on unmount AND before this effect re-runs for a new
+  // lessonId (Next-lesson keeps LessonPage mounted, only the param changes).
+  useEffect(
+    () => () => {
+      stopAllAudio();
+    },
+    [lessonId],
+  );
 
   // `?speech=1` deep-links the speech-recognition feature flag on; the
   // same effect also consumes the matcher-tuning dials
@@ -441,7 +454,7 @@ export function LessonPage() {
     clearLessonInProgress(lesson.id);
 
     // Auto-disable the romaji reading aid per script as the learner crosses
-    // that script's fluency milestone (hiragana M10, katakana M17 — see
+    // that script's fluency milestone (hiragana M7, katakana M17 — see
     // src/shared/settings/romajiAutoFlip.ts). One-shot per script, idempotent.
     const reachedModuleIndex = parseModuleIndex(lesson.moduleId);
     if (
@@ -463,7 +476,7 @@ export function LessonPage() {
       );
     }
 
-    // Earlier, build-tile-only fade: at Module 10 the spelling-build tiles
+    // Earlier, build-tile-only fade: at Module 5 the spelling-build tiles
     // stop pre-showing romaji and switch to tap/hover-to-reveal, so the
     // learner reads the kana. One-shot, idempotent, independent of the
     // global romaji aid above.
@@ -617,6 +630,10 @@ export function LessonPage() {
         return;
       }
     }
+    // We're committed to advancing (or finishing) now — cut off any audio
+    // still playing from the current step so it can't bleed into the next
+    // one / the completion screen (Spencer QA 2026-07-16).
+    stopAllAudio();
     // Replay-mode advance: shift the queue; finish when empty.
     if (inReplay) {
       const remaining = replayQueue.slice(1);

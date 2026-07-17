@@ -622,7 +622,7 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
             label={t("settings.showRomaji", "Show romaji as a reading aid")}
             help={t(
               "settings.showRomajiHelp",
-              "Shows romaji above kana across the app. It steps back on its own as you learn each script — hiragana around Module 10, katakana around Module 17. Turn it fully on or off here any time.",
+              "Shows romaji above kana across the app. It steps back on its own as you learn each script — hiragana around Module 7, katakana around Module 17. Turn it fully on or off here any time.",
             )}
             control={
               <Switch
@@ -659,7 +659,7 @@ function LanguageSettingsPanel({ languageId }: { languageId: string }) {
             label={t("settings.hideBuildTileRomaji", "Hide romaji on spelling tiles")}
             help={t(
               "settings.hideBuildTileRomajiHelp",
-              "On word-building exercises, hides romaji on the kana tiles — tap a tile to hear its sound and reveal it, or hover to peek. Turns on automatically at Module 10 once you can read kana. Independent of the reading aid above.",
+              "On word-building exercises, hides romaji on the kana tiles — tap a tile to hear its sound and reveal it, or hover to peek. Turns on automatically at Module 5 once you can read kana. Independent of the reading aid above.",
             )}
             control={
               <Switch

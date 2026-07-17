@@ -26,7 +26,6 @@ import {
   cloze,
   dialogueListen,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -187,11 +186,6 @@ export const M19_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m19-1-1-info-open",
-      "Two words for 'father,' two for 'mother'",
-      "Japanese has humble forms (ちち, はは) for YOUR family and honorific forms (おとうさん, おかあさん) for OTHER people's family. This is the key to sounding natural.",
-    ),
     RULE_FAMILY_REGISTER,
     // ── ちち (humble: father) ──
     build(
@@ -327,12 +321,6 @@ export const M19_1_1: LessonContent = {
     }),
     speaking("ja-m19-1-1-rev-speak-1", M19_1_1_REVIEW[2].kana, M19_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-1-1-rev", M19_1_1_REVIEW),
-    infoStep(
-      "ja-m19-1-1-info-end",
-      "You can now introduce your parents to a Japanese friend — using the right register",
-      "ちち/はは for YOUR family. おとうさん/おかあさん for THEIRS. The humble/honorific distinction is the heart of Japanese politeness.",
-      "win",
-    ),
   ],
 };
 
@@ -357,11 +345,6 @@ export const M19_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m19-1-2-info-open",
-      "Register practice",
-      "Humble or honorific? Every sentence demands you pick the right form for father and mother.",
-    ),
     // ── Register discrimination ──
     sentenceMcq({
       id: "ja-m19-1-2-mcq-1",
@@ -506,12 +489,6 @@ export const M19_1_2: LessonContent = {
     }),
     speaking("ja-m19-1-2-rev-speak-1", M19_1_2_REVIEW[2].kana, M19_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-1-2-rev", M19_1_2_REVIEW),
-    infoStep(
-      "ja-m19-1-2-info-end",
-      "You instinctively pick the right register for parents now",
-      "ちち/はは for your own. おとうさん/おかあさん for theirs. That switch is becoming automatic.",
-      "win",
-    ),
   ],
 };
 
@@ -536,11 +513,6 @@ export const M19_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m19-2-1-info-open",
-      "Older siblings — same register rule",
-      "The humble/honorific pattern extends to siblings. あに = my older brother. おにいさん = your older brother (or addressing yours directly).",
-    ),
     // ── あに (humble: older brother) ──
     build(
       "ja-m19-2-1-build-ani",
@@ -674,12 +646,6 @@ export const M19_2_1: LessonContent = {
     }),
     speaking("ja-m19-2-1-rev-speak-1", M19_2_1_REVIEW[2].kana, M19_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-2-1-rev", M19_2_1_REVIEW),
-    infoStep(
-      "ja-m19-2-1-info-end",
-      "You can now talk about your older siblings — and ask about theirs",
-      "あに/あね (yours, humble) and おにいさん/おねえさん (theirs, honorific). Same pattern as parents.",
-      "win",
-    ),
   ],
 };
 
@@ -704,11 +670,6 @@ export const M19_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m19-2-2-info-open",
-      "Younger siblings are simpler",
-      "For younger siblings, there's one base word — おとうと and いもうと. Add さん when talking about someone ELSE's younger sibling: おとうとさん, いもうとさん.",
-    ),
     // ── おとうと (younger brother) ──
     build(
       "ja-m19-2-2-build-otouto",
@@ -839,12 +800,6 @@ export const M19_2_2: LessonContent = {
     }),
     speaking("ja-m19-2-2-rev-speak-1", M19_2_2_REVIEW[2].kana, M19_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-2-2-rev", M19_2_2_REVIEW),
-    infoStep(
-      "ja-m19-2-2-info-end",
-      "You can now talk about your younger siblings — and politely ask about theirs",
-      "おとうと/いもうと (yours). おとうとさん/いもうとさん (theirs). Simpler than the older-sibling pairs.",
-      "win",
-    ),
   ],
 };
 
@@ -869,11 +824,6 @@ export const M19_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m19-3-1-info-open",
-      "Grandparents — same rule, bigger words",
-      "The humble/honorific pattern continues. そふ = my grandfather. おじいさん = your grandfather (or any elderly man). Same with そぼ / おばあさん.",
-    ),
     // ── そふ (humble: grandfather) ──
     build(
       "ja-m19-3-1-build-sofu",
@@ -1008,12 +958,6 @@ export const M19_3_1: LessonContent = {
     }),
     speaking("ja-m19-3-1-rev-speak-1", M19_3_1_REVIEW[2].kana, M19_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-3-1-rev", M19_3_1_REVIEW),
-    infoStep(
-      "ja-m19-3-1-info-end",
-      "You can now talk about your grandparents respectfully",
-      "そふ/そぼ (yours, humble). おじいさん/おばあさん (theirs, honorific). The full family register is building.",
-      "win",
-    ),
   ],
 };
 
@@ -1038,11 +982,6 @@ export const M19_3_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m19-3-2-info-open",
-      "All family pairs — can you keep them straight?",
-      "Parents, older siblings, younger siblings, grandparents. Humble for yours, honorific for theirs. Mix and match.",
-    ),
     // ── Mixed register discrimination ──
     sentenceMcq({
       id: "ja-m19-3-2-mcq-1",
@@ -1175,7 +1114,7 @@ export const M19_3_2: LessonContent = {
       anchorLabel: "Family register system overview",
       anchorAudioText: "あねは きょうしです",
       question: "Summarize the humble/honorific rule:",
-      rule: { text: "YOUR family → humble forms (ちち, はは, あに, あね, そふ, そぼ). THEIR family → honorific forms (おとうさん, おかあさん, おにいさん, おねえさん, おじいさん, おばあさん). Younger siblings add さん for theirs." },
+      rule: { text: "YOUR family: humble (ちち, はは, あに, あね, そふ, そぼ). THEIR family: honorific (おとうさん, おかあさん, おにいさん, おねえさん, おじいさん, おばあさん), + さん for younger siblings." },
       surface: { text: "Humble forms are casual and honorific forms are formal — use honorific at work." },
       distractor: { text: "Men use humble forms and women use honorific forms." },
       ruleExplanation:
@@ -1201,12 +1140,6 @@ export const M19_3_2: LessonContent = {
     }),
     speaking("ja-m19-3-2-rev-speak-1", M19_3_2_REVIEW[2].kana, M19_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-3-2-rev", M19_3_2_REVIEW),
-    infoStep(
-      "ja-m19-3-2-info-end",
-      "You can switch between humble and honorific for every family member on command",
-      "All eight pairs — parents, siblings, grandparents — plus わたくし, the humble 'I.' The register switch is becoming second nature.",
-      "win",
-    ),
   ],
 };
 
@@ -1231,11 +1164,6 @@ export const M19_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m19-4-1-info-open",
-      "Boy, girl, adult, child, baby",
-      "Five words for people at different life stages. Watch how おとこのこ and おんなのこ are built: おとこ (male) + の + こ (child).",
-    ),
     // ── おとこのこ (boy) ──
     vocabMcq(
       "ja-m19-4-1-mcq-otokonoko",
@@ -1361,12 +1289,6 @@ export const M19_4_1: LessonContent = {
     }),
     speaking("ja-m19-4-1-rev-speak-1", M19_4_1_REVIEW[2].kana, M19_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-4-1-rev", M19_4_1_REVIEW),
-    infoStep(
-      "ja-m19-4-1-info-end",
-      "You can now describe anyone — boy, girl, adult, child, or baby",
-      "おとこのこ, おんなのこ, おとな, こども, あかちゃん. Five people words in your toolkit.",
-      "win",
-    ),
   ],
 };
 
@@ -1391,11 +1313,6 @@ export const M19_4_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m19-4-2-info-open",
-      "Students, police officers, and everyone",
-      "Five more people words — including the polite かた and two ways to say 'everyone' — plus practice combining people vocabulary with counting words.",
-    ),
     // ── せいと (pupil/student) ──
     vocabMcq(
       "ja-m19-4-2-mcq-seito",
@@ -1601,12 +1518,6 @@ export const M19_4_2: LessonContent = {
     }),
     speaking("ja-m19-4-2-rev-speak-1", M19_4_2_REVIEW[2].kana, M19_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-4-2-rev", M19_4_2_REVIEW),
-    infoStep(
-      "ja-m19-4-2-info-end",
-      "You can describe and count people in any situation",
-      "Students, police officers, the polite かた and どなた, and everyone — みんな and みなさん. All in sentences with proper particles.",
-      "win",
-    ),
   ],
 };
 
@@ -1631,11 +1542,6 @@ export const M19_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m19-5-1-info-open",
-      "Counting years of age",
-      "Number + さい tells someone's age. But watch out — いっさい (1), はっさい (8), and じゅっさい (10) have sound changes.",
-    ),
     RULE_SAI_COUNTER,
     // ── Core age forms ──
     build(
@@ -1768,12 +1674,6 @@ export const M19_5_1: LessonContent = {
     }),
     speaking("ja-m19-5-1-rev-speak-1", M19_5_1_REVIEW[2].kana, M19_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-5-1-rev", M19_5_1_REVIEW),
-    infoStep(
-      "ja-m19-5-1-info-end",
-      "You can now ask and answer age questions in Japanese",
-      "なんさいですか / おいくつですか. Number + さい with sound changes for 1, 8, 10.",
-      "win",
-    ),
   ],
 };
 
@@ -1798,11 +1698,6 @@ export const M19_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m19-5-2-info-open",
-      "How big is your family?",
-      "Number + にんかぞく describes family size. よにんかぞく = a family of four. Let's learn to talk about family composition.",
-    ),
     RULE_NIN_KAZOKU,
     // ── Family size forms ──
     build(
@@ -1974,12 +1869,6 @@ export const M19_5_2: LessonContent = {
     }),
     speaking("ja-m19-5-2-rev-speak-1", M19_5_2_REVIEW[2].kana, M19_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-5-2-rev", M19_5_2_REVIEW),
-    infoStep(
-      "ja-m19-5-2-info-end",
-      "You can now describe your family size and list every member",
-      "〜にんかぞく + family member list with と. A full self-introduction skill.",
-      "win",
-    ),
   ],
 };
 
@@ -2004,11 +1893,6 @@ export const M19_6_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m19-6-1-info-open",
-      "Everything at once",
-      "Register, age, family size — all mixed. Can you keep the humble/honorific pairs straight while counting ages?",
-    ),
     // ── Mixed drills ──
     sentenceMcq({
       id: "ja-m19-6-1-mcq-1",
@@ -2147,12 +2031,6 @@ export const M19_6_1: LessonContent = {
     vocabMcq("ja-m19-6-1-rev-mcq-1", M19_6_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M19_REVIEW_POOL),
     speaking("ja-m19-6-1-rev-speak-2", M19_6_1_REVIEW[2].kana, M19_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-6-1-rev", M19_6_1_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m19-6-1-info-end",
-      "You can introduce your entire family with ages and proper register",
-      "Register + age counter + family size — all three systems working together.",
-      "win",
-    ),
   ],
 };
 
@@ -2177,11 +2055,6 @@ export const M19_6_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m19-6-2-info-open",
-      "Full family introductions — from memory",
-      "Build, translate, and speak: introduce your family members, state their ages, describe family size. All from production.",
-    ),
     // ── Production drills ──
     build(
       "ja-m19-6-2-build-1",
@@ -2294,7 +2167,7 @@ export const M19_6_2: LessonContent = {
       anchorLabel: "Full family introduction pattern",
       anchorAudioText: "ごにんかぞくです",
       question: "What's the order for a family self-introduction?",
-      rule: { text: "1) State family size (〜にんかぞくです). 2) List members with と (ちちと ははと…). 3) Add details (age, job) per member. Always use humble forms for YOUR family." },
+      rule: { text: "1) State family size (〜にんかぞくです). 2) List members with と (ちちと ははと…). 3) Add details per member. Use humble forms for YOUR family." },
       surface: { text: "Start with the oldest member and work down by age." },
       distractor: { text: "Always use おとうさん/おかあさん in self-introductions to show respect." },
       ruleExplanation:
@@ -2321,12 +2194,6 @@ export const M19_6_2: LessonContent = {
     vocabMcq("ja-m19-6-2-rev-mcq-1", M19_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M19_REVIEW_POOL),
     speaking("ja-m19-6-2-rev-speak-2", M19_6_2_REVIEW[2].kana, M19_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-6-2-rev", M19_6_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m19-6-2-info-end",
-      "You can produce a complete family self-introduction from memory",
-      "Size, members, ages, jobs — all in proper humble register. A real-world skill you'll use from day one in Japan.",
-      "win",
-    ),
   ],
 };
 
@@ -2350,11 +2217,6 @@ export const M19_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m19-story-info-open",
-      "Story time — ゆき's family",
-      "ゆき tells you about her family. Listen for the humble forms she uses for her own people — then reply with the honorific forms.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m19-story-s1",
       narrative: [
@@ -2480,12 +2342,6 @@ export const M19_STORY: LessonContent = {
       "さんにんかぞくです ちちと ははと わたしです",
       "Family of three — dad, mom, and me.",
     ),
-    infoStep(
-      "ja-m19-story-info-end",
-      "You followed a real family introduction — and replied in the right register",
-      "ゆき used humble forms for her own family; you asked back with honorifics. The register switch is yours now.",
-      "win",
-    ),
   ],
 };
 
@@ -2511,11 +2367,6 @@ export const M19_7_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m19-7-1-info-open",
-      "School open day",
-      "Two parents meet at a school open day and talk about their families. Listen carefully for the register switches.",
-    ),
     dialogueListen({
       id: "ja-m19-7-1-scene-1",
       lines: [
@@ -2659,12 +2510,6 @@ export const M19_7_1: LessonContent = {
     vocabMcq("ja-m19-7-1-rev-mcq-1", M19_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M19_REVIEW_POOL),
     speaking("ja-m19-7-1-rev-speak-2", M19_7_1_REVIEW[2].kana, M19_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-7-1-rev", M19_7_1_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m19-7-1-info-end",
-      "You can hold a family introduction conversation — switching registers naturally",
-      "Humble for yours, honorific for theirs. Age counter, family size, occupations. The full package.",
-      "win",
-    ),
   ],
 };
 
@@ -2689,11 +2534,6 @@ export const M19_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m19-7-2-info-open",
-      "Final round — everything",
-      "Every M19 pattern in production. Register, age, family size, and all the people words.",
-    ),
     // ── Production drills ──
     build(
       "ja-m19-7-2-build-1",
@@ -2831,12 +2671,6 @@ export const M19_7_2: LessonContent = {
     vocabMcq("ja-m19-7-2-rev-mcq-1", M19_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M19_REVIEW_POOL),
     speaking("ja-m19-7-2-rev-speak-2", M19_7_2_REVIEW[2].kana, M19_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-7-2-rev", M19_7_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m19-7-2-info-end",
-      "You can talk about family, people, and ages — with perfect register",
-      "Family register, age counter, family composition, and people vocabulary. Module 19 complete.",
-      "win",
-    ),
   ],
 };
 

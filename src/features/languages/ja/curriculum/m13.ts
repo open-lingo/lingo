@@ -34,7 +34,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -195,11 +194,6 @@ export const M13_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-1-1-info-open",
-      "January through June",
-      "Month names are easy — just add がつ to the number. But two months break the pattern: しがつ (April) and しちがつ (July). Let's start with January to June.",
-    ),
     // ── いちがつ (January) — build intro ──
     build(
       "ja-m13-1-1-build-ichigatsu",
@@ -314,12 +308,6 @@ export const M13_1_1: LessonContent = {
     }),
     speaking("ja-m13-1-1-rev-speak-1", M13_1_1_REVIEW[2].kana, M13_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-1-1-rev", M13_1_1_REVIEW),
-    infoStep(
-      "ja-m13-1-1-info-end",
-      "You can now name January through June in Japanese",
-      "Six months down — いちがつ, にがつ, さんがつ, しがつ, ごがつ, ろくがつ. Remember: April is しがつ, not よんがつ!",
-      "win",
-    ),
   ],
 };
 
@@ -343,11 +331,6 @@ export const M13_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-1-2-info-open",
-      "Months in action",
-      "Let's use those month names in real sentences — birthdays, travel plans, seasons.",
-    ),
     // ── Month+particle drills ──
     build(
       "ja-m13-1-2-build-birthday",
@@ -473,12 +456,6 @@ export const M13_1_2: LessonContent = {
     }),
     speaking("ja-m13-1-2-rev-speak-1", M13_1_2_REVIEW[2].kana, M13_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-1-2-rev", M13_1_2_REVIEW),
-    infoStep(
-      "ja-m13-1-2-info-end",
-      "You can now talk about events by month",
-      "Birthdays, school schedules, weather — you're using months in real sentences with particles.",
-      "win",
-    ),
   ],
 };
 
@@ -504,11 +481,6 @@ export const M13_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-2-1-info-open",
-      "July through December",
-      "Six more months. Two more traps: July is しちがつ (not なながつ) and September is くがつ (not きゅうがつ). The on-readings strike again.",
-    ),
     // ── しちがつ (July) — build intro ──
     build(
       "ja-m13-2-1-build-shichigatsu",
@@ -623,12 +595,6 @@ export const M13_2_1: LessonContent = {
     }),
     speaking("ja-m13-2-1-rev-speak-1", M13_2_1_REVIEW[2].kana, M13_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-2-1-rev", M13_2_1_REVIEW),
-    infoStep(
-      "ja-m13-2-1-info-end",
-      "You can now name all twelve months of the year",
-      "しちがつ, はちがつ, くがつ, じゅうがつ, じゅういちがつ, じゅうにがつ — the full calendar is yours.",
-      "win",
-    ),
   ],
 };
 
@@ -652,11 +618,6 @@ export const M13_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-2-2-info-open",
-      "Months in sentences",
-      "Let's put July through December to work in sentences about seasons, vacations, and events.",
-    ),
     // ── Month sentence drills ──
     build(
       "ja-m13-2-2-build-natsu",
@@ -791,12 +752,6 @@ export const M13_2_2: LessonContent = {
     }),
     speaking("ja-m13-2-2-rev-speak-1", M13_2_2_REVIEW[2].kana, M13_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-2-2-rev", M13_2_2_REVIEW),
-    infoStep(
-      "ja-m13-2-2-info-end",
-      "You can now describe seasons and events using all twelve months",
-      "Summer, winter, vacations, holidays — you're placing events on the calendar in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -821,11 +776,6 @@ export const M13_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-3-1-info-open",
-      "Time ranges with から...まで",
-      "You already know から means 'from' (にほんから). Now learn how it teams up with まで to mark time spans: 'from 9 until 5.'",
-    ),
     RULE_KARA_TIME,
     // ── から/まで in time sentences ──
     cloze(
@@ -954,12 +904,6 @@ export const M13_3_1: LessonContent = {
     }),
     speaking("ja-m13-3-1-rev-speak-1", M13_3_1_REVIEW[2].kana, M13_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-3-1-rev", M13_3_1_REVIEW),
-    infoStep(
-      "ja-m13-3-1-info-end",
-      "You can now describe time ranges — schedules, seasons, work hours",
-      "から...まで gives you precise control over Japanese time expressions. From 9 to 5, from March to May — you've got it.",
-      "win",
-    ),
   ],
 };
 
@@ -984,11 +928,6 @@ export const M13_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-3-2-info-open",
-      "Mixing time ranges",
-      "Let's combine から...まで with months, days, and hours — plus some new daily-life places.",
-    ),
     // ── かいしゃ (company) intro ──
     build(
       "ja-m13-3-2-build-kaisha",
@@ -1140,12 +1079,6 @@ export const M13_3_2: LessonContent = {
     }),
     speaking("ja-m13-3-2-rev-speak-1", M13_3_2_REVIEW[2].kana, M13_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-3-2-rev", M13_3_2_REVIEW),
-    infoStep(
-      "ja-m13-3-2-info-end",
-      "You can now say when you're at work, at the cafe, or on vacation",
-      "から...まで with hours, days, and months — you're scheduling your life in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -1170,11 +1103,6 @@ export const M13_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-4-1-info-open",
-      "Giving reasons with から",
-      "You know から as 'from.' Now meet its second life: 'because.' Reason + だから + result. This is one of the most useful connectors in Japanese.",
-    ),
     RULE_KARA_BECAUSE,
     // ── だから sentence drills ──
     cloze(
@@ -1319,12 +1247,6 @@ export const M13_4_1: LessonContent = {
     }),
     speaking("ja-m13-4-1-rev-speak-1", M13_4_1_REVIEW[2].kana, M13_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-4-1-rev", M13_4_1_REVIEW),
-    infoStep(
-      "ja-m13-4-1-info-end",
-      "You can now give reasons for what you do and don't do",
-      "あめだから、いきません. やすみだから、うちに います. さむいから、コーヒーを のみます. Reason + から + result.",
-      "win",
-    ),
   ],
 };
 
@@ -1349,11 +1271,6 @@ export const M13_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-4-2-info-open",
-      "More reasons, more から",
-      "Let's expand your だから toolkit — weather, feelings, plans. And keep time-から sharp alongside it.",
-    ),
     // ── More だから sentences ──
     cloze(
       "ja-m13-4-2-cloze-dakara-1",
@@ -1473,7 +1390,7 @@ export const M13_4_2: LessonContent = {
       surface: { text: "'From' — だ is just emphasis before the 'from' particle." },
       distractor: { text: "It depends on the verb that follows — から changes meaning based on the predicate." },
       ruleExplanation:
-        "だから is the clear marker: noun + だから = because. Time/place + から (no だ) = from. い-adjective + から = because (no だ needed because adjectives don't take だ).",
+        "だから is the marker: noun + だから = because. Time/place + から (no だ) = from. い-adjective + から = because — adjectives skip だ.",
     }),
     translateStep({
       id: "ja-m13-4-2-translate",
@@ -1501,12 +1418,6 @@ export const M13_4_2: LessonContent = {
     }),
     speaking("ja-m13-4-2-rev-speak-1", M13_4_2_REVIEW[2].kana, M13_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-4-2-rev", M13_4_2_REVIEW),
-    infoStep(
-      "ja-m13-4-2-info-end",
-      "You can now explain your reasons in Japanese",
-      "Weather, schedule, feelings — だから and から let you connect reasons to results naturally.",
-      "win",
-    ),
   ],
 };
 
@@ -1531,11 +1442,6 @@ export const M13_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-5-1-info-open",
-      "Your morning routine",
-      "Six everyday actions — brushing teeth, washing your face, getting dressed. Plus five frequency words from 'always' to 'never.'",
-    ),
     RULE_FREQUENCY,
     // ── はをみがく (brush teeth) ──
     build(
@@ -1650,12 +1556,6 @@ export const M13_5_1: LessonContent = {
     }),
     speaking("ja-m13-5-1-rev-speak-1", M13_5_1_REVIEW[2].kana, M13_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-5-1-rev", M13_5_1_REVIEW),
-    infoStep(
-      "ja-m13-5-1-info-end",
-      "You can now describe your morning routine in Japanese",
-      "Brush teeth, wash face, take a shower — with いつも, よく, and ときどき to say how often.",
-      "win",
-    ),
   ],
 };
 
@@ -1680,11 +1580,6 @@ export const M13_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-5-2-info-open",
-      "Negative frequency + more routines",
-      "Three more daily verbs plus あまり (not often) and ぜんぜん (not at all). Remember: these TWO require a negative verb!",
-    ),
     // ── おふろにはいる (take a bath) ──
     build(
       "ja-m13-5-2-build-ofuro",
@@ -1809,12 +1704,6 @@ export const M13_5_2: LessonContent = {
     }),
     speaking("ja-m13-5-2-rev-speak-1", M13_5_2_REVIEW[2].kana, M13_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-5-2-rev", M13_5_2_REVIEW),
-    infoStep(
-      "ja-m13-5-2-info-end",
-      "You can now describe what you do and don't do every day",
-      "Bath, clothes, lights — with all five frequency adverbs from いつも (always) to ぜんぜん (never). The negative ones need negative verbs!",
-      "win",
-    ),
   ],
 };
 
@@ -1839,11 +1728,6 @@ export const M13_6_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-6-1-info-open",
-      "Frequency + time",
-      "Let's combine everything — months, time ranges, frequency adverbs, and daily routine verbs into rich schedule sentences.",
-    ),
     // ── Complex schedule sentences ──
     build(
       "ja-m13-6-1-build-itsumo-kara",
@@ -1977,12 +1861,6 @@ export const M13_6_1: LessonContent = {
     }),
     speaking("ja-m13-6-1-rev-speak-1", M13_6_1_REVIEW[2].kana, M13_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-6-1-rev", M13_6_1_REVIEW),
-    infoStep(
-      "ja-m13-6-1-info-end",
-      "You can now talk about your weekly routines with frequency and reasons",
-      "Frequency + time + から — scheduling your whole life in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -2007,11 +1885,6 @@ export const M13_6_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-6-2-info-open",
-      "Compound schedule sentences",
-      "Everything together — frequency, から...まで time ranges, だから reasons, and daily routine verbs.",
-    ),
     // ── Compound drills ──
     cloze(
       "ja-m13-6-2-cloze-dakara-1",
@@ -2181,12 +2054,6 @@ export const M13_6_2: LessonContent = {
     }),
     speaking("ja-m13-6-2-rev-speak-1", M13_6_2_REVIEW[2].kana, M13_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-6-2-rev", M13_6_2_REVIEW),
-    infoStep(
-      "ja-m13-6-2-info-end",
-      "You can now explain your schedule with reasons and frequency",
-      "から as 'because,' frequency adverbs, time ranges — your daily-life Japanese is getting real.",
-      "win",
-    ),
   ],
 };
 
@@ -2209,11 +2076,6 @@ export const M13_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m13-story-info-open",
-      "Story time — When to go to Japan",
-      "たけし is telling you about his trip to Japan. Listen for the month he chose, his reason, and his schedule — then reply to him.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m13-story-s1",
       narrative: [
@@ -2321,12 +2183,6 @@ export const M13_STORY: LessonContent = {
       "くじから ろくじまで しごとです",
       "I work from 9 to 6.",
     ),
-    infoStep(
-      "ja-m13-story-info-end",
-      "You followed a real story about travel plans",
-      "Months, reasons (だから), schedules (から...まで), frequency (ときどき), and ひとつき — all in one connected story about visiting Japan.",
-      "win",
-    ),
   ],
 };
 
@@ -2352,11 +2208,6 @@ export const M13_7_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-7-1-info-open",
-      "All of M13 in one drill",
-      "Months, time ranges, reasons, frequency — let's mix them all and make sure you can tell apart から = 'from' and から = 'because.'",
-    ),
     // ── から discrimination drills ──
     cloze(
       "ja-m13-7-1-cloze-kara-time",
@@ -2483,12 +2334,6 @@ export const M13_7_1: LessonContent = {
     }),
     speaking("ja-m13-7-1-rev-speak-1", M13_7_1_REVIEW[2].kana, M13_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-7-1-rev", M13_7_1_REVIEW),
-    infoStep(
-      "ja-m13-7-1-info-end",
-      "You can now discriminate between から = 'from' and から = 'because'",
-      "The two からs — time-from and reason-because — are no longer confusing. Context is king.",
-      "win",
-    ),
   ],
 };
 
@@ -2513,11 +2358,6 @@ export const M13_7_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m13-7-2-info-open",
-      "Show what you know",
-      "Build and speak full sentences using everything from M13 — months, time ranges, reasons, frequency, and daily routines.",
-    ),
     // ── Production-heavy drills ──
     build(
       "ja-m13-7-2-build-1",
@@ -2641,12 +2481,6 @@ export const M13_7_2: LessonContent = {
     }),
     speaking("ja-m13-7-2-rev-speak-1", M13_7_2_REVIEW[2].kana, M13_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m13-7-2-rev", M13_7_2_REVIEW),
-    infoStep(
-      "ja-m13-7-2-info-end",
-      "You can now describe schedules, give reasons, and talk about your daily life in Japanese",
-      "All of M13 mastered: twelve months, から...まで, だから, and five frequency adverbs — in full production.",
-      "win",
-    ),
   ],
 };
 

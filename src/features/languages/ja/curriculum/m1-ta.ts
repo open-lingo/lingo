@@ -41,9 +41,6 @@ export const MOCK_LESSON_JA_M1_TA_1: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["uta"],
   steps: [
-    { id: "ja-ta1-info-0", type: "info", title: "T-sounds, part 1",
-      body: "Two new kana: た and ち. Trace them, build a song, then on to つ + て.",
-      variant: "culture" },
 
     symbolIntro("ja-ta1-intro-ta", "た", "ta", "/ta/", "like 'ta' in 'taco'", "うた (song)"),
     traceTwice("ja-ta1-trace-ta", "た", "ta", "like 'ta' in 'taco'"),
@@ -60,8 +57,6 @@ export const MOCK_LESSON_JA_M1_TA_1: LessonContent = {
     symbolToSound(ctx, "ja-ta1-sts-ta", "た", "ta", "like 'ta'"),
     symbolToSound(ctx, "ja-ta1-sts-chi", "ち", "chi", "like 'chee'"),
 
-    { id: "ja-ta1-info-end", type: "info", title: "Two down",
-      body: "た and ち are yours. Next: つ and て.", variant: "default" },
   ],
 };
 
@@ -73,9 +68,6 @@ export const MOCK_LESSON_JA_M1_TA_2: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["tsuki"],
   steps: [
-    { id: "ja-ta2-info-0", type: "info", title: "T-sounds, part 2",
-      body: "つ is the tricky one — 'ts' + 'oo', no exact English equivalent. て is straightforward.",
-      variant: "default" },
 
     symbolIntro("ja-ta2-intro-tsu", "つ", "tsu", "/tsɯ/", "'ts' as in 'cats' + 'oo'", "つき (moon)",
       "Closest English: 'tsoo'. Listen and mimic — your mouth learns faster than your eye."),
@@ -97,8 +89,6 @@ export const MOCK_LESSON_JA_M1_TA_2: LessonContent = {
     symbolToSound(ctx, "ja-ta2-sts-tsu", "つ", "tsu", "like 'tsoo'"),
     symbolToSound(ctx, "ja-ta2-sts-te", "て", "te", "like 'ten'"),
 
-    { id: "ja-ta2-info-end", type: "info", title: "Four down",
-      body: "Just と left — and a full-row review with mic practice.", variant: "default" },
   ],
 };
 
@@ -110,9 +100,6 @@ export const MOCK_LESSON_JA_M1_TA_3: LessonContent = {
   estimatedMinutes: 5, xpReward: 12,
   introducesVocabIds: ["tokei"],
   steps: [
-    { id: "ja-ta3-info-0", type: "info", title: "T-sounds, finale",
-      body: "Meet と, learn one more word, then check the whole row — recognition, vocab, and your voice.",
-      variant: "default" },
 
     symbolIntro("ja-ta3-intro-to", "と", "to", "/to/", "like 'to' in 'toe'", "とけい (clock)"),
     traceTwice("ja-ta3-trace-to", "と", "to", "like 'to' in 'toe'"),
@@ -127,8 +114,6 @@ export const MOCK_LESSON_JA_M1_TA_3: LessonContent = {
 
     wordImageMcq(ctx, "ja-ta3-mcq-rev-tsuki", "つき"),
 
-    { id: "ja-ta3-info-speak", type: "info", title: "Your turn to speak",
-      body: "Tap the mic and say each word. Short words = lenient scoring.", variant: "tip" },
     speaking("ja-ta3-speak-uta",   "うた",   "song"),
     speaking("ja-ta3-speak-tsuki", "つき",   "moon"),
     listeningComp("ja-ta3-lc-uta", "うた", "uta", "song",
@@ -152,8 +137,5 @@ export const MOCK_LESSON_JA_M1_TA_3: LessonContent = {
     // R2-defer-F prior-row review tail — vowels + ka + sa pool.
     ...priorRowReviewTail("ta"),
 
-    { id: "ja-ta3-info-end", type: "info", title: "Real-world win",
-      body: "You can now read うた (song), つき (moon) — and spot タカ (hawk) on falconry signs at any Japanese shrine. Up next — na row.",
-      variant: "win" },
   ],
 };

@@ -30,7 +30,6 @@ import {
   cloze,
   dialogueListen,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -190,11 +189,6 @@ export const M24_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m24-1-1-info-open",
-      "What do you do for fun?",
-      "Six hobby words covering outdoor adventures and creative pursuits. You'll be talking about your free time in no time.",
-    ),
     // ── え (painting/picture) ──
     build(
       "ja-m24-1-1-build-e",
@@ -317,12 +311,6 @@ export const M24_1_1: LessonContent = {
     }),
     speaking("ja-m24-1-1-rev-speak-1", M24_1_1_REVIEW[2].kana, M24_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-1-1-rev", M24_1_1_REVIEW),
-    infoStep(
-      "ja-m24-1-1-info-end",
-      "You can now name six hobbies in Japanese",
-      "え, しゃしん, つり, ハイキング, キャンプ, ジョギング — your hobby vocabulary is growing.",
-      "win",
-    ),
   ],
 };
 
@@ -348,11 +336,6 @@ export const M24_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m24-1-2-info-open",
-      "Media hobbies",
-      "Five media words + しゅみ (hobby). Now you can ask and answer the classic question: しゅみは なんですか。",
-    ),
     // ── テレビ (TV) ──
     build(
       "ja-m24-1-2-build-terebi",
@@ -480,12 +463,6 @@ export const M24_1_2: LessonContent = {
     }),
     speaking("ja-m24-1-2-rev-speak-1", M24_1_2_REVIEW[2].kana, M24_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-1-2-rev", M24_1_2_REVIEW),
-    infoStep(
-      "ja-m24-1-2-info-end",
-      "You can now talk about media hobbies and ask about someone's interests",
-      "テレビ, ラジオ, ざっし, まんが, アニメ + しゅみ — media vocabulary complete.",
-      "win",
-    ),
   ],
 };
 
@@ -511,11 +488,6 @@ export const M24_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m24-2-1-info-open",
-      "Talking about what you like doing",
-      "You learned のがすき in M16. Quick review, then two new verbs: collect and make.",
-    ),
     RULE_NO_GA_SUKI_REVIEW,
     // ── あつめる (collect) ──
     build(
@@ -651,12 +623,6 @@ export const M24_2_1: LessonContent = {
     }),
     speaking("ja-m24-2-1-rev-speak-1", M24_2_1_REVIEW[2].kana, M24_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-2-1-rev", M24_2_1_REVIEW),
-    infoStep(
-      "ja-m24-2-1-info-end",
-      "You can now talk about hobbies you like doing",
-      "のがすき reviewed with hobby verbs: あつめる, つくる + all the hobby nouns.",
-      "win",
-    ),
   ],
 };
 
@@ -681,11 +647,6 @@ export const M24_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m24-2-2-info-open",
-      "Hobby preferences",
-      "Like it? Dislike it? Eight drills on のがすき and のがきらい with your new hobby words.",
-    ),
     build(
       "ja-m24-2-2-build-suki-anime",
       "Say: I like watching anime.",
@@ -810,12 +771,6 @@ export const M24_2_2: LessonContent = {
     }),
     vocabMcq("ja-m24-2-2-rev-mcq-1", M24_2_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M24_REVIEW_POOL),
     reviewMatchPairs("ja-m24-2-2-rev", M24_2_2_REVIEW),
-    infoStep(
-      "ja-m24-2-2-info-end",
-      "You can now express hobby preferences in Japanese",
-      "のがすき and のがきらい — with all your hobby nouns and verbs.",
-      "win",
-    ),
   ],
 };
 
@@ -841,11 +796,6 @@ export const M24_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m24-3-1-info-open",
-      "Listing hobbies casually",
-      "When someone asks about your weekend, you don't list everything. たり〜たりする says 'among other things, I do X and Y.'",
-    ),
     RULE_TARI_TARI,
     // ── たり〜たりする drills ──
     build(
@@ -958,12 +908,6 @@ export const M24_3_1: LessonContent = {
     }),
     speaking("ja-m24-3-1-rev-speak-1", M24_3_1_REVIEW[2].kana, M24_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-3-1-rev", M24_3_1_REVIEW),
-    infoStep(
-      "ja-m24-3-1-info-end",
-      "You can now casually list your hobbies with たり〜たり",
-      "たり〜たりする — non-exhaustive listing. Natural for talking about weekends and hobbies.",
-      "win",
-    ),
   ],
 };
 
@@ -988,11 +932,6 @@ export const M24_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m24-3-2-info-open",
-      "More casual listing",
-      "More たり practice with different hobby combinations. Plus: ときどき (sometimes) and よく (often).",
-    ),
     // ── ときどき (sometimes) + よく (often) ──
     build(
       "ja-m24-3-2-build-tokidoki",
@@ -1117,12 +1056,6 @@ export const M24_3_2: LessonContent = {
     }),
     speaking("ja-m24-3-2-rev-speak-1", M24_3_2_REVIEW[2].kana, M24_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-3-2-rev", M24_3_2_REVIEW),
-    infoStep(
-      "ja-m24-3-2-info-end",
-      "You can now casually describe your hobby routine with frequency",
-      "たり〜たり + ときどき/よく — natural weekend conversation.",
-      "win",
-    ),
   ],
 };
 
@@ -1148,11 +1081,6 @@ export const M24_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m24-4-1-info-open",
-      "How many times?",
-      "Once, twice, three times — a new counter for frequency. Plus 'every day' and 'every week.'",
-    ),
     RULE_KAI_COUNTER,
     // ── いっかい (1 time) ──
     build(
@@ -1283,12 +1211,6 @@ export const M24_4_1: LessonContent = {
     }),
     speaking("ja-m24-4-1-rev-speak-1", M24_4_1_REVIEW[2].kana, M24_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-4-1-rev", M24_4_1_REVIEW),
-    infoStep(
-      "ja-m24-4-1-info-end",
-      "You can now say how many times you do something",
-      "いっかい, にかい, さんかい + まいにち, まいしゅう — frequency counting.",
-      "win",
-    ),
   ],
 };
 
@@ -1313,11 +1235,6 @@ export const M24_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m24-4-2-info-open",
-      "Frequency practice",
-      "How often do you do your hobbies? Count times, say 'not much,' and describe your routine.",
-    ),
     // ── あまり (not much) ──
     build(
       "ja-m24-4-2-build-amari",
@@ -1449,12 +1366,6 @@ export const M24_4_2: LessonContent = {
     }),
     speaking("ja-m24-4-2-rev-speak-1", M24_4_2_REVIEW[2].kana, M24_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-4-2-rev", M24_4_2_REVIEW),
-    infoStep(
-      "ja-m24-4-2-info-end",
-      "You can now say how many times and how often you do hobbies",
-      "かい counter + あまり — frequency vocabulary complete.",
-      "win",
-    ),
   ],
 };
 
@@ -1479,11 +1390,6 @@ export const M24_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m24-5-1-info-open",
-      "All hobby patterns",
-      "のがすき + たり〜たり + かい counter — all three patterns mixed in production.",
-    ),
     cloze(
       "ja-m24-5-1-cloze-noga",
       "いぬと さんぽする",
@@ -1608,12 +1514,6 @@ export const M24_5_1: LessonContent = {
     }),
     speaking("ja-m24-5-1-rev-speak-1", M24_5_1_REVIEW[2].kana, M24_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-5-1-rev", M24_5_1_REVIEW),
-    infoStep(
-      "ja-m24-5-1-info-end",
-      "You can now describe hobbies using preferences, casual lists, and frequency",
-      "のがすき, たり〜たり, かい counter — all interleaved.",
-      "win",
-    ),
   ],
 };
 
@@ -1638,11 +1538,6 @@ export const M24_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m24-5-2-info-open",
-      "Full hobby rotation",
-      "All M24 patterns at production level — build, speak, translate.",
-    ),
     build(
       "ja-m24-5-2-build-tari-weekend",
       "Say: On weekends, I do things like drawing and jogging.",
@@ -1772,12 +1667,6 @@ export const M24_5_2: LessonContent = {
     }),
     speaking("ja-m24-5-2-rev-speak-1", M24_5_2_REVIEW[2].kana, M24_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-5-2-rev", M24_5_2_REVIEW),
-    infoStep(
-      "ja-m24-5-2-info-end",
-      "You own all M24 hobby patterns in production",
-      "のがすき, たり〜たり, かい counter — rotated and production-ready.",
-      "win",
-    ),
   ],
 };
 
@@ -1802,7 +1691,6 @@ export const M24_6_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep("ja-m24-6-1-info-open", "Full production", "Build, speak, translate — no recognition crutches."),
     build("ja-m24-6-1-build-1", "Say: I like making things.", "ものを つくるのが すきです", ["すき", "つくるのが", "です", "を", "もの", "きらい"], ["もの", "を", "つくるのが", "すき", "です"]),
     speaking("ja-m24-6-1-speak-1", "しゅうまつに えを かいたり しゃしんを とったりします", "On weekends, I do things like drawing and taking photos."),
     build("ja-m24-6-1-build-2", "Say: I go fishing once a week.", "まいしゅう いっかい つりに いきます", ["つり", "まいしゅう", "いっかい", "に", "いきます", "にかい"], ["まいしゅう", "いっかい", "つり", "に", "いきます"]),
@@ -1822,7 +1710,6 @@ export const M24_6_1: LessonContent = {
     listeningCompSentence({ id: "ja-m24-6-1-rev-lc-1", audioText: "よく アニメを みます", correctMeaningEn: "I often watch anime.", distractorsEn: ["I rarely watch anime.", "I often read manga.", "I often listen to the radio."] }),
     speaking("ja-m24-6-1-rev-speak-1", M24_6_1_REVIEW[2].kana, M24_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-6-1-rev", M24_6_1_REVIEW),
-    infoStep("ja-m24-6-1-info-end", "You can produce all M24 patterns from English prompts", "Preferences, casual lists, and frequency — all in production.", "win"),
   ],
 };
 
@@ -1846,7 +1733,6 @@ export const M24_6_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep("ja-m24-6-2-info-open", "Final production", "Last round. Every M24 pattern in flowing conversation."),
     build("ja-m24-6-2-build-1", "Say: I do things like fishing and hiking on weekends.", "しゅうまつに つりを したり ハイキングを したりします", ["ハイキング", "しゅうまつ", "したり", "します", "つり", "したり", "を", "を", "に"], ["しゅうまつ", "に", "つり", "を", "したり", "ハイキング", "を", "したり", "します"]),
     speaking("ja-m24-6-2-speak-1", "こうえんを さんぽするのが すきです", "I like taking walks in the park."),
     cloze("ja-m24-6-2-cloze-kai", "まいしゅう ", " えを かきます。", "さんかい", ["さんかい", "にかい", "いっかい", "よく"], "I draw pictures three times a week.", "まいしゅう さんかい えを かきます。", "さんかい = three times."),
@@ -1866,7 +1752,6 @@ export const M24_6_2: LessonContent = {
     listeningCompSentence({ id: "ja-m24-6-2-rev-lc-1", audioText: "すみません、みずを ください", correctMeaningEn: "Excuse me, water please.", distractorsEn: ["Excuse me, tea please.", "Excuse me, where is the water?", "The water is cold."] }),
     vocabMcq("ja-m24-6-2-rev-mcq-1", M24_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M24_REVIEW_POOL),
     reviewMatchPairs("ja-m24-6-2-rev", M24_6_2_REVIEW),
-    infoStep("ja-m24-6-2-info-end", "You can describe your hobbies, how often, and in casual lists", "All M24 patterns in production — preferences, たり lists, and frequency counts.", "win"),
   ],
 };
 
@@ -1889,11 +1774,6 @@ export const M24_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m24-story-info-open",
-      "Story time — Takeshi's weekend",
-      "たけし tells you about his hobbies. Listen for preferences, たり lists, and frequency words — then reply yourself.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m24-story-scene-1",
       narrative: [
@@ -2001,12 +1881,6 @@ export const M24_STORY: LessonContent = {
       "ふるい まんがを あつめるのが すきです",
       "I like collecting old manga.",
     ),
-    infoStep(
-      "ja-m24-story-info-end",
-      "You followed a real story about hobbies",
-      "You understood のがすき, たり〜たり, frequency words, and あまり in a natural narrative — and replied in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -2031,7 +1905,6 @@ export const M24_7_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep("ja-m24-7-1-info-open", "Hobby conversation", "A longer conversation about hobbies. Listen, answer, and produce."),
     dialogueListen({
       id: "ja-m24-7-1-dialogue",
       lines: [
@@ -2061,7 +1934,6 @@ export const M24_7_1: LessonContent = {
     listeningCompSentence({ id: "ja-m24-7-1-rev-lc-1", audioText: "あの じてんしゃは ともだちのです", correctMeaningEn: "That bicycle is my friend's.", distractorsEn: ["That bicycle is mine.", "That car is my friend's.", "My friend rides a bicycle."] }),
     speaking("ja-m24-7-1-rev-speak-1", M24_7_1_REVIEW[2].kana, M24_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-7-1-rev", M24_7_1_REVIEW),
-    infoStep("ja-m24-7-1-info-end", "You can now have a full hobby conversation in Japanese", "Hobbies, preferences, frequency, casual listing — all in natural dialogue.", "win"),
   ],
 };
 
@@ -2085,7 +1957,6 @@ export const M24_7_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep("ja-m24-7-2-info-open", "Final M24 drill", "Everything from M24 mixed together. Prove you own every pattern."),
     build("ja-m24-7-2-build-1", "Answer: My hobby is hiking.", "しゅみは ハイキングです", ["ハイキング", "は", "つり", "しゅみ", "が", "です"], ["しゅみ", "は", "ハイキング", "です"]),
     cloze("ja-m24-7-2-cloze-1", "しゃしんを とったり つりを したり", "。", "します", ["します", "する", "です", "ます"], "I do things like taking photos and fishing.", "しゃしんを とったり つりを したりします。", "します closes the たり list."),
     speaking("ja-m24-7-2-speak-1", "まいしゅう さんかい ジョギングします", "I jog three times a week."),
@@ -2106,7 +1977,6 @@ export const M24_7_2: LessonContent = {
     listeningCompSentence({ id: "ja-m24-7-2-rev-lc-1", audioText: "ごじに うちに かえります", correctMeaningEn: "I go home at 5 o'clock.", distractorsEn: ["I go home at 9 o'clock.", "I leave home at 5 o'clock.", "I go to school at 5 o'clock."] }),
     speaking("ja-m24-7-2-rev-speak-1", M24_7_2_REVIEW[2].kana, M24_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m24-7-2-rev", M24_7_2_REVIEW),
-    infoStep("ja-m24-7-2-info-end", "You can now talk about hobbies like a natural Japanese speaker", "All M24 grammar mastered: のがすき, たり〜たりする, and かい counter — in full production.", "win"),
   ],
 };
 

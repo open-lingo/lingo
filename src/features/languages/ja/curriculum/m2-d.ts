@@ -99,11 +99,16 @@ export const MOCK_LESSON_JA_M2_D_1: LessonContent = {
   steps: [
     {
       id: "ja-d1-info-open",
-      type: "info",
+      type: "grammar_rule",
       title: "T → D (with two ghosts)",
-      body:
-        "Dakuten ゛ on t-kana voices them: た→だ, て→で, と→ど. ち and つ can take dakuten too — ぢ・づ — but modern Japanese almost always writes those sounds as じ・ず. We skip drilling ぢ・づ here; recognize them in the wild, no need to write them.",
-      variant: "culture",
+      rule:
+        "Dakuten ゛ on t-kana voices them: た→だ, て→で, と→ど. ち and つ can take dakuten (ぢ・づ) too, but modern Japanese writes those sounds as じ・ず instead.",
+      examples: [
+        { ja: "た → だ", romaji: "ta → da", en: "voiced t becomes d" },
+        { ja: "と → ど", romaji: "to → do", en: "voiced t becomes d" },
+      ],
+      cultureNote:
+        "You'll see ぢ・づ in the wild — recognize them, but there's no need to write them.",
     },
 
     // ─── Char 1: だ (da) → からだ (body) ───
@@ -211,14 +216,6 @@ export const MOCK_LESSON_JA_M2_D_3: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    {
-      id: "ja-d3-info-open",
-      type: "info",
-      title: "Putting it together",
-      body:
-        "Quick review of everything from the d-row, plus a few words from earlier rows so they stay sharp.",
-      variant: "default",
-    },
 
     wordImageMcq(ctxSub3, "ja-d3-mcq-denwa", "でんわ"),
     symbolToSound(ctxSub3, "ja-d3-s2s-de", "で", "de", "voiced て"),

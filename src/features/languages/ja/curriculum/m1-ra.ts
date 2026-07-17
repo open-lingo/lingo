@@ -50,9 +50,6 @@ export const MOCK_LESSON_JA_M1_RA_1: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["sakura"],
   steps: [
-    { id: "ja-ra1-info-0", type: "info", title: "R-sounds (the tap)",
-      body: "Japanese 'r' isn't an English 'r' OR an English 'l' — it's a quick tongue tap, like the 'tt' in 'butter' said fast. Two new kana: ら and り.",
-      variant: "culture" },
 
     symbolIntro("ja-ra1-intro-ra", "ら", "ra", "/ɾa/", "tongue tap — 'la' and 'ra' sit between", "さくら (cherry blossom)"),
     traceTwice("ja-ra1-trace-ra", "ら", "ra", "soft tap, between 'la' and 'ra'"),
@@ -68,8 +65,6 @@ export const MOCK_LESSON_JA_M1_RA_1: LessonContent = {
     symbolToSound(ctx, "ja-ra1-sts-ra", "ら", "ra", "tongue tap"),
     symbolToSound(ctx, "ja-ra1-sts-ri", "り", "ri", "tongue tap"),
 
-    { id: "ja-ra1-info-end", type: "info", title: "Two down",
-      body: "ら and り. Next: る and れ.", variant: "default" },
   ],
 };
 
@@ -81,9 +76,6 @@ export const MOCK_LESSON_JA_M1_RA_2: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["kore"],
   steps: [
-    { id: "ja-ra2-info-0", type: "info", title: "R-sounds, part 2",
-      body: "る and れ — same tap, different vowels. Build これ ('this') — at a counter you can point and say 'これ.' Done.",
-      variant: "default" },
 
     symbolIntro("ja-ra2-intro-ru", "る", "ru", "/ɾɯ/", "tapped 'ru' — soft", ""),
     traceTwice("ja-ra2-trace-ru", "る", "ru", "tap 'ru'"),
@@ -103,12 +95,7 @@ export const MOCK_LESSON_JA_M1_RA_2: LessonContent = {
     symbolToSound(ctx, "ja-ra2-sts-re", "れ", "re", "tap 're'"),
 
     // Survival callout — これ is half a phrasebook in itself.
-    { id: "ja-ra2-info-survival", type: "info", title: "Real-world Japanese",
-      body: "これ + を + ください ('kore wo kudasai') = 'this one, please.' Point at a menu item, say it, you've ordered. You'll meet を + ください later — for now, just internalize これ.",
-      variant: "culture" },
 
-    { id: "ja-ra2-info-end", type: "info", title: "Four down",
-      body: "Just ろ left — and a full-row review with mic practice.", variant: "default" },
   ],
 };
 
@@ -120,8 +107,6 @@ export const MOCK_LESSON_JA_M1_RA_3: LessonContent = {
   estimatedMinutes: 5, xpReward: 12,
   introducesVocabIds: ["iro"],
   steps: [
-    { id: "ja-ra3-info-0", type: "info", title: "R-sounds, finale",
-      body: "Meet ろ, build a color, then check the whole row.", variant: "default" },
 
     symbolIntro("ja-ra3-intro-ro", "ろ", "ro", "/ɾo/", "tapped 'ro' — soft", "いろ (color)"),
     traceTwice("ja-ra3-trace-ro", "ろ", "ro", "tap 'ro'"),
@@ -136,8 +121,6 @@ export const MOCK_LESSON_JA_M1_RA_3: LessonContent = {
 
     wordImageMcq(ctx, "ja-ra3-mcq-rev-kore", "これ"),
 
-    { id: "ja-ra3-info-speak", type: "info", title: "Your turn to speak",
-      body: "Tap the mic and say each word. The tap-r is hard to nail — aim for soft, not rolled.", variant: "tip" },
     speaking("ja-ra3-speak-sakura", "さくら", "cherry blossom"),
     speaking("ja-ra3-speak-kore",   "これ",   "this"),
     listeningComp("ja-ra3-lc-sakura", "さくら", "sakura", "cherry blossom",
@@ -147,8 +130,5 @@ export const MOCK_LESSON_JA_M1_RA_3: LessonContent = {
     // R2-defer-F prior-row review tail — vowels through ya pool.
     ...priorRowReviewTail("ra"),
 
-    { id: "ja-ra3-info-end", type: "info", title: "Real-world win",
-      body: "You can now read さくら 🌸 (cherry blossom) — the word on half the anime title cards in spring season — and いろ (color) on art-supply labels. Up next — wa row (just 3 kana left).",
-      variant: "win" },
   ],
 };

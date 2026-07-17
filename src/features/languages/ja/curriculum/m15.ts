@@ -23,7 +23,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -278,11 +277,6 @@ export const M15_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m15-1-1-info-open",
-      "What's happening right now?",
-      "You know the て-form. Now add います after it — and you can describe what's happening this very moment.",
-    ),
     // ── ている intro ──
     RULE_TEIRU,
     // ── Vocab: すむ (to live) ──
@@ -411,12 +405,6 @@ export const M15_1_1: LessonContent = {
     }),
     speaking("ja-m15-1-1-rev-speak-1", M15_1_1_REVIEW[2].kana, M15_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m15-1-1-rev", M15_1_1_REVIEW),
-    infoStep(
-      "ja-m15-1-1-info-end",
-      "You can now describe what's happening right now",
-      "て-form + います turns any verb into a progressive: たべています, のんでいます, べんきょうしています. You're narrating the present.",
-      "win",
-    ),
   ],
 };
 
@@ -441,11 +429,6 @@ export const M15_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m15-1-2-info-open",
-      "What's everyone doing?",
-      "More ている practice with different verbs. Plus two special ones — しっている (knows) and すんでいる (lives) — where ている describes a state, not an action in progress.",
-    ),
     RULE_TEIRU_RESULTATIVE,
     // ── しっている (knows — resultative) ──
     build(
@@ -582,12 +565,6 @@ export const M15_1_2: LessonContent = {
     }),
     speaking("ja-m15-1-2-rev-speak-1", M15_1_2_REVIEW[2].kana, M15_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m15-1-2-rev", M15_1_2_REVIEW),
-    infoStep(
-      "ja-m15-1-2-info-end",
-      "You can describe ongoing actions and ongoing states",
-      "Progressive ている (たべています = eating now) and resultative ている (しっています = knows, すんでいます = lives). Two uses, one powerful pattern.",
-      "win",
-    ),
   ],
 };
 
@@ -613,11 +590,6 @@ export const M15_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m15-2-1-info-open",
-      "Everyone's busy doing something",
-      "Three new activities — walking, shopping, cooking — and you'll describe them all in progress with ている.",
-    ),
     // ── さんぽ (walk) ──
     build(
       "ja-m15-2-1-build-sanpo",
@@ -752,12 +724,6 @@ export const M15_2_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m15-2-1-rev", M15_2_1_REVIEW),
-    infoStep(
-      "ja-m15-2-1-info-end",
-      "You can narrate what everyone's busy doing",
-      "さんぽを しています, かいものを しています, りょうりを しています — activity nouns + しています for the progressive.",
-      "win",
-    ),
   ],
 };
 
@@ -783,11 +749,6 @@ export const M15_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m15-2-2-info-open",
-      "Hobbies in progress",
-      "Four fun words — music, movies, sports, games — and you'll describe people enjoying them right now.",
-    ),
     // ── おんがく (music) ──
     build(
       "ja-m15-2-2-build-ongaku",
@@ -931,12 +892,6 @@ export const M15_2_2: LessonContent = {
     vocabMcq("ja-m15-2-2-rev-mcq-1", M15_2_2_REVIEW[0], M15_REVIEW_POOL),
     speaking("ja-m15-2-2-rev-speak-1", M15_2_2_REVIEW[1].kana, M15_2_2_REVIEW[1].meaningEn),
     reviewMatchPairs("ja-m15-2-2-rev", M15_2_2_REVIEW),
-    infoStep(
-      "ja-m15-2-2-info-end",
-      "You can describe anyone enjoying hobbies right now",
-      "おんがくを きいています, えいがを みています, ゲームを しています — hobbies + progressive = vivid narration.",
-      "win",
-    ),
   ],
 };
 
@@ -961,11 +916,6 @@ export const M15_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m15-3-1-info-open",
-      "Asking permission politely",
-      "One powerful pattern: て-form + もいいですか = 'May I?' You'll be asking permission like a native speaker.",
-    ),
     RULE_TEMOII,
     // ── Permission drills ──
     build(
@@ -1071,7 +1021,7 @@ export const M15_3_1: LessonContent = {
       anchorLabel: "You built: たべてもいいですか",
       anchorAudioText: "たべてもいいですか",
       question: "Why do we use the て-form before もいいですか?",
-      rule: { text: "The てもいい pattern requires the て-form as its base. It literally means 'even if I do X, is it good?' — て-form + も (even if) + いい (good)." },
+      rule: { text: "てもいい needs the て-form as its base — literally 'even if I do X, is it good?': て-form + も (even if) + いい (good)." },
       surface: { text: "The て-form is used because it sounds more polite than the ます-form." },
       distractor: { text: "The て-form is needed because もいい is a separate verb that requires a て-form connection." },
       ruleExplanation: "て-form + も + いいですか decomposes to: [action in て-form] + even if + is it okay? This is a fixed grammatical pattern.",
@@ -1093,12 +1043,6 @@ export const M15_3_1: LessonContent = {
     vocabMcq("ja-m15-3-1-rev-mcq-1", M15_3_1_REVIEW[0], M15_REVIEW_POOL),
     speaking("ja-m15-3-1-rev-speak-1", M15_3_1_REVIEW[1].kana, M15_3_1_REVIEW[1].meaningEn),
     reviewMatchPairs("ja-m15-3-1-rev", M15_3_1_REVIEW),
-    infoStep(
-      "ja-m15-3-1-info-end",
-      "You can now ask permission and understand the answer",
-      "て-form + もいいですか to ask, いいですよ to accept, ちょっと... to softly decline. Polite, natural, and very Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -1123,11 +1067,6 @@ export const M15_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m15-3-2-info-open",
-      "Permission in action",
-      "You know the pattern: て-form + もいいですか. Now drill it with more verbs in real-life situations.",
-    ),
     // ── Varied permission requests ──
     build(
       "ja-m15-3-2-build-kaette",
@@ -1235,7 +1174,7 @@ export const M15_3_2: LessonContent = {
       anchorLabel: "ちょっと... as a soft refusal",
       anchorAudioText: "ちょっと",
       question: "Why is ちょっと... considered a refusal when it literally means 'a little'?",
-      rule: { text: "In Japanese, trailing off with ちょっと... implies 'that's a bit difficult/problematic.' The listener fills in the negative — it's an indirect refusal that avoids saying 'no' directly." },
+      rule: { text: "Trailing off with ちょっと... implies 'that's a bit difficult.' The listener fills in the negative — an indirect refusal that avoids saying 'no.'" },
       surface: { text: "ちょっと means 'please wait a moment' — it's not a refusal at all." },
       distractor: { text: "ちょっと is rude — it means 'absolutely not' and should be avoided." },
       ruleExplanation: "Japanese communication often relies on indirectness. ちょっと... trails off, letting the listener infer the refusal without a direct 'no.'",
@@ -1257,12 +1196,6 @@ export const M15_3_2: LessonContent = {
     speaking("ja-m15-3-2-rev-speak-1", M15_3_2_REVIEW[0].kana, M15_3_2_REVIEW[0].meaningEn),
     vocabMcq("ja-m15-3-2-rev-mcq-1", M15_3_2_REVIEW[1], M15_REVIEW_POOL),
     reviewMatchPairs("ja-m15-3-2-rev", M15_3_2_REVIEW),
-    infoStep(
-      "ja-m15-3-2-info-end",
-      "You can ask for permission in any situation",
-      "て-form + もいいですか works with any verb. Classroom, restaurant, friend's house — you know how to ask and how to respond.",
-      "win",
-    ),
   ],
 };
 
@@ -1288,11 +1221,6 @@ export const M15_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m15-4-1-info-open",
-      "Expressing what you want to do",
-      "Drop ます, add たい. That's it. たべます → たべたい. You'll express desires for the first time.",
-    ),
     RULE_TAI,
     // ── りょこう (travel) ──
     build(
@@ -1430,12 +1358,6 @@ export const M15_4_1: LessonContent = {
     vocabMcq("ja-m15-4-1-rev-mcq-1", M15_4_1_REVIEW[0], M15_REVIEW_POOL),
     speaking("ja-m15-4-1-rev-speak-1", M15_4_1_REVIEW[1].kana, M15_4_1_REVIEW[1].meaningEn),
     reviewMatchPairs("ja-m15-4-1-rev", M15_4_1_REVIEW),
-    infoStep(
-      "ja-m15-4-1-info-end",
-      "You can express what you want to do — and what you don't",
-      "ます-stem + たい = 'want to do.' たい → たくない for the negative. You're expressing desires.",
-      "win",
-    ),
   ],
 };
 
@@ -1461,11 +1383,6 @@ export const M15_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m15-4-2-info-open",
-      "Feelings and desires",
-      "Four い-adjectives for emotions — happy, sad, lonely, fun — plus more たい practice. Express what you feel and what you want.",
-    ),
     // ── うれしい (happy) ──
     build(
       "ja-m15-4-2-build-ureshii",
@@ -1601,12 +1518,6 @@ export const M15_4_2: LessonContent = {
     speaking("ja-m15-4-2-rev-speak-1", M15_4_2_REVIEW[0].kana, M15_4_2_REVIEW[0].meaningEn),
     vocabMcq("ja-m15-4-2-rev-mcq-1", M15_4_2_REVIEW[1], M15_REVIEW_POOL),
     reviewMatchPairs("ja-m15-4-2-rev", M15_4_2_REVIEW),
-    infoStep(
-      "ja-m15-4-2-info-end",
-      "You can express desires and describe your feelings",
-      "たい for want-to-do, four new emotion words — うれしい, かなしい, さびしい, たのしい. You're building an emotional vocabulary.",
-      "win",
-    ),
   ],
 };
 
@@ -1631,11 +1542,6 @@ export const M15_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m15-5-1-info-open",
-      "Wanting things",
-      "たい = want to DO. ほしい = want to HAVE. The thing you want takes が. Two complementary patterns for expressing desire.",
-    ),
     RULE_HOSHII,
     // ── ほしい drills ──
     build(
@@ -1746,7 +1652,7 @@ export const M15_5_1: LessonContent = {
       anchorLabel: "みずが ほしいです — not みずを",
       anchorAudioText: "みずが ほしいです",
       question: "Why does ほしい use が instead of を for the wanted thing?",
-      rule: { text: "ほしい is an adjective describing a feeling ('I am desirous of X'). The object of desire takes が because it's the subject of the adjective, not the direct object of a verb." },
+      rule: { text: "ほしい is an adjective describing a feeling — the desired thing is its subject (が), not a verb's direct object." },
       surface: { text: "が and を are interchangeable with ほしい — both are correct." },
       distractor: { text: "を is only for verbs. Since ほしい ends in い, it must be a noun and nouns always take が." },
       ruleExplanation: "ほしい = adjective ('desirous'). X が ほしい = 'X is desirable (to me).' The wanted thing is the grammatical subject (が), not the object (を).",
@@ -1768,12 +1674,6 @@ export const M15_5_1: LessonContent = {
     vocabMcq("ja-m15-5-1-rev-mcq-1", M15_5_1_REVIEW[0], M15_REVIEW_POOL),
     speaking("ja-m15-5-1-rev-speak-1", M15_5_1_REVIEW[1].kana, M15_5_1_REVIEW[1].meaningEn),
     reviewMatchPairs("ja-m15-5-1-rev", M15_5_1_REVIEW),
-    infoStep(
-      "ja-m15-5-1-info-end",
-      "You can say what you want — things and actions",
-      "ほしい for things (が ほしい), たい for actions (verb + たい). Two sides of desire, both in your toolkit.",
-      "win",
-    ),
   ],
 };
 
@@ -1798,11 +1698,6 @@ export const M15_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m15-5-2-info-open",
-      "Wants, desires, and negatives",
-      "ほしい for things, たい for actions. Now mix them, negate them, and make them your own.",
-    ),
     // ── Mixed drills ──
     cloze(
       "ja-m15-5-2-cloze-tai-1",
@@ -1924,10 +1819,10 @@ export const M15_5_2: LessonContent = {
       anchorLabel: "たい vs ほしい — two kinds of wanting",
       anchorAudioText: "コーヒーが ほしいです",
       question: "When do you use ほしい vs たい?",
-      rule: { text: "ほしい = want a THING (noun + が ほしい). たい = want to DO something (verb stem + たい). They're complementary patterns for different types of desires." },
+      rule: { text: "ほしい = want a THING (noun + が ほしい). たい = want to DO something (stem + たい). Different desire types, different patterns." },
       surface: { text: "ほしい is for expensive things; たい is for cheap things." },
       distractor: { text: "ほしい is polite and たい is casual — they both mean the same thing." },
-      ruleExplanation: "Two patterns: (1) thing + が ほしい = want to have. (2) verb stem + たい = want to do. Choose based on whether the desire is for an object or an action.",
+      ruleExplanation: "Two patterns: thing + が ほしい = want to have; verb stem + たい = want to do. Choose by object vs. action.",
     }),
     speaking(
       "ja-m15-5-2-speak-hoshii",
@@ -1956,12 +1851,6 @@ export const M15_5_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m15-5-2-rev", M15_5_2_REVIEW),
-    infoStep(
-      "ja-m15-5-2-info-end",
-      "You can express any desire — things and actions, positive and negative",
-      "ほしい + たい + their くない negatives. A full toolkit for saying what you want and don't want.",
-      "win",
-    ),
   ],
 };
 
@@ -1986,11 +1875,6 @@ export const M15_6_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m15-6-1-info-open",
-      "The power of 'but'",
-      "けど = 'but.' Attach it after です/ます at the end of a clause. たべたいですけど、じかんが ないです — 'I want to eat, but I have no time.'",
-    ),
     RULE_KEDO,
     // ── けど drills ──
     build(
@@ -2111,12 +1995,6 @@ export const M15_6_1: LessonContent = {
     vocabMcq("ja-m15-6-1-rev-mcq-1", M15_6_1_REVIEW[0], M15_REVIEW_POOL),
     speaking("ja-m15-6-1-rev-speak-1", M15_6_1_REVIEW[1].kana, M15_6_1_REVIEW[1].meaningEn),
     reviewMatchPairs("ja-m15-6-1-rev", M15_6_1_REVIEW),
-    infoStep(
-      "ja-m15-6-1-info-end",
-      "You can express contrasts and conflicting desires",
-      "けど turns two simple sentences into one nuanced thought. 'I want to, but...' — the start of real conversational Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -2141,11 +2019,6 @@ export const M15_6_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m15-6-2-info-open",
-      "Putting it all together",
-      "ている + たい + ほしい + けど — mix all four M15 patterns in natural sentences.",
-    ),
     // ── Combined pattern drills ──
     cloze(
       "ja-m15-6-2-cloze-combo-1",
@@ -2275,12 +2148,6 @@ export const M15_6_2: LessonContent = {
     speaking("ja-m15-6-2-rev-speak-1", M15_6_2_REVIEW[0].kana, M15_6_2_REVIEW[0].meaningEn),
     vocabMcq("ja-m15-6-2-rev-mcq-1", M15_6_2_REVIEW[1], M15_REVIEW_POOL),
     reviewMatchPairs("ja-m15-6-2-rev", M15_6_2_REVIEW),
-    infoStep(
-      "ja-m15-6-2-info-end",
-      "You can combine desires, observations, and contrasts in one sentence",
-      "ている + たい + ほしい + けど — four patterns woven together. You're building complex, natural Japanese sentences.",
-      "win",
-    ),
   ],
 };
 
@@ -2304,11 +2171,6 @@ export const M15_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m15-story-info-open",
-      "Story time — Dreaming of Kyoto",
-      "ゆき is planning her first trip to Kyoto. Listen for what she wants to do (たい), what's in the way (けど), and what's happening right now (ている).",
-    ),
     vocabMcq(
       "ja-m15-story-warmup-ryokou",
       { kana: "りょこう", meaningEn: "travel", emoji: "✈️", fromModule: "m15" },
@@ -2438,12 +2300,6 @@ export const M15_STORY: LessonContent = {
       "おいしい りょうりを たべたいです",
       "I want to eat delicious food.",
     ),
-    infoStep(
-      "ja-m15-story-info-end",
-      "You followed a real plan — desires, obstacles, and all",
-      "いきたいです, たべたいです, いきたいですけど おかねが ないです, よんでいます — one story wove together every M15 pattern.",
-      "win",
-    ),
   ],
 };
 
@@ -2469,11 +2325,6 @@ export const M15_7_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m15-7-1-info-open",
-      "Everything you've learned in M15",
-      "Five patterns, one drill. ている, てもいいですか, たい, ほしい, けど — let's see how well they stick.",
-    ),
     // ── ている review ──
     cloze(
       "ja-m15-7-1-cloze-teiru",
@@ -2629,12 +2480,6 @@ export const M15_7_1: LessonContent = {
     }),
     speaking("ja-m15-7-1-rev-speak-1", M15_7_1_REVIEW[2].kana, M15_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m15-7-1-rev", M15_7_1_REVIEW),
-    infoStep(
-      "ja-m15-7-1-info-end",
-      "You can use all five M15 patterns together",
-      "ている, てもいいですか, たい, ほしい, けど — woven together, these unlock real conversational Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -2659,11 +2504,6 @@ export const M15_7_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m15-7-2-info-open",
-      "Show what you know",
-      "No more hand-holding. Build sentences, speak them, write them. All five M15 patterns — from memory.",
-    ),
     // ── Production: ている ──
     build(
       "ja-m15-7-2-build-teiru-1",
@@ -2759,7 +2599,7 @@ export const M15_7_2: LessonContent = {
       anchorLabel: "ている, てもいい, たい, ほしい, けど — five patterns",
       anchorAudioText: "にほんに いきたいです",
       question: "If someone says にほんに すんでいます, are they expressing a desire?",
-      rule: { text: "No — すんでいます is the resultative ている form meaning 'lives (in Japan).' It describes a current state, not a desire. The desire form would be にほんに すみたいです." },
+      rule: { text: "No — すんでいます is the resultative ている form ('lives in Japan'), describing a state, not a desire. Desire would be にほんに すみたいです." },
       surface: { text: "Yes — すんでいます means they want to live in Japan." },
       distractor: { text: "すんでいます is a polite way of saying すみたい — they're the same meaning." },
       ruleExplanation: "すんでいます = resultative state ('lives in'). すみたいです = desire ('wants to live in'). Different grammar, different meaning.",
@@ -2780,12 +2620,6 @@ export const M15_7_2: LessonContent = {
     vocabMcq("ja-m15-7-2-rev-mcq-1", M15_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M15_REVIEW_POOL),
     speaking("ja-m15-7-2-rev-speak-2", M15_7_2_REVIEW[2].kana, M15_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m15-7-2-rev", M15_7_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m15-7-2-info-end",
-      "You can express what's happening, ask permission, and voice your desires",
-      "Progressive ている, permission てもいいですか, desires たい and ほしい, and contrast けど — five patterns that unlock real conversation. Module 15 complete.",
-      "win",
-    ),
   ],
 };
 

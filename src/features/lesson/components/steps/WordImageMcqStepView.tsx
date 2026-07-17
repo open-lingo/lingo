@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { WordImageMcqStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
@@ -9,6 +9,7 @@ import { AnnotatedText } from "@/shared/readingAnnotation/AnnotatedText";
 import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { Icon } from "@/shared/components/Icon";
 
 const CELEBRATE_MS = 1100;
 
@@ -76,6 +77,20 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
 
+  // Audio-prompt mode (vocabMcq review path sets meaningEn = the target
+  // kana): the old text prompt printed the answer — "What is the word for
+  // なに?" with a tile captioned なに right below it (QA 2026-07-16,
+  // ja-m28-review-1). Detection is safe: normal meanings are English and
+  // can never equal a kana option word. In this mode the cue is the AUDIO,
+  // so we play the word and ask "Which word do you hear?" instead.
+  const audioPrompt = step.options.some((o) => o.word === step.meaningEn);
+  const autoplayedRef = useRef(false);
+  useEffect(() => {
+    if (!audioPrompt || autoplayedRef.current) return;
+    autoplayedRef.current = true;
+    if (getTtsUrl(step.meaningEn)) playJaAudio(step.meaningEn);
+  }, [audioPrompt, step.meaningEn]);
+
   const isCorrect = selected === step.correctOptionId;
 
   const handleEnter = useCallback(() => {
@@ -128,9 +143,25 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
       {/* Content cluster starts at the top; the CTA block below carries
           mt-auto so it pins to the shared bottom action slot. */}
       <div className="flex flex-col gap-6">
-      <h2 className="text-center text-xl font-medium leading-snug text-text-secondary sm:text-2xl">
-        <PromptWithEmphasis meaning={step.meaningEn} />
-      </h2>
+      {audioPrompt ? (
+        <div className="flex items-center justify-center gap-4">
+          <button
+            type="button"
+            onClick={() => playJaAudio(step.meaningEn)}
+            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_3px_0_0_var(--color-accent-hover)] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_var(--color-accent-hover)] active:translate-y-px active:shadow-[0_1px_0_0_var(--color-accent-hover)]"
+            aria-label="Play audio"
+          >
+            <Icon name="play" size={24} />
+          </button>
+          <h2 className="text-xl font-medium leading-snug text-text-secondary sm:text-2xl">
+            Which word do you hear?
+          </h2>
+        </div>
+      ) : (
+        <h2 className="text-center text-xl font-medium leading-snug text-text-secondary sm:text-2xl">
+          <PromptWithEmphasis meaning={step.meaningEn} />
+        </h2>
+      )}
 
       {/* Grid height ≈ its width (two stacked squares), so the width cap
           is really a height cap: 100dvh minus the chrome + prompt +

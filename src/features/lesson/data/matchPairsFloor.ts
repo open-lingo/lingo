@@ -386,14 +386,23 @@ function buildMeaningFill(
   // example sentences like これは あおいです) wrap to two-line cards and
   // don't belong in a word↔meaning grid (Spencer QA 2026-07-13, found
   // padded into ja-m3-2-1's review match). The whitespace check backstops
-  // atoms whose kind is missing or mislabeled.
+  // atoms whose kind is missing or mislabeled. DICTIONARY FORM ONLY: a
+  // ます-form source (e.g. たべます) is excluded even if some future atom
+  // carries one — match grids must build the learner's association with
+  // the plain/dictionary verb form, not the polite conjugation, so they
+  // can generalize to later conjugations (owner QA on ja match_pairs,
+  // 2026-07-16: "avoid labeling verbs... as 'verb (polite)'... we dont
+  // use the polite form in their matching"). The dedicated dict↔ます
+  // teaching grid in ja-m7-2-1 is hand-authored, not pool-drawn, and is
+  // unaffected by this filter.
   const prior = getAtomsUpToModule(moduleId).filter(
     (a) =>
       isSrsEligibleAtom(a) &&
       !present.has(a.kana) &&
       /[a-zA-Z]/.test(a.meaningEn) &&
       a.kind !== "phrase" &&
-      !/\s/.test(a.kana),
+      !/\s/.test(a.kana) &&
+      !/ます$/.test(a.kana),
   );
   if (prior.length === 0) return [];
   const freq = getFrequencyIndex(ctx.rawLessons);

@@ -37,7 +37,6 @@ import {
   cloze,
   dialogueListen,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -197,11 +196,6 @@ export const M23_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-1-1-info-open",
-      "What are you good at?",
-      "Four activities and two judgment words — good at, bad at. By the end you'll be rating skills.",
-    ),
     // ── うんてん (driving) ──
     build(
       "ja-m23-1-1-build-unten",
@@ -331,12 +325,6 @@ export const M23_1_1: LessonContent = {
     }),
     speaking("ja-m23-1-1-rev-speak-1", M23_1_1_REVIEW[2].kana, M23_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-1-1-rev", M23_1_1_REVIEW),
-    infoStep(
-      "ja-m23-1-1-info-end",
-      "You can now rate someone's skills in four activities",
-      "じょうず and へた with うんてん, ダンス, ピアノ, すいえい — skill judgments unlocked.",
-      "win",
-    ),
   ],
 };
 
@@ -362,11 +350,6 @@ export const M23_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-1-2-info-open",
-      "More skill verbs",
-      "Sing, dance, play an instrument — three verbs to pair with じょうず and へた.",
-    ),
     // ── うたう (sing) ──
     build(
       "ja-m23-1-2-build-utau",
@@ -495,12 +478,6 @@ export const M23_1_2: LessonContent = {
     }),
     speaking("ja-m23-1-2-rev-speak-1", M23_1_2_REVIEW[2].kana, M23_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-1-2-rev", M23_1_2_REVIEW),
-    infoStep(
-      "ja-m23-1-2-info-end",
-      "You can now say what someone is good or bad at doing",
-      "のがじょうず / のがへた — with うたう, おどる, ひく.",
-      "win",
-    ),
   ],
 };
 
@@ -526,11 +503,6 @@ export const M23_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-2-1-info-open",
-      "Making suggestions",
-      "You know ます-form verbs. Now swap ます for ましょう and you can suggest anything: 'Let's do X.'",
-    ),
     RULE_MASHOU,
     // ── いっしょに (together) ──
     build(
@@ -651,12 +623,6 @@ export const M23_2_1: LessonContent = {
     }),
     speaking("ja-m23-2-1-rev-speak-1", M23_2_1_REVIEW[2].kana, M23_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-2-1-rev", M23_2_1_REVIEW),
-    infoStep(
-      "ja-m23-2-1-info-end",
-      "You can now suggest activities using ましょう",
-      "ましょう — the confident suggestion. さんぽ, かいもの, いっしょに — three new words in action.",
-      "win",
-    ),
   ],
 };
 
@@ -682,11 +648,6 @@ export const M23_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-2-2-info-open",
-      "More suggestions",
-      "Parties, appointments, activities — ましょう in real contexts.",
-    ),
     // ── パーティー (party) ──
     build(
       "ja-m23-2-2-build-paatii",
@@ -817,12 +778,6 @@ export const M23_2_2: LessonContent = {
     }),
     vocabMcq("ja-m23-2-2-rev-mcq-1", M23_2_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M23_REVIEW_POOL),
     reviewMatchPairs("ja-m23-2-2-rev", M23_2_2_REVIEW),
-    infoStep(
-      "ja-m23-2-2-info-end",
-      "You can now confidently suggest activities at parties and events",
-      "ましょう drilled — パーティー, やくそく, and everyday activities.",
-      "win",
-    ),
   ],
 };
 
@@ -848,11 +803,6 @@ export const M23_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-3-1-info-open",
-      "Polite invitations",
-      "ましょう is confident. Now the softer version: ませんか — 'won't you...?' Three new words for making weekend plans.",
-    ),
     RULE_MASENKA,
     // ── えいが (movie) ──
     build(
@@ -977,12 +927,6 @@ export const M23_3_1: LessonContent = {
     }),
     speaking("ja-m23-3-1-rev-speak-1", M23_3_1_REVIEW[2].kana, M23_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-3-1-rev", M23_3_1_REVIEW),
-    infoStep(
-      "ja-m23-3-1-info-end",
-      "You can now politely invite someone to weekend activities",
-      "ませんか — the soft invitation. えいが, しゅうまつ, ひま — weekend planning vocab.",
-      "win",
-    ),
   ],
 };
 
@@ -1008,11 +952,6 @@ export const M23_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-3-2-info-open",
-      "Weekend invitations",
-      "Saturday, Sunday, and busy — three words that make weekend plans happen (or not).",
-    ),
     // ── にちようび (Sunday) ──
     build(
       "ja-m23-3-2-build-nichiyoubi",
@@ -1146,12 +1085,6 @@ export const M23_3_2: LessonContent = {
     }),
     speaking("ja-m23-3-2-rev-speak-1", M23_3_2_REVIEW[2].kana, M23_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-3-2-rev", M23_3_2_REVIEW),
-    infoStep(
-      "ja-m23-3-2-info-end",
-      "You can now invite friends to weekend plans and handle busy schedules",
-      "ませんか with にちようび, どようび, いそがしい — real weekend planning.",
-      "win",
-    ),
   ],
 };
 
@@ -1176,11 +1109,6 @@ export const M23_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-4-1-info-open",
-      "Confident vs tentative",
-      "ましょう assumes agreement. ませんか gives room to decline. Can you pick the right one?",
-    ),
     // ── だいじょうぶ (okay/fine) ──
     build(
       "ja-m23-4-1-build-daijoubu",
@@ -1317,12 +1245,6 @@ export const M23_4_1: LessonContent = {
     }),
     speaking("ja-m23-4-1-rev-speak-1", M23_4_1_REVIEW[2].kana, M23_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-4-1-rev", M23_4_1_REVIEW),
-    infoStep(
-      "ja-m23-4-1-info-end",
-      "You can now choose between confident suggestions and polite invitations",
-      "ましょう vs ませんか — social register mastered.",
-      "win",
-    ),
   ],
 };
 
@@ -1347,11 +1269,6 @@ export const M23_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-4-2-info-open",
-      "All patterns combined",
-      "Skills, suggestions, and invitations — all four M23 grammar points in one lesson. Three new words to enrich the conversation.",
-    ),
     // ── きっと (surely) ──
     build(
       "ja-m23-4-2-build-kitto",
@@ -1485,12 +1402,6 @@ export const M23_4_2: LessonContent = {
     }),
     vocabMcq("ja-m23-4-2-rev-mcq-1", M23_4_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M23_REVIEW_POOL),
     reviewMatchPairs("ja-m23-4-2-rev", M23_4_2_REVIEW),
-    infoStep(
-      "ja-m23-4-2-info-end",
-      "You can now talk about skills, make suggestions, and respond to invitations",
-      "All four M23 patterns interleaved — じょうず/へた + ましょう/ませんか with real conversation vocab.",
-      "win",
-    ),
   ],
 };
 
@@ -1515,11 +1426,6 @@ export const M23_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-5-1-info-open",
-      "Full rotation",
-      "All four patterns mixed: talk about skills, suggest activities, invite politely. Production-heavy.",
-    ),
     cloze(
       "ja-m23-5-1-cloze-noga",
       "おどる",
@@ -1572,7 +1478,7 @@ export const M23_5_1: LessonContent = {
       "ja-m23-5-1-build-jouzu-suiei",
       "Say: He is good at swimming.",
       "かれは すいえいが じょうずです",
-      ["すいえい", "かれ", "が", "は", "じょうず", "の", "が", "です"],
+      ["すいえい", "かれ", "を", "は", "じょうず", "の", "が", "です"],
       ["かれ", "は", "すいえい", "が", "じょうず", "です"],
     ),
     listeningBuildSentence({
@@ -1659,12 +1565,6 @@ export const M23_5_1: LessonContent = {
     }),
     speaking("ja-m23-5-1-rev-speak-1", M23_5_1_REVIEW[2].kana, M23_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-5-1-rev", M23_5_1_REVIEW),
-    infoStep(
-      "ja-m23-5-1-info-end",
-      "You can now mix skill talk with suggestions and invitations",
-      "Four patterns rotating smoothly — skills + proposals in conversation.",
-      "win",
-    ),
   ],
 };
 
@@ -1689,11 +1589,6 @@ export const M23_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-5-2-info-open",
-      "Full production rotation",
-      "All M23 patterns at production level — build, speak, translate.",
-    ),
     build(
       "ja-m23-5-2-build-jouzu",
       "Say: Yuki is good at dancing.",
@@ -1828,12 +1723,6 @@ export const M23_5_2: LessonContent = {
     }),
     speaking("ja-m23-5-2-rev-speak-1", M23_5_2_REVIEW[2].kana, M23_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-5-2-rev", M23_5_2_REVIEW),
-    infoStep(
-      "ja-m23-5-2-info-end",
-      "You own every M23 pattern in production",
-      "Skills, suggestions, invitations — all in rotation and ready for conversation.",
-      "win",
-    ),
   ],
 };
 
@@ -1858,16 +1747,11 @@ export const M23_6_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-6-1-info-open",
-      "Full production",
-      "Build, speak, and translate everything from M23 — no recognition crutches.",
-    ),
     build(
       "ja-m23-6-1-build-1",
       "Say: She is good at swimming.",
       "かのじょは すいえいが じょうずです",
-      ["すいえい", "かのじょ", "じょうず", "は", "が", "の", "が", "へた", "です"],
+      ["すいえい", "かのじょ", "じょうず", "は", "が", "の", "を", "へた", "です"],
       ["かのじょ", "は", "すいえい", "が", "じょうず", "です"],
     ),
     speaking(
@@ -1885,7 +1769,7 @@ export const M23_6_1: LessonContent = {
     listeningBuildSentence({
       id: "ja-m23-6-1-lb-1",
       target: "うたうのが じょうずです",
-      tiles: ["じょうず", "うたう", "の", "が", "へた", "が", "です"],
+      tiles: ["じょうず", "うたう", "の", "が", "へた", "を", "です"],
       correctOrder: ["うたう", "の", "が", "じょうず", "です"],
       promptEn: "Hear it, build it: 'Good at singing.'",
     }),
@@ -1982,12 +1866,6 @@ export const M23_6_1: LessonContent = {
     }),
     speaking("ja-m23-6-1-rev-speak-1", M23_6_1_REVIEW[2].kana, M23_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-6-1-rev", M23_6_1_REVIEW),
-    infoStep(
-      "ja-m23-6-1-info-end",
-      "You can produce all M23 patterns from English prompts",
-      "Skills, suggestions, invitations, and responses — all in full production.",
-      "win",
-    ),
   ],
 };
 
@@ -2012,16 +1890,11 @@ export const M23_6_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-6-2-info-open",
-      "Final production",
-      "Last production round. Every M23 pattern — skills, suggestions, invitations — in flowing conversation.",
-    ),
     build(
       "ja-m23-6-2-build-1",
       "Say: My older sister is good at dance.",
       "あねは ダンスが じょうずです",
-      ["ダンス", "あね", "じょうず", "は", "が", "の", "が", "です"],
+      ["ダンス", "あね", "じょうず", "は", "が", "の", "を", "です"],
       ["あね", "は", "ダンス", "が", "じょうず", "です"],
     ),
     speaking(
@@ -2135,12 +2008,6 @@ export const M23_6_2: LessonContent = {
     }),
     vocabMcq("ja-m23-6-2-rev-mcq-1", M23_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M23_REVIEW_POOL),
     reviewMatchPairs("ja-m23-6-2-rev", M23_6_2_REVIEW),
-    infoStep(
-      "ja-m23-6-2-info-end",
-      "You can now talk about skills, suggest activities, and respond to invitations",
-      "All M23 patterns in production — じょうず/へた, ましょう, ませんか, and real conversation responses.",
-      "win",
-    ),
   ],
 };
 
@@ -2163,11 +2030,6 @@ export const M23_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m23-story-info-open",
-      "Story time — Weekend plans",
-      "たけし tells you about his weekend — what he's good and bad at, and his plans with ゆき. Listen and reply.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m23-story-scene-1",
       narrative: [
@@ -2258,7 +2120,7 @@ export const M23_STORY: LessonContent = {
     listeningBuildSentence({
       id: "ja-m23-story-lb-1",
       target: "ゆきさんは ダンスが じょうずです",
-      tiles: ["ダンス", "ゆきさん", "じょうず", "は", "が", "の", "が", "へた", "です"],
+      tiles: ["ダンス", "ゆきさん", "じょうず", "は", "が", "の", "を", "へた", "です"],
       correctOrder: ["ゆきさん", "は", "ダンス", "が", "じょうず", "です"],
       promptEn: "Hear it, build it: 'Yuki is good at dance.'",
     }),
@@ -2293,12 +2155,6 @@ export const M23_STORY: LessonContent = {
       "きっと たのしいです",
       "It'll surely be fun.",
     ),
-    infoStep(
-      "ja-m23-story-info-end",
-      "You can follow a story about skills and weekend plans",
-      "You understood じょうず/へた, ましょう/ませんか, and replied with your own invitations in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -2324,11 +2180,6 @@ export const M23_7_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-7-1-info-open",
-      "Planning activities",
-      "A longer conversation about skills and weekend plans. Listen, answer, and produce.",
-    ),
     dialogueListen({
       id: "ja-m23-7-1-dialogue",
       lines: [
@@ -2456,12 +2307,6 @@ export const M23_7_1: LessonContent = {
     }),
     speaking("ja-m23-7-1-rev-speak-1", M23_7_1_REVIEW[2].kana, M23_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-7-1-rev", M23_7_1_REVIEW),
-    infoStep(
-      "ja-m23-7-1-info-end",
-      "You can now navigate a full invitation conversation with accept and decline",
-      "ませんか → acceptance → ましょう — the natural flow of making plans in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -2486,16 +2331,11 @@ export const M23_7_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-7-2-info-open",
-      "Final M23 drill",
-      "Everything from M23 mixed together. Prove you own every pattern.",
-    ),
     build(
       "ja-m23-7-2-build-1",
       "Say: Yuki is good at driving.",
       "ゆきさんは うんてんが じょうずです",
-      ["うんてん", "ゆきさん", "じょうず", "は", "が", "の", "が", "です"],
+      ["うんてん", "ゆきさん", "じょうず", "は", "が", "の", "を", "です"],
       ["ゆきさん", "は", "うんてん", "が", "じょうず", "です"],
     ),
     cloze(
@@ -2627,12 +2467,6 @@ export const M23_7_2: LessonContent = {
     }),
     speaking("ja-m23-7-2-rev-speak-1", M23_7_2_REVIEW[2].kana, M23_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-7-2-rev", M23_7_2_REVIEW),
-    infoStep(
-      "ja-m23-7-2-info-end",
-      "You can now talk about skills, suggest plans, invite friends, and respond naturally",
-      "All M23 grammar mastered: のがじょうず/へた, ましょう, ませんか — in full production.",
-      "win",
-    ),
   ],
 };
 
@@ -2690,11 +2524,6 @@ export const M23_8_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-8-1-info-open",
-      "What can you do?",
-      "じょうず says how WELL you do something. できます says whether you CAN do it at all. One pattern, every skill you own.",
-    ),
     RULE_DEKIMASU,
     build(
       "ja-m23-8-1-build-dekimasu",
@@ -2764,7 +2593,7 @@ export const M23_8_1: LessonContent = {
       anchorLabel: "うんてんが できます",
       anchorAudioText: "うんてんが できます",
       question: "What's the difference between できます and じょうずです?",
-      rule: { text: "できます = whether you CAN do it (yes/no ability). じょうずです = how WELL you do it (skill quality). You can do something without being good at it." },
+      rule: { text: "できます = CAN you do it (yes/no ability). じょうずです = how WELL you do it (skill). You can do something without being good at it." },
       surface: { text: "They mean the same — both say you're good at something." },
       distractor: { text: "できます is the past tense of じょうずです." },
       ruleExplanation:
@@ -2789,12 +2618,6 @@ export const M23_8_1: LessonContent = {
     }),
     speaking("ja-m23-8-1-rev-speak-1", M23_8_1_REVIEW[2].kana, M23_8_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-8-1-rev", M23_8_1_REVIEW),
-    infoStep(
-      "ja-m23-8-1-info-end",
-      "You can now say what you can and can't do",
-      "〜ができます / できません — ability unlocked, and you know how it differs from じょうず.",
-      "win",
-    ),
   ],
 };
 
@@ -2847,11 +2670,6 @@ export const M23_8_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m23-8-2-info-open",
-      "Asking 'can you?'",
-      "Turn できます into questions and answers — and meet できる, the form you'll find in every dictionary.",
-    ),
     RULE_DEKIRU,
     build(
       "ja-m23-8-2-build-dekiru",
@@ -2955,12 +2773,6 @@ export const M23_8_2: LessonContent = {
     }),
     speaking("ja-m23-8-2-rev-speak-1", M23_8_2_REVIEW[2].kana, M23_8_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m23-8-2-rev", M23_8_2_REVIEW),
-    infoStep(
-      "ja-m23-8-2-info-end",
-      "You can now ask and answer 'can you?' in two registers",
-      "できますか / はい、できます — plus できる for casual speech. Ability talk complete.",
-      "win",
-    ),
   ],
 };
 

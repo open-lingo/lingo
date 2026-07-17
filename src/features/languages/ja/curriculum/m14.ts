@@ -25,7 +25,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -287,11 +286,6 @@ export const M14_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-1-1-info-open",
-      "The て-form begins",
-      "て-form is the Swiss Army knife of Japanese grammar. It powers requests, connections, and more. Group 2 verbs are the easiest — just swap る for て.",
-    ),
     RULE_TE_GROUP2,
     // ── たべて (eat → te-form) ──
     build(
@@ -409,12 +403,6 @@ export const M14_1_1: LessonContent = {
     }),
     speaking("ja-m14-1-1-rev-speak-1", M14_1_1_REVIEW[2].kana, M14_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m14-1-1-rev", M14_1_1_REVIEW),
-    infoStep(
-      "ja-m14-1-1-info-end",
-      "You can now convert Group 2 verbs to て-form",
-      "たべて, みて, みせて, おしえて — the ichidan pattern is simple: る → て. The hardest part is knowing which verbs are Group 2.",
-      "win",
-    ),
   ],
 };
 
@@ -441,11 +429,6 @@ export const M14_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-1-2-info-open",
-      "More Group 2 practice",
-      "Let's drill three more Group 2 verbs — and sneak in one Group 1 verb to see the contrast.",
-    ),
     // ── でんわ (phone) — object vocab ──
     build(
       "ja-m14-1-2-build-denwa",
@@ -570,12 +553,6 @@ export const M14_1_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m14-1-2-rev", M14_1_2_REVIEW),
-    infoStep(
-      "ja-m14-1-2-info-end",
-      "You can now make requests with Group 2 verbs",
-      "あけて, しめて, かけて — you're building polite requests. Next: Group 1 verbs and their consonant changes.",
-      "win",
-    ),
   ],
 };
 
@@ -602,11 +579,6 @@ export const M14_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-2-1-info-open",
-      "Group 1: the って pattern",
-      "Three endings — う, つ, る — all become って. The consonant drops and doubles into っ.",
-    ),
     RULE_TE_GROUP1_TTE,
     // ── まつ (wait) — new verb ──
     build(
@@ -726,12 +698,6 @@ export const M14_2_1: LessonContent = {
     }),
     speaking("ja-m14-2-1-rev-speak-1", M14_2_1_REVIEW[2].kana, M14_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m14-2-1-rev", M14_2_1_REVIEW),
-    infoStep(
-      "ja-m14-2-1-info-end",
-      "You can now handle って verbs",
-      "まって, かって, かえって, とって — three endings (う/つ/る) all become って. Watch out for かえる — it looks like Group 2 but isn't!",
-      "win",
-    ),
   ],
 };
 
@@ -758,11 +724,6 @@ export const M14_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-2-2-info-open",
-      "って mastery round",
-      "Time to drill って until it's automatic — plus one tricky contrast between Group 1 and Group 2.",
-    ),
     // ── てつだう (help) — full drill ──
     cloze(
       "ja-m14-2-2-cloze-tetsudatte",
@@ -893,12 +854,6 @@ export const M14_2_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m14-2-2-rev", M14_2_2_REVIEW),
-    infoStep(
-      "ja-m14-2-2-info-end",
-      "You can now contrast Group 1 って with Group 2 て",
-      "The って pattern is locked in. You know the trap: かえる looks Group 2 but uses って. Next: the other Group 1 patterns.",
-      "win",
-    ),
   ],
 };
 
@@ -924,11 +879,6 @@ export const M14_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-3-1-info-open",
-      "Four more て-form patterns",
-      "Group 1 has four more patterns. む/ぶ nasalize into んで, く softens to いて, ぐ to いで, and す to して.",
-    ),
     RULE_TE_GROUP1_NDE_ITE,
     // ── のむ (drink) → のんで ──
     build(
@@ -1037,12 +987,6 @@ export const M14_3_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m14-3-1-rev", M14_3_1_REVIEW),
-    infoStep(
-      "ja-m14-3-1-info-end",
-      "You know four more て-form patterns",
-      "のんで, あそんで (んで), かいて (いて), およいで (いで), はなして (して). Six of seven Group 1 patterns are now yours.",
-      "win",
-    ),
   ],
 };
 
@@ -1068,11 +1012,6 @@ export const M14_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-3-2-info-open",
-      "The big exception: いく → いって",
-      "All く-ending verbs use いて... except いく (go). いく → いって, NOT いいて. This is the #1 mistake learners make.",
-    ),
     // ── いく → いって (THE exception) ──
     sentenceMcq({
       id: "ja-m14-3-2-mcq-itte",
@@ -1195,12 +1134,6 @@ export const M14_3_2: LessonContent = {
     }),
     speaking("ja-m14-3-2-rev-speak-1", M14_3_2_REVIEW[2].kana, M14_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m14-3-2-rev", M14_3_2_REVIEW),
-    infoStep(
-      "ja-m14-3-2-info-end",
-      "You know the biggest て-form exception",
-      "いく → いって (NOT いいて). The #1 mistake learners make, and now you won't make it. All Group 1 patterns are yours.",
-      "win",
-    ),
   ],
 };
 
@@ -1226,11 +1159,6 @@ export const M14_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-4-1-info-open",
-      "Irregulars + the た-form shortcut",
-      "Just two irregular verbs — する and くる. Plus a bonus: once you know て-form, the た-form (plain past) is free.",
-    ),
     RULE_TE_IRREGULARS,
     // ── する (to do) — formal vocab intro + て-form ──
     build(
@@ -1361,12 +1289,6 @@ export const M14_4_1: LessonContent = {
     }),
     speaking("ja-m14-4-1-rev-speak-1", M14_4_1_REVIEW[2].kana, M14_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m14-4-1-rev", M14_4_1_REVIEW),
-    infoStep(
-      "ja-m14-4-1-info-end",
-      "You now know every て-form pattern in Japanese",
-      "Group 2, Group 1 (って/んで/いて/いで/して), いく exception, する/くる irregulars — and the た-form is free. All patterns unlocked.",
-      "win",
-    ),
   ],
 };
 
@@ -1392,11 +1314,6 @@ export const M14_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-4-2-info-open",
-      "た-form mastery",
-      "You know the rule: て → た, で → だ. Let's drill it until the conversion is instant.",
-    ),
     // ── た-form production chain ──
     build(
       "ja-m14-4-2-build-tabeta",
@@ -1521,12 +1438,6 @@ export const M14_4_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m14-4-2-rev", M14_4_2_REVIEW),
-    infoStep(
-      "ja-m14-4-2-info-end",
-      "You can now produce both て-form and た-form for any verb",
-      "て→た, で→だ — the entire Japanese conjugation system for requests AND plain past is in your hands.",
-      "win",
-    ),
   ],
 };
 
@@ -1551,11 +1462,6 @@ export const M14_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-5-1-info-open",
-      "Making requests",
-      "You already know ください ('please give me'). Now: て-form + ください = polite requests for actions.",
-    ),
     RULE_TE_KUDASAI,
     // ── しゃしん (photo) — object vocab ──
     build(
@@ -1681,12 +1587,6 @@ export const M14_5_1: LessonContent = {
     }),
     speaking("ja-m14-5-1-rev-speak-1", M14_5_1_REVIEW[2].kana, M14_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m14-5-1-rev", M14_5_1_REVIEW),
-    infoStep(
-      "ja-m14-5-1-info-end",
-      "You can now make polite requests in any situation",
-      "まってください, みせてください, おしえてください — the て-form + ください pattern works with every verb.",
-      "win",
-    ),
   ],
 };
 
@@ -1713,11 +1613,6 @@ export const M14_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-5-2-info-open",
-      "Requests in the real world",
-      "Let's use てください in practical situations — asking for help in a shop, giving directions, and more.",
-    ),
     // ── かぎ (key) — object vocab ──
     build(
       "ja-m14-5-2-build-kagi",
@@ -1819,7 +1714,7 @@ export const M14_5_2: LessonContent = {
       anchorLabel: "みてください (Group 2) vs かえってください (Group 1) vs きてください (irregular)",
       anchorAudioText: "きてください",
       question: "How do you decide between て, って, んで etc. before ください?",
-      rule: { text: "First identify the verb group, then apply the て-form rule: Group 2 drops る → て; Group 1 depends on the ending consonant; irregulars are memorized." },
+      rule: { text: "Identify the verb group first: Group 2 drops る → て; Group 1 depends on the ending consonant; irregulars are memorized." },
       surface: { text: "Just add ください to the dictionary form — the て is optional." },
       distractor: { text: "Use って for all Group 1 verbs and て for all Group 2 verbs — there are no other patterns." },
       ruleExplanation:
@@ -1844,12 +1739,6 @@ export const M14_5_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m14-5-2-rev", M14_5_2_REVIEW),
-    infoStep(
-      "ja-m14-5-2-info-end",
-      "You can now request anything politely in Japanese",
-      "From 'please wait' to 'please come tomorrow' — てください is the universal polite request. You're using all verb groups fluently.",
-      "win",
-    ),
   ],
 };
 
@@ -1875,11 +1764,6 @@ export const M14_6_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-6-1-info-open",
-      "Numbers get bigger, counting gets specific",
-      "ひゃく (100), せん (1,000), まん (10,000) — plus Japanese counts objects differently depending on their shape.",
-    ),
     RULE_BIG_NUMBERS,
     // ── ひゃく (100) ──
     build(
@@ -1997,12 +1881,6 @@ export const M14_6_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m14-6-1-rev", M14_6_1_REVIEW),
-    infoStep(
-      "ja-m14-6-1-info-end",
-      "You can now count to 10,000 and use three counters",
-      "ひゃく, せん, まん + 個, 枚, 本. Watch those sound changes: さんびゃく, さんぼん, いっぽん.",
-      "win",
-    ),
   ],
 };
 
@@ -2028,11 +1906,6 @@ export const M14_6_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-6-2-info-open",
-      "Counting at the post office",
-      "Stamps, postcards, envelopes — all flat, all counted with 枚 (まい). Let's count mail and handle prices like a local.",
-    ),
     // ── きって (postage stamp) — new vocab ──
     build(
       "ja-m14-6-2-build-kitte",
@@ -2176,7 +2049,7 @@ export const M14_6_2: LessonContent = {
       anchorLabel: "きって/はがき → まい (flat), ペン → ほん (cylindrical), りんご → こ (general)",
       anchorAudioText: "さんぼん ください",
       question: "How do you pick the right counter for an object?",
-      rule: { text: "Match the counter to the object's shape: 枚 (まい) for flat things (paper, tickets, photos), 本 (ほん) for long/cylindrical things (pens, bottles, trees), 個 (こ) for small round or general objects." },
+      rule: { text: "Match the counter to shape: 枚(まい) = flat (paper, tickets), 本(ほん) = cylindrical (pens, bottles), 個(こ) = round or general." },
       surface: { text: "All counters are interchangeable — just pick whichever one you remember." },
       distractor: { text: "Use 個 (こ) for everything — 枚 and 本 are formal alternatives." },
       ruleExplanation:
@@ -2234,12 +2107,6 @@ export const M14_6_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m14-6-2-rev", M14_6_2_REVIEW),
-    infoStep(
-      "ja-m14-6-2-info-end",
-      "You can now buy and count mail at a Japanese post office",
-      "きって, はがき, ふうとう — counted with 枚. Plus 個 and 本 for everything else, and prices up to 10,000 yen with all the sound changes.",
-      "win",
-    ),
   ],
 };
 
@@ -2263,11 +2130,6 @@ export const M14_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m14-story-info-open",
-      "Story time — Sending letters",
-      "ゆき wrote letters to her friends. Now she's at the post office buying stamps. Listen for the counters and the prices.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m14-story-scene-1",
       narrative: [
@@ -2397,12 +2259,6 @@ export const M14_STORY: LessonContent = {
       "はがきを にまい ください",
       "Two postcards, please.",
     ),
-    infoStep(
-      "ja-m14-story-info-end",
-      "You followed a real errand in Japanese",
-      "Counting with 枚, asking prices, and finding the postbox — you just handled a full post-office visit.",
-      "win",
-    ),
   ],
 };
 
@@ -2429,11 +2285,6 @@ export const M14_7_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-7-1-info-open",
-      "The ultimate て-form test",
-      "Every group, every pattern, every exception — all mixed together. Can you conjugate them all?",
-    ),
     // ── Rapid-fire conjugation: Group 2 ──
     cloze(
       "ja-m14-7-1-cloze-kakete",
@@ -2583,12 +2434,6 @@ export const M14_7_1: LessonContent = {
     }),
     speaking("ja-m14-7-1-rev-speak-1", M14_7_1_REVIEW[2].kana, M14_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m14-7-1-rev", M14_7_1_REVIEW),
-    infoStep(
-      "ja-m14-7-1-info-end",
-      "You can conjugate any verb to て-form on demand",
-      "Group 2, Group 1 (all patterns), irregulars, and the いく exception — interleaved and drilled. て-form mastery is real.",
-      "win",
-    ),
   ],
 };
 
@@ -2614,11 +2459,6 @@ export const M14_7_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m14-7-2-info-open",
-      "Production time",
-      "No more multiple choice. Translate and speak full て-form requests from English — the hardest test of all.",
-    ),
     // ── Translation chain ──
     translateStep({
       id: "ja-m14-7-2-translate-1",
@@ -2725,7 +2565,7 @@ export const M14_7_2: LessonContent = {
       anchorLabel: "You translated 5 different てください requests from English",
       anchorAudioText: "はなしてください",
       question: "What is the most reliable way to determine a verb's て-form?",
-      rule: { text: "Step 1: identify the verb group (1/2/irregular). Step 2: for Group 1, check the final kana of dictionary form. Step 3: apply the matching pattern (って/んで/いて/いで/して). Check for いく exception." },
+      rule: { text: "1) Identify the verb group. 2) For Group 1, check the dictionary form's final kana. 3) Apply って/んで/いて/いで/して — watch for the いく exception." },
       surface: { text: "Just memorize every verb's て-form individually — there are no reliable patterns." },
       distractor: { text: "Count the number of kana in the verb — longer verbs are Group 2, shorter are Group 1." },
       ruleExplanation:
@@ -2750,12 +2590,6 @@ export const M14_7_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m14-7-2-rev", M14_7_2_REVIEW),
-    infoStep(
-      "ja-m14-7-2-info-end",
-      "You can produce て-form requests from scratch in any situation",
-      "Free-recall translation, speaking, building — you've proven you can conjugate and request without any prompts. Module 14 complete.",
-      "win",
-    ),
   ],
 };
 

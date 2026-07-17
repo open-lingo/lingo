@@ -118,11 +118,14 @@ export const MOCK_LESSON_JA_M2_G_1: LessonContent = {
     // naturally on z-row's first-of-type intro.
     {
       id: "ja-g1-info-open",
-      type: "info",
+      type: "grammar_rule",
       title: "Dakuten — the voicing mark",
-      body:
-        "Two small strokes (゛) on a kana voice it: か becomes が — same shape, new sound (your vocal cords buzz). You'll meet 5 of these in this row.",
-      variant: "culture",
+      rule:
+        "Two small strokes (゛) on a kana voice it: the shape stays the same but your vocal cords buzz. You'll meet 5 of these in the k→g row.",
+      examples: [
+        { ja: "か → が", romaji: "ka → ga", en: "voiced k becomes g" },
+        { ja: "き → ぎ", romaji: "ki → gi", en: "voiced k becomes g" },
+      ],
     },
 
     // ─── Char 1: が (ga) → めがね (glasses) ───
@@ -301,14 +304,6 @@ export const MOCK_LESSON_JA_M2_G_3: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    {
-      id: "ja-g3-info-open",
-      type: "info",
-      title: "Putting it together",
-      body:
-        "Quick review of everything from the g-row, plus a few words from earlier rows so they stay sharp.",
-      variant: "default",
-    },
 
     // 2 word_image_mcq for the harder g-row words (megane + genki).
     // kagi + gohan dropped — already drilled in g-2 sub-2.

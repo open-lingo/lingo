@@ -95,11 +95,14 @@ export const MOCK_LESSON_JA_M2_YOON_INTRO_1: LessonContent = {
     // First-of-type yōon info card.
     {
       id: "ja-yi1-info-open",
-      type: "info",
+      type: "grammar_rule",
       title: "Yōon — small kana combinations",
-      body:
-        "A small や, ゆ, or ょ next to an i-row kana blends them into one mora: き + ゃ = きゃ. One sound, two glyphs. The small kana never separates — it sticks to its neighbor.",
-      variant: "culture",
+      rule:
+        "A small や, ゆ, or ょ after an i-row kana blends them into one mora: one sound, two glyphs. The small kana never separates — it sticks to its neighbor.",
+      examples: [
+        { ja: "き + ゃ = きゃ", romaji: "ki + ya = kya", en: "one blended sound" },
+        { ja: "き + ょ = きょ", romaji: "ki + yo = kyo", en: "one blended sound" },
+      ],
     },
 
     // ─── Char 1: きゃ (kya) — no anchor on its own; trace slot. ─
@@ -197,14 +200,6 @@ export const MOCK_LESSON_JA_M2_YOON_INTRO_3: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    {
-      id: "ja-yi3-info-open",
-      type: "info",
-      title: "Putting it together",
-      body:
-        "Quick review of the 3 k-yōon plus earlier-row words. The same small-ゃゅょ rule applies to every consonant family — you'll see them in the next lessons.",
-      variant: "default",
-    },
 
     wordImageMcq(ctxSub3, "ja-yi3-mcq-kyou", "きょう"),
     symbolToSound(ctxSub3, "ja-yi3-s2s-kya", "きゃ", "kya", "ki + small ya"),

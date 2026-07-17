@@ -24,7 +24,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -254,11 +253,6 @@ export const M11_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m11-1-1-info-open",
-      "Saying what you don't do",
-      "You can already say what you do. Now flip it: ます → ません. Three frequency adverbs set the scene — always, often, sometimes.",
-    ),
     // ── ません intro ──
     RULE_MASEN,
     // ── いつも (always) ──
@@ -386,12 +380,6 @@ export const M11_1_1: LessonContent = {
     }),
     vocabMcq("ja-m11-1-1-rev-mcq-1", M11_1_1_REVIEW[2], M11_REVIEW_M7_POOL),
     reviewMatchPairs("ja-m11-1-1-rev", M11_1_1_REVIEW),
-    infoStep(
-      "ja-m11-1-1-info-end",
-      "You can now say what you don't do",
-      "ます → ません flips any polite verb to its negative. Combined with いつも, よく, and ときどき, you can describe your habits.",
-      "win",
-    ),
   ],
 };
 
@@ -416,11 +404,6 @@ export const M11_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m11-1-2-info-open",
-      "Negation drill",
-      "Mix and match: six verbs you know, three frequency words, and the ません ending. Production time.",
-    ),
     // ── Drill: affirmative vs negative discrimination ──
     sentenceMcq({
       id: "ja-m11-1-2-mcq-discrim-1",
@@ -560,12 +543,6 @@ export const M11_1_2: LessonContent = {
     }),
     vocabMcq("ja-m11-1-2-rev-mcq-1", M11_1_2_REVIEW[2], M11_REVIEW_M6_POOL),
     reviewMatchPairs("ja-m11-1-2-rev", M11_1_2_REVIEW),
-    infoStep(
-      "ja-m11-1-2-info-end",
-      "You can now say what you don't do and how often",
-      "Six verbs in negative form plus three frequency adverbs — your negation toolkit is growing.",
-      "win",
-    ),
   ],
 };
 
@@ -590,11 +567,6 @@ export const M11_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m11-2-1-info-open",
-      "What you didn't do",
-      "You know ません (don't). Add でした to get ませんでした (didn't). Plus a new adverb: たいてい (usually).",
-    ),
     // ── ませんでした intro ──
     RULE_MASEN_DESHITA,
     // ── たいてい (usually) ──
@@ -719,12 +691,6 @@ export const M11_2_1: LessonContent = {
     }),
     vocabMcq("ja-m11-2-1-rev-mcq-1", M11_2_1_REVIEW[2], M11_REVIEW_M5_POOL),
     reviewMatchPairs("ja-m11-2-1-rev", M11_2_1_REVIEW),
-    infoStep(
-      "ja-m11-2-1-info-end",
-      "You can now say what you didn't do",
-      "ませんでした gives you the past negative — paired with たいてい, you can say 'I usually didn't go.'",
-      "win",
-    ),
   ],
 };
 
@@ -749,11 +715,6 @@ export const M11_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m11-2-2-info-open",
-      "Present vs past negative",
-      "Two negatives, one tense difference. Can you tell them apart and produce them on demand?",
-    ),
     // ── Discrimination drills ──
     sentenceMcq({
       id: "ja-m11-2-2-mcq-1",
@@ -893,12 +854,6 @@ export const M11_2_2: LessonContent = {
     }),
     vocabMcq("ja-m11-2-2-rev-mcq-1", M11_2_2_REVIEW[2], M11_REVIEW_M4_POOL),
     reviewMatchPairs("ja-m11-2-2-rev", M11_2_2_REVIEW),
-    infoStep(
-      "ja-m11-2-2-info-end",
-      "You can tell apart 'I don't' and 'I didn't'",
-      "ません = present negative; ませんでした = past negative. Time words like きのう and まいにち guide your choice.",
-      "win",
-    ),
   ],
 };
 
@@ -923,11 +878,6 @@ export const M11_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m11-3-1-info-open",
-      "Two adverbs with a rule",
-      "あまり and ぜんぜん only work with negatives. They're the most important pattern in this module.",
-    ),
     // ── Rule ──
     RULE_AMARI_ZENZEN,
     // ── あまり (not much) ──
@@ -1061,12 +1011,6 @@ export const M11_3_1: LessonContent = {
     }),
     vocabMcq("ja-m11-3-1-rev-mcq-1", M11_3_1_REVIEW[2], M11_REVIEW_M3_POOL),
     reviewMatchPairs("ja-m11-3-1-rev", M11_3_1_REVIEW),
-    infoStep(
-      "ja-m11-3-1-info-end",
-      "You know the golden rule: あまり/ぜんぜん + negative only",
-      "あまり = not much; ぜんぜん = not at all. Both demand a negative verb. This is the #1 rule of this module.",
-      "win",
-    ),
   ],
 };
 
@@ -1091,11 +1035,6 @@ export const M11_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m11-3-2-info-open",
-      "Negative-polarity drill",
-      "あまり and ぜんぜん — eight drills to lock in the pattern. Every answer needs a negative verb.",
-    ),
     // ── Drill block ──
     cloze(
       "ja-m11-3-2-cloze-1",
@@ -1264,12 +1203,6 @@ export const M11_3_2: LessonContent = {
     }),
     vocabMcq("ja-m11-3-2-rev-mcq-1", M11_3_2_REVIEW[2], M11_REVIEW_M7_POOL),
     reviewMatchPairs("ja-m11-3-2-rev", M11_3_2_REVIEW),
-    infoStep(
-      "ja-m11-3-2-info-end",
-      "You can express degrees of negation — and react to them",
-      "あまり (not much), ぜんぜん (not at all), and ほんとうですか (really?) when someone's habits surprise you.",
-      "win",
-    ),
   ],
 };
 
@@ -1294,11 +1227,6 @@ export const M11_4_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m11-4-1-info-open",
-      "Casual negation — the ない-form",
-      "ません is polite. ない is casual. Three conjugation patterns to learn: ichidan (easy), godan (vowel shift), and irregulars.",
-    ),
     // ── Rule ──
     RULE_NAI_FORM,
     // ── Ichidan (ru-verbs): たべる → たべない ──
@@ -1460,12 +1388,6 @@ export const M11_4_1: LessonContent = {
     }),
     vocabMcq("ja-m11-4-1-rev-mcq-1", M11_4_1_REVIEW[2], M11_REVIEW_M6_POOL),
     reviewMatchPairs("ja-m11-4-1-rev", M11_4_1_REVIEW),
-    infoStep(
-      "ja-m11-4-1-info-end",
-      "You can now form the plain negative of any verb",
-      "Ichidan: drop る, add ない (いる→いない). Godan: u→a shift + ない. Irregular: する→しない, くる→こない, ある→ない.",
-      "win",
-    ),
   ],
 };
 
@@ -1490,11 +1412,6 @@ export const M11_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m11-4-2-info-open",
-      "ない-form production",
-      "Conjugate, discriminate, and produce: the casual negative across all three verb classes.",
-    ),
     // ── Conjugation drills ──
     sentenceMcq({
       id: "ja-m11-4-2-mcq-1",
@@ -1664,12 +1581,6 @@ export const M11_4_2: LessonContent = {
     }),
     vocabMcq("ja-m11-4-2-rev-mcq-1", M11_4_2_REVIEW[2], M11_REVIEW_M5_POOL),
     reviewMatchPairs("ja-m11-4-2-rev", M11_4_2_REVIEW),
-    infoStep(
-      "ja-m11-4-2-info-end",
-      "You can conjugate any verb into its casual negative",
-      "Ichidan, godan, する, くる, ある — all drilled. The ない-form is your foundation for casual speech.",
-      "win",
-    ),
   ],
 };
 
@@ -1694,11 +1605,6 @@ export const M11_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m11-5-1-info-open",
-      "Timing words — まだ and もう",
-      "まだ = 'not yet' (with negative). もう = 'already' (with past). A natural pair for asking about progress.",
-    ),
     // ── Rule ──
     RULE_MADA_MOU,
     // ── まだ intro ──
@@ -1842,12 +1748,6 @@ export const M11_5_1: LessonContent = {
     }),
     vocabMcq("ja-m11-5-1-rev-mcq-1", M11_5_1_REVIEW[2], M11_REVIEW_M4_POOL),
     reviewMatchPairs("ja-m11-5-1-rev", M11_5_1_REVIEW),
-    infoStep(
-      "ja-m11-5-1-info-end",
-      "You can now talk about what you've done and haven't done yet",
-      "もう = already (+ past). まだ = not yet (+ negative). まだです = the polite 'not yet.'",
-      "win",
-    ),
   ],
 };
 
@@ -1872,11 +1772,6 @@ export const M11_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m11-5-2-info-open",
-      "まだ/もう production",
-      "Mix and match: もう + past, まだ + negative. Who already did what? Who hasn't yet?",
-    ),
     // ── Drill block ──
     sentenceMcq({
       id: "ja-m11-5-2-mcq-1",
@@ -2060,12 +1955,6 @@ export const M11_5_2: LessonContent = {
     }),
     vocabMcq("ja-m11-5-2-rev-mcq-1", M11_5_2_REVIEW[2], M11_REVIEW_M3_POOL),
     reviewMatchPairs("ja-m11-5-2-rev", M11_5_2_REVIEW),
-    infoStep(
-      "ja-m11-5-2-info-end",
-      "You can ask and answer 'Have you already...?' and 'Not yet'",
-      "もう + past = already. まだ + negative = not yet. もういちど = one more time. まだです = the polite short answer.",
-      "win",
-    ),
   ],
 };
 
@@ -2090,11 +1979,6 @@ export const M11_6_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m11-6-1-info-open",
-      "Regular intervals — まい-words",
-      "Four words starting with まい (every): day, week, month, year. They all work the same way in sentences.",
-    ),
     // ── まいにち (every day) ──
     build(
       "ja-m11-6-1-build-mainichi",
@@ -2248,12 +2132,6 @@ export const M11_6_1: LessonContent = {
     }),
     vocabMcq("ja-m11-6-1-rev-mcq-1", M11_6_1_REVIEW[2], M11_REVIEW_M6_POOL),
     reviewMatchPairs("ja-m11-6-1-rev", M11_6_1_REVIEW),
-    infoStep(
-      "ja-m11-6-1-info-end",
-      "You can now talk about regular habits",
-      "まいにち (every day), まいしゅう (every week), まいつき (every month), まいとし (every year) — all follow the まい pattern.",
-      "win",
-    ),
   ],
 };
 
@@ -2278,11 +2156,6 @@ export const M11_6_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m11-6-2-info-open",
-      "Frequency + negation",
-      "What you DON'T do every day, every week, every month. Combine まい-words with ません.",
-    ),
     // ── Combined drills ──
     sentenceMcq({
       id: "ja-m11-6-2-mcq-1",
@@ -2448,12 +2321,6 @@ export const M11_6_2: LessonContent = {
     }),
     vocabMcq("ja-m11-6-2-rev-mcq-1", M11_6_2_REVIEW[2], M11_REVIEW_M5_POOL),
     reviewMatchPairs("ja-m11-6-2-rev", M11_6_2_REVIEW),
-    infoStep(
-      "ja-m11-6-2-info-end",
-      "You can describe habits you don't have",
-      "まいにち / まいしゅう / まいつき / まいとし with ません and あまり/ぜんぜん — plus また (again) vs まだ (not yet) locked in.",
-      "win",
-    ),
   ],
 };
 
@@ -2479,11 +2346,6 @@ export const M11_STORY: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 18,
   steps: [
-    infoStep(
-      "ja-m11-story-info-open",
-      "Story time — たけしさんの まいにち",
-      "たけし tells you about his daily habits: what he does every day, what he never does, and what he hasn't done yet today.",
-    ),
     build(
       "ja-m11-story-warmup-build",
       "Warm up — say: I don't eat much. (polite)",
@@ -2587,12 +2449,6 @@ export const M11_STORY: LessonContent = {
       explanation: "まだ たべていません (not yet) + もう のみました (already).",
     }),
     reviewMatchPairs("ja-m11-story-rev", M11_STORY_REVIEW),
-    infoStep(
-      "ja-m11-story-info-end",
-      "You followed a whole routine told through negation",
-      "ぜんぜん のみません, あまり みません, まだ たべていません, もう のみました — you can follow real talk about habits now.",
-      "win",
-    ),
   ],
 };
 
@@ -2618,11 +2474,6 @@ export const M11_7_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m11-7-1-info-open",
-      "Everything at once",
-      "Polite negative (ません), casual negative (ない), past negative (ませんでした), frequency adverbs — mixed and interleaved.",
-    ),
     // ── Mixed discrimination ──
     sentenceMcq({
       id: "ja-m11-7-1-mcq-1",
@@ -2775,12 +2626,6 @@ export const M11_7_1: LessonContent = {
     vocabMcq("ja-m11-7-1-rev-mcq-1", M11_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M11_REVIEW_POOL),
     speaking("ja-m11-7-1-rev-speak-2", M11_7_1_REVIEW[2].kana, M11_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m11-7-1-rev", M11_7_1_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m11-7-1-info-end",
-      "You can switch between polite and casual negation fluently",
-      "ません, ない, ませんでした — mixed with frequency adverbs and aspect markers. Full negation toolkit deployed.",
-      "win",
-    ),
   ],
 };
 
@@ -2805,11 +2650,6 @@ export const M11_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m11-7-2-info-open",
-      "Full production wrap-up",
-      "Build, translate, and speak: every negation pattern from M11 in production direction.",
-    ),
     // ── Production drills ──
     build(
       "ja-m11-7-2-build-1",
@@ -2924,7 +2764,7 @@ export const M11_7_2: LessonContent = {
       anchorLabel: "あまり/ぜんぜん require negative — but いつも/よく/ときどき don't",
       anchorAudioText: "あまり たべません",
       question: "Why can いつも work with positive verbs but ぜんぜん can't?",
-      rule: { text: "いつも/よく/ときどき are neutral frequency adverbs — they work with both positive and negative. あまり/ぜんぜん are negative-polarity items — they inherently express negation and require negative verb forms." },
+      rule: { text: "いつも/よく/ときどき are neutral — they work with positive or negative. あまり/ぜんぜん are negative-polarity — they require negative verb forms." },
       surface: { text: "All frequency adverbs work with both positive and negative — there is no restriction." },
       distractor: { text: "いつも is formally positive and ぜんぜん is formally negative — they are antonyms and can never appear in the same sentence." },
       ruleExplanation: "Neutral adverbs (いつも, よく, ときどき, たいてい) work with any polarity. Negative-polarity adverbs (あまり, ぜんぜん) require negative predicates.",
@@ -2949,12 +2789,6 @@ export const M11_7_2: LessonContent = {
     vocabMcq("ja-m11-7-2-rev-mcq-1", M11_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M11_REVIEW_POOL),
     speaking("ja-m11-7-2-rev-speak-2", M11_7_2_REVIEW[2].kana, M11_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m11-7-2-rev", M11_7_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m11-7-2-info-end",
-      "You can negate any verb in any register and describe what you don't do",
-      "Polite negative, casual negative, past negative, frequency adverbs, aspect markers — the full negation toolkit. You're ready for anything.",
-      "win",
-    ),
   ],
 };
 

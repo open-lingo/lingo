@@ -33,7 +33,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -226,11 +225,6 @@ export const M25_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m25-1-1-info-open",
-      "Plans and journeys",
-      "Five words to talk about plans, departures, arrivals, and travel. You'll be planning trips by the end of this module.",
-    ),
     // ── よてい (plan/schedule) ──
     build(
       "ja-m25-1-1-build-yotei",
@@ -354,12 +348,6 @@ export const M25_1_1: LessonContent = {
     }),
     speaking("ja-m25-1-1-rev-speak-1", M25_1_1_REVIEW[2].kana, M25_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-1-1-rev", M25_1_1_REVIEW),
-    infoStep(
-      "ja-m25-1-1-info-end",
-      "You can now talk about plans, departures, arrivals, and travel",
-      "Five core travel-planning words: よてい, けいかく, しゅっぱつ, とうちゃく, りょこう.",
-      "win",
-    ),
   ],
 };
 
@@ -384,11 +372,6 @@ export const M25_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m25-1-2-info-open",
-      "Events and milestones",
-      "Six words for the things that make life interesting — foreign countries, hot springs, festivals, fireworks, marriage, and graduation.",
-    ),
     // ── がいこく (foreign country) ──
     build(
       "ja-m25-1-2-build-gaikoku",
@@ -496,7 +479,7 @@ export const M25_1_2: LessonContent = {
       anchorLabel: "まつり and はなび",
       anchorAudioText: "まつりで はなびを みます",
       question: "What's the relationship between まつり and はなび?",
-      rule: { text: "まつり = festival (the event). はなび = fireworks (often part of a festival). They're different things — one is an event, the other is a spectacle." },
+      rule: { text: "まつり = festival (the event). はなび = fireworks (often part of one). Different things — one's an event, the other a spectacle." },
       surface: { text: "They mean the same thing — both refer to celebrations." },
       distractor: { text: "はなび is a type of まつり — all fireworks are festivals." },
       ruleExplanation:
@@ -521,12 +504,6 @@ export const M25_1_2: LessonContent = {
     }),
     speaking("ja-m25-1-2-rev-speak-1", M25_1_2_REVIEW[2].kana, M25_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-1-2-rev", M25_1_2_REVIEW),
-    infoStep(
-      "ja-m25-1-2-info-end",
-      "You can now name foreign countries, hot springs, festivals, fireworks, marriage, and graduation",
-      "Six life-event words: がいこく, おんせん, まつり, はなび, けっこん, そつぎょう.",
-      "win",
-    ),
   ],
 };
 
@@ -551,11 +528,6 @@ export const M25_2_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m25-2-1-info-open",
-      "Stating your intentions",
-      "One pattern — verb + つもりです — and you can tell anyone what you plan to do.",
-    ),
     RULE_TSUMORI,
     // ── Drills: つもりです ──
     cloze(
@@ -678,12 +650,6 @@ export const M25_2_1: LessonContent = {
     }),
     speaking("ja-m25-2-1-rev-speak-1", M25_2_1_REVIEW[2].kana, M25_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-2-1-rev", M25_2_1_REVIEW),
-    infoStep(
-      "ja-m25-2-1-info-end",
-      "You can now state your intentions — what you plan to do and what you don't",
-      "Dictionary form + つもりです for intentions. ない-form + つもりです for 'don't intend to.'",
-      "win",
-    ),
   ],
 };
 
@@ -708,11 +674,6 @@ export const M25_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m25-2-2-info-open",
-      "Intentions meet real life",
-      "Combine つもりです with your new travel and event vocab — make real plans.",
-    ),
     build(
       "ja-m25-2-2-build-1",
       "Say: I intend to watch fireworks.",
@@ -837,12 +798,6 @@ export const M25_2_2: LessonContent = {
     }),
     speaking("ja-m25-2-2-rev-speak-1", M25_2_2_REVIEW[2].kana, M25_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-2-2-rev", M25_2_2_REVIEW),
-    infoStep(
-      "ja-m25-2-2-info-end",
-      "You can now tell people your plans for festivals, travel, hot springs, and more",
-      "つもりです + travel/event vocab = real intention statements.",
-      "win",
-    ),
   ],
 };
 
@@ -867,11 +822,6 @@ export const M25_3_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m25-3-1-info-open",
-      "Going somewhere with a purpose",
-      "One simple pattern — verb stem + にいく — lets you say 'I'll go to eat,' 'Let's go watch,' and more.",
-    ),
     RULE_NI_IKU,
     // ── Drills: にいく ──
     cloze(
@@ -990,12 +940,6 @@ export const M25_3_1: LessonContent = {
     }),
     speaking("ja-m25-3-1-rev-speak-1", M25_3_1_REVIEW[2].kana, M25_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-3-1-rev", M25_3_1_REVIEW),
-    infoStep(
-      "ja-m25-3-1-info-end",
-      "You can now say where you're going and why — to eat, watch, buy, or bathe",
-      "Verb stem + にいく = purpose of movement. Simple, powerful, everyday Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -1020,11 +964,6 @@ export const M25_3_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m25-3-2-info-open",
-      "Purposes and plans together",
-      "Combine にいく and つもりです — 'I plan to go eat sushi.'",
-    ),
     build(
       "ja-m25-3-2-build-1",
       "Say: I plan to go watch fireworks.",
@@ -1152,12 +1091,6 @@ export const M25_3_2: LessonContent = {
     }),
     speaking("ja-m25-3-2-rev-speak-1", M25_3_2_REVIEW[2].kana, M25_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-3-2-rev", M25_3_2_REVIEW),
-    infoStep(
-      "ja-m25-3-2-info-end",
-      "You can now combine purpose and intention — real trip-planning talk",
-      "にいく + つもりです = 'I plan to go do X.' Natural compound for travel conversations.",
-      "win",
-    ),
   ],
 };
 
@@ -1182,11 +1115,6 @@ export const M25_4_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m25-4-1-info-open",
-      "Talking about experiences",
-      "One pattern — た-form + ことがあります — and you can ask or tell anyone about things you've done in your life.",
-    ),
     RULE_KOTO_GA_ARU,
     // ── Drills: ことがあります ──
     cloze(
@@ -1318,12 +1246,6 @@ export const M25_4_1: LessonContent = {
     }),
     speaking("ja-m25-4-1-rev-speak-1", M25_4_1_REVIEW[2].kana, M25_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-4-1-rev", M25_4_1_REVIEW),
-    infoStep(
-      "ja-m25-4-1-info-end",
-      "You can now share your life experiences — where you've been, what you've tried",
-      "た-form + ことがあります for experiences. ことがありません for 'never done.'",
-      "win",
-    ),
   ],
 };
 
@@ -1348,11 +1270,6 @@ export const M25_4_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m25-4-2-info-open",
-      "Experience meets intention",
-      "'I've been to Japan before — next time I plan to go to Osaka.' Combine experience + plans. Plus two small words: はじめて and ええ.",
-    ),
     // ── はじめて (for the first time) — pairs naturally with experiences ──
     build(
       "ja-m25-4-2-build-hajimete",
@@ -1512,12 +1429,6 @@ export const M25_4_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m25-4-2-rev", M25_4_2_REVIEW),
-    infoStep(
-      "ja-m25-4-2-info-end",
-      "You can now talk about what you've done and what you plan to do next",
-      "Experience + intention = natural conversation flow. Past and future in one breath.",
-      "win",
-    ),
   ],
 };
 
@@ -1542,11 +1453,6 @@ export const M25_5_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m25-5-1-info-open",
-      "When you do X…",
-      "とき (when / at the time of) — one word that opens up a whole world of conditional sentences.",
-    ),
     RULE_TOKI,
     // ── Drills: とき ──
     cloze(
@@ -1653,7 +1559,7 @@ export const M25_5_1: LessonContent = {
       anchorLabel: "ひまな とき vs こどもの とき",
       anchorAudioText: "ひまな とき えいがを みます",
       question: "Why ひまな とき (with な) but こどもの とき (with の)?",
-      rule: { text: "ひま is a な-adjective, so it takes な before とき. こども is a noun, so it takes の before とき. Each word class has its own connector." },
+      rule: { text: "ひま (な-adj) takes な before とき. こども (noun) takes の before とき. Each word class has its own connector." },
       surface: { text: "な and の are interchangeable — either works with any word." },
       distractor: { text: "な is for people and の is for things." },
       ruleExplanation:
@@ -1678,12 +1584,6 @@ export const M25_5_1: LessonContent = {
     }),
     speaking("ja-m25-5-1-rev-speak-1", M25_5_1_REVIEW[2].kana, M25_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-5-1-rev", M25_5_1_REVIEW),
-    infoStep(
-      "ja-m25-5-1-info-end",
-      "You can now say 'when' — linking events, states, and times together",
-      "とき with verbs (plain form), な-adjectives (な), nouns (の), and い-adjectives (as-is).",
-      "win",
-    ),
   ],
 };
 
@@ -1708,11 +1608,6 @@ export const M25_5_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m25-5-2-info-open",
-      "Everything connects",
-      "Stack all four patterns: 'When I went to Japan, I went to see fireworks. I plan to go again.' Plus one new word: りゅうがくせい.",
-    ),
     // ── りゅうがくせい (exchange student) — pairs with のとき ──
     build(
       "ja-m25-5-2-build-ryuugakusei",
@@ -1834,7 +1729,7 @@ export const M25_5_2: LessonContent = {
       anchorLabel: "いく とき vs いった とき",
       anchorAudioText: "にほんに いく とき",
       question: "What's the difference between いく とき and いった とき?",
-      rule: { text: "いく とき = when going (before you go — action hasn't happened). いった とき = when you went (after arriving — action completed). The tense before とき matters." },
+      rule: { text: "いく とき = when going (before you go). いった とき = when you went (after arriving). The tense before とき matters." },
       surface: { text: "They mean the same thing — both mean 'when going to Japan.'" },
       distractor: { text: "いく とき is casual, いった とき is formal." },
       ruleExplanation:
@@ -1859,12 +1754,6 @@ export const M25_5_2: LessonContent = {
     }),
     speaking("ja-m25-5-2-rev-speak-1", M25_5_2_REVIEW[2].kana, M25_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-5-2-rev", M25_5_2_REVIEW),
-    infoStep(
-      "ja-m25-5-2-info-end",
-      "You can now link experiences, plans, and timing into natural Japanese",
-      "All four M25 patterns working together: つもり, にいく, ことがある, and とき.",
-      "win",
-    ),
   ],
 };
 
@@ -1889,11 +1778,6 @@ export const M25_6_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m25-6-1-info-open",
-      "Four patterns, one drill",
-      "Every cloze could be つもり, こと, とき, or に. Stay sharp.",
-    ),
     cloze(
       "ja-m25-6-1-cloze-1",
       "あした としょかんで べんきょうする",
@@ -2028,12 +1912,6 @@ export const M25_6_1: LessonContent = {
     }),
     speaking("ja-m25-6-1-rev-speak-1", M25_6_1_REVIEW[2].kana, M25_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-6-1-rev", M25_6_1_REVIEW),
-    infoStep(
-      "ja-m25-6-1-info-end",
-      "You can now pick the right pattern for intentions, purposes, experiences, and timing",
-      "All four M25 patterns in rapid-fire. Your pattern-recognition is getting sharp.",
-      "win",
-    ),
   ],
 };
 
@@ -2058,11 +1936,6 @@ export const M25_6_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m25-6-2-info-open",
-      "Show what you know",
-      "Production round — build, speak, and translate full sentences with all M25 patterns.",
-    ),
     build(
       "ja-m25-6-2-build-1",
       "Say: I plan to go to a foreign country next year.",
@@ -2194,12 +2067,6 @@ export const M25_6_2: LessonContent = {
     }),
     speaking("ja-m25-6-2-rev-speak-1", M25_6_2_REVIEW[2].kana, M25_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-6-2-rev", M25_6_2_REVIEW),
-    infoStep(
-      "ja-m25-6-2-info-end",
-      "You can now produce all M25 patterns from memory",
-      "Intentions, purposes, experiences, and timing — all in your own words.",
-      "win",
-    ),
   ],
 };
 
@@ -2222,11 +2089,6 @@ export const M25_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m25-story-info-open",
-      "Story time — Yuki's trips to Japan",
-      "ゆき tells you about her past trips to Japan and what she plans next. Listen for ことがあります, つもりです, にいく, and とき — then reply yourself.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m25-story-scene-1",
       narrative: [
@@ -2343,12 +2205,6 @@ export const M25_STORY: LessonContent = {
       "いっしょに はなびを みに いきましょう",
       "Let's go watch fireworks together.",
     ),
-    infoStep(
-      "ja-m25-story-info-end",
-      "You followed a real story about experiences and plans",
-      "You understood ことがあります, つもりです, にいく, and とき in a natural narrative — and replied in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -2374,11 +2230,6 @@ export const M25_7_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m25-7-1-info-open",
-      "Listen and understand",
-      "Comprehension round — can you understand plans, experiences, purposes, and timing when you hear them?",
-    ),
     listeningCompSentence({
       id: "ja-m25-7-1-lc-1",
       audioText: "らいねん にほんに いく つもりです",
@@ -2507,12 +2358,6 @@ export const M25_7_1: LessonContent = {
     }),
     speaking("ja-m25-7-1-rev-speak-1", M25_7_1_REVIEW[2].kana, M25_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-7-1-rev", M25_7_1_REVIEW),
-    infoStep(
-      "ja-m25-7-1-info-end",
-      "You can understand plans, experiences, purposes, and timing in natural Japanese",
-      "All four M25 patterns — comprehension strong.",
-      "win",
-    ),
   ],
 };
 
@@ -2537,11 +2382,6 @@ export const M25_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m25-7-2-info-open",
-      "Final production round",
-      "Everything from M25 in production mode — build, speak, and translate from memory.",
-    ),
     build(
       "ja-m25-7-2-build-1",
       "Say: I plan to go see a festival.",
@@ -2682,12 +2522,6 @@ export const M25_7_2: LessonContent = {
     }),
     speaking("ja-m25-7-2-rev-speak-1", M25_7_2_REVIEW[2].kana, M25_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m25-7-2-rev", M25_7_2_REVIEW),
-    infoStep(
-      "ja-m25-7-2-info-end",
-      "You can plan trips, share experiences, explain purposes, and link events by timing",
-      "All M25 grammar mastered: つもり, にいく, ことがある, とき — in full production.",
-      "win",
-    ),
   ],
 };
 

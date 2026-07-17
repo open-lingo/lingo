@@ -73,9 +73,6 @@ export const MOCK_LESSON_JA_M1_WA_1: LessonContent = {
   estimatedMinutes: 3, xpReward: 8,
   introducesVocabIds: ["kawa"],
   steps: [
-    { id: "ja-wa1-info-0", type: "info", title: "The final three",
-      body: "Three special kana to close out hiragana: わ, を, ん. Start with わ — a standard 'wa' that opens words like かわ (river).",
-      variant: "culture" },
 
     symbolIntro("ja-wa1-intro-wa", "わ", "wa", "/wa/", "like 'wa' in 'water'", "かわ (river)"),
     traceTwice("ja-wa1-trace-wa", "わ", "wa", "like 'wa' in 'water'"),
@@ -86,8 +83,6 @@ export const MOCK_LESSON_JA_M1_WA_1: LessonContent = {
 
     symbolToSound(ctx, "ja-wa1-sts-wa", "わ", "wa", "like 'wa'"),
 
-    { id: "ja-wa1-info-end", type: "info", title: "One down",
-      body: "わ — and an river. Next: を, the particle kana.", variant: "default" },
   ],
 };
 
@@ -99,9 +94,12 @@ export const MOCK_LESSON_JA_M1_WA_2: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["watashi"],
   steps: [
-    { id: "ja-wa2-info-0", type: "info", title: "を — the particle kana",
-      body: "を is the odd one out. It looks like a wa-row glyph but it's pronounced 'o', and it's only used as a grammar particle — it marks the object of an action. You'll see it between words, never starting one.",
-      variant: "culture" },
+    { id: "ja-wa2-info-0", type: "grammar_rule", title: "を — the particle kana",
+      rule: "を is pronounced 'o' and is used only as a grammar particle — it marks the object of an action. It appears between words, never starting one.",
+      examples: [
+        { ja: "パン を たべる", romaji: "pan wo taberu", en: "I eat bread." },
+        { ja: "みず を のむ", romaji: "mizu wo nomu", en: "I drink water." },
+      ] },
 
     symbolIntro("ja-wa2-intro-o", "を", "o", "/o/", "object-marker particle (pronounced 'o')",
       "パン を たべる (I eat bread)",
@@ -123,12 +121,7 @@ export const MOCK_LESSON_JA_M1_WA_2: LessonContent = {
 
     // Survival callout — ありがとう introduces ん-adjacent う in word-
     // final context that the learner will hear constantly.
-    { id: "ja-wa2-info-arigatou", type: "info", title: "Real-world Japanese",
-      body: "ありがとう (arigatou) — \"thank you.\" The other essential traveller phrase. You'll meet が (voiced か) in the next module; for now, just notice it ends with う, not ん — that 'oo' tail is part of polite-form.",
-      variant: "culture" },
 
-    { id: "ja-wa2-info-end", type: "info", title: "Two down",
-      body: "Just ん left — and a full-row review with mic practice.", variant: "default" },
   ],
 };
 
@@ -140,9 +133,6 @@ export const MOCK_LESSON_JA_M1_WA_3: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["hon"],
   steps: [
-    { id: "ja-wa3-info-0", type: "info", title: "ん — the syllabic nasal",
-      body: "ん is a 'n' that's a syllable by itself. It NEVER starts a word — it only ends syllables (like ほん 'book' or にほん 'Japan') or sits between them. Its sound shifts slightly depending on what comes next, but in isolation it's just 'n'.",
-      variant: "culture" },
 
     symbolIntro("ja-wa3-intro-n", "ん", "n", "/ɴ/", "syllabic 'n' — ends syllables, never starts a word",
       "ほん (book), にほん (Japan)",
@@ -161,8 +151,6 @@ export const MOCK_LESSON_JA_M1_WA_3: LessonContent = {
     listeningComp("ja-wa3-lc-hon", "ほん", "hon", "book",
       ["river", "I / me", "snow"]),
 
-    { id: "ja-wa3-info-speak", type: "info", title: "Your turn to speak",
-      body: "Tap the mic and say each word. わたし is 3 syllables so the recognizer is a touch stricter — speak clearly.", variant: "tip" },
     speaking("ja-wa3-speak-kawa",    "かわ",   "river"),
     speaking("ja-wa3-speak-hon",     "ほん",   "book"),
     listeningComp("ja-wa3-lc-kawa", "かわ", "kawa", "river",
@@ -173,8 +161,5 @@ export const MOCK_LESSON_JA_M1_WA_3: LessonContent = {
     // richest one, since wa is the last basic row).
     ...priorRowReviewTail("wa"),
 
-    { id: "ja-wa3-info-end", type: "info", title: "Real-world win — hiragana complete",
-      body: "Every basic hiragana, done. That's わたし (I/me), ほん (book), かわ (river) — and the entire 46-character chart you'll see on furigana above kanji in children's books, in karaoke lyrics, in nearly every manga panel. Next module: voicing (dakuten + handakuten).",
-      variant: "win" },
   ],
 };

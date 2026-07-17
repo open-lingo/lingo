@@ -13,9 +13,11 @@
  * predicate and runs against the real curriculum data.
  */
 import { describe, it, expect } from "vitest";
+import * as wanakana from "wanakana";
 import { normalizeTypedAnswer } from "@/shared/speech";
 import { accentFold, gradeTypedAnswer } from "@/shared/speech/loose-match";
 import { M18_1_2, M18_2_2 } from "@/features/languages/ja/curriculum/m18";
+import { M24_7_1 } from "@/features/languages/ja/curriculum/m24";
 import { ES_M5_LESSONS } from "@/features/languages/es/curriculum/m5";
 import type { LessonContent, TranslateStep } from "@/features/lesson/types";
 
@@ -179,6 +181,84 @@ describe("gradeTypedAnswer accent accept-but-flag (es)", () => {
     // Dakuten omission is a real error, not an accent slip.
     expect(gradeTypedAnswer(step.acceptedAnswers, "きょうはくもりてす").correct).toBe(false);
     expect(gradeTypedAnswer(step.acceptedAnswers, "きょうがくもりです").correct).toBe(false);
+  });
+});
+
+describe("gradeTypedAnswer script (kana) fold — hiragana ↔ katakana (QA 2026-07-16)", () => {
+  // Owner critique 2026-07-16: the romaji IME (wanakana.toKana) yields
+  // hiragana, so a katakana loanword answer (テレビ) fails when the learner
+  // types "terebi" → てれび even though it's phonetically the answer. The
+  // fold accepts either script and nudges toward the conventional one.
+
+  it("reproduces the reported bug end-to-end: 'terebi' → てれび passes + flags katakana", () => {
+    // This is exactly what handleSubmit does: wanakana.toKana on the raw
+    // romaji, then gradeTypedAnswer. Before the fold this graded WRONG.
+    const composed = wanakana.toKana("terebi");
+    expect(composed).toBe("てれび"); // wanakana defaults to hiragana
+    const grade = gradeTypedAnswer(["テレビ"], composed);
+    expect(grade.correct).toBe(true);
+    expect(grade.kanaFlagged).toBe(true);
+    expect(grade.kanaDisplay).toBe("テレビ");
+  });
+
+  it("accepts a hiragana rendering of a katakana answer and surfaces the katakana", () => {
+    const grade = gradeTypedAnswer(["テレビを みます"], "てれびをみます");
+    expect(grade.correct).toBe(true);
+    expect(grade.kanaFlagged).toBe(true);
+    expect(grade.kanaDisplay).toBe("テレビを みます");
+    // Never mistaken for an accent slip.
+    expect(grade.accentFlagged).toBe(false);
+  });
+
+  it("does NOT flag when the katakana was typed correctly", () => {
+    const grade = gradeTypedAnswer(["テレビを みます"], "テレビをみます");
+    expect(grade.correct).toBe(true);
+    expect(grade.kanaFlagged).toBe(false);
+    expect(grade.kanaDisplay).toBeNull();
+  });
+
+  it("folds the reverse direction too — katakana typed for a hiragana answer", () => {
+    const grade = gradeTypedAnswer(["ねこ"], "ネコ");
+    expect(grade.correct).toBe(true);
+    expect(grade.kanaFlagged).toBe(true);
+    expect(grade.kanaDisplay).toBe("ねこ");
+  });
+
+  it("still fails genuinely wrong answers (wrong word, not just wrong script)", () => {
+    const grade = gradeTypedAnswer(["テレビを みます"], "らじおをみます");
+    expect(grade.correct).toBe(false);
+    expect(grade.kanaFlagged).toBe(false);
+  });
+
+  it("preserves kana voicing — a dakuten slip (ビ→ヒ / び→ひ) is still a real miss", () => {
+    // Script fold shifts katakana↔hiragana but NEVER strips dakuten, so
+    // てれひ (no voicing) must not pass for テレビ.
+    const grade = gradeTypedAnswer(["テレビ"], "てれひ");
+    expect(grade.correct).toBe(false);
+  });
+
+  it("never spuriously kana-flags a de-accented es answer", () => {
+    // Latin text has no katakana, so the script fold must stay inert on es.
+    const grade = gradeTypedAnswer(["El niño está aquí"], "el nino esta aqui");
+    expect(grade.correct).toBe(true);
+    expect(grade.accentFlagged).toBe(true);
+    expect(grade.kanaFlagged).toBe(false);
+    expect(grade.kanaDisplay).toBeNull();
+  });
+
+  it("grades a real curriculum step: all-hiragana アニメ sentence passes + flags", () => {
+    const step = translateStepById(M24_7_1, "ja-m24-7-1-translate");
+    expect(step.sourceText).toBe(
+      "On weekends, I do things like reading manga and watching anime.",
+    );
+    // Authored with the loanword in katakana (アニメ).
+    expect(step.acceptedAnswers[0]).toContain("アニメ");
+    // A learner who romaji-typed the whole sentence gets all hiragana.
+    const allHiragana = "しゅうまつにまんがをよんだりあにめをみたりします";
+    const grade = gradeTypedAnswer(step.acceptedAnswers, allHiragana);
+    expect(grade.correct).toBe(true);
+    expect(grade.kanaFlagged).toBe(true);
+    expect(grade.kanaDisplay).toContain("アニメ");
   });
 });
 

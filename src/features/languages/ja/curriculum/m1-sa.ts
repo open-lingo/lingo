@@ -257,14 +257,6 @@ export const MOCK_LESSON_JA_M1_SA_1: LessonContent = {
   xpReward: 10,
   introducesVocabIds: ["asa"],
   steps: [
-    {
-      id: "ja-sa1-info-0",
-      type: "info",
-      title: "S-sounds, part 1",
-      body:
-        "Two new kana: さ and し. Trace them, build morning, on to the next pair.",
-      variant: "culture",
-    },
 
     symbolIntro(
       "ja-sa1-intro-sa",
@@ -298,14 +290,6 @@ export const MOCK_LESSON_JA_M1_SA_1: LessonContent = {
     symbolToSound("ja-sa1-sts-sa", "さ", "sa", "like 'sa' in 'salsa'"),
     symbolToSound("ja-sa1-sts-shi", "し", "shi", "like 'she' in 'sheet'"),
 
-    {
-      id: "ja-sa1-info-end",
-      type: "info",
-      title: "Two down",
-      body:
-        "さ and し are yours. Next: す and せ — back to the standard pattern.",
-      variant: "default",
-    },
   ],
 };
 
@@ -324,14 +308,6 @@ export const MOCK_LESSON_JA_M1_SA_2: LessonContent = {
   xpReward: 10,
   introducesVocabIds: ["sushi"],
   steps: [
-    {
-      id: "ja-sa2-info-0",
-      type: "info",
-      title: "S-sounds, part 2",
-      body:
-        "す (clipped 'oo', barely-voiced 'u' in fast speech) and せ. Then one of Japan's most exported words.",
-      variant: "default",
-    },
 
     symbolIntro(
       "ja-sa2-intro-su",
@@ -369,23 +345,7 @@ export const MOCK_LESSON_JA_M1_SA_2: LessonContent = {
     // teaches す in real-use context. The other kana (み, ま, せ, ん)
     // arrive in later rows — AnnotatedJa renders romaji helpers above
     // them. By design (per curriculum file header curation rules).
-    {
-      id: "ja-sa2-info-sumimasen",
-      type: "info",
-      title: "Real-world Japanese",
-      body:
-        "すみません (sumimasen) — \"excuse me\" or \"sorry.\" Single most useful phrase for a trip to Japan: stop a passerby, signal a waiter, apologize for bumping someone. You can hear す and せ in it from this lesson; the rest comes later.",
-      variant: "culture",
-    },
 
-    {
-      id: "ja-sa2-info-end",
-      type: "info",
-      title: "Four down",
-      body:
-        "Just そ left — and then a full-row review with mic practice.",
-      variant: "default",
-    },
   ],
 };
 
@@ -405,14 +365,6 @@ export const MOCK_LESSON_JA_M1_SA_3: LessonContent = {
   xpReward: 12,
   introducesVocabIds: ["uso"],
   steps: [
-    {
-      id: "ja-sa3-info-0",
-      type: "info",
-      title: "S-sounds, finale",
-      body:
-        "Meet そ, learn one more word, then sweep the whole row — recognition, vocab, and your voice.",
-      variant: "default",
-    },
 
     symbolIntro(
       "ja-sa3-intro-so",
@@ -436,14 +388,6 @@ export const MOCK_LESSON_JA_M1_SA_3: LessonContent = {
     wordImageMcq("ja-sa3-mcq-rev-sushi", "すし"),
 
     // Speaking — 3 anchor words, all 2-mora (Whisper short-tier).
-    {
-      id: "ja-sa3-info-speak",
-      type: "info",
-      title: "Your turn to speak",
-      body:
-        "Tap the mic and say each word. The recognizer is lenient on short words — go for it.",
-      variant: "tip",
-    },
     speaking("ja-sa3-speak-asa",   "あさ", "morning"),
     speaking("ja-sa3-speak-sushi", "すし", "sushi"),
     listeningComp("ja-sa3-lc-asa", "あさ", "asa", "morning",
@@ -474,13 +418,5 @@ export const MOCK_LESSON_JA_M1_SA_3: LessonContent = {
     // retrieval before the closing win card.
     ...priorRowReviewTail("sa"),
 
-    {
-      id: "ja-sa3-info-end",
-      type: "info",
-      title: "Real-world win",
-      body:
-        "You can now read あさ (morning), すし (sushi), そら (sky) — and spot し on every sushi-bar menu in the world. Up next — ta row.",
-      variant: "win",
-    },
   ],
 };

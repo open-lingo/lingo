@@ -56,6 +56,12 @@ export const UNUSED_STEP_TYPES: StepType[] = [
   // it, so it is "unused" from this ja-scoped pin's perspective — the es QA
   // page covers it via buildStepTypeCoverage("es") (guarded in the test).
   "agreement_cloze",
+  // Removed from the ja curriculum 2026-07-16 (info-step audit): all 842
+  // recap/preview boilerplate cards were cut and the 20 teaching cards were
+  // converted to grammar_rule. ja now ships ZERO info steps, so it is
+  // "unused" from this ja-scoped pin — es/ko still ship info and their QA
+  // pages cover it via buildStepTypeCoverage("es"/"ko") (guarded in the test).
+  "info",
   // Its only host was the survival-phrases sidequest, deleted 2026-07-16
   // in the side-lesson content purge (remake pending). Unpin when a remade
   // lesson ships it — or delete the step type if the remake doesn't.

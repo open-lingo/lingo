@@ -22,6 +22,7 @@ import {
   getAvailableMockLessonIds,
   getMockLessonContent,
 } from "@/features/lesson/data/mockLessons";
+import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
 import { getAtomsUpToModule } from "@/features/lesson/data/lessonAtomIndex";
 import vocabMap from "@/features/lesson/data/n5-module-vocab-map.json";
 import grammarPoints from "@/features/lesson/data/n5-grammar-points.json";
@@ -141,6 +142,44 @@ describe("JA module conformance — attribution invariants", () => {
       stale.map((p) => `${p.id} (${p.module})`),
       "grammar points marked 'planned' whose module already shipped",
     ).toEqual([]);
+  });
+
+  it("no ja lesson contains an `info` step (2026-07-16 info-step purge)", () => {
+    // The info-step audit removed all 842 recap/preview cards and promoted
+    // the 20 teaching cards to grammar_rule. ja must ship ZERO info steps;
+    // this guards against a regression re-introducing one.
+    const offenders: string[] = [];
+    for (const lessonId of getAvailableMockLessonIds()) {
+      const lesson = getMockLessonContent(lessonId);
+      if (!lesson || lesson.languageId !== "ja") continue;
+      const infoSteps = lesson.steps.filter((s) => s.type === "info");
+      if (infoSteps.length > 0) {
+        offenders.push(`${lessonId} (${infoSteps.length})`);
+      }
+    }
+    expect(offenders, `ja lessons still carrying info steps:\n  ${offenders.join("\n  ")}`).toEqual([]);
+  });
+
+  it("every ja lesson has ≥1 step and ends with a gradeable step", () => {
+    // After the info purge, no lesson may be empty or terminate on a passive
+    // teach card (info/grammar_rule/phrase_card/symbol_intro) — the last
+    // thing a learner touches must be a retrieval, not an exposition slide.
+    const empty: string[] = [];
+    const badEnd: string[] = [];
+    for (const lessonId of getAvailableMockLessonIds()) {
+      const lesson = getMockLessonContent(lessonId);
+      if (!lesson || lesson.languageId !== "ja") continue;
+      if (lesson.steps.length === 0) {
+        empty.push(lessonId);
+        continue;
+      }
+      const last = lesson.steps[lesson.steps.length - 1];
+      if (!isGradedStep(last)) {
+        badEnd.push(`${lessonId} ends with ${last.type}`);
+      }
+    }
+    expect(empty, `empty ja lessons:\n  ${empty.join("\n  ")}`).toEqual([]);
+    expect(badEnd, `ja lessons ending on a passive teach card:\n  ${badEnd.join("\n  ")}`).toEqual([]);
   });
 
   it("getAtomsUpToModule('m27') includes every attributed SRS-eligible atom", () => {

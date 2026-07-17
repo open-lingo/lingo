@@ -102,14 +102,6 @@ export const MOCK_LESSON_JA_M2_YOON_RARE_1: LessonContent = {
   xpReward: 15,
   introducesVocabIds: ["hyaku"],
   steps: [
-    {
-      id: "ja-yr1-info-open",
-      type: "info",
-      title: "Last yōon — recognition focus",
-      body:
-        "The n/h/m/r yōon round out the chart. Many are uncommon in everyday text — recognize them when they show up, but don't sweat memorizing every one. The wins here are ひゃく (hundred) and りょうり (cooking).",
-      variant: "culture",
-    },
 
     // ─── Char 1: ひゃ (hya) → ひゃく (hundred). ─
     symbolIntro(
@@ -169,14 +161,6 @@ export const MOCK_LESSON_JA_M2_YOON_RARE_2: LessonContent = {
   xpReward: 18,
   introducesVocabIds: ["ryouri"],
   steps: [
-    {
-      id: "ja-yr2-info-open",
-      type: "info",
-      title: "r-family + the chart-completeness sweep",
-      body:
-        "りゃ りゅ りょ are the most common 'rare' yōon — りょうり (cooking) and りょこう (trip) both use them. The n + m families are mainly recognition; you'll see them in dictionaries more than in conversation.",
-      variant: "tip",
-    },
 
     symbolIntro(
       "ja-yr2-intro-rya",
@@ -248,14 +232,6 @@ export const MOCK_LESSON_JA_M2_YOON_RARE_3: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    {
-      id: "ja-yr3-info-open",
-      type: "info",
-      title: "Putting it together",
-      body:
-        "Quick review of the rare yōon plus earlier-row words. Next: the yōon capstone — one final sweep across everything.",
-      variant: "default",
-    },
 
     wordImageMcq(ctxSub3, "ja-yr3-mcq-hyaku", "ひゃく"),
     symbolToSound(ctxSub3, "ja-yr3-s2s-ryo", "りょ", "ryo", "ri + small yo"),

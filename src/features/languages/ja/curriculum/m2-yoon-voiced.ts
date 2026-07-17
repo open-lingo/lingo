@@ -100,14 +100,6 @@ export const MOCK_LESSON_JA_M2_YOON_VOICED_1: LessonContent = {
   xpReward: 15,
   introducesVocabIds: ["juu"],
   steps: [
-    {
-      id: "ja-yv1-info-open",
-      type: "info",
-      title: "Voiced yōon",
-      body:
-        "Same small-ゃゅょ rule, voiced consonants. じ + ゃ = じゃ ('ja') — same 'j' as じ ('ji'), not 'zy'. ぎ・び・ぴ each pair the same way.",
-      variant: "culture",
-    },
 
     // ─── Char 1: じゃ (ja) — trace slot (no individual anchor word).
     symbolIntro(
@@ -166,14 +158,6 @@ export const MOCK_LESSON_JA_M2_YOON_VOICED_2: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 16,
   steps: [
-    {
-      id: "ja-yv2-info-open",
-      type: "info",
-      title: "g + b + p yōon — wide sweep",
-      body:
-        "Same rule across the remaining voiced consonants. We'll meet 9 more — ぎゃぎゅぎょ, びゃびゅびょ, ぴゃぴゅぴょ — via recognition. They follow the j-family pattern exactly.",
-      variant: "tip",
-    },
 
     // Brief intro flagged for each new family.
     symbolIntro(
@@ -240,14 +224,6 @@ export const MOCK_LESSON_JA_M2_YOON_VOICED_3: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    {
-      id: "ja-yv3-info-open",
-      type: "info",
-      title: "Putting it together",
-      body:
-        "Quick review of the voiced yōon plus earlier-row words. One more yōon sweep left — the rare n/h/m/r families.",
-      variant: "default",
-    },
 
     wordImageMcq(ctxSub3, "ja-yv3-mcq-juu", "じゅう"),
     symbolToSound(ctxSub3, "ja-yv3-s2s-ja", "じゃ", "ja", "ji + small ya"),

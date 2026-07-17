@@ -47,6 +47,30 @@ export function isKatakana(char: string): boolean {
 }
 
 /**
+ * CJK Unified Ideographs (U+4E00–U+9FFF) plus 々 (U+3005, the kanji
+ * iteration mark — repeats the preceding kanji, e.g. 時々). 々 isn't
+ * itself in the Unified Ideographs block but reads as kanji for every
+ * purpose that matters here, so it's included explicitly.
+ */
+const KANJI_RE = /[一-鿿々]/;
+
+/**
+ * True if `s` contains any kanji character. Backs the never-mix-romaji
+ * policy (Spencer 2026-07-16: "we just dont want romaji + kanji ever,
+ * looks tacky and is bad practice") — any surface this returns true for
+ * must not render a romaji reading line, even if romaji is otherwise
+ * forced on. See `useRomajiHelperVisible` in
+ * `shared/readingAnnotation/AnnotatedText.tsx` for the render-time gate.
+ *
+ * Exported from this shared spot (not language-feature-owned) so the
+ * kanji-substitution layer can reuse the same detector instead of
+ * growing a second one.
+ */
+export function containsKanji(s: string): boolean {
+  return KANJI_RE.test(s);
+}
+
+/**
  * Token returned from `tokenizeJapanese`. Each token represents one
  * "visual unit" rendered on the baseline of <AnnotatedJa>.
  *

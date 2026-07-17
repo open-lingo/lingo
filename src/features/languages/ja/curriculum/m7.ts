@@ -40,7 +40,6 @@ import {
   cloze,
   dialogueListen,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -115,12 +114,21 @@ export const M7_1_1: LessonContent = {
   estimatedMinutes: 7,
   xpReward: 18,
   steps: [
-    infoStep(
-      "ja-m7-1-1-info-open",
-      "The citation form",
-      "Every Japanese verb has a dictionary form — the form you'd look up in a dictionary. It always ends in an -u sound (たべる, のむ, いく). This is what friends use and what writers write. Memorize it first; the polite ます-form comes next lesson.",
-      "grammar",
-    ),
+    grammarRule({
+      id: "ja-m7-1-1-info-open",
+      title: "The citation form",
+      rule: "Every Japanese verb has a dictionary form — the one you'd look up. It always ends in an -u sound and is what friends use and writers write. The polite ます-form comes next.",
+      examples: [
+        { ja: "たべる", romaji: "taberu", en: "to eat (dictionary form)" },
+        { ja: "のむ", romaji: "nomu", en: "to drink (dictionary form)" },
+      ],
+      antiPattern: {
+        ja: "たべ",
+        romaji: "tabe",
+        en: "(dropping the final -u sound)",
+        why: "The dictionary form always ends in an -u sound: たべる, not たべ.",
+      },
+    }),
     // ── たべる: single-tile build — the prompt "to eat" + the -u ending pattern
     // makes it figuroutable among the distractors. ──
     build(
@@ -216,12 +224,6 @@ export const M7_1_1: LessonContent = {
     }),
     vocabMcq("ja-m7-1-1-rev-mcq-m3-2", M7_1_1_REVIEW[2], M7_REVIEW_M3),
     reviewMatchPairs("ja-m7-1-1-rev", M7_1_1_REVIEW),
-    infoStep(
-      "ja-m7-1-1-info-end",
-      "You can now name three actions in dictionary form",
-      "たべる (eat), のむ (drink), いく (go) — the citation forms you'd look up in a dictionary. Three more coming next.",
-      "win",
-    ),
   ],
 };
 
@@ -363,12 +365,6 @@ export const M7_1_2: LessonContent = {
     }),
     vocabMcq("ja-m7-1-2-rev-mcq-m4-2", M7_1_2_REVIEW[2], M7_REVIEW_M4),
     reviewMatchPairs("ja-m7-1-2-rev", M7_1_2_REVIEW),
-    infoStep(
-      "ja-m7-1-2-info-end",
-      "You can now name six actions in dictionary form",
-      "Eat, drink, go, watch, read, write — all six dictionary-form verbs retrieval-checked. Next: the rule that turns each one into its polite ます-form.",
-      "win",
-    ),
   ],
 };
 
@@ -419,11 +415,6 @@ export const M7_2_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m7-2-1-info-open",
-      "Two forms, one verb",
-      "Friends use dictionary form. Strangers, shopkeepers, and teachers get the polite ます-form. Same verb, two registers.",
-    ),
     RULE_DICT_MASU,
     // ── Transitional verb-class MCQ — smooths the cliff into match_pairs.
     sentenceMcq({
@@ -514,7 +505,7 @@ export const M7_2_1: LessonContent = {
       surface: { text: "all verbs add -ます to the end" },
       distractor: { text: "ます means 'I do' on its own" },
       ruleExplanation:
-        "たべる is a -る verb: drop -る → たべ, add -ます → たべます. のむ is a -u verb: -u → -i, add -ます → のみます. The pattern is mechanical once you spot the verb type.",
+        "たべる (-る verb): drop る, add ます → たべます. のむ (-u verb): -u → -i, add ます → のみます. Mechanical once you know the verb type.",
     }),
     // ── Review tail (M4 anchors) ──
     speaking("ja-m7-2-1-rev-speak-m4", M7_2_1_REVIEW[0].kana, M7_2_1_REVIEW[0].meaningEn),
@@ -531,12 +522,6 @@ export const M7_2_1: LessonContent = {
     }),
     vocabMcq("ja-m7-2-1-rev-mcq-m4-2", M7_2_1_REVIEW[1], M7_REVIEW_M4),
     reviewMatchPairs("ja-m7-2-1-rev", M7_2_1_REVIEW),
-    infoStep(
-      "ja-m7-2-1-info-end",
-      "You can now classify verbs and convert to polite form",
-      "-る verbs drop -る, -u verbs change -u to -i, then add ます. Next: use ます-form in full sentences.",
-      "win",
-    ),
   ],
 };
 
@@ -673,12 +658,6 @@ export const M7_2_2: LessonContent = {
     }),
     vocabMcq("ja-m7-2-2-rev-mcq-m6-2", M7_2_2_REVIEW[2], M7_REVIEW_M6),
     reviewMatchPairs("ja-m7-2-2-rev", M7_2_2_REVIEW),
-    infoStep(
-      "ja-m7-2-2-info-end",
-      "You can now build polite-form sentences with any verb",
-      "すしを たべます, ほんを よみます, こうえんに いきます — ます-form verbs in real sentences. The を particle showed up multiple times — that's the next card.",
-      "win",
-    ),
   ],
 };
 
@@ -730,12 +709,6 @@ export const M7_3_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m7-3-1-info-open",
-      "The action-target",
-      "Every transitive verb (eat, drink, read, watch, write) takes a direct object. In Japanese, that object gets marked by を.",
-      "grammar",
-    ),
     RULE_WO,
     // ── Rotating-answer cloze block: を → に → を → は ──
     cloze(
@@ -824,7 +797,7 @@ export const M7_3_1: LessonContent = {
       surface: { text: "を always comes after a drink word" },
       distractor: { text: "を introduces the answer to a wh-question" },
       ruleExplanation:
-        "を is the direct-object particle — it tags the noun the verb acts on. に would mark a destination (you don't drink a place); は would shift the topic ('as for water…').",
+        "を tags the noun the verb acts on. に would mark a destination — you don't drink a place. は would just shift the topic.",
     }),
     // ── Review tail (M1 atoms) ──
     speaking("ja-m7-3-1-rev-speak-m1", M7_3_1_REVIEW[0].kana, M7_3_1_REVIEW[0].meaningEn),
@@ -840,12 +813,6 @@ export const M7_3_1: LessonContent = {
     }),
     vocabMcq("ja-m7-3-1-rev-mcq-m1-2", M7_3_1_REVIEW[2], M7_REVIEW_M1),
     reviewMatchPairs("ja-m7-3-1-rev", M7_3_1_REVIEW),
-    infoStep(
-      "ja-m7-3-1-info-end",
-      "You can now mark direct objects with を",
-      "Sushi, water, books — the thing the verb acts on takes を. Next: more drills with answer rotation across を, に, で, は.",
-      "win",
-    ),
   ],
 };
 
@@ -996,12 +963,6 @@ export const M7_3_2: LessonContent = {
     }),
     vocabMcq("ja-m7-3-2-rev-mcq-m5-2", M7_3_2_REVIEW[2], M7_REVIEW_M5),
     reviewMatchPairs("ja-m7-3-2-rev", M7_3_2_REVIEW),
-    infoStep(
-      "ja-m7-3-2-info-end",
-      "You can now pick を vs に vs で vs は from meaning alone",
-      "Answers rotated across four particles — no pattern-matching shortcut. Next: food and drink vocab to pair with your verbs.",
-      "win",
-    ),
   ],
 };
 
@@ -1026,11 +987,6 @@ export const M7_4_1: LessonContent = {
   estimatedMinutes: 7,
   xpReward: 18,
   steps: [
-    infoStep(
-      "ja-m7-4-1-info-open",
-      "Things you'll eat",
-      "Three foods. Each pairs naturally with たべる + を. Listen for katakana loanwords: ラーメン (ramen), パン (bread, from Portuguese).",
-    ),
     // ── すし: single-tile build — "sushi" is obvious from English prompt. ──
     build(
       "ja-m7-4-1-build-sushi",
@@ -1137,12 +1093,6 @@ export const M7_4_1: LessonContent = {
     }),
     vocabMcq("ja-m7-4-1-rev-mcq-m5-2", M7_4_1_REVIEW[2], M7_REVIEW_M5),
     reviewMatchPairs("ja-m7-4-1-rev", M7_4_1_REVIEW),
-    infoStep(
-      "ja-m7-4-1-info-end",
-      "You can now name three foods and order them in sentences",
-      "すし, ラーメン, パン — each paired with たべます and を. Three drinks are next.",
-      "win",
-    ),
   ],
 };
 
@@ -1279,12 +1229,6 @@ export const M7_4_2: LessonContent = {
     }),
     vocabMcq("ja-m7-4-2-rev-mcq-m3", M7_REVIEW_M3[0], M7_REVIEW_M3),
     reviewMatchPairs("ja-m7-4-2-rev", M7_4_2_REVIEW),
-    infoStep(
-      "ja-m7-4-2-info-end",
-      "You can now name six foods and drinks in verb sentences",
-      "ごはん, ジュース, さけ join the earlier three. Each one goes into a を + verb pattern. Next: drill all four particles in rotation.",
-      "win",
-    ),
   ],
 };
 
@@ -1308,11 +1252,6 @@ export const M7_5_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m7-5-1-info-open",
-      "Mix it up",
-      "を (direct object), に (destination/existence), で (setting/means), and が (existence subject) — mixed across clozes, builds, and listening so you parse meaning instead of pattern-matching.",
-    ),
     // ── Rotating: を → に → を → で → を → が ──
     cloze(
       "ja-m7-5-1-cloze-1",
@@ -1431,12 +1370,6 @@ export const M7_5_1: LessonContent = {
     }),
     vocabMcq("ja-m7-5-1-rev-mcq-m4", M7_REVIEW_M4[0], M7_REVIEW_M4),
     reviewMatchPairs("ja-m7-5-1-rev", M7_5_1_REVIEW),
-    infoStep(
-      "ja-m7-5-1-info-end",
-      "You can now sort four particles across varied sentences",
-      "を (object), に (destination), で (setting/means), が (existence) — rotating with no auto-pick. More drilling plus self-explanation next.",
-      "win",
-    ),
   ],
 };
 
@@ -1538,7 +1471,7 @@ export const M7_5_2: LessonContent = {
       surface: { text: "に always comes after a place word" },
       distractor: { text: "に marks the subject of an existence sentence" },
       ruleExplanation:
-        "いく is a motion verb, not a transitive one — it doesn't have a 'thing being acted on'. The place you go TO is marked with に. を would be wrong: you don't 'do' the post office.",
+        "いく is intransitive — there's no 'thing acted on.' に marks the place you go TO; you don't 'do' the post office, so を is wrong.",
     }),
     build(
       "ja-m7-5-2-build-kuukou",
@@ -1567,12 +1500,6 @@ export const M7_5_2: LessonContent = {
     }),
     vocabMcq("ja-m7-5-2-rev-mcq-cum-2", M7_5_2_REVIEW[2], M7_REVIEW_POOL),
     reviewMatchPairs("ja-m7-5-2-rev", M7_5_2_REVIEW),
-    infoStep(
-      "ja-m7-5-2-info-end",
-      "You can now explain why each particle is correct",
-      "を, に, で, が — drilled and self-explained. You know the roles, not just the positions. That's the four-particle skeleton of beginner Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -1597,11 +1524,6 @@ export const M7_6_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m7-6-1-info-open",
-      "Two particles in one sentence",
-      "Most real Japanese sentences use multiple particles. うちで ごはんを たべます (eat a meal at home) uses で AND を. The drill below tests one particle at a time but the carrier sentence contains both.",
-    ),
     // ── Two-particle work: listening build first — learner places で AND を. ──
     listeningBuildSentence({
       id: "ja-m7-6-1-lb-restaurant",
@@ -1713,12 +1635,6 @@ export const M7_6_1: LessonContent = {
     }),
     vocabMcq("ja-m7-6-1-rev-mcq-cum-2", M7_6_1_REVIEW[2], M7_REVIEW_POOL),
     reviewMatchPairs("ja-m7-6-1-rev", M7_6_1_REVIEW),
-    infoStep(
-      "ja-m7-6-1-info-end",
-      "You can now combine two particles in one sentence",
-      "Setting (で) + object (を), means (で) + destination (に) — two roles in one sentence. More compound sentences plus self-explanation next.",
-      "win",
-    ),
   ],
 };
 
@@ -1815,7 +1731,7 @@ export const M7_6_2: LessonContent = {
       surface: { text: "Japanese sentences always use two particles" },
       distractor: { text: "で and を both mark the direct object" },
       ruleExplanation:
-        "で and を play different roles: で = the SETTING of the action; を = the THING being acted on. Verbs like たべる, よむ, かく, のむ are transitive — they need an object (を) AND can have a setting (で).",
+        "で = the SETTING of the action; を = the THING being acted on. Transitive verbs like たべる need both — an object (を) and a setting (で).",
     }),
     build(
       "ja-m7-6-2-build-restaurant",
@@ -1863,12 +1779,6 @@ export const M7_6_2: LessonContent = {
     vocabMcq("ja-m7-6-2-rev-mcq-cum-2", M7_6_2_REVIEW[2], M7_REVIEW_POOL),
     vocabMcq("ja-m7-6-2-rev-mcq-m5", M7_REVIEW_M5[2], M7_REVIEW_M5),
     reviewMatchPairs("ja-m7-6-2-rev", M7_6_2_REVIEW),
-    infoStep(
-      "ja-m7-6-2-info-end",
-      "You can now describe where you do what in compound sentences",
-      "で + を, で + に — you know why each particle appears and what role it plays. Next: production-only with no multiple choice.",
-      "win",
-    ),
   ],
 };
 
@@ -1891,11 +1801,6 @@ export const M7_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m7-story-info-open",
-      "Story time — What do you eat?",
-      "ゆき and たけし are talking about their daily habits. To ask 'what?', use なに: なにを たべますか = 'What do you eat?' Listen for it before each answer.",
-    ),
     dialogueListen({
       id: "ja-m7-story-scene-1",
       lines: [
@@ -2008,12 +1913,6 @@ export const M7_STORY: LessonContent = {
       "なにを よみますか",
       "What do you read?",
     ),
-    infoStep(
-      "ja-m7-story-info-end",
-      "You followed a conversation about daily habits",
-      "You heard を marking what gets eaten, drunk, and read — plus four verbs in ます form. たべます, のみます, よみます, and more are now part of your toolkit.",
-      "win",
-    ),
   ],
 };
 
@@ -2039,11 +1938,6 @@ export const M7_7_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m7-7-1-info-open",
-      "Show your work",
-      "Build sentences from tiles. Say them out loud. This is the production endpoint of M3-M7.",
-    ),
     build(
       "ja-m7-7-1-s1",
       "I go to the park.",
@@ -2143,12 +2037,6 @@ export const M7_7_1: LessonContent = {
     }),
     vocabMcq("ja-m7-7-1-rev-mcq-cum-2", M7_7_1_REVIEW[2], M7_REVIEW_POOL),
     reviewMatchPairs("ja-m7-7-1-rev", M7_7_1_REVIEW),
-    infoStep(
-      "ja-m7-7-1-info-end",
-      "You can now produce full sentences from English prompts",
-      "Build from tiles: destinations, objects, compound patterns — all from an English cue. More listening + speaking next.",
-      "win",
-    ),
   ],
 };
 
@@ -2269,12 +2157,6 @@ export const M7_7_2: LessonContent = {
     vocabMcq("ja-m7-7-2-rev-mcq-cum-2", M7_7_2_REVIEW[2], M7_REVIEW_POOL),
     vocabMcq("ja-m7-7-2-rev-mcq-m6", M7_REVIEW_M6[2], M7_REVIEW_M6),
     reviewMatchPairs("ja-m7-7-2-rev", M7_7_2_REVIEW),
-    infoStep(
-      "ja-m7-7-2-info-end",
-      "You can now hear, build, and speak M7 sentences",
-      "Listening builds and speaking production across compound patterns — the hardest production mode. Next: a real dialogue at a ramen shop.",
-      "win",
-    ),
   ],
 };
 
@@ -2296,12 +2178,6 @@ export const M7_8_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m7-8-1-info-open",
-      "Drop into the scene",
-      "You sit down at a Tokyo ramen shop with a friend. The staff greets you, you order, and you check the bill. Every grammar piece is something you've met.",
-      "culture",
-    ),
     // ── Warm-up: build calls for restaurant phrases. Each is figuroutable
     // because the English prompt makes the meaning obvious. ──
     // いらっしゃいませ — "Welcome (shop greeting)" is a single-tile pick.
@@ -2445,12 +2321,6 @@ export const M7_8_1: LessonContent = {
       "ラーメンを ふたつ ください",
       "Two ramen, please.",
     ),
-    infoStep(
-      "ja-m7-8-1-info-end",
-      "You can now order food at a Japanese restaurant",
-      "いらっしゃいませ, ごちゅうもんは, ください — you navigated a ramen shop from greeting to order. Next: cumulative drills wrapping up Module 7.",
-      "win",
-    ),
   ],
 };
 
@@ -2583,12 +2453,6 @@ export const M7_8_2: LessonContent = {
     vocabMcq("ja-m7-8-2-rev-mcq-cum-2", M7_8_2_REVIEW[5], M7_REVIEW_POOL),
     vocabMcq("ja-m7-8-2-rev-mcq-m3", M7_REVIEW_M3[4], M7_REVIEW_M3),
     reviewMatchPairs("ja-m7-8-2-rev", M7_8_2_REVIEW),
-    infoStep(
-      "ja-m7-8-2-info-end",
-      "You can now describe actions in the world",
-      "Who eats what, where you go, what you read, how you get there — verbs, を, and all four particles working together. That's real productive Japanese.",
-      "win",
-    ),
   ],
 };
 

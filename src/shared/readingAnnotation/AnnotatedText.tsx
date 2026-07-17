@@ -17,7 +17,7 @@
  * (no helper, no ruby).
  */
 import { useMemo, type ReactElement } from "react";
-import { isKana, isKatakana } from "@/shared/japanese/kanaTable";
+import { containsKanji, isKana, isKatakana } from "@/shared/japanese/kanaTable";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import { useTrackExposure } from "@/shared/symbolMastery";
 import { useSettings } from "@/shared/contexts/SettingsContext";
@@ -184,11 +184,14 @@ function SegmentRender({
   hideHelper?: boolean;
 }) {
   const { surface, reading, romaji, role } = segment;
-  // Pure non-kana segments (English prose, punctuation, numbers) render as
-  // plain text — no <ruby>, no helper. This keeps "What does あい mean?"
-  // free of phantom romaji annotations above the English words.
+  // Pure non-Japanese segments (English prose, punctuation, numbers) render
+  // as plain text — no <ruby>, no helper. This keeps "What does あい mean?"
+  // free of phantom romaji annotations above the English words. Kanji-only
+  // surfaces (一, 六 — from the kanji substitution layer) are NOT plain
+  // text: they fall through to the kanji branch so their furigana reading
+  // can float above.
   const hasAnyKana = Array.from(surface).some(isKana);
-  if (!hasAnyKana) {
+  if (!hasAnyKana && !containsKanji(surface)) {
     return <span data-role={role}>{surface}</span>;
   }
   // If the segment is pure kana and surface===reading, annotate it like a
@@ -225,12 +228,28 @@ function SegmentRender({
   }
   // Kanji branch — render the surface with the reading floating above
   // as a single ruby.
-  const helper = romaji ?? reading;
+  //
+  // NEVER-MIX RULE (Spencer 2026-07-16 — "we just dont want romaji +
+  // kanji ever, looks tacky and is bad practice"): once `surface` carries
+  // any kanji, ROMAJI is suppressed outright — no settings input can bring
+  // it back, matching `useRomajiHelperVisible` below. FURIGANA (the kana
+  // `reading`) is not romaji: it's how Japanese annotates kanji, and it's
+  // the whole point of the kanji substitution layer. The layer encodes the
+  // furigana window in data — reading ≠ surface means furigana is ON,
+  // reading === surface means the window has closed and there is nothing
+  // to float.
+  const kanjiSurface = containsKanji(surface);
+  const helper = kanjiSurface
+    ? reading !== surface
+      ? reading
+      : null
+    : (romaji ?? reading);
+  const showHelper = !hideHelper && helper != null;
   return (
     <ruby data-role={role}>
       {surface}
-      <rt className="kana-helper" aria-hidden={hideHelper}>
-        {hideHelper ? "​" : helper}
+      <rt className="kana-helper" aria-hidden={!showHelper}>
+        {showHelper ? helper : "​"}
       </rt>
     </ruby>
   );
@@ -262,7 +281,7 @@ type KanaScript = "hiragana" | "katakana";
 /**
  * Per-script romaji fade: the single `showRomaji` master toggle gates
  * both scripts; each script's romaji auto-hides once the learner crosses
- * its module milestone (hiragana M10 / katakana M17), unless the "show
+ * its module milestone (hiragana M7 / katakana M17), unless the "show
  * romaji for today" escape hatch is active. `hideHelper` is a hard OFF
  * (answer-giveaway surfaces like build-tile banks). `forceShowHelper`
  * (lookup-key surfaces like the M2 "how do you say X" MCQ) can still
@@ -272,20 +291,33 @@ type KanaScript = "hiragana" | "katakana";
  * Multi-script callers (word tokens over mixed surfaces like アメリカじん)
  * pass every script present: the helper stays visible while ANY of them
  * still shows romaji, and force-show is dead only once ALL are retired.
+ *
+ * NEVER-MIX RULE (Spencer 2026-07-16 — "we just dont want romaji + kanji
+ * ever, looks tacky and is bad practice"): `surface` is the raw rendered
+ * text (the word or symbol, pre-annotation). If it contains any kanji,
+ * this returns false unconditionally — before the settings/script checks
+ * below, so it wins over `forceShowHelper`, over `showRomaji`, and over
+ * the "romaji for today" escape hatch alike. Dormant today (the JA
+ * annotator only emits kana fragments pre-kanji-layer), but real so the
+ * kanji-substitution layer can't accidentally resurrect romaji-over-kanji
+ * through this gate once it starts feeding kanji text through here.
  */
 function useRomajiHelperVisible({
   scripts,
+  surface,
   forceShowHelper,
   hideHelper,
   languageId,
 }: {
   scripts: readonly KanaScript[];
+  surface: string;
   forceShowHelper?: boolean;
   hideHelper?: boolean;
   languageId?: string;
 }): boolean {
   const { settings } = useSettings();
   const today = todayLocalDate();
+  if (containsKanji(surface)) return false;
   // Non-JA phonetic scripts (e.g. Korean Revised Romanization above Hangul)
   // use one language-neutral "show romanization" toggle — no per-script fade
   // model. The kana-script logic below is JA-specific.
@@ -342,6 +374,7 @@ function WordToken({
   }
   const helperVisible = useRomajiHelperVisible({
     scripts: scripts.length > 0 ? scripts : ["hiragana"],
+    surface: word,
     forceShowHelper,
     hideHelper,
     languageId,
@@ -385,6 +418,7 @@ function SymbolToken({
   useTrackExposure(symbol);
   const helperVisible = useRomajiHelperVisible({
     scripts: [isKatakana(symbol) ? "katakana" : "hiragana"],
+    surface: symbol,
     forceShowHelper,
     hideHelper,
     languageId,

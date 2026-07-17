@@ -108,7 +108,7 @@ export type UserSettings = {
      *
      * Romaji retires per script on its own: the render gate hides a kana's
      * romaji once that script's auto-off guard is set — hiragana at Module
-     * 10, katakana at Module 17 (see romajiAutoFlip.ts). This single toggle
+     * 7, katakana at Module 17 (see romajiAutoFlip.ts). This single toggle
      * still masters both scripts (off here = no romaji anywhere); the
      * `romajiOnForDay` escape hatch can force it back on for one day.
      */
@@ -127,7 +127,7 @@ export type UserSettings = {
     /**
      * Per-script one-time auto-off guards for the romaji reading aid,
      * flipped when the learner crosses that script's fluency milestone
-     * (hiragana M10 / katakana M17). The render gate hides that script's
+     * (hiragana M7 / katakana M17). The render gate hides that script's
      * romaji once set — unless `showRomaji` is toggled back on or
      * `romajiOnForDay` is today. Two guards, one user-facing toggle.
      */
@@ -147,7 +147,8 @@ export type UserSettings = {
      * romaji can stay on everywhere else while build tiles fade first.
      *
      * Default OFF (romaji shown) as a beginner scaffold; auto-flips ON
-     * (one-time) when the learner reaches Module 10 — by ~10h in they can
+     * (one-time) when the learner reaches Module 5, two modules ahead of
+     * the full hiragana romaji auto-off (Module 7) — by then they can
      * read kana. Learner-toggleable from Settings either way.
      */
     hideBuildTileRomaji?: boolean;

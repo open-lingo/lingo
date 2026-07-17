@@ -101,11 +101,14 @@ export const MOCK_LESSON_JA_M2_B_1: LessonContent = {
   steps: [
     {
       id: "ja-b1-info-open",
-      type: "info",
+      type: "grammar_rule",
       title: "H → B",
-      body:
-        "Dakuten ゛ on h-kana voices them: は→ば, ひ→び, ふ→ぶ, へ→べ, ほ→ぼ. The h-row is the only family that also takes a circle mark (゜) — that's the p-row, next lesson.",
-      variant: "culture",
+      rule:
+        "Dakuten ゛ on h-kana voices them to b-sounds. The h-row is the only family that also takes a circle mark (゜) — that makes the p-row, next lesson.",
+      examples: [
+        { ja: "は → ば", romaji: "ha → ba", en: "voiced h becomes b" },
+        { ja: "ふ → ぶ", romaji: "fu → bu", en: "voiced h becomes b" },
+      ],
     },
 
     // ─── Char 1: ば (ba) → かばん (bag) ───
@@ -230,14 +233,6 @@ export const MOCK_LESSON_JA_M2_B_3: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    {
-      id: "ja-b3-info-open",
-      type: "info",
-      title: "Putting it together",
-      body:
-        "Quick review of everything from the b-row, plus a few words from earlier rows so they stay sharp.",
-      variant: "default",
-    },
 
     wordImageMcq(ctxSub3, "ja-b3-mcq-kaban", "かばん"),
     symbolToSound(ctxSub3, "ja-b3-s2s-be", "べ", "be", "voiced へ"),

@@ -316,23 +316,45 @@ export type TypedAnswerGrade = {
   /** Properly-accented accepted answer to surface in the nudge (raw
    *  authored form), or null when not flagged. */
   accentDisplay: string | null;
+  /**
+   * Correct, but the learner typed the answer in the OTHER kana script —
+   * the romaji IME (wanakana toKana) yields hiragana, so a loanword
+   * authored in katakana (テレビ) comes through as てれび. Never a fail;
+   * surface the conventional script as a nudge. SRS/XP treat this as
+   * plain correct.
+   */
+  kanaFlagged: boolean;
+  /** Accepted answer in its authored script (テレビ) to surface in the
+   *  script nudge, or null when not flagged. */
+  kanaDisplay: string | null;
 };
 
 /**
  * Grade a typed translation/production answer against `acceptedAnswers`.
  *
  * Match = exact on `normalizeTypedAnswer` (trailing punctuation ignored),
- * with an accent-fold fallback: input that differs from an accepted
- * answer only by missing/garbled diacritics still grades correct.
+ * with two independent folds layered as fallbacks:
+ *   - accent fold: input that differs from an accepted answer only by
+ *     missing/garbled Latin diacritics still grades correct (es).
+ *   - script (kana) fold: input that differs only by hiragana↔katakana
+ *     still grades correct (ja) — a romaji IME yields hiragana, so テレビ
+ *     typed as てれび must pass. Kana voicing is preserved, so だ vs た is
+ *     still a real error.
  *
- * Flag rule: the grade is accent-flagged when the input matched (exactly
- * or by fold) AND some accepted answer A still carrying diacritics folds
- * to the same string as the input while differing from it un-folded —
- * i.e. the learner typed a de-accented version of a real answer. This
- * deliberately catches curricula that author diacritic-stripped variants
- * into acceptedAnswers (the stripped variant matches EXACTLY, but the
- * accented sibling still triggers the nudge). The display form prefers
- * the most-accented candidate, first-authored winning ties.
+ * Accent flag rule: the grade is accent-flagged when the input matched
+ * (exactly or by fold) AND some accepted answer A still carrying
+ * diacritics folds to the same string as the input while differing from
+ * it un-folded — i.e. the learner typed a de-accented version of a real
+ * answer. This deliberately catches curricula that author diacritic-
+ * stripped variants into acceptedAnswers (the stripped variant matches
+ * EXACTLY, but the accented sibling still triggers the nudge). The display
+ * form prefers the most-accented candidate, first-authored winning ties.
+ *
+ * Script flag rule: fires only when the learner did NOT type any accepted
+ * form exactly but an accepted answer differs from the input by script
+ * alone — nudging toward the conventional script (テレビ). An exact match
+ * (even to an authored hiragana variant) needs no correction, so unlike
+ * the accent flag it stays silent there. First authored script wins.
  */
 export function gradeTypedAnswer(
   acceptedAnswers: readonly string[],
@@ -343,11 +365,14 @@ export function gradeTypedAnswer(
     "",
   );
   const inputFold = accentFold(inputNorm);
+  const inputKana = katakanaToHiragana(inputNorm);
 
   let exact = false;
-  let foldMatch = false;
+  let accentMatch = false;
   let display: string | null = null;
   let displayMarks = 0;
+  let kanaMatch = false;
+  let kanaDisplay: string | null = null;
 
   for (const a of acceptedAnswers) {
     const aNorm = normalizeTypedAnswer(a).replace(TYPED_TRAILING_PUNCT_RE, "");
@@ -355,23 +380,40 @@ export function gradeTypedAnswer(
       exact = true;
       continue; // the learner typed this one — never a nudge source
     }
+
+    // Accent-fold leniency (Latin diacritics; kana voicing preserved).
     const aFold = accentFold(aNorm);
-    if (aFold !== inputFold) continue;
-    foldMatch = true;
-    if (aFold === aNorm) continue; // carries no diacritics itself
-    const marks = [...aNorm.normalize("NFD").matchAll(FOLDABLE_DIACRITIC_RE)]
-      .length;
-    if (display === null || marks > displayMarks) {
-      display = a.trim();
-      displayMarks = marks;
+    if (aFold === inputFold) {
+      accentMatch = true;
+      if (aFold !== aNorm) {
+        // `a` carries diacritics the input dropped — a nudge candidate.
+        const marks = [
+          ...aNorm.normalize("NFD").matchAll(FOLDABLE_DIACRITIC_RE),
+        ].length;
+        if (display === null || marks > displayMarks) {
+          display = a.trim();
+          displayMarks = marks;
+        }
+      }
+    }
+
+    // Script-fold leniency (hiragana ↔ katakana). Independent of the accent
+    // fold above: `a` reaching here differs from the input, so an equal
+    // katakana-folded form means they differ by script alone. First
+    // authored script wins the nudge.
+    if (katakanaToHiragana(aNorm) === inputKana) {
+      kanaMatch = true;
+      if (kanaDisplay === null) kanaDisplay = a.trim();
     }
   }
 
-  const correct = exact || foldMatch;
+  const correct = exact || accentMatch || kanaMatch;
   return {
     correct,
     accentFlagged: correct && display !== null,
     accentDisplay: correct ? display : null,
+    kanaFlagged: correct && !exact && kanaDisplay !== null,
+    kanaDisplay: correct && !exact ? kanaDisplay : null,
   };
 }
 
