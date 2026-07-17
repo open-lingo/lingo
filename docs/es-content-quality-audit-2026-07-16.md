@@ -207,3 +207,40 @@ Items 1–3 are mechanical and repetitive across the corpus — a strong candida
 for a dedicated editorial/authoring wave (per the standing content-quality flag:
 budget a REVIEW/EDIT pass as a first-class phase). The Spanish content itself
 should be **preserved**, not rewritten.
+
+---
+
+## REMEDIATION SHIPPED — 2026-07-16 (same day)
+
+The full remediation landed: all 16 modules were rewritten to the JA length /
+depth / question-design standard by 16 parallel Sonnet agents against a shared
+authoring contract (`docs/es-rewrite-brief-2026-07-16.md`), on top of new shared
+foundations. **`tsc --noEmit` clean · full suite 3380 passed / 3 skipped ·
+`scripts/es-smoke.mjs` 7/7.**
+
+**Foundations added (hand-built, so parallel agents couldn't collide):**
+- ES `selfExplain()` factory (`self_explanation_mcq` — the metacognition step ES
+  lacked entirely) in `es/grammarHelpers.ts`.
+- Compounding-review helpers `pickReviewSurfaces()` / `reviewMatchPairs()` backed
+  by a generated, import-cycle-safe `es/esReviewPool.ts` (434-atom static
+  snapshot). The live-registry approach was abandoned after it tripped the
+  `courseAtoms↔curriculum` import cycle (a later module builds its lessons before
+  an earlier module registers its atoms); `findEsAtomBySurface` now falls back to
+  the static pool on a miss, which also fixes cross-module gloss resolution.
+- **`es/curriculum/es-quality.test.ts`** — the permanent CI gate ES was missing:
+  density band, no adjacent same-type, no 3+ selection run, ≥2 production +
+  ≥1 typed/spoken per topic lesson, ≥2 selfExplain/module, and ≥6 of L2–L8
+  compounding a prior module. This is what stops the course re-drifting.
+
+**Result vs the audit's zeros** (whole-course factory counts, es):
+`selfExplain` **0 → 66** · compounding-review draws **0 → 122** · typed
+`translate` **164** · `speaking` **280** · `build` **269** · `dialogue_listen`
+**16**. Topic lessons went from ~8–11 steps (thin, recognition-only) to ~18–22
+with production + a compounding review tail every lesson from L2 on. Answer-leaks
+(m4 "(big)", m9 question-words) de-leaked; m16's Repaso capstone weave preserved.
+
+**Still open (follow-up, non-blocking):** new Spanish sentences created by the
+rewrite need TTS clips — the es deck emitter (`emitTtsDeck.test.ts`) is env-gated
+and was not run here, so audio won't play for the new sentences until the deck is
+regenerated (lessons render fine without audio). Two-voice dialogues and reactive
+grammar micro-teaching remain phase-2 as before.

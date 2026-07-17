@@ -27,6 +27,7 @@
  * (unique atom ids are enforced by the ES conformance test).
  */
 import type { Atom, AtomId, PartOfSpeech } from "@/shared/language/types";
+import { ES_REVIEW_POOL } from "./esReviewPool";
 
 import { ES_M1_ATOMS } from "./curriculum/m1";
 import { ES_M2_ATOMS } from "./curriculum/m2";
@@ -117,13 +118,45 @@ export function atom(opts: {
   return a;
 }
 
+// Static-pool fallback for the courseAtoms↔curriculum import cycle. When a
+// module builds a compounding-review step referencing a PRIOR module's surface,
+// that earlier module may not have registered its atoms in the live registry
+// yet (a later module's lessons can evaluate first). `ES_REVIEW_POOL` is a
+// generated, import-order-independent snapshot; we synthesize an EsAtom from it
+// on a registry miss so gloss/id resolution is stable at authoring time. At
+// RUNTIME every atom is live-registered, so the fallback never triggers there.
+// `var` (not `let`) so the hoisted `findEsAtomBySurface` can call `poolFallback`
+// while this module is still mid-evaluation — a `let` would be in its TDZ.
+// eslint-disable-next-line no-var
+var _poolFallback: Map<string, EsAtom> | undefined;
+function poolFallback(): Map<string, EsAtom> {
+  if (!_poolFallback) {
+    _poolFallback = new Map<string, EsAtom>();
+    for (const e of ES_REVIEW_POOL) {
+      _poolFallback.set(e.surface, {
+        id: `es:${e.surface}` as AtomId,
+        languageId: "es",
+        surface: e.surface,
+        gloss: e.gloss,
+        partOfSpeech: e.partOfSpeech as PartOfSpeech,
+        fromModule: e.fromModule as EsAtomSource,
+        srsEligible: true,
+        kind: e.kind,
+      });
+    }
+  }
+  return _poolFallback;
+}
+
 /**
  * Cycle-safe accessor over `ES_ATOMS_BY_SURFACE` — grammarHelpers resolves
  * through this (a hoisted function) because curriculum files call the step
- * factories at import time, before this module's consts initialize.
+ * factories at import time, before this module's consts initialize. Falls back
+ * to the static `ES_REVIEW_POOL` snapshot for atoms not yet live-registered
+ * (see the cycle note above).
  */
 export function findEsAtomBySurface(surface: string): EsAtom | undefined {
-  return surfaceRegistry().get(surface);
+  return surfaceRegistry().get(surface) ?? poolFallback().get(surface);
 }
 
 /**
