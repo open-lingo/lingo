@@ -51,8 +51,31 @@ blind (runs renamed neutrally, judges not told what to expect):
   (romaji renders over hiragana at m8+): expected violations on every step
   showing kana with romaji helpers.
 
-Results are recorded in `artifacts/visual-qa/validation-2026-07-17.md`
-(artifacts dir is gitignored; the summary lives in the retrospective trail).
+**Results** (Haiku judges, blind, 19 steps/run):
+
+- **run-clean**: 17 ok + 2 false positives — both judges misread the kanji
+  一 (a single horizontal bar) as a divider line and reported "shows いち
+  instead of 一" where the screenshot in fact shows 一 with いち furigana.
+  Escalation review refuted both. → Judge prompts now carry a 一-glyph
+  calibration note; false positives cost an escalation, never a bad fix.
+- **run-a**: 19/19 correct — flagged exactly `speak-tooi` citing the exact
+  kana-above-kana universal rule; the spaceless speaking steps (genuinely
+  unaffected by the filler bug) correctly passed.
+- **run-b, first pass — CRITICAL METHOD FINDING**: the judge passed the
+  romaji leak on every step, because the contracts had been regenerated
+  while the bug was live and the generator derived moduleIndex through the
+  SAME `parseModuleIndex` the regression broke → the contract itself said
+  "romaji expected". The oracle self-corrupted into agreeing with the bug.
+  Fixed: `independentModuleIndex()` — the generator now derives module
+  position with its own parse (oracle independence).
+- **run-b, corrected oracle**: 11/19 violations — every romaji-bearing step
+  flagged with the module rule, PLUS a true positive not targeted by the
+  validation: the same broken parse suppressed kanji (一/七/六 rendered as
+  kana) on the review match step, and the mustShow contract caught it.
+
+Net: with an independent oracle, both resurrected regressions are caught
+with zero missed steps; the only judge errors were conservative false
+positives (escalation-absorbable), never false passes.
 
 ## Cost profile
 

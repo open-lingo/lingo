@@ -35,6 +35,10 @@ Per step, check in this order:
   pre-interaction (a transcript, an audio-only prompt), verdict `unverifiable`,
   not `violation`.
 - Uncertain between ok/violation → `escalate`. Never silently pass a doubt.
+- Glyph calibration: the kanji 一 ("one") renders as a single large
+  horizontal bar — it is NOT a divider line. Small kana floating above a
+  horizontal bar is 一 with furigana: correct rendering. (Validation
+  2026-07-17: two independent judges made this exact misread.)
 
 ## Output — STRICT JSON only, no prose around it
 
