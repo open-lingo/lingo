@@ -172,3 +172,6 @@ src/pub/dict/
 # YouTube transcript working material (pedagogy recon) — internal study only, not shipped
 research/
 scripts/__pycache__/
+
+# Visual-QA gate artifacts (contracts + screenshots, regenerated per run)
+artifacts/

@@ -875,7 +875,12 @@ export function LessonPage() {
         aria-label={t("lesson.stepContainer", "Lesson step")}
         className="flex flex-1 flex-col overflow-y-auto py-4 outline-none"
       >
-        <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col">
+        <div
+          className="mx-auto flex w-full max-w-2xl flex-1 flex-col"
+          data-visual-qa="step-stage"
+          data-visual-qa-step-id={currentStep?.id}
+          data-visual-qa-step-type={currentStep?.type}
+        >
         {currentStep && (
           <LessonModuleProvider moduleIndex={parseModuleIndex(lesson.moduleId)}>
             <StepRenderer
