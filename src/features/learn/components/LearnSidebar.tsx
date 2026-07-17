@@ -1,6 +1,7 @@
 import type { Course, SideQuest } from "@/shared/domain/course";
 import type { LearnProfile } from "../hooks/useLearnProfile";
 import { Card } from "@/shared/components/ui";
+import { ScrollArea } from "@/shared/components/ScrollArea";
 import { ProfileCardBody } from "./ProfileCard";
 import { QuestsCardBody } from "@/features/quests";
 import { ReviewPracticeBody } from "./LearnToolsRow";
@@ -38,21 +39,23 @@ export function LearnSidebar({
   onSideQuestClick,
 }: LearnSidebarProps) {
   return (
-    <aside className="lg:h-full lg:overflow-y-auto">
-      <Card as="section" padding="md" className="shadow-card lg:flex lg:h-full lg:flex-col">
-        {/* On desktop the rail matches the map height: the three sections
-            spread apart (justify-between) to fill it. On mobile it's a plain
-            stacked card with even spacing. */}
-        <div className="space-y-5 lg:flex lg:h-full lg:flex-col lg:justify-between lg:space-y-0">
-          <ProfileCardBody profile={profile} />
-          <QuestsCardBody
-            sideQuests={sideQuests}
-            isSideQuestUnlocked={isSideQuestUnlocked}
-            onSideQuestClick={onSideQuestClick}
-          />
-          <ReviewPracticeBody course={course} completedSet={completedSet} />
-        </div>
-      </Card>
+    <aside className="lg:h-full">
+      <ScrollArea className="lg:h-full">
+        <Card as="section" padding="md" className="shadow-card lg:flex lg:min-h-full lg:flex-col">
+          {/* On desktop the rail matches the map height: the three sections
+              spread apart (justify-between) to fill it, and scroll if they
+              overrun. `pr` keeps quest rewards clear of the overlay bar. */}
+          <div className="space-y-5 lg:flex lg:min-h-full lg:flex-1 lg:flex-col lg:justify-between lg:space-y-0 lg:pr-1">
+            <ProfileCardBody profile={profile} />
+            <QuestsCardBody
+              sideQuests={sideQuests}
+              isSideQuestUnlocked={isSideQuestUnlocked}
+              onSideQuestClick={onSideQuestClick}
+            />
+            <ReviewPracticeBody course={course} completedSet={completedSet} />
+          </div>
+        </Card>
+      </ScrollArea>
     </aside>
   );
 }
