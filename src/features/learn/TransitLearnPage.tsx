@@ -999,12 +999,17 @@ function TrainMascot({
   );
 }
 
-function GhostTrain() {
+function GhostTrain({ vehicle = "train" }: { vehicle?: "train" | "bus" }) {
+  const isBus = vehicle === "bus";
+  const w = isBus ? 30 : 22;
   return (
     <g className="tmc-ghost" aria-hidden>
-      <rect x={-11} y={-14} width={22} height={11} rx={4} style={{ fill: "var(--tmc-line-main)" }} />
-      <circle cx={-4.5} cy={-8.5} r={2.2} style={{ fill: "var(--tmc-panel)" }} />
-      <circle cx={4.5} cy={-8.5} r={2.2} style={{ fill: "var(--tmc-panel)" }} />
+      <rect x={-w / 2} y={-14} width={w} height={11} rx={isBus ? 3 : 4} style={{ fill: "var(--tmc-line-main)" }} />
+      {isBus && (
+        <rect x={-w / 2 + 3} y={-11.5} width={8} height={5} rx={1.5} style={{ fill: "var(--tmc-panel)", opacity: 0.5 }} />
+      )}
+      <circle cx={isBus ? 4 : -4.5} cy={-8.5} r={2.2} style={{ fill: "var(--tmc-panel)" }} />
+      <circle cx={isBus ? 10 : 4.5} cy={-8.5} r={2.2} style={{ fill: "var(--tmc-panel)" }} />
     </g>
   );
 }
@@ -1126,7 +1131,11 @@ function NetworkMap({
     const startLen = lenAtStation(layout.mainPts, segs, layout.stations[0].x, layout.stations[0].y);
     const place = (len: number): number => {
       const [px, py] = pointAt(layout.mainPts, segs, len);
-      train.setAttribute("transform", `translate(${px} ${py})`);
+      // Orient the vehicle to the track so it noses up on the climbs.
+      const [ax, ay] = pointAt(layout.mainPts, segs, Math.max(0, len - 3));
+      const [bx, by] = pointAt(layout.mainPts, segs, Math.min(total, len + 3));
+      const ang = (Math.atan2(by - ay, bx - ax) * 180) / Math.PI;
+      train.setAttribute("transform", `translate(${px} ${py}) rotate(${ang.toFixed(2)})`);
       return px;
     };
     if (prefersReducedMotion()) {
@@ -1174,8 +1183,12 @@ function NetworkMap({
     const tick = (now: number) => {
       if (now - last >= FRAME_MS) {
         last = now;
-        const [px, py] = pointAt(layout.mainPts, segs, ((now % LOOP_MS) / LOOP_MS) * total);
-        ghost.setAttribute("transform", `translate(${px} ${py})`);
+        const gl = ((now % LOOP_MS) / LOOP_MS) * total;
+        const [px, py] = pointAt(layout.mainPts, segs, gl);
+        const [ax, ay] = pointAt(layout.mainPts, segs, Math.max(0, gl - 3));
+        const [bx, by] = pointAt(layout.mainPts, segs, Math.min(total, gl + 3));
+        const ang = (Math.atan2(by - ay, bx - ax) * 180) / Math.PI;
+        ghost.setAttribute("transform", `translate(${px} ${py}) rotate(${ang.toFixed(2)})`);
       }
       raf = requestAnimationFrame(tick);
     };
@@ -1534,7 +1547,7 @@ function NetworkMap({
 
             {/* ghost train (under stations) */}
             <g ref={ghostRef}>
-              <GhostTrain />
+              <GhostTrain vehicle={lang === "es" ? "bus" : "train"} />
             </g>
 
             {/* stations */}
@@ -2088,7 +2101,7 @@ export default function TransitLearnPage({
   // and crash. Show an empty state instead.
   if (modules.length === 0) {
     return (
-      <div className={cn("tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3", effectiveTier === "n4" && "tmc-tier-n4")}>
+      <div className={cn("tmc-root mx-auto max-w-[min(2100px,96vw)]", effectiveTier === "n4" && "tmc-tier-n4")}>
         <TransitSignageHeader title={titleText} subtitle={LEARN_HEADER_SUBTITLE} />
         {hasN4 && (
           <div className="mb-3">
@@ -2111,7 +2124,7 @@ export default function TransitLearnPage({
     <div
       data-lang={lang}
       className={cn(
-        "tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3",
+        "tmc-root mx-auto max-w-[min(2100px,96vw)]",
         effectiveTier === "n4" && "tmc-tier-n4",
       )}
     >
