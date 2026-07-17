@@ -24,6 +24,7 @@ import {
 } from "@/features/lesson/data/mockLessons";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
 import { getAtomsUpToModule } from "@/features/lesson/data/lessonAtomIndex";
+import { parseModuleIndex } from "@/shared/settings/romajiAutoFlip";
 import vocabMap from "@/features/lesson/data/n5-module-vocab-map.json";
 import grammarPoints from "@/features/lesson/data/n5-grammar-points.json";
 
@@ -168,6 +169,39 @@ describe("JA module conformance — attribution invariants", () => {
       }
     }
     expect(offenders, `ja lessons still carrying info steps:\n  ${offenders.join("\n  ")}`).toEqual([]);
+  });
+
+  it("no ja lesson contains a `phrase_card` step (Gate 8: shelved 2026-07-12)", () => {
+    // phrase_card is banned in ja (guide §4b2) — and vocab()/phrase() silently
+    // EMIT it, so an author calling those authors a banned step believing they
+    // are compliant. This runtime gate catches both the raw literal and the
+    // factory calls. es/ko still ship phrase_card legitimately, hence ja-scoped.
+    const offenders: string[] = [];
+    for (const lessonId of getAvailableMockLessonIds()) {
+      const lesson = getMockLessonContent(lessonId);
+      if (!lesson || lesson.languageId !== "ja") continue;
+      const n = lesson.steps.filter((s) => s.type === "phrase_card").length;
+      if (n > 0) offenders.push(`${lessonId} (${n})`);
+    }
+    expect(
+      offenders,
+      `ja lessons carrying phrase_card (use vocabMcq / listeningCompSentence+speaking / build):\n  ${offenders.join("\n  ")}`,
+    ).toEqual([]);
+  });
+
+  it("parseModuleIndex round-trips every real curriculum moduleId (Gate 3)", () => {
+    // Kills the class that caused the romaji-ladder outage: a parser expecting
+    // an "ja-"/"ko-" prefix returned 0 for the bare "m29" moduleId the data
+    // actually carries. Assert the parser survives the EXACT id shape in the
+    // live curriculum, not a hand-picked sample.
+    const bad = jaModule.curriculum
+      .map((m) => m.id)
+      .filter((id) => id !== "m1" && id !== "m2") // kana modules: index irrelevant
+      .filter((id) => parseModuleIndex(id) <= 0);
+    expect(
+      bad,
+      `moduleIds parseModuleIndex failed to resolve (returned 0):\n  ${bad.join("\n  ")}`,
+    ).toEqual([]);
   });
 
   it("every ja lesson has ≥1 step and ends with a gradeable step", () => {
