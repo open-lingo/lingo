@@ -421,7 +421,7 @@ export function build(
  * sentence + a short operation chip ("→ casual"), learner assembles the
  * transformed sentence from tiles. A parametrized `build_sentence` — same
  * grading, same guards, same density slot. The prompt must still state the
- * operation in English WITH the register cue (pinned invariant 7), e.g.
+ * operation in English WITH the register cue (pinned invariant 8), e.g.
  * "Rewrite for a friend:" — the chip is reinforcement, not the only cue.
  */
 export function transformBuild(

@@ -25,6 +25,7 @@ import {
   KATAKANA_ROMAJI_OFF_MODULE,
 } from "@/shared/settings/romajiAutoFlip";
 import { KANJI_RECOGNITION_MODULE } from "@/features/languages/ja/secondScript/kanjiRollout";
+import { resolveBuildTileKanji } from "@/features/languages/ja/secondScript/buildTileKanji";
 
 /**
  * ORACLE INDEPENDENCE (validation finding, 2026-07-17): do NOT reuse the
@@ -132,10 +133,32 @@ function contractForStep(
     case "build_sentence":
     case "listening_build": {
       mustShow.push(step.prompt);
-      step.tiles.forEach((t) => mustShow.push(t));
+      // Build tiles DISPLAY the kanji form once the lesson's module has
+      // unlocked it (Spencer 2026-07-17 ruling; character-granularity kana
+      // drills excluded) — the contract must expect the kanji surface or
+      // every kanji-fied tile reads as a mustShow miss (Gate 10 false
+      // positive on every m8+ build step).
+      let anyKanjiTile = false;
+      step.tiles.forEach((t) => {
+        const k =
+          step.granularity === "character"
+            ? null
+            : resolveBuildTileKanji(t, moduleIndex);
+        if (k) {
+          anyKanjiTile = true;
+          mustShow.push(k.surface);
+        } else {
+          mustShow.push(t);
+        }
+      });
       expectations.push(
         `A tile bank with ${step.tiles.length} tiles and an empty answer tray (pre-interaction).`,
       );
+      if (anyKanjiTile) {
+        expectations.push(
+          "Kanji tiles may show kana furigana above them or not, depending on the learner's per-word mastery — both states are correct. Romaji on a kanji tile is still always a defect.",
+        );
+      }
       break;
     }
     case "speaking": {

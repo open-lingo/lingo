@@ -8,6 +8,7 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { useAutoPlayJaAudio, getTtsUrl, playJaAudio } from "@/shared/tts";
+import { BuildTileSurface, useBuildTileKanji } from "./BuildTileSurface";
 import { playSfx } from "@/shared/audio/sfx";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { ExplainButton } from "../ExplainButton";
@@ -77,6 +78,14 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
 
   const placed = placedIdx.map((i) => bankTiles[i]);
   const isCorrect = JSON.stringify(placed) === JSON.stringify(step.correctOrder);
+
+  // DISPLAY-ONLY kanji-fication (Spencer 2026-07-17): once the lesson's
+  // module unlocks a tile word's kanji, the tile shows the kanji form
+  // (furigana until FSRS-mastered). `bankTiles`/`placed`/`correctOrder`
+  // and every comparison above stay the kana strings — only the painted
+  // glyphs change, via `BuildTileSurface`. Character builds are excluded
+  // inside the hook (kana decoding — kana IS the content).
+  const tileKanji = useBuildTileKanji(step.tiles, step.granularity);
 
   // Two independent axes (Spencer 2026-06-13):
   //  - SIZE: small banks (≤6 tiles, words or short sentences) get
@@ -242,7 +251,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                 className={`rounded-xl border-2 border-dashed border-border bg-surface-muted ${placedTileClass}`}
               >
                 <span className="invisible">
-                  <AnnotatedJa text={tile} />
+                  <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
                 </span>
               </span>
             ))}
@@ -256,7 +265,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                 onClick={() => removeTile(i)}
                 className={`motion-safe:animate-tile-pop rounded-xl border-2 transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
               >
-                <AnnotatedJa text={tile} />
+                <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
               </button>
             ))}
           </div>
@@ -268,7 +277,10 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            wrap), so growth is horizontal-only: nothing below moves. */
         <div className="mx-auto flex min-h-[64px] w-fit min-w-[10rem] items-center justify-center gap-2 rounded-2xl border-[1.5px] border-dashed border-border bg-surface-muted px-4 py-2">
           <span aria-hidden className={`invisible w-0 overflow-hidden !px-0 ${placedTileClass}`}>
-            <AnnotatedJa text={step.correctOrder[0] ?? "あ"} />
+            <BuildTileSurface
+              tile={step.correctOrder[0] ?? "あ"}
+              kanji={tileKanji.get(step.correctOrder[0] ?? "あ")}
+            />
           </span>
           {placed.map((tile, i) => (
             <button
@@ -278,7 +290,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               onClick={() => removeTile(i)}
               className={`motion-safe:animate-tile-pop rounded-xl border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
             >
-              <AnnotatedJa text={tile} />
+              <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
             </button>
           ))}
         </div>
@@ -293,7 +305,9 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                 key={`ghost-${i}`}
                 className={`rounded-xl border-[1.5px] ${placedTileClass}`}
               >
-                <AnnotatedJa text={tile} />
+                {/* Ghost sizing MUST use the same glyphs (kanji + rt) as the
+                    real tiles or the tray mis-sizes. */}
+                <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
               </span>
             ))}
           </div>
@@ -313,7 +327,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                   onClick={() => removeTile(i)}
                   className={`rounded-xl border-[1.5px] transition-colors duration-150 ${placedStateClass} ${placedTileClass}`}
                 >
-                  <AnnotatedJa text={tile} />
+                  <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
                 </button>
               ))
             )}
@@ -339,7 +353,11 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                   : `rounded-xl border-[1.5px] border-border bg-surface text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50 ${bankTileClass}`
               }
             >
-              <AnnotatedJa text={tile} hideHelper={fadeTiles && !revealedTiles.has(i)} />
+              <BuildTileSurface
+                tile={tile}
+                kanji={tileKanji.get(tile)}
+                hideHelper={fadeTiles && !revealedTiles.has(i)}
+              />
             </button>
           );
         })}

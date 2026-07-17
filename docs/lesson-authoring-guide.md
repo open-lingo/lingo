@@ -223,6 +223,22 @@ The rules that bind authors:
 - **NEVER romaji + kanji together.** The `containsKanji` gate in `AnnotatedText` beats all
   settings. Furigana is **not** romaji and *does* float.
 
+### 4e addendum — build tiles display unlocked kanji (Spencer 2026-07-17)
+
+Build-tile banks (`build_sentence` + `listening_build`) are no longer kana-only. Once a tile
+word's kanji is unlocked at the lesson's module, the tile **displays the kanji form**, with kana
+furigana above it until the atom reaches FSRS mastery (both modalities ≥ 21 days) — "they NEED
+the exposure." Mechanics authors should know:
+
+- **Display-only.** `tiles`, `correctOrder`, and grading stay the KANA strings — keep authoring
+  build banks in kana exactly as before; the renderer swaps the painted surface
+  (`resolveBuildTileKanji` in `ja/secondScript/buildTileKanji.ts` + `BuildTileSurface`).
+- **Same homograph safety as sentence kanji**: only tiles that pass
+  `resolveEligibleKanjiAtomId` kanji-fy; ambiguous kana (はな, に, した…) stays kana.
+- **Character-granularity builds are excluded** — kana decoding drills keep their kana tiles.
+- **Furigana is per-learner** (mastery-gated), so a tile may legitimately render with or
+  without it. Never romaji on a kanji tile (never-mix, as everywhere).
+
 ## 4f. `kanji_reading` — closing the ladder (2026-07-16)
 
 The kanji ladder (§4e) was **display-only**: kanji appeared, but reading them was never tested.
@@ -424,6 +440,7 @@ Pair with the upcoming wave's CelebrationToast wiring (audit §2.1) — when the
 | 2026-07-16 | **Every ja lesson must end on a gradeable step** (no closing exposition) | this guide §4d |
 | 2026-07-16 | Script ladder: romaji off m7 / kanji recognition m8 / furigana unlock+2 | this guide §4e |
 | 2026-07-16 | Never romaji+kanji; no typed kanji (kana input always accepted) | this guide §4e |
+| 2026-07-17 | Build tiles display unlocked kanji, furigana until FSRS mastery; grading stays kana | this guide §4e addendum |
 | 2026-07-16 | `kanji_reading` step shipped — kanji→kana reading recall | this guide §4f |
 | 2026-07-16 | Sentence-complexity floor: production targets must ramp from ~m20 | this guide §4g |
 

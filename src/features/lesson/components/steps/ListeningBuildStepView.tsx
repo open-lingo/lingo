@@ -5,8 +5,8 @@ import type { ListeningBuildStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
-import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { getTtsUrl } from "@/shared/tts";
+import { BuildTileSurface, useBuildTileKanji } from "./BuildTileSurface";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { playSfx } from "@/shared/audio/sfx";
 import { Icon } from "@/shared/components/Icon";
@@ -87,6 +87,12 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   const placed = placedIdx.map((i) => bankTiles[i]);
   const isCorrect = JSON.stringify(placed) === JSON.stringify(step.correctOrder);
 
+  // DISPLAY-ONLY kanji-fication (Spencer 2026-07-17): unlocked words show
+  // their kanji form (furigana until FSRS-mastered) on bank/tray/ghost
+  // tiles alike. Grading (`placed` vs `correctOrder` above) stays kana.
+  // Character-granularity kana-row banks are excluded inside the hook.
+  const tileKanji = useBuildTileKanji(step.tiles, step.granularity);
+
   function addTile(originalIndex: number) {
     if (submitted) return;
     if (placedIdx.includes(originalIndex)) return;
@@ -164,7 +170,9 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
               key={`ghost-${i}`}
               className="rounded-xl border-2 px-5 py-2.5 text-2xl sm:text-3xl font-bold"
             >
-              <AnnotatedJa text={tile} />
+              {/* Ghost sizing MUST use the same glyphs (kanji + rt) as the
+                  real tiles or the tray mis-sizes. */}
+              <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
             </span>
           ))}
         </div>
@@ -182,7 +190,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
                 onClick={() => removeTile(i)}
                 className="rounded-xl border-2 border-accent bg-accent-muted px-5 py-2.5 text-2xl sm:text-3xl font-bold text-accent transition-colors duration-150 hover:bg-accent hover:text-white"
               >
-                <AnnotatedJa text={tile} />
+                <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
               </button>
             ))
           )}
@@ -206,7 +214,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
                   : "rounded-xl border-2 border-border bg-surface px-5 py-3 text-2xl sm:py-4 sm:text-3xl font-bold text-text-primary transition-colors duration-150 hover:border-accent disabled:opacity-50"
               }
             >
-              <AnnotatedJa text={tile} />
+              <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
             </button>
           );
         })}
