@@ -18,6 +18,7 @@ import { PhraseCardStepView } from "./steps/PhraseCardStepView";
 import { GrammarRuleStepView } from "./steps/GrammarRuleStepView";
 import { ParticleClozeStepView } from "./steps/ParticleClozeStepView";
 import { AgreementClozeStepView } from "./steps/AgreementClozeStepView";
+import { KanjiReadingStepView } from "./steps/KanjiReadingStepView";
 import { SelfExplanationMcqStepView } from "./steps/SelfExplanationMcqStepView";
 import { DialogueListenStepView } from "./steps/DialogueListenStepView";
 import { RowTestStepView } from "./steps/RowTestStepView";
@@ -192,6 +193,14 @@ export function StepRenderer({
     case "agreement_cloze":
       return (
         <AgreementClozeStepView
+          step={step}
+          onComplete={onComplete}
+          onContinue={onContinue}
+        />
+      );
+    case "kanji_reading":
+      return (
+        <KanjiReadingStepView
           step={step}
           onComplete={onComplete}
           onContinue={onContinue}

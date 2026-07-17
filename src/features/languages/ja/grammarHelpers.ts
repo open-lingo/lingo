@@ -11,6 +11,7 @@ import type {
   GrammarRuleStep,
   GrammarExample,
   InfoStep,
+  KanjiReadingStep,
   LessonStep,
   ListeningBuildStep,
   ListeningComprehensionStep,
@@ -27,6 +28,9 @@ import type {
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import { JA_COURSE_ATOMS_BY_KANA } from "@/features/languages/ja/courseAtoms";
 import { withoutMcqBlocked as sharedWithoutMcqBlocked } from "@/shared/lessonAuthoring/imageMcqBlocklist";
+import { isKana } from "@/shared/japanese/kanaTable";
+import { KANJI_ELIGIBLE_ATOMS } from "./secondScript/applyKanjiSurfaces";
+import { readingDistractors } from "./secondScript/readingDistractors";
 
 /**
  * Resolve a course atom ID from a phrase_card's kana. Used by the `phrase()`
@@ -981,6 +985,109 @@ export function translationMcq(
     optionsHideRomaji: true,
     exercisedAtoms: resolveAtomIds([target.kana]),
     modality: "production",
+  };
+}
+
+/**
+ * `kanji_reading` factory: show a kanji word, pick its KANA reading.
+ *
+ * Closes the kanji ladder's retrieval gap — before this, kanji surfaces
+ * appeared (with furigana, per the unlock+2 rolling window) but were never
+ * tested. Direction is strictly kanji → kana; sound → kanji-spelling is the
+ * separate future `audio_spelling_mcq` (guide §13.1), NOT this.
+ *
+ * Atom-keyed, so it auto-tags `exercisedAtoms` (guide §13.13) and the
+ * correct slot rotates by `slotFor(idPrefix, 4)` like every other MCQ
+ * factory here.
+ *
+ * THE TESTED KANJI RENDERS BARE. `promptAnnotation` is emitted in the
+ * furigana-OFF shape (`surface === reading === kanji`) — the same shape
+ * `applyKanjiSurfaces` uses once a word's window closes. Two independent
+ * guards fall out of that one choice:
+ *   1. AnnotatedText floats a reading only when `surface !== reading`, so
+ *      the ruby <rt> is empty + aria-hidden — the answer never prints.
+ *   2. `applyKanjiSurfaces.rewriteSegment` skips any segment whose surface
+ *      already carries Han, so the post-pass can never "helpfully" re-attach
+ *      the kana reading to the word under test, at ANY module.
+ * A furigana'd prompt would hand over the answer, so this is the single
+ * correctness property of the step — see kanjiReading.test.ts.
+ *
+ * The kanji surface resolves from the shipped rollout catalog
+ * (`KANJI_ELIGIBLE_ATOMS`), so a step can never test a word the ladder
+ * hasn't cleared. Pass `opts.kanji` to override (e.g. counter forms whose
+ * atom maps to a different surface).
+ *
+ * Distractors default to generated near-misses (`readingDistractors` —
+ * valid-but-wrong on/kun, wrong okurigana stem, rendaku slip; guide §13.7).
+ * Pass `opts.distractors` to author them by hand; they win outright.
+ */
+export function kanjiReading(
+  idPrefix: string,
+  target: ReviewAtom,
+  opts?: { kanji?: string; distractors?: string[] },
+): KanjiReadingStep {
+  const atomId = JA_COURSE_ATOMS_BY_KANA.get(target.kana)?.id;
+  const kanji =
+    opts?.kanji ?? (atomId ? KANJI_ELIGIBLE_ATOMS.get(atomId)?.kanji : undefined);
+  if (!kanji) {
+    throw new Error(
+      `kanjiReading(${idPrefix}): '${target.kana}' has no kanji-eligible surface in the rollout catalog — pass opts.kanji, or use vocabMcq/translationMcq for a kana-only atom`,
+    );
+  }
+
+  let distractors: string[];
+  if (opts?.distractors?.length) {
+    for (const d of opts.distractors) {
+      if (d === target.kana) {
+        throw new Error(
+          `kanjiReading(${idPrefix}): distractor '${d}' equals the correct reading`,
+        );
+      }
+      // Kana-only options are the shipped no-kanji-production policy, not a
+      // style rule: a kanji option would make this a spelling test.
+      if (!Array.from(d).every((c) => isKana(c))) {
+        throw new Error(
+          `kanjiReading(${idPrefix}): distractor '${d}' is not pure kana — this step never offers kanji options`,
+        );
+      }
+    }
+    distractors = [...new Set(opts.distractors)];
+  } else {
+    distractors = readingDistractors(kanji, target.kana);
+  }
+  if (distractors.length < 3) {
+    throw new Error(
+      `kanjiReading(${idPrefix}): only ${distractors.length} plausible distractor(s) for ${kanji} (${target.kana}) — pass opts.distractors with hand-authored near-misses (guide §13.7)`,
+    );
+  }
+  distractors = distractors.slice(0, 3);
+
+  const slot = slotFor(idPrefix, 4);
+  const options: { id: string; text: string }[] = [];
+  let di = 0;
+  for (let i = 0; i < 4; i++) {
+    if (i === slot) options.push({ id: "correct", text: target.kana });
+    else options.push({ id: `opt-${i}`, text: distractors[di++] });
+  }
+
+  return {
+    id: idPrefix,
+    type: "kanji_reading",
+    kanji,
+    reading: target.kana,
+    // Furigana-OFF shape — see the doc comment. Deliberately NOT
+    // buildSingletonAnnotation(kanji, target.kana), which would float the
+    // answer above the prompt.
+    promptAnnotation: [
+      { surface: kanji, reading: kanji, ...resolveAtom(target.kana) },
+    ],
+    meaningEn: target.meaningEn,
+    options,
+    correctOptionId: "correct",
+    // Kana TTS key, spoken post-commit only (it IS the answer).
+    audioText: target.kana,
+    exercisedAtoms: resolveAtomIds([target.kana]),
+    modality: "recognition",
   };
 }
 

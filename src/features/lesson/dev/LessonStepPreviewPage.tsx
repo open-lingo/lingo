@@ -398,6 +398,35 @@ export function fixtures(): Fixture[] {
       },
     },
     {
+      type: "kanji_reading",
+      title: "kanji_reading",
+      whenToUse:
+        "Kanji → kana reading recall (JA, m8+). The kanji ladder shows kanji with a rolling furigana window but never tested it; this is that retrieval beat. The prompt renders BARE — promptAnnotation is the furigana-OFF shape (surface === reading === kanji), so no <rt> floats and applyKanjiSurfaces skips it. Options are kana only (no kanji production, ever); audio is the answer so it plays post-commit only. Build with the `kanjiReading` factory — it derives the surface from the rollout catalog and generates §13.7 near-miss distractors. NOT the inverse direction: sound → kanji-spelling is the future audio_spelling_mcq.",
+      step: {
+        id: "preview-kr",
+        type: "kanji_reading",
+        kanji: "食べる",
+        reading: "たべる",
+        promptAnnotation: [
+          { surface: "食べる", reading: "食べる", atomId: "ja-m7-1-v-taberu" },
+        ],
+        meaningEn: "to eat",
+        // Distractors are generated near-misses: しょくべる / じきべる are the
+        // real on-readings of 食 mis-applied to a kun-reading verb; だべる is
+        // a rendaku slip. Each keeps the authored okurigana べる.
+        options: [
+          { id: "opt-0", text: "しょくべる" },
+          { id: "correct", text: "たべる" },
+          { id: "opt-2", text: "じきべる" },
+          { id: "opt-3", text: "だべる" },
+        ],
+        correctOptionId: "correct",
+        audioText: "たべる",
+        exercisedAtoms: ["ja-m7-1-v-taberu"],
+        modality: "recognition",
+      },
+    },
+    {
       type: "self_explanation_mcq",
       title: "self_explanation_mcq",
       whenToUse:
