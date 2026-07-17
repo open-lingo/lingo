@@ -19,6 +19,7 @@ import { Button, composeButtonClasses } from "@/shared/components/ui/Button";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useTheme } from "@/shared/contexts/ThemeContext";
 import { DecoratedAvatar } from "@/shared/components/DecoratedAvatar";
+import { LanguageSwitchModal } from "@/shared/components/LanguageSwitchModal";
 import { useEquippedDecorator } from "@/features/shop/useEquippedDecorator";
 
 export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
@@ -27,6 +28,7 @@ export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
   const { isAuthenticated, isLoading, user } = useAuth();
   const { users } = useApi();
   const [open, setOpen] = useState(false);
+  const [langModalOpen, setLangModalOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const profile = user?.sub ? getStoredProfile(user.sub) : null;
   const { openSettings } = useModal();
@@ -160,6 +162,19 @@ export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
               </Link>
             );
           })()}
+          {isAuthenticated && (
+            <Button
+              variant="menu"
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                setLangModalOpen(true);
+              }}
+            >
+              <Icon name="globe" size={18} className="shrink-0 text-text-muted" />
+              {t("nav.switchLanguage", "Switch language")}
+            </Button>
+          )}
           {showModeration && isCommunityEnabled(flags) && flags.community.tabs.contribute && (
             <Link
               to={langPath("community/contribute/admin")}
@@ -191,6 +206,9 @@ export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
             </Link>
           )}
         </div>
+      )}
+      {langModalOpen && (
+        <LanguageSwitchModal onClose={() => setLangModalOpen(false)} />
       )}
     </div>
   );

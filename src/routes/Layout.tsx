@@ -417,21 +417,10 @@ export function Layout() {
       {isAuthenticated && !focusedFlow && (
         <FloatingLanguagePill className={sidebarMode ? "lg:hidden" : ""} />
       )}
-      {/* Sidebar layout has no top bar on desktop, so the utility cluster
-          docks bottom-right as a hover-expanding pill: collapsed it shows only
-          the cloud sync status; hovering (or keyboard focus) reveals lingots +
-          the account menu, whose panels open upward. Toasts shift to the
-          top-right in this mode so they never cover it (see ToastContainer).
-          Mobile sidebar mode still uses the top bar. */}
-      {sidebarMode && (
-        <div className="group fixed bottom-3 right-3 z-40 hidden items-center rounded-full border border-border bg-surface px-2 py-1 shadow-popover lg:flex">
-          <SyncManagerTrigger dropUp />
-          <div className="flex max-w-0 items-center gap-1.5 overflow-hidden opacity-0 transition-[max-width,opacity,margin] duration-200 group-focus-within:ml-1.5 group-focus-within:max-w-[16rem] group-focus-within:overflow-visible group-focus-within:opacity-100 group-hover:ml-1.5 group-hover:max-w-[16rem] group-hover:overflow-visible group-hover:opacity-100">
-            <LingotBalance />
-            <AuthMenu dropUp />
-          </div>
-        </div>
-      )}
+      {/* Sidebar layout's utility cluster (sync / lingots / account) lives in
+          the rail footer (see SidebarNav) — nothing floats; the bottom-right
+          screen corner is reserved for future surfaces. Toasts still stack
+          from the top-right in this mode (see ToastContainer). */}
       <CookieConsent />
       {/* Dev builds only — ?dev=1 in prod is inert (bundle never includes an
           active panel thanks to the env guard + tree-shaking of the branch). */}
