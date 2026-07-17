@@ -144,11 +144,11 @@ export function isCommunityEnabled(flags: FeatureFlags): boolean {
 }
 
 /**
- * Whether the learn homepage for `lang` is the transit map. ja-only for now
- * (the map derives from the real course, but only ja's design is signed off).
- * The classic pathway page stays mounted at learn/classic either way.
+ * Whether the learn homepage for `lang` is the transit map (map + new list
+ * view). The map derives from the real course; ja/ko/es designs are signed
+ * off. The classic pathway page stays mounted at learn/classic either way.
  */
-const TRANSIT_LANGS = new Set(["ja", "ko"]);
+const TRANSIT_LANGS = new Set(["ja", "ko", "es"]);
 
 export function isTransitLearnHome(
   flags: FeatureFlags,

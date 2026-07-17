@@ -735,8 +735,9 @@ function SkylineArt({
   hillsRef: React.RefObject<SVGGElement | null>;
   bldgRef: React.RefObject<SVGGElement | null>;
   cityRef: React.RefObject<SVGGElement | null>;
-  /** Per-language landmark set: ja = torii/pagoda/Fuji cap, ko = palace gate/Namsan tower. */
-  landmark: "ja" | "ko";
+  /** Per-language landmark set: ja = torii/pagoda/Fuji cap, ko = palace
+   *  gate/Namsan tower, es = Mayan step-pyramid + palms (tropical). */
+  landmark: "ja" | "ko" | "es";
 }) {
   const toriiH = Math.min(200, vbH * 0.4);
   const towerH = Math.min(230, vbH * 0.34);
@@ -826,7 +827,7 @@ function SkylineArt({
               <rect x={sky.pagodaX - 1.5} y={bottomY - towerH - 18} width={3} height={18} />
             </g>
           </>
-        ) : (
+        ) : landmark === "ko" ? (
           <>
             {/* palace gate (Gwanghwamun silhouette) at the torii anchor */}
             <g style={{ fill: "var(--tmc-scene-accent)" }}>
@@ -851,6 +852,78 @@ function SkylineArt({
               <rect x={sky.pagodaX - 1.5} y={bottomY - towerH * 1.0} width={3} height={towerH * 0.16} />
             </g>
           </>
+        ) : (
+          (() => {
+            const cx = sky.toriiX;
+            const H = toriiH * 1.25;
+            const W = H * 1.55;
+            const tierH = H / 5;
+            const topY = bottomY - 4 * tierH;
+            const cW = H * 0.28;
+            const palms = [
+              { dx: -towerH * 0.34, h: towerH * 0.6, lean: -towerH * 0.12 },
+              { dx: towerH * 0.2, h: towerH * 0.92, lean: towerH * 0.16 },
+            ];
+            return (
+              <>
+                {/* Mayan step-pyramid (El Castillo) at the primary anchor */}
+                <g style={{ fill: "var(--tmc-scene-accent)" }}>
+                  {Array.from({ length: 4 }).map((_, i) => {
+                    const baseW = W * (1 - i * 0.19);
+                    const topW = W * (1 - (i + 1) * 0.19);
+                    const yB = bottomY - i * tierH;
+                    const yT = bottomY - (i + 1) * tierH;
+                    return (
+                      <path
+                        key={i}
+                        d={`M ${cx - baseW / 2} ${yB} L ${cx - topW / 2} ${yT} L ${cx + topW / 2} ${yT} L ${cx + baseW / 2} ${yB} Z`}
+                      />
+                    );
+                  })}
+                  {/* temple crown + roof comb */}
+                  <rect x={cx - cW / 2} y={topY - tierH * 0.9} width={cW} height={tierH * 0.9} />
+                  <rect x={cx - cW * 0.62} y={topY - tierH * 1.04} width={cW * 1.24} height={tierH * 0.16} rx={1} />
+                </g>
+                {/* central staircase — lighter band up the front */}
+                <path
+                  d={`M ${cx - H * 0.09} ${bottomY} L ${cx - H * 0.045} ${topY} L ${cx + H * 0.045} ${topY} L ${cx + H * 0.09} ${bottomY} Z`}
+                  style={{ fill: "var(--tmc-panel)" }}
+                  opacity={0.5}
+                />
+                {/* palm cluster at the secondary anchor */}
+                {palms.map((pl, i) => {
+                  const px = sky.pagodaX + pl.dx;
+                  const tx = px + pl.lean;
+                  const ty = bottomY - pl.h;
+                  return (
+                    <g key={i}>
+                      <path
+                        d={`M ${px - pl.h * 0.04} ${bottomY} Q ${px + pl.lean * 0.4} ${bottomY - pl.h * 0.55} ${tx - pl.h * 0.03} ${ty} L ${tx + pl.h * 0.03} ${ty} Q ${px + pl.lean * 0.4 + pl.h * 0.05} ${bottomY - pl.h * 0.55} ${px + pl.h * 0.04} ${bottomY} Z`}
+                        style={{ fill: "var(--tmc-scene-accent2)" }}
+                      />
+                      {[-1, -0.5, 0.5, 1, 0].map((fa, k) => {
+                        const len = pl.h * 0.5;
+                        const ex = tx + fa * len;
+                        const ey = ty + (fa === 0 ? -len * 0.55 : Math.abs(fa) * len * 0.45 - len * 0.1);
+                        const mx = (tx + ex) / 2;
+                        const my = ty - len * 0.4;
+                        return (
+                          <path
+                            key={k}
+                            d={`M ${tx} ${ty} Q ${mx} ${my} ${ex} ${ey}`}
+                            fill="none"
+                            stroke="var(--tmc-scene-accent2)"
+                            strokeWidth={pl.h * 0.055}
+                            strokeLinecap="round"
+                          />
+                        );
+                      })}
+                    </g>
+                  );
+                })}
+              </>
+            );
+          })()
         )}
       </g>
     </>
@@ -1248,7 +1321,7 @@ function NetworkMap({
             aria-label="Course transit map"
           >
             {/* geography: hills/Fuji far, buildings/landmarks near */}
-            <SkylineArt sky={sky} bottomY={layout.vbY + layout.vbH + 6} vbH={layout.vbH} hillsRef={hillsRef} bldgRef={bldgRef} cityRef={cityRef} landmark={lang === "ko" ? "ko" : "ja"} />
+            <SkylineArt sky={sky} bottomY={layout.vbY + layout.vbH + 6} vbH={layout.vbH} hillsRef={hillsRef} bldgRef={bldgRef} cityRef={cityRef} landmark={lang === "ko" ? "ko" : lang === "es" ? "es" : "ja"} />
 
             {/* fare zones — tint bands + inset horizon chips */}
             {layout.zones.map((z, i) => (
