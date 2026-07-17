@@ -12,7 +12,9 @@
     "test:run": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:e2e:auth": "playwright test --project='auth setup' --headed"
+    "test:e2e:auth": "playwright test --project='auth setup' --headed",
+    "visual-qa:contracts": "vitest run src/features/lesson/dev/visualQaContracts.emit.test.ts",
+    "visual-qa:capture": "playwright test visual-qa-capture --project=chromium"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.15.0",

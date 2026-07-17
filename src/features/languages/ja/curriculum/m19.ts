@@ -2510,6 +2510,8 @@ export const M19_7_1: LessonContent = {
     vocabMcq("ja-m19-7-1-rev-mcq-1", M19_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M19_REVIEW_POOL),
     speaking("ja-m19-7-1-rev-speak-2", M19_7_1_REVIEW[2].kana, M19_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m19-7-1-rev", M19_7_1_REVIEW.slice(0, 5)),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m19-7-1-cov-minasan", "みなさん", "everyone"),
   ],
 };
 

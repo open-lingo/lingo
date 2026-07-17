@@ -1,12 +1,14 @@
 # Todos and what's left
 
+**Status:** LIVE · **Last-verified:** 2026-07-17
+
 By area. **Launch plan:** [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) · **Ideas / epics:** [PRODUCT_BACKLOG.md](./PRODUCT_BACKLOG.md) · **Checklists:** [MVP_PRODUCTION_READINESS.md](./MVP_PRODUCTION_READINESS.md) · **Code snapshot:** [PROJECT_STATE.md](./PROJECT_STATE.md).
 
 ## Done (recently)
 
 ### 2026-06-30 → 2026-07-05 katakana + trainer + grammar-deck wave
 
-- [x] **Katakana rollout + romaji fade** — base rows ア→ワ as first pathway nodes M3–M12; per-script flat romaji cutoffs (hira@M10, kata@M17) + "for today" hatch; D2 vocab-only content-step SRS writes. Spec: [katakana-rollout-romaji-fade-spec-2026-06-30.md](katakana-rollout-romaji-fade-spec-2026-06-30.md).
+- [x] **Katakana rollout + romaji fade** — base rows ア→ワ as first pathway nodes M3–M12; per-script flat romaji cutoffs (hira@M10 at ship time; moved to M7 on 2026-07-16 — see `shared/settings/romajiAutoFlip.ts`, kata@M17) + "for today" hatch; D2 vocab-only content-step SRS writes. Spec: [katakana-rollout-romaji-fade-spec-2026-06-30.md](katakana-rollout-romaji-fade-spec-2026-06-30.md).
 - [x] **Conjugation Trainer v1→v1.4.1** — `/practice/conjugation` ink-tile hub, 6 types / 9 of 22 gated points, combine mode + "Combined forms" switch, shared drill card (build-stack order cue, class-chip popovers, kanji@M10+, cheat-sheet half-credit peek), anti-elimination distractor engine. Spec: [conjugation-trainer-v1-spec-2026-07-02.md](conjugation-trainer-v1-spec-2026-07-02.md).
 - [x] **Grammar review deck v1** — step-based session at `/practice/grammar/review` (never flip cards), pool-aware queue, machine-enforced comprehensibility gate. Spec: [grammar-deck-v1-spec-2026-07-02.md](grammar-deck-v1-spec-2026-07-02.md).
 - [x] **Track B sync parity + SRS sync hardening** — grammar rides `/srs/sync` with `grammar:` keys; merge/placement/batch-mark bugs fixed; FSRS interval snapshot pin.

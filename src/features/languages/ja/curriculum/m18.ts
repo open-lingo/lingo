@@ -275,7 +275,9 @@ export const M18_1_1: LessonContent = {
       ["きょう", "は", "てんき", "が", "いい", "です"],
     ),
     sentenceMcq({
-      id: "ja-m18-1-1-mcq-ame",
+      // QA lint (Gate 2 unique-ids): was "ja-m18-1-1-mcq-ame", duplicating the
+      // vocabMcq's id earlier in this lesson.
+      id: "ja-m18-1-1-mcq-ame-sentence",
       prompt: "Which sentence means 'It's raining today.'?",
       correctKana: "きょうは あめです。",
       distractorsKana: [
@@ -1235,7 +1237,9 @@ export const M18_4_1: LessonContent = {
       ["やま", "は", "きれい", "です"],
     ),
     sentenceMcq({
-      id: "ja-m18-4-1-mcq-umi",
+      // QA lint (Gate 2 unique-ids): was "ja-m18-4-1-mcq-umi", duplicating the
+      // vocabMcq's id earlier in this lesson.
+      id: "ja-m18-4-1-mcq-umi-sentence",
       prompt: "Which sentence means 'The sea is big.'?",
       correctKana: "うみは おおきいです。",
       distractorsKana: [
@@ -1904,6 +1908,8 @@ export const M18_6_1: LessonContent = {
     }),
     vocabMcq("ja-m18-6-1-rev-mcq-1", M18_6_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     reviewMatchPairs("ja-m18-6-1-rev", M18_6_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m18-6-1-cov-yowai", "よわい あめ", "weak rain"),
   ],
 };
 
@@ -2364,6 +2370,8 @@ export const M18_7_1: LessonContent = {
     vocabMcq("ja-m18-7-1-rev-mcq-1", M18_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     speaking("ja-m18-7-1-rev-speak-2", M18_7_1_REVIEW[2].kana, M18_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-7-1-rev", M18_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m18-7-1-cov-yowai", "よわい あめ", "weak rain"),
   ],
 };
 
@@ -2519,6 +2527,8 @@ export const M18_7_2: LessonContent = {
     vocabMcq("ja-m18-7-2-rev-mcq-1", M18_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     speaking("ja-m18-7-2-rev-speak-2", M18_7_2_REVIEW[2].kana, M18_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-7-2-rev", M18_7_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m18-7-2-cov-yowai", "よわい あめ", "weak rain"),
   ],
 };
 

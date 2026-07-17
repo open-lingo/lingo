@@ -1,5 +1,7 @@
 # CLAUDE.md — `lingo` (Open Lingo web app)
 
+**Status:** LIVE · **Last-verified:** 2026-07-17
+
 Vite + React 19 + TypeScript + Tailwind language-learning SPA. Talks to `lingo-core` (FastAPI, `../lingo-core/`, separate git) over HTTPS with Auth0 RS256 JWT.
 
 ## Orientation

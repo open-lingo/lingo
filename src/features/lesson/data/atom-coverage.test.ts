@@ -40,6 +40,11 @@
  */
 import { describe, it, expect } from "vitest";
 import type { LessonContent, LessonStep, RowTestItem } from "../types";
+import {
+  getAvailableMockLessonIds,
+  getMockLessonContent,
+} from "@/features/lesson/data/mockLessons";
+import { JA_COURSE_ATOMS, isSrsEligibleAtom } from "@/features/languages/ja/courseAtoms";
 
 import { M3_1_1, M3_1_2, M3_2_1, M3_2_2, M3_3_1, M3_3_2, M3_4_1, M3_4_2, M3_5_1, M3_5_2, M3_6_1, M3_6_2, M3_7_1, M3_7_2, M3_8 } from "@/features/languages/ja/curriculum/m3-v2";
 import { M4_1_1, M4_1_2, M4_2_1, M4_2_2, M4_3_1, M4_3_2, M4_4_1, M4_4_2, M4_5_1, M4_5_2, M4_6_1, M4_6_2, M4_7_1, M4_7_2 } from "@/features/languages/ja/curriculum/m4";
@@ -363,5 +368,83 @@ describe("M3-M7 atom coverage (compounding-review contract)", () => {
       `\n[cross-module compounding] ${offenders.length}/${m3m5.length} (${(offenderRate * 100).toFixed(1)}%) M3-M5 atoms confined (allowed ≤30%)`,
     );
     expect(offenderRate).toBeLessThanOrEqual(0.30);
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════
+// Full-spine per-atom re-exposure gate (m3-m29) — Gate 4, see
+// docs/retrospective-2026-07-17.md §4. The M3-M7 blocks above hardcode their
+// import list and gate the tokenized-surface *population* with a noise budget;
+// that population approach does not generalize past M7 (the sentence-rich
+// m8-m29 lessons tokenize into ~2600 one-off fragments, ~50% of them <3, which
+// is noise, not a coverage signal). So the spine-wide gate keys on the real
+// SRS atom registry (JA_COURSE_ATOMS) instead: every SRS-eligible *vocab* atom
+// introduced in m3-m29 must be retrieved ≥3 times across the audited surfaces.
+//
+// Corpus is GENERIC — it walks every ja lesson via getMockLessonContent (like
+// moduleConformance.test.ts), so new modules are covered automatically. It
+// reuses the exact `atomsInStep` surface slots above; an atom is "exposed" when
+// an audited surface string CONTAINS one of its citation surface forms. (The
+// M3-M7 tokenizer above peels trailing particles and strips ー, so it cannot be
+// reliably addressed by a *named* atom's surface — containment can, and it
+// still honors the same particle intent: a word + trailing particle contains
+// the word.) Fix violations by adding genuine re-exposures — never by weakening
+// this assertion, lowering the threshold, or adding an exemption list.
+// ═══════════════════════════════════════════════════════════════════════
+
+/** Every audited surface string across all JA lessons, using the same surface
+ *  slots as the M3-M7 registry (reuses `atomsInStep`) but keeping the raw
+ *  string so a named atom can be matched by containment. */
+function collectJaSurfaces(): string[] {
+  const out: string[] = [];
+  for (const lessonId of getAvailableMockLessonIds()) {
+    const lesson = getMockLessonContent(lessonId);
+    if (!lesson || lesson.languageId !== "ja") continue;
+    for (const step of lesson.steps) {
+      for (const { kana } of atomsInStep(step)) out.push(kana);
+    }
+  }
+  return out;
+}
+
+/** kana/kanji may carry slash variants ("いい / よい") or 、-joined compound
+ *  surfaces; any single surface form counts (matches the split used by
+ *  ja/__tests__/moduleConformance.test.ts `surfaceVariants`). */
+function atomSurfaceForms(atom: { kana: string; kanji?: string }): string[] {
+  const out = atom.kana.split(/[/、]/).map((s) => s.trim());
+  if (atom.kanji) out.push(...atom.kanji.split(/[/、]/).map((s) => s.trim()));
+  return out.filter(Boolean);
+}
+
+describe("full-spine SRS-atom re-exposure (every m3-m29 vocab atom ≥3)", () => {
+  const surfaces = collectJaSurfaces();
+
+  it(`every SRS-eligible vocab atom (m3-m29) appears in ≥${MIN_OCCURRENCES} audited retrieval surfaces`, () => {
+    const under: { from: string; kana: string; id: string; n: number }[] = [];
+    for (const atom of JA_COURSE_ATOMS) {
+      if (!isSrsEligibleAtom(atom)) continue;
+      if (atom.kind === "phrase") continue; // multi-word phrase atoms aren't single vocab
+      if (/\s/.test(atom.kana)) continue; // sentence/phrase surfaces, not a lexical atom
+      if (!/^m\d+$/.test(atom.fromModule)) continue; // future / sidequest attributions
+      const idx = parseInt(atom.fromModule.slice(1), 10);
+      if (idx < 3) continue; // m1/m2 are the kana trainer (no compounding-review contract)
+      const forms = atomSurfaceForms(atom);
+      const n = surfaces.filter((s) => forms.some((f) => s.includes(f))).length;
+      if (n < MIN_OCCURRENCES) {
+        under.push({ from: atom.fromModule, kana: atom.kana, id: atom.id, n });
+      }
+    }
+    under.sort(
+      (a, b) =>
+        parseInt(a.from.slice(1), 10) - parseInt(b.from.slice(1), 10) ||
+        a.id.localeCompare(b.id),
+    );
+    expect(
+      under.map((u) => `${u.from} ${u.kana} (${u.id}) n=${u.n}`),
+      `SRS-eligible vocab atoms retrieved < ${MIN_OCCURRENCES}× across the audited ` +
+        `surfaces — add genuine re-exposures at/after each atom's home module ` +
+        `(do NOT weaken this gate):\n  ` +
+        under.map((u) => `${u.from} ${u.kana} n=${u.n}`).join("\n  "),
+    ).toEqual([]);
   });
 });

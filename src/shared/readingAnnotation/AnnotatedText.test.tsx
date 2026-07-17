@@ -115,3 +115,42 @@ describe("AnnotatedText — module-aware romaji retirement (QA-jump leak fix)", 
     expect(rt.textContent).toBe("san");
   });
 });
+
+describe("AnnotatedText — kana-run filler segments (buildSentenceAnnotation shape)", () => {
+  // Regression (ja-m8-6-1 speaking, 2026-07-17): buildSentenceAnnotation
+  // emits filler segments whose surface spans spaces/particles, e.g.
+  // { surface: "は とおいです", reading: "は とおいです" }. The space made
+  // isPureKana false, so the segment fell into the kanji-branch helper
+  // fallback (romaji ?? reading) and floated its own kana above itself.
+  const FILLER = { surface: "は とおいです", reading: "は とおいです" };
+
+  it("never floats a kana reading above an identical kana surface", () => {
+    unlockPastKanaPhase();
+    const { container } = render(
+      <LessonModuleProvider moduleIndex={8}>
+        <AnnotatedText segments={[FILLER]} forceShowHelper />
+      </LessonModuleProvider>,
+    );
+    for (const rt of container.querySelectorAll("rt")) {
+      const text = rt.textContent ?? "";
+      expect(
+        /[ぁ-んァ-ン]/.test(text),
+        `kana helper "${text}" floated above kana surface`,
+      ).toBe(false);
+    }
+  });
+
+  it("routes space-bearing kana fillers through the annotator like bare text (romaji visible pre-m7)", () => {
+    unlockPastKanaPhase();
+    const { container } = render(
+      <LessonModuleProvider moduleIndex={5}>
+        <AnnotatedText segments={[FILLER]} forceShowHelper />
+      </LessonModuleProvider>,
+    );
+    // Same behavior as rendering the bare string: word-grouped romaji rubies.
+    expect(container.querySelector('ruby[data-word-romaji="true"]')).not.toBeNull();
+    const helpers = [...container.querySelectorAll("rt")].map((r) => r.textContent ?? "");
+    expect(helpers.some((t) => /[a-z]/.test(t))).toBe(true);
+    for (const t of helpers) expect(/[ぁ-んァ-ン]/.test(t)).toBe(false);
+  });
+});

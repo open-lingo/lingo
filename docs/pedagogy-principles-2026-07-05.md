@@ -1,5 +1,7 @@
 # Pedagogy principles — backing psychology for JA authoring
 
+**Status:** LIVE · **Last-verified:** 2026-07-17
+
 **Date:** 2026-07-05 · **Status:** binding for JA lesson/trainer content authoring — bundle into every authoring-agent dispatch (same rule as the M1 density brief).
 **Provenance:** distilled from Jouzu Juls (primary) and Cure Dolly / Organic Japanese (secondary) — one lineage, not two philosophies (Juls builds his method on Dolly's structural model). Full recon + source catalog: [jouzu-juls-cure-dolly-recon-2026-07-02.md](jouzu-juls-cure-dolly-recon-2026-07-02.md). Ethics (recon §E) binds this doc: we adopt *models and methods* re-expressed in our own words with our own examples — never their scripts, example sentences, or book text. Transcripts live in `research/` (gitignored, internal study only).
 **How to read this:** [lesson-authoring-guide.md](lesson-authoring-guide.md) says how to *build* a lesson (density, step mix, guards); this doc says what our explanations must *claim* — and never claim — about Japanese. Precedence when in tension: machine-enforced tests → this doc → authoring convenience.

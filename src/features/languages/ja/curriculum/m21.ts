@@ -276,7 +276,9 @@ export const M21_1_1: LessonContent = {
         "を marks the direct object of the verb. にく (meat) is what you eat (たべます), so it takes を.",
     }),
     speaking(
-      "ja-m21-1-1-speak-sakana",
+      // QA lint (Gate 2 unique-ids): was "ja-m21-1-1-speak-sakana", duplicating
+      // the word-level speaking step's id earlier in this lesson.
+      "ja-m21-1-1-speak-sakana-sentence",
       "さかなを たべます",
       "I eat fish.",
     ),
@@ -1299,7 +1301,9 @@ export const M21_4_2: LessonContent = {
       "や = open list of utensils you need.",
     ),
     sentenceMcq({
-      id: "ja-m21-4-2-mcq-chawan",
+      // QA lint (Gate 2 unique-ids): was "ja-m21-4-2-mcq-chawan", duplicating
+      // the vocabMcq's id earlier in this lesson.
+      id: "ja-m21-4-2-mcq-chawan-sentence",
       prompt: "Which sentence means 'A rice bowl, please.'?",
       correctKana: "ちゃわんを ください。",
       distractorsKana: [
@@ -2292,6 +2296,9 @@ export const M21_7_1: LessonContent = {
       exercisedAtomKanas: ["さん"],
     }),
     reviewMatchPairs("ja-m21-7-1-rev", M21_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m21-7-1-cov-nomimono", "つめたい のみもの", "a cold drink"),
+    speaking("ja-m21-7-1-cov-hoka", "ほかの ひと", "another person"),
   ],
 };
 
@@ -2479,6 +2486,9 @@ export const M21_7_2: LessonContent = {
     }),
     speaking("ja-m21-7-2-rev-speak-1", M21_7_2_REVIEW[2].kana, M21_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-7-2-rev", M21_7_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m21-7-2-cov-choudo", "ちょうど いいです", "It is just right."),
+    speaking("ja-m21-7-2-cov-kekkou", "けっこう たかいです", "It is quite expensive."),
   ],
 };
 

@@ -2040,6 +2040,8 @@ export const M9_6_2: LessonContent = {
     }),
     speaking("ja-m9-6-2-rev-speak-1", M9_6_2_REVIEW[2].kana, M9_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m9-6-2-rev", M9_6_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m9-6-2-cov-ookina", "おおきな いえ", "a big house"),
   ],
 };
 
@@ -2359,6 +2361,8 @@ export const M9_7_1: LessonContent = {
     }),
     speaking("ja-m9-7-1-rev-speak-1", M9_7_1_REVIEW[3].kana, M9_7_1_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m9-7-1-rev", M9_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m9-7-1-cov-ookina", "おおきな いえ", "a big house"),
   ],
 };
 
@@ -2529,6 +2533,8 @@ export const M9_7_2: LessonContent = {
     }),
     speaking("ja-m9-7-2-rev-speak-1", M9_7_2_REVIEW[2].kana, M9_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m9-7-2-rev", M9_7_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m9-7-2-cov-ookina", "おおきな いえ", "a big house"),
   ],
 };
 

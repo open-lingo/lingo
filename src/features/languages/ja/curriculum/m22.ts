@@ -2352,6 +2352,8 @@ export const M22_7_1: LessonContent = {
     }),
     speaking("ja-m22-7-1-rev-speak-1", M22_7_1_REVIEW[2].kana, M22_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-7-1-rev", M22_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m22-7-1-cov-chigau", "ちがう", "to differ / be wrong"),
   ],
 };
 

@@ -1,5 +1,12 @@
 # N5 Content Spec — Full Coverage Plan (2026-05-25)
 
+**Status:** STALE · **Last-verified:** 2026-07-17
+
+> ⚠️ Kanji sections (§ around lines 92–98) describe `kanji_intro`/`kanji_recognition`
+> step types that don't exist and an SRS-state furigana fade that didn't ship; kanji
+> shipped as render-time surface substitution from m8 with a module-window (unlock+2)
+> furigana fade — see `src/features/languages/ja/secondScript/kanjiRollout.ts`.
+
 Living document. Covers grammar, vocab, kanji, practice features, and module-by-module mapping for complete JLPT N5 coverage across M3-M30.
 
 **Companion files:**

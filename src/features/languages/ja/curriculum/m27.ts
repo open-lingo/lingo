@@ -2380,6 +2380,8 @@ export const M27_7_1: LessonContent = {
     }),
     speaking("ja-m27-7-1-rev-speak-1", M27_7_1_REVIEW[2].kana, M27_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-7-1-rev", M27_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m27-7-1-cov-kurai", "くらい よる", "a dark night"),
   ],
 };
 

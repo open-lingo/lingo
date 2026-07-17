@@ -2480,6 +2480,9 @@ export const M15_7_1: LessonContent = {
     }),
     speaking("ja-m15-7-1-rev-speak-1", M15_7_1_REVIEW[2].kana, M15_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m15-7-1-rev", M15_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m15-7-1-cov-sumu", "すむ", "to live / reside"),
+    speaking("ja-m15-7-1-cov-yaru", "スポーツを やる", "to do sports"),
   ],
 };
 
@@ -2620,6 +2623,9 @@ export const M15_7_2: LessonContent = {
     vocabMcq("ja-m15-7-2-rev-mcq-1", M15_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M15_REVIEW_POOL),
     speaking("ja-m15-7-2-rev-speak-2", M15_7_2_REVIEW[2].kana, M15_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m15-7-2-rev", M15_7_2_REVIEW.slice(0, 5)),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m15-7-2-cov-sumu", "すむ", "to live / reside"),
+    speaking("ja-m15-7-2-cov-yaru", "スポーツを やる", "to do sports"),
   ],
 };
 

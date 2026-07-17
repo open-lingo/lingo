@@ -2452,6 +2452,11 @@ export const M16_7_1: LessonContent = {
     vocabMcq("ja-m16-7-1-rev-mcq-1", M16_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M16_REVIEW_POOL),
     speaking("ja-m16-7-1-rev-speak-2", M16_7_1_REVIEW[2].kana, M16_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m16-7-1-rev", M16_7_1_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m16-7-1-cov-suu", "すう", "to smoke / inhale"),
+    speaking("ja-m16-7-1-cov-suwaru", "すわる", "to sit"),
+    speaking("ja-m16-7-1-cov-arau", "あらう", "to wash"),
+    speaking("ja-m16-7-1-cov-sentaku", "せんたく", "laundry"),
   ],
 };
 
@@ -2615,6 +2620,8 @@ export const M16_7_2: LessonContent = {
     vocabMcq("ja-m16-7-2-rev-mcq-1", M16_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M16_REVIEW_POOL),
     speaking("ja-m16-7-2-rev-speak-2", M16_7_2_REVIEW[2].kana, M16_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m16-7-2-rev", M16_7_2_REVIEW),
+    // Coverage backfill — full-spine atom re-exposure gate (retrospective §4 Gate 4).
+    speaking("ja-m16-7-2-cov-suu", "すう", "to smoke / inhale"),
   ],
 };
 

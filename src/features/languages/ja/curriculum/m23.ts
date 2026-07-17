@@ -473,7 +473,10 @@ export const M23_1_2: LessonContent = {
       distractorsEn: [
         M23_1_2_REVIEW[2].meaningEn,
         M23_1_2_REVIEW[3].meaningEn,
-        M23_REVIEW_POOL[1].meaningEn,
+        // QA lint (Gate 5): was M23_REVIEW_POOL[1].meaningEn, which resolved
+        // to "taxi" — identical to a seeded review draw above, shipping the
+        // same option twice. A fixed literal can't collide with the draws.
+        "school",
       ],
     }),
     speaking("ja-m23-1-2-rev-speak-1", M23_1_2_REVIEW[2].kana, M23_1_2_REVIEW[2].meaningEn),
@@ -1670,9 +1673,13 @@ export const M23_5_2: LessonContent = {
       distractorsKana: [
         "みません。",
         "みます。",
-        "みませんか。",
+        // QA lint (Gate 5): was "みませんか。", which echoed the invitation
+        // quoted in the prompt verbatim — eliminable on sight (same defect
+        // class as m29's echo-back distractors, fix 25b1f46). The polite
+        // REFUSAL is the plausible near-miss for "you want to accept."
+        "すみません、ちょっと…。",
       ],
-      explanation: "ぜひ + ましょう = enthusiastic acceptance.",
+      explanation: "ぜひ + ましょう = enthusiastic acceptance. (すみません、ちょっと… is how you politely decline.)",
     }),
     cloze(
       "ja-m23-5-2-cloze-masenka",
