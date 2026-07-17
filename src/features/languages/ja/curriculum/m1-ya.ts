@@ -56,9 +56,6 @@ export const MOCK_LESSON_JA_M1_YA_1: LessonContent = {
   estimatedMinutes: 3, xpReward: 8,
   introducesVocabIds: ["yama"],
   steps: [
-    { id: "ja-ya1-info-0", type: "info", title: "Y-sounds (just three)",
-      body: "Only three kana this row — や, ゆ, よ. Japanese skips 'yi' and 'ye'; the syllabary doesn't have separate symbols for them.",
-      variant: "culture" },
 
     symbolIntro("ja-ya1-intro-ya", "や", "ya", "/ja/", "like 'ya' in 'yard'", "やま (mountain)"),
     traceTwice("ja-ya1-trace-ya", "や", "ya", "like 'ya' in 'yard'"),
@@ -69,8 +66,6 @@ export const MOCK_LESSON_JA_M1_YA_1: LessonContent = {
 
     symbolToSound(ctx, "ja-ya1-sts-ya", "や", "ya", "like 'ya'"),
 
-    { id: "ja-ya1-info-end", type: "info", title: "One down",
-      body: "や — and a mountain. Next: ゆ and a snowy word.", variant: "default" },
   ],
 };
 
@@ -82,9 +77,6 @@ export const MOCK_LESSON_JA_M1_YA_2: LessonContent = {
   estimatedMinutes: 3, xpReward: 8,
   introducesVocabIds: ["yuki"],
   steps: [
-    { id: "ja-ya2-info-0", type: "info", title: "Y-sounds, part 2",
-      body: "ゆ is just the English word 'you' said quickly. Build ゆき — snow.",
-      variant: "default" },
 
     symbolIntro("ja-ya2-intro-yu", "ゆ", "yu", "/jɯ/", "like 'you' (clipped)", "ゆき (snow)"),
     traceTwice("ja-ya2-trace-yu", "ゆ", "yu", "like 'you'"),
@@ -100,8 +92,6 @@ export const MOCK_LESSON_JA_M1_YA_2: LessonContent = {
 
     symbolToSound(ctx, "ja-ya2-sts-yu", "ゆ", "yu", "like 'you'"),
 
-    { id: "ja-ya2-info-end", type: "info", title: "Two down",
-      body: "Just よ left — plus a full-row review with mic practice.", variant: "default" },
   ],
 };
 
@@ -113,8 +103,6 @@ export const MOCK_LESSON_JA_M1_YA_3: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["yomu"],
   steps: [
-    { id: "ja-ya3-info-0", type: "info", title: "Y-sounds, finale",
-      body: "Meet よ, build one more word, then sweep the row.", variant: "default" },
 
     symbolIntro("ja-ya3-intro-yo", "よ", "yo", "/jo/", "like 'yo' in 'yoga'", "よむ (to read)"),
     traceTwice("ja-ya3-trace-yo", "よ", "yo", "like 'yo' in 'yoga'"),
@@ -128,8 +116,6 @@ export const MOCK_LESSON_JA_M1_YA_3: LessonContent = {
 
     wordImageMcq(ctx, "ja-ya3-mcq-rev-yuki", "ゆき"),
 
-    { id: "ja-ya3-info-speak", type: "info", title: "Your turn to speak",
-      body: "Tap the mic and say each word. Short words = lenient scoring.", variant: "tip" },
     speaking("ja-ya3-speak-yama", "やま", "mountain"),
     speaking("ja-ya3-speak-yuki", "ゆき", "snow"),
     listeningComp("ja-ya3-lc-yama", "やま", "yama", "mountain",
@@ -139,8 +125,5 @@ export const MOCK_LESSON_JA_M1_YA_3: LessonContent = {
     // R2-defer-F prior-row review tail — vowels through ma pool.
     ...priorRowReviewTail("ya"),
 
-    { id: "ja-ya3-info-end", type: "info", title: "Real-world win",
-      body: "You can now read やま (mountain), ゆき (snow), よむ (to read) — and the title kanji-furigana of most onomatopoeia-heavy manga panels: バキッ, ドキドキ. Up next — ra row.",
-      variant: "win" },
   ],
 };

@@ -42,9 +42,6 @@ export const MOCK_LESSON_JA_M1_MA_1: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["uma"],
   steps: [
-    { id: "ja-ma1-info-0", type: "info", title: "M-sounds, part 1",
-      body: "Two clean kana: ま and み. Nothing tricky here.",
-      variant: "culture" },
 
     symbolIntro("ja-ma1-intro-ma", "ま", "ma", "/ma/", "like 'ma' in 'mama'", "うま (horse)"),
     traceTwice("ja-ma1-trace-ma", "ま", "ma", "like 'ma' in 'mama'"),
@@ -60,8 +57,6 @@ export const MOCK_LESSON_JA_M1_MA_1: LessonContent = {
     symbolToSound(ctx, "ja-ma1-sts-ma", "ま", "ma", "like 'ma'"),
     symbolToSound(ctx, "ja-ma1-sts-mi", "み", "mi", "like 'mee'"),
 
-    { id: "ja-ma1-info-end", type: "info", title: "Two down",
-      body: "ま and み. Next: む and め.", variant: "default" },
   ],
 };
 
@@ -73,9 +68,6 @@ export const MOCK_LESSON_JA_M1_MA_2: LessonContent = {
   estimatedMinutes: 4, xpReward: 10,
   introducesVocabIds: ["kame"],
   steps: [
-    { id: "ja-ma2-info-0", type: "info", title: "M-sounds, part 2",
-      body: "む (like 'moo' but clipped) and め. Then the turtle.",
-      variant: "default" },
 
     symbolIntro("ja-ma2-intro-mu", "む", "mu", "/mɯ/", "like 'moo' (clipped)", ""),
     traceTwice("ja-ma2-trace-mu", "む", "mu", "like 'moo'"),
@@ -96,8 +88,6 @@ export const MOCK_LESSON_JA_M1_MA_2: LessonContent = {
     symbolToSound(ctx, "ja-ma2-sts-mu", "む", "mu", "like 'moo'"),
     symbolToSound(ctx, "ja-ma2-sts-me", "め", "me", "like 'met'"),
 
-    { id: "ja-ma2-info-end", type: "info", title: "Four down",
-      body: "Just も left — and a full-row review with mic practice.", variant: "default" },
   ],
 };
 
@@ -109,8 +99,6 @@ export const MOCK_LESSON_JA_M1_MA_3: LessonContent = {
   estimatedMinutes: 5, xpReward: 12,
   introducesVocabIds: ["momo"],
   steps: [
-    { id: "ja-ma3-info-0", type: "info", title: "M-sounds, finale",
-      body: "Meet も, build a peach, then sweep the row.", variant: "default" },
 
     symbolIntro("ja-ma3-intro-mo", "も", "mo", "/mo/", "like 'mo' in 'more'", "もも (peach)"),
     traceTwice("ja-ma3-trace-mo", "も", "mo", "like 'mo' in 'more'"),
@@ -125,8 +113,6 @@ export const MOCK_LESSON_JA_M1_MA_3: LessonContent = {
 
     wordImageMcq(ctx, "ja-ma3-mcq-rev-kame", "かめ"),
 
-    { id: "ja-ma3-info-speak", type: "info", title: "Your turn to speak",
-      body: "Tap the mic and say each word. Short words = lenient scoring.", variant: "tip" },
     speaking("ja-ma3-speak-uma",  "うま", "horse"),
     speaking("ja-ma3-speak-kame", "かめ", "turtle"),
     wordImageMcq(ctx, "ja-ma3-mcq-rev-momo", "もも"),
@@ -150,8 +136,5 @@ export const MOCK_LESSON_JA_M1_MA_3: LessonContent = {
     // R2-defer-F prior-row review tail — vowels through ha pool.
     ...priorRowReviewTail("ma"),
 
-    { id: "ja-ma3-info-end", type: "info", title: "Real-world win",
-      body: "You can now read もも (peach), うま (horse) — and spot ヤマ ('mountain') in mountain names like Fujiyama, Yamanote, Yokoyama. Halfway through hiragana — nice.",
-      variant: "win" },
   ],
 };

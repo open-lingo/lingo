@@ -55,7 +55,6 @@ import {
   cloze,
   dialogueListen,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -146,18 +145,36 @@ export const M3_1_1: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 10,
   steps: [
-    infoStep(
-      "ja-m3-1-info-system",
-      "Katakana — hiragana's twin",
-      "Katakana (カタカナ) has the same 46 sounds as hiragana — just sharper, more angular shapes. It's used for loanwords (コーヒー = coffee), foreign names, and emphasis. From now on you'll learn one katakana row per module, exactly like hiragana in Module 1 — and romaji rides along above new katakana while the shapes sink in.",
-      "culture",
-    ),
-    infoStep(
-      "ja-m3-1-info-chouon",
-      "The long-vowel mark: ー",
-      "In katakana, ー stretches the vowel before it. コーヒー is 'koo-hii' (long o, long i) — not 'ko-hi.' You'll see ー constantly in loanwords. Think of it as 'hold that note.'",
-      "grammar",
-    ),
+    grammarRule({
+      id: "ja-m3-1-info-system",
+      title: "Katakana — hiragana's twin",
+      rule: "Katakana has the same 46 sounds as hiragana, just sharper, more angular shapes. It's used for loanwords, foreign names, and emphasis. You'll learn one row per module.",
+      examples: [
+        { ja: "コーヒー", romaji: "koohii", en: "coffee (a loanword)" },
+        { ja: "アメリカ", romaji: "amerika", en: "America (a foreign name)" },
+      ],
+      antiPattern: {
+        ja: "こーひー",
+        romaji: "koohii",
+        en: "(writing a loanword in hiragana)",
+        why: "Loanwords and foreign names are written in katakana (コーヒー), not hiragana.",
+      },
+    }),
+    grammarRule({
+      id: "ja-m3-1-info-chouon",
+      title: "The long-vowel mark: ー",
+      rule: "In katakana, ー stretches the vowel before it — 'hold that note.' You'll see it constantly in loanwords.",
+      examples: [
+        { ja: "コーヒー", romaji: "koohii", en: "coffee (long o, long i)" },
+        { ja: "ケーキ", romaji: "keeki", en: "cake (long e)" },
+      ],
+      antiPattern: {
+        ja: "コヒ",
+        romaji: "kohi",
+        en: "(dropping the ー)",
+        why: "Without ー the vowel is short: コーヒー is 'koo-hii', not 'ko-hi'.",
+      },
+    }),
 
     ...glyphBlock(aRowCtx, "ja-m3-1", A_ROW[0], "アメリカ (America)",
       "A flat roof with a swoop underneath. Katakana is all straight lines and corners — no hiragana curves."),
@@ -201,12 +218,6 @@ export const M3_1_1: LessonContent = {
     // Review tail — M1 atoms
     speaking("ja-m3-1-rev-speak-a", M3_1_REVIEW[0].kana, M3_1_REVIEW[0].meaningEn),
     vocabMcq("ja-m3-1-rev-mcq-b", M3_1_REVIEW[5], M3_REVIEW_M1_POOL),
-    infoStep(
-      "ja-m3-1-1-info-end",
-      "Three katakana down",
-      "ア, イ, ウ traced and recognized — plus コーヒー, the long-vowel mark ー, and your first X です polite statement. エ and オ finish the row next lesson.",
-      "win",
-    ),
   ],
 };
 
@@ -228,12 +239,6 @@ export const M3_1_2: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    infoStep(
-      "ja-m3-1-2-info-0",
-      "Two more, then the sweep",
-      "エ and オ close out the katakana vowel row. After this you can hear any vowel sound and write it in either script.",
-      "default",
-    ),
 
     ...glyphBlock(aRowCtx, "ja-m3-1", A_ROW[3], "エレベーター (elevator)",
       "A steel I-beam: top bar, bottom bar, one pillar."),
@@ -307,12 +312,6 @@ export const M3_1_2: LessonContent = {
       ],
     }),
     vocabMcq("ja-m3-1-rev-mcq-3", M3_1_REVIEW[6], M3_REVIEW_M1_POOL),
-    infoStep(
-      "ja-m3-1-2-info-end",
-      "The ア row is yours",
-      "ア イ ウ エ オ — the first full katakana row, plus コーヒー, タクシー, ー, and the X です pattern. Next module: the カ row.",
-      "win",
-    ),
   ],
 };
 
@@ -473,12 +472,6 @@ export const M3_2_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m3-2-1-rev", M3_2_REVIEW),
-    infoStep(
-      "ja-m3-2-1-info-end",
-      "You can now make polite statements and questions",
-      "です (polite copula) and か (question particle), plus five people-words: がくせい, せんせい, にほんじん, アメリカじん, and なまえ.",
-      "win",
-    ),
   ],
 };
 
@@ -627,12 +620,6 @@ export const M3_2_2: LessonContent = {
     }),
     vocabMcq("ja-m3-2-2-rev-mcq-2", M3_2_2_REVIEW[3], M3_REVIEW_M1_POOL),
     reviewMatchPairs("ja-m3-2-2-rev", M3_2_2_REVIEW.slice(0, 4)),
-    infoStep(
-      "ja-m3-2-2-info-end",
-      "You can now introduce yourself and ask someone's name",
-      "Cloze-drilling は and か in rotation, self-explaining why か makes a question, and building sentences like せんせいは アメリカじんですか.",
-      "win",
-    ),
   ],
 };
 
@@ -748,12 +735,6 @@ export const M3_3_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m3-3-1-rev", M3_3_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m3-3-1-info-end",
-      "You can now name five everyday things",
-      "Five concrete nouns — ほん (book), みず (water), ねこ (cat), いぬ (dog), and ともだち (friend) — used in これは X です sentences.",
-      "win",
-    ),
   ],
 };
 
@@ -777,12 +758,6 @@ export const M3_3_2: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    infoStep(
-      "ja-m3-3-2-info-adj",
-      "Adjective preview — just spot the shape",
-      "Same skeleton: [topic] は [word] です. Colors fit the same slot as nouns. No new rule — pattern-match only: これは あおいです = 'This is blue.'",
-      "grammar",
-    ),
     build(
       "ja-m3-3-2-build-mizu-desu",
       "This is water.",
@@ -889,12 +864,6 @@ export const M3_3_2: LessonContent = {
     }),
     vocabMcq("ja-m3-3-2-rev-mcq-2", M3_3_2_REVIEW[2], M3_REVIEW_M2_POOL),
     reviewMatchPairs("ja-m3-3-2-rev", M3_3_2_REVIEW),
-    infoStep(
-      "ja-m3-3-2-info-end",
-      "You can now spot adjectives in sentences",
-      "Adjective exposure via pattern-matching: あおい (blue), あかい (red), おおきい (big) dropped into the familiar これは X です skeleton.",
-      "win",
-    ),
   ],
 };
 
@@ -1081,12 +1050,6 @@ export const M3_4_1: LessonContent = {
     }),
     vocabMcq("ja-m3-4-1-rev-mcq-2", M3_4_REVIEW[2], M3_REVIEW_M2_POOL),
     reviewMatchPairs("ja-m3-4-1-rev", M3_4_REVIEW),
-    infoStep(
-      "ja-m3-4-1-info-end",
-      "You can now frame any topic with は",
-      "The topic marker は — 'as for X, ...' — drilled in cloze slots across people, things, and question sentences like あれは なんですか.",
-      "win",
-    ),
   ],
 };
 
@@ -1232,12 +1195,6 @@ export const M3_4_2: LessonContent = {
     }),
     vocabMcq("ja-m3-4-2-rev-mcq-2", M3_4_2_REVIEW[3], M3_REVIEW_M1_POOL),
     reviewMatchPairs("ja-m3-4-2-rev", M3_4_2_REVIEW.slice(0, 4)),
-    infoStep(
-      "ja-m3-4-2-info-end",
-      "You can now explain why は is correct",
-      "Production + self-explanation on は — you built sentences, spoke them aloud, and explained the topic-marker rule in your own reasoning.",
-      "win",
-    ),
   ],
 };
 
@@ -1384,12 +1341,6 @@ export const M3_5_1: LessonContent = {
     }),
     vocabMcq("ja-m3-5-1-rev-mcq-2", M3_5_REVIEW[3], M3_REVIEW_M1_POOL),
     reviewMatchPairs("ja-m3-5-1-rev", M3_5_REVIEW.slice(0, 4)),
-    infoStep(
-      "ja-m3-5-1-info-end",
-      "You can now say 'my older brother is...'",
-      "New word あに (older brother) plus interleaved は and か cloze drilling — the correct particle rotates so you must read the sentence each time.",
-      "win",
-    ),
   ],
 };
 
@@ -1543,12 +1494,6 @@ export const M3_5_2: LessonContent = {
     }),
     vocabMcq("ja-m3-5-2-rev-mcq-2", M3_5_2_REVIEW[2], M3_REVIEW_M2_POOL),
     reviewMatchPairs("ja-m3-5-2-rev", M3_5_2_REVIEW),
-    infoStep(
-      "ja-m3-5-2-info-end",
-      "You can now tell は and か apart under pressure",
-      "Mixed drilling with self-explanation: you know か converts statements to questions and は marks the topic — and you can articulate why.",
-      "win",
-    ),
   ],
 };
 
@@ -1682,12 +1627,6 @@ export const M3_6_1: LessonContent = {
     }),
     vocabMcq("ja-m3-6-1-rev-mcq-2", M3_6_REVIEW[2], M3_REVIEW_M2_POOL),
     reviewMatchPairs("ja-m3-6-1-rev", M3_6_REVIEW),
-    infoStep(
-      "ja-m3-6-1-info-end",
-      "You can now build full sentences from scratch",
-      "Production-mode practice: building and speaking sentences like わたしは アメリカじんです, これは なんですか, and これは みずです.",
-      "win",
-    ),
   ],
 };
 
@@ -1818,12 +1757,6 @@ export const M3_6_2: LessonContent = {
     }),
     vocabMcq("ja-m3-6-2-rev-mcq-2", M3_6_2_REVIEW[3], M3_REVIEW_M1_POOL),
     reviewMatchPairs("ja-m3-6-2-rev", M3_6_2_REVIEW.slice(0, 4)),
-    infoStep(
-      "ja-m3-6-2-info-end",
-      "You can now produce questions and statements fluently",
-      "Sentence builds, listening comprehension, and speaking across statements (です) and questions (ですか) — all from tiles to voice.",
-      "win",
-    ),
   ],
 };
 
@@ -1877,12 +1810,6 @@ export const M3_7_1: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 12,
   steps: [
-    infoStep(
-      "ja-m3-7-1-info-open",
-      "Drop into the scene",
-      "You're at a guesthouse common room. A new arrival named ケン (Ken) sits down. First: a polite opener + one new particle.",
-      "culture",
-    ),
     // すみません — single-tile pick
     build(
       "ja-m3-7-1-intro-sumimasen",
@@ -1987,12 +1914,6 @@ export const M3_7_1: LessonContent = {
       M3_M7_REVIEW_POOL,
     ),
     reviewMatchPairs("ja-m3-7-1-rev", M3_7_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m3-7-1-info-end",
-      "You can now say 'excuse me' and 'me too'",
-      "すみません (excuse me) for polite openers, plus も — the 'also' particle that swaps in for は when agreeing: わたしも がくせいです.",
-      "win",
-    ),
   ],
 };
 
@@ -2148,12 +2069,6 @@ export const M3_7_2: LessonContent = {
     }),
     vocabMcq("ja-m3-7-2-rev-mcq-2", M3_7_2_REVIEW[3], M3_M7_REVIEW_POOL),
     reviewMatchPairs("ja-m3-7-2-rev", M3_7_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m3-7-2-info-end",
-      "You can now follow a real self-introduction dialogue",
-      "A full dialogue scene: names, nationalities, and も (also) — you listened, answered comprehension questions, and produced key lines.",
-      "win",
-    ),
   ],
 };
 
@@ -2174,11 +2089,6 @@ export const M3_9: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m3-9-info-open",
-      "Story time — Meeting someone new",
-      "Listen to a short conversation between ゆき and たけし. They are meeting for the first time at school. Answer questions as you go.",
-    ),
     dialogueListen({
       id: "ja-m3-9-scene-1",
       lines: [
@@ -2290,12 +2200,6 @@ export const M3_9: LessonContent = {
       "ja-m3-9-speak-mo",
       "わたしも にほんじんです",
       "I am also Japanese.",
-    ),
-    infoStep(
-      "ja-m3-9-info-end",
-      "You can now follow a conversation between strangers meeting",
-      "You listened to ゆき and たけし introduce themselves and compare nationalities — using も to ask 'you too?'",
-      "win",
     ),
   ],
 };
@@ -2432,18 +2336,7 @@ export const M3_8: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 30,
   steps: [
-    infoStep(
-      "ja-m3-8-info-open",
-      "Module 3 mastery",
-      "Cumulative items across particles, vocab, and sentence-building. Missed items re-queue at the back. Pass once and Module 3 is mastered.",
-    ),
     M3_ROW_TEST,
-    infoStep(
-      "ja-m3-8-info-end",
-      "You can now meet someone, introduce yourself, and ask back",
-      "Polite copula です, the question particle か, and the topic marker は — three pieces, one fluent first-conversation shape. M4 deepens this with possessive の and the four-way pointer system これ/それ/あれ/どれ.",
-      "win",
-    ),
   ],
 };
 

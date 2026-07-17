@@ -873,9 +873,12 @@ export function audioImageMcq(
     id: idPrefix,
     type: "word_image_mcq",
     // Audio-prompt mode: the meaning is intentionally the kana itself — the
-    // learner hears it via TTS and matches to the emoji. The renderer's
-    // "What is the word for X?" prompt becomes "What is the word for
-    // <kana>?" which still reads correctly with audio playing.
+    // learner hears it via TTS and matches to the emoji. The renderer
+    // detects this (meaningEn equals an option word, impossible for real
+    // English meanings) and swaps the text prompt for a play button +
+    // "Which word do you hear?" — the old "What is the word for <kana>?"
+    // template printed the answer right above a tile captioned with the
+    // same kana (QA 2026-07-16, ja-m28-review-1).
     meaningEn: target.kana,
     options,
     correctOptionId: "correct",

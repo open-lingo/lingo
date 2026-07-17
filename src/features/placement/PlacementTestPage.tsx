@@ -164,8 +164,8 @@ export function PlacementTestPage() {
         setAppliedResult(result);
         setResultApplied(true);
         // Romaji auto-off is position-triggered, not completion-triggered:
-        // a learner who tests OUT of m3-m9 has reached m10 without ever
-        // completing an m10+ lesson, and would otherwise keep the beginner
+        // a learner who tests OUT of m3-m6 has reached m7 without ever
+        // completing an m7+ lesson, and would otherwise keep the beginner
         // romaji scaffold deep into the course (QA 2026-07-11). Position
         // after placement = highest CREDITED module + 1 — assumed modules
         // count too (assume-complete policy: they're treated as known, so

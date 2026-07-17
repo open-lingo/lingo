@@ -251,9 +251,6 @@ export const KATA_M4_KA: LessonContent = {
   description: "カ キ ク ケ コ — the katakana k-sounds. Several are hiragana shapes you already know, squared off.",
   estimatedMinutes: 5, xpReward: 10,
   steps: [
-    { id: "ja-m4kata-info-0", type: "info", title: "Katakana, row two",
-      body: "You met ア イ ウ エ オ and the stretch mark ー with coffee and taxis. Same drill as hiragana now: one row per module, k-sounds first. Two of these five are shapes you basically already know.",
-      variant: "culture" },
 
     ...glyphBlock(kaCtx, "ja-m4kata", KA[0], "カメラ (camera)",
       "It's か without the little tick — hiragana and katakana twins."),
@@ -273,9 +270,6 @@ export const KATA_M4_KA: LessonContent = {
     matchKanaToRomaji("ja-m4kata-match", entriesOf("ka"),
       "Match the katakana to their sounds"),
 
-    { id: "ja-m4kata-info-end", type: "info", title: "Ten katakana down",
-      body: "ア-row + カ-row — you can already sound out the コー in コーヒー and the ク in タクシー for real. The サ row lands next module, and with it your first fully readable loanword.",
-      variant: "win" },
   ],
 };
 
@@ -293,9 +287,6 @@ export const KATA_M5_SA: LessonContent = {
   description: "サ シ ス セ ソ — and your first loanword you can read without romaji: ジュース (juice).",
   estimatedMinutes: 5, xpReward: 12,
   steps: [
-    { id: "ja-m5kata-info-0", type: "info", title: "The s-sounds",
-      body: "サ シ ス セ ソ. One of these (シ) has an infamous evil twin coming next module — plant its stroke direction now: the flick sweeps UP from the bottom.",
-      variant: "default" },
 
     ...glyphBlock(saCtx, "ja-m5kata", SA[0], "サッカー (soccer)",
       "さ squared off — one extra stroke."),
@@ -308,9 +299,12 @@ export const KATA_M5_SA: LessonContent = {
     ...glyphBlock(saCtx, "ja-m5kata", SA[4], "ソース (sauce)",
       "One drop, one downward sweep. Its own twin (ン) arrives with the last row."),
 
-    { id: "ja-m5kata-info-juice", type: "info", title: "Decode: ジュース",
-      body: "You now know every piece of ジュース. ジ is シ with the two dots you learned back in hiragana (shi → ji). Small ュ glides it (ji → ju), and ー stretches it. Same rules as hiragana — katakana never invents new ones.",
-      variant: "grammar" },
+    { id: "ja-m5kata-info-juice", type: "grammar_rule", title: "Decode: ジュース",
+      rule: "You already know every piece of ジュース. ジ is シ + dakuten (shi→ji), small ュ glides it (ji→ju), and ー stretches it. Katakana reuses the exact hiragana rules.",
+      examples: [
+        { ja: "シ → ジ", romaji: "shi → ji", en: "dakuten voices it" },
+        { ja: "ジュース", romaji: "jūsu", en: "juice" },
+      ] },
     listeningComp("ja-m5kata-lc-juice", "ジュース", "jūsu", "juice",
       ["coffee", "tea", "water"]),
     listeningBuild(saCtx, "ja-m5kata-build-juice", "ジュース", "juice"),
@@ -319,9 +313,6 @@ export const KATA_M5_SA: LessonContent = {
     matchKanaToRomaji("ja-m5kata-match", entriesOf("sa"),
       "Match the katakana to their sounds"),
 
-    { id: "ja-m5kata-info-end", type: "info", title: "First real read",
-      body: "ジュース — read, built, and said, no romaji needed. That's the katakana loop working. Menus are starting to open up.",
-      variant: "win" },
   ],
 };
 
@@ -344,9 +335,6 @@ export const KATA_M6_TA: LessonContent = {
   description: "タ チ ツ テ ト + the small ッ — and タクシー becomes fully readable, three modules after you first ordered one.",
   estimatedMinutes: 6, xpReward: 12,
   steps: [
-    { id: "ja-m6kata-info-0", type: "info", title: "The t-sounds",
-      body: "タ チ ツ テ ト. This row finishes the spelling of タクシー — and brings シ's evil twin.",
-      variant: "default" },
 
     ...glyphBlock(taCtx, "ja-m6kata", TA[0], "タクシー (taxi)",
       "ク with one extra stroke tucked inside."),
@@ -359,18 +347,18 @@ export const KATA_M6_TA: LessonContent = {
     ...glyphBlock(taCtx, "ja-m6kata", TA[4], "コート (coat)",
       "A trunk with one branch. Two strokes, done."),
 
-    { id: "ja-m6kata-info-sokuon", type: "info", title: "Small ッ — the silent beat",
-      body: "Katakana has a small ッ, exactly like hiragana's small っ: a one-beat pause that doubles the next consonant. ベッド (bed), カップ (cup) — you'll read these in two modules. Same rule you already know, new outfit.",
-      variant: "grammar" },
+    { id: "ja-m6kata-info-sokuon", type: "grammar_rule", title: "Small ッ — the silent beat",
+      rule: "Katakana's small ッ works exactly like hiragana's small っ: a one-beat pause that doubles the next consonant. Same rule you know, new outfit.",
+      examples: [
+        { ja: "ベッド", romaji: "beddo", en: "bed (doubled d)" },
+        { ja: "カップ", romaji: "kappu", en: "cup (doubled p)" },
+      ] },
 
     wordImageMcq(taCtx, "ja-m6kata-mcq-taxi", "タクシー"),
     listeningBuild(taCtx, "ja-m6kata-build-taxi", "タクシー", "taxi"),
     wordImageMcq(taCtx, "ja-m6kata-mcq-coat", "コート"),
     speaking("ja-m6kata-speak-coat", "コート", "coat"),
 
-    { id: "ja-m6kata-info-end", type: "info", title: "Full circle",
-      body: "タクシー — the word you've been pattern-matching since Module 3 — you just READ it. タ-ク-シ-ー, every piece yours. コート, テスト, and ドア are readable now too.",
-      variant: "win" },
   ],
 };
 
@@ -393,9 +381,6 @@ export const KATA_M7_NA: LessonContent = {
   description: "ナ ニ ヌ ネ ノ — news, notebooks, and neckties become readable.",
   estimatedMinutes: 5, xpReward: 12,
   steps: [
-    { id: "ja-m7kata-info-0", type: "info", title: "The n-sounds",
-      body: "ナ ニ ヌ ネ ノ — including the single simplest kana in the whole language.",
-      variant: "default" },
 
     ...glyphBlock(naCtx, "ja-m7kata", NA[0], "ナイフ (knife)",
       "A plus sign with a long tail."),
@@ -416,9 +401,6 @@ export const KATA_M7_NA: LessonContent = {
     matchKanaToRomaji("ja-m7kata-match", entriesOf("na"),
       "Match the katakana to their sounds"),
 
-    { id: "ja-m7kata-info-end", type: "info", title: "Halfway there",
-      body: "Five rows down, five to go. ニュース を みます — you can read AND conjugate that now. The ハ row next module unlocks a flood: coffee, bus, cups, apartments…",
-      variant: "win" },
   ],
 };
 
@@ -441,9 +423,6 @@ export const KATA_M8_HA: LessonContent = {
   description: "ハ ヒ フ ヘ ホ — and コーヒー, the very first katakana you ever saw, is finally all yours.",
   estimatedMinutes: 6, xpReward: 12,
   steps: [
-    { id: "ja-m8kata-info-0", type: "info", title: "The h-sounds",
-      body: "ハ ヒ フ ヘ ホ. Add the dots and circles you know from hiragana and this one row also gives you b- (バ) and p- (パ) — the single biggest unlock in katakana.",
-      variant: "default" },
 
     ...glyphBlock(haCtx, "ja-m8kata", HA[0], "バス (bus)",
       "Two strokes leaning apart — like the kanji 八 (eight)."),
@@ -463,9 +442,6 @@ export const KATA_M8_HA: LessonContent = {
     wordImageMcq(haCtx, "ja-m8kata-mcq-bus", "バス"),
     speaking("ja-m8kata-speak-bus", "バス", "bus"),
 
-    { id: "ja-m8kata-info-end", type: "info", title: "The one you started with",
-      body: "コーヒー — the word that introduced katakana back in Module 3 — just went from memorized shape to genuinely read. バ and パ dots unlock バス, カップ, デパート, アパート and more. コーヒー は おいしい です。",
-      variant: "win" },
   ],
 };
 
@@ -488,9 +464,6 @@ export const KATA_M9_MA: LessonContent = {
   description: "マ ミ ム メ モ — plus retrieval on the loanwords you can already read.",
   estimatedMinutes: 5, xpReward: 12,
   steps: [
-    { id: "ja-m9kata-info-0", type: "info", title: "The m-sounds",
-      body: "マ ミ ム メ モ. After this row you're two-thirds through — アニメ, ゲーム and メニュー all become readable today.",
-      variant: "default" },
 
     ...glyphBlock(maCtx, "ja-m9kata", MA[0], "マッチ (match)",
       "A flag folded sharply down."),
@@ -512,9 +485,6 @@ export const KATA_M9_MA: LessonContent = {
     matchKanaToRomaji("ja-m9kata-match", entriesOf("ma"),
       "Match the katakana to their sounds"),
 
-    { id: "ja-m9kata-info-end", type: "info", title: "Two-thirds",
-      body: "アニメ が すき です — and now you can actually read the アニメ part. Three rows left: や, ら, わ.",
-      variant: "win" },
   ],
 };
 
@@ -537,9 +507,6 @@ export const KATA_M10_YA: LessonContent = {
   description: "ヤ ユ ヨ — just three glyphs, so the rest is loanword retrieval.",
   estimatedMinutes: 5, xpReward: 10,
   steps: [
-    { id: "ja-m10kata-info-0", type: "info", title: "The y-sounds",
-      body: "Only three: ヤ ユ ヨ (ye and yi died out centuries ago). They also give you the small ャ ュ ョ glide versions — same yōon rule as hiragana, which you've been reading in ジュース all along.",
-      variant: "default" },
 
     ...glyphBlock(yaCtx, "ja-m10kata", YA[0], "タイヤ (tire)",
       "や minus one stroke — twins."),
@@ -560,9 +527,6 @@ export const KATA_M10_YA: LessonContent = {
     matchKanaToRomaji("ja-m10kata-match", entriesOf("ya"),
       "Match the katakana to their sounds"),
 
-    { id: "ja-m10kata-info-end", type: "info", title: "Reading without the net",
-      body: "Notice anything? Hiragana romaji is gone as of this module — you don't need it anymore. Katakana keeps its training wheels a while longer. Two rows to go.",
-      variant: "win" },
   ],
 };
 
@@ -586,9 +550,6 @@ export const KATA_M11_RA: LessonContent = {
   description: "ラ リ ル レ ロ — the row holding back two dozen words: hotel, camera, TV, beer, toilet…",
   estimatedMinutes: 6, xpReward: 12,
   steps: [
-    { id: "ja-m11kata-info-0", type: "info", title: "The r-sounds",
-      body: "ラ リ ル レ ロ — the biggest single unlock in the whole rollout. ホテル, カメラ, テレビ, ビール, トイレ, カレー, プール… all gated on this one row.",
-      variant: "default" },
 
     ...glyphBlock(raCtx, "ja-m11kata", RA[0], "カメラ (camera)",
       "フ with a hat on."),
@@ -608,9 +569,6 @@ export const KATA_M11_RA: LessonContent = {
       ["juice", "coffee", "water"]),
     speaking("ja-m11kata-speak-hotel", "ホテル", "hotel"),
 
-    { id: "ja-m11kata-info-end", type: "info", title: "The flood",
-      body: "ホテル に トイレ が あります — every word readable. One row left: ワ, the rare ヲ, and ン.",
-      variant: "win" },
   ],
 };
 
@@ -633,9 +591,6 @@ export const KATA_M12_WA: LessonContent = {
   description: "The last three. ン unlocks パン, ラーメン, コンビニ — then the base set is complete.",
   estimatedMinutes: 6, xpReward: 15,
   steps: [
-    { id: "ja-m12kata-info-0", type: "info", title: "The last row",
-      body: "ワ, the near-extinct ヲ, and ン — the nasal 'n' that ends half the loanwords you know. This is the final row of base katakana.",
-      variant: "default" },
 
     ...glyphBlock(waCtx, "ja-m12kata", WA[0], "ワイン (wine)",
       "ウ without its top stroke — mind the twins: ワ is wider."),
@@ -644,9 +599,12 @@ export const KATA_M12_WA: LessonContent = {
     ...glyphBlock(waCtx, "ja-m12kata", WA[2], "ラーメン (ramen)",
       "ソ's twin, mirrored: ソ's flick sweeps DOWN from the top; ン's sweeps UP from the bottom. Last twin pair — you've beaten them all."),
 
-    { id: "ja-m12kata-info-pa", type: "info", title: "Decode: パン",
-      body: "パ is ハ plus the small circle — the p-mark from hiragana Module 2. So パン = pa + n. Bread. Every dakuten, handakuten, and glide you learned for hiragana works identically here — you now decode ALL of katakana, not just the 46 base glyphs.",
-      variant: "grammar" },
+    { id: "ja-m12kata-info-pa", type: "grammar_rule", title: "Decode: パン",
+      rule: "パ is ハ plus the small circle — the p-mark from hiragana. So パン = pa + n. Every dakuten, handakuten, and glide from hiragana works identically in katakana.",
+      examples: [
+        { ja: "ハ → パ", romaji: "ha → pa", en: "handakuten makes p" },
+        { ja: "パン", romaji: "pan", en: "bread" },
+      ] },
 
     wordImageMcq(waCtx, "ja-m12kata-mcq-bread", "パン"),
     listeningBuild(waCtx, "ja-m12kata-build-bread", "パン", "bread"),
@@ -659,9 +617,6 @@ export const KATA_M12_WA: LessonContent = {
     matchKanaToRomaji("ja-m12kata-match", entriesOf("wa"),
       "Match the katakana to their sounds"),
 
-    { id: "ja-m12kata-info-end", type: "info", title: "Base katakana: complete",
-      body: "Ten modules, ten rows, 46 glyphs — done. レストラン で ラーメン を たべます: readable, every character. From here it's pure mileage; the romaji training wheels come off for katakana at Module 17, and you won't miss them.",
-      variant: "win" },
   ],
 };
 

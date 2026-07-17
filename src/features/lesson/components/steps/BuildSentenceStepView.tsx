@@ -87,7 +87,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   //    (single kana), which sentences aren't.
   const isWordBuild = step.granularity === "character";
   // Hide-until-reveal on character-build tiles. Off (romaji shown) by
-  // default as a beginner scaffold; auto-flips ON at Module 10 and is
+  // default as a beginner scaffold; auto-flips ON at Module 5 and is
   // learner-toggleable in Settings. Only character builds fade — sentence
   // builds keep their word-level romaji (Spencer 2026-06-13).
   const hideBuildTileRomaji =

@@ -98,11 +98,14 @@ export const MOCK_LESSON_JA_M2_YOON_SH_CH_1: LessonContent = {
   steps: [
     {
       id: "ja-ysc1-info-open",
-      type: "info",
+      type: "grammar_rule",
       title: "sh + ch yōon",
-      body:
-        "Same small-ゃゅょ rule, two new families. し + ゃ = しゃ ('sha'). The 'sh' carries over from し ('shi') — not 'sya'. Same for ち → 'cha'.",
-      variant: "culture",
+      rule:
+        "Same small-ゃゅょ rule, two new families. The 'sh' of し and 'ch' of ち carry over into the blend — し + ゃ = しゃ is 'sha', not 'sya'.",
+      examples: [
+        { ja: "し + ゃ = しゃ", romaji: "shi + ya = sha", en: "'sha', not 'sya'" },
+        { ja: "ち + ゃ = ちゃ", romaji: "chi + ya = cha", en: "'cha', not 'tya'" },
+      ],
     },
 
     // ─── Char 1: しゃ (sha) — no individual anchor; trace slot.
@@ -228,14 +231,6 @@ export const MOCK_LESSON_JA_M2_YOON_SH_CH_3: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    {
-      id: "ja-ysc3-info-open",
-      type: "info",
-      title: "Putting it together",
-      body:
-        "Quick review of the 6 sh + ch yōon plus earlier-row words. Voiced yōon next — same rule, on ぎ・じ・び・ぴ.",
-      variant: "default",
-    },
 
     wordImageMcq(ctxSub3, "ja-ysc3-mcq-ocha", "おちゃ"),
     symbolToSound(ctxSub3, "ja-ysc3-s2s-shu", "しゅ", "shu", "shi + small yu"),

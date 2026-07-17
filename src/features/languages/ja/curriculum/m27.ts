@@ -29,7 +29,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -189,11 +188,6 @@ export const M27_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m27-1-1-info-open",
-      "Rules, promises, and preparation",
-      "Six words for the serious side of life — decisions, rules, promises, preparation, practice, and exams.",
-    ),
     // ── きめる (decide) ──
     build(
       "ja-m27-1-1-build-kimeru",
@@ -330,12 +324,6 @@ export const M27_1_1: LessonContent = {
     }),
     speaking("ja-m27-1-1-rev-speak-1", M27_1_1_REVIEW[2].kana, M27_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-1-1-rev", M27_1_1_REVIEW),
-    infoStep(
-      "ja-m27-1-1-info-end",
-      "You can now talk about decisions, rules, promises, preparation, practice, and exams",
-      "Six serious-life words: きめる, まもる, やくそく, じゅんび, れんしゅう, しけん.",
-      "win",
-    ),
   ],
 };
 
@@ -360,11 +348,6 @@ export const M27_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m27-1-2-info-open",
-      "Health, safety, and what matters",
-      "Nine words covering health, hospitals, medicine, exercise, safety, danger, and importance. Essential life vocabulary.",
-    ),
     // ── けんこう (health) ──
     build(
       "ja-m27-1-2-build-kenkou",
@@ -501,12 +484,6 @@ export const M27_1_2: LessonContent = {
     }),
     speaking("ja-m27-1-2-rev-speak-1", M27_1_2_REVIEW[2].kana, M27_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-1-2-rev", M27_1_2_REVIEW),
-    infoStep(
-      "ja-m27-1-2-info-end",
-      "You can now talk about health, hospitals, medicine, exercise, safety, and danger",
-      "Nine life-essential words — ready for advice and obligation patterns.",
-      "win",
-    ),
   ],
 };
 
@@ -531,11 +508,6 @@ export const M27_2_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m27-2-1-info-open",
-      "Things you must do",
-      "One pattern — なければならない — and you can talk about duties, obligations, and things you have to do.",
-    ),
     RULE_NAKEREBA,
     // ── Drills ──
     cloze(
@@ -671,12 +643,6 @@ export const M27_2_1: LessonContent = {
     }),
     speaking("ja-m27-2-1-rev-speak-1", M27_2_1_REVIEW[2].kana, M27_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-2-1-rev", M27_2_1_REVIEW),
-    infoStep(
-      "ja-m27-2-1-info-end",
-      "You can now express what you must do — duties and obligations in formal and casual Japanese",
-      "なければなりません (formal) and なくちゃ (casual) = must do.",
-      "win",
-    ),
   ],
 };
 
@@ -701,11 +667,6 @@ export const M27_2_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m27-2-2-info-open",
-      "Obligations in real life",
-      "Must take medicine, must exercise, must be careful — obligations with your new vocab.",
-    ),
     build(
       "ja-m27-2-2-build-1",
       "Say: I must go to the hospital.",
@@ -834,12 +795,6 @@ export const M27_2_2: LessonContent = {
     }),
     speaking("ja-m27-2-2-rev-speak-1", M27_2_2_REVIEW[2].kana, M27_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-2-2-rev", M27_2_2_REVIEW),
-    infoStep(
-      "ja-m27-2-2-info-end",
-      "You can now express obligations about health, safety, promises, and preparation",
-      "なければならない + context vocab = real-life obligation sentences.",
-      "win",
-    ),
   ],
 };
 
@@ -864,11 +819,6 @@ export const M27_3_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m27-3-1-info-open",
-      "Giving advice",
-      "た-form + ほうがいい — one pattern for 'you should' and 'you'd better.'",
-    ),
     RULE_HOU_GA_II,
     cloze(
       "ja-m27-3-1-cloze-1",
@@ -998,12 +948,6 @@ export const M27_3_1: LessonContent = {
     }),
     speaking("ja-m27-3-1-rev-speak-1", M27_3_1_REVIEW[2].kana, M27_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-3-1-rev", M27_3_1_REVIEW),
-    infoStep(
-      "ja-m27-3-1-info-end",
-      "You can now give advice — what someone should or shouldn't do",
-      "た-form + ほうがいい (should). ない-form + ほうがいい (better not to).",
-      "win",
-    ),
   ],
 };
 
@@ -1028,11 +972,6 @@ export const M27_3_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m27-3-2-info-open",
-      "Advice vs obligation",
-      "'You should rest' vs 'You must rest' — learn when each pattern fits.",
-    ),
     build(
       "ja-m27-3-2-build-1",
       "Say: You should go home early.",
@@ -1161,12 +1100,6 @@ export const M27_3_2: LessonContent = {
     }),
     speaking("ja-m27-3-2-rev-speak-1", M27_3_2_REVIEW[2].kana, M27_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-3-2-rev", M27_3_2_REVIEW),
-    infoStep(
-      "ja-m27-3-2-info-end",
-      "You can now distinguish between advice and obligation in Japanese",
-      "ほうがいい for advice, なければならない for obligation — two levels of 'should.'",
-      "win",
-    ),
   ],
 };
 
@@ -1191,11 +1124,6 @@ export const M27_4_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m27-4-1-info-open",
-      "Things change",
-      "くなる and になる — two forms for 'become.' Weather changes, skills improve, situations shift.",
-    ),
     RULE_KU_NI_NARU,
     // ── なる (to become) — the dictionary-form verb behind くなる/になる ──
     build(
@@ -1367,12 +1295,6 @@ export const M27_4_1: LessonContent = {
     }),
     speaking("ja-m27-4-1-rev-speak-1", M27_4_1_REVIEW[2].kana, M27_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-4-1-rev", M27_4_1_REVIEW),
-    infoStep(
-      "ja-m27-4-1-info-end",
-      "You can now describe how things change — weather, health, skills, situations",
-      "い-adj + くなる, な-adj/noun + になる = become / change of state.",
-      "win",
-    ),
   ],
 };
 
@@ -1397,11 +1319,6 @@ export const M27_4_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m27-4-2-info-open",
-      "Three patterns together",
-      "'It got cold. You should wear a jacket. You must be careful' — all three M27 patterns in one flow.",
-    ),
     build(
       "ja-m27-4-2-build-1",
       "Say: It got cold. You should wear a jacket.",
@@ -1529,12 +1446,6 @@ export const M27_4_2: LessonContent = {
     }),
     speaking("ja-m27-4-2-rev-speak-1", M27_4_2_REVIEW[2].kana, M27_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-4-2-rev", M27_4_2_REVIEW),
-    infoStep(
-      "ja-m27-4-2-info-end",
-      "You can now combine change, advice, and obligation in natural conversation",
-      "All three M27 patterns working together.",
-      "win",
-    ),
   ],
 };
 
@@ -1559,11 +1470,6 @@ export const M27_5_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m27-5-1-info-open",
-      "Three patterns, one drill",
-      "Every answer could be なければ, ほうがいい, or くなる/になる. Stay sharp.",
-    ),
     cloze(
       "ja-m27-5-1-cloze-1",
       "やさいを たべなければ",
@@ -1702,12 +1608,6 @@ export const M27_5_1: LessonContent = {
     }),
     speaking("ja-m27-5-1-rev-speak-1", M27_5_1_REVIEW[2].kana, M27_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-5-1-rev", M27_5_1_REVIEW),
-    infoStep(
-      "ja-m27-5-1-info-end",
-      "You can now discriminate between change, advice, and obligation at speed",
-      "All three M27 patterns — rapid-fire discrimination.",
-      "win",
-    ),
   ],
 };
 
@@ -1732,11 +1632,6 @@ export const M27_5_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m27-5-2-info-open",
-      "Produce it all",
-      "Build, speak, and translate with obligation, advice, and change patterns.",
-    ),
     build(
       "ja-m27-5-2-build-1",
       "Say: I must go to the bank.",
@@ -1868,12 +1763,6 @@ export const M27_5_2: LessonContent = {
     }),
     speaking("ja-m27-5-2-rev-speak-1", M27_5_2_REVIEW[2].kana, M27_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-5-2-rev", M27_5_2_REVIEW),
-    infoStep(
-      "ja-m27-5-2-info-end",
-      "You can now produce obligation, advice, and change patterns from memory",
-      "All M27 patterns in production.",
-      "win",
-    ),
   ],
 };
 
@@ -1898,11 +1787,6 @@ export const M27_6_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m27-6-1-info-open",
-      "Everything connected",
-      "Obligations, advice, and change — with all your M27 vocab.",
-    ),
     build(
       "ja-m27-6-1-build-1",
       "Say: It became dangerous. I must be careful.",
@@ -2030,12 +1914,6 @@ export const M27_6_1: LessonContent = {
     }),
     speaking("ja-m27-6-1-rev-speak-1", M27_6_1_REVIEW[2].kana, M27_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-6-1-rev", M27_6_1_REVIEW),
-    infoStep(
-      "ja-m27-6-1-info-end",
-      "You can now use modal grammar with full vocabulary in complex real-world sentences",
-      "Obligations, advice, and change — integrated with health, safety, and daily-life vocab.",
-      "win",
-    ),
   ],
 };
 
@@ -2060,11 +1938,6 @@ export const M27_6_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m27-6-2-info-open",
-      "Full production mode",
-      "Everything M27 — build, speak, translate from memory.",
-    ),
     build(
       "ja-m27-6-2-build-1",
       "Say: I must practice every day.",
@@ -2196,12 +2069,6 @@ export const M27_6_2: LessonContent = {
     }),
     speaking("ja-m27-6-2-rev-speak-1", M27_6_2_REVIEW[2].kana, M27_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-6-2-rev", M27_6_2_REVIEW.slice(0, 4)),
-    infoStep(
-      "ja-m27-6-2-info-end",
-      "You can produce every M27 pattern from memory",
-      "Obligation, advice, and change — all in full production.",
-      "win",
-    ),
   ],
 };
 
@@ -2225,11 +2092,6 @@ export const M27_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m27-story-info-open",
-      "Story time — たけし's exam week",
-      "たけし has an exam coming up. Listen to his story, then give him your advice using ほうがいい.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m27-story-s1",
       narrative: [
@@ -2355,12 +2217,6 @@ export const M27_STORY: LessonContent = {
       "まいにち つづけたほうがいいですよ",
       "You should continue every day.",
     ),
-    infoStep(
-      "ja-m27-story-info-end",
-      "You followed a real story about obligation, change, and advice — and gave the advice yourself",
-      "しけんが ちかくなりました (change) → べんきょうしなければなりません (obligation) → やすんだほうがいいですよ (your advice). All three M27 patterns, one story.",
-      "win",
-    ),
   ],
 };
 
@@ -2386,11 +2242,6 @@ export const M27_7_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m27-7-1-info-open",
-      "Listen and understand",
-      "Can you understand obligations, advice, and change when you hear them?",
-    ),
     listeningCompSentence({
       id: "ja-m27-7-1-lc-1",
       audioText: "しゅくだいを しなければなりません",
@@ -2529,12 +2380,6 @@ export const M27_7_1: LessonContent = {
     }),
     speaking("ja-m27-7-1-rev-speak-1", M27_7_1_REVIEW[2].kana, M27_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-7-1-rev", M27_7_1_REVIEW),
-    infoStep(
-      "ja-m27-7-1-info-end",
-      "You can understand obligations, advice, and change in natural Japanese",
-      "M27 comprehension — solid.",
-      "win",
-    ),
   ],
 };
 
@@ -2559,11 +2404,6 @@ export const M27_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m27-7-2-info-open",
-      "Final round",
-      "Everything from M27 in production — obligation, advice, and change from memory.",
-    ),
     build(
       "ja-m27-7-2-build-1",
       "Say: I must go to school tomorrow.",
@@ -2705,12 +2545,6 @@ export const M27_7_2: LessonContent = {
     }),
     speaking("ja-m27-7-2-rev-speak-1", M27_7_2_REVIEW[2].kana, M27_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m27-7-2-rev", M27_7_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m27-7-2-info-end",
-      "You can now express obligation, give advice, and describe change in natural Japanese",
-      "All M27 grammar mastered: なければならない, ほうがいい, and くなる/になる — in full production.",
-      "win",
-    ),
   ],
 };
 

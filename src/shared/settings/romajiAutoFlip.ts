@@ -1,22 +1,37 @@
 import type { UserSettings } from "./types";
 
 /**
- * Per-script modules at which the romaji reading aid auto-disables. By
- * Module 10 the learner reads hiragana fluently through the grammar spine;
- * katakana is taught gradually (M3→~M12) so its aid retires later, at
- * Module 17. Two thresholds, one user-facing `showRomaji` toggle.
+ * Per-script modules at which the romaji reading aid auto-disables.
+ *
+ * Hiragana romaji dies entering Module 7 (it lives through M6). This is
+ * NOT an independent tuning knob: kanji recognition starts at Module 8,
+ * and the owner's never-mix policy — romaji must never render alongside
+ * kanji, "looks tacky and is bad practice" — requires hiragana romaji to
+ * be fully retired at least one module before kanji ever appears on
+ * screen. (Spencer 2026-07-16; see also `containsKanji` /
+ * `useRomajiHelperVisible` in readingAnnotation for the render-time
+ * enforcement of the same policy.)
+ *
+ * Katakana is taught gradually (M3→~M13) so its aid retires later, at
+ * Module 17 — re-confirmed 2026-07-16 (≈4 modules after katakana teaching
+ * ends), independent of the hiragana/kanji collision above since katakana
+ * isn't part of it.
+ *
+ * Two thresholds, one user-facing `showRomaji` toggle.
  */
-export const HIRAGANA_ROMAJI_OFF_MODULE = 10;
+export const HIRAGANA_ROMAJI_OFF_MODULE = 7;
 export const KATAKANA_ROMAJI_OFF_MODULE = 17;
 
 /**
  * The module at which character-build tile banks stop showing per-kana
- * romaji by default and switch to tap/hover-to-reveal. Earlier than the
- * full romaji auto-off (Module 15): by ~10h of study a learner can read
- * kana, so the spelling tiles shouldn't keep handing them the answer,
- * even while romaji still aids elsewhere. (Spencer 2026-06-13.)
+ * romaji by default and switch to tap/hover-to-reveal. Fires two modules
+ * ahead of the full hiragana romaji auto-off (Module 7): by that point a
+ * learner can read kana well enough that the spelling tiles shouldn't keep
+ * handing them the answer, even while romaji still aids elsewhere.
+ * (Spencer 2026-06-13; threshold moved 10→5 alongside the hiragana
+ * M10→M7 shift, 2026-07-16, to preserve the two-module lead.)
  */
-export const BUILD_TILE_ROMAJI_FADE_MODULE = 10;
+export const BUILD_TILE_ROMAJI_FADE_MODULE = 5;
 
 /**
  * Decide whether the character-build romaji should auto-fade for this

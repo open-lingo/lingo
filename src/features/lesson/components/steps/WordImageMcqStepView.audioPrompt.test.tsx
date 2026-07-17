@@ -1,0 +1,66 @@
+// Regression: QA 2026-07-16 (ja-m28-review-1) — the audio-prompt variant of
+// word_image_mcq (vocabMcq review path, meaningEn = target kana) rendered
+// "What is the word for なに?" with a tile captioned なに right below it,
+// leaking the answer. The view must detect that mode and ask by ear instead.
+import { describe, expect, it, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { WordImageMcqStepView } from "./WordImageMcqStepView";
+import type { WordImageMcqStep } from "../../types";
+
+vi.mock(import("@/shared/tts"), async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    playJaAudio: vi.fn(),
+    getTtsUrl: vi.fn(() => "/tts/fake.mp3"),
+  };
+});
+vi.mock("@/shared/contexts/SettingsContext", async () => {
+  const { DEFAULT_SETTINGS } = await import("@/shared/settings/types");
+  return { useSettings: () => ({ settings: DEFAULT_SETTINGS }) };
+});
+
+const baseStep = (over: Partial<WordImageMcqStep>): WordImageMcqStep => ({
+  id: "t-1",
+  type: "word_image_mcq",
+  meaningEn: "love",
+  options: [
+    { id: "correct", word: "なに", emoji: "❓" },
+    { id: "opt-1", word: "ねこ", emoji: "🐱" },
+    { id: "opt-2", word: "いぬ", emoji: "🐶" },
+    { id: "opt-3", word: "あい", emoji: "❤️" },
+  ],
+  correctOptionId: "correct",
+  ...over,
+});
+
+describe("WordImageMcqStepView — audio-prompt mode (answer-leak regression)", () => {
+  it("audio mode (meaningEn = an option word) asks by ear and never prints the target", () => {
+    render(
+      <WordImageMcqStepView
+        step={baseStep({ meaningEn: "なに" })}
+        onComplete={() => {}}
+        onContinue={() => {}}
+      />,
+    );
+    expect(screen.getByText("Which word do you hear?")).toBeTruthy();
+    expect(screen.getByLabelText("Play audio")).toBeTruthy();
+    // The prompt heading must not contain the answer; the tile caption for
+    // なに still exists (sound→spelling is the exercise), but no "What is
+    // the word for" template may leak it.
+    expect(screen.queryByText(/What is the word for/)).toBeNull();
+  });
+
+  it("normal mode (English meaning) keeps the text prompt and no play button", () => {
+    render(
+      <WordImageMcqStepView
+        step={baseStep({ meaningEn: "love" })}
+        onComplete={() => {}}
+        onContinue={() => {}}
+      />,
+    );
+    expect(screen.getByText(/What is the word for/)).toBeTruthy();
+    expect(screen.queryByLabelText("Play audio")).toBeNull();
+    expect(screen.queryByText("Which word do you hear?")).toBeNull();
+  });
+});

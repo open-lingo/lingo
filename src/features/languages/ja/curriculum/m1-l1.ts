@@ -304,14 +304,6 @@ export const MOCK_LESSON_JA_M1_L1A: LessonContent = {
   introducesVocabIds: ["ai", "iu"],
   steps: [
     // 1. Welcome
-    {
-      id: "ja-vowel-1-info-0",
-      type: "info",
-      title: "Welcome to Japanese!",
-      body:
-        "You'll learn the five vowels — あ い う え お — across three short lessons. These are the same characters you see in anime subtitles and manga speech bubbles. Let's start with the first three: あ, い, う.",
-      variant: "culture",
-    },
 
     // 2-4. あ (a): intro → trace × 2 → recognition
     symbolIntro("ja-vowel-1-intro-a", "あ", "a", "/a/", "like 'a' in 'father'", "あい (love)"),
@@ -347,14 +339,6 @@ export const MOCK_LESSON_JA_M1_L1A: LessonContent = {
     recognition("ja-vowel-1-recog-a2", "あ", "a", "like 'a' in 'father'"),
 
     // 18. Win card
-    {
-      id: "ja-vowel-1-info-end",
-      type: "info",
-      title: "Three down, two to go!",
-      body:
-        "You've learned あ, い, う — and built your first words: あい (love) and いう (to say). Fun fact: あい (love) appears in countless anime titles — you can now spot it in the wild. Next up: え and お.",
-      variant: "win",
-    },
   ],
 };
 
@@ -376,14 +360,6 @@ export const MOCK_LESSON_JA_M1_L1B: LessonContent = {
   introducesVocabIds: ["ie", "aoi", "ue"],
   steps: [
     // 1. Intro
-    {
-      id: "ja-vowel-2-info-0",
-      type: "info",
-      title: "Two more vowels",
-      body:
-        "You already know あ, い, う. Let's add え and お — then you'll have the full set of five Japanese vowels.",
-      variant: "default",
-    },
 
     // 2-4. え (e): intro → trace × 2 → recognition
     symbolIntro("ja-vowel-2-intro-e", "え", "e", "/e/", "like 'e' in 'bed'", "いえ (house)"),
@@ -421,14 +397,6 @@ export const MOCK_LESSON_JA_M1_L1B: LessonContent = {
     listeningComp("ja-vowel-2-lc-aoi", "あおい", "aoi", "blue", ["love", "house", "above"]),
 
     // 18. Win card
-    {
-      id: "ja-vowel-2-info-end",
-      type: "info",
-      title: "All five vowels learned!",
-      body:
-        "あ い う え お — you've met them all! Plus three new words: いえ (house), あおい (blue), うえ (above). One more lesson to lock them in.",
-      variant: "win",
-    },
   ],
 };
 
@@ -451,14 +419,6 @@ export const MOCK_LESSON_JA_M1_L1C: LessonContent = {
   introducesVocabIds: ["iie"],
   steps: [
     // 1. Intro
-    {
-      id: "ja-vowel-3-info-0",
-      type: "info",
-      title: "Show what you know",
-      body:
-        "No new kana this time — just speed drills on all five vowels and every word you've built. Let's go!",
-      variant: "default",
-    },
 
     // 2-6. symbolToSound (see kana → pick romaji) for all 5 vowels
     symbolToSound("ja-vowel-3-sts-a", "あ", "a", "like 'a' in 'father'"),
@@ -498,14 +458,6 @@ export const MOCK_LESSON_JA_M1_L1C: LessonContent = {
     vowelMatchPairs("ja-vowel-3-match"),
 
     // 19. Identity-anchored win card
-    {
-      id: "ja-vowel-3-info-end",
-      type: "info",
-      title: "You can read all 5 Japanese vowels!",
-      body:
-        "あ い う え お — you can read them, write them, hear them, and say them. Six words down: あい, いう, いえ, うえ, あおい, いいえ. You can already pick out vowel kana on anime title cards and manga covers. Next: your first consonants.",
-      variant: "win",
-    },
   ],
 };
 

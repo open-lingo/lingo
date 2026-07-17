@@ -30,7 +30,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -188,11 +187,6 @@ export const M18_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m18-1-1-info-open",
-      "What's the weather?",
-      "Six words that let you talk about weather — the most universal conversation starter in any language.",
-    ),
     // ── てんき (weather) ──
     build(
       "ja-m18-1-1-build-tenki",
@@ -328,12 +322,6 @@ export const M18_1_1: LessonContent = {
       exercisedAtomKanas: ["さん"],
     }),
     reviewMatchPairs("ja-m18-1-1-rev", M18_1_1_REVIEW),
-    infoStep(
-      "ja-m18-1-1-info-end",
-      "You can now name six weather conditions in Japanese",
-      "てんき, はれ, くもり, あめ, ゆき, かぜ — the full weather report vocabulary.",
-      "win",
-    ),
   ],
 };
 
@@ -358,11 +346,6 @@ export const M18_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m18-1-2-info-open",
-      "Weather drill",
-      "Put your weather words to work — describe today's weather, ask about tomorrow's.",
-    ),
     build(
       "ja-m18-1-2-build-1",
       "Say: Tomorrow is cloudy.",
@@ -495,12 +478,6 @@ export const M18_1_2: LessonContent = {
     }),
     speaking("ja-m18-1-2-rev-speak-1", M18_1_2_REVIEW[2].kana, M18_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-1-2-rev", M18_1_2_REVIEW),
-    infoStep(
-      "ja-m18-1-2-info-end",
-      "You can now talk about the weather in Japanese",
-      "Weather vocab drilled — rain, snow, sun, clouds, wind, and how to ask about it.",
-      "win",
-    ),
   ],
 };
 
@@ -525,11 +502,6 @@ export const M18_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m18-2-1-info-open",
-      "Probably…",
-      "でしょう turns any statement into a prediction. Weather forecasters live on this word.",
-    ),
     RULE_DESHOU,
     // ── あたたかい (warm) ──
     build(
@@ -687,12 +659,6 @@ export const M18_2_1: LessonContent = {
     }),
     speaking("ja-m18-2-1-rev-speak-1", M18_2_1_REVIEW[2].kana, M18_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-2-1-rev", M18_2_1_REVIEW),
-    infoStep(
-      "ja-m18-2-1-info-end",
-      "You can now make weather predictions in Japanese",
-      "でしょう turns facts into forecasts — three temperature adjectives + weather prediction mastered.",
-      "win",
-    ),
   ],
 };
 
@@ -717,11 +683,6 @@ export const M18_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m18-2-2-info-open",
-      "Forecast drill",
-      "More でしょう practice — predict the weather, describe temperatures, build forecast sentences.",
-    ),
     build(
       "ja-m18-2-2-build-1",
       "Say: It will probably snow tomorrow.",
@@ -857,12 +818,6 @@ export const M18_2_2: LessonContent = {
     }),
     speaking("ja-m18-2-2-rev-speak-1", M18_2_2_REVIEW[2].kana, M18_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-2-2-rev", M18_2_2_REVIEW),
-    infoStep(
-      "ja-m18-2-2-info-end",
-      "You can now give weather forecasts like a Japanese newscaster",
-      "でしょう mastered — warm, cool, muggy, rain, snow, all with probability.",
-      "win",
-    ),
   ],
 };
 
@@ -887,11 +842,6 @@ export const M18_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m18-3-1-info-open",
-      "I think…",
-      "Express your opinion with とおもいます. Plus four season words — spring, summer, autumn, winter.",
-    ),
     RULE_TO_OMOIMASU,
     // ── はる (spring) ──
     build(
@@ -1012,12 +962,6 @@ export const M18_3_1: LessonContent = {
     }),
     speaking("ja-m18-3-1-rev-speak-1", M18_3_1_REVIEW[2].kana, M18_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-3-1-rev", M18_3_1_REVIEW),
-    infoStep(
-      "ja-m18-3-1-info-end",
-      "You can now express your opinions about seasons and weather",
-      "とおもいます for opinions + はる, なつ, あき, ふゆ — seasons of Japan.",
-      "win",
-    ),
   ],
 };
 
@@ -1042,11 +986,6 @@ export const M18_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m18-3-2-info-open",
-      "Opinion drill",
-      "Express opinions and predictions — when do you use でしょう vs とおもいます?",
-    ),
     build(
       "ja-m18-3-2-build-1",
       "Say: I think summer is muggy.",
@@ -1184,12 +1123,6 @@ export const M18_3_2: LessonContent = {
     }),
     speaking("ja-m18-3-2-rev-speak-1", M18_3_2_REVIEW[2].kana, M18_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-3-2-rev", M18_3_2_REVIEW),
-    infoStep(
-      "ja-m18-3-2-info-end",
-      "You can now share personal opinions in Japanese",
-      "でしょう for forecasts, とおもいます for opinions — two tools for expressing what you believe.",
-      "win",
-    ),
   ],
 };
 
@@ -1214,11 +1147,6 @@ export const M18_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m18-4-1-info-open",
-      "The natural world",
-      "Mountains, rivers, the sea — six words that open up the Japanese countryside.",
-    ),
     // ── やま (mountain) ──
     build(
       "ja-m18-4-1-build-yama",
@@ -1348,12 +1276,6 @@ export const M18_4_1: LessonContent = {
     }),
     speaking("ja-m18-4-1-rev-speak-1", M18_4_1_REVIEW[2].kana, M18_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-4-1-rev", M18_4_1_REVIEW),
-    infoStep(
-      "ja-m18-4-1-info-end",
-      "You can now name the natural world around you",
-      "やま, かわ, うみ, そら, はな, き — mountains to flowers, all in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -1379,11 +1301,6 @@ export const M18_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m18-4-2-info-open",
-      "Forest and garden",
-      "Two more nature words — plus a review of how adjectives modify nouns. Big mountain or beautiful flower?",
-    ),
     RULE_ADJ_NOUN_MOD,
     // ── もり (forest) ──
     build(
@@ -1508,12 +1425,6 @@ export const M18_4_2: LessonContent = {
     }),
     speaking("ja-m18-4-2-rev-speak-1", M18_4_2_REVIEW[2].kana, M18_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-4-2-rev", M18_4_2_REVIEW),
-    infoStep(
-      "ja-m18-4-2-info-end",
-      "You can now describe nature using adjective-noun pairs",
-      "もり and にわ added — plus い-adj direct modification vs な-adj + な. Describe any landscape.",
-      "win",
-    ),
   ],
 };
 
@@ -1538,11 +1449,6 @@ export const M18_5_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m18-5-1-info-open",
-      "Mixed drill",
-      "Predictions, opinions, and descriptions — every M18 grammar point in one session.",
-    ),
     cloze(
       "ja-m18-5-1-cloze-deshou",
       "らいしゅうは はれ",
@@ -1686,12 +1592,6 @@ export const M18_5_1: LessonContent = {
     }),
     speaking("ja-m18-5-1-rev-speak-1", M18_5_1_REVIEW[2].kana, M18_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-5-1-rev", M18_5_1_REVIEW),
-    infoStep(
-      "ja-m18-5-1-info-end",
-      "You can mix predictions, opinions, and descriptions in one sentence",
-      "でしょう + とおもいます + adjective modification — three grammar tools combined.",
-      "win",
-    ),
   ],
 };
 
@@ -1716,11 +1616,6 @@ export const M18_5_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m18-5-2-info-open",
-      "Production round",
-      "Build, translate, and speak — every M18 pattern in production direction.",
-    ),
     build(
       "ja-m18-5-2-build-1",
       "Say: I think tomorrow will be sunny.",
@@ -1854,12 +1749,6 @@ export const M18_5_2: LessonContent = {
     vocabMcq("ja-m18-5-2-rev-mcq-1", M18_5_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     speaking("ja-m18-5-2-rev-speak-2", M18_5_2_REVIEW[2].kana, M18_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-5-2-rev", M18_5_2_REVIEW),
-    infoStep(
-      "ja-m18-5-2-info-end",
-      "You can produce every M18 pattern from memory",
-      "Weather, nature, predictions, opinions, and adjective modification — all in production.",
-      "win",
-    ),
   ],
 };
 
@@ -1884,11 +1773,6 @@ export const M18_6_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m18-6-1-info-open",
-      "Japan's four seasons",
-      "Describe each season's weather — what's spring like? What do you think about winter? Use every M18 tool.",
-    ),
     build(
       "ja-m18-6-1-build-1",
       "Say: I think the weather is nice in spring.",
@@ -2020,12 +1904,6 @@ export const M18_6_1: LessonContent = {
     }),
     vocabMcq("ja-m18-6-1-rev-mcq-1", M18_6_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     reviewMatchPairs("ja-m18-6-1-rev", M18_6_1_REVIEW),
-    infoStep(
-      "ja-m18-6-1-info-end",
-      "You can now describe every season's weather and scenery",
-      "Warm springs, muggy summers, cool autumns, cold winters — predicted and opined in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -2050,11 +1928,6 @@ export const M18_6_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m18-6-2-info-open",
-      "Full production",
-      "Build and speak complex sentences — weather forecasts, seasonal opinions, nature descriptions.",
-    ),
     build(
       "ja-m18-6-2-build-1",
       "Say: I think this sea is beautiful.",
@@ -2186,12 +2059,6 @@ export const M18_6_2: LessonContent = {
     vocabMcq("ja-m18-6-2-rev-mcq-1", M18_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     speaking("ja-m18-6-2-rev-speak-2", M18_6_2_REVIEW[2].kana, M18_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-6-2-rev", M18_6_2_REVIEW),
-    infoStep(
-      "ja-m18-6-2-info-end",
-      "You can produce every M18 pattern in complex sentences",
-      "Weather, nature, seasons, predictions, and opinions — all produced from memory.",
-      "win",
-    ),
   ],
 };
 
@@ -2215,11 +2082,6 @@ export const M18_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m18-story-info-open",
-      "Story time — Weekend plans",
-      "Listen to a short story about weekend plans that depend on the weather. Answer the questions between chunks, then reply yourself.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m18-story-s1",
       narrative: [
@@ -2342,12 +2204,6 @@ export const M18_STORY: LessonContent = {
       "にわで はなを みましょう",
       "Let's look at flowers in the garden.",
     ),
-    infoStep(
-      "ja-m18-story-info-end",
-      "You followed a narrated weather-based plan",
-      "Forecasts with でしょう, opinions with とおもいます, and nature vocab — a real weekend plan in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -2373,11 +2229,6 @@ export const M18_7_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m18-7-1-info-open",
-      "Full weather & nature",
-      "Everything from M18 — weather, seasons, nature, predictions, opinions. The final mix.",
-    ),
     build(
       "ja-m18-7-1-build-1",
       "Say: I think this forest is big.",
@@ -2513,12 +2364,6 @@ export const M18_7_1: LessonContent = {
     vocabMcq("ja-m18-7-1-rev-mcq-1", M18_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     speaking("ja-m18-7-1-rev-speak-2", M18_7_1_REVIEW[2].kana, M18_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-7-1-rev", M18_7_1_REVIEW),
-    infoStep(
-      "ja-m18-7-1-info-end",
-      "You can now discuss weather, nature, and opinions fluently",
-      "Weather, nature, seasons, でしょう, とおもいます, and adjective modification — the full M18 toolkit.",
-      "win",
-    ),
   ],
 };
 
@@ -2543,11 +2388,6 @@ export const M18_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m18-7-2-info-open",
-      "Full production wrap-up",
-      "Build, translate, and speak: every M18 pattern in production direction.",
-    ),
     build(
       "ja-m18-7-2-build-1",
       "Say: Winter will probably have a lot of snow.",
@@ -2679,12 +2519,6 @@ export const M18_7_2: LessonContent = {
     vocabMcq("ja-m18-7-2-rev-mcq-1", M18_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M18_REVIEW_POOL),
     speaking("ja-m18-7-2-rev-speak-2", M18_7_2_REVIEW[2].kana, M18_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m18-7-2-rev", M18_7_2_REVIEW),
-    infoStep(
-      "ja-m18-7-2-info-end",
-      "You can produce every M18 weather and nature pattern from memory",
-      "Weather, nature, seasons, predictions, opinions, and adjective modification — all produced. M18 complete.",
-      "win",
-    ),
   ],
 };
 

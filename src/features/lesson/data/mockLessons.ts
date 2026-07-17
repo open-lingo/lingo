@@ -340,6 +340,7 @@ import { GENERATED_HIRAGANA_LESSONS } from "./generatedHiraganaLessons";
 import { withKanaReviewTail } from "./kanaReviewTails";
 import { padMatchPairsFloor, type MatchPadContext } from "./matchPairsFloor";
 import { padBuildTileFloor } from "./buildTileFloor";
+import { applyKanjiSurfaces } from "@/features/languages/ja/secondScript/applyKanjiSurfaces";
 import { deriveGrammarMicroSteps } from "./deriveGrammarMicroSteps";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { ALL_ROWS } from "./hiraganaCurriculum";
@@ -1032,29 +1033,44 @@ export function getMockLessonContent(
     const shaped = isSunsetModuleForBuildSentence(augmented.moduleId)
       ? stripBuildSentenceSteps(augmented)
       : augmented;
-    return padBuildTileFloor(
-      padMatchPairsFloor(shaped, getMatchPadContext(shaped.languageId)),
+    // Kanji surface pass runs on the fully-shaped lesson (needs moduleId),
+    // beside the tile/pair pads. It edits ONLY *Annotation display fields, so
+    // it commutes with the pads (disjoint fields) — see applyKanjiSurfaces.
+    return applyKanjiSurfaces(
+      padBuildTileFloor(
+        padMatchPairsFloor(shaped, getMatchPadContext(shaped.languageId)),
+      ),
     );
   }
 
   const reviewMatch = /^ja-(m\d+)-review-([12])$/.exec(lessonId);
   if (reviewMatch) {
-    return padBuildTileFloor(
-      padMatchPairsFloor(
-        buildSrsReviewLesson({
-          moduleId: reviewMatch[1],
-          position: parseInt(reviewMatch[2]) as 1 | 2,
-          courseId: "mock-1",
-          languageId: "ja",
-        }),
-        getMatchPadContext("ja"),
+    // Reviews inherit the kanji surface layer via the SAME pass: the review
+    // lesson's moduleId is where the learner is, so an m10 review of m8 vocab
+    // shows kanji with furigana OFF (past the m8+2 window) while m9 vocab
+    // (window m9‑m10) still shows furigana — the owner's "reviews bake in m8 &
+    // m9 production systematically".
+    return applyKanjiSurfaces(
+      padBuildTileFloor(
+        padMatchPairsFloor(
+          buildSrsReviewLesson({
+            moduleId: reviewMatch[1],
+            position: parseInt(reviewMatch[2]) as 1 | 2,
+            courseId: "mock-1",
+            languageId: "ja",
+          }),
+          getMatchPadContext("ja"),
+        ),
       ),
     );
   }
 
-  // Placement test — dynamically built, not in the static LESSONS map.
+  // Placement test — dynamically built, not in the static LESSONS map. Routed
+  // through the same pass for consistency, but its moduleId is "placement"
+  // (not "mN"), so the pass no-ops (module 0 < the m8 floor): placement stays
+  // kana in v1, matching the spec's "gate below the recognition floor".
   if (lessonId === "ja-placement") {
-    return buildPlacementTest();
+    return applyKanjiSurfaces(buildPlacementTest());
   }
 
   return null;

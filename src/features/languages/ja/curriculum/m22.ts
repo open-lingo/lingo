@@ -33,7 +33,6 @@ import {
   cloze,
   dialogueListen,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -193,11 +192,6 @@ export const M22_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-1-1-info-open",
-      "Comparing things",
-      "Five words that let you compare anything: same, different, more, most, and direction. These are your comparison building blocks.",
-    ),
     // ── おなじ (same) ──
     build(
       "ja-m22-1-1-build-onaji",
@@ -323,12 +317,6 @@ export const M22_1_1: LessonContent = {
     }),
     speaking("ja-m22-1-1-rev-speak-1", M22_1_1_REVIEW[2].kana, M22_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-1-1-rev", M22_1_1_REVIEW),
-    infoStep(
-      "ja-m22-1-1-info-end",
-      "You can now say things are the same, different, more, or the most",
-      "Five comparison words: おなじ, ちがう, もっと, いちばん, ほう — the foundation for everything that follows.",
-      "win",
-    ),
   ],
 };
 
@@ -354,11 +342,6 @@ export const M22_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-1-2-info-open",
-      "Comparing food and places",
-      "Time to use those comparison words with food and cities. Three new food words to work with.",
-    ),
     // ── レストラン (restaurant) ──
     build(
       "ja-m22-1-2-build-resutoran",
@@ -486,12 +469,6 @@ export const M22_1_2: LessonContent = {
     }),
     speaking("ja-m22-1-2-rev-speak-1", M22_1_2_REVIEW[2].kana, M22_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-1-2-rev", M22_1_2_REVIEW),
-    infoStep(
-      "ja-m22-1-2-info-end",
-      "You can now compare foods and restaurants using もっと and いちばん",
-      "Comparison vocab in context — レストラン, ラーメン, カレー with おなじ, ちがう, もっと, いちばん.",
-      "win",
-    ),
   ],
 };
 
@@ -517,11 +494,6 @@ export const M22_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-2-1-info-open",
-      "Comparing two things",
-      "The core comparison: 'A is more [adj] than B.' Three food words to compare.",
-    ),
     RULE_HOU_GA_YORI,
     // ── にく (meat) ──
     build(
@@ -638,12 +610,6 @@ export const M22_2_1: LessonContent = {
     }),
     speaking("ja-m22-2-1-rev-speak-1", M22_2_1_REVIEW[2].kana, M22_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-2-1-rev", M22_2_1_REVIEW),
-    infoStep(
-      "ja-m22-2-1-info-end",
-      "You can now say which of two foods is more expensive or delicious",
-      "のほうが〜より comparison with にく, さかな, やさい — production-ready.",
-      "win",
-    ),
   ],
 };
 
@@ -669,11 +635,6 @@ export const M22_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-2-2-info-open",
-      "More comparisons",
-      "Comparing cities, foods, and sizes — eight drills to make のほうが〜より automatic.",
-    ),
     // ── くだもの (fruit) ──
     build(
       "ja-m22-2-2-build-kudamono",
@@ -823,12 +784,6 @@ export const M22_2_2: LessonContent = {
     }),
     speaking("ja-m22-2-2-rev-speak-1", M22_2_2_REVIEW[2].kana, M22_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-2-2-rev", M22_2_2_REVIEW),
-    infoStep(
-      "ja-m22-2-2-info-end",
-      "You can now compare any two things using のほうが〜より",
-      "Comparative pattern drilled with foods and cities — you own this structure.",
-      "win",
-    ),
   ],
 };
 
@@ -854,11 +809,6 @@ export const M22_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-3-1-info-open",
-      "The best among a group",
-      "You know いちばん already. Now the full superlative pattern: 'among X, Y is the most [adj].' Four cities to compare.",
-    ),
     RULE_NAKA_DE_ICHIBAN,
     // ── おおさか (Osaka) ──
     build(
@@ -985,12 +935,6 @@ export const M22_3_1: LessonContent = {
     }),
     speaking("ja-m22-3-1-rev-speak-1", M22_3_1_REVIEW[2].kana, M22_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-3-1-rev", M22_3_1_REVIEW),
-    infoStep(
-      "ja-m22-3-1-info-end",
-      "You can now say which city or food is the most anything in a group",
-      "のなかで〜がいちばん — the superlative pattern. Four Japanese cities learned.",
-      "win",
-    ),
   ],
 };
 
@@ -1016,11 +960,6 @@ export const M22_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-3-2-info-open",
-      "Superlative drill",
-      "More practice with 'the most among.' Three new adjectives — famous, quiet, lively — for richer comparisons.",
-    ),
     // ── ゆうめい (famous) ──
     build(
       "ja-m22-3-2-build-yuumei",
@@ -1163,12 +1102,6 @@ export const M22_3_2: LessonContent = {
     }),
     speaking("ja-m22-3-2-rev-speak-1", M22_3_2_REVIEW[2].kana, M22_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-3-2-rev", M22_3_2_REVIEW),
-    infoStep(
-      "ja-m22-3-2-info-end",
-      "You can now pick the most famous, quiet, or lively from any group",
-      "Superlative with ゆうめい, しずか, にぎやか — the pattern is automatic now.",
-      "win",
-    ),
   ],
 };
 
@@ -1194,11 +1127,6 @@ export const M22_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-4-1-info-open",
-      "Choosing between two",
-      "You can compare A and B. Now ask: 'which one is more [adj]?' Plus three useful adjectives — convenient, inconvenient, beautiful.",
-    ),
     RULE_DOCHIRA,
     // ── べんり (convenient) ──
     build(
@@ -1322,12 +1250,6 @@ export const M22_4_1: LessonContent = {
     }),
     speaking("ja-m22-4-1-rev-speak-1", M22_4_1_REVIEW[2].kana, M22_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-4-1-rev", M22_4_1_REVIEW),
-    infoStep(
-      "ja-m22-4-1-info-end",
-      "You can now ask which of two things someone prefers",
-      "どちらが + adjective — the question pattern for pair comparisons.",
-      "win",
-    ),
   ],
 };
 
@@ -1353,11 +1275,6 @@ export const M22_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-4-2-info-open",
-      "Asking and answering",
-      "Full Q&A drills: ask with どちら, answer with のほうが. Plus パスタ and まち.",
-    ),
     // ── パスタ (pasta) ──
     build(
       "ja-m22-4-2-build-pasuta",
@@ -1512,12 +1429,6 @@ export const M22_4_2: LessonContent = {
     }),
     vocabMcq("ja-m22-4-2-rev-mcq-1", M22_4_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M22_REVIEW_POOL),
     reviewMatchPairs("ja-m22-4-2-rev", M22_4_2_REVIEW),
-    infoStep(
-      "ja-m22-4-2-info-end",
-      "You can now ask and answer 'which of two' for any comparison",
-      "どちら/どっち questions + のほうが answers — full Q&A loop.",
-      "win",
-    ),
   ],
 };
 
@@ -1542,11 +1453,6 @@ export const M22_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-5-1-info-open",
-      "Mixing comparisons",
-      "Comparative (two things) and superlative (three+) back-to-back. Can you switch between them smoothly?",
-    ),
     // ── Interleaved drills ──
     cloze(
       "ja-m22-5-1-cloze-yori",
@@ -1681,12 +1587,6 @@ export const M22_5_1: LessonContent = {
     }),
     speaking("ja-m22-5-1-rev-speak-1", M22_5_1_REVIEW[2].kana, M22_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-5-1-rev", M22_5_1_REVIEW),
-    infoStep(
-      "ja-m22-5-1-info-end",
-      "You can now switch between pair comparisons and group superlatives",
-      "のほうが〜より and のなかで〜がいちばん — interleaved and production-ready.",
-      "win",
-    ),
   ],
 };
 
@@ -1711,11 +1611,6 @@ export const M22_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-5-2-info-open",
-      "Full comparison rotation",
-      "All three patterns at once: comparative, superlative, and どちら questions. Production-heavy.",
-    ),
     build(
       "ja-m22-5-2-build-dochira",
       "Ask: Which is more famous, Osaka or Kyoto?",
@@ -1859,12 +1754,6 @@ export const M22_5_2: LessonContent = {
     }),
     speaking("ja-m22-5-2-rev-speak-1", M22_5_2_REVIEW[2].kana, M22_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-5-2-rev", M22_5_2_REVIEW),
-    infoStep(
-      "ja-m22-5-2-info-end",
-      "You own all three comparison patterns in production",
-      "Comparative, superlative, and which-of-two — all interleaved and automatic.",
-      "win",
-    ),
   ],
 };
 
@@ -1889,11 +1778,6 @@ export const M22_6_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-6-1-info-open",
-      "Full production",
-      "Time to produce comparisons from scratch. Build, speak, translate — no recognition crutches.",
-    ),
     build(
       "ja-m22-6-1-build-1",
       "Say: Meat is more expensive than vegetables.",
@@ -2012,12 +1896,6 @@ export const M22_6_1: LessonContent = {
     }),
     speaking("ja-m22-6-1-rev-speak-1", M22_6_1_REVIEW[2].kana, M22_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-6-1-rev", M22_6_1_REVIEW),
-    infoStep(
-      "ja-m22-6-1-info-end",
-      "You can now produce full comparisons from English prompts",
-      "Build, speak, and translate — all three comparison patterns in production.",
-      "win",
-    ),
   ],
 };
 
@@ -2042,11 +1920,6 @@ export const M22_6_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-6-2-info-open",
-      "Production round two",
-      "More building and speaking. Every comparison structure at production level.",
-    ),
     build(
       "ja-m22-6-2-build-1",
       "Ask: Which city is more beautiful, Kyoto or Hiroshima?",
@@ -2177,12 +2050,6 @@ export const M22_6_2: LessonContent = {
     }),
     vocabMcq("ja-m22-6-2-rev-mcq-1", M22_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M22_REVIEW_POOL),
     reviewMatchPairs("ja-m22-6-2-rev", M22_6_2_REVIEW),
-    infoStep(
-      "ja-m22-6-2-info-end",
-      "You can now produce every comparison pattern from memory",
-      "All three structures — comparative, superlative, which-of-two — in full production. Comparison module conquered.",
-      "win",
-    ),
   ],
 };
 
@@ -2205,11 +2072,6 @@ export const M22_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m22-story-info-open",
-      "Story time — Yuki's town",
-      "ゆき tells you about her town, its restaurants, and her favorite food. Listen and reply.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m22-story-scene-1",
       narrative: [
@@ -2335,12 +2197,6 @@ export const M22_STORY: LessonContent = {
       "この レストランのほうが やすいです",
       "This restaurant is cheaper.",
     ),
-    infoStep(
-      "ja-m22-story-info-end",
-      "You can follow a story comparing restaurants and food",
-      "You understood comparative, superlative, and which-of-two patterns in a real narrative — and replied in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -2366,11 +2222,6 @@ export const M22_7_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-7-1-info-open",
-      "Comparing cities",
-      "A longer conversation about comparing Japanese cities. Listen, answer, and produce.",
-    ),
     dialogueListen({
       id: "ja-m22-7-1-dialogue",
       lines: [
@@ -2501,12 +2352,6 @@ export const M22_7_1: LessonContent = {
     }),
     speaking("ja-m22-7-1-rev-speak-1", M22_7_1_REVIEW[2].kana, M22_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-7-1-rev", M22_7_1_REVIEW),
-    infoStep(
-      "ja-m22-7-1-info-end",
-      "You can now follow and join a conversation comparing Japanese cities",
-      "Comparative and superlative in a real dialogue — listening, answering, and producing.",
-      "win",
-    ),
   ],
 };
 
@@ -2531,11 +2376,6 @@ export const M22_7_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m22-7-2-info-open",
-      "Final comparison drill",
-      "Everything from M22 mixed together. Prove you own every comparison pattern.",
-    ),
     build(
       "ja-m22-7-2-build-1",
       "Say: This curry is more delicious than that ramen.",
@@ -2667,12 +2507,6 @@ export const M22_7_2: LessonContent = {
     }),
     speaking("ja-m22-7-2-rev-speak-1", M22_7_2_REVIEW[2].kana, M22_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m22-7-2-rev", M22_7_2_REVIEW),
-    infoStep(
-      "ja-m22-7-2-info-end",
-      "You can now compare, rank, and choose between anything in Japanese",
-      "All M22 grammar mastered: のほうが〜より, のなかで〜がいちばん, and どちら — in full production.",
-      "win",
-    ),
   ],
 };
 

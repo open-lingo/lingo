@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { KANA_ROMAJI, tokenizeJapanese } from "./kanaTable";
+import { KANA_ROMAJI, containsKanji, tokenizeJapanese } from "./kanaTable";
 
 /** hiragana yōon → its katakana counterpart, computed by codepoint shift
  *  (ぁ U+3041 … ゖ U+3096 map to ァ U+30A1 … ヶ U+30F6 at +0x60). */
@@ -23,6 +23,37 @@ describe("KANA_ROMAJI syllabary parity", () => {
         KANA_ROMAJI[hira],
       );
     }
+  });
+});
+
+describe("containsKanji", () => {
+  it("is true for a pure-kanji surface", () => {
+    expect(containsKanji("日本語")).toBe(true);
+  });
+
+  it("is true when kanji is mixed with kana (typical word shape)", () => {
+    expect(containsKanji("食べる")).toBe(true);
+    expect(containsKanji("学生")).toBe(true);
+  });
+
+  it("is false for pure hiragana or pure katakana", () => {
+    expect(containsKanji("にほんご")).toBe(false);
+    expect(containsKanji("ジュース")).toBe(false);
+    expect(containsKanji("アメリカじん")).toBe(false);
+  });
+
+  it("counts 々 (the kanji iteration mark) as kanji even alone", () => {
+    // 々 (U+3005) is not itself a CJK Unified Ideograph but reads as
+    // kanji for every purpose here (e.g. 時々, 人々).
+    expect(containsKanji("々")).toBe(true);
+    expect(containsKanji("時々")).toBe(true);
+  });
+
+  it("is false for latin text, digits, punctuation, and the empty string", () => {
+    expect(containsKanji("hello")).toBe(false);
+    expect(containsKanji("123")).toBe(false);
+    expect(containsKanji("!?。、")).toBe(false);
+    expect(containsKanji("")).toBe(false);
   });
 });
 

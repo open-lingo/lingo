@@ -106,11 +106,20 @@ export const MOCK_LESSON_JA_M2_Z_1: LessonContent = {
   steps: [
     {
       id: "ja-z1-info-open",
-      type: "info",
+      type: "grammar_rule",
       title: "S → Z (with one twist)",
-      body:
-        "Dakuten ゛ voices s-kana: さ→ざ, す→ず, せ→ぜ, そ→ぞ. One quirk: し voiced is じ, pronounced 'ji' (not 'zi') — same shore→jaw change as English.",
-      variant: "culture",
+      rule:
+        "Dakuten ゛ voices s-kana: さ→ざ, す→ず, せ→ぜ, そ→ぞ. One quirk: し voiced is じ, pronounced 'ji' (not 'zi').",
+      examples: [
+        { ja: "さ → ざ", romaji: "sa → za", en: "voiced s becomes z" },
+        { ja: "し → じ", romaji: "shi → ji", en: "voiced shi becomes ji, not zi" },
+      ],
+      antiPattern: {
+        ja: "し → ぜ",
+        romaji: "shi → ze",
+        en: "(reading し's voiced form as 'zi/ze')",
+        why: "し voiced is じ ('ji'), following the shi→ji shift — not 'zi'.",
+      },
     },
 
     // ─── Char 1: ざ (za) → no anchor here; spend the slot on a kana drill ─
@@ -241,14 +250,6 @@ export const MOCK_LESSON_JA_M2_Z_3: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    {
-      id: "ja-z3-info-open",
-      type: "info",
-      title: "Putting it together",
-      body:
-        "Quick review of everything from the z-row, plus a few words from earlier rows so they stay sharp.",
-      variant: "default",
-    },
 
     wordImageMcq(ctxSub3, "ja-z3-mcq-mizu", "みず"),
     symbolToSound(ctxSub3, "ja-z3-s2s-ji", "じ", "ji", "voiced し — 'ji'"),

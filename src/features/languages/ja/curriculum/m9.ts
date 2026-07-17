@@ -25,7 +25,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -96,11 +95,6 @@ export const M9_1_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-1-1-info-open",
-      "A new kind of adjective",
-      "Japanese has TWO adjective families. You already know い-adjectives (おおきい, あつい). Now meet な-adjectives — they look different and conjugate differently.",
-    ),
     grammarRule({
       id: "ja-m9-1-1-rule-na-adj",
       grammarPointId: "na-adj-present",
@@ -238,12 +232,6 @@ export const M9_1_1: LessonContent = {
     }),
     speaking("ja-m9-1-1-rev-speak-1", M9_1_1_REVIEW[2].kana, M9_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m9-1-1-rev", M9_1_1_REVIEW),
-    infoStep(
-      "ja-m9-1-1-info-end",
-      "You can now describe things as pretty or quiet using な-adjectives",
-      "きれいです (it's pretty), しずかです (it's quiet), and the な connector before nouns — a whole new adjective family.",
-      "win",
-    ),
   ],
 };
 
@@ -268,11 +256,6 @@ export const M9_1_2: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-1-2-info-open",
-      "Drill time — な in action",
-      "You know きれい and しずか. Now use them in real sentences — both as predicates (きれいです) and before nouns (きれいな...).",
-    ),
     // ── Predicate + attributive drills ──
     cloze(
       "ja-m9-1-2-cloze-na-1",
@@ -432,12 +415,6 @@ export const M9_1_2: LessonContent = {
     }),
     speaking("ja-m9-1-2-rev-speak-1", M9_1_2_REVIEW[2].kana, M9_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m9-1-2-rev", M9_1_2_REVIEW),
-    infoStep(
-      "ja-m9-1-2-info-end",
-      "You can now use な-adjectives as predicates AND before nouns",
-      "きれいです (predicate) vs きれいな はな (before noun) — two positions, one adjective family. The な connector is the key.",
-      "win",
-    ),
   ],
 };
 
@@ -462,11 +439,6 @@ export const M9_2_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-2-1-info-open",
-      "What do you like?",
-      "すき (like) and きらい (dislike) are な-adjectives — yes, even きらい which ends in い! The pattern: Xが すきです = 'I like X.'",
-    ),
     grammarRule({
       id: "ja-m9-2-1-rule-suki",
       title: "Xが すきです — the 'like' pattern",
@@ -600,12 +572,6 @@ export const M9_2_1: LessonContent = {
     }),
     speaking("ja-m9-2-1-rev-speak-1", M9_2_1_REVIEW[3].kana, M9_2_1_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m9-2-1-rev", M9_2_1_REVIEW),
-    infoStep(
-      "ja-m9-2-1-info-end",
-      "You can now say what you like and dislike in Japanese",
-      "コーヒーが すきです (I like coffee), さかなが きらいです (I dislike fish). The が particle marks what you like — because すき and きらい are adjectives, not verbs.",
-      "win",
-    ),
   ],
 };
 
@@ -630,11 +596,6 @@ export const M9_2_2: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-2-2-info-open",
-      "What do YOU like?",
-      "Drill すき and きらい with が across different topics — food, animals, places. The pattern stays the same: Xが すきです.",
-    ),
     cloze(
       "ja-m9-2-2-cloze-ga-1",
       "ラーメン",
@@ -773,12 +734,6 @@ export const M9_2_2: LessonContent = {
     }),
     speaking("ja-m9-2-2-rev-speak-1", M9_2_2_REVIEW[2].kana, M9_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m9-2-2-rev", M9_2_2_REVIEW),
-    infoStep(
-      "ja-m9-2-2-info-end",
-      "You can now express your likes and dislikes naturally in Japanese",
-      "Xが すきです and Xが きらいです — with が, not を. You also know すきな たべもの (favorite food) uses な before a noun.",
-      "win",
-    ),
   ],
 };
 
@@ -803,11 +758,6 @@ export const M9_3_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-3-1-info-open",
-      "Skills — good at this, bad at that",
-      "じょうず (skilled/good at) and へた (unskilled/bad at) are な-adjectives. They use the same Xが pattern as すき: にほんごが じょうずです.",
-    ),
     // ── じょうず (skilled) — build intro ──
     build(
       "ja-m9-3-1-build-jouzu",
@@ -932,12 +882,6 @@ export const M9_3_1: LessonContent = {
     }),
     speaking("ja-m9-3-1-rev-speak-1", M9_3_1_REVIEW[2].kana, M9_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m9-3-1-rev", M9_3_1_REVIEW),
-    infoStep(
-      "ja-m9-3-1-info-end",
-      "You can now talk about skills — what you're good at and bad at",
-      "にほんごが じょうずです (good at Japanese), りょうりが へたです (bad at cooking). Same が pattern as すき/きらい.",
-      "win",
-    ),
   ],
 };
 
@@ -962,11 +906,6 @@ export const M9_3_2: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-3-2-info-open",
-      "Spot the difference: い vs な",
-      "You know both kinds now. い-adjectives (おおきい) and な-adjectives (じょうず). They look different before nouns and in negatives.",
-    ),
     sentenceMcq({
       id: "ja-m9-3-2-mcq-type-1",
       prompt: "きれい is a...",
@@ -1101,12 +1040,6 @@ export const M9_3_2: LessonContent = {
     }),
     speaking("ja-m9-3-2-rev-speak-1", M9_3_2_REVIEW[3].kana, M9_3_2_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m9-3-2-rev", M9_3_2_REVIEW),
-    infoStep(
-      "ja-m9-3-2-info-end",
-      "You can now tell い-adjectives from な-adjectives — even the tricky ones",
-      "おおきい いぬ (い stays) vs きれいな はな (な added). The endings look similar but the grammar is different. You won't fall for the きれい trap again.",
-      "win",
-    ),
   ],
 };
 
@@ -1131,11 +1064,6 @@ export const M9_4_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-4-1-info-open",
-      "Everyday feelings — and how to emphasize them",
-      "Four words for daily life: げんき (energetic/well), ひま (free/not busy), たいへん (tough), だいじょうぶ (okay). Plus よ — a sentence-ender that adds punch.",
-    ),
     // ── げんき (healthy/energetic) ──
     build(
       "ja-m9-4-1-build-genki",
@@ -1273,12 +1201,6 @@ export const M9_4_1: LessonContent = {
     }),
     speaking("ja-m9-4-1-rev-speak-1", M9_4_1_REVIEW[2].kana, M9_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m9-4-1-rev", M9_4_1_REVIEW),
-    infoStep(
-      "ja-m9-4-1-info-end",
-      "You can now describe how you feel — and say it with conviction",
-      "げんきですよ (I'm well, really!), たいへんです (it's tough), だいじょうぶですよ (it's okay, trust me). よ adds that extra punch.",
-      "win",
-    ),
   ],
 };
 
@@ -1303,11 +1225,6 @@ export const M9_4_2: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-4-2-info-open",
-      "Two sentence-enders — one asserts, one invites",
-      "You know よ (emphasis). Now meet ね — it seeks agreement. 'きれいですね' = 'It's pretty, isn't it?' Both go after です/ます.",
-    ),
     grammarRule({
       id: "ja-m9-4-2-rule-ne",
       grammarPointId: "ne-agreement",
@@ -1452,12 +1369,6 @@ export const M9_4_2: LessonContent = {
     }),
     speaking("ja-m9-4-2-rev-speak-1", M9_4_2_REVIEW[2].kana, M9_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m9-4-2-rev", M9_4_2_REVIEW),
-    infoStep(
-      "ja-m9-4-2-info-end",
-      "You can now emphasize with よ and invite agreement with ね",
-      "だいじょうぶですよ (It's okay, trust me!) vs きれいですね (It's pretty, isn't it?). Two tiny particles that transform how your sentences feel.",
-      "win",
-    ),
   ],
 };
 
@@ -1482,11 +1393,6 @@ export const M9_5_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-5-1-info-open",
-      "Useful or not? Simple or not?",
-      "べんり (convenient), ふべん (inconvenient), かんたん (simple/easy). Plus the big one: how to say 'NOT' with な-adjectives.",
-    ),
     // ── べんり (convenient) ──
     build(
       "ja-m9-5-1-build-benri",
@@ -1630,12 +1536,6 @@ export const M9_5_1: LessonContent = {
     }),
     speaking("ja-m9-5-1-rev-speak-1", M9_5_1_REVIEW[3].kana, M9_5_1_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m9-5-1-rev", M9_5_1_REVIEW),
-    infoStep(
-      "ja-m9-5-1-info-end",
-      "You can now say what's convenient, simple, and — crucially — what's NOT",
-      "べんりです (convenient) → べんりじゃないです (not convenient). The negative is completely different from い-adjectives. No more くないです confusion.",
-      "win",
-    ),
   ],
 };
 
@@ -1660,11 +1560,6 @@ export const M9_5_2: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-5-2-info-open",
-      "Negative drill — な-style only",
-      "Practice saying things are NOT something using な-adjective negatives. Every one uses じゃないです, never くないです.",
-    ),
     cloze(
       "ja-m9-5-2-cloze-neg-1",
       "げんき",
@@ -1799,12 +1694,6 @@ export const M9_5_2: LessonContent = {
     }),
     speaking("ja-m9-5-2-rev-speak-1", M9_5_2_REVIEW[2].kana, M9_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m9-5-2-rev", M9_5_2_REVIEW),
-    infoStep(
-      "ja-m9-5-2-info-end",
-      "You can now negate any な-adjective cleanly",
-      "すきじゃないです, きれいじゃないです, げんきじゃないです — all the same pattern. You'll never confuse it with the い-adjective くないです again.",
-      "win",
-    ),
   ],
 };
 
@@ -1829,11 +1718,6 @@ export const M9_6_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-6-1-info-open",
-      "How famous? How lively? Degree words.",
-      "ゆうめい (famous) and にぎやか (lively/bustling). Plus three degree words: とても (very), すこし (a little), ちょっと (a bit — casual).",
-    ),
     // ── ゆうめい (famous) ──
     build(
       "ja-m9-6-1-build-yuumei",
@@ -1973,12 +1857,6 @@ export const M9_6_1: LessonContent = {
     }),
     speaking("ja-m9-6-1-rev-speak-1", M9_6_1_REVIEW[2].kana, M9_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m9-6-1-rev", M9_6_1_REVIEW),
-    infoStep(
-      "ja-m9-6-1-info-end",
-      "You can now describe HOW much — very famous, a little quiet, a bit inconvenient",
-      "とても ゆうめいです (very famous), すこし しずかです (a little quiet), ちょっと ふべんです (a bit inconvenient). Degree words slot right before the adjective.",
-      "win",
-    ),
   ],
 };
 
@@ -2003,11 +1881,6 @@ export const M9_6_2: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-6-2-info-open",
-      "Dial it up or down",
-      "Mix degree adverbs freely: とても (very), すこし (a little), ちょっと (a bit). All slot right before the adjective. You'll also meet こんな — 'this kind of.'",
-    ),
     cloze(
       "ja-m9-6-2-cloze-totemo",
       "",
@@ -2167,12 +2040,6 @@ export const M9_6_2: LessonContent = {
     }),
     speaking("ja-m9-6-2-rev-speak-1", M9_6_2_REVIEW[2].kana, M9_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m9-6-2-rev", M9_6_2_REVIEW),
-    infoStep(
-      "ja-m9-6-2-info-end",
-      "You can now express degrees — from 'a bit' to 'very' with any adjective",
-      "とても (very), すこし (a little), ちょっと (a bit) — all slot before the adjective and stack with よ/ね naturally. And こんな まち (a town like this) points at the kind of thing you mean.",
-      "win",
-    ),
   ],
 };
 
@@ -2195,11 +2062,6 @@ export const M9_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m9-story-info-open",
-      "Story time — visiting a friend's town",
-      "Listen to a short story about visiting a friend's town. Answer the questions between chunks, then reply to your friend yourself.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m9-story-s1",
       narrative: [
@@ -2327,12 +2189,6 @@ export const M9_STORY: LessonContent = {
       "ゆうめいな レストランですね",
       "It's a famous restaurant, isn't it?",
     ),
-    infoStep(
-      "ja-m9-story-info-end",
-      "You just followed a real story about a friend's town",
-      "しずか, きれい, ゆうめい, にぎやか — with とても, すこし, こんな, and the sentence-final ね/よ. That's natural narrated Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -2358,11 +2214,6 @@ export const M9_7_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-7-1-info-open",
-      "The ultimate test — い or な?",
-      "Some adjectives end in い but are な-adjectives (きれい, きらい, ゆうめい). Others truly are い-adjectives (おおきい, あつい). Can you tell them apart?",
-    ),
     sentenceMcq({
       id: "ja-m9-7-1-mcq-kirei-class",
       prompt: "きれい (pretty) — which class?",
@@ -2508,12 +2359,6 @@ export const M9_7_1: LessonContent = {
     }),
     speaking("ja-m9-7-1-rev-speak-1", M9_7_1_REVIEW[3].kana, M9_7_1_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m9-7-1-rev", M9_7_1_REVIEW),
-    infoStep(
-      "ja-m9-7-1-info-end",
-      "You can now classify any adjective as い or な — even the sneaky ones",
-      "The conjugation test: can you drop the い and add くない? If yes → い-adj. If no → な-adj. きれい, きらい, ゆうめい = all な-adj traps conquered.",
-      "win",
-    ),
   ],
 };
 
@@ -2538,11 +2383,6 @@ export const M9_7_2: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m9-7-2-info-open",
-      "Put it all together",
-      "Everything from M9 in full production: な-adjectives, じゃないです negatives, とても/すこし/ちょっと, and よ/ね. Time to speak.",
-    ),
     build(
       "ja-m9-7-2-build-totemo-kirei-ne",
       "Say: This flower is very pretty, isn't it?",
@@ -2689,12 +2529,6 @@ export const M9_7_2: LessonContent = {
     }),
     speaking("ja-m9-7-2-rev-speak-1", M9_7_2_REVIEW[2].kana, M9_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m9-7-2-rev", M9_7_2_REVIEW),
-    infoStep(
-      "ja-m9-7-2-info-end",
-      "You can now produce full Japanese sentences with な-adjectives, degree words, and natural sentence-final particles",
-      "From きれいですね (pretty, right?) to すきな たべものは なんですか (What's your favorite food?) — you're speaking real, natural Japanese.",
-      "win",
-    ),
   ],
 };
 

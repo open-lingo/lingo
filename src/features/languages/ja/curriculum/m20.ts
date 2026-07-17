@@ -32,7 +32,6 @@ import {
   cloze,
   dialogueListen,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -187,11 +186,6 @@ export const M20_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m20-1-1-info-open",
-      "Your head and face — six words",
-      "あたま (head), かお (face), め (eyes), みみ (ears), はな (nose), くち (mouth). Name every part of your face in Japanese.",
-    ),
     // ── あたま (head) ──
     build(
       "ja-m20-1-1-build-atama",
@@ -321,12 +315,6 @@ export const M20_1_1: LessonContent = {
     }),
     speaking("ja-m20-1-1-rev-speak-1", M20_1_1_REVIEW[2].kana, M20_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-1-1-rev", M20_1_1_REVIEW),
-    infoStep(
-      "ja-m20-1-1-info-end",
-      "You can name every part of your head and face in Japanese",
-      "あたま, かお, め, みみ, はな, くち — six words for describing what you see in the mirror.",
-      "win",
-    ),
   ],
 };
 
@@ -351,11 +339,6 @@ export const M20_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m20-1-2-info-open",
-      "Head to toe — seven more",
-      "は (teeth), て (hands), あし (feet/legs), おなか (stomach), せなか (back), ゆび (fingers), かみ (hair).",
-    ),
     // ── は (teeth) ──
     build(
       "ja-m20-1-2-build-ha",
@@ -513,12 +496,6 @@ export const M20_1_2: LessonContent = {
     }),
     speaking("ja-m20-1-2-rev-speak-1", M20_1_2_REVIEW[2].kana, M20_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-1-2-rev", M20_1_2_REVIEW),
-    infoStep(
-      "ja-m20-1-2-info-end",
-      "You can name body parts from head to toe",
-      "は, て, あし, おなか, せなか, ゆび, かみ. Thirteen body words total across two lessons.",
-      "win",
-    ),
   ],
 };
 
@@ -543,11 +520,6 @@ export const M20_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m20-2-1-info-open",
-      "Ouch — saying what hurts",
-      "[Body part] + がいたいです = 'My [body part] hurts.' The single most useful pattern at a Japanese clinic.",
-    ),
     RULE_GA_ITAI,
     // ── あたまがいたい (headache) ──
     build(
@@ -653,12 +625,6 @@ export const M20_2_1: LessonContent = {
     }),
     speaking("ja-m20-2-1-rev-speak-1", M20_2_1_REVIEW[2].kana, M20_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-2-1-rev", M20_2_1_REVIEW),
-    infoStep(
-      "ja-m20-2-1-info-end",
-      "You can tell a doctor exactly what hurts",
-      "[Body part]がいたいです — head, stomach, teeth, back, eyes, fingers. The clinic phrase you'll actually use.",
-      "win",
-    ),
   ],
 };
 
@@ -683,11 +649,6 @@ export const M20_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m20-2-2-info-open",
-      "At the clinic",
-      "Pain patterns plus four medical words: sick, medicine, doctor, fever. Essential health vocabulary.",
-    ),
     // ── びょうき (illness) ──
     vocabMcq(
       "ja-m20-2-2-mcq-byouki",
@@ -838,12 +799,6 @@ export const M20_2_2: LessonContent = {
     }),
     speaking("ja-m20-2-2-rev-speak-1", M20_2_2_REVIEW[2].kana, M20_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-2-2-rev", M20_2_2_REVIEW),
-    infoStep(
-      "ja-m20-2-2-info-end",
-      "You can describe symptoms and talk to a doctor",
-      "[Body part]がいたい + びょうき, くすり, いしゃ, ねつ. Real clinic vocabulary.",
-      "win",
-    ),
   ],
 };
 
@@ -868,11 +823,6 @@ export const M20_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m20-3-1-info-open",
-      "Colds, soap, towels, and glasses",
-      "Four everyday health and hygiene words. かぜ (a cold), せっけん (soap), タオル (towel), めがね (glasses).",
-    ),
     // ── かぜ (a cold) ──
     vocabMcq(
       "ja-m20-3-1-mcq-kaze",
@@ -1012,12 +962,6 @@ export const M20_3_1: LessonContent = {
     }),
     speaking("ja-m20-3-1-rev-speak-1", M20_3_1_REVIEW[2].kana, M20_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-3-1-rev", M20_3_1_REVIEW),
-    infoStep(
-      "ja-m20-3-1-info-end",
-      "You can talk about colds, hygiene, and everyday health items",
-      "かぜ, せっけん, タオル, めがね. The practical vocabulary of daily health care.",
-      "win",
-    ),
   ],
 };
 
@@ -1042,11 +986,6 @@ export const M20_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m20-3-2-info-open",
-      "Everything so far — body meets health",
-      "Body parts + pain + medical words + hygiene. Can you combine them all?",
-    ),
     // ── Mixed drills ──
     sentenceMcq({
       id: "ja-m20-3-2-mcq-1",
@@ -1183,12 +1122,6 @@ export const M20_3_2: LessonContent = {
     }),
     speaking("ja-m20-3-2-rev-speak-1", M20_3_2_REVIEW[2].kana, M20_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-3-2-rev", M20_3_2_REVIEW),
-    infoStep(
-      "ja-m20-3-2-info-end",
-      "You can describe symptoms, talk about hygiene, and navigate basic health situations",
-      "Body parts, pain patterns, medical vocabulary, and hygiene — all combined.",
-      "win",
-    ),
   ],
 };
 
@@ -1213,11 +1146,6 @@ export const M20_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m20-4-1-info-open",
-      "A softer way to say 'because'",
-      "You already know から (M13). Now meet ので — same meaning, but softer and more formal. Perfect for explaining symptoms to a doctor.",
-    ),
     RULE_NODE,
     // ── い-adjective + ので ──
     build(
@@ -1345,12 +1273,6 @@ export const M20_4_1: LessonContent = {
     }),
     speaking("ja-m20-4-1-rev-speak-1", M20_4_1_REVIEW[2].kana, M20_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-4-1-rev", M20_4_1_REVIEW),
-    infoStep(
-      "ja-m20-4-1-info-end",
-      "You can explain medical reasons softly with ので",
-      "あたまがいたいので… びょうきなので… ねつがあるので… The polite 'because' for real situations.",
-      "win",
-    ),
   ],
 };
 
@@ -1375,11 +1297,6 @@ export const M20_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m20-4-2-info-open",
-      "Two ways to say 'because' — when each fits best",
-      "ので and から both mean 'because.' ので = natural consequence (softer). から = personal reason (more direct). Let's drill the difference.",
-    ),
     RULE_NODE_VS_KARA,
     // ── Discrimination drills ──
     sentenceMcq({
@@ -1520,12 +1437,6 @@ export const M20_4_2: LessonContent = {
     }),
     speaking("ja-m20-4-2-rev-speak-1", M20_4_2_REVIEW[2].kana, M20_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-4-2-rev", M20_4_2_REVIEW),
-    infoStep(
-      "ja-m20-4-2-info-end",
-      "You can choose between ので and から depending on the situation",
-      "ので for polite/objective reasons. から for casual/personal reasons. Both mean 'because' — the nuance is in tone.",
-      "win",
-    ),
   ],
 };
 
@@ -1550,11 +1461,6 @@ export const M20_5_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m20-5-1-info-open",
-      "Everything combined",
-      "Body parts + pain + ので — every sentence requires combining what you've learned. Describe symptoms and give reasons.",
-    ),
     // ── Mixed drills ──
     sentenceMcq({
       id: "ja-m20-5-1-mcq-1",
@@ -1697,12 +1603,6 @@ export const M20_5_1: LessonContent = {
     vocabMcq("ja-m20-5-1-rev-mcq-1", M20_5_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M20_REVIEW_POOL),
     speaking("ja-m20-5-1-rev-speak-2", M20_5_1_REVIEW[2].kana, M20_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-5-1-rev", M20_5_1_REVIEW),
-    infoStep(
-      "ja-m20-5-1-info-end",
-      "You can describe symptoms, give reasons, and navigate a medical situation",
-      "Body parts + がいたい + ので — the three systems working together for real health communication.",
-      "win",
-    ),
   ],
 };
 
@@ -1727,11 +1627,6 @@ export const M20_5_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m20-5-2-info-open",
-      "Describe your health — from memory",
-      "Build, translate, and speak: symptoms, reasons, medical requests. All from production.",
-    ),
     // ── Production drills ──
     build(
       "ja-m20-5-2-build-1",
@@ -1874,12 +1769,6 @@ export const M20_5_2: LessonContent = {
     vocabMcq("ja-m20-5-2-rev-mcq-1", M20_5_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M20_REVIEW_POOL),
     speaking("ja-m20-5-2-rev-speak-2", M20_5_2_REVIEW[2].kana, M20_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-5-2-rev", M20_5_2_REVIEW),
-    infoStep(
-      "ja-m20-5-2-info-end",
-      "You can produce complete health sentences from memory",
-      "Symptoms + ので + actions. Real clinic communication in production.",
-      "win",
-    ),
   ],
 };
 
@@ -1904,11 +1793,6 @@ export const M20_6_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m20-6-1-info-open",
-      "Adjectives meet body parts",
-      "You already know い-adjectives (M8). Now use them with body parts: big hands, small eyes, hot forehead.",
-    ),
     // ── Adjective + body drills ──
     build(
       "ja-m20-6-1-build-1",
@@ -2045,12 +1929,6 @@ export const M20_6_1: LessonContent = {
     vocabMcq("ja-m20-6-1-rev-mcq-1", M20_6_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M20_REVIEW_POOL),
     speaking("ja-m20-6-1-rev-speak-2", M20_6_1_REVIEW[2].kana, M20_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-6-1-rev", M20_6_1_REVIEW),
-    infoStep(
-      "ja-m20-6-1-info-end",
-      "You can describe body parts with adjectives and explain health reasons",
-      "Big hands, small eyes, long hair + pain patterns + ので reasons. Your descriptive range just doubled.",
-      "win",
-    ),
   ],
 };
 
@@ -2075,11 +1953,6 @@ export const M20_6_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m20-6-2-info-open",
-      "Production sprint — everything from M20",
-      "Every M20 pattern in production direction. Body parts, pain, reasons, health vocab, adjectives.",
-    ),
     // ── Production drills ──
     build(
       "ja-m20-6-2-build-1",
@@ -2223,12 +2096,6 @@ export const M20_6_2: LessonContent = {
     vocabMcq("ja-m20-6-2-rev-mcq-1", M20_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M20_REVIEW_POOL),
     speaking("ja-m20-6-2-rev-speak-2", M20_6_2_REVIEW[2].kana, M20_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-6-2-rev", M20_6_2_REVIEW),
-    infoStep(
-      "ja-m20-6-2-info-end",
-      "You can produce every M20 pattern from memory",
-      "Body parts, pain, reasons, medical vocab, adjectives — all in production. A complete health communication toolkit.",
-      "win",
-    ),
   ],
 };
 
@@ -2253,11 +2120,6 @@ export const M20_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m20-story-info-open",
-      "Story time — たけし got sick",
-      "たけし tells you about last week, when he caught a cold. Listen to his story, then reply.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m20-story",
       narrative: [
@@ -2336,12 +2198,6 @@ export const M20_STORY: LessonContent = {
       "かぜを ひいて いしゃに いきました",
       "I caught a cold and went to the doctor.",
     ),
-    infoStep(
-      "ja-m20-story-info-end",
-      "You followed a whole illness story — in Japanese",
-      "Symptoms, the doctor, medicine, recovery — and you gave health advice back. That's the full M20 toolkit in action.",
-      "win",
-    ),
   ],
 };
 
@@ -2367,11 +2223,6 @@ export const M20_7_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m20-7-1-info-open",
-      "At the pharmacy",
-      "After the doctor, たけし goes to a pharmacy. Listen to him buy medicine and describe his symptoms.",
-    ),
     dialogueListen({
       id: "ja-m20-7-1-scene-1",
       lines: [
@@ -2510,12 +2361,6 @@ export const M20_7_1: LessonContent = {
     vocabMcq("ja-m20-7-1-rev-mcq-1", M20_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M20_REVIEW_POOL),
     speaking("ja-m20-7-1-rev-speak-2", M20_7_1_REVIEW[2].kana, M20_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-7-1-rev", M20_7_1_REVIEW),
-    infoStep(
-      "ja-m20-7-1-info-end",
-      "You can visit a pharmacy and ask for what you need in Japanese",
-      "Describe symptoms, ask for medicine, understand dosage instructions. Real-world health communication.",
-      "win",
-    ),
   ],
 };
 
@@ -2540,11 +2385,6 @@ export const M20_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m20-7-2-info-open",
-      "Final round — everything",
-      "Every M20 pattern in one lesson. Body, pain, reasons, health, hygiene, adjectives.",
-    ),
     // ── Production drills ──
     build(
       "ja-m20-7-2-build-1",
@@ -2687,12 +2527,6 @@ export const M20_7_2: LessonContent = {
     vocabMcq("ja-m20-7-2-rev-mcq-1", M20_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M20_REVIEW_POOL),
     speaking("ja-m20-7-2-rev-speak-2", M20_7_2_REVIEW[2].kana, M20_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m20-7-2-rev", M20_7_2_REVIEW),
-    infoStep(
-      "ja-m20-7-2-info-end",
-      "You own the complete body, health, and reason toolkit",
-      "Body parts, pain patterns, ので reasons, medical vocab, hygiene words, adjective descriptions. Module 20 complete.",
-      "win",
-    ),
   ],
 };
 

@@ -35,7 +35,7 @@ describe("parseModuleIndex", () => {
 });
 
 describe("shouldAutoOffScriptRomaji", () => {
-  it("flips hiragana at M10, not before", () => {
+  it("flips hiragana at M7, not before", () => {
     const base = { settings: settingsWith({}), script: "hiragana" as const };
     expect(
       shouldAutoOffScriptRomaji({
@@ -51,7 +51,7 @@ describe("shouldAutoOffScriptRomaji", () => {
     ).toBe(true);
   });
 
-  it("flips katakana at M17 — hiragana's M10 does not trip katakana", () => {
+  it("flips katakana at M17 — hiragana's M7 does not trip katakana", () => {
     const kata = { settings: settingsWith({}), script: "katakana" as const };
     expect(
       shouldAutoOffScriptRomaji({
@@ -134,7 +134,7 @@ describe("romajiVisibleForScript", () => {
 });
 
 describe("shouldAutoFadeBuildTileRomaji", () => {
-  it("fades at the build-tile threshold (M10), no later than romaji auto-off", () => {
+  it("fades at the build-tile threshold (M5), no later than romaji auto-off", () => {
     expect(BUILD_TILE_ROMAJI_FADE_MODULE).toBeLessThanOrEqual(
       HIRAGANA_ROMAJI_OFF_MODULE,
     );
@@ -166,7 +166,7 @@ describe("shouldAutoFadeBuildTileRomaji", () => {
   });
 
   it("does not re-fire once the one-shot guard has fired", () => {
-    // User reached M10, fade fired, user turned it back off in Settings.
+    // User reached M5, fade fired, user turned it back off in Settings.
     // buildTileRomajiAutoFlipped stays true → must not re-fade them.
     expect(
       shouldAutoFadeBuildTileRomaji({

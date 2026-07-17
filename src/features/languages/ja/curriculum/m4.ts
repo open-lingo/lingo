@@ -19,7 +19,6 @@ import {
   cloze,
   dialogueListen,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -78,11 +77,6 @@ export const M4_1_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m4-1-1-info-open",
-      "Object pool — part 1",
-      "Three everyday objects. Each is introduced via a tile-build — you'll figure out the word from the English prompt and pick from the tiles. Two are katakana loanwords (ペン, カメラ later), one is native (かばん).",
-    ),
     // ── ペン (pen) — katakana loanword, single-tile pick obvious from English ──
     build(
       "ja-m4-1-1-build-pen",
@@ -190,12 +184,6 @@ export const M4_1_1: LessonContent = {
     vocabMcq("ja-m4-1-1-rev-mcq-1", M4_1_1_REVIEW[2], M4_REVIEW_M3_POOL),
     speaking("ja-m4-1-1-rev-speak-2", M4_1_1_REVIEW[3].kana, M4_1_1_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m4-1-1-rev", M4_1_1_REVIEW),
-    infoStep(
-      "ja-m4-1-1-info-end",
-      "You can now name three everyday objects",
-      "ペン (pen), かばん (bag), and くるま (car) — used in これは X です sentences and yes/no questions with か.",
-      "win",
-    ),
   ],
 };
 
@@ -220,11 +208,6 @@ export const M4_1_2: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m4-1-2-info-open",
-      "Two more objects",
-      "カメラ (camera) and けいたい (mobile phone). After these you'll drill all five objects in sentences.",
-    ),
     // ── カメラ (camera) — katakana loanword, obvious from English ──
     build(
       "ja-m4-1-2-build-kamera",
@@ -333,12 +316,6 @@ export const M4_1_2: LessonContent = {
     vocabMcq("ja-m4-1-2-rev-mcq-1", M4_1_2_REVIEW[2], M4_REVIEW_M3_POOL),
     speaking("ja-m4-1-2-rev-speak-2", M4_1_2_REVIEW[3].kana, M4_1_2_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m4-1-2-rev", M4_1_2_REVIEW),
-    infoStep(
-      "ja-m4-1-2-info-end",
-      "You can now name and ask about five everyday objects",
-      "ペン, かばん, くるま, カメラ, and けいたい — all drilled in これは X です sentences and question forms with か.",
-      "win",
-    ),
   ],
 };
 
@@ -391,11 +368,6 @@ export const M4_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m4-2-1-info-open",
-      "One particle, one relationship",
-      "の glues nouns. Most of the time it means possessive 's — owner + の + owned. You'll build possessive sentences from tiles, then drill the pattern with clozes.",
-    ),
     RULE_NO,
     // ── Possession drills ──
     cloze(
@@ -517,12 +489,6 @@ export const M4_2_1: LessonContent = {
     vocabMcq("ja-m4-2-1-rev-mcq-1", M4_2_1_REVIEW[2], M4_REVIEW_M2_POOL),
     speaking("ja-m4-2-1-rev-speak-2", M4_2_1_REVIEW[3].kana, M4_2_1_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m4-2-1-rev", M4_2_1_REVIEW),
-    infoStep(
-      "ja-m4-2-1-info-end",
-      "You can now say whose things are whose",
-      "The possession particle の — わたしの ほん (my book), せんせいの ペン (the teacher's pen). Owner + の + thing owned.",
-      "win",
-    ),
   ],
 };
 
@@ -547,11 +513,21 @@ export const M4_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m4-2-2-info-open",
-      "Beyond possession",
-      "の also means 'kind of' — にほんの くるま is 'a Japan-kind-of car' = a Japanese car. Same particle, broader use.",
-    ),
+    grammarRule({
+      id: "ja-m4-2-2-info-open",
+      title: "Beyond possession",
+      rule: "の doesn't only mark possession — it also links a noun to describe 'what kind of'. にほんの くるま is 'a Japan-kind-of car' = a Japanese car. Same particle, broader use.",
+      examples: [
+        { ja: "にほんの くるま", romaji: "nihon no kuruma", en: "a Japanese car" },
+        { ja: "えいごの ほん", romaji: "eigo no hon", en: "an English(-language) book" },
+      ],
+      antiPattern: {
+        ja: "にほん くるま",
+        romaji: "nihon kuruma",
+        en: "(dropping の between the two nouns)",
+        why: "Two nouns must be linked with の: にほんの くるま, not にほん くるま.",
+      },
+    }),
     cloze(
       "ja-m4-2-2-cloze-1",
       "にほん",
@@ -682,12 +658,6 @@ export const M4_2_2: LessonContent = {
     vocabMcq("ja-m4-2-2-rev-mcq-1", M4_2_2_REVIEW[2], M4_REVIEW_M1_POOL),
     speaking("ja-m4-2-2-rev-speak-2", M4_2_2_REVIEW[3].kana, M4_2_2_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m4-2-2-rev", M4_2_2_REVIEW),
-    infoStep(
-      "ja-m4-2-2-info-end",
-      "You can now use の for both possession and 'kind of'",
-      "わたしの かばん (my bag) and にほんの くるま (a Japanese car) — same particle, two readings. Plus self-explanation on why の works in both.",
-      "win",
-    ),
   ],
 };
 
@@ -712,11 +682,6 @@ export const M4_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m4-3-1-info-open",
-      "Three new objects",
-      "かさ (umbrella), じしょ (dictionary), いす (chair). You'll figure each out from the English prompt, then immediately use it in possessive sentences.",
-    ),
     // ── かさ (umbrella) ──
     build(
       "ja-m4-3-1-build-kasa",
@@ -842,12 +807,6 @@ export const M4_3_1: LessonContent = {
     speaking("ja-m4-3-1-rev-speak-1", M4_3_1_REVIEW[0].kana, M4_3_1_REVIEW[0].meaningEn),
     vocabMcq("ja-m4-3-1-rev-mcq-1", M4_3_1_REVIEW[2], M4_REVIEW_M1_POOL),
     reviewMatchPairs("ja-m4-3-1-rev", M4_3_1_REVIEW),
-    infoStep(
-      "ja-m4-3-1-info-end",
-      "You can now talk about umbrellas, dictionaries, and chairs",
-      "Three more objects — かさ (umbrella), じしょ (dictionary), いす (chair) — immediately used in possessive の sentences.",
-      "win",
-    ),
   ],
 };
 
@@ -872,11 +831,6 @@ export const M4_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m4-3-2-info-open",
-      "Two more + combined drills",
-      "てがみ (letter) and じてんしゃ (bicycle). Then cumulative sentences using all your new objects with の.",
-    ),
     // ── てがみ (letter) ──
     build(
       "ja-m4-3-2-build-tegami",
@@ -994,12 +948,6 @@ export const M4_3_2: LessonContent = {
     vocabMcq("ja-m4-3-2-rev-mcq-1", M4_3_2_REVIEW[2], M4_REVIEW_M2_POOL),
     speaking("ja-m4-3-2-rev-speak-2", M4_3_2_REVIEW[3].kana, M4_3_2_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m4-3-2-rev", M4_3_2_REVIEW),
-    infoStep(
-      "ja-m4-3-2-info-end",
-      "You can now describe ownership of ten everyday objects",
-      "てがみ (letter) and じてんしゃ (bicycle) complete the set. All ten objects drilled in possessive の sentences and question forms.",
-      "win",
-    ),
   ],
 };
 
@@ -1057,11 +1005,6 @@ export const M4_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m4-4-1-info-open",
-      "Pointing precisely",
-      "English has 'this' and 'that.' Japanese has four words, split by distance. You'll learn three pointers now (これ/それ/あれ) and the question word (どれ) next.",
-    ),
     RULE_KOSOADO,
     // ── これ — learner knows it from M4-1 sentences, but formally intro here ──
     build(
@@ -1178,12 +1121,6 @@ export const M4_4_1: LessonContent = {
     vocabMcq("ja-m4-4-1-rev-mcq-1", M4_4_1_REVIEW[2], M4_REVIEW_M3_POOL),
     speaking("ja-m4-4-1-rev-speak-2", M4_4_1_REVIEW[3].kana, M4_4_1_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m4-4-1-rev", M4_4_1_REVIEW),
-    infoStep(
-      "ja-m4-4-1-info-end",
-      "You can now point at things by distance",
-      "Three spatial pointers: これ (near me), それ (near you), あれ (far from both) — combined with は and の in full sentences.",
-      "win",
-    ),
   ],
 };
 
@@ -1208,11 +1145,6 @@ export const M4_4_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m4-4-2-info-open",
-      "The question pointer",
-      "どれ = 'which one?' — the fourth member of the こそあど system. Unlike the other three, question words take が (not は).",
-    ),
     // ── どれ introduction ──
     build(
       "ja-m4-4-2-build-dore",
@@ -1341,12 +1273,6 @@ export const M4_4_2: LessonContent = {
     vocabMcq("ja-m4-4-2-rev-mcq-1", M4_4_2_REVIEW[2], M4_REVIEW_M1_POOL),
     speaking("ja-m4-4-2-rev-speak-2", M4_4_2_REVIEW[3].kana, M4_4_2_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m4-4-2-rev", M4_4_2_REVIEW),
-    infoStep(
-      "ja-m4-4-2-info-end",
-      "You can now ask 'which one?' with the full pointer system",
-      "どれ (which one) completes the set: これ/それ/あれ/どれ. Plus the rule that question words like どれ take が, not は.",
-      "win",
-    ),
   ],
 };
 
@@ -1371,11 +1297,6 @@ export const M4_5_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m4-5-1-info-open",
-      "Mix and match",
-      "Each drill picks between particles. No new rules — just sorting which pattern fits. Watch the answer rotate.",
-    ),
     cloze(
       "ja-m4-5-1-cloze-1",
       "わたし",
@@ -1511,12 +1432,6 @@ export const M4_5_1: LessonContent = {
     vocabMcq("ja-m4-5-1-rev-mcq-1", M4_5_1_REVIEW[2], M4_REVIEW_M2_POOL),
     speaking("ja-m4-5-1-rev-speak-2", M4_5_1_REVIEW[3].kana, M4_5_1_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m4-5-1-rev", M4_5_1_REVIEW),
-    infoStep(
-      "ja-m4-5-1-info-end",
-      "You can now mix の, は, and pointers in one sentence",
-      "Interleaved cloze drilling across possessive の, topic は, and pointer words — the correct particle rotates so you must read each sentence carefully.",
-      "win",
-    ),
   ],
 };
 
@@ -1541,11 +1456,6 @@ export const M4_5_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m4-5-2-info-open",
-      "A new question word",
-      "だれ = 'who.' Pair with の and it becomes 'whose' (だれの ペン = whose pen). Like どれ, question words take が.",
-    ),
     // ── だれ introduction via build ──
     build(
       "ja-m4-5-2-build-dare",
@@ -1676,12 +1586,6 @@ export const M4_5_2: LessonContent = {
     vocabMcq("ja-m4-5-2-rev-mcq-1", M4_5_2_REVIEW[2], M4_REVIEW_M3_POOL),
     speaking("ja-m4-5-2-rev-speak-2", M4_5_2_REVIEW[3].kana, M4_5_2_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m4-5-2-rev", M4_5_2_REVIEW),
-    infoStep(
-      "ja-m4-5-2-info-end",
-      "You can now ask 'who' and 'whose'",
-      "だれ (who) takes が, だれの (whose) uses の. Plus self-explanation on why の and は serve different roles.",
-      "win",
-    ),
   ],
 };
 
@@ -1704,11 +1608,6 @@ export const M4_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m4-story-info-open",
-      "Story time — Whose is this?",
-      "ゆき and たけし are at school. Things are scattered across the desks. Listen as they figure out whose is whose.",
-    ),
     dialogueListen({
       id: "ja-m4-story-scene-1",
       lines: [
@@ -1821,12 +1720,6 @@ export const M4_STORY: LessonContent = {
       "それは わたしの ペンです",
       "That is my pen.",
     ),
-    infoStep(
-      "ja-m4-story-info-end",
-      "You can now follow a conversation about whose things are whose",
-      "You used の for possession, だれ for 'whose,' and これ/それ/あれ/どれ to point at things — all in a real back-and-forth dialogue.",
-      "win",
-    ),
   ],
 };
 
@@ -1852,11 +1745,6 @@ export const M4_6_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m4-6-1-info-open",
-      "Production time",
-      "Sentences across build, listen-build, and speaking. Each one combines M4 pointers and possessives.",
-    ),
     // Converted from review-は cloze: warm up with a full production build.
     build(
       "ja-m4-6-1-warmup-build",
@@ -1978,12 +1866,6 @@ export const M4_6_1: LessonContent = {
     vocabMcq("ja-m4-6-1-rev-mcq-1", M4_6_1_REVIEW[2], M4_REVIEW_M3_POOL),
     speaking("ja-m4-6-1-rev-speak-2", M4_6_1_REVIEW[3].kana, M4_6_1_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m4-6-1-rev", M4_6_1_REVIEW),
-    infoStep(
-      "ja-m4-6-1-info-end",
-      "You can now produce pointer + possessive sentences from scratch",
-      "Build, speak, and listen-build across all M4 patterns: pointers (これ/それ/あれ), possession (の), and question words (だれ/どれ).",
-      "win",
-    ),
   ],
 };
 
@@ -2008,11 +1890,6 @@ export const M4_6_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m4-6-2-info-open",
-      "Harder combinations",
-      "Longer sentences, multiple particles, question forms. All the M4 grammar in production mode.",
-    ),
     build(
       "ja-m4-6-2-build-s1",
       "That is my older brother's mobile phone.",
@@ -2119,12 +1996,6 @@ export const M4_6_2: LessonContent = {
     vocabMcq("ja-m4-6-2-rev-mcq-1", M4_6_2_REVIEW[2], M4_REVIEW_M2_POOL),
     speaking("ja-m4-6-2-rev-speak-2", M4_6_2_REVIEW[3].kana, M4_6_2_REVIEW[3].meaningEn),
     reviewMatchPairs("ja-m4-6-2-rev", M4_6_2_REVIEW),
-    infoStep(
-      "ja-m4-6-2-info-end",
-      "You can now describe, ask about, or identify any object",
-      "Cumulative production across build, speak, listen-build, and cloze — combining pointers, の, は, だれ, and か in longer sentences.",
-      "win",
-    ),
   ],
 };
 
@@ -2149,12 +2020,6 @@ export const M4_7_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m4-7-1-info-open",
-      "Drop into the scene",
-      "You're at a friend's apartment. Objects on the table, a photo on the wall — whose things are whose? Every word and grammar piece is something you know from M3 + M4.",
-      "culture",
-    ),
     // Warm-up taps
     listeningCompSentence({
       id: "ja-m4-7-1-lc-warmup-dare",
@@ -2340,12 +2205,6 @@ export const M4_7_1: LessonContent = {
     vocabMcq("ja-m4-7-1-rev-mcq-1", M4_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M4_REVIEW_POOL),
     speaking("ja-m4-7-1-rev-speak-2", M4_7_1_REVIEW[2].kana, M4_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m4-7-1-rev", M4_7_1_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m4-7-1-info-end",
-      "You can now chat about objects at a friend's place",
-      "A dialogue scene at a friend's apartment: whose bag, whose camera, is it Japanese? Pointers + の + か in real conversation.",
-      "win",
-    ),
   ],
 };
 
@@ -2370,11 +2229,6 @@ export const M4_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m4-7-2-info-open",
-      "Cumulative wrap-up",
-      "All the M4 patterns in mixed drills + production. Then the broadest review tail (M1 + M2 + M3).",
-    ),
     // ── Cumulative clozes ──
     cloze(
       "ja-m4-7-2-cloze-1",
@@ -2495,12 +2349,6 @@ export const M4_7_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m4-7-2-rev", M4_7_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m4-7-2-info-end",
-      "You can now identify and possess objects across four spatial distances",
-      "All M4 grammar mastered: の (possession + 'kind of'), これ/それ/あれ/どれ (pointers), だれ (who), and だれの (whose) — in cumulative production.",
-      "win",
-    ),
   ],
 };
 

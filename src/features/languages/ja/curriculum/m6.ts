@@ -42,7 +42,6 @@ import {
   cloze,
   dialogueListen,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -102,11 +101,6 @@ export const M6_1_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m6-1-1-info-open",
-      "Map vocab",
-      "Eight locations across two lessons. Every Japanese address starts with 'X minutes from Y えき' — names of places are the spine of getting around.",
-    ),
     // ── Atom 1: こうえん (park) — single-tile build, English makes it obvious
     build(
       "ja-m6-1-1-build-koen",
@@ -206,12 +200,6 @@ export const M6_1_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m6-1-1-rev", M6_1_1_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-1-1-info-end",
-      "You can now name four places around town",
-      "Park, school, home, station. Next: four more places to complete your map vocabulary.",
-      "win",
-    ),
   ],
 };
 
@@ -235,11 +223,6 @@ export const M6_1_2: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m6-1-2-info-open",
-      "Four more places",
-      "Toilet, convenience store, room, shop. After this you can name every location on a Japanese city block.",
-    ),
     // ── Atom 5: トイレ (toilet) — single-tile build
     build(
       "ja-m6-1-2-build-toire",
@@ -356,12 +339,6 @@ export const M6_1_2: LessonContent = {
     // ── Review tail ──
     speaking("ja-m6-1-2-rev-speak-1", M6_1_2_REVIEW[1].kana, M6_1_2_REVIEW[1].meaningEn),
     reviewMatchPairs("ja-m6-1-2-rev", M6_1_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-1-2-info-end",
-      "You can now name every place on a Japanese map",
-      "Eight places, retrieval-checked. Next: three particles that put things AT, BY, and IN them.",
-      "win",
-    ),
   ],
 };
 
@@ -413,11 +390,6 @@ export const M6_2_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m6-2-1-info-open",
-      "The pinpoint particle",
-      "に marks a single point — where you're going or where you are. It pairs with movement verbs (いく/くる/かえる) and existence verbs (います/あります).",
-    ),
     RULE_NI,
     // ── New verb: いきます (go) — build intro. Figuroutable: prompt says "I go to school" and only いきます is unknown ──
     build(
@@ -533,12 +505,6 @@ export const M6_2_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m6-2-1-rev", M6_2_1_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-2-1-info-end",
-      "You can now say where you're going",
-      "Location + に + motion verb. Next: に for existence + production practice.",
-      "win",
-    ),
   ],
 };
 
@@ -562,11 +528,6 @@ export const M6_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m6-2-2-info-open",
-      "に for existence",
-      "に marks where you ARE (existence) just like where you're GOING (destination). Both verbs of motion and existence verbs take に.",
-    ),
     // pivot cloze — answer is で (foreshadow, single rotation)
     cloze(
       "ja-m6-2-2-cloze-de-foil",
@@ -703,12 +664,6 @@ export const M6_2_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m6-2-2-rev", M6_2_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-2-2-info-end",
-      "You can now say where you are and where you're going",
-      "Location + に + (motion or existence verb). Next: で, the setting particle — the place an ACTION happens.",
-      "win",
-    ),
   ],
 };
 
@@ -760,11 +715,6 @@ export const M6_3_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m6-3-1-info-open",
-      "Setting + means",
-      "に was the point. で is the stage. Whenever an ACTION happens somewhere, the place takes で. The means (transport, tools) also takes で.",
-    ),
     RULE_DE,
     // New verb: べんきょうします (study) — build intro. Only べんきょうします unknown.
     build(
@@ -880,12 +830,6 @@ export const M6_3_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m6-3-1-rev", M6_3_1_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-3-1-info-end",
-      "You can now say where actions happen",
-      "Place + で + action verb. Next: で for means (how you get there) + production.",
-      "win",
-    ),
   ],
 };
 
@@ -909,11 +853,21 @@ export const M6_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m6-3-2-info-open",
-      "Means of motion",
-      "で marks HOW you do something, not just WHERE. 'でんしゃで' = by train. 'じてんしゃで' = by bicycle. Same particle, different role.",
-    ),
+    grammarRule({
+      id: "ja-m6-3-2-info-open",
+      title: "Means of motion",
+      rule: "で marks HOW you do something, not just WHERE. Attached to a vehicle it means 'by' that transport — same particle, a second role.",
+      examples: [
+        { ja: "でんしゃで いきます", romaji: "densha de ikimasu", en: "I go by train." },
+        { ja: "じてんしゃで いきます", romaji: "jitensha de ikimasu", en: "I go by bicycle." },
+      ],
+      antiPattern: {
+        ja: "でんしゃに いきます",
+        romaji: "densha ni ikimasu",
+        en: "(using に for the means of transport)",
+        why: "The vehicle you travel BY takes で: でんしゃで, not でんしゃに.",
+      },
+    }),
     // New noun: でんしゃ (train) — build intro. Single-tile, English makes it obvious.
     build(
       "ja-m6-3-2-build-densha",
@@ -1053,12 +1007,6 @@ export const M6_3_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m6-3-2-rev", M6_3_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-3-2-info-end",
-      "You can now say where you do things and how you get there",
-      "Action-setting (うちで) and means (でんしゃで) both take で. Next: が — but in its friendliest use.",
-      "win",
-    ),
   ],
 };
 
@@ -1110,11 +1058,6 @@ export const M6_4_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m6-4-1-info-open",
-      "Finally — が",
-      "が is famous as 'the other particle' that confuses beginners. We're introducing it in its friendliest form: the existence pattern. 'X が あります/います' = 'there's an X.'",
-    ),
     RULE_GA_EXISTENCE,
     // New verb: あります (exists, inanimate) — build intro. Only あります unknown.
     build(
@@ -1240,12 +1183,6 @@ export const M6_4_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m6-4-1-rev", M6_4_1_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-4-1-info-end",
-      "You can now announce what's around you",
-      "X が あります = 'there's an X.' Next: living things (います) and the animacy split.",
-      "win",
-    ),
   ],
 };
 
@@ -1269,11 +1206,6 @@ export const M6_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m6-4-2-info-open",
-      "Living vs inanimate",
-      "が marks what exists, but the VERB changes: います for living things (people, animals), あります for everything else (places, objects, plants).",
-    ),
     // New noun: ねこ (cat) — build intro. Single-tile, English obvious.
     build(
       "ja-m6-4-2-build-neko",
@@ -1419,12 +1351,6 @@ export const M6_4_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m6-4-2-rev", M6_4_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-4-2-info-end",
-      "You can now point at anything and say 'there's an X'",
-      "X が あります/います = 'there's an X.' 90% of beginner が encounters in the wild are this pattern.",
-      "win",
-    ),
   ],
 };
 
@@ -1448,11 +1374,6 @@ export const M6_5_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m6-5-1-info-open",
-      "Sort by role",
-      "Two-question filter: am I pointing at a destination/location (に), or naming where the action happens / how I'm doing it (で)? Answers rotate.",
-    ),
     // Rotating clozes: に → で → に → で
     cloze(
       "ja-m6-5-1-cloze-1",
@@ -1577,12 +1498,6 @@ export const M6_5_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m6-5-1-rev", M6_5_1_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-5-1-info-end",
-      "You can now sort destinations from settings by meaning",
-      "に for destinations, で for action settings and means — parsed from context, not position. Next: more rotation + the は/が peek.",
-      "win",
-    ),
   ],
 };
 
@@ -1606,11 +1521,6 @@ export const M6_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m6-5-2-info-open",
-      "は vs が — a first peek",
-      "You've now used が in existence sentences many times. Time for the first glimpse of how は and が differ. Short version: が introduces NEW info; は is for a KNOWN topic.",
-    ),
     cloze(
       "ja-m6-5-2-cloze-1",
       "ホテル",
@@ -1749,12 +1659,6 @@ export const M6_5_2: LessonContent = {
     }),
     vocabMcq("ja-m6-5-2-rev-mcq-2", M6_5_2_REVIEW[3], PRIOR_POOL),
     reviewMatchPairs("ja-m6-5-2-rev", M6_5_2_REVIEW.slice(0, 4)),
-    infoStep(
-      "ja-m6-5-2-info-end",
-      "You can sort destinations from settings without shortcuts",
-      "Mixed drills, no screen-pattern shortcut. You're parsing meaning — and you've had a first peek at は vs が.",
-      "win",
-    ),
   ],
 };
 
@@ -1778,11 +1682,6 @@ export const M6_6_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m6-6-1-info-open",
-      "All three particles in play",
-      "The answer rotates across が / に / で. Each carrier asks for actual parsing — no screen-position shortcut.",
-    ),
     // rotating: が → に → で → が
     cloze(
       "ja-m6-6-1-cloze-1",
@@ -1912,12 +1811,6 @@ export const M6_6_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m6-6-1-rev", M6_6_1_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-6-1-info-end",
-      "You can now pick the right particle across が, に, and で",
-      "Existence (が), location (に), and action setting (で) — rotating with no shortcut. Next: compound sentences with multiple particles.",
-      "win",
-    ),
   ],
 };
 
@@ -1941,11 +1834,6 @@ export const M6_6_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m6-6-2-info-open",
-      "Compound patterns",
-      "Real Japanese combines particles: 'えきに トイレが あります' = 'There's a toilet at the station.' Location (に) + new-info subject (が) in one sentence.",
-    ),
     cloze(
       "ja-m6-6-2-cloze-1",
       "がくせい",
@@ -2075,12 +1963,6 @@ export const M6_6_2: LessonContent = {
     }),
     vocabMcq("ja-m6-6-2-rev-mcq-2", M6_6_2_REVIEW[3], PRIOR_POOL),
     reviewMatchPairs("ja-m6-6-2-rev", M6_6_2_REVIEW.slice(0, 4)),
-    infoStep(
-      "ja-m6-6-2-info-end",
-      "You can now juggle が, に, AND で in the same sentence",
-      "Compound sentences with multiple particles working together. You now have 'X が あります/います' + the location filter from earlier lessons.",
-      "win",
-    ),
   ],
 };
 
@@ -2102,11 +1984,6 @@ export const M6_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m6-story-info-open",
-      "Story time — After school",
-      "ゆき and たけし are leaving school. Listen as they talk about where they are going and how.",
-    ),
     dialogueListen({
       id: "ja-m6-story-scene-1",
       lines: [
@@ -2219,12 +2096,6 @@ export const M6_STORY: LessonContent = {
       "がっこうで べんきょうします",
       "I study at school.",
     ),
-    infoStep(
-      "ja-m6-story-info-end",
-      "You followed a conversation about daily life",
-      "You heard に (destination), で (where actions happen), and が (what exists) — the three particles that describe where things are and where you go.",
-      "win",
-    ),
   ],
 };
 
@@ -2250,11 +2121,6 @@ export const M6_7_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m6-7-1-info-open",
-      "Production time",
-      "Six sentences across build and listening_build modes. Assemble from tiles what you've been parsing.",
-    ),
     // Sentence 1: build
     build(
       "ja-m6-7-1-s1",
@@ -2362,12 +2228,6 @@ export const M6_7_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m6-7-1-rev", M6_7_1_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-7-1-info-end",
-      "You can now build M6 sentences from tiles",
-      "Tile-bank builds and listening builds across all three particles. Next: speaking production and more cumulative patterns.",
-      "win",
-    ),
   ],
 };
 
@@ -2391,11 +2251,6 @@ export const M6_7_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m6-7-2-info-open",
-      "Say it yourself",
-      "Speaking production across all M6 patterns. Your voice completes the learning cycle.",
-    ),
     // speaking — existence
     speaking(
       "ja-m6-7-2-speak-gakusei",
@@ -2507,12 +2362,6 @@ export const M6_7_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m6-7-2-rev", M6_7_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-7-2-info-end",
-      "You can now speak every M6 pattern aloud",
-      "Existence, destination, action setting, and means — all produced with your voice. From here, you can describe where you are, where you're going, and what's around you.",
-      "win",
-    ),
   ],
 };
 
@@ -2536,12 +2385,6 @@ export const M6_8_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m6-8-1-info-open",
-      "Drop into the scene",
-      "You're walking through Shibuya looking for the station. You'll learn three new words, then use them in a live dialogue.",
-      "culture",
-    ),
     // New word: ちかい (close) — build intro. Single-tile, English obvious.
     build(
       "ja-m6-8-1-build-chikai",
@@ -2676,12 +2519,6 @@ export const M6_8_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m6-8-1-rev", M6_8_1_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m6-8-1-info-end",
-      "You survived the Shibuya dialogue",
-      "You asked where, understood the answer, and said thank you. Next: post-dialogue grammar drills + review.",
-      "win",
-    ),
   ],
 };
 
@@ -2705,11 +2542,6 @@ export const M6_8_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m6-8-2-info-open",
-      "Cumulative check",
-      "Post-dialogue grammar check. All three particles rotate + cumulative production.",
-    ),
     // Cumulative clozes — rotating (が, に, で)
     cloze(
       "ja-m6-8-2-cloze-1",
@@ -2829,12 +2661,6 @@ export const M6_8_2: LessonContent = {
     }),
     vocabMcq("ja-m6-8-2-rev-mcq-2", M6_8_2_REVIEW[3], PRIOR_POOL),
     reviewMatchPairs("ja-m6-8-2-rev", M6_8_2_REVIEW.slice(0, 4)),
-    infoStep(
-      "ja-m6-8-2-info-end",
-      "You can now ask a stranger for directions in Shibuya",
-      "Opener (えきは どこですか) + comprehension + all three particles mastered. You can find anything in Japan.",
-      "win",
-    ),
   ],
 };
 

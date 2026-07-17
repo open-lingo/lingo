@@ -32,7 +32,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -254,11 +253,6 @@ export const M17_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m17-1-1-info-open",
-      "Getting around",
-      "Boats, taxis, bus stops, airports — six transport words and the particle that says HOW you travel.",
-    ),
     RULE_DE_TRANSPORT,
     // ── ふね (boat/ship) ──
     build(
@@ -389,12 +383,6 @@ export const M17_1_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m17-1-1-rev", M17_1_1_REVIEW),
-    infoStep(
-      "ja-m17-1-1-info-end",
-      "You can now name six ways to get around and say how you travel",
-      "ふね, タクシー, バスてい, くうこう, きっぷ, のりもの — plus で for the vehicle you use.",
-      "win",
-    ),
   ],
 };
 
@@ -420,11 +408,6 @@ export const M17_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m17-1-2-info-open",
-      "Transport drill",
-      "Time to lock in the transport words. Build sentences about how you get to places.",
-    ),
     // ── Drills ──
     build(
       "ja-m17-1-2-build-fune-de",
@@ -560,12 +543,6 @@ export const M17_1_2: LessonContent = {
     }),
     speaking("ja-m17-1-2-rev-speak-1", M17_1_2_REVIEW[2].kana, M17_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-1-2-rev", M17_1_2_REVIEW),
-    infoStep(
-      "ja-m17-1-2-info-end",
-      "You can now say how you travel and where you buy tickets",
-      "Transport vocab drilled — で for the vehicle, に for the destination. Solid foundation.",
-      "win",
-    ),
   ],
 };
 
@@ -590,11 +567,6 @@ export const M17_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m17-2-1-info-open",
-      "Destinations and directions",
-      "Two particles that get you moving — に for the arrival point, へ for the general direction. Plus two verbs: get on and get off.",
-    ),
     RULE_NI_DESTINATION,
     RULE_E_DIRECTION,
     // ── のる (ride / get on) ──
@@ -720,12 +692,6 @@ export const M17_2_1: LessonContent = {
     }),
     speaking("ja-m17-2-1-rev-speak-1", M17_2_1_REVIEW[2].kana, M17_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-2-1-rev", M17_2_1_REVIEW),
-    infoStep(
-      "ja-m17-2-1-info-end",
-      "You can now say where you're going and how you get on and off",
-      "に for destinations, へ for direction, のる to board, おりる to alight — motion in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -750,11 +716,6 @@ export const M17_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m17-2-2-info-open",
-      "Board and alight",
-      "Practice getting on and off vehicles. Mix に, へ, and で in the same sentences.",
-    ),
     build(
       "ja-m17-2-2-build-1",
       "Say: I get on the bus at the bus stop.",
@@ -887,12 +848,6 @@ export const M17_2_2: LessonContent = {
     }),
     speaking("ja-m17-2-2-rev-speak-1", M17_2_2_REVIEW[2].kana, M17_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-2-2-rev", M17_2_2_REVIEW),
-    infoStep(
-      "ja-m17-2-2-info-end",
-      "You can now board, ride, and alight in Japanese",
-      "のる (に), おりる (を), で for vehicles, へ for direction — the full transit toolkit.",
-      "win",
-    ),
   ],
 };
 
@@ -918,11 +873,6 @@ export const M17_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m17-3-1-info-open",
-      "Finding your way",
-      "Straight, right, left — three direction words and three verbs to get you wherever you need to go.",
-    ),
     // ── まっすぐ (straight) ──
     build(
       "ja-m17-3-1-build-massugu",
@@ -1058,12 +1008,6 @@ export const M17_3_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m17-3-1-rev", M17_3_1_REVIEW),
-    infoStep(
-      "ja-m17-3-1-info-end",
-      "You can now give basic directions in Japanese",
-      "まっすぐ, みぎ, ひだり + わたる, まがる, とまる — navigate any street.",
-      "win",
-    ),
   ],
 };
 
@@ -1088,11 +1032,6 @@ export const M17_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m17-3-2-info-open",
-      "Direction drill",
-      "Give directions like a local — straight, turn left, cross the street. Put your direction vocab to work.",
-    ),
     build(
       "ja-m17-3-2-build-1",
       "Say: Please cross the street.",
@@ -1227,12 +1166,6 @@ export const M17_3_2: LessonContent = {
     }),
     speaking("ja-m17-3-2-rev-speak-1", M17_3_2_REVIEW[2].kana, M17_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-3-2-rev", M17_3_2_REVIEW),
-    infoStep(
-      "ja-m17-3-2-info-end",
-      "You can now give multi-step directions in Japanese",
-      "Straight, turn, cross, stop — chained with てから for step-by-step navigation.",
-      "win",
-    ),
   ],
 };
 
@@ -1258,11 +1191,6 @@ export const M17_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m17-4-1-info-open",
-      "Where is it?",
-      "Five words that place things in relation to each other — across, nearby, close, next to, and between.",
-    ),
     // ── むこう (other side / across) ──
     build(
       "ja-m17-4-1-build-mukou",
@@ -1402,12 +1330,6 @@ export const M17_4_1: LessonContent = {
     }),
     speaking("ja-m17-4-1-rev-speak-1", M17_4_1_REVIEW[2].kana, M17_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-4-1-rev", M17_4_1_REVIEW),
-    infoStep(
-      "ja-m17-4-1-info-end",
-      "You can now describe where things are in relation to each other",
-      "むこう, そば, ちかく, となり, あいだ — five ways to pinpoint a location.",
-      "win",
-    ),
   ],
 };
 
@@ -1432,11 +1354,6 @@ export const M17_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m17-4-2-info-open",
-      "Location drill",
-      "Put location words into real sentences — describe where buildings and shops are relative to each other.",
-    ),
     build(
       "ja-m17-4-2-build-1",
       "Say: The hospital is near the station.",
@@ -1565,12 +1482,6 @@ export const M17_4_2: LessonContent = {
     }),
     speaking("ja-m17-4-2-rev-speak-1", M17_4_2_REVIEW[2].kana, M17_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-4-2-rev", M17_4_2_REVIEW),
-    infoStep(
-      "ja-m17-4-2-info-end",
-      "You can now describe exactly where things are around you",
-      "Next to, near, between, across — five location words locked in with the Noun の pattern.",
-      "win",
-    ),
   ],
 };
 
@@ -1597,11 +1508,6 @@ export const M17_8_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m17-8-1-info-open",
-      "In front, behind, inside",
-      "You can say near and next to. Now pinpoint things exactly — in front, behind, inside, under, and beside.",
-    ),
     // ── まえ (front) ──
     build(
       "ja-m17-8-1-build-mae",
@@ -1731,12 +1637,6 @@ export const M17_8_1: LessonContent = {
     }),
     speaking("ja-m17-8-1-rev-speak-1", M17_8_1_REVIEW[2].kana, M17_8_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-8-1-rev", M17_8_1_REVIEW),
-    infoStep(
-      "ja-m17-8-1-info-end",
-      "You can now pinpoint exactly where things are",
-      "まえ, うしろ, なか, した, よこ — five position words on the familiar Noun + の pattern.",
-      "win",
-    ),
   ],
 };
 
@@ -1763,11 +1663,6 @@ export const M17_8_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m17-8-2-info-open",
-      "Lost? Ask the police officer",
-      "The classic move in Japan: ask the けいかん at the police box. Two new words, then position practice.",
-    ),
     // ── けいかん (police officer) ──
     build(
       "ja-m17-8-2-build-keikan",
@@ -1940,12 +1835,6 @@ export const M17_8_2: LessonContent = {
     }),
     speaking("ja-m17-8-2-rev-speak-1", M17_8_2_REVIEW[2].kana, M17_8_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-8-2-rev", M17_8_2_REVIEW),
-    infoStep(
-      "ja-m17-8-2-info-end",
-      "You can now ask for directions like a traveler in Japan",
-      "すみません、ポストは どこですか — and you'll understand the answer, wherever it points you.",
-      "win",
-    ),
   ],
 };
 
@@ -1970,11 +1859,6 @@ export const M17_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m17-5-1-info-open",
-      "Deadlines",
-      "You know まで (until). Now までに — by a deadline. One particle changes the whole meaning.",
-    ),
     RULE_MADE_NI,
     // ── までに drills ──
     build(
@@ -2103,12 +1987,6 @@ export const M17_5_1: LessonContent = {
     }),
     speaking("ja-m17-5-1-rev-speak-1", M17_5_1_REVIEW[2].kana, M17_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-5-1-rev", M17_5_1_REVIEW),
-    infoStep(
-      "ja-m17-5-1-info-end",
-      "You can now set deadlines and durations in Japanese",
-      "までに = by (deadline), まで = until (duration). Time-bound transport sentences mastered.",
-      "win",
-    ),
   ],
 };
 
@@ -2133,11 +2011,6 @@ export const M17_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m17-5-2-info-open",
-      "Before…",
-      "You know てから (after doing). Now まえに — before. One comes first, one comes second. Simple.",
-    ),
     RULE_MAE_NI,
     // ── まえに drills ──
     build(
@@ -2277,12 +2150,6 @@ export const M17_5_2: LessonContent = {
     }),
     speaking("ja-m17-5-2-rev-speak-1", M17_5_2_REVIEW[2].kana, M17_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-5-2-rev", M17_5_2_REVIEW),
-    infoStep(
-      "ja-m17-5-2-info-end",
-      "You can now say what happens before something else",
-      "まえに for 'before' — noun の まえに and verb まえに. Combined with てから, you own time-sequence grammar.",
-      "win",
-    ),
   ],
 };
 
@@ -2307,11 +2174,6 @@ export const M17_6_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m17-6-1-info-open",
-      "Mixed drill",
-      "Every M17 particle in one drill — で, に, へ, までに, まえに. Can you pick the right one every time?",
-    ),
     cloze(
       "ja-m17-6-1-cloze-de",
       "タクシー",
@@ -2457,12 +2319,6 @@ export const M17_6_1: LessonContent = {
     }),
     vocabMcq("ja-m17-6-1-rev-mcq-1", M17_6_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
     reviewMatchPairs("ja-m17-6-1-rev", M17_6_1_REVIEW),
-    infoStep(
-      "ja-m17-6-1-info-end",
-      "You can now mix all M17 particles in complex sentences",
-      "で, に, へ, までに, まえに — five particle patterns interleaved. Getting closer to real navigation.",
-      "win",
-    ),
   ],
 };
 
@@ -2487,11 +2343,6 @@ export const M17_6_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m17-6-2-info-open",
-      "Production round",
-      "Build, translate, and speak — every M17 pattern in production direction.",
-    ),
     build(
       "ja-m17-6-2-build-1",
       "Say: I go to school by bus.",
@@ -2627,12 +2478,6 @@ export const M17_6_2: LessonContent = {
     vocabMcq("ja-m17-6-2-rev-mcq-1", M17_6_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
     speaking("ja-m17-6-2-rev-speak-2", M17_6_2_REVIEW[2].kana, M17_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-6-2-rev", M17_6_2_REVIEW),
-    infoStep(
-      "ja-m17-6-2-info-end",
-      "You can produce every M17 pattern from memory",
-      "Transport, directions, locations, deadlines, and time sequence — all in production. Navigation mastered.",
-      "win",
-    ),
   ],
 };
 
@@ -2655,11 +2500,6 @@ export const M17_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m17-story-info-open",
-      "Story time — Airport rush",
-      "ゆき tells you her plan for getting to the airport by 9. Listen closely — you'll reply in Japanese.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m17-story-scene-1",
       narrative: [
@@ -2777,12 +2617,6 @@ export const M17_STORY: LessonContent = {
       "くうこうの ちかくで タクシーを おります",
       "I get out of the taxi near the airport.",
     ),
-    infoStep(
-      "ja-m17-story-info-end",
-      "You followed a real travel plan — and answered back",
-      "Deadlines, transport, locations, and sequence — you tracked a full plan in Japanese and replied like a travel partner.",
-      "win",
-    ),
   ],
 };
 
@@ -2808,11 +2642,6 @@ export const M17_7_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m17-7-1-info-open",
-      "Full navigation",
-      "Everything from M17 — transport, directions, locations, deadlines, and time markers. One big drill.",
-    ),
     build(
       "ja-m17-7-1-build-1",
       "Say: I get on the boat.",
@@ -2950,12 +2779,6 @@ export const M17_7_1: LessonContent = {
     vocabMcq("ja-m17-7-1-rev-mcq-1", M17_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
     speaking("ja-m17-7-1-rev-speak-2", M17_7_1_REVIEW[2].kana, M17_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-7-1-rev", M17_7_1_REVIEW),
-    infoStep(
-      "ja-m17-7-1-info-end",
-      "You can navigate Japan using five particle patterns",
-      "Transport, directions, relative locations, deadlines, and time sequence — the full navigation toolkit.",
-      "win",
-    ),
   ],
 };
 
@@ -2980,11 +2803,6 @@ export const M17_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m17-7-2-info-open",
-      "Full production wrap-up",
-      "Build, translate, and speak: every M17 pattern in production direction.",
-    ),
     build(
       "ja-m17-7-2-build-1",
       "Say: I'll get home by train by 6.",
@@ -3116,12 +2934,6 @@ export const M17_7_2: LessonContent = {
     vocabMcq("ja-m17-7-2-rev-mcq-1", M17_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M17_REVIEW_POOL),
     speaking("ja-m17-7-2-rev-speak-2", M17_7_2_REVIEW[2].kana, M17_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m17-7-2-rev", M17_7_2_REVIEW),
-    infoStep(
-      "ja-m17-7-2-info-end",
-      "You can produce every M17 transport and direction pattern from memory",
-      "Transport, directions, locations, deadlines, before/after — all in full production. M17 complete.",
-      "win",
-    ),
   ],
 };
 

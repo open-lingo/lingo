@@ -1163,13 +1163,9 @@ function buildRowTestLesson(row: RowDef, sub: SubLessonDef): LessonContent {
     passThreshold: 0.7,
     maxRetries: 3,
   };
-  const intro: InfoStep = {
-    id: `ja-${row.id}-test-info-start`,
-    type: "info",
-    title: `${row.title.split(":")[0]} — Row test`,
-    body: `Quick check on everything in this row. Pass with 70%+ to clear it. Miss an item? It comes back at the end of the queue. You can skip the test if you'd rather come back later.`,
-    variant: "default",
-  };
+  // 2026-07-16 info-step purge: the "Row test — quick check…" intro info
+  // card was cut (ja ships zero info steps). The row-test step is
+  // self-explanatory in RowTestStepView; the lesson opens straight into it.
   return {
     id: `ja-m1-${row.id}-${sub.suffix}`,
     moduleId: moduleIdForRow(row),
@@ -1182,7 +1178,7 @@ function buildRowTestLesson(row: RowDef, sub: SubLessonDef): LessonContent {
     // under test conditions is the highest-value rep (testing effect).
     xpReward: 25,
     introducesVocabIds: [],
-    steps: [intro, testStep],
+    steps: [testStep],
   };
 }
 

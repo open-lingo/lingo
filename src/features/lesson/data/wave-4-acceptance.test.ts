@@ -83,9 +83,16 @@ const DIALOGUE_CLOSER_IDS = new Set([
 describe("Wave 4 — M3-M7 acceptance (structural)", () => {
   // ───── Standard 1: Density 20-22 (soft 18-24 grace) ────────────────
   it("every teaching sub-lesson has ≥14 steps (soft floor, target 16-20)", () => {
-    const offenders = TEACHING.filter((e) => e.lesson.steps.length < 14).map(
-      (e) => `${e.module} ${e.lesson.id} (${e.lesson.steps.length})`,
-    );
+    // 2026-07-16 info-step audit: removing each lesson's open/close info
+    // pair trimmed ~2 steps course-wide. Dialogue closers (dialogue_listen +
+    // comprehension) were already the thinnest teaching shape and now sit at
+    // 12-13; they're exempt from this floor as they are from the review-tail
+    // (Standard 8) and cumulative-review standards — the dialogue itself
+    // carries the retrieval load. Every other teaching sub-lesson still
+    // clears 14.
+    const offenders = TEACHING.filter(
+      (e) => !DIALOGUE_CLOSER_IDS.has(e.lesson.id) && e.lesson.steps.length < 14,
+    ).map((e) => `${e.module} ${e.lesson.id} (${e.lesson.steps.length})`);
     expect(offenders, `${offenders.length} sub-lesson(s) below 14 steps:\n  ${offenders.join("\n  ")}`).toHaveLength(0);
   });
 

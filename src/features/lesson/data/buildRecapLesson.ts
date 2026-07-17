@@ -16,7 +16,6 @@ import type {
   LessonContent,
   RowTestStep,
   RowTestItem,
-  InfoStep,
   MultipleChoiceStep,
   MatchPairsStep,
 } from "../types";
@@ -207,22 +206,9 @@ export function buildRecapLesson(
     maxRetries: RECAP_MAX_RETRIES,
   };
 
-  const intro: InfoStep = {
-    id: `ja-${moduleId}-recap-info-start`,
-    type: "info",
-    title: "Module recap",
-    body: `Review of everything you learned in ${moduleTitle}. Pass with 70%+ to clear — miss an item and it comes back at the end of the queue. Skippable if you'd rather come back later.`,
-    variant: "default",
-  };
-
-  const outro: InfoStep = {
-    id: `ja-${moduleId}-recap-info-end`,
-    type: "info",
-    title: "Nice work!",
-    body: "Module complete.",
-    variant: "default",
-  };
-
+  // 2026-07-16 info-step purge: the "Module recap" intro and "Nice work!"
+  // outro info cards were cut (ja ships zero info steps). The recap opens
+  // straight into the row_test; completion is handled by the lesson shell.
   return {
     id: `ja-${moduleId}-recap`,
     moduleId,
@@ -234,6 +220,6 @@ export function buildRecapLesson(
     // Module capstone — pays above row tests (25).
     xpReward: 30,
     introducesVocabIds: [],
-    steps: [intro, testStep, outro],
+    steps: [testStep],
   };
 }

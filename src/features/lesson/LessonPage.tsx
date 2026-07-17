@@ -454,7 +454,7 @@ export function LessonPage() {
     clearLessonInProgress(lesson.id);
 
     // Auto-disable the romaji reading aid per script as the learner crosses
-    // that script's fluency milestone (hiragana M10, katakana M17 — see
+    // that script's fluency milestone (hiragana M7, katakana M17 — see
     // src/shared/settings/romajiAutoFlip.ts). One-shot per script, idempotent.
     const reachedModuleIndex = parseModuleIndex(lesson.moduleId);
     if (
@@ -476,7 +476,7 @@ export function LessonPage() {
       );
     }
 
-    // Earlier, build-tile-only fade: at Module 10 the spelling-build tiles
+    // Earlier, build-tile-only fade: at Module 5 the spelling-build tiles
     // stop pre-showing romaji and switch to tap/hover-to-reveal, so the
     // learner reads the kana. One-shot, idempotent, independent of the
     // global romaji aid above.

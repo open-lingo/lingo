@@ -101,11 +101,14 @@ export const MOCK_LESSON_JA_M2_P_1: LessonContent = {
     // First-of-type handakuten info card.
     {
       id: "ja-p1-info-open",
-      type: "info",
+      type: "grammar_rule",
       title: "Handakuten — the circle mark",
-      body:
-        "A small circle (゜) on h-kana flips it to a p-sound: は becomes ぱ. Same shape, different breath. You'll meet 5 of these in this row — and only h-kana take the circle.",
-      variant: "culture",
+      rule:
+        "A small circle (゜) on h-kana flips it to a p-sound — same shape, different breath. Only h-kana take the circle; you'll meet 5 of them in this row.",
+      examples: [
+        { ja: "は → ぱ", romaji: "ha → pa", en: "h-kana with ゜ becomes p" },
+        { ja: "ほ → ぽ", romaji: "ho → po", en: "h-kana with ゜ becomes p" },
+      ],
     },
 
     // ─── Char 1: ぱ (pa) → ぱん (bread) ───
@@ -228,14 +231,6 @@ export const MOCK_LESSON_JA_M2_P_3: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    {
-      id: "ja-p3-info-open",
-      type: "info",
-      title: "Putting it together",
-      body:
-        "Last review of the dakuten/handakuten block. Quick sweep of the p-row plus a few words from earlier rows. Up next: yōon — small ゃゅょ.",
-      variant: "default",
-    },
 
     wordImageMcq(ctxSub3, "ja-p3-mcq-pan", "ぱん"),
     symbolToSound(ctxSub3, "ja-p3-s2s-pi", "ぴ", "pi", "ひ + ゜"),

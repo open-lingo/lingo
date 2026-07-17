@@ -33,7 +33,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -226,11 +225,6 @@ export const M16_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m16-1-1-info-open",
-      "Rules and prohibitions",
-      "You know てもいい (you may). Now the opposite: てはいけません — you must not. Three new verbs set the stage.",
-    ),
     RULE_TE_WA_IKEMASEN,
     // ── すわる (sit) ──
     build(
@@ -356,12 +350,6 @@ export const M16_1_1: LessonContent = {
     }),
     speaking("ja-m16-1-1-rev-speak-1", M16_1_1_REVIEW[2].kana, M16_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m16-1-1-rev", M16_1_1_REVIEW),
-    infoStep(
-      "ja-m16-1-1-info-end",
-      "You can now say what people must not do",
-      "てはいけません — the prohibition form. すわる, さわる, すう: three verbs locked into the pattern.",
-      "win",
-    ),
   ],
 };
 
@@ -386,11 +374,6 @@ export const M16_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m16-1-2-info-open",
-      "More prohibitions",
-      "Parking, entering, sitting — eight drills to make てはいけません automatic.",
-    ),
     // ── とめる (stop/park) ──
     build(
       "ja-m16-1-2-build-tomeru",
@@ -528,12 +511,6 @@ export const M16_1_2: LessonContent = {
     }),
     vocabMcq("ja-m16-1-2-rev-mcq-1", M16_1_2_REVIEW[2], M16_REVIEW_POOL),
     reviewMatchPairs("ja-m16-1-2-rev", M16_1_2_REVIEW),
-    infoStep(
-      "ja-m16-1-2-info-end",
-      "You can prohibit actions confidently",
-      "てはいけません is drilled — parking, entering, smoking, touching. You know the rules.",
-      "win",
-    ),
   ],
 };
 
@@ -558,11 +535,6 @@ export const M16_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m16-2-1-info-open",
-      "Polite negative requests",
-      "てはいけません is strict. Now the softer cousin: ないでください — 'please don't.' It uses the ない-form you learned in M11.",
-    ),
     RULE_NAIDE_KUDASAI,
     // ── Drill: ないでください ──
     build(
@@ -695,12 +667,6 @@ export const M16_2_1: LessonContent = {
     }),
     speaking("ja-m16-2-1-rev-speak-1", M16_2_1_REVIEW[2].kana, M16_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m16-2-1-rev", M16_2_1_REVIEW),
-    infoStep(
-      "ja-m16-2-1-info-end",
-      "You can now make polite negative requests",
-      "ないでください — please don't touch, enter, park, or take photos. Softer than てはいけません.",
-      "win",
-    ),
   ],
 };
 
@@ -725,11 +691,6 @@ export const M16_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m16-2-2-info-open",
-      "Don't vs must not",
-      "More ないでください drills — and contrasting with てはいけません to build discrimination.",
-    ),
     // ── Drill block ──
     cloze(
       "ja-m16-2-2-cloze-1",
@@ -870,12 +831,6 @@ export const M16_2_2: LessonContent = {
     }),
     vocabMcq("ja-m16-2-2-rev-mcq-1", M16_2_2_REVIEW[2], M16_REVIEW_POOL),
     reviewMatchPairs("ja-m16-2-2-rev", M16_2_2_REVIEW),
-    infoStep(
-      "ja-m16-2-2-info-end",
-      "You can distinguish polite requests from strict prohibitions",
-      "ないでください (please don't) vs てはいけません (you must not) — two tools for two levels of authority.",
-      "win",
-    ),
   ],
 };
 
@@ -900,11 +855,6 @@ export const M16_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m16-3-1-info-open",
-      "Sequencing your day",
-      "After doing homework, I watch TV. After washing my hands, I eat. てから — the simplest way to sequence actions.",
-    ),
     RULE_TE_KARA,
     // ── あらう (wash) ──
     build(
@@ -1022,12 +972,6 @@ export const M16_3_1: LessonContent = {
     }),
     speaking("ja-m16-3-1-rev-speak-1", M16_3_1_REVIEW[2].kana, M16_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m16-3-1-rev", M16_3_1_REVIEW),
-    infoStep(
-      "ja-m16-3-1-info-end",
-      "You can now sequence actions in time",
-      "てから — after doing X, do Y. Three new verbs (あらう, きがえる, かえる) wired into the sequence pattern.",
-      "win",
-    ),
   ],
 };
 
@@ -1052,11 +996,6 @@ export const M16_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m16-3-2-info-open",
-      "Daily sequence drills",
-      "Eight てから sequences — morning, school, evening. Lock in the pattern with real-life routines.",
-    ),
     // ── しゅくだい (homework) ──
     build(
       "ja-m16-3-2-build-shukudai",
@@ -1187,12 +1126,6 @@ export const M16_3_2: LessonContent = {
     }),
     vocabMcq("ja-m16-3-2-rev-mcq-1", M16_3_2_REVIEW[2], M16_REVIEW_POOL),
     reviewMatchPairs("ja-m16-3-2-rev", M16_3_2_REVIEW),
-    infoStep(
-      "ja-m16-3-2-info-end",
-      "You can describe your daily routine as a sequence of events",
-      "てから chains morning, school, and evening routines into clear time sequences.",
-      "win",
-    ),
   ],
 };
 
@@ -1217,11 +1150,6 @@ export const M16_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m16-4-1-info-open",
-      "What you love and what you don't",
-      "I like cooking. I dislike studying. のが + すき/きらい — turn any verb into something you like or dislike doing.",
-    ),
     RULE_NO_GA_SUKI,
     // ── すき/きらい exposure ──
     build(
@@ -1341,12 +1269,6 @@ export const M16_4_1: LessonContent = {
     }),
     speaking("ja-m16-4-1-rev-speak-1", M16_4_1_REVIEW[2].kana, M16_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m16-4-1-rev", M16_4_1_REVIEW),
-    infoStep(
-      "ja-m16-4-1-info-end",
-      "You can now say what you like and dislike doing",
-      "のがすき / のがきらい — cooking, studying, reading, listening. Turn any verb into a preference.",
-      "win",
-    ),
   ],
 };
 
@@ -1371,11 +1293,6 @@ export const M16_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m16-4-2-info-open",
-      "More likes and dislikes",
-      "Swimming, running, writing — expand your のがすき vocabulary with more verbs.",
-    ),
     // ── Drill block ──
     cloze(
       "ja-m16-4-2-cloze-1",
@@ -1518,12 +1435,6 @@ export const M16_4_2: LessonContent = {
     }),
     vocabMcq("ja-m16-4-2-rev-mcq-1", M16_4_2_REVIEW[2], M16_REVIEW_POOL),
     reviewMatchPairs("ja-m16-4-2-rev", M16_4_2_REVIEW),
-    infoStep(
-      "ja-m16-4-2-info-end",
-      "You can talk about what you love and what you hate doing",
-      "のがすき and のがきらい with swimming, running, writing, cooking, studying — your personality in Japanese.",
-      "win",
-    ),
   ],
 };
 
@@ -1548,11 +1459,6 @@ export const M16_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m16-5-1-info-open",
-      "What you may and must not do",
-      "Permission and prohibition side by side. てもいい = you may. てはいけません = you must not. Three location words for context.",
-    ),
     // ── じむしょ (office) ──
     build(
       "ja-m16-5-1-build-jimusho",
@@ -1697,12 +1603,6 @@ export const M16_5_1: LessonContent = {
     }),
     speaking("ja-m16-5-1-rev-speak-1", M16_5_1_REVIEW[2].kana, M16_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m16-5-1-rev", M16_5_1_REVIEW),
-    infoStep(
-      "ja-m16-5-1-info-end",
-      "You can state rules — what's allowed and what's forbidden",
-      "てもいい and てはいけません as a pair. Office, elevator, stairs — real-world settings for real rules.",
-      "win",
-    ),
   ],
 };
 
@@ -1727,11 +1627,6 @@ export const M16_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m16-5-2-info-open",
-      "Three-way discrimination",
-      "Permission, prohibition, polite request — all three in one drill. Pick the right ending every time.",
-    ),
     // ── Mixed drills ──
     sentenceMcq({
       id: "ja-m16-5-2-mcq-1",
@@ -1876,12 +1771,6 @@ export const M16_5_2: LessonContent = {
     }),
     vocabMcq("ja-m16-5-2-rev-mcq-1", M16_5_2_REVIEW[2], M16_REVIEW_POOL),
     reviewMatchPairs("ja-m16-5-2-rev", M16_5_2_REVIEW),
-    infoStep(
-      "ja-m16-5-2-info-end",
-      "You can handle permission, prohibition, and polite requests",
-      "Three forms — てもいい, てはいけません, ないでください — deployed in real-world scenarios. Full rule toolkit.",
-      "win",
-    ),
   ],
 };
 
@@ -1906,11 +1795,6 @@ export const M16_6_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m16-6-1-info-open",
-      "Your routine in sequence",
-      "Combine てから (after doing) with のがすき (I like doing) to talk about your routines and preferences.",
-    ),
     // ── Sequence + preference drills ──
     build(
       "ja-m16-6-1-build-1",
@@ -2078,12 +1962,6 @@ export const M16_6_1: LessonContent = {
     }),
     speaking("ja-m16-6-1-rev-speak-1", M16_6_1_REVIEW[2].kana, M16_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m16-6-1-rev", M16_6_1_REVIEW),
-    infoStep(
-      "ja-m16-6-1-info-end",
-      "You can describe your routines and what you enjoy about them",
-      "てから sequences your day; のがすき/きらい colors it with preferences. Routine + personality.",
-      "win",
-    ),
   ],
 };
 
@@ -2108,11 +1986,6 @@ export const M16_6_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m16-6-2-info-open",
-      "Everything together",
-      "Prohibition, negative requests, sequences, and likes — all four grammar points in one drill.",
-    ),
     // ── Mixed four-way drills ──
     cloze(
       "ja-m16-6-2-cloze-1",
@@ -2254,12 +2127,6 @@ export const M16_6_2: LessonContent = {
     }),
     vocabMcq("ja-m16-6-2-rev-mcq-1", M16_6_2_REVIEW[2], M16_REVIEW_POOL),
     reviewMatchPairs("ja-m16-6-2-rev", M16_6_2_REVIEW),
-    infoStep(
-      "ja-m16-6-2-info-end",
-      "You can handle all four te-form extensions at once",
-      "てはいけません, ないでください, てから, のがすき — four patterns deployed together. Te-form mastery continues.",
-      "win",
-    ),
   ],
 };
 
@@ -2283,11 +2150,6 @@ export const M16_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m16-story-info-open",
-      "Story time — Library day",
-      "Listen to a short story about a day at the library and the evening routine that follows. Answer the questions between chunks, then reply yourself.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m16-story-s1",
       narrative: [
@@ -2413,12 +2275,6 @@ export const M16_STORY: LessonContent = {
       "さきに しゅくだいを します",
       "First, I do my homework.",
     ),
-    infoStep(
-      "ja-m16-story-info-end",
-      "You followed a narrated day of rules and routines",
-      "Library rules, homework before play, and your own preferences — prohibition, sequence, and のがすき all in one story.",
-      "win",
-    ),
   ],
 };
 
@@ -2444,11 +2300,6 @@ export const M16_7_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m16-7-1-info-open",
-      "Everything at once",
-      "Prohibition, negative request, sequence, and preference — all mixed together. Every answer requires choosing the right grammar ending.",
-    ),
     // ── Mixed discrimination ──
     sentenceMcq({
       id: "ja-m16-7-1-mcq-1",
@@ -2601,12 +2452,6 @@ export const M16_7_1: LessonContent = {
     vocabMcq("ja-m16-7-1-rev-mcq-1", M16_7_1_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M16_REVIEW_POOL),
     speaking("ja-m16-7-1-rev-speak-2", M16_7_1_REVIEW[2].kana, M16_7_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m16-7-1-rev", M16_7_1_REVIEW),
-    infoStep(
-      "ja-m16-7-1-info-end",
-      "You can deploy every te-form pattern on demand",
-      "Permission, prohibition, negative request, sequence, preference — the full te-form toolkit mixed and mastered.",
-      "win",
-    ),
   ],
 };
 
@@ -2631,11 +2476,6 @@ export const M16_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m16-7-2-info-open",
-      "Full production wrap-up",
-      "Build, translate, and speak: every M16 pattern in production direction.",
-    ),
     // ── Production drills ──
     build(
       "ja-m16-7-2-build-1",
@@ -2775,12 +2615,6 @@ export const M16_7_2: LessonContent = {
     vocabMcq("ja-m16-7-2-rev-mcq-1", M16_7_2_REVIEW.filter((a) => Boolean(a.emoji))[0]!, M16_REVIEW_POOL),
     speaking("ja-m16-7-2-rev-speak-2", M16_7_2_REVIEW[2].kana, M16_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m16-7-2-rev", M16_7_2_REVIEW),
-    infoStep(
-      "ja-m16-7-2-info-end",
-      "You can produce every te-form pattern from memory",
-      "Prohibition, negative requests, time sequences, and preference — all in production. Te-form Part 2 complete.",
-      "win",
-    ),
   ],
 };
 

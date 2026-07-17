@@ -24,7 +24,6 @@ import {
   cloze,
   dialogueListen,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -89,12 +88,21 @@ export const M5_1_1: LessonContent = {
   estimatedMinutes: 7,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m5-1-1-info-open",
-      "Numbers — two systems, one priority",
-      "Japanese has two number systems. Sino-Japanese (いち, に, さん…) is used for math, money, time, addresses, and counting most things. Native readings (ひとつ, ふたつ…) are for generic objects. Today: the Sino set, starting with 1-3.",
-      "culture",
-    ),
+    grammarRule({
+      id: "ja-m5-1-1-info-open",
+      title: "Numbers — two systems, one priority",
+      rule: "Japanese has two number systems. Sino-Japanese (いち, に, さん…) covers math, money, time, and most counting. Native readings (ひとつ, ふたつ…) are for generic objects. Start with the Sino set.",
+      examples: [
+        { ja: "いち, に, さん", romaji: "ichi, ni, san", en: "1, 2, 3 (Sino-Japanese)" },
+        { ja: "ひとつ, ふたつ", romaji: "hitotsu, futatsu", en: "1 thing, 2 things (native)" },
+      ],
+      antiPattern: {
+        ja: "ひとつじ",
+        romaji: "hitotsu-ji",
+        en: "(using the native reading for a time)",
+        why: "Time uses the Sino set: 1 o'clock is いちじ, not ひとつじ.",
+      },
+    }),
     // ── いち (1) — single tile, English "1 (one)" makes it obvious ──
     build(
       "ja-m5-1-1-build-ichi",
@@ -188,12 +196,6 @@ export const M5_1_1: LessonContent = {
     }),
     vocabMcq("ja-m5-1-1-rev-mcq-2", M5_1_1_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-1-1-rev", M5_1_1_REVIEW),
-    infoStep(
-      "ja-m5-1-1-info-end",
-      "You can now count to three in Japanese",
-      "The first three Sino-Japanese numbers: いち (1), に (2), さん (3) — the system used for math, money, and time.",
-      "win",
-    ),
   ],
 };
 
@@ -232,12 +234,6 @@ export const M5_1_2: LessonContent = {
       correctMeaningEn: "2, 3, 4",
       distractorsEn: ["1, 2, 3", "3, 4, 5", "4, 3, 2"],
     }),
-    infoStep(
-      "ja-m5-1-2-info-yon",
-      "Why よん, not し?",
-      "'Shi' (し) overlaps with 'death' (死) in Japanese. Most speakers prefer よん for clarity in everyday use — hospitals even skip floor 4. You'll hear し in set phrases (like しがつ = April), but よん is the safe default.",
-      "culture",
-    ),
     // ── ご (5) — single tile ──
     build(
       "ja-m5-1-2-build-go",
@@ -314,12 +310,6 @@ export const M5_1_2: LessonContent = {
     }),
     vocabMcq("ja-m5-1-2-rev-mcq-2", M5_1_2_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-1-2-rev", M5_1_2_REVIEW),
-    infoStep(
-      "ja-m5-1-2-info-end",
-      "You can now count to five in Japanese",
-      "よん (4) and ご (5) complete the first half. よん is preferred over し to avoid the overlap with 'death' (死).",
-      "win",
-    ),
   ],
 };
 
@@ -438,12 +428,6 @@ export const M5_2_1: LessonContent = {
     }),
     vocabMcq("ja-m5-2-1-rev-mcq-2", M5_2_1_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-2-1-rev", M5_2_1_REVIEW),
-    infoStep(
-      "ja-m5-2-1-info-end",
-      "You can now count from six to eight",
-      "ろく (6), なな (7), and はち (8). なな is preferred over しち to avoid confusion with いち.",
-      "win",
-    ),
   ],
 };
 
@@ -481,12 +465,6 @@ export const M5_2_2: LessonContent = {
       correctMeaningEn: "7, 8, 9",
       distractorsEn: ["6, 7, 8", "8, 9, 10", "9, 8, 7"],
     }),
-    infoStep(
-      "ja-m5-2-2-info-kyuu",
-      "Why きゅう, not く?",
-      "'Ku' (く) overlaps with 'pain/suffering' (苦). Most speakers prefer きゅう for clarity. You'll hear く in set phrases (like くがつ = September), but きゅう is the safe default.",
-      "culture",
-    ),
     // ── じゅう (10) — single tile ──
     build(
       "ja-m5-2-2-build-juu",
@@ -563,12 +541,6 @@ export const M5_2_2: LessonContent = {
     }),
     vocabMcq("ja-m5-2-2-rev-mcq-2", M5_2_2_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-2-2-rev", M5_2_2_REVIEW),
-    infoStep(
-      "ja-m5-2-2-info-end",
-      "You can now count from one to ten",
-      "きゅう (9) and じゅう (10) finish the set. All ten Sino-Japanese numbers consolidated — いち through じゅう.",
-      "win",
-    ),
   ],
 };
 
@@ -722,12 +694,6 @@ export const M5_3_1: LessonContent = {
     }),
     vocabMcq("ja-m5-3-1-rev-mcq-2", M5_3_1_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-3-1-rev", M5_3_1_REVIEW),
-    infoStep(
-      "ja-m5-3-1-info-end",
-      "You can now order anything politely with ください",
-      "The magic request word: item + ください. Coffee, water, a pen, an umbrella — any noun you know is now a polite request.",
-      "win",
-    ),
   ],
 };
 
@@ -752,12 +718,21 @@ export const M5_3_2: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m5-3-2-info-open",
-      "Generic counters for ordering",
-      "When ordering items (coffees, dishes, tickets), use the native-reading counters: ひとつ (1 thing), ふたつ (2 things), みっつ (3 things). Pattern: item + counter + ください.",
-      "grammar",
-    ),
+    grammarRule({
+      id: "ja-m5-3-2-info-open",
+      title: "Generic counters for ordering",
+      rule: "When ordering items, use the native-reading counters ひとつ (1), ふたつ (2), みっつ (3). Pattern: item + counter + ください.",
+      examples: [
+        { ja: "コーヒー を ひとつ ください", romaji: "koohii wo hitotsu kudasai", en: "One coffee, please." },
+        { ja: "みず を ふたつ ください", romaji: "mizu wo futatsu kudasai", en: "Two waters, please." },
+      ],
+      antiPattern: {
+        ja: "コーヒー を いち ください",
+        romaji: "koohii wo ichi kudasai",
+        en: "(using the Sino number to order)",
+        why: "Order generic items with native counters: ひとつ, not いち.",
+      },
+    }),
     // ── ひとつ — figuroutable: "1 thing" + only one unknown tile ──
     build(
       "ja-m5-3-2-build-hitotsu",
@@ -876,12 +851,6 @@ export const M5_3_2: LessonContent = {
     }),
     vocabMcq("ja-m5-3-2-rev-mcq-2", M5_3_2_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-3-2-rev", M5_3_2_REVIEW),
-    infoStep(
-      "ja-m5-3-2-info-end",
-      "You can now order multiple items at a cafe",
-      "Generic counters ひとつ (1 thing), ふたつ (2 things), みっつ (3 things) slotted into the item + quantity + ください pattern.",
-      "win",
-    ),
   ],
 };
 
@@ -906,12 +875,6 @@ export const M5_4_1: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m5-4-1-info-open",
-      "Counters — why Japanese doesn't say 'three cats'",
-      "Japanese doesn't say 'three cats' — it says 'cats, three [counter].' Each category has its own counter. 人 (the people-counter) is first because every restaurant entrance asks 'how many people?' 1 and 2 people use NATIVE readings (ひとり, ふたり) — NOT Sino いち/に.",
-      "grammar",
-    ),
     // ── ひとり — figuroutable: "1 person" prompt, single unknown tile ──
     build(
       "ja-m5-4-1-build-hitori",
@@ -961,12 +924,6 @@ export const M5_4_1: LessonContent = {
         { id: "p4", source: "ふたつ", target: "2 things", sourceAnnotation: [{ surface: "ふたつ", reading: "ふたつ" }] },
       ],
     } satisfies MatchPairsStep,
-    infoStep(
-      "ja-m5-4-1-info-restaurant",
-      "At a restaurant entrance",
-      "Staff will ask 'なんめいさまですか' (how many people?). You answer with the counter + です: 'ふたりです.' (Two.) Say 'いちにん' or 'ににん' and they'll smile and gently correct you — the native readings for 1 and 2 are non-negotiable.",
-      "culture",
-    ),
     listeningBuildSentence({
       id: "ja-m5-4-1-lb-sensei",
       target: "せんせいは ひとりです",
@@ -1019,12 +976,6 @@ export const M5_4_1: LessonContent = {
     }),
     vocabMcq("ja-m5-4-1-rev-mcq-2", M5_4_1_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-4-1-rev", M5_4_1_REVIEW),
-    infoStep(
-      "ja-m5-4-1-info-end",
-      "You can now get a table for one or two",
-      "The people-counter uses native readings for 1 and 2: ひとり (1 person) and ふたり (2 people) — the first thing every restaurant asks.",
-      "win",
-    ),
   ],
 };
 
@@ -1049,12 +1000,21 @@ export const M5_4_2: LessonContent = {
   estimatedMinutes: 8,
   xpReward: 22,
   steps: [
-    infoStep(
-      "ja-m5-4-2-info-open",
-      "The regular pattern: number + にん",
-      "From 3 people onward, just add にん to the Sino number. さんにん (3), よにん (4), ごにん (5). The irregulars (ひとり, ふたり) are done — everything else is predictable.",
-      "grammar",
-    ),
+    grammarRule({
+      id: "ja-m5-4-2-info-open",
+      title: "The regular pattern: number + にん",
+      rule: "From 3 people onward, add にん to the Sino number: さんにん (3), よにん (4), ごにん (5). Only ひとり (1) and ふたり (2) are irregular — everything else is predictable.",
+      examples: [
+        { ja: "さんにん", romaji: "san-nin", en: "3 people" },
+        { ja: "よにん", romaji: "yo-nin", en: "4 people" },
+      ],
+      antiPattern: {
+        ja: "よんにん",
+        romaji: "yon-nin",
+        en: "(using よん instead of よ for 4 people)",
+        why: "4 people is よにん, not よんにん — the number 4 shortens to よ here.",
+      },
+    }),
     // ── さんにん — figuroutable: learner knows さん=3 + "3 people" prompt ──
     build(
       "ja-m5-4-2-build-sannin",
@@ -1160,12 +1120,6 @@ export const M5_4_2: LessonContent = {
     }),
     vocabMcq("ja-m5-4-2-rev-mcq-2", M5_4_2_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-4-2-rev", M5_4_2_REVIEW),
-    infoStep(
-      "ja-m5-4-2-info-end",
-      "You can now request a table for up to five people",
-      "The regular pattern kicks in from 3: さんにん, よにん, ごにん. Number + にん for any group size.",
-      "win",
-    ),
   ],
 };
 
@@ -1327,12 +1281,6 @@ export const M5_5_1: LessonContent = {
     }),
     vocabMcq("ja-m5-5-1-rev-mcq-2", M5_5_1_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-5-1-rev", M5_5_1_REVIEW),
-    infoStep(
-      "ja-m5-5-1-info-end",
-      "You can now ask how much something costs",
-      "Three transaction words: おかね (money), いくら (how much), and えん (yen). これは いくら ですか = 'How much is this?'",
-      "win",
-    ),
   ],
 };
 
@@ -1466,12 +1414,6 @@ export const M5_5_2: LessonContent = {
     }),
     vocabMcq("ja-m5-5-2-rev-mcq-2", M5_5_2_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-5-2-rev", M5_5_2_REVIEW),
-    infoStep(
-      "ja-m5-5-2-info-end",
-      "You can now order drinks and ask prices at a cafe",
-      "おちゃ (green tea) plus full orders combining item + counter + ください, and price questions with いくら ですか.",
-      "win",
-    ),
   ],
 };
 
@@ -1494,11 +1436,6 @@ export const M5_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m5-story-info-open",
-      "Story time — Ordering for the group",
-      "ゆき and たけし are at a café with friends. Listen as they order drinks and count their group.",
-    ),
     dialogueListen({
       id: "ja-m5-story-scene-1",
       lines: [
@@ -1607,12 +1544,6 @@ export const M5_STORY: LessonContent = {
       "ja-m5-story-speak-sannin",
       "ともだちは さんにんです",
       "There are three friends.",
-    ),
-    infoStep(
-      "ja-m5-story-info-end",
-      "You can now follow a group ordering conversation",
-      "You understood counters (ひとつ, ふたつ, みっつ) for things and people counters (さんにん) for people — and placed an order with ください.",
-      "win",
     ),
   ],
 };
@@ -1772,12 +1703,6 @@ export const M5_6_1: LessonContent = {
     }),
     vocabMcq("ja-m5-6-1-rev-mcq-2", M5_6_1_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-6-1-rev", M5_6_1_REVIEW),
-    infoStep(
-      "ja-m5-6-1-info-end",
-      "You can now say where you're from",
-      "The origin marker から: わたしは アメリカから です (I'm from America). Stacks with は for topic + origin in one sentence.",
-      "win",
-    ),
   ],
 };
 
@@ -1928,12 +1853,6 @@ export const M5_6_2: LessonContent = {
     }),
     vocabMcq("ja-m5-6-2-rev-mcq-2", M5_6_2_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-6-2-rev", M5_6_2_REVIEW),
-    infoStep(
-      "ja-m5-6-2-info-end",
-      "You can now sort は, の, から, and ください under pressure",
-      "Mixed cloze + build across all M3-M5 particles: topic は, possession の, origin から, and request ください in rotating drills.",
-      "win",
-    ),
   ],
 };
 
@@ -2061,12 +1980,6 @@ export const M5_7_1: LessonContent = {
     }),
     vocabMcq("ja-m5-7-1-rev-mcq-2", M5_7_1_REVIEW[2], PRIOR_POOL),
     reviewMatchPairs("ja-m5-7-1-rev", M5_7_1_REVIEW),
-    infoStep(
-      "ja-m5-7-1-info-end",
-      "You can now handle a full cafe transaction",
-      "Five transactional sentences produced from scratch: ordering drinks, asking prices, counting people, and stating your origin.",
-      "win",
-    ),
   ],
 };
 
@@ -2091,12 +2004,6 @@ export const M5_7_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 26,
   steps: [
-    infoStep(
-      "ja-m5-7-2-info-open",
-      "Drop into the scene",
-      "You walk into a Tokyo cafe with a friend. They order, you ask the price. Every word + grammar piece is from M3-M5. The dialogue plays audio-only — listen first, then answer comprehension questions.",
-      "culture",
-    ),
     // Warm-up listening
     listeningCompSentence({
       id: "ja-m5-7-2-lc-warmup",
@@ -2245,12 +2152,6 @@ export const M5_7_2: LessonContent = {
       PRIOR_POOL,
     ),
     reviewMatchPairs("ja-m5-7-2-rev", M5_7_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m5-7-2-info-end",
-      "You can now order for a group at a Tokyo cafe",
-      "A full cafe dialogue: listening comprehension, ordering with counters, asking prices, and explaining the item + quantity + ください pattern.",
-      "win",
-    ),
   ],
 };
 

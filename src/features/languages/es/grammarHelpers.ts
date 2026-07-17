@@ -28,11 +28,19 @@ import type {
   MultipleChoiceStep,
   ParticleClozeStep,
   PhraseCardStep,
+  SelfExplanationMcqStep,
+  SelfExplanationOption,
   SpeakingStep,
   TranslateStep,
   WordImageMcqStep,
 } from "@/features/lesson/types";
-import { findEsAtomBySurface, type EsAtom } from "./courseAtoms";
+import {
+  findEsAtomBySurface,
+  getRegisteredEsAtoms,
+  type EsAtom,
+  type EsAtomKind,
+  type EsAtomSource,
+} from "./courseAtoms";
 
 // ─── Atom resolution ─────────────────────────────────────────────────────
 
@@ -607,6 +615,133 @@ export function vocabTextMcq(
     exercisedAtoms: resolveAtomIds([targetSurface]),
     modality: "recognition",
   };
+}
+
+// ─── Self-explanation MCQ (metacognitive "why is this right") ────────────
+
+/**
+ * `self_explanation_mcq` factory — the metacognitive beat JA lands at
+ * position N-1 of every grammar-drill lesson (guide §5.3). Anchor the
+ * learner to a form they JUST committed, then ask "why?" with three
+ * reason options: `rule` (correct), `surface` (a plausible near-rule /
+ * heuristic — the "that's the pattern, but the rule is deeper" miss), and
+ * `distractor` (a rule-citing-but-wrong statement, NOT obvious nonsense —
+ * see guide §5.4). Slot-rotated so the rule isn't always first.
+ *
+ * Not an SRS-writing step (no `exercisedAtoms`) — it reflects on retrieval,
+ * it doesn't add a new one. Place it AFTER 2-3 commits on the target form.
+ */
+export function selfExplain(opts: {
+  id: string;
+  /** The just-committed fact, e.g. "You wrote: la casa es bonita". */
+  anchorLabel: string;
+  anchorAudioText?: string;
+  question: string;
+  rule: { text: string };
+  surface: { text: string };
+  distractor: { text: string };
+  ruleExplanation?: string;
+}): SelfExplanationMcqStep {
+  const base: SelfExplanationOption[] = [
+    { id: `${opts.id}-rule`, text: opts.rule.text, reasonType: "rule" },
+    { id: `${opts.id}-surface`, text: opts.surface.text, reasonType: "surface" },
+    { id: `${opts.id}-distractor`, text: opts.distractor.text, reasonType: "distractor" },
+  ];
+  const slot = slotFor(opts.id, base.length);
+  const options = [...base];
+  const correct = options.shift()!;
+  options.splice(slot, 0, correct);
+  return {
+    id: opts.id,
+    type: "self_explanation_mcq",
+    anchor: { label: opts.anchorLabel, audioText: opts.anchorAudioText },
+    question: opts.question,
+    options,
+    correctOptionId: `${opts.id}-rule`,
+    ruleExplanation: opts.ruleExplanation,
+  };
+}
+
+// ─── Compounding review (prior-module atom picker) ───────────────────────
+
+const ES_MODULE_ORDER: EsAtomSource[] = [
+  "m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8",
+  "m9", "m10", "m11", "m12", "m13", "m14", "m15", "m16",
+];
+
+function moduleIndex(m: EsAtomSource): number {
+  return ES_MODULE_ORDER.indexOf(m);
+}
+
+function hash32(str: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  h ^= h >>> 16;
+  h = Math.imul(h, 0x85ebca6b);
+  h ^= h >>> 13;
+  h = Math.imul(h, 0xc2b2ae35);
+  h ^= h >>> 16;
+  return h >>> 0;
+}
+
+/**
+ * Deterministically pick `n` surfaces from atoms introduced in modules
+ * STRICTLY EARLIER than `beforeModule` — the compounding-review draw JA
+ * gets from `pickReviewAtoms` (guide §6, "the #1 differentiator"). Reads
+ * the live registry (cycle-safe via `getRegisteredEsAtoms`), so it only
+ * ever sees prior modules at authoring time — exactly what we want.
+ *
+ * Seed the picker with a per-lesson id so two lessons draw different
+ * (stable) samples. Defaults: single-word, SRS-eligible vocab/particle
+ * surfaces — safe to hand straight to `matchPairs`, `cloze` carriers, or
+ * `sentenceMcq` review items.
+ */
+export function pickReviewSurfaces(
+  seedId: string,
+  beforeModule: EsAtomSource,
+  n: number,
+  opts?: { singleWord?: boolean; kinds?: EsAtomKind[]; includePhrases?: boolean },
+): string[] {
+  const cutoff = moduleIndex(beforeModule);
+  const singleWord = opts?.singleWord ?? true;
+  const kinds = opts?.kinds ?? (opts?.includePhrases ? undefined : (["vocab", "particle"] as EsAtomKind[]));
+  const pool = getRegisteredEsAtoms().filter((a) => {
+    if (moduleIndex(a.fromModule as EsAtomSource) >= cutoff) return false;
+    if (a.srsEligible === false) return false;
+    if (singleWord && a.surface.includes(" ")) return false;
+    if (kinds && !kinds.includes(a.kind)) return false;
+    return true;
+  });
+  // Stable shuffle keyed by (seed, surface) so the sample is deterministic
+  // but varies lesson-to-lesson.
+  pool.sort((a, b) => hash32(`${seedId}:${a.surface}`) - hash32(`${seedId}:${b.surface}`));
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const a of pool) {
+    if (seen.has(a.surface)) continue;
+    seen.add(a.surface);
+    out.push(a.surface);
+    if (out.length >= n) break;
+  }
+  return out;
+}
+
+/**
+ * Convenience: a prior-module review `match_pairs` grid. Draws `n` (≥6)
+ * earlier-module single-word surfaces and builds the grid. Throws (via
+ * `matchPairs`) if fewer than 6 resolve — only call from m2+ where the
+ * earlier pool is large enough.
+ */
+export function reviewMatchPairs(
+  idPrefix: string,
+  seedId: string,
+  beforeModule: EsAtomSource,
+  n = 6,
+): MatchPairsStep {
+  return matchPairs(idPrefix, pickReviewSurfaces(seedId, beforeModule, n));
 }
 
 // ─── Re-export atom shape for consumers ─────────────────────────────────

@@ -118,8 +118,11 @@ function tailPoolFor(
 
 /**
  * Append the review tail when the lesson qualifies; otherwise return the
- * lesson unchanged. Tail lands before a trailing info card (sub-1's wrap
- * slide) so the lesson still closes on its authored beat.
+ * lesson unchanged. If a lesson still ends on an info card the tail lands
+ * just before it; since the 2026-07-16 info-step purge ja kana lessons no
+ * longer carry a trailing info card, so in practice the tail now appends at
+ * the very end. The `type === "info"` branch is kept as a defensive no-op
+ * (and still applies to es/ko, which retain info cards).
  */
 export function withKanaReviewTail(lesson: LessonContent): LessonContent {
   const resolved = tailPoolFor(lesson.id);

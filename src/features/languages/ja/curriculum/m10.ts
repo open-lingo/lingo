@@ -25,7 +25,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -129,11 +128,6 @@ export const M10_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m10-1-1-info-open",
-      "Past tense — the polite way",
-      "Swap ます → ました and you can talk about anything you did. Three verbs, two time words, zero exceptions.",
-    ),
     RULE_MASHITA,
     // ── きのう (yesterday) — build from tiles ──
     build(
@@ -269,12 +263,6 @@ export const M10_1_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-1-1-rev", M10_1_1_REVIEW),
-    infoStep(
-      "ja-m10-1-1-info-end",
-      "You can now say what you did yesterday",
-      "たべました, のみました, みました — the polite past is as simple as swapping ます → ました. きのう and おととい set the time.",
-      "win",
-    ),
   ],
 };
 
@@ -299,11 +287,6 @@ export const M10_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m10-1-2-info-open",
-      "Past tense drill",
-      "Mix and match verbs with ました. Can you say what you read, wrote, and went to yesterday?",
-    ),
     // ── よみました (read — past) ──
     build(
       "ja-m10-1-2-build-yomimashita",
@@ -476,12 +459,6 @@ export const M10_1_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-1-2-rev", M10_1_2_REVIEW),
-    infoStep(
-      "ja-m10-1-2-info-end",
-      "You can now talk about what you did and didn't do",
-      "ました for positive past, ませんでした for negative past, それから to chain events — your past-tense storytelling toolkit is growing.",
-      "win",
-    ),
   ],
 };
 
@@ -506,11 +483,6 @@ export const M10_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m10-2-1-info-open",
-      "Morning routines in the past",
-      "Three daily verbs + two time words. By the end you'll describe what you did this morning and last night.",
-    ),
     // ── けさ (this morning) ──
     build(
       "ja-m10-2-1-build-kesa",
@@ -650,12 +622,6 @@ export const M10_2_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-2-1-rev", M10_2_1_REVIEW),
-    infoStep(
-      "ja-m10-2-1-info-end",
-      "You can now describe your morning and night routine",
-      "おきました, ねました, あるきました — morning and night activities using けさ and ゆうべ.",
-      "win",
-    ),
   ],
 };
 
@@ -680,11 +646,6 @@ export const M10_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m10-2-2-info-open",
-      "More daily verbs in the past",
-      "Three more things you might have done: ran, swam, played. Same ました pattern — still no exceptions.",
-    ),
     // ── はしりました (ran) ──
     build(
       "ja-m10-2-2-build-hashirimashita",
@@ -835,12 +796,6 @@ export const M10_2_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-2-2-rev", M10_2_2_REVIEW),
-    infoStep(
-      "ja-m10-2-2-info-end",
-      "You can now describe daily activities in the past",
-      "はしりました, およぎました, あそびました — six past-tense verbs and counting. And you can say you watched the ニュース last night.",
-      "win",
-    ),
   ],
 };
 
@@ -898,11 +853,6 @@ export const M10_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m10-3-1-info-open",
-      "What was it?",
-      "です → でした. That's how you say something WAS. And じゃなかったです for what it WASN'T.",
-    ),
     RULE_DESHITA,
     // ── でした (was) ──
     build(
@@ -1028,12 +978,6 @@ export const M10_3_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-3-1-rev", M10_3_1_REVIEW),
-    infoStep(
-      "ja-m10-3-1-info-end",
-      "You can now say what things were and weren't",
-      "でした (was) and じゃなかったです (wasn't) — the past copula is unlocked.",
-      "win",
-    ),
   ],
 };
 
@@ -1058,11 +1002,6 @@ export const M10_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m10-3-2-info-open",
-      "Past copula drill",
-      "Was it a day off? Was she a student? Drill でした and じゃなかったです in different scenarios.",
-    ),
     // ── Mixed でした/じゃなかったです drill ──
     build(
       "ja-m10-3-2-build-tomodachi-deshita",
@@ -1208,12 +1147,6 @@ export const M10_3_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-3-2-rev", M10_3_2_REVIEW),
-    infoStep(
-      "ja-m10-3-2-info-end",
-      "You can now describe what things were and weren't in varied contexts",
-      "でした and じゃなかったです — past and negative past copula in time-framed sentences.",
-      "win",
-    ),
   ],
 };
 
@@ -1271,11 +1204,6 @@ export const M10_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m10-4-1-info-open",
-      "Adjectives go past tense too",
-      "Drop い, add かった. One exception: いい → よかった. Two patterns, and you're describing everything in the past.",
-    ),
     RULE_I_ADJ_PAST,
     // ── たかかったです (was expensive) ──
     build(
@@ -1414,12 +1342,6 @@ export const M10_4_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-4-1-rev", M10_4_1_REVIEW),
-    infoStep(
-      "ja-m10-4-1-info-end",
-      "You can now describe things in the past with adjectives",
-      "たかかった, おいしかった, よかった — い-adjective past is drop-い + かった. The いい → よかった exception is locked in.",
-      "win",
-    ),
   ],
 };
 
@@ -1444,11 +1366,6 @@ export const M10_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m10-4-2-info-open",
-      "い-adjective past drill",
-      "Mix positive and negative past: かった and くなかった. Watch out for よかった.",
-    ),
     // ── おおきかったです (was big) ──
     build(
       "ja-m10-4-2-build-ookikatta",
@@ -1593,12 +1510,6 @@ export const M10_4_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-4-2-rev", M10_4_2_REVIEW),
-    infoStep(
-      "ja-m10-4-2-info-end",
-      "You can now describe past qualities with い-adjectives",
-      "かった (was), くなかった (wasn't), and the いい → よかった / よくなかった exception. い-adjectives never use ませんでした.",
-      "win",
-    ),
   ],
 };
 
@@ -1656,11 +1567,6 @@ export const M10_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m10-5-1-info-open",
-      "な-adjectives in the past",
-      "きれい → きれいでした, NOT きれいかった. な-adjectives use the noun pattern: stem + でした.",
-    ),
     RULE_NA_ADJ_PAST,
     // ── きれいでした (was pretty) ──
     build(
@@ -1799,12 +1705,6 @@ export const M10_5_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-5-1-rev", M10_5_1_REVIEW),
-    infoStep(
-      "ja-m10-5-1-info-end",
-      "You can now describe past qualities with な-adjectives",
-      "きれいでした, しずかでした — な-adjectives use the noun pattern. Never かった for な-adjectives.",
-      "win",
-    ),
   ],
 };
 
@@ -1829,11 +1729,6 @@ export const M10_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m10-5-2-info-open",
-      "い vs な — past tense discrimination",
-      "The real skill: telling い-adjectives from な-adjectives and conjugating each one correctly in the past.",
-    ),
     // ── にぎやかでした (was lively — な-adj) ──
     build(
       "ja-m10-5-2-build-nigiyaka",
@@ -1970,12 +1865,6 @@ export const M10_5_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-5-2-rev", M10_5_2_REVIEW),
-    infoStep(
-      "ja-m10-5-2-info-end",
-      "You can now tell い and な adjectives apart in the past",
-      "い-adj: かった / くなかった. な-adj: でした / じゃなかったです. The discrimination is locked in.",
-      "win",
-    ),
   ],
 };
 
@@ -2000,11 +1889,6 @@ export const M10_6_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m10-6-1-info-open",
-      "Bigger time frames",
-      "Last week, last month, last year. Same past tense forms, bigger stories.",
-    ),
     // ── せんしゅう (last week) ──
     build(
       "ja-m10-6-1-build-senshuu",
@@ -2143,12 +2027,6 @@ export const M10_6_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-6-1-rev", M10_6_1_REVIEW),
-    infoStep(
-      "ja-m10-6-1-info-end",
-      "You can now talk about what happened last week, month, and year",
-      "せんしゅう, せんげつ, きょねん — bigger time frames with the same ました past.",
-      "win",
-    ),
   ],
 };
 
@@ -2173,11 +2051,6 @@ export const M10_6_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 20,
   steps: [
-    infoStep(
-      "ja-m10-6-2-info-open",
-      "Past tense + time combos",
-      "Study, work, go out — three new verbs paired with all the time words you know.",
-    ),
     // ── べんきょうしました (studied) ──
     build(
       "ja-m10-6-2-build-benkyou",
@@ -2323,12 +2196,6 @@ export const M10_6_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-6-2-rev", M10_6_2_REVIEW),
-    infoStep(
-      "ja-m10-6-2-info-end",
-      "You can now pair any time expression with past tense",
-      "べんきょうしました, はたらきました, でかけました + おととし. Your past-tense vocabulary spans yesterday to two years ago.",
-      "win",
-    ),
   ],
 };
 
@@ -2354,11 +2221,6 @@ export const M10_STORY: LessonContent = {
   estimatedMinutes: 6,
   xpReward: 18,
   steps: [
-    infoStep(
-      "ja-m10-story-info-open",
-      "Story time — ゆきさんの きのう",
-      "ゆき tells you everything she did yesterday — where she went, what she ate, and how it all was. Listen for the past tense.",
-    ),
     sentenceMcq({
       id: "ja-m10-story-warmup-mcq",
       prompt: "Warm up — which question asks 'What did you do yesterday?'",
@@ -2463,12 +2325,6 @@ export const M10_STORY: LessonContent = {
       explanation: "それから = after that — it sequences events in a story.",
     }),
     reviewMatchPairs("ja-m10-story-rev", M10_STORY_REVIEW),
-    infoStep(
-      "ja-m10-story-info-end",
-      "You followed a whole day told in the past tense",
-      "いきました, あそびました, たべました, よかったです, おいしかったです — and それから chaining it all together. You can follow real past-tense stories now.",
-      "win",
-    ),
   ],
 };
 
@@ -2494,11 +2350,6 @@ export const M10_7_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 25,
   steps: [
-    infoStep(
-      "ja-m10-7-1-info-open",
-      "Everything past — mixed drill",
-      "Verbs, copula, い-adj, な-adj — all in past tense. Can you tell them apart and conjugate each one?",
-    ),
     // ── ました (verb) ──
     cloze(
       "ja-m10-7-1-cloze-mashita",
@@ -2649,12 +2500,6 @@ export const M10_7_1: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-7-1-rev", M10_7_1_REVIEW),
-    infoStep(
-      "ja-m10-7-1-info-end",
-      "You can now discriminate all four past tense patterns",
-      "Verb ました, noun/な-adj でした, い-adj かった — plus their negatives. Four patterns, zero confusion.",
-      "win",
-    ),
   ],
 };
 
@@ -2679,11 +2524,6 @@ export const M10_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m10-7-2-info-open",
-      "Production time — past tense fluency",
-      "Build, speak, and listen your way through every past tense pattern. This is the final drill.",
-    ),
     // ── Production: verb past ──
     build(
       "ja-m10-7-2-build-1",
@@ -2824,12 +2664,6 @@ export const M10_7_2: LessonContent = {
       ],
     }),
     reviewMatchPairs("ja-m10-7-2-rev", M10_7_2_REVIEW.slice(0, 5)),
-    infoStep(
-      "ja-m10-7-2-info-end",
-      "You can now produce all four past tense forms fluently",
-      "Verb ました, noun/な-adj でした, い-adj かった, いい → よかった — the entire polite past tense system is yours.",
-      "win",
-    ),
   ],
 };
 

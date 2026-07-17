@@ -58,7 +58,7 @@ type QaSection = { id: string; title: string; blurb?: string; items: QaItem[] };
  */
 const VERIFIED_NOTES: Record<string, string> = {
   "step:info":
-    "Verified 2026-07-12: long info bodies scroll INSIDE the step scroller (overflow-y-auto) — the window never scrolls, even at 480px viewport height. Constraint lives in LessonPage's fixed shell.",
+    "ja shipped ZERO info steps as of 2026-07-16 (info-step audit — recap/preview boilerplate cut, 20 teaching cards promoted to grammar_rule). This row is now es/ko-only; judge the info renderer on the es/ko QA pages. Prior finding still holds there: long info bodies scroll INSIDE the step scroller (overflow-y-auto), the window never scrolls even at 480px height.",
   "route:particles":
     "Spencer 2026-07-13: POTENTIAL DEPRECATE — simple particles get enough through-exposure in lessons; the reference page is a weak trainer. Revisit at the next surface cull.",
   "route:kanji":
@@ -126,6 +126,13 @@ function buildSections(lang: string): QaSection[] {
             { label: "katakana learn", href: p("/practice/alphabet/katakana/learn") },
             { label: "fixture", href: p(`/lesson-preview#step-${t}`) },
           ],
+        }
+      : t === "info"
+      ? {
+          id: `step:${t}`,
+          title: `${t} — removed from ja, still ships in es/ko`,
+          hint: "Purged from the ja curriculum 2026-07-16 (recap/preview boilerplate cut; 20 teaching cards promoted to grammar_rule). es/ko still ship it — judge the renderer on those language QA pages, or the fixture.",
+          links: [{ label: "fixture", href: p(`/lesson-preview#step-${t}`) }],
         }
       : {
           id: `step:${t}`,

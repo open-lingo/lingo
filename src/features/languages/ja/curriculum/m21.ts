@@ -33,7 +33,6 @@ import {
   build,
   cloze,
   grammarRule,
-  infoStep,
   listeningBuildSentence,
   listeningCompSentence,
   M3_M7_REVIEW_POOL,
@@ -194,11 +193,6 @@ export const M21_1_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m21-1-1-info-open",
-      "At the table",
-      "Four foods you'll see at every Japanese meal — egg, meat, fish, and vegetables. Let's eat!",
-    ),
     // ── たまご (egg) — image MCQ intro ──
     vocabMcq(
       "ja-m21-1-1-mcq-tamago",
@@ -300,12 +294,6 @@ export const M21_1_1: LessonContent = {
     }),
     speaking("ja-m21-1-1-rev-speak-1", M21_1_1_REVIEW[2].kana, M21_1_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-1-1-rev", M21_1_1_REVIEW),
-    infoStep(
-      "ja-m21-1-1-info-end",
-      "You can now name four core foods in Japanese",
-      "たまご, にく, さかな, やさい — the building blocks of every Japanese meal.",
-      "win",
-    ),
   ],
 };
 
@@ -331,11 +319,6 @@ export const M21_1_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m21-1-2-info-open",
-      "More at the table",
-      "Three more food words — chicken, cooked rice, and the famous Japanese lunch box. Plus more practice with the four you just learned.",
-    ),
     // ── とりにく (chicken) ──
     vocabMcq(
       "ja-m21-1-2-mcq-toriniku",
@@ -451,12 +434,6 @@ export const M21_1_2: LessonContent = {
     }),
     speaking("ja-m21-1-2-rev-speak-1", M21_1_2_REVIEW[2].kana, M21_1_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-1-2-rev", M21_1_2_REVIEW),
-    infoStep(
-      "ja-m21-1-2-info-end",
-      "You can now talk about seven different foods",
-      "たまご, にく, とりにく, さかな, やさい, ごはん, おべんとう — you're ready to read a menu.",
-      "win",
-    ),
   ],
 };
 
@@ -482,11 +459,6 @@ export const M21_2_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m21-2-1-info-open",
-      "Fruits & drinks",
-      "Fruit at the market, drinks at the cafe. Five words that'll keep you fed and hydrated.",
-    ),
     // ── くだもの (fruit) ──
     vocabMcq(
       "ja-m21-2-1-mcq-kudamono",
@@ -601,12 +573,6 @@ export const M21_2_1: LessonContent = {
     }),
     speaking("ja-m21-2-1-rev-speak-1", M21_2_1_REVIEW[2].kana, M21_2_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-2-1-rev", M21_2_1_REVIEW),
-    infoStep(
-      "ja-m21-2-1-info-end",
-      "You can now order fruit and drinks in Japanese",
-      "くだもの, りんご, バナナ, ぎゅうにゅう, ジュース — five more reasons to visit a Japanese café.",
-      "win",
-    ),
   ],
 };
 
@@ -632,11 +598,6 @@ export const M21_2_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m21-2-2-info-open",
-      "More fruits, more drinks",
-      "Two more items — みかん (mandarin) and おさけ (alcohol). Plus パン (bread) rounds out the pantry.",
-    ),
     // ── みかん (mandarin) ──
     build(
       "ja-m21-2-2-build-mikan",
@@ -755,12 +716,6 @@ export const M21_2_2: LessonContent = {
     }),
     speaking("ja-m21-2-2-rev-speak-1", M21_2_2_REVIEW[2].kana, M21_2_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-2-2-rev", M21_2_2_REVIEW),
-    infoStep(
-      "ja-m21-2-2-info-end",
-      "You can now name a full spread of foods and drinks",
-      "From たまご to おさけ — twelve food and drink words ready to use.",
-      "win",
-    ),
   ],
 };
 
@@ -786,11 +741,6 @@ export const M21_3_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m21-3-1-info-open",
-      "Things like...",
-      "One particle that changes 'bread AND eggs' from a complete list to 'bread, eggs, and more.' Meet や.",
-    ),
     RULE_YA,
     // ── や drill sentences ──
     build(
@@ -918,12 +868,6 @@ export const M21_3_1: LessonContent = {
     }),
     speaking("ja-m21-3-1-rev-speak-1", M21_3_1_REVIEW[2].kana, M21_3_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-3-1-rev", M21_3_1_REVIEW),
-    infoStep(
-      "ja-m21-3-1-info-end",
-      "You can now list foods and drinks with や",
-      "や opens up your lists — パンやたまご means bread, eggs, and whatever else you're getting.",
-      "win",
-    ),
   ],
 };
 
@@ -949,11 +893,6 @@ export const M21_3_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m21-3-2-info-open",
-      "や vs と — practice round",
-      "Time to really nail the difference. や = open list, と = complete list. The sentences will test both.",
-    ),
     // ── Contrast drills ──
     cloze(
       "ja-m21-3-2-cloze-ya-1",
@@ -1122,12 +1061,6 @@ export const M21_3_2: LessonContent = {
     }),
     speaking("ja-m21-3-2-rev-speak-1", M21_3_2_REVIEW[2].kana, M21_3_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-3-2-rev", M21_3_2_REVIEW),
-    infoStep(
-      "ja-m21-3-2-info-end",
-      "You know the difference between や and と",
-      "や for 'and more...' — と for 'just these.' A small particle with a big difference in meaning.",
-      "win",
-    ),
   ],
 };
 
@@ -1153,11 +1086,6 @@ export const M21_4_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m21-4-1-info-open",
-      "Setting the table",
-      "Six things you'll find on every table — from はし (chopsticks) to ナイフ (knife). Let's set the table.",
-    ),
     // ── おさら (plate) ──
     vocabMcq(
       "ja-m21-4-1-mcq-osara",
@@ -1288,12 +1216,6 @@ export const M21_4_1: LessonContent = {
     }),
     speaking("ja-m21-4-1-rev-speak-1", M21_4_1_REVIEW[2].kana, M21_4_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-4-1-rev", M21_4_1_REVIEW),
-    infoStep(
-      "ja-m21-4-1-info-end",
-      "You can now ask for any utensil at a Japanese restaurant",
-      "おさら, はし, スプーン, フォーク, ナイフ, コップ — the table is set.",
-      "win",
-    ),
   ],
 };
 
@@ -1319,11 +1241,6 @@ export const M21_4_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m21-4-2-info-open",
-      "More utensils",
-      "Two more — ちゃわん (rice bowl) and カップ (cup). Then we'll practice requesting sets of utensils.",
-    ),
     // ── ちゃわん (rice bowl) ──
     vocabMcq(
       "ja-m21-4-2-mcq-chawan",
@@ -1466,12 +1383,6 @@ export const M21_4_2: LessonContent = {
     }),
     speaking("ja-m21-4-2-rev-speak-1", M21_4_2_REVIEW[2].kana, M21_4_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-4-2-rev", M21_4_2_REVIEW),
-    infoStep(
-      "ja-m21-4-2-info-end",
-      "You can now request a full table setting in Japanese",
-      "Eight utensils mastered — from はし to カップ. You'll never be stuck without the right tool.",
-      "win",
-    ),
   ],
 };
 
@@ -1497,11 +1408,6 @@ export const M21_5_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m21-5-1-info-open",
-      "Counting cups",
-      "One cup of coffee, two glasses of water, three bowls of soup — Japanese has a special counter for all of them. Watch out for the irregular forms!",
-    ),
     RULE_HAI_COUNTER,
     // ── いっぱい (1 cup) — irregular ──
     build(
@@ -1614,12 +1520,6 @@ export const M21_5_1: LessonContent = {
     }),
     speaking("ja-m21-5-1-rev-speak-1", M21_5_1_REVIEW[2].kana, M21_5_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-5-1-rev", M21_5_1_REVIEW),
-    infoStep(
-      "ja-m21-5-1-info-end",
-      "You can now order drinks by the cup in Japanese",
-      "いっぱい, にはい, さんばい — the irregular cup counter is one of the trickiest. You're handling it.",
-      "win",
-    ),
   ],
 };
 
@@ -1645,11 +1545,6 @@ export const M21_5_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m21-5-2-info-open",
-      "More cups!",
-      "4 cups, 5 cups, 6 cups — you'll nail the pattern. Remember: 6 is irregular again (ろっぱい).",
-    ),
     // ── よんはい (4 cups) — regular ──
     build(
       "ja-m21-5-2-build-yonhai",
@@ -1763,12 +1658,6 @@ export const M21_5_2: LessonContent = {
     }),
     speaking("ja-m21-5-2-rev-speak-1", M21_5_2_REVIEW[2].kana, M21_5_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-5-2-rev", M21_5_2_REVIEW),
-    infoStep(
-      "ja-m21-5-2-info-end",
-      "You can now count cups from 1 to 6 with correct readings",
-      "いっぱい, にはい, さんばい, よんはい, ごはい, ろっぱい — the trickiest counter conquered.",
-      "win",
-    ),
   ],
 };
 
@@ -1794,11 +1683,6 @@ export const M21_6_1: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m21-6-1-info-open",
-      "They say...",
-      "Before eating, Japanese people say いただきます. After eating, ごちそうさまでした. Let's learn how to talk ABOUT what people say — with と.",
-    ),
     RULE_TO_QUOTATION,
     // ── 「いただきます」と いいます ──
     build(
@@ -1923,12 +1807,6 @@ export const M21_6_1: LessonContent = {
     }),
     speaking("ja-m21-6-1-rev-speak-1", M21_6_1_REVIEW[2].kana, M21_6_1_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-6-1-rev", M21_6_1_REVIEW),
-    infoStep(
-      "ja-m21-6-1-info-end",
-      "You can now quote phrases and ask what things are called",
-      "「いただきます」と いいます — you know the phrase AND how to talk about saying it.",
-      "win",
-    ),
   ],
 };
 
@@ -1954,11 +1832,6 @@ export const M21_6_2: LessonContent = {
   estimatedMinutes: 9,
   xpReward: 24,
   steps: [
-    infoStep(
-      "ja-m21-6-2-info-open",
-      "More quoting practice",
-      "Now let's use と in real restaurant and food situations. What do you say before eating? After eating? What's that dish called?",
-    ),
     // ── Mixed quoting drills ──
     build(
       "ja-m21-6-2-build-sumimasen",
@@ -2125,12 +1998,6 @@ export const M21_6_2: LessonContent = {
     }),
     speaking("ja-m21-6-2-rev-speak-1", M21_6_2_REVIEW[2].kana, M21_6_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-6-2-rev", M21_6_2_REVIEW),
-    infoStep(
-      "ja-m21-6-2-info-end",
-      "You can now talk about what people say and ask what things are called",
-      "From 「いただきます」to なんと いいますか — you can quote and inquire like a natural.",
-      "win",
-    ),
   ],
 };
 
@@ -2155,11 +2022,6 @@ export const M21_STORY: LessonContent = {
   estimatedMinutes: 5,
   xpReward: 15,
   steps: [
-    infoStep(
-      "ja-m21-story-info-open",
-      "Story time — ゆき's lunch",
-      "ゆき tells you about her lunch at a restaurant yesterday. Listen to her story, then reply.",
-    ),
     ...storyComprehension({
       idPrefix: "ja-m21-story",
       narrative: [
@@ -2240,12 +2102,6 @@ export const M21_STORY: LessonContent = {
       "また レストランに いきたいです",
       "I want to go to the restaurant again.",
     ),
-    infoStep(
-      "ja-m21-story-info-end",
-      "You followed a whole restaurant story — in Japanese",
-      "What ゆき ate, how much she drank, and what she said before and after the meal — and you replied. That's the full M21 toolkit in action.",
-      "win",
-    ),
   ],
 };
 
@@ -2272,11 +2128,6 @@ export const M21_7_1: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m21-7-1-info-open",
-      "Everything together",
-      "Food, drinks, utensils, counters, や lists, and quoting — let's put it all together in one big drill.",
-    ),
     // ── Food + や ──
     cloze(
       "ja-m21-7-1-cloze-ya",
@@ -2441,12 +2292,6 @@ export const M21_7_1: LessonContent = {
       exercisedAtomKanas: ["さん"],
     }),
     reviewMatchPairs("ja-m21-7-1-rev", M21_7_1_REVIEW),
-    infoStep(
-      "ja-m21-7-1-info-end",
-      "You just drilled every M21 concept in one session",
-      "Food, drinks, utensils, counters, や lists, と quotations — all woven together. You're ready for anything on the menu.",
-      "win",
-    ),
   ],
 };
 
@@ -2472,11 +2317,6 @@ export const M21_7_2: LessonContent = {
   estimatedMinutes: 10,
   xpReward: 28,
   steps: [
-    infoStep(
-      "ja-m21-7-2-info-open",
-      "Show what you know",
-      "Production round — you'll translate, build, and speak full restaurant sentences. Time to prove you own the menu.",
-    ),
     build(
       "ja-m21-7-2-build-1",
       "Say: I buy lunch boxes and bread (among other things).",
@@ -2639,12 +2479,6 @@ export const M21_7_2: LessonContent = {
     }),
     speaking("ja-m21-7-2-rev-speak-1", M21_7_2_REVIEW[2].kana, M21_7_2_REVIEW[2].meaningEn),
     reviewMatchPairs("ja-m21-7-2-rev", M21_7_2_REVIEW),
-    infoStep(
-      "ja-m21-7-2-info-end",
-      "You can now navigate a full Japanese meal — from ordering to leaving",
-      "Food, drinks, utensils, counters, lists, and quoting — M21 is complete. You own the restaurant.",
-      "win",
-    ),
   ],
 };
 
