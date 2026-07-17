@@ -15,10 +15,10 @@ const PILL =
   "inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-muted px-2.5 py-1 text-xs font-bold text-text-secondary";
 
 /**
- * Practice hub header. Reads the smart suggestion + stats and renders the
- * one-tap spotlight (stat pills → headline → Start CTA → "Jump back in"
- * chips) over a soft accent glow. Presentational — all logic is in
- * `practiceSuggestion.ts`.
+ * Practice hub header — a calm "jump straight in" ribbon. Reads the smart
+ * suggestion + stats and renders mini-stat pills, the one-tap spotlight
+ * (play + suggestion + Start), and contextual "Jump back in" chips.
+ * Presentational — all logic lives in `practiceSuggestion.ts`.
  */
 export function PracticeHero({
   stats,
@@ -33,10 +33,17 @@ export function PracticeHero({
 }) {
   const { t } = useTranslation();
 
+  const eyebrow =
+    suggestion.kind === "pillar"
+      ? t("practice.hero.caughtUp", { defaultValue: "All caught up" })
+      : suggestion.kind === "start"
+        ? t("practice.hero.getStarted", { defaultValue: "Let's get started" })
+        : t("practice.hero.suggested", { defaultValue: "Suggested for you" });
+
   const headline =
     suggestion.kind === "srs"
       ? t("practice.hero.dueTitle", {
-          defaultValue: "Ready? {{count}} words are due.",
+          defaultValue: "Review {{count}} due words",
           count: suggestion.dueCount,
         })
       : suggestion.kind === "module"
@@ -46,7 +53,7 @@ export function PracticeHero({
           })
         : suggestion.kind === "pillar"
           ? t("practice.hero.pillarTitle", {
-              defaultValue: "Caught up — let's sharpen {{pillar}}.",
+              defaultValue: "Sharpen your {{pillar}}",
               pillar: t(suggestion.pillar.titleKey, {
                 defaultValue: suggestion.pillar.titleDefault,
               }),
@@ -64,81 +71,84 @@ export function PracticeHero({
   const toLearn = Math.max(0, stats.total - stats.learning - stats.mastered);
 
   return (
-    <div className="relative overflow-hidden rounded-card border border-border bg-surface-elevated p-5">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-accent-muted opacity-70 blur-3xl"
-      />
-      <div className="relative">
-        <div className={cn("flex flex-wrap items-center gap-2", RISE)}>
-          {stats.streak > 0 ? (
-            <span className={PILL}>
-              <Icon name="flame" size={14} aria-hidden />
-              {t("practice.hero.streak", { defaultValue: "{{n}}-day streak", n: stats.streak })}
-            </span>
-          ) : null}
+    <div className="rounded-card border border-border bg-surface p-4 sm:p-5">
+      <div className={cn("flex flex-wrap items-center gap-2", RISE)}>
+        {stats.streak > 0 ? (
           <span className={PILL}>
-            <Icon name="graduationCap" size={14} aria-hidden />
-            <b className="tabular-nums text-text-primary">{toLearn}</b>
-            {t("practice.hero.toLearn", { defaultValue: "to learn" })}
+            <Icon name="flame" size={14} aria-hidden />
+            {t("practice.hero.streak", { defaultValue: "{{n}}-day streak", n: stats.streak })}
           </span>
-          <Link
-            to={langPath("practice/journey")}
-            className={cn(
-              PILL,
-              "transition hover:border-accent hover:text-accent motion-reduce:transition-none",
-            )}
-          >
-            <Icon name="target" size={14} aria-hidden />
-            <b className="tabular-nums text-text-primary">{stats.mastered}</b>
-            {t("practice.hero.mastered", { defaultValue: "mastered" })}
-          </Link>
-        </div>
-
-        <h1
+        ) : null}
+        <span className={PILL}>
+          <Icon name="graduationCap" size={14} aria-hidden />
+          <b className="tabular-nums text-text-primary">{toLearn}</b>
+          {t("practice.hero.toLearn", { defaultValue: "to learn" })}
+        </span>
+        <Link
+          to={langPath("practice/journey")}
           className={cn(
-            "mt-2 text-balance text-xl font-extrabold tracking-tight text-text-primary sm:text-2xl",
-            RISE,
-            "[animation-delay:60ms]",
+            PILL,
+            "transition hover:border-accent hover:text-accent motion-reduce:transition-none",
           )}
         >
-          {headline}
-        </h1>
-
-        <div className={cn("mt-3.5", RISE, "[animation-delay:120ms]")}>
-          <Link
-            to={langPath(suggestion.to)}
-            className={composeButtonClasses({ variant: "primary-3d" })}
-          >
-            <Icon name="play" size={18} aria-hidden />
-            {buttonLabel}
-          </Link>
-        </div>
-
-        {quickStarts.length > 0 ? (
-          <div
-            className={cn(
-              "mt-4 flex flex-wrap items-center gap-2 border-t border-dashed border-border pt-3.5",
-              RISE,
-              "[animation-delay:180ms]",
-            )}
-          >
-            <span className="mr-0.5 text-[0.68rem] font-bold uppercase tracking-wider text-text-muted">
-              {t("practice.hero.jumpBackIn", { defaultValue: "Jump back in" })}
-            </span>
-            {quickStarts.map((c) => (
-              <Link
-                key={c.to}
-                to={langPath(c.to)}
-                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-text-secondary transition hover:-translate-y-px hover:border-accent hover:text-accent motion-reduce:transition-none motion-reduce:hover:translate-y-0"
-              >
-                <Icon name={c.icon} size={14} aria-hidden />
-                {t(c.labelKey, { defaultValue: c.labelDefault, ...(c.params ?? {}) })}
-              </Link>
-            ))}
-          </div>
-        ) : null}
+          <Icon name="target" size={14} aria-hidden />
+          <b className="tabular-nums text-text-primary">{stats.mastered}</b>
+          {t("practice.hero.mastered", { defaultValue: "mastered" })}
+        </Link>
       </div>
+
+      <div
+        className={cn(
+          "mt-3.5 flex flex-wrap items-center gap-3 sm:gap-4",
+          RISE,
+          "[animation-delay:60ms]",
+        )}
+      >
+        <span
+          aria-hidden
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground"
+        >
+          <Icon name="play" size={22} />
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="text-[0.68rem] font-bold uppercase tracking-wider text-accent">
+            {eyebrow}
+          </div>
+          <h1 className="text-balance text-lg font-extrabold tracking-tight text-text-primary sm:text-xl">
+            {headline}
+          </h1>
+        </div>
+        <Link
+          to={langPath(suggestion.to)}
+          className={composeButtonClasses({ variant: "primary-3d", className: "shrink-0" })}
+        >
+          {buttonLabel}
+        </Link>
+      </div>
+
+      {quickStarts.length > 0 ? (
+        <div
+          className={cn(
+            "mt-4 flex flex-wrap items-center gap-2 border-t border-dashed border-border pt-3.5",
+            RISE,
+            "[animation-delay:120ms]",
+          )}
+        >
+          <span className="mr-0.5 text-[0.68rem] font-bold uppercase tracking-wider text-text-muted">
+            {t("practice.hero.jumpBackIn", { defaultValue: "Jump back in" })}
+          </span>
+          {quickStarts.map((c) => (
+            <Link
+              key={c.to}
+              to={langPath(c.to)}
+              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-text-secondary transition hover:-translate-y-px hover:border-accent hover:text-accent motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+            >
+              <Icon name={c.icon} size={14} aria-hidden />
+              {t(c.labelKey, { defaultValue: c.labelDefault, ...(c.params ?? {}) })}
+            </Link>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }
