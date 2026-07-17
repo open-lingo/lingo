@@ -731,7 +731,7 @@ function SkylineArt({
       <g ref={hillsRef} pointerEvents="none" aria-hidden>
         <g className="tmc-night">
           {sky.stars.map((st, i) => (
-            <circle key={i} className="tmc-star" cx={st.x} cy={st.y} r={st.r} opacity={st.bright ? 0.95 : 0.5} style={{ fill: "#EDE8D8", animationDelay: `${st.delay}s` }} />
+            <circle key={i} className="tmc-star" cx={st.x} cy={st.y} r={st.r} opacity={st.bright ? 0.95 : 0.5} style={{ fill: "var(--tmc-star)", animationDelay: `${st.delay}s` }} />
           ))}
         </g>
         {sky.clouds.map((c, i) => (
@@ -766,7 +766,7 @@ function SkylineArt({
             <rect x={b.x} y={bottomY - b.h} width={b.w} height={b.h} rx={2} style={{ fill: "var(--tmc-scene-mid)" }} />
             <g className="tmc-night">
               {b.windows.map((k) => (
-                <rect key={k} x={b.x + 8 + (k % 2) * (b.w / 2)} y={bottomY - b.h + 14 + k * 40} width={6} height={9} rx={1} fill="#F2CE6B" opacity={0.3} />
+                <rect key={k} x={b.x + 8 + (k % 2) * (b.w / 2)} y={bottomY - b.h + 14 + k * 40} width={6} height={9} rx={1} style={{ fill: "var(--tmc-window)" }} opacity={0.3} />
               ))}
             </g>
           </g>
@@ -779,7 +779,7 @@ function SkylineArt({
             <rect x={b.x} y={bottomY - b.h} width={b.w} height={b.h} rx={2.5} style={{ fill: "var(--tmc-scene-near)" }} />
             <g className="tmc-night">
               {b.windows.map((k) => (
-                <rect key={k} x={b.x + 10 + (k % 3) * (b.w / 3.4)} y={bottomY - b.h + 18 + k * 46} width={7} height={10} rx={1} fill="#F2CE6B" opacity={0.35} />
+                <rect key={k} x={b.x + 10 + (k % 3) * (b.w / 3.4)} y={bottomY - b.h + 18 + k * 46} width={7} height={10} rx={1} style={{ fill: "var(--tmc-window)" }} opacity={0.35} />
               ))}
             </g>
           </g>
@@ -851,7 +851,7 @@ function LinePlate({ x, y, text, color }: { x: number; y: number; text: string; 
   return (
     <g>
       <rect x={x - w / 2} y={y - 10} width={w} height={20} rx={10} style={{ fill: color }} />
-      <text x={x} y={y + 3.5} textAnchor="middle" data-tm="label" style={{ fill: "#fff", fontSize: 11, fontWeight: 800 }}>
+      <text x={x} y={y + 3.5} textAnchor="middle" data-tm="label" style={{ fill: "var(--color-on-accent)", fontSize: 11, fontWeight: 800 }}>
         {text}
       </text>
     </g>
@@ -896,12 +896,12 @@ function FixedSky({ skyRef }: { skyRef: React.RefObject<HTMLDivElement | null> }
       <svg width="100%" height="100%">
         <defs>
           <linearGradient id="tmc-sky-day" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#BEE0F2" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#BEE0F2" stopOpacity="0" />
+            <stop offset="0%" style={{ stopColor: "var(--tmc-sky-day)" }} stopOpacity="0.5" />
+            <stop offset="100%" style={{ stopColor: "var(--tmc-sky-day)" }} stopOpacity="0" />
           </linearGradient>
           <linearGradient id="tmc-sky-night" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#141B33" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#141B33" stopOpacity="0" />
+            <stop offset="0%" style={{ stopColor: "var(--tmc-sky-night)" }} stopOpacity="0.8" />
+            <stop offset="100%" style={{ stopColor: "var(--tmc-sky-night)" }} stopOpacity="0" />
           </linearGradient>
         </defs>
         <g className="tmc-day">
@@ -912,7 +912,7 @@ function FixedSky({ skyRef }: { skyRef: React.RefObject<HTMLDivElement | null> }
           {/* the moon is pinned to the panel — celestial bodies don't scroll */}
           {/* NB: the layer is 150% panel width — 46% of it = ~69% of the panel */}
           <svg x="46%" y="30" width="46" height="46" overflow="visible">
-            <path d="M 19 0 A 19 19 0 1 0 19 38 A 23 23 0 0 1 19 0 Z" style={{ fill: "#F0E8CC", opacity: 0.9 }} />
+            <path d="M 19 0 A 19 19 0 1 0 19 38 A 23 23 0 0 1 19 0 Z" style={{ fill: "var(--tmc-moon)", opacity: 0.9 }} />
           </svg>
         </g>
       </svg>
@@ -1421,7 +1421,7 @@ function NetworkMap({
                     {st.status === "completed" && !st.terminal && (
                       <g transform={`rotate(-14 ${st.x + 13} ${st.y - 13})`} aria-hidden>
                         <circle cx={st.x + 13} cy={st.y - 13} r={7.5} style={{ fill: "var(--tmc-seal)", opacity: 0.94 }} />
-                        <text x={st.x + 13} y={st.y - 10.5} textAnchor="middle" style={{ fill: "#fff", fontSize: 7.5, fontWeight: 800 }}>
+                        <text x={st.x + 13} y={st.y - 10.5} textAnchor="middle" style={{ fill: "var(--color-on-accent)", fontSize: 7.5, fontWeight: 800 }}>
                           {strings.seal}
                         </text>
                       </g>
@@ -1495,7 +1495,7 @@ function LineDiagram({
   return (
     <div className="overflow-hidden rounded-md border-2 border-text-primary bg-surface shadow-card">
       <div className="flex items-center gap-3 px-4 py-3" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
-        <div className="grid h-8 w-8 flex-none place-items-center rounded-full border-2 text-[13px] font-extrabold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "#fff" }}>
+        <div className="grid h-8 w-8 flex-none place-items-center rounded-full border-2 text-[13px] font-extrabold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "var(--color-on-accent)" }}>
           M
         </div>
         <div className="min-w-0">
@@ -1621,7 +1621,7 @@ function DistrictView({
     >
       <div className="tmc-district-panel w-full max-w-[900px] overflow-hidden rounded-md border-2 border-text-primary bg-surface shadow-popover" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center gap-4 px-5 py-4" style={{ background: "var(--tmc-signage-bg)", color: "var(--tmc-signage-fg)" }}>
-          <div className="grid h-11 w-11 flex-none place-items-center rounded-full border-[3px] text-[15px] font-extrabold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "#fff" }}>
+          <div className="grid h-11 w-11 flex-none place-items-center rounded-full border-[3px] text-[15px] font-extrabold" style={{ borderColor: "var(--tmc-signage-fg)", background: "var(--tmc-line-main)", color: "var(--color-on-accent)" }}>
             {badge}
           </div>
           <div className="min-w-0 flex-1">

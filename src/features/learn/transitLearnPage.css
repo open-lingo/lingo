@@ -13,12 +13,12 @@
   --tmc-panel: var(--color-surface);
   --tmc-muted: var(--color-text-muted);
   --tmc-border: var(--color-border);
-  --tmc-line-main: #e5493a;
+  --tmc-line-main: var(--color-accent); /* brand red — main JR-style line IS the accent */
   --tmc-q0: #0aa3c2;
   --tmc-q1: #f09a00;
   --tmc-q2: #8e77d2;
   --tmc-locked: color-mix(in srgb, var(--color-text-muted) 40%, var(--color-surface));
-  --tmc-halo: rgba(229, 73, 58, 0.22);
+  --tmc-halo: color-mix(in srgb, var(--color-accent) 22%, transparent);
   --tmc-done: var(--tmc-line-main);
   /* OPAQUE scenery steps (atmospheric perspective): far layers sit close to
      the surface color, near layers gain contrast — solid fills occlude each
@@ -34,14 +34,19 @@
   --tmc-scene-near: color-mix(in srgb, var(--color-text-muted) 26%, var(--color-surface));
   --tmc-scene-accent: color-mix(in srgb, var(--tmc-line-main) 24%, var(--color-surface));
   --tmc-scene-accent2: color-mix(in srgb, var(--tmc-line-main) 18%, var(--color-surface));
-  --tmc-scene-cloud: #e3ecf4;
+  --tmc-scene-cloud: color-mix(in srgb, #ffffff 60%, var(--color-surface));
+  /* scenery constants (deliberate art colors, not theme-derived) */
+  --tmc-star: #ede8d8;
+  --tmc-window: #f2ce6b;
+  --tmc-moon: #f0e8cc;
+  --tmc-sky-day: #bee0f2;
+  --tmc-sky-night: #141b33;
 }
 .dark .tmc-root {
-  --tmc-line-main: #ff6a5b;
   --tmc-q0: #2cc3e0;
   --tmc-q1: #ffb01f;
   --tmc-q2: #a794ea;
-  --tmc-halo: rgba(255, 106, 91, 0.28);
+  --tmc-halo: color-mix(in srgb, var(--color-accent) 28%, transparent);
 }
 
 /* ── network map panel ─────────────────────────────────────────────── */
@@ -283,11 +288,10 @@ a:focus-visible .tmc-d-stop {
 
 /* ── ambient sky: clouds by day, moon + stars by night ─────────────── */
 .tmc-root {
-  --tmc-seal: #b93a2b;
+  --tmc-seal: var(--color-accent);
   --tmc-river: #7fb8d9;
 }
 .dark .tmc-root {
-  --tmc-seal: #e05545;
   --tmc-river: #3d6f8e;
   --tmc-scene-hill: color-mix(in srgb, #4f8a5f 14%, var(--color-surface));
   --tmc-scene-hill2: color-mix(in srgb, #4f8a5f 9%, var(--color-surface));
@@ -401,7 +405,7 @@ a:focus-visible .tmc-d-stop {
   /* line color, not inverted ink — ink is near-white in dark themes and
      read as a glaring white box on the map */
   background: var(--tmc-line-main);
-  color: #fff;
+  color: var(--color-on-accent);
 }
 
 /* district stamp card */

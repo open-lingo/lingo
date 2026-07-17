@@ -21,7 +21,7 @@ export function TransitSignageHeader({
   return (
     <div className="mb-3 flex flex-wrap items-center gap-3 rounded-card border border-border bg-surface px-4 py-2.5 text-text-primary shadow-card">
       <div
-        className="grid h-9 w-9 flex-none place-items-center rounded-full border-2 border-border text-[15px] font-extrabold text-white"
+        className="grid h-9 w-9 flex-none place-items-center rounded-full border-2 border-border text-[15px] font-extrabold text-accent-foreground"
         style={{ background: "var(--tmc-line-main)" }}
       >
         M
