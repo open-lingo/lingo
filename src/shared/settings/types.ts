@@ -58,7 +58,7 @@ export type UserSettings = {
   appearance: {
     /** "auto" | "system" = follow prefers-color-scheme; else light|dark|amoled or custom id */
     themeId: string;
-    /** App chrome layout: "topbar" = horizontal nav (default), "sidebar" = left rail (desktop ≥lg). */
+    /** App chrome layout: "sidebar" = left rail (default, desktop ≥lg), "topbar" = horizontal nav. */
     navLayout: "topbar" | "sidebar";
   };
   accessibility: {
@@ -210,7 +210,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
   _version: SETTINGS_VERSION,
   appearance: {
     themeId: "auto",
-    navLayout: "topbar",
+    navLayout: "sidebar",
   },
   accessibility: {
     reducedMotion: false,
