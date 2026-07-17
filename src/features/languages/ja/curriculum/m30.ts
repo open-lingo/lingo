@@ -137,10 +137,10 @@ const RULE_CASUAL_Q = grammarRule({
   grammarPointId: "casual-question-no-ka",
   title: "Casual questions — drop か, let the rise carry it",
   rule:
-    "Polite ます-questions keep か (たべますか). Casual questions among friends drop か entirely — the plain form alone, said with rising intonation (written ？), IS the question: たべる？ (Are you eating this?), いく？ (Coming?). Tacking か onto plain form in casual speech (たべるか？) reads blunt, like an interrogation — the taught casual pattern relies on the rise alone, not か.",
+    "Polite ます-questions keep か (たべますか). Casual questions among friends drop か entirely — the plain form alone, said with rising intonation (written ？), IS the question: たべる？ (Gonna eat this?), いく？ (Coming?). Plain non-past asks about intent, habit, or the future — for a happening-RIGHT-NOW question Japanese uses 〜てる instead (してる？, later this module). Tacking か onto plain form in casual speech (たべるか？) reads blunt, like an interrogation — the taught casual pattern relies on the rise alone, not か.",
   examples: [
     { ja: "あした がっこうに くる？", romaji: "ashita gakkou ni kuru?", en: "Are you coming to school tomorrow?" },
-    { ja: "コーヒーを のむ？", romaji: "koohii o nomu?", en: "Are you drinking coffee?" },
+    { ja: "コーヒーを のむ？", romaji: "koohii o nomu?", en: "Gonna drink coffee?" },
     { ja: "きょう ひま？", romaji: "kyou hima?", en: "Are you free today?" },
   ],
   antiPattern: {
@@ -276,7 +276,7 @@ export const M30_1_1: LessonContent = {
     }),
     build(
       "ja-m30-1-1-build-nomu",
-      "Say to a friend, casually: Are you drinking coffee?",
+      "Say to a friend, casually: Gonna drink coffee?",
       "コーヒーを のむ",
       ["コーヒー", "を", "のむ", "のみます", "か"],
       ["コーヒー", "を", "のむ"],
@@ -417,17 +417,26 @@ export const M30_1_2: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m30-1-2-lc-1",
+      // Gloss discipline (Spencer QA 2026-07-17): plain non-past する asks
+      // habit/intent — the old progressive gloss "Are you studying
+      // Japanese?" primed learners to expect 〜ている. Casual English
+      // "You study ... ?" carries the habitual reading AND the register.
       audioText: "にほんごを べんきょうする？",
-      correctMeaningEn: "Are you studying Japanese?",
+      correctMeaningEn: "You study Japanese?",
       distractorsEn: [
         "I studied Japanese.",
-        "I'm not studying Japanese.",
+        "I don't study Japanese.",
         "I study Japanese every day.",
       ],
     }),
+    // Gloss discipline (2026-07-17): plain non-past はたらく asks
+    // habit/intent, not an in-progress action — きょう alone isn't a strict
+    // future anchor like あした, so the progressive "Are you working
+    // today?" risks priming the 〜てる reading. Matches the べんきょうする
+    // fix above.
     build(
       "ja-m30-1-2-build-2",
-      "Say to a friend, casually: Are you working today?",
+      "Say to a friend, casually: You work today?",
       "きょう はたらく",
       ["きょう", "はたらく", "はたらきます", "か"],
       ["きょう", "はたらく"],
@@ -1661,8 +1670,11 @@ export const M30_6_1: LessonContent = {
     ),
     listeningCompSentence({
       id: "ja-m30-6-1-lc-keigo",
+      // Gloss discipline (2026-07-17): plain non-past はなす？ asks
+      // habit/intent (same class as べんきょうする？ above) — no ている, no
+      // future anchor, so the progressive gloss wrongly primed 〜てる.
       audioText: "けいごで はなす？",
-      correctMeaningEn: "Are you speaking in keigo?",
+      correctMeaningEn: "You speak in keigo?",
       distractorsEn: [
         "I don't speak in keigo.",
         "I spoke in keigo yesterday.",
