@@ -12,6 +12,7 @@ import { playSfx } from "@/shared/audio/sfx";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { formatPrompt } from "../formatPrompt";
 
 const CELEBRATE_MS = 1100;
 
@@ -93,8 +94,18 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   // Character-granularity kana-row banks are excluded inside the hook.
   const tileKanji = useBuildTileKanji(step.tiles, step.granularity);
 
+  // Single-answer listening "builds" are an MCQ wearing tray clothes — see
+  // BuildSentenceStepView's isSingleAnswerPicker (Spencer QA 2026-07-16).
+  const isSingleAnswerPicker = step.correctOrder.length === 1;
+
   function addTile(originalIndex: number) {
     if (submitted) return;
+    if (isSingleAnswerPicker) {
+      // Single-select: tapping an option REPLACES the pick.
+      playSfx("tile");
+      setPlacedIdx([originalIndex]);
+      return;
+    }
     if (placedIdx.includes(originalIndex)) return;
     playSfx("tile");
     setPlacedIdx((prev) => [...prev, originalIndex]);
@@ -151,7 +162,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           <Icon name="play" size={28} />
         </button>
         <p className="text-lg leading-snug text-text-secondary">
-          <PromptWithEmphasis text={step.prompt} />
+          <PromptWithEmphasis text={formatPrompt(step.prompt)} />
         </p>
       </div>
 
@@ -163,6 +174,43 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           placing tiles never grows it — no reflow of the bank/CTA below
           mid-interaction. Real tiles render in an overlay with identical
           layout classes, so wrapping matches the ghost. */}
+      {isSingleAnswerPicker ? (
+        /* MCQ-SHAPED SINGLE-ANSWER PICKER: no tray, no bank row below —
+           the bank tiles ARE the options (MultipleChoiceStepView's visual
+           language). Tap selects (replacing any prior pick); Check
+           submits via the existing generic submit path. */
+        <div
+          className="relative grid gap-3"
+          style={{ minHeight: "clamp(260px, 44dvh, 520px)" }}
+        >
+          {bankTiles.map((tile, i) => {
+            const isSelected = placedIdx.includes(i);
+            const isAnswer = tile === step.correctOrder[0];
+            let optionStyle =
+              "border-border bg-surface text-text-primary hover:border-accent";
+            if (submitted && isAnswer) {
+              optionStyle = "border-accent bg-accent text-white";
+            } else if (submitted && isSelected && !isAnswer) {
+              optionStyle = "border-error bg-error/15 text-error";
+            } else if (isSelected) {
+              optionStyle = "border-accent bg-accent-muted text-accent";
+            }
+            return (
+              <button
+                key={`tile-${i}`}
+                type="button"
+                disabled={submitted}
+                aria-pressed={isSelected}
+                onClick={() => addTile(i)}
+                className={`flex items-center justify-center rounded-xl border-2 px-4 py-6 text-xl font-bold transition-colors duration-150 ${optionStyle} ${submitted ? "cursor-default" : "cursor-pointer"}`}
+              >
+                <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+      <>
       <div className="relative min-h-[80px] rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-4">
         <div aria-hidden className="invisible flex flex-wrap gap-2.5">
           {step.correctOrder.map((tile, i) => (
@@ -219,6 +267,8 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           );
         })}
       </div>
+      </>
+      )}
       </div>
 
       {/* Single bottom-anchored block: wrong-answer banner + CTA live

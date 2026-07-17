@@ -87,7 +87,7 @@ describe("translationMcq", () => {
   it("emits a multiple_choice step with English prompt and kana options", () => {
     const step = translationMcq("test-translation-neko", POOL[0], POOL);
     expect(step.type).toBe("multiple_choice");
-    expect(step.prompt).toBe("cat");
+    expect(step.prompt).toBe('Pick the word for "cat"');
     expect(step.options).toHaveLength(4);
     const correct = step.options.find((o) => o.id === "correct");
     expect(correct!.text).toBe("ねこ");

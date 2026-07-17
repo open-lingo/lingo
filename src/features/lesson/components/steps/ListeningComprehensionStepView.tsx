@@ -9,6 +9,7 @@ import { playLocalAudio } from "@/shared/audio/volume";
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { formatPrompt } from "../formatPrompt";
 
 const CELEBRATE_MS = 1100;
 
@@ -98,7 +99,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
       </div>
 
       <h2 className="text-lg font-semibold text-text-primary">
-        {step.question}
+        {formatPrompt(step.question)}
       </h2>
 
       <div className="grid gap-3">

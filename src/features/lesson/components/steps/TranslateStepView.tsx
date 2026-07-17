@@ -12,6 +12,7 @@ import { normalizeTypedAnswer } from "@/shared/speech";
 import { gradeTypedAnswer } from "@/shared/speech/loose-match";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { expandAcceptedAnswers } from "./translateVariants";
+import { formatPrompt } from "../formatPrompt";
 
 const CELEBRATE_MS = 1100;
 
@@ -132,7 +133,7 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
             <AnnotatedJa text={step.sourceText} />
           )
         ) : (
-          step.sourceText
+          formatPrompt(step.sourceText)
         )}
       </h2>
 

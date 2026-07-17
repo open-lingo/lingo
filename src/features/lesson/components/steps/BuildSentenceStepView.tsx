@@ -13,6 +13,7 @@ import { playSfx } from "@/shared/audio/sfx";
 import { useSettings } from "@/shared/contexts/SettingsContext";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { formatPrompt } from "../formatPrompt";
 
 const CELEBRATE_MS = 1100;
 /** Hover dwell before a bank tile's romaji is revealed on character
@@ -95,6 +96,15 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   //    and slot outlines only align when tile widths are uniform
   //    (single kana), which sentences aren't.
   const isWordBuild = step.granularity === "character";
+  // Single-answer word "builds" are an MCQ wearing tray-and-bank clothes —
+  // one word placed into a one-slot tray is just a multiple-choice pick
+  // (Spencer QA 2026-07-16, ja-m28-review-2: "it can be replaced with mcq
+  // ... it just looks tacky"). Render these as option buttons (matching
+  // MultipleChoiceStepView's visual language) instead of an empty dashed
+  // tray + a bank row below it. Grading/tiles/correctOrder/shuffle/kanji
+  // surfaces are all unchanged — only the paint changes.
+  const isSingleAnswerPicker =
+    step.granularity === "word" && step.correctOrder.length === 1;
   // Hide-until-reveal on character-build tiles. Off (romaji shown) by
   // default as a beginner scaffold; auto-flips ON at Module 5 and is
   // learner-toggleable in Settings. Only character builds fade — sentence
@@ -153,6 +163,13 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
 
   function addTile(originalIndex: number) {
     if (submitted) return;
+    if (isSingleAnswerPicker) {
+      // Single-select: tapping an option REPLACES the pick (there is only
+      // ever one slot), unlike the multi-tile bank's append-only tray.
+      playSfx("tile");
+      setPlacedIdx([originalIndex]);
+      return;
+    }
     if (placedIdx.includes(originalIndex)) return;
     if (fadeTiles) {
       // Tap = hear the kana + reveal its romaji. Falls back to the tile
@@ -211,7 +228,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           mt-auto so it pins to the bottom regardless of content height. */}
       <div className="flex flex-col gap-4">
       <h2 className={`font-semibold text-text-primary ${bigTiles ? "text-xl sm:text-2xl" : "text-lg"} ${isWordBuild ? "text-center" : ""}`}>
-        {step.prompt}
+        {formatPrompt(step.prompt)}
       </h2>
 
       {step.hint && !submitted && (
@@ -238,7 +255,42 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
         </div>
       )}
 
-      {showSlots ? (
+      {isSingleAnswerPicker ? (
+        /* MCQ-SHAPED SINGLE-ANSWER PICKER: no tray, no bank row — the
+           bank tiles ARE the options, styled like MultipleChoiceStepView.
+           Tap selects (replacing any prior pick); Check submits via the
+           existing generic submit path below. */
+        <div
+          className="relative grid gap-3"
+          style={{ minHeight: "clamp(260px, 44dvh, 520px)" }}
+        >
+          {bankTiles.map((tile, i) => {
+            const isSelected = placedIdx.includes(i);
+            const isAnswer = tile === step.correctOrder[0];
+            let optionStyle =
+              "border-border bg-surface text-text-primary hover:border-accent";
+            if (submitted && isAnswer) {
+              optionStyle = "border-accent bg-accent text-white";
+            } else if (submitted && isSelected && !isAnswer) {
+              optionStyle = "border-error bg-error/15 text-error";
+            } else if (isSelected) {
+              optionStyle = "border-accent bg-accent-muted text-accent";
+            }
+            return (
+              <button
+                key={`tile-${i}`}
+                type="button"
+                disabled={submitted}
+                aria-pressed={isSelected}
+                onClick={() => addTile(i)}
+                className={`flex items-center justify-center rounded-xl border-2 px-4 py-6 text-xl font-bold transition-colors duration-150 ${optionStyle} ${submitted ? "cursor-default" : "cursor-pointer"}`}
+              >
+                <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
+              </button>
+            );
+          })}
+        </div>
+      ) : showSlots ? (
         /* WORD-BUILD SLOTS (first encounters): one outlined slot per
            answer kana — pre-sized by invisible copies of the answer
            tiles, so geometry is exact and nothing ever reflows. Placed
@@ -335,6 +387,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
         </div>
       )}
 
+      {!isSingleAnswerPicker && (
       <div className={`relative flex flex-wrap gap-2 ${isWordBuild ? "justify-center" : ""}`}>
         {bankTiles.map((tile, i) => {
           const used = tileUsedFlags[i];
@@ -362,6 +415,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           );
         })}
       </div>
+      )}
       </div>
 
       {/* Single bottom-anchored block: wrong-answer banner + CTA live

@@ -1242,7 +1242,10 @@ export function translationMcq(
   return {
     id: idPrefix,
     type: "multiple_choice",
-    prompt: target.meaningEn,
+    // Bare meaningEn ("this") reads unfinished as a whole prompt — frame it
+    // as an instruction, meaning quoted verbatim (Spencer QA 2026-07-16,
+    // same defect class as the build_sentence single-answer picker).
+    prompt: `Pick the word for "${target.meaningEn}"`,
     options,
     correctOptionId: "correct",
     optionsHideRomaji: true,

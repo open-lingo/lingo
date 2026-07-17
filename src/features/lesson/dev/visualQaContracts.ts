@@ -151,8 +151,17 @@ function contractForStep(
           mustShow.push(t);
         }
       });
+      // Single-answer word/listening pickers render as MCQ-shaped option
+      // buttons (Spencer QA 2026-07-16, ja-m28-review-2: a one-slot
+      // tray+bank "build" is an MCQ in build clothes) — no tray, no
+      // separate bank row below it.
+      const isSingleAnswerPicker =
+        step.correctOrder.length === 1 &&
+        (step.type !== "build_sentence" || step.granularity === "word");
       expectations.push(
-        `A tile bank with ${step.tiles.length} tiles and an empty answer tray (pre-interaction).`,
+        isSingleAnswerPicker
+          ? `${step.tiles.length} tappable option buttons (MCQ-shaped), no tray and no separate bank row.`
+          : `A tile bank with ${step.tiles.length} tiles and an empty answer tray (pre-interaction).`,
       );
       if (anyKanjiTile) {
         expectations.push(
