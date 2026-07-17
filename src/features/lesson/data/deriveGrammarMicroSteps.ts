@@ -115,7 +115,17 @@ export function deriveGrammarMicroSteps(lesson: LessonContent): LessonContent {
       out.push(step);
       continue;
     }
-    if (activeTip && isGradedStep(step) && step.type !== "row_test") {
+    // Speaking is graded, but its miss/skip is a pronunciation outcome, not a
+    // grammar-form choice. Tagging it means a "skip, no pass" fires the
+    // reactive grammar-tip modal — which, because the modal is controller-level
+    // and outlives the step, then floats over the NEXT step as a non-sequitur
+    // "wrong answer". Never attach a grammar tip to a speaking step.
+    if (
+      activeTip &&
+      isGradedStep(step) &&
+      step.type !== "row_test" &&
+      step.type !== "speaking"
+    ) {
       out.push({ ...step, reactiveGrammarTip: activeTip });
       changed = true;
       lastTaggedIdx = out.length - 1;
