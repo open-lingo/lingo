@@ -31,6 +31,7 @@ A Lingo JA sub-lesson is **20-22 retrieval-heavy steps** that introduce 2-4 new 
 | Generation steps per sub-lesson | 1 | 2 (translate + speaking) | — |
 | selfExplain per grammar-drill sub-lesson | 1 | 1 (at N-1) | 2 |
 | Hard direction (translate / speaking) position | step 12+ | end | — |
+| Sentence complexity (production targets, m20+) | ≥1 adverbial/clause/modifier — §4g | — | — |
 
 > **Enforced band vs aim:** the only *hard* step-count gate is **12–25** (`sub-lesson-density.test.ts`); 20–22 is the density *aim*, not a floor. **Do not pad with filler (extra `phrase_card`s, re-read beats) to reach 20** — a tight 14-step lesson where every step earns its place beats a padded 21. (`n5-content-spec-2026-05-25.md` is aligned to this 20–22 aim as of 2026-06-30.)
 
@@ -251,6 +252,36 @@ Authoring rules:
 
 Currently pinned in `UNUSED_STEP_TYPES` — **unpin when the first m8+ content ships it.**
 
+## 4g. Sentence-complexity floor — production targets must ramp (2026-07-16)
+
+Example sentences must get **richer as the course progresses**, and the ramp is real through
+m3–m27 (copula → adverbials → tense/aspect → embedded clauses at m23 → multi-clause cause/effect
+at m26 → conditionals at m27). The failure mode this rule guards against: authoring a *new*
+module's sentences as bare **object-を-verb** frames — "ともだちを てつだう" — because the drill is
+isolating one new conjugation. That instinct produces m7-level sentences at m29, below the
+review-tail sentences sitting next to them. m29's form-introduction pairs did exactly this and
+had to be re-enriched.
+
+**The floor (applies to production-step targets — `translateStep`, `listeningBuildSentence`,
+`speaking` — from ~m20 on):** each target sentence must carry **at least one** of:
+- a time / place / manner adverbial (まいにち, としょかんで, ゆっくり),
+- an の-modifier or goal-に phrase (ともだちの にもつを へやに…),
+- a linked or subordinate clause (て / から / ので / けど / まえに / たら).
+
+A bare S-を-V clause is under-spec for the tier **even when it isolates a new form** — put the new
+verb form at the sentence's head and build one clause of context around it. **Richer, not
+longer:** lengthening a flat clause (adding an adjective) does not satisfy the floor; adding a
+clause boundary or a genuine modifier does. Stay within grammar taught by that module — the point
+is to reuse what the learner already owns, not to smuggle in new grammar.
+
+`build()` targets are exempt — they're capped at ≤4 mora (§4), so richness lives in the
+translate/listening/speaking steps of the same pair, which is where it belongs.
+
+> **This is guidance, not yet a machine gate.** No test asserts sentence complexity today. It
+> matters most because **the exemplar module a tier copies propagates its sentence texture** —
+> m29 is the N4 exemplar, so a flat m29 would have seeded flat sentences across all of N4. When
+> you author or clone a module, check the exemplar's production targets against this floor first.
+
 ## 5. The five things authors get wrong (audit + tester pattern)
 
 ### 5.1 Hardcoding the correct MCQ slot
@@ -391,6 +422,7 @@ Pair with the upcoming wave's CelebrationToast wiring (audit §2.1) — when the
 | 2026-07-16 | Script ladder: romaji off m7 / kanji recognition m8 / furigana unlock+2 | this guide §4e |
 | 2026-07-16 | Never romaji+kanji; no typed kanji (kana input always accepted) | this guide §4e |
 | 2026-07-16 | `kanji_reading` step shipped — kanji→kana reading recall | this guide §4f |
+| 2026-07-16 | Sentence-complexity floor: production targets must ramp from ~m20 | this guide §4g |
 
 ---
 

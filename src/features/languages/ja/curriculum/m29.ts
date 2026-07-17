@@ -285,11 +285,11 @@ export const M29_1_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m29-1-1-lb-tetsudau",
-      target: "ともだちを てつだう",
-      tiles: ["ともだち", "を", "てつだう", "てつだいます", "は", "てつだった"],
-      correctOrder: ["ともだち", "を", "てつだう"],
-      promptEn: "Hear it, build it: 'I help my friend.'",
-      exercisedAtomKanas: ["てつだう"],
+      target: "まいにち ともだちを てつだう",
+      tiles: ["まいにち", "ともだち", "を", "てつだう", "てつだいます", "は", "てつだった"],
+      correctOrder: ["まいにち", "ともだち", "を", "てつだう"],
+      promptEn: "Hear it, build it: 'I help my friend every day.'",
+      exercisedAtomKanas: ["てつだう", "まいにち"],
     }),
     sentenceMcq({
       id: "ja-m29-1-1-mcq-2",
@@ -301,10 +301,10 @@ export const M29_1_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-1-1-translate",
-      promptEn: "Say to a friend: I help my friend.",
-      acceptedAnswers: ["ともだちを てつだう", "ともだちを てつだう。"],
-      audioText: "ともだちを てつだう",
-      exercisedAtomKanas: ["てつだう"],
+      promptEn: "Say to a friend: I help my friend every day.",
+      acceptedAnswers: ["まいにち ともだちを てつだう", "まいにち ともだちを てつだう。"],
+      audioText: "まいにち ともだちを てつだう",
+      exercisedAtomKanas: ["てつだう", "まいにち"],
     }),
     selfExplain({
       id: "ja-m29-1-1-self-explain",
@@ -323,7 +323,7 @@ export const M29_1_1: LessonContent = {
       ruleExplanation:
         "う-verb ます-stems end in an い-row sound; the dictionary form swaps that sound back one row to う-row (のみ→のむ, はなし→はなす). Adding る onto the stem is the る-verb pattern only — mixing the two produces a non-word.",
     }),
-    speaking("ja-m29-1-1-speak-sentence", "ともだちを てつだう", "I help my friend.", ["てつだう"]),
+    speaking("ja-m29-1-1-speak-sentence", "まいにち ともだちを てつだう", "I help my friend every day.", ["てつだう", "まいにち"]),
     // ── Review tail ──
     vocabMcq("ja-m29-1-1-rev-mcq-1", M29_1_1_REVIEW[0], M29_REVIEW_POOL),
     listeningCompSentence({
@@ -429,10 +429,10 @@ export const M29_1_2: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m29-1-2-lb-hakobu",
-      target: "にもつを はこぶ",
-      tiles: ["にもつ", "を", "はこぶ", "はこびます", "が"],
-      correctOrder: ["にもつ", "を", "はこぶ"],
-      promptEn: "Hear it, build it: 'I carry the luggage.'",
+      target: "ともだちの にもつを へやに はこぶ",
+      tiles: ["ともだち", "の", "にもつ", "を", "へや", "に", "はこぶ", "はこびます", "が"],
+      correctOrder: ["ともだち", "の", "にもつ", "を", "へや", "に", "はこぶ"],
+      promptEn: "Hear it, build it: 'I carry my friend's luggage to the room.'",
       exercisedAtomKanas: ["はこぶ"],
     }),
     sentenceMcq({
@@ -445,10 +445,10 @@ export const M29_1_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-1-2-translate",
-      promptEn: "Say to a friend: I look for my pen.",
-      acceptedAnswers: ["ペンを さがす", "ペンを さがす。"],
-      audioText: "ペンを さがす",
-      exercisedAtomKanas: ["さがす"],
+      promptEn: "Say to a friend: I look for my pen in the classroom.",
+      acceptedAnswers: ["きょうしつで ペンを さがす", "きょうしつで ペンを さがす。"],
+      audioText: "きょうしつで ペンを さがす",
+      exercisedAtomKanas: ["さがす", "きょうしつ"],
     }),
     selfExplain({
       id: "ja-m29-1-2-self-explain",
@@ -467,7 +467,7 @@ export const M29_1_2: LessonContent = {
       ruleExplanation:
         "はこびます (polite) and はこぶ (plain) are the SAME verb, same tense, same meaning — register only. Both mean 'carry / will carry,' said two different ways depending on who you're talking to.",
     }),
-    speaking("ja-m29-1-2-speak-sentence", "くるまを なおす", "I fix the car.", ["なおす"]),
+    speaking("ja-m29-1-2-speak-sentence", "じぶんで くるまを なおす", "I fix the car myself.", ["なおす"]),
     // ── Review tail ──
     vocabMcq("ja-m29-1-2-rev-mcq-1", M29_1_2_REVIEW[0], M29_REVIEW_POOL),
     listeningCompSentence({
@@ -555,11 +555,11 @@ export const M29_2_1: LessonContent = {
     ),
     listeningBuildSentence({
       id: "ja-m29-2-1-lb-oboeru",
-      target: "かんじを おぼえる",
-      tiles: ["かんじ", "を", "おぼえる", "おぼえます", "が"],
-      correctOrder: ["かんじ", "を", "おぼえる"],
-      promptEn: "Hear it, build it: 'I memorise kanji.'",
-      exercisedAtomKanas: ["おぼえる"],
+      target: "テストの まえに かんじを おぼえる",
+      tiles: ["テスト", "の", "まえに", "かんじ", "を", "おぼえる", "おぼえます", "が"],
+      correctOrder: ["テスト", "の", "まえに", "かんじ", "を", "おぼえる"],
+      promptEn: "Hear it, build it: 'I memorise kanji before the test.'",
+      exercisedAtomKanas: ["おぼえる", "テスト"],
     }),
     sentenceMcq({
       id: "ja-m29-2-1-mcq-2",
@@ -571,10 +571,10 @@ export const M29_2_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-2-1-translate",
-      promptEn: "Say to a friend: I memorise kanji.",
-      acceptedAnswers: ["かんじを おぼえる", "かんじを おぼえる。"],
-      audioText: "かんじを おぼえる",
-      exercisedAtomKanas: ["おぼえる"],
+      promptEn: "Say to a friend: I memorise kanji before the test.",
+      acceptedAnswers: ["テストの まえに かんじを おぼえる", "テストの まえに かんじを おぼえる。"],
+      audioText: "テストの まえに かんじを おぼえる",
+      exercisedAtomKanas: ["おぼえる", "テスト"],
     }),
     selfExplain({
       id: "ja-m29-2-1-self-explain",
@@ -593,7 +593,7 @@ export const M29_2_1: LessonContent = {
       ruleExplanation:
         "する and くる are irregular — neither the う-verb stem-swap nor the る-verb stem-plus-る rule produces them. They're two words to memorise whole; everything else in Japanese verb conjugation is fully regular.",
     }),
-    speaking("ja-m29-2-1-speak-sentence", "へやを かたづける", "I tidy up my room.", ["かたづける"]),
+    speaking("ja-m29-2-1-speak-sentence", "まいあさ へやを かたづける", "I tidy up my room every morning.", ["かたづける", "まいあさ"]),
     // ── Review tail ──
     vocabMcq("ja-m29-2-1-rev-mcq-1", M29_2_1_REVIEW[0], M29_REVIEW_POOL),
     listeningCompSentence({
@@ -665,13 +665,14 @@ export const M29_2_2: LessonContent = {
       ["ぜんぶ", "はこぶ"],
       ["ぜんぶ", "はこぶ"],
     ),
-    speaking("ja-m29-2-2-speak-1", "ともだちが くる", "My friend comes."),
+    speaking("ja-m29-2-2-speak-1", "ともだちが がっこうに くる", "My friend comes to school."),
     listeningBuildSentence({
       id: "ja-m29-2-2-lb-1",
-      target: "せんせいが くる",
-      tiles: ["せんせい", "が", "くる", "きます", "を"],
-      correctOrder: ["せんせい", "が", "くる"],
-      promptEn: "Hear it, build it: 'The teacher comes.'",
+      target: "あした せんせいが くる",
+      tiles: ["あした", "せんせい", "が", "くる", "きます", "を"],
+      correctOrder: ["あした", "せんせい", "が", "くる"],
+      promptEn: "Hear it, build it: 'The teacher comes tomorrow.'",
+      exercisedAtomKanas: ["あした"],
     }),
     sentenceMcq({
       id: "ja-m29-2-2-mcq-2",
@@ -683,9 +684,9 @@ export const M29_2_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-2-2-translate",
-      promptEn: "Say to a friend: My friend comes.",
-      acceptedAnswers: ["ともだちが くる", "ともだちが くる。"],
-      audioText: "ともだちが くる",
+      promptEn: "Say to a friend: My friend comes to school.",
+      acceptedAnswers: ["ともだちが がっこうに くる", "ともだちが がっこうに くる。"],
+      audioText: "ともだちが がっこうに くる",
     }),
     selfExplain({
       id: "ja-m29-2-2-self-explain",
@@ -704,7 +705,7 @@ export const M29_2_2: LessonContent = {
       ruleExplanation:
         "する/くる (irregular) are the ONLY two exceptions in the entire Japanese verb system. Both have full ます-forms (します/きます) and full plain conjugations (する/しない/した/しなかった, くる/こない/きた/こなかった) — just not derived by any stem rule.",
     }),
-    speaking("ja-m29-2-2-speak-2", "ぜんぶ はこぶ", "I'll carry everything.", ["ぜんぶ", "はこぶ"]),
+    speaking("ja-m29-2-2-speak-2", "へやに ぜんぶ はこぶ", "I'll carry everything to the room.", ["ぜんぶ", "はこぶ"]),
     // ── Review tail ──
     vocabMcq("ja-m29-2-2-rev-mcq-1", M29_2_2_REVIEW[0], M29_REVIEW_POOL),
     listeningCompSentence({
@@ -788,10 +789,11 @@ export const M29_3_1: LessonContent = {
     speaking("ja-m29-3-1-speak-1", "きょうは はたらかない", "I'm not working today."),
     listeningBuildSentence({
       id: "ja-m29-3-1-lb-1",
-      target: "テレビを みない",
-      tiles: ["テレビ", "を", "みない", "みます", "みる"],
-      correctOrder: ["テレビ", "を", "みない"],
-      promptEn: "Hear it, build it: 'I'm not watching TV.'",
+      target: "つかれたから、きょうは テレビを みない",
+      tiles: ["つかれた", "から", "きょう", "は", "テレビ", "を", "みない", "みます", "みる"],
+      correctOrder: ["つかれた", "から", "きょう", "は", "テレビ", "を", "みない"],
+      promptEn: "Hear it, build it: 'I'm tired, so I'm not watching TV today.'",
+      exercisedAtomKanas: ["つかれる"],
     }),
     sentenceMcq({
       id: "ja-m29-3-1-mcq-2",
@@ -802,9 +804,9 @@ export const M29_3_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-3-1-translate",
-      promptEn: "Say to a friend: I'm not helping my friend.",
-      acceptedAnswers: ["ともだちを てつだわない", "ともだちを てつだわない。"],
-      audioText: "ともだちを てつだわない",
+      promptEn: "Say to a friend: I'm not helping my friend today.",
+      acceptedAnswers: ["きょうは ともだちを てつだわない", "きょうは ともだちを てつだわない。"],
+      audioText: "きょうは ともだちを てつだわない",
       exercisedAtomKanas: ["てつだう"],
     }),
     selfExplain({
@@ -824,7 +826,7 @@ export const M29_3_1: LessonContent = {
       ruleExplanation:
         "This is fully regular: EVERY う-ending verb (かう→かわない, うたう→うたわない, てつだう→てつだわない) takes わ before ない. It's not an exception — it's the predictable outcome of う-row → あ-row shifting for this one specific final kana.",
     }),
-    speaking("ja-m29-3-1-speak-2", "コーヒーを のまない", "I'm not drinking coffee.", ["コーヒー"]),
+    speaking("ja-m29-3-1-speak-2", "まいあさ コーヒーを のまない", "I don't drink coffee every morning.", ["コーヒー", "まいあさ"]),
     // ── Review tail ──
     vocabMcq("ja-m29-3-1-rev-mcq-1", M29_3_1_REVIEW[0], M29_REVIEW_POOL),
     listeningCompSentence({
@@ -904,13 +906,13 @@ export const M29_3_2: LessonContent = {
       ["かばん", "を", "さがさない"],
       ["さがす"],
     ),
-    speaking("ja-m29-3-2-speak-1", "ともだちが こない", "My friend doesn't come."),
+    speaking("ja-m29-3-2-speak-1", "ともだちが がっこうに こない", "My friend doesn't come to school."),
     listeningBuildSentence({
       id: "ja-m29-3-2-lb-1",
-      target: "しゅくだいを しない",
-      tiles: ["しゅくだい", "を", "しない", "します", "する"],
-      correctOrder: ["しゅくだい", "を", "しない"],
-      promptEn: "Hear it, build it: 'I'm not doing homework.'",
+      target: "きょうは しゅくだいを しない",
+      tiles: ["きょう", "は", "しゅくだい", "を", "しない", "します", "する"],
+      correctOrder: ["きょう", "は", "しゅくだい", "を", "しない"],
+      promptEn: "Hear it, build it: 'I'm not doing homework today.'",
     }),
     sentenceMcq({
       id: "ja-m29-3-2-mcq-2",
@@ -922,9 +924,9 @@ export const M29_3_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-3-2-translate",
-      promptEn: "Say to a friend: I'm not tidying up my room.",
-      acceptedAnswers: ["へやを かたづけない", "へやを かたづけない。"],
-      audioText: "へやを かたづけない",
+      promptEn: "Say to a friend: I'm not tidying up my room myself.",
+      acceptedAnswers: ["じぶんで へやを かたづけない", "じぶんで へやを かたづけない。"],
+      audioText: "じぶんで へやを かたづけない",
       exercisedAtomKanas: ["かたづける"],
     }),
     selfExplain({
@@ -944,7 +946,7 @@ export const M29_3_2: LessonContent = {
       ruleExplanation:
         "る-verb negatives: drop る, add ない (simplest case). う-verb negatives: swap the final う-row kana to あ-row, add ない (one extra step). かたづける is a regular る-verb, not an exception — its negative is just structurally simpler than a う-verb's.",
     }),
-    speaking("ja-m29-3-2-speak-2", "にほんごを べんきょうしない", "I'm not studying Japanese."),
+    speaking("ja-m29-3-2-speak-2", "きょうは にほんごを べんきょうしない", "I'm not studying Japanese today."),
     // ── Review tail ──
     vocabMcq("ja-m29-3-2-rev-mcq-1", M29_3_2_REVIEW[0], M29_REVIEW_POOL),
     listeningCompSentence({
@@ -1027,10 +1029,10 @@ export const M29_4_1: LessonContent = {
     speaking("ja-m29-4-1-speak-1", "がっこうに いった", "I went to school."),
     listeningBuildSentence({
       id: "ja-m29-4-1-lb-1",
-      target: "ほんを よんだ",
-      tiles: ["ほん", "を", "よんだ", "よみます", "よんで"],
-      correctOrder: ["ほん", "を", "よんだ"],
-      promptEn: "Hear it, build it: 'I read the book.'",
+      target: "としょかんで ほんを よんだ",
+      tiles: ["としょかん", "で", "ほん", "を", "よんだ", "よみます", "よんで"],
+      correctOrder: ["としょかん", "で", "ほん", "を", "よんだ"],
+      promptEn: "Hear it, build it: 'I read the book at the library.'",
     }),
     sentenceMcq({
       id: "ja-m29-4-1-mcq-2",
@@ -1042,9 +1044,9 @@ export const M29_4_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-4-1-translate",
-      promptEn: "Say to a friend: I helped my friend.",
-      acceptedAnswers: ["ともだちを てつだった", "ともだちを てつだった。"],
-      audioText: "ともだちを てつだった",
+      promptEn: "Say to a friend: I helped my friend yesterday.",
+      acceptedAnswers: ["きのう ともだちを てつだった", "きのう ともだちを てつだった。"],
+      audioText: "きのう ともだちを てつだった",
       exercisedAtomKanas: ["てつだう"],
     }),
     selfExplain({
@@ -1064,7 +1066,7 @@ export const M29_4_1: LessonContent = {
       ruleExplanation:
         "た-form = て-form with て→た / で→だ, for EVERY verb class (う-verbs, る-verbs, irregulars) without exception. All the irregular sound changes (のむ→のんで, いく→いって) were already learned when you met て-form — this module just reuses them.",
     }),
-    speaking("ja-m29-4-1-speak-2", "あさごはんを たべた", "I ate breakfast."),
+    speaking("ja-m29-4-1-speak-2", "けさ あさごはんを たべた", "I ate breakfast this morning."),
     // ── Review tail ──
     vocabMcq("ja-m29-4-1-rev-mcq-1", M29_4_1_REVIEW[0], M29_REVIEW_POOL),
     listeningCompSentence({
@@ -1144,13 +1146,13 @@ export const M29_4_2: LessonContent = {
       ["ペン", "を", "さがした"],
       ["さがす"],
     ),
-    speaking("ja-m29-4-2-speak-1", "ともだちが きた", "My friend came."),
+    speaking("ja-m29-4-2-speak-1", "ともだちが いそいで きた", "My friend came in a hurry.", ["いそぐ"]),
     listeningBuildSentence({
       id: "ja-m29-4-2-lb-1",
-      target: "にもつを はこんだ",
-      tiles: ["にもつ", "を", "はこんだ", "はこびます", "はこんで"],
-      correctOrder: ["にもつ", "を", "はこんだ"],
-      promptEn: "Hear it, build it: 'I carried the luggage.'",
+      target: "にもつを へやに はこんだ",
+      tiles: ["にもつ", "を", "へや", "に", "はこんだ", "はこびます", "はこんで"],
+      correctOrder: ["にもつ", "を", "へや", "に", "はこんだ"],
+      promptEn: "Hear it, build it: 'I carried the luggage to the room.'",
       exercisedAtomKanas: ["はこぶ"],
     }),
     sentenceMcq({
@@ -1163,9 +1165,9 @@ export const M29_4_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-4-2-translate",
-      promptEn: "Say to a friend: I studied Japanese.",
-      acceptedAnswers: ["にほんごを べんきょうした", "にほんごを べんきょうした。"],
-      audioText: "にほんごを べんきょうした",
+      promptEn: "Say to a friend: I studied Japanese yesterday.",
+      acceptedAnswers: ["きのう にほんごを べんきょうした", "きのう にほんごを べんきょうした。"],
+      audioText: "きのう にほんごを べんきょうした",
     }),
     selfExplain({
       id: "ja-m29-4-2-self-explain",
@@ -1184,7 +1186,7 @@ export const M29_4_2: LessonContent = {
       ruleExplanation:
         "くる's forms use three different vowel-stems (く-る, こ-ない, き-た) — genuinely irregular, not derivable from one pattern. Compare する: し-ない, し-た, する — also three stems. Both must simply be memorised as sets.",
     }),
-    speaking("ja-m29-4-2-speak-2", "かんじを おぼえた", "I memorised kanji.", ["おぼえる"]),
+    speaking("ja-m29-4-2-speak-2", "けさ かんじを おぼえた", "I memorised kanji this morning.", ["おぼえる"]),
     // ── Review tail ──
     vocabMcq("ja-m29-4-2-rev-mcq-1", M29_4_2_REVIEW[0], M29_REVIEW_POOL),
     listeningCompSentence({
@@ -1266,10 +1268,10 @@ export const M29_5_1: LessonContent = {
     speaking("ja-m29-5-1-speak-1", "きのうは はたらかなかった", "I didn't work yesterday."),
     listeningBuildSentence({
       id: "ja-m29-5-1-lb-1",
-      target: "しゅくだいを しなかった",
-      tiles: ["しゅくだい", "を", "しなかった", "しません", "しない"],
-      correctOrder: ["しゅくだい", "を", "しなかった"],
-      promptEn: "Hear it, build it: 'I didn't do homework.'",
+      target: "きのう しゅくだいを しなかった",
+      tiles: ["きのう", "しゅくだい", "を", "しなかった", "しません", "しない"],
+      correctOrder: ["きのう", "しゅくだい", "を", "しなかった"],
+      promptEn: "Hear it, build it: 'I didn't do homework yesterday.'",
     }),
     sentenceMcq({
       id: "ja-m29-5-1-mcq-2",
@@ -1281,9 +1283,12 @@ export const M29_5_1: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-5-1-translate",
-      promptEn: "Say to a friend: My friend didn't come.",
-      acceptedAnswers: ["ともだちは こなかった", "ともだちは こなかった。"],
-      audioText: "ともだちは こなかった",
+      promptEn: "Say to a friend: Because he was sick, my friend didn't come.",
+      acceptedAnswers: [
+        "びょうきだから、ともだちは こなかった",
+        "びょうきだから、ともだちは こなかった。",
+      ],
+      audioText: "びょうきだから、ともだちは こなかった",
     }),
     selfExplain({
       id: "ja-m29-5-1-self-explain",
@@ -1302,7 +1307,7 @@ export const M29_5_1: LessonContent = {
       ruleExplanation:
         "ない is grammatically an い-adjective (it even conjugates like one elsewhere: ないです, なくて). So its past, なかった, is formed with the SAME い→かった swap as any other い-adjective. One past-tense rule, reused.",
     }),
-    speaking("ja-m29-5-1-speak-2", "コーヒーを のまなかった", "I didn't drink coffee."),
+    speaking("ja-m29-5-1-speak-2", "きっさてんで コーヒーを のまなかった", "I didn't drink coffee at the café."),
     // ── Review tail ──
     vocabMcq("ja-m29-5-1-rev-mcq-1", M29_5_1_REVIEW[0], M29_REVIEW_POOL),
     listeningCompSentence({
@@ -1384,13 +1389,13 @@ export const M29_5_2: LessonContent = {
       ["じぶん", "で", "ほん", "を", "えらばなかった"],
       ["えらぶ"],
     ),
-    speaking("ja-m29-5-2-speak-1", "いそがなかった", "I didn't hurry.", ["いそぐ"]),
+    speaking("ja-m29-5-2-speak-1", "きょうは いそがなかった", "I didn't hurry today.", ["いそぐ"]),
     listeningBuildSentence({
       id: "ja-m29-5-2-lb-1",
-      target: "ともだちは こなかった",
-      tiles: ["ともだち", "は", "こなかった", "きません", "こない"],
-      correctOrder: ["ともだち", "は", "こなかった"],
-      promptEn: "Hear it, build it: 'My friend didn't come.'",
+      target: "きのう ともだちは こなかった",
+      tiles: ["きのう", "ともだち", "は", "こなかった", "きません", "こない"],
+      correctOrder: ["きのう", "ともだち", "は", "こなかった"],
+      promptEn: "Hear it, build it: 'My friend didn't come yesterday.'",
     }),
     sentenceMcq({
       id: "ja-m29-5-2-mcq-2",
@@ -1402,10 +1407,13 @@ export const M29_5_2: LessonContent = {
     }),
     translateStep({
       id: "ja-m29-5-2-translate",
-      promptEn: "Say to a friend: My friend didn't help me.",
-      acceptedAnswers: ["ともだちは てつだわなかった", "ともだちは てつだわなかった。"],
-      audioText: "ともだちは てつだわなかった",
-      exercisedAtomKanas: ["ともだち", "てつだう"],
+      promptEn: "Say to a friend: My friend was tired, so they didn't help me.",
+      acceptedAnswers: [
+        "つかれたから、ともだちは てつだわなかった",
+        "つかれたから、ともだちは てつだわなかった。",
+      ],
+      audioText: "つかれたから、ともだちは てつだわなかった",
+      exercisedAtomKanas: ["ともだち", "てつだう", "つかれる"],
     }),
     selfExplain({
       id: "ja-m29-5-2-self-explain",
