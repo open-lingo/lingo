@@ -79,7 +79,7 @@ describe("settings backend persistence", () => {
       learningLanguage: "ja",
       uiLocale: "en",
     });
-    expect(hydrated.appearance?.themeId).toBe("sepia");
+    expect(hydrated.appearance?.themeId).toBe("light"); // sepia retired → maps to light
     expect(hydrated.appearance?.navLayout).toBe(
       DEFAULT_SETTINGS.appearance.navLayout,
     );

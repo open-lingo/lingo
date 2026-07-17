@@ -48,7 +48,7 @@ export type FlashcardsSettings = {
 export type UserSettings = {
   _version?: number;
   appearance: {
-    /** "auto" | "system" = follow prefers-color-scheme; else light|dark|sepia|amoled or custom id */
+    /** "auto" | "system" = follow prefers-color-scheme; else light|dark|amoled or custom id */
     themeId: string;
     /** App chrome layout: "topbar" = horizontal nav (default), "sidebar" = left rail (desktop ≥lg). */
     navLayout: "topbar" | "sidebar";

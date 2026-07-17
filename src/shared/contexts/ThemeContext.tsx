@@ -80,7 +80,7 @@ function generateCustomId(): string {
   return `custom-${crypto.randomUUID().slice(0, 8)}`;
 }
 
-const LIGHT_THEMES = ["light", "sepia"];
+const LIGHT_THEMES = ["light"];
 const DARK_THEMES = ["dark", "amoled"];
 
 function usePrefersColorSchemeDark(): boolean {
@@ -117,8 +117,7 @@ function resolveEffectiveTheme(
 
   const custom = customThemes.find((t) => t.id === themeId);
   // Installed / custom themes keep their own palette — do not swap to light/dark
-  // presets when the user runs auto or a mismatched built-in (e.g. sepia-based
-  // community themes were incorrectly replaced with plain dark).
+  // presets when the user runs auto or a mismatched built-in.
   if (custom) {
     const tokens = ensureThemeTokens(custom.tokens);
     return { effectiveThemeId: themeId, themeMode: getThemeMode(tokens) };

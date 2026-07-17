@@ -8,26 +8,28 @@ export const MOCK_COMMUNITY_THEMES: (ThemeDefinition & {
   downloads?: number;
 })[] = [
   {
-    // "Academia" — sepia palette + Fraunces serif. Reads as a marked-up
+    // "Academia" — warm paper palette + Fraunces serif. Reads as a marked-up
     // edition / old library catalog. The font auto-loads via fontLoader
     // because tokens.font.family resolves to the "fraunces" preset id.
+    // (The retired sepia preset's palette lives on as the default light
+    // theme — see presets.ts — so this mock now bases off that.)
     id: "comm-academia",
     name: "Academia",
     author: "open_lingo",
     version: "1.0",
     tokens: {
-      ...BUILT_IN_THEMES.sepia.tokens,
-      // Keep the body font as sepia's default; Academia's character comes
+      ...BUILT_IN_THEMES.light.tokens,
+      // Keep the body font as light's default; Academia's character comes
       // from the display-font override picking up Fraunces for headings.
       // `font-display` Tailwind class lights up wherever component code
       // already opted in (Cards, FacetSidebar, PublicProfilePage masthead).
       font: {
-        ...BUILT_IN_THEMES.sepia.tokens.font,
+        ...BUILT_IN_THEMES.light.tokens.font,
         display: getFontFamily("fraunces"),
       },
       colors: {
-        ...BUILT_IN_THEMES.sepia.tokens.colors,
-        // Slightly warmer accent against the sepia paper — leans into a
+        ...BUILT_IN_THEMES.light.tokens.colors,
+        // Slightly warmer accent against the paper — leans into a
         // marginalia-pencil red without going garish.
         accent: "#9c2c2c",
         accentHover: "#7a2222",

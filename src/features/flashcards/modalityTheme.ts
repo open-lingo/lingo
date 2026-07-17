@@ -2,7 +2,7 @@ import type { SRSModality } from "@/features/flashcards/data/types";
 
 /**
  * Tasteful color differentiation between the two review modalities, all via
- * theme tokens so dark / sepia / amoled stay coherent.
+ * theme tokens so dark / amoled / custom themes stay coherent.
  *
  *   - recognition → `info` (you're recognizing a shown word)
  *   - production  → `accent` (you're producing the target language)

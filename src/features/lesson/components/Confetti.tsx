@@ -4,7 +4,7 @@
  * Renders a fixed, pointer-transparent canvas and runs a single ~2s burst
  * on mount, then goes inert (the canvas stays mounted but empty). Colors
  * are sampled from the active theme's CSS variables so confetti matches
- * Light/Dark/Sepia/AMOLED automatically.
+ * Light/Dark/AMOLED automatically.
  *
  * Honors reduced motion twice over: the OS-level
  * `prefers-reduced-motion: reduce` media query AND the in-app setting

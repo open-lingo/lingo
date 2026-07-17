@@ -186,7 +186,6 @@ function AppearancePanel() {
     { id: "auto", labelKey: "settings.themeAuto" },
     { id: "light", labelKey: "settings.themeLight" },
     { id: "dark", labelKey: "settings.themeDark" },
-    { id: "sepia", labelKey: "settings.themeSepia" },
     { id: "amoled", labelKey: "settings.themeAmoled" },
   ];
 

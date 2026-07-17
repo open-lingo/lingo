@@ -225,11 +225,18 @@ function SymbolAnimation({
     ctx.scale(dpr, dpr);
     ctx.clearRect(0, 0, size, size);
 
-    const isDark =
-      typeof document !== "undefined" &&
-      document.documentElement.classList.contains("dark");
-    const completedColor = isDark ? "#f3f4f6" : "#111827";
-    const fadedColor = isDark ? "#9ca3af" : "#6b7280";
+    // Sample theme tokens so the stroke render matches Light/Dark/AMOLED
+    // automatically (canvas can't consume Tailwind classes).
+    const styles =
+      typeof document !== "undefined"
+        ? getComputedStyle(document.documentElement)
+        : null;
+    const completedColor =
+      styles?.getPropertyValue("--color-text-primary").trim() || "#111827";
+    const fadedColor =
+      styles?.getPropertyValue("--color-text-muted").trim() || "#6b7280";
+    const activeColor =
+      styles?.getPropertyValue("--color-accent").trim() || "#0ea5e9";
 
     ctx.save();
     ctx.globalAlpha = 0.22;
@@ -259,7 +266,7 @@ function SymbolAnimation({
       {
         lineWidth: INTRO_STROKE_PX,
         completedColor,
-        activeColor: "#0ea5e9",
+        activeColor,
       },
     );
   }, [glyph, animation.frame, size]);

@@ -123,6 +123,11 @@ function isObj(v: unknown): v is Record<string, unknown> {
   return v != null && typeof v === "object" && !Array.isArray(v);
 }
 
+/** Presets removed from the built-in list map to their successor. */
+function normalizeThemeId(id: string): string {
+  return id === "sepia" ? "light" : id;
+}
+
 /**
  * Hydrate UserSettings from the backend blob. Every namespace round-trips:
  * nested objects win, but legacy flat keys (`theme`, `learningLanguage`,
@@ -135,7 +140,7 @@ export function fromBackendResponse(backend: Record<string, unknown>): Partial<U
 
   // appearance — nested wins; flat `theme` is the fallback.
   const appearance: Record<string, unknown> = { ...DEFAULT_SETTINGS.appearance };
-  if (typeof backend.theme === "string") appearance.themeId = backend.theme;
+  if (typeof backend.theme === "string") appearance.themeId = normalizeThemeId(backend.theme);
   if (isObj(backend.appearance)) Object.assign(appearance, backend.appearance);
   if (typeof appearance.themeId !== "string" || !appearance.themeId) {
     appearance.themeId = DEFAULT_SETTINGS.appearance.themeId;
@@ -244,17 +249,18 @@ function migrateFromLegacy(): Partial<UserSettings> {
       if (typeof parsed?.activeThemeId === "string") {
         partial.appearance = {
           ...DEFAULT_SETTINGS.appearance,
-          themeId: parsed.activeThemeId,
+          themeId: normalizeThemeId(parsed.activeThemeId),
         };
       }
     }
     const oldTheme = localStorage.getItem("open-lingo-theme");
     if (oldTheme && !partial.appearance?.themeId) {
-      const valid = ["light", "dark", "sepia", "amoled"].includes(oldTheme);
+      const mapped = normalizeThemeId(oldTheme);
+      const valid = ["light", "dark", "amoled"].includes(mapped);
       if (valid) {
         partial.appearance = {
           ...DEFAULT_SETTINGS.appearance,
-          themeId: oldTheme,
+          themeId: mapped,
         };
       }
     }
