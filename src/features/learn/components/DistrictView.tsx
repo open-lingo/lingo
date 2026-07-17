@@ -95,8 +95,8 @@ export function DistrictView({
               {status === "locked" ? " · locked — complete the previous station" : ""}
             </div>
           </div>
-          <button onClick={onClose} aria-label="Close district view" className="grid h-9 w-9 flex-none place-items-center rounded-full text-[16px] font-bold hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
-            ✕
+          <button onClick={onClose} aria-label="Close district view" className="grid h-9 w-9 flex-none place-items-center rounded-full hover:opacity-75" style={{ border: "2px solid var(--tmc-signage-fg)" }}>
+            <Icon name="close" size={16} aria-hidden />
           </button>
         </div>
 
@@ -126,7 +126,7 @@ export function DistrictView({
                   </span>
                   <span className={cn("min-w-0 flex-1 truncate text-[13px] font-bold", !s.isDone && !s.isCurrent && "opacity-60")}>
                     {s.lesson.title}
-                    {s.k === stops.length - 1 && <span className="ml-2 text-[10px] font-extrabold tracking-[0.14em] opacity-70">★ MASTERY</span>}
+                    {s.k === stops.length - 1 && <span className="ml-2 inline-flex items-center gap-0.5 text-[10px] font-extrabold tracking-[0.14em] opacity-70"><Icon name="star" size={10} aria-hidden /> MASTERY</span>}
                   </span>
                   {s.isDone ? (
                     <span className="grid h-[22px] w-[22px] flex-none -rotate-12 place-items-center rounded-full text-[10px] font-bold text-accent-foreground" style={{ background: "var(--tmc-seal)" }}>

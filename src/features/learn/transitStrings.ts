@@ -17,6 +17,8 @@ export type TransitStrings = {
   stampRally: string;
   viewNetworkMap: string;
   hideNetworkMap: string;
+  noModulesTitle: string;
+  noModulesBody: string;
 };
 
 const STRINGS: Record<string, TransitStrings> = {
@@ -34,6 +36,8 @@ const STRINGS: Record<string, TransitStrings> = {
     stampRally: "スタンプラリー · Side quests",
     viewNetworkMap: "全体図 · View network map",
     hideNetworkMap: "Hide network map",
+    noModulesTitle: "No lessons on this line yet",
+    noModulesBody: "This course's route is still being built. Check back soon.",
   },
   ko: {
     lineName: "본선 Main Line",
@@ -49,6 +53,8 @@ const STRINGS: Record<string, TransitStrings> = {
     stampRally: "스탬프 랠리 · Side quests",
     viewNetworkMap: "전체 노선도 · View network map",
     hideNetworkMap: "Hide network map",
+    noModulesTitle: "No lessons on this line yet",
+    noModulesBody: "This course's route is still being built. Check back soon.",
   },
   es: {
     lineName: "Línea principal",
@@ -64,6 +70,8 @@ const STRINGS: Record<string, TransitStrings> = {
     stampRally: "Rally de sellos · Misiones",
     viewNetworkMap: "Ver mapa de la red",
     hideNetworkMap: "Ocultar mapa",
+    noModulesTitle: "Aún no hay lecciones en esta línea",
+    noModulesBody: "La ruta de este curso todavía se está construyendo. Vuelve pronto.",
   },
 };
 

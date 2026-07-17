@@ -250,6 +250,25 @@ function buildLayout(
     });
   });
 
+  // No drawable modules (e.g. a language/tier with nothing shipped yet) —
+  // return an empty-but-valid layout so the memo can't crash on stations[0].
+  // The page renders an empty state instead of mounting the map (see below).
+  if (stations.length === 0) {
+    return {
+      width: 0,
+      vbY: 0,
+      vbH: 0,
+      skyGroundY: 0,
+      mainPts: [],
+      stations: [],
+      spurs: [],
+      depot: null,
+      zones: [],
+      zoneChipY: 0,
+      branchTouched: new Map(),
+    };
+  }
+
   const mainPts: Pt[] = [[stations[0].x - 64, stations[0].y]];
   for (let i = 1; i < stations.length; i++) {
     const prev = stations[i - 1];
@@ -1033,22 +1052,55 @@ function NetworkMap({
   /* ghost train ambling the whole line on a slow loop */
   useEffect(() => {
     const ghost = ghostRef.current;
+    const container = scrollerRef.current;
     if (!ghost || prefersReducedMotion()) return;
     let raf = 0;
+    let last = 0;
     const LOOP_MS = 44000;
+    // A 44s ambient amble doesn't need 60fps — 30fps halves the polyline
+    // walk + DOM writes with no visible difference.
+    const FRAME_MS = 1000 / 30;
     const tick = (now: number) => {
-      const [px, py] = pointAt(layout.mainPts, segs, ((now % LOOP_MS) / LOOP_MS) * total);
-      ghost.setAttribute("transform", `translate(${px} ${py})`);
+      if (now - last >= FRAME_MS) {
+        last = now;
+        const [px, py] = pointAt(layout.mainPts, segs, ((now % LOOP_MS) / LOOP_MS) * total);
+        ghost.setAttribute("transform", `translate(${px} ${py})`);
+      }
       raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    const start = () => {
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+    const stop = () => {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+    };
+    start();
+    // Fully idle the loop while the map is scrolled off-screen (learn page
+    // scrolled past, or the mobile map collapsed) instead of spinning forever.
+    let io: IntersectionObserver | null = null;
+    if (container && "IntersectionObserver" in window) {
+      io = new IntersectionObserver(
+        ([entry]) => (entry.isIntersecting ? start() : stop()),
+        { threshold: 0 },
+      );
+      io.observe(container);
+    }
+    return () => {
+      stop();
+      io?.disconnect();
+    };
   }, [layout, segs, total]);
 
   /* drag + wheel panning, sky + skyline parallax */
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
+    // Cache clientWidth (only changes on resize) so the scroll handler doesn't
+    // force a layout read interleaved with the transform writes below.
+    let clientW = el.clientWidth;
     let drag: { x: number; left: number } | null = null;
     const down = (e: PointerEvent) => {
       userTookOver.current = true;
@@ -1072,7 +1124,7 @@ function NetworkMap({
     const onScroll = () => {
       const skyEl = skyRef.current;
       if (skyEl) {
-        const slack = el.clientWidth * 0.45;
+        const slack = clientW * 0.45;
         skyEl.style.transform = `translateX(${-Math.min(el.scrollLeft * 0.1, slack)}px)`;
       }
       // skyline layers counter-translate in map units → slower apparent speed
@@ -1085,6 +1137,10 @@ function NetworkMap({
     window.addEventListener("pointerup", up);
     el.addEventListener("wheel", wheel, { passive: false });
     el.addEventListener("scroll", onScroll, { passive: true });
+    const ro = new ResizeObserver(() => {
+      clientW = el.clientWidth;
+    });
+    ro.observe(el);
     onScroll();
     return () => {
       el.removeEventListener("pointerdown", down);
@@ -1092,6 +1148,7 @@ function NetworkMap({
       window.removeEventListener("pointerup", up);
       el.removeEventListener("wheel", wheel);
       el.removeEventListener("scroll", onScroll);
+      ro.disconnect();
     };
   }, [s]);
 
@@ -1548,9 +1605,7 @@ function LineDiagram({
                 <span className="text-[13.5px] font-bold leading-tight text-text-primary">
                   {s.badge} · {s.module.title}
                   {s.status === "current" && (
-                    <span className="ml-1.5 align-middle" aria-hidden>
-                      🚃
-                    </span>
+                    <Icon name="mapPin" size={13} className="ml-1.5 inline align-middle text-accent" aria-hidden />
                   )}
                   {s.status === "completed" && (
                     <span className="ml-1.5 inline-grid h-[15px] w-[15px] place-items-center rounded-full align-middle text-[8px] font-bold text-accent-foreground" style={{ background: "var(--tmc-seal)" }}>
@@ -1563,8 +1618,8 @@ function LineDiagram({
                   {s.terminal ? " · terminal" : ""}
                 </span>
                 {s.interchange && (
-                  <span className="mt-0.5 w-fit rounded-full px-2 py-[1px] text-[10px] font-bold text-white" style={{ background: questColor.get(s.index) }}>
-                    ⇄ Side quests here
+                  <span className="mt-0.5 flex w-fit items-center gap-1 rounded-full px-2 py-[1px] text-[10px] font-bold text-white" style={{ background: questColor.get(s.index) }}>
+                    <Icon name="sparkles" size={10} aria-hidden /> Side quests here
                   </span>
                 )}
               </span>
@@ -1759,6 +1814,25 @@ export default function TransitLearnPage({
   );
 
   const titleText = `${strings.mapTitle} — ${course.title}`;
+
+  // Guard: a course whose N5 tier has no drawable modules (comingSoon-only or
+  // an unshipped language) would otherwise mount the map with zero stations
+  // and crash. Show an empty state instead.
+  if (modules.length === 0) {
+    return (
+      <div className="tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3">
+        <TransitSignageHeader title={titleText} subtitle={LEARN_HEADER_SUBTITLE} />
+        <div className="mt-4 rounded-md border border-border bg-surface-muted px-6 py-16 text-center">
+          <p className="text-[14px] font-bold text-text-primary">
+            {strings.noModulesTitle}
+          </p>
+          <p className="mt-1 text-[13px] text-text-muted">
+            {strings.noModulesBody}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="tmc-root mx-auto max-w-[min(2100px,96vw)] px-2 pb-4 pt-2.5 sm:px-3">
