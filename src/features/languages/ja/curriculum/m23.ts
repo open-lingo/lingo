@@ -2675,7 +2675,7 @@ export const M23_8_2: LessonContent = {
       "ja-m23-8-2-build-dekiru",
       "Pick the dictionary form of できます.",
       "できる",
-      ["できますか", "できる", "できません", "できました"],
+      ["いく", "できる", "のむ", "はしる"],
       ["できる"],
     ),
     listeningCompSentence({
