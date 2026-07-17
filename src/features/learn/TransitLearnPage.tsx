@@ -65,7 +65,7 @@ import { TransitSignageHeader } from "@/features/learn/components/TransitSignage
 import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
 import { useLearnProfile } from "@/features/learn/hooks/useLearnProfile";
 import { LearnSidebar } from "@/features/learn/components/LearnSidebar";
-import { LearnToolsRow } from "@/features/learn/components/LearnToolsRow";
+import { ProgressFloatCard } from "@/features/learn/components/ProgressFloatCard";
 import { cn } from "@/shared/components/ui/cn";
 import { PlacementPrompt } from "@/features/placement/components/PlacementPrompt";
 import {
@@ -1964,8 +1964,9 @@ export default function TransitLearnPage({
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-start 2xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0">
-          <div className="hidden md:block">
+          <div className="relative hidden md:block">
             <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} demoToggle={preview} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
+            <ProgressFloatCard course={viewCourse} completedSet={completedSet} />
           </div>
           <div className="md:hidden">
             <LineDiagram layout={layout} currentIdx={currentIdx} lang={lang} onOpen={open} />
@@ -1979,7 +1980,6 @@ export default function TransitLearnPage({
             )}
           </div>
 
-          <LearnToolsRow course={viewCourse} completedSet={completedSet} />
           <p className="mt-3 max-w-[72ch] text-[13px] text-text-muted 2xl:text-[14px]">
             Stations = modules (spacing scales with lesson count) · branch lines = the real side quests · dashed track = honest roadmap. Click a station for its district; the depot links to practice.
             {preview && " Demo state is on by default — flip the toggle for your real progress."}

@@ -19,20 +19,16 @@ export type LearnToolsRowProps = {
 };
 
 /**
- * A row of three rich, data-backed cards beneath the main path card on the
- * Learn page. Built only from real progress / SRS / curriculum data — no
- * fabricated stats.
- *
- *   1. Your progress  (All · Practice · Course tabs)
- *   2. Explore the course  (opens the depth modal)
- *   3. Review & practice  (due cards + practice CTAs)
+ * Classic-page tools row. Slimmed 2026-07-16: "Explore the course" was
+ * dropped and "Review & practice" moved into the sidebar
+ * (`ReviewPracticeBody`), so only the progress card remains. The transit
+ * map doesn't render this row at all — it uses the floating
+ * `ProgressFloatCard` overlay instead.
  */
 export function LearnToolsRow({ course, completedSet }: LearnToolsRowProps) {
   return (
     <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <ProgressCard course={course} completedSet={completedSet} />
-      <ExploreCard course={course} />
-      <ReviewCard course={course} completedSet={completedSet} />
     </div>
   );
 }
@@ -225,53 +221,7 @@ function ProgressCard({
   );
 }
 
-/* ── card 2: explore the course ── */
-
-function ExploreCard({ course }: { course: Course }) {
-  const { t } = useTranslation();
-  const langPath = useLangPath();
-  const moduleCount = course.modules.filter((m) => !m.comingSoon).length;
-
-  return (
-    <Card padding="sm" className="flex flex-col">
-      <CardHeader
-        icon="compass"
-        title={t("learn.tools.explore.title", {
-          defaultValue: "Explore the course",
-        })}
-      />
-      <p className="flex-1 text-sm text-text-muted">
-        {t("learn.tools.explore.pitch", {
-          defaultValue:
-            "See everything you'll learn — modules, vocabulary, and concepts.",
-        })}
-      </p>
-      <p className="mt-3 text-xs font-medium text-text-muted">
-        {t("learn.tools.explore.moduleCount", {
-          defaultValue: "{{count}} modules to discover",
-          count: moduleCount,
-        })}
-      </p>
-      <Link
-        to={langPath("learn/course")}
-        className={composeButtonClasses({
-          variant: "secondary",
-          size: "sm",
-          className: "mt-4 w-full",
-        })}
-      >
-        <span className="inline-flex items-center gap-1.5">
-          <Icon name="mapPin" size={14} aria-hidden />
-          {t("learn.tools.explore.cta", {
-            defaultValue: "Explore the full course",
-          })}
-        </span>
-      </Link>
-    </Card>
-  );
-}
-
-/* ── card 3: review & practice ── */
+/* ── review & practice (sidebar body) ── */
 
 /** One scannable "what's due" row: icon + count + label, or a muted
  *  placeholder when the data source doesn't exist yet (weak points). */
@@ -322,7 +272,12 @@ function ReviewLine({
   );
 }
 
-function ReviewCard({
+/**
+ * Chrome-less "Review & practice" section for the learn sidebar (moved out
+ * of the tools row 2026-07-16). Same real data: due flashcards, due module
+ * reviews, weak-points placeholder, review/practice CTAs.
+ */
+export function ReviewPracticeBody({
   course,
   completedSet,
 }: {
@@ -344,13 +299,13 @@ function ReviewCard({
   const caughtUp = !isLoading && cardsDue === 0 && moduleReviewsDue === 0;
 
   return (
-    <Card padding="sm" className="flex flex-col">
-      <CardHeader
-        icon="refresh"
-        title={t("learn.tools.review.title", {
+    <div>
+      <h3 className="m-0 mb-2 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-text-muted">
+        <Icon name="refresh" size={14} className="text-accent" aria-hidden />
+        {t("learn.tools.review.title", {
           defaultValue: "Review & practice",
         })}
-      />
+      </h3>
 
       {caughtUp ? (
         <div className="flex flex-1 items-start gap-2.5">
@@ -412,7 +367,7 @@ function ReviewCard({
         </div>
       )}
 
-      <div className="mt-4 flex flex-col gap-2">
+      <div className="mt-3 flex flex-col gap-2">
         {!caughtUp ? (
           <Link
             to={langPath("practice/flashcards/review")}
@@ -444,6 +399,6 @@ function ReviewCard({
           </span>
         </Link>
       </div>
-    </Card>
+    </div>
   );
 }

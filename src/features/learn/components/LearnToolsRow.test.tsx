@@ -1,7 +1,8 @@
 /**
- * LearnToolsRow — renders three data-backed cards (progress / explore /
- * review), the progress card switches its body across the three tabs, and
- * the explore card opens the course-depth modal.
+ * LearnToolsRow (slimmed 2026-07-16) — the row renders only the progress
+ * card ("Explore the course" was dropped; "Review & practice" moved into
+ * the sidebar as ReviewPracticeBody, tested here too since it shares this
+ * module).
  */
 import { describe, it, expect, vi, afterEach } from "vitest";
 import {
@@ -12,7 +13,7 @@ import {
 } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type { Course } from "@/shared/domain/course";
-import { LearnToolsRow } from "./LearnToolsRow";
+import { LearnToolsRow, ReviewPracticeBody } from "./LearnToolsRow";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
@@ -78,11 +79,11 @@ function renderRow() {
 }
 
 describe("LearnToolsRow", () => {
-  it("renders all three cards", () => {
+  it("renders only the progress card (explore + review retired from the row)", () => {
     renderRow();
     expect(screen.getByText("Your progress")).toBeInTheDocument();
-    expect(screen.getByText("Explore the course")).toBeInTheDocument();
-    expect(screen.getByText("Review & practice")).toBeInTheDocument();
+    expect(screen.queryByText("Explore the course")).toBeNull();
+    expect(screen.queryByText("Review & practice")).toBeNull();
   });
 
   it("progress card switches body across All / Practice / Course tabs", () => {
@@ -108,19 +109,17 @@ describe("LearnToolsRow", () => {
     expect(cta).toHaveAttribute("href", "/ja/practice/journey");
   });
 
-  it("explore card links to the course map page", () => {
-    renderRow();
-    expect(
-      screen.getByRole("link", { name: /Explore the full course/i }),
-    ).toHaveAttribute("href", "/ja/learn/course");
-  });
-
-  it("review card links to due-cards review and practice", () => {
-    renderRow();
+  it("ReviewPracticeBody links to due-cards review and practice", () => {
+    render(
+      <MemoryRouter>
+        <ReviewPracticeBody course={course} completedSet={completedSet} />
+      </MemoryRouter>,
+    );
+    expect(screen.getByText("Review & practice")).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /Review due cards/i }),
     ).toHaveAttribute("href", "/ja/practice/flashcards/review");
-    expect(screen.getByRole("link", { name: /Practice/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /^Practice$/i })).toHaveAttribute(
       "href",
       "/ja/practice",
     );
