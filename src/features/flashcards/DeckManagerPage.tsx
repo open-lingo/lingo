@@ -9,7 +9,6 @@ import { isCommunityEnabled } from "@/shared/config/featureFlags";
 import { FilterBar, DataTable, type DataTableColumn } from "@/shared/components/data";
 import { Icon } from "@/shared/components/Icon";
 import { useDeckManagerData, type ManagedDeck } from "./useDeckManagerData";
-import { StudyOptionsEditor } from "./StudyOptionsEditor";
 import { isLessonDeck, isMyVocabDeck } from "./deckScope";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 
@@ -351,8 +350,6 @@ export function DeckManagerPage() {
           language: languageName,
         })}
       </p>
-
-      <StudyOptionsEditor decks={decks} />
 
       {decks.length === 0 ? (
         <div className="rounded-card border border-border bg-surface-muted p-8 text-center">

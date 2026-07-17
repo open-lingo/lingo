@@ -1,15 +1,12 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
-import { useSettings } from "@/shared/contexts/SettingsContext";
 
-/** Quick links to SRS review with URL filters (all / vocab / lesson decks / saved study options). */
+/** Quick links to SRS review with URL filters (all / vocab / lesson decks). */
 export function StudyScopeShortcuts({ compact = false }: { compact?: boolean }) {
   const { t } = useTranslation();
   const langPath = useLangPath();
-  const { settings } = useSettings();
   const base = langPath("practice/flashcards/review");
-  const opts = settings.flashcards?.studyOptions ?? [];
 
   const chip =
     "inline-flex items-center rounded-lg border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text-secondary transition hover:border-accent hover:bg-surface-muted hover:text-text-primary";
@@ -32,15 +29,6 @@ export function StudyScopeShortcuts({ compact = false }: { compact?: boolean }) 
       <Link to={`${base}?scope=lessons`} className={c}>
         {t("flashcards.studyShortcuts.lessons", "Lesson decks")}
       </Link>
-      {opts.map((o) => (
-        <Link
-          key={o.id}
-          to={`${base}?studyOption=${encodeURIComponent(o.id)}`}
-          className={c}
-        >
-          {o.name}
-        </Link>
-      ))}
     </div>
   );
 }

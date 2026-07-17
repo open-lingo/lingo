@@ -7,15 +7,13 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useFeatureFlags } from "@/shared/contexts/FeatureFlagsContext";
 import { isCommunityEnabled } from "@/shared/config/featureFlags";
-import { Card, WeekSparkline, CollapsibleSection } from "@/shared/components/ui";
+import { Card } from "@/shared/components/ui";
 import { EmptyState } from "@/shared/components/ui/EmptyState";
 import type { Flashcard } from "@/features/flashcards/data/types";
 import { useCommunityContent } from "@/features/community/CommunityContentContext";
 import { CommunityItemCard } from "@/features/community/components/CommunityItemCard";
 import { StudyScopeShortcuts } from "@/features/flashcards/StudyScopeShortcuts";
-import { StudyOptionsEditor } from "@/features/flashcards/StudyOptionsEditor";
 import { useDeckManagerData } from "@/features/flashcards/useDeckManagerData";
-import { useSettings } from "@/shared/contexts/SettingsContext";
 import {
   isMyVocabDeck,
   isLessonDeck,
@@ -246,11 +244,9 @@ export function FlashcardsPage() {
 
   const { openDeckPreview } = useCommunityContent();
 
-  // Managed decks: used both for the StudyOptionsEditor checklist below and
-  // for bucketing the "Review" scope cards (vocab / lessons / subscribed).
+  // Managed decks: used for bucketing the "Review" scope cards
+  // (vocab / lessons / subscribed).
   const { decks: managedDecks } = useDeckManagerData(langId);
-  const { settings } = useSettings();
-  const savedStudyOptionsCount = settings.flashcards?.studyOptions?.length ?? 0;
 
   const scopeCounts = useMemo(() => {
     let vocab = 0;
@@ -268,16 +264,24 @@ export function FlashcardsPage() {
 
   return (
     <div className="space-y-6">
-      {/* Zone 1 — Retention summary (acts as the page hero; PracticeLayout
-          already renders breadcrumbs above us, so we don't repeat an h1). */}
-      <Card padding="lg">
-        <div className="mb-4 flex flex-wrap items-center justify-end gap-2">
-          <Link
-            to={langPath("practice/flashcards/decks")}
-            className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
-          >
-            {t("flashcards.deckManager.title", "Deck Manager")}
-          </Link>
+      {/* Zone 1 — Compact card-health strip (acts as the page hero;
+          PracticeLayout already renders breadcrumbs above us, so no h1). */}
+      <Card padding="md">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+              {t("flashcards.retentionKicker", "Flashcards")}
+            </p>
+            <span className="inline-flex items-center gap-1 rounded-full bg-accent-muted px-2 py-0.5 text-[0.625rem] font-bold uppercase tracking-wider text-accent">
+              <Icon name="layers" size={10} aria-hidden />
+              {t("flashcards.retentionPill", "SRS")}
+            </span>
+            <span className="text-xs text-text-muted">
+              {t("flashcards.weekCaption", "{{count}} cards this week", {
+                count: weekTotal,
+              })}
+            </span>
+          </div>
           <Link
             to={langPath("practice/flashcards/cards")}
             className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-muted"
@@ -285,104 +289,24 @@ export function FlashcardsPage() {
             {t("flashcards.cardManager.title", "Card Manager")}
           </Link>
         </div>
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
-          {/* Left col */}
-          <div className="flex flex-col justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2">
-                <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
-                  {t("flashcards.retentionKicker", "Flashcards")}
-                </p>
-                <span className="inline-flex items-center gap-1 rounded-full bg-accent-muted px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">
-                  <Icon name="layers" size={10} aria-hidden />
-                  {t("flashcards.retentionPill", "SRS")}
-                </span>
-              </div>
-              <h2 className="mt-1 text-lg font-semibold text-text-primary sm:text-xl">
-                {t("flashcards.cardHealthHeadline", "Your card health")}
-              </h2>
-              <p className="mt-1 text-sm text-text-secondary">
-                {t(
-                  "flashcards.cardHealthSubtitle",
-                  "Track due, learning, and mastered cards across every deck you study.",
-                )}
+        <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {(
+            [
+              { key: "due", label: t("flashcards.statDue", "Due"), value: dueCount, box: "bg-warning/10", text: "text-warning" },
+              { key: "learning", label: t("flashcards.statLearning", "Learning"), value: learningCount, box: "bg-accent-muted", text: "text-accent" },
+              { key: "mastered", label: t("flashcards.statMastered", "Mastered"), value: masteredCount, box: "bg-success/10", text: "text-success" },
+              { key: "total", label: t("flashcards.statTotal", "Total"), value: totalCount, box: "bg-surface-muted", text: "text-text-primary" },
+            ] as const
+          ).map((s) => (
+            <div key={s.key} className={`flex items-baseline justify-between gap-2 rounded-lg px-3 py-2 ${s.box}`}>
+              <p className={`text-[0.625rem] font-semibold uppercase tracking-wider ${s.text}`}>
+                {s.label}
+              </p>
+              <p className={`text-xl font-extrabold leading-none tabular-nums ${s.text}`} aria-busy={cardsDueLoading}>
+                {cardsDueLoading ? "…" : s.value}
               </p>
             </div>
-            <div>
-              <WeekSparkline
-                data={weekReviews}
-                ariaLabel={t(
-                  "flashcards.weekAria",
-                  "Cards reviewed this week",
-                )}
-              />
-              <p className="mt-2 text-xs text-text-muted">
-                {t("flashcards.weekCaption", "{{count}} cards this week", {
-                  count: weekTotal,
-                })}
-              </p>
-            </div>
-          </div>
-
-          {/* Right col — 4 inset stat boxes */}
-          <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
-            <div className="rounded-xl bg-warning/10 px-3 py-3">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-warning">
-                {t("flashcards.statDue", "Due")}
-              </p>
-              <p
-                className="mt-1 text-2xl font-extrabold leading-none text-warning"
-                aria-busy={cardsDueLoading}
-              >
-                {cardsDueLoading ? "…" : dueCount}
-              </p>
-              <p className="mt-1 text-[11px] text-text-muted">
-                {t("flashcards.statDueCaption", "Ready to review")}
-              </p>
-            </div>
-            <div className="rounded-xl bg-accent-muted px-3 py-3">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-accent">
-                {t("flashcards.statLearning", "Learning")}
-              </p>
-              <p
-                className="mt-1 text-2xl font-extrabold leading-none text-accent"
-                aria-busy={cardsDueLoading}
-              >
-                {cardsDueLoading ? "…" : learningCount}
-              </p>
-              <p className="mt-1 text-[11px] text-text-muted">
-                {t("flashcards.statLearningCaption", "Still warming up")}
-              </p>
-            </div>
-            <div className="rounded-xl bg-success/10 px-3 py-3">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-success">
-                {t("flashcards.statMastered", "Mastered")}
-              </p>
-              <p
-                className="mt-1 text-2xl font-extrabold leading-none text-success"
-                aria-busy={cardsDueLoading}
-              >
-                {cardsDueLoading ? "…" : masteredCount}
-              </p>
-              <p className="mt-1 text-[11px] text-text-muted">
-                {t("flashcards.statMasteredCaption", "Long-interval cards")}
-              </p>
-            </div>
-            <div className="rounded-xl bg-surface-muted px-3 py-3">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-                {t("flashcards.statTotal", "Total")}
-              </p>
-              <p
-                className="mt-1 text-2xl font-extrabold leading-none text-text-primary"
-                aria-busy={cardsDueLoading}
-              >
-                {cardsDueLoading ? "…" : totalCount}
-              </p>
-              <p className="mt-1 text-[11px] text-text-muted">
-                {t("flashcards.statTotalCaption", "Across all decks")}
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </Card>
 
@@ -393,10 +317,7 @@ export function FlashcardsPage() {
             {t("flashcards.studyShortcuts.title", "Quick study")}
           </h2>
           <p className="text-xs text-text-muted">
-            {t(
-              "flashcards.studyShortcuts.hint",
-              "Review only certain decks or a saved study option.",
-            )}
+            {t("flashcards.studyShortcuts.hint", "Jump straight into a focused review.")}
           </p>
         </div>
         <div className="mt-2">
@@ -420,7 +341,9 @@ export function FlashcardsPage() {
             )}
           </p>
         </div>
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div
+          className={`grid gap-3 ${communityOn ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}
+        >
           <ReviewScopeCard
             icon={<Icon name="sparkles" size={18} aria-hidden />}
             title={t("flashcards.scope.vocab.title", "My vocab")}
@@ -445,48 +368,35 @@ export function FlashcardsPage() {
             ctaLabel={t("flashcards.scope.cta", "Start review")}
             disabled={scopeCounts.lessons === 0}
           />
-          <ReviewScopeCard
-            icon={<Icon name="globe" size={18} aria-hidden />}
-            title={t("flashcards.scope.subscribed.title", "Subscribed decks")}
-            description={t(
-              "flashcards.scope.subscribed.description",
-              "Community decks you've subscribed to.",
-            )}
-            count={scopeCounts.subscribed}
-            // No URL preset for "community-only" — pass the deck IDs directly.
-            href={
-              scopeCounts.subscribed > 0
-                ? `${reviewBase}?decks=${encodeURIComponent(
-                    managedDecks
-                      .filter((d) => isCommunityStyleDeck(d))
-                      .map((d) => d.id)
-                      .join(","),
-                  )}`
-                : reviewBase
-            }
-            ctaLabel={t("flashcards.scope.cta", "Start review")}
-            disabled={scopeCounts.subscribed === 0}
-          />
+          {/* Subscribed (community) decks — hidden until the community
+              surface ships, since there are no community decks to subscribe
+              to yet. */}
+          {communityOn ? (
+            <ReviewScopeCard
+              icon={<Icon name="globe" size={18} aria-hidden />}
+              title={t("flashcards.scope.subscribed.title", "Subscribed decks")}
+              description={t(
+                "flashcards.scope.subscribed.description",
+                "Community decks you've subscribed to.",
+              )}
+              count={scopeCounts.subscribed}
+              // No URL preset for "community-only" — pass the deck IDs directly.
+              href={
+                scopeCounts.subscribed > 0
+                  ? `${reviewBase}?decks=${encodeURIComponent(
+                      managedDecks
+                        .filter((d) => isCommunityStyleDeck(d))
+                        .map((d) => d.id)
+                        .join(","),
+                    )}`
+                  : reviewBase
+              }
+              ctaLabel={t("flashcards.scope.cta", "Start review")}
+              disabled={scopeCounts.subscribed === 0}
+            />
+          ) : null}
         </div>
       </section>
-
-      {/* Zone 4 — Custom study (collapsible) */}
-      <CollapsibleSection
-        alwaysCollapsible
-        persistKey="flashcards-custom-study"
-        title={t("flashcards.customStudy.title", "Custom study")}
-        trailing={
-          <span className="rounded-full bg-surface-muted px-2 py-0.5 text-[11px] font-semibold text-text-secondary">
-            {t("flashcards.customStudy.count", "{{count}} saved", {
-              count: savedStudyOptionsCount,
-            })}
-          </span>
-        }
-      >
-        <div className="rounded-lg border border-border bg-surface p-3">
-          <StudyOptionsEditor decks={managedDecks} />
-        </div>
-      </CollapsibleSection>
 
       {/* Zone 5 — Cards due today */}
       {cardsDueLoading ? (
@@ -588,10 +498,11 @@ export function FlashcardsPage() {
         )}
       </section>
 
-      {/* Zone 7 — Community card packs. With the community flag off the empty
-          state is a pure funnel into community/explore, so the whole section
-          hides; already-subscribed packs stay (they still review locally). */}
-      {!communityOn && communityPacksWithDecks.length === 0 ? null : (
+      {/* Zone 7 — Community card packs. Gated entirely behind the community
+          flag: community decks don't exist yet, so the whole surface (empty
+          state and any locally-subscribed packs) stays hidden until it ships.
+          Subscribed packs still review locally via the review queue. */}
+      {communityOn && (
       <section className="space-y-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-text-muted">
