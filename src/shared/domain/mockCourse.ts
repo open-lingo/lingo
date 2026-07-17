@@ -982,15 +982,15 @@ export function getMockCourse(languageId: string): Course {
           ],
           accent: { from: "#0e7c8c", to: "#0b616e" },
         },
-        // M30 — Casual register. STAGE 1 of 2 (docs/n4-pilot-spine-2026-07-16.md):
-        // only pairs 1-4 (8 sub-lessons) are authored so far. Pairs 5-7, the
-        // story lesson, and ja-m30-review-1/2 are stage 2 — listing them here
-        // before they're authored would 404. Stage 2 appends them.
+        // M30 — Casual register (docs/n4-pilot-spine-2026-07-16.md). Both
+        // stages authored: pairs 1-4 (stage 1) + pairs 5-7, the story
+        // lesson (stage 2). Per the spine's "Not in the pilot" note, m30
+        // is NOT registered as a transit station — reviewed via /ja/qa.
         {
           id: "m30",
           title: "Casual register",
           eyebrow: "Module 30 · Casual",
-          summary: "Casual questions, よ/ね, casual の, and register awareness — when plain form is (and isn't) socially correct.",
+          summary: "Casual questions, よ/ね, casual の, register awareness, invitations, and mixed-register drills — when plain form is (and isn't) socially correct.",
           tier: "n4",
           lessons: [
             { id: "ja-m30-1-1", title: "Casual questions — Intro", status: "available" as const },
@@ -1001,6 +1001,13 @@ export function getMockCourse(languageId: string): Course {
             { id: "ja-m30-3-2", title: "Casual の question — Practice", status: "available" as const },
             { id: "ja-m30-4-1", title: "Register awareness — Intro", status: "available" as const },
             { id: "ja-m30-4-2", title: "Register awareness — Practice", status: "available" as const },
+            { id: "ja-m30-5-1", title: "Casual invitations — Intro", status: "available" as const },
+            { id: "ja-m30-5-2", title: "Invitations — Accept / decline", status: "available" as const },
+            { id: "ja-m30-6-1", title: "Mixed register — Intro", status: "available" as const },
+            { id: "ja-m30-6-2", title: "Mixed register — Speed drill", status: "available" as const },
+            { id: "ja-m30-story", title: "Story — ゆき invites twice", status: "available" as const },
+            { id: "ja-m30-7-1", title: "Comprehension drill — register", status: "available" as const },
+            { id: "ja-m30-7-2", title: "Final production — M30", status: "available" as const },
           ],
           accent: { from: "#7c3aed", to: "#5b21b6" },
         },

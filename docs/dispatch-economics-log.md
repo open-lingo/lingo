@@ -18,4 +18,26 @@ Haiku-vs-Sonnet judge comparison for Gate 10 lands here too.
 | 2026-07-17 | Gate 10 judge, run-b corrupted oracle | haiku | 37k | 2m | judged consistently vs corrupted contract (oracle bug, fixed) |
 | 2026-07-17 | Gate 10 judge, run-b fixed oracle | haiku | 38k | 2m | 19/19 correct: 11 violations + kanji true-positive |
 
-<!-- m30 rows appended as dispatches complete -->
+| 2026-07-17 | conjugation_cloze step type (code) | opus | 162k | 15m | all green 1st run; found+fixed an import cycle |
+| 2026-07-17 | m30 stage 1 (pairs 1-4, pinned invariants) | sonnet | 287k | 33m | ALL gates green on 1st review — 0 rejections (m29 pre-protocol needed ~4 QA fix rounds) |
+
+<!-- m30 stage 2 + Gate 10 judge rows appended as dispatches complete -->
+
+## m30 pipeline wall-clock (overlap experiment, 2026-07-17)
+
+Testing whether pipeline overlap (capture/judge stage 1 while stage 2
+authors) beats the serial estimate (~1.5–2h from stage-2 dispatch to
+walk-ready). If the measured save holds, overlap + per-pair parallel
+authoring become the m31+ standard (Spencer 2026-07-17: "note that if
+the time save is good when we test").
+
+| Event | Clock |
+|---|---|
+| Stage 2 authoring dispatched | ~15:31 |
+| Stage-1 capture started (overlapped) | 15:36 |
+| Stage-1 capture done (151 pngs, 8 lessons, parallel) | 15:38 |
+| Stage-1 dual judges dispatched (8× haiku + 8× sonnet) | 15:39 |
+| All 16 verdicts in (~2.5 min/judge, parallel) | 15:43 |
+| Fix round committed (3 render defects, 1 typo, capture guard) | 15:45 |
+<!-- append: capture done, stage-1 judges done, stage 2 landed, review+commit done, stage-2 capture+judge done, fixes done, WALK-READY -->
+
