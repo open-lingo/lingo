@@ -12,6 +12,17 @@ import {
 /** How many lessons an expanded module shows inline before "view all". */
 const LESSON_PEEK = 5;
 
+/** Rounded elbow branching a lesson off the module spine (at 2.875rem, the
+ *  circle center) into its bullet. */
+function LessonElbow() {
+  return (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute left-[2.875rem] top-[0.28rem] h-[0.6rem] w-[0.75rem] rounded-bl-[8px] border-b border-l border-border"
+    />
+  );
+}
+
 export type LearnModuleListProps = {
   course: Course;
   completedSet: ReadonlySet<string>;
@@ -173,36 +184,33 @@ function ModuleRow({
 
   const circleClass =
     status === "completed"
-      ? "border-accent bg-accent text-accent-foreground"
+      ? "bg-accent text-accent-foreground"
       : status === "current"
-        ? "border-warning bg-surface text-warning"
-        : "border-border bg-surface-muted text-text-muted";
+        ? "bg-warning text-white"
+        : "bg-surface-muted text-text-muted";
 
   return (
-    <li className="group/mod relative border-t border-border first:border-t-0">
-      {/* module→module trunk: spans the whole row (incl. expanded lessons)
-          down to the next module; the last module stops at its circle. */}
+    <li className="group/mod relative">
+      {/* single spine through the module circle centers (module → module),
+          continuing through the expanded lessons which branch off it. The
+          last module (collapsed) stops at its circle. Sits BEHIND the circles
+          (which are opaque) so it reads as nodes on a line. */}
       <span
         aria-hidden
         className={cn(
-          "pointer-events-none absolute left-4 top-0 z-[1] w-px bg-border",
-          isLastInZone ? "h-[23px]" : "bottom-0",
+          "pointer-events-none absolute left-[2.875rem] top-0 w-px bg-border",
+          isLastInZone && !open ? "h-[1.375rem]" : "bottom-0",
         )}
-      />
-      {/* rounded elbow from the trunk into the module circle */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute left-4 top-[11px] z-[1] h-3 w-3.5 rounded-bl-[10px] border-b border-l border-border"
       />
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={open}
-        className="relative flex w-full items-center gap-2.5 py-2 pl-8 pr-2.5 text-left transition hover:bg-surface-muted"
+        className="relative flex w-full items-center gap-2.5 py-2 pl-8 pr-2.5 text-left transition hover:bg-surface-muted/50"
       >
         <span
           className={cn(
-            "grid h-7 w-7 flex-none place-items-center rounded-full border-2 text-[11px] font-extrabold",
+            "relative z-[1] grid h-7 w-7 flex-none place-items-center rounded-full text-[11px] font-extrabold",
             circleClass,
           )}
         >
@@ -273,33 +281,23 @@ function ModuleRow({
       ) : null}
 
       {open ? (
-        <div className="list-expand relative bg-surface-muted/40 pb-1.5">
-          {/* lesson sub-branch: a trunk descending from the module circle
-              (negative top closes the gap so it starts at the circle), with
-              a small elbow into each lesson bullet. */}
-          <span
-            aria-hidden
-            className="pointer-events-none absolute bottom-7 left-8 top-[-0.7rem] z-[1] w-px bg-border"
-          />
+        <div className="list-expand pb-1.5">
           <ul>
             {peek.map((lesson, li) => {
               const isDone = completedSet.has(lesson.id);
               const isCurrent = li === nextIdx && status === "current";
               return (
                 <li key={lesson.id} className="relative">
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute left-8 top-[15px] z-[1] h-px w-3 bg-border"
-                  />
+                  <LessonElbow />
                   <button
                     type="button"
                     disabled={locked}
                     onClick={() => onLessonClick(lesson)}
                     className={cn(
-                      "flex w-full items-center gap-2.5 py-1.5 pl-[3.25rem] pr-3 text-left text-[12.5px] transition",
+                      "flex w-full items-center gap-2.5 py-1.5 pl-14 pr-3 text-left text-[12.5px] transition",
                       locked
                         ? "cursor-not-allowed text-text-muted"
-                        : "text-text-secondary hover:bg-surface-muted hover:text-text-primary",
+                        : "text-text-secondary hover:bg-surface-muted/50 hover:text-text-primary",
                     )}
                   >
                     <span
@@ -324,26 +322,27 @@ function ModuleRow({
                 </li>
               );
             })}
+            {/* ghost node: a real (faded) next lesson so the spine visibly
+                continues and it's obvious the module goes on. */}
+            {overflow > 0 && mod.lessons[LESSON_PEEK] ? (
+              <li aria-hidden className="relative">
+                <LessonElbow />
+                <div className="flex items-center gap-2.5 py-1.5 pl-14 pr-3 text-[12.5px] text-text-secondary opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_92%)]">
+                  <span className="size-4 flex-none rounded-full border border-border bg-surface" />
+                  <span className="min-w-0 flex-1 truncate">
+                    {mod.lessons[LESSON_PEEK].title}
+                  </span>
+                </div>
+              </li>
+            ) : null}
           </ul>
           <button
             type="button"
             onClick={onViewAll}
-            className="group/more relative block w-full pl-[3.25rem] pr-3 pt-1.5 text-left"
+            className="ml-14 mt-0.5 inline-flex items-center gap-1 pr-3 text-[11.5px] font-semibold text-accent hover:text-accent-hover"
           >
-            {/* a ghosted next lesson bleeds through behind "view all" so it's
-                obvious the module continues past the peek. */}
-            {overflow > 0 && mod.lessons[LESSON_PEEK] ? (
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-x-0 top-0 truncate pl-[3.25rem] pr-3 text-[12.5px] text-text-secondary opacity-30 blur-[1.5px] [mask-image:linear-gradient(to_bottom,black,transparent_88%)]"
-              >
-                {mod.lessons[LESSON_PEEK].title}
-              </span>
-            ) : null}
-            <span className="relative inline-flex items-center gap-1 text-[11.5px] font-semibold text-accent group-hover/more:text-accent-hover">
-              {overflow > 0 ? `View all ${total} lessons` : "Open module"}
-              <Icon name="arrowRight" size={13} aria-hidden />
-            </span>
+            {overflow > 0 ? `View all ${total} lessons` : "Open module"}
+            <Icon name="arrowRight" size={13} aria-hidden />
           </button>
         </div>
       ) : null}
